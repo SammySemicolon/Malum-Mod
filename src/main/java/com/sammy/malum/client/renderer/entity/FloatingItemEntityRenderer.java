@@ -1,9 +1,13 @@
 package com.sammy.malum.client.renderer.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Vector3f;
 import com.mojang.math.Vector4f;
 import com.sammy.malum.common.entity.FloatingItemEntity;
+import com.sammy.ortus.handlers.RenderHandler;
+import com.sammy.ortus.helpers.ColorHelper;
+import com.sammy.ortus.helpers.EntityHelper;
 import com.sammy.ortus.setup.OrtusRenderTypeRegistry;
 import com.sammy.ortus.systems.easing.Easing;
 import com.sammy.ortus.systems.rendering.VFXBuilders;
@@ -21,12 +25,14 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 
-import java.awt.*;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static com.sammy.malum.MalumMod.prefix;
-import static com.sammy.ortus.handlers.RenderHandler.DELAYED_RENDER;
+import static com.sammy.ortus.handlers.RenderHandler.*;
+import static com.sammy.ortus.setup.OrtusRenderTypeRegistry.queueUniformChanges;
 
 public class FloatingItemEntityRenderer extends EntityRenderer<FloatingItemEntity> {
     public final ItemRenderer itemRenderer;
@@ -41,30 +47,53 @@ public class FloatingItemEntityRenderer extends EntityRenderer<FloatingItemEntit
     private static final ResourceLocation LIGHT_TRAIL = prefix("textures/vfx/light_trail.png");
     private static final RenderType LIGHT_TYPE = OrtusRenderTypeRegistry.ADDITIVE_TEXTURE.apply(LIGHT_TRAIL);
 
+    private static final ResourceLocation MESSY_TRAIL = prefix("textures/vfx/messy_trail.png");
+    private static final RenderType MESSY_TYPE = OrtusRenderTypeRegistry.SCROLLING_TEXTURE.apply(MESSY_TRAIL);
+
     @Override
     public void render(FloatingItemEntity entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int packedLightIn) {
         poseStack.pushPose();
-        ArrayList<Vec3> positions = new ArrayList<>(entity.pastPositions);
-        entity.movePastPositions(positions, partialTicks);
-        VFXBuilders.WorldVFXBuilder builder = VFXBuilders.createWorld();
-
-        float x = (float)Mth.lerp(partialTicks, entity.xOld, entity.getX());
-        float y = (float)Mth.lerp(partialTicks, entity.yOld, entity.getY());
-        float z = (float)Mth.lerp(partialTicks, entity.zOld, entity.getZ());
-        positions.add(0, entity.position());
-
-        int amount = 3;
-        for (int i = 0; i < amount; i++) {
-            float index = (amount - 1) - i;
-            float size = index * 0.2f;
-            float alpha = 0.1f * (float) Math.exp(i * 0.3f);
-            Color color = entity.startColor;
-            builder.setColor(color).setOffset(-x, -y, -z)
-                    .setAlpha(alpha)
-                    .renderTrail(DELAYED_RENDER.getBuffer(LIGHT_TYPE), poseStack, positions.stream().map(p -> new Vector4f((float) p.x, (float) p.y, (float) p.z, 1)).collect(Collectors.toList()), f -> f * size)
-                    .renderTrail(DELAYED_RENDER.getBuffer(LIGHT_TYPE), poseStack, positions.stream().map(p -> new Vector4f((float) p.x, (float) p.y, (float) p.z, 1)).collect(Collectors.toList()), f -> Easing.QUARTIC_IN_OUT.ease(f, 0, size, 1));
+        ArrayList<EntityHelper.PastPosition> positions = new ArrayList<>(entity.pastPositions);
+        if (positions.size() > 1) {
+            for (int i = 0; i < positions.size() - 2; i++) {
+                EntityHelper.PastPosition position = positions.get(i);
+                EntityHelper.PastPosition nextPosition = positions.get(i + 1);
+                float x = (float) Mth.lerp(partialTicks, position.position.x, nextPosition.position.x);
+                float y = (float) Mth.lerp(partialTicks, position.position.y, nextPosition.position.y);
+                float z = (float) Mth.lerp(partialTicks, position.position.z, nextPosition.position.z);
+                positions.set(i, new EntityHelper.PastPosition(new Vec3(x, y, z), position.time));
+            }
+        }
+        float x = (float) Mth.lerp(partialTicks, entity.xOld, entity.getX());
+        float y = (float) Mth.lerp(partialTicks, entity.yOld, entity.getY());
+        float z = (float) Mth.lerp(partialTicks, entity.zOld, entity.getZ());
+        if (positions.size() > 1) {
+            positions.set(positions.size() - 1, new EntityHelper.PastPosition(new Vec3(x, y + entity.getYOffset(partialTicks) + 0.25F, z).add(entity.getDeltaMovement().multiply(partialTicks, partialTicks, partialTicks)), 0));
         }
 
+        List<Vector4f> mappedPastPositions = positions.stream().map(p -> p.position).map(p -> new Vector4f((float) p.x, (float) p.y, (float) p.z, 1)).collect(Collectors.toList());
+        VFXBuilders.WorldVFXBuilder builder = VFXBuilders.createWorld().setPosColorTexLightmapDefaultFormat().setOffset(-x, -y, -z);
+
+        VertexConsumer lightBuffer = DELAYED_RENDER.getBuffer(LIGHT_TYPE);
+        float trailVisibility = Math.min(entity.windUp * 2f, 1);
+
+        for (int i = 0; i < 3; i++) {
+            float size = 0.25f + i * 0.1f;
+            float alpha = (0.12f - i * 0.04f) * trailVisibility;
+            int finalI = i;
+            VertexConsumer messy = DELAYED_RENDER.getBuffer(queueUniformChanges(OrtusRenderTypeRegistry.copy(i, MESSY_TYPE),
+                    (instance -> instance.safeGetUniform("Speed").set(500f + 750f * finalI))));
+            builder
+                    .setColor(ColorHelper.brighter(i > 1 ? entity.endColor : entity.startColor, i + 1))
+                    .setAlpha(alpha)
+                    .renderTrail(messy, poseStack, mappedPastPositions, f -> size * Easing.SINE_OUT.ease(f, 0, 1, 1))
+                    .setUV(0, 0, 1, 3)
+                    .setAlpha(alpha * 1.5f)
+                    .renderTrail(messy, poseStack, mappedPastPositions, f -> 1.5f * size * Easing.SINE_IN_OUT.ease(f, 0, 1, 1))
+                    .setColor(entity.endColor)
+                    .setAlpha(alpha / 4f)
+                    .renderTrail(lightBuffer, poseStack, mappedPastPositions, f -> size * 3f * Easing.SINE_IN.ease(f, 0, 1, 1));
+        }
         ItemStack itemStack = entity.getItem();
         BakedModel model = this.itemRenderer.getModel(itemStack, entity.level, null, entity.getItem().getCount());
         float yOffset = entity.getYOffset(partialTicks);

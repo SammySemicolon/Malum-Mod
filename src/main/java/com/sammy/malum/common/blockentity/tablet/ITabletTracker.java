@@ -8,6 +8,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.stream.Collectors;
 
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.FACING;
@@ -25,7 +26,7 @@ public interface ITabletTracker {
         getTablets().clear();
         getTabletPositions().clear();
         int range = getLookupRange();
-        ArrayList<TwistedTabletBlockEntity> nearbyTablets = BlockHelper.getBlockEntities(TwistedTabletBlockEntity.class, level, pos, range);
+        Collection<TwistedTabletBlockEntity> nearbyTablets = BlockHelper.getBlockEntities(TwistedTabletBlockEntity.class, level, pos, range);
 
         nearbyTablets = nearbyTablets.stream().filter(tabletBlockEntity -> {
             Direction direction = tabletBlockEntity.getBlockState().getValue(FACING);

@@ -4,7 +4,6 @@ import com.sammy.malum.common.item.impetus.ImpetusItem;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
 import com.sammy.malum.core.systems.item.IMalumEventResponderItem;
 import com.sammy.ortus.helpers.EntityHelper;
-import com.sammy.ortus.helpers.ItemHelper;
 import com.sammy.ortus.network.TotemOfUndyingEffectPacket;
 import com.sammy.ortus.setup.OrtusPacketRegistry;
 import net.minecraft.advancements.CriteriaTriggers;
@@ -22,8 +21,6 @@ import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.network.PacketDistributor;
 
 import java.util.ArrayList;
-
-import static com.sammy.malum.core.setup.server.PacketRegistry.INSTANCE;
 
 public class CeaselessImpetusItem extends ImpetusItem implements IMalumEventResponderItem {
     public CeaselessImpetusItem(Properties p_41383_) {
@@ -63,7 +60,7 @@ public class CeaselessImpetusItem extends ImpetusItem implements IMalumEventResp
                 if (player instanceof ServerPlayer serverplayer) {
                     serverplayer.awardStat(Stats.ITEM_USED.get(itemstack.getItem()), 1);
                     CriteriaTriggers.USED_TOTEM.trigger(serverplayer, itemstack);
-                    OrtusPacketRegistry.INSTANCE.send(PacketDistributor.PLAYER.with(() -> serverplayer), new TotemOfUndyingEffectPacket(player, itemstack));
+                    OrtusPacketRegistry.ORTUS_CHANNEL.send(PacketDistributor.PLAYER.with(() -> serverplayer), new TotemOfUndyingEffectPacket(player, itemstack));
                 }
 
                 player.setHealth(2.0F);

@@ -3,17 +3,12 @@ package com.sammy.malum.core.systems.recipe;
 import com.google.gson.JsonObject;
 import com.sammy.malum.common.item.spirit.MalumSpiritItem;
 import com.sammy.malum.core.helper.SpiritHelper;
-import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
-import com.sammy.malum.core.systems.spirit.MalumEntitySpiritData;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import com.sammy.ortus.systems.recipe.IRecipeComponent;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.ShapedRecipe;
-import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +45,7 @@ public class SpiritWithCount implements IRecipeComponent {
         return object;
     }
     public Component getComponent() {
-        return type.getComponent(count);
+        return type.getCountComponent(count);
     }
 
     public CompoundTag save(CompoundTag tag) {

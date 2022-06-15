@@ -1,12 +1,15 @@
 package com.sammy.malum.common.effect;
 
 import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
+import com.sammy.malum.core.setup.content.potion.EffectRegistry;
 import com.sammy.ortus.helpers.ColorHelper;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.player.Player;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 
 public class InfernalAura extends MobEffect {
     public InfernalAura() {
@@ -16,5 +19,12 @@ public class InfernalAura extends MobEffect {
 
     @Override
     public void applyEffectTick(LivingEntity entityLivingBaseIn, int amplifier) {
+    }
+
+    public static void increaseDigSpeed(PlayerEvent.BreakSpeed event) {
+        Player player = event.getPlayer();
+        if (player.hasEffect(EffectRegistry.MINERS_RAGE.get())) {
+            event.setNewSpeed(event.getOriginalSpeed() * (1 + 0.2f *player.getEffect(EffectRegistry.MINERS_RAGE.get()).getAmplifier()));
+        }
     }
 }

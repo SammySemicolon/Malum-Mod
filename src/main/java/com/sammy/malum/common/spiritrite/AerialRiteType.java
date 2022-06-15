@@ -16,11 +16,11 @@ public class AerialRiteType extends MalumRiteType {
 
     @Override
     public MalumRiteEffect getNaturalRiteEffect() {
-        return new PotionRiteEffect(Player.class, EffectRegistry.AERIAL_AURA, AERIAL_SPIRIT);
+        return new PotionRiteEffect(Player.class, EffectRegistry.ZEPHYRS_COURAGE, AERIAL_SPIRIT);
     }
 
     @Override
     public MalumRiteEffect getCorruptedEffect() {
-        return new PotionRiteEffect(Player.class, EffectRegistry.CORRUPTED_AERIAL_AURA, AERIAL_SPIRIT);
+        return new PotionRiteEffect(Player.class, EffectRegistry.AETHERS_CHARM, AERIAL_SPIRIT);
     }
 }

@@ -1,11 +1,13 @@
 package com.sammy.malum.common.entity.spirit;
 
+import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.entity.FloatingItemEntity;
 import com.sammy.malum.core.handlers.SpiritHarvestHandler;
 import com.sammy.malum.core.setup.content.AttributeRegistry;
 import com.sammy.malum.core.setup.content.entity.EntityRegistry;
 import com.sammy.malum.core.helper.SpiritHelper;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
@@ -34,10 +36,6 @@ public class SpiritItemEntity extends FloatingItemEntity {
         maxAge = 800;
     }
 
-    public float getRange() {
-        return level.noCollision(this) ? range : range * 5f;
-    }
-
     public void setOwner(UUID ownerUUID) {
         this.ownerUUID = ownerUUID;
         updateOwner();
@@ -46,25 +44,30 @@ public class SpiritItemEntity extends FloatingItemEntity {
     public void updateOwner() {
         if (!level.isClientSide) {
             owner = (LivingEntity) ((ServerLevel) level).getEntity(ownerUUID);
-            if (owner != null) {
-                range = (int) owner.getAttributeValue(AttributeRegistry.SPIRIT_REACH.get());
-            }
         }
     }
 
     @Override
     public void spawnParticles(double x, double y, double z) {
-        SpiritHelper.spawnSpiritParticles(level, x, y, z, startColor, endColor);
+        Vec3 motion = getDeltaMovement();
+        Vec3 norm = motion.normalize().scale(0.05f);
+        float extraAlpha = (float) motion.length();
+        float cycles = 4;
+        for (int i = 0; i < cycles; i++) {
+            double lerpX = Mth.lerp(i / cycles, x - motion.x, x);
+            double lerpY = Mth.lerp(i / cycles, y - motion.y, y);
+            double lerpZ = Mth.lerp(i / cycles, z - motion.z, z);
+            SpiritHelper.spawnSpiritParticles(level, lerpX, lerpY, lerpZ, 0.20f+extraAlpha, norm, startColor, endColor);
+        }
     }
 
     @Override
     public void move() {
         float friction = 0.94f;
         setDeltaMovement(getDeltaMovement().multiply(friction, friction, friction));
-        float range = getRange();
         if (owner == null || !owner.isAlive()) {
             if (level.getGameTime() % 40L == 0) {
-                Player playerEntity = level.getNearestPlayer(this, range * 5f);
+                Player playerEntity = level.getNearestPlayer(this, 10);
                 if (playerEntity != null) {
                     setOwner(playerEntity.getUUID());
                 }
@@ -73,17 +76,15 @@ public class SpiritItemEntity extends FloatingItemEntity {
         }
         Vec3 desiredLocation = owner.position().add(0, owner.getBbHeight() / 3, 0);
         float distance = (float) distanceToSqr(desiredLocation);
-        float velocity = Mth.lerp(Math.min(moveTime, 10) / 10f, 0.05f, 0.4f + (range * 0.075f));
-        if (moveTime != 0 || distance < range) {
-            moveTime++;
-            Vec3 desiredMotion = desiredLocation.subtract(position()).normalize().multiply(velocity, velocity, velocity);
-            float easing = 0.01f;
-            float xMotion = (float) Mth.lerp(easing, getDeltaMovement().x, desiredMotion.x);
-            float yMotion = (float) Mth.lerp(easing, getDeltaMovement().y, desiredMotion.y);
-            float zMotion = (float) Mth.lerp(easing, getDeltaMovement().z, desiredMotion.z);
-            Vec3 resultingMotion = new Vec3(xMotion, yMotion, zMotion);
-            setDeltaMovement(resultingMotion);
-        }
+        float velocity = windUp < 0.15f ? 0 : Math.min(windUp, 0.3f)*5f;
+        moveTime++;
+        Vec3 desiredMotion = desiredLocation.subtract(position()).normalize().multiply(velocity, velocity, velocity);
+        float easing = 0.01f;
+        float xMotion = (float) Mth.lerp(easing, getDeltaMovement().x, desiredMotion.x);
+        float yMotion = (float) Mth.lerp(easing, getDeltaMovement().y, desiredMotion.y);
+        float zMotion = (float) Mth.lerp(easing, getDeltaMovement().z, desiredMotion.z);
+        Vec3 resultingMotion = new Vec3(xMotion, yMotion, zMotion);
+        setDeltaMovement(resultingMotion);
 
         if (distance < 0.4f) {
             if (isAlive()) {

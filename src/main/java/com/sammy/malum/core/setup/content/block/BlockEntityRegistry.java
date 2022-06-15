@@ -16,7 +16,7 @@ import com.sammy.malum.common.block.totem.TotemPoleBlock;
 import com.sammy.malum.common.block.tablet.TwistedTabletBlock;
 import com.sammy.malum.common.blockentity.EtherBlockEntity;
 import com.sammy.malum.common.blockentity.FusionPlateBlockEntity;
-import com.sammy.malum.common.blockentity.altar.SpiritAltarTileEntity;
+import com.sammy.malum.common.blockentity.altar.SpiritAltarBlockEntity;
 import com.sammy.malum.common.blockentity.storage.*;
 import com.sammy.malum.common.blockentity.mirror.EmitterMirrorBlockEntity;
 import com.sammy.malum.common.blockentity.obelisk.BrilliantObeliskBlockEntity;
@@ -45,7 +45,7 @@ import static com.sammy.malum.MalumMod.MALUM;
 public class BlockEntityRegistry {
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITIES, MALUM);
 
-    public static final RegistryObject<BlockEntityType<SpiritAltarTileEntity>> SPIRIT_ALTAR = BLOCK_ENTITY_TYPES.register("spirit_altar", () -> BlockEntityType.Builder.of(SpiritAltarTileEntity::new, getBlocks(SpiritAltarBlock.class)).build(null));
+    public static final RegistryObject<BlockEntityType<SpiritAltarBlockEntity>> SPIRIT_ALTAR = BLOCK_ENTITY_TYPES.register("spirit_altar", () -> BlockEntityType.Builder.of(SpiritAltarBlockEntity::new, getBlocks(SpiritAltarBlock.class)).build(null));
     public static final RegistryObject<BlockEntityType<SpiritJarBlockEntity>> SPIRIT_JAR = BLOCK_ENTITY_TYPES.register("spirit_jar", () -> BlockEntityType.Builder.of(SpiritJarBlockEntity::new, getBlocks(SpiritJarBlock.class)).build(null));
     public static final RegistryObject<BlockEntityType<SoulVialBlockEntity>> SOUL_VIAL = BLOCK_ENTITY_TYPES.register("soul_vial", () -> BlockEntityType.Builder.of(SoulVialBlockEntity::new, getBlocks(SoulVialBlock.class)).build(null));
 

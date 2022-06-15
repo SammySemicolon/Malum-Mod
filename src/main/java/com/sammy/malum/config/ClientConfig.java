@@ -10,7 +10,7 @@ import static com.sammy.malum.MalumMod.MALUM;
 
 public class ClientConfig extends OrtusConfig {
 
-    public static ConfigValueHolder<ProgressionBookScreen.BookTheme> GENERATE_RUNEWOOD_TREES = new ConfigValueHolder<>(MALUM,"client/codex", (builder ->
+    public static ConfigValueHolder<ProgressionBookScreen.BookTheme> BOOK_THEME = new ConfigValueHolder<>(MALUM,"client/codex", (builder ->
             builder.comment("What theme should the encyclopedia arcana be in?")
                     .defineEnum("bookTheme", ProgressionBookScreen.BookTheme.DEFAULT)));
 

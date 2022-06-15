@@ -5,6 +5,7 @@ import com.google.gson.JsonSyntaxException;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.core.data.builder.SpiritFocusingRecipeBuilder;
 import com.sammy.malum.core.setup.content.RecipeSerializerRegistry;
+import com.sammy.ortus.systems.recipe.IngredientWithCount;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.CriterionTriggerInstance;
@@ -29,8 +30,7 @@ import java.util.Optional;
 import java.util.function.Consumer;
 
 public class MetalNodeCookingRecipeBuilder {
-   private final TagKey<Item> result;
-   private final int resultCount;
+   private final IngredientWithCount result;
    private final Ingredient ingredient;
    private final float experience;
    private final int cookingTime;
@@ -39,25 +39,24 @@ public class MetalNodeCookingRecipeBuilder {
    private String group;
    private final RecipeSerializer<? extends AbstractCookingRecipe> serializer;
 
-   private MetalNodeCookingRecipeBuilder(TagKey<Item> result, int resultCount, Ingredient pIngredient, float pExperience, int pCookingTime, RecipeSerializer<? extends AbstractCookingRecipe> pSerializer) {
+   private MetalNodeCookingRecipeBuilder(IngredientWithCount result, Ingredient pIngredient, float pExperience, int pCookingTime, RecipeSerializer<? extends AbstractCookingRecipe> pSerializer) {
       this.result = result;
-      this.resultCount = resultCount;
       this.ingredient = pIngredient;
       this.experience = pExperience;
       this.cookingTime = pCookingTime;
       this.serializer = pSerializer;
    }
 
-   public static MetalNodeCookingRecipeBuilder cookingWithCount(Ingredient pIngredient, TagKey<Item> pResult, int resultCount, float pExperience, int pCookingTime, RecipeSerializer<? extends AbstractCookingRecipe> pSerializer) {
-      return new MetalNodeCookingRecipeBuilder(pResult, resultCount, pIngredient, pExperience, pCookingTime, pSerializer);
+   public static MetalNodeCookingRecipeBuilder cookingWithCount(IngredientWithCount result, Ingredient pIngredient, float pExperience, int pCookingTime, RecipeSerializer<? extends AbstractCookingRecipe> pSerializer) {
+      return new MetalNodeCookingRecipeBuilder(result, pIngredient, pExperience, pCookingTime, pSerializer);
    }
 
-   public static MetalNodeCookingRecipeBuilder blastingWithTag(Ingredient pIngredient, TagKey<Item> pResult, int resultCount, float pExperience, int pCookingTime) {
-      return cookingWithCount(pIngredient, pResult, resultCount, pExperience, pCookingTime, RecipeSerializerRegistry.METAL_NODE_BLASTING_SERIALIZER.get());
+   public static MetalNodeCookingRecipeBuilder blastingWithTag(IngredientWithCount result, Ingredient pIngredient, float pExperience, int pCookingTime) {
+      return cookingWithCount(result, pIngredient, pExperience, pCookingTime, RecipeSerializerRegistry.METAL_NODE_BLASTING_SERIALIZER.get());
    }
 
-   public static MetalNodeCookingRecipeBuilder smeltingWithTag(Ingredient pIngredient, TagKey<Item> pResult, int resultCount, float pExperience, int pCookingTime) {
-      return cookingWithCount(pIngredient, pResult, resultCount, pExperience, pCookingTime, RecipeSerializerRegistry.METAL_NODE_SMELTING_SERIALIZER.get());
+   public static MetalNodeCookingRecipeBuilder smeltingWithTag(IngredientWithCount result, Ingredient pIngredient, float pExperience, int pCookingTime) {
+      return cookingWithCount(result, pIngredient, pExperience, pCookingTime, RecipeSerializerRegistry.METAL_NODE_SMELTING_SERIALIZER.get());
    }
 
    public MetalNodeCookingRecipeBuilder group(@Nullable String pGroupName) {
@@ -71,31 +70,29 @@ public class MetalNodeCookingRecipeBuilder {
    }
 
    public void build(Consumer<FinishedRecipe> consumerIn) {
-      build(consumerIn, result.location().getPath());
+      build(consumerIn, result.getStack().getItem().getRegistryName().getPath());
    }
 
    public void build(Consumer<FinishedRecipe> consumerIn, ResourceLocation id) {
-      consumerIn.accept(new MetalNodeCookingRecipeBuilder.Result(id, this.group == null ? "" : this.group, this.ingredient, this.result, this.resultCount, this.experience, this.cookingTime, this.advancement, new ResourceLocation(id.getNamespace(), "recipes/metal_node_smelting/" + id.getPath()), this.serializer));
+      consumerIn.accept(new MetalNodeCookingRecipeBuilder.Result(id, this.group == null ? "" : this.group, this.ingredient, this.result, this.experience, this.cookingTime, this.advancement, new ResourceLocation(id.getNamespace(), "recipes/metal_node_smelting/" + id.getPath()), this.serializer));
    }
 
    public static class Result implements FinishedRecipe {
       private final ResourceLocation id;
       private final String group;
       private final Ingredient ingredient;
-      private final TagKey<Item> result;
-      private final int resultCount;
+      private final IngredientWithCount result;
       private final float experience;
       private final int cookingTime;
       private final Advancement.Builder advancement;
       private final ResourceLocation advancementId;
       private final RecipeSerializer<? extends AbstractCookingRecipe> serializer;
 
-      public Result(ResourceLocation pId, String pGroup, Ingredient pIngredient, TagKey<Item> pResult, int resultCount, float pExperience, int pCookingTime, Advancement.Builder pAdvancement, ResourceLocation pAdvancementId, RecipeSerializer<? extends AbstractCookingRecipe> pSerializer) {
+      public Result(ResourceLocation pId, String pGroup, Ingredient pIngredient, IngredientWithCount result, float pExperience, int pCookingTime, Advancement.Builder pAdvancement, ResourceLocation pAdvancementId, RecipeSerializer<? extends AbstractCookingRecipe> pSerializer) {
          this.id = pId;
          this.group = pGroup;
          this.ingredient = pIngredient;
-         this.result = pResult;
-         this.resultCount = resultCount;
+         this.result = result;
          this.experience = pExperience;
          this.cookingTime = pCookingTime;
          this.advancement = pAdvancement;
@@ -108,10 +105,7 @@ public class MetalNodeCookingRecipeBuilder {
             pJson.addProperty("group", this.group);
          }
          pJson.add("ingredient", this.ingredient.toJson());
-         JsonObject object = new JsonObject();
-         object.addProperty("tag", result.location().toString());
-         object.addProperty("count", this.resultCount);
-         pJson.add("result", object);
+         pJson.add("result", result.serialize());
          pJson.addProperty("experience", this.experience);
          pJson.addProperty("cookingtime", this.cookingTime);
       }

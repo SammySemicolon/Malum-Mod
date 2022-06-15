@@ -27,15 +27,15 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public abstract class FloatingEntity extends Entity {
+
     protected static final EntityDataAccessor<Integer> DATA_COLOR = SynchedEntityData.defineId(FloatingEntity.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Integer> DATA_END_COLOR = SynchedEntityData.defineId(FloatingEntity.class, EntityDataSerializers.INT);
-    public final ArrayList<Vec3> pastPositions = new ArrayList<>();
+    public final ArrayList<EntityHelper.PastPosition> pastPositions = new ArrayList<>();
     public Color startColor = SpiritTypeRegistry.SACRED_SPIRIT.getColor();
     public Color endColor = SpiritTypeRegistry.SACRED_SPIRIT.getEndColor();
     public int maxAge;
     public int age;
     public float moveTime;
-    public int range = 3;
     public float windUp;
     public final float hoverStart;
 
@@ -56,7 +56,6 @@ public abstract class FloatingEntity extends Entity {
         compound.putInt("age", age);
         compound.putInt("maxAge", maxAge);
         compound.putFloat("moveTime", moveTime);
-        compound.putInt("range", range);
         compound.putFloat("windUp", windUp);
 
         compound.putInt("start", startColor.getRGB());
@@ -68,10 +67,6 @@ public abstract class FloatingEntity extends Entity {
         age = compound.getInt("age");
         maxAge = compound.getInt("maxAge");
         moveTime = compound.getFloat("moveTime");
-        int range = compound.getInt("range");
-        if (range > 0) {
-            this.range = range;
-        }
         windUp = compound.getFloat("windUp");
         startColor = new Color(compound.getInt("start"));
         endColor = new Color(compound.getInt("end"));
@@ -103,34 +98,27 @@ public abstract class FloatingEntity extends Entity {
         if (level.isClientSide) {
             double x = getX(), y = getY() + getYOffset(0) + 0.25f, z = getZ();
             spawnParticles(x, y, z);
-        } else {
-            move();
         }
+        move();
     }
 
     public void trackPastPositions() {
         EntityHelper.trackPastPositions(pastPositions, position().add(0, getYOffset(0) + 0.25F, 0), 0.01f);
-        movePastPositions(pastPositions, 1f);
+        removeOldPositions(pastPositions);
     }
-    public void movePastPositions(ArrayList<Vec3> pastPositions, float coefficient) {
-        //TODO: this algorithm is pretty bad, it's got quite a few design flaws in it. Figure out a better way to manipulate past positions towards the entity
-        int excess = pastPositions.size() - 1;
-        ArrayList<Vec3> toRemove = new ArrayList<>();
-        for (int i = 0; i < excess; i++) {
-            float progress = 0.08f + excess * 0.01f;
-            progress *= coefficient;
-            Vec3 excessPosition = pastPositions.get(i);
-            Vec3 nextExcessPosition = pastPositions.get(i + 1);
-            Vec3 offset = nextExcessPosition.subtract(excessPosition).normalize().multiply(progress, progress, progress);
-            Vec3 newPos = excessPosition.add(offset);
-            pastPositions.set(i, newPos);
-            float excessDistance = (float) excessPosition.distanceTo(nextExcessPosition);
-            if (excessDistance < 0.1f || (excess >= 15 && i == 0)) {
-                toRemove.add(pastPositions.get(i));
+
+    public void removeOldPositions(ArrayList<EntityHelper.PastPosition> pastPositions) {
+        int amount = pastPositions.size() - 1;
+        ArrayList<EntityHelper.PastPosition> toRemove = new ArrayList<>();
+        for (int i = 0; i < amount; i++) {
+            EntityHelper.PastPosition excess = pastPositions.get(i);
+            if (excess.time > 10) {
+                toRemove.add(excess);
             }
         }
         pastPositions.removeAll(toRemove);
     }
+
     public void baseTick() {
         BlockHitResult result = level.clip(new ClipContext(position(), position().add(getDeltaMovement()), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this));
         if (result.getType() == HitResult.Type.BLOCK) {

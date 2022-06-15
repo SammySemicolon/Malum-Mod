@@ -102,7 +102,9 @@ repositories {
             includeGroup "curse.maven"
         }
     }
+
 }
+
 dependencies {
     minecraft "net.minecraftforge:forge:${project.minecraftVersion}-${project.forgeVersion}"
 
@@ -110,6 +112,7 @@ dependencies {
         annotationProcessor 'org.spongepowered:mixin:0.8.4:processor'
     }
 
+    runtimeOnly fg.deobf("curse.maven:spark-361579:3828094")
 
     compileOnly fg.deobf('mezz.jei:jei-1.18.2:9.7.0.193:api')
     runtimeOnly fg.deobf('mezz.jei:jei-1.18.2:9.7.0.193')

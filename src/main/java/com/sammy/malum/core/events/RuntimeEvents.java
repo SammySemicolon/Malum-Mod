@@ -3,6 +3,7 @@ package com.sammy.malum.core.events;
 import com.sammy.malum.common.capability.LivingEntityDataCapability;
 import com.sammy.malum.common.capability.PlayerDataCapability;
 import com.sammy.malum.common.effect.CorruptedAerialAura;
+import com.sammy.malum.common.effect.InfernalAura;
 import com.sammy.malum.common.enchantment.ReboundEnchantment;
 import com.sammy.malum.common.item.equipment.CeaselessImpetusItem;
 import com.sammy.malum.common.item.equipment.curios.CurioTokenOfGratitude;
@@ -75,8 +76,13 @@ public class RuntimeEvents {
     }
 
     @SubscribeEvent
-    public static void playerClone(PlayerEvent.Clone event) {
+    public static void onPlayerClone(PlayerEvent.Clone event) {
         PlayerDataCapability.playerClone(event);
+    }
+
+    @SubscribeEvent
+    public static void onPlayerBreakSpeed(PlayerEvent.BreakSpeed event) {
+        InfernalAura.increaseDigSpeed(event);
     }
 
     @SubscribeEvent

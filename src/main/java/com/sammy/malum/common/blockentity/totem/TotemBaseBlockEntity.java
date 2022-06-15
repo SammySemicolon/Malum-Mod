@@ -1,7 +1,8 @@
 package com.sammy.malum.common.blockentity.totem;
 
 import com.sammy.malum.common.block.totem.TotemBaseBlock;
-import com.sammy.malum.common.packets.particle.TotemParticlePacket;
+import com.sammy.malum.common.blockentity.altar.IAltarAccelerator;
+import com.sammy.malum.common.packets.particle.block.TotemBaseActivationParticlePacket;
 import com.sammy.malum.core.helper.SpiritHelper;
 import com.sammy.malum.core.setup.content.SoundRegistry;
 import com.sammy.malum.core.setup.content.block.BlockEntityRegistry;
@@ -23,17 +24,19 @@ import net.minecraftforge.network.PacketDistributor;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.sammy.malum.core.setup.server.PacketRegistry.INSTANCE;
+import static com.sammy.malum.core.setup.server.PacketRegistry.MALUM_CHANNEL;
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.HORIZONTAL_FACING;
 
 public class TotemBaseBlockEntity extends OrtusBlockEntity {
 
     public MalumRiteType rite;
     public ArrayList<MalumSpiritType> spirits = new ArrayList<>();
-    public ArrayList<BlockPos> poles = new ArrayList<>();
+    public HashSet<BlockPos> poles = new HashSet<>();
     public boolean active;
     public int progress;
     public int height;
@@ -50,17 +53,15 @@ public class TotemBaseBlockEntity extends OrtusBlockEntity {
 
     @Override
     public void tick() {
-        if (rite != null) {
-            progress++;
-            if (progress >= rite.getRiteTickRate(corrupted)) {
-                rite.executeRite(this);
-                progress = 0;
-                if (!level.isClientSide) {
+        if (!level.isClientSide) {
+            if (rite != null) {
+                progress++;
+                if (progress >= rite.getRiteTickRate(corrupted)) {
+                    rite.executeRite(this);
+                    progress = 0;
                     BlockHelper.updateAndNotifyState(level, worldPosition);
                 }
-            }
-        } else if (active) {
-            if (!level.isClientSide) {
+            } else if (active) {
                 progress--;
                 if (progress <= 0) {
                     height++;
@@ -93,7 +94,7 @@ public class TotemBaseBlockEntity extends OrtusBlockEntity {
             });
             if (height > 1) {
                 level.playSound(null, worldPosition, SoundRegistry.TOTEM_CHARGE.get(), SoundSource.BLOCKS, 1, 0.5f);
-                INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new TotemParticlePacket(spirits.stream().map(MalumSpiritType::getColor).collect(Collectors.toCollection(ArrayList::new)), worldPosition.getX(), worldPosition.getY() + 1, worldPosition.getZ()));
+                MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new TotemBaseActivationParticlePacket(spirits.stream().map(MalumSpiritType::getColor).collect(Collectors.toCollection(ArrayList::new)), worldPosition.above()));
             }
         }
     }
@@ -121,14 +122,18 @@ public class TotemBaseBlockEntity extends OrtusBlockEntity {
         if (rite != null) {
             compound.putString("rite", rite.identifier);
         }
-        compound.putInt("spiritCount", spirits.size());
-        for (int i = 0; i < spirits.size(); i++) {
-            MalumSpiritType type = spirits.get(i);
-            compound.putString("spirit_" + i, type.identifier);
+        if (!spirits.isEmpty()) {
+            compound.putInt("spiritCount", spirits.size());
+            for (int i = 0; i < spirits.size(); i++) {
+                MalumSpiritType type = spirits.get(i);
+                compound.putString("spirit_" + i, type.identifier);
+            }
         }
         compound.putBoolean("active", active);
-        compound.putInt("progress", progress);
-        compound.putInt("height", height);
+        if (active) {
+            compound.putInt("progress", progress);
+            compound.putInt("height", height);
+        }
         if (direction != null) {
             compound.putString("direction", direction.name());
         }
@@ -147,12 +152,13 @@ public class TotemBaseBlockEntity extends OrtusBlockEntity {
         active = compound.getBoolean("active");
         progress = compound.getInt("progress");
         height = compound.getInt("height");
-        direction = Direction.byName(compound.getString("direction"));
-        corrupted = compound.getBoolean("corrupted");
         poles.clear();
         for (int i = 1; i <= height; i++) {
             poles.add(new BlockPos(worldPosition.getX(), worldPosition.getY() + i, worldPosition.getZ()));
         }
+        direction = Direction.byName(compound.getString("direction"));
+        corrupted = compound.getBoolean("corrupted");
+        progress = compound.getInt("progress");
         super.load(compound);
     }
 
@@ -172,7 +178,7 @@ public class TotemBaseBlockEntity extends OrtusBlockEntity {
 
     public void disableOtherRites(MalumRiteType rite) {
         int range = rite.getRiteRadius(corrupted);
-        List<TotemBaseBlockEntity> totemBases = BlockHelper.getBlocks(worldPosition, range, b -> level.getBlockEntity(b) instanceof TotemBaseBlockEntity && !b.equals(worldPosition)).stream().map(b -> (TotemBaseBlockEntity) level.getBlockEntity(b)).collect(Collectors.toCollection(ArrayList::new));
+        Collection<TotemBaseBlockEntity> totemBases = BlockHelper.getBlockEntities(TotemBaseBlockEntity.class, level, worldPosition, range);
         for (TotemBaseBlockEntity blockEntity : totemBases) {
             if (rite.equals(blockEntity.rite)) {
                 blockEntity.endRite();
@@ -182,7 +188,7 @@ public class TotemBaseBlockEntity extends OrtusBlockEntity {
 
     public void completeRite(MalumRiteType rite) {
         level.playSound(null, worldPosition, SoundRegistry.TOTEM_ACTIVATED.get(), SoundSource.BLOCKS, 1, 0.75f + height * 0.1f);
-        INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new TotemParticlePacket(spirits.stream().map(MalumSpiritType::getColor).collect(Collectors.toCollection(ArrayList::new)), worldPosition.getX(), worldPosition.getY() + 1, worldPosition.getZ()));
+        MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new TotemBaseActivationParticlePacket(spirits.stream().map(MalumSpiritType::getColor).collect(Collectors.toCollection(ArrayList::new)), worldPosition.above()));
         poles.forEach(p -> {
             if (level.getBlockEntity(p) instanceof TotemPoleBlockEntity pole) {
                 pole.riteComplete();
@@ -205,7 +211,7 @@ public class TotemBaseBlockEntity extends OrtusBlockEntity {
     public void endRite() {
         if (height > 1) {
             level.playSound(null, worldPosition, SoundRegistry.TOTEM_CANCELLED.get(), SoundSource.BLOCKS, 1, 1);
-            INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new TotemParticlePacket(spirits.stream().map(MalumSpiritType::getColor).collect(Collectors.toCollection(ArrayList::new)), worldPosition.getX(), worldPosition.getY() + 1, worldPosition.getZ()));
+            MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new TotemBaseActivationParticlePacket(spirits.stream().map(MalumSpiritType::getColor).collect(Collectors.toCollection(ArrayList::new)), worldPosition.above()));
         }
         resetRite();
     }

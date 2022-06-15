@@ -83,6 +83,7 @@ public class JEIHandler implements IModPlugin {
         registry.addRecipeCatalyst(new ItemStack(ItemRegistry.SOULWOOD_TOTEM_BASE.get()), BlockTransmutationRecipeCategory.UID);
         registry.addRecipeCatalyst(new ItemStack(ItemRegistry.SPIRIT_CRUCIBLE.get()), SpiritFocusingRecipeCategory.UID);
         registry.addRecipeCatalyst(new ItemStack(ItemRegistry.SPIRIT_CRUCIBLE.get()), SpiritRepairRecipeCategory.UID);
+        registry.addRecipeCatalyst(new ItemStack(ItemRegistry.TWISTED_TABLET.get()), SpiritRepairRecipeCategory.UID);
     }
 
     @Override

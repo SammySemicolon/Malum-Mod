@@ -162,9 +162,9 @@ public class SpiritHelper {
     public static void spawnSpiritParticles(Level level, double x, double y, double z, float alphaMultiplier, Vec3 extraVelocity, Color color, Color endColor) {
         Random rand = level.getRandom();
         ParticleBuilders.create(OrtusParticleRegistry.TWINKLE_PARTICLE)
-                .setAlpha(0.21f * alphaMultiplier, 0f)
-                .setLifetime(10 + rand.nextInt(4))
-                .setScale(0.3f + rand.nextFloat() * 0.1f, 0)
+                .setAlpha(0.4f * alphaMultiplier, 0f)
+                .setLifetime(5 + rand.nextInt(4))
+                .setScale(0.25f + rand.nextFloat() * 0.1f, 0)
                 .setColor(color, endColor)
                 .setColorCoefficient(2f)
                 .randomOffset(0.05f)
@@ -174,8 +174,8 @@ public class SpiritHelper {
                 .repeat(level, x, y, z, 1);
 
         ParticleBuilders.create(OrtusParticleRegistry.WISP_PARTICLE)
-                .setAlpha(0.2f * alphaMultiplier, 0f)
-                .setLifetime(20 + rand.nextInt(4))
+                .setAlpha(0.25f * alphaMultiplier, 0f)
+                .setLifetime(15 + rand.nextInt(4))
                 .setSpin(nextFloat(rand, 0.05f, 0.1f))
                 .setScale(0.05f + rand.nextFloat() * 0.025f, 0)
                 .setColor(color, endColor)

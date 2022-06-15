@@ -4,8 +4,8 @@ import com.sammy.malum.core.setup.content.SoundRegistry;
 import com.sammy.ortus.systems.sound.OrtusBlockEntitySoundInstance;
 import net.minecraft.client.Minecraft;
 
-public class AltarSoundInstance extends OrtusBlockEntitySoundInstance<SpiritAltarTileEntity> {
-    public AltarSoundInstance(SpiritAltarTileEntity blockEntity, float volume, float pitch) {
+public class AltarSoundInstance extends OrtusBlockEntitySoundInstance<SpiritAltarBlockEntity> {
+    public AltarSoundInstance(SpiritAltarBlockEntity blockEntity, float volume, float pitch) {
         super(blockEntity, SoundRegistry.ALTAR_LOOP.get(), volume, pitch);
         this.x = blockEntity.getBlockPos().getX() + 0.5f;
         this.y = blockEntity.getBlockPos().getY() + 0.5f;
@@ -21,7 +21,7 @@ public class AltarSoundInstance extends OrtusBlockEntitySoundInstance<SpiritAlta
         super.tick();
     }
 
-    public static void playSound(SpiritAltarTileEntity tileEntity) {
+    public static void playSound(SpiritAltarBlockEntity tileEntity) {
         Minecraft.getInstance().getSoundManager().queueTickingSound(new AltarSoundInstance(tileEntity, 1, 1));
     }
 }

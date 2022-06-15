@@ -124,7 +124,7 @@ public class PlayerDataCapability implements OrtusCapability {
     }
 
     public static void sync(Player player, PacketDistributor.PacketTarget target) {
-        getCapability(player).ifPresent(c -> PacketRegistry.INSTANCE.send(target, new SyncMalumPlayerCapabilityDataPacket(player.getUUID(), c.serializeNBT())));
+        getCapability(player).ifPresent(c -> PacketRegistry.MALUM_CHANNEL.send(target, new SyncMalumPlayerCapabilityDataPacket(player.getUUID(), c.serializeNBT())));
     }
 
     public static LazyOptional<PlayerDataCapability> getCapability(Player player) {

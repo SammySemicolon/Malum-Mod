@@ -38,12 +38,13 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.stream.Collectors;
 
-import static com.sammy.malum.core.setup.server.PacketRegistry.INSTANCE;
+import static com.sammy.malum.core.setup.server.PacketRegistry.MALUM_CHANNEL;
 
-public class SpiritAltarTileEntity extends OrtusBlockEntity {
+public class SpiritAltarBlockEntity extends OrtusBlockEntity {
 
     private static final int HORIZONTAL_RANGE = 4;
     private static final int VERTICAL_RANGE = 2;
@@ -57,25 +58,24 @@ public class SpiritAltarTileEntity extends OrtusBlockEntity {
     public float spiritAmount;
     public float spiritSpin;
 
-    public boolean updateRecipe;
     public OrtusBlockEntityInventory inventory;
     public OrtusBlockEntityInventory extrasInventory;
     public OrtusBlockEntityInventory spiritInventory;
     public ArrayList<SpiritInfusionRecipe> possibleRecipes = new ArrayList<>();
     public SpiritInfusionRecipe recipe;
 
-    public SpiritAltarTileEntity(BlockEntityType<? extends SpiritAltarTileEntity> type, BlockPos pos, BlockState state) {
+    public SpiritAltarBlockEntity(BlockEntityType<? extends SpiritAltarBlockEntity> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
     }
 
-    public SpiritAltarTileEntity(BlockPos pos, BlockState state) {
+    public SpiritAltarBlockEntity(BlockPos pos, BlockState state) {
         super(BlockEntityRegistry.SPIRIT_ALTAR.get(), pos, state);
 
         inventory = new OrtusBlockEntityInventory(1, 64, t -> !(t.getItem() instanceof MalumSpiritItem)) {
             @Override
             public void onContentsChanged(int slot) {
                 super.onContentsChanged(slot);
-                updateRecipe = true;
+                init();
                 BlockHelper.updateAndNotifyState(level, worldPosition);
             }
         };
@@ -90,7 +90,7 @@ public class SpiritAltarTileEntity extends OrtusBlockEntity {
             @Override
             public void onContentsChanged(int slot) {
                 super.onContentsChanged(slot);
-                updateRecipe = true;
+                init();
                 spiritAmount = Math.max(1, Mth.lerp(0.15f, spiritAmount, nonEmptyItemAmount + 1));
                 BlockHelper.updateAndNotifyState(level, worldPosition);
             }
@@ -142,7 +142,6 @@ public class SpiritAltarTileEntity extends OrtusBlockEntity {
         }
 
         spiritAmount = compound.getFloat("spiritAmount");
-        updateRecipe = true;
         inventory.load(compound);
         spiritInventory.load(compound, "spiritInventory");
         extrasInventory.load(compound, "extrasInventory");
@@ -183,17 +182,18 @@ public class SpiritAltarTileEntity extends OrtusBlockEntity {
     }
 
     @Override
+    public void init() {
+        ItemStack stack = inventory.getStackInSlot(0);
+        possibleRecipes = new ArrayList<>(DataHelper.getAll(SpiritInfusionRecipe.getRecipes(level), r -> r.doesInputMatch(stack) && r.doSpiritsMatch(spiritInventory.nonEmptyStacks)));
+        recipe = SpiritInfusionRecipe.getRecipe(level, stack, spiritInventory.nonEmptyStacks);
+        if (level.isClientSide && !possibleRecipes.isEmpty()) {
+            AltarSoundInstance.playSound(this);
+        }
+    }
+
+    @Override
     public void tick() {
         spiritAmount = Math.max(1, Mth.lerp(0.1f, spiritAmount, spiritInventory.nonEmptyItemAmount));
-        if (updateRecipe) {
-            ItemStack stack = inventory.getStackInSlot(0);
-            possibleRecipes = new ArrayList<>(DataHelper.getAll(SpiritInfusionRecipe.getRecipes(level), r -> r.doesInputMatch(stack) && r.doSpiritsMatch(spiritInventory.nonEmptyStacks)));
-            recipe = SpiritInfusionRecipe.getRecipe(level, stack, spiritInventory.nonEmptyStacks);
-            if (level.isClientSide && !possibleRecipes.isEmpty()) {
-                AltarSoundInstance.playSound(this);
-            }
-            updateRecipe = false;
-        }
         if (!possibleRecipes.isEmpty()) {
             if (spinUp < 10) {
                 spinUp++;
@@ -226,7 +226,7 @@ public class SpiritAltarTileEntity extends OrtusBlockEntity {
         }
     }
 
-    public static Vec3 getItemPos(SpiritAltarTileEntity blockEntity) {
+    public static Vec3 getItemPos(SpiritAltarBlockEntity blockEntity) {
         return BlockHelper.fromBlockPos(blockEntity.getBlockPos()).add(blockEntity.itemOffset());
     }
 
@@ -234,7 +234,7 @@ public class SpiritAltarTileEntity extends OrtusBlockEntity {
         return new Vec3(0.5f, 1.25f, 0.5f);
     }
 
-    public static Vec3 spiritOffset(SpiritAltarTileEntity blockEntity, int slot, float partialTicks) {
+    public static Vec3 spiritOffset(SpiritAltarBlockEntity blockEntity, int slot, float partialTicks) {
         float distance = 1 - Math.min(0.25f, blockEntity.spinUp / 40f) + (float) Math.sin((blockEntity.spiritSpin + partialTicks) / 20f) * 0.025f;
         float height = 0.75f + Math.min(0.5f, blockEntity.spinUp / 20f);
         return DataHelper.rotatingRadialOffset(new Vec3(0.5f, height, 0.5f), distance, slot, blockEntity.spiritAmount, (long) (blockEntity.spiritSpin + partialTicks), 360);
@@ -250,7 +250,7 @@ public class SpiritAltarTileEntity extends OrtusBlockEntity {
         if (extras < recipe.extraItems.size()) {
             progress *= 0.75f;
 
-            ArrayList<IAltarProvider> altarProviders = BlockHelper.getBlockEntities(IAltarProvider.class, level, worldPosition, HORIZONTAL_RANGE, VERTICAL_RANGE, HORIZONTAL_RANGE);
+            Collection<IAltarProvider> altarProviders = BlockHelper.getBlockEntities(IAltarProvider.class, level, worldPosition, HORIZONTAL_RANGE, VERTICAL_RANGE, HORIZONTAL_RANGE);
             for (IAltarProvider provider : altarProviders) {
                 ItemStack providedStack = provider.getInventoryForAltar().getStackInSlot(0);
                 IngredientWithCount requestedItem = recipe.extraItems.get(extras);
@@ -268,7 +268,7 @@ public class SpiritAltarTileEntity extends OrtusBlockEntity {
                 if (matches) {
                     level.playSound(null, provider.getBlockPosForAltar(), SoundRegistry.ALTAR_CONSUME.get(), SoundSource.BLOCKS, 1, 0.9f + level.random.nextFloat() * 0.2f);
                     Vec3 providedItemPos = provider.getItemPosForAltar();
-                    INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(provider.getBlockPosForAltar())), new AltarConsumeParticlePacket(providedStack, recipe.spirits.stream().map(s -> s.type.identifier).collect(Collectors.toList()), providedItemPos.x, providedItemPos.y, providedItemPos.z, itemPos.x, itemPos.y, itemPos.z));
+                    MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(provider.getBlockPosForAltar())), new AltarConsumeParticlePacket(providedStack, recipe.spirits.stream().map(s -> s.type.identifier).collect(Collectors.toList()), providedItemPos.x, providedItemPos.y, providedItemPos.z, itemPos.x, itemPos.y, itemPos.z));
                     extrasInventory.insertItem(level, providedStack.split(requestedItem.count));
                     BlockHelper.updateAndNotifyState(level, provider.getBlockPosForAltar());
                     break;
@@ -296,10 +296,10 @@ public class SpiritAltarTileEntity extends OrtusBlockEntity {
                 }
             }
         }
-        INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new AltarCraftParticlePacket(recipe.spirits.stream().map(s -> s.type.identifier).collect(Collectors.toList()), itemPos.x, itemPos.y, itemPos.z));
+        MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new AltarCraftParticlePacket(recipe.spirits.stream().map(s -> s.type.identifier).collect(Collectors.toList()), itemPos.x, itemPos.y, itemPos.z));
         progress = 0;
         extrasInventory.clear();
-        updateRecipe = true;
+        init();
         level.playSound(null, worldPosition, SoundRegistry.ALTAR_CRAFT.get(), SoundSource.BLOCKS, 1, 0.9f + level.random.nextFloat() * 0.2f);
         level.addFreshEntity(new ItemEntity(level, itemPos.x, itemPos.y, itemPos.z, outputStack));
         inventory.updateData();
@@ -313,7 +313,7 @@ public class SpiritAltarTileEntity extends OrtusBlockEntity {
         speed = 0f;
         accelerators.clear();
         acceleratorPositions.clear();
-        ArrayList<IAltarAccelerator> nearbyAccelerators = BlockHelper.getBlockEntities(IAltarAccelerator.class, level, worldPosition, HORIZONTAL_RANGE, VERTICAL_RANGE, HORIZONTAL_RANGE);
+        Collection<IAltarAccelerator> nearbyAccelerators = BlockHelper.getBlockEntities(IAltarAccelerator.class, level, worldPosition, HORIZONTAL_RANGE, VERTICAL_RANGE, HORIZONTAL_RANGE);
         HashMap<IAltarAccelerator.AltarAcceleratorType, Integer> entries = new HashMap<>();
         for (IAltarAccelerator accelerator : nearbyAccelerators) {
             if (accelerator.canAccelerate()) {

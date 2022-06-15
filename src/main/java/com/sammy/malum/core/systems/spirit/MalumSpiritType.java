@@ -4,6 +4,7 @@ import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.item.spirit.MalumSpiritItem;
 import com.sammy.malum.core.setup.content.block.BlockRegistry;
 import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
+import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TextComponent;
@@ -48,12 +49,19 @@ public class MalumSpiritType {
         return endColor;
     }
 
-    public Component getComponent(int count) {
+    public Component getCountComponent(int count) {
         return new TextComponent(" " + count + " ").append(new TranslatableComponent(getDescription())).withStyle(Style.EMPTY.withColor(color.getRGB()));
+    }
+    public Component getFlavourComponent() {
+        return new TranslatableComponent(getFlavourText()).withStyle(ChatFormatting.ITALIC).withStyle(Style.EMPTY.withColor(color.getRGB()));
     }
 
     public String getDescription() {
         return "malum.spirit.description." + identifier;
+    }
+
+    public String getFlavourText() {
+        return "malum.spirit.flavour." + identifier;
     }
 
     public Color createEndColor(Color color) {

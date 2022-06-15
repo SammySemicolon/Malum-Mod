@@ -1,6 +1,9 @@
 package com.sammy.malum.common.spiritrite.greater;
 
 import com.sammy.malum.common.blockentity.totem.TotemBaseBlockEntity;
+import com.sammy.malum.common.packets.particle.block.BlockSparkleParticlePacket;
+import com.sammy.malum.common.packets.particle.entity.MajorEntityEffectParticlePacket;
+import com.sammy.malum.common.packets.particle.entity.MinorEntityEffectParticlePacket;
 import com.sammy.malum.core.setup.client.ParticleRegistry;
 import com.sammy.malum.core.systems.rites.BlockAffectingRiteEffect;
 import com.sammy.malum.core.systems.rites.EntityAffectingRiteEffect;
@@ -19,11 +22,16 @@ import net.minecraft.world.level.block.PointedDripstoneBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
+import net.minecraftforge.network.PacketDistributor;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 import static com.sammy.malum.core.setup.content.SpiritTypeRegistry.*;
+import static com.sammy.malum.core.setup.server.PacketRegistry.MALUM_CHANNEL;
 
 public class EldritchAqueousRiteType extends MalumRiteType {
     public EldritchAqueousRiteType() {
@@ -33,21 +41,27 @@ public class EldritchAqueousRiteType extends MalumRiteType {
     @Override
     public MalumRiteEffect getNaturalRiteEffect() {
         return new BlockAffectingRiteEffect() {
+            @Override
+            public int getRiteEffectRadius() {
+                return BASE_RADIUS * 4;
+            }
+
             @SuppressWarnings("ConstantConditions")
             @Override
             public void riteEffect(TotemBaseBlockEntity totemBase) {
                 Level level = totemBase.getLevel();
-                ArrayList<BlockPos> positions = getNearbyBlocks(totemBase, PointedDripstoneBlock.class);
-                positions.removeIf(p -> !PointedDripstoneBlock.isStalactiteStartPos(level.getBlockState(p), level, p));
-                positions.forEach(p -> {
-                    if (level.isClientSide) {
-                        particles(level, p);
-                    } else {
-                        if (level.random.nextFloat() < 0.1f) {
-                            level.getBlockState(p).randomTick((ServerLevel) level, p, level.random);
-                        }
+                getNearbyBlocks(totemBase, PointedDripstoneBlock.class).forEach(p -> {
+                    if (level.random.nextFloat() < 0.1f) {
+                        level.getBlockState(p).randomTick((ServerLevel) level, p, level.random);
+                        MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(p)), new MinorEntityEffectParticlePacket(AQUEOUS_SPIRIT.getColor(), p.getX() + 0.5f, p.getY() + 0.5f, p.getZ() + 0.5f));
                     }
                 });
+            }
+
+            @SuppressWarnings("ConstantConditions")
+            @Override
+            public boolean canAffectBlock(TotemBaseBlockEntity totemBase, BlockState state, BlockPos pos) {
+                return PointedDripstoneBlock.isStalactiteStartPos(state, totemBase.getLevel(), pos);
             }
         };
     }
@@ -57,37 +71,13 @@ public class EldritchAqueousRiteType extends MalumRiteType {
         return new EntityAffectingRiteEffect() {
             @Override
             public void riteEffect(TotemBaseBlockEntity totemBase) {
-                ArrayList<Zombie> nearbyEntities = getNearbyEntities(totemBase, Zombie.class);
-                nearbyEntities.forEach(e -> {
+                getNearbyEntities(totemBase, Zombie.class).forEach(e -> {
                     if (!e.isUnderWaterConverting()) {
                         e.startUnderWaterConversion(100);
+                        MALUM_CHANNEL.send(PacketDistributor.TRACKING_ENTITY.with(() -> e), new MajorEntityEffectParticlePacket(AQUEOUS_SPIRIT.getColor(), e.getX(), e.getY() + e.getBbHeight() / 2f, e.getZ()));
                     }
                 });
             }
         };
-    }
-
-    public void particles(Level level, BlockPos pos) {
-        Color color = AQUEOUS_SPIRIT.getColor();
-        ParticleBuilders.create(OrtusParticleRegistry.WISP_PARTICLE)
-                .setAlpha(0.2f, 0f)
-                .setLifetime(20)
-                .setSpin(0.2f)
-                .setScale(0.4f, 0)
-                .setColor(color, color)
-                .enableNoClip()
-                .randomOffset(0.1f, 0.1f)
-                .randomMotion(0.001f, 0.001f)
-                .evenlyRepeatEdges(level, pos, 6, Direction.UP);
-        ParticleBuilders.create(OrtusParticleRegistry.TWINKLE_PARTICLE)
-                .setAlpha(0.1f, 0f)
-                .setLifetime(40)
-                .setSpin(0.1f)
-                .setScale(0.6f, 0)
-                .setColor(color, color)
-                .randomOffset(0.2f)
-                .enableNoClip()
-                .randomMotion(0.001f, 0.001f)
-                .evenlyRepeatEdges(level, pos, 8, Direction.UP);
     }
 }

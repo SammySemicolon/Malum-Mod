@@ -27,13 +27,13 @@ public class ItemStackMixin {
     private AttributeModifier attributeModifier;
 
     @ModifyVariable(method = "getTooltipLines", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/ai/attributes/AttributeModifier;getId()Ljava/util/UUID;", ordinal = 0), index = 13)
-    private AttributeModifier getTooltip(AttributeModifier value) {
+    private AttributeModifier malumTooltipAttributeModifierGetterMixin(AttributeModifier value) {
         this.attributeModifier = value;
         return value;
     }
 
     @ModifyVariable(method = "getTooltipLines", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/ai/attributes/AttributeModifier;getOperation()Lnet/minecraft/world/entity/ai/attributes/AttributeModifier$Operation;", ordinal = 0), index = 14)
-    private double getTooltip(double value, @Nullable Player player, TooltipFlag flag) {
+    private double malumTooltipDamageCalculationsMixin(double value, @Nullable Player player, TooltipFlag flag) {
         if (player != null) {
             ItemStack stack = ((ItemStack) (Object) this);
             if (stack.getItem() instanceof MalumScytheItem) {

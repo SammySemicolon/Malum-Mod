@@ -1,6 +1,7 @@
 package com.sammy.malum.common.spiritrite.greater;
 
 import com.sammy.malum.common.blockentity.totem.TotemBaseBlockEntity;
+import com.sammy.malum.common.packets.particle.block.BlockSparkleParticlePacket;
 import com.sammy.malum.core.systems.rites.BlockAffectingRiteEffect;
 import com.sammy.malum.core.systems.rites.MalumRiteEffect;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
@@ -14,11 +15,15 @@ import net.minecraft.world.level.block.AirBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.network.PacketDistributor;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
 
 import static com.sammy.malum.core.setup.content.SpiritTypeRegistry.*;
+import static com.sammy.malum.core.setup.server.PacketRegistry.MALUM_CHANNEL;
 
 public class EldritchEarthenRiteType extends MalumRiteType {
     public EldritchEarthenRiteType() {
@@ -31,20 +36,20 @@ public class EldritchEarthenRiteType extends MalumRiteType {
             @SuppressWarnings("ConstantConditions")
             @Override
             public void riteEffect(TotemBaseBlockEntity totemBase) {
-                ArrayList<BlockPos> positions = getBlocksUnderBase(totemBase, Block.class);
                 Level level = totemBase.getLevel();
-                for (BlockPos p : positions) {
+                getBlocksUnderBase(totemBase, Block.class).forEach(p -> {
                     BlockState state = level.getBlockState(p);
                     boolean canBreak = !state.isAir() && state.getDestroySpeed(level, p) != -1;
                     if (canBreak) {
-                        if (!level.isClientSide) {
-                            level.destroyBlock(p, true);
-                        } else {
-                            particles(level, p);
-                        }
+                        level.destroyBlock(p, true);
+                        MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(p)), new BlockSparkleParticlePacket(EARTHEN_SPIRIT.getColor(), p));
                     }
+                });
+            }
 
-                }
+            @Override
+            public boolean canAffectBlock(TotemBaseBlockEntity totemBase, BlockState state, BlockPos pos) {
+                return super.canAffectBlock(totemBase, state, pos) && !state.isAir();
             }
         };
     }
@@ -55,41 +60,14 @@ public class EldritchEarthenRiteType extends MalumRiteType {
             @SuppressWarnings("ConstantConditions")
             @Override
             public void riteEffect(TotemBaseBlockEntity totemBase) {
-                ArrayList<BlockPos> positions = getBlocksUnderBase(totemBase, AirBlock.class);
                 Level level = totemBase.getLevel();
-                positions.forEach(p -> {
+                getBlocksUnderBase(totemBase, AirBlock.class).forEach(p -> {
                     BlockState cobblestone = Blocks.COBBLESTONE.defaultBlockState();
-                    if (!level.isClientSide) {
-                        level.setBlockAndUpdate(p, cobblestone);
-                        level.levelEvent(2001, p, Block.getId(cobblestone));
-                    } else {
-                        particles(level, p);
-                    }
+                    level.setBlockAndUpdate(p, cobblestone);
+                    level.levelEvent(2001, p, Block.getId(cobblestone));
+                    MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(p)), new BlockSparkleParticlePacket(EARTHEN_SPIRIT.getColor(), p));
                 });
             }
         };
-    }
-    public void particles(Level level, BlockPos pos) {
-        Color color = EARTHEN_SPIRIT.getColor();
-        ParticleBuilders.create(OrtusParticleRegistry.WISP_PARTICLE)
-                .setAlpha(0.2f, 0f)
-                .setLifetime(20)
-                .setSpin(0.2f)
-                .setScale(0.4f, 0)
-                .setColor(color, color)
-                .enableNoClip()
-                .randomOffset(0.1f, 0.1f)
-                .randomMotion(0.001f, 0.001f)
-                .evenlyRepeatEdges(level, pos, 4, Direction.UP, Direction.DOWN);
-        ParticleBuilders.create(OrtusParticleRegistry.SMOKE_PARTICLE)
-                .setAlpha(0.1f, 0f)
-                .setLifetime(40)
-                .setSpin(0.1f)
-                .setScale(0.6f, 0)
-                .setColor(color, color)
-                .randomOffset(0.2f)
-                .enableNoClip()
-                .randomMotion(0.001f, 0.001f)
-                .evenlyRepeatEdges(level, pos, 6, Direction.UP, Direction.DOWN);
     }
 }

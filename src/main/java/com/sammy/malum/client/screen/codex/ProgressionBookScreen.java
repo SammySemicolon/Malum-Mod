@@ -35,6 +35,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.sammy.malum.config.ClientConfig.BOOK_THEME;
 import static com.sammy.malum.core.setup.content.item.ItemRegistry.*;
 import static com.sammy.ortus.systems.rendering.particle.screen.base.ScreenParticle.RenderOrder.BEFORE_TOOLTIPS;
 import static net.minecraft.util.FastColor.ARGB32.color;
@@ -96,25 +97,21 @@ public class ProgressionBookScreen extends Screen {
                 .addPage(new HeadlineTextPage("spirit_magics", "spirit_magics_a"))
                 .addPage(new TextPage("spirit_magics_b"))
                 .addPage(new TextPage("spirit_magics_c"))
+                .addPage(new TextPage("spirit_magics_d"))
         );
 
         ENTRIES.add(new BookEntry(
                 "runewood", RUNEWOOD_SAPLING.get(), 1, 2)
                 .addPage(new HeadlineTextPage("runewood", "runewood_a"))
                 .addPage(new TextPage("runewood_b"))
-                .addPage(new TextPage("runewood_c"))
-                .addPage(new TextPage("runewood_d"))
-                .addPage(CraftingBookPage.itemPedestalPage(RUNEWOOD_ITEM_PEDESTAL.get(), RUNEWOOD_PLANKS.get(), RUNEWOOD_PLANKS_SLAB.get()))
-                .addPage(CraftingBookPage.itemStandPage(RUNEWOOD_ITEM_STAND.get(), RUNEWOOD_PLANKS.get(), RUNEWOOD_PLANKS_SLAB.get()))
                 .addPage(new HeadlineTextPage("arcane_charcoal", "arcane_charcoal"))
                 .addPage(new SmeltingBookPage(RUNEWOOD_LOG.get(), ARCANE_CHARCOAL.get()))
                 .addPage(CraftingBookPage.fullPage(BLOCK_OF_ARCANE_CHARCOAL.get(), ARCANE_CHARCOAL.get()))
                 .addPage(new HeadlineTextPage("holy_sap", "holy_sap_a"))
                 .addPage(new TextPage("holy_sap_b"))
-                .addPage(new CraftingBookPage(new ItemStack(HOLY_SAPBALL.get(), 3), Items.SLIME_BALL, HOLY_SAP.get()))
-                .addPage(new TextPage("holy_sap_c"))
                 .addPage(new SmeltingBookPage(HOLY_SAP.get(), HOLY_SYRUP.get()))
-                .addModCompatPage(new TextPage("holy_sap_d"), "thermal_expansion")
+                .addPage(new TextPage("holy_sap_c"))
+                .addPage(new CraftingBookPage(new ItemStack(HOLY_SAPBALL.get(), 3), Items.SLIME_BALL, HOLY_SAP.get()))
         );
 
         ENTRIES.add(new BookEntry(
@@ -122,15 +119,17 @@ public class ProgressionBookScreen extends Screen {
                 .addPage(new HeadlineTextPage("soulstone", "soulstone_a"))
                 .addPage(new TextPage("soulstone_b"))
                 .addPage(new TextPage("soulstone_c"))
+                .addPage(new SmeltingBookPage(new ItemStack(RAW_SOULSTONE.get()), new ItemStack(PROCESSED_SOULSTONE.get(), 2)))
                 .addPage(CraftingBookPage.fullPage(BLOCK_OF_SOULSTONE.get(), PROCESSED_SOULSTONE.get()))
+                .addPage(CraftingBookPage.fullPage(BLOCK_OF_RAW_SOULSTONE.get(), RAW_SOULSTONE.get()))
         );
 
         ENTRIES.add(new BookEntry(
                 "scythes", CRUDE_SCYTHE.get(), 0, 3)
                 .addPage(new HeadlineTextPage("scythes", "scythes_a"))
+                .addPage(CraftingBookPage.scythePage(ItemRegistry.CRUDE_SCYTHE.get(), Items.IRON_INGOT, PROCESSED_SOULSTONE.get()))
                 .addPage(new TextPage("scythes_b"))
                 .addPage(new TextPage("scythes_c"))
-                .addPage(CraftingBookPage.scythePage(ItemRegistry.CRUDE_SCYTHE.get(), Items.IRON_INGOT, PROCESSED_SOULSTONE.get()))
                 .addPage(new HeadlineTextPage("scythe_enchanting", "scythe_enchanting"))
                 .addPage(new HeadlineTextPage("haunted", "haunted"))
                 .addPage(new HeadlineTextPage("spirit_plunder", "spirit_plunder"))
@@ -141,9 +140,9 @@ public class ProgressionBookScreen extends Screen {
                 "spirit_infusion", SPIRIT_ALTAR.get(), 0, 5)
                 .setObjectSupplier(ImportantEntryObject::new)
                 .addPage(new HeadlineTextPage("spirit_infusion", "spirit_infusion_a"))
+                .addPage(new CraftingBookPage(SPIRIT_ALTAR.get(), AIR, PROCESSED_SOULSTONE.get(), AIR, GOLD_INGOT, RUNEWOOD_PLANKS.get(), GOLD_INGOT, RUNEWOOD_PLANKS.get(), RUNEWOOD_PLANKS.get(), RUNEWOOD_PLANKS.get()))
                 .addPage(new TextPage("spirit_infusion_b"))
                 .addPage(new TextPage("spirit_infusion_c"))
-                .addPage(new CraftingBookPage(SPIRIT_ALTAR.get(), AIR, PROCESSED_SOULSTONE.get(), AIR, GOLD_INGOT, RUNEWOOD_PLANKS.get(), GOLD_INGOT, RUNEWOOD_PLANKS.get(), RUNEWOOD_PLANKS.get(), RUNEWOOD_PLANKS.get()))
                 .addPage(CraftingBookPage.itemPedestalPage(RUNEWOOD_ITEM_PEDESTAL.get(), RUNEWOOD_PLANKS.get(), RUNEWOOD_PLANKS_SLAB.get()))
                 .addPage(CraftingBookPage.itemStandPage(RUNEWOOD_ITEM_STAND.get(), RUNEWOOD_PLANKS.get(), RUNEWOOD_PLANKS_SLAB.get()))
                 .addPage(new HeadlineTextPage("hex_ash", "hex_ash"))
@@ -727,7 +726,7 @@ public class ProgressionBookScreen extends Screen {
         Minecraft.getInstance().getItemRenderer().renderAndDecorateItem(stack, posX, posY);
         Minecraft.getInstance().getItemRenderer().renderGuiItemDecorations(Minecraft.getInstance().font, stack, posX, posY, null);
         if (isHovering(mouseX, mouseY, posX, posY, 16, 16)) {
-            screen.renderTooltip(poseStack, new TranslatableComponent(stack.getDescriptionId()), mouseX, mouseY);
+            screen.renderComponentTooltip(poseStack, screen.getTooltipFromItem(stack), mouseX, mouseY);
         }
     }
 
@@ -735,7 +734,7 @@ public class ProgressionBookScreen extends Screen {
         Minecraft.getInstance().getItemRenderer().renderAndDecorateItem(stack, posX, posY);
         Minecraft.getInstance().getItemRenderer().renderGuiItemDecorations(Minecraft.getInstance().font, stack, posX, posY, null);
         if (isHovering(mouseX, mouseY, posX, posY, 16, 16)) {
-            screen.renderTooltip(poseStack, new TranslatableComponent(stack.getDescriptionId()), mouseX, mouseY);
+            screen.renderComponentTooltip(poseStack, screen.getTooltipFromItem(stack), mouseX, mouseY);
         }
     }
 
@@ -843,6 +842,10 @@ public class ProgressionBookScreen extends Screen {
 
     private static void renderRawText(PoseStack stack, String text, int x, int y, float glow) {
         Font font = Minecraft.getInstance().font;
+        if (BOOK_THEME.getConfigValue().equals(BookTheme.EASY_READING)) {
+            font.draw(stack, text, x, y, 0);
+            return;
+        }
         //182, 61, 183  227, 39, 228
         int r = (int) Mth.lerp(glow, 182, 227);
         int g = (int) Mth.lerp(glow, 61, 39);

@@ -1,6 +1,7 @@
 package com.sammy.malum.common.packets;
 
 import com.sammy.malum.common.capability.LivingEntityDataCapability;
+import com.sammy.ortus.systems.network.OrtusClientPacket;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
@@ -13,7 +14,7 @@ import net.minecraftforge.network.simple.SimpleChannel;
 
 import java.util.function.Supplier;
 
-public class SyncLivingCapabilityDataPacket {
+public class SyncLivingCapabilityDataPacket extends OrtusClientPacket {
     private final int entityId;
     private final CompoundTag tag;
 
@@ -22,34 +23,23 @@ public class SyncLivingCapabilityDataPacket {
         this.tag = tag;
     }
 
-    public static void register(SimpleChannel instance, int index) {
-        instance.registerMessage(index, SyncLivingCapabilityDataPacket.class, SyncLivingCapabilityDataPacket::encode, SyncLivingCapabilityDataPacket::decode, SyncLivingCapabilityDataPacket::execute);
-    }
-
-    public static SyncLivingCapabilityDataPacket decode(FriendlyByteBuf buf) {
-        return new SyncLivingCapabilityDataPacket(buf.readInt(), buf.readNbt());
-    }
-
     public void encode(FriendlyByteBuf buf) {
         buf.writeInt(entityId);
         buf.writeNbt(tag);
     }
 
     public void execute(Supplier<NetworkEvent.Context> context) {
-        context.get().enqueueWork(() -> {
-            if (FMLEnvironment.dist == Dist.CLIENT) {
-                ClientOnly.syncData(entityId, tag);
-            }
-        });
-        context.get().setPacketHandled(true);
+        Entity entity = Minecraft.getInstance().level.getEntity(entityId);
+        if (entity instanceof LivingEntity livingEntity) {
+            LivingEntityDataCapability.getCapability(livingEntity).ifPresent(c -> c.deserializeNBT(tag));
+        }
     }
 
-    public static class ClientOnly {
-        public static void syncData(int entityId, CompoundTag tag) {
-            Entity entity = Minecraft.getInstance().level.getEntity(entityId);
-            if (entity instanceof LivingEntity livingEntity) {
-                LivingEntityDataCapability.getCapability(livingEntity).ifPresent(c -> c.deserializeNBT(tag));
-            }
-        }
+    public static void register(SimpleChannel instance, int index) {
+        instance.registerMessage(index, SyncLivingCapabilityDataPacket.class, SyncLivingCapabilityDataPacket::encode, SyncLivingCapabilityDataPacket::decode, SyncLivingCapabilityDataPacket::handle);
+    }
+
+    public static SyncLivingCapabilityDataPacket decode(FriendlyByteBuf buf) {
+        return new SyncLivingCapabilityDataPacket(buf.readInt(), buf.readNbt());
     }
 }

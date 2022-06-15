@@ -77,7 +77,7 @@ public class SoulEntityRenderer extends EntityRenderer<SoulEntity> {
                     instance.safeGetUniform("Intensity").set(55f);
                 })));
 
-        VFXBuilders.createWorld()
+        VFXBuilders.createWorld().setPosColorTexLightmapDefaultFormat()
                 .setColor(color.brighter())
                 .setAlpha(1)
                 .setLight(FULL_BRIGHT)

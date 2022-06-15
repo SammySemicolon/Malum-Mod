@@ -296,7 +296,7 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
     public void cutPlanksBlock(RegistryObject<Block> blockRegistryObject) {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
         String baseName = name.substring(0, name.length() - "_planks".length()).substring(4) + "_panel";
-        simpleBlock(blockRegistryObject.get(), models().cubeBottomTop(name, prefix("block/" + name), prefix("block/" + name), prefix("block/" + baseName)));
+        simpleBlock(blockRegistryObject.get(), models().cubeBottomTop(name, prefix("block/" + name), prefix("block/" + baseName), prefix("block/" + baseName)));
     }
 
     public void grassBlock(RegistryObject<Block> blockRegistryObject) {

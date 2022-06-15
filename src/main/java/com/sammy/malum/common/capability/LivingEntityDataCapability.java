@@ -19,7 +19,7 @@ import net.minecraftforge.network.PacketDistributor;
 
 import java.util.UUID;
 
-import static com.sammy.malum.core.setup.server.PacketRegistry.INSTANCE;
+import static com.sammy.malum.core.setup.server.PacketRegistry.MALUM_CHANNEL;
 
 public class LivingEntityDataCapability implements OrtusCapability {
 
@@ -88,7 +88,7 @@ public class LivingEntityDataCapability implements OrtusCapability {
 
     public static void sync(LivingEntity entity)
     {
-        getCapability(entity).ifPresent(c -> INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(() -> entity), new SyncLivingCapabilityDataPacket(entity.getId(), c.serializeNBT())));
+        getCapability(entity).ifPresent(c -> MALUM_CHANNEL.send(PacketDistributor.TRACKING_ENTITY.with(() -> entity), new SyncLivingCapabilityDataPacket(entity.getId(), c.serializeNBT())));
     }
     public static LazyOptional<LivingEntityDataCapability> getCapability(LivingEntity entity) {
         return entity.getCapability(CAPABILITY);

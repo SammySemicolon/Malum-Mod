@@ -22,6 +22,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.items.ItemHandlerHelper;
 import org.jetbrains.annotations.NotNull;
 
@@ -60,12 +62,13 @@ public class SpiritJarBlockEntity extends OrtusBlockEntity {
                     }
                 }
                 if (successful) {
-                    spawnUseParticles(level, worldPosition, type);
-                    BlockHelper.updateAndNotifyState(level, worldPosition);
+                    if (player.level.isClientSide) {
+                        spawnUseParticles(level, worldPosition, type);
+                    } else {
+                        BlockHelper.updateAndNotifyState(level, worldPosition);
+                    }
                     return InteractionResult.SUCCESS;
-                }
-                else
-                {
+                } else {
                     return InteractionResult.PASS;
                 }
             }
@@ -140,6 +143,7 @@ public class SpiritJarBlockEntity extends OrtusBlockEntity {
         }
     }
 
+    @OnlyIn(value = Dist.CLIENT)
     public void spawnUseParticles(Level level, BlockPos pos, MalumSpiritType type) {
         Color color = type.getColor();
         ParticleBuilders.create(OrtusParticleRegistry.WISP_PARTICLE)

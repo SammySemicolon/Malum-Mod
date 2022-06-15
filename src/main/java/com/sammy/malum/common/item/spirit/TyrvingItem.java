@@ -1,6 +1,6 @@
 package com.sammy.malum.common.item.spirit;
 
-import com.sammy.malum.common.packets.particle.MagicParticlePacket;
+import com.sammy.malum.common.packets.particle.entity.MajorEntityEffectParticlePacket;
 import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
 import com.sammy.malum.core.setup.content.DamageSourceRegistry;
 import com.sammy.malum.core.setup.content.SoundRegistry;
@@ -29,7 +29,7 @@ import net.minecraftforge.network.PacketDistributor;
 
 import java.awt.*;
 
-import static com.sammy.malum.core.setup.server.PacketRegistry.INSTANCE;
+import static com.sammy.malum.core.setup.server.PacketRegistry.MALUM_CHANNEL;
 
 public class TyrvingItem extends OrtusSwordItem implements IMalumEventResponderItem, ItemParticleEmitter {
     public TyrvingItem(Tier material, int attackDamage, float attackSpeed, Properties properties) {
@@ -52,7 +52,7 @@ public class TyrvingItem extends OrtusSwordItem implements IMalumEventResponderI
                 target.hurt(DamageSourceRegistry.causeVoodooDamage(attacker), spiritCount);
             }
             attacker.level.playSound(null, target.blockPosition(), SoundRegistry.VOID_SLASH.get(), SoundSource.PLAYERS, 1, 1f + target.level.random.nextFloat() * 0.25f);
-            INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(() -> target), new MagicParticlePacket(SpiritTypeRegistry.ELDRITCH_SPIRIT.getColor(), target.getX(), target.getY() + target.getBbHeight() / 2, target.getZ()));
+            MALUM_CHANNEL.send(PacketDistributor.TRACKING_ENTITY.with(() -> target), new MajorEntityEffectParticlePacket(SpiritTypeRegistry.ELDRITCH_SPIRIT.getColor(), target.getX(), target.getY() + target.getBbHeight() / 2, target.getZ()));
         }
     }
 

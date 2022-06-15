@@ -78,17 +78,21 @@ public class MalumLang extends LanguageProvider {
             add(i.get().getDescriptionId(), name);
         });
 
-        sounds.forEach(s -> {
-            String name = DataHelper.toTitleCase(s.getId().getPath(), "_");
-            add("malum.subtitle." + s.getId().getPath(), name);
-        });
+
+        for (RegistryObject<SoundEvent> sound : sounds) {
+            String name = correctSoundName(sound.getId().getPath()).replaceAll("_", " ");
+            name = name.substring(0, 1).toUpperCase() + name.substring(1);
+            add("malum.subtitle." + sound.getId().getPath(), name);
+        }
+
         enchantments.forEach(e -> {
             String name = DataHelper.toTitleCase(e.getId().getPath(), "_");
             add(e.get().getDescriptionId(), name);
         });
 
         effects.forEach(e -> {
-            String name = DataHelper.toTitleCase(e.getId().getPath(), "_");
+            String alteredPath = e.getId().getPath().replaceFirst("s_", "'s_");
+            String name = DataHelper.toTitleCase(alteredPath, "_");
             add("effect.malum." + e.get().getRegistryName().getPath(), name);
         });
 
@@ -108,189 +112,185 @@ public class MalumLang extends LanguageProvider {
 
         coolerBookEntries.forEach(b -> add(b.translationKey(), DataHelper.toTitleCase(b.identifier, "_")));
 
-        addDescription("introduction", "Welcome to Malum");
+        addDescription("introduction", "First Steps");
         addHeadline("introduction", "Introduction");
-        addPage("introduction_a", "Within our world, every living body has a soul. The soul is one's consciousness and what animates the body, a physical vessel for the arcane presence of a soul. Both represent who we are, one is an arcane image, while the other a physical fortress.");
-        addPage("introduction_b", "The Encyclopedia Arcana is a book containing all my gathered research on everything that is known about the soul. To be more exact, this codex focuses on a rather wicked form of arcane arts known as soul magic. It is a very cruel, inhumane and generally frowned upon study of arcana.");
-        addPage("introduction_c", "In order to properly harness the unspoken power of soul magics, you'll have to start with the basics. At the very core of every soul rests an untapped source of power in form of what's known as spirit arcana - fragments of potential.");
-        addPage("introduction_d", "The power of a specific soul derives almost entirely from the spirits found within it's core. These spirits serve as the basis for the very existence of the arcane presence of a soul. Each different soul is one and only, powered by different combinations of eight known types of spirit.");
+        addPage("introduction_a", "Within our world, every living body has a soul. The soul is one's consciousness and what animates the body, the physical vessel for the arcane presence. Both represent who we are, while the body is your physical fortress, the soul is your arcane image.");
+        addPage("introduction_b", "The Encyclopedia Arcana, as I have named it, is a journal which will contain all my gathered knowledge on everything that is known about the soul. To be more exact, this codex of mine will focus on a rather wicked form of arcane arts known as soul magic. It is a very cruel, inhumane and generally frowned upon study of arcana.");
+        addPage("introduction_c", "At the very core of every soul there seems to exist an untapped source of power, which appears to be closely tied to the very existence of the soul. While normally it is a simple flux within the soul, I believe if we are to separate this flux from the arcane presence, it will solidify into a crystal of sorts.");
+        addPage("introduction_d", "The power of each individual soul derives almost entirely from the spirit flux found within it's core. These spirits serve as the basis for the very existence of the magical properties of every soul there is. I speculate that if a soul is removed from it's spirit flux within, it will become a blank slate without any true purpose.");
 
-        addDescription("spirit_magics", "Spirit Splinters");
-        addHeadline("spirit_magics", "Spirit Basics");
-        addPage("spirit_magics_a", "\"How do I get my greedy little hands on a spirit?\" You might ponder. To start, you'll need to prepare yourself a trusty yet wicked weapon for your job. One capable of damaging the soul of your target.");
-        addPage("spirit_magics_b", "On top of that, it's important to know which souls you're gonna want to hunt down. Depending on which spirits you need you'll be hunting for different creature, It's important to carefully think about which of your prey will have the spirits you're seeking out.");
-        addPage("spirit_magics_c", "When hunting for spirits it is important to not leave any behind. Uncollected spirits will slowly decay into the nearby area, leaving their precious power wasted. Uncontrolled soul magic can be extremely dangerous, it is responsible for bringing forth various anomalies which are now present within our world.");
+        addDescription("spirit_magics", "Fuel for the Soul");
+        addHeadline("spirit_magics", "Basics of Magic");
+        addPage("spirit_magics_a", "\"How do I get my greedy little hands on a spirit?\" You might wonder, as I did. To start, we must forge a trusty yet wicked weapon. This weapon we hope to create should be capable of making direct contact with the core of the soul, and hopefully destroying it.");
+        addPage("spirit_magics_b", "Once this tool is in our hands, we should be ready to start hunting for spirit arcana. After some research, I have concluded that there are eight different primary forms of this magic, which should all reside within different types of living souls. Depending on which type of spirit arcana we wish to obtain, we will need to set out to hunt different foes.");
+        addPage("spirit_magics_c", "As I previously noted each living soul is powered by the spirit flux found deep within, but that spirit flux isn't just a simple fuel for the soul. It is a magical element, often mixed in with other forms of itself, all found within the same soul! What this means is that each soul is unique, composed of a different combination of spirit flux.");
+        addPage("spirit_magics_d", "For example, I believe that the soul of a fiery being, like the blaze, should in some form represent the fiery nature of it's vessel. Likewise, the soul of a peaceful, vigorous being, should also contain flux which represents the calm nature of the being.");
 
-        addDescription("soulstone", "Altered Minerals");
+        addDescription("soulstone", "Strange Minerals");
         addHeadline("soulstone", "Soulstone");
-        addPage("soulstone_a", "The soulstone is a strange mineral found both nearby the surface and in the deepslate layer of our world. The ore itself is created when wicked spirit is infused into carbon based minerals such as coal or diamond.");
-        addPage("soulstone_b", "Sadly this process takes an unbelievably long time and furthermore it's nearly impossible to safely replicate in a reasonable amount of time, you'll have to find the mere leftovers of uncontrolled soul magic. Due to it's arcane origins, soulstone is a great catalyst for soul magics and other diabolical fields.");
-        addPage("soulstone_c", "To be exact, wicked spirit is known for being especially capable of harming the soul, furthermore due to the high concentration of wicked arcana within the soulstone, any piece of gear augmented with the gem will be able to harm the soul.");
+        addPage("soulstone_a", "The soulstone is a strange mineral found both nearby the surface and in the deepslate layer of our world. It's existence is most certainly a result of spirit magics, and seems to closely relate to carbon. I'll research it's origin further in the future.");
+        addPage("soulstone_b", "I can't exactly replicate, or even comprehend the process used to create Soulstone, so the deposits of ore I found underground will have to suffice. Furthermore, Soulstone appears to be the exact thing we need, a great catalyst for soul magics and other diabolical fields, perfect for our weapon.");
+        addPage("soulstone_c", "Note: Do not touch the mineral in it's base form! As I gripped the purple gemstone, I felt a strange surge of energy approach my very soul. It was a small yet very uncomfortable pain that I do not want to feel ever again.");
 
         addDescription("runewood", "Arcane oak");
         addHeadline("runewood", "Runewood");
-        addPage("runewood_a", "Similarly to soulstone, the runewood tree is yet another result of uncontrolled soul magic. This time however the nature of the result is much less grim. These trees are known for their life giving sap and for their wood; a fine arcana conductor.");
-        addPage("runewood_b", "Runewood trees are created with arcane and sacred spirit, hence their tame nature. Unlike the soulstone, this process is rather quick in comparison and can easily be replicated with a good understanding of soul magic.");
-        addPage("runewood_c", "Additionally, item holders such as pedestals or stands can be created using runewood planks. These simple receptacles are often used as means of supplying your magical processes with ingredients.");
-        addPage("runewood_d", "The runewood tree can be found commonly within various plains and fields alike, and also rarely within forest biomes.");
+        addPage("runewood_a", "While adventuring I have found a strange tree, it grows in plains and forests and holds a yellow crown. It is a display of pure arcane energy, I believe it's bark and wood will prove itself useful to me. I shall name it Runewood, in note of it's magical nature.");
+        addPage("runewood_b", "Due to it's magical nature, the wood of the tree appears to function as a great conductor for magic. Even just touching the sapling creates a warm feeling, which I can feel in my very soul. It appears that anything with enough magical energy within is able to impose itself on your very soul, almost as if touching it directly.");
         addHeadline("arcane_charcoal", "Arcane Charcoal");
-        addPage("arcane_charcoal", "Due to the esoteric origins of the arcane oak, charcoal created from runewood is extra efficient and can burn for twice as long. You may also turn it into several smaller pieces, much like with other fuels you're more accustomed to.");
+        addPage("arcane_charcoal", "After running short on fuel, I decided to process my newly found runewood into charcoal. To my surprise however, the resulting fuel retains some of this magical property, and as a result functions as a longer lasting fuel source. From my so-far brief use of it, I can tell that it is twice as potent as regular fuel.");
         addHeadline("holy_sap", "Holy Sap");
-        addPage("holy_sap_a", "Within the runewood trees a special type of sap is created. To get your hands on this holy extract you'll need an axe. Start by stripping off the bark of an exposed piece of runewood, and then collect it all with a glass bottle.");
-        addPage("holy_sap_b", "Holy sap can be used for quite a few things. Firstly, by combining it with a slimeball you'll obtain several sapballs, which serve the same purpose.");
-        addPage("holy_sap_c", "Secondly, you can create holy syrup by heating up your sap. Drinking this rejuvenating substance will replenish plenty of hunger and even provide you with a healing effect.");
-        addPage("holy_sap_d", "Try your best to not think about reverting sapballs into their slimy precursor using a certain thermal-series centrifugal separator.");
+        addPage("holy_sap_a", "This strange tree keeps surprising me, I have found a special type of sap that grows within the tree. To get your hands on this holy extract you'll need an axe. Start by stripping off the bark of an exposed piece of runewood, and then collect it all with a glass bottle.");
+        addPage("holy_sap_b", "After a brief taste test, I could feel a nourishing feeling course through me. It appears this substance holds some potent restorative properties, I should be able to further develop this ability by processing the sap into holy syrup, which should function as a minor healing elixir.");
+        addPage("holy_sap_c", "Furthermore, nothing was stopping me from mixing the sap with some slime. The result of my curiosity comes in the form of several holy sapballs, which should be able to function just like slime, effectively expanding my supply of the hard to come by resource. Gross.");
 
         addDescription("scythes", "Shatter the Soul");
         addHeadline("scythes", "Scythes");
-        addPage("scythes_a", "The scythe is a very popular tool amid soul hunters. For one, it provides a strong sweeping attack even more powerful than that of the sword. Secondly, due to the soulstone augmented into the scythe it's capable of damaging both the soul and body with each attack.");
-        addPage("scythes_b", "When you damage a living body you destroy the vessel of a soul, allowing it to fade away peacefully into the afterlife. However when you slay a soul, you will shatter it alongside the death of the vessel. This merciless execution denies the soul eternal peace and is your key to obtaining your very first batch of spirit arcana.");
-        addPage("scythes_c", "The most primitive scythe available is a crude one, made from iron and a single soulstone.");
+        addPage("scythes_a", "With the Soulstone in my possession, I have designed a weapon which I will use as my primary gate to harnessing the power that is spirit arcana, the scythe; for I am the reaper. I will embed the Soulstone in the crude iron blade to allow it to damage the soul of the target, and hopefully destroy it.");
+        addPage("scythes_b", "The weapon is created, and after sharpening the blade I waited for the night to set and went on my first soul hunt. To say the least, it went well. I felt a powerful egocentric feeling course through me as I heard the soul of my many victims shatter and release the spirit flux found within.");
+        addPage("scythes_c", "Just as I speculated, when the flux is released from a shattered soul it takes on a crystal form which we can even hold. I shall name this form a spirit arcana splinter, or spirit for short. I must further research my newly attained power.");
         addHeadline("scythe_enchanting", "Scythe Enchanting");
-        addPage("scythe_enchanting", "The scythe is much like any other weapon within your arsenal, it isn't just a tool for harnessing spirit arcana. Furthermore, you may enchant your scythe with several unique enchantments that enhance it's functionality.");
+        addPage("scythe_enchanting", "At it's core, the scythe is much like any other weapon within my arsenal, we can enchant it and bring out more of it's power.");
 
         addHeadline("haunted", "Haunted");
-        addPage("haunted", "When a soul is hurt some of it's magic is lost. The haunted enchantment converts that magic energy into extra magic damage to anyone you strike. Higher tiers hit with even stronger magic.");
+        addPage("haunted", "When a soul is damaged a lot of it's integrity is lost, resulting in some of it's magical energy being released. The haunted enchantment converts that magic energy into extra magic damage to anyone cut by the blade. Higher tiers damage the target further.");
 
         addHeadline("spirit_plunder", "Spirit Plunder");
-        addPage("spirit_plunder", "The spirit plunder enchantment forces the scythe's soulstone to utilize more of it's potential, any soul you shatter with this enchanted scythe will yield extra spirits. This may however damage the soulstone, taking extra durability off of your scythe.");
+        addPage("spirit_plunder", "The spirit plunder enchantment brings out more of the potential found within the precious soulstone, any soul shattered through the use of this enchanted scythe will yield extra spirits. This may however damage the soulstone, taking extra durability off of your scythe.");
 
         addHeadline("rebound", "Rebound");
-        addPage("rebound", "The rebound enchantment is by far the strangest one of all. It grants you the ability to throw the scythe like a boomerang, allowing for a wacky ranged attack. Higher tiers allow you to throw the scythe more frequently.");
+        addPage("rebound", "The rebound enchantment is by far the strangest one of all. It will grant the user the ability to throw the scythe like a boomerang, allowing for a wacky ranged attack. Higher tiers reduce the delay before the scythe can be thrown once more.");
 
         addDescription("spirit_infusion", "Creating Magical Wonders");
         addHeadline("spirit_infusion", "Spirit Infusion");
-        addPage("spirit_infusion_a", "Spirit infusion is a crafting process based around infusing spirit arcana into various items, twisting them to fit your evil desires. Every infusion recipe requires a prime item as well as a set of spirits to merge with the target item. These must all be placed right on the altar.");
-        addPage("spirit_infusion_b", "Some recipes may also ask for additional reagents to be infused alongside spirit arcana. These extra items must be placed on nearby item holders, such as ones made from runewood. These can be placed anywhere as long as they're within 4 blocks of the altar.");
-        addPage("spirit_infusion_c", "Once everything is setup correctly, spirit infusion will begin and one by one each additional ingredient will be absorbed into the prime item alongside needed spirits. Once this lengthy process is done your desired item will be created.");
+        addPage("spirit_infusion_a", "By utilizing the magical Runewood I have created an altar which I will utilize for all my magical processes. Here I can perform a process known as Spirit Infusion. It is a crafting process based around infusing spirit arcana into various items, twisting them to fit your evil desires.");
+        addPage("spirit_infusion_b", "Every spirit infusion recipe requires an item to function as an epicenter of the process. You will also need a set of spirit arcana to merge with your item. These ingredients must all be placed within the spirit altar. As soon as all of them are present the spirit altar will spur into motion and begin to infuse magic into the item.");
+        addPage("spirit_infusion_c", "More often than not, spirit infusion will require additional reagents to be infused alongside spirit arcana. To provide the altar with these extra ingredients I have created some runewood item holders, an item stand, and an item pedestal. These hold a single stack of an item, and must be placed within 4 blocks of the altar.");
         addHeadline("hex_ash", "Hex Ash");
-        addPage("hex_ash", "Hex ash is a simple magical powder used in various infusions as a minor component. The ash is known for it's ability to animate objects, even bring some to life in some extreme cases.");
+        addPage("hex_ash", "As a test of this altar, I have created a powder which I will call Hex ash. It is a simple grit which I will use as a minor ingredient in various magics. The ash is imbued with arcane spirit, which I have taken from a skeleton.");
 
-        addDescription("primary_arcana", "Basic Spellforms");
+        addDescription("primary_arcana", "Simplest of Magic");
         addHeadline("sacred_spirit", "Sacred Spirit");
-        addPage("sacred_spirit_a", "Sacred spirit represents two main concepts, pure beings and holy origins. Sacred arcana is generally focused on various forms of healing and other curative effects.");
-        addPage("sacred_spirit_b", "The sacred spirit is found mainly within passive, relaxed souls. Easy targets really.");
+        addPage("sacred_spirit_a", "That which is sacred stands originates from two main concepts, the vigorous and the holy. Sacred arcana provides various forms of healing and other curative effects.");
+        addPage("sacred_spirit_b", "Sacred Arcana can be found mainly within passive, relaxed souls. Beings of holy origin should also hold this magic within their soul.");
 
         addHeadline("wicked_spirit", "Wicked Spirit");
-        addPage("wicked_spirit_a", "Flipside of the sacred, wicked spirit represents various impurities and dark magics. Even just touching this spirit creates a mild pain. Wicked magics can be really dangerous in the right hands.");
-        addPage("wicked_spirit_b", "Generally when a vessel rots, the soul peacefully fades out into the afterlife. However, if the body is to be reanimated back to life through necromancy fast enough the soul and vessel may be one once more. This yields strange results on the soul, twisting it into a wicked form.");
+        addPage("wicked_spirit_a", "Flipside of the sacred, wicked spirit represents various impurities and dark magics. Even just touching this spirit creates a mild pain within your soul.");
+        addPage("wicked_spirit_b", "Generally when a vessel rots, the soul peacefully fades out into the afterlife. However, if the body is to be reanimated back to life through necromancy, or some other arcane art, the soul and vessel may be one once more. This however scars the the soul, twisting it into a more wicked shape.");
 
         addHeadline("arcane_spirit", "Arcane Spirit");
-        addPage("arcane_spirit_a", "The arcane spirit is magic in it's purest form. Raw arcana is often used to fully utilize potential found within other spirit magics, it has little power alone but serves as a strong amplifier.");
-        addPage("arcane_spirit_b", "When a vessel is born, depending on it's design it's host soul will be born with matching spirits. A fiery creature would naturally be born with an infernal soul. However, spirits aren't always one and done. Think about a witch. Did the witch always posses magic abilities? Or did the witch learn arcana overtime.");
-        addPage("arcane_spirit_c", "Just like in the case of the witch, a soul can adapt to constant arcana exposure and develop a minuscule portion of it, overtime bringing forth new spirit. Other examples of this phenomenon include the pillagers and guardians. Arcane spirit is found within the magically gifted, and those with an esoteric origin.");
+        addPage("arcane_spirit_a", "The arcane spirit is magic in it's purest form. Raw arcana is often used to fully utilize potential found within other spirit magics, it functions as a powerful amplifier.");
+        addPage("arcane_spirit_b", "When a vessel is born, depending on it's design it's very soul will be full of spirit flux matching the properties of the vessel. A fiery creature would naturally be born with an infernal soul. However, spirits aren't always one and done. I've thought of the witch. Were they always capable of utilizing magic?");
+        addPage("arcane_spirit_c", "I suspect that the soul can adapt to constant arcana exposure and furthermore develop some matching spirit flux of it's own, overtime bringing forth new spirit. Another example I can think of are illagers, I bet those dammed hunters weren't always so evil. We may find Arcane spirit within the magically gifted, and those with an esoteric origin.");
 
-        addDescription("elemental_arcana", "Focused Arcana");
+        addDescription("elemental_arcana", "Focused Magic");
         addHeadline("earthen_spirit", "Earthen Spirit");
-        addPage("earthen_spirit_a", "Earthen arcana stands for three things, power, earth and nature. The sorcery is incredibly potent even when used in small amounts.");
-        addPage("earthen_spirit_b", "With the strength of the world in your greedy hands you can do quite a lot. For one, infusing earthen arcana into items is bound to reinforce them. For two, advanced earthen magic can be used to bring forth new ground into the world. This potent wizardry is rather uncommon, only found within certain passive and sturdy souls.");
+        addPage("earthen_spirit_a", "Earthen arcana can be attributed to three main traits, strength, nature, and more rarely, vitality. The sorcery is incredibly potent even when used in small amounts.");
+        addPage("earthen_spirit_b", "With the strength of the world in your greedy hands we can do quite a lot. This potent wizardry is bound to prove itself useful, it is found within certain passive, and also powerful souls.");
         addHeadline("infernal_spirit", "Infernal Spirit");
-        addPage("infernal_spirit_a", "Hellish magic is incredibly dangerous, and by far the most diabolical. Playing with fire is usually not a good idea, unless you're a soul hunter.");
-        addPage("infernal_spirit_b", "Infernal arcana is great at many things: light, explosions, fire, the list goes on. The magic isn't more potent on it's own than a mere flame however it is overly present in certain places. You definitely know where to hunt.");
+        addPage("infernal_spirit_a", "Hellish magic is incredibly dangerous, and by far the most diabolical. Playing with fire is usually not a good idea, but that's not gonna stop me.");
+        addPage("infernal_spirit_b", "Infernal arcana is great at many things: light, explosions, fire, the list goes on. The magic allows for a wide variety of effects, however I have only found it in a rather narrow selection of souls. I believe the nether will prove very useful to me here.");
         addHeadline("aerial_spirit", "Aerial Spirit");
-        addPage("aerial_spirit_a", "Aerial arcana, light and versatile, weak in effect yet full of utility and potential.");
-        addPage("aerial_spirit_b", "Many would love to explore the sky, it's an incredible fantasy. When studying the nimble phantom soul you may derive two things. For one, vexation at the night predator. For two, aerial magic can easily utilized in flight and other means of traversal. Any swift soul is bound to contain aerial spirits within for you to steal.");
+        addPage("aerial_spirit_a", "Aerial arcana is light and versatile, it is the least potent and yet, it presents the most possibilities and potential.");
+        addPage("aerial_spirit_b", "I often experience a recurring dream, I find myself high up in the sky, with strong wings and a gust propelling me forward. I believe I can utilize aerial arcana to one day make this dream a reality. Any swift soul is bound to hold this magic.");
         addHeadline("aqueous_spirit", "Aqueous Spirit");
-        addPage("aqueous_spirit_a", "Similar to the earthen arcana, aqueous magics are immensely powerful.");
-        addPage("aqueous_spirit_b", "For reasons unknown, the seas in our world are full of mysteries. They're filled with plenty of inexplicable things of unknown origin, automaton-like guardians, drowned risen from the undead, various ruins and monuments, there's too much we don't know. Aqueous sorcery is extremely potent, but usually hard to come by");
+        addPage("aqueous_spirit_a", "Aqueous arcana is the most mysterious type of spirit magic. It is very malleable and represents loyalty to the seas.");
+        addPage("aqueous_spirit_b", "Prior to my discovery of spirit arcana, I used to look for revelation within the seas of our world. They're filled with plenty of inexplicable things of unknown origin, automaton-like guardians, drowned risen from the undead, various ruins and monuments, there's too much we don't know. Aqueous sorcery is extremely potent, and is found mainly within various sea-born souls.");
 
         addDescription("eldritch_arcana", "Abstract Arcana");
         addHeadline("eldritch_spirit", "Eldritch Spirit");
         addPage("eldritch_spirit_a", "While raw arcana functions as an amplifier, eldritch arcana works much like a strong catalyst. It is much more potent but incredibly rare.");
-        addPage("eldritch_spirit_b", "There are many otherworldly things within realms known to us, for uncertain reasons powerful enough souls born in these alternate twisted dimensions have eldritch origin");
+        addPage("eldritch_spirit_b", "I am a little puzzled by this spirit. Much like the otherworldly soul that used to hold the magic, I am unsure what to make of it. It seems that there is something within the sealed off dimension that brings forth this spirit within the souls born in the realm. I am not sure if it belongs to any other creature.");
 
         addDescription("arcane_rock", "Perfect for a Crypt");
         addHeadline("tainted_rock", "Tainted Rock");
-        addPage("tainted_rock", "By infusing the earth with sacred and raw arcana a new stone with plenty of building options is created. Tainted rock is a simple magical building block with quite a few neat usages, it can also be shaped into item pedestals and stands.");
+        addPage("tainted_rock", "By infusing the earth with sacred and raw arcana a new stone with plenty of building options is created. Tainted rock is a simple magical construct which happens to hold strong magic-suppressing properties, and can be shaped into item holders much like runewood.");
         addHeadline("twisted_rock", "Twisted Rock");
-        addPage("twisted_rock", "If we are to replace sacred arcana with it's opposite the result will become a much grimmer one. Twisted rock is indifferent from it's holy variant apart from the darker tone, however it is capable of suppressing magic.");
+        addPage("twisted_rock", "If we are to replace sacred arcana with it's opposite the resulting stone yields a much grimmer appearance. Twisted rock is indifferent from it's holy variant apart from the darker tone.");
 
         addDescription("ether", "The Sunset can't Compare");
         addHeadline("ether", "Ether");
-        addPage("ether_a", "Nowadays, most magics offer you a unique source of light for all purpose use, spirit arcana is no different. Ether, known to some as Nitor is a magical flame that burns and shines bright forever. It can be placed on a torch or a magical brazier which can be placed or hung.");
-        addPage("ether_b", "Additionally, the ether flame can be dyed into practically any color. Simply combine the ether item with any combination of dyes and it's light will be altered. For technical reasons monochromatic dyes may yield possibly undesirable results without other dyes mixed in.");
+        addPage("ether_a", "I have heard gossip of a flame that can burn forever, and decided to bring forth such wonder. Ether is a harmless, magical flame that burns and shines bright forever. It can be placed on a torch or a magical brazier which can may be grounded or hung.");
+        addPage("ether_b", "Additionally, Ether can be dyed into practically any color. Simply combining the ether item with any combination of dyes will change the light it emits. Utilizing monochromatic colors however seems to instead create a much dimmer result, difficult to see. It allowing for a hidden light of sorts.");
 
         addHeadline("iridescent_ether", "Iridescent Ether");
-        addPage("iridescent_ether_a", "While ether is exceptionally gorgeous, iridescent ether takes this glimmering shine a step further. This pristine form of ether allows you to dye the item once more to alter the ending color of the burn. Much like normal ether it can be placed on a brazier and a torch");
+        addPage("iridescent_ether_a", "While ether is already quite appealing, iridescent ether takes that glimmering shine a step further. This pristine form of ether allows us to dye the item once more to alter the ending color of the burn. Much like normal ether it can be placed on a brazier and a torch");
         addPage("iridescent_ether_b", "Getting just the right coloring for your light may be a bit tricky however. You cannot alter the original color of ether once it's transformed into it's iridescent variant, applying any dye at this stage will only change the second color.");
 
         addDescription("spirit_fabric", "Wicked Weaves");
         addHeadline("spirit_fabric", "Spirit Fabric");
-        addPage("spirit_fabric", "Spirit fabric is a light cloth used for a few key spirit infusions and crafting recipes. The material is very sturdy and has a faint wicked scent.");
+        addPage("spirit_fabric", "Spirit fabric is a light cloth used for a few key spirit infusions and crafting recipes. The material is very sturdy and produces a powerful wicked aura.");
         addHeadline("spirit_pouch", "Spirit Pouch");
-        addPage("spirit_pouch", "If you've ever found your inventory filled with spirits, the spirit pouch is just the thing you need. The item allows you to store a large amount of spirits within it's internal inventory. On top of that, any collected spirits are transferred into the pouch if it's in your possession.");
+        addPage("spirit_pouch", "I have grown very tired of carrying all my spirit arcana, the spirit pouch offers a solution to this annoyance. The item allows us to store a large amount of spirits within it's internal inventory. On top of that, any spirits we gather are automatically stored in the pouch.");
 
         addDescription("soul_hunter_gear", "Scythe Expert");
         addHeadline("soul_hunter_armor", "Soul Hunter Armor");
-        addPage("soul_hunter_armor", "The soul hunter set is an offense focused set of equipment made from spirit fabric and leather armor. At the cost of below average protection the armor set boosts magic and scythe damage dealt by the user.");
+        addPage("soul_hunter_armor", "The soul hunter armor is an armor set designed all around expanding the users magical ability. You may create it using spirit fabric and some primitive leather armor. While it does not provide much shielding, it greatly enhances my magical abilities.");
 
         addDescription("spirit_focusing", "Focusing with Spirits");
         addHeadline("spirit_focusing", "Spirit Focusing");
-        addPage("spirit_focusing_a", "The spirit crucible is a wondrous device created to operate on items using an alchemical process named spirit focusing. It revolves around a single key catalyst and the interactions of it and spirit arcana. One of the more common catalysts found in this magical process is an alchemical impetus.");
-        addPage("spirit_focusing_b", "The impetus is a clay-made artifact of ancient design, it's very easy to shape it's earthen mass into new form. By utilizing spirits in the crucible you may shape some of the impetus' mass into something new at the cost of a slight toll on the clay artifact's durability.");
+        addPage("spirit_focusing_a", "The spirit crucible is a wondrous device. It is used to perform an alchemical process named spirit focusing, it revolves around a single key catalyst and the interactions between it and spirit arcana. One of the more common catalysts found in this magical process is an alchemical impetus.");
+        addPage("spirit_focusing_b", "The impetus is a clay-made artifact of ancient design, it's very easy to shape it's earthen mass into new form. By utilizing spirits in the crucible we may shape some of the impetus' mass into something new at the cost of a slight toll on the clay artifact's durability.");
 
         addDescription("working_with_ashes", "Spirits to ashes, ashes to soot");
         addHeadline("working_with_ashes", "Working with Ashes");
-        addPage("working_with_ashes", "With primitive spirit focusing you may successfully create simple powders often needed in all sorts of studies of arcana.");
+        addPage("working_with_ashes", "With primitive spirit focusing we may successfully create simple powders often needed in all sorts of studies of arcana.");
 
         addDescription("crucible_acceleration", "Heating Up");
         addHeadline("crucible_acceleration", "Crucible Acceleration");
-        addPage("crucible_acceleration_a", "The crucible is a rather heavy and slow piece of spirit engineering, and that is not without a reason. For you see; the impetus can be really easily damaged, the process of spirit focusing heavily relies on a slow and constant input of arcana to not cause unnecessary damage to the catalyst.");
+        addPage("crucible_acceleration_a", "The crucible is a rather heavy and slow piece of spirit engineering, and that is not without a reason. For you see; the impetus can be really easily damaged, the process of spirit focusing heavily relies on a slow and constant input of arcana in order to avoid causing unnecessary damage to the catalyst.");
         addPage("crucible_acceleration_b", "Increasing the rate at which arcana is streamed into the impetus would yield a faster result but it could lead to your catalyst getting damaged more than necessary. With that in mind the spirit catalyzer is a heavily augmented pedestal designed specifically for utilizing solid fuel to accelerate a nearby machination.");
-        addPage("crucible_acceleration_c", "Each nearby spirit catalyzer will amplify the speed of the crucible at the cost of greater risk of catalyst instability, you may observe exponentially higher results with each new catalyzer; reaching the limit at 8.");
+        addPage("crucible_acceleration_c", "Each nearby spirit catalyzer will amplify the speed of the crucible at the cost of greater risk of catalyst instability, exponentially higher results can be observed with each new catalyzer; reaching the limit at eight nearby accelerators.");
 
         addDescription("metallurgic_magic", "Focusing into hardware");
         addHeadline("metallurgic_magic", "Metallurgic Magic");
-        addPage("metallurgic_magic_a", "With some clever tricks you may imbue your impetus with a metallic shell, when fed spirits it'll sprout a metallic node of your desired metal which you may then smelt directly into nuggets. Due to the more rigid material of the impetus, more durability is lost in the process.");
-        addPage("metallurgic_magic_b", "It is speculated that these catalysts were previously used as some sort of ashen aspects in an infernal arcana focused alchemical exchange system. It might be possible to replicate the process by studying the history of infernal arcana.");
+        addPage("metallurgic_magic_a", "With some clever tricks I have created a metallic impetus, which can be used to form metallic nodes of nearly any metal desired. These nodes can then be processed directly into nuggets. Due to the more rigid material of the catalyst, more durability is lost in the process.");
+        addPage("metallurgic_magic_b", "This design is not my own however, these metallic catalysts were previously used as some sort of ashen aspects in an alchemical exchange system based on infernal arcana, I do not know all the details to it, nor do I wish to delve into it.");
 
         addDescription("impetus_restoration", "Mending sorceries");
         addHeadline("impetus_restoration", "Impetus Restoration");
-        addPage("impetus_restoration_a", "When an impetus sustains enough damage it will crack, becoming unusable for spirit focusing. To combat this issue, the crucible has a secondary function known to most as arcane restoration. This process expands on spirit focusing and flips it upside down.");
-        addPage("impetus_restoration_b", "Instead of splitting off mass from our catalyst such as the impetus, arcane restoration utilizes spirit arcana to recover the form of your item. While repairing an impetus with the crucible alone is theorized to be possible, there's no reason not to take the easy way out.");
+        addPage("impetus_restoration_a", "When an impetus sustains enough damage it will crack, becoming unusable for spirit focusing. To combat this issue, the crucible has a secondary function known to most as arcane restoration. This process expands upon spirit focusing and flips it upside down.");
+        addPage("impetus_restoration_b", "Instead of splitting off mass from any given item, an impetus for example, arcane restoration utilizes spirit arcana to recover the lost form of your damaged item. To do this you will need to create a twisted tablet.");
         addPage("impetus_restoration_c", "The twisted tablet is a simple augmentation of your usual item stand; the difference is that the tablet has the ability to channel spirit arcana without the need for an outside source to draw it out. It must be placed facing the crucible on a matching axis position.");
         addHeadline("expanded_focusing", "Expanded Restoration");
-        addPage("expanded_focusing_a", "Furthermore, arcane restoration isn't restricted to just repairing your impetus; it extends much further. Using the restoring process you may repair any one of your damaged items.");
+        addPage("expanded_focusing_a", "Furthermore, arcane restoration isn't restricted to just repairing your impetus; it extends much further. Using the restoring process we are able to repair nearly any damaged item.");
         addPage("expanded_focusing_b", "Each item will require a unique set of spirits that need to be slotted in the crucible as well as a valid repair ingredient aimed at the crucible in the twisted tablet.");
-        addPage("expanded_focusing_c", "Additionally, gear closely connected with spirit arcana can be repaired more efficiently.");
+        addPage("expanded_focusing_c", "Additionally, gear closely connected with spirit arcana can be repaired more effectively.");
 
         addDescription("crystal_creation", "Focusing into jewelry");
         addHeadline("crystal_creation", "Crystal Creation");
-        addPage("crystal_creation", "By utilizing more complex combinations of spirits in spirit focusing you may naturally expect more complex results, this is very much the case. You may create various gems from all corners of your world using spirit focusing.");
+        addPage("crystal_creation", "By utilizing more complex combinations of spirits in spirit focusing we may naturally expect more complex results, and our theory is most certainly confirmed. Through the use of more complex spirit focusing we may create various gemstones.");
 
         addDescription("spirit_metals", "Arcane metals");
         addHeadline("hallowed_gold", "Hallowed Gold");
-        addPage("hallowed_gold_a", "Gold is very often used as a basis for various magics, this is also the case with spirit arcana. Infusing arcane and sacred arcana into a gold ingot will imbue it with magic and yield a much more desirable magic metal. A few additional reagents are also needed for this process.");
+        addPage("hallowed_gold_a", "Gold is very often used as a basis for various magics, I believe this property to be relevant when dealing with soul magic as well. Infusing raw and sacred arcana into a gold ingot will imbue it with magic and yield a much more desirable arcane metal. A few additional reagents are also required for this infusion.");
         addPage("hallowed_gold_b", "While not too useful in evil schemes or crafting powerful gear, hallowed gold is a metal perfect for spirit manipulation and transfer.");
         addHeadline("spirit_jar", "Spirit Jar");
-        addPage("spirit_jar", "The spirit jar is a simple craft. It's a placeable jar block that can store a really really large amount of a single spirit, very convenient to have next to a spirit altar. You can input and output spirits by right clicking, sneaking will take out an entire stack.");
+        addPage("spirit_jar", "The spirit jar is a simple yet convenient block. It can store what I presume to be an infinite amount of a single spirit. Spirits may be inserted and taken from the jar by interacting with it, sneaking will take out an entire stack.");
         addHeadline("soul_stained_steel", "Soul Stained Steel");
-        addPage("soul_stained_steel_a", "The sacred origins of hallowed gold make it nearly impossible to use for harm. Soul stained steel is nothing like that, it's a tough metal twisted evil beyond recognition. It excels at heartless crimes, perfect for various gear and trinkets.");
-        addPage("soul_stained_steel_b", "Any piece of gear made from soul stained steel is capable of shattering souls and deals both magic and physical damage. Both metals can also be used to create a type of magic transmitter. A spirit resonator, a more complex crafting component meant for manipulating in-world spirits.");
+        addPage("soul_stained_steel_a", "The sacred origins of hallowed gold make it nearly impossible to use for harm. Soul stained steel is nothing like that, it's a tough metal twisted beyond recognition. It is designed to inflict pain.");
+        addPage("soul_stained_steel_b", "Any piece of gear made from soul stained steel is capable of shattering souls much like a scythe. Said gear also holds the ability to deal magic damage after every strike. Both metals can also be used to create a type of magic transmitter. A spirit resonator, a more complex crafting component in various arcane designs.");
 
         addDescription("soul_stained_scythe", "Tinkering");
         addHeadline("soul_stained_scythe", "Soul Stained Scythe");
-        addPage("soul_stained_scythe", "After some time using the crude scythe you may grow tired of the weak weapon. The soul stained steel scythe is a direct upgrade with overall higher damage distributed between physical and magic.");
+        addPage("soul_stained_scythe", "After some time using the crude scythe I have grown tired of the primitive weapon. By utilizing soul stained steel we can create a direct upgrade with overall higher damage distributed between physical and magic.");
 
         addDescription("soul_stained_armor", "Augmenting");
         addHeadline("soul_stained_armor", "Soul Stained Armor");
-        addPage("soul_stained_armor_a", "Just like with the scythe, you're able to reinforce iron armor with soul stained steel. In addition to providing near diamond levels of protection the armor also shields you from magic damage. On top of that, the armor grants you a protective barrier known as soul ward.");
-        addPage("soul_stained_armor_b", "Soul ward is a potent arcane shield designed for magic attacks. It will recover over time, and absorb almost all of magic damage taken as well as a small amount of physical damage. It's commonly used, and utilized by many trinkets.");
-        addPage("soul_stained_armor_c", "Wearing an armor set made out of soul stained steel is not a sane thought, the nature of the metal would quickly rend the soul. To prevent this unfortunate scenario, the armor is built with a protective twisted rock layer underneath the dangerous steel.");
+        addPage("soul_stained_armor_a", "Just like with the scythe, we can reinforce crude and boring iron armor using soul stained steel. In it's new purple form, apart from rather high levels of protection the armor also provides a passive barrier against magic damage. On top of that, the armor coats the wearer's soul with a protective barrier known as Soul ward.");
+        addPage("soul_stained_armor_b", "Soul Ward is a potent arcane barrier designed for magic attacks. It will recover over time, and absorb almost all of magic damage taken as well as a small amount of physical damage dealt to the wearer. I hope to research this barrier further and unlock more of it's potential");
+        addPage("soul_stained_armor_c", "Wearing an armor set made out of soul stained steel was a daunting thought at first, the nature of the metal would quickly rend my soul. To prevent this unfortunate scenario, the armor must be forged with a protective twisted rock layer underneath the dangerous metal.");
 
         addDescription("spirit_trinkets", "Forging");
         addHeadline("spirit_trinkets", "Spirit Trinkets");
-        addPage("spirit_trinkets_a", "A trinket is a simple accessory that will provide you with helpful benefits, some know them as baubles or curios. Hallowed gold and soul stained steel both offer two basic trinkets that all serve as a basic shape for various spirit infusion to build upon.");
-        addPage("spirit_trinkets_b", "Gilded trinkets provide boosts to armor while ornate ones grant you armor toughness.");
-        addHeadline("arcane_reach", "Ring of Arcane Reach");
-        addPage("arcane_reach", "Catching lost spirits may often prove to be tedious or tiresome. By infusing some potent aerial arcana into a gilded ring the resulting trinket yields us a bonus to spirit reach. Nearby spirits will home-in onto you from further out.");
+        addPage("spirit_trinkets_a", "A trinket is a simple accessory that will provide the wearer with helpful benefits, some know them as baubles or curios. Hallowed Gold and Soul Stained Steel both offer two basic trinkets that all serve as a basic form, which can be further mangled with through spirit magics.");
+        addPage("spirit_trinkets_b", "In their most primitive form, Gilded trinkets provide boosts to armor while ornate steelwear yields armor toughness.");
         addHeadline("arcane_spoil", "Ring of Arcane Spoil");
-        addPage("arcane_spoil", "Your greed can at times be uncontrollable. You want everything, and more. The ring of arcane spoil will yield extra spirits when shattering a soul, it also poses a horrific thought. How is it that we can shatter a soul into more spirits than it holds?");
+        addPage("arcane_spoil", "I have found myself needing more and more spirit arcana as I delve deeper into this magic. To satisfy my greed for power I have forged the ring of arcane spoil, which will allow the wearer to reap an extra spirit from every soul shattered. I am a little concerned with how this extra spirit comes to be, but I must not worry about it now. I'm sure it won't pose any real problems.");
 
         addDescription("ring_of_prowess", "Curiosity");
         addHeadline("ring_of_prowess", "Ring of Prowess");
-        addPage("ring_of_prowess_a", "There is another thing besides spirit arcana that the soul holds, it is known as brilliance, or experience. Unlike spirits, brilliance has strong enough ties to the body and some of it is naturally dispersed from the soul upon the defeat of the vessel.");
-        addPage("ring_of_prowess_b", "As with all things, we can't let the soul keep anything for itself. With some clever use of raw arcana combined with natural brilliance we can leech off some extra experience as spirits leave the dying soul. The ring of prowess does just that.");
+        addPage("ring_of_prowess_a", "The soul holds more than just spirit flux within it, brilliance, also known as experience can be found within. Unlike spirits, brilliance has a rather loose connection to the soul, even just slaying the vessel through regular means releases some of this stored brilliance.");
+        addPage("ring_of_prowess_b", "As with all things, we can't let the soul keep anything for itself. With some clever manipulation of raw arcana combined with natural brilliance we can leech off some extra experience from the dying soul. The ring of prowess does just that, awarding the bearer with experience as they collect each individual spirit.");
 
         addDescription("warded_belt", "Immovable");
         addHeadline("warded_belt", "Warded Belt");
@@ -324,13 +324,13 @@ public class MalumLang extends LanguageProvider {
         addHeadline("runewood_obelisk", "Runewood Obelisk");
         addPage("runewood_obelisk", "If you've ever wished for a means of speeding up your spirit infusion, the runewood obelisk is perfect for your needs. It functions as a booster pillar of sorts, the spirit arcana imbued within allow it to accelerate the infusion process.");
         addHeadline("brilliant_obelisk", "Brilliant Obelisk");
-        addPage("brilliant_obelisk", "If we replace the spirit resonator with a set of brilliance, the result instead becomes a brilliant obelisk. Each one of these boosts the power of a nearby enchantment table, reaching full efficiency with just three obelisks.");
+        addPage("brilliant_obelisk", "If we replace the spirit resonator with a set of brilliance, the resulting obelisk is instead fitted with brilliance. Each one of these boosts the power of a nearby enchantment table, reaching full efficiency with just three obelisks.");
 
         addDescription("totem_magic", "Spirit Rites");
         addHeadline("totem_magic", "Totem Magic");
-        addPage("totem_magic_a", "The primary use of spirits tends to be selfish power, however spirit arcana isn't limited to just greed. By engraving spirits onto runewood above a totem base in a specific order you may create a spirit rite, a dark ritual that mangles with the nearby area.");
-        addPage("totem_magic_b", "Each spirit rite starts at the totem base, above which you'll need to stack runewood logs. Once that is done, engrave the needed spirits onto the wood by simply right clicking it. Spirits can be scraped off by using an axe. When you lay out your rite correctly, activate the totem base.");
-        addPage("totem_magic_c", "Individual spirit rites may not be within the range of another rite, however if the rite has a different spirit combination it may be brought closer.");
+        addPage("totem_magic_a", "Through the use of spirit arcana we may not only forge new wonders, but also perform rituals. By engraving spirits onto runewood in a specific order you may create a spirit rite, a dark ritual that mangles with the nearby area.");
+        addPage("totem_magic_b", "Each spirit rite starts at the totem base, above which there must be sufficient runewood logs to hold the array of engraved spirits. Spirits can be stripped off of runewood by using an axe. When you lay out your rite correctly, activate the totem base to activate the ritual.");
+        addPage("totem_magic_c", "There exists one limitation to this primitive system, no two matching spirit rites can be active within the range of one another.");
 
         addHeadline("rite_effect", "Rite Effect:");
         addHeadline("corrupted_rite_effect", "Corrupted Rite Effect:");
@@ -405,6 +405,15 @@ public class MalumLang extends LanguageProvider {
         add("malum.spirit.description.stored_spirit", "Contains: ");
         add("malum.spirit.description.stored_soul", "Stores Soul With: ");
 
+        add("malum.spirit.flavour.sacred", "Blessed");
+        add("malum.spirit.flavour.wicked", "Cursed");
+        add("malum.spirit.flavour.arcane", "Stellar");
+        add("malum.spirit.flavour.eldritch", "Null");
+        add("malum.spirit.flavour.aerial", "Light");
+        add("malum.spirit.flavour.aqueous", "Malleable");
+        add("malum.spirit.flavour.infernal", "Radiant");
+        add("malum.spirit.flavour.earthen", "Sturdy");
+
         add("malum.jei.spirit_infusion", "Spirit Infusion");
         add("malum.jei.spirit_focusing", "Spirit Focusing");
         add("malum.jei.spirit_repair", "Spirit Repair");
@@ -421,14 +430,14 @@ public class MalumLang extends LanguageProvider {
         add("enchantment.malum.rebound.desc", "Allows the item to be thrown much like a boomerang, cooldown decreases with tier.");
         add("enchantment.malum.spirit_plunder.desc", "Increases the amount of spirits created when shattering a soul.");
 
-        add("death.attack."+ DamageSourceRegistry.VOODOO_DAMAGE, "%s had their soul shattered");
-        add("death.attack."+ DamageSourceRegistry.VOODOO_DAMAGE+".player", "%s had their soul shattered by %s");
-        add("death.attack."+ DamageSourceRegistry.FORCED_SHATTER_DAMAGE, "%s had their soul shattered");
-        add("death.attack."+ DamageSourceRegistry.FORCED_SHATTER_DAMAGE+".player", "%s had their soul shattered by %s");
-        add("death.attack."+ DamageSourceRegistry.MAGEBANE_DAMAGE, "%s got too confident with a soul hunter");
-        add("death.attack."+ DamageSourceRegistry.MAGEBANE_DAMAGE+".player", "%s got too confident with %s");
-        add("death.attack."+ DamageSourceRegistry.SCYTHE_SWEEP_DAMAGE, "%s was sliced into two pieces");
-        add("death.attack."+ DamageSourceRegistry.SCYTHE_SWEEP_DAMAGE+".player", "%s was sliced into two pieces by %s");
+        add("death.attack." + DamageSourceRegistry.VOODOO_DAMAGE, "%s had their soul shattered");
+        add("death.attack." + DamageSourceRegistry.VOODOO_DAMAGE + ".player", "%s had their soul shattered by %s");
+        add("death.attack." + DamageSourceRegistry.FORCED_SHATTER_DAMAGE, "%s had their soul shattered");
+        add("death.attack." + DamageSourceRegistry.FORCED_SHATTER_DAMAGE + ".player", "%s had their soul shattered by %s");
+        add("death.attack." + DamageSourceRegistry.MAGEBANE_DAMAGE, "%s got too confident with a soul hunter");
+        add("death.attack." + DamageSourceRegistry.MAGEBANE_DAMAGE + ".player", "%s got too confident with %s");
+        add("death.attack." + DamageSourceRegistry.SCYTHE_SWEEP_DAMAGE, "%s was sliced into two pieces");
+        add("death.attack." + DamageSourceRegistry.SCYTHE_SWEEP_DAMAGE + ".player", "%s was sliced into two pieces by %s");
 
         addTetraMaterial("soul_stained_steel", "Soul Stained Steel");
         addTetraMaterial("hallowed_gold", "Hallowed Gold");
@@ -492,6 +501,21 @@ public class MalumLang extends LanguageProvider {
         add("death.attack."+ identifier+".player", "%s " + description +  " by %s");
     }
 
+    public String correctSoundName(String name) {
+        if ((name.endsWith("_step"))) {
+            return "footsteps";
+        }
+        if ((name.endsWith("_place"))) {
+            return "block_placed";
+        }
+        if ((name.endsWith("_break"))) {
+            return "block_broken";
+        }
+        if ((name.endsWith("_hit"))) {
+            return "block_breaking";
+        }
+        return name;
+    }
     public String correctBlockItemName(String name) {
         if ((!name.endsWith("_bricks"))) {
             if (name.contains("bricks")) {

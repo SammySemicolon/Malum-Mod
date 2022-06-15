@@ -7,24 +7,32 @@ import com.sammy.malum.common.item.ether.AbstractEtherItem;
 import com.sammy.malum.common.item.ether.EtherItem;
 import com.sammy.malum.core.setup.client.ParticleRegistry;
 import com.sammy.malum.core.setup.content.block.BlockEntityRegistry;
+import com.sammy.ortus.helpers.BlockHelper;
 import com.sammy.ortus.helpers.ColorHelper;
+import com.sammy.ortus.helpers.NBTHelper;
 import com.sammy.ortus.setup.OrtusParticleRegistry;
 import com.sammy.ortus.systems.blockentity.OrtusBlockEntity;
 import com.sammy.ortus.systems.easing.Easing;
 import com.sammy.ortus.systems.rendering.particle.ParticleBuilders;
+import com.sammy.ortus.systems.rendering.particle.SimpleParticleOptions;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.SectionPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.network.protocol.game.ClientboundLevelChunkPacketData;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.WallTorchBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.HitResult;
 
 import java.awt.*;
+import java.util.function.Function;
 
 public class EtherBlockEntity extends OrtusBlockEntity {
     public int firstColorRGB;
@@ -37,7 +45,7 @@ public class EtherBlockEntity extends OrtusBlockEntity {
     }
 
     public EtherBlockEntity(BlockPos pos, BlockState state) {
-        super(BlockEntityRegistry.ETHER.get(), pos, state);
+        this(BlockEntityRegistry.ETHER.get(), pos, state);
     }
 
     public void setFirstColor(int rgb) {
@@ -64,11 +72,14 @@ public class EtherBlockEntity extends OrtusBlockEntity {
                 setSecondColor(EtherItem.defaultSecondColor);
             }
         }
+
         super.load(compound);
     }
 
     @Override
     protected void saveAdditional(CompoundTag compound) {
+        compound.putByte("godDammit", (byte) 0); //TODO: figure out what to do about this. For reference, the client won't be told of our block entity data and load() won't run if there is nothing in the compound
+        //this could be fixed by just removing the optimization below, but I like said optimization.
         if (firstColor != null && firstColorRGB != EtherItem.defaultFirstColor) {
             compound.putInt("firstColor", firstColorRGB);
         }
@@ -87,7 +98,6 @@ public class EtherBlockEntity extends OrtusBlockEntity {
         if (item.iridescent) {
             setSecondColor(item.getSecondColor(stack));
         }
-        setChanged();
     }
 
     @Override
@@ -100,12 +110,19 @@ public class EtherBlockEntity extends OrtusBlockEntity {
         if (secondColor != null) {
             etherItem.setSecondColor(stack, secondColorRGB);
         }
-        setChanged();
         return super.onClone(state, target, level, pos, player);
     }
 
     @Override
+    public void init() {
+        if (!level.isClientSide) {
+            BlockHelper.updateState(level, worldPosition);
+        }
+    }
+
+    @Override
     public void tick() {
+        super.tick();
         if (level.isClientSide) {
             if (firstColor == null) {
                 return;
@@ -136,8 +153,8 @@ public class EtherBlockEntity extends OrtusBlockEntity {
             }
             ParticleBuilders.create(OrtusParticleRegistry.WISP_PARTICLE)
                     .setScale(scale, 0)
-                    .setLifetime(lifeTime)
                     .setAlpha(0.75f, 0.25f)
+                    .setLifetime(lifeTime)
                     .setColor(firstColor, secondColor)
                     .setColorCoefficient(1.4f)
                     .setColorEasing(Easing.BOUNCE_IN_OUT)
@@ -148,47 +165,52 @@ public class EtherBlockEntity extends OrtusBlockEntity {
                     .enableNoClip()
                     .spawn(level, x, y, z);
 
-            ParticleBuilders.create(OrtusParticleRegistry.SPARKLE_PARTICLE)
-                    .setScale(scale * 2, scale * 0.1f)
-                    .setLifetime(lifeTime)
-                    .setAlpha(0.2f)
-                    .setColor(firstColor, secondColor)
-                    .setColorEasing(Easing.EXPO_OUT)
-                    .setColorCoefficient(1.25f)
-                    .setAlphaCoefficient(1.5f)
-                    .setSpin(0, 2)
-                    .setSpinEasing(Easing.QUARTIC_IN)
-                    .enableNoClip()
-                    .spawn(level, x, y, z);
             if (level.getGameTime() % 2L == 0) {
+                ParticleBuilders.create(OrtusParticleRegistry.TWINKLE_PARTICLE)
+                        .setScale(scale * 2, scale * 0.1f)
+                        .setLifetime(lifeTime)
+                        .setAlpha(0.2f, 0.5f)
+                        .setAlphaCoefficient(6)
+                        .setColor(firstColor, secondColor)
+                        .setColorEasing(Easing.EXPO_OUT)
+                        .setColorCoefficient(1.25f)
+                        .setSpin(0, 2)
+                        .setSpinEasing(Easing.QUARTIC_IN)
+                        .enableNoClip()
+                        .spawn(level, x, y, z);
                 y += 0.15f;
                 if (level.random.nextFloat() < 0.5f) {
                     ParticleBuilders.create(ParticleRegistry.SPIRIT_FLAME_PARTICLE)
                             .setScale(0.5f, 0.75f, 0)
                             .setColor(firstColor, secondColor)
-                            .setColorCoefficient(1.5f)
-                            .setAlpha(0.5f, 1f, 0)
+                            .setColorEasing(Easing.CIRC_IN_OUT)
+                            .setColorCoefficient(2.5f)
+                            .setAlpha(0.2f, 1f, 0)
                             .setAlphaEasing(Easing.SINE_IN, Easing.QUAD_IN)
                             .setAlphaCoefficient(3.5f)
-                            .randomOffset(0.1f, 0.2f)
-                            .addMotion(0, 0.01f, 0)
-                            .setMotionCoefficient(0.975f)
+                            .randomOffset(0.15f, 0.2f)
+                            .addMotion(0, 0.0035f, 0)
+                            .randomMotion(0.001f, 0.005f)
+                            .setMotionCoefficient(0.985f-level.random.nextFloat() * 0.04f)
                             .enableNoClip()
+                            .overwriteRemovalProtocol(SimpleParticleOptions.SpecialRemovalProtocol.ENDING_CURVE_INVISIBLE)
                             .spawn(level, x, y, z);
                 }
                 if (level.random.nextFloat() < 0.25f) {
                     ParticleBuilders.create(ParticleRegistry.SPIRIT_FLAME_PARTICLE)
                             .setScale(0.3f, 0.5f, 0)
                             .setColor(firstColor, secondColor)
-                            .setColorCoefficient(2f)
-                            .setAlpha(0.5f, 1f, 0)
+                            .setColorEasing(Easing.CIRC_IN_OUT)
+                            .setColorCoefficient(3.5f)
+                            .setAlpha(0.2f, 1f, 0)
                             .setAlphaEasing(Easing.SINE_IN, Easing.CIRC_IN_OUT)
                             .setAlphaCoefficient(3.5f)
-                            .randomOffset(0.125f, 0.2f)
+                            .randomOffset(0.1f, 0.225f)
                             .addMotion(0, velocity / 2f, 0)
-                            .setMotionCoefficient(0.97f)
-
+                            .randomMotion(0, 0.015f)
+                            .setMotionCoefficient(0.97f-level.random.nextFloat() * 0.025f)
                             .enableNoClip()
+                            .overwriteRemovalProtocol(SimpleParticleOptions.SpecialRemovalProtocol.ENDING_CURVE_INVISIBLE)
                             .spawn(level, x, y, z);
                 }
             }

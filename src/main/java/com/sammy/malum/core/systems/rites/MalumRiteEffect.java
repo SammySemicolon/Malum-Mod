@@ -10,7 +10,7 @@ import net.minecraft.world.phys.AABB;
 
 import java.util.ArrayList;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @SuppressWarnings("ConstantConditions")
 public abstract class MalumRiteEffect {
@@ -39,33 +39,32 @@ public abstract class MalumRiteEffect {
     }
 
 
-    public <T extends LivingEntity> ArrayList<T> getNearbyEntities(TotemBaseBlockEntity totemBase, Class<T> clazz) {
-        return totemBase.getLevel().getEntitiesOfClass(clazz, new AABB(getRiteEffectCenter(totemBase)).inflate(getRiteEffectRadius())).stream().filter(getEntityPredicate()).collect(Collectors.toCollection(ArrayList::new));
+    public <T extends LivingEntity> Stream<T> getNearbyEntities(TotemBaseBlockEntity totemBase, Class<T> clazz) {
+        return new ArrayList<>(totemBase.getLevel().getEntitiesOfClass(clazz, new AABB(getRiteEffectCenter(totemBase)).inflate(getRiteEffectRadius()))).stream();
+    }
+    public <T extends LivingEntity> Stream<T> getNearbyEntities(TotemBaseBlockEntity totemBase, Class<T> clazz, Predicate<T> predicate) {
+        return totemBase.getLevel().getEntitiesOfClass(clazz, new AABB(getRiteEffectCenter(totemBase)).inflate(getRiteEffectRadius())).stream().filter(predicate);
     }
 
-    public <T extends LivingEntity> Predicate<T> getEntityPredicate() {
-        return e -> true;
+    public Stream<BlockPos> getNearbyBlocks(TotemBaseBlockEntity totemBase, Class<?> clazz) {
+        return BlockHelper.getBlocksStream(getRiteEffectCenter(totemBase), getRiteEffectRadius(), p -> canAffectBlock(totemBase, clazz, totemBase.getLevel().getBlockState(p), p));
     }
 
-    public ArrayList<BlockPos> getNearbyBlocks(TotemBaseBlockEntity totemBase, Class<?> clazz) {
-        return BlockHelper.getBlocks(getRiteEffectCenter(totemBase), getRiteEffectRadius(), p -> canAffectBlock(clazz, totemBase.getLevel().getBlockState(p)));
-    }
-
-    public ArrayList<BlockPos> getNearbyBlocks(TotemBaseBlockEntity totemBase, Class<?> clazz, int height) {
+    public Stream<BlockPos> getNearbyBlocks(TotemBaseBlockEntity totemBase, Class<?> clazz, int height) {
         int horizontal = getRiteEffectRadius();
-        return BlockHelper.getBlocks(getRiteEffectCenter(totemBase), horizontal, height, horizontal, p -> canAffectBlock(clazz, totemBase.getLevel().getBlockState(p)));
+        return BlockHelper.getBlocksStream(getRiteEffectCenter(totemBase), horizontal, height, horizontal, p -> canAffectBlock(totemBase, clazz, totemBase.getLevel().getBlockState(p), p));
     }
 
-    public ArrayList<BlockPos> getBlocksUnderBase(TotemBaseBlockEntity totemBase, Class<?> clazz) {
+    public Stream<BlockPos> getBlocksUnderBase(TotemBaseBlockEntity totemBase, Class<?> clazz) {
         int horizontal = getRiteEffectRadius();
-        return BlockHelper.getPlaneOfBlocks(getRiteEffectCenter(totemBase).below(), horizontal, p -> canAffectBlock(clazz, totemBase.getLevel().getBlockState(p)));
+        return BlockHelper.getPlaneOfBlocksStream(getRiteEffectCenter(totemBase).below(), horizontal, p -> canAffectBlock(totemBase, clazz, totemBase.getLevel().getBlockState(p), p));
     }
 
-    public boolean canAffectBlock(Class<?> clazz, BlockState state) {
-        return clazz.isInstance(state.getBlock()) && canAffectBlock(state);
+    public boolean canAffectBlock(TotemBaseBlockEntity totemBase, Class<?> clazz, BlockState state, BlockPos pos) {
+        return clazz.isInstance(state.getBlock()) && canAffectBlock(totemBase, state, pos);
     }
 
-    public boolean canAffectBlock(BlockState state) {
+    public boolean canAffectBlock(TotemBaseBlockEntity totemBase, BlockState state, BlockPos pos) {
         return !state.is(BlockTagRegistry.RITE_IMMUNE);
     }
 }

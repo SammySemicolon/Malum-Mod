@@ -1,21 +1,55 @@
 package com.sammy.malum.common.spiritrite;
 
 import com.sammy.malum.common.blockentity.totem.TotemBaseBlockEntity;
-import com.sammy.malum.common.packets.particle.MagicParticlePacket;
-import com.sammy.malum.core.setup.content.potion.EffectRegistry;
+import com.sammy.malum.common.packets.particle.entity.MajorEntityEffectParticlePacket;
+import com.sammy.malum.common.packets.particle.entity.MinorEntityEffectParticlePacket;
 import com.sammy.malum.core.systems.rites.EntityAffectingRiteEffect;
 import com.sammy.malum.core.systems.rites.MalumRiteEffect;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
-import com.sammy.malum.core.systems.rites.PotionRiteEffect;
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.Util;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.ai.goal.EatBlockGoal;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Bee;
+import net.minecraft.world.entity.animal.Sheep;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.network.PacketDistributor;
 
+import java.util.HashMap;
+
 import static com.sammy.malum.core.setup.content.SpiritTypeRegistry.*;
-import static com.sammy.malum.core.setup.server.PacketRegistry.INSTANCE;
+import static com.sammy.malum.core.setup.server.PacketRegistry.MALUM_CHANNEL;
+import static net.minecraft.world.entity.ai.goal.EatBlockGoal.IS_TALL_GRASS;
 
 public class SacredRiteType extends MalumRiteType {
+
+    public static final HashMap<Class<? extends Animal>, SacredRiteEntityActor<?>> ACTORS = Util.make(new HashMap<>(), m -> {
+        m.put(Sheep.class, new SacredRiteEntityActor<>(Sheep.class) {
+            @Override
+            public void act(TotemBaseBlockEntity totemBaseBlockEntity, Sheep sheep) {
+                if (sheep.getRandom().nextInt(sheep.isBaby() ? 5 : 25) == 0) {
+                    BlockPos blockpos = sheep.blockPosition();
+                    if (IS_TALL_GRASS.test(sheep.level.getBlockState(blockpos)) || sheep.level.getBlockState(blockpos.below()).is(Blocks.GRASS_BLOCK)) {
+                        EatBlockGoal goal = sheep.eatBlockGoal;
+                        goal.start();
+                        MALUM_CHANNEL.send(PacketDistributor.TRACKING_ENTITY.with(() -> sheep), new MajorEntityEffectParticlePacket(SACRED_SPIRIT.getColor(), sheep.getX(), sheep.getY() + sheep.getBbHeight() / 2f, sheep.getZ()));
+                    }
+                }
+            }
+        });
+        m.put(Bee.class, new SacredRiteEntityActor<>(Bee.class) {
+            @Override
+            public void act(TotemBaseBlockEntity totemBaseBlockEntity, Bee bee) {
+                Bee.BeePollinateGoal goal = bee.beePollinateGoal;
+                if (goal.canBeeUse()) {
+                    goal.successfulPollinatingTicks += 20;
+                    goal.tick();
+                    MALUM_CHANNEL.send(PacketDistributor.TRACKING_ENTITY.with(() -> bee), new MinorEntityEffectParticlePacket(SACRED_SPIRIT.getColor(), bee.getX(), bee.getY() + bee.getBbHeight() / 2f, bee.getZ()));
+                }
+            }
+        });
+    });
+
     public SacredRiteType() {
         super("sacred_rite", ARCANE_SPIRIT, SACRED_SPIRIT, SACRED_SPIRIT);
     }
@@ -26,8 +60,9 @@ public class SacredRiteType extends MalumRiteType {
             @Override
             public void riteEffect(TotemBaseBlockEntity totemBase) {
                 getNearbyEntities(totemBase, Animal.class).forEach(e -> {
-                    if (e.getHealth() < e.getMaxHealth() / 2f) {
+                    if (e.getHealth() < e.getMaxHealth() * 0.75f) {
                         e.heal(2);
+                        MALUM_CHANNEL.send(PacketDistributor.TRACKING_ENTITY.with(() -> e), new MinorEntityEffectParticlePacket(getEffectSpirit().getColor(), e.getX(), e.getY() + e.getBbHeight() / 2f, e.getZ()));
                     }
                 });
             }
@@ -40,24 +75,36 @@ public class SacredRiteType extends MalumRiteType {
             @SuppressWarnings("ConstantConditions")
             @Override
             public void riteEffect(TotemBaseBlockEntity totemBase) {
-                if (totemBase.getLevel().isClientSide()) {
-                    return;
-                }
                 getNearbyEntities(totemBase, Animal.class).forEach(e -> {
                     if (e.getAge() < 0) {
                         if (totemBase.getLevel().random.nextFloat() <= 0.04f) {
-                            INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(() -> e), new MagicParticlePacket(getSpirit().getColor(), e.blockPosition().getX(), e.blockPosition().getY() + e.getBbHeight() / 2f, e.blockPosition().getZ()));
+                            MALUM_CHANNEL.send(PacketDistributor.TRACKING_ENTITY.with(() -> e), new MajorEntityEffectParticlePacket(getEffectSpirit().getColor(), e.getX(), e.getY() + e.getBbHeight() / 2f, e.getZ()));
                             e.ageUp(25);
                         }
-                    } else if (e instanceof Bee bee) {
-                        Bee.BeePollinateGoal goal = bee.beePollinateGoal;
-                        if (goal.canBeeUse()) {
-                            bee.beePollinateGoal.successfulPollinatingTicks += 20;
-                            bee.beePollinateGoal.tick();
-                        }
+                    }
+                    if (ACTORS.containsKey(e.getClass())) {
+                        SacredRiteEntityActor<? extends Animal> sacredRiteEntityActor = ACTORS.get(e.getClass());
+                        sacredRiteEntityActor.tryAct(totemBase, e);
                     }
                 });
             }
         };
+    }
+
+    public static abstract class SacredRiteEntityActor<T extends Animal> {
+        public final Class<T> targetClass;
+
+        public SacredRiteEntityActor(Class<T> targetClass) {
+            this.targetClass = targetClass;
+        }
+
+        @SuppressWarnings("unchecked")
+        public final void tryAct(TotemBaseBlockEntity totemBaseBlockEntity, Animal animal) {
+            if (targetClass.isInstance(animal)) {
+                act(totemBaseBlockEntity, (T) animal);
+            }
+        }
+
+        public abstract void act(TotemBaseBlockEntity totemBaseBlockEntity, T entity);
     }
 }

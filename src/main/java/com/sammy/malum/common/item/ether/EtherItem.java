@@ -18,7 +18,6 @@ public class EtherItem extends AbstractEtherItem {
         super(blockIn, builder, iridescent);
     }
 
-
     @OnlyIn(value = Dist.CLIENT)
     @Override
     public void particleTick(ItemStack stack, float x, float y, ScreenParticle.RenderOrder renderOrder) {
@@ -40,7 +39,7 @@ public class EtherItem extends AbstractEtherItem {
                 .setSpinEasing(Easing.EXPO_IN_OUT)
                 .setAlphaEasing(Easing.QUINTIC_IN)
                 .overwriteRenderOrder(renderOrder)
-                .centerOnStack(stack, etherItem.iridescent ? -1 : 0, 3)
+                .centerOnStack(stack, etherItem.iridescent ? -1 : 0, etherItem.iridescent ? 3 : 4)
                 .repeat(x, y, 1)
                 .setScale((float) (1.4f - Math.sin(gameTime * 0.075f) * 0.125f), 0)
                 .setColor(secondColor, firstColor)

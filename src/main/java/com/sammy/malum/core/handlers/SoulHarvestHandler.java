@@ -8,7 +8,7 @@ import com.sammy.malum.common.capability.LivingEntityDataCapability;
 import com.sammy.malum.common.capability.PlayerDataCapability;
 import com.sammy.malum.common.entity.spirit.SoulEntity;
 import com.sammy.malum.common.item.spirit.SoulStaveItem;
-import com.sammy.malum.common.packets.particle.SoulPurgeParticlePacket;
+import com.sammy.malum.common.packets.particle.entity.SuccessfulSoulHarvestParticlePacket;
 import com.sammy.malum.core.helper.SpiritHelper;
 import com.sammy.ortus.setup.OrtusRenderTypeRegistry;
 import com.sammy.ortus.systems.rendering.VFXBuilders;
@@ -41,7 +41,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 import static com.sammy.malum.MalumMod.prefix;
-import static com.sammy.malum.core.setup.server.PacketRegistry.INSTANCE;
+import static com.sammy.malum.core.setup.server.PacketRegistry.MALUM_CHANNEL;
 import static com.sammy.ortus.handlers.RenderHandler.DELAYED_RENDER;
 import static com.sammy.ortus.helpers.RenderHelper.FULL_BRIGHT;
 import static com.sammy.ortus.setup.OrtusRenderTypeRegistry.queueUniformChanges;
@@ -145,7 +145,7 @@ public class SoulHarvestHandler {
                                                 0.05f + nextFloat(MalumMod.RANDOM, 0.05f, 0.15f),
                                                 nextFloat(MalumMod.RANDOM, -0.1f, 0.1f));
                                         player.level.addFreshEntity(soulEntity);
-                                        INSTANCE.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> entity), new SoulPurgeParticlePacket(ec.spiritData.primaryType.getColor(), ec.spiritData.primaryType.getEndColor(), position.x, position.y, position.z));
+                                        MALUM_CHANNEL.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> entity), new SuccessfulSoulHarvestParticlePacket(ec.spiritData.primaryType.getColor(), ec.spiritData.primaryType.getEndColor(), position.x, position.y, position.z));
                                         if (livingEntity instanceof Mob mob) {
                                             removeSentience(mob);
                                         }
@@ -264,7 +264,8 @@ public class SoulHarvestHandler {
                 poseStack.mulPose(Minecraft.getInstance().getEntityRenderDispatcher().cameraOrientation());
                 poseStack.mulPose(Vector3f.YP.rotationDegrees(180f));
 
-                VFXBuilders.createWorld()
+                //preview!
+                VFXBuilders.createWorld().setPosColorTexLightmapDefaultFormat()
                         .setColor(color.brighter())
                         .setAlpha(alphaAndScale * 0.6f)
                         .setLight(FULL_BRIGHT)

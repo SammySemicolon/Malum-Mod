@@ -66,42 +66,43 @@ public class SoundRegistry {
     public static final RegistryObject<SoundEvent> SOULWOOD_LEAVES_PLACE = register(new SoundEvent(MalumMod.prefix("soulwood_leaves_place")));
     public static final RegistryObject<SoundEvent> SOULWOOD_LEAVES_STEP = register(new SoundEvent(MalumMod.prefix("soulwood_leaves_step")));
 
-    public static final RegistryObject<SoundEvent> MAJOR_BLIGHT_MOTIF = register(new SoundEvent(MalumMod.prefix("blight_motif")));
-    public static final RegistryObject<SoundEvent> MINOR_BLIGHT_MOTIF = register(new SoundEvent(MalumMod.prefix("minor_blight_motif")));
+    public static final RegistryObject<SoundEvent> MAJOR_BLIGHT_MOTIF = register(new SoundEvent(MalumMod.prefix("blight_reacts")));
+    public static final RegistryObject<SoundEvent> MINOR_BLIGHT_MOTIF = register(new SoundEvent(MalumMod.prefix("blight_reacts_faintly")));
 
     public static final RegistryObject<SoundEvent> ETHER_PLACE = register(new SoundEvent(MalumMod.prefix("ether_place")));
     public static final RegistryObject<SoundEvent> ETHER_BREAK = register(new SoundEvent(MalumMod.prefix("ether_break")));
 
-    public static final RegistryObject<SoundEvent> SCYTHE_CUT = register(new SoundEvent(MalumMod.prefix("scythe_cut")));
-    public static final RegistryObject<SoundEvent> SPIRIT_HARVEST = register(new SoundEvent(MalumMod.prefix("spirit_harvest")));
+    public static final RegistryObject<SoundEvent> SCYTHE_CUT = register(new SoundEvent(MalumMod.prefix("scythe_cuts")));
+    public static final RegistryObject<SoundEvent> SPIRIT_HARVEST = register(new SoundEvent(MalumMod.prefix("a_soul_shatters")));
 
-    public static final RegistryObject<SoundEvent> TOTEM_CHARGE = register(new SoundEvent(MalumMod.prefix("totem_charge")));
-    public static final RegistryObject<SoundEvent> TOTEM_ACTIVATED = register(new SoundEvent(MalumMod.prefix("totem_activated")));
-    public static final RegistryObject<SoundEvent> TOTEM_CANCELLED = register(new SoundEvent(MalumMod.prefix("totem_cancelled")));
-    public static final RegistryObject<SoundEvent> TOTEM_ENGRAVE = register(new SoundEvent(MalumMod.prefix("totem_engrave")));
+    public static final RegistryObject<SoundEvent> TOTEM_CHARGE = register(new SoundEvent(MalumMod.prefix("totem_charges")));
+    public static final RegistryObject<SoundEvent> TOTEM_ACTIVATED = register(new SoundEvent(MalumMod.prefix("spirit_rite_activated")));
+    public static final RegistryObject<SoundEvent> TOTEM_CANCELLED = register(new SoundEvent(MalumMod.prefix("spirit_rite_cancelled")));
+    public static final RegistryObject<SoundEvent> TOTEM_ENGRAVE = register(new SoundEvent(MalumMod.prefix("spirit_engraved")));
 
-    public static final RegistryObject<SoundEvent> ALTAR_CRAFT = register(new SoundEvent(MalumMod.prefix("altar_craft")));
-    public static final RegistryObject<SoundEvent> ALTAR_LOOP = register(new SoundEvent(MalumMod.prefix("altar_loop")));
-    public static final RegistryObject<SoundEvent> ALTAR_CONSUME = register(new SoundEvent(MalumMod.prefix("altar_consume")));
-    public static final RegistryObject<SoundEvent> ALTAR_SPEED_UP = register(new SoundEvent(MalumMod.prefix("altar_speed_up")));
+    public static final RegistryObject<SoundEvent> ALTAR_CRAFT = register(new SoundEvent(MalumMod.prefix("spirit_altar_completes_infusion")));
+    public static final RegistryObject<SoundEvent> ALTAR_LOOP = register(new SoundEvent(MalumMod.prefix("spirit_altar_infuses")));
+    public static final RegistryObject<SoundEvent> ALTAR_CONSUME = register(new SoundEvent(MalumMod.prefix("spirit_altar_absorbs_item")));
+    public static final RegistryObject<SoundEvent> ALTAR_SPEED_UP = register(new SoundEvent(MalumMod.prefix("spirit_altar_speeds_up")));
 
-    public static final RegistryObject<SoundEvent> CRUCIBLE_CRAFT = register(new SoundEvent(MalumMod.prefix("crucible_craft")));
-    public static final RegistryObject<SoundEvent> CRUCIBLE_LOOP = register(new SoundEvent(MalumMod.prefix("crucible_loop")));
-    public static final RegistryObject<SoundEvent> IMPETUS_CRACK = register(new SoundEvent(MalumMod.prefix("impetus_crack")));
+    public static final RegistryObject<SoundEvent> CRUCIBLE_CRAFT = register(new SoundEvent(MalumMod.prefix("spirit_crucible_completes_focusing")));
+    public static final RegistryObject<SoundEvent> CRUCIBLE_LOOP = register(new SoundEvent(MalumMod.prefix("spirit_crucible_focuses")));
+    public static final RegistryObject<SoundEvent> IMPETUS_CRACK = register(new SoundEvent(MalumMod.prefix("impetus_takes_damage")));
 
-    public static final RegistryObject<SoundEvent> SINISTER_EQUIP = register(new SoundEvent(MalumMod.prefix("sinister_equip")));
-    public static final RegistryObject<SoundEvent> HOLY_EQUIP = register(new SoundEvent(MalumMod.prefix("holy_equip")));
+    public static final RegistryObject<SoundEvent> SINISTER_EQUIP = register(new SoundEvent(MalumMod.prefix("ornate_trinket_equipped")));
+    public static final RegistryObject<SoundEvent> HOLY_EQUIP = register(new SoundEvent(MalumMod.prefix("gilded_trinket_equipped")));
 
-    public static final RegistryObject<SoundEvent> VOID_SLASH = register(new SoundEvent(MalumMod.prefix("void_slash")));
+    public static final RegistryObject<SoundEvent> AERIAL_FALL = register(new SoundEvent(MalumMod.prefix("aerial_magic_swooshes")));
+    public static final RegistryObject<SoundEvent> VOID_SLASH = register(new SoundEvent(MalumMod.prefix("void_slash_swooshes")));
 
-    public static final RegistryObject<SoundEvent> SOUL_WARD_HIT = register(new SoundEvent(MalumMod.prefix("soul_ward_hit")));
-    public static final RegistryObject<SoundEvent> SOUL_WARD_GROW = register(new SoundEvent(MalumMod.prefix("soul_ward_grow")));
-    public static final RegistryObject<SoundEvent> SOUL_WARD_CHARGE = register(new SoundEvent(MalumMod.prefix("soul_ward_charge")));
+    public static final RegistryObject<SoundEvent> SOUL_WARD_HIT = register(new SoundEvent(MalumMod.prefix("soul_ward_damaged")));
+    public static final RegistryObject<SoundEvent> SOUL_WARD_GROW = register(new SoundEvent(MalumMod.prefix("soul_ward_grows")));
+    public static final RegistryObject<SoundEvent> SOUL_WARD_CHARGE = register(new SoundEvent(MalumMod.prefix("soul_ward_charges")));
 
     public static final RegistryObject<SoundEvent> HEART_OF_STONE_HIT = register(new SoundEvent(MalumMod.prefix("heart_of_stone_hit")));
     public static final RegistryObject<SoundEvent> HEART_OF_STONE_GROW = register(new SoundEvent(MalumMod.prefix("heart_of_stone_grow")));
 
-    public static final RegistryObject<SoundEvent> SUSPICIOUS_SOUND = register(new SoundEvent(MalumMod.prefix("suspicious_sound")));
+    public static final RegistryObject<SoundEvent> SUSPICIOUS_SOUND = register(new SoundEvent(MalumMod.prefix("suspicious_sound_plays")));
 
     public static final SoundType SOULSTONE = new ForgeSoundType(1.0F, 1.0F, SOULSTONE_BREAK, SOULSTONE_STEP, SOULSTONE_PLACE, SOULSTONE_HIT, () -> SoundEvents.STONE_FALL);
     public static final SoundType DEEPSLATE_SOULSTONE = new ForgeSoundType(1.0F, 1.0F, DEEPSLATE_SOULSTONE_BREAK, DEEPSLATE_SOULSTONE_STEP, DEEPSLATE_SOULSTONE_PLACE, DEEPSLATE_SOULSTONE_HIT, () -> SoundEvents.DEEPSLATE_FALL);

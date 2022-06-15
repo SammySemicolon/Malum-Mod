@@ -24,7 +24,7 @@ public abstract class MalumRiteType {
         return "malum.gui.rite." + identifier;
     }
 
-    public MalumSpiritType getSpirit() {
+    public MalumSpiritType getEffectSpirit() {
         return spirits.get(spirits.size() - 1);
     }
 

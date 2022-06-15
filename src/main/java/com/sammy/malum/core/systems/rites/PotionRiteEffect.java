@@ -1,7 +1,7 @@
 package com.sammy.malum.core.systems.rites;
 
 import com.sammy.malum.common.blockentity.totem.TotemBaseBlockEntity;
-import com.sammy.malum.common.packets.particle.MagicParticlePacket;
+import com.sammy.malum.common.packets.particle.entity.MajorEntityEffectParticlePacket;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -10,7 +10,7 @@ import net.minecraftforge.network.PacketDistributor;
 
 import java.util.function.Supplier;
 
-import static com.sammy.malum.core.setup.server.PacketRegistry.INSTANCE;
+import static com.sammy.malum.core.setup.server.PacketRegistry.MALUM_CHANNEL;
 
 public class PotionRiteEffect extends EntityAffectingRiteEffect {
 
@@ -24,15 +24,12 @@ public class PotionRiteEffect extends EntityAffectingRiteEffect {
         this.effect = effect;
         this.spirit = spirit;
     }
-    @SuppressWarnings("ConstantConditions")
+
     @Override
     public void riteEffect(TotemBaseBlockEntity totemBase) {
-        if (totemBase.getLevel().isClientSide) {
-            return;
-        }
         getNearbyEntities(totemBase, getEntityClass()).forEach(e -> {
-            if (e.getEffect(effect.get()) == null) {
-                INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(() -> e), new MagicParticlePacket(spirit.getColor(), e.blockPosition().getX(), e.blockPosition().getY() + e.getBbHeight() / 2f, e.blockPosition().getZ()));
+            if (!e.hasEffect(effect.get())) {
+                MALUM_CHANNEL.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> e), new MajorEntityEffectParticlePacket(spirit.getColor(), e.getX(), e.getY()+ e.getBbHeight() / 2f, e.getZ()));
             }
             e.addEffect(new MobEffectInstance(effect.get(), getEffectDuration(), getEffectAmplifier()));
         });

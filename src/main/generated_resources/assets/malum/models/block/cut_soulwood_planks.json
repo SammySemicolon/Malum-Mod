@@ -2,7 +2,7 @@
   "parent": "minecraft:block/cube_bottom_top",
   "textures": {
     "side": "malum:block/cut_soulwood_planks",
-    "bottom": "malum:block/cut_soulwood_planks",
+    "bottom": "malum:block/soulwood_panel",
     "top": "malum:block/soulwood_panel"
   }
 }

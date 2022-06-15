@@ -12,16 +12,15 @@ public class EffectRegistry
     public static final DeferredRegister<MobEffect> EFFECTS = DeferredRegister.create(ForgeRegistries.MOB_EFFECTS, MalumMod.MALUM);
 
 
-    public static final RegistryObject<MobEffect> EARTHEN_AURA = EFFECTS.register("earthen_fortitude", EarthenAura::new);
-    public static final RegistryObject<MobEffect> CORRUPTED_EARTHEN_AURA = EFFECTS.register("earthen_might", CorruptedEarthenAura::new);
+    public static final RegistryObject<MobEffect> GAIAN_BULWARK = EFFECTS.register("gaian_bulwark", EarthenAura::new);
+    public static final RegistryObject<MobEffect> EARTHEN_MIGHT = EFFECTS.register("earthen_might", CorruptedEarthenAura::new);
 
-    public static final RegistryObject<MobEffect> INFERNAL_AURA = EFFECTS.register("infernal_alacrity", InfernalAura::new);
-    public static final RegistryObject<MobEffect> CORRUPTED_INFERNAL_AURA = EFFECTS.register("infernal_barrier", CorruptedInfernalAura::new);
+    public static final RegistryObject<MobEffect> MINERS_RAGE = EFFECTS.register("miners_rage", InfernalAura::new);
+    public static final RegistryObject<MobEffect> IFRITS_EMBRACE = EFFECTS.register("ifrits_embrace", CorruptedInfernalAura::new);
 
-    public static final RegistryObject<MobEffect> AERIAL_AURA = EFFECTS.register("zephyrs_blessing", AerialAura::new);
-    public static final RegistryObject<MobEffect> CORRUPTED_AERIAL_AURA = EFFECTS.register("aethers_grip", CorruptedAerialAura::new);
+    public static final RegistryObject<MobEffect> ZEPHYRS_COURAGE = EFFECTS.register("zephyrs_courage", AerialAura::new);
+    public static final RegistryObject<MobEffect> AETHERS_CHARM = EFFECTS.register("aethers_charm", CorruptedAerialAura::new);
 
-    public static final RegistryObject<MobEffect> AQUEOUS_AURA = EFFECTS.register("aqueous_aura", AqueousAura::new);
-    public static final RegistryObject<MobEffect> CORRUPTED_AQUEOUS_AURA = EFFECTS.register("corrupted_aqueous_aura", CorruptedAqueousAura::new);
-
+    public static final RegistryObject<MobEffect> POSEIDONS_GRASP = EFFECTS.register("poseidons_grasp", AqueousAura::new);
+    public static final RegistryObject<MobEffect> ANGLERS_LURE = EFFECTS.register("anglers_lure", CorruptedAqueousAura::new);
 }

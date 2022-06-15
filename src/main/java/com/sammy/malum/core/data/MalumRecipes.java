@@ -7,6 +7,7 @@ import com.sammy.malum.core.data.builder.vanilla.NBTCarryRecipeBuilder;
 import com.sammy.malum.core.data.builder.vanilla.TheDeviceRecipeBuilder;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
 import com.sammy.malum.core.setup.content.item.ItemTagRegistry;
+import com.sammy.ortus.systems.recipe.IngredientWithCount;
 import net.minecraft.advancements.critereon.*;
 import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;
@@ -467,13 +468,13 @@ public class MalumRecipes extends RecipeProvider implements IConditionBuilder {
         String name = node.get().getRegistryName().getPath().replaceFirst("_node", "");
 
         ConditionalRecipe.builder().addCondition(not(new TagEmptyCondition(tag.location().toString()))).addRecipe(
-                        smeltingWithTag(Ingredient.of(node.get()), tag, 6, 0.25f, 200)
+                        smeltingWithTag(new IngredientWithCount(Ingredient.of(tag), 6), Ingredient.of(node.get()), 0.25f, 200)
                                 ::build)
                 .generateAdvancement()
                 .build(recipeConsumer, MalumMod.prefix(name + "_from_node_smelting"));
 
         ConditionalRecipe.builder().addCondition(not(new TagEmptyCondition(tag.location().toString()))).addRecipe(
-                        blastingWithTag(Ingredient.of(node.get()), tag, 6, 0.25f, 100)
+                        blastingWithTag(new IngredientWithCount(Ingredient.of(tag), 6), Ingredient.of(node.get()), 0.25f, 100)
                                 ::build)
                 .generateAdvancement()
                 .build(recipeConsumer, MalumMod.prefix(name + "_from_node_blasting"));
