@@ -90,6 +90,7 @@ public class TokenOfGratitudeRenderer implements ICurioRenderer {
         if (uuid.equals(CurioTokenOfGratitude.OWL_PERSON)) {
             return OWL_PERSON_ELYTRA;
         }
+        //test comment for push
         return original;
     }
 
