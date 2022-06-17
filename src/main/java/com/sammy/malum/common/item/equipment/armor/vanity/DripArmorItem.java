@@ -1,7 +1,7 @@
 package com.sammy.malum.common.item.equipment.armor.vanity;
 
 import com.sammy.malum.client.model.DripArmorModel;
-import com.sammy.malum.common.item.equipment.armor.SpiritHunterArmorItem;
+import com.sammy.malum.common.item.equipment.armor.SoulHunterArmorItem;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
@@ -13,7 +13,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.IItemRenderProperties;
 
-public class DripArmorItem extends SpiritHunterArmorItem {
+public class DripArmorItem extends SoulHunterArmorItem {
     public DripArmorItem(EquipmentSlot slot, Properties builder) {
         super(slot, builder);
     }

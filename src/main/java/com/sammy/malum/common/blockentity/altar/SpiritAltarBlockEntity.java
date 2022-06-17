@@ -188,8 +188,8 @@ public class SpiritAltarBlockEntity extends OrtusBlockEntity {
     @Override
     public void init() {
         ItemStack stack = inventory.getStackInSlot(0);
-        possibleRecipes = new ArrayList<>(DataHelper.getAll(SpiritInfusionRecipe.getRecipes(level), r -> r.doesInputMatch(stack) && r.doSpiritsMatch(spiritInventory.nonEmptyStacks)));
-        recipe = SpiritInfusionRecipe.getRecipe(level, stack, spiritInventory.nonEmptyStacks);
+        possibleRecipes = new ArrayList<>(DataHelper.getAll(SpiritInfusionRecipe.getRecipes(level), r -> r.doesInputMatch(stack) && r.doSpiritsMatch(spiritInventory.nonEmptyItemStacks)));
+        recipe = SpiritInfusionRecipe.getRecipe(level, stack, spiritInventory.nonEmptyItemStacks);
         if (level.isClientSide && !possibleRecipes.isEmpty()) {
             AltarSoundInstance.playSound(this);
         }

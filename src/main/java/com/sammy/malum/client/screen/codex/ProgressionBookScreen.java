@@ -11,6 +11,7 @@ import com.sammy.malum.common.events.SetupMalumCodexEntriesEvent;
 import com.sammy.malum.core.setup.content.SpiritRiteRegistry;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
 import com.sammy.ortus.handlers.ScreenParticleHandler;
+import com.sammy.ortus.systems.easing.Easing;
 import com.sammy.ortus.systems.recipe.IRecipeComponent;
 import com.sammy.ortus.systems.rendering.VFXBuilders;
 import com.sammy.ortus.systems.rendering.VFXBuilders.ScreenVFXBuilder;
@@ -847,9 +848,10 @@ public class ProgressionBookScreen extends Screen {
             return;
         }
         //182, 61, 183  227, 39, 228
-        int r = (int) Mth.lerp(glow, 182, 227);
-        int g = (int) Mth.lerp(glow, 61, 39);
-        int b = (int) Mth.lerp(glow, 183, 228);
+        glow = Easing.CUBIC_IN.ease(glow, 0, 1, 1);
+        int r = (int) Mth.lerp(glow, 163, 227);
+        int g = (int) Mth.lerp(glow, 44, 39);
+        int b = (int) Mth.lerp(glow, 191, 228);
 
         font.draw(stack, text, x - 1, y, color(96, 255, 210, 243));
         font.draw(stack, text, x + 1, y, color(128, 240, 131, 232));

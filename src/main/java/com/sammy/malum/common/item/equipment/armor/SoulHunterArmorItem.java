@@ -22,16 +22,15 @@ import java.util.UUID;
 
 import static com.sammy.malum.core.setup.content.item.ArmorTiers.ArmorTierEnum.SPIRIT_HUNTER;
 
-public class SpiritHunterArmorItem extends OrtusArmorItem {
-    public SpiritHunterArmorItem(EquipmentSlot slot, Properties builder) {
+public class SoulHunterArmorItem extends OrtusArmorItem {
+    public SoulHunterArmorItem(EquipmentSlot slot, Properties builder) {
         super(SPIRIT_HUNTER, slot, builder);
     }
     @Override
     public ImmutableMultimap.Builder<Attribute, AttributeModifier> createExtraAttributes(EquipmentSlot slot) {
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = new ImmutableMultimap.Builder<>();
         UUID uuid = ARMOR_MODIFIER_UUID_PER_SLOT[slot.getIndex()];
-        builder.put(OrtusAttributeRegistry.MAGIC_PROFICIENCY.get(), new AttributeModifier(uuid, "Magic Proficiency", 1f, AttributeModifier.Operation.ADDITION));
-        builder.put(AttributeRegistry.SCYTHE_PROFICIENCY.get(), new AttributeModifier(uuid, "Scythe Proficiency", 1f, AttributeModifier.Operation.ADDITION));
+        builder.put(OrtusAttributeRegistry.MAGIC_PROFICIENCY.get(), new AttributeModifier(uuid, "Magic Proficiency", 2f, AttributeModifier.Operation.ADDITION));
         return builder;
     }
 

@@ -32,6 +32,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import static com.sammy.malum.core.setup.content.AttributeRegistry.ATTRIBUTES;
+import static com.sammy.malum.core.setup.content.item.ItemRegistry.SOUL_HUNTER_BOOTS;
 import static com.sammy.malum.core.setup.content.potion.EffectRegistry.EFFECTS;
 import static com.sammy.malum.core.setup.content.entity.EntityRegistry.ENTITY_TYPES;
 import static com.sammy.malum.core.setup.content.SoundRegistry.SOUNDS;
@@ -138,9 +139,9 @@ public class MalumLang extends LanguageProvider {
         addPage("runewood_a", "While adventuring I have found a strange tree, it grows in plains and forests and holds a yellow crown. It is a display of pure arcane energy, I believe it's bark and wood will prove itself useful to me. I shall name it Runewood, in note of it's magical nature.");
         addPage("runewood_b", "Due to it's magical nature, the wood of the tree appears to function as a great conductor for magic. Even just touching the sapling creates a warm feeling, which I can feel in my very soul. It appears that anything with enough magical energy within is able to impose itself on your very soul, almost as if touching it directly.");
         addHeadline("arcane_charcoal", "Arcane Charcoal");
-        addPage("arcane_charcoal", "After running short on fuel, I decided to process my newly found runewood into charcoal. To my surprise however, the resulting fuel retains some of this magical property, and as a result functions as a longer lasting fuel source. From my so-far brief use of it, I can tell that it is twice as potent as regular fuel.");
+        addPage("arcane_charcoal", "After running short on fuel, I had decided to process my newly found runewood into charcoal. To my surprise however, it appears that the resulting charcoal retains some of this magical property, and as a result functions as a longer lasting fuel source. From my so-far brief use of it, I can tell that it is twice as potent as regular fuel.");
         addHeadline("holy_sap", "Holy Sap");
-        addPage("holy_sap_a", "This strange tree keeps surprising me, I have found a special type of sap that grows within the tree. To get your hands on this holy extract you'll need an axe. Start by stripping off the bark of an exposed piece of runewood, and then collect it all with a glass bottle.");
+        addPage("holy_sap_a", "This strange phenomena keeps surprising me, I have found a special type of sap that grows within the tree. To get your hands on this holy extract you'll need an axe. Start by stripping off the bark of an exposed piece of runewood, and then collect it all with a glass bottle.");
         addPage("holy_sap_b", "After a brief taste test, I could feel a nourishing feeling course through me. It appears this substance holds some potent restorative properties, I should be able to further develop this ability by processing the sap into holy syrup, which should function as a minor healing elixir.");
         addPage("holy_sap_c", "Furthermore, nothing was stopping me from mixing the sap with some slime. The result of my curiosity comes in the form of several holy sapballs, which should be able to function just like slime, effectively expanding my supply of the hard to come by resource. Gross.");
 
@@ -150,7 +151,7 @@ public class MalumLang extends LanguageProvider {
         addPage("scythes_b", "The weapon is created, and after sharpening the blade I waited for the night to set and went on my first soul hunt. To say the least, it went well. I felt a powerful egocentric feeling course through me as I heard the soul of my many victims shatter and release the spirit flux found within.");
         addPage("scythes_c", "Just as I speculated, when the flux is released from a shattered soul it takes on a crystal form which we can even hold. I shall name this form a spirit arcana splinter, or spirit for short. I must further research my newly attained power.");
         addHeadline("scythe_enchanting", "Scythe Enchanting");
-        addPage("scythe_enchanting", "At it's core, the scythe is much like any other weapon within my arsenal, we can enchant it and bring out more of it's power.");
+        addPage("scythe_enchanting", "At it's core, the scythe is much like any other weapon within my arsenal, I believe I enchant it and bring out more of it's power.");
 
         addHeadline("haunted", "Haunted");
         addPage("haunted", "When a soul is damaged a lot of it's integrity is lost, resulting in some of it's magical energy being released. The haunted enchantment converts that magic energy into extra magic damage to anyone cut by the blade. Higher tiers damage the target further.");
@@ -163,7 +164,7 @@ public class MalumLang extends LanguageProvider {
 
         addDescription("spirit_infusion", "Creating Magical Wonders");
         addHeadline("spirit_infusion", "Spirit Infusion");
-        addPage("spirit_infusion_a", "By utilizing the magical Runewood I have created an altar which I will utilize for all my magical processes. Here I can perform a process known as Spirit Infusion. It is a crafting process based around infusing spirit arcana into various items, twisting them to fit your evil desires.");
+        addPage("spirit_infusion_a", "By utilizing the magical Runewood I have created an altar which I will utilize for all my magical studies and crafts. Here I can perform a process known as Spirit Infusion. It is a crafting process based around infusing spirit arcana into various items, twisting them to fit your evil desires.");
         addPage("spirit_infusion_b", "Every spirit infusion recipe requires an item to function as an epicenter of the process. You will also need a set of spirit arcana to merge with your item. These ingredients must all be placed within the spirit altar. As soon as all of them are present the spirit altar will spur into motion and begin to infuse magic into the item.");
         addPage("spirit_infusion_c", "More often than not, spirit infusion will require additional reagents to be infused alongside spirit arcana. To provide the altar with these extra ingredients I have created some runewood item holders, an item stand, and an item pedestal. These hold a single stack of an item, and must be placed within 4 blocks of the altar.");
         addHeadline("hex_ash", "Hex Ash");
@@ -171,7 +172,7 @@ public class MalumLang extends LanguageProvider {
 
         addDescription("primary_arcana", "Simplest of Magic");
         addHeadline("sacred_spirit", "Sacred Spirit");
-        addPage("sacred_spirit_a", "That which is sacred stands originates from two main concepts, the vigorous and the holy. Sacred arcana provides various forms of healing and other curative effects.");
+        addPage("sacred_spirit_a", "That which is sacred originates from two main concepts, the vigorous and the holy. Sacred arcana provides various forms of healing and other curative effects.");
         addPage("sacred_spirit_b", "Sacred Arcana can be found mainly within passive, relaxed souls. Beings of holy origin should also hold this magic within their soul.");
 
         addHeadline("wicked_spirit", "Wicked Spirit");
@@ -195,7 +196,7 @@ public class MalumLang extends LanguageProvider {
         addPage("aerial_spirit_b", "I often experience a recurring dream, I find myself high up in the sky, with strong wings and a gust propelling me forward. I believe I can utilize aerial arcana to one day make this dream a reality. Any swift soul is bound to hold this magic.");
         addHeadline("aqueous_spirit", "Aqueous Spirit");
         addPage("aqueous_spirit_a", "Aqueous arcana is the most mysterious type of spirit magic. It is very malleable and represents loyalty to the seas.");
-        addPage("aqueous_spirit_b", "Prior to my discovery of soul magics, I used to look for revelation within the seas of our world. They're filled with plenty of inexplicable things of unknown origin, automaton-like guardians, drowned risen from the undead, various ruins and monuments, there's too much we don't know. Aqueous sorcery is extremely potent, and is found mainly within various sea-born souls.");
+        addPage("aqueous_spirit_b", "Prior to my discovery of soul magics, I used to look for revelation within the seas of our world. They're filled with plenty of inexplicable; automaton-like guardians, drowned ruins, monuments, there's too much we don't know, I believe aqueous magic inherits this esotericism.");
 
         addDescription("eldritch_arcana", "Abstract Arcana");
         addHeadline("eldritch_spirit", "Eldritch Spirit");
@@ -225,7 +226,7 @@ public class MalumLang extends LanguageProvider {
 
         addDescription("soul_hunter_gear", "Scythe Expert");
         addHeadline("soul_hunter_armor", "Soul Hunter Armor");
-        addPage("soul_hunter_armor", "The soul hunter armor is an armor set designed all around expanding the users magical ability. You may create it using spirit fabric and some primitive leather armor. While it does not provide much shielding, it greatly enhances my magical abilities.");
+        addPage("soul_hunter_armor", "Through the use of Spirit Fabric, I have designed an armor set befitted specifically for expanding the users magical ability. Due to it's primitive and rather dangerous nature however, the armours protective abilities are rather lacking.");
 
         addDescription("spirit_focusing", "Focusing with Spirits");
         addHeadline("spirit_focusing", "Spirit Focusing");
@@ -238,24 +239,25 @@ public class MalumLang extends LanguageProvider {
 
         addDescription("crucible_acceleration", "Heating Up");
         addHeadline("crucible_acceleration", "Crucible Acceleration");
-        addPage("crucible_acceleration_a", "The crucible is a rather heavy and slow piece of spirit engineering, and that is not without a reason. For you see; the impetus can be really easily damaged, the process of spirit focusing heavily relies on a slow and constant input of arcana in order to avoid causing unnecessary damage to the catalyst.");
+        addPage("crucible_acceleration_a", "By design, The Spirit Crucible is a rather slow esoteric mechanism. This is not without reason, for you see; the impetus is a fragile thing, the process of spirit focusing heavily relies on a slow and constant input of arcana in order to avoid causing unnecessary damage to the catalyst.");
         addPage("crucible_acceleration_b", "Increasing the rate at which arcana is streamed into the impetus would yield a faster result but it could lead to your catalyst getting damaged more than necessary. With that in mind the spirit catalyzer is a heavily augmented pedestal designed specifically for utilizing solid fuel to accelerate a nearby machination.");
-        addPage("crucible_acceleration_c", "Each nearby spirit catalyzer will amplify the speed of the crucible at the cost of greater risk of catalyst instability, exponentially higher results can be observed with each new catalyzer; reaching the limit at eight nearby accelerators.");
+        addPage("crucible_acceleration_c", "With that in mind, each nearby spirit catalyzer placed nearby the machine will amplify the speed of the crucible at the cost of greater risk of catalyst instability. You may observe exponentially higher results with each new catalyzer added; reaching the limit at eight nearby accelerators.");
 
         addDescription("metallurgic_magic", "Focusing into hardware");
         addHeadline("metallurgic_magic", "Metallurgic Magic");
         addPage("metallurgic_magic_a", "With some clever tricks I have created a metallic impetus, which can be used to form metallic nodes of nearly any metal desired. These nodes can then be processed directly into nuggets. Due to the more rigid material of the catalyst, more durability is lost in the process.");
-        addPage("metallurgic_magic_b", "This design is not my own however, these metallic catalysts were previously used as some sort of ashen aspects in an alchemical exchange system based on infernal arcana, I do not know all the details to it, nor do I wish to delve into it.");
+        addPage("metallurgic_magic_b", "This design is not my own however, these metallic catalysts were previously used as some sort of ashen aspectus. I believe their purpose served as a tuning mechanism in an alchemical exchange system, I do not know all the details to it, nor do I wish to delve into it.");
 
         addDescription("impetus_restoration", "Mending sorceries");
         addHeadline("impetus_restoration", "Impetus Restoration");
-        addPage("impetus_restoration_a", "When an impetus sustains enough damage it will crack, becoming unusable for spirit focusing. To combat this issue, the crucible has a secondary function known to most as arcane restoration. This process expands upon spirit focusing and flips it upside down.");
+        addPage("impetus_restoration_a", "When an impetus sustains enough damage it will crack, rendering the catalyst unusable in spirit focusing. To combat this issue, the crucible allows for a secondary process known to most as arcane restoration. This process is, in a way, the flipside of spirit focusing.");
         addPage("impetus_restoration_b", "Instead of splitting off mass from any given item, an impetus for example, arcane restoration utilizes spirit arcana to recover the lost form of your damaged item. To do this you will need to create a twisted tablet.");
-        addPage("impetus_restoration_c", "The twisted tablet is a simple augmentation of your usual item stand; the difference is that the tablet has the ability to channel spirit arcana without the need for an outside source to draw it out. It must be placed facing the crucible on a matching axis position.");
+        addPage("impetus_restoration_c", "The twisted tablet is a simple augmentation of your usual item stand with a more esoteric design allowing for greater functionality. It must be placed facing the crucible on a matching axis position.");
+
         addHeadline("expanded_focusing", "Expanded Restoration");
-        addPage("expanded_focusing_a", "Furthermore, arcane restoration isn't restricted to just repairing your impetus; it extends much further. Using the restoring process we are able to repair nearly any damaged item.");
-        addPage("expanded_focusing_b", "Each item will require a unique set of spirits that need to be slotted in the crucible as well as a valid repair ingredient aimed at the crucible in the twisted tablet.");
-        addPage("expanded_focusing_c", "Additionally, gear closely connected with spirit arcana can be repaired more effectively.");
+        addPage("expanded_focusing_a", "Furthermore, arcane restoration allows for more than just fixing your catalysts; it reaches out much further. Using the restoration process we are able to repair nearly any damaged item, utilizing spirit arcana instead of experience.");
+        addPage("expanded_focusing_b", "Each individual item we wish to repair requires it's own unique set of spirits that need to be slotted in the crucible and a valid repair ingredient aimed at the crucible in the twisted tablet. Upon completion of the process, the item's lost durability will be partially restored.");
+        addPage("expanded_focusing_c", "Additionally, items with a close, direct connection to spirit arcana are able to absorb incoming spirit arcana much more effectively, resulting in more lost durability being recovered.");
 
         addDescription("crystal_creation", "Focusing into jewelry");
         addHeadline("crystal_creation", "Crystal Creation");

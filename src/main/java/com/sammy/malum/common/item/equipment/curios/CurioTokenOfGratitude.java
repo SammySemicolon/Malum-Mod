@@ -25,10 +25,14 @@ public class CurioTokenOfGratitude extends MalumCurioItem {
     public static final UUID SAMMY = validateForGratitude("0ca54301-6170-4c44-b3e0-b8afa6b81ed2");
     public static final UUID OWL_PERSON = validateForGratitude("309b2cf6-caa1-4c9a-912d-7b4be827dc8c");
     public static final UUID SNAKE_SCARF_FELLA = validateForGratitude("07f1452b-7408-47b3-be2b-e6e08869e891");
-    public static final UUID AWESOME_FELLA = validateForGratitude("72155db3-d5e4-47fa-8200-c85bf7f87370");
 
     static {
-        addTransScarf(AWESOME_FELLA);
+        addTransScarf(validateForGratitude("72155db3-d5e4-47fa-8200-c85bf7f87370")); //copilot says it's 'Snake'
+        addTransScarf(validateForGratitude("26b08ef8-a0e8-4a38-b92c-285a14b27d32")); //bouncekey
+        addTransScarf(validateForGratitude("d30d8e38-6f93-4d96-968d-dd6ec5596941")); //falky
+        addTransScarf(validateForGratitude("b502a944-7417-4ac7-9ad8-9bc6ff67af0a")); //that one furry
+        addTransScarf(validateForGratitude("89719de3-6445-4445-abe2-509659db930d")); //only god knows really
+        addTransScarf(validateForGratitude("9380b46b-8de4-4a54-b454-88f33059c9ab")); //no idea
     }
     public CurioTokenOfGratitude(Properties builder) {
         super(builder);

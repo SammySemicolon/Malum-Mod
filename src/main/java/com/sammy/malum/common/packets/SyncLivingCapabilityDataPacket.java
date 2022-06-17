@@ -8,6 +8,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.network.NetworkEvent;
 import net.minecraftforge.network.simple.SimpleChannel;
@@ -28,6 +29,7 @@ public class SyncLivingCapabilityDataPacket extends OrtusClientPacket {
         buf.writeNbt(tag);
     }
 
+    @OnlyIn(Dist.CLIENT)
     public void execute(Supplier<NetworkEvent.Context> context) {
         Entity entity = Minecraft.getInstance().level.getEntity(entityId);
         if (entity instanceof LivingEntity livingEntity) {
