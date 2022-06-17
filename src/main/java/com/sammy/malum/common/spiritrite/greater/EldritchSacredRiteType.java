@@ -34,7 +34,7 @@ public class EldritchSacredRiteType extends MalumRiteType {
         return new BlockAffectingRiteEffect() {
             @Override
             public int getRiteEffectRadius() {
-                return BASE_RADIUS *= 2;
+                return BASE_RADIUS * 2;
             }
 
             @Override

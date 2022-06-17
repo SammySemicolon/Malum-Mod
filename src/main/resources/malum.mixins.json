@@ -8,6 +8,7 @@
     "ItemStackMixin"
   ],
   "client": [
+    "ElytraLayerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

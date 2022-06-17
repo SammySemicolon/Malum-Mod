@@ -62,6 +62,7 @@ import java.util.Set;
 import static com.sammy.malum.MalumMod.MALUM;
 import static com.sammy.malum.core.setup.content.item.ItemTiers.ItemTierEnum.SOUL_STAINED_STEEL;
 import static com.sammy.ortus.helpers.ColorHelper.brighter;
+import static com.sammy.ortus.helpers.ColorHelper.darker;
 import static net.minecraft.world.item.Items.GLASS_BOTTLE;
 
 @SuppressWarnings("unused")
@@ -525,6 +526,7 @@ public class ItemRegistry {
         public static SoulStainedSteelArmorModel SOUL_STAINED_ARMOR;
         public static TailModel TAIL_MODEL;
         public static HeadOverlayModel HEAD_OVERLAY_MODEL;
+        public static ScarfModel SCARF;
 
         @SubscribeEvent
         public static void registerLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
@@ -533,6 +535,7 @@ public class ItemRegistry {
             event.registerLayerDefinition(SoulStainedSteelArmorModel.LAYER, SoulStainedSteelArmorModel::createBodyLayer);
             event.registerLayerDefinition(TailModel.LAYER, TailModel::createBodyLayer);
             event.registerLayerDefinition(HeadOverlayModel.LAYER, HeadOverlayModel::createBodyLayer);
+            event.registerLayerDefinition(ScarfModel.LAYER, ScarfModel::createBodyLayer);
         }
 
         @SubscribeEvent
@@ -542,6 +545,7 @@ public class ItemRegistry {
             SOUL_STAINED_ARMOR = new SoulStainedSteelArmorModel(event.getEntityModels().bakeLayer(SoulStainedSteelArmorModel.LAYER));
             TAIL_MODEL = new TailModel(event.getEntityModels().bakeLayer(TailModel.LAYER));
             HEAD_OVERLAY_MODEL = new HeadOverlayModel(event.getEntityModels().bakeLayer(HeadOverlayModel.LAYER));
+            SCARF = new ScarfModel(event.getEntityModels().bakeLayer(ScarfModel.LAYER));
         }
 
         @SubscribeEvent
@@ -568,10 +572,10 @@ public class ItemRegistry {
                 }
                 return c == 0 ? etherItem.getFirstColor(s) : -1;
             }, i.get()));
-            registerItemColor(itemColors, ItemRegistry.SACRED_SPIRIT, brighter(SpiritTypeRegistry.SACRED_SPIRIT.getColor(), 1));
+            registerItemColor(itemColors, ItemRegistry.SACRED_SPIRIT, SpiritTypeRegistry.SACRED_SPIRIT.getColor());
             registerItemColor(itemColors, ItemRegistry.WICKED_SPIRIT, SpiritTypeRegistry.WICKED_SPIRIT.getColor());
             registerItemColor(itemColors, ItemRegistry.ARCANE_SPIRIT, brighter(SpiritTypeRegistry.ARCANE_SPIRIT.getColor(), 1));
-            registerItemColor(itemColors, ItemRegistry.ELDRITCH_SPIRIT, SpiritTypeRegistry.ELDRITCH_SPIRIT.getColor());
+            registerItemColor(itemColors, ItemRegistry.ELDRITCH_SPIRIT, darker(SpiritTypeRegistry.ELDRITCH_SPIRIT.getColor(), 1));
             registerItemColor(itemColors, ItemRegistry.AERIAL_SPIRIT, brighter(SpiritTypeRegistry.AERIAL_SPIRIT.getColor(), 1));
             registerItemColor(itemColors, ItemRegistry.AQUEOUS_SPIRIT, brighter(SpiritTypeRegistry.AQUEOUS_SPIRIT.getColor(), 1));
             registerItemColor(itemColors, ItemRegistry.INFERNAL_SPIRIT, brighter(SpiritTypeRegistry.INFERNAL_SPIRIT.getColor(), 1));

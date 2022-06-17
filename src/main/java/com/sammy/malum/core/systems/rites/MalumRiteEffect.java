@@ -14,8 +14,8 @@ import java.util.stream.Stream;
 
 @SuppressWarnings("ConstantConditions")
 public abstract class MalumRiteEffect {
-    public static int BASE_RADIUS = 2;
-    public static int BASE_TICK_RATE = 20;
+    public static final int BASE_RADIUS = 2;
+    public static final int BASE_TICK_RATE = 20;
 
     protected MalumRiteEffect() {
     }

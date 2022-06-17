@@ -8,23 +8,36 @@ import com.sammy.malum.common.item.equipment.curios.CurioTokenOfGratitude;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
 import com.sammy.ortus.helpers.RenderHelper;
 import com.sammy.ortus.setup.OrtusRenderTypeRegistry;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.ItemRenderer;
+import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.client.ICurioRenderer;
 
+import java.util.UUID;
+
 public class TokenOfGratitudeRenderer implements ICurioRenderer {
-    private static final ResourceLocation SAMMY = MalumMod.prefix("textures/other/sammy_texture.png");
-    private static final ResourceLocation OWL_PERSON = MalumMod.prefix("textures/other/owl_person_texture.png");
+
+    private static final ResourceLocation SAMMY = MalumMod.prefix("textures/patreon/sammy_texture.png");
+    private static final ResourceLocation OWL_PERSON_EYES = MalumMod.prefix("textures/patreon/owl_person_eyes.png");
+    private static final RenderType OWL_EYES_TYPE = OrtusRenderTypeRegistry.TRANSPARENT_TEXTURE.apply(OWL_PERSON_EYES);
+    private static final ResourceLocation OWL_PERSON_ELYTRA = MalumMod.prefix("textures/patreon/owl_person_elytra.png");
+    private static final ResourceLocation SNAKE_FELLA_SCARF = MalumMod.prefix("textures/patreon/snake_scarf.png");
+    private static final ResourceLocation TRANS_SCARF = MalumMod.prefix("textures/patreon/trans_scarf.png");
 
     @Override
     public <T extends LivingEntity, M extends EntityModel<T>> void render(ItemStack stack, SlotContext slotContext, PoseStack poseStack, RenderLayerParent<T, M> renderLayerParent, MultiBufferSource renderTypeBuffer, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
@@ -57,15 +70,51 @@ public class TokenOfGratitudeRenderer implements ICurioRenderer {
             }
             if (playerEntity.getUUID().equals(CurioTokenOfGratitude.OWL_PERSON)) {
                 poseStack.pushPose();
-                renderGlowingEyes(playerEntity, OWL_PERSON, poseStack, renderTypeBuffer);
+                renderGlowingEyes(playerEntity, OWL_EYES_TYPE, poseStack, renderTypeBuffer, RenderHelper.FULL_BRIGHT);
+                poseStack.popPose();
+            }
+            if (playerEntity.getUUID().equals(CurioTokenOfGratitude.SNAKE_SCARF_FELLA)) {
+                poseStack.pushPose();
+                renderScarf(playerEntity, SNAKE_FELLA_SCARF, poseStack, renderTypeBuffer, light);
+                poseStack.popPose();
+            }
+            if (CurioTokenOfGratitude.TRANS_SCARFS.contains(playerEntity.getUUID())) {
+                poseStack.pushPose();
+                renderScarf(playerEntity, TRANS_SCARF, poseStack, renderTypeBuffer, light);
                 poseStack.popPose();
             }
         }
     }
 
-    public static void renderGlowingEyes(AbstractClientPlayer playerEntity, ResourceLocation texture, PoseStack poseStack, MultiBufferSource renderTypeBuffer) {
-        VertexConsumer vertexconsumer = renderTypeBuffer.getBuffer(OrtusRenderTypeRegistry.TRANSPARENT_TEXTURE.apply(texture));
+    public static ResourceLocation getElytraTexture(UUID uuid, ResourceLocation original) {
+        if (uuid.equals(CurioTokenOfGratitude.OWL_PERSON)) {
+            return OWL_PERSON_ELYTRA;
+        }
+        return original;
+    }
+
+    public static void renderGlowingEyes(AbstractClientPlayer playerEntity, RenderType renderType, PoseStack poseStack, MultiBufferSource renderTypeBuffer, int light) {
+        VertexConsumer vertexconsumer = renderTypeBuffer.getBuffer(renderType);
         ICurioRenderer.followHeadRotations(playerEntity, ItemRegistry.ClientOnly.HEAD_OVERLAY_MODEL.overlay);
-        ItemRegistry.ClientOnly.HEAD_OVERLAY_MODEL.renderToBuffer(poseStack, vertexconsumer, RenderHelper.FULL_BRIGHT, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
+        ItemRegistry.ClientOnly.HEAD_OVERLAY_MODEL.renderToBuffer(poseStack, vertexconsumer, light, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
+    }
+
+    public static void renderScarf(AbstractClientPlayer playerEntity, ResourceLocation texture, PoseStack poseStack, MultiBufferSource renderTypeBuffer, int light) {
+        VertexConsumer vertexconsumer = renderTypeBuffer.getBuffer(RenderType.armorCutoutNoCull(texture));
+        float pticks = Minecraft.getInstance().getFrameTime();
+        float f = Mth.rotLerp(pticks, playerEntity.yBodyRotO, playerEntity.yBodyRot);
+        float f1 = Mth.rotLerp(pticks, playerEntity.yHeadRotO, playerEntity.yHeadRot);
+        float netHeadYaw = f1 - f;
+        float netHeadPitch = Mth.lerp(pticks, playerEntity.xRotO, playerEntity.getXRot());
+        EntityRenderer<? super AbstractClientPlayer> render = Minecraft.getInstance().getEntityRenderDispatcher().getRenderer(playerEntity);
+        if (render instanceof LivingEntityRenderer livingEntityRenderer) {
+            EntityModel<AbstractClientPlayer> model = livingEntityRenderer.getModel(); //TODO: figure out what this warning means
+            if (model instanceof HumanoidModel humanoidModel) {
+                humanoidModel.copyPropertiesTo(ItemRegistry.ClientOnly.SCARF);
+            }
+        }
+        ItemRegistry.ClientOnly.SCARF.setupAnim(playerEntity, playerEntity.animationPosition, playerEntity.animationSpeed, playerEntity.tickCount + pticks, netHeadYaw, netHeadPitch);
+        ICurioRenderer.followHeadRotations(playerEntity, ItemRegistry.ClientOnly.SCARF.headScarf);
+        ItemRegistry.ClientOnly.SCARF.renderToBuffer(poseStack, vertexconsumer, light, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
     }
 }

@@ -29,7 +29,7 @@ public class SpiritAltarRenderer implements BlockEntityRenderer<SpiritAltarBlock
             ItemStack item = inventory.getStackInSlot(i);
             if (!item.isEmpty()) {
                 poseStack.pushPose();
-                Vector3f offset = new Vector3f(SpiritAltarBlockEntity.spiritOffset(blockEntityIn, i, partialTicks));
+                Vector3f offset = new Vector3f(blockEntityIn.getSpiritOffset(i, partialTicks));
                 poseStack.translate(offset.x(), offset.y(), offset.z());
                 poseStack.mulPose(Vector3f.YP.rotationDegrees((level.getGameTime() + partialTicks) * 3));
                 poseStack.scale(0.5f, 0.5f, 0.5f);

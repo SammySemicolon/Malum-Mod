@@ -12,7 +12,7 @@ import net.minecraft.world.entity.player.Player;
 
 public class HeadOverlayModel extends EntityModel<Player> {
 
-	public static ModelLayerLocation LAYER = new ModelLayerLocation(MalumMod.prefix("textures/other/owl_texture"), "main");
+	public static ModelLayerLocation LAYER = new ModelLayerLocation(MalumMod.prefix("head_overlay"), "main");
 	public final ModelPart overlay;
 
 	public HeadOverlayModel(ModelPart root) {

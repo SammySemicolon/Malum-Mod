@@ -12,6 +12,7 @@ import com.sammy.malum.core.systems.item.ISoulContainerItem;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import com.sammy.ortus.helpers.DataHelper;
+import com.sammy.ortus.systems.blockentity.OrtusBlockEntityInventory;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.effect.MobEffect;
@@ -194,7 +195,7 @@ public class MalumLang extends LanguageProvider {
         addPage("aerial_spirit_b", "I often experience a recurring dream, I find myself high up in the sky, with strong wings and a gust propelling me forward. I believe I can utilize aerial arcana to one day make this dream a reality. Any swift soul is bound to hold this magic.");
         addHeadline("aqueous_spirit", "Aqueous Spirit");
         addPage("aqueous_spirit_a", "Aqueous arcana is the most mysterious type of spirit magic. It is very malleable and represents loyalty to the seas.");
-        addPage("aqueous_spirit_b", "Prior to my discovery of spirit arcana, I used to look for revelation within the seas of our world. They're filled with plenty of inexplicable things of unknown origin, automaton-like guardians, drowned risen from the undead, various ruins and monuments, there's too much we don't know. Aqueous sorcery is extremely potent, and is found mainly within various sea-born souls.");
+        addPage("aqueous_spirit_b", "Prior to my discovery of soul magics, I used to look for revelation within the seas of our world. They're filled with plenty of inexplicable things of unknown origin, automaton-like guardians, drowned risen from the undead, various ruins and monuments, there's too much we don't know. Aqueous sorcery is extremely potent, and is found mainly within various sea-born souls.");
 
         addDescription("eldritch_arcana", "Abstract Arcana");
         addHeadline("eldritch_spirit", "Eldritch Spirit");

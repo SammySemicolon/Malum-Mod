@@ -21,17 +21,26 @@ import static top.theillusivec4.curios.api.type.capability.ICurio.DropRule.ALWAY
 
 public class CurioTokenOfGratitude extends MalumCurioItem {
     public static final ArrayList<UUID> GRADITUDE_CERTIFIED = new ArrayList<>();
-    public static final UUID SAMMY = getUuid("0ca54301-6170-4c44-b3e0-b8afa6b81ed2");
-    public static final UUID OWL_PERSON = getUuid("309b2cf6-caa1-4c9a-912d-7b4be827dc8c");
+    public static final ArrayList<UUID> TRANS_SCARFS = new ArrayList<>();
+    public static final UUID SAMMY = validateForGratitude("0ca54301-6170-4c44-b3e0-b8afa6b81ed2");
+    public static final UUID OWL_PERSON = validateForGratitude("309b2cf6-caa1-4c9a-912d-7b4be827dc8c");
+    public static final UUID SNAKE_SCARF_FELLA = validateForGratitude("07f1452b-7408-47b3-be2b-e6e08869e891");
+    public static final UUID AWESOME_FELLA = validateForGratitude("72155db3-d5e4-47fa-8200-c85bf7f87370");
 
+    static {
+        addTransScarf(AWESOME_FELLA);
+    }
     public CurioTokenOfGratitude(Properties builder) {
         super(builder);
     }
 
-    public static UUID getUuid(String uuid) {
+    public static UUID validateForGratitude(String uuid) {
         UUID id = UUID.fromString(uuid);
         GRADITUDE_CERTIFIED.add(id);
         return id;
+    }
+    public static void addTransScarf(UUID uuid) {
+        TRANS_SCARFS.add(uuid);
     }
 
     @Override

@@ -176,16 +176,6 @@ public class TotemBaseBlockEntity extends OrtusBlockEntity {
         }
     }
 
-    public void disableOtherRites(MalumRiteType rite) {
-        int range = rite.getRiteRadius(corrupted);
-        Collection<TotemBaseBlockEntity> totemBases = BlockHelper.getBlockEntities(TotemBaseBlockEntity.class, level, worldPosition, range);
-        for (TotemBaseBlockEntity blockEntity : totemBases) {
-            if (rite.equals(blockEntity.rite)) {
-                blockEntity.endRite();
-            }
-        }
-    }
-
     public void completeRite(MalumRiteType rite) {
         level.playSound(null, worldPosition, SoundRegistry.TOTEM_ACTIVATED.get(), SoundSource.BLOCKS, 1, 0.75f + height * 0.1f);
         MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new TotemBaseActivationParticlePacket(spirits.stream().map(MalumSpiritType::getColor).collect(Collectors.toCollection(ArrayList::new)), worldPosition.above()));
@@ -200,7 +190,12 @@ public class TotemBaseBlockEntity extends OrtusBlockEntity {
             return;
         }
         this.rite = rite;
-        disableOtherRites(rite);
+        disableOtherRites();
+    }
+
+    public void disableOtherRites() {
+        int range = rite.getRiteRadius(corrupted);
+        BlockHelper.getBlockEntitiesStream(TotemBaseBlockEntity.class, level, worldPosition, range).filter(blockEntity -> !blockEntity.equals(this) && rite.equals(blockEntity.rite)).forEach(TotemBaseBlockEntity::endRite);
     }
 
     public void startRite() {
