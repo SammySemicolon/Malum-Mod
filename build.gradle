@@ -19,7 +19,7 @@ apply plugin: 'org.parchmentmc.librarian.forgegradle'
 
 version = "${project.minecraftVersion}-${project.modVersion}"
 if (System.getenv('BUILD_NUMBER') != null) {
-    version += "." + System.getenv('BUILD_NUMBER')
+    version += "-" + System.getenv('BUILD_NUMBER')
 }
 group = 'com.sammy.malum'
 archivesBaseName = project.modId
