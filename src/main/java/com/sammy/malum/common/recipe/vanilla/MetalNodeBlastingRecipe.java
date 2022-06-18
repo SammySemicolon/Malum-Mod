@@ -15,7 +15,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 
 import java.util.Optional;
 
-public class MetalNodeBlastingRecipe extends BlastingRecipe {
+public class MetalNodeBlastingRecipe extends BlastingRecipe implements INodeSmeltingRecipe {
 
     public static final String NAME = "node_blasting";
     public final IngredientWithCount output;
@@ -43,5 +43,10 @@ public class MetalNodeBlastingRecipe extends BlastingRecipe {
     @Override
     public ItemStack assemble(Container pInv) {
         return output.getStack();
+    }
+
+    @Override
+    public IngredientWithCount getOutput() {
+        return output;
     }
 }

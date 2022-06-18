@@ -792,7 +792,7 @@ public class ProgressionBookScreen extends Screen {
         int crownLeft = left + 5 + (vertical ? 0 : 10 * (slots - 1));
         renderTexture(EntryScreen.BOOK_TEXTURE, poseStack, crownLeft, top - 5, 128, 192, 10, 6, 512, 512);
 
-        //side bars
+        //side-bars
         if (vertical) {
             renderTexture(EntryScreen.BOOK_TEXTURE, poseStack, left - 4, top - 4, 99, 200, 28, 7, 512, 512);
             renderTexture(EntryScreen.BOOK_TEXTURE, poseStack, left - 4, top + 17 + 20 * (slots - 1), 99, 192, 28, 7, 512, 512);
@@ -847,7 +847,6 @@ public class ProgressionBookScreen extends Screen {
             font.draw(stack, text, x, y, 0);
             return;
         }
-        //182, 61, 183  227, 39, 228
         glow = Easing.CUBIC_IN.ease(glow, 0, 1, 1);
         int r = (int) Mth.lerp(glow, 163, 227);
         int g = (int) Mth.lerp(glow, 44, 39);

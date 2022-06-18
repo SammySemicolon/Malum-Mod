@@ -45,6 +45,7 @@ public class NodeCookingSerializer<T extends AbstractCookingRecipe> extends net.
    public void toNetwork(FriendlyByteBuf pBuffer, T pRecipe) {
       pBuffer.writeUtf(pRecipe.getGroup());
       pRecipe.getIngredients().get(0).toNetwork(pBuffer);
+      ((INodeSmeltingRecipe)pRecipe).getOutput().write(pBuffer);
       pBuffer.writeItem(pRecipe.getResultItem());
       pBuffer.writeFloat(pRecipe.getExperience());
       pBuffer.writeVarInt(pRecipe.getCookingTime());

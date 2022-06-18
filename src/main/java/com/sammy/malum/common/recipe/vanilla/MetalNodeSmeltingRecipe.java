@@ -9,7 +9,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.SmeltingRecipe;
 
-public class MetalNodeSmeltingRecipe extends SmeltingRecipe {
+public class MetalNodeSmeltingRecipe extends SmeltingRecipe implements INodeSmeltingRecipe {
 
     public static final String NAME = "node_smelting";
     public final IngredientWithCount output;
@@ -30,7 +30,6 @@ public class MetalNodeSmeltingRecipe extends SmeltingRecipe {
         return RecipeSerializerRegistry.METAL_NODE_SMELTING_SERIALIZER.get();
     }
 
-
     @Override
     public ItemStack getResultItem() {
         return output.getStack();
@@ -39,5 +38,11 @@ public class MetalNodeSmeltingRecipe extends SmeltingRecipe {
     @Override
     public ItemStack assemble(Container pInv) {
         return output.getStack();
+    }
+
+
+    @Override
+    public IngredientWithCount getOutput() {
+        return output;
     }
 }
