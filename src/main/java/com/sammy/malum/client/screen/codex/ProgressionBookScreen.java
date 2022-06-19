@@ -351,48 +351,51 @@ public class ProgressionBookScreen extends Screen {
                 .addPage(new CraftingBookPage(GILDED_BELT.get(), LEATHER, LEATHER, LEATHER, HALLOWED_GOLD_INGOT.get(), PROCESSED_SOULSTONE.get(), HALLOWED_GOLD_INGOT.get(), EMPTY, HALLOWED_GOLD_INGOT.get(), EMPTY))
                 .addPage(CraftingBookPage.ringPage(ORNATE_RING.get(), LEATHER, SOUL_STAINED_STEEL_INGOT.get()))
                 .addPage(new CraftingBookPage(ORNATE_NECKLACE.get(), EMPTY, STRING, EMPTY, STRING, EMPTY, STRING, EMPTY, SOUL_STAINED_STEEL_INGOT.get(), EMPTY))
-
-                .addPage(new HeadlineTextPage("arcane_reach", "arcane_reach"))
-                .addPage(SpiritInfusionPage.fromOutput(RING_OF_ARCANE_REACH.get()))
-                .addPage(new HeadlineTextPage("arcane_spoil", "arcane_spoil"))
-                .addPage(SpiritInfusionPage.fromOutput(RING_OF_ARCANE_SPOIL.get()))
+                .addPage(new HeadlineTextPage("guardian_ring", "guardian_ring"))
+                .addPage(SpiritInfusionPage.fromOutput(RING_OF_THE_GUARDIAN.get()))
         );
 
         ENTRIES.add(new BookEntry(
-                "ring_of_prowess", RING_OF_PROWESS.get(), -7, 6)
+                "ring_of_alchemical_mastery", RING_OF_ALCHEMICAL_MASTERY.get(), -7, 6)
+                .addPage(new HeadlineTextPage("ring_of_alchemical_mastery", "ring_of_alchemical_mastery"))
+                .addPage(SpiritInfusionPage.fromOutput(RING_OF_ALCHEMICAL_MASTERY.get()))
+        );
+
+        ENTRIES.add(new BookEntry(
+                "ring_of_prowess", RING_OF_PROWESS.get(), -7, 4)
                 .addPage(new HeadlineTextPage("ring_of_prowess", "ring_of_prowess_a"))
                 .addPage(new TextPage("ring_of_prowess_b"))
                 .addPage(SpiritInfusionPage.fromOutput(RING_OF_PROWESS.get()))
         );
 
         ENTRIES.add(new BookEntry(
-                "ring_of_wicked_intent", RING_OF_WICKED_INTENT.get(), -7, 8)
-                .addPage(new HeadlineTextPage("ring_of_wicked_intent", "ring_of_wicked_intent"))
-                .addPage(SpiritInfusionPage.fromOutput(RING_OF_WICKED_INTENT.get()))
-        );
-
-        ENTRIES.add(new BookEntry(
-                "ring_of_curative_talent", RING_OF_CURATIVE_TALENT.get(), -7, 4)
+                "ring_of_curative_talent", RING_OF_CURATIVE_TALENT.get(), -7, 8)
                 .addPage(new HeadlineTextPage("ring_of_curative_talent", "ring_of_curative_talent"))
                 .addPage(SpiritInfusionPage.fromOutput(RING_OF_CURATIVE_TALENT.get()))
         );
 
         ENTRIES.add(new BookEntry(
-                "necklace_of_the_mystic_mirror", NECKLACE_OF_THE_MYSTIC_MIRROR.get(), -6, 5)
-                .addPage(new HeadlineTextPage("necklace_of_the_mystic_mirror", "necklace_of_the_mystic_mirror"))
-                .addPage(SpiritInfusionPage.fromOutput(NECKLACE_OF_THE_MYSTIC_MIRROR.get()))
+                "ring_of_arcane_spoil", RING_OF_ESOTERIC_SPOILS.get(), -9, 5)
+                .addPage(new HeadlineTextPage("ring_of_arcane_spoil", "ring_of_arcane_spoil"))
+                .addPage(SpiritInfusionPage.fromOutput(RING_OF_ESOTERIC_SPOILS.get()))
         );
 
         ENTRIES.add(new BookEntry(
-                "necklace_of_the_narrow_edge", NECKLACE_OF_THE_NARROW_EDGE.get(), -8, 7)
+                "belt_of_the_starved", BELT_OF_THE_STARVED.get(), -8, 7)
+                .addPage(new HeadlineTextPage("belt_of_the_starved", "belt_of_the_starved"))
+                .addPage(SpiritInfusionPage.fromOutput(BELT_OF_THE_STARVED.get()))
+        );
+
+        ENTRIES.add(new BookEntry(
+                "necklace_of_the_narrow_edge", NECKLACE_OF_THE_NARROW_EDGE.get(), -6, 5)
                 .addPage(new HeadlineTextPage("necklace_of_the_narrow_edge", "necklace_of_the_narrow_edge"))
                 .addPage(SpiritInfusionPage.fromOutput(NECKLACE_OF_THE_NARROW_EDGE.get()))
         );
 
         ENTRIES.add(new BookEntry(
-                "warded_belt", WARDED_BELT.get(), -9, 5)
-                .addPage(new HeadlineTextPage("warded_belt", "warded_belt"))
-                .addPage(SpiritInfusionPage.fromOutput(WARDED_BELT.get()))
+                "necklace_of_the_mystic_mirror", NECKLACE_OF_THE_MYSTIC_MIRROR.get(), -6, 12)
+                .addPage(new HeadlineTextPage("necklace_of_the_mystic_mirror", "necklace_of_the_mystic_mirror"))
+                .addPage(SpiritInfusionPage.fromOutput(NECKLACE_OF_THE_MYSTIC_MIRROR.get()))
         );
 
         ENTRIES.add(new BookEntry(

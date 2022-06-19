@@ -11,7 +11,6 @@ public class EffectRegistry
 {
     public static final DeferredRegister<MobEffect> EFFECTS = DeferredRegister.create(ForgeRegistries.MOB_EFFECTS, MalumMod.MALUM);
 
-
     public static final RegistryObject<MobEffect> GAIAN_BULWARK = EFFECTS.register("gaian_bulwark", EarthenAura::new);
     public static final RegistryObject<MobEffect> EARTHEN_MIGHT = EFFECTS.register("earthen_might", CorruptedEarthenAura::new);
 
@@ -23,4 +22,7 @@ public class EffectRegistry
 
     public static final RegistryObject<MobEffect> POSEIDONS_GRASP = EFFECTS.register("poseidons_grasp", AqueousAura::new);
     public static final RegistryObject<MobEffect> ANGLERS_LURE = EFFECTS.register("anglers_lure", CorruptedAqueousAura::new);
+
+    public static final RegistryObject<MobEffect> STARVATION = EFFECTS.register("starvation", StarvationEffect::new);
+
 }

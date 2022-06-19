@@ -17,15 +17,15 @@ public class CurioRingOfProwess extends MalumCurioItem implements IMalumEventRes
     }
 
     @Override
-    public void pickupSpirit(LivingEntity attacker, ItemStack stack, boolean isNatural) {
+    public void pickupSpirit(LivingEntity collector, ItemStack stack, boolean isNatural) {
         if (isNatural) {
-            Level level = attacker.level;
+            Level level = collector.level;
             int i = 1 + level.random.nextInt(1) + level.random.nextInt(2);
 
             while (i > 0) {
                 int j = ExperienceOrb.getExperienceValue(i);
                 i -= j;
-                level.addFreshEntity(new ExperienceOrb(level, attacker.getX(), attacker.getY(), attacker.getZ(), j));
+                level.addFreshEntity(new ExperienceOrb(level, collector.getX(), collector.getY(), collector.getZ(), j));
             }
         }
     }

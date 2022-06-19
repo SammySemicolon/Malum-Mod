@@ -6,6 +6,7 @@ import com.sammy.malum.common.effect.CorruptedAerialAura;
 import com.sammy.malum.common.effect.InfernalAura;
 import com.sammy.malum.common.enchantment.ReboundEnchantment;
 import com.sammy.malum.common.item.equipment.CeaselessImpetusItem;
+import com.sammy.malum.common.item.equipment.curios.CurioAlchemicalRing;
 import com.sammy.malum.common.item.equipment.curios.CurioTokenOfGratitude;
 import com.sammy.malum.common.spiritaffinity.ArcaneAffinity;
 import com.sammy.malum.common.spiritaffinity.EarthenAffinity;
@@ -100,6 +101,11 @@ public class RuntimeEvents {
     @SubscribeEvent
     public static void onRightClickItem(PlayerInteractEvent.RightClickItem event) {
         ReboundEnchantment.onRightClickItem(event);
+    }
+
+    @SubscribeEvent
+    public static void onRightClickItem(PotionEvent.PotionAddedEvent event) {
+        CurioAlchemicalRing.onPotionApplied(event);
     }
 
     @SubscribeEvent

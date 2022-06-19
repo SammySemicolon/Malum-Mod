@@ -1,7 +1,7 @@
 {
   "type": "malum:spirit_infusion",
   "input": {
-    "item": "malum:warded_belt",
+    "item": "malum:belt_of_the_starved",
     "count": 1
   },
   "output": {

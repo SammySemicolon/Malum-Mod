@@ -26,6 +26,11 @@ public class PotionRiteEffect extends EntityAffectingRiteEffect {
     }
 
     @Override
+    public int getRiteEffectRadius() {
+        return BASE_RADIUS*4;
+    }
+
+    @Override
     public void riteEffect(TotemBaseBlockEntity totemBase) {
         getNearbyEntities(totemBase, getEntityClass()).forEach(e -> {
             if (!e.hasEffect(effect.get())) {

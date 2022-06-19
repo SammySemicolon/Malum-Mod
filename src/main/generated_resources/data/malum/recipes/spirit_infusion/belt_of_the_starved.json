@@ -1,0 +1,39 @@
+{
+  "type": "malum:spirit_infusion",
+  "input": {
+    "item": "malum:gilded_belt",
+    "count": 1
+  },
+  "output": {
+    "item": "malum:belt_of_the_starved",
+    "count": 1
+  },
+  "extra_items": [
+    {
+      "item": "minecraft:bone",
+      "count": 2
+    },
+    {
+      "item": "malum:corrupt_apparatus",
+      "count": 1
+    },
+    {
+      "item": "malum:processed_soulstone",
+      "count": 4
+    }
+  ],
+  "spirits": [
+    {
+      "type": "wicked",
+      "count": 16
+    },
+    {
+      "type": "aqueous",
+      "count": 8
+    },
+    {
+      "type": "arcane",
+      "count": 8
+    }
+  ]
+}

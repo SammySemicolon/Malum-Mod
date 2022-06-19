@@ -195,7 +195,21 @@ public class TotemBaseBlockEntity extends OrtusBlockEntity {
 
     public void disableOtherRites() {
         int range = rite.getRiteRadius(corrupted);
-        BlockHelper.getBlockEntitiesStream(TotemBaseBlockEntity.class, level, worldPosition, range).filter(blockEntity -> !blockEntity.equals(this) && rite.equals(blockEntity.rite)).forEach(TotemBaseBlockEntity::endRite);
+        BlockHelper.getBlockEntitiesStream(TotemBaseBlockEntity.class, level, rite.getRiteEffectCenter(this), range).filter(blockEntity -> !blockEntity.equals(this) && rite.equals(blockEntity.rite) && corrupted == blockEntity.corrupted).forEach(TotemBaseBlockEntity::endRite);
+
+        BlockHelper.getBlockEntitiesStream(TotemBaseBlockEntity.class, level, rite.getRiteEffectCenter(this), range*2).filter(blockEntity -> !blockEntity.equals(this) && rite.equals(blockEntity.rite) && corrupted == blockEntity.corrupted).forEach(e -> {
+            e.tryDisableRite(this);
+        });
+
+        BlockHelper.getBlockEntitiesStream(TotemBaseBlockEntity.class, level, worldPosition, range*2).filter(blockEntity -> !blockEntity.equals(this) && rite.equals(blockEntity.rite) && corrupted == blockEntity.corrupted).forEach(blockEntity -> {
+            blockEntity.tryDisableRite(this);
+        });
+
+    }
+    public void tryDisableRite(TotemBaseBlockEntity target) { //TODO: this method sucks so much, instead we can just check if the target is within X range of Y blockPos, rather than doing the stream thing.
+        int range = rite.getRiteRadius(corrupted);
+        
+        BlockHelper.getBlockEntitiesStream(TotemBaseBlockEntity.class, level, rite.getRiteEffectCenter(this), range).filter(blockEntity -> blockEntity.equals(target)).forEach(TotemBaseBlockEntity::endRite);
     }
 
     public void startRite() {

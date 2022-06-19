@@ -1,5 +1,6 @@
 package com.sammy.malum.config;
 
+import com.sammy.malum.common.spiritrite.greater.EldritchInfernalRiteType;
 import com.sammy.ortus.systems.config.OrtusConfig;
 import net.minecraftforge.common.ForgeConfigSpec;
 import org.apache.commons.lang3.tuple.Pair;
@@ -34,10 +35,10 @@ public class CommonConfig extends OrtusConfig {
                     .define("generateBrilliantStone", true)));
     public static ConfigValueHolder<Integer> BRILLIANT_STONE_SIZE = new ConfigValueHolder<>(MALUM,"common/worldgen/brilliance", (builder ->
             builder.comment("Size of brilliant stone veins.")
-                    .define("brilliantStoneSize", 5)));
+                    .define("brilliantStoneSize", 4)));
     public static ConfigValueHolder<Integer> BRILLIANT_STONE_AMOUNT = new ConfigValueHolder<>(MALUM,"common/worldgen/brilliance", (builder ->
             builder.comment("Amount of brilliant stone veins.")
-                    .define("brilliantStoneAmount", 9)));
+                    .define("brilliantStoneAmount", 3)));
     public static ConfigValueHolder<Integer> BRILLIANT_STONE_MIN_Y = new ConfigValueHolder<>(MALUM,"common/worldgen/brilliance", (builder ->
             builder.comment("Minimum height at which brilliant stone can spawn.")
                     .define("brilliantStoneMinY", -64)));

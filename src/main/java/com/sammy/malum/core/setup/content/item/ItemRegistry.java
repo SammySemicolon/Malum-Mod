@@ -208,7 +208,7 @@ public class ItemRegistry {
     //region runewood
     public static final RegistryObject<Item> HOLY_SAP = ITEMS.register("holy_sap", () -> new Item(NATURE_PROPERTIES().craftRemainder(GLASS_BOTTLE)));
     public static final RegistryObject<Item> HOLY_SAPBALL = ITEMS.register("holy_sapball", () -> new Item(NATURE_PROPERTIES()));
-    public static final RegistryObject<Item> HOLY_SYRUP = ITEMS.register("holy_syrup", () -> new HolySyrupItem(NATURE_PROPERTIES().craftRemainder(GLASS_BOTTLE).food((new FoodProperties.Builder()).nutrition(8).saturationMod(0.4F).build())));
+    public static final RegistryObject<Item> HOLY_SYRUP = ITEMS.register("holy_syrup", () -> new HolySyrupItem(NATURE_PROPERTIES().craftRemainder(GLASS_BOTTLE).food((new FoodProperties.Builder()).nutrition(6).saturationMod(0.1F).build())));
 
     public static final RegistryObject<Item> RUNEWOOD_LEAVES = ITEMS.register("runewood_leaves", () -> new BlockItem(BlockRegistry.RUNEWOOD_LEAVES.get(), NATURE_PROPERTIES()));
     public static final RegistryObject<Item> RUNEWOOD_SAPLING = ITEMS.register("runewood_sapling", () -> new BlockItem(BlockRegistry.RUNEWOOD_SAPLING.get(), NATURE_PROPERTIES()));
@@ -268,7 +268,7 @@ public class ItemRegistry {
     //region soulwood
     public static final RegistryObject<Item> UNHOLY_SAP = ITEMS.register("unholy_sap", () -> new Item(NATURE_PROPERTIES().craftRemainder(GLASS_BOTTLE)));
     public static final RegistryObject<Item> UNHOLY_SAPBALL = ITEMS.register("unholy_sapball", () -> new Item(NATURE_PROPERTIES()));
-    public static final RegistryObject<Item> UNHOLY_SYRUP = ITEMS.register("unholy_syrup", () -> new UnholySyrupItem(NATURE_PROPERTIES().craftRemainder(GLASS_BOTTLE).food((new FoodProperties.Builder()).nutrition(8).saturationMod(0.4F).build())));
+    public static final RegistryObject<Item> UNHOLY_SYRUP = ITEMS.register("unholy_syrup", () -> new UnholySyrupItem(NATURE_PROPERTIES().craftRemainder(GLASS_BOTTLE).food((new FoodProperties.Builder()).nutrition(6).saturationMod(0.1F).build())));
 
     public static final RegistryObject<Item> SOULWOOD_LEAVES = ITEMS.register("soulwood_leaves", () -> new BlockItem(BlockRegistry.SOULWOOD_LEAVES.get(), NATURE_PROPERTIES()));
     public static final RegistryObject<Item> SOULWOOD_GROWTH = ITEMS.register("soulwood_growth", () -> new BlockItem(BlockRegistry.SOULWOOD_GROWTH.get(), NATURE_PROPERTIES()));
@@ -376,10 +376,15 @@ public class ItemRegistry {
 
     //region materials
 
+    public static final RegistryObject<Item> ROTTING_ESSENCE = ITEMS.register("rotting_essence", () -> new Item(DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> OSSEOUS_INLAY = ITEMS.register("osseous_inlay", () -> new Item(DEFAULT_PROPERTIES()));
+
     public static final RegistryObject<Item> HEX_ASH = ITEMS.register("hex_ash", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> SPIRIT_FABRIC = ITEMS.register("spirit_fabric", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> SPECTRAL_LENS = ITEMS.register("spectral_lens", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> POPPET = ITEMS.register("poppet", () -> new Item(DEFAULT_PROPERTIES()));
+
+    public static final RegistryObject<Item> CORRUPT_APPARATUS = ITEMS.register("corrupt_apparatus", () -> new Item(DEFAULT_PROPERTIES()));
 
     public static final RegistryObject<Item> HALLOWED_GOLD_INGOT = ITEMS.register("hallowed_gold_ingot", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> HALLOWED_GOLD_NUGGET = ITEMS.register("hallowed_gold_nugget", () -> new Item(DEFAULT_PROPERTIES()));
@@ -473,16 +478,16 @@ public class ItemRegistry {
     public static final RegistryObject<Item> ORNATE_NECKLACE = ITEMS.register("ornate_necklace", () -> new CurioOrnateNecklace(GEAR_PROPERTIES()));
     public static final RegistryObject<Item> GILDED_BELT = ITEMS.register("gilded_belt", () -> new CurioGildedBelt(GEAR_PROPERTIES()));
 
-    public static final RegistryObject<Item> RING_OF_ARCANE_REACH = ITEMS.register("ring_of_arcane_reach", () -> new CurioArcaneReachRing(GEAR_PROPERTIES()));
-    public static final RegistryObject<Item> RING_OF_ARCANE_SPOIL = ITEMS.register("ring_of_arcane_spoil", () -> new CurioArcaneSpoilRing(GEAR_PROPERTIES()));
-    public static final RegistryObject<Item> RING_OF_PROWESS = ITEMS.register("ring_of_prowess", () -> new CurioRingOfProwess(GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> RING_OF_THE_GUARDIAN = ITEMS.register("ring_of_the_guardian", () -> new CurioGuardianRing(GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> RING_OF_ESOTERIC_SPOILS = ITEMS.register("ring_of_esoteric_spoils", () -> new CurioArcaneSpoilRing(GEAR_PROPERTIES()));
     public static final RegistryObject<Item> RING_OF_CURATIVE_TALENT = ITEMS.register("ring_of_curative_talent", () -> new CurioCurativeRing(GEAR_PROPERTIES()));
-    public static final RegistryObject<Item> RING_OF_WICKED_INTENT = ITEMS.register("ring_of_wicked_intent", () -> new CurioWickedRing(GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> RING_OF_PROWESS = ITEMS.register("ring_of_prowess", () -> new CurioRingOfProwess(GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> RING_OF_ALCHEMICAL_MASTERY = ITEMS.register("ring_of_alchemical_mastery", () -> new CurioAlchemicalRing(GEAR_PROPERTIES()));
 
     public static final RegistryObject<Item> NECKLACE_OF_THE_MYSTIC_MIRROR = ITEMS.register("necklace_of_the_mystic_mirror", () -> new CurioMirrorNecklace(GEAR_PROPERTIES()));
     public static final RegistryObject<Item> NECKLACE_OF_THE_NARROW_EDGE = ITEMS.register("necklace_of_the_narrow_edge", () -> new CurioNarrowNecklace(GEAR_PROPERTIES()));
 
-    public static final RegistryObject<Item> WARDED_BELT = ITEMS.register("warded_belt", () -> new CurioWardedBelt(GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> BELT_OF_THE_STARVED = ITEMS.register("belt_of_the_starved", () -> new CurioStarvedBelt(GEAR_PROPERTIES()));
     public static final RegistryObject<Item> MAGEBANE_BELT = ITEMS.register("magebane_belt", () -> new CurioMagebaneBelt(GEAR_PROPERTIES()));
 
     public static final RegistryObject<CrackedImpetusItem> CRACKED_CEASELESS_IMPETUS = ITEMS.register("cracked_ceaseless_impetus", () -> new CrackedImpetusItem(GEAR_PROPERTIES().rarity(Rarity.UNCOMMON)));

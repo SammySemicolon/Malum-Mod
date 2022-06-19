@@ -1,0 +1,21 @@
+{
+  "type": "malum:spirit_infusion",
+  "input": {
+    "tag": "minecraft:coals",
+    "count": 4
+  },
+  "output": {
+    "item": "malum:arcane_charcoal",
+    "count": 4
+  },
+  "extra_items": [],
+  "spirits": [
+    {
+      "type": "arcane"
+    },
+    {
+      "type": "infernal",
+      "count": 2
+    }
+  ]
+}

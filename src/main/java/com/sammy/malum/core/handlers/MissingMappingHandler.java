@@ -36,6 +36,10 @@ public class MissingMappingHandler {
             if (mapping.key.equals(MalumMod.prefix("soulwood_sapling"))) {
                 mapping.remap(ItemRegistry.SOULWOOD_GROWTH.get());
             }
+
+            if (mapping.key.equals(MalumMod.prefix("ring_of_arcane_spoils"))) {
+                mapping.remap(ItemRegistry.RING_OF_ESOTERIC_SPOILS.get());
+            }
         }
     }
 

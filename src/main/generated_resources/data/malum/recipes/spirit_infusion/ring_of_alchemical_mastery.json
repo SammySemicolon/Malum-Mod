@@ -1,11 +1,11 @@
 {
   "type": "malum:spirit_infusion",
   "input": {
-    "item": "malum:gilded_ring",
+    "item": "malum:ornate_ring",
     "count": 1
   },
   "output": {
-    "item": "malum:ring_of_curative_talent",
+    "item": "malum:ring_of_alchemical_mastery",
     "count": 1
   },
   "extra_items": [
@@ -14,17 +14,21 @@
       "count": 2
     },
     {
-      "item": "minecraft:ghast_tear",
+      "item": "minecraft:nether_wart",
+      "count": 4
+    },
+    {
+      "item": "minecraft:fermented_spider_eye",
       "count": 1
     }
   ],
   "spirits": [
     {
-      "type": "sacred",
+      "type": "arcane",
       "count": 16
     },
     {
-      "type": "arcane",
+      "type": "aqueous",
       "count": 16
     }
   ]

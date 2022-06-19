@@ -72,7 +72,7 @@ public class CeaselessImpetusItem extends ImpetusItem implements IMalumEventResp
                 }
 
                 toRemove.forEach(player::removeEffect);
-                EntityHelper.giveAmplifyingEffect(MobEffects.REGENERATION, player, 400, 0, 3);
+                player.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 400, 0));
                 player.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 200, 0));
                 player.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 400, 0));
 

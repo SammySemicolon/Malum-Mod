@@ -9,8 +9,8 @@ import net.minecraft.world.item.ItemStack;
 
 import java.util.UUID;
 
-public class CurioArcaneReachRing extends MalumCurioItem {
-    public CurioArcaneReachRing(Properties builder) {
+public class CurioGuardianRing extends MalumCurioItem {
+    public CurioGuardianRing(Properties builder) {
         super(builder);
     }
 
@@ -22,7 +22,7 @@ public class CurioArcaneReachRing extends MalumCurioItem {
     @Override
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(String identifier, ItemStack stack) {
         Multimap<Attribute, AttributeModifier> map = HashMultimap.create();
-        map.put(AttributeRegistry.SPIRIT_REACH.get(), new AttributeModifier(uuids.computeIfAbsent(0, (i) -> UUID.randomUUID()), "Curio spirit reach", 8f, AttributeModifier.Operation.ADDITION));
+        map.put(AttributeRegistry.SOUL_WARD_CAP.get(), new AttributeModifier(uuids.computeIfAbsent(0, (i) -> UUID.randomUUID()), "Soul Ward Cap", 3f, AttributeModifier.Operation.ADDITION));
         return map;
     }
 }

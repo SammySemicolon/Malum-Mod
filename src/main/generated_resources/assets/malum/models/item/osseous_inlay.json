@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "malum:item/ring_of_wicked_intent"
+    "layer0": "malum:item/osseous_inlay"
   }
 }

@@ -1,11 +1,11 @@
 {
   "type": "malum:spirit_infusion",
   "input": {
-    "item": "malum:gilded_ring",
+    "item": "malum:ornate_ring",
     "count": 1
   },
   "output": {
-    "item": "malum:ring_of_curative_talent",
+    "item": "malum:ring_of_the_guardian",
     "count": 1
   },
   "extra_items": [
@@ -14,18 +14,22 @@
       "count": 2
     },
     {
-      "item": "minecraft:ghast_tear",
-      "count": 1
+      "item": "malum:processed_soulstone",
+      "count": 6
+    },
+    {
+      "item": "minecraft:iron_ingot",
+      "count": 2
     }
   ],
   "spirits": [
     {
-      "type": "sacred",
-      "count": 16
+      "type": "earthen",
+      "count": 8
     },
     {
       "type": "arcane",
-      "count": 16
+      "count": 8
     }
   ]
 }
