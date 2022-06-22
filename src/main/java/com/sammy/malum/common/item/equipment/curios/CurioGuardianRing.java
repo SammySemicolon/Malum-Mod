@@ -15,7 +15,7 @@ public class CurioGuardianRing extends MalumCurioItem {
     }
 
     @Override
-    public boolean isGilded() {
+    public boolean isOrnate() {
         return true;
     }
 

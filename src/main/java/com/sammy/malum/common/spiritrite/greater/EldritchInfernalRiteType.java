@@ -2,9 +2,8 @@ package com.sammy.malum.common.spiritrite.greater;
 
 import com.sammy.malum.common.blockentity.totem.TotemBaseBlockEntity;
 import com.sammy.malum.common.packets.particle.block.BlockSparkleParticlePacket;
-import com.sammy.malum.core.setup.content.potion.EffectRegistry;
+import com.sammy.malum.core.setup.content.potion.MalumMobEffectRegistry;
 import com.sammy.malum.core.systems.rites.*;
-import net.minecraft.core.BlockPos;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.BlockItem;
@@ -16,9 +15,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.network.PacketDistributor;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
 import java.util.Optional;
 
 import static com.sammy.malum.core.setup.content.SpiritTypeRegistry.*;
@@ -57,6 +53,6 @@ public class EldritchInfernalRiteType extends MalumRiteType {
 
     @Override
     public MalumRiteEffect getCorruptedEffect() {
-        return new PotionRiteEffect(LivingEntity.class, EffectRegistry.MINERS_RAGE, INFERNAL_SPIRIT);
+        return new PotionRiteEffect(LivingEntity.class, MalumMobEffectRegistry.MINERS_RAGE, INFERNAL_SPIRIT);
     }
 }

@@ -1,0 +1,11 @@
+{
+  "type": "jeed:effect_provider",
+  "effect":{
+    "id": "malum:anglers_lure"
+  },
+  "providers": [
+    {
+      "item": "malum:soulwood_totem_base"
+    }
+  ]
+}

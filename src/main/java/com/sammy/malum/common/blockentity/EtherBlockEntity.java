@@ -1,8 +1,6 @@
 package com.sammy.malum.common.blockentity;
 
-import com.sammy.malum.common.block.ether.EtherBrazierBlock;
-import com.sammy.malum.common.block.ether.EtherTorchBlock;
-import com.sammy.malum.common.block.ether.EtherWallTorchBlock;
+import com.sammy.malum.common.block.ether.*;
 import com.sammy.malum.common.item.ether.AbstractEtherItem;
 import com.sammy.malum.common.item.ether.EtherItem;
 import com.sammy.malum.core.setup.client.ParticleRegistry;
@@ -30,6 +28,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.HitResult;
+import org.jline.reader.LineReader;
 
 import java.awt.*;
 import java.util.function.Function;
@@ -143,8 +142,12 @@ public class EtherBlockEntity extends OrtusBlockEntity {
                 lifeTime -= 6;
             }
 
-            if (getBlockState().getBlock() instanceof EtherTorchBlock) {
+            if (getBlockState().getBlock() instanceof EtherTorchBlock || getBlockState().getBlock() instanceof EtherWallTorchBlock) {
                 lifeTime -= 4;
+            }
+
+            if (getBlockState().getBlock() instanceof EtherSconceBlock || getBlockState().getBlock() instanceof EtherWallSconceBlock) {
+                y+=0.05f;
             }
             if (getBlockState().getBlock() instanceof EtherBrazierBlock) {
                 y -= 0.2f;
@@ -159,25 +162,24 @@ public class EtherBlockEntity extends OrtusBlockEntity {
                     .setColorCoefficient(1.4f)
                     .setColorEasing(Easing.BOUNCE_IN_OUT)
                     .setSpinOffset((level.getGameTime() * 0.2f) % 6.28f)
-                    .setSpin(0, 0.4f)
+                    .setSpin(0.2f, 0.4f)
                     .setSpinEasing(Easing.QUARTIC_IN)
                     .addMotion(0, velocity, 0)
                     .enableNoClip()
                     .spawn(level, x, y, z);
 
+            ParticleBuilders.create(OrtusParticleRegistry.TWINKLE_PARTICLE)
+                    .setScale(scale * 2, scale * 0.1f)
+                    .setLifetime(lifeTime)
+                    .setAlpha(0.2f, 0)
+                    .setColor(firstColor, secondColor)
+                    .setColorEasing(Easing.SINE_IN)
+                    .setColorCoefficient(2.25f)
+                    .setSpin(0, 2)
+                    .setSpinEasing(Easing.QUARTIC_IN)
+                    .enableNoClip()
+                    .spawn(level, x, y, z);
             if (level.getGameTime() % 2L == 0) {
-                ParticleBuilders.create(OrtusParticleRegistry.TWINKLE_PARTICLE)
-                        .setScale(scale * 2, scale * 0.1f)
-                        .setLifetime(lifeTime)
-                        .setAlpha(0.2f, 0.5f)
-                        .setAlphaCoefficient(6)
-                        .setColor(firstColor, secondColor)
-                        .setColorEasing(Easing.EXPO_OUT)
-                        .setColorCoefficient(1.25f)
-                        .setSpin(0, 2)
-                        .setSpinEasing(Easing.QUARTIC_IN)
-                        .enableNoClip()
-                        .spawn(level, x, y, z);
                 y += 0.15f;
                 if (level.random.nextFloat() < 0.5f) {
                     ParticleBuilders.create(ParticleRegistry.SPIRIT_FLAME_PARTICLE)

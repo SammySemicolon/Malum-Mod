@@ -1,6 +1,6 @@
 package com.sammy.malum.common.packets;
 
-import com.sammy.malum.common.capability.PlayerDataCapability;
+import com.sammy.malum.common.capability.MalumPlayerDataCapability;
 import com.sammy.ortus.systems.network.OrtusClientPacket;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
@@ -8,7 +8,6 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.network.NetworkEvent;
 import net.minecraftforge.network.simple.SimpleChannel;
 
@@ -32,7 +31,7 @@ public class SyncMalumPlayerCapabilityDataPacket extends OrtusClientPacket {
     @OnlyIn(Dist.CLIENT)
     public void execute(Supplier<NetworkEvent.Context> context) {
         Player player = Minecraft.getInstance().level.getPlayerByUUID(uuid);
-        PlayerDataCapability.getCapability(player).ifPresent(c -> c.deserializeNBT(tag));
+        MalumPlayerDataCapability.getCapabilityOptional(player).ifPresent(c -> c.deserializeNBT(tag));
     }
 
     public static void register(SimpleChannel instance, int index) {

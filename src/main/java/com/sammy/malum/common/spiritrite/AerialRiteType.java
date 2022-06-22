@@ -1,6 +1,6 @@
 package com.sammy.malum.common.spiritrite;
 
-import com.sammy.malum.core.setup.content.potion.EffectRegistry;
+import com.sammy.malum.core.setup.content.potion.MalumMobEffectRegistry;
 import com.sammy.malum.core.systems.rites.MalumRiteEffect;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
 import com.sammy.malum.core.systems.rites.PotionRiteEffect;
@@ -16,11 +16,11 @@ public class AerialRiteType extends MalumRiteType {
 
     @Override
     public MalumRiteEffect getNaturalRiteEffect() {
-        return new PotionRiteEffect(Player.class, EffectRegistry.ZEPHYRS_COURAGE, AERIAL_SPIRIT);
+        return new PotionRiteEffect(Player.class, MalumMobEffectRegistry.ZEPHYRS_COURAGE, AERIAL_SPIRIT);
     }
 
     @Override
     public MalumRiteEffect getCorruptedEffect() {
-        return new PotionRiteEffect(Player.class, EffectRegistry.AETHERS_CHARM, AERIAL_SPIRIT);
+        return new PotionRiteEffect(Player.class, MalumMobEffectRegistry.AETHERS_CHARM, AERIAL_SPIRIT);
     }
 }

@@ -79,7 +79,15 @@
     "malum:blighted_soulwood",
     "malum:ether_torch",
     "malum:wall_ether_torch",
+    "malum:ether_sconce",
+    "malum:wall_ether_sconce",
     "malum:iridescent_ether_torch",
-    "malum:iridescent_wall_ether_torch"
+    "malum:iridescent_wall_ether_torch",
+    "malum:iridescent_ether_sconce",
+    "malum:iridescent_wall_ether_sconce",
+    "malum:blazing_torch",
+    "malum:wall_blazing_torch",
+    "malum:blazing_sconce",
+    "malum:wall_blazing_sconce"
   ]
 }

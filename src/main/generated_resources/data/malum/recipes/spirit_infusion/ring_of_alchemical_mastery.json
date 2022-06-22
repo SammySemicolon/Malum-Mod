@@ -1,7 +1,7 @@
 {
   "type": "malum:spirit_infusion",
   "input": {
-    "item": "malum:ornate_ring",
+    "item": "malum:gilded_ring",
     "count": 1
   },
   "output": {
@@ -20,6 +20,10 @@
     {
       "item": "minecraft:fermented_spider_eye",
       "count": 1
+    },
+    {
+      "item": "malum:alchemical_calx",
+      "count": 4
     }
   ],
   "spirits": [

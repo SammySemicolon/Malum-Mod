@@ -43,7 +43,7 @@ public class SpiritRepairRecipeCategory implements IRecipeCategory<SpiritRepairR
     public void draw(SpiritRepairRecipe recipe, PoseStack poseStack, double mouseX, double mouseY) {
         overlay.draw(poseStack);
         if (recipe.spirits.size() > 0) {
-            ProgressionBookScreen.renderItemFrames(poseStack, 61, 12, false, recipe.spirits.size());
+            ProgressionBookScreen.renderItemFrames(poseStack, recipe.spirits.size(), 61, 12, false);
         }
     }
 

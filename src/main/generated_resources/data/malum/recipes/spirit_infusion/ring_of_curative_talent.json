@@ -16,6 +16,10 @@
     {
       "item": "minecraft:ghast_tear",
       "count": 1
+    },
+    {
+      "item": "malum:alchemical_calx",
+      "count": 4
     }
   ],
   "spirits": [

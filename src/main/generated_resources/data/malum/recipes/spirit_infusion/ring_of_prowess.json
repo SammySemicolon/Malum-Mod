@@ -11,15 +11,11 @@
   "extra_items": [
     {
       "item": "malum:cluster_of_brilliance",
-      "count": 2
-    },
-    {
-      "tag": "forge:gems/lapis",
       "count": 4
     },
     {
-      "tag": "forge:gems/emerald",
-      "count": 2
+      "item": "malum:alchemical_calx",
+      "count": 4
     }
   ],
   "spirits": [

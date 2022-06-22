@@ -1,6 +1,6 @@
 package com.sammy.malum.common.spiritrite;
 
-import com.sammy.malum.core.setup.content.potion.EffectRegistry;
+import com.sammy.malum.core.setup.content.potion.MalumMobEffectRegistry;
 import com.sammy.malum.core.systems.rites.MalumRiteEffect;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
 import com.sammy.malum.core.systems.rites.PotionRiteEffect;
@@ -15,11 +15,11 @@ public class EarthenRiteType extends MalumRiteType {
 
     @Override
     public MalumRiteEffect getNaturalRiteEffect() {
-        return new PotionRiteEffect(Player.class, EffectRegistry.GAIAN_BULWARK, EARTHEN_SPIRIT);
+        return new PotionRiteEffect(Player.class, MalumMobEffectRegistry.GAIAN_BULWARK, EARTHEN_SPIRIT);
     }
 
     @Override
     public MalumRiteEffect getCorruptedEffect() {
-        return new PotionRiteEffect(Player.class, EffectRegistry.EARTHEN_MIGHT, EARTHEN_SPIRIT);
+        return new PotionRiteEffect(Player.class, MalumMobEffectRegistry.EARTHEN_MIGHT, EARTHEN_SPIRIT);
     }
 }

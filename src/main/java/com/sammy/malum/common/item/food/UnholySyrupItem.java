@@ -11,6 +11,5 @@ public class UnholySyrupItem extends HolySyrupItem {
 
     @Override
     public void consume(LivingEntity entity) {
-        entity.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 300, 0));
     }
 }

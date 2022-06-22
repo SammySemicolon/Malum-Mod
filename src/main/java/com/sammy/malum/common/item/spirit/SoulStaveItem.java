@@ -1,6 +1,6 @@
 package com.sammy.malum.common.item.spirit;
 
-import com.sammy.malum.common.capability.PlayerDataCapability;
+import com.sammy.malum.common.capability.MalumPlayerDataCapability;
 import com.sammy.malum.common.entity.spirit.SoulEntity;
 import com.sammy.malum.core.systems.item.ISoulContainerItem;
 import com.sammy.malum.core.systems.spirit.MalumEntitySpiritData;
@@ -40,19 +40,17 @@ public class SoulStaveItem extends Item implements ISoulContainerItem {
 
     @Override
     public String getDescriptionId(ItemStack pStack) {
-        if (pStack.hasTag() && pStack.getTag().contains(MalumEntitySpiritData.SOUL_DATA))
-        {
+        if (pStack.hasTag() && pStack.getTag().contains(MalumEntitySpiritData.SOUL_DATA)) {
             return "item.malum.filled_soulwood_stave";
         }
         return super.getDescriptionId(pStack);
     }
+
     @Override
     public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced) {
-        if (pStack.hasTag())
-        {
+        if (pStack.hasTag()) {
             CompoundTag tag = pStack.getTag();
-            if (tag.contains(MalumEntitySpiritData.SOUL_DATA))
-            {
+            if (tag.contains(MalumEntitySpiritData.SOUL_DATA)) {
                 MalumEntitySpiritData data = MalumEntitySpiritData.load(tag);
                 pTooltipComponents.add(new TranslatableComponent("malum.spirit.description.stored_soul").withStyle(ChatFormatting.GRAY));
                 pTooltipComponents.addAll(data.createTooltip());
@@ -80,7 +78,7 @@ public class SoulStaveItem extends Item implements ISoulContainerItem {
     @Override
     public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
         if (pLevel instanceof ServerLevel serverLevel) {
-            PlayerDataCapability.getCapability(pPlayer).ifPresent(c -> {
+            MalumPlayerDataCapability.getCapabilityOptional(pPlayer).ifPresent(c -> {
                 if (c.targetedSoulUUID != null) {
                     LivingEntity entity = (LivingEntity) serverLevel.getEntity(c.targetedSoulUUID);
                     if (entity != null && entity.isAlive()) {

@@ -3,10 +3,7 @@ package com.sammy.malum.core.setup.content.block;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.block.*;
 import com.sammy.malum.common.block.blight.*;
-import com.sammy.malum.common.block.ether.EtherBlock;
-import com.sammy.malum.common.block.ether.EtherBrazierBlock;
-import com.sammy.malum.common.block.ether.EtherTorchBlock;
-import com.sammy.malum.common.block.ether.EtherWallTorchBlock;
+import com.sammy.malum.common.block.ether.*;
 import com.sammy.malum.common.block.fusion_plate.FusionPlateComponentBlock;
 import com.sammy.malum.common.block.fusion_plate.FusionPlateCoreBlock;
 import com.sammy.malum.common.block.mirror.EmitterMirrorBlock;
@@ -23,6 +20,9 @@ import com.sammy.malum.common.block.tablet.TwistedTabletBlock;
 import com.sammy.malum.common.block.totem.TotemBaseBlock;
 import com.sammy.malum.common.block.totem.TotemPoleBlock;
 import com.sammy.malum.common.blockentity.EtherBlockEntity;
+import com.sammy.malum.common.item.ether.EtherTorchItem;
+import com.sammy.malum.compability.supplementaries.SupplementariesCompat;
+import com.sammy.malum.core.setup.client.MalumRenderTypeRegistry;
 import com.sammy.malum.core.setup.content.SoundRegistry;
 import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
@@ -34,6 +34,9 @@ import com.sammy.ortus.systems.block.OrtusLogBlock;
 import com.sammy.ortus.systems.block.sign.OrtusStandingSignBlock;
 import com.sammy.ortus.systems.block.sign.OrtusWallSignBlock;
 import net.minecraft.client.color.block.BlockColors;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.util.Mth;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.*;
@@ -44,11 +47,13 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -399,12 +404,23 @@ public class BlockRegistry {
     public static final RegistryObject<Block> TAINTED_ETHER_BRAZIER = BLOCKS.register("tainted_ether_brazier", () -> new EtherBrazierBlock<>(TAINTED_ROCK_PROPERTIES().isCutoutLayer().lightLevel((b) -> 14).noOcclusion()).setBlockEntity(BlockEntityRegistry.ETHER));
     public static final RegistryObject<Block> TWISTED_ETHER_BRAZIER = BLOCKS.register("twisted_ether_brazier", () -> new EtherBrazierBlock<>(TWISTED_ROCK_PROPERTIES().isCutoutLayer().lightLevel((b) -> 14).noOcclusion()).setBlockEntity(BlockEntityRegistry.ETHER));
 
+    public static final RegistryObject<Block> ETHER_SCONCE = BLOCKS.register("ether_sconce", () -> new EtherSconceBlock<>(RUNEWOOD_PROPERTIES().sound(SoundType.LANTERN).isCutoutLayer().noCollission().instabreak().lightLevel((b) -> 14)).setBlockEntity(BlockEntityRegistry.ETHER));
+    public static final RegistryObject<Block> WALL_ETHER_SCONCE = BLOCKS.register("wall_ether_sconce", () -> new EtherWallSconceBlock<>(RUNEWOOD_PROPERTIES().sound(SoundType.LANTERN).isCutoutLayer().noCollission().instabreak().lightLevel((b) -> 14).lootFrom(ETHER_SCONCE)).setBlockEntity(BlockEntityRegistry.ETHER));
+
     public static final RegistryObject<Block> IRIDESCENT_ETHER_TORCH = BLOCKS.register("iridescent_ether_torch", () -> new EtherTorchBlock<>(RUNEWOOD_PROPERTIES().isCutoutLayer().noCollission().instabreak().lightLevel((b) -> 14)).setBlockEntity(BlockEntityRegistry.ETHER));
     public static final RegistryObject<Block> IRIDESCENT_WALL_ETHER_TORCH = BLOCKS.register("iridescent_wall_ether_torch", () -> new EtherWallTorchBlock<>(RUNEWOOD_PROPERTIES().isCutoutLayer().noCollission().instabreak().lightLevel((b) -> 14).lootFrom(IRIDESCENT_ETHER_TORCH)).setBlockEntity(BlockEntityRegistry.ETHER));
     public static final RegistryObject<Block> IRIDESCENT_ETHER = BLOCKS.register("iridescent_ether", () -> new EtherBlock<>(ETHER_BLOCK_PROPERTIES().isCutoutLayer()).setBlockEntity(BlockEntityRegistry.ETHER));
     public static final RegistryObject<Block> TAINTED_IRIDESCENT_ETHER_BRAZIER = BLOCKS.register("tainted_iridescent_ether_brazier", () -> new EtherBrazierBlock<>(TAINTED_ROCK_PROPERTIES().isCutoutLayer().lightLevel((b) -> 14).noOcclusion()).setBlockEntity(BlockEntityRegistry.ETHER));
     public static final RegistryObject<Block> TWISTED_IRIDESCENT_ETHER_BRAZIER = BLOCKS.register("twisted_iridescent_ether_brazier", () -> new EtherBrazierBlock<>(TWISTED_ROCK_PROPERTIES().isCutoutLayer().lightLevel((b) -> 14).noOcclusion()).setBlockEntity(BlockEntityRegistry.ETHER));
+
+    public static final RegistryObject<Block> IRIDESCENT_ETHER_SCONCE = BLOCKS.register("iridescent_ether_sconce", () -> new EtherSconceBlock<>(RUNEWOOD_PROPERTIES().sound(SoundType.LANTERN).isCutoutLayer().noCollission().instabreak().lightLevel((b) -> 14)).setBlockEntity(BlockEntityRegistry.ETHER));
+    public static final RegistryObject<Block> IRIDESCENT_WALL_ETHER_SCONCE = BLOCKS.register("iridescent_wall_ether_sconce", () -> new EtherWallSconceBlock<>(RUNEWOOD_PROPERTIES().sound(SoundType.LANTERN).isCutoutLayer().noCollission().instabreak().lightLevel((b) -> 14).lootFrom(IRIDESCENT_ETHER_SCONCE)).setBlockEntity(BlockEntityRegistry.ETHER));
+
     //endregion
+    public static final RegistryObject<Block> BLAZING_TORCH = BLOCKS.register("blazing_torch", () -> new TorchBlock(RUNEWOOD_PROPERTIES().isCutoutLayer().noCollission().instabreak().lightLevel((b) -> 14), ParticleTypes.FLAME));
+    public static final RegistryObject<Block> WALL_BLAZING_TORCH = BLOCKS.register("wall_blazing_torch", () -> new WallTorchBlock(RUNEWOOD_PROPERTIES().isCutoutLayer().noCollission().instabreak().lightLevel((b) -> 14), ParticleTypes.FLAME));
+    public static final RegistryObject<Block> BLAZING_SCONCE = BLOCKS.register("blazing_sconce", () -> SupplementariesCompat.LOADED ? SupplementariesCompat.LoadedOnly.makeBlazingSconce() : new WallTorchBlock(RUNEWOOD_PROPERTIES().sound(SoundType.LANTERN).isCutoutLayer().noCollission().instabreak().lightLevel((b) -> 14), ParticleTypes.FLAME));
+    public static final RegistryObject<Block> WALL_BLAZING_SCONCE = BLOCKS.register("wall_blazing_sconce", () -> SupplementariesCompat.LOADED ? SupplementariesCompat.LoadedOnly.makeBlazingWallSconce() : new WallTorchBlock(RUNEWOOD_PROPERTIES().sound(SoundType.LANTERN).isCutoutLayer().noCollission().instabreak().lightLevel((b) -> 14), ParticleTypes.FLAME));
 
     public static final RegistryObject<Block> BLOCK_OF_ARCANE_CHARCOAL = BLOCKS.register("block_of_arcane_charcoal", () -> new Block(ARCANE_CHARCOAL_PROPERTIES()));
 
@@ -428,6 +444,7 @@ public class BlockRegistry {
 
     @Mod.EventBusSubscriber(modid = MalumMod.MALUM, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
     public static class ClientOnly {
+
         @SubscribeEvent
         public static void setBlockColors(ColorHandlerEvent.Block event) {
             BlockColors blockColors = event.getBlockColors();

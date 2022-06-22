@@ -4,7 +4,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector4f;
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.common.capability.PlayerDataCapability;
+import com.sammy.malum.common.capability.MalumPlayerDataCapability;
 import com.sammy.malum.config.CommonConfig;
 import com.sammy.malum.core.setup.content.AttributeRegistry;
 import com.sammy.malum.core.setup.content.DamageSourceRegistry;
@@ -42,7 +42,7 @@ public class ArcaneAffinity extends MalumSpiritAffinity {
 
     public static void recoverSoulWard(TickEvent.PlayerTickEvent event) {
         Player player = event.player;
-        PlayerDataCapability.getCapability(player).ifPresent(c -> {
+        MalumPlayerDataCapability.getCapabilityOptional(player).ifPresent(c -> {
             AttributeInstance cap = player.getAttribute(AttributeRegistry.SOUL_WARD_CAP.get());
             if (cap != null) {
                 if (c.soulWard < cap.getValue() && c.soulWardProgress <= 0) {
@@ -67,7 +67,7 @@ public class ArcaneAffinity extends MalumSpiritAffinity {
         }
         if (event.getEntityLiving() instanceof Player player) {
             if (!player.level.isClientSide) {
-                PlayerDataCapability.getCapability(player).ifPresent(c -> {
+                MalumPlayerDataCapability.getCapabilityOptional(player).ifPresent(c -> {
                     AttributeInstance instance = player.getAttribute(AttributeRegistry.SOUL_WARD_SHATTER_COOLDOWN.get());
                     if (instance != null) {
                         c.soulWardProgress = (float) (CommonConfig.SOUL_WARD_RATE.getConfigValue() * 6 * Math.exp(-0.15 * instance.getValue()));
@@ -87,7 +87,7 @@ public class ArcaneAffinity extends MalumSpiritAffinity {
 
                             player.level.playSound(null, player.blockPosition(), SoundRegistry.SOUL_WARD_HIT.get(), SoundSource.PLAYERS, 1, Mth.nextFloat(player.getRandom(), 1.5f, 2f));
                             event.setAmount(result);
-                            if (source.getEntity() != null) {
+                            if (source.getEntity() != null) { //TODO: unhardcode this, add an event for 'soulward damage absorption'
                                 if (CurioHelper.hasCurioEquipped(player, ItemRegistry.MAGEBANE_BELT)) {
                                     if (source instanceof EntityDamageSource entityDamageSource) {
                                         if (entityDamageSource.isThorns()) {
@@ -97,7 +97,7 @@ public class ArcaneAffinity extends MalumSpiritAffinity {
                                     source.getEntity().hurt(DamageSourceRegistry.causeMagebaneDamage(player), absorbed + 2);
                                 }
                             }
-                            PlayerDataCapability.syncTrackingAndSelf(player);
+                            MalumPlayerDataCapability.syncTrackingAndSelf(player);
                         }
                     }
                 });
@@ -116,7 +116,7 @@ public class ArcaneAffinity extends MalumSpiritAffinity {
             Minecraft minecraft = Minecraft.getInstance();
             LocalPlayer player = minecraft.player;
             if (event.getType() == RenderGameOverlayEvent.ElementType.ALL && !player.isCreative() && !player.isSpectator()) {
-                PlayerDataCapability.getCapability(player).ifPresent(c -> {
+                MalumPlayerDataCapability.getCapabilityOptional(player).ifPresent(c -> {
                     PoseStack poseStack = event.getMatrixStack();
                     if (c.soulWard > 0) {
                         float absorb = Mth.ceil(player.getAbsorptionAmount());

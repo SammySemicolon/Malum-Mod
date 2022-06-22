@@ -161,6 +161,10 @@ public class MalumRecipes extends RecipeProvider implements IConditionBuilder {
         shaped(Items.NETHERRACK, 2).define('Z', ItemRegistry.BLAZING_QUARTZ.get()).define('Y', Tags.Items.COBBLESTONE).pattern("ZY").pattern("YZ").unlockedBy("has_blazing_quartz", has(ItemRegistry.BLAZING_QUARTZ.get())).save(consumer, prefix("netherrack_from_blazing_quartz"));
         shapeless(Items.EXPERIENCE_BOTTLE).requires(ItemRegistry.CHUNK_OF_BRILLIANCE.get()).requires(Items.GLASS_BOTTLE).unlockedBy("has_brilliance", has(ItemRegistry.CHUNK_OF_BRILLIANCE.get())).save(consumer, prefix("experience_bottle_from_brilliance"));
 
+        shapeless(Items.BONE_MEAL, 9).requires(ItemRegistry.GRIM_TALC.get()).unlockedBy("has_grim_talc", has(ItemRegistry.GRIM_TALC.get())).save(consumer, prefix("bonemeal_from_grim_talc"));
+        shaped(Items.SKELETON_SKULL).define('#', ItemRegistry.GRIM_TALC.get()).define('&', Tags.Items.BONES).pattern("&&&").pattern("&#&").pattern("&&&").unlockedBy("has_grim_talc", has(ItemRegistry.GRIM_TALC.get())).save(consumer, prefix("skeleton_skull_from_grim_talc"));
+        shaped(Items.ZOMBIE_HEAD).define('#', ItemRegistry.GRIM_TALC.get()).define('&', Items.ROTTEN_FLESH).pattern("&&&").pattern("&#&").pattern("&&&").unlockedBy("has_grim_talc", has(ItemRegistry.GRIM_TALC.get())).save(consumer, prefix("zombie_head_from_grim_talc"));
+
         //SAP & ARCANE CHARCOAL
         smelting(Ingredient.of(ItemTagRegistry.RUNEWOOD_LOGS), ItemRegistry.ARCANE_CHARCOAL.get(), 0.25f, 200).unlockedBy("has_runewood_planks", has(ItemTagRegistry.RUNEWOOD_LOGS)).save(consumer, prefix("arcane_charcoal_from_runewood"));
         shapeless(ItemRegistry.HOLY_SAPBALL.get(), 3).requires(ItemRegistry.HOLY_SAP.get()).requires(Items.SLIME_BALL).unlockedBy("has_holy_sap", has(ItemRegistry.HOLY_SAP.get())).save(consumer);

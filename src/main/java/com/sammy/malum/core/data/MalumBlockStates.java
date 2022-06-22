@@ -3,10 +3,7 @@ package com.sammy.malum.core.data;
 
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.block.MalumLeavesBlock;
-import com.sammy.malum.common.block.ether.EtherBlock;
-import com.sammy.malum.common.block.ether.EtherBrazierBlock;
-import com.sammy.malum.common.block.ether.EtherTorchBlock;
-import com.sammy.malum.common.block.ether.EtherWallTorchBlock;
+import com.sammy.malum.common.block.ether.*;
 import com.sammy.malum.common.block.mirror.WallMirrorBlock;
 import com.sammy.malum.common.block.storage.ItemPedestalBlock;
 import com.sammy.malum.common.block.storage.ItemStandBlock;
@@ -15,6 +12,8 @@ import com.sammy.malum.common.block.totem.TotemPoleBlock;
 import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import com.sammy.ortus.helpers.DataHelper;
+import net.mehvahdjukaar.supplementaries.common.block.blocks.SconceBlock;
+import net.mehvahdjukaar.supplementaries.common.block.blocks.SconceWallBlock;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;
@@ -59,6 +58,8 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
         blightedSpireBlock(take(blocks, BLIGHTED_SPIRE));
         blightedCoverageBlock(take(blocks, BLIGHTED_COVERAGE));
         blightedSoulwoodBlock(take(blocks, BLIGHTED_SOULWOOD));
+        sconceBlock(take(blocks, BLAZING_SCONCE));
+        wallSconceBlock(take(blocks, WALL_BLAZING_SCONCE));
 
         ArrayList<RegistryObject<Block>> customModels = new ArrayList<>(List.of(TWISTED_TABLET, SOULWOOD_FUSION_PLATE_COMPONENT, SPIRIT_CATALYZER, SPIRIT_CATALYZER_COMPONENT));
 
@@ -76,11 +77,23 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
         DataHelper.takeAll(blocks, b -> b.get().getRegistryName().getPath().startsWith("cut_")).forEach(this::cutBlock);
         DataHelper.takeAll(blocks, b -> b.get().getDescriptionId().endsWith("_cap")).forEach(this::pillarCapBlock);
 
-        DataHelper.takeAll(blocks, b -> b.get() instanceof SignBlock).forEach(this::signBlock);
+        DataHelper.takeAll(blocks, b -> b.get() instanceof EtherBrazierBlock).forEach(this::brazierBlock);
+        DataHelper.takeAll(blocks, b -> b.get() instanceof EtherWallSconceBlock).forEach(this::wallEtherSconceBlock);
+        DataHelper.takeAll(blocks, b -> b.get() instanceof EtherSconceBlock).forEach(this::etherSconceBlock);
+        DataHelper.takeAll(blocks, b -> b.get() instanceof EtherWallTorchBlock).forEach(this::wallEtherTorchBlock);
+        DataHelper.takeAll(blocks, b -> b.get() instanceof EtherTorchBlock).forEach(this::etherTorchBlock);
+        DataHelper.takeAll(blocks, b -> b.get() instanceof EtherBlock).forEach(this::etherBlock);
+        DataHelper.takeAll(blocks, b -> b.get() instanceof WallMirrorBlock).forEach(this::wallMirrorBlock);
+
         DataHelper.takeAll(blocks, b -> b.get() instanceof TotemBaseBlock).forEach(this::totemBaseBlock);
         DataHelper.takeAll(blocks, b -> b.get() instanceof TotemPoleBlock).forEach(this::totemPoleBlock);
         DataHelper.takeAll(blocks, b -> b.get() instanceof ItemPedestalBlock).forEach(this::itemPedestalBlock);
         DataHelper.takeAll(blocks, b -> b.get() instanceof ItemStandBlock).forEach(this::itemStandBlock);
+        DataHelper.takeAll(blocks, b -> b.get() instanceof MalumLeavesBlock).forEach(this::malumLeavesBlock);
+
+        DataHelper.takeAll(blocks, b -> b.get() instanceof SconceWallBlock).forEach(this::wallSconceBlock);
+        DataHelper.takeAll(blocks, b -> b.get() instanceof SconceBlock).forEach(this::sconceBlock);
+        DataHelper.takeAll(blocks, b -> b.get() instanceof SignBlock).forEach(this::signBlock);
         DataHelper.takeAll(blocks, b -> b.get() instanceof GrassBlock).forEach(this::grassBlock);
         DataHelper.takeAll(blocks, b -> b.get() instanceof StairBlock).forEach(this::stairsBlock);
         DataHelper.takeAll(blocks, b -> b.get() instanceof RotatedPillarBlock).forEach(this::logBlock);
@@ -94,12 +107,8 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
         DataHelper.takeAll(blocks, b -> b.get() instanceof DoublePlantBlock).forEach(this::tallPlantBlock);
         DataHelper.takeAll(blocks, b -> b.get() instanceof BushBlock).forEach(this::plantBlock);
         DataHelper.takeAll(blocks, b -> b.get() instanceof LanternBlock).forEach(this::lanternBlock);
-        DataHelper.takeAll(blocks, b -> b.get() instanceof MalumLeavesBlock).forEach(this::malumLeavesBlock);
-        DataHelper.takeAll(blocks, b -> b.get() instanceof EtherBrazierBlock).forEach(this::brazierBlock);
-        DataHelper.takeAll(blocks, b -> b.get() instanceof EtherWallTorchBlock).forEach(this::wallEtherTorchBlock);
-        DataHelper.takeAll(blocks, b -> b.get() instanceof EtherTorchBlock).forEach(this::etherTorchBlock);
-        DataHelper.takeAll(blocks, b -> b.get() instanceof EtherBlock).forEach(this::etherBlock);
-        DataHelper.takeAll(blocks, b -> b.get() instanceof WallMirrorBlock).forEach(this::wallMirrorBlock);
+        DataHelper.takeAll(blocks, b -> b.get() instanceof WallTorchBlock).forEach(this::wallTorchBlock);
+        DataHelper.takeAll(blocks, b -> b.get() instanceof TorchBlock).forEach(this::torchBlock);
 
         Collection<RegistryObject<Block>> slabs = DataHelper.takeAll(blocks, b -> b.get() instanceof SlabBlock);
         blocks.forEach(this::basicBlock);
@@ -202,10 +211,54 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
                 .modelForState().modelFile(stand).addModel();
     }
 
+    public void sconceBlock(RegistryObject<Block> blockRegistryObject) {
+        String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
+        ModelFile sconce = models().withExistingParent(name, prefix("block/templates/template_sconce")).texture("sconce", prefix("block/"+name)).texture("fire", prefix("block/" + name + "_fire")).texture("particle", prefix("block/"+name));
+
+        getVariantBuilder(blockRegistryObject.get()).forAllStates(s -> ConfiguredModel.builder().modelFile(sconce).build());
+    }
+
+    public void wallSconceBlock(RegistryObject<Block> blockRegistryObject) {
+        String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
+        String textureName = name.replaceFirst("wall_", "");
+        ModelFile sconce = models().withExistingParent(name, prefix("block/templates/template_sconce_wall")).texture("sconce", prefix("block/"+textureName)).texture("fire", prefix("block/"+textureName+"_fire")).texture("particle", prefix("block/"+textureName));
+
+        getVariantBuilder(blockRegistryObject.get())
+                .partialState().with(WallTorchBlock.FACING, Direction.NORTH)
+                .modelForState().modelFile(sconce).addModel()
+                .partialState().with(WallTorchBlock.FACING, Direction.WEST)
+                .modelForState().modelFile(sconce).rotationY(270).addModel()
+                .partialState().with(WallTorchBlock.FACING, Direction.SOUTH)
+                .modelForState().modelFile(sconce).rotationY(180).addModel()
+                .partialState().with(WallTorchBlock.FACING, Direction.EAST)
+                .modelForState().modelFile(sconce).rotationY(90).addModel();
+    }
     public void etherBlock(RegistryObject<Block> blockRegistryObject) {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
         ModelFile empty = models().withExistingParent(name, new ResourceLocation("block/air")).texture("particle", prefix("item/ether"));
         getVariantBuilder(blockRegistryObject.get()).forAllStates(s -> ConfiguredModel.builder().modelFile(empty).build());
+    }
+
+    public void etherSconceBlock(RegistryObject<Block> blockRegistryObject) {
+        String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
+        ModelFile sconce = models().withExistingParent(name, prefix("block/templates/template_ether_sconce")).texture("sconce", prefix("block/ether_sconce")).texture("overlay", prefix("block/ether_sconce_overlay")).texture("fire", prefix("block/ether_sconce_fire")).texture("particle", prefix("block/ether_sconce"));
+
+        getVariantBuilder(blockRegistryObject.get()).forAllStates(s -> ConfiguredModel.builder().modelFile(sconce).build());
+    }
+
+    public void wallEtherSconceBlock(RegistryObject<Block> blockRegistryObject) {
+        String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
+        ModelFile sconce = models().withExistingParent(name, prefix("block/templates/template_ether_sconce_wall")).texture("sconce", prefix("block/ether_sconce")).texture("overlay", prefix("block/ether_sconce_overlay")).texture("fire", prefix("block/ether_sconce_fire")).texture("particle", prefix("block/ether_sconce"));
+
+        getVariantBuilder(blockRegistryObject.get())
+                .partialState().with(WallTorchBlock.FACING, Direction.NORTH)
+                .modelForState().modelFile(sconce).addModel()
+                .partialState().with(WallTorchBlock.FACING, Direction.WEST)
+                .modelForState().modelFile(sconce).rotationY(270).addModel()
+                .partialState().with(WallTorchBlock.FACING, Direction.SOUTH)
+                .modelForState().modelFile(sconce).rotationY(180).addModel()
+                .partialState().with(WallTorchBlock.FACING, Direction.EAST)
+                .modelForState().modelFile(sconce).rotationY(90).addModel();
     }
 
     public void etherTorchBlock(RegistryObject<Block> blockRegistryObject) {
@@ -232,7 +285,7 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
 
     public void torchBlock(RegistryObject<Block> blockRegistryObject) {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
-        ModelFile torch = models().torchWall(blockRegistryObject.get().getRegistryName().getPath(), prefix("block/" + name));
+        ModelFile torch = models().torch(blockRegistryObject.get().getRegistryName().getPath(), prefix("block/" + name));
 
         getVariantBuilder(blockRegistryObject.get()).forAllStates(s -> ConfiguredModel.builder().modelFile(torch).build());
     }

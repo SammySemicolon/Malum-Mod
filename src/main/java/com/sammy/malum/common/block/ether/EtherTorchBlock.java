@@ -12,12 +12,10 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class EtherTorchBlock<T extends EtherBlockEntity> extends EtherBlock<T>
-{
+public class EtherTorchBlock<T extends EtherBlockEntity> extends EtherBlock<T> {
     protected static final VoxelShape SHAPE = Block.box(6.0D, 0.0D, 6.0D, 10.0D, 10.0D, 10.0D);
 
-    public EtherTorchBlock(Properties properties)
-    {
+    public EtherTorchBlock(Properties properties) {
         super(properties);
         this.registerDefaultState(this.defaultBlockState().setValue(WATERLOGGED, false));
     }

@@ -24,11 +24,14 @@ if (System.getenv('BUILD_NUMBER') != null) {
 group = 'com.sammy.malum'
 archivesBaseName = project.modId
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
-
 sourceSets {
     main.resources.srcDirs += 'src/main/generated_resources'
 }
-
+jar {
+    exclude 'com/sammy/malum/core/data/**'
+    exclude 'com/sammy/malum/client/model/bbmodels/**'
+    exclude 'assets/malum/models/block/bbmodels/**'
+}
 mixin {
     add sourceSets.main, "${project.modId}.refmap.json"
 }
@@ -115,6 +118,7 @@ dependencies {
         annotationProcessor 'org.spongepowered:mixin:0.8.4:processor'
     }
 
+    runtimeOnly fg.deobf("curse.maven:stfu-407174:3759881")
     runtimeOnly fg.deobf("curse.maven:spark-361579:3828094")
 
     compileOnly fg.deobf('mezz.jei:jei-1.18.2:9.7.0.193:api')
@@ -125,8 +129,10 @@ dependencies {
     implementation fg.deobf("se.mickelus.tetra:tetra:1.18.2-4.9.0")
     implementation fg.deobf("curse.maven:curios-309927:3748873")
     implementation fg.deobf("curse.maven:farmers_delight-398521:3739914")
-//    implementation fg.deobf("curse.maven:selene-499980:3742343")
-//    implementation fg.deobf("curse.maven:supplementaries-412082:3749228")
+    implementation fg.deobf("curse.maven:selene-499980:3828748")
+    implementation fg.deobf("curse.maven:supplementaries-412082:3832545")
+
+    implementation fg.deobf("curse.maven:jeed-532286:3820697")
 }
 
 jar {

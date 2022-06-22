@@ -2,10 +2,14 @@ package com.sammy.malum.common.item.spirit;
 
 import com.sammy.malum.core.helper.SpiritHelper;
 import com.sammy.malum.core.systems.item.IFloatingGlowItem;
+import com.sammy.ortus.helpers.ColorHelper;
 import com.sammy.ortus.systems.rendering.particle.screen.base.ScreenParticle;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import com.sammy.ortus.systems.rendering.particle.screen.emitter.ItemParticleEmitter;
+import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -28,8 +32,13 @@ public class MalumSpiritItem extends Item implements IFloatingGlowItem, ItemPart
     }
 
     @Override
+    public Component getName(ItemStack pStack) {
+        return type.getNameComponent(pStack);
+    }
+
+    @Override
     public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
-        pTooltip.add(type.getFlavourComponent());
+        pTooltip.add(type.getFlavourComponent(pStack));
     }
 
     @Override

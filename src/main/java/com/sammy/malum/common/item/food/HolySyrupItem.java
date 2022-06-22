@@ -20,11 +20,10 @@ public class HolySyrupItem extends Item {
         super(builder);
     }
 
-    public void consume(LivingEntity entity)
-    {
+    public void consume(LivingEntity entity) {
         entity.heal(4);
-        entity.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 200, 0));
     }
+
     public ItemStack finishUsingItem(ItemStack pStack, Level pLevel, LivingEntity pEntityLiving) {
         super.finishUsingItem(pStack, pLevel, pEntityLiving);
         if (pEntityLiving instanceof ServerPlayer serverplayer) {

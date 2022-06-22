@@ -1,8 +1,8 @@
 package com.sammy.malum.common.blockentity.altar;
 
 import com.sammy.malum.common.item.spirit.MalumSpiritItem;
-import com.sammy.malum.common.packets.particle.altar.AltarConsumeParticlePacket;
-import com.sammy.malum.common.packets.particle.altar.AltarCraftParticlePacket;
+import com.sammy.malum.common.packets.particle.block.functional.AltarCraftParticlePacket;
+import com.sammy.malum.common.packets.particle.block.functional.FunctionalBlockItemAbsorbParticlePacket;
 import com.sammy.malum.common.recipe.SpiritInfusionRecipe;
 import com.sammy.malum.core.helper.SpiritHelper;
 import com.sammy.malum.core.setup.content.SoundRegistry;
@@ -17,11 +17,9 @@ import com.sammy.ortus.systems.easing.Easing;
 import com.sammy.ortus.systems.recipe.IngredientWithCount;
 import com.sammy.ortus.systems.rendering.particle.ParticleBuilders;
 import com.sammy.ortus.systems.rendering.particle.SimpleParticleOptions;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
@@ -51,7 +49,7 @@ import static com.sammy.malum.core.setup.server.PacketRegistry.MALUM_CHANNEL;
 public class SpiritAltarBlockEntity extends OrtusBlockEntity {
 
     private static final int HORIZONTAL_RANGE = 4;
-    private static final int VERTICAL_RANGE = 2;
+    private static final int VERTICAL_RANGE = 3;
 
     public float speed;
     public int progress;
@@ -61,6 +59,7 @@ public class SpiritAltarBlockEntity extends OrtusBlockEntity {
     public ArrayList<IAltarAccelerator> accelerators = new ArrayList<>();
     public float spiritAmount;
     public float spiritSpin;
+    public boolean isCrafting;
 
     public OrtusBlockEntityInventory inventory;
     public OrtusBlockEntityInventory extrasInventory;
@@ -115,7 +114,6 @@ public class SpiritAltarBlockEntity extends OrtusBlockEntity {
         if (spiritAmount != 0) {
             compound.putFloat("spiritAmount", spiritAmount);
         }
-
         if (!acceleratorPositions.isEmpty()) {
             compound.putInt("acceleratorAmount", acceleratorPositions.size());
             for (int i = 0; i < acceleratorPositions.size(); i++) {
@@ -133,6 +131,7 @@ public class SpiritAltarBlockEntity extends OrtusBlockEntity {
         progress = compound.getInt("progress");
         spinUp = compound.getFloat("spinUp");
         speed = compound.getFloat("speed");
+        spiritAmount = compound.getFloat("spiritAmount");
 
         acceleratorPositions.clear();
         accelerators.clear();
@@ -144,8 +143,6 @@ public class SpiritAltarBlockEntity extends OrtusBlockEntity {
                 accelerators.add(accelerator);
             }
         }
-
-        spiritAmount = compound.getFloat("spiritAmount");
         inventory.load(compound);
         spiritInventory.load(compound, "spiritInventory");
         extrasInventory.load(compound, "extrasInventory");
@@ -190,7 +187,7 @@ public class SpiritAltarBlockEntity extends OrtusBlockEntity {
         ItemStack stack = inventory.getStackInSlot(0);
         possibleRecipes = new ArrayList<>(DataHelper.getAll(SpiritInfusionRecipe.getRecipes(level), r -> r.doesInputMatch(stack) && r.doSpiritsMatch(spiritInventory.nonEmptyItemStacks)));
         recipe = SpiritInfusionRecipe.getRecipe(level, stack, spiritInventory.nonEmptyItemStacks);
-        if (level.isClientSide && !possibleRecipes.isEmpty()) {
+        if (level.isClientSide && !possibleRecipes.isEmpty() && !isCrafting) {
             AltarSoundInstance.playSound(this);
         }
     }
@@ -203,15 +200,16 @@ public class SpiritAltarBlockEntity extends OrtusBlockEntity {
             if (spinUp < 30) {
                 spinUp++;
             }
+            isCrafting = true;
+            progress++;
             if (!level.isClientSide) {
-                progress++;
                 if (level.getGameTime() % 20L == 0) {
                     boolean canAccelerate = accelerators.stream().allMatch(IAltarAccelerator::canAccelerate);
                     if (!canAccelerate) {
                         recalibrateAccelerators();
                     }
                 }
-                int progressCap = (int) (300 * Math.exp(-0.15 * speed));
+                int progressCap = (int) (300 * (1 - Math.log(1+speed)/4f));
                 if (progress >= progressCap) {
                     boolean success = consume();
                     if (success) {
@@ -220,6 +218,7 @@ public class SpiritAltarBlockEntity extends OrtusBlockEntity {
                 }
             }
         } else {
+            isCrafting = false;
             progress = 0;
             if (spinUp > 0) {
                 float spinUp = 0.1f + Easing.QUAD_OUT.ease(Math.min(1, this.spinUp/10f), 0, 1, 1)*1.4f;
@@ -227,7 +226,7 @@ public class SpiritAltarBlockEntity extends OrtusBlockEntity {
             }
         }
         if (level.isClientSide) {
-            spiritSpin += 1 + spinUp / 15f;
+            spiritSpin += 1 + spinUp / 15f + speed / 8f;
             passiveParticles();
         }
     }
@@ -264,7 +263,8 @@ public class SpiritAltarBlockEntity extends OrtusBlockEntity {
 
             Collection<IAltarProvider> altarProviders = BlockHelper.getBlockEntities(IAltarProvider.class, level, worldPosition, HORIZONTAL_RANGE, VERTICAL_RANGE, HORIZONTAL_RANGE);
             for (IAltarProvider provider : altarProviders) {
-                ItemStack providedStack = provider.getInventoryForAltar().getStackInSlot(0);
+                OrtusBlockEntityInventory inventoryForAltar = provider.getInventoryForAltar();
+                ItemStack providedStack = inventoryForAltar.getStackInSlot(0);
                 IngredientWithCount requestedItem = recipe.extraItems.get(extras);
                 boolean matches = requestedItem.matches(providedStack);
                 if (!matches) {
@@ -280,8 +280,9 @@ public class SpiritAltarBlockEntity extends OrtusBlockEntity {
                 if (matches) {
                     level.playSound(null, provider.getBlockPosForAltar(), SoundRegistry.ALTAR_CONSUME.get(), SoundSource.BLOCKS, 1, 0.9f + level.random.nextFloat() * 0.2f);
                     Vec3 providedItemPos = provider.getItemPosForAltar();
-                    MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(provider.getBlockPosForAltar())), new AltarConsumeParticlePacket(providedStack, recipe.spirits.stream().map(s -> s.type.identifier).collect(Collectors.toList()), providedItemPos.x, providedItemPos.y, providedItemPos.z, itemPos.x, itemPos.y, itemPos.z));
+                    MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(provider.getBlockPosForAltar())), new FunctionalBlockItemAbsorbParticlePacket(providedStack, recipe.spirits.stream().map(s -> s.type.identifier).collect(Collectors.toList()), providedItemPos.x, providedItemPos.y, providedItemPos.z, itemPos.x, itemPos.y, itemPos.z));
                     extrasInventory.insertItem(level, providedStack.split(requestedItem.count));
+                    inventoryForAltar.updateData();
                     BlockHelper.updateAndNotifyState(level, provider.getBlockPosForAltar());
                     break;
                 }
@@ -299,6 +300,7 @@ public class SpiritAltarBlockEntity extends OrtusBlockEntity {
             outputStack.setTag(stack.getTag());
         }
         stack.shrink(recipe.input.count);
+        inventory.updateData();
         for (SpiritWithCount spirit : recipe.spirits) {
             for (int i = 0; i < spiritInventory.slotCount; i++) {
                 ItemStack spiritStack = spiritInventory.getStackInSlot(i);
@@ -308,7 +310,8 @@ public class SpiritAltarBlockEntity extends OrtusBlockEntity {
                 }
             }
         }
-        MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new AltarCraftParticlePacket(recipe.spirits.stream().map(s -> s.type.identifier).collect(Collectors.toList()), itemPos.x, itemPos.y, itemPos.z));
+        spiritInventory.updateData();
+        MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new AltarCraftParticlePacket(recipe.spirits.stream().map(s -> s.type.identifier).collect(Collectors.toList()), itemPos));
         progress *= 0.5f;
         extrasInventory.clear();
         level.playSound(null, worldPosition, SoundRegistry.ALTAR_CRAFT.get(), SoundSource.BLOCKS, 1, 0.9f + level.random.nextFloat() * 0.2f);

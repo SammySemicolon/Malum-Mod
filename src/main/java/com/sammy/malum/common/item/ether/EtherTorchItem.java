@@ -69,7 +69,7 @@ public class EtherTorchItem extends AbstractEtherItem {
         Color secondColor = new Color(etherItem.getSecondColor(stack));
         float alphaMultiplier = etherItem.iridescent ? 0.75f : 0.5f;
         ParticleBuilders.create(OrtusScreenParticleRegistry.STAR)
-                .setAlpha(0.11f*alphaMultiplier, 0f)
+                .setAlpha(0.11f * alphaMultiplier, 0f)
                 .setLifetime(7)
                 .setScale((float) (0.75f + Math.sin(gameTime * 0.05f) * 0.125f), 0)
                 .setColor(firstColor, secondColor)
@@ -84,7 +84,7 @@ public class EtherTorchItem extends AbstractEtherItem {
                 .repeat(x, y, 1)
                 .setScale((float) (0.75f - Math.sin(gameTime * 0.075f) * 0.125f), 0)
                 .setColor(secondColor, firstColor)
-                .setSpinOffset(0.785f-0.01f * gameTime % 6.28f)
+                .setSpinOffset(0.785f - 0.01f * gameTime % 6.28f)
                 .repeat(x, y, 1);
     }
 }

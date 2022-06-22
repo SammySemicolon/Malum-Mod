@@ -39,9 +39,9 @@ public class SpiritInfusionRecipeCategory implements IRecipeCategory<SpiritInfus
     @Override
     public void draw(SpiritInfusionRecipe recipe, PoseStack poseStack, double mouseX, double mouseY) {
         overlay.draw(poseStack);
-        ProgressionBookScreen.renderItemFrames(poseStack, 19, 48, true, recipe.spirits.size());
+        ProgressionBookScreen.renderItemFrames(poseStack, recipe.spirits.size(), 19, 48, true);
         if (!recipe.extraItems.isEmpty()) {
-            ProgressionBookScreen.renderItemFrames(poseStack, 103, 48, true, recipe.extraItems.size());
+            ProgressionBookScreen.renderItemFrames(poseStack, recipe.extraItems.size(), 103, 48, true);
         }
     }
 

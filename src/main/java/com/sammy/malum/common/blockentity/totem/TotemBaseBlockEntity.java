@@ -28,6 +28,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static com.sammy.malum.core.setup.server.PacketRegistry.MALUM_CHANNEL;
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.HORIZONTAL_FACING;
@@ -197,19 +198,18 @@ public class TotemBaseBlockEntity extends OrtusBlockEntity {
         int range = rite.getRiteRadius(corrupted);
         BlockHelper.getBlockEntitiesStream(TotemBaseBlockEntity.class, level, rite.getRiteEffectCenter(this), range).filter(blockEntity -> !blockEntity.equals(this) && rite.equals(blockEntity.rite) && corrupted == blockEntity.corrupted).forEach(TotemBaseBlockEntity::endRite);
 
-        BlockHelper.getBlockEntitiesStream(TotemBaseBlockEntity.class, level, rite.getRiteEffectCenter(this), range*2).filter(blockEntity -> !blockEntity.equals(this) && rite.equals(blockEntity.rite) && corrupted == blockEntity.corrupted).forEach(e -> {
-            e.tryDisableRite(this);
-        });
-
-        BlockHelper.getBlockEntitiesStream(TotemBaseBlockEntity.class, level, worldPosition, range*2).filter(blockEntity -> !blockEntity.equals(this) && rite.equals(blockEntity.rite) && corrupted == blockEntity.corrupted).forEach(blockEntity -> {
-            blockEntity.tryDisableRite(this);
+        BlockHelper.getBlockEntitiesStream(TotemBaseBlockEntity.class, level, worldPosition, 10).filter(blockEntity -> !blockEntity.equals(this) && rite.equals(blockEntity.rite) && corrupted == blockEntity.corrupted).forEach(b -> {
+            b.tryDisableRite(this);
         });
 
     }
-    public void tryDisableRite(TotemBaseBlockEntity target) { //TODO: this method sucks so much, instead we can just check if the target is within X range of Y blockPos, rather than doing the stream thing.
+    public void tryDisableRite(TotemBaseBlockEntity target) {
         int range = rite.getRiteRadius(corrupted);
-        
-        BlockHelper.getBlockEntitiesStream(TotemBaseBlockEntity.class, level, rite.getRiteEffectCenter(this), range).filter(blockEntity -> blockEntity.equals(target)).forEach(TotemBaseBlockEntity::endRite);
+
+        Collection<TotemBaseBlockEntity> otherTotems = BlockHelper.getBlockEntities(TotemBaseBlockEntity.class, level, rite.getRiteEffectCenter(this), range);
+        if (otherTotems.contains(target)) {
+            endRite();
+        }
     }
 
     public void startRite() {

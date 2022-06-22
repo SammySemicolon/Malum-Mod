@@ -17,6 +17,7 @@ public class AttributeRegistry {
     public static final DeferredRegister<Attribute> ATTRIBUTES = DeferredRegister.create(ForgeRegistries.ATTRIBUTES, MALUM);
     public static final RegistryObject<Attribute> SCYTHE_PROFICIENCY = registerAttribute(ATTRIBUTES, MALUM, "scythe_proficiency", (id) -> new RangedAttribute(id, 0.0D, 0.0D, 2048.0D).setSyncable(true));
     public static final RegistryObject<Attribute> SPIRIT_SPOILS = registerAttribute(ATTRIBUTES, MALUM, "spirit_spoils", (id) -> new RangedAttribute(id, 0.0D, 0.0D, 2048.0D).setSyncable(true));
+    public static final RegistryObject<Attribute> SPIRIT_REACH = registerAttribute(ATTRIBUTES, MALUM, "spirit_reach", (id) -> new RangedAttribute(id, 0.0D, 0.0D, 2048.0D).setSyncable(true));
 
     public static final RegistryObject<Attribute> HEART_OF_STONE_STRENGTH = registerAttribute(ATTRIBUTES, MALUM, "heart_of_stone_strength", (id) -> new RangedAttribute(id, 2D, 0.0D, 2048.0D).setSyncable(true));
     public static final RegistryObject<Attribute> HEART_OF_STONE_RECOVERY_SPEED = registerAttribute(ATTRIBUTES, MALUM, "heart_of_stone_recovery_speed", (id) -> new RangedAttribute(id, 0D, 0.0D, 2048.0D).setSyncable(true));
@@ -34,6 +35,7 @@ public class AttributeRegistry {
         event.getTypes().forEach(e -> {
             event.add(e, SCYTHE_PROFICIENCY.get());
             event.add(e, SPIRIT_SPOILS.get());
+            event.add(e, SPIRIT_REACH.get());
 
             event.add(e, HEART_OF_STONE_STRENGTH.get());
             event.add(e, HEART_OF_STONE_RECOVERY_SPEED.get());

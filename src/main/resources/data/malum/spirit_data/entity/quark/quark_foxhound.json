@@ -3,16 +3,12 @@
   "primary_type": "earthen",
   "spirits": [
     {
-      "spirit": "arcane",
-      "count": 1
-    },
-    {
       "spirit": "infernal",
-      "count": 1
+      "count": 2
     },
     {
       "spirit": "earthen",
-      "count": 2
+      "count": 1
     }
   ]
 }

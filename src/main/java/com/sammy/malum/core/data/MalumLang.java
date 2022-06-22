@@ -8,11 +8,11 @@ import com.sammy.malum.common.item.spirit.SpiritJarItem;
 import com.sammy.malum.core.setup.content.SpiritRiteRegistry;
 import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
 import com.sammy.malum.core.setup.content.DamageSourceRegistry;
+import com.sammy.malum.core.setup.content.potion.MalumMobEffectRegistry;
 import com.sammy.malum.core.systems.item.ISoulContainerItem;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import com.sammy.ortus.helpers.DataHelper;
-import com.sammy.ortus.systems.blockentity.OrtusBlockEntityInventory;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.effect.MobEffect;
@@ -30,10 +30,10 @@ import net.minecraftforge.registries.RegistryObject;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.function.Supplier;
 
 import static com.sammy.malum.core.setup.content.AttributeRegistry.ATTRIBUTES;
-import static com.sammy.malum.core.setup.content.item.ItemRegistry.SOUL_HUNTER_BOOTS;
-import static com.sammy.malum.core.setup.content.potion.EffectRegistry.EFFECTS;
+import static com.sammy.malum.core.setup.content.potion.MalumMobEffectRegistry.EFFECTS;
 import static com.sammy.malum.core.setup.content.entity.EntityRegistry.ENTITY_TYPES;
 import static com.sammy.malum.core.setup.content.SoundRegistry.SOUNDS;
 import static com.sammy.malum.core.setup.content.block.BlockRegistry.BLOCKS;
@@ -412,10 +412,10 @@ public class MalumLang extends LanguageProvider {
         add("malum.spirit.description.stored_spirit", "Contains: ");
         add("malum.spirit.description.stored_soul", "Stores Soul With: ");
 
-        add("malum.spirit.flavour.sacred", "Blessed");
+        add("malum.spirit.flavour.sacred", "Vigorous");
         add("malum.spirit.flavour.wicked", "Cursed");
-        add("malum.spirit.flavour.arcane", "Stellar");
-        add("malum.spirit.flavour.eldritch", "Null");
+        add("malum.spirit.flavour.arcane", "Wise");
+        add("malum.spirit.flavour.eldritch", "Devoted");
         add("malum.spirit.flavour.aerial", "Light");
         add("malum.spirit.flavour.aqueous", "Malleable");
         add("malum.spirit.flavour.infernal", "Radiant");
@@ -445,6 +445,16 @@ public class MalumLang extends LanguageProvider {
         add("death.attack." + DamageSourceRegistry.MAGEBANE_DAMAGE + ".player", "%s got too confident with %s");
         add("death.attack." + DamageSourceRegistry.SCYTHE_SWEEP_DAMAGE, "%s was sliced into two pieces");
         add("death.attack." + DamageSourceRegistry.SCYTHE_SWEEP_DAMAGE + ".player", "%s was sliced into two pieces by %s");
+
+        addEffectDescription(MalumMobEffectRegistry.GAIAN_BULWARK, "You are protected by an earthen bulwark, increasing your armor.");
+        addEffectDescription(MalumMobEffectRegistry.EARTHEN_MIGHT, "Your fists and tools are reinforced with earth, increasing your overall damage.");
+        addEffectDescription(MalumMobEffectRegistry.MINERS_RAGE, "Your tools are bolstered with radiance, increasing your mining and attack speed.");
+        addEffectDescription(MalumMobEffectRegistry.IFRITS_EMBRACE, "The warm embrace of fire coats your soul, mending your seared scars.");
+        addEffectDescription(MalumMobEffectRegistry.ZEPHYRS_COURAGE, "The zephyr propels you forward, increasing your movement speed.");
+        addEffectDescription(MalumMobEffectRegistry.AETHERS_CHARM, "The heavens call for you, increasing jump height and decreasing gravity.");
+        addEffectDescription(MalumMobEffectRegistry.POSEIDONS_GRASP, "You reach out for further power, increasing your reach and item pickup distance.");
+        addEffectDescription(MalumMobEffectRegistry.ANGLERS_LURE, "Let any fish who meets my gaze learn the true meaning of fear; for I am the harbinger of death. The bane of creatures sub-aqueous, my rod is true and unwavering as I cast into the aquatic abyss. A man, scorned by this uncaring Earth, finds solace in the sea. My only friend, the worm upon my hook. Wriggling, writhing, struggling to surmount the mortal pointlessness that permeates this barren world. I am alone. I am empty. And yet, I fish.");
+        addEffectDescription(MalumMobEffectRegistry.GLUTTONY, "You feed on the vulnerable, increasing scythe proficiency and gradually restoring lost hunger.");
 
         addTetraMaterial("soul_stained_steel", "Soul Stained Steel");
         addTetraMaterial("hallowed_gold", "Hallowed Gold");
@@ -499,8 +509,8 @@ public class MalumLang extends LanguageProvider {
         add("malum.tooltip." + identifier, tooltip);
     }
 
-    public void addEffectDescription(String identifier, String description) {
-        add("effect.malum." + identifier + ".description", description);
+    public void addEffectDescription(Supplier<MobEffect> mobEffectSupplier, String description) {
+        add(mobEffectSupplier.get().getDescriptionId() + ".description", description);
     }
 
     public void addDamageTypeDeathDescription(String identifier, String description) {

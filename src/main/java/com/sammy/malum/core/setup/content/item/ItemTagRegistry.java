@@ -13,6 +13,7 @@ public class ItemTagRegistry {
     public static TagKey<Item> RUNEWOOD_LOGS = malumTag("runewood_logs");
     public static TagKey<Item> SOULWOOD_LOGS = malumTag("soulwood_logs");
     public static TagKey<Item> SAPBALLS = malumTag("sapballs");
+    public static TagKey<Item> GROSS_FOODS = malumTag("gross_foods");
 
     public static final TagKey<Item> KNIVES_FD = modTag("farmersdelight:tools/knives");
     public static final TagKey<Item> KNIVES = forgeTag("tools/knives");

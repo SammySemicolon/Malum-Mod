@@ -34,10 +34,10 @@ public class TokenOfGratitudeRenderer implements ICurioRenderer {
 
     private static final ResourceLocation SAMMY = MalumMod.prefix("textures/patreon/sammy_texture.png");
     private static final ResourceLocation OWL_PERSON_EYES = MalumMod.prefix("textures/patreon/owl_person_eyes.png");
-    private static final RenderType OWL_EYES_TYPE = OrtusRenderTypeRegistry.TRANSPARENT_TEXTURE.apply(OWL_PERSON_EYES);
     private static final ResourceLocation OWL_PERSON_ELYTRA = MalumMod.prefix("textures/patreon/owl_person_elytra.png");
     private static final ResourceLocation SNAKE_FELLA_SCARF = MalumMod.prefix("textures/patreon/snake_scarf.png");
     private static final ResourceLocation TRANS_SCARF = MalumMod.prefix("textures/patreon/trans_scarf.png");
+    private static final ResourceLocation BOBBU_SCARF = MalumMod.prefix("textures/patreon/bobbu_scarf.png");
 
     @Override
     public <T extends LivingEntity, M extends EntityModel<T>> void render(ItemStack stack, SlotContext slotContext, PoseStack poseStack, RenderLayerParent<T, M> renderLayerParent, MultiBufferSource renderTypeBuffer, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
@@ -69,19 +69,16 @@ public class TokenOfGratitudeRenderer implements ICurioRenderer {
                 poseStack.popPose();
             }
             if (playerEntity.getUUID().equals(CurioTokenOfGratitude.OWL_PERSON)) {
-                poseStack.pushPose();
-                renderGlowingEyes(playerEntity, OWL_EYES_TYPE, poseStack, renderTypeBuffer, RenderHelper.FULL_BRIGHT);
-                poseStack.popPose();
+                renderGlowingEyes(playerEntity, OrtusRenderTypeRegistry.TRANSPARENT_TEXTURE.applyAndCache(OWL_PERSON_EYES), poseStack, renderTypeBuffer, RenderHelper.FULL_BRIGHT);
             }
             if (playerEntity.getUUID().equals(CurioTokenOfGratitude.SNAKE_SCARF_FELLA)) {
-                poseStack.pushPose();
                 renderScarf(playerEntity, SNAKE_FELLA_SCARF, poseStack, renderTypeBuffer, light);
-                poseStack.popPose();
+            }
+            if (playerEntity.getUUID().equals(CurioTokenOfGratitude.BOBBU)) {
+                renderScarf(playerEntity, BOBBU_SCARF, poseStack, renderTypeBuffer, light);
             }
             if (CurioTokenOfGratitude.TRANS_SCARFS.contains(playerEntity.getUUID())) {
-                poseStack.pushPose();
                 renderScarf(playerEntity, TRANS_SCARF, poseStack, renderTypeBuffer, light);
-                poseStack.popPose();
             }
         }
     }

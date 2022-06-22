@@ -74,7 +74,7 @@ public class EldritchSacredRiteType extends MalumRiteType {
                     return;
                 }
                 entities.forEach(e -> {
-                    if (level.random.nextFloat() <= 0.05f) {
+                    if (level.random.nextFloat() <= 0.01f) {
                         e.setInLoveTime(600);
                         MALUM_CHANNEL.send(PacketDistributor.TRACKING_ENTITY.with(() -> e), new MajorEntityEffectParticlePacket(SACRED_SPIRIT.getColor(), e.getX(), e.getY() + e.getBbHeight() / 2f, e.getZ()));
                     }

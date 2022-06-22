@@ -4,7 +4,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector4f;
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.common.capability.PlayerDataCapability;
+import com.sammy.malum.common.capability.MalumPlayerDataCapability;
 import com.sammy.malum.config.CommonConfig;
 import com.sammy.malum.core.setup.content.AttributeRegistry;
 import com.sammy.malum.core.setup.content.SoundRegistry;
@@ -34,7 +34,7 @@ public class EarthenAffinity extends MalumSpiritAffinity {
 
     public static void recoverHeartOfStone(TickEvent.PlayerTickEvent event) {
         Player player = event.player;
-        PlayerDataCapability.getCapability(player).ifPresent(c -> {
+        MalumPlayerDataCapability.getCapabilityOptional(player).ifPresent(c -> {
             AttributeInstance cap = player.getAttribute(AttributeRegistry.HEART_OF_STONE_CAP.get());
             if (cap != null) {
                 if (c.heartOfStone < cap.getValue() && c.heartOfStoneProgress <= 0) {
@@ -64,7 +64,7 @@ public class EarthenAffinity extends MalumSpiritAffinity {
         }
         if (event.getEntityLiving() instanceof Player player) {
             if (!player.level.isClientSide) {
-                PlayerDataCapability.getCapability(player).ifPresent(c -> {
+                MalumPlayerDataCapability.getCapabilityOptional(player).ifPresent(c -> {
                     if (c.heartOfStone > 0) {
                         float absorbed = Math.min(event.getAmount(), c.heartOfStone);
                         AttributeInstance strength = player.getAttribute(AttributeRegistry.HEART_OF_STONE_STRENGTH.get());
@@ -77,7 +77,7 @@ public class EarthenAffinity extends MalumSpiritAffinity {
                             c.heartOfStoneProgress = (float) (getHeartOfStoneCooldown(player) * 2);
                             player.level.playSound(null, player.blockPosition(), SoundRegistry.HEART_OF_STONE_HIT.get(), SoundSource.PLAYERS, 1, Mth.nextFloat(player.getRandom(), 1.5f, 2f));
                             event.setAmount(event.getAmount() - absorbed);
-                            PlayerDataCapability.syncTrackingAndSelf(player);
+                            MalumPlayerDataCapability.syncTrackingAndSelf(player);
                         }
                     }
                 });
@@ -100,7 +100,7 @@ public class EarthenAffinity extends MalumSpiritAffinity {
             Minecraft minecraft = Minecraft.getInstance();
             LocalPlayer player = minecraft.player;
             if (event.getType() == RenderGameOverlayEvent.ElementType.ALL && !player.isCreative() && !player.isSpectator()) {
-                PlayerDataCapability.getCapability(player).ifPresent(c -> {
+                MalumPlayerDataCapability.getCapabilityOptional(player).ifPresent(c -> {
                     PoseStack poseStack = event.getMatrixStack();
 
                     float absorb = Mth.ceil(player.getAbsorptionAmount());

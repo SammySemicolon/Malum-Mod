@@ -82,7 +82,7 @@ public class FloatingItemEntityRenderer extends EntityRenderer<FloatingItemEntit
             float alpha = (0.12f - i * 0.04f) * trailVisibility;
             int finalI = i;
             VertexConsumer messy = DELAYED_RENDER.getBuffer(queueUniformChanges(OrtusRenderTypeRegistry.copy(i, MESSY_TYPE),
-                    (instance -> instance.safeGetUniform("Speed").set(500f + 750f * finalI))));
+                    (instance -> instance.safeGetUniform("Speed").set(1000 + 250f * finalI))));
             builder
                     .setColor(ColorHelper.brighter(i > 1 ? entity.endColor : entity.startColor, i + 1))
                     .setAlpha(alpha)

@@ -5,7 +5,7 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Vector3f;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.capability.LivingEntityDataCapability;
-import com.sammy.malum.common.capability.PlayerDataCapability;
+import com.sammy.malum.common.capability.MalumPlayerDataCapability;
 import com.sammy.malum.common.entity.spirit.SoulEntity;
 import com.sammy.malum.common.item.spirit.SoulStaveItem;
 import com.sammy.malum.common.packets.particle.entity.SuccessfulSoulHarvestParticlePacket;
@@ -22,6 +22,7 @@ import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
@@ -61,6 +62,7 @@ public class SoulHarvestHandler {
         }
     }
 
+
     public static void addEntity(EntityJoinWorldEvent event) {
         if (event.getEntity() instanceof LivingEntity livingEntity) {
             LivingEntityDataCapability.getCapability(livingEntity).ifPresent(ec -> {
@@ -93,7 +95,7 @@ public class SoulHarvestHandler {
             if (ec.ownerUUID != null && ec.soulHarvestProgress > 0) {
                 Player player = entity.level.getPlayerByUUID(ec.ownerUUID);
                 if (player != null) {
-                    PlayerDataCapability.getCapability(player).ifPresent(c -> {
+                    MalumPlayerDataCapability.getCapabilityOptional(player).ifPresent(c -> {
                         if (!player.isUsingItem() && ec.soulHarvestProgress > 10) {
                             ec.soulHarvestProgress -= 2f;
                         }
@@ -113,7 +115,7 @@ public class SoulHarvestHandler {
 
     public static void playerTick(TickEvent.PlayerTickEvent event) {
         Player player = event.player;
-        PlayerDataCapability.getCapability(player).ifPresent(c -> {
+        MalumPlayerDataCapability.getCapabilityOptional(player).ifPresent(c -> {
             boolean isHoldingStave = (player.isHolding(s -> s.getItem() instanceof SoulStaveItem));
             if (isHoldingStave) {
                 boolean isUsingStave = player.isUsingItem();

@@ -4,6 +4,7 @@ import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.item.spirit.MalumSpiritItem;
 import com.sammy.malum.core.setup.content.block.BlockRegistry;
 import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
+import com.sammy.ortus.helpers.ColorHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -11,6 +12,7 @@ import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -27,6 +29,7 @@ public class MalumSpiritType {
     public final String identifier;
 
     protected Supplier<Item> splinterItem;
+
     public MalumSpiritType(String identifier, Color color, RegistryObject<Item> splinterItem) {
         this.identifier = identifier;
         this.color = color;
@@ -52,8 +55,13 @@ public class MalumSpiritType {
     public Component getCountComponent(int count) {
         return new TextComponent(" " + count + " ").append(new TranslatableComponent(getDescription())).withStyle(Style.EMPTY.withColor(color.getRGB()));
     }
-    public Component getFlavourComponent() {
-        return new TranslatableComponent(getFlavourText()).withStyle(ChatFormatting.ITALIC).withStyle(Style.EMPTY.withColor(color.getRGB()));
+
+    public Component getNameComponent(ItemStack stack) {
+        return new TranslatableComponent(stack.getDescriptionId()).withStyle(Style.EMPTY.withColor(ColorHelper.brighter(color, 1, 0.85f).getRGB()));
+    }
+
+    public Component getFlavourComponent(ItemStack stack) {
+        return new TranslatableComponent(getFlavourText()).withStyle(ChatFormatting.ITALIC).withStyle(Style.EMPTY.withColor(ColorHelper.darker(color, 1, 0.75f).getRGB()));
     }
 
     public String getDescription() {

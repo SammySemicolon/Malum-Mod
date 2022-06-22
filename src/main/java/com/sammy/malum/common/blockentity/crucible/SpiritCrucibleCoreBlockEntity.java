@@ -4,8 +4,8 @@ import com.sammy.malum.common.blockentity.tablet.ITabletTracker;
 import com.sammy.malum.common.blockentity.tablet.TwistedTabletBlockEntity;
 import com.sammy.malum.common.item.impetus.ImpetusItem;
 import com.sammy.malum.common.item.spirit.MalumSpiritItem;
-import com.sammy.malum.common.packets.particle.altar.AltarConsumeParticlePacket;
-import com.sammy.malum.common.packets.particle.altar.AltarCraftParticlePacket;
+import com.sammy.malum.common.packets.particle.block.functional.AltarCraftParticlePacket;
+import com.sammy.malum.common.packets.particle.block.functional.FunctionalBlockItemAbsorbParticlePacket;
 import com.sammy.malum.common.recipe.SpiritFocusingRecipe;
 import com.sammy.malum.common.recipe.SpiritRepairRecipe;
 import com.sammy.malum.core.helper.SpiritHelper;
@@ -65,6 +65,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
     public float damageChance;
     public int maxDamage;
     public float progress;
+    public boolean isCrafting;
 
     public int queuedCracks;
     public int crackTimer;
@@ -276,12 +277,14 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
             }
 
             if (focusingRecipe != null) {
+                isCrafting = true;
                 progress += 1 + speed;
                 if (progress >= focusingRecipe.time) {
                     craft();
                 }
                 return;
             } else if (repairRecipe != null && !getTablets().isEmpty()) {
+                isCrafting = true;
                 ItemStack damagedItem = inventory.getStackInSlot(0);
 
                 int time = 400 + damagedItem.getDamageValue() * 5;
@@ -295,6 +298,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
             }
             if (focusingRecipe == null && repairRecipe == null) {
                 progress = 0;
+                isCrafting = false;
             }
 
             if (focusingRecipe == null) {
@@ -317,12 +321,14 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
         inventory.setStackInSlot(0, result);
 
         if (repairRecipe.repairMaterial.getItem() instanceof MalumSpiritItem malumSpiritItem) {
-            MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new AltarConsumeParticlePacket(repairMaterial, List.of(malumSpiritItem.type.identifier), providedItemPos.x, providedItemPos.y, providedItemPos.z, itemPos.x, itemPos.y, itemPos.z));
+            MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new FunctionalBlockItemAbsorbParticlePacket(repairMaterial, List.of(malumSpiritItem.type.identifier), providedItemPos.x, providedItemPos.y, providedItemPos.z, itemPos.x, itemPos.y, itemPos.z));
         } else {
-            MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new AltarConsumeParticlePacket(repairMaterial, repairRecipe.spirits.stream().map(s -> s.type.identifier).collect(Collectors.toList()), providedItemPos.x, providedItemPos.y, providedItemPos.z, itemPos.x, itemPos.y, itemPos.z));
+            MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new FunctionalBlockItemAbsorbParticlePacket(repairMaterial, repairRecipe.spirits.stream().map(s -> s.type.identifier).collect(Collectors.toList()), providedItemPos.x, providedItemPos.y, providedItemPos.z, itemPos.x, itemPos.y, itemPos.z));
         }
 
         repairMaterial.shrink(repairRecipe.repairMaterial.getCount());
+        validTablet.inventory.updateData();
+
         for (SpiritWithCount spirit : repairRecipe.spirits) {
             for (int i = 0; i < spiritInventory.slotCount; i++) {
                 ItemStack spiritStack = spiritInventory.getStackInSlot(i);
@@ -332,10 +338,12 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
                 }
             }
         }
+
+        spiritInventory.updateData();
         if (!repairRecipe.spirits.isEmpty()) {
-            MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new AltarCraftParticlePacket(repairRecipe.spirits.stream().map(s -> s.type.identifier).collect(Collectors.toList()), itemPos.x, itemPos.y, itemPos.z));
+            MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new AltarCraftParticlePacket(repairRecipe.spirits.stream().map(s -> s.type.identifier).collect(Collectors.toList()), itemPos));
         } else if (repairRecipe.repairMaterial.getItem() instanceof MalumSpiritItem malumSpiritItem) {
-            MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new AltarCraftParticlePacket(List.of(malumSpiritItem.type.identifier), itemPos.x, itemPos.y, itemPos.z));
+            MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new AltarCraftParticlePacket(List.of(malumSpiritItem.type.identifier), itemPos));
         }
         repairRecipe = SpiritRepairRecipe.getRecipe(level, damagedItem, repairMaterial, spiritInventory.nonEmptyItemStacks);
         fetchTablets(level, worldPosition.above());
@@ -373,8 +381,9 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
                 }
             }
         }
+        spiritInventory.updateData();
         level.addFreshEntity(new ItemEntity(level, itemPos.x, itemPos.y, itemPos.z, outputStack));
-        MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new AltarCraftParticlePacket(focusingRecipe.spirits.stream().map(s -> s.type.identifier).collect(Collectors.toList()), itemPos.x, itemPos.y, itemPos.z));
+        MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new AltarCraftParticlePacket(focusingRecipe.spirits.stream().map(s -> s.type.identifier).collect(Collectors.toList()), itemPos));
         focusingRecipe = SpiritFocusingRecipe.getRecipe(level, stack, spiritInventory.nonEmptyItemStacks);
         finishRecipe();
     }
@@ -382,8 +391,6 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
     public void finishRecipe() {
         level.playSound(null, worldPosition, SoundRegistry.CRUCIBLE_CRAFT.get(), SoundSource.BLOCKS, 1, 0.75f + level.random.nextFloat() * 0.5f);
         progress = 0;
-        inventory.updateData();
-        spiritInventory.updateData();
         recalibrateAccelerators(level, worldPosition);
         BlockHelper.updateAndNotifyState(level, worldPosition);
     }

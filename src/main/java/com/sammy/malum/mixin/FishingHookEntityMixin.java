@@ -1,6 +1,6 @@
 package com.sammy.malum.mixin;
 
-import com.sammy.malum.core.setup.content.potion.EffectRegistry;
+import com.sammy.malum.core.setup.content.potion.MalumMobEffectRegistry;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.FishingHook;
 import net.minecraft.world.level.Level;
@@ -31,8 +31,8 @@ public abstract class FishingHookEntityMixin {
 
     @Inject(method = "<init>(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/level/Level;II)V", at = @At("RETURN"))
     private void malumModifyFishingLuckStatsMixin(Player p_37106_, Level p_37107_, int p_37108_, int p_37109_, CallbackInfo ci) {
-        if (player.hasEffect(EffectRegistry.ANGLERS_LURE.get())) {
-            float bonus = (player.getEffect(EffectRegistry.ANGLERS_LURE.get()).getAmplifier() / 2f);
+        if (player.hasEffect(MalumMobEffectRegistry.ANGLERS_LURE.get())) {
+            float bonus = (player.getEffect(MalumMobEffectRegistry.ANGLERS_LURE.get()).getAmplifier() / 2f);
             luck += bonus*2f;
             lureSpeed += bonus + 0.5f;
         }

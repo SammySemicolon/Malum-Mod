@@ -1,0 +1,42 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1.0,
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:copy_name",
+              "source": "block_entity"
+            },
+            {
+              "function": "minecraft:copy_nbt",
+              "source": "block_entity",
+              "ops": [
+                {
+                  "source": "firstColor",
+                  "target": "display.firstColor",
+                  "op": "replace"
+                },
+                {
+                  "source": "secondColor",
+                  "target": "display.secondColor",
+                  "op": "replace"
+                }
+              ]
+            }
+          ],
+          "name": "malum:iridescent_ether_sconce"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ]
+    }
+  ]
+}

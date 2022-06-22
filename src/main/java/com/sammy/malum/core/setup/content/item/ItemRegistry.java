@@ -17,10 +17,7 @@ import com.sammy.malum.common.item.equipment.armor.SoulStainedSteelArmorItem;
 import com.sammy.malum.common.item.equipment.armor.SoulHunterArmorItem;
 import com.sammy.malum.common.item.equipment.armor.vanity.DripArmorItem;
 import com.sammy.malum.common.item.equipment.curios.*;
-import com.sammy.malum.common.item.ether.AbstractEtherItem;
-import com.sammy.malum.common.item.ether.EtherBrazierItem;
-import com.sammy.malum.common.item.ether.EtherItem;
-import com.sammy.malum.common.item.ether.EtherTorchItem;
+import com.sammy.malum.common.item.ether.*;
 import com.sammy.malum.common.item.food.HolySyrupItem;
 import com.sammy.malum.common.item.food.UnholySyrupItem;
 import com.sammy.malum.common.item.impetus.CrackedImpetusItem;
@@ -29,6 +26,7 @@ import com.sammy.malum.common.item.spirit.*;
 import com.sammy.malum.common.item.tools.MalumScytheItem;
 import com.sammy.malum.common.item.tools.magic.MagicScytheItem;
 import com.sammy.malum.compability.farmersdelight.FarmersDelightCompat;
+import com.sammy.malum.compability.supplementaries.SupplementariesCompat;
 import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
 import com.sammy.malum.core.setup.content.block.BlockRegistry;
 import com.sammy.malum.core.setup.content.entity.EntityRegistry;
@@ -41,6 +39,8 @@ import com.sammy.ortus.systems.item.OrtusFuelItem;
 import com.sammy.ortus.systems.item.tools.magic.*;
 import com.sammy.ortus.systems.multiblock.MultiBlockItem;
 import net.minecraft.client.color.item.ItemColors;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
@@ -101,6 +101,9 @@ public class ItemRegistry {
     }
 
     public static final RegistryObject<Item> ENCYCLOPEDIA_ARCANA = ITEMS.register("encyclopedia_arcana", () -> new EncyclopediaArcanaItem(GEAR_PROPERTIES().rarity(Rarity.UNCOMMON)));
+
+    public static final RegistryObject<Item> BLAZING_TORCH = ITEMS.register("blazing_torch", () -> new StandingAndWallBlockItem(BlockRegistry.BLAZING_TORCH.get(), BlockRegistry.WALL_BLAZING_TORCH.get(), new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
+    public static final RegistryObject<Item> BLAZING_SCONCE = ITEMS.register("blazing_sconce", () -> new StandingAndWallBlockItem(BlockRegistry.BLAZING_SCONCE.get(), BlockRegistry.WALL_BLAZING_SCONCE.get(), SupplementariesCompat.LOADED ? new Item.Properties().tab(CreativeModeTab.TAB_MISC) : HIDDEN_PROPERTIES()));
 
     //region tainted rock
     public static final RegistryObject<Item> TAINTED_ROCK = ITEMS.register("tainted_rock", () -> new BlockItem(BlockRegistry.TAINTED_ROCK.get(), BUILDING_PROPERTIES()));
@@ -208,7 +211,7 @@ public class ItemRegistry {
     //region runewood
     public static final RegistryObject<Item> HOLY_SAP = ITEMS.register("holy_sap", () -> new Item(NATURE_PROPERTIES().craftRemainder(GLASS_BOTTLE)));
     public static final RegistryObject<Item> HOLY_SAPBALL = ITEMS.register("holy_sapball", () -> new Item(NATURE_PROPERTIES()));
-    public static final RegistryObject<Item> HOLY_SYRUP = ITEMS.register("holy_syrup", () -> new HolySyrupItem(NATURE_PROPERTIES().craftRemainder(GLASS_BOTTLE).food((new FoodProperties.Builder()).nutrition(6).saturationMod(0.1F).build())));
+    public static final RegistryObject<Item> HOLY_SYRUP = ITEMS.register("holy_syrup", () -> new HolySyrupItem(NATURE_PROPERTIES().craftRemainder(GLASS_BOTTLE).food((new FoodProperties.Builder()).nutrition(6).saturationMod(0.1F).effect(()-> new MobEffectInstance(MobEffects.REGENERATION, 200, 0), 1).build())));
 
     public static final RegistryObject<Item> RUNEWOOD_LEAVES = ITEMS.register("runewood_leaves", () -> new BlockItem(BlockRegistry.RUNEWOOD_LEAVES.get(), NATURE_PROPERTIES()));
     public static final RegistryObject<Item> RUNEWOOD_SAPLING = ITEMS.register("runewood_sapling", () -> new BlockItem(BlockRegistry.RUNEWOOD_SAPLING.get(), NATURE_PROPERTIES()));
@@ -268,7 +271,7 @@ public class ItemRegistry {
     //region soulwood
     public static final RegistryObject<Item> UNHOLY_SAP = ITEMS.register("unholy_sap", () -> new Item(NATURE_PROPERTIES().craftRemainder(GLASS_BOTTLE)));
     public static final RegistryObject<Item> UNHOLY_SAPBALL = ITEMS.register("unholy_sapball", () -> new Item(NATURE_PROPERTIES()));
-    public static final RegistryObject<Item> UNHOLY_SYRUP = ITEMS.register("unholy_syrup", () -> new UnholySyrupItem(NATURE_PROPERTIES().craftRemainder(GLASS_BOTTLE).food((new FoodProperties.Builder()).nutrition(6).saturationMod(0.1F).build())));
+    public static final RegistryObject<Item> UNHOLY_SYRUP = ITEMS.register("unholy_syrup", () -> new UnholySyrupItem(NATURE_PROPERTIES().craftRemainder(GLASS_BOTTLE).food((new FoodProperties.Builder()).nutrition(6).saturationMod(0.1F).effect(()-> new MobEffectInstance(MobEffects.DAMAGE_BOOST, 200, 0), 1).build())));
 
     public static final RegistryObject<Item> SOULWOOD_LEAVES = ITEMS.register("soulwood_leaves", () -> new BlockItem(BlockRegistry.SOULWOOD_LEAVES.get(), NATURE_PROPERTIES()));
     public static final RegistryObject<Item> SOULWOOD_GROWTH = ITEMS.register("soulwood_growth", () -> new BlockItem(BlockRegistry.SOULWOOD_GROWTH.get(), NATURE_PROPERTIES()));
@@ -376,15 +379,13 @@ public class ItemRegistry {
 
     //region materials
 
-    public static final RegistryObject<Item> ROTTING_ESSENCE = ITEMS.register("rotting_essence", () -> new Item(DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> OSSEOUS_INLAY = ITEMS.register("osseous_inlay", () -> new Item(DEFAULT_PROPERTIES()));
-
+    public static final RegistryObject<Item> ROTTING_ESSENCE = ITEMS.register("rotting_essence", () -> new Item(DEFAULT_PROPERTIES().food((new FoodProperties.Builder()).nutrition(6).saturationMod(0.2F).effect(()-> new MobEffectInstance(MobEffects.HUNGER, 600, 1), 0.95f).build())));
+    public static final RegistryObject<Item> GRIM_TALC = ITEMS.register("grim_talc", () -> new Item(DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> ALCHEMICAL_CALX = ITEMS.register("alchemical_calx", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> HEX_ASH = ITEMS.register("hex_ash", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> SPIRIT_FABRIC = ITEMS.register("spirit_fabric", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> SPECTRAL_LENS = ITEMS.register("spectral_lens", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> POPPET = ITEMS.register("poppet", () -> new Item(DEFAULT_PROPERTIES()));
-
-    public static final RegistryObject<Item> CORRUPT_APPARATUS = ITEMS.register("corrupt_apparatus", () -> new Item(DEFAULT_PROPERTIES()));
 
     public static final RegistryObject<Item> HALLOWED_GOLD_INGOT = ITEMS.register("hallowed_gold_ingot", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> HALLOWED_GOLD_NUGGET = ITEMS.register("hallowed_gold_nugget", () -> new Item(DEFAULT_PROPERTIES()));
@@ -441,10 +442,15 @@ public class ItemRegistry {
     public static final RegistryObject<Item> TAINTED_ETHER_BRAZIER = ITEMS.register("tainted_ether_brazier", () -> new EtherBrazierItem(BlockRegistry.TAINTED_ETHER_BRAZIER.get(), DEFAULT_PROPERTIES(), false));
     public static final RegistryObject<Item> TWISTED_ETHER_BRAZIER = ITEMS.register("twisted_ether_brazier", () -> new EtherBrazierItem(BlockRegistry.TWISTED_ETHER_BRAZIER.get(), DEFAULT_PROPERTIES(), false));
 
+    public static final RegistryObject<Item> ETHER_SCONCE = ITEMS.register("ether_sconce", () -> new EtherSconceItem(BlockRegistry.ETHER_SCONCE.get(), BlockRegistry.WALL_ETHER_SCONCE.get(), SupplementariesCompat.LOADED ? DEFAULT_PROPERTIES() : HIDDEN_PROPERTIES(), false));
+
     public static final RegistryObject<Item> IRIDESCENT_ETHER = ITEMS.register("iridescent_ether", () -> new EtherItem(BlockRegistry.IRIDESCENT_ETHER.get(), DEFAULT_PROPERTIES(), true));
     public static final RegistryObject<Item> IRIDESCENT_ETHER_TORCH = ITEMS.register("iridescent_ether_torch", () -> new EtherTorchItem(BlockRegistry.IRIDESCENT_ETHER_TORCH.get(), BlockRegistry.IRIDESCENT_WALL_ETHER_TORCH.get(), DEFAULT_PROPERTIES(), true));
     public static final RegistryObject<Item> TAINTED_IRIDESCENT_ETHER_BRAZIER = ITEMS.register("tainted_iridescent_ether_brazier", () -> new EtherBrazierItem(BlockRegistry.TAINTED_IRIDESCENT_ETHER_BRAZIER.get(), DEFAULT_PROPERTIES(), true));
     public static final RegistryObject<Item> TWISTED_IRIDESCENT_ETHER_BRAZIER = ITEMS.register("twisted_iridescent_ether_brazier", () -> new EtherBrazierItem(BlockRegistry.TWISTED_IRIDESCENT_ETHER_BRAZIER.get(), DEFAULT_PROPERTIES(), true));
+
+    public static final RegistryObject<Item> IRIDESCENT_ETHER_SCONCE = ITEMS.register("iridescent_ether_sconce", () -> new EtherSconceItem(BlockRegistry.IRIDESCENT_ETHER_SCONCE.get(), BlockRegistry.IRIDESCENT_WALL_ETHER_SCONCE.get(), SupplementariesCompat.LOADED ? DEFAULT_PROPERTIES() : HIDDEN_PROPERTIES(), true));
+
     //endregion
 
 
@@ -480,6 +486,7 @@ public class ItemRegistry {
 
     public static final RegistryObject<Item> RING_OF_THE_GUARDIAN = ITEMS.register("ring_of_the_guardian", () -> new CurioGuardianRing(GEAR_PROPERTIES()));
     public static final RegistryObject<Item> RING_OF_ESOTERIC_SPOILS = ITEMS.register("ring_of_esoteric_spoils", () -> new CurioArcaneSpoilRing(GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> RING_OF_DESPERATE_VORACITY = ITEMS.register("ring_of_desperate_voracity", () -> new CurioVeraciousRing(GEAR_PROPERTIES()));
     public static final RegistryObject<Item> RING_OF_CURATIVE_TALENT = ITEMS.register("ring_of_curative_talent", () -> new CurioCurativeRing(GEAR_PROPERTIES()));
     public static final RegistryObject<Item> RING_OF_PROWESS = ITEMS.register("ring_of_prowess", () -> new CurioRingOfProwess(GEAR_PROPERTIES()));
     public static final RegistryObject<Item> RING_OF_ALCHEMICAL_MASTERY = ITEMS.register("ring_of_alchemical_mastery", () -> new CurioAlchemicalRing(GEAR_PROPERTIES()));
@@ -558,8 +565,7 @@ public class ItemRegistry {
             ItemColors itemColors = event.getItemColors();
             Set<RegistryObject<Item>> items = new HashSet<>(ITEMS.getEntries());
 
-            DataHelper.takeAll(items, i -> i.get() instanceof BlockItem && ((BlockItem) i.get()).getBlock() instanceof MalumLeavesBlock).forEach(item ->
-            {
+            DataHelper.takeAll(items, i -> i.get() instanceof BlockItem && ((BlockItem) i.get()).getBlock() instanceof MalumLeavesBlock).forEach(item -> {
                 MalumLeavesBlock malumLeavesBlock = (MalumLeavesBlock) ((BlockItem) item.get()).getBlock();
                 itemColors.register((s, c) -> ColorHelper.getColor(malumLeavesBlock.minColor), item.get());
             });

@@ -36,7 +36,7 @@ public class PotionRiteEffect extends EntityAffectingRiteEffect {
             if (!e.hasEffect(effect.get())) {
                 MALUM_CHANNEL.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> e), new MajorEntityEffectParticlePacket(spirit.getColor(), e.getX(), e.getY()+ e.getBbHeight() / 2f, e.getZ()));
             }
-            e.addEffect(new MobEffectInstance(effect.get(), getEffectDuration(), getEffectAmplifier()));
+            e.addEffect(new MobEffectInstance(effect.get(), getEffectDuration(), getEffectAmplifier(), true, true));
         });
     }
 

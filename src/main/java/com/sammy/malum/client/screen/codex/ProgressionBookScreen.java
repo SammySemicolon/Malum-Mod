@@ -5,6 +5,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.client.screen.codex.objects.BookObject;
 import com.sammy.malum.client.screen.codex.objects.ImportantEntryObject;
+import com.sammy.malum.client.screen.codex.objects.MinorEntryObject;
 import com.sammy.malum.client.screen.codex.objects.VanishingEntryObject;
 import com.sammy.malum.client.screen.codex.pages.*;
 import com.sammy.malum.common.events.SetupMalumCodexEntriesEvent;
@@ -116,6 +117,19 @@ public class ProgressionBookScreen extends Screen {
         );
 
         ENTRIES.add(new BookEntry(
+                "blazing_quartz", BLAZING_QUARTZ.get(), 3, 2)
+                .setObjectSupplier(MinorEntryObject::new)
+                .addPage(new HeadlineTextItemPage("blazing_quartz", "blazing_quartz", BLAZING_QUARTZ.get()))
+                .addPage(new TextPage("blazing_quartz"))
+
+        );
+
+        ENTRIES.add(new BookEntry(
+                "brilliance", CLUSTER_OF_BRILLIANCE.get(), -3, 2)
+                .setObjectSupplier(MinorEntryObject::new)
+        );
+
+        ENTRIES.add(new BookEntry(
                 "soulstone", PROCESSED_SOULSTONE.get(), -1, 2)
                 .addPage(new HeadlineTextPage("soulstone", "soulstone_a"))
                 .addPage(new TextPage("soulstone_b"))
@@ -151,31 +165,36 @@ public class ProgressionBookScreen extends Screen {
         );
 
         ENTRIES.add(new BookEntry(
+                "scythe_reaping", ALCHEMICAL_CALX.get(), 0, 6)
+                .setObjectSupplier(MinorEntryObject::new)
+        );
+
+        ENTRIES.add(new BookEntry(
                 "primary_arcana", ARCANE_SPIRIT.get(), -2, 4)
-                .addPage(new SpiritTextPage("sacred_spirit", "sacred_spirit_a", SACRED_SPIRIT.get()))
+                .addPage(new HeadlineTextItemPage("sacred_spirit", "sacred_spirit_a", SACRED_SPIRIT.get()))
                 .addPage(new TextPage("sacred_spirit_b"))
-                .addPage(new SpiritTextPage("wicked_spirit", "wicked_spirit_a", WICKED_SPIRIT.get()))
+                .addPage(new HeadlineTextItemPage("wicked_spirit", "wicked_spirit_a", WICKED_SPIRIT.get()))
                 .addPage(new TextPage("wicked_spirit_b"))
-                .addPage(new SpiritTextPage("arcane_spirit", "arcane_spirit_a", ARCANE_SPIRIT.get()))
+                .addPage(new HeadlineTextItemPage("arcane_spirit", "arcane_spirit_a", ARCANE_SPIRIT.get()))
                 .addPage(new TextPage("arcane_spirit_b"))
                 .addPage(new TextPage("arcane_spirit_c"))
         );
 
         ENTRIES.add(new BookEntry(
                 "elemental_arcana", EARTHEN_SPIRIT.get(), 2, 4)
-                .addPage(new SpiritTextPage("earthen_spirit", "earthen_spirit_a", EARTHEN_SPIRIT.get()))
+                .addPage(new HeadlineTextItemPage("earthen_spirit", "earthen_spirit_a", EARTHEN_SPIRIT.get()))
                 .addPage(new TextPage("earthen_spirit_b"))
-                .addPage(new SpiritTextPage("infernal_spirit", "infernal_spirit_a", INFERNAL_SPIRIT.get()))
+                .addPage(new HeadlineTextItemPage("infernal_spirit", "infernal_spirit_a", INFERNAL_SPIRIT.get()))
                 .addPage(new TextPage("infernal_spirit_b"))
-                .addPage(new SpiritTextPage("aerial_spirit", "aerial_spirit_a", AERIAL_SPIRIT.get()))
+                .addPage(new HeadlineTextItemPage("aerial_spirit", "aerial_spirit_a", AERIAL_SPIRIT.get()))
                 .addPage(new TextPage("aerial_spirit_b"))
-                .addPage(new SpiritTextPage("aqueous_spirit", "aqueous_spirit_a", AQUEOUS_SPIRIT.get()))
+                .addPage(new HeadlineTextItemPage("aqueous_spirit", "aqueous_spirit_a", AQUEOUS_SPIRIT.get()))
                 .addPage(new TextPage("aqueous_spirit_b"))
         );
 
         ENTRIES.add(new BookEntry(
                 "eldritch_arcana", ELDRITCH_SPIRIT.get(), 0, 7)
-                .addPage(new SpiritTextPage("eldritch_spirit", "eldritch_spirit_a", ELDRITCH_SPIRIT.get()))
+                .addPage(new HeadlineTextItemPage("eldritch_spirit", "eldritch_spirit_a", ELDRITCH_SPIRIT.get()))
                 .addPage(new TextPage("eldritch_spirit_b"))
         );
 
@@ -356,27 +375,27 @@ public class ProgressionBookScreen extends Screen {
         );
 
         ENTRIES.add(new BookEntry(
-                "ring_of_alchemical_mastery", RING_OF_ALCHEMICAL_MASTERY.get(), -7, 6)
+                "reactive_curios", RING_OF_ALCHEMICAL_MASTERY.get(), -7, 6)
                 .addPage(new HeadlineTextPage("ring_of_alchemical_mastery", "ring_of_alchemical_mastery"))
                 .addPage(SpiritInfusionPage.fromOutput(RING_OF_ALCHEMICAL_MASTERY.get()))
-        );
-
-        ENTRIES.add(new BookEntry(
-                "ring_of_prowess", RING_OF_PROWESS.get(), -7, 4)
+                .addPage(new HeadlineTextPage("ring_of_curative_talent", "ring_of_curative_talent"))
+                .addPage(SpiritInfusionPage.fromOutput(RING_OF_CURATIVE_TALENT.get()))
                 .addPage(new HeadlineTextPage("ring_of_prowess", "ring_of_prowess_a"))
                 .addPage(new TextPage("ring_of_prowess_b"))
                 .addPage(SpiritInfusionPage.fromOutput(RING_OF_PROWESS.get()))
         );
 
         ENTRIES.add(new BookEntry(
-                "ring_of_curative_talent", RING_OF_CURATIVE_TALENT.get(), -7, 8)
-                .addPage(new HeadlineTextPage("ring_of_curative_talent", "ring_of_curative_talent"))
-                .addPage(SpiritInfusionPage.fromOutput(RING_OF_CURATIVE_TALENT.get()))
+                "put_something_here", ORNATE_RING.get(), -7, 4)
         );
 
         ENTRIES.add(new BookEntry(
-                "ring_of_arcane_spoil", RING_OF_ESOTERIC_SPOILS.get(), -9, 5)
-                .addPage(new HeadlineTextPage("ring_of_arcane_spoil", "ring_of_arcane_spoil"))
+                "put_something_here_also", ORNATE_RING.get(), -7, 8)
+        );
+
+        ENTRIES.add(new BookEntry(
+                "ring_of_esoteric_spoils", RING_OF_ESOTERIC_SPOILS.get(), -9, 5)
+                .addPage(new HeadlineTextPage("ring_of_esoteric_spoils", "ring_of_esoteric_spoils"))
                 .addPage(SpiritInfusionPage.fromOutput(RING_OF_ESOTERIC_SPOILS.get()))
         );
 
@@ -384,6 +403,8 @@ public class ProgressionBookScreen extends Screen {
                 "belt_of_the_starved", BELT_OF_THE_STARVED.get(), -8, 7)
                 .addPage(new HeadlineTextPage("belt_of_the_starved", "belt_of_the_starved"))
                 .addPage(SpiritInfusionPage.fromOutput(BELT_OF_THE_STARVED.get()))
+                .addPage(new HeadlineTextPage("ring_of_desperate_voracity", "ring_of_desperate_voracity"))
+                .addPage(SpiritInfusionPage.fromOutput(RING_OF_DESPERATE_VORACITY.get()))
         );
 
         ENTRIES.add(new BookEntry(
@@ -699,7 +720,12 @@ public class ProgressionBookScreen extends Screen {
 
     public static void renderComponents(PoseStack poseStack, List<? extends IRecipeComponent> components, int left, int top, int mouseX, int mouseY, boolean vertical) {
         List<ItemStack> items = components.stream().map(IRecipeComponent::getStack).collect(Collectors.toList());
-        ProgressionBookScreen.renderItemList(poseStack, items, left, top, mouseX, mouseY, vertical);
+        ProgressionBookScreen.renderItemList(poseStack, items, left, top, mouseX, mouseY, vertical).run();
+    }
+
+    public static Runnable renderBufferedComponents(PoseStack poseStack, List<? extends IRecipeComponent> components, int left, int top, int mouseX, int mouseY, boolean vertical) {
+        List<ItemStack> items = components.stream().map(IRecipeComponent::getStack).collect(Collectors.toList());
+        return ProgressionBookScreen.renderItemList(poseStack, items, left, top, mouseX, mouseY, vertical);
     }
 
     public static void renderComponent(PoseStack poseStack, IRecipeComponent component, int posX, int posY, int mouseX, int mouseY) {
@@ -712,7 +738,7 @@ public class ProgressionBookScreen extends Screen {
         Minecraft.getInstance().getItemRenderer().renderAndDecorateItem(stack, posX, posY);
         Minecraft.getInstance().getItemRenderer().renderGuiItemDecorations(Minecraft.getInstance().font, stack, posX, posY, null);
         if (isHovering(mouseX, mouseY, posX, posY, 16, 16)) {
-            screen.renderTooltip(poseStack, new TranslatableComponent(stack.getDescriptionId()), mouseX, mouseY);
+            screen.renderComponentTooltip(poseStack, screen.getTooltipFromItem(stack), mouseX, mouseY);
         }
     }
 
@@ -742,24 +768,28 @@ public class ProgressionBookScreen extends Screen {
         }
     }
 
-    public static void renderItemList(PoseStack poseStack, List<ItemStack> items, int left, int top, int mouseX, int mouseY, boolean vertical) {
+    public static Runnable renderItemList(PoseStack poseStack, List<ItemStack> items, int left, int top, int mouseX, int mouseY, boolean vertical) {
         int slots = items.size();
-        renderItemFrames(poseStack, left, top, vertical, slots);
-        if (vertical) {
-            top -= 10 * (slots - 1);
-        } else {
-            left -= 10 * (slots - 1);
-        }
-        for (int i = 0; i < slots; i++) {
-            ItemStack stack = items.get(i);
-            int offset = i * 20;
-            int oLeft = left + 2 + (vertical ? 0 : offset);
-            int oTop = top + 2 + (vertical ? offset : 0);
-            ProgressionBookScreen.renderItem(poseStack, stack, oLeft, oTop, mouseX, mouseY);
-        }
+        renderItemFrames(poseStack, slots, left, top, vertical);
+        return () -> {
+            int finalLeft = left;
+            int finalTop = top;
+            if (vertical) {
+                finalTop -= 10 * (slots - 1);
+            } else {
+                finalLeft -= 10 * (slots - 1);
+            }
+            for (int i = 0; i < slots; i++) {
+                ItemStack stack = items.get(i);
+                int offset = i * 20;
+                int oLeft = finalLeft + 2 + (vertical ? 0 : offset);
+                int oTop = finalTop + 2 + (vertical ? offset : 0);
+                ProgressionBookScreen.renderItem(poseStack, stack, oLeft, oTop, mouseX, mouseY);
+            }
+        };
     }
 
-    public static void renderItemFrames(PoseStack poseStack, int left, int top, boolean vertical, int slots) {
+    public static void renderItemFrames(PoseStack poseStack, int slots, int left, int top, boolean vertical) {
         if (vertical) {
             top -= 10 * (slots - 1);
         } else {

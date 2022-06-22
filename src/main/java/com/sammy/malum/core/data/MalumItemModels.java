@@ -3,6 +3,7 @@ package com.sammy.malum.core.data;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.block.ether.EtherBlock;
 import com.sammy.malum.common.block.ether.EtherBrazierBlock;
+import com.sammy.malum.common.block.ether.EtherSconceBlock;
 import com.sammy.malum.common.block.ether.EtherTorchBlock;
 import com.sammy.malum.common.item.impetus.CrackedImpetusItem;
 import com.sammy.malum.common.item.impetus.ImpetusItem;
@@ -59,6 +60,7 @@ public class MalumItemModels extends net.minecraftforge.client.model.generators.
         takeAll(items, i -> i.get() instanceof BlockItem && ((BlockItem) i.get()).getBlock() instanceof DoublePlantBlock).forEach(this::generatedItem);
         takeAll(items, i -> i.get() instanceof BlockItem && ((BlockItem) i.get()).getBlock() instanceof EtherBrazierBlock).forEach(this::etherBrazierItem);
         takeAll(items, i -> i.get() instanceof BlockItem && ((BlockItem) i.get()).getBlock() instanceof LanternBlock).forEach(this::generatedItem);
+        takeAll(items, i -> i.get() instanceof BlockItem && ((BlockItem) i.get()).getBlock() instanceof EtherSconceBlock).forEach(this::etherSconceItem);
         takeAll(items, i -> i.get() instanceof BlockItem && ((BlockItem) i.get()).getBlock() instanceof EtherTorchBlock).forEach(this::etherTorchItem);
         takeAll(items, i -> i.get() instanceof BlockItem && ((BlockItem) i.get()).getBlock() instanceof TorchBlock).forEach(this::generatedItem);
         takeAll(items, i -> i.get() instanceof BlockItem && ((BlockItem) i.get()).getBlock() instanceof EtherBlock).forEach(this::etherItem);
@@ -122,6 +124,16 @@ public class MalumItemModels extends net.minecraftforge.client.model.generators.
             return;
         }
         withExistingParent(name, GENERATED).texture("layer0", prefix("item/ether_torch_overlay")).texture("layer1", prefix("item/ether_torch"));
+    }
+
+    private void etherSconceItem(RegistryObject<Item> i) {
+        String name = Registry.ITEM.getKey(i.get()).getPath();
+        AbstractEtherItem etherItem = (AbstractEtherItem) i.get();
+        if (etherItem.iridescent) {
+            withExistingParent(name, GENERATED).texture("layer0", prefix("item/iridescent_ether_sconce")).texture("layer1", prefix("item/ether_sconce")).texture("layer2", prefix("item/iridescent_ether_sconce_overlay"));
+            return;
+        }
+        withExistingParent(name, GENERATED).texture("layer0", prefix("item/ether_sconce_overlay")).texture("layer1", prefix("item/ether_sconce"));
     }
 
     private void etherItem(RegistryObject<Item> i) {

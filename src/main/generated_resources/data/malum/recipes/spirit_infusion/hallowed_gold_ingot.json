@@ -11,11 +11,7 @@
   "extra_items": [
     {
       "item": "minecraft:quartz",
-      "count": 2
-    },
-    {
-      "item": "malum:processed_soulstone",
-      "count": 1
+      "count": 4
     }
   ],
   "spirits": [

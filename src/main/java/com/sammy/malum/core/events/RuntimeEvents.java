@@ -1,13 +1,15 @@
 package com.sammy.malum.core.events;
 
 import com.sammy.malum.common.capability.LivingEntityDataCapability;
-import com.sammy.malum.common.capability.PlayerDataCapability;
+import com.sammy.malum.common.capability.MalumPlayerDataCapability;
 import com.sammy.malum.common.effect.CorruptedAerialAura;
+import com.sammy.malum.common.effect.GluttonyEffect;
 import com.sammy.malum.common.effect.InfernalAura;
 import com.sammy.malum.common.enchantment.ReboundEnchantment;
 import com.sammy.malum.common.item.equipment.CeaselessImpetusItem;
 import com.sammy.malum.common.item.equipment.curios.CurioAlchemicalRing;
 import com.sammy.malum.common.item.equipment.curios.CurioTokenOfGratitude;
+import com.sammy.malum.common.item.equipment.curios.CurioVeraciousRing;
 import com.sammy.malum.common.spiritaffinity.ArcaneAffinity;
 import com.sammy.malum.common.spiritaffinity.EarthenAffinity;
 import com.sammy.malum.compability.tetra.TetraCompat;
@@ -31,13 +33,13 @@ public class RuntimeEvents {
 
     @SubscribeEvent
     public static void onAttachCapability(AttachCapabilitiesEvent<Entity> event) {
-        PlayerDataCapability.attachPlayerCapability(event);
+        MalumPlayerDataCapability.attachPlayerCapability(event);
         LivingEntityDataCapability.attachEntityCapability(event);
     }
 
     @SubscribeEvent
     public static void onEntityJoin(EntityJoinWorldEvent event) {
-        PlayerDataCapability.playerJoin(event);
+        MalumPlayerDataCapability.playerJoin(event);
         CurioTokenOfGratitude.giveItem(event);
         SoulHarvestHandler.addEntity(event);
         if (TetraCompat.LOADED) {
@@ -73,12 +75,12 @@ public class RuntimeEvents {
     @SubscribeEvent
     public static void onStartTracking(PlayerEvent.StartTracking event) {
         LivingEntityDataCapability.syncEntityCapability(event);
-        PlayerDataCapability.syncPlayerCapability(event);
+        MalumPlayerDataCapability.syncPlayerCapability(event);
     }
 
     @SubscribeEvent
     public static void onPlayerClone(PlayerEvent.Clone event) {
-        PlayerDataCapability.playerClone(event);
+        MalumPlayerDataCapability.playerClone(event);
     }
 
     @SubscribeEvent
@@ -104,8 +106,24 @@ public class RuntimeEvents {
     }
 
     @SubscribeEvent
-    public static void onRightClickItem(PotionEvent.PotionAddedEvent event) {
+    public static void isPotionApplicable(PotionEvent.PotionApplicableEvent event) {
+        GluttonyEffect.canApplyPotion(event);
+    }
+
+    @SubscribeEvent
+    public static void onPotionApplied(PotionEvent.PotionAddedEvent event) {
         CurioAlchemicalRing.onPotionApplied(event);
+    }
+
+    @SubscribeEvent
+    public static void onStartUsingItem(LivingEntityUseItemEvent.Start event) {
+        CurioVeraciousRing.accelerateEating(event);
+    }
+
+    @SubscribeEvent
+    public static void onFinishUsingItem(LivingEntityUseItemEvent.Finish event) {
+        CurioVeraciousRing.finishEating(event);
+        GluttonyEffect.finishEating(event);
     }
 
     @SubscribeEvent

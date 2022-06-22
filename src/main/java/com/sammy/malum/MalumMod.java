@@ -1,6 +1,7 @@
 package com.sammy.malum;
 
 import com.sammy.malum.compability.farmersdelight.FarmersDelightCompat;
+import com.sammy.malum.compability.supplementaries.SupplementariesCompat;
 import com.sammy.malum.compability.tetra.TetraCompat;
 import com.sammy.malum.config.ClientConfig;
 import com.sammy.malum.config.CommonConfig;
@@ -28,7 +29,7 @@ import static com.sammy.malum.core.setup.content.block.BlockRegistry.BLOCKS;
 import static com.sammy.malum.core.setup.content.entity.EntityRegistry.ENTITY_TYPES;
 import static com.sammy.malum.core.setup.content.item.ItemRegistry.ITEMS;
 import static com.sammy.malum.core.setup.content.item.MalumEnchantments.ENCHANTMENTS;
-import static com.sammy.malum.core.setup.content.potion.EffectRegistry.EFFECTS;
+import static com.sammy.malum.core.setup.content.potion.MalumMobEffectRegistry.EFFECTS;
 import static com.sammy.malum.core.setup.content.worldgen.FeatureRegistry.FEATURE_TYPES;
 
 @SuppressWarnings("unused")
@@ -59,25 +60,29 @@ public class MalumMod {
 
         TetraCompat.init();
         FarmersDelightCompat.init();
+        SupplementariesCompat.init();
 
-        modBus.addListener(this::gatherData);
+        modBus.addListener(DataOnly::gatherData);
     }
 
     public static ResourceLocation prefix(String path) {
         return new ResourceLocation(MALUM, path);
     }
 
-    public void gatherData(GatherDataEvent event) {
-        BlockTagsProvider provider = new MalumBlockTags(event.getGenerator(), event.getExistingFileHelper());
-        event.getGenerator().addProvider(new MalumBlockStates(event.getGenerator(), event.getExistingFileHelper()));
-        event.getGenerator().addProvider(new MalumItemModels(event.getGenerator(), event.getExistingFileHelper()));
-        event.getGenerator().addProvider(new MalumLang(event.getGenerator()));
-        event.getGenerator().addProvider(provider);
-        event.getGenerator().addProvider(new MalumBlockLootTables(event.getGenerator()));
-        event.getGenerator().addProvider(new MalumItemTags(event.getGenerator(), provider, event.getExistingFileHelper()));
-        event.getGenerator().addProvider(new MalumRecipes(event.getGenerator()));
-        event.getGenerator().addProvider(new MalumSpiritInfusionRecipes(event.getGenerator()));
-        event.getGenerator().addProvider(new MalumSpiritFocusingRecipes(event.getGenerator()));
-        event.getGenerator().addProvider(new MalumBlockTransmutationRecipes(event.getGenerator()));
+
+    public static class DataOnly {
+        public static void gatherData(GatherDataEvent event) {
+            BlockTagsProvider provider = new MalumBlockTags(event.getGenerator(), event.getExistingFileHelper());
+            event.getGenerator().addProvider(new MalumBlockStates(event.getGenerator(), event.getExistingFileHelper()));
+            event.getGenerator().addProvider(new MalumItemModels(event.getGenerator(), event.getExistingFileHelper()));
+            event.getGenerator().addProvider(new MalumLang(event.getGenerator()));
+            event.getGenerator().addProvider(provider);
+            event.getGenerator().addProvider(new MalumBlockLootTables(event.getGenerator()));
+            event.getGenerator().addProvider(new MalumItemTags(event.getGenerator(), provider, event.getExistingFileHelper()));
+            event.getGenerator().addProvider(new MalumRecipes(event.getGenerator()));
+            event.getGenerator().addProvider(new MalumSpiritInfusionRecipes(event.getGenerator()));
+            event.getGenerator().addProvider(new MalumSpiritFocusingRecipes(event.getGenerator()));
+            event.getGenerator().addProvider(new MalumBlockTransmutationRecipes(event.getGenerator()));
+        }
     }
 }
