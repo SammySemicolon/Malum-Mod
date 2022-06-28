@@ -1,5 +1,6 @@
 package com.sammy.malum.core.events;
 
+import com.sammy.malum.common.capability.ItemDataCapability;
 import com.sammy.malum.common.capability.LivingEntityDataCapability;
 import com.sammy.malum.common.capability.MalumPlayerDataCapability;
 import com.sammy.malum.common.effect.CorruptedAerialAura;
@@ -22,6 +23,7 @@ import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.entity.item.ItemExpireEvent;
 import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -35,6 +37,7 @@ public class RuntimeEvents {
     public static void onAttachCapability(AttachCapabilitiesEvent<Entity> event) {
         MalumPlayerDataCapability.attachPlayerCapability(event);
         LivingEntityDataCapability.attachEntityCapability(event);
+        ItemDataCapability.attachItemCapability(event);
     }
 
     @SubscribeEvent
@@ -139,4 +142,15 @@ public class RuntimeEvents {
         CeaselessImpetusItem.preventDeath(event);
         SpiritHarvestHandler.shatterSoul(event);
     }
+
+    @SubscribeEvent
+    public static void onDrops(LivingDropsEvent event) {
+        SpiritHarvestHandler.modifyDroppedItems(event);
+    }
+
+    @SubscribeEvent
+    public static void onItemExpire(ItemExpireEvent event) {
+        SpiritHarvestHandler.shatterItem(event);
+    }
 }
+
