@@ -1,6 +1,7 @@
 package com.sammy.malum.core.events;
 
-import com.sammy.malum.common.capability.MalumLivingEntityDataCapability;
+import com.sammy.malum.common.capability.ItemDataCapability;
+import com.sammy.malum.common.capability.LivingEntityDataCapability;
 import com.sammy.malum.common.capability.MalumPlayerDataCapability;
 import com.sammy.malum.common.effect.CorruptedAerialAura;
 import com.sammy.malum.common.effect.GluttonyEffect;
@@ -14,16 +15,15 @@ import com.sammy.malum.common.spiritaffinity.ArcaneAffinity;
 import com.sammy.malum.common.spiritaffinity.EarthenAffinity;
 import com.sammy.malum.compability.tetra.TetraCompat;
 import com.sammy.malum.core.handlers.MalumAttributeEventHandler;
-import com.sammy.malum.core.handlers.ReapingHandler;
 import com.sammy.malum.core.handlers.SoulHarvestHandler;
 import com.sammy.malum.core.handlers.SpiritHarvestHandler;
-import com.sammy.malum.core.listeners.ReapingDataReloadListener;
 import com.sammy.malum.core.listeners.SpiritDataReloadListener;
 import net.minecraft.world.entity.Entity;
 import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.entity.item.ItemExpireEvent;
 import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -36,7 +36,8 @@ public class RuntimeEvents {
     @SubscribeEvent
     public static void onAttachCapability(AttachCapabilitiesEvent<Entity> event) {
         MalumPlayerDataCapability.attachPlayerCapability(event);
-        MalumLivingEntityDataCapability.attachEntityCapability(event);
+        LivingEntityDataCapability.attachEntityCapability(event);
+        ItemDataCapability.attachItemCapability(event);
     }
 
     @SubscribeEvent
@@ -76,7 +77,7 @@ public class RuntimeEvents {
 
     @SubscribeEvent
     public static void onStartTracking(PlayerEvent.StartTracking event) {
-        MalumLivingEntityDataCapability.syncEntityCapability(event);
+        LivingEntityDataCapability.syncEntityCapability(event);
         MalumPlayerDataCapability.syncPlayerCapability(event);
     }
 
@@ -99,7 +100,6 @@ public class RuntimeEvents {
 
     @SubscribeEvent
     public static void registerListeners(AddReloadListenerEvent event) {
-        ReapingDataReloadListener.register(event);
         SpiritDataReloadListener.register(event);
     }
 
@@ -140,7 +140,17 @@ public class RuntimeEvents {
     @SubscribeEvent
     public static void onDeath(LivingDeathEvent event) {
         CeaselessImpetusItem.preventDeath(event);
-        ReapingHandler.tryCreateReapingDrops(event);
         SpiritHarvestHandler.shatterSoul(event);
     }
+
+    @SubscribeEvent
+    public static void onDrops(LivingDropsEvent event) {
+        SpiritHarvestHandler.modifyDroppedItems(event);
+    }
+
+    @SubscribeEvent
+    public static void onItemExpire(ItemExpireEvent event) {
+        SpiritHarvestHandler.shatterItem(event);
+    }
 }
+

@@ -6,9 +6,12 @@ import com.sammy.malum.core.systems.spirit.MalumEntitySpiritData;
 import com.sammy.ortus.systems.capability.OrtusCapability;
 import com.sammy.ortus.systems.capability.OrtusCapabilityProvider;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.capabilities.CapabilityToken;
@@ -17,13 +20,15 @@ import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.network.PacketDistributor;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import static com.sammy.malum.core.setup.server.PacketRegistry.MALUM_CHANNEL;
 
-public class MalumLivingEntityDataCapability implements OrtusCapability {
+public class LivingEntityDataCapability implements OrtusCapability {
 
-    public static Capability<MalumLivingEntityDataCapability> CAPABILITY = CapabilityManager.get(new CapabilityToken<>() {
+    public static Capability<LivingEntityDataCapability> CAPABILITY = CapabilityManager.get(new CapabilityToken<>() {
     });
 
 
@@ -35,38 +40,51 @@ public class MalumLivingEntityDataCapability implements OrtusCapability {
     public boolean spawnerSpawned;
     public UUID ownerUUID;
 
-    public float getPreviewProgress() {
+    public List<ItemStack> soulsToApplyToDrops;
+    public UUID killerUUID;
+
+    public float getPreviewProgress()
+    {
         return soulless ? 10 : Math.min(10, soulHarvestProgress);
     }
-
-    public float getHarvestProgress() {
-        return Math.max(0, soulHarvestProgress - 10);
+    public float getHarvestProgress()
+    {
+        return Math.max(0, soulHarvestProgress-10);
     }
 
-    public MalumLivingEntityDataCapability() {
+    public LivingEntityDataCapability() {
     }
 
     public static void attachEntityCapability(AttachCapabilitiesEvent<Entity> event) {
         if (event.getObject() instanceof LivingEntity) {
-            final MalumLivingEntityDataCapability capability = new MalumLivingEntityDataCapability();
-            event.addCapability(MalumMod.prefix("living_data"), new OrtusCapabilityProvider<>(MalumLivingEntityDataCapability.CAPABILITY, () -> capability));
+            final LivingEntityDataCapability capability = new LivingEntityDataCapability();
+            event.addCapability(MalumMod.prefix("living_data"), new OrtusCapabilityProvider<>(LivingEntityDataCapability.CAPABILITY, () -> capability));
         }
     }
 
     public static void syncEntityCapability(PlayerEvent.StartTracking event) {
         if (event.getTarget() instanceof LivingEntity livingEntity) {
             if (livingEntity.level instanceof ServerLevel) {
-                MalumLivingEntityDataCapability.sync(livingEntity);
+                LivingEntityDataCapability.sync(livingEntity);
             }
         }
     }
-
     @Override
     public CompoundTag serializeNBT() {
         CompoundTag tag = new CompoundTag();
 
         tag.putFloat("soulHarvestProgress", soulHarvestProgress);
         tag.putFloat("exposedSoul", exposedSoul);
+        if (soulsToApplyToDrops != null) {
+            ListTag souls = new ListTag();
+            for (ItemStack soul : soulsToApplyToDrops) {
+                souls.add(soul.serializeNBT());
+            }
+            tag.put("soulsToApplyToDrops", souls);
+        }
+        if (killerUUID != null) {
+            tag.putUUID("killerUUID", killerUUID);
+        }
         tag.putBoolean("soulless", soulless);
         tag.putBoolean("spawnerSpawned", spawnerSpawned);
         if (ownerUUID != null) {
@@ -80,21 +98,44 @@ public class MalumLivingEntityDataCapability implements OrtusCapability {
         soulHarvestProgress = tag.getFloat("soulHarvestProgress");
         exposedSoul = tag.getFloat("exposedSoul");
         soulless = tag.getBoolean("soulless");
+        if (tag.contains("soulsToApplyToDrops", Tag.TAG_LIST)) {
+            soulsToApplyToDrops = new ArrayList<>();
+            ListTag souls = tag.getList("soulsToApplyToDrops", Tag.TAG_COMPOUND);
+            for (int i = 0; i < souls.size(); i++) {
+                soulsToApplyToDrops.add(ItemStack.of(souls.getCompound(i)));
+            }
+        } else {
+            soulsToApplyToDrops = null;
+        }
+
+        if (tag.hasUUID("killerUUID")) {
+            killerUUID = tag.getUUID("killerUUID");
+        } else {
+            killerUUID = null;
+        }
+
         spawnerSpawned = tag.getBoolean("spawnerSpawned");
-        if (tag.contains("ownerUUID")) {
+        if (tag.hasUUID("ownerUUID")) {
             ownerUUID = tag.getUUID("ownerUUID");
+        } else {
+            ownerUUID = null;
         }
     }
 
-    public static void sync(LivingEntity entity) {
-        getCapabilityOptional(entity).ifPresent(c -> MALUM_CHANNEL.send(PacketDistributor.TRACKING_ENTITY.with(() -> entity), new SyncLivingCapabilityDataPacket(entity.getId(), c.serializeNBT())));
+    public static void sync(LivingEntity entity)
+    {
+        getCapability(entity).ifPresent(c -> MALUM_CHANNEL.send(PacketDistributor.TRACKING_ENTITY.with(() -> entity), new SyncLivingCapabilityDataPacket(entity.getId(), c.serializeNBT())));
     }
-
-    public static LazyOptional<MalumLivingEntityDataCapability> getCapabilityOptional(LivingEntity entity) {
+    public static LazyOptional<LivingEntityDataCapability> getCapability(LivingEntity entity) {
         return entity.getCapability(CAPABILITY);
     }
-    public static MalumLivingEntityDataCapability getCapability(LivingEntity entity) {
-        return entity.getCapability(CAPABILITY).orElse(new MalumLivingEntityDataCapability());
+    public static UUID getOwner(LivingEntity entity) {
+        return entity.getCapability(CAPABILITY).orElse(new LivingEntityDataCapability()).ownerUUID;
     }
-
+    public static boolean isSoulless(LivingEntity entity) {
+        return entity.getCapability(CAPABILITY).orElse(new LivingEntityDataCapability()).soulless;
+    }
+    public static boolean hasSpiritData(LivingEntity entity) {
+        return entity.getCapability(CAPABILITY).orElse(new LivingEntityDataCapability()).spiritData != null;
+    }
 }
