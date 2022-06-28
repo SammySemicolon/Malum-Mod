@@ -19,22 +19,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class ItemDataCapability implements OrtusCapability {
+public class MalumItemDataCapability implements OrtusCapability {
 
     public List<ItemStack> soulsToDrop;
     public UUID attackerForSouls;
     public float totalSoulCount;
 
-    public static Capability<ItemDataCapability> CAPABILITY = CapabilityManager.get(new CapabilityToken<>() {
+    public static Capability<MalumItemDataCapability> CAPABILITY = CapabilityManager.get(new CapabilityToken<>() {
     });
 
 
-    public ItemDataCapability() {
+    public MalumItemDataCapability() {
     }
 
     public static void attachItemCapability(AttachCapabilitiesEvent<Entity> event) {
         if (event.getObject() instanceof ItemEntity) {
-            final ItemDataCapability capability = new ItemDataCapability();
+            final MalumItemDataCapability capability = new MalumItemDataCapability();
             event.addCapability(MalumMod.prefix("item_data"), new OrtusCapabilityProvider<>(CAPABILITY, () -> capability));
         }
     }
@@ -77,7 +77,11 @@ public class ItemDataCapability implements OrtusCapability {
         totalSoulCount = tag.getFloat("soulCount");
     }
 
-    public static LazyOptional<ItemDataCapability> getCapability(ItemEntity entity) {
+    public static LazyOptional<MalumItemDataCapability> getCapabilityOptional(ItemEntity entity) {
         return entity.getCapability(CAPABILITY);
+    }
+
+    public static MalumItemDataCapability getCapability(ItemEntity entity) {
+        return entity.getCapability(CAPABILITY).orElse(new MalumItemDataCapability());
     }
 }

@@ -1,7 +1,7 @@
 package com.sammy.malum.core.events;
 
-import com.sammy.malum.common.capability.ItemDataCapability;
-import com.sammy.malum.common.capability.LivingEntityDataCapability;
+import com.sammy.malum.common.capability.MalumItemDataCapability;
+import com.sammy.malum.common.capability.MalumLivingEntityDataCapability;
 import com.sammy.malum.common.capability.MalumPlayerDataCapability;
 import com.sammy.malum.common.effect.CorruptedAerialAura;
 import com.sammy.malum.common.effect.GluttonyEffect;
@@ -15,6 +15,7 @@ import com.sammy.malum.common.spiritaffinity.ArcaneAffinity;
 import com.sammy.malum.common.spiritaffinity.EarthenAffinity;
 import com.sammy.malum.compability.tetra.TetraCompat;
 import com.sammy.malum.core.handlers.MalumAttributeEventHandler;
+import com.sammy.malum.core.handlers.ReapingHandler;
 import com.sammy.malum.core.handlers.SoulHarvestHandler;
 import com.sammy.malum.core.handlers.SpiritHarvestHandler;
 import com.sammy.malum.core.listeners.SpiritDataReloadListener;
@@ -36,8 +37,8 @@ public class RuntimeEvents {
     @SubscribeEvent
     public static void onAttachCapability(AttachCapabilitiesEvent<Entity> event) {
         MalumPlayerDataCapability.attachPlayerCapability(event);
-        LivingEntityDataCapability.attachEntityCapability(event);
-        ItemDataCapability.attachItemCapability(event);
+        MalumLivingEntityDataCapability.attachEntityCapability(event);
+        MalumItemDataCapability.attachItemCapability(event);
     }
 
     @SubscribeEvent
@@ -77,7 +78,7 @@ public class RuntimeEvents {
 
     @SubscribeEvent
     public static void onStartTracking(PlayerEvent.StartTracking event) {
-        LivingEntityDataCapability.syncEntityCapability(event);
+        MalumLivingEntityDataCapability.syncEntityCapability(event);
         MalumPlayerDataCapability.syncPlayerCapability(event);
     }
 
@@ -140,6 +141,7 @@ public class RuntimeEvents {
     @SubscribeEvent
     public static void onDeath(LivingDeathEvent event) {
         CeaselessImpetusItem.preventDeath(event);
+        ReapingHandler.tryCreateReapingDrops(event);
         SpiritHarvestHandler.shatterSoul(event);
     }
 

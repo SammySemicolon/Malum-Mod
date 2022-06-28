@@ -26,9 +26,9 @@ import java.util.UUID;
 
 import static com.sammy.malum.core.setup.server.PacketRegistry.MALUM_CHANNEL;
 
-public class LivingEntityDataCapability implements OrtusCapability {
+public class MalumLivingEntityDataCapability implements OrtusCapability {
 
-    public static Capability<LivingEntityDataCapability> CAPABILITY = CapabilityManager.get(new CapabilityToken<>() {
+    public static Capability<MalumLivingEntityDataCapability> CAPABILITY = CapabilityManager.get(new CapabilityToken<>() {
     });
 
 
@@ -52,20 +52,20 @@ public class LivingEntityDataCapability implements OrtusCapability {
         return Math.max(0, soulHarvestProgress-10);
     }
 
-    public LivingEntityDataCapability() {
+    public MalumLivingEntityDataCapability() {
     }
 
     public static void attachEntityCapability(AttachCapabilitiesEvent<Entity> event) {
         if (event.getObject() instanceof LivingEntity) {
-            final LivingEntityDataCapability capability = new LivingEntityDataCapability();
-            event.addCapability(MalumMod.prefix("living_data"), new OrtusCapabilityProvider<>(LivingEntityDataCapability.CAPABILITY, () -> capability));
+            final MalumLivingEntityDataCapability capability = new MalumLivingEntityDataCapability();
+            event.addCapability(MalumMod.prefix("living_data"), new OrtusCapabilityProvider<>(MalumLivingEntityDataCapability.CAPABILITY, () -> capability));
         }
     }
 
     public static void syncEntityCapability(PlayerEvent.StartTracking event) {
         if (event.getTarget() instanceof LivingEntity livingEntity) {
             if (livingEntity.level instanceof ServerLevel) {
-                LivingEntityDataCapability.sync(livingEntity);
+                MalumLivingEntityDataCapability.sync(livingEntity);
             }
         }
     }
@@ -124,18 +124,21 @@ public class LivingEntityDataCapability implements OrtusCapability {
 
     public static void sync(LivingEntity entity)
     {
-        getCapability(entity).ifPresent(c -> MALUM_CHANNEL.send(PacketDistributor.TRACKING_ENTITY.with(() -> entity), new SyncLivingCapabilityDataPacket(entity.getId(), c.serializeNBT())));
+        getCapabilityOptional(entity).ifPresent(c -> MALUM_CHANNEL.send(PacketDistributor.TRACKING_ENTITY.with(() -> entity), new SyncLivingCapabilityDataPacket(entity.getId(), c.serializeNBT())));
     }
-    public static LazyOptional<LivingEntityDataCapability> getCapability(LivingEntity entity) {
+    public static LazyOptional<MalumLivingEntityDataCapability> getCapabilityOptional(LivingEntity entity) {
         return entity.getCapability(CAPABILITY);
     }
+    public static MalumLivingEntityDataCapability getCapability(LivingEntity entity) {
+        return entity.getCapability(CAPABILITY).orElse(new MalumLivingEntityDataCapability());
+    }
     public static UUID getOwner(LivingEntity entity) {
-        return entity.getCapability(CAPABILITY).orElse(new LivingEntityDataCapability()).ownerUUID;
+        return entity.getCapability(CAPABILITY).orElse(new MalumLivingEntityDataCapability()).ownerUUID;
     }
     public static boolean isSoulless(LivingEntity entity) {
-        return entity.getCapability(CAPABILITY).orElse(new LivingEntityDataCapability()).soulless;
+        return entity.getCapability(CAPABILITY).orElse(new MalumLivingEntityDataCapability()).soulless;
     }
     public static boolean hasSpiritData(LivingEntity entity) {
-        return entity.getCapability(CAPABILITY).orElse(new LivingEntityDataCapability()).spiritData != null;
+        return entity.getCapability(CAPABILITY).orElse(new MalumLivingEntityDataCapability()).spiritData != null;
     }
 }
