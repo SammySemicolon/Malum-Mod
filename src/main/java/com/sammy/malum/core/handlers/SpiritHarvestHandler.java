@@ -1,5 +1,6 @@
 package com.sammy.malum.core.handlers;
 
+import com.sammy.malum.common.capability.ItemDataCapability;
 import com.sammy.malum.common.capability.LivingEntityDataCapability;
 import com.sammy.malum.common.entity.boomerang.ScytheBoomerangEntity;
 import com.sammy.malum.common.item.spirit.SpiritPouchItem;
@@ -12,15 +13,25 @@ import com.sammy.malum.core.systems.item.IMalumEventResponderItem;
 import com.sammy.ortus.helpers.ItemHelper;
 import com.sammy.ortus.systems.container.ItemInventory;
 import net.minecraft.core.NonNullList;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.event.entity.item.ItemExpireEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class SpiritHarvestHandler {
 
@@ -78,6 +89,61 @@ public class SpiritHarvestHandler {
                     });
                 }
             }
+        }
+    }
+
+    public static void modifyDroppedItems(LivingDropsEvent event) {
+        if (event.isCanceled()) {
+            return;
+        }
+
+        LivingEntityDataCapability data = LivingEntityDataCapability.getCapability(event.getEntityLiving()).orElse(new LivingEntityDataCapability());
+
+        if (data.soulsToApplyToDrops != null) {
+            Ingredient spiritItem = data.spiritData.spiritItem;
+            if (spiritItem != null) {
+                for (ItemEntity itemEntity : event.getDrops()) {
+                    if (spiritItem.test(itemEntity.getItem())) {
+                        ItemDataCapability.getCapability(itemEntity).ifPresent((e) -> {
+                            e.soulsToDrop = data.soulsToApplyToDrops.stream().map(ItemStack::copy).collect(Collectors.toList());
+                            e.attackerForSouls = data.killerUUID;
+                            e.totalSoulCount = data.spiritData.totalCount;
+                        });
+                        itemEntity.setNeverPickUp();
+                        itemEntity.age = itemEntity.lifespan - 20;
+                        itemEntity.setNoGravity(true);
+                        itemEntity.setDeltaMovement(itemEntity.getDeltaMovement().multiply(1, 0.5, 1));
+                    }
+                }
+            }
+        }
+    }
+
+    public static void shatterItem(ItemExpireEvent event) {
+        if (event.isCanceled()) {
+            return;
+        }
+
+        ItemEntity entity = event.getEntityItem();
+        if (entity.level instanceof ServerLevel level) {
+            ItemDataCapability.getCapability(entity).ifPresent((e) -> {
+                // And here is where particles would go.
+                // IF I HAD ANY
+                LivingEntity attacker = null;
+                if (e.attackerForSouls != null) {
+                    Entity candidate = level.getEntity(e.attackerForSouls);
+                    if (candidate instanceof LivingEntity living) {
+                        attacker = living;
+                    }
+                }
+
+                if (e.soulsToDrop != null) {
+                    List<ItemStack> stacks = new ArrayList<>();
+                    for (int i = 0; i < entity.getItem().getCount(); i++)
+                        e.soulsToDrop.stream().map(ItemStack::copy).forEach(stacks::add);
+                    SpiritHelper.createSpiritEntities(stacks, e.totalSoulCount, level, entity.position(), attacker);
+                }
+            });
         }
     }
 
