@@ -7,10 +7,13 @@ import com.sammy.malum.common.recipe.SpiritFocusingRecipe;
 import com.sammy.malum.compability.jei.JEIHandler;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
 import mezz.jei.api.constants.VanillaTypes;
-import mezz.jei.api.gui.IRecipeLayout;
+import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
+import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
-import mezz.jei.api.ingredients.IIngredients;
+import mezz.jei.api.recipe.IFocusGroup;
+import mezz.jei.api.recipe.RecipeIngredientRole;
+import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
@@ -18,8 +21,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
 import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 import static com.sammy.malum.MalumMod.prefix;
 
@@ -33,25 +34,32 @@ public class SpiritFocusingRecipeCategory implements IRecipeCategory<SpiritFocus
     public SpiritFocusingRecipeCategory(IGuiHelper guiHelper) {
         background = guiHelper.createBlankDrawable(142, 185);
         overlay = guiHelper.createDrawable(new ResourceLocation(MalumMod.MALUM, "textures/gui/spirit_focusing_jei.png"), 0, 0, 142, 183);
-        icon = guiHelper.createDrawableIngredient(new ItemStack(ItemRegistry.SPIRIT_CRUCIBLE.get()));
+        icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ItemRegistry.SPIRIT_CRUCIBLE.get()));
     }
 
     @Override
-    public void draw(SpiritFocusingRecipe recipe, PoseStack poseStack, double mouseX, double mouseY) {
-        overlay.draw(poseStack);
+    public void draw(SpiritFocusingRecipe recipe, IRecipeSlotsView recipeSlotsView, PoseStack stack, double mouseX, double mouseY) {
+        overlay.draw(stack);
         if (recipe.spirits.size() > 0) {
-            ProgressionBookScreen.renderItemFrames(poseStack, recipe.spirits.size(), 61, 12, false);
+            ProgressionBookScreen.renderItemFrames(stack, recipe.spirits.size(), 61, 12, false);
         }
+    }
+
+    @Override
+    public RecipeType<SpiritFocusingRecipe> getRecipeType() {
+        return JEIHandler.FOCUSING;
     }
 
     @Nonnull
     @Override
+    @SuppressWarnings("removal")
     public ResourceLocation getUid() {
         return UID;
     }
 
     @Nonnull
     @Override
+    @SuppressWarnings("removal")
     public Class<? extends SpiritFocusingRecipe> getRecipeClass() {
         return SpiritFocusingRecipe.class;
     }
@@ -74,23 +82,12 @@ public class SpiritFocusingRecipeCategory implements IRecipeCategory<SpiritFocus
     }
 
     @Override
-    public void setIngredients(SpiritFocusingRecipe recipe, IIngredients iIngredients) {
-        ArrayList<ItemStack> items = new ArrayList<>(Arrays.asList(recipe.input.getItems()));
+    public void setRecipe(IRecipeLayoutBuilder builder, SpiritFocusingRecipe recipe, IFocusGroup focuses) {
+        JEIHandler.addItemsToJei(builder, RecipeIngredientRole.INPUT, 61, 12, false, recipe.spirits);
 
-        recipe.spirits.forEach(ingredient -> items.add(ingredient.getStack()));
-        iIngredients.setInputs(VanillaTypes.ITEM, items);
-        iIngredients.setOutputs(VanillaTypes.ITEM, recipe.output.getStacks());
-    }
-
-    @Override
-    public void setRecipe(IRecipeLayout iRecipeLayout, SpiritFocusingRecipe recipe, IIngredients iIngredients) {
-        int index = 0;
-        index = JEIHandler.addItemsToJei(iRecipeLayout, 61, 12, false, recipe.spirits, index);
-
-        iRecipeLayout.getItemStacks().init(index + 1, true, 62, 56);
-        iRecipeLayout.getItemStacks().set(index + 1, Arrays.asList(recipe.input.getItems()));
-
-        iRecipeLayout.getItemStacks().init(index + 2, true, 62, 123);
-        iRecipeLayout.getItemStacks().set(index + 2, recipe.output.getStacks());
+        builder.addSlot(RecipeIngredientRole.INPUT, 62, 56)
+                  .addIngredients(recipe.input);
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 62, 123)
+                  .addItemStacks(recipe.output.getStacks());
     }
 }

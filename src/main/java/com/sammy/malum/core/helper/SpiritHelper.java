@@ -29,6 +29,7 @@ import javax.annotation.Nullable;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Random;
 
 import static net.minecraft.util.Mth.nextFloat;
@@ -38,34 +39,45 @@ import static net.minecraft.world.entity.EquipmentSlot.MAINHAND;
 public class SpiritHelper {
 
     public static void createSpiritsFromSoul(MalumEntitySpiritData data, Level level, Vec3 position, LivingEntity attacker) {
-        ArrayList<ItemStack> spirits = getSpiritItemStacks(data, attacker, ItemStack.EMPTY, 2);
+        List<ItemStack> spirits = getSpiritItemStacks(data, attacker, ItemStack.EMPTY, 2);
         createSpiritEntities(spirits, data.totalCount, level, position, attacker);
     }
 
     public static void createSpiritsFromWeapon(LivingEntity target, LivingEntity attacker, ItemStack harvestStack) {
-        ArrayList<ItemStack> spirits = getSpiritItemStacks(target, attacker, harvestStack, 1);
+        List<ItemStack> spirits = getSpiritItemStacks(target, attacker, harvestStack, 1);
         createSpiritEntities(spirits, target, attacker);
     }
 
     public static void createSpiritEntities(LivingEntity target, LivingEntity attacker) {
-        ArrayList<ItemStack> spirits = getSpiritItemStacks(target);
+        List<ItemStack> spirits = getSpiritItemStacks(target);
         if (!spirits.isEmpty()) {
             createSpiritEntities(spirits, target, attacker);
         }
     }
 
     public static void createSpiritEntities(LivingEntity target) {
-        ArrayList<ItemStack> spirits = getSpiritItemStacks(target);
+        List<ItemStack> spirits = getSpiritItemStacks(target);
         if (!spirits.isEmpty()) {
             createSpiritEntities(spirits, target, null);
         }
     }
 
-    public static void createSpiritEntities(ArrayList<ItemStack> spirits, LivingEntity target, LivingEntity attacker) {
+    public static void createSpiritEntities(List<ItemStack> spirits, LivingEntity target, LivingEntity attacker) {
         if (spirits.isEmpty()) {
             return;
         }
-        createSpiritEntities(spirits, spirits.stream().mapToInt(ItemStack::getCount).sum(), target.level, target.position().add(0, target.getEyeHeight() / 2f, 0), attacker);
+        MalumEntitySpiritData data = getEntitySpiritData(target);
+
+        if (data.spiritItem != null) {
+            MalumLivingEntityDataCapability.getCapabilityOptional(target).ifPresent((e) -> {
+                e.spiritData = data;
+                e.soulsToApplyToDrops = spirits;
+                if (attacker != null)
+                    e.killerUUID = attacker.getUUID();
+            });
+        } else {
+            createSpiritEntities(spirits, spirits.stream().mapToInt(ItemStack::getCount).sum(), target.level, target.position().add(0, target.getEyeHeight() / 2f, 0), attacker);
+        }
     }
     public static void createSpiritEntities(Collection<ItemStack> spirits, LivingEntity target, LivingEntity attacker) {
         createSpiritEntities(spirits, target, 1, attacker);
@@ -126,12 +138,12 @@ public class SpiritHelper {
         return bundle.totalCount;
     }
 
-    public static ArrayList<ItemStack> getSpiritItemStacks(LivingEntity entity, LivingEntity attacker, ItemStack harvestStack, float spoilsMultiplier) {
+    public static List<ItemStack> getSpiritItemStacks(LivingEntity entity, LivingEntity attacker, ItemStack harvestStack, float spoilsMultiplier) {
         return getSpiritItemStacks(getEntitySpiritData(entity), attacker, harvestStack, spoilsMultiplier);
     }
 
-    public static ArrayList<ItemStack> getSpiritItemStacks(MalumEntitySpiritData data, LivingEntity attacker, ItemStack harvestStack, float spoilsMultiplier) {
-        ArrayList<ItemStack> spirits = getSpiritItemStacks(data);
+    public static List<ItemStack> getSpiritItemStacks(MalumEntitySpiritData data, LivingEntity attacker, ItemStack harvestStack, float spoilsMultiplier) {
+        List<ItemStack> spirits = getSpiritItemStacks(data);
         if (spirits.isEmpty()) {
             return spirits;
         }
@@ -153,11 +165,11 @@ public class SpiritHelper {
         return spirits;
     }
 
-    public static ArrayList<ItemStack> getSpiritItemStacks(LivingEntity entity) {
+    public static List<ItemStack> getSpiritItemStacks(LivingEntity entity) {
         return getSpiritItemStacks(getEntitySpiritData(entity));
     }
 
-    public static ArrayList<ItemStack> getSpiritItemStacks(MalumEntitySpiritData data) {
+    public static List<ItemStack> getSpiritItemStacks(MalumEntitySpiritData data) {
         ArrayList<ItemStack> spirits = new ArrayList<>();
         if (data == null) {
             return spirits;
