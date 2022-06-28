@@ -1,14 +1,14 @@
 {
   "registry_name": "quark:forgotten",
-  "primary_type": "wicked",
+  "primary_type": "arcane",
   "spirits": [
     {
       "spirit": "wicked",
-      "count": 3
+      "count": 2
     },
     {
       "spirit": "arcane",
-      "count": 2
+      "count": 3
     }
   ]
 }

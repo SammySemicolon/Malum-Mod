@@ -9,13 +9,6 @@
     {
       "spirit": "aerial",
       "count": 1
-    },
-    {
-      "spirit": "infernal",
-      "count": 1
     }
-  ],
-  "spirit_item": {
-    "item": "quark:soul_bead"
-  }
+  ]
 }

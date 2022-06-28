@@ -10,7 +10,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.event.AddReloadListenerEvent;
 
 import java.util.ArrayList;
@@ -49,7 +48,7 @@ public class SpiritDataReloadListener extends SimpleJsonResourceReloadListener {
             }
             String primaryType = object.getAsJsonPrimitive("primary_type").getAsString();
             JsonArray array = object.getAsJsonArray("spirits");
-            SPIRIT_DATA.put(resourceLocation, new MalumEntitySpiritData(SpiritHelper.getSpiritType(primaryType), getSpiritData(array), getSpiritItem(object)));
+            SPIRIT_DATA.put(resourceLocation, new MalumEntitySpiritData(SpiritHelper.getSpiritType(primaryType), getSpiritData(array)));
         }
     }
 
@@ -62,17 +61,5 @@ public class SpiritDataReloadListener extends SimpleJsonResourceReloadListener {
             spiritData.add(new SpiritWithCount(SpiritHelper.getSpiritType(spiritName), count));
         }
         return spiritData;
-    }
-
-    public static Ingredient getSpiritItem(JsonObject object) {
-        if (!object.has("spirit_item")) {
-            return null;
-        }
-
-        try {
-            return Ingredient.fromJson(object.get("spirit_item"));
-        } catch (JsonParseException ignored) {
-            return null;
-        }
     }
 }
