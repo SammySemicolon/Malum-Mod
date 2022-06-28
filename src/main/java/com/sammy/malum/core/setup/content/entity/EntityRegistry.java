@@ -8,7 +8,7 @@ import com.sammy.malum.client.renderer.entity.SoulEntityRenderer;
 import com.sammy.malum.common.entity.boomerang.ScytheBoomerangEntity;
 import com.sammy.malum.common.entity.spirit.MirrorItemEntity;
 import com.sammy.malum.common.entity.spirit.SoulEntity;
-import com.sammy.malum.common.entity.spirit.SpiritItemEntity;
+import com.sammy.malum.common.entity.spirit.PlayerBoundItemEntity;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
 import com.sammy.ortus.systems.entity.OrtusBoatEntity;
 import net.minecraft.client.renderer.entity.EntityRenderers;
@@ -26,8 +26,8 @@ public class EntityRegistry
 {
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITIES, MalumMod.MALUM);
 
-    public static final RegistryObject<EntityType<SpiritItemEntity>> NATURAL_SPIRIT = ENTITY_TYPES.register("natural_spirit",
-            () -> EntityType.Builder.<SpiritItemEntity>of((e, w)->new SpiritItemEntity(w), MobCategory.MISC).sized(0.5F, 0.75F).clientTrackingRange(10)
+    public static final RegistryObject<EntityType<PlayerBoundItemEntity>> NATURAL_SPIRIT = ENTITY_TYPES.register("natural_spirit",
+            () -> EntityType.Builder.<PlayerBoundItemEntity>of((e, w)->new PlayerBoundItemEntity(w), MobCategory.MISC).sized(0.5F, 0.75F).clientTrackingRange(10)
                     .build(MalumMod.prefix("natural_spirit").toString()));
 
     public static final RegistryObject<EntityType<MirrorItemEntity>> MIRROR_ITEM = ENTITY_TYPES.register("mirror_item",

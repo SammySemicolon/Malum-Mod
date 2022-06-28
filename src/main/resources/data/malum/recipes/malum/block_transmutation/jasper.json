@@ -1,0 +1,15 @@
+{
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "quark"
+    },
+    {
+      "type": "quark:flag",
+      "flag": "jasper"
+    }
+  ],
+  "type": "malum:block_transmutation",
+  "input": "minecraft:granite",
+  "output": "quark:jasper"
+}

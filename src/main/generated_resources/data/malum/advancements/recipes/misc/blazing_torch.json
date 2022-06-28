@@ -2,16 +2,18 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "malum:lead_from_sapballs"
+      "malum:blazing_torch"
     ]
   },
   "criteria": {
-    "has_sapball": {
+    "has_blazing_quartz": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "tag": "malum:sapballs"
+            "items": [
+              "malum:blazing_quartz"
+            ]
           }
         ]
       }
@@ -19,13 +21,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "malum:lead_from_sapballs"
+        "recipe": "malum:blazing_torch"
       }
     }
   },
   "requirements": [
     [
-      "has_sapball",
+      "has_blazing_quartz",
       "has_the_recipe"
     ]
   ]

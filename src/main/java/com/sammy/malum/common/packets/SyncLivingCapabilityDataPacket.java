@@ -1,6 +1,6 @@
 package com.sammy.malum.common.packets;
 
-import com.sammy.malum.common.capability.LivingEntityDataCapability;
+import com.sammy.malum.common.capability.MalumLivingEntityDataCapability;
 import com.sammy.ortus.systems.network.OrtusClientPacket;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
@@ -9,7 +9,6 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.network.NetworkEvent;
 import net.minecraftforge.network.simple.SimpleChannel;
 
@@ -33,7 +32,7 @@ public class SyncLivingCapabilityDataPacket extends OrtusClientPacket {
     public void execute(Supplier<NetworkEvent.Context> context) {
         Entity entity = Minecraft.getInstance().level.getEntity(entityId);
         if (entity instanceof LivingEntity livingEntity) {
-            LivingEntityDataCapability.getCapability(livingEntity).ifPresent(c -> c.deserializeNBT(tag));
+            MalumLivingEntityDataCapability.getCapabilityOptional(livingEntity).ifPresent(c -> c.deserializeNBT(tag));
         }
     }
 

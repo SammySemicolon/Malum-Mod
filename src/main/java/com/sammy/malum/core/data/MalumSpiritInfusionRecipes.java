@@ -3,6 +3,7 @@ package com.sammy.malum.core.data;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.item.impetus.ImpetusItem;
 import com.sammy.malum.core.data.builder.SpiritInfusionRecipeBuilder;
+import com.sammy.malum.core.handlers.ReapingHandler;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.recipes.FinishedRecipe;
@@ -39,7 +40,7 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider implements ICondi
                 .addSpirit(ARCANE_SPIRIT, 1)
                 .build(consumer);
 
-        new SpiritInfusionRecipeBuilder(Items.CLAY_BALL, 4, ItemRegistry.ALCHEMICAL_CALX.get(), 2)
+        new SpiritInfusionRecipeBuilder(Items.CLAY_BALL, 4, ItemRegistry.ALCHEMICAL_CALX.get(), 4)
                 .addSpirit(ARCANE_SPIRIT, 2)
                 .addSpirit(EARTHEN_SPIRIT, 2)
                 .addSpirit(AQUEOUS_SPIRIT, 2)
@@ -340,9 +341,9 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider implements ICondi
                 .build(consumer);
 
         new SpiritInfusionRecipeBuilder(ItemRegistry.TWISTED_ROCK_ITEM_PEDESTAL.get(), 1, ItemRegistry.SPIRIT_CATALYZER.get(), 1)
-                .addSpirit(INFERNAL_SPIRIT, 16)
-                .addSpirit(AERIAL_SPIRIT, 8)
-                .addSpirit(ELDRITCH_SPIRIT, 1)
+                .addSpirit(INFERNAL_SPIRIT, 4)
+                .addSpirit(AERIAL_SPIRIT, 4)
+                .addSpirit(ELDRITCH_SPIRIT, 2)
                 .addExtraItem(ItemRegistry.ETHER.get(), 2)
                 .addExtraItem(ItemRegistry.TAINTED_ROCK.get(), 8)
                 .addExtraItem(ItemRegistry.TWISTED_ROCK.get(), 8)

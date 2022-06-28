@@ -48,8 +48,8 @@ public class EldritchEarthenRiteType extends MalumRiteType {
             }
 
             @Override
-            public boolean canAffectBlock(TotemBaseBlockEntity totemBase, BlockState state, BlockPos pos) {
-                return super.canAffectBlock(totemBase, state, pos) && !state.isAir();
+            public boolean canAffectBlock(TotemBaseBlockEntity totemBase, HashSet<Block> filters, BlockState state, BlockPos pos) {
+                return super.canAffectBlock(totemBase, filters, state, pos) && !state.isAir();
             }
         };
     }

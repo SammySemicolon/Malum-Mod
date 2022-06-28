@@ -25,14 +25,15 @@
   "spirits": [
     {
       "type": "infernal",
-      "count": 16
+      "count": 4
     },
     {
       "type": "aerial",
-      "count": 8
+      "count": 4
     },
     {
-      "type": "eldritch"
+      "type": "eldritch",
+      "count": 2
     }
   ]
 }

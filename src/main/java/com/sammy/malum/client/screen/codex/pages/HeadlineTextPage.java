@@ -33,7 +33,7 @@ public class HeadlineTextPage extends BookPage
         int guiTop = guiTop();
         Component component = new TranslatableComponent(headlineTranslationKey());
         ProgressionBookScreen.renderText(poseStack, component, guiLeft+75 - minecraft.font.width(component.getString())/2,guiTop+10);
-        ProgressionBookScreen.renderWrappingText(poseStack, translationKey(), guiLeft+16,guiTop+31,120);
+        ProgressionBookScreen.renderWrappingText(poseStack, translationKey(), guiLeft+14,guiTop+31, 125);
     }
 
     @Override
@@ -43,6 +43,6 @@ public class HeadlineTextPage extends BookPage
         int guiTop = guiTop();
         Component component = new TranslatableComponent(headlineTranslationKey());
         ProgressionBookScreen.renderText(poseStack, component, guiLeft+218 - minecraft.font.width(component.getString())/2,guiTop+10);
-        ProgressionBookScreen.renderWrappingText(poseStack, translationKey(), guiLeft+158,guiTop+31,120);
+        ProgressionBookScreen.renderWrappingText(poseStack, translationKey(), guiLeft+156,guiTop+31, 125);
     }
 }

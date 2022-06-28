@@ -50,11 +50,11 @@ public class DoubleHeadlineTextPage extends BookPage
         int guiTop = guiTop();
         Component component = new TranslatableComponent(getHeadlineTranslationKey());
         ProgressionBookScreen.renderText(poseStack, component, guiLeft+75 - minecraft.font.width(component.getString())/2,guiTop+10);
-        ProgressionBookScreen.renderWrappingText(poseStack, getTranslationKey(), guiLeft+16,guiTop+31,120);
+        ProgressionBookScreen.renderWrappingText(poseStack, getTranslationKey(), guiLeft+16,guiTop+31, 125);
 
         component = new TranslatableComponent(getSecondHeadlineTranslationKey());
         ProgressionBookScreen.renderText(poseStack, component, guiLeft+75 - minecraft.font.width(component.getString())/2,guiTop+87);
-        ProgressionBookScreen.renderWrappingText(poseStack, getCorruptedTranslationKey(), guiLeft+16,guiTop+108,120);
+        ProgressionBookScreen.renderWrappingText(poseStack, getCorruptedTranslationKey(), guiLeft+16,guiTop+108, 125);
     }
 
     @Override
@@ -64,10 +64,10 @@ public class DoubleHeadlineTextPage extends BookPage
         int guiTop = guiTop();
         Component component = new TranslatableComponent(getHeadlineTranslationKey());
         ProgressionBookScreen.renderText(poseStack, component, guiLeft+218 - minecraft.font.width(component.getString())/2,guiTop+10);
-        ProgressionBookScreen.renderWrappingText(poseStack, getTranslationKey(), guiLeft+158,guiTop+31,120);
+        ProgressionBookScreen.renderWrappingText(poseStack, getTranslationKey(), guiLeft+158,guiTop+31, 125);
 
         component = new TranslatableComponent(getSecondHeadlineTranslationKey());
         ProgressionBookScreen.renderText(poseStack, component, guiLeft+218 - minecraft.font.width(component.getString())/2,guiTop+87);
-        ProgressionBookScreen.renderWrappingText(poseStack, getCorruptedTranslationKey(), guiLeft+158,guiTop+108,120);
+        ProgressionBookScreen.renderWrappingText(poseStack, getCorruptedTranslationKey(), guiLeft+158,guiTop+108, 125);
     }
 }

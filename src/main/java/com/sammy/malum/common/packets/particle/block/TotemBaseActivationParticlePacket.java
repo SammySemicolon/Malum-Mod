@@ -41,6 +41,7 @@ public class TotemBaseActivationParticlePacket extends OrtusClientPacket {
     }
 
     @OnlyIn(Dist.CLIENT)
+    @Override
     public void execute(Supplier<NetworkEvent.Context> context) {
         Level level = Minecraft.getInstance().level;
         for (int i = 0; i < colors.size(); i++) {

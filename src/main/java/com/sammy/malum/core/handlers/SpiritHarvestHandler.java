@@ -1,6 +1,7 @@
 package com.sammy.malum.core.handlers;
 
-import com.sammy.malum.common.capability.LivingEntityDataCapability;
+import com.sammy.malum.common.capability.MalumLivingEntityDataCapability;
+import com.sammy.malum.common.capability.MalumPlayerDataCapability;
 import com.sammy.malum.common.entity.boomerang.ScytheBoomerangEntity;
 import com.sammy.malum.common.item.spirit.SpiritPouchItem;
 import com.sammy.malum.compability.tetra.TetraCompat;
@@ -36,11 +37,11 @@ public class SpiritHarvestHandler {
             }
 
             if (stack.is(ItemTagRegistry.SOUL_HUNTER_WEAPON) || (TetraCompat.LOADED && TetraCompat.LoadedOnly.hasSoulStrike(stack))) {
-                LivingEntityDataCapability.getCapability(target).ifPresent(e -> e.exposedSoul = 200);
+                MalumLivingEntityDataCapability.getCapabilityOptional(target).ifPresent(e -> e.exposedSoul = 200);
             }
         }
         if (event.getSource().getDirectEntity() != null && event.getSource().getDirectEntity().getTags().contains("malum:soul_arrow")) {
-            LivingEntityDataCapability.getCapability(target).ifPresent(e -> e.exposedSoul = 200);
+            MalumLivingEntityDataCapability.getCapabilityOptional(target).ifPresent(e -> e.exposedSoul = 200);
         }
     }
 
@@ -70,9 +71,14 @@ public class SpiritHarvestHandler {
             if (!(target instanceof Player)) {
                 ItemStack finalStack = stack;
                 if (!event.getSource().getMsgId().equals(DamageSourceRegistry.FORCED_SHATTER_DAMAGE)) {
-                    LivingEntityDataCapability.getCapability(target).ifPresent(e -> {
+                    MalumLivingEntityDataCapability.getCapabilityOptional(target).ifPresent(e -> {
                         if (e.exposedSoul > 0 && !e.soulless && (!CommonConfig.SOULLESS_SPAWNERS.getConfigValue() || (CommonConfig.SOULLESS_SPAWNERS.getConfigValue() && !e.spawnerSpawned))) {
                             SpiritHelper.createSpiritsFromWeapon(target, finalAttacker, finalStack);
+                            if (finalAttacker instanceof Player player) {
+                                MalumPlayerDataCapability.getCapabilityOptional(player).ifPresent(p -> {
+                                    p.soulsShattered++;
+                                });
+                            }
                             e.soulless = true;
                         }
                     });

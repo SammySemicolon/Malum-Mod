@@ -1,6 +1,7 @@
 package com.sammy.malum.common.blockentity.altar;
 
 import com.sammy.malum.common.item.spirit.MalumSpiritItem;
+import com.sammy.malum.common.packets.particle.block.functional.AltarConsumeParticlePacket;
 import com.sammy.malum.common.packets.particle.block.functional.AltarCraftParticlePacket;
 import com.sammy.malum.common.packets.particle.block.functional.FunctionalBlockItemAbsorbParticlePacket;
 import com.sammy.malum.common.recipe.SpiritInfusionRecipe;
@@ -280,7 +281,7 @@ public class SpiritAltarBlockEntity extends OrtusBlockEntity {
                 if (matches) {
                     level.playSound(null, provider.getBlockPosForAltar(), SoundRegistry.ALTAR_CONSUME.get(), SoundSource.BLOCKS, 1, 0.9f + level.random.nextFloat() * 0.2f);
                     Vec3 providedItemPos = provider.getItemPosForAltar();
-                    MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(provider.getBlockPosForAltar())), new FunctionalBlockItemAbsorbParticlePacket(providedStack, recipe.spirits.stream().map(s -> s.type.identifier).collect(Collectors.toList()), providedItemPos.x, providedItemPos.y, providedItemPos.z, itemPos.x, itemPos.y, itemPos.z));
+                    MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(provider.getBlockPosForAltar())), new AltarConsumeParticlePacket(providedStack, recipe.spirits.stream().map(s -> s.type.identifier).collect(Collectors.toList()), providedItemPos.x, providedItemPos.y, providedItemPos.z, itemPos.x, itemPos.y, itemPos.z));
                     extrasInventory.insertItem(level, providedStack.split(requestedItem.count));
                     inventoryForAltar.updateData();
                     BlockHelper.updateAndNotifyState(level, provider.getBlockPosForAltar());

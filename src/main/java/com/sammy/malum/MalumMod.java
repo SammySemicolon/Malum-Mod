@@ -80,6 +80,7 @@ public class MalumMod {
             event.getGenerator().addProvider(new MalumBlockLootTables(event.getGenerator()));
             event.getGenerator().addProvider(new MalumItemTags(event.getGenerator(), provider, event.getExistingFileHelper()));
             event.getGenerator().addProvider(new MalumRecipes(event.getGenerator()));
+            event.getGenerator().addProvider(new MalumVanillaRecipeReplacements(event.getGenerator()));
             event.getGenerator().addProvider(new MalumSpiritInfusionRecipes(event.getGenerator()));
             event.getGenerator().addProvider(new MalumSpiritFocusingRecipes(event.getGenerator()));
             event.getGenerator().addProvider(new MalumBlockTransmutationRecipes(event.getGenerator()));

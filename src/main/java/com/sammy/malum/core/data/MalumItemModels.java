@@ -16,6 +16,7 @@ import com.sammy.malum.core.setup.content.item.ItemRegistry;
 import com.sammy.ortus.helpers.DataHelper;
 import com.sammy.ortus.systems.item.ModCombatItem;
 import com.sammy.ortus.systems.multiblock.MultiBlockItem;
+import net.mehvahdjukaar.supplementaries.common.block.blocks.SconceBlock;
 import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
@@ -63,6 +64,7 @@ public class MalumItemModels extends net.minecraftforge.client.model.generators.
         takeAll(items, i -> i.get() instanceof BlockItem && ((BlockItem) i.get()).getBlock() instanceof EtherSconceBlock).forEach(this::etherSconceItem);
         takeAll(items, i -> i.get() instanceof BlockItem && ((BlockItem) i.get()).getBlock() instanceof EtherTorchBlock).forEach(this::etherTorchItem);
         takeAll(items, i -> i.get() instanceof BlockItem && ((BlockItem) i.get()).getBlock() instanceof TorchBlock).forEach(this::generatedItem);
+        takeAll(items, i -> i.get() instanceof BlockItem && ((BlockItem) i.get()).getBlock() instanceof SconceBlock).forEach(this::generatedItem);
         takeAll(items, i -> i.get() instanceof BlockItem && ((BlockItem) i.get()).getBlock() instanceof EtherBlock).forEach(this::etherItem);
         takeAll(items, i -> i.get() instanceof SignItem).forEach(this::generatedItem);
 

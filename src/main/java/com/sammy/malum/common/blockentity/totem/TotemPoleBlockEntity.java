@@ -1,6 +1,9 @@
 package com.sammy.malum.common.blockentity.totem;
 
+import com.google.common.collect.Sets;
 import com.sammy.malum.common.block.totem.TotemPoleBlock;
+import com.sammy.malum.common.blockentity.crucible.SpiritCrucibleCoreBlockEntity;
+import com.sammy.malum.common.blockentity.storage.ItemStandBlockEntity;
 import com.sammy.malum.common.packets.particle.block.BlockParticlePacket;
 import com.sammy.malum.core.helper.SpiritHelper;
 import com.sammy.malum.core.setup.content.SoundRegistry;
@@ -24,14 +27,18 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ToolActions;
 import net.minecraftforge.network.PacketDistributor;
 
 import javax.annotation.Nullable;
 import java.awt.*;
+import java.util.Arrays;
+import java.util.Set;
 
 import static com.sammy.malum.core.setup.server.PacketRegistry.MALUM_CHANNEL;
 
@@ -42,6 +49,7 @@ public class TotemPoleBlockEntity extends OrtusBlockEntity {
     public int desiredColor;
     public int currentColor;
     public int baseLevel;
+    public TotemBaseBlockEntity totemBase;
     public boolean corrupted;
     public Block logBlock;
     public Direction direction;
@@ -103,6 +111,7 @@ public class TotemPoleBlockEntity extends OrtusBlockEntity {
                 if (corrupted) {
                     level.playSound(null, worldPosition, SoundRegistry.MAJOR_BLIGHT_MOTIF.get(), SoundSource.BLOCKS, 1, 1);
                 }
+                onBreak(null);
                 return InteractionResult.SUCCESS;
             }
         }
@@ -140,7 +149,16 @@ public class TotemPoleBlockEntity extends OrtusBlockEntity {
     }
 
     @Override
+    public void init() {
+        super.init();
+        if (level.getBlockEntity(new BlockPos(getBlockPos().getX(), baseLevel, getBlockPos().getZ())) instanceof TotemBaseBlockEntity totemBaseBlockEntity) {
+            totemBase = totemBaseBlockEntity;
+        }
+    }
+
+    @Override
     public void tick() {
+        super.tick();
         if (currentColor > desiredColor) {
             currentColor--;
         }
@@ -150,8 +168,22 @@ public class TotemPoleBlockEntity extends OrtusBlockEntity {
         if (level.isClientSide) {
             if (type != null && desiredColor != 0) {
                 passiveParticles();
+                if (totemBase != null && totemBase.rite != null) {
+                    getFilters().forEach(this::filterParticles);
+                }
             }
         }
+    }
+
+    public Set<ItemStandBlockEntity> getFilters() {
+        Set<ItemStandBlockEntity> standBlockEntities = Sets.newHashSet();
+        for (Direction value : Direction.values()) {
+            BlockEntity blockEntity = level.getBlockEntity(worldPosition.relative(value));
+            if (blockEntity instanceof ItemStandBlockEntity standBlockEntity) {
+                standBlockEntities.add(standBlockEntity);
+            }
+        }
+        return standBlockEntities;
     }
 
     public void create(MalumSpiritType type) {
@@ -163,11 +195,12 @@ public class TotemPoleBlockEntity extends OrtusBlockEntity {
         BlockHelper.updateState(level, worldPosition);
     }
 
-    public void riteStarting(int height) {
+    public void riteStarting(TotemBaseBlockEntity totemBase, int height) {
         level.playSound(null, worldPosition, SoundRegistry.TOTEM_CHARGE.get(), SoundSource.BLOCKS, 1, 0.9f + 0.2f * height);
         MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new BlockParticlePacket(type.getColor(), worldPosition));
         this.desiredColor = 10;
         this.baseLevel = worldPosition.getY() - height;
+        this.totemBase = totemBase;
         this.haunted = false;
         BlockHelper.updateState(level, worldPosition);
     }
@@ -196,6 +229,31 @@ public class TotemPoleBlockEntity extends OrtusBlockEntity {
         }
     }
 
+    public void filterParticles(ItemStandBlockEntity itemStandBlockEntity) {
+        if (level.getGameTime() % 6L == 0) {
+            if (!itemStandBlockEntity.inventory.getStackInSlot(0).isEmpty()) {
+                Vec3 itemPos = itemStandBlockEntity.getItemPos();
+                ParticleBuilders.create(OrtusParticleRegistry.STAR_PARTICLE)
+                        .setAlpha(0.04f, 0.1f, 0f)
+                        .setScaleEasing(Easing.SINE_IN, Easing.SINE_OUT)
+                        .setLifetime(25)
+                        .setScale(0.5f, 1f + level.random.nextFloat() * 0.1f, 0)
+                        .setScaleEasing(Easing.QUINTIC_IN, Easing.CUBIC_IN_OUT)
+                        .setSpinOffset((level.getGameTime()*0.02f)%360)
+                        .setSpin(0, 0.2f, 0)
+                        .setSpinEasing(Easing.CUBIC_IN, Easing.EXPO_IN)
+                        .randomOffset(0.1)
+                        .randomMotion(0.02f)
+                        .setColor(type.getColor(), type.getEndColor())
+                        .setColorEasing(Easing.BOUNCE_IN_OUT)
+                        .setColorCoefficient(0.5f)
+                        .randomMotion(0.0025f, 0.0025f)
+                        .enableNoClip()
+                        .overwriteRemovalProtocol(SimpleParticleOptions.SpecialRemovalProtocol.ENDING_CURVE_INVISIBLE)
+                        .repeat(level, itemPos.x, itemPos.y, itemPos.z, 1);
+            }
+        }
+    }
     public void passiveParticles() {
         if (level.getGameTime() % 6L == 0) {
             Color color = type.getColor();

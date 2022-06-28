@@ -1,0 +1,15 @@
+{
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "quark"
+    },
+    {
+      "type": "quark:flag",
+      "flag": "limestone"
+    }
+  ],
+  "type": "malum:block_transmutation",
+  "input": "minecraft:andesite",
+  "output": "quark:limestone"
+}

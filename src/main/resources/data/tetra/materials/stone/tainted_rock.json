@@ -24,8 +24,8 @@
       "malum:tainted_rock"
     ]
   },
-  "effects": {
-    "workable": 20
+  "improvements": {
+    "workable": 1
   },
   "requiredTools": {
     "hammer_dig": "minecraft:stone"

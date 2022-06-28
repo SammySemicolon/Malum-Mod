@@ -36,6 +36,8 @@ public class CurioTokenOfGratitude extends MalumCurioItem {
         addTransScarf(validateForGratitude("9380b46b-8de4-4a54-b454-88f33059c9ab")); //no idea
         addTransScarf(validateForGratitude("3a9d3905-3232-4ee2-8e3f-a57290e4a788")); //rttv
         addTransScarf(validateForGratitude("d3c951e6-824d-41fc-a73d-2a957c1575b1")); //who knows?
+        addTransScarf(validateForGratitude("2b90423d-77d1-44e7-baab-015a8be27a71")); //the other furry
+        addTransScarf(validateForGratitude("85175c8f-4f71-4ebd-9f3a-96dfd8e8e390")); //woman
     }
     public CurioTokenOfGratitude(Properties builder) {
         super(builder);

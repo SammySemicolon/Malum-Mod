@@ -2,6 +2,7 @@ package com.sammy.malum.common.entity;
 
 import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
 import com.sammy.ortus.helpers.EntityHelper;
+import com.sammy.ortus.systems.easing.Easing;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
@@ -31,13 +32,13 @@ public abstract class FloatingEntity extends Entity {
     protected static final EntityDataAccessor<Integer> DATA_COLOR = SynchedEntityData.defineId(FloatingEntity.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Integer> DATA_END_COLOR = SynchedEntityData.defineId(FloatingEntity.class, EntityDataSerializers.INT);
     public final ArrayList<EntityHelper.PastPosition> pastPositions = new ArrayList<>();
-    public Color startColor = SpiritTypeRegistry.SACRED_SPIRIT.getColor();
-    public Color endColor = SpiritTypeRegistry.SACRED_SPIRIT.getEndColor();
+    public Color startColor = SpiritTypeRegistry.ARCANE_SPIRIT.getColor();
+    public Color endColor = SpiritTypeRegistry.ARCANE_SPIRIT.getEndColor();
     public int maxAge;
     public int age;
     public float moveTime;
     public float windUp;
-    public final float hoverStart;
+    public float hoverStart;
 
     public FloatingEntity(EntityType<? extends FloatingEntity> type, Level level) {
         super(type, level);
@@ -47,8 +48,8 @@ public abstract class FloatingEntity extends Entity {
 
     @Override
     protected void defineSynchedData() {
-        this.getEntityData().define(DATA_COLOR, SpiritTypeRegistry.SACRED_SPIRIT.getColor().getRGB());
-        this.getEntityData().define(DATA_END_COLOR, SpiritTypeRegistry.SACRED_SPIRIT.getEndColor().getRGB());
+        this.getEntityData().define(DATA_COLOR, SpiritTypeRegistry.ARCANE_SPIRIT.getColor().getRGB());
+        this.getEntityData().define(DATA_END_COLOR, SpiritTypeRegistry.ARCANE_SPIRIT.getEndColor().getRGB());
     }
 
     @Override
@@ -86,6 +87,7 @@ public abstract class FloatingEntity extends Entity {
     @Override
     public void tick() {
         super.tick();
+        hoverStart = getHoverStart(0);
         baseTick();
         trackPastPositions();
         age++;
@@ -165,11 +167,15 @@ public abstract class FloatingEntity extends Entity {
     }
 
     public float getYOffset(float partialTicks) {
-        return Mth.sin(((float) age + partialTicks) / 20.0F + hoverStart) * 0.1F + 0.1F;
+        return Mth.sin(((float) age + partialTicks) / 10.0F + getHoverStart(partialTicks)) * 0.1F + 0.1F;
     }
 
     public float getRotation(float partialTicks) {
-        return ((float) age + partialTicks) / 20.0F + this.hoverStart;
+        return ((float) age + partialTicks) / 20.0F + getHoverStart(partialTicks)/2f;
+    }
+
+    public float getHoverStart(float partialTicks) {
+        return hoverStart + (1 - Easing.SINE_OUT.ease(Math.min(1, (age + partialTicks) / 60f), 0, 1, 1)) * 0.35f;
     }
 
     @Override

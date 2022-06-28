@@ -1,8 +1,7 @@
 package com.sammy.malum.core.helper;
 
-import com.mojang.math.Vector3f;
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.common.entity.spirit.SpiritItemEntity;
+import com.sammy.malum.common.entity.spirit.PlayerBoundItemEntity;
 import com.sammy.malum.core.listeners.SpiritDataReloadListener;
 import com.sammy.malum.core.setup.content.AttributeRegistry;
 import com.sammy.malum.core.setup.content.SoundRegistry;
@@ -28,6 +27,7 @@ import net.minecraft.world.phys.Vec3;
 import javax.annotation.Nullable;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Random;
 
 import static net.minecraft.util.Mth.nextFloat;
@@ -60,34 +60,40 @@ public class SpiritHelper {
         }
     }
 
-    public static void createSpiritEntities(ArrayList<ItemStack> spirits, LivingEntity target, LivingEntity attacker) {
+    public static void createSpiritEntities(Collection<ItemStack> spirits, LivingEntity target, LivingEntity attacker) {
+        createSpiritEntities(spirits, target, 1, attacker);
+    }
+    public static void createSpiritEntities(Collection<ItemStack> spirits, LivingEntity target, float speedMultiplier, LivingEntity attacker) {
         if (spirits.isEmpty()) {
             return;
         }
-        createSpiritEntities(spirits, spirits.stream().mapToInt(ItemStack::getCount).sum(), target.level, target.position().add(0, target.getEyeHeight() / 2f, 0), attacker);
+        createSpiritEntities(spirits, spirits.stream().mapToInt(ItemStack::getCount).sum(), target.level, target.position().add(0, target.getEyeHeight() / 2f, 0), speedMultiplier, attacker);
     }
 
     public static void createSpiritEntities(MalumEntitySpiritData data, Level level, Vec3 position, LivingEntity attacker) {
         createSpiritEntities(getSpiritItemStacks(data), data.totalCount, level, position, attacker);
     }
 
-    public static void createSpiritEntities(ArrayList<ItemStack> spirits, float totalCount, Level level, Vec3 position, @Nullable LivingEntity attacker) {
+    public static void createSpiritEntities(Collection<ItemStack> spirits, float totalCount, Level level, Vec3 position, @Nullable LivingEntity attacker) {
+        createSpiritEntities(spirits, totalCount, level, position, 1f, attacker);
+    }
+    public static void createSpiritEntities(Collection<ItemStack> spirits, float totalCount, Level level, Vec3 position, float speedMultiplier, @Nullable LivingEntity attacker) {
         if (attacker == null) {
             attacker = level.getNearestPlayer(position.x, position.y, position.z, 8, e -> true);
         }
-        float speed = 0.1f + 0.2f / (totalCount + 1);
+        float speed = (0.1f + 0.2f / (totalCount + 1)) * speedMultiplier;
         for (ItemStack stack : spirits) {
             int count = stack.getCount();
             if (count == 0) {
                 continue;
             }
             for (int j = 0; j < count; j++) {
-                SpiritItemEntity entity = new SpiritItemEntity(level, attacker == null ? null : attacker.getUUID(), ItemHelper.copyWithNewCount(stack, 1),
+                PlayerBoundItemEntity entity = new PlayerBoundItemEntity(level, attacker == null ? null : attacker.getUUID(), ItemHelper.copyWithNewCount(stack, 1),
                         position.x,
                         position.y,
                         position.z,
                         nextFloat(MalumMod.RANDOM, -speed, speed),
-                        nextFloat(MalumMod.RANDOM, 0.015f, 0.05f),
+                        nextFloat(MalumMod.RANDOM, 0.05f, 0.06f),
                         nextFloat(MalumMod.RANDOM, -speed, speed));
                 level.addFreshEntity(entity);
             }
@@ -174,8 +180,8 @@ public class SpiritHelper {
                 .repeat(level, x, y, z, 1);
 
         ParticleBuilders.create(OrtusParticleRegistry.WISP_PARTICLE)
-                .setAlpha(0.25f * alphaMultiplier, 0f)
-                .setLifetime(15 + rand.nextInt(4))
+                .setAlpha(0.3f * alphaMultiplier, 0f)
+                .setLifetime(12 + rand.nextInt(3))
                 .setSpin(nextFloat(rand, 0.05f, 0.1f))
                 .setScale(0.05f + rand.nextFloat() * 0.025f, 0)
                 .setColor(color, endColor)

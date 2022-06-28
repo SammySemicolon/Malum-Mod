@@ -1,0 +1,21 @@
+{
+  "registry_name": "minecraft:zoglin",
+  "drops": [
+    {
+      "ingredient": {
+        "item": "malum:rotting_essence"
+      },
+      "chance": "0.1",
+      "min": "1",
+      "max": "3"
+    },
+    {
+      "ingredient": {
+        "item": "malum:grim_talc"
+      },
+      "chance": "0.2",
+      "min": "1",
+      "max": "2"
+    }
+  ]
+}

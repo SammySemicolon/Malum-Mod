@@ -4,7 +4,7 @@
   "primary": 4,
   "secondary": 2.5,
   "tertiary": 6,
-  "durability": 70,
+  "durability": 50,
   "integrityCost": 2,
   "integrityGain": 7,
   "magicCapacity": 110,
@@ -22,7 +22,7 @@
     "items": [ "malum:soulwood_planks" ]
   },
   "effects": {
-    "stabilizing": 26
+    "stabilizing": -12
   },
   "requiredTools": {
     "axe_dig": "minecraft:stone"

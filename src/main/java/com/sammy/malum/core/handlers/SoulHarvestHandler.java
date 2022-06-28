@@ -4,7 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Vector3f;
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.common.capability.LivingEntityDataCapability;
+import com.sammy.malum.common.capability.MalumLivingEntityDataCapability;
 import com.sammy.malum.common.capability.MalumPlayerDataCapability;
 import com.sammy.malum.common.entity.spirit.SoulEntity;
 import com.sammy.malum.common.item.spirit.SoulStaveItem;
@@ -22,7 +22,6 @@ import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
@@ -53,7 +52,7 @@ public class SoulHarvestHandler {
     public static void specialSpawn(LivingSpawnEvent.SpecialSpawn event) {
         if (event.getSpawnReason() != null) {
             if (event.getEntity() instanceof LivingEntity livingEntity) {
-                LivingEntityDataCapability.getCapability(livingEntity).ifPresent(ec -> {
+                MalumLivingEntityDataCapability.getCapabilityOptional(livingEntity).ifPresent(ec -> {
                     if (event.getSpawnReason().equals(MobSpawnType.SPAWNER)) {
                         ec.spawnerSpawned = true;
                     }
@@ -65,7 +64,7 @@ public class SoulHarvestHandler {
 
     public static void addEntity(EntityJoinWorldEvent event) {
         if (event.getEntity() instanceof LivingEntity livingEntity) {
-            LivingEntityDataCapability.getCapability(livingEntity).ifPresent(ec -> {
+            MalumLivingEntityDataCapability.getCapabilityOptional(livingEntity).ifPresent(ec -> {
                 ec.spiritData = SpiritHelper.getEntitySpiritData(livingEntity);
                 if (livingEntity instanceof Mob mob) {
                     if (ec.soulless) {
@@ -78,7 +77,7 @@ public class SoulHarvestHandler {
 
     public static void entityTarget(LivingSetAttackTargetEvent event) {
         if (event.getEntityLiving() instanceof Mob mob) {
-            LivingEntityDataCapability.getCapability(mob).ifPresent(ec -> {
+            MalumLivingEntityDataCapability.getCapabilityOptional(mob).ifPresent(ec -> {
                 if (ec.soulless) {
                     mob.target = null;
                 }
@@ -88,7 +87,7 @@ public class SoulHarvestHandler {
 
     public static void entityTick(LivingEvent.LivingUpdateEvent event) {
         LivingEntity entity = event.getEntityLiving();
-        LivingEntityDataCapability.getCapability(entity).ifPresent(ec -> {
+        MalumLivingEntityDataCapability.getCapabilityOptional(entity).ifPresent(ec -> {
             if (ec.exposedSoul > 0) {
                 ec.exposedSoul--;
             }
@@ -123,7 +122,7 @@ public class SoulHarvestHandler {
                 if (c.targetedSoulUUID != null) {
                     Entity entity = player.level.getEntity(c.targetedSoulId);
                     if (entity instanceof LivingEntity livingEntity) {
-                        LivingEntityDataCapability.getCapability(livingEntity).ifPresent(ec -> {
+                        MalumLivingEntityDataCapability.getCapabilityOptional(livingEntity).ifPresent(ec -> {
                             if (ec.soulHarvestProgress < harvestVFXCap) {
                                 ec.soulHarvestProgress += 1;
                             }
@@ -136,7 +135,7 @@ public class SoulHarvestHandler {
                         if (c.targetedSoulUUID != null) {
                             Entity entity = player.level.getEntity(c.targetedSoulId);
                             if (entity instanceof LivingEntity livingEntity) {
-                                LivingEntityDataCapability.getCapability(livingEntity).ifPresent(ec -> {
+                                MalumLivingEntityDataCapability.getCapabilityOptional(livingEntity).ifPresent(ec -> {
                                     if (ec.getHarvestProgress() >= 150) {
                                         Vec3 position = entity.position().add(0, entity.getEyeHeight() / 2f, 0);
                                         SoulEntity soulEntity = new SoulEntity(entity.level, SpiritHelper.getEntitySpiritData(livingEntity), player.getUUID(),
@@ -155,7 +154,7 @@ public class SoulHarvestHandler {
                                         ec.ownerUUID = player.getUUID();
                                         player.swing(player.getUsedItemHand(), true);
                                         player.releaseUsingItem();
-                                        LivingEntityDataCapability.sync(livingEntity);
+                                        MalumLivingEntityDataCapability.sync(livingEntity);
                                     }
                                 });
                             }
@@ -170,7 +169,7 @@ public class SoulHarvestHandler {
                         double biggestAngle = 0;
                         LivingEntity chosenEntity = null;
                         for (LivingEntity entity : entities) {
-                            if (!entity.isAlive() || LivingEntityDataCapability.isSoulless(entity) || !LivingEntityDataCapability.hasSpiritData(entity)) {
+                            if (!entity.isAlive() || MalumLivingEntityDataCapability.getCapability(entity).soulless || MalumLivingEntityDataCapability.getCapability(entity).spiritData == null) {
                                 continue;
                             }
                             Vec3 lookDirection = player.getLookAngle();
@@ -181,12 +180,12 @@ public class SoulHarvestHandler {
                                 chosenEntity = entity;
                             }
                         }
-                        if (chosenEntity != null && (!chosenEntity.getUUID().equals(c.targetedSoulUUID) || LivingEntityDataCapability.getOwner(chosenEntity) == null)) {
+                        if (chosenEntity != null && (!chosenEntity.getUUID().equals(c.targetedSoulUUID) || MalumLivingEntityDataCapability.getCapability(chosenEntity).ownerUUID == null)) {
                             c.targetedSoulUUID = chosenEntity.getUUID();
                             c.targetedSoulId = chosenEntity.getId();
-                            LivingEntityDataCapability.getCapability(chosenEntity).ifPresent(ec -> ec.ownerUUID = player.getUUID());
+                            MalumLivingEntityDataCapability.getCapabilityOptional(chosenEntity).ifPresent(ec -> ec.ownerUUID = player.getUUID());
                             if (chosenEntity.level instanceof ServerLevel) {
-                                LivingEntityDataCapability.sync(chosenEntity);
+                                MalumLivingEntityDataCapability.sync(chosenEntity);
                             }
                         }
                         if (chosenEntity == null) {
@@ -227,7 +226,7 @@ public class SoulHarvestHandler {
 
             @Override
             public void render(PoseStack poseStack, MultiBufferSource pBuffer, int pPackedLight, T pLivingEntity, float pLimbSwing, float pLimbSwingAmount, float partialTicks, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch) {
-                LivingEntityDataCapability.getCapability(pLivingEntity).ifPresent(c -> {
+                MalumLivingEntityDataCapability.getCapabilityOptional(pLivingEntity).ifPresent(c -> {
                     if (c.ownerUUID != null) {
                         Player player = pLivingEntity.level.getPlayerByUUID(c.ownerUUID);
                         if (player != null && player.isAlive() && pLivingEntity.isAlive()) {

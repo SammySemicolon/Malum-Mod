@@ -2,10 +2,12 @@ package com.sammy.malum.common.entity.spirit;
 
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.entity.FloatingItemEntity;
+import com.sammy.malum.common.item.spirit.MalumSpiritItem;
 import com.sammy.malum.core.handlers.SpiritHarvestHandler;
 import com.sammy.malum.core.setup.content.AttributeRegistry;
 import com.sammy.malum.core.setup.content.entity.EntityRegistry;
 import com.sammy.malum.core.helper.SpiritHelper;
+import com.sammy.ortus.helpers.ItemHelper;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.server.level.ServerLevel;
@@ -18,16 +20,16 @@ import net.minecraft.world.phys.Vec3;
 
 import java.util.UUID;
 
-public class SpiritItemEntity extends FloatingItemEntity {
+public class PlayerBoundItemEntity extends FloatingItemEntity {
     public UUID ownerUUID;
     public LivingEntity owner;
 
-    public SpiritItemEntity(Level level) {
+    public PlayerBoundItemEntity(Level level) {
         super(EntityRegistry.NATURAL_SPIRIT.get(), level);
         maxAge = 4000;
     }
 
-    public SpiritItemEntity(Level level, UUID ownerUUID, ItemStack stack, double posX, double posY, double posZ, double velX, double velY, double velZ) {
+    public PlayerBoundItemEntity(Level level, UUID ownerUUID, ItemStack stack, double posX, double posY, double posZ, double velX, double velY, double velZ) {
         super(EntityRegistry.NATURAL_SPIRIT.get(), level);
         setOwner(ownerUUID);
         setItem(stack);
@@ -76,7 +78,7 @@ public class SpiritItemEntity extends FloatingItemEntity {
         }
         Vec3 desiredLocation = owner.position().add(0, owner.getBbHeight() / 3, 0);
         float distance = (float) distanceToSqr(desiredLocation);
-        float velocity = windUp < 0.15f ? 0 : Math.min(windUp, 0.3f)*5f;
+        float velocity = windUp < 0.2f ? 0 : Math.min(windUp-0.2f, 0.35f)*5f;
         moveTime++;
         Vec3 desiredMotion = desiredLocation.subtract(position()).normalize().multiply(velocity, velocity, velocity);
         float easing = 0.01f;
@@ -89,7 +91,12 @@ public class SpiritItemEntity extends FloatingItemEntity {
         if (distance < 0.4f) {
             if (isAlive()) {
                 ItemStack stack = getItem();
-                SpiritHarvestHandler.pickupSpirit(stack, owner);
+                if (stack.getItem() instanceof MalumSpiritItem) {
+                    SpiritHarvestHandler.pickupSpirit(stack, owner);
+                }
+                else {
+                    ItemHelper.giveItemToEntity(stack, owner);
+                }
                 remove(RemovalReason.DISCARDED);
             }
         }

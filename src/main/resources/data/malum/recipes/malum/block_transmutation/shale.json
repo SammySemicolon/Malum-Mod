@@ -1,0 +1,15 @@
+{
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "quark"
+    },
+    {
+      "type": "quark:flag",
+      "flag": "shale"
+    }
+  ],
+  "type": "malum:block_transmutation",
+  "input": "minecraft:diorite",
+  "output": "quark:shale"
+}

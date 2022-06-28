@@ -40,7 +40,7 @@ public class SpiritDataReloadListener extends SimpleJsonResourceReloadListener {
                 continue;
             }
             if (!object.has("primary_type")) {
-                MalumMod.LOGGER.info("entity with registry name: " + name + " lacks a primary type. Skipping file.");
+                MalumMod.LOGGER.info("entity with registry name: " + name + " lacks a primary spirit type. Skipping file.");
                 continue;
             }
             if (SPIRIT_DATA.containsKey(resourceLocation)) {

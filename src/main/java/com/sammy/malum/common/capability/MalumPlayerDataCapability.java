@@ -40,6 +40,8 @@ public class MalumPlayerDataCapability implements OrtusCapability {
     public float heartOfStone;
     public float heartOfStoneProgress;
 
+    public int soulsShattered;
+    public boolean obtainedEncyclopedia;
 
     public MalumPlayerDataCapability() {
     }
@@ -91,6 +93,9 @@ public class MalumPlayerDataCapability implements OrtusCapability {
 
         tag.putFloat("heartOfStone", heartOfStone);
         tag.putFloat("heartOfStoneProgress", heartOfStoneProgress);
+
+        tag.putInt("soulsShattered", soulsShattered);
+        tag.putBoolean("obtainedEncyclopedia", obtainedEncyclopedia);
         return tag;
     }
 
@@ -109,6 +114,9 @@ public class MalumPlayerDataCapability implements OrtusCapability {
 
         heartOfStone = tag.getFloat("heartOfStone");
         heartOfStoneProgress = tag.getInt("heartOfStoneProgress");
+
+        soulsShattered = tag.getInt("soulsShattered");
+        obtainedEncyclopedia = tag.getBoolean("obtainedEncyclopedia");
     }
 
     public static void syncSelf(ServerPlayer player) {

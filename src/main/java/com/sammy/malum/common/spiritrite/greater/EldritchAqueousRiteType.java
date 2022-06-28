@@ -41,16 +41,12 @@ public class EldritchAqueousRiteType extends MalumRiteType {
     @Override
     public MalumRiteEffect getNaturalRiteEffect() {
         return new BlockAffectingRiteEffect() {
-            @Override
-            public int getRiteEffectRadius() {
-                return BASE_RADIUS * 4;
-            }
 
             @SuppressWarnings("ConstantConditions")
             @Override
             public void riteEffect(TotemBaseBlockEntity totemBase) {
                 Level level = totemBase.getLevel();
-                getNearbyBlocks(totemBase, PointedDripstoneBlock.class).forEach(p -> {
+                getNearbyBlocks(totemBase, PointedDripstoneBlock.class, getRiteEffectRadius()*2).forEach(p -> {
                     if (level.random.nextFloat() < 0.1f) {
                         level.getBlockState(p).randomTick((ServerLevel) level, p, level.random);
                         MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(p)), new MinorEntityEffectParticlePacket(AQUEOUS_SPIRIT.getColor(), p.getX() + 0.5f, p.getY() + 0.5f, p.getZ() + 0.5f));
@@ -60,8 +56,8 @@ public class EldritchAqueousRiteType extends MalumRiteType {
 
             @SuppressWarnings("ConstantConditions")
             @Override
-            public boolean canAffectBlock(TotemBaseBlockEntity totemBase, BlockState state, BlockPos pos) {
-                return PointedDripstoneBlock.isStalactiteStartPos(state, totemBase.getLevel(), pos);
+            public boolean canAffectBlock(TotemBaseBlockEntity totemBase, HashSet<Block> filters, BlockState state, BlockPos pos) {
+                return super.canAffectBlock(totemBase, filters, state, pos) && PointedDripstoneBlock.isStalactiteStartPos(state, totemBase.getLevel(), pos);
             }
         };
     }

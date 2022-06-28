@@ -1,0 +1,13 @@
+{
+  "registry_name": "minecraft:phantom",
+  "drops": [
+    {
+      "ingredient": {
+        "item": "malum:astral_weave"
+      },
+      "chance": "0.25",
+      "min": "1",
+      "max": "2"
+    }
+  ]
+}

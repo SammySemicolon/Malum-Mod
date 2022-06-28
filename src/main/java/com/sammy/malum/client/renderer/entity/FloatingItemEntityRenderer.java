@@ -24,6 +24,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.data.ForgeRecipeProvider;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,10 +46,10 @@ public class FloatingItemEntityRenderer extends EntityRenderer<FloatingItemEntit
     }
 
     private static final ResourceLocation LIGHT_TRAIL = prefix("textures/vfx/light_trail.png");
-    private static final RenderType LIGHT_TYPE = OrtusRenderTypeRegistry.ADDITIVE_TEXTURE.apply(LIGHT_TRAIL);
+    private static final RenderType LIGHT_TYPE = OrtusRenderTypeRegistry.TEXTURE_TRIANGLE.apply(LIGHT_TRAIL);
 
     private static final ResourceLocation MESSY_TRAIL = prefix("textures/vfx/messy_trail.png");
-    private static final RenderType MESSY_TYPE = OrtusRenderTypeRegistry.SCROLLING_TEXTURE.apply(MESSY_TRAIL);
+    private static final RenderType MESSY_TYPE = OrtusRenderTypeRegistry.SCROLLING_TEXTURE_TRIANGLE.apply(MESSY_TRAIL);
 
     @Override
     public void render(FloatingItemEntity entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int packedLightIn) {
@@ -75,24 +76,19 @@ public class FloatingItemEntityRenderer extends EntityRenderer<FloatingItemEntit
         VFXBuilders.WorldVFXBuilder builder = VFXBuilders.createWorld().setPosColorTexLightmapDefaultFormat().setOffset(-x, -y, -z);
 
         VertexConsumer lightBuffer = DELAYED_RENDER.getBuffer(LIGHT_TYPE);
-        float trailVisibility = Math.min(entity.windUp * 2f, 1);
+        float trailVisibility = Math.min(entity.windUp * 5f, 1);
 
         for (int i = 0; i < 3; i++) {
             float size = 0.25f + i * 0.1f;
-            float alpha = (0.12f - i * 0.04f) * trailVisibility;
+            float alpha = (0.16f - i * 0.04f) * trailVisibility;
             int finalI = i;
             VertexConsumer messy = DELAYED_RENDER.getBuffer(queueUniformChanges(OrtusRenderTypeRegistry.copy(i, MESSY_TYPE),
                     (instance -> instance.safeGetUniform("Speed").set(1000 + 250f * finalI))));
             builder
-                    .setColor(ColorHelper.brighter(i > 1 ? entity.endColor : entity.startColor, i + 1))
                     .setAlpha(alpha)
-                    .renderTrail(messy, poseStack, mappedPastPositions, f -> size * Easing.SINE_OUT.ease(f, 0, 1, 1))
-                    .setUV(0, 0, 1, 3)
-                    .setAlpha(alpha * 1.5f)
-                    .renderTrail(messy, poseStack, mappedPastPositions, f -> 1.5f * size * Easing.SINE_IN_OUT.ease(f, 0, 1, 1))
-                    .setColor(entity.endColor)
-                    .setAlpha(alpha / 4f)
-                    .renderTrail(lightBuffer, poseStack, mappedPastPositions, f -> size * 3f * Easing.SINE_IN.ease(f, 0, 1, 1));
+                    .renderTrail(messy, poseStack, mappedPastPositions, f -> size, f -> builder.setAlpha(alpha * f).setColor(ColorHelper.colorLerp(Easing.SINE_IN, f*3f, entity.endColor, entity.startColor)))
+                    .renderTrail(messy, poseStack, mappedPastPositions, f -> 1.5f * size, f -> builder.setAlpha(alpha * f * 1.5f).setColor(ColorHelper.colorLerp(Easing.SINE_IN, f*2f, entity.endColor, entity.startColor)))
+                    .renderTrail(lightBuffer, poseStack, mappedPastPositions, f -> size * 2.5f, f -> builder.setAlpha(alpha * f / 4f).setColor(ColorHelper.colorLerp(Easing.SINE_IN, f*2f, entity.endColor, entity.startColor)));
         }
         ItemStack itemStack = entity.getItem();
         BakedModel model = this.itemRenderer.getModel(itemStack, entity.level, null, entity.getItem().getCount());

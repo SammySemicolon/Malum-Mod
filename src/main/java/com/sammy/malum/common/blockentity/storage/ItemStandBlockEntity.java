@@ -1,6 +1,8 @@
 package com.sammy.malum.common.blockentity.storage;
 
 import com.sammy.malum.common.blockentity.altar.IAltarProvider;
+import com.sammy.malum.common.blockentity.totem.TotemBaseBlockEntity;
+import com.sammy.malum.common.blockentity.totem.TotemPoleBlockEntity;
 import com.sammy.malum.common.item.spirit.MalumSpiritItem;
 import com.sammy.malum.core.helper.SpiritHelper;
 import com.sammy.malum.core.setup.content.block.BlockEntityRegistry;
@@ -10,6 +12,9 @@ import com.sammy.ortus.systems.blockentity.OrtusBlockEntityInventory;
 import com.sammy.ortus.systems.blockentity.ItemHolderBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -61,6 +66,20 @@ public class ItemStandBlockEntity extends ItemHolderBlockEntity implements IAlta
         Direction direction = getBlockState().getValue(BlockStateProperties.FACING);
         Vec3 directionVector = new Vec3(direction.getStepX(), direction.getStepY(), direction.getStepZ());
         return new Vec3(0.5f - directionVector.x() * 0.25f, 0.5f - directionVector.y() * 0.1f, 0.5f - directionVector.z() * 0.25f);
+    }
+
+    @Override
+    public void onPlace(LivingEntity placer, ItemStack stack) {
+        Direction direction = getBlockState().getValue(BlockStateProperties.FACING);
+        BlockPos totemPolePos = getBlockPos().relative(direction.getOpposite());
+        if (level.getBlockEntity(totemPolePos) instanceof TotemPoleBlockEntity totemPole) {
+            TotemBaseBlockEntity totemBase = totemPole.totemBase;
+            if (totemBase != null) {
+                totemBase.addFilter(this);
+                BlockHelper.updateState(level, totemBase.getBlockPos());
+                BlockHelper.updateState(level, totemPole.getBlockPos());
+            }
+        }
     }
 
     @Override

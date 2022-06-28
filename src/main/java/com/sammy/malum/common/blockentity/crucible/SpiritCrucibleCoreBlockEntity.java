@@ -4,6 +4,7 @@ import com.sammy.malum.common.blockentity.tablet.ITabletTracker;
 import com.sammy.malum.common.blockentity.tablet.TwistedTabletBlockEntity;
 import com.sammy.malum.common.item.impetus.ImpetusItem;
 import com.sammy.malum.common.item.spirit.MalumSpiritItem;
+import com.sammy.malum.common.packets.particle.block.functional.AltarConsumeParticlePacket;
 import com.sammy.malum.common.packets.particle.block.functional.AltarCraftParticlePacket;
 import com.sammy.malum.common.packets.particle.block.functional.FunctionalBlockItemAbsorbParticlePacket;
 import com.sammy.malum.common.recipe.SpiritFocusingRecipe;
@@ -321,9 +322,9 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
         inventory.setStackInSlot(0, result);
 
         if (repairRecipe.repairMaterial.getItem() instanceof MalumSpiritItem malumSpiritItem) {
-            MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new FunctionalBlockItemAbsorbParticlePacket(repairMaterial, List.of(malumSpiritItem.type.identifier), providedItemPos.x, providedItemPos.y, providedItemPos.z, itemPos.x, itemPos.y, itemPos.z));
+            MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new AltarConsumeParticlePacket(repairMaterial, List.of(malumSpiritItem.type.identifier), providedItemPos.x, providedItemPos.y, providedItemPos.z, itemPos.x, itemPos.y, itemPos.z));
         } else {
-            MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new FunctionalBlockItemAbsorbParticlePacket(repairMaterial, repairRecipe.spirits.stream().map(s -> s.type.identifier).collect(Collectors.toList()), providedItemPos.x, providedItemPos.y, providedItemPos.z, itemPos.x, itemPos.y, itemPos.z));
+            MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new AltarConsumeParticlePacket(repairMaterial, repairRecipe.spirits.stream().map(s -> s.type.identifier).collect(Collectors.toList()), providedItemPos.x, providedItemPos.y, providedItemPos.z, itemPos.x, itemPos.y, itemPos.z));
         }
 
         repairMaterial.shrink(repairRecipe.repairMaterial.getCount());
@@ -491,7 +492,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
                         .repeat(level, tabletItemPos.x, tabletItemPos.y, tabletItemPos.z, 1);
             }
         }
-        else {
+        if (focusingRecipe != null || repairRecipe != null && !(validTablet.inventory.getStackInSlot(0).getItem() instanceof MalumSpiritItem)) {
             focusingParticles(itemPos);
         }
     }
@@ -512,9 +513,11 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
                 double y = getBlockPos().getY() + offset.y();
                 double z = getBlockPos().getZ() + offset.z();
                 Vec3 velocity = new Vec3(x, y, z).subtract(itemPos).normalize().scale(-0.03f);
-                for (ICrucibleAccelerator accelerator : accelerators) {
-                    if (accelerator != null) {
-                        accelerator.addParticles(color, endColor, 0.08f / spiritInventory.nonEmptyItemAmount, worldPosition, itemPos);
+                if (repairRecipe == null) {
+                    for (ICrucibleAccelerator accelerator : accelerators) {
+                        if (accelerator != null) {
+                            accelerator.addParticles(color, endColor, 0.08f / spiritInventory.nonEmptyItemAmount, worldPosition, itemPos);
+                        }
                     }
                 }
                 ParticleBuilders.create(OrtusParticleRegistry.WISP_PARTICLE)
@@ -546,7 +549,6 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
     }
 
     public void starParticles(Vec3 itemPos, Color color, Color endColor) {
-
         ParticleBuilders.create(OrtusParticleRegistry.STAR_PARTICLE)
                 .setAlpha(0.07f / spiritInventory.nonEmptyItemAmount, 0.16f / spiritInventory.nonEmptyItemAmount, 0f)
                 .setScaleEasing(Easing.SINE_IN, Easing.SINE_OUT)

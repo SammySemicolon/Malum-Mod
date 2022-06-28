@@ -42,9 +42,11 @@ public class EldritchAerialRiteType extends MalumRiteType {
                     BlockState stateBelow = level.getBlockState(p.below());
                     if (!stateBelow.canOcclude() || stateBelow.is(BlockTags.SLABS)) {
                         BlockState state = level.getBlockState(p);
-                        FallingBlockEntity.fall(level, p, state);
-                        level.playSound(null, p, SoundRegistry.AERIAL_FALL.get(), SoundSource.BLOCKS, 0.5f, 2.6F + (level.random.nextFloat() - level.random.nextFloat()) * 0.8F);
-                        MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(pos)), new BlockDownwardSparkleParticlePacket(AERIAL_SPIRIT.getColor(), p));
+                        if (!state.isAir()) {
+                            FallingBlockEntity.fall(level, p, state);
+                            level.playSound(null, p, SoundRegistry.AERIAL_FALL.get(), SoundSource.BLOCKS, 0.5f, 2.6F + (level.random.nextFloat() - level.random.nextFloat()) * 0.8F);
+                            MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(pos)), new BlockDownwardSparkleParticlePacket(AERIAL_SPIRIT.getColor(), p));
+                        }
                     }
                 });
             }

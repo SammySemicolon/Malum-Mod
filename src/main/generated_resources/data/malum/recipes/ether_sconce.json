@@ -1,0 +1,34 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "modid": "supplementaries",
+          "type": "forge:mod_loaded"
+        }
+      ],
+      "recipe": {
+        "type": "malum:nbt_carry",
+        "pattern": [
+          "#X#",
+          " # "
+        ],
+        "key": {
+          "#": {
+            "tag": "forge:nuggets/iron"
+          },
+          "X": {
+            "item": "malum:ether_torch"
+          }
+        },
+        "nbtCarry": {
+          "item": "malum:ether_torch"
+        },
+        "result": {
+          "item": "malum:ether_sconce"
+        }
+      }
+    }
+  ]
+}
