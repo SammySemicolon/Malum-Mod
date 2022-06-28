@@ -1,6 +1,7 @@
 {
   "type": "malum:spirit_repair",
-  "inputLookup": "flint_",
+  "itemIdRegex": "flint_.+",
+  "modIdRegex": ".+",
   "durabilityPercentage": 0.5,
   "inputs": [],
   "repairMaterial": {

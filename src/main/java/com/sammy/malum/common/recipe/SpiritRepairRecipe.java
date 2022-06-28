@@ -155,9 +155,8 @@ public class SpiritRepairRecipe extends IOrtusRecipe {
                 REPAIRABLE = ForgeRegistries.ITEMS.getEntries().stream().map(Map.Entry::getValue).filter(Item::canBeDepleted).collect(Collectors.toList());
             }
             float durabilityPercentage = json.getAsJsonPrimitive("durabilityPercentage").getAsFloat();
-            String inputLookup = json.has("inputLookup") ? json.get("inputLookup").getAsString() : "none";
-            String itemName = inputLookup.contains(":") ? inputLookup.substring(inputLookup.indexOf(":")) : inputLookup;
-            String modName = inputLookup.contains(":") ? inputLookup.substring(0, inputLookup.indexOf(":") - 1) : null;
+            String itemIdRegex = json.get("itemIdRegex").getAsString();
+            String modIdRegex = json.get("modIdRegex").getAsString();
             JsonArray inputsArray = json.getAsJsonArray("inputs");
             ArrayList<Item> inputs = new ArrayList<>();
             for (JsonElement jsonElement : inputsArray) {
@@ -168,8 +167,8 @@ public class SpiritRepairRecipe extends IOrtusRecipe {
                 inputs.add(input);
             }
             for (Item item : REPAIRABLE) {
-                if (item.getRegistryName().getPath().contains(itemName)) {
-                    if (modName != null && !item.getRegistryName().getNamespace().equals(modName)) {
+                if (item.getRegistryName().getPath().matches(itemIdRegex)) {
+                    if (!item.getRegistryName().getNamespace().matches(modIdRegex)) {
                         continue;
                     }
                     if (item instanceof IRepairOutputOverride repairOutputOverride && repairOutputOverride.ignoreDuringLookup()) {

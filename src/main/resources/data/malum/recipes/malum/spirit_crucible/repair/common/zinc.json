@@ -9,7 +9,8 @@
     }
   ],
   "type": "malum:spirit_repair",
-  "inputLookup": "zinc_",
+  "itemIdRegex": "zinc_.+",
+  "modIdRegex": ".+",
   "durabilityPercentage": 0.5,
   "inputs": [
   ],

@@ -6,7 +6,8 @@
     }
   ],
   "type": "malum:spirit_repair",
-  "inputLookup": "undergarden:forgotten_",
+  "itemIdRegex": "forgotten_.+",
+  "modIdRegex": "undergarden",
   "durabilityPercentage": 0.75,
   "inputs": [],
   "repairMaterial": {

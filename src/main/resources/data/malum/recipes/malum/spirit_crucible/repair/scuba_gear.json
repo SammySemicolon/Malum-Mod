@@ -6,14 +6,10 @@
     }
   ],
   "type": "malum:spirit_repair",
-  "inputLookup": "none",
+  "itemIdRegex": "scuba_(helmet|chestplate|leggings|boots)",
+  "modIdRegex": "scuba_gear",
   "durabilityPercentage": 0.5,
-  "inputs": [
-    "scuba_gear:scuba_helmet",
-    "scuba_gear:scuba_chestplate",
-    "scuba_gear:scuba_leggings",
-    "scuba_gear:scuba_boots"
-  ],
+  "inputs": [],
   "repairMaterial": {
     "item": "minecraft:iron_ingot",
     "count": 2
