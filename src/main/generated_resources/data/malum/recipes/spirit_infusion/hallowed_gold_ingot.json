@@ -10,7 +10,7 @@
   },
   "extra_items": [
     {
-      "item": "minecraft:quartz",
+      "tag": "forge:gems/quartz",
       "count": 4
     }
   ],

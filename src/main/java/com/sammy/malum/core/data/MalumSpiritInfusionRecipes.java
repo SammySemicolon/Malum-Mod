@@ -70,7 +70,7 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider implements ICondi
                 .build(consumer);
 
         new SpiritInfusionRecipeBuilder(Items.GOLD_INGOT, 1, ItemRegistry.HALLOWED_GOLD_INGOT.get(), 1)
-                .addExtraItem(Items.QUARTZ, 4)
+                .addExtraItem(Ingredient.of(Tags.Items.GEMS_QUARTZ), 4)
                 .addSpirit(SACRED_SPIRIT, 2)
                 .addSpirit(ARCANE_SPIRIT, 1)
                 .build(consumer);

@@ -7,11 +7,11 @@ import net.minecraft.world.item.ItemStack;
 
 import javax.annotation.Nonnull;
 
-public class MalumSplinterTab extends CreativeModeTab
+public class MalumSpiritTab extends CreativeModeTab
 {
-    public static final MalumSplinterTab INSTANCE = new MalumSplinterTab();
+    public static final MalumSpiritTab INSTANCE = new MalumSpiritTab();
     
-    public MalumSplinterTab() {
+    public MalumSpiritTab() {
         super(MalumMod.MALUM + "_spirits");
     }
     
