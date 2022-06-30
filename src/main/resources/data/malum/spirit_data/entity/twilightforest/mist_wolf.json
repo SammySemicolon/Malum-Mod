@@ -1,0 +1,10 @@
+{
+  "registry_name": "twilightforest:mist_wolf",
+  "primary_type": "eldritch",
+  "spirits": [
+    {
+      "spirit": "eldritch",
+      "count": 1
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "registry_name": "twilightforest:redcap",
+  "primary_type": "earthen",
+  "spirits": [
+    {
+      "spirit": "earthen",
+      "count": 1
+    }
+  ]
+}

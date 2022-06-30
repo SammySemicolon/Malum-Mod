@@ -1,0 +1,14 @@
+{
+  "registry_name": "twilightforest:towerwood_borer",
+  "primary_type": "wicked",
+  "spirits": [
+    {
+      "spirit": "wicked",
+      "count": 1
+    },
+    {
+      "spirit": "aerial",
+      "count": 1
+    }
+  ]
+}

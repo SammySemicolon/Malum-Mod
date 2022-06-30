@@ -1,0 +1,10 @@
+{
+  "registry_name": "twilightforest:blockchain_goblin",
+  "primary_type": "earthen",
+  "spirits": [
+    {
+      "spirit": "earthen",
+      "count": 1
+    }
+  ]
+}

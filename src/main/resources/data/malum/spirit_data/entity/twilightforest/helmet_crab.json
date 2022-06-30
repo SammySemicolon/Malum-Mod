@@ -1,0 +1,14 @@
+{
+  "registry_name": "twilightforest:helmet_crab",
+  "primary_type": "aqueous",
+  "spirits": [
+    {
+      "spirit": "earthen",
+      "count": 1
+    },
+    {
+      "spirit": "aqueous",
+      "count": 2
+    }
+  ]
+}
