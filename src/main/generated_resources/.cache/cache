@@ -69,8 +69,7 @@ a3ffe9c9227c067375ac693fd4c6a630b2d28c0c assets/malum/blockstates/polished_taint
 22d53c8a6bda27a37b1a818bfd6bad8915cf1dc6 assets/malum/blockstates/polished_twisted_rock.json
 d83f0e03ba6059e098a0b5ecaa89d4e08f769917 assets/malum/blockstates/polished_twisted_rock_slab.json
 6eaa825fd07b88d1e5af0ef547fc5c67cb6a7a3b assets/malum/blockstates/polished_twisted_rock_stairs.json
-6711489d42251461d4cfb658f95b9f708dc7bf69 assets/malum/blockstates/rare_deepslate.json
-eb9f009e2db64354a629e0b416fc3a4c70648a5a assets/malum/blockstates/rare_stone.json
+fdc49f351e0ab994f5fbf76509d83fdf2b700f20 assets/malum/blockstates/rare_earths.json
 6a7c1b3a5ec95a0729c56755934db0affc1d970b assets/malum/blockstates/revealed_runewood_log.json
 b68dbe989936111f2e8b6dd182431e770738cf00 assets/malum/blockstates/revealed_soulwood_log.json
 257b21599bbe4156aacef0a97e8a81a8fc8b735f assets/malum/blockstates/runewood.json
@@ -207,7 +206,7 @@ d9001ce582022fed3dcfa3c78a5f1497f622a419 assets/malum/blockstates/vertical_soulw
 4f1f3250e0d6c695984d579f8c7eb51ce0642b63 assets/malum/blockstates/wall_blazing_torch.json
 6107b2130f82e935f7f7a8b275f5448a9b56ac25 assets/malum/blockstates/wall_ether_sconce.json
 1c5a82140570f65af0f2675a889a4887d87d3874 assets/malum/blockstates/wall_ether_torch.json
-581b4bd27af3aea954cdf3a7d88feb3db630167a assets/malum/lang/en_us.json
+eea6114bb709e6c866f8ddb82da08762b5230a78 assets/malum/lang/en_us.json
 a75ef274d6ea80a594a834a6f1a473a9afa5d32f assets/malum/models/block/blazing_quartz_ore.json
 51856a459935a8359a094e0c2cd3d530401de3ec assets/malum/models/block/blazing_sconce.json
 fbfd3011e71b659b1f045f76d7b50fbf9a725317 assets/malum/models/block/blazing_torch.json
@@ -315,8 +314,7 @@ c03827edded18892103c06e0b44ef2a236af305c assets/malum/models/block/polished_tain
 c21678b59eff49d55fb4a24f7954e306d4821236 assets/malum/models/block/polished_twisted_rock_stairs.json
 def6c36faafb3f6daee515b82c427724d48d8049 assets/malum/models/block/polished_twisted_rock_stairs_inner.json
 c7e05cbe1872b7729bffd4826ecc3089d534c157 assets/malum/models/block/polished_twisted_rock_stairs_outer.json
-3bff0adb212b5269abe8c8580abd42a53c90b933 assets/malum/models/block/rare_deepslate.json
-0def52dff1b694f345cc2c25dae6c80a7f11420c assets/malum/models/block/rare_stone.json
+47555f80312194cd12f889b6633bac11d31c9771 assets/malum/models/block/rare_earths.json
 d5862bdcc3e86bd8b66c0bef3b714b7749f38c93 assets/malum/models/block/revealed_runewood_log.json
 2859d2470edf316e6f4f2fc8fc5805f3c5951dac assets/malum/models/block/revealed_runewood_log_horizontal.json
 a6e2f90f478bdbacc1f9883a3a63c8c976aa8b30 assets/malum/models/block/revealed_soulwood_log.json
@@ -605,6 +603,7 @@ ae2d6a8d323a165c804d3a42cd7e5aa6bef60210 assets/malum/models/item/blighted_soulw
 ffa159ebc82505dd5869e28a449f17228d5ed5c5 assets/malum/models/item/block_of_blazing_quartz.json
 18a24b4121f222e374dc9cd16666a23c441272cf assets/malum/models/item/block_of_brilliance.json
 4c44e344f134981f01cd6748875e6b3fca6d6309 assets/malum/models/item/block_of_hallowed_gold.json
+79debb096b656fd3fa95fac15b689c6d0b574d6f assets/malum/models/item/block_of_rare_earths.json
 73b4ff6e6c95bf356c63cb0b2ca8b41ec030cb77 assets/malum/models/item/block_of_raw_soulstone.json
 8ab7562a34681e4af62931cc6b4fed4c9f43799d assets/malum/models/item/block_of_soul_stained_steel.json
 4e2853c5e7329d8251d6b56ca0ff7616be6a733a assets/malum/models/item/block_of_soulstone.json
@@ -717,6 +716,7 @@ bc4c02434bab5dde999396191b5ce97b0d9f5d38 assets/malum/models/item/polished_taint
 47399f349a23e29e34ead8cfbe2b45be0216cf35 assets/malum/models/item/polished_twisted_rock_stairs.json
 5d6ac19076040411777d9ab5a3bc9b41bf72f890 assets/malum/models/item/poppet.json
 14b9aff11fc5abf7784420c5568e3e349f324461 assets/malum/models/item/processed_soulstone.json
+d930f5d958fed564d66cbdbbfa61ca770c88ab6b assets/malum/models/item/rare_earths.json
 2f2fecfbf5bfa9082052eaa335cbc9243f545270 assets/malum/models/item/raw_soulstone.json
 eb7b211a030ef70e110798cd220720f8e97f5557 assets/malum/models/item/revealed_runewood_log.json
 3be1650db18bc78223da198b28a1dc3c1f13cfcc assets/malum/models/item/revealed_soulwood_log.json
@@ -893,7 +893,7 @@ d77f0ad1da38969caa81ac9dda635e8489792040 assets/malum/models/item/zinc_node.json
 698745fda607b0f8ff1419254c61c9e62ae2d8bf data/farmersdelight/tags/blocks/heat_sources.json
 ea3c1200cfe6dd3fc68786bf8046ecef94d573ea data/farmersdelight/tags/blocks/tray_heat_sources.json
 05a3bb3cca9ff66e09b8571f8a8e4f43e0c93fb6 data/farmersdelight/tags/items/tools/knives.json
-31b3aeba0dc3c5951b6230457c3153cdf4999467 data/forge/tags/blocks/ores.json
+0915b0a8e5530e8dbe26aeaf9bb36335a244052b data/forge/tags/blocks/ores.json
 8abeea4579f00ebf8751b829bfdab0e7d91e03f8 data/forge/tags/items/gems.json
 25c0bab813d31da58924161f204b3fb38c042d6d data/forge/tags/items/gems/quartz.json
 74700d556ca80c7a1db5fd4efb09c3ddb26cad66 data/forge/tags/items/ingots/aluminum.json
@@ -915,7 +915,7 @@ e8fab8d2e63dec1fbb96cca35aaa365190400b02 data/forge/tags/items/nuggets/copper.js
 74700d556ca80c7a1db5fd4efb09c3ddb26cad66 data/forge/tags/items/nuggets/tin.json
 74700d556ca80c7a1db5fd4efb09c3ddb26cad66 data/forge/tags/items/nuggets/uranium.json
 74700d556ca80c7a1db5fd4efb09c3ddb26cad66 data/forge/tags/items/nuggets/zinc.json
-31b3aeba0dc3c5951b6230457c3153cdf4999467 data/forge/tags/items/ores.json
+0915b0a8e5530e8dbe26aeaf9bb36335a244052b data/forge/tags/items/ores.json
 96ed2b8a733298462d5805fded9826a1f85463b1 data/forge/tags/items/ores/quartz.json
 2956c7ab14fca69e8efefa4ef85e2bb49eb29956 data/forge/tags/items/slimeballs.json
 05a3bb3cca9ff66e09b8571f8a8e4f43e0c93fb6 data/forge/tags/items/tools/knives.json
@@ -1327,7 +1327,6 @@ e4c497996a7d712fd1ed0c4e7825396bc622afe1 data/malum/loot_tables/blocks/ether_sco
 f458efbeda30277525db2865e91e3d6d5ad3b3e7 data/malum/loot_tables/blocks/ether_torch.json
 c7670145d1f3222017fabb26994ae00c868e5992 data/malum/loot_tables/blocks/exposed_runewood_log.json
 2580e4d4e74619704f94e5fbf8144500eaef7ba3 data/malum/loot_tables/blocks/exposed_soulwood_log.json
-0e2779a94c923cd249d07b94fe7e45f7da3d86ee data/malum/loot_tables/blocks/iridescent_ether.json
 a8036d898c3eaaf104d396d95b0f6409dd3c9b90 data/malum/loot_tables/blocks/iridescent_ether_sconce.json
 aef6ef17478afb028d18446b39f89203be4855b7 data/malum/loot_tables/blocks/iridescent_ether_torch.json
 c149925332df06ea040e4eb7d380ba48e069b57c data/malum/loot_tables/blocks/natural_quartz_cluster.json
@@ -1338,6 +1337,7 @@ aeae36f6b4107e61860481ce78b0aedf9d56fb21 data/malum/loot_tables/blocks/polished_
 e56e34384c6038ef81416d87c3cdc60b1aec8f14 data/malum/loot_tables/blocks/polished_twisted_rock.json
 13cb6afe7d2fa9a375e5ce9345a67b17ce9b4a82 data/malum/loot_tables/blocks/polished_twisted_rock_slab.json
 ec38efc39f00568002b0356e2689e80e0b290081 data/malum/loot_tables/blocks/polished_twisted_rock_stairs.json
+14e7178211d0350b8ae52c7dafbe378288791a05 data/malum/loot_tables/blocks/rare_earths.json
 df35446837ad0a7598a9f6732e7711b02fae33df data/malum/loot_tables/blocks/revealed_runewood_log.json
 2a300976c700eb99797a874ef6bdf2aca501dbeb data/malum/loot_tables/blocks/revealed_soulwood_log.json
 78f5bc4283c64e7f61ead3165b89639ee8bf9c7c data/malum/loot_tables/blocks/runewood.json
@@ -1959,7 +1959,7 @@ c76cb97e20ea243cadb64d5fde634506fce8cb94 data/minecraft/tags/blocks/leaves.json
 846cc1a74a86635a56f954ffb04dd485b01ec803 data/minecraft/tags/blocks/logs.json
 ade33e460265c40d533ebe50b8abfcd4ec4e40dd data/minecraft/tags/blocks/mineable/axe.json
 d70d876086eb388a6d4039744da3fbf506eb7180 data/minecraft/tags/blocks/mineable/hoe.json
-d09e0a637b9cb060e9f93b277e7986b19560fecf data/minecraft/tags/blocks/mineable/pickaxe.json
+2567c8533fdf754f576a854f55cf4750000bfff5 data/minecraft/tags/blocks/mineable/pickaxe.json
 2d93b9abfa5a1236f628c925084f1c85d0d1a944 data/minecraft/tags/blocks/mineable/shovel.json
 ed1badaa5faed1a472ef3df2a0a2bcd08d261864 data/minecraft/tags/blocks/planks.json
 ba125b89721687e009e5b8df66e50c8a98391641 data/minecraft/tags/blocks/pressure_plates.json
