@@ -157,7 +157,7 @@ public class BlockRegistry {
     }
 
     public static OrtusBlockProperties RARE_EARTH_PROPERTIES() {
-        return new OrtusBlockProperties(Material.STONE, MaterialColor.STONE).needsPickaxe().requiresCorrectToolForDrops().strength(12f, 3f).sound(SoundRegistry.BLAZING_QUARTZ_ORE);
+        return new OrtusBlockProperties(Material.STONE, MaterialColor.STONE).needsPickaxe().requiresCorrectToolForDrops().strength(25f, 9999f).sound(SoundRegistry.RARE_EARTH);
     }
 
 
@@ -441,7 +441,7 @@ public class BlockRegistry {
     public static final RegistryObject<Block> DEEPSLATE_QUARTZ_ORE = BLOCKS.register("deepslate_quartz_ore", () -> new OreBlock(DEEPSLATE_QUARTZ_PROPERTIES().isCutoutLayer(), UniformInt.of(8, 14)));
     public static final RegistryObject<Block> NATURAL_QUARTZ_CLUSTER = BLOCKS.register("natural_quartz_cluster", () -> new AmethystClusterBlock(6, 3, NATURAL_QUARTZ_CLUSTER_PROPERTIES().isCutoutLayer()));
 
-    public static final RegistryObject<Block> RARE_EARTH = BLOCKS.register("rare_earths", () -> new OreBlock(RARE_EARTH_PROPERTIES().isCutoutLayer(), UniformInt.of(12, 36)));
+    public static final RegistryObject<Block> BLOCK_OF_RARE_EARTHS = BLOCKS.register("block_of_rare_earths", () -> new OreBlock(RARE_EARTH_PROPERTIES(), UniformInt.of(10, 100)));
 
     public static final RegistryObject<Block> BRILLIANT_STONE = BLOCKS.register("brilliant_stone", () -> new OreBlock(BRILLIANCE_PROPERTIES().isCutoutLayer(), UniformInt.of(14, 18)));
     public static final RegistryObject<Block> BRILLIANT_DEEPSLATE = BLOCKS.register("brilliant_deepslate", () -> new OreBlock(DEEPSLATE_BRILLIANCE_PROPERTIES().isCutoutLayer(), UniformInt.of(16, 26)));
