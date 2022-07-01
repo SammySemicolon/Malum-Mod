@@ -1,0 +1,26 @@
+{
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "create"
+    }
+  ],
+  "type": "create:crushing",
+  "ingredients": [
+    {
+      "item": "malum:brilliant_stone"
+    }
+  ],
+  "results": [
+    {
+      "item": "malum:chunk_of_brilliance",
+      "count": 6
+    },
+    {
+      "item": "create:experience_nugget",
+      "count": 3,
+      "chance": 0.75
+    }
+  ],
+  "processingTime": 300
+}

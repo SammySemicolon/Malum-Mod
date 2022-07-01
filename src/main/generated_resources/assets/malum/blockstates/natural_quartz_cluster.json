@@ -1,0 +1,56 @@
+{
+  "variants": {
+    "facing=down,waterlogged=false": {
+      "model": "malum:block/natural_quartz_cluster",
+      "x": 180
+    },
+    "facing=up,waterlogged=false": {
+      "model": "malum:block/natural_quartz_cluster"
+    },
+    "facing=north,waterlogged=false": {
+      "model": "malum:block/natural_quartz_cluster",
+      "x": 90
+    },
+    "facing=south,waterlogged=false": {
+      "model": "malum:block/natural_quartz_cluster",
+      "x": 90,
+      "y": 180
+    },
+    "facing=west,waterlogged=false": {
+      "model": "malum:block/natural_quartz_cluster",
+      "x": 90,
+      "y": 270
+    },
+    "facing=east,waterlogged=false": {
+      "model": "malum:block/natural_quartz_cluster",
+      "x": 90,
+      "y": 90
+    },
+    "facing=down,waterlogged=true": {
+      "model": "malum:block/natural_quartz_cluster",
+      "x": 180
+    },
+    "facing=up,waterlogged=true": {
+      "model": "malum:block/natural_quartz_cluster"
+    },
+    "facing=north,waterlogged=true": {
+      "model": "malum:block/natural_quartz_cluster",
+      "x": 90
+    },
+    "facing=south,waterlogged=true": {
+      "model": "malum:block/natural_quartz_cluster",
+      "x": 90,
+      "y": 180
+    },
+    "facing=west,waterlogged=true": {
+      "model": "malum:block/natural_quartz_cluster",
+      "x": 90,
+      "y": 270
+    },
+    "facing=east,waterlogged=true": {
+      "model": "malum:block/natural_quartz_cluster",
+      "x": 90,
+      "y": 90
+    }
+  }
+}

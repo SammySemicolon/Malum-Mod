@@ -29,7 +29,7 @@ public class CurioCurativeRing extends MalumCurioItem implements IMalumEventResp
     @Override
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(String identifier, ItemStack stack) {
         Multimap<Attribute, AttributeModifier> map = HashMultimap.create();
-        map.put(Attributes.MAX_HEALTH, new AttributeModifier(UUID.randomUUID(), "Curio health boost", 4f, AttributeModifier.Operation.ADDITION));
+        map.put(Attributes.MAX_HEALTH, new AttributeModifier(uuids.computeIfAbsent(0, (i) -> UUID.randomUUID()), "Curio health boost", 4f, AttributeModifier.Operation.ADDITION));
         return map;
     }
 }

@@ -74,7 +74,7 @@ public class ItemRegistry {
     }
 
     public static Item.Properties SPLINTER_PROPERTIES() {
-        return new Item.Properties().tab(MalumSplinterTab.INSTANCE);
+        return new Item.Properties().tab(MalumSpiritTab.INSTANCE);
     }
 
     public static Item.Properties BUILDING_PROPERTIES() {
@@ -328,27 +328,30 @@ public class ItemRegistry {
     public static final RegistryObject<Item> INFERNAL_SPIRIT = ITEMS.register("infernal_spirit", () -> new MalumSpiritItem(SPLINTER_PROPERTIES(), SpiritTypeRegistry.INFERNAL_SPIRIT));
     public static final RegistryObject<Item> AERIAL_SPIRIT = ITEMS.register("aerial_spirit", () -> new MalumSpiritItem(SPLINTER_PROPERTIES(), SpiritTypeRegistry.AERIAL_SPIRIT));
     public static final RegistryObject<Item> AQUEOUS_SPIRIT = ITEMS.register("aqueous_spirit", () -> new MalumSpiritItem(SPLINTER_PROPERTIES(), SpiritTypeRegistry.AQUEOUS_SPIRIT));
-
     //endregion
 
     //region ores
-    public static final RegistryObject<Item> COPPER_NUGGET = ITEMS.register("copper_nugget", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
+    public static final RegistryObject<Item> COPPER_NUGGET = ITEMS.register("copper_nugget", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MATERIALS)));
 
-    public static final RegistryObject<Item> COAL_FRAGMENT = ITEMS.register("coal_fragment", () -> new OrtusFuelItem(new Item.Properties().tab(CreativeModeTab.TAB_MISC), 200));
-    public static final RegistryObject<Item> CHARCOAL_FRAGMENT = ITEMS.register("charcoal_fragment", () -> new OrtusFuelItem(new Item.Properties().tab(CreativeModeTab.TAB_MISC), 200));
+    public static final RegistryObject<Item> COAL_FRAGMENT = ITEMS.register("coal_fragment", () -> new OrtusFuelItem(new Item.Properties().tab(CreativeModeTab.TAB_MATERIALS), 200));
+    public static final RegistryObject<Item> CHARCOAL_FRAGMENT = ITEMS.register("charcoal_fragment", () -> new OrtusFuelItem(new Item.Properties().tab(CreativeModeTab.TAB_MATERIALS), 200));
 
-    public static final RegistryObject<Item> ARCANE_CHARCOAL = ITEMS.register("arcane_charcoal", () -> new OrtusFuelItem(new Item.Properties().tab(CreativeModeTab.TAB_MISC), 3200));
-    public static final RegistryObject<Item> ARCANE_CHARCOAL_FRAGMENT = ITEMS.register("arcane_charcoal_fragment", () -> new OrtusFuelItem(new Item.Properties().tab(CreativeModeTab.TAB_MISC), 400));
+    public static final RegistryObject<Item> ARCANE_CHARCOAL = ITEMS.register("arcane_charcoal", () -> new OrtusFuelItem(new Item.Properties().tab(CreativeModeTab.TAB_MATERIALS), 3200));
+    public static final RegistryObject<Item> ARCANE_CHARCOAL_FRAGMENT = ITEMS.register("arcane_charcoal_fragment", () -> new OrtusFuelItem(new Item.Properties().tab(CreativeModeTab.TAB_MATERIALS), 400));
     public static final RegistryObject<Item> BLOCK_OF_ARCANE_CHARCOAL = ITEMS.register("block_of_arcane_charcoal", () -> new OrtusFuelBlockItem(BlockRegistry.BLOCK_OF_ARCANE_CHARCOAL.get(), new Item.Properties().tab(CreativeModeTab.TAB_BUILDING_BLOCKS), 28800));
 
     public static final RegistryObject<Item> BLAZING_QUARTZ_ORE = ITEMS.register("blazing_quartz_ore", () -> new BlockItem(BlockRegistry.BLAZING_QUARTZ_ORE.get(), new Item.Properties().tab(CreativeModeTab.TAB_BUILDING_BLOCKS)));
-    public static final RegistryObject<Item> BLAZING_QUARTZ = ITEMS.register("blazing_quartz", () -> new OrtusFuelItem(new Item.Properties().tab(CreativeModeTab.TAB_MISC), 1600));
+    public static final RegistryObject<Item> BLAZING_QUARTZ = ITEMS.register("blazing_quartz", () -> new OrtusFuelItem(new Item.Properties().tab(CreativeModeTab.TAB_MATERIALS), 1600));
     public static final RegistryObject<Item> BLAZING_QUARTZ_FRAGMENT = ITEMS.register("blazing_quartz_fragment", () -> new OrtusFuelItem(new Item.Properties().tab(CreativeModeTab.TAB_MISC), 200));
     public static final RegistryObject<Item> BLOCK_OF_BLAZING_QUARTZ = ITEMS.register("block_of_blazing_quartz", () -> new OrtusFuelBlockItem(BlockRegistry.BLOCK_OF_BLAZING_QUARTZ.get(), new Item.Properties().tab(CreativeModeTab.TAB_BUILDING_BLOCKS), 14400));
 
+    public static final RegistryObject<Item> NATURAL_QUARTZ_ORE = ITEMS.register("natural_quartz_ore", () -> new BlockItem(BlockRegistry.NATURAL_QUARTZ_ORE.get(), new Item.Properties().tab(CreativeModeTab.TAB_BUILDING_BLOCKS)));
+    public static final RegistryObject<Item> DEEPSLATE_QUARTZ_ORE = ITEMS.register("deepslate_quartz_ore", () -> new BlockItem(BlockRegistry.DEEPSLATE_QUARTZ_ORE.get(), new Item.Properties().tab(CreativeModeTab.TAB_BUILDING_BLOCKS)));
+    public static final RegistryObject<Item> NATURAL_QUARTZ = ITEMS.register("natural_quartz", () -> new ItemNameBlockItem(BlockRegistry.NATURAL_QUARTZ_CLUSTER.get(), new Item.Properties().tab(CreativeModeTab.TAB_MATERIALS)));
+
     public static final RegistryObject<Item> BRILLIANT_STONE = ITEMS.register("brilliant_stone", () -> new BlockItem(BlockRegistry.BRILLIANT_STONE.get(), new Item.Properties().tab(CreativeModeTab.TAB_BUILDING_BLOCKS)));
     public static final RegistryObject<Item> BRILLIANT_DEEPSLATE = ITEMS.register("brilliant_deepslate", () -> new BlockItem(BlockRegistry.BRILLIANT_DEEPSLATE.get(), new Item.Properties().tab(CreativeModeTab.TAB_BUILDING_BLOCKS)));
-    public static final RegistryObject<Item> CLUSTER_OF_BRILLIANCE = ITEMS.register("cluster_of_brilliance", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
+    public static final RegistryObject<Item> CLUSTER_OF_BRILLIANCE = ITEMS.register("cluster_of_brilliance", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MATERIALS)));
     public static final RegistryObject<Item> CHUNK_OF_BRILLIANCE = ITEMS.register("chunk_of_brilliance", () -> new BrillianceChunkItem(new Item.Properties().tab(CreativeModeTab.TAB_MISC).food((new FoodProperties.Builder()).fast().alwaysEat().build())));
     public static final RegistryObject<Item> BLOCK_OF_BRILLIANCE = ITEMS.register("block_of_brilliance", () -> new BlockItem(BlockRegistry.BLOCK_OF_BRILLIANCE.get(), new Item.Properties().tab(CreativeModeTab.TAB_BUILDING_BLOCKS)));
 
@@ -382,6 +385,8 @@ public class ItemRegistry {
     public static final RegistryObject<Item> GRIM_TALC = ITEMS.register("grim_talc", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> ALCHEMICAL_CALX = ITEMS.register("alchemical_calx", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> ASTRAL_WEAVE = ITEMS.register("astral_weave", () -> new Item(DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> RARE_EARTHS = ITEMS.register("rare_earths", () -> new Item(DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> BLOCK_OF_RARE_EARTHS = ITEMS.register("block_of_rare_earths", () -> new ItemNameBlockItem(BlockRegistry.RARE_EARTH.get(), new Item.Properties().tab(CreativeModeTab.TAB_BUILDING_BLOCKS)));
     public static final RegistryObject<Item> HEX_ASH = ITEMS.register("hex_ash", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> SPIRIT_FABRIC = ITEMS.register("spirit_fabric", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> SPECTRAL_LENS = ITEMS.register("spectral_lens", () -> new Item(DEFAULT_PROPERTIES()));

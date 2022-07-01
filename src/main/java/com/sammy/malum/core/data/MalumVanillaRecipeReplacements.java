@@ -16,6 +16,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.Tags;
+import net.minecraftforge.common.data.ForgeRecipeProvider;
 
 import java.lang.reflect.Field;
 import java.nio.file.Path;
@@ -46,6 +47,7 @@ public class MalumVanillaRecipeReplacements extends RecipeProvider {
     protected void buildCraftingRecipes(Consumer<FinishedRecipe> consumer)
     {
         replace(Items.SLIME_BALL, Tags.Items.SLIMEBALLS);
+        replace(Items.QUARTZ, Tags.Items.GEMS_QUARTZ);
         super.buildCraftingRecipes(vanilla -> {
             FinishedRecipe modified = enhance(vanilla);
             if (modified != null)

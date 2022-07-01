@@ -33,6 +33,7 @@ import java.util.Set;
 
 import static com.sammy.malum.MalumMod.prefix;
 import static com.sammy.malum.core.setup.content.item.ItemRegistry.ITEMS;
+import static com.sammy.ortus.helpers.DataHelper.take;
 import static com.sammy.ortus.helpers.DataHelper.takeAll;
 
 public class MalumItemModels extends net.minecraftforge.client.model.generators.ItemModelProvider {
@@ -44,7 +45,8 @@ public class MalumItemModels extends net.minecraftforge.client.model.generators.
     protected void registerModels() {
         Set<RegistryObject<Item>> items = new HashSet<>(ITEMS.getEntries());
 
-        takeAll(items, ItemRegistry.BLIGHTED_SPIRE).forEach(this::blightedSpireItem);
+        blightedSpireItem(take(items, ItemRegistry.BLIGHTED_SPIRE));
+        generatedItem(take(items, ItemRegistry.NATURAL_QUARTZ));
 
         takeAll(items, i -> i.get() instanceof MalumScytheItem);
         takeAll(items, i -> i.get() instanceof MalumSpiritItem).forEach(this::spiritSplinterItem);

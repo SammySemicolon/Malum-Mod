@@ -5,6 +5,8 @@ import com.mojang.datafixers.util.Pair;
 import com.sammy.malum.common.block.ether.EtherBlock;
 import com.sammy.malum.common.block.storage.SoulVialBlock;
 import com.sammy.malum.common.block.storage.SpiritJarBlock;
+import com.sammy.malum.common.item.ether.EtherItem;
+import com.sammy.malum.common.spiritrite.greater.EldritchSacredRiteType;
 import com.sammy.malum.core.setup.content.block.BlockRegistry;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
 import com.sammy.ortus.systems.block.OrtusBlockProperties;
@@ -48,6 +50,7 @@ import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 import static com.sammy.malum.core.setup.content.block.BlockRegistry.BLOCKS;
+import static com.sammy.ortus.helpers.DataHelper.take;
 import static com.sammy.ortus.helpers.DataHelper.takeAll;
 
 public class MalumBlockLootTables extends LootTableProvider {
@@ -78,6 +81,21 @@ public class MalumBlockLootTables extends LootTableProvider {
 
         takeAll(blocks, b -> b.get().properties instanceof OrtusBlockProperties && ((OrtusBlockProperties) b.get().properties).getThrowawayData().hasCustomLoot);
 
+        add(take(blocks, BlockRegistry.RUNEWOOD_LEAVES).get(), (b)->createLeavesDrops(b, BlockRegistry.RUNEWOOD_SAPLING.get(), MAGIC_SAPLING_DROP_CHANCE));
+        add(take(blocks, BlockRegistry.SOULWOOD_LEAVES).get(), (b)->createLeavesDrops(b, BlockRegistry.SOULWOOD_GROWTH.get(), MAGIC_SAPLING_DROP_CHANCE));
+
+        add(take(blocks, BlockRegistry.BLIGHTED_SOULWOOD).get(), createSingleItemTableWithSilkTouch(BlockRegistry.BLIGHTED_SOULWOOD.get(), ItemRegistry.SOULWOOD_LOG.get()));
+        add(take(blocks, BlockRegistry.BRILLIANT_STONE).get(), createOreDrop(BlockRegistry.BRILLIANT_STONE.get(), ItemRegistry.CLUSTER_OF_BRILLIANCE.get()));
+        add(take(blocks, BlockRegistry.BRILLIANT_DEEPSLATE).get(), createOreDrop(BlockRegistry.BRILLIANT_DEEPSLATE.get(), ItemRegistry.CLUSTER_OF_BRILLIANCE.get()));
+        add(take(blocks, BlockRegistry.SOULSTONE_ORE).get(), createOreDrop(BlockRegistry.SOULSTONE_ORE.get(), ItemRegistry.RAW_SOULSTONE.get()));
+        add(take(blocks, BlockRegistry.DEEPSLATE_SOULSTONE_ORE).get(), createOreDrop(BlockRegistry.DEEPSLATE_SOULSTONE_ORE.get(), ItemRegistry.RAW_SOULSTONE.get()));
+        add(take(blocks, BlockRegistry.BLAZING_QUARTZ_ORE).get(), createOreDrop(BlockRegistry.BLAZING_QUARTZ_ORE.get(), ItemRegistry.BLAZING_QUARTZ.get()));
+        add(take(blocks, BlockRegistry.NATURAL_QUARTZ_ORE).get(), createOreDrop(BlockRegistry.NATURAL_QUARTZ_ORE.get(), ItemRegistry.NATURAL_QUARTZ.get()));
+        add(take(blocks, BlockRegistry.DEEPSLATE_QUARTZ_ORE).get(), createOreDrop(BlockRegistry.DEEPSLATE_QUARTZ_ORE.get(), ItemRegistry.NATURAL_QUARTZ.get()));
+        add(take(blocks, BlockRegistry.RARE_EARTH).get(), createOreDrop(BlockRegistry.RARE_EARTH.get(), ItemRegistry.RARE_EARTHS.get()));
+
+        takeAll(blocks, b -> b.get().asItem() instanceof EtherItem etherItem && etherItem.iridescent);
+
         takeAll(blocks, b -> b.get() instanceof SaplingBlock).forEach(b -> add(b.get(), createSingleItemTable(b.get().asItem())));
         takeAll(blocks, b -> b.get() instanceof DoublePlantBlock).forEach(b -> add(b.get(), createSingleItemTableWithSilkTouchOrShears(b.get(), b.get().asItem())));
         takeAll(blocks, b -> b.get() instanceof BushBlock).forEach(b -> add(b.get(), createSingleItemTableWithSilkTouchOrShears(b.get(), b.get().asItem())));
@@ -92,15 +110,6 @@ public class MalumBlockLootTables extends LootTableProvider {
 
         takeAll(blocks, b -> true).forEach(b -> add(b.get(), createSingleItemTable(b.get().asItem())));
 
-        add(BlockRegistry.RUNEWOOD_LEAVES.get(), (b)->createLeavesDrops(b, BlockRegistry.RUNEWOOD_SAPLING.get(), MAGIC_SAPLING_DROP_CHANCE));
-        add(BlockRegistry.SOULWOOD_LEAVES.get(), (b)->createLeavesDrops(b, BlockRegistry.SOULWOOD_GROWTH.get(), MAGIC_SAPLING_DROP_CHANCE));
-
-        add(BlockRegistry.BLIGHTED_SOULWOOD.get(), createSingleItemTableWithSilkTouch(BlockRegistry.BLIGHTED_SOULWOOD.get(), ItemRegistry.SOULWOOD_LOG.get()));
-        add(BlockRegistry.BRILLIANT_STONE.get(), createOreDrop(BlockRegistry.BRILLIANT_STONE.get(), ItemRegistry.CLUSTER_OF_BRILLIANCE.get()));
-        add(BlockRegistry.BRILLIANT_DEEPSLATE.get(), createOreDrop(BlockRegistry.BRILLIANT_DEEPSLATE.get(), ItemRegistry.CLUSTER_OF_BRILLIANCE.get()));
-        add(BlockRegistry.SOULSTONE_ORE.get(), createOreDrop(BlockRegistry.SOULSTONE_ORE.get(), ItemRegistry.RAW_SOULSTONE.get()));
-        add(BlockRegistry.DEEPSLATE_SOULSTONE_ORE.get(), createOreDrop(BlockRegistry.DEEPSLATE_SOULSTONE_ORE.get(), ItemRegistry.RAW_SOULSTONE.get()));
-        add(BlockRegistry.BLAZING_QUARTZ_ORE.get(), createOreDrop(BlockRegistry.BLAZING_QUARTZ_ORE.get(), ItemRegistry.BLAZING_QUARTZ.get()));
         return tables;
     }
     @Override

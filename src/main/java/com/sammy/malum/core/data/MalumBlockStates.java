@@ -53,6 +53,7 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
     protected void registerStatesAndModels() {
         Set<RegistryObject<Block>> blocks = new HashSet<>(BLOCKS.getEntries());
 
+        quartzClusterBlock(take(blocks, NATURAL_QUARTZ_CLUSTER));
         rotatedBlock(take(blocks, BLIGHTED_SOIL));
         blightedEarthBlock(take(blocks, BLIGHTED_EARTH));
         blightedSpireBlock(take(blocks, BLIGHTED_SPIRE));
@@ -160,6 +161,10 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
         getVariantBuilder(blockRegistryObject.get()).partialState().modelForState().modelFile(file).addModel();
     }
 
+    public void quartzClusterBlock(RegistryObject<Block> blockRegistryObject) {
+        String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
+        directionalBlock(blockRegistryObject.get(), models().cross(name, prefix("block/"+name)));
+    }
     public void blightedSpireBlock(RegistryObject<Block> blockRegistryObject) {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
         ModelFile cross0 = models().withExistingParent(name, new ResourceLocation("block/cross")).texture("cross", prefix("block/" + name + "_0"));

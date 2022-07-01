@@ -71,6 +71,8 @@ public class MalumItemTags extends ItemTagsProvider {
 
         tag(Tags.Items.SLIMEBALLS).add(HOLY_SAPBALL.get(), UNHOLY_SAPBALL.get());
         tag(ItemTagRegistry.SAPBALLS).add(HOLY_SAPBALL.get(), UNHOLY_SAPBALL.get());
+        tag(Tags.Items.GEMS_QUARTZ).add(NATURAL_QUARTZ.get());
+        tag(Tags.Items.ORES_QUARTZ).add(NATURAL_QUARTZ_ORE.get(), DEEPSLATE_QUARTZ_ORE.get());
 
         tag(GROSS_FOODS).add(Items.ROTTEN_FLESH, ROTTING_ESSENCE.get());
 
