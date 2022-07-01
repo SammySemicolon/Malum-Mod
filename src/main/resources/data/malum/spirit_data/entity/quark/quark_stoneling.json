@@ -13,6 +13,10 @@
     {
       "spirit": "sacred",
       "count": 3
+    },
+    {
+      "spirit": "aerial",
+      "count": 2
     }
   ],
   "spirit_item": {
