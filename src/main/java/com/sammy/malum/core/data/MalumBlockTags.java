@@ -30,7 +30,8 @@ public class MalumBlockTags extends BlockTagsProvider {
     @SuppressWarnings("unchecked")
     @Override
     protected void addTags() {
-        tag(Tags.Blocks.ORES).add(BlockRegistry.SOULSTONE_ORE.get(), BlockRegistry.BLAZING_QUARTZ_ORE.get(), BlockRegistry.BRILLIANT_STONE.get());
+        tag(Tags.Blocks.ORES).add(BlockRegistry.SOULSTONE_ORE.get(), DEEPSLATE_SOULSTONE_ORE.get(), BlockRegistry.BLAZING_QUARTZ_ORE.get(), BlockRegistry.BRILLIANT_STONE.get(), BRILLIANT_DEEPSLATE.get(), NATURAL_QUARTZ_ORE.get(), DEEPSLATE_QUARTZ_ORE.get(), RARE_EARTH.get());
+
         tag(BEACON_BASE_BLOCKS).add(BlockRegistry.BLOCK_OF_SOULSTONE.get(), BlockRegistry.BLOCK_OF_BRILLIANCE.get(), BlockRegistry.BLOCK_OF_SOUL_STAINED_STEEL.get(), BlockRegistry.BLOCK_OF_HALLOWED_GOLD.get());
 
         tag(BlockTags.SLABS).add(getModBlocks(b -> b instanceof SlabBlock));
@@ -56,11 +57,9 @@ public class MalumBlockTags extends BlockTagsProvider {
         tag(WOODEN_TRAPDOORS).add(getModBlocks(b -> b.getRegistryName().getPath().endsWith("_trapdoor") && b.getRegistryName().getPath().contains("wood")));
         tag(WOODEN_PRESSURE_PLATES).add(getModBlocks(b -> b.getRegistryName().getPath().endsWith("_pressure_plate") && b.getRegistryName().getPath().contains("wood")));
 
-
         tag(BlockTagRegistry.HEAT_SOURCES).add(BlockRegistry.BLOCK_OF_BLAZING_QUARTZ.get());
         tag(BlockTagRegistry.RUNEWOOD_LOGS).add(BlockRegistry.RUNEWOOD_LOG.get(),BlockRegistry.RUNEWOOD.get(),BlockRegistry.EXPOSED_RUNEWOOD_LOG.get(),BlockRegistry.REVEALED_RUNEWOOD_LOG.get());
         tag(BlockTagRegistry.SOULWOOD_LOGS).add(BlockRegistry.SOULWOOD_LOG.get(),BlockRegistry.SOULWOOD.get(),BlockRegistry.EXPOSED_SOULWOOD_LOG.get(),BlockRegistry.REVEALED_SOULWOOD_LOG.get());
-
 
         tag(BlockTagRegistry.BLIGHTED_BLOCKS).add(BlockRegistry.BLIGHTED_SOIL.get());
 

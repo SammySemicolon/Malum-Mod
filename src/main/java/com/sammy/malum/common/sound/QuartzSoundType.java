@@ -22,12 +22,7 @@ public class QuartzSoundType extends ExtendedSoundType {
 
     @Override
     public void onPlayBreakSound(Level level, BlockPos pos) {
-        level.playLocalSound(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, SoundRegistry.QUARTZ_CLUSTER_BLOCK_BREAK.get(), SoundSource.BLOCKS, (getVolume() + 1.0F) / 8.0F, getPitch() * 1.8F, false);
-    }
-
-    @Override
-    public void onPlayStepSound(Level level, BlockPos pos, BlockState state, SoundSource category) {
-        level.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundRegistry.QUARTZ_CLUSTER_BLOCK_STEP.get(), category, getVolume() * 0.15F, getPitch()* 1.3F);
+        level.playLocalSound(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, SoundRegistry.QUARTZ_CLUSTER_BLOCK_BREAK.get(), SoundSource.BLOCKS, (getVolume() + 1.0F) / 6.0F, getPitch() * 1.8F, false);
     }
 
     @Override

@@ -33,7 +33,7 @@ public class  ItemPedestalRenderer implements BlockEntityRenderer<ItemPedestalBl
                 poseStack.translate(0, y, 0);
             }
             poseStack.translate(offset.x(), offset.y(), offset.z());
-            poseStack.mulPose(Vector3f.YP.rotationDegrees((level.getGameTime() + partialTicks) * 3));
+            poseStack.mulPose(Vector3f.YP.rotationDegrees(((level.getGameTime() % 360) + partialTicks) * 3));
             poseStack.scale(0.6f, 0.6f, 0.6f);
             itemRenderer.renderStatic(stack, ItemTransforms.TransformType.FIXED, combinedLightIn, NO_OVERLAY, poseStack, bufferIn, 0);
             poseStack.popPose();

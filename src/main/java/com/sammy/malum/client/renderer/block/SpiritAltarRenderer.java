@@ -31,7 +31,7 @@ public class SpiritAltarRenderer implements BlockEntityRenderer<SpiritAltarBlock
                 poseStack.pushPose();
                 Vector3f offset = new Vector3f(blockEntityIn.getSpiritOffset(i, partialTicks));
                 poseStack.translate(offset.x(), offset.y(), offset.z());
-                poseStack.mulPose(Vector3f.YP.rotationDegrees((level.getGameTime() + partialTicks) * 3));
+                poseStack.mulPose(Vector3f.YP.rotationDegrees(((level.getGameTime() % 360) + partialTicks) * 3));
                 poseStack.scale(0.5f, 0.5f, 0.5f);
                 itemRenderer.renderStatic(item, ItemTransforms.TransformType.FIXED, combinedLightIn, NO_OVERLAY, poseStack, bufferIn, 0);
                 poseStack.popPose();
@@ -42,7 +42,7 @@ public class SpiritAltarRenderer implements BlockEntityRenderer<SpiritAltarBlock
             poseStack.pushPose();
             Vec3 offset = blockEntityIn.itemOffset();
             poseStack.translate(offset.x, offset.y, offset.z);
-            poseStack.mulPose(Vector3f.YP.rotationDegrees((level.getGameTime() + partialTicks) * 3));
+            poseStack.mulPose(Vector3f.YP.rotationDegrees(((level.getGameTime() % 360) + partialTicks) * 3));
             poseStack.scale(0.45f, 0.45f, 0.45f);
             itemRenderer.renderStatic(stack, ItemTransforms.TransformType.FIXED, combinedLightIn, NO_OVERLAY, poseStack, bufferIn, 0);
             poseStack.popPose();

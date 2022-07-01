@@ -20,6 +20,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemNameBlockItem;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.WallSignBlock;
@@ -72,7 +73,7 @@ public class MalumLang extends LanguageProvider {
             String filled = "filled_" + name;
             add("item.malum." + filled, DataHelper.toTitleCase(filled, "_"));
         });
-        DataHelper.takeAll(items, i -> i.get() instanceof BlockItem);
+        DataHelper.takeAll(items, i -> i.get() instanceof BlockItem && !(i.get() instanceof ItemNameBlockItem));
         items.forEach(i ->
         {
             String name = i.get().getDescriptionId().replaceFirst("item.malum.", "");

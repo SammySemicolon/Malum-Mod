@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Vector3f;
 import com.mojang.math.Vector4f;
+import com.sammy.malum.common.blockentity.EtherBlockEntity;
 import com.sammy.malum.common.entity.FloatingItemEntity;
 import com.sammy.ortus.handlers.RenderHandler;
 import com.sammy.ortus.helpers.ColorHelper;
@@ -77,7 +78,7 @@ public class FloatingItemEntityRenderer extends EntityRenderer<FloatingItemEntit
 
         VertexConsumer lightBuffer = DELAYED_RENDER.getBuffer(LIGHT_TYPE);
         float trailVisibility = Math.min(entity.windUp * 5f, 1);
-
+        
         for (int i = 0; i < 3; i++) {
             float size = 0.25f + i * 0.1f;
             float alpha = (0.16f - i * 0.04f) * trailVisibility;
