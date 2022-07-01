@@ -1,9 +1,13 @@
 {
   "registry_name": "minecraft:slime",
-  "primary_type": "arcane",
+  "primary_type": "aqueous",
   "spirits": [
     {
       "spirit": "arcane",
+      "count": 1
+    },
+    {
+      "spirit": "aqueous",
       "count": 1
     }
   ]
