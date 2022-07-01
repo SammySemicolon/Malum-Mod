@@ -85,7 +85,7 @@ public class SpiritRiteRecipeCategory implements IRecipeCategory<MalumRiteType> 
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, MalumRiteType rite, IFocusGroup focuses) {
         for (int i = 0; i < rite.spirits.size(); i++) {
-            builder.addSlot(RecipeIngredientRole.CATALYST, 62, 120 - 20)
+            builder.addSlot(RecipeIngredientRole.CATALYST, 64, 121 - 20 * i)
                  .addItemStack(rite.spirits.get(i).getSplinterItem().getDefaultInstance());
         }
     }

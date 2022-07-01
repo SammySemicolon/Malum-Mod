@@ -16,7 +16,6 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
@@ -28,23 +27,16 @@ import static net.minecraft.world.item.Item.BASE_ATTACK_DAMAGE_UUID;
 
 @Mixin(ItemStack.class)
 public abstract class ItemStackMixin {
-    @Unique
-    private AttributeModifier attributeModifier;
 
     @Shadow
     public abstract Item getItem();
-
-    @ModifyVariable(method = "getTooltipLines", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/ai/attributes/AttributeModifier;getId()Ljava/util/UUID;", ordinal = 0), index = 13)
-    private AttributeModifier malum$captureAttribute(AttributeModifier value) {
-        this.attributeModifier = value;
-        return value;
-    }
 
     @ModifyVariable(method = "getTooltipLines", at = @At("STORE"))
     private Multimap<Attribute, AttributeModifier> malum$getTooltip(Multimap<Attribute, AttributeModifier> map, @Nullable Player player, TooltipFlag flag) {
         if (player != null) {
             Multimap<Attribute, AttributeModifier> copied = LinkedHashMultimap.create();
-            for (Map.Entry<Attribute, AttributeModifier> entry : copied.entries()) {
+            for (Map.Entry<Attribute, AttributeModifier> entry : map.entries()) {
+                Attribute key = entry.getKey();
                 AttributeModifier modifier = entry.getValue();
                 double amount = modifier.getAmount();
                 if (modifier.getId().equals(UUIDS.get(MAGIC_DAMAGE))) {
@@ -53,18 +45,20 @@ public abstract class ItemStackMixin {
                         amount += enchantmentLevel;
                     }
 
-                    entry.setValue(new AttributeModifier(
+                    copied.put(key, new AttributeModifier(
                          modifier.getId(), modifier.getName(), amount, modifier.getOperation()
                     ));
-                } else if (attributeModifier.getId().equals(BASE_ATTACK_DAMAGE_UUID) && getItem() instanceof MalumScytheItem) {
+                } else if (modifier.getId().equals(BASE_ATTACK_DAMAGE_UUID) && getItem() instanceof MalumScytheItem) {
                     AttributeInstance instance = player.getAttribute(AttributeRegistry.SCYTHE_PROFICIENCY.get());
                     if (instance != null && instance.getValue() > 0) {
                         amount += instance.getValue() * 0.5f;
                     }
 
-                    entry.setValue(new AttributeModifier(
+                    copied.put(key, new AttributeModifier(
                          modifier.getId(), modifier.getName(), amount, modifier.getOperation()
                     ));
+                } else {
+                    copied.put(key, modifier);
                 }
             }
 

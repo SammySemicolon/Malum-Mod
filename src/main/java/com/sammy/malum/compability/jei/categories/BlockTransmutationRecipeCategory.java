@@ -78,9 +78,9 @@ public class BlockTransmutationRecipeCategory implements IRecipeCategory<BlockTr
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, BlockTransmutationRecipe recipe, IFocusGroup focuses) {
-       builder.addSlot(RecipeIngredientRole.INPUT, 27, 26)
+       builder.addSlot(RecipeIngredientRole.INPUT, 28, 27)
             .addItemStack(recipe.input.asItem().getDefaultInstance());
-       builder.addSlot(RecipeIngredientRole.OUTPUT, 92, 25)
+       builder.addSlot(RecipeIngredientRole.OUTPUT, 93, 26)
             .addItemStack(recipe.output.asItem().getDefaultInstance());
     }
 }

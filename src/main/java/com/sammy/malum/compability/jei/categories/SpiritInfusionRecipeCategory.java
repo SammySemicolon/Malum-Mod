@@ -84,13 +84,13 @@ public class SpiritInfusionRecipeCategory implements IRecipeCategory<SpiritInfus
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, SpiritInfusionRecipe recipe, IFocusGroup focuses) {
-        JEIHandler.addItemsToJei(builder, RecipeIngredientRole.INPUT, 19, 48, true, recipe.spirits);
-        JEIHandler.addItemsToJei(builder, RecipeIngredientRole.INPUT, 103, 48, true, recipe.extraItems);
+        JEIHandler.addItemsToJei(builder, RecipeIngredientRole.INPUT, 20, 49, true, recipe.spirits);
+        JEIHandler.addItemsToJei(builder, RecipeIngredientRole.INPUT, 104, 49, true, recipe.extraItems);
 
-        builder.addSlot(RecipeIngredientRole.INPUT, 62, 56)
+        builder.addSlot(RecipeIngredientRole.INPUT, 63, 57)
              .addItemStacks(recipe.input.getStacks());
 
-        builder.addSlot(RecipeIngredientRole.OUTPUT, 62, 123)
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 63, 124)
              .addItemStacks(recipe.output.getStacks());
     }
 }

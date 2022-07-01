@@ -16,6 +16,7 @@ import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.constants.RecipeTypes;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
+import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusFactory;
 import mezz.jei.api.recipe.IRecipeManager;
 import mezz.jei.api.recipe.RecipeIngredientRole;
@@ -66,11 +67,13 @@ public class JEIHandler implements IModPlugin {
 
     @Override
     public void registerCategories(IRecipeCategoryRegistration registry) {
-        registry.addRecipeCategories(new SpiritInfusionRecipeCategory(registry.getJeiHelpers().getGuiHelper()));
-        registry.addRecipeCategories(new BlockTransmutationRecipeCategory(registry.getJeiHelpers().getGuiHelper()));
-        registry.addRecipeCategories(new SpiritFocusingRecipeCategory(registry.getJeiHelpers().getGuiHelper()));
-        registry.addRecipeCategories(new SpiritRiteRecipeCategory(registry.getJeiHelpers().getGuiHelper()));
-        registry.addRecipeCategories(new SpiritRepairRecipeCategory(registry.getJeiHelpers().getGuiHelper()));
+        IGuiHelper guiHelper = registry.getJeiHelpers().getGuiHelper();
+
+        registry.addRecipeCategories(new SpiritInfusionRecipeCategory(guiHelper),
+             new BlockTransmutationRecipeCategory(guiHelper),
+             new SpiritFocusingRecipeCategory(guiHelper),
+             new SpiritRiteRecipeCategory(guiHelper),
+             new SpiritRepairRecipeCategory(guiHelper));
     }
 
     @Override

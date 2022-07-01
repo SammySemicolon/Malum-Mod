@@ -83,11 +83,11 @@ public class SpiritFocusingRecipeCategory implements IRecipeCategory<SpiritFocus
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, SpiritFocusingRecipe recipe, IFocusGroup focuses) {
-        JEIHandler.addItemsToJei(builder, RecipeIngredientRole.INPUT, 61, 12, false, recipe.spirits);
+        JEIHandler.addItemsToJei(builder, RecipeIngredientRole.INPUT, 62, 13, false, recipe.spirits);
 
-        builder.addSlot(RecipeIngredientRole.INPUT, 62, 56)
+        builder.addSlot(RecipeIngredientRole.INPUT, 63, 57)
                   .addIngredients(recipe.input);
-        builder.addSlot(RecipeIngredientRole.OUTPUT, 62, 123)
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 63, 124)
                   .addItemStacks(recipe.output.getStacks());
     }
 }

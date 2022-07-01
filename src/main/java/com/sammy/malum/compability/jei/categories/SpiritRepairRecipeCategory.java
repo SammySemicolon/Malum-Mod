@@ -8,6 +8,7 @@ import com.sammy.malum.compability.jei.JEIHandler;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
+import mezz.jei.api.gui.builder.IRecipeSlotBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
@@ -95,15 +96,17 @@ public class SpiritRepairRecipeCategory implements IRecipeCategory<SpiritRepairR
              .peek(s -> s.setDamageValue((int) (s.getMaxDamage() * recipe.durabilityPercentage)))
              .collect(Collectors.toCollection(ArrayList::new));
 
-        JEIHandler.addItemsToJei(builder, RecipeIngredientRole.INPUT, 61, 12, false, recipe.spirits);
+        JEIHandler.addItemsToJei(builder, RecipeIngredientRole.INPUT, 62, 13, false, recipe.spirits);
 
-        builder.addSlot(RecipeIngredientRole.INPUT, 81, 56)
+        IRecipeSlotBuilder input = builder.addSlot(RecipeIngredientRole.INPUT, 82, 57)
              .addItemStacks(damaged);
 
-        builder.addSlot(RecipeIngredientRole.INPUT, 43, 56)
+        builder.addSlot(RecipeIngredientRole.INPUT, 44, 57)
              .addItemStacks(repairIngredient);
 
-        builder.addSlot(RecipeIngredientRole.OUTPUT, 62, 123)
-                  .addItemStacks(repaired.stream().map(SpiritRepairRecipe::getRepairRecipeOutput).collect(Collectors.toList()));
+        IRecipeSlotBuilder output = builder.addSlot(RecipeIngredientRole.OUTPUT, 63, 124)
+             .addItemStacks(repaired.stream().map(SpiritRepairRecipe::getRepairRecipeOutput).collect(Collectors.toList()));
+
+        builder.createFocusLink(input, output);
     }
 }
