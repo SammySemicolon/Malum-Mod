@@ -30,7 +30,7 @@ public class MalumBlockTags extends BlockTagsProvider {
     @SuppressWarnings("unchecked")
     @Override
     protected void addTags() {
-        tag(Tags.Blocks.ORES).add(BlockRegistry.SOULSTONE_ORE.get(), DEEPSLATE_SOULSTONE_ORE.get(), BlockRegistry.BLAZING_QUARTZ_ORE.get(), BlockRegistry.BRILLIANT_STONE.get(), BRILLIANT_DEEPSLATE.get(), NATURAL_QUARTZ_ORE.get(), DEEPSLATE_QUARTZ_ORE.get(), RARE_EARTH.get());
+        tag(Tags.Blocks.ORES).add(BlockRegistry.SOULSTONE_ORE.get(), DEEPSLATE_SOULSTONE_ORE.get(), BlockRegistry.BLAZING_QUARTZ_ORE.get(), BlockRegistry.BRILLIANT_STONE.get(), BRILLIANT_DEEPSLATE.get(), NATURAL_QUARTZ_ORE.get(), DEEPSLATE_QUARTZ_ORE.get(), BLOCK_OF_RARE_EARTHS.get());
 
         tag(BEACON_BASE_BLOCKS).add(BlockRegistry.BLOCK_OF_SOULSTONE.get(), BlockRegistry.BLOCK_OF_BRILLIANCE.get(), BlockRegistry.BLOCK_OF_SOUL_STAINED_STEEL.get(), BlockRegistry.BLOCK_OF_HALLOWED_GOLD.get());
 

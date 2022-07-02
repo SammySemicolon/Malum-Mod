@@ -6,12 +6,10 @@ import com.sammy.malum.common.block.ether.EtherBlock;
 import com.sammy.malum.common.block.storage.SoulVialBlock;
 import com.sammy.malum.common.block.storage.SpiritJarBlock;
 import com.sammy.malum.common.item.ether.EtherItem;
-import com.sammy.malum.common.spiritrite.greater.EldritchSacredRiteType;
 import com.sammy.malum.core.setup.content.block.BlockRegistry;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
 import com.sammy.ortus.systems.block.OrtusBlockProperties;
 import net.minecraft.advancements.critereon.*;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;
@@ -92,7 +90,7 @@ public class MalumBlockLootTables extends LootTableProvider {
         add(take(blocks, BlockRegistry.BLAZING_QUARTZ_ORE).get(), createOreDrop(BlockRegistry.BLAZING_QUARTZ_ORE.get(), ItemRegistry.BLAZING_QUARTZ.get()));
         add(take(blocks, BlockRegistry.NATURAL_QUARTZ_ORE).get(), createOreDrop(BlockRegistry.NATURAL_QUARTZ_ORE.get(), ItemRegistry.NATURAL_QUARTZ.get()));
         add(take(blocks, BlockRegistry.DEEPSLATE_QUARTZ_ORE).get(), createOreDrop(BlockRegistry.DEEPSLATE_QUARTZ_ORE.get(), ItemRegistry.NATURAL_QUARTZ.get()));
-        add(take(blocks, BlockRegistry.RARE_EARTH).get(), createOreDrop(BlockRegistry.RARE_EARTH.get(), ItemRegistry.RARE_EARTHS.get()));
+        add(take(blocks, BlockRegistry.BLOCK_OF_RARE_EARTHS).get(), createOreDrop(BlockRegistry.BLOCK_OF_RARE_EARTHS.get(), ItemRegistry.RARE_EARTHS.get()));
 
         takeAll(blocks, b -> b.get().asItem() instanceof EtherItem etherItem && etherItem.iridescent);
 

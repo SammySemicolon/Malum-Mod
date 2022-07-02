@@ -386,7 +386,7 @@ public class ItemRegistry {
     public static final RegistryObject<Item> ALCHEMICAL_CALX = ITEMS.register("alchemical_calx", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> ASTRAL_WEAVE = ITEMS.register("astral_weave", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> RARE_EARTHS = ITEMS.register("rare_earths", () -> new Item(DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> BLOCK_OF_RARE_EARTHS = ITEMS.register("block_of_rare_earths", () -> new ItemNameBlockItem(BlockRegistry.RARE_EARTH.get(), new Item.Properties().tab(CreativeModeTab.TAB_BUILDING_BLOCKS)));
+    public static final RegistryObject<Item> BLOCK_OF_RARE_EARTHS = ITEMS.register("block_of_rare_earths", () -> new ItemNameBlockItem(BlockRegistry.BLOCK_OF_RARE_EARTHS.get(), new Item.Properties().tab(CreativeModeTab.TAB_BUILDING_BLOCKS)));
     public static final RegistryObject<Item> HEX_ASH = ITEMS.register("hex_ash", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> SPIRIT_FABRIC = ITEMS.register("spirit_fabric", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> SPECTRAL_LENS = ITEMS.register("spectral_lens", () -> new Item(DEFAULT_PROPERTIES()));
