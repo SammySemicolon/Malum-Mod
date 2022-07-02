@@ -6,13 +6,13 @@ import com.sammy.malum.core.setup.content.block.BlockRegistry;
 import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
 import com.sammy.ortus.helpers.ColorHelper;
 import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.*;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -23,6 +23,7 @@ import java.awt.*;
 import java.util.function.Supplier;
 
 public class MalumSpiritType {
+
     private final Color color;
 
     private final Color endColor;
@@ -30,11 +31,14 @@ public class MalumSpiritType {
 
     protected Supplier<Item> splinterItem;
 
+    public final Rarity rarity;
+
     public MalumSpiritType(String identifier, Color color, RegistryObject<Item> splinterItem) {
         this.identifier = identifier;
         this.color = color;
         this.endColor = createEndColor(color);
         this.splinterItem = splinterItem;
+        this.rarity = createRarity(identifier, color);
     }
 
     public MalumSpiritType(String identifier, Color color, Color endColor, RegistryObject<Item> splinterItem) {
@@ -42,6 +46,7 @@ public class MalumSpiritType {
         this.color = color;
         this.endColor = endColor;
         this.splinterItem = splinterItem;
+        this.rarity = createRarity(identifier, color);
     }
 
     public Color getColor() {
@@ -54,10 +59,6 @@ public class MalumSpiritType {
 
     public Component getCountComponent(int count) {
         return new TextComponent(" " + count + " ").append(new TranslatableComponent(getDescription())).withStyle(Style.EMPTY.withColor(color.getRGB()));
-    }
-
-    public Component getNameComponent(ItemStack stack) {
-        return new TranslatableComponent(stack.getDescriptionId()).withStyle(Style.EMPTY.withColor(ColorHelper.brighter(color, 1, 0.85f).getRGB()));
     }
 
     public Component getFlavourComponent(ItemStack stack) {
@@ -87,5 +88,10 @@ public class MalumSpiritType {
     public BlockState getBlockState(boolean isCorrupt, BlockHitResult hit) {
         Block base = isCorrupt ? BlockRegistry.SOULWOOD_TOTEM_POLE.get() : BlockRegistry.RUNEWOOD_TOTEM_POLE.get();
         return base.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, hit.getDirection()).setValue(SpiritTypeRegistry.SPIRIT_TYPE_PROPERTY, identifier);
+    }
+
+    private static Rarity createRarity(String identifier, Color color) {
+        final TextColor textColor = TextColor.fromRgb(ColorHelper.brighter(color, 1, 0.85f).getRGB());
+        return Rarity.create("malum$" + identifier, (style) -> style.withColor(textColor));
     }
 }

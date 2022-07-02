@@ -3,12 +3,16 @@ package com.sammy.malum.compability.jei.categories;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.recipe.BlockTransmutationRecipe;
+import com.sammy.malum.compability.jei.JEIHandler;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
 import mezz.jei.api.constants.VanillaTypes;
-import mezz.jei.api.gui.IRecipeLayout;
+import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
+import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
-import mezz.jei.api.ingredients.IIngredients;
+import mezz.jei.api.recipe.IFocusGroup;
+import mezz.jei.api.recipe.RecipeIngredientRole;
+import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
@@ -28,22 +32,29 @@ public class BlockTransmutationRecipeCategory implements IRecipeCategory<BlockTr
     public BlockTransmutationRecipeCategory(IGuiHelper guiHelper) {
         background = guiHelper.createBlankDrawable(142, 83);
         overlay = guiHelper.createDrawable(new ResourceLocation(MalumMod.MALUM, "textures/gui/block_transmutation_jei.png"), 0, 0, 140, 81);
-        icon = guiHelper.createDrawableIngredient(new ItemStack(ItemRegistry.SOULWOOD_TOTEM_BASE.get()));
+        icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ItemRegistry.SOULWOOD_TOTEM_BASE.get()));
     }
 
     @Override
-    public void draw(BlockTransmutationRecipe recipe, PoseStack poseStack, double mouseX, double mouseY) {
+    public void draw(BlockTransmutationRecipe recipe, IRecipeSlotsView recipeSlotsView, PoseStack poseStack, double mouseX, double mouseY) {
         overlay.draw(poseStack);
+    }
+
+    @Override
+    public RecipeType<BlockTransmutationRecipe> getRecipeType() {
+        return JEIHandler.TRANSMUTATION;
     }
 
     @Nonnull
     @Override
+    @SuppressWarnings("removal")
     public ResourceLocation getUid() {
         return UID;
     }
 
     @Nonnull
     @Override
+    @SuppressWarnings("removal")
     public Class<? extends BlockTransmutationRecipe> getRecipeClass() {
         return BlockTransmutationRecipe.class;
     }
@@ -66,18 +77,10 @@ public class BlockTransmutationRecipeCategory implements IRecipeCategory<BlockTr
     }
 
     @Override
-    public void setIngredients(BlockTransmutationRecipe recipe, IIngredients iIngredients) {
-        iIngredients.setInput(VanillaTypes.ITEM, recipe.input.asItem().getDefaultInstance());
-        iIngredients.setOutput(VanillaTypes.ITEM, recipe.output.asItem().getDefaultInstance());
-    }
-
-    @Override
-    public void setRecipe(IRecipeLayout iRecipeLayout, BlockTransmutationRecipe recipe, IIngredients iIngredients) {
-        int index = 0;
-        iRecipeLayout.getItemStacks().init(index + 1, true, 27, 26);
-        iRecipeLayout.getItemStacks().set(index + 1, recipe.input.asItem().getDefaultInstance());
-
-        iRecipeLayout.getItemStacks().init(index + 2, true, 92, 25);
-        iRecipeLayout.getItemStacks().set(index + 2, recipe.output.asItem().getDefaultInstance());
+    public void setRecipe(IRecipeLayoutBuilder builder, BlockTransmutationRecipe recipe, IFocusGroup focuses) {
+       builder.addSlot(RecipeIngredientRole.INPUT, 28, 27)
+            .addItemStack(recipe.input.asItem().getDefaultInstance());
+       builder.addSlot(RecipeIngredientRole.OUTPUT, 93, 26)
+            .addItemStack(recipe.output.asItem().getDefaultInstance());
     }
 }
