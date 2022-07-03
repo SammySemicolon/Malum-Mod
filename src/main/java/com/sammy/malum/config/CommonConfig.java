@@ -83,16 +83,16 @@ public class CommonConfig extends OrtusConfig {
                     .define("generateBrilliantStone", true)));
     public static ConfigValueHolder<Integer> NATURAL_QUARTZ_SIZE = new ConfigValueHolder<>(MALUM,"common/worldgen/natural_quartz", (builder ->
             builder.comment("Size of natural quartz ore veins.")
-                    .define("naturalQuartzSize", 7)));
+                    .define("naturalQuartzSize", 4)));
     public static ConfigValueHolder<Integer> NATURAL_QUARTZ_AMOUNT = new ConfigValueHolder<>(MALUM,"common/worldgen/natural_quartz", (builder ->
             builder.comment("Amount of natural quartz ore veins.")
-                    .define("naturalQuartzAmount", 2)));
+                    .define("naturalQuartzAmount", 1)));
     public static ConfigValueHolder<Integer> NATURAL_QUARTZ_MIN_Y = new ConfigValueHolder<>(MALUM,"common/worldgen/natural_quartz", (builder ->
             builder.comment("Minimum height at which natural quartz ore can spawn.")
                     .define("naturalQuartzMinY", -64)));
     public static ConfigValueHolder<Integer> NATURAL_QUARTZ_MAX_Y = new ConfigValueHolder<>(MALUM,"common/worldgen/natural_quartz", (builder ->
             builder.comment("Maximum height at which natural quartz ore can spawn.")
-                    .define("naturalQuartzMaxY", 20)));
+                    .define("naturalQuartzMaxY", 10)));
 
     public static ConfigValueHolder<Boolean> GENERATE_QUARTZ_GEODES = new ConfigValueHolder<>(MALUM,"common/worldgen/natural_quartz_geode", (builder ->
             builder.comment("Should quartz geodes generate?")

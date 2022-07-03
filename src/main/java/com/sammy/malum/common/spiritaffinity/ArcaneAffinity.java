@@ -11,9 +11,11 @@ import com.sammy.malum.core.setup.content.DamageSourceRegistry;
 import com.sammy.malum.core.setup.content.SoundRegistry;
 import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
+import com.sammy.malum.core.systems.item.IMalumEventResponderItem;
 import com.sammy.malum.core.systems.spirit.MalumSpiritAffinity;
 import com.sammy.ortus.handlers.ScreenParticleHandler;
 import com.sammy.ortus.helpers.CurioHelper;
+import com.sammy.ortus.helpers.ItemHelper;
 import com.sammy.ortus.setup.OrtusScreenParticleRegistry;
 import com.sammy.ortus.setup.OrtusShaderRegistry;
 import com.sammy.ortus.systems.rendering.ExtendedShaderInstance;
@@ -87,16 +89,12 @@ public class ArcaneAffinity extends MalumSpiritAffinity {
 
                             player.level.playSound(null, player.blockPosition(), SoundRegistry.SOUL_WARD_HIT.get(), SoundSource.PLAYERS, 1, Mth.nextFloat(player.getRandom(), 1.5f, 2f));
                             event.setAmount(result);
-                            if (source.getEntity() != null) { //TODO: unhardcode this, add an event for 'soulward damage absorption'
-                                if (CurioHelper.hasCurioEquipped(player, ItemRegistry.MAGEBANE_BELT)) {
-                                    if (source instanceof EntityDamageSource entityDamageSource) {
-                                        if (entityDamageSource.isThorns()) {
-                                            return;
-                                        }
-                                    }
-                                    source.getEntity().hurt(DamageSourceRegistry.causeMagebaneDamage(player), absorbed + 2);
+
+                            ItemHelper.getEventResponders(player).forEach(s -> {
+                                if (s.getItem() instanceof IMalumEventResponderItem eventItem) {
+                                    eventItem.soulwardDamageAbsorb(event, player, s);
                                 }
-                            }
+                            });
                             MalumPlayerDataCapability.syncTrackingAndSelf(player);
                         }
                     }
