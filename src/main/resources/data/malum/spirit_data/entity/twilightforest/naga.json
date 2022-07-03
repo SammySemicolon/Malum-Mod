@@ -1,0 +1,18 @@
+{
+  "registry_name": "twilightforest:naga",
+  "primary_type": "earthen",
+  "spirits": [
+    {
+      "spirit": "earthen",
+      "count": 3
+    },
+    {
+      "spirit": "arcane",
+      "count": 3
+    },
+    {
+      "spirit": "sacred",
+      "count": 3
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "registry_name": "twilightforest:boar",
+  "primary_type": "sacred",
+  "spirits": [
+    {
+      "spirit": "sacred",
+      "count": 1
+    }
+  ]
+}

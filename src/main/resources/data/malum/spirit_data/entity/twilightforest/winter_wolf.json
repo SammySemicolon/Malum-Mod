@@ -1,0 +1,14 @@
+{
+  "registry_name": "twilightforest:winter_wolf",
+  "primary_type": "wicked",
+  "spirits": [
+    {
+      "spirit": "wicked",
+      "count": 2
+    },
+    {
+      "spirit": "aqueous",
+      "count": 1
+    }
+  ]
+}

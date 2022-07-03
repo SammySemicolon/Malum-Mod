@@ -1,0 +1,14 @@
+{
+  "registry_name": "twilightforest:alpha_yeti",
+  "primary_type": "sacred",
+  "spirits": [
+    {
+      "spirit": "sacred",
+      "count": 3
+    },
+    {
+      "spirit": "aqueous",
+      "count": 3
+    }
+  ]
+}

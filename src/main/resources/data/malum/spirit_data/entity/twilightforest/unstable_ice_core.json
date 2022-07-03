@@ -1,0 +1,14 @@
+{
+  "registry_name": "twilightforest:unstable_ice_core",
+  "primary_type": "arcane",
+  "spirits": [
+    {
+      "spirit": "arcane",
+      "count": 1
+    },
+    {
+      "spirit": "aerial",
+      "count": 1
+    }
+  ]
+}
