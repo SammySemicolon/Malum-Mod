@@ -10,6 +10,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -31,6 +32,15 @@ public class SpiritJarItem extends BlockItem {
             return "item.malum.filled_spirit_jar";
         }
         return super.getDescriptionId(pStack);
+    }
+
+    @Override
+    public Rarity getRarity(ItemStack pStack) {
+        if (pStack.hasTag() && pStack.getTag().contains("spirit")) {
+            MalumSpiritType spirit = SpiritHelper.getSpiritType(pStack.getTag().getString("spirit"));
+            return spirit.rarity;
+        }
+        return super.getRarity(pStack);
     }
 
     @Override

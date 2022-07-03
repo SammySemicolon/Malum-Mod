@@ -1,6 +1,6 @@
 {
   "registry_name": "quark:foxhound",
-  "primary_type": "earthen",
+  "primary_type": "infernal",
   "spirits": [
     {
       "spirit": "infernal",
@@ -9,6 +9,10 @@
     {
       "spirit": "earthen",
       "count": 1
+    },
+    {
+      "spirit": "sacred",
+      "count": 2
     }
   ]
 }
