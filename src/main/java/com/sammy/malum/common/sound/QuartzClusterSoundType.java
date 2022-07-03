@@ -23,22 +23,22 @@ public class QuartzClusterSoundType extends ExtendedSoundType {
 
     @Override
     public void onPlayBreakSound(Level level, BlockPos pos) {
-        level.playLocalSound(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, SoundEvents.AMETHYST_CLUSTER_BREAK, SoundSource.BLOCKS, (getVolume() + 1.0F) / 4.0F, getPitch() * 1.6F, false);
+        level.playLocalSound(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, SoundEvents.AMETHYST_CLUSTER_BREAK, SoundSource.BLOCKS, (getVolume() + 2.0F) / 4.0F, getPitch() * 1.6F, false);
     }
 
     @Override
     public void onPlayStepSound(Level level, BlockPos pos, BlockState state, SoundSource category) {
-        level.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.AMETHYST_CLUSTER_STEP, category, getVolume() * 0.15F, getPitch()* 1.3F);
+        level.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.AMETHYST_CLUSTER_STEP, category, getVolume() * 0.65F, getPitch()* 1.3F);
     }
 
     @Override
     public void onPlayPlaceSound(Level level, BlockPos pos, Player player) {
-        level.playSound(player, pos, SoundEvents.AMETHYST_CLUSTER_PLACE, SoundSource.BLOCKS, (getVolume() + 1.0F) / 4.0F, getPitch() * 1.5F);
+        level.playSound(player, pos, SoundEvents.AMETHYST_CLUSTER_PLACE, SoundSource.BLOCKS, (getVolume() + 2.0F) / 4.0F, getPitch() * 1.5F);
     }
 
     @Override
     @OnlyIn(value = Dist.CLIENT)
     public void onPlayHitSound(BlockPos pos) {
-        Minecraft.getInstance().getSoundManager().play(new SimpleSoundInstance(SoundEvents.AMETHYST_CLUSTER_HIT, SoundSource.BLOCKS, (getVolume() + 1.0F) / 16.0F, getPitch() * 1.65F, pos));
+        Minecraft.getInstance().getSoundManager().play(new SimpleSoundInstance(SoundEvents.AMETHYST_CLUSTER_HIT, SoundSource.BLOCKS, (getVolume() + 2.0F) / 16.0F, getPitch() * 1.65F, pos));
     }
 }

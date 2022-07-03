@@ -37,5 +37,15 @@ public class WorldgenEvents {
         if (CommonConfig.GENERATE_BRILLIANT_STONE.getConfigValue()) {
             event.getGeneration().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, FeatureRegistry.PlacedFeatures.BRILLIANCE_FEATURE);
         }
+        if (CommonConfig.GENERATE_NATURAL_QUARTZ.getConfigValue()) {
+            event.getGeneration().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, FeatureRegistry.PlacedFeatures.NATURAL_QUARTZ_FEATURE);
+        }
+        if (CommonConfig.GENERATE_QUARTZ_GEODES.getConfigValue()) {
+            event.getGeneration().addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, FeatureRegistry.PlacedFeatures.QUARTZ_GEODE_FEATURE);
+            event.getGeneration().addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, FeatureRegistry.PlacedFeatures.DEEPSLATE_QUARTZ_GEODE_FEATURE);
+        }
+        if (CommonConfig.GENERATE_RARE_EARTH.getConfigValue()) {
+            event.getGeneration().addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, FeatureRegistry.PlacedFeatures.RARE_EARTH_GEODE_FEATURE);
+        }
     }
 }

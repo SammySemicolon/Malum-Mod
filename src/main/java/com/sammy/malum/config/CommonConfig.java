@@ -77,6 +77,30 @@ public class CommonConfig extends OrtusConfig {
     public static ConfigValueHolder<Integer> SURFACE_SOULSTONE_MAX_Y = new ConfigValueHolder<>(MALUM,"common/worldgen/soulstone", (builder ->
             builder.comment("Maximum height at which surface soulstone ore can spawn.")
                     .define("surfaceSoulstoneMaxY", 100)));
+    
+    public static ConfigValueHolder<Boolean> GENERATE_NATURAL_QUARTZ = new ConfigValueHolder<>(MALUM,"common/worldgen/natural_quartz", (builder ->
+            builder.comment("Should natural quartz ore generate?")
+                    .define("generateBrilliantStone", true)));
+    public static ConfigValueHolder<Integer> NATURAL_QUARTZ_SIZE = new ConfigValueHolder<>(MALUM,"common/worldgen/natural_quartz", (builder ->
+            builder.comment("Size of natural quartz ore veins.")
+                    .define("naturalQuartzSize", 7)));
+    public static ConfigValueHolder<Integer> NATURAL_QUARTZ_AMOUNT = new ConfigValueHolder<>(MALUM,"common/worldgen/natural_quartz", (builder ->
+            builder.comment("Amount of natural quartz ore veins.")
+                    .define("naturalQuartzAmount", 2)));
+    public static ConfigValueHolder<Integer> NATURAL_QUARTZ_MIN_Y = new ConfigValueHolder<>(MALUM,"common/worldgen/natural_quartz", (builder ->
+            builder.comment("Minimum height at which natural quartz ore can spawn.")
+                    .define("naturalQuartzMinY", -64)));
+    public static ConfigValueHolder<Integer> NATURAL_QUARTZ_MAX_Y = new ConfigValueHolder<>(MALUM,"common/worldgen/natural_quartz", (builder ->
+            builder.comment("Maximum height at which natural quartz ore can spawn.")
+                    .define("naturalQuartzMaxY", 20)));
+
+    public static ConfigValueHolder<Boolean> GENERATE_QUARTZ_GEODES = new ConfigValueHolder<>(MALUM,"common/worldgen/natural_quartz_geode", (builder ->
+            builder.comment("Should quartz geodes generate?")
+                    .define("generateQuartzGeodes", true)));
+
+    public static ConfigValueHolder<Boolean> GENERATE_RARE_EARTH = new ConfigValueHolder<>(MALUM,"common/worldgen/rare_earth", (builder ->
+            builder.comment("Should rare earth generate?")
+                    .define("generateRareEarth", true)));
 
     public static ConfigValueHolder<Boolean> ULTIMATE_REBOUND = new ConfigValueHolder<>(MALUM,"common/item/rebound", (builder ->
             builder.comment("If set to true, you may put rebound on any weapon in the game.")

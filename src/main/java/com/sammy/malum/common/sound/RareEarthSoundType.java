@@ -22,6 +22,16 @@ public class RareEarthSoundType extends ExtendedSoundType {
     }
 
     @Override
+    public void onPlayBreakSound(Level level, BlockPos pos) {
+        level.playLocalSound(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, SoundRegistry.RARE_EARTH_BREAK.get(), SoundSource.BLOCKS, (getVolume() + 1.0F) / 4.0F, 0.95F - level.random.nextFloat() * 0.4f, false);
+    }
+
+    @Override
+    public void onPlayPlaceSound(Level level, BlockPos pos, Player player) {
+        level.playSound(player, pos, SoundRegistry.RARE_EARTH_PLACE.get(), SoundSource.BLOCKS, (getVolume() + 2.0F) / 4.0F, 1.05f - level.random.nextFloat() * 0.4f);
+    }
+
+    @Override
     @OnlyIn(value = Dist.CLIENT)
     public void onPlayHitSound(BlockPos pos) {
         MultiPlayerGameMode gameMode = Minecraft.getInstance().gameMode;
@@ -29,7 +39,7 @@ public class RareEarthSoundType extends ExtendedSoundType {
             float progress = gameMode.destroyProgress;
             float volume = (getVolume() + progress * progress * 4f) / 12f;
             float pitch = getPitch() * (0.5f + 0.15f * progress);
-            Minecraft.getInstance().getSoundManager().play(new SimpleSoundInstance(SoundEvents.NETHER_ORE_HIT, SoundSource.BLOCKS, volume, pitch, pos));
+            Minecraft.getInstance().getSoundManager().play(new SimpleSoundInstance(SoundEvents.NETHER_GOLD_ORE_HIT, SoundSource.BLOCKS, volume, pitch, pos));
         }
     }
 }

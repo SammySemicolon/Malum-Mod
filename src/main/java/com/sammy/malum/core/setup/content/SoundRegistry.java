@@ -75,9 +75,7 @@ public class SoundRegistry {
     public static final RegistryObject<SoundEvent> SOULWOOD_LEAVES_STEP = register(new SoundEvent(MalumMod.prefix("soulwood_leaves_step")));
 
     public static final RegistryObject<SoundEvent> RARE_EARTH_BREAK = register(new SoundEvent(MalumMod.prefix("rare_earth_break")));
-    public static final RegistryObject<SoundEvent> RARE_EARTH_HIT = register(new SoundEvent(MalumMod.prefix("rare_earth_hit")));
     public static final RegistryObject<SoundEvent> RARE_EARTH_PLACE = register(new SoundEvent(MalumMod.prefix("rare_earth_place")));
-    public static final RegistryObject<SoundEvent> RARE_EARTH_STEP = register(new SoundEvent(MalumMod.prefix("rare_earth_step")));
 
     public static final RegistryObject<SoundEvent> MAJOR_BLIGHT_MOTIF = register(new SoundEvent(MalumMod.prefix("blight_reacts")));
     public static final RegistryObject<SoundEvent> MINOR_BLIGHT_MOTIF = register(new SoundEvent(MalumMod.prefix("blight_reacts_faintly")));
@@ -123,11 +121,11 @@ public class SoundRegistry {
     public static final SoundType BLAZING_QUARTZ_ORE = new ForgeSoundType(1.0F, 1.0F, BLAZING_QUARTZ_ORE_BREAK, () -> SoundEvents.NETHER_ORE_STEP, BLAZING_QUARTZ_ORE_PLACE, () -> SoundEvents.NETHER_ORE_HIT, () -> SoundEvents.NETHER_GOLD_ORE_FALL);
     public static final SoundType NATURAL_QUARTZ = new QuartzSoundType(1.0F, 0.9f, ()->SoundEvents.STONE_BREAK, ()->SoundEvents.STONE_STEP, ()->SoundEvents.STONE_PLACE, ()->SoundEvents.STONE_HIT, ()->SoundEvents.STONE_FALL);
     public static final SoundType DEEPSLATE_QUARTZ = new QuartzSoundType(1.0F, 0.9f, ()->SoundEvents.DEEPSLATE_BREAK, ()->SoundEvents.DEEPSLATE_STEP, ()->SoundEvents.DEEPSLATE_PLACE, ()->SoundEvents.DEEPSLATE_HIT, ()->SoundEvents.DEEPSLATE_FALL);
-    public static final SoundType RARE_EARTH = new RareEarthSoundType(1.0F, 0.9f, RARE_EARTH_BREAK, RARE_EARTH_STEP, RARE_EARTH_PLACE, QUARTZ_CLUSTER_BLOCK_HIT, ()->SoundEvents.DEEPSLATE_FALL);
+    public static final SoundType RARE_EARTH = new RareEarthSoundType(1.0F, 1.15f, SOULSTONE_BREAK, SOULSTONE_STEP, SOULSTONE_PLACE, DEEPSLATE_SOULSTONE_HIT, ()->SoundEvents.DEEPSLATE_FALL);
 
     public static final SoundType BLAZING_QUARTZ_BLOCK = new ForgeSoundType(1.0F, 1.25f, BLAZING_QUARTZ_BLOCK_BREAK, BLAZING_QUARTZ_BLOCK_STEP, BLAZING_QUARTZ_BLOCK_PLACE, BLAZING_QUARTZ_BLOCK_HIT, () -> SoundEvents.NETHER_GOLD_ORE_FALL);
     public static final SoundType ARCANE_CHARCOAL_BLOCK = new ForgeSoundType(1.0F, 0.9f, ARCANE_CHARCOAL_BLOCK_BREAK, ARCANE_CHARCOAL_BLOCK_STEP, ARCANE_CHARCOAL_BLOCK_PLACE, ARCANE_CHARCOAL_BLOCK_HIT, () -> SoundEvents.NETHER_GOLD_ORE_FALL);
-    public static final SoundType QUARTZ_CLUSTER = new QuartzClusterSoundType(0.6F, 1.5f, QUARTZ_CLUSTER_BLOCK_BREAK, QUARTZ_CLUSTER_BLOCK_STEP, QUARTZ_CLUSTER_BLOCK_PLACE, QUARTZ_CLUSTER_BLOCK_HIT, () -> SoundEvents.NETHER_GOLD_ORE_FALL);
+    public static final SoundType QUARTZ_CLUSTER = new QuartzClusterSoundType(0.3F, 1.5f, QUARTZ_CLUSTER_BLOCK_BREAK, QUARTZ_CLUSTER_BLOCK_STEP, QUARTZ_CLUSTER_BLOCK_PLACE, QUARTZ_CLUSTER_BLOCK_HIT, () -> SoundEvents.NETHER_GOLD_ORE_FALL);
     public static final SoundType HALLOWED_GOLD = new ForgeSoundType(1.0F, 1.0F, HALLOWED_GOLD_BREAK, HALLOWED_GOLD_STEP, HALLOWED_GOLD_PLACE, HALLOWED_GOLD_HIT, () -> SoundEvents.METAL_FALL);
     public static final SoundType SOUL_STAINED_STEEL = new ForgeSoundType(1.0F, 1.0F, SOUL_STAINED_STEEL_BREAK, SOUL_STAINED_STEEL_STEP, SOUL_STAINED_STEEL_PLACE, SOUL_STAINED_STEEL_HIT, () -> SoundEvents.METAL_FALL);
 
