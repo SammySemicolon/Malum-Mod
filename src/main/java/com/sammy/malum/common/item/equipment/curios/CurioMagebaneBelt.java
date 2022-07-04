@@ -52,7 +52,8 @@ public class CurioMagebaneBelt extends MalumCurioItem implements IMalumEventResp
     @Override
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(String identifier, ItemStack stack) {
         Multimap<Attribute, AttributeModifier> map = HashMultimap.create();
-        map.put(AttributeRegistry.SOUL_WARD_RECOVERY_SPEED.get(), new AttributeModifier(uuids.computeIfAbsent(0, (i) -> UUID.randomUUID()), "Soul Ward Recovery Rate", 1f, AttributeModifier.Operation.ADDITION));
+        map.put(AttributeRegistry.SOUL_WARD_CAP.get(), new AttributeModifier(uuids.computeIfAbsent(0, (i) -> UUID.randomUUID()), "Soul Ward Capacity", 3f, AttributeModifier.Operation.ADDITION));
+        map.put(AttributeRegistry.SOUL_WARD_RECOVERY_SPEED.get(), new AttributeModifier(uuids.computeIfAbsent(1, (i) -> UUID.randomUUID()), "Soul Ward Recovery Rate", 1f, AttributeModifier.Operation.ADDITION));
         return map;
     }
 
@@ -60,7 +61,6 @@ public class CurioMagebaneBelt extends MalumCurioItem implements IMalumEventResp
     public boolean isOrnate() {
         return true;
     }
-
 
     @OnlyIn(value = Dist.CLIENT)
     @Override

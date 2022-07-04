@@ -103,8 +103,14 @@ public class ArcaneAffinity extends MalumSpiritAffinity {
         }
     }
 
+
     public static int getSoulWardCooldown(Player player) {
-        return (int) (CommonConfig.SOUL_WARD_RATE.getConfigValue() * Math.exp(-0.15 * player.getAttributeValue(AttributeRegistry.SOUL_WARD_RECOVERY_SPEED.get())));
+        int baseValue = CommonConfig.SOUL_WARD_RATE.getConfigValue();
+        double rate = player.getAttributeValue(AttributeRegistry.SOUL_WARD_RECOVERY_SPEED.get());
+        if (rate == 0) {
+            return baseValue;
+        }
+        return (int) (baseValue * (1 - ((1-(0.2*(1/(0.3*rate))))*0.45)));
     }
 
     public static class ClientOnly {
@@ -131,6 +137,7 @@ public class ArcaneAffinity extends MalumSpiritAffinity {
                         int rowHeight = Math.max(10 - (healthRows - 2), 3);
 
                         poseStack.pushPose();
+                        RenderSystem.setShaderTexture(0, ICONS_TEXTURE);
                         RenderSystem.depthMask(false);
                         RenderSystem.enableBlend();
                         RenderSystem.defaultBlendFunc();

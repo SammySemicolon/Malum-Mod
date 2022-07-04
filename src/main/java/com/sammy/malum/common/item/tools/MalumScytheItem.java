@@ -31,19 +31,20 @@ public class MalumScytheItem extends ModCombatItem implements IMalumEventRespond
 
     @Override
     public void hurtEvent(LivingHurtEvent event, LivingEntity attacker, LivingEntity target, ItemStack stack) {
+        boolean canSweep = !CurioHelper.hasCurioEquipped(attacker, ItemRegistry.NECKLACE_OF_THE_NARROW_EDGE) && !CurioHelper.hasCurioEquipped(attacker, ItemRegistry.NECKLACE_OF_THE_HIDDEN_BLADE);
         if (attacker instanceof Player player) {
             SoundEvent sound;
-            if (CurioHelper.hasCurioEquipped(attacker, ItemRegistry.NECKLACE_OF_THE_NARROW_EDGE)) {
-                spawnSweepParticles(player, ParticleRegistry.SCYTHE_CUT_ATTACK_PARTICLE.get());
-                sound = SoundRegistry.SCYTHE_CUT.get();
-            } else {
+            if (canSweep) {
                 spawnSweepParticles(player, ParticleRegistry.SCYTHE_SWEEP_ATTACK_PARTICLE.get());
                 sound = SoundEvents.PLAYER_ATTACK_SWEEP;
+            } else {
+                spawnSweepParticles(player, ParticleRegistry.SCYTHE_CUT_ATTACK_PARTICLE.get());
+                sound = SoundRegistry.SCYTHE_CUT.get();
             }
             attacker.level.playSound(null, target.getX(), target.getY(), target.getZ(), sound, attacker.getSoundSource(), 1, 1);
         }
         
-        if (CurioHelper.hasCurioEquipped(attacker, ItemRegistry.NECKLACE_OF_THE_NARROW_EDGE) || event.getSource().isMagic() || event.getSource().getMsgId().equals(DamageSourceRegistry.SCYTHE_SWEEP_DAMAGE)) {
+        if (!canSweep || event.getSource().isMagic() || event.getSource().getMsgId().equals(DamageSourceRegistry.SCYTHE_SWEEP_DAMAGE)) {
             return;
         }
         float damage = event.getAmount() * (0.5f + EnchantmentHelper.getSweepingDamageRatio(attacker));

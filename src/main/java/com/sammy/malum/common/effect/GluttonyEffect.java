@@ -12,6 +12,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodData;
 import net.minecraft.world.item.ItemStack;
@@ -24,7 +25,7 @@ import static com.sammy.malum.core.setup.content.item.ItemTagRegistry.GROSS_FOOD
 public class GluttonyEffect extends MobEffect {
     public GluttonyEffect() {
         super(MobEffectCategory.BENEFICIAL, ColorHelper.getColor(88, 86, 60));
-        addAttributeModifier(AttributeRegistry.SCYTHE_PROFICIENCY.get(), "4d82fd0a-24b6-45f5-8d7a-983f99fd6783", 3f, AttributeModifier.Operation.ADDITION);
+        addAttributeModifier(Attributes.ATTACK_DAMAGE, "4d82fd0a-24b6-45f5-8d7a-983f99fd6783", 2f, AttributeModifier.Operation.ADDITION);
     }
 
     public static void canApplyPotion(PotionEvent.PotionApplicableEvent event) {
@@ -49,7 +50,7 @@ public class GluttonyEffect extends MobEffect {
     @Override
     public void applyEffectTick(LivingEntity entityLivingBaseIn, int amplifier) {
         if (entityLivingBaseIn instanceof Player player) {
-            player.causeFoodExhaustion(0.0035f * (amplifier + 1));
+            player.causeFoodExhaustion(0.003f * (amplifier + 1));
         }
     }
 

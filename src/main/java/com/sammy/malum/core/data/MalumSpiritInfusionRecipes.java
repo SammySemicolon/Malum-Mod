@@ -3,7 +3,6 @@ package com.sammy.malum.core.data;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.item.impetus.ImpetusItem;
 import com.sammy.malum.core.data.builder.SpiritInfusionRecipeBuilder;
-import com.sammy.malum.core.handlers.ReapingHandler;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.recipes.FinishedRecipe;
@@ -227,7 +226,7 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider implements ICondi
                 .addSpirit(ELDRITCH_SPIRIT, 2)
                 .build(consumer);
 
-        new SpiritInfusionRecipeBuilder(ItemRegistry.GILDED_RING.get(), 1, ItemRegistry.RING_OF_PROWESS.get(), 1)
+        new SpiritInfusionRecipeBuilder(ItemRegistry.GILDED_RING.get(), 1, ItemRegistry.RING_OF_ARCANE_PROWESS.get(), 1)
                 .addExtraItem(ItemRegistry.CLUSTER_OF_BRILLIANCE.get(), 4)
                 .addExtraItem(ItemRegistry.ALCHEMICAL_CALX.get(), 4)
                 .addSpirit(ARCANE_SPIRIT, 24)
@@ -308,7 +307,7 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider implements ICondi
                 .addExtraItem(Ingredient.of(Tags.Items.OBSIDIAN), 4)
                 .build(consumer);
 
-        new SpiritInfusionRecipeBuilder(ItemRegistry.GILDED_BELT.get(), 1, ItemRegistry.MAGEBANE_BELT.get(), 1)
+        new SpiritInfusionRecipeBuilder(ItemRegistry.GILDED_BELT.get(), 1, ItemRegistry.BELT_OF_THE_MAGEBANE.get(), 1)
                 .addSpirit(WICKED_SPIRIT, 16)
                 .addSpirit(ELDRITCH_SPIRIT, 4)
                 .addExtraItem(ItemRegistry.TWISTED_ROCK.get(), 16)

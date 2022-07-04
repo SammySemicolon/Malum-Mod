@@ -11,11 +11,4 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(LivingEntity.class)
 public class LivingEntityMixin {
-
-    @Inject(method = "hasEffect", at = @At("RETURN"), cancellable = true) //TODO: this doesn't seem like a good idea at all.
-    private void malumGluttonyExtendsHungerMixin(MobEffect effect, CallbackInfoReturnable<Boolean> cir) {
-        if (effect.equals(MobEffects.HUNGER) && ((LivingEntity)((Object)this)).hasEffect(MalumMobEffectRegistry.GLUTTONY.get())) {
-            cir.setReturnValue(true);
-        }
-    }
 }

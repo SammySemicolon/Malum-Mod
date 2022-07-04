@@ -385,7 +385,7 @@ public class ProgressionBookScreen extends Screen {
                 .addPage(SpiritInfusionPage.fromOutput(RING_OF_CURATIVE_TALENT.get()))
                 .addPage(new HeadlineTextPage("ring_of_prowess", "ring_of_prowess_a"))
                 .addPage(new TextPage("ring_of_prowess_b"))
-                .addPage(SpiritInfusionPage.fromOutput(RING_OF_PROWESS.get()))
+                .addPage(SpiritInfusionPage.fromOutput(RING_OF_ARCANE_PROWESS.get()))
         );
 
         ENTRIES.add(new BookEntry(
@@ -526,9 +526,9 @@ public class ProgressionBookScreen extends Screen {
         );
 
         ENTRIES.add(new BookEntry(
-                "magebane_belt", MAGEBANE_BELT.get(), 1, 15)
+                "magebane_belt", BELT_OF_THE_MAGEBANE.get(), 1, 15)
                 .addPage(new HeadlineTextPage("magebane_belt", "magebane_belt"))
-                .addPage(SpiritInfusionPage.fromOutput(MAGEBANE_BELT.get()))
+                .addPage(SpiritInfusionPage.fromOutput(BELT_OF_THE_MAGEBANE.get()))
         );
 
         ENTRIES.add(new BookEntry(

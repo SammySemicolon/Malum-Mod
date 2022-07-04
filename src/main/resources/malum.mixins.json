@@ -9,7 +9,8 @@
     "LivingEntityMixin"
   ],
   "client": [
-    "ElytraLayerMixin"
+    "ElytraLayerMixin",
+    "GuiMixin"
   ],
   "injectors": {
     "defaultRequire": 1

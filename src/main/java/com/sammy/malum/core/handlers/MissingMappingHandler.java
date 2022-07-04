@@ -40,6 +40,10 @@ public class MissingMappingHandler {
             if (mapping.key.equals(MalumMod.prefix("ring_of_arcane_spoils"))) {
                 mapping.remap(ItemRegistry.RING_OF_ESOTERIC_SPOILS.get());
             }
+
+            if (mapping.key.equals(MalumMod.prefix("ring_of_prowess"))) {
+                mapping.remap(ItemRegistry.RING_OF_ARCANE_PROWESS.get());
+            }
         }
     }
 

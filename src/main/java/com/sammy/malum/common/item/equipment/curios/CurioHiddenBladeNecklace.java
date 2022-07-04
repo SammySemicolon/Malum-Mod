@@ -9,9 +9,9 @@ import net.minecraft.world.item.ItemStack;
 
 import java.util.UUID;
 
-public class CurioNarrowNecklace extends MalumCurioItem
+public class CurioHiddenBladeNecklace extends MalumCurioItem
 {
-    public CurioNarrowNecklace(Properties builder)
+    public CurioHiddenBladeNecklace(Properties builder)
     {
         super(builder);
     }
@@ -20,7 +20,7 @@ public class CurioNarrowNecklace extends MalumCurioItem
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(String identifier, ItemStack stack)
     {
         Multimap<Attribute, AttributeModifier> map = HashMultimap.create();
-        map.put(AttributeRegistry.SCYTHE_PROFICIENCY.get(), new AttributeModifier(uuids.computeIfAbsent(0, (i) -> UUID.randomUUID()), "Curio scythe proficiency", 6f, AttributeModifier.Operation.ADDITION));
+        map.put(AttributeRegistry.SCYTHE_PROFICIENCY.get(), new AttributeModifier(uuids.computeIfAbsent(0, (i) -> UUID.randomUUID()), "Curio scythe proficiency", 2f, AttributeModifier.Operation.ADDITION));
         return map;
     }
     @Override
