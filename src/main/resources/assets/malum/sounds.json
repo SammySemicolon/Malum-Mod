@@ -84,8 +84,8 @@
   "void_slash_swooshes": { "sounds":["malum:void_slash"], "subtitle": "malum.subtitle.void_slash_swooshes" },
   "aerial_magic_swooshes": { "sounds":["minecraft:mob/phantom/flap1","minecraft:mob/phantom/flap2","minecraft:mob/phantom/flap3","minecraft:mob/phantom/flap4","minecraft:mob/phantom/flap5","minecraft:mob/phantom/flap6"], "subtitle": "malum.subtitle.aerial_magic_swooshes" },
 
-  "gilded_trinket_equipped": { "sounds":["malum:equip_holy"], "subtitle": "malum.subtitle.gilded_trinket_equipped" },
-  "ornate_trinket_equipped": { "sounds":["malum:equip_sinister"], "subtitle": "malum.subtitle.ornate_trinket_equipped" },
+  "gilded_trinket_equipped": { "sounds":["malum:trinkets/equip_holy"], "subtitle": "malum.subtitle.gilded_trinket_equipped" },
+  "ornate_trinket_equipped": { "sounds":["malum:trinkets/equip_sinister"], "subtitle": "malum.subtitle.ornate_trinket_equipped" },
 
   "soul_ward_grows": { "sounds":["malum:affinity/soul_ward/grow1","malum:affinity/soul_ward/grow2","malum:affinity/soul_ward/grow3","malum:affinity/soul_ward/grow4"], "subtitle": "malum.subtitle.soul_ward_grows" },
   "soul_ward_damaged": { "sounds":["malum:affinity/soul_ward/grow1","malum:affinity/soul_ward/grow2","malum:affinity/soul_ward/grow3","malum:affinity/soul_ward/grow4"], "subtitle": "malum.subtitle.soul_ward_damaged" },

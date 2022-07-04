@@ -162,9 +162,7 @@ public class ArcaneAffinity extends MalumSpiritAffinity {
 
                             builder.setPositionWithWidth(x - 2, y - 2, size, size)
                                     .setUVWithWidth(xTextureOffset, 16, size, size, 256f)
-                                    .begin()
-                                    .blit(poseStack)
-                                    .end();
+                                    .draw(poseStack);
 
                             if (ScreenParticleHandler.canSpawnParticles) {
                                 ParticleBuilders.create(OrtusScreenParticleRegistry.WISP)
@@ -177,6 +175,7 @@ public class ArcaneAffinity extends MalumSpiritAffinity {
                                         .setSpinOffset(Minecraft.getInstance().level.random.nextFloat() * 6.28f)
                                         .randomOffset(2)
                                         .randomMotion(0.5f, 0.5f)
+                                        .addMotion(0, 0.2f)
                                         .overwriteRenderOrder(ScreenParticle.RenderOrder.BEFORE_UI)
                                         .repeat(x + 5, y + 5, 1);
                             }
