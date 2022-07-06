@@ -367,7 +367,7 @@ public class ProgressionBookScreen extends Screen {
 
         ENTRIES.add(new BookEntry(
                 "spirit_trinkets", ORNATE_RING.get(), -5, 6)
-                .addPage(new HeadlineTextItemPage("spirit_trinkets", "spirit_trinkets_a", ORNATE_RING.get()))
+                .addPage(new HeadlineTextPage("spirit_trinkets", "spirit_trinkets_a"))
                 .addPage(new TextPage("spirit_trinkets_b"))
                 .addPage(CraftingBookPage.ringPage(GILDED_RING.get(), LEATHER, HALLOWED_GOLD_INGOT.get()))
                 .addPage(new CraftingBookPage(GILDED_BELT.get(), LEATHER, LEATHER, LEATHER, HALLOWED_GOLD_INGOT.get(), PROCESSED_SOULSTONE.get(), HALLOWED_GOLD_INGOT.get(), EMPTY, HALLOWED_GOLD_INGOT.get(), EMPTY))

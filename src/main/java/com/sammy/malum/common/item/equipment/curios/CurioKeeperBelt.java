@@ -42,7 +42,7 @@ public class CurioKeeperBelt extends MalumCurioItem {
     }
 
     @Override
-    public boolean isOrnate() {
+    public boolean isGilded() {
         return true;
     }
 }

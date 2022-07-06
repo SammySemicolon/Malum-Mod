@@ -41,11 +41,7 @@ public class CurioStarvedBelt extends MalumCurioItem implements IMalumEventRespo
         } else {
             EntityHelper.extendEffect(effect, collector, 100, 300);
             if (collector instanceof Player player) {
-                if (player.getCooldowns().isOnCooldown(this)) {
-                    return;
-                }
-                player.getFoodData().addExhaustion(6f);
-                player.getCooldowns().addCooldown(this, 100);
+                player.getFoodData().addExhaustion(2f);
             }
             EntityHelper.amplifyEffect(effect, collector, 1, 4);
         }

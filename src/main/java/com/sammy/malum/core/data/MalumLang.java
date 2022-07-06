@@ -234,7 +234,7 @@ public class MalumLang extends LanguageProvider {
         addHeadline("spirit_pouch", "Spirit Pouch");
         addPage("spirit_pouch", "I have grown very tired of carrying all my spirit arcana, the spirit pouch offers a solution to this annoyance. The item allows us to store a large amount of spirits within it's internal inventory. On top of that, any spirits I gather are automatically stored in the pouch.");
 
-        addDescription("soul_hunter_gear", "Scythe Expert");
+        addDescription("soul_hunter_gear", "Magical Maniac");
         addHeadline("soul_hunter_armor", "Soul Hunter Armor");
         addPage("soul_hunter_armor", "Through the use of Spirit Fabric, I have designed an armor set befitted specifically for expanding the users magical ability. Due to it's primitive and rather dangerous nature however, the armours protective abilities are rather lacking.");
 

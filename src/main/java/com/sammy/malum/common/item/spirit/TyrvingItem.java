@@ -31,7 +31,7 @@ import java.awt.*;
 
 import static com.sammy.malum.core.setup.server.PacketRegistry.MALUM_CHANNEL;
 
-public class TyrvingItem extends OrtusSwordItem implements IMalumEventResponderItem, ItemParticleEmitter {
+public class TyrvingItem extends OrtusSwordItem implements IMalumEventResponderItem {
     public TyrvingItem(Tier material, int attackDamage, float attackSpeed, Properties properties) {
         super(material, attackDamage, attackSpeed, properties);
     }
@@ -59,58 +59,5 @@ public class TyrvingItem extends OrtusSwordItem implements IMalumEventResponderI
     @Override
     public boolean canPerformAction(ItemStack stack, net.minecraftforge.common.ToolAction toolAction) {
         return toolAction.equals(ToolActions.SWORD_DIG);
-    }
-
-    @OnlyIn(value = Dist.CLIENT)
-    @Override
-    public void particleTick(ItemStack stack, float x, float y, ScreenParticle.RenderOrder renderOrder) {
-        Level level = Minecraft.getInstance().level;
-        float gameTime = level.getGameTime() + Minecraft.getInstance().timer.partialTick;
-        Color firstColor = SpiritTypeRegistry.ELDRITCH_SPIRIT.getColor();
-        Color secondColor = ColorHelper.darker(firstColor, 2);
-        ParticleBuilders.create(OrtusScreenParticleRegistry.STAR)
-                .setAlpha(0.04f, 0f)
-                .setLifetime(8)
-                .setScale((float) (0.75f + Math.sin(gameTime * 0.05f) * 0.15f), 0)
-                .setColor(firstColor, secondColor)
-                .setColorCoefficient(1.25f)
-                .randomOffset(0.05f)
-                .setSpinOffset(0.025f * gameTime % 6.28f)
-                .setSpin(0, 1)
-                .setSpinEasing(Easing.EXPO_IN_OUT)
-                .setAlphaEasing(Easing.QUINTIC_IN)
-                .overwriteRenderOrder(renderOrder)
-                .centerOnStack(stack, -2, 2)
-                .repeat(x, y, 1)
-                .setScale((float) (0.75f - Math.sin(gameTime * 0.075f) * 0.15f), 0)
-                .setColor(secondColor, firstColor)
-                .setSpinOffset(0.785f - 0.01f * gameTime % 6.28f)
-                .repeat(x, y, 1)
-                .setScale((float) (0.9f - Math.sin(gameTime * 0.1f) * 0.175f), 0)
-                .setColor(secondColor, firstColor)
-                .setSpinOffset(0.8f - 0.01f * gameTime % 6.28f)
-                .repeat(x, y, 1);
-
-        gameTime += 31.4f;
-        ParticleBuilders.create(OrtusScreenParticleRegistry.STAR)
-                .setAlpha(0.05f, 0f)
-                .setLifetime(8)
-                .setScale((float) (0.75f + Math.sin(gameTime * 0.05f) * 0.125f), 0)
-                .setColor(firstColor, secondColor)
-                .setColorCoefficient(1.25f)
-                .randomOffset(0.05f)
-                .setSpinOffset(0.025f * gameTime % 6.28f)
-                .setAlphaEasing(Easing.QUINTIC_IN)
-                .overwriteRenderOrder(renderOrder)
-                .centerOnStack(stack, 3, -3)
-                .repeat(x, y, 1)
-                .setScale((float) (0.85f - Math.sin(gameTime * 0.075f) * 0.15f), 0)
-                .setColor(secondColor, firstColor)
-                .setSpinOffset(0.785f - 0.01f * gameTime % 6.28f)
-                .repeat(x, y, 1)
-                .setScale((float) (0.95f - Math.sin(gameTime * 0.1f) * 0.175f), 0)
-                .setColor(secondColor, firstColor)
-                .setSpinOffset(0.8f - 0.01f * gameTime % 6.28f)
-                .repeat(x, y, 1);
     }
 }

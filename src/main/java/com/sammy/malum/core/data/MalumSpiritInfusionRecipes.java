@@ -212,15 +212,21 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider implements ICondi
 
         new SpiritInfusionRecipeBuilder(ItemRegistry.ORNATE_RING.get(), 1, ItemRegistry.RING_OF_THE_GUARDIAN.get(), 1)
                 .addExtraItem(ItemRegistry.HEX_ASH.get(), 2)
-                .addExtraItem(ItemRegistry.PROCESSED_SOULSTONE.get(), 6)
-                .addExtraItem(Items.IRON_INGOT, 2)
+                .addExtraItem(ItemRegistry.SOUL_STAINED_STEEL_INGOT.get(), 4)
                 .addSpirit(EARTHEN_SPIRIT, 8)
                 .addSpirit(ARCANE_SPIRIT, 8)
                 .build(consumer);
 
+        new SpiritInfusionRecipeBuilder(ItemRegistry.GILDED_BELT.get(), 1, ItemRegistry.BELT_OF_THE_KEEPER.get(), 1)
+                .addExtraItem(ItemRegistry.HEX_ASH.get(), 4)
+                .addExtraItem(ItemRegistry.SOUL_STAINED_STEEL_INGOT.get(), 6)
+                .addSpirit(EARTHEN_SPIRIT, 16)
+                .addSpirit(ARCANE_SPIRIT, 16)
+                .build(consumer);
+
         new SpiritInfusionRecipeBuilder(ItemRegistry.ORNATE_RING.get(), 1, ItemRegistry.RING_OF_ESOTERIC_SPOILS.get(), 1)
                 .addExtraItem(ItemRegistry.STAINED_SPIRIT_RESONATOR.get(), 1)
-                .addExtraItem(ItemRegistry.PROCESSED_SOULSTONE.get(), 6)
+                .addExtraItem(ItemRegistry.PROCESSED_SOULSTONE.get(), 8)
                 .addSpirit(WICKED_SPIRIT, 8)
                 .addSpirit(ARCANE_SPIRIT, 8)
                 .addSpirit(ELDRITCH_SPIRIT, 2)
