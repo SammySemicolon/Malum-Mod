@@ -105,11 +105,11 @@ public class ArcaneAffinity extends MalumSpiritAffinity {
         if (rate == 0) {
             return baseValue;
         }
-        return (int) (baseValue * (1 - ((1-(0.2*(1/(0.3*rate))))*0.45)));
+        return (int) (baseValue * (1 - ((1 - (0.2 * (1 / (0.3 * rate)))) * 0.45)));
     }
 
     public static class ClientOnly {
-        private static final ResourceLocation ICONS_TEXTURE = MalumMod.prefix("textures/gui/icons.png");
+        private static final ResourceLocation DEFAULT_SOUL_WARD = MalumMod.prefix("textures/gui/soul_ward/default.png");
 
         public static void renderSoulWard(ForgeIngameGui gui, PoseStack poseStack, int width, int height) {
             Minecraft minecraft = Minecraft.getInstance();
@@ -133,7 +133,7 @@ public class ArcaneAffinity extends MalumSpiritAffinity {
                             int rowHeight = Math.max(10 - (healthRows - 2), 3);
 
                             poseStack.pushPose();
-                            RenderSystem.setShaderTexture(0, ICONS_TEXTURE);
+                            RenderSystem.setShaderTexture(0, getSoulWardTexture());
                             RenderSystem.depthMask(true);
                             RenderSystem.enableBlend();
                             RenderSystem.defaultBlendFunc();
@@ -141,10 +141,11 @@ public class ArcaneAffinity extends MalumSpiritAffinity {
                             shaderInstance.safeGetUniform("YFrequency").set(15f);
                             shaderInstance.safeGetUniform("XFrequency").set(15f);
                             shaderInstance.safeGetUniform("Speed").set(550f);
-                            shaderInstance.safeGetUniform("Intensity").set(600f);
+                            shaderInstance.safeGetUniform("Intensity").set(120f);
                             VFXBuilders.ScreenVFXBuilder builder = VFXBuilders.createScreen()
-                                .setPosColorTexLightmapDefaultFormat()
-                                .setShader(() -> shaderInstance);
+                                    .setPosColorTexLightmapDefaultFormat()
+                                    .setShader(() -> shaderInstance);
+
                             int size = 13;
                             for (int i = 0; i < Math.ceil(c.soulWard / 3f); i++) {
                                 int row = (int) (Math.ceil(i) / 10f);
@@ -153,27 +154,27 @@ public class ArcaneAffinity extends MalumSpiritAffinity {
                                 int progress = Math.min(3, (int) c.soulWard - i * 3);
                                 int xTextureOffset = 1 + (3 - progress) * 15;
 
-                                shaderInstance.safeGetUniform("UVCoordinates").set(new Vector4f(xTextureOffset / 256f, (xTextureOffset + 12) / 256f, 16 / 256f, 28 / 256f));
+                                shaderInstance.safeGetUniform("UVCoordinates").set(new Vector4f(xTextureOffset /45f, (xTextureOffset + size) / 45f, 0, 15 / 45f));
                                 shaderInstance.safeGetUniform("TimeOffset").set(i * 150f);
 
                                 builder.setPositionWithWidth(x - 2, y - 2, size, size)
-                                    .setUVWithWidth(xTextureOffset, 16, size, size, 256f)
-                                    .draw(poseStack);
+                                        .setUVWithWidth(xTextureOffset, 0, size, size, 45)
+                                        .draw(poseStack);
 
                                 if (ScreenParticleHandler.canSpawnParticles) {
                                     ParticleBuilders.create(OrtusScreenParticleRegistry.WISP)
-                                        .setLifetime(20)
-                                        .setColor(SpiritTypeRegistry.ARCANE_SPIRIT.getColor(), SpiritTypeRegistry.ARCANE_SPIRIT.getEndColor())
-                                        .setAlphaCoefficient(0.75f)
-                                        .setScale(0.2f * progress, 0f)
-                                        .setAlpha(0.05f, 0)
-                                        .setSpin(Minecraft.getInstance().level.random.nextFloat() * 6.28f)
-                                        .setSpinOffset(Minecraft.getInstance().level.random.nextFloat() * 6.28f)
-                                        .randomOffset(2)
-                                        .randomMotion(0.5f, 0.5f)
-                                        .addMotion(0, 0.2f)
-                                        .overwriteRenderOrder(ScreenParticle.RenderOrder.BEFORE_UI)
-                                        .repeat(x + 5, y + 5, 1);
+                                            .setLifetime(20)
+                                            .setColor(SpiritTypeRegistry.ARCANE_SPIRIT.getColor(), SpiritTypeRegistry.ARCANE_SPIRIT.getEndColor())
+                                            .setAlphaCoefficient(0.75f)
+                                            .setScale(0.2f * progress, 0f)
+                                            .setAlpha(0.05f, 0)
+                                            .setSpin(Minecraft.getInstance().level.random.nextFloat() * 6.28f)
+                                            .setSpinOffset(Minecraft.getInstance().level.random.nextFloat() * 6.28f)
+                                            .randomOffset(2)
+                                            .randomMotion(0.5f, 0.5f)
+                                            .addMotion(0, 0.2f)
+                                            .overwriteRenderOrder(ScreenParticle.RenderOrder.BEFORE_UI)
+                                            .repeat(x + 5, y + 5, 1);
                                 }
                             }
                             shaderInstance.setUniformDefaults();
@@ -184,6 +185,9 @@ public class ArcaneAffinity extends MalumSpiritAffinity {
                     });
                 }
             }
+        }
+        public static ResourceLocation getSoulWardTexture() {
+            return MalumMod.prefix("textures/gui/soul_ward/default.png");
         }
     }
 }

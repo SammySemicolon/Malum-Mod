@@ -26,7 +26,7 @@ import static com.sammy.malum.core.setup.content.item.ItemTagRegistry.GROSS_FOOD
 public class GluttonyEffect extends MobEffect {
     public GluttonyEffect() {
         super(MobEffectCategory.BENEFICIAL, ColorHelper.getColor(88, 86, 60));
-        addAttributeModifier(OrtusAttributeRegistry.MAGIC_DAMAGE.get(), "4d82fd0a-24b6-45f5-8d7a-983f99fd6783", 2f, AttributeModifier.Operation.ADDITION);
+        addAttributeModifier(OrtusAttributeRegistry.MAGIC_PROFICIENCY.get(), "4d82fd0a-24b6-45f5-8d7a-983f99fd6783", 4f, AttributeModifier.Operation.ADDITION);
     }
 
     public static void canApplyPotion(PotionEvent.PotionApplicableEvent event) {

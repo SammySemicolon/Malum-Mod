@@ -47,7 +47,7 @@ public class FloatingItemEntityRenderer extends EntityRenderer<FloatingItemEntit
     }
 
     private static final ResourceLocation LIGHT_TRAIL = prefix("textures/vfx/light_trail.png");
-    private static final RenderType LIGHT_TYPE = OrtusRenderTypeRegistry.TEXTURE_TRIANGLE.apply(LIGHT_TRAIL);
+    private static final RenderType LIGHT_TYPE = OrtusRenderTypeRegistry.ADDITIVE_TEXTURE_TRIANGLE.apply(LIGHT_TRAIL);
 
     private static final ResourceLocation MESSY_TRAIL = prefix("textures/vfx/messy_trail.png");
     private static final RenderType MESSY_TYPE = OrtusRenderTypeRegistry.SCROLLING_TEXTURE_TRIANGLE.apply(MESSY_TRAIL);

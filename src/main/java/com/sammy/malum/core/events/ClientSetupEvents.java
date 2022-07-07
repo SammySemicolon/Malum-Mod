@@ -28,6 +28,6 @@ public class ClientSetupEvents {
     @SubscribeEvent
     public static void registerOverlays(FMLClientSetupEvent event) {
         OverlayRegistry.registerOverlayAbove(ForgeIngameGui.ARMOR_LEVEL_ELEMENT, "Soul Ward", (gui, poseStack, partialTick, width, height) ->
-            ArcaneAffinity.ClientOnly.renderSoulWard(gui, poseStack, width, height));
+                ArcaneAffinity.ClientOnly.renderSoulWard(gui, poseStack, width, height));
     }
 }
