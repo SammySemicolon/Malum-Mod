@@ -22,11 +22,11 @@ import net.minecraft.world.item.ItemStack;
 
 import javax.annotation.Nonnull;
 
-import static com.sammy.malum.MalumMod.prefix;
+import static com.sammy.malum.MalumMod.malumPath;
 
 public class SpiritInfusionRecipeCategory implements IRecipeCategory<SpiritInfusionRecipe> {
 
-    public static final ResourceLocation UID = prefix("spirit_infusion");
+    public static final ResourceLocation UID = malumPath("spirit_infusion");
     private final IDrawable background;
     private final IDrawable overlay;
     private final IDrawable icon;

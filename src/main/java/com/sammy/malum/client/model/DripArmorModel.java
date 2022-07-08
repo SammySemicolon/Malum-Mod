@@ -13,7 +13,7 @@ import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 
 public class DripArmorModel extends OrtusArmorModel {
-	public static ModelLayerLocation LAYER = new ModelLayerLocation(MalumMod.prefix("textures/armor/drip"), "main");
+	public static ModelLayerLocation LAYER = new ModelLayerLocation(MalumMod.malumPath("textures/armor/drip"), "main");
 
 	public DripArmorModel(ModelPart root) {
 		super(root);

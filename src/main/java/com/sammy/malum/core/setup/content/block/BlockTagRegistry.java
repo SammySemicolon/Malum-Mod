@@ -30,7 +30,7 @@ public class BlockTagRegistry {
     }
 
     private static TagKey<Block> malumTag(String path) {
-        return TagKey.create(Registry.BLOCK_REGISTRY, MalumMod.prefix(path));
+        return TagKey.create(Registry.BLOCK_REGISTRY, MalumMod.malumPath(path));
     }
 
     private static TagKey<Block> forgeTag(String name) {

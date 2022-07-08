@@ -21,7 +21,6 @@ import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
@@ -32,12 +31,12 @@ import java.util.UUID;
 
 public class TokenOfGratitudeRenderer implements ICurioRenderer {
 
-    private static final ResourceLocation SAMMY = MalumMod.prefix("textures/patreon/sammy_texture.png");
-    private static final ResourceLocation OWL_PERSON_EYES = MalumMod.prefix("textures/patreon/owl_person_eyes.png");
-    private static final ResourceLocation OWL_PERSON_ELYTRA = MalumMod.prefix("textures/patreon/owl_person_elytra.png");
-    private static final ResourceLocation SNAKE_FELLA_SCARF = MalumMod.prefix("textures/patreon/snake_scarf.png");
-    private static final ResourceLocation TRANS_SCARF = MalumMod.prefix("textures/patreon/trans_scarf.png");
-    private static final ResourceLocation BOBBU_SCARF = MalumMod.prefix("textures/patreon/bobbu_scarf.png");
+    private static final ResourceLocation SAMMY = MalumMod.malumPath("textures/patreon/sammy_texture.png");
+    private static final ResourceLocation OWL_PERSON_EYES = MalumMod.malumPath("textures/patreon/owl_person_eyes.png");
+    private static final ResourceLocation OWL_PERSON_ELYTRA = MalumMod.malumPath("textures/patreon/owl_person_elytra.png");
+    private static final ResourceLocation SNAKE_FELLA_SCARF = MalumMod.malumPath("textures/patreon/snake_scarf.png");
+    private static final ResourceLocation TRANS_SCARF = MalumMod.malumPath("textures/patreon/trans_scarf.png");
+    private static final ResourceLocation BOBBU_SCARF = MalumMod.malumPath("textures/patreon/bobbu_scarf.png");
 
     @Override
     public <T extends LivingEntity, M extends EntityModel<T>> void render(ItemStack stack, SlotContext slotContext, PoseStack poseStack, RenderLayerParent<T, M> renderLayerParent, MultiBufferSource renderTypeBuffer, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {

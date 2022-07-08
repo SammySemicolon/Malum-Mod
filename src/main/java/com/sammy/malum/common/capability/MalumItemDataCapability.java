@@ -35,7 +35,7 @@ public class MalumItemDataCapability implements OrtusCapability {
     public static void attachItemCapability(AttachCapabilitiesEvent<Entity> event) {
         if (event.getObject() instanceof ItemEntity) {
             final MalumItemDataCapability capability = new MalumItemDataCapability();
-            event.addCapability(MalumMod.prefix("item_data"), new OrtusCapabilityProvider<>(CAPABILITY, () -> capability));
+            event.addCapability(MalumMod.malumPath("item_data"), new OrtusCapabilityProvider<>(CAPABILITY, () -> capability));
         }
     }
 

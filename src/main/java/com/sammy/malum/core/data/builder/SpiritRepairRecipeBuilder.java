@@ -48,7 +48,7 @@ public class SpiritRepairRecipeBuilder {
     }
 
     public void build(Consumer<FinishedRecipe> consumerIn, String recipeName) {
-        build(consumerIn, MalumMod.prefix("spirit_crucible/repair/" + recipeName));
+        build(consumerIn, MalumMod.malumPath("spirit_crucible/repair/" + recipeName));
     }
 
     public void build(Consumer<FinishedRecipe> consumerIn, ResourceLocation id) {

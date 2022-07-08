@@ -27,11 +27,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.sammy.malum.MalumMod.prefix;
+import static com.sammy.malum.MalumMod.malumPath;
 
 public class SpiritRepairRecipeCategory implements IRecipeCategory<SpiritRepairRecipe> {
 
-    public static final ResourceLocation UID = prefix("spirit_repair");
+    public static final ResourceLocation UID = malumPath("spirit_repair");
     private final IDrawable background;
     private final IDrawable overlay;
     private final IDrawable icon;

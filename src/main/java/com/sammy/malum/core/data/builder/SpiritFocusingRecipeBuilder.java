@@ -37,7 +37,7 @@ public class SpiritFocusingRecipeBuilder {
     }
 
     public void build(Consumer<FinishedRecipe> consumerIn, String recipeName) {
-        build(consumerIn, MalumMod.prefix("spirit_crucible/" + recipeName));
+        build(consumerIn, MalumMod.malumPath("spirit_crucible/" + recipeName));
     }
 
     public void build(Consumer<FinishedRecipe> consumerIn) {

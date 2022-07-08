@@ -65,7 +65,7 @@ public class MalumMod {
         modBus.addListener(DataOnly::gatherData);
     }
 
-    public static ResourceLocation prefix(String path) {
+    public static ResourceLocation malumPath(String path) {
         return new ResourceLocation(MALUM, path);
     }
 

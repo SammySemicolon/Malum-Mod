@@ -4,13 +4,12 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.client.screen.codex.ProgressionBookScreen;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.entity.BoatRenderer;
 
 public class TextPage extends BookPage {
     public final String translationKey;
 
     public TextPage(String translationKey) {
-        super(MalumMod.prefix("textures/gui/book/pages/blank_page.png"));
+        super(MalumMod.malumPath("textures/gui/book/pages/blank_page.png"));
         this.translationKey = translationKey;
     }
 

@@ -6,6 +6,7 @@ import com.sammy.malum.common.capability.MalumPlayerDataCapability;
 import com.sammy.malum.common.effect.CorruptedAerialAura;
 import com.sammy.malum.common.effect.GluttonyEffect;
 import com.sammy.malum.common.effect.InfernalAura;
+import com.sammy.malum.common.effect.WickedIntentEffect;
 import com.sammy.malum.common.enchantment.ReboundEnchantment;
 import com.sammy.malum.common.item.equipment.CeaselessImpetusItem;
 import com.sammy.malum.common.item.equipment.curios.CurioAlchemicalRing;
@@ -28,6 +29,7 @@ import net.minecraftforge.event.entity.item.ItemExpireEvent;
 import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -136,6 +138,11 @@ public class RuntimeEvents {
         EarthenAffinity.consumeHeartOfStone(event);
         SpiritHarvestHandler.exposeSoul(event);
         MalumAttributeEventHandler.processAttributes(event);
+    }
+
+    @SubscribeEvent(priority = EventPriority.LOWEST)
+    public static void onLateHurt(LivingDamageEvent event) {
+        WickedIntentEffect.removeWickedIntent(event);
     }
 
     @SubscribeEvent

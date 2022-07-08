@@ -15,7 +15,7 @@ public class DoubleHeadlineTextPage extends BookPage
     private final String secondTranslationKey;
     public DoubleHeadlineTextPage(String headlineTranslationKey, String translationKey, String secondHeadlineTranslationKey, String secondTranslationKey)
     {
-        super(MalumMod.prefix("textures/gui/book/pages/spirit_rite_text_page.png"));
+        super(MalumMod.malumPath("textures/gui/book/pages/spirit_rite_text_page.png"));
         this.headlineTranslationKey = headlineTranslationKey;
         this.translationKey = translationKey;
         this.secondHeadlineTranslationKey = secondHeadlineTranslationKey;

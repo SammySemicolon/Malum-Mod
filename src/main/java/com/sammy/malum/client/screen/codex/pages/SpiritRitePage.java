@@ -14,7 +14,7 @@ public class SpiritRitePage extends BookPage {
     private final MalumRiteType riteType;
 
     public SpiritRitePage(MalumRiteType riteType) {
-        super(MalumMod.prefix("textures/gui/book/pages/spirit_rite_page.png"));
+        super(MalumMod.malumPath("textures/gui/book/pages/spirit_rite_page.png"));
         this.riteType = riteType;
     }
 

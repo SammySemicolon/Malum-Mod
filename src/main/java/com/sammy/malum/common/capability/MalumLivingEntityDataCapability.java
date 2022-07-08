@@ -58,7 +58,7 @@ public class MalumLivingEntityDataCapability implements OrtusCapability {
     public static void attachEntityCapability(AttachCapabilitiesEvent<Entity> event) {
         if (event.getObject() instanceof LivingEntity) {
             final MalumLivingEntityDataCapability capability = new MalumLivingEntityDataCapability();
-            event.addCapability(MalumMod.prefix("living_data"), new OrtusCapabilityProvider<>(MalumLivingEntityDataCapability.CAPABILITY, () -> capability));
+            event.addCapability(MalumMod.malumPath("living_data"), new OrtusCapabilityProvider<>(MalumLivingEntityDataCapability.CAPABILITY, () -> capability));
         }
     }
 

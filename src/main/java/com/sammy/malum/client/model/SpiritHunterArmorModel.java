@@ -19,7 +19,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 
 public class SpiritHunterArmorModel extends OrtusArmorModel {
-	public static ModelLayerLocation LAYER = new ModelLayerLocation(MalumMod.prefix("textures/armor/spirit_hunter_reforged"), "main");
+	public static ModelLayerLocation LAYER = new ModelLayerLocation(MalumMod.malumPath("textures/armor/spirit_hunter_reforged"), "main");
 
 	public ModelPart cape;
 	public ModelPart lowered_hood;

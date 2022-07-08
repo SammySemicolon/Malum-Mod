@@ -13,7 +13,7 @@ public class HeadlineTextPage extends BookPage
     private final String translationKey;
     public HeadlineTextPage(String headlineTranslationKey, String translationKey)
     {
-        super(MalumMod.prefix("textures/gui/book/pages/headline_page.png"));
+        super(MalumMod.malumPath("textures/gui/book/pages/headline_page.png"));
         this.headlineTranslationKey = headlineTranslationKey;
         this.translationKey = translationKey;
     }

@@ -4,9 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Vector3f;
 import com.mojang.math.Vector4f;
-import com.sammy.malum.common.blockentity.EtherBlockEntity;
 import com.sammy.malum.common.entity.FloatingItemEntity;
-import com.sammy.ortus.handlers.RenderHandler;
 import com.sammy.ortus.helpers.ColorHelper;
 import com.sammy.ortus.helpers.EntityHelper;
 import com.sammy.ortus.setup.OrtusRenderTypeRegistry;
@@ -25,14 +23,12 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.data.ForgeRecipeProvider;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
-import static com.sammy.malum.MalumMod.prefix;
+import static com.sammy.malum.MalumMod.malumPath;
 import static com.sammy.ortus.handlers.RenderHandler.*;
 import static com.sammy.ortus.setup.OrtusRenderTypeRegistry.queueUniformChanges;
 
@@ -46,10 +42,10 @@ public class FloatingItemEntityRenderer extends EntityRenderer<FloatingItemEntit
         this.shadowStrength = 0;
     }
 
-    private static final ResourceLocation LIGHT_TRAIL = prefix("textures/vfx/light_trail.png");
+    private static final ResourceLocation LIGHT_TRAIL = malumPath("textures/vfx/light_trail.png");
     private static final RenderType LIGHT_TYPE = OrtusRenderTypeRegistry.ADDITIVE_TEXTURE_TRIANGLE.apply(LIGHT_TRAIL);
 
-    private static final ResourceLocation MESSY_TRAIL = prefix("textures/vfx/messy_trail.png");
+    private static final ResourceLocation MESSY_TRAIL = malumPath("textures/vfx/messy_trail.png");
     private static final RenderType MESSY_TYPE = OrtusRenderTypeRegistry.SCROLLING_TEXTURE_TRIANGLE.apply(MESSY_TRAIL);
 
     @Override

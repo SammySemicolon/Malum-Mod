@@ -16,7 +16,7 @@ public class HeadlineTextItemPage extends BookPage
     private final ItemStack spiritStack;
     public HeadlineTextItemPage(String headlineTranslationKey, String translationKey, ItemStack spiritStack)
     {
-        super(MalumMod.prefix("textures/gui/book/pages/headline_item_page.png"));
+        super(MalumMod.malumPath("textures/gui/book/pages/headline_item_page.png"));
         this.headlineTranslationKey = headlineTranslationKey;
         this.translationKey = translationKey;
         this.spiritStack = spiritStack;

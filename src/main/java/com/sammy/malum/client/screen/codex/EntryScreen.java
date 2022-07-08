@@ -18,7 +18,7 @@ import static com.sammy.malum.client.screen.codex.ProgressionBookScreen.renderTe
 import static com.sammy.ortus.systems.rendering.particle.screen.base.ScreenParticle.RenderOrder.BEFORE_TOOLTIPS;
 
 public class EntryScreen extends Screen {
-    public static final ResourceLocation BOOK_TEXTURE = MalumMod.prefix("textures/gui/book/entry.png");
+    public static final ResourceLocation BOOK_TEXTURE = MalumMod.malumPath("textures/gui/book/entry.png");
 
     public static EntryScreen screen;
     public static EntryObject openObject;

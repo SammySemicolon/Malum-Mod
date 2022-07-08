@@ -109,7 +109,7 @@ public class ArcaneAffinity extends MalumSpiritAffinity {
     }
 
     public static class ClientOnly {
-        private static final ResourceLocation DEFAULT_SOUL_WARD = MalumMod.prefix("textures/gui/soul_ward/default.png");
+        private static final ResourceLocation DEFAULT_SOUL_WARD = MalumMod.malumPath("textures/gui/soul_ward/default.png");
 
         public static void renderSoulWard(ForgeIngameGui gui, PoseStack poseStack, int width, int height) {
             Minecraft minecraft = Minecraft.getInstance();
@@ -187,7 +187,7 @@ public class ArcaneAffinity extends MalumSpiritAffinity {
             }
         }
         public static ResourceLocation getSoulWardTexture() {
-            return MalumMod.prefix("textures/gui/soul_ward/default.png");
+            return MalumMod.malumPath("textures/gui/soul_ward/default.png");
         }
     }
 }

@@ -18,7 +18,7 @@ import net.minecraft.resources.ResourceLocation;
 
 import java.awt.*;
 
-import static com.sammy.malum.MalumMod.prefix;
+import static com.sammy.malum.MalumMod.malumPath;
 import static com.sammy.ortus.handlers.RenderHandler.DELAYED_RENDER;
 import static com.sammy.ortus.helpers.RenderHelper.FULL_BRIGHT;
 import static com.sammy.ortus.setup.OrtusRenderTypeRegistry.queueUniformChanges;
@@ -33,11 +33,11 @@ public class SoulEntityRenderer extends EntityRenderer<SoulEntity> {
         this.shadowStrength = 0;
     }
 
-    private static final ResourceLocation SOUL_NOISE = prefix("textures/vfx/noise/soul_noise.png");
+    private static final ResourceLocation SOUL_NOISE = malumPath("textures/vfx/noise/soul_noise.png");
     private static final RenderType SOUL_NOISE_TYPE = OrtusRenderTypeRegistry.RADIAL_NOISE.apply(SOUL_NOISE);
-    private static final ResourceLocation SECONDARY_SOUL_NOISE = prefix("textures/vfx/noise/soul_noise_secondary.png");
+    private static final ResourceLocation SECONDARY_SOUL_NOISE = malumPath("textures/vfx/noise/soul_noise_secondary.png");
     private static final RenderType SECONDARY_SOUL_NOISE_TYPE = OrtusRenderTypeRegistry.RADIAL_SCATTER_NOISE.apply(SECONDARY_SOUL_NOISE);
-    private static final ResourceLocation TRINARY_SOUL_NOISE = prefix("textures/vfx/noise/soul_noise_trinary.png");
+    private static final ResourceLocation TRINARY_SOUL_NOISE = malumPath("textures/vfx/noise/soul_noise_trinary.png");
     private static final RenderType TRINARY_SOUL_NOISE_TYPE = OrtusRenderTypeRegistry.RADIAL_SCATTER_NOISE.apply(TRINARY_SOUL_NOISE);
 
     @Override

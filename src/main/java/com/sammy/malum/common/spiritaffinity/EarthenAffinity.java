@@ -94,7 +94,7 @@ public class EarthenAffinity extends MalumSpiritAffinity {
     }
 
     public static class ClientOnly {
-        private static final ResourceLocation ICONS_TEXTURE = MalumMod.prefix("textures/gui/icons.png");
+        private static final ResourceLocation ICONS_TEXTURE = MalumMod.malumPath("textures/gui/icons.png");
 
         public static void renderHeartOfStone(RenderGameOverlayEvent.Post event) {
             Minecraft minecraft = Minecraft.getInstance();

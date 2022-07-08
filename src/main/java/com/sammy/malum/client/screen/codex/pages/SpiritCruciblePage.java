@@ -14,7 +14,7 @@ public class SpiritCruciblePage extends BookPage {
     private final SpiritFocusingRecipe recipe;
 
     public SpiritCruciblePage(Predicate<SpiritFocusingRecipe> predicate) {
-        super(MalumMod.prefix("textures/gui/book/pages/spirit_crucible_page.png"));
+        super(MalumMod.malumPath("textures/gui/book/pages/spirit_crucible_page.png"));
         if (Minecraft.getInstance() == null) //this is null during datagen
         {
             this.recipe = null;
@@ -24,7 +24,7 @@ public class SpiritCruciblePage extends BookPage {
     }
 
     public SpiritCruciblePage(SpiritFocusingRecipe recipe) {
-        super(MalumMod.prefix("textures/gui/book/pages/spirit_crucible_page.png"));
+        super(MalumMod.malumPath("textures/gui/book/pages/spirit_crucible_page.png"));
         this.recipe = recipe;
     }
 

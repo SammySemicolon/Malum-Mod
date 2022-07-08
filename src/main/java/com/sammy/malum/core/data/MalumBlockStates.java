@@ -31,7 +31,7 @@ import javax.annotation.Nonnull;
 import java.util.*;
 import java.util.function.Function;
 
-import static com.sammy.malum.MalumMod.prefix;
+import static com.sammy.malum.MalumMod.malumPath;
 import static com.sammy.malum.core.setup.content.block.BlockRegistry.*;
 import static com.sammy.ortus.helpers.DataHelper.take;
 import static com.sammy.ortus.helpers.DataHelper.takeAll;
@@ -125,26 +125,26 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
         String particleName = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath().replaceFirst("_wall", "").replaceFirst("_sign", "") + "_planks";
 
-        ModelFile sign = models().withExistingParent(name, new ResourceLocation("block/air")).texture("particle", prefix("block/" + particleName));
+        ModelFile sign = models().withExistingParent(name, new ResourceLocation("block/air")).texture("particle", malumPath("block/" + particleName));
         getVariantBuilder(blockRegistryObject.get()).forAllStates(s -> ConfiguredModel.builder().modelFile(sign).build());
     }
 
     public void customBlock(RegistryObject<Block> blockRegistryObject) {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
-        ModelFile model = models().getExistingFile(prefix("block/" + name));
+        ModelFile model = models().getExistingFile(malumPath("block/" + name));
         getVariantBuilder(blockRegistryObject.get()).forAllStates(s -> ConfiguredModel.builder().modelFile(model).build());
     }
 
     public void layeredBlock(RegistryObject<Block> blockRegistryObject) {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
         String glow = name + "_glow";
-        ModelFile glowModel = models().withExistingParent(name, prefix("block/templates/template_glowing_block")).texture("all", prefix("block/" + name)).texture("particle", prefix("block/" + name)).texture("glow", prefix("block/" + glow));
+        ModelFile glowModel = models().withExistingParent(name, malumPath("block/templates/template_glowing_block")).texture("all", malumPath("block/" + name)).texture("particle", malumPath("block/" + name)).texture("glow", malumPath("block/" + glow));
         getVariantBuilder(blockRegistryObject.get()).forAllStates(s -> ConfiguredModel.builder().modelFile(glowModel).build());
     }
 
     public void rotatedBlock(RegistryObject<Block> blockRegistryObject) {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
-        ModelFile file = models().cubeAll(name, prefix("block/" + name));
+        ModelFile file = models().cubeAll(name, malumPath("block/" + name));
 
         getVariantBuilder(blockRegistryObject.get()).partialState().modelForState()
                 .modelFile(file)
@@ -156,19 +156,19 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
 
     public void carpetBlock(RegistryObject<Block> blockRegistryObject) {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
-        ModelFile file = models().carpet(name, prefix("block/" + name));
+        ModelFile file = models().carpet(name, malumPath("block/" + name));
 
         getVariantBuilder(blockRegistryObject.get()).partialState().modelForState().modelFile(file).addModel();
     }
 
     public void quartzClusterBlock(RegistryObject<Block> blockRegistryObject) {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
-        directionalBlock(blockRegistryObject.get(), models().cross(name, prefix("block/"+name)));
+        directionalBlock(blockRegistryObject.get(), models().cross(name, malumPath("block/"+name)));
     }
     public void blightedSpireBlock(RegistryObject<Block> blockRegistryObject) {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
-        ModelFile cross0 = models().withExistingParent(name, new ResourceLocation("block/cross")).texture("cross", prefix("block/" + name + "_0"));
-        ModelFile cross1 = models().withExistingParent(name, new ResourceLocation("block/cross")).texture("cross", prefix("block/" + name + "_1"));
+        ModelFile cross0 = models().withExistingParent(name, new ResourceLocation("block/cross")).texture("cross", malumPath("block/" + name + "_0"));
+        ModelFile cross1 = models().withExistingParent(name, new ResourceLocation("block/cross")).texture("cross", malumPath("block/" + name + "_1"));
 
         getVariantBuilder(blockRegistryObject.get()).partialState().modelForState()
                 .modelFile(cross0)
@@ -178,7 +178,7 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
 
     public void blightedCoverageBlock(RegistryObject<Block> blockRegistryObject) {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
-        ModelFile file = models().carpet(name, prefix("block/" + name));
+        ModelFile file = models().carpet(name, malumPath("block/" + name));
 
         getVariantBuilder(blockRegistryObject.get()).partialState().modelForState()
                 .modelFile(file)
@@ -189,17 +189,17 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
     }
 
     public void blightedSoulwoodBlock(RegistryObject<Block> blockRegistryObject) {
-        simpleBlock(blockRegistryObject.get(), models().cubeBottomTop("blighted_soulwood", prefix("block/blighted_soulwood"), prefix("block/blighted_soil"), prefix("block/soulwood_log_top")));
+        simpleBlock(blockRegistryObject.get(), models().cubeBottomTop("blighted_soulwood", malumPath("block/blighted_soulwood"), malumPath("block/blighted_soil"), malumPath("block/soulwood_log_top")));
     }
 
     public void blightedEarthBlock(RegistryObject<Block> blockRegistryObject) {
-        simpleBlock(blockRegistryObject.get(), models().cubeBottomTop("blighted_earth",prefix("block/blighted_earth"),  new ResourceLocation("block/dirt"), prefix("block/blighted_soil")));
+        simpleBlock(blockRegistryObject.get(), models().cubeBottomTop("blighted_earth", malumPath("block/blighted_earth"),  new ResourceLocation("block/dirt"), malumPath("block/blighted_soil")));
     }
 
     public void wallMirrorBlock(RegistryObject<Block> blockRegistryObject) {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
         String particleName = "block_of_hallowed_gold";
-        ModelFile stand = models().withExistingParent(name, prefix("block/templates/template_mirror")).texture("mirror", prefix("block/"+name)).texture("particle", prefix("block/" + particleName));
+        ModelFile stand = models().withExistingParent(name, malumPath("block/templates/template_mirror")).texture("mirror", malumPath("block/"+name)).texture("particle", malumPath("block/" + particleName));
 
         getVariantBuilder(blockRegistryObject.get()).partialState()
                 .partialState().with(BlockStateProperties.FACING, Direction.NORTH)
@@ -218,7 +218,7 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
 
     public void sconceBlock(RegistryObject<Block> blockRegistryObject) {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
-        ModelFile sconce = models().withExistingParent(name, prefix("block/templates/template_sconce")).texture("sconce", prefix("block/"+name)).texture("fire", prefix("block/" + name + "_fire")).texture("particle", prefix("block/"+name));
+        ModelFile sconce = models().withExistingParent(name, malumPath("block/templates/template_sconce")).texture("sconce", malumPath("block/"+name)).texture("fire", malumPath("block/" + name + "_fire")).texture("particle", malumPath("block/"+name));
 
         getVariantBuilder(blockRegistryObject.get()).forAllStates(s -> ConfiguredModel.builder().modelFile(sconce).build());
     }
@@ -226,7 +226,7 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
     public void wallSconceBlock(RegistryObject<Block> blockRegistryObject) {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
         String textureName = name.replaceFirst("wall_", "");
-        ModelFile sconce = models().withExistingParent(name, prefix("block/templates/template_sconce_wall")).texture("sconce", prefix("block/"+textureName)).texture("fire", prefix("block/"+textureName+"_fire")).texture("particle", prefix("block/"+textureName));
+        ModelFile sconce = models().withExistingParent(name, malumPath("block/templates/template_sconce_wall")).texture("sconce", malumPath("block/"+textureName)).texture("fire", malumPath("block/"+textureName+"_fire")).texture("particle", malumPath("block/"+textureName));
 
         getVariantBuilder(blockRegistryObject.get())
                 .partialState().with(WallTorchBlock.FACING, Direction.NORTH)
@@ -240,20 +240,20 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
     }
     public void etherBlock(RegistryObject<Block> blockRegistryObject) {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
-        ModelFile empty = models().withExistingParent(name, new ResourceLocation("block/air")).texture("particle", prefix("item/ether"));
+        ModelFile empty = models().withExistingParent(name, new ResourceLocation("block/air")).texture("particle", malumPath("item/ether"));
         getVariantBuilder(blockRegistryObject.get()).forAllStates(s -> ConfiguredModel.builder().modelFile(empty).build());
     }
 
     public void etherSconceBlock(RegistryObject<Block> blockRegistryObject) {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
-        ModelFile sconce = models().withExistingParent(name, prefix("block/templates/template_ether_sconce")).texture("sconce", prefix("block/ether_sconce")).texture("overlay", prefix("block/ether_sconce_overlay")).texture("fire", prefix("block/ether_sconce_fire")).texture("particle", prefix("block/ether_sconce"));
+        ModelFile sconce = models().withExistingParent(name, malumPath("block/templates/template_ether_sconce")).texture("sconce", malumPath("block/ether_sconce")).texture("overlay", malumPath("block/ether_sconce_overlay")).texture("fire", malumPath("block/ether_sconce_fire")).texture("particle", malumPath("block/ether_sconce"));
 
         getVariantBuilder(blockRegistryObject.get()).forAllStates(s -> ConfiguredModel.builder().modelFile(sconce).build());
     }
 
     public void wallEtherSconceBlock(RegistryObject<Block> blockRegistryObject) {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
-        ModelFile sconce = models().withExistingParent(name, prefix("block/templates/template_ether_sconce_wall")).texture("sconce", prefix("block/ether_sconce")).texture("overlay", prefix("block/ether_sconce_overlay")).texture("fire", prefix("block/ether_sconce_fire")).texture("particle", prefix("block/ether_sconce"));
+        ModelFile sconce = models().withExistingParent(name, malumPath("block/templates/template_ether_sconce_wall")).texture("sconce", malumPath("block/ether_sconce")).texture("overlay", malumPath("block/ether_sconce_overlay")).texture("fire", malumPath("block/ether_sconce_fire")).texture("particle", malumPath("block/ether_sconce"));
 
         getVariantBuilder(blockRegistryObject.get())
                 .partialState().with(WallTorchBlock.FACING, Direction.NORTH)
@@ -268,14 +268,14 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
 
     public void etherTorchBlock(RegistryObject<Block> blockRegistryObject) {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
-        ModelFile torch = models().withExistingParent(name, prefix("block/templates/template_ether_torch")).texture("torch", prefix("block/ether_torch")).texture("colored", prefix("block/ether_torch_overlay")).texture("particle", prefix("block/runewood_planks"));
+        ModelFile torch = models().withExistingParent(name, malumPath("block/templates/template_ether_torch")).texture("torch", malumPath("block/ether_torch")).texture("colored", malumPath("block/ether_torch_overlay")).texture("particle", malumPath("block/runewood_planks"));
 
         getVariantBuilder(blockRegistryObject.get()).forAllStates(s -> ConfiguredModel.builder().modelFile(torch).build());
     }
 
     public void wallEtherTorchBlock(RegistryObject<Block> blockRegistryObject) {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
-        ModelFile torch = models().withExistingParent(name, prefix("block/templates/template_ether_torch_wall")).texture("torch", prefix("block/ether_torch")).texture("colored", prefix("block/ether_torch_overlay")).texture("particle", prefix("block/runewood_planks"));
+        ModelFile torch = models().withExistingParent(name, malumPath("block/templates/template_ether_torch_wall")).texture("torch", malumPath("block/ether_torch")).texture("colored", malumPath("block/ether_torch_overlay")).texture("particle", malumPath("block/runewood_planks"));
 
         getVariantBuilder(blockRegistryObject.get())
                 .partialState().with(WallTorchBlock.FACING, Direction.NORTH)
@@ -290,14 +290,14 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
 
     public void torchBlock(RegistryObject<Block> blockRegistryObject) {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
-        ModelFile torch = models().torch(blockRegistryObject.get().getRegistryName().getPath(), prefix("block/" + name));
+        ModelFile torch = models().torch(blockRegistryObject.get().getRegistryName().getPath(), malumPath("block/" + name));
 
         getVariantBuilder(blockRegistryObject.get()).forAllStates(s -> ConfiguredModel.builder().modelFile(torch).build());
     }
 
     public void wallTorchBlock(RegistryObject<Block> blockRegistryObject) {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
-        ModelFile torch = models().torchWall(blockRegistryObject.get().getRegistryName().getPath(), prefix("block/" + name.substring(5)));
+        ModelFile torch = models().torchWall(blockRegistryObject.get().getRegistryName().getPath(), malumPath("block/" + name.substring(5)));
 
         getVariantBuilder(blockRegistryObject.get())
                 .partialState().with(WallTorchBlock.FACING, Direction.NORTH)
@@ -316,7 +316,7 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
         if (!particleName.endsWith("_rock")) {
             particleName += "_planks";
         }
-        ModelFile stand = models().withExistingParent(name, prefix("block/templates/template_item_stand")).texture("stand", prefix("block/" + name)).texture("particle", prefix("block/" + particleName));
+        ModelFile stand = models().withExistingParent(name, malumPath("block/templates/template_item_stand")).texture("stand", malumPath("block/" + name)).texture("particle", malumPath("block/" + particleName));
 
         getVariantBuilder(blockRegistryObject.get()).partialState()
                 .partialState().with(BlockStateProperties.FACING, Direction.NORTH)
@@ -341,25 +341,25 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
             particleName += "_planks";
             modelLocation = "block/templates/template_wood_item_pedestal";
         }
-        ModelFile pedestal = models().withExistingParent(name, prefix(modelLocation)).texture("pedestal", prefix("block/" + name)).texture("particle", prefix("block/" + particleName));
+        ModelFile pedestal = models().withExistingParent(name, malumPath(modelLocation)).texture("pedestal", malumPath("block/" + name)).texture("particle", malumPath("block/" + particleName));
         getVariantBuilder(blockRegistryObject.get()).forAllStates(s -> ConfiguredModel.builder().modelFile(pedestal).build());
     }
 
     public void cutBlock(RegistryObject<Block> blockRegistryObject) {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
         String baseName = "polished_" + name.substring(4);
-        simpleBlock(blockRegistryObject.get(), models().cubeBottomTop(name, prefix("block/" + name), prefix("block/" + baseName), prefix("block/" + baseName)));
+        simpleBlock(blockRegistryObject.get(), models().cubeBottomTop(name, malumPath("block/" + name), malumPath("block/" + baseName), malumPath("block/" + baseName)));
     }
 
     public void cutPlanksBlock(RegistryObject<Block> blockRegistryObject) {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
         String baseName = name.substring(0, name.length() - "_planks".length()).substring(4) + "_panel";
-        simpleBlock(blockRegistryObject.get(), models().cubeBottomTop(name, prefix("block/" + name), prefix("block/" + baseName), prefix("block/" + baseName)));
+        simpleBlock(blockRegistryObject.get(), models().cubeBottomTop(name, malumPath("block/" + name), malumPath("block/" + baseName), malumPath("block/" + baseName)));
     }
 
     public void grassBlock(RegistryObject<Block> blockRegistryObject) {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
-        ModelFile file = models().cubeBottomTop(name, prefix("block/" + name + "_side"), new ResourceLocation("block/dirt"), prefix("block/" + name + "_top"));
+        ModelFile file = models().cubeBottomTop(name, malumPath("block/" + name + "_side"), new ResourceLocation("block/dirt"), malumPath("block/" + name + "_top"));
 
         getVariantBuilder(blockRegistryObject.get()).partialState().modelForState()
                 .modelFile(file)
@@ -373,11 +373,11 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
     public void totemBaseBlock(RegistryObject<Block> blockRegistryObject) {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
         String woodName = name.substring(0, 8);
-        ResourceLocation side = prefix("block/" + woodName + "_log");
-        ResourceLocation top = prefix("block/" + woodName + "_log_top");
-        ResourceLocation planks = prefix("block/" + woodName + "_planks");
-        ResourceLocation panel = prefix("block/" + woodName + "_panel");
-        ModelFile base = models().withExistingParent(name, prefix("block/templates/template_totem_base")).texture("side", side).texture("top", top).texture("planks", planks).texture("panel", panel);
+        ResourceLocation side = malumPath("block/" + woodName + "_log");
+        ResourceLocation top = malumPath("block/" + woodName + "_log_top");
+        ResourceLocation planks = malumPath("block/" + woodName + "_planks");
+        ResourceLocation panel = malumPath("block/" + woodName + "_panel");
+        ModelFile base = models().withExistingParent(name, malumPath("block/templates/template_totem_base")).texture("side", side).texture("top", top).texture("planks", planks).texture("panel", panel);
 
         simpleBlock(blockRegistryObject.get(), base);
     }
@@ -385,20 +385,20 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
     public void totemPoleBlock(RegistryObject<Block> blockRegistryObject) {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
         String woodName = name.substring(0, 8);
-        ResourceLocation side = prefix("block/" + woodName + "_log");
-        ResourceLocation top = prefix("block/" + woodName + "_log_top");
+        ResourceLocation side = malumPath("block/" + woodName + "_log");
+        ResourceLocation top = malumPath("block/" + woodName + "_log_top");
 
         getVariantBuilder(blockRegistryObject.get()).forAllStates(s -> {
             String type = s.getValue(SpiritTypeRegistry.SPIRIT_TYPE_PROPERTY);
             MalumSpiritType spiritType = SpiritTypeRegistry.SPIRITS.get(type);
-            ModelFile pole = models().withExistingParent(name + "_" + spiritType.identifier, prefix("block/templates/template_totem_pole")).texture("side", side).texture("top", top).texture("front", prefix("block/totem/" + spiritType.identifier + "_" + woodName + "_cutout"));
+            ModelFile pole = models().withExistingParent(name + "_" + spiritType.identifier, malumPath("block/templates/template_totem_pole")).texture("side", side).texture("top", top).texture("front", malumPath("block/totem/" + spiritType.identifier + "_" + woodName + "_cutout"));
             return ConfiguredModel.builder().modelFile(pole).rotationY(((int) s.getValue(BlockStateProperties.HORIZONTAL_FACING).toYRot() + 180) % 360).build();
         });
     }
 
     public void malumLeavesBlock(RegistryObject<Block> blockRegistryObject) {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
-        ModelFile leaves = models().withExistingParent(name, new ResourceLocation("block/leaves")).texture("all", prefix("block/" + name));
+        ModelFile leaves = models().withExistingParent(name, new ResourceLocation("block/leaves")).texture("all", malumPath("block/" + name));
         simpleBlock(blockRegistryObject.get(), leaves);
     }
 
@@ -406,7 +406,7 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
         String baseName = name.substring(0, name.length() - 11);
         String pillarName = name.substring(0, name.length() - 4) + "_top";
-        directionalBlock(blockRegistryObject.get(), models().cubeBottomTop(name, prefix("block/" + name), prefix("block/" + pillarName), prefix("block/smooth_" + baseName)));
+        directionalBlock(blockRegistryObject.get(), models().cubeBottomTop(name, malumPath("block/" + name), malumPath("block/" + pillarName), malumPath("block/smooth_" + baseName)));
     }
 
     public void trapdoorBlock(RegistryObject<Block> blockRegistryObject) {
@@ -415,38 +415,38 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
 
     public void doorBlock(RegistryObject<Block> blockRegistryObject) {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
-        doorBlock((DoorBlock) blockRegistryObject.get(), prefix("block/" + name + "_bottom"), prefix("block/" + name + "_top"));
+        doorBlock((DoorBlock) blockRegistryObject.get(), malumPath("block/" + name + "_bottom"), malumPath("block/" + name + "_top"));
     }
 
     public void fenceGateBlock(RegistryObject<Block> blockRegistryObject) {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
         String baseName = name.substring(0, name.length() - 11);
-        fenceGateBlock((FenceGateBlock) blockRegistryObject.get(), prefix("block/" + baseName));
+        fenceGateBlock((FenceGateBlock) blockRegistryObject.get(), malumPath("block/" + baseName));
     }
 
     public void fenceBlock(RegistryObject<Block> blockRegistryObject) {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
         String baseName = name.substring(0, name.length() - 6);
-        fenceBlock((FenceBlock) blockRegistryObject.get(), prefix("block/" + baseName));
+        fenceBlock((FenceBlock) blockRegistryObject.get(), malumPath("block/" + baseName));
     }
 
     public void wallBlock(RegistryObject<Block> blockRegistryObject) {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
         String baseName = name.substring(0, name.length() - 5);
-        wallBlock((WallBlock) blockRegistryObject.get(), prefix("block/" + baseName));
+        wallBlock((WallBlock) blockRegistryObject.get(), malumPath("block/" + baseName));
     }
 
     public void stairsBlock(RegistryObject<Block> blockRegistryObject) {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
         String baseName = name.substring(0, name.length() - 7);
-        stairsBlock((StairBlock) blockRegistryObject.get(), prefix("block/" + baseName));
+        stairsBlock((StairBlock) blockRegistryObject.get(), malumPath("block/" + baseName));
     }
 
     public void pressurePlateBlock(RegistryObject<Block> blockRegistryObject) {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
         String baseName = name.substring(0, name.length() - 15);
-        ModelFile pressurePlateDown = models().withExistingParent(name + "_down", new ResourceLocation("block/pressure_plate_down")).texture("texture", prefix("block/" + baseName));
-        ModelFile pressurePlateUp = models().withExistingParent(name + "_up", new ResourceLocation("block/pressure_plate_up")).texture("texture", prefix("block/" + baseName));
+        ModelFile pressurePlateDown = models().withExistingParent(name + "_down", new ResourceLocation("block/pressure_plate_down")).texture("texture", malumPath("block/" + baseName));
+        ModelFile pressurePlateUp = models().withExistingParent(name + "_up", new ResourceLocation("block/pressure_plate_up")).texture("texture", malumPath("block/" + baseName));
 
         getVariantBuilder(blockRegistryObject.get()).partialState().with(PressurePlateBlock.POWERED, true).modelForState().modelFile(pressurePlateDown).addModel().partialState().with(PressurePlateBlock.POWERED, false).modelForState().modelFile(pressurePlateUp).addModel();
     }
@@ -455,8 +455,8 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
         String textureName = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath().replaceFirst("_iridescent", "");
         String particleName = textureName.replaceFirst("_ether_brazier", "") + "_rock";
-        ModelFile brazier = models().withExistingParent(name, prefix("block/templates/template_ether_brazier")).texture("brazier", prefix("block/" + textureName)).texture("particle", prefix("block/" + particleName));
-        ModelFile brazier_hanging = models().withExistingParent(name + "_hanging", prefix("block/templates/template_ether_brazier_hanging")).texture("brazier", prefix("block/" + textureName)).texture("particle", prefix("block/" + particleName));
+        ModelFile brazier = models().withExistingParent(name, malumPath("block/templates/template_ether_brazier")).texture("brazier", malumPath("block/" + textureName)).texture("particle", malumPath("block/" + particleName));
+        ModelFile brazier_hanging = models().withExistingParent(name + "_hanging", malumPath("block/templates/template_ether_brazier_hanging")).texture("brazier", malumPath("block/" + textureName)).texture("particle", malumPath("block/" + particleName));
 
         getVariantBuilder(blockRegistryObject.get())
                 .partialState().with(EtherBrazierBlock.HANGING, false).modelForState().modelFile(brazier).addModel()
@@ -466,8 +466,8 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
 
     public void lanternBlock(RegistryObject<Block> blockRegistryObject) {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
-        ModelFile lantern = models().withExistingParent(name, new ResourceLocation("block/templates/template_lantern")).texture("lantern", prefix("block/" + name));
-        ModelFile hangingLantern = models().withExistingParent(name + "_hanging", new ResourceLocation("block/templates/template_hanging_lantern")).texture("lantern", prefix("block/" + name));
+        ModelFile lantern = models().withExistingParent(name, new ResourceLocation("block/templates/template_lantern")).texture("lantern", malumPath("block/" + name));
+        ModelFile hangingLantern = models().withExistingParent(name + "_hanging", new ResourceLocation("block/templates/template_hanging_lantern")).texture("lantern", malumPath("block/" + name));
 
         getVariantBuilder(blockRegistryObject.get()).partialState().with(LanternBlock.HANGING, true).modelForState().modelFile(hangingLantern).addModel().partialState().with(LanternBlock.HANGING, false).modelForState().modelFile(lantern).addModel();
     }
@@ -475,25 +475,25 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
     public void buttonBlock(RegistryObject<Block> blockRegistryObject) {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
         String baseName = name.substring(0, name.length() - 7);
-        ModelFile buttom = models().withExistingParent(name, new ResourceLocation("block/button")).texture("texture", prefix("block/" + baseName));
-        ModelFile buttonPressed = models().withExistingParent(name + "_pressed", new ResourceLocation("block/button_pressed")).texture("texture", prefix("block/" + baseName));
+        ModelFile buttom = models().withExistingParent(name, new ResourceLocation("block/button")).texture("texture", malumPath("block/" + baseName));
+        ModelFile buttonPressed = models().withExistingParent(name + "_pressed", new ResourceLocation("block/button_pressed")).texture("texture", malumPath("block/" + baseName));
         Function<BlockState, ModelFile> modelFunc = $ -> buttom;
         Function<BlockState, ModelFile> pressedModelFunc = $ -> buttonPressed;
         getVariantBuilder(blockRegistryObject.get()).forAllStates(s -> ConfiguredModel.builder().modelFile(s.getValue(BlockStateProperties.POWERED) ? pressedModelFunc.apply(s) : modelFunc.apply(s)).uvLock(s.getValue(BlockStateProperties.ATTACH_FACE).equals(AttachFace.WALL)).rotationX(s.getValue(BlockStateProperties.ATTACH_FACE).ordinal() * 90).rotationY((((int) s.getValue(BlockStateProperties.HORIZONTAL_FACING).toYRot() + 180) + (s.getValue(BlockStateProperties.ATTACH_FACE) == AttachFace.CEILING ? 180 : 0)) % 360).build());
-        models().withExistingParent(name + "_inventory", new ResourceLocation("block/button_inventory")).texture("texture", prefix("block/" + baseName));
+        models().withExistingParent(name + "_inventory", new ResourceLocation("block/button_inventory")).texture("texture", malumPath("block/" + baseName));
     }
 
     public void tallPlantBlock(RegistryObject<Block> blockRegistryObject) {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
-        ModelFile bottom = models().withExistingParent(name + "_bottom", new ResourceLocation("block/cross")).texture("cross", prefix("block/" + name + "_bottom"));
-        ModelFile top = models().withExistingParent(name + "_top", new ResourceLocation("block/cross")).texture("cross", prefix("block/" + name + "_top"));
+        ModelFile bottom = models().withExistingParent(name + "_bottom", new ResourceLocation("block/cross")).texture("cross", malumPath("block/" + name + "_bottom"));
+        ModelFile top = models().withExistingParent(name + "_top", new ResourceLocation("block/cross")).texture("cross", malumPath("block/" + name + "_top"));
 
         getVariantBuilder(blockRegistryObject.get()).partialState().with(DoublePlantBlock.HALF, LOWER).modelForState().modelFile(bottom).addModel().partialState().with(DoublePlantBlock.HALF, UPPER).modelForState().modelFile(top).addModel();
     }
 
     public void plantBlock(RegistryObject<Block> blockRegistryObject) {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
-        ModelFile cross = models().withExistingParent(name, new ResourceLocation("block/cross")).texture("cross", prefix("block/" + name));
+        ModelFile cross = models().withExistingParent(name, new ResourceLocation("block/cross")).texture("cross", malumPath("block/" + name));
 
         getVariantBuilder(blockRegistryObject.get()).forAllStates(s -> ConfiguredModel.builder().modelFile(cross).build());
     }
@@ -501,7 +501,7 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
     public void slabBlock(RegistryObject<Block> blockRegistryObject) {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
         String baseName = name.substring(0, name.length() - 5);
-        slabBlock((SlabBlock) blockRegistryObject.get(), prefix(baseName), prefix("block/" + baseName));
+        slabBlock((SlabBlock) blockRegistryObject.get(), malumPath(baseName), malumPath("block/" + baseName));
     }
 
     public void logBlock(RegistryObject<Block> blockRegistryObject) {
@@ -515,6 +515,6 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
     public void woodBlock(RegistryObject<Block> blockRegistryObject) {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
         String baseName = name + "_log";
-        axisBlock((RotatedPillarBlock) blockRegistryObject.get(), prefix("block/" + baseName), prefix("block/" + baseName));
+        axisBlock((RotatedPillarBlock) blockRegistryObject.get(), malumPath("block/" + baseName), malumPath("block/" + baseName));
     }
 }

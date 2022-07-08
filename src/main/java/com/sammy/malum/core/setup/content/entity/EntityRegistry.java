@@ -28,27 +28,27 @@ public class EntityRegistry
 
     public static final RegistryObject<EntityType<PlayerBoundItemEntity>> NATURAL_SPIRIT = ENTITY_TYPES.register("natural_spirit",
             () -> EntityType.Builder.<PlayerBoundItemEntity>of((e, w)->new PlayerBoundItemEntity(w), MobCategory.MISC).sized(0.5F, 0.75F).clientTrackingRange(10)
-                    .build(MalumMod.prefix("natural_spirit").toString()));
+                    .build(MalumMod.malumPath("natural_spirit").toString()));
 
     public static final RegistryObject<EntityType<MirrorItemEntity>> MIRROR_ITEM = ENTITY_TYPES.register("mirror_item",
             () -> EntityType.Builder.<MirrorItemEntity>of((e, w)->new MirrorItemEntity(w), MobCategory.MISC).sized(0.5F, 0.5F).clientTrackingRange(10)
-                    .build(MalumMod.prefix("mirror_item").toString()));
+                    .build(MalumMod.malumPath("mirror_item").toString()));
 
     public static final RegistryObject<EntityType<SoulEntity>> NATURAL_SOUL = ENTITY_TYPES.register("natural_soul",
             () -> EntityType.Builder.<SoulEntity>of((e, w)->new SoulEntity(w), MobCategory.MISC).sized(1.5F, 1.5F).clientTrackingRange(10)
-                    .build(MalumMod.prefix("natural_soul").toString()));
+                    .build(MalumMod.malumPath("natural_soul").toString()));
     
     public static final RegistryObject<EntityType<ScytheBoomerangEntity>> SCYTHE_BOOMERANG = ENTITY_TYPES.register("scythe_boomerang",
             () -> EntityType.Builder.<ScytheBoomerangEntity>of((e,w)->new ScytheBoomerangEntity(w), MobCategory.MISC).sized(2.5F, 0.75F).clientTrackingRange(10)
-                    .build(MalumMod.prefix("scythe_boomerang").toString()));
+                    .build(MalumMod.malumPath("scythe_boomerang").toString()));
 
     public static final RegistryObject<EntityType<OrtusBoatEntity>> RUNEWOOD_BOAT = ENTITY_TYPES.register("runewood_boat",
             () -> EntityType.Builder.<OrtusBoatEntity>of((t, w)->new OrtusBoatEntity(t, w, ItemRegistry.RUNEWOOD_BOAT, ItemRegistry.RUNEWOOD_PLANKS), MobCategory.MISC).sized(1.375F, 0.5625F).clientTrackingRange(10)
-                    .build(MalumMod.prefix("runewood_boat").toString()));
+                    .build(MalumMod.malumPath("runewood_boat").toString()));
 
     public static final RegistryObject<EntityType<OrtusBoatEntity>> SOULWOOD_BOAT = ENTITY_TYPES.register("soulwood_boat",
             () -> EntityType.Builder.<OrtusBoatEntity>of((t, w)->new OrtusBoatEntity(t, w, ItemRegistry.SOULWOOD_BOAT, ItemRegistry.SOULWOOD_PLANKS), MobCategory.MISC).sized(1.375F, 0.5625F).clientTrackingRange(10)
-                    .build(MalumMod.prefix("soulwood_boat").toString()));
+                    .build(MalumMod.malumPath("soulwood_boat").toString()));
 
     @Mod.EventBusSubscriber(modid= MalumMod.MALUM, value= Dist.CLIENT, bus= Mod.EventBusSubscriber.Bus.MOD)
     public static class ClientOnly {

@@ -49,7 +49,7 @@ public class MalumPlayerDataCapability implements OrtusCapability {
     public static void attachPlayerCapability(AttachCapabilitiesEvent<Entity> event) {
         if (event.getObject() instanceof Player) {
             final MalumPlayerDataCapability capability = new MalumPlayerDataCapability();
-            event.addCapability(MalumMod.prefix("player_data"), new OrtusCapabilityProvider<>(MalumPlayerDataCapability.CAPABILITY, () -> capability));
+            event.addCapability(MalumMod.malumPath("player_data"), new OrtusCapabilityProvider<>(MalumPlayerDataCapability.CAPABILITY, () -> capability));
         }
     }
 

@@ -97,7 +97,7 @@ public class NBTCarryRecipeBuilder {
         if ((new ResourceLocation(save)).equals(resourcelocation)) {
             throw new IllegalStateException("Shaped Recipe " + save + " should remove its 'save' argument");
         } else {
-            this.build(consumerIn, MalumMod.prefix(save));
+            this.build(consumerIn, MalumMod.malumPath(save));
         }
     }
 

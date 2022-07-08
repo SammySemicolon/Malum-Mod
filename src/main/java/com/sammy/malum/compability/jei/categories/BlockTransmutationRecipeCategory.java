@@ -21,10 +21,10 @@ import net.minecraft.world.item.ItemStack;
 
 import javax.annotation.Nonnull;
 
-import static com.sammy.malum.MalumMod.prefix;
+import static com.sammy.malum.MalumMod.malumPath;
 
 public class BlockTransmutationRecipeCategory implements IRecipeCategory<BlockTransmutationRecipe> {
-    public static final ResourceLocation UID = prefix("block_transmutation");
+    public static final ResourceLocation UID = malumPath("block_transmutation");
     private final IDrawable background;
     private final IDrawable overlay;
     private final IDrawable icon;

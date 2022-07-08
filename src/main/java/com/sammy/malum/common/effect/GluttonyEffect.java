@@ -2,11 +2,13 @@ package com.sammy.malum.common.effect;
 
 import com.sammy.malum.common.capability.MalumPlayerDataCapability;
 import com.sammy.malum.core.setup.content.AttributeRegistry;
+import com.sammy.malum.core.setup.content.SoundRegistry;
 import com.sammy.malum.core.setup.content.potion.MalumMobEffectRegistry;
 import com.sammy.ortus.helpers.ColorHelper;
 import com.sammy.ortus.helpers.EntityHelper;
 import com.sammy.ortus.setup.OrtusAttributeRegistry;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -17,6 +19,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodData;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.living.PotionEvent;
 import net.minecraftforge.eventbus.api.Event;
@@ -44,6 +47,8 @@ public class GluttonyEffect extends MobEffect {
             MobEffectInstance effect = entity.getEffect(MalumMobEffectRegistry.GLUTTONY.get());
             if (effect != null) {
                 EntityHelper.extendEffect(effect, entity, 200, 1000);
+                Level level = entity.level;
+                level.playSound(null, entity.blockPosition(), SoundRegistry.HUNGRY_BELT_FEEDS.get(), SoundSource.PLAYERS, 1.7f, 1.2f + level.random.nextFloat() * 0.5f);
             }
         }
     }
@@ -51,7 +56,7 @@ public class GluttonyEffect extends MobEffect {
     @Override
     public void applyEffectTick(LivingEntity entityLivingBaseIn, int amplifier) {
         if (entityLivingBaseIn instanceof Player player) {
-            player.causeFoodExhaustion(0.003f * (amplifier + 1));
+            player.causeFoodExhaustion(0.004f * (amplifier + 1));
         }
     }
 

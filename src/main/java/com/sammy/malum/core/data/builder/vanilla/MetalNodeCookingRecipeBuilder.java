@@ -1,32 +1,17 @@
 package com.sammy.malum.core.data.builder.vanilla;
 
 import com.google.gson.JsonObject;
-import com.google.gson.JsonSyntaxException;
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.core.data.builder.SpiritFocusingRecipeBuilder;
 import com.sammy.malum.core.setup.content.RecipeSerializerRegistry;
 import com.sammy.ortus.systems.recipe.IngredientWithCount;
 import net.minecraft.advancements.Advancement;
-import net.minecraft.advancements.AdvancementRewards;
-import net.minecraft.advancements.CriterionTriggerInstance;
-import net.minecraft.advancements.RequirementsStrategy;
-import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
-import net.minecraft.core.Registry;
 import net.minecraft.data.recipes.FinishedRecipe;
-import net.minecraft.data.recipes.RecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.Tag;
-import net.minecraft.tags.TagKey;
-import net.minecraft.util.GsonHelper;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.AbstractCookingRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 
 import javax.annotation.Nullable;
-import java.util.Optional;
 import java.util.function.Consumer;
 
 public class MetalNodeCookingRecipeBuilder {
@@ -66,7 +51,7 @@ public class MetalNodeCookingRecipeBuilder {
 
 
    public void build(Consumer<FinishedRecipe> consumerIn, String recipeName) {
-      build(consumerIn, MalumMod.prefix("node_processing/" + recipeName));
+      build(consumerIn, MalumMod.malumPath("node_processing/" + recipeName));
    }
 
    public void build(Consumer<FinishedRecipe> consumerIn) {

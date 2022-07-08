@@ -23,7 +23,7 @@ public class ItemTagRegistry {
     }
 
     private static TagKey<Item> malumTag(String path) {
-        return TagKey.create(Registry.ITEM_REGISTRY, MalumMod.prefix(path));
+        return TagKey.create(Registry.ITEM_REGISTRY, MalumMod.malumPath(path));
     }
 
     private static TagKey<Item> forgeTag(String name) {

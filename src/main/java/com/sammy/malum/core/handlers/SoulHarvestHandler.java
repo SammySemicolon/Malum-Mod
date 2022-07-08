@@ -40,7 +40,7 @@ import net.minecraftforge.network.PacketDistributor;
 import java.awt.*;
 import java.util.ArrayList;
 
-import static com.sammy.malum.MalumMod.prefix;
+import static com.sammy.malum.MalumMod.malumPath;
 import static com.sammy.malum.core.setup.server.PacketRegistry.MALUM_CHANNEL;
 import static com.sammy.ortus.handlers.RenderHandler.DELAYED_RENDER;
 import static com.sammy.ortus.helpers.RenderHelper.FULL_BRIGHT;
@@ -206,9 +206,9 @@ public class SoulHarvestHandler {
     }
 
     public static class ClientOnly {
-        private static final ResourceLocation SOUL_NOISE = prefix("textures/vfx/noise/soul_noise.png");
+        private static final ResourceLocation SOUL_NOISE = malumPath("textures/vfx/noise/soul_noise.png");
         private static final RenderType SOUL_NOISE_TYPE = OrtusRenderTypeRegistry.RADIAL_NOISE.apply(SOUL_NOISE);
-        private static final ResourceLocation PREVIEW_NOISE = prefix("textures/vfx/noise/harvest_noise.png");
+        private static final ResourceLocation PREVIEW_NOISE = malumPath("textures/vfx/noise/harvest_noise.png");
         private static final RenderType PREVIEW_NOISE_TYPE = OrtusRenderTypeRegistry.RADIAL_SCATTER_NOISE.apply(PREVIEW_NOISE);
 
         @SuppressWarnings("all")

@@ -13,7 +13,7 @@ import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 
 public class AncientSoulStainedSteelArmorModel extends OrtusArmorModel {
-	public static ModelLayerLocation LAYER = new ModelLayerLocation(MalumMod.prefix("textures/armor/soul_stained_steel"), "main");
+	public static ModelLayerLocation LAYER = new ModelLayerLocation(MalumMod.malumPath("textures/armor/soul_stained_steel"), "main");
 
 	public AncientSoulStainedSteelArmorModel(ModelPart root) {
 		super(root);

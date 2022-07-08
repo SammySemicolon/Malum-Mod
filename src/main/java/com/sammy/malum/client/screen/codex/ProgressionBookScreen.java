@@ -51,10 +51,10 @@ public class ProgressionBookScreen extends Screen {
 
     public static final ScreenVFXBuilder BUILDER = VFXBuilders.createScreen().setPosTexDefaultFormat();
 
-    public static final ResourceLocation FRAME_TEXTURE = MalumMod.prefix("textures/gui/book/frame.png");
-    public static final ResourceLocation FADE_TEXTURE = MalumMod.prefix("textures/gui/book/fade.png");
+    public static final ResourceLocation FRAME_TEXTURE = MalumMod.malumPath("textures/gui/book/frame.png");
+    public static final ResourceLocation FADE_TEXTURE = MalumMod.malumPath("textures/gui/book/fade.png");
 
-    public static final ResourceLocation BACKGROUND_TEXTURE = MalumMod.prefix("textures/gui/book/background.png");
+    public static final ResourceLocation BACKGROUND_TEXTURE = MalumMod.malumPath("textures/gui/book/background.png");
 
     public int bookWidth = 378;
     public int bookHeight = 250;

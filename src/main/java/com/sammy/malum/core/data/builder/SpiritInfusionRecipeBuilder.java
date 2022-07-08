@@ -62,7 +62,7 @@ public class SpiritInfusionRecipeBuilder {
     }
 
     public void build(Consumer<FinishedRecipe> consumerIn, String recipeName) {
-        build(consumerIn, MalumMod.prefix("spirit_infusion/" + recipeName));
+        build(consumerIn, MalumMod.malumPath("spirit_infusion/" + recipeName));
     }
 
     public void build(Consumer<FinishedRecipe> consumerIn) {

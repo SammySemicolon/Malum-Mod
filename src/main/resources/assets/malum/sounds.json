@@ -81,8 +81,10 @@
   "spirit_crucible_focuses": { "sounds":["malum:crucible/crucible_loop"], "subtitle": "malum.subtitle.spirit_crucible_focuses" },
   "impetus_takes_damage": { "sounds":["malum:crucible/impetus_crack1", "malum:crucible/impetus_crack2", "malum:crucible/impetus_crack3"], "subtitle": "malum.subtitle.impetus_takes_damage" },
 
-  "void_slash_swooshes": { "sounds":["malum:void_slash"], "subtitle": "malum.subtitle.void_slash_swooshes" },
   "aerial_magic_swooshes": { "sounds":["minecraft:mob/phantom/flap1","minecraft:mob/phantom/flap2","minecraft:mob/phantom/flap3","minecraft:mob/phantom/flap4","minecraft:mob/phantom/flap5","minecraft:mob/phantom/flap6"], "subtitle": "malum.subtitle.aerial_magic_swooshes" },
+  "void_slash_swooshes": { "sounds":["malum:void_slash"], "subtitle": "malum.subtitle.void_slash_swooshes" },
+  "hungry_belt_feeds": { "sounds":["malum:trinkets/starved_belt/nom1", "malum:trinkets/starved_belt/nom2", "malum:trinkets/starved_belt/nom3", "malum:trinkets/starved_belt/nom4"], "subtitle": "malum.subtitle.hungry_belt_feeds" },
+  "hidden_blade_strikes": { "sounds":["malum:trinkets/hidden_blade/strike1", "malum:trinkets/hidden_blade/strike2", "malum:trinkets/hidden_blade/strike3"], "subtitle": "malum.subtitle.hidden_blade_strikes" },
 
   "gilded_trinket_equipped": { "sounds":["malum:trinkets/equip_holy"], "subtitle": "malum.subtitle.gilded_trinket_equipped" },
   "ornate_trinket_equipped": { "sounds":["malum:trinkets/equip_sinister"], "subtitle": "malum.subtitle.ornate_trinket_equipped" },

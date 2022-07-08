@@ -24,10 +24,10 @@ import net.minecraft.world.item.ItemStack;
 
 import javax.annotation.Nonnull;
 
-import static com.sammy.malum.MalumMod.prefix;
+import static com.sammy.malum.MalumMod.malumPath;
 
 public class SpiritRiteRecipeCategory implements IRecipeCategory<MalumRiteType> {
-    public static final ResourceLocation UID = prefix("spirit_rite");
+    public static final ResourceLocation UID = malumPath("spirit_rite");
     private final IDrawable background;
     private final IDrawable overlay;
     private final IDrawable icon;

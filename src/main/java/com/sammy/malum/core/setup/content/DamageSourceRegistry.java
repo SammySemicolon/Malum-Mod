@@ -14,7 +14,7 @@ public class DamageSourceRegistry {
     public static final DamageSource FORCED_SHATTER = new DamageSource(FORCED_SHATTER_DAMAGE).setMagic().bypassArmor().bypassMagic();
 
     public static DamageSource causeVoodooDamage(Entity attacker) {
-        return new EntityDamageSource(VOODOO_DAMAGE, attacker).setMagic();
+        return new EntityDamageSource(VOODOO_DAMAGE, attacker).bypassMagic().setMagic();
     }
     public static DamageSource causeMagebaneDamage(Entity attacker) {
         return new EntityDamageSource(MAGEBANE_DAMAGE, attacker).setThorns().setMagic();

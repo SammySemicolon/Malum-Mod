@@ -31,7 +31,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-import static com.sammy.malum.MalumMod.prefix;
+import static com.sammy.malum.MalumMod.malumPath;
 import static com.sammy.malum.core.setup.content.item.ItemRegistry.ITEMS;
 import static com.sammy.ortus.helpers.DataHelper.take;
 import static com.sammy.ortus.helpers.DataHelper.takeAll;
@@ -84,16 +84,16 @@ public class MalumItemModels extends net.minecraftforge.client.model.generators.
 
     private void blightedSpireItem(RegistryObject<Item> i) {
         String name = Registry.ITEM.getKey(i.get()).getPath();
-        withExistingParent(name, GENERATED).texture("layer0", prefix("block/" + name+"_0"));
+        withExistingParent(name, GENERATED).texture("layer0", malumPath("block/" + name+"_0"));
     }
     private void multiBlockItem(RegistryObject<Item> i) {
         String name = Registry.ITEM.getKey(i.get()).getPath();
-        getBuilder(name).parent(new ModelFile.UncheckedModelFile(prefix("item/" + name + "_item")));
+        getBuilder(name).parent(new ModelFile.UncheckedModelFile(malumPath("item/" + name + "_item")));
     }
 
     private void nodeItem(RegistryObject<Item> i) {
         String name = Registry.ITEM.getKey(i.get()).getPath();
-        withExistingParent(name, GENERATED).texture("layer0", prefix("item/impetus/" + name));
+        withExistingParent(name, GENERATED).texture("layer0", malumPath("item/impetus/" + name));
     }
 
     private void impetusItem(RegistryObject<Item> i) {
@@ -101,12 +101,12 @@ public class MalumItemModels extends net.minecraftforge.client.model.generators.
         ArrayList<String> split = DataHelper.reverseOrder(new ArrayList<>(), Arrays.asList(name.split("_")));
         split.remove(0);
         String alteredName = String.join("_", split);
-        withExistingParent(name, GENERATED).texture("layer0", prefix("item/impetus/" + alteredName));
+        withExistingParent(name, GENERATED).texture("layer0", malumPath("item/impetus/" + alteredName));
     }
 
     private void spiritSplinterItem(RegistryObject<Item> i) {
         String name = Registry.ITEM.getKey(i.get()).getPath();
-        withExistingParent(name, GENERATED).texture("layer0", prefix("item/spirit_shard"));
+        withExistingParent(name, GENERATED).texture("layer0", malumPath("item/spirit_shard"));
     }
 
     private void etherBrazierItem(RegistryObject<Item> i) {
@@ -114,87 +114,87 @@ public class MalumItemModels extends net.minecraftforge.client.model.generators.
         String textureName = name.substring(0, 8) + "ether_brazier";
         AbstractEtherItem etherItem = (AbstractEtherItem) i.get();
         if (etherItem.iridescent) {
-            withExistingParent(name, GENERATED).texture("layer0", prefix("item/iridescent_ether_brazier")).texture("layer1", prefix("item/" + textureName)).texture("layer2", prefix("item/iridescent_ether_brazier_overlay"));
+            withExistingParent(name, GENERATED).texture("layer0", malumPath("item/iridescent_ether_brazier")).texture("layer1", malumPath("item/" + textureName)).texture("layer2", malumPath("item/iridescent_ether_brazier_overlay"));
             return;
         }
-        withExistingParent(name, GENERATED).texture("layer0", prefix("item/ether_brazier_overlay")).texture("layer1", prefix("item/" + textureName));
+        withExistingParent(name, GENERATED).texture("layer0", malumPath("item/ether_brazier_overlay")).texture("layer1", malumPath("item/" + textureName));
     }
 
     private void etherTorchItem(RegistryObject<Item> i) {
         String name = Registry.ITEM.getKey(i.get()).getPath();
         AbstractEtherItem etherItem = (AbstractEtherItem) i.get();
         if (etherItem.iridescent) {
-            withExistingParent(name, GENERATED).texture("layer0", prefix("item/iridescent_ether_torch")).texture("layer1", prefix("item/ether_torch")).texture("layer2", prefix("item/iridescent_ether_torch_overlay"));
+            withExistingParent(name, GENERATED).texture("layer0", malumPath("item/iridescent_ether_torch")).texture("layer1", malumPath("item/ether_torch")).texture("layer2", malumPath("item/iridescent_ether_torch_overlay"));
             return;
         }
-        withExistingParent(name, GENERATED).texture("layer0", prefix("item/ether_torch_overlay")).texture("layer1", prefix("item/ether_torch"));
+        withExistingParent(name, GENERATED).texture("layer0", malumPath("item/ether_torch_overlay")).texture("layer1", malumPath("item/ether_torch"));
     }
 
     private void etherSconceItem(RegistryObject<Item> i) {
         String name = Registry.ITEM.getKey(i.get()).getPath();
         AbstractEtherItem etherItem = (AbstractEtherItem) i.get();
         if (etherItem.iridescent) {
-            withExistingParent(name, GENERATED).texture("layer0", prefix("item/iridescent_ether_sconce")).texture("layer1", prefix("item/ether_sconce")).texture("layer2", prefix("item/iridescent_ether_sconce_overlay"));
+            withExistingParent(name, GENERATED).texture("layer0", malumPath("item/iridescent_ether_sconce")).texture("layer1", malumPath("item/ether_sconce")).texture("layer2", malumPath("item/iridescent_ether_sconce_overlay"));
             return;
         }
-        withExistingParent(name, GENERATED).texture("layer0", prefix("item/ether_sconce_overlay")).texture("layer1", prefix("item/ether_sconce"));
+        withExistingParent(name, GENERATED).texture("layer0", malumPath("item/ether_sconce_overlay")).texture("layer1", malumPath("item/ether_sconce"));
     }
 
     private void etherItem(RegistryObject<Item> i) {
         String name = Registry.ITEM.getKey(i.get()).getPath();
         AbstractEtherItem etherItem = (AbstractEtherItem) i.get();
         if (etherItem.iridescent) {
-            withExistingParent(name, GENERATED).texture("layer0", prefix("item/iridescent_ether")).texture("layer1", prefix("item/iridescent_ether_overlay"));
+            withExistingParent(name, GENERATED).texture("layer0", malumPath("item/iridescent_ether")).texture("layer1", malumPath("item/iridescent_ether_overlay"));
             return;
         }
-        withExistingParent(name, GENERATED).texture("layer0", prefix("item/ether"));
+        withExistingParent(name, GENERATED).texture("layer0", malumPath("item/ether"));
     }
 
     private void handheldItem(RegistryObject<Item> i) {
         String name = Registry.ITEM.getKey(i.get()).getPath();
-        withExistingParent(name, HANDHELD).texture("layer0", prefix("item/" + name));
+        withExistingParent(name, HANDHELD).texture("layer0", malumPath("item/" + name));
     }
 
     private void generatedItem(RegistryObject<Item> i) {
         String name = Registry.ITEM.getKey(i.get()).getPath();
-        withExistingParent(name, GENERATED).texture("layer0", prefix("item/" + name));
+        withExistingParent(name, GENERATED).texture("layer0", malumPath("item/" + name));
     }
 
     private void blockGeneratedItem(RegistryObject<Item> i) {
         String name = Registry.ITEM.getKey(i.get()).getPath();
-        withExistingParent(name, GENERATED).texture("layer0", prefix("block/" + name));
+        withExistingParent(name, GENERATED).texture("layer0", malumPath("block/" + name));
     }
 
     private void blockItem(RegistryObject<Item> i) {
         String name = Registry.ITEM.getKey(i.get()).getPath();
-        getBuilder(name).parent(new ModelFile.UncheckedModelFile(prefix("block/" + name)));
+        getBuilder(name).parent(new ModelFile.UncheckedModelFile(malumPath("block/" + name)));
     }
 
     private void trapdoorBlockItem(RegistryObject<Item> i) {
         String name = Registry.ITEM.getKey(i.get()).getPath();
-        getBuilder(name).parent(new ModelFile.UncheckedModelFile(prefix("block/" + name + "_bottom")));
+        getBuilder(name).parent(new ModelFile.UncheckedModelFile(malumPath("block/" + name + "_bottom")));
     }
 
     private void fenceBlockItem(RegistryObject<Item> i) {
         String name = Registry.ITEM.getKey(i.get()).getPath();
         String baseName = name.substring(0, name.length() - 6);
-        fenceInventory(name, prefix("block/" + baseName));
+        fenceInventory(name, malumPath("block/" + baseName));
     }
 
     private void wallBlockItem(RegistryObject<Item> i) {
         String name = Registry.ITEM.getKey(i.get()).getPath();
         String baseName = name.substring(0, name.length() - 5);
-        wallInventory(name, prefix("block/" + baseName));
+        wallInventory(name, malumPath("block/" + baseName));
     }
 
     private void pressurePlateBlockItem(RegistryObject<Item> i) {
         String name = Registry.ITEM.getKey(i.get()).getPath();
-        getBuilder(name).parent(new ModelFile.UncheckedModelFile(prefix("block/" + name + "_up")));
+        getBuilder(name).parent(new ModelFile.UncheckedModelFile(malumPath("block/" + name + "_up")));
     }
 
     private void buttonBlockItem(RegistryObject<Item> i) {
         String name = Registry.ITEM.getKey(i.get()).getPath();
-        getBuilder(name).parent(new ModelFile.UncheckedModelFile(prefix("block/" + name + "_inventory")));
+        getBuilder(name).parent(new ModelFile.UncheckedModelFile(malumPath("block/" + name + "_inventory")));
     }
 
     @Override

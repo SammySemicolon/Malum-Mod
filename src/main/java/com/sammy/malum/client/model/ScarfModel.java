@@ -1,10 +1,8 @@
 package com.sammy.malum.client.model;
 
-import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.sammy.malum.MalumMod;
-import com.sammy.ortus.systems.model.OrtusArmorModel;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
@@ -15,7 +13,7 @@ import net.minecraft.world.entity.player.Player;
 
 public class ScarfModel extends EntityModel<Player> {
 
-	public static ModelLayerLocation LAYER = new ModelLayerLocation(MalumMod.prefix("scarf"), "main");
+	public static ModelLayerLocation LAYER = new ModelLayerLocation(MalumMod.malumPath("scarf"), "main");
 	public final ModelPart headScarf;
 	public final ModelPart torsoScarf;
 

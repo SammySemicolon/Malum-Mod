@@ -1,5 +1,6 @@
 package com.sammy.malum.common.item.tools;
 
+import com.sammy.malum.common.entity.boomerang.ScytheBoomerangEntity;
 import com.sammy.malum.core.setup.client.ParticleRegistry;
 import com.sammy.malum.core.setup.content.DamageSourceRegistry;
 import com.sammy.malum.core.setup.content.SoundRegistry;
@@ -43,7 +44,7 @@ public class MalumScytheItem extends ModCombatItem implements IMalumEventRespond
             }
             attacker.level.playSound(null, target.getX(), target.getY(), target.getZ(), sound, attacker.getSoundSource(), 1, 1);
         }
-        
+
         if (!canSweep || event.getSource().isMagic() || event.getSource().getMsgId().equals(DamageSourceRegistry.SCYTHE_SWEEP_DAMAGE)) {
             return;
         }
@@ -64,5 +65,14 @@ public class MalumScytheItem extends ModCombatItem implements IMalumEventRespond
         if (player.level instanceof ServerLevel) {
             ((ServerLevel) player.level).sendParticles(type, player.getX() + d0, player.getY(0.5D), player.getZ() + d1, 0, d0, 0.0D, d1, 0.0D);
         }
+    }
+
+    public static ItemStack getScytheItemStack(DamageSource source, LivingEntity attacker) {
+        ItemStack stack = attacker.getMainHandItem();
+
+        if (source.getDirectEntity() instanceof ScytheBoomerangEntity) {
+            stack = ((ScytheBoomerangEntity) source.getDirectEntity()).scythe;
+        }
+        return stack.getItem() instanceof MalumScytheItem ? stack : ItemStack.EMPTY;
     }
 }

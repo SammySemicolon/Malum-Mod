@@ -23,7 +23,7 @@ public class BlockTransmutationRecipeBuilder
     }
     public void build(Consumer<FinishedRecipe> consumerIn, String recipeName)
     {
-        build(consumerIn, MalumMod.prefix("block_transmutation/" + recipeName));
+        build(consumerIn, MalumMod.malumPath("block_transmutation/" + recipeName));
     }
     public void build(Consumer<FinishedRecipe> consumerIn)
     {

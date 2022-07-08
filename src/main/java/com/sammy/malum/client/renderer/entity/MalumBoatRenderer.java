@@ -6,6 +6,6 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 
 public class MalumBoatRenderer extends OrtusBoatRenderer {
     public MalumBoatRenderer(EntityRendererProvider.Context context, String textureName) {
-        super(context, MalumMod.prefix("textures/entity/boat/" + textureName + "_boat.png"));
+        super(context, MalumMod.malumPath("textures/entity/boat/" + textureName + "_boat.png"));
     }
 }

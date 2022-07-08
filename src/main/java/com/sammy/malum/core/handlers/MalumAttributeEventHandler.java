@@ -18,10 +18,9 @@ public class MalumAttributeEventHandler {
         DamageSource source = event.getSource();
         if (source.getEntity() instanceof LivingEntity attacker) {
             float amount = event.getAmount();
-            ItemStack stack = attacker.getMainHandItem();
-
-            if (source.getDirectEntity() instanceof ScytheBoomerangEntity) {
-                stack = ((ScytheBoomerangEntity) source.getDirectEntity()).scythe;
+            ItemStack stack = MalumScytheItem.getScytheItemStack(source, attacker);
+            if (stack.isEmpty()) {
+                return;
             }
             if (source instanceof EntityDamageSource entityDamageSource) {
                 if (entityDamageSource.isThorns()) {
@@ -29,12 +28,11 @@ public class MalumAttributeEventHandler {
                 }
             }
             if (!event.getSource().isMagic()) {
-                if (stack.getItem() instanceof MalumScytheItem) {
-                    AttributeInstance scytheProficiency = attacker.getAttribute(AttributeRegistry.SCYTHE_PROFICIENCY.get());
-                    if (scytheProficiency != null && scytheProficiency.getValue() > 0) {
-                        event.setAmount((float) (amount + scytheProficiency.getValue() * 0.5f));
-                    }
+                AttributeInstance scytheProficiency = attacker.getAttribute(AttributeRegistry.SCYTHE_PROFICIENCY.get());
+                if (scytheProficiency != null && scytheProficiency.getValue() > 0) {
+                    event.setAmount((float) (amount + scytheProficiency.getValue() * 0.5f));
                 }
+
             }
         }
     }

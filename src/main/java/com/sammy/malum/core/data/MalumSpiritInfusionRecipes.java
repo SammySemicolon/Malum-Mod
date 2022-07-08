@@ -389,7 +389,7 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider implements ICondi
                                 .addExtraItem(Ingredient.of(ingot), 6)
                                 ::build)
                 .generateAdvancement()
-                .build(consumer, MalumMod.prefix("impetus_creation_" + ingot.location().getPath().replace("ingots/", "")));
+                .build(consumer, MalumMod.malumPath("impetus_creation_" + ingot.location().getPath().replace("ingots/", "")));
     }
     public void metalImpetusRecipe(Consumer<FinishedRecipe> consumer, RegistryObject<ImpetusItem> output, Item ingot) {
         new SpiritInfusionRecipeBuilder(ItemRegistry.ALCHEMICAL_IMPETUS.get(), 1, output.get(), 1)

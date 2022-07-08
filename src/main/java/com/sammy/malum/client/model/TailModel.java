@@ -12,7 +12,7 @@ import net.minecraft.world.entity.player.Player;
 
 public class TailModel extends EntityModel<Player> {
 
-	public static ModelLayerLocation LAYER = new ModelLayerLocation(MalumMod.prefix("tail"), "main");
+	public static ModelLayerLocation LAYER = new ModelLayerLocation(MalumMod.malumPath("tail"), "main");
 	private final ModelPart tail;
 
 	public TailModel(ModelPart root) {

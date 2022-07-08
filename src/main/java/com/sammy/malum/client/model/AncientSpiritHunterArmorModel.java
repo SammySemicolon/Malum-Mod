@@ -13,7 +13,7 @@ import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 
 public class AncientSpiritHunterArmorModel extends OrtusArmorModel {
-	public static ModelLayerLocation LAYER = new ModelLayerLocation(MalumMod.prefix("textures/armor/spirit_hunter"), "main");
+	public static ModelLayerLocation LAYER = new ModelLayerLocation(MalumMod.malumPath("textures/armor/spirit_hunter"), "main");
 
 	public AncientSpiritHunterArmorModel(ModelPart root) {
 		super(root);
