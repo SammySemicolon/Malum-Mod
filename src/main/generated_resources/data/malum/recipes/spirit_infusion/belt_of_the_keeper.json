@@ -1,31 +1,31 @@
 {
   "type": "malum:spirit_infusion",
   "input": {
-    "item": "malum:ornate_ring",
+    "item": "malum:gilded_belt",
     "count": 1
   },
   "output": {
-    "item": "malum:ring_of_the_guardian",
+    "item": "malum:belt_of_the_keeper",
     "count": 1
   },
   "extra_items": [
     {
       "item": "malum:hex_ash",
-      "count": 2
+      "count": 4
     },
     {
       "item": "malum:soul_stained_steel_ingot",
-      "count": 4
+      "count": 6
     }
   ],
   "spirits": [
     {
       "type": "earthen",
-      "count": 8
+      "count": 16
     },
     {
       "type": "arcane",
-      "count": 8
+      "count": 16
     }
   ]
 }

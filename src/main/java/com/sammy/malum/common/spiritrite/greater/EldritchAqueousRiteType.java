@@ -14,6 +14,7 @@ import com.sammy.malum.core.systems.rites.MalumRiteType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.monster.Drowned;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -35,7 +36,7 @@ import static com.sammy.malum.core.setup.server.PacketRegistry.MALUM_CHANNEL;
 
 public class EldritchAqueousRiteType extends MalumRiteType {
     public EldritchAqueousRiteType() {
-        super("eldritch_aqueous_rite", ELDRITCH_SPIRIT, ARCANE_SPIRIT, AQUEOUS_SPIRIT, AQUEOUS_SPIRIT);
+        super("greater_aqueous_rite", ELDRITCH_SPIRIT, ARCANE_SPIRIT, AQUEOUS_SPIRIT, AQUEOUS_SPIRIT);
     }
 
     @Override
@@ -67,7 +68,7 @@ public class EldritchAqueousRiteType extends MalumRiteType {
         return new EntityAffectingRiteEffect() {
             @Override
             public void riteEffect(TotemBaseBlockEntity totemBase) {
-                getNearbyEntities(totemBase, Zombie.class).forEach(e -> {
+                getNearbyEntities(totemBase, Zombie.class).filter(z -> !(z instanceof Drowned)).forEach(e -> {
                     if (!e.isUnderWaterConverting()) {
                         e.startUnderWaterConversion(100);
                         MALUM_CHANNEL.send(PacketDistributor.TRACKING_ENTITY.with(() -> e), new MajorEntityEffectParticlePacket(AQUEOUS_SPIRIT.getColor(), e.getX(), e.getY() + e.getBbHeight() / 2f, e.getZ()));

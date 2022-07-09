@@ -3,6 +3,6 @@
   "textures": {
     "side": "malum:block/soulwood_log",
     "top": "malum:block/soulwood_log_top",
-    "front": "malum:block/totem/arcane_soulwood_cutout"
+    "front": "malum:spirit/arcane_soulwood_cutout"
   }
 }

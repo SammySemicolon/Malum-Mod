@@ -391,7 +391,7 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
         getVariantBuilder(blockRegistryObject.get()).forAllStates(s -> {
             String type = s.getValue(SpiritTypeRegistry.SPIRIT_TYPE_PROPERTY);
             MalumSpiritType spiritType = SpiritTypeRegistry.SPIRITS.get(type);
-            ModelFile pole = models().withExistingParent(name + "_" + spiritType.identifier, malumPath("block/templates/template_totem_pole")).texture("side", side).texture("top", top).texture("front", malumPath("block/totem/" + spiritType.identifier + "_" + woodName + "_cutout"));
+            ModelFile pole = models().withExistingParent(name + "_" + spiritType.identifier, malumPath("block/templates/template_totem_pole")).texture("side", side).texture("top", top).texture("front", malumPath("spirit/" + spiritType.identifier + "_" + woodName + "_cutout"));
             return ConfiguredModel.builder().modelFile(pole).rotationY(((int) s.getValue(BlockStateProperties.HORIZONTAL_FACING).toYRot() + 180) % 360).build();
         });
     }

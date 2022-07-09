@@ -22,7 +22,7 @@ import static com.sammy.malum.core.setup.server.PacketRegistry.MALUM_CHANNEL;
 
 public class EldritchInfernalRiteType extends MalumRiteType {
     public EldritchInfernalRiteType() {
-        super("eldritch_infernal_rite", ELDRITCH_SPIRIT, ARCANE_SPIRIT, INFERNAL_SPIRIT, INFERNAL_SPIRIT);
+        super("greater_infernal_rite", ELDRITCH_SPIRIT, ARCANE_SPIRIT, INFERNAL_SPIRIT, INFERNAL_SPIRIT);
     }
 
     @Override

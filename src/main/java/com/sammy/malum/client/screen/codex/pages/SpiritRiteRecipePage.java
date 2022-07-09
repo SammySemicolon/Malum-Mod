@@ -10,11 +10,11 @@ import net.minecraft.world.item.ItemStack;
 
 import java.util.ArrayList;
 
-public class SpiritRitePage extends BookPage {
+public class SpiritRiteRecipePage extends BookPage {
     private final MalumRiteType riteType;
 
-    public SpiritRitePage(MalumRiteType riteType) {
-        super(MalumMod.malumPath("textures/gui/book/pages/spirit_rite_page.png"));
+    public SpiritRiteRecipePage(MalumRiteType riteType) {
+        super(MalumMod.malumPath("textures/gui/book/pages/spirit_rite_recipe_page.png"));
         this.riteType = riteType;
     }
 

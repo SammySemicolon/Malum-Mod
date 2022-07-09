@@ -29,7 +29,8 @@ public class EntryObject extends BookObject {
         int posX = offsetPosX(xOffset);
         int posY = offsetPosY(yOffset);
         renderTransparentTexture(FADE_TEXTURE, poseStack, posX - 13, posY - 13, 1, 252, 58, 58, 512, 512);
-        renderTexture(FRAME_TEXTURE, poseStack, posX, posY, 1, 252, width, height, 512, 512);
+        renderTexture(FRAME_TEXTURE, poseStack, posX, posY, 1, getFrameTextureV(), width, height, 512, 512);
+        renderTexture(FRAME_TEXTURE, poseStack, posX, posY, 100, getBackgroundTextureV(), width, height, 512, 512);
         minecraft.getItemRenderer().renderAndDecorateItem(entry.iconStack, posX + 8, posY + 8);
     }
 
@@ -38,5 +39,13 @@ public class EntryObject extends BookObject {
         if (isHovering) {
             screen.renderComponentTooltip(poseStack, Arrays.asList(new TranslatableComponent(entry.translationKey()), new TranslatableComponent(entry.descriptionTranslationKey()).withStyle(ChatFormatting.GRAY)), mouseX, mouseY, minecraft.font);
         }
+    }
+
+    public int getFrameTextureV() {
+        return entry.isSoulwood ? 285 : 252;
+    }
+
+    public int getBackgroundTextureV() {
+        return entry.isDark ? 285 : 252;
     }
 }

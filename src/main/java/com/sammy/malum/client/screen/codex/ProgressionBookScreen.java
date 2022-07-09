@@ -2,23 +2,27 @@ package com.sammy.malum.client.screen.codex;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Vector4f;
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.client.screen.codex.objects.BookObject;
-import com.sammy.malum.client.screen.codex.objects.ImportantEntryObject;
-import com.sammy.malum.client.screen.codex.objects.MinorEntryObject;
-import com.sammy.malum.client.screen.codex.objects.VanishingEntryObject;
+import com.sammy.malum.client.screen.codex.objects.*;
 import com.sammy.malum.client.screen.codex.pages.*;
 import com.sammy.malum.common.events.SetupMalumCodexEntriesEvent;
 import com.sammy.malum.core.setup.content.SpiritRiteRegistry;
+import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
+import com.sammy.malum.core.systems.rites.MalumRiteType;
 import com.sammy.ortus.handlers.ScreenParticleHandler;
+import com.sammy.ortus.setup.OrtusShaderRegistry;
 import com.sammy.ortus.systems.easing.Easing;
 import com.sammy.ortus.systems.recipe.IRecipeComponent;
+import com.sammy.ortus.systems.rendering.ExtendedShaderInstance;
 import com.sammy.ortus.systems.rendering.VFXBuilders;
 import com.sammy.ortus.systems.rendering.VFXBuilders.ScreenVFXBuilder;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
@@ -33,8 +37,10 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.common.MinecraftForge;
 import org.lwjgl.opengl.GL11;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 import static com.sammy.malum.config.ClientConfig.BOOK_THEME;
@@ -456,65 +462,136 @@ public class ProgressionBookScreen extends Screen {
         );
 
         ENTRIES.add(new BookEntry(
-                "arcane_rite", ARCANE_SPIRIT.get(), 0, 11)
+                "sacred_rite", SACRED_SPIRIT.get(), -2, 10)
+                .setObjectSupplier(RiteEntryObject::new)
+                .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.SACRED_RITE, "sacred_rite"))
+                .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.SACRED_RITE))
+                .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.ELDRITCH_SACRED_RITE, "eldritch_sacred_rite"))
+                .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.ELDRITCH_SACRED_RITE))
+        );
+
+        ENTRIES.add(new BookEntry(
+                "corrupted_sacred_rite", SACRED_SPIRIT.get(), -3, 10).setSoulwood()
+                .setObjectSupplier(RiteEntryObject::new)
+                .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.SACRED_RITE, "corrupted_sacred_rite"))
+                .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.SACRED_RITE))
+                .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.ELDRITCH_SACRED_RITE, "corrupted_greater_sacred_rite"))
+                .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.ELDRITCH_SACRED_RITE))
+        );
+
+        ENTRIES.add(new BookEntry(
+                "infernal_rite", INFERNAL_SPIRIT.get(), -3, 11)
+                .setObjectSupplier(RiteEntryObject::new)
+                .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.INFERNAL_RITE, "infernal_rite"))
+                .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.INFERNAL_RITE))
+                .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.ELDRITCH_INFERNAL_RITE, "eldritch_infernal_rite"))
+                .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.ELDRITCH_INFERNAL_RITE))
+        );
+
+        ENTRIES.add(new BookEntry(
+                "corrupted_infernal_rite", INFERNAL_SPIRIT.get(), -4, 11).setSoulwood()
+                .setObjectSupplier(RiteEntryObject::new)
+                .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.INFERNAL_RITE, "corrupted_infernal_rite"))
+                .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.INFERNAL_RITE))
+                .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.ELDRITCH_INFERNAL_RITE, "corrupted_greater_infernal_rite"))
+                .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.ELDRITCH_INFERNAL_RITE))
+        );
+
+        ENTRIES.add(new BookEntry(
+                "earthen_rite", EARTHEN_SPIRIT.get(), -2, 12)
+                .setObjectSupplier(RiteEntryObject::new)
+                .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.EARTHEN_RITE, "earthen_rite"))
+                .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.EARTHEN_RITE))
+                .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.ELDRITCH_EARTHEN_RITE, "eldritch_earthen_rite"))
+                .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.ELDRITCH_EARTHEN_RITE))
+        );
+
+        ENTRIES.add(new BookEntry(
+                "corrupted_earthen_rite", EARTHEN_SPIRIT.get(), -3, 12).setSoulwood()
+                .setObjectSupplier(RiteEntryObject::new)
+                .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.EARTHEN_RITE, "corrupted_earthen_rite"))
+                .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.EARTHEN_RITE))
+                .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.ELDRITCH_EARTHEN_RITE, "corrupted_greater_earthen_rite"))
+                .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.ELDRITCH_EARTHEN_RITE))
+        );
+
+        ENTRIES.add(new BookEntry(
+                "wicked_rite", WICKED_SPIRIT.get(), 2, 10)
+                .setObjectSupplier(RiteEntryObject::new)
+                .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.WICKED_RITE, "wicked_rite"))
+                .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.WICKED_RITE))
+                .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.ELDRITCH_WICKED_RITE, "eldritch_wicked_rite"))
+                .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.ELDRITCH_WICKED_RITE))
+        );
+
+        ENTRIES.add(new BookEntry(
+                "corrupted_wicked_rite", WICKED_SPIRIT.get(), 3, 10).setSoulwood()
+                .setObjectSupplier(RiteEntryObject::new)
+                .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.WICKED_RITE, "corrupted_wicked_rite"))
+                .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.WICKED_RITE))
+                .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.ELDRITCH_WICKED_RITE, "corrupted_greater_wicked_rite"))
+                .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.ELDRITCH_WICKED_RITE))
+        );
+
+        ENTRIES.add(new BookEntry(
+                "aerial_rite", AERIAL_SPIRIT.get(), 3, 11)
+                .setObjectSupplier(RiteEntryObject::new)
+                .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.AERIAL_RITE, "aerial_rite"))
+                .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.AERIAL_RITE))
+                .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.ELDRITCH_AERIAL_RITE, "eldritch_aerial_rite"))
+                .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.ELDRITCH_AERIAL_RITE))
+        );
+
+        ENTRIES.add(new BookEntry(
+                "corrupted_aerial_rite", AERIAL_SPIRIT.get(), 4, 11).setSoulwood()
+                .setObjectSupplier(RiteEntryObject::new)
+                .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.AERIAL_RITE, "corrupted_aerial_rite"))
+                .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.AERIAL_RITE))
+                .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.ELDRITCH_AERIAL_RITE, "corrupted_greater_aerial_rite"))
+                .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.ELDRITCH_AERIAL_RITE))
+        );
+
+        ENTRIES.add(new BookEntry(
+                "aqueous_rite", AQUEOUS_SPIRIT.get(), 2, 12)
+                .setObjectSupplier(RiteEntryObject::new)
+                .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.AQUEOUS_RITE, "aqueous_rite"))
+                .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.AQUEOUS_RITE))
+                .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.ELDRITCH_AQUEOUS_RITE, "eldritch_aqueous_rite"))
+                .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.ELDRITCH_AQUEOUS_RITE))
+        );
+
+        ENTRIES.add(new BookEntry(
+                "corrupted_aqueous_rite", AQUEOUS_SPIRIT.get(), 3, 12).setSoulwood()
+                .setObjectSupplier(RiteEntryObject::new)
+                .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.AQUEOUS_RITE, "corrupted_aqueous_rite"))
+                .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.AQUEOUS_RITE))
+                .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.ELDRITCH_AQUEOUS_RITE, "corrupted_greater_aqueous_rite"))
+                .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.ELDRITCH_AQUEOUS_RITE))
+        );
+
+        ENTRIES.add(new BookEntry(
+                "arcane_rite", ARCANE_SPIRIT.get(), 0, 10)
+                .setObjectSupplier(RiteEntryObject::new)
                 .addPage(new HeadlineTextPage("totem_corruption", "totem_corruption_a"))
                 .addPage(new TextPage("totem_corruption_b"))
-                .addPage(new DoubleHeadlineTextPage("rite_effect", "arcane_rite"))
-                .addPage(new SpiritRitePage(SpiritRiteRegistry.ARCANE_RITE))
+                .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.ARCANE_RITE, "arcane_rite"))
+                .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.ARCANE_RITE))
                 .addPage(new TextPage("totem_corruption_c"))
                 .addPage(SpiritInfusionPage.fromOutput(SOULWOOD_TOTEM_BASE.get()))
         );
 
         ENTRIES.add(new BookEntry(
-                "sacred_rite", SACRED_SPIRIT.get(), -2, 11)
-                .addPage(new DoubleHeadlineTextPage("rite_effect", "sacred_rite"))
-                .addPage(new SpiritRitePage(SpiritRiteRegistry.SACRED_RITE))
-                .addPage(new DoubleHeadlineTextPage("rite_effect", "eldritch_sacred_rite"))
-                .addPage(new SpiritRitePage(SpiritRiteRegistry.ELDRITCH_SACRED_RITE))
+                "utilizing_blight", BLIGHTED_SOIL.get(), -1, 11)
+                .addPage(new HeadlineTextPage("utilizing_blight", "utilizing_blight"))
         );
 
         ENTRIES.add(new BookEntry(
-                "wicked_rite", WICKED_SPIRIT.get(), 2, 11)
-                .addPage(new DoubleHeadlineTextPage("rite_effect", "wicked_rite"))
-                .addPage(new SpiritRitePage(SpiritRiteRegistry.WICKED_RITE))
-                .addPage(new DoubleHeadlineTextPage("rite_effect", "eldritch_wicked_rite"))
-                .addPage(new SpiritRitePage(SpiritRiteRegistry.ELDRITCH_WICKED_RITE))
+                "containing_blight", BLIGHTED_SOIL.get(), 1, 11)
+                .addPage(new HeadlineTextPage("utilizing_blight", "utilizing_blight"))
         );
 
         ENTRIES.add(new BookEntry(
-                "earthen_rite", EARTHEN_SPIRIT.get(), -1, 12)
-                .addPage(new DoubleHeadlineTextPage("rite_effect", "earthen_rite"))
-                .addPage(new SpiritRitePage(SpiritRiteRegistry.EARTHEN_RITE))
-                .addPage(new DoubleHeadlineTextPage("rite_effect", "eldritch_earthen_rite"))
-                .addPage(new SpiritRitePage(SpiritRiteRegistry.ELDRITCH_EARTHEN_RITE))
-        );
-
-        ENTRIES.add(new BookEntry(
-                "infernal_rite", INFERNAL_SPIRIT.get(), 1, 12)
-                .addPage(new DoubleHeadlineTextPage("rite_effect", "infernal_rite"))
-                .addPage(new SpiritRitePage(SpiritRiteRegistry.INFERNAL_RITE))
-                .addPage(new DoubleHeadlineTextPage("rite_effect", "eldritch_infernal_rite"))
-                .addPage(new SpiritRitePage(SpiritRiteRegistry.ELDRITCH_INFERNAL_RITE))
-        );
-
-        ENTRIES.add(new BookEntry(
-                "aerial_rite", AERIAL_SPIRIT.get(), -1, 10)
-                .addPage(new DoubleHeadlineTextPage("rite_effect", "aerial_rite"))
-                .addPage(new SpiritRitePage(SpiritRiteRegistry.AERIAL_RITE))
-                .addPage(new DoubleHeadlineTextPage("rite_effect", "eldritch_aerial_rite"))
-                .addPage(new SpiritRitePage(SpiritRiteRegistry.ELDRITCH_AERIAL_RITE))
-        );
-
-        ENTRIES.add(new BookEntry(
-                "aqueous_rite", AQUEOUS_SPIRIT.get(), 1, 10)
-                .addPage(new DoubleHeadlineTextPage("rite_effect", "aqueous_rite"))
-                .addPage(new SpiritRitePage(SpiritRiteRegistry.AQUEOUS_RITE))
-                .addPage(new DoubleHeadlineTextPage("rite_effect", "eldritch_aqueous_rite"))
-                .addPage(new SpiritRitePage(SpiritRiteRegistry.ELDRITCH_AQUEOUS_RITE))
-        );
-
-        ENTRIES.add(new BookEntry(
-                "soulwood", SOULWOOD_GROWTH.get(), 0, 13)
+                "soulwood", SOULWOOD_GROWTH.get(), 0, 12).setSoulwood()
                 .addPage(new HeadlineTextPage("soulwood", "soulwood_a"))
                 .addPage(new TextPage("soulwood_b"))
                 .addPage(CraftingBookPage.itemPedestalPage(SOULWOOD_ITEM_PEDESTAL.get(), SOULWOOD_PLANKS.get(), SOULWOOD_PLANKS_SLAB.get()))
@@ -525,27 +602,28 @@ public class ProgressionBookScreen extends Screen {
                 .addPage(new SmeltingBookPage(UNHOLY_SAP.get(), UNHOLY_SYRUP.get()))
         );
 
-        ENTRIES.add(new BookEntry(
-                "magebane_belt", BELT_OF_THE_MAGEBANE.get(), 1, 15)
-                .addPage(new HeadlineTextPage("magebane_belt", "magebane_belt"))
-                .addPage(SpiritInfusionPage.fromOutput(BELT_OF_THE_MAGEBANE.get()))
-        );
 
-        ENTRIES.add(new BookEntry(
-                "tyrving", TYRVING.get(), -1, 15)
-                .addPage(new HeadlineTextPage("tyrving", "tyrving_a"))
-                .addPage(SpiritInfusionPage.fromOutput(TYRVING.get()))
-                .addPage(new TextPage("tyrving_b"))
-                .addPage(SpiritRepairPage.fromInput(TYRVING.get()))
-        );
-
-        ENTRIES.add(new BookEntry(
-                "ceaseless_impetus", CEASELESS_IMPETUS.get(), 0, 16)
-                .addPage(new HeadlineTextPage("ceaseless_impetus", "ceaseless_impetus_a"))
-                .addPage(new TextPage("ceaseless_impetus_b"))
-                .addPage(SpiritInfusionPage.fromOutput(CEASELESS_IMPETUS.get()))
-                .addPage(SpiritRepairPage.fromInput(CRACKED_CEASELESS_IMPETUS.get()))
-        );
+//        ENTRIES.add(new BookEntry(
+//                "magebane_belt", BELT_OF_THE_MAGEBANE.get(), 1, 15)
+//                .addPage(new HeadlineTextPage("magebane_belt", "magebane_belt"))
+//                .addPage(SpiritInfusionPage.fromOutput(BELT_OF_THE_MAGEBANE.get()))
+//        );
+//
+//        ENTRIES.add(new BookEntry(
+//                "tyrving", TYRVING.get(), -1, 15)
+//                .addPage(new HeadlineTextPage("tyrving", "tyrving_a"))
+//                .addPage(SpiritInfusionPage.fromOutput(TYRVING.get()))
+//                .addPage(new TextPage("tyrving_b"))
+//                .addPage(SpiritRepairPage.fromInput(TYRVING.get()))
+//        );
+//
+//        ENTRIES.add(new BookEntry(
+//                "ceaseless_impetus", CEASELESS_IMPETUS.get(), 0, 16)
+//                .addPage(new HeadlineTextPage("ceaseless_impetus", "ceaseless_impetus_a"))
+//                .addPage(new TextPage("ceaseless_impetus_b"))
+//                .addPage(SpiritInfusionPage.fromOutput(CEASELESS_IMPETUS.get()))
+//                .addPage(SpiritRepairPage.fromInput(CRACKED_CEASELESS_IMPETUS.get()))
+//        );
 
         ENTRIES.add(new BookEntry(
                 "huh", THE_DEVICE.get(), 0, -10)
@@ -705,20 +783,60 @@ public class ProgressionBookScreen extends Screen {
         GL11.glScissor(insideLeft * scale, insideTop * scale, bookInsideWidth * scale, (bookInsideHeight + 1) * scale); // do not ask why the 1 is needed please
     }
 
+    public static void renderRiteIcon(MalumRiteType rite, PoseStack stack, boolean corrupted, int x, int y) {
+        renderRiteIcon(rite, stack, corrupted, x, y, 0);
+    }
+    public static void renderRiteIcon(MalumRiteType rite, PoseStack stack, boolean corrupted, int x, int y, int z) {
+        ExtendedShaderInstance shaderInstance = (ExtendedShaderInstance) OrtusShaderRegistry.DISTORTED_TEXTURE.getInstance().get();
+        shaderInstance.safeGetUniform("YFrequency").set(corrupted ? 5f : 11f);
+        shaderInstance.safeGetUniform("XFrequency").set(corrupted ? 12f : 17f);
+        shaderInstance.safeGetUniform("Speed").set(2000f * (corrupted ? -0.75f : 1));
+        shaderInstance.safeGetUniform("Intensity").set(corrupted ? 14f : 50f);
+        Supplier<ShaderInstance> shaderInstanceSupplier = () -> shaderInstance;
+        Color color = rite.getEffectSpirit().getColor();
 
+        VFXBuilders.ScreenVFXBuilder builder = VFXBuilders.createScreen()
+                .setPosColorTexLightmapDefaultFormat()
+                .setShader(shaderInstanceSupplier)
+                .setColor(color)
+                .setAlpha(0.9f)
+                .setZLevel(z)
+                .setShader(() -> shaderInstance);
+
+        RenderSystem.enableBlend();
+        RenderSystem.disableDepthTest();
+        RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE);
+        renderTexture(rite.getIcon(), stack, builder, x, y, 0, 0, 16, 16, 16, 16);
+        builder.setAlpha(0.4f);
+        renderTexture(rite.getIcon(), stack, builder, x - 1, y, 0, 0, 16, 16, 16, 16);
+        renderTexture(rite.getIcon(), stack, builder, x + 1, y, 0, 0, 16, 16, 16, 16);
+        if (corrupted) {
+            builder.setColor(color.darker());
+        }
+        renderTexture(rite.getIcon(), stack, builder, x, y - 1, 0, 0, 16, 16, 16, 16);
+        renderTexture(rite.getIcon(), stack, builder, x, y + 1, 0, 0, 16, 16, 16, 16);
+        shaderInstance.setUniformDefaults();
+        RenderSystem.enableDepthTest();
+        RenderSystem.defaultBlendFunc();
+        RenderSystem.disableBlend();
+    }
     public static void renderTexture(ResourceLocation texture, PoseStack poseStack, int x, int y, float u, float v, int width, int height, int textureWidth, int textureHeight) {
-        BUILDER.setPositionWithWidth(x, y, width, height)
+        renderTexture(texture, poseStack, BUILDER, x, y, u, v, width, height, textureWidth, textureHeight);
+    }
+    public static void renderTexture(ResourceLocation texture, PoseStack poseStack, ScreenVFXBuilder builder, int x, int y, float u, float v, int width, int height, int textureWidth, int textureHeight) {
+        builder.setPositionWithWidth(x, y, width, height)
                 .setShaderTexture(texture)
                 .setUVWithWidth(u, v, width, height, textureWidth, textureHeight)
-                .begin() //TODO: move this begin & end call to start of rendering all textures, and end of rendering all textures in the book
-                .blit(poseStack)
-                .end();
+                .draw(poseStack);
     }
 
-    public static void renderTransparentTexture(ResourceLocation texture, PoseStack poseStack, int x, int y, float uOffset, float vOffset, int width, int height, int textureWidth, int textureHeight) {
+    public static void renderTransparentTexture(ResourceLocation texture, PoseStack poseStack, int x, int y, float u, float v, int width, int height, int textureWidth, int textureHeight) {
+        renderTransparentTexture(texture, poseStack, BUILDER, x, y, u, v, width, height, textureWidth, textureHeight);
+    }
+    public static void renderTransparentTexture(ResourceLocation texture, PoseStack poseStack, ScreenVFXBuilder builder, int x, int y, float u, float v, int width, int height, int textureWidth, int textureHeight) {
         RenderSystem.enableBlend();
         RenderSystem.enableDepthTest();
-        renderTexture(texture, poseStack, x, y, uOffset, vOffset, width, height, textureWidth, textureHeight);
+        renderTexture(texture, poseStack, builder, x, y, u, v, width, height, textureWidth, textureHeight);
         RenderSystem.disableDepthTest();
         RenderSystem.disableBlend();
     }

@@ -3,6 +3,6 @@
   "textures": {
     "side": "malum:block/runewood_log",
     "top": "malum:block/runewood_log_top",
-    "front": "malum:block/totem/aerial_runewood_cutout"
+    "front": "malum:spirit/aerial_runewood_cutout"
   }
 }

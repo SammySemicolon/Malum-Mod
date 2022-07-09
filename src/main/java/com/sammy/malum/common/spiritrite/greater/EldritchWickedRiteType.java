@@ -20,18 +20,18 @@ import static com.sammy.malum.core.setup.server.PacketRegistry.MALUM_CHANNEL;
 
 public class EldritchWickedRiteType extends MalumRiteType {
     public EldritchWickedRiteType() {
-        super("eldritch_wicked_rite", ELDRITCH_SPIRIT, ARCANE_SPIRIT, WICKED_SPIRIT, WICKED_SPIRIT);
+        super("greater_wicked_rite", ELDRITCH_SPIRIT, ARCANE_SPIRIT, WICKED_SPIRIT, WICKED_SPIRIT);
     }
 
     @Override
     public MalumRiteEffect getNaturalRiteEffect() {
         return new EntityAffectingRiteEffect() {
-
             @Override
             public void riteEffect(TotemBaseBlockEntity totemBase) {
                 getNearbyEntities(totemBase, LivingEntity.class).forEach(e -> {
-                    if (!e.isInvulnerableTo(DamageSourceRegistry.VOODOO)) {
-                        e.hurt(DamageSourceRegistry.VOODOO, 5);
+                    if (e.getHealth() <= 2.5f && !e.isInvulnerableTo(DamageSourceRegistry.VOODOO)) {
+                        MALUM_CHANNEL.send(PacketDistributor.TRACKING_ENTITY.with(() -> e), new MajorEntityEffectParticlePacket(getEffectSpirit().getColor(), e.getX(), e.getY()+ e.getBbHeight() / 2f, e.getZ()));
+                        e.hurt(DamageSourceRegistry.FORCED_SHATTER, 10f);
                     }
                 });
             }

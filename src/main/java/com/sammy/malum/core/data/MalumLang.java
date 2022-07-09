@@ -354,52 +354,49 @@ public class MalumLang extends LanguageProvider {
         addPage("totem_magic_c", "There appears to exists only one limitation to this primitive system, no two matching spirit rites can be active within the range of one another.");
 
         //uncharted territory down 'ere
-        addHeadline("rite_effect", "Rite Effect:");
-        addHeadline("corrupted_rite_effect", "Corrupted Rite Effect:");
 
         addDescription("arcane_rite", "Corruption with Spirits");
         addHeadline("totem_corruption", "Totem Corruption");
         addPage("totem_corruption_a", "Raw arcana is often used to amplify other magics, it is usually used on within a spirit rite as a starting point of sorts. Now what if, I perform a spirit rite made out of entirely arcane spirit, where would the built up magics go? The answer is corruption.");
         addPage("totem_corruption_b", "The uncontrolled and volatile result of arcane spirit channels all the built up power and spontaneously corrupts the totem, twisting the simple and organized runewood into a much grimmer new purple look. Any spirit rite performed on a soulwood totem will yield different effects.");
         addPage("arcane_rite", "The arcane rite yields the volatile result of uncontrolled spirit arcana, quickly engulfing the totem.");
-        addPage("corrupted_arcane_rite", "With the totem pole already altered, the volatile arcane energies distribute into the area beneath instead.");
         addPage("totem_corruption_c", "You may also craft a corrupted totem base directly by changing the ingredients.");
 
-        addDescription("sacred_rite", "Primitive Healing");
-        addPage("sacred_rite", "The sacred rite is the simplest rite there is. It'll provide a weak healing effect to all nearby players.");
-        addPage("corrupted_sacred_rite", "When laid on soulwood, healing becomes maturation. Nearby animals experience rapid aging until they're adult sized.");
-        addPage("eldritch_sacred_rite", "When combined with eldritch magic, healing turns into growth. Nearby crops become more lively.");
-        addPage("corrupted_eldritch_sacred_rite", "A soulwood totem will redirect sacred arcana into a relaxing effect, nearby animals will automatically breed.");
+        addDescription("sacred_rite", "Soothing Spells");
+        addPage("sacred_rite", "Heals nearby wounded allies.");
+        addPage("corrupted_sacred_rite", "Nourishes nearby animals, growing em into adults at an increased rate. Bees pollinate quicker, Sheep are more likely to eat grass (these don't nescessarily need to be noted, just some sorta 'unique interactions exist' hint would be enough).");
+        addPage("greater_sacred_rite", "Grows nearby crops.");
+        addPage("corrupted_greater_sacred_rite", "Nearby animals fuck.");
 
-        addDescription("wicked_rite", "Automated Murder");
-        addPage("wicked_rite", "The wicked rite is a harmful one. Nearby hostiles will slowly receive non-lethal magic damage.");
-        addPage("corrupted_wicked_rite", "As if in perfect parity with it's natural counterpart, the corrupted wicked rite will shatter souls of almost-dead creatures.");
-        addPage("eldritch_wicked_rite", "Adding in eldritch magic enhances the already dangerous rite and allows it to kill.");
-        addPage("corrupted_eldritch_wicked_rite", "A very cruel rite. Nearby animals will be instantly and completely annihilated upon mating when there are too many.");
+        addDescription("wicked_rite", "Alarming Spells");
+        addPage("wicked_rite", "Damages nearby things, yet it cannot kill.");
+        addPage("corrupted_wicked_rite", "Empowers nearby hostile mobs, granting strength resistance and speed");
+        addPage("greater_wicked_rite", "Shatters the souls of nearby mobs on the brink of death.");
+        addPage("corrupted_greater_wicked_rite", "Nearby animals will be instantly and completely annihilated upon mating when there are too many. Keep this one kinda funny in the sense of using too many strong words to describe the animals dying");
 
         addDescription("earthen_rite", "Rock and Stone!");
-        addPage("earthen_rite", "The earthen rite provides one of many auras. Nearby players will receive increased armor.");
-        addPage("corrupted_earthen_rite", "Fortitude turns to strength, nearby players will deal extra damage.");
-        addPage("eldritch_earthen_rite", "This complex earthen rite will break nearby blocks below that match the block directly underneath the totem base.");
-        addPage("corrupted_eldritch_earthen_rite", "Destruction turns into creation, the earth shifts and cobblestone is fabricated under the rite.");
+        addPage("earthen_rite", "Nearby players receive increased armor.");
+        addPage("corrupted_earthen_rite", "Nearby players will deal extra damage.");
+        addPage("greater_earthen_rite", "Breaks block in a small radius in front of the totem base.");
+        addPage("corrupted_greater_earthen_rite", "Destruction turns into creation, the earth shifts and cobblestone is fabricated in a small radius in front of the totem base");
 
         addDescription("infernal_rite", "Immense warmth");
-        addPage("infernal_rite", "The infernal rite provides one of many auras. Nearby players will receive haste.");
-        addPage("corrupted_infernal_rite", "Simple yet convenient, nearby players are granted immunity to fire.");
-        addPage("eldritch_infernal_rite", "The impossible heat produced by infernal arcana is brought into motion, smelting blocks below the rite.");
-        addPage("corrupted_eldritch_infernal_rite", "Bringing forth the nether, stone beneath turns into netherrack.");
+        addPage("infernal_rite", "Nearby players will receive haste.");
+        addPage("corrupted_infernal_rite", "Absorbs nearby heat, extinguishes flames and entities on fire. Extinguished entities receive a strong healing effect.");
+        addPage("greater_infernal_rite", "Blocks are smelted in front of the totem base.");
+        addPage("corrupted_greater_infernal_rite", "No clue what this one could do");
 
         addDescription("aerial_rite", "Light Arcana");
-        addPage("aerial_rite", "The aerial rite provides one of many auras. Nearby players will receive a boost to movement speed.");
-        addPage("corrupted_aerial_rite", "The effect of the rite is altered, horizontal mobility turns into vertical agility.");
-        addPage("eldritch_aerial_rite", "The rite is twisted into something greater, blocks beneath the rite will start to experience gravity.");
-        addPage("corrupted_eldritch_aerial_rite", "Have you ever wondered what the clouds feel like?");
+        addPage("aerial_rite", "Nearby players will receive a boost to movement speed.");
+        addPage("corrupted_aerial_rite", "Provides a low gravity aura.");
+        addPage("greater_aerial_rite", "Blocks in front of the rite are afflicted with gravity, they fall down.");
+        addPage("corrupted_greater_aerial_rite", "No clue?");
 
         addDescription("aqueous_rite", "Loyalty");
-        addPage("aqueous_rite", "The aquatic rite provides one of many auras. Nearby players will receive a boost to reach.");
-        addPage("corrupted_aqueous_rite", "Simple yet useful, nearby players are granted water breathing.");
-        addPage("eldritch_aqueous_rite", "The advanced aqueous rite will motivate nearby pointed dripstone blocks and bring them into work, yielding even more liquid.");
-        addPage("corrupted_eldritch_aqueous_rite", "The energizing effect is reversed, freezing over nearby water or lava instead.");
+        addPage("aqueous_rite", "Boosts reach & item pickup range of nearby players.");
+        addPage("corrupted_aqueous_rite", "Enhances fishing skills of nearby players.");
+        addPage("greater_aqueous_rite", "Makes nearby pointed dripstone drippy, creating more fluid.");
+        addPage("corrupted_greater_aqueous_rite", "Converts nearby zombies to drowned");
 
         addDescription("soulwood", "Twisted Roots");
         addHeadline("soulwood", "Soulwood");

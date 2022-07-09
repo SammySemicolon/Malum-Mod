@@ -15,6 +15,10 @@ public class BookEntry {
     public final int yOffset;
     public ArrayList<BookPage> pages = new ArrayList<>();
     public EntryObjectSupplier objectSupplier = EntryObject::new;
+
+    public boolean isSoulwood;
+    public boolean isDark;
+
     public BookEntry(String identifier, Item item, int xOffset, int yOffset) {
         this.iconStack = item.getDefaultInstance();
         this.identifier = identifier;
@@ -28,6 +32,16 @@ public class BookEntry {
 
     public String descriptionTranslationKey() {
         return "malum.gui.book.entry." + identifier + ".description";
+    }
+
+    public BookEntry setSoulwood() {
+        isSoulwood = true;
+        return this;
+    }
+
+    public BookEntry setDark() {
+        isDark = true;
+        return this;
     }
 
     public BookEntry addPage(BookPage page) {

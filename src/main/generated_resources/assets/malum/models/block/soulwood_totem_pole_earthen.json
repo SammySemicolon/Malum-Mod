@@ -3,6 +3,6 @@
   "textures": {
     "side": "malum:block/soulwood_log",
     "top": "malum:block/soulwood_log_top",
-    "front": "malum:block/totem/earthen_soulwood_cutout"
+    "front": "malum:spirit/earthen_soulwood_cutout"
   }
 }
