@@ -124,11 +124,16 @@ public class ProgressionBookScreen extends Screen {
         );
 
         ENTRIES.add(new BookEntry(
-                "blazing_quartz", BLAZING_QUARTZ.get(), 3, 2)
+                "natural_quartz", NATURAL_QUARTZ.get(), 3, 2)
+                .setObjectSupplier(MinorEntryObject::new)
+                .addPage(new HeadlineTextItemPage("natural_quartz", "natural_quartz", NATURAL_QUARTZ.get()))
+        );
+
+        ENTRIES.add(new BookEntry(
+                "blazing_quartz", BLAZING_QUARTZ.get(), 4, 3)
                 .setObjectSupplier(MinorEntryObject::new)
                 .addPage(new HeadlineTextItemPage("blazing_quartz", "blazing_quartz", BLAZING_QUARTZ.get()))
                 .addPage(CraftingBookPage.fullPage(BLOCK_OF_BLAZING_QUARTZ.get(), BLAZING_QUARTZ.get()))
-
         );
 
         ENTRIES.add(new BookEntry(
@@ -137,6 +142,12 @@ public class ProgressionBookScreen extends Screen {
                 .addPage(new HeadlineTextItemPage("brilliance", "brilliance_a", CLUSTER_OF_BRILLIANCE.get()))
                 .addPage(new TextPage("brilliance_b"))
                 .addPage(CraftingBookPage.fullPage(BLOCK_OF_BRILLIANCE.get(), CLUSTER_OF_BRILLIANCE.get()))
+        );
+
+        ENTRIES.add(new BookEntry(
+                "rare_earths", RARE_EARTHS.get(), -4, 3)
+                .setObjectSupplier(MinorEntryObject::new)
+                .addPage(new HeadlineTextItemPage("rare_earths", "rare_earths", RARE_EARTHS.get()))
         );
 
         ENTRIES.add(new BookEntry(
@@ -466,7 +477,7 @@ public class ProgressionBookScreen extends Screen {
                 .setObjectSupplier(RiteEntryObject::new)
                 .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.SACRED_RITE, "sacred_rite"))
                 .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.SACRED_RITE))
-                .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.ELDRITCH_SACRED_RITE, "eldritch_sacred_rite"))
+                .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.ELDRITCH_SACRED_RITE, "greater_sacred_rite"))
                 .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.ELDRITCH_SACRED_RITE))
         );
 
@@ -484,7 +495,7 @@ public class ProgressionBookScreen extends Screen {
                 .setObjectSupplier(RiteEntryObject::new)
                 .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.INFERNAL_RITE, "infernal_rite"))
                 .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.INFERNAL_RITE))
-                .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.ELDRITCH_INFERNAL_RITE, "eldritch_infernal_rite"))
+                .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.ELDRITCH_INFERNAL_RITE, "greater_infernal_rite"))
                 .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.ELDRITCH_INFERNAL_RITE))
         );
 
@@ -498,16 +509,16 @@ public class ProgressionBookScreen extends Screen {
         );
 
         ENTRIES.add(new BookEntry(
-                "earthen_rite", EARTHEN_SPIRIT.get(), -2, 12)
+                "earthen_rite", EARTHEN_SPIRIT.get(), -3, 12)
                 .setObjectSupplier(RiteEntryObject::new)
                 .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.EARTHEN_RITE, "earthen_rite"))
                 .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.EARTHEN_RITE))
-                .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.ELDRITCH_EARTHEN_RITE, "eldritch_earthen_rite"))
+                .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.ELDRITCH_EARTHEN_RITE, "greater_earthen_rite"))
                 .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.ELDRITCH_EARTHEN_RITE))
         );
 
         ENTRIES.add(new BookEntry(
-                "corrupted_earthen_rite", EARTHEN_SPIRIT.get(), -3, 12).setSoulwood()
+                "corrupted_earthen_rite", EARTHEN_SPIRIT.get(), -4, 12).setSoulwood()
                 .setObjectSupplier(RiteEntryObject::new)
                 .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.EARTHEN_RITE, "corrupted_earthen_rite"))
                 .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.EARTHEN_RITE))
@@ -520,7 +531,7 @@ public class ProgressionBookScreen extends Screen {
                 .setObjectSupplier(RiteEntryObject::new)
                 .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.WICKED_RITE, "wicked_rite"))
                 .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.WICKED_RITE))
-                .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.ELDRITCH_WICKED_RITE, "eldritch_wicked_rite"))
+                .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.ELDRITCH_WICKED_RITE, "greater_wicked_rite"))
                 .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.ELDRITCH_WICKED_RITE))
         );
 
@@ -538,7 +549,7 @@ public class ProgressionBookScreen extends Screen {
                 .setObjectSupplier(RiteEntryObject::new)
                 .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.AERIAL_RITE, "aerial_rite"))
                 .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.AERIAL_RITE))
-                .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.ELDRITCH_AERIAL_RITE, "eldritch_aerial_rite"))
+                .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.ELDRITCH_AERIAL_RITE, "greater_aerial_rite"))
                 .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.ELDRITCH_AERIAL_RITE))
         );
 
@@ -552,16 +563,16 @@ public class ProgressionBookScreen extends Screen {
         );
 
         ENTRIES.add(new BookEntry(
-                "aqueous_rite", AQUEOUS_SPIRIT.get(), 2, 12)
+                "aqueous_rite", AQUEOUS_SPIRIT.get(), 3, 12)
                 .setObjectSupplier(RiteEntryObject::new)
                 .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.AQUEOUS_RITE, "aqueous_rite"))
                 .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.AQUEOUS_RITE))
-                .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.ELDRITCH_AQUEOUS_RITE, "eldritch_aqueous_rite"))
+                .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.ELDRITCH_AQUEOUS_RITE, "greater_aqueous_rite"))
                 .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.ELDRITCH_AQUEOUS_RITE))
         );
 
         ENTRIES.add(new BookEntry(
-                "corrupted_aqueous_rite", AQUEOUS_SPIRIT.get(), 3, 12).setSoulwood()
+                "corrupted_aqueous_rite", AQUEOUS_SPIRIT.get(), 4, 12).setSoulwood()
                 .setObjectSupplier(RiteEntryObject::new)
                 .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.AQUEOUS_RITE, "corrupted_aqueous_rite"))
                 .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.AQUEOUS_RITE))
@@ -810,10 +821,10 @@ public class ProgressionBookScreen extends Screen {
         builder.setAlpha(0.4f);
         renderTexture(rite.getIcon(), stack, builder, x - 1, y, 0, 0, 16, 16, 16, 16);
         renderTexture(rite.getIcon(), stack, builder, x + 1, y, 0, 0, 16, 16, 16, 16);
-        if (corrupted) {
-            builder.setColor(color.darker());
-        }
         renderTexture(rite.getIcon(), stack, builder, x, y - 1, 0, 0, 16, 16, 16, 16);
+        if (corrupted) {
+            builder.setColor(rite.getEffectSpirit().getEndColor());
+        }
         renderTexture(rite.getIcon(), stack, builder, x, y + 1, 0, 0, 16, 16, 16, 16);
         shaderInstance.setUniformDefaults();
         RenderSystem.enableDepthTest();

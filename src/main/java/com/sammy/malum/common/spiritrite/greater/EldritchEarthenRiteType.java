@@ -9,11 +9,14 @@ import com.sammy.ortus.setup.OrtusParticleRegistry;
 import com.sammy.ortus.systems.rendering.particle.ParticleBuilders;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.AirBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.InfestedBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.network.PacketDistributor;
 
@@ -42,6 +45,9 @@ public class EldritchEarthenRiteType extends MalumRiteType {
                     boolean canBreak = !state.isAir() && state.getDestroySpeed(level, p) != -1;
                     if (canBreak) {
                         level.destroyBlock(p, true);
+                        if (state.getBlock() instanceof InfestedBlock infestedBlock && level instanceof ServerLevel serverLevel) {
+                            infestedBlock.spawnAfterBreak(state, serverLevel, p, ItemStack.EMPTY);
+                        }
                         MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(p)), new BlockSparkleParticlePacket(EARTHEN_SPIRIT.getColor(), p));
                     }
                 });
