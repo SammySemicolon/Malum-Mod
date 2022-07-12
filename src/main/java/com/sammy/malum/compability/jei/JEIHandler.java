@@ -1,7 +1,7 @@
 package com.sammy.malum.compability.jei;
 
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.common.recipe.BlockTransmutationRecipe;
+import com.sammy.malum.common.recipe.SpiritTransmutationRecipe;
 import com.sammy.malum.common.recipe.SpiritFocusingRecipe;
 import com.sammy.malum.common.recipe.SpiritInfusionRecipe;
 import com.sammy.malum.common.recipe.SpiritRepairRecipe;
@@ -40,8 +40,8 @@ public class JEIHandler implements IModPlugin {
 
     public static final RecipeType<SpiritInfusionRecipe> SPIRIT_INFUSION =
          new RecipeType<>(SpiritInfusionRecipeCategory.UID, SpiritInfusionRecipe.class);
-    public static final RecipeType<BlockTransmutationRecipe> TRANSMUTATION =
-         new RecipeType<>(BlockTransmutationRecipeCategory.UID, BlockTransmutationRecipe.class);
+    public static final RecipeType<SpiritTransmutationRecipe> TRANSMUTATION =
+         new RecipeType<>(BlockTransmutationRecipeCategory.UID, SpiritTransmutationRecipe.class);
     public static final RecipeType<SpiritFocusingRecipe> FOCUSING =
          new RecipeType<>(SpiritFocusingRecipeCategory.UID, SpiritFocusingRecipe.class);
     public static final RecipeType<MalumRiteType> RITES =
@@ -81,7 +81,7 @@ public class JEIHandler implements IModPlugin {
         ClientLevel level = Minecraft.getInstance().level;
         if (level != null) {
             registry.addRecipes(SPIRIT_INFUSION, SpiritInfusionRecipe.getRecipes(level));
-            registry.addRecipes(TRANSMUTATION, BlockTransmutationRecipe.getRecipes(level));
+            registry.addRecipes(TRANSMUTATION, SpiritTransmutationRecipe.getRecipes(level));
             registry.addRecipes(FOCUSING, SpiritFocusingRecipe.getRecipes(level));
             registry.addRecipes(RITES, SpiritRiteRegistry.RITES);
             registry.addRecipes(SPIRIT_REPAIR, SpiritRepairRecipe.getRecipes(level));

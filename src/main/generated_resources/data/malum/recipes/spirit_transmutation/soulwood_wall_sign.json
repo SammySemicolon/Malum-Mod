@@ -1,0 +1,11 @@
+{
+  "type": "malum:spirit_transmutation",
+  "input": {
+    "item": "malum:runewood_sign",
+    "count": 1
+  },
+  "output": {
+    "item": "malum:soulwood_sign",
+    "count": 1
+  }
+}

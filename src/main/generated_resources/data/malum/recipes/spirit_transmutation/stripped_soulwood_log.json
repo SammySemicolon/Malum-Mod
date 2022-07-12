@@ -1,0 +1,11 @@
+{
+  "type": "malum:spirit_transmutation",
+  "input": {
+    "item": "malum:stripped_runewood_log",
+    "count": 1
+  },
+  "output": {
+    "item": "malum:stripped_soulwood_log",
+    "count": 1
+  }
+}

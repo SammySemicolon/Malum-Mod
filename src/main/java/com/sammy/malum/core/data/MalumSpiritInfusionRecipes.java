@@ -304,6 +304,13 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider implements ICondi
                 .addExtraItem(ItemRegistry.HEX_ASH.get(), 1)
                 .build(consumer);
 
+        new SpiritInfusionRecipeBuilder(Items.TNT, 1, ItemRegistry.ETHERIC_NITRATE.get(), 4)
+                .addSpirit(INFERNAL_SPIRIT, 4)
+                .addExtraItem(ItemRegistry.ETHER.get(), 1)
+                .addExtraItem(Ingredient.of(Tags.Items.GUNPOWDER), 4)
+                .addExtraItem(ItemRegistry.CURSED_GRIT.get(), 2)
+                .build(consumer);
+
         new SpiritInfusionRecipeBuilder(ItemRegistry.SOUL_STAINED_STEEL_SWORD.get(), 1, ItemRegistry.TYRVING.get(), 1)
                 .addSpirit(WICKED_SPIRIT, 24)
                 .addSpirit(ELDRITCH_SPIRIT, 6)
@@ -407,6 +414,7 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider implements ICondi
                 .addSpirit(EARTHEN_SPIRIT, 8)
                 .addSpirit(INFERNAL_SPIRIT, 8)
                 .addExtraItem(Ingredient.of(Tags.Items.GUNPOWDER), 4)
+                .addExtraItem(Ingredient.of(ItemRegistry.RARE_EARTHS.get()), 1)
                 .addExtraItem(Ingredient.of(ingot), 6)
                 .build(consumer);
     }

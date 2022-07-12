@@ -2,7 +2,7 @@ package com.sammy.malum.compability.jei.categories;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.common.recipe.BlockTransmutationRecipe;
+import com.sammy.malum.common.recipe.SpiritTransmutationRecipe;
 import com.sammy.malum.compability.jei.JEIHandler;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
 import mezz.jei.api.constants.VanillaTypes;
@@ -23,7 +23,7 @@ import javax.annotation.Nonnull;
 
 import static com.sammy.malum.MalumMod.malumPath;
 
-public class BlockTransmutationRecipeCategory implements IRecipeCategory<BlockTransmutationRecipe> {
+public class BlockTransmutationRecipeCategory implements IRecipeCategory<SpiritTransmutationRecipe> {
     public static final ResourceLocation UID = malumPath("block_transmutation");
     private final IDrawable background;
     private final IDrawable overlay;
@@ -36,12 +36,12 @@ public class BlockTransmutationRecipeCategory implements IRecipeCategory<BlockTr
     }
 
     @Override
-    public void draw(BlockTransmutationRecipe recipe, IRecipeSlotsView recipeSlotsView, PoseStack poseStack, double mouseX, double mouseY) {
+    public void draw(SpiritTransmutationRecipe recipe, IRecipeSlotsView recipeSlotsView, PoseStack poseStack, double mouseX, double mouseY) {
         overlay.draw(poseStack);
     }
 
     @Override
-    public RecipeType<BlockTransmutationRecipe> getRecipeType() {
+    public RecipeType<SpiritTransmutationRecipe> getRecipeType() {
         return JEIHandler.TRANSMUTATION;
     }
 
@@ -55,8 +55,8 @@ public class BlockTransmutationRecipeCategory implements IRecipeCategory<BlockTr
     @Nonnull
     @Override
     @SuppressWarnings("removal")
-    public Class<? extends BlockTransmutationRecipe> getRecipeClass() {
-        return BlockTransmutationRecipe.class;
+    public Class<? extends SpiritTransmutationRecipe> getRecipeClass() {
+        return SpiritTransmutationRecipe.class;
     }
 
     @Override
@@ -77,10 +77,10 @@ public class BlockTransmutationRecipeCategory implements IRecipeCategory<BlockTr
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder builder, BlockTransmutationRecipe recipe, IFocusGroup focuses) {
+    public void setRecipe(IRecipeLayoutBuilder builder, SpiritTransmutationRecipe recipe, IFocusGroup focuses) {
        builder.addSlot(RecipeIngredientRole.INPUT, 28, 27)
-            .addItemStack(recipe.input.asItem().getDefaultInstance());
+            .addItemStack(recipe.input.getStack().getItem().getDefaultInstance());
        builder.addSlot(RecipeIngredientRole.OUTPUT, 93, 26)
-            .addItemStack(recipe.output.asItem().getDefaultInstance());
+            .addItemStack(recipe.output.getStack().getItem().getDefaultInstance());
     }
 }

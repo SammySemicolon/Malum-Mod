@@ -1,0 +1,11 @@
+{
+  "type": "malum:spirit_transmutation",
+  "input": {
+    "item": "malum:solid_runewood_trapdoor",
+    "count": 1
+  },
+  "output": {
+    "item": "malum:solid_soulwood_trapdoor",
+    "count": 1
+  }
+}

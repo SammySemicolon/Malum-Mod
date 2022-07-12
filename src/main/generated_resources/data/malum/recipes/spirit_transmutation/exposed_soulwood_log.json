@@ -1,0 +1,11 @@
+{
+  "type": "malum:spirit_transmutation",
+  "input": {
+    "item": "malum:exposed_runewood_log",
+    "count": 1
+  },
+  "output": {
+    "item": "malum:exposed_soulwood_log",
+    "count": 1
+  }
+}

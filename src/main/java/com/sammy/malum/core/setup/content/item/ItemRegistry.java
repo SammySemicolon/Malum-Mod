@@ -392,6 +392,7 @@ public class ItemRegistry {
     public static final RegistryObject<Item> SPIRIT_FABRIC = ITEMS.register("spirit_fabric", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> SPECTRAL_LENS = ITEMS.register("spectral_lens", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> POPPET = ITEMS.register("poppet", () -> new Item(DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> CURSED_GRIT = ITEMS.register("cursed_grit", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> ETHERIC_NITRATE = ITEMS.register("etheric_nitrate", () -> new EthericNitrateItem(DEFAULT_PROPERTIES()));
 
     public static final RegistryObject<Item> HALLOWED_GOLD_INGOT = ITEMS.register("hallowed_gold_ingot", () -> new Item(DEFAULT_PROPERTIES()));

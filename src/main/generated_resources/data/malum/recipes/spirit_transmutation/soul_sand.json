@@ -1,0 +1,11 @@
+{
+  "type": "malum:spirit_transmutation",
+  "input": {
+    "item": "minecraft:deepslate",
+    "count": 1
+  },
+  "output": {
+    "item": "minecraft:soul_sand",
+    "count": 1
+  }
+}

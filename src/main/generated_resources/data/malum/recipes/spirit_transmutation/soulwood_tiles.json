@@ -1,0 +1,11 @@
+{
+  "type": "malum:spirit_transmutation",
+  "input": {
+    "item": "malum:runewood_tiles",
+    "count": 1
+  },
+  "output": {
+    "item": "malum:soulwood_tiles",
+    "count": 1
+  }
+}

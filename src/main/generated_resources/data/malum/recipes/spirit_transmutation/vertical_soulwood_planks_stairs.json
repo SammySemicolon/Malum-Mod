@@ -1,0 +1,11 @@
+{
+  "type": "malum:spirit_transmutation",
+  "input": {
+    "item": "malum:vertical_runewood_planks_stairs",
+    "count": 1
+  },
+  "output": {
+    "item": "malum:vertical_soulwood_planks_stairs",
+    "count": 1
+  }
+}

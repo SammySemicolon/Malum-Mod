@@ -1,0 +1,11 @@
+{
+  "type": "malum:spirit_transmutation",
+  "input": {
+    "item": "minecraft:cobblestone",
+    "count": 1
+  },
+  "output": {
+    "item": "minecraft:gravel",
+    "count": 1
+  }
+}

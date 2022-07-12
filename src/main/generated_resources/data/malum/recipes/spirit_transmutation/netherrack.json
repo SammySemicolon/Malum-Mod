@@ -1,0 +1,11 @@
+{
+  "type": "malum:spirit_transmutation",
+  "input": {
+    "item": "minecraft:cobbled_deepslate",
+    "count": 1
+  },
+  "output": {
+    "item": "minecraft:netherrack",
+    "count": 1
+  }
+}
