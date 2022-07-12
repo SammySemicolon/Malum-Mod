@@ -1,0 +1,17 @@
+{
+  "registry_name": "undergarden:rotling",
+  "primary_type": "wicked",
+  "spirits": [
+    {
+      "spirit": "wicked",
+      "count": 1
+    },
+    {
+      "spirit": "aerial",
+      "count": 1
+    }
+  ],
+  "spirit_item": {
+    "item": "undergarden:utheric_shard"
+  }
+}
