@@ -26,4 +26,5 @@ public class SetupEvents {
     public static void registerParticleFactory(ParticleFactoryRegisterEvent event) {
         ParticleRegistry.registerParticleFactory(event);
     }
+
 }

@@ -28,6 +28,9 @@ public class CurioHiddenBladeNecklace extends MalumCurioItem implements IMalumEv
 
     @Override
     public void takeDamageEvent(LivingHurtEvent event, LivingEntity attacker, LivingEntity attacked, ItemStack stack) {
+        if (attacked instanceof Player player && player.getCooldowns().isOnCooldown(ItemRegistry.NECKLACE_OF_THE_HIDDEN_BLADE.get())) {
+            return;
+        }
         float amount = event.getAmount();
         int amplifier = (int) Math.ceil(amount / 4f);
         if (amplifier >= 4) {

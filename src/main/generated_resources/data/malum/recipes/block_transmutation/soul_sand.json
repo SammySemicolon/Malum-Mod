@@ -1,5 +1,5 @@
 {
   "type": "malum:block_transmutation",
-  "input": "minecraft:netherrack",
+  "input": "minecraft:deepslate",
   "output": "minecraft:soul_sand"
 }

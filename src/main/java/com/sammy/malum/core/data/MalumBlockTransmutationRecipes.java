@@ -39,10 +39,10 @@ public class MalumBlockTransmutationRecipes extends RecipeProvider {
         new BlockTransmutationRecipeBuilder(Blocks.STONE, Blocks.SAND)
                 .build(consumer);
 
-        new BlockTransmutationRecipeBuilder(Blocks.NETHERRACK, Blocks.SOUL_SAND)
+        new BlockTransmutationRecipeBuilder(Blocks.COBBLED_DEEPSLATE, Blocks.NETHERRACK)
                 .build(consumer);
 
-        new BlockTransmutationRecipeBuilder(Blocks.SOUL_SAND, Blocks.MAGMA_BLOCK)
+        new BlockTransmutationRecipeBuilder(Blocks.DEEPSLATE, Blocks.SOUL_SAND)
                 .build(consumer);
     }
 }

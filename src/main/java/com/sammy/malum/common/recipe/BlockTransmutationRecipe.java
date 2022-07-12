@@ -7,6 +7,8 @@ import com.sammy.ortus.systems.recipe.IOrtusRecipe;
 import net.minecraft.core.Registry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
@@ -31,10 +33,10 @@ public class BlockTransmutationRecipe extends IOrtusRecipe {
 
     private final ResourceLocation id;
 
-    public final Block input;
-    public final Block output;
+    public final Ingredient input;
+    public final Ingredient output;
 
-    public BlockTransmutationRecipe(ResourceLocation id, Block input, Block output) {
+    public BlockTransmutationRecipe(ResourceLocation id, Block input, Ingredient output) {
         this.id = id;
         this.input = input;
         this.output = output;
@@ -55,18 +57,18 @@ public class BlockTransmutationRecipe extends IOrtusRecipe {
         return id;
     }
 
-    public boolean doesInputMatch(Block input) {
+    public boolean doesInputMatch(Item item) {
         return input.equals(this.input);
     }
 
-    public boolean doesOutputMatch(Block output) {
+    public boolean doesOutputMatch(Item item) {
         return output.equals(this.output);
     }
 
-    public static BlockTransmutationRecipe getRecipe(Level level, Block block) {
+    public static BlockTransmutationRecipe getRecipe(Level level, Item item) {
         List<BlockTransmutationRecipe> recipes = getRecipes(level);
         for (BlockTransmutationRecipe recipe : recipes) {
-            if (recipe.doesInputMatch(block)) {
+            if (recipe.doesInputMatch(item)) {
                 return recipe;
             }
         }

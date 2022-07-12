@@ -2,8 +2,11 @@ package com.sammy.malum.common.spiritrite.greater;
 
 import com.sammy.malum.common.blockentity.totem.TotemBaseBlockEntity;
 import com.sammy.malum.common.packets.particle.block.BlockSparkleParticlePacket;
+import com.sammy.malum.common.packets.particle.block.FireBlockExtinguishSparkleParticlePacket;
+import com.sammy.malum.common.packets.particle.block.MinorBlockSparkleParticlePacket;
 import com.sammy.malum.core.setup.content.potion.MalumMobEffectRegistry;
 import com.sammy.malum.core.systems.rites.*;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.BlockItem;
@@ -11,7 +14,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.SmeltingRecipe;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.AbstractFurnaceBlock;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.network.PacketDistributor;
 
@@ -53,6 +58,28 @@ public class EldritchInfernalRiteType extends MalumRiteType {
 
     @Override
     public MalumRiteEffect getCorruptedEffect() {
-        return new PotionRiteEffect(LivingEntity.class, MalumMobEffectRegistry.MINERS_RAGE, INFERNAL_SPIRIT);
+        return new MalumRiteEffect() {
+            @Override
+            public void riteEffect(TotemBaseBlockEntity totemBase) {
+                Level level = totemBase.getLevel();
+                getNearbyBlocks(totemBase, AbstractFurnaceBlock.class).map(b -> level.getBlockEntity(b)).filter(e -> e instanceof AbstractFurnaceBlockEntity).map(e -> (AbstractFurnaceBlockEntity) e).forEach(f -> {
+                    if (f.isLit()) {
+                        BlockPos blockPos = f.getBlockPos();
+                        MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(blockPos)), new MinorBlockSparkleParticlePacket(INFERNAL_SPIRIT.getColor(), blockPos));
+                        f.cookingProgress = Math.min(f.cookingProgress + 5, f.cookingTotalTime);
+                    }
+                });
+            }
+
+            @Override
+            public int getRiteEffectTickRate() {
+                return BASE_TICK_RATE;
+            }
+
+            @Override
+            public int getRiteEffectRadius() {
+                return BASE_RADIUS*2;
+            }
+        };
     }
 }

@@ -156,14 +156,14 @@ public class MalumRecipes extends RecipeProvider implements IConditionBuilder {
         shaped(Items.NETHERRACK, 2).define('Z', ItemRegistry.BLAZING_QUARTZ.get()).define('Y', Tags.Items.COBBLESTONE).pattern("ZY").pattern("YZ").unlockedBy("has_blazing_quartz", has(ItemRegistry.BLAZING_QUARTZ.get())).save(consumer, malumPath("netherrack_from_blazing_quartz"));
         shapeless(Items.EXPERIENCE_BOTTLE).requires(ItemRegistry.CHUNK_OF_BRILLIANCE.get()).requires(Items.GLASS_BOTTLE).unlockedBy("has_brilliance", has(ItemRegistry.CHUNK_OF_BRILLIANCE.get())).save(consumer, malumPath("experience_bottle_from_brilliance"));
 
-        shapeless(Items.BONE_MEAL, 9).requires(ItemRegistry.GRIM_TALC.get()).unlockedBy("has_grim_talc", has(ItemRegistry.GRIM_TALC.get())).save(consumer, malumPath("bonemeal_from_grim_talc"));
+        shapeless(Items.BONE_MEAL, 6).requires(ItemRegistry.GRIM_TALC.get()).unlockedBy("has_grim_talc", has(ItemRegistry.GRIM_TALC.get())).save(consumer, malumPath("bonemeal_from_grim_talc"));
         shaped(Items.SKELETON_SKULL).define('#', ItemRegistry.GRIM_TALC.get()).define('&', Tags.Items.BONES).pattern("&&&").pattern("&#&").pattern("&&&").unlockedBy("has_grim_talc", has(ItemRegistry.GRIM_TALC.get())).save(consumer, malumPath("skeleton_skull_from_grim_talc"));
         shaped(Items.ZOMBIE_HEAD).define('#', ItemRegistry.GRIM_TALC.get()).define('&', Items.ROTTEN_FLESH).pattern("&&&").pattern("&#&").pattern("&&&").unlockedBy("has_grim_talc", has(ItemRegistry.GRIM_TALC.get())).save(consumer, malumPath("zombie_head_from_grim_talc"));
 
-        shaped(ItemRegistry.BLAZING_TORCH.get()).define('#', ItemRegistry.BLAZING_QUARTZ.get()).define('&', Items.STICK).pattern("#").pattern("&").unlockedBy("has_blazing_quartz", has(ItemRegistry.BLAZING_QUARTZ.get())).save(consumer, malumPath("blazing_torch"));
+        shaped(ItemRegistry.BLAZING_TORCH.get(), 6).define('#', ItemRegistry.BLAZING_QUARTZ.get()).define('&', Items.STICK).pattern("#").pattern("&").unlockedBy("has_blazing_quartz", has(ItemRegistry.BLAZING_QUARTZ.get())).save(consumer, malumPath("blazing_torch"));
 
         ConditionalRecipe.builder().addCondition(new ModLoadedCondition("supplementaries")).addRecipe(
-                shaped(ItemRegistry.BLAZING_TORCH.get()).define('#', ItemRegistry.BLAZING_TORCH.get()).define('&', Tags.Items.NUGGETS_IRON).pattern("&#&").pattern(" & ").unlockedBy("has_blazing_quartz", has(ItemRegistry.BLAZING_QUARTZ.get()))
+                shaped(ItemRegistry.BLAZING_SCONCE.get()).define('#', ItemRegistry.BLAZING_TORCH.get()).define('&', Tags.Items.NUGGETS_IRON).pattern("&#&").pattern(" & ").unlockedBy("has_blazing_quartz", has(ItemRegistry.BLAZING_QUARTZ.get()))
                         ::save)
                 .generateAdvancement()
                 .build(consumer, MalumMod.malumPath("blazing_sconce"));

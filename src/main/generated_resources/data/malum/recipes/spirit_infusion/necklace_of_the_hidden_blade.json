@@ -1,25 +1,25 @@
 {
   "type": "malum:spirit_infusion",
   "input": {
-    "item": "malum:belt_of_the_keeper",
+    "item": "malum:necklace_of_the_narrow_edge",
     "count": 1
   },
   "output": {
-    "item": "malum:belt_of_the_magebane",
+    "item": "malum:necklace_of_the_hidden_blade",
     "count": 1
   },
   "extra_items": [
     {
-      "item": "malum:twisted_rock",
+      "item": "malum:soulwood_planks",
       "count": 16
     },
     {
-      "item": "malum:soulwood_planks",
-      "count": 8
+      "item": "malum:stained_spirit_resonator",
+      "count": 2
     },
     {
       "item": "malum:soul_stained_steel_ingot",
-      "count": 6
+      "count": 8
     }
   ],
   "spirits": [

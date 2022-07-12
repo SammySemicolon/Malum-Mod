@@ -313,12 +313,22 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider implements ICondi
                 .addExtraItem(Ingredient.of(Tags.Items.OBSIDIAN), 4)
                 .build(consumer);
 
-        new SpiritInfusionRecipeBuilder(ItemRegistry.GILDED_BELT.get(), 1, ItemRegistry.BELT_OF_THE_MAGEBANE.get(), 1)
-                .addSpirit(WICKED_SPIRIT, 16)
+        new SpiritInfusionRecipeBuilder(ItemRegistry.BELT_OF_THE_KEEPER.get(), 1, ItemRegistry.BELT_OF_THE_MAGEBANE.get(), 1)
+                .addSpirit(WICKED_SPIRIT, 32)
+                .addSpirit(ARCANE_SPIRIT, 16)
                 .addSpirit(ELDRITCH_SPIRIT, 4)
                 .addExtraItem(ItemRegistry.TWISTED_ROCK.get(), 16)
                 .addExtraItem(ItemRegistry.SOULWOOD_PLANKS.get(), 8)
                 .addExtraItem(ItemRegistry.SOUL_STAINED_STEEL_INGOT.get(), 6)
+                .build(consumer);
+
+        new SpiritInfusionRecipeBuilder(ItemRegistry.NECKLACE_OF_THE_NARROW_EDGE.get(), 1, ItemRegistry.NECKLACE_OF_THE_HIDDEN_BLADE.get(), 1)
+                .addSpirit(WICKED_SPIRIT, 32)
+                .addSpirit(ARCANE_SPIRIT, 16)
+                .addSpirit(ELDRITCH_SPIRIT, 4)
+                .addExtraItem(ItemRegistry.SOULWOOD_PLANKS.get(), 16)
+                .addExtraItem(ItemRegistry.STAINED_SPIRIT_RESONATOR.get(), 2)
+                .addExtraItem(ItemRegistry.SOUL_STAINED_STEEL_INGOT.get(), 8)
                 .build(consumer);
 
         new SpiritInfusionRecipeBuilder(Items.FURNACE, 1, ItemRegistry.SPIRIT_CRUCIBLE.get(), 1)
@@ -386,6 +396,7 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider implements ICondi
                                 .addSpirit(EARTHEN_SPIRIT, 8)
                                 .addSpirit(INFERNAL_SPIRIT, 8)
                                 .addExtraItem(Ingredient.of(Tags.Items.GUNPOWDER), 4)
+                                .addExtraItem(Ingredient.of(ItemRegistry.RARE_EARTHS.get()), 1)
                                 .addExtraItem(Ingredient.of(ingot), 6)
                                 ::build)
                 .generateAdvancement()

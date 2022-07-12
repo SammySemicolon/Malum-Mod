@@ -105,11 +105,11 @@ public class BlockRegistry {
     }
 
     public static OrtusBlockProperties BLIGHT_PROPERTIES() {
-        return new OrtusBlockProperties(Material.PLANT, MaterialColor.COLOR_PURPLE).needsShovel().needsHoe().sound(SoundRegistry.BLIGHTED_EARTH).strength(0.7f);
+        return new OrtusBlockProperties(Material.MOSS, MaterialColor.COLOR_PURPLE).needsShovel().needsHoe().sound(SoundRegistry.BLIGHTED_EARTH).strength(0.7f);
     }
 
     public static OrtusBlockProperties BLIGHT_PLANTS_PROPERTIES() {
-        return new OrtusBlockProperties(Material.PLANT, MaterialColor.COLOR_PURPLE).noCollission().noOcclusion().sound(SoundRegistry.BLIGHTED_FOLIAGE).instabreak();
+        return new OrtusBlockProperties(Material.REPLACEABLE_PLANT, MaterialColor.COLOR_PURPLE).noCollission().noOcclusion().sound(SoundRegistry.BLIGHTED_FOLIAGE).instabreak();
     }
 
     public static OrtusBlockProperties SOULWOOD_LEAVES_PROPERTIES() {
@@ -399,7 +399,7 @@ public class BlockRegistry {
     //endregion
 
     //region blight
-    public static final RegistryObject<Block> BLIGHTED_EARTH = BLOCKS.register("blighted_earth", () -> new BlightedEarthBlock(BLIGHT_PROPERTIES()));
+    public static final RegistryObject<Block> BLIGHTED_EARTH = BLOCKS.register("blighted_earth", () -> new BlightedSoilBlock(BLIGHT_PROPERTIES()));
     public static final RegistryObject<Block> BLIGHTED_SOIL = BLOCKS.register("blighted_soil", () -> new BlightedSoilBlock(BLIGHT_PROPERTIES()));
     public static final RegistryObject<Block> BLIGHTED_WEED = BLOCKS.register("blighted_weed", () -> new BlightedGrassBlock(BLIGHT_PLANTS_PROPERTIES().isCutoutLayer()));
     public static final RegistryObject<Block> BLIGHTED_COVERAGE = BLOCKS.register("blighted_coverage", () -> new BlightedCoverageBlock(BLIGHT_PLANTS_PROPERTIES().isCutoutLayer()));
@@ -437,8 +437,8 @@ public class BlockRegistry {
     public static final RegistryObject<Block> BLAZING_QUARTZ_ORE = BLOCKS.register("blazing_quartz_ore", () -> new OreBlock(BLAZE_QUARTZ_ORE_PROPERTIES().isCutoutLayer().lightLevel((b) -> 6), UniformInt.of(4, 7)));
     public static final RegistryObject<Block> BLOCK_OF_BLAZING_QUARTZ = BLOCKS.register("block_of_blazing_quartz", () -> new Block(BLAZE_QUARTZ_PROPERTIES().lightLevel((b) -> 14)));
 
-    public static final RegistryObject<Block> NATURAL_QUARTZ_ORE = BLOCKS.register("natural_quartz_ore", () -> new OreBlock(NATURAL_QUARTZ_PROPERTIES().isCutoutLayer(), UniformInt.of(6, 12)));
-    public static final RegistryObject<Block> DEEPSLATE_QUARTZ_ORE = BLOCKS.register("deepslate_quartz_ore", () -> new OreBlock(DEEPSLATE_QUARTZ_PROPERTIES().isCutoutLayer(), UniformInt.of(8, 14)));
+    public static final RegistryObject<Block> NATURAL_QUARTZ_ORE = BLOCKS.register("natural_quartz_ore", () -> new OreBlock(NATURAL_QUARTZ_PROPERTIES().isCutoutLayer(), UniformInt.of(1, 4)));
+    public static final RegistryObject<Block> DEEPSLATE_QUARTZ_ORE = BLOCKS.register("deepslate_quartz_ore", () -> new OreBlock(DEEPSLATE_QUARTZ_PROPERTIES().isCutoutLayer(), UniformInt.of(2, 5)));
     public static final RegistryObject<Block> NATURAL_QUARTZ_CLUSTER = BLOCKS.register("natural_quartz_cluster", () -> new AmethystClusterBlock(6, 3, NATURAL_QUARTZ_CLUSTER_PROPERTIES().isCutoutLayer()));
 
     public static final RegistryObject<Block> BLOCK_OF_RARE_EARTHS = BLOCKS.register("block_of_rare_earths", () -> new OreBlock(RARE_EARTH_PROPERTIES(), UniformInt.of(10, 100)));

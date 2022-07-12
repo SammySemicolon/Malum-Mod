@@ -39,8 +39,10 @@ public class SapFilledLogBlock extends RotatedPillarBlock {
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
         ItemStack itemstack = player.getItemInHand(handIn);
         if (itemstack.getItem() == Items.GLASS_BOTTLE) {
-            itemstack.shrink(1);
-            collectSap(level, pos, player);
+            if (!level.isClientSide) {
+                itemstack.shrink(1);
+                collectSap(level, pos, player);
+            }
             return InteractionResult.SUCCESS;
         }
         return super.use(state, level, pos, player, handIn, hit);
