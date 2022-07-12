@@ -7,8 +7,6 @@ import com.sammy.malum.core.systems.rites.MalumRiteType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 
 public class SpiritRiteTextPage extends BookPage {
     public final MalumRiteType riteType;
@@ -21,7 +19,7 @@ public class SpiritRiteTextPage extends BookPage {
     }
 
     public String headlineTranslationKey() {
-        return riteType.translationIdentifier();
+        return riteType.translationIdentifier(isCorrupted());
     }
 
     public String translationKey() {
@@ -49,6 +47,6 @@ public class SpiritRiteTextPage extends BookPage {
     }
 
     public boolean isCorrupted() {
-        return translationKey.contains("corrupted");
+        return translationKey.contains("corrupt");
     }
 }

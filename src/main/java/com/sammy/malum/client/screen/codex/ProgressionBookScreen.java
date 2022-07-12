@@ -2,13 +2,11 @@ package com.sammy.malum.client.screen.codex;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector4f;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.client.screen.codex.objects.*;
 import com.sammy.malum.client.screen.codex.pages.*;
 import com.sammy.malum.common.events.SetupMalumCodexEntriesEvent;
 import com.sammy.malum.core.setup.content.SpiritRiteRegistry;
-import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
 import com.sammy.ortus.handlers.ScreenParticleHandler;
@@ -21,7 +19,6 @@ import com.sammy.ortus.systems.rendering.VFXBuilders.ScreenVFXBuilder;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
@@ -92,525 +89,522 @@ public class ProgressionBookScreen extends Screen {
         Item EMPTY = ItemStack.EMPTY.getItem();
 
         ENTRIES.add(new BookEntry(
-                "introduction", ENCYCLOPEDIA_ARCANA.get(), 0, 0)
-                .setObjectSupplier(ImportantEntryObject::new)
-                .addPage(new HeadlineTextPage("introduction", "introduction_a"))
-                .addPage(new TextPage("introduction_b"))
-                .addPage(new TextPage("introduction_c"))
-                .addPage(new TextPage("introduction_d"))
-                .addPage(new TextPage("introduction_e"))
+            "introduction", ENCYCLOPEDIA_ARCANA.get(), 0, 0)
+            .setObjectSupplier(ImportantEntryObject::new)
+            .addPage(new HeadlineTextPage("introduction", "introduction.1"))
+            .addPage(new TextPage("introduction.2"))
+            .addPage(new TextPage("introduction.3"))
+            .addPage(new TextPage("introduction.4"))
+            .addPage(new TextPage("introduction.5"))
         );
 
         ENTRIES.add(new BookEntry(
-                "spirit_magics", SOUL_SAND, 0, 1)
-                .addPage(new HeadlineTextPage("spirit_magics", "spirit_magics_a"))
-                .addPage(new TextPage("spirit_magics_b"))
-                .addPage(new TextPage("spirit_magics_c"))
-                .addPage(new TextPage("spirit_magics_d"))
+            "spirit_crystals", ARCANE_SPIRIT.get(), 0, 1)
+            .addPage(new HeadlineTextPage("spirit_crystals", "spirit_crystals.1"))
+            .addPage(new TextPage("spirit_crystals.2"))
+            .addPage(new TextPage("spirit_crystals.3"))
         );
 
         ENTRIES.add(new BookEntry(
-                "runewood", RUNEWOOD_SAPLING.get(), 1, 2)
-                .addPage(new HeadlineTextItemPage("runewood", "runewood_a", RUNEWOOD_SAPLING.get()))
-                .addPage(new TextPage("runewood_b"))
-                .addPage(new HeadlineTextPage("arcane_charcoal", "arcane_charcoal"))
-                .addPage(new SmeltingBookPage(RUNEWOOD_LOG.get(), ARCANE_CHARCOAL.get()))
-                .addPage(CraftingBookPage.fullPage(BLOCK_OF_ARCANE_CHARCOAL.get(), ARCANE_CHARCOAL.get()))
-                .addPage(new HeadlineTextPage("holy_sap", "holy_sap_a"))
-                .addPage(new TextPage("holy_sap_b"))
-                .addPage(new SmeltingBookPage(HOLY_SAP.get(), HOLY_SYRUP.get()))
-                .addPage(new TextPage("holy_sap_c"))
-                .addPage(new CraftingBookPage(new ItemStack(HOLY_SAPBALL.get(), 3), Items.SLIME_BALL, HOLY_SAP.get()))
+            "runewood", RUNEWOOD_SAPLING.get(), 1, 2)
+            .addPage(new HeadlineTextItemPage("runewood", "runewood.1", RUNEWOOD_SAPLING.get()))
+            .addPage(new HeadlineTextPage("runewood.arcane_charcoal", "runewood.arcane_charcoal.1"))
+            .addPage(new SmeltingBookPage(RUNEWOOD_LOG.get(), ARCANE_CHARCOAL.get()))
+            .addPage(CraftingBookPage.fullPage(BLOCK_OF_ARCANE_CHARCOAL.get(), ARCANE_CHARCOAL.get()))
+            .addPage(new HeadlineTextPage("runewood.holy_sap", "runewood.holy_sap.1"))
+            .addPage(new SmeltingBookPage(HOLY_SAP.get(), HOLY_SYRUP.get()))
+            .addPage(new CraftingBookPage(new ItemStack(HOLY_SAPBALL.get(), 3), Items.SLIME_BALL, HOLY_SAP.get()))
         );
 
         ENTRIES.add(new BookEntry(
-                "natural_quartz", NATURAL_QUARTZ.get(), 3, 2)
-                .setObjectSupplier(MinorEntryObject::new)
-                .addPage(new HeadlineTextItemPage("natural_quartz", "natural_quartz", NATURAL_QUARTZ.get()))
+            "natural_quartz", NATURAL_QUARTZ.get(), 3, 2)
+            .setObjectSupplier(MinorEntryObject::new)
+            .addPage(new HeadlineTextItemPage("natural_quartz", "natural_quartz.1", NATURAL_QUARTZ.get()))
         );
 
         ENTRIES.add(new BookEntry(
-                "blazing_quartz", BLAZING_QUARTZ.get(), 4, 3)
-                .setObjectSupplier(MinorEntryObject::new)
-                .addPage(new HeadlineTextItemPage("blazing_quartz", "blazing_quartz", BLAZING_QUARTZ.get()))
-                .addPage(CraftingBookPage.fullPage(BLOCK_OF_BLAZING_QUARTZ.get(), BLAZING_QUARTZ.get()))
+            "blazing_quartz", BLAZING_QUARTZ.get(), 4, 3)
+            .setObjectSupplier(MinorEntryObject::new)
+            .addPage(new HeadlineTextItemPage("blazing_quartz", "blazing_quartz.1", BLAZING_QUARTZ.get()))
+            .addPage(CraftingBookPage.fullPage(BLOCK_OF_BLAZING_QUARTZ.get(), BLAZING_QUARTZ.get()))
         );
 
         ENTRIES.add(new BookEntry(
-                "brilliance", CLUSTER_OF_BRILLIANCE.get(), -3, 2)
-                .setObjectSupplier(MinorEntryObject::new)
-                .addPage(new HeadlineTextItemPage("brilliance", "brilliance_a", CLUSTER_OF_BRILLIANCE.get()))
-                .addPage(new TextPage("brilliance_b"))
-                .addPage(CraftingBookPage.fullPage(BLOCK_OF_BRILLIANCE.get(), CLUSTER_OF_BRILLIANCE.get()))
+            "brilliance", CLUSTER_OF_BRILLIANCE.get(), -3, 2)
+            .setObjectSupplier(MinorEntryObject::new)
+            .addPage(new HeadlineTextItemPage("brilliance", "brilliance.1", CLUSTER_OF_BRILLIANCE.get()))
+            .addPage(new TextPage("brilliance.2"))
+            .addPage(CraftingBookPage.fullPage(BLOCK_OF_BRILLIANCE.get(), CLUSTER_OF_BRILLIANCE.get()))
         );
 
         ENTRIES.add(new BookEntry(
-                "rare_earths", RARE_EARTHS.get(), -4, 3)
-                .setObjectSupplier(MinorEntryObject::new)
-                .addPage(new HeadlineTextItemPage("rare_earths", "rare_earths", RARE_EARTHS.get()))
+            "rare_earths", RARE_EARTHS.get(), -4, 3)
+            .setObjectSupplier(MinorEntryObject::new)
+            .addPage(new HeadlineTextItemPage("rare_earths", "rare_earths", RARE_EARTHS.get()))
         );
 
         ENTRIES.add(new BookEntry(
-                "soulstone", PROCESSED_SOULSTONE.get(), -1, 2)
-                .addPage(new HeadlineTextItemPage("soulstone", "soulstone_a", PROCESSED_SOULSTONE.get()))
-                .addPage(new TextPage("soulstone_b"))
-                .addPage(new SmeltingBookPage(new ItemStack(RAW_SOULSTONE.get()), new ItemStack(PROCESSED_SOULSTONE.get(), 2)))
-                .addPage(CraftingBookPage.fullPage(BLOCK_OF_SOULSTONE.get(), PROCESSED_SOULSTONE.get()))
-                .addPage(CraftingBookPage.fullPage(BLOCK_OF_RAW_SOULSTONE.get(), RAW_SOULSTONE.get()))
+            "soulstone", PROCESSED_SOULSTONE.get(), -1, 2)
+            .addPage(new HeadlineTextItemPage("soulstone", "soulstone.1", PROCESSED_SOULSTONE.get()))
+            .addPage(new TextPage("soulstone.2"))
+            .addPage(new SmeltingBookPage(new ItemStack(RAW_SOULSTONE.get()), new ItemStack(PROCESSED_SOULSTONE.get(), 2)))
+            .addPage(CraftingBookPage.fullPage(BLOCK_OF_SOULSTONE.get(), PROCESSED_SOULSTONE.get()))
+            .addPage(CraftingBookPage.fullPage(BLOCK_OF_RAW_SOULSTONE.get(), RAW_SOULSTONE.get()))
         );
 
         ENTRIES.add(new BookEntry(
-                "scythes", CRUDE_SCYTHE.get(), 0, 3)
-                .addPage(new HeadlineTextPage("scythes", "scythes_a"))
-                .addPage(CraftingBookPage.scythePage(ItemRegistry.CRUDE_SCYTHE.get(), Items.IRON_INGOT, PROCESSED_SOULSTONE.get()))
-                .addPage(new TextPage("scythes_b"))
-                .addPage(new TextPage("scythes_c"))
-                .addPage(new HeadlineTextPage("scythe_enchanting", "scythe_enchanting"))
-                .addPage(new HeadlineTextPage("haunted", "haunted"))
-                .addPage(new HeadlineTextPage("spirit_plunder", "spirit_plunder"))
-                .addPage(new HeadlineTextPage("rebound", "rebound"))
+            "scythes", CRUDE_SCYTHE.get(), 0, 3)
+            .addPage(new HeadlineTextPage("scythes", "scythes.1"))
+            .addPage(CraftingBookPage.scythePage(ItemRegistry.CRUDE_SCYTHE.get(), Items.IRON_INGOT, PROCESSED_SOULSTONE.get()))
+            .addPage(new TextPage("scythes.2"))
+            .addPage(new HeadlineTextPage("scythes.enchanting", "scythes.enchanting.1"))
+            .addPage(new HeadlineTextPage("scythes.enchanting.haunted", "scythes.enchanting.haunted.1"))
+            .addPage(new HeadlineTextPage("scythes.enchanting.spirit_plunder", "scythes.enchanting.spirit_plunder.1"))
+            .addPage(new HeadlineTextPage("scythes.enchanting.rebound", "scythes.enchanting.rebound.1"))
         );
 
         ENTRIES.add(new BookEntry(
-                "spirit_infusion", SPIRIT_ALTAR.get(), 0, 5)
-                .setObjectSupplier(ImportantEntryObject::new)
-                .addPage(new HeadlineTextPage("spirit_infusion", "spirit_infusion_a"))
-                .addPage(new CraftingBookPage(SPIRIT_ALTAR.get(), AIR, PROCESSED_SOULSTONE.get(), AIR, GOLD_INGOT, RUNEWOOD_PLANKS.get(), GOLD_INGOT, RUNEWOOD_PLANKS.get(), RUNEWOOD_PLANKS.get(), RUNEWOOD_PLANKS.get()))
-                .addPage(new TextPage("spirit_infusion_b"))
-                .addPage(new TextPage("spirit_infusion_c"))
-                .addPage(CraftingBookPage.itemPedestalPage(RUNEWOOD_ITEM_PEDESTAL.get(), RUNEWOOD_PLANKS.get(), RUNEWOOD_PLANKS_SLAB.get()))
-                .addPage(CraftingBookPage.itemStandPage(RUNEWOOD_ITEM_STAND.get(), RUNEWOOD_PLANKS.get(), RUNEWOOD_PLANKS_SLAB.get()))
-                .addPage(new HeadlineTextPage("hex_ash", "hex_ash"))
-                .addPage(SpiritInfusionPage.fromOutput(HEX_ASH.get()))
+            "spirit_infusion", SPIRIT_ALTAR.get(), 0, 5)
+            .setObjectSupplier(ImportantEntryObject::new)
+            .addPage(new HeadlineTextPage("spirit_infusion", "spirit_infusion.1"))
+            .addPage(new CraftingBookPage(SPIRIT_ALTAR.get(), AIR, PROCESSED_SOULSTONE.get(), AIR, GOLD_INGOT, RUNEWOOD_PLANKS.get(), GOLD_INGOT, RUNEWOOD_PLANKS.get(), RUNEWOOD_PLANKS.get(), RUNEWOOD_PLANKS.get()))
+            .addPage(new TextPage("spirit_infusion.2"))
+            .addPage(new TextPage("spirit_infusion.3"))
+            .addPage(CraftingBookPage.itemPedestalPage(RUNEWOOD_ITEM_PEDESTAL.get(), RUNEWOOD_PLANKS.get(), RUNEWOOD_PLANKS_SLAB.get()))
+            .addPage(CraftingBookPage.itemStandPage(RUNEWOOD_ITEM_STAND.get(), RUNEWOOD_PLANKS.get(), RUNEWOOD_PLANKS_SLAB.get()))
+            .addPage(new HeadlineTextPage("spirit_infusion.hex_ash", "spirit_infusion.hex_ash.1"))
+            .addPage(SpiritInfusionPage.fromOutput(HEX_ASH.get()))
         );
 
         ENTRIES.add(new BookEntry(
-                "scythe_reaping", ALCHEMICAL_CALX.get(), 0, 6)
-                .setObjectSupplier(MinorEntryObject::new)
+            "scythe_reaping", ALCHEMICAL_CALX.get(), 0, 6)
+            .setObjectSupplier(MinorEntryObject::new)
+            .addPage(new HeadlineTextPage("scythe_reaping", "scythe_reaping.1"))
+            .addPage(new TextPage("scythe_reaping.2"))
+            .addPage(new TextPage("scythe_reaping.2"))
+            .addPage(new HeadlineTextItemPage("scythe_reaping.calx", "scythe_reaping.calx.1", ALCHEMICAL_CALX.get()))
         );
 
         ENTRIES.add(new BookEntry(
-                "primary_arcana", ARCANE_SPIRIT.get(), -2, 4)
-                .addPage(new HeadlineTextItemPage("sacred_spirit", "sacred_spirit_a", SACRED_SPIRIT.get()))
-                .addPage(new TextPage("sacred_spirit_b"))
-                .addPage(new HeadlineTextItemPage("wicked_spirit", "wicked_spirit_a", WICKED_SPIRIT.get()))
-                .addPage(new TextPage("wicked_spirit_b"))
-                .addPage(new HeadlineTextItemPage("arcane_spirit", "arcane_spirit_a", ARCANE_SPIRIT.get()))
-                .addPage(new TextPage("arcane_spirit_b"))
-                .addPage(new TextPage("arcane_spirit_c"))
+            "primary_arcana", SACRED_SPIRIT.get(), -2, 4)
+            .addPage(new HeadlineTextItemPage("primary_arcana.sacred", "primary_arcana.sacred.1", SACRED_SPIRIT.get()))
+            .addPage(new TextPage("primary_arcana.sacred.2"))
+            .addPage(new HeadlineTextItemPage("primary_arcana.wicked", "primary_arcana.wicked.1", WICKED_SPIRIT.get()))
+            .addPage(new TextPage("primary_arcana.wicked.2"))
+            .addPage(new HeadlineTextItemPage("primary_arcana.arcane", "primary_arcana.arcane.1", ARCANE_SPIRIT.get()))
+            .addPage(new TextPage("primary_arcana.arcane.2"))
+            .addPage(new TextPage("primary_arcana.arcane.3"))
         );
 
         ENTRIES.add(new BookEntry(
-                "elemental_arcana", EARTHEN_SPIRIT.get(), 2, 4)
-                .addPage(new HeadlineTextItemPage("earthen_spirit", "earthen_spirit_a", EARTHEN_SPIRIT.get()))
-                .addPage(new TextPage("earthen_spirit_b"))
-                .addPage(new HeadlineTextItemPage("infernal_spirit", "infernal_spirit_a", INFERNAL_SPIRIT.get()))
-                .addPage(new TextPage("infernal_spirit_b"))
-                .addPage(new HeadlineTextItemPage("aerial_spirit", "aerial_spirit_a", AERIAL_SPIRIT.get()))
-                .addPage(new TextPage("aerial_spirit_b"))
-                .addPage(new HeadlineTextItemPage("aqueous_spirit", "aqueous_spirit_a", AQUEOUS_SPIRIT.get()))
-                .addPage(new TextPage("aqueous_spirit_b"))
+            "elemental_arcana", EARTHEN_SPIRIT.get(), 2, 4)
+            .addPage(new HeadlineTextItemPage("elemental_arcana.aerial", "elemental_arcana.aerial.1", AERIAL_SPIRIT.get()))
+            .addPage(new TextPage("elemental_arcana.aerial.2"))
+            .addPage(new HeadlineTextItemPage("elemental_arcana.earthen", "elemental_arcana.earthen.1", EARTHEN_SPIRIT.get()))
+            .addPage(new TextPage("elemental_arcana.earthen.2"))
+            .addPage(new HeadlineTextItemPage("elemental_arcana.infernal", "elemental_arcana.infernal.1", INFERNAL_SPIRIT.get()))
+            .addPage(new TextPage("elemental_arcana.infernal.2"))
+            .addPage(new HeadlineTextItemPage("elemental_arcana.aqueous", "elemental_arcana.aqueous.1", AQUEOUS_SPIRIT.get()))
+            .addPage(new TextPage("elemental_arcana.aqueous.2"))
         );
 
         ENTRIES.add(new BookEntry(
-                "eldritch_arcana", ELDRITCH_SPIRIT.get(), 0, 7)
-                .addPage(new HeadlineTextItemPage("eldritch_spirit", "eldritch_spirit_a", ELDRITCH_SPIRIT.get()))
-                .addPage(new TextPage("eldritch_spirit_b"))
+            "eldritch_arcana", ELDRITCH_SPIRIT.get(), 0, 7)
+            .addPage(new HeadlineTextItemPage("eldritch_arcana", "eldritch_arcana.1", ELDRITCH_SPIRIT.get()))
+            .addPage(new TextPage("eldritch_arcana.2"))
         );
 
         ENTRIES.add(new BookEntry(
-                "arcane_rock", TAINTED_ROCK.get(), 3, 6)
-                .addPage(new HeadlineTextPage("tainted_rock", "tainted_rock"))
-                .addPage(SpiritInfusionPage.fromOutput(TAINTED_ROCK.get()))
-                .addPage(CraftingBookPage.itemPedestalPage(TAINTED_ROCK_ITEM_PEDESTAL.get(), TAINTED_ROCK.get(), TAINTED_ROCK_SLAB.get()))
-                .addPage(CraftingBookPage.itemStandPage(TAINTED_ROCK_ITEM_STAND.get(), TAINTED_ROCK.get(), TAINTED_ROCK_SLAB.get()))
-                .addPage(new HeadlineTextPage("twisted_rock", "twisted_rock"))
-                .addPage(SpiritInfusionPage.fromOutput(TWISTED_ROCK.get()))
-                .addPage(CraftingBookPage.itemPedestalPage(TWISTED_ROCK_ITEM_PEDESTAL.get(), TWISTED_ROCK.get(), TWISTED_ROCK_SLAB.get()))
-                .addPage(CraftingBookPage.itemStandPage(TWISTED_ROCK_ITEM_STAND.get(), TWISTED_ROCK.get(), TWISTED_ROCK_SLAB.get()))
+            "spirit_stones", TAINTED_ROCK.get(), 3, 6)
+            .addPage(new HeadlineTextPage("spirit_stones.tainted_rock", "spirit_stones.tainted_rock.1"))
+            .addPage(SpiritInfusionPage.fromOutput(TAINTED_ROCK.get()))
+            .addPage(CraftingBookPage.itemPedestalPage(TAINTED_ROCK_ITEM_PEDESTAL.get(), TAINTED_ROCK.get(), TAINTED_ROCK_SLAB.get()))
+            .addPage(CraftingBookPage.itemStandPage(TAINTED_ROCK_ITEM_STAND.get(), TAINTED_ROCK.get(), TAINTED_ROCK_SLAB.get()))
+            .addPage(new HeadlineTextPage("spirit_stones.twisted_rock", "spirit_stones.twisted_rock.1"))
+            .addPage(SpiritInfusionPage.fromOutput(TWISTED_ROCK.get()))
+            .addPage(CraftingBookPage.itemPedestalPage(TWISTED_ROCK_ITEM_PEDESTAL.get(), TWISTED_ROCK.get(), TWISTED_ROCK_SLAB.get()))
+            .addPage(CraftingBookPage.itemStandPage(TWISTED_ROCK_ITEM_STAND.get(), TWISTED_ROCK.get(), TWISTED_ROCK_SLAB.get()))
         );
         ENTRIES.add(new BookEntry(
-                "ether", ETHER.get(), 5, 6)
-                .addPage(new HeadlineTextPage("ether", "ether_a"))
-                .addPage(SpiritInfusionPage.fromOutput(ETHER.get()))
-                .addPage(new TextPage("ether_b"))
-                .addPage(new CraftingBookPage(ETHER_TORCH.get(), EMPTY, EMPTY, EMPTY, EMPTY, ETHER.get(), EMPTY, EMPTY, STICK, EMPTY))
-                .addPage(new CraftingBookPage(TAINTED_ETHER_BRAZIER.get(), EMPTY, EMPTY, EMPTY, TAINTED_ROCK.get(), ETHER.get(), TAINTED_ROCK.get(), STICK, TAINTED_ROCK.get(), STICK))
-                .addPage(new CraftingBookPage(TWISTED_ETHER_BRAZIER.get(), EMPTY, EMPTY, EMPTY, TWISTED_ROCK.get(), ETHER.get(), TWISTED_ROCK.get(), STICK, TWISTED_ROCK.get(), STICK))
-                .addPage(new HeadlineTextPage("iridescent_ether", "iridescent_ether_a"))
-                .addPage(new TextPage("iridescent_ether_b"))
-                .addPage(SpiritInfusionPage.fromOutput(IRIDESCENT_ETHER.get()))
-                .addPage(new CraftingBookPage(IRIDESCENT_ETHER_TORCH.get(), EMPTY, EMPTY, EMPTY, EMPTY, IRIDESCENT_ETHER.get(), EMPTY, EMPTY, STICK, EMPTY))
-                .addPage(new CraftingBookPage(TAINTED_IRIDESCENT_ETHER_BRAZIER.get(), EMPTY, EMPTY, EMPTY, TAINTED_ROCK.get(), IRIDESCENT_ETHER.get(), TAINTED_ROCK.get(), STICK, TAINTED_ROCK.get(), STICK))
-                .addPage(new CraftingBookPage(TWISTED_IRIDESCENT_ETHER_BRAZIER.get(), EMPTY, EMPTY, EMPTY, TWISTED_ROCK.get(), IRIDESCENT_ETHER.get(), TWISTED_ROCK.get(), STICK, TWISTED_ROCK.get(), STICK))
-        );
-
-        ENTRIES.add(new BookEntry(
-                "spirit_fabric", SPIRIT_FABRIC.get(), 4, 5)
-                .addPage(new HeadlineTextPage("spirit_fabric", "spirit_fabric"))
-                .addPage(SpiritInfusionPage.fromOutput(SPIRIT_FABRIC.get()))
-                .addPage(new HeadlineTextPage("spirit_pouch", "spirit_pouch"))
-                .addPage(new CraftingBookPage(SPIRIT_POUCH.get(), EMPTY, STRING, EMPTY, SPIRIT_FABRIC.get(), SOUL_SAND, SPIRIT_FABRIC.get(), EMPTY, SPIRIT_FABRIC.get(), EMPTY))
+            "ether", ETHER.get(), 5, 6)
+            .addPage(new HeadlineTextPage("ether", "ether.1"))
+            .addPage(SpiritInfusionPage.fromOutput(ETHER.get()))
+            .addPage(new TextPage("ether.2"))
+            .addPage(new CraftingBookPage(ETHER_TORCH.get(), EMPTY, EMPTY, EMPTY, EMPTY, ETHER.get(), EMPTY, EMPTY, STICK, EMPTY))
+            .addPage(new CraftingBookPage(TAINTED_ETHER_BRAZIER.get(), EMPTY, EMPTY, EMPTY, TAINTED_ROCK.get(), ETHER.get(), TAINTED_ROCK.get(), STICK, TAINTED_ROCK.get(), STICK))
+            .addPage(new CraftingBookPage(TWISTED_ETHER_BRAZIER.get(), EMPTY, EMPTY, EMPTY, TWISTED_ROCK.get(), ETHER.get(), TWISTED_ROCK.get(), STICK, TWISTED_ROCK.get(), STICK))
+            .addPage(new HeadlineTextPage("ether.iridescent", "ether.iridescent.1"))
+            .addPage(new TextPage("ether.iridescent.2"))
+            .addPage(SpiritInfusionPage.fromOutput(IRIDESCENT_ETHER.get()))
+            .addPage(new CraftingBookPage(IRIDESCENT_ETHER_TORCH.get(), EMPTY, EMPTY, EMPTY, EMPTY, IRIDESCENT_ETHER.get(), EMPTY, EMPTY, STICK, EMPTY))
+            .addPage(new CraftingBookPage(TAINTED_IRIDESCENT_ETHER_BRAZIER.get(), EMPTY, EMPTY, EMPTY, TAINTED_ROCK.get(), IRIDESCENT_ETHER.get(), TAINTED_ROCK.get(), STICK, TAINTED_ROCK.get(), STICK))
+            .addPage(new CraftingBookPage(TWISTED_IRIDESCENT_ETHER_BRAZIER.get(), EMPTY, EMPTY, EMPTY, TWISTED_ROCK.get(), IRIDESCENT_ETHER.get(), TWISTED_ROCK.get(), STICK, TWISTED_ROCK.get(), STICK))
         );
 
         ENTRIES.add(new BookEntry(
-                "soul_hunter_gear", SOUL_HUNTER_CLOAK.get(), 4, 7)
-                .addPage(new HeadlineTextPage("soul_hunter_armor", "soul_hunter_armor"))
-                .addPage(SpiritInfusionPage.fromOutput(SOUL_HUNTER_CLOAK.get()))
-                .addPage(SpiritInfusionPage.fromOutput(SOUL_HUNTER_ROBE.get()))
-                .addPage(SpiritInfusionPage.fromOutput(SOUL_HUNTER_LEGGINGS.get()))
-                .addPage(SpiritInfusionPage.fromOutput(SOUL_HUNTER_BOOTS.get()))
+            "spirit_fabric", SPIRIT_FABRIC.get(), 4, 5)
+            .addPage(new HeadlineTextPage("spirit_fabric", "spirit_fabric.1"))
+            .addPage(SpiritInfusionPage.fromOutput(SPIRIT_FABRIC.get()))
+            .addPage(new HeadlineTextPage("spirit_fabric.pouch", "spirit_fabric.pouch.1"))
+            .addPage(new CraftingBookPage(SPIRIT_POUCH.get(), EMPTY, STRING, EMPTY, SPIRIT_FABRIC.get(), SOUL_SAND, SPIRIT_FABRIC.get(), EMPTY, SPIRIT_FABRIC.get(), EMPTY))
         );
 
         ENTRIES.add(new BookEntry(
-                "spirit_focusing", SPIRIT_CRUCIBLE.get(), 7, 6)
-                .addPage(new HeadlineTextItemPage("spirit_focusing", "spirit_focusing_a", SPIRIT_CRUCIBLE.get()))
-                .addPage(new TextPage("spirit_focusing_b"))
-                .addPage(SpiritInfusionPage.fromOutput(SPIRIT_CRUCIBLE.get()))
-                .addPage(SpiritInfusionPage.fromOutput(ALCHEMICAL_IMPETUS.get()))
+            "soulhunter_gear", SOUL_HUNTER_CLOAK.get(), 4, 7)
+            .addPage(new HeadlineTextPage("soulhunter_gear", "soulhunter_gear.1"))
+            .addPage(SpiritInfusionPage.fromOutput(SOUL_HUNTER_CLOAK.get()))
+            .addPage(SpiritInfusionPage.fromOutput(SOUL_HUNTER_ROBE.get()))
+            .addPage(SpiritInfusionPage.fromOutput(SOUL_HUNTER_LEGGINGS.get()))
+            .addPage(SpiritInfusionPage.fromOutput(SOUL_HUNTER_BOOTS.get()))
         );
 
         ENTRIES.add(new BookEntry(
-                "working_with_ashes", GUNPOWDER, 6, 5)
-                .addPage(new HeadlineTextPage("working_with_ashes", "working_with_ashes"))
-                .addPage(SpiritCruciblePage.fromOutput(GUNPOWDER))
-                .addPage(SpiritCruciblePage.fromOutput(GLOWSTONE_DUST))
-                .addPage(SpiritCruciblePage.fromOutput(REDSTONE))
+            "spirit_focusing", SPIRIT_CRUCIBLE.get(), 7, 6)
+            .addPage(new HeadlineTextItemPage("spirit_focusing", "spirit_focusing.1", SPIRIT_CRUCIBLE.get()))
+            .addPage(new TextPage("spirit_focusing.2"))
+            .addPage(SpiritInfusionPage.fromOutput(SPIRIT_CRUCIBLE.get()))
+            .addPage(SpiritInfusionPage.fromOutput(ALCHEMICAL_IMPETUS.get()))
         );
 
         ENTRIES.add(new BookEntry(
-                "metallurgic_magic", IRON_NODE.get(), 8, 7)
-                .addPage(new HeadlineTextItemPage("metallurgic_magic", "metallurgic_magic_a", IRON_NODE.get()))
-                .addPage(new TextPage("metallurgic_magic_b"))
-                .addPage(SpiritInfusionPage.fromOutput(IRON_IMPETUS.get()))
-                .addPage(SpiritCruciblePage.fromOutput(IRON_NODE.get()))
-                .addPage(SpiritInfusionPage.fromOutput(GOLD_IMPETUS.get()))
-                .addPage(SpiritCruciblePage.fromOutput(GOLD_NODE.get()))
-                .addPage(SpiritInfusionPage.fromOutput(COPPER_IMPETUS.get()))
-                .addPage(SpiritCruciblePage.fromOutput(COPPER_NODE.get()))
-                .addPage(SpiritInfusionPage.fromOutput(LEAD_IMPETUS.get()))
-                .addPage(SpiritCruciblePage.fromOutput(LEAD_NODE.get()))
-                .addPage(SpiritInfusionPage.fromOutput(SILVER_IMPETUS.get()))
-                .addPage(SpiritCruciblePage.fromOutput(SILVER_NODE.get()))
-                .addPage(SpiritInfusionPage.fromOutput(ALUMINUM_IMPETUS.get()))
-                .addPage(SpiritCruciblePage.fromOutput(ALUMINUM_NODE.get()))
-                .addPage(SpiritInfusionPage.fromOutput(NICKEL_IMPETUS.get()))
-                .addPage(SpiritCruciblePage.fromOutput(NICKEL_NODE.get()))
-                .addPage(SpiritInfusionPage.fromOutput(URANIUM_IMPETUS.get()))
-                .addPage(SpiritCruciblePage.fromOutput(URANIUM_NODE.get()))
-                .addPage(SpiritInfusionPage.fromOutput(OSMIUM_IMPETUS.get()))
-                .addPage(SpiritCruciblePage.fromOutput(OSMIUM_NODE.get()))
-                .addPage(SpiritInfusionPage.fromOutput(ZINC_IMPETUS.get()))
-                .addPage(SpiritCruciblePage.fromOutput(ZINC_NODE.get()))
-                .addPage(SpiritInfusionPage.fromOutput(TIN_IMPETUS.get()))
-                .addPage(SpiritCruciblePage.fromOutput(TIN_NODE.get()))
+            "focus_ashes", GUNPOWDER, 6, 5)
+            .addPage(new HeadlineTextPage("focus_ashes", "focus_ashes.1"))
+            .addPage(SpiritCruciblePage.fromOutput(GUNPOWDER))
+            .addPage(SpiritCruciblePage.fromOutput(GLOWSTONE_DUST))
+            .addPage(SpiritCruciblePage.fromOutput(REDSTONE))
         );
 
         ENTRIES.add(new BookEntry(
-                "crucible_acceleration", SPIRIT_CATALYZER.get(), 7, 4)
-                .addPage(new HeadlineTextPage("crucible_acceleration", "crucible_acceleration_a"))
-                .addPage(new TextPage("crucible_acceleration_b"))
-                .addPage(new TextPage("crucible_acceleration_c"))
-                .addPage(SpiritInfusionPage.fromOutput(SPIRIT_CATALYZER.get()))
+            "focus_metals", IRON_NODE.get(), 8, 7)
+            .addPage(new HeadlineTextItemPage("focus_metals", "focus_metals.1", IRON_NODE.get()))
+            .addPage(new TextPage("focus_metals.2"))
+            .addPage(SpiritInfusionPage.fromOutput(IRON_IMPETUS.get()))
+            .addPage(SpiritCruciblePage.fromOutput(IRON_NODE.get()))
+            .addPage(SpiritInfusionPage.fromOutput(GOLD_IMPETUS.get()))
+            .addPage(SpiritCruciblePage.fromOutput(GOLD_NODE.get()))
+            .addPage(SpiritInfusionPage.fromOutput(COPPER_IMPETUS.get()))
+            .addPage(SpiritCruciblePage.fromOutput(COPPER_NODE.get()))
+            .addPage(SpiritInfusionPage.fromOutput(LEAD_IMPETUS.get()))
+            .addPage(SpiritCruciblePage.fromOutput(LEAD_NODE.get()))
+            .addPage(SpiritInfusionPage.fromOutput(SILVER_IMPETUS.get()))
+            .addPage(SpiritCruciblePage.fromOutput(SILVER_NODE.get()))
+            .addPage(SpiritInfusionPage.fromOutput(ALUMINUM_IMPETUS.get()))
+            .addPage(SpiritCruciblePage.fromOutput(ALUMINUM_NODE.get()))
+            .addPage(SpiritInfusionPage.fromOutput(NICKEL_IMPETUS.get()))
+            .addPage(SpiritCruciblePage.fromOutput(NICKEL_NODE.get()))
+            .addPage(SpiritInfusionPage.fromOutput(URANIUM_IMPETUS.get()))
+            .addPage(SpiritCruciblePage.fromOutput(URANIUM_NODE.get()))
+            .addPage(SpiritInfusionPage.fromOutput(OSMIUM_IMPETUS.get()))
+            .addPage(SpiritCruciblePage.fromOutput(OSMIUM_NODE.get()))
+            .addPage(SpiritInfusionPage.fromOutput(ZINC_IMPETUS.get()))
+            .addPage(SpiritCruciblePage.fromOutput(ZINC_NODE.get()))
+            .addPage(SpiritInfusionPage.fromOutput(TIN_IMPETUS.get()))
+            .addPage(SpiritCruciblePage.fromOutput(TIN_NODE.get()))
         );
 
         ENTRIES.add(new BookEntry(
-                "impetus_restoration", TWISTED_TABLET.get(), 7, 8)
-                .addPage(new HeadlineTextPage("impetus_restoration", "impetus_restoration_a"))
-                .addPage(new TextPage("impetus_restoration_b"))
-                .addPage(new TextPage("impetus_restoration_c"))
-                .addPage(SpiritInfusionPage.fromOutput(TWISTED_TABLET.get()))
-                .addPage(SpiritRepairPage.fromInput(CRACKED_ALCHEMICAL_IMPETUS.get()))
-                .addPage(SpiritRepairPage.fromInput(CRACKED_COPPER_IMPETUS.get()))
-                .addPage(new HeadlineTextPage("expanded_restoration", "expanded_restoration_a"))
-                .addPage(new TextPage("expanded_restoration_b"))
-                .addPage(SpiritRepairPage.fromInput(WOODEN_PICKAXE))
-                .addPage(SpiritRepairPage.fromInput(STONE_PICKAXE))
-                .addPage(SpiritRepairPage.fromInput(IRON_PICKAXE))
-                .addPage(SpiritRepairPage.fromInput(DIAMOND_PICKAXE))
-                .addPage(SpiritRepairPage.fromInput(GOLDEN_PICKAXE))
-                .addPage(SpiritRepairPage.fromInput(NETHERITE_PICKAXE))
-                .addPage(new TextPage("expanded_restoration_c"))
-                .addPage(SpiritRepairPage.fromInput(SOUL_STAINED_STEEL_PICKAXE.get()))
-                .addPage(SpiritRepairPage.fromInput(SOUL_STAINED_STEEL_SCYTHE.get()))
-                .addPage(SpiritRepairPage.fromInput(SOUL_HUNTER_BOOTS.get()))
+            "focus_crystals", QUARTZ, 9, 5)
+            .addPage(new HeadlineTextPage("focus_crystals", "focus_crystals.1"))
+            .addPage(SpiritCruciblePage.fromOutput(QUARTZ))
+            .addPage(SpiritCruciblePage.fromOutput(AMETHYST_SHARD))
+            .addPage(SpiritCruciblePage.fromOutput(BLAZING_QUARTZ.get()))
+            .addPage(SpiritCruciblePage.fromOutput(PRISMARINE_CRYSTALS))
         );
 
         ENTRIES.add(new BookEntry(
-                "crystal_creation", QUARTZ, 9, 5)
-                .addPage(new HeadlineTextPage("crystal_creation", "crystal_creation"))
-                .addPage(SpiritCruciblePage.fromOutput(QUARTZ))
-                .addPage(SpiritCruciblePage.fromOutput(AMETHYST_SHARD))
-                .addPage(SpiritCruciblePage.fromOutput(BLAZING_QUARTZ.get()))
-                .addPage(SpiritCruciblePage.fromOutput(PRISMARINE_CRYSTALS))
+            "crucible_acceleration", SPIRIT_CATALYZER.get(), 7, 4)
+            .addPage(new HeadlineTextPage("crucible_acceleration", "crucible_acceleration.1"))
+            .addPage(new TextPage("crucible_acceleration.2"))
+            .addPage(new TextPage("crucible_acceleration.3"))
+            .addPage(SpiritInfusionPage.fromOutput(SPIRIT_CATALYZER.get()))
         );
 
         ENTRIES.add(new BookEntry(
-                "spirit_metals", SOUL_STAINED_STEEL_INGOT.get(), -3, 6)
-                .addPage(new HeadlineTextItemPage("hallowed_gold", "hallowed_gold_a", HALLOWED_GOLD_INGOT.get()))
-                .addPage(new TextPage("hallowed_gold_b"))
-                .addPage(SpiritInfusionPage.fromOutput(HALLOWED_GOLD_INGOT.get()))
-                .addPage(CraftingBookPage.resonatorPage(HALLOWED_SPIRIT_RESONATOR.get(), QUARTZ, HALLOWED_GOLD_INGOT.get(), RUNEWOOD_PLANKS.get()))
-                .addPage(new HeadlineTextPage("spirit_jar", "spirit_jar"))
-                .addPage(new CraftingBookPage(SPIRIT_JAR.get(), GLASS_PANE, HALLOWED_GOLD_INGOT.get(), GLASS_PANE, GLASS_PANE, EMPTY, GLASS_PANE, GLASS_PANE, GLASS_PANE, GLASS_PANE))
-                .addPage(new HeadlineTextItemPage("soul_stained_steel", "soul_stained_steel_a", SOUL_STAINED_STEEL_INGOT.get()))
-                .addPage(new TextPage("soul_stained_steel_b"))
-                .addPage(SpiritInfusionPage.fromOutput(SOUL_STAINED_STEEL_INGOT.get()))
-                .addPage(CraftingBookPage.resonatorPage(STAINED_SPIRIT_RESONATOR.get(), QUARTZ, SOUL_STAINED_STEEL_INGOT.get(), RUNEWOOD_PLANKS.get()))
-                .addPage(CraftingBookPage.toolPage(SOUL_STAINED_STEEL_PICKAXE.get(), SOUL_STAINED_STEEL_INGOT.get()))
-                .addPage(CraftingBookPage.toolPage(SOUL_STAINED_STEEL_AXE.get(), SOUL_STAINED_STEEL_INGOT.get()))
-                .addPage(CraftingBookPage.toolPage(SOUL_STAINED_STEEL_HOE.get(), SOUL_STAINED_STEEL_INGOT.get()))
-                .addPage(CraftingBookPage.toolPage(SOUL_STAINED_STEEL_SHOVEL.get(), SOUL_STAINED_STEEL_INGOT.get()))
-                .addPage(CraftingBookPage.toolPage(SOUL_STAINED_STEEL_SWORD.get(), SOUL_STAINED_STEEL_INGOT.get()))
-                .addModCompatPage(new CraftingBookPage(SOUL_STAINED_STEEL_KNIFE.get(), EMPTY, EMPTY, EMPTY, EMPTY, SOUL_STAINED_STEEL_INGOT.get(), EMPTY, STICK), "farmersdelight")
+            "arcane_restoration", TWISTED_TABLET.get(), 7, 8)
+            .addPage(new HeadlineTextPage("arcane_restoration", "arcane_restoration.1"))
+            .addPage(new TextPage("arcane_restoration.2"))
+            .addPage(new TextPage("arcane_restoration.3"))
+            .addPage(SpiritInfusionPage.fromOutput(TWISTED_TABLET.get()))
+            .addPage(SpiritRepairPage.fromInput(CRACKED_ALCHEMICAL_IMPETUS.get()))
+            .addPage(SpiritRepairPage.fromInput(CRACKED_COPPER_IMPETUS.get()))
+            .addPage(SpiritRepairPage.fromInput(WOODEN_PICKAXE))
+            .addPage(SpiritRepairPage.fromInput(STONE_PICKAXE))
+            .addPage(SpiritRepairPage.fromInput(IRON_PICKAXE))
+            .addPage(SpiritRepairPage.fromInput(DIAMOND_PICKAXE))
+            .addPage(SpiritRepairPage.fromInput(GOLDEN_PICKAXE))
+            .addPage(SpiritRepairPage.fromInput(NETHERITE_PICKAXE))
+            .addPage(SpiritRepairPage.fromInput(SOUL_STAINED_STEEL_PICKAXE.get()))
+            .addPage(SpiritRepairPage.fromInput(SOUL_STAINED_STEEL_SCYTHE.get()))
+            .addPage(SpiritRepairPage.fromInput(SOUL_HUNTER_BOOTS.get()))
         );
 
         ENTRIES.add(new BookEntry(
-                "soul_stained_scythe", SOUL_STAINED_STEEL_SCYTHE.get(), -4, 5)
-                .addPage(new HeadlineTextPage("soul_stained_scythe", "soul_stained_scythe"))
-                .addPage(SpiritInfusionPage.fromOutput(SOUL_STAINED_STEEL_SCYTHE.get()))
+            "spirit_metals", SOUL_STAINED_STEEL_INGOT.get(), -3, 6)
+            .addPage(new HeadlineTextItemPage("spirit_metals.hallowed_gold", "spirit_metals.hallowed_gold.1", HALLOWED_GOLD_INGOT.get()))
+            .addPage(new TextPage("spirit_metals.hallowed_gold.2"))
+            .addPage(SpiritInfusionPage.fromOutput(HALLOWED_GOLD_INGOT.get()))
+            .addPage(CraftingBookPage.resonatorPage(HALLOWED_SPIRIT_RESONATOR.get(), QUARTZ, HALLOWED_GOLD_INGOT.get(), RUNEWOOD_PLANKS.get()))
+            .addPage(new HeadlineTextPage("spirit_metals.hallowed_gold.spirit_jar", "spirit_metals.hallowed_gold.spirit_jar.1"))
+            .addPage(new CraftingBookPage(SPIRIT_JAR.get(), GLASS_PANE, HALLOWED_GOLD_INGOT.get(), GLASS_PANE, GLASS_PANE, EMPTY, GLASS_PANE, GLASS_PANE, GLASS_PANE, GLASS_PANE))
+            .addPage(new HeadlineTextItemPage("spirit_metals.soulstained_steel", "spirit_metals.soulstained_steel.1", SOUL_STAINED_STEEL_INGOT.get()))
+            .addPage(new TextPage("spirit_metals.soulstained_steel.2"))
+            .addPage(SpiritInfusionPage.fromOutput(SOUL_STAINED_STEEL_INGOT.get()))
+            .addPage(CraftingBookPage.resonatorPage(STAINED_SPIRIT_RESONATOR.get(), QUARTZ, SOUL_STAINED_STEEL_INGOT.get(), RUNEWOOD_PLANKS.get()))
+            .addPage(CraftingBookPage.toolPage(SOUL_STAINED_STEEL_PICKAXE.get(), SOUL_STAINED_STEEL_INGOT.get()))
+            .addPage(CraftingBookPage.toolPage(SOUL_STAINED_STEEL_AXE.get(), SOUL_STAINED_STEEL_INGOT.get()))
+            .addPage(CraftingBookPage.toolPage(SOUL_STAINED_STEEL_HOE.get(), SOUL_STAINED_STEEL_INGOT.get()))
+            .addPage(CraftingBookPage.toolPage(SOUL_STAINED_STEEL_SHOVEL.get(), SOUL_STAINED_STEEL_INGOT.get()))
+            .addPage(CraftingBookPage.toolPage(SOUL_STAINED_STEEL_SWORD.get(), SOUL_STAINED_STEEL_INGOT.get()))
+            .addModCompatPage(new CraftingBookPage(SOUL_STAINED_STEEL_KNIFE.get(), EMPTY, EMPTY, EMPTY, EMPTY, SOUL_STAINED_STEEL_INGOT.get(), EMPTY, STICK), "farmersdelight")
         );
 
         ENTRIES.add(new BookEntry(
-                "soul_stained_armor", SOUL_STAINED_STEEL_HELMET.get(), -4, 7)
-                .addPage(new HeadlineTextPage("soul_stained_armor", "soul_stained_armor_a"))
-                .addPage(new TextPage("soul_stained_armor_b"))
-                .addPage(new TextPage("soul_stained_armor_c"))
-                .addPage(SpiritInfusionPage.fromOutput(SOUL_STAINED_STEEL_HELMET.get()))
-                .addPage(SpiritInfusionPage.fromOutput(SOUL_STAINED_STEEL_CHESTPLATE.get()))
-                .addPage(SpiritInfusionPage.fromOutput(SOUL_STAINED_STEEL_LEGGINGS.get()))
-                .addPage(SpiritInfusionPage.fromOutput(SOUL_STAINED_STEEL_BOOTS.get()))
+            "soulstained_scythe", SOUL_STAINED_STEEL_SCYTHE.get(), -4, 5)
+            .addPage(new HeadlineTextPage("soulstained_scythe", "soulstained_scythe.1"))
+            .addPage(SpiritInfusionPage.fromOutput(SOUL_STAINED_STEEL_SCYTHE.get()))
         );
 
         ENTRIES.add(new BookEntry(
-                "spirit_trinkets", ORNATE_RING.get(), -5, 6)
-                .addPage(new HeadlineTextPage("spirit_trinkets", "spirit_trinkets_a"))
-                .addPage(new TextPage("spirit_trinkets_b"))
-                .addPage(CraftingBookPage.ringPage(GILDED_RING.get(), LEATHER, HALLOWED_GOLD_INGOT.get()))
-                .addPage(new CraftingBookPage(GILDED_BELT.get(), LEATHER, LEATHER, LEATHER, HALLOWED_GOLD_INGOT.get(), PROCESSED_SOULSTONE.get(), HALLOWED_GOLD_INGOT.get(), EMPTY, HALLOWED_GOLD_INGOT.get(), EMPTY))
-                .addPage(CraftingBookPage.ringPage(ORNATE_RING.get(), LEATHER, SOUL_STAINED_STEEL_INGOT.get()))
-                .addPage(new CraftingBookPage(ORNATE_NECKLACE.get(), EMPTY, STRING, EMPTY, STRING, EMPTY, STRING, EMPTY, SOUL_STAINED_STEEL_INGOT.get(), EMPTY))
-                .addPage(new HeadlineTextPage("guardian_ring", "guardian_ring"))
-                .addPage(SpiritInfusionPage.fromOutput(RING_OF_THE_GUARDIAN.get()))
+            "soulstained_armor", SOUL_STAINED_STEEL_HELMET.get(), -4, 7)
+            .addPage(new HeadlineTextPage("soulstained_armor", "soulstained_armor.1"))
+            .addPage(new TextPage("soulstained_armor.2"))
+            .addPage(new TextPage("soulstained_armor.3"))
+            .addPage(SpiritInfusionPage.fromOutput(SOUL_STAINED_STEEL_HELMET.get()))
+            .addPage(SpiritInfusionPage.fromOutput(SOUL_STAINED_STEEL_CHESTPLATE.get()))
+            .addPage(SpiritInfusionPage.fromOutput(SOUL_STAINED_STEEL_LEGGINGS.get()))
+            .addPage(SpiritInfusionPage.fromOutput(SOUL_STAINED_STEEL_BOOTS.get()))
         );
 
         ENTRIES.add(new BookEntry(
-                "reactive_curios", RING_OF_ALCHEMICAL_MASTERY.get(), -7, 6)
-                .addPage(new HeadlineTextPage("ring_of_alchemical_mastery", "ring_of_alchemical_mastery"))
-                .addPage(SpiritInfusionPage.fromOutput(RING_OF_ALCHEMICAL_MASTERY.get()))
-                .addPage(new HeadlineTextPage("ring_of_curative_talent", "ring_of_curative_talent"))
-                .addPage(SpiritInfusionPage.fromOutput(RING_OF_CURATIVE_TALENT.get()))
-                .addPage(new HeadlineTextPage("ring_of_prowess", "ring_of_prowess_a"))
-                .addPage(new TextPage("ring_of_prowess_b"))
-                .addPage(SpiritInfusionPage.fromOutput(RING_OF_ARCANE_PROWESS.get()))
+            "spirit_trinkets", ORNATE_RING.get(), -5, 6)
+            .addPage(new HeadlineTextPage("spirit_trinkets", "spirit_trinkets.1"))
+            .addPage(new TextPage("spirit_trinkets.2"))
+            .addPage(CraftingBookPage.ringPage(GILDED_RING.get(), LEATHER, HALLOWED_GOLD_INGOT.get()))
+            .addPage(new CraftingBookPage(GILDED_BELT.get(), LEATHER, LEATHER, LEATHER, HALLOWED_GOLD_INGOT.get(), PROCESSED_SOULSTONE.get(), HALLOWED_GOLD_INGOT.get(), EMPTY, HALLOWED_GOLD_INGOT.get(), EMPTY))
+            .addPage(CraftingBookPage.ringPage(ORNATE_RING.get(), LEATHER, SOUL_STAINED_STEEL_INGOT.get()))
+            .addPage(new CraftingBookPage(ORNATE_NECKLACE.get(), EMPTY, STRING, EMPTY, STRING, EMPTY, STRING, EMPTY, SOUL_STAINED_STEEL_INGOT.get(), EMPTY))
+            .addPage(new HeadlineTextPage("spirit_trinkets.guardian_ring", "spirit_trinkets.guardian_ring.1"))
+            .addPage(SpiritInfusionPage.fromOutput(RING_OF_THE_GUARDIAN.get()))
         );
 
         ENTRIES.add(new BookEntry(
-                "put_something_here", ORNATE_RING.get(), -7, 4)
+            "reactive_trinkets", RING_OF_ALCHEMICAL_MASTERY.get(), -7, 6)
+            .addPage(new HeadlineTextPage("reactive_trinkets.ring_of_alchemical_mastery", "reactive_trinkets.ring_of_alchemical_mastery.1"))
+            .addPage(SpiritInfusionPage.fromOutput(RING_OF_ALCHEMICAL_MASTERY.get()))
+            .addPage(new HeadlineTextPage("reactive_trinkets.ring_of_curative_talent", "reactive_trinkets.ring_of_curative_talent.1"))
+            .addPage(SpiritInfusionPage.fromOutput(RING_OF_CURATIVE_TALENT.get()))
+            .addPage(new HeadlineTextPage("reactive_trinkets.ring_of_prowess", "reactive_trinkets.ring_of_prowess.1"))
+            .addPage(new TextPage("reactive_trinkets.ring_of_prowess.2"))
+            .addPage(SpiritInfusionPage.fromOutput(RING_OF_ARCANE_PROWESS.get()))
+        );
+
+//        ENTRIES.add(new BookEntry(
+//            "put_something_here", ORNATE_RING.get(), -7, 4)
+//        );
+//
+//        ENTRIES.add(new BookEntry(
+//            "put_something_here_also", ORNATE_RING.get(), -7, 8)
+//        );
+
+        ENTRIES.add(new BookEntry(
+            "ring_of_esoteric_spoils", RING_OF_ESOTERIC_SPOILS.get(), -9, 5)
+            .addPage(new HeadlineTextPage("ring_of_esoteric_spoils", "ring_of_esoteric_spoils.1"))
+            .addPage(SpiritInfusionPage.fromOutput(RING_OF_ESOTERIC_SPOILS.get()))
         );
 
         ENTRIES.add(new BookEntry(
-                "put_something_here_also", ORNATE_RING.get(), -7, 8)
+            "belt_of_the_starved", BELT_OF_THE_STARVED.get(), -8, 7)
+            .addPage(new HeadlineTextPage("belt_of_the_starved", "belt_of_the_starved.1"))
+            .addPage(new TextPage("belt_of_the_starved.2"))
+            .addPage(SpiritInfusionPage.fromOutput(BELT_OF_THE_STARVED.get()))
+            .addPage(new HeadlineTextPage("belt_of_the_starved.ring_of_desperate_voracity", "belt_of_the_starved.ring_of_desperate_voracity.1"))
+            .addPage(SpiritInfusionPage.fromOutput(RING_OF_DESPERATE_VORACITY.get()))
         );
 
         ENTRIES.add(new BookEntry(
-                "ring_of_esoteric_spoils", RING_OF_ESOTERIC_SPOILS.get(), -9, 5)
-                .addPage(new HeadlineTextPage("ring_of_esoteric_spoils", "ring_of_esoteric_spoils"))
-                .addPage(SpiritInfusionPage.fromOutput(RING_OF_ESOTERIC_SPOILS.get()))
+            "necklace_of_the_narrow_edge", NECKLACE_OF_THE_NARROW_EDGE.get(), -6, 5)
+            .addPage(new HeadlineTextPage("necklace_of_the_narrow_edge", "necklace_of_the_narrow_edge.1"))
+            .addPage(SpiritInfusionPage.fromOutput(NECKLACE_OF_THE_NARROW_EDGE.get()))
         );
 
         ENTRIES.add(new BookEntry(
-                "belt_of_the_starved", BELT_OF_THE_STARVED.get(), -8, 7)
-                .addPage(new HeadlineTextPage("belt_of_the_starved", "belt_of_the_starved_a"))
-                .addPage(new TextPage("belt_of_the_starved_b"))
-                .addPage(new TextPage("belt_of_the_starved_c"))
-                .addPage(SpiritInfusionPage.fromOutput(BELT_OF_THE_STARVED.get()))
-                .addPage(new HeadlineTextPage("ring_of_desperate_voracity", "ring_of_desperate_voracity"))
-                .addPage(SpiritInfusionPage.fromOutput(RING_OF_DESPERATE_VORACITY.get()))
+            "necklace_of_the_mystic_mirror", NECKLACE_OF_THE_MYSTIC_MIRROR.get(), -6, 12)
+            .addPage(new HeadlineTextPage("necklace_of_the_mystic_mirror", "necklace_of_the_mystic_mirror.1"))
+            .addPage(SpiritInfusionPage.fromOutput(NECKLACE_OF_THE_MYSTIC_MIRROR.get()))
         );
 
         ENTRIES.add(new BookEntry(
-                "necklace_of_the_narrow_edge", NECKLACE_OF_THE_NARROW_EDGE.get(), -6, 5)
-                .addPage(new HeadlineTextPage("necklace_of_the_narrow_edge", "necklace_of_the_narrow_edge"))
-                .addPage(SpiritInfusionPage.fromOutput(NECKLACE_OF_THE_NARROW_EDGE.get()))
+            "mirror_magic", SPECTRAL_LENS.get(), -6, 10)
+            .setObjectSupplier(ImportantEntryObject::new)
+            .addPage(new HeadlineTextPage("mirror_magic", "mirror_magic.1"))
+            .addPage(SpiritInfusionPage.fromOutput(SPECTRAL_LENS.get()))
         );
 
         ENTRIES.add(new BookEntry(
-                "necklace_of_the_mystic_mirror", NECKLACE_OF_THE_MYSTIC_MIRROR.get(), -6, 12)
-                .addPage(new HeadlineTextPage("necklace_of_the_mystic_mirror", "necklace_of_the_mystic_mirror"))
-                .addPage(SpiritInfusionPage.fromOutput(NECKLACE_OF_THE_MYSTIC_MIRROR.get()))
+            "voodoo_magic", POPPET.get(), 6, 10)
+            .setObjectSupplier(ImportantEntryObject::new)
+            .addPage(new HeadlineTextPage("voodoo_magic", "voodoo_magic.1"))
+            .addPage(SpiritInfusionPage.fromOutput(POPPET.get()))
         );
 
         ENTRIES.add(new BookEntry(
-                "mirror_magic", SPECTRAL_LENS.get(), -6, 10)
-                .setObjectSupplier(ImportantEntryObject::new)
-                .addPage(new HeadlineTextPage("mirror_magic", "mirror_magic"))
-                .addPage(SpiritInfusionPage.fromOutput(SPECTRAL_LENS.get()))
+            "altar_acceleration", RUNEWOOD_OBELISK.get(), -1, 8)
+            .addPage(new HeadlineTextPage("altar_acceleration.runewood_obelisk", "altar_acceleration.runewood_obelisk.1"))
+            .addPage(SpiritInfusionPage.fromOutput(RUNEWOOD_OBELISK.get()))
+            .addPage(new HeadlineTextPage("altar_acceleration.brilliant_obelisk", "altar_acceleration.brilliant_obelisk.1"))
+            .addPage(SpiritInfusionPage.fromOutput(BRILLIANT_OBELISK.get()))
         );
 
         ENTRIES.add(new BookEntry(
-                "voodoo_magic", POPPET.get(), 6, 10)
-                .setObjectSupplier(ImportantEntryObject::new)
-                .addPage(new HeadlineTextPage("voodoo_magic", "voodoo_magic"))
-                .addPage(SpiritInfusionPage.fromOutput(POPPET.get()))
+            "totem_magic", RUNEWOOD_TOTEM_BASE.get(), 0, 9)
+            .setObjectSupplier(ImportantEntryObject::new)
+            .addPage(new HeadlineTextItemPage("totem_magic", "totem_magic.1", RUNEWOOD_TOTEM_BASE.get()))
+            .addPage(new TextPage("totem_magic.2"))
+            .addPage(new TextPage("totem_magic.3"))
+            .addPage(new TextPage("totem_magic.4"))
+            .addPage(new TextPage("totem_magic.5"))
+            .addPage(SpiritInfusionPage.fromOutput(RUNEWOOD_TOTEM_BASE.get()))
         );
 
         ENTRIES.add(new BookEntry(
-                "altar_acceleration", RUNEWOOD_OBELISK.get(), -1, 8)
-                .addPage(new HeadlineTextPage("runewood_obelisk", "runewood_obelisk"))
-                .addPage(SpiritInfusionPage.fromOutput(RUNEWOOD_OBELISK.get()))
-                .addPage(new HeadlineTextPage("brilliant_obelisk", "brilliant_obelisk"))
-                .addPage(SpiritInfusionPage.fromOutput(BRILLIANT_OBELISK.get()))
+            "sacred_rite", SACRED_SPIRIT.get(), -2, 10)
+            .setObjectSupplier(RiteEntryObject::new)
+            .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.SACRED_RITE, "sacred_rite"))
+            .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.SACRED_RITE))
+            .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.ELDRITCH_SACRED_RITE, "sacred_rite.greater"))
+            .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.ELDRITCH_SACRED_RITE))
         );
 
         ENTRIES.add(new BookEntry(
-                "totem_magic", RUNEWOOD_TOTEM_BASE.get(), 0, 9)
-                .setObjectSupplier(ImportantEntryObject::new)
-                .addPage(new HeadlineTextItemPage("totem_magic", "totem_magic_a", RUNEWOOD_TOTEM_BASE.get()))
-                .addPage(new TextPage("totem_magic_b"))
-                .addPage(new TextPage("totem_magic_c"))
-                .addPage(SpiritInfusionPage.fromOutput(RUNEWOOD_TOTEM_BASE.get()))
+            "corrupt_sacred_rite", SACRED_SPIRIT.get(), -3, 10).setSoulwood()
+            .setObjectSupplier(RiteEntryObject::new)
+            .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.SACRED_RITE, "corrupt_sacred_rite"))
+            .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.SACRED_RITE))
+            .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.ELDRITCH_SACRED_RITE, "corrupt_sacred_rite.greater"))
+            .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.ELDRITCH_SACRED_RITE))
         );
 
         ENTRIES.add(new BookEntry(
-                "sacred_rite", SACRED_SPIRIT.get(), -2, 10)
-                .setObjectSupplier(RiteEntryObject::new)
-                .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.SACRED_RITE, "sacred_rite"))
-                .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.SACRED_RITE))
-                .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.ELDRITCH_SACRED_RITE, "greater_sacred_rite"))
-                .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.ELDRITCH_SACRED_RITE))
+            "infernal_rite", INFERNAL_SPIRIT.get(), -3, 11)
+            .setObjectSupplier(RiteEntryObject::new)
+            .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.INFERNAL_RITE, "infernal_rite"))
+            .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.INFERNAL_RITE))
+            .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.ELDRITCH_INFERNAL_RITE, "infernal_rite.greater"))
+            .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.ELDRITCH_INFERNAL_RITE))
         );
 
         ENTRIES.add(new BookEntry(
-                "corrupted_sacred_rite", SACRED_SPIRIT.get(), -3, 10).setSoulwood()
-                .setObjectSupplier(RiteEntryObject::new)
-                .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.SACRED_RITE, "corrupted_sacred_rite"))
-                .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.SACRED_RITE))
-                .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.ELDRITCH_SACRED_RITE, "corrupted_greater_sacred_rite"))
-                .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.ELDRITCH_SACRED_RITE))
+            "corrupt_infernal_rite", INFERNAL_SPIRIT.get(), -4, 11).setSoulwood()
+            .setObjectSupplier(RiteEntryObject::new)
+            .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.INFERNAL_RITE, "corrupt_infernal_rite"))
+            .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.INFERNAL_RITE))
+            .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.ELDRITCH_INFERNAL_RITE, "corrupt_infernal_rite.greater"))
+            .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.ELDRITCH_INFERNAL_RITE))
         );
 
         ENTRIES.add(new BookEntry(
-                "infernal_rite", INFERNAL_SPIRIT.get(), -3, 11)
-                .setObjectSupplier(RiteEntryObject::new)
-                .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.INFERNAL_RITE, "infernal_rite"))
-                .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.INFERNAL_RITE))
-                .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.ELDRITCH_INFERNAL_RITE, "greater_infernal_rite"))
-                .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.ELDRITCH_INFERNAL_RITE))
+            "earthen_rite", EARTHEN_SPIRIT.get(), -3, 12)
+            .setObjectSupplier(RiteEntryObject::new)
+            .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.EARTHEN_RITE, "earthen_rite"))
+            .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.EARTHEN_RITE))
+            .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.ELDRITCH_EARTHEN_RITE, "earthen_rite.greater"))
+            .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.ELDRITCH_EARTHEN_RITE))
         );
 
         ENTRIES.add(new BookEntry(
-                "corrupted_infernal_rite", INFERNAL_SPIRIT.get(), -4, 11).setSoulwood()
-                .setObjectSupplier(RiteEntryObject::new)
-                .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.INFERNAL_RITE, "corrupted_infernal_rite"))
-                .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.INFERNAL_RITE))
-                .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.ELDRITCH_INFERNAL_RITE, "corrupted_greater_infernal_rite"))
-                .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.ELDRITCH_INFERNAL_RITE))
+            "corrupt_earthen_rite", EARTHEN_SPIRIT.get(), -4, 12).setSoulwood()
+            .setObjectSupplier(RiteEntryObject::new)
+            .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.EARTHEN_RITE, "corrupt_earthen_rite"))
+            .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.EARTHEN_RITE))
+            .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.ELDRITCH_EARTHEN_RITE, "corrupt_earthen_rite.greater"))
+            .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.ELDRITCH_EARTHEN_RITE))
         );
 
         ENTRIES.add(new BookEntry(
-                "earthen_rite", EARTHEN_SPIRIT.get(), -3, 12)
-                .setObjectSupplier(RiteEntryObject::new)
-                .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.EARTHEN_RITE, "earthen_rite"))
-                .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.EARTHEN_RITE))
-                .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.ELDRITCH_EARTHEN_RITE, "greater_earthen_rite"))
-                .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.ELDRITCH_EARTHEN_RITE))
+            "wicked_rite", WICKED_SPIRIT.get(), 2, 10)
+            .setObjectSupplier(RiteEntryObject::new)
+            .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.WICKED_RITE, "wicked_rite"))
+            .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.WICKED_RITE))
+            .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.ELDRITCH_WICKED_RITE, "wicked_rite.greater"))
+            .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.ELDRITCH_WICKED_RITE))
         );
 
         ENTRIES.add(new BookEntry(
-                "corrupted_earthen_rite", EARTHEN_SPIRIT.get(), -4, 12).setSoulwood()
-                .setObjectSupplier(RiteEntryObject::new)
-                .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.EARTHEN_RITE, "corrupted_earthen_rite"))
-                .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.EARTHEN_RITE))
-                .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.ELDRITCH_EARTHEN_RITE, "corrupted_greater_earthen_rite"))
-                .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.ELDRITCH_EARTHEN_RITE))
+            "corrupt_wicked_rite", WICKED_SPIRIT.get(), 3, 10).setSoulwood()
+            .setObjectSupplier(RiteEntryObject::new)
+            .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.WICKED_RITE, "corrupt_wicked_rite"))
+            .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.WICKED_RITE))
+            .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.ELDRITCH_WICKED_RITE, "corrupt_wicked_rite.greater"))
+            .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.ELDRITCH_WICKED_RITE))
         );
 
         ENTRIES.add(new BookEntry(
-                "wicked_rite", WICKED_SPIRIT.get(), 2, 10)
-                .setObjectSupplier(RiteEntryObject::new)
-                .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.WICKED_RITE, "wicked_rite"))
-                .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.WICKED_RITE))
-                .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.ELDRITCH_WICKED_RITE, "greater_wicked_rite"))
-                .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.ELDRITCH_WICKED_RITE))
+            "aerial_rite", AERIAL_SPIRIT.get(), 3, 11)
+            .setObjectSupplier(RiteEntryObject::new)
+            .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.AERIAL_RITE, "aerial_rite"))
+            .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.AERIAL_RITE))
+            .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.ELDRITCH_AERIAL_RITE, "aerial_rite.greater"))
+            .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.ELDRITCH_AERIAL_RITE))
         );
 
         ENTRIES.add(new BookEntry(
-                "corrupted_wicked_rite", WICKED_SPIRIT.get(), 3, 10).setSoulwood()
-                .setObjectSupplier(RiteEntryObject::new)
-                .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.WICKED_RITE, "corrupted_wicked_rite"))
-                .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.WICKED_RITE))
-                .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.ELDRITCH_WICKED_RITE, "corrupted_greater_wicked_rite"))
-                .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.ELDRITCH_WICKED_RITE))
+            "corrupt_aerial_rite", AERIAL_SPIRIT.get(), 4, 11).setSoulwood()
+            .setObjectSupplier(RiteEntryObject::new)
+            .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.AERIAL_RITE, "corrupt_aerial_rite"))
+            .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.AERIAL_RITE))
+            .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.ELDRITCH_AERIAL_RITE, "corrupt_aerial_rite.greater"))
+            .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.ELDRITCH_AERIAL_RITE))
         );
 
         ENTRIES.add(new BookEntry(
-                "aerial_rite", AERIAL_SPIRIT.get(), 3, 11)
-                .setObjectSupplier(RiteEntryObject::new)
-                .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.AERIAL_RITE, "aerial_rite"))
-                .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.AERIAL_RITE))
-                .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.ELDRITCH_AERIAL_RITE, "greater_aerial_rite"))
-                .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.ELDRITCH_AERIAL_RITE))
+            "aqueous_rite", AQUEOUS_SPIRIT.get(), 3, 12)
+            .setObjectSupplier(RiteEntryObject::new)
+            .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.AQUEOUS_RITE, "aqueous_rite"))
+            .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.AQUEOUS_RITE))
+            .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.ELDRITCH_AQUEOUS_RITE, "aqueous_rite.greater"))
+            .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.ELDRITCH_AQUEOUS_RITE))
         );
 
         ENTRIES.add(new BookEntry(
-                "corrupted_aerial_rite", AERIAL_SPIRIT.get(), 4, 11).setSoulwood()
-                .setObjectSupplier(RiteEntryObject::new)
-                .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.AERIAL_RITE, "corrupted_aerial_rite"))
-                .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.AERIAL_RITE))
-                .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.ELDRITCH_AERIAL_RITE, "corrupted_greater_aerial_rite"))
-                .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.ELDRITCH_AERIAL_RITE))
+            "corrupt_aqueous_rite", AQUEOUS_SPIRIT.get(), 4, 12).setSoulwood()
+            .setObjectSupplier(RiteEntryObject::new)
+            .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.AQUEOUS_RITE, "corrupt_aqueous_rite"))
+            .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.AQUEOUS_RITE))
+            .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.ELDRITCH_AQUEOUS_RITE, "corrupt_aqueous_rite.greater"))
+            .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.ELDRITCH_AQUEOUS_RITE))
         );
 
         ENTRIES.add(new BookEntry(
-                "aqueous_rite", AQUEOUS_SPIRIT.get(), 3, 12)
-                .setObjectSupplier(RiteEntryObject::new)
-                .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.AQUEOUS_RITE, "aqueous_rite"))
-                .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.AQUEOUS_RITE))
-                .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.ELDRITCH_AQUEOUS_RITE, "greater_aqueous_rite"))
-                .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.ELDRITCH_AQUEOUS_RITE))
+            "arcane_rite", ARCANE_SPIRIT.get(), 0, 10)
+            .setObjectSupplier(RiteEntryObject::new)
+            .addPage(new HeadlineTextPage("totem_corruption", "totem_corruption.1"))
+            .addPage(new TextPage("totem_corruption.2"))
+            .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.ARCANE_RITE, "arcane_rite"))
+            .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.ARCANE_RITE))
+            .addPage(new TextPage("totem_corruption.3"))
+            .addPage(SpiritInfusionPage.fromOutput(SOULWOOD_TOTEM_BASE.get()))
         );
 
-        ENTRIES.add(new BookEntry(
-                "corrupted_aqueous_rite", AQUEOUS_SPIRIT.get(), 4, 12).setSoulwood()
-                .setObjectSupplier(RiteEntryObject::new)
-                .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.AQUEOUS_RITE, "corrupted_aqueous_rite"))
-                .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.AQUEOUS_RITE))
-                .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.ELDRITCH_AQUEOUS_RITE, "corrupted_greater_aqueous_rite"))
-                .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.ELDRITCH_AQUEOUS_RITE))
-        );
+//        ENTRIES.add(new BookEntry(
+//            "utilizing_blight", BLIGHTED_SOIL.get(), -1, 11)
+//            .addPage(new HeadlineTextPage("utilizing_blight", "utilizing_blight"))
+//        );
+//
+//        ENTRIES.add(new BookEntry(
+//            "containing_blight", BLIGHTED_SOIL.get(), 1, 11)
+//            .addPage(new HeadlineTextPage("utilizing_blight", "utilizing_blight"))
+//        );
 
         ENTRIES.add(new BookEntry(
-                "arcane_rite", ARCANE_SPIRIT.get(), 0, 10)
-                .setObjectSupplier(RiteEntryObject::new)
-                .addPage(new HeadlineTextPage("totem_corruption", "totem_corruption_a"))
-                .addPage(new TextPage("totem_corruption_b"))
-                .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.ARCANE_RITE, "arcane_rite"))
-                .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.ARCANE_RITE))
-                .addPage(new TextPage("totem_corruption_c"))
-                .addPage(SpiritInfusionPage.fromOutput(SOULWOOD_TOTEM_BASE.get()))
-        );
-
-        ENTRIES.add(new BookEntry(
-                "utilizing_blight", BLIGHTED_SOIL.get(), -1, 11)
-                .addPage(new HeadlineTextPage("utilizing_blight", "utilizing_blight"))
-        );
-
-        ENTRIES.add(new BookEntry(
-                "containing_blight", BLIGHTED_SOIL.get(), 1, 11)
-                .addPage(new HeadlineTextPage("utilizing_blight", "utilizing_blight"))
-        );
-
-        ENTRIES.add(new BookEntry(
-                "soulwood", SOULWOOD_GROWTH.get(), 0, 12).setSoulwood()
-                .addPage(new HeadlineTextPage("soulwood", "soulwood_a"))
-                .addPage(new TextPage("soulwood_b"))
-                .addPage(CraftingBookPage.itemPedestalPage(SOULWOOD_ITEM_PEDESTAL.get(), SOULWOOD_PLANKS.get(), SOULWOOD_PLANKS_SLAB.get()))
-                .addPage(CraftingBookPage.itemStandPage(SOULWOOD_ITEM_STAND.get(), SOULWOOD_PLANKS.get(), SOULWOOD_PLANKS_SLAB.get()))
-                .addPage(new SmeltingBookPage(SOULWOOD_LOG.get(), ARCANE_CHARCOAL.get()))
-                .addPage(CraftingBookPage.fullPage(BLOCK_OF_ARCANE_CHARCOAL.get(), ARCANE_CHARCOAL.get()))
-                .addPage(new CraftingBookPage(new ItemStack(UNHOLY_SAPBALL.get(), 3), Items.SLIME_BALL, UNHOLY_SAP.get()))
-                .addPage(new SmeltingBookPage(UNHOLY_SAP.get(), UNHOLY_SYRUP.get()))
+            "soulwood", SOULWOOD_GROWTH.get(), 0, 12).setSoulwood()
+            .addPage(new HeadlineTextPage("soulwood", "soulwood.1"))
+            .addPage(new TextPage("soulwood.2"))
+            .addPage(CraftingBookPage.itemPedestalPage(SOULWOOD_ITEM_PEDESTAL.get(), SOULWOOD_PLANKS.get(), SOULWOOD_PLANKS_SLAB.get()))
+            .addPage(CraftingBookPage.itemStandPage(SOULWOOD_ITEM_STAND.get(), SOULWOOD_PLANKS.get(), SOULWOOD_PLANKS_SLAB.get()))
+            .addPage(new SmeltingBookPage(SOULWOOD_LOG.get(), ARCANE_CHARCOAL.get()))
+            .addPage(CraftingBookPage.fullPage(BLOCK_OF_ARCANE_CHARCOAL.get(), ARCANE_CHARCOAL.get()))
+            .addPage(new CraftingBookPage(new ItemStack(UNHOLY_SAPBALL.get(), 3), Items.SLIME_BALL, UNHOLY_SAP.get()))
+            .addPage(new SmeltingBookPage(UNHOLY_SAP.get(), UNHOLY_SYRUP.get()))
         );
 
 
@@ -622,25 +616,25 @@ public class ProgressionBookScreen extends Screen {
 //
 //        ENTRIES.add(new BookEntry(
 //                "tyrving", TYRVING.get(), -1, 15)
-//                .addPage(new HeadlineTextPage("tyrving", "tyrving_a"))
+//                .addPage(new HeadlineTextPage("tyrving", "tyrving.1"))
 //                .addPage(SpiritInfusionPage.fromOutput(TYRVING.get()))
-//                .addPage(new TextPage("tyrving_b"))
+//                .addPage(new TextPage("tyrving.2"))
 //                .addPage(SpiritRepairPage.fromInput(TYRVING.get()))
 //        );
 //
 //        ENTRIES.add(new BookEntry(
 //                "ceaseless_impetus", CEASELESS_IMPETUS.get(), 0, 16)
-//                .addPage(new HeadlineTextPage("ceaseless_impetus", "ceaseless_impetus_a"))
-//                .addPage(new TextPage("ceaseless_impetus_b"))
+//                .addPage(new HeadlineTextPage("ceaseless_impetus", "ceaseless_impetus.1"))
+//                .addPage(new TextPage("ceaseless_impetus.2"))
 //                .addPage(SpiritInfusionPage.fromOutput(CEASELESS_IMPETUS.get()))
 //                .addPage(SpiritRepairPage.fromInput(CRACKED_CEASELESS_IMPETUS.get()))
 //        );
 
         ENTRIES.add(new BookEntry(
-                "huh", THE_DEVICE.get(), 0, -10)
-                .setObjectSupplier(VanishingEntryObject::new)
-                .addPage(new HeadlineTextPage("the_device", "the_device"))
-                .addPage(new CraftingBookPage(THE_DEVICE.get(), TWISTED_ROCK.get(), TAINTED_ROCK.get(), TWISTED_ROCK.get(), TAINTED_ROCK.get(), TWISTED_ROCK.get(), TAINTED_ROCK.get(), TWISTED_ROCK.get(), TAINTED_ROCK.get(), TWISTED_ROCK.get()))
+            "the_device", THE_DEVICE.get(), 0, -10)
+            .setObjectSupplier(VanishingEntryObject::new)
+            .addPage(new HeadlineTextPage("the_device", "the_device"))
+            .addPage(new CraftingBookPage(THE_DEVICE.get(), TWISTED_ROCK.get(), TAINTED_ROCK.get(), TWISTED_ROCK.get(), TAINTED_ROCK.get(), TWISTED_ROCK.get(), TAINTED_ROCK.get(), TWISTED_ROCK.get(), TAINTED_ROCK.get(), TWISTED_ROCK.get()))
         );
     }
 
@@ -975,15 +969,21 @@ public class ProgressionBookScreen extends Screen {
         Font font = Minecraft.getInstance().font;
         text = new TranslatableComponent(text).getString();
         List<String> lines = new ArrayList<>();
-        String[] words = text.split(" ");
+        String[] subLines = text.split("\n");
         String line = "";
-        for (String s : words) {
-            if (font.width(line) + font.width(s) > w) {
+        for (String textSubSection : subLines) {
+            String[] words = textSubSection.split(" ");
+            for (String s : words) {
+                if (font.width(line) + font.width(s) > w) {
+                    lines.add(line);
+                    line = s + " ";
+                } else line += s + " ";
+            }
+            if (!line.isEmpty()) {
                 lines.add(line);
-                line = s + " ";
-            } else line += s + " ";
+                line = "";
+            }
         }
-        if (!line.isEmpty()) lines.add(line);
         for (int i = 0; i < lines.size(); i++) {
             String currentLine = lines.get(i);
             renderRawText(mStack, currentLine, x, y + i * (font.lineHeight + 1), getTextGlow(i / 4f));

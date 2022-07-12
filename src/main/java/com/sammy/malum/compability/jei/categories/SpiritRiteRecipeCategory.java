@@ -17,7 +17,9 @@ import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -43,7 +45,8 @@ public class SpiritRiteRecipeCategory implements IRecipeCategory<MalumRiteType> 
     @Override
     public void draw(MalumRiteType rite, IRecipeSlotsView recipeSlotsView, PoseStack poseStack, double mouseX, double mouseY) {
         overlay.draw(poseStack);
-        ProgressionBookScreen.renderText(poseStack, new TranslatableComponent(rite.translationIdentifier()), 106 - font.width(rite.translationIdentifier()) / 2, 160);
+        String translated = I18n.get(rite.translationIdentifier(false));
+        ProgressionBookScreen.renderText(poseStack, new TextComponent(translated), 106 - font.width(translated) / 2, 160);
     }
 
     @Override
