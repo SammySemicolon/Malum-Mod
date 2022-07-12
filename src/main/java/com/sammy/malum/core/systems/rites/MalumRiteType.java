@@ -3,6 +3,7 @@ package com.sammy.malum.core.systems.rites;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.blockentity.totem.TotemBaseBlockEntity;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
+import com.sammy.ortus.helpers.DataHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 
@@ -12,18 +13,36 @@ import java.util.Arrays;
 public abstract class MalumRiteType {
     public final ArrayList<MalumSpiritType> spirits;
     public final String identifier;
+    public final String basicName;
+    public final String corruptName;
     public final MalumRiteEffect effect;
     public final MalumRiteEffect corruptedEffect;
 
-    public MalumRiteType(String identifier, MalumSpiritType... spirits) {
+    public MalumRiteType(String identifier, String basicName, String corruptName, MalumSpiritType... spirits) {
         this.identifier = identifier;
+        this.basicName = basicName;
+        this.corruptName = corruptName;
         this.spirits = new ArrayList<>(Arrays.asList(spirits));
         effect = getNaturalRiteEffect();
         corruptedEffect = getCorruptedEffect();
     }
 
-    public String translationIdentifier() {
-        return "malum.gui.rite." + identifier;
+    public MalumRiteType(String identifier, String basicName, MalumSpiritType... spirits) {
+        this(identifier,
+            basicName,
+            ("Twisted " + basicName)
+                .replaceAll("Twisted Greater", "Warped"),
+            spirits);
+    }
+
+    public MalumRiteType(String identifier, MalumSpiritType... spirits) {
+        this(identifier,
+            DataHelper.toTitleCase(identifier, "_"),
+            spirits);
+    }
+
+    public String translationIdentifier(boolean corrupt) {
+        return "malum.gui.rite." + (corrupt ? "corrupted_" : "") + identifier;
     }
 
     public ResourceLocation getIcon() {

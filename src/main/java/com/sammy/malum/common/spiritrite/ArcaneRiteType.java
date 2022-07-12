@@ -21,13 +21,12 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static com.sammy.malum.core.setup.content.SpiritTypeRegistry.ARCANE_SPIRIT;
 
 public class ArcaneRiteType extends MalumRiteType {
     public ArcaneRiteType() {
-        super("arcane_rite", ARCANE_SPIRIT, ARCANE_SPIRIT, ARCANE_SPIRIT, ARCANE_SPIRIT, ARCANE_SPIRIT);
+        super("arcane_rite", "Undirected Rite", "Unchained Rite", ARCANE_SPIRIT, ARCANE_SPIRIT, ARCANE_SPIRIT, ARCANE_SPIRIT, ARCANE_SPIRIT);
     }
 
     @Override
@@ -65,7 +64,7 @@ public class ArcaneRiteType extends MalumRiteType {
             public void riteEffect(TotemBaseBlockEntity totemBase) {
                 Level level = totemBase.getLevel();
                 BlockPos pos = totemBase.getBlockPos();
-                List<BlockPos> nearbyBlocks = getNearbyBlocks(totemBase, BlightedSoilBlock.class).collect(Collectors.toList());
+                List<BlockPos> nearbyBlocks = getNearbyBlocks(totemBase, BlightedSoilBlock.class).toList();
 
                 for (BlockPos p : nearbyBlocks) {
                     BlockPos posToTransmute = p.above();
