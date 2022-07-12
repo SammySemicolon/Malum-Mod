@@ -44,12 +44,14 @@ public class WickedIntentEffect extends MobEffect {
             MobEffectInstance effect = livingEntity.getEffect(MalumMobEffectRegistry.WICKED_INTENT.get());
             if (effect != null) {
                 Level level = livingEntity.level;
-                if (source.getEntity() instanceof Player player) {
+                if (livingEntity instanceof Player player) {
                     if (player.getCooldowns().isOnCooldown(ItemRegistry.NECKLACE_OF_THE_HIDDEN_BLADE.get())) {
                         return;
                     }
-                    player.getCooldowns().addCooldown(ItemRegistry.NECKLACE_OF_THE_HIDDEN_BLADE.get(), 40*effect.amplifier);
+                    int pTicks = 40 * (effect.amplifier+1);
+                    player.getCooldowns().addCooldown(ItemRegistry.NECKLACE_OF_THE_HIDDEN_BLADE.get(), pTicks);
                 }
+                livingEntity.removeEffect(effect.getEffect());
                 level.playSound(null, livingEntity.blockPosition(), SoundRegistry.HIDDEN_BLADE_STRIKES.get(), SoundSource.PLAYERS, 2.5f, 1 + level.random.nextFloat() * 0.15f);
             }
         }

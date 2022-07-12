@@ -1,0 +1,11 @@
+{
+  "type": "malum:spirit_transmutation",
+  "input": {
+    "item": "malum:runewood_sapling",
+    "count": 1
+  },
+  "output": {
+    "item": "malum:soulwood_growth",
+    "count": 1
+  }
+}

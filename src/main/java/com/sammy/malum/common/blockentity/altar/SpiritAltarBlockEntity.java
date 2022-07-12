@@ -261,7 +261,6 @@ public class SpiritAltarBlockEntity extends OrtusBlockEntity {
         int extras = extrasInventory.nonEmptyItemAmount;
         if (extras < recipe.extraItems.size()) {
             progress *= 0.8f;
-
             Collection<IAltarProvider> altarProviders = BlockHelper.getBlockEntities(IAltarProvider.class, level, worldPosition, HORIZONTAL_RANGE, VERTICAL_RANGE, HORIZONTAL_RANGE);
             for (IAltarProvider provider : altarProviders) {
                 OrtusBlockEntityInventory inventoryForAltar = provider.getInventoryForAltar();

@@ -13,14 +13,14 @@
       ],
       "recipe": {
         "type": "malum:spirit_focusing",
-        "time": 1200,
+        "time": 900,
         "durabilityCost": 2,
         "input": {
           "item": "malum:aluminum_impetus"
         },
         "output": {
           "item": "malum:aluminum_node",
-          "count": 2
+          "count": 3
         },
         "spirits": [
           {

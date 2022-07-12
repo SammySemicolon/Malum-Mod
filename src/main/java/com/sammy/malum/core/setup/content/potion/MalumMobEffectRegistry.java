@@ -2,15 +2,25 @@ package com.sammy.malum.core.setup.content.potion;
 
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.effect.*;
+import com.sammy.malum.core.setup.content.item.ItemRegistry;
 import net.mehvahdjukaar.supplementaries.configs.RegistryConfigs;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.alchemy.Potion;
+import net.minecraft.world.item.alchemy.PotionBrewing;
+import net.minecraft.world.item.alchemy.Potions;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.registries.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.HashMap;
 
+@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class MalumMobEffectRegistry {
     public static final HashMap<ResourceLocation, Float> ALCHEMICAL_PROFICIENCY_MAP = new HashMap<>();
     public static final DeferredRegister<MobEffect> EFFECTS = DeferredRegister.create(ForgeRegistries.MOB_EFFECTS, MalumMod.MALUM);
@@ -33,5 +43,13 @@ public class MalumMobEffectRegistry {
     public static RegistryObject<MobEffect> attachAlchemicalProficiency(RegistryObject<MobEffect> effect, float proficiency) {
         ALCHEMICAL_PROFICIENCY_MAP.put(effect.getId(), proficiency);
         return effect;
+    }
+
+    @SubscribeEvent
+    public static void addPotionRecipes(FMLCommonSetupEvent event) {
+        PotionBrewing.addMix(Potions.WATER, ItemRegistry.ROTTING_ESSENCE.get(), Potions.MUNDANE);
+        PotionBrewing.addMix(Potions.AWKWARD, ItemRegistry.ROTTING_ESSENCE.get(), Potions.POISON);
+        PotionBrewing.addMix(Potions.WATER, ItemRegistry.ASTRAL_WEAVE.get(), Potions.MUNDANE);
+        PotionBrewing.addMix(Potions.AWKWARD, ItemRegistry.ASTRAL_WEAVE.get(), Potions.INVISIBILITY);
     }
 }

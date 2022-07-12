@@ -36,7 +36,7 @@ public class MalumSpiritFocusingRecipes extends RecipeProvider implements ICondi
 
     @Override
     protected void buildCraftingRecipes(Consumer<FinishedRecipe> consumer) {
-        int metalDuration = 1200;
+        int metalDuration = 900;
         int shortDuration = 300;
 
         new SpiritRepairRecipeBuilder("wooden_", 0.5f, Ingredient.of(ItemTags.PLANKS), 4)
@@ -193,7 +193,7 @@ public class MalumSpiritFocusingRecipes extends RecipeProvider implements ICondi
 
     public void addImpetusRecipes(Consumer<FinishedRecipe> consumer, int duration, RegistryObject<ImpetusItem> impetus, RegistryObject<Item> node, TagKey<Item> nugget) {
         ConditionalRecipe.builder().addCondition(not(new TagEmptyCondition(nugget.location()))).addRecipe(
-                        new SpiritFocusingRecipeBuilder(duration, 2, Ingredient.of(impetus.get()), Ingredient.of(node.get()), 2)
+                        new SpiritFocusingRecipeBuilder(duration, 2, Ingredient.of(impetus.get()), Ingredient.of(node.get()), 3)
                                 .addSpirit(EARTHEN_SPIRIT, 2)
                                 .addSpirit(INFERNAL_SPIRIT, 1)
                                 ::build

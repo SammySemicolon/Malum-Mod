@@ -11,7 +11,7 @@
         "parent": "minecraft:recipes/root",
         "rewards": {
           "recipes": [
-            "malum:blazing_torch"
+            "malum:blazing_sconce"
           ]
         },
         "criteria": {
@@ -30,7 +30,7 @@
           "has_the_recipe": {
             "trigger": "minecraft:recipe_unlocked",
             "conditions": {
-              "recipe": "malum:blazing_torch"
+              "recipe": "malum:blazing_sconce"
             }
           }
         },

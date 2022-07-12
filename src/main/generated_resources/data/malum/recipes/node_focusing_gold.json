@@ -1,6 +1,6 @@
 {
   "type": "malum:spirit_focusing",
-  "time": 1200,
+  "time": 900,
   "durabilityCost": 2,
   "input": {
     "item": "malum:gold_impetus"

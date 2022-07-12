@@ -4,6 +4,7 @@ import com.sammy.malum.common.blockentity.totem.TotemPoleBlockEntity;
 import com.sammy.malum.common.item.spirit.MalumSpiritItem;
 import com.sammy.ortus.systems.block.OrtusLogBlock;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -26,19 +27,22 @@ public class MalumLogBLock extends OrtusLogBlock {
     @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
         ItemStack stack = player.getItemInHand(handIn);
-        if (level.isClientSide) {
-            if (stack.getItem() instanceof MalumSpiritItem) {
+        if (stack.getItem() instanceof MalumSpiritItem item) {
+            if (hit.getDirection().equals(Direction.UP) || hit.getDirection().equals(Direction.DOWN)) {
+                return InteractionResult.FAIL;
+            }
+            if (level.isClientSide) {
                 return InteractionResult.SUCCESS;
             }
-        }
-        if (stack.getItem() instanceof MalumSpiritItem item) {
-            createTotemPole(level, pos, player, handIn, hit, stack, item);
-            return InteractionResult.SUCCESS;
+            boolean success = createTotemPole(level, pos, player, handIn, hit, stack, item);
+            if (success) {
+                return InteractionResult.SUCCESS;
+            }
         }
         return super.use(state, level, pos, player, handIn, hit);
     }
 
-    public void createTotemPole(Level level, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit, ItemStack stack, MalumSpiritItem spirit) {
+    public boolean createTotemPole(Level level, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit, ItemStack stack, MalumSpiritItem spirit) {
         level.setBlockAndUpdate(pos, spirit.type.getBlockState(isCorrupt, hit));
         if (level.getBlockEntity(pos) instanceof TotemPoleBlockEntity blockEntity) {
             blockEntity.create(spirit.type);
@@ -48,5 +52,6 @@ public class MalumLogBLock extends OrtusLogBlock {
         }
         level.levelEvent(2001, pos, Block.getId(level.getBlockState(pos)));
         player.swing(handIn, true);
+        return true;
     }
 }

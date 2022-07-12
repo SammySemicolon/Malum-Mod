@@ -16,14 +16,16 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.RotatedPillarBlock;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraftforge.registries.RegistryObject;
 
+import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 import static net.minecraft.tags.BlockTags.*;
 
@@ -237,7 +239,7 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
         }
     }
 
-    public static void createBlight(LevelAccessor level, OrtusBlockFiller filler, RegistryObject<Block> plant, Random rand, BlockPos pos, int size) {
+    public static List<BlockStateEntry> createBlight(LevelAccessor level, OrtusBlockFiller filler, RegistryObject<Block> plant, Random rand, BlockPos pos, int size) {
         if (level.getBlockState(pos).is(MOSS_REPLACEABLE)) {
             filler.entries.add(new BlockStateEntry(BlockRegistry.BLIGHTED_SOIL.get().defaultBlockState(), pos));
         }
@@ -250,28 +252,38 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
                 if (Math.abs(x) == size && Math.abs(z) == size) {
                     continue;
                 }
-                BlockPos grassPos = level.getHeightmapPos(Heightmap.Types.WORLD_SURFACE_WG, pos.offset(x, 0, z)).below();
-                if (grassPos.getY() < pos.getY() - 6) {
-                    continue;
+                BlockPos grassPos = pos.offset(x, 0, z);
+                BlockPos.MutableBlockPos mutable = grassPos.mutable();
+                int verticalRange = 4;
+                for(int i1 = 0; level.isStateAtPosition(mutable, (s) -> !s.isAir()) && i1 < verticalRange; ++i1) {
+                    mutable.move(Direction.UP);
+                }
+                for(int k = 0; level.isStateAtPosition(mutable, BlockBehaviour.BlockStateBase::isAir) && k < verticalRange; ++k) {
+                    mutable.move(Direction.DOWN);
                 }
                 do {
-                    if (level.getBlockState(grassPos).is(REPLACEABLE_PLANTS) || level.getBlockState(grassPos).is(FLOWERS)) {
-                        boolean canSurvive = plant.get().defaultBlockState().canSurvive(level, grassPos);
-                        filler.entries.add(new BlockStateEntry(canSurvive ? plant.get().defaultBlockState() : Blocks.AIR.defaultBlockState(), grassPos));
-                        grassPos = grassPos.below();
+                    BlockState plantState = level.getBlockState(mutable);
+                    if (plantState.isAir()) {
+                        break;
+                    }
+                    if (plantState.getMaterial().isReplaceable() || plantState.is(REPLACEABLE_PLANTS) || plantState.is(FLOWERS)) {
+                        filler.entries.add(new BlockStateEntry(Blocks.AIR.defaultBlockState(), mutable.immutable()));
+                        mutable.move(Direction.DOWN);
                     } else {
                         break;
                     }
                 }
                 while (true);
+                grassPos = mutable.immutable();
                 if (level.getBlockState(grassPos).is(MOSS_REPLACEABLE)) {
                     filler.entries.add(new BlockStateEntry(BlockRegistry.BLIGHTED_SOIL.get().defaultBlockState(), grassPos));
                     if (level.getBlockState(grassPos.below()).is(DIRT)) {
                         filler.entries.add(new BlockStateEntry(BlockRegistry.BLIGHTED_EARTH.get().defaultBlockState(), grassPos.below()));
                     }
                     if (plantCooldown <= 0 && rand.nextFloat() < 0.4f) {
-                        if (level.getBlockState(grassPos.above()).isAir()) {
-                            filler.entries.add(new BlockStateEntry(plant.get().defaultBlockState(), grassPos.above()));
+                        BlockPos plantPos = grassPos.above();
+                        if (level.getBlockState(plantPos).isAir()) {
+                            filler.entries.add(new BlockStateEntry(plant.get().defaultBlockState(), plantPos));
                         }
                         plantCooldown = 2;
                     }
@@ -279,6 +291,7 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
                 }
             }
         }
+        return filler.entries;
     }
 
     public static boolean canPlace(WorldGenLevel level, BlockPos pos) {

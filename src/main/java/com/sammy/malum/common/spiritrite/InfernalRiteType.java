@@ -11,6 +11,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseFireBlock;
@@ -27,7 +28,7 @@ public class InfernalRiteType extends MalumRiteType {
 
     @Override
     public MalumRiteEffect getNaturalRiteEffect() {
-        return new PotionRiteEffect(Player.class, MalumMobEffectRegistry.MINERS_RAGE, INFERNAL_SPIRIT);
+        return new AuraRiteEffect(LivingEntity.class, MalumMobEffectRegistry.MINERS_RAGE, INFERNAL_SPIRIT);
     }
 
     @Override
@@ -42,7 +43,7 @@ public class InfernalRiteType extends MalumRiteType {
             @Override
             public void riteEffect(TotemBaseBlockEntity totemBase) {
                 Level level = totemBase.getLevel();
-                getNearbyEntities(totemBase, LivingEntity.class).forEach(e -> {
+                getNearbyEntities(totemBase, LivingEntity.class).filter(e -> !(e instanceof Monster)).forEach(e -> {
                     if (e.isOnFire()) {
                         level.playSound(null, e.blockPosition(), SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 1, 1.6F + (level.random.nextFloat() - level.random.nextFloat()) * 0.4F);
                         MALUM_CHANNEL.send(PacketDistributor.TRACKING_ENTITY.with(() -> e), new MajorEntityEffectParticlePacket(getEffectSpirit().getColor(), e.getX(), e.getY() + e.getBbHeight() / 2f, e.getZ()));

@@ -1,0 +1,31 @@
+{
+  "type": "malum:spirit_infusion",
+  "input": {
+    "item": "minecraft:tnt",
+    "count": 1
+  },
+  "output": {
+    "item": "malum:etheric_nitrate",
+    "count": 4
+  },
+  "extra_items": [
+    {
+      "item": "malum:ether",
+      "count": 1
+    },
+    {
+      "tag": "forge:gunpowder",
+      "count": 4
+    },
+    {
+      "item": "malum:cursed_grit",
+      "count": 2
+    }
+  ],
+  "spirits": [
+    {
+      "type": "infernal",
+      "count": 4
+    }
+  ]
+}

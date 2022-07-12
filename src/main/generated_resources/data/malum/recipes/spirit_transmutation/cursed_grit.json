@@ -1,0 +1,11 @@
+{
+  "type": "malum:spirit_transmutation",
+  "input": {
+    "item": "malum:hex_ash",
+    "count": 1
+  },
+  "output": {
+    "item": "malum:cursed_grit",
+    "count": 1
+  }
+}

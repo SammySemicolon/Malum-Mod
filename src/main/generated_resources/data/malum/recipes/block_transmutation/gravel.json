@@ -1,5 +1,0 @@
-{
-  "type": "malum:block_transmutation",
-  "input": "minecraft:cobblestone",
-  "output": "minecraft:gravel"
-}

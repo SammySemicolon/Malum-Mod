@@ -3,16 +3,24 @@ package com.sammy.malum.common.spiritrite.greater;
 import com.sammy.malum.common.blockentity.totem.TotemBaseBlockEntity;
 import com.sammy.malum.common.packets.particle.block.BlockDownwardSparkleParticlePacket;
 import com.sammy.malum.common.packets.particle.block.BlockSparkleParticlePacket;
+import com.sammy.malum.common.packets.particle.entity.MajorEntityEffectParticlePacket;
+import com.sammy.malum.common.packets.particle.entity.MinorEntityEffectParticlePacket;
 import com.sammy.malum.core.setup.content.SoundRegistry;
 import com.sammy.malum.core.systems.rites.BlockAffectingRiteEffect;
 import com.sammy.malum.core.systems.rites.EntityAffectingRiteEffect;
 import com.sammy.malum.core.systems.rites.MalumRiteEffect;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
 import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.stats.ServerStatsCounter;
+import net.minecraft.stats.Stat;
+import net.minecraft.stats.Stats;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.item.FallingBlockEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
@@ -58,7 +66,13 @@ public class EldritchAerialRiteType extends MalumRiteType {
         return new EntityAffectingRiteEffect() {
             @Override
             public void riteEffect(TotemBaseBlockEntity totemBase) {
-
+                getNearbyEntities(totemBase, ServerPlayer.class).forEach(p -> {
+                    ServerStatsCounter stats = p.getStats();
+                    Stat<ResourceLocation> sleepStat = Stats.CUSTOM.get(Stats.TIME_SINCE_REST);
+                    int value = stats.getValue(sleepStat);
+                    stats.setValue(p, sleepStat, Math.max(0, value-100));
+                    MALUM_CHANNEL.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> p), new MinorEntityEffectParticlePacket(AERIAL_SPIRIT.getColor(), p.getX(), p.getY()+ p.getBbHeight() / 2f, p.getZ()));
+                });
             }
         };
     }

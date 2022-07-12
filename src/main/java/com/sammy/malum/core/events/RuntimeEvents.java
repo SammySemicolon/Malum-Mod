@@ -8,6 +8,7 @@ import com.sammy.malum.common.effect.GluttonyEffect;
 import com.sammy.malum.common.effect.InfernalAura;
 import com.sammy.malum.common.effect.WickedIntentEffect;
 import com.sammy.malum.common.enchantment.ReboundEnchantment;
+import com.sammy.malum.common.entity.nitrate.EthericExplosion;
 import com.sammy.malum.common.item.equipment.CeaselessImpetusItem;
 import com.sammy.malum.common.item.equipment.curios.CurioAlchemicalRing;
 import com.sammy.malum.common.item.equipment.curios.CurioTokenOfGratitude;
@@ -29,6 +30,7 @@ import net.minecraftforge.event.entity.item.ItemExpireEvent;
 import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.world.ExplosionEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -134,14 +136,18 @@ public class RuntimeEvents {
 
     @SubscribeEvent
     public static void onHurt(LivingHurtEvent event) {
-        ArcaneAffinity.consumeSoulWard(event);
+        MalumAttributeEventHandler.processAttributes(event);
         EarthenAffinity.consumeHeartOfStone(event);
         SpiritHarvestHandler.exposeSoul(event);
-        MalumAttributeEventHandler.processAttributes(event);
     }
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
-    public static void onLateHurt(LivingDamageEvent event) {
+    public static void onLateHurt(LivingHurtEvent event) {
+        ArcaneAffinity.consumeSoulWard(event);
+    }
+
+    @SubscribeEvent(priority = EventPriority.LOWEST)
+    public static void onLateDamage(LivingDamageEvent event) {
         WickedIntentEffect.removeWickedIntent(event);
     }
 
@@ -160,6 +166,11 @@ public class RuntimeEvents {
     @SubscribeEvent
     public static void onItemExpire(ItemExpireEvent event) {
         SpiritHarvestHandler.shatterItem(event);
+    }
+
+    @SubscribeEvent
+    public static void onExplosionDetonate(ExplosionEvent.Detonate event) {
+        EthericExplosion.processExplosion(event);
     }
 }
 

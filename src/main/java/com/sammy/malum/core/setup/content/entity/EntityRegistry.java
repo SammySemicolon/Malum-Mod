@@ -1,10 +1,8 @@
 package com.sammy.malum.core.setup.content.entity;
 
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.client.renderer.entity.FloatingItemEntityRenderer;
-import com.sammy.malum.client.renderer.entity.MalumBoatRenderer;
-import com.sammy.malum.client.renderer.entity.ScytheBoomerangEntityRenderer;
-import com.sammy.malum.client.renderer.entity.SoulEntityRenderer;
+import com.sammy.malum.client.renderer.entity.*;
+import com.sammy.malum.common.entity.nitrate.EthericNoduleEntity;
 import com.sammy.malum.common.entity.boomerang.ScytheBoomerangEntity;
 import com.sammy.malum.common.entity.spirit.MirrorItemEntity;
 import com.sammy.malum.common.entity.spirit.SoulEntity;
@@ -29,6 +27,10 @@ public class EntityRegistry
     public static final RegistryObject<EntityType<PlayerBoundItemEntity>> NATURAL_SPIRIT = ENTITY_TYPES.register("natural_spirit",
             () -> EntityType.Builder.<PlayerBoundItemEntity>of((e, w)->new PlayerBoundItemEntity(w), MobCategory.MISC).sized(0.5F, 0.75F).clientTrackingRange(10)
                     .build(MalumMod.malumPath("natural_spirit").toString()));
+
+    public static final RegistryObject<EntityType<EthericNoduleEntity>> ETHERIC_NODULE = ENTITY_TYPES.register("etheric_nitrate_nodule",
+            () -> EntityType.Builder.<EthericNoduleEntity>of((e, w)->new EthericNoduleEntity(w), MobCategory.MISC).sized(0.5F, 0.5F).clientTrackingRange(10)
+                    .build(MalumMod.malumPath("etheric_nitrate_nodule").toString()));
 
     public static final RegistryObject<EntityType<MirrorItemEntity>> MIRROR_ITEM = ENTITY_TYPES.register("mirror_item",
             () -> EntityType.Builder.<MirrorItemEntity>of((e, w)->new MirrorItemEntity(w), MobCategory.MISC).sized(0.5F, 0.5F).clientTrackingRange(10)
@@ -56,6 +58,7 @@ public class EntityRegistry
         public static void bindEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
             EntityRenderers.register(EntityRegistry.NATURAL_SPIRIT.get(), FloatingItemEntityRenderer::new);
             EntityRenderers.register(EntityRegistry.MIRROR_ITEM.get(), FloatingItemEntityRenderer::new);
+            EntityRenderers.register(EntityRegistry.ETHERIC_NODULE.get(), EthericNoduleEntityRenderer::new);
             EntityRenderers.register(EntityRegistry.NATURAL_SOUL.get(), SoulEntityRenderer::new);
             EntityRenderers.register(EntityRegistry.SCYTHE_BOOMERANG.get(), ScytheBoomerangEntityRenderer::new);
             EntityRenderers.register(EntityRegistry.RUNEWOOD_BOAT.get(), (manager) -> new MalumBoatRenderer(manager, "runewood"));
