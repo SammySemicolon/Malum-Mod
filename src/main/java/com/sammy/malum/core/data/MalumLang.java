@@ -189,11 +189,11 @@ public class MalumLang extends LanguageProvider {
             "I've found three such reagents that I can harvest this way. The flesh of zombies can curdle into Rotting Essence; the bones of skeletons can crystallize into Grim Talc; and the wings of phantoms can spin into Astral Weave.");
         addHeadline("scythe_reaping.calx", "Alchemical Calx");
         addPages("scythe_reaping.calx",
-            "Witches carry alchemical reagents with them already, and, while the magic doesn't infuse their body, it transmutes those reagents into something else. When defeated with a method that strikes the soul, they're more likely to drop Alchemical Calx.");
+            "Witches carry alchemical reagents with them already, and, while the magic doesn't infuse their body, it transmutes those reagents into something else. Soul striking a witch is more likely to drop Alchemical Calx.");
 
         addSimpleEntryHeader("spirit_infusion", "Spirit Infusion", "Creation of wonders");
         addPages("spirit_infusion",
-            "By using Runewood's natural magic as a base, I have designed the altar that will serve as the basis for my magecraft - the Spirit Altar. It is the other piece of the equation, the use for the arcana. By infusing them into items, and using the energies to effect other fusions, I can begin to explore this art.",
+            "By using Runewood's natural magic as a base, I have designed the altar that will serve as the basis for my magecraft - the Spirit Altar. It is the other piece of the equation, the use for the arcana. By infusing them into items, and using the energies to effect other fusions, I can begin to explore this.",
             "To use the altar, I must lay the item I wish to infuse on top of it, along with an appropriate set of arcana. If I wish to fuse other items in the process, I must place them on some form of Runewood item holder. They must be within four blocks of the altar to work.",
             "Once all the arcana are present, the power within the crystals will begin to flow into the central item. If other items are fused in, they are pulled in during this process. When all of that is done, the product of the infusion will appear. It " + italic("is") + " rather slow, though...");
         addHeadline("spirit_infusion.hex_ash", "Hex Ash");
@@ -373,8 +373,8 @@ public class MalumLang extends LanguageProvider {
 
         addSimpleEntryHeader("totem_magic", "Totem Magic", "Arcana unleashed");
         addPages("totem_magic",
-            "Up until this point, when performing spirit arcana, I have limited my research to personal enhancement and material production. That has finally begun to change.",
-            "Runewood, as the name implies, accepts crystals almost hungrily, forming runes as it does. If unwanted, they can be stripped off with an axe, but I have uses in mind. With a Runewood Totem Base, and then a specific set of runes in a Runewood Log pillar reaching up to five blocks above it, I can make a Spirit Rite. These rituals soak power into the world around them, changing the beings or blocks in the area.",
+            "Up until this point, when performing spirit arcana, I have limited my research to personal enhancement and material production. That has finally begun to change. Runewood accepts crystals almost hungrily, forming runes as it does.",
+            "If unwanted, they can be stripped off with an axe, but I have uses in mind. With a Runewood Totem Base, and then a specific set of runes in a Runewood Log pillar reaching up to five blocks above it, I can make a Spirit Rite. These rituals soak power into the world around them, changing the beings or blocks in the area.",
             "For what I term \"aura rites\", they affect anything within eight blocks of the base. For other rituals which alter beings, most affect anything within four blocks of the base. For those which alter blocks, most affect the five-by-five area on the level beneath the base, towards where the runes are facing.",
             "A ritual that affects blocks can also be made more selective with the use of Item Stands. By placing them on the sides of the rune pillars, you can make the ritual only recognize and alter the types of blocks lying on the stands.",
             "One caveat is that no two identical rituals can have their areas overlap. If you try, the first one will simply fizzle out, the energies coursing through it disrupted.");

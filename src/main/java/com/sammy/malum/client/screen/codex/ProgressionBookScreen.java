@@ -577,11 +577,11 @@ public class ProgressionBookScreen extends Screen {
         ENTRIES.add(new BookEntry(
             "arcane_rite", ARCANE_SPIRIT.get(), 0, 10)
             .setObjectSupplier(RiteEntryObject::new)
-            .addPage(new HeadlineTextPage("totem_corruption", "totem_corruption.1"))
-            .addPage(new TextPage("totem_corruption.2"))
+            .addPage(new HeadlineTextPage("arcane_rite", "arcane_rite.description.1"))
+            .addPage(new TextPage("arcane_rite.description.2"))
             .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.ARCANE_RITE, "arcane_rite"))
             .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.ARCANE_RITE))
-            .addPage(new TextPage("totem_corruption.3"))
+            .addPage(new TextPage("arcane_rite.description.3"))
             .addPage(SpiritInfusionPage.fromOutput(SOULWOOD_TOTEM_BASE.get()))
         );
 
