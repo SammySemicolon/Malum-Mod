@@ -51,7 +51,7 @@ public class ArcaneRiteType extends MalumRiteType {
 
             @Override
             public int getRiteEffectRadius() {
-                return BASE_RADIUS * 2;
+                return (BASE_RADIUS * 2)+1;
             }
 
             @Override

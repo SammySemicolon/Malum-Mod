@@ -1,0 +1,24 @@
+{
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "create"
+    }
+  ],
+  "type": "create:splashing",
+  "ingredients": [
+    {
+      "item": "malum:copper_node"
+    }
+  ],
+  "results": [
+    {
+      "item": "create:copper_nugget",
+      "count": 6
+    },
+    {
+      "item": "minecraft:clay_ball",
+      "chance": 0.5
+    }
+  ]
+}

@@ -9,6 +9,8 @@ import com.sammy.malum.common.blockentity.crucible.SpiritCrucibleCoreBlockEntity
 import com.sammy.malum.common.blockentity.obelisk.BrilliantObeliskBlockEntity;
 import com.sammy.malum.common.blockentity.obelisk.RunewoodObeliskBlockEntity;
 import com.sammy.malum.common.blockentity.storage.PlinthCoreBlockEntity;
+import com.sammy.malum.common.entity.nitrate.EthericNitrateEntity;
+import com.sammy.malum.common.entity.nitrate.VividNitrateEntity;
 import com.sammy.malum.common.item.BrillianceChunkItem;
 import com.sammy.malum.common.item.EncyclopediaArcanaItem;
 import com.sammy.malum.common.item.EthericNitrateItem;
@@ -393,7 +395,8 @@ public class ItemRegistry {
     public static final RegistryObject<Item> SPECTRAL_LENS = ITEMS.register("spectral_lens", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> POPPET = ITEMS.register("poppet", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> CURSED_GRIT = ITEMS.register("cursed_grit", () -> new Item(DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> ETHERIC_NITRATE = ITEMS.register("etheric_nitrate", () -> new EthericNitrateItem(DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> ETHERIC_NITRATE = ITEMS.register("etheric_nitrate", () -> new EthericNitrateItem(DEFAULT_PROPERTIES(), p -> new EthericNitrateEntity(p, p.level)));
+    public static final RegistryObject<Item> VIVID_NITRATE = ITEMS.register("vivid_nitrate", () -> new EthericNitrateItem(DEFAULT_PROPERTIES(), p -> new VividNitrateEntity(p, p.level)));
 
     public static final RegistryObject<Item> HALLOWED_GOLD_INGOT = ITEMS.register("hallowed_gold_ingot", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> HALLOWED_GOLD_NUGGET = ITEMS.register("hallowed_gold_nugget", () -> new Item(DEFAULT_PROPERTIES()));
@@ -603,7 +606,7 @@ public class ItemRegistry {
             registerItemColor(itemColors, ItemRegistry.INFERNAL_SPIRIT, brighter(SpiritTypeRegistry.INFERNAL_SPIRIT.getColor(), 1));
             registerItemColor(itemColors, ItemRegistry.EARTHEN_SPIRIT, brighter(SpiritTypeRegistry.EARTHEN_SPIRIT.getColor(), 1));
 
-            registerItemColor(itemColors, ItemRegistry.ETHERIC_NITRATE, EthericNitrateItem.FIRST_COLOR.brighter());
+            registerItemColor(itemColors, ItemRegistry.ETHERIC_NITRATE, EthericNitrateEntity.FIRST_COLOR.brighter());
 
         }
 

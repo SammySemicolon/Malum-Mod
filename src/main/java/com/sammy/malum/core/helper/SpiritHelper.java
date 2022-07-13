@@ -16,6 +16,7 @@ import com.sammy.ortus.setup.OrtusParticleRegistry;
 import com.sammy.ortus.setup.OrtusScreenParticleRegistry;
 import com.sammy.ortus.systems.easing.Easing;
 import com.sammy.ortus.systems.rendering.particle.ParticleBuilders;
+import com.sammy.ortus.systems.rendering.particle.SimpleParticleOptions;
 import com.sammy.ortus.systems.rendering.particle.screen.base.ScreenParticle;
 import net.minecraft.client.Minecraft;
 import net.minecraft.sounds.SoundSource;
@@ -196,6 +197,7 @@ public class SpiritHelper {
                 .enableNoClip()
                 .addMotion(extraVelocity.x, extraVelocity.y, extraVelocity.z)
                 .randomMotion(0.02f, 0.02f)
+                .overwriteRemovalProtocol(SimpleParticleOptions.SpecialRemovalProtocol.INVISIBLE)
                 .repeat(level, x, y, z, 1);
 
         ParticleBuilders.create(OrtusParticleRegistry.WISP_PARTICLE)
@@ -215,6 +217,7 @@ public class SpiritHelper {
                 .setSpin(nextFloat(rand, 0.05f, 0.1f))
                 .setScale(0.15f + rand.nextFloat() * 0.05f, 0f)
                 .randomMotion(0.01f, 0.01f)
+                .overwriteRemovalProtocol(SimpleParticleOptions.SpecialRemovalProtocol.INVISIBLE)
                 .repeat(level, x, y, z, 1);
 
     }

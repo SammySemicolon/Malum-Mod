@@ -3,8 +3,8 @@ package com.sammy.malum.client.renderer.entity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Vector4f;
-import com.sammy.malum.common.entity.nitrate.EthericNoduleEntity;
-import com.sammy.malum.common.item.EthericNitrateItem;
+import com.sammy.malum.common.entity.nitrate.EthericNitrateEntity;
+import com.sammy.malum.common.entity.nitrate.VividNitrateEntity;
 import com.sammy.ortus.helpers.ColorHelper;
 import com.sammy.ortus.helpers.EntityHelper;
 import com.sammy.ortus.setup.OrtusRenderTypeRegistry;
@@ -23,16 +23,16 @@ import net.minecraft.world.phys.Vec3;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static com.sammy.malum.MalumMod.malumPath;
 import static com.sammy.ortus.handlers.RenderHandler.DELAYED_RENDER;
-import static com.sammy.ortus.setup.OrtusRenderTypeRegistry.queueUniformChanges;
 
-public class EthericNoduleEntityRenderer extends EntityRenderer<EthericNoduleEntity> {
+public class VividNitrateEntityRenderer extends EntityRenderer<VividNitrateEntity> {
     public final ItemRenderer itemRenderer;
 
-    public EthericNoduleEntityRenderer(EntityRendererProvider.Context context) {
+    public VividNitrateEntityRenderer(EntityRendererProvider.Context context) {
         super(context);
         this.itemRenderer = context.getItemRenderer();
         this.shadowRadius = 0;
@@ -42,11 +42,8 @@ public class EthericNoduleEntityRenderer extends EntityRenderer<EthericNoduleEnt
     private static final ResourceLocation LIGHT_TRAIL = malumPath("textures/vfx/light_trail.png");
     private static final RenderType LIGHT_TYPE = OrtusRenderTypeRegistry.ADDITIVE_TEXTURE_TRIANGLE.apply(LIGHT_TRAIL);
 
-    private static final ResourceLocation MESSY_TRAIL = malumPath("textures/vfx/messy_trail.png");
-    private static final RenderType MESSY_TYPE = OrtusRenderTypeRegistry.SCROLLING_TEXTURE_TRIANGLE.apply(MESSY_TRAIL);
-
     @Override
-    public void render(EthericNoduleEntity entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int packedLightIn) {
+    public void render(VividNitrateEntity entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int packedLightIn) {
         poseStack.pushPose();
         ArrayList<EntityHelper.PastPosition> positions = new ArrayList<>(entity.pastPositions);
         if (positions.size() > 1) {
@@ -70,20 +67,24 @@ public class EthericNoduleEntityRenderer extends EntityRenderer<EthericNoduleEnt
         VFXBuilders.WorldVFXBuilder builder = VFXBuilders.createWorld().setPosColorTexLightmapDefaultFormat().setOffset(-x, -y, -z);
 
         VertexConsumer lightBuffer = DELAYED_RENDER.getBuffer(LIGHT_TYPE);
-        float trailVisibility = Math.min(entity.windUp*2, 1);
-        Color firstColor = EthericNitrateItem.FIRST_COLOR;
-        Color secondColor = EthericNitrateItem.SECOND_COLOR;
+        float trailVisibility = Math.min(entity.windUp * 2, 1);
+        float time = ((entity.level.getGameTime()+partialTicks) % 16f) / 16f;
+        Function<Float, Color> colorFunction = f -> {
+            float lerp = time + f;
+            if (lerp > 1) {
+                lerp -= Math.floor(lerp);
+            }
+            return ColorHelper.multicolorLerp(Easing.SINE_IN, lerp, VividNitrateEntity.COLORS);
+        };
         for (int i = 0; i < 3; i++) {
-            float size = 0.25f + i * 0.1f;
-            float alpha = (0.16f - i * 0.04f) * trailVisibility;
-            int finalI = i;
-            VertexConsumer messy = DELAYED_RENDER.getBuffer(queueUniformChanges(OrtusRenderTypeRegistry.copy(i, MESSY_TYPE),
-                    (instance -> instance.safeGetUniform("Speed").set(1000 + 250f * finalI))));
+
+            float size = 0.3f + i * 0.12f;
+            float alpha = (0.16f - i * 0.035f) * trailVisibility;
             builder
                     .setAlpha(alpha)
-                    .renderTrail(messy, poseStack, mappedPastPositions, f -> size, f -> builder.setAlpha(alpha * f).setColor(ColorHelper.colorLerp(Easing.SINE_IN, f * 3f, secondColor, firstColor)))
-                    .renderTrail(messy, poseStack, mappedPastPositions, f -> 1.5f * size, f -> builder.setAlpha(alpha * f * 1.5f).setColor(ColorHelper.colorLerp(Easing.SINE_IN, f * 2f, secondColor, firstColor)))
-                    .renderTrail(lightBuffer, poseStack, mappedPastPositions, f -> size * 2.5f, f -> builder.setAlpha(alpha * f / 4f).setColor(ColorHelper.colorLerp(Easing.SINE_IN, f * 2f, secondColor, firstColor)));
+                    .renderTrail(lightBuffer, poseStack, mappedPastPositions, f -> size, f -> builder.setAlpha(alpha * f).setColor(colorFunction.apply(f* 3f)))
+                    .renderTrail(lightBuffer, poseStack, mappedPastPositions, f -> 1.5f * size, f -> builder.setAlpha(alpha * f * 1.5f).setColor(colorFunction.apply(f* 2f)))
+                    .renderTrail(lightBuffer, poseStack, mappedPastPositions, f -> size * 2.5f, f -> builder.setAlpha(alpha * f / 4f).setColor(colorFunction.apply(f* 2f)));
         }
 
         poseStack.popPose();
@@ -92,7 +93,7 @@ public class EthericNoduleEntityRenderer extends EntityRenderer<EthericNoduleEnt
     }
 
     @Override
-    public ResourceLocation getTextureLocation(EthericNoduleEntity entity) {
+    public ResourceLocation getTextureLocation(VividNitrateEntity entity) {
         return TextureAtlas.LOCATION_BLOCKS;
     }
 }

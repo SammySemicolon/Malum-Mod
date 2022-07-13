@@ -70,7 +70,7 @@ public class EldritchAerialRiteType extends MalumRiteType {
                     ServerStatsCounter stats = p.getStats();
                     Stat<ResourceLocation> sleepStat = Stats.CUSTOM.get(Stats.TIME_SINCE_REST);
                     int value = stats.getValue(sleepStat);
-                    stats.setValue(p, sleepStat, Math.max(0, value-100));
+                    stats.setValue(p, sleepStat, Math.max(0, value-300));
                     MALUM_CHANNEL.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> p), new MinorEntityEffectParticlePacket(AERIAL_SPIRIT.getColor(), p.getX(), p.getY()+ p.getBbHeight() / 2f, p.getZ()));
                 });
             }

@@ -30,12 +30,17 @@ public class PlayerBoundItemEntity extends FloatingItemEntity {
     }
 
     public PlayerBoundItemEntity(Level level, UUID ownerUUID, ItemStack stack, double posX, double posY, double posZ, double velX, double velY, double velZ) {
-        super(EntityRegistry.NATURAL_SPIRIT.get(), level);
+        this(level);
         setOwner(ownerUUID);
         setItem(stack);
         setPos(posX, posY, posZ);
         setDeltaMovement(velX, velY, velZ);
         maxAge = 800;
+    }
+
+    @Override
+    public boolean fireImmune() {
+        return true;
     }
 
     public void setOwner(UUID ownerUUID) {
