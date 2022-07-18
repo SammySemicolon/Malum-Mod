@@ -2,17 +2,17 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "malum:soulstone_from_raw_blasting"
+      "malum:alchemical_calx_from_block"
     ]
   },
   "criteria": {
-    "has_brilliance": {
+    "has_alchemical_calx": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
             "items": [
-              "malum:cluster_of_brilliance"
+              "malum:alchemical_calx"
             ]
           }
         ]
@@ -21,13 +21,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "malum:soulstone_from_raw_blasting"
+        "recipe": "malum:alchemical_calx_from_block"
       }
     }
   },
   "requirements": [
     [
-      "has_brilliance",
+      "has_alchemical_calx",
       "has_the_recipe"
     ]
   ]

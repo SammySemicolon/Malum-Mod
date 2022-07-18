@@ -67,11 +67,15 @@ public class EldritchEarthenRiteType extends MalumRiteType {
             @Override
             public void riteEffect(TotemBaseBlockEntity totemBase) {
                 Level level = totemBase.getLevel();
-                getBlocksUnderBase(totemBase, AirBlock.class).forEach(p -> {
-                    BlockState cobblestone = Blocks.COBBLESTONE.defaultBlockState();
-                    level.setBlockAndUpdate(p, cobblestone);
-                    level.levelEvent(2001, p, Block.getId(cobblestone));
-                    MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(p)), new BlockSparkleParticlePacket(EARTHEN_SPIRIT.getColor(), p));
+                getBlocksUnderBase(totemBase, Block.class).forEach(p -> {
+                    BlockState state = level.getBlockState(p);
+                    boolean canBreak = state.isAir() || state.getMaterial().isReplaceable();
+                    if (canBreak) {
+                        BlockState cobblestone = Blocks.COBBLESTONE.defaultBlockState();
+                        level.setBlockAndUpdate(p, cobblestone);
+                        level.levelEvent(2001, p, Block.getId(cobblestone));
+                        MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(p)), new BlockSparkleParticlePacket(EARTHEN_SPIRIT.getColor(), p));
+                    }
                 });
             }
         };

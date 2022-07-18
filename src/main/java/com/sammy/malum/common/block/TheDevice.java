@@ -42,7 +42,7 @@ public class TheDevice extends Block {
 
     public void playSound(Level level, BlockPos pos) {
         if (level instanceof ServerLevel serverLevel) {
-            OrtusPacketRegistry.ORTUS_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> serverLevel.getChunkAt(pos)), new PositionedScreenshakePacket(40, BlockHelper.fromBlockPos(pos),0.4f,1f, Easing.EXPO_OUT).setIntensity(0.25f, 0));
+            OrtusPacketRegistry.ORTUS_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> serverLevel.getChunkAt(pos)), new PositionedScreenshakePacket(40, BlockHelper.fromBlockPos(pos),4f,10f, Easing.EXPO_OUT).setIntensity(4f, 0));
         }
         level.playSound(null, pos, SoundRegistry.SUSPICIOUS_SOUND.get(), SoundSource.BLOCKS, 1, 1);
     }

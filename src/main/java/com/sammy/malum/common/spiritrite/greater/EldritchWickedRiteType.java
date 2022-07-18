@@ -8,10 +8,8 @@ import com.sammy.malum.core.systems.rites.MalumRiteEffect;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.level.Level;
 import net.minecraftforge.network.PacketDistributor;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,7 +29,7 @@ public class EldritchWickedRiteType extends MalumRiteType {
                 getNearbyEntities(totemBase, LivingEntity.class).forEach(e -> {
                     if (e.getHealth() <= 2.5f && !e.isInvulnerableTo(DamageSourceRegistry.VOODOO)) {
                         MALUM_CHANNEL.send(PacketDistributor.TRACKING_ENTITY.with(() -> e), new MajorEntityEffectParticlePacket(getEffectSpirit().getColor(), e.getX(), e.getY()+ e.getBbHeight() / 2f, e.getZ()));
-                        e.hurt(DamageSourceRegistry.FORCED_SHATTER, 10f);
+                        e.hurt(DamageSourceRegistry.SOUL_STRIKE, 10f);
                     }
                 });
             }

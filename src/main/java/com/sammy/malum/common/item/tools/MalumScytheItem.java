@@ -6,7 +6,6 @@ import com.sammy.malum.core.setup.content.DamageSourceRegistry;
 import com.sammy.malum.core.setup.content.SoundRegistry;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
 import com.sammy.malum.core.systems.item.IMalumEventResponderItem;
-import com.sammy.ortus.handlers.OrtusAttributeEventHandler;
 import com.sammy.ortus.helpers.CurioHelper;
 import com.sammy.ortus.systems.item.ModCombatItem;
 import net.minecraft.core.particles.SimpleParticleType;
@@ -14,7 +13,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
-import net.minecraft.world.damagesource.CombatTracker;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.EntityDamageSource;
 import net.minecraft.world.entity.LivingEntity;
@@ -45,14 +43,14 @@ public class MalumScytheItem extends ModCombatItem implements IMalumEventRespond
             attacker.level.playSound(null, target.getX(), target.getY(), target.getZ(), sound, attacker.getSoundSource(), 1, 1);
         }
 
-        if (!canSweep || event.getSource().isMagic() || event.getSource().getMsgId().equals(DamageSourceRegistry.SCYTHE_SWEEP_DAMAGE)) {
+        if (!canSweep || event.getSource().isMagic() || event.getSource().getMsgId().equals(DamageSourceRegistry.SCYTHE_SWEEP_IDENTIFIER)) {
             return;
         }
         float damage = event.getAmount() * (0.5f + EnchantmentHelper.getSweepingDamageRatio(attacker));
         target.level.getEntities(attacker, target.getBoundingBox().inflate(1)).forEach(e -> {
             if (e instanceof LivingEntity livingEntity) {
                 if (livingEntity.isAlive()) {
-                    livingEntity.hurt(new EntityDamageSource(DamageSourceRegistry.SCYTHE_SWEEP_DAMAGE, attacker), damage);
+                    livingEntity.hurt(new EntityDamageSource(DamageSourceRegistry.SCYTHE_SWEEP_IDENTIFIER, attacker), damage);
                     livingEntity.knockback(0.4F, Mth.sin(attacker.getYRot() * ((float) Math.PI / 180F)), (-Mth.cos(attacker.getYRot() * ((float) Math.PI / 180F))));
                 }
             }

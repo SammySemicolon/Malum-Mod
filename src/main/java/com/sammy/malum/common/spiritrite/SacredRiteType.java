@@ -11,6 +11,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.ai.goal.EatBlockGoal;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Bee;
+import net.minecraft.world.entity.animal.Chicken;
 import net.minecraft.world.entity.animal.Sheep;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.network.PacketDistributor;
@@ -42,10 +43,18 @@ public class SacredRiteType extends MalumRiteType {
             public void act(TotemBaseBlockEntity totemBaseBlockEntity, Bee bee) {
                 Bee.BeePollinateGoal goal = bee.beePollinateGoal;
                 if (goal.canBeeUse()) {
-                    goal.successfulPollinatingTicks += 20;
+                    goal.successfulPollinatingTicks += 40;
                     goal.tick();
                     MALUM_CHANNEL.send(PacketDistributor.TRACKING_ENTITY.with(() -> bee), new MinorEntityEffectParticlePacket(SACRED_SPIRIT.getColor(), bee.getX(), bee.getY() + bee.getBbHeight() / 2f, bee.getZ()));
                 }
+            }
+        });
+
+        m.put(Chicken.class, new SacredRiteEntityActor<>(Chicken.class) {
+            @Override
+            public void act(TotemBaseBlockEntity totemBaseBlockEntity, Chicken chicken) {
+                chicken.eggTime -= 80;
+                MALUM_CHANNEL.send(PacketDistributor.TRACKING_ENTITY.with(() -> chicken), new MinorEntityEffectParticlePacket(SACRED_SPIRIT.getColor(), chicken.getX(), chicken.getY() + chicken.getBbHeight() / 2f, chicken.getZ()));
             }
         });
     });

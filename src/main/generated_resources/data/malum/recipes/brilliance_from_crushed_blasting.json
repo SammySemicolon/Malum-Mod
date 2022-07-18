@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": {
+    "item": "malum:crushed_brilliance"
+  },
+  "result": {
+    "item": "malum:chunk_of_brilliance",
+    "count": 1
+  },
+  "experience": 1.0,
+  "cookingtime": 100
+}

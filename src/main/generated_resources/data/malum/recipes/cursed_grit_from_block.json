@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "malum:block_of_cursed_grit"
+    }
+  ],
+  "result": {
+    "item": "malum:cursed_grit",
+    "count": 9
+  }
+}

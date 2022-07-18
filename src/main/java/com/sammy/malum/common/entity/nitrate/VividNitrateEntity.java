@@ -1,6 +1,7 @@
 package com.sammy.malum.common.entity.nitrate;
 
 import com.sammy.malum.core.helper.SpiritHelper;
+import com.sammy.malum.core.setup.content.SoundRegistry;
 import com.sammy.malum.core.setup.content.entity.EntityRegistry;
 import com.sammy.ortus.helpers.ColorHelper;
 import com.sammy.ortus.setup.OrtusParticleRegistry;
@@ -8,6 +9,7 @@ import com.sammy.ortus.systems.easing.Easing;
 import com.sammy.ortus.systems.rendering.particle.ParticleBuilders;
 import com.sammy.ortus.systems.rendering.particle.ParticleRenderTypes;
 import com.sammy.ortus.systems.rendering.particle.SimpleParticleOptions;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
@@ -49,7 +51,7 @@ public class VividNitrateEntity extends AbstractNitrateEntity {
 
     @Override
     public float getExplosionRadius() {
-        return 2.5f;
+        return 3f;
     }
 
     @Override
@@ -66,9 +68,10 @@ public class VividNitrateEntity extends AbstractNitrateEntity {
         double z = Mth.lerp(0.5f, deltaMovement.z, Math.min(2, (0.9f + random.nextFloat() * 0.3f) * (random.nextBoolean() ? -deltaMovement.z : deltaMovement.z) + 0.45f - random.nextFloat() * 0.9f));
         if (random.nextFloat() < 0.2f) {
             x *= 1.5f+random.nextFloat()*0.5f;
-            y *= 2f+random.nextFloat()*1.5f;
+            y += 0.25f+random.nextFloat()*0.5f;
             z *= 1.5f+random.nextFloat()*0.5f;
         }
+        y = Math.min(y, 1f);
         setDeltaMovement(x, y, z);
     }
 

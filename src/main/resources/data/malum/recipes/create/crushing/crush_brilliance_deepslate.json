@@ -13,13 +13,23 @@
   ],
   "results": [
     {
-      "item": "malum:chunk_of_brilliance",
-      "count": 6
+      "item": "malum:crushed_brilliance",
+      "count": 1
+    },
+    {
+      "item": "malum:crushed_brilliance",
+      "count": 1,
+      "chance": 0.75
     },
     {
       "item": "create:experience_nugget",
       "count": 3,
       "chance": 0.75
+    },
+    {
+      "item": "minecraft:cobbled_deepslate",
+      "count": 1,
+      "chance": 0.125
     }
   ],
   "processingTime": 300

@@ -7,10 +7,10 @@
   ],
   "key": {
     "#": {
-      "tag": "forge:slimeballs"
+      "item": "malum:rotting_essence"
     }
   },
   "result": {
-    "item": "minecraft:slime_block"
+    "item": "malum:block_of_rotting_essence"
   }
 }

@@ -7,10 +7,10 @@
   ],
   "key": {
     "~": {
-      "item": "minecraft:string"
+      "tag": "forge:string"
     },
     "O": {
-      "tag": "forge:slimeballs"
+      "tag": "malum:sapballs"
     }
   },
   "result": {

@@ -1,6 +1,7 @@
 package com.sammy.malum.common.entity.nitrate;
 
 import com.sammy.malum.core.helper.SpiritHelper;
+import com.sammy.malum.core.setup.content.SoundRegistry;
 import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
 import com.sammy.malum.core.setup.content.entity.EntityRegistry;
 import com.sammy.ortus.helpers.EntityHelper;
@@ -8,7 +9,10 @@ import com.sammy.ortus.setup.OrtusParticleRegistry;
 import com.sammy.ortus.systems.easing.Easing;
 import com.sammy.ortus.systems.rendering.particle.ParticleBuilders;
 import com.sammy.ortus.systems.rendering.particle.ParticleRenderTypes;
+import com.sammy.ortus.systems.rendering.particle.SimpleParticleOptions;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -27,7 +31,7 @@ import static net.minecraft.util.Mth.nextFloat;
 public class EthericNitrateEntity extends AbstractNitrateEntity {
 
     public static final Color FIRST_COLOR = SpiritTypeRegistry.INFERNAL_SPIRIT.getColor();
-    public static final Color SECOND_COLOR = new Color(225, 54, 46);
+    public static final Color SECOND_COLOR = new Color(178, 28, 73);
 
     public EthericNitrateEntity(Level level) {
         super(EntityRegistry.ETHERIC_NITRATE.get(), level);
@@ -67,6 +71,41 @@ public class EthericNitrateEntity extends AbstractNitrateEntity {
             double lerpZ = Mth.lerp(pDelta, z - motion.z, z) + norm.z * pDelta;
             float alphaMultiplier = (0.20f + extraAlpha) * Math.min(1, windUp * 2);
             SpiritHelper.spawnSpiritParticles(level, lerpX, lerpY, lerpZ, alphaMultiplier, norm, firstColor, SECOND_COLOR);
+
+            ParticleBuilders.create(OrtusParticleRegistry.TWINKLE_PARTICLE)
+                    .setAlpha(0.4f * alphaMultiplier, 0f)
+                    .setLifetime(5 + rand.nextInt(4))
+                    .setScale(0.25f + rand.nextFloat() * 0.1f, 0)
+                    .setColor(FIRST_COLOR, SECOND_COLOR)
+                    .setColorCoefficient(2f)
+                    .setColorEasing(Easing.EXPO_OUT)
+                    .randomOffset(0.05f)
+                    .enableNoClip()
+                    .addMotion(norm.x, norm.y, norm.z)
+                    .randomMotion(0.02f, 0.02f)
+                    .overwriteRemovalProtocol(SimpleParticleOptions.SpecialRemovalProtocol.INVISIBLE)
+                    .repeat(level, x, y, z, 1);
+
+            ParticleBuilders.create(OrtusParticleRegistry.WISP_PARTICLE)
+                    .setAlpha(0.25f * alphaMultiplier, 0f)
+                    .setLifetime(15 + rand.nextInt(4))
+                    .setSpin(nextFloat(rand, 0.05f, 0.1f))
+                    .setScale(0.05f + rand.nextFloat() * 0.025f, 0)
+                    .setColor(FIRST_COLOR, SECOND_COLOR)
+                    .setColorEasing(Easing.EXPO_OUT)
+                    .setColorCoefficient(1.5f)
+                    .randomOffset(0.02f)
+                    .enableNoClip()
+                    .addMotion(norm.x, norm.y, norm.z)
+                    .randomMotion(0.01f, 0.01f)
+                    .repeat(level, x, y, z, 1)
+                    .setAlpha(0.2f * alphaMultiplier, 0f)
+                    .setLifetime(10 + rand.nextInt(2))
+                    .setSpin(nextFloat(rand, 0.05f, 0.1f))
+                    .setScale(0.15f + rand.nextFloat() * 0.05f, 0f)
+                    .randomMotion(0.01f, 0.01f)
+                    .overwriteRemovalProtocol(SimpleParticleOptions.SpecialRemovalProtocol.INVISIBLE)
+                    .repeat(level, x, y, z, 1);
 
             ParticleBuilders.create(OrtusParticleRegistry.SMOKE_PARTICLE)
                     .setAlpha(0.3f, 0.7f * alphaMultiplier, 0f)

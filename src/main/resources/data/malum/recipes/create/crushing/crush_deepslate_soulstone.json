@@ -17,6 +17,10 @@
       "count": 2
     },
     {
+      "item": "malum:crushed_soulstone",
+      "count": 2
+    },
+    {
       "item": "create:experience_nugget",
       "chance": 0.75
     },

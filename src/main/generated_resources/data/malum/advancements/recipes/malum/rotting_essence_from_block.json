@@ -2,17 +2,17 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "malum:brilliance_from_raw_blasting"
+      "malum:rotting_essence_from_block"
     ]
   },
   "criteria": {
-    "has_soulstone": {
+    "has_rotting_essence": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
             "items": [
-              "malum:raw_soulstone"
+              "malum:rotting_essence"
             ]
           }
         ]
@@ -21,13 +21,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "malum:brilliance_from_raw_blasting"
+        "recipe": "malum:rotting_essence_from_block"
       }
     }
   },
   "requirements": [
     [
-      "has_soulstone",
+      "has_rotting_essence",
       "has_the_recipe"
     ]
   ]

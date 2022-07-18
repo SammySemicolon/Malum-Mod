@@ -37,6 +37,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraftforge.api.distmarker.Dist;
@@ -456,6 +457,14 @@ public class BlockRegistry {
     public static final RegistryObject<Block> BLOCK_OF_SOUL_STAINED_STEEL = BLOCKS.register("block_of_soul_stained_steel", () -> new Block(SOUL_STAINED_STEEL_BLOCK_PROPERTIES()));
 
     public static final RegistryObject<Block> THE_DEVICE = BLOCKS.register("the_device", () -> new TheDevice(TAINTED_ROCK_PROPERTIES()));
+
+//    public static final RegistryObject<Block> BLOCK_OF_RARE_EARTHS = BLOCKS.register("block_of_rare_earths", () -> new OreBlock(RARE_EARTH_PROPERTIES(), UniformInt.of(10, 100)));
+    public static final RegistryObject<Block> BLOCK_OF_ROTTING_ESSENCE = BLOCKS.register("block_of_rotting_essence", () -> new Block(BlockBehaviour.Properties.copy(Blocks.FIRE_CORAL_BLOCK)));
+    public static final RegistryObject<Block> BLOCK_OF_GRIM_TALC = BLOCKS.register("block_of_grim_talc", () -> new Block(BlockBehaviour.Properties.copy(Blocks.BONE_BLOCK)));
+    public static final RegistryObject<Block> BLOCK_OF_ALCHEMICAL_CALX = BLOCKS.register("block_of_alchemical_calx", () -> new Block(BlockBehaviour.Properties.copy(Blocks.CALCITE)));
+    public static final RegistryObject<Block> BLOCK_OF_ASTRAL_WEAVE = BLOCKS.register("block_of_astral_weave", () -> new Block(BlockBehaviour.Properties.copy(Blocks.LIGHT_BLUE_WOOL)));
+    public static final RegistryObject<Block> BLOCK_OF_HEX_ASH = BLOCKS.register("block_of_hex_ash", () -> new Block(BlockBehaviour.Properties.copy(Blocks.PURPLE_CONCRETE_POWDER)));
+    public static final RegistryObject<Block> BLOCK_OF_CURSED_GRIT = BLOCKS.register("block_of_cursed_grit", () -> new Block(BlockBehaviour.Properties.copy(Blocks.RED_CONCRETE_POWDER)));
 
 
     @Mod.EventBusSubscriber(modid = MalumMod.MALUM, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)

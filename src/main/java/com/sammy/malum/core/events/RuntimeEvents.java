@@ -15,11 +15,13 @@ import com.sammy.malum.common.item.equipment.curios.CurioTokenOfGratitude;
 import com.sammy.malum.common.item.equipment.curios.CurioVeraciousRing;
 import com.sammy.malum.common.spiritaffinity.ArcaneAffinity;
 import com.sammy.malum.common.spiritaffinity.EarthenAffinity;
+import com.sammy.malum.compability.create.CreateCompat;
 import com.sammy.malum.compability.tetra.TetraCompat;
 import com.sammy.malum.core.handlers.MalumAttributeEventHandler;
 import com.sammy.malum.core.handlers.ReapingHandler;
 import com.sammy.malum.core.handlers.SoulHarvestHandler;
 import com.sammy.malum.core.handlers.SpiritHarvestHandler;
+import com.sammy.malum.core.listeners.ReapingDataReloadListener;
 import com.sammy.malum.core.listeners.SpiritDataReloadListener;
 import net.minecraft.world.entity.Entity;
 import net.minecraftforge.event.AddReloadListenerEvent;
@@ -106,6 +108,7 @@ public class RuntimeEvents {
     @SubscribeEvent
     public static void registerListeners(AddReloadListenerEvent event) {
         SpiritDataReloadListener.register(event);
+        ReapingDataReloadListener.register(event);
     }
 
     @SubscribeEvent
@@ -136,6 +139,9 @@ public class RuntimeEvents {
 
     @SubscribeEvent
     public static void onHurt(LivingHurtEvent event) {
+        if (CreateCompat.LOADED) {
+            CreateCompat.LoadedOnly.convertCaramelToMagicDamage(event);
+        }
         MalumAttributeEventHandler.processAttributes(event);
         EarthenAffinity.consumeHeartOfStone(event);
         SpiritHarvestHandler.exposeSoul(event);

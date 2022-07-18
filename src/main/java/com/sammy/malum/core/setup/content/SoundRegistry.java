@@ -107,6 +107,7 @@ public class SoundRegistry {
     public static final RegistryObject<SoundEvent> VOID_SLASH = register(new SoundEvent(MalumMod.malumPath("void_slash_swooshes")));
     public static final RegistryObject<SoundEvent> HIDDEN_BLADE_STRIKES = register(new SoundEvent(MalumMod.malumPath("hidden_blade_strikes")));
     public static final RegistryObject<SoundEvent> HUNGRY_BELT_FEEDS = register(new SoundEvent(MalumMod.malumPath("hungry_belt_feeds")));
+    public static final RegistryObject<SoundEvent> ETHERIC_NITRATE_THROWN = register(new SoundEvent(MalumMod.malumPath("etheric_nitrate_thrown")));
 
     public static final RegistryObject<SoundEvent> SOUL_WARD_HIT = register(new SoundEvent(MalumMod.malumPath("soul_ward_damaged")));
     public static final RegistryObject<SoundEvent> SOUL_WARD_GROW = register(new SoundEvent(MalumMod.malumPath("soul_ward_grows")));

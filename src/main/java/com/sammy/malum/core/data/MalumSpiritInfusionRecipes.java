@@ -311,6 +311,17 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider implements ICondi
                 .addExtraItem(ItemRegistry.CURSED_GRIT.get(), 2)
                 .build(consumer);
 
+        new SpiritInfusionRecipeBuilder(ItemRegistry.ETHERIC_NITRATE.get(), 8, ItemRegistry.VIVID_NITRATE.get(), 8)
+                .addSpirit(AERIAL_SPIRIT, 8)
+                .addSpirit(AQUEOUS_SPIRIT, 8)
+                .addSpirit(INFERNAL_SPIRIT, 8)
+                .addSpirit(EARTHEN_SPIRIT, 8)
+                .addSpirit(ELDRITCH_SPIRIT, 2)
+                .addExtraItem(ItemRegistry.CURSED_GRIT.get(), 8)
+                .addExtraItem(Ingredient.of(Tags.Items.GUNPOWDER), 8)
+                .addExtraItem(Ingredient.of(Tags.Items.GEMS_PRISMARINE), 4)
+                .build(consumer);
+
         new SpiritInfusionRecipeBuilder(ItemRegistry.SOUL_STAINED_STEEL_SWORD.get(), 1, ItemRegistry.TYRVING.get(), 1)
                 .addSpirit(WICKED_SPIRIT, 24)
                 .addSpirit(ELDRITCH_SPIRIT, 6)

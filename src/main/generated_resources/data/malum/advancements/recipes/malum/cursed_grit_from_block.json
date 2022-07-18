@@ -2,17 +2,17 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "malum:soulstone_from_raw_smelting"
+      "malum:cursed_grit_from_block"
     ]
   },
   "criteria": {
-    "has_brilliance": {
+    "has_cursed_grit": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
             "items": [
-              "malum:cluster_of_brilliance"
+              "malum:cursed_grit"
             ]
           }
         ]
@@ -21,13 +21,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "malum:soulstone_from_raw_smelting"
+        "recipe": "malum:cursed_grit_from_block"
       }
     }
   },
   "requirements": [
     [
-      "has_brilliance",
+      "has_cursed_grit",
       "has_the_recipe"
     ]
   ]

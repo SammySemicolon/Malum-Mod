@@ -15,6 +15,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.capabilities.CapabilityToken;
+import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
@@ -44,6 +45,10 @@ public class MalumPlayerDataCapability implements OrtusCapability {
     public boolean obtainedEncyclopedia;
 
     public MalumPlayerDataCapability() {
+    }
+
+    public static void registerCapabilities(RegisterCapabilitiesEvent event) {
+        event.register(MalumPlayerDataCapability.class);
     }
 
     public static void attachPlayerCapability(AttachCapabilitiesEvent<Entity> event) {

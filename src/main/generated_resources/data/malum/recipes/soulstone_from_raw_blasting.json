@@ -1,12 +1,12 @@
 {
   "type": "minecraft:blasting",
   "ingredient": {
-    "item": "malum:cluster_of_brilliance"
+    "item": "malum:raw_soulstone"
   },
   "result": {
-    "item": "malum:chunk_of_brilliance",
-    "count": 4
+    "item": "malum:processed_soulstone",
+    "count": 2
   },
-  "experience": 1.0,
+  "experience": 0.25,
   "cookingtime": 100
 }

@@ -126,11 +126,14 @@ dependencies {
     implementation fg.deobf("com.sammy.ortus:ortus:${project.ortusLibVersion}")
     implementation fg.deobf("curse.maven:curios-309927:3748873")
 
+    implementation fg.deobf("com.jozufozu.flywheel:Flywheel-Forge:1.18-0.6.4.86")
+    implementation fg.deobf("curse.maven:supplementaries-328085:3872145")
+
     implementation fg.deobf("se.mickelus.mutil:mutil:1.18.2-4.5.0")
     implementation fg.deobf("se.mickelus.tetra:tetra:1.18.2-4.9.0")
     implementation fg.deobf("curse.maven:farmers_delight-398521:3739914")
-    implementation fg.deobf("curse.maven:selene-499980:3828748")
-    implementation fg.deobf("curse.maven:supplementaries-412082:3832545")
+    implementation fg.deobf("curse.maven:selene-499980:3842421")
+    implementation fg.deobf("curse.maven:supplementaries-412082:3871187")
 //    implementation fg.deobf("curse.maven:quark-243121:3840125")
 //    implementation fg.deobf("curse.maven:autoreglib-250363:3642382")
 

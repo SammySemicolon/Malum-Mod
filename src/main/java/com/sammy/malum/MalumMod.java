@@ -1,5 +1,6 @@
 package com.sammy.malum;
 
+import com.sammy.malum.compability.create.CreateCompat;
 import com.sammy.malum.compability.farmersdelight.FarmersDelightCompat;
 import com.sammy.malum.compability.supplementaries.SupplementariesCompat;
 import com.sammy.malum.compability.tetra.TetraCompat;
@@ -60,6 +61,7 @@ public class MalumMod {
 
         TetraCompat.init();
         FarmersDelightCompat.init();
+        CreateCompat.init();
         SupplementariesCompat.init();
 
         modBus.addListener(DataOnly::gatherData);

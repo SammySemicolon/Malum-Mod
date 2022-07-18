@@ -12,6 +12,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.capabilities.CapabilityToken;
+import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 
@@ -30,6 +31,10 @@ public class MalumItemDataCapability implements OrtusCapability {
 
 
     public MalumItemDataCapability() {
+    }
+
+    public static void registerCapabilities(RegisterCapabilitiesEvent event) {
+        event.register(MalumItemDataCapability.class);
     }
 
     public static void attachItemCapability(AttachCapabilitiesEvent<Entity> event) {

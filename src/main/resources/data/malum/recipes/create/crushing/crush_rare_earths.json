@@ -1,0 +1,57 @@
+{
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "create"
+    }
+  ],
+  "type": "create:crushing",
+  "ingredients": [
+    {
+      "item": "malum:rare_earths"
+    }
+  ],
+  "results": [
+    {
+      "item": "create:crushed_iron",
+      "count": 4,
+      "chance": 0.75
+    },
+    {
+      "item": "create:crushed_iron",
+      "count": 3,
+      "chance": 0.25
+    },
+    {
+      "item": "create:crushed_copper",
+      "count": 4,
+      "chance": 0.75
+    },
+    {
+      "item": "create:crushed_copper",
+      "count": 3,
+      "chance": 0.25
+    },
+    {
+      "item": "create:crushed_gold",
+      "count": 4,
+      "chance": 0.75
+    },
+    {
+      "item": "create:crushed_gold",
+      "count": 3,
+      "chance": 0.25
+    },
+    {
+      "item": "create:crushed_zinc",
+      "count": 4,
+      "chance": 0.75
+    },
+    {
+      "item": "create:crushed_zinc",
+      "count": 3,
+      "chance": 0.25
+    }
+  ],
+  "processingTime": 600
+}

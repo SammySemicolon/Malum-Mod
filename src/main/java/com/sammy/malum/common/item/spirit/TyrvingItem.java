@@ -44,7 +44,7 @@ public class TyrvingItem extends OrtusSwordItem implements IMalumEventResponderI
         if (attacker.level instanceof ServerLevel) {
             float spiritCount = SpiritHelper.getEntitySpiritCount(target) * 2f;
             if (target instanceof Player) {
-                spiritCount = 4;
+                spiritCount = 4 * Math.max(1, (1 + target.getArmorValue() / 8f) * (1 + (1 - 1 / (float)target.getArmorValue())) / 8f);
             }
 
             if (target.isAlive()) {

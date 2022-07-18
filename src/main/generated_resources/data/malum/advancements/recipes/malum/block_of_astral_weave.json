@@ -2,17 +2,17 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "malum:brilliance_from_raw_smelting"
+      "malum:block_of_astral_weave"
     ]
   },
   "criteria": {
-    "has_soulstone": {
+    "has_astral_weave": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
             "items": [
-              "malum:raw_soulstone"
+              "malum:astral_weave"
             ]
           }
         ]
@@ -21,13 +21,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "malum:brilliance_from_raw_smelting"
+        "recipe": "malum:block_of_astral_weave"
       }
     }
   },
   "requirements": [
     [
-      "has_soulstone",
+      "has_astral_weave",
       "has_the_recipe"
     ]
   ]

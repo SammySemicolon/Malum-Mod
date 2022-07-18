@@ -3,6 +3,7 @@ package com.sammy.malum.common.capability;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.packets.SyncLivingCapabilityDataPacket;
 import com.sammy.malum.core.systems.spirit.MalumEntitySpiritData;
+import com.sammy.ortus.capability.OrtusWorldDataCapability;
 import com.sammy.ortus.systems.capability.OrtusCapability;
 import com.sammy.ortus.systems.capability.OrtusCapabilityProvider;
 import net.minecraft.nbt.CompoundTag;
@@ -15,6 +16,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.capabilities.CapabilityToken;
+import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -43,16 +45,19 @@ public class MalumLivingEntityDataCapability implements OrtusCapability {
     public List<ItemStack> soulsToApplyToDrops;
     public UUID killerUUID;
 
-    public float getPreviewProgress()
-    {
+    public float getPreviewProgress() {
         return soulless ? 10 : Math.min(10, soulHarvestProgress);
     }
-    public float getHarvestProgress()
-    {
-        return Math.max(0, soulHarvestProgress-10);
+
+    public float getHarvestProgress() {
+        return Math.max(0, soulHarvestProgress - 10);
     }
 
     public MalumLivingEntityDataCapability() {
+    }
+
+    public static void registerCapabilities(RegisterCapabilitiesEvent event) {
+        event.register(MalumLivingEntityDataCapability.class);
     }
 
     public static void attachEntityCapability(AttachCapabilitiesEvent<Entity> event) {
@@ -69,6 +74,7 @@ public class MalumLivingEntityDataCapability implements OrtusCapability {
             }
         }
     }
+
     @Override
     public CompoundTag serializeNBT() {
         CompoundTag tag = new CompoundTag();
@@ -122,22 +128,26 @@ public class MalumLivingEntityDataCapability implements OrtusCapability {
         }
     }
 
-    public static void sync(LivingEntity entity)
-    {
+    public static void sync(LivingEntity entity) {
         getCapabilityOptional(entity).ifPresent(c -> MALUM_CHANNEL.send(PacketDistributor.TRACKING_ENTITY.with(() -> entity), new SyncLivingCapabilityDataPacket(entity.getId(), c.serializeNBT())));
     }
+
     public static LazyOptional<MalumLivingEntityDataCapability> getCapabilityOptional(LivingEntity entity) {
         return entity.getCapability(CAPABILITY);
     }
+
     public static MalumLivingEntityDataCapability getCapability(LivingEntity entity) {
         return entity.getCapability(CAPABILITY).orElse(new MalumLivingEntityDataCapability());
     }
+
     public static UUID getOwner(LivingEntity entity) {
         return entity.getCapability(CAPABILITY).orElse(new MalumLivingEntityDataCapability()).ownerUUID;
     }
+
     public static boolean isSoulless(LivingEntity entity) {
         return entity.getCapability(CAPABILITY).orElse(new MalumLivingEntityDataCapability()).soulless;
     }
+
     public static boolean hasSpiritData(LivingEntity entity) {
         return entity.getCapability(CAPABILITY).orElse(new MalumLivingEntityDataCapability()).spiritData != null;
     }

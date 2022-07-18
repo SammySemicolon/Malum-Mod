@@ -485,14 +485,14 @@ public class MalumLang extends LanguageProvider {
         add("enchantment.malum.rebound.desc", "Allows the item to be thrown much like a boomerang, cooldown decreases with tier.");
         add("enchantment.malum.spirit_plunder.desc", "Increases the amount of spirits created when shattering a soul.");
 
-        add("death.attack." + DamageSourceRegistry.VOODOO_DAMAGE, "%s's soul shattered");
-        add("death.attack." + DamageSourceRegistry.VOODOO_DAMAGE + ".player", "%s's soul was shattered by %s");
-        add("death.attack." + DamageSourceRegistry.FORCED_SHATTER_DAMAGE, "%s's soul shattered");
-        add("death.attack." + DamageSourceRegistry.FORCED_SHATTER_DAMAGE + ".player", "%s's soul was shattered by %s");
-        add("death.attack." + DamageSourceRegistry.MAGEBANE_DAMAGE, "%s got too confident with a soul hunter");
-        add("death.attack." + DamageSourceRegistry.MAGEBANE_DAMAGE + ".player", "%s got too confident with %s");
-        add("death.attack." + DamageSourceRegistry.SCYTHE_SWEEP_DAMAGE, "%s was sliced in twain");
-        add("death.attack." + DamageSourceRegistry.SCYTHE_SWEEP_DAMAGE + ".player", "%s was sliced in twain by %s");
+        add("death.attack." + DamageSourceRegistry.VOODOO_IDENTIFIER, "%s's soul shattered");
+        add("death.attack." + DamageSourceRegistry.VOODOO_IDENTIFIER + ".player", "%s's soul was shattered by %s");
+        add("death.attack." + DamageSourceRegistry.SOUL_STRIKE_IDENTIFIER, "%s's soul shattered");
+        add("death.attack." + DamageSourceRegistry.SOUL_STRIKE_IDENTIFIER + ".player", "%s's soul was shattered by %s");
+        add("death.attack." + DamageSourceRegistry.MAGEBANE_IDENTIFIER, "%s got too confident with a soul hunter");
+        add("death.attack." + DamageSourceRegistry.MAGEBANE_IDENTIFIER + ".player", "%s got too confident with %s");
+        add("death.attack." + DamageSourceRegistry.SCYTHE_SWEEP_IDENTIFIER, "%s was sliced in twain");
+        add("death.attack." + DamageSourceRegistry.SCYTHE_SWEEP_IDENTIFIER + ".player", "%s was sliced in twain by %s");
 
         addEffectDescription(MalumMobEffectRegistry.GAIAN_BULWARK, "You are protected by an earthen bulwark, increasing your armor.");
         addEffectDescription(MalumMobEffectRegistry.EARTHEN_MIGHT, "Your fists and tools are reinforced with earth, increasing your overall damage.");

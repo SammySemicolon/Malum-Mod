@@ -2,6 +2,8 @@ package com.sammy.malum.common.item;
 
 import com.sammy.malum.common.entity.nitrate.AbstractNitrateEntity;
 import com.sammy.malum.common.entity.nitrate.EthericNitrateEntity;
+import com.sammy.malum.core.setup.content.SoundRegistry;
+import com.sammy.ortus.helpers.ColorHelper;
 import com.sammy.ortus.setup.OrtusScreenParticleRegistry;
 import com.sammy.ortus.systems.easing.Easing;
 import com.sammy.ortus.systems.rendering.particle.ParticleBuilders;
@@ -35,7 +37,7 @@ public class EthericNitrateItem extends Item implements ItemParticleEmitter {
 
     public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {
         ItemStack itemstack = playerIn.getItemInHand(handIn);
-        worldIn.playSound(null, playerIn.getX(), playerIn.getY(), playerIn.getZ(), SoundEvents.SNOWBALL_THROW, SoundSource.NEUTRAL, 0.5F, 0.4F / (worldIn.random.nextFloat() * 0.4F + 0.8F));
+        worldIn.playSound(null, playerIn.getX(), playerIn.getY(), playerIn.getZ(), SoundRegistry.ETHERIC_NITRATE_THROWN.get(), SoundSource.NEUTRAL, 0.5F, 0.4F / (worldIn.random.nextFloat() * 0.4F + 0.8F));
         if (!worldIn.isClientSide) {
             AbstractNitrateEntity bombEntity = entitySupplier.apply(playerIn);
             int angle = handIn == InteractionHand.MAIN_HAND ? 225 : 90;
@@ -59,12 +61,13 @@ public class EthericNitrateItem extends Item implements ItemParticleEmitter {
     @Override
     public void particleTick(ItemStack stack, float x, float y, ScreenParticle.RenderOrder renderOrder) {
         Level level = Minecraft.getInstance().level;
-        float gameTime = level.getGameTime() + Minecraft.getInstance().timer.partialTick;
-        Color firstColor = EthericNitrateEntity.FIRST_COLOR.brighter();
+        float partialTick = Minecraft.getInstance().timer.partialTick;
+        float gameTime = (float) (level.getGameTime() + partialTick + Math.sin(((level.getGameTime() + partialTick) * 0.1f)));
+        Color firstColor = ColorHelper.brighter(EthericNitrateEntity.FIRST_COLOR, 2);
         Color secondColor = EthericNitrateEntity.SECOND_COLOR;
-        double scale = 1.5f + Math.sin(gameTime * 0.1f) * 0.125f + Math.sin((gameTime - 100) * 0.05f) * -0.25f;
+        double scale = 1.5f + Math.sin(gameTime * 0.1f) * 0.125f + Math.sin((gameTime - 100) * 0.05f) * -0.5f;
         ParticleBuilders.create(OrtusScreenParticleRegistry.STAR)
-                .setAlpha(0.06f, 0f)
+                .setAlpha(0.04f, 0f)
                 .setLifetime(7)
                 .setScale((float) scale, 0)
                 .setColor(firstColor, secondColor)
@@ -75,7 +78,7 @@ public class EthericNitrateItem extends Item implements ItemParticleEmitter {
                 .setSpinEasing(Easing.EXPO_IN_OUT)
                 .setAlphaEasing(Easing.QUINTIC_IN)
                 .overwriteRenderOrder(renderOrder)
-                .centerOnStack(stack, 1, 4)
+                .centerOnStack(stack, -1, 4)
                 .repeat(x, y, 1)
                 .setScale((float) (1.4f - Math.sin(gameTime * 0.075f) * 0.125f), 0)
                 .setColor(secondColor, firstColor)

@@ -85,6 +85,7 @@
   "void_slash_swooshes": { "sounds":["malum:void_slash"], "subtitle": "malum.subtitle.void_slash_swooshes" },
   "hungry_belt_feeds": { "sounds":["malum:trinkets/starved_belt/nom1", "malum:trinkets/starved_belt/nom2", "malum:trinkets/starved_belt/nom3", "malum:trinkets/starved_belt/nom4"], "subtitle": "malum.subtitle.hungry_belt_feeds" },
   "hidden_blade_strikes": { "sounds":["malum:trinkets/hidden_blade/strike1", "malum:trinkets/hidden_blade/strike2", "malum:trinkets/hidden_blade/strike3"], "subtitle": "malum.subtitle.hidden_blade_strikes" },
+  "nitrate_thrown": { "sounds":["minecraft:random/bow"], "subtitle": "malum.subtitle.nitrate_thrown" },
 
   "gilded_trinket_equipped": { "sounds":["malum:trinkets/equip_holy"], "subtitle": "malum.subtitle.gilded_trinket_equipped" },
   "ornate_trinket_equipped": { "sounds":["malum:trinkets/equip_sinister"], "subtitle": "malum.subtitle.ornate_trinket_equipped" },

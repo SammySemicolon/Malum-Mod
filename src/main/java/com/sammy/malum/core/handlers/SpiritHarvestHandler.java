@@ -40,17 +40,18 @@ public class SpiritHarvestHandler {
             return;
         }
         LivingEntity target = event.getEntityLiving();
-        if (event.getSource().getEntity() instanceof LivingEntity attacker) {
+        DamageSource source = event.getSource();
+        if (source.getEntity() instanceof LivingEntity attacker) {
             ItemStack stack = attacker.getMainHandItem();
-            if (event.getSource().getDirectEntity() instanceof ScytheBoomerangEntity) {
-                stack = ((ScytheBoomerangEntity) event.getSource().getDirectEntity()).scythe;
+            if (source.getDirectEntity() instanceof ScytheBoomerangEntity) {
+                stack = ((ScytheBoomerangEntity) source.getDirectEntity()).scythe;
             }
 
             if (stack.is(ItemTagRegistry.SOUL_HUNTER_WEAPON) || (TetraCompat.LOADED && TetraCompat.LoadedOnly.hasSoulStrike(stack))) {
                 MalumLivingEntityDataCapability.getCapabilityOptional(target).ifPresent(e -> e.exposedSoul = 200);
             }
         }
-        if (event.getSource().getDirectEntity() != null && event.getSource().getDirectEntity().getTags().contains("malum:soul_arrow")) {
+        if (source.getDirectEntity() != null && source.getDirectEntity().getTags().contains("malum:soul_arrow")) {
             MalumLivingEntityDataCapability.getCapabilityOptional(target).ifPresent(e -> e.exposedSoul = 200);
         }
     }
@@ -59,7 +60,7 @@ public class SpiritHarvestHandler {
         if (event.isCanceled()) {
             return;
         }
-        if (event.getSource().getMsgId().equals(DamageSourceRegistry.FORCED_SHATTER.getMsgId())) {
+        if (event.getSource().getMsgId().equals(DamageSourceRegistry.SOUL_STRIKE_IDENTIFIER)) {
             SpiritHelper.createSpiritEntities(event.getEntityLiving());
             return;
         }
@@ -80,14 +81,12 @@ public class SpiritHarvestHandler {
             }
             if (!(target instanceof Player)) {
                 ItemStack finalStack = stack;
-                if (!event.getSource().getMsgId().equals(DamageSourceRegistry.FORCED_SHATTER_DAMAGE)) {
-                    MalumLivingEntityDataCapability.getCapabilityOptional(target).ifPresent(e -> {
-                        if (e.exposedSoul > 0 && !e.soulless && (!CommonConfig.SOULLESS_SPAWNERS.getConfigValue() || (CommonConfig.SOULLESS_SPAWNERS.getConfigValue() && !e.spawnerSpawned))) {
-                            SpiritHelper.createSpiritsFromWeapon(target, finalAttacker, finalStack);
-                            e.soulless = true;
-                        }
-                    });
-                }
+                MalumLivingEntityDataCapability.getCapabilityOptional(target).ifPresent(e -> {
+                    if (e.exposedSoul > 0 && !e.soulless && (!CommonConfig.SOULLESS_SPAWNERS.getConfigValue() || (CommonConfig.SOULLESS_SPAWNERS.getConfigValue() && !e.spawnerSpawned))) {
+                        SpiritHelper.createSpiritsFromWeapon(target, finalAttacker, finalStack);
+                        e.soulless = true;
+                    }
+                });
             }
         }
     }
@@ -96,7 +95,6 @@ public class SpiritHarvestHandler {
         if (event.isCanceled()) {
             return;
         }
-
         MalumLivingEntityDataCapability data = MalumLivingEntityDataCapability.getCapability(event.getEntityLiving());
         if (data.soulsToApplyToDrops != null) {
             Ingredient spiritItem = data.spiritData.spiritItem;
