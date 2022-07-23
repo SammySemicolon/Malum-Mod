@@ -1,0 +1,10 @@
+{
+  "registry_name": "humancompanions:archer",
+  "primary_type": "sacred",
+  "spirits": [
+    {
+      "spirit": "sacred",
+      "count": 2
+    }
+  ]
+}
