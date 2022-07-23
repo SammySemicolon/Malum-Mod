@@ -1,0 +1,10 @@
+{
+  "registry_name": "aquaculture:pollock",
+  "primary_type": "aqueous",
+  "spirits": [
+    {
+      "spirit": "aqueous",
+      "count": 1
+    }
+  ]
+}
