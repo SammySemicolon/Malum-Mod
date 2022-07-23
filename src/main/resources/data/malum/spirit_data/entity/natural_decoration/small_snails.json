@@ -1,0 +1,10 @@
+{
+  "registry_name": "natural_decoration:small_snails",
+  "primary_type": "earthen",
+  "spirits": [
+    {
+      "spirit": "earthen",
+      "count": 1
+    }
+  ]
+}
