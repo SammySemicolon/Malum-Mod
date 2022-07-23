@@ -1,0 +1,14 @@
+{
+  "registry_name": "twilightforest:hydra",
+  "primary_type": "infernal",
+  "spirits": [
+    {
+      "spirit": "infernal",
+      "count": 3
+    },
+    {
+      "spirit": "wicked",
+      "count": 3
+    }
+  ]
+}

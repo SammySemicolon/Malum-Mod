@@ -1,0 +1,10 @@
+{
+  "registry_name": "twilightforest:upper_goblin_knight",
+  "primary_type": "earthen",
+  "spirits": [
+    {
+      "spirit": "earthen",
+      "count": 1
+    }
+  ]
+}

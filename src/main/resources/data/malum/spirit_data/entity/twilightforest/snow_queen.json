@@ -1,0 +1,14 @@
+{
+  "registry_name": "twilightforest:snow_queen",
+  "primary_type": "aerial",
+  "spirits": [
+    {
+      "spirit": "arcane",
+      "count": 3
+    },
+    {
+      "spirit": "aerial",
+      "count": 3
+    }
+  ]
+}

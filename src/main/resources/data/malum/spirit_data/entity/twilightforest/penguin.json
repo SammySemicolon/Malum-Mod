@@ -1,0 +1,10 @@
+{
+  "registry_name": "twilightforest:penguin",
+  "primary_type": "aqueous",
+  "spirits": [
+    {
+      "spirit": "aqueous",
+      "count": 1
+    }
+  ]
+}

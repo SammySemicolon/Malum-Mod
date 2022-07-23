@@ -1,0 +1,10 @@
+{
+  "registry_name": "twilightforest:raven",
+  "primary_type": "aerial",
+  "spirits": [
+    {
+      "spirit": "aerial",
+      "count": 1
+    }
+  ]
+}

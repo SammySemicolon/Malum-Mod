@@ -1,0 +1,10 @@
+{
+  "registry_name": "twilightforest:tiny_bird",
+  "primary_type": "aerial",
+  "spirits": [
+    {
+      "spirit": "aerial",
+      "count": 1
+    }
+  ]
+}

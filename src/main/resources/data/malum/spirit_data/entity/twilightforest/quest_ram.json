@@ -1,0 +1,10 @@
+{
+  "registry_name": "twilightforest:quest_ram",
+  "primary_type": "sacred",
+  "spirits": [
+    {
+      "spirit": "sacred",
+      "count": 5
+    }
+  ]
+}
