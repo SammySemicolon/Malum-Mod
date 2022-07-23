@@ -1,0 +1,14 @@
+{
+  "registry_name": "kobolds:kobold_warrior",
+  "primary_type": "earthen",
+  "spirits": [
+    {
+      "spirit": "earthen",
+      "count": 1
+    },
+    {
+      "spirit": "sacred",
+      "count": 2
+    }
+  ]
+}
