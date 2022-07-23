@@ -1,0 +1,14 @@
+{
+  "registry_name": "cnb:minipad",
+  "primary_type": "aqeuous",
+  "spirits": [
+    {
+      "spirit": "sacred",
+      "count": 1
+    },
+    {
+      "spirit": "aqueous",
+      "count": 1
+    }
+  ]
+}
