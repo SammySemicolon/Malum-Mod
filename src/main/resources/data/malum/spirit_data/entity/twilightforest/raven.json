@@ -5,6 +5,10 @@
     {
       "spirit": "aerial",
       "count": 1
+    },
+    {
+      "spirit": "sacred",
+      "count": 1
     }
   ]
 }
