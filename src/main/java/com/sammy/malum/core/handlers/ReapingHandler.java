@@ -54,6 +54,7 @@ public class ReapingHandler {
                     Ingredient ingredient = dropData.drop;
                     ItemStack stack = ItemHelper.copyWithNewCount(ingredient.getItems()[random.nextInt(ingredient.getItems().length)], Mth.nextInt(random, dropData.min, dropData.max));
                     ItemEntity itemEntity = new ItemEntity(level, target.getX(), target.getY(), target.getZ(), stack);
+                    itemEntity.setDefaultPickUpDelay();
                     itemEntity.setDeltaMovement(Mth.nextFloat(random, -0.1F, 0.1F), Mth.nextFloat(random, 0.25f, 0.5f), Mth.nextFloat(random, -0.1F, 0.1F));
                     level.addFreshEntity(itemEntity);
                 }

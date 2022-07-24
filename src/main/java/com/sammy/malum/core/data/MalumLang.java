@@ -118,8 +118,8 @@ public class MalumLang extends LanguageProvider {
         addSimpleEntryHeader("introduction", "Introduction", "On the nature of souls");
         addPages("introduction",
             "\"Within our world, every living being has a soul. That soul is consciousness, what animates the body, and the meeting point between matter and magic. The two represent our existence; as the body is presented to the physical world, so the soul is to the arcane.\"",
-            "I seem to have stumbled upon something peculiar: a form of magic heretofore undocumented. I could hardly call myself a magus if I refused the opportunity to study it. In this codex, the Encyclopedia Arcana, I, " + obfuscate("Youlost Thegame") + " write my research into this power.",
-            "The energies this thaumaturgical discipline manipulates seem to be rooted in the soul. More accurate would be to say they are the energies of the soul, the inclinations and impulses that make up each one of us.", "So far, what I have described is basic. But I have found a way to separate, and then condense, the impulse of a soul into a physical form I call a spirit crystal. This forms the basis of my research.",
+            "I seem to have stumbled upon something peculiar: a form of magic so far undocumented. I could hardly call myself a magus if I refused the opportunity to study it. In this codex, the Encyclopedia Arcana, I, " + obfuscate("The Device") + " write my research into this power.",
+            "The energies this thaumaturgical discipline manipulates seem to be rooted in the soul. More accurately, they are the energies of the soul, the inclinations and impulses that make up each one of us.", "So far, what I have described is basic. But I have found a way to separate, and then condense, the impulse of a soul into a physical form I call a spirit crystal. This forms the basis of my research.",
             """
                 The natures of the soul I condense influence the crystal's properties. Each soul is slightly different, and that can result in changes to the crystals formed. And in those crystals is contained the capacity for magic. The capacity for change.
 
@@ -127,7 +127,7 @@ public class MalumLang extends LanguageProvider {
 
         addSimpleEntryHeader("spirit_crystals", "Spirit Crystals", "Matter and magic");
         addPages("spirit_crystals",
-            "The soul is a notoriously fickle thing. Even confirming its existence is difficult, requiring the highest thaumaturgies to get a reading. That is what sets spirit arcana apart from other magic. We don't need grand assemblies and esoteric artifice to see a soul.\n\n" +
+            "The soul is a notoriously fickle thing. Even confirming its existence is difficult, requiring the highest thaumaturgies to get a reading. That is what sets spirit arcana apart from other magic. We don't need grand assemblies and esoteric artifice to see a soul.\n" +
                 "Instead, we " + italic("touch") + " it.",
             "A material I have named Soulstone is the means by which we do so. It appears mundane until refined, but once it is rid of impurities, it seems... out of phase with the world. By creating a blade using it as a core, I should be able to strike the physical form, then the soul, shattering it to energy before it can disperse.",
             "These energies, as previously noted, have different 'flavors.' A being burning with light would have a soul that reflects that radiance, and a being prone to adaptation would have a soul as malleable as itself. Occasionally, the energy has no flavor to it at all, leaving only the raw impulse of creation behind. That type of crystal bears further study.");
@@ -145,15 +145,15 @@ public class MalumLang extends LanguageProvider {
         addPages("rare_earths",
             "A rare resource found in golden geodes deep underground. Description to come.");
 
-        addSimpleEntryHeader("runewood", "Runewood", "Like a magic sponge");
+        addSimpleEntryHeader("runewood", "Runewood", "An arcane oak");
         addPages("runewood",
-            "Runewood is a lush variety of tree, and a fairly common one. While pretty, I am more interested in practicality. Runewood is soaked in magic, and as such, can serve as the basis for a great deal of arcane machinery.");
+            "Runewood is a strange mix of magic and nature, and a fairly common one. While pretty, I am more interested in practicality. Runewood is soaked in magic, and as such, can serve as the basis for the arcane.");
         addHeadline("runewood.arcane_charcoal", "Arcane Charcoal");
         addPages("runewood.arcane_charcoal",
             "Runewood's charcoal, as magic-infused as it is, burns with an arcane fervor for longer than regular charcoal. This makes it rather useful for fueling any smelting I need to do.");
         addHeadline("runewood.holy_sap", "Holy Sap");
         addPages("runewood.holy_sap",
-            "In addition, sometimes Runewood trees will have a buildup of sticky sap on the sides of their logs. When this happens, if you strip off the bark, you'll be able to bottle the sap and use it as slime, or heat and drink it for a minor regenerative effect.");
+            "In addition, Runewood trees have a buildup of sticky sap on the sides of their logs. When this happens, if you strip off the bark, you'll be able to bottle the sap and use it as slime, or heat and drink it for a minor regenerative effect.");
 
         addSimpleEntryHeader("blazing_quartz", "Blazing Quartz", "Ignition");
         addPages("blazing_quartz",
@@ -269,7 +269,7 @@ public class MalumLang extends LanguageProvider {
 
         addSimpleEntryHeader("spirit_focusing", "Spirit Focusing", "Mystic replication");
         addPages("spirit_focusing",
-            "Using the opposing polarities of Twisted and Tainted Rock, I have created a device that draws in and compresses the energy of arcana. Similar to the Spirit Altar, if given a compatible substrate, I can use this process to produce things.",
+            "Using the opposing polarities of Twisted and Tainted Rock, I have created a device that draws in and focuses arcane energy. Similar to the Spirit Altar, if given a compatible substrate, I can use this process to produce things.",
             "The basic substrate here is the Alchemical Impetus, an artifact similar to those I've seen in the past. By focusing arcana into it, I can cause bits of the calx to transmute into something new, though this damages the Impetus in the process.");
 
         addSimpleEntryHeader("focus_ashes", "Arising of Ashes", "Creating powdered reagents");
@@ -339,7 +339,7 @@ public class MalumLang extends LanguageProvider {
 
         addSimpleEntryHeader("ring_of_esoteric_spoils", "Ring of Esoteric Spoils", "Be fruitful and multiply");
         addPages("ring_of_esoteric_spoils",
-            "It can be tiring, harvesting the sheer quantities of arcana I need for my research. This ring can increase the efficiency of the harvest, allowing me to reap an additional spirit of each type from every soul shattered. At a certain point, though, \"efficiency\" ceases to explain it. How am I obtaining more power than the soul itself has?");
+            "It can be tiring, harvesting the sheer quantities of arcana I need for my research. This ring can increase the efficiency of the harvest, allowing me to reap an additional spirit from every soul shattered. At a certain point, though, \"efficiency\" ceases to explain it. How am I obtaining more power than the soul itself has?");
 
         addSimpleEntryHeader("belt_of_the_starved", "Belt of the Starved", "Channeling voracity");
         addPages("belt_of_the_starved",
@@ -347,7 +347,7 @@ public class MalumLang extends LanguageProvider {
             "Doing this carries the perhaps predictable effect that my own hunger amplifies. And... by eating things which revile me, things which are rotten, I can satisfy my body's hunger without satisfying my soul's. The magic proficiency this grants is immense, but... I must say, the means are rather distasteful.");
         addHeadline("belt_of_the_starved.ring_of_desperate_voracity", "Ring of Desperate Voracity");
         addPages("belt_of_the_starved.ring_of_desperate_voracity",
-            "To combat the toxic nature of these foods, I have created a ring to alleviate some of these effects. This ring makes me resistant to food poisoning... though it can't do anything about the taste.");
+            "To combat the toxic nature of these foods, I have created a ring to alleviate some of these effects. This ring makes rotten foods just a little bit more bearable, allowing me to amass more hunger and saturation from this unusual diet.");
 
         addSimpleEntryHeader("necklace_of_the_mystic_mirror", "Mystic Mirror Necklace", "[NOT COMPLETE] Empowerment");
         addPages("necklace_of_the_mystic_mirror", "[temp effect] Makes reactive trinkets trigger when you deal magic damage");
@@ -366,16 +366,16 @@ public class MalumLang extends LanguageProvider {
         addEntryHeader("altar_acceleration", "Altar Acceleration", "Obelisks");
         addHeadline("altar_acceleration.runewood_obelisk", "Runewood Obelisk");
         addPages("altar_acceleration.runewood_obelisk",
-            "Spirit Infusion, as essential as it is, has grown... annoying. Even producing a stack of simple Hex Ash takes several minutes. Using a Hallowed Spirit Resonator, I have found a way to accelerate it, with up to a maximum of four placed near the altar increasing the processing speed.");
+            "Spirit Infusion, as essential as it is, has grown to be tedious. Even producing a stack of simple Hex Ash takes several minutes. Using a Hallowed Spirit Resonator, I have found a way to accelerate it, with up to a maximum of four placed near the altar increasing the processing speed.");
         addHeadline("altar_acceleration.brilliant_obelisk", "Brilliant Obelisk");
         addPages("altar_acceleration.brilliant_obelisk",
             "While not useful for Infusion, per-se, the design of the obelisk can be used in another way as well. By socketing Brilliance instead of a Resonator, the obelisk will harmonize with the Brilliance of enchanting, causing it to provide as much force of enchanting as five bookshelves do.");
 
         addSimpleEntryHeader("totem_magic", "Totem Magic", "Arcana unleashed");
         addPages("totem_magic",
-            "Up until this point, when performing spirit arcana, I have limited my research to personal enhancement and material production. That has finally begun to change. Runewood accepts crystals almost hungrily, forming runes as it does.",
-            "If unwanted, they can be stripped off with an axe, but I have uses in mind. With a Runewood Totem Base, and then a specific set of runes in a Runewood Log pillar reaching up to five blocks above it, I can make a Spirit Rite. These rituals soak power into the world around them, changing the beings or blocks in the area.",
-            "For what I term \"aura rites\", they affect anything within eight blocks of the base. For other rituals which alter beings, most affect anything within four blocks of the base. For those which alter blocks, most affect the five-by-five area on the level beneath the base, towards where the runes are facing.",
+            "Up until this point, when performing spirit arcana, I have limited my research to personal enhancement and material production. Runewood accepts spirit arcana almost hungrily, allowing me to engrave it into the bark, forming a rune representing the magic.",
+            "If unwanted, engraved spirits can be stripped off with an axe, but I have uses in mind. With a Runewood Totem Base, and then a specific set of runes in a Runewood Log pillar placed above my totem base, I can perform a Spirit Rite. These rituals soak power into the world around them, changing the beings or blocks in the area.",
+            "While each rite does offer a unique function, they can definitely be categorized quite well. For what I term \"aura rites\", they are simple, effect providing rites that affect anything living within eight blocks of the base. For other rituals which alter beings, most affect anything within four blocks of the base. For those which alter blocks, most affect the five-by-five area on the level beneath the base, towards where the runes are facing.",
             "A ritual that affects blocks can also be made more selective with the use of Item Stands. By placing them on the sides of the rune pillars, you can make the ritual only recognize and alter the types of blocks lying on the stands.",
             "One caveat is that no two identical rituals can have their areas overlap. If you try, the first one will simply fizzle out, the energies coursing through it disrupted.");
 
@@ -455,7 +455,7 @@ public class MalumLang extends LanguageProvider {
             "In addition to a more sturdy design made out of hallowed gold, the ceaseless impetus allows for two uses before needing repair. This however results in the phoenix blessing effect being generally weaker, needing activations in quick succession to match it's former glory.");
 
         addSimpleEntryHeader("the_device", "The Device.", "microwave to recharge");
-        addPages("the_device", "even works while bended");
+        addPage("the_device", "even works while bended");
 
         add("malum.spirit.description.stored_spirit", "Contains: ");
         add("malum.spirit.description.stored_soul", "Stores Soul With: ");

@@ -6,6 +6,8 @@ import com.sammy.malum.core.setup.content.AttributeRegistry;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
 import com.sammy.malum.core.setup.content.potion.MalumMobEffectRegistry;
 import com.sammy.malum.core.systems.item.IMalumEventResponderItem;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -33,12 +35,11 @@ public class CurioHiddenBladeNecklace extends MalumCurioItem implements IMalumEv
         }
         float amount = event.getAmount();
         int amplifier = (int) Math.ceil(amount / 4f);
-        if (amplifier >= 4) {
-            amplifier *= amplifier/4f;
+        if (amplifier >= 6) {
+            amplifier *= amplifier / 6f;
         }
-        if (amplifier >= 20) {
-            amplifier += amplifier-20;
-        }
-        attacked.addEffect(new MobEffectInstance(MalumMobEffectRegistry.WICKED_INTENT.get(), 40, amplifier-1));
+        attacked.sendMessage(new TextComponent("damage:" + amount + " amplifier:"+amplifier), attacked.getUUID());
+        MobEffect effect = MalumMobEffectRegistry.WICKED_INTENT.get();
+        attacked.addEffect(new MobEffectInstance(effect, 40, amplifier - 1));
     }
 }

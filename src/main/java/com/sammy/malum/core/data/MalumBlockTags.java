@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import static com.sammy.malum.core.setup.content.block.BlockRegistry.*;
+import static com.sammy.malum.core.setup.content.block.BlockTagRegistry.STRIPPED_LOGS;
 import static net.minecraft.tags.BlockTags.*;
 
 public class MalumBlockTags extends BlockTagsProvider {
@@ -48,6 +49,7 @@ public class MalumBlockTags extends BlockTagsProvider {
         tag(SAPLINGS).add(getModBlocks(b -> b instanceof SaplingBlock));
 
         tag(LOGS).add(getModBlocks(b -> b.getRegistryName().getPath().endsWith("_log") || b.getRegistryName().getPath().endsWith("wood")));
+        tag(STRIPPED_LOGS).add(getModBlocks(b -> b.getRegistryName().getPath().endsWith("_log") || b.getRegistryName().getPath().endsWith("wood")));
         tag(PLANKS).add(getModBlocks(b -> b.getRegistryName().getPath().endsWith("_planks")));
         tag(WOODEN_BUTTONS).add(getModBlocks(b -> b.getRegistryName().getPath().endsWith("_button") && b.getRegistryName().getPath().contains("wood")));
         tag(WOODEN_FENCES).add(getModBlocks(b -> b.getRegistryName().getPath().endsWith("_fence") && b.getRegistryName().getPath().contains("wood")));

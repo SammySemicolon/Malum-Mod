@@ -32,7 +32,6 @@ public class MalumAttributeEventHandler {
                 if (scytheProficiency != null && scytheProficiency.getValue() > 0) {
                     event.setAmount((float) (amount + scytheProficiency.getValue() * 0.5f));
                 }
-
             }
         }
     }

@@ -182,6 +182,8 @@ public class ProgressionBookScreen extends Screen {
             .addPage(new HeadlineTextPage("scythe_reaping", "scythe_reaping.1"))
             .addPage(new TextPage("scythe_reaping.2"))
             .addPage(new TextPage("scythe_reaping.2"))
+            .addPage(new HeadlineTextItemPage("scythe_reaping.rotting_essence", "scythe_reaping.rotting_essence.1", ROTTING_ESSENCE.get()))
+            .addPage(new HeadlineTextItemPage("scythe_reaping.grim_talc", "scythe_reaping.grim_talc.1", GRIM_TALC.get()))
             .addPage(new HeadlineTextItemPage("scythe_reaping.calx", "scythe_reaping.calx.1", ALCHEMICAL_CALX.get()))
         );
 
@@ -323,7 +325,6 @@ public class ProgressionBookScreen extends Screen {
             "arcane_restoration", TWISTED_TABLET.get(), 7, 8)
             .addPage(new HeadlineTextPage("arcane_restoration", "arcane_restoration.1"))
             .addPage(new TextPage("arcane_restoration.2"))
-            .addPage(new TextPage("arcane_restoration.3"))
             .addPage(SpiritInfusionPage.fromOutput(TWISTED_TABLET.get()))
             .addPage(SpiritRepairPage.fromInput(CRACKED_ALCHEMICAL_IMPETUS.get()))
             .addPage(SpiritRepairPage.fromInput(CRACKED_COPPER_IMPETUS.get()))
@@ -333,6 +334,7 @@ public class ProgressionBookScreen extends Screen {
             .addPage(SpiritRepairPage.fromInput(DIAMOND_PICKAXE))
             .addPage(SpiritRepairPage.fromInput(GOLDEN_PICKAXE))
             .addPage(SpiritRepairPage.fromInput(NETHERITE_PICKAXE))
+            .addPage(new TextPage("arcane_restoration.3"))
             .addPage(SpiritRepairPage.fromInput(SOUL_STAINED_STEEL_PICKAXE.get()))
             .addPage(SpiritRepairPage.fromInput(SOUL_STAINED_STEEL_SCYTHE.get()))
             .addPage(SpiritRepairPage.fromInput(SOUL_HUNTER_BOOTS.get()))

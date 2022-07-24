@@ -11,6 +11,7 @@ import com.sammy.ortus.helpers.EntityHelper;
 import com.sammy.ortus.setup.OrtusAttributeRegistry;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.EntityDamageSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -37,6 +38,9 @@ public class WickedIntentEffect extends MobEffect {
 
     public static void removeWickedIntent(LivingDamageEvent event) {
         DamageSource source = event.getSource();
+        if (source.isMagic() || (source instanceof EntityDamageSource entityDamageSource && entityDamageSource.isThorns())) {
+            return;
+        }
         if (source.getEntity() instanceof LivingEntity livingEntity) {
             if (MalumScytheItem.getScytheItemStack(source, livingEntity).isEmpty()) {
                 return;
@@ -48,7 +52,7 @@ public class WickedIntentEffect extends MobEffect {
                     if (player.getCooldowns().isOnCooldown(ItemRegistry.NECKLACE_OF_THE_HIDDEN_BLADE.get())) {
                         return;
                     }
-                    int pTicks = 40 * (effect.amplifier+1);
+                    int pTicks = (effect.amplifier) > 4 ? 160 : 40;
                     player.getCooldowns().addCooldown(ItemRegistry.NECKLACE_OF_THE_HIDDEN_BLADE.get(), pTicks);
                 }
                 livingEntity.removeEffect(effect.getEffect());

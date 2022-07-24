@@ -24,6 +24,7 @@ public class BlockTagRegistry {
     public static final TagKey<Block> TRAY_HEAT_SOURCES = modTag("farmersdelight:tray_heat_sources");
     public static final TagKey<Block> HEAT_SOURCES = modTag("farmersdelight:heat_sources");
 
+    public static final TagKey<Block> STRIPPED_LOGS = forgeTag("stripped_logs");
 
     private static TagKey<Block> modTag(String path) {
         return TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation(path));
