@@ -25,6 +25,7 @@ import java.util.Random;
 import static net.minecraft.util.Mth.nextFloat;
 
 public abstract class AbstractNitrateEntity extends ThrowableProjectile {
+    public static final Color SECOND_SMOKE_COLOR = new Color(32, 32, 32);
 
     public final ArrayList<EntityHelper.PastPosition> pastPositions = new ArrayList<>();
     public int maxAge = 1000;
@@ -77,6 +78,11 @@ public abstract class AbstractNitrateEntity extends ThrowableProjectile {
         } else {
             pierce--;
         }
+    }
+
+    @Override
+    public boolean isInWater() {
+        return false;
     }
 
     @Override

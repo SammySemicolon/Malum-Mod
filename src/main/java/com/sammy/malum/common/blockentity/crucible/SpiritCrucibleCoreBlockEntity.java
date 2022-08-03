@@ -437,7 +437,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
                     double x = getBlockPos().getX() + offset.x();
                     double y = getBlockPos().getY() + offset.y();
                     double z = getBlockPos().getZ() + offset.z();
-                    SpiritHelper.spawnSpiritParticles(level, x, y, z, color, endColor);
+                    SpiritHelper.spawnSpiritGlimmerParticles(level, x, y, z, color, endColor);
                 }
             }
         }

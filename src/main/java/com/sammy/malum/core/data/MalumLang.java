@@ -118,19 +118,16 @@ public class MalumLang extends LanguageProvider {
         addSimpleEntryHeader("introduction", "Introduction", "On the nature of souls");
         addPages("introduction",
             "\"Within our world, every living being has a soul. That soul is consciousness, what animates the body, and the meeting point between matter and magic. The two represent our existence; as the body is presented to the physical world, so the soul is to the arcane.\"",
-            "I seem to have stumbled upon something peculiar: a form of magic so far undocumented. I could hardly call myself a magus if I refused the opportunity to study it. In this codex, the Encyclopedia Arcana, I, " + obfuscate("The Device") + " write my research into this power.",
-            "The energies this thaumaturgical discipline manipulates seem to be rooted in the soul. More accurately, they are the energies of the soul, the inclinations and impulses that make up each one of us.", "So far, what I have described is basic. But I have found a way to separate, and then condense, the impulse of a soul into a physical form I call a spirit crystal. This forms the basis of my research.",
-            """
-                The natures of the soul I condense influence the crystal's properties. Each soul is slightly different, and that can result in changes to the crystals formed. And in those crystals is contained the capacity for magic. The capacity for change.
-
-                The capacity for power.""");
+                "I seem to have stumbled upon something peculiar: a form of magic so far undocumented. I could hardly call myself a magus if I refused the opportunity to study it. In this codex, the Encyclopedia Arcana, I write my research into this power, hoping to document everything about it.",
+                "The energies this thaumaturgical discipline manipulates seem to be rooted in the soul. More accurately, they are the energies of the soul, the inclinations and impulses that make up each one of us.",
+                "So far, what I have described is basic. But I have found a way to separate, and then condense, the impulse of a soul into a physical form I call a spirit crystal. This forms the basis of my research.",
+                "The natures of the soul I condense influence the crystal's properties. Each soul is slightly different, and that can result in changes to the crystals formed. I believe these spirit crystals to be just the breakthrough I need.");
 
         addSimpleEntryHeader("spirit_crystals", "Spirit Crystals", "Matter and magic");
         addPages("spirit_crystals",
-            "The soul is a notoriously fickle thing. Even confirming its existence is difficult, requiring the highest thaumaturgies to get a reading. That is what sets spirit arcana apart from other magic. We don't need grand assemblies and esoteric artifice to see a soul.\n" +
-                "Instead, we " + italic("touch") + " it.",
-            "A material I have named Soulstone is the means by which we do so. It appears mundane until refined, but once it is rid of impurities, it seems... out of phase with the world. By creating a blade using it as a core, I should be able to strike the physical form, then the soul, shattering it to energy before it can disperse.",
-            "These energies, as previously noted, have different 'flavors.' A being burning with light would have a soul that reflects that radiance, and a being prone to adaptation would have a soul as malleable as itself. Occasionally, the energy has no flavor to it at all, leaving only the raw impulse of creation behind. That type of crystal bears further study.");
+            "The soul is a notoriously fickle thing. Even confirming its existence is difficult, requiring the highest thaumaturgies to get a reading. That is what sets spirit arcana apart from other magic. We don't need grand assemblies and esoteric artifice to see a soul. Simply destroying it is enough proof.",
+            "A material I have named Soulstone is the means by which we do so. It appears mundane until refined, but once it is rid of impurities, it seems... out of phase with the world. By creating a blade using it as a core, I should be able to strike not only the physical form, but also the soul, shattering it to energy before it can disperse.",
+            "These energies, as previously noted, have different 'frequencies' of sorts. A being burning with light would have a soul that reflects that radiance, and a being prone to adaptation would have a soul as malleable as itself. Occasionally, the energy has no flavor to it at all, leaving only the raw impulse of creation behind. That type of crystal bears further study.");
 
         addSimpleEntryHeader("soulstone", "Soulstone", "Out of phase");
         addPages("soulstone",
@@ -145,15 +142,15 @@ public class MalumLang extends LanguageProvider {
         addPages("rare_earths",
             "A rare resource found in golden geodes deep underground. Description to come.");
 
-        addSimpleEntryHeader("runewood", "Runewood", "An arcane oak");
+        addSimpleEntryHeader("runewood", "Runewood", "Arcane oak");
         addPages("runewood",
-            "Runewood is a strange mix of magic and nature, and a fairly common one. While pretty, I am more interested in practicality. Runewood is soaked in magic, and as such, can serve as the basis for the arcane.");
+            "Runewood is a strange mix of magic and nature, and a fairly common one at that. While pretty, I am more interested in practicality. Runewood is soaked in magic, and as such, can serve as the basis for the arcane.");
         addHeadline("runewood.arcane_charcoal", "Arcane Charcoal");
         addPages("runewood.arcane_charcoal",
             "Runewood's charcoal, as magic-infused as it is, burns with an arcane fervor for longer than regular charcoal. This makes it rather useful for fueling any smelting I need to do.");
         addHeadline("runewood.holy_sap", "Holy Sap");
         addPages("runewood.holy_sap",
-            "In addition, Runewood trees have a buildup of sticky sap on the sides of their logs. When this happens, if you strip off the bark, you'll be able to bottle the sap and use it as slime, or heat and drink it for a minor regenerative effect.");
+            "In addition, Runewood trees tend to have a buildup of sticky sap on the sides of their logs. When this happens, if you strip off the bark, you'll be able to bottle the sap and use it as slime, or heat and drink it for a strong regenerative effect.");
 
         addSimpleEntryHeader("blazing_quartz", "Blazing Quartz", "Ignition");
         addPages("blazing_quartz",
@@ -366,7 +363,7 @@ public class MalumLang extends LanguageProvider {
         addEntryHeader("altar_acceleration", "Altar Acceleration", "Obelisks");
         addHeadline("altar_acceleration.runewood_obelisk", "Runewood Obelisk");
         addPages("altar_acceleration.runewood_obelisk",
-            "Spirit Infusion, as essential as it is, has grown to be tedious. Even producing a stack of simple Hex Ash takes several minutes. Using a Hallowed Spirit Resonator, I have found a way to accelerate it, with up to a maximum of four placed near the altar increasing the processing speed.");
+            "Spirit Infusion, as essential as it is, has grown to be tedious. Even producing a stack of simple Hex Ash takes several minutes. Using a Hallowed Spirit Resonator, I have found a way to accelerate it. By placing up to four hallowed obelisks nearby the altar I may increase the processing speed.");
         addHeadline("altar_acceleration.brilliant_obelisk", "Brilliant Obelisk");
         addPages("altar_acceleration.brilliant_obelisk",
             "While not useful for Infusion, per-se, the design of the obelisk can be used in another way as well. By socketing Brilliance instead of a Resonator, the obelisk will harmonize with the Brilliance of enchanting, causing it to provide as much force of enchanting as five bookshelves do.");
@@ -462,8 +459,8 @@ public class MalumLang extends LanguageProvider {
 
         add("malum.spirit.flavour.sacred", "Innocent");
         add("malum.spirit.flavour.wicked", "Malicious");
-        add("malum.spirit.flavour.arcane", "Creation");
-        add("malum.spirit.flavour.eldritch", "Outside");
+        add("malum.spirit.flavour.arcane", "Fundamental");
+        add("malum.spirit.flavour.eldritch", "Esoteric");
         add("malum.spirit.flavour.aerial", "Swift");
         add("malum.spirit.flavour.aqueous", "Malleable");
         add("malum.spirit.flavour.infernal", "Radiant");

@@ -171,7 +171,7 @@ public class EtherBlockEntity extends OrtusBlockEntity {
             ParticleBuilders.create(OrtusParticleRegistry.TWINKLE_PARTICLE)
                     .setScale(scale * 2, scale * 0.1f)
                     .setLifetime(lifeTime)
-                    .setAlpha(0.2f, 0)
+                    .setAlpha(0.25f, 0)
                     .setColor(firstColor, secondColor)
                     .setColorEasing(Easing.SINE_IN)
                     .setColorCoefficient(2.25f)

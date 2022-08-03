@@ -3,12 +3,15 @@ package com.sammy.malum.common.block.spirit_altar;
 import com.sammy.malum.common.blockentity.altar.SpiritAltarBlockEntity;
 import com.sammy.ortus.systems.block.WaterLoggedEntityBlock;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.Nullable;
 
 public class SpiritAltarBlock<T extends SpiritAltarBlockEntity> extends WaterLoggedEntityBlock<T>
 {

@@ -368,7 +368,7 @@ public class SpiritAltarBlockEntity extends OrtusBlockEntity {
                 double x = getBlockPos().getX() + offset.x();
                 double y = getBlockPos().getY() + offset.y();
                 double z = getBlockPos().getZ() + offset.z();
-                SpiritHelper.spawnSpiritParticles(level, x, y, z, color, endColor);
+                SpiritHelper.spawnSpiritGlimmerParticles(level, x, y, z, color, endColor);
                 if (recipe != null) {
                     Vec3 velocity = new Vec3(x, y, z).subtract(itemPos).normalize().scale(particleVelocityMultiplier);
                     float alpha = 0.07f / spiritInventory.nonEmptyItemAmount;

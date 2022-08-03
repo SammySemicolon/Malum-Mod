@@ -181,11 +181,11 @@ public class SpiritHelper {
         return spirits;
     }
 
-    public static void spawnSpiritParticles(Level level, double x, double y, double z, Color color, Color endColor) {
-        spawnSpiritParticles(level, x, y, z, 1, Vec3.ZERO, color, endColor);
+    public static void spawnSpiritGlimmerParticles(Level level, double x, double y, double z, Color color, Color endColor) {
+        spawnSpiritGlimmerParticles(level, x, y, z, 1, Vec3.ZERO, color, endColor);
     }
 
-    public static void spawnSpiritParticles(Level level, double x, double y, double z, float alphaMultiplier, Vec3 extraVelocity, Color color, Color endColor) {
+    public static void spawnSpiritGlimmerParticles(Level level, double x, double y, double z, float alphaMultiplier, Vec3 extraVelocity, Color color, Color endColor) {
         Random rand = level.getRandom();
         ParticleBuilders.create(OrtusParticleRegistry.TWINKLE_PARTICLE)
                 .setAlpha(0.4f * alphaMultiplier, 0f)
@@ -200,8 +200,17 @@ public class SpiritHelper {
                 .overwriteRemovalProtocol(SimpleParticleOptions.SpecialRemovalProtocol.INVISIBLE)
                 .repeat(level, x, y, z, 1);
 
+        spawnSpiritParticles(level, x, y, z, 1, extraVelocity, color, endColor);
+    }
+
+    public static void spawnSpiritParticles(Level level, double x, double y, double z, Color color, Color endColor) {
+        spawnSpiritParticles(level, x, y, z, 1, Vec3.ZERO, color, endColor);
+    }
+
+    public static void spawnSpiritParticles(Level level, double x, double y, double z, float alphaMultiplier, Vec3 extraVelocity, Color color, Color endColor) {
+        Random rand = level.getRandom();
         ParticleBuilders.create(OrtusParticleRegistry.WISP_PARTICLE)
-                .setAlpha(0.25f * alphaMultiplier, 0f)
+                .setAlpha(0.275f * alphaMultiplier, 0f)
                 .setLifetime(15 + rand.nextInt(4))
                 .setSpin(nextFloat(rand, 0.05f, 0.1f))
                 .setScale(0.05f + rand.nextFloat() * 0.025f, 0)

@@ -13,42 +13,42 @@
   ],
   "results": [
     {
-      "item": "create:crushed_iron",
+      "item": "create:crushed_iron_ore",
       "count": 4,
       "chance": 0.75
     },
     {
-      "item": "create:crushed_iron",
+      "item": "create:crushed_iron_ore",
       "count": 3,
       "chance": 0.25
     },
     {
-      "item": "create:crushed_copper",
+      "item": "create:crushed_copper_ore",
       "count": 4,
       "chance": 0.75
     },
     {
-      "item": "create:crushed_copper",
+      "item": "create:crushed_copper_ore",
       "count": 3,
       "chance": 0.25
     },
     {
-      "item": "create:crushed_gold",
+      "item": "create:crushed_gold_ore",
       "count": 4,
       "chance": 0.75
     },
     {
-      "item": "create:crushed_gold",
+      "item": "create:crushed_gold_ore",
       "count": 3,
       "chance": 0.25
     },
     {
-      "item": "create:crushed_zinc",
+      "item": "create:crushed_zinc_ore",
       "count": 4,
       "chance": 0.75
     },
     {
-      "item": "create:crushed_zinc",
+      "item": "create:crushed_zinc_ore",
       "count": 3,
       "chance": 0.25
     }

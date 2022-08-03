@@ -98,7 +98,7 @@ public abstract class FloatingEntity extends Entity {
             discard();
         }
         if (level.isClientSide) {
-            double x = getX(), y = getY() + getYOffset(0) + 0.25f, z = getZ();
+            double x = xOld, y = yOld + getYOffset(0) + 0.25f, z = zOld;
             spawnParticles(x, y, z);
         }
         move();
@@ -114,7 +114,7 @@ public abstract class FloatingEntity extends Entity {
         ArrayList<EntityHelper.PastPosition> toRemove = new ArrayList<>();
         for (int i = 0; i < amount; i++) {
             EntityHelper.PastPosition excess = pastPositions.get(i);
-            if (excess.time > 10) {
+            if (excess.time > 9) {
                 toRemove.add(excess);
             }
         }

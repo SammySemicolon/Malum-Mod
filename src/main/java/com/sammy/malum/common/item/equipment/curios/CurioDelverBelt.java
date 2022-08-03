@@ -28,9 +28,9 @@ import net.minecraftforge.event.world.ExplosionEvent;
 
 import java.util.UUID;
 
-public class CurioFortuneBelt extends MalumCurioItem {
+public class CurioDelverBelt extends MalumCurioItem {
 
-    public CurioFortuneBelt(Properties builder) {
+    public CurioDelverBelt(Properties builder) {
         super(builder);
     }
 

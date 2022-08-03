@@ -138,7 +138,7 @@ public class SpiritJarBlockEntity extends OrtusBlockEntity {
                 double x = getBlockPos().getX() + 0.5f;
                 double y = getBlockPos().getY() + 0.5f + Math.sin(level.getGameTime() / 20f) * 0.2f;
                 double z = getBlockPos().getZ() + 0.5f;
-                SpiritHelper.spawnSpiritParticles(level, x, y, z, type.getColor(), type.getEndColor());
+                SpiritHelper.spawnSpiritGlimmerParticles(level, x, y, z, type.getColor(), type.getEndColor());
             }
         }
     }

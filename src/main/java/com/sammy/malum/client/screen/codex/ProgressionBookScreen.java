@@ -117,20 +117,20 @@ public class ProgressionBookScreen extends Screen {
         );
 
         ENTRIES.add(new BookEntry(
-            "natural_quartz", NATURAL_QUARTZ.get(), 3, 2)
+            "natural_quartz", NATURAL_QUARTZ.get(), 3, 1)
             .setObjectSupplier(MinorEntryObject::new)
             .addPage(new HeadlineTextItemPage("natural_quartz", "natural_quartz.1", NATURAL_QUARTZ.get()))
         );
 
         ENTRIES.add(new BookEntry(
-            "blazing_quartz", BLAZING_QUARTZ.get(), 4, 3)
+            "blazing_quartz", BLAZING_QUARTZ.get(), 4, 2)
             .setObjectSupplier(MinorEntryObject::new)
             .addPage(new HeadlineTextItemPage("blazing_quartz", "blazing_quartz.1", BLAZING_QUARTZ.get()))
             .addPage(CraftingBookPage.fullPage(BLOCK_OF_BLAZING_QUARTZ.get(), BLAZING_QUARTZ.get()))
         );
 
         ENTRIES.add(new BookEntry(
-            "brilliance", CLUSTER_OF_BRILLIANCE.get(), -3, 2)
+            "brilliance", CLUSTER_OF_BRILLIANCE.get(), -3, 1)
             .setObjectSupplier(MinorEntryObject::new)
             .addPage(new HeadlineTextItemPage("brilliance", "brilliance.1", CLUSTER_OF_BRILLIANCE.get()))
             .addPage(new TextPage("brilliance.2"))
@@ -138,7 +138,7 @@ public class ProgressionBookScreen extends Screen {
         );
 
         ENTRIES.add(new BookEntry(
-            "rare_earths", RARE_EARTHS.get(), -4, 3)
+            "rare_earths", RARE_EARTHS.get(), -4, 2)
             .setObjectSupplier(MinorEntryObject::new)
             .addPage(new HeadlineTextItemPage("rare_earths", "rare_earths", RARE_EARTHS.get()))
         );
@@ -386,7 +386,6 @@ public class ProgressionBookScreen extends Screen {
             .addPage(CraftingBookPage.ringPage(ORNATE_RING.get(), LEATHER, SOUL_STAINED_STEEL_INGOT.get()))
             .addPage(new CraftingBookPage(ORNATE_NECKLACE.get(), EMPTY, STRING, EMPTY, STRING, EMPTY, STRING, EMPTY, SOUL_STAINED_STEEL_INGOT.get(), EMPTY))
             .addPage(new HeadlineTextPage("spirit_trinkets.guardian_ring", "spirit_trinkets.guardian_ring.1"))
-            .addPage(SpiritInfusionPage.fromOutput(RING_OF_THE_GUARDIAN.get()))
         );
 
         ENTRIES.add(new BookEntry(

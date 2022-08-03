@@ -5,11 +5,14 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Vector3f;
 import com.mojang.math.Vector4f;
 import com.sammy.malum.common.entity.FloatingItemEntity;
+import com.sammy.ortus.handlers.RenderHandler;
 import com.sammy.ortus.helpers.ColorHelper;
 import com.sammy.ortus.helpers.EntityHelper;
 import com.sammy.ortus.setup.OrtusRenderTypeRegistry;
 import com.sammy.ortus.systems.easing.Easing;
 import com.sammy.ortus.systems.rendering.VFXBuilders;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
@@ -24,12 +27,14 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.sammy.malum.MalumMod.malumPath;
 import static com.sammy.ortus.handlers.RenderHandler.*;
+import static com.sammy.ortus.helpers.RenderHelper.FULL_BRIGHT;
 import static com.sammy.ortus.setup.OrtusRenderTypeRegistry.queueUniformChanges;
 
 public class FloatingItemEntityRenderer extends EntityRenderer<FloatingItemEntity> {
@@ -47,6 +52,7 @@ public class FloatingItemEntityRenderer extends EntityRenderer<FloatingItemEntit
 
     private static final ResourceLocation MESSY_TRAIL = malumPath("textures/vfx/messy_trail.png");
     private static final RenderType MESSY_TYPE = OrtusRenderTypeRegistry.SCROLLING_TEXTURE_TRIANGLE.apply(MESSY_TRAIL);
+
 
     @Override
     public void render(FloatingItemEntity entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int packedLightIn) {
@@ -73,19 +79,18 @@ public class FloatingItemEntityRenderer extends EntityRenderer<FloatingItemEntit
         VFXBuilders.WorldVFXBuilder builder = VFXBuilders.createWorld().setPosColorTexLightmapDefaultFormat().setOffset(-x, -y, -z);
 
         VertexConsumer lightBuffer = DELAYED_RENDER.getBuffer(LIGHT_TYPE);
-        float trailVisibility = Math.min(entity.windUp * 5f, 1);
-        
+
         for (int i = 0; i < 3; i++) {
-            float size = 0.25f + i * 0.1f;
-            float alpha = (0.16f - i * 0.04f) * trailVisibility;
+            float size = 0.225f + i * 0.15f;
+            float alpha = (0.3f - i * 0.12f);
             int finalI = i;
             VertexConsumer messy = DELAYED_RENDER.getBuffer(queueUniformChanges(OrtusRenderTypeRegistry.copy(i, MESSY_TYPE),
                     (instance -> instance.safeGetUniform("Speed").set(1000 + 250f * finalI))));
             builder
                     .setAlpha(alpha)
-                    .renderTrail(messy, poseStack, mappedPastPositions, f -> size, f -> builder.setAlpha(alpha * f).setColor(ColorHelper.colorLerp(Easing.SINE_IN, f*3f, entity.endColor, entity.startColor)))
-                    .renderTrail(messy, poseStack, mappedPastPositions, f -> 1.5f * size, f -> builder.setAlpha(alpha * f * 1.5f).setColor(ColorHelper.colorLerp(Easing.SINE_IN, f*2f, entity.endColor, entity.startColor)))
-                    .renderTrail(lightBuffer, poseStack, mappedPastPositions, f -> size * 2.5f, f -> builder.setAlpha(alpha * f / 4f).setColor(ColorHelper.colorLerp(Easing.SINE_IN, f*2f, entity.endColor, entity.startColor)));
+                    .renderTrail(messy, poseStack, mappedPastPositions, f -> size, f -> builder.setAlpha(alpha * f).setColor(ColorHelper.colorLerp(Easing.SINE_IN, f * 3f, entity.endColor, entity.startColor)))
+                    .renderTrail(messy, poseStack, mappedPastPositions, f -> 1.5f * size, f -> builder.setAlpha(alpha * f / 2f).setColor(ColorHelper.colorLerp(Easing.SINE_IN, f * 2f, entity.endColor, entity.startColor)))
+                    .renderTrail(lightBuffer, poseStack, mappedPastPositions, f -> size * 2.5f, f -> builder.setAlpha(alpha * f / 4f).setColor(ColorHelper.colorLerp(Easing.SINE_IN, f * 2f, entity.endColor, entity.startColor)));
         }
         ItemStack itemStack = entity.getItem();
         BakedModel model = this.itemRenderer.getModel(itemStack, entity.level, null, entity.getItem().getCount());
@@ -96,8 +101,50 @@ public class FloatingItemEntityRenderer extends EntityRenderer<FloatingItemEntit
         poseStack.mulPose(Vector3f.YP.rotation(rotation));
         this.itemRenderer.render(itemStack, ItemTransforms.TransformType.GROUND, false, poseStack, bufferIn, packedLightIn, OverlayTexture.NO_OVERLAY, model);
         poseStack.popPose();
-
+        poseStack.pushPose();
+        renderSpirit(entity, itemRenderer, partialTicks, poseStack, bufferIn, packedLightIn);
+        poseStack.popPose();
         super.render(entity, entityYaw, partialTicks, poseStack, bufferIn, packedLightIn);
+    }
+
+    public static void renderSpirit(FloatingItemEntity entity, ItemRenderer itemRenderer, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int packedLightIn) {
+        ItemStack itemStack = entity.getItem();
+        BakedModel model = itemRenderer.getModel(itemStack, entity.level, null, entity.getItem().getCount());
+        VFXBuilders.WorldVFXBuilder builder = VFXBuilders.createWorld().setPosColorTexLightmapDefaultFormat().setColor(entity.startColor);
+        float yOffset = entity.getYOffset(partialTicks);
+        float scale = model.getTransforms().getTransform(ItemTransforms.TransformType.GROUND).scale.y();
+        float rotation = entity.getRotation(partialTicks);
+        poseStack.pushPose();
+        poseStack.translate(0.0D, (yOffset + 0.25F * scale), 0.0D);
+        poseStack.mulPose(Vector3f.YP.rotation(rotation));
+        itemRenderer.render(itemStack, ItemTransforms.TransformType.GROUND, false, poseStack, bufferIn, packedLightIn, OverlayTexture.NO_OVERLAY, model);
+        poseStack.popPose();
+        poseStack.pushPose();
+        poseStack.translate(0.0D, (yOffset + 0.5F * scale), 0.0D);
+        renderSpiritGlimmer(poseStack, builder, partialTicks);
+        poseStack.popPose();
+    }
+
+    public static void renderSpiritGlimmer(PoseStack poseStack, VFXBuilders.WorldVFXBuilder builder, float partialTicks) {
+        ClientLevel level = Minecraft.getInstance().level;
+        float v = level.getGameTime() + partialTicks;
+        float time = (float) ((Math.sin(v) + v % 15f) / 15f);
+        if (time >= 0.5f) {
+            time = 1f - time;
+        }
+        float multiplier = 1 + Easing.BOUNCE_IN_OUT.ease(time*2f, 0, 0.25f, 1);
+        poseStack.pushPose();
+        poseStack.mulPose(Minecraft.getInstance().getEntityRenderDispatcher().cameraOrientation());
+        poseStack.mulPose(Vector3f.YP.rotationDegrees(180f));
+
+        builder.setOffset(0, 0, 0);
+        for (int i = 0; i < 3; i++) {
+            float size = (0.125f + i * 0.13f) * multiplier;
+            float alpha = (0.75f - i * 0.3f);
+            builder.setAlpha(alpha * 0.6f).renderQuad(DELAYED_RENDER.getBuffer(OrtusRenderTypeRegistry.ADDITIVE_TEXTURE.applyAndCache(malumPath("textures/particle/wisp.png"))), poseStack, size * 0.75f);
+            builder.setAlpha(alpha).renderQuad(DELAYED_RENDER.getBuffer(OrtusRenderTypeRegistry.ADDITIVE_TEXTURE.applyAndCache(malumPath("textures/particle/twinkle.png"))), poseStack, size);
+        }
+        poseStack.popPose();
     }
 
     @Override

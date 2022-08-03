@@ -84,7 +84,7 @@ public class EthericNitrateEntity extends AbstractNitrateEntity {
                     .addMotion(norm.x, norm.y, norm.z)
                     .randomMotion(0.02f, 0.02f)
                     .overwriteRemovalProtocol(SimpleParticleOptions.SpecialRemovalProtocol.INVISIBLE)
-                    .repeat(level, x, y, z, 1);
+                    .repeat(level, lerpX, lerpY, lerpZ, 1);
 
             ParticleBuilders.create(OrtusParticleRegistry.WISP_PARTICLE)
                     .setAlpha(0.25f * alphaMultiplier, 0f)
@@ -105,7 +105,7 @@ public class EthericNitrateEntity extends AbstractNitrateEntity {
                     .setScale(0.15f + rand.nextFloat() * 0.05f, 0f)
                     .randomMotion(0.01f, 0.01f)
                     .overwriteRemovalProtocol(SimpleParticleOptions.SpecialRemovalProtocol.INVISIBLE)
-                    .repeat(level, x, y, z, 1);
+                    .repeat(level, lerpX, lerpY, lerpZ, 1);
 
             ParticleBuilders.create(OrtusParticleRegistry.SMOKE_PARTICLE)
                     .setAlpha(0.3f, 0.7f * alphaMultiplier, 0f)
@@ -114,7 +114,7 @@ public class EthericNitrateEntity extends AbstractNitrateEntity {
                     .setSpin(nextFloat(rand, -0.1f, 0.1f))
                     .setSpinOffset(rand.nextFloat() * 6.28f)
                     .setScale(0.2f + rand.nextFloat() * 0.05f, 0f)
-                    .setColor(SECOND_COLOR, Color.DARK_GRAY)
+                    .setColor(SECOND_COLOR, SECOND_SMOKE_COLOR)
                     .setColorEasing(Easing.QUINTIC_OUT)
                     .setColorCoefficient(1.25f)
                     .randomOffset(0.02f)
@@ -122,7 +122,9 @@ public class EthericNitrateEntity extends AbstractNitrateEntity {
                     .addMotion(norm.x, norm.y, norm.z)
                     .randomMotion(0.01f, 0.01f)
                     .overwriteRenderType(ParticleRenderTypes.TRANSPARENT)
-                    .repeat(level, lerpX, lerpY, lerpZ, 2);
+                    .repeat(level, lerpX, lerpY, lerpZ, 1)
+                    .setColorCoefficient(2f)
+                    .repeat(level, lerpX, lerpY, lerpZ, 1);
         }
     }
 }

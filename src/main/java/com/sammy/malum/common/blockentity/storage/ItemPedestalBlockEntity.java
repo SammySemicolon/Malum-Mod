@@ -65,7 +65,7 @@ public class ItemPedestalBlockEntity extends ItemHolderBlockEntity implements IA
                 double x = pos.x;
                 double y = pos.y + Math.sin((level.getGameTime() ) / 20f) * 0.1f;
                 double z = pos.z;
-                SpiritHelper.spawnSpiritParticles(level, x, y, z, item.type.getColor(), item.type.getEndColor());
+                SpiritHelper.spawnSpiritGlimmerParticles(level, x, y, z, item.type.getColor(), item.type.getEndColor());
             }
         }
     }

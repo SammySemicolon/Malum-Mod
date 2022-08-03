@@ -59,12 +59,12 @@ public class PlayerBoundItemEntity extends FloatingItemEntity {
         Vec3 motion = getDeltaMovement();
         Vec3 norm = motion.normalize().scale(0.05f);
         float extraAlpha = (float) motion.length();
-        float cycles = 4;
+        float cycles = 2;
         for (int i = 0; i < cycles; i++) {
             double lerpX = Mth.lerp(i / cycles, x - motion.x, x);
             double lerpY = Mth.lerp(i / cycles, y - motion.y, y);
             double lerpZ = Mth.lerp(i / cycles, z - motion.z, z);
-            SpiritHelper.spawnSpiritParticles(level, lerpX, lerpY, lerpZ, 0.20f+extraAlpha, norm, startColor, endColor);
+            SpiritHelper.spawnSpiritParticles(level, lerpX, lerpY, lerpZ, 0.3f+extraAlpha, norm, startColor, endColor);
         }
     }
 
@@ -74,7 +74,7 @@ public class PlayerBoundItemEntity extends FloatingItemEntity {
         setDeltaMovement(getDeltaMovement().multiply(friction, friction, friction));
         if (owner == null || !owner.isAlive()) {
             if (level.getGameTime() % 40L == 0) {
-                Player playerEntity = level.getNearestPlayer(this, 10);
+                Player playerEntity = level.getNearestPlayer(this, 50);
                 if (playerEntity != null) {
                     setOwner(playerEntity.getUUID());
                 }
@@ -83,7 +83,7 @@ public class PlayerBoundItemEntity extends FloatingItemEntity {
         }
         Vec3 desiredLocation = owner.position().add(0, owner.getBbHeight() / 3, 0);
         float distance = (float) distanceToSqr(desiredLocation);
-        float velocity = windUp < 0.2f ? 0 : Math.min(windUp-0.2f, 0.35f)*5f;
+        float velocity = windUp < 0.25f ? 0 : Math.min(windUp-0.25f, 0.8f)*5f;
         moveTime++;
         Vec3 desiredMotion = desiredLocation.subtract(position()).normalize().multiply(velocity, velocity, velocity);
         float easing = 0.01f;
