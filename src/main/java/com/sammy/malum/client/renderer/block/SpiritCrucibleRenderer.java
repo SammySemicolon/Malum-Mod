@@ -26,12 +26,13 @@ public class SpiritCrucibleRenderer implements BlockEntityRenderer<SpiritCrucibl
         Level level = Minecraft.getInstance().level;
         ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
         OrtusBlockEntityInventory inventory = blockEntityIn.spiritInventory;
+        int spiritsRendered = 0;
         if (!inventory.isEmpty()) {
             for (int i = 0; i < inventory.slotCount; i++) {
                 ItemStack item = inventory.getStackInSlot(i);
                 if (!item.isEmpty()) {
                     poseStack.pushPose();
-                    Vector3f offset = new Vector3f(SpiritCrucibleCoreBlockEntity.spiritOffset(blockEntityIn, i));
+                    Vector3f offset = new Vector3f(blockEntityIn.spiritOffset(spiritsRendered++, partialTicks));
                     poseStack.translate(offset.x(), offset.y(), offset.z());
                     poseStack.mulPose(Vector3f.YP.rotationDegrees(((level.getGameTime() % 360) + partialTicks) * 3));
                     poseStack.scale(0.5f, 0.5f, 0.5f);

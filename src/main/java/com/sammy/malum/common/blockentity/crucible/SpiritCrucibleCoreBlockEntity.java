@@ -6,7 +6,6 @@ import com.sammy.malum.common.item.impetus.ImpetusItem;
 import com.sammy.malum.common.item.spirit.MalumSpiritItem;
 import com.sammy.malum.common.packets.particle.block.functional.AltarConsumeParticlePacket;
 import com.sammy.malum.common.packets.particle.block.functional.AltarCraftParticlePacket;
-import com.sammy.malum.common.packets.particle.block.functional.FunctionalBlockItemAbsorbParticlePacket;
 import com.sammy.malum.common.recipe.SpiritFocusingRecipe;
 import com.sammy.malum.common.recipe.SpiritRepairRecipe;
 import com.sammy.malum.core.helper.SpiritHelper;
@@ -40,7 +39,10 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.wrapper.CombinedInvWrapper;
 import net.minecraftforge.network.PacketDistributor;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -79,6 +81,8 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
     public ArrayList<BlockPos> acceleratorPositions = new ArrayList<>();
     public ArrayList<ICrucibleAccelerator> accelerators = new ArrayList<>();
 
+    private final LazyOptional<IItemHandler> combinedInventory = LazyOptional.of(() -> new CombinedInvWrapper(inventory, spiritInventory));
+
     public SpiritCrucibleCoreBlockEntity(BlockEntityType<? extends SpiritCrucibleCoreBlockEntity> type, MultiBlockStructure structure, BlockPos pos, BlockState state) {
         super(type, structure, pos, state);
         inventory = new OrtusBlockEntityInventory(1, 1, t -> !(t.getItem() instanceof MalumSpiritItem)) {
@@ -89,13 +93,28 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
                 BlockHelper.updateAndNotifyState(level, worldPosition);
             }
         };
-        spiritInventory = new OrtusBlockEntityInventory(4, 64, t -> t.getItem() instanceof MalumSpiritItem) {
+        spiritInventory = new OrtusBlockEntityInventory(4, 64) {
             @Override
             public void onContentsChanged(int slot) {
                 super.onContentsChanged(slot);
                 needsSync = true;
                 spiritAmount = Math.max(1, Mth.lerp(0.15f, spiritAmount, nonEmptyItemAmount + 1));
                 BlockHelper.updateAndNotifyState(level, worldPosition);
+            }
+
+            @Override
+            public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+                if (!(stack.getItem() instanceof MalumSpiritItem spiritItem))
+                    return false;
+
+                for (int i = 0; i < getSlots(); i++) {
+                    if (i != slot) {
+                        ItemStack stackInSlot = getStackInSlot(i);
+                        if (!stackInSlot.isEmpty() && stackInSlot.getItem() == spiritItem)
+                            return false;
+                    }
+                }
+                return true;
             }
         };
     }
@@ -418,20 +437,21 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
         return new Vec3(0.5f, 1.6f, 0.5f);
     }
 
-    public static Vec3 spiritOffset(SpiritCrucibleCoreBlockEntity blockEntity, int slot) {
-        float distance = 0.75f + (float) Math.sin(blockEntity.spiritSpin / 20f) * 0.025f;
+    public Vec3 spiritOffset(int index, float partialTicks) {
+        float distance = 0.75f + (float) Math.sin((spiritSpin + partialTicks) / 20f) * 0.025f;
         float height = 1.75f;
-        return DataHelper.rotatingRadialOffset(new Vec3(0.5f, height, 0.5f), distance, slot, blockEntity.spiritAmount, (long) blockEntity.spiritSpin, 360);
+        return DataHelper.rotatingRadialOffset(new Vec3(0.5f, height, 0.5f), distance, index, spiritAmount, (long) (spiritSpin + partialTicks), 360);
     }
 
     public void passiveParticles() {
         Vec3 itemPos = getItemPos(this);
         //passive spirit particles
+        int spiritsRendered = 0;
         if (!spiritInventory.isEmpty()) {
             for (int i = 0; i < spiritInventory.slotCount; i++) {
                 ItemStack item = spiritInventory.getStackInSlot(i);
                 if (item.getItem() instanceof MalumSpiritItem spiritSplinterItem) {
-                    Vec3 offset = spiritOffset(this, i);
+                    Vec3 offset = spiritOffset(spiritsRendered++, 0);
                     Color color = spiritSplinterItem.type.getColor();
                     Color endColor = spiritSplinterItem.type.getEndColor();
                     double x = getBlockPos().getX() + offset.x();
@@ -498,6 +518,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
     }
 
     public void focusingParticles(Vec3 itemPos) {
+        int spiritsRendered = 0;
         for (int i = 0; i < spiritInventory.slotCount; i++) {
             ItemStack item = spiritInventory.getStackInSlot(i);
             for (ICrucibleAccelerator accelerator : accelerators) {
@@ -506,7 +527,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
                 }
             }
             if (item.getItem() instanceof MalumSpiritItem spiritSplinterItem) {
-                Vec3 offset = spiritOffset(this, i);
+                Vec3 offset = spiritOffset(spiritsRendered++, 0);
                 Color color = spiritSplinterItem.type.getColor();
                 Color endColor = spiritSplinterItem.type.getEndColor();
                 double x = getBlockPos().getX() + offset.x();
@@ -570,18 +591,9 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
 
     @Nonnull
     @Override
-    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap) {
-        if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-            return inventory.inventoryOptional.cast();
-        }
-        return super.getCapability(cap);
-    }
-
-    @Nonnull
-    @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, Direction side) {
         if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-            return inventory.inventoryOptional.cast();
+            return combinedInventory.cast();
         }
         return super.getCapability(cap, side);
     }

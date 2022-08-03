@@ -18,8 +18,11 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.network.PacketDistributor;
 
 public class TheDevice extends Block {
+    private final int funnyComparatorNumber;
+
     public TheDevice(Properties p_49795_) {
         super(p_49795_);
+        funnyComparatorNumber = RANDOM.nextInt(16);
     }
 
     @Override
@@ -30,6 +33,16 @@ public class TheDevice extends Block {
             return InteractionResult.SUCCESS;
         }
         return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);
+    }
+
+    @Override
+    public boolean hasAnalogOutputSignal(BlockState pState) {
+        return true;
+    }
+
+    @Override
+    public int getAnalogOutputSignal(BlockState pState, Level pLevel, BlockPos pPos) {
+        return funnyComparatorNumber;
     }
 
     @Override
