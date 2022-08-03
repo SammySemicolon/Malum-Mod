@@ -1,8 +1,9 @@
 package com.sammy.malum.common.container;
 
-import com.sammy.malum.common.item.spirit.SpiritPouchItem;
 import com.sammy.malum.common.item.spirit.MalumSpiritItem;
+import com.sammy.malum.common.item.spirit.SpiritPouchItem;
 import com.sammy.malum.core.setup.content.ContainerRegistry;
+import com.sammy.ortus.systems.container.ItemInventory;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Container;
@@ -109,5 +110,11 @@ public class SpiritPouchContainer extends AbstractContainerMenu {
         }
 
         return itemstack;
+    }
+
+    public void update(ItemInventory newData) {
+        for (int i = 0; i < newData.getContainerSize(); i++) {
+            inventory.setItem(i, newData.getItem(i));
+        }
     }
 }
