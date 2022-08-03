@@ -74,8 +74,13 @@ public class SpiritPouchItem extends Item {
         } else {
             ItemInventory inventory = getInventory(pStack);
 
-            if (!stack.isEmpty() && stack.getItem().canFitInsideContainerItems())
-                pSlot.set(inventory.addItem(pSlot.safeTake(stack.getCount(), Integer.MAX_VALUE, pPlayer)));
+            if (!stack.isEmpty() && stack.getItem().canFitInsideContainerItems()) {
+                ItemStack toInsert = pSlot.safeTake(stack.getCount(), Integer.MAX_VALUE, pPlayer);
+                ItemStack remainder = inventory.addItem(toInsert);
+                pSlot.set(remainder);
+                if (remainder.getCount() != toInsert.getCount())
+                    pPlayer.playSound(SoundEvents.BUNDLE_INSERT, 0.8F, 0.8F + pPlayer.getLevel().getRandom().nextFloat() * 0.4F);
+            }
 
             return true;
         }
@@ -90,9 +95,11 @@ public class SpiritPouchItem extends Item {
 
             if (!pOther.isEmpty() && pOther.getItem().canFitInsideContainerItems()) {
                 ItemStack remainder = inventory.addItem(pOther.copy());
+                if (pOther.getCount() != remainder.getCount())
+                    pPlayer.playSound(SoundEvents.BUNDLE_INSERT, 0.8F, 0.8F + pPlayer.getLevel().getRandom().nextFloat() * 0.4F);
+
                 pOther.shrink(pOther.getCount() - remainder.getCount());
             }
-
 
             return true;
         }
@@ -105,7 +112,7 @@ public class SpiritPouchItem extends Item {
             MenuProvider container =
                     new SimpleMenuProvider((w, p, pl) -> new SpiritPouchContainer(w, p, stack), stack.getHoverName());
             NetworkHooks.openGui((ServerPlayer) playerIn, container, b -> b.writeItem(stack));
-            playerIn.level.playSound(null, playerIn.blockPosition(), SoundEvents.ARMOR_EQUIP_LEATHER, SoundSource.PLAYERS, 1, 1);
+            playerIn.level.playSound(null, playerIn.getX(), playerIn.getY(), playerIn.getZ(), SoundEvents.ARMOR_EQUIP_LEATHER, SoundSource.PLAYERS, 1, 1);
         }
         return InteractionResultHolder.success(playerIn.getItemInHand(handIn));
     }
