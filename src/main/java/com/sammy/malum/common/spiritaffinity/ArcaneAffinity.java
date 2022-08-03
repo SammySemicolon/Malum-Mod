@@ -39,7 +39,7 @@ public class ArcaneAffinity extends MalumSpiritAffinity {
 
     public static void recoverSoulWard(TickEvent.PlayerTickEvent event) {
         Player player = event.player;
-        MalumPlayerDataCapability.getCapabilityOptional(player).ifPresent(c -> {
+        MalumPlayerDataCapability.getCapabilityOptional(player).ifPresent(c -> { //TODO: currently there are rare desync issues due to soul ward recovering separately on server & client. It'd be best if the server did it all on it's own.
             AttributeInstance cap = player.getAttribute(AttributeRegistry.SOUL_WARD_CAP.get());
             if (cap != null) {
                 if (c.soulWard < cap.getValue() && c.soulWardProgress <= 0) {
@@ -100,12 +100,16 @@ public class ArcaneAffinity extends MalumSpiritAffinity {
 
 
     public static int getSoulWardCooldown(Player player) {
+        return getSoulWardCooldown(player.getAttributeValue(AttributeRegistry.SOUL_WARD_RECOVERY_SPEED.get()));
+    }
+    public static int getSoulWardCooldown(double recoverySpeed) {
         int baseValue = CommonConfig.SOUL_WARD_RATE.getConfigValue();
-        double rate = player.getAttributeValue(AttributeRegistry.SOUL_WARD_RECOVERY_SPEED.get());
-        if (rate == 0) {
+        if (recoverySpeed == 0) {
             return baseValue;
         }
-        return (int) (baseValue * (1 - ((1 - (0.2 * (1 / (0.3 * rate)))) * 0.45)));
+        float n = 0.6f;
+        double exponent = 1 + (Math.pow(recoverySpeed * 0.25f + 1, 1 - n) - 1) / (1 - n);
+        return (int) (baseValue * (1 / exponent));
     }
 
     public static class ClientOnly {
@@ -147,7 +151,7 @@ public class ArcaneAffinity extends MalumSpiritAffinity {
                                     .setShader(() -> shaderInstance);
 
                             int size = 13;
-                            for (int i = 0; i < Math.ceil(c.soulWard / 3f); i++) {
+                            for (int i = 0; i < Math.ceil(Math.floor(c.soulWard) / 3f); i++) {
                                 int row = (int) (Math.ceil(i) / 10f);
                                 int x = left + i % 10 * 8;
                                 int y = top - row * 4 + rowHeight * 2 - 15;
@@ -164,7 +168,7 @@ public class ArcaneAffinity extends MalumSpiritAffinity {
                                 if (ScreenParticleHandler.canSpawnParticles) {
                                     ParticleBuilders.create(OrtusScreenParticleRegistry.WISP)
                                             .setLifetime(20)
-                                            .setColor(SpiritTypeRegistry.ARCANE_SPIRIT.getColor(), SpiritTypeRegistry.ARCANE_SPIRIT.getEndColor())
+                                            .setColor(SpiritTypeRegistry.ARCANE_SPIRIT.getColor().brighter(), SpiritTypeRegistry.ARCANE_SPIRIT.getEndColor())
                                             .setAlphaCoefficient(0.75f)
                                             .setScale(0.2f * progress, 0f)
                                             .setAlpha(0.05f, 0)

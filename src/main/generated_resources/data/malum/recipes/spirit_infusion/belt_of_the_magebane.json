@@ -1,7 +1,7 @@
 {
   "type": "malum:spirit_infusion",
   "input": {
-    "item": "malum:belt_of_the_keeper",
+    "item": "malum:gilded_belt",
     "count": 1
   },
   "output": {

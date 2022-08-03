@@ -67,21 +67,17 @@ public class EtherWallTorchBlock<T extends EtherBlockEntity> extends EtherBlock<
     }
 
     @Nullable
-    public BlockState getStateForPlacement(BlockPlaceContext context)
-    {
-        BlockState blockstate = this.defaultBlockState();
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
+        BlockState blockstate = super.getStateForPlacement(context);
         LevelReader iLevelreader = context.getLevel();
         BlockPos blockpos = context.getClickedPos();
         Direction[] adirection = context.getNearestLookingDirections();
 
-        for (Direction direction : adirection)
-        {
-            if (direction.getAxis().isHorizontal())
-            {
+        for (Direction direction : adirection) {
+            if (direction.getAxis().isHorizontal()) {
                 Direction direction1 = direction.getOpposite();
                 blockstate = blockstate.setValue(HORIZONTAL_FACING, direction1);
-                if (blockstate.canSurvive(iLevelreader, blockpos))
-                {
+                if (blockstate.canSurvive(iLevelreader, blockpos)) {
                     return blockstate;
                 }
             }

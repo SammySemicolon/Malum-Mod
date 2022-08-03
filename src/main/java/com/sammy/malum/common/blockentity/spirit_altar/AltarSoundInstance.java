@@ -1,4 +1,4 @@
-package com.sammy.malum.common.blockentity.altar;
+package com.sammy.malum.common.blockentity.spirit_altar;
 
 import com.sammy.malum.core.setup.content.SoundRegistry;
 import com.sammy.ortus.systems.sound.OrtusBlockEntitySoundInstance;

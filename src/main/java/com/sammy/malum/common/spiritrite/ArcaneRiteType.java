@@ -1,7 +1,7 @@
 package com.sammy.malum.common.spiritrite;
 
 import com.sammy.malum.common.block.blight.BlightedSoilBlock;
-import com.sammy.malum.common.blockentity.altar.IAltarProvider;
+import com.sammy.malum.common.blockentity.spirit_altar.IAltarProvider;
 import com.sammy.malum.common.blockentity.totem.TotemBaseBlockEntity;
 import com.sammy.malum.common.recipe.SpiritTransmutationRecipe;
 import com.sammy.malum.common.worldevent.TotemCreatedBlightEvent;

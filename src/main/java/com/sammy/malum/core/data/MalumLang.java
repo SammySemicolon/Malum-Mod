@@ -117,7 +117,7 @@ public class MalumLang extends LanguageProvider {
 
         addSimpleEntryHeader("introduction", "Introduction", "On the nature of souls");
         addPages("introduction",
-            "\"Within our world, every living being has a soul. That soul is consciousness, what animates the body, and the meeting point between matter and magic. The two represent our existence; as the body is presented to the physical world, so the soul is to the arcane.\"",
+            "\"Within our world, every living being has a soul. That soul is consciousness, what animates the body, and the meeting point between matter and magic. These represent our existence; as the body is presented to the physical world, so the soul is to the arcane.\"",
                 "I seem to have stumbled upon something peculiar: a form of magic so far undocumented. I could hardly call myself a magus if I refused the opportunity to study it. In this codex, the Encyclopedia Arcana, I write my research into this power, hoping to document everything about it.",
                 "The energies this thaumaturgical discipline manipulates seem to be rooted in the soul. More accurately, they are the energies of the soul, the inclinations and impulses that make up each one of us.",
                 "So far, what I have described is basic. But I have found a way to separate, and then condense, the impulse of a soul into a physical form I call a spirit crystal. This forms the basis of my research.",

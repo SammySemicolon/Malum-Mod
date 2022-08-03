@@ -1,6 +1,6 @@
 package com.sammy.malum.common.blockentity.storage;
 
-import com.sammy.malum.common.blockentity.altar.IAltarProvider;
+import com.sammy.malum.common.blockentity.spirit_altar.IAltarProvider;
 import com.sammy.malum.common.item.spirit.MalumSpiritItem;
 import com.sammy.malum.core.helper.SpiritHelper;
 import com.sammy.malum.core.setup.content.block.BlockEntityRegistry;

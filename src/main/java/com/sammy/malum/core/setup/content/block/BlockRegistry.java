@@ -2,6 +2,7 @@ package com.sammy.malum.core.setup.content.block;
 
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.block.*;
+import com.sammy.malum.common.block.augment_altar.AugmentAltarBlock;
 import com.sammy.malum.common.block.blight.*;
 import com.sammy.malum.common.block.ether.*;
 import com.sammy.malum.common.block.fusion_plate.FusionPlateComponentBlock;
@@ -165,6 +166,7 @@ public class BlockRegistry {
     //region useful blocks
     public static final RegistryObject<Block> SPIRIT_ALTAR = BLOCKS.register("spirit_altar", () -> new SpiritAltarBlock<>(RUNEWOOD_PROPERTIES().isCutoutLayer().noOcclusion()).setBlockEntity(BlockEntityRegistry.SPIRIT_ALTAR));
     public static final RegistryObject<Block> SPIRIT_JAR = BLOCKS.register("spirit_jar", () -> new SpiritJarBlock<>(SPIRIT_JAR_PROPERTIES().isCutoutLayer().noOcclusion()).setBlockEntity(BlockEntityRegistry.SPIRIT_JAR));
+    public static final RegistryObject<Block> AUGMENT_ALTAR = BLOCKS.register("augment_altar", () -> new AugmentAltarBlock<>(SOULWOOD_PROPERTIES().isCutoutLayer().noOcclusion()).setBlockEntity(BlockEntityRegistry.AUGMENT_ALTAR));
     public static final RegistryObject<Block> SOUL_VIAL = BLOCKS.register("soul_vial", () -> new SoulVialBlock<>(SOUL_VIAL_PROPERTIES().isCutoutLayer().noOcclusion()).setBlockEntity(BlockEntityRegistry.SOUL_VIAL));
     public static final RegistryObject<Block> EMITTER_MIRROR = BLOCKS.register("emitter_mirror", () -> new EmitterMirrorBlock<>(HALLOWED_GOLD_PROPERTIES().isCutoutLayer().noOcclusion()).setBlockEntity(BlockEntityRegistry.EMITTER_MIRROR));
 

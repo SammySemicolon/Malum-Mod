@@ -2,7 +2,7 @@ package com.sammy.malum.client.renderer.block;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
-import com.sammy.malum.common.blockentity.altar.SpiritAltarBlockEntity;
+import com.sammy.malum.common.blockentity.spirit_altar.SpiritAltarBlockEntity;
 import com.sammy.ortus.systems.blockentity.OrtusBlockEntityInventory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;

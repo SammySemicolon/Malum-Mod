@@ -62,7 +62,7 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
         sconceBlock(take(blocks, BLAZING_SCONCE));
         wallSconceBlock(take(blocks, WALL_BLAZING_SCONCE));
 
-        ArrayList<RegistryObject<Block>> customModels = new ArrayList<>(List.of(TWISTED_TABLET, SOULWOOD_FUSION_PLATE_COMPONENT, SPIRIT_CATALYZER, SPIRIT_CATALYZER_COMPONENT));
+        ArrayList<RegistryObject<Block>> customModels = new ArrayList<>(List.of(TWISTED_TABLET, AUGMENT_ALTAR, SOULWOOD_FUSION_PLATE_COMPONENT, SPIRIT_CATALYZER, SPIRIT_CATALYZER_COMPONENT));
 
         ArrayList<RegistryObject<Block>> predefinedModels = new ArrayList<>(List.of(
                 SOULWOOD_FUSION_PLATE, SPIRIT_ALTAR, SOUL_VIAL, SPIRIT_JAR, BRILLIANT_OBELISK, BRILLIANT_OBELISK_COMPONENT, RUNEWOOD_OBELISK,

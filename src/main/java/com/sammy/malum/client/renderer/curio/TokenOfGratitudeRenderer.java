@@ -31,12 +31,14 @@ import java.util.UUID;
 
 public class TokenOfGratitudeRenderer implements ICurioRenderer {
 
-    private static final ResourceLocation SAMMY = MalumMod.malumPath("textures/patreon/sammy_texture.png");
-    private static final ResourceLocation OWL_PERSON_EYES = MalumMod.malumPath("textures/patreon/owl_person_eyes.png");
-    private static final ResourceLocation OWL_PERSON_ELYTRA = MalumMod.malumPath("textures/patreon/owl_person_elytra.png");
-    private static final ResourceLocation SNAKE_FELLA_SCARF = MalumMod.malumPath("textures/patreon/snake_scarf.png");
-    private static final ResourceLocation TRANS_SCARF = MalumMod.malumPath("textures/patreon/trans_scarf.png");
-    private static final ResourceLocation BOBBU_SCARF = MalumMod.malumPath("textures/patreon/bobbu_scarf.png");
+    private static final ResourceLocation SAMMY = MalumMod.malumPath("textures/cosmetic/patreon/sammy_texture.png");
+    private static final ResourceLocation OWL_PERSON_EYES = MalumMod.malumPath("textures/cosmetic/patreon/owl_person_eyes.png");
+    private static final ResourceLocation OWL_PERSON_ELYTRA = MalumMod.malumPath("textures/cosmetic/patreon/owl_person_elytra.png");
+    private static final ResourceLocation SNAKE_FELLA_SCARF = MalumMod.malumPath("textures/cosmetic/patreon/snake_scarf.png");
+    private static final ResourceLocation BOBBU_SCARF = MalumMod.malumPath("textures/cosmetic/patreon/bobbu_scarf.png");
+
+
+    private static final ResourceLocation TRANS_SCARF = MalumMod.malumPath("textures/cosmetic/trans_scarf.png");
 
     @Override
     public <T extends LivingEntity, M extends EntityModel<T>> void render(ItemStack stack, SlotContext slotContext, PoseStack poseStack, RenderLayerParent<T, M> renderLayerParent, MultiBufferSource renderTypeBuffer, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {

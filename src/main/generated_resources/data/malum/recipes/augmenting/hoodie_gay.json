@@ -1,0 +1,15 @@
+{
+  "type": "malum:augmenting",
+  "targetItem": [
+    {
+      "item": "malum:soul_hunter_robe"
+    },
+    {
+      "item": "malum:soul_stained_steel_chestplate"
+    }
+  ],
+  "input": {
+    "item": "minecraft:salmon"
+  },
+  "tagAugment": "{\"malum:item_skin\":\"gay_hoodie\"}"
+}

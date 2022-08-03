@@ -2,6 +2,7 @@ package com.sammy.malum.core.setup.content.block;
 
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.client.renderer.block.*;
+import com.sammy.malum.common.block.augment_altar.AugmentAltarBlock;
 import com.sammy.malum.common.block.ether.EtherBlock;
 import com.sammy.malum.common.block.fusion_plate.FusionPlateCoreBlock;
 import com.sammy.malum.common.block.storage.*;
@@ -16,7 +17,8 @@ import com.sammy.malum.common.block.totem.TotemPoleBlock;
 import com.sammy.malum.common.block.tablet.TwistedTabletBlock;
 import com.sammy.malum.common.blockentity.EtherBlockEntity;
 import com.sammy.malum.common.blockentity.FusionPlateBlockEntity;
-import com.sammy.malum.common.blockentity.altar.SpiritAltarBlockEntity;
+import com.sammy.malum.common.blockentity.augment_altar.AugmentAltarBlockEntity;
+import com.sammy.malum.common.blockentity.spirit_altar.SpiritAltarBlockEntity;
 import com.sammy.malum.common.blockentity.storage.*;
 import com.sammy.malum.common.blockentity.mirror.EmitterMirrorBlockEntity;
 import com.sammy.malum.common.blockentity.obelisk.BrilliantObeliskBlockEntity;
@@ -45,17 +47,18 @@ import static com.sammy.malum.MalumMod.MALUM;
 public class BlockEntityRegistry {
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITIES, MALUM);
 
-    public static final RegistryObject<BlockEntityType<SpiritAltarBlockEntity>> SPIRIT_ALTAR = BLOCK_ENTITY_TYPES.register("spirit_altar", () -> BlockEntityType.Builder.of(SpiritAltarBlockEntity::new, getBlocks(SpiritAltarBlock.class)).build(null));
-    public static final RegistryObject<BlockEntityType<SpiritJarBlockEntity>> SPIRIT_JAR = BLOCK_ENTITY_TYPES.register("spirit_jar", () -> BlockEntityType.Builder.of(SpiritJarBlockEntity::new, getBlocks(SpiritJarBlock.class)).build(null));
-    public static final RegistryObject<BlockEntityType<SoulVialBlockEntity>> SOUL_VIAL = BLOCK_ENTITY_TYPES.register("soul_vial", () -> BlockEntityType.Builder.of(SoulVialBlockEntity::new, getBlocks(SoulVialBlock.class)).build(null));
+    public static final RegistryObject<BlockEntityType<SpiritAltarBlockEntity>> SPIRIT_ALTAR = BLOCK_ENTITY_TYPES.register("spirit_altar", () -> BlockEntityType.Builder.of(SpiritAltarBlockEntity::new, BlockRegistry.SPIRIT_ALTAR.get()).build(null));
+    public static final RegistryObject<BlockEntityType<SpiritJarBlockEntity>> SPIRIT_JAR = BLOCK_ENTITY_TYPES.register("spirit_jar", () -> BlockEntityType.Builder.of(SpiritJarBlockEntity::new, BlockRegistry.SPIRIT_JAR.get()).build(null));
+    public static final RegistryObject<BlockEntityType<SoulVialBlockEntity>> SOUL_VIAL = BLOCK_ENTITY_TYPES.register("soul_vial", () -> BlockEntityType.Builder.of(SoulVialBlockEntity::new, BlockRegistry.SOUL_VIAL.get()).build(null));
 
-    public static final RegistryObject<BlockEntityType<SpiritCrucibleCoreBlockEntity>> SPIRIT_CRUCIBLE = BLOCK_ENTITY_TYPES.register("spirit_crucible", () -> BlockEntityType.Builder.of(SpiritCrucibleCoreBlockEntity::new, getBlocks(SpiritCrucibleCoreBlock.class)).build(null));
-    public static final RegistryObject<BlockEntityType<SpiritCatalyzerCoreBlockEntity>> SPIRIT_CATALYZER = BLOCK_ENTITY_TYPES.register("spirit_catalyzer", () -> BlockEntityType.Builder.of(SpiritCatalyzerCoreBlockEntity::new, getBlocks(SpiritCatalyzerCoreBlock.class)).build(null));
-    public static final RegistryObject<BlockEntityType<TwistedTabletBlockEntity>> TWISTED_TABLET = BLOCK_ENTITY_TYPES.register("twisted_tablet", () -> BlockEntityType.Builder.of(TwistedTabletBlockEntity::new, getBlocks(TwistedTabletBlock.class)).build(null));
-    public static final RegistryObject<BlockEntityType<RunewoodObeliskBlockEntity>> RUNEWOOD_OBELISK = BLOCK_ENTITY_TYPES.register("runewood_obelisk", () -> BlockEntityType.Builder.of(RunewoodObeliskBlockEntity::new, getBlocks(RunewoodObeliskCoreBlock.class)).build(null));
-    public static final RegistryObject<BlockEntityType<BrilliantObeliskBlockEntity>> BRILLIANT_OBELISK = BLOCK_ENTITY_TYPES.register("brilliant_obelisk", () -> BlockEntityType.Builder.of(BrilliantObeliskBlockEntity::new, getBlocks(BrillianceObeliskCoreBlock.class)).build(null));
-    public static final RegistryObject<BlockEntityType<PlinthCoreBlockEntity>> PLINTH = BLOCK_ENTITY_TYPES.register("plinth", () -> BlockEntityType.Builder.of(PlinthCoreBlockEntity::new, getBlocks(PlinthCoreBlock.class)).build(null));
-    public static final RegistryObject<BlockEntityType<FusionPlateBlockEntity>> FUSION_PLATE = BLOCK_ENTITY_TYPES.register("fusion_plate", () -> BlockEntityType.Builder.of(FusionPlateBlockEntity::new, getBlocks(FusionPlateCoreBlock.class)).build(null));
+    public static final RegistryObject<BlockEntityType<SpiritCrucibleCoreBlockEntity>> SPIRIT_CRUCIBLE = BLOCK_ENTITY_TYPES.register("spirit_crucible", () -> BlockEntityType.Builder.of(SpiritCrucibleCoreBlockEntity::new, BlockRegistry.SPIRIT_CRUCIBLE.get()).build(null));
+    public static final RegistryObject<BlockEntityType<SpiritCatalyzerCoreBlockEntity>> SPIRIT_CATALYZER = BLOCK_ENTITY_TYPES.register("spirit_catalyzer", () -> BlockEntityType.Builder.of(SpiritCatalyzerCoreBlockEntity::new, BlockRegistry.SPIRIT_CATALYZER.get()).build(null));
+    public static final RegistryObject<BlockEntityType<TwistedTabletBlockEntity>> TWISTED_TABLET = BLOCK_ENTITY_TYPES.register("twisted_tablet", () -> BlockEntityType.Builder.of(TwistedTabletBlockEntity::new, BlockRegistry.TWISTED_TABLET.get()).build(null));
+    public static final RegistryObject<BlockEntityType<RunewoodObeliskBlockEntity>> RUNEWOOD_OBELISK = BLOCK_ENTITY_TYPES.register("runewood_obelisk", () -> BlockEntityType.Builder.of(RunewoodObeliskBlockEntity::new, BlockRegistry.RUNEWOOD_OBELISK.get()).build(null));
+    public static final RegistryObject<BlockEntityType<BrilliantObeliskBlockEntity>> BRILLIANT_OBELISK = BLOCK_ENTITY_TYPES.register("brilliant_obelisk", () -> BlockEntityType.Builder.of(BrilliantObeliskBlockEntity::new, BlockRegistry.BRILLIANT_OBELISK.get()).build(null));
+    public static final RegistryObject<BlockEntityType<AugmentAltarBlockEntity>> AUGMENT_ALTAR = BLOCK_ENTITY_TYPES.register("augment_altar", () -> BlockEntityType.Builder.of(AugmentAltarBlockEntity::new, BlockRegistry.AUGMENT_ALTAR.get()).build(null));
+    public static final RegistryObject<BlockEntityType<PlinthCoreBlockEntity>> PLINTH = BLOCK_ENTITY_TYPES.register("plinth", () -> BlockEntityType.Builder.of(PlinthCoreBlockEntity::new, BlockRegistry.SOULWOOD_PLINTH.get()).build(null));
+    public static final RegistryObject<BlockEntityType<FusionPlateBlockEntity>> FUSION_PLATE = BLOCK_ENTITY_TYPES.register("fusion_plate", () -> BlockEntityType.Builder.of(FusionPlateBlockEntity::new, BlockRegistry.SOULWOOD_FUSION_PLATE.get()).build(null));
 
     public static final RegistryObject<BlockEntityType<EtherBlockEntity>> ETHER = BLOCK_ENTITY_TYPES.register("ether", () -> BlockEntityType.Builder.of(EtherBlockEntity::new, getBlocks(EtherBlock.class)).build(null));
 

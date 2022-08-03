@@ -1,0 +1,15 @@
+{
+  "type": "malum:augmenting",
+  "targetItem": [
+    {
+      "item": "malum:soul_hunter_robe"
+    },
+    {
+      "item": "malum:soul_stained_steel_chestplate"
+    }
+  ],
+  "input": {
+    "item": "minecraft:stone_brick_wall"
+  },
+  "tagAugment": "{\"malum:item_skin\":\"pride_hoodie\"}"
+}

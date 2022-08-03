@@ -1,4 +1,4 @@
-package com.sammy.malum.common.blockentity.altar;
+package com.sammy.malum.common.blockentity.spirit_altar;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.phys.Vec3;

@@ -7,6 +7,7 @@ import com.sammy.malum.compability.tetra.TetraCompat;
 import com.sammy.malum.config.ClientConfig;
 import com.sammy.malum.config.CommonConfig;
 import com.sammy.malum.core.data.*;
+import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.BlockTagsProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -74,18 +75,20 @@ public class MalumMod {
 
     public static class DataOnly {
         public static void gatherData(GatherDataEvent event) {
-            BlockTagsProvider provider = new MalumBlockTags(event.getGenerator(), event.getExistingFileHelper());
-            event.getGenerator().addProvider(new MalumBlockStates(event.getGenerator(), event.getExistingFileHelper()));
-            event.getGenerator().addProvider(new MalumItemModels(event.getGenerator(), event.getExistingFileHelper()));
-            event.getGenerator().addProvider(new MalumLang(event.getGenerator()));
-            event.getGenerator().addProvider(provider);
-            event.getGenerator().addProvider(new MalumBlockLootTables(event.getGenerator()));
-            event.getGenerator().addProvider(new MalumItemTags(event.getGenerator(), provider, event.getExistingFileHelper()));
-            event.getGenerator().addProvider(new MalumRecipes(event.getGenerator()));
-            event.getGenerator().addProvider(new MalumVanillaRecipeReplacements(event.getGenerator()));
-            event.getGenerator().addProvider(new MalumSpiritInfusionRecipes(event.getGenerator()));
-            event.getGenerator().addProvider(new MalumSpiritFocusingRecipes(event.getGenerator()));
-            event.getGenerator().addProvider(new MalumSpiritTransmutationRecipes(event.getGenerator()));
+            DataGenerator generator = event.getGenerator();
+            BlockTagsProvider provider = new MalumBlockTags(generator, event.getExistingFileHelper());
+            generator.addProvider(new MalumBlockStates(generator, event.getExistingFileHelper()));
+            generator.addProvider(new MalumItemModels(generator, event.getExistingFileHelper()));
+            generator.addProvider(new MalumLang(generator));
+            generator.addProvider(provider);
+            generator.addProvider(new MalumBlockLootTables(generator));
+            generator.addProvider(new MalumItemTags(generator, provider, event.getExistingFileHelper()));
+            generator.addProvider(new MalumRecipes(generator));
+            generator.addProvider(new MalumVanillaRecipeReplacements(generator));
+            generator.addProvider(new MalumSpiritInfusionRecipes(generator));
+            generator.addProvider(new MalumSpiritFocusingRecipes(generator));
+            generator.addProvider(new MalumSpiritTransmutationRecipes(generator));
+            generator.addProvider(new MalumAugmentingRecipes(generator));
         }
     }
 }

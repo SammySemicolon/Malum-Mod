@@ -583,6 +583,8 @@ public class ProgressionBookScreen extends Screen {
             .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.ARCANE_RITE, "arcane_rite"))
             .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.ARCANE_RITE))
             .addPage(new TextPage("arcane_rite.description.3"))
+            .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.ARCANE_RITE, "corrupt_arcane_rite"))
+            .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.ARCANE_RITE))
             .addPage(SpiritInfusionPage.fromOutput(SOULWOOD_TOTEM_BASE.get()))
         );
 

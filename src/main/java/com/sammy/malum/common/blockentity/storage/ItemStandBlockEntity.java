@@ -1,18 +1,16 @@
 package com.sammy.malum.common.blockentity.storage;
 
-import com.sammy.malum.common.blockentity.altar.IAltarProvider;
+import com.sammy.malum.common.blockentity.spirit_altar.IAltarProvider;
 import com.sammy.malum.common.blockentity.totem.TotemBaseBlockEntity;
 import com.sammy.malum.common.blockentity.totem.TotemPoleBlockEntity;
 import com.sammy.malum.common.item.spirit.MalumSpiritItem;
 import com.sammy.malum.core.helper.SpiritHelper;
 import com.sammy.malum.core.setup.content.block.BlockEntityRegistry;
 import com.sammy.ortus.helpers.BlockHelper;
-import com.sammy.ortus.helpers.DataHelper;
 import com.sammy.ortus.systems.blockentity.OrtusBlockEntityInventory;
 import com.sammy.ortus.systems.blockentity.ItemHolderBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.Holder;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntityType;

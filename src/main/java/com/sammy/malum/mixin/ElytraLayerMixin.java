@@ -22,6 +22,5 @@ public class ElytraLayerMixin {
         if (entity instanceof Player player) {
             cir.setReturnValue(getElytraTexture(player.getUUID(), new ResourceLocation("textures/entity/elytra.png")));
         }
-
     }
 }

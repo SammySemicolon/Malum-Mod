@@ -60,8 +60,7 @@ public class JEIHandler implements IModPlugin {
             int offset = i * 20;
             int oLeft = left + 1 + (vertical ? 0 : offset);
             int oTop = top + 1 + (vertical ? offset : 0);
-            ItemStack stack = components.get(i).getStack();
-            iRecipeLayout.addSlot(role, oLeft, oTop).addItemStack(stack);
+            iRecipeLayout.addSlot(role, oLeft, oTop).addItemStacks(components.get(i).getStacks());
         }
     }
 

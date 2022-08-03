@@ -1,6 +1,6 @@
 package com.sammy.malum.common.blockentity.obelisk;
 
-import com.sammy.malum.common.blockentity.altar.IAltarAccelerator;
+import com.sammy.malum.common.blockentity.spirit_altar.IAltarAccelerator;
 import com.sammy.malum.core.setup.content.block.BlockEntityRegistry;
 import com.sammy.malum.core.setup.content.block.BlockRegistry;
 import com.sammy.ortus.helpers.BlockHelper;

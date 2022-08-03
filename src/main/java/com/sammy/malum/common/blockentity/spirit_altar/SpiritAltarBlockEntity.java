@@ -1,9 +1,8 @@
-package com.sammy.malum.common.blockentity.altar;
+package com.sammy.malum.common.blockentity.spirit_altar;
 
 import com.sammy.malum.common.item.spirit.MalumSpiritItem;
 import com.sammy.malum.common.packets.particle.block.functional.AltarConsumeParticlePacket;
 import com.sammy.malum.common.packets.particle.block.functional.AltarCraftParticlePacket;
-import com.sammy.malum.common.packets.particle.block.functional.FunctionalBlockItemAbsorbParticlePacket;
 import com.sammy.malum.common.recipe.SpiritInfusionRecipe;
 import com.sammy.malum.core.helper.SpiritHelper;
 import com.sammy.malum.core.setup.content.SoundRegistry;

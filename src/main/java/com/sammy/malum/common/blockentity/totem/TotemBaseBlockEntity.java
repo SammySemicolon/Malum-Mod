@@ -1,7 +1,6 @@
 package com.sammy.malum.common.blockentity.totem;
 
 import com.sammy.malum.common.block.totem.TotemBaseBlock;
-import com.sammy.malum.common.blockentity.altar.IAltarAccelerator;
 import com.sammy.malum.common.blockentity.storage.ItemStandBlockEntity;
 import com.sammy.malum.common.packets.particle.block.TotemBaseActivationParticlePacket;
 import com.sammy.malum.core.helper.SpiritHelper;
@@ -28,9 +27,7 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static com.sammy.malum.core.setup.server.PacketRegistry.MALUM_CHANNEL;
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.HORIZONTAL_FACING;

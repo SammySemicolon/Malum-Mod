@@ -1,5 +1,6 @@
 package com.sammy.malum.core.setup.content.item;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.client.model.*;
 import com.sammy.malum.common.block.MalumLeavesBlock;
@@ -35,14 +36,18 @@ import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
 import com.sammy.malum.core.setup.content.block.BlockRegistry;
 import com.sammy.malum.core.setup.content.entity.EntityRegistry;
 import com.sammy.malum.core.setup.content.item.tabs.*;
+import com.sammy.malum.core.systems.item.ItemSkin;
 import com.sammy.ortus.helpers.ColorHelper;
 import com.sammy.ortus.helpers.DataHelper;
 import com.sammy.ortus.systems.item.OrtusBoatItem;
 import com.sammy.ortus.systems.item.OrtusFuelBlockItem;
 import com.sammy.ortus.systems.item.OrtusFuelItem;
 import com.sammy.ortus.systems.item.tools.magic.*;
+import com.sammy.ortus.systems.model.OrtusArmorModel;
 import com.sammy.ortus.systems.multiblock.MultiBlockItem;
 import net.minecraft.client.color.item.ItemColors;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -54,14 +59,17 @@ import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 import java.awt.*;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.function.Supplier;
 
 import static com.sammy.malum.MalumMod.MALUM;
 import static com.sammy.malum.core.setup.content.item.ItemTiers.ItemTierEnum.SOUL_STAINED_STEEL;
@@ -92,6 +100,7 @@ public class ItemRegistry {
     public static Item.Properties GEAR_PROPERTIES() {
         return new Item.Properties().tab(MalumCreativeTab.INSTANCE).stacksTo(1);
     }
+
     public static Item.Properties IMPETUS_PROPERTIES() {
         return new Item.Properties().tab(MalumImpetusTab.INSTANCE).stacksTo(1);
     }
@@ -215,8 +224,8 @@ public class ItemRegistry {
     //region runewood
     public static final RegistryObject<Item> HOLY_SAP = ITEMS.register("holy_sap", () -> new Item(NATURE_PROPERTIES().craftRemainder(GLASS_BOTTLE)));
     public static final RegistryObject<Item> HOLY_SAPBALL = ITEMS.register("holy_sapball", () -> new Item(NATURE_PROPERTIES()));
-    public static final RegistryObject<Item> HOLY_SYRUP = ITEMS.register("holy_syrup", () -> new HolySyrupItem(NATURE_PROPERTIES().craftRemainder(GLASS_BOTTLE).food((new FoodProperties.Builder()).nutrition(6).saturationMod(0.1F).effect(()-> new MobEffectInstance(MobEffects.REGENERATION, 200, 0), 1).build())));
-    public static final RegistryObject<Item> HOLY_CARAMEL = ITEMS.register("holy_caramel", () -> new HolyCaramelItem(FarmersDelightCompat.LOADED ? NATURE_PROPERTIES().food((new FoodProperties.Builder()).nutrition(4).saturationMod(0.15F).effect(()-> new MobEffectInstance(MobEffects.REGENERATION, 100, 0), 1).build()) : HIDDEN_PROPERTIES()));
+    public static final RegistryObject<Item> HOLY_SYRUP = ITEMS.register("holy_syrup", () -> new HolySyrupItem(NATURE_PROPERTIES().craftRemainder(GLASS_BOTTLE).food((new FoodProperties.Builder()).nutrition(6).saturationMod(0.1F).effect(() -> new MobEffectInstance(MobEffects.REGENERATION, 200, 0), 1).build())));
+    public static final RegistryObject<Item> HOLY_CARAMEL = ITEMS.register("holy_caramel", () -> new HolyCaramelItem(FarmersDelightCompat.LOADED ? NATURE_PROPERTIES().food((new FoodProperties.Builder()).nutrition(4).saturationMod(0.15F).effect(() -> new MobEffectInstance(MobEffects.REGENERATION, 100, 0), 1).build()) : HIDDEN_PROPERTIES()));
 
     public static final RegistryObject<Item> RUNEWOOD_LEAVES = ITEMS.register("runewood_leaves", () -> new BlockItem(BlockRegistry.RUNEWOOD_LEAVES.get(), NATURE_PROPERTIES()));
     public static final RegistryObject<Item> RUNEWOOD_SAPLING = ITEMS.register("runewood_sapling", () -> new BlockItem(BlockRegistry.RUNEWOOD_SAPLING.get(), NATURE_PROPERTIES()));
@@ -276,8 +285,8 @@ public class ItemRegistry {
     //region soulwood
     public static final RegistryObject<Item> UNHOLY_SAP = ITEMS.register("unholy_sap", () -> new Item(NATURE_PROPERTIES().craftRemainder(GLASS_BOTTLE)));
     public static final RegistryObject<Item> UNHOLY_SAPBALL = ITEMS.register("unholy_sapball", () -> new Item(NATURE_PROPERTIES()));
-    public static final RegistryObject<Item> UNHOLY_SYRUP = ITEMS.register("unholy_syrup", () -> new UnholySyrupItem(NATURE_PROPERTIES().craftRemainder(GLASS_BOTTLE).food((new FoodProperties.Builder()).nutrition(6).saturationMod(0.1F).effect(()-> new MobEffectInstance(MobEffects.DAMAGE_BOOST, 200, 0), 1).build())));
-    public static final RegistryObject<Item> UNHOLY_CARAMEL = ITEMS.register("unholy_caramel", () -> new HolyCaramelItem(FarmersDelightCompat.LOADED ? NATURE_PROPERTIES().food((new FoodProperties.Builder()).nutrition(4).saturationMod(0.15F).effect(()-> new MobEffectInstance(MobEffects.DAMAGE_BOOST, 100, 0), 1).build()) : HIDDEN_PROPERTIES()));
+    public static final RegistryObject<Item> UNHOLY_SYRUP = ITEMS.register("unholy_syrup", () -> new UnholySyrupItem(NATURE_PROPERTIES().craftRemainder(GLASS_BOTTLE).food((new FoodProperties.Builder()).nutrition(6).saturationMod(0.1F).effect(() -> new MobEffectInstance(MobEffects.DAMAGE_BOOST, 200, 0), 1).build())));
+    public static final RegistryObject<Item> UNHOLY_CARAMEL = ITEMS.register("unholy_caramel", () -> new HolyCaramelItem(FarmersDelightCompat.LOADED ? NATURE_PROPERTIES().food((new FoodProperties.Builder()).nutrition(4).saturationMod(0.15F).effect(() -> new MobEffectInstance(MobEffects.DAMAGE_BOOST, 100, 0), 1).build()) : HIDDEN_PROPERTIES()));
 
     public static final RegistryObject<Item> SOULWOOD_LEAVES = ITEMS.register("soulwood_leaves", () -> new BlockItem(BlockRegistry.SOULWOOD_LEAVES.get(), NATURE_PROPERTIES()));
     public static final RegistryObject<Item> SOULWOOD_GROWTH = ITEMS.register("soulwood_growth", () -> new BlockItem(BlockRegistry.SOULWOOD_GROWTH.get(), NATURE_PROPERTIES()));
@@ -383,12 +392,13 @@ public class ItemRegistry {
     public static final RegistryObject<Item> EMITTER_MIRROR = ITEMS.register("emitter_mirror", () -> new BlockItem(BlockRegistry.EMITTER_MIRROR.get(), HIDDEN_PROPERTIES()));
     public static final RegistryObject<Item> RUNEWOOD_TOTEM_BASE = ITEMS.register("runewood_totem_base", () -> new BlockItem(BlockRegistry.RUNEWOOD_TOTEM_BASE.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> SOULWOOD_TOTEM_BASE = ITEMS.register("soulwood_totem_base", () -> new BlockItem(BlockRegistry.SOULWOOD_TOTEM_BASE.get(), DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> AUGMENT_ALTAR = ITEMS.register("augment_altar", () -> new BlockItem(BlockRegistry.AUGMENT_ALTAR.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> SOULWOOD_PLINTH = ITEMS.register("soulwood_plinth", () -> new MultiBlockItem(BlockRegistry.SOULWOOD_PLINTH.get(), HIDDEN_PROPERTIES(), PlinthCoreBlockEntity.STRUCTURE));
     public static final RegistryObject<Item> SOULWOOD_FUSION_PLATE = ITEMS.register("soulwood_fusion_plate", () -> new MultiBlockItem(BlockRegistry.SOULWOOD_FUSION_PLATE.get(), HIDDEN_PROPERTIES(), FusionPlateBlockEntity.STRUCTURE));
     //endregion
 
     //region materials
-    public static final RegistryObject<Item> ROTTING_ESSENCE = ITEMS.register("rotting_essence", () -> new Item(DEFAULT_PROPERTIES().food((new FoodProperties.Builder()).nutrition(6).saturationMod(0.2F).effect(()-> new MobEffectInstance(MobEffects.HUNGER, 600, 1), 0.95f).build())));
+    public static final RegistryObject<Item> ROTTING_ESSENCE = ITEMS.register("rotting_essence", () -> new Item(DEFAULT_PROPERTIES().food((new FoodProperties.Builder()).nutrition(6).saturationMod(0.2F).effect(() -> new MobEffectInstance(MobEffects.HUNGER, 600, 1), 0.95f).build())));
     public static final RegistryObject<Item> GRIM_TALC = ITEMS.register("grim_talc", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> ALCHEMICAL_CALX = ITEMS.register("alchemical_calx", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> ASTRAL_WEAVE = ITEMS.register("astral_weave", () -> new Item(DEFAULT_PROPERTIES()));
@@ -557,18 +567,39 @@ public class ItemRegistry {
     @Mod.EventBusSubscriber(modid = MalumMod.MALUM, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
     public static class ClientOnly {
 
+        public static final String MALUM_SKIN_TAG = "malum:item_skin";
+        public static final HashMap<String, ItemSkin> SKINS = new HashMap<>();
+
         public static DripArmorModel DRIP_ARMOR;
         public static SpiritHunterArmorModel SPIRIT_HUNTER_ARMOR;
         public static SoulStainedSteelArmorModel SOUL_STAINED_ARMOR;
+        public static GenericSlimArmorModel GENERIC_SLIM_ARMOR; //TODO: these should probably go to ortusLib
+        public static GenericArmorModel GENERIC_ARMOR;
+
         public static TailModel TAIL_MODEL;
         public static HeadOverlayModel HEAD_OVERLAY_MODEL;
         public static ScarfModel SCARF;
+
+        @SubscribeEvent
+        public static void registerItemSkins(FMLClientSetupEvent event) {
+            registerHoodie("ace");
+            registerHoodie("bi");
+            registerHoodie("enby");
+            registerHoodie("gay");
+            registerHoodie("lesbian");
+            registerHoodie("pan");
+            registerHoodie("pride");
+            registerHoodie("trans");
+        }
 
         @SubscribeEvent
         public static void registerLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
             event.registerLayerDefinition(DripArmorModel.LAYER, DripArmorModel::createBodyLayer);
             event.registerLayerDefinition(SpiritHunterArmorModel.LAYER, SpiritHunterArmorModel::createBodyLayer);
             event.registerLayerDefinition(SoulStainedSteelArmorModel.LAYER, SoulStainedSteelArmorModel::createBodyLayer);
+            event.registerLayerDefinition(GenericSlimArmorModel.LAYER, GenericSlimArmorModel::createBodyLayer);
+            event.registerLayerDefinition(GenericArmorModel.LAYER, GenericArmorModel::createBodyLayer);
+
             event.registerLayerDefinition(TailModel.LAYER, TailModel::createBodyLayer);
             event.registerLayerDefinition(HeadOverlayModel.LAYER, HeadOverlayModel::createBodyLayer);
             event.registerLayerDefinition(ScarfModel.LAYER, ScarfModel::createBodyLayer);
@@ -579,6 +610,9 @@ public class ItemRegistry {
             DRIP_ARMOR = new DripArmorModel(event.getEntityModels().bakeLayer(DripArmorModel.LAYER));
             SPIRIT_HUNTER_ARMOR = new SpiritHunterArmorModel(event.getEntityModels().bakeLayer(SpiritHunterArmorModel.LAYER));
             SOUL_STAINED_ARMOR = new SoulStainedSteelArmorModel(event.getEntityModels().bakeLayer(SoulStainedSteelArmorModel.LAYER));
+            GENERIC_SLIM_ARMOR = new GenericSlimArmorModel(event.getEntityModels().bakeLayer(GenericSlimArmorModel.LAYER));
+            GENERIC_ARMOR = new GenericArmorModel(event.getEntityModels().bakeLayer(GenericArmorModel.LAYER));
+
             TAIL_MODEL = new TailModel(event.getEntityModels().bakeLayer(TailModel.LAYER));
             HEAD_OVERLAY_MODEL = new HeadOverlayModel(event.getEntityModels().bakeLayer(HeadOverlayModel.LAYER));
             SCARF = new ScarfModel(event.getEntityModels().bakeLayer(ScarfModel.LAYER));
@@ -622,6 +656,18 @@ public class ItemRegistry {
             int g = color.getGreen();
             int b = color.getBlue();
             itemColors.register((stack, i) -> r << 16 | g << 8 | b, item.get());
+        }
+        public static ItemSkin getSkin(ItemStack stack) {
+            return stack.hasTag() ? SKINS.get(stack.getTag().getString(MALUM_SKIN_TAG)) : null;
+        }
+
+        public static void registerSkin(String tag, ResourceLocation path, Supplier<OrtusArmorModel> model) {
+            SKINS.put(tag, new ItemSkin(path, model));
+        }
+
+        public static void registerHoodie(String tag) {
+            String hoodie = tag + "_hoodie";
+            SKINS.put(hoodie, new ItemSkin(MalumMod.malumPath("textures/cosmetic/pride_hoodies/"+hoodie+".png"), ()->GENERIC_ARMOR));
         }
     }
 }

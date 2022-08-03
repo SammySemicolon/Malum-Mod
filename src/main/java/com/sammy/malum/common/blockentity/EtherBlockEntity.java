@@ -7,7 +7,6 @@ import com.sammy.malum.core.setup.client.ParticleRegistry;
 import com.sammy.malum.core.setup.content.block.BlockEntityRegistry;
 import com.sammy.ortus.helpers.BlockHelper;
 import com.sammy.ortus.helpers.ColorHelper;
-import com.sammy.ortus.helpers.NBTHelper;
 import com.sammy.ortus.setup.OrtusParticleRegistry;
 import com.sammy.ortus.systems.blockentity.OrtusBlockEntity;
 import com.sammy.ortus.systems.easing.Easing;
@@ -15,23 +14,17 @@ import com.sammy.ortus.systems.rendering.particle.ParticleBuilders;
 import com.sammy.ortus.systems.rendering.particle.SimpleParticleOptions;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.SectionPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
-import net.minecraft.network.protocol.game.ClientboundLevelChunkPacketData;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.WallTorchBlock;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.HitResult;
-import org.jline.reader.LineReader;
 
 import java.awt.*;
-import java.util.function.Function;
 
 public class EtherBlockEntity extends OrtusBlockEntity {
     public int firstColorRGB;
@@ -62,13 +55,13 @@ public class EtherBlockEntity extends OrtusBlockEntity {
         if (compound.contains("firstColor")) {
             setFirstColor(compound.getInt("firstColor"));
         } else {
-            setFirstColor(EtherItem.defaultFirstColor);
+            setFirstColor(EtherItem.DEFAULT_FIRST_COLOR);
         }
         if (getBlockState().getBlock().asItem() instanceof AbstractEtherItem etherItem && etherItem.iridescent) {
             if (compound.contains("secondColor")) {
                 setSecondColor(compound.getInt("secondColor"));
             } else {
-                setSecondColor(EtherItem.defaultSecondColor);
+                setSecondColor(EtherItem.DEFAULT_SECOND_COLOR);
             }
         }
 
@@ -79,11 +72,11 @@ public class EtherBlockEntity extends OrtusBlockEntity {
     protected void saveAdditional(CompoundTag compound) {
         compound.putByte("godDammit", (byte) 0); //TODO: figure out what to do about this. For reference, the client won't be told of our block entity data and load() won't run if there is nothing in the compound
         //this could be fixed by just removing the optimization below, but I like said optimization.
-        if (firstColor != null && firstColorRGB != EtherItem.defaultFirstColor) {
+        if (firstColor != null && firstColorRGB != EtherItem.DEFAULT_FIRST_COLOR) {
             compound.putInt("firstColor", firstColorRGB);
         }
         if (getBlockState().getBlock().asItem() instanceof AbstractEtherItem etherItem && etherItem.iridescent) {
-            if (secondColor != null && secondColorRGB != EtherItem.defaultSecondColor) {
+            if (secondColor != null && secondColorRGB != EtherItem.DEFAULT_SECOND_COLOR) {
                 compound.putInt("secondColor", secondColorRGB);
             }
         }
