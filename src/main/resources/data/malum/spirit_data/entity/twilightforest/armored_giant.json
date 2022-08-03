@@ -1,0 +1,10 @@
+{
+  "registry_name": "twilightforest:armored_giant",
+  "primary_type": "aerial",
+  "spirits": [
+    {
+      "spirit": "aerial",
+      "count": 2
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "registry_name": "aquaculture:atlantic_herring",
+  "primary_type": "aqueous",
+  "spirits": [
+    {
+      "spirit": "sacred",
+      "count": 1
+    },
+    {
+      "spirit": "aqueous",
+      "count": 2
+    }
+  ]
+}

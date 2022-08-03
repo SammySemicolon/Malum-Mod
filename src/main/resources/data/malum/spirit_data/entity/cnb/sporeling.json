@@ -1,0 +1,18 @@
+{
+  "registry_name": "cnb:sporeling",
+  "primary_type": "arcane",
+  "spirits": [
+    {
+      "spirit": "infernal",
+      "count": 1
+    },
+    {
+      "spirit": "arcane",
+      "count": 1
+    },
+    {
+      "spirit": "sacred",
+      "count": 1
+    }
+  ]
+}

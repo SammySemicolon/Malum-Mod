@@ -1,0 +1,14 @@
+{
+  "registry_name": "conjurer_illager:conjurer",
+  "primary_type": "wicked",
+  "spirits": [
+    {
+      "spirit": "wicked",
+      "count": 3
+    },
+    {
+      "spirit": "arcane",
+      "count": 3
+    }
+  ]
+}

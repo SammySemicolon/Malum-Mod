@@ -1,0 +1,14 @@
+{
+  "registry_name": "twilightforest:knight_phantom",
+  "primary_type": "wicked",
+  "spirits": [
+    {
+      "spirit": "wicked",
+      "count": 3
+    },
+    {
+      "spirit": "aerial",
+      "count": 1
+    }
+  ]
+}

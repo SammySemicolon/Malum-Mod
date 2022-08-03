@@ -1,0 +1,14 @@
+{
+  "registry_name": "cnb:cindershell",
+  "primary_type": "infernal",
+  "spirits": [
+    {
+      "spirit": "infernal",
+      "count": 2
+    },
+    {
+      "spirit": "earthen",
+      "count": 1
+    }
+  ]
+}

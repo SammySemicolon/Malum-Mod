@@ -1,0 +1,10 @@
+{
+  "registry_name": "natural_decoration:little_robin",
+  "primary_type": "aerial",
+  "spirits": [
+    {
+      "spirit": "aerial",
+      "count": 1
+    }
+  ]
+}

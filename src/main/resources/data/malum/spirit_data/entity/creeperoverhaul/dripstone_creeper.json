@@ -1,0 +1,18 @@
+{
+  "registry_name": "creeperoverhaul:dripstone_creeper",
+  "primary_type": "aqueous",
+  "spirits": [
+    {
+      "spirit": "infernal",
+      "count": 1
+    },
+    {
+      "spirit": "aqueous",
+      "count": 1
+    },
+    {
+      "spirit": "wicked",
+      "count": 1
+    }
+  ]
+}

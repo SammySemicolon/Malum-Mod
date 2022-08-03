@@ -1,0 +1,10 @@
+{
+  "registry_name": "aquaculture:smallmouth_bass",
+  "primary_type": "aqueous",
+  "spirits": [
+    {
+      "spirit": "aqueous",
+      "count": 1
+    }
+  ]
+}

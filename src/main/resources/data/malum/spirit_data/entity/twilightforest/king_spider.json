@@ -1,0 +1,14 @@
+{
+  "registry_name": "twilightforest:king_spider",
+  "primary_type": "earthen",
+  "spirits": [
+    {
+      "spirit": "wicked",
+      "count": 2
+    },
+    {
+      "spirit": "earthen",
+      "count": 4
+    }
+  ]
+}

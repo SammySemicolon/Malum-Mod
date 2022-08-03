@@ -1,0 +1,14 @@
+{
+  "registry_name": "cnb:little_grebe",
+  "primary_type": "aqueous",
+  "spirits": [
+    {
+      "spirit": "sacred",
+      "count": 1
+    },
+    {
+      "spirit": "aqueous",
+      "count": 1
+    }
+  ]
+}

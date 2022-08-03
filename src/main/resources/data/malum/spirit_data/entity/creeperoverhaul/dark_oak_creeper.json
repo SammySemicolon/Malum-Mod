@@ -1,0 +1,18 @@
+{
+  "registry_name": "creeperoverhaul:dark_oak_creeper",
+  "primary_type": "earthen",
+  "spirits": [
+    {
+      "spirit": "infernal",
+      "count": 1
+    },
+    {
+      "spirit": "earthen",
+      "count": 1
+    },
+    {
+      "spirit": "wicked",
+      "count": 1
+    }
+  ]
+}

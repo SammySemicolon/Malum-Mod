@@ -1,0 +1,10 @@
+{
+  "registry_name": "humancompanions:knight",
+  "primary_type": "sacred",
+  "spirits": [
+    {
+      "spirit": "sacred",
+      "count": 2
+    }
+  ]
+}

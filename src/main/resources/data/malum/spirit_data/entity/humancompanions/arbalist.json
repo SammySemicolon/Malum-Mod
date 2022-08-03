@@ -1,0 +1,10 @@
+{
+  "registry_name": "humancompanions:arbalist",
+  "primary_type": "sacred",
+  "spirits": [
+    {
+      "spirit": "sacred",
+      "count": 2
+    }
+  ]
+}

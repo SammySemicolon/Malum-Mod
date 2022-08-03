@@ -1,0 +1,14 @@
+{
+  "registry_name": "cnb:yeti",
+  "primary_type": "earthen",
+  "spirits": [
+    {
+      "spirit": "sacred",
+      "count": 3
+    },
+    {
+      "spirit": "earthen",
+      "count": 3
+    }
+  ]
+}
