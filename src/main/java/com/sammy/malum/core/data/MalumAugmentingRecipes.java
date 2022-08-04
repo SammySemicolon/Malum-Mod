@@ -43,7 +43,7 @@ public class MalumAugmentingRecipes extends RecipeProvider {
         addHoodie(consumer, Ingredient.of(Items.MELON_SLICE), "gay");
         addHoodie(consumer, Ingredient.of(Items.WATER_BUCKET), "genderfluid");
         addHoodie(consumer, Ingredient.of(Items.GLASS_BOTTLE), "genderqueer");
-        addHoodie(consumer, Ingredient.of(Items.HOPPER), "intersex");
+        addHoodie(consumer, Ingredient.of(Items.AZALEA), "intersex");
         addHoodie(consumer, Ingredient.of(Items.HONEYCOMB), "lesbian");
         addHoodie(consumer, Ingredient.of(Tags.Items.CROPS_CARROT), "pan");
         addHoodie(consumer, Ingredient.of(Items.REPEATER), "plural");
