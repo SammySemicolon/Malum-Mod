@@ -9,7 +9,7 @@
     }
   ],
   "augment": {
-    "item": "minecraft:hopper"
+    "item": "minecraft:azalea"
   },
   "tagAugment": "{\"malum:item_skin\":\"intersex_hoodie\"}"
 }

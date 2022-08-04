@@ -1,0 +1,31 @@
+{
+  "type": "malum:spirit_infusion",
+  "input": {
+    "item": "malum:runewood_item_pedestal",
+    "count": 1
+  },
+  "output": {
+    "item": "malum:augment_altar",
+    "count": 1
+  },
+  "extra_items": [
+    {
+      "item": "malum:cursed_grit",
+      "count": 2
+    },
+    {
+      "item": "malum:soul_stained_steel_ingot",
+      "count": 2
+    }
+  ],
+  "spirits": [
+    {
+      "type": "arcane",
+      "count": 16
+    },
+    {
+      "type": "eldritch",
+      "count": 4
+    }
+  ]
+}
