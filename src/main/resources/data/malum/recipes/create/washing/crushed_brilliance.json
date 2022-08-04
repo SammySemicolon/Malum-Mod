@@ -14,11 +14,11 @@
   "results": [
     {
       "item": "malum:chunk_of_brilliance",
-      "count": 1
+      "count": 2
     },
     {
       "item": "create:experience_nugget",
-      "count": 1,
+      "count": 2,
       "chance": 0.5
     }
   ]
