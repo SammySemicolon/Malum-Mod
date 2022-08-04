@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "malum:block_of_rare_earths"
+  },
+  "result": "malum:rare_earths",
+  "experience": 2.0,
+  "cookingtime": 200
+}

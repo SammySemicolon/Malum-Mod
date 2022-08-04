@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": {
+    "item": "malum:deepslate_quartz_ore"
+  },
+  "result": "malum:natural_quartz",
+  "experience": 0.25,
+  "cookingtime": 100
+}

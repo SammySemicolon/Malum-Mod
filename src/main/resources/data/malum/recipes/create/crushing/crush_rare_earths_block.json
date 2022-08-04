@@ -8,15 +8,15 @@
   "type": "create:crushing",
   "ingredients": [
     {
-      "item": "malum:soulstone_ore"
+      "item": "malum:block_of_rare_earths"
     }
   ],
   "results": [
     {
-      "item": "malum:crushed_soulstone"
+      "item": "malum:rare_earths"
     },
     {
-      "item": "malum:crushed_soulstone",
+      "item": "malum:rare_earths",
       "chance": 0.75
     },
     {
@@ -24,10 +24,9 @@
       "chance": 0.75
     },
     {
-      "item": "minecraft:cobblestone",
-      "count": 1,
+      "item": "minecraft:cobbled_deepslate",
       "chance": 0.125
     }
   ],
-  "processingTime": 300
+  "processingTime": 600
 }

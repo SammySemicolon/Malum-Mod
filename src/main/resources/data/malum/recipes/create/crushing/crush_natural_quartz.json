@@ -8,16 +8,17 @@
   "type": "create:crushing",
   "ingredients": [
     {
-      "item": "malum:soulstone_ore"
+      "item": "malum:natural_quartz_ore"
     }
   ],
   "results": [
     {
-      "item": "malum:crushed_soulstone"
+      "item": "malum:natural_quartz",
+      "count": 2
     },
     {
-      "item": "malum:crushed_soulstone",
-      "chance": 0.75
+      "item": "malum:natural_quartz",
+      "chance": 0.25
     },
     {
       "item": "create:experience_nugget",
@@ -25,9 +26,8 @@
     },
     {
       "item": "minecraft:cobblestone",
-      "count": 1,
       "chance": 0.125
     }
   ],
-  "processingTime": 300
+  "processingTime": 350
 }

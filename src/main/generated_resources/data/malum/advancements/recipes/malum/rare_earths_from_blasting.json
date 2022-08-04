@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "malum:rare_earths_from_blasting"
+    ]
+  },
+  "criteria": {
+    "has_rare_earths": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "malum:rare_earths"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "malum:rare_earths_from_blasting"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_rare_earths",
+      "has_the_recipe"
+    ]
+  ]
+}

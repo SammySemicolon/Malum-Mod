@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "malum:natural_quartz_from_smelting"
+    ]
+  },
+  "criteria": {
+    "has_natural_quartz": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "malum:natural_quartz"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "malum:natural_quartz_from_smelting"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_natural_quartz",
+      "has_the_recipe"
+    ]
+  ]
+}

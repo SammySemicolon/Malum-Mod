@@ -14,11 +14,11 @@
   "results": [
     {
       "item": "malum:processed_soulstone",
-      "count": 1
+      "count": 2
     },
     {
       "item": "malum:hex_ash",
-      "chance": 0.1
+      "chance": 0.25
     }
   ]
 }
