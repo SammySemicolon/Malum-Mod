@@ -1,17 +1,23 @@
 package com.sammy.malum.common.block.spirit_crucible;
 
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
+import com.sammy.ortus.systems.multiblock.MultiBlockComponentEntity;
 import com.sammy.ortus.systems.multiblock.MultiblockComponentBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.ItemHandlerHelper;
+import net.minecraftforge.items.wrapper.EmptyHandler;
 
 public class SpiritCrucibleComponentBlock extends MultiblockComponentBlock {
     public static final VoxelShape SHAPE = makeShape();
@@ -38,6 +44,20 @@ public class SpiritCrucibleComponentBlock extends MultiblockComponentBlock {
     @Override
     public VoxelShape getShape(BlockState p_60555_, BlockGetter p_60556_, BlockPos p_60557_, CollisionContext p_60558_) {
         return RENDER_SHAPE;
+    }
+
+    @Override
+    public boolean hasAnalogOutputSignal(BlockState pState) {
+        return true;
+    }
+
+    @Override
+    public int getAnalogOutputSignal(BlockState pState, Level pLevel, BlockPos pPos) {
+        BlockEntity be = pLevel.getBlockEntity(pPos);
+        if (be instanceof MultiBlockComponentEntity component) {
+            return ItemHandlerHelper.calcRedstoneFromInventory(component.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).orElse(new EmptyHandler()));
+        }
+        return 0;
     }
 
     public static VoxelShape makeShape() {

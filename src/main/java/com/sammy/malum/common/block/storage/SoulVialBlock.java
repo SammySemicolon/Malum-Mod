@@ -4,6 +4,8 @@ import com.sammy.malum.common.blockentity.storage.SoulVialBlockEntity;
 import com.sammy.ortus.systems.block.WaterLoggedEntityBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -21,6 +23,20 @@ public class SoulVialBlock<T extends SoulVialBlockEntity> extends WaterLoggedEnt
     @Override
     public VoxelShape getShape(BlockState p_60555_, BlockGetter p_60556_, BlockPos p_60557_, CollisionContext p_60558_) {
         return SHAPE;
+    }
+
+    @Override
+    public boolean hasAnalogOutputSignal(BlockState pState) {
+        return true;
+    }
+
+    @Override
+    public int getAnalogOutputSignal(BlockState pState, Level pLevel, BlockPos pPos) {
+        BlockEntity be = pLevel.getBlockEntity(pPos);
+        if (be instanceof SoulVialBlockEntity vial) {
+            return vial.data != null ? 15 : 0;
+        }
+        return 0;
     }
 
     public static VoxelShape makeShape(){

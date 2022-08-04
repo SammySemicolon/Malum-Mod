@@ -4,12 +4,10 @@ import com.sammy.malum.common.item.spirit.MalumSpiritItem;
 import com.sammy.malum.core.setup.content.block.BlockEntityRegistry;
 import com.sammy.malum.core.setup.content.block.BlockRegistry;
 import com.sammy.ortus.helpers.BlockHelper;
-import com.sammy.ortus.helpers.DataHelper;
 import com.sammy.ortus.setup.OrtusParticleRegistry;
 import com.sammy.ortus.systems.blockentity.OrtusBlockEntityInventory;
 import com.sammy.ortus.systems.multiblock.HorizontalDirectionStructure;
 import com.sammy.ortus.systems.multiblock.MultiBlockCoreEntity;
-
 import com.sammy.ortus.systems.multiblock.MultiBlockStructure;
 import com.sammy.ortus.systems.rendering.particle.ParticleBuilders;
 import net.minecraft.core.BlockPos;
@@ -187,15 +185,6 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity impleme
 
     public Vec3 itemOffset() {
         return new Vec3(0.5f, 1.95f, 0.5f);
-    }
-
-    @Nonnull
-    @Override
-    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap) {
-        if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-            return inventory.inventoryOptional.cast();
-        }
-        return super.getCapability(cap);
     }
 
     @Nonnull

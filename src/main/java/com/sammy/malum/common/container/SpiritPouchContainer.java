@@ -1,8 +1,9 @@
 package com.sammy.malum.common.container;
 
-import com.sammy.malum.common.item.spirit.SpiritPouchItem;
 import com.sammy.malum.common.item.spirit.MalumSpiritItem;
+import com.sammy.malum.common.item.spirit.SpiritPouchItem;
 import com.sammy.malum.core.setup.content.ContainerRegistry;
+import com.sammy.ortus.systems.container.ItemInventory;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Container;
@@ -40,12 +41,32 @@ public class SpiritPouchContainer extends AbstractContainerMenu {
         int offset = offset();
         for (int l = 0; l < 3; ++l) {
             for (int j1 = 0; j1 < 9; ++j1) {
-                this.addSlot(new Slot(playerInv, j1 + (l + 1) * 9, 8 + j1 * 18, offset + 84 + l * 18));
+                this.addSlot(new Slot(playerInv, j1 + (l + 1) * 9, 8 + j1 * 18, offset + 84 + l * 18) {
+                    @Override
+                    public boolean mayPickup(Player pPlayer) {
+                        return !(getItem().getItem() instanceof SpiritPouchItem);
+                    }
+
+                    @Override
+                    public boolean mayPlace(ItemStack pStack) {
+                        return !(getItem().getItem() instanceof SpiritPouchItem);
+                    }
+                });
             }
         }
 
         for (int i1 = 0; i1 < 9; ++i1) {
-            this.addSlot(new Slot(playerInv, i1, 8 + i1 * 18, offset + 142));
+            this.addSlot(new Slot(playerInv, i1, 8 + i1 * 18, offset + 142) {
+                @Override
+                public boolean mayPickup(Player pPlayer) {
+                    return !(getItem().getItem() instanceof SpiritPouchItem);
+                }
+
+                @Override
+                public boolean mayPlace(ItemStack pStack) {
+                    return !(getItem().getItem() instanceof SpiritPouchItem);
+                }
+            });
         }
     }
 
@@ -89,5 +110,11 @@ public class SpiritPouchContainer extends AbstractContainerMenu {
         }
 
         return itemstack;
+    }
+
+    public void update(ItemInventory newData) {
+        for (int i = 0; i < newData.getContainerSize(); i++) {
+            inventory.setItem(i, newData.getItem(i));
+        }
     }
 }

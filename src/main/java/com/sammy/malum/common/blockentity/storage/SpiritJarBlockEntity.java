@@ -3,31 +3,35 @@ package com.sammy.malum.common.blockentity.storage;
 import com.sammy.malum.common.item.spirit.MalumSpiritItem;
 import com.sammy.malum.common.item.spirit.SpiritPouchItem;
 import com.sammy.malum.core.helper.SpiritHelper;
-import com.sammy.malum.core.setup.client.ParticleRegistry;
 import com.sammy.malum.core.setup.content.block.BlockEntityRegistry;
+import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import com.sammy.ortus.helpers.BlockHelper;
 import com.sammy.ortus.setup.OrtusParticleRegistry;
 import com.sammy.ortus.systems.blockentity.OrtusBlockEntity;
 import com.sammy.ortus.systems.container.ItemInventory;
 import com.sammy.ortus.systems.rendering.particle.ParticleBuilders;
-import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.items.ItemHandlerHelper;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
 import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.Nonnull;
 import java.awt.*;
+import java.util.UUID;
 
 public class SpiritJarBlockEntity extends OrtusBlockEntity {
 
@@ -42,65 +46,159 @@ public class SpiritJarBlockEntity extends OrtusBlockEntity {
     public MalumSpiritType type;
     public int count;
 
+    // Storage Drawers moment
+    private long lastClickTime;
+    private UUID lastClickUUID;
+
+    private final LazyOptional<IItemHandler> inventory = LazyOptional.of(() -> new IItemHandler() {
+        @Override
+        public int getSlots() {
+            return 2;
+        }
+
+        @NotNull
+        @Override
+        public ItemStack getStackInSlot(int slot) {
+            if (slot == 0 && type != null) {
+                return new ItemStack(type.getSplinterItem(), count); // Yes, this can create a stack bigger than 64. It's fine.
+            } else
+                return ItemStack.EMPTY;
+        }
+
+        @NotNull
+        @Override
+        public ItemStack insertItem(int slot, @NotNull ItemStack stack, boolean simulate) {
+            if (slot == 1 && stack.getItem() instanceof MalumSpiritItem spiritItem && (type == null || spiritItem.type == type)) {
+                if (!simulate) {
+                    if (type == null)
+                        type = spiritItem.type;
+                    count += stack.getCount();
+                    if (!level.isClientSide) {
+                        BlockHelper.updateAndNotifyState(level, worldPosition);
+                    }
+                }
+                return ItemStack.EMPTY;
+            }
+            return stack;
+        }
+
+        @NotNull
+        @Override
+        public ItemStack extractItem(int slot, int amount, boolean simulate) {
+            if (slot != 0 || count <= 0)
+                return ItemStack.EMPTY;
+            MalumSpiritType extractedType = type;
+            if (extractedType == null)
+                return ItemStack.EMPTY;
+
+            int amountToExtract = Math.min(count, amount);
+            if (!simulate) {
+                count -= amountToExtract;
+                if (count == 0) {
+                    type = null;
+                }
+                if (!level.isClientSide) {
+                    BlockHelper.updateAndNotifyState(level, worldPosition);
+                }
+            }
+
+            return new ItemStack(extractedType.getSplinterItem(), amountToExtract);
+        }
+
+        @Override
+        public int getSlotLimit(int slot) {
+            if (slot == 0)
+                return Math.min(64, count);
+            return 64;
+        }
+
+        @Override
+        public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+            return stack.getItem() instanceof MalumSpiritItem spiritItem && spiritItem.type == type;
+        }
+    });
+
+
     @Override
     public InteractionResult onUse(Player player, InteractionHand hand) {
-        ItemStack heldStack = player.getItemInHand(hand);
-        Item heldItem = heldStack.getItem();
-        if (heldItem instanceof SpiritPouchItem) {
+        if (getLevel() == null)
+            return InteractionResult.PASS;
+
+        int count;
+        if (getLevel().getGameTime() - lastClickTime < 10 && player.getUUID().equals(lastClickUUID))
+            count = insertAllSpirits(player);
+        else
+            count = insertHeldItem(player);
+
+        lastClickTime = getLevel().getGameTime();
+        lastClickUUID = player.getUUID();
+
+        if (count != 0) {
+            if (player.level.isClientSide) {
+                spawnUseParticles(level, worldPosition, type);
+            } else {
+                BlockHelper.updateAndNotifyState(level, worldPosition);
+            }
+        }
+
+        return InteractionResult.sidedSuccess(player.level.isClientSide);
+    }
+
+    public int insertHeldItem(Player player) {
+        int count = 0;
+        ItemStack playerStack = player.getInventory().getSelected();
+        if (!playerStack.isEmpty())
+            count = insertFromStack(playerStack);
+
+        return count;
+    }
+
+    public int insertAllSpirits(Player player) {
+        if (type == null)
+            return 0;
+
+        int count = 0;
+        for (int i = 0, n = player.getInventory().getContainerSize(); i < n; i++) {
+            ItemStack subStack = player.getInventory().getItem(i);
+            if (!subStack.isEmpty()) {
+                int subCount = insertFromStack(subStack);
+                if (subCount > 0 && subStack.getCount() == 0)
+                    player.getInventory().setItem(i, ItemStack.EMPTY);
+
+                count += subCount;
+            }
+        }
+
+        return count;
+    }
+
+    public int insertFromStack(ItemStack stack) {
+        int inserted = 0;
+        if (stack.getItem() instanceof SpiritPouchItem) {
             if (type != null) {
-                ItemInventory inventory = SpiritPouchItem.getInventory(heldStack);
-                boolean successful = false;
+                ItemInventory inventory = SpiritPouchItem.getInventory(stack);
                 for (int i = 0; i < inventory.getContainerSize(); i++) {
-                    ItemStack stack = inventory.getItem(i);
-                    if (stack.getItem() instanceof MalumSpiritItem spiritItem) {
+                    ItemStack spiritStack = inventory.getItem(i);
+                    if (spiritStack.getItem() instanceof MalumSpiritItem spiritItem) {
                         MalumSpiritType type = spiritItem.type;
                         if (type.identifier.equals(this.type.identifier)) {
                             inventory.setItem(i, ItemStack.EMPTY);
-                            count += stack.getCount();
-                            successful = true;
+                            inserted += spiritStack.getCount();
+                            count += spiritStack.getCount();
                         }
                     }
                 }
-                if (successful) {
-                    if (player.level.isClientSide) {
-                        spawnUseParticles(level, worldPosition, type);
-                    } else {
-                        BlockHelper.updateAndNotifyState(level, worldPosition);
-                    }
-                    return InteractionResult.SUCCESS;
-                } else {
-                    return InteractionResult.PASS;
-                }
             }
-        }
-        else if (heldItem instanceof MalumSpiritItem spiritSplinterItem) {
+        } else if (stack.getItem() instanceof MalumSpiritItem spiritSplinterItem) {
             if (type == null || type.equals(spiritSplinterItem.type)) {
                 type = spiritSplinterItem.type;
-                count += heldStack.getCount();
-                if (!player.level.isClientSide) {
-                    player.setItemInHand(hand, ItemStack.EMPTY);
-                    BlockHelper.updateAndNotifyState(level, worldPosition);
-                } else {
-                    spawnUseParticles(level, worldPosition, type);
-                }
-                return InteractionResult.SUCCESS;
+                inserted += stack.getCount();
+                count += stack.getCount();
+                stack.shrink(stack.getCount());
             }
-        } else if (type != null) {
-            int max = player.isShiftKeyDown() ? 64 : 1;
-            int count = Math.min(this.count, max);
-            if (!player.level.isClientSide) {
-                this.count -= count;
-                ItemHandlerHelper.giveItemToPlayer(player, new ItemStack(type.getSplinterItem(), count));
-                if (this.count == 0) {
-                    type = null;
-                }
-                BlockHelper.updateAndNotifyState(level, worldPosition);
-            } else {
-                spawnUseParticles(level, worldPosition, type);
-            }
-            return InteractionResult.SUCCESS;
         }
-        return super.onUse(player, hand);
+        return inserted;
+
     }
 
     @SuppressWarnings("ConstantConditions")
@@ -156,5 +254,14 @@ public class SpiritJarBlockEntity extends OrtusBlockEntity {
                 .setColor(color, color.darker())
                 .enableNoClip()
                 .repeat(level, pos.getX() + 0.5f, pos.getY() + 0.5f + Math.sin(level.getGameTime() / 20f) * 0.2f, pos.getZ() + 0.5f, 10);
+    }
+
+    @Nonnull
+    @Override
+    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, Direction side) {
+        if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+            return inventory.cast();
+        }
+        return super.getCapability(cap, side);
     }
 }

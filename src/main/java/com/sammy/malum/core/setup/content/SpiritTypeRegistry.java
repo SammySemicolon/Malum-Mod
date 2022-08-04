@@ -7,18 +7,21 @@ import com.sammy.malum.core.systems.spirit.SpiritTypeProperty;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.RegistryObject;
 
 import java.awt.*;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 @SuppressWarnings("unchecked")
 @Mod.EventBusSubscriber(modid= MalumMod.MALUM, value= Dist.CLIENT, bus= Mod.EventBusSubscriber.Bus.MOD)
 public class SpiritTypeRegistry {
-    public static HashMap<String, MalumSpiritType> SPIRITS = new HashMap<>();
+    public static Map<String, MalumSpiritType> SPIRITS = new LinkedHashMap<>();
 
     public static MalumSpiritType SACRED_SPIRIT = create("sacred", new Color(243, 40, 143), ItemRegistry.SACRED_SPIRIT);
 
@@ -50,6 +53,19 @@ public class SpiritTypeRegistry {
         return spiritType;
     }
 
+    public static int getIndexForSpiritType(MalumSpiritType type) {
+        List<MalumSpiritType> types = SPIRITS.values().stream().toList();
+        return types.indexOf(type);
+    }
+
+    public static MalumSpiritType getSpiritTypeForIndex(int slot) {
+        if (slot >= SPIRITS.size())
+            return null;
+        List<MalumSpiritType> types = SPIRITS.values().stream().toList();
+        return types.get(slot);
+    }
+
+    @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
     public static void stitchTextures(TextureStitchEvent.Pre event) {
         if (!event.getAtlas().location().equals(TextureAtlas.LOCATION_BLOCKS)) {

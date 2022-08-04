@@ -1,5 +1,6 @@
 package com.sammy.malum.core.events;
 
+import com.sammy.malum.common.block.storage.SpiritJarBlock;
 import com.sammy.malum.common.capability.MalumItemDataCapability;
 import com.sammy.malum.common.capability.MalumLivingEntityDataCapability;
 import com.sammy.malum.common.capability.MalumPlayerDataCapability;
@@ -23,7 +24,17 @@ import com.sammy.malum.core.handlers.SoulHarvestHandler;
 import com.sammy.malum.core.handlers.SpiritHarvestHandler;
 import com.sammy.malum.core.listeners.ReapingDataReloadListener;
 import com.sammy.malum.core.listeners.SpiritDataReloadListener;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.ClipContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
 import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.TickEvent;
@@ -56,6 +67,25 @@ public class RuntimeEvents {
             TetraCompat.LoadedOnly.fireArrow(event);
         }
     }
+
+
+    @SubscribeEvent
+    public static void playerLeftClick(PlayerInteractEvent.LeftClickBlock event) {
+        BlockPos pos = event.getPos();
+        Level level = event.getWorld();
+        BlockState state = level.getBlockState(pos);
+        Block block = state.getBlock();
+        if (block instanceof SpiritJarBlock jarBlock) {
+            Player player = event.getPlayer();
+            BlockHitResult target = Item.getPlayerPOVHitResult(level, player, ClipContext.Fluid.NONE);
+            if (target.getType() == HitResult.Type.BLOCK && target.getBlockPos().equals(pos) && target.getDirection().getAxis() == Direction.Axis.X) {
+                if (player.isCreative()) {
+                    event.setCanceled(jarBlock.handleAttack(level, pos, player));
+                }
+            }
+        }
+    }
+
 
     @SubscribeEvent
     public static void onEntityJoin(LivingSpawnEvent.SpecialSpawn event) {

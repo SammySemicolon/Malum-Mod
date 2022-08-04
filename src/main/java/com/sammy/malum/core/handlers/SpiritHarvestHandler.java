@@ -2,6 +2,7 @@ package com.sammy.malum.core.handlers;
 
 import com.sammy.malum.common.capability.MalumItemDataCapability;
 import com.sammy.malum.common.capability.MalumLivingEntityDataCapability;
+import com.sammy.malum.common.container.SpiritPouchContainer;
 import com.sammy.malum.common.entity.boomerang.ScytheBoomerangEntity;
 import com.sammy.malum.common.item.spirit.SpiritPouchItem;
 import com.sammy.malum.compability.tetra.TetraCompat;
@@ -159,6 +160,9 @@ public class SpiritHarvestHandler {
                         if (result.isEmpty()) {
                             Level level = playerEntity.level;
                             level.playSound(null, playerEntity.getX(), playerEntity.getY() + 0.5, playerEntity.getZ(), SoundEvents.ITEM_PICKUP, SoundSource.PLAYERS, 0.2F, ((level.random.nextFloat() - level.random.nextFloat()) * 0.7F + 1.0F) * 2.0F);
+                            if (playerEntity.containerMenu instanceof SpiritPouchContainer pouchMenu) {
+                                pouchMenu.update(inventory);
+                            }
                             return;
                         }
                     }

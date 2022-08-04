@@ -46,7 +46,7 @@ public class SpiritRiteRecipeCategory implements IRecipeCategory<MalumRiteType> 
     public void draw(MalumRiteType rite, IRecipeSlotsView recipeSlotsView, PoseStack poseStack, double mouseX, double mouseY) {
         overlay.draw(poseStack);
         String translated = I18n.get(rite.translationIdentifier(false));
-        ProgressionBookScreen.renderText(poseStack, new TextComponent(translated), 106 - font.width(translated) / 2, 160);
+        ProgressionBookScreen.renderText(poseStack, new TextComponent(translated), 71 - font.width(translated) / 2, 160);
     }
 
     @Override
@@ -88,7 +88,7 @@ public class SpiritRiteRecipeCategory implements IRecipeCategory<MalumRiteType> 
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, MalumRiteType rite, IFocusGroup focuses) {
         for (int i = 0; i < rite.spirits.size(); i++) {
-            builder.addSlot(RecipeIngredientRole.CATALYST, 64, 121 - 20 * i)
+            builder.addSlot(RecipeIngredientRole.CATALYST, 63, 121 - 20 * i)
                  .addItemStack(rite.spirits.get(i).getSplinterItem().getDefaultInstance());
         }
     }
