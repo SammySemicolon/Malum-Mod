@@ -8,7 +8,7 @@
       "item": "malum:soul_stained_steel_chestplate"
     }
   ],
-  "input": {
+  "augment": {
     "item": "minecraft:moss_block"
   },
   "tagAugment": "{\"malum:item_skin\":\"enby_hoodie\"}"

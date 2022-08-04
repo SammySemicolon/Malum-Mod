@@ -583,11 +583,21 @@ public class ItemRegistry {
         @SubscribeEvent
         public static void registerItemSkins(FMLClientSetupEvent event) {
             registerHoodie("ace");
+            registerHoodie("agender");
+            registerHoodie("aro");
+            registerHoodie("aroace");
             registerHoodie("bi");
+            registerHoodie("demiboy");
+            registerHoodie("demigirl");
             registerHoodie("enby");
             registerHoodie("gay");
+            registerHoodie("genderfluid");
+            registerHoodie("genderqueer");
+            registerHoodie("intersex");
             registerHoodie("lesbian");
             registerHoodie("pan");
+            registerHoodie("plural");
+            registerHoodie("poly");
             registerHoodie("pride");
             registerHoodie("trans");
         }

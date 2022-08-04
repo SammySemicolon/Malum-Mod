@@ -1,12 +1,9 @@
 package com.sammy.malum.common.recipe;
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.core.setup.content.RecipeSerializerRegistry;
-import com.sammy.malum.core.systems.recipe.SpiritWithCount;
 import com.sammy.ortus.systems.recipe.IOrtusRecipe;
-import com.sammy.ortus.systems.recipe.IngredientWithCount;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -19,7 +16,6 @@ import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -38,13 +34,13 @@ public class AugmentingRecipe extends IOrtusRecipe {
     private final ResourceLocation id;
 
     public final Ingredient targetItem;
-    public final Ingredient input;
+    public final Ingredient augment;
     public final CompoundTag tagAugment;
 
-    public AugmentingRecipe(ResourceLocation id, Ingredient targetItem, Ingredient input, CompoundTag tagAugment) {
+    public AugmentingRecipe(ResourceLocation id, Ingredient targetItem, Ingredient augment, CompoundTag tagAugment) {
         this.id = id;
         this.targetItem = targetItem;
-        this.input = input;
+        this.augment = augment;
         this.tagAugment = tagAugment;
     }
 
@@ -67,8 +63,12 @@ public class AugmentingRecipe extends IOrtusRecipe {
         return this.targetItem.test(input);
     }
 
-    public static AugmentingRecipe getRecipe(Level level, ItemStack stack) {
-        return getRecipe(level, c -> c.doesInputMatch(stack));
+    public boolean doesAugmentMatch(ItemStack input) {
+        return this.augment.test(input);
+    }
+
+    public static AugmentingRecipe getRecipe(Level level, ItemStack stack, ItemStack augment) {
+        return getRecipe(level, c -> c.doesInputMatch(stack) && c.doesAugmentMatch(augment));
     }
 
     public static AugmentingRecipe getRecipe(Level level, Predicate<AugmentingRecipe> predicate) {
@@ -90,7 +90,7 @@ public class AugmentingRecipe extends IOrtusRecipe {
         @Override
         public AugmentingRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
             Ingredient targetItem = Ingredient.fromJson(json.get("targetItem"));
-            Ingredient input = Ingredient.fromJson(json.get("input"));
+            Ingredient input = Ingredient.fromJson(json.get("augment"));
 
             CompoundTag tagAugment = CraftingHelper.getNBT(json.get("tagAugment"));
             return new AugmentingRecipe(recipeId, targetItem, input, tagAugment);
@@ -108,7 +108,7 @@ public class AugmentingRecipe extends IOrtusRecipe {
         @Override
         public void toNetwork(FriendlyByteBuf buffer, AugmentingRecipe recipe) {
             recipe.targetItem.toNetwork(buffer);
-            recipe.input.toNetwork(buffer);
+            recipe.augment.toNetwork(buffer);
             buffer.writeNbt(recipe.tagAugment);
         }
     }

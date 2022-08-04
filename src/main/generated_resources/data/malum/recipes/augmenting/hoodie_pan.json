@@ -8,7 +8,7 @@
       "item": "malum:soul_stained_steel_chestplate"
     }
   ],
-  "input": {
+  "augment": {
     "tag": "forge:crops/carrot"
   },
   "tagAugment": "{\"malum:item_skin\":\"pan_hoodie\"}"

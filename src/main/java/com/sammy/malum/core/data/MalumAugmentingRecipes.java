@@ -33,14 +33,23 @@ public class MalumAugmentingRecipes extends RecipeProvider {
 
     @Override
     protected void buildCraftingRecipes(Consumer<FinishedRecipe> consumer) {
-        addHoodie(consumer, Ingredient.of(Tags.Items.EGGS), "trans");
-        addHoodie(consumer, Ingredient.of(Tags.Items.CROPS_CARROT), "pan");
         addHoodie(consumer, Ingredient.of(Items.BREAD), "ace");
+        addHoodie(consumer, Ingredient.of(Items.ARROW), "aro");
+        addHoodie(consumer, Ingredient.of(Items.WHEAT_SEEDS), "aroace");
         addHoodie(consumer, Ingredient.of(Items.WHEAT), "bi");
+        addHoodie(consumer, Ingredient.of(Items.RAW_IRON), "demiboy");
+        addHoodie(consumer, Ingredient.of(Items.RAW_COPPER), "demigirl");
         addHoodie(consumer, Ingredient.of(Items.MOSS_BLOCK), "enby");
-        addHoodie(consumer, Ingredient.of(Items.SALMON), "gay");
+        addHoodie(consumer, Ingredient.of(Items.MELON_SLICE), "gay");
+        addHoodie(consumer, Ingredient.of(Items.WATER_BUCKET), "genderfluid");
+        addHoodie(consumer, Ingredient.of(Items.GLASS_BOTTLE), "genderqueer");
+        addHoodie(consumer, Ingredient.of(Items.HOPPER), "intersex");
         addHoodie(consumer, Ingredient.of(Items.HONEYCOMB), "lesbian");
+        addHoodie(consumer, Ingredient.of(Tags.Items.CROPS_CARROT), "pan");
+        addHoodie(consumer, Ingredient.of(Items.REPEATER), "plural");
+        addHoodie(consumer, Ingredient.of(Items.COMPARATOR), "poly");
         addHoodie(consumer, Ingredient.of(Items.STONE_BRICK_WALL), "pride");
+        addHoodie(consumer, Ingredient.of(Tags.Items.EGGS), "trans");
     }
 
     public void addHoodie(Consumer<FinishedRecipe> consumer, Ingredient input, String value) {

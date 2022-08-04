@@ -8,8 +8,8 @@
       "item": "malum:soul_stained_steel_chestplate"
     }
   ],
-  "input": {
-    "item": "minecraft:salmon"
+  "augment": {
+    "item": "minecraft:melon_slice"
   },
   "tagAugment": "{\"malum:item_skin\":\"gay_hoodie\"}"
 }

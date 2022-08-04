@@ -8,7 +8,7 @@
       "item": "malum:soul_stained_steel_chestplate"
     }
   ],
-  "input": {
+  "augment": {
     "item": "minecraft:stone_brick_wall"
   },
   "tagAugment": "{\"malum:item_skin\":\"pride_hoodie\"}"
