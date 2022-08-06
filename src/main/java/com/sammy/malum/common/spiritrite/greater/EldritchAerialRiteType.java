@@ -67,7 +67,7 @@ public class EldritchAerialRiteType extends MalumRiteType {
 
     // From Botania, modified slightly
     private static ItemStack getToolForState(BlockState state) {
-        if (state.requiresCorrectToolForDrops()) {
+        if (!state.requiresCorrectToolForDrops()) {
             return new ItemStack(Items.NETHERITE_PICKAXE);
         } else {
             for (Item item : TOOLS) {
