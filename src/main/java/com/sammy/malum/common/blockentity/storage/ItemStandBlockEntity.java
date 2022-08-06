@@ -95,15 +95,6 @@ public class ItemStandBlockEntity extends ItemHolderBlockEntity implements IAlta
 
     @Nonnull
     @Override
-    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap) {
-        if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-            return inventory.inventoryOptional.cast();
-        }
-        return super.getCapability(cap);
-    }
-
-    @Nonnull
-    @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, Direction side) {
         if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
             return inventory.inventoryOptional.cast();

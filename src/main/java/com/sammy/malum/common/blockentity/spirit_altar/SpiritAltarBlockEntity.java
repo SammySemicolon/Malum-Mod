@@ -6,6 +6,7 @@ import com.sammy.malum.common.packets.particle.block.functional.AltarCraftPartic
 import com.sammy.malum.common.recipe.SpiritInfusionRecipe;
 import com.sammy.malum.core.helper.SpiritHelper;
 import com.sammy.malum.core.setup.content.SoundRegistry;
+import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
 import com.sammy.malum.core.setup.content.block.BlockEntityRegistry;
 import com.sammy.malum.core.systems.recipe.SpiritWithCount;
 import com.sammy.ortus.helpers.BlockHelper;
@@ -34,7 +35,10 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.wrapper.CombinedInvWrapper;
 import net.minecraftforge.network.PacketDistributor;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -67,6 +71,9 @@ public class SpiritAltarBlockEntity extends OrtusBlockEntity {
     public ArrayList<SpiritInfusionRecipe> possibleRecipes = new ArrayList<>();
     public SpiritInfusionRecipe recipe;
 
+    public LazyOptional<IItemHandler> internalInventory = LazyOptional.of(() -> new CombinedInvWrapper(inventory, extrasInventory, spiritInventory));
+    public LazyOptional<IItemHandler> exposedInventory = LazyOptional.of(() -> new CombinedInvWrapper(inventory, spiritInventory));
+
     public SpiritAltarBlockEntity(BlockEntityType<? extends SpiritAltarBlockEntity> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
     }
@@ -89,13 +96,28 @@ public class SpiritAltarBlockEntity extends OrtusBlockEntity {
                 BlockHelper.updateAndNotifyState(level, worldPosition);
             }
         };
-        spiritInventory = new OrtusBlockEntityInventory(8, 64, t -> t.getItem() instanceof MalumSpiritItem) {
+        spiritInventory = new OrtusBlockEntityInventory(SpiritTypeRegistry.SPIRITS.size(), 64) {
             @Override
             public void onContentsChanged(int slot) {
                 super.onContentsChanged(slot);
                 needsSync = true;
                 spiritAmount = Math.max(1, Mth.lerp(0.15f, spiritAmount, nonEmptyItemAmount + 1));
                 BlockHelper.updateAndNotifyState(level, worldPosition);
+            }
+
+            @Override
+            public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+                if (!(stack.getItem() instanceof MalumSpiritItem spiritItem))
+                    return false;
+
+                for (int i = 0; i < getSlots(); i++) {
+                    if (i != slot) {
+                        ItemStack stackInSlot = getStackInSlot(i);
+                        if (!stackInSlot.isEmpty() && stackInSlot.getItem() == spiritItem)
+                            return false;
+                    }
+                }
+                return true;
             }
         };
     }
@@ -353,6 +375,7 @@ public class SpiritAltarBlockEntity extends OrtusBlockEntity {
                 scaleMultiplier += amount * 0.02f;
             }
         }
+        int spiritsRendered = 0;
         for (int i = 0; i < spiritInventory.slotCount; i++) {
             ItemStack item = spiritInventory.getStackInSlot(i);
             for (IAltarAccelerator accelerator : accelerators) {
@@ -361,7 +384,7 @@ public class SpiritAltarBlockEntity extends OrtusBlockEntity {
                 }
             }
             if (item.getItem() instanceof MalumSpiritItem spiritSplinterItem) {
-                Vec3 offset = getSpiritOffset(i, 0);
+                Vec3 offset = getSpiritOffset(spiritsRendered++, 0);
                 Color color = spiritSplinterItem.type.getColor();
                 Color endColor = spiritSplinterItem.type.getEndColor();
                 double x = getBlockPos().getX() + offset.x();
@@ -428,18 +451,11 @@ public class SpiritAltarBlockEntity extends OrtusBlockEntity {
 
     @Nonnull
     @Override
-    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap) {
-        if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-            return inventory.inventoryOptional.cast();
-        }
-        return super.getCapability(cap);
-    }
-
-    @Nonnull
-    @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, Direction side) {
         if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-            return inventory.inventoryOptional.cast();
+            if (side == null)
+                return internalInventory.cast();
+            return exposedInventory.cast();
         }
         return super.getCapability(cap, side);
     }

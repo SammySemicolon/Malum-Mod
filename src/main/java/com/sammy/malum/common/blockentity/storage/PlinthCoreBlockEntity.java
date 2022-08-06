@@ -1,17 +1,16 @@
 package com.sammy.malum.common.blockentity.storage;
 
 import com.sammy.malum.common.item.spirit.MalumSpiritItem;
+import com.sammy.malum.core.helper.SpiritHelper;
 import com.sammy.malum.core.setup.content.block.BlockEntityRegistry;
 import com.sammy.malum.core.setup.content.block.BlockRegistry;
+import com.sammy.malum.core.systems.item.ISoulContainerItem;
+import com.sammy.malum.core.systems.spirit.MalumEntitySpiritData;
 import com.sammy.ortus.helpers.BlockHelper;
-import com.sammy.ortus.helpers.DataHelper;
 import com.sammy.ortus.helpers.ItemHelper;
 import com.sammy.ortus.systems.blockentity.OrtusBlockEntityInventory;
-import com.sammy.malum.core.systems.item.ISoulContainerItem;
 import com.sammy.ortus.systems.multiblock.MultiBlockCoreEntity;
 import com.sammy.ortus.systems.multiblock.MultiBlockStructure;
-import com.sammy.malum.core.helper.SpiritHelper;
-import com.sammy.malum.core.systems.spirit.MalumEntitySpiritData;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -149,16 +148,6 @@ public class PlinthCoreBlockEntity extends MultiBlockCoreEntity {
 
     public Vec3 itemOffset() {
         return new Vec3(0.5f, 2f, 0.5f);
-    }
-
-
-    @Nonnull
-    @Override
-    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap) {
-        if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-            return inventory.inventoryOptional.cast();
-        }
-        return super.getCapability(cap);
     }
 
     @Nonnull
