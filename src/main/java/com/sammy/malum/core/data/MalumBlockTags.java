@@ -75,6 +75,7 @@ public class MalumBlockTags extends BlockTagsProvider {
         tag(BlockTagRegistry.RITE_IMMUNE).addTags(BlockTagRegistry.TAINTED_ROCK, BlockTagRegistry.TWISTED_ROCK);
 
         tag(BlockTagRegistry.ENDLESS_FLAME);
+        tag(BlockTagRegistry.GREATER_AERIAL_WHITELIST);
 
         for (Block block : getModBlocks(b -> b instanceof EtherBlock)) {
             tag(BlockTagRegistry.TRAY_HEAT_SOURCES).add(block);
