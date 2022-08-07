@@ -21,6 +21,8 @@ public class BlockTagRegistry {
 
     public static final TagKey<Block> ENDLESS_FLAME = malumTag("endless_flame");
 
+    public static final TagKey<Block> GREATER_AERIAL_WHITELIST = malumTag("greater_aerial_whitelist");
+
     public static final TagKey<Block> TRAY_HEAT_SOURCES = modTag("farmersdelight:tray_heat_sources");
     public static final TagKey<Block> HEAT_SOURCES = modTag("farmersdelight:heat_sources");
 
