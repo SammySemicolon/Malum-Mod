@@ -1,7 +1,7 @@
 package com.sammy.malum.client.particles.spiritflame;
 
 import com.mojang.serialization.Codec;
-import com.sammy.ortus.systems.rendering.particle.world.WorldParticleOptions;
+import team.lodestar.lodestone.systems.rendering.particle.world.WorldParticleOptions;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleEngine;

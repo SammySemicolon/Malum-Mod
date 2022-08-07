@@ -37,14 +37,14 @@ import com.sammy.malum.core.setup.content.block.BlockRegistry;
 import com.sammy.malum.core.setup.content.entity.EntityRegistry;
 import com.sammy.malum.core.setup.content.item.tabs.*;
 import com.sammy.malum.core.systems.item.ItemSkin;
-import com.sammy.ortus.helpers.ColorHelper;
-import com.sammy.ortus.helpers.DataHelper;
-import com.sammy.ortus.systems.item.OrtusBoatItem;
-import com.sammy.ortus.systems.item.OrtusFuelBlockItem;
-import com.sammy.ortus.systems.item.OrtusFuelItem;
-import com.sammy.ortus.systems.item.tools.magic.*;
-import com.sammy.ortus.systems.model.OrtusArmorModel;
-import com.sammy.ortus.systems.multiblock.MultiBlockItem;
+import team.lodestar.lodestone.helpers.ColorHelper;
+import team.lodestar.lodestone.helpers.DataHelper;
+import team.lodestar.lodestone.systems.item.LodestoneBoatItem;
+import team.lodestar.lodestone.systems.item.LodestoneFuelBlockItem;
+import team.lodestar.lodestone.systems.item.LodestoneFuelItem;
+import team.lodestar.lodestone.systems.item.tools.magic.*;
+import team.lodestar.lodestone.systems.model.LodestoneArmorModel;
+import team.lodestar.lodestone.systems.multiblock.MultiBlockItem;
 import net.minecraft.client.color.item.ItemColors;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
@@ -73,8 +73,8 @@ import java.util.function.Supplier;
 
 import static com.sammy.malum.MalumMod.MALUM;
 import static com.sammy.malum.core.setup.content.item.ItemTiers.ItemTierEnum.SOUL_STAINED_STEEL;
-import static com.sammy.ortus.helpers.ColorHelper.brighter;
-import static com.sammy.ortus.helpers.ColorHelper.darker;
+import static team.lodestar.lodestone.helpers.ColorHelper.brighter;
+import static team.lodestar.lodestone.helpers.ColorHelper.darker;
 import static net.minecraft.world.item.Items.GLASS_BOTTLE;
 
 @SuppressWarnings("unused")
@@ -270,7 +270,7 @@ public class ItemRegistry {
     public static final RegistryObject<Item> RUNEWOOD_ITEM_PEDESTAL = ITEMS.register("runewood_item_pedestal", () -> new BlockItem(BlockRegistry.RUNEWOOD_ITEM_PEDESTAL.get(), NATURE_PROPERTIES()));
 
     public static final RegistryObject<Item> RUNEWOOD_SIGN = ITEMS.register("runewood_sign", () -> new SignItem(NATURE_PROPERTIES().stacksTo(16), BlockRegistry.RUNEWOOD_SIGN.get(), BlockRegistry.RUNEWOOD_WALL_SIGN.get()));
-    public static final RegistryObject<Item> RUNEWOOD_BOAT = ITEMS.register("runewood_boat", () -> new OrtusBoatItem(NATURE_PROPERTIES().stacksTo(1), EntityRegistry.RUNEWOOD_BOAT));
+    public static final RegistryObject<Item> RUNEWOOD_BOAT = ITEMS.register("runewood_boat", () -> new LodestoneBoatItem(NATURE_PROPERTIES().stacksTo(1), EntityRegistry.RUNEWOOD_BOAT));
     //endregion
 
     //endregion
@@ -331,7 +331,7 @@ public class ItemRegistry {
     public static final RegistryObject<Item> SOULWOOD_ITEM_PEDESTAL = ITEMS.register("soulwood_item_pedestal", () -> new BlockItem(BlockRegistry.SOULWOOD_ITEM_PEDESTAL.get(), NATURE_PROPERTIES()));
 
     public static final RegistryObject<Item> SOULWOOD_SIGN = ITEMS.register("soulwood_sign", () -> new SignItem(NATURE_PROPERTIES().stacksTo(16), BlockRegistry.SOULWOOD_SIGN.get(), BlockRegistry.SOULWOOD_WALL_SIGN.get()));
-    public static final RegistryObject<Item> SOULWOOD_BOAT = ITEMS.register("soulwood_boat", () -> new OrtusBoatItem(NATURE_PROPERTIES().stacksTo(1), EntityRegistry.SOULWOOD_BOAT));
+    public static final RegistryObject<Item> SOULWOOD_BOAT = ITEMS.register("soulwood_boat", () -> new LodestoneBoatItem(NATURE_PROPERTIES().stacksTo(1), EntityRegistry.SOULWOOD_BOAT));
     //endregion
 
     //region spirits
@@ -348,17 +348,17 @@ public class ItemRegistry {
     //region ores
     public static final RegistryObject<Item> COPPER_NUGGET = ITEMS.register("copper_nugget", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MATERIALS)));
 
-    public static final RegistryObject<Item> COAL_FRAGMENT = ITEMS.register("coal_fragment", () -> new OrtusFuelItem(new Item.Properties().tab(CreativeModeTab.TAB_MATERIALS), 200));
-    public static final RegistryObject<Item> CHARCOAL_FRAGMENT = ITEMS.register("charcoal_fragment", () -> new OrtusFuelItem(new Item.Properties().tab(CreativeModeTab.TAB_MATERIALS), 200));
+    public static final RegistryObject<Item> COAL_FRAGMENT = ITEMS.register("coal_fragment", () -> new LodestoneFuelItem(new Item.Properties().tab(CreativeModeTab.TAB_MATERIALS), 200));
+    public static final RegistryObject<Item> CHARCOAL_FRAGMENT = ITEMS.register("charcoal_fragment", () -> new LodestoneFuelItem(new Item.Properties().tab(CreativeModeTab.TAB_MATERIALS), 200));
 
-    public static final RegistryObject<Item> ARCANE_CHARCOAL = ITEMS.register("arcane_charcoal", () -> new OrtusFuelItem(new Item.Properties().tab(CreativeModeTab.TAB_MATERIALS), 3200));
-    public static final RegistryObject<Item> ARCANE_CHARCOAL_FRAGMENT = ITEMS.register("arcane_charcoal_fragment", () -> new OrtusFuelItem(new Item.Properties().tab(CreativeModeTab.TAB_MATERIALS), 400));
-    public static final RegistryObject<Item> BLOCK_OF_ARCANE_CHARCOAL = ITEMS.register("block_of_arcane_charcoal", () -> new OrtusFuelBlockItem(BlockRegistry.BLOCK_OF_ARCANE_CHARCOAL.get(), new Item.Properties().tab(CreativeModeTab.TAB_BUILDING_BLOCKS), 32000));
+    public static final RegistryObject<Item> ARCANE_CHARCOAL = ITEMS.register("arcane_charcoal", () -> new LodestoneFuelItem(new Item.Properties().tab(CreativeModeTab.TAB_MATERIALS), 3200));
+    public static final RegistryObject<Item> ARCANE_CHARCOAL_FRAGMENT = ITEMS.register("arcane_charcoal_fragment", () -> new LodestoneFuelItem(new Item.Properties().tab(CreativeModeTab.TAB_MATERIALS), 400));
+    public static final RegistryObject<Item> BLOCK_OF_ARCANE_CHARCOAL = ITEMS.register("block_of_arcane_charcoal", () -> new LodestoneFuelBlockItem(BlockRegistry.BLOCK_OF_ARCANE_CHARCOAL.get(), new Item.Properties().tab(CreativeModeTab.TAB_BUILDING_BLOCKS), 32000));
 
     public static final RegistryObject<Item> BLAZING_QUARTZ_ORE = ITEMS.register("blazing_quartz_ore", () -> new BlockItem(BlockRegistry.BLAZING_QUARTZ_ORE.get(), new Item.Properties().tab(CreativeModeTab.TAB_BUILDING_BLOCKS)));
-    public static final RegistryObject<Item> BLAZING_QUARTZ = ITEMS.register("blazing_quartz", () -> new OrtusFuelItem(new Item.Properties().tab(CreativeModeTab.TAB_MATERIALS), 1600));
-    public static final RegistryObject<Item> BLAZING_QUARTZ_FRAGMENT = ITEMS.register("blazing_quartz_fragment", () -> new OrtusFuelItem(new Item.Properties().tab(CreativeModeTab.TAB_MISC), 200));
-    public static final RegistryObject<Item> BLOCK_OF_BLAZING_QUARTZ = ITEMS.register("block_of_blazing_quartz", () -> new OrtusFuelBlockItem(BlockRegistry.BLOCK_OF_BLAZING_QUARTZ.get(), new Item.Properties().tab(CreativeModeTab.TAB_BUILDING_BLOCKS), 16000));
+    public static final RegistryObject<Item> BLAZING_QUARTZ = ITEMS.register("blazing_quartz", () -> new LodestoneFuelItem(new Item.Properties().tab(CreativeModeTab.TAB_MATERIALS), 1600));
+    public static final RegistryObject<Item> BLAZING_QUARTZ_FRAGMENT = ITEMS.register("blazing_quartz_fragment", () -> new LodestoneFuelItem(new Item.Properties().tab(CreativeModeTab.TAB_MISC), 200));
+    public static final RegistryObject<Item> BLOCK_OF_BLAZING_QUARTZ = ITEMS.register("block_of_blazing_quartz", () -> new LodestoneFuelBlockItem(BlockRegistry.BLOCK_OF_BLAZING_QUARTZ.get(), new Item.Properties().tab(CreativeModeTab.TAB_BUILDING_BLOCKS), 16000));
 
     public static final RegistryObject<Item> NATURAL_QUARTZ_ORE = ITEMS.register("natural_quartz_ore", () -> new BlockItem(BlockRegistry.NATURAL_QUARTZ_ORE.get(), new Item.Properties().tab(CreativeModeTab.TAB_BUILDING_BLOCKS)));
     public static final RegistryObject<Item> DEEPSLATE_QUARTZ_ORE = ITEMS.register("deepslate_quartz_ore", () -> new BlockItem(BlockRegistry.DEEPSLATE_QUARTZ_ORE.get(), new Item.Properties().tab(CreativeModeTab.TAB_BUILDING_BLOCKS)));
@@ -572,7 +572,7 @@ public class ItemRegistry {
 
         public static SpiritHunterArmorModel SPIRIT_HUNTER_ARMOR;
         public static SoulStainedSteelArmorModel SOUL_STAINED_ARMOR;
-        public static GenericSlimArmorModel GENERIC_SLIM_ARMOR; //TODO: these should probably go to ortusLib
+        public static GenericSlimArmorModel GENERIC_SLIM_ARMOR; //TODO: these should probably go to lodestone, at least the GenericArmorModel classes
         public static GenericArmorModel GENERIC_ARMOR;
 
         public static DripArmorModel DRIP_ARMOR;
@@ -676,7 +676,7 @@ public class ItemRegistry {
             return stack.hasTag() ? SKINS.get(stack.getTag().getString(MALUM_SKIN_TAG)) : null;
         }
 
-        public static void registerSkin(String tag, ResourceLocation path, Supplier<OrtusArmorModel> model) {
+        public static void registerSkin(String tag, ResourceLocation path, Supplier<LodestoneArmorModel> model) {
             SKINS.put(tag, new ItemSkin(path, model));
         }
 

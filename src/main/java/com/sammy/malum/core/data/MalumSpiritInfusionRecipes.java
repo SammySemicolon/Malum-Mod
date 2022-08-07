@@ -21,7 +21,7 @@ import net.minecraftforge.registries.RegistryObject;
 import java.util.function.Consumer;
 
 import static com.sammy.malum.core.setup.content.SpiritTypeRegistry.*;
-import static com.sammy.ortus.setup.OrtusItemTags.*;
+import static team.lodestar.lodestone.setup.LodestoneItemTags.*;
 
 public class MalumSpiritInfusionRecipes extends RecipeProvider implements IConditionBuilder {
     public MalumSpiritInfusionRecipes(DataGenerator generatorIn) {

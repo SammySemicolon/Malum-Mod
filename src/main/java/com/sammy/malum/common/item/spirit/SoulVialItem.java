@@ -3,7 +3,7 @@ package com.sammy.malum.common.item.spirit;
 import com.sammy.malum.common.entity.spirit.SoulEntity;
 import com.sammy.malum.core.systems.item.ISoulContainerItem;
 import com.sammy.malum.core.systems.spirit.MalumEntitySpiritData;
-import com.sammy.ortus.helpers.ItemHelper;
+import team.lodestar.lodestone.helpers.ItemHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;

@@ -1,10 +1,10 @@
 package com.sammy.malum.common.blockentity.spirit_altar;
 
 import com.sammy.malum.core.setup.content.SoundRegistry;
-import com.sammy.ortus.systems.sound.OrtusBlockEntitySoundInstance;
+import team.lodestar.lodestone.systems.sound.LodestoneBlockEntitySoundInstance;
 import net.minecraft.client.Minecraft;
 
-public class AltarSoundInstance extends OrtusBlockEntitySoundInstance<SpiritAltarBlockEntity> {
+public class AltarSoundInstance extends LodestoneBlockEntitySoundInstance<SpiritAltarBlockEntity> {
     public AltarSoundInstance(SpiritAltarBlockEntity blockEntity, float volume, float pitch) {
         super(blockEntity, SoundRegistry.ALTAR_LOOP.get(), volume, pitch);
         this.x = blockEntity.getBlockPos().getX() + 0.5f;

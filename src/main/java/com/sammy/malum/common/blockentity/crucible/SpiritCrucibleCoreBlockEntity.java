@@ -13,15 +13,15 @@ import com.sammy.malum.core.setup.content.SoundRegistry;
 import com.sammy.malum.core.setup.content.block.BlockEntityRegistry;
 import com.sammy.malum.core.setup.content.block.BlockRegistry;
 import com.sammy.malum.core.systems.recipe.SpiritWithCount;
-import com.sammy.ortus.helpers.BlockHelper;
-import com.sammy.ortus.helpers.DataHelper;
-import com.sammy.ortus.setup.OrtusParticleRegistry;
-import com.sammy.ortus.systems.blockentity.OrtusBlockEntityInventory;
-import com.sammy.ortus.systems.easing.Easing;
-import com.sammy.ortus.systems.multiblock.MultiBlockCoreEntity;
-import com.sammy.ortus.systems.multiblock.MultiBlockStructure;
-import com.sammy.ortus.systems.rendering.particle.ParticleBuilders;
-import com.sammy.ortus.systems.rendering.particle.SimpleParticleOptions;
+import team.lodestar.lodestone.helpers.BlockHelper;
+import team.lodestar.lodestone.helpers.DataHelper;
+import team.lodestar.lodestone.setup.LodestoneParticleRegistry;
+import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntityInventory;
+import team.lodestar.lodestone.systems.easing.Easing;
+import team.lodestar.lodestone.systems.multiblock.MultiBlockCoreEntity;
+import team.lodestar.lodestone.systems.multiblock.MultiBlockStructure;
+import team.lodestar.lodestone.systems.rendering.particle.ParticleBuilders;
+import team.lodestar.lodestone.systems.rendering.particle.SimpleParticleOptions;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -58,8 +58,8 @@ import static com.sammy.malum.core.setup.server.PacketRegistry.MALUM_CHANNEL;
 public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implements IAccelerationTarget, ITabletTracker {
     public static final Supplier<MultiBlockStructure> STRUCTURE = () -> (MultiBlockStructure.of(new MultiBlockStructure.StructurePiece(0, 1, 0, BlockRegistry.SPIRIT_CRUCIBLE_COMPONENT.get().defaultBlockState())));
 
-    public OrtusBlockEntityInventory inventory;
-    public OrtusBlockEntityInventory spiritInventory;
+    public LodestoneBlockEntityInventory inventory;
+    public LodestoneBlockEntityInventory spiritInventory;
     public SpiritFocusingRecipe focusingRecipe;
     public SpiritRepairRecipe repairRecipe;
     public float spiritAmount;
@@ -85,7 +85,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
 
     public SpiritCrucibleCoreBlockEntity(BlockEntityType<? extends SpiritCrucibleCoreBlockEntity> type, MultiBlockStructure structure, BlockPos pos, BlockState state) {
         super(type, structure, pos, state);
-        inventory = new OrtusBlockEntityInventory(1, 1, t -> !(t.getItem() instanceof MalumSpiritItem)) {
+        inventory = new LodestoneBlockEntityInventory(1, 1, t -> !(t.getItem() instanceof MalumSpiritItem)) {
             @Override
             public void onContentsChanged(int slot) {
                 super.onContentsChanged(slot);
@@ -93,7 +93,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
                 BlockHelper.updateAndNotifyState(level, worldPosition);
             }
         };
-        spiritInventory = new OrtusBlockEntityInventory(4, 64) {
+        spiritInventory = new LodestoneBlockEntityInventory(4, 64) {
             @Override
             public void onContentsChanged(int slot) {
                 super.onContentsChanged(slot);
@@ -487,7 +487,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
 
                 starParticles(itemPos, color, endColor);
 
-                ParticleBuilders.create(OrtusParticleRegistry.STAR_PARTICLE)
+                ParticleBuilders.create(LodestoneParticleRegistry.STAR_PARTICLE)
                         .setAlpha(0.24f / colors.size(), 0f)
                         .setLifetime(15)
                         .setScale(0.45f + level.random.nextFloat() * 0.15f, 0)
@@ -497,7 +497,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
                         .enableNoClip()
                         .repeat(level, tabletItemPos.x, tabletItemPos.y, tabletItemPos.z, 1);
 
-                ParticleBuilders.create(OrtusParticleRegistry.WISP_PARTICLE)
+                ParticleBuilders.create(LodestoneParticleRegistry.WISP_PARTICLE)
                         .setAlpha(0.4f / colors.size(), 0f)
                         .setLifetime((int) (10 + level.random.nextInt(8) + Math.sin((0.5 * level.getGameTime()) % 6.28f)))
                         .setScale(0.2f + level.random.nextFloat() * 0.15f, 0)
@@ -541,7 +541,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
                         }
                     }
                 }
-                ParticleBuilders.create(OrtusParticleRegistry.WISP_PARTICLE)
+                ParticleBuilders.create(LodestoneParticleRegistry.WISP_PARTICLE)
                         .setAlpha(0.30f, 0f)
                         .setLifetime(40)
                         .setScale(0.2f, 0)
@@ -554,7 +554,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
                         .enableNoClip()
                         .repeat(level, x, y, z, 1);
 
-                ParticleBuilders.create(OrtusParticleRegistry.WISP_PARTICLE)
+                ParticleBuilders.create(LodestoneParticleRegistry.WISP_PARTICLE)
                         .setAlpha(0.12f / spiritInventory.nonEmptyItemAmount, 0f)
                         .setLifetime(25)
                         .setScale(0.2f + level.random.nextFloat() * 0.1f, 0)
@@ -570,7 +570,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
     }
 
     public void starParticles(Vec3 itemPos, Color color, Color endColor) {
-        ParticleBuilders.create(OrtusParticleRegistry.STAR_PARTICLE)
+        ParticleBuilders.create(LodestoneParticleRegistry.STAR_PARTICLE)
                 .setAlpha(0.07f / spiritInventory.nonEmptyItemAmount, 0.16f / spiritInventory.nonEmptyItemAmount, 0f)
                 .setScaleEasing(Easing.SINE_IN, Easing.SINE_OUT)
                 .setLifetime(25)

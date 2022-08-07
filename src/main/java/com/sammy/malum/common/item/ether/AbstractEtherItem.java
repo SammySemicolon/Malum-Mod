@@ -1,6 +1,6 @@
 package com.sammy.malum.common.item.ether;
 
-import com.sammy.ortus.systems.rendering.particle.screen.emitter.ItemParticleEmitter;
+import team.lodestar.lodestone.systems.rendering.particle.screen.emitter.ItemParticleEmitter;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.DyeableLeatherItem;

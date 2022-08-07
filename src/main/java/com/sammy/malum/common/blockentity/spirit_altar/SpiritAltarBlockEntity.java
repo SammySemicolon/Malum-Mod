@@ -9,15 +9,15 @@ import com.sammy.malum.core.setup.content.SoundRegistry;
 import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
 import com.sammy.malum.core.setup.content.block.BlockEntityRegistry;
 import com.sammy.malum.core.systems.recipe.SpiritWithCount;
-import com.sammy.ortus.helpers.BlockHelper;
-import com.sammy.ortus.helpers.DataHelper;
-import com.sammy.ortus.setup.OrtusParticleRegistry;
-import com.sammy.ortus.systems.blockentity.OrtusBlockEntity;
-import com.sammy.ortus.systems.blockentity.OrtusBlockEntityInventory;
-import com.sammy.ortus.systems.easing.Easing;
-import com.sammy.ortus.systems.recipe.IngredientWithCount;
-import com.sammy.ortus.systems.rendering.particle.ParticleBuilders;
-import com.sammy.ortus.systems.rendering.particle.SimpleParticleOptions;
+import team.lodestar.lodestone.helpers.BlockHelper;
+import team.lodestar.lodestone.helpers.DataHelper;
+import team.lodestar.lodestone.setup.LodestoneParticleRegistry;
+import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntity;
+import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntityInventory;
+import team.lodestar.lodestone.systems.easing.Easing;
+import team.lodestar.lodestone.systems.recipe.IngredientWithCount;
+import team.lodestar.lodestone.systems.rendering.particle.ParticleBuilders;
+import team.lodestar.lodestone.systems.rendering.particle.SimpleParticleOptions;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -50,7 +50,7 @@ import java.util.stream.Collectors;
 
 import static com.sammy.malum.core.setup.server.PacketRegistry.MALUM_CHANNEL;
 
-public class SpiritAltarBlockEntity extends OrtusBlockEntity {
+public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
 
     private static final int HORIZONTAL_RANGE = 4;
     private static final int VERTICAL_RANGE = 3;
@@ -65,9 +65,9 @@ public class SpiritAltarBlockEntity extends OrtusBlockEntity {
     public float spiritSpin;
     public boolean isCrafting;
 
-    public OrtusBlockEntityInventory inventory;
-    public OrtusBlockEntityInventory extrasInventory;
-    public OrtusBlockEntityInventory spiritInventory;
+    public LodestoneBlockEntityInventory inventory;
+    public LodestoneBlockEntityInventory extrasInventory;
+    public LodestoneBlockEntityInventory spiritInventory;
     public ArrayList<SpiritInfusionRecipe> possibleRecipes = new ArrayList<>();
     public SpiritInfusionRecipe recipe;
 
@@ -81,7 +81,7 @@ public class SpiritAltarBlockEntity extends OrtusBlockEntity {
     public SpiritAltarBlockEntity(BlockPos pos, BlockState state) {
         super(BlockEntityRegistry.SPIRIT_ALTAR.get(), pos, state);
 
-        inventory = new OrtusBlockEntityInventory(1, 64, t -> !(t.getItem() instanceof MalumSpiritItem)) {
+        inventory = new LodestoneBlockEntityInventory(1, 64, t -> !(t.getItem() instanceof MalumSpiritItem)) {
             @Override
             public void onContentsChanged(int slot) {
                 super.onContentsChanged(slot);
@@ -89,14 +89,14 @@ public class SpiritAltarBlockEntity extends OrtusBlockEntity {
                 BlockHelper.updateAndNotifyState(level, worldPosition);
             }
         };
-        extrasInventory = new OrtusBlockEntityInventory(8, 1) {
+        extrasInventory = new LodestoneBlockEntityInventory(8, 1) {
             @Override
             public void onContentsChanged(int slot) {
                 super.onContentsChanged(slot);
                 BlockHelper.updateAndNotifyState(level, worldPosition);
             }
         };
-        spiritInventory = new OrtusBlockEntityInventory(SpiritTypeRegistry.SPIRITS.size(), 64) {
+        spiritInventory = new LodestoneBlockEntityInventory(SpiritTypeRegistry.SPIRITS.size(), 64) {
             @Override
             public void onContentsChanged(int slot) {
                 super.onContentsChanged(slot);
@@ -284,7 +284,7 @@ public class SpiritAltarBlockEntity extends OrtusBlockEntity {
             progress *= 0.8f;
             Collection<IAltarProvider> altarProviders = BlockHelper.getBlockEntities(IAltarProvider.class, level, worldPosition, HORIZONTAL_RANGE, VERTICAL_RANGE, HORIZONTAL_RANGE);
             for (IAltarProvider provider : altarProviders) {
-                OrtusBlockEntityInventory inventoryForAltar = provider.getInventoryForAltar();
+                LodestoneBlockEntityInventory inventoryForAltar = provider.getInventoryForAltar();
                 ItemStack providedStack = inventoryForAltar.getStackInSlot(0);
                 IngredientWithCount requestedItem = recipe.extraItems.get(extras);
                 boolean matches = requestedItem.matches(providedStack);
@@ -399,7 +399,7 @@ public class SpiritAltarBlockEntity extends OrtusBlockEntity {
                             accelerator.addParticles(color, endColor, alpha, worldPosition, itemPos);
                         }
                     }
-                    ParticleBuilders.create(OrtusParticleRegistry.WISP_PARTICLE)
+                    ParticleBuilders.create(LodestoneParticleRegistry.WISP_PARTICLE)
                             .setAlpha(0.15f, 0.25f, 0f)
                             .setLifetime(particleAge)
                             .setScale(0.225f*scaleMultiplier, 0)
@@ -414,7 +414,7 @@ public class SpiritAltarBlockEntity extends OrtusBlockEntity {
                             .enableNoClip()
                             .repeat(level, x, y, z, 1);
 
-                    ParticleBuilders.create(OrtusParticleRegistry.WISP_PARTICLE)
+                    ParticleBuilders.create(LodestoneParticleRegistry.WISP_PARTICLE)
                             .setAlpha(0.05f, 0.15f, 0f)
                             .setLifetime(particleAge)
                             .setScale(0.1f*scaleMultiplier, 0)
@@ -429,7 +429,7 @@ public class SpiritAltarBlockEntity extends OrtusBlockEntity {
                             .enableNoClip()
                             .repeat(level, x, y, z, 1);
 
-                    ParticleBuilders.create(OrtusParticleRegistry.TWINKLE_PARTICLE)
+                    ParticleBuilders.create(LodestoneParticleRegistry.TWINKLE_PARTICLE)
                             .setAlpha(alpha*0.5f, alpha*3.5f, 0f)
                             .setScaleEasing(Easing.SINE_IN, Easing.SINE_OUT)
                             .setLifetime(particleAge)

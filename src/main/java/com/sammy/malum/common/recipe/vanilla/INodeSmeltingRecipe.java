@@ -1,6 +1,6 @@
 package com.sammy.malum.common.recipe.vanilla;
 
-import com.sammy.ortus.systems.recipe.IngredientWithCount;
+import team.lodestar.lodestone.systems.recipe.IngredientWithCount;
 
 public interface INodeSmeltingRecipe {
     public IngredientWithCount getOutput();

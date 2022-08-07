@@ -7,7 +7,7 @@ import com.sammy.malum.core.handlers.SpiritHarvestHandler;
 import com.sammy.malum.core.setup.content.AttributeRegistry;
 import com.sammy.malum.core.setup.content.entity.EntityRegistry;
 import com.sammy.malum.core.helper.SpiritHelper;
-import com.sammy.ortus.helpers.ItemHelper;
+import team.lodestar.lodestone.helpers.ItemHelper;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.server.level.ServerLevel;

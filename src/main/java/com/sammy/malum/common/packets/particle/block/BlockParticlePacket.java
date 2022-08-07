@@ -1,10 +1,10 @@
 package com.sammy.malum.common.packets.particle.block;
 
-import com.sammy.ortus.setup.OrtusParticleRegistry;
-import com.sammy.ortus.systems.easing.Easing;
-import com.sammy.ortus.systems.network.OrtusClientPacket;
-import com.sammy.ortus.systems.rendering.particle.ParticleBuilders;
-import com.sammy.ortus.systems.rendering.particle.SimpleParticleOptions;
+import team.lodestar.lodestone.setup.LodestoneParticleRegistry;
+import team.lodestar.lodestone.systems.easing.Easing;
+import team.lodestar.lodestone.systems.network.LodestoneClientPacket;
+import team.lodestar.lodestone.systems.rendering.particle.ParticleBuilders;
+import team.lodestar.lodestone.systems.rendering.particle.SimpleParticleOptions;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -19,7 +19,7 @@ import net.minecraftforge.network.simple.SimpleChannel;
 import java.awt.*;
 import java.util.function.Supplier;
 
-public class BlockParticlePacket extends OrtusClientPacket {
+public class BlockParticlePacket extends LodestoneClientPacket {
     protected final Color color;
     protected final BlockPos pos;
 
@@ -41,7 +41,7 @@ public class BlockParticlePacket extends OrtusClientPacket {
     @Override
     public void execute(Supplier<NetworkEvent.Context> context) {
         Level level = Minecraft.getInstance().level;
-        ParticleBuilders.create(OrtusParticleRegistry.WISP_PARTICLE)
+        ParticleBuilders.create(LodestoneParticleRegistry.WISP_PARTICLE)
                 .setAlpha(0.12f, 0.16f, 0)
                 .setLifetime(10)
                 .setSpin(0.2f)
@@ -54,7 +54,7 @@ public class BlockParticlePacket extends OrtusClientPacket {
                 .overwriteRemovalProtocol(SimpleParticleOptions.SpecialRemovalProtocol.ENDING_CURVE_INVISIBLE)
                 .evenlyRepeatEdges(level, pos, 6, Direction.NORTH, Direction.SOUTH, Direction.EAST, Direction.WEST);
 
-        ParticleBuilders.create(OrtusParticleRegistry.SMOKE_PARTICLE)
+        ParticleBuilders.create(LodestoneParticleRegistry.SMOKE_PARTICLE)
                 .setAlpha(0.04f, 0.08f, 0)
                 .setLifetime(15)
                 .setSpin(0.1f)

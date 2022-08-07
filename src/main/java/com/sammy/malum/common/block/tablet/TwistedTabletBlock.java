@@ -2,7 +2,7 @@ package com.sammy.malum.common.block.tablet;
 
 import com.sammy.malum.common.block.spirit_crucible.SpiritCrucibleComponentBlock;
 import com.sammy.malum.common.blockentity.tablet.TwistedTabletBlockEntity;
-import com.sammy.ortus.systems.block.WaterLoggedEntityBlock;
+import team.lodestar.lodestone.systems.block.WaterLoggedEntityBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;

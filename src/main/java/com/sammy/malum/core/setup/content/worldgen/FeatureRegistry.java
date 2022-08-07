@@ -6,7 +6,7 @@ import com.sammy.malum.common.worldgen.RunewoodTreeFeature;
 import com.sammy.malum.common.worldgen.SoulwoodTreeFeature;
 import com.sammy.malum.config.CommonConfig;
 import com.sammy.malum.core.setup.content.block.BlockRegistry;
-import com.sammy.ortus.systems.worldgen.ChancePlacementFilter;
+import team.lodestar.lodestone.systems.worldgen.ChancePlacementFilter;
 import net.minecraft.core.Holder;
 import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.data.worldgen.features.OreFeatures;

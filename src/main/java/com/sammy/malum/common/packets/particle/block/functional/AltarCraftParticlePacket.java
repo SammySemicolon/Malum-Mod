@@ -2,8 +2,8 @@ package com.sammy.malum.common.packets.particle.block.functional;
 
 import com.sammy.malum.core.helper.SpiritHelper;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
-import com.sammy.ortus.setup.OrtusParticleRegistry;
-import com.sammy.ortus.systems.rendering.particle.ParticleBuilders;
+import team.lodestar.lodestone.setup.LodestoneParticleRegistry;
+import team.lodestar.lodestone.systems.rendering.particle.ParticleBuilders;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.level.Level;
@@ -34,7 +34,7 @@ public class AltarCraftParticlePacket extends FunctionalBlockParticlePacket {
         for (MalumSpiritType type : types) {
             Color color = type.getColor();
             Color endColor = type.getEndColor();
-            ParticleBuilders.create(OrtusParticleRegistry.TWINKLE_PARTICLE)
+            ParticleBuilders.create(LodestoneParticleRegistry.TWINKLE_PARTICLE)
                     .setAlpha(0.6f, 0f)
                     .setLifetime(80)
                     .setScale(0.15f, 0)
@@ -45,7 +45,7 @@ public class AltarCraftParticlePacket extends FunctionalBlockParticlePacket {
                     .setGravity(1)
                     .repeat(level, posX, posY, posZ, 32);
 
-            ParticleBuilders.create(OrtusParticleRegistry.WISP_PARTICLE)
+            ParticleBuilders.create(LodestoneParticleRegistry.WISP_PARTICLE)
                     .setAlpha(0.2f, 0f)
                     .setLifetime(60)
                     .setScale(0.4f, 0)
@@ -55,7 +55,7 @@ public class AltarCraftParticlePacket extends FunctionalBlockParticlePacket {
                     .enableNoClip()
                     .repeat(level, posX, posY, posZ, 12);
 
-            ParticleBuilders.create(OrtusParticleRegistry.SPARKLE_PARTICLE)
+            ParticleBuilders.create(LodestoneParticleRegistry.SPARKLE_PARTICLE)
                     .setAlpha(0.05f, 0f)
                     .setLifetime(30)
                     .setScale(0.2f, 0)

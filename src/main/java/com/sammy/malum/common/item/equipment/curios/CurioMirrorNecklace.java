@@ -1,8 +1,8 @@
 package com.sammy.malum.common.item.equipment.curios;
 
 import com.sammy.malum.core.systems.item.IMalumEventResponderItem;
-import com.sammy.ortus.helpers.ItemHelper;
-import com.sammy.ortus.systems.item.IEventResponderItem;
+import team.lodestar.lodestone.helpers.ItemHelper;
+import team.lodestar.lodestone.systems.item.IEventResponderItem;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;

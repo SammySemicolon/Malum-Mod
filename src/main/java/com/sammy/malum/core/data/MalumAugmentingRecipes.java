@@ -50,11 +50,18 @@ public class MalumAugmentingRecipes extends RecipeProvider {
         addHoodie(consumer, Ingredient.of(Items.COMPARATOR), "poly");
         addHoodie(consumer, Ingredient.of(Items.STONE_BRICK_WALL), "pride");
         addHoodie(consumer, Ingredient.of(Tags.Items.EGGS), "trans");
+
+        addSkin(consumer, Ingredient.of(Items.NETHERITE_SCRAP), "commando_drip");
     }
 
     public void addHoodie(Consumer<FinishedRecipe> consumer, Ingredient input, String value) {
         Ingredient chestplates = Ingredient.of(ItemRegistry.SOUL_HUNTER_ROBE.get(), ItemRegistry.SOUL_STAINED_STEEL_CHESTPLATE.get());
         new SpiritAugmentingRecipeBuilder(chestplates, input, makeStringTag(ItemRegistry.ClientOnly.MALUM_SKIN_TAG, value+"_hoodie")).build(consumer, MalumMod.malumPath("augmenting/hoodie_"+value));
+    }
+
+    public void addSkin(Consumer<FinishedRecipe> consumer, Ingredient input, String value) {
+        Ingredient chestplates = Ingredient.of(ItemRegistry.SOUL_HUNTER_ROBE.get(), ItemRegistry.SOUL_STAINED_STEEL_CHESTPLATE.get());
+        new SpiritAugmentingRecipeBuilder(chestplates, input, makeStringTag(ItemRegistry.ClientOnly.MALUM_SKIN_TAG, value)).build(consumer, MalumMod.malumPath("augmenting/"+value));
     }
 
     public CompoundTag makeStringTag(String key, String value) {

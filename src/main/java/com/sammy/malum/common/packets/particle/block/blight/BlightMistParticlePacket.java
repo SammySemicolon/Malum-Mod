@@ -2,11 +2,11 @@ package com.sammy.malum.common.packets.particle.block.blight;
 
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.packets.particle.block.BlockParticlePacket;
-import com.sammy.ortus.setup.OrtusParticleRegistry;
-import com.sammy.ortus.systems.easing.Easing;
-import com.sammy.ortus.systems.network.OrtusClientPacket;
-import com.sammy.ortus.systems.rendering.particle.ParticleBuilders;
-import com.sammy.ortus.systems.rendering.particle.ParticleRenderTypes;
+import team.lodestar.lodestone.setup.LodestoneParticleRegistry;
+import team.lodestar.lodestone.systems.easing.Easing;
+import team.lodestar.lodestone.systems.network.LodestoneClientPacket;
+import team.lodestar.lodestone.systems.rendering.particle.ParticleBuilders;
+import team.lodestar.lodestone.systems.rendering.particle.ParticleRenderTypes;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -21,7 +21,7 @@ import net.minecraftforge.network.simple.SimpleChannel;
 import java.awt.*;
 import java.util.function.Supplier;
 
-public class BlightMistParticlePacket extends OrtusClientPacket {
+public class BlightMistParticlePacket extends LodestoneClientPacket {
     protected final BlockPos pos;
     public BlightMistParticlePacket(BlockPos pos) {
         this.pos = pos;
@@ -42,7 +42,7 @@ public class BlightMistParticlePacket extends OrtusClientPacket {
             float timeMultiplier = Mth.nextFloat(level.random, 0.9f, 1.4f);
             Color color = new Color((int)(31*multiplier), (int)(19*multiplier), (int)(31*multiplier));
             boolean spinDirection = level.random.nextBoolean();
-            ParticleBuilders.create(OrtusParticleRegistry.WISP_PARTICLE)
+            ParticleBuilders.create(LodestoneParticleRegistry.WISP_PARTICLE)
                     .setAlpha(0.2f, 1f, 0)
                     .setLifetime((int) (45*timeMultiplier))
                     .setSpin(0.2f*(spinDirection ? 1 : -1))
@@ -55,7 +55,7 @@ public class BlightMistParticlePacket extends OrtusClientPacket {
                     .overwriteRenderType(ParticleRenderTypes.TRANSPARENT)
                     .evenlyRepeatEdges(level, pos, 2, Direction.UP);
 
-            ParticleBuilders.create(OrtusParticleRegistry.SMOKE_PARTICLE)
+            ParticleBuilders.create(LodestoneParticleRegistry.SMOKE_PARTICLE)
                     .setAlpha(0.3f, 0.7f, 0)
                     .setLifetime((int) (50*timeMultiplier))
                     .setSpin(0.1f*(spinDirection ? 1 : -1))
@@ -69,7 +69,7 @@ public class BlightMistParticlePacket extends OrtusClientPacket {
                     .evenlyRepeatEdges(level, pos, 2, Direction.UP);
 
             color = new Color((int)(51*multiplier), (int)(31*multiplier), (int)(48*multiplier));
-            ParticleBuilders.create(OrtusParticleRegistry.SMOKE_PARTICLE)
+            ParticleBuilders.create(LodestoneParticleRegistry.SMOKE_PARTICLE)
                     .setAlpha(0.02f, 0.15f, 0)
                     .setLifetime((int) (50*timeMultiplier))
                     .setSpin(0.1f*(spinDirection ? 1 : -1))

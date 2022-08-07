@@ -3,10 +3,10 @@ package com.sammy.malum.common.blockentity.obelisk;
 import com.sammy.malum.common.blockentity.spirit_altar.IAltarAccelerator;
 import com.sammy.malum.core.setup.content.block.BlockEntityRegistry;
 import com.sammy.malum.core.setup.content.block.BlockRegistry;
-import com.sammy.ortus.helpers.BlockHelper;
-import com.sammy.ortus.setup.OrtusParticleRegistry;
-import com.sammy.ortus.systems.multiblock.MultiBlockStructure;
-import com.sammy.ortus.systems.rendering.particle.ParticleBuilders;
+import team.lodestar.lodestone.helpers.BlockHelper;
+import team.lodestar.lodestone.setup.LodestoneParticleRegistry;
+import team.lodestar.lodestone.systems.multiblock.MultiBlockStructure;
+import team.lodestar.lodestone.systems.rendering.particle.ParticleBuilders;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
@@ -35,7 +35,7 @@ public class RunewoodObeliskBlockEntity extends ObeliskCoreBlockEntity implement
     @Override
     public void addParticles(Color color, Color endColor, float alpha, BlockPos altarPos, Vec3 altarItemPos) {
         Vec3 startPos = BlockHelper.fromBlockPos(worldPosition).add(0.5f, 2.15f, 0.5f);
-        ParticleBuilders.create(OrtusParticleRegistry.WISP_PARTICLE)
+        ParticleBuilders.create(LodestoneParticleRegistry.WISP_PARTICLE)
                 .setAlpha(alpha, 0f)
                 .setLifetime(35)
                 .setScale(0.2f + level.random.nextFloat() * 0.1f, 0)
@@ -47,7 +47,7 @@ public class RunewoodObeliskBlockEntity extends ObeliskCoreBlockEntity implement
                 .enableNoClip()
                 .repeat(level, startPos.x, startPos.y, startPos.z, 1);
 
-        ParticleBuilders.create(OrtusParticleRegistry.SPARKLE_PARTICLE)
+        ParticleBuilders.create(LodestoneParticleRegistry.SPARKLE_PARTICLE)
                 .setAlpha(alpha, 0f)
                 .setLifetime(25)
                 .setScale(0.5f, 0)

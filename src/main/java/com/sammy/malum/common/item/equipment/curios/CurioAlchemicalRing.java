@@ -5,9 +5,9 @@ import com.google.common.collect.Multimap;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
 import com.sammy.malum.core.setup.content.potion.MalumMobEffectRegistry;
 import com.sammy.malum.core.systems.item.IMalumEventResponderItem;
-import com.sammy.ortus.helpers.CurioHelper;
-import com.sammy.ortus.helpers.EntityHelper;
-import com.sammy.ortus.setup.OrtusAttributeRegistry;
+import team.lodestar.lodestone.helpers.CurioHelper;
+import team.lodestar.lodestone.helpers.EntityHelper;
+import team.lodestar.lodestone.setup.LodestoneAttributeRegistry;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -28,7 +28,7 @@ public class CurioAlchemicalRing extends MalumCurioItem implements IMalumEventRe
     @Override
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(String identifier, ItemStack stack) {
         Multimap<Attribute, AttributeModifier> map = HashMultimap.create();
-        map.put(OrtusAttributeRegistry.MAGIC_RESISTANCE.get(), new AttributeModifier(uuids.computeIfAbsent(0, (i) -> UUID.randomUUID()), "Curio magic resistance", 1, AttributeModifier.Operation.ADDITION));
+        map.put(LodestoneAttributeRegistry.MAGIC_RESISTANCE.get(), new AttributeModifier(uuids.computeIfAbsent(0, (i) -> UUID.randomUUID()), "Curio magic resistance", 1, AttributeModifier.Operation.ADDITION));
         return map;
     }
 

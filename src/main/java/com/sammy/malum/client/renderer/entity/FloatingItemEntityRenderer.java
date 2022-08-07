@@ -5,12 +5,12 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Vector3f;
 import com.mojang.math.Vector4f;
 import com.sammy.malum.common.entity.FloatingItemEntity;
-import com.sammy.ortus.handlers.RenderHandler;
-import com.sammy.ortus.helpers.ColorHelper;
-import com.sammy.ortus.helpers.EntityHelper;
-import com.sammy.ortus.setup.OrtusRenderTypeRegistry;
-import com.sammy.ortus.systems.easing.Easing;
-import com.sammy.ortus.systems.rendering.VFXBuilders;
+import team.lodestar.lodestone.handlers.RenderHandler;
+import team.lodestar.lodestone.helpers.ColorHelper;
+import team.lodestar.lodestone.helpers.EntityHelper;
+import team.lodestar.lodestone.setup.LodestoneRenderTypeRegistry;
+import team.lodestar.lodestone.systems.easing.Easing;
+import team.lodestar.lodestone.systems.rendering.VFXBuilders;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -33,9 +33,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.sammy.malum.MalumMod.malumPath;
-import static com.sammy.ortus.handlers.RenderHandler.*;
-import static com.sammy.ortus.helpers.RenderHelper.FULL_BRIGHT;
-import static com.sammy.ortus.setup.OrtusRenderTypeRegistry.queueUniformChanges;
+import static team.lodestar.lodestone.handlers.RenderHandler.*;
+import static team.lodestar.lodestone.helpers.RenderHelper.FULL_BRIGHT;
+import static team.lodestar.lodestone.setup.LodestoneRenderTypeRegistry.queueUniformChanges;
 
 public class FloatingItemEntityRenderer extends EntityRenderer<FloatingItemEntity> {
     public final ItemRenderer itemRenderer;
@@ -48,10 +48,10 @@ public class FloatingItemEntityRenderer extends EntityRenderer<FloatingItemEntit
     }
 
     private static final ResourceLocation LIGHT_TRAIL = malumPath("textures/vfx/light_trail.png");
-    private static final RenderType LIGHT_TYPE = OrtusRenderTypeRegistry.ADDITIVE_TEXTURE_TRIANGLE.apply(LIGHT_TRAIL);
+    private static final RenderType LIGHT_TYPE = LodestoneRenderTypeRegistry.ADDITIVE_TEXTURE_TRIANGLE.apply(LIGHT_TRAIL);
 
     private static final ResourceLocation MESSY_TRAIL = malumPath("textures/vfx/messy_trail.png");
-    private static final RenderType MESSY_TYPE = OrtusRenderTypeRegistry.SCROLLING_TEXTURE_TRIANGLE.apply(MESSY_TRAIL);
+    private static final RenderType MESSY_TYPE = LodestoneRenderTypeRegistry.SCROLLING_TEXTURE_TRIANGLE.apply(MESSY_TRAIL);
 
 
     @Override
@@ -84,7 +84,7 @@ public class FloatingItemEntityRenderer extends EntityRenderer<FloatingItemEntit
             float size = 0.225f + i * 0.15f;
             float alpha = (0.3f - i * 0.12f);
             int finalI = i;
-            VertexConsumer messy = DELAYED_RENDER.getBuffer(queueUniformChanges(OrtusRenderTypeRegistry.copy(i, MESSY_TYPE),
+            VertexConsumer messy = DELAYED_RENDER.getBuffer(queueUniformChanges(LodestoneRenderTypeRegistry.copy(i, MESSY_TYPE),
                     (instance -> instance.safeGetUniform("Speed").set(1000 + 250f * finalI))));
             builder
                     .setAlpha(alpha)
@@ -141,8 +141,8 @@ public class FloatingItemEntityRenderer extends EntityRenderer<FloatingItemEntit
         for (int i = 0; i < 3; i++) {
             float size = (0.125f + i * 0.13f) * multiplier;
             float alpha = (0.75f - i * 0.3f);
-            builder.setAlpha(alpha * 0.6f).renderQuad(DELAYED_RENDER.getBuffer(OrtusRenderTypeRegistry.ADDITIVE_TEXTURE.applyAndCache(malumPath("textures/particle/wisp.png"))), poseStack, size * 0.75f);
-            builder.setAlpha(alpha).renderQuad(DELAYED_RENDER.getBuffer(OrtusRenderTypeRegistry.ADDITIVE_TEXTURE.applyAndCache(malumPath("textures/particle/twinkle.png"))), poseStack, size);
+            builder.setAlpha(alpha * 0.6f).renderQuad(DELAYED_RENDER.getBuffer(LodestoneRenderTypeRegistry.ADDITIVE_TEXTURE.applyAndCache(malumPath("textures/particle/wisp.png"))), poseStack, size * 0.75f);
+            builder.setAlpha(alpha).renderQuad(DELAYED_RENDER.getBuffer(LodestoneRenderTypeRegistry.ADDITIVE_TEXTURE.applyAndCache(malumPath("textures/particle/twinkle.png"))), poseStack, size);
         }
         poseStack.popPose();
     }

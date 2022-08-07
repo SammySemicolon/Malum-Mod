@@ -1,8 +1,8 @@
 package com.sammy.malum.common.block.obelisk;
 
 import com.sammy.malum.common.blockentity.obelisk.ObeliskCoreBlockEntity;
-import com.sammy.ortus.systems.block.WaterLoggedEntityBlock;
-import com.sammy.ortus.systems.multiblock.IMultiBlockCore;
+import team.lodestar.lodestone.systems.block.WaterLoggedEntityBlock;
+import team.lodestar.lodestone.systems.multiblock.IMultiBlockCore;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.entity.BlockEntityType;

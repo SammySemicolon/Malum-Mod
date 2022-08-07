@@ -11,14 +11,14 @@ import com.sammy.malum.core.setup.content.SoundRegistry;
 import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
 import com.sammy.malum.core.systems.item.IMalumEventResponderItem;
 import com.sammy.malum.core.systems.spirit.MalumSpiritAffinity;
-import com.sammy.ortus.handlers.ScreenParticleHandler;
-import com.sammy.ortus.helpers.ItemHelper;
-import com.sammy.ortus.setup.OrtusScreenParticleRegistry;
-import com.sammy.ortus.setup.OrtusShaderRegistry;
-import com.sammy.ortus.systems.rendering.ExtendedShaderInstance;
-import com.sammy.ortus.systems.rendering.VFXBuilders;
-import com.sammy.ortus.systems.rendering.particle.ParticleBuilders;
-import com.sammy.ortus.systems.rendering.particle.screen.base.ScreenParticle;
+import team.lodestar.lodestone.handlers.ScreenParticleHandler;
+import team.lodestar.lodestone.helpers.ItemHelper;
+import team.lodestar.lodestone.setup.LodestoneScreenParticleRegistry;
+import team.lodestar.lodestone.setup.LodestoneShaderRegistry;
+import team.lodestar.lodestone.systems.rendering.ExtendedShaderInstance;
+import team.lodestar.lodestone.systems.rendering.VFXBuilders;
+import team.lodestar.lodestone.systems.rendering.particle.ParticleBuilders;
+import team.lodestar.lodestone.systems.rendering.particle.screen.base.ScreenParticle;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.resources.ResourceLocation;
@@ -141,7 +141,7 @@ public class ArcaneAffinity extends MalumSpiritAffinity {
                             RenderSystem.depthMask(true);
                             RenderSystem.enableBlend();
                             RenderSystem.defaultBlendFunc();
-                            ExtendedShaderInstance shaderInstance = (ExtendedShaderInstance) OrtusShaderRegistry.DISTORTED_TEXTURE.getInstance().get();
+                            ExtendedShaderInstance shaderInstance = (ExtendedShaderInstance) LodestoneShaderRegistry.DISTORTED_TEXTURE.getInstance().get();
                             shaderInstance.safeGetUniform("YFrequency").set(15f);
                             shaderInstance.safeGetUniform("XFrequency").set(15f);
                             shaderInstance.safeGetUniform("Speed").set(550f);
@@ -166,7 +166,7 @@ public class ArcaneAffinity extends MalumSpiritAffinity {
                                         .draw(poseStack);
 
                                 if (ScreenParticleHandler.canSpawnParticles) {
-                                    ParticleBuilders.create(OrtusScreenParticleRegistry.WISP)
+                                    ParticleBuilders.create(LodestoneScreenParticleRegistry.WISP)
                                             .setLifetime(20)
                                             .setColor(SpiritTypeRegistry.ARCANE_SPIRIT.getColor().brighter(), SpiritTypeRegistry.ARCANE_SPIRIT.getEndColor())
                                             .setAlphaCoefficient(0.75f)

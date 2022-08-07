@@ -26,12 +26,12 @@ import com.sammy.malum.core.setup.content.SoundRegistry;
 import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
 import com.sammy.malum.core.setup.content.worldgen.FeatureRegistry;
-import com.sammy.ortus.helpers.DataHelper;
-import com.sammy.ortus.systems.block.OrtusBlockProperties;
-import com.sammy.ortus.systems.block.OrtusDirectionalBlock;
-import com.sammy.ortus.systems.block.OrtusLogBlock;
-import com.sammy.ortus.systems.block.sign.OrtusStandingSignBlock;
-import com.sammy.ortus.systems.block.sign.OrtusWallSignBlock;
+import team.lodestar.lodestone.helpers.DataHelper;
+import team.lodestar.lodestone.systems.block.LodestoneBlockProperties;
+import team.lodestar.lodestone.systems.block.LodestoneDirectionalBlock;
+import team.lodestar.lodestone.systems.block.LodestoneLogBlock;
+import team.lodestar.lodestone.systems.block.sign.LodestoneStandingSignBlock;
+import team.lodestar.lodestone.systems.block.sign.LodestoneWallSignBlock;
 import net.minecraft.client.color.block.BlockColors;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.util.Mth;
@@ -62,104 +62,104 @@ import static net.minecraft.world.level.block.PressurePlateBlock.Sensitivity.MOB
 public class BlockRegistry {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MALUM);
 
-    public static OrtusBlockProperties TAINTED_ROCK_PROPERTIES() {
-        return new OrtusBlockProperties(Material.STONE, MaterialColor.STONE).needsPickaxe().sound(SoundRegistry.TAINTED_ROCK).requiresCorrectToolForDrops().strength(1.25F, 9.0F);
+    public static LodestoneBlockProperties TAINTED_ROCK_PROPERTIES() {
+        return new LodestoneBlockProperties(Material.STONE, MaterialColor.STONE).needsPickaxe().sound(SoundRegistry.TAINTED_ROCK).requiresCorrectToolForDrops().strength(1.25F, 9.0F);
     }
 
-    public static OrtusBlockProperties TWISTED_ROCK_PROPERTIES() {
-        return new OrtusBlockProperties(Material.STONE, MaterialColor.STONE).needsPickaxe().requiresCorrectToolForDrops().sound(SoundRegistry.TWISTED_ROCK).strength(1.25F, 9.0F);
+    public static LodestoneBlockProperties TWISTED_ROCK_PROPERTIES() {
+        return new LodestoneBlockProperties(Material.STONE, MaterialColor.STONE).needsPickaxe().requiresCorrectToolForDrops().sound(SoundRegistry.TWISTED_ROCK).strength(1.25F, 9.0F);
     }
 
-    public static OrtusBlockProperties SOULSTONE_PROPERTIES() {
-        return new OrtusBlockProperties(Material.STONE, MaterialColor.NETHER).needsPickaxe().requiresCorrectToolForDrops().strength(5.0F, 3.0F).sound(SoundRegistry.SOULSTONE);
+    public static LodestoneBlockProperties SOULSTONE_PROPERTIES() {
+        return new LodestoneBlockProperties(Material.STONE, MaterialColor.NETHER).needsPickaxe().requiresCorrectToolForDrops().strength(5.0F, 3.0F).sound(SoundRegistry.SOULSTONE);
     }
 
-    public static OrtusBlockProperties DEEPSLATE_SOULSTONE_PROPERTIES() {
-        return new OrtusBlockProperties(Material.STONE, MaterialColor.NETHER).needsPickaxe().requiresCorrectToolForDrops().strength(7.0F, 6.0F).sound(SoundRegistry.DEEPSLATE_SOULSTONE);
+    public static LodestoneBlockProperties DEEPSLATE_SOULSTONE_PROPERTIES() {
+        return new LodestoneBlockProperties(Material.STONE, MaterialColor.NETHER).needsPickaxe().requiresCorrectToolForDrops().strength(7.0F, 6.0F).sound(SoundRegistry.DEEPSLATE_SOULSTONE);
     }
 
-    public static OrtusBlockProperties BLAZE_QUARTZ_ORE_PROPERTIES() {
-        return new OrtusBlockProperties(Material.STONE, MaterialColor.NETHER).needsPickaxe().requiresCorrectToolForDrops().strength(3.0F, 3.0F).sound(SoundRegistry.BLAZING_QUARTZ_ORE);
+    public static LodestoneBlockProperties BLAZE_QUARTZ_ORE_PROPERTIES() {
+        return new LodestoneBlockProperties(Material.STONE, MaterialColor.NETHER).needsPickaxe().requiresCorrectToolForDrops().strength(3.0F, 3.0F).sound(SoundRegistry.BLAZING_QUARTZ_ORE);
     }
 
-    public static OrtusBlockProperties BLAZE_QUARTZ_PROPERTIES() {
-        return new OrtusBlockProperties(Material.STONE, MaterialColor.COLOR_RED).needsPickaxe().requiresCorrectToolForDrops().strength(5.0F, 6.0F).sound(SoundRegistry.BLAZING_QUARTZ_BLOCK);
+    public static LodestoneBlockProperties BLAZE_QUARTZ_PROPERTIES() {
+        return new LodestoneBlockProperties(Material.STONE, MaterialColor.COLOR_RED).needsPickaxe().requiresCorrectToolForDrops().strength(5.0F, 6.0F).sound(SoundRegistry.BLAZING_QUARTZ_BLOCK);
     }
 
-    public static OrtusBlockProperties ARCANE_CHARCOAL_PROPERTIES() {
-        return new OrtusBlockProperties(Material.STONE, MaterialColor.COLOR_BLACK).needsPickaxe().requiresCorrectToolForDrops().strength(5.0F, 6.0F).sound(SoundRegistry.ARCANE_CHARCOAL_BLOCK);
+    public static LodestoneBlockProperties ARCANE_CHARCOAL_PROPERTIES() {
+        return new LodestoneBlockProperties(Material.STONE, MaterialColor.COLOR_BLACK).needsPickaxe().requiresCorrectToolForDrops().strength(5.0F, 6.0F).sound(SoundRegistry.ARCANE_CHARCOAL_BLOCK);
     }
 
-    public static OrtusBlockProperties RUNEWOOD_PROPERTIES() {
-        return new OrtusBlockProperties(Material.WOOD, MaterialColor.COLOR_YELLOW).needsAxe().sound(SoundType.WOOD).strength(1.75F, 4.0F);
+    public static LodestoneBlockProperties RUNEWOOD_PROPERTIES() {
+        return new LodestoneBlockProperties(Material.WOOD, MaterialColor.COLOR_YELLOW).needsAxe().sound(SoundType.WOOD).strength(1.75F, 4.0F);
     }
 
-    public static OrtusBlockProperties RUNEWOOD_PLANTS_PROPERTIES() {
-        return new OrtusBlockProperties(Material.PLANT, MaterialColor.COLOR_YELLOW).noCollission().noOcclusion().sound(SoundType.GRASS).instabreak();
+    public static LodestoneBlockProperties RUNEWOOD_PLANTS_PROPERTIES() {
+        return new LodestoneBlockProperties(Material.PLANT, MaterialColor.COLOR_YELLOW).noCollission().noOcclusion().sound(SoundType.GRASS).instabreak();
     }
 
-    public static OrtusBlockProperties RUNEWOOD_LEAVES_PROPERTIES() {
-        return new OrtusBlockProperties(Material.LEAVES, MaterialColor.COLOR_YELLOW).needsHoe().strength(0.2F).randomTicks().noOcclusion().isValidSpawn(Blocks::ocelotOrParrot).isSuffocating(Blocks::never).isViewBlocking(Blocks::never).sound(SoundRegistry.RUNEWOOD_LEAVES);
+    public static LodestoneBlockProperties RUNEWOOD_LEAVES_PROPERTIES() {
+        return new LodestoneBlockProperties(Material.LEAVES, MaterialColor.COLOR_YELLOW).needsHoe().strength(0.2F).randomTicks().noOcclusion().isValidSpawn(Blocks::ocelotOrParrot).isSuffocating(Blocks::never).isViewBlocking(Blocks::never).sound(SoundRegistry.RUNEWOOD_LEAVES);
     }
 
-    public static OrtusBlockProperties SOULWOOD_PROPERTIES() {
-        return new OrtusBlockProperties(Material.WOOD, MaterialColor.COLOR_PURPLE).needsAxe().sound(SoundRegistry.SOULWOOD).strength(1.75F, 4.0F);
+    public static LodestoneBlockProperties SOULWOOD_PROPERTIES() {
+        return new LodestoneBlockProperties(Material.WOOD, MaterialColor.COLOR_PURPLE).needsAxe().sound(SoundRegistry.SOULWOOD).strength(1.75F, 4.0F);
     }
 
-    public static OrtusBlockProperties BLIGHT_PROPERTIES() {
-        return new OrtusBlockProperties(Material.MOSS, MaterialColor.COLOR_PURPLE).needsShovel().needsHoe().sound(SoundRegistry.BLIGHTED_EARTH).strength(0.7f);
+    public static LodestoneBlockProperties BLIGHT_PROPERTIES() {
+        return new LodestoneBlockProperties(Material.MOSS, MaterialColor.COLOR_PURPLE).needsShovel().needsHoe().sound(SoundRegistry.BLIGHTED_EARTH).strength(0.7f);
     }
 
-    public static OrtusBlockProperties BLIGHT_PLANTS_PROPERTIES() {
-        return new OrtusBlockProperties(Material.REPLACEABLE_PLANT, MaterialColor.COLOR_PURPLE).noCollission().noOcclusion().sound(SoundRegistry.BLIGHTED_FOLIAGE).instabreak();
+    public static LodestoneBlockProperties BLIGHT_PLANTS_PROPERTIES() {
+        return new LodestoneBlockProperties(Material.REPLACEABLE_PLANT, MaterialColor.COLOR_PURPLE).noCollission().noOcclusion().sound(SoundRegistry.BLIGHTED_FOLIAGE).instabreak();
     }
 
-    public static OrtusBlockProperties SOULWOOD_LEAVES_PROPERTIES() {
-        return new OrtusBlockProperties(Material.LEAVES, MaterialColor.COLOR_PURPLE).needsHoe().strength(0.2F).randomTicks().sound(SoundType.GRASS).noOcclusion().isValidSpawn(Blocks::ocelotOrParrot).isSuffocating(Blocks::never).isViewBlocking(Blocks::never).sound(SoundRegistry.SOULWOOD_LEAVES);
+    public static LodestoneBlockProperties SOULWOOD_LEAVES_PROPERTIES() {
+        return new LodestoneBlockProperties(Material.LEAVES, MaterialColor.COLOR_PURPLE).needsHoe().strength(0.2F).randomTicks().sound(SoundType.GRASS).noOcclusion().isValidSpawn(Blocks::ocelotOrParrot).isSuffocating(Blocks::never).isViewBlocking(Blocks::never).sound(SoundRegistry.SOULWOOD_LEAVES);
     }
 
-    public static OrtusBlockProperties ETHER_BLOCK_PROPERTIES() {
-        return new OrtusBlockProperties(Material.WOOL, MaterialColor.COLOR_YELLOW).sound(SoundRegistry.ETHER).noCollission().instabreak().lightLevel((b) -> 14);
+    public static LodestoneBlockProperties ETHER_BLOCK_PROPERTIES() {
+        return new LodestoneBlockProperties(Material.WOOL, MaterialColor.COLOR_YELLOW).sound(SoundRegistry.ETHER).noCollission().instabreak().lightLevel((b) -> 14);
     }
 
-    public static OrtusBlockProperties HALLOWED_GOLD_PROPERTIES() {
-        return new OrtusBlockProperties(Material.METAL, MaterialColor.COLOR_YELLOW).requiresCorrectToolForDrops().needsPickaxe().sound(SoundRegistry.HALLOWED_GOLD).noOcclusion().strength(2F, 16.0F);
+    public static LodestoneBlockProperties HALLOWED_GOLD_PROPERTIES() {
+        return new LodestoneBlockProperties(Material.METAL, MaterialColor.COLOR_YELLOW).requiresCorrectToolForDrops().needsPickaxe().sound(SoundRegistry.HALLOWED_GOLD).noOcclusion().strength(2F, 16.0F);
     }
 
-    public static OrtusBlockProperties SOUL_STAINED_STEEL_BLOCK_PROPERTIES() {
-        return new OrtusBlockProperties(Material.METAL, MaterialColor.COLOR_PURPLE).requiresCorrectToolForDrops().needsPickaxe().sound(SoundRegistry.SOUL_STAINED_STEEL).strength(5f, 64.0f);
+    public static LodestoneBlockProperties SOUL_STAINED_STEEL_BLOCK_PROPERTIES() {
+        return new LodestoneBlockProperties(Material.METAL, MaterialColor.COLOR_PURPLE).requiresCorrectToolForDrops().needsPickaxe().sound(SoundRegistry.SOUL_STAINED_STEEL).strength(5f, 64.0f);
     }
 
-    public static OrtusBlockProperties SPIRIT_JAR_PROPERTIES() {
-        return new OrtusBlockProperties(Material.GLASS, MaterialColor.COLOR_BLUE).strength(0.5f, 64f).sound(SoundRegistry.HALLOWED_GOLD).noOcclusion();
+    public static LodestoneBlockProperties SPIRIT_JAR_PROPERTIES() {
+        return new LodestoneBlockProperties(Material.GLASS, MaterialColor.COLOR_BLUE).strength(0.5f, 64f).sound(SoundRegistry.HALLOWED_GOLD).noOcclusion();
     }
 
-    public static OrtusBlockProperties SOUL_VIAL_PROPERTIES() {
-        return new OrtusBlockProperties(Material.GLASS, MaterialColor.COLOR_BLUE).strength(0.75f, 64f).sound(SoundRegistry.SOUL_STAINED_STEEL).noOcclusion();
+    public static LodestoneBlockProperties SOUL_VIAL_PROPERTIES() {
+        return new LodestoneBlockProperties(Material.GLASS, MaterialColor.COLOR_BLUE).strength(0.75f, 64f).sound(SoundRegistry.SOUL_STAINED_STEEL).noOcclusion();
     }
 
-    public static OrtusBlockProperties BRILLIANCE_PROPERTIES() {
-        return new OrtusBlockProperties(Material.STONE, MaterialColor.STONE).needsPickaxe().requiresCorrectToolForDrops().strength(3f, 3f).sound(SoundType.STONE);
+    public static LodestoneBlockProperties BRILLIANCE_PROPERTIES() {
+        return new LodestoneBlockProperties(Material.STONE, MaterialColor.STONE).needsPickaxe().requiresCorrectToolForDrops().strength(3f, 3f).sound(SoundType.STONE);
     }
 
-    public static OrtusBlockProperties DEEPSLATE_BRILLIANCE_PROPERTIES() {
-        return new OrtusBlockProperties(Material.STONE, MaterialColor.DEEPSLATE).needsPickaxe().requiresCorrectToolForDrops().strength(4.5F, 3.0F).sound(SoundType.DEEPSLATE);
+    public static LodestoneBlockProperties DEEPSLATE_BRILLIANCE_PROPERTIES() {
+        return new LodestoneBlockProperties(Material.STONE, MaterialColor.DEEPSLATE).needsPickaxe().requiresCorrectToolForDrops().strength(4.5F, 3.0F).sound(SoundType.DEEPSLATE);
     }
 
-    public static OrtusBlockProperties NATURAL_QUARTZ_PROPERTIES() {
-        return new OrtusBlockProperties(Material.STONE, MaterialColor.STONE).needsPickaxe().requiresCorrectToolForDrops().strength(4f, 3f).sound(SoundRegistry.NATURAL_QUARTZ);
+    public static LodestoneBlockProperties NATURAL_QUARTZ_PROPERTIES() {
+        return new LodestoneBlockProperties(Material.STONE, MaterialColor.STONE).needsPickaxe().requiresCorrectToolForDrops().strength(4f, 3f).sound(SoundRegistry.NATURAL_QUARTZ);
     }
 
-    public static OrtusBlockProperties DEEPSLATE_QUARTZ_PROPERTIES() {
-        return new OrtusBlockProperties(Material.STONE, MaterialColor.DEEPSLATE).needsPickaxe().requiresCorrectToolForDrops().strength(6F, 3.0F).sound(SoundRegistry.DEEPSLATE_QUARTZ);
+    public static LodestoneBlockProperties DEEPSLATE_QUARTZ_PROPERTIES() {
+        return new LodestoneBlockProperties(Material.STONE, MaterialColor.DEEPSLATE).needsPickaxe().requiresCorrectToolForDrops().strength(6F, 3.0F).sound(SoundRegistry.DEEPSLATE_QUARTZ);
     }
 
-    public static OrtusBlockProperties NATURAL_QUARTZ_CLUSTER_PROPERTIES() {
-        return new OrtusBlockProperties(Material.STONE, MaterialColor.STONE).needsPickaxe().requiresCorrectToolForDrops().strength(1.5F).sound(SoundRegistry.QUARTZ_CLUSTER);
+    public static LodestoneBlockProperties NATURAL_QUARTZ_CLUSTER_PROPERTIES() {
+        return new LodestoneBlockProperties(Material.STONE, MaterialColor.STONE).needsPickaxe().requiresCorrectToolForDrops().strength(1.5F).sound(SoundRegistry.QUARTZ_CLUSTER);
     }
 
-    public static OrtusBlockProperties RARE_EARTH_PROPERTIES() {
-        return new OrtusBlockProperties(Material.STONE, MaterialColor.STONE).needsPickaxe().requiresCorrectToolForDrops().strength(25f, 9999f).sound(SoundRegistry.RARE_EARTH);
+    public static LodestoneBlockProperties RARE_EARTH_PROPERTIES() {
+        return new LodestoneBlockProperties(Material.STONE, MaterialColor.STONE).needsPickaxe().requiresCorrectToolForDrops().strength(25f, 9999f).sound(SoundRegistry.RARE_EARTH);
     }
 
 
@@ -211,7 +211,7 @@ public class BlockRegistry {
     public static final RegistryObject<Block> CRACKED_SMALL_TAINTED_ROCK_BRICKS = BLOCKS.register("cracked_small_tainted_rock_bricks", () -> new Block(TAINTED_ROCK_PROPERTIES()));
 
     public static final RegistryObject<Block> TAINTED_ROCK_COLUMN = BLOCKS.register("tainted_rock_column", () -> new RotatedPillarBlock(TAINTED_ROCK_PROPERTIES()));
-    public static final RegistryObject<Block> TAINTED_ROCK_COLUMN_CAP = BLOCKS.register("tainted_rock_column_cap", () -> new OrtusDirectionalBlock(TAINTED_ROCK_PROPERTIES()));
+    public static final RegistryObject<Block> TAINTED_ROCK_COLUMN_CAP = BLOCKS.register("tainted_rock_column_cap", () -> new LodestoneDirectionalBlock(TAINTED_ROCK_PROPERTIES()));
 
     public static final RegistryObject<Block> CUT_TAINTED_ROCK = BLOCKS.register("cut_tainted_rock", () -> new Block(TAINTED_ROCK_PROPERTIES()));
     public static final RegistryObject<Block> CHISELED_TAINTED_ROCK = BLOCKS.register("chiseled_tainted_rock", () -> new Block(TAINTED_ROCK_PROPERTIES()));
@@ -265,7 +265,7 @@ public class BlockRegistry {
     public static final RegistryObject<Block> CRACKED_SMALL_TWISTED_ROCK_BRICKS = BLOCKS.register("cracked_small_twisted_rock_bricks", () -> new Block(TWISTED_ROCK_PROPERTIES()));
 
     public static final RegistryObject<Block> TWISTED_ROCK_COLUMN = BLOCKS.register("twisted_rock_column", () -> new RotatedPillarBlock(TWISTED_ROCK_PROPERTIES()));
-    public static final RegistryObject<Block> TWISTED_ROCK_COLUMN_CAP = BLOCKS.register("twisted_rock_column_cap", () -> new OrtusDirectionalBlock(TWISTED_ROCK_PROPERTIES()));
+    public static final RegistryObject<Block> TWISTED_ROCK_COLUMN_CAP = BLOCKS.register("twisted_rock_column_cap", () -> new LodestoneDirectionalBlock(TWISTED_ROCK_PROPERTIES()));
 
     public static final RegistryObject<Block> CUT_TWISTED_ROCK = BLOCKS.register("cut_twisted_rock", () -> new Block(TWISTED_ROCK_PROPERTIES()));
     public static final RegistryObject<Block> CHISELED_TWISTED_ROCK = BLOCKS.register("chiseled_twisted_rock", () -> new Block(TWISTED_ROCK_PROPERTIES()));
@@ -312,10 +312,10 @@ public class BlockRegistry {
     public static final RegistryObject<Block> STRIPPED_RUNEWOOD_LOG = BLOCKS.register("stripped_runewood_log", () -> new RotatedPillarBlock(RUNEWOOD_PROPERTIES()));
     public static final RegistryObject<Block> RUNEWOOD_LOG = BLOCKS.register("runewood_log", () -> new MalumLogBLock(RUNEWOOD_PROPERTIES(), STRIPPED_RUNEWOOD_LOG, false));
     public static final RegistryObject<Block> STRIPPED_RUNEWOOD = BLOCKS.register("stripped_runewood", () -> new RotatedPillarBlock(RUNEWOOD_PROPERTIES()));
-    public static final RegistryObject<Block> RUNEWOOD = BLOCKS.register("runewood", () -> new OrtusLogBlock(RUNEWOOD_PROPERTIES(), STRIPPED_RUNEWOOD));
+    public static final RegistryObject<Block> RUNEWOOD = BLOCKS.register("runewood", () -> new LodestoneLogBlock(RUNEWOOD_PROPERTIES(), STRIPPED_RUNEWOOD));
 
     public static final RegistryObject<Block> REVEALED_RUNEWOOD_LOG = BLOCKS.register("revealed_runewood_log", () -> new SapFilledLogBlock(RUNEWOOD_PROPERTIES(), STRIPPED_RUNEWOOD_LOG, ItemRegistry.HOLY_SAP, SpiritTypeRegistry.INFERNAL_SPIRIT.getColor()));
-    public static final RegistryObject<Block> EXPOSED_RUNEWOOD_LOG = BLOCKS.register("exposed_runewood_log", () -> new OrtusLogBlock(RUNEWOOD_PROPERTIES(), REVEALED_RUNEWOOD_LOG));
+    public static final RegistryObject<Block> EXPOSED_RUNEWOOD_LOG = BLOCKS.register("exposed_runewood_log", () -> new LodestoneLogBlock(RUNEWOOD_PROPERTIES(), REVEALED_RUNEWOOD_LOG));
 
     public static final RegistryObject<Block> RUNEWOOD_PLANKS = BLOCKS.register("runewood_planks", () -> new Block(RUNEWOOD_PROPERTIES()));
     public static final RegistryObject<Block> RUNEWOOD_PLANKS_SLAB = BLOCKS.register("runewood_planks_slab", () -> new SlabBlock(RUNEWOOD_PROPERTIES()));
@@ -349,8 +349,8 @@ public class BlockRegistry {
     public static final RegistryObject<Block> RUNEWOOD_ITEM_STAND = BLOCKS.register("runewood_item_stand", () -> new ItemStandBlock<>(RUNEWOOD_PROPERTIES().noOcclusion()).setBlockEntity(BlockEntityRegistry.ITEM_STAND));
     public static final RegistryObject<Block> RUNEWOOD_ITEM_PEDESTAL = BLOCKS.register("runewood_item_pedestal", () -> new WoodItemPedestalBlock<>(RUNEWOOD_PROPERTIES().noOcclusion()).setBlockEntity(BlockEntityRegistry.ITEM_PEDESTAL));
 
-    public static final RegistryObject<Block> RUNEWOOD_SIGN = BLOCKS.register("runewood_sign", () -> new OrtusStandingSignBlock(RUNEWOOD_PROPERTIES().noOcclusion().noCollission(), WoodTypeRegistry.RUNEWOOD));
-    public static final RegistryObject<Block> RUNEWOOD_WALL_SIGN = BLOCKS.register("runewood_wall_sign", () -> new OrtusWallSignBlock(RUNEWOOD_PROPERTIES().noOcclusion().noCollission(), WoodTypeRegistry.RUNEWOOD));
+    public static final RegistryObject<Block> RUNEWOOD_SIGN = BLOCKS.register("runewood_sign", () -> new LodestoneStandingSignBlock(RUNEWOOD_PROPERTIES().noOcclusion().noCollission(), WoodTypeRegistry.RUNEWOOD));
+    public static final RegistryObject<Block> RUNEWOOD_WALL_SIGN = BLOCKS.register("runewood_wall_sign", () -> new LodestoneWallSignBlock(RUNEWOOD_PROPERTIES().noOcclusion().noCollission(), WoodTypeRegistry.RUNEWOOD));
     //endregion
 
     //region soulwood
@@ -397,8 +397,8 @@ public class BlockRegistry {
     public static final RegistryObject<Block> SOULWOOD_ITEM_STAND = BLOCKS.register("soulwood_item_stand", () -> new ItemStandBlock<>(SOULWOOD_PROPERTIES().noOcclusion()).setBlockEntity(BlockEntityRegistry.ITEM_STAND));
     public static final RegistryObject<Block> SOULWOOD_ITEM_PEDESTAL = BLOCKS.register("soulwood_item_pedestal", () -> new WoodItemPedestalBlock<>(SOULWOOD_PROPERTIES().noOcclusion()).setBlockEntity(BlockEntityRegistry.ITEM_PEDESTAL));
 
-    public static final RegistryObject<Block> SOULWOOD_SIGN = BLOCKS.register("soulwood_sign", () -> new OrtusStandingSignBlock(SOULWOOD_PROPERTIES().noOcclusion().noCollission(), WoodTypeRegistry.SOULWOOD));
-    public static final RegistryObject<Block> SOULWOOD_WALL_SIGN = BLOCKS.register("soulwood_wall_sign", () -> new OrtusWallSignBlock(SOULWOOD_PROPERTIES().noOcclusion().noCollission(), WoodTypeRegistry.SOULWOOD));
+    public static final RegistryObject<Block> SOULWOOD_SIGN = BLOCKS.register("soulwood_sign", () -> new LodestoneStandingSignBlock(SOULWOOD_PROPERTIES().noOcclusion().noCollission(), WoodTypeRegistry.SOULWOOD));
+    public static final RegistryObject<Block> SOULWOOD_WALL_SIGN = BLOCKS.register("soulwood_wall_sign", () -> new LodestoneWallSignBlock(SOULWOOD_PROPERTIES().noOcclusion().noCollission(), WoodTypeRegistry.SOULWOOD));
     //endregion
 
     //region blight

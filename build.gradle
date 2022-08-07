@@ -123,7 +123,7 @@ dependencies {
 
     compileOnly fg.deobf('mezz.jei:jei-1.18.2:9.7.0.193:api')
     runtimeOnly fg.deobf('mezz.jei:jei-1.18.2:9.7.0.193')
-    implementation fg.deobf("com.sammy.ortus:ortus:${project.ortusLibVersion}")
+    implementation fg.deobf("team.lodestar.lodestone:lodestone:${project.lodestoneVersion}")
     implementation fg.deobf("curse.maven:curios-309927:3748873")
 
     implementation fg.deobf("com.jozufozu.flywheel:Flywheel-Forge:1.18-0.6.4.86")

@@ -4,7 +4,7 @@ import com.sammy.malum.common.item.tools.MalumScytheItem;
 import com.sammy.malum.core.setup.content.item.MalumEnchantments;
 import com.sammy.malum.core.setup.content.entity.EntityRegistry;
 import com.sammy.malum.core.setup.content.SoundRegistry;
-import com.sammy.ortus.helpers.ItemHelper;
+import team.lodestar.lodestone.helpers.ItemHelper;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;

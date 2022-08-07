@@ -2,8 +2,8 @@ package com.sammy.malum.common.item.spirit;
 
 import com.sammy.malum.core.systems.item.IFloatingGlowItem;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
-import com.sammy.ortus.systems.rendering.particle.screen.base.ScreenParticle;
-import com.sammy.ortus.systems.rendering.particle.screen.emitter.ItemParticleEmitter;
+import team.lodestar.lodestone.systems.rendering.particle.screen.base.ScreenParticle;
+import team.lodestar.lodestone.systems.rendering.particle.screen.emitter.ItemParticleEmitter;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;

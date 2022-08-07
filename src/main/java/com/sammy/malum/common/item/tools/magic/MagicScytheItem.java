@@ -3,7 +3,7 @@ package com.sammy.malum.common.item.tools.magic;
 import com.google.common.collect.ImmutableMultimap;
 import com.sammy.malum.common.item.tools.MalumScytheItem;
 import com.sammy.malum.core.setup.content.AttributeRegistry;
-import com.sammy.ortus.setup.OrtusAttributeRegistry;
+import team.lodestar.lodestone.setup.LodestoneAttributeRegistry;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.Tier;
@@ -19,7 +19,7 @@ public class MagicScytheItem extends MalumScytheItem {
     @Override
     public ImmutableMultimap.Builder<Attribute, AttributeModifier> createExtraAttributes() {
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = new ImmutableMultimap.Builder<>();
-        builder.put(OrtusAttributeRegistry.MAGIC_DAMAGE.get(), new AttributeModifier(OrtusAttributeRegistry.UUIDS.get(OrtusAttributeRegistry.MAGIC_DAMAGE), "Weapon magic damage", magicDamage, AttributeModifier.Operation.ADDITION));
+        builder.put(LodestoneAttributeRegistry.MAGIC_DAMAGE.get(), new AttributeModifier(LodestoneAttributeRegistry.UUIDS.get(LodestoneAttributeRegistry.MAGIC_DAMAGE), "Weapon magic damage", magicDamage, AttributeModifier.Operation.ADDITION));
         return builder;
     }
 }

@@ -21,8 +21,8 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 import java.util.Map;
 
-import static com.sammy.ortus.setup.OrtusAttributeRegistry.MAGIC_DAMAGE;
-import static com.sammy.ortus.setup.OrtusAttributeRegistry.UUIDS;
+import static team.lodestar.lodestone.setup.LodestoneAttributeRegistry.MAGIC_DAMAGE;
+import static team.lodestar.lodestone.setup.LodestoneAttributeRegistry.UUIDS;
 import static net.minecraft.world.item.Item.BASE_ATTACK_DAMAGE_UUID;
 
 @Mixin(ItemStack.class)

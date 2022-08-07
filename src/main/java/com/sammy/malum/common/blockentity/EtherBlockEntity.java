@@ -5,13 +5,13 @@ import com.sammy.malum.common.item.ether.AbstractEtherItem;
 import com.sammy.malum.common.item.ether.EtherItem;
 import com.sammy.malum.core.setup.client.ParticleRegistry;
 import com.sammy.malum.core.setup.content.block.BlockEntityRegistry;
-import com.sammy.ortus.helpers.BlockHelper;
-import com.sammy.ortus.helpers.ColorHelper;
-import com.sammy.ortus.setup.OrtusParticleRegistry;
-import com.sammy.ortus.systems.blockentity.OrtusBlockEntity;
-import com.sammy.ortus.systems.easing.Easing;
-import com.sammy.ortus.systems.rendering.particle.ParticleBuilders;
-import com.sammy.ortus.systems.rendering.particle.SimpleParticleOptions;
+import team.lodestar.lodestone.helpers.BlockHelper;
+import team.lodestar.lodestone.helpers.ColorHelper;
+import team.lodestar.lodestone.setup.LodestoneParticleRegistry;
+import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntity;
+import team.lodestar.lodestone.systems.easing.Easing;
+import team.lodestar.lodestone.systems.rendering.particle.ParticleBuilders;
+import team.lodestar.lodestone.systems.rendering.particle.SimpleParticleOptions;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -26,7 +26,7 @@ import net.minecraft.world.phys.HitResult;
 
 import java.awt.*;
 
-public class EtherBlockEntity extends OrtusBlockEntity {
+public class EtherBlockEntity extends LodestoneBlockEntity {
     public int firstColorRGB;
     public Color firstColor;
     public int secondColorRGB;
@@ -147,7 +147,7 @@ public class EtherBlockEntity extends OrtusBlockEntity {
                 lifeTime -= 2;
                 scale *= 1.25f;
             }
-            ParticleBuilders.create(OrtusParticleRegistry.WISP_PARTICLE)
+            ParticleBuilders.create(LodestoneParticleRegistry.WISP_PARTICLE)
                     .setScale(scale, 0)
                     .setAlpha(0.75f, 0.25f)
                     .setLifetime(lifeTime)
@@ -161,7 +161,7 @@ public class EtherBlockEntity extends OrtusBlockEntity {
                     .enableNoClip()
                     .spawn(level, x, y, z);
 
-            ParticleBuilders.create(OrtusParticleRegistry.TWINKLE_PARTICLE)
+            ParticleBuilders.create(LodestoneParticleRegistry.TWINKLE_PARTICLE)
                     .setScale(scale * 2, scale * 0.1f)
                     .setLifetime(lifeTime)
                     .setAlpha(0.25f, 0)

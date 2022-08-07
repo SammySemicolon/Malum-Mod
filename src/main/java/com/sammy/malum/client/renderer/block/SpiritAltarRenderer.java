@@ -3,7 +3,7 @@ package com.sammy.malum.client.renderer.block;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
 import com.sammy.malum.common.blockentity.spirit_altar.SpiritAltarBlockEntity;
-import com.sammy.ortus.systems.blockentity.OrtusBlockEntityInventory;
+import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntityInventory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
@@ -24,7 +24,7 @@ public class SpiritAltarRenderer implements BlockEntityRenderer<SpiritAltarBlock
     public void render(SpiritAltarBlockEntity blockEntityIn, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int combinedLightIn, int combinedOverlayIn) {
         Level level = Minecraft.getInstance().level;
         ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
-        OrtusBlockEntityInventory inventory = blockEntityIn.spiritInventory;
+        LodestoneBlockEntityInventory inventory = blockEntityIn.spiritInventory;
 
         int spiritsRendered = 0;
         for (int i = 0; i < inventory.slotCount; i++) {

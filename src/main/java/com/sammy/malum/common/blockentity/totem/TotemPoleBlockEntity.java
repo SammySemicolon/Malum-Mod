@@ -10,12 +10,12 @@ import com.sammy.malum.core.setup.content.SoundRegistry;
 import com.sammy.malum.core.setup.content.block.BlockEntityRegistry;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
-import com.sammy.ortus.helpers.BlockHelper;
-import com.sammy.ortus.setup.OrtusParticleRegistry;
-import com.sammy.ortus.systems.blockentity.OrtusBlockEntity;
-import com.sammy.ortus.systems.easing.Easing;
-import com.sammy.ortus.systems.rendering.particle.ParticleBuilders;
-import com.sammy.ortus.systems.rendering.particle.SimpleParticleOptions;
+import team.lodestar.lodestone.helpers.BlockHelper;
+import team.lodestar.lodestone.setup.LodestoneParticleRegistry;
+import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntity;
+import team.lodestar.lodestone.systems.easing.Easing;
+import team.lodestar.lodestone.systems.rendering.particle.ParticleBuilders;
+import team.lodestar.lodestone.systems.rendering.particle.SimpleParticleOptions;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -42,7 +42,7 @@ import java.util.Set;
 
 import static com.sammy.malum.core.setup.server.PacketRegistry.MALUM_CHANNEL;
 
-public class TotemPoleBlockEntity extends OrtusBlockEntity {
+public class TotemPoleBlockEntity extends LodestoneBlockEntity {
 
     public MalumSpiritType type;
     public boolean haunted;
@@ -233,7 +233,7 @@ public class TotemPoleBlockEntity extends OrtusBlockEntity {
         if (level.getGameTime() % 6L == 0) {
             if (!itemStandBlockEntity.inventory.getStackInSlot(0).isEmpty()) {
                 Vec3 itemPos = itemStandBlockEntity.getItemPos();
-                ParticleBuilders.create(OrtusParticleRegistry.STAR_PARTICLE)
+                ParticleBuilders.create(LodestoneParticleRegistry.STAR_PARTICLE)
                         .setAlpha(0.04f, 0.1f, 0f)
                         .setScaleEasing(Easing.SINE_IN, Easing.SINE_OUT)
                         .setLifetime(25)
@@ -258,7 +258,7 @@ public class TotemPoleBlockEntity extends OrtusBlockEntity {
         if (level.getGameTime() % 6L == 0) {
             Color color = type.getColor();
             Color endColor = type.getEndColor();
-            ParticleBuilders.create(OrtusParticleRegistry.WISP_PARTICLE)
+            ParticleBuilders.create(LodestoneParticleRegistry.WISP_PARTICLE)
                     .setAlpha(0, 0.06f, 0.12f)
                     .setLifetime(35)
                     .setSpin(0.2f)
@@ -273,7 +273,7 @@ public class TotemPoleBlockEntity extends OrtusBlockEntity {
                     .overwriteRemovalProtocol(SimpleParticleOptions.SpecialRemovalProtocol.ENDING_CURVE_INVISIBLE)
                     .evenlyRepeatEdges(level, worldPosition, 1, Direction.WEST, Direction.EAST, Direction.NORTH, Direction.SOUTH);
 
-            ParticleBuilders.create(OrtusParticleRegistry.SMOKE_PARTICLE)
+            ParticleBuilders.create(LodestoneParticleRegistry.SMOKE_PARTICLE)
                     .setAlpha(0, 0.06f, 0.03f)
                     .setLifetime(60)
                     .setSpin(0.1f)

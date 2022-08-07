@@ -1,7 +1,7 @@
 package com.sammy.malum.common.packets;
 
 import com.sammy.malum.common.capability.MalumPlayerDataCapability;
-import com.sammy.ortus.systems.network.OrtusClientPacket;
+import team.lodestar.lodestone.systems.network.LodestoneClientPacket;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
@@ -14,7 +14,7 @@ import net.minecraftforge.network.simple.SimpleChannel;
 import java.util.UUID;
 import java.util.function.Supplier;
 
-public class SyncMalumPlayerCapabilityDataPacket extends OrtusClientPacket {
+public class SyncMalumPlayerCapabilityDataPacket extends LodestoneClientPacket {
     private final UUID uuid;
     private final CompoundTag tag;
 

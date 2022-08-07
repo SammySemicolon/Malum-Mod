@@ -1,7 +1,7 @@
 package com.sammy.malum.common.block.spirit_altar;
 
 import com.sammy.malum.common.blockentity.spirit_altar.SpiritAltarBlockEntity;
-import com.sammy.ortus.systems.block.WaterLoggedEntityBlock;
+import team.lodestar.lodestone.systems.block.WaterLoggedEntityBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;

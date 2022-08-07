@@ -1,6 +1,6 @@
 package com.sammy.malum.core.systems.item;
 
-import com.sammy.ortus.systems.item.IEventResponderItem;
+import team.lodestar.lodestone.systems.item.IEventResponderItem;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;

@@ -9,7 +9,7 @@ import com.sammy.malum.common.entity.spirit.MirrorItemEntity;
 import com.sammy.malum.common.entity.spirit.SoulEntity;
 import com.sammy.malum.common.entity.spirit.PlayerBoundItemEntity;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
-import com.sammy.ortus.systems.entity.OrtusBoatEntity;
+import team.lodestar.lodestone.systems.entity.LodestoneBoatEntity;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -49,12 +49,12 @@ public class EntityRegistry
             () -> EntityType.Builder.<ScytheBoomerangEntity>of((e,w)->new ScytheBoomerangEntity(w), MobCategory.MISC).sized(2.5F, 0.75F).clientTrackingRange(10)
                     .build(MalumMod.malumPath("scythe_boomerang").toString()));
 
-    public static final RegistryObject<EntityType<OrtusBoatEntity>> RUNEWOOD_BOAT = ENTITY_TYPES.register("runewood_boat",
-            () -> EntityType.Builder.<OrtusBoatEntity>of((t, w)->new OrtusBoatEntity(t, w, ItemRegistry.RUNEWOOD_BOAT, ItemRegistry.RUNEWOOD_PLANKS), MobCategory.MISC).sized(1.375F, 0.5625F).clientTrackingRange(10)
+    public static final RegistryObject<EntityType<LodestoneBoatEntity>> RUNEWOOD_BOAT = ENTITY_TYPES.register("runewood_boat",
+            () -> EntityType.Builder.<LodestoneBoatEntity>of((t, w)->new LodestoneBoatEntity(t, w, ItemRegistry.RUNEWOOD_BOAT, ItemRegistry.RUNEWOOD_PLANKS), MobCategory.MISC).sized(1.375F, 0.5625F).clientTrackingRange(10)
                     .build(MalumMod.malumPath("runewood_boat").toString()));
 
-    public static final RegistryObject<EntityType<OrtusBoatEntity>> SOULWOOD_BOAT = ENTITY_TYPES.register("soulwood_boat",
-            () -> EntityType.Builder.<OrtusBoatEntity>of((t, w)->new OrtusBoatEntity(t, w, ItemRegistry.SOULWOOD_BOAT, ItemRegistry.SOULWOOD_PLANKS), MobCategory.MISC).sized(1.375F, 0.5625F).clientTrackingRange(10)
+    public static final RegistryObject<EntityType<LodestoneBoatEntity>> SOULWOOD_BOAT = ENTITY_TYPES.register("soulwood_boat",
+            () -> EntityType.Builder.<LodestoneBoatEntity>of((t, w)->new LodestoneBoatEntity(t, w, ItemRegistry.SOULWOOD_BOAT, ItemRegistry.SOULWOOD_PLANKS), MobCategory.MISC).sized(1.375F, 0.5625F).clientTrackingRange(10)
                     .build(MalumMod.malumPath("soulwood_boat").toString()));
 
     @Mod.EventBusSubscriber(modid= MalumMod.MALUM, value= Dist.CLIENT, bus= Mod.EventBusSubscriber.Bus.MOD)

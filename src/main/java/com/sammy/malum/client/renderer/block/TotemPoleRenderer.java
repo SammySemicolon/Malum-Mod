@@ -6,9 +6,9 @@ import com.mojang.math.Vector3f;
 import com.sammy.malum.common.blockentity.totem.TotemPoleBlockEntity;
 import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
-import com.sammy.ortus.handlers.RenderHandler;
-import com.sammy.ortus.setup.OrtusRenderTypeRegistry;
-import com.sammy.ortus.systems.rendering.VFXBuilders;
+import team.lodestar.lodestone.handlers.RenderHandler;
+import team.lodestar.lodestone.setup.LodestoneRenderTypeRegistry;
+import team.lodestar.lodestone.systems.rendering.VFXBuilders;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
@@ -21,7 +21,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import java.awt.*;
 import java.util.HashMap;
 
-import static com.sammy.ortus.helpers.RenderHelper.FULL_BRIGHT;
+import static team.lodestar.lodestone.helpers.RenderHelper.FULL_BRIGHT;
 
 
 public class TotemPoleRenderer implements BlockEntityRenderer<TotemPoleBlockEntity> {
@@ -44,7 +44,7 @@ public class TotemPoleRenderer implements BlockEntityRenderer<TotemPoleBlockEnti
 
     public void renderQuad(Material material, Color color, float alpha, Direction direction, PoseStack poseStack) {
         TextureAtlasSprite sprite = material.sprite();
-        VertexConsumer consumer = RenderHandler.DELAYED_RENDER.getBuffer(OrtusRenderTypeRegistry.ADDITIVE_BLOCK);
+        VertexConsumer consumer = RenderHandler.DELAYED_RENDER.getBuffer(LodestoneRenderTypeRegistry.ADDITIVE_BLOCK);
 
         Vector3f[] positions = new Vector3f[]{new Vector3f(0, 0, 2.01f), new Vector3f(2, 0, 2.01f), new Vector3f(2, 2, 2.01f), new Vector3f(0, 2, 2.01f)};
 

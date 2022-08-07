@@ -2,7 +2,7 @@ package com.sammy.malum.common.effect;
 
 import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
 import com.sammy.malum.core.setup.content.potion.MalumMobEffectRegistry;
-import com.sammy.ortus.helpers.ColorHelper;
+import team.lodestar.lodestone.helpers.ColorHelper;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;

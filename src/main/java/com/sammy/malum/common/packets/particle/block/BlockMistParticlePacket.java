@@ -1,9 +1,9 @@
 package com.sammy.malum.common.packets.particle.block;
 
-import com.sammy.ortus.setup.OrtusParticleRegistry;
-import com.sammy.ortus.systems.easing.Easing;
-import com.sammy.ortus.systems.network.OrtusClientPacket;
-import com.sammy.ortus.systems.rendering.particle.ParticleBuilders;
+import team.lodestar.lodestone.setup.LodestoneParticleRegistry;
+import team.lodestar.lodestone.systems.easing.Easing;
+import team.lodestar.lodestone.systems.network.LodestoneClientPacket;
+import team.lodestar.lodestone.systems.rendering.particle.ParticleBuilders;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -27,7 +27,7 @@ public class BlockMistParticlePacket extends BlockParticlePacket {
     @Override
     public void execute(Supplier<NetworkEvent.Context> context) {
         Level level = Minecraft.getInstance().level;
-        ParticleBuilders.create(OrtusParticleRegistry.SMOKE_PARTICLE)
+        ParticleBuilders.create(LodestoneParticleRegistry.SMOKE_PARTICLE)
                 .setAlpha(0.08f, 0.32f, 0)
                 .setLifetime(15)
                 .setSpin(0.2f)
@@ -39,7 +39,7 @@ public class BlockMistParticlePacket extends BlockParticlePacket {
                 .randomMotion(0.001f, 0.002f)
                 .evenlyRepeatEdges(level, pos, 6, Direction.UP, Direction.DOWN);
 
-        ParticleBuilders.create(OrtusParticleRegistry.SMOKE_PARTICLE)
+        ParticleBuilders.create(LodestoneParticleRegistry.SMOKE_PARTICLE)
                 .setAlpha(0.04f, 0.16f, 0)
                 .setLifetime(20)
                 .setSpin(0.1f)

@@ -3,7 +3,7 @@ package com.sammy.malum.core.systems.rites;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.blockentity.totem.TotemBaseBlockEntity;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
-import com.sammy.ortus.helpers.DataHelper;
+import team.lodestar.lodestone.helpers.DataHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 

@@ -4,12 +4,12 @@ import com.sammy.malum.core.helper.SpiritHelper;
 import com.sammy.malum.core.setup.content.SoundRegistry;
 import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
 import com.sammy.malum.core.setup.content.entity.EntityRegistry;
-import com.sammy.ortus.helpers.EntityHelper;
-import com.sammy.ortus.setup.OrtusParticleRegistry;
-import com.sammy.ortus.systems.easing.Easing;
-import com.sammy.ortus.systems.rendering.particle.ParticleBuilders;
-import com.sammy.ortus.systems.rendering.particle.ParticleRenderTypes;
-import com.sammy.ortus.systems.rendering.particle.SimpleParticleOptions;
+import team.lodestar.lodestone.helpers.EntityHelper;
+import team.lodestar.lodestone.setup.LodestoneParticleRegistry;
+import team.lodestar.lodestone.systems.easing.Easing;
+import team.lodestar.lodestone.systems.rendering.particle.ParticleBuilders;
+import team.lodestar.lodestone.systems.rendering.particle.ParticleRenderTypes;
+import team.lodestar.lodestone.systems.rendering.particle.SimpleParticleOptions;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -72,7 +72,7 @@ public class EthericNitrateEntity extends AbstractNitrateEntity {
             float alphaMultiplier = (0.20f + extraAlpha) * Math.min(1, windUp * 2);
             SpiritHelper.spawnSpiritParticles(level, lerpX, lerpY, lerpZ, alphaMultiplier, norm, firstColor, SECOND_COLOR);
 
-            ParticleBuilders.create(OrtusParticleRegistry.TWINKLE_PARTICLE)
+            ParticleBuilders.create(LodestoneParticleRegistry.TWINKLE_PARTICLE)
                     .setAlpha(0.4f * alphaMultiplier, 0f)
                     .setLifetime(5 + rand.nextInt(4))
                     .setScale(0.25f + rand.nextFloat() * 0.1f, 0)
@@ -86,7 +86,7 @@ public class EthericNitrateEntity extends AbstractNitrateEntity {
                     .overwriteRemovalProtocol(SimpleParticleOptions.SpecialRemovalProtocol.INVISIBLE)
                     .repeat(level, lerpX, lerpY, lerpZ, 1);
 
-            ParticleBuilders.create(OrtusParticleRegistry.WISP_PARTICLE)
+            ParticleBuilders.create(LodestoneParticleRegistry.WISP_PARTICLE)
                     .setAlpha(0.25f * alphaMultiplier, 0f)
                     .setLifetime(15 + rand.nextInt(4))
                     .setSpin(nextFloat(rand, 0.05f, 0.1f))
@@ -107,7 +107,7 @@ public class EthericNitrateEntity extends AbstractNitrateEntity {
                     .overwriteRemovalProtocol(SimpleParticleOptions.SpecialRemovalProtocol.INVISIBLE)
                     .repeat(level, lerpX, lerpY, lerpZ, 1);
 
-            ParticleBuilders.create(OrtusParticleRegistry.SMOKE_PARTICLE)
+            ParticleBuilders.create(LodestoneParticleRegistry.SMOKE_PARTICLE)
                     .setAlpha(0.3f, 0.7f * alphaMultiplier, 0f)
                     .setAlphaEasing(Easing.SINE_IN, Easing.SINE_OUT)
                     .setLifetime(65 + rand.nextInt(15))

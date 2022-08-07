@@ -6,11 +6,11 @@ import com.sammy.malum.core.setup.content.block.BlockEntityRegistry;
 import com.sammy.malum.core.setup.content.block.BlockRegistry;
 import com.sammy.malum.core.systems.item.ISoulContainerItem;
 import com.sammy.malum.core.systems.spirit.MalumEntitySpiritData;
-import com.sammy.ortus.helpers.BlockHelper;
-import com.sammy.ortus.helpers.ItemHelper;
-import com.sammy.ortus.systems.blockentity.OrtusBlockEntityInventory;
-import com.sammy.ortus.systems.multiblock.MultiBlockCoreEntity;
-import com.sammy.ortus.systems.multiblock.MultiBlockStructure;
+import team.lodestar.lodestone.helpers.BlockHelper;
+import team.lodestar.lodestone.helpers.ItemHelper;
+import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntityInventory;
+import team.lodestar.lodestone.systems.multiblock.MultiBlockCoreEntity;
+import team.lodestar.lodestone.systems.multiblock.MultiBlockStructure;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -32,7 +32,7 @@ import java.util.function.Supplier;
 public class PlinthCoreBlockEntity extends MultiBlockCoreEntity {
     public static final Supplier<MultiBlockStructure> STRUCTURE = () -> (MultiBlockStructure.of(new MultiBlockStructure.StructurePiece(0, 1, 0, BlockRegistry.SOULWOOD_PLINTH_COMPONENT.get().defaultBlockState())));
 
-    public OrtusBlockEntityInventory inventory;
+    public LodestoneBlockEntityInventory inventory;
     public MalumEntitySpiritData data;
 
     public PlinthCoreBlockEntity(BlockEntityType<? extends PlinthCoreBlockEntity> type, MultiBlockStructure structure, BlockPos pos, BlockState state) {
@@ -41,7 +41,7 @@ public class PlinthCoreBlockEntity extends MultiBlockCoreEntity {
 
     public PlinthCoreBlockEntity(BlockPos pos, BlockState state) {
         this(BlockEntityRegistry.PLINTH.get(), STRUCTURE.get(), pos, state);
-        inventory = new OrtusBlockEntityInventory(1, 64, (s) -> data == null) {
+        inventory = new LodestoneBlockEntityInventory(1, 64, (s) -> data == null) {
             @Override
             public void onContentsChanged(int slot) {
                 super.onContentsChanged(slot);

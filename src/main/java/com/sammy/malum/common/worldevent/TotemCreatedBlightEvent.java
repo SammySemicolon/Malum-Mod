@@ -4,7 +4,7 @@ import com.sammy.malum.common.blockentity.totem.TotemBaseBlockEntity;
 import com.sammy.malum.common.blockentity.totem.TotemPoleBlockEntity;
 import com.sammy.malum.core.setup.content.SoundRegistry;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
-import com.sammy.ortus.helpers.BlockHelper;
+import team.lodestar.lodestone.helpers.BlockHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.Level;

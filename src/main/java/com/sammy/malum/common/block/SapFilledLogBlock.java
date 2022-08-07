@@ -1,8 +1,8 @@
 package com.sammy.malum.common.block;
 
-import com.sammy.ortus.helpers.BlockHelper;
-import com.sammy.ortus.setup.OrtusParticleRegistry;
-import com.sammy.ortus.systems.rendering.particle.ParticleBuilders;
+import team.lodestar.lodestone.helpers.BlockHelper;
+import team.lodestar.lodestone.setup.LodestoneParticleRegistry;
+import team.lodestar.lodestone.systems.rendering.particle.ParticleBuilders;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
@@ -55,7 +55,7 @@ public class SapFilledLogBlock extends RotatedPillarBlock {
             BlockHelper.setBlockStateWithExistingProperties(level, pos, drained.get().defaultBlockState(), 3);
         }
         if (level.isClientSide) {
-            ParticleBuilders.create(OrtusParticleRegistry.WISP_PARTICLE)
+            ParticleBuilders.create(LodestoneParticleRegistry.WISP_PARTICLE)
                     .setAlpha(0.16f, 0f)
                     .setLifetime(20)
                     .setSpin(0.2f)
@@ -66,7 +66,7 @@ public class SapFilledLogBlock extends RotatedPillarBlock {
                     .randomMotion(0.001f, 0.001f)
                     .evenlyRepeatEdges(level, pos, 8, Direction.NORTH, Direction.SOUTH, Direction.EAST, Direction.WEST);
 
-            ParticleBuilders.create(OrtusParticleRegistry.SMOKE_PARTICLE)
+            ParticleBuilders.create(LodestoneParticleRegistry.SMOKE_PARTICLE)
                     .setAlpha(0.08f, 0f)
                     .setLifetime(40)
                     .setSpin(0.1f)

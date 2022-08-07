@@ -6,8 +6,8 @@ import com.mojang.math.Vector3f;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.item.equipment.curios.CurioTokenOfGratitude;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
-import com.sammy.ortus.helpers.RenderHelper;
-import com.sammy.ortus.setup.OrtusRenderTypeRegistry;
+import team.lodestar.lodestone.helpers.RenderHelper;
+import team.lodestar.lodestone.setup.LodestoneRenderTypeRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.HumanoidModel;
@@ -70,7 +70,7 @@ public class TokenOfGratitudeRenderer implements ICurioRenderer {
                 poseStack.popPose();
             }
             if (playerEntity.getUUID().equals(CurioTokenOfGratitude.OWL_PERSON)) {
-                renderGlowingEyes(playerEntity, OrtusRenderTypeRegistry.TRANSPARENT_TEXTURE.applyAndCache(OWL_PERSON_EYES), poseStack, renderTypeBuffer, RenderHelper.FULL_BRIGHT);
+                renderGlowingEyes(playerEntity, LodestoneRenderTypeRegistry.TRANSPARENT_TEXTURE.applyAndCache(OWL_PERSON_EYES), poseStack, renderTypeBuffer, RenderHelper.FULL_BRIGHT);
             }
             if (playerEntity.getUUID().equals(CurioTokenOfGratitude.SNAKE_SCARF_FELLA)) {
                 renderScarf(playerEntity, SNAKE_FELLA_SCARF, poseStack, renderTypeBuffer, light);

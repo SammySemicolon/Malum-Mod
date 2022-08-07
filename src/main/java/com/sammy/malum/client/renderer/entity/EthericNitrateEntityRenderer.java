@@ -4,11 +4,11 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Vector4f;
 import com.sammy.malum.common.entity.nitrate.EthericNitrateEntity;
-import com.sammy.ortus.helpers.ColorHelper;
-import com.sammy.ortus.helpers.EntityHelper;
-import com.sammy.ortus.setup.OrtusRenderTypeRegistry;
-import com.sammy.ortus.systems.easing.Easing;
-import com.sammy.ortus.systems.rendering.VFXBuilders;
+import team.lodestar.lodestone.helpers.ColorHelper;
+import team.lodestar.lodestone.helpers.EntityHelper;
+import team.lodestar.lodestone.setup.LodestoneRenderTypeRegistry;
+import team.lodestar.lodestone.systems.easing.Easing;
+import team.lodestar.lodestone.systems.rendering.VFXBuilders;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderer;
@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.sammy.malum.MalumMod.malumPath;
-import static com.sammy.ortus.handlers.RenderHandler.DELAYED_RENDER;
+import static team.lodestar.lodestone.handlers.RenderHandler.DELAYED_RENDER;
 
 public class EthericNitrateEntityRenderer extends EntityRenderer<EthericNitrateEntity> {
     public final ItemRenderer itemRenderer;
@@ -38,7 +38,7 @@ public class EthericNitrateEntityRenderer extends EntityRenderer<EthericNitrateE
     }
 
     private static final ResourceLocation LIGHT_TRAIL = malumPath("textures/vfx/light_trail.png");
-    private static final RenderType LIGHT_TYPE = OrtusRenderTypeRegistry.ADDITIVE_TEXTURE_TRIANGLE.apply(LIGHT_TRAIL);
+    private static final RenderType LIGHT_TYPE = LodestoneRenderTypeRegistry.ADDITIVE_TEXTURE_TRIANGLE.apply(LIGHT_TRAIL);
 
     @Override
     public void render(EthericNitrateEntity entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int packedLightIn) {

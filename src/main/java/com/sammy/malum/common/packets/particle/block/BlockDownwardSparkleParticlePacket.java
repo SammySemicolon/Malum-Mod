@@ -1,9 +1,9 @@
 package com.sammy.malum.common.packets.particle.block;
 
-import com.sammy.ortus.helpers.ColorHelper;
-import com.sammy.ortus.setup.OrtusParticleRegistry;
-import com.sammy.ortus.systems.easing.Easing;
-import com.sammy.ortus.systems.rendering.particle.ParticleBuilders;
+import team.lodestar.lodestone.helpers.ColorHelper;
+import team.lodestar.lodestone.setup.LodestoneParticleRegistry;
+import team.lodestar.lodestone.systems.easing.Easing;
+import team.lodestar.lodestone.systems.rendering.particle.ParticleBuilders;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
@@ -31,7 +31,7 @@ public class BlockDownwardSparkleParticlePacket extends BlockParticlePacket
         for (int i = 0; i <= 3; i++) {
             int spinDirection = (rand.nextBoolean() ? 1 : -1);
             int spinOffset = rand.nextInt(360);
-            ParticleBuilders.create(OrtusParticleRegistry.TWINKLE_PARTICLE)
+            ParticleBuilders.create(LodestoneParticleRegistry.TWINKLE_PARTICLE)
                     .setAlpha(0, 0.8f, 0)
                     .setLifetime(25)
                     .setSpinOffset(spinOffset)
@@ -54,7 +54,7 @@ public class BlockDownwardSparkleParticlePacket extends BlockParticlePacket
         for (int i = 0; i < 2; i++) {
             int spinDirection = (rand.nextBoolean() ? 1 : -1);
             int spinOffset = rand.nextInt(360);
-            ParticleBuilders.create(OrtusParticleRegistry.SMOKE_PARTICLE)
+            ParticleBuilders.create(LodestoneParticleRegistry.SMOKE_PARTICLE)
                     .setAlpha(0.05f, 0.08f, 0)
                     .setAlphaCoefficient(0.8f+rand.nextFloat()*0.4f)
                     .setAlphaEasing(Easing.SINE_IN, Easing.CIRC_IN)

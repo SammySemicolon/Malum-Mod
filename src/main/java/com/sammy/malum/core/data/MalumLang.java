@@ -11,7 +11,7 @@ import com.sammy.malum.core.setup.content.potion.MalumMobEffectRegistry;
 import com.sammy.malum.core.systems.item.ISoulContainerItem;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
-import com.sammy.ortus.helpers.DataHelper;
+import team.lodestar.lodestone.helpers.DataHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.sounds.SoundEvent;

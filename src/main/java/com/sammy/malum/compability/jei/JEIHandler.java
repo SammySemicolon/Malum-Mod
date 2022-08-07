@@ -10,7 +10,7 @@ import com.sammy.malum.compability.jei.categories.*;
 import com.sammy.malum.core.setup.content.SpiritRiteRegistry;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
-import com.sammy.ortus.systems.recipe.IRecipeComponent;
+import team.lodestar.lodestone.systems.recipe.IRecipeComponent;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.constants.RecipeTypes;

@@ -1,10 +1,10 @@
 package com.sammy.malum.common.blockentity.crucible;
 
 import com.sammy.malum.core.setup.content.SoundRegistry;
-import com.sammy.ortus.systems.sound.OrtusBlockEntitySoundInstance;
+import team.lodestar.lodestone.systems.sound.LodestoneBlockEntitySoundInstance;
 import net.minecraft.client.Minecraft;
 
-public class CrucibleSoundInstance extends OrtusBlockEntitySoundInstance<SpiritCrucibleCoreBlockEntity> {
+public class CrucibleSoundInstance extends LodestoneBlockEntitySoundInstance<SpiritCrucibleCoreBlockEntity> {
     public CrucibleSoundInstance(SpiritCrucibleCoreBlockEntity blockEntity, float volume, float pitch) {
         super(blockEntity, SoundRegistry.CRUCIBLE_LOOP.get(), volume, pitch);
         this.x = blockEntity.getBlockPos().getX() + 0.5f;

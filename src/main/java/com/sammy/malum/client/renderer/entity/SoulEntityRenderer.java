@@ -4,9 +4,9 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Vector3f;
 import com.sammy.malum.common.entity.spirit.SoulEntity;
-import com.sammy.ortus.helpers.ColorHelper;
-import com.sammy.ortus.setup.OrtusRenderTypeRegistry;
-import com.sammy.ortus.systems.rendering.VFXBuilders;
+import team.lodestar.lodestone.helpers.ColorHelper;
+import team.lodestar.lodestone.setup.LodestoneRenderTypeRegistry;
+import team.lodestar.lodestone.systems.rendering.VFXBuilders;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -19,9 +19,9 @@ import net.minecraft.resources.ResourceLocation;
 import java.awt.*;
 
 import static com.sammy.malum.MalumMod.malumPath;
-import static com.sammy.ortus.handlers.RenderHandler.DELAYED_RENDER;
-import static com.sammy.ortus.helpers.RenderHelper.FULL_BRIGHT;
-import static com.sammy.ortus.setup.OrtusRenderTypeRegistry.queueUniformChanges;
+import static team.lodestar.lodestone.handlers.RenderHandler.DELAYED_RENDER;
+import static team.lodestar.lodestone.helpers.RenderHelper.FULL_BRIGHT;
+import static team.lodestar.lodestone.setup.LodestoneRenderTypeRegistry.queueUniformChanges;
 
 public class SoulEntityRenderer extends EntityRenderer<SoulEntity> {
     public final ItemRenderer itemRenderer;
@@ -34,11 +34,11 @@ public class SoulEntityRenderer extends EntityRenderer<SoulEntity> {
     }
 
     private static final ResourceLocation SOUL_NOISE = malumPath("textures/vfx/noise/soul_noise.png");
-    private static final RenderType SOUL_NOISE_TYPE = OrtusRenderTypeRegistry.RADIAL_NOISE.apply(SOUL_NOISE);
+    private static final RenderType SOUL_NOISE_TYPE = LodestoneRenderTypeRegistry.RADIAL_NOISE.apply(SOUL_NOISE);
     private static final ResourceLocation SECONDARY_SOUL_NOISE = malumPath("textures/vfx/noise/soul_noise_secondary.png");
-    private static final RenderType SECONDARY_SOUL_NOISE_TYPE = OrtusRenderTypeRegistry.RADIAL_SCATTER_NOISE.apply(SECONDARY_SOUL_NOISE);
+    private static final RenderType SECONDARY_SOUL_NOISE_TYPE = LodestoneRenderTypeRegistry.RADIAL_SCATTER_NOISE.apply(SECONDARY_SOUL_NOISE);
     private static final ResourceLocation TRINARY_SOUL_NOISE = malumPath("textures/vfx/noise/soul_noise_trinary.png");
-    private static final RenderType TRINARY_SOUL_NOISE_TYPE = OrtusRenderTypeRegistry.RADIAL_SCATTER_NOISE.apply(TRINARY_SOUL_NOISE);
+    private static final RenderType TRINARY_SOUL_NOISE_TYPE = LodestoneRenderTypeRegistry.RADIAL_SCATTER_NOISE.apply(TRINARY_SOUL_NOISE);
 
     @Override
     public void render(SoulEntity entityIn, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int packedLightIn) {

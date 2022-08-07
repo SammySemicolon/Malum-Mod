@@ -3,12 +3,12 @@ package com.sammy.malum.common.entity.nitrate;
 import com.sammy.malum.core.helper.SpiritHelper;
 import com.sammy.malum.core.setup.content.SoundRegistry;
 import com.sammy.malum.core.setup.content.entity.EntityRegistry;
-import com.sammy.ortus.helpers.ColorHelper;
-import com.sammy.ortus.setup.OrtusParticleRegistry;
-import com.sammy.ortus.systems.easing.Easing;
-import com.sammy.ortus.systems.rendering.particle.ParticleBuilders;
-import com.sammy.ortus.systems.rendering.particle.ParticleRenderTypes;
-import com.sammy.ortus.systems.rendering.particle.SimpleParticleOptions;
+import team.lodestar.lodestone.helpers.ColorHelper;
+import team.lodestar.lodestone.setup.LodestoneParticleRegistry;
+import team.lodestar.lodestone.systems.easing.Easing;
+import team.lodestar.lodestone.systems.rendering.particle.ParticleBuilders;
+import team.lodestar.lodestone.systems.rendering.particle.ParticleRenderTypes;
+import team.lodestar.lodestone.systems.rendering.particle.SimpleParticleOptions;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
@@ -102,7 +102,7 @@ public class VividNitrateEntity extends AbstractNitrateEntity {
             float alphaMultiplier = (0.20f + extraAlpha) * Math.min(1, windUp * 2);
             SpiritHelper.spawnSpiritParticles(level, lerpX, lerpY, lerpZ, alphaMultiplier, norm, firstColor, secondColor);
 
-            ParticleBuilders.create(OrtusParticleRegistry.SMOKE_PARTICLE)
+            ParticleBuilders.create(LodestoneParticleRegistry.SMOKE_PARTICLE)
                     .setAlpha(0.3f, 0.7f * alphaMultiplier, 0f)
                     .setAlphaEasing(Easing.SINE_IN, Easing.SINE_OUT)
                     .setLifetime(65 + rand.nextInt(15))

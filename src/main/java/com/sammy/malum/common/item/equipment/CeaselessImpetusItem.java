@@ -3,9 +3,9 @@ package com.sammy.malum.common.item.equipment;
 import com.sammy.malum.common.item.impetus.ImpetusItem;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
 import com.sammy.malum.core.systems.item.IMalumEventResponderItem;
-import com.sammy.ortus.helpers.EntityHelper;
-import com.sammy.ortus.network.TotemOfUndyingEffectPacket;
-import com.sammy.ortus.setup.OrtusPacketRegistry;
+import team.lodestar.lodestone.helpers.EntityHelper;
+import team.lodestar.lodestone.network.TotemOfUndyingEffectPacket;
+import team.lodestar.lodestone.setup.LodestonePacketRegistry;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
@@ -60,7 +60,7 @@ public class CeaselessImpetusItem extends ImpetusItem implements IMalumEventResp
                 if (player instanceof ServerPlayer serverplayer) {
                     serverplayer.awardStat(Stats.ITEM_USED.get(itemstack.getItem()), 1);
                     CriteriaTriggers.USED_TOTEM.trigger(serverplayer, itemstack);
-                    OrtusPacketRegistry.ORTUS_CHANNEL.send(PacketDistributor.PLAYER.with(() -> serverplayer), new TotemOfUndyingEffectPacket(player, itemstack));
+                    LodestonePacketRegistry.ORTUS_CHANNEL.send(PacketDistributor.PLAYER.with(() -> serverplayer), new TotemOfUndyingEffectPacket(player, itemstack));
                 }
 
                 player.setHealth(2.0F);

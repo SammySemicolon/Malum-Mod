@@ -6,7 +6,7 @@ import com.sammy.malum.core.data.builder.vanilla.NBTCarryRecipeBuilder;
 import com.sammy.malum.core.data.builder.vanilla.TheDeviceRecipeBuilder;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
 import com.sammy.malum.core.setup.content.item.ItemTagRegistry;
-import com.sammy.ortus.systems.recipe.IngredientWithCount;
+import team.lodestar.lodestone.systems.recipe.IngredientWithCount;
 import net.minecraft.advancements.critereon.*;
 import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;
@@ -34,7 +34,7 @@ import static com.sammy.malum.core.data.builder.vanilla.MetalNodeCookingRecipeBu
 import static com.sammy.malum.core.data.builder.vanilla.StackedMalumCookingRecipeBuilder.blastingWithCount;
 import static com.sammy.malum.core.data.builder.vanilla.StackedMalumCookingRecipeBuilder.smeltingWithCount;
 import static com.sammy.malum.MalumMod.malumPath;
-import static com.sammy.ortus.setup.OrtusItemTags.*;
+import static team.lodestar.lodestone.setup.LodestoneItemTags.*;
 import static net.minecraft.data.recipes.ShapedRecipeBuilder.shaped;
 import static net.minecraft.data.recipes.ShapelessRecipeBuilder.shapeless;
 import static net.minecraft.data.recipes.SimpleCookingRecipeBuilder.*;

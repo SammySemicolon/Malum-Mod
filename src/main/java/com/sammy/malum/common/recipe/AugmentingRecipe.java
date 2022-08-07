@@ -3,7 +3,7 @@ package com.sammy.malum.common.recipe;
 import com.google.gson.JsonObject;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.core.setup.content.RecipeSerializerRegistry;
-import com.sammy.ortus.systems.recipe.IOrtusRecipe;
+import team.lodestar.lodestone.systems.recipe.ILodestoneRecipe;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -19,7 +19,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.function.Predicate;
 
-public class AugmentingRecipe extends IOrtusRecipe {
+public class AugmentingRecipe extends ILodestoneRecipe {
     public static final String NAME = "augmenting";
 
     public static class Type implements RecipeType<AugmentingRecipe> {

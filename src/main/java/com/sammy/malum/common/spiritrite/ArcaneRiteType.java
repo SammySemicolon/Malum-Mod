@@ -7,10 +7,10 @@ import com.sammy.malum.common.recipe.SpiritTransmutationRecipe;
 import com.sammy.malum.common.worldevent.TotemCreatedBlightEvent;
 import com.sammy.malum.core.systems.rites.MalumRiteEffect;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
-import com.sammy.ortus.handlers.WorldEventHandler;
-import com.sammy.ortus.helpers.BlockHelper;
-import com.sammy.ortus.helpers.ItemHelper;
-import com.sammy.ortus.systems.blockentity.OrtusBlockEntityInventory;
+import team.lodestar.lodestone.handlers.WorldEventHandler;
+import team.lodestar.lodestone.helpers.BlockHelper;
+import team.lodestar.lodestone.helpers.ItemHelper;
+import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntityInventory;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
@@ -70,7 +70,7 @@ public class ArcaneRiteType extends MalumRiteType {
                     BlockPos posToTransmute = p.above();
                     BlockState stateToTransmute = level.getBlockState(posToTransmute);
                     if (level.getBlockEntity(posToTransmute) instanceof IAltarProvider iAltarProvider) {
-                        OrtusBlockEntityInventory inventoryForAltar = iAltarProvider.getInventoryForAltar();
+                        LodestoneBlockEntityInventory inventoryForAltar = iAltarProvider.getInventoryForAltar();
                         ItemStack stack = inventoryForAltar.getStackInSlot(0);
                         SpiritTransmutationRecipe recipe = SpiritTransmutationRecipe.getRecipe(level, stack);
                         if (recipe != null) {

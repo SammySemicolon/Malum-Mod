@@ -6,9 +6,9 @@ import com.sammy.malum.common.blockentity.totem.TotemPoleBlockEntity;
 import com.sammy.malum.common.item.spirit.MalumSpiritItem;
 import com.sammy.malum.core.helper.SpiritHelper;
 import com.sammy.malum.core.setup.content.block.BlockEntityRegistry;
-import com.sammy.ortus.helpers.BlockHelper;
-import com.sammy.ortus.systems.blockentity.OrtusBlockEntityInventory;
-import com.sammy.ortus.systems.blockentity.ItemHolderBlockEntity;
+import team.lodestar.lodestone.helpers.BlockHelper;
+import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntityInventory;
+import team.lodestar.lodestone.systems.blockentity.ItemHolderBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.LivingEntity;
@@ -28,7 +28,7 @@ public class ItemStandBlockEntity extends ItemHolderBlockEntity implements IAlta
 
     public ItemStandBlockEntity(BlockEntityType<? extends ItemStandBlockEntity> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
-        inventory = new OrtusBlockEntityInventory(1, 64) {
+        inventory = new LodestoneBlockEntityInventory(1, 64) {
             @Override
             public void onContentsChanged(int slot) {
                 super.onContentsChanged(slot);
@@ -42,7 +42,7 @@ public class ItemStandBlockEntity extends ItemHolderBlockEntity implements IAlta
     }
 
     @Override
-    public OrtusBlockEntityInventory getInventoryForAltar() {
+    public LodestoneBlockEntityInventory getInventoryForAltar() {
         return inventory;
     }
 

@@ -1,6 +1,6 @@
 package com.sammy.malum.common.block.obelisk;
 
-import com.sammy.ortus.systems.multiblock.MultiblockComponentBlock;
+import team.lodestar.lodestone.systems.multiblock.MultiblockComponentBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;

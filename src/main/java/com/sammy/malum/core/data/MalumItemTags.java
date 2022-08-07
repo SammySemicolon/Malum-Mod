@@ -12,7 +12,7 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 
 import static com.sammy.malum.core.setup.content.item.ItemRegistry.*;
 import static com.sammy.malum.core.setup.content.item.ItemTagRegistry.*;
-import static com.sammy.ortus.setup.OrtusItemTags.*;
+import static team.lodestar.lodestone.setup.LodestoneItemTags.*;
 
 public class MalumItemTags extends ItemTagsProvider {
     public MalumItemTags(DataGenerator dataGenerator, BlockTagsProvider blockTagProvider, ExistingFileHelper existingFileHelper) {

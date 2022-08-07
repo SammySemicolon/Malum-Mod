@@ -5,14 +5,14 @@ package com.sammy.malum.client.model;
 
 
 import com.sammy.malum.MalumMod;
-import com.sammy.ortus.systems.model.OrtusArmorModel;
+import team.lodestar.lodestone.systems.model.LodestoneArmorModel;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 
-public class SoulStainedSteelArmorModel extends OrtusArmorModel {
+public class SoulStainedSteelArmorModel extends LodestoneArmorModel {
 	public static ModelLayerLocation LAYER = new ModelLayerLocation(MalumMod.malumPath("textures/armor/soul_stained_steel_reforged"), "main");
 
 	public SoulStainedSteelArmorModel(ModelPart root) {

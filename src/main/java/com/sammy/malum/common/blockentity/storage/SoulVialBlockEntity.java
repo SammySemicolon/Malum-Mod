@@ -2,9 +2,9 @@ package com.sammy.malum.common.blockentity.storage;
 
 import com.sammy.malum.core.helper.SpiritHelper;
 import com.sammy.malum.core.setup.content.block.BlockEntityRegistry;
-import com.sammy.ortus.helpers.BlockHelper;
-import com.sammy.ortus.helpers.ItemHelper;
-import com.sammy.ortus.systems.blockentity.OrtusBlockEntity;
+import team.lodestar.lodestone.helpers.BlockHelper;
+import team.lodestar.lodestone.helpers.ItemHelper;
+import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntity;
 import com.sammy.malum.core.systems.item.ISoulContainerItem;
 import com.sammy.malum.core.systems.spirit.MalumEntitySpiritData;
 import net.minecraft.core.BlockPos;
@@ -18,7 +18,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
-public class SoulVialBlockEntity extends OrtusBlockEntity {
+public class SoulVialBlockEntity extends LodestoneBlockEntity {
 
     public MalumEntitySpiritData data;
 

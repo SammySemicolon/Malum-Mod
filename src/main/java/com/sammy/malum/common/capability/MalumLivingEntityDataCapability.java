@@ -3,9 +3,9 @@ package com.sammy.malum.common.capability;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.packets.SyncLivingCapabilityDataPacket;
 import com.sammy.malum.core.systems.spirit.MalumEntitySpiritData;
-import com.sammy.ortus.capability.OrtusWorldDataCapability;
-import com.sammy.ortus.systems.capability.OrtusCapability;
-import com.sammy.ortus.systems.capability.OrtusCapabilityProvider;
+import team.lodestar.lodestone.capability.LodestoneWorldDataCapability;
+import team.lodestar.lodestone.systems.capability.LodestoneCapability;
+import team.lodestar.lodestone.systems.capability.LodestoneCapabilityProvider;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
@@ -28,7 +28,7 @@ import java.util.UUID;
 
 import static com.sammy.malum.core.setup.server.PacketRegistry.MALUM_CHANNEL;
 
-public class MalumLivingEntityDataCapability implements OrtusCapability {
+public class MalumLivingEntityDataCapability implements LodestoneCapability {
 
     public static Capability<MalumLivingEntityDataCapability> CAPABILITY = CapabilityManager.get(new CapabilityToken<>() {
     });
@@ -63,7 +63,7 @@ public class MalumLivingEntityDataCapability implements OrtusCapability {
     public static void attachEntityCapability(AttachCapabilitiesEvent<Entity> event) {
         if (event.getObject() instanceof LivingEntity) {
             final MalumLivingEntityDataCapability capability = new MalumLivingEntityDataCapability();
-            event.addCapability(MalumMod.malumPath("living_data"), new OrtusCapabilityProvider<>(MalumLivingEntityDataCapability.CAPABILITY, () -> capability));
+            event.addCapability(MalumMod.malumPath("living_data"), new LodestoneCapabilityProvider<>(MalumLivingEntityDataCapability.CAPABILITY, () -> capability));
         }
     }
 

@@ -11,13 +11,13 @@ import com.sammy.malum.core.setup.content.item.MalumEnchantments;
 import com.sammy.malum.core.systems.recipe.SpiritWithCount;
 import com.sammy.malum.core.systems.spirit.MalumEntitySpiritData;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
-import com.sammy.ortus.helpers.ItemHelper;
-import com.sammy.ortus.setup.OrtusParticleRegistry;
-import com.sammy.ortus.setup.OrtusScreenParticleRegistry;
-import com.sammy.ortus.systems.easing.Easing;
-import com.sammy.ortus.systems.rendering.particle.ParticleBuilders;
-import com.sammy.ortus.systems.rendering.particle.SimpleParticleOptions;
-import com.sammy.ortus.systems.rendering.particle.screen.base.ScreenParticle;
+import team.lodestar.lodestone.helpers.ItemHelper;
+import team.lodestar.lodestone.setup.LodestoneParticleRegistry;
+import team.lodestar.lodestone.setup.LodestoneScreenParticleRegistry;
+import team.lodestar.lodestone.systems.easing.Easing;
+import team.lodestar.lodestone.systems.rendering.particle.ParticleBuilders;
+import team.lodestar.lodestone.systems.rendering.particle.SimpleParticleOptions;
+import team.lodestar.lodestone.systems.rendering.particle.screen.base.ScreenParticle;
 import net.minecraft.client.Minecraft;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.LivingEntity;
@@ -187,7 +187,7 @@ public class SpiritHelper {
 
     public static void spawnSpiritGlimmerParticles(Level level, double x, double y, double z, float alphaMultiplier, Vec3 extraVelocity, Color color, Color endColor) {
         Random rand = level.getRandom();
-        ParticleBuilders.create(OrtusParticleRegistry.TWINKLE_PARTICLE)
+        ParticleBuilders.create(LodestoneParticleRegistry.TWINKLE_PARTICLE)
                 .setAlpha(0.4f * alphaMultiplier, 0f)
                 .setLifetime(5 + rand.nextInt(4))
                 .setScale(0.25f + rand.nextFloat() * 0.1f, 0)
@@ -209,7 +209,7 @@ public class SpiritHelper {
 
     public static void spawnSpiritParticles(Level level, double x, double y, double z, float alphaMultiplier, Vec3 extraVelocity, Color color, Color endColor) {
         Random rand = level.getRandom();
-        ParticleBuilders.create(OrtusParticleRegistry.WISP_PARTICLE)
+        ParticleBuilders.create(LodestoneParticleRegistry.WISP_PARTICLE)
                 .setAlpha(0.275f * alphaMultiplier, 0f)
                 .setLifetime(15 + rand.nextInt(4))
                 .setSpin(nextFloat(rand, 0.05f, 0.1f))
@@ -237,7 +237,7 @@ public class SpiritHelper {
 
     public static void spawnSoulParticles(Level level, double x, double y, double z, float alphaMultiplier, float scaleMultiplier, Vec3 extraVelocity, Color color, Color endColor) {
         Random rand = level.getRandom();
-        ParticleBuilders.create(OrtusParticleRegistry.WISP_PARTICLE)
+        ParticleBuilders.create(LodestoneParticleRegistry.WISP_PARTICLE)
                 .setAlpha(0.1f * alphaMultiplier, 0)
                 .setLifetime(8 + rand.nextInt(5))
                 .setScale((0.2f + rand.nextFloat() * 0.2f) * scaleMultiplier, 0)
@@ -249,7 +249,7 @@ public class SpiritHelper {
                 .randomMotion(0.01f * scaleMultiplier, 0.01f * scaleMultiplier)
                 .repeat(level, x, y, z, 1);
 
-        ParticleBuilders.create(OrtusParticleRegistry.SMOKE_PARTICLE)
+        ParticleBuilders.create(LodestoneParticleRegistry.SMOKE_PARTICLE)
                 .setAlpha(0, 0.05f * alphaMultiplier, 0f)
                 .setAlphaEasing(Easing.CUBIC_IN, Easing.CUBIC_OUT)
                 .setLifetime(80 + rand.nextInt(10))
@@ -271,7 +271,7 @@ public class SpiritHelper {
                 .randomMotion(0.03f * scaleMultiplier, 0.03f * scaleMultiplier)
                 .repeat(level, x, y, z, 2);
 
-        ParticleBuilders.create(OrtusParticleRegistry.STAR_PARTICLE)
+        ParticleBuilders.create(LodestoneParticleRegistry.STAR_PARTICLE)
                 .setAlpha((rand.nextFloat() * 0.1f + 0.1f) * alphaMultiplier, 0f)
                 .setLifetime(20 + rand.nextInt(10))
                 .setSpinOffset(0.025f * level.getGameTime() % 6.28f)
@@ -291,7 +291,7 @@ public class SpiritHelper {
 
     public static void spawnSpiritScreenParticles(Color color, Color endColor, ItemStack stack, float pXPosition, float pYPosition, ScreenParticle.RenderOrder renderOrder) {
         Random rand = Minecraft.getInstance().level.getRandom();
-        ParticleBuilders.create(OrtusScreenParticleRegistry.SPARKLE)
+        ParticleBuilders.create(LodestoneScreenParticleRegistry.SPARKLE)
                 .setAlpha(0.04f, 0f)
                 .setLifetime(10 + rand.nextInt(10))
                 .setScale(0.8f + rand.nextFloat()*0.1f, 0)
@@ -303,7 +303,7 @@ public class SpiritHelper {
                 .centerOnStack(stack)
                 .repeat(pXPosition, pYPosition, 1);
 
-        ParticleBuilders.create(OrtusScreenParticleRegistry.WISP)
+        ParticleBuilders.create(LodestoneScreenParticleRegistry.WISP)
                 .setAlpha(0.02f, 0f)
                 .setLifetime(20 + rand.nextInt(8))
                 .setSpin(nextFloat(rand, 0.2f, 0.4f))

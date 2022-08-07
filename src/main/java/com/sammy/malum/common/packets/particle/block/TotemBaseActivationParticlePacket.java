@@ -1,9 +1,9 @@
 package com.sammy.malum.common.packets.particle.block;
 
-import com.sammy.ortus.setup.OrtusParticleRegistry;
-import com.sammy.ortus.systems.easing.Easing;
-import com.sammy.ortus.systems.network.OrtusClientPacket;
-import com.sammy.ortus.systems.rendering.particle.ParticleBuilders;
+import team.lodestar.lodestone.setup.LodestoneParticleRegistry;
+import team.lodestar.lodestone.systems.easing.Easing;
+import team.lodestar.lodestone.systems.network.LodestoneClientPacket;
+import team.lodestar.lodestone.systems.rendering.particle.ParticleBuilders;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.Direction;
 import net.minecraft.network.FriendlyByteBuf;
@@ -19,7 +19,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.function.Supplier;
 
-public class TotemBaseActivationParticlePacket extends OrtusClientPacket {
+public class TotemBaseActivationParticlePacket extends LodestoneClientPacket {
     private final ArrayList<Color> colors;
     private final BlockPos pos;
 
@@ -46,7 +46,7 @@ public class TotemBaseActivationParticlePacket extends OrtusClientPacket {
         Level level = Minecraft.getInstance().level;
         for (int i = 0; i < colors.size(); i++) {
             Color color = colors.get(i);
-            ParticleBuilders.create(OrtusParticleRegistry.WISP_PARTICLE)
+            ParticleBuilders.create(LodestoneParticleRegistry.WISP_PARTICLE)
                     .setAlpha(0.1f, 0.22f, 0)
                     .setLifetime(15)
                     .setSpin(0.2f)
@@ -58,7 +58,7 @@ public class TotemBaseActivationParticlePacket extends OrtusClientPacket {
                     .randomMotion(0.001f, 0.001f)
                     .evenlyRepeatEdges(level, pos.above(i), 3, Direction.NORTH, Direction.SOUTH, Direction.EAST, Direction.WEST);
 
-            ParticleBuilders.create(OrtusParticleRegistry.SMOKE_PARTICLE)
+            ParticleBuilders.create(LodestoneParticleRegistry.SMOKE_PARTICLE)
                     .setAlpha(0.06f, 0.14f, 0)
                     .setLifetime(20)
                     .setSpin(0.1f)

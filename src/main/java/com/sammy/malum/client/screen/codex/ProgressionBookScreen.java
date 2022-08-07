@@ -9,13 +9,13 @@ import com.sammy.malum.common.events.SetupMalumCodexEntriesEvent;
 import com.sammy.malum.core.setup.content.SpiritRiteRegistry;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
-import com.sammy.ortus.handlers.ScreenParticleHandler;
-import com.sammy.ortus.setup.OrtusShaderRegistry;
-import com.sammy.ortus.systems.easing.Easing;
-import com.sammy.ortus.systems.recipe.IRecipeComponent;
-import com.sammy.ortus.systems.rendering.ExtendedShaderInstance;
-import com.sammy.ortus.systems.rendering.VFXBuilders;
-import com.sammy.ortus.systems.rendering.VFXBuilders.ScreenVFXBuilder;
+import team.lodestar.lodestone.handlers.ScreenParticleHandler;
+import team.lodestar.lodestone.setup.LodestoneShaderRegistry;
+import team.lodestar.lodestone.systems.easing.Easing;
+import team.lodestar.lodestone.systems.recipe.IRecipeComponent;
+import team.lodestar.lodestone.systems.rendering.ExtendedShaderInstance;
+import team.lodestar.lodestone.systems.rendering.VFXBuilders;
+import team.lodestar.lodestone.systems.rendering.VFXBuilders.ScreenVFXBuilder;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.screens.Screen;
@@ -42,7 +42,7 @@ import java.util.stream.Collectors;
 
 import static com.sammy.malum.config.ClientConfig.BOOK_THEME;
 import static com.sammy.malum.core.setup.content.item.ItemRegistry.*;
-import static com.sammy.ortus.systems.rendering.particle.screen.base.ScreenParticle.RenderOrder.BEFORE_TOOLTIPS;
+import static team.lodestar.lodestone.systems.rendering.particle.screen.base.ScreenParticle.RenderOrder.BEFORE_TOOLTIPS;
 import static net.minecraft.util.FastColor.ARGB32.color;
 import static net.minecraft.world.item.Items.*;
 import static org.lwjgl.opengl.GL11C.GL_SCISSOR_TEST;
@@ -795,7 +795,7 @@ public class ProgressionBookScreen extends Screen {
         renderRiteIcon(rite, stack, corrupted, x, y, 0);
     }
     public static void renderRiteIcon(MalumRiteType rite, PoseStack stack, boolean corrupted, int x, int y, int z) {
-        ExtendedShaderInstance shaderInstance = (ExtendedShaderInstance) OrtusShaderRegistry.DISTORTED_TEXTURE.getInstance().get();
+        ExtendedShaderInstance shaderInstance = (ExtendedShaderInstance) LodestoneShaderRegistry.DISTORTED_TEXTURE.getInstance().get();
         shaderInstance.safeGetUniform("YFrequency").set(corrupted ? 5f : 11f);
         shaderInstance.safeGetUniform("XFrequency").set(corrupted ? 12f : 17f);
         shaderInstance.safeGetUniform("Speed").set(2000f * (corrupted ? -0.75f : 1));

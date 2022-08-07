@@ -1,8 +1,8 @@
 package com.sammy.malum.common.capability;
 
 import com.sammy.malum.MalumMod;
-import com.sammy.ortus.systems.capability.OrtusCapability;
-import com.sammy.ortus.systems.capability.OrtusCapabilityProvider;
+import team.lodestar.lodestone.systems.capability.LodestoneCapability;
+import team.lodestar.lodestone.systems.capability.LodestoneCapabilityProvider;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class MalumItemDataCapability implements OrtusCapability {
+public class MalumItemDataCapability implements LodestoneCapability {
 
     public List<ItemStack> soulsToDrop;
     public UUID attackerForSouls;
@@ -40,7 +40,7 @@ public class MalumItemDataCapability implements OrtusCapability {
     public static void attachItemCapability(AttachCapabilitiesEvent<Entity> event) {
         if (event.getObject() instanceof ItemEntity) {
             final MalumItemDataCapability capability = new MalumItemDataCapability();
-            event.addCapability(MalumMod.malumPath("item_data"), new OrtusCapabilityProvider<>(CAPABILITY, () -> capability));
+            event.addCapability(MalumMod.malumPath("item_data"), new LodestoneCapabilityProvider<>(CAPABILITY, () -> capability));
         }
     }
 

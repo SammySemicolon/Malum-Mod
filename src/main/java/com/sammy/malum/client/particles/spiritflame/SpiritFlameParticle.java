@@ -1,7 +1,7 @@
 package com.sammy.malum.client.particles.spiritflame;
 
-import com.sammy.ortus.systems.rendering.particle.world.FrameSetParticle;
-import com.sammy.ortus.systems.rendering.particle.world.WorldParticleOptions;
+import team.lodestar.lodestone.systems.rendering.particle.world.FrameSetParticle;
+import team.lodestar.lodestone.systems.rendering.particle.world.WorldParticleOptions;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.ParticleEngine;
 

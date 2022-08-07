@@ -5,9 +5,9 @@ import com.sammy.malum.client.model.SpiritHunterArmorModel;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
 import com.sammy.malum.core.setup.content.AttributeRegistry;
 import com.sammy.malum.core.systems.item.ItemSkin;
-import com.sammy.ortus.setup.OrtusAttributeRegistry;
-import com.sammy.ortus.systems.item.OrtusArmorItem;
-import com.sammy.ortus.systems.model.OrtusArmorModel;
+import team.lodestar.lodestone.setup.LodestoneAttributeRegistry;
+import team.lodestar.lodestone.systems.item.LodestoneArmorItem;
+import team.lodestar.lodestone.systems.model.LodestoneArmorModel;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.util.Mth;
@@ -26,7 +26,7 @@ import java.util.function.Consumer;
 
 import static com.sammy.malum.core.setup.content.item.ArmorTiers.ArmorTierEnum.SPIRIT_HUNTER;
 
-public class SoulHunterArmorItem extends OrtusArmorItem {
+public class SoulHunterArmorItem extends LodestoneArmorItem {
     public SoulHunterArmorItem(EquipmentSlot slot, Properties builder) {
         super(SPIRIT_HUNTER, slot, builder);
     }
@@ -35,7 +35,7 @@ public class SoulHunterArmorItem extends OrtusArmorItem {
     public ImmutableMultimap.Builder<Attribute, AttributeModifier> createExtraAttributes(EquipmentSlot slot) {
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = new ImmutableMultimap.Builder<>();
         UUID uuid = ARMOR_MODIFIER_UUID_PER_SLOT[slot.getIndex()];
-        builder.put(OrtusAttributeRegistry.MAGIC_PROFICIENCY.get(), new AttributeModifier(uuid, "Magic Proficiency", 2f, AttributeModifier.Operation.ADDITION));
+        builder.put(LodestoneAttributeRegistry.MAGIC_PROFICIENCY.get(), new AttributeModifier(uuid, "Magic Proficiency", 2f, AttributeModifier.Operation.ADDITION));
         return builder;
     }
 
@@ -59,14 +59,14 @@ public class SoulHunterArmorItem extends OrtusArmorItem {
     public void initializeClient(Consumer<net.minecraftforge.client.IItemRenderProperties> consumer) {
         consumer.accept(new IItemRenderProperties() {
             @Override
-            public OrtusArmorModel getArmorModel(LivingEntity entity, ItemStack itemStack, EquipmentSlot armorSlot, HumanoidModel _default) {
+            public LodestoneArmorModel getArmorModel(LivingEntity entity, ItemStack itemStack, EquipmentSlot armorSlot, HumanoidModel _default) {
                 float pticks = Minecraft.getInstance().getFrameTime();
                 float f = Mth.rotLerp(pticks, entity.yBodyRotO, entity.yBodyRot);
                 float f1 = Mth.rotLerp(pticks, entity.yHeadRotO, entity.yHeadRot);
                 float netHeadYaw = f1 - f;
                 float netHeadPitch = Mth.lerp(pticks, entity.xRotO, entity.getXRot());
                 ItemSkin skin = ItemRegistry.ClientOnly.getSkin(itemStack);
-                OrtusArmorModel model = skin != null ? skin.modelSupplier.get() : ItemRegistry.ClientOnly.SPIRIT_HUNTER_ARMOR;
+                LodestoneArmorModel model = skin != null ? skin.modelSupplier.get() : ItemRegistry.ClientOnly.SPIRIT_HUNTER_ARMOR;
 
                 model.slot = slot;
                 model.copyFromDefault(_default);

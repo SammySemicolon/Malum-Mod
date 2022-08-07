@@ -2,7 +2,7 @@ package com.sammy.malum.common.block;
 
 import com.sammy.malum.common.blockentity.totem.TotemPoleBlockEntity;
 import com.sammy.malum.common.item.spirit.MalumSpiritItem;
-import com.sammy.ortus.systems.block.OrtusLogBlock;
+import team.lodestar.lodestone.systems.block.LodestoneLogBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
@@ -16,7 +16,7 @@ import net.minecraft.world.phys.BlockHitResult;
 
 import java.util.function.Supplier;
 
-public class MalumLogBLock extends OrtusLogBlock {
+public class MalumLogBLock extends LodestoneLogBlock {
     private final boolean isCorrupt;
 
     public MalumLogBLock(Properties properties, Supplier<Block> stripped, boolean isCorrupt) {

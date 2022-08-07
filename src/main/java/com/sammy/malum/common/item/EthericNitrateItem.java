@@ -3,12 +3,12 @@ package com.sammy.malum.common.item;
 import com.sammy.malum.common.entity.nitrate.AbstractNitrateEntity;
 import com.sammy.malum.common.entity.nitrate.EthericNitrateEntity;
 import com.sammy.malum.core.setup.content.SoundRegistry;
-import com.sammy.ortus.helpers.ColorHelper;
-import com.sammy.ortus.setup.OrtusScreenParticleRegistry;
-import com.sammy.ortus.systems.easing.Easing;
-import com.sammy.ortus.systems.rendering.particle.ParticleBuilders;
-import com.sammy.ortus.systems.rendering.particle.screen.base.ScreenParticle;
-import com.sammy.ortus.systems.rendering.particle.screen.emitter.ItemParticleEmitter;
+import team.lodestar.lodestone.helpers.ColorHelper;
+import team.lodestar.lodestone.setup.LodestoneScreenParticleRegistry;
+import team.lodestar.lodestone.systems.easing.Easing;
+import team.lodestar.lodestone.systems.rendering.particle.ParticleBuilders;
+import team.lodestar.lodestone.systems.rendering.particle.screen.base.ScreenParticle;
+import team.lodestar.lodestone.systems.rendering.particle.screen.emitter.ItemParticleEmitter;
 import net.minecraft.client.Minecraft;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -66,7 +66,7 @@ public class EthericNitrateItem extends Item implements ItemParticleEmitter {
         Color firstColor = ColorHelper.brighter(EthericNitrateEntity.FIRST_COLOR, 2);
         Color secondColor = EthericNitrateEntity.SECOND_COLOR;
         double scale = 1.5f + Math.sin(gameTime * 0.1f) * 0.125f + Math.sin((gameTime - 100) * 0.05f) * -0.5f;
-        ParticleBuilders.create(OrtusScreenParticleRegistry.STAR)
+        ParticleBuilders.create(LodestoneScreenParticleRegistry.STAR)
                 .setAlpha(0.04f, 0f)
                 .setLifetime(7)
                 .setScale((float) scale, 0)

@@ -5,11 +5,11 @@ import com.sammy.malum.common.item.spirit.SpiritPouchItem;
 import com.sammy.malum.core.helper.SpiritHelper;
 import com.sammy.malum.core.setup.content.block.BlockEntityRegistry;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
-import com.sammy.ortus.helpers.BlockHelper;
-import com.sammy.ortus.setup.OrtusParticleRegistry;
-import com.sammy.ortus.systems.blockentity.OrtusBlockEntity;
-import com.sammy.ortus.systems.container.ItemInventory;
-import com.sammy.ortus.systems.rendering.particle.ParticleBuilders;
+import team.lodestar.lodestone.helpers.BlockHelper;
+import team.lodestar.lodestone.setup.LodestoneParticleRegistry;
+import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntity;
+import team.lodestar.lodestone.systems.container.ItemInventory;
+import team.lodestar.lodestone.systems.rendering.particle.ParticleBuilders;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -33,7 +33,7 @@ import javax.annotation.Nonnull;
 import java.awt.*;
 import java.util.UUID;
 
-public class SpiritJarBlockEntity extends OrtusBlockEntity {
+public class SpiritJarBlockEntity extends LodestoneBlockEntity {
 
     public SpiritJarBlockEntity(BlockEntityType<? extends SpiritJarBlockEntity> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
@@ -244,7 +244,7 @@ public class SpiritJarBlockEntity extends OrtusBlockEntity {
     @OnlyIn(value = Dist.CLIENT)
     public void spawnUseParticles(Level level, BlockPos pos, MalumSpiritType type) {
         Color color = type.getColor();
-        ParticleBuilders.create(OrtusParticleRegistry.WISP_PARTICLE)
+        ParticleBuilders.create(LodestoneParticleRegistry.WISP_PARTICLE)
                 .setAlpha(0.15f, 0f)
                 .setLifetime(20)
                 .setScale(0.3f, 0)

@@ -1,7 +1,7 @@
 package com.sammy.malum.common.packets;
 
 import com.sammy.malum.common.capability.MalumLivingEntityDataCapability;
-import com.sammy.ortus.systems.network.OrtusClientPacket;
+import team.lodestar.lodestone.systems.network.LodestoneClientPacket;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
@@ -14,7 +14,7 @@ import net.minecraftforge.network.simple.SimpleChannel;
 
 import java.util.function.Supplier;
 
-public class SyncLivingCapabilityDataPacket extends OrtusClientPacket {
+public class SyncLivingCapabilityDataPacket extends LodestoneClientPacket {
     private final int entityId;
     private final CompoundTag tag;
 

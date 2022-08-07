@@ -1,10 +1,10 @@
 package com.sammy.malum.common.block;
 
 import com.sammy.malum.core.setup.content.SoundRegistry;
-import com.sammy.ortus.helpers.BlockHelper;
-import com.sammy.ortus.network.screenshake.PositionedScreenshakePacket;
-import com.sammy.ortus.setup.OrtusPacketRegistry;
-import com.sammy.ortus.systems.easing.Easing;
+import team.lodestar.lodestone.helpers.BlockHelper;
+import team.lodestar.lodestone.network.screenshake.PositionedScreenshakePacket;
+import team.lodestar.lodestone.setup.LodestonePacketRegistry;
+import team.lodestar.lodestone.systems.easing.Easing;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
@@ -55,7 +55,7 @@ public class TheDevice extends Block {
 
     public void playSound(Level level, BlockPos pos) {
         if (level instanceof ServerLevel serverLevel) {
-            OrtusPacketRegistry.ORTUS_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> serverLevel.getChunkAt(pos)), new PositionedScreenshakePacket(40, BlockHelper.fromBlockPos(pos),4f,10f, Easing.EXPO_OUT).setIntensity(4f, 0));
+            LodestonePacketRegistry.ORTUS_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> serverLevel.getChunkAt(pos)), new PositionedScreenshakePacket(40, BlockHelper.fromBlockPos(pos),4f,10f, Easing.EXPO_OUT).setIntensity(4f, 0));
         }
         level.playSound(null, pos, SoundRegistry.SUSPICIOUS_SOUND.get(), SoundSource.BLOCKS, 1, 1);
     }

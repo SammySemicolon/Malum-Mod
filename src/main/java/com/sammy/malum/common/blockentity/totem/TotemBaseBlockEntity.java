@@ -7,8 +7,8 @@ import com.sammy.malum.core.helper.SpiritHelper;
 import com.sammy.malum.core.setup.content.SoundRegistry;
 import com.sammy.malum.core.setup.content.block.BlockEntityRegistry;
 import com.sammy.malum.core.setup.content.SpiritRiteRegistry;
-import com.sammy.ortus.helpers.BlockHelper;
-import com.sammy.ortus.systems.blockentity.OrtusBlockEntity;
+import team.lodestar.lodestone.helpers.BlockHelper;
+import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntity;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import net.minecraft.core.BlockPos;
@@ -32,7 +32,7 @@ import java.util.stream.Collectors;
 import static com.sammy.malum.core.setup.server.PacketRegistry.MALUM_CHANNEL;
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.HORIZONTAL_FACING;
 
-public class TotemBaseBlockEntity extends OrtusBlockEntity {
+public class TotemBaseBlockEntity extends LodestoneBlockEntity {
 
     public MalumRiteType rite;
     public ArrayList<MalumSpiritType> spirits = new ArrayList<>();

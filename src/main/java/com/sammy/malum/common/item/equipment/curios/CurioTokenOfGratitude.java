@@ -1,7 +1,7 @@
 package com.sammy.malum.common.item.equipment.curios;
 
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
-import com.sammy.ortus.helpers.CurioHelper;
+import team.lodestar.lodestone.helpers.CurioHelper;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;

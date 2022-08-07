@@ -2,7 +2,7 @@ package com.sammy.malum.common.recipe.vanilla;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.sammy.ortus.systems.recipe.IngredientWithCount;
+import team.lodestar.lodestone.systems.recipe.IngredientWithCount;
 import net.minecraft.core.Registry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;

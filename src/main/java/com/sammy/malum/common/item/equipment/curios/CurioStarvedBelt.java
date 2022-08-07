@@ -5,7 +5,7 @@ import com.google.common.collect.Multimap;
 import com.sammy.malum.core.setup.content.SoundRegistry;
 import com.sammy.malum.core.setup.content.potion.MalumMobEffectRegistry;
 import com.sammy.malum.core.systems.item.IMalumEventResponderItem;
-import com.sammy.ortus.helpers.EntityHelper;
+import team.lodestar.lodestone.helpers.EntityHelper;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffect;

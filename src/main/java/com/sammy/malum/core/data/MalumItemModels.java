@@ -13,9 +13,9 @@ import com.sammy.malum.common.item.spirit.MalumSpiritItem;
 import com.sammy.malum.common.item.spirit.SoulStaveItem;
 import com.sammy.malum.common.item.tools.MalumScytheItem;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
-import com.sammy.ortus.helpers.DataHelper;
-import com.sammy.ortus.systems.item.ModCombatItem;
-import com.sammy.ortus.systems.multiblock.MultiBlockItem;
+import team.lodestar.lodestone.helpers.DataHelper;
+import team.lodestar.lodestone.systems.item.ModCombatItem;
+import team.lodestar.lodestone.systems.multiblock.MultiBlockItem;
 import net.mehvahdjukaar.supplementaries.common.block.blocks.SconceBlock;
 import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;
@@ -33,8 +33,8 @@ import java.util.Set;
 
 import static com.sammy.malum.MalumMod.malumPath;
 import static com.sammy.malum.core.setup.content.item.ItemRegistry.ITEMS;
-import static com.sammy.ortus.helpers.DataHelper.take;
-import static com.sammy.ortus.helpers.DataHelper.takeAll;
+import static team.lodestar.lodestone.helpers.DataHelper.take;
+import static team.lodestar.lodestone.helpers.DataHelper.takeAll;
 
 public class MalumItemModels extends net.minecraftforge.client.model.generators.ItemModelProvider {
     public MalumItemModels(DataGenerator generator, ExistingFileHelper existingFileHelper) {

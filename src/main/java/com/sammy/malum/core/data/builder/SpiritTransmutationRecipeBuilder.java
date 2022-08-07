@@ -3,7 +3,7 @@ package com.sammy.malum.core.data.builder;
 import com.google.gson.JsonObject;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.core.setup.content.RecipeSerializerRegistry;
-import com.sammy.ortus.systems.recipe.IngredientWithCount;
+import team.lodestar.lodestone.systems.recipe.IngredientWithCount;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;

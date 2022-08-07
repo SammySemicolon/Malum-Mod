@@ -1,13 +1,13 @@
 package com.sammy.malum.config;
 
 import com.sammy.malum.common.spiritrite.greater.EldritchInfernalRiteType;
-import com.sammy.ortus.systems.config.OrtusConfig;
+import team.lodestar.lodestone.systems.config.LodestoneConfig;
 import net.minecraftforge.common.ForgeConfigSpec;
 import org.apache.commons.lang3.tuple.Pair;
 
 import static com.sammy.malum.MalumMod.MALUM;
 
-public class CommonConfig extends OrtusConfig {
+public class CommonConfig extends LodestoneConfig {
 
     //worldgen
     public static ConfigValueHolder<Boolean> GENERATE_RUNEWOOD_TREES = new ConfigValueHolder<>(MALUM,"common/worldgen/runewood", (builder ->

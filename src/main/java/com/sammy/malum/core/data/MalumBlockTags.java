@@ -4,8 +4,8 @@ import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.block.ether.EtherBlock;
 import com.sammy.malum.core.setup.content.block.BlockRegistry;
 import com.sammy.malum.core.setup.content.block.BlockTagRegistry;
-import com.sammy.ortus.systems.block.OrtusBlockProperties;
-import com.sammy.ortus.systems.block.OrtusThrowawayBlockData;
+import team.lodestar.lodestone.systems.block.LodestoneBlockProperties;
+import team.lodestar.lodestone.systems.block.LodestoneThrowawayBlockData;
 import net.minecraft.world.level.block.*;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.BlockTagsProvider;
@@ -79,9 +79,9 @@ public class MalumBlockTags extends BlockTagsProvider {
         for (Block block : getModBlocks(b -> b instanceof EtherBlock)) {
             tag(BlockTagRegistry.TRAY_HEAT_SOURCES).add(block);
         }
-        for (Block block : getModBlocks(b -> b.properties instanceof OrtusBlockProperties)) {
-            OrtusBlockProperties properties = (OrtusBlockProperties) block.properties;
-            OrtusThrowawayBlockData data = properties.getThrowawayData();
+        for (Block block : getModBlocks(b -> b.properties instanceof LodestoneBlockProperties)) {
+            LodestoneBlockProperties properties = (LodestoneBlockProperties) block.properties;
+            LodestoneThrowawayBlockData data = properties.getThrowawayData();
             if (data.needsPickaxe) {
                 tag(MINEABLE_WITH_PICKAXE).add(block);
             }

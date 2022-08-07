@@ -1,9 +1,9 @@
 package com.sammy.malum.common.item.ether;
 
-import com.sammy.ortus.setup.OrtusScreenParticleRegistry;
-import com.sammy.ortus.systems.easing.Easing;
-import com.sammy.ortus.systems.rendering.particle.ParticleBuilders;
-import com.sammy.ortus.systems.rendering.particle.screen.base.ScreenParticle;
+import team.lodestar.lodestone.setup.LodestoneScreenParticleRegistry;
+import team.lodestar.lodestone.systems.easing.Easing;
+import team.lodestar.lodestone.systems.rendering.particle.ParticleBuilders;
+import team.lodestar.lodestone.systems.rendering.particle.screen.base.ScreenParticle;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -36,7 +36,7 @@ public class EtherSconceItem extends EtherTorchItem {
         Color firstColor = new Color(etherItem.getFirstColor(stack));
         Color secondColor = new Color(etherItem.getSecondColor(stack));
         float alphaMultiplier = etherItem.iridescent ? 0.75f : 0.5f;
-        ParticleBuilders.create(OrtusScreenParticleRegistry.STAR)
+        ParticleBuilders.create(LodestoneScreenParticleRegistry.STAR)
                 .setAlpha(0.11f * alphaMultiplier, 0f)
                 .setLifetime(7)
                 .setScale((float) (0.75f + Math.sin(gameTime * 0.05f) * 0.125f), 0)

@@ -4,7 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.client.screen.codex.objects.EntryObject;
 import com.sammy.malum.client.screen.codex.pages.BookPage;
-import com.sammy.ortus.handlers.ScreenParticleHandler;
+import team.lodestar.lodestone.handlers.ScreenParticleHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.TranslatableComponent;
@@ -15,7 +15,7 @@ import net.minecraft.world.entity.player.Player;
 
 import static com.sammy.malum.client.screen.codex.ProgressionBookScreen.isHovering;
 import static com.sammy.malum.client.screen.codex.ProgressionBookScreen.renderTexture;
-import static com.sammy.ortus.systems.rendering.particle.screen.base.ScreenParticle.RenderOrder.BEFORE_TOOLTIPS;
+import static team.lodestar.lodestone.systems.rendering.particle.screen.base.ScreenParticle.RenderOrder.BEFORE_TOOLTIPS;
 
 public class EntryScreen extends Screen {
     public static final ResourceLocation BOOK_TEXTURE = MalumMod.malumPath("textures/gui/book/entry.png");

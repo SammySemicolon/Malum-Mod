@@ -7,7 +7,7 @@ import com.sammy.malum.core.helper.SpiritHelper;
 import com.sammy.malum.core.systems.reaping.MalumReapingDropsData;
 import com.sammy.malum.core.systems.recipe.SpiritWithCount;
 import com.sammy.malum.core.systems.spirit.MalumEntitySpiritData;
-import com.sammy.ortus.systems.recipe.IngredientWithCount;
+import team.lodestar.lodestone.systems.recipe.IngredientWithCount;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;

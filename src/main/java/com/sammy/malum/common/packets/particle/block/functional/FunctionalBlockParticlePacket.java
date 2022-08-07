@@ -1,13 +1,13 @@
 package com.sammy.malum.common.packets.particle.block.functional;
 
-import com.sammy.ortus.systems.network.OrtusClientPacket;
+import team.lodestar.lodestone.systems.network.LodestoneClientPacket;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class FunctionalBlockParticlePacket extends OrtusClientPacket {
+public class FunctionalBlockParticlePacket extends LodestoneClientPacket {
     protected final List<String> spirits;
     protected final double posX;
     protected final double posY;

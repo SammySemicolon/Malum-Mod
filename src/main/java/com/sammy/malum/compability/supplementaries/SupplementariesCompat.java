@@ -1,6 +1,6 @@
 package com.sammy.malum.compability.supplementaries;
 
-import com.sammy.ortus.systems.item.tools.magic.MagicKnifeItem;
+import team.lodestar.lodestone.systems.item.tools.magic.MagicKnifeItem;
 import net.mehvahdjukaar.supplementaries.common.block.blocks.SconceBlock;
 import net.mehvahdjukaar.supplementaries.common.block.blocks.SconceWallBlock;
 import net.minecraft.core.particles.ParticleTypes;

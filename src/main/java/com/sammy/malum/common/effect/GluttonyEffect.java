@@ -4,9 +4,9 @@ import com.sammy.malum.common.capability.MalumPlayerDataCapability;
 import com.sammy.malum.core.setup.content.AttributeRegistry;
 import com.sammy.malum.core.setup.content.SoundRegistry;
 import com.sammy.malum.core.setup.content.potion.MalumMobEffectRegistry;
-import com.sammy.ortus.helpers.ColorHelper;
-import com.sammy.ortus.helpers.EntityHelper;
-import com.sammy.ortus.setup.OrtusAttributeRegistry;
+import team.lodestar.lodestone.helpers.ColorHelper;
+import team.lodestar.lodestone.helpers.EntityHelper;
+import team.lodestar.lodestone.setup.LodestoneAttributeRegistry;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffect;
@@ -29,7 +29,7 @@ import static com.sammy.malum.core.setup.content.item.ItemTagRegistry.GROSS_FOOD
 public class GluttonyEffect extends MobEffect {
     public GluttonyEffect() {
         super(MobEffectCategory.BENEFICIAL, ColorHelper.getColor(88, 86, 60));
-        addAttributeModifier(OrtusAttributeRegistry.MAGIC_PROFICIENCY.get(), "4d82fd0a-24b6-45f5-8d7a-983f99fd6783", 2f, AttributeModifier.Operation.ADDITION);
+        addAttributeModifier(LodestoneAttributeRegistry.MAGIC_PROFICIENCY.get(), "4d82fd0a-24b6-45f5-8d7a-983f99fd6783", 2f, AttributeModifier.Operation.ADDITION);
     }
 
     public static void canApplyPotion(PotionEvent.PotionApplicableEvent event) {

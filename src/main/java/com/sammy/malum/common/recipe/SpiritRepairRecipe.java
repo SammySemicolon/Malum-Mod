@@ -6,8 +6,8 @@ import com.google.gson.JsonObject;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.core.setup.content.RecipeSerializerRegistry;
 import com.sammy.malum.core.systems.recipe.SpiritWithCount;
-import com.sammy.ortus.systems.recipe.IOrtusRecipe;
-import com.sammy.ortus.systems.recipe.IngredientWithCount;
+import team.lodestar.lodestone.systems.recipe.ILodestoneRecipe;
+import team.lodestar.lodestone.systems.recipe.IngredientWithCount;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
@@ -26,7 +26,7 @@ import java.util.Map;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-public class SpiritRepairRecipe extends IOrtusRecipe {
+public class SpiritRepairRecipe extends ILodestoneRecipe {
     public static final String NAME = "spirit_repair";
 
     public static class Type implements RecipeType<SpiritRepairRecipe> {

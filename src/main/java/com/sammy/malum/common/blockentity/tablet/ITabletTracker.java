@@ -1,6 +1,6 @@
 package com.sammy.malum.common.blockentity.tablet;
 
-import com.sammy.ortus.helpers.BlockHelper;
+import team.lodestar.lodestone.helpers.BlockHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;

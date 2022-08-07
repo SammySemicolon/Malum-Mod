@@ -2,8 +2,8 @@ package com.sammy.malum.common.packets.particle.block.functional;
 
 import com.sammy.malum.core.helper.SpiritHelper;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
-import com.sammy.ortus.setup.OrtusParticleRegistry;
-import com.sammy.ortus.systems.rendering.particle.ParticleBuilders;
+import team.lodestar.lodestone.setup.LodestoneParticleRegistry;
+import team.lodestar.lodestone.systems.rendering.particle.ParticleBuilders;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.item.ItemStack;
@@ -37,7 +37,7 @@ public class AltarConsumeParticlePacket extends FunctionalBlockItemAbsorbParticl
         for (MalumSpiritType type : types) {
             Color color = type.getColor();
             Color endColor = type.getEndColor();
-            ParticleBuilders.create(OrtusParticleRegistry.TWINKLE_PARTICLE)
+            ParticleBuilders.create(LodestoneParticleRegistry.TWINKLE_PARTICLE)
                     .setAlpha(alpha * 2, 0f)
                     .setLifetime(60)
                     .setScale(0.4f, 0)
@@ -47,7 +47,7 @@ public class AltarConsumeParticlePacket extends FunctionalBlockItemAbsorbParticl
                     .enableNoClip()
                     .repeat(level, posX, posY, posZ, 12);
 
-            ParticleBuilders.create(OrtusParticleRegistry.WISP_PARTICLE)
+            ParticleBuilders.create(LodestoneParticleRegistry.WISP_PARTICLE)
                     .setAlpha(alpha, 0f)
                     .setLifetime(30)
                     .setScale(0.2f, 0)
@@ -58,7 +58,7 @@ public class AltarConsumeParticlePacket extends FunctionalBlockItemAbsorbParticl
                     .repeat(level, posX, posY, posZ, 8);
 
             Vec3 velocity = new Vec3(posX, posY, posZ).subtract(altarPosX, altarPosY, altarPosZ).normalize().scale(-0.05f);
-            ParticleBuilders.create(OrtusParticleRegistry.WISP_PARTICLE)
+            ParticleBuilders.create(LodestoneParticleRegistry.WISP_PARTICLE)
                     .setAlpha(alpha, 0f)
                     .setLifetime(40)
                     .setScale(0.3f, 0)

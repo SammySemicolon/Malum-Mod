@@ -5,7 +5,7 @@ import com.sammy.malum.core.helper.SpiritHelper;
 import com.sammy.malum.core.setup.content.entity.EntityRegistry;
 import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
 import com.sammy.malum.core.systems.item.IFloatingGlowItem;
-import com.sammy.ortus.helpers.ColorHelper;
+import team.lodestar.lodestone.helpers.ColorHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;

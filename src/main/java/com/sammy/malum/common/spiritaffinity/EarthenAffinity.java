@@ -10,9 +10,9 @@ import com.sammy.malum.core.setup.content.AttributeRegistry;
 import com.sammy.malum.core.setup.content.SoundRegistry;
 import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
 import com.sammy.malum.core.systems.spirit.MalumSpiritAffinity;
-import com.sammy.ortus.setup.OrtusShaderRegistry;
-import com.sammy.ortus.systems.rendering.ExtendedShaderInstance;
-import com.sammy.ortus.systems.rendering.VFXBuilders;
+import team.lodestar.lodestone.setup.LodestoneShaderRegistry;
+import team.lodestar.lodestone.systems.rendering.ExtendedShaderInstance;
+import team.lodestar.lodestone.systems.rendering.VFXBuilders;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.resources.ResourceLocation;
@@ -114,7 +114,7 @@ public class EarthenAffinity extends MalumSpiritAffinity {
 
                     poseStack.pushPose();
                     RenderSystem.setShaderTexture(0, ICONS_TEXTURE);
-                    ExtendedShaderInstance shaderInstance = (ExtendedShaderInstance) OrtusShaderRegistry.DISTORTED_TEXTURE.getInstance().get();
+                    ExtendedShaderInstance shaderInstance = (ExtendedShaderInstance) LodestoneShaderRegistry.DISTORTED_TEXTURE.getInstance().get();
                     shaderInstance.safeGetUniform("YFrequency").set(35f);
                     shaderInstance.safeGetUniform("XFrequency").set(25f);
                     shaderInstance.safeGetUniform("Speed").set(1000f);

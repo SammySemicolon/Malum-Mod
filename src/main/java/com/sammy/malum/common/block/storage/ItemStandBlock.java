@@ -1,7 +1,7 @@
 package com.sammy.malum.common.block.storage;
 
 import com.sammy.malum.common.blockentity.storage.ItemStandBlockEntity;
-import com.sammy.ortus.systems.block.WaterLoggedEntityBlock;
+import team.lodestar.lodestone.systems.block.WaterLoggedEntityBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;

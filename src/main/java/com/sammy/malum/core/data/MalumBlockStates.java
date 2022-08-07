@@ -11,7 +11,7 @@ import com.sammy.malum.common.block.totem.TotemBaseBlock;
 import com.sammy.malum.common.block.totem.TotemPoleBlock;
 import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
-import com.sammy.ortus.helpers.DataHelper;
+import team.lodestar.lodestone.helpers.DataHelper;
 import net.mehvahdjukaar.supplementaries.common.block.blocks.SconceBlock;
 import net.mehvahdjukaar.supplementaries.common.block.blocks.SconceWallBlock;
 import net.minecraft.core.Direction;
@@ -33,8 +33,8 @@ import java.util.function.Function;
 
 import static com.sammy.malum.MalumMod.malumPath;
 import static com.sammy.malum.core.setup.content.block.BlockRegistry.*;
-import static com.sammy.ortus.helpers.DataHelper.take;
-import static com.sammy.ortus.helpers.DataHelper.takeAll;
+import static team.lodestar.lodestone.helpers.DataHelper.take;
+import static team.lodestar.lodestone.helpers.DataHelper.takeAll;
 import static net.minecraft.world.level.block.state.properties.DoubleBlockHalf.LOWER;
 import static net.minecraft.world.level.block.state.properties.DoubleBlockHalf.UPPER;
 

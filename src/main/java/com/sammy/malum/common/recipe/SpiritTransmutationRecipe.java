@@ -3,8 +3,8 @@ package com.sammy.malum.common.recipe;
 import com.google.gson.JsonObject;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.core.setup.content.RecipeSerializerRegistry;
-import com.sammy.ortus.systems.recipe.IOrtusRecipe;
-import com.sammy.ortus.systems.recipe.IngredientWithCount;
+import team.lodestar.lodestone.systems.recipe.ILodestoneRecipe;
+import team.lodestar.lodestone.systems.recipe.IngredientWithCount;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
@@ -17,7 +17,7 @@ import net.minecraftforge.registries.ForgeRegistryEntry;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class SpiritTransmutationRecipe extends IOrtusRecipe {
+public class SpiritTransmutationRecipe extends ILodestoneRecipe {
     public static final String NAME = "spirit_transmutation";
 
     public static class Type implements RecipeType<SpiritTransmutationRecipe> {

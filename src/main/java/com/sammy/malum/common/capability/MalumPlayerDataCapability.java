@@ -5,8 +5,8 @@ import com.sammy.malum.common.packets.SyncMalumPlayerCapabilityDataPacket;
 import com.sammy.malum.core.setup.server.PacketRegistry;
 import com.sammy.malum.core.setup.content.SpiritAffinityRegistry;
 import com.sammy.malum.core.systems.spirit.MalumSpiritAffinity;
-import com.sammy.ortus.systems.capability.OrtusCapability;
-import com.sammy.ortus.systems.capability.OrtusCapabilityProvider;
+import team.lodestar.lodestone.systems.capability.LodestoneCapability;
+import team.lodestar.lodestone.systems.capability.LodestoneCapabilityProvider;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -24,7 +24,7 @@ import net.minecraftforge.network.PacketDistributor;
 
 import java.util.UUID;
 
-public class MalumPlayerDataCapability implements OrtusCapability {
+public class MalumPlayerDataCapability implements LodestoneCapability {
 
     public static Capability<MalumPlayerDataCapability> CAPABILITY = CapabilityManager.get(new CapabilityToken<>() {
     });
@@ -54,7 +54,7 @@ public class MalumPlayerDataCapability implements OrtusCapability {
     public static void attachPlayerCapability(AttachCapabilitiesEvent<Entity> event) {
         if (event.getObject() instanceof Player) {
             final MalumPlayerDataCapability capability = new MalumPlayerDataCapability();
-            event.addCapability(MalumMod.malumPath("player_data"), new OrtusCapabilityProvider<>(MalumPlayerDataCapability.CAPABILITY, () -> capability));
+            event.addCapability(MalumMod.malumPath("player_data"), new LodestoneCapabilityProvider<>(MalumPlayerDataCapability.CAPABILITY, () -> capability));
         }
     }
 

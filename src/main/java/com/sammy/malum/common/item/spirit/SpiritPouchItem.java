@@ -1,7 +1,7 @@
 package com.sammy.malum.common.item.spirit;
 
 import com.sammy.malum.common.container.SpiritPouchContainer;
-import com.sammy.ortus.systems.container.ItemInventory;
+import team.lodestar.lodestone.systems.container.ItemInventory;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;

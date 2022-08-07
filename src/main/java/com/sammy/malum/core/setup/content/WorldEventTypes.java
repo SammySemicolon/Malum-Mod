@@ -2,9 +2,9 @@ package com.sammy.malum.core.setup.content;
 
 import com.sammy.malum.common.worldevent.ActiveBlightEvent;
 import com.sammy.malum.common.worldevent.TotemCreatedBlightEvent;
-import com.sammy.ortus.systems.worldevent.WorldEventType;
+import team.lodestar.lodestone.systems.worldevent.WorldEventType;
 
-import static com.sammy.ortus.setup.worldevent.OrtusWorldEventTypeRegistry.registerEventType;
+import static team.lodestar.lodestone.setup.worldevent.LodestoneWorldEventTypeRegistry.registerEventType;
 
 public class WorldEventTypes {
     public static WorldEventType ACTIVE_BLIGHT = registerEventType(new WorldEventType("active_blight", ActiveBlightEvent::new));

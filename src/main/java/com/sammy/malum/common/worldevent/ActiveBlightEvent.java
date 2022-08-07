@@ -7,8 +7,8 @@ import com.sammy.malum.common.worldgen.SoulwoodTreeFeature;
 import com.sammy.malum.core.setup.content.SoundRegistry;
 import com.sammy.malum.core.setup.content.WorldEventTypes;
 import com.sammy.malum.core.setup.content.block.BlockRegistry;
-import com.sammy.ortus.systems.worldevent.WorldEventInstance;
-import com.sammy.ortus.systems.worldgen.OrtusBlockFiller;
+import team.lodestar.lodestone.systems.worldevent.WorldEventInstance;
+import team.lodestar.lodestone.systems.worldgen.LodestoneBlockFiller;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundSource;
@@ -64,7 +64,7 @@ public class ActiveBlightEvent extends WorldEventInstance {
     }
 
     public static void createBlight(Level level, BlockPos sourcePos, int intensity) {
-        OrtusBlockFiller blightFiller = new OrtusBlockFiller(false);
+        LodestoneBlockFiller blightFiller = new LodestoneBlockFiller(false);
         Random rand = level.getRandom();
         Direction[] directions = new Direction[]{Direction.NORTH, Direction.WEST, Direction.SOUTH, Direction.EAST};
         int blightSize = intensity + rand.nextInt(Math.max(1, intensity / 2));

@@ -1,8 +1,8 @@
 package com.sammy.malum.common.packets.particle.entity;
 
-import com.sammy.ortus.setup.OrtusParticleRegistry;
-import com.sammy.ortus.systems.network.OrtusClientPacket;
-import com.sammy.ortus.systems.rendering.particle.ParticleBuilders;
+import team.lodestar.lodestone.setup.LodestoneParticleRegistry;
+import team.lodestar.lodestone.systems.network.LodestoneClientPacket;
+import team.lodestar.lodestone.systems.rendering.particle.ParticleBuilders;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.level.Level;
@@ -16,7 +16,7 @@ import net.minecraftforge.network.simple.SimpleChannel;
 import java.awt.*;
 import java.util.function.Supplier;
 
-public class SuccessfulSoulHarvestParticlePacket extends OrtusClientPacket {
+public class SuccessfulSoulHarvestParticlePacket extends LodestoneClientPacket {
     private final Color color;
     private final Color endColor;
     private final double posX;
@@ -47,7 +47,7 @@ public class SuccessfulSoulHarvestParticlePacket extends OrtusClientPacket {
     @Override
     public void execute(Supplier<NetworkEvent.Context> context) {
         Level level = Minecraft.getInstance().level;
-        ParticleBuilders.create(OrtusParticleRegistry.SPARKLE_PARTICLE)
+        ParticleBuilders.create(LodestoneParticleRegistry.SPARKLE_PARTICLE)
                 .setAlpha(1.0f, 0).setScale(0.4f, 0).setLifetime(20)
                 .randomOffset(0.5, 0).randomMotion(0, 0.125f)
                 .addMotion(0, 0.28f, 0)
@@ -56,7 +56,7 @@ public class SuccessfulSoulHarvestParticlePacket extends OrtusClientPacket {
                 .setGravity(1)
                 .repeat(level, posX, posY, posZ, 40);
 
-        ParticleBuilders.create(OrtusParticleRegistry.SPARKLE_PARTICLE)
+        ParticleBuilders.create(LodestoneParticleRegistry.SPARKLE_PARTICLE)
                 .setAlpha(0.75f, 0).setScale(0.2f, 0).setLifetime(40)
                 .randomOffset(0.5, 0.5).randomMotion(0.125f, 0.05)
                 .addMotion(0, 0.15f, 0)

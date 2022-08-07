@@ -10,8 +10,8 @@ import com.sammy.malum.common.entity.spirit.SoulEntity;
 import com.sammy.malum.common.item.spirit.SoulStaveItem;
 import com.sammy.malum.common.packets.particle.entity.SuccessfulSoulHarvestParticlePacket;
 import com.sammy.malum.core.helper.SpiritHelper;
-import com.sammy.ortus.setup.OrtusRenderTypeRegistry;
-import com.sammy.ortus.systems.rendering.VFXBuilders;
+import team.lodestar.lodestone.setup.LodestoneRenderTypeRegistry;
+import team.lodestar.lodestone.systems.rendering.VFXBuilders;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -42,9 +42,9 @@ import java.util.ArrayList;
 
 import static com.sammy.malum.MalumMod.malumPath;
 import static com.sammy.malum.core.setup.server.PacketRegistry.MALUM_CHANNEL;
-import static com.sammy.ortus.handlers.RenderHandler.DELAYED_RENDER;
-import static com.sammy.ortus.helpers.RenderHelper.FULL_BRIGHT;
-import static com.sammy.ortus.setup.OrtusRenderTypeRegistry.queueUniformChanges;
+import static team.lodestar.lodestone.handlers.RenderHandler.DELAYED_RENDER;
+import static team.lodestar.lodestone.helpers.RenderHelper.FULL_BRIGHT;
+import static team.lodestar.lodestone.setup.LodestoneRenderTypeRegistry.queueUniformChanges;
 import static net.minecraft.util.Mth.nextFloat;
 
 public class SoulHarvestHandler {
@@ -207,9 +207,9 @@ public class SoulHarvestHandler {
 
     public static class ClientOnly {
         private static final ResourceLocation SOUL_NOISE = malumPath("textures/vfx/noise/soul_noise.png");
-        private static final RenderType SOUL_NOISE_TYPE = OrtusRenderTypeRegistry.RADIAL_NOISE.apply(SOUL_NOISE);
+        private static final RenderType SOUL_NOISE_TYPE = LodestoneRenderTypeRegistry.RADIAL_NOISE.apply(SOUL_NOISE);
         private static final ResourceLocation PREVIEW_NOISE = malumPath("textures/vfx/noise/harvest_noise.png");
-        private static final RenderType PREVIEW_NOISE_TYPE = OrtusRenderTypeRegistry.RADIAL_SCATTER_NOISE.apply(PREVIEW_NOISE);
+        private static final RenderType PREVIEW_NOISE_TYPE = LodestoneRenderTypeRegistry.RADIAL_SCATTER_NOISE.apply(PREVIEW_NOISE);
 
         @SuppressWarnings("all")
         public static void addRenderLayer(EntityRenderer<?> render) {

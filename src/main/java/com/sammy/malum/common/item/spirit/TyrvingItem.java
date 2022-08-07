@@ -5,14 +5,14 @@ import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
 import com.sammy.malum.core.setup.content.DamageSourceRegistry;
 import com.sammy.malum.core.setup.content.SoundRegistry;
 import com.sammy.malum.core.systems.item.IMalumEventResponderItem;
-import com.sammy.ortus.helpers.ColorHelper;
-import com.sammy.ortus.setup.OrtusScreenParticleRegistry;
-import com.sammy.ortus.systems.easing.Easing;
+import team.lodestar.lodestone.helpers.ColorHelper;
+import team.lodestar.lodestone.setup.LodestoneScreenParticleRegistry;
+import team.lodestar.lodestone.systems.easing.Easing;
 import com.sammy.malum.core.helper.SpiritHelper;
-import com.sammy.ortus.systems.item.tools.OrtusSwordItem;
-import com.sammy.ortus.systems.rendering.particle.ParticleBuilders;
-import com.sammy.ortus.systems.rendering.particle.screen.base.ScreenParticle;
-import com.sammy.ortus.systems.rendering.particle.screen.emitter.ItemParticleEmitter;
+import team.lodestar.lodestone.systems.item.tools.LodestoneSwordItem;
+import team.lodestar.lodestone.systems.rendering.particle.ParticleBuilders;
+import team.lodestar.lodestone.systems.rendering.particle.screen.base.ScreenParticle;
+import team.lodestar.lodestone.systems.rendering.particle.screen.emitter.ItemParticleEmitter;
 import net.minecraft.client.Minecraft;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
@@ -31,7 +31,7 @@ import java.awt.*;
 
 import static com.sammy.malum.core.setup.server.PacketRegistry.MALUM_CHANNEL;
 
-public class TyrvingItem extends OrtusSwordItem implements IMalumEventResponderItem {
+public class TyrvingItem extends LodestoneSwordItem implements IMalumEventResponderItem {
     public TyrvingItem(Tier material, int attackDamage, float attackSpeed, Properties properties) {
         super(material, attackDamage, attackSpeed, properties);
     }

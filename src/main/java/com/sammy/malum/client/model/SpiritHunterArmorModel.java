@@ -6,7 +6,7 @@ package com.sammy.malum.client.model;
 
 import com.google.common.collect.ImmutableList;
 import com.sammy.malum.MalumMod;
-import com.sammy.ortus.systems.model.OrtusArmorModel;
+import team.lodestar.lodestone.systems.model.LodestoneArmorModel;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
@@ -18,7 +18,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 
-public class SpiritHunterArmorModel extends OrtusArmorModel {
+public class SpiritHunterArmorModel extends LodestoneArmorModel {
 	public static ModelLayerLocation LAYER = new ModelLayerLocation(MalumMod.malumPath("textures/armor/spirit_hunter_reforged"), "main");
 
 	public ModelPart cape;

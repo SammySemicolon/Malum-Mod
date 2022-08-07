@@ -1,7 +1,7 @@
 package com.sammy.malum.common.block.mirror;
 
 import com.sammy.malum.common.blockentity.mirror.MirrorBlockEntity;
-import com.sammy.ortus.systems.block.WaterLoggedEntityBlock;
+import team.lodestar.lodestone.systems.block.WaterLoggedEntityBlock;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.block.Block;

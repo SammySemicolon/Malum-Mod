@@ -3,13 +3,13 @@ package com.sammy.malum.common.blockentity.crucible;
 import com.sammy.malum.common.item.spirit.MalumSpiritItem;
 import com.sammy.malum.core.setup.content.block.BlockEntityRegistry;
 import com.sammy.malum.core.setup.content.block.BlockRegistry;
-import com.sammy.ortus.helpers.BlockHelper;
-import com.sammy.ortus.setup.OrtusParticleRegistry;
-import com.sammy.ortus.systems.blockentity.OrtusBlockEntityInventory;
-import com.sammy.ortus.systems.multiblock.HorizontalDirectionStructure;
-import com.sammy.ortus.systems.multiblock.MultiBlockCoreEntity;
-import com.sammy.ortus.systems.multiblock.MultiBlockStructure;
-import com.sammy.ortus.systems.rendering.particle.ParticleBuilders;
+import team.lodestar.lodestone.helpers.BlockHelper;
+import team.lodestar.lodestone.setup.LodestoneParticleRegistry;
+import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntityInventory;
+import team.lodestar.lodestone.systems.multiblock.HorizontalDirectionStructure;
+import team.lodestar.lodestone.systems.multiblock.MultiBlockCoreEntity;
+import team.lodestar.lodestone.systems.multiblock.MultiBlockStructure;
+import team.lodestar.lodestone.systems.rendering.particle.ParticleBuilders;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -38,13 +38,13 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity impleme
             new int[]{1, 1, 1, 2, 2, 3, 3, 5},
             new float[]{0.25f, 0.5f, 0.75f, 1f, 1.5f, 2f, 3f, 8f});
 
-    public OrtusBlockEntityInventory inventory;
+    public LodestoneBlockEntityInventory inventory;
     public int burnTicks;
     IAccelerationTarget target;
 
     public SpiritCatalyzerCoreBlockEntity(BlockEntityType<? extends SpiritCatalyzerCoreBlockEntity> type, MultiBlockStructure structure, BlockPos pos, BlockState state) {
         super(type, structure, pos, state);
-        inventory = new OrtusBlockEntityInventory(1, 64, t -> !(t.getItem() instanceof MalumSpiritItem)) {
+        inventory = new LodestoneBlockEntityInventory(1, 64, t -> !(t.getItem() instanceof MalumSpiritItem)) {
             @Override
             public void onContentsChanged(int slot) {
                 super.onContentsChanged(slot);
@@ -130,7 +130,7 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity impleme
             float random = level.random.nextFloat() * 0.04f;
             Vec3 velocity = startPos.subtract(targetItemPos.add(random, random, random)).normalize().scale(-0.08f);
 
-            ParticleBuilders.create(OrtusParticleRegistry.WISP_PARTICLE)
+            ParticleBuilders.create(LodestoneParticleRegistry.WISP_PARTICLE)
                     .setAlpha(alpha * 5f, 0f)
                     .setLifetime((int) (10 + level.random.nextInt(8) + Math.sin((0.2 * level.getGameTime()) % 6.28f)))
                     .setScale(0.15f + level.random.nextFloat() * 0.15f, 0)
@@ -144,7 +144,7 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity impleme
                     .enableNoClip()
                     .repeat(level, startPos.x, startPos.y, startPos.z, 1);
 
-            ParticleBuilders.create(OrtusParticleRegistry.WISP_PARTICLE)
+            ParticleBuilders.create(LodestoneParticleRegistry.WISP_PARTICLE)
                     .setAlpha(alpha * 3, 0f)
                     .setLifetime(15)
                     .setScale(0.2f + level.random.nextFloat() * 0.15f, 0)
@@ -154,7 +154,7 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity impleme
                     .enableNoClip()
                     .repeat(level, startPos.x, startPos.y, startPos.z, 1);
 
-            ParticleBuilders.create(OrtusParticleRegistry.STAR_PARTICLE)
+            ParticleBuilders.create(LodestoneParticleRegistry.STAR_PARTICLE)
                     .setAlpha(alpha * 3, 0f)
                     .setLifetime(15)
                     .setScale(0.45f + level.random.nextFloat() * 0.15f, 0)

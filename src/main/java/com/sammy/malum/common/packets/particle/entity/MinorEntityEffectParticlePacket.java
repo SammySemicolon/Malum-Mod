@@ -1,10 +1,10 @@
 package com.sammy.malum.common.packets.particle.entity;
 
-import com.sammy.ortus.helpers.ColorHelper;
-import com.sammy.ortus.setup.OrtusParticleRegistry;
-import com.sammy.ortus.systems.easing.Easing;
-import com.sammy.ortus.systems.network.OrtusClientPacket;
-import com.sammy.ortus.systems.rendering.particle.ParticleBuilders;
+import team.lodestar.lodestone.helpers.ColorHelper;
+import team.lodestar.lodestone.setup.LodestoneParticleRegistry;
+import team.lodestar.lodestone.systems.easing.Easing;
+import team.lodestar.lodestone.systems.network.LodestoneClientPacket;
+import team.lodestar.lodestone.systems.rendering.particle.ParticleBuilders;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.level.Level;
@@ -19,7 +19,7 @@ import java.awt.*;
 import java.util.Random;
 import java.util.function.Supplier;
 
-public class MinorEntityEffectParticlePacket extends OrtusClientPacket {
+public class MinorEntityEffectParticlePacket extends LodestoneClientPacket {
     private final Color color;
     private final double posX;
     private final double posY;
@@ -48,7 +48,7 @@ public class MinorEntityEffectParticlePacket extends OrtusClientPacket {
         Random rand = level.random;
         for (int i = 0; i <= 3; i++) {
             int spinDirection = (rand.nextBoolean() ? 1 : -1);
-            ParticleBuilders.create(OrtusParticleRegistry.WISP_PARTICLE)
+            ParticleBuilders.create(LodestoneParticleRegistry.WISP_PARTICLE)
                     .setAlpha(0.05f, 0.1f, 0)
                     .setLifetime(20)
                     .setSpin(0.025f * spinDirection, (0.2f + rand.nextFloat() * 0.05f) * spinDirection, 0)
@@ -62,7 +62,7 @@ public class MinorEntityEffectParticlePacket extends OrtusClientPacket {
                     .randomMotion(0.02f)
                     .repeat(level, posX, posY, posZ, 4);
         }
-        ParticleBuilders.create(OrtusParticleRegistry.WISP_PARTICLE)
+        ParticleBuilders.create(LodestoneParticleRegistry.WISP_PARTICLE)
                 .setAlpha(0.02f, 0.05f, 0)
                 .setLifetime(15)
                 .setSpin(0.1f, 0.4f, 0)
@@ -76,7 +76,7 @@ public class MinorEntityEffectParticlePacket extends OrtusClientPacket {
                 .setMotionCoefficient(0.5f)
                 .repeat(level, posX, posY, posZ, 6);
 
-        ParticleBuilders.create(OrtusParticleRegistry.SMOKE_PARTICLE)
+        ParticleBuilders.create(LodestoneParticleRegistry.SMOKE_PARTICLE)
                 .setAlpha(0f, 0.05f, 0)
                 .setLifetime(20)
                 .setSpin(0.1f, 0.25f, 0)

@@ -6,7 +6,7 @@ import com.sammy.malum.core.helper.SpiritHelper;
 import com.sammy.malum.core.listeners.ReapingDataReloadListener;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
 import com.sammy.malum.core.systems.reaping.MalumReapingDropsData;
-import com.sammy.ortus.helpers.ItemHelper;
+import team.lodestar.lodestone.helpers.ItemHelper;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobType;

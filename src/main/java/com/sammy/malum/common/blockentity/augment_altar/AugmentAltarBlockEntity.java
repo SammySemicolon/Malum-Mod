@@ -3,8 +3,8 @@ package com.sammy.malum.common.blockentity.augment_altar;
 import com.sammy.malum.common.blockentity.storage.ItemPedestalBlockEntity;
 import com.sammy.malum.common.recipe.AugmentingRecipe;
 import com.sammy.malum.core.setup.content.block.BlockEntityRegistry;
-import com.sammy.ortus.helpers.BlockHelper;
-import com.sammy.ortus.systems.blockentity.OrtusBlockEntityInventory;
+import team.lodestar.lodestone.helpers.BlockHelper;
+import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntityInventory;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -15,7 +15,7 @@ import net.minecraft.world.level.block.state.BlockState;
 public class AugmentAltarBlockEntity extends ItemPedestalBlockEntity {
     public AugmentAltarBlockEntity(BlockPos pos, BlockState state) {
         super(BlockEntityRegistry.AUGMENT_ALTAR.get(), pos, state);
-        inventory = new OrtusBlockEntityInventory(1, 1) {
+        inventory = new LodestoneBlockEntityInventory(1, 1) {
             @Override
             public void onContentsChanged(int slot) {
                 super.onContentsChanged(slot);

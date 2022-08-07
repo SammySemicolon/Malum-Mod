@@ -2,8 +2,8 @@ package com.sammy.malum.common.block.storage;
 
 import com.sammy.malum.common.blockentity.storage.SpiritJarBlockEntity;
 import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
-import com.sammy.ortus.helpers.BlockHelper;
-import com.sammy.ortus.systems.block.WaterLoggedEntityBlock;
+import team.lodestar.lodestone.helpers.BlockHelper;
+import team.lodestar.lodestone.systems.block.WaterLoggedEntityBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.player.Player;

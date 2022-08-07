@@ -4,7 +4,7 @@ import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.item.spirit.MalumSpiritItem;
 import com.sammy.malum.core.setup.content.block.BlockRegistry;
 import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
-import com.sammy.ortus.helpers.ColorHelper;
+import team.lodestar.lodestone.helpers.ColorHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.*;
 import net.minecraft.network.chat.Component;

@@ -1,8 +1,8 @@
 package com.sammy.malum.common.entity;
 
 import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
-import com.sammy.ortus.helpers.EntityHelper;
-import com.sammy.ortus.systems.easing.Easing;
+import team.lodestar.lodestone.helpers.EntityHelper;
+import team.lodestar.lodestone.systems.easing.Easing;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;

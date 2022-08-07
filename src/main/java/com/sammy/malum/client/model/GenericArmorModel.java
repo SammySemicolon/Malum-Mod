@@ -4,14 +4,14 @@ package com.sammy.malum.client.model;// Made with Blockbench 4.2.5
 
 
 import com.sammy.malum.MalumMod;
-import com.sammy.ortus.systems.model.OrtusArmorModel;
+import team.lodestar.lodestone.systems.model.LodestoneArmorModel;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 
-public class GenericArmorModel extends OrtusArmorModel {
+public class GenericArmorModel extends LodestoneArmorModel {
 	public static final ModelLayerLocation LAYER = new ModelLayerLocation(MalumMod.malumPath("generic_armor_model"), "main");
 
 	public GenericArmorModel(ModelPart root) {

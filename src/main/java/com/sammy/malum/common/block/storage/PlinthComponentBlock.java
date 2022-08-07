@@ -1,7 +1,7 @@
 package com.sammy.malum.common.block.storage;
 
-import com.sammy.ortus.systems.multiblock.MultiBlockComponentEntity;
-import com.sammy.ortus.systems.multiblock.MultiblockComponentBlock;
+import team.lodestar.lodestone.systems.multiblock.MultiBlockComponentEntity;
+import team.lodestar.lodestone.systems.multiblock.MultiblockComponentBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;

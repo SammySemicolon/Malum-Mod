@@ -1,7 +1,7 @@
 package com.sammy.malum.common.block.ether;
 
 import com.sammy.malum.common.blockentity.EtherBlockEntity;
-import com.sammy.ortus.systems.block.WaterLoggedEntityBlock;
+import team.lodestar.lodestone.systems.block.WaterLoggedEntityBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
