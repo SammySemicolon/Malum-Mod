@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.sammy.malum.MalumMod.malumPath;
+import static com.sammy.malum.client.renderer.entity.FloatingItemEntityRenderer.renderSpiritGlimmer;
 import static team.lodestar.lodestone.handlers.RenderHandler.DELAYED_RENDER;
 
 public class EthericNitrateEntityRenderer extends EntityRenderer<EthericNitrateEntity> {
@@ -65,7 +66,7 @@ public class EthericNitrateEntityRenderer extends EntityRenderer<EthericNitrateE
         VFXBuilders.WorldVFXBuilder builder = VFXBuilders.createWorld().setPosColorTexLightmapDefaultFormat().setOffset(-x, -y, -z);
 
         VertexConsumer lightBuffer = DELAYED_RENDER.getBuffer(LIGHT_TYPE);
-        float trailVisibility = Math.min(entity.windUp*2, 1);
+        float trailVisibility = Math.min(entity.windUp, 1);
         Color firstColor = EthericNitrateEntity.FIRST_COLOR;
         Color secondColor = EthericNitrateEntity.SECOND_COLOR;
         for (int i = 0; i < 3; i++) {
@@ -77,6 +78,11 @@ public class EthericNitrateEntityRenderer extends EntityRenderer<EthericNitrateE
                     .renderTrail(lightBuffer, poseStack, mappedPastPositions, f -> 1.5f * size, f -> builder.setAlpha(alpha * f * 1.5f).setColor(ColorHelper.colorLerp(Easing.SINE_IN, f * 2f, secondColor, firstColor)))
                     .renderTrail(lightBuffer, poseStack, mappedPastPositions, f -> size * 2.5f, f -> builder.setAlpha(alpha * f / 4f).setColor(ColorHelper.colorLerp(Easing.SINE_IN, f * 2f, secondColor, firstColor)));
         }
+        poseStack.translate(0, entity.getYOffset(partialTicks) + 0.25F, 0);
+        poseStack.scale(1.2f*trailVisibility,1.2f*trailVisibility,1.2f*trailVisibility);
+        builder.setColor(firstColor);
+        builder.setAlpha(trailVisibility);
+        renderSpiritGlimmer(poseStack, builder, partialTicks);
 
         poseStack.popPose();
 

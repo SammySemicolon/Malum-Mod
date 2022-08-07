@@ -27,6 +27,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static com.sammy.malum.MalumMod.malumPath;
+import static com.sammy.malum.client.renderer.entity.FloatingItemEntityRenderer.renderSpiritGlimmer;
 import static team.lodestar.lodestone.handlers.RenderHandler.DELAYED_RENDER;
 
 public class VividNitrateEntityRenderer extends EntityRenderer<VividNitrateEntity> {
@@ -67,7 +68,7 @@ public class VividNitrateEntityRenderer extends EntityRenderer<VividNitrateEntit
         VFXBuilders.WorldVFXBuilder builder = VFXBuilders.createWorld().setPosColorTexLightmapDefaultFormat().setOffset(-x, -y, -z);
 
         VertexConsumer lightBuffer = DELAYED_RENDER.getBuffer(LIGHT_TYPE);
-        float trailVisibility = Math.min(entity.windUp * 2, 1);
+        float trailVisibility = Math.min(entity.windUp, 1);
         float time = ((entity.level.getGameTime()+partialTicks) % 16f) / 16f;
         Function<Float, Color> colorFunction = f -> {
             float lerp = time + f;
@@ -87,6 +88,11 @@ public class VividNitrateEntityRenderer extends EntityRenderer<VividNitrateEntit
                     .renderTrail(lightBuffer, poseStack, mappedPastPositions, f -> size * 2.5f, f -> builder.setAlpha(alpha * f / 4f).setColor(colorFunction.apply(f* 2f)));
         }
 
+        poseStack.translate(0, entity.getYOffset(partialTicks) + 0.25F, 0);
+        poseStack.scale(1.2f*trailVisibility,1.2f*trailVisibility,1.2f*trailVisibility);
+        builder.setColor(colorFunction.apply(0.85f));
+        builder.setAlpha(trailVisibility);
+        renderSpiritGlimmer(poseStack, builder, partialTicks);
         poseStack.popPose();
 
         super.render(entity, entityYaw, partialTicks, poseStack, bufferIn, packedLightIn);

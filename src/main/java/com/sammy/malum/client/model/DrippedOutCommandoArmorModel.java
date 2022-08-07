@@ -68,7 +68,7 @@ public class DrippedOutCommandoArmorModel extends LodestoneArmorModel {
 		PartDefinition right_shoulder = right_arm.addOrReplaceChild("right_shoulder", CubeListBuilder.create().texOffs(0, 45).mirror().addBox(-4.5F, 5.5F, -2.5F, 5.0F, 5.0F, 5.0F, new CubeDeformation(0.02F)).mirror(false)
 			.texOffs(20, 45).mirror().addBox(-4.5F, 5.5F, -2.5F, 5.0F, 5.0F, 5.0F, new CubeDeformation(0.26F)).mirror(false)
 			.texOffs(8, 34).addBox(-4.5F, -2.5F, -2.5F, 5.0F, 6.0F, 5.0F, new CubeDeformation(0.01F))
-			.texOffs(28, 34).addBox(-4.5F, -2.5F, -2.5F, 5.0F, 6.0F, 5.0F, new CubeDeformation(0.26F)), PartPose.offset(0, 0, 0.0F));
+			.texOffs(28, 34).addBox(-4.5F, -2.5F, -2.5F, 5.0F, 6.0F, 5.0F, new CubeDeformation(0.26F)), PartPose.offset(1, 0, 0.0F));
 
 		PartDefinition left_legging = root.getChild("left_legging");
 		PartDefinition left_leg = left_legging.addOrReplaceChild("left_leg", CubeListBuilder.create().texOffs(0, 64).addBox(-2.5F, -0.5F, -2.5F, 5.0F, 8.0F, 5.0F, new CubeDeformation(0.0F))
@@ -81,7 +81,7 @@ public class DrippedOutCommandoArmorModel extends LodestoneArmorModel {
 		PartDefinition left_shoulder = left_arm.addOrReplaceChild("left_shoulder", CubeListBuilder.create().texOffs(8, 34).mirror().addBox(-0.5F, -2.5F, -2.5F, 5.0F, 6.0F, 5.0F, new CubeDeformation(0.01F)).mirror(false)
 			.texOffs(28, 34).mirror().addBox(-0.5F, -2.5F, -2.5F, 5.0F, 6.0F, 5.0F, new CubeDeformation(0.26F)).mirror(false)
 			.texOffs(0, 45).addBox(-0.5F, 5.5F, -2.5F, 5.0F, 5.0F, 5.0F, new CubeDeformation(0.02F))
-			.texOffs(20, 45).addBox(-0.5F, 5.5F, -2.5F, 5.0F, 5.0F, 5.0F, new CubeDeformation(0.26F)), PartPose.offset(0, 0, 0.0F));
+			.texOffs(20, 45).addBox(-0.5F, 5.5F, -2.5F, 5.0F, 5.0F, 5.0F, new CubeDeformation(0.26F)), PartPose.offset(-1, 0, 0.0F));
 
 		PartDefinition head = root.getChild("head");
 		PartDefinition helmet = head.addOrReplaceChild("helmet", CubeListBuilder.create().texOffs(0, 0).addBox(-4.5F, -8.5F, -5.0F, 9.0F, 9.0F, 9.0F, new CubeDeformation(0.0F))
