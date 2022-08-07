@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "malum:cosmetic/pridewear/intersex_hoodie_item"
+  }
+}

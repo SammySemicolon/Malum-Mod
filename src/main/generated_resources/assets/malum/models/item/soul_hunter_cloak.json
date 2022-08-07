@@ -2,5 +2,121 @@
   "parent": "minecraft:item/generated",
   "textures": {
     "layer0": "malum:item/soul_hunter_cloak"
-  }
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "malum:item_skin": 0.0
+      },
+      "model": "malum:item/soul_hunter_cloak_ace_drip_socks"
+    },
+    {
+      "predicate": {
+        "malum:item_skin": 1.0
+      },
+      "model": "malum:item/soul_hunter_cloak_agender_drip_socks"
+    },
+    {
+      "predicate": {
+        "malum:item_skin": 2.0
+      },
+      "model": "malum:item/soul_hunter_cloak_aro_drip_socks"
+    },
+    {
+      "predicate": {
+        "malum:item_skin": 3.0
+      },
+      "model": "malum:item/soul_hunter_cloak_aroace_drip_socks"
+    },
+    {
+      "predicate": {
+        "malum:item_skin": 4.0
+      },
+      "model": "malum:item/soul_hunter_cloak_bi_drip_socks"
+    },
+    {
+      "predicate": {
+        "malum:item_skin": 5.0
+      },
+      "model": "malum:item/soul_hunter_cloak_demiboy_drip_socks"
+    },
+    {
+      "predicate": {
+        "malum:item_skin": 6.0
+      },
+      "model": "malum:item/soul_hunter_cloak_demigirl_drip_socks"
+    },
+    {
+      "predicate": {
+        "malum:item_skin": 7.0
+      },
+      "model": "malum:item/soul_hunter_cloak_enby_drip_socks"
+    },
+    {
+      "predicate": {
+        "malum:item_skin": 8.0
+      },
+      "model": "malum:item/soul_hunter_cloak_gay_drip_socks"
+    },
+    {
+      "predicate": {
+        "malum:item_skin": 9.0
+      },
+      "model": "malum:item/soul_hunter_cloak_genderfluid_drip_socks"
+    },
+    {
+      "predicate": {
+        "malum:item_skin": 10.0
+      },
+      "model": "malum:item/soul_hunter_cloak_genderqueer_drip_socks"
+    },
+    {
+      "predicate": {
+        "malum:item_skin": 11.0
+      },
+      "model": "malum:item/soul_hunter_cloak_intersex_drip_socks"
+    },
+    {
+      "predicate": {
+        "malum:item_skin": 12.0
+      },
+      "model": "malum:item/soul_hunter_cloak_lesbian_drip_socks"
+    },
+    {
+      "predicate": {
+        "malum:item_skin": 13.0
+      },
+      "model": "malum:item/soul_hunter_cloak_pan_drip_socks"
+    },
+    {
+      "predicate": {
+        "malum:item_skin": 14.0
+      },
+      "model": "malum:item/soul_hunter_cloak_plural_drip_socks"
+    },
+    {
+      "predicate": {
+        "malum:item_skin": 15.0
+      },
+      "model": "malum:item/soul_hunter_cloak_poly_drip_socks"
+    },
+    {
+      "predicate": {
+        "malum:item_skin": 16.0
+      },
+      "model": "malum:item/soul_hunter_cloak_pride_drip_socks"
+    },
+    {
+      "predicate": {
+        "malum:item_skin": 17.0
+      },
+      "model": "malum:item/soul_hunter_cloak_trans_drip_socks"
+    },
+    {
+      "predicate": {
+        "malum:item_skin": 18.0
+      },
+      "model": "malum:item/soul_hunter_cloak_commando_drip_boots"
+    }
+  ]
 }

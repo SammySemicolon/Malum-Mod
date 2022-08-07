@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "malum:cosmetic/dripped_out_commando_leggings_item"
+  }
+}

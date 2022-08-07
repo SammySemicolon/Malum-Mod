@@ -2,14 +2,32 @@
   "type": "malum:augmenting",
   "targetItem": [
     {
+      "item": "malum:soul_hunter_cloak"
+    },
+    {
+      "item": "malum:soul_stained_steel_helmet"
+    },
+    {
       "item": "malum:soul_hunter_robe"
     },
     {
       "item": "malum:soul_stained_steel_chestplate"
+    },
+    {
+      "item": "malum:soul_hunter_leggings"
+    },
+    {
+      "item": "malum:soul_stained_steel_leggings"
+    },
+    {
+      "item": "malum:soul_hunter_boots"
+    },
+    {
+      "item": "malum:soul_stained_steel_boots"
     }
   ],
   "augment": {
     "item": "minecraft:repeater"
   },
-  "tagAugment": "{\"malum:item_skin\":\"plural_hoodie\"}"
+  "tagAugment": "{\"malum:item_skin\":\"plural_drip\"}"
 }
