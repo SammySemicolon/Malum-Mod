@@ -1,0 +1,15 @@
+{
+  "type": "malum:augmenting",
+  "targetItem": [
+    {
+      "item": "malum:soul_hunter_robe"
+    },
+    {
+      "item": "malum:soul_stained_steel_chestplate"
+    }
+  ],
+  "augment": {
+    "item": "minecraft:netherite_scrap"
+  },
+  "tagAugment": "{\"malum:item_skin\":\"commando_drip\"}"
+}

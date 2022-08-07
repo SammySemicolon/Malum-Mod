@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "#forge:ores",
+    "#forge:storage_blocks",
+    "#forge:ingots",
+    "#forge:nuggets",
+    "#forge:gems",
+    "#malum:metal_nodes"
+  ]
+}

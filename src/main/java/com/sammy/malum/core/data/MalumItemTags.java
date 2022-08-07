@@ -1,14 +1,20 @@
 package com.sammy.malum.core.data;
 
 import com.sammy.malum.MalumMod;
+import com.sammy.malum.common.item.NodeItem;
+import com.sammy.malum.core.setup.content.item.ItemRegistry;
 import com.sammy.malum.core.setup.content.item.ItemTagRegistry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.BlockTagsProvider;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.registries.RegistryObject;
+
+import java.util.stream.Collectors;
 
 import static com.sammy.malum.core.setup.content.item.ItemRegistry.*;
 import static com.sammy.malum.core.setup.content.item.ItemTagRegistry.*;
@@ -75,6 +81,11 @@ public class MalumItemTags extends ItemTagsProvider {
         tag(Tags.Items.ORES_QUARTZ).add(NATURAL_QUARTZ_ORE.get(), DEEPSLATE_QUARTZ_ORE.get());
 
         tag(GROSS_FOODS).add(Items.ROTTEN_FLESH, ROTTING_ESSENCE.get());
+        ITEMS.getEntries().stream().filter(i -> i.get() instanceof NodeItem).map(RegistryObject::get).forEach(i -> {
+            tag(METAL_NODES).add(i);
+        });
+
+        tag(NITRATE_VALUABLE).addTags(Tags.Items.ORES, Tags.Items.STORAGE_BLOCKS, Tags.Items.INGOTS, Tags.Items.NUGGETS, Tags.Items.GEMS, Tags.Items.RAW_MATERIALS, ItemTags.COALS, METAL_NODES);
 
         tag(RUNEWOOD_LOGS).add(RUNEWOOD_LOG.get(), STRIPPED_RUNEWOOD_LOG.get(), RUNEWOOD.get(), STRIPPED_RUNEWOOD.get(), EXPOSED_RUNEWOOD_LOG.get(), REVEALED_RUNEWOOD_LOG.get());
         tag(SOULWOOD_LOGS).add(SOULWOOD_LOG.get(), STRIPPED_SOULWOOD_LOG.get(), SOULWOOD.get(), STRIPPED_SOULWOOD.get(), EXPOSED_SOULWOOD_LOG.get(), REVEALED_SOULWOOD_LOG.get(), BLIGHTED_SOULWOOD.get());
@@ -90,22 +101,5 @@ public class MalumItemTags extends ItemTagsProvider {
         tag(KNIVES_FD).add(SOUL_STAINED_STEEL_KNIFE.get());
 
         tag(NUGGETS_COPPER).add(COPPER_NUGGET.get());
-        tag(INGOTS_COPPER).add(Items.COPPER_INGOT);
-        tag(NUGGETS_LEAD);
-        tag(INGOTS_LEAD);
-        tag(NUGGETS_SILVER);
-        tag(INGOTS_SILVER);
-        tag(NUGGETS_ALUMINUM);
-        tag(INGOTS_ALUMINUM);
-        tag(NUGGETS_NICKEL);
-        tag(INGOTS_NICKEL);
-        tag(NUGGETS_URANIUM);
-        tag(INGOTS_URANIUM);
-        tag(NUGGETS_OSMIUM);
-        tag(INGOTS_OSMIUM);
-        tag(NUGGETS_ZINC);
-        tag(INGOTS_ZINC);
-        tag(NUGGETS_TIN);
-        tag(INGOTS_TIN);
     }
 }
