@@ -3,10 +3,13 @@ package com.sammy.malum.common.spiritrite;
 import com.sammy.malum.common.block.blight.BlightedSoilBlock;
 import com.sammy.malum.common.blockentity.spirit_altar.IAltarProvider;
 import com.sammy.malum.common.blockentity.totem.TotemBaseBlockEntity;
+import com.sammy.malum.common.packets.particle.block.BlockSparkleParticlePacket;
+import com.sammy.malum.common.packets.particle.block.blight.BlightMistParticlePacket;
 import com.sammy.malum.common.recipe.SpiritTransmutationRecipe;
 import com.sammy.malum.common.worldevent.TotemCreatedBlightEvent;
 import com.sammy.malum.core.systems.rites.MalumRiteEffect;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
+import net.minecraftforge.network.PacketDistributor;
 import team.lodestar.lodestone.handlers.WorldEventHandler;
 import team.lodestar.lodestone.helpers.BlockHelper;
 import team.lodestar.lodestone.helpers.ItemHelper;
@@ -23,6 +26,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import java.util.List;
 
 import static com.sammy.malum.core.setup.content.SpiritTypeRegistry.ARCANE_SPIRIT;
+import static com.sammy.malum.core.setup.content.SpiritTypeRegistry.INFERNAL_SPIRIT;
+import static com.sammy.malum.core.setup.server.PacketRegistry.MALUM_CHANNEL;
 
 public class ArcaneRiteType extends MalumRiteType {
     public ArcaneRiteType() {
@@ -86,6 +91,8 @@ public class ArcaneRiteType extends MalumRiteType {
                             BlockEntity entity = level.getBlockEntity(posToTransmute);
                             BlockState newState = BlockHelper.setBlockStateWithExistingProperties(level, posToTransmute, block.defaultBlockState(), 3);
                             level.levelEvent(2001, posToTransmute, Block.getId(newState));
+                            MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(posToTransmute)), new BlockSparkleParticlePacket(ARCANE_SPIRIT.getColor(), posToTransmute));
+                            MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(posToTransmute)), new BlightMistParticlePacket(posToTransmute)); //TODO: convert these 2 into a single packet, rlly don't feel like doing it rn
                             if (block instanceof EntityBlock entityBlock) {
                                 if (entity != null) {
                                     BlockEntity newEntity = entityBlock.newBlockEntity(pos, newState);
