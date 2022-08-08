@@ -12,6 +12,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class MalumEntitySpiritData {
@@ -19,19 +20,19 @@ public class MalumEntitySpiritData {
     public static final MalumEntitySpiritData EMPTY = new MalumEntitySpiritData(SpiritTypeRegistry.SACRED_SPIRIT, new ArrayList<>(), null);
     public final MalumSpiritType primaryType;
     public final int totalCount;
-    public final ArrayList<SpiritWithCount> dataEntries;
+    public final List<SpiritWithCount> dataEntries;
     @Nullable
     public final Ingredient spiritItem;
 
-    public MalumEntitySpiritData(MalumSpiritType primaryType, ArrayList<SpiritWithCount> dataEntries, @Nullable Ingredient spiritItem) {
+    public MalumEntitySpiritData(MalumSpiritType primaryType, List<SpiritWithCount> dataEntries, @Nullable Ingredient spiritItem) {
         this.primaryType = primaryType;
         this.totalCount = dataEntries.stream().mapToInt(d -> d.count).sum();
         this.dataEntries = dataEntries;
         this.spiritItem = spiritItem;
     }
 
-    public ArrayList<Component> createTooltip() {
-        return dataEntries.stream().map(SpiritWithCount::getComponent).collect(Collectors.toCollection(ArrayList::new));
+    public List<Component> createTooltip() {
+        return dataEntries.stream().map(SpiritWithCount::getComponent).collect(Collectors.toList());
     }
 
     public void saveTo(CompoundTag tag) {
@@ -73,6 +74,43 @@ public class MalumEntitySpiritData {
             // NO-OP
         }
         return new MalumEntitySpiritData(SpiritHelper.getSpiritType(type), data, spiritItem);
+    }
+
+
+    public static Builder builder(MalumSpiritType type) {
+        return builder(type, 1);
+    }
+
+    public static Builder builder(MalumSpiritType type, int count) {
+        return new Builder(type).withSpirit(type, count);
+    }
+
+    public static class Builder {
+        private final MalumSpiritType type;
+        private final List<SpiritWithCount> spirits = new ArrayList<>();
+        private Ingredient spiritItem = null;
+
+        public Builder(MalumSpiritType type) {
+            this.type = type;
+        }
+
+        public Builder withSpirit(MalumSpiritType spiritType) {
+            return withSpirit(spiritType, 1);
+        }
+
+        public Builder withSpirit(MalumSpiritType spiritType, int count) {
+            spirits.add(new SpiritWithCount(spiritType, count));
+            return this;
+        }
+
+        public Builder withSpiritItem(Ingredient spiritItem) {
+            this.spiritItem = spiritItem;
+            return this;
+        }
+
+        public MalumEntitySpiritData build() {
+            return new MalumEntitySpiritData(type, spirits, spiritItem);
+        }
     }
 
 }

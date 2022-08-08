@@ -1,9 +1,8 @@
 package com.sammy.malum.config;
 
-import com.sammy.malum.common.spiritrite.greater.EldritchInfernalRiteType;
-import team.lodestar.lodestone.systems.config.LodestoneConfig;
 import net.minecraftforge.common.ForgeConfigSpec;
 import org.apache.commons.lang3.tuple.Pair;
+import team.lodestar.lodestone.systems.config.LodestoneConfig;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -80,7 +79,7 @@ public class CommonConfig extends LodestoneConfig {
     public static ConfigValueHolder<Integer> SURFACE_SOULSTONE_MAX_Y = new ConfigValueHolder<>(MALUM,"common/worldgen/soulstone", (builder ->
             builder.comment("Maximum height at which surface soulstone ore can spawn.")
                     .define("surfaceSoulstoneMaxY", 100)));
-    
+
     public static ConfigValueHolder<Boolean> GENERATE_NATURAL_QUARTZ = new ConfigValueHolder<>(MALUM,"common/worldgen/natural_quartz", (builder ->
             builder.comment("Should natural quartz ore generate?")
                     .define("generateBrilliantStone", true)));
@@ -121,6 +120,10 @@ public class CommonConfig extends LodestoneConfig {
             builder.comment("If set to true, mob spawners will create soulless mobs instead.")
                     .define("lameSpawners", false)));
 
+    public static ConfigValueHolder<Boolean> USE_DEFAULT_SPIRIT_VALUES = new ConfigValueHolder<>(MALUM,"common/spirit/defaults", (builder ->
+        builder.comment("Whether entities without spirit jsons will use the default spirit data for their category.")
+            .define("defaultSpiritValues", true)));
+
     public static ConfigValueHolder<Double> SOUL_WARD_PHYSICAL = new ConfigValueHolder<>(MALUM,"common/spirit/affinity/soul_ward", (builder ->
             builder.comment("Multiplier for physical damage taken while soul ward is active.")
                     .defineInRange("soulWardPhysical", 0.7f, 0, 1)));
@@ -137,6 +140,7 @@ public class CommonConfig extends LodestoneConfig {
     public static ConfigValueHolder<Integer> HEART_OF_STONE_RATE = new ConfigValueHolder<>(MALUM,"common/spirit/affinity/heart_of_stone", (builder ->
             builder.comment("Base time in ticks it takes for one point of heart of stone to recover.")
                     .define("heartOfStoneRate", 40)));
+
 
     public CommonConfig(ForgeConfigSpec.Builder builder) {
         super(MALUM, "common", builder);

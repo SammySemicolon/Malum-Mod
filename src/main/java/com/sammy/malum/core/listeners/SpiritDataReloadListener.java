@@ -3,6 +3,7 @@ package com.sammy.malum.core.listeners;
 import com.google.gson.*;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.core.helper.SpiritHelper;
+import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
 import com.sammy.malum.core.systems.recipe.SpiritWithCount;
 import com.sammy.malum.core.systems.spirit.MalumEntitySpiritData;
 import net.minecraft.core.Registry;
@@ -13,12 +14,40 @@ import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.event.AddReloadListenerEvent;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class SpiritDataReloadListener extends SimpleJsonResourceReloadListener {
-    public static Map<ResourceLocation, MalumEntitySpiritData> SPIRIT_DATA = new HashMap<>();
+    public static final Map<ResourceLocation, MalumEntitySpiritData> SPIRIT_DATA = new HashMap<>();
+    public static final Set<ResourceLocation> HAS_NO_DATA = new HashSet<>();
+
+    public static final MalumEntitySpiritData DEFAULT_MONSTER_SPIRIT_DATA = MalumEntitySpiritData
+        .builder(SpiritTypeRegistry.WICKED_SPIRIT)
+        .build();
+    public static final MalumEntitySpiritData DEFAULT_CREATURE_SPIRIT_DATA = MalumEntitySpiritData
+        .builder(SpiritTypeRegistry.SACRED_SPIRIT)
+        .build();
+    public static final MalumEntitySpiritData DEFAULT_AMBIENT_SPIRIT_DATA = MalumEntitySpiritData
+        .builder(SpiritTypeRegistry.AERIAL_SPIRIT)
+        .build();
+    public static final MalumEntitySpiritData DEFAULT_WATER_CREATURE_SPIRIT_DATA = MalumEntitySpiritData
+        .builder(SpiritTypeRegistry.AQUEOUS_SPIRIT)
+        .withSpirit(SpiritTypeRegistry.SACRED_SPIRIT)
+        .build();
+    public static final MalumEntitySpiritData DEFAULT_WATER_AMBIENT_SPIRIT_DATA = MalumEntitySpiritData
+        .builder(SpiritTypeRegistry.AQUEOUS_SPIRIT)
+        .build();
+    public static final MalumEntitySpiritData DEFAULT_UNDERGROUND_WATER_CREATURE_SPIRIT_DATA = MalumEntitySpiritData
+        .builder(SpiritTypeRegistry.AQUEOUS_SPIRIT)
+        .withSpirit(SpiritTypeRegistry.EARTHEN_SPIRIT)
+        .build();
+    public static final MalumEntitySpiritData DEFAULT_AXOLOTL_SPIRIT_DATA = MalumEntitySpiritData // They're their own category
+        .builder(SpiritTypeRegistry.AQUEOUS_SPIRIT, 2)
+        .withSpirit(SpiritTypeRegistry.SACRED_SPIRIT)
+        .build();
+    public static final MalumEntitySpiritData DEFAULT_BOSS_SPIRIT_DATA = MalumEntitySpiritData
+        .builder(SpiritTypeRegistry.ELDRITCH_SPIRIT, 2)
+        .build();
+
     private static final Gson GSON = (new GsonBuilder()).create();
 
     public SpiritDataReloadListener() {
@@ -32,29 +61,41 @@ public class SpiritDataReloadListener extends SimpleJsonResourceReloadListener {
     @Override
     protected void apply(Map<ResourceLocation, JsonElement> objectIn, ResourceManager resourceManagerIn, ProfilerFiller profilerIn) {
         SPIRIT_DATA.clear();
-        for (int i = 0; i < objectIn.size(); i++) {
-            ResourceLocation location = (ResourceLocation) objectIn.keySet().toArray()[i];
-            JsonObject object = objectIn.get(location).getAsJsonObject();
+        HAS_NO_DATA.clear();
+        for (JsonElement entry : objectIn.values()) {
+            JsonObject object = entry.getAsJsonObject();
             String name = object.getAsJsonPrimitive("registry_name").getAsString();
             ResourceLocation resourceLocation = new ResourceLocation(name);
             if (!Registry.ENTITY_TYPE.containsKey(resourceLocation)) {
                 continue;
             }
             if (!object.has("primary_type")) {
-                MalumMod.LOGGER.info("entity with registry name: " + name + " lacks a primary spirit type. Skipping file.");
+                MalumMod.LOGGER.info("Entity with registry name: " + name + " lacks a primary spirit type. Skipping file.");
                 continue;
             }
-            if (SPIRIT_DATA.containsKey(resourceLocation)) {
-                MalumMod.LOGGER.info("entity with registry name: " + name + " already has spirit data associated with it. Overwriting.");
-            }
             String primaryType = object.getAsJsonPrimitive("primary_type").getAsString();
-            JsonArray array = object.getAsJsonArray("spirits");
-            SPIRIT_DATA.put(resourceLocation, new MalumEntitySpiritData(SpiritHelper.getSpiritType(primaryType), getSpiritData(array), getSpiritItem(object)));
+            boolean isEmpty = primaryType.equals("none");
+            if (SPIRIT_DATA.containsKey(resourceLocation)) {
+                if (isEmpty)
+                    MalumMod.LOGGER.info("Entity with registry name: " + name + " already has spirit data associated with it. Removing.");
+                else
+                    MalumMod.LOGGER.info("Entity with registry name: " + name + " already has spirit data associated with it. Overwriting.");
+            } else if (HAS_NO_DATA.contains(resourceLocation) && !isEmpty) {
+                MalumMod.LOGGER.info("Entity with registry name: " + name + " already has empty spirit data associated with it. Overwriting.");
+            }
+            if (primaryType.equals("none")) {
+                SPIRIT_DATA.remove(resourceLocation);
+                HAS_NO_DATA.add(resourceLocation);
+            } else {
+                JsonArray array = object.getAsJsonArray("spirits");
+                SPIRIT_DATA.put(resourceLocation, new MalumEntitySpiritData(SpiritHelper.getSpiritType(primaryType), getSpiritData(array), getSpiritItem(object)));
+                HAS_NO_DATA.remove(resourceLocation);
+            }
         }
     }
 
-    public static ArrayList<SpiritWithCount> getSpiritData(JsonArray array) {
-        ArrayList<SpiritWithCount> spiritData = new ArrayList<>();
+    private static List<SpiritWithCount> getSpiritData(JsonArray array) {
+        List<SpiritWithCount> spiritData = new ArrayList<>();
         for (JsonElement spiritElement : array) {
             JsonObject spiritObject = spiritElement.getAsJsonObject();
             String spiritName = spiritObject.getAsJsonPrimitive("spirit").getAsString();
@@ -64,7 +105,7 @@ public class SpiritDataReloadListener extends SimpleJsonResourceReloadListener {
         return spiritData;
     }
 
-    public static Ingredient getSpiritItem(JsonObject object) {
+    private static Ingredient getSpiritItem(JsonObject object) {
         if (!object.has("spirit_item")) {
             return null;
         }

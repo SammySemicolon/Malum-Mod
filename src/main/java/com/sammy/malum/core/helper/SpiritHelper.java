@@ -3,6 +3,7 @@ package com.sammy.malum.core.helper;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.capability.MalumLivingEntityDataCapability;
 import com.sammy.malum.common.entity.spirit.PlayerBoundItemEntity;
+import com.sammy.malum.config.CommonConfig;
 import com.sammy.malum.core.listeners.SpiritDataReloadListener;
 import com.sammy.malum.core.setup.content.AttributeRegistry;
 import com.sammy.malum.core.setup.content.SoundRegistry;
@@ -11,6 +12,7 @@ import com.sammy.malum.core.setup.content.item.MalumEnchantments;
 import com.sammy.malum.core.systems.recipe.SpiritWithCount;
 import com.sammy.malum.core.systems.spirit.MalumEntitySpiritData;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
+import net.minecraft.resources.ResourceLocation;
 import team.lodestar.lodestone.helpers.ItemHelper;
 import team.lodestar.lodestone.setup.LodestoneParticleRegistry;
 import team.lodestar.lodestone.setup.LodestoneScreenParticleRegistry;
@@ -128,7 +130,30 @@ public class SpiritHelper {
     }
 
     public static MalumEntitySpiritData getEntitySpiritData(LivingEntity entity) {
-        return SpiritDataReloadListener.SPIRIT_DATA.get(entity.getType().getRegistryName());
+        ResourceLocation key = entity.getType().getRegistryName();
+        if (SpiritDataReloadListener.HAS_NO_DATA.contains(key))
+            return null;
+
+        MalumEntitySpiritData spiritData = SpiritDataReloadListener.SPIRIT_DATA.get(key);
+        if (spiritData != null)
+            return spiritData;
+
+        if (!entity.canChangeDimensions())
+            return SpiritDataReloadListener.DEFAULT_BOSS_SPIRIT_DATA;
+
+        if (!CommonConfig.USE_DEFAULT_SPIRIT_VALUES.getConfigValue())
+            return null;
+
+        return switch (entity.getType().getCategory()) {
+            case MONSTER -> SpiritDataReloadListener.DEFAULT_MONSTER_SPIRIT_DATA;
+            case CREATURE -> SpiritDataReloadListener.DEFAULT_CREATURE_SPIRIT_DATA;
+            case AMBIENT -> SpiritDataReloadListener.DEFAULT_AMBIENT_SPIRIT_DATA;
+            case AXOLOTLS -> SpiritDataReloadListener.DEFAULT_AXOLOTL_SPIRIT_DATA;
+            case UNDERGROUND_WATER_CREATURE -> SpiritDataReloadListener.DEFAULT_UNDERGROUND_WATER_CREATURE_SPIRIT_DATA;
+            case WATER_CREATURE -> SpiritDataReloadListener.DEFAULT_WATER_CREATURE_SPIRIT_DATA;
+            case WATER_AMBIENT -> SpiritDataReloadListener.DEFAULT_WATER_AMBIENT_SPIRIT_DATA;
+            default -> null;
+        };
     }
 
     public static int getEntitySpiritCount(LivingEntity entity) {
