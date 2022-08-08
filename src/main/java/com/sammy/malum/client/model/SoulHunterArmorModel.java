@@ -18,13 +18,13 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 
-public class SpiritHunterArmorModel extends LodestoneArmorModel {
-	public static ModelLayerLocation LAYER = new ModelLayerLocation(MalumMod.malumPath("textures/armor/spirit_hunter_reforged"), "main");
+public class SoulHunterArmorModel extends LodestoneArmorModel {
+	public static ModelLayerLocation LAYER = new ModelLayerLocation(MalumMod.malumPath("soul_hunter_armor"), "main");
 
 	public ModelPart cape;
 	public ModelPart lowered_hood;
 
-	public SpiritHunterArmorModel(ModelPart root) {
+	public SoulHunterArmorModel(ModelPart root) {
 		super(root);
 		this.cape = root.getChild("cape");
 		this.lowered_hood = root.getChild("lowered_hood");

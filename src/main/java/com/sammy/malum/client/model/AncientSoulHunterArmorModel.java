@@ -12,10 +12,10 @@ import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 
-public class AncientSpiritHunterArmorModel extends LodestoneArmorModel {
-	public static ModelLayerLocation LAYER = new ModelLayerLocation(MalumMod.malumPath("textures/armor/spirit_hunter"), "main");
+public class AncientSoulHunterArmorModel extends LodestoneArmorModel {
+	public static ModelLayerLocation LAYER = new ModelLayerLocation(MalumMod.malumPath("ancient_soul_hunter_armor"), "main");
 
-	public AncientSpiritHunterArmorModel(ModelPart root) {
+	public AncientSoulHunterArmorModel(ModelPart root) {
 		super(root);
 	}
 

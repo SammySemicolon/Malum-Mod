@@ -13,7 +13,7 @@ import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 
 public class DrippedOutCommandoArmorModel extends LodestoneArmorModel {
-	public static ModelLayerLocation LAYER = new ModelLayerLocation(MalumMod.malumPath("textures/armor/drippy_commando"), "main");
+	public static ModelLayerLocation LAYER = new ModelLayerLocation(MalumMod.malumPath("drippy_commando_armor"), "main");
 
 	public DrippedOutCommandoArmorModel(ModelPart root) {
 		super(root);

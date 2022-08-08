@@ -1,0 +1,21 @@
+{
+  "type": "malum:augmenting",
+  "targetItem": [
+    {
+      "item": "malum:soul_stained_steel_helmet"
+    },
+    {
+      "item": "malum:soul_stained_steel_chestplate"
+    },
+    {
+      "item": "malum:soul_stained_steel_leggings"
+    },
+    {
+      "item": "malum:soul_stained_steel_boots"
+    }
+  ],
+  "augment": {
+    "item": "malum:eldritch_spirit"
+  },
+  "tagAugment": "{\"malum:item_skin\":\"ancient_metal\"}"
+}

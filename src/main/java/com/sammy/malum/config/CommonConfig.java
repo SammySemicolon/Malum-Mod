@@ -5,6 +5,9 @@ import team.lodestar.lodestone.systems.config.LodestoneConfig;
 import net.minecraftforge.common.ForgeConfigSpec;
 import org.apache.commons.lang3.tuple.Pair;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static com.sammy.malum.MalumMod.MALUM;
 
 public class CommonConfig extends LodestoneConfig {
@@ -98,9 +101,17 @@ public class CommonConfig extends LodestoneConfig {
             builder.comment("Should quartz geodes generate?")
                     .define("generateQuartzGeodes", true)));
 
+    public static final ConfigValueHolder<List<? extends String>> QUARTZ_GEODE_ALLOWED_DIMENSIONS = new ConfigValueHolder<>(MALUM,"common/worldgen/natural_quartz_geode", (builder) ->
+        builder.comment("Which dimensions can quartz geodes generate in?")
+            .defineList("quartzGeodeDimensions", new ArrayList<>(List.of("minecraft:overworld")), s -> s instanceof String));
+
     public static ConfigValueHolder<Boolean> GENERATE_RARE_EARTH = new ConfigValueHolder<>(MALUM,"common/worldgen/rare_earth", (builder ->
             builder.comment("Should rare earth generate?")
                     .define("generateRareEarth", true)));
+
+    public static final ConfigValueHolder<List<? extends String>> RARE_EARTHS_ALLOWED_DIMENSIONS = new ConfigValueHolder<>(MALUM,"common/worldgen/rare_earth", (builder) ->
+        builder.comment("Which dimensions can rare earths generate in?")
+            .defineList("rareEarthDimensions", new ArrayList<>(List.of("minecraft:overworld")), s -> s instanceof String));
 
     public static ConfigValueHolder<Boolean> ULTIMATE_REBOUND = new ConfigValueHolder<>(MALUM,"common/item/rebound", (builder ->
             builder.comment("If set to true, you may put rebound on any weapon in the game.")

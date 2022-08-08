@@ -64,7 +64,7 @@ public class SoulHunterArmorItem extends LodestoneArmorItem {
                 float netHeadYaw = f1 - f;
                 float netHeadPitch = Mth.lerp(pticks, entity.xRotO, entity.getXRot());
                 ItemSkin skin = ItemRegistry.ClientOnly.getSkin(itemStack);
-                LodestoneArmorModel model = skin != null ? skin.modelSupplier.get() : ItemRegistry.ClientOnly.SPIRIT_HUNTER_ARMOR;
+                LodestoneArmorModel model = skin != null ? skin.modelSupplier.get() : ItemRegistry.ClientOnly.SOUL_HUNTER_ARMOR;
 
                 model.slot = slot;
                 model.copyFromDefault(_default);

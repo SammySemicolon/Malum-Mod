@@ -117,6 +117,18 @@
         "malum:item_skin": 18.0
       },
       "model": "malum:item/soul_hunter_boots_commando_drip_boots"
+    },
+    {
+      "predicate": {
+        "malum:item_skin": 19.0
+      },
+      "model": "malum:item/soul_hunter_boots_ancient_cloth_boots"
+    },
+    {
+      "predicate": {
+        "malum:item_skin": 20.0
+      },
+      "model": "malum:item/soul_hunter_boots_ancient_metal_boots"
     }
   ]
 }

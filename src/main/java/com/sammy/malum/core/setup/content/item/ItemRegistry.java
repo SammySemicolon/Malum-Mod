@@ -37,6 +37,7 @@ import com.sammy.malum.core.setup.content.item.tabs.*;
 import com.sammy.malum.core.systems.item.ItemSkin;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.client.renderer.item.ItemPropertyFunction;
+import net.minecraftforge.eventbus.api.EventPriority;
 import team.lodestar.lodestone.helpers.ColorHelper;
 import team.lodestar.lodestone.helpers.DataHelper;
 import team.lodestar.lodestone.systems.item.LodestoneArmorItem;
@@ -564,12 +565,15 @@ public class ItemRegistry {
 
         public static final LinkedHashMap<String, ItemSkin> SKINS = new LinkedHashMap<>();
 
-        public static SpiritHunterArmorModel SPIRIT_HUNTER_ARMOR;
+        public static SoulHunterArmorModel SOUL_HUNTER_ARMOR;
         public static SoulStainedSteelArmorModel SOUL_STAINED_ARMOR;
         public static GenericSlimArmorModel GENERIC_SLIM_ARMOR; //TODO: these should probably go to lodestone, at least the GenericArmorModel classes
         public static GenericArmorModel GENERIC_ARMOR;
 
+        public static AncientSoulHunterArmorModel ANCIENT_SOUL_HUNTER_ARMOR;
+        public static AncientSoulStainedSteelArmorModel ANCIENT_SOUL_STAINED_STEEL_ARMOR;
         public static DrippedOutCommandoArmorModel DRIPPY_COMMANDO;
+
         public static TailModel TAIL_MODEL;
         public static HeadOverlayModel HEAD_OVERLAY_MODEL;
         public static ScarfModel SCARF;
@@ -595,18 +599,43 @@ public class ItemRegistry {
             registerPridewear("pride");
             registerPridewear("trans");
 
-            registerSkin("commando_drip", malumPath("textures/cosmetic/dripped_out_commando.png"), () -> DRIPPY_COMMANDO).addDatagenData(() -> new ItemSkin.DatagenData(malumPath("cosmetic/dripped_out_commando_"), malumPath("models/item/commando_"), List.of("boots", "leggings", "chestplate", "visor")));
-
+            registerSkin("commando_drip", malumPath("textures/cosmetic/ror2/dripped_out_commando.png"), () -> DRIPPY_COMMANDO).addDatagenData(() -> new ItemSkin.DatagenData(malumPath("cosmetic/ror2/dripped_out_commando_"), malumPath("models/item/commando_"), List.of("boots", "leggings", "chestplate", "visor")));
+            registerSkin("ancient_cloth", malumPath("textures/cosmetic/ancient/soul_hunter.png"), () -> ANCIENT_SOUL_HUNTER_ARMOR).addDatagenData(() -> new ItemSkin.DatagenData(malumPath("cosmetic/ancient/soul_hunter_"), malumPath("models/item/ancient_soul_hunter_"), List.of("boots", "leggings", "robe", "cloak")));
+            registerSkin("ancient_metal", malumPath("textures/cosmetic/ancient/soul_stained_steel.png"), () -> ANCIENT_SOUL_STAINED_STEEL_ARMOR).addDatagenData(() -> new ItemSkin.DatagenData(malumPath("cosmetic/ancient/soul_stained_steel_"), malumPath("models/item/ancient_soul_hunter_"), List.of("boots", "leggings", "chestplate", "helmet")));
+        }
+        @SubscribeEvent(priority = EventPriority.LOWEST)
+        public static void addItemProperties(FMLClientSetupEvent event) {
+            Set<LodestoneArmorItem> armors = ItemRegistry.ITEMS.getEntries().stream().filter(r -> r.get() instanceof LodestoneArmorItem).map(r -> (LodestoneArmorItem)r.get()).collect(Collectors.toSet());
+            ItemPropertyFunction itemPropertyFunction = (stack, level, holder, holderID) -> {
+                if (!stack.hasTag()) {
+                    return -1;
+                }
+                CompoundTag nbt = stack.getTag();
+                if (!nbt.contains(ItemSkin.MALUM_SKIN_TAG)) {
+                    return -1;
+                }
+                ItemSkin itemSkin = SKINS.get(nbt.getString(ItemSkin.MALUM_SKIN_TAG));
+                if (itemSkin == null) {
+                    return -1;
+                }
+                return itemSkin.index;
+            };
+            for (LodestoneArmorItem armor : armors) {
+                ItemProperties.register(armor, new ResourceLocation(ItemSkin.MALUM_SKIN_TAG), itemPropertyFunction);
+            }
         }
 
         @SubscribeEvent
         public static void registerLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
-            event.registerLayerDefinition(SpiritHunterArmorModel.LAYER, SpiritHunterArmorModel::createBodyLayer);
+            event.registerLayerDefinition(SoulHunterArmorModel.LAYER, SoulHunterArmorModel::createBodyLayer);
             event.registerLayerDefinition(SoulStainedSteelArmorModel.LAYER, SoulStainedSteelArmorModel::createBodyLayer);
             event.registerLayerDefinition(GenericSlimArmorModel.LAYER, GenericSlimArmorModel::createBodyLayer);
             event.registerLayerDefinition(GenericArmorModel.LAYER, GenericArmorModel::createBodyLayer);
 
             event.registerLayerDefinition(DrippedOutCommandoArmorModel.LAYER, DrippedOutCommandoArmorModel::createBodyLayer);
+            event.registerLayerDefinition(AncientSoulStainedSteelArmorModel.LAYER, AncientSoulStainedSteelArmorModel::createBodyLayer);
+            event.registerLayerDefinition(AncientSoulHunterArmorModel.LAYER, AncientSoulHunterArmorModel::createBodyLayer);
+
             event.registerLayerDefinition(TailModel.LAYER, TailModel::createBodyLayer);
             event.registerLayerDefinition(HeadOverlayModel.LAYER, HeadOverlayModel::createBodyLayer);
             event.registerLayerDefinition(ScarfModel.LAYER, ScarfModel::createBodyLayer);
@@ -614,12 +643,16 @@ public class ItemRegistry {
 
         @SubscribeEvent
         public static void registerLayers(EntityRenderersEvent.AddLayers event) {
-            SPIRIT_HUNTER_ARMOR = new SpiritHunterArmorModel(event.getEntityModels().bakeLayer(SpiritHunterArmorModel.LAYER));
+            SOUL_HUNTER_ARMOR = new SoulHunterArmorModel(event.getEntityModels().bakeLayer(SoulHunterArmorModel.LAYER));
             SOUL_STAINED_ARMOR = new SoulStainedSteelArmorModel(event.getEntityModels().bakeLayer(SoulStainedSteelArmorModel.LAYER));
             GENERIC_SLIM_ARMOR = new GenericSlimArmorModel(event.getEntityModels().bakeLayer(GenericSlimArmorModel.LAYER));
             GENERIC_ARMOR = new GenericArmorModel(event.getEntityModels().bakeLayer(GenericArmorModel.LAYER));
 
             DRIPPY_COMMANDO = new DrippedOutCommandoArmorModel(event.getEntityModels().bakeLayer(DrippedOutCommandoArmorModel.LAYER));
+            ANCIENT_SOUL_HUNTER_ARMOR = new AncientSoulHunterArmorModel(event.getEntityModels().bakeLayer(AncientSoulHunterArmorModel.LAYER));
+            ANCIENT_SOUL_STAINED_STEEL_ARMOR = new AncientSoulStainedSteelArmorModel(event.getEntityModels().bakeLayer(AncientSoulStainedSteelArmorModel.LAYER));
+
+
             TAIL_MODEL = new TailModel(event.getEntityModels().bakeLayer(TailModel.LAYER));
             HEAD_OVERLAY_MODEL = new HeadOverlayModel(event.getEntityModels().bakeLayer(HeadOverlayModel.LAYER));
             SCARF = new ScarfModel(event.getEntityModels().bakeLayer(ScarfModel.LAYER));
@@ -675,26 +708,7 @@ public class ItemRegistry {
         }
 
         public static ItemSkin registerSkin(String tag, ResourceLocation armorTextureLocation, Supplier<LodestoneArmorModel> model) {
-            ItemSkin skin = registerSkin(tag, new ItemSkin(tag, armorTextureLocation, model, SKINS.size()));
-            Set<LodestoneArmorItem> armors = ItemRegistry.ITEMS.getEntries().stream().filter(r -> r.get() instanceof LodestoneArmorItem).map(r -> (LodestoneArmorItem) r.get()).collect(Collectors.toSet());
-            ItemPropertyFunction itemPropertyFunction = (stack, level, holder, holderID) -> {
-                if (!stack.hasTag()) {
-                    return -1;
-                }
-                CompoundTag nbt = stack.getTag();
-                if (!nbt.contains(ItemSkin.MALUM_SKIN_TAG)) {
-                    return -1;
-                }
-                ItemSkin itemSkin = SKINS.get(nbt.getString(ItemSkin.MALUM_SKIN_TAG));
-                if (itemSkin == null) {
-                    return -1;
-                }
-                return itemSkin.index;
-            };
-            for (LodestoneArmorItem armor : armors) {
-                ItemProperties.register(armor, new ResourceLocation(ItemSkin.MALUM_SKIN_TAG), itemPropertyFunction);
-            }
-            return skin;
+            return registerSkin(tag, new ItemSkin(tag, armorTextureLocation, model, SKINS.size()));
         }
 
         public static void registerPridewear(String tag) {
