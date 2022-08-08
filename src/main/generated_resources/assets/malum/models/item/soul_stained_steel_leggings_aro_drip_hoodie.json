@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "malum:cosmetic/pridewear/aro_hoodie_item"
-  }
-}

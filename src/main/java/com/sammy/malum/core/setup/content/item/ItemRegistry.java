@@ -18,7 +18,6 @@ import com.sammy.malum.common.item.NodeItem;
 import com.sammy.malum.common.item.equipment.CeaselessImpetusItem;
 import com.sammy.malum.common.item.equipment.armor.SoulStainedSteelArmorItem;
 import com.sammy.malum.common.item.equipment.armor.SoulHunterArmorItem;
-import com.sammy.malum.common.item.equipment.armor.vanity.DripArmorItem;
 import com.sammy.malum.common.item.equipment.curios.*;
 import com.sammy.malum.common.item.ether.*;
 import com.sammy.malum.common.item.food.HolyCaramelItem;
@@ -545,13 +544,6 @@ public class ItemRegistry {
     public static final RegistryObject<Item> TOKEN_OF_GRATITUDE = ITEMS.register("token_of_gratitude", () -> new CurioTokenOfGratitude(HIDDEN_PROPERTIES()));
     //endregion
 
-    //region vanity
-    public static final RegistryObject<Item> FANCY_TOPHAT = ITEMS.register("fancy_tophat", () -> new DripArmorItem(EquipmentSlot.HEAD, HIDDEN_PROPERTIES()));
-    public static final RegistryObject<Item> FANCY_JACKET = ITEMS.register("fancy_jacket", () -> new DripArmorItem(EquipmentSlot.CHEST, HIDDEN_PROPERTIES()));
-    public static final RegistryObject<Item> FANCY_LEGGINGS = ITEMS.register("fancy_leggings", () -> new DripArmorItem(EquipmentSlot.LEGS, HIDDEN_PROPERTIES()));
-    public static final RegistryObject<Item> FANCY_BOOTS = ITEMS.register("fancy_boots", () -> new DripArmorItem(EquipmentSlot.FEET, HIDDEN_PROPERTIES()));
-    //endregion
-
     @Mod.EventBusSubscriber(modid = MalumMod.MALUM, bus = Mod.EventBusSubscriber.Bus.MOD)
     public static class Common {
         @SubscribeEvent
@@ -577,7 +569,6 @@ public class ItemRegistry {
         public static GenericSlimArmorModel GENERIC_SLIM_ARMOR; //TODO: these should probably go to lodestone, at least the GenericArmorModel classes
         public static GenericArmorModel GENERIC_ARMOR;
 
-        public static DripArmorModel DRIP_ARMOR;
         public static DrippedOutCommandoArmorModel DRIPPY_COMMANDO;
         public static TailModel TAIL_MODEL;
         public static HeadOverlayModel HEAD_OVERLAY_MODEL;
@@ -615,7 +606,6 @@ public class ItemRegistry {
             event.registerLayerDefinition(GenericSlimArmorModel.LAYER, GenericSlimArmorModel::createBodyLayer);
             event.registerLayerDefinition(GenericArmorModel.LAYER, GenericArmorModel::createBodyLayer);
 
-            event.registerLayerDefinition(DripArmorModel.LAYER, DripArmorModel::createBodyLayer);
             event.registerLayerDefinition(DrippedOutCommandoArmorModel.LAYER, DrippedOutCommandoArmorModel::createBodyLayer);
             event.registerLayerDefinition(TailModel.LAYER, TailModel::createBodyLayer);
             event.registerLayerDefinition(HeadOverlayModel.LAYER, HeadOverlayModel::createBodyLayer);
@@ -629,7 +619,6 @@ public class ItemRegistry {
             GENERIC_SLIM_ARMOR = new GenericSlimArmorModel(event.getEntityModels().bakeLayer(GenericSlimArmorModel.LAYER));
             GENERIC_ARMOR = new GenericArmorModel(event.getEntityModels().bakeLayer(GenericArmorModel.LAYER));
 
-            DRIP_ARMOR = new DripArmorModel(event.getEntityModels().bakeLayer(DripArmorModel.LAYER));
             DRIPPY_COMMANDO = new DrippedOutCommandoArmorModel(event.getEntityModels().bakeLayer(DrippedOutCommandoArmorModel.LAYER));
             TAIL_MODEL = new TailModel(event.getEntityModels().bakeLayer(TailModel.LAYER));
             HEAD_OVERLAY_MODEL = new HeadOverlayModel(event.getEntityModels().bakeLayer(HeadOverlayModel.LAYER));

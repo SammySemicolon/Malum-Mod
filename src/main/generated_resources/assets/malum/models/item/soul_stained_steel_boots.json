@@ -8,115 +8,115 @@
       "predicate": {
         "malum:item_skin": 0.0
       },
-      "model": "malum:item/soul_stained_steel_boots_ace_drip_beanie"
+      "model": "malum:item/soul_stained_steel_boots_ace_drip_socks"
     },
     {
       "predicate": {
         "malum:item_skin": 1.0
       },
-      "model": "malum:item/soul_stained_steel_boots_agender_drip_beanie"
+      "model": "malum:item/soul_stained_steel_boots_agender_drip_socks"
     },
     {
       "predicate": {
         "malum:item_skin": 2.0
       },
-      "model": "malum:item/soul_stained_steel_boots_aro_drip_beanie"
+      "model": "malum:item/soul_stained_steel_boots_aro_drip_socks"
     },
     {
       "predicate": {
         "malum:item_skin": 3.0
       },
-      "model": "malum:item/soul_stained_steel_boots_aroace_drip_beanie"
+      "model": "malum:item/soul_stained_steel_boots_aroace_drip_socks"
     },
     {
       "predicate": {
         "malum:item_skin": 4.0
       },
-      "model": "malum:item/soul_stained_steel_boots_bi_drip_beanie"
+      "model": "malum:item/soul_stained_steel_boots_bi_drip_socks"
     },
     {
       "predicate": {
         "malum:item_skin": 5.0
       },
-      "model": "malum:item/soul_stained_steel_boots_demiboy_drip_beanie"
+      "model": "malum:item/soul_stained_steel_boots_demiboy_drip_socks"
     },
     {
       "predicate": {
         "malum:item_skin": 6.0
       },
-      "model": "malum:item/soul_stained_steel_boots_demigirl_drip_beanie"
+      "model": "malum:item/soul_stained_steel_boots_demigirl_drip_socks"
     },
     {
       "predicate": {
         "malum:item_skin": 7.0
       },
-      "model": "malum:item/soul_stained_steel_boots_enby_drip_beanie"
+      "model": "malum:item/soul_stained_steel_boots_enby_drip_socks"
     },
     {
       "predicate": {
         "malum:item_skin": 8.0
       },
-      "model": "malum:item/soul_stained_steel_boots_gay_drip_beanie"
+      "model": "malum:item/soul_stained_steel_boots_gay_drip_socks"
     },
     {
       "predicate": {
         "malum:item_skin": 9.0
       },
-      "model": "malum:item/soul_stained_steel_boots_genderfluid_drip_beanie"
+      "model": "malum:item/soul_stained_steel_boots_genderfluid_drip_socks"
     },
     {
       "predicate": {
         "malum:item_skin": 10.0
       },
-      "model": "malum:item/soul_stained_steel_boots_genderqueer_drip_beanie"
+      "model": "malum:item/soul_stained_steel_boots_genderqueer_drip_socks"
     },
     {
       "predicate": {
         "malum:item_skin": 11.0
       },
-      "model": "malum:item/soul_stained_steel_boots_intersex_drip_beanie"
+      "model": "malum:item/soul_stained_steel_boots_intersex_drip_socks"
     },
     {
       "predicate": {
         "malum:item_skin": 12.0
       },
-      "model": "malum:item/soul_stained_steel_boots_lesbian_drip_beanie"
+      "model": "malum:item/soul_stained_steel_boots_lesbian_drip_socks"
     },
     {
       "predicate": {
         "malum:item_skin": 13.0
       },
-      "model": "malum:item/soul_stained_steel_boots_pan_drip_beanie"
+      "model": "malum:item/soul_stained_steel_boots_pan_drip_socks"
     },
     {
       "predicate": {
         "malum:item_skin": 14.0
       },
-      "model": "malum:item/soul_stained_steel_boots_plural_drip_beanie"
+      "model": "malum:item/soul_stained_steel_boots_plural_drip_socks"
     },
     {
       "predicate": {
         "malum:item_skin": 15.0
       },
-      "model": "malum:item/soul_stained_steel_boots_poly_drip_beanie"
+      "model": "malum:item/soul_stained_steel_boots_poly_drip_socks"
     },
     {
       "predicate": {
         "malum:item_skin": 16.0
       },
-      "model": "malum:item/soul_stained_steel_boots_pride_drip_beanie"
+      "model": "malum:item/soul_stained_steel_boots_pride_drip_socks"
     },
     {
       "predicate": {
         "malum:item_skin": 17.0
       },
-      "model": "malum:item/soul_stained_steel_boots_trans_drip_beanie"
+      "model": "malum:item/soul_stained_steel_boots_trans_drip_socks"
     },
     {
       "predicate": {
         "malum:item_skin": 18.0
       },
-      "model": "malum:item/soul_stained_steel_boots_commando_drip_visor"
+      "model": "malum:item/soul_stained_steel_boots_commando_drip_boots"
     }
   ]
 }
