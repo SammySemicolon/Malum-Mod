@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "malum:cosmetic/ancient/soul_hunter_cloak_item"
+  }
+}

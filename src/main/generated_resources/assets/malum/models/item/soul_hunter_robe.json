@@ -2,5 +2,133 @@
   "parent": "minecraft:item/generated",
   "textures": {
     "layer0": "malum:item/soul_hunter_robe"
-  }
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "malum:item_skin": 0.0
+      },
+      "model": "malum:item/soul_hunter_robe_ace_drip_hoodie"
+    },
+    {
+      "predicate": {
+        "malum:item_skin": 1.0
+      },
+      "model": "malum:item/soul_hunter_robe_agender_drip_hoodie"
+    },
+    {
+      "predicate": {
+        "malum:item_skin": 2.0
+      },
+      "model": "malum:item/soul_hunter_robe_aro_drip_hoodie"
+    },
+    {
+      "predicate": {
+        "malum:item_skin": 3.0
+      },
+      "model": "malum:item/soul_hunter_robe_aroace_drip_hoodie"
+    },
+    {
+      "predicate": {
+        "malum:item_skin": 4.0
+      },
+      "model": "malum:item/soul_hunter_robe_bi_drip_hoodie"
+    },
+    {
+      "predicate": {
+        "malum:item_skin": 5.0
+      },
+      "model": "malum:item/soul_hunter_robe_demiboy_drip_hoodie"
+    },
+    {
+      "predicate": {
+        "malum:item_skin": 6.0
+      },
+      "model": "malum:item/soul_hunter_robe_demigirl_drip_hoodie"
+    },
+    {
+      "predicate": {
+        "malum:item_skin": 7.0
+      },
+      "model": "malum:item/soul_hunter_robe_enby_drip_hoodie"
+    },
+    {
+      "predicate": {
+        "malum:item_skin": 8.0
+      },
+      "model": "malum:item/soul_hunter_robe_gay_drip_hoodie"
+    },
+    {
+      "predicate": {
+        "malum:item_skin": 9.0
+      },
+      "model": "malum:item/soul_hunter_robe_genderfluid_drip_hoodie"
+    },
+    {
+      "predicate": {
+        "malum:item_skin": 10.0
+      },
+      "model": "malum:item/soul_hunter_robe_genderqueer_drip_hoodie"
+    },
+    {
+      "predicate": {
+        "malum:item_skin": 11.0
+      },
+      "model": "malum:item/soul_hunter_robe_intersex_drip_hoodie"
+    },
+    {
+      "predicate": {
+        "malum:item_skin": 12.0
+      },
+      "model": "malum:item/soul_hunter_robe_lesbian_drip_hoodie"
+    },
+    {
+      "predicate": {
+        "malum:item_skin": 13.0
+      },
+      "model": "malum:item/soul_hunter_robe_pan_drip_hoodie"
+    },
+    {
+      "predicate": {
+        "malum:item_skin": 14.0
+      },
+      "model": "malum:item/soul_hunter_robe_plural_drip_hoodie"
+    },
+    {
+      "predicate": {
+        "malum:item_skin": 15.0
+      },
+      "model": "malum:item/soul_hunter_robe_poly_drip_hoodie"
+    },
+    {
+      "predicate": {
+        "malum:item_skin": 16.0
+      },
+      "model": "malum:item/soul_hunter_robe_pride_drip_hoodie"
+    },
+    {
+      "predicate": {
+        "malum:item_skin": 17.0
+      },
+      "model": "malum:item/soul_hunter_robe_trans_drip_hoodie"
+    },
+    {
+      "predicate": {
+        "malum:item_skin": 18.0
+      },
+      "model": "malum:item/soul_hunter_robe_commando_drip_chestplate"
+    },
+    {
+      "predicate": {
+        "malum:item_skin": 19.0
+      },
+      "model": "malum:item/soul_hunter_robe_ancient_cloth_robe"
+    },
+    {
+      "predicate": {
+        "malum:item_skin": 20.0
+      },
+      "model": "malum:item/soul_hunter_robe_ancient_metal_chestplate"
+    }
+  ]
 }

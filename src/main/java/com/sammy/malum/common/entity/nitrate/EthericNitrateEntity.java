@@ -61,7 +61,7 @@ public class EthericNitrateEntity extends AbstractNitrateEntity {
         Vec3 motion = getDeltaMovement();
         Vec3 norm = motion.normalize().scale(0.1f);
         float extraAlpha = (float) motion.length();
-        float cycles = 2;
+        float cycles = 3;
         Color firstColor = FIRST_COLOR.brighter();
         Random rand = level.getRandom();
         for (int i = 0; i < cycles; i++) {
@@ -69,46 +69,11 @@ public class EthericNitrateEntity extends AbstractNitrateEntity {
             double lerpX = Mth.lerp(pDelta, x - motion.x, x);
             double lerpY = Mth.lerp(pDelta, y - motion.y, y);
             double lerpZ = Mth.lerp(pDelta, z - motion.z, z);
-            float alphaMultiplier = (0.50f + extraAlpha) * Math.min(1, windUp * 2);
+            float alphaMultiplier = (0.35f + extraAlpha) * Math.min(1, windUp * 2);
             SpiritHelper.spawnSpiritParticles(level, lerpX, lerpY, lerpZ, alphaMultiplier, norm, firstColor, SECOND_COLOR);
 
-            ParticleBuilders.create(LodestoneParticleRegistry.TWINKLE_PARTICLE)
-                .setAlpha(0.4f * alphaMultiplier, 0f)
-                .setLifetime(5 + rand.nextInt(4))
-                .setScale(0.25f + rand.nextFloat() * 0.1f, 0)
-                .setColor(FIRST_COLOR, SECOND_COLOR)
-                .setColorCoefficient(2f)
-                .setColorEasing(Easing.EXPO_OUT)
-                .randomOffset(0.05f)
-                .enableNoClip()
-                .addMotion(norm.x, norm.y, norm.z)
-                .randomMotion(0.02f, 0.02f)
-                .overwriteRemovalProtocol(SimpleParticleOptions.SpecialRemovalProtocol.INVISIBLE)
-                .repeat(level, lerpX, lerpY, lerpZ, 1);
-
-            ParticleBuilders.create(LodestoneParticleRegistry.WISP_PARTICLE)
-                .setAlpha(0.25f * alphaMultiplier, 0f)
-                .setLifetime(15 + rand.nextInt(4))
-                .setSpin(nextFloat(rand, 0.05f, 0.1f))
-                .setScale(0.05f + rand.nextFloat() * 0.025f, 0)
-                .setColor(FIRST_COLOR, SECOND_COLOR)
-                .setColorEasing(Easing.EXPO_OUT)
-                .setColorCoefficient(1.5f)
-                .randomOffset(0.02f)
-                .enableNoClip()
-                .addMotion(norm.x, norm.y, norm.z)
-                .randomMotion(0.01f, 0.01f)
-                .repeat(level, x, y, z, 1)
-                .setAlpha(0.2f * alphaMultiplier, 0f)
-                .setLifetime(10 + rand.nextInt(2))
-                .setSpin(nextFloat(rand, 0.05f, 0.1f))
-                .setScale(0.15f + rand.nextFloat() * 0.05f, 0f)
-                .randomMotion(0.01f, 0.01f)
-                .overwriteRemovalProtocol(SimpleParticleOptions.SpecialRemovalProtocol.INVISIBLE)
-                .repeat(level, lerpX, lerpY, lerpZ, 1);
-
             ParticleBuilders.create(LodestoneParticleRegistry.SMOKE_PARTICLE)
-                .setAlpha(0.3f, Math.min(1, 0.25f * alphaMultiplier), 0f)
+                .setAlpha(Math.min(1, 0.25f * alphaMultiplier), 0f)
                 .setAlphaEasing(Easing.SINE_IN, Easing.SINE_OUT)
                 .setLifetime(65 + rand.nextInt(15))
                 .setSpin(nextFloat(rand, -0.1f, 0.1f))

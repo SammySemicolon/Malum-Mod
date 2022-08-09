@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "malum:cosmetic/ancient/soul_stained_steel_leggings_item"
+  }
+}

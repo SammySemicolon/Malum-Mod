@@ -13,7 +13,7 @@ import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 
 public class AncientSoulStainedSteelArmorModel extends LodestoneArmorModel {
-	public static ModelLayerLocation LAYER = new ModelLayerLocation(MalumMod.malumPath("textures/armor/soul_stained_steel"), "main");
+	public static ModelLayerLocation LAYER = new ModelLayerLocation(MalumMod.malumPath("ancient_soul_stained_steel_armor"), "main");
 
 	public AncientSoulStainedSteelArmorModel(ModelPart root) {
 		super(root);

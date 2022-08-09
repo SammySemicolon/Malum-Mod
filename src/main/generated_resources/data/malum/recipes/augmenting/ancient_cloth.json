@@ -1,0 +1,21 @@
+{
+  "type": "malum:augmenting",
+  "targetItem": [
+    {
+      "item": "malum:soul_hunter_cloak"
+    },
+    {
+      "item": "malum:soul_hunter_robe"
+    },
+    {
+      "item": "malum:soul_hunter_leggings"
+    },
+    {
+      "item": "malum:soul_hunter_boots"
+    }
+  ],
+  "augment": {
+    "item": "malum:eldritch_spirit"
+  },
+  "tagAugment": "{\"malum:item_skin\":\"ancient_cloth\"}"
+}

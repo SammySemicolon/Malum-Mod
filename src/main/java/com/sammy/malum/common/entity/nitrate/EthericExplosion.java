@@ -1,6 +1,7 @@
 package com.sammy.malum.common.entity.nitrate;
 
 import com.sammy.malum.core.setup.content.DamageSourceRegistry;
+import com.sammy.malum.core.setup.content.item.ItemTagRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
@@ -44,7 +45,7 @@ public class EthericExplosion extends Explosion {
 
     public static void processExplosion(ExplosionEvent.Detonate event) {
         if (event.getExplosion() instanceof EthericExplosion) {
-            event.getAffectedEntities().removeIf(e -> e instanceof ItemEntity);
+            event.getAffectedEntities().removeIf(e -> e instanceof ItemEntity itemEntity && itemEntity.getItem().is(ItemTagRegistry.NITRATE_VALUABLE));
         }
     }
 

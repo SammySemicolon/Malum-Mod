@@ -125,7 +125,7 @@ public class MalumLang extends LanguageProvider {
 
         addSimpleEntryHeader("spirit_crystals", "Spirit Crystals", "Matter and magic");
         addPages("spirit_crystals",
-            "The soul is a notoriously fickle thing. Even confirming its existence is difficult, requiring the highest thaumaturgies to get a reading. That is what sets spirit arcana apart from other magic. We don't need grand assemblies and esoteric artifice to see a soul. Simply destroying it is enough proof.",
+            "The soul is a notoriously fickle thing. Even confirming its existence is difficult, requiring the highest thaumaturgies to get a reading. That is what sets spirit arcana apart from other magic. We don't need grand assemblies and esoteric artifice to see a soul. Simply destroying it is proof enough.",
             "A material I have named Soulstone is the means by which we do so. It appears mundane until refined, but once it is rid of impurities, it seems... out of phase with the world. By creating a blade using it as a core, I should be able to strike not only the physical form, but also the soul, shattering it to energy before it can disperse.",
             "These energies, as previously noted, have different 'frequencies' of sorts. A being burning with light would have a soul that reflects that radiance, and a being prone to adaptation would have a soul as malleable as itself. Occasionally, the energy has no flavor to it at all, leaving only the raw impulse of creation behind. That type of crystal bears further study.");
 
@@ -150,7 +150,7 @@ public class MalumLang extends LanguageProvider {
             "Runewood's charcoal, as magic-infused as it is, burns with an arcane fervor for longer than regular charcoal. This makes it rather useful for fueling any smelting I need to do.");
         addHeadline("runewood.holy_sap", "Holy Sap");
         addPages("runewood.holy_sap",
-            "In addition, Runewood trees tend to have a buildup of sticky sap on the sides of their logs. When this happens, if you strip off the bark, you'll be able to bottle the sap and use it as slime, or heat and drink it for a strong regenerative effect.");
+            "In addition, Runewood trees tend to have a buildup of sticky sap on the sides of their logs. When this happens, if you strip off the bark, you'll be able to bottle the sap and make it into slime, or heat and drink it for a strong regenerative effect.");
 
         addSimpleEntryHeader("blazing_quartz", "Blazing Quartz", "Ignition");
         addPages("blazing_quartz",
@@ -182,11 +182,20 @@ public class MalumLang extends LanguageProvider {
         addSimpleEntryHeader("scythe_reaping", "Scythe Reaping", "Leaked magic");
         addPages("scythe_reaping",
             "When a being dies, its soul disperses. This is basic theory, and well proven by this point. It's been proposed that sometimes, that power leaks into the body of the creature as it dies, to explain the existence of reagents they drop. That hadn't been proven yet.",
-            "But now, with my scythe, I have proved it beyond doubt. When a soul is shattered, the energy stays in physical form. It's much more likely for it to infuse a bit of that creature when that happens, so far more reagents are produced that way.",
-            "I've found three such reagents that I can harvest this way. The flesh of zombies can curdle into Rotting Essence; the bones of skeletons can crystallize into Grim Talc; and the wings of phantoms can spin into Astral Weave.");
+            "But now, with my scythe, I have proved it beyond doubt. When a soul is shattered, the energy stays in physical form. It happens even without striking the soul, but it's much more likely for it to infuse a bit of that creature when that happens, so far more reagents are produced that way.",
+            "I have discovered four such reagents, which I will detail further in this entry. In summary, the flesh of zombies can curdle to Rotting Essence; the bones of skeletons can crystallize to Grim Talc; the magic of witches can form Alchemical Calx; and the wings of phantoms can spin to Astral Weave.");
+        addHeadline("scythe_reaping.rotting_essence", "Rotting Essence");
+        addPages("scythe_reaping.rotting_essence",
+            "When exposed to this magic, the flesh of the undead can curdle into Rotting Essence, a toxic and foul substance that smells like death itself.");
+        addHeadline("scythe_reaping.grim_talc", "Grim Talc");
+        addPages("scythe_reaping.grim_talc",
+            "Bones exposed to this magic can crystallize into Grim Talc, a useful mineral that can also be broken down into bonemeal.");
+        addHeadline("scythe_reaping.astral_weave", "Astral Weave");
+        addPages("scythe_reaping.astral_weave",
+            "The membrane of a phantom will spin into Astral Weave with this magic, a mystic cloth with strange arcane properties.");
         addHeadline("scythe_reaping.calx", "Alchemical Calx");
         addPages("scythe_reaping.calx",
-            "Witches carry alchemical reagents with them already, and, while the magic doesn't infuse their body, it transmutes those reagents into something else. Soul striking a witch is more likely to drop Alchemical Calx.");
+            "Witches carry alchemical reagents with them already, and, while this magic doesn't infuse their body, it transmutes those reagents into something else, forming Alchemical Calx.");
 
         addSimpleEntryHeader("spirit_infusion", "Spirit Infusion", "Creation of wonders");
         addPages("spirit_infusion",
@@ -204,7 +213,7 @@ public class MalumLang extends LanguageProvider {
             "It is the impulse of purity, the desire for optimism. It is found in those who are passive, innocent, or holy in origin.");
         addHeadline("primary_arcana.wicked", "Wicked Spirit");
         addPages("primary_arcana.wicked",
-            "Wicked arcana is inimical to life. It seeks death and pain, and warps the living into something else. Even touching the crystal makes my soul shudder in pain.",
+            "Wicked arcana is inimical to life. It seeks death and despair, and warps the living into something else. Even touching the crystal makes my soul shudder in pain.",
             "It is the impulse of corruption, the desire to cause suffering. It is found in those whose souls lack life, or those twisted by malice.");
         addHeadline("primary_arcana.arcane", "Arcane Spirit");
         addPages("primary_arcana.arcane",
@@ -319,7 +328,7 @@ public class MalumLang extends LanguageProvider {
             "In their most basic form, Hallowed Gold trinkets protect the user as if they were wearing weak armor, and Soulstained Steel trinkets increase the toughness of the armor being worn.");
         addHeadline("spirit_trinkets.guardian_ring", "Ring of the Guardian");
         addPages("spirit_trinkets.guardian_ring",
-            "As a first attempt to create a trinket using these as a base, I have designed one that mimics Soulstained Armor's Soul Ward. ");
+            "As a first attempt to create a trinket using these as a base, I have designed one that mimics Soulstained Armor's Soul Ward.");
 
 
         addEntryHeader("reactive_trinkets", "Reactive Trinkets", "Harnessing the harvest");
@@ -370,11 +379,11 @@ public class MalumLang extends LanguageProvider {
 
         addSimpleEntryHeader("totem_magic", "Totem Magic", "Arcana unleashed");
         addPages("totem_magic",
-            "Up until this point, when performing spirit arcana, I have limited my research to personal enhancement and material production. Runewood accepts spirit arcana almost hungrily, allowing me to engrave it into the bark, forming a rune representing the magic.",
+            "Up until now, when performing spirit arcana, I have limited my research to personal enhancement and material production. Now, I affect the world. To begin with, I may engrave spirit arcana into Runewood Logs, forming a rune representing the magic.",
             "If unwanted, engraved spirits can be stripped off with an axe, but I have uses in mind. With a Runewood Totem Base, and then a specific set of runes in a Runewood Log pillar placed above my totem base, I can perform a Spirit Rite. These rituals soak power into the world around them, changing the beings or blocks in the area.",
-            "While each rite does offer a unique function, they can definitely be categorized quite well. For what I term \"aura rites\", they are simple, effect providing rites that affect anything living within eight blocks of the base. For other rituals which alter beings, most affect anything within four blocks of the base. For those which alter blocks, most affect the five-by-five area on the level beneath the base, towards where the runes are facing.",
-            "A ritual that affects blocks can also be made more selective with the use of Item Stands. By placing them on the sides of the rune pillars, you can make the ritual only recognize and alter the types of blocks lying on the stands.",
-            "One caveat is that no two identical rituals can have their areas overlap. If you try, the first one will simply fizzle out, the energies coursing through it disrupted.");
+            "While each rite does offer a unique function, they follow patterns and categorize easily. For what I term \"aura rites\", they are simple, effect-providing rites that affect anything living within eight blocks of the base. For other rituals which alter beings, most affect anything within half the range of an aura rite.",
+            "For those which alter blocks, most affect the five-by-five area on the level beneath the base, towards where the runes are facing. These rituals can also be made more selective with the use of Item Stands. By placing them on the sides of the rune pillars, you can make the ritual only recognize and alter the types of blocks lying on the stands.",
+            "One caveat is that no rite's totem may function within the range of another, identical ritual. If you try, the first one will simply fizzle out, the energies coursing through it disrupted.");
 
         //uncharted territory down 'ere
 
@@ -382,18 +391,18 @@ public class MalumLang extends LanguageProvider {
         addPages("arcane_rite.description",
             "Raw arcana provides the basis for all rites. Without power, nothing would be accomplished. This naturally makes one wonder what effect raw arcana would have as the focus of a rite. The answer is a complex and dangerous one.",
             "It requires far more to focus than other rites, taking the entire five runes to activate. It's as though I am pushing on some threshold, and need to break through. And in breaking through... momentum is conserved.",
-            "And once altered, the wood's color changes, along with its magical disposition. What I dub Soulwood bears scars from the violent method of its creation. Those scars warp magic, altering its fundamental nature. And, since the totem was already performing the Undirected Rite...");
+            "And once altered, the wood's color changes, along with its magical disposition. What I dub Soulwood bears scars from the violent method of its creation. Those scars warp magic, altering its fundamental nature. Any spirit rite performed with a soulwood totem will produce a vastly different effect.");
         addPage("arcane_rite",
-            "The rite - if you could call something so chaotic that - explodes and burns through the totem, altering its very base nature, and transmuting the world around it into some indeterminate blighted powder.");
-        addPage("arcane_rite.corrupt",
-            "Now already scarred, the power bleeds from the totem, corrupting and warping blocks before it that are placed upon that blighted substance or Soulwood pedestals. Unfiltered, this is useless, and always ends in more blight. [NYI]");
+            "The rite - if you could call something so chaotic that - corrupts and burns through the totem, altering its very base nature, and transmuting the world around it into some indeterminate blighted powder.");
+        addPage("corrupt_arcane_rite",
+            "Now already scarred, the power bleeds from the totem, corrupting and warping blocks around it that are placed upon that blighted substance or Soulwood pedestals.");
 
         addEntryHeader("sacred_rite", "Sacred Rites", "Invigorating the soul");
         addPage("sacred_rite", "Nearby friendly beings are slowly healed.");
         addPage("sacred_rite.greater", "By twisting the power of vigor, you can cause crops planted on soil before the totem base to grow more quickly.");
 
         addEntryHeader("corrupt_sacred_rite", "Corrupting the Sacred Rites", "Stimulating the soul");
-        addPage("corrupt_sacred_rite", "Nearby animals are nourished spiritually, making them grow up faster.");
+        addPage("corrupt_sacred_rite", "Nearby animals are nourished spiritually, making them grow up faster, and accelerating various biological processes.");
         addPage("corrupt_sacred_rite.greater", "Nearby animals are made... " + italic("vigorous") + ", as if I had fed them myself.");
 
         addEntryHeader("wicked_rite", "Wicked Rites", "Maligning the soul");
@@ -406,7 +415,7 @@ public class MalumLang extends LanguageProvider {
 
         addEntryHeader("aerial_rite", "Aerial Rites", "Uplifting the soul");
         addPage("aerial_rite", "A simple aura rite, nearby friendly beings will find their movements sped up.");
-        addPage("aerial_rite.greater", "By twisting the power of the air, blocks before the totem will be made to fall as though they were sand.");
+        addPage("aerial_rite.greater", "By twisting the power of the air, blocks before the totem will be made to fall as though they were sand. Nothing Silk Touch cannot grab will be affected, though.");
 
         addEntryHeader("corrupt_aerial_rite", "Corrupting the Aerial Rites", "Scattering the soul");
         addPage("corrupt_aerial_rite", "A simple aura rite, nearby friendly beings will have their connection to the earth disrupted, lowering their gravity.");
@@ -473,7 +482,7 @@ public class MalumLang extends LanguageProvider {
         add("malum.jei.block_transmutation", "Block Transmutation");
 
         add("itemGroup.malum", "Malum");
-        add("itemGroup.malum_shaped_stones", "Malum: Arcane Rocks");
+        add("itemGroup.malum_shaped_stones", "Malum: Spirit Stones");
         add("itemGroup.malum_spirits", "Malum: Spirits");
         add("itemGroup.malum_natural_wonders", "Malum: Natural Wonders");
         add("itemGroup.malum_impetus", "Malum: Metallurgic Magic");

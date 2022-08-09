@@ -90,7 +90,7 @@ public class VividNitrateEntity extends AbstractNitrateEntity {
         Vec3 motion = getDeltaMovement();
         Vec3 norm = motion.normalize().scale(0.1f);
         float extraAlpha = (float) motion.length();
-        float cycles = 2;
+        float cycles = 3;
         Color firstColor = colorFunction.apply(time).brighter();
         Color secondColor = colorFunction.apply(time + 0.125f).darker();
         Random rand = level.getRandom();
@@ -99,11 +99,11 @@ public class VividNitrateEntity extends AbstractNitrateEntity {
             double lerpX = Mth.lerp(pDelta, x - motion.x, x);
             double lerpY = Mth.lerp(pDelta, y - motion.y, y);
             double lerpZ = Mth.lerp(pDelta, z - motion.z, z);
-            float alphaMultiplier = (0.50f + extraAlpha) * Math.min(1, windUp * 2);
-            SpiritHelper.spawnSpiritParticles(level, lerpX, lerpY, lerpZ, alphaMultiplier, norm, firstColor, secondColor);
+            float alphaMultiplier = (0.30f + extraAlpha) * Math.min(1, windUp * 2);
+            SpiritHelper.spawnSpiritParticles(level, lerpX, lerpY, lerpZ, alphaMultiplier+0.1f, norm, firstColor, secondColor);
 
             ParticleBuilders.create(LodestoneParticleRegistry.SMOKE_PARTICLE)
-                .setAlpha(0.2f, Math.min(1, 0.25f * alphaMultiplier), 0f)
+                .setAlpha(Math.min(1, 0.3f * alphaMultiplier), 0f)
                 .setAlphaEasing(Easing.SINE_IN, Easing.SINE_OUT)
                 .setLifetime(65 + rand.nextInt(15))
                 .setSpin(nextFloat(rand, -0.1f, 0.1f))
@@ -111,7 +111,7 @@ public class VividNitrateEntity extends AbstractNitrateEntity {
                 .setScale(0.2f + rand.nextFloat() * 0.05f, 0.3f, 0f)
                 .setColor(secondColor, SECOND_SMOKE_COLOR)
                 .setColorEasing(Easing.SINE_OUT)
-                .setColorCoefficient(1f)
+                .setColorCoefficient(1.25f)
                 .randomOffset(0.02f)
                 .enableNoClip()
                 .randomMotion(0.01f, 0.01f)

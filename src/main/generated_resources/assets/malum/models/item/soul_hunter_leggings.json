@@ -2,5 +2,133 @@
   "parent": "minecraft:item/generated",
   "textures": {
     "layer0": "malum:item/soul_hunter_leggings"
-  }
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "malum:item_skin": 0.0
+      },
+      "model": "malum:item/soul_hunter_leggings_ace_drip_beanie"
+    },
+    {
+      "predicate": {
+        "malum:item_skin": 1.0
+      },
+      "model": "malum:item/soul_hunter_leggings_agender_drip_beanie"
+    },
+    {
+      "predicate": {
+        "malum:item_skin": 2.0
+      },
+      "model": "malum:item/soul_hunter_leggings_aro_drip_beanie"
+    },
+    {
+      "predicate": {
+        "malum:item_skin": 3.0
+      },
+      "model": "malum:item/soul_hunter_leggings_aroace_drip_beanie"
+    },
+    {
+      "predicate": {
+        "malum:item_skin": 4.0
+      },
+      "model": "malum:item/soul_hunter_leggings_bi_drip_beanie"
+    },
+    {
+      "predicate": {
+        "malum:item_skin": 5.0
+      },
+      "model": "malum:item/soul_hunter_leggings_demiboy_drip_beanie"
+    },
+    {
+      "predicate": {
+        "malum:item_skin": 6.0
+      },
+      "model": "malum:item/soul_hunter_leggings_demigirl_drip_beanie"
+    },
+    {
+      "predicate": {
+        "malum:item_skin": 7.0
+      },
+      "model": "malum:item/soul_hunter_leggings_enby_drip_beanie"
+    },
+    {
+      "predicate": {
+        "malum:item_skin": 8.0
+      },
+      "model": "malum:item/soul_hunter_leggings_gay_drip_beanie"
+    },
+    {
+      "predicate": {
+        "malum:item_skin": 9.0
+      },
+      "model": "malum:item/soul_hunter_leggings_genderfluid_drip_beanie"
+    },
+    {
+      "predicate": {
+        "malum:item_skin": 10.0
+      },
+      "model": "malum:item/soul_hunter_leggings_genderqueer_drip_beanie"
+    },
+    {
+      "predicate": {
+        "malum:item_skin": 11.0
+      },
+      "model": "malum:item/soul_hunter_leggings_intersex_drip_beanie"
+    },
+    {
+      "predicate": {
+        "malum:item_skin": 12.0
+      },
+      "model": "malum:item/soul_hunter_leggings_lesbian_drip_beanie"
+    },
+    {
+      "predicate": {
+        "malum:item_skin": 13.0
+      },
+      "model": "malum:item/soul_hunter_leggings_pan_drip_beanie"
+    },
+    {
+      "predicate": {
+        "malum:item_skin": 14.0
+      },
+      "model": "malum:item/soul_hunter_leggings_plural_drip_beanie"
+    },
+    {
+      "predicate": {
+        "malum:item_skin": 15.0
+      },
+      "model": "malum:item/soul_hunter_leggings_poly_drip_beanie"
+    },
+    {
+      "predicate": {
+        "malum:item_skin": 16.0
+      },
+      "model": "malum:item/soul_hunter_leggings_pride_drip_beanie"
+    },
+    {
+      "predicate": {
+        "malum:item_skin": 17.0
+      },
+      "model": "malum:item/soul_hunter_leggings_trans_drip_beanie"
+    },
+    {
+      "predicate": {
+        "malum:item_skin": 18.0
+      },
+      "model": "malum:item/soul_hunter_leggings_commando_drip_leggings"
+    },
+    {
+      "predicate": {
+        "malum:item_skin": 19.0
+      },
+      "model": "malum:item/soul_hunter_leggings_ancient_cloth_leggings"
+    },
+    {
+      "predicate": {
+        "malum:item_skin": 20.0
+      },
+      "model": "malum:item/soul_hunter_leggings_ancient_metal_leggings"
+    }
+  ]
 }

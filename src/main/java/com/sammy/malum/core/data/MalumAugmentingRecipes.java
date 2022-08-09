@@ -1,25 +1,18 @@
 package com.sammy.malum.core.data;
 
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.common.recipe.AugmentingRecipe;
 import com.sammy.malum.core.data.builder.SpiritAugmentingRecipeBuilder;
-import com.sammy.malum.core.data.builder.SpiritTransmutationRecipeBuilder;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
+import com.sammy.malum.core.systems.item.ItemSkin;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.tags.Tag;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.Tags;
-import net.minecraftforge.registries.RegistryObject;
 
 import java.util.function.Consumer;
-
-import static com.sammy.malum.core.setup.content.block.BlockRegistry.*;
 
 public class MalumAugmentingRecipes extends RecipeProvider {
     public MalumAugmentingRecipes(DataGenerator generatorIn) {
@@ -33,6 +26,10 @@ public class MalumAugmentingRecipes extends RecipeProvider {
 
     @Override
     protected void buildCraftingRecipes(Consumer<FinishedRecipe> consumer) {
+        Ingredient both = Ingredient.of(ItemRegistry.SOUL_HUNTER_CLOAK.get(), ItemRegistry.SOUL_STAINED_STEEL_HELMET.get(), ItemRegistry.SOUL_HUNTER_ROBE.get(), ItemRegistry.SOUL_STAINED_STEEL_CHESTPLATE.get(), ItemRegistry.SOUL_HUNTER_LEGGINGS.get(), ItemRegistry.SOUL_STAINED_STEEL_LEGGINGS.get(), ItemRegistry.SOUL_HUNTER_BOOTS.get(), ItemRegistry.SOUL_STAINED_STEEL_BOOTS.get());
+        Ingredient soulHunter = Ingredient.of(ItemRegistry.SOUL_HUNTER_CLOAK.get(), ItemRegistry.SOUL_HUNTER_ROBE.get(), ItemRegistry.SOUL_HUNTER_LEGGINGS.get(), ItemRegistry.SOUL_HUNTER_BOOTS.get());
+        Ingredient soulStainedSteel = Ingredient.of(ItemRegistry.SOUL_STAINED_STEEL_HELMET.get(), ItemRegistry.SOUL_STAINED_STEEL_CHESTPLATE.get(), ItemRegistry.SOUL_STAINED_STEEL_LEGGINGS.get(), ItemRegistry.SOUL_STAINED_STEEL_BOOTS.get());
+
         addHoodie(consumer, Ingredient.of(Items.BREAD), "ace");
         addHoodie(consumer, Ingredient.of(Items.ARROW), "aro");
         addHoodie(consumer, Ingredient.of(Items.WHEAT_SEEDS), "aroace");
@@ -51,17 +48,19 @@ public class MalumAugmentingRecipes extends RecipeProvider {
         addHoodie(consumer, Ingredient.of(Items.STONE_BRICK_WALL), "pride");
         addHoodie(consumer, Ingredient.of(Tags.Items.EGGS), "trans");
 
-        addSkin(consumer, Ingredient.of(Items.NETHERITE_SCRAP), "commando_drip");
+        addSkin(consumer, both, Ingredient.of(Items.NETHERITE_SCRAP), "commando_drip");
+
+        addSkin(consumer, soulStainedSteel, Ingredient.of(ItemRegistry.ELDRITCH_SPIRIT.get()), "ancient_metal");
+        addSkin(consumer, soulHunter, Ingredient.of(ItemRegistry.ELDRITCH_SPIRIT.get()), "ancient_cloth");
     }
 
     public void addHoodie(Consumer<FinishedRecipe> consumer, Ingredient input, String value) {
-        Ingredient chestplates = Ingredient.of(ItemRegistry.SOUL_HUNTER_ROBE.get(), ItemRegistry.SOUL_STAINED_STEEL_CHESTPLATE.get());
-        new SpiritAugmentingRecipeBuilder(chestplates, input, makeStringTag(ItemRegistry.ClientOnly.MALUM_SKIN_TAG, value+"_hoodie")).build(consumer, MalumMod.malumPath("augmenting/hoodie_"+value));
+        Ingredient soulHunter = Ingredient.of(ItemRegistry.SOUL_HUNTER_CLOAK.get(), ItemRegistry.SOUL_HUNTER_ROBE.get(), ItemRegistry.SOUL_HUNTER_LEGGINGS.get(), ItemRegistry.SOUL_HUNTER_BOOTS.get());
+        new SpiritAugmentingRecipeBuilder(soulHunter, input, makeStringTag(ItemSkin.MALUM_SKIN_TAG, value + "_drip")).build(consumer, MalumMod.malumPath("augmenting/hoodie_" + value));
     }
 
-    public void addSkin(Consumer<FinishedRecipe> consumer, Ingredient input, String value) {
-        Ingredient chestplates = Ingredient.of(ItemRegistry.SOUL_HUNTER_ROBE.get(), ItemRegistry.SOUL_STAINED_STEEL_CHESTPLATE.get());
-        new SpiritAugmentingRecipeBuilder(chestplates, input, makeStringTag(ItemRegistry.ClientOnly.MALUM_SKIN_TAG, value)).build(consumer, MalumMod.malumPath("augmenting/"+value));
+    public void addSkin(Consumer<FinishedRecipe> consumer, Ingredient armors, Ingredient input, String value) {
+        new SpiritAugmentingRecipeBuilder(armors, input, makeStringTag(ItemSkin.MALUM_SKIN_TAG, value)).build(consumer, MalumMod.malumPath("augmenting/" + value));
     }
 
     public CompoundTag makeStringTag(String key, String value) {

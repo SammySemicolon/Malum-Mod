@@ -1,9 +1,7 @@
 package com.sammy.malum.common.item.equipment.armor;
 
 import com.google.common.collect.ImmutableMultimap;
-import com.sammy.malum.client.model.SpiritHunterArmorModel;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
-import com.sammy.malum.core.setup.content.AttributeRegistry;
 import com.sammy.malum.core.systems.item.ItemSkin;
 import team.lodestar.lodestone.setup.LodestoneAttributeRegistry;
 import team.lodestar.lodestone.systems.item.LodestoneArmorItem;
@@ -51,7 +49,7 @@ public class SoulHunterArmorItem extends LodestoneArmorItem {
     @Override
     public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
         ItemSkin skin = ItemRegistry.ClientOnly.getSkin(stack);
-        return skin != null ? skin.textureLocation.toString() : super.getArmorTexture(stack, entity, slot, type);
+        return skin != null ? skin.armorTextureLocation.toString() : super.getArmorTexture(stack, entity, slot, type);
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -66,7 +64,7 @@ public class SoulHunterArmorItem extends LodestoneArmorItem {
                 float netHeadYaw = f1 - f;
                 float netHeadPitch = Mth.lerp(pticks, entity.xRotO, entity.getXRot());
                 ItemSkin skin = ItemRegistry.ClientOnly.getSkin(itemStack);
-                LodestoneArmorModel model = skin != null ? skin.modelSupplier.get() : ItemRegistry.ClientOnly.SPIRIT_HUNTER_ARMOR;
+                LodestoneArmorModel model = skin != null ? skin.modelSupplier.get() : ItemRegistry.ClientOnly.SOUL_HUNTER_ARMOR;
 
                 model.slot = slot;
                 model.copyFromDefault(_default);

@@ -2,14 +2,20 @@
   "type": "malum:augmenting",
   "targetItem": [
     {
+      "item": "malum:soul_hunter_cloak"
+    },
+    {
       "item": "malum:soul_hunter_robe"
     },
     {
-      "item": "malum:soul_stained_steel_chestplate"
+      "item": "malum:soul_hunter_leggings"
+    },
+    {
+      "item": "malum:soul_hunter_boots"
     }
   ],
   "augment": {
     "tag": "forge:eggs"
   },
-  "tagAugment": "{\"malum:item_skin\":\"trans_hoodie\"}"
+  "tagAugment": "{\"malum:item_skin\":\"trans_drip\"}"
 }

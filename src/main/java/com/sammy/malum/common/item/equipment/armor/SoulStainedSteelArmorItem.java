@@ -49,7 +49,7 @@ public class SoulStainedSteelArmorItem extends LodestoneArmorItem {
     @Override
     public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
         ItemSkin skin = ItemRegistry.ClientOnly.getSkin(stack);
-        return skin != null ? skin.textureLocation.toString() : super.getArmorTexture(stack, entity, slot, type);
+        return skin != null ? skin.armorTextureLocation.toString() : super.getArmorTexture(stack, entity, slot, type);
     }
 
     @OnlyIn(Dist.CLIENT)

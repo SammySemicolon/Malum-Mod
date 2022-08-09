@@ -1,0 +1,14 @@
+{
+  "registry_name": "minecraft:illusioner",
+  "primary_type": "eldritch",
+  "spirits": [
+    {
+      "spirit": "wicked",
+      "count": 1
+    },
+    {
+      "spirit": "arcane",
+      "count": 2
+    }
+  ]
+}

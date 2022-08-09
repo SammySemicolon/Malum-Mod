@@ -181,9 +181,10 @@ public class ProgressionBookScreen extends Screen {
             .setObjectSupplier(MinorEntryObject::new)
             .addPage(new HeadlineTextPage("scythe_reaping", "scythe_reaping.1"))
             .addPage(new TextPage("scythe_reaping.2"))
-            .addPage(new TextPage("scythe_reaping.2"))
+            .addPage(new TextPage("scythe_reaping.3"))
             .addPage(new HeadlineTextItemPage("scythe_reaping.rotting_essence", "scythe_reaping.rotting_essence.1", ROTTING_ESSENCE.get()))
             .addPage(new HeadlineTextItemPage("scythe_reaping.grim_talc", "scythe_reaping.grim_talc.1", GRIM_TALC.get()))
+            .addPage(new HeadlineTextItemPage("scythe_reaping.astral_weave", "scythe_reaping.astral_weave.1", ASTRAL_WEAVE.get()))
             .addPage(new HeadlineTextItemPage("scythe_reaping.calx", "scythe_reaping.calx.1", ALCHEMICAL_CALX.get()))
         );
 
@@ -584,7 +585,7 @@ public class ProgressionBookScreen extends Screen {
             .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.ARCANE_RITE))
             .addPage(new TextPage("arcane_rite.description.3"))
             .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.ARCANE_RITE, "corrupt_arcane_rite"))
-            .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.ARCANE_RITE))
+            .addPage(new TextPage("arcane_rite.description.4"))
             .addPage(SpiritInfusionPage.fromOutput(SOULWOOD_TOTEM_BASE.get()))
         );
 

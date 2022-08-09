@@ -13,7 +13,9 @@ import com.sammy.malum.common.item.spirit.MalumSpiritItem;
 import com.sammy.malum.common.item.spirit.SoulStaveItem;
 import com.sammy.malum.common.item.tools.MalumScytheItem;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
+import com.sammy.malum.core.systems.item.ItemSkin;
 import team.lodestar.lodestone.helpers.DataHelper;
+import team.lodestar.lodestone.systems.item.LodestoneArmorItem;
 import team.lodestar.lodestone.systems.item.ModCombatItem;
 import team.lodestar.lodestone.systems.multiblock.MultiBlockItem;
 import net.mehvahdjukaar.supplementaries.common.block.blocks.SconceBlock;
@@ -43,6 +45,7 @@ public class MalumItemModels extends net.minecraftforge.client.model.generators.
 
     @Override
     protected void registerModels() {
+        ItemRegistry.ClientOnly.registerItemSkins(null);
         Set<RegistryObject<Item>> items = new HashSet<>(ITEMS.getEntries());
 
         blightedSpireItem(take(items, ItemRegistry.BLIGHTED_SPIRE));
@@ -76,6 +79,7 @@ public class MalumItemModels extends net.minecraftforge.client.model.generators.
         takeAll(items, i -> i.get() instanceof ModCombatItem).forEach(this::handheldItem);
         takeAll(items, i -> i.get() instanceof SwordItem).forEach(this::handheldItem);
         takeAll(items, i -> i.get() instanceof BowItem).forEach(this::handheldItem);
+        takeAll(items, i -> i.get() instanceof LodestoneArmorItem).forEach(this::armorItem);
         items.forEach(this::generatedItem);
     }
 
@@ -96,6 +100,23 @@ public class MalumItemModels extends net.minecraftforge.client.model.generators.
         withExistingParent(name, GENERATED).texture("layer0", malumPath("item/impetus/" + name));
     }
 
+    private void armorItem(RegistryObject<Item> i) {
+        generatedItem(i);
+        for (ItemSkin skin : ItemRegistry.ClientOnly.SKINS.values()) {
+            int value = skin.index;
+            if (skin.dataSupplier == null) {
+                continue;
+            }
+            ItemSkin.DatagenData datagenData = skin.dataSupplier.get();
+            String itemName = Registry.ITEM.getKey(i.get()).getPath();
+            String itemSuffix = datagenData.itemTextureNames().get(((ArmorItem) i.get()).getSlot().getIndex());
+            ResourceLocation itemTexturePath = new ResourceLocation(datagenData.itemTexturePath().getNamespace(), datagenData.itemTexturePath().getPath() + itemSuffix+"_item");
+            getBuilder(i.get().getRegistryName().getPath()).override()
+                .predicate(new ResourceLocation(ItemSkin.MALUM_SKIN_TAG), value)
+                .model(withExistingParent(itemName+"_"+skin.key+"_"+itemSuffix, GENERATED).texture("layer0", itemTexturePath))
+                .end();
+        }
+    }
     private void impetusItem(RegistryObject<Item> i) {
         String name = Registry.ITEM.getKey(i.get()).getPath();
         ArrayList<String> split = DataHelper.reverseOrder(new ArrayList<>(), Arrays.asList(name.split("_")));

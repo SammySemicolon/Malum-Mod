@@ -43,7 +43,7 @@ public class BlightMistParticlePacket extends LodestoneClientPacket {
             Color color = new Color((int)(31*multiplier), (int)(19*multiplier), (int)(31*multiplier));
             boolean spinDirection = level.random.nextBoolean();
             ParticleBuilders.create(LodestoneParticleRegistry.WISP_PARTICLE)
-                    .setAlpha(0.2f, 1f, 0)
+                    .setAlpha(0.15f, 1f, 0)
                     .setLifetime((int) (45*timeMultiplier))
                     .setSpin(0.2f*(spinDirection ? 1 : -1))
                     .setScale(0.15f, 0.2f, 0)
@@ -56,7 +56,7 @@ public class BlightMistParticlePacket extends LodestoneClientPacket {
                     .evenlyRepeatEdges(level, pos, 2, Direction.UP);
 
             ParticleBuilders.create(LodestoneParticleRegistry.SMOKE_PARTICLE)
-                    .setAlpha(0.3f, 0.7f, 0)
+                    .setAlpha(0.25f, 0.55f, 0)
                     .setLifetime((int) (50*timeMultiplier))
                     .setSpin(0.1f*(spinDirection ? 1 : -1))
                     .setScale(0.35f, 0.4f, 0)
@@ -68,7 +68,7 @@ public class BlightMistParticlePacket extends LodestoneClientPacket {
                     .overwriteRenderType(ParticleRenderTypes.TRANSPARENT)
                     .evenlyRepeatEdges(level, pos, 2, Direction.UP);
 
-            color = new Color((int)(51*multiplier), (int)(31*multiplier), (int)(48*multiplier));
+            color = new Color((int)(80*multiplier), (int)(40*multiplier), (int)(80*multiplier));
             ParticleBuilders.create(LodestoneParticleRegistry.SMOKE_PARTICLE)
                     .setAlpha(0.02f, 0.15f, 0)
                     .setLifetime((int) (50*timeMultiplier))
@@ -79,7 +79,7 @@ public class BlightMistParticlePacket extends LodestoneClientPacket {
                     .randomOffset(0.2f, 0)
                     .enableNoClip()
                     .randomMotion(0.01f, 0.005f)
-                    .evenlyRepeatEdges(level, pos, 1, Direction.UP);
+                    .evenlyRepeatEdges(level, pos, 2, Direction.UP);
         }
     }
 
