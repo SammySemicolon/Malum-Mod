@@ -22,33 +22,7 @@ public class DrippedOutCommandoArmorModel extends LodestoneArmorModel {
 	public static LayerDefinition createBodyLayer() {
 		MeshDefinition mesh = HumanoidModel.createMesh(new CubeDeformation(0), 0);
 		PartDefinition root = createHumanoidAlias(mesh);
-
-		MeshDefinition meshdefinition = new MeshDefinition();
-		PartDefinition partdefinition = meshdefinition.getRoot();
-
-		PartDefinition r_arm = partdefinition.addOrReplaceChild("r_arm", CubeListBuilder.create().texOffs(0, 45).mirror().addBox(-4.5F, 5.5F, -2.5F, 5.0F, 5.0F, 5.0F, new CubeDeformation(0.02F)).mirror(false)
-			.texOffs(20, 45).mirror().addBox(-4.5F, 5.5F, -2.5F, 5.0F, 5.0F, 5.0F, new CubeDeformation(0.26F)).mirror(false)
-			.texOffs(8, 34).addBox(-4.5F, -2.5F, -2.5F, 5.0F, 6.0F, 5.0F, new CubeDeformation(0.01F))
-			.texOffs(28, 34).addBox(-4.5F, -2.5F, -2.5F, 5.0F, 6.0F, 5.0F, new CubeDeformation(0.26F)), PartPose.offset(-0, 0, 0));
-
-		PartDefinition l_arm = partdefinition.addOrReplaceChild("l_arm", CubeListBuilder.create().texOffs(8, 34).mirror().addBox(-0.5F, -2.5F, -2.5F, 5.0F, 6.0F, 5.0F, new CubeDeformation(0.01F)).mirror(false)
-			.texOffs(28, 34).mirror().addBox(-0.5F, -2.5F, -2.5F, 5.0F, 6.0F, 5.0F, new CubeDeformation(0.26F)).mirror(false)
-			.texOffs(0, 45).addBox(-0.5F, 5.5F, -2.5F, 5.0F, 5.0F, 5.0F, new CubeDeformation(0.02F))
-			.texOffs(20, 45).addBox(-0.5F, 5.5F, -2.5F, 5.0F, 5.0F, 5.0F, new CubeDeformation(0.26F)), PartPose.offset(0, 0, 0));
-
-		PartDefinition r_leg = partdefinition.addOrReplaceChild("r_leg", CubeListBuilder.create().texOffs(0, 64).mirror().addBox(-2.5F, -0.5F, -2.5F, 5.0F, 8.0F, 5.0F, new CubeDeformation(0.01F)).mirror(false)
-			.texOffs(20, 64).mirror().addBox(-2.5F, -0.5F, -2.5F, 5.0F, 8.0F, 5.0F, new CubeDeformation(0.26F)).mirror(false), PartPose.offset(-0, 0, 0.0F));
-
-		PartDefinition r_boot = r_leg.addOrReplaceChild("r_boot", CubeListBuilder.create().texOffs(0, 77).addBox(-3.0F, 7.0F, -3.0F, 6.0F, 6.0F, 6.0F, new CubeDeformation(0.0F))
-			.texOffs(24, 77).addBox(-3.0F, 7.0F, -3.0F, 6.0F, 6.0F, 6.0F, new CubeDeformation(0.25F)), PartPose.offset(0.0F, 0.0F, 0.0F));
-
-		PartDefinition l_leg = partdefinition.addOrReplaceChild("l_leg", CubeListBuilder.create().texOffs(0, 64).addBox(-2.5F, -0.5F, -2.5F, 5.0F, 8.0F, 5.0F, new CubeDeformation(0.0F))
-			.texOffs(20, 64).addBox(-2.5F, -0.5F, -2.5F, 5.0F, 8.0F, 5.0F, new CubeDeformation(0.25F)), PartPose.offset(0, 0, 0.0F));
-
-		PartDefinition l_boot = l_leg.addOrReplaceChild("l_boot", CubeListBuilder.create().texOffs(0, 77).mirror().addBox(-3.0F, 7.0F, -3.0F, 6.0F, 6.0F, 6.0F, new CubeDeformation(0.01F)).mirror(false)
-			.texOffs(24, 77).mirror().addBox(-3.0F, 7.0F, -3.0F, 6.0F, 6.0F, 6.0F, new CubeDeformation(0.25F)).mirror(false), PartPose.offset(0.0F, 0.0F, 0.0F));
-
-
+		
 		PartDefinition body = root.getChild("body");
 		PartDefinition torso = body.addOrReplaceChild("torso", CubeListBuilder.create().texOffs(0, 18).addBox(-4.5F, -0.5F, -2.5F, 9.0F, 11.0F, 5.0F, new CubeDeformation(0.0F))
 			.texOffs(28, 18).addBox(-4.5F, -0.5F, -2.5F, 9.0F, 11.0F, 5.0F, new CubeDeformation(0.25F)), PartPose.offset(0.0F, 0.0F, 0.0F));

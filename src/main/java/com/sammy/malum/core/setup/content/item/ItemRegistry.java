@@ -573,6 +573,8 @@ public class ItemRegistry {
         public static AncientSoulHunterArmorModel ANCIENT_SOUL_HUNTER_ARMOR;
         public static AncientSoulStainedSteelArmorModel ANCIENT_SOUL_STAINED_STEEL_ARMOR;
         public static DrippedOutCommandoArmorModel DRIPPY_COMMANDO;
+        public static PridewearArmorModel PRIDEWEAR;
+
 
         public static TailModel TAIL_MODEL;
         public static HeadOverlayModel HEAD_OVERLAY_MODEL;
@@ -635,6 +637,7 @@ public class ItemRegistry {
             event.registerLayerDefinition(DrippedOutCommandoArmorModel.LAYER, DrippedOutCommandoArmorModel::createBodyLayer);
             event.registerLayerDefinition(AncientSoulStainedSteelArmorModel.LAYER, AncientSoulStainedSteelArmorModel::createBodyLayer);
             event.registerLayerDefinition(AncientSoulHunterArmorModel.LAYER, AncientSoulHunterArmorModel::createBodyLayer);
+            event.registerLayerDefinition(PridewearArmorModel.LAYER, PridewearArmorModel::createBodyLayer);
 
             event.registerLayerDefinition(TailModel.LAYER, TailModel::createBodyLayer);
             event.registerLayerDefinition(HeadOverlayModel.LAYER, HeadOverlayModel::createBodyLayer);
@@ -651,7 +654,7 @@ public class ItemRegistry {
             DRIPPY_COMMANDO = new DrippedOutCommandoArmorModel(event.getEntityModels().bakeLayer(DrippedOutCommandoArmorModel.LAYER));
             ANCIENT_SOUL_HUNTER_ARMOR = new AncientSoulHunterArmorModel(event.getEntityModels().bakeLayer(AncientSoulHunterArmorModel.LAYER));
             ANCIENT_SOUL_STAINED_STEEL_ARMOR = new AncientSoulStainedSteelArmorModel(event.getEntityModels().bakeLayer(AncientSoulStainedSteelArmorModel.LAYER));
-
+            PRIDEWEAR = new PridewearArmorModel(event.getEntityModels().bakeLayer(PridewearArmorModel.LAYER));
 
             TAIL_MODEL = new TailModel(event.getEntityModels().bakeLayer(TailModel.LAYER));
             HEAD_OVERLAY_MODEL = new HeadOverlayModel(event.getEntityModels().bakeLayer(HeadOverlayModel.LAYER));
@@ -714,7 +717,7 @@ public class ItemRegistry {
         public static void registerPridewear(String tag) {
             String drip = tag + "_drip";
             String path = "cosmetic/pridewear/";
-            ItemSkin skin = registerSkin(drip, malumPath("textures/"+path + drip + ".png"), () -> GENERIC_ARMOR);
+            ItemSkin skin = registerSkin(drip, malumPath("textures/"+path + drip + ".png"), () -> PRIDEWEAR);
             skin.addDatagenData(() -> new ItemSkin.DatagenData(malumPath(path + tag + "_"), malumPath("models/item/pridewear/" + tag + "_"), List.of("socks", "beanie", "hoodie", "beanie")));
         }
     }
