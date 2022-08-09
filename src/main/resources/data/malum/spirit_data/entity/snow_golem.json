@@ -1,0 +1,10 @@
+{
+  "registry_name": "minecraft:snow_golem",
+  "primary_type": "aqueous",
+  "spirits": [
+    {
+      "spirit": "aqueous",
+      "count": 1
+    }
+  ]
+}
