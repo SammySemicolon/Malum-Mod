@@ -2,10 +2,10 @@ package com.sammy.malum.core.data;
 
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.item.impetus.ImpetusItem;
-import com.sammy.malum.core.data.builder.vanilla.NBTCarryRecipeBuilder;
 import com.sammy.malum.core.data.builder.vanilla.TheDeviceRecipeBuilder;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
 import com.sammy.malum.core.setup.content.item.ItemTagRegistry;
+import team.lodestar.lodestone.data.builder.NBTCarryRecipeBuilder;
 import team.lodestar.lodestone.systems.recipe.IngredientWithCount;
 import net.minecraft.advancements.critereon.*;
 import net.minecraft.core.Registry;
@@ -511,7 +511,6 @@ public class MalumRecipes extends RecipeProvider implements IConditionBuilder {
                                 ::build)
                 .generateAdvancement()
                 .build(recipeConsumer, MalumMod.malumPath(name + "_from_node_blasting"));
-
     }
 
     private static void etherBrazier(Consumer<FinishedRecipe> recipeConsumer, ItemLike output, ItemLike rock, ItemLike ether) {

@@ -5,10 +5,14 @@ import com.sammy.malum.common.blockentity.spirit_altar.IAltarProvider;
 import com.sammy.malum.common.blockentity.totem.TotemBaseBlockEntity;
 import com.sammy.malum.common.packets.particle.block.BlockSparkleParticlePacket;
 import com.sammy.malum.common.packets.particle.block.blight.BlightMistParticlePacket;
+import com.sammy.malum.common.packets.particle.block.blight.BlightTransformItemParticlePacket;
+import com.sammy.malum.common.packets.particle.block.functional.AltarCraftParticlePacket;
 import com.sammy.malum.common.recipe.SpiritTransmutationRecipe;
 import com.sammy.malum.common.worldevent.TotemCreatedBlightEvent;
 import com.sammy.malum.core.systems.rites.MalumRiteEffect;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.PacketDistributor;
 import team.lodestar.lodestone.handlers.WorldEventHandler;
 import team.lodestar.lodestone.helpers.BlockHelper;
@@ -24,6 +28,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.sammy.malum.core.setup.content.SpiritTypeRegistry.ARCANE_SPIRIT;
 import static com.sammy.malum.core.setup.content.SpiritTypeRegistry.INFERNAL_SPIRIT;
@@ -79,9 +84,12 @@ public class ArcaneRiteType extends MalumRiteType {
                         ItemStack stack = inventoryForAltar.getStackInSlot(0);
                         SpiritTransmutationRecipe recipe = SpiritTransmutationRecipe.getRecipe(level, stack);
                         if (recipe != null) {
-                            inventoryForAltar.setStackInSlot(0, ItemHelper.copyWithNewCount(recipe.output.getStack(), stack.getCount()));
+                            Vec3 itemPos = iAltarProvider.getItemPosForAltar();
+                            level.addFreshEntity(new ItemEntity(level, itemPos.x, itemPos.y, itemPos.z, recipe.output.getStack()));
+                            MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(p)), new BlightTransformItemParticlePacket(List.of(ARCANE_SPIRIT.identifier), itemPos));
+                            inventoryForAltar.getStackInSlot(0).shrink(1);
+                            BlockHelper.updateAndNotifyState(level, p);
                         }
-                        continue;
                     }
                     SpiritTransmutationRecipe recipe = SpiritTransmutationRecipe.getRecipe(level, stateToTransmute.getBlock().asItem().getDefaultInstance());
                     if (recipe != null) {

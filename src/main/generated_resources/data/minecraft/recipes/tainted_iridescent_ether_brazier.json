@@ -1,0 +1,25 @@
+{
+  "type": "lodestone:spirit_infusion",
+  "pattern": [
+    "#X#",
+    "S#S"
+  ],
+  "key": {
+    "#": {
+      "item": "malum:tainted_rock"
+    },
+    "S": {
+      "tag": "forge:rods/wooden"
+    },
+    "X": {
+      "item": "malum:iridescent_ether"
+    }
+  },
+  "nbtCarry": {
+    "item": "malum:iridescent_ether"
+  },
+  "result": {
+    "item": "malum:tainted_iridescent_ether_brazier",
+    "count": 2
+  }
+}

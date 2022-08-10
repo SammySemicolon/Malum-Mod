@@ -64,6 +64,7 @@ public class MalumBlockTags extends BlockTagsProvider {
         tag(BlockTagRegistry.SOULWOOD_LOGS).add(BlockRegistry.SOULWOOD_LOG.get(),BlockRegistry.SOULWOOD.get(),BlockRegistry.EXPOSED_SOULWOOD_LOG.get(),BlockRegistry.REVEALED_SOULWOOD_LOG.get());
 
         tag(BlockTagRegistry.BLIGHTED_BLOCKS).add(BlockRegistry.BLIGHTED_SOIL.get());
+        tag(BlockTagRegistry.BLIGHTED_PLANTS).add(BLIGHTED_WEED.get(), BLIGHTED_SPIRE.get(), SOULWOOD_GROWTH.get());
 
         for (Block block : getModBlocks(b -> b.getRegistryName().getPath().contains("tainted_"))) {
             tag(BlockTagRegistry.TAINTED_ROCK).add(block);

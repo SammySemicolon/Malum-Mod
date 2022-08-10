@@ -68,15 +68,15 @@ public class ActiveBlightEvent extends WorldEventInstance {
         Random rand = level.getRandom();
         Direction[] directions = new Direction[]{Direction.NORTH, Direction.WEST, Direction.SOUTH, Direction.EAST};
         int blightSize = intensity + rand.nextInt(Math.max(1, intensity / 2));
-        Set<BlockPos> affectedPositions = SoulwoodTreeFeature.createBlight(level, blightFiller, BlockRegistry.BLIGHTED_SPIRE, level.getRandom(), sourcePos.below(), blightSize).stream().filter(e -> (e.state.getBlock() instanceof BlightedSoilBlock)).map(e -> e.pos).collect(Collectors.toSet());
+        Set<BlockPos> affectedPositions = SoulwoodTreeFeature.createBlight(level, blightFiller, BlockRegistry.BLIGHTED_SPIRE, level.getRandom(), sourcePos.below(), blightSize, 0.025f).stream().filter(e -> (e.state.getBlock() instanceof BlightedSoilBlock)).map(e -> e.pos).collect(Collectors.toSet());
         for (Direction direction : directions) {
             BlockPos relative = sourcePos.below().relative(direction).offset(rand.nextInt(intensity + 2), 0, rand.nextInt(intensity + 2));
-            SoulwoodTreeFeature.createBlight(level, blightFiller, BlockRegistry.BLIGHTED_WEED, level.getRandom(), relative, blightSize);
+            SoulwoodTreeFeature.createBlight(level, blightFiller, BlockRegistry.BLIGHTED_WEED, level.getRandom(), relative, blightSize, 0.05f);
             Direction otherDirection = directions[rand.nextInt(directions.length)];
             if (otherDirection.equals(direction)) {
                 continue;
             }
-            affectedPositions.addAll(SoulwoodTreeFeature.createBlight(level, blightFiller, BlockRegistry.BLIGHTED_WEED, level.getRandom(), relative.relative(otherDirection, intensity + rand.nextInt(Math.max(1, intensity / 2))), blightSize - 1).stream().filter(e -> (e.state.getBlock() instanceof BlightedSoilBlock)).map(e -> e.pos).collect(Collectors.toSet()));
+            affectedPositions.addAll(SoulwoodTreeFeature.createBlight(level, blightFiller, BlockRegistry.BLIGHTED_WEED, level.getRandom(), relative.relative(otherDirection, intensity + rand.nextInt(Math.max(1, intensity / 2))), blightSize - 1, intensity * 0.1f).stream().filter(e -> (e.state.getBlock() instanceof BlightedSoilBlock)).map(e -> e.pos).collect(Collectors.toSet()));
             blightSize--;
         }
         affectedPositions.forEach(p -> MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(p)), new BlightMistParticlePacket(p)));

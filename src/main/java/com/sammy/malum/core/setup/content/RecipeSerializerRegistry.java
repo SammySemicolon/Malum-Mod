@@ -4,7 +4,6 @@ import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.recipe.*;
 import com.sammy.malum.common.recipe.vanilla.MetalNodeBlastingRecipe;
 import com.sammy.malum.common.recipe.vanilla.MetalNodeSmeltingRecipe;
-import com.sammy.malum.common.recipe.vanilla.NBTCarryRecipe;
 import com.sammy.malum.common.recipe.vanilla.NodeCookingSerializer;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraftforge.registries.DeferredRegister;
@@ -15,7 +14,6 @@ public class RecipeSerializerRegistry {
 
     public static final DeferredRegister<RecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, MalumMod.MALUM);
 
-    public static final RegistryObject<RecipeSerializer<NBTCarryRecipe>> NBT_CARRY_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register(NBTCarryRecipe.NAME, NBTCarryRecipe.Serializer::new);
     public static final RegistryObject<RecipeSerializer<MetalNodeBlastingRecipe>> METAL_NODE_BLASTING_SERIALIZER = RECIPE_SERIALIZERS.register(MetalNodeBlastingRecipe.NAME, ()->new NodeCookingSerializer<>(MetalNodeBlastingRecipe::new, 100));
     public static final RegistryObject<RecipeSerializer<MetalNodeSmeltingRecipe>> METAL_NODE_SMELTING_SERIALIZER = RECIPE_SERIALIZERS.register(MetalNodeSmeltingRecipe.NAME, ()->new NodeCookingSerializer<>(MetalNodeSmeltingRecipe::new, 200));
 

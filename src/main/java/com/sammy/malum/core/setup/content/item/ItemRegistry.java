@@ -718,7 +718,7 @@ public class ItemRegistry {
             String drip = tag + "_drip";
             String path = "cosmetic/pridewear/";
             ItemSkin skin = registerSkin(drip, malumPath("textures/"+path + drip + ".png"), () -> PRIDEWEAR);
-            skin.addDatagenData(() -> new ItemSkin.DatagenData(malumPath(path + tag + "_"), malumPath("models/item/pridewear/" + tag + "_"), List.of("socks", "beanie", "hoodie", "beanie")));
+            skin.addDatagenData(() -> new ItemSkin.DatagenData(malumPath(path+"armor_icons/" + tag + "_"), malumPath("models/item/pridewear/armor_icons/" + tag + "_"), List.of("socks", "shorts", "hoodie", "beanie")));
         }
     }
 }

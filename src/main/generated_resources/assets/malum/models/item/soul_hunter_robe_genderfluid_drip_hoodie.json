@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "malum:cosmetic/pridewear/genderfluid_hoodie_item"
+    "layer0": "malum:cosmetic/pridewear/armor_icons/genderfluid_hoodie"
   }
 }

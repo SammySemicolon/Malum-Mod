@@ -3,6 +3,7 @@ package com.sammy.malum.common.worldgen;
 import com.sammy.malum.common.block.MalumLeavesBlock;
 import com.sammy.malum.common.block.MalumSaplingBlock;
 import com.sammy.malum.core.setup.content.block.BlockRegistry;
+import com.sammy.malum.core.setup.content.block.BlockTagRegistry;
 import team.lodestar.lodestone.helpers.BlockHelper;
 import team.lodestar.lodestone.helpers.DataHelper;
 import team.lodestar.lodestone.systems.worldgen.LodestoneBlockFiller;
@@ -172,15 +173,15 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
             makeLeafBlob(leavesFiller, rand, branchEndPos.above(1));
         }
         int blightSize = 3+rand.nextInt(3);
-        createBlight(level, blightFiller, BlockRegistry.BLIGHTED_SPIRE, level.getRandom(),pos.below(),blightSize);
+        createBlight(level, blightFiller, BlockRegistry.BLIGHTED_SPIRE, level.getRandom(),pos.below(),blightSize, 0);
         for (Direction direction : directions) {
             BlockPos relative = pos.below().relative(direction).offset(rand.nextInt(4), 0, rand.nextInt(4));
-            createBlight(level, blightFiller, BlockRegistry.BLIGHTED_WEED, level.getRandom(),relative,blightSize);
+            createBlight(level, blightFiller, BlockRegistry.BLIGHTED_WEED, level.getRandom(),relative,blightSize, 0.1f);
             Direction otherDirection = directions[rand.nextInt(directions.length)];
             if (otherDirection.equals(direction)) {
                 continue;
             }
-            createBlight(level, blightFiller, BlockRegistry.BLIGHTED_WEED, level.getRandom(),relative.relative(otherDirection, 3+rand.nextInt(3)),blightSize-1);
+            createBlight(level, blightFiller, BlockRegistry.BLIGHTED_WEED, level.getRandom(),relative.relative(otherDirection, 3+rand.nextInt(3)),blightSize-1, 0.1f);
             blightSize--;
         }
         int sapBlockCount = minimumSapBlockCount + rand.nextInt(extraSapBlockCount + 1);
@@ -239,13 +240,17 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
         }
     }
 
-    public static List<BlockStateEntry> createBlight(LevelAccessor level, LodestoneBlockFiller filler, RegistryObject<Block> plant, Random rand, BlockPos pos, int size) {
+    public static List<BlockStateEntry> createBlight(LevelAccessor level, LodestoneBlockFiller filler, RegistryObject<Block> plant, Random rand, BlockPos pos, int size, float growths) {
+        if (growths < 1f) {
+            growths = level.getRandom().nextFloat() < growths ? 1 : 0;
+        }
         if (level.getBlockState(pos).is(MOSS_REPLACEABLE)) {
             filler.entries.add(new BlockStateEntry(BlockRegistry.BLIGHTED_SOIL.get().defaultBlockState(), pos));
         }
         if (level.getBlockState(pos.below()).is(DIRT)) {
             filler.entries.add(new BlockStateEntry(BlockRegistry.BLIGHTED_EARTH.get().defaultBlockState(), pos.below()));
         }
+        LodestoneBlockFiller plantFiller = new LodestoneBlockFiller(false);
         int plantCooldown = 2;
         for (int x = -size; x <= size; x++) {
             for (int z = -size; z <= size; z++) {
@@ -255,10 +260,10 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
                 BlockPos grassPos = pos.offset(x, 0, z);
                 BlockPos.MutableBlockPos mutable = grassPos.mutable();
                 int verticalRange = 4;
-                for(int i1 = 0; level.isStateAtPosition(mutable, (s) -> !s.isAir()) && i1 < verticalRange; ++i1) {
+                for (int i1 = 0; level.isStateAtPosition(mutable, (s) -> !s.isAir()) && i1 < verticalRange; ++i1) {
                     mutable.move(Direction.UP);
                 }
-                for(int k = 0; level.isStateAtPosition(mutable, BlockBehaviour.BlockStateBase::isAir) && k < verticalRange; ++k) {
+                for (int k = 0; level.isStateAtPosition(mutable, BlockBehaviour.BlockStateBase::isAir) && k < verticalRange; ++k) {
                     mutable.move(Direction.DOWN);
                 }
                 do {
@@ -282,14 +287,19 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
                     }
                     if (plantCooldown <= 0 && rand.nextFloat() < 0.4f) {
                         BlockPos plantPos = grassPos.above();
-                        if (level.getBlockState(plantPos).isAir()) {
-                            filler.entries.add(new BlockStateEntry(plant.get().defaultBlockState(), plantPos));
+                        BlockState blockState = level.getBlockState(plantPos);
+                        if (blockState.isAir() && !blockState.is(BlockTagRegistry.BLIGHTED_BLOCKS)) {
+                            plantFiller.entries.add(new BlockStateEntry(plant.get().defaultBlockState(), plantPos));
                         }
                         plantCooldown = 2;
                     }
                     plantCooldown--;
                 }
             }
+        }
+        if (!plantFiller.entries.isEmpty()) {
+            plantFiller.replace(level.getRandom().nextInt(plantFiller.entries.size()), s -> s.replaceState(BlockRegistry.SOULWOOD_GROWTH.get().defaultBlockState()));
+            filler.entries.addAll(plantFiller.entries);
         }
         return filler.entries;
     }

@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "malum:cosmetic/pridewear/gay_beanie_item"
+    "layer0": "malum:cosmetic/pridewear/armor_icons/gay_beanie"
   }
 }

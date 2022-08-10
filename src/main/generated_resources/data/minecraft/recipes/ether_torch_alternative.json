@@ -1,0 +1,22 @@
+{
+  "type": "lodestone:spirit_infusion",
+  "pattern": [
+    "X",
+    "#"
+  ],
+  "key": {
+    "#": {
+      "tag": "forge:rods/wooden"
+    },
+    "X": {
+      "item": "malum:ether"
+    }
+  },
+  "nbtCarry": {
+    "item": "malum:ether"
+  },
+  "result": {
+    "item": "malum:ether_torch",
+    "count": 4
+  }
+}

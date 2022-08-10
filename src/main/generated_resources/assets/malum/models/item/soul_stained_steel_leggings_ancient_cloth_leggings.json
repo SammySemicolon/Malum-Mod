@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "malum:cosmetic/ancient/soul_hunter_leggings_item"
+    "layer0": "malum:cosmetic/ancient/soul_hunter_leggings"
   }
 }

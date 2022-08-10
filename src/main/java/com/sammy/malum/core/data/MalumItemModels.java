@@ -110,7 +110,7 @@ public class MalumItemModels extends net.minecraftforge.client.model.generators.
             ItemSkin.DatagenData datagenData = skin.dataSupplier.get();
             String itemName = Registry.ITEM.getKey(i.get()).getPath();
             String itemSuffix = datagenData.itemTextureNames().get(((ArmorItem) i.get()).getSlot().getIndex());
-            ResourceLocation itemTexturePath = new ResourceLocation(datagenData.itemTexturePath().getNamespace(), datagenData.itemTexturePath().getPath() + itemSuffix+"_item");
+            ResourceLocation itemTexturePath = new ResourceLocation(datagenData.itemTexturePath().getNamespace(), datagenData.itemTexturePath().getPath() + itemSuffix);
             getBuilder(i.get().getRegistryName().getPath()).override()
                 .predicate(new ResourceLocation(ItemSkin.MALUM_SKIN_TAG), value)
                 .model(withExistingParent(itemName+"_"+skin.key+"_"+itemSuffix, GENERATED).texture("layer0", itemTexturePath))

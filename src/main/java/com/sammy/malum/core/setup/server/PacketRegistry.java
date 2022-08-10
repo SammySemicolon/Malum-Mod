@@ -4,6 +4,7 @@ import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.packets.SyncLivingCapabilityDataPacket;
 import com.sammy.malum.common.packets.SyncMalumPlayerCapabilityDataPacket;
 import com.sammy.malum.common.packets.particle.block.blight.BlightMistParticlePacket;
+import com.sammy.malum.common.packets.particle.block.blight.BlightTransformItemParticlePacket;
 import com.sammy.malum.common.packets.particle.block.functional.AltarConsumeParticlePacket;
 import com.sammy.malum.common.packets.particle.block.functional.AltarCraftParticlePacket;
 import com.sammy.malum.common.packets.particle.block.*;
@@ -45,6 +46,7 @@ public class PacketRegistry {
         SyncLivingCapabilityDataPacket.register(MALUM_CHANNEL, index++);
 
         BlightMistParticlePacket.register(MALUM_CHANNEL, index++);
+        BlightTransformItemParticlePacket.register(MALUM_CHANNEL, index++);
 
     }
 }

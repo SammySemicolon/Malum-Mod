@@ -9,7 +9,7 @@
         }
       ],
       "recipe": {
-        "type": "malum:nbt_carry",
+        "type": "lodestone:spirit_infusion",
         "pattern": [
           "#X#",
           " # "
