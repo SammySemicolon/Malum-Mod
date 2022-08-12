@@ -86,6 +86,7 @@ public class VividNitrateEntity extends AbstractNitrateEntity {
             return ColorHelper.multicolorLerp(Easing.SINE_IN, lerp, VividNitrateEntity.COLORS);
         };
 
+        double ox = xOld, oy = yOld + getYOffset(0) + 0.25f, oz = zOld;
         double x = getX(), y = getY() + getYOffset(0) + 0.25f, z = getZ();
         Vec3 motion = getDeltaMovement();
         Vec3 norm = motion.normalize().scale(0.1f);
@@ -96,9 +97,9 @@ public class VividNitrateEntity extends AbstractNitrateEntity {
         Random rand = level.getRandom();
         for (int i = 0; i < cycles; i++) {
             float pDelta = i / cycles;
-            double lerpX = Mth.lerp(pDelta, x - motion.x, x);
-            double lerpY = Mth.lerp(pDelta, y - motion.y, y);
-            double lerpZ = Mth.lerp(pDelta, z - motion.z, z);
+            double lerpX = Mth.lerp(pDelta, ox, x)-motion.x/4f;
+            double lerpY = Mth.lerp(pDelta, oy, y)-motion.y/4f;
+            double lerpZ = Mth.lerp(pDelta, oz, z)-motion.z/4f;
             float alphaMultiplier = (0.30f + extraAlpha) * Math.min(1, windUp * 2);
             SpiritHelper.spawnSpiritParticles(level, lerpX, lerpY, lerpZ, alphaMultiplier+0.1f, norm, firstColor, secondColor);
 
