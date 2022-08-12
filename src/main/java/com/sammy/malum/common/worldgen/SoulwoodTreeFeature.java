@@ -271,7 +271,10 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
                     if (plantState.isAir()) {
                         break;
                     }
-                    if (plantState.getMaterial().isReplaceable() || plantState.is(REPLACEABLE_PLANTS) || plantState.is(FLOWERS)) {
+                    if (plantState.is(BlockTagRegistry.BLIGHTED_PLANTS)) {
+                        break;
+                    }
+                    if ((plantState.getMaterial().isReplaceable() || plantState.is(REPLACEABLE_PLANTS) || plantState.is(FLOWERS))) {
                         filler.entries.add(new BlockStateEntry(Blocks.AIR.defaultBlockState(), mutable.immutable()));
                         mutable.move(Direction.DOWN);
                     } else {
@@ -288,7 +291,7 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
                     if (plantCooldown <= 0 && rand.nextFloat() < 0.4f) {
                         BlockPos plantPos = grassPos.above();
                         BlockState blockState = level.getBlockState(plantPos);
-                        if (blockState.isAir() && !blockState.is(BlockTagRegistry.BLIGHTED_BLOCKS)) {
+                        if (blockState.isAir() && !blockState.is(BlockTagRegistry.BLIGHTED_PLANTS)) {
                             plantFiller.entries.add(new BlockStateEntry(plant.get().defaultBlockState(), plantPos));
                         }
                         plantCooldown = 2;
@@ -298,7 +301,14 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
             }
         }
         if (!plantFiller.entries.isEmpty()) {
-            plantFiller.replace(level.getRandom().nextInt(plantFiller.entries.size()), s -> s.replaceState(BlockRegistry.SOULWOOD_GROWTH.get().defaultBlockState()));
+            while (growths >= 1) {
+                plantFiller.replace(level.getRandom().nextInt(plantFiller.entries.size()), s -> s.replaceState(BlockRegistry.SOULWOOD_GROWTH.get().defaultBlockState()));
+                growths--;
+            }
+            if (growths < 1 && rand.nextFloat() < growths) {
+                plantFiller.replace(level.getRandom().nextInt(plantFiller.entries.size()), s -> s.replaceState(BlockRegistry.SOULWOOD_GROWTH.get().defaultBlockState()));
+
+            }
             filler.entries.addAll(plantFiller.entries);
         }
         return filler.entries;

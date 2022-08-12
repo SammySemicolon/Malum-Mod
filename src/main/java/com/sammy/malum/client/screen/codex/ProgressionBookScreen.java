@@ -177,15 +177,15 @@ public class ProgressionBookScreen extends Screen {
         );
 
         ENTRIES.add(new BookEntry(
-            "scythe_reaping", ALCHEMICAL_CALX.get(), 0, 6)
+            "esoteric_reaping", ROTTING_ESSENCE.get(), 0, 6)
             .setObjectSupplier(MinorEntryObject::new)
-            .addPage(new HeadlineTextPage("scythe_reaping", "scythe_reaping.1"))
-            .addPage(new TextPage("scythe_reaping.2"))
-            .addPage(new TextPage("scythe_reaping.3"))
-            .addPage(new HeadlineTextItemPage("scythe_reaping.rotting_essence", "scythe_reaping.rotting_essence.1", ROTTING_ESSENCE.get()))
-            .addPage(new HeadlineTextItemPage("scythe_reaping.grim_talc", "scythe_reaping.grim_talc.1", GRIM_TALC.get()))
-            .addPage(new HeadlineTextItemPage("scythe_reaping.astral_weave", "scythe_reaping.astral_weave.1", ASTRAL_WEAVE.get()))
-            .addPage(new HeadlineTextItemPage("scythe_reaping.calx", "scythe_reaping.calx.1", ALCHEMICAL_CALX.get()))
+            .addPage(new HeadlineTextPage("esoteric_reaping", "esoteric_reaping.1"))
+            .addPage(new TextPage("esoteric_reaping.2"))
+            .addPage(new TextPage("esoteric_reaping.3"))
+            .addPage(new HeadlineTextItemPage("esoteric_reaping.rotting_essence", "esoteric_reaping.rotting_essence.1", ROTTING_ESSENCE.get()))
+            .addPage(new HeadlineTextItemPage("esoteric_reaping.grim_talc", "esoteric_reaping.grim_talc.1", GRIM_TALC.get()))
+            .addPage(new HeadlineTextItemPage("esoteric_reaping.astral_weave", "esoteric_reaping.astral_weave.1", ASTRAL_WEAVE.get()))
+            .addPage(new HeadlineTextItemPage("esoteric_reaping.calx", "esoteric_reaping.calx.1", ALCHEMICAL_CALX.get()))
         );
 
         ENTRIES.add(new BookEntry(
@@ -386,7 +386,6 @@ public class ProgressionBookScreen extends Screen {
             .addPage(new CraftingBookPage(GILDED_BELT.get(), LEATHER, LEATHER, LEATHER, HALLOWED_GOLD_INGOT.get(), PROCESSED_SOULSTONE.get(), HALLOWED_GOLD_INGOT.get(), EMPTY, HALLOWED_GOLD_INGOT.get(), EMPTY))
             .addPage(CraftingBookPage.ringPage(ORNATE_RING.get(), LEATHER, SOUL_STAINED_STEEL_INGOT.get()))
             .addPage(new CraftingBookPage(ORNATE_NECKLACE.get(), EMPTY, STRING, EMPTY, STRING, EMPTY, STRING, EMPTY, SOUL_STAINED_STEEL_INGOT.get(), EMPTY))
-            .addPage(new HeadlineTextPage("spirit_trinkets.guardian_ring", "spirit_trinkets.guardian_ring.1"))
         );
 
         ENTRIES.add(new BookEntry(

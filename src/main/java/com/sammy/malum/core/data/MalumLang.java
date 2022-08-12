@@ -179,22 +179,22 @@ public class MalumLang extends LanguageProvider {
             "By working my enchantments into the wooden handle, I found that my scythe can be made to return to my hand. As strange as it looks, using my scythe as a boomerang can be useful to cut through hordes of monsters. The stronger the enchantment, the less time until I can throw the scythe again.");
 
 
-        addSimpleEntryHeader("scythe_reaping", "Scythe Reaping", "Leaked magic");
-        addPages("scythe_reaping",
+        addSimpleEntryHeader("esoteric_reaping", "Scythe Reaping", "Leaked magic");
+        addPages("esoteric_reaping",
             "When a being dies, its soul disperses. This is basic theory, and well proven by this point. It's been proposed that sometimes, that power leaks into the body of the creature as it dies, to explain the existence of reagents they drop. That hadn't been proven yet.",
             "But now, with my scythe, I have proved it beyond doubt. When a soul is shattered, the energy stays in physical form. It happens even without striking the soul, but it's much more likely for it to infuse a bit of that creature when that happens, so far more reagents are produced that way.",
             "I have discovered four such reagents, which I will detail further in this entry. In summary, the flesh of zombies can curdle to Rotting Essence; the bones of skeletons can crystallize to Grim Talc; the magic of witches can form Alchemical Calx; and the wings of phantoms can spin to Astral Weave.");
-        addHeadline("scythe_reaping.rotting_essence", "Rotting Essence");
-        addPages("scythe_reaping.rotting_essence",
+        addHeadline("esoteric_reaping.rotting_essence", "Rotting Essence");
+        addPages("esoteric_reaping.rotting_essence",
             "When exposed to this magic, the flesh of the undead can curdle into Rotting Essence, a toxic and foul substance that smells like death itself.");
-        addHeadline("scythe_reaping.grim_talc", "Grim Talc");
-        addPages("scythe_reaping.grim_talc",
+        addHeadline("esoteric_reaping.grim_talc", "Grim Talc");
+        addPages("esoteric_reaping.grim_talc",
             "Bones exposed to this magic can crystallize into Grim Talc, a useful mineral that can also be broken down into bonemeal.");
-        addHeadline("scythe_reaping.astral_weave", "Astral Weave");
-        addPages("scythe_reaping.astral_weave",
+        addHeadline("esoteric_reaping.astral_weave", "Astral Weave");
+        addPages("esoteric_reaping.astral_weave",
             "The membrane of a phantom will spin into Astral Weave with this magic, a mystic cloth with strange arcane properties.");
-        addHeadline("scythe_reaping.calx", "Alchemical Calx");
-        addPages("scythe_reaping.calx",
+        addHeadline("esoteric_reaping.calx", "Alchemical Calx");
+        addPages("esoteric_reaping.calx",
             "Witches carry alchemical reagents with them already, and, while this magic doesn't infuse their body, it transmutes those reagents into something else, forming Alchemical Calx.");
 
         addSimpleEntryHeader("spirit_infusion", "Spirit Infusion", "Creation of wonders");
