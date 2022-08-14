@@ -1,32 +1,29 @@
 package com.sammy.malum.core.data.builder;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.core.setup.content.RecipeSerializerRegistry;
-import team.lodestar.lodestone.systems.recipe.IngredientWithCount;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.block.Block;
+import team.lodestar.lodestone.systems.recipe.IngredientWithCount;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Consumer;
 
-public class SpiritTransmutationRecipeBuilder {
-    private final IngredientWithCount input;
-    private final IngredientWithCount output;
+public class SoulwoodSpiritTransmutationRecipeBuilder {
+    private final List<Ingredient> inputs;
+    private final List<Ingredient> outputs;
 
-    public SpiritTransmutationRecipeBuilder(IngredientWithCount input, IngredientWithCount output) {
-        this.input = input;
-        this.output = output;
-    }
-    public SpiritTransmutationRecipeBuilder(Item input, Item output) {
-        this(new IngredientWithCount(Ingredient.of(input), 1), new IngredientWithCount(Ingredient.of(output), 1));
-    }
-    public SpiritTransmutationRecipeBuilder(Block input, Block output) {
-        this(new IngredientWithCount(Ingredient.of(input), 1), new IngredientWithCount(Ingredient.of(output), 1));
+    public SoulwoodSpiritTransmutationRecipeBuilder(List<Ingredient> inputs, List<Ingredient> outputs) {
+        this.inputs = inputs;
+        this.outputs = outputs;
     }
 
     public void build(Consumer<FinishedRecipe> consumerIn, String recipeName) {
@@ -34,29 +31,36 @@ public class SpiritTransmutationRecipeBuilder {
     }
 
     public void build(Consumer<FinishedRecipe> consumerIn) {
-        build(consumerIn, output.getStack().getItem().getRegistryName().getPath());
+        build(consumerIn, "soulwood_transmutation");
     }
 
     public void build(Consumer<FinishedRecipe> consumerIn, ResourceLocation id) {
-        consumerIn.accept(new SpiritTransmutationRecipeBuilder.Result(id, input, output));
+        consumerIn.accept(new SoulwoodSpiritTransmutationRecipeBuilder.Result(id, inputs, outputs));
     }
 
     public static class Result implements FinishedRecipe {
         private final ResourceLocation id;
 
-        private final IngredientWithCount input;
-        private final IngredientWithCount output;
+        private final List<Ingredient> inputs;
+        private final List<Ingredient> outputs;
 
-        public Result(ResourceLocation id, IngredientWithCount input, IngredientWithCount output) {
+        public Result(ResourceLocation id, List<Ingredient> inputs, List<Ingredient> outputs) {
             this.id = id;
-            this.input = input;
-            this.output = output;
+            this.inputs = inputs;
+            this.outputs = outputs;
         }
 
         @Override
         public void serializeRecipeData(JsonObject json) {
-            json.add("input", input.serialize());
-            json.add("output", output.serialize());
+            JsonArray array = new JsonArray();
+            for (int i = 0; i < inputs.size(); i++) {
+                JsonObject object = new JsonObject();
+                object.add("input", inputs.get(i).toJson());
+                object.add("output", outputs.get(i).toJson());
+                array.add(object);
+            }
+
+            json.add("recipes", array);
         }
 
         @Override
@@ -66,7 +70,7 @@ public class SpiritTransmutationRecipeBuilder {
 
         @Override
         public RecipeSerializer<?> getType() {
-            return RecipeSerializerRegistry.SPIRIT_TRANSMUTATION_RECIPE_SERIALIZER.get();
+            return RecipeSerializerRegistry.SOULWOOD_SPIRIT_TRANSMUTATION_RECIPE_SERIALIZER.get();
         }
 
         @Nullable

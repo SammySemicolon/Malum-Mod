@@ -1,6 +1,7 @@
 package com.sammy.malum.common.entity.boomerang;
 
 import com.sammy.malum.common.item.tools.MalumScytheItem;
+import com.sammy.malum.core.setup.content.DamageSourceRegistry;
 import com.sammy.malum.core.setup.content.item.MalumEnchantments;
 import com.sammy.malum.core.setup.content.entity.EntityRegistry;
 import com.sammy.malum.core.setup.content.SoundRegistry;
@@ -44,6 +45,7 @@ public class ScytheBoomerangEntity extends ThrowableItemProjectile {
 
     public int slot;
     public float damage;
+    public float magicDamage;
     public int age;
     public int returnAge = 8;
     public boolean returning;
@@ -62,8 +64,9 @@ public class ScytheBoomerangEntity extends ThrowableItemProjectile {
         return owner;
     }
 
-    public void setData(float damage, UUID ownerUUID, int slot, ItemStack scythe) {
+    public void setData(float damage, float magicDamage, UUID ownerUUID, int slot, ItemStack scythe) {
         this.damage = damage;
+        this.magicDamage = magicDamage;
         this.ownerUUID = ownerUUID;
         this.slot = slot;
         this.scythe = scythe;
@@ -85,9 +88,10 @@ public class ScytheBoomerangEntity extends ThrowableItemProjectile {
     }
 
     @Override
-    protected void onHitEntity(EntityHitResult p_213868_1_) {
-        DamageSource source = DamageSource.indirectMobAttack(this, getScytheOwner());
-        Entity entity = p_213868_1_.getEntity();
+    protected void onHitEntity(EntityHitResult result) {
+        Player scytheOwner = getScytheOwner();
+        DamageSource source = DamageSource.indirectMobAttack(this, scytheOwner);
+        Entity entity = result.getEntity();
         if (level.isClientSide) {
             return;
         }
@@ -96,20 +100,24 @@ public class ScytheBoomerangEntity extends ThrowableItemProjectile {
         }
         boolean success = entity.hurt(source, damage);
         if (success) {
-            if (!level.isClientSide) {
-                if (entity instanceof LivingEntity livingentity) {
-                    scythe.hurtAndBreak(1, getScytheOwner(), (e) -> remove(RemovalReason.KILLED));
-                    ItemHelper.applyEnchantments(owner, livingentity, scythe);
-                    int i = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.FIRE_ASPECT, scythe);
-                    if (i > 0) {
-                        livingentity.setSecondsOnFire(i * 4);
+            if (entity instanceof LivingEntity livingentity) {
+                scythe.hurtAndBreak(1, scytheOwner, (e) -> remove(RemovalReason.KILLED));
+                ItemHelper.applyEnchantments(owner, livingentity, scythe);
+                int i = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.FIRE_ASPECT, scythe);
+                if (i > 0) {
+                    livingentity.setSecondsOnFire(i * 4);
+                }
+                if (magicDamage > 0) {
+                    if (livingentity.isAlive()) {
+                        livingentity.invulnerableTime = 0;
+                        livingentity.hurt(DamageSourceRegistry.causeVoodooDamage(scytheOwner), magicDamage);
                     }
                 }
             }
             returnAge += 4;
             entity.level.playSound(null, entity.getX(), entity.getY(), entity.getZ(), SoundRegistry.SCYTHE_CUT.get(), entity.getSoundSource(), 1.0F, 0.9f + entity.level.random.nextFloat() * 0.2f);
         }
-        super.onHitEntity(p_213868_1_);
+        super.onHitEntity(result);
     }
 
     @Override
@@ -190,6 +198,7 @@ public class ScytheBoomerangEntity extends ThrowableItemProjectile {
         }
         compound.putInt("slot", slot);
         compound.putFloat("damage", damage);
+        compound.putFloat("magicDamage", magicDamage);
         compound.putInt("age", age);
         compound.putBoolean("returning", returning);
         compound.putInt("returnAge", returnAge);
@@ -210,6 +219,7 @@ public class ScytheBoomerangEntity extends ThrowableItemProjectile {
         }
         slot = compound.getInt("slot");
         damage = compound.getFloat("damage");
+        magicDamage = compound.getFloat("magicDamage");
         age = compound.getInt("age");
         returning = compound.getBoolean("returning");
         returnAge = compound.getInt("returnAge");

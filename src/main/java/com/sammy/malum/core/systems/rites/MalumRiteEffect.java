@@ -2,6 +2,7 @@ package com.sammy.malum.core.systems.rites;
 
 import com.sammy.malum.common.blockentity.totem.TotemBaseBlockEntity;
 import com.sammy.malum.core.setup.content.block.BlockTagRegistry;
+import net.minecraft.world.entity.Entity;
 import team.lodestar.lodestone.helpers.BlockHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.LivingEntity;
@@ -42,11 +43,11 @@ public abstract class MalumRiteEffect {
         return BASE_TICK_RATE;
     }
 
-    public <T extends LivingEntity> Stream<T> getNearbyEntities(TotemBaseBlockEntity totemBase, Class<T> clazz) {
+    public <T extends Entity> Stream<T> getNearbyEntities(TotemBaseBlockEntity totemBase, Class<T> clazz) {
         return new ArrayList<>(totemBase.getLevel().getEntitiesOfClass(clazz, new AABB(getRiteEffectCenter(totemBase)).inflate(getRiteEffectRadius()))).stream();
     }
 
-    public <T extends LivingEntity> Stream<T> getNearbyEntities(TotemBaseBlockEntity totemBase, Class<T> clazz, Predicate<T> predicate) {
+    public <T extends Entity> Stream<T> getNearbyEntities(TotemBaseBlockEntity totemBase, Class<T> clazz, Predicate<T> predicate) {
         return totemBase.getLevel().getEntitiesOfClass(clazz, new AABB(getRiteEffectCenter(totemBase)).inflate(getRiteEffectRadius())).stream().filter(predicate);
     }
 

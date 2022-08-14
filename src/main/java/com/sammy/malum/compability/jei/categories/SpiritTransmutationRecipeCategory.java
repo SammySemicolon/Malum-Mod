@@ -18,20 +18,21 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 
 import javax.annotation.Nonnull;
 
 import static com.sammy.malum.MalumMod.malumPath;
 
-public class BlockTransmutationRecipeCategory implements IRecipeCategory<SpiritTransmutationRecipe> {
-    public static final ResourceLocation UID = malumPath("block_transmutation");
+public class SpiritTransmutationRecipeCategory implements IRecipeCategory<SpiritTransmutationRecipe> {
+    public static final ResourceLocation UID = malumPath("spirit_transmutation");
     private final IDrawable background;
     private final IDrawable overlay;
     private final IDrawable icon;
 
-    public BlockTransmutationRecipeCategory(IGuiHelper guiHelper) {
+    public SpiritTransmutationRecipeCategory(IGuiHelper guiHelper) {
         background = guiHelper.createBlankDrawable(142, 83);
-        overlay = guiHelper.createDrawable(new ResourceLocation(MalumMod.MALUM, "textures/gui/block_transmutation_jei.png"), 0, 0, 140, 81);
+        overlay = guiHelper.createDrawable(new ResourceLocation(MalumMod.MALUM, "textures/gui/spirit_transmutation_jei.png"), 0, 0, 140, 81);
         icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ItemRegistry.SOULWOOD_TOTEM_BASE.get()));
     }
 
@@ -78,9 +79,10 @@ public class BlockTransmutationRecipeCategory implements IRecipeCategory<SpiritT
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, SpiritTransmutationRecipe recipe, IFocusGroup focuses) {
-       builder.addSlot(RecipeIngredientRole.INPUT, 28, 27)
-            .addItemStack(recipe.input.getStack().getItem().getDefaultInstance());
-       builder.addSlot(RecipeIngredientRole.OUTPUT, 93, 26)
-            .addItemStack(recipe.output.getStack().getItem().getDefaultInstance());
+        recipe.inputs.stream().mapMulti(i -> i.getItems()).
+//        builder.addSlot(RecipeIngredientRole.INPUT, 63, 57)
+//            .addIngredients(VanillaTypes.ITEM_STACK, recipe.inputs.stream().flatMap(i -> i.));
+//        builder.addSlot(RecipeIngredientRole.OUTPUT, 63, 124)
+//            .addItemStacks(recipe.output.getStacks());
     }
 }

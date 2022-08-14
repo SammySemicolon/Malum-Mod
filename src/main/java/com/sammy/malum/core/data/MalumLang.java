@@ -385,8 +385,6 @@ public class MalumLang extends LanguageProvider {
             "For those which alter blocks, most affect the five-by-five area on the level beneath the base, towards where the runes are facing. These rituals can also be made more selective with the use of Item Stands. By placing them on the sides of the rune pillars, you can make the ritual only recognize and alter the types of blocks lying on the stands.",
             "One caveat is that no rite's totem may function within the range of another, identical ritual. If you try, the first one will simply fizzle out, the energies coursing through it disrupted.");
 
-        //uncharted territory down 'ere
-
         addSimpleEntryHeader("arcane_rite", "A Rite Unchained", "Creation uncontrolled");
         addPages("arcane_rite.description",
             "Raw arcana provides the basis for all rites. Without power, nothing would be accomplished. This naturally makes one wonder what effect raw arcana would have as the focus of a rite. The answer is a complex and dangerous one.",
@@ -395,7 +393,7 @@ public class MalumLang extends LanguageProvider {
         addPage("arcane_rite",
             "The rite - if you could call something so chaotic that - corrupts and burns through the totem, altering its very base nature, and transmuting the world around it into some indeterminate blighted powder.");
         addPage("corrupt_arcane_rite",
-            "Now already scarred, the power bleeds from the totem, corrupting and warping blocks around it that are placed upon that blighted substance or Soulwood pedestals.");
+            "Now already scarred, the power bleeds from the totem, corrupting and warping blocks and items around it that are placed upon that blighted substance or Soulwood pedestals.");
 
         addEntryHeader("sacred_rite", "Sacred Rites", "Invigorating the soul");
         addPage("sacred_rite", "Nearby friendly beings are slowly healed.");

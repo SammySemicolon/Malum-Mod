@@ -1,9 +1,9 @@
 {
   "type": "malum:spirit_transmutation",
   "input": {
-    "item": "minecraft:netherrack"
+    "item": "minecraft:red_sand"
   },
   "output": {
-    "item": "minecraft:soul_sand"
+    "item": "malum:blighted_soil"
   }
 }

@@ -1,9 +1,9 @@
 {
   "type": "malum:spirit_transmutation",
   "input": {
-    "item": "minecraft:netherrack"
+    "item": "minecraft:cobbled_deepslate"
   },
   "output": {
-    "item": "minecraft:soul_sand"
+    "item": "minecraft:basalt"
   }
 }

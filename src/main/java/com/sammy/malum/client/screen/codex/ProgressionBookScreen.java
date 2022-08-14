@@ -577,7 +577,7 @@ public class ProgressionBookScreen extends Screen {
         );
 
         ENTRIES.add(new BookEntry(
-            "arcane_rite", ARCANE_SPIRIT.get(), 0, 10)
+            "arcane_rite", ARCANE_SPIRIT.get(), 0, 11)
             .setObjectSupplier(RiteEntryObject::new)
             .addPage(new HeadlineTextPage("arcane_rite", "arcane_rite.description.1"))
             .addPage(new TextPage("arcane_rite.description.2"))
@@ -589,13 +589,13 @@ public class ProgressionBookScreen extends Screen {
             .addPage(SpiritInfusionPage.fromOutput(SOULWOOD_TOTEM_BASE.get()))
         );
 
+        ENTRIES.add(new BookEntry(
+            "utilizing_blight", BLIGHTED_SOIL.get(), -1, 12)
+            .addPage(new HeadlineTextPage("utilizing_blight", "utilizing_blight"))
+        );
+
 //        ENTRIES.add(new BookEntry(
-//            "utilizing_blight", BLIGHTED_SOIL.get(), -1, 11)
-//            .addPage(new HeadlineTextPage("utilizing_blight", "utilizing_blight"))
-//        );
-//
-//        ENTRIES.add(new BookEntry(
-//            "containing_blight", BLIGHTED_SOIL.get(), 1, 11)
+//            "containing_blight", BLIGHTED_SOIL.get(), 1, 12)
 //            .addPage(new HeadlineTextPage("utilizing_blight", "utilizing_blight"))
 //        );
 

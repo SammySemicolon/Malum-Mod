@@ -6,6 +6,7 @@ import com.sammy.malum.core.setup.content.DamageSourceRegistry;
 import com.sammy.malum.core.setup.content.SoundRegistry;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
 import com.sammy.malum.core.systems.item.IMalumEventResponderItem;
+import net.minecraft.world.item.enchantment.Enchantments;
 import team.lodestar.lodestone.helpers.CurioHelper;
 import team.lodestar.lodestone.systems.item.ModCombatItem;
 import net.minecraft.core.particles.SimpleParticleType;
@@ -46,8 +47,9 @@ public class MalumScytheItem extends ModCombatItem implements IMalumEventRespond
         if (!canSweep || event.getSource().isMagic() || event.getSource().getMsgId().equals(DamageSourceRegistry.SCYTHE_SWEEP_IDENTIFIER)) {
             return;
         }
+        int level = EnchantmentHelper.getEnchantmentLevel(Enchantments.SWEEPING_EDGE, attacker);
         float damage = event.getAmount() * (0.5f + EnchantmentHelper.getSweepingDamageRatio(attacker));
-        target.level.getEntities(attacker, target.getBoundingBox().inflate(1)).forEach(e -> {
+        target.level.getEntities(attacker, target.getBoundingBox().inflate(1 + level * 0.25f)).forEach(e -> {
             if (e instanceof LivingEntity livingEntity) {
                 if (livingEntity.isAlive()) {
                     livingEntity.hurt(new EntityDamageSource(DamageSourceRegistry.SCYTHE_SWEEP_IDENTIFIER, attacker), damage);

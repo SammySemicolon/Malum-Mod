@@ -66,7 +66,7 @@ public class EldritchInfernalRiteType extends MalumRiteType {
                     if (f.isLit()) {
                         BlockPos blockPos = f.getBlockPos();
                         MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(blockPos)), new MinorBlockSparkleParticlePacket(INFERNAL_SPIRIT.getColor(), blockPos));
-                        f.cookingProgress = Math.min(f.cookingProgress + 5, f.cookingTotalTime);
+                        f.cookingProgress = Math.min(f.cookingProgress + 5, f.cookingTotalTime-1);
                     }
                 });
             }

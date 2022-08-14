@@ -1,9 +1,9 @@
 {
   "type": "malum:spirit_transmutation",
   "input": {
-    "item": "minecraft:netherrack"
+    "item": "minecraft:dripstone_block"
   },
   "output": {
-    "item": "minecraft:soul_sand"
+    "item": "minecraft:stone"
   }
 }

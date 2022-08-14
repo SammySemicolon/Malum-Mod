@@ -1,10 +1,8 @@
 package com.sammy.malum.compability.jei;
 
 import com.sammy.malum.MalumMod;
+import com.sammy.malum.common.recipe.*;
 import com.sammy.malum.common.recipe.SpiritTransmutationRecipe;
-import com.sammy.malum.common.recipe.SpiritFocusingRecipe;
-import com.sammy.malum.common.recipe.SpiritInfusionRecipe;
-import com.sammy.malum.common.recipe.SpiritRepairRecipe;
 import com.sammy.malum.compability.farmersdelight.FarmersDelightCompat;
 import com.sammy.malum.compability.jei.categories.*;
 import com.sammy.malum.core.setup.content.SpiritRiteRegistry;
@@ -38,16 +36,11 @@ import java.util.List;
 public class JEIHandler implements IModPlugin {
     private static final ResourceLocation ID = new ResourceLocation(MalumMod.MALUM, "main");
 
-    public static final RecipeType<SpiritInfusionRecipe> SPIRIT_INFUSION =
-         new RecipeType<>(SpiritInfusionRecipeCategory.UID, SpiritInfusionRecipe.class);
-    public static final RecipeType<SpiritTransmutationRecipe> TRANSMUTATION =
-         new RecipeType<>(BlockTransmutationRecipeCategory.UID, SpiritTransmutationRecipe.class);
-    public static final RecipeType<SpiritFocusingRecipe> FOCUSING =
-         new RecipeType<>(SpiritFocusingRecipeCategory.UID, SpiritFocusingRecipe.class);
-    public static final RecipeType<MalumRiteType> RITES =
-         new RecipeType<>(SpiritRiteRecipeCategory.UID, MalumRiteType.class);
-    public static final RecipeType<SpiritRepairRecipe> SPIRIT_REPAIR =
-         new RecipeType<>(SpiritRepairRecipeCategory.UID, SpiritRepairRecipe.class);
+    public static final RecipeType<SpiritInfusionRecipe> SPIRIT_INFUSION = new RecipeType<>(SpiritInfusionRecipeCategory.UID, SpiritInfusionRecipe.class);
+    public static final RecipeType<SpiritTransmutationRecipe> TRANSMUTATION = new RecipeType<>(SpiritTransmutationRecipeCategory.UID, SpiritTransmutationRecipe.class);
+    public static final RecipeType<SpiritFocusingRecipe> FOCUSING = new RecipeType<>(SpiritFocusingRecipeCategory.UID, SpiritFocusingRecipe.class);
+    public static final RecipeType<MalumRiteType> RITES = new RecipeType<>(SpiritRiteRecipeCategory.UID, MalumRiteType.class);
+    public static final RecipeType<SpiritRepairRecipe> SPIRIT_REPAIR = new RecipeType<>(SpiritRepairRecipeCategory.UID, SpiritRepairRecipe.class);
 
     public static void addItemsToJei(IRecipeLayoutBuilder iRecipeLayout, RecipeIngredientRole role, int left, int top, boolean vertical, List<? extends IRecipeComponent> components) {
         int slots = components.size();
@@ -69,17 +62,17 @@ public class JEIHandler implements IModPlugin {
         IGuiHelper guiHelper = registry.getJeiHelpers().getGuiHelper();
 
         registry.addRecipeCategories(new SpiritInfusionRecipeCategory(guiHelper),
-             new BlockTransmutationRecipeCategory(guiHelper),
-             new SpiritFocusingRecipeCategory(guiHelper),
-             new SpiritRiteRecipeCategory(guiHelper),
-             new SpiritRepairRecipeCategory(guiHelper));
+            new SpiritTransmutationRecipeCategory(guiHelper),
+            new SpiritFocusingRecipeCategory(guiHelper),
+            new SpiritRiteRecipeCategory(guiHelper),
+            new SpiritRepairRecipeCategory(guiHelper));
     }
 
     @Override
     public void registerRecipes(@Nonnull IRecipeRegistration registry) {
         ClientLevel level = Minecraft.getInstance().level;
         if (level != null) {
-            registry.addRecipes(SPIRIT_INFUSION, SpiritInfusionRecipe.getRecipes(level));
+            registry.addRecipes(SPIRIT_INFUSION, SpiritInfusionRecipe.getRecipes(level));;
             registry.addRecipes(TRANSMUTATION, SpiritTransmutationRecipe.getRecipes(level));
             registry.addRecipes(FOCUSING, SpiritFocusingRecipe.getRecipes(level));
             registry.addRecipes(RITES, SpiritRiteRegistry.RITES);
@@ -104,9 +97,9 @@ public class JEIHandler implements IModPlugin {
         IRecipeManager recipeRegistry = jeiRuntime.getRecipeManager();
         IFocusFactory focusFactory = jeiRuntime.getJeiHelpers().getFocusFactory();
         recipeRegistry.hideRecipes(RecipeTypes.CRAFTING, recipeRegistry
-             .createRecipeLookup(RecipeTypes.CRAFTING)
-             .limitFocus(List.of(focusFactory.createFocus(RecipeIngredientRole.OUTPUT, VanillaTypes.ITEM_STACK, new ItemStack(ItemRegistry.THE_DEVICE.get()))))
-             .get().toList());
+            .createRecipeLookup(RecipeTypes.CRAFTING)
+            .limitFocus(List.of(focusFactory.createFocus(RecipeIngredientRole.OUTPUT, VanillaTypes.ITEM_STACK, new ItemStack(ItemRegistry.THE_DEVICE.get()))))
+            .get().toList());
     }
 
     @Nonnull

@@ -1,11 +1,9 @@
 {
   "type": "malum:spirit_transmutation",
   "input": {
-    "item": "minecraft:stone",
-    "count": 1
+    "item": "minecraft:gravel"
   },
   "output": {
-    "item": "minecraft:sand",
-    "count": 1
+    "item": "minecraft:sand"
   }
 }
