@@ -563,7 +563,7 @@ public class ItemRegistry {
     @Mod.EventBusSubscriber(modid = MalumMod.MALUM, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
     public static class ClientOnly {
 
-        public static final LinkedHashMap<String, ItemSkin> SKINS = new LinkedHashMap<>();
+        public static final Map<String, ItemSkin> SKINS = new LinkedHashMap<>();
 
         public static SoulHunterArmorModel SOUL_HUNTER_ARMOR;
         public static SoulStainedSteelArmorModel SOUL_STAINED_ARMOR;

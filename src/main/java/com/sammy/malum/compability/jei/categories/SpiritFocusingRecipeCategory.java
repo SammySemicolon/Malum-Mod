@@ -88,6 +88,6 @@ public class SpiritFocusingRecipeCategory implements IRecipeCategory<SpiritFocus
         builder.addSlot(RecipeIngredientRole.INPUT, 63, 57)
                   .addIngredients(recipe.input);
         builder.addSlot(RecipeIngredientRole.OUTPUT, 63, 124)
-                  .addItemStacks(recipe.output.getStacks());
+                  .addItemStack(recipe.output);
     }
 }

@@ -5,19 +5,15 @@ import com.sammy.malum.common.block.ether.EtherBlock;
 import com.sammy.malum.common.block.ether.EtherBrazierBlock;
 import com.sammy.malum.common.block.ether.EtherSconceBlock;
 import com.sammy.malum.common.block.ether.EtherTorchBlock;
-import com.sammy.malum.common.item.impetus.CrackedImpetusItem;
-import com.sammy.malum.common.item.impetus.ImpetusItem;
 import com.sammy.malum.common.item.NodeItem;
 import com.sammy.malum.common.item.ether.AbstractEtherItem;
+import com.sammy.malum.common.item.impetus.CrackedImpetusItem;
+import com.sammy.malum.common.item.impetus.ImpetusItem;
 import com.sammy.malum.common.item.spirit.MalumSpiritItem;
 import com.sammy.malum.common.item.spirit.SoulStaveItem;
 import com.sammy.malum.common.item.tools.MalumScytheItem;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
 import com.sammy.malum.core.systems.item.ItemSkin;
-import team.lodestar.lodestone.helpers.DataHelper;
-import team.lodestar.lodestone.systems.item.LodestoneArmorItem;
-import team.lodestar.lodestone.systems.item.ModCombatItem;
-import team.lodestar.lodestone.systems.multiblock.MultiBlockItem;
 import net.mehvahdjukaar.supplementaries.common.block.blocks.SconceBlock;
 import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;
@@ -27,11 +23,12 @@ import net.minecraft.world.level.block.*;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.RegistryObject;
+import team.lodestar.lodestone.helpers.DataHelper;
+import team.lodestar.lodestone.systems.item.LodestoneArmorItem;
+import team.lodestar.lodestone.systems.item.ModCombatItem;
+import team.lodestar.lodestone.systems.multiblock.MultiBlockItem;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 import static com.sammy.malum.MalumMod.malumPath;
 import static com.sammy.malum.core.setup.content.item.ItemRegistry.ITEMS;
@@ -119,7 +116,7 @@ public class MalumItemModels extends net.minecraftforge.client.model.generators.
     }
     private void impetusItem(RegistryObject<Item> i) {
         String name = Registry.ITEM.getKey(i.get()).getPath();
-        ArrayList<String> split = DataHelper.reverseOrder(new ArrayList<>(), Arrays.asList(name.split("_")));
+        List<String> split = DataHelper.reverseOrder(new ArrayList<>(), Arrays.asList(name.split("_")));
         split.remove(0);
         String alteredName = String.join("_", split);
         withExistingParent(name, GENERATED).texture("layer0", malumPath("item/impetus/" + alteredName));

@@ -26,7 +26,7 @@ public class FunctionalBlockParticlePacket extends LodestoneClientPacket {
 
     public static <T extends FunctionalBlockParticlePacket> T decode(PacketProvider<T> provider, FriendlyByteBuf buf) {
         int strings = buf.readInt();
-        ArrayList<String> spirits = new ArrayList<>();
+        List<String> spirits = new ArrayList<>();
         for (int i = 0; i < strings; i++) {
             spirits.add(buf.readUtf());
         }

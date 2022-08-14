@@ -3,26 +3,23 @@ package com.sammy.malum.core.setup.content.potion;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.effect.*;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
-import net.mehvahdjukaar.supplementaries.configs.RegistryConfigs;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
-import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.PotionBrewing;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.registries.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 
 import java.util.HashMap;
+import java.util.Map;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class MalumMobEffectRegistry {
-    public static final HashMap<ResourceLocation, Float> ALCHEMICAL_PROFICIENCY_MAP = new HashMap<>();
+    public static final Map<ResourceLocation, Float> ALCHEMICAL_PROFICIENCY_MAP = new HashMap<>();
     public static final DeferredRegister<MobEffect> EFFECTS = DeferredRegister.create(ForgeRegistries.MOB_EFFECTS, MalumMod.MALUM);
 
     public static final RegistryObject<MobEffect> GAIAN_BULWARK = EFFECTS.register("gaian_bulwark", EarthenAura::new);

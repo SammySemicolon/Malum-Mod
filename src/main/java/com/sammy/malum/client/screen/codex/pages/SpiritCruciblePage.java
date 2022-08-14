@@ -46,7 +46,7 @@ public class SpiritCruciblePage extends BookPage {
         int guiLeft = guiLeft();
         int guiTop = guiTop();
         ProgressionBookScreen.renderItem(poseStack, recipe.input, guiLeft + 67, guiTop + 59, mouseX, mouseY);
-        ProgressionBookScreen.renderComponent(poseStack, recipe.output, guiLeft + 67, guiTop + 126, mouseX, mouseY);
+        ProgressionBookScreen.renderItem(poseStack, recipe.output, guiLeft + 67, guiTop + 126, mouseX, mouseY);
         ProgressionBookScreen.renderComponents(poseStack, recipe.spirits, guiLeft + 65, guiTop + 16, mouseX, mouseY, false);
     }
 
@@ -55,7 +55,7 @@ public class SpiritCruciblePage extends BookPage {
         int guiLeft = guiLeft();
         int guiTop = guiTop();
         ProgressionBookScreen.renderItem(poseStack, recipe.input, guiLeft + 209, guiTop + 59, mouseX, mouseY);
-        ProgressionBookScreen.renderComponent(poseStack, recipe.output, guiLeft + 209, guiTop + 126, mouseX, mouseY);
+        ProgressionBookScreen.renderItem(poseStack, recipe.output, guiLeft + 209, guiTop + 126, mouseX, mouseY);
         ProgressionBookScreen.renderComponents(poseStack, recipe.spirits, guiLeft + 207, guiTop + 16, mouseX, mouseY, false);
     }
 }

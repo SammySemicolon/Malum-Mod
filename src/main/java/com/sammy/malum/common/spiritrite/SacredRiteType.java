@@ -17,14 +17,16 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.network.PacketDistributor;
 
 import java.util.HashMap;
+import java.util.Map;
 
-import static com.sammy.malum.core.setup.content.SpiritTypeRegistry.*;
+import static com.sammy.malum.core.setup.content.SpiritTypeRegistry.ARCANE_SPIRIT;
+import static com.sammy.malum.core.setup.content.SpiritTypeRegistry.SACRED_SPIRIT;
 import static com.sammy.malum.core.setup.server.PacketRegistry.MALUM_CHANNEL;
 import static net.minecraft.world.entity.ai.goal.EatBlockGoal.IS_TALL_GRASS;
 
 public class SacredRiteType extends MalumRiteType {
 
-    public static final HashMap<Class<? extends Animal>, SacredRiteEntityActor<?>> ACTORS = Util.make(new HashMap<>(), m -> {
+    public static final Map<Class<? extends Animal>, SacredRiteEntityActor<?>> ACTORS = Util.make(new HashMap<>(), m -> {
         m.put(Sheep.class, new SacredRiteEntityActor<>(Sheep.class) {
             @Override
             public void act(TotemBaseBlockEntity totemBaseBlockEntity, Sheep sheep) {

@@ -61,7 +61,7 @@ public class MalumEntitySpiritData {
         if (dataAmount == 0) {
             return EMPTY;
         }
-        ArrayList<SpiritWithCount> data = new ArrayList<>();
+        List<SpiritWithCount> data = new ArrayList<>();
         for (int i = 0; i < dataAmount; i++) {
             data.add(SpiritWithCount.load(nbt.getCompound("dataEntry" + i)));
         }

@@ -29,25 +29,18 @@ public class SpiritAugmentingRecipeBuilder {
     }
 
     public void build(Consumer<FinishedRecipe> consumerIn, ResourceLocation id) {
-        consumerIn.accept(new SpiritAugmentingRecipeBuilder.Result(id, targetItem, augment, tagAugment));
+        consumerIn.accept(new Result(id));
     }
 
     public void build(Consumer<FinishedRecipe> consumerIn) {
         build(consumerIn, "augment_with_"+ augment.getItems()[0].getItem().getRegistryName().getPath());
     }
 
-    public static class Result implements FinishedRecipe {
+    public class Result implements FinishedRecipe {
         private final ResourceLocation id;
 
-        public final Ingredient targetItem;
-        public final Ingredient augment;
-        public final CompoundTag tagAugment;
-
-        public Result(ResourceLocation id, Ingredient targetItem, Ingredient augment, CompoundTag tagAugment) {
+        public Result(ResourceLocation id) {
             this.id = id;
-            this.targetItem = targetItem;
-            this.augment = augment;
-            this.tagAugment = tagAugment;
         }
 
         @Override

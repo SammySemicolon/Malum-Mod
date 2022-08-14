@@ -6,9 +6,10 @@ import com.sammy.malum.core.systems.rites.MalumRiteType;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class SpiritRiteRegistry {
-    public static ArrayList<MalumRiteType> RITES = new ArrayList<>();
+    public static List<MalumRiteType> RITES = new ArrayList<>();
 
     public static MalumRiteType SACRED_RITE = create(new SacredRiteType());
     public static MalumRiteType ELDRITCH_SACRED_RITE = create(new EldritchSacredRiteType());
@@ -41,7 +42,7 @@ public class SpiritRiteRegistry {
         return null;
     }
 
-    public static MalumRiteType getRite(ArrayList<MalumSpiritType> spirits) {
+    public static MalumRiteType getRite(List<MalumSpiritType> spirits) {
         for (MalumRiteType rite : RITES) {
             if (rite.spirits.equals(spirits)) {
                 return rite;

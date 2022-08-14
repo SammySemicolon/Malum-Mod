@@ -1,34 +1,22 @@
 package com.sammy.malum.common.spiritrite.greater;
 
 import com.sammy.malum.common.blockentity.totem.TotemBaseBlockEntity;
-import com.sammy.malum.common.packets.particle.block.BlockSparkleParticlePacket;
 import com.sammy.malum.common.packets.particle.entity.MajorEntityEffectParticlePacket;
 import com.sammy.malum.common.packets.particle.entity.MinorEntityEffectParticlePacket;
-import com.sammy.malum.core.setup.client.ParticleRegistry;
 import com.sammy.malum.core.systems.rites.BlockAffectingRiteEffect;
 import com.sammy.malum.core.systems.rites.EntityAffectingRiteEffect;
 import com.sammy.malum.core.systems.rites.MalumRiteEffect;
-import team.lodestar.lodestone.setup.LodestoneParticleRegistry;
-import team.lodestar.lodestone.systems.rendering.particle.ParticleBuilders;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.monster.Drowned;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.PointedDripstoneBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.FluidState;
-import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.network.PacketDistributor;
 
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
 import java.util.Set;
 
 import static com.sammy.malum.core.setup.content.SpiritTypeRegistry.*;
@@ -57,7 +45,7 @@ public class EldritchAqueousRiteType extends MalumRiteType {
 
             @SuppressWarnings("ConstantConditions")
             @Override
-            public boolean canAffectBlock(TotemBaseBlockEntity totemBase, HashSet<Block> filters, BlockState state, BlockPos pos) {
+            public boolean canAffectBlock(TotemBaseBlockEntity totemBase, Set<Block> filters, BlockState state, BlockPos pos) {
                 return super.canAffectBlock(totemBase, filters, state, pos) && PointedDripstoneBlock.isStalactiteStartPos(state, totemBase.getLevel(), pos);
             }
         };

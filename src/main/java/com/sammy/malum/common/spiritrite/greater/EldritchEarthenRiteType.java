@@ -5,25 +5,17 @@ import com.sammy.malum.common.packets.particle.block.BlockSparkleParticlePacket;
 import com.sammy.malum.core.systems.rites.BlockAffectingRiteEffect;
 import com.sammy.malum.core.systems.rites.MalumRiteEffect;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
-import team.lodestar.lodestone.setup.LodestoneParticleRegistry;
-import team.lodestar.lodestone.systems.rendering.particle.ParticleBuilders;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.AirBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.InfestedBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.network.PacketDistributor;
 
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
+import java.util.Set;
 
 import static com.sammy.malum.core.setup.content.SpiritTypeRegistry.*;
 import static com.sammy.malum.core.setup.server.PacketRegistry.MALUM_CHANNEL;
@@ -54,7 +46,7 @@ public class EldritchEarthenRiteType extends MalumRiteType {
             }
 
             @Override
-            public boolean canAffectBlock(TotemBaseBlockEntity totemBase, HashSet<Block> filters, BlockState state, BlockPos pos) {
+            public boolean canAffectBlock(TotemBaseBlockEntity totemBase, Set<Block> filters, BlockState state, BlockPos pos) {
                 return super.canAffectBlock(totemBase, filters, state, pos) && !state.isAir();
             }
         };

@@ -89,9 +89,9 @@ public class SpiritRepairRecipeCategory implements IRecipeCategory<SpiritRepairR
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, SpiritRepairRecipe recipe, IFocusGroup focuses) {
         List<ItemStack> repaired = recipe.inputs.stream().map(Item::getDefaultInstance).collect(Collectors.toList());
-        ArrayList<ItemStack> repairIngredient = recipe.repairMaterial.getStacks();
+        List<ItemStack> repairIngredient = recipe.repairMaterial.getStacks();
 
-        ArrayList<ItemStack> damaged = repaired.stream()
+        List<ItemStack> damaged = repaired.stream()
              .map(ItemStack::copy)
              .peek(s -> s.setDamageValue((int) (s.getMaxDamage() * recipe.durabilityPercentage)))
              .collect(Collectors.toCollection(ArrayList::new));

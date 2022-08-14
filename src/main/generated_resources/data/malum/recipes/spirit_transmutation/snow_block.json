@@ -3,10 +3,10 @@
   "recipes": [
     {
       "input": {
-        "item": "minecraft:snow_block"
+        "item": "minecraft:sea_lantern"
       },
       "output": {
-        "item": "minecraft:ice"
+        "item": "minecraft:snow_block"
       }
     }
   ]

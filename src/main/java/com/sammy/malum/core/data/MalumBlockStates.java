@@ -62,13 +62,13 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
         sconceBlock(take(blocks, BLAZING_SCONCE));
         wallSconceBlock(take(blocks, WALL_BLAZING_SCONCE));
 
-        ArrayList<RegistryObject<Block>> customModels = new ArrayList<>(List.of(TWISTED_TABLET, AUGMENT_ALTAR, SOULWOOD_FUSION_PLATE_COMPONENT, SPIRIT_CATALYZER, SPIRIT_CATALYZER_COMPONENT));
+        List<RegistryObject<Block>> customModels = new ArrayList<>(List.of(TWISTED_TABLET, AUGMENT_ALTAR, SOULWOOD_FUSION_PLATE_COMPONENT, SPIRIT_CATALYZER, SPIRIT_CATALYZER_COMPONENT));
 
-        ArrayList<RegistryObject<Block>> predefinedModels = new ArrayList<>(List.of(
+        List<RegistryObject<Block>> predefinedModels = new ArrayList<>(List.of(
                 SOULWOOD_FUSION_PLATE, SPIRIT_ALTAR, SOUL_VIAL, SPIRIT_JAR, BRILLIANT_OBELISK, BRILLIANT_OBELISK_COMPONENT, RUNEWOOD_OBELISK,
                 RUNEWOOD_OBELISK_COMPONENT, SPIRIT_CRUCIBLE, SPIRIT_CRUCIBLE_COMPONENT, SOULWOOD_PLINTH, SOULWOOD_PLINTH_COMPONENT));
 
-        ArrayList<RegistryObject<Block>> layeredModels = new ArrayList<>(List.of(BRILLIANT_STONE, BRILLIANT_STONE, BLAZING_QUARTZ_ORE));
+        List<RegistryObject<Block>> layeredModels = new ArrayList<>(List.of(BRILLIANT_STONE, BRILLIANT_STONE, BLAZING_QUARTZ_ORE));
 
         takeAll(blocks, customModels::contains);
         takeAll(blocks, predefinedModels::contains).forEach(this::customBlock);

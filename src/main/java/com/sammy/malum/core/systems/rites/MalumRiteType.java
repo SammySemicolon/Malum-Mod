@@ -3,15 +3,16 @@ package com.sammy.malum.core.systems.rites;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.blockentity.totem.TotemBaseBlockEntity;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
-import team.lodestar.lodestone.helpers.DataHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
+import team.lodestar.lodestone.helpers.DataHelper;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public abstract class MalumRiteType {
-    public final ArrayList<MalumSpiritType> spirits;
+    public final List<MalumSpiritType> spirits;
     public final String identifier;
     public final String basicName;
     public final String corruptName;

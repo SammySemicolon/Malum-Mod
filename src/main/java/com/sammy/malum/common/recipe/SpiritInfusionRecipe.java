@@ -5,6 +5,7 @@ import com.google.gson.JsonObject;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.core.setup.content.RecipeSerializerRegistry;
 import com.sammy.malum.core.systems.recipe.SpiritWithCount;
+import net.minecraftforge.common.crafting.CraftingHelper;
 import team.lodestar.lodestone.systems.recipe.ILodestoneRecipe;
 import team.lodestar.lodestone.systems.recipe.IngredientWithCount;
 import net.minecraft.network.FriendlyByteBuf;
@@ -35,12 +36,12 @@ public class SpiritInfusionRecipe extends ILodestoneRecipe {
 
     public final IngredientWithCount input;
 
-    public final IngredientWithCount output;
+    public final ItemStack output;
 
-    public final ArrayList<SpiritWithCount> spirits;
-    public final ArrayList<IngredientWithCount> extraItems;
+    public final List<SpiritWithCount> spirits;
+    public final List<IngredientWithCount> extraItems;
 
-    public SpiritInfusionRecipe(ResourceLocation id, IngredientWithCount input, IngredientWithCount output, ArrayList<SpiritWithCount> spirits, ArrayList<IngredientWithCount> extraItems) {
+    public SpiritInfusionRecipe(ResourceLocation id, IngredientWithCount input, ItemStack output, List<SpiritWithCount> spirits, List<IngredientWithCount> extraItems) {
         this.id = id;
         this.input = input;
         this.output = output;
@@ -63,8 +64,8 @@ public class SpiritInfusionRecipe extends ILodestoneRecipe {
         return id;
     }
 
-    public ArrayList<ItemStack> getSortedSpirits(ArrayList<ItemStack> stacks) {
-        ArrayList<ItemStack> sortedStacks = new ArrayList<>();
+    public List<ItemStack> getSortedSpirits(List<ItemStack> stacks) {
+        List<ItemStack> sortedStacks = new ArrayList<>();
         for (SpiritWithCount item : spirits) {
             for (ItemStack stack : stacks) {
                 if (item.matches(stack)) {
@@ -76,14 +77,14 @@ public class SpiritInfusionRecipe extends ILodestoneRecipe {
         return sortedStacks;
     }
 
-    public boolean doSpiritsMatch(ArrayList<ItemStack> spirits) {
+    public boolean doSpiritsMatch(List<ItemStack> spirits) {
         if (this.spirits.size() == 0) {
             return true;
         }
         if (this.spirits.size() != spirits.size()) {
             return false;
         }
-        ArrayList<ItemStack> sortedStacks = getSortedSpirits(spirits);
+        List<ItemStack> sortedStacks = getSortedSpirits(spirits);
         if (sortedStacks.size() < this.spirits.size()) {
             return false;
         }
@@ -102,10 +103,10 @@ public class SpiritInfusionRecipe extends ILodestoneRecipe {
     }
 
     public boolean doesOutputMatch(ItemStack output) {
-        return this.output.ingredient.test(output);
+        return ItemStack.matches(this.output, output);
     }
 
-    public static SpiritInfusionRecipe getRecipe(Level level, ItemStack stack, ArrayList<ItemStack> spirits) {
+    public static SpiritInfusionRecipe getRecipe(Level level, ItemStack stack, List<ItemStack> spirits) {
         return getRecipe(level, c -> c.doesInputMatch(stack) && c.doSpiritsMatch(spirits));
     }
 
@@ -130,16 +131,16 @@ public class SpiritInfusionRecipe extends ILodestoneRecipe {
             IngredientWithCount input = IngredientWithCount.deserialize(inputObject);
 
             JsonObject outputObject = json.getAsJsonObject("output");
-            IngredientWithCount output = IngredientWithCount.deserialize(outputObject);
+            ItemStack output = CraftingHelper.getItemStack(outputObject, true);
             JsonArray extraItemsArray = json.getAsJsonArray("extra_items");
-            ArrayList<IngredientWithCount> extraItems = new ArrayList<>();
+            List<IngredientWithCount> extraItems = new ArrayList<>();
             for (int i = 0; i < extraItemsArray.size(); i++) {
                 JsonObject extraItemObject = extraItemsArray.get(i).getAsJsonObject();
                 extraItems.add(IngredientWithCount.deserialize(extraItemObject));
             }
 
             JsonArray spiritsArray = json.getAsJsonArray("spirits");
-            ArrayList<SpiritWithCount> spirits = new ArrayList<>();
+            List<SpiritWithCount> spirits = new ArrayList<>();
             for (int i = 0; i < spiritsArray.size(); i++) {
                 JsonObject spiritObject = spiritsArray.get(i).getAsJsonObject();
                 spirits.add(SpiritWithCount.deserialize(spiritObject));
@@ -154,14 +155,14 @@ public class SpiritInfusionRecipe extends ILodestoneRecipe {
         @Override
         public SpiritInfusionRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
             IngredientWithCount input = IngredientWithCount.read(buffer);
-            IngredientWithCount output = IngredientWithCount.read(buffer);
+            ItemStack output = buffer.readItem();
             int extraItemCount = buffer.readInt();
-            ArrayList<IngredientWithCount> extraItems = new ArrayList<>();
+            List<IngredientWithCount> extraItems = new ArrayList<>();
             for (int i = 0; i < extraItemCount; i++) {
                 extraItems.add(IngredientWithCount.read(buffer));
             }
             int spiritCount = buffer.readInt();
-            ArrayList<SpiritWithCount> spirits = new ArrayList<>();
+            List<SpiritWithCount> spirits = new ArrayList<>();
             for (int i = 0; i < spiritCount; i++) {
                 spirits.add(new SpiritWithCount(buffer.readItem()));
             }
@@ -171,7 +172,7 @@ public class SpiritInfusionRecipe extends ILodestoneRecipe {
         @Override
         public void toNetwork(FriendlyByteBuf buffer, SpiritInfusionRecipe recipe) {
             recipe.input.write(buffer);
-            recipe.output.write(buffer);
+            buffer.writeItemStack(recipe.output, false);
             buffer.writeInt(recipe.extraItems.size());
             for (IngredientWithCount item : recipe.extraItems) {
                 item.write(buffer);

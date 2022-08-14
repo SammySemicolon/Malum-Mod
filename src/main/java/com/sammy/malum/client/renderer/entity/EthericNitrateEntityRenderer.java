@@ -44,7 +44,7 @@ public class EthericNitrateEntityRenderer extends EntityRenderer<EthericNitrateE
     @Override
     public void render(EthericNitrateEntity entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int packedLightIn) {
         poseStack.pushPose();
-        ArrayList<EntityHelper.PastPosition> positions = new ArrayList<>(entity.pastPositions);
+        List<EntityHelper.PastPosition> positions = new ArrayList<>(entity.pastPositions);
         if (positions.size() > 1) {
             for (int i = 0; i < positions.size() - 2; i++) {
                 EntityHelper.PastPosition position = positions.get(i);

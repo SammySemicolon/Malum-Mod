@@ -6,9 +6,6 @@ import com.mojang.math.Vector3f;
 import com.sammy.malum.common.blockentity.totem.TotemPoleBlockEntity;
 import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
-import team.lodestar.lodestone.handlers.RenderHandler;
-import team.lodestar.lodestone.setup.LodestoneRenderTypeRegistry;
-import team.lodestar.lodestone.systems.rendering.VFXBuilders;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
@@ -17,15 +14,19 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.Material;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import team.lodestar.lodestone.handlers.RenderHandler;
+import team.lodestar.lodestone.setup.LodestoneRenderTypeRegistry;
+import team.lodestar.lodestone.systems.rendering.VFXBuilders;
 
 import java.awt.*;
 import java.util.HashMap;
+import java.util.Map;
 
 import static team.lodestar.lodestone.helpers.RenderHelper.FULL_BRIGHT;
 
 
 public class TotemPoleRenderer implements BlockEntityRenderer<TotemPoleBlockEntity> {
-    public static HashMap<MalumSpiritType, Material> overlayHashmap = new HashMap<>();
+    public static Map<MalumSpiritType, Material> overlayHashmap = new HashMap<>();
 
     public TotemPoleRenderer(BlockEntityRendererProvider.Context context) {
         SpiritTypeRegistry.SPIRITS.forEach((s, t) ->

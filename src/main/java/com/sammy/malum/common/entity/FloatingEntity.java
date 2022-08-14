@@ -25,13 +25,14 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkHooks;
 
 import java.awt.*;
+import java.util.List;
 import java.util.ArrayList;
 
 public abstract class FloatingEntity extends Entity {
 
     protected static final EntityDataAccessor<Integer> DATA_COLOR = SynchedEntityData.defineId(FloatingEntity.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Integer> DATA_END_COLOR = SynchedEntityData.defineId(FloatingEntity.class, EntityDataSerializers.INT);
-    public final ArrayList<EntityHelper.PastPosition> pastPositions = new ArrayList<>();
+    public final ArrayList<EntityHelper.PastPosition> pastPositions = new ArrayList<>(); // *screaming*
     public Color startColor = SpiritTypeRegistry.ARCANE_SPIRIT.getColor();
     public Color endColor = SpiritTypeRegistry.ARCANE_SPIRIT.getEndColor();
     public int maxAge;
@@ -109,9 +110,9 @@ public abstract class FloatingEntity extends Entity {
         removeOldPositions(pastPositions);
     }
 
-    public void removeOldPositions(ArrayList<EntityHelper.PastPosition> pastPositions) {
+    public void removeOldPositions(List<EntityHelper.PastPosition> pastPositions) {
         int amount = pastPositions.size() - 1;
-        ArrayList<EntityHelper.PastPosition> toRemove = new ArrayList<>();
+        List<EntityHelper.PastPosition> toRemove = new ArrayList<>();
         for (int i = 0; i < amount; i++) {
             EntityHelper.PastPosition excess = pastPositions.get(i);
             if (excess.time > 9) {

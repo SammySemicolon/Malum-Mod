@@ -1,29 +1,29 @@
 package com.sammy.malum.common.packets.particle.block;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.level.Level;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.network.NetworkEvent;
+import net.minecraftforge.network.simple.SimpleChannel;
 import team.lodestar.lodestone.setup.LodestoneParticleRegistry;
 import team.lodestar.lodestone.systems.easing.Easing;
 import team.lodestar.lodestone.systems.network.LodestoneClientPacket;
 import team.lodestar.lodestone.systems.rendering.particle.ParticleBuilders;
-import net.minecraft.client.Minecraft;
-import net.minecraft.core.Direction;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.Level;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fml.loading.FMLEnvironment;
-import net.minecraftforge.network.NetworkEvent;
-import net.minecraftforge.network.simple.SimpleChannel;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Supplier;
 
 public class TotemBaseActivationParticlePacket extends LodestoneClientPacket {
-    private final ArrayList<Color> colors;
+    private final List<Color> colors;
     private final BlockPos pos;
 
-    public TotemBaseActivationParticlePacket(ArrayList<Color> colors, BlockPos pos) {
+    public TotemBaseActivationParticlePacket(List<Color> colors, BlockPos pos) {
         this.colors = colors;
         this.pos = pos;
     }
@@ -77,7 +77,7 @@ public class TotemBaseActivationParticlePacket extends LodestoneClientPacket {
     }
 
     public static TotemBaseActivationParticlePacket decode(FriendlyByteBuf buf) {
-        ArrayList<Color> colors = new ArrayList<>();
+        List<Color> colors = new ArrayList<>();
         int colorCount = buf.readInt();
         for (int i = 0; i < colorCount; i++) {
             Color color = new Color(buf.readInt(), buf.readInt(), buf.readInt());

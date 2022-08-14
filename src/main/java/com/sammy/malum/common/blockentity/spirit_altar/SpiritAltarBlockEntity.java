@@ -9,15 +9,6 @@ import com.sammy.malum.core.setup.content.SoundRegistry;
 import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
 import com.sammy.malum.core.setup.content.block.BlockEntityRegistry;
 import com.sammy.malum.core.systems.recipe.SpiritWithCount;
-import team.lodestar.lodestone.helpers.BlockHelper;
-import team.lodestar.lodestone.helpers.DataHelper;
-import team.lodestar.lodestone.setup.LodestoneParticleRegistry;
-import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntity;
-import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntityInventory;
-import team.lodestar.lodestone.systems.easing.Easing;
-import team.lodestar.lodestone.systems.recipe.IngredientWithCount;
-import team.lodestar.lodestone.systems.rendering.particle.ParticleBuilders;
-import team.lodestar.lodestone.systems.rendering.particle.SimpleParticleOptions;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -39,13 +30,21 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.wrapper.CombinedInvWrapper;
 import net.minecraftforge.network.PacketDistributor;
 import org.jetbrains.annotations.NotNull;
+import team.lodestar.lodestone.helpers.BlockHelper;
+import team.lodestar.lodestone.helpers.DataHelper;
+import team.lodestar.lodestone.setup.LodestoneParticleRegistry;
+import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntity;
+import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntityInventory;
+import team.lodestar.lodestone.systems.easing.Easing;
+import team.lodestar.lodestone.systems.recipe.IngredientWithCount;
+import team.lodestar.lodestone.systems.rendering.particle.ParticleBuilders;
+import team.lodestar.lodestone.systems.rendering.particle.SimpleParticleOptions;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
+import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.sammy.malum.core.setup.server.PacketRegistry.MALUM_CHANNEL;
@@ -59,8 +58,8 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
     public int progress;
     public float spinUp;
 
-    public ArrayList<BlockPos> acceleratorPositions = new ArrayList<>();
-    public ArrayList<IAltarAccelerator> accelerators = new ArrayList<>();
+    public List<BlockPos> acceleratorPositions = new ArrayList<>();
+    public List<IAltarAccelerator> accelerators = new ArrayList<>();
     public float spiritAmount;
     public float spiritSpin;
     public boolean isCrafting;
@@ -68,7 +67,7 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
     public LodestoneBlockEntityInventory inventory;
     public LodestoneBlockEntityInventory extrasInventory;
     public LodestoneBlockEntityInventory spiritInventory;
-    public ArrayList<SpiritInfusionRecipe> possibleRecipes = new ArrayList<>();
+    public List<SpiritInfusionRecipe> possibleRecipes = new ArrayList<>();
     public SpiritInfusionRecipe recipe;
 
     public LazyOptional<IItemHandler> internalInventory = LazyOptional.of(() -> new CombinedInvWrapper(inventory, extrasInventory, spiritInventory));
@@ -315,7 +314,7 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
 
     public void craft() {
         ItemStack stack = inventory.getStackInSlot(0);
-        ItemStack outputStack = recipe.output.getStack();
+        ItemStack outputStack = recipe.output.copy();
         Vec3 itemPos = getItemPos(this);
         if (inventory.getStackInSlot(0).hasTag()) {
             outputStack.setTag(stack.getTag());
@@ -347,7 +346,7 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
         accelerators.clear();
         acceleratorPositions.clear();
         Collection<IAltarAccelerator> nearbyAccelerators = BlockHelper.getBlockEntities(IAltarAccelerator.class, level, worldPosition, HORIZONTAL_RANGE, VERTICAL_RANGE, HORIZONTAL_RANGE);
-        HashMap<IAltarAccelerator.AltarAcceleratorType, Integer> entries = new HashMap<>();
+        Map<IAltarAccelerator.AltarAcceleratorType, Integer> entries = new HashMap<>();
         for (IAltarAccelerator accelerator : nearbyAccelerators) {
             if (accelerator.canAccelerate()) {
                 int max = accelerator.getAcceleratorType().maximumEntries();

@@ -23,5 +23,4 @@ public class RecipeSerializerRegistry {
     public static final RegistryObject<RecipeSerializer<AugmentingRecipe>> AUGMENTING_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register(AugmentingRecipe.NAME, AugmentingRecipe.Serializer::new);
     public static final RegistryObject<RecipeSerializer<SpiritRepairRecipe>> REPAIR_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register(SpiritRepairRecipe.NAME, SpiritRepairRecipe.Serializer::new);
     public static final RegistryObject<RecipeSerializer<SpiritTransmutationRecipe>> SPIRIT_TRANSMUTATION_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register(SpiritTransmutationRecipe.NAME, SpiritTransmutationRecipe.Serializer::new);
-    public static final RegistryObject<RecipeSerializer<SpiritTransmutationRecipe>> SOULWOOD_SPIRIT_TRANSMUTATION_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register(SpiritTransmutationRecipe.NAME, SpiritTransmutationRecipe.Serializer::new);
 }

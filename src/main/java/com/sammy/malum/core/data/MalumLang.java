@@ -11,7 +11,6 @@ import com.sammy.malum.core.setup.content.potion.MalumMobEffectRegistry;
 import com.sammy.malum.core.systems.item.ISoulContainerItem;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
-import team.lodestar.lodestone.helpers.DataHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.sounds.SoundEvent;
@@ -27,9 +26,11 @@ import net.minecraft.world.level.block.WallSignBlock;
 import net.minecraft.world.level.block.WallTorchBlock;
 import net.minecraftforge.common.data.LanguageProvider;
 import net.minecraftforge.registries.RegistryObject;
+import team.lodestar.lodestone.helpers.DataHelper;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.function.Supplier;
 
@@ -56,8 +57,8 @@ public class MalumLang extends LanguageProvider {
         Set<RegistryObject<MobEffect>> effects = new HashSet<>(EFFECTS.getEntries());
         Set<RegistryObject<Attribute>> attributes = new HashSet<>(ATTRIBUTES.getEntries());
         Set<RegistryObject<EntityType<?>>> entities = new HashSet<>(ENTITY_TYPES.getEntries());
-        ArrayList<MalumRiteType> rites = SpiritRiteRegistry.RITES;
-        ArrayList<MalumSpiritType> spirits = new ArrayList<>(SpiritTypeRegistry.SPIRITS.values());
+        List<MalumRiteType> rites = SpiritRiteRegistry.RITES;
+        List<MalumSpiritType> spirits = new ArrayList<>(SpiritTypeRegistry.SPIRITS.values());
         DataHelper.takeAll(blocks, i -> i.get() instanceof WallTorchBlock);
         DataHelper.takeAll(blocks, i -> i.get() instanceof EtherWallTorchBlock);
         DataHelper.takeAll(blocks, i -> i.get() instanceof WallSignBlock);
@@ -479,7 +480,7 @@ public class MalumLang extends LanguageProvider {
         add("malum.jei.spirit_focusing", "Spirit Focusing");
         add("malum.jei.spirit_repair", "Spirit Repair");
         add("malum.jei.spirit_rite", "Spirit Rites");
-        add("malum.jei.block_transmutation", "Block Transmutation");
+        add("malum.jei.spirit_transmutation", "The Unchained Rite");
 
         add("itemGroup.malum", "Malum");
         add("itemGroup.malum_shaped_stones", "Malum: Spirit Stones");

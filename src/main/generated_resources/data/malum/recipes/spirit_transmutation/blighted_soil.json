@@ -1,9 +1,13 @@
 {
   "type": "malum:spirit_transmutation",
-  "input": {
-    "item": "minecraft:sand"
-  },
-  "output": {
-    "item": "malum:blighted_soil"
-  }
+  "recipes": [
+    {
+      "input": {
+        "item": "minecraft:sand"
+      },
+      "output": {
+        "item": "malum:blighted_soil"
+      }
+    }
+  ]
 }

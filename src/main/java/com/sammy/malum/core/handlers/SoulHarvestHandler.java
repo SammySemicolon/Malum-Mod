@@ -38,6 +38,7 @@ import net.minecraftforge.event.entity.living.LivingSpawnEvent;
 import net.minecraftforge.network.PacketDistributor;
 
 import java.awt.*;
+import java.util.List;
 import java.util.ArrayList;
 
 import static com.sammy.malum.MalumMod.malumPath;
@@ -165,7 +166,7 @@ public class SoulHarvestHandler {
                     c.soulFetchCooldown--;
                     if (c.soulFetchCooldown <= 0) {
                         c.soulFetchCooldown = 5;
-                        ArrayList<LivingEntity> entities = new ArrayList<>(player.level.getEntitiesOfClass(LivingEntity.class, player.getBoundingBox().inflate(7f), e -> !e.getUUID().equals(player.getUUID())));
+                        List<LivingEntity> entities = new ArrayList<>(player.level.getEntitiesOfClass(LivingEntity.class, player.getBoundingBox().inflate(7f), e -> !e.getUUID().equals(player.getUUID())));
                         double biggestAngle = 0;
                         LivingEntity chosenEntity = null;
                         for (LivingEntity entity : entities) {

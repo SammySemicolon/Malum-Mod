@@ -3,9 +3,6 @@ package com.sammy.malum.common.item.equipment;
 import com.sammy.malum.common.item.impetus.ImpetusItem;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
 import com.sammy.malum.core.systems.item.IMalumEventResponderItem;
-import team.lodestar.lodestone.helpers.EntityHelper;
-import team.lodestar.lodestone.network.TotemOfUndyingEffectPacket;
-import team.lodestar.lodestone.setup.LodestonePacketRegistry;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
@@ -19,8 +16,11 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.network.PacketDistributor;
+import team.lodestar.lodestone.network.TotemOfUndyingEffectPacket;
+import team.lodestar.lodestone.setup.LodestonePacketRegistry;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class CeaselessImpetusItem extends ImpetusItem implements IMalumEventResponderItem {
     public CeaselessImpetusItem(Properties p_41383_) {
@@ -64,7 +64,7 @@ public class CeaselessImpetusItem extends ImpetusItem implements IMalumEventResp
                 }
 
                 player.setHealth(2.0F);
-                ArrayList<MobEffect> toRemove = new ArrayList<>();
+                List<MobEffect> toRemove = new ArrayList<>();
                 for (MobEffectInstance activeEffect : player.getActiveEffects()) {
                     if (activeEffect.getEffect().getCategory().equals(MobEffectCategory.HARMFUL)) {
                         toRemove.add(activeEffect.getEffect());

@@ -1,9 +1,13 @@
 {
   "type": "malum:spirit_transmutation",
-  "input": {
-    "item": "minecraft:basalt"
-  },
-  "output": {
-    "item": "minecraft:clay"
-  }
+  "recipes": [
+    {
+      "input": {
+        "item": "minecraft:basalt"
+      },
+      "output": {
+        "item": "minecraft:clay"
+      }
+    }
+  ]
 }

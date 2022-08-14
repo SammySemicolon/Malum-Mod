@@ -1,5 +1,6 @@
 package com.sammy.malum.common.spiritrite;
 
+import com.mojang.datafixers.util.Pair;
 import com.sammy.malum.common.block.blight.BlightedSoilBlock;
 import com.sammy.malum.common.blockentity.spirit_altar.IAltarProvider;
 import com.sammy.malum.common.blockentity.totem.TotemBaseBlockEntity;
@@ -10,23 +11,24 @@ import com.sammy.malum.common.recipe.SpiritTransmutationRecipe;
 import com.sammy.malum.common.worldevent.TotemCreatedBlightEvent;
 import com.sammy.malum.core.systems.rites.MalumRiteEffect;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
-import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.network.PacketDistributor;
-import team.lodestar.lodestone.handlers.WorldEventHandler;
-import team.lodestar.lodestone.helpers.BlockHelper;
-import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntityInventory;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.network.PacketDistributor;
+import team.lodestar.lodestone.handlers.WorldEventHandler;
+import team.lodestar.lodestone.helpers.BlockHelper;
+import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntityInventory;
 
-import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static com.sammy.malum.core.setup.content.SpiritTypeRegistry.ARCANE_SPIRIT;
 import static com.sammy.malum.core.setup.server.PacketRegistry.MALUM_CHANNEL;
@@ -67,7 +69,7 @@ public class ArcaneRiteType extends MalumRiteType {
             }
 
             @Override
-            public boolean canAffectBlock(TotemBaseBlockEntity totemBase, HashSet<Block> filters, BlockState state, BlockPos pos) {
+            public boolean canAffectBlock(TotemBaseBlockEntity totemBase, Set<Block> filters, BlockState state, BlockPos pos) {
                 //The rite looks for blighted soil, then tries to transmute anything above it.
                 //We wanna check for filters on the block above the blight, not the actual blight.
                 BlockPos actualPos = pos.above();
@@ -83,10 +85,10 @@ public class ArcaneRiteType extends MalumRiteType {
                 List<BlockPos> nearbyBlocks = getNearbyBlocks(totemBase, BlightedSoilBlock.class).toList();
                 List<ItemEntity> nearbyItems = getNearbyEntities(totemBase, ItemEntity.class, e -> e.level.getBlockState(e.blockPosition()).getBlock() instanceof BlightedSoilBlock).toList();
                 for (ItemEntity item : nearbyItems) {
-                    SpiritTransmutationRecipe recipe = SpiritTransmutationRecipe.getRecipe(level, item.getItem());
+                    var recipe = SpiritTransmutationRecipe.getRecipe(level, item.getItem());
                     if (recipe != null) {
                         Vec3 itemPos = item.position();
-                        level.addFreshEntity(new ItemEntity(level, itemPos.x, itemPos.y, itemPos.z, recipe.getOutput(item.getItem())));
+                        level.addFreshEntity(new ItemEntity(level, itemPos.x, itemPos.y, itemPos.z, recipe.getSecond().copy()));
                         MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(item.blockPosition())), new BlightTransformItemParticlePacket(List.of(ARCANE_SPIRIT.identifier), itemPos));
                         item.getItem().shrink(1);
                     }
@@ -97,19 +99,19 @@ public class ArcaneRiteType extends MalumRiteType {
                     if (level.getBlockEntity(posToTransmute) instanceof IAltarProvider iAltarProvider) {
                         LodestoneBlockEntityInventory inventoryForAltar = iAltarProvider.getInventoryForAltar();
                         ItemStack stack = inventoryForAltar.getStackInSlot(0);
-                        SpiritTransmutationRecipe recipe = SpiritTransmutationRecipe.getRecipe(level, stack);
+                        var recipe = SpiritTransmutationRecipe.getRecipe(level, stack);
                         if (recipe != null) {
                             Vec3 itemPos = iAltarProvider.getItemPosForAltar();
-                            level.addFreshEntity(new ItemEntity(level, itemPos.x, itemPos.y, itemPos.z, recipe.getOutput(stack)));
+                            level.addFreshEntity(new ItemEntity(level, itemPos.x, itemPos.y, itemPos.z, recipe.getSecond().copy()));
                             MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(p)), new BlightTransformItemParticlePacket(List.of(ARCANE_SPIRIT.identifier), itemPos));
                             inventoryForAltar.getStackInSlot(0).shrink(1);
                             BlockHelper.updateAndNotifyState(level, p);
                         }
                     }
                     ItemStack stack = stateToTransmute.getBlock().asItem().getDefaultInstance();
-                    SpiritTransmutationRecipe recipe = SpiritTransmutationRecipe.getRecipe(level, stack);
+                    Pair<Ingredient, ItemStack> recipe = SpiritTransmutationRecipe.getRecipe(level, stack);
                     if (recipe != null) {
-                        ItemStack output = recipe.getOutput(stack);
+                        ItemStack output = recipe.getSecond().copy();
                         if (output.getItem() instanceof BlockItem blockItem) {
                             Block block = blockItem.getBlock();
                             BlockEntity entity = level.getBlockEntity(posToTransmute);

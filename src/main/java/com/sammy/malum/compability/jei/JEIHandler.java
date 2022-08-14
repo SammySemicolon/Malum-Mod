@@ -1,14 +1,15 @@
 package com.sammy.malum.compability.jei;
 
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.common.recipe.*;
+import com.sammy.malum.common.recipe.SpiritFocusingRecipe;
+import com.sammy.malum.common.recipe.SpiritInfusionRecipe;
+import com.sammy.malum.common.recipe.SpiritRepairRecipe;
 import com.sammy.malum.common.recipe.SpiritTransmutationRecipe;
 import com.sammy.malum.compability.farmersdelight.FarmersDelightCompat;
 import com.sammy.malum.compability.jei.categories.*;
 import com.sammy.malum.core.setup.content.SpiritRiteRegistry;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
-import team.lodestar.lodestone.systems.recipe.IRecipeComponent;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.constants.RecipeTypes;
@@ -27,6 +28,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import team.lodestar.lodestone.systems.recipe.IRecipeComponent;
 
 import javax.annotation.Nonnull;
 import java.util.List;
@@ -72,8 +74,15 @@ public class JEIHandler implements IModPlugin {
     public void registerRecipes(@Nonnull IRecipeRegistration registry) {
         ClientLevel level = Minecraft.getInstance().level;
         if (level != null) {
-            registry.addRecipes(SPIRIT_INFUSION, SpiritInfusionRecipe.getRecipes(level));;
-            registry.addRecipes(TRANSMUTATION, SpiritTransmutationRecipe.getRecipes(level));
+            registry.addRecipes(SPIRIT_INFUSION, SpiritInfusionRecipe.getRecipes(level));
+
+            List<SpiritTransmutationRecipe> transmutation = SpiritTransmutationRecipe.getRecipes(level);
+            List<SpiritTransmutationRecipe> soulwoodTransmutations = transmutation.stream().filter(it -> it.getId().getPath().endsWith("soulwood_transmutation")).toList();
+            transmutation.removeAll(soulwoodTransmutations);
+
+            registry.addRecipes(TRANSMUTATION, soulwoodTransmutations);
+            registry.addRecipes(TRANSMUTATION, transmutation);
+
             registry.addRecipes(FOCUSING, SpiritFocusingRecipe.getRecipes(level));
             registry.addRecipes(RITES, SpiritRiteRegistry.RITES);
             registry.addRecipes(SPIRIT_REPAIR, SpiritRepairRecipe.getRecipes(level));

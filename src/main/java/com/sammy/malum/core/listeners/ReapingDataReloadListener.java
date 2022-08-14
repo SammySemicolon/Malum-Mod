@@ -2,27 +2,22 @@ package com.sammy.malum.core.listeners;
 
 import com.google.gson.*;
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.common.blockentity.storage.ItemStandBlockEntity;
-import com.sammy.malum.core.helper.SpiritHelper;
 import com.sammy.malum.core.systems.reaping.MalumReapingDropsData;
-import com.sammy.malum.core.systems.recipe.SpiritWithCount;
-import com.sammy.malum.core.systems.spirit.MalumEntitySpiritData;
-import team.lodestar.lodestone.systems.recipe.IngredientWithCount;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.event.AddReloadListenerEvent;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ReapingDataReloadListener extends SimpleJsonResourceReloadListener {
-    public static Map<ResourceLocation, ArrayList<MalumReapingDropsData>> REAPING_DATA = new HashMap<>();
+    public static Map<ResourceLocation, List<MalumReapingDropsData>> REAPING_DATA = new HashMap<>();
     private static final Gson GSON = (new GsonBuilder()).create();
 
     public ReapingDataReloadListener() {
@@ -48,7 +43,7 @@ public class ReapingDataReloadListener extends SimpleJsonResourceReloadListener 
                 MalumMod.LOGGER.info("entity with registry name: " + name + " already has reaping data associated with it. Overwriting.");
             }
             JsonArray drops = object.getAsJsonArray("drops");
-            ArrayList<MalumReapingDropsData> dropsList = new ArrayList<>();
+            List<MalumReapingDropsData> dropsList = new ArrayList<>();
             for (JsonElement drop : drops) {
                 JsonObject dropObject = drop.getAsJsonObject();
                 if (!dropObject.has("ingredient")) {

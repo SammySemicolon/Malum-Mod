@@ -5,10 +5,8 @@ import com.sammy.malum.common.blockentity.storage.ItemStandBlockEntity;
 import com.sammy.malum.common.packets.particle.block.TotemBaseActivationParticlePacket;
 import com.sammy.malum.core.helper.SpiritHelper;
 import com.sammy.malum.core.setup.content.SoundRegistry;
-import com.sammy.malum.core.setup.content.block.BlockEntityRegistry;
 import com.sammy.malum.core.setup.content.SpiritRiteRegistry;
-import team.lodestar.lodestone.helpers.BlockHelper;
-import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntity;
+import com.sammy.malum.core.setup.content.block.BlockEntityRegistry;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import net.minecraft.core.BlockPos;
@@ -22,11 +20,11 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.network.PacketDistributor;
+import team.lodestar.lodestone.helpers.BlockHelper;
+import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntity;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.sammy.malum.core.setup.server.PacketRegistry.MALUM_CHANNEL;
@@ -35,11 +33,11 @@ import static net.minecraft.world.level.block.state.properties.BlockStatePropert
 public class TotemBaseBlockEntity extends LodestoneBlockEntity {
 
     public MalumRiteType rite;
-    public ArrayList<MalumSpiritType> spirits = new ArrayList<>();
-    public HashSet<BlockPos> poles = new HashSet<>();
-    public HashSet<TotemPoleBlockEntity> cachedTotemPoleInstances = new HashSet<>();
-    public HashSet<BlockPos> filters = new HashSet<>();
-    public HashSet<ItemStandBlockEntity> cachedFilterInstances = new HashSet<>();
+    public List<MalumSpiritType> spirits = new ArrayList<>();
+    public Set<BlockPos> poles = new HashSet<>();
+    public Set<TotemPoleBlockEntity> cachedTotemPoleInstances = new HashSet<>();
+    public Set<BlockPos> filters = new HashSet<>();
+    public Set<ItemStandBlockEntity> cachedFilterInstances = new HashSet<>();
     public boolean active;
     public int progress;
     public int height;

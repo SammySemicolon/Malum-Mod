@@ -7,13 +7,14 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.fml.ModList;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class BookEntry {
     public final ItemStack iconStack;
     public final String identifier;
     public final int xOffset;
     public final int yOffset;
-    public ArrayList<BookPage> pages = new ArrayList<>();
+    public List<BookPage> pages = new ArrayList<>();
     public EntryObjectSupplier objectSupplier = EntryObject::new;
 
     public boolean isSoulwood;

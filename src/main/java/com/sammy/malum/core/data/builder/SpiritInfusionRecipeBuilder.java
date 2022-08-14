@@ -2,11 +2,14 @@ package com.sammy.malum.core.data.builder;
 
 import com.google.common.collect.Lists;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.core.setup.content.RecipeSerializerRegistry;
 import com.sammy.malum.core.systems.recipe.SpiritWithCount;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.ItemLike;
 import team.lodestar.lodestone.systems.recipe.IngredientWithCount;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
@@ -21,29 +24,26 @@ import java.util.function.Consumer;
 public class SpiritInfusionRecipeBuilder {
     private final IngredientWithCount input;
 
-    private final IngredientWithCount output;
+    private final ItemStack output;
 
     private final List<SpiritWithCount> spirits = Lists.newArrayList();
     private final List<IngredientWithCount> extraItems = Lists.newArrayList();
 
-    public SpiritInfusionRecipeBuilder(Ingredient input, int inputCount, Ingredient output, int outputCount) {
+    public SpiritInfusionRecipeBuilder(Ingredient input, int inputCount, ItemStack output) {
         this.input = new IngredientWithCount(input, inputCount);
-        this.output = new IngredientWithCount(output, outputCount);
+        this.output = output;
     }
 
-    public SpiritInfusionRecipeBuilder(Ingredient input, int inputCount, Item output, int outputCount) {
-        this.input = new IngredientWithCount(input, inputCount);
-        this.output = new IngredientWithCount(Ingredient.of(output), outputCount);
+    public SpiritInfusionRecipeBuilder(Ingredient input, int inputCount, ItemLike output, int outputCount) {
+        this(input, inputCount, new ItemStack(output, outputCount));
     }
 
-    public SpiritInfusionRecipeBuilder(Item input, int inputCount, Ingredient output, int outputCount) {
-        this.input = new IngredientWithCount(Ingredient.of(input), inputCount);
-        this.output = new IngredientWithCount(output, outputCount);
+    public SpiritInfusionRecipeBuilder(ItemLike input, int inputCount, ItemStack output) {
+        this(Ingredient.of(input), inputCount, output);
     }
 
-    public SpiritInfusionRecipeBuilder(Item input, int inputCount, Item output, int outputCount) {
-        this.input = new IngredientWithCount(Ingredient.of(input), inputCount);
-        this.output = new IngredientWithCount(Ingredient.of(output), outputCount);
+    public SpiritInfusionRecipeBuilder(ItemLike input, int inputCount, ItemLike output, int outputCount) {
+        this(Ingredient.of(input), inputCount, new ItemStack(output, outputCount));
     }
 
     public SpiritInfusionRecipeBuilder addExtraItem(Ingredient ingredient, int count) {
@@ -66,48 +66,39 @@ public class SpiritInfusionRecipeBuilder {
     }
 
     public void build(Consumer<FinishedRecipe> consumerIn) {
-        build(consumerIn, output.getStack().getItem().getRegistryName().getPath());
+        build(consumerIn, output.getItem().getRegistryName().getPath());
     }
 
     public void build(Consumer<FinishedRecipe> consumerIn, ResourceLocation id) {
-        consumerIn.accept(new SpiritInfusionRecipeBuilder.Result(id, input, output, spirits, extraItems));
+        consumerIn.accept(new SpiritInfusionRecipeBuilder.Result(id));
     }
 
-    public static class Result implements FinishedRecipe {
+    public class Result implements FinishedRecipe {
         private final ResourceLocation id;
 
-        private final IngredientWithCount input;
-
-        private final IngredientWithCount output;
-
-        private final List<SpiritWithCount> spirits;
-        private final List<IngredientWithCount> extraItems;
-
-
-        public Result(ResourceLocation id, IngredientWithCount input, IngredientWithCount output, List<SpiritWithCount> spirits, List<IngredientWithCount> extraItems) {
+        public Result(ResourceLocation id) {
             this.id = id;
-            this.input = input;
-            this.output = output;
-            this.spirits = spirits;
-            this.extraItems = extraItems;
         }
 
         @Override
         public void serializeRecipeData(JsonObject json) {
             JsonObject inputObject = input.serialize();
-            JsonObject outputObject = output.serialize();
-            JsonArray extraItems = new JsonArray();
-            for (IngredientWithCount extraItem : this.extraItems) {
-                extraItems.add(extraItem.serialize());
+            JsonElement outputObject = Ingredient.of(output).toJson();
+            if (output.getCount() != 1) {
+                outputObject.getAsJsonObject().addProperty("count", output.getCount());
             }
-            JsonArray spirits = new JsonArray();
-            for (SpiritWithCount spirit : this.spirits) {
-                spirits.add(spirit.serialize());
+            JsonArray extraItemsJson = new JsonArray();
+            for (IngredientWithCount extraItem : extraItems) {
+                extraItemsJson.add(extraItem.serialize());
+            }
+            JsonArray spiritsJson = new JsonArray();
+            for (SpiritWithCount spirit : spirits) {
+                spiritsJson.add(spirit.serialize());
             }
             json.add("input", inputObject);
             json.add("output", outputObject);
-            json.add("extra_items", extraItems);
-            json.add("spirits", spirits);
+            json.add("extra_items", extraItemsJson);
+            json.add("spirits", spiritsJson);
         }
 
         @Override

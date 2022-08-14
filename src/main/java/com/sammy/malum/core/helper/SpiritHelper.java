@@ -196,7 +196,7 @@ public class SpiritHelper {
     }
 
     public static List<ItemStack> getSpiritItemStacks(MalumEntitySpiritData data) {
-        ArrayList<ItemStack> spirits = new ArrayList<>();
+        List<ItemStack> spirits = new ArrayList<>();
         if (data == null) {
             return spirits;
         }

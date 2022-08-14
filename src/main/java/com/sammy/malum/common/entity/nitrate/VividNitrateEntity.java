@@ -1,20 +1,17 @@
 package com.sammy.malum.common.entity.nitrate;
 
 import com.sammy.malum.core.helper.SpiritHelper;
-import com.sammy.malum.core.setup.content.SoundRegistry;
 import com.sammy.malum.core.setup.content.entity.EntityRegistry;
+import net.minecraft.util.Mth;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import team.lodestar.lodestone.helpers.ColorHelper;
 import team.lodestar.lodestone.setup.LodestoneParticleRegistry;
 import team.lodestar.lodestone.systems.easing.Easing;
 import team.lodestar.lodestone.systems.rendering.particle.ParticleBuilders;
 import team.lodestar.lodestone.systems.rendering.particle.ParticleRenderTypes;
 import team.lodestar.lodestone.systems.rendering.particle.SimpleParticleOptions;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.Mth;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.HitResult;
-import net.minecraft.world.phys.Vec3;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -26,7 +23,7 @@ import static net.minecraft.util.Mth.nextFloat;
 
 public class VividNitrateEntity extends AbstractNitrateEntity {
 
-    public static final ArrayList<Color> COLORS = new ArrayList<>(List.of(
+    public static final List<Color> COLORS = new ArrayList<>(List.of(
         new Color(231, 58, 73),
         new Color(246, 125, 70),
         new Color(249, 206, 77),

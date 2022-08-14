@@ -1,18 +1,19 @@
 package com.sammy.malum.common.item.equipment.curios;
 
 import com.sammy.malum.core.setup.content.SoundRegistry;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.sounds.SoundSource;
 import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 public class MalumCurioItem extends Item implements ICurioItem {
 
-    public HashMap<Integer, UUID> uuids = new HashMap<>();
+    public Map<Integer, UUID> uuids = new HashMap<>();
     public MalumCurioItem(Properties properties) {
         super(properties);
     }

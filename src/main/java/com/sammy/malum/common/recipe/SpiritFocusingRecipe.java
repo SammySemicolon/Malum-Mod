@@ -4,9 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.core.setup.content.RecipeSerializerRegistry;
-import com.sammy.malum.core.systems.recipe.*;
-import team.lodestar.lodestone.systems.recipe.ILodestoneRecipe;
-import team.lodestar.lodestone.systems.recipe.IngredientWithCount;
+import com.sammy.malum.core.systems.recipe.SpiritWithCount;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -14,7 +12,9 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.registries.ForgeRegistryEntry;
+import team.lodestar.lodestone.systems.recipe.ILodestoneRecipe;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -39,10 +39,10 @@ public class SpiritFocusingRecipe extends ILodestoneRecipe {
     public final int durabilityCost;
 
     public final Ingredient input;
-    public final IngredientWithCount output;
-    public final ArrayList<SpiritWithCount> spirits;
+    public final ItemStack output;
+    public final List<SpiritWithCount> spirits;
 
-    public SpiritFocusingRecipe(ResourceLocation id, int time, int durabilityCost, Ingredient input, IngredientWithCount output, ArrayList<SpiritWithCount> spirits) {
+    public SpiritFocusingRecipe(ResourceLocation id, int time, int durabilityCost, Ingredient input, ItemStack output, List<SpiritWithCount> spirits) {
         this.id = id;
         this.time = time;
         this.durabilityCost = durabilityCost;
@@ -66,8 +66,8 @@ public class SpiritFocusingRecipe extends ILodestoneRecipe {
         return id;
     }
 
-    public ArrayList<ItemStack> getSortedSpirits(ArrayList<ItemStack> stacks) {
-        ArrayList<ItemStack> sortedStacks = new ArrayList<>();
+    public List<ItemStack> getSortedSpirits(List<ItemStack> stacks) {
+        List<ItemStack> sortedStacks = new ArrayList<>();
         for (SpiritWithCount item : spirits) {
             for (ItemStack stack : stacks) {
                 if (item.matches(stack)) {
@@ -79,14 +79,14 @@ public class SpiritFocusingRecipe extends ILodestoneRecipe {
         return sortedStacks;
     }
 
-    public boolean doSpiritsMatch(ArrayList<ItemStack> spirits) {
+    public boolean doSpiritsMatch(List<ItemStack> spirits) {
         if (this.spirits.size() == 0) {
             return true;
         }
         if (this.spirits.size() != spirits.size()) {
             return false;
         }
-        ArrayList<ItemStack> sortedStacks = getSortedSpirits(spirits);
+        List<ItemStack> sortedStacks = getSortedSpirits(spirits);
         if (sortedStacks.size() < this.spirits.size()) {
             return false;
         }
@@ -105,10 +105,10 @@ public class SpiritFocusingRecipe extends ILodestoneRecipe {
     }
 
     public boolean doesOutputMatch(ItemStack output) {
-        return this.output.ingredient.test(output);
+        return ItemStack.matches(output, this.output);
     }
 
-    public static SpiritFocusingRecipe getRecipe(Level level, ItemStack stack, ArrayList<ItemStack> spirits) {
+    public static SpiritFocusingRecipe getRecipe(Level level, ItemStack stack, List<ItemStack> spirits) {
         return getRecipe(level, c -> c.doesInputMatch(stack) && c.doSpiritsMatch(spirits));
     }
 
@@ -137,10 +137,10 @@ public class SpiritFocusingRecipe extends ILodestoneRecipe {
             Ingredient input = Ingredient.fromJson(inputObject);
 
             JsonObject outputObject = json.getAsJsonObject("output");
-            IngredientWithCount output = IngredientWithCount.deserialize(outputObject);
+            ItemStack output = CraftingHelper.getItemStack(outputObject, true);
 
             JsonArray spiritsArray = json.getAsJsonArray("spirits");
-            ArrayList<SpiritWithCount> spirits = new ArrayList<>();
+            List<SpiritWithCount> spirits = new ArrayList<>();
             for (int i = 0; i < spiritsArray.size(); i++) {
                 JsonObject spiritObject = spiritsArray.get(i).getAsJsonObject();
                 spirits.add(SpiritWithCount.deserialize(spiritObject));
@@ -157,9 +157,9 @@ public class SpiritFocusingRecipe extends ILodestoneRecipe {
             int time = buffer.readInt();
             int durabilityCost = buffer.readInt();
             Ingredient input = Ingredient.fromNetwork(buffer);
-            IngredientWithCount output = IngredientWithCount.read(buffer);
+            ItemStack output = buffer.readItem();
             int spiritCount = buffer.readInt();
-            ArrayList<SpiritWithCount> spirits = new ArrayList<>();
+            List<SpiritWithCount> spirits = new ArrayList<>();
             for (int i = 0; i < spiritCount; i++) {
                 spirits.add(new SpiritWithCount(buffer.readItem()));
             }
@@ -171,7 +171,7 @@ public class SpiritFocusingRecipe extends ILodestoneRecipe {
             buffer.writeInt(recipe.time);
             buffer.writeInt(recipe.durabilityCost);
             recipe.input.toNetwork(buffer);
-            recipe.output.write(buffer);
+            buffer.writeItemStack(recipe.output, false);
             buffer.writeInt(recipe.spirits.size());
             for (SpiritWithCount item : recipe.spirits) {
                 buffer.writeItem(item.getStack());

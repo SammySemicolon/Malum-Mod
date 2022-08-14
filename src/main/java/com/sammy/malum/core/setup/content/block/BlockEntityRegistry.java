@@ -2,32 +2,25 @@ package com.sammy.malum.core.setup.content.block;
 
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.client.renderer.block.*;
-import com.sammy.malum.common.block.augment_altar.AugmentAltarBlock;
 import com.sammy.malum.common.block.ether.EtherBlock;
-import com.sammy.malum.common.block.fusion_plate.FusionPlateCoreBlock;
-import com.sammy.malum.common.block.storage.*;
 import com.sammy.malum.common.block.mirror.EmitterMirrorBlock;
-import com.sammy.malum.common.block.obelisk.BrillianceObeliskCoreBlock;
-import com.sammy.malum.common.block.obelisk.RunewoodObeliskCoreBlock;
-import com.sammy.malum.common.block.spirit_altar.SpiritAltarBlock;
-import com.sammy.malum.common.block.spirit_crucible.SpiritCatalyzerCoreBlock;
-import com.sammy.malum.common.block.spirit_crucible.SpiritCrucibleCoreBlock;
+import com.sammy.malum.common.block.storage.ItemPedestalBlock;
+import com.sammy.malum.common.block.storage.ItemStandBlock;
 import com.sammy.malum.common.block.totem.TotemBaseBlock;
 import com.sammy.malum.common.block.totem.TotemPoleBlock;
-import com.sammy.malum.common.block.tablet.TwistedTabletBlock;
 import com.sammy.malum.common.blockentity.EtherBlockEntity;
 import com.sammy.malum.common.blockentity.FusionPlateBlockEntity;
 import com.sammy.malum.common.blockentity.augment_altar.AugmentAltarBlockEntity;
-import com.sammy.malum.common.blockentity.spirit_altar.SpiritAltarBlockEntity;
-import com.sammy.malum.common.blockentity.storage.*;
+import com.sammy.malum.common.blockentity.crucible.SpiritCatalyzerCoreBlockEntity;
+import com.sammy.malum.common.blockentity.crucible.SpiritCrucibleCoreBlockEntity;
 import com.sammy.malum.common.blockentity.mirror.EmitterMirrorBlockEntity;
 import com.sammy.malum.common.blockentity.obelisk.BrilliantObeliskBlockEntity;
 import com.sammy.malum.common.blockentity.obelisk.RunewoodObeliskBlockEntity;
-import com.sammy.malum.common.blockentity.crucible.SpiritCatalyzerCoreBlockEntity;
-import com.sammy.malum.common.blockentity.crucible.SpiritCrucibleCoreBlockEntity;
+import com.sammy.malum.common.blockentity.spirit_altar.SpiritAltarBlockEntity;
+import com.sammy.malum.common.blockentity.storage.*;
+import com.sammy.malum.common.blockentity.tablet.TwistedTabletBlockEntity;
 import com.sammy.malum.common.blockentity.totem.TotemBaseBlockEntity;
 import com.sammy.malum.common.blockentity.totem.TotemPoleBlockEntity;
-import com.sammy.malum.common.blockentity.tablet.TwistedTabletBlockEntity;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.api.distmarker.Dist;
@@ -41,6 +34,7 @@ import net.minecraftforge.registries.RegistryObject;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 
 import static com.sammy.malum.MalumMod.MALUM;
 
@@ -73,7 +67,7 @@ public class BlockEntityRegistry {
 
     public static Block[] getBlocks(Class<?>... blockClasses) {
         Collection<RegistryObject<Block>> blocks = BlockRegistry.BLOCKS.getEntries();
-        ArrayList<Block> matchingBlocks = new ArrayList<>();
+        List<Block> matchingBlocks = new ArrayList<>();
         for (RegistryObject<Block> registryObject : blocks) {
             if (Arrays.stream(blockClasses).anyMatch(b -> b.isInstance(registryObject.get()))) {
                 matchingBlocks.add(registryObject.get());
@@ -84,7 +78,7 @@ public class BlockEntityRegistry {
 
     public static Block[] getBlocksExact(Class<?> clazz) {
         Collection<RegistryObject<Block>> blocks = BlockRegistry.BLOCKS.getEntries();
-        ArrayList<Block> matchingBlocks = new ArrayList<>();
+        List<Block> matchingBlocks = new ArrayList<>();
         for (RegistryObject<Block> registryObject : blocks) {
             if (clazz.equals(registryObject.get().getClass())) {
                 matchingBlocks.add(registryObject.get());

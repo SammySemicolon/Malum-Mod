@@ -3,13 +3,7 @@ package com.sammy.malum.client.renderer.entity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Vector4f;
-import com.sammy.malum.common.entity.nitrate.EthericNitrateEntity;
 import com.sammy.malum.common.entity.nitrate.VividNitrateEntity;
-import team.lodestar.lodestone.helpers.ColorHelper;
-import team.lodestar.lodestone.helpers.EntityHelper;
-import team.lodestar.lodestone.setup.LodestoneRenderTypeRegistry;
-import team.lodestar.lodestone.systems.easing.Easing;
-import team.lodestar.lodestone.systems.rendering.VFXBuilders;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderer;
@@ -19,6 +13,11 @@ import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
+import team.lodestar.lodestone.helpers.ColorHelper;
+import team.lodestar.lodestone.helpers.EntityHelper;
+import team.lodestar.lodestone.setup.LodestoneRenderTypeRegistry;
+import team.lodestar.lodestone.systems.easing.Easing;
+import team.lodestar.lodestone.systems.rendering.VFXBuilders;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -46,7 +45,7 @@ public class VividNitrateEntityRenderer extends EntityRenderer<VividNitrateEntit
     @Override
     public void render(VividNitrateEntity entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int packedLightIn) {
         poseStack.pushPose();
-        ArrayList<EntityHelper.PastPosition> positions = new ArrayList<>(entity.pastPositions);
+        List<EntityHelper.PastPosition> positions = new ArrayList<>(entity.pastPositions);
         if (positions.size() > 1) {
             for (int i = 0; i < positions.size() - 2; i++) {
                 EntityHelper.PastPosition position = positions.get(i);

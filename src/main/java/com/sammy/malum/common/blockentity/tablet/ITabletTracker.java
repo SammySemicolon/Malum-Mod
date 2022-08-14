@@ -1,22 +1,23 @@
 package com.sammy.malum.common.blockentity.tablet;
 
-import team.lodestar.lodestone.helpers.BlockHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import team.lodestar.lodestone.helpers.BlockHelper;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.FACING;
 
 public interface ITabletTracker {
-    ArrayList<TwistedTabletBlockEntity> getTablets();
+    List<TwistedTabletBlockEntity> getTablets();
 
-    ArrayList<BlockPos> getTabletPositions();
+    List<BlockPos> getTabletPositions();
 
     default int getLookupRange() {
         return 4;
@@ -51,7 +52,7 @@ public interface ITabletTracker {
     default void saveTwistedTabletData(CompoundTag compound) {
         CompoundTag twistedTabletTag = new CompoundTag();
 
-        ArrayList<BlockPos> tabletPositions = getTabletPositions();
+        List<BlockPos> tabletPositions = getTabletPositions();
         if (!tabletPositions.isEmpty()) {
             twistedTabletTag.putInt("amount", tabletPositions.size());
             for (int i = 0; i < tabletPositions.size(); i++) {

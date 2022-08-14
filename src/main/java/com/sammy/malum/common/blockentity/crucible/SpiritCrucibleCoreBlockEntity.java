@@ -13,15 +13,6 @@ import com.sammy.malum.core.setup.content.SoundRegistry;
 import com.sammy.malum.core.setup.content.block.BlockEntityRegistry;
 import com.sammy.malum.core.setup.content.block.BlockRegistry;
 import com.sammy.malum.core.systems.recipe.SpiritWithCount;
-import team.lodestar.lodestone.helpers.BlockHelper;
-import team.lodestar.lodestone.helpers.DataHelper;
-import team.lodestar.lodestone.setup.LodestoneParticleRegistry;
-import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntityInventory;
-import team.lodestar.lodestone.systems.easing.Easing;
-import team.lodestar.lodestone.systems.multiblock.MultiBlockCoreEntity;
-import team.lodestar.lodestone.systems.multiblock.MultiBlockStructure;
-import team.lodestar.lodestone.systems.rendering.particle.ParticleBuilders;
-import team.lodestar.lodestone.systems.rendering.particle.SimpleParticleOptions;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -43,13 +34,22 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.wrapper.CombinedInvWrapper;
 import net.minecraftforge.network.PacketDistributor;
 import org.jetbrains.annotations.NotNull;
+import team.lodestar.lodestone.helpers.BlockHelper;
+import team.lodestar.lodestone.helpers.DataHelper;
+import team.lodestar.lodestone.setup.LodestoneParticleRegistry;
+import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntityInventory;
+import team.lodestar.lodestone.systems.easing.Easing;
+import team.lodestar.lodestone.systems.multiblock.MultiBlockCoreEntity;
+import team.lodestar.lodestone.systems.multiblock.MultiBlockStructure;
+import team.lodestar.lodestone.systems.rendering.particle.ParticleBuilders;
+import team.lodestar.lodestone.systems.rendering.particle.SimpleParticleOptions;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
@@ -73,13 +73,13 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
     public int queuedCracks;
     public int crackTimer;
 
-    public ArrayList<BlockPos> tabletPositions = new ArrayList<>();
-    public ArrayList<TwistedTabletBlockEntity> twistedTablets = new ArrayList<>();
+    public List<BlockPos> tabletPositions = new ArrayList<>();
+    public List<TwistedTabletBlockEntity> twistedTablets = new ArrayList<>();
     public TwistedTabletBlockEntity validTablet;
     public int tabletFetchCooldown;
 
-    public ArrayList<BlockPos> acceleratorPositions = new ArrayList<>();
-    public ArrayList<ICrucibleAccelerator> accelerators = new ArrayList<>();
+    public List<BlockPos> acceleratorPositions = new ArrayList<>();
+    public List<ICrucibleAccelerator> accelerators = new ArrayList<>();
 
     private final LazyOptional<IItemHandler> combinedInventory = LazyOptional.of(() -> new CombinedInvWrapper(inventory, spiritInventory));
 
@@ -218,12 +218,12 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
     }
 
     @Override
-    public ArrayList<TwistedTabletBlockEntity> getTablets() {
+    public List<TwistedTabletBlockEntity> getTablets() {
         return twistedTablets;
     }
 
     @Override
-    public ArrayList<BlockPos> getTabletPositions() {
+    public List<BlockPos> getTabletPositions() {
         return tabletPositions;
     }
 
@@ -233,12 +233,12 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
     }
 
     @Override
-    public ArrayList<ICrucibleAccelerator> getAccelerators() {
+    public List<ICrucibleAccelerator> getAccelerators() {
         return accelerators;
     }
 
     @Override
-    public ArrayList<BlockPos> getAcceleratorPositions() {
+    public List<BlockPos> getAcceleratorPositions() {
         return acceleratorPositions;
     }
 
@@ -374,7 +374,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
     public void craft() {
         Vec3 itemPos = getItemPos(this);
         ItemStack stack = inventory.getStackInSlot(0);
-        ItemStack outputStack = focusingRecipe.output.getStack();
+        ItemStack outputStack = focusingRecipe.output.copy();
         if (focusingRecipe.durabilityCost != 0 && stack.isDamageableItem()) {
             int durabilityCost = focusingRecipe.durabilityCost;
             float chance = damageChance;
@@ -416,8 +416,8 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
     }
 
     @Override
-    public HashMap<ICrucibleAccelerator.CrucibleAcceleratorType, Integer> recalibrateAccelerators(Level level, BlockPos pos) {
-        HashMap<ICrucibleAccelerator.CrucibleAcceleratorType, Integer> accelerators = IAccelerationTarget.super.recalibrateAccelerators(level, pos);
+    public Map<ICrucibleAccelerator.CrucibleAcceleratorType, Integer> recalibrateAccelerators(Level level, BlockPos pos) {
+        Map<ICrucibleAccelerator.CrucibleAcceleratorType, Integer> accelerators = IAccelerationTarget.super.recalibrateAccelerators(level, pos);
         speed = 0f;
         damageChance = 0f;
         maxDamage = 0;
@@ -465,8 +465,8 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
         if (repairRecipe != null) {
             TwistedTabletBlockEntity tabletBlockEntity = validTablet;
 
-            ArrayList<Color> colors = new ArrayList<>();
-            ArrayList<Color> endColors = new ArrayList<>();
+            List<Color> colors = new ArrayList<>();
+            List<Color> endColors = new ArrayList<>();
             if (repairRecipe.repairMaterial.getItem() instanceof MalumSpiritItem spiritItem) {
                 colors.add(spiritItem.type.getColor());
                 endColors.add(spiritItem.type.getEndColor());

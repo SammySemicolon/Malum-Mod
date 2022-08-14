@@ -41,11 +41,11 @@ public class SpiritRepairRecipe extends ILodestoneRecipe {
     private final ResourceLocation id;
 
     public final float durabilityPercentage;
-    public final ArrayList<Item> inputs;
+    public final List<Item> inputs;
     public final IngredientWithCount repairMaterial;
-    public final ArrayList<SpiritWithCount> spirits;
+    public final List<SpiritWithCount> spirits;
 
-    public SpiritRepairRecipe(ResourceLocation id, float durabilityPercentage, ArrayList<Item> inputs, IngredientWithCount repairMaterial, ArrayList<SpiritWithCount> spirits) {
+    public SpiritRepairRecipe(ResourceLocation id, float durabilityPercentage, List<Item> inputs, IngredientWithCount repairMaterial, List<SpiritWithCount> spirits) {
         this.id = id;
         this.durabilityPercentage = durabilityPercentage;
         this.repairMaterial = repairMaterial;
@@ -68,8 +68,8 @@ public class SpiritRepairRecipe extends ILodestoneRecipe {
         return id;
     }
 
-    public ArrayList<ItemStack> getSortedSpirits(ArrayList<ItemStack> stacks) {
-        ArrayList<ItemStack> sortedStacks = new ArrayList<>();
+    public List<ItemStack> getSortedSpirits(List<ItemStack> stacks) {
+        List<ItemStack> sortedStacks = new ArrayList<>();
         for (SpiritWithCount item : spirits) {
             for (ItemStack stack : stacks) {
                 if (item.matches(stack)) {
@@ -81,14 +81,14 @@ public class SpiritRepairRecipe extends ILodestoneRecipe {
         return sortedStacks;
     }
 
-    public boolean doSpiritsMatch(ArrayList<ItemStack> spirits) {
+    public boolean doSpiritsMatch(List<ItemStack> spirits) {
         if (this.spirits.size() == 0) {
             return true;
         }
         if (this.spirits.size() != spirits.size()) {
             return false;
         }
-        ArrayList<ItemStack> sortedStacks = getSortedSpirits(spirits);
+        List<ItemStack> sortedStacks = getSortedSpirits(spirits);
         if (sortedStacks.size() < this.spirits.size()) {
             return false;
         }
@@ -110,7 +110,7 @@ public class SpiritRepairRecipe extends ILodestoneRecipe {
         return this.repairMaterial.matches(input);
     }
 
-    public static SpiritRepairRecipe getRecipe(Level level, ItemStack stack, ItemStack repairStack, ArrayList<ItemStack> spirits) {
+    public static SpiritRepairRecipe getRecipe(Level level, ItemStack stack, ItemStack repairStack, List<ItemStack> spirits) {
         if (stack.isRepairable() && !stack.isDamaged()) {
             return null;
         }
@@ -159,7 +159,7 @@ public class SpiritRepairRecipe extends ILodestoneRecipe {
             String itemName = inputLookup.contains(":") ? inputLookup.substring(inputLookup.indexOf(":")) : inputLookup;
             String modName = inputLookup.contains(":") ? inputLookup.substring(0, inputLookup.indexOf(":") - 1) : null;
             JsonArray inputsArray = json.getAsJsonArray("inputs");
-            ArrayList<Item> inputs = new ArrayList<>();
+            List<Item> inputs = new ArrayList<>();
             for (JsonElement jsonElement : inputsArray) {
                 Item input = ForgeRegistries.ITEMS.getValue(new ResourceLocation(jsonElement.getAsString()));
                 if (input == null) {
@@ -187,7 +187,7 @@ public class SpiritRepairRecipe extends ILodestoneRecipe {
             IngredientWithCount repair = IngredientWithCount.deserialize(repairObject);
 
             JsonArray spiritsArray = json.getAsJsonArray("spirits");
-            ArrayList<SpiritWithCount> spirits = new ArrayList<>();
+            List<SpiritWithCount> spirits = new ArrayList<>();
             for (int i = 0; i < spiritsArray.size(); i++) {
                 JsonObject spiritObject = spiritsArray.get(i).getAsJsonObject();
                 spirits.add(SpiritWithCount.deserialize(spiritObject));
@@ -200,13 +200,13 @@ public class SpiritRepairRecipe extends ILodestoneRecipe {
         public SpiritRepairRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
             float durabilityPercentage = buffer.readFloat();
             int inputCount = buffer.readInt();
-            ArrayList<Item> inputs = new ArrayList<>();
+            List<Item> inputs = new ArrayList<>();
             for (int i = 0; i < inputCount; i++) {
                 inputs.add(buffer.readItem().getItem());
             }
             IngredientWithCount repair = IngredientWithCount.read(buffer);
             int spiritCount = buffer.readInt();
-            ArrayList<SpiritWithCount> spirits = new ArrayList<>();
+            List<SpiritWithCount> spirits = new ArrayList<>();
             for (int i = 0; i < spiritCount; i++) {
                 spirits.add(new SpiritWithCount(buffer.readItem()));
             }

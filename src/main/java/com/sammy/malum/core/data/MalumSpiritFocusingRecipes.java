@@ -139,34 +139,34 @@ public class MalumSpiritFocusingRecipes extends RecipeProvider implements ICondi
                 .addItem(ItemRegistry.CRACKED_CEASELESS_IMPETUS.get())
                 .build(consumer, "ceaseless_impetus_restoration");
 
-        new SpiritFocusingRecipeBuilder(shortDuration, 1, Ingredient.of(ItemRegistry.ALCHEMICAL_IMPETUS.get()), Ingredient.of(Items.GUNPOWDER), 8)
+        new SpiritFocusingRecipeBuilder(shortDuration, 1, Ingredient.of(ItemRegistry.ALCHEMICAL_IMPETUS.get()), Items.GUNPOWDER, 8)
                 .addSpirit(EARTHEN_SPIRIT, 1)
                 .build(consumer);
 
-        new SpiritFocusingRecipeBuilder(shortDuration, 1, Ingredient.of(ItemRegistry.ALCHEMICAL_IMPETUS.get()), Ingredient.of(Items.GLOWSTONE_DUST), 8)
+        new SpiritFocusingRecipeBuilder(shortDuration, 1, Ingredient.of(ItemRegistry.ALCHEMICAL_IMPETUS.get()), Items.GLOWSTONE_DUST, 8)
                 .addSpirit(INFERNAL_SPIRIT, 1)
                 .build(consumer);
 
-        new SpiritFocusingRecipeBuilder(shortDuration, 1, Ingredient.of(ItemRegistry.ALCHEMICAL_IMPETUS.get()), Ingredient.of(Items.REDSTONE), 8)
+        new SpiritFocusingRecipeBuilder(shortDuration, 1, Ingredient.of(ItemRegistry.ALCHEMICAL_IMPETUS.get()), Items.REDSTONE, 8)
                 .addSpirit(ARCANE_SPIRIT, 1)
                 .build(consumer);
 
-        new SpiritFocusingRecipeBuilder(shortDuration, 1, Ingredient.of(ItemRegistry.ALCHEMICAL_IMPETUS.get()), Ingredient.of(Items.QUARTZ), 4)
+        new SpiritFocusingRecipeBuilder(shortDuration, 1, Ingredient.of(ItemRegistry.ALCHEMICAL_IMPETUS.get()), Items.QUARTZ, 4)
                 .addSpirit(EARTHEN_SPIRIT, 2)
                 .addSpirit(ARCANE_SPIRIT, 2)
                 .build(consumer);
 
-        new SpiritFocusingRecipeBuilder(shortDuration, 1, Ingredient.of(ItemRegistry.ALCHEMICAL_IMPETUS.get()), Ingredient.of(ItemRegistry.BLAZING_QUARTZ.get()), 4)
+        new SpiritFocusingRecipeBuilder(shortDuration, 1, Ingredient.of(ItemRegistry.ALCHEMICAL_IMPETUS.get()), ItemRegistry.BLAZING_QUARTZ.get(), 4)
                 .addSpirit(INFERNAL_SPIRIT, 2)
                 .addSpirit(ARCANE_SPIRIT, 2)
                 .build(consumer);
 
-        new SpiritFocusingRecipeBuilder(shortDuration, 1, Ingredient.of(ItemRegistry.ALCHEMICAL_IMPETUS.get()), Ingredient.of(Items.PRISMARINE_CRYSTALS), 4)
+        new SpiritFocusingRecipeBuilder(shortDuration, 1, Ingredient.of(ItemRegistry.ALCHEMICAL_IMPETUS.get()), Items.PRISMARINE_CRYSTALS, 4)
                 .addSpirit(AQUEOUS_SPIRIT, 2)
                 .addSpirit(ARCANE_SPIRIT, 2)
                 .build(consumer);
 
-        new SpiritFocusingRecipeBuilder(shortDuration, 1, Ingredient.of(ItemRegistry.ALCHEMICAL_IMPETUS.get()), Ingredient.of(Items.AMETHYST_SHARD), 4)
+        new SpiritFocusingRecipeBuilder(shortDuration, 1, Ingredient.of(ItemRegistry.ALCHEMICAL_IMPETUS.get()), Items.AMETHYST_SHARD, 4)
                 .addSpirit(AERIAL_SPIRIT, 2)
                 .addSpirit(ARCANE_SPIRIT, 2)
                 .build(consumer);
@@ -185,7 +185,7 @@ public class MalumSpiritFocusingRecipes extends RecipeProvider implements ICondi
     }
 
     public void addImpetusRecipes(Consumer<FinishedRecipe> consumer, int duration, RegistryObject<ImpetusItem> impetus, RegistryObject<Item> node) {
-        new SpiritFocusingRecipeBuilder(duration, 2, Ingredient.of(impetus.get()), Ingredient.of(node.get()), 3)
+        new SpiritFocusingRecipeBuilder(duration, 2, Ingredient.of(impetus.get()), node.get(), 3)
                 .addSpirit(EARTHEN_SPIRIT, 2)
                 .addSpirit(INFERNAL_SPIRIT, 1)
                 .build(consumer, MalumMod.malumPath("node_focusing_" + node.get().getRegistryName().getPath().replace("_node", "")));
@@ -193,7 +193,7 @@ public class MalumSpiritFocusingRecipes extends RecipeProvider implements ICondi
 
     public void addImpetusRecipes(Consumer<FinishedRecipe> consumer, int duration, RegistryObject<ImpetusItem> impetus, RegistryObject<Item> node, TagKey<Item> nugget) {
         ConditionalRecipe.builder().addCondition(not(new TagEmptyCondition(nugget.location()))).addRecipe(
-                        new SpiritFocusingRecipeBuilder(duration, 2, Ingredient.of(impetus.get()), Ingredient.of(node.get()), 3)
+                        new SpiritFocusingRecipeBuilder(duration, 2, Ingredient.of(impetus.get()), node.get(), 3)
                                 .addSpirit(EARTHEN_SPIRIT, 2)
                                 .addSpirit(INFERNAL_SPIRIT, 1)
                                 ::build

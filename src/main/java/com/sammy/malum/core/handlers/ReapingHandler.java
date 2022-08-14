@@ -43,7 +43,7 @@ public class ReapingHandler {
                 }
             });
         }
-        ArrayList<MalumReapingDropsData> data = ReapingDataReloadListener.REAPING_DATA.get(target.getType().getRegistryName());
+        List<MalumReapingDropsData> data = ReapingDataReloadListener.REAPING_DATA.get(target.getType().getRegistryName());
         if (data != null) {
             MalumLivingEntityDataCapability capability = MalumLivingEntityDataCapability.getCapability(target);
             float multiplier = capability.exposedSoul > 0 ? 2 : 1;

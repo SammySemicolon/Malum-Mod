@@ -51,7 +51,7 @@ public class SpiritInfusionPage extends BookPage {
         }
         renderSpirits.run();
         ProgressionBookScreen.renderComponent(poseStack, recipe.input, guiLeft + 67, guiTop + 59, mouseX, mouseY);
-        ProgressionBookScreen.renderComponent(poseStack, recipe.output, guiLeft + 67, guiTop + 126, mouseX, mouseY);
+        ProgressionBookScreen.renderItem(poseStack, recipe.output, guiLeft + 67, guiTop + 126, mouseX, mouseY);
     }
 
     @Override
@@ -65,6 +65,6 @@ public class SpiritInfusionPage extends BookPage {
         }
         renderSpirits.run();
         ProgressionBookScreen.renderComponent(poseStack, recipe.input, guiLeft + 209, guiTop + 59, mouseX, mouseY);
-        ProgressionBookScreen.renderComponent(poseStack, recipe.output, guiLeft + 209, guiTop + 126, mouseX, mouseY);
+        ProgressionBookScreen.renderItem(poseStack, recipe.output, guiLeft + 209, guiTop + 126, mouseX, mouseY);
     }
 }

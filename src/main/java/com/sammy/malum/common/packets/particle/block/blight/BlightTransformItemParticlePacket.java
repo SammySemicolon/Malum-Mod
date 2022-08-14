@@ -4,7 +4,6 @@ import com.sammy.malum.common.packets.particle.block.functional.FunctionalBlockP
 import com.sammy.malum.core.helper.SpiritHelper;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import net.minecraft.client.Minecraft;
-import net.minecraft.core.Direction;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.Level;
@@ -36,7 +35,7 @@ public class BlightTransformItemParticlePacket extends FunctionalBlockParticlePa
     public void execute(Supplier<NetworkEvent.Context> context) {
         Level level = Minecraft.getInstance().level;
         Random rand = level.random;
-        ArrayList<MalumSpiritType> types = new ArrayList<>();
+        List<MalumSpiritType> types = new ArrayList<>();
         for (String string : spirits) {
             types.add(SpiritHelper.getSpiritType(string));
         }

@@ -18,9 +18,10 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
 
 import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.sammy.malum.MalumMod.malumPath;
 
@@ -33,7 +34,7 @@ public class SpiritTransmutationRecipeCategory implements IRecipeCategory<Spirit
     public SpiritTransmutationRecipeCategory(IGuiHelper guiHelper) {
         background = guiHelper.createBlankDrawable(142, 83);
         overlay = guiHelper.createDrawable(new ResourceLocation(MalumMod.MALUM, "textures/gui/spirit_transmutation_jei.png"), 0, 0, 140, 81);
-        icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ItemRegistry.SOULWOOD_TOTEM_BASE.get()));
+        icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ItemRegistry.ARCANE_SPIRIT.get()));
     }
 
     @Override
@@ -79,10 +80,20 @@ public class SpiritTransmutationRecipeCategory implements IRecipeCategory<Spirit
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, SpiritTransmutationRecipe recipe, IFocusGroup focuses) {
-//        recipe.inputs.stream().mapMulti(i -> i.getItems()).
-//        builder.addSlot(RecipeIngredientRole.INPUT, 63, 57)
-//            .addIngredients(VanillaTypes.ITEM_STACK, recipe.inputs.stream().flatMap(i -> i.));
-//        builder.addSlot(RecipeIngredientRole.OUTPUT, 63, 124)
-//            .addItemStacks(recipe.output.getStacks());
+        List<ItemStack> inputs = new ArrayList<>();
+        List<ItemStack> outputs = new ArrayList<>();
+
+        for (var subRecipe : recipe.subRecipes) {
+            for (ItemStack stack : subRecipe.getFirst().getItems()) {
+                inputs.add(stack);
+                outputs.add(subRecipe.getSecond());
+            }
+        }
+
+        var input = builder.addSlot(RecipeIngredientRole.INPUT, 28, 27)
+            .addItemStacks(inputs);
+        var output = builder.addSlot(RecipeIngredientRole.OUTPUT, 93, 27)
+            .addItemStacks(outputs);
+        builder.createFocusLink(input, output);
     }
 }

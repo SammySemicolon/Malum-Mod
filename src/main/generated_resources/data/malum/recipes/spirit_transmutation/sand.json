@@ -1,9 +1,13 @@
 {
   "type": "malum:spirit_transmutation",
-  "input": {
-    "item": "minecraft:gravel"
-  },
-  "output": {
-    "item": "minecraft:sand"
-  }
+  "recipes": [
+    {
+      "input": {
+        "item": "minecraft:gravel"
+      },
+      "output": {
+        "item": "minecraft:sand"
+      }
+    }
+  ]
 }

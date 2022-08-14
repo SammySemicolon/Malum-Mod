@@ -1,9 +1,13 @@
 {
   "type": "malum:spirit_transmutation",
-  "input": {
-    "item": "minecraft:soul_sand"
-  },
-  "output": {
-    "item": "minecraft:red_sand"
-  }
+  "recipes": [
+    {
+      "input": {
+        "item": "minecraft:soul_sand"
+      },
+      "output": {
+        "item": "minecraft:red_sand"
+      }
+    }
+  ]
 }

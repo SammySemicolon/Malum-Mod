@@ -5,12 +5,6 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Vector3f;
 import com.mojang.math.Vector4f;
 import com.sammy.malum.common.entity.FloatingItemEntity;
-import team.lodestar.lodestone.handlers.RenderHandler;
-import team.lodestar.lodestone.helpers.ColorHelper;
-import team.lodestar.lodestone.helpers.EntityHelper;
-import team.lodestar.lodestone.setup.LodestoneRenderTypeRegistry;
-import team.lodestar.lodestone.systems.easing.Easing;
-import team.lodestar.lodestone.systems.rendering.VFXBuilders;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -26,15 +20,18 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
+import team.lodestar.lodestone.helpers.ColorHelper;
+import team.lodestar.lodestone.helpers.EntityHelper;
+import team.lodestar.lodestone.setup.LodestoneRenderTypeRegistry;
+import team.lodestar.lodestone.systems.easing.Easing;
+import team.lodestar.lodestone.systems.rendering.VFXBuilders;
 
-import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.sammy.malum.MalumMod.malumPath;
-import static team.lodestar.lodestone.handlers.RenderHandler.*;
-import static team.lodestar.lodestone.helpers.RenderHelper.FULL_BRIGHT;
+import static team.lodestar.lodestone.handlers.RenderHandler.DELAYED_RENDER;
 import static team.lodestar.lodestone.setup.LodestoneRenderTypeRegistry.queueUniformChanges;
 
 public class FloatingItemEntityRenderer extends EntityRenderer<FloatingItemEntity> {
@@ -57,7 +54,7 @@ public class FloatingItemEntityRenderer extends EntityRenderer<FloatingItemEntit
     @Override
     public void render(FloatingItemEntity entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int packedLightIn) {
         poseStack.pushPose();
-        ArrayList<EntityHelper.PastPosition> positions = new ArrayList<>(entity.pastPositions);
+        List<EntityHelper.PastPosition> positions = new ArrayList<>(entity.pastPositions);
         if (positions.size() > 1) {
             for (int i = 0; i < positions.size() - 2; i++) {
                 EntityHelper.PastPosition position = positions.get(i);

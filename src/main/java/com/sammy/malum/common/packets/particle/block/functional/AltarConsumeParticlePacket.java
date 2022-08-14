@@ -29,7 +29,7 @@ public class AltarConsumeParticlePacket extends FunctionalBlockItemAbsorbParticl
     @Override
     public void execute(Supplier<NetworkEvent.Context> context) {
         Level level = Minecraft.getInstance().level;
-        ArrayList<MalumSpiritType> types = new ArrayList<>();
+        List<MalumSpiritType> types = new ArrayList<>();
         for (String string : spirits) {
             types.add(SpiritHelper.getSpiritType(string));
         }

@@ -1,9 +1,13 @@
 {
   "type": "malum:spirit_transmutation",
-  "input": {
-    "item": "minecraft:basalt"
-  },
-  "output": {
-    "item": "minecraft:netherrack"
-  }
+  "recipes": [
+    {
+      "input": {
+        "item": "minecraft:basalt"
+      },
+      "output": {
+        "item": "minecraft:netherrack"
+      }
+    }
+  ]
 }

@@ -91,6 +91,6 @@ public class SpiritInfusionRecipeCategory implements IRecipeCategory<SpiritInfus
              .addItemStacks(recipe.input.getStacks());
 
         builder.addSlot(RecipeIngredientRole.OUTPUT, 63, 124)
-             .addItemStacks(recipe.output.getStacks());
+             .addItemStack(recipe.output);
     }
 }
