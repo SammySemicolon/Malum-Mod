@@ -79,7 +79,7 @@ public class SpiritTransmutationRecipeCategory implements IRecipeCategory<Spirit
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, SpiritTransmutationRecipe recipe, IFocusGroup focuses) {
-        recipe.inputs.stream().mapMulti(i -> i.getItems()).
+//        recipe.inputs.stream().mapMulti(i -> i.getItems()).
 //        builder.addSlot(RecipeIngredientRole.INPUT, 63, 57)
 //            .addIngredients(VanillaTypes.ITEM_STACK, recipe.inputs.stream().flatMap(i -> i.));
 //        builder.addSlot(RecipeIngredientRole.OUTPUT, 63, 124)
