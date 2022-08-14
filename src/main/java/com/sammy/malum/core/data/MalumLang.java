@@ -355,8 +355,10 @@ public class MalumLang extends LanguageProvider {
         addPages("belt_of_the_starved.ring_of_desperate_voracity",
             "To combat the toxic nature of these foods, I have created a ring to alleviate some of these effects. This ring makes rotten foods just a little bit more bearable, allowing me to amass more hunger and saturation from this unusual diet.");
 
-        addSimpleEntryHeader("necklace_of_the_mystic_mirror", "Mystic Mirror Necklace", "[NOT COMPLETE] Empowerment");
-        addPages("necklace_of_the_mystic_mirror", "[temp effect] Makes reactive trinkets trigger when you deal magic damage");
+        addEntryHeader("necklace_of_the_mystic_mirror", "Necklace of the Mystic Mirror", "As without, so within");
+        addHeadline("necklace_of_the_mystic_mirror", "The Mystic Mirror");
+        addPages("necklace_of_the_mystic_mirror",
+            "I have devised another way to capture some of the lost energy from loose spirits. The Resonant Lens I socketed in is able to focus magic, collecting a little bit of excess energy as I pick up arcana. This energy is then redistributed to the rest of my trinkets, increasing the effect of any that act upon collecting spirits.");
 
         addEntryHeader("necklace_of_the_narrow_edge", "Necklace of the Narrow Edge", "Focused and sharpened");
         addHeadline("necklace_of_the_narrow_edge", "The Narrow Edge");
@@ -393,7 +395,7 @@ public class MalumLang extends LanguageProvider {
         addPage("arcane_rite",
             "The rite - if you could call something so chaotic that - corrupts and burns through the totem, altering its very base nature, and transmuting the world around it into some indeterminate blighted powder.");
         addPage("corrupt_arcane_rite",
-            "Now already scarred, the power bleeds from the totem, corrupting and warping blocks and items around it that are placed upon that blighted substance or Soulwood pedestals.");
+            "Now already scarred, the power bleeds from the totem, corrupting and warping things around it that are above that blighted substance, whether in pedestals, placed, or just loose.");
 
         addEntryHeader("sacred_rite", "Sacred Rites", "Invigorating the soul");
         addPage("sacred_rite", "Nearby friendly beings are slowly healed.");
