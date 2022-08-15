@@ -1,0 +1,34 @@
+{
+  "type": "malum:spirit_infusion",
+  "input": {
+    "item": "malum:ornate_necklace",
+    "count": 1
+  },
+  "output": {
+    "item": "malum:necklace_of_tidal_affinity"
+  },
+  "extra_items": [
+    {
+      "item": "minecraft:heart_of_the_sea",
+      "count": 1
+    },
+    {
+      "item": "minecraft:nautilus_shell",
+      "count": 2
+    }
+  ],
+  "spirits": [
+    {
+      "type": "aqueous",
+      "count": 16
+    },
+    {
+      "type": "sacred",
+      "count": 16
+    },
+    {
+      "type": "eldritch",
+      "count": 2
+    }
+  ]
+}

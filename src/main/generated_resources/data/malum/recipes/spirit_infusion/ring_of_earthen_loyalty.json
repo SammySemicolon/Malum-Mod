@@ -1,0 +1,34 @@
+{
+  "type": "malum:spirit_infusion",
+  "input": {
+    "item": "malum:gilded_ring",
+    "count": 1
+  },
+  "output": {
+    "item": "malum:ring_of_earthen_loyalty"
+  },
+  "extra_items": [
+    {
+      "item": "minecraft:tnt",
+      "count": 2
+    },
+    {
+      "item": "minecraft:gunpowder",
+      "count": 8
+    }
+  ],
+  "spirits": [
+    {
+      "type": "earthen",
+      "count": 16
+    },
+    {
+      "type": "sacred",
+      "count": 8
+    },
+    {
+      "type": "arcane",
+      "count": 8
+    }
+  ]
+}

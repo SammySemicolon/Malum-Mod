@@ -6,7 +6,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 
 public interface IMalumEventResponderItem extends IEventResponderItem {
-    default void pickupSpirit(LivingEntity collector, ItemStack stack, boolean isNatural) {
+    default void pickupSpirit(LivingEntity collector, ItemStack stack, double arcaneResonance) {
 
     }
     default void soulwardDamageAbsorb(LivingHurtEvent event, LivingEntity wardedEntity, ItemStack stack) {

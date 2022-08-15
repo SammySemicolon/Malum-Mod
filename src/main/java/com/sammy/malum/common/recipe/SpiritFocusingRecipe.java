@@ -105,7 +105,7 @@ public class SpiritFocusingRecipe extends ILodestoneRecipe {
     }
 
     public boolean doesOutputMatch(ItemStack output) {
-        return ItemStack.matches(output, this.output);
+        return output.getItem().equals(this.output.getItem());
     }
 
     public static SpiritFocusingRecipe getRecipe(Level level, ItemStack stack, List<ItemStack> spirits) {

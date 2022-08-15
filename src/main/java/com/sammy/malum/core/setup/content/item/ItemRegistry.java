@@ -526,8 +526,10 @@ public class ItemRegistry {
     public static final RegistryObject<Item> RING_OF_ARCANE_PROWESS = ITEMS.register("ring_of_arcane_prowess", () -> new CurioRingOfProwess(GEAR_PROPERTIES()));
     public static final RegistryObject<Item> RING_OF_ALCHEMICAL_MASTERY = ITEMS.register("ring_of_alchemical_mastery", () -> new CurioAlchemicalRing(GEAR_PROPERTIES()));
     public static final RegistryObject<Item> RING_OF_DESPERATE_VORACITY = ITEMS.register("ring_of_desperate_voracity", () -> new CurioVeraciousRing(GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> RING_OF_EARTHEN_LOYALTY = ITEMS.register("ring_of_earthen_loyalty", () -> new CurioEarthenRing(GEAR_PROPERTIES()));
 
     public static final RegistryObject<Item> NECKLACE_OF_THE_MYSTIC_MIRROR = ITEMS.register("necklace_of_the_mystic_mirror", () -> new CurioMirrorNecklace(GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> NECKLACE_OF_TIDAL_AFFINITY = ITEMS.register("necklace_of_tidal_affinity", () -> new CurioWaterNecklace(GEAR_PROPERTIES()));
     public static final RegistryObject<Item> NECKLACE_OF_THE_NARROW_EDGE = ITEMS.register("necklace_of_the_narrow_edge", () -> new CurioNarrowNecklace(GEAR_PROPERTIES()));
     public static final RegistryObject<Item> NECKLACE_OF_THE_HIDDEN_BLADE = ITEMS.register("necklace_of_the_hidden_blade", () -> new CurioHiddenBladeNecklace(GEAR_PROPERTIES()));
 

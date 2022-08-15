@@ -48,14 +48,16 @@ public class CurioAlchemicalRing extends MalumCurioItem implements IMalumEventRe
     }
 
     @Override
-    public void pickupSpirit(LivingEntity collector, ItemStack stack, boolean isNatural) {
+    public void pickupSpirit(LivingEntity collector, ItemStack stack, double arcaneResonance) {
         collector.getActiveEffectsMap().forEach((e, i) -> {
             float multiplier = MalumMobEffectRegistry.ALCHEMICAL_PROFICIENCY_MAP.getOrDefault(e.getRegistryName(), 1f);
             if (e.isBeneficial()) {
-                EntityHelper.extendEffect(i, collector, (int) (40*multiplier), 1200);
+                int base = 40 +(int)(arcaneResonance*20);
+                EntityHelper.extendEffect(i, collector, (int) (base*multiplier), 1200);
             }
             else if (e.getCategory().equals(MobEffectCategory.HARMFUL)) {
-                EntityHelper.shortenEffect(i, collector, (int) (60*multiplier));
+                int base = 60 +(int)(arcaneResonance*30);
+                EntityHelper.shortenEffect(i, collector, (int) (base*multiplier));
             }
         });
     }

@@ -1,11 +1,19 @@
 package com.sammy.malum.common.item.equipment.curios;
 
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.Multimap;
+import com.sammy.malum.core.setup.content.AttributeRegistry;
 import com.sammy.malum.core.systems.item.IMalumEventResponderItem;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import team.lodestar.lodestone.helpers.ItemHelper;
+import team.lodestar.lodestone.setup.LodestoneAttributeRegistry;
 import team.lodestar.lodestone.systems.item.IEventResponderItem;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
+
+import java.util.UUID;
 
 public class CurioMirrorNecklace extends MalumCurioItem implements IMalumEventResponderItem {
     public CurioMirrorNecklace(Properties builder) {
@@ -18,13 +26,10 @@ public class CurioMirrorNecklace extends MalumCurioItem implements IMalumEventRe
     }
 
     @Override
-    public void hurtEvent(LivingHurtEvent event, LivingEntity attacker, LivingEntity target, ItemStack stack) {
-        if (event.getSource().isMagic()) {
-            ItemHelper.getEventResponders(attacker).forEach(s -> {
-                if (s.getItem() instanceof IMalumEventResponderItem eventItem) {
-                    eventItem.pickupSpirit(attacker, stack, true);
-                }
-            });
-        }
+    public Multimap<Attribute, AttributeModifier> getAttributeModifiers(String identifier, ItemStack stack) {
+        Multimap<Attribute, AttributeModifier> map = HashMultimap.create();
+        map.put(AttributeRegistry.ARCANE_RESONANCE.get(), new AttributeModifier(uuids.computeIfAbsent(0, (i) -> UUID.randomUUID()), "Arcane Resonance", 1f, AttributeModifier.Operation.ADDITION));
+        map.put(LodestoneAttributeRegistry.MAGIC_PROFICIENCY.get(), new AttributeModifier(uuids.computeIfAbsent(1, (i) -> UUID.randomUUID()), "Magic Proficiency", 1f, AttributeModifier.Operation.ADDITION));
+        return map;
     }
 }

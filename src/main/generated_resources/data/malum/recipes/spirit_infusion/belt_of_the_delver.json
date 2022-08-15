@@ -5,38 +5,38 @@
     "count": 1
   },
   "output": {
-    "item": "malum:belt_of_the_starved"
+    "item": "malum:belt_of_the_delver"
   },
   "extra_items": [
     {
-      "item": "minecraft:bone",
-      "count": 2
+      "item": "malum:rare_earths",
+      "count": 1
     },
     {
-      "item": "malum:grim_talc",
+      "item": "minecraft:raw_gold",
       "count": 4
     },
     {
-      "item": "malum:rotting_essence",
-      "count": 2
+      "item": "minecraft:raw_iron",
+      "count": 4
     },
     {
-      "item": "malum:processed_soulstone",
+      "item": "minecraft:raw_copper",
       "count": 4
     }
   ],
   "spirits": [
     {
-      "type": "wicked",
+      "type": "earthen",
       "count": 32
     },
     {
-      "type": "aqueous",
-      "count": 8
+      "type": "infernal",
+      "count": 32
     },
     {
       "type": "arcane",
-      "count": 8
+      "count": 16
     }
   ]
 }

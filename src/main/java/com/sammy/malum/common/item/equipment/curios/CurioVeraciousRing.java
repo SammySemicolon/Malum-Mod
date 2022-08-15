@@ -44,10 +44,10 @@ public class CurioVeraciousRing extends MalumCurioItem {
             ItemStack stack = event.getResultStack();
             if (CurioHelper.hasCurioEquipped(player, ItemRegistry.RING_OF_DESPERATE_VORACITY)) {
                 if (stack.is(GROSS_FOODS)) {
-                    player.getFoodData().eat(1, 0.5f);
+                    player.getFoodData().eat(2, 0.75f);
                     MobEffectInstance effect = player.getEffect(MobEffects.HUNGER);
                     if (effect != null) {
-                        EntityHelper.shortenEffect(effect, player, 100);
+                        EntityHelper.shortenEffect(effect, player, 150);
                     }
                 }
             }

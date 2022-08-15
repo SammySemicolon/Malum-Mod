@@ -392,7 +392,8 @@ public class MalumLang extends LanguageProvider {
         addPages("arcane_rite.description",
             "Raw arcana provides the basis for all rites. Without power, nothing would be accomplished. This naturally makes one wonder what effect raw arcana would have as the focus of a rite. The answer is a complex and dangerous one.",
             "It requires far more to focus than other rites, taking the entire five runes to activate. It's as though I am pushing on some threshold, and need to break through. And in breaking through... momentum is conserved.",
-            "And once altered, the wood's color changes, along with its magical disposition. What I dub Soulwood bears scars from the violent method of its creation. Those scars warp magic, altering its fundamental nature. Any spirit rite performed with a soulwood totem will produce a vastly different effect.");
+            "And once altered, the wood's color changes, along with its magical disposition. What I dub Soulwood bears scars from the violent method of its creation. Those scars warp magic, altering its fundamental nature. Any spirit rite performed with a soulwood totem will produce a vastly different effect.",
+            "Now that I have obtained Soulwood, I can make totem bases out of it directly as well.");
         addPage("arcane_rite",
             "The rite - if you could call something so chaotic that - corrupts and burns through the totem, altering its very base nature, and transmuting the world around it into some indeterminate blighted powder.");
         addPage("corrupt_arcane_rite",
@@ -445,6 +446,7 @@ public class MalumLang extends LanguageProvider {
         addEntryHeader("corrupt_aqueous_rite", "Corrupting the Aqueous Rites", "Deforming the soul");
         addPage("corrupt_aqueous_rite", "A simple aura rite, nearby friendly beings will find themselves better at fishing.");
         addPage("corrupt_aqueous_rite.greater", "Zombies near this rite will find themselves choking on their own breath, drowning even on land.");
+
 
         addSimpleEntryHeader("soulwood", "Soulwood", "[NOT COMPLETE] Twisted Roots");
         addPages("soulwood", "Spirit magics focus on turning everything good in the world to evil. Sometimes, by pure coincidence a great thing is created instead, as is the case with runewood. It is important to realize this mistake and correct it.",

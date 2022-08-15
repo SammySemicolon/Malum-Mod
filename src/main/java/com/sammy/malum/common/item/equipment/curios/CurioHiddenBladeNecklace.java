@@ -38,7 +38,6 @@ public class CurioHiddenBladeNecklace extends MalumCurioItem implements IMalumEv
         if (amplifier >= 6) {
             amplifier *= amplifier / 6f;
         }
-        attacked.sendMessage(new TextComponent("damage:" + amount + " amplifier:"+amplifier), attacked.getUUID());
         MobEffect effect = MalumMobEffectRegistry.WICKED_INTENT.get();
         attacked.addEffect(new MobEffectInstance(effect, 40, amplifier - 1));
     }

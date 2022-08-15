@@ -8,6 +8,7 @@ import com.sammy.malum.core.systems.rites.MalumRiteEffect;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.EatBlockGoal;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Bee;
@@ -70,7 +71,7 @@ public class SacredRiteType extends MalumRiteType {
         return new EntityAffectingRiteEffect() {
             @Override
             public void riteEffect(TotemBaseBlockEntity totemBase) {
-                getNearbyEntities(totemBase, Animal.class).forEach(e -> {
+                getNearbyEntities(totemBase, LivingEntity.class).forEach(e -> {
                     if (e.getHealth() < e.getMaxHealth() * 0.75f) {
                         e.heal(2);
                         MALUM_CHANNEL.send(PacketDistributor.TRACKING_ENTITY.with(() -> e), new MinorEntityEffectParticlePacket(getEffectSpirit().getColor(), e.getX(), e.getY() + e.getBbHeight() / 2f, e.getZ()));

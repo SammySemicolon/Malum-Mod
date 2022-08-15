@@ -424,9 +424,24 @@ public class ProgressionBookScreen extends Screen {
         );
 
         ENTRIES.add(new BookEntry(
-            "necklace_of_the_narrow_edge", NECKLACE_OF_THE_NARROW_EDGE.get(), -6, 5)
+            "necklace_of_the_narrow_edge", NECKLACE_OF_THE_NARROW_EDGE.get(), -7, 8)
             .addPage(new HeadlineTextPage("necklace_of_the_narrow_edge", "necklace_of_the_narrow_edge.1"))
             .addPage(SpiritInfusionPage.fromOutput(NECKLACE_OF_THE_NARROW_EDGE.get()))
+        );
+
+        ENTRIES.add(new BookEntry(
+            "belt_of_the_delver", BELT_OF_THE_DELVER.get(), -6, 5)
+            .addPage(new HeadlineTextPage("belt_of_the_delver", "belt_of_the_delver.1"))
+            .addPage(new TextPage("belt_of_the_delver.2"))
+            .addPage(SpiritInfusionPage.fromOutput(BELT_OF_THE_DELVER.get()))
+            .addPage(new HeadlineTextPage("belt_of_the_delver.ring_of_earthen_loyalty", "belt_of_the_delver.ring_of_earthen_loyalty.1"))
+            .addPage(SpiritInfusionPage.fromOutput(RING_OF_EARTHEN_LOYALTY.get()))
+        );
+
+        ENTRIES.add(new BookEntry(
+            "necklace_of_tidal_affinity", NECKLACE_OF_TIDAL_AFFINITY.get(), -7, 4)
+            .addPage(new HeadlineTextPage("necklace_of_tidal_affinity", "necklace_of_tidal_affinity.1"))
+            .addPage(SpiritInfusionPage.fromOutput(NECKLACE_OF_TIDAL_AFFINITY.get()))
         );
 
         ENTRIES.add(new BookEntry(
@@ -590,7 +605,7 @@ public class ProgressionBookScreen extends Screen {
         );
 
         ENTRIES.add(new BookEntry(
-            "utilizing_blight", BLIGHTED_SOIL.get(), -1, 12)
+            "utilizing_blight", BLIGHTED_SOIL.get(), -1, 12).setSoulwood()
             .addPage(new HeadlineTextPage("utilizing_blight", "utilizing_blight"))
         );
 
@@ -600,7 +615,7 @@ public class ProgressionBookScreen extends Screen {
 //        );
 
         ENTRIES.add(new BookEntry(
-            "soulwood", SOULWOOD_GROWTH.get(), 0, 12).setSoulwood()
+            "soulwood", SOULWOOD_GROWTH.get(), 1, 12).setSoulwood()
             .addPage(new HeadlineTextPage("soulwood", "soulwood.1"))
             .addPage(new TextPage("soulwood.2"))
             .addPage(CraftingBookPage.itemPedestalPage(SOULWOOD_ITEM_PEDESTAL.get(), SOULWOOD_PLANKS.get(), SOULWOOD_PLANKS_SLAB.get()))

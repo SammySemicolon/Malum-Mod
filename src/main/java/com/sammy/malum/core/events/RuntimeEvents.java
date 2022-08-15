@@ -12,6 +12,7 @@ import com.sammy.malum.common.enchantment.ReboundEnchantment;
 import com.sammy.malum.common.entity.nitrate.EthericExplosion;
 import com.sammy.malum.common.item.equipment.CeaselessImpetusItem;
 import com.sammy.malum.common.item.equipment.curios.CurioAlchemicalRing;
+import com.sammy.malum.common.item.equipment.curios.CurioEarthenRing;
 import com.sammy.malum.common.item.equipment.curios.CurioTokenOfGratitude;
 import com.sammy.malum.common.item.equipment.curios.CurioVeraciousRing;
 import com.sammy.malum.common.spiritaffinity.ArcaneAffinity;
@@ -204,8 +205,9 @@ public class RuntimeEvents {
         SpiritHarvestHandler.shatterItem(event);
     }
 
-    @SubscribeEvent
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
     public static void onExplosionDetonate(ExplosionEvent.Detonate event) {
+        CurioEarthenRing.processExplosion(event);
         EthericExplosion.processExplosion(event);
     }
 }

@@ -65,33 +65,30 @@ public class ArcaneAffinity extends MalumSpiritAffinity {
         if (event.getEntityLiving() instanceof Player player) {
             if (!player.level.isClientSide) {
                 MalumPlayerDataCapability.getCapabilityOptional(player).ifPresent(c -> {
-                    AttributeInstance instance = player.getAttribute(AttributeRegistry.SOUL_WARD_SHATTER_COOLDOWN.get());
-                    if (instance != null) {
-                        c.soulWardProgress = (float) (CommonConfig.SOUL_WARD_RATE.getConfigValue() * 6 * Math.exp(-0.15 * instance.getValue()));
-                        if (c.soulWard > 0) {
-                            DamageSource source = event.getSource();
+                    c.soulWardProgress = getSoulWardCooldown(0) + getSoulWardCooldown(player);
+                    if (c.soulWard > 0) {
+                        DamageSource source = event.getSource();
 
-                            float amount = event.getAmount();
-                            float multiplier = source.isMagic() ? CommonConfig.SOUL_WARD_MAGIC.getConfigValue().floatValue() : CommonConfig.SOUL_WARD_PHYSICAL.getConfigValue().floatValue();
-                            float result = amount * multiplier;
-                            float absorbed = amount - result;
-                            double strength = player.getAttributeValue(AttributeRegistry.SOUL_WARD_STRENGTH.get());
-                            if (strength != 0) {
-                                c.soulWard = (float) Math.max(0, c.soulWard - (absorbed / strength));
-                            } else {
-                                c.soulWard = 0;
-                            }
-
-                            player.level.playSound(null, player.blockPosition(), SoundRegistry.SOUL_WARD_HIT.get(), SoundSource.PLAYERS, 1, Mth.nextFloat(player.getRandom(), 1.5f, 2f));
-                            event.setAmount(result);
-
-                            ItemHelper.getEventResponders(player).forEach(s -> {
-                                if (s.getItem() instanceof IMalumEventResponderItem eventItem) {
-                                    eventItem.soulwardDamageAbsorb(event, player, s);
-                                }
-                            });
-                            MalumPlayerDataCapability.syncTrackingAndSelf(player);
+                        float amount = event.getAmount();
+                        float multiplier = source.isMagic() ? CommonConfig.SOUL_WARD_MAGIC.getConfigValue().floatValue() : CommonConfig.SOUL_WARD_PHYSICAL.getConfigValue().floatValue();
+                        float result = amount * multiplier;
+                        float absorbed = amount - result;
+                        double strength = player.getAttributeValue(AttributeRegistry.SOUL_WARD_STRENGTH.get());
+                        if (strength != 0) {
+                            c.soulWard = (float) Math.max(0, c.soulWard - (absorbed / strength));
+                        } else {
+                            c.soulWard = 0;
                         }
+
+                        player.level.playSound(null, player.blockPosition(), SoundRegistry.SOUL_WARD_HIT.get(), SoundSource.PLAYERS, 1, Mth.nextFloat(player.getRandom(), 1.5f, 2f));
+                        event.setAmount(result);
+
+                        ItemHelper.getEventResponders(player).forEach(s -> {
+                            if (s.getItem() instanceof IMalumEventResponderItem eventItem) {
+                                eventItem.soulwardDamageAbsorb(event, player, s);
+                            }
+                        });
+                        MalumPlayerDataCapability.syncTrackingAndSelf(player);
                     }
                 });
             }

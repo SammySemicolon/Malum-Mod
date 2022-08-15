@@ -8,9 +8,11 @@ import com.sammy.malum.common.item.spirit.SpiritPouchItem;
 import com.sammy.malum.compability.tetra.TetraCompat;
 import com.sammy.malum.config.CommonConfig;
 import com.sammy.malum.core.helper.SpiritHelper;
+import com.sammy.malum.core.setup.content.AttributeRegistry;
 import com.sammy.malum.core.setup.content.DamageSourceRegistry;
 import com.sammy.malum.core.setup.content.item.ItemTagRegistry;
 import com.sammy.malum.core.systems.item.IMalumEventResponderItem;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import team.lodestar.lodestone.helpers.ItemHelper;
 import team.lodestar.lodestone.systems.container.ItemInventory;
 import net.minecraft.core.NonNullList;
@@ -146,21 +148,22 @@ public class SpiritHarvestHandler {
     }
 
     public static void pickupSpirit(ItemStack stack, LivingEntity collector) {
-        if (collector instanceof Player playerEntity) {
+        if (collector instanceof Player player) {
+            AttributeInstance instance = player.getAttribute(AttributeRegistry.ARCANE_RESONANCE.get());
             ItemHelper.getEventResponders(collector).forEach(s -> {
                 if (s.getItem() instanceof IMalumEventResponderItem eventItem) {
-                    eventItem.pickupSpirit(collector, stack, true);
+                    eventItem.pickupSpirit(collector, stack, instance != null ? instance.getValue() : 0);
                 }
             });
-            for (NonNullList<ItemStack> playerInventory : playerEntity.getInventory().compartments) {
+            for (NonNullList<ItemStack> playerInventory : player.getInventory().compartments) {
                 for (ItemStack item : playerInventory) {
                     if (item.getItem() instanceof SpiritPouchItem) {
                         ItemInventory inventory = SpiritPouchItem.getInventory(item);
                         ItemStack result = inventory.addItem(stack);
                         if (result.isEmpty()) {
-                            Level level = playerEntity.level;
-                            level.playSound(null, playerEntity.getX(), playerEntity.getY() + 0.5, playerEntity.getZ(), SoundEvents.ITEM_PICKUP, SoundSource.PLAYERS, 0.2F, ((level.random.nextFloat() - level.random.nextFloat()) * 0.7F + 1.0F) * 2.0F);
-                            if (playerEntity.containerMenu instanceof SpiritPouchContainer pouchMenu) {
+                            Level level = player.level;
+                            level.playSound(null, player.getX(), player.getY() + 0.5, player.getZ(), SoundEvents.ITEM_PICKUP, SoundSource.PLAYERS, 0.2F, ((level.random.nextFloat() - level.random.nextFloat()) * 0.7F + 1.0F) * 2.0F);
+                            if (player.containerMenu instanceof SpiritPouchContainer pouchMenu) {
                                 pouchMenu.update(inventory);
                             }
                             return;
