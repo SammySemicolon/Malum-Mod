@@ -1,5 +1,5 @@
 {
-  "type": "lodestone:spirit_infusion",
+  "type": "lodestone:nbt_carry",
   "pattern": [
     "#X#",
     "S#S"

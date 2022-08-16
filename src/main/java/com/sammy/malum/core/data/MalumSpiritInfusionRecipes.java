@@ -287,6 +287,7 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider implements ICondi
             .build(consumer);
 
         new SpiritInfusionRecipeBuilder(ItemRegistry.GILDED_RING.get(), 1, ItemRegistry.RING_OF_EARTHEN_LOYALTY.get(), 1)
+            .addExtraItem(Items.ENDER_PEARL, 2)
             .addExtraItem(Items.TNT, 2)
             .addExtraItem(Items.GUNPOWDER, 8)
             .addSpirit(EARTHEN_SPIRIT, 16)

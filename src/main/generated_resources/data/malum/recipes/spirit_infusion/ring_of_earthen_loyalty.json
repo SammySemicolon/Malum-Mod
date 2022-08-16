@@ -9,6 +9,10 @@
   },
   "extra_items": [
     {
+      "item": "minecraft:ender_pearl",
+      "count": 2
+    },
+    {
       "item": "minecraft:tnt",
       "count": 2
     },
