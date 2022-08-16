@@ -532,6 +532,7 @@ public class ItemRegistry {
     public static final RegistryObject<Item> NECKLACE_OF_TIDAL_AFFINITY = ITEMS.register("necklace_of_tidal_affinity", () -> new CurioWaterNecklace(GEAR_PROPERTIES()));
     public static final RegistryObject<Item> NECKLACE_OF_THE_NARROW_EDGE = ITEMS.register("necklace_of_the_narrow_edge", () -> new CurioNarrowNecklace(GEAR_PROPERTIES()));
     public static final RegistryObject<Item> NECKLACE_OF_THE_HIDDEN_BLADE = ITEMS.register("necklace_of_the_hidden_blade", () -> new CurioHiddenBladeNecklace(GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> NECKLACE_OF_ABSOLUTE_SERENITY = ITEMS.register("necklace_of_absolute_serenity", () -> new CurioSerenityNecklace(GEAR_PROPERTIES()));
 
     public static final RegistryObject<Item> BELT_OF_THE_STARVED = ITEMS.register("belt_of_the_starved", () -> new CurioStarvedBelt(GEAR_PROPERTIES()));
     public static final RegistryObject<Item> BELT_OF_THE_DELVER = ITEMS.register("belt_of_the_delver", () -> new CurioDelverBelt(GEAR_PROPERTIES()));

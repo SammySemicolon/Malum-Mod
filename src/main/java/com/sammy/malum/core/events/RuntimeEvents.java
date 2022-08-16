@@ -207,7 +207,6 @@ public class RuntimeEvents {
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public static void onExplosionDetonate(ExplosionEvent.Detonate event) {
-        CurioEarthenRing.processExplosion(event);
         EthericExplosion.processExplosion(event);
     }
 }

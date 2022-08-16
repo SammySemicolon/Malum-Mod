@@ -44,7 +44,7 @@ public class CurioStarvedBelt extends MalumCurioItem implements IMalumEventRespo
             collector.addEffect(new MobEffectInstance(gluttony, 100+(int)(arcaneResonance*25), 0, true, true, true));
         } else {
             EntityHelper.extendEffect(effect, collector, 50, 200+(int)(arcaneResonance*50));
-            EntityHelper.amplifyEffect(effect, collector, 1, 9+(int)(arcaneResonance*3));
+            EntityHelper.amplifyEffect(effect, collector, 1+(int)(arcaneResonance), 9+(int)(arcaneResonance*3));
         }
         Level level = collector.level;
         level.playSound(null, collector.blockPosition(), SoundRegistry.HUNGRY_BELT_FEEDS.get(), SoundSource.PLAYERS, 0.7f, 1.5f + level.random.nextFloat() * 0.5f);

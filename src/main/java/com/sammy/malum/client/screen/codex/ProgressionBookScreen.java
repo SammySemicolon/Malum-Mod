@@ -136,7 +136,7 @@ public class ProgressionBookScreen extends Screen {
             .addPage(new HeadlineTextItemPage("brilliance", "brilliance.1", CLUSTER_OF_BRILLIANCE.get()))
             .addPage(new TextPage("brilliance.2"))
             .addPage(CraftingBookPage.fullPage(BLOCK_OF_BRILLIANCE.get(), CLUSTER_OF_BRILLIANCE.get()))
-            .addPage(new SmeltingBookPage(new ItemStack(CLUSTER_OF_BRILLIANCE.get()), new ItemStack(CHUNK_OF_BRILLIANCE.get(), 4)))
+            .addPage(new SmeltingBookPage(new ItemStack(CLUSTER_OF_BRILLIANCE.get()), new ItemStack(CHUNK_OF_BRILLIANCE.get(), 2)))
         );
 
         ENTRIES.add(new BookEntry(

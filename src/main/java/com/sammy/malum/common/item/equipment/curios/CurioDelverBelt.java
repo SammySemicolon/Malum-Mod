@@ -25,6 +25,7 @@ import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.world.ExplosionEvent;
+import top.theillusivec4.curios.api.SlotContext;
 
 import java.util.UUID;
 
@@ -32,6 +33,11 @@ public class CurioDelverBelt extends MalumCurioItem {
 
     public CurioDelverBelt(Properties builder) {
         super(builder);
+    }
+
+    @Override
+    public int getFortuneLevel(SlotContext slotContext, LootContext lootContext, ItemStack stack) {
+        return super.getFortuneLevel(slotContext, lootContext, stack);
     }
 
     public static LootContext.Builder applyFortune(Entity source, LootContext.Builder builder) {

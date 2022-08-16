@@ -2,10 +2,11 @@
   "type": "malum:spirit_infusion",
   "input": {
     "item": "malum:twisted_rock_item_pedestal",
-    "count": 1
+    "count": 2
   },
   "output": {
-    "item": "malum:spirit_catalyzer"
+    "item": "malum:spirit_catalyzer",
+    "count": 2
   },
   "extra_items": [
     {

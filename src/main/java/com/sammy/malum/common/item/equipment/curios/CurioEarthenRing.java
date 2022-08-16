@@ -3,6 +3,7 @@ package com.sammy.malum.common.item.equipment.curios;
 import com.sammy.malum.common.entity.nitrate.EthericExplosion;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
 import com.sammy.malum.core.setup.content.item.ItemTagRegistry;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -20,17 +21,11 @@ public class CurioEarthenRing extends MalumCurioItem {
         super(builder);
     }
 
-    public static void processExplosion(ExplosionEvent.Detonate event) {
-        if (event.getExplosion() instanceof EthericExplosion) {
-            LivingEntity source = event.getExplosion().getSourceMob();
-            if (source != null && CurioHelper.hasCurioEquipped(source, ItemRegistry.RING_OF_EARTHEN_LOYALTY)) {
-                event.getAffectedEntities().forEach(e -> {
-                    if (e instanceof ItemEntity) {
-                        e.teleportTo(source.getX(), source.getY(), source.getZ());
-                    }
-                });
-            }
-        }
+    public static boolean hasEarthenRing(LivingEntity entity) {
+        return entity != null && CurioHelper.hasCurioEquipped(entity, ItemRegistry.RING_OF_EARTHEN_LOYALTY);
+    }
+    public static BlockPos getExplosionPos(boolean hasTheRing, BlockPos originalPos, LivingEntity entity) {
+        return hasTheRing ? entity.blockPosition().above() : originalPos;
     }
 
 
