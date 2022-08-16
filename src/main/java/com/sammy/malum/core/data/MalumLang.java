@@ -11,7 +11,6 @@ import com.sammy.malum.core.setup.content.potion.MalumMobEffectRegistry;
 import com.sammy.malum.core.systems.item.ISoulContainerItem;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
-import net.minecraft.ChatFormatting;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.effect.MobEffect;
@@ -447,6 +446,20 @@ public class MalumLang extends LanguageProvider {
         addPage("corrupt_aqueous_rite", "A simple aura rite, nearby friendly beings will find themselves better at fishing.");
         addPage("corrupt_aqueous_rite.greater", "Zombies near this rite will find themselves choking on their own breath, drowning even on land.");
 
+        addEntryHeader("blight", "A Study on Blight", "What, why, and how");
+        addHeadline("blight.intro", "Blight Study: Preface");
+        addPages("blight.intro",
+            "Blight. " + italic("Something which spoils or damages.") + " What the Undirected Rite has created has many strange properties, and I intend to categorize them.\n" +
+                "The naïve explanation is that it is simply another form of power that taints the world, but that isn't right. Blight isn't harmful, not inof itself. It's just... " + italic("gunk."));
+        addHeadline("blight.composition", "Blight Study: Substance");
+        addPages("blight.composition",
+            "The Undirected Rite, as the name suggests, is random. It transmutes, but it has no pattern to transmute things to. So, instead, you get something random, bits of disparate matter all jumbled together into a foul-smelling powder. I wouldn't recommend eating it, or growing things on it, but it's otherwise harmless.");
+        addHeadline("blight.spread", "Blight Study: Spread");
+        addPages("blight.spread",
+            "Blight does not spread on its own. It's just random matter, after all. But it has a spiritual memory, an echo of how it was created, and, given arcana, will effect that transmutation on nearby substances.");
+        addHeadline("blight.arcane_rite", "Blight Study: Resonance");
+        addPages("blight.arcane_rite",
+            "That echo is why this substance is important for the Unchained Rite. The Rite remembers the violence of its creation, and resonates with the memory within the blight, applying its power to things laying on top of it.");
 
         addSimpleEntryHeader("soulwood", "Soulwood", "[NOT COMPLETE] Twisted Roots");
         addPages("soulwood", "Spirit magics focus on turning everything good in the world to evil. Sometimes, by pure coincidence a great thing is created instead, as is the case with runewood. It is important to realize this mistake and correct it.",
@@ -540,23 +553,23 @@ public class MalumLang extends LanguageProvider {
     }
 
     public String obfuscate(String s) {
-        return ChatFormatting.OBFUSCATED + s + ChatFormatting.RESET;
+        return "$k" + s + "/$";
     }
 
     public String italic(String s) {
-        return ChatFormatting.ITALIC + s + ChatFormatting.RESET;
+        return "$i" + s + "/$";
     }
 
     public String bold(String s) {
-        return ChatFormatting.BOLD + s + ChatFormatting.RESET;
+        return "$b" + s + "/$";
     }
 
     public String strike(String s) {
-        return ChatFormatting.STRIKETHROUGH + s + ChatFormatting.RESET;
+        return "$s" + s + "/$";
     }
 
     public String underline(String s) {
-        return ChatFormatting.UNDERLINE + s + ChatFormatting.RESET;
+        return "$u" + s + "/$";
     }
 
     public void addTetraMaterial(String identifier, String name) {
@@ -590,13 +603,13 @@ public class MalumLang extends LanguageProvider {
         addEntryHeader(identifier, name, description);
     }
 
-    public void addPage(String identifier, String tooltip) {
-        add("malum.gui.book.entry.page.text." + identifier, tooltip);
+    public void addPage(String identifier, String page) {
+        add("malum.gui.book.entry.page.text." + identifier, page);
     }
 
-    public void addPages(String identifier, String... tooltip) {
+    public void addPages(String identifier, String... pages) {
         int i = 1;
-        for (String s : tooltip) {
+        for (String s : pages) {
             addPage(identifier + "." + i++, s);
         }
     }

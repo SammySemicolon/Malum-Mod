@@ -9,13 +9,7 @@ import com.sammy.malum.common.events.SetupMalumCodexEntriesEvent;
 import com.sammy.malum.core.setup.content.SpiritRiteRegistry;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
-import team.lodestar.lodestone.handlers.ScreenParticleHandler;
-import team.lodestar.lodestone.setup.LodestoneShaderRegistry;
-import team.lodestar.lodestone.systems.easing.Easing;
-import team.lodestar.lodestone.systems.recipe.IRecipeComponent;
-import team.lodestar.lodestone.systems.rendering.ExtendedShaderInstance;
-import team.lodestar.lodestone.systems.rendering.VFXBuilders;
-import team.lodestar.lodestone.systems.rendering.VFXBuilders.ScreenVFXBuilder;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.screens.Screen;
@@ -33,6 +27,13 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.common.MinecraftForge;
 import org.lwjgl.opengl.GL11;
+import team.lodestar.lodestone.handlers.ScreenParticleHandler;
+import team.lodestar.lodestone.setup.LodestoneShaderRegistry;
+import team.lodestar.lodestone.systems.easing.Easing;
+import team.lodestar.lodestone.systems.recipe.IRecipeComponent;
+import team.lodestar.lodestone.systems.rendering.ExtendedShaderInstance;
+import team.lodestar.lodestone.systems.rendering.VFXBuilders;
+import team.lodestar.lodestone.systems.rendering.VFXBuilders.ScreenVFXBuilder;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -42,10 +43,10 @@ import java.util.stream.Collectors;
 
 import static com.sammy.malum.config.ClientConfig.BOOK_THEME;
 import static com.sammy.malum.core.setup.content.item.ItemRegistry.*;
-import static team.lodestar.lodestone.systems.rendering.particle.screen.base.ScreenParticle.RenderOrder.BEFORE_TOOLTIPS;
 import static net.minecraft.util.FastColor.ARGB32.color;
 import static net.minecraft.world.item.Items.*;
 import static org.lwjgl.opengl.GL11C.GL_SCISSOR_TEST;
+import static team.lodestar.lodestone.systems.rendering.particle.screen.base.ScreenParticle.RenderOrder.BEFORE_TOOLTIPS;
 
 public class ProgressionBookScreen extends Screen {
     public enum BookTheme {
@@ -605,8 +606,11 @@ public class ProgressionBookScreen extends Screen {
         );
 
         ENTRIES.add(new BookEntry(
-            "utilizing_blight", BLIGHTED_SOIL.get(), -1, 12).setSoulwood()
-            .addPage(new HeadlineTextPage("utilizing_blight", "utilizing_blight"))
+            "blight", BLIGHTED_SOIL.get(), -1, 12).setSoulwood()
+            .addPage(new HeadlineTextPage("blight.intro", "blight.intro.1"))
+            .addPage(new HeadlineTextPage("blight.composition", "blight.composition.1"))
+            .addPage(new HeadlineTextPage("blight.spread", "blight.spread.1"))
+            .addPage(new HeadlineTextPage("blight.arcane_rite", "blight.arcane_rite.1"))
         );
 
 //        ENTRIES.add(new BookEntry(
@@ -986,27 +990,98 @@ public class ProgressionBookScreen extends Screen {
 
     public static void renderWrappingText(PoseStack mStack, String text, int x, int y, int w) {
         Font font = Minecraft.getInstance().font;
-        text = new TranslatableComponent(text).getString();
+        text = new TranslatableComponent(text).getString() + "\n";
         List<String> lines = new ArrayList<>();
-        String[] subLines = text.split("\n");
-        String line = "";
-        for (String textSubSection : subLines) {
-            String[] words = textSubSection.split(" ");
-            for (String s : words) {
-                if (font.width(line) + font.width(s) > w) {
-                    lines.add(line);
-                    line = s + " ";
-                } else line += s + " ";
-            }
-            if (!line.isEmpty()) {
-                lines.add(line);
-                line = "";
+
+        boolean italic = false;
+        boolean bold = false;
+        boolean strikethrough = false;
+        boolean underline = false;
+        boolean obfuscated = false;
+
+        StringBuilder line = new StringBuilder();
+        StringBuilder word = new StringBuilder();
+        for (int i = 0; i < text.length(); i++) {
+            char chr = text.charAt(i);
+            if (chr == ' ' || chr == '\n') {
+                if (word.length() > 0) {
+                    if (font.width(line.toString()) + font.width(word.toString()) > w) {
+                        line = newLine(lines, italic, bold, strikethrough, underline, obfuscated, line);
+                    }
+                    line.append(word).append(' ');
+                    word = new StringBuilder();
+                }
+
+                String noFormatting = ChatFormatting.stripFormatting(line.toString());
+
+                if (chr == '\n' && !(noFormatting == null || noFormatting.isEmpty())) {
+                    line = newLine(lines, italic, bold, strikethrough, underline, obfuscated, line);
+                }
+            } else if (chr == '$') {
+                if (i != text.length() - 1) {
+                    char peek = text.charAt(i + 1);
+                    switch (peek) {
+                        case 'i' -> {
+                            word.append(ChatFormatting.ITALIC);
+                            italic = true;
+                            i++;
+                        }
+                        case 'b' -> {
+                            word.append(ChatFormatting.BOLD);
+                            bold = true;
+                            i++;
+                        }
+                        case 's' -> {
+                            word.append(ChatFormatting.STRIKETHROUGH);
+                            strikethrough = true;
+                            i++;
+                        }
+                        case 'u' -> {
+                            word.append(ChatFormatting.UNDERLINE);
+                            underline = true;
+                            i++;
+                        }
+                        case 'k' -> {
+                            word.append(ChatFormatting.OBFUSCATED);
+                            obfuscated = true;
+                            i++;
+                        }
+                        default -> word.append(chr);
+                    }
+                } else {
+                    word.append(chr);
+                }
+            } else if (chr == '/') {
+                if (i != text.length() - 1) {
+                    char peek = text.charAt(i + 1);
+                    if (peek == '$') {
+                        italic = bold = strikethrough = underline = obfuscated = false;
+                        word.append(ChatFormatting.RESET);
+                        i++;
+                    } else
+                        word.append(chr);
+                } else
+                    word.append(chr);
+            } else {
+                word.append(chr);
             }
         }
+
         for (int i = 0; i < lines.size(); i++) {
             String currentLine = lines.get(i);
             renderRawText(mStack, currentLine, x, y + i * (font.lineHeight + 1), getTextGlow(i / 4f));
         }
+    }
+
+    private static StringBuilder newLine(List<String> lines, boolean italic, boolean bold, boolean strikethrough, boolean underline, boolean obfuscated, StringBuilder line) {
+        lines.add(line.toString());
+        line = new StringBuilder();
+        if (italic) line.append(ChatFormatting.ITALIC);
+        if (bold) line.append(ChatFormatting.BOLD);
+        if (strikethrough) line.append(ChatFormatting.STRIKETHROUGH);
+        if (underline) line.append(ChatFormatting.UNDERLINE);
+        if (obfuscated) line.append(ChatFormatting.OBFUSCATED);
+        return line;
     }
 
     public static void renderText(PoseStack stack, String text, int x, int y) {
