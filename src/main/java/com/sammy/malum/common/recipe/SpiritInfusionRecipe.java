@@ -172,7 +172,7 @@ public class SpiritInfusionRecipe extends ILodestoneRecipe {
         @Override
         public void toNetwork(FriendlyByteBuf buffer, SpiritInfusionRecipe recipe) {
             recipe.input.write(buffer);
-            buffer.writeItemStack(recipe.output, false);
+            buffer.writeItem(recipe.output);
             buffer.writeInt(recipe.extraItems.size());
             for (IngredientWithCount item : recipe.extraItems) {
                 item.write(buffer);

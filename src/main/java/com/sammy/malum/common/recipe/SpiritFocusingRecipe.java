@@ -171,7 +171,7 @@ public class SpiritFocusingRecipe extends ILodestoneRecipe {
             buffer.writeInt(recipe.time);
             buffer.writeInt(recipe.durabilityCost);
             recipe.input.toNetwork(buffer);
-            buffer.writeItemStack(recipe.output, false);
+            buffer.writeItem(recipe.output);
             buffer.writeInt(recipe.spirits.size());
             for (SpiritWithCount item : recipe.spirits) {
                 buffer.writeItem(item.getStack());

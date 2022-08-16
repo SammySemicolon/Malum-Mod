@@ -118,7 +118,7 @@ public class SpiritTransmutationRecipe extends ILodestoneRecipe {
             buffer.writeInt(recipe.subRecipes.size());
             for (var subRecipe : recipe.subRecipes) {
                 subRecipe.getFirst().toNetwork(buffer);
-                buffer.writeItemStack(subRecipe.getSecond(), false);
+                buffer.writeItem(subRecipe.getSecond());
             }
         }
     }
