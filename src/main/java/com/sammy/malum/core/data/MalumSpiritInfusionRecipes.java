@@ -387,7 +387,7 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider implements ICondi
             .addExtraItem(Ingredient.of(Tags.Items.GEMS_EMERALD), 4)
             .build(consumer);
 
-        new SpiritInfusionRecipeBuilder(ItemRegistry.TWISTED_ROCK_ITEM_PEDESTAL.get(), 1, ItemRegistry.SPIRIT_CATALYZER.get(), 1)
+        new SpiritInfusionRecipeBuilder(ItemRegistry.TWISTED_ROCK_ITEM_PEDESTAL.get(), 2, ItemRegistry.SPIRIT_CATALYZER.get(), 2)
             .addSpirit(INFERNAL_SPIRIT, 4)
             .addSpirit(AERIAL_SPIRIT, 4)
             .addSpirit(ELDRITCH_SPIRIT, 2)
