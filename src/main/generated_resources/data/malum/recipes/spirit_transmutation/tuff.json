@@ -1,13 +1,9 @@
 {
   "type": "malum:spirit_transmutation",
-  "recipes": [
-    {
-      "input": {
-        "item": "minecraft:andesite"
-      },
-      "output": {
-        "item": "minecraft:tuff"
-      }
-    }
-  ]
+  "input": {
+    "item": "minecraft:andesite"
+  },
+  "output": {
+    "item": "minecraft:tuff"
+  }
 }

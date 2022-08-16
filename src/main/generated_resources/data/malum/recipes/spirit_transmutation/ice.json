@@ -1,13 +1,9 @@
 {
   "type": "malum:spirit_transmutation",
-  "recipes": [
-    {
-      "input": {
-        "item": "minecraft:snow_block"
-      },
-      "output": {
-        "item": "minecraft:ice"
-      }
-    }
-  ]
+  "input": {
+    "item": "minecraft:snow_block"
+  },
+  "output": {
+    "item": "minecraft:ice"
+  }
 }

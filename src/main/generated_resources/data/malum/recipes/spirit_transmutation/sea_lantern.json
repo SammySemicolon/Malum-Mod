@@ -1,13 +1,9 @@
 {
   "type": "malum:spirit_transmutation",
-  "recipes": [
-    {
-      "input": {
-        "item": "minecraft:prismarine"
-      },
-      "output": {
-        "item": "minecraft:sea_lantern"
-      }
-    }
-  ]
+  "input": {
+    "item": "minecraft:prismarine"
+  },
+  "output": {
+    "item": "minecraft:sea_lantern"
+  }
 }

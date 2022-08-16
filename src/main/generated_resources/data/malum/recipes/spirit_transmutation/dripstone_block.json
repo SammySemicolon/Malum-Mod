@@ -1,13 +1,9 @@
 {
   "type": "malum:spirit_transmutation",
-  "recipes": [
-    {
-      "input": {
-        "item": "minecraft:granite"
-      },
-      "output": {
-        "item": "minecraft:dripstone_block"
-      }
-    }
-  ]
+  "input": {
+    "item": "minecraft:granite"
+  },
+  "output": {
+    "item": "minecraft:dripstone_block"
+  }
 }

@@ -1,13 +1,9 @@
 {
   "type": "malum:spirit_transmutation",
-  "recipes": [
-    {
-      "input": {
-        "item": "minecraft:cobblestone"
-      },
-      "output": {
-        "item": "minecraft:gravel"
-      }
-    }
-  ]
+  "input": {
+    "item": "minecraft:cobblestone"
+  },
+  "output": {
+    "item": "minecraft:gravel"
+  }
 }

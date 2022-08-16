@@ -1,13 +1,9 @@
 {
   "type": "malum:spirit_transmutation",
-  "recipes": [
-    {
-      "input": {
-        "item": "minecraft:clay"
-      },
-      "output": {
-        "item": "minecraft:prismarine"
-      }
-    }
-  ]
+  "input": {
+    "item": "minecraft:clay"
+  },
+  "output": {
+    "item": "minecraft:prismarine"
+  }
 }
