@@ -1,0 +1,10 @@
+{
+  "type": "malum:spirit_transmutation",
+  "input": {
+    "item": "malum:runewood_door"
+  },
+  "output": {
+    "item": "malum:soulwood_door"
+  },
+  "group": "soulwood"
+}

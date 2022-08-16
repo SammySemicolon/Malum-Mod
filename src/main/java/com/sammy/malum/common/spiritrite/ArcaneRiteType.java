@@ -1,6 +1,5 @@
 package com.sammy.malum.common.spiritrite;
 
-import com.mojang.datafixers.util.Pair;
 import com.sammy.malum.common.block.blight.BlightedSoilBlock;
 import com.sammy.malum.common.blockentity.spirit_altar.IAltarProvider;
 import com.sammy.malum.common.blockentity.totem.TotemBaseBlockEntity;
@@ -15,7 +14,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
@@ -83,12 +81,12 @@ public class ArcaneRiteType extends MalumRiteType {
                 Level level = totemBase.getLevel();
                 BlockPos pos = totemBase.getBlockPos();
                 List<BlockPos> nearbyBlocks = getNearbyBlocks(totemBase, BlightedSoilBlock.class).toList();
-                List<ItemEntity> nearbyItems = getNearbyEntities(totemBase, ItemEntity.class, e -> e.level.getBlockState(e.blockPosition()).getBlock() instanceof BlightedSoilBlock).toList();
+                List<ItemEntity> nearbyItems = getNearbyEntities(totemBase, ItemEntity.class, e -> e.level.getBlockState(e.blockPosition().below()).getBlock() instanceof BlightedSoilBlock).toList();
                 for (ItemEntity item : nearbyItems) {
                     var recipe = SpiritTransmutationRecipe.getRecipe(level, item.getItem());
                     if (recipe != null) {
                         Vec3 itemPos = item.position();
-                        level.addFreshEntity(new ItemEntity(level, itemPos.x, itemPos.y, itemPos.z, recipe.getSecond().copy()));
+                        level.addFreshEntity(new ItemEntity(level, itemPos.x, itemPos.y, itemPos.z, recipe.output.copy()));
                         MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(item.blockPosition())), new BlightTransformItemParticlePacket(List.of(ARCANE_SPIRIT.identifier), itemPos));
                         item.getItem().shrink(1);
                     }
@@ -102,16 +100,16 @@ public class ArcaneRiteType extends MalumRiteType {
                         var recipe = SpiritTransmutationRecipe.getRecipe(level, stack);
                         if (recipe != null) {
                             Vec3 itemPos = iAltarProvider.getItemPosForAltar();
-                            level.addFreshEntity(new ItemEntity(level, itemPos.x, itemPos.y, itemPos.z, recipe.getSecond().copy()));
+                            level.addFreshEntity(new ItemEntity(level, itemPos.x, itemPos.y, itemPos.z, recipe.output.copy()));
                             MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(p)), new BlightTransformItemParticlePacket(List.of(ARCANE_SPIRIT.identifier), itemPos));
                             inventoryForAltar.getStackInSlot(0).shrink(1);
                             BlockHelper.updateAndNotifyState(level, p);
                         }
                     }
                     ItemStack stack = stateToTransmute.getBlock().asItem().getDefaultInstance();
-                    Pair<Ingredient, ItemStack> recipe = SpiritTransmutationRecipe.getRecipe(level, stack);
+                    var recipe = SpiritTransmutationRecipe.getRecipe(level, stack);
                     if (recipe != null) {
-                        ItemStack output = recipe.getSecond().copy();
+                        ItemStack output = recipe.output.copy();
                         if (output.getItem() instanceof BlockItem blockItem) {
                             Block block = blockItem.getBlock();
                             BlockEntity entity = level.getBlockEntity(posToTransmute);

@@ -1,13 +1,9 @@
 {
   "type": "malum:spirit_transmutation",
-  "recipes": [
-    {
-      "input": {
-        "item": "minecraft:diorite"
-      },
-      "output": {
-        "item": "minecraft:calcite"
-      }
-    }
-  ]
+  "input": {
+    "item": "minecraft:diorite"
+  },
+  "output": {
+    "item": "minecraft:calcite"
+  }
 }

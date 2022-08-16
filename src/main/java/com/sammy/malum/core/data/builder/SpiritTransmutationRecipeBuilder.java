@@ -1,9 +1,7 @@
 package com.sammy.malum.core.data.builder;
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.mojang.datafixers.util.Pair;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.core.setup.content.RecipeSerializerRegistry;
 import net.minecraft.data.recipes.FinishedRecipe;
@@ -17,49 +15,55 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraftforge.registries.RegistryObject;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.function.Consumer;
 
 public class SpiritTransmutationRecipeBuilder {
-    public final List<Pair<Ingredient, ItemStack>> subRecipes = new ArrayList<>();
+    private final Ingredient ingredient;
+    private final ItemStack output;
 
-    public SpiritTransmutationRecipeBuilder addTransmutation(Ingredient input, ItemStack output) {
-        subRecipes.add(new Pair<>(input, output));
+    @Nullable
+    private String group = null;
+
+    public SpiritTransmutationRecipeBuilder(Ingredient input, ItemStack output) {
+        ingredient = input;
+        this.output = output;
+    }
+
+    public SpiritTransmutationRecipeBuilder(RegistryObject<? extends ItemLike> input, RegistryObject<? extends ItemLike> output) {
+        this(input.get(), output.get());
+    }
+
+    public SpiritTransmutationRecipeBuilder(Ingredient input, Item output) {
+        this(input, new ItemStack(output));
+    }
+
+    public SpiritTransmutationRecipeBuilder(ItemLike input, ItemStack output) {
+        this(Ingredient.of(input), output);
+    }
+
+    public SpiritTransmutationRecipeBuilder(ItemStack input, ItemStack output) {
+        this(Ingredient.of(input), output);
+    }
+
+    public SpiritTransmutationRecipeBuilder(ItemLike input, ItemLike output) {
+        this(Ingredient.of(input), new ItemStack(output));
+    }
+
+    public SpiritTransmutationRecipeBuilder(ItemStack input, ItemLike output) {
+        this(Ingredient.of(input), new ItemStack(output));
+    }
+
+    public SpiritTransmutationRecipeBuilder group(@Nullable String group) {
+        this.group = group;
         return this;
     }
-
-    public SpiritTransmutationRecipeBuilder addTransmutation(RegistryObject<? extends ItemLike> input, RegistryObject<? extends ItemLike> output) {
-        return addTransmutation(input.get(), output.get());
-    }
-
-    public SpiritTransmutationRecipeBuilder addTransmutation(Ingredient input, Item output) {
-        return addTransmutation(input, new ItemStack(output));
-    }
-
-    public SpiritTransmutationRecipeBuilder addTransmutation(ItemLike input, ItemStack output) {
-        return addTransmutation(Ingredient.of(input), output);
-    }
-
-    public SpiritTransmutationRecipeBuilder addTransmutation(ItemStack input, ItemStack output) {
-        return addTransmutation(Ingredient.of(input), output);
-    }
-
-    public SpiritTransmutationRecipeBuilder addTransmutation(ItemLike input, ItemLike output) {
-        return addTransmutation(Ingredient.of(input), new ItemStack(output));
-    }
-
-    public SpiritTransmutationRecipeBuilder addTransmutation(ItemStack input, ItemLike output) {
-        return addTransmutation(Ingredient.of(input), new ItemStack(output));
-    }
-
 
     public void build(Consumer<FinishedRecipe> consumerIn, String recipeName) {
         build(consumerIn, MalumMod.malumPath("spirit_transmutation/" + recipeName));
     }
 
     public void build(Consumer<FinishedRecipe> consumerIn) {
-        build(consumerIn, RecipeBuilder.getDefaultRecipeId(subRecipes.get(0).getSecond().getItem()).getPath());
+        build(consumerIn, RecipeBuilder.getDefaultRecipeId(output.getItem()).getPath());
     }
 
     public void build(Consumer<FinishedRecipe> consumerIn, ResourceLocation id) {
@@ -75,20 +79,14 @@ public class SpiritTransmutationRecipeBuilder {
 
         @Override
         public void serializeRecipeData(JsonObject json) {
-            JsonArray array = new JsonArray();
-            for (var subRecipe : subRecipes) {
-                JsonObject object = new JsonObject();
-                object.add("input", subRecipe.getFirst().toJson());
-                ItemStack output = subRecipe.getSecond();
-                JsonElement outputObject = Ingredient.of(output).toJson();
-                if (output.getCount() != 1) {
-                    outputObject.getAsJsonObject().addProperty("count", output.getCount());
-                }
-                object.add("output", outputObject);
-                array.add(object);
+            json.add("input", ingredient.toJson());
+            JsonElement outputObject = Ingredient.of(output).toJson();
+            if (output.getCount() != 1) {
+                outputObject.getAsJsonObject().addProperty("count", output.getCount());
             }
-
-            json.add("recipes", array);
+            json.add("output", outputObject);
+            if (group != null)
+                json.addProperty("group", group);
         }
 
         @Override

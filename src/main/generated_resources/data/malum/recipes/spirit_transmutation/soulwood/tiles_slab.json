@@ -1,0 +1,10 @@
+{
+  "type": "malum:spirit_transmutation",
+  "input": {
+    "item": "malum:runewood_tiles_slab"
+  },
+  "output": {
+    "item": "malum:soulwood_tiles_slab"
+  },
+  "group": "soulwood"
+}

@@ -2,8 +2,8 @@ package com.sammy.malum.compability.jei.categories;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.common.recipe.SpiritTransmutationRecipe;
 import com.sammy.malum.compability.jei.JEIHandler;
+import com.sammy.malum.compability.jei.recipes.SpiritTransmutationWrapper;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
@@ -25,7 +25,7 @@ import java.util.List;
 
 import static com.sammy.malum.MalumMod.malumPath;
 
-public class SpiritTransmutationRecipeCategory implements IRecipeCategory<SpiritTransmutationRecipe> {
+public class SpiritTransmutationRecipeCategory implements IRecipeCategory<SpiritTransmutationWrapper> {
     public static final ResourceLocation UID = malumPath("spirit_transmutation");
     private final IDrawable background;
     private final IDrawable overlay;
@@ -38,12 +38,12 @@ public class SpiritTransmutationRecipeCategory implements IRecipeCategory<Spirit
     }
 
     @Override
-    public void draw(SpiritTransmutationRecipe recipe, IRecipeSlotsView recipeSlotsView, PoseStack poseStack, double mouseX, double mouseY) {
+    public void draw(SpiritTransmutationWrapper recipe, IRecipeSlotsView recipeSlotsView, PoseStack poseStack, double mouseX, double mouseY) {
         overlay.draw(poseStack);
     }
 
     @Override
-    public RecipeType<SpiritTransmutationRecipe> getRecipeType() {
+    public RecipeType<SpiritTransmutationWrapper> getRecipeType() {
         return JEIHandler.TRANSMUTATION;
     }
 
@@ -57,8 +57,8 @@ public class SpiritTransmutationRecipeCategory implements IRecipeCategory<Spirit
     @Nonnull
     @Override
     @SuppressWarnings("removal")
-    public Class<? extends SpiritTransmutationRecipe> getRecipeClass() {
-        return SpiritTransmutationRecipe.class;
+    public Class<? extends SpiritTransmutationWrapper> getRecipeClass() {
+        return SpiritTransmutationWrapper.class;
     }
 
     @Override
@@ -79,14 +79,14 @@ public class SpiritTransmutationRecipeCategory implements IRecipeCategory<Spirit
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder builder, SpiritTransmutationRecipe recipe, IFocusGroup focuses) {
+    public void setRecipe(IRecipeLayoutBuilder builder, SpiritTransmutationWrapper recipe, IFocusGroup focuses) {
         List<ItemStack> inputs = new ArrayList<>();
         List<ItemStack> outputs = new ArrayList<>();
 
-        for (var subRecipe : recipe.subRecipes) {
-            for (ItemStack stack : subRecipe.getFirst().getItems()) {
+        for (var subRecipe : recipe.subRecipes()) {
+            for (ItemStack stack : subRecipe.ingredient.getItems()) {
                 inputs.add(stack);
-                outputs.add(subRecipe.getSecond());
+                outputs.add(subRecipe.output);
             }
         }
 

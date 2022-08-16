@@ -1,13 +1,9 @@
 {
   "type": "malum:spirit_transmutation",
-  "recipes": [
-    {
-      "input": {
-        "item": "minecraft:netherrack"
-      },
-      "output": {
-        "item": "minecraft:soul_sand"
-      }
-    }
-  ]
+  "input": {
+    "item": "minecraft:netherrack"
+  },
+  "output": {
+    "item": "minecraft:soul_sand"
+  }
 }

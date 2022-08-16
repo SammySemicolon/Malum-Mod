@@ -1,5 +1,6 @@
 package com.sammy.malum.compability.jei;
 
+import com.google.common.collect.Maps;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.recipe.SpiritFocusingRecipe;
 import com.sammy.malum.common.recipe.SpiritInfusionRecipe;
@@ -7,6 +8,7 @@ import com.sammy.malum.common.recipe.SpiritRepairRecipe;
 import com.sammy.malum.common.recipe.SpiritTransmutationRecipe;
 import com.sammy.malum.compability.farmersdelight.FarmersDelightCompat;
 import com.sammy.malum.compability.jei.categories.*;
+import com.sammy.malum.compability.jei.recipes.SpiritTransmutationWrapper;
 import com.sammy.malum.core.setup.content.SpiritRiteRegistry;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
@@ -28,10 +30,13 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import org.apache.commons.compress.utils.Lists;
 import team.lodestar.lodestone.systems.recipe.IRecipeComponent;
 
 import javax.annotation.Nonnull;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 
 @JeiPlugin
@@ -39,7 +44,7 @@ public class JEIHandler implements IModPlugin {
     private static final ResourceLocation ID = new ResourceLocation(MalumMod.MALUM, "main");
 
     public static final RecipeType<SpiritInfusionRecipe> SPIRIT_INFUSION = new RecipeType<>(SpiritInfusionRecipeCategory.UID, SpiritInfusionRecipe.class);
-    public static final RecipeType<SpiritTransmutationRecipe> TRANSMUTATION = new RecipeType<>(SpiritTransmutationRecipeCategory.UID, SpiritTransmutationRecipe.class);
+    public static final RecipeType<SpiritTransmutationWrapper> TRANSMUTATION = new RecipeType<>(SpiritTransmutationRecipeCategory.UID, SpiritTransmutationWrapper.class);
     public static final RecipeType<SpiritFocusingRecipe> FOCUSING = new RecipeType<>(SpiritFocusingRecipeCategory.UID, SpiritFocusingRecipe.class);
     public static final RecipeType<MalumRiteType> RITES = new RecipeType<>(SpiritRiteRecipeCategory.UID, MalumRiteType.class);
     public static final RecipeType<SpiritRepairRecipe> SPIRIT_REPAIR = new RecipeType<>(SpiritRepairRecipeCategory.UID, SpiritRepairRecipe.class);
@@ -77,11 +82,23 @@ public class JEIHandler implements IModPlugin {
             registry.addRecipes(SPIRIT_INFUSION, SpiritInfusionRecipe.getRecipes(level));
 
             List<SpiritTransmutationRecipe> transmutation = SpiritTransmutationRecipe.getRecipes(level);
-            List<SpiritTransmutationRecipe> soulwoodTransmutations = transmutation.stream().filter(it -> it.getId().getPath().endsWith("soulwood_transmutation")).toList();
-            transmutation.removeAll(soulwoodTransmutations);
+            List<SpiritTransmutationRecipe> leftovers = Lists.newArrayList();
+            Map<String, List<SpiritTransmutationRecipe>> groups = Maps.newLinkedHashMap();
+            for (SpiritTransmutationRecipe recipe : transmutation) {
+                if (recipe.group != null) {
+                    var group = groups.computeIfAbsent(recipe.group, k -> Lists.newArrayList());
+                    group.add(recipe);
+                } else
+                    leftovers.add(recipe);
+            }
 
-            registry.addRecipes(TRANSMUTATION, soulwoodTransmutations);
-            registry.addRecipes(TRANSMUTATION, transmutation);
+            registry.addRecipes(TRANSMUTATION, groups.values().stream()
+                .map(SpiritTransmutationWrapper::new)
+                .collect(Collectors.toList()));
+            registry.addRecipes(TRANSMUTATION, leftovers.stream()
+                .map(List::of)
+                .map(SpiritTransmutationWrapper::new)
+                .collect(Collectors.toList()));
 
             registry.addRecipes(FOCUSING, SpiritFocusingRecipe.getRecipes(level));
             registry.addRecipes(RITES, SpiritRiteRegistry.RITES);

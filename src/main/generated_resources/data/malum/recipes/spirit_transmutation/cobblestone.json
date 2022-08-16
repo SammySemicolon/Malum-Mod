@@ -1,13 +1,9 @@
 {
   "type": "malum:spirit_transmutation",
-  "recipes": [
-    {
-      "input": {
-        "item": "minecraft:stone"
-      },
-      "output": {
-        "item": "minecraft:cobblestone"
-      }
-    }
-  ]
+  "input": {
+    "item": "minecraft:stone"
+  },
+  "output": {
+    "item": "minecraft:cobblestone"
+  }
 }

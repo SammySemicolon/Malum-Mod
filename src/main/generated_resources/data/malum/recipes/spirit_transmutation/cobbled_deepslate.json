@@ -1,13 +1,9 @@
 {
   "type": "malum:spirit_transmutation",
-  "recipes": [
-    {
-      "input": {
-        "item": "minecraft:deepslate"
-      },
-      "output": {
-        "item": "minecraft:cobbled_deepslate"
-      }
-    }
-  ]
+  "input": {
+    "item": "minecraft:deepslate"
+  },
+  "output": {
+    "item": "minecraft:cobbled_deepslate"
+  }
 }

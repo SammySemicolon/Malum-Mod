@@ -1,13 +1,9 @@
 {
   "type": "malum:spirit_transmutation",
-  "recipes": [
-    {
-      "input": {
-        "item": "minecraft:sea_lantern"
-      },
-      "output": {
-        "item": "minecraft:snow_block"
-      }
-    }
-  ]
+  "input": {
+    "item": "minecraft:sea_lantern"
+  },
+  "output": {
+    "item": "minecraft:snow_block"
+  }
 }

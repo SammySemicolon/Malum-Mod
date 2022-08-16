@@ -1,13 +1,9 @@
 {
   "type": "malum:spirit_transmutation",
-  "recipes": [
-    {
-      "input": {
-        "item": "malum:hex_ash"
-      },
-      "output": {
-        "item": "malum:cursed_grit"
-      }
-    }
-  ]
+  "input": {
+    "item": "malum:hex_ash"
+  },
+  "output": {
+    "item": "malum:cursed_grit"
+  }
 }
