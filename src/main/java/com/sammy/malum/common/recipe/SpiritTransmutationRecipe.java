@@ -102,7 +102,7 @@ public class SpiritTransmutationRecipe extends ILodestoneRecipe {
         @Nullable
         @Override
         public SpiritTransmutationRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
-            int amount = buffer.readVarInt();
+            int amount = buffer.readInt();
             List<Pair<Ingredient, ItemStack>> subRecipes = new ArrayList<>();
 
             for (int i = 0; i < amount; i++) {
