@@ -12,6 +12,7 @@ import com.sammy.malum.core.setup.content.AttributeRegistry;
 import com.sammy.malum.core.setup.content.DamageSourceRegistry;
 import com.sammy.malum.core.setup.content.item.ItemTagRegistry;
 import com.sammy.malum.core.systems.item.IMalumEventResponderItem;
+import com.sammy.malum.core.systems.spirit.MalumEntitySpiritData;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import team.lodestar.lodestone.helpers.ItemHelper;
 import team.lodestar.lodestone.systems.container.ItemInventory;
@@ -98,16 +99,19 @@ public class SpiritHarvestHandler {
         if (event.isCanceled()) {
             return;
         }
-        MalumLivingEntityDataCapability data = MalumLivingEntityDataCapability.getCapability(event.getEntityLiving());
-        if (data.soulsToApplyToDrops != null) {
-            Ingredient spiritItem = data.spiritData.spiritItem;
+        LivingEntity entityLiving = event.getEntityLiving();
+        MalumLivingEntityDataCapability capability = MalumLivingEntityDataCapability.getCapability(entityLiving);
+        if (capability.soulsToApplyToDrops != null) {
+            MalumEntitySpiritData spiritData = SpiritHelper.getEntitySpiritData(entityLiving);
+
+            Ingredient spiritItem = spiritData.spiritItem;
             if (spiritItem != null) {
                 for (ItemEntity itemEntity : event.getDrops()) {
                     if (spiritItem.test(itemEntity.getItem())) {
                         MalumItemDataCapability.getCapabilityOptional(itemEntity).ifPresent((e) -> {
-                            e.soulsToDrop = data.soulsToApplyToDrops.stream().map(ItemStack::copy).collect(Collectors.toList());
-                            e.attackerForSouls = data.killerUUID;
-                            e.totalSoulCount = data.spiritData.totalCount;
+                            e.soulsToDrop = capability.soulsToApplyToDrops.stream().map(ItemStack::copy).collect(Collectors.toList());
+                            e.attackerForSouls = capability.killerUUID;
+                            e.totalSoulCount = spiritData.totalSpirits;
                         });
                         itemEntity.setNeverPickUp();
                         itemEntity.age = itemEntity.lifespan - 20;

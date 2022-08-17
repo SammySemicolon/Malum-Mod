@@ -23,32 +23,32 @@ import java.util.Map;
 public class SpiritTypeRegistry {
     public static Map<String, MalumSpiritType> SPIRITS = new LinkedHashMap<>();
 
-    public static MalumSpiritType SACRED_SPIRIT = create("sacred", new Color(243, 40, 143), ItemRegistry.SACRED_SPIRIT);
+    public static MalumSpiritType SACRED_SPIRIT = create("sacred", new Color(243, 40, 143), ItemRegistry.SACRED_SPIRIT, 1f);
 
-    public static MalumSpiritType WICKED_SPIRIT = create("wicked", new Color(155, 62, 245), ItemRegistry.WICKED_SPIRIT);
+    public static MalumSpiritType WICKED_SPIRIT = create("wicked", new Color(155, 62, 245), ItemRegistry.WICKED_SPIRIT, 1.5f);
 
-    public static MalumSpiritType ARCANE_SPIRIT = create("arcane", new Color(212, 55, 255), ItemRegistry.ARCANE_SPIRIT);
+    public static MalumSpiritType ARCANE_SPIRIT = create("arcane", new Color(212, 55, 255), ItemRegistry.ARCANE_SPIRIT, 1.25f);
 
-    public static MalumSpiritType ELDRITCH_SPIRIT = create("eldritch", new Color(125, 29, 215), new Color(39, 201, 103), ItemRegistry.ELDRITCH_SPIRIT);
+    public static MalumSpiritType ELDRITCH_SPIRIT = create("eldritch", new Color(125, 29, 215), new Color(39, 201, 103), ItemRegistry.ELDRITCH_SPIRIT, 3f);
 
-    public static MalumSpiritType AERIAL_SPIRIT = create("aerial", new Color(75, 243, 218), ItemRegistry.AERIAL_SPIRIT);
+    public static MalumSpiritType AERIAL_SPIRIT = create("aerial", new Color(75, 243, 218), ItemRegistry.AERIAL_SPIRIT, 1.25f);
 
-    public static MalumSpiritType AQUEOUS_SPIRIT = create("aqueous", new Color(29, 100, 232), ItemRegistry.AQUEOUS_SPIRIT);
+    public static MalumSpiritType AQUEOUS_SPIRIT = create("aqueous", new Color(29, 100, 232), ItemRegistry.AQUEOUS_SPIRIT, 1.25f);
 
-    public static MalumSpiritType INFERNAL_SPIRIT = create("infernal", new Color(210, 134, 39), ItemRegistry.INFERNAL_SPIRIT);
+    public static MalumSpiritType INFERNAL_SPIRIT = create("infernal", new Color(210, 134, 39), ItemRegistry.INFERNAL_SPIRIT, 1.5f);
 
-    public static MalumSpiritType EARTHEN_SPIRIT = create("earthen", new Color(73, 234, 27), ItemRegistry.EARTHEN_SPIRIT);
+    public static MalumSpiritType EARTHEN_SPIRIT = create("earthen", new Color(73, 234, 27), ItemRegistry.EARTHEN_SPIRIT, 1.5f);
 
     public static SpiritTypeProperty SPIRIT_TYPE_PROPERTY = new SpiritTypeProperty("spirit_type", SPIRITS.values());
 
-    public static MalumSpiritType create(String identifier, Color color, RegistryObject<Item> splinterItem) {
-        MalumSpiritType spiritType = new MalumSpiritType(identifier, color, splinterItem);
+    public static MalumSpiritType create(String identifier, Color color, RegistryObject<Item> splinterItem, float weight) {
+        MalumSpiritType spiritType = new MalumSpiritType(identifier, color, splinterItem, weight);
         SPIRITS.put(identifier, spiritType);
         return spiritType;
     }
 
-    public static MalumSpiritType create(String identifier, Color color, Color endColor, RegistryObject<Item> splinterItem) {
-        MalumSpiritType spiritType = new MalumSpiritType(identifier, color, endColor, splinterItem);
+    public static MalumSpiritType create(String identifier, Color color, Color endColor, RegistryObject<Item> splinterItem, float weight) {
+        MalumSpiritType spiritType = new MalumSpiritType(identifier, color, endColor, splinterItem, weight);
         SPIRITS.put(identifier, spiritType);
         return spiritType;
     }

@@ -10,6 +10,7 @@ import com.sammy.malum.common.entity.spirit.SoulEntity;
 import com.sammy.malum.common.item.spirit.SoulStaveItem;
 import com.sammy.malum.common.packets.particle.entity.SuccessfulSoulHarvestParticlePacket;
 import com.sammy.malum.core.helper.SpiritHelper;
+import com.sammy.malum.core.systems.spirit.MalumEntitySpiritData;
 import team.lodestar.lodestone.setup.LodestoneRenderTypeRegistry;
 import team.lodestar.lodestone.systems.rendering.VFXBuilders;
 import net.minecraft.client.Minecraft;
@@ -66,7 +67,6 @@ public class SoulHarvestHandler {
     public static void addEntity(EntityJoinWorldEvent event) {
         if (event.getEntity() instanceof LivingEntity livingEntity) {
             MalumLivingEntityDataCapability.getCapabilityOptional(livingEntity).ifPresent(ec -> {
-                ec.spiritData = SpiritHelper.getEntitySpiritData(livingEntity);
                 if (livingEntity instanceof Mob mob) {
                     if (ec.soulless) {
                         removeSentience(mob);
@@ -139,15 +139,16 @@ public class SoulHarvestHandler {
                                 MalumLivingEntityDataCapability.getCapabilityOptional(livingEntity).ifPresent(ec -> {
                                     if (ec.getHarvestProgress() >= 150) {
                                         Vec3 position = entity.position().add(0, entity.getEyeHeight() / 2f, 0);
-                                        SoulEntity soulEntity = new SoulEntity(entity.level, SpiritHelper.getEntitySpiritData(livingEntity), player.getUUID(),
-                                                position.x,
-                                                position.y,
-                                                position.z,
-                                                nextFloat(MalumMod.RANDOM, -0.1f, 0.1f),
-                                                0.05f + nextFloat(MalumMod.RANDOM, 0.05f, 0.15f),
-                                                nextFloat(MalumMod.RANDOM, -0.1f, 0.1f));
+                                        MalumEntitySpiritData data = SpiritHelper.getEntitySpiritData(livingEntity);
+                                        SoulEntity soulEntity = new SoulEntity(entity.level, data, player.getUUID(),
+                                            position.x,
+                                            position.y,
+                                            position.z,
+                                            nextFloat(MalumMod.RANDOM, -0.1f, 0.1f),
+                                            0.05f + nextFloat(MalumMod.RANDOM, 0.05f, 0.15f),
+                                            nextFloat(MalumMod.RANDOM, -0.1f, 0.1f));
                                         player.level.addFreshEntity(soulEntity);
-                                        MALUM_CHANNEL.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> entity), new SuccessfulSoulHarvestParticlePacket(ec.spiritData.primaryType.getColor(), ec.spiritData.primaryType.getEndColor(), position.x, position.y, position.z));
+                                        MALUM_CHANNEL.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> entity), new SuccessfulSoulHarvestParticlePacket(data.primaryType.getColor(), data.primaryType.getEndColor(), position.x, position.y, position.z));
                                         if (livingEntity instanceof Mob mob) {
                                             removeSentience(mob);
                                         }
@@ -170,7 +171,7 @@ public class SoulHarvestHandler {
                         double biggestAngle = 0;
                         LivingEntity chosenEntity = null;
                         for (LivingEntity entity : entities) {
-                            if (!entity.isAlive() || MalumLivingEntityDataCapability.getCapability(entity).soulless || MalumLivingEntityDataCapability.getCapability(entity).spiritData == null) {
+                            if (!entity.isAlive() || MalumLivingEntityDataCapability.getCapability(entity).soulless || SpiritHelper.getEntitySpiritData(entity) == null) {
                                 continue;
                             }
                             Vec3 lookDirection = player.getLookAngle();
@@ -231,8 +232,9 @@ public class SoulHarvestHandler {
                     if (c.ownerUUID != null) {
                         Player player = pLivingEntity.level.getPlayerByUUID(c.ownerUUID);
                         if (player != null && player.isAlive() && pLivingEntity.isAlive()) {
+                            MalumEntitySpiritData data = SpiritHelper.getEntitySpiritData(pLivingEntity);
                             poseStack.popPose();
-                            renderSoulHarvestEffects(poseStack, pLivingEntity, player, c.spiritData.primaryType.getColor(), c.getPreviewProgress() / 10f, c.getHarvestProgress(), partialTicks);
+                            renderSoulHarvestEffects(poseStack, pLivingEntity, player, data.primaryType.getColor(), c.getPreviewProgress() / 10f, c.getHarvestProgress(), partialTicks);
                             poseStack.pushPose();
                         }
                     }
@@ -249,31 +251,31 @@ public class SoulHarvestHandler {
                 Vec3 toPlayer = playerPosition.subtract(entityPosition).normalize().multiply(boundingBox.getXsize() * 0.5f, 0, boundingBox.getZsize() * 0.5f);
 
                 VertexConsumer soulNoise = DELAYED_RENDER.getBuffer(queueUniformChanges(SOUL_NOISE_TYPE,
-                        (instance) -> {
-                            instance.safeGetUniform("Speed").set(4500f);
-                            instance.safeGetUniform("Intensity").set(45f);
-                        }));
+                    (instance) -> {
+                        instance.safeGetUniform("Speed").set(4500f);
+                        instance.safeGetUniform("Intensity").set(45f);
+                    }));
 
                 VertexConsumer previewNoise = DELAYED_RENDER.getBuffer(queueUniformChanges(PREVIEW_NOISE_TYPE,
-                        (instance -> {
-                            instance.safeGetUniform("Speed").set(-3500f);
-                            instance.safeGetUniform("ScatterPower").set(-60f);
-                            instance.safeGetUniform("ScatterFrequency").set(-0.2f);
-                            instance.safeGetUniform("Intensity").set(55f);
-                        })));
+                    (instance -> {
+                        instance.safeGetUniform("Speed").set(-3500f);
+                        instance.safeGetUniform("ScatterPower").set(-60f);
+                        instance.safeGetUniform("ScatterFrequency").set(-0.2f);
+                        instance.safeGetUniform("Intensity").set(55f);
+                    })));
 
                 poseStack.translate(toPlayer.x, toPlayer.y + target.getBbHeight() / 2f, toPlayer.z);
                 poseStack.mulPose(Minecraft.getInstance().getEntityRenderDispatcher().cameraOrientation());
                 poseStack.mulPose(Vector3f.YP.rotationDegrees(180f));
 
-                //preview!
+                //preview
                 VFXBuilders.createWorld().setPosColorTexLightmapDefaultFormat()
-                        .setColor(color.brighter())
-                        .setAlpha(alphaAndScale * 0.6f)
-                        .setLight(FULL_BRIGHT)
-                        .renderQuad(soulNoise, poseStack, alphaAndScale * 0.9f)
-                        .setColor(color.darker())
-                        .renderQuad(previewNoise, poseStack, Math.min(1, alphaAndScale * 1.3f));
+                    .setColor(color.brighter())
+                    .setAlpha(alphaAndScale * 0.6f)
+                    .setLight(FULL_BRIGHT)
+                    .renderQuad(soulNoise, poseStack, alphaAndScale * 0.9f)
+                    .setColor(color.darker())
+                    .renderQuad(previewNoise, poseStack, Math.min(1, alphaAndScale * 1.3f));
                 poseStack.popPose();
             }
         }

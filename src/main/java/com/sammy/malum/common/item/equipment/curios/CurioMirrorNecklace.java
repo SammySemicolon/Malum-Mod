@@ -29,7 +29,7 @@ public class CurioMirrorNecklace extends MalumCurioItem implements IMalumEventRe
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(String identifier, ItemStack stack) {
         Multimap<Attribute, AttributeModifier> map = HashMultimap.create();
         map.put(AttributeRegistry.ARCANE_RESONANCE.get(), new AttributeModifier(uuids.computeIfAbsent(0, (i) -> UUID.randomUUID()), "Arcane Resonance", 1f, AttributeModifier.Operation.ADDITION));
-        map.put(LodestoneAttributeRegistry.MAGIC_PROFICIENCY.get(), new AttributeModifier(uuids.computeIfAbsent(1, (i) -> UUID.randomUUID()), "Magic Proficiency", 1f, AttributeModifier.Operation.ADDITION));
+        map.put(LodestoneAttributeRegistry.MAGIC_RESISTANCE.get(), new AttributeModifier(uuids.computeIfAbsent(1, (i) -> UUID.randomUUID()), "Magic Resistance", 1f, AttributeModifier.Operation.ADDITION));
         return map;
     }
 }

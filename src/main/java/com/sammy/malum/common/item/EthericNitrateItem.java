@@ -10,7 +10,6 @@ import team.lodestar.lodestone.systems.rendering.particle.ParticleBuilders;
 import team.lodestar.lodestone.systems.rendering.particle.screen.base.ScreenParticle;
 import team.lodestar.lodestone.systems.rendering.particle.screen.emitter.ItemParticleEmitter;
 import net.minecraft.client.Minecraft;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
@@ -37,7 +36,7 @@ public class EthericNitrateItem extends Item implements ItemParticleEmitter {
 
     public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {
         ItemStack itemstack = playerIn.getItemInHand(handIn);
-        worldIn.playSound(null, playerIn.getX(), playerIn.getY(), playerIn.getZ(), SoundRegistry.ETHERIC_NITRATE_THROWN.get(), SoundSource.NEUTRAL, 0.5F, 0.4F / (worldIn.random.nextFloat() * 0.4F + 0.8F));
+        worldIn.playSound(null, playerIn.getX(), playerIn.getY(), playerIn.getZ(), SoundRegistry.NITRATE_THROWN.get(), SoundSource.NEUTRAL, 0.5F, 0.4F / (worldIn.random.nextFloat() * 0.4F + 0.8F));
         if (!worldIn.isClientSide) {
             AbstractNitrateEntity bombEntity = entitySupplier.apply(playerIn);
             int angle = handIn == InteractionHand.MAIN_HAND ? 225 : 90;

@@ -19,14 +19,16 @@ public class MalumEntitySpiritData {
     public static final String SOUL_DATA = "soul_data";
     public static final MalumEntitySpiritData EMPTY = new MalumEntitySpiritData(SpiritTypeRegistry.SACRED_SPIRIT, new ArrayList<>(), null);
     public final MalumSpiritType primaryType;
-    public final int totalCount;
+    public final int totalSpirits;
+    public final float weightedSpirits;
     public final List<SpiritWithCount> dataEntries;
     @Nullable
     public final Ingredient spiritItem;
 
     public MalumEntitySpiritData(MalumSpiritType primaryType, List<SpiritWithCount> dataEntries, @Nullable Ingredient spiritItem) {
         this.primaryType = primaryType;
-        this.totalCount = dataEntries.stream().mapToInt(d -> d.count).sum();
+        this.totalSpirits = dataEntries.stream().mapToInt(d -> d.count).sum();
+        this.weightedSpirits = (float) dataEntries.stream().mapToDouble(d -> d.type.weight * d.count).sum();
         this.dataEntries = dataEntries;
         this.spiritItem = spiritItem;
     }

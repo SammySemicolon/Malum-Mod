@@ -34,8 +34,6 @@ public class MalumLivingEntityDataCapability implements LodestoneCapability {
     });
 
 
-    public MalumEntitySpiritData spiritData;
-
     public float soulHarvestProgress;
     public float exposedSoul;
     public boolean soulless;
@@ -138,17 +136,5 @@ public class MalumLivingEntityDataCapability implements LodestoneCapability {
 
     public static MalumLivingEntityDataCapability getCapability(LivingEntity entity) {
         return entity.getCapability(CAPABILITY).orElse(new MalumLivingEntityDataCapability());
-    }
-
-    public static UUID getOwner(LivingEntity entity) {
-        return entity.getCapability(CAPABILITY).orElse(new MalumLivingEntityDataCapability()).ownerUUID;
-    }
-
-    public static boolean isSoulless(LivingEntity entity) {
-        return entity.getCapability(CAPABILITY).orElse(new MalumLivingEntityDataCapability()).soulless;
-    }
-
-    public static boolean hasSpiritData(LivingEntity entity) {
-        return entity.getCapability(CAPABILITY).orElse(new MalumLivingEntityDataCapability()).spiritData != null;
     }
 }

@@ -43,7 +43,7 @@ public class SpiritHelper {
 
     public static void createSpiritsFromSoul(MalumEntitySpiritData data, Level level, Vec3 position, LivingEntity attacker) {
         List<ItemStack> spirits = getSpiritItemStacks(data, attacker, ItemStack.EMPTY, 2);
-        createSpiritEntities(spirits, data.totalCount, level, position, attacker);
+        createSpiritEntities(spirits, data.totalSpirits, level, position, attacker);
     }
 
     public static void createSpiritsFromWeapon(LivingEntity target, LivingEntity attacker, ItemStack harvestStack) {
@@ -73,10 +73,10 @@ public class SpiritHelper {
 
         if (data.spiritItem != null) {
             MalumLivingEntityDataCapability.getCapabilityOptional(target).ifPresent((e) -> {
-                e.spiritData = data;
                 e.soulsToApplyToDrops = spirits;
-                if (attacker != null)
+                if (attacker != null) {
                     e.killerUUID = attacker.getUUID();
+                }
             });
         } else {
             createSpiritEntities(spirits, spirits.stream().mapToInt(ItemStack::getCount).sum(), target.level, target.position().add(0, target.getEyeHeight() / 2f, 0), attacker);
@@ -93,7 +93,7 @@ public class SpiritHelper {
     }
 
     public static void createSpiritEntities(MalumEntitySpiritData data, Level level, Vec3 position, LivingEntity attacker) {
-        createSpiritEntities(getSpiritItemStacks(data), data.totalCount, level, position, attacker);
+        createSpiritEntities(getSpiritItemStacks(data), data.totalSpirits, level, position, attacker);
     }
 
     public static void createSpiritEntities(Collection<ItemStack> spirits, float totalCount, Level level, Vec3 position, @Nullable LivingEntity attacker) {
@@ -161,7 +161,7 @@ public class SpiritHelper {
         if (bundle == null) {
             return 0;
         }
-        return bundle.totalCount;
+        return bundle.totalSpirits;
     }
 
     public static List<ItemStack> getSpiritItemStacks(LivingEntity entity, LivingEntity attacker, ItemStack harvestStack, float spoilsMultiplier) {

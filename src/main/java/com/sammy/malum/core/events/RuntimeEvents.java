@@ -11,10 +11,7 @@ import com.sammy.malum.common.effect.WickedIntentEffect;
 import com.sammy.malum.common.enchantment.ReboundEnchantment;
 import com.sammy.malum.common.entity.nitrate.EthericExplosion;
 import com.sammy.malum.common.item.equipment.CeaselessImpetusItem;
-import com.sammy.malum.common.item.equipment.curios.CurioAlchemicalRing;
-import com.sammy.malum.common.item.equipment.curios.CurioEarthenRing;
-import com.sammy.malum.common.item.equipment.curios.CurioTokenOfGratitude;
-import com.sammy.malum.common.item.equipment.curios.CurioVeraciousRing;
+import com.sammy.malum.common.item.equipment.curios.*;
 import com.sammy.malum.common.spiritaffinity.ArcaneAffinity;
 import com.sammy.malum.common.spiritaffinity.EarthenAffinity;
 import com.sammy.malum.compability.create.CreateCompat;
@@ -106,6 +103,11 @@ public class RuntimeEvents {
     @SubscribeEvent
     public static void onLivingTarget(LivingSetAttackTargetEvent event) {
         SoulHarvestHandler.entityTarget(event);
+    }
+
+    @SubscribeEvent
+    public static void onLivingVisibility(LivingEvent.LivingVisibilityEvent event) {
+        CurioSerenityNecklace.preventDetection(event);
     }
 
     @SubscribeEvent
