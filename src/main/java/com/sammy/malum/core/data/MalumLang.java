@@ -118,10 +118,10 @@ public class MalumLang extends LanguageProvider {
         addSimpleEntryHeader("introduction", "Introduction", "On the nature of souls");
         addPages("introduction",
             "\"Within our world, every living being has a soul. That soul is consciousness, what animates the body, and the meeting point between matter and magic. These represent our existence; as the body is presented to the physical world, so the soul is to the arcane.\"",
-                "I seem to have stumbled upon something peculiar: a form of magic so far undocumented. I could hardly call myself a magus if I refused the opportunity to study it. In this codex, the Encyclopedia Arcana, I write my research into this power, hoping to document everything about it.",
-                "The energies this thaumaturgical discipline manipulates seem to be rooted in the soul. More accurately, they are the energies of the soul, the inclinations and impulses that make up each one of us.",
-                "So far, what I have described is basic. But I have found a way to separate, and then condense, the impulse of a soul into a physical form I call a spirit crystal. This forms the basis of my research.",
-                "The natures of the soul I condense influence the crystal's properties. Each soul is slightly different, and that can result in changes to the crystals formed. I believe these spirit crystals to be just the breakthrough I need.");
+            "I seem to have stumbled upon something peculiar: a form of magic so far undocumented. I could hardly call myself a magus if I refused the opportunity to study it. In this codex, the Encyclopedia Arcana, I write my research into this power, hoping to document everything about it.",
+            "The energies this thaumaturgical discipline manipulates seem to be rooted in the soul. More accurately, they are the energies of the soul, the inclinations and impulses that make up each one of us.",
+            "So far, what I have described is basic. But I have found a way to separate, and then condense, the impulse of a soul into a physical form I call a spirit crystal. This forms the basis of my research.",
+            "The natures of the soul I condense influence the crystal's properties. Each soul is slightly different, and that can result in changes to the crystals formed. I believe these spirit crystals to be just the breakthrough I need.");
 
         addSimpleEntryHeader("spirit_crystals", "Spirit Crystals", "Matter and magic");
         addPages("spirit_crystals",
@@ -391,8 +391,8 @@ public class MalumLang extends LanguageProvider {
         addPages("arcane_rite.description",
             "Raw arcana provides the basis for all rites. Without power, nothing would be accomplished. This naturally makes one wonder what effect raw arcana would have as the focus of a rite. The answer is a complex and dangerous one.",
             "It requires far more to focus than other rites, taking the entire five runes to activate. It's as though I am pushing on some threshold, and need to break through. And in breaking through... momentum is conserved.",
-            "And once altered, the wood's color changes, along with its magical disposition. What I dub Soulwood bears scars from the violent method of its creation. Those scars warp magic, altering its fundamental nature. Any spirit rite performed with a soulwood totem will produce a vastly different effect.",
-            "Now that I have obtained Soulwood, I can make totem bases out of it directly as well.");
+            "And once altered, the wood's color changes, along with its magical disposition. What I dub Soulwood bears scars from the violent method of its creation. Those scars warp magic, altering its fundamental nature. Any spirit rite performed with a Soulwood totem will produce a vastly different effect.",
+            "And now that I can obtain Soulwood, I can make totem bases out of it directly as well, bypassing the need to transmute Runewood totems.");
         addPage("arcane_rite",
             "The rite - if you could call something so chaotic that - corrupts and burns through the totem, altering its very base nature, and transmuting the world around it into some indeterminate blighted powder.");
         addPage("corrupt_arcane_rite",
@@ -461,9 +461,22 @@ public class MalumLang extends LanguageProvider {
         addPages("blight.arcane_rite",
             "That echo is why this substance is important for the Unchained Rite. The Rite remembers the violence of its creation, and resonates with the memory within the blight, applying its power to things laying on top of it.");
 
-        addSimpleEntryHeader("soulwood", "Soulwood", "[NOT COMPLETE] Twisted Roots");
-        addPages("soulwood", "Spirit magics focus on turning everything good in the world to evil. Sometimes, by pure coincidence a great thing is created instead, as is the case with runewood. It is important to realize this mistake and correct it.",
-            "By utilizing the dangerous arcane spirit rite I can easily create soulwood, any nearby runewood block is a valid target for this transmutation. Much like it's name implies, soulwood has a strong connection to more direct soul magics. It'll be sure to come in use.");
+        addEntryHeader("soulwood", "A Study on Soulwood", "Twisted trees");
+        addHeadline("soulwood.intro", "Soulwood Study: Preface");
+        addPages("soulwood.intro",
+            "After further study, I have discovered that the Soulwood produced by the Unchained Rite is actually an entirely different species from the Runewood it is made from. It grows differently, it acts differently... it appears the spiritual scars that created it go deeper than just its color and magic.");
+        addHeadline("soulwood.bonemeal", "Soulwood Study: Growth");
+        addPages("soulwood.bonemeal",
+            "The sapling doesn't accept most natural fertilizers, like bonemeal. Instead, its hunger lies towards the arcana - providing it with spirits will accelerate its growth instead.");
+        addHeadline("soulwood.color", "Soulwood Study: Color");
+        addPages("soulwood.color",
+            "The most obvious differences with the tree itself are shape and leaf color. Soulwood is more spindly than Runewood, and its leaves are a sickly purple hue instead of a rich orange-yellow. It can still be used for many of the same things, though.");
+        addHeadline("soulwood.blight", "Soulwood Study: Blight");
+        addPages("soulwood.blight",
+            "Another obvious difference is in its effect on the surroundings - namely, the fact that it echoes the Undirected Rite with the energies of its growth, transmuting the world around it into blight. I ought to create a safely contained area if I wish to grow these trees.");
+        addHeadline("soulwood.sap", "Soulwood Study: Sap");
+        addPages("soulwood.sap",
+            "The sticky lifeblood of the tree also seems to well up much more often in a tree than in Runewood. The sap's effects are corrupted as well; rather than restoring my vigor, Unholy Syrup enhances it, increasing my attack strength.");
 
         addSimpleEntryHeader("tyrving", "Tyrving", "[NOT COMPLETE] Ancient Relic");
         addPages("tyrving", "The Tyrving is a rather esoteric blade. It's strange design makes it appear as a weak weapon not suited for combat. However, it's hex ash lining and twisted rock form cause it to deal extra magic damage to the soul, the greater the soul the more benefit.",
@@ -631,8 +644,8 @@ public class MalumLang extends LanguageProvider {
     }
 
     public void addDamageTypeDeathDescription(String identifier, String description) {
-        add("death.attack."+ identifier, "%s " + description);
-        add("death.attack."+ identifier+".player", "%s " + description +  " by %s");
+        add("death.attack." + identifier, "%s " + description);
+        add("death.attack." + identifier + ".player", "%s " + description + " by %s");
     }
 
     public String correctSoundName(String name) {
@@ -650,6 +663,7 @@ public class MalumLang extends LanguageProvider {
         }
         return name;
     }
+
     public String correctBlockItemName(String name) {
         if ((!name.endsWith("_bricks"))) {
             if (name.contains("bricks")) {
