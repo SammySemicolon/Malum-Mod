@@ -17,6 +17,7 @@ import team.lodestar.lodestone.systems.recipe.ILodestoneRecipe;
 
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.function.Predicate;
 
 public class SpiritTransmutationRecipe extends ILodestoneRecipe {
     public static final String NAME = "spirit_transmutation";
@@ -65,10 +66,15 @@ public class SpiritTransmutationRecipe extends ILodestoneRecipe {
     }
 
     public static SpiritTransmutationRecipe getRecipe(Level level, ItemStack item) {
+        return getRecipe(level, r -> r.ingredient.test(item));
+    }
+
+    public static SpiritTransmutationRecipe getRecipe(Level level, Predicate<SpiritTransmutationRecipe> predicate) {
         List<SpiritTransmutationRecipe> recipes = getRecipes(level);
         for (SpiritTransmutationRecipe recipe : recipes) {
-            if (recipe.ingredient.test(item))
+            if (predicate.test(recipe)) {
                 return recipe;
+            }
         }
         return null;
     }

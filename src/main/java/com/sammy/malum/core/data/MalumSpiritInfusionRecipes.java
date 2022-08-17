@@ -250,6 +250,17 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider implements ICondi
             .addSpirit(ELDRITCH_SPIRIT, 2)
             .build(consumer);
 
+        new SpiritInfusionRecipeBuilder(ItemRegistry.ORNATE_NECKLACE.get(), 1, ItemRegistry.NECKLACE_OF_BLISSFUL_HARMONY.get(), 1)
+            .addExtraItem(ItemRegistry.IRON_NODE.get(), 6)
+            .addExtraItem(Items.PHANTOM_MEMBRANE, 4)
+            .addExtraItem(ItemRegistry.ASTRAL_WEAVE.get(), 2)
+            .addExtraItem(Items.DIAMOND, 2)
+            .addSpirit(AERIAL_SPIRIT, 16)
+            .addSpirit(AQUEOUS_SPIRIT, 16)
+            .addSpirit(SACRED_SPIRIT, 16)
+            .addSpirit(ELDRITCH_SPIRIT, 2)
+            .build(consumer);
+
         new SpiritInfusionRecipeBuilder(ItemRegistry.ORNATE_NECKLACE.get(), 1, ItemRegistry.NECKLACE_OF_THE_NARROW_EDGE.get(), 1)
             .addExtraItem(ItemRegistry.STAINED_SPIRIT_RESONATOR.get(), 1)
             .addExtraItem(Ingredient.of(Tags.Items.STORAGE_BLOCKS_IRON), 1)

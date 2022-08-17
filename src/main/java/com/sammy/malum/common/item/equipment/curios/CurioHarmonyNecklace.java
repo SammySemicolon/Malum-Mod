@@ -7,8 +7,8 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import team.lodestar.lodestone.helpers.CurioHelper;
 
-public class CurioSerenityNecklace extends MalumCurioItem {
-    public CurioSerenityNecklace(Properties builder) {
+public class CurioHarmonyNecklace extends MalumCurioItem {
+    public CurioHarmonyNecklace(Properties builder) {
         super(builder);
     }
 
@@ -20,7 +20,7 @@ public class CurioSerenityNecklace extends MalumCurioItem {
     public static void preventDetection(LivingEvent.LivingVisibilityEvent event) {
         if (event.getLookingEntity() instanceof LivingEntity watcher) {
             LivingEntity target = event.getEntityLiving();
-            if (CurioHelper.hasCurioEquipped(target, ItemRegistry.NECKLACE_OF_ABSOLUTE_SERENITY)) {
+            if (CurioHelper.hasCurioEquipped(target, ItemRegistry.NECKLACE_OF_BLISSFUL_HARMONY)) {
                 MalumEntitySpiritData data = SpiritHelper.getEntitySpiritData(watcher);
                 float visibilityModifier = data == null ? 0.5f : getVisibilityMultiplier(data.weightedSpirits);
                 event.modifyVisibility(visibilityModifier);

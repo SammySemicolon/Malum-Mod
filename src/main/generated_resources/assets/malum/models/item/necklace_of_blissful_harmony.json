@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "malum:item/necklace_of_absolute_serenity"
+    "layer0": "malum:item/necklace_of_blissful_harmony"
   }
 }

@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class AbstractNitrateEntity extends ThrowableProjectile {
-    public static final Color SECOND_SMOKE_COLOR = new Color(24, 24, 24);
+    public static final Color SECOND_SMOKE_COLOR = new Color(45, 45, 45);
 
     public final ArrayList<EntityHelper.PastPosition> pastPositions = new ArrayList<>(); // *screaming*
     public int maxAge = 1000;

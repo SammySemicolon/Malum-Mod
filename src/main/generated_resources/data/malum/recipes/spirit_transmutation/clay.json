@@ -1,7 +1,7 @@
 {
   "type": "malum:spirit_transmutation",
   "input": {
-    "item": "minecraft:basalt"
+    "item": "minecraft:smooth_basalt"
   },
   "output": {
     "item": "minecraft:clay"

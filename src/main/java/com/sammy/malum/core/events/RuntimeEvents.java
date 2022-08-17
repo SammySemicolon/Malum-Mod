@@ -107,7 +107,7 @@ public class RuntimeEvents {
 
     @SubscribeEvent
     public static void onLivingVisibility(LivingEvent.LivingVisibilityEvent event) {
-        CurioSerenityNecklace.preventDetection(event);
+        CurioHarmonyNecklace.preventDetection(event);
     }
 
     @SubscribeEvent

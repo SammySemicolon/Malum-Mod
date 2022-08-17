@@ -116,7 +116,7 @@ public class MalumSpiritTransmutationRecipes extends RecipeProvider {
         new SpiritTransmutationRecipeBuilder(Blocks.RED_SAND, BLIGHTED_SOIL.get())
             .build(consumer, "red_sand_to_blighted_soil");
 
-        new SpiritTransmutationRecipeBuilder(Blocks.BASALT, Blocks.CLAY)
+        new SpiritTransmutationRecipeBuilder(Blocks.SMOOTH_BASALT, Blocks.CLAY)
             .build(consumer);
 
         new SpiritTransmutationRecipeBuilder(Blocks.CLAY, Blocks.PRISMARINE)

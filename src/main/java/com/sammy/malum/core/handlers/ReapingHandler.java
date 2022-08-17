@@ -46,7 +46,7 @@ public class ReapingHandler {
         List<MalumReapingDropsData> data = ReapingDataReloadListener.REAPING_DATA.get(target.getType().getRegistryName());
         if (data != null) {
             MalumLivingEntityDataCapability capability = MalumLivingEntityDataCapability.getCapability(target);
-            float multiplier = capability.exposedSoul > 0 ? 2 : 1;
+            float multiplier = capability.exposedSoul > 0 ? 1 : 0.35f;
             for (MalumReapingDropsData dropData : data) {
                 Level level = target.level;
                 Random random = level.random;

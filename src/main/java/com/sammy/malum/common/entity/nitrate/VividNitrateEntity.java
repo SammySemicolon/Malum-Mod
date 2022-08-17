@@ -109,14 +109,14 @@ public class VividNitrateEntity extends AbstractNitrateEntity {
                 .setScale(0.2f + rand.nextFloat() * 0.05f, 0.3f, 0f)
                 .setColor(secondColor, SECOND_SMOKE_COLOR)
                 .setColorEasing(Easing.SINE_OUT)
-                .setColorCoefficient(1.25f)
+                .setColorCoefficient(2.25f)
                 .randomOffset(0.02f)
                 .enableNoClip()
                 .randomMotion(0.01f, 0.01f)
                 .overwriteRenderType(ParticleRenderTypes.TRANSPARENT)
                 .overwriteRemovalProtocol(SimpleParticleOptions.SpecialRemovalProtocol.INVISIBLE)
                 .repeat(level, lerpX, lerpY, lerpZ, 1)
-                .setColorCoefficient(1.75f)
+                .setColorCoefficient(2.75f)
                 .repeat(level, lerpX, lerpY, lerpZ, 1);
         }
     }

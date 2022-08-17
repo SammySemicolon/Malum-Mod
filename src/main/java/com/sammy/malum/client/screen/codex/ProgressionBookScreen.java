@@ -452,14 +452,14 @@ public class ProgressionBookScreen extends Screen {
         );
 
         ENTRIES.add(new BookEntry(
-            "mirror_magic", SPECTRAL_LENS.get(), -6, 10)
+            "mirror_magic", SPECTRAL_LENS.get(), 6, 10)
             .setObjectSupplier(ImportantEntryObject::new)
             .addPage(new HeadlineTextPage("mirror_magic", "mirror_magic.1"))
             .addPage(SpiritInfusionPage.fromOutput(SPECTRAL_LENS.get()))
         );
 
         ENTRIES.add(new BookEntry(
-            "voodoo_magic", POPPET.get(), 6, 10)
+            "voodoo_magic", POPPET.get(), -6, 10)
             .setObjectSupplier(ImportantEntryObject::new)
             .addPage(new HeadlineTextPage("voodoo_magic", "voodoo_magic.1"))
             .addPage(SpiritInfusionPage.fromOutput(POPPET.get()))
@@ -613,11 +613,6 @@ public class ProgressionBookScreen extends Screen {
             .addPage(new HeadlineTextPage("blight.arcane_rite", "blight.arcane_rite.1"))
         );
 
-//        ENTRIES.add(new BookEntry(
-//            "containing_blight", BLIGHTED_SOIL.get(), 1, 12)
-//            .addPage(new HeadlineTextPage("utilizing_blight", "utilizing_blight"))
-//        );
-
         ENTRIES.add(new BookEntry(
             "soulwood", SOULWOOD_GROWTH.get(), 1, 12).setSoulwood()
             .addPage(new HeadlineTextPage("soulwood.intro", "soulwood.intro.1"))
@@ -630,6 +625,14 @@ public class ProgressionBookScreen extends Screen {
             .addPage(new HeadlineTextPage("soulwood.sap", "soulwood.sap.1"))
             .addPage(new CraftingBookPage(new ItemStack(UNHOLY_SAPBALL.get(), 3), Items.SLIME_BALL, UNHOLY_SAP.get()))
             .addPage(new SmeltingBookPage(UNHOLY_SAP.get(), UNHOLY_SYRUP.get()))
+        );
+
+        ENTRIES.add(new BookEntry(
+            "resource_transmutation", BLIGHTED_SOIL.get(), 0, 13).setSoulwood()
+            .addPage(new HeadlineTextPage("transmutation.intro", "transmutation.intro.1"))
+            .addPage(new SpiritTransmutationPage("transmutation.stone", STONE))
+            .addPage(new SpiritTransmutationPage("transmutation.deepslate", DEEPSLATE))
+            .addPage(new SpiritTransmutationPage("transmutation.deepslate", SMOOTH_BASALT))
         );
 
 

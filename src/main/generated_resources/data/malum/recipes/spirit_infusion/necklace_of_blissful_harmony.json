@@ -1,0 +1,46 @@
+{
+  "type": "malum:spirit_infusion",
+  "input": {
+    "item": "malum:ornate_necklace",
+    "count": 1
+  },
+  "output": {
+    "item": "malum:necklace_of_blissful_harmony"
+  },
+  "extra_items": [
+    {
+      "item": "malum:iron_node",
+      "count": 6
+    },
+    {
+      "item": "minecraft:phantom_membrane",
+      "count": 4
+    },
+    {
+      "item": "malum:astral_weave",
+      "count": 2
+    },
+    {
+      "item": "minecraft:diamond",
+      "count": 2
+    }
+  ],
+  "spirits": [
+    {
+      "type": "aerial",
+      "count": 16
+    },
+    {
+      "type": "aqueous",
+      "count": 16
+    },
+    {
+      "type": "sacred",
+      "count": 16
+    },
+    {
+      "type": "eldritch",
+      "count": 2
+    }
+  ]
+}

@@ -179,7 +179,7 @@ public class MalumLang extends LanguageProvider {
             "By working my enchantments into the wooden handle, I found that my scythe can be made to return to my hand. As strange as it looks, using my scythe as a boomerang can be useful to cut through hordes of monsters. The stronger the enchantment, the less time until I can throw the scythe again.");
 
 
-        addSimpleEntryHeader("esoteric_reaping", "Scythe Reaping", "Leaked magic");
+        addSimpleEntryHeader("esoteric_reaping", "Esoteric Reaping", "Leaked magic");
         addPages("esoteric_reaping",
             "When a being dies, its soul disperses. This is basic theory, and well proven by this point. It's been proposed that sometimes, that power leaks into the body of the creature as it dies, to explain the existence of reagents they drop. That hadn't been proven yet.",
             "But now, with my scythe, I have proved it beyond doubt. When a soul is shattered, the energy stays in physical form. It happens even without striking the soul, but it's much more likely for it to infuse a bit of that creature when that happens, so far more reagents are produced that way.",
@@ -365,11 +365,11 @@ public class MalumLang extends LanguageProvider {
         addPages("necklace_of_the_narrow_edge",
             "The sweep of the scythe is its main draw. The ability to cut my targets like so much wheat is invaluable. But that comes at the cost of damage to a single target. This necklace mystically focuses the edge of my attack, directing all of the power into one target for a strong damage boost.");
 
-        addSimpleEntryHeader("mirror_magic", "Mirror magic", "[NOT COMPLETE] Quick and easy transmission");
-        addPages("mirror_magic", "Coming soon!");
+        addSimpleEntryHeader("mirror_magic", "Mirror magic", "Magic Funnels");
+        addPages("mirror_magic", "The future holds many secrets.");
 
-        addSimpleEntryHeader("voodoo_magic", "Voodoo magic", "[NOT COMPLETE] Forbidden arts");
-        addPages("voodoo_magic", "Coming soon!");
+        addSimpleEntryHeader("voodoo_magic", "Voodoo magic", "Forbidden arts");
+        addPages("voodoo_magic", "The future holds many secrets, see you in 1.19.");
 
         addEntryHeader("altar_acceleration", "Altar Acceleration", "Obelisks");
         addHeadline("altar_acceleration.runewood_obelisk", "Runewood Obelisk");
