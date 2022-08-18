@@ -9,10 +9,20 @@ public interface IMalumEventResponderItem extends IEventResponderItem {
     default void pickupSpirit(LivingEntity collector, ItemStack stack, double arcaneResonance) {
 
     }
-    default void soulwardDamageAbsorb(LivingHurtEvent event, LivingEntity wardedEntity, ItemStack stack) {
-        soulwardDamageAbsorb(wardedEntity, stack);
+
+    default float overrideSoulwardDamageAbsorbPercentage(LivingHurtEvent event, LivingEntity wardedEntity, ItemStack stack, float original) {
+        return overrideSoulwardDamageAbsorbPercentage(wardedEntity, stack, original);
     }
-    default void soulwardDamageAbsorb(LivingEntity wardedEntity, ItemStack stack) {
+
+    default float overrideSoulwardDamageAbsorbPercentage(LivingEntity wardedEntity, ItemStack stack, float original) {
+        return original;
+    }
+
+    default void onSoulwardAbsorbDamage(LivingHurtEvent event, LivingEntity wardedEntity, ItemStack stack, float soulwardLost, float damageAbsorbed) {
+        onSoulwardAbsorbDamage(wardedEntity, stack, soulwardLost, damageAbsorbed);
+    }
+
+    default void onSoulwardAbsorbDamage(LivingEntity wardedEntity, ItemStack stack, float soulwardLost, float damageAbsorbed) {
 
     }
 }

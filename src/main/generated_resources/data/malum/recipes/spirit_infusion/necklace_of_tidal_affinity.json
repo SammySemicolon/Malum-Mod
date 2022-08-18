@@ -9,6 +9,10 @@
   },
   "extra_items": [
     {
+      "item": "malum:gold_node",
+      "count": 6
+    },
+    {
       "item": "minecraft:heart_of_the_sea",
       "count": 1
     },

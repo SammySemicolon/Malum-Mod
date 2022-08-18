@@ -15,7 +15,6 @@ import com.sammy.malum.common.item.BrillianceChunkItem;
 import com.sammy.malum.common.item.EncyclopediaArcanaItem;
 import com.sammy.malum.common.item.EthericNitrateItem;
 import com.sammy.malum.common.item.NodeItem;
-import com.sammy.malum.common.item.equipment.CeaselessImpetusItem;
 import com.sammy.malum.common.item.equipment.armor.SoulStainedSteelArmorItem;
 import com.sammy.malum.common.item.equipment.armor.SoulHunterArmorItem;
 import com.sammy.malum.common.item.equipment.curios.*;
@@ -420,6 +419,7 @@ public class ItemRegistry {
     public static final RegistryObject<Item> SPECTRAL_LENS = ITEMS.register("spectral_lens", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> POPPET = ITEMS.register("poppet", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> CURSED_GRIT = ITEMS.register("cursed_grit", () -> new Item(DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> CORRUPTED_RESONANCE = ITEMS.register("corrupted_resonance", () -> new Item(DEFAULT_PROPERTIES()));
 
     public static final RegistryObject<Item> HALLOWED_GOLD_INGOT = ITEMS.register("hallowed_gold_ingot", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> HALLOWED_GOLD_NUGGET = ITEMS.register("hallowed_gold_nugget", () -> new Item(DEFAULT_PROPERTIES()));
@@ -526,7 +526,8 @@ public class ItemRegistry {
     public static final RegistryObject<Item> RING_OF_ARCANE_PROWESS = ITEMS.register("ring_of_arcane_prowess", () -> new CurioRingOfProwess(GEAR_PROPERTIES()));
     public static final RegistryObject<Item> RING_OF_ALCHEMICAL_MASTERY = ITEMS.register("ring_of_alchemical_mastery", () -> new CurioAlchemicalRing(GEAR_PROPERTIES()));
     public static final RegistryObject<Item> RING_OF_DESPERATE_VORACITY = ITEMS.register("ring_of_desperate_voracity", () -> new CurioVeraciousRing(GEAR_PROPERTIES()));
-    public static final RegistryObject<Item> RING_OF_EARTHEN_LOYALTY = ITEMS.register("ring_of_earthen_loyalty", () -> new CurioEarthenRing(GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> RING_OF_THE_HOARDER = ITEMS.register("ring_of_the_hoarder", () -> new CurioHoarderRing(GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> RING_OF_THE_DEMOLITIONIST = ITEMS.register("ring_of_the_demolitionist", () -> new CurioDemolitionistRing(GEAR_PROPERTIES()));
 
     public static final RegistryObject<Item> NECKLACE_OF_THE_MYSTIC_MIRROR = ITEMS.register("necklace_of_the_mystic_mirror", () -> new CurioMirrorNecklace(GEAR_PROPERTIES()));
     public static final RegistryObject<Item> NECKLACE_OF_TIDAL_AFFINITY = ITEMS.register("necklace_of_tidal_affinity", () -> new CurioWaterNecklace(GEAR_PROPERTIES()));
@@ -535,11 +536,9 @@ public class ItemRegistry {
     public static final RegistryObject<Item> NECKLACE_OF_BLISSFUL_HARMONY = ITEMS.register("necklace_of_blissful_harmony", () -> new CurioHarmonyNecklace(GEAR_PROPERTIES()));
 
     public static final RegistryObject<Item> BELT_OF_THE_STARVED = ITEMS.register("belt_of_the_starved", () -> new CurioStarvedBelt(GEAR_PROPERTIES()));
-    public static final RegistryObject<Item> BELT_OF_THE_DELVER = ITEMS.register("belt_of_the_delver", () -> new CurioDelverBelt(GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> BELT_OF_THE_PROSPECTOR = ITEMS.register("belt_of_the_prospector", () -> new CurioProspectorBelt(GEAR_PROPERTIES()));
     public static final RegistryObject<Item> BELT_OF_THE_MAGEBANE = ITEMS.register("belt_of_the_magebane", () -> new CurioMagebaneBelt(GEAR_PROPERTIES()));
 
-    public static final RegistryObject<CrackedImpetusItem> CRACKED_CEASELESS_IMPETUS = ITEMS.register("cracked_ceaseless_impetus", () -> new CrackedImpetusItem(GEAR_PROPERTIES().rarity(Rarity.UNCOMMON)));
-    public static final RegistryObject<Item> CEASELESS_IMPETUS = ITEMS.register("ceaseless_impetus", () -> new CeaselessImpetusItem(GEAR_PROPERTIES().durability(2).rarity(Rarity.UNCOMMON)).setCrackedVariant(CRACKED_CEASELESS_IMPETUS::get));
     //endregion
 
     //region hidden items

@@ -135,10 +135,6 @@ public class MalumSpiritFocusingRecipes extends RecipeProvider implements ICondi
                 .addItem(ItemRegistry.CRACKED_TIN_IMPETUS.get())
                 .build(consumer, "metal_impetus_restoration");
 
-        new SpiritRepairRecipeBuilder("none", 1f, Ingredient.of(ItemRegistry.SACRED_SPIRIT.get()), 32)
-                .addItem(ItemRegistry.CRACKED_CEASELESS_IMPETUS.get())
-                .build(consumer, "ceaseless_impetus_restoration");
-
         new SpiritFocusingRecipeBuilder(shortDuration, 1, Ingredient.of(ItemRegistry.ALCHEMICAL_IMPETUS.get()), Items.GUNPOWDER, 8)
                 .addSpirit(EARTHEN_SPIRIT, 1)
                 .build(consumer);

@@ -1,20 +1,21 @@
 package com.sammy.malum.mixin;
 
-import com.sammy.malum.common.item.equipment.curios.CurioDelverBelt;
-import com.sammy.malum.common.item.equipment.curios.CurioEarthenRing;
-import com.sammy.malum.core.setup.content.item.ItemRegistry;
+import com.sammy.malum.common.item.equipment.curios.CurioDemolitionistRing;
+import com.sammy.malum.common.item.equipment.curios.CurioProspectorBelt;
+import com.sammy.malum.common.item.equipment.curios.CurioHoarderRing;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Explosion;
+import net.minecraft.world.level.ExplosionDamageCalculator;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.loot.LootContext;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.Unique;
+import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import team.lodestar.lodestone.helpers.CurioHelper;
 
 import javax.annotation.Nullable;
 
@@ -28,18 +29,26 @@ public abstract class ExplosionMixin {
     @Nullable
     public abstract LivingEntity getSourceMob();
 
+    @Mutable
+    @Shadow @Final private float radius;
+
     @ModifyArg(method = "finalizeExplosion", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;getDrops(Lnet/minecraft/world/level/storage/loot/LootContext$Builder;)Ljava/util/List;"))
     private LootContext.Builder malum$getBlockDrops(LootContext.Builder builder) {
-        return CurioDelverBelt.applyFortune(getSourceMob(), builder);
+        return CurioProspectorBelt.applyFortune(getSourceMob(), builder);
+    }
+
+    @Inject(method = "<init>(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/damagesource/DamageSource;Lnet/minecraft/world/level/ExplosionDamageCalculator;DDDFZLnet/minecraft/world/level/Explosion$BlockInteraction;)V", at = @At(value = "RETURN"))
+    private void malum$modifyExplosionStats(Level pLevel, Entity pSource, DamageSource pDamageSource, ExplosionDamageCalculator pDamageCalculator, double pToBlowX, double pToBlowY, double pToBlowZ, float pRadius, boolean pFire, Explosion.BlockInteraction pBlockInteraction, CallbackInfo ci) {
+        radius = CurioDemolitionistRing.increaseExplosionRadius(getSourceMob(), radius);
     }
 
     @Inject(method = "finalizeExplosion", at = @At(value = "HEAD"))
     private void malum$finalizeExplosion(boolean pSpawnParticles, CallbackInfo ci) {
-        hasEarthenRing = CurioEarthenRing.hasEarthenRing(getSourceMob());
+        hasEarthenRing = CurioHoarderRing.hasEarthenRing(getSourceMob());
     }
 
     @ModifyArg(method = "finalizeExplosion", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/Block;popResource(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/item/ItemStack;)V"), index = 1)
     private BlockPos malum$popResource(BlockPos value) {
-        return CurioEarthenRing.getExplosionPos(hasEarthenRing, value, getSourceMob());
+        return CurioHoarderRing.getExplosionPos(hasEarthenRing, value, getSourceMob());
     }
 }

@@ -1,37 +1,22 @@
 package com.sammy.malum.common.item.equipment.curios;
 
-import com.google.common.collect.HashMultimap;
-import com.google.common.collect.Multimap;
-import com.sammy.malum.core.setup.content.SoundRegistry;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
-import com.sammy.malum.core.setup.content.potion.MalumMobEffectRegistry;
-import com.sammy.malum.core.systems.item.IMalumEventResponderItem;
 import team.lodestar.lodestone.helpers.CurioHelper;
-import team.lodestar.lodestone.helpers.EntityHelper;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.effect.MobEffect;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.Attribute;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantments;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
-import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.event.world.ExplosionEvent;
+import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.SlotContext;
+import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;
+import top.theillusivec4.curios.common.CuriosHelper;
 
-import java.util.UUID;
+public class CurioProspectorBelt extends MalumCurioItem {
 
-public class CurioDelverBelt extends MalumCurioItem {
-
-    public CurioDelverBelt(Properties builder) {
+    public CurioProspectorBelt(Properties builder) {
         super(builder);
     }
 
@@ -42,9 +27,11 @@ public class CurioDelverBelt extends MalumCurioItem {
 
     public static LootContext.Builder applyFortune(Entity source, LootContext.Builder builder) {
         if (source instanceof LivingEntity livingEntity) {
-            if (CurioHelper.hasCurioEquipped(livingEntity, ItemRegistry.BELT_OF_THE_DELVER)) {
+            if (CurioHelper.hasCurioEquipped(livingEntity, ItemRegistry.BELT_OF_THE_PROSPECTOR.get())) {
+                int fortuneBonus = 3;
+                fortuneBonus += CuriosApi.getCuriosHelper().getCuriosHandler(livingEntity).map(h -> h.getFortuneLevel(null)).orElse(0);
                 ItemStack diamondPickaxe = new ItemStack(Items.DIAMOND_PICKAXE);
-                diamondPickaxe.enchant(Enchantments.BLOCK_FORTUNE, 3);
+                diamondPickaxe.enchant(Enchantments.BLOCK_FORTUNE, fortuneBonus);
                 return builder.withParameter(LootContextParams.TOOL, diamondPickaxe);
             }
         }

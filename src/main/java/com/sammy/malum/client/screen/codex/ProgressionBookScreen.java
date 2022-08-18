@@ -431,12 +431,11 @@ public class ProgressionBookScreen extends Screen {
         );
 
         ENTRIES.add(new BookEntry(
-            "belt_of_the_delver", BELT_OF_THE_DELVER.get(), -6, 5)
-            .addPage(new HeadlineTextPage("belt_of_the_delver", "belt_of_the_delver.1"))
-            .addPage(new TextPage("belt_of_the_delver.2"))
-            .addPage(SpiritInfusionPage.fromOutput(BELT_OF_THE_DELVER.get()))
-            .addPage(new HeadlineTextPage("belt_of_the_delver.ring_of_earthen_loyalty", "belt_of_the_delver.ring_of_earthen_loyalty.1"))
-            .addPage(SpiritInfusionPage.fromOutput(RING_OF_EARTHEN_LOYALTY.get()))
+            "belt_of_the_prospector", BELT_OF_THE_PROSPECTOR.get(), -6, 5)
+            .addPage(new HeadlineTextPage("belt_of_the_prospector", "belt_of_the_prospector.1"))
+            .addPage(SpiritInfusionPage.fromOutput(BELT_OF_THE_PROSPECTOR.get()))
+            .addPage(new HeadlineTextPage("belt_of_the_delver.ring_of_the_hoarder", "belt_of_the_delver.ring_of_the_hoarder.1"))
+            .addPage(SpiritInfusionPage.fromOutput(RING_OF_THE_HOARDER.get()))
         );
 
         ENTRIES.add(new BookEntry(
@@ -446,7 +445,7 @@ public class ProgressionBookScreen extends Screen {
         );
 
         ENTRIES.add(new BookEntry(
-            "necklace_of_the_mystic_mirror", NECKLACE_OF_THE_MYSTIC_MIRROR.get(), -6, 12)
+            "necklace_of_the_mystic_mirror", NECKLACE_OF_THE_MYSTIC_MIRROR.get(), 6, 12)
             .addPage(new HeadlineTextPage("necklace_of_the_mystic_mirror", "necklace_of_the_mystic_mirror.1"))
             .addPage(SpiritInfusionPage.fromOutput(NECKLACE_OF_THE_MYSTIC_MIRROR.get()))
         );
@@ -618,13 +617,8 @@ public class ProgressionBookScreen extends Screen {
             .addPage(new HeadlineTextPage("soulwood.intro", "soulwood.intro.1"))
             .addPage(new HeadlineTextPage("soulwood.bonemeal", "soulwood.bonemeal.1"))
             .addPage(new HeadlineTextPage("soulwood.color", "soulwood.color.1"))
-            .addPage(CraftingBookPage.itemPedestalPage(SOULWOOD_ITEM_PEDESTAL.get(), SOULWOOD_PLANKS.get(), SOULWOOD_PLANKS_SLAB.get()))
-            .addPage(CraftingBookPage.itemStandPage(SOULWOOD_ITEM_STAND.get(), SOULWOOD_PLANKS.get(), SOULWOOD_PLANKS_SLAB.get()))
-            .addPage(new SmeltingBookPage(SOULWOOD_LOG.get(), ARCANE_CHARCOAL.get()))
             .addPage(new HeadlineTextPage("soulwood.blight", "soulwood.blight.1"))
             .addPage(new HeadlineTextPage("soulwood.sap", "soulwood.sap.1"))
-            .addPage(new CraftingBookPage(new ItemStack(UNHOLY_SAPBALL.get(), 3), Items.SLIME_BALL, UNHOLY_SAP.get()))
-            .addPage(new SmeltingBookPage(UNHOLY_SAP.get(), UNHOLY_SYRUP.get()))
         );
 
         ENTRIES.add(new BookEntry(
@@ -633,30 +627,47 @@ public class ProgressionBookScreen extends Screen {
             .addPage(new SpiritTransmutationPage("transmutation.stone", STONE))
             .addPage(new SpiritTransmutationPage("transmutation.deepslate", DEEPSLATE))
             .addPage(new SpiritTransmutationPage("transmutation.deepslate", SMOOTH_BASALT))
+        ); //TODO: make this also detail how to create cursed grit, in a similar fashion to how hex ash is shown.
+
+
+        ENTRIES.add(new BookEntry( //TODO: also name this something better
+            "metallurgic_trinkets", NECKLACE_OF_BLISSFUL_HARMONY.get(), -2, 14).setSoulwood()
+            .addPage(SpiritInfusionPage.fromOutput(NECKLACE_OF_BLISSFUL_HARMONY.get()))
+            .addPage(SpiritInfusionPage.fromOutput(RING_OF_THE_DEMOLITIONIST.get()))
+            .addPage(SpiritInfusionPage.fromOutput(NECKLACE_OF_TIDAL_AFFINITY.get()))
         );
 
+        ENTRIES.add(new BookEntry(
+            "etheric_nitrate", ETHERIC_NITRATE.get(), 2, 14).setSoulwood()
+            .addPage(new HeadlineTextPage("etheric_nitrate", "etheric_nitrate.1"))
+            .addPage(SpiritInfusionPage.fromOutput(ETHERIC_NITRATE.get()))
+            .addPage(new HeadlineTextPage("etheric_nitrate.vivid_nitrate", "etheric_nitrate.vivid_nitrate.1"))
+            .addPage(SpiritInfusionPage.fromOutput(VIVID_NITRATE.get()))
+        );
 
-//        ENTRIES.add(new BookEntry(
-//                "magebane_belt", BELT_OF_THE_MAGEBANE.get(), 1, 15)
-//                .addPage(new HeadlineTextPage("magebane_belt", "magebane_belt"))
-//                .addPage(SpiritInfusionPage.fromOutput(BELT_OF_THE_MAGEBANE.get()))
-//        );
-//
-//        ENTRIES.add(new BookEntry(
-//                "tyrving", TYRVING.get(), -1, 15)
-//                .addPage(new HeadlineTextPage("tyrving", "tyrving.1"))
-//                .addPage(SpiritInfusionPage.fromOutput(TYRVING.get()))
-//                .addPage(new TextPage("tyrving.2"))
-//                .addPage(SpiritRepairPage.fromInput(TYRVING.get()))
-//        );
-//
-//        ENTRIES.add(new BookEntry(
-//                "ceaseless_impetus", CEASELESS_IMPETUS.get(), 0, 16)
-//                .addPage(new HeadlineTextPage("ceaseless_impetus", "ceaseless_impetus.1"))
-//                .addPage(new TextPage("ceaseless_impetus.2"))
-//                .addPage(SpiritInfusionPage.fromOutput(CEASELESS_IMPETUS.get()))
-//                .addPage(SpiritRepairPage.fromInput(CRACKED_CEASELESS_IMPETUS.get()))
-//        );
+        ENTRIES.add(new BookEntry(
+            "corrupted_resonance", CORRUPTED_RESONANCE.get(), 0, 15).setSoulwood()
+        );
+
+        ENTRIES.add(new BookEntry(
+            "magebane_belt", BELT_OF_THE_MAGEBANE.get(), -1, 16)
+            .addPage(new HeadlineTextPage("magebane_belt", "magebane_belt"))
+            .addPage(SpiritInfusionPage.fromOutput(BELT_OF_THE_MAGEBANE.get()))
+        );
+
+        ENTRIES.add(new BookEntry(
+            "necklace_of_the_hidden_blade", NECKLACE_OF_THE_HIDDEN_BLADE.get(), 1, 16)
+            .addPage(new HeadlineTextPage("necklace_of_the_hidden_blade", "necklace_of_the_hidden_blade"))
+            .addPage(SpiritInfusionPage.fromOutput(NECKLACE_OF_THE_HIDDEN_BLADE.get()))
+        );
+
+        ENTRIES.add(new BookEntry(
+                "tyrving", TYRVING.get(), 0, 17)
+                .addPage(new HeadlineTextPage("tyrving", "tyrving.1"))
+                .addPage(SpiritInfusionPage.fromOutput(TYRVING.get()))
+                .addPage(new TextPage("tyrving.2"))
+                .addPage(SpiritRepairPage.fromInput(TYRVING.get()))
+        );
 
         ENTRIES.add(new BookEntry(
             "the_device", THE_DEVICE.get(), 0, -10)

@@ -60,7 +60,7 @@ public class SpiritTransmutationPage extends BookPage {
         List<WrappedIngredient> copy = new ArrayList<>(itemTree);
         ProgressionBookScreen.renderComponent(poseStack, copy.remove(0), guiLeft + 67, guiTop + 44, mouseX, mouseY);
         ProgressionBookScreen.renderComponent(poseStack, copy.remove(copy.size() - 1), guiLeft + 67, guiTop + 126, mouseX, mouseY);
-        ProgressionBookScreen.renderComponents(poseStack, copy, guiLeft + 65, guiTop + 83, mouseX, mouseY, false);
+        ProgressionBookScreen.renderComponents(poseStack, copy, guiLeft + 65, guiTop + 82, mouseX, mouseY, false);
     }
 
     @Override
@@ -72,6 +72,6 @@ public class SpiritTransmutationPage extends BookPage {
         List<WrappedIngredient> copy = new ArrayList<>(itemTree);
         ProgressionBookScreen.renderComponent(poseStack, copy.remove(0), guiLeft + 209, guiTop + 44, mouseX, mouseY);
         ProgressionBookScreen.renderComponent(poseStack, copy.remove(copy.size() - 1), guiLeft + 209, guiTop + 126, mouseX, mouseY);
-        ProgressionBookScreen.renderComponents(poseStack, DataHelper.reverseOrder(new ArrayList<>(), copy), guiLeft + 207, guiTop + 83, mouseX, mouseY, false);
+        ProgressionBookScreen.renderComponents(poseStack, DataHelper.reverseOrder(new ArrayList<>(), copy), guiLeft + 207, guiTop + 82, mouseX, mouseY, false);
     }
 }

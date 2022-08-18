@@ -243,6 +243,7 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider implements ICondi
             .build(consumer);
 
         new SpiritInfusionRecipeBuilder(ItemRegistry.ORNATE_NECKLACE.get(), 1, ItemRegistry.NECKLACE_OF_TIDAL_AFFINITY.get(), 1)
+            .addExtraItem(ItemRegistry.GOLD_NODE.get(), 6)
             .addExtraItem(Items.HEART_OF_THE_SEA, 1)
             .addExtraItem(Items.NAUTILUS_SHELL, 2)
             .addSpirit(AQUEOUS_SPIRIT, 16)
@@ -259,6 +260,14 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider implements ICondi
             .addSpirit(AQUEOUS_SPIRIT, 16)
             .addSpirit(SACRED_SPIRIT, 16)
             .addSpirit(ELDRITCH_SPIRIT, 2)
+            .build(consumer);
+
+        new SpiritInfusionRecipeBuilder(ItemRegistry.ORNATE_RING.get(), 1, ItemRegistry.RING_OF_THE_DEMOLITIONIST.get(), 1)
+            .addExtraItem(ItemRegistry.COPPER_NODE.get(), 6)
+            .addExtraItem(Items.GUNPOWDER, 4)
+            .addExtraItem(ItemRegistry.CURSED_GRIT.get(), 4)
+            .addSpirit(INFERNAL_SPIRIT, 32)
+            .addSpirit(ELDRITCH_SPIRIT, 4)
             .build(consumer);
 
         new SpiritInfusionRecipeBuilder(ItemRegistry.ORNATE_NECKLACE.get(), 1, ItemRegistry.NECKLACE_OF_THE_NARROW_EDGE.get(), 1)
@@ -297,16 +306,16 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider implements ICondi
             .addSpirit(ARCANE_SPIRIT, 8)
             .build(consumer);
 
-        new SpiritInfusionRecipeBuilder(ItemRegistry.GILDED_RING.get(), 1, ItemRegistry.RING_OF_EARTHEN_LOYALTY.get(), 1)
+        new SpiritInfusionRecipeBuilder(ItemRegistry.GILDED_RING.get(), 1, ItemRegistry.RING_OF_THE_HOARDER.get(), 1)
             .addExtraItem(Items.ENDER_PEARL, 2)
-            .addExtraItem(Items.TNT, 2)
+            .addExtraItem(Ingredient.of(Tags.Items.INGOTS_IRON), 4)
             .addExtraItem(Items.GUNPOWDER, 8)
             .addSpirit(EARTHEN_SPIRIT, 16)
             .addSpirit(SACRED_SPIRIT, 8)
             .addSpirit(ARCANE_SPIRIT, 8)
             .build(consumer);
 
-        new SpiritInfusionRecipeBuilder(ItemRegistry.GILDED_BELT.get(), 1, ItemRegistry.BELT_OF_THE_DELVER.get(), 1)
+        new SpiritInfusionRecipeBuilder(ItemRegistry.GILDED_BELT.get(), 1, ItemRegistry.BELT_OF_THE_PROSPECTOR.get(), 1)
             .addExtraItem(ItemRegistry.RARE_EARTHS.get(), 1)
             .addExtraItem(Items.RAW_GOLD, 4)
             .addExtraItem(Items.RAW_IRON, 4)
@@ -329,51 +338,6 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider implements ICondi
             .addExtraItem(ItemRegistry.HEX_ASH.get(), 1)
             .build(consumer);
 
-        new SpiritInfusionRecipeBuilder(Items.TNT, 1, ItemRegistry.ETHERIC_NITRATE.get(), 4)
-            .addSpirit(INFERNAL_SPIRIT, 4)
-            .addExtraItem(ItemRegistry.ETHER.get(), 1)
-            .addExtraItem(Ingredient.of(Tags.Items.GUNPOWDER), 4)
-            .addExtraItem(ItemRegistry.CURSED_GRIT.get(), 2)
-            .build(consumer);
-
-        new SpiritInfusionRecipeBuilder(ItemRegistry.ETHERIC_NITRATE.get(), 8, ItemRegistry.VIVID_NITRATE.get(), 8)
-            .addSpirit(AERIAL_SPIRIT, 8)
-            .addSpirit(AQUEOUS_SPIRIT, 8)
-            .addSpirit(INFERNAL_SPIRIT, 8)
-            .addSpirit(EARTHEN_SPIRIT, 8)
-            .addSpirit(ELDRITCH_SPIRIT, 2)
-            .addExtraItem(ItemRegistry.CURSED_GRIT.get(), 8)
-            .addExtraItem(Ingredient.of(Tags.Items.GUNPOWDER), 8)
-            .addExtraItem(Ingredient.of(Tags.Items.GEMS_PRISMARINE), 4)
-            .build(consumer);
-
-        new SpiritInfusionRecipeBuilder(ItemRegistry.SOUL_STAINED_STEEL_SWORD.get(), 1, ItemRegistry.TYRVING.get(), 1)
-            .addSpirit(WICKED_SPIRIT, 24)
-            .addSpirit(ELDRITCH_SPIRIT, 6)
-            .addExtraItem(ItemRegistry.TWISTED_ROCK.get(), 16)
-            .addExtraItem(ItemRegistry.SOULWOOD_PLANKS.get(), 8)
-            .addExtraItem(ItemRegistry.HEX_ASH.get(), 4)
-            .addExtraItem(Ingredient.of(Tags.Items.OBSIDIAN), 4)
-            .build(consumer);
-
-        new SpiritInfusionRecipeBuilder(ItemRegistry.GILDED_BELT.get(), 1, ItemRegistry.BELT_OF_THE_MAGEBANE.get(), 1)
-            .addSpirit(WICKED_SPIRIT, 32)
-            .addSpirit(ARCANE_SPIRIT, 16)
-            .addSpirit(ELDRITCH_SPIRIT, 4)
-            .addExtraItem(ItemRegistry.TWISTED_ROCK.get(), 16)
-            .addExtraItem(ItemRegistry.SOULWOOD_PLANKS.get(), 8)
-            .addExtraItem(ItemRegistry.SOUL_STAINED_STEEL_INGOT.get(), 6)
-            .build(consumer);
-
-        new SpiritInfusionRecipeBuilder(ItemRegistry.NECKLACE_OF_THE_NARROW_EDGE.get(), 1, ItemRegistry.NECKLACE_OF_THE_HIDDEN_BLADE.get(), 1)
-            .addSpirit(WICKED_SPIRIT, 32)
-            .addSpirit(ARCANE_SPIRIT, 16)
-            .addSpirit(ELDRITCH_SPIRIT, 4)
-            .addExtraItem(ItemRegistry.SOULWOOD_PLANKS.get(), 16)
-            .addExtraItem(ItemRegistry.STAINED_SPIRIT_RESONATOR.get(), 2)
-            .addExtraItem(ItemRegistry.SOUL_STAINED_STEEL_INGOT.get(), 8)
-            .build(consumer);
-
         new SpiritInfusionRecipeBuilder(Items.FURNACE, 1, ItemRegistry.SPIRIT_CRUCIBLE.get(), 1)
             .addSpirit(INFERNAL_SPIRIT, 12)
             .addSpirit(ARCANE_SPIRIT, 4)
@@ -387,15 +351,6 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider implements ICondi
             .addSpirit(EARTHEN_SPIRIT, 4)
             .addExtraItem(ItemRegistry.PROCESSED_SOULSTONE.get(), 3)
             .addExtraItem(ItemRegistry.HEX_ASH.get(), 1)
-            .build(consumer);
-
-        new SpiritInfusionRecipeBuilder(ItemRegistry.ALCHEMICAL_IMPETUS.get(), 1, ItemRegistry.CEASELESS_IMPETUS.get(), 1)
-            .addSpirit(SACRED_SPIRIT, 64)
-            .addSpirit(ELDRITCH_SPIRIT, 4)
-            .addExtraItem(Items.TOTEM_OF_UNDYING, 1)
-            .addExtraItem(Items.GHAST_TEAR, 1)
-            .addExtraItem(ItemRegistry.HALLOWED_SPIRIT_RESONATOR.get(), 2)
-            .addExtraItem(Ingredient.of(Tags.Items.GEMS_EMERALD), 4)
             .build(consumer);
 
         new SpiritInfusionRecipeBuilder(ItemRegistry.TWISTED_ROCK_ITEM_PEDESTAL.get(), 2, ItemRegistry.SPIRIT_CATALYZER.get(), 2)
@@ -425,6 +380,55 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider implements ICondi
             .addExtraItem(ItemRegistry.CURSED_GRIT.get(), 2)
             .addExtraItem(ItemRegistry.SOUL_STAINED_STEEL_INGOT.get(), 4)
             .build(consumer);
+        
+        new SpiritInfusionRecipeBuilder(Items.TNT, 1, ItemRegistry.ETHERIC_NITRATE.get(), 4)
+            .addSpirit(INFERNAL_SPIRIT, 4)
+            .addExtraItem(ItemRegistry.ETHER.get(), 1)
+            .addExtraItem(Ingredient.of(Tags.Items.GUNPOWDER), 4)
+            .addExtraItem(ItemRegistry.CURSED_GRIT.get(), 2)
+            .build(consumer);
+
+        new SpiritInfusionRecipeBuilder(ItemRegistry.ETHERIC_NITRATE.get(), 8, ItemRegistry.VIVID_NITRATE.get(), 8)
+            .addSpirit(AERIAL_SPIRIT, 8)
+            .addSpirit(AQUEOUS_SPIRIT, 8)
+            .addSpirit(INFERNAL_SPIRIT, 8)
+            .addSpirit(EARTHEN_SPIRIT, 8)
+            .addSpirit(ELDRITCH_SPIRIT, 2)
+            .addExtraItem(ItemRegistry.CURSED_GRIT.get(), 8)
+            .addExtraItem(Ingredient.of(Tags.Items.GUNPOWDER), 8)
+            .addExtraItem(Ingredient.of(Tags.Items.GEMS_PRISMARINE), 4)
+            .build(consumer);
+
+        new SpiritInfusionRecipeBuilder(ItemRegistry.SOUL_STAINED_STEEL_SWORD.get(), 1, ItemRegistry.TYRVING.get(), 1)
+            .addSpirit(WICKED_SPIRIT, 24)
+            .addSpirit(ELDRITCH_SPIRIT, 6)
+            .addExtraItem(ItemRegistry.TWISTED_ROCK.get(), 16)
+            .addExtraItem(ItemRegistry.SOULWOOD_PLANKS.get(), 8)
+            .addExtraItem(ItemRegistry.HEX_ASH.get(), 4)
+            .addExtraItem(Ingredient.of(Tags.Items.OBSIDIAN), 4)
+            .addExtraItem(ItemRegistry.CORRUPTED_RESONANCE.get(), 1)
+            .build(consumer);
+
+        new SpiritInfusionRecipeBuilder(ItemRegistry.GILDED_BELT.get(), 1, ItemRegistry.BELT_OF_THE_MAGEBANE.get(), 1)
+            .addSpirit(WICKED_SPIRIT, 32)
+            .addSpirit(ARCANE_SPIRIT, 16)
+            .addSpirit(ELDRITCH_SPIRIT, 4)
+            .addExtraItem(ItemRegistry.TWISTED_ROCK.get(), 16)
+            .addExtraItem(ItemRegistry.SOULWOOD_PLANKS.get(), 8)
+            .addExtraItem(ItemRegistry.SOUL_STAINED_STEEL_INGOT.get(), 6)
+            .addExtraItem(ItemRegistry.CORRUPTED_RESONANCE.get(), 1)
+            .build(consumer);
+
+        new SpiritInfusionRecipeBuilder(ItemRegistry.NECKLACE_OF_THE_NARROW_EDGE.get(), 1, ItemRegistry.NECKLACE_OF_THE_HIDDEN_BLADE.get(), 1)
+            .addSpirit(WICKED_SPIRIT, 32)
+            .addSpirit(ARCANE_SPIRIT, 16)
+            .addSpirit(ELDRITCH_SPIRIT, 4)
+            .addExtraItem(ItemRegistry.SOULWOOD_PLANKS.get(), 16)
+            .addExtraItem(ItemRegistry.STAINED_SPIRIT_RESONATOR.get(), 1)
+            .addExtraItem(ItemRegistry.SOUL_STAINED_STEEL_INGOT.get(), 4)
+            .addExtraItem(ItemRegistry.CORRUPTED_RESONANCE.get(), 1)
+            .build(consumer);
+
 
         metalImpetusRecipe(consumer, ItemRegistry.IRON_IMPETUS, Items.IRON_INGOT);
         metalImpetusRecipe(consumer, ItemRegistry.COPPER_IMPETUS, Items.COPPER_INGOT);

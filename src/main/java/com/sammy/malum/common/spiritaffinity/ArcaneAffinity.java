@@ -11,6 +11,7 @@ import com.sammy.malum.core.setup.content.SoundRegistry;
 import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
 import com.sammy.malum.core.systems.item.IMalumEventResponderItem;
 import com.sammy.malum.core.systems.spirit.MalumSpiritAffinity;
+import net.minecraft.world.item.ItemStack;
 import team.lodestar.lodestone.handlers.ScreenParticleHandler;
 import team.lodestar.lodestone.helpers.ItemHelper;
 import team.lodestar.lodestone.setup.LodestoneScreenParticleRegistry;
@@ -71,23 +72,31 @@ public class ArcaneAffinity extends MalumSpiritAffinity {
 
                         float amount = event.getAmount();
                         float multiplier = source.isMagic() ? CommonConfig.SOUL_WARD_MAGIC.getConfigValue().floatValue() : CommonConfig.SOUL_WARD_PHYSICAL.getConfigValue().floatValue();
+
+                        for (ItemStack s : ItemHelper.getEventResponders(player)) {
+                            if (s.getItem() instanceof IMalumEventResponderItem eventItem) {
+                                multiplier = eventItem.overrideSoulwardDamageAbsorbPercentage(event, player, s, multiplier);
+                                break;
+                            }
+                        }
                         float result = amount * multiplier;
                         float absorbed = amount - result;
                         double strength = player.getAttributeValue(AttributeRegistry.SOUL_WARD_STRENGTH.get());
+                        float soulwardLost = (float) (c.soulWard - (absorbed / strength));
                         if (strength != 0) {
-                            c.soulWard = (float) Math.max(0, c.soulWard - (absorbed / strength));
+                            c.soulWard = Math.max(0, soulwardLost);
                         } else {
+                            soulwardLost = c.soulWard;
                             c.soulWard = 0;
                         }
-
+                        for (ItemStack s : ItemHelper.getEventResponders(player)) {
+                            if (s.getItem() instanceof IMalumEventResponderItem eventItem) {
+                                eventItem.onSoulwardAbsorbDamage(event, player, s, soulwardLost, absorbed);
+                            }
+                        }
                         player.level.playSound(null, player.blockPosition(), SoundRegistry.SOUL_WARD_HIT.get(), SoundSource.PLAYERS, 1, Mth.nextFloat(player.getRandom(), 1.5f, 2f));
                         event.setAmount(result);
 
-                        ItemHelper.getEventResponders(player).forEach(s -> {
-                            if (s.getItem() instanceof IMalumEventResponderItem eventItem) {
-                                eventItem.soulwardDamageAbsorb(event, player, s);
-                            }
-                        });
                         MalumPlayerDataCapability.syncTrackingAndSelf(player);
                     }
                 });

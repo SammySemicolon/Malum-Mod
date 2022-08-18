@@ -10,7 +10,6 @@ import com.sammy.malum.common.effect.InfernalAura;
 import com.sammy.malum.common.effect.WickedIntentEffect;
 import com.sammy.malum.common.enchantment.ReboundEnchantment;
 import com.sammy.malum.common.entity.nitrate.EthericExplosion;
-import com.sammy.malum.common.item.equipment.CeaselessImpetusItem;
 import com.sammy.malum.common.item.equipment.curios.*;
 import com.sammy.malum.common.spiritaffinity.ArcaneAffinity;
 import com.sammy.malum.common.spiritaffinity.EarthenAffinity;
@@ -192,7 +191,6 @@ public class RuntimeEvents {
 
     @SubscribeEvent
     public static void onDeath(LivingDeathEvent event) {
-        CeaselessImpetusItem.preventDeath(event);
         ReapingHandler.tryCreateReapingDrops(event);
         SpiritHarvestHandler.shatterSoul(event);
     }

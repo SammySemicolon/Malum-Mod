@@ -34,7 +34,7 @@ public class CurioAlchemicalRing extends MalumCurioItem implements IMalumEventRe
 
     public static void onPotionApplied(PotionEvent.PotionAddedEvent event) {
         LivingEntity entity = event.getEntityLiving();
-        if (event.getOldPotionEffect() == null && CurioHelper.hasCurioEquipped(entity, ItemRegistry.RING_OF_ALCHEMICAL_MASTERY)) {
+        if (event.getOldPotionEffect() == null && CurioHelper.hasCurioEquipped(entity, ItemRegistry.RING_OF_ALCHEMICAL_MASTERY.get())) {
             MobEffectInstance effect = event.getPotionEffect();
             MobEffect type = effect.getEffect();
             float multiplier = MalumMobEffectRegistry.ALCHEMICAL_PROFICIENCY_MAP.getOrDefault(type.getRegistryName(), 1f);

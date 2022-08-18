@@ -32,7 +32,7 @@ public class CurioVeraciousRing extends MalumCurioItem {
     }
 
     public static void accelerateEating(LivingEntityUseItemEvent.Start event) {
-        if (CurioHelper.hasCurioEquipped(event.getEntityLiving(), ItemRegistry.RING_OF_DESPERATE_VORACITY)) {
+        if (CurioHelper.hasCurioEquipped(event.getEntityLiving(), ItemRegistry.RING_OF_DESPERATE_VORACITY.get())) {
             if (event.getItem().is(GROSS_FOODS)) {
                 event.setDuration((int) (event.getDuration() * 0.6f));
             }
@@ -42,7 +42,7 @@ public class CurioVeraciousRing extends MalumCurioItem {
     public static void finishEating(LivingEntityUseItemEvent.Finish event) {
         if (event.getEntityLiving() instanceof Player player) {
             ItemStack stack = event.getResultStack();
-            if (CurioHelper.hasCurioEquipped(player, ItemRegistry.RING_OF_DESPERATE_VORACITY)) {
+            if (CurioHelper.hasCurioEquipped(player, ItemRegistry.RING_OF_DESPERATE_VORACITY.get())) {
                 if (stack.is(GROSS_FOODS)) {
                     player.getFoodData().eat(2, 0.75f);
                     MobEffectInstance effect = player.getEffect(MobEffects.HUNGER);

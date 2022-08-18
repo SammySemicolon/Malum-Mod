@@ -31,7 +31,8 @@ public class MalumScytheItem extends ModCombatItem implements IMalumEventRespond
 
     @Override
     public void hurtEvent(LivingHurtEvent event, LivingEntity attacker, LivingEntity target, ItemStack stack) {
-        boolean canSweep = !CurioHelper.hasCurioEquipped(attacker, ItemRegistry.NECKLACE_OF_THE_NARROW_EDGE) && !CurioHelper.hasCurioEquipped(attacker, ItemRegistry.NECKLACE_OF_THE_HIDDEN_BLADE);
+        //TODO: convert this to a ToolAction, or something alike
+        boolean canSweep = !CurioHelper.hasCurioEquipped(attacker, ItemRegistry.NECKLACE_OF_THE_NARROW_EDGE.get()) && !CurioHelper.hasCurioEquipped(attacker, ItemRegistry.NECKLACE_OF_THE_HIDDEN_BLADE.get());
         if (attacker instanceof Player player) {
             SoundEvent sound;
             if (canSweep) {
