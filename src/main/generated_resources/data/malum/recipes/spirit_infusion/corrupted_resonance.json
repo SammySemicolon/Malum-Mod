@@ -1,0 +1,42 @@
+{
+  "type": "malum:spirit_infusion",
+  "input": {
+    "item": "malum:raw_soulstone",
+    "count": 16
+  },
+  "output": {
+    "item": "malum:corrupted_resonance"
+  },
+  "extra_items": [
+    {
+      "item": "malum:cluster_of_brilliance",
+      "count": 2
+    },
+    {
+      "item": "minecraft:lapis_lazuli",
+      "count": 4
+    },
+    {
+      "tag": "forge:gems/diamond",
+      "count": 4
+    },
+    {
+      "item": "malum:hex_ash",
+      "count": 2
+    }
+  ],
+  "spirits": [
+    {
+      "type": "arcane",
+      "count": 32
+    },
+    {
+      "type": "wicked",
+      "count": 32
+    },
+    {
+      "type": "eldritch",
+      "count": 4
+    }
+  ]
+}

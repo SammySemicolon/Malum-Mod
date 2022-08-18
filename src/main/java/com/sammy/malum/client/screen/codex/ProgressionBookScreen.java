@@ -632,8 +632,11 @@ public class ProgressionBookScreen extends Screen {
 
         ENTRIES.add(new BookEntry( //TODO: also name this something better
             "metallurgic_trinkets", NECKLACE_OF_BLISSFUL_HARMONY.get(), -2, 14).setSoulwood()
+            .addPage(new HeadlineTextPage("necklace_of_blissful_harmony", "necklace_of_blissful_harmony"))
             .addPage(SpiritInfusionPage.fromOutput(NECKLACE_OF_BLISSFUL_HARMONY.get()))
+            .addPage(new HeadlineTextPage("ring_of_the_demolitionist", "ring_of_the_demolitionist"))
             .addPage(SpiritInfusionPage.fromOutput(RING_OF_THE_DEMOLITIONIST.get()))
+            .addPage(new HeadlineTextPage("necklace_of_tidal_affinity", "necklace_of_tidal_affinity"))
             .addPage(SpiritInfusionPage.fromOutput(NECKLACE_OF_TIDAL_AFFINITY.get()))
         );
 
@@ -647,22 +650,24 @@ public class ProgressionBookScreen extends Screen {
 
         ENTRIES.add(new BookEntry(
             "corrupted_resonance", CORRUPTED_RESONANCE.get(), 0, 15).setSoulwood()
+            .addPage(new HeadlineTextPage("corrupted_resonance", "corrupted_resonance.1"))
+            .addPage(SpiritInfusionPage.fromOutput(CORRUPTED_RESONANCE.get()))
         );
 
         ENTRIES.add(new BookEntry(
-            "magebane_belt", BELT_OF_THE_MAGEBANE.get(), -1, 16)
+            "magebane_belt", BELT_OF_THE_MAGEBANE.get(), -1, 16).setSoulwood()
             .addPage(new HeadlineTextPage("magebane_belt", "magebane_belt"))
             .addPage(SpiritInfusionPage.fromOutput(BELT_OF_THE_MAGEBANE.get()))
         );
 
         ENTRIES.add(new BookEntry(
-            "necklace_of_the_hidden_blade", NECKLACE_OF_THE_HIDDEN_BLADE.get(), 1, 16)
+            "necklace_of_the_hidden_blade", NECKLACE_OF_THE_HIDDEN_BLADE.get(), 1, 16).setSoulwood()
             .addPage(new HeadlineTextPage("necklace_of_the_hidden_blade", "necklace_of_the_hidden_blade"))
             .addPage(SpiritInfusionPage.fromOutput(NECKLACE_OF_THE_HIDDEN_BLADE.get()))
         );
 
         ENTRIES.add(new BookEntry(
-                "tyrving", TYRVING.get(), 0, 17)
+                "tyrving", TYRVING.get(), 0, 17).setSoulwood()
                 .addPage(new HeadlineTextPage("tyrving", "tyrving.1"))
                 .addPage(SpiritInfusionPage.fromOutput(TYRVING.get()))
                 .addPage(new TextPage("tyrving.2"))

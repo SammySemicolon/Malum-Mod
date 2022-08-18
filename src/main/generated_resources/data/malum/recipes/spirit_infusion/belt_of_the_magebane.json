@@ -19,6 +19,10 @@
     {
       "item": "malum:soul_stained_steel_ingot",
       "count": 6
+    },
+    {
+      "item": "malum:corrupted_resonance",
+      "count": 1
     }
   ],
   "spirits": [

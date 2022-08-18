@@ -11,10 +11,7 @@ import com.sammy.malum.common.blockentity.obelisk.RunewoodObeliskBlockEntity;
 import com.sammy.malum.common.blockentity.storage.PlinthCoreBlockEntity;
 import com.sammy.malum.common.entity.nitrate.EthericNitrateEntity;
 import com.sammy.malum.common.entity.nitrate.VividNitrateEntity;
-import com.sammy.malum.common.item.BrillianceChunkItem;
-import com.sammy.malum.common.item.EncyclopediaArcanaItem;
-import com.sammy.malum.common.item.EthericNitrateItem;
-import com.sammy.malum.common.item.NodeItem;
+import com.sammy.malum.common.item.*;
 import com.sammy.malum.common.item.equipment.armor.SoulStainedSteelArmorItem;
 import com.sammy.malum.common.item.equipment.armor.SoulHunterArmorItem;
 import com.sammy.malum.common.item.equipment.curios.*;
@@ -419,7 +416,7 @@ public class ItemRegistry {
     public static final RegistryObject<Item> SPECTRAL_LENS = ITEMS.register("spectral_lens", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> POPPET = ITEMS.register("poppet", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> CURSED_GRIT = ITEMS.register("cursed_grit", () -> new Item(DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> CORRUPTED_RESONANCE = ITEMS.register("corrupted_resonance", () -> new Item(DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> CORRUPTED_RESONANCE = ITEMS.register("corrupted_resonance", () -> new CorruptResonanceItem(DEFAULT_PROPERTIES()));
 
     public static final RegistryObject<Item> HALLOWED_GOLD_INGOT = ITEMS.register("hallowed_gold_ingot", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> HALLOWED_GOLD_NUGGET = ITEMS.register("hallowed_gold_nugget", () -> new Item(DEFAULT_PROPERTIES()));

@@ -399,6 +399,16 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider implements ICondi
             .addExtraItem(Ingredient.of(Tags.Items.GEMS_PRISMARINE), 4)
             .build(consumer);
 
+        new SpiritInfusionRecipeBuilder(ItemRegistry.RAW_SOULSTONE.get(), 16, ItemRegistry.CORRUPTED_RESONANCE.get(), 1)
+            .addSpirit(ARCANE_SPIRIT, 32)
+            .addSpirit(WICKED_SPIRIT, 32)
+            .addSpirit(ELDRITCH_SPIRIT, 4)
+            .addExtraItem(ItemRegistry.CLUSTER_OF_BRILLIANCE.get(), 2)
+            .addExtraItem(Items.LAPIS_LAZULI, 4)
+            .addExtraItem(Ingredient.of(Tags.Items.GEMS_DIAMOND), 4)
+            .addExtraItem(ItemRegistry.HEX_ASH.get(), 2)
+            .build(consumer);
+
         new SpiritInfusionRecipeBuilder(ItemRegistry.SOUL_STAINED_STEEL_SWORD.get(), 1, ItemRegistry.TYRVING.get(), 1)
             .addSpirit(WICKED_SPIRIT, 24)
             .addSpirit(ELDRITCH_SPIRIT, 6)
