@@ -60,7 +60,9 @@ public class AlterationPlinthBlockEntity extends ItemPedestalBlockEntity {
 
                     level.addFreshEntity(pEntity);
                     inventory.setStackInSlot(0, ItemStack.EMPTY);
-                    applied.shrink(1);
+                    if (!player.isCreative()) {
+                        applied.shrink(1);
+                    }
                 }
                 return InteractionResult.SUCCESS;
             }
