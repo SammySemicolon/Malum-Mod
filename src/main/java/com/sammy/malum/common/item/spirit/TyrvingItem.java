@@ -42,9 +42,9 @@ public class TyrvingItem extends LodestoneSwordItem implements IMalumEventRespon
             return;
         }
         if (attacker.level instanceof ServerLevel) {
-            float spiritCount = SpiritHelper.getEntitySpiritCount(target) * 2f;
+            float spiritCount = SpiritHelper.getWeightedEntitySpiritCount(target) * 1.75f;
             if (target instanceof Player) {
-                spiritCount = 4 * Math.max(1, (1 + target.getArmorValue() / 16f) * (1 + (1 - 1 / (float)target.getArmorValue())) / 16f);
+                spiritCount = 4 * Math.max(1, (1 + target.getArmorValue() / 12f) * (1 + (1 - 1 / (float)target.getArmorValue())) / 12f);
             }
 
             if (target.isAlive()) {

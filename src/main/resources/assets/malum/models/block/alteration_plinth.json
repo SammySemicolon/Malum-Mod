@@ -4,7 +4,7 @@
 	"ambientocclusion": false,
 	"texture_size": [64, 64],
 	"textures": {
-		"1": "malum:block/augment_altar",
+		"1": "malum:block/alteration_plinth",
 		"particle": "malum:block/soulwood_planks"
 	},
 	"elements": [

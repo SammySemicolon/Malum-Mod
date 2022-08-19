@@ -58,8 +58,8 @@ public class DrippedOutCommandoArmorModel extends LodestoneArmorModel {
 			.texOffs(20, 45).addBox(-0.5F, 5.5F, -2.5F, 5.0F, 5.0F, 5.0F, new CubeDeformation(0.26F)), PartPose.offset(-1, 0, 0.0F));
 
 		PartDefinition head = root.getChild("head");
-		PartDefinition helmet = head.addOrReplaceChild("helmet", CubeListBuilder.create().texOffs(0, 0).addBox(-4.5F, -8.5F, -5.0F, 9.0F, 9.0F, 9.0F, new CubeDeformation(0.0F))
-			.texOffs(36, 0).addBox(-4.5F, -8.5F, -5.0F, 9.0F, 9.0F, 9.0F, new CubeDeformation(0.25F)), PartPose.offset(0.0F, 0.0F, 0));
+		PartDefinition helmet = head.addOrReplaceChild("helmet", CubeListBuilder.create().texOffs(0, 0).addBox(-4.5F, -8.5F, -5.0F, 9.0F, 9.0F, 9.0F, new CubeDeformation(0.1F))
+			.texOffs(36, 0).addBox(-4.5F, -8.5F, -5.0F, 9.0F, 9.0F, 9.0F, new CubeDeformation(0.35F)), PartPose.offset(0.0F, 0.0F, 0));
 
 		return LayerDefinition.create(mesh, 128, 128);
 	}

@@ -100,6 +100,8 @@ public class SoundRegistry {
     public static final RegistryObject<SoundEvent> CRUCIBLE_LOOP = register(new SoundEvent(MalumMod.malumPath("spirit_crucible_focuses")));
     public static final RegistryObject<SoundEvent> IMPETUS_CRACK = register(new SoundEvent(MalumMod.malumPath("impetus_takes_damage")));
 
+    public static final RegistryObject<SoundEvent> ALTERATION_PLINTH_ALTERS = register(new SoundEvent(MalumMod.malumPath("alteration_plinth_alters")));
+
     public static final RegistryObject<SoundEvent> SINISTER_EQUIP = register(new SoundEvent(MalumMod.malumPath("ornate_trinket_equipped")));
     public static final RegistryObject<SoundEvent> HOLY_EQUIP = register(new SoundEvent(MalumMod.malumPath("gilded_trinket_equipped")));
 

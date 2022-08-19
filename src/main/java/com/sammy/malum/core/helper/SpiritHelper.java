@@ -164,6 +164,14 @@ public class SpiritHelper {
         return bundle.totalSpirits;
     }
 
+    public static float getWeightedEntitySpiritCount(LivingEntity entity) {
+        MalumEntitySpiritData bundle = getEntitySpiritData(entity);
+        if (bundle == null) {
+            return 0;
+        }
+        return bundle.weightedSpirits;
+    }
+
     public static List<ItemStack> getSpiritItemStacks(LivingEntity entity, LivingEntity attacker, ItemStack harvestStack, float spoilsMultiplier) {
         return getSpiritItemStacks(getEntitySpiritData(entity), attacker, harvestStack, spoilsMultiplier);
     }

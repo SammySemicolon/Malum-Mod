@@ -76,6 +76,7 @@
   "spirit_altar_infuses": { "sounds":["malum:altar/altar_loop"], "subtitle": "malum.subtitle.spirit_altar_infuses" },
   "spirit_altar_speeds_up": { "sounds":["malum:altar/altar_speedup1","malum:altar/altar_speedup2"], "subtitle": "malum.subtitle.spirit_altar_speeds_up" },
   "spirit_altar_absorbs_item": { "sounds":["malum:altar/altar_consume1", "malum:altar/altar_consume2"], "subtitle": "malum.subtitle.spirit_altar_absorbs_item" },
+  "alteration_plinth_alters": { "sounds":["malum:plinth/alter1","malum:plinth/alter2","malum:plinth/alter3"], "subtitle": "malum.subtitle.alteration_plinth_alters" },
 
   "spirit_crucible_completes_focusing": { "sounds":["malum:crucible/crucible_craft1", "malum:crucible/crucible_craft2", "malum:crucible/crucible_craft3"], "subtitle": "malum.subtitle.spirit_crucible_completes_focusing" },
   "spirit_crucible_focuses": { "sounds":["malum:crucible/crucible_loop"], "subtitle": "malum.subtitle.spirit_crucible_focuses" },

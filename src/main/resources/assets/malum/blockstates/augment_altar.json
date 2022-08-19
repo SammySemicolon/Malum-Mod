@@ -2,25 +2,25 @@
   "variants": {
     "facing=west": [
       {
-        "model": "malum:block/augment_altar",
+        "model": "malum:block/alteration_plinth",
         "y": 270
       }
     ],
     "facing=south": [
       {
-        "model": "malum:block/augment_altar",
+        "model": "malum:block/alteration_plinth",
         "y": 180
       }
     ],
     "facing=east": [
       {
-        "model": "malum:block/augment_altar",
+        "model": "malum:block/alteration_plinth",
         "y": 90
       }
     ],
     "facing=north": [
       {
-        "model": "malum:block/augment_altar"
+        "model": "malum:block/alteration_plinth"
       }
     ]
   }

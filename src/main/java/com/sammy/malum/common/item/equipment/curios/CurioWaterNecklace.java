@@ -7,6 +7,7 @@ import com.sammy.malum.core.systems.item.IMalumEventResponderItem;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.ForgeMod;
@@ -31,16 +32,26 @@ public class CurioWaterNecklace extends MalumCurioItem implements IMalumEventRes
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(SlotContext slotContext, UUID uuid, ItemStack stack) {
         Multimap<Attribute, AttributeModifier> map = HashMultimap.create();
 
-        map.put(ForgeMod.SWIM_SPEED.get(), new AttributeModifier(uuids.computeIfAbsent(0, (i) -> UUID.randomUUID()), "Swim Speed", 0.25f, AttributeModifier.Operation.ADDITION) {
+        map.put(ForgeMod.SWIM_SPEED.get(), new AttributeModifier(uuids.computeIfAbsent(0, (i) -> UUID.randomUUID()), "Swim Speed", 0.15f, AttributeModifier.Operation.ADDITION) {
             @Override
             public double getAmount() {
                 if (slotContext.entity().hasEffect(MobEffects.CONDUIT_POWER)) {
-                    return 0.75f;
+                    return 0.45f;
                 }
                 return super.getAmount();
             }
         });
         return map;
+    }
+
+    @Override
+    public void curioTick(String identifier, int index, LivingEntity livingEntity, ItemStack stack) {
+        if (livingEntity.level.getGameTime() % 40L == 0 && livingEntity.isSwimming() && livingEntity.hasEffect(MobEffects.CONDUIT_POWER)) {
+            AttributeInstance attribute = livingEntity.getAttribute(ForgeMod.SWIM_SPEED.get());
+            if (attribute != null) {
+                attribute.setDirty();
+            }
+        }
     }
 
     @Override

@@ -1,27 +1,22 @@
-package com.sammy.malum.common.block.augment_altar;
+package com.sammy.malum.common.block.alteration_plinth;
 
-import com.sammy.malum.common.blockentity.augment_altar.AugmentAltarBlockEntity;
 import team.lodestar.lodestone.systems.block.WaterLoggedEntityBlock;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.ChestType;
 import net.minecraft.world.phys.shapes.BooleanOp;
-import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.HORIZONTAL_FACING;
 
-public class AugmentAltarBlock<T extends AugmentAltarBlockEntity> extends WaterLoggedEntityBlock<T> {
+public class AlterationPlinthBlock<T extends com.sammy.malum.common.blockentity.alteration_plinth.AlterationPlinthBlockEntity> extends WaterLoggedEntityBlock<T> {
     public static final VoxelShape SHAPE = makeShape();
     public static final VoxelShape RENDER_SHAPE = makeRenderShape();
 
-    public AugmentAltarBlock(Properties properties) {
+    public AlterationPlinthBlock(Properties properties) {
         super(properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(HORIZONTAL_FACING, Direction.NORTH));
     }
