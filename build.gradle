@@ -136,7 +136,7 @@ dependencies {
     // Use local lodestone when in multiproject
     implementation fg.deobf("team.lodestar.lodestone:lodestone:${minecraftVersion}-${project.lodestoneVersion}")
 
-    implementation fg.deobf("com.jozufozu.flywheel:Flywheel-Forge:${minecraftVersion}-${flywheelVersion}")
+    implementation fg.deobf("com.jozufozu.flywheel:flywheel-forge-${minecraftVersion}:${flywheelVersion}")
 
     implementation fg.deobf("se.mickelus.mutil:mutil:1.18.2-${mutilVersion}")
     implementation fg.deobf("se.mickelus.tetra:tetra:1.18.2-${tetraVersion}")
