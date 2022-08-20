@@ -123,7 +123,7 @@ dependencies {
     }
 
     runtimeOnly fg.deobf("curse.maven:stfu-407174:3759881")
-    runtimeOnly fg.deobf("curse.maven:spark-361579:3828094")
+    runtimeOnly fg.deobf("curse.maven:spark-361579:3824951")
 
     // JEI Dependency
     compileOnly fg.deobf("mezz.jei:jei-${minecraftVersion}:${jeiVersion}:api")
