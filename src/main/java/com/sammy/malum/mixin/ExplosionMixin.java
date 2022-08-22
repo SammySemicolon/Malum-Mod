@@ -7,6 +7,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.ExplosionDamageCalculator;
 import net.minecraft.world.level.Level;
@@ -16,7 +17,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import javax.annotation.Nullable;
 
@@ -25,13 +25,17 @@ public abstract class ExplosionMixin {
 
     @Unique
     boolean hasEarthenRing;
+    @Unique
+    ItemStack droppedItem;
 
     @Shadow
     @Nullable
     public abstract LivingEntity getSourceMob();
 
     @Mutable
-    @Shadow @Final private float radius;
+    @Shadow
+    @Final
+    private float radius;
 
     @ModifyArg(method = "finalizeExplosion", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;getDrops(Lnet/minecraft/world/level/storage/loot/LootContext$Builder;)Ljava/util/List;"))
     private LootContext.Builder malum$getBlockDrops(LootContext.Builder builder) {
@@ -45,11 +49,16 @@ public abstract class ExplosionMixin {
 
     @Inject(method = "finalizeExplosion", at = @At(value = "HEAD"))
     private void malum$finalizeExplosion(boolean pSpawnParticles, CallbackInfo ci) {
-        hasEarthenRing = CurioHoarderRing.hasEarthenRing(getSourceMob());
+        hasEarthenRing = CurioHoarderRing.hasHoarderRing(getSourceMob());
+    }
+
+    @ModifyArg(method = "finalizeExplosion", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/Block;popResource(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/item/ItemStack;)V"), index = 2)
+    private ItemStack malum$popResourceCache(ItemStack pStack) {
+        return droppedItem = pStack;
     }
 
     @ModifyArg(method = "finalizeExplosion", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/Block;popResource(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/item/ItemStack;)V"), index = 1)
     private BlockPos malum$popResource(BlockPos value) {
-        return CurioHoarderRing.getExplosionPos(hasEarthenRing, value, getSourceMob());
+        return CurioHoarderRing.getExplosionPos(hasEarthenRing, value, getSourceMob(), droppedItem);
     }
 }

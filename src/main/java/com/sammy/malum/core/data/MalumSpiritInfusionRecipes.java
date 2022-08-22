@@ -357,7 +357,7 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider implements ICondi
             .addSpirit(INFERNAL_SPIRIT, 4)
             .addSpirit(AERIAL_SPIRIT, 4)
             .addSpirit(ELDRITCH_SPIRIT, 2)
-            .addExtraItem(ItemRegistry.ETHER.get(), 2)
+            .addExtraItem(ItemRegistry.ETHER.get(), 1)
             .addExtraItem(ItemRegistry.TAINTED_ROCK.get(), 8)
             .addExtraItem(ItemRegistry.TWISTED_ROCK.get(), 8)
             .build(consumer);

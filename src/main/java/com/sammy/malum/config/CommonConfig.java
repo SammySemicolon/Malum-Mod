@@ -116,6 +116,10 @@ public class CommonConfig extends LodestoneConfig {
             builder.comment("If set to true, you may put rebound on any weapon in the game.")
                     .define("enableUltimateRebound", false)));
 
+    public static ConfigValueHolder<Boolean> NO_FANCY_SPIRITS = new ConfigValueHolder<>(MALUM,"common/spirit", (builder ->
+        builder.comment("If set to true, any spirits dropped will simply take the form of an item.")
+            .define("noFancySpirits", false)));
+
     public static ConfigValueHolder<Boolean> SOULLESS_SPAWNERS = new ConfigValueHolder<>(MALUM,"common/spirit/spawner", (builder ->
             builder.comment("If set to true, mob spawners will create soulless mobs instead.")
                     .define("lameSpawners", false)));

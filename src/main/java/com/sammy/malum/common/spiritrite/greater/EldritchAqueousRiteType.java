@@ -35,9 +35,11 @@ public class EldritchAqueousRiteType extends MalumRiteType {
             @Override
             public void riteEffect(TotemBaseBlockEntity totemBase) {
                 Level level = totemBase.getLevel();
-                getNearbyBlocks(totemBase, PointedDripstoneBlock.class, getRiteEffectRadius()*2).forEach(p -> {
+                getNearbyBlocks(totemBase, PointedDripstoneBlock.class, getRiteEffectRadius()*4).forEach(p -> {
                     if (level.random.nextFloat() < 0.1f) {
-                        level.getBlockState(p).randomTick((ServerLevel) level, p, level.random);
+                        for (int i = 0; i < 4 + level.random.nextInt(2); i++) {
+                            level.getBlockState(p).randomTick((ServerLevel) level, p, level.random);
+                        }
                         MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(p)), new MinorEntityEffectParticlePacket(AQUEOUS_SPIRIT.getColor(), p.getX() + 0.5f, p.getY() + 0.5f, p.getZ() + 0.5f));
                     }
                 });
