@@ -391,7 +391,7 @@ public class ItemRegistry {
     public static final RegistryObject<Item> EMITTER_MIRROR = ITEMS.register("emitter_mirror", () -> new BlockItem(BlockRegistry.EMITTER_MIRROR.get(), HIDDEN_PROPERTIES()));
     public static final RegistryObject<Item> RUNEWOOD_TOTEM_BASE = ITEMS.register("runewood_totem_base", () -> new BlockItem(BlockRegistry.RUNEWOOD_TOTEM_BASE.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> SOULWOOD_TOTEM_BASE = ITEMS.register("soulwood_totem_base", () -> new BlockItem(BlockRegistry.SOULWOOD_TOTEM_BASE.get(), DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> AUGMENT_ALTAR = ITEMS.register("alteration_plinth", () -> new BlockItem(BlockRegistry.ALTERATION_PLINTH.get(), DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> ALTERATION_PLINTH = ITEMS.register("alteration_plinth", () -> new BlockItem(BlockRegistry.ALTERATION_PLINTH.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> SOULWOOD_PLINTH = ITEMS.register("soulwood_plinth", () -> new MultiBlockItem(BlockRegistry.SOULWOOD_PLINTH.get(), HIDDEN_PROPERTIES(), PlinthCoreBlockEntity.STRUCTURE));
     public static final RegistryObject<Item> SOULWOOD_FUSION_PLATE = ITEMS.register("soulwood_fusion_plate", () -> new MultiBlockItem(BlockRegistry.SOULWOOD_FUSION_PLATE.get(), HIDDEN_PROPERTIES(), FusionPlateBlockEntity.STRUCTURE));
     //endregion

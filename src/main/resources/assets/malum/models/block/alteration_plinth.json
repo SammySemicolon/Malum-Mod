@@ -167,6 +167,5 @@
 				"down": {"uv": [0, 12.75, 1.5, 13.75], "rotation": 270, "texture": "#1", "cullface": "down"}
 			}
 		}
-	],
-	"display": {}
+	]
 }

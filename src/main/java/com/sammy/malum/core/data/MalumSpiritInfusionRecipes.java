@@ -374,7 +374,7 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider implements ICondi
             .addSpirit(INFERNAL_SPIRIT, 2)
             .build(consumer);
 
-        new SpiritInfusionRecipeBuilder(ItemRegistry.RUNEWOOD_ITEM_PEDESTAL.get(), 1, ItemRegistry.AUGMENT_ALTAR.get(), 1)
+        new SpiritInfusionRecipeBuilder(ItemRegistry.RUNEWOOD_ITEM_PEDESTAL.get(), 1, ItemRegistry.ALTERATION_PLINTH.get(), 1)
             .addSpirit(ARCANE_SPIRIT, 16)
             .addSpirit(ELDRITCH_SPIRIT, 4)
             .addExtraItem(ItemRegistry.CURSED_GRIT.get(), 2)

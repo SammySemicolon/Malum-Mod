@@ -613,6 +613,14 @@ public class ProgressionBookScreen extends Screen {
         );
 
         ENTRIES.add(new BookEntry(
+                "resource_transmutation", BLIGHTED_SOIL.get(), -1, 13).setSoulwood()
+                .addPage(new HeadlineTextPage("transmutation.intro", "transmutation.intro.1"))
+                .addPage(new SpiritTransmutationPage("transmutation.stone", STONE))
+                .addPage(new SpiritTransmutationPage("transmutation.deepslate", DEEPSLATE))
+                .addPage(new SpiritTransmutationPage("transmutation.deepslate", SMOOTH_BASALT))
+        );
+
+        ENTRIES.add(new BookEntry(
             "soulwood", SOULWOOD_GROWTH.get(), 1, 12).setSoulwood()
             .addPage(new HeadlineTextPage("soulwood.intro", "soulwood.intro.1"))
             .addPage(new HeadlineTextPage("soulwood.bonemeal", "soulwood.bonemeal.1"))
@@ -622,13 +630,9 @@ public class ProgressionBookScreen extends Screen {
         );
 
         ENTRIES.add(new BookEntry(
-            "resource_transmutation", BLIGHTED_SOIL.get(), 0, 13).setSoulwood()
-            .addPage(new HeadlineTextPage("transmutation.intro", "transmutation.intro.1"))
-            .addPage(new SpiritTransmutationPage("transmutation.stone", STONE))
-            .addPage(new SpiritTransmutationPage("transmutation.deepslate", DEEPSLATE))
-            .addPage(new SpiritTransmutationPage("transmutation.deepslate", SMOOTH_BASALT))
-        ); //TODO: make this also detail how to create cursed grit, in a similar fashion to how hex ash is shown.
-
+                "alteration_plinth", ALTERATION_PLINTH.get(), 1, 13).setSoulwood()
+                .addPage(new HeadlineTextPage("alteration_plinth.intro", "alteration_plinth.intro.1"))
+        );
 
         ENTRIES.add(new BookEntry( //TODO: also name this something better
             "metallurgic_trinkets", NECKLACE_OF_BLISSFUL_HARMONY.get(), -2, 14).setSoulwood()

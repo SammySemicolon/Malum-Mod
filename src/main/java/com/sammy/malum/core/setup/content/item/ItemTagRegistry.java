@@ -21,6 +21,8 @@ public class ItemTagRegistry {
     public static final TagKey<Item> KNIVES_FD = modTag("farmersdelight:tools/knives");
     public static final TagKey<Item> KNIVES = forgeTag("tools/knives");
 
+    public static final TagKey<Item> STRIPPED_LOGS = forgeTag("stripped_logs");
+
     private static TagKey<Item> modTag(String path) {
         return TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(path));
     }

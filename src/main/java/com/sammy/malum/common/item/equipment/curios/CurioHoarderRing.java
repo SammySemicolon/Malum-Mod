@@ -21,7 +21,7 @@ public class CurioHoarderRing extends MalumCurioItem {
     public static BlockPos getExplosionPos(boolean hasTheRing, BlockPos originalPos, LivingEntity entity, ItemStack droppedItem) {
         if (hasTheRing) {
             ItemStack itemInHand = entity.getItemInHand(InteractionHand.OFF_HAND);
-            if (!itemInHand.isEmpty() && itemInHand.getItem() instanceof BlockItem) {
+            if (!itemInHand.isEmpty()) {
                 if (!droppedItem.getItem().equals(itemInHand.getItem())) {
                     return originalPos;
                 }
