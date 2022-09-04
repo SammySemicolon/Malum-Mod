@@ -35,6 +35,7 @@ public class CurioWaterNecklace extends MalumCurioItem implements IMalumEventRes
         map.put(ForgeMod.SWIM_SPEED.get(), new AttributeModifier(uuids.computeIfAbsent(0, (i) -> UUID.randomUUID()), "Swim Speed", 0.15f, AttributeModifier.Operation.ADDITION) {
             @Override
             public double getAmount() {
+                if(slotContext.entity() == null) return super.getAmount();
                 if (slotContext.entity().hasEffect(MobEffects.CONDUIT_POWER)) {
                     return 0.45f;
                 }
