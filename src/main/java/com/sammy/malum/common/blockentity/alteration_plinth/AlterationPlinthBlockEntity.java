@@ -5,6 +5,7 @@ import com.sammy.malum.common.packets.particle.block.blight.BlightTransformItemP
 import com.sammy.malum.common.recipe.AugmentingRecipe;
 import com.sammy.malum.core.setup.content.SoundRegistry;
 import com.sammy.malum.core.setup.content.block.BlockEntityRegistry;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -42,6 +43,7 @@ public class AlterationPlinthBlockEntity extends ItemPedestalBlockEntity {
         return new Vec3(0.5f, 1.5f, 0.5f);
     }
 
+    @SuppressWarnings("ConstantConditions")
     @Override
     public InteractionResult onUse(Player player, InteractionHand hand) {
         ItemStack target = inventory.getStackInSlot(0);
@@ -51,7 +53,12 @@ public class AlterationPlinthBlockEntity extends ItemPedestalBlockEntity {
             if (recipe != null) {
                 if (!level.isClientSide) {
                     Random random = level.random;
-                    target.getOrCreateTag().merge(recipe.tagAugment);
+                    CompoundTag tag = target.getOrCreateTag();
+                    CompoundTag modifiedTag = tag.copy().merge(recipe.tagAugment);
+                    if (tag.equals(modifiedTag)) {
+                        return InteractionResult.FAIL;
+                    }
+                    target.setTag(modifiedTag);
                     Vec3 pos = getItemPos();
                     ItemEntity pEntity = new ItemEntity(level, pos.x(), pos.y(), pos.z(), target);
                     pEntity.setDeltaMovement(Mth.nextFloat(random, -0.1F, 0.1F), Mth.nextFloat(random, 0.25f, 0.5f), Mth.nextFloat(random, -0.1F, 0.1F));

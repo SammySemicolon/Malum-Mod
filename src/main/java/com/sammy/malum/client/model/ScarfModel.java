@@ -29,9 +29,14 @@ public class ScarfModel extends EntityModel<Player> {
 
 		PartDefinition headScarf = partdefinition.addOrReplaceChild("head_scarf", CubeListBuilder.create().texOffs(0, 14).addBox(-4.5F, -2.25F, -4.5F, 9.0F, 3.0F, 9.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-		PartDefinition torsoScarf = partdefinition.addOrReplaceChild("torso_scarf", CubeListBuilder.create().texOffs(0, 0).addBox(-5.5F, -25.0F, -2.5F, 11.0F, 9.0F, 5.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 24.0F, 0.0F));
+		PartDefinition torsoScarf = partdefinition.addOrReplaceChild("torso_scarf", CubeListBuilder.create().texOffs(0, 0).addBox(-5.5F, -1.0F, -2.5F, 11.0F, 9.0F, 5.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
 		return LayerDefinition.create(mesh, 64, 32);
+	}
+
+	public void copyFromDefault(HumanoidModel model) {
+		torsoScarf.copyFrom(model.body);
+		headScarf.copyFrom(model.head);
 	}
 
 	@Override

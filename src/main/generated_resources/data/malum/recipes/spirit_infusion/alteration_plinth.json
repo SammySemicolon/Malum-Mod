@@ -1,7 +1,7 @@
 {
   "type": "malum:spirit_infusion",
   "input": {
-    "item": "malum:runewood_item_pedestal",
+    "item": "malum:soulwood_item_pedestal",
     "count": 1
   },
   "output": {
@@ -9,7 +9,7 @@
   },
   "extra_items": [
     {
-      "item": "malum:cursed_grit",
+      "item": "malum:soulwood_planks",
       "count": 2
     },
     {

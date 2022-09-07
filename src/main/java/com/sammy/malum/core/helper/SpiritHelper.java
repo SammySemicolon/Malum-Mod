@@ -108,7 +108,7 @@ public class SpiritHelper {
         if (attacker == null) {
             attacker = level.getNearestPlayer(position.x, position.y, position.z, 8, e -> true);
         }
-        float speed = (0.1f + 0.2f / (totalCount + 1)) * speedMultiplier;
+        float speed = (0.15f + 0.25f / (totalCount + 1)) * speedMultiplier;
         Random random = level.random;
         for (ItemStack stack : spirits) {
             int count = stack.getCount();

@@ -138,7 +138,7 @@ public class MalumLang extends LanguageProvider {
         addPages("natural_quartz",
             "Natural Quartz is, as the name implies, a natural equivalent of the nether resource. It's used for most of the same things. It's rare, and found deep underground, sometimes in geodes.");
 
-        addSimpleEntryHeader("rare_earths", "Rare Earths", "[NOT COMPLETE]");
+        addSimpleEntryHeader("rare_earths", "Rare Earths", "Thaumcraft wow no way");
         addPages("rare_earths",
             "A rare resource found in golden geodes deep underground. Description to come.");
 
@@ -355,6 +355,13 @@ public class MalumLang extends LanguageProvider {
         addPages("belt_of_the_starved.ring_of_desperate_voracity",
             "To combat the toxic nature of these foods, I have created a ring to alleviate some of these effects. This ring makes rotten foods just a little bit more bearable, allowing me to amass more hunger and saturation from this unusual diet.");
 
+        addSimpleEntryHeader("belt_of_the_prospector", "Belt of the Prospector", "Channeling fortune");
+        addPages("belt_of_the_prospector",
+                "While wearing this belt, blocks broken by your explosions yield rewards as if broken with a fortune 3 pickaxe");
+        addHeadline("belt_of_the_prospector.ring_of_the_hoarder", "Ring of The Hoarder");
+        addPages("belt_of_the_prospector.ring_of_the_hoarder",
+                "While wearing this ring, any item created from the destruction caused by your explosions is directly teleported to your location.");
+
         addEntryHeader("necklace_of_the_mystic_mirror", "Necklace of the Mystic Mirror", "As without, so within");
         addHeadline("necklace_of_the_mystic_mirror", "The Mystic Mirror");
         addPages("necklace_of_the_mystic_mirror",
@@ -478,16 +485,40 @@ public class MalumLang extends LanguageProvider {
         addPages("soulwood.sap",
             "The sticky lifeblood of the tree also seems to well up much more often in a tree than in Runewood. The sap's effects are corrupted as well; rather than restoring my vigor, Unholy Syrup enhances it, increasing my attack strength.");
 
-        addSimpleEntryHeader("tyrving", "Tyrving", "[NOT COMPLETE] Ancient Relic");
+        addSimpleEntryHeader("metallurgic_trinkets", "Metallurgic Trinkets", "yeah");
+        addHeadline("necklace_of_blissful_harmony", "Necklace of Bliss Modpack");
+        addPages("necklace_of_blissful_harmony", "While worn, you become much more elusive to most enemies. The more spirits any given enemy has, the more prone you are to being targeted.");
+        addHeadline("ring_of_the_demolitionist", "ring_of_the_demolitionist");
+        addPages("ring_of_the_demolitionist", "Your explosions are bigger.");
+        addHeadline("necklace_of_tidal_affinity", "Water");
+        addPages("necklace_of_tidal_affinity", "You are faster in water. While under the effect of conduit power, the effect is further improved. You also amass a strong damage reduction and are blessed with constant health regeneration.");
+
+        addSimpleEntryHeader("resource_transmutation", "Resource Transmgdsjfissd", "help");
+        addPages("transmutation.intro", "Besides creating soulwood, the unchained rite can be used to create a variety of blocks. Here are some uhhh, transmutation trees. Start by placing the block at the top, it will step through every block in the shown list before ending up as blight.");
+        addHeadline("transmutation.stone", "Transmutation Tree: Stone");
+        addHeadline("transmutation.deepslate", "Transmutation Tree: Deepslate");
+        addHeadline("transmutation.smooth_basalt", "Transmutation Tree: Smooth Basalt");
+
+        addSimpleEntryHeader("alteration_plinth", "Alteration Plinth thing", "modify items and stuff");
+        addPages("alteration_plinth.intro", "You can modify items, place thing A in the table, then right click with thing B. Currently the main purpose is changing the appearance of your malum armor. Try using an eldritch spirit, ancient scrap, or even an egg or moss block. There's a lot of vanity stuff that I don't feel like making a JEI tab for rn.");
+
+        addSimpleEntryHeader("etheric_nitrate", "Etheric Nitrate", "La bomba");
+        addPages("etheric_nitrate", "It's a throwable bomb. Not much to it, but it looks pretty I guess.");
+        addHeadline("etheric_nitrate.vivid_nitrate", "Vivid Nitrate");
+        addPages("etheric_nitrate.vivid_nitrate", "Vivid nitrate, which lacks a proper texture as of right now, is a devilish creation. It's a much more potent version of etheric nitrate that also bounces every time it explodes.");
+
+        addSimpleEntryHeader("corrupted_resonance", "Corrupted Resonance", "Cool expensive material");
+        addPages("corrupted_resonance", "This thing is expensive, and used to craft some powerful items in malum. Using the alteration plinth players will be able to combine any weapon with this item to allow their weapon to shatter souls. This isn't implemented yet.");
+
+        addSimpleEntryHeader("tyrving", "Tyrving", "Ancient Relic");
         addPages("tyrving", "The Tyrving is a rather esoteric blade. It's strange design makes it appear as a weak weapon not suited for combat. However, it's hex ash lining and twisted rock form cause it to deal extra magic damage to the soul, the greater the soul the more benefit.",
             "The weapon can also be repaired using arcane restoration quite efficiently.");
 
-        addSimpleEntryHeader("magebane_belt", "Magebane Belt", "[NOT COMPLETE] Retaliation");
-        addPages("magebane_belt", "By twisting a warded belt into it's rather sinister alter ego I may create the magebane belt. This alteration exchanges defense for offense, providing greater magic resistance and extra soul ward. Additionally, any damage absorbed by soul ward will make it's way to the inflicter.");
+        addSimpleEntryHeader("magebane_belt", "Magebane Belt", "Retaliation");
+        addPages("magebane_belt", "By twisting a gilded belt into it's rather sinister alter ego I may create the magebane belt. This alteration exchanges defense for offense, allowing my soul ward shielding to reroute any damage it absorbs back to the inflicter.");
 
-        addSimpleEntryHeader("ceaseless_impetus", "Ceaseless Impetus", "[NOT COMPLETE] Rebirth");
-        addPages("ceaseless_impetus", "The totem of undying is a very interesting artifact sought out by many, it seems to be an effigy for some sort of greater god, an opposition to an undocumented evil it seems. By utilizing advanced sacred spirit arcana I can feed into this wonder and alter it's effect.",
-            "In addition to a more sturdy design made out of hallowed gold, the ceaseless impetus allows for two uses before needing repair. This however results in the phoenix blessing effect being generally weaker, needing activations in quick succession to match it's former glory.");
+        addSimpleEntryHeader("necklace_of_the_hidden_blade", "Necklace of The Hidden Blade", "No idea what to put here");
+        addPages("necklace_of_the_hidden_blade", "When the bearer of this necklace is struck, they receive a temporary but incredibly powerful boost to their scythe's damage output proportional to the amount of damage taken. The effect lasts for a single strike.");
 
         addSimpleEntryHeader("the_device", "The Device.", "microwave to recharge");
         addPage("the_device", "even works while bended");

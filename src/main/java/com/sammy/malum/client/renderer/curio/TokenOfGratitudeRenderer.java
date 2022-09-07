@@ -107,13 +107,12 @@ public class TokenOfGratitudeRenderer implements ICurioRenderer {
         float netHeadPitch = Mth.lerp(pticks, playerEntity.xRotO, playerEntity.getXRot());
         EntityRenderer<? super AbstractClientPlayer> render = Minecraft.getInstance().getEntityRenderDispatcher().getRenderer(playerEntity);
         if (render instanceof LivingEntityRenderer livingEntityRenderer) {
-            EntityModel<AbstractClientPlayer> model = livingEntityRenderer.getModel(); //TODO: figure out what this warning means
+            EntityModel<AbstractClientPlayer> model = livingEntityRenderer.getModel();
             if (model instanceof HumanoidModel humanoidModel) {
-                humanoidModel.copyPropertiesTo(ItemRegistry.ClientOnly.SCARF);
+                ItemRegistry.ClientOnly.SCARF.copyFromDefault(humanoidModel);
             }
         }
         ItemRegistry.ClientOnly.SCARF.setupAnim(playerEntity, playerEntity.animationPosition, playerEntity.animationSpeed, playerEntity.tickCount + pticks, netHeadYaw, netHeadPitch);
-        ICurioRenderer.followHeadRotations(playerEntity, ItemRegistry.ClientOnly.SCARF.headScarf);
         ItemRegistry.ClientOnly.SCARF.renderToBuffer(poseStack, vertexconsumer, light, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
     }
 }

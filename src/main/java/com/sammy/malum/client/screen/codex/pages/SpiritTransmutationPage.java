@@ -56,7 +56,7 @@ public class SpiritTransmutationPage extends BookPage {
         int guiLeft = guiLeft();
         int guiTop = guiTop();
         Component component = new TranslatableComponent(headlineTranslationKey());
-        ProgressionBookScreen.renderText(poseStack, component, guiLeft + 218 - minecraft.font.width(component.getString()) / 2, guiTop + 10);
+        ProgressionBookScreen.renderText(poseStack, component, guiLeft + 75 - minecraft.font.width(component.getString()) / 2, guiTop + 10);
         List<WrappedIngredient> copy = new ArrayList<>(itemTree);
         ProgressionBookScreen.renderComponent(poseStack, copy.remove(0), guiLeft + 67, guiTop + 44, mouseX, mouseY);
         ProgressionBookScreen.renderComponent(poseStack, copy.remove(copy.size() - 1), guiLeft + 67, guiTop + 126, mouseX, mouseY);
