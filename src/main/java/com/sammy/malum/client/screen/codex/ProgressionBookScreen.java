@@ -313,7 +313,7 @@ public class ProgressionBookScreen extends Screen {
                 .addPage(SpiritCruciblePage.fromOutput(QUARTZ))
                 .addPage(SpiritCruciblePage.fromOutput(AMETHYST_SHARD))
                 .addPage(SpiritCruciblePage.fromOutput(BLAZING_QUARTZ.get()))
-                .addPage(SpiritCruciblePage.fromOutput(PRISMARINE_CRYSTALS))
+                .addPage(SpiritCruciblePage.fromOutput(PRISMARINE))
         );
 
         ENTRIES.add(new BookEntry(
