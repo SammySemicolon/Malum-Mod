@@ -45,7 +45,7 @@ public class EthericExplosion extends Explosion {
 
     public static void processExplosion(ExplosionEvent.Detonate event) {
         if (event.getExplosion() instanceof EthericExplosion) {
-            event.getAffectedEntities().removeIf(e -> (e instanceof ItemEntity itemEntity && itemEntity.getItem().is(ItemTagRegistry.NITRATE_VALUABLE)) || e instanceof AbstractNitrateEntity);
+            event.getAffectedEntities().removeIf(e -> e instanceof AbstractNitrateEntity);
         }
     }
 

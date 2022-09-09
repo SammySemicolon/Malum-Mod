@@ -3,7 +3,6 @@ package com.sammy.malum.core.data;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.item.NodeItem;
 import com.sammy.malum.core.setup.content.block.BlockTagRegistry;
-import com.sammy.malum.core.setup.content.item.ItemRegistry;
 import com.sammy.malum.core.setup.content.item.ItemTagRegistry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.BlockTagsProvider;
@@ -14,8 +13,6 @@ import net.minecraft.world.item.Items;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.RegistryObject;
-
-import java.util.stream.Collectors;
 
 import static com.sammy.malum.core.setup.content.item.ItemRegistry.*;
 import static com.sammy.malum.core.setup.content.item.ItemTagRegistry.*;
@@ -78,7 +75,7 @@ public class MalumItemTags extends ItemTagsProvider {
             tag(METAL_NODES).add(i);
         });
 
-        tag(NITRATE_VALUABLE).addTags(Tags.Items.ORES, Tags.Items.STORAGE_BLOCKS, Tags.Items.INGOTS, Tags.Items.NUGGETS, Tags.Items.GEMS, Tags.Items.RAW_MATERIALS, ItemTags.COALS, METAL_NODES);
+        tag(PROSPECTORS_TREASURE).addTags(Tags.Items.ORES, Tags.Items.STORAGE_BLOCKS, Tags.Items.INGOTS, Tags.Items.NUGGETS, Tags.Items.GEMS, Tags.Items.RAW_MATERIALS, ItemTags.COALS, METAL_NODES);
 
         tag(RUNEWOOD_LOGS).add(RUNEWOOD_LOG.get(), STRIPPED_RUNEWOOD_LOG.get(), RUNEWOOD.get(), STRIPPED_RUNEWOOD.get(), EXPOSED_RUNEWOOD_LOG.get(), REVEALED_RUNEWOOD_LOG.get());
         tag(SOULWOOD_LOGS).add(SOULWOOD_LOG.get(), STRIPPED_SOULWOOD_LOG.get(), SOULWOOD.get(), STRIPPED_SOULWOOD.get(), EXPOSED_SOULWOOD_LOG.get(), REVEALED_SOULWOOD_LOG.get(), BLIGHTED_SOULWOOD.get());

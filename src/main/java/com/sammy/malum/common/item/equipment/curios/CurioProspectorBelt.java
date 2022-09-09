@@ -1,6 +1,11 @@
 package com.sammy.malum.common.item.equipment.curios;
 
+import com.sammy.malum.common.entity.nitrate.AbstractNitrateEntity;
+import com.sammy.malum.common.entity.nitrate.EthericExplosion;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
+import com.sammy.malum.core.setup.content.item.ItemTagRegistry;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraftforge.event.world.ExplosionEvent;
 import team.lodestar.lodestone.helpers.CurioHelper;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -19,6 +24,14 @@ public class CurioProspectorBelt extends MalumCurioItem {
     public CurioProspectorBelt(Properties builder) {
         super(builder);
     }
+
+    public static void processExplosion(ExplosionEvent.Detonate event) {
+        LivingEntity exploder = event.getExplosion().getSourceMob();
+        if (exploder != null && CurioHelper.hasCurioEquipped(exploder, ItemRegistry.BELT_OF_THE_PROSPECTOR.get())) {
+            event.getAffectedEntities().removeIf(e -> e instanceof ItemEntity itemEntity && itemEntity.getItem().is(ItemTagRegistry.PROSPECTORS_TREASURE));
+        }
+    }
+
 
     public static LootContext.Builder applyFortune(Entity source, LootContext.Builder builder) {
         if (source instanceof LivingEntity livingEntity) {
