@@ -31,7 +31,7 @@ import java.util.UUID;
 
 public class TokenOfGratitudeRenderer implements ICurioRenderer {
 
-    private static final ResourceLocation SAMMY = MalumMod.malumPath("textures/cosmetic/sammy_texture.png");
+    private static final ResourceLocation SAMMY = MalumMod.malumPath("textures/cosmetic/sammy_tail.png");
     private static final ResourceLocation OWL_PERSON_EYES = MalumMod.malumPath("textures/cosmetic/patreon/owl_person_eyes.png");
     private static final ResourceLocation OWL_PERSON_ELYTRA = MalumMod.malumPath("textures/cosmetic/patreon/owl_person_elytra.png");
     private static final ResourceLocation SNAKE_FELLA_SCARF = MalumMod.malumPath("textures/cosmetic/patreon/snake_scarf.png");

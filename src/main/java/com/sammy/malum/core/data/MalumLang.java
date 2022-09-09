@@ -357,7 +357,7 @@ public class MalumLang extends LanguageProvider {
 
         addSimpleEntryHeader("belt_of_the_prospector", "Belt of the Prospector", "Channeling wealth");
         addPages("belt_of_the_prospector",
-                "While wearing this belt, blocks broken by your explosions yield rewards as if broken with a fortune 3 pickaxe");
+                "To fuel my various rites and other means of self growth ");
         addHeadline("belt_of_the_prospector.ring_of_the_hoarder", "Ring of The Hoarder");
         addPages("belt_of_the_prospector.ring_of_the_hoarder",
                 "While wearing this ring, any item created from the destruction caused by your explosions is directly teleported to your location.");
