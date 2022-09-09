@@ -31,11 +31,12 @@ import java.util.UUID;
 
 public class TokenOfGratitudeRenderer implements ICurioRenderer {
 
-    private static final ResourceLocation SAMMY = MalumMod.malumPath("textures/cosmetic/patreon/sammy_texture.png");
+    private static final ResourceLocation SAMMY = MalumMod.malumPath("textures/cosmetic/sammy_texture.png");
     private static final ResourceLocation OWL_PERSON_EYES = MalumMod.malumPath("textures/cosmetic/patreon/owl_person_eyes.png");
     private static final ResourceLocation OWL_PERSON_ELYTRA = MalumMod.malumPath("textures/cosmetic/patreon/owl_person_elytra.png");
     private static final ResourceLocation SNAKE_FELLA_SCARF = MalumMod.malumPath("textures/cosmetic/patreon/snake_scarf.png");
-    private static final ResourceLocation BOBBU_SCARF = MalumMod.malumPath("textures/cosmetic/patreon/bobbu_scarf.png");
+    private static final ResourceLocation BOBBU_SCARF = MalumMod.malumPath("textures/cosmetic/bobbu_scarf.png");
+    private static final ResourceLocation DELLY_NECKLACE = MalumMod.malumPath("textures/cosmetic/delly_necklace.png");
 
 
     private static final ResourceLocation TRANS_SCARF = MalumMod.malumPath("textures/cosmetic/trans_scarf.png");
@@ -77,6 +78,9 @@ public class TokenOfGratitudeRenderer implements ICurioRenderer {
             }
             if (playerEntity.getUUID().equals(CurioTokenOfGratitude.BOBBU)) {
                 renderScarf(playerEntity, BOBBU_SCARF, poseStack, renderTypeBuffer, light);
+            }
+            if (playerEntity.getUUID().equals(CurioTokenOfGratitude.DELLY)) {
+                renderScarf(playerEntity, DELLY_NECKLACE, poseStack, renderTypeBuffer, light);
             }
             if (CurioTokenOfGratitude.TRANS_SCARFS.contains(playerEntity.getUUID())) {
                 renderScarf(playerEntity, TRANS_SCARF, poseStack, renderTypeBuffer, light);

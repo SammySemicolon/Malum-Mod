@@ -355,7 +355,7 @@ public class MalumLang extends LanguageProvider {
         addPages("belt_of_the_starved.ring_of_desperate_voracity",
             "To combat the toxic nature of these foods, I have created a ring to alleviate some of these effects. This ring makes rotten foods just a little bit more bearable, allowing me to amass more hunger and saturation from this unusual diet.");
 
-        addSimpleEntryHeader("belt_of_the_prospector", "Belt of the Prospector", "Channeling fortune");
+        addSimpleEntryHeader("belt_of_the_prospector", "Belt of the Prospector", "Channeling wealth");
         addPages("belt_of_the_prospector",
                 "While wearing this belt, blocks broken by your explosions yield rewards as if broken with a fortune 3 pickaxe");
         addHeadline("belt_of_the_prospector.ring_of_the_hoarder", "Ring of The Hoarder");

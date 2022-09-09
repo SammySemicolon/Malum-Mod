@@ -27,6 +27,7 @@ public class CurioTokenOfGratitude extends MalumCurioItem {
     public static final UUID OWL_PERSON = validateForGratitude("309b2cf6-caa1-4c9a-912d-7b4be827dc8c");
     public static final UUID SNAKE_SCARF_FELLA = validateForGratitude("07f1452b-7408-47b3-be2b-e6e08869e891");
     public static final UUID BOBBU = validateForGratitude("3ab4b4b3-dceb-4ff9-a901-fa6edd746070");
+    public static final UUID DELLY = validateForGratitude("7c3a2f88-f6b8-47ff-971d-73544eb5ae62");
 
     static {
         addTransScarf(validateForGratitude("72155db3-d5e4-47fa-8200-c85bf7f87370")); //copilot says it's 'Snake'
