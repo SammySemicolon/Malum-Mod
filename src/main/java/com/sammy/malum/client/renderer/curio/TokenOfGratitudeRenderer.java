@@ -37,6 +37,7 @@ public class TokenOfGratitudeRenderer implements ICurioRenderer {
     private static final ResourceLocation SNAKE_FELLA_SCARF = MalumMod.malumPath("textures/cosmetic/patreon/snake_scarf.png");
     private static final ResourceLocation BOBBU_SCARF = MalumMod.malumPath("textures/cosmetic/bobbu_scarf.png");
     private static final ResourceLocation DELLY_NECKLACE = MalumMod.malumPath("textures/cosmetic/delly_necklace.png");
+    private static final ResourceLocation LOFI = MalumMod.malumPath("textures/cosmetic/lofi_tail.png");
 
 
     private static final ResourceLocation TRANS_SCARF = MalumMod.malumPath("textures/cosmetic/trans_scarf.png");
@@ -45,30 +46,10 @@ public class TokenOfGratitudeRenderer implements ICurioRenderer {
     public <T extends LivingEntity, M extends EntityModel<T>> void render(ItemStack stack, SlotContext slotContext, PoseStack poseStack, RenderLayerParent<T, M> renderLayerParent, MultiBufferSource renderTypeBuffer, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
         if (slotContext.entity() instanceof AbstractClientPlayer playerEntity) {
             if (playerEntity.getUUID().equals(CurioTokenOfGratitude.SAMMY)) {
-                poseStack.pushPose();
-                Vec3 movement = new Vec3(playerEntity.getDeltaMovement().x, 0, playerEntity.getDeltaMovement().z);
-                double wagSpeed = playerEntity.getDeltaMovement().length();
-                if (wagSpeed != 0) {
-                    double factor = 55;
-                    Vec3 yawLook = Vec3.directionFromRotation(0.0f, playerEntity.getYRot());
-                    Vec3 look = new Vec3(yawLook.x, 0.0, yawLook.z);
-                    Vec3 desiredDirection = look.yRot((float) Math.toRadians(90)).normalize();
-                    Vec3 sidewaysVelocity = desiredDirection.scale(movement.dot(desiredDirection));
-                    double speedAndDirection = (sidewaysVelocity.length() * -Math.signum(desiredDirection.dot(sidewaysVelocity))) / wagSpeed;
-                    poseStack.mulPose(Vector3f.YP.rotationDegrees((float) (speedAndDirection * factor)));
-                }
-                float ambientFactor = playerEntity.isShiftKeyDown() ? 2 : 6;
-                double ambientXRotation = Math.sin(playerEntity.level.getGameTime() / 18f) * ambientFactor;
-                poseStack.mulPose(Vector3f.XP.rotationDegrees((float) ambientXRotation));
-                double ambientYRotation = Math.cos(playerEntity.level.getGameTime() / 24f) * -ambientFactor;
-                poseStack.mulPose(Vector3f.YP.rotationDegrees((float) ambientYRotation));
-                VertexConsumer vertexconsumer = ItemRenderer.getArmorFoilBuffer(renderTypeBuffer, RenderType.armorCutoutNoCull(SAMMY), false, stack.hasFoil());
-                ItemRegistry.ClientOnly.TAIL_MODEL.setupAnim(playerEntity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
-                ItemRegistry.ClientOnly.TAIL_MODEL.prepareMobModel(playerEntity, limbSwing, limbSwingAmount, partialTicks);
-                ICurioRenderer.translateIfSneaking(poseStack, playerEntity);
-                ICurioRenderer.rotateIfSneaking(poseStack, playerEntity);
-                ItemRegistry.ClientOnly.TAIL_MODEL.renderToBuffer(poseStack, vertexconsumer, light, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
-                poseStack.popPose();
+                renderTail(stack, SAMMY, poseStack, playerEntity, renderTypeBuffer, light, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch);
+            }
+            if (playerEntity.getUUID().equals(CurioTokenOfGratitude.LOFI)) {
+                renderTail(stack, LOFI, poseStack, playerEntity, renderTypeBuffer, light, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch);
             }
             if (playerEntity.getUUID().equals(CurioTokenOfGratitude.OWL_PERSON)) {
                 renderGlowingEyes(playerEntity, LodestoneRenderTypeRegistry.TRANSPARENT_TEXTURE.applyAndCache(OWL_PERSON_EYES), poseStack, renderTypeBuffer, RenderHelper.FULL_BRIGHT);
@@ -100,6 +81,34 @@ public class TokenOfGratitudeRenderer implements ICurioRenderer {
         VertexConsumer vertexconsumer = renderTypeBuffer.getBuffer(renderType);
         ICurioRenderer.followHeadRotations(playerEntity, ItemRegistry.ClientOnly.HEAD_OVERLAY_MODEL.overlay);
         ItemRegistry.ClientOnly.HEAD_OVERLAY_MODEL.renderToBuffer(poseStack, vertexconsumer, light, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
+    }
+
+
+    public static void renderTail(ItemStack stack, ResourceLocation texture, PoseStack poseStack, AbstractClientPlayer playerEntity, MultiBufferSource renderTypeBuffer, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+        poseStack.pushPose();
+        Vec3 movement = new Vec3(playerEntity.getDeltaMovement().x, 0, playerEntity.getDeltaMovement().z);
+        double wagSpeed = playerEntity.getDeltaMovement().length();
+        if (wagSpeed != 0) {
+            double factor = 55;
+            Vec3 yawLook = Vec3.directionFromRotation(0.0f, playerEntity.getYRot());
+            Vec3 look = new Vec3(yawLook.x, 0.0, yawLook.z);
+            Vec3 desiredDirection = look.yRot((float) Math.toRadians(90)).normalize();
+            Vec3 sidewaysVelocity = desiredDirection.scale(movement.dot(desiredDirection));
+            double speedAndDirection = (sidewaysVelocity.length() * -Math.signum(desiredDirection.dot(sidewaysVelocity))) / wagSpeed;
+            poseStack.mulPose(Vector3f.YP.rotationDegrees((float) (speedAndDirection * factor)));
+        }
+        float ambientFactor = playerEntity.isShiftKeyDown() ? 2 : 6;
+        double ambientXRotation = Math.sin(playerEntity.level.getGameTime() / 18f) * ambientFactor;
+        poseStack.mulPose(Vector3f.XP.rotationDegrees((float) ambientXRotation));
+        double ambientYRotation = Math.cos(playerEntity.level.getGameTime() / 24f) * -ambientFactor;
+        poseStack.mulPose(Vector3f.YP.rotationDegrees((float) ambientYRotation));
+        VertexConsumer vertexconsumer = ItemRenderer.getArmorFoilBuffer(renderTypeBuffer, RenderType.armorCutoutNoCull(texture), false, stack.hasFoil());
+        ItemRegistry.ClientOnly.TAIL_MODEL.setupAnim(playerEntity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
+        ItemRegistry.ClientOnly.TAIL_MODEL.prepareMobModel(playerEntity, limbSwing, limbSwingAmount, partialTicks);
+        ICurioRenderer.translateIfSneaking(poseStack, playerEntity);
+        ICurioRenderer.rotateIfSneaking(poseStack, playerEntity);
+        ItemRegistry.ClientOnly.TAIL_MODEL.renderToBuffer(poseStack, vertexconsumer, light, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
+        poseStack.popPose();
     }
 
     public static void renderScarf(AbstractClientPlayer playerEntity, ResourceLocation texture, PoseStack poseStack, MultiBufferSource renderTypeBuffer, int light) {
