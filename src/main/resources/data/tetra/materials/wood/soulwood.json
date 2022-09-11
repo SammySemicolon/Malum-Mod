@@ -1,13 +1,13 @@
 {
   "key": "soulwood",
   "category": "wood",
-  "primary": 4,
-  "secondary": 2.5,
-  "tertiary": 6,
+  "primary": 3,
+  "secondary": 1.25,
+  "tertiary": 3,
   "durability": 50,
   "integrityCost": 2,
   "integrityGain": 7,
-  "magicCapacity": 110,
+  "magicCapacity": 150,
   "toolLevel": "minecraft:gold",
   "toolEfficiency": 4,
   "tints": {
@@ -22,7 +22,7 @@
     "items": [ "malum:soulwood_planks" ]
   },
   "effects": {
-    "stabilizing": -12
+    "stabilizing": -25
   },
   "requiredTools": {
     "axe_dig": "minecraft:stone"

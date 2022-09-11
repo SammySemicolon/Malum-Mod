@@ -1,8 +1,8 @@
 {
   "key": "runewood",
   "category": "wood",
-  "primary": 4,
-  "secondary": 2.75,
+  "primary": 3,
+  "secondary": 1.5,
   "tertiary": 7.75,
   "durability": 125,
   "integrityCost": 2,

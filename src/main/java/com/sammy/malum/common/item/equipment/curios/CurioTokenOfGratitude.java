@@ -58,7 +58,7 @@ public class CurioTokenOfGratitude extends MalumCurioItem {
     @Override
     public void curioTick(SlotContext slotContext, ItemStack stack) {
         if (slotContext.entity() instanceof Player player) {
-            if (player.getUUID().equals(SAMMY)) {
+            if (player.getUUID().equals(SAMMY) || player.getUUID().equals(LOFI)) {
                 int interval = player.isCrouching() ? 10 : 4000;
                 if (player.getLevel().getGameTime() % interval == 0) {
                     SoundEvent soundEvent = player.getRandom().nextInt(8) == 0 ? SoundEvents.CAT_PURREOW : SoundEvents.CAT_PURR;

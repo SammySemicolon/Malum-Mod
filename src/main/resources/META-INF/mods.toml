@@ -14,7 +14,7 @@ A dark magic mod focused on soul and spirit magic.
 [[dependencies.malum]]
     modId="lodestone"
     mandatory=true
-    versionRange="[FORGE-1.18.2,)"
+    versionRange="[FORGE-1.18.2-1.2,)"
     ordering="AFTER"
     side="BOTH"
 [[dependencies.malum]]
