@@ -6,8 +6,8 @@
     "item": "malum:alchemical_impetus"
   },
   "output": {
-    "item": "minecraft:prismarine_crystals",
-    "count": 4
+    "item": "minecraft:prismarine",
+    "count": 8
   },
   "spirits": [
     {

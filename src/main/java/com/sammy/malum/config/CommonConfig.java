@@ -85,10 +85,10 @@ public class CommonConfig extends LodestoneConfig {
                     .define("generateBrilliantStone", true)));
     public static ConfigValueHolder<Integer> NATURAL_QUARTZ_SIZE = new ConfigValueHolder<>(MALUM,"common/worldgen/natural_quartz", (builder ->
             builder.comment("Size of natural quartz ore veins.")
-                    .define("naturalQuartzSize", 4)));
+                    .define("naturalQuartzSize", 5)));
     public static ConfigValueHolder<Integer> NATURAL_QUARTZ_AMOUNT = new ConfigValueHolder<>(MALUM,"common/worldgen/natural_quartz", (builder ->
             builder.comment("Amount of natural quartz ore veins.")
-                    .define("naturalQuartzAmount", 1)));
+                    .define("naturalQuartzAmount", 2)));
     public static ConfigValueHolder<Integer> NATURAL_QUARTZ_MIN_Y = new ConfigValueHolder<>(MALUM,"common/worldgen/natural_quartz", (builder ->
             builder.comment("Minimum height at which natural quartz ore can spawn.")
                     .define("naturalQuartzMinY", -64)));
@@ -115,6 +115,10 @@ public class CommonConfig extends LodestoneConfig {
     public static ConfigValueHolder<Boolean> ULTIMATE_REBOUND = new ConfigValueHolder<>(MALUM,"common/item/rebound", (builder ->
             builder.comment("If set to true, you may put rebound on any weapon in the game.")
                     .define("enableUltimateRebound", false)));
+
+    public static ConfigValueHolder<Boolean> NO_FANCY_SPIRITS = new ConfigValueHolder<>(MALUM,"common/spirit", (builder ->
+        builder.comment("If set to true, any spirits dropped will simply take the form of an item.")
+            .define("noFancySpirits", false)));
 
     public static ConfigValueHolder<Boolean> SOULLESS_SPAWNERS = new ConfigValueHolder<>(MALUM,"common/spirit/spawner", (builder ->
             builder.comment("If set to true, mob spawners will create soulless mobs instead.")

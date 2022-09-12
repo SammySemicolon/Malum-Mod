@@ -1,6 +1,11 @@
 package com.sammy.malum.common.item.equipment.curios;
 
+import com.sammy.malum.common.entity.nitrate.AbstractNitrateEntity;
+import com.sammy.malum.common.entity.nitrate.EthericExplosion;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
+import com.sammy.malum.core.setup.content.item.ItemTagRegistry;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraftforge.event.world.ExplosionEvent;
 import team.lodestar.lodestone.helpers.CurioHelper;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -20,16 +25,18 @@ public class CurioProspectorBelt extends MalumCurioItem {
         super(builder);
     }
 
-    @Override
-    public int getFortuneLevel(SlotContext slotContext, LootContext lootContext, ItemStack stack) {
-        return super.getFortuneLevel(slotContext, lootContext, stack);
+    public static void processExplosion(ExplosionEvent.Detonate event) {
+        LivingEntity exploder = event.getExplosion().getSourceMob();
+        if (exploder != null && CurioHelper.hasCurioEquipped(exploder, ItemRegistry.BELT_OF_THE_PROSPECTOR.get())) {
+            event.getAffectedEntities().removeIf(e -> e instanceof ItemEntity itemEntity && itemEntity.getItem().is(ItemTagRegistry.PROSPECTORS_TREASURE));
+        }
     }
+
 
     public static LootContext.Builder applyFortune(Entity source, LootContext.Builder builder) {
         if (source instanceof LivingEntity livingEntity) {
             if (CurioHelper.hasCurioEquipped(livingEntity, ItemRegistry.BELT_OF_THE_PROSPECTOR.get())) {
-                int fortuneBonus = 3;
-                fortuneBonus += CuriosApi.getCuriosHelper().getCuriosHandler(livingEntity).map(h -> h.getFortuneLevel(null)).orElse(0);
+                int fortuneBonus = 3 + CuriosApi.getCuriosHelper().getCuriosHandler(livingEntity).map(h -> h.getFortuneLevel(null)).orElse(0);
                 ItemStack diamondPickaxe = new ItemStack(Items.DIAMOND_PICKAXE);
                 diamondPickaxe.enchant(Enchantments.BLOCK_FORTUNE, fortuneBonus);
                 return builder.withParameter(LootContextParams.TOOL, diamondPickaxe);

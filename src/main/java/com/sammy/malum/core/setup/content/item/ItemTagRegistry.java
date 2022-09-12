@@ -15,11 +15,13 @@ public class ItemTagRegistry {
     public static final TagKey<Item> SOULWOOD_LOGS = malumTag("soulwood_logs");
     public static final TagKey<Item> SAPBALLS = malumTag("sapballs");
     public static final TagKey<Item> GROSS_FOODS = malumTag("gross_foods");
-    public static final TagKey<Item> NITRATE_VALUABLE = malumTag("nitrate_valuable");
+    public static final TagKey<Item> PROSPECTORS_TREASURE = malumTag("prospectors_treasure");
     public static final TagKey<Item> METAL_NODES = malumTag("metal_nodes");
 
     public static final TagKey<Item> KNIVES_FD = modTag("farmersdelight:tools/knives");
     public static final TagKey<Item> KNIVES = forgeTag("tools/knives");
+
+    public static final TagKey<Item> STRIPPED_LOGS = forgeTag("stripped_logs");
 
     private static TagKey<Item> modTag(String path) {
         return TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(path));

@@ -357,7 +357,7 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider implements ICondi
             .addSpirit(INFERNAL_SPIRIT, 4)
             .addSpirit(AERIAL_SPIRIT, 4)
             .addSpirit(ELDRITCH_SPIRIT, 2)
-            .addExtraItem(ItemRegistry.ETHER.get(), 2)
+            .addExtraItem(ItemRegistry.ETHER.get(), 1)
             .addExtraItem(ItemRegistry.TAINTED_ROCK.get(), 8)
             .addExtraItem(ItemRegistry.TWISTED_ROCK.get(), 8)
             .build(consumer);
@@ -374,10 +374,10 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider implements ICondi
             .addSpirit(INFERNAL_SPIRIT, 2)
             .build(consumer);
 
-        new SpiritInfusionRecipeBuilder(ItemRegistry.RUNEWOOD_ITEM_PEDESTAL.get(), 1, ItemRegistry.AUGMENT_ALTAR.get(), 1)
+        new SpiritInfusionRecipeBuilder(ItemRegistry.SOULWOOD_ITEM_PEDESTAL.get(), 1, ItemRegistry.ALTERATION_PLINTH.get(), 1)
             .addSpirit(ARCANE_SPIRIT, 16)
             .addSpirit(ELDRITCH_SPIRIT, 4)
-            .addExtraItem(ItemRegistry.CURSED_GRIT.get(), 2)
+            .addExtraItem(ItemRegistry.SOULWOOD_PLANKS.get(), 2)
             .addExtraItem(ItemRegistry.SOUL_STAINED_STEEL_INGOT.get(), 4)
             .build(consumer);
 

@@ -6,6 +6,8 @@ import com.sammy.malum.common.worldgen.RunewoodTreeFeature;
 import com.sammy.malum.common.worldgen.SoulwoodTreeFeature;
 import com.sammy.malum.config.CommonConfig;
 import com.sammy.malum.core.setup.content.block.BlockRegistry;
+import net.minecraft.core.Registry;
+import net.minecraft.world.level.Level;
 import team.lodestar.lodestone.systems.worldgen.ChancePlacementFilter;
 import net.minecraft.core.Holder;
 import net.minecraft.data.worldgen.features.FeatureUtils;
@@ -29,6 +31,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+import team.lodestar.lodestone.systems.worldgen.DimensionPlacementFilter;
 
 import java.util.List;
 
@@ -97,13 +100,15 @@ public class FeatureRegistry {
                 CountPlacement.of(CommonConfig.NATURAL_QUARTZ_AMOUNT.getConfigValue()), InSquarePlacement.spread(), HeightRangePlacement.uniform(VerticalAnchor.absolute(CommonConfig.NATURAL_QUARTZ_MIN_Y.getConfigValue()), VerticalAnchor.absolute(CommonConfig.NATURAL_QUARTZ_MAX_Y.getConfigValue())));
 
         public static final Holder<PlacedFeature> QUARTZ_GEODE_FEATURE = PlacementUtils.register("quartz_geode", ConfiguredFeatures.QUARTZ_GEODE_FEATURE,
-                RarityFilter.onAverageOnceEvery(48), InSquarePlacement.spread(), HeightRangePlacement.uniform(VerticalAnchor.absolute(0), VerticalAnchor.absolute(48)), BiomeFilter.biome());
+                RarityFilter.onAverageOnceEvery(48), InSquarePlacement.spread(), HeightRangePlacement.uniform(VerticalAnchor.absolute(0), VerticalAnchor.absolute(48)), BiomeFilter.biome(), DimensionPlacementFilter.of(DimensionPlacementFilter.fromStrings(CommonConfig.QUARTZ_GEODE_ALLOWED_DIMENSIONS.getConfigValue())));
 
         public static final Holder<PlacedFeature> DEEPSLATE_QUARTZ_GEODE_FEATURE = PlacementUtils.register("deepslate_quartz_geode", ConfiguredFeatures.DEEPSLATE_QUARTZ_GEODE_FEATURE,
-                RarityFilter.onAverageOnceEvery(24), InSquarePlacement.spread(), HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(6), VerticalAnchor.absolute(-10)), BiomeFilter.biome());
+                RarityFilter.onAverageOnceEvery(24), InSquarePlacement.spread(), HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(6), VerticalAnchor.absolute(-10)), BiomeFilter.biome(), DimensionPlacementFilter.of(DimensionPlacementFilter.fromStrings(CommonConfig.QUARTZ_GEODE_ALLOWED_DIMENSIONS.getConfigValue())));
 
         public static final Holder<PlacedFeature> RARE_EARTH_GEODE_FEATURE = PlacementUtils.register("rare_earth_geode", ConfiguredFeatures.RARE_EARTH_GEODE_FEATURE,
-                RarityFilter.onAverageOnceEvery(30), InSquarePlacement.spread(), HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(6), VerticalAnchor.aboveBottom(40)), BiomeFilter.biome());
+                RarityFilter.onAverageOnceEvery(30), InSquarePlacement.spread(), HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(6), VerticalAnchor.aboveBottom(40)), BiomeFilter.biome(), DimensionPlacementFilter.of(DimensionPlacementFilter.fromStrings(CommonConfig.RARE_EARTHS_ALLOWED_DIMENSIONS.getConfigValue())));
+
+
 
     }
 }

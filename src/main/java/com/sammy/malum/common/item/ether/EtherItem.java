@@ -1,5 +1,8 @@
 package com.sammy.malum.common.item.ether;
 
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.player.Player;
 import team.lodestar.lodestone.setup.LodestoneScreenParticleRegistry;
 import team.lodestar.lodestone.systems.easing.Easing;
 import team.lodestar.lodestone.systems.rendering.particle.ParticleBuilders;

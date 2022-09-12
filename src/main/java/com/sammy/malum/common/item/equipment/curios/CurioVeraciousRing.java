@@ -3,6 +3,7 @@ package com.sammy.malum.common.item.equipment.curios;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
+import com.sammy.malum.core.setup.content.potion.MalumMobEffectRegistry;
 import team.lodestar.lodestone.helpers.CurioHelper;
 import team.lodestar.lodestone.helpers.EntityHelper;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -34,7 +35,7 @@ public class CurioVeraciousRing extends MalumCurioItem {
     public static void accelerateEating(LivingEntityUseItemEvent.Start event) {
         if (CurioHelper.hasCurioEquipped(event.getEntityLiving(), ItemRegistry.RING_OF_DESPERATE_VORACITY.get())) {
             if (event.getItem().is(GROSS_FOODS)) {
-                event.setDuration((int) (event.getDuration() * 0.6f));
+                event.setDuration((int) (event.getDuration() * 0.5f));
             }
         }
     }
@@ -44,6 +45,10 @@ public class CurioVeraciousRing extends MalumCurioItem {
             ItemStack stack = event.getResultStack();
             if (CurioHelper.hasCurioEquipped(player, ItemRegistry.RING_OF_DESPERATE_VORACITY.get())) {
                 if (stack.is(GROSS_FOODS)) {
+                    MobEffectInstance gluttony = player.getEffect(MalumMobEffectRegistry.GLUTTONY.get());
+                    if (gluttony != null) {
+                        player.getFoodData().eat(1, 0.25f*(gluttony.amplifier+1));
+                    }
                     player.getFoodData().eat(2, 0.75f);
                     MobEffectInstance effect = player.getEffect(MobEffects.HUNGER);
                     if (effect != null) {

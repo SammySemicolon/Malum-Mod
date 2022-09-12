@@ -13,6 +13,8 @@ import com.sammy.malum.core.systems.recipe.SpiritWithCount;
 import com.sammy.malum.core.systems.spirit.MalumEntitySpiritData;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
+import net.minecraft.world.entity.item.ItemEntity;
 import team.lodestar.lodestone.helpers.ItemHelper;
 import team.lodestar.lodestone.setup.LodestoneParticleRegistry;
 import team.lodestar.lodestone.setup.LodestoneScreenParticleRegistry;
@@ -82,9 +84,11 @@ public class SpiritHelper {
             createSpiritEntities(spirits, spirits.stream().mapToInt(ItemStack::getCount).sum(), target.level, target.position().add(0, target.getEyeHeight() / 2f, 0), attacker);
         }
     }
+
     public static void createSpiritEntities(Collection<ItemStack> spirits, LivingEntity target, LivingEntity attacker) {
         createSpiritEntities(spirits, target, 1, attacker);
     }
+
     public static void createSpiritEntities(Collection<ItemStack> spirits, LivingEntity target, float speedMultiplier, LivingEntity attacker) {
         if (spirits.isEmpty()) {
             return;
@@ -99,17 +103,26 @@ public class SpiritHelper {
     public static void createSpiritEntities(Collection<ItemStack> spirits, float totalCount, Level level, Vec3 position, @Nullable LivingEntity attacker) {
         createSpiritEntities(spirits, totalCount, level, position, 1f, attacker);
     }
+
     public static void createSpiritEntities(Collection<ItemStack> spirits, float totalCount, Level level, Vec3 position, float speedMultiplier, @Nullable LivingEntity attacker) {
         if (attacker == null) {
             attacker = level.getNearestPlayer(position.x, position.y, position.z, 8, e -> true);
         }
-        float speed = (0.1f + 0.2f / (totalCount + 1)) * speedMultiplier;
+        float speed = (0.15f + 0.25f / (totalCount + 1)) * speedMultiplier;
+        Random random = level.random;
         for (ItemStack stack : spirits) {
             int count = stack.getCount();
             if (count == 0) {
                 continue;
             }
             for (int j = 0; j < count; j++) {
+                if (CommonConfig.NO_FANCY_SPIRITS.getConfigValue()) {
+                    ItemEntity itemEntity = new ItemEntity(level, position.x, position.y, position.z, stack);
+                    itemEntity.setDefaultPickUpDelay();
+                    itemEntity.setDeltaMovement(Mth.nextFloat(random, -0.1F, 0.1F), Mth.nextFloat(random, 0.25f, 0.5f), Mth.nextFloat(random, -0.1F, 0.1F));
+                    level.addFreshEntity(itemEntity);
+                    continue;
+                }
                 PlayerBoundItemEntity entity = new PlayerBoundItemEntity(level, attacker == null ? null : attacker.getUUID(), ItemHelper.copyWithNewCount(stack, 1),
                         position.x,
                         position.y,
@@ -120,7 +133,7 @@ public class SpiritHelper {
                 level.addFreshEntity(entity);
             }
         }
-        level.playSound(null, position.x, position.y, position.z, SoundRegistry.SPIRIT_HARVEST.get(), SoundSource.PLAYERS, 1.0F, 0.7f + level.random.nextFloat() * 0.4f);
+        level.playSound(null, position.x, position.y, position.z, SoundRegistry.SPIRIT_HARVEST.get(), SoundSource.PLAYERS, 1.0F, 0.7f + random.nextFloat() * 0.4f);
     }
 
 
@@ -327,7 +340,7 @@ public class SpiritHelper {
         ParticleBuilders.create(LodestoneScreenParticleRegistry.SPARKLE)
                 .setAlpha(0.04f, 0f)
                 .setLifetime(10 + rand.nextInt(10))
-                .setScale(0.8f + rand.nextFloat()*0.1f, 0)
+                .setScale(0.8f + rand.nextFloat() * 0.1f, 0)
                 .setColor(color, endColor)
                 .setColorCoefficient(2f)
                 .randomOffset(0.05f)

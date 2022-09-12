@@ -41,7 +41,6 @@ public class WorldgenEvents {
             event.getGeneration().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, FeatureRegistry.PlacedFeatures.NATURAL_QUARTZ_FEATURE);
         }
 
-
         if (CommonConfig.GENERATE_QUARTZ_GEODES.getConfigValue()) {
             event.getGeneration().addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, FeatureRegistry.PlacedFeatures.QUARTZ_GEODE_FEATURE);
             event.getGeneration().addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, FeatureRegistry.PlacedFeatures.DEEPSLATE_QUARTZ_GEODE_FEATURE);
