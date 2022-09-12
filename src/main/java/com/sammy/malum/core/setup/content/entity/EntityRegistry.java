@@ -2,14 +2,13 @@ package com.sammy.malum.core.setup.content.entity;
 
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.client.renderer.entity.*;
-import com.sammy.malum.common.entity.nitrate.EthericNitrateEntity;
 import com.sammy.malum.common.entity.boomerang.ScytheBoomerangEntity;
+import com.sammy.malum.common.entity.nitrate.EthericNitrateEntity;
 import com.sammy.malum.common.entity.nitrate.VividNitrateEntity;
 import com.sammy.malum.common.entity.spirit.MirrorItemEntity;
-import com.sammy.malum.common.entity.spirit.SoulEntity;
 import com.sammy.malum.common.entity.spirit.PlayerBoundItemEntity;
+import com.sammy.malum.common.entity.spirit.SoulEntity;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
-import team.lodestar.lodestone.systems.entity.LodestoneBoatEntity;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -20,6 +19,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+import team.lodestar.lodestone.systems.entity.LodestoneBoatEntity;
 
 public class EntityRegistry
 {

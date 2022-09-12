@@ -5,9 +5,6 @@ import com.google.common.collect.Multimap;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
 import com.sammy.malum.core.setup.content.potion.MalumMobEffectRegistry;
 import com.sammy.malum.core.systems.item.IMalumEventResponderItem;
-import team.lodestar.lodestone.helpers.CurioHelper;
-import team.lodestar.lodestone.helpers.EntityHelper;
-import team.lodestar.lodestone.setup.LodestoneAttributeRegistry;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -16,6 +13,9 @@ import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.entity.living.PotionEvent;
+import team.lodestar.lodestone.helpers.CurioHelper;
+import team.lodestar.lodestone.helpers.EntityHelper;
+import team.lodestar.lodestone.setup.LodestoneAttributeRegistry;
 
 import java.util.UUID;
 

@@ -4,8 +4,6 @@ import com.google.common.collect.ImmutableMultimap;
 import com.sammy.malum.core.setup.content.AttributeRegistry;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
 import com.sammy.malum.core.systems.item.ItemSkin;
-import team.lodestar.lodestone.systems.item.LodestoneArmorItem;
-import team.lodestar.lodestone.systems.model.LodestoneArmorModel;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.util.Mth;
@@ -18,6 +16,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.IItemRenderProperties;
+import team.lodestar.lodestone.systems.item.LodestoneArmorItem;
+import team.lodestar.lodestone.systems.model.LodestoneArmorModel;
 
 import java.util.UUID;
 import java.util.function.Consumer;

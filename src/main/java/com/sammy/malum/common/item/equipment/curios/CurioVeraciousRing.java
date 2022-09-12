@@ -4,8 +4,6 @@ import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
 import com.sammy.malum.core.setup.content.potion.MalumMobEffectRegistry;
-import team.lodestar.lodestone.helpers.CurioHelper;
-import team.lodestar.lodestone.helpers.EntityHelper;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -14,6 +12,8 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
+import team.lodestar.lodestone.helpers.CurioHelper;
+import team.lodestar.lodestone.helpers.EntityHelper;
 
 import java.util.UUID;
 

@@ -3,10 +3,6 @@ package com.sammy.malum.common.worldgen;
 import com.sammy.malum.common.block.MalumLeavesBlock;
 import com.sammy.malum.common.block.MalumSaplingBlock;
 import com.sammy.malum.core.setup.content.block.BlockRegistry;
-import team.lodestar.lodestone.helpers.BlockHelper;
-import team.lodestar.lodestone.helpers.DataHelper;
-import team.lodestar.lodestone.systems.worldgen.LodestoneBlockFiller;
-import team.lodestar.lodestone.systems.worldgen.LodestoneBlockFiller.BlockStateEntry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.WorldGenLevel;
@@ -16,6 +12,10 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
+import team.lodestar.lodestone.helpers.BlockHelper;
+import team.lodestar.lodestone.helpers.DataHelper;
+import team.lodestar.lodestone.systems.worldgen.LodestoneBlockFiller;
+import team.lodestar.lodestone.systems.worldgen.LodestoneBlockFiller.BlockStateEntry;
 
 import java.util.Random;
 

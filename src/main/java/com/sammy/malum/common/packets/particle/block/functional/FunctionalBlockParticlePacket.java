@@ -1,8 +1,8 @@
 package com.sammy.malum.common.packets.particle.block.functional;
 
-import team.lodestar.lodestone.systems.network.LodestoneClientPacket;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.phys.Vec3;
+import team.lodestar.lodestone.systems.network.LodestoneClientPacket;
 
 import java.util.ArrayList;
 import java.util.List;

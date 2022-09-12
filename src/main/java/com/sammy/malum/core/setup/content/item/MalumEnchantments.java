@@ -5,7 +5,6 @@ import com.sammy.malum.common.enchantment.HauntedEnchantment;
 import com.sammy.malum.common.enchantment.ReboundEnchantment;
 import com.sammy.malum.common.enchantment.SpiritPlunderEnchantment;
 import com.sammy.malum.config.CommonConfig;
-import com.sammy.malum.core.setup.content.item.ItemTagRegistry;
 import net.minecraft.world.item.TieredItem;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;

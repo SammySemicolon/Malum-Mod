@@ -2,11 +2,9 @@ package com.sammy.malum.common.capability;
 
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.packets.SyncMalumPlayerCapabilityDataPacket;
-import com.sammy.malum.core.setup.server.PacketRegistry;
 import com.sammy.malum.core.setup.content.SpiritAffinityRegistry;
+import com.sammy.malum.core.setup.server.PacketRegistry;
 import com.sammy.malum.core.systems.spirit.MalumSpiritAffinity;
-import team.lodestar.lodestone.systems.capability.LodestoneCapability;
-import team.lodestar.lodestone.systems.capability.LodestoneCapabilityProvider;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -21,6 +19,8 @@ import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.network.PacketDistributor;
+import team.lodestar.lodestone.systems.capability.LodestoneCapability;
+import team.lodestar.lodestone.systems.capability.LodestoneCapabilityProvider;
 
 import java.util.UUID;
 

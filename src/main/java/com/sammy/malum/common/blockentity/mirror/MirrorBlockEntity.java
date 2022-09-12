@@ -1,6 +1,5 @@
 package com.sammy.malum.common.blockentity.mirror;
 
-import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -13,6 +12,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
+import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntity;
 
 
 public abstract class MirrorBlockEntity extends LodestoneBlockEntity {

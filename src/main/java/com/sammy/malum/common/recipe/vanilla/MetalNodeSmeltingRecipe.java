@@ -1,13 +1,13 @@
 package com.sammy.malum.common.recipe.vanilla;
 
 import com.sammy.malum.core.setup.content.RecipeSerializerRegistry;
-import team.lodestar.lodestone.systems.recipe.IngredientWithCount;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.SmeltingRecipe;
+import team.lodestar.lodestone.systems.recipe.IngredientWithCount;
 
 public class MetalNodeSmeltingRecipe extends SmeltingRecipe implements INodeSmeltingRecipe {
 

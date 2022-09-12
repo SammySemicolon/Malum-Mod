@@ -2,13 +2,12 @@ package com.sammy.malum.core.systems.spirit;
 
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.item.spirit.MalumSpiritItem;
-import com.sammy.malum.core.setup.content.block.BlockRegistry;
 import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
-import team.lodestar.lodestone.helpers.ColorHelper;
+import com.sammy.malum.core.setup.content.block.BlockRegistry;
 import net.minecraft.ChatFormatting;
-import net.minecraft.network.chat.*;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -18,6 +17,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.registries.RegistryObject;
+import team.lodestar.lodestone.helpers.ColorHelper;
 
 import java.awt.*;
 import java.util.function.Supplier;

@@ -2,10 +2,9 @@ package com.sammy.malum.common.entity.boomerang;
 
 import com.sammy.malum.common.item.tools.MalumScytheItem;
 import com.sammy.malum.core.setup.content.DamageSourceRegistry;
-import com.sammy.malum.core.setup.content.item.MalumEnchantments;
-import com.sammy.malum.core.setup.content.entity.EntityRegistry;
 import com.sammy.malum.core.setup.content.SoundRegistry;
-import team.lodestar.lodestone.helpers.ItemHelper;
+import com.sammy.malum.core.setup.content.entity.EntityRegistry;
+import com.sammy.malum.core.setup.content.item.MalumEnchantments;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
@@ -30,8 +29,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.network.NetworkHooks;
 import net.minecraftforge.items.ItemHandlerHelper;
+import net.minecraftforge.network.NetworkHooks;
+import team.lodestar.lodestone.helpers.ItemHelper;
 
 import java.util.Random;
 import java.util.UUID;

@@ -1,7 +1,6 @@
 package com.sammy.malum.common.sound;
 
 import com.sammy.malum.core.setup.content.SoundRegistry;
-import team.lodestar.lodestone.systems.sound.ExtendedSoundType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.core.BlockPos;
@@ -9,9 +8,9 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import team.lodestar.lodestone.systems.sound.ExtendedSoundType;
 
 import java.util.function.Supplier;
 

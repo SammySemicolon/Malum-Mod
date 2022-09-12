@@ -1,11 +1,11 @@
 package com.sammy.malum.common.item.ether;
 
-import team.lodestar.lodestone.systems.rendering.particle.screen.emitter.ItemParticleEmitter;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.DyeableLeatherItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
+import team.lodestar.lodestone.systems.rendering.particle.screen.emitter.ItemParticleEmitter;
 
 public abstract class AbstractEtherItem extends BlockItem implements DyeableLeatherItem, ItemParticleEmitter {
     public static final String FIRST_COLOR = "firstColor";

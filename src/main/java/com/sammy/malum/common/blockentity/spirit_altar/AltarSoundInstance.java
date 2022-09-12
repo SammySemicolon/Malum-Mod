@@ -1,8 +1,8 @@
 package com.sammy.malum.common.blockentity.spirit_altar;
 
 import com.sammy.malum.core.setup.content.SoundRegistry;
-import team.lodestar.lodestone.systems.sound.LodestoneBlockEntitySoundInstance;
 import net.minecraft.client.Minecraft;
+import team.lodestar.lodestone.systems.sound.LodestoneBlockEntitySoundInstance;
 
 public class AltarSoundInstance extends LodestoneBlockEntitySoundInstance<SpiritAltarBlockEntity> {
     public AltarSoundInstance(SpiritAltarBlockEntity blockEntity, float volume, float pitch) {

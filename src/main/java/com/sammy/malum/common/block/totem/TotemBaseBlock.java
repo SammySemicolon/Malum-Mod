@@ -1,11 +1,11 @@
 package com.sammy.malum.common.block.totem;
 
 import com.sammy.malum.common.blockentity.totem.TotemBaseBlockEntity;
-import team.lodestar.lodestone.systems.block.LodestoneEntityBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import team.lodestar.lodestone.systems.block.LodestoneEntityBlock;
 
 public class TotemBaseBlock<T extends TotemBaseBlockEntity> extends LodestoneEntityBlock<T>
 {

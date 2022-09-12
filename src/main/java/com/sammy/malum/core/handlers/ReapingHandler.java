@@ -6,7 +6,6 @@ import com.sammy.malum.core.helper.SpiritHelper;
 import com.sammy.malum.core.listeners.ReapingDataReloadListener;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
 import com.sammy.malum.core.systems.reaping.MalumReapingDropsData;
-import team.lodestar.lodestone.helpers.ItemHelper;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobType;
@@ -16,8 +15,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import team.lodestar.lodestone.helpers.ItemHelper;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 

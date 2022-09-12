@@ -2,7 +2,6 @@ package com.sammy.malum.common.blockentity.totem;
 
 import com.google.common.collect.Sets;
 import com.sammy.malum.common.block.totem.TotemPoleBlock;
-import com.sammy.malum.common.blockentity.crucible.SpiritCrucibleCoreBlockEntity;
 import com.sammy.malum.common.blockentity.storage.ItemStandBlockEntity;
 import com.sammy.malum.common.packets.particle.block.BlockParticlePacket;
 import com.sammy.malum.core.helper.SpiritHelper;
@@ -10,12 +9,6 @@ import com.sammy.malum.core.setup.content.SoundRegistry;
 import com.sammy.malum.core.setup.content.block.BlockEntityRegistry;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
-import team.lodestar.lodestone.helpers.BlockHelper;
-import team.lodestar.lodestone.setup.LodestoneParticleRegistry;
-import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntity;
-import team.lodestar.lodestone.systems.easing.Easing;
-import team.lodestar.lodestone.systems.rendering.particle.ParticleBuilders;
-import team.lodestar.lodestone.systems.rendering.particle.SimpleParticleOptions;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -34,10 +27,15 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ToolActions;
 import net.minecraftforge.network.PacketDistributor;
+import team.lodestar.lodestone.helpers.BlockHelper;
+import team.lodestar.lodestone.setup.LodestoneParticleRegistry;
+import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntity;
+import team.lodestar.lodestone.systems.easing.Easing;
+import team.lodestar.lodestone.systems.rendering.particle.ParticleBuilders;
+import team.lodestar.lodestone.systems.rendering.particle.SimpleParticleOptions;
 
 import javax.annotation.Nullable;
 import java.awt.*;
-import java.util.Arrays;
 import java.util.Set;
 
 import static com.sammy.malum.core.setup.server.PacketRegistry.MALUM_CHANNEL;

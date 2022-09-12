@@ -2,15 +2,15 @@ package com.sammy.malum.common.effect;
 
 import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
 import com.sammy.malum.core.setup.content.potion.MalumMobEffectRegistry;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.phys.AABB;
-import team.lodestar.lodestone.helpers.ColorHelper;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.phys.AABB;
 import net.minecraftforge.common.ForgeMod;
+import team.lodestar.lodestone.helpers.ColorHelper;
 
 public class AqueousAura extends MobEffect {
     public AqueousAura() {

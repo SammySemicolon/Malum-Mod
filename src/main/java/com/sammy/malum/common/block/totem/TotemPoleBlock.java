@@ -2,7 +2,6 @@ package com.sammy.malum.common.block.totem;
 
 import com.sammy.malum.common.blockentity.totem.TotemPoleBlockEntity;
 import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
-import team.lodestar.lodestone.systems.block.LodestoneEntityBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.player.Player;
@@ -15,6 +14,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.phys.HitResult;
+import team.lodestar.lodestone.systems.block.LodestoneEntityBlock;
 
 import java.util.function.Supplier;
 

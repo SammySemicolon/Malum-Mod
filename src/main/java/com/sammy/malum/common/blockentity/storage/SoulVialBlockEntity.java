@@ -2,9 +2,6 @@ package com.sammy.malum.common.blockentity.storage;
 
 import com.sammy.malum.core.helper.SpiritHelper;
 import com.sammy.malum.core.setup.content.block.BlockEntityRegistry;
-import team.lodestar.lodestone.helpers.BlockHelper;
-import team.lodestar.lodestone.helpers.ItemHelper;
-import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntity;
 import com.sammy.malum.core.systems.item.ISoulContainerItem;
 import com.sammy.malum.core.systems.spirit.MalumEntitySpiritData;
 import net.minecraft.core.BlockPos;
@@ -17,6 +14,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import team.lodestar.lodestone.helpers.BlockHelper;
+import team.lodestar.lodestone.helpers.ItemHelper;
+import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntity;
 
 public class SoulVialBlockEntity extends LodestoneBlockEntity {
 

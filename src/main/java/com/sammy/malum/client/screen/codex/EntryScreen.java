@@ -4,7 +4,6 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.client.screen.codex.objects.EntryObject;
 import com.sammy.malum.client.screen.codex.pages.BookPage;
-import team.lodestar.lodestone.handlers.ScreenParticleHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.TranslatableComponent;
@@ -12,6 +11,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Player;
+import team.lodestar.lodestone.handlers.ScreenParticleHandler;
 
 import static com.sammy.malum.client.screen.codex.ProgressionBookScreen.isHovering;
 import static com.sammy.malum.client.screen.codex.ProgressionBookScreen.renderTexture;

@@ -11,8 +11,6 @@ import com.sammy.malum.common.item.spirit.SoulStaveItem;
 import com.sammy.malum.common.packets.particle.entity.SuccessfulSoulHarvestParticlePacket;
 import com.sammy.malum.core.helper.SpiritHelper;
 import com.sammy.malum.core.systems.spirit.MalumEntitySpiritData;
-import team.lodestar.lodestone.setup.LodestoneRenderTypeRegistry;
-import team.lodestar.lodestone.systems.rendering.VFXBuilders;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -37,17 +35,19 @@ import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingSetAttackTargetEvent;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent;
 import net.minecraftforge.network.PacketDistributor;
+import team.lodestar.lodestone.setup.LodestoneRenderTypeRegistry;
+import team.lodestar.lodestone.systems.rendering.VFXBuilders;
 
 import java.awt.*;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 import static com.sammy.malum.MalumMod.malumPath;
 import static com.sammy.malum.core.setup.server.PacketRegistry.MALUM_CHANNEL;
+import static net.minecraft.util.Mth.nextFloat;
 import static team.lodestar.lodestone.handlers.RenderHandler.DELAYED_RENDER;
 import static team.lodestar.lodestone.helpers.RenderHelper.FULL_BRIGHT;
 import static team.lodestar.lodestone.setup.LodestoneRenderTypeRegistry.queueUniformChanges;
-import static net.minecraft.util.Mth.nextFloat;
 
 public class SoulHarvestHandler {
 

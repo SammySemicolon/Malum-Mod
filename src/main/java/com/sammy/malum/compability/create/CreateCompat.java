@@ -9,7 +9,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.fml.ModList;
 
-import static com.sammy.malum.core.setup.content.item.ItemRegistry.*;
+import static com.sammy.malum.core.setup.content.item.ItemRegistry.HOLY_CARAMEL;
+import static com.sammy.malum.core.setup.content.item.ItemRegistry.UNHOLY_CARAMEL;
 
 public class CreateCompat {
     public static boolean LOADED;

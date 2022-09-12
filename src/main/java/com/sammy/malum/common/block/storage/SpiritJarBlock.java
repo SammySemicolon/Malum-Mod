@@ -2,8 +2,6 @@ package com.sammy.malum.common.block.storage;
 
 import com.sammy.malum.common.blockentity.storage.SpiritJarBlockEntity;
 import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
-import team.lodestar.lodestone.helpers.BlockHelper;
-import team.lodestar.lodestone.systems.block.WaterLoggedEntityBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.player.Player;
@@ -20,6 +18,8 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.wrapper.EmptyHandler;
+import team.lodestar.lodestone.helpers.BlockHelper;
+import team.lodestar.lodestone.systems.block.WaterLoggedEntityBlock;
 
 public class SpiritJarBlock<T extends SpiritJarBlockEntity> extends WaterLoggedEntityBlock<T> {
     public static final VoxelShape SHAPE = makeShape();

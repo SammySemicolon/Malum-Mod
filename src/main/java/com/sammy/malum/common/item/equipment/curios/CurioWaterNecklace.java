@@ -2,7 +2,6 @@ package com.sammy.malum.common.item.equipment.curios;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
-import com.sammy.malum.core.setup.content.AttributeRegistry;
 import com.sammy.malum.core.systems.item.IMalumEventResponderItem;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
@@ -12,8 +11,6 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import team.lodestar.lodestone.helpers.ItemHelper;
-import team.lodestar.lodestone.setup.LodestoneAttributeRegistry;
 import top.theillusivec4.curios.api.SlotContext;
 
 import java.util.UUID;

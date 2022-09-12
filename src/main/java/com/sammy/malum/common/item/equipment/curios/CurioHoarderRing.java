@@ -4,7 +4,6 @@ import com.sammy.malum.core.setup.content.item.ItemRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import team.lodestar.lodestone.helpers.CurioHelper;
 

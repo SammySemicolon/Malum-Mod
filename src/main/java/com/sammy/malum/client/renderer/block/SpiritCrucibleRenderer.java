@@ -3,7 +3,6 @@ package com.sammy.malum.client.renderer.block;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
 import com.sammy.malum.common.blockentity.crucible.SpiritCrucibleCoreBlockEntity;
-import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntityInventory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
@@ -13,6 +12,7 @@ import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntityInventory;
 
 import static net.minecraft.client.renderer.texture.OverlayTexture.NO_OVERLAY;
 

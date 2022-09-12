@@ -3,7 +3,6 @@ package com.sammy.malum.common.container;
 import com.sammy.malum.common.item.spirit.MalumSpiritItem;
 import com.sammy.malum.common.item.spirit.SpiritPouchItem;
 import com.sammy.malum.core.setup.content.ContainerRegistry;
-import team.lodestar.lodestone.systems.container.ItemInventory;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Container;
@@ -13,6 +12,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
+import team.lodestar.lodestone.systems.container.ItemInventory;
 
 import javax.annotation.Nonnull;
 

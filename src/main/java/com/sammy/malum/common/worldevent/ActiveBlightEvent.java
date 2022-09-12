@@ -1,22 +1,19 @@
 package com.sammy.malum.common.worldevent;
 
-import com.sammy.malum.common.block.blight.BlightedGrassBlock;
 import com.sammy.malum.common.block.blight.BlightedSoilBlock;
 import com.sammy.malum.common.packets.particle.block.blight.BlightMistParticlePacket;
 import com.sammy.malum.common.worldgen.SoulwoodTreeFeature;
 import com.sammy.malum.core.setup.content.SoundRegistry;
 import com.sammy.malum.core.setup.content.WorldEventTypes;
 import com.sammy.malum.core.setup.content.block.BlockRegistry;
-import team.lodestar.lodestone.systems.worldevent.WorldEventInstance;
-import team.lodestar.lodestone.systems.worldgen.LodestoneBlockFiller;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.network.PacketDistributor;
+import team.lodestar.lodestone.systems.worldevent.WorldEventInstance;
+import team.lodestar.lodestone.systems.worldgen.LodestoneBlockFiller;
 
-import java.util.HashSet;
-import java.util.List;
 import java.util.Random;
 import java.util.Set;
 import java.util.stream.Collectors;

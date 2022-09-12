@@ -4,12 +4,6 @@ import com.sammy.malum.common.blockentity.spirit_altar.IAltarProvider;
 import com.sammy.malum.common.item.spirit.MalumSpiritItem;
 import com.sammy.malum.core.helper.SpiritHelper;
 import com.sammy.malum.core.setup.content.block.BlockEntityRegistry;
-import net.minecraft.client.Minecraft;
-import net.minecraft.world.item.ItemStack;
-import org.jetbrains.annotations.NotNull;
-import team.lodestar.lodestone.helpers.BlockHelper;
-import team.lodestar.lodestone.systems.blockentity.ItemHolderBlockEntity;
-import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntityInventory;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -18,6 +12,9 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
+import team.lodestar.lodestone.helpers.BlockHelper;
+import team.lodestar.lodestone.systems.blockentity.ItemHolderBlockEntity;
+import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntityInventory;
 
 import javax.annotation.Nonnull;
 

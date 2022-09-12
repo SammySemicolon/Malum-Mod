@@ -2,7 +2,6 @@ package com.sammy.malum.core.setup.content;
 
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.recipe.*;
-import com.sammy.malum.common.recipe.SpiritTransmutationRecipe;
 import com.sammy.malum.common.recipe.vanilla.MetalNodeBlastingRecipe;
 import com.sammy.malum.common.recipe.vanilla.MetalNodeSmeltingRecipe;
 import com.sammy.malum.common.recipe.vanilla.NodeCookingSerializer;

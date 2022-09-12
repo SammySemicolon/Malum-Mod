@@ -1,7 +1,6 @@
 package com.sammy.malum.common.block.storage;
 
 import com.sammy.malum.common.blockentity.storage.PlinthCoreBlockEntity;
-import team.lodestar.lodestone.systems.block.WaterLoggedEntityBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -14,6 +13,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.wrapper.EmptyHandler;
+import team.lodestar.lodestone.systems.block.WaterLoggedEntityBlock;
 
 public class PlinthCoreBlock<T extends PlinthCoreBlockEntity> extends WaterLoggedEntityBlock<T> {
     public static final VoxelShape SHAPE = makeShape();
