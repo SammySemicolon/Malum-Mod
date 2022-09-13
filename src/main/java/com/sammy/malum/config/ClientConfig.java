@@ -14,6 +14,10 @@ public class ClientConfig extends LodestoneConfig {
             builder.comment("What theme should the encyclopedia arcana be in?")
                     .defineEnum("bookTheme", ProgressionBookScreen.BookTheme.DEFAULT)));
 
+    public static ConfigValueHolder<Boolean> SCROLL_DIRECTION = new ConfigValueHolder<>(MALUM,"client/codex", (builder ->
+            builder.comment("Should the scroll direction be reversed in the encyclopedia arcana entry screen? This simply affects how you move through pages in an entry.")
+                    .define("scrollDirection", false)));
+
     public ClientConfig(ForgeConfigSpec.Builder builder) {
         super(MALUM,"client", builder);
     }
