@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.client.screen.codex.objects.EntryObject;
 import com.sammy.malum.client.screen.codex.pages.BookPage;
+import com.sammy.malum.config.ClientConfig;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.TranslatableComponent;
@@ -101,6 +102,9 @@ public class EntryScreen extends Screen {
 
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double scroll) {
+        if (ClientConfig.SCROLL_DIRECTION.getConfigValue()) {
+            scroll = -scroll;
+        }
         if (scroll > 0) {
             nextPage();
         } else {
