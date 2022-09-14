@@ -4,13 +4,12 @@ package com.sammy.malum.client.model;// Made with Blockbench 4.2.5
 
 
 import com.sammy.malum.MalumMod;
-import team.lodestar.lodestone.systems.model.LodestoneArmorModel;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.resources.ResourceLocation;
+import team.lodestar.lodestone.systems.model.LodestoneArmorModel;
 
 public class GenericSlimArmorModel extends LodestoneArmorModel {
 	public static final ModelLayerLocation LAYER = new ModelLayerLocation(MalumMod.malumPath("generic_slim_armor_model"), "main");

@@ -1,6 +1,5 @@
 package com.sammy.malum.core.handlers;
 
-import com.sammy.malum.common.entity.boomerang.ScytheBoomerangEntity;
 import com.sammy.malum.common.item.tools.MalumScytheItem;
 import com.sammy.malum.core.setup.content.AttributeRegistry;
 import net.minecraft.world.damagesource.DamageSource;

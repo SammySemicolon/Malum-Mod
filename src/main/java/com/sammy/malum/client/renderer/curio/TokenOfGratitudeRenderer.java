@@ -6,8 +6,6 @@ import com.mojang.math.Vector3f;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.item.equipment.curios.CurioTokenOfGratitude;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
-import team.lodestar.lodestone.helpers.RenderHelper;
-import team.lodestar.lodestone.setup.LodestoneRenderTypeRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.HumanoidModel;
@@ -24,6 +22,8 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
+import team.lodestar.lodestone.helpers.RenderHelper;
+import team.lodestar.lodestone.setup.LodestoneRenderTypeRegistry;
 import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.client.ICurioRenderer;
 

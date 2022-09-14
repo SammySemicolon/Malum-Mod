@@ -1,7 +1,6 @@
 package com.sammy.malum.common.packets;
 
 import com.sammy.malum.common.capability.MalumPlayerDataCapability;
-import team.lodestar.lodestone.systems.network.LodestoneClientPacket;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
@@ -10,6 +9,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.network.NetworkEvent;
 import net.minecraftforge.network.simple.SimpleChannel;
+import team.lodestar.lodestone.systems.network.LodestoneClientPacket;
 
 import java.util.UUID;
 import java.util.function.Supplier;

@@ -6,7 +6,6 @@ package com.sammy.malum.client.model;
 
 import com.google.common.collect.ImmutableList;
 import com.sammy.malum.MalumMod;
-import team.lodestar.lodestone.systems.model.LodestoneArmorModel;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
@@ -17,6 +16,7 @@ import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import team.lodestar.lodestone.systems.model.LodestoneArmorModel;
 
 public class SoulHunterArmorModel extends LodestoneArmorModel {
 	public static ModelLayerLocation LAYER = new ModelLayerLocation(MalumMod.malumPath("soul_hunter_armor"), "main");

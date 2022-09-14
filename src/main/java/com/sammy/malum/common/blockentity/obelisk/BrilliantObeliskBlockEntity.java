@@ -2,9 +2,9 @@ package com.sammy.malum.common.blockentity.obelisk;
 
 import com.sammy.malum.core.setup.content.block.BlockEntityRegistry;
 import com.sammy.malum.core.setup.content.block.BlockRegistry;
-import team.lodestar.lodestone.systems.multiblock.MultiBlockStructure;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;
+import team.lodestar.lodestone.systems.multiblock.MultiBlockStructure;
 
 import java.util.function.Supplier;
 

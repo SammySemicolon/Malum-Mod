@@ -1,19 +1,13 @@
 package com.sammy.malum.common.recipe.vanilla;
 
 import com.sammy.malum.core.setup.content.RecipeSerializerRegistry;
-import team.lodestar.lodestone.systems.recipe.IngredientWithCount;
-import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.TagKey;
-import net.minecraft.util.GsonHelper;
 import net.minecraft.world.Container;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.BlastingRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-
-import java.util.Optional;
+import team.lodestar.lodestone.systems.recipe.IngredientWithCount;
 
 public class MetalNodeBlastingRecipe extends BlastingRecipe implements INodeSmeltingRecipe {
 

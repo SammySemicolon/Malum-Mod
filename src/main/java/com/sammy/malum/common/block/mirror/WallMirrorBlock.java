@@ -1,7 +1,6 @@
 package com.sammy.malum.common.block.mirror;
 
 import com.sammy.malum.common.blockentity.mirror.MirrorBlockEntity;
-import team.lodestar.lodestone.systems.block.WaterLoggedEntityBlock;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.block.Block;
@@ -9,6 +8,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import team.lodestar.lodestone.systems.block.WaterLoggedEntityBlock;
 
 public abstract class WallMirrorBlock<T extends MirrorBlockEntity> extends WaterLoggedEntityBlock<T> {
     public static final DirectionProperty FACING = BlockStateProperties.FACING;

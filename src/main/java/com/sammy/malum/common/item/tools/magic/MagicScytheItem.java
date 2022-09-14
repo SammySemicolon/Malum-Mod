@@ -2,11 +2,10 @@ package com.sammy.malum.common.item.tools.magic;
 
 import com.google.common.collect.ImmutableMultimap;
 import com.sammy.malum.common.item.tools.MalumScytheItem;
-import com.sammy.malum.core.setup.content.AttributeRegistry;
-import team.lodestar.lodestone.setup.LodestoneAttributeRegistry;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.Tier;
+import team.lodestar.lodestone.setup.LodestoneAttributeRegistry;
 
 public class MagicScytheItem extends MalumScytheItem {
 

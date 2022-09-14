@@ -21,9 +21,9 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 import java.util.Map;
 
+import static net.minecraft.world.item.Item.BASE_ATTACK_DAMAGE_UUID;
 import static team.lodestar.lodestone.setup.LodestoneAttributeRegistry.MAGIC_DAMAGE;
 import static team.lodestar.lodestone.setup.LodestoneAttributeRegistry.UUIDS;
-import static net.minecraft.world.item.Item.BASE_ATTACK_DAMAGE_UUID;
 
 @Mixin(ItemStack.class)
 public abstract class ItemStackMixin {

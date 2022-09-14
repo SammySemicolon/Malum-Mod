@@ -1,7 +1,6 @@
 package com.sammy.malum.common.item.spirit;
 
 import com.sammy.malum.common.container.SpiritPouchContainer;
-import team.lodestar.lodestone.systems.container.ItemInventory;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
@@ -27,6 +26,7 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
 import net.minecraftforge.network.NetworkHooks;
+import team.lodestar.lodestone.systems.container.ItemInventory;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

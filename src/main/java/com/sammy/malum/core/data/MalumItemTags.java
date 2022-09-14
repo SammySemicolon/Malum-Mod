@@ -17,7 +17,7 @@ import net.minecraftforge.registries.RegistryObject;
 
 import static com.sammy.malum.core.setup.content.item.ItemRegistry.*;
 import static com.sammy.malum.core.setup.content.item.ItemTagRegistry.*;
-import static team.lodestar.lodestone.setup.LodestoneItemTags.*;
+import static team.lodestar.lodestone.setup.LodestoneItemTags.NUGGETS_COPPER;
 
 public class MalumItemTags extends ItemTagsProvider {
     public MalumItemTags(DataGenerator dataGenerator, BlockTagsProvider blockTagProvider, ExistingFileHelper existingFileHelper) {

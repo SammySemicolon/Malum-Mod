@@ -1,16 +1,7 @@
 package com.sammy.malum.core.systems.rites;
 
 import com.sammy.malum.common.blockentity.totem.TotemBaseBlockEntity;
-import com.sammy.malum.core.setup.content.block.BlockTagRegistry;
-import team.lodestar.lodestone.helpers.BlockHelper;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockState;
-
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.stream.Collectors;
 
 public abstract class BlockAffectingRiteEffect extends MalumRiteEffect {
 

@@ -3,13 +3,13 @@ package com.sammy.malum.common.blockentity.obelisk;
 import com.sammy.malum.common.blockentity.spirit_altar.IAltarAccelerator;
 import com.sammy.malum.core.setup.content.block.BlockEntityRegistry;
 import com.sammy.malum.core.setup.content.block.BlockRegistry;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 import team.lodestar.lodestone.helpers.BlockHelper;
 import team.lodestar.lodestone.setup.LodestoneParticleRegistry;
 import team.lodestar.lodestone.systems.multiblock.MultiBlockStructure;
 import team.lodestar.lodestone.systems.rendering.particle.ParticleBuilders;
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.Vec3;
 
 import java.awt.*;
 import java.util.function.Supplier;

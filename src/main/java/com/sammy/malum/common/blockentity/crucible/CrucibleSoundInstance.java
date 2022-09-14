@@ -1,8 +1,8 @@
 package com.sammy.malum.common.blockentity.crucible;
 
 import com.sammy.malum.core.setup.content.SoundRegistry;
-import team.lodestar.lodestone.systems.sound.LodestoneBlockEntitySoundInstance;
 import net.minecraft.client.Minecraft;
+import team.lodestar.lodestone.systems.sound.LodestoneBlockEntitySoundInstance;
 
 public class CrucibleSoundInstance extends LodestoneBlockEntitySoundInstance<SpiritCrucibleCoreBlockEntity> {
     public CrucibleSoundInstance(SpiritCrucibleCoreBlockEntity blockEntity, float volume, float pitch) {

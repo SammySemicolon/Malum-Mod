@@ -1,13 +1,13 @@
 package com.sammy.malum.client.particles.spiritflame;
 
 import com.mojang.serialization.Codec;
-import team.lodestar.lodestone.systems.rendering.particle.world.WorldParticleOptions;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleEngine;
 import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.core.particles.ParticleType;
+import team.lodestar.lodestone.systems.rendering.particle.world.WorldParticleOptions;
 
 import javax.annotation.Nullable;
 

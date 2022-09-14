@@ -1,8 +1,6 @@
 package com.sammy.malum.common.block.spirit_crucible;
 
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
-import team.lodestar.lodestone.systems.multiblock.MultiBlockComponentEntity;
-import team.lodestar.lodestone.systems.multiblock.MultiblockComponentBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -18,6 +16,8 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.wrapper.EmptyHandler;
+import team.lodestar.lodestone.systems.multiblock.MultiBlockComponentEntity;
+import team.lodestar.lodestone.systems.multiblock.MultiblockComponentBlock;
 
 public class SpiritCrucibleComponentBlock extends MultiblockComponentBlock {
     public static final VoxelShape SHAPE = makeShape();

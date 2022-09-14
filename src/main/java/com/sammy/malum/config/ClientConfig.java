@@ -2,9 +2,9 @@ package com.sammy.malum.config;
 
 
 import com.sammy.malum.client.screen.codex.ProgressionBookScreen;
-import team.lodestar.lodestone.systems.config.LodestoneConfig;
 import net.minecraftforge.common.ForgeConfigSpec;
 import org.apache.commons.lang3.tuple.Pair;
+import team.lodestar.lodestone.systems.config.LodestoneConfig;
 
 import static com.sammy.malum.MalumMod.MALUM;
 

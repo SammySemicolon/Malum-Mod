@@ -1,7 +1,6 @@
 package com.sammy.malum.common.item.equipment.curios;
 
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
-import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.LivingEntity;
 import team.lodestar.lodestone.helpers.CurioHelper;
 

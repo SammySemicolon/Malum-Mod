@@ -2,16 +2,13 @@ package com.sammy.malum.common.recipe.vanilla;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import team.lodestar.lodestone.systems.recipe.IngredientWithCount;
-import net.minecraft.core.Registry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.AbstractCookingRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.ShapedRecipe;
+import team.lodestar.lodestone.systems.recipe.IngredientWithCount;
 
 public class NodeCookingSerializer<T extends AbstractCookingRecipe> extends net.minecraftforge.registries.ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<T> {
    public final int defaultCookingTime;

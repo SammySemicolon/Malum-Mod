@@ -1,8 +1,6 @@
 package com.sammy.malum.common.block.fusion_plate;
 
 import com.sammy.malum.common.blockentity.FusionPlateBlockEntity;
-import com.sammy.malum.core.setup.content.block.BlockEntityRegistry;
-import team.lodestar.lodestone.systems.block.WaterLoggedEntityBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.state.BlockState;
@@ -10,6 +8,7 @@ import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import team.lodestar.lodestone.systems.block.WaterLoggedEntityBlock;
 
 public class FusionPlateCoreBlock<T extends FusionPlateBlockEntity> extends WaterLoggedEntityBlock<T> {
     public static final VoxelShape SHAPE = makeShape();

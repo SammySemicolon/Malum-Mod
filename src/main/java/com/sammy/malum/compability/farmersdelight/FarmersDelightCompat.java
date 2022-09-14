@@ -1,12 +1,12 @@
 package com.sammy.malum.compability.farmersdelight;
 
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
-import team.lodestar.lodestone.systems.item.tools.magic.MagicKnifeItem;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.registration.IRecipeRegistration;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.fml.ModList;
+import team.lodestar.lodestone.systems.item.tools.magic.MagicKnifeItem;
 import vectorwing.farmersdelight.common.utility.TextUtils;
 
 import static com.sammy.malum.core.setup.content.item.ItemRegistry.GEAR_PROPERTIES;

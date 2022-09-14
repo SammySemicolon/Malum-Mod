@@ -6,9 +6,6 @@ import com.sammy.malum.core.setup.content.DamageSourceRegistry;
 import com.sammy.malum.core.setup.content.SoundRegistry;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
 import com.sammy.malum.core.systems.item.IMalumEventResponderItem;
-import net.minecraft.world.item.enchantment.Enchantments;
-import team.lodestar.lodestone.helpers.CurioHelper;
-import team.lodestar.lodestone.systems.item.ModCombatItem;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -21,7 +18,10 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import team.lodestar.lodestone.helpers.CurioHelper;
+import team.lodestar.lodestone.systems.item.ModCombatItem;
 
 public class MalumScytheItem extends ModCombatItem implements IMalumEventResponderItem {
 

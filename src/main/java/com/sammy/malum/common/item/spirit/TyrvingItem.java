@@ -1,33 +1,21 @@
 package com.sammy.malum.common.item.spirit;
 
 import com.sammy.malum.common.packets.particle.entity.MajorEntityEffectParticlePacket;
-import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
+import com.sammy.malum.core.helper.SpiritHelper;
 import com.sammy.malum.core.setup.content.DamageSourceRegistry;
 import com.sammy.malum.core.setup.content.SoundRegistry;
+import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
 import com.sammy.malum.core.systems.item.IMalumEventResponderItem;
-import team.lodestar.lodestone.helpers.ColorHelper;
-import team.lodestar.lodestone.setup.LodestoneScreenParticleRegistry;
-import team.lodestar.lodestone.systems.easing.Easing;
-import com.sammy.malum.core.helper.SpiritHelper;
-import team.lodestar.lodestone.systems.item.tools.LodestoneSwordItem;
-import team.lodestar.lodestone.systems.rendering.particle.ParticleBuilders;
-import team.lodestar.lodestone.systems.rendering.particle.screen.base.ScreenParticle;
-import team.lodestar.lodestone.systems.rendering.particle.screen.emitter.ItemParticleEmitter;
-import net.minecraft.client.Minecraft;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Tier;
-import net.minecraft.world.level.Level;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ToolActions;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.network.PacketDistributor;
-
-import java.awt.*;
+import team.lodestar.lodestone.systems.item.tools.LodestoneSwordItem;
 
 import static com.sammy.malum.core.setup.server.PacketRegistry.MALUM_CHANNEL;
 
