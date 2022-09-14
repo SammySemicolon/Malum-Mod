@@ -212,7 +212,7 @@ d9001ce582022fed3dcfa3c78a5f1497f622a419 assets/malum/blockstates/vertical_soulw
 4f1f3250e0d6c695984d579f8c7eb51ce0642b63 assets/malum/blockstates/wall_blazing_torch.json
 6107b2130f82e935f7f7a8b275f5448a9b56ac25 assets/malum/blockstates/wall_ether_sconce.json
 1c5a82140570f65af0f2675a889a4887d87d3874 assets/malum/blockstates/wall_ether_torch.json
-d7def804471daf5b5340c589c5b19f7e4e670f1c assets/malum/lang/en_us.json
+1e97d9752bc91321d8a85d5d05f39fcfb5aeeb0c assets/malum/lang/en_us.json
 a75ef274d6ea80a594a834a6f1a473a9afa5d32f assets/malum/models/block/blazing_quartz_ore.json
 51856a459935a8359a094e0c2cd3d530401de3ec assets/malum/models/block/blazing_sconce.json
 fbfd3011e71b659b1f045f76d7b50fbf9a725317 assets/malum/models/block/blazing_torch.json
@@ -2201,7 +2201,7 @@ f84366b233deaeef2552b50423fb65170499ed17 data/malum/tags/blocks/tainted_rock.jso
 dcc5a15d8f150ddd4dcb29c4285c6916215a5a4e data/malum/tags/blocks/twisted_rock.json
 4be47ded58b1431cd4f809d9930ab3f775853aa2 data/malum/tags/items/gross_foods.json
 61483a182cfda1ba4d98076b9b0971544f209b28 data/malum/tags/items/metal_nodes.json
-f3a4fcbdd3e887053bd7f1151eaeef0dc7fc50a0 data/malum/tags/items/prospectors_treasure.json
+e77d16ce6a09ea73b9803e4b088669ecfa5e1d4c data/malum/tags/items/prospectors_treasure.json
 3afb0862d66b4628b9773712566384838c236c38 data/malum/tags/items/runewood_logs.json
 2956c7ab14fca69e8efefa4ef85e2bb49eb29956 data/malum/tags/items/sapballs.json
 c38cf15e4af935f1898a951527bf049f8745f546 data/malum/tags/items/scythe.json
