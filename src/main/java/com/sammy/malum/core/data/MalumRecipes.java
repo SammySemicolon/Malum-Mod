@@ -5,8 +5,6 @@ import com.sammy.malum.common.item.impetus.ImpetusItem;
 import com.sammy.malum.core.data.builder.vanilla.TheDeviceRecipeBuilder;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
 import com.sammy.malum.core.setup.content.item.ItemTagRegistry;
-import team.lodestar.lodestone.data.builder.NBTCarryRecipeBuilder;
-import team.lodestar.lodestone.systems.recipe.IngredientWithCount;
 import net.minecraft.advancements.critereon.*;
 import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;
@@ -26,19 +24,21 @@ import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
 import net.minecraftforge.common.crafting.conditions.ModLoadedCondition;
 import net.minecraftforge.common.crafting.conditions.TagEmptyCondition;
 import net.minecraftforge.registries.RegistryObject;
+import team.lodestar.lodestone.data.builder.NBTCarryRecipeBuilder;
+import team.lodestar.lodestone.systems.recipe.IngredientWithCount;
 
 import java.util.function.Consumer;
 
+import static com.sammy.malum.MalumMod.malumPath;
 import static com.sammy.malum.core.data.builder.vanilla.MetalNodeCookingRecipeBuilder.blastingWithTag;
 import static com.sammy.malum.core.data.builder.vanilla.MetalNodeCookingRecipeBuilder.smeltingWithTag;
 import static com.sammy.malum.core.data.builder.vanilla.StackedMalumCookingRecipeBuilder.blastingWithCount;
 import static com.sammy.malum.core.data.builder.vanilla.StackedMalumCookingRecipeBuilder.smeltingWithCount;
-import static com.sammy.malum.MalumMod.malumPath;
-import static team.lodestar.lodestone.setup.LodestoneItemTags.*;
 import static net.minecraft.data.recipes.ShapedRecipeBuilder.shaped;
 import static net.minecraft.data.recipes.ShapelessRecipeBuilder.shapeless;
 import static net.minecraft.data.recipes.SimpleCookingRecipeBuilder.*;
 import static net.minecraft.data.recipes.SingleItemRecipeBuilder.stonecutting;
+import static team.lodestar.lodestone.setup.LodestoneItemTags.*;
 
 public class MalumRecipes extends RecipeProvider implements IConditionBuilder {
     public MalumRecipes(DataGenerator generatorIn) {

@@ -11,15 +11,6 @@ import com.sammy.malum.core.setup.content.SoundRegistry;
 import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
 import com.sammy.malum.core.systems.item.IMalumEventResponderItem;
 import com.sammy.malum.core.systems.spirit.MalumSpiritAffinity;
-import net.minecraft.world.item.ItemStack;
-import team.lodestar.lodestone.handlers.ScreenParticleHandler;
-import team.lodestar.lodestone.helpers.ItemHelper;
-import team.lodestar.lodestone.setup.LodestoneScreenParticleRegistry;
-import team.lodestar.lodestone.setup.LodestoneShaderRegistry;
-import team.lodestar.lodestone.systems.rendering.ExtendedShaderInstance;
-import team.lodestar.lodestone.systems.rendering.VFXBuilders;
-import team.lodestar.lodestone.systems.rendering.particle.ParticleBuilders;
-import team.lodestar.lodestone.systems.rendering.particle.screen.base.ScreenParticle;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.resources.ResourceLocation;
@@ -29,9 +20,18 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.client.gui.ForgeIngameGui;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import team.lodestar.lodestone.handlers.ScreenParticleHandler;
+import team.lodestar.lodestone.helpers.ItemHelper;
+import team.lodestar.lodestone.setup.LodestoneScreenParticleRegistry;
+import team.lodestar.lodestone.setup.LodestoneShaderRegistry;
+import team.lodestar.lodestone.systems.rendering.ExtendedShaderInstance;
+import team.lodestar.lodestone.systems.rendering.VFXBuilders;
+import team.lodestar.lodestone.systems.rendering.particle.ParticleBuilders;
+import team.lodestar.lodestone.systems.rendering.particle.screen.base.ScreenParticle;
 
 public class ArcaneAffinity extends MalumSpiritAffinity {
     public ArcaneAffinity() {

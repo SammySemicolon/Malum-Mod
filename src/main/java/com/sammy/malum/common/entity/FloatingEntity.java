@@ -1,8 +1,6 @@
 package com.sammy.malum.common.entity;
 
 import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
-import team.lodestar.lodestone.helpers.EntityHelper;
-import team.lodestar.lodestone.systems.easing.Easing;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
@@ -23,10 +21,12 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkHooks;
+import team.lodestar.lodestone.helpers.EntityHelper;
+import team.lodestar.lodestone.systems.easing.Easing;
 
 import java.awt.*;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 public abstract class FloatingEntity extends Entity {
 

@@ -2,10 +2,9 @@ package com.sammy.malum.common.entity.spirit;
 
 import com.sammy.malum.common.entity.FloatingItemEntity;
 import com.sammy.malum.core.helper.SpiritHelper;
-import com.sammy.malum.core.setup.content.entity.EntityRegistry;
 import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
+import com.sammy.malum.core.setup.content.entity.EntityRegistry;
 import com.sammy.malum.core.systems.item.IFloatingGlowItem;
-import team.lodestar.lodestone.helpers.ColorHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -13,6 +12,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import team.lodestar.lodestone.helpers.ColorHelper;
 
 public class MirrorItemEntity extends FloatingItemEntity {
 

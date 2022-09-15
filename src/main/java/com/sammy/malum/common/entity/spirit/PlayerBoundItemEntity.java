@@ -1,15 +1,11 @@
 package com.sammy.malum.common.entity.spirit;
 
-import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.entity.FloatingItemEntity;
 import com.sammy.malum.common.item.spirit.MalumSpiritItem;
 import com.sammy.malum.core.handlers.SpiritHarvestHandler;
-import com.sammy.malum.core.setup.content.AttributeRegistry;
-import com.sammy.malum.core.setup.content.entity.EntityRegistry;
 import com.sammy.malum.core.helper.SpiritHelper;
-import team.lodestar.lodestone.helpers.ItemHelper;
+import com.sammy.malum.core.setup.content.entity.EntityRegistry;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
@@ -17,6 +13,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import team.lodestar.lodestone.helpers.ItemHelper;
 
 import java.util.UUID;
 

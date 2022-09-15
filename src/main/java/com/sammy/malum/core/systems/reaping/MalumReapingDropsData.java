@@ -1,6 +1,5 @@
 package com.sammy.malum.core.systems.reaping;
 
-import com.sammy.malum.common.spiritrite.greater.EldritchAqueousRiteType;
 import net.minecraft.world.item.crafting.Ingredient;
 
 public class MalumReapingDropsData {

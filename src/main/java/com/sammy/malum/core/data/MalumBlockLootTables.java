@@ -8,7 +8,6 @@ import com.sammy.malum.common.block.storage.SpiritJarBlock;
 import com.sammy.malum.common.item.ether.EtherItem;
 import com.sammy.malum.core.setup.content.block.BlockRegistry;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
-import team.lodestar.lodestone.systems.block.LodestoneBlockProperties;
 import net.minecraft.advancements.critereon.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
@@ -39,6 +38,7 @@ import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.NumberProvider;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import net.minecraftforge.registries.RegistryObject;
+import team.lodestar.lodestone.systems.block.LodestoneBlockProperties;
 
 import java.util.*;
 import java.util.function.BiConsumer;

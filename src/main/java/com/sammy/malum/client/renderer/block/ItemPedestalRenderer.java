@@ -2,8 +2,8 @@ package com.sammy.malum.client.renderer.block;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
-import com.sammy.malum.common.item.spirit.MalumSpiritItem;
 import com.sammy.malum.common.blockentity.storage.ItemPedestalBlockEntity;
+import com.sammy.malum.common.item.spirit.MalumSpiritItem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.model.ItemTransforms;

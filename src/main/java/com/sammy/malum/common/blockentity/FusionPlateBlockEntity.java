@@ -1,13 +1,12 @@
 package com.sammy.malum.common.blockentity;
 
 import com.sammy.malum.core.setup.content.block.BlockEntityRegistry;
-import team.lodestar.lodestone.systems.multiblock.MultiBlockCoreEntity;
-
-import team.lodestar.lodestone.systems.multiblock.MultiBlockStructure;
-import team.lodestar.lodestone.systems.multiblock.MultiBlockStructure.StructurePiece;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import team.lodestar.lodestone.systems.multiblock.MultiBlockCoreEntity;
+import team.lodestar.lodestone.systems.multiblock.MultiBlockStructure;
+import team.lodestar.lodestone.systems.multiblock.MultiBlockStructure.StructurePiece;
 
 import java.util.function.Supplier;
 

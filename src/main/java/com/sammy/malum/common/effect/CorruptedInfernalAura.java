@@ -1,13 +1,10 @@
 package com.sammy.malum.common.effect;
 
 import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
-import team.lodestar.lodestone.helpers.ColorHelper;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.minecraft.world.entity.ai.attributes.Attributes;
+import team.lodestar.lodestone.helpers.ColorHelper;
 
 public class CorruptedInfernalAura extends MobEffect {
     public CorruptedInfernalAura() {

@@ -4,11 +4,11 @@ import com.google.gson.JsonObject;
 import com.sammy.malum.common.item.spirit.MalumSpiritItem;
 import com.sammy.malum.core.helper.SpiritHelper;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
-import team.lodestar.lodestone.systems.recipe.IRecipeComponent;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import team.lodestar.lodestone.systems.recipe.IRecipeComponent;
 
 import java.util.ArrayList;
 import java.util.List;

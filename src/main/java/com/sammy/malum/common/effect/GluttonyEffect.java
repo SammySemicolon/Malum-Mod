@@ -1,13 +1,7 @@
 package com.sammy.malum.common.effect;
 
-import com.sammy.malum.common.capability.MalumPlayerDataCapability;
-import com.sammy.malum.core.setup.content.AttributeRegistry;
 import com.sammy.malum.core.setup.content.SoundRegistry;
 import com.sammy.malum.core.setup.content.potion.MalumMobEffectRegistry;
-import team.lodestar.lodestone.helpers.ColorHelper;
-import team.lodestar.lodestone.helpers.EntityHelper;
-import team.lodestar.lodestone.setup.LodestoneAttributeRegistry;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
@@ -15,14 +9,15 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.food.FoodData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.living.PotionEvent;
 import net.minecraftforge.eventbus.api.Event;
+import team.lodestar.lodestone.helpers.ColorHelper;
+import team.lodestar.lodestone.helpers.EntityHelper;
+import team.lodestar.lodestone.setup.LodestoneAttributeRegistry;
 
 import static com.sammy.malum.core.setup.content.item.ItemTagRegistry.GROSS_FOODS;
 

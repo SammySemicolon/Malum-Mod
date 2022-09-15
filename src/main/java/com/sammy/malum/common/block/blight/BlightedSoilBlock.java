@@ -1,8 +1,6 @@
 package com.sammy.malum.common.block.blight;
 
 import com.sammy.malum.common.item.spirit.MalumSpiritItem;
-import com.sammy.malum.common.packets.particle.block.BlockParticlePacket;
-import com.sammy.malum.common.packets.particle.block.blight.BlightMistParticlePacket;
 import com.sammy.malum.common.worldevent.ActiveBlightEvent;
 import com.sammy.malum.core.setup.content.SoundRegistry;
 import net.minecraft.core.BlockPos;
@@ -21,9 +19,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.network.PacketDistributor;
-
-import static com.sammy.malum.core.setup.server.PacketRegistry.MALUM_CHANNEL;
 
 public class BlightedSoilBlock extends Block {
     protected static final VoxelShape SHAPE = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 14.0D, 16.0D);

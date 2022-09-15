@@ -24,20 +24,23 @@ if (System.getenv('BUILD_NUMBER') != null) {
 group = 'com.sammy.malum'
 archivesBaseName = project.modId
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+
 sourceSets {
-    main.resources.srcDirs += 'src/main/generated_resources'
+    main.resources.srcDirs += 'src/generated/resources'
 }
+
 jar {
 //    exclude 'com/sammy/malum/core/data/**'
     exclude 'com/sammy/malum/client/model/bbmodels/**'
     exclude 'assets/malum/models/block/bbmodels/**'
 }
+
 mixin {
     add sourceSets.main, "${project.modId}.refmap.json"
 }
 
 minecraft {
-    mappings channel: 'parchment', version: '2022.03.13-1.18.2'
+    mappings channel: 'parchment', version: "${parchmentVersion}-${minecraftVersion}"
     accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 
     runs {
@@ -74,7 +77,7 @@ minecraft {
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
 
-            args '--mod', "${project.modId}", '--all', '--output', file('src/main/generated_resources/'), '--existing', file('src/main/resources/')
+            args '--mod', "${project.modId}", '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
 
             mods {
                 self {
@@ -114,31 +117,37 @@ repositories {
 dependencies {
     minecraft "net.minecraftforge:forge:${project.minecraftVersion}-${project.forgeVersion}"
 
+    // Use this to make sure it functions in the intellij environment
     if (System.getProperty("idea.sync.active") != "true") {
-        annotationProcessor 'org.spongepowered:mixin:0.8.4:processor'
+        annotationProcessor "org.spongepowered:mixin:${mixinVersion}:processor"
     }
 
     runtimeOnly fg.deobf("curse.maven:stfu-407174:3759881")
-    runtimeOnly fg.deobf("curse.maven:spark-361579:3828094")
+    runtimeOnly fg.deobf("curse.maven:spark-361579:3824951")
 
-    compileOnly fg.deobf('mezz.jei:jei-1.18.2:9.7.0.193:api')
-    runtimeOnly fg.deobf('mezz.jei:jei-1.18.2:9.7.0.193')
-    implementation fg.deobf("team.lodestar.lodestone:lodestone:${project.lodestoneVersion}")
-    implementation fg.deobf("curse.maven:curios-309927:3748873")
+    // JEI Dependency
+    compileOnly fg.deobf("mezz.jei:jei-${minecraftVersion}:${jeiVersion}:api")
+    runtimeOnly fg.deobf("mezz.jei:jei-${minecraftVersion}:${jeiVersion}")
 
-    implementation fg.deobf("com.jozufozu.flywheel:Flywheel-Forge:1.18-0.6.4.86")
+    // Curios dependency
+    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:${minecraftVersion}-${curiosVersion}:api")
+    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${minecraftVersion}-${curiosVersion}")
+
+    // Use local lodestone when in multiproject
+    implementation fg.deobf("team.lodestar.lodestone:lodestone:${minecraftVersion}-${project.lodestoneVersion}")
+    implementation fg.deobf("com.jozufozu.flywheel:Flywheel-Forge:${flywheelVersion}")
+
+    implementation fg.deobf("se.mickelus.mutil:mutil:${minecraftVersion}-${mutilVersion}")
+    implementation fg.deobf("se.mickelus.tetra:tetra:${minecraftVersion}-${tetraVersion}")
+
+    // CurseMaven Deps
     implementation fg.deobf("curse.maven:supplementaries-328085:3872145")
-
-    implementation fg.deobf("se.mickelus.mutil:mutil:1.18.2-4.5.0")
-    implementation fg.deobf("se.mickelus.tetra:tetra:1.18.2-4.9.0")
     implementation fg.deobf("curse.maven:farmers_delight-398521:3739914")
     implementation fg.deobf("curse.maven:selene-499980:3842421")
     implementation fg.deobf("curse.maven:supplementaries-412082:3871187")
+    implementation fg.deobf("curse.maven:jeed-532286:3820697")
 //    implementation fg.deobf("curse.maven:quark-243121:3840125")
 //    implementation fg.deobf("curse.maven:autoreglib-250363:3642382")
-
-
-    implementation fg.deobf("curse.maven:jeed-532286:3820697")
 }
 
 jar {

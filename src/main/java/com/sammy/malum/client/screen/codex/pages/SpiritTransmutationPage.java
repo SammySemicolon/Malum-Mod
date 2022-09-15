@@ -16,7 +16,6 @@ import team.lodestar.lodestone.systems.recipe.WrappedIngredient;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Predicate;
 
 @SuppressWarnings("all")
 public class SpiritTransmutationPage extends BookPage {

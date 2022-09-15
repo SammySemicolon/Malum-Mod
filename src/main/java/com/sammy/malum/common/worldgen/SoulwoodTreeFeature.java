@@ -4,10 +4,6 @@ import com.sammy.malum.common.block.MalumLeavesBlock;
 import com.sammy.malum.common.block.MalumSaplingBlock;
 import com.sammy.malum.core.setup.content.block.BlockRegistry;
 import com.sammy.malum.core.setup.content.block.BlockTagRegistry;
-import team.lodestar.lodestone.helpers.BlockHelper;
-import team.lodestar.lodestone.helpers.DataHelper;
-import team.lodestar.lodestone.systems.worldgen.LodestoneBlockFiller;
-import team.lodestar.lodestone.systems.worldgen.LodestoneBlockFiller.BlockStateEntry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
@@ -23,10 +19,13 @@ import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraftforge.registries.RegistryObject;
+import team.lodestar.lodestone.helpers.BlockHelper;
+import team.lodestar.lodestone.helpers.DataHelper;
+import team.lodestar.lodestone.systems.worldgen.LodestoneBlockFiller;
+import team.lodestar.lodestone.systems.worldgen.LodestoneBlockFiller.BlockStateEntry;
 
 import java.util.List;
 import java.util.Random;
-import java.util.stream.Collectors;
 
 import static net.minecraft.tags.BlockTags.*;
 

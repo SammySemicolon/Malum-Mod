@@ -10,9 +10,6 @@ import com.sammy.malum.core.setup.content.AttributeRegistry;
 import com.sammy.malum.core.setup.content.SoundRegistry;
 import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
 import com.sammy.malum.core.systems.spirit.MalumSpiritAffinity;
-import team.lodestar.lodestone.setup.LodestoneShaderRegistry;
-import team.lodestar.lodestone.systems.rendering.ExtendedShaderInstance;
-import team.lodestar.lodestone.systems.rendering.VFXBuilders;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.resources.ResourceLocation;
@@ -26,6 +23,9 @@ import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.gui.ForgeIngameGui;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import team.lodestar.lodestone.setup.LodestoneShaderRegistry;
+import team.lodestar.lodestone.systems.rendering.ExtendedShaderInstance;
+import team.lodestar.lodestone.systems.rendering.VFXBuilders;
 
 public class EarthenAffinity extends MalumSpiritAffinity {
     public EarthenAffinity() {

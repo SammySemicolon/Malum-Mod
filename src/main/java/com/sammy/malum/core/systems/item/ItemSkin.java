@@ -1,7 +1,7 @@
 package com.sammy.malum.core.systems.item;
 
-import team.lodestar.lodestone.systems.model.LodestoneArmorModel;
 import net.minecraft.resources.ResourceLocation;
+import team.lodestar.lodestone.systems.model.LodestoneArmorModel;
 
 import java.util.List;
 import java.util.function.Supplier;

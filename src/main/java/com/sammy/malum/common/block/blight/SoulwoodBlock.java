@@ -1,7 +1,6 @@
 package com.sammy.malum.common.block.blight;
 
 import com.sammy.malum.core.setup.content.SoundRegistry;
-import team.lodestar.lodestone.systems.block.LodestoneLogBlock;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.block.Block;
@@ -9,6 +8,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.ToolAction;
 import net.minecraftforge.common.ToolActions;
 import org.jetbrains.annotations.Nullable;
+import team.lodestar.lodestone.systems.block.LodestoneLogBlock;
 
 import java.util.function.Supplier;
 

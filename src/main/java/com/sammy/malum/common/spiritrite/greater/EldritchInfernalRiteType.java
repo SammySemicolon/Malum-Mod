@@ -2,13 +2,12 @@ package com.sammy.malum.common.spiritrite.greater;
 
 import com.sammy.malum.common.blockentity.totem.TotemBaseBlockEntity;
 import com.sammy.malum.common.packets.particle.block.BlockSparkleParticlePacket;
-import com.sammy.malum.common.packets.particle.block.FireBlockExtinguishSparkleParticlePacket;
 import com.sammy.malum.common.packets.particle.block.MinorBlockSparkleParticlePacket;
-import com.sammy.malum.core.setup.content.potion.MalumMobEffectRegistry;
-import com.sammy.malum.core.systems.rites.*;
+import com.sammy.malum.core.systems.rites.BlockAffectingRiteEffect;
+import com.sammy.malum.core.systems.rites.MalumRiteEffect;
+import com.sammy.malum.core.systems.rites.MalumRiteType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.SimpleContainer;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeType;

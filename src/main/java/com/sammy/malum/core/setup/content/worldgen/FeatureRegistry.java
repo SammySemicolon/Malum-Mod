@@ -6,9 +6,6 @@ import com.sammy.malum.common.worldgen.RunewoodTreeFeature;
 import com.sammy.malum.common.worldgen.SoulwoodTreeFeature;
 import com.sammy.malum.config.CommonConfig;
 import com.sammy.malum.core.setup.content.block.BlockRegistry;
-import net.minecraft.core.Registry;
-import net.minecraft.world.level.Level;
-import team.lodestar.lodestone.systems.worldgen.ChancePlacementFilter;
 import net.minecraft.core.Holder;
 import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.data.worldgen.features.OreFeatures;
@@ -31,6 +28,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+import team.lodestar.lodestone.systems.worldgen.ChancePlacementFilter;
 import team.lodestar.lodestone.systems.worldgen.DimensionPlacementFilter;
 
 import java.util.List;

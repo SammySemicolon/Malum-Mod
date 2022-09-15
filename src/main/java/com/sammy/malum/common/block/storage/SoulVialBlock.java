@@ -1,7 +1,6 @@
 package com.sammy.malum.common.block.storage;
 
 import com.sammy.malum.common.blockentity.storage.SoulVialBlockEntity;
-import team.lodestar.lodestone.systems.block.WaterLoggedEntityBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -11,6 +10,7 @@ import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import team.lodestar.lodestone.systems.block.WaterLoggedEntityBlock;
 
 public class SoulVialBlock<T extends SoulVialBlockEntity> extends WaterLoggedEntityBlock<T>
 {

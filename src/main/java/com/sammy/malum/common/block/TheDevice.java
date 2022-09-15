@@ -1,10 +1,6 @@
 package com.sammy.malum.common.block;
 
 import com.sammy.malum.core.setup.content.SoundRegistry;
-import team.lodestar.lodestone.helpers.BlockHelper;
-import team.lodestar.lodestone.network.screenshake.PositionedScreenshakePacket;
-import team.lodestar.lodestone.setup.LodestonePacketRegistry;
-import team.lodestar.lodestone.systems.easing.Easing;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
@@ -16,6 +12,10 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.network.PacketDistributor;
+import team.lodestar.lodestone.helpers.BlockHelper;
+import team.lodestar.lodestone.network.screenshake.PositionedScreenshakePacket;
+import team.lodestar.lodestone.setup.LodestonePacketRegistry;
+import team.lodestar.lodestone.systems.easing.Easing;
 
 public class TheDevice extends Block {
     private final int funnyComparatorNumber;
