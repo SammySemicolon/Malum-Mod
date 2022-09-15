@@ -349,15 +349,15 @@ public class MalumLang extends LanguageProvider {
 
         addSimpleEntryHeader("belt_of_the_starved", "Belt of the Starved", "Channeling voracity");
         addPages("belt_of_the_starved",
-            "The arcana I collect occasionally have scraps of wishes and desires woven in. Often, given the base nature of what I reap, this comes in the form of hunger, lust, or petty grudges. All of these can be harnessed, and beyond that, I can infuse this power into my magic.",
-            "Doing this carries the perhaps predictable effect that my own hunger amplifies. And... by eating things which revile me, things which are rotten, I can satisfy my body's hunger without satisfying my soul's. The magic proficiency this grants is immense, but... I must say, the means are rather distasteful.");
+            "The arcana I collect occasionally have scraps of wishes and desires woven in. Often, given the base nature of what I reap, this comes in the form of hunger, lust, or petty grudges. All of these impurities can be harnessed, and beyond that, I can infuse this power into my magic.",
+            "Doing this carries the perhaps predictable effect that my own hunger amplifies, draining quicker in the process. And... by eating things which revile me, things which are rotten, this powerful effect is extended beyond it's natural duration. The magic proficiency this grants is immense, but... I must say, the means are rather distasteful.");
         addHeadline("belt_of_the_starved.ring_of_desperate_voracity", "Ring of Desperate Voracity");
         addPages("belt_of_the_starved.ring_of_desperate_voracity",
             "To combat the toxic nature of these foods, I have created a ring to alleviate some of these effects. This ring makes rotten foods just a little bit more bearable, allowing me to amass more hunger and saturation from this unusual diet.");
 
         addSimpleEntryHeader("belt_of_the_prospector", "Belt of the Prospector", "Treasures of the earth");
         addPages("belt_of_the_prospector",
-                "To fuel my various magics and other goals I more often than not find myself needing various earthen treasures. This belt prevents my explosions from harming valuable items on the ground, and causes those explosions to break blocks as though I were using a Fortune III tool.");
+                "To fuel my various magics and other goals I more often than not find myself needing various earthen treasures. This belt prevents explosions " + italic("directly") + " caused by me from harming valuable items on the ground, and causes those explosions to break blocks as though I were using a Fortune III tool.");
         addHeadline("belt_of_the_prospector.ring_of_the_hoarder", "Ring of The Hoarder");
         addPages("belt_of_the_prospector.ring_of_the_hoarder",
                 "While wearing this ring, any item created from the destruction caused by your explosions is directly teleported to your location.");

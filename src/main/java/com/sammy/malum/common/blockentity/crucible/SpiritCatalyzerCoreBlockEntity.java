@@ -36,7 +36,7 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity impleme
     public static final ICrucibleAccelerator.CrucibleAcceleratorType CATALYZER = new ICrucibleAccelerator.ArrayCrucibleAcceleratorType("catalyzer",
             new float[]{0.2f, 0.25f, 0.3f, 0.4f, 0.45f, 0.5f, 0.6f, 0.8f},
             new int[]{1, 1, 1, 2, 2, 3, 3, 5},
-            new float[]{0.25f, 0.5f, 0.75f, 1f, 1.5f, 2f, 3f, 8f});
+            new float[]{0.25f, 0.5f, 0.75f, 1f, 1.5f, 2.25f, 3.5f, 8f});
 
     public LodestoneBlockEntityInventory inventory;
     public int burnTicks;
