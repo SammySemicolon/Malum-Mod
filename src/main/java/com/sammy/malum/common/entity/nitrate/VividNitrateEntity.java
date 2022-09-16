@@ -32,7 +32,6 @@ public class VividNitrateEntity extends AbstractNitrateEntity {
         new Color(59, 48, 242),
         new Color(145, 42, 247),
         new Color(231, 58, 73)));
-    //PRIDE!!! :)
 
     public VividNitrateEntity(Level level) {
         super(EntityRegistry.VIVID_NITRATE.get(), level);
