@@ -6,6 +6,7 @@ import com.sammy.malum.core.setup.content.block.BlockRegistry;
 import com.sammy.malum.core.setup.content.block.BlockTagRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.WorldGenLevel;
@@ -79,7 +80,7 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
         BlockPos twistedPos = pos;
         for (int i = 0; i <= trunkHeight; i++) //trunk placement
         {
-            if (i < trunkHeight-lowestPossibleBranch) {
+            if (i < trunkHeight - lowestPossibleBranch) {
                 if (twistCooldown == 0 && twists != 0) {
                     twistCooldown = minimumTwistCooldown + rand.nextInt(extraTwistCooldown + 1);
                     BlockPos trunkPos = twistedPos.above(i);
@@ -171,16 +172,16 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
             }
             makeLeafBlob(leavesFiller, rand, branchEndPos.above(1));
         }
-        int blightSize = 3+rand.nextInt(3);
-        createBlight(level, blightFiller, BlockRegistry.BLIGHTED_SPIRE, level.getRandom(),pos.below(),blightSize, 0);
+        int blightSize = 3 + rand.nextInt(3);
+        createBlight(level, blightFiller, BlockRegistry.BLIGHTED_SPIRE, level.getRandom(), pos.below(), blightSize, 0);
         for (Direction direction : directions) {
             BlockPos relative = pos.below().relative(direction).offset(rand.nextInt(4), 0, rand.nextInt(4));
-            createBlight(level, blightFiller, BlockRegistry.BLIGHTED_WEED, level.getRandom(),relative,blightSize, 0.1f);
+            createBlight(level, blightFiller, BlockRegistry.BLIGHTED_WEED, level.getRandom(), relative, blightSize, 0.1f);
             Direction otherDirection = directions[rand.nextInt(directions.length)];
             if (otherDirection.equals(direction)) {
                 continue;
             }
-            createBlight(level, blightFiller, BlockRegistry.BLIGHTED_WEED, level.getRandom(),relative.relative(otherDirection, 3+rand.nextInt(3)),blightSize-1, 0.1f);
+            createBlight(level, blightFiller, BlockRegistry.BLIGHTED_WEED, level.getRandom(), relative.relative(otherDirection, 3 + rand.nextInt(3)), blightSize - 1, 0.1f);
             blightSize--;
         }
         int sapBlockCount = minimumSapBlockCount + rand.nextInt(extraSapBlockCount + 1);
@@ -191,6 +192,9 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
         blightFiller.fill(level);
         treeFiller.fill(level);
         leavesFiller.fill(level);
+        if (level instanceof ServerLevel serverLevel) {
+            leavesFiller.entries.forEach(e -> level.getBlockState(e.pos).tick(serverLevel, e.pos, rand));
+        }
         return true;
     }
 
@@ -234,7 +238,7 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
                 }
                 BlockPos leavesPos = new BlockPos(pos).offset(x, 0, z);
                 int offsetColor = leavesColor + Mth.nextInt(rand, leavesColor == 0 ? 0 : -1, leavesColor == 4 ? 0 : 1);
-                filler.entries.add(new BlockStateEntry(BlockRegistry.SOULWOOD_LEAVES.get().defaultBlockState().setValue(LeavesBlock.DISTANCE, 1).setValue(MalumLeavesBlock.COLOR, offsetColor), leavesPos));
+                filler.entries.add(new BlockStateEntry(BlockRegistry.SOULWOOD_LEAVES.get().defaultBlockState().setValue(MalumLeavesBlock.COLOR, offsetColor), leavesPos));
             }
         }
     }
@@ -306,7 +310,6 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
             }
             if (growths < 1 && rand.nextFloat() < growths) {
                 plantFiller.replace(level.getRandom().nextInt(plantFiller.entries.size()), s -> s.replaceState(BlockRegistry.SOULWOOD_GROWTH.get().defaultBlockState()));
-
             }
             filler.entries.addAll(plantFiller.entries);
         }

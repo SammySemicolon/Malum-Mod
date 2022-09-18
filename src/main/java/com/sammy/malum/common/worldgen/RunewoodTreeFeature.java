@@ -5,6 +5,7 @@ import com.sammy.malum.common.block.MalumSaplingBlock;
 import com.sammy.malum.core.setup.content.block.BlockRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.RotatedPillarBlock;
@@ -113,6 +114,9 @@ public class RunewoodTreeFeature extends Feature<NoneFeatureConfiguration> {
         }
         treeFiller.fill(level);
         leavesFiller.fill(level);
+        if (level instanceof ServerLevel serverLevel) {
+            leavesFiller.entries.forEach(e -> level.getBlockState(e.pos).tick(serverLevel, e.pos, rand));
+        }
         return true;
     }
 
@@ -148,7 +152,7 @@ public class RunewoodTreeFeature extends Feature<NoneFeatureConfiguration> {
                     continue;
                 }
                 BlockPos leavesPos = new BlockPos(pos).offset(x, 0, z);
-                filler.entries.add(new BlockStateEntry(BlockRegistry.RUNEWOOD_LEAVES.get().defaultBlockState().setValue(LeavesBlock.DISTANCE, 1).setValue(MalumLeavesBlock.COLOR, leavesColor), leavesPos));
+                filler.entries.add(new BlockStateEntry(BlockRegistry.RUNEWOOD_LEAVES.get().defaultBlockState().setValue(MalumLeavesBlock.COLOR, leavesColor), leavesPos));
             }
         }
     }
