@@ -2,7 +2,8 @@ package com.sammy.malum.common.recipe;
 
 import com.google.gson.JsonObject;
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.core.setup.content.RecipeSerializerRegistry;
+import com.sammy.malum.core.setup.content.recipe.RecipeSerializerRegistry;
+import net.minecraft.core.Registry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
@@ -27,8 +28,7 @@ public class AlterationRecipe extends ILodestoneRecipe {
         public String toString() {
             return MalumMod.MALUM + ":" + NAME;
         }
-
-        public static final AlterationRecipe.Type INSTANCE = new AlterationRecipe.Type();
+        public static final AlterationRecipe.Type INSTANCE = Registry.register(Registry.RECIPE_TYPE, MalumMod.malumPath(NAME), new AlterationRecipe.Type());
     }
 
     private final ResourceLocation id;

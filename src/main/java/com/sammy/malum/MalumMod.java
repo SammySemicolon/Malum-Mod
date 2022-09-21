@@ -24,7 +24,7 @@ import java.util.Random;
 import static com.sammy.malum.core.setup.client.ParticleRegistry.PARTICLES;
 import static com.sammy.malum.core.setup.content.AttributeRegistry.ATTRIBUTES;
 import static com.sammy.malum.core.setup.content.ContainerRegistry.CONTAINERS;
-import static com.sammy.malum.core.setup.content.RecipeSerializerRegistry.RECIPE_SERIALIZERS;
+import static com.sammy.malum.core.setup.content.recipe.RecipeSerializerRegistry.RECIPE_SERIALIZERS;
 import static com.sammy.malum.core.setup.content.SoundRegistry.SOUNDS;
 import static com.sammy.malum.core.setup.content.block.BlockEntityRegistry.BLOCK_ENTITY_TYPES;
 import static com.sammy.malum.core.setup.content.block.BlockRegistry.BLOCKS;

@@ -2,7 +2,7 @@ package com.sammy.malum.core.data.builder;
 
 import com.google.gson.JsonObject;
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.core.setup.content.RecipeSerializerRegistry;
+import com.sammy.malum.core.setup.content.recipe.RecipeSerializerRegistry;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;

@@ -3,8 +3,9 @@ package com.sammy.malum.common.recipe;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.core.setup.content.RecipeSerializerRegistry;
+import com.sammy.malum.core.setup.content.recipe.RecipeSerializerRegistry;
 import com.sammy.malum.core.systems.recipe.SpiritWithCount;
+import net.minecraft.core.Registry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -30,7 +31,7 @@ public class SpiritFocusingRecipe extends ILodestoneRecipe {
             return MalumMod.MALUM + ":" + NAME;
         }
 
-        public static final SpiritFocusingRecipe.Type INSTANCE = new SpiritFocusingRecipe.Type();
+        public static final SpiritFocusingRecipe.Type INSTANCE = Registry.register(Registry.RECIPE_TYPE, MalumMod.malumPath(NAME), new SpiritFocusingRecipe.Type());
     }
 
     private final ResourceLocation id;

@@ -1,6 +1,6 @@
 package com.sammy.malum.common.recipe.vanilla;
 
-import com.sammy.malum.core.setup.content.RecipeSerializerRegistry;
+import com.sammy.malum.core.setup.content.recipe.RecipeSerializerRegistry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;

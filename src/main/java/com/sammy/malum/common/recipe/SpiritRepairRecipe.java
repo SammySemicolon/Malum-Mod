@@ -4,8 +4,9 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.core.setup.content.RecipeSerializerRegistry;
+import com.sammy.malum.core.setup.content.recipe.RecipeSerializerRegistry;
 import com.sammy.malum.core.systems.recipe.SpiritWithCount;
+import net.minecraft.core.Registry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
@@ -35,7 +36,7 @@ public class SpiritRepairRecipe extends ILodestoneRecipe {
             return MalumMod.MALUM + ":" + NAME;
         }
 
-        public static final SpiritRepairRecipe.Type INSTANCE = new SpiritRepairRecipe.Type();
+        public static final SpiritRepairRecipe.Type INSTANCE = Registry.register(Registry.RECIPE_TYPE, MalumMod.malumPath(NAME), new SpiritRepairRecipe.Type());
     }
 
     private final ResourceLocation id;

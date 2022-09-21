@@ -2,7 +2,8 @@ package com.sammy.malum.common.recipe;
 
 import com.google.gson.JsonObject;
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.core.setup.content.RecipeSerializerRegistry;
+import com.sammy.malum.core.setup.content.recipe.RecipeSerializerRegistry;
+import net.minecraft.core.Registry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
@@ -28,7 +29,7 @@ public class SpiritTransmutationRecipe extends ILodestoneRecipe {
             return MalumMod.MALUM + ":" + NAME;
         }
 
-        public static final SpiritTransmutationRecipe.Type INSTANCE = new SpiritTransmutationRecipe.Type();
+        public static final SpiritTransmutationRecipe.Type INSTANCE = Registry.register(Registry.RECIPE_TYPE, MalumMod.malumPath(NAME), new SpiritTransmutationRecipe.Type());
     }
 
     private final ResourceLocation id;

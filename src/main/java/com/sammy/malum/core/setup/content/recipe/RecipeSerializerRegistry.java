@@ -1,11 +1,15 @@
-package com.sammy.malum.core.setup.content;
+package com.sammy.malum.core.setup.content.recipe;
 
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.recipe.*;
 import com.sammy.malum.common.recipe.vanilla.MetalNodeBlastingRecipe;
 import com.sammy.malum.common.recipe.vanilla.MetalNodeSmeltingRecipe;
 import com.sammy.malum.common.recipe.vanilla.NodeCookingSerializer;
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -22,4 +26,8 @@ public class RecipeSerializerRegistry {
     public static final RegistryObject<RecipeSerializer<AugmentingRecipe>> AUGMENTING_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register(AugmentingRecipe.NAME, AugmentingRecipe.Serializer::new);
     public static final RegistryObject<RecipeSerializer<SpiritRepairRecipe>> REPAIR_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register(SpiritRepairRecipe.NAME, SpiritRepairRecipe.Serializer::new);
     public static final RegistryObject<RecipeSerializer<SpiritTransmutationRecipe>> SPIRIT_TRANSMUTATION_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register(SpiritTransmutationRecipe.NAME, SpiritTransmutationRecipe.Serializer::new);
+
+    public static <T extends Recipe<?>> RecipeType<T> registerType(final String pIdentifier, RecipeType<T> recipeType) {
+        return Registry.register(Registry.RECIPE_TYPE, new ResourceLocation(pIdentifier), recipeType);
+    }
 }

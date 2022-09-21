@@ -3,7 +3,7 @@ package com.sammy.malum.core.data.builder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.core.setup.content.RecipeSerializerRegistry;
+import com.sammy.malum.core.setup.content.recipe.RecipeSerializerRegistry;
 import com.sammy.malum.core.systems.recipe.SpiritWithCount;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import net.minecraft.data.recipes.FinishedRecipe;
