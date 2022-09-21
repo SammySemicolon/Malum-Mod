@@ -7,6 +7,7 @@ import com.sammy.malum.compability.tetra.TetraCompat;
 import com.sammy.malum.config.ClientConfig;
 import com.sammy.malum.config.CommonConfig;
 import com.sammy.malum.core.data.*;
+import com.sammy.malum.core.setup.content.recipe.RecipeTypeRegistry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.BlockTagsProvider;
 import net.minecraft.resources.ResourceLocation;
@@ -32,6 +33,7 @@ import static com.sammy.malum.core.setup.content.entity.EntityRegistry.ENTITY_TY
 import static com.sammy.malum.core.setup.content.item.ItemRegistry.ITEMS;
 import static com.sammy.malum.core.setup.content.item.MalumEnchantments.ENCHANTMENTS;
 import static com.sammy.malum.core.setup.content.potion.MalumMobEffectRegistry.EFFECTS;
+import static com.sammy.malum.core.setup.content.recipe.RecipeTypeRegistry.RECIPE_TYPES;
 import static com.sammy.malum.core.setup.content.worldgen.FeatureRegistry.FEATURE_TYPES;
 
 @SuppressWarnings("unused")
@@ -57,8 +59,10 @@ public class MalumMod {
         SOUNDS.register(modBus);
         CONTAINERS.register(modBus);
         ATTRIBUTES.register(modBus);
+        RECIPE_TYPES.register(modBus);
         RECIPE_SERIALIZERS.register(modBus);
         FEATURE_TYPES.register(modBus);
+
 
         TetraCompat.init();
         FarmersDelightCompat.init();

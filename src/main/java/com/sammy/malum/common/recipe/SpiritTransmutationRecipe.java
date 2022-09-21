@@ -3,6 +3,7 @@ package com.sammy.malum.common.recipe;
 import com.google.gson.JsonObject;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.core.setup.content.recipe.RecipeSerializerRegistry;
+import com.sammy.malum.core.setup.content.recipe.RecipeTypeRegistry;
 import net.minecraft.core.Registry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -22,15 +23,6 @@ import java.util.function.Predicate;
 
 public class SpiritTransmutationRecipe extends ILodestoneRecipe {
     public static final String NAME = "spirit_transmutation";
-
-    public static class Type implements RecipeType<SpiritTransmutationRecipe> {
-        @Override
-        public String toString() {
-            return MalumMod.MALUM + ":" + NAME;
-        }
-
-        public static final SpiritTransmutationRecipe.Type INSTANCE = Registry.register(Registry.RECIPE_TYPE, MalumMod.malumPath(NAME), new SpiritTransmutationRecipe.Type());
-    }
 
     private final ResourceLocation id;
 
@@ -54,7 +46,7 @@ public class SpiritTransmutationRecipe extends ILodestoneRecipe {
 
     @Override
     public RecipeType<?> getType() {
-        return Type.INSTANCE;
+        return RecipeTypeRegistry.SPIRIT_TRANSMUTATION.get();
     }
 
     @Override
@@ -81,7 +73,7 @@ public class SpiritTransmutationRecipe extends ILodestoneRecipe {
     }
 
     public static List<SpiritTransmutationRecipe> getRecipes(Level level) {
-        return level.getRecipeManager().getAllRecipesFor(Type.INSTANCE);
+        return level.getRecipeManager().getAllRecipesFor(RecipeTypeRegistry.SPIRIT_TRANSMUTATION.get());
     }
 
     public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<SpiritTransmutationRecipe> {

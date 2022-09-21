@@ -5,6 +5,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.core.setup.content.recipe.RecipeSerializerRegistry;
+import com.sammy.malum.core.setup.content.recipe.RecipeTypeRegistry;
 import com.sammy.malum.core.systems.recipe.SpiritWithCount;
 import net.minecraft.core.Registry;
 import net.minecraft.network.FriendlyByteBuf;
@@ -30,15 +31,6 @@ import java.util.stream.Collectors;
 public class SpiritRepairRecipe extends ILodestoneRecipe {
     public static final String NAME = "spirit_repair";
 
-    public static class Type implements RecipeType<SpiritRepairRecipe> {
-        @Override
-        public String toString() {
-            return MalumMod.MALUM + ":" + NAME;
-        }
-
-        public static final SpiritRepairRecipe.Type INSTANCE = Registry.register(Registry.RECIPE_TYPE, MalumMod.malumPath(NAME), new SpiritRepairRecipe.Type());
-    }
-
     private final ResourceLocation id;
 
     public final float durabilityPercentage;
@@ -61,7 +53,7 @@ public class SpiritRepairRecipe extends ILodestoneRecipe {
 
     @Override
     public RecipeType<?> getType() {
-        return Type.INSTANCE;
+        return RecipeTypeRegistry.SPIRIT_REPAIR.get();
     }
 
     @Override
@@ -129,7 +121,7 @@ public class SpiritRepairRecipe extends ILodestoneRecipe {
     }
 
     public static List<SpiritRepairRecipe> getRecipes(Level level) {
-        return level.getRecipeManager().getAllRecipesFor(Type.INSTANCE);
+        return level.getRecipeManager().getAllRecipesFor(RecipeTypeRegistry.SPIRIT_REPAIR.get());
     }
 
     public static ItemStack getRepairRecipeOutput(ItemStack input) {

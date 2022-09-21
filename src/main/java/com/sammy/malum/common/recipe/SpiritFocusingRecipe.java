@@ -4,6 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.core.setup.content.recipe.RecipeSerializerRegistry;
+import com.sammy.malum.core.setup.content.recipe.RecipeTypeRegistry;
 import com.sammy.malum.core.systems.recipe.SpiritWithCount;
 import net.minecraft.core.Registry;
 import net.minecraft.network.FriendlyByteBuf;
@@ -24,15 +25,6 @@ import java.util.function.Predicate;
 
 public class SpiritFocusingRecipe extends ILodestoneRecipe {
     public static final String NAME = "spirit_focusing";
-
-    public static class Type implements RecipeType<SpiritFocusingRecipe> {
-        @Override
-        public String toString() {
-            return MalumMod.MALUM + ":" + NAME;
-        }
-
-        public static final SpiritFocusingRecipe.Type INSTANCE = Registry.register(Registry.RECIPE_TYPE, MalumMod.malumPath(NAME), new SpiritFocusingRecipe.Type());
-    }
 
     private final ResourceLocation id;
 
@@ -59,7 +51,7 @@ public class SpiritFocusingRecipe extends ILodestoneRecipe {
 
     @Override
     public RecipeType<?> getType() {
-        return Type.INSTANCE;
+        return RecipeTypeRegistry.SPIRIT_FOCUSING.get();
     }
 
     @Override
@@ -124,7 +116,7 @@ public class SpiritFocusingRecipe extends ILodestoneRecipe {
     }
 
     public static List<SpiritFocusingRecipe> getRecipes(Level level) {
-        return level.getRecipeManager().getAllRecipesFor(Type.INSTANCE);
+        return level.getRecipeManager().getAllRecipesFor(RecipeTypeRegistry.SPIRIT_FOCUSING.get());
     }
 
     public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<SpiritFocusingRecipe> {
