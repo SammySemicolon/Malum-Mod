@@ -109,7 +109,7 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider implements ICondi
             .build(consumer);
 
         new SpiritInfusionRecipeBuilder(Items.IRON_INGOT, 1, ItemRegistry.SOUL_STAINED_STEEL_INGOT.get(), 1)
-            .addExtraItem(Items.SOUL_SAND, 2)
+            .addExtraItem(Ingredient.of(ItemTags.SOUL_FIRE_BASE_BLOCKS), 2)
             .addExtraItem(ItemRegistry.PROCESSED_SOULSTONE.get(), 1)
             .addSpirit(WICKED_SPIRIT, 3)
             .addSpirit(EARTHEN_SPIRIT, 1)
