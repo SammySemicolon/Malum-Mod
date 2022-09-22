@@ -166,6 +166,8 @@ public class TotemBaseBlockEntity extends LodestoneBlockEntity {
         progress = compound.getInt("progress");
         height = compound.getInt("height");
         poles.clear();
+        filters.clear();
+        cachedTotemPoleInstances.clear();
         for (int i = 1; i <= height; i++) {
             poles.add(new BlockPos(worldPosition.getX(), worldPosition.getY() + i, worldPosition.getZ()));
         }
