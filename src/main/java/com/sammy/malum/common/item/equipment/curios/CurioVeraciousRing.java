@@ -50,7 +50,7 @@ public class CurioVeraciousRing extends MalumCurioItem {
                     if (gluttony != null) {
                         player.getFoodData().eat(1, 0.25f*(gluttony.amplifier+1));
                     }
-                    player.getFoodData().eat(2, 1.5f);
+                    player.getFoodData().eat(2, 1f);
                     MobEffectInstance effect = player.getEffect(MobEffects.HUNGER);
                     if (effect != null) {
                         EntityHelper.shortenEffect(effect, player, 150);

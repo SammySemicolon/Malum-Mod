@@ -157,7 +157,7 @@ public class MalumSpiritFocusingRecipes extends RecipeProvider implements ICondi
                 .addSpirit(ARCANE_SPIRIT, 2)
                 .build(consumer);
 
-        new SpiritFocusingRecipeBuilder(shortDuration, 1, Ingredient.of(ItemRegistry.ALCHEMICAL_IMPETUS.get()), Items.PRISMARINE, 8)
+        new SpiritFocusingRecipeBuilder(shortDuration, 1, Ingredient.of(ItemRegistry.ALCHEMICAL_IMPETUS.get()), Items.PRISMARINE_SHARD, 8)
                 .addSpirit(AQUEOUS_SPIRIT, 2)
                 .addSpirit(ARCANE_SPIRIT, 2)
                 .build(consumer);

@@ -9,7 +9,7 @@
   },
   "extra_items": [
     {
-      "item": "minecraft:soul_sand",
+      "tag": "minecraft:soul_fire_base_blocks",
       "count": 2
     },
     {
