@@ -229,7 +229,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
 
     @Override
     public boolean canBeAccelerated() {
-        return focusingRecipe != null;
+        return focusingRecipe != null && !isRemoved();
     }
 
     @Override
