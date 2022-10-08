@@ -101,7 +101,7 @@ public abstract class AbstractNitrateEntity extends ThrowableProjectile {
         List<EntityHelper.PastPosition> toRemove = new ArrayList<>();
         for (int i = 0; i < amount; i++) {
             EntityHelper.PastPosition excess = pastPositions.get(i);
-            if (excess.time > 25) {
+            if (excess.time > Math.min(age*0.8f, 25)) {
                 toRemove.add(excess);
             }
         }

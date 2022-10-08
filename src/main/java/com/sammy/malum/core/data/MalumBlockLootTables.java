@@ -110,6 +110,7 @@ public class MalumBlockLootTables extends LootTableProvider {
 
         return tables;
     }
+
     @Override
     protected void validate(Map<ResourceLocation, LootTable> map, ValidationContext validationtracker) {
         map.forEach((loc, table) -> LootTables.validate(validationtracker, loc, table));

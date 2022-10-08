@@ -2,8 +2,10 @@ package com.sammy.malum.client.renderer.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.datafixers.util.Pair;
 import com.mojang.math.Vector4f;
 import com.sammy.malum.common.entity.nitrate.VividNitrateEntity;
+import com.sammy.malum.common.entity.nitrate.VividNitrateEntity.ColorFunctionData;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderer;
@@ -27,6 +29,7 @@ import java.util.stream.Collectors;
 
 import static com.sammy.malum.MalumMod.malumPath;
 import static com.sammy.malum.client.renderer.entity.FloatingItemEntityRenderer.renderSpiritGlimmer;
+import static com.sammy.malum.common.entity.nitrate.VividNitrateEntity.COLOR_FUNCTION;
 import static team.lodestar.lodestone.handlers.RenderHandler.DELAYED_RENDER;
 
 public class VividNitrateEntityRenderer extends EntityRenderer<VividNitrateEntity> {
@@ -68,28 +71,19 @@ public class VividNitrateEntityRenderer extends EntityRenderer<VividNitrateEntit
 
         VertexConsumer lightBuffer = DELAYED_RENDER.getBuffer(LIGHT_TYPE);
         float trailVisibility = Math.min(entity.windUp, 1);
-        float time = ((entity.level.getGameTime()+partialTicks) % 16f) / 16f;
-        Function<Float, Color> colorFunction = f -> {
-            float lerp = time + f;
-            if (lerp > 1) {
-                lerp -= Math.floor(lerp);
-            }
-            return ColorHelper.multicolorLerp(Easing.SINE_IN, lerp, VividNitrateEntity.COLORS);
-        };
         for (int i = 0; i < 3; i++) {
-
             float size = 0.3f + i * 0.12f;
             float alpha = (0.16f - i * 0.035f) * trailVisibility;
             builder
                     .setAlpha(alpha)
-                    .renderTrail(lightBuffer, poseStack, mappedPastPositions, f -> size, f -> builder.setAlpha(alpha * f).setColor(colorFunction.apply(f* 3f)))
-                    .renderTrail(lightBuffer, poseStack, mappedPastPositions, f -> 1.5f * size, f -> builder.setAlpha(alpha * f * 1.5f).setColor(colorFunction.apply(f* 2f)))
-                    .renderTrail(lightBuffer, poseStack, mappedPastPositions, f -> size * 2.5f, f -> builder.setAlpha(alpha * f / 4f).setColor(colorFunction.apply(f* 2f)));
+                    .renderTrail(lightBuffer, poseStack, mappedPastPositions, f -> size, f -> builder.setAlpha(alpha * f).setColor(COLOR_FUNCTION.apply(new ColorFunctionData(entity.level, f*3f))))
+                    .renderTrail(lightBuffer, poseStack, mappedPastPositions, f -> 1.5f * size, f -> builder.setAlpha(alpha * f * 1.5f).setColor(COLOR_FUNCTION.apply(new ColorFunctionData(entity.level, f*2f))))
+                    .renderTrail(lightBuffer, poseStack, mappedPastPositions, f -> size * 2.5f, f -> builder.setAlpha(alpha * f / 4f).setColor(COLOR_FUNCTION.apply(new ColorFunctionData(entity.level, f*2f))));
         }
 
         poseStack.translate(0, entity.getYOffset(partialTicks) + 0.25F, 0);
         poseStack.scale(1.2f*trailVisibility,1.2f*trailVisibility,1.2f*trailVisibility);
-        builder.setColor(colorFunction.apply(0.85f));
+        builder.setColor(COLOR_FUNCTION.apply(new ColorFunctionData(entity.level, 0.85f)));
         builder.setAlpha(trailVisibility);
         renderSpiritGlimmer(poseStack, builder, partialTicks);
         poseStack.popPose();

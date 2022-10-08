@@ -1,12 +1,16 @@
 package com.sammy.malum.common.entity.nitrate;
 
+import com.sammy.malum.common.packets.particle.entity.EthericNitrateParticlePacket;
+import com.sammy.malum.common.packets.particle.entity.VividNitrateBounceParticlePacket;
 import com.sammy.malum.core.helper.SpiritHelper;
 import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
 import com.sammy.malum.core.setup.content.entity.EntityRegistry;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.network.PacketDistributor;
 import team.lodestar.lodestone.setup.LodestoneParticleRegistry;
 import team.lodestar.lodestone.systems.easing.Easing;
 import team.lodestar.lodestone.systems.rendering.particle.ParticleBuilders;
@@ -15,6 +19,7 @@ import team.lodestar.lodestone.systems.rendering.particle.ParticleRenderTypes;
 import java.awt.*;
 import java.util.Random;
 
+import static com.sammy.malum.core.setup.server.PacketRegistry.MALUM_CHANNEL;
 import static net.minecraft.util.Mth.nextFloat;
 
 public class EthericNitrateEntity extends AbstractNitrateEntity {
@@ -32,6 +37,13 @@ public class EthericNitrateEntity extends AbstractNitrateEntity {
 
     public EthericNitrateEntity(LivingEntity owner, Level level) {
         super(EntityRegistry.ETHERIC_NITRATE.get(), owner, level);
+    }
+
+    @Override
+    public void onExplode() {
+        if (level instanceof ServerLevel) {
+            MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(blockPosition())), new EthericNitrateParticlePacket(getX(), getY(), getZ()));
+        }
     }
 
     @Override

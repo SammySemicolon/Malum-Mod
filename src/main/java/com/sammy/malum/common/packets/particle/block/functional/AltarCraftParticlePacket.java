@@ -1,5 +1,6 @@
 package com.sammy.malum.common.packets.particle.block.functional;
 
+import com.sammy.malum.common.packets.particle.SpiritBasedParticleEffectPacket;
 import com.sammy.malum.core.helper.SpiritHelper;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import net.minecraft.client.Minecraft;
@@ -18,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
 
-public class AltarCraftParticlePacket extends FunctionalBlockParticlePacket {
+public class AltarCraftParticlePacket extends SpiritBasedParticleEffectPacket {
     public AltarCraftParticlePacket(List<String> spirits, Vec3 vec3) {
         super(spirits, vec3);
     }

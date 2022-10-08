@@ -1,8 +1,10 @@
 package com.sammy.malum.common.packets.particle.entity;
 
+import com.sammy.malum.common.packets.particle.ColorBasedParticleEffectPacket;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.network.NetworkEvent;
@@ -17,26 +19,10 @@ import java.awt.*;
 import java.util.Random;
 import java.util.function.Supplier;
 
-public class MajorEntityEffectParticlePacket extends LodestoneClientPacket {
-    private final Color color;
-    private final double posX;
-    private final double posY;
-    private final double posZ;
+public class MajorEntityEffectParticlePacket extends ColorBasedParticleEffectPacket {
 
     public MajorEntityEffectParticlePacket(Color color, double posX, double posY, double posZ) {
-        this.color = color;
-        this.posX = posX;
-        this.posY = posY;
-        this.posZ = posZ;
-    }
-
-    public void encode(FriendlyByteBuf buf) {
-        buf.writeInt(color.getRed());
-        buf.writeInt(color.getGreen());
-        buf.writeInt(color.getBlue());
-        buf.writeDouble(posX);
-        buf.writeDouble(posY);
-        buf.writeDouble(posZ);
+        super(color, posX, posY, posZ);
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -94,6 +80,6 @@ public class MajorEntityEffectParticlePacket extends LodestoneClientPacket {
     }
 
     public static MajorEntityEffectParticlePacket decode(FriendlyByteBuf buf) {
-        return new MajorEntityEffectParticlePacket(new Color(buf.readInt(), buf.readInt(), buf.readInt()), buf.readDouble(), buf.readDouble(), buf.readDouble());
+        return decode(MajorEntityEffectParticlePacket::new, buf);
     }
 }

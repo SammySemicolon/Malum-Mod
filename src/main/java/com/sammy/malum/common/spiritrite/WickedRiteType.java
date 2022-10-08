@@ -21,7 +21,6 @@ public class WickedRiteType extends MalumRiteType {
     public WickedRiteType() {
         super("wicked_rite", ARCANE_SPIRIT, WICKED_SPIRIT, WICKED_SPIRIT);
     }
-
     @Override
     public MalumRiteEffect getNaturalRiteEffect() {
         return new EntityAffectingRiteEffect() {

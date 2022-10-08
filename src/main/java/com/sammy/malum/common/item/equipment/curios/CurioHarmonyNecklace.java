@@ -22,7 +22,7 @@ public class CurioHarmonyNecklace extends MalumCurioItem {
             LivingEntity target = event.getEntityLiving();
             if (CurioHelper.hasCurioEquipped(target, ItemRegistry.NECKLACE_OF_BLISSFUL_HARMONY.get())) {
                 MalumEntitySpiritData data = SpiritHelper.getEntitySpiritData(watcher);
-                float visibilityModifier = data == null ? 0.5f : getVisibilityMultiplier(data.weightedSpirits);
+                float visibilityModifier = data == null ? 0.4f : getVisibilityMultiplier(data.weightedSpirits);
                 event.modifyVisibility(visibilityModifier);
             }
         }
@@ -30,7 +30,7 @@ public class CurioHarmonyNecklace extends MalumCurioItem {
 
     public static float getVisibilityMultiplier(double spirits) {
         if (spirits < 3.5f) {
-            return 0.15f;
+            return 0.05f;
         }
         if (spirits < 5.5f) {
             return 0.5f;

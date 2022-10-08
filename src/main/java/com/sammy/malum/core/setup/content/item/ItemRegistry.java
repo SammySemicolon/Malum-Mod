@@ -21,6 +21,8 @@ import com.sammy.malum.common.item.food.HolySyrupItem;
 import com.sammy.malum.common.item.food.UnholySyrupItem;
 import com.sammy.malum.common.item.impetus.CrackedImpetusItem;
 import com.sammy.malum.common.item.impetus.ImpetusItem;
+import com.sammy.malum.common.item.nitrate.EthericNitrateItem;
+import com.sammy.malum.common.item.nitrate.VividNitrateItem;
 import com.sammy.malum.common.item.spirit.*;
 import com.sammy.malum.common.item.tools.MalumScytheItem;
 import com.sammy.malum.common.item.tools.magic.MagicScytheItem;
@@ -508,8 +510,8 @@ public class ItemRegistry {
     public static final RegistryObject<Item> SOUL_HUNTER_LEGGINGS = ITEMS.register("soul_hunter_leggings", () -> new SoulHunterArmorItem(EquipmentSlot.LEGS, GEAR_PROPERTIES()));
     public static final RegistryObject<Item> SOUL_HUNTER_BOOTS = ITEMS.register("soul_hunter_boots", () -> new SoulHunterArmorItem(EquipmentSlot.FEET, GEAR_PROPERTIES()));
 
-    public static final RegistryObject<Item> ETHERIC_NITRATE = ITEMS.register("etheric_nitrate", () -> new EthericNitrateItem(DEFAULT_PROPERTIES(), p -> new EthericNitrateEntity(p, p.level)));
-    public static final RegistryObject<Item> VIVID_NITRATE = ITEMS.register("vivid_nitrate", () -> new EthericNitrateItem(DEFAULT_PROPERTIES(), p -> new VividNitrateEntity(p, p.level)));
+    public static final RegistryObject<Item> ETHERIC_NITRATE = ITEMS.register("etheric_nitrate", () -> new EthericNitrateItem(DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> VIVID_NITRATE = ITEMS.register("vivid_nitrate", () -> new VividNitrateItem(DEFAULT_PROPERTIES()));
 
     public static final RegistryObject<Item> TYRVING = ITEMS.register("tyrving", () -> new TyrvingItem(ItemTiers.ItemTierEnum.TYRVING, 0, -0.3f, GEAR_PROPERTIES()));
 

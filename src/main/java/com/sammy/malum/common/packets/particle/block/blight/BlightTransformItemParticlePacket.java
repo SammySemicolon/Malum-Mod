@@ -1,6 +1,6 @@
 package com.sammy.malum.common.packets.particle.block.blight;
 
-import com.sammy.malum.common.packets.particle.block.functional.FunctionalBlockParticlePacket;
+import com.sammy.malum.common.packets.particle.SpiritBasedParticleEffectPacket;
 import com.sammy.malum.core.helper.SpiritHelper;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import net.minecraft.client.Minecraft;
@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.function.Supplier;
 
-public class BlightTransformItemParticlePacket extends FunctionalBlockParticlePacket {
+public class BlightTransformItemParticlePacket extends SpiritBasedParticleEffectPacket {
     public BlightTransformItemParticlePacket(List<String> spirits, Vec3 vec3) {
         super(spirits, vec3);
     }
@@ -41,7 +41,6 @@ public class BlightTransformItemParticlePacket extends FunctionalBlockParticlePa
         }
         for (MalumSpiritType type : types) {
             Color color = type.getColor();
-            Color endColor = type.getEndColor();
             for (int i = 0; i < 3; i++) {
                 int spinDirection = (rand.nextBoolean() ? 1 : -1);
                 int spinOffset = rand.nextInt(360);

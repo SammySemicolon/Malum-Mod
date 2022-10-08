@@ -8,9 +8,7 @@ import com.sammy.malum.common.packets.particle.block.blight.BlightMistParticlePa
 import com.sammy.malum.common.packets.particle.block.blight.BlightTransformItemParticlePacket;
 import com.sammy.malum.common.packets.particle.block.functional.AltarConsumeParticlePacket;
 import com.sammy.malum.common.packets.particle.block.functional.AltarCraftParticlePacket;
-import com.sammy.malum.common.packets.particle.entity.MajorEntityEffectParticlePacket;
-import com.sammy.malum.common.packets.particle.entity.MinorEntityEffectParticlePacket;
-import com.sammy.malum.common.packets.particle.entity.SuccessfulSoulHarvestParticlePacket;
+import com.sammy.malum.common.packets.particle.entity.*;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -32,6 +30,8 @@ public class PacketRegistry {
 
         MinorEntityEffectParticlePacket.register(MALUM_CHANNEL, index++);
         MajorEntityEffectParticlePacket.register(MALUM_CHANNEL, index++);
+        EthericNitrateParticlePacket.register(MALUM_CHANNEL, index++);
+        VividNitrateBounceParticlePacket.register(MALUM_CHANNEL, index++);
         SuccessfulSoulHarvestParticlePacket.register(MALUM_CHANNEL, index++);
 
         BlockParticlePacket.register(MALUM_CHANNEL, index++);
