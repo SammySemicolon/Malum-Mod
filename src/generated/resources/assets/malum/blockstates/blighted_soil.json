@@ -2,18 +2,33 @@
   "variants": {
     "": [
       {
-        "model": "malum:block/blighted_soil"
+        "model": "malum:block/blighted_soil_0"
       },
       {
-        "model": "malum:block/blighted_soil",
+        "model": "malum:block/blighted_soil_0",
         "y": 90
       },
       {
-        "model": "malum:block/blighted_soil",
+        "model": "malum:block/blighted_soil_0",
         "y": 180
       },
       {
-        "model": "malum:block/blighted_soil",
+        "model": "malum:block/blighted_soil_0",
+        "y": 270
+      },
+      {
+        "model": "malum:block/blighted_soil_1"
+      },
+      {
+        "model": "malum:block/blighted_soil_1",
+        "y": 90
+      },
+      {
+        "model": "malum:block/blighted_soil_1",
+        "y": 180
+      },
+      {
+        "model": "malum:block/blighted_soil_1",
         "y": 270
       }
     ]

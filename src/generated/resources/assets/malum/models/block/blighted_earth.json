@@ -3,6 +3,6 @@
   "textures": {
     "side": "malum:block/blighted_earth",
     "bottom": "minecraft:block/dirt",
-    "top": "malum:block/blighted_soil"
+    "top": "malum:block/blighted_soil_0"
   }
 }

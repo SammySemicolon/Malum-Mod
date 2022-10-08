@@ -54,10 +54,9 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
         Set<RegistryObject<Block>> blocks = new HashSet<>(BLOCKS.getEntries());
 
         quartzClusterBlock(take(blocks, NATURAL_QUARTZ_CLUSTER));
-        rotatedBlock(take(blocks, BLIGHTED_SOIL));
+        blightedSoilBlock(take(blocks, BLIGHTED_SOIL));
         blightedEarthBlock(take(blocks, BLIGHTED_EARTH));
         blightedSpireBlock(take(blocks, BLIGHTED_SPIRE));
-        blightedCoverageBlock(take(blocks, BLIGHTED_COVERAGE));
         blightedSoulwoodBlock(take(blocks, BLIGHTED_SOULWOOD));
         sconceBlock(take(blocks, BLAZING_SCONCE));
         wallSconceBlock(take(blocks, WALL_BLAZING_SCONCE));
@@ -165,10 +164,30 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
         directionalBlock(blockRegistryObject.get(), models().cross(name, malumPath("block/"+name)));
     }
+
+
+    public void blightedSoilBlock(RegistryObject<Block> blockRegistryObject) {
+        String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
+        ModelFile soil0 = models().cubeAll(name, malumPath("block/" + name + "_0"));
+        ModelFile soil1 = models().cubeAll(name+"_1", malumPath("block/" + name + "_1"));
+
+        getVariantBuilder(blockRegistryObject.get()).partialState().modelForState()
+                .modelFile(soil0)
+                .nextModel().modelFile(soil0).rotationY(90)
+                .nextModel().modelFile(soil0).rotationY(180)
+                .nextModel().modelFile(soil0).rotationY(270)
+
+                .nextModel().modelFile(soil1)
+                .nextModel().modelFile(soil1).rotationY(90)
+                .nextModel().modelFile(soil1).rotationY(180)
+                .nextModel().modelFile(soil1).rotationY(270)
+                .addModel();
+    }
+
     public void blightedSpireBlock(RegistryObject<Block> blockRegistryObject) {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
         ModelFile cross0 = models().withExistingParent(name, new ResourceLocation("block/cross")).texture("cross", malumPath("block/" + name + "_0"));
-        ModelFile cross1 = models().withExistingParent(name, new ResourceLocation("block/cross")).texture("cross", malumPath("block/" + name + "_1"));
+        ModelFile cross1 = models().withExistingParent(name+"_1", new ResourceLocation("block/cross")).texture("cross", malumPath("block/" + name + "_1"));
 
         getVariantBuilder(blockRegistryObject.get()).partialState().modelForState()
                 .modelFile(cross0)
@@ -176,24 +195,12 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
                 .addModel();
     }
 
-    public void blightedCoverageBlock(RegistryObject<Block> blockRegistryObject) {
-        String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
-        ModelFile file = models().carpet(name, malumPath("block/" + name));
-
-        getVariantBuilder(blockRegistryObject.get()).partialState().modelForState()
-                .modelFile(file)
-                .nextModel().modelFile(file).rotationY(90)
-                .nextModel().modelFile(file).rotationY(180)
-                .nextModel().modelFile(file).rotationY(270)
-                .addModel();
-    }
-
     public void blightedSoulwoodBlock(RegistryObject<Block> blockRegistryObject) {
-        simpleBlock(blockRegistryObject.get(), models().cubeBottomTop("blighted_soulwood", malumPath("block/blighted_soulwood"), malumPath("block/blighted_soil"), malumPath("block/soulwood_log_top")));
+        simpleBlock(blockRegistryObject.get(), models().cubeBottomTop("blighted_soulwood", malumPath("block/blighted_soulwood"), malumPath("block/blighted_soil_0"), malumPath("block/soulwood_log_top")));
     }
 
     public void blightedEarthBlock(RegistryObject<Block> blockRegistryObject) {
-        simpleBlock(blockRegistryObject.get(), models().cubeBottomTop("blighted_earth", malumPath("block/blighted_earth"),  new ResourceLocation("block/dirt"), malumPath("block/blighted_soil")));
+        simpleBlock(blockRegistryObject.get(), models().cubeBottomTop("blighted_earth", malumPath("block/blighted_earth"),  new ResourceLocation("block/dirt"), malumPath("block/blighted_soil_0")));
     }
 
     public void wallMirrorBlock(RegistryObject<Block> blockRegistryObject) {

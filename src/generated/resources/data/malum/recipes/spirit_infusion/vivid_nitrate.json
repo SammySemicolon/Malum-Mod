@@ -11,37 +11,36 @@
   "extra_items": [
     {
       "item": "malum:cursed_grit",
-      "count": 8
+      "count": 4
     },
     {
       "tag": "forge:gunpowder",
-      "count": 8
+      "count": 4
     },
     {
       "tag": "forge:gems/prismarine",
-      "count": 4
+      "count": 2
     }
   ],
   "spirits": [
     {
       "type": "aerial",
-      "count": 8
+      "count": 4
     },
     {
       "type": "aqueous",
-      "count": 8
+      "count": 4
     },
     {
       "type": "infernal",
-      "count": 8
+      "count": 4
     },
     {
       "type": "earthen",
-      "count": 8
+      "count": 4
     },
     {
-      "type": "eldritch",
-      "count": 2
+      "type": "eldritch"
     }
   ]
 }

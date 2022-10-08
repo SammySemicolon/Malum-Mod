@@ -274,14 +274,14 @@ public class ItemRegistry {
     public static final RegistryObject<Item> RUNEWOOD_BOAT = ITEMS.register("runewood_boat", () -> new LodestoneBoatItem(NATURE_PROPERTIES().stacksTo(1), EntityRegistry.RUNEWOOD_BOAT));
     //endregion
 
-    //endregion
+    //region blight
     public static final RegistryObject<Item> BLIGHTED_EARTH = ITEMS.register("blighted_earth", () -> new BlockItem(BlockRegistry.BLIGHTED_EARTH.get(), NATURE_PROPERTIES()));
     public static final RegistryObject<Item> BLIGHTED_SOIL = ITEMS.register("blighted_soil", () -> new BlockItem(BlockRegistry.BLIGHTED_SOIL.get(), NATURE_PROPERTIES()));
     public static final RegistryObject<Item> BLIGHTED_WEED = ITEMS.register("blighted_weed", () -> new BlockItem(BlockRegistry.BLIGHTED_WEED.get(), NATURE_PROPERTIES()));
-    public static final RegistryObject<Item> BLIGHTED_COVERAGE = ITEMS.register("blighted_coverage", () -> new BlockItem(BlockRegistry.BLIGHTED_COVERAGE.get(), NATURE_PROPERTIES()));
     public static final RegistryObject<Item> BLIGHTED_SPIRE = ITEMS.register("blighted_spire", () -> new BlockItem(BlockRegistry.BLIGHTED_SPIRE.get(), NATURE_PROPERTIES()));
     public static final RegistryObject<Item> BLIGHTED_SOULWOOD = ITEMS.register("blighted_soulwood", () -> new BlockItem(BlockRegistry.BLIGHTED_SOULWOOD.get(), NATURE_PROPERTIES()));
-    //region blight
+    public static final RegistryObject<Item> BLIGHTED_GUNK = ITEMS.register("blighted_gunk", () -> new Item(NATURE_PROPERTIES()));
+    //endregion
 
     //region soulwood
     public static final RegistryObject<Item> UNHOLY_SAP = ITEMS.register("unholy_sap", () -> new Item(NATURE_PROPERTIES().craftRemainder(GLASS_BOTTLE)));
