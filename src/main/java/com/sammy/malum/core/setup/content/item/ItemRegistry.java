@@ -34,6 +34,8 @@ import com.sammy.malum.core.setup.content.entity.EntityRegistry;
 import com.sammy.malum.core.setup.content.item.tabs.*;
 import com.sammy.malum.core.systems.item.ItemSkin;
 import net.minecraft.client.color.item.ItemColors;
+import net.minecraft.client.player.AbstractClientPlayer;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.client.renderer.item.ItemPropertyFunction;
 import net.minecraft.nbt.CompoundTag;
@@ -41,6 +43,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.ComposterBlock;
@@ -68,6 +72,7 @@ import team.lodestar.lodestone.systems.multiblock.MultiBlockItem;
 import java.awt.*;
 import java.util.List;
 import java.util.*;
+import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
@@ -561,6 +566,7 @@ public class ItemRegistry {
         }
     }
 
+
     @Mod.EventBusSubscriber(modid = MalumMod.MALUM, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
     public static class ClientOnly {
 
@@ -575,6 +581,7 @@ public class ItemRegistry {
         public static AncientSoulStainedSteelArmorModel ANCIENT_SOUL_STAINED_STEEL_ARMOR;
         public static DrippedOutCommandoArmorModel DRIPPY_COMMANDO;
         public static PridewearArmorModel PRIDEWEAR;
+        public static SlimPridewearArmorModel SLIM_PRIDEWEAR;
 
 
         public static TailModel TAIL_MODEL;
@@ -602,9 +609,9 @@ public class ItemRegistry {
             registerPridewear("pride");
             registerPridewear("trans");
 
-            registerSkin("commando_drip", malumPath("textures/cosmetic/ror2/dripped_out_commando.png"), () -> DRIPPY_COMMANDO).addDatagenData(() -> new ItemSkin.DatagenData(malumPath("cosmetic/ror2/dripped_out_commando_"), malumPath("models/item/commando_"), List.of("boots", "leggings", "chestplate", "visor")));
-            registerSkin("ancient_cloth", malumPath("textures/cosmetic/ancient/soul_hunter.png"), () -> ANCIENT_SOUL_HUNTER_ARMOR).addDatagenData(() -> new ItemSkin.DatagenData(malumPath("cosmetic/ancient/soul_hunter_"), malumPath("models/item/ancient_soul_hunter_"), List.of("boots", "leggings", "robe", "cloak")));
-            registerSkin("ancient_metal", malumPath("textures/cosmetic/ancient/soul_stained_steel.png"), () -> ANCIENT_SOUL_STAINED_STEEL_ARMOR).addDatagenData(() -> new ItemSkin.DatagenData(malumPath("cosmetic/ancient/soul_stained_steel_"), malumPath("models/item/ancient_soul_hunter_"), List.of("boots", "leggings", "chestplate", "helmet")));
+            registerSkin("commando_drip", p -> malumPath("textures/cosmetic/ror2/dripped_out_commando.png"), (p) -> DRIPPY_COMMANDO).addDatagenData(() -> new ItemSkin.DatagenData(malumPath("cosmetic/ror2/dripped_out_commando_"), malumPath("models/item/commando_"), List.of("boots", "leggings", "chestplate", "visor")));
+            registerSkin("ancient_cloth", p -> malumPath("textures/cosmetic/ancient/soul_hunter.png"), (p) -> ANCIENT_SOUL_HUNTER_ARMOR).addDatagenData(() -> new ItemSkin.DatagenData(malumPath("cosmetic/ancient/soul_hunter_"), malumPath("models/item/ancient_soul_hunter_"), List.of("boots", "leggings", "robe", "cloak")));
+            registerSkin("ancient_metal", p -> malumPath("textures/cosmetic/ancient/soul_stained_steel.png"), (p) -> ANCIENT_SOUL_STAINED_STEEL_ARMOR).addDatagenData(() -> new ItemSkin.DatagenData(malumPath("cosmetic/ancient/soul_stained_steel_"), malumPath("models/item/ancient_soul_hunter_"), List.of("boots", "leggings", "chestplate", "helmet")));
         }
         @SubscribeEvent(priority = EventPriority.LOWEST)
         public static void addItemProperties(FMLClientSetupEvent event) {
@@ -639,6 +646,7 @@ public class ItemRegistry {
             event.registerLayerDefinition(AncientSoulStainedSteelArmorModel.LAYER, AncientSoulStainedSteelArmorModel::createBodyLayer);
             event.registerLayerDefinition(AncientSoulHunterArmorModel.LAYER, AncientSoulHunterArmorModel::createBodyLayer);
             event.registerLayerDefinition(PridewearArmorModel.LAYER, PridewearArmorModel::createBodyLayer);
+            event.registerLayerDefinition(SlimPridewearArmorModel.LAYER, SlimPridewearArmorModel::createBodyLayer);
 
             event.registerLayerDefinition(TailModel.LAYER, TailModel::createBodyLayer);
             event.registerLayerDefinition(HeadOverlayModel.LAYER, HeadOverlayModel::createBodyLayer);
@@ -656,6 +664,7 @@ public class ItemRegistry {
             ANCIENT_SOUL_HUNTER_ARMOR = new AncientSoulHunterArmorModel(event.getEntityModels().bakeLayer(AncientSoulHunterArmorModel.LAYER));
             ANCIENT_SOUL_STAINED_STEEL_ARMOR = new AncientSoulStainedSteelArmorModel(event.getEntityModels().bakeLayer(AncientSoulStainedSteelArmorModel.LAYER));
             PRIDEWEAR = new PridewearArmorModel(event.getEntityModels().bakeLayer(PridewearArmorModel.LAYER));
+            SLIM_PRIDEWEAR = new SlimPridewearArmorModel(event.getEntityModels().bakeLayer(SlimPridewearArmorModel.LAYER));
 
             TAIL_MODEL = new TailModel(event.getEntityModels().bakeLayer(TailModel.LAYER));
             HEAD_OVERLAY_MODEL = new HeadOverlayModel(event.getEntityModels().bakeLayer(HeadOverlayModel.LAYER));
@@ -711,14 +720,24 @@ public class ItemRegistry {
             return skin;
         }
 
-        public static ItemSkin registerSkin(String tag, ResourceLocation armorTextureLocation, Supplier<LodestoneArmorModel> model) {
+        public static ItemSkin registerSkin(String tag, Function<LivingEntity, ResourceLocation> armorTextureLocation, Function<LivingEntity, LodestoneArmorModel> model) {
             return registerSkin(tag, new ItemSkin(tag, armorTextureLocation, model, SKINS.size()));
         }
 
         public static void registerPridewear(String tag) {
             String drip = tag + "_drip";
             String path = "cosmetic/pridewear/";
-            ItemSkin skin = registerSkin(drip, malumPath("textures/"+path + drip + ".png"), () -> PRIDEWEAR);
+            ItemSkin skin = registerSkin(drip, p -> {
+                if (p instanceof AbstractClientPlayer clientPlayer && clientPlayer.getModelName().equals("slim")) {
+                    return malumPath("textures/" + path + drip + "_slim.png");
+                }
+                return malumPath("textures/" + path + drip + ".png");
+            }, (p) -> {
+                if (p instanceof AbstractClientPlayer clientPlayer) {
+                    return clientPlayer.getModelName().equals("slim") ? SLIM_PRIDEWEAR : PRIDEWEAR;
+                }
+                return PRIDEWEAR;
+            });
             skin.addDatagenData(() -> new ItemSkin.DatagenData(malumPath(path+"armor_icons/" + tag + "_"), malumPath("models/item/pridewear/armor_icons/" + tag + "_"), List.of("socks", "shorts", "hoodie", "beanie")));
         }
     }

@@ -5,6 +5,7 @@ import com.sammy.malum.core.setup.content.item.ItemRegistry;
 import com.sammy.malum.core.systems.item.ItemSkin;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -49,7 +50,10 @@ public class SoulHunterArmorItem extends LodestoneArmorItem {
     @Override
     public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
         ItemSkin skin = ItemRegistry.ClientOnly.getSkin(stack);
-        return skin != null ? skin.armorTextureLocation.toString() : super.getArmorTexture(stack, entity, slot, type);
+        if (skin != null && entity instanceof LivingEntity livingEntity) {
+            return skin.armorTextureFunction.apply(livingEntity).toString();
+        }
+        return super.getArmorTexture(stack, entity, slot, type);
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -64,7 +68,7 @@ public class SoulHunterArmorItem extends LodestoneArmorItem {
                 float netHeadYaw = f1 - f;
                 float netHeadPitch = Mth.lerp(pticks, entity.xRotO, entity.getXRot());
                 ItemSkin skin = ItemRegistry.ClientOnly.getSkin(itemStack);
-                LodestoneArmorModel model = skin != null ? skin.modelSupplier.get() : ItemRegistry.ClientOnly.SOUL_HUNTER_ARMOR;
+                LodestoneArmorModel model = skin != null ? skin.modelFunction.apply(entity) : ItemRegistry.ClientOnly.SOUL_HUNTER_ARMOR;
 
                 model.slot = slot;
                 model.copyFromDefault(_default);

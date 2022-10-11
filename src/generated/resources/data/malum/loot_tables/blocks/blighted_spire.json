@@ -47,7 +47,14 @@
                   "condition": "minecraft:survives_explosion"
                 }
               ],
-              "name": "malum:blighted_spire"
+              "functions": [
+                {
+                  "function": "minecraft:set_count",
+                  "count": 2.0,
+                  "add": false
+                }
+              ],
+              "name": "malum:blighted_gunk"
             }
           ]
         }

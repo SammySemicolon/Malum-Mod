@@ -2,7 +2,7 @@
   "variants": {
     "": [
       {
-        "model": "malum:block/blighted_spire_0"
+        "model": "malum:block/blighted_spire"
       },
       {
         "model": "malum:block/blighted_spire_1"

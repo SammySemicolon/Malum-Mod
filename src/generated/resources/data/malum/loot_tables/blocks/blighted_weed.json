@@ -47,7 +47,14 @@
                   "condition": "minecraft:survives_explosion"
                 }
               ],
-              "name": "malum:blighted_weed"
+              "functions": [
+                {
+                  "function": "minecraft:set_count",
+                  "count": 1.0,
+                  "add": false
+                }
+              ],
+              "name": "malum:blighted_gunk"
             }
           ]
         }

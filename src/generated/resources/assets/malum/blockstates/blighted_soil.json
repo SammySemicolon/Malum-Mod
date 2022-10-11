@@ -2,18 +2,18 @@
   "variants": {
     "": [
       {
-        "model": "malum:block/blighted_soil_0"
+        "model": "malum:block/blighted_soil"
       },
       {
-        "model": "malum:block/blighted_soil_0",
+        "model": "malum:block/blighted_soil",
         "y": 90
       },
       {
-        "model": "malum:block/blighted_soil_0",
+        "model": "malum:block/blighted_soil",
         "y": 180
       },
       {
-        "model": "malum:block/blighted_soil_0",
+        "model": "malum:block/blighted_soil",
         "y": 270
       },
       {
