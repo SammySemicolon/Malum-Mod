@@ -39,7 +39,7 @@ public class SlimPridewearArmorModel extends LodestoneArmorModel {
 
 		PartDefinition right_arm = root.getChild("right_arm");
 		PartDefinition right_shoulder = right_arm.addOrReplaceChild("right_shoulder", CubeListBuilder.create().texOffs(40, 0).addBox(-4.0F, -2.0F, -2.0F, 3.0F, 12.0F, 4.0F, new CubeDeformation(0.525F))
-				.texOffs(40, 16).addBox(-4.0F, -2.0F, -2.0F, 3.0F, 12.0F, 4.0F, new CubeDeformation(0.75F)), PartPose.offset(-3.0F, 2.0F, 0.0F));
+				.texOffs(40, 16).addBox(-4.0F, -2.0F, -2.0F, 3.0F, 12.0F, 4.0F, new CubeDeformation(0.75F)), PartPose.offset(2, 0, 0.0F));
 
 		PartDefinition left_legging = root.getChild("left_legging");
 		PartDefinition left_leg = left_legging.addOrReplaceChild("left_leg", CubeListBuilder.create().texOffs(32, 48).addBox(-2.1F, 0.0F, -2.0F, 4.0F, 2.0F, 4.0F, new CubeDeformation(0.625F))
@@ -50,7 +50,7 @@ public class SlimPridewearArmorModel extends LodestoneArmorModel {
 
 		PartDefinition left_arm = root.getChild("left_arm");
 		PartDefinition left_shoulder = left_arm.addOrReplaceChild("left_shoulder", CubeListBuilder.create().texOffs(32, 32).addBox(1.0F, -2.0F, -2.0F, 3.0F, 12.0F, 4.0F, new CubeDeformation(0.525F))
-				.texOffs(48, 32).addBox(1.0F, -2.0F, -2.0F, 3.0F, 12.0F, 4.0F, new CubeDeformation(0.75F)), PartPose.offset(3.0F, 2.0F, 0.0F));
+				.texOffs(48, 32).addBox(1.0F, -2.0F, -2.0F, 3.0F, 12.0F, 4.0F, new CubeDeformation(0.75F)), PartPose.offset(-2.0F, 0, 0.0F));
 
 		PartDefinition head = root.getChild("head");
 		PartDefinition beanie = head.addOrReplaceChild("beanie", CubeListBuilder.create().texOffs(100, 60).addBox(-1.5F, -33.3512F, -8.053F, 3.0F, 2.0F, 2.0F, new CubeDeformation(0.2F))
