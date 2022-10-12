@@ -1,0 +1,26 @@
+{
+  "type": "malum:spirit_infusion",
+  "input": {
+    "item": "malum:astral_weave",
+    "count": 1
+  },
+  "output": {
+    "item": "malum:demigirl_prideweave"
+  },
+  "extra_items": [
+    {
+      "item": "malum:hex_ash",
+      "count": 1
+    },
+    {
+      "item": "minecraft:raw_copper",
+      "count": 1
+    }
+  ],
+  "spirits": [
+    {
+      "type": "sacred",
+      "count": 4
+    }
+  ]
+}

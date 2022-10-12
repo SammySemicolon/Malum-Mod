@@ -1,6 +1,7 @@
 package com.sammy.malum.core.data;
 
 import com.sammy.malum.MalumMod;
+import com.sammy.malum.common.item.PrideweaveItem;
 import com.sammy.malum.common.item.impetus.ImpetusItem;
 import com.sammy.malum.core.data.builder.SpiritInfusionRecipeBuilder;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
@@ -439,6 +440,24 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider implements ICondi
             .addExtraItem(ItemRegistry.CORRUPTED_RESONANCE.get(), 1)
             .build(consumer);
 
+        prideweaveRecipe(consumer, Items.BREAD, ItemRegistry.ACE_PRIDEWEAVE);
+        prideweaveRecipe(consumer, Items.ARROW, ItemRegistry.AGENDER_PRIDEWEAVE);
+        prideweaveRecipe(consumer, Items.ARROW, ItemRegistry.ARO_PRIDEWEAVE);
+        prideweaveRecipe(consumer, Items.WHEAT_SEEDS, ItemRegistry.AROACE_PRIDEWEAVE);
+        prideweaveRecipe(consumer, Items.WHEAT, ItemRegistry.BI_PRIDEWEAVE);
+        prideweaveRecipe(consumer, Items.RAW_IRON, ItemRegistry.DEMIBOY_PRIDEWEAVE);
+        prideweaveRecipe(consumer, Items.RAW_COPPER, ItemRegistry.DEMIGIRL_PRIDEWEAVE);
+        prideweaveRecipe(consumer, Items.MOSS_BLOCK, ItemRegistry.ENBY_PRIDEWEAVE);
+        prideweaveRecipe(consumer, Items.MELON_SLICE, ItemRegistry.GAY_PRIDEWEAVE);
+        prideweaveRecipe(consumer, Items.WATER_BUCKET, ItemRegistry.GENDERFLUID_PRIDEWEAVE);
+        prideweaveRecipe(consumer, Items.GLASS_BOTTLE, ItemRegistry.GENDERQUEER_PRIDEWEAVE);
+        prideweaveRecipe(consumer, Items.AZALEA, ItemRegistry.INTERSEX_PRIDEWEAVE);
+        prideweaveRecipe(consumer, Items.HONEYCOMB, ItemRegistry.LESBIAN_PRIDEWEAVE);
+        prideweaveRecipe(consumer, Items.CARROT, ItemRegistry.PAN_PRIDEWEAVE);
+        prideweaveRecipe(consumer, Items.REPEATER, ItemRegistry.PLURAL_PRIDEWEAVE);
+        prideweaveRecipe(consumer, Items.COMPARATOR, ItemRegistry.POLY_PRIDEWEAVE);
+        prideweaveRecipe(consumer, Items.STONE_BRICK_WALL, ItemRegistry.PRIDE_PRIDEWEAVE);
+        prideweaveRecipe(consumer, Items.EGG, ItemRegistry.TRANS_PRIDEWEAVE);
 
         metalImpetusRecipe(consumer, ItemRegistry.IRON_IMPETUS, Items.IRON_INGOT);
         metalImpetusRecipe(consumer, ItemRegistry.COPPER_IMPETUS, Items.COPPER_INGOT);
@@ -453,8 +472,15 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider implements ICondi
         metalImpetusRecipe(consumer, ItemRegistry.TIN_IMPETUS, INGOTS_TIN);
     }
 
-    public void metalImpetusRecipe(Consumer<FinishedRecipe> consumer, RegistryObject<ImpetusItem> output, TagKey<Item> ingot) {
+    public void prideweaveRecipe(Consumer<FinishedRecipe> consumer, Item sideItem, RegistryObject<PrideweaveItem> output) {
+        new SpiritInfusionRecipeBuilder(ItemRegistry.ASTRAL_WEAVE.get(), 1, output.get(), 1)
+                .addSpirit(SACRED_SPIRIT, 4)
+                .addExtraItem(Ingredient.of(ItemRegistry.HEX_ASH.get()), 1)
+                .addExtraItem(Ingredient.of(sideItem), 1)
+                .build(consumer);
+    }
 
+    public void metalImpetusRecipe(Consumer<FinishedRecipe> consumer, RegistryObject<ImpetusItem> output, TagKey<Item> ingot) {
         ConditionalRecipe.builder().addCondition(not(new TagEmptyCondition(ingot.location().toString()))).addRecipe(
                 new SpiritInfusionRecipeBuilder(ItemRegistry.ALCHEMICAL_IMPETUS.get(), 1, output.get(), 1)
                     .addSpirit(EARTHEN_SPIRIT, 8)

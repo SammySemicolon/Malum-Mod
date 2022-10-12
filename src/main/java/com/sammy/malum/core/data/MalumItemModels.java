@@ -6,6 +6,7 @@ import com.sammy.malum.common.block.ether.EtherBrazierBlock;
 import com.sammy.malum.common.block.ether.EtherSconceBlock;
 import com.sammy.malum.common.block.ether.EtherTorchBlock;
 import com.sammy.malum.common.item.NodeItem;
+import com.sammy.malum.common.item.PrideweaveItem;
 import com.sammy.malum.common.item.ether.AbstractEtherItem;
 import com.sammy.malum.common.item.impetus.CrackedImpetusItem;
 import com.sammy.malum.common.item.impetus.ImpetusItem;
@@ -51,6 +52,7 @@ public class MalumItemModels extends net.minecraftforge.client.model.generators.
         takeAll(items, i -> i.get() instanceof MalumScytheItem);
         takeAll(items, i -> i.get() instanceof MalumSpiritItem).forEach(this::spiritSplinterItem);
         takeAll(items, i -> i.get() instanceof NodeItem).forEach(this::nodeItem);
+        takeAll(items, i -> i.get() instanceof PrideweaveItem).forEach(this::prideweaveItem);
         takeAll(items, i -> i.get() instanceof ImpetusItem || i.get() instanceof CrackedImpetusItem).forEach(this::impetusItem);
         takeAll(items, i -> i.get() instanceof MultiBlockItem).forEach(this::multiBlockItem);
         takeAll(items, i -> i.get() instanceof BlockItem && ((BlockItem) i.get()).getBlock() instanceof WallBlock).forEach(this::wallBlockItem);
@@ -95,6 +97,11 @@ public class MalumItemModels extends net.minecraftforge.client.model.generators.
     private void nodeItem(RegistryObject<Item> i) {
         String name = Registry.ITEM.getKey(i.get()).getPath();
         withExistingParent(name, GENERATED).texture("layer0", malumPath("item/impetus/" + name));
+    }
+
+    private void prideweaveItem(RegistryObject<Item> i) {
+        String name = Registry.ITEM.getKey(i.get()).getPath();
+        withExistingParent(name, GENERATED).texture("layer0", malumPath("cosmetic/pridewear/weaves/" + "prideweave_" + name.replace("_prideweave", "")));
     }
 
     private void armorItem(RegistryObject<Item> i) {

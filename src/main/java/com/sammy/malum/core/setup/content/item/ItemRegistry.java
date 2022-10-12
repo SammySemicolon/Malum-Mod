@@ -111,6 +111,10 @@ public class ItemRegistry {
         return new Item.Properties().tab(MalumImpetusTab.INSTANCE).stacksTo(1);
     }
 
+    public static Item.Properties COSMETIC_PROPERTIES() {
+        return new Item.Properties().tab(MalumCosmeticsTab.INSTANCE);
+    }
+
     public static Item.Properties NODE_PROPERTIES() {
         return new Item.Properties().tab(MalumImpetusTab.INSTANCE);
     }
@@ -488,7 +492,6 @@ public class ItemRegistry {
     public static final RegistryObject<Item> TWISTED_IRIDESCENT_ETHER_BRAZIER = ITEMS.register("twisted_iridescent_ether_brazier", () -> new EtherBrazierItem(BlockRegistry.TWISTED_IRIDESCENT_ETHER_BRAZIER.get(), DEFAULT_PROPERTIES(), true));
 
     public static final RegistryObject<Item> IRIDESCENT_ETHER_SCONCE = ITEMS.register("iridescent_ether_sconce", () -> new EtherSconceItem(BlockRegistry.IRIDESCENT_ETHER_SCONCE.get(), BlockRegistry.IRIDESCENT_WALL_ETHER_SCONCE.get(), SupplementariesCompat.LOADED ? DEFAULT_PROPERTIES() : HIDDEN_PROPERTIES(), true));
-
     //endregion
 
 
@@ -542,6 +545,28 @@ public class ItemRegistry {
     public static final RegistryObject<Item> BELT_OF_THE_STARVED = ITEMS.register("belt_of_the_starved", () -> new CurioStarvedBelt(GEAR_PROPERTIES()));
     public static final RegistryObject<Item> BELT_OF_THE_PROSPECTOR = ITEMS.register("belt_of_the_prospector", () -> new CurioProspectorBelt(GEAR_PROPERTIES()));
     public static final RegistryObject<Item> BELT_OF_THE_MAGEBANE = ITEMS.register("belt_of_the_magebane", () -> new CurioMagebaneBelt(GEAR_PROPERTIES()));
+    //endregion
+
+    //region prideweave
+
+    public static final RegistryObject<PrideweaveItem> ACE_PRIDEWEAVE = ITEMS.register("ace_prideweave", () -> new PrideweaveItem(COSMETIC_PROPERTIES()));
+    public static final RegistryObject<PrideweaveItem> AGENDER_PRIDEWEAVE = ITEMS.register("agender_prideweave", () -> new PrideweaveItem(COSMETIC_PROPERTIES()));
+    public static final RegistryObject<PrideweaveItem> ARO_PRIDEWEAVE = ITEMS.register("aro_prideweave", () -> new PrideweaveItem(COSMETIC_PROPERTIES()));
+    public static final RegistryObject<PrideweaveItem> AROACE_PRIDEWEAVE = ITEMS.register("aroace_prideweave", () -> new PrideweaveItem(COSMETIC_PROPERTIES()));
+    public static final RegistryObject<PrideweaveItem> BI_PRIDEWEAVE = ITEMS.register("bi_prideweave", () -> new PrideweaveItem(COSMETIC_PROPERTIES()));
+    public static final RegistryObject<PrideweaveItem> DEMIBOY_PRIDEWEAVE = ITEMS.register("demiboy_prideweave", () -> new PrideweaveItem(COSMETIC_PROPERTIES()));
+    public static final RegistryObject<PrideweaveItem> DEMIGIRL_PRIDEWEAVE = ITEMS.register("demigirl_prideweave", () -> new PrideweaveItem(COSMETIC_PROPERTIES()));
+    public static final RegistryObject<PrideweaveItem> ENBY_PRIDEWEAVE = ITEMS.register("enby_prideweave", () -> new PrideweaveItem(COSMETIC_PROPERTIES()));
+    public static final RegistryObject<PrideweaveItem> GAY_PRIDEWEAVE = ITEMS.register("gay_prideweave", () -> new PrideweaveItem(COSMETIC_PROPERTIES()));
+    public static final RegistryObject<PrideweaveItem> GENDERFLUID_PRIDEWEAVE = ITEMS.register("genderfluid_prideweave", () -> new PrideweaveItem(COSMETIC_PROPERTIES()));
+    public static final RegistryObject<PrideweaveItem> GENDERQUEER_PRIDEWEAVE = ITEMS.register("genderqueer_prideweave", () -> new PrideweaveItem(COSMETIC_PROPERTIES()));
+    public static final RegistryObject<PrideweaveItem> INTERSEX_PRIDEWEAVE = ITEMS.register("intersex_prideweave", () -> new PrideweaveItem(COSMETIC_PROPERTIES()));
+    public static final RegistryObject<PrideweaveItem> LESBIAN_PRIDEWEAVE = ITEMS.register("lesbian_prideweave", () -> new PrideweaveItem(COSMETIC_PROPERTIES()));
+    public static final RegistryObject<PrideweaveItem> PAN_PRIDEWEAVE = ITEMS.register("pan_prideweave", () -> new PrideweaveItem(COSMETIC_PROPERTIES()));
+    public static final RegistryObject<PrideweaveItem> PLURAL_PRIDEWEAVE = ITEMS.register("plural_prideweave", () -> new PrideweaveItem(COSMETIC_PROPERTIES()));
+    public static final RegistryObject<PrideweaveItem> POLY_PRIDEWEAVE = ITEMS.register("poly_prideweave", () -> new PrideweaveItem(COSMETIC_PROPERTIES()));
+    public static final RegistryObject<PrideweaveItem> PRIDE_PRIDEWEAVE = ITEMS.register("pride_prideweave", () -> new PrideweaveItem(COSMETIC_PROPERTIES()));
+    public static final RegistryObject<PrideweaveItem> TRANS_PRIDEWEAVE = ITEMS.register("trans_prideweave", () -> new PrideweaveItem(COSMETIC_PROPERTIES()));
 
     //endregion
 
