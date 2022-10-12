@@ -44,10 +44,10 @@ public class SoulwoodGrowthBlock extends MalumSaplingBlock {
         ItemStack itemInHand = pPlayer.getItemInHand(pHand);
         if (itemInHand.getItem() instanceof MalumSpiritItem spiritItem) {
             if (pLevel instanceof ServerLevel serverLevel) {
-                float weight = spiritItem.type.weight;
-                for (int i = 0; i < weight; i++) {
+                for (int i = 0; i < 2; i++) {
                     performBonemeal(serverLevel, pLevel.random, pPos, pState);
                 }
+                pLevel.levelEvent(1505, pPos, 0);
                 pLevel.playSound(null, pPos, SoundRegistry.MINOR_BLIGHT_MOTIF.get(), SoundSource.BLOCKS, 1, 0.9f + pLevel.random.nextFloat() * 0.25f);
                 pLevel.playSound(null, pPos, SoundEvents.BONE_MEAL_USE, SoundSource.BLOCKS, 1, 0.9f + pLevel.random.nextFloat() * 0.25f);
             }

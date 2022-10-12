@@ -33,24 +33,21 @@ public class MalumSpiritType {
 
     protected Supplier<Item> splinterItem;
 
-    public final float weight;
     public final Rarity rarity;
 
-    public MalumSpiritType(String identifier, Color color, RegistryObject<Item> splinterItem, float weight) {
+    public MalumSpiritType(String identifier, Color color, RegistryObject<Item> splinterItem) {
         this.identifier = identifier;
         this.color = color;
         this.endColor = createEndColor(color);
         this.splinterItem = splinterItem;
-        this.weight = weight;
         this.rarity = createRarity(identifier, color);
     }
 
-    public MalumSpiritType(String identifier, Color color, Color endColor, RegistryObject<Item> splinterItem, float weight) {
+    public MalumSpiritType(String identifier, Color color, Color endColor, RegistryObject<Item> splinterItem) {
         this.identifier = identifier;
         this.color = color;
         this.endColor = endColor;
         this.splinterItem = splinterItem;
-        this.weight = weight;
         this.rarity = createRarity(identifier, color);
     }
 

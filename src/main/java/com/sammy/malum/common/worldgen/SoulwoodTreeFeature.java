@@ -2,47 +2,45 @@ package com.sammy.malum.common.worldgen;
 
 import com.google.common.collect.ImmutableList;
 import com.sammy.malum.common.block.MalumLeavesBlock;
-import com.sammy.malum.common.block.MalumSaplingBlock;
 import com.sammy.malum.core.setup.content.block.BlockRegistry;
 import com.sammy.malum.core.setup.content.block.BlockTagRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
-import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.WorldGenLevel;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.LegacyRandomSource;
-import net.minecraft.world.level.levelgen.RandomSource;
 import net.minecraft.world.level.levelgen.WorldgenRandom;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraft.world.level.levelgen.synth.PerlinSimplexNoise;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.registries.RegistryObject;
 import team.lodestar.lodestone.helpers.BlockHelper;
 import team.lodestar.lodestone.helpers.DataHelper;
 import team.lodestar.lodestone.systems.worldgen.LodestoneBlockFiller;
 import team.lodestar.lodestone.systems.worldgen.LodestoneBlockFiller.BlockStateEntry;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.stream.Collectors;
 
+import static com.sammy.malum.common.worldgen.RunewoodTreeFeature.canPlace;
+import static com.sammy.malum.common.worldgen.RunewoodTreeFeature.updateLeaves;
 import static net.minecraft.tags.BlockTags.*;
 
 public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
     public SoulwoodTreeFeature() {
         super(NoneFeatureConfiguration.CODEC);
     }
+
+    private static final PerlinSimplexNoise BLIGHT_NOISE = new PerlinSimplexNoise(new WorldgenRandom(new LegacyRandomSource(1234L)), ImmutableList.of(0));
 
     private static final int minimumSapBlockCount = 3;
     private static final int extraSapBlockCount = 5;
@@ -62,7 +60,7 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
     private static final int branchCoreOffsetExtra = 3;
     private static final int minimumBranchTwists = 0;
     private static final int extraBranchTwists = 2;
-    private static final int minimumBranchHeight = 3;
+    private static final int minimumBranchHeight = 5;
     private static final int branchHeightExtra = 2;
 
     @Override
@@ -179,9 +177,9 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
                     return false;
                 }
             }
-            makeLeafBlob(leavesFiller, rand, branchEndPos.above(1));
+            makeLeafBlob(leavesFiller, rand, branchEndPos);
         }
-        generateBlight(level, blightFiller, pos.below());
+        generateBlight(level, blightFiller, pos.below(), 6);
 
         int sapBlockCount = minimumSapBlockCount + rand.nextInt(extraSapBlockCount + 1);
         int[] sapBlockIndexes = DataHelper.nextInts(sapBlockCount, treeFiller.entries.size());
@@ -192,10 +190,8 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
         blightFiller.fill(level);
         treeFiller.fill(level);
         leavesFiller.fill(level);
+        updateLeaves(level, treeFiller.entries.stream().map(e -> e.pos).collect(Collectors.toSet()));
 
-        if (level instanceof ServerLevel serverLevel) {
-            leavesFiller.entries.forEach(e -> level.getBlockState(e.pos).tick(serverLevel, e.pos, rand));
-        }
         return true;
     }
 
@@ -244,93 +240,21 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
         }
     }
 
-    public static List<BlockStateEntry> createBlight(LevelAccessor level, LodestoneBlockFiller filler, RegistryObject<Block> plant, Random rand, BlockPos pos, int size, float growths) {
-        if (growths < 1f) {
-            growths = level.getRandom().nextFloat() < growths ? 1 : 0;
-        }
-        BlockState center = level.getBlockState(pos);
-        if (center.is(MOSS_REPLACEABLE)) {
-            filler.entries.add(new BlockStateEntry(BlockRegistry.BLIGHTED_SOIL.get().defaultBlockState(), pos));
-        }
-        if (level.getBlockState(pos.below()).is(DIRT) && center.getBlock().equals(BlockRegistry.BLIGHTED_EARTH.get())) {
-            filler.entries.add(new BlockStateEntry(BlockRegistry.BLIGHTED_EARTH.get().defaultBlockState(), pos.below()));
-        }
-        LodestoneBlockFiller plantFiller = new LodestoneBlockFiller(false);
-        int plantCooldown = 2;
-        for (int x = -size; x <= size; x++) {
-            for (int z = -size; z <= size; z++) {
-                if (Math.abs(x) == size && Math.abs(z) == size) {
-                    continue;
-                }
-                BlockPos grassPos = pos.offset(x, 0, z);
-                BlockPos.MutableBlockPos mutable = grassPos.mutable();
-                int verticalRange = 4;
-                for (int i1 = 0; level.isStateAtPosition(mutable, (s) -> !s.isAir()) && i1 < verticalRange; ++i1) {
-                    mutable.move(Direction.UP);
-                }
-                for (int k = 0; level.isStateAtPosition(mutable, BlockBehaviour.BlockStateBase::isAir) && k < verticalRange; ++k) {
-                    mutable.move(Direction.DOWN);
-                }
-                do {
-                    BlockState plantState = level.getBlockState(mutable);
-                    if (plantState.isAir()) {
-                        break;
-                    }
-                    if (plantState.is(BlockTagRegistry.BLIGHTED_PLANTS)) {
-                        break;
-                    }
-                    if ((plantState.getMaterial().isReplaceable() || plantState.is(REPLACEABLE_PLANTS) || plantState.is(FLOWERS))) {
-                        filler.entries.add(new BlockStateEntry(Blocks.AIR.defaultBlockState(), mutable.immutable()));
-                        mutable.move(Direction.DOWN);
-                    } else {
-                        break;
-                    }
-                }
-                while (true);
-                grassPos = mutable.immutable();
-                if (level.getBlockState(grassPos).is(MOSS_REPLACEABLE)) {
-                    filler.entries.add(new BlockStateEntry(BlockRegistry.BLIGHTED_SOIL.get().defaultBlockState(), grassPos));
-                    if (level.getBlockState(grassPos.below()).is(DIRT)) {
-                        filler.entries.add(new BlockStateEntry(BlockRegistry.BLIGHTED_EARTH.get().defaultBlockState(), grassPos.below()));
-                    }
-                    if (plantCooldown <= 0 && rand.nextFloat() < 0.4f) {
-                        BlockPos plantPos = grassPos.above();
-                        BlockState blockState = level.getBlockState(plantPos);
-                        if (blockState.isAir() && !blockState.is(BlockTagRegistry.BLIGHTED_PLANTS)) {
-                            plantFiller.entries.add(new BlockStateEntry(plant.get().defaultBlockState(), plantPos));
-                        }
-                        plantCooldown = 2;
-                    }
-                    plantCooldown--;
-                }
-            }
-        }
-        if (!plantFiller.entries.isEmpty()) {
-            while (growths >= 1) {
-                plantFiller.replace(level.getRandom().nextInt(plantFiller.entries.size()), s -> s.replaceState(BlockRegistry.SOULWOOD_GROWTH.get().defaultBlockState()));
-                growths--;
-            }
-            if (growths < 1 && rand.nextFloat() < growths) {
-                plantFiller.replace(level.getRandom().nextInt(plantFiller.entries.size()), s -> s.replaceState(BlockRegistry.SOULWOOD_GROWTH.get().defaultBlockState()));
-            }
-            filler.entries.addAll(plantFiller.entries);
-        }
-        return filler.entries;
-    }
-
-    private static final PerlinSimplexNoise NOISE = new PerlinSimplexNoise(new WorldgenRandom(new LegacyRandomSource(1234L)), ImmutableList.of(0));
-
-    public static boolean generateBlight(WorldGenLevel level, LodestoneBlockFiller filler, BlockPos pos) {
+    public static Map<Integer, Double> generateBlight(ServerLevelAccessor level, LodestoneBlockFiller filler, BlockPos pos, int radius) {
         Map<Integer, Double> noiseValues = new HashMap<>();
         for (int i = 0; i <= 360; i++) {
-            noiseValues.put(i, NOISE.getValue(pos.getX() + pos.getZ() + i * 0.02f, pos.getY() / 0.05f, true) * 2.5f);
+            noiseValues.put(i, BLIGHT_NOISE.getValue(pos.getX() + pos.getZ() + i * 0.02f, pos.getY() / 0.05f, true) * 2.5f);
         }
-        generateCraterLayer(level, filler, pos, 12, 6, noiseValues);
-        filler.fill(level);
-        return true;
+        generateBlight(level, filler, noiseValues, pos, radius);
+        return noiseValues;
     }
 
-    public static void generateCraterLayer(WorldGenLevel level, LodestoneBlockFiller filler, BlockPos center, int radius, int effectiveRadius, Map<Integer, Double> noiseValues) {
+    public static void generateBlight(ServerLevelAccessor level, LodestoneBlockFiller filler, Map<Integer, Double> noiseValues, BlockPos pos, int radius) {
+        generateBlight(level, filler, pos, radius*2, radius, noiseValues);
+        filler.fill(level);
+    }
+
+    public static void generateBlight(ServerLevelAccessor level, LodestoneBlockFiller filler, BlockPos center, int radius, int effectiveRadius, Map<Integer, Double> noiseValues) {
         int x = center.getX();
         int z = center.getZ();
         BlockPos.MutableBlockPos blockPos = new BlockPos.MutableBlockPos();
@@ -403,13 +327,5 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
 
     public static float pointDistancePlane(double x1, double z1, double x2, double z2) {
         return (float) Math.hypot(x1 - x2, z1 - z2);
-    }
-
-    public static boolean canPlace(WorldGenLevel level, BlockPos pos) {
-        if (level.isOutsideBuildHeight(pos)) {
-            return false;
-        }
-        BlockState state = level.getBlockState(pos);
-        return state.getBlock() instanceof MalumSaplingBlock || level.isEmptyBlock(pos) || state.getMaterial().isReplaceable();
     }
 }

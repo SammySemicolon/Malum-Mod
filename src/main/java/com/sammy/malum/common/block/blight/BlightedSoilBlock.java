@@ -1,9 +1,12 @@
 package com.sammy.malum.common.block.blight;
 
 import com.sammy.malum.common.item.spirit.MalumSpiritItem;
+import com.sammy.malum.common.packets.particle.block.blight.BlightMistParticlePacket;
 import com.sammy.malum.common.worldevent.ActiveBlightEvent;
+import com.sammy.malum.common.worldgen.SoulwoodTreeFeature;
 import com.sammy.malum.core.setup.content.SoundRegistry;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -19,6 +22,10 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraftforge.network.PacketDistributor;
+import team.lodestar.lodestone.systems.worldgen.LodestoneBlockFiller;
+
+import static com.sammy.malum.core.setup.server.PacketRegistry.MALUM_CHANNEL;
 
 public class BlightedSoilBlock extends Block {
     protected static final VoxelShape SHAPE = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 14.0D, 16.0D);
@@ -53,7 +60,11 @@ public class BlightedSoilBlock extends Block {
                 }
                 pLevel.playSound(null, pPos, SoundRegistry.MAJOR_BLIGHT_MOTIF.get(), SoundSource.BLOCKS, 0.8f, 0.8f);
                 pLevel.playSound(null, pPos, SoundEvents.BONE_MEAL_USE, SoundSource.BLOCKS, 1.2f, 0.8f);
-                ActiveBlightEvent.createBlight(pLevel, pPos.above(), 2);
+                if (pLevel instanceof ServerLevel serverLevel) {
+                    LodestoneBlockFiller filler = new LodestoneBlockFiller(false);
+                    SoulwoodTreeFeature.generateBlight(serverLevel, filler, pPos, 4);
+                    filler.entries.stream().filter(e -> e.state.getBlock() instanceof BlightedSoilBlock).map(e -> e.pos).forEach(p -> MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> serverLevel.getChunkAt(p)), new BlightMistParticlePacket(p)));
+                }
                 return InteractionResult.SUCCESS;
             }
         }

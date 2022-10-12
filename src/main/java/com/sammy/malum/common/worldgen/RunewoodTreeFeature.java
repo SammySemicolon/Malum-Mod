@@ -1,24 +1,34 @@
 package com.sammy.malum.common.worldgen;
 
+import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import com.sammy.malum.common.block.MalumLeavesBlock;
 import com.sammy.malum.common.block.MalumSaplingBlock;
 import com.sammy.malum.core.setup.content.block.BlockRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
+import net.minecraft.world.level.levelgen.structure.BoundingBox;
+import net.minecraft.world.phys.shapes.BitSetDiscreteVoxelShape;
+import net.minecraft.world.phys.shapes.DiscreteVoxelShape;
 import team.lodestar.lodestone.helpers.BlockHelper;
 import team.lodestar.lodestone.helpers.DataHelper;
 import team.lodestar.lodestone.systems.worldgen.LodestoneBlockFiller;
 import team.lodestar.lodestone.systems.worldgen.LodestoneBlockFiller.BlockStateEntry;
 
+import java.util.List;
 import java.util.Random;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class RunewoodTreeFeature extends Feature<NoneFeatureConfiguration> {
     public RunewoodTreeFeature() {
@@ -114,9 +124,7 @@ public class RunewoodTreeFeature extends Feature<NoneFeatureConfiguration> {
         }
         treeFiller.fill(level);
         leavesFiller.fill(level);
-        if (level instanceof ServerLevel serverLevel) {
-            leavesFiller.entries.forEach(e -> level.getBlockState(e.pos).tick(serverLevel, e.pos, rand));
-        }
+        updateLeaves(level, treeFiller.entries.stream().map(e -> e.pos).collect(Collectors.toSet()));
         return true;
     }
 
@@ -163,5 +171,49 @@ public class RunewoodTreeFeature extends Feature<NoneFeatureConfiguration> {
         }
         BlockState state = level.getBlockState(pos);
         return state.getBlock() instanceof MalumSaplingBlock || level.isEmptyBlock(pos) || state.getMaterial().isReplaceable();
+    }
+
+    public static void updateLeaves(LevelAccessor pLevel, Set<BlockPos> logPositions) {
+        List<Set<BlockPos>> list = Lists.newArrayList();
+        for (int j = 0; j < 6; ++j) {
+            list.add(Sets.newHashSet());
+        }
+
+        BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
+
+        for (BlockPos pos : Lists.newArrayList(logPositions)) {
+            for (Direction direction : Direction.values()) {
+                mutable.setWithOffset(pos, direction);
+                if (!logPositions.contains(mutable)) {
+                    BlockState blockstate = pLevel.getBlockState(mutable);
+                    if (blockstate.hasProperty(BlockStateProperties.DISTANCE)) {
+                        list.get(0).add(mutable.immutable());
+                        pLevel.setBlock(mutable, blockstate.setValue(BlockStateProperties.DISTANCE, 1), 19);
+                    }
+                }
+            }
+        }
+
+        for (int l = 1; l < 6; ++l) {
+            Set<BlockPos> set = list.get(l - 1);
+            Set<BlockPos> set1 = list.get(l);
+
+            for (BlockPos pos : set) {
+                for (Direction direction1 : Direction.values()) {
+                    mutable.setWithOffset(pos, direction1);
+                    if (!set.contains(mutable) && !set1.contains(mutable)) {
+                        BlockState blockstate1 = pLevel.getBlockState(mutable);
+                        if (blockstate1.hasProperty(BlockStateProperties.DISTANCE)) {
+                            int k = blockstate1.getValue(BlockStateProperties.DISTANCE);
+                            if (k > l + 1) {
+                                BlockState blockstate2 = blockstate1.setValue(BlockStateProperties.DISTANCE, l + 1);
+                                pLevel.setBlock(mutable, blockstate2, 19);
+                                set1.add(mutable.immutable());
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }

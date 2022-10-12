@@ -1,6 +1,7 @@
 package com.sammy.malum.common.item.equipment.curios;
 
 import com.sammy.malum.core.helper.SpiritHelper;
+import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
 import com.sammy.malum.core.systems.spirit.MalumEntitySpiritData;
 import net.minecraft.world.entity.LivingEntity;
@@ -22,19 +23,9 @@ public class CurioHarmonyNecklace extends MalumCurioItem {
             LivingEntity target = event.getEntityLiving();
             if (CurioHelper.hasCurioEquipped(target, ItemRegistry.NECKLACE_OF_BLISSFUL_HARMONY.get())) {
                 MalumEntitySpiritData data = SpiritHelper.getEntitySpiritData(watcher);
-                float visibilityModifier = data == null ? 0.4f : getVisibilityMultiplier(data.weightedSpirits);
+                float visibilityModifier = data == null ? 0.5f : 0.5f / (1+data.dataEntries.stream().map(s -> s.type.equals(SpiritTypeRegistry.WICKED_SPIRIT) ? 1 : 0).count());
                 event.modifyVisibility(visibilityModifier);
             }
         }
-    }
-
-    public static float getVisibilityMultiplier(double spirits) {
-        if (spirits < 3.5f) {
-            return 0.05f;
-        }
-        if (spirits < 5.5f) {
-            return 0.5f;
-        }
-        return 0.75f;
     }
 }
