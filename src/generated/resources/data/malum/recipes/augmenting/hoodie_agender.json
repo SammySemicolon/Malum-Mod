@@ -29,5 +29,5 @@
   "augment": {
     "item": "malum:agender_prideweave"
   },
-  "tagAugment": "{\"malum:item_skin\":\"aroace_drip\"}"
+  "tagAugment": "{\"malum:item_skin\":\"agender_drip\"}"
 }
