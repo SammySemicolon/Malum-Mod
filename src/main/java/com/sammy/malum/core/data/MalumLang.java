@@ -279,21 +279,21 @@ public class MalumLang extends LanguageProvider {
             "The basic substrate here is the Alchemical Impetus, an artifact similar to those I've seen in the past. By focusing arcana into it, I can cause bits of the calx to transmute into something new, though this damages the Impetus in the process.");
 
         addSimpleEntryHeader("focus_ashes", "Arising of Ashes", "Creating powdered reagents");
-        addPages("focus_ashes", "By applying differing qualities of arcana to an Alchemical Impetus, I can cause powders of various forms to be created. This doesn't require modification of the Impetus to accomplish.");
+        addPages("focus_ashes", "By applying differing qualities of arcana to an Alchemical Impetus, I can cause powders of various forms to be created. It is a simple yet very useful arcane recipe.");
 
         addSimpleEntryHeader("focus_metals", "Magecraft of Metals", "Forming banded crystals"); // TODO: 7/12/22 replace Rare Earths when we decide on name
         addPages("focus_metals",
-            "By altering the composition of the Alchemical Impetus with niter, sulfur, and Rare Earths, it is possible to form nodes of most pure metals. I can then process these small lumps directly into nuggets.",
-            "It isn't particularly efficient or fast, but it is certainly better than having to mine for every ingot I need.");
+            "By altering the composition of the Alchemical Impetus with niter, sulfur, and Rare Earths, it is possible to alter the artifact in such a way that allows for forming nodes of most pure metals.",
+            "It isn't particularly efficient or fast, but it is certainly better than having to mine for every ingot I need. Each metallic node can be processed at a furnace of any kind into two thirds of an ingot worth of metal nuggets.");
 
         addSimpleEntryHeader("focus_crystals", "Creation of Crystals", "Forming irregular crystals");
-        addPages("focus_crystals", "By applying differing qualities of arcana to an Alchemical Impetus, I can cause more mundane crystals to be formed. This doesn't require modification of the Impetus to accomplish.");
+        addPages("focus_crystals", "By applying differing qualities of arcana to an Alchemical Impetus, I can cause more mundane crystals to be formed.");
 
         addSimpleEntryHeader("crucible_acceleration", "Crucible Acceleration", "Heating up");
         addPages("crucible_acceleration",
             "The Spirit Crucible is, unfortunately, a rather slow device. It takes time for it to coalesce the power of the arcana into the central item. This isn't without reason. Most matter simply can't take a faster stream, and you risk damaging the catalyst by overloading it.",
             "However, by heating the catalyst through mystic means, you can lessen this rejection and speed up the coalescence at once. That is what the Spirit Catalyzer is for. Unfortunately, this is not perfect, and instability often causes the catalyst to be damaged more than strictly necessary.",
-            "Each fueled Catalyzer nearby to a Crucible will amplify the speed of focusing exponentially, up to a maximum of eight. The risk of instability proportionally rises with each one.");
+            "Each fueled Catalyzer nearby to a Crucible will amplify the speed of focusing exponentially, up to a maximum of eight. The risk of instability proportionally rises with each one, resulting in your impetus potentially receiving more damage than necessary.");
 
         addSimpleEntryHeader("arcane_restoration", "Arcane Restoration", "Mystic repair");
         addPages("arcane_restoration",

@@ -53,7 +53,7 @@ public class ActiveBlightEvent extends WorldEventInstance {
             blightTimer = rate;
             times--;
             createBlight((ServerLevel) level);
-            intensity++;
+            intensity+=2;
         } else {
             blightTimer--;
         }

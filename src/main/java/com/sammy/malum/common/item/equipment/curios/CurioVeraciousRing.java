@@ -29,7 +29,7 @@ public class CurioVeraciousRing extends MalumCurioItem {
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(String identifier, ItemStack stack) {
         Multimap<Attribute, AttributeModifier> map = HashMultimap.create();
         map.put(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(uuids.computeIfAbsent(0, (i) -> UUID.randomUUID()), "Curio armor toughness boost", 1, AttributeModifier.Operation.ADDITION));
-        map.put(Attributes.ARMOR, new AttributeModifier(uuids.computeIfAbsent(1, (i) -> UUID.randomUUID()), "Curio armor boost", 2, AttributeModifier.Operation.ADDITION));
+        map.put(Attributes.ARMOR, new AttributeModifier(uuids.computeIfAbsent(1, (i) -> UUID.randomUUID()), "Curio armor boost", 1, AttributeModifier.Operation.ADDITION));
         return map;
     }
 
@@ -51,9 +51,9 @@ public class CurioVeraciousRing extends MalumCurioItem {
                         player.getFoodData().eat(1, 0.25f*(gluttony.amplifier+1));
                     }
                     player.getFoodData().eat(2, 1f);
-                    MobEffectInstance effect = player.getEffect(MobEffects.HUNGER);
-                    if (effect != null) {
-                        EntityHelper.shortenEffect(effect, player, 150);
+                    MobEffectInstance hunger = player.getEffect(MobEffects.HUNGER);
+                    if (hunger != null) {
+                        EntityHelper.shortenEffect(hunger, player, 150);
                     }
                 }
             }

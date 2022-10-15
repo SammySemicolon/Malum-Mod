@@ -20,6 +20,13 @@ public class BookEntry {
     public boolean isSoulwood;
     public boolean isDark;
 
+    public BookEntry(String identifier, int xOffset, int yOffset) {
+        this.iconStack = null;
+        this.identifier = identifier;
+        this.xOffset = xOffset;
+        this.yOffset = yOffset;
+    }
+
     public BookEntry(String identifier, Item item, int xOffset, int yOffset) {
         this.iconStack = item.getDefaultInstance();
         this.identifier = identifier;

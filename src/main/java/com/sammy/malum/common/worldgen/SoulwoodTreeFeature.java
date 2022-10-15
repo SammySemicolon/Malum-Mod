@@ -177,7 +177,7 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
                     return false;
                 }
             }
-            makeLeafBlob(leavesFiller, rand, branchEndPos);
+            makeLeafBlob(leavesFiller, rand, branchEndPos.above(1));
         }
         generateBlight(level, blightFiller, pos.below(), 6);
 
@@ -191,7 +191,6 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
         treeFiller.fill(level);
         leavesFiller.fill(level);
         updateLeaves(level, treeFiller.entries.stream().map(e -> e.pos).collect(Collectors.toSet()));
-
         return true;
     }
 

@@ -61,7 +61,7 @@ public class PlayerBoundItemEntity extends FloatingItemEntity {
             double lerpX = Mth.lerp(i / cycles, x - motion.x, x);
             double lerpY = Mth.lerp(i / cycles, y - motion.y, y);
             double lerpZ = Mth.lerp(i / cycles, z - motion.z, z);
-            SpiritHelper.spawnSpiritParticles(level, lerpX, lerpY, lerpZ, 0.3f+extraAlpha, norm, startColor, endColor);
+            SpiritHelper.spawnSpiritParticles(level, lerpX, lerpY, lerpZ, 0.55f+extraAlpha, norm, startColor, endColor);
         }
     }
 

@@ -2,6 +2,7 @@ package com.sammy.malum.client.screen.codex;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Vector4f;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.client.screen.codex.objects.*;
 import com.sammy.malum.client.screen.codex.pages.*;
@@ -41,6 +42,7 @@ import java.util.List;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
+import static com.sammy.malum.MalumMod.malumPath;
 import static com.sammy.malum.config.ClientConfig.BOOK_THEME;
 import static com.sammy.malum.core.setup.content.item.ItemRegistry.*;
 import static net.minecraft.util.FastColor.ARGB32.color;
@@ -55,10 +57,10 @@ public class ProgressionBookScreen extends Screen {
 
     public static final ScreenVFXBuilder BUILDER = VFXBuilders.createScreen().setPosTexDefaultFormat();
 
-    public static final ResourceLocation FRAME_TEXTURE = MalumMod.malumPath("textures/gui/book/frame.png");
-    public static final ResourceLocation FADE_TEXTURE = MalumMod.malumPath("textures/gui/book/fade.png");
+    public static final ResourceLocation FRAME_TEXTURE = malumPath("textures/gui/book/frame.png");
+    public static final ResourceLocation FADE_TEXTURE = malumPath("textures/gui/book/fade.png");
 
-    public static final ResourceLocation BACKGROUND_TEXTURE = MalumMod.malumPath("textures/gui/book/background.png");
+    public static final ResourceLocation BACKGROUND_TEXTURE = malumPath("textures/gui/book/background.png");
 
     public int bookWidth = 378;
     public int bookHeight = 250;
@@ -100,7 +102,8 @@ public class ProgressionBookScreen extends Screen {
         );
 
         ENTRIES.add(new BookEntry(
-                "spirit_crystals", ARCANE_SPIRIT.get(), 0, 1)
+                "spirit_crystals", 0, 1)
+                .setObjectSupplier((e, x, y) -> new IconObject(e, malumPath("textures/gui/book/icons/soul_shard.png"), x, y))
                 .addPage(new HeadlineTextPage("spirit_crystals", "spirit_crystals.1"))
                 .addPage(new TextPage("spirit_crystals.2"))
                 .addPage(new TextPage("spirit_crystals.3"))
@@ -121,6 +124,7 @@ public class ProgressionBookScreen extends Screen {
                 "natural_quartz", NATURAL_QUARTZ.get(), 3, 1)
                 .setObjectSupplier(MinorEntryObject::new)
                 .addPage(new HeadlineTextItemPage("natural_quartz", "natural_quartz.1", NATURAL_QUARTZ.get()))
+                .addPage(new TextPage("natural_quartz.2"))
         );
 
         ENTRIES.add(new BookEntry(
@@ -263,6 +267,12 @@ public class ProgressionBookScreen extends Screen {
                 .addPage(SpiritInfusionPage.fromOutput(SOUL_HUNTER_BOOTS.get()))
         );
 
+
+        ENTRIES.add(new BookEntry(
+                "soul_something", 3, 8)
+                .setObjectSupplier((e, x, y) -> new IconObject(e, malumPath("textures/gui/book/icons/soul_blade.png"), x, y))
+        );
+
         ENTRIES.add(new BookEntry(
                 "spirit_focusing", SPIRIT_CRUCIBLE.get(), 7, 6)
                 .addPage(new HeadlineTextItemPage("spirit_focusing", "spirit_focusing.1", SPIRIT_CRUCIBLE.get()))
@@ -381,6 +391,11 @@ public class ProgressionBookScreen extends Screen {
         );
 
         ENTRIES.add(new BookEntry(
+                "soul_ward", -3, 8)
+                .setObjectSupplier((e, x, y) -> new IconObject(e, malumPath("textures/gui/book/icons/soul_ward.png"), x, y))
+        );
+
+        ENTRIES.add(new BookEntry(
                 "spirit_trinkets", ORNATE_RING.get(), -5, 6)
                 .addPage(new HeadlineTextPage("spirit_trinkets", "spirit_trinkets.1"))
                 .addPage(new TextPage("spirit_trinkets.2"))
@@ -400,14 +415,6 @@ public class ProgressionBookScreen extends Screen {
                 .addPage(new TextPage("reactive_trinkets.ring_of_prowess.2"))
                 .addPage(SpiritInfusionPage.fromOutput(RING_OF_ARCANE_PROWESS.get()))
         );
-
-//        ENTRIES.add(new BookEntry(
-//            "put_something_here", ORNATE_RING.get(), -7, 4)
-//        );
-//
-//        ENTRIES.add(new BookEntry(
-//            "put_something_here_also", ORNATE_RING.get(), -7, 8)
-//        );
 
         ENTRIES.add(new BookEntry(
                 "ring_of_esoteric_spoils", RING_OF_ESOTERIC_SPOILS.get(), -9, 5)
@@ -484,7 +491,7 @@ public class ProgressionBookScreen extends Screen {
         );
 
         ENTRIES.add(new BookEntry(
-                "sacred_rite", SACRED_SPIRIT.get(), -2, 10)
+                "sacred_rite", -2, 10)
                 .setObjectSupplier(RiteEntryObject::new)
                 .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.SACRED_RITE, "sacred_rite"))
                 .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.SACRED_RITE))
@@ -493,7 +500,7 @@ public class ProgressionBookScreen extends Screen {
         );
 
         ENTRIES.add(new BookEntry(
-                "corrupt_sacred_rite", SACRED_SPIRIT.get(), -3, 10).setSoulwood()
+                "corrupt_sacred_rite", -3, 10).setSoulwood()
                 .setObjectSupplier(RiteEntryObject::new)
                 .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.SACRED_RITE, "corrupt_sacred_rite"))
                 .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.SACRED_RITE))
@@ -502,7 +509,7 @@ public class ProgressionBookScreen extends Screen {
         );
 
         ENTRIES.add(new BookEntry(
-                "infernal_rite", INFERNAL_SPIRIT.get(), -3, 11)
+                "infernal_rite", -3, 11)
                 .setObjectSupplier(RiteEntryObject::new)
                 .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.INFERNAL_RITE, "infernal_rite"))
                 .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.INFERNAL_RITE))
@@ -511,7 +518,7 @@ public class ProgressionBookScreen extends Screen {
         );
 
         ENTRIES.add(new BookEntry(
-                "corrupt_infernal_rite", INFERNAL_SPIRIT.get(), -4, 11).setSoulwood()
+                "corrupt_infernal_rite", -4, 11).setSoulwood()
                 .setObjectSupplier(RiteEntryObject::new)
                 .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.INFERNAL_RITE, "corrupt_infernal_rite"))
                 .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.INFERNAL_RITE))
@@ -520,7 +527,7 @@ public class ProgressionBookScreen extends Screen {
         );
 
         ENTRIES.add(new BookEntry(
-                "earthen_rite", EARTHEN_SPIRIT.get(), -3, 12)
+                "earthen_rite", -3, 12)
                 .setObjectSupplier(RiteEntryObject::new)
                 .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.EARTHEN_RITE, "earthen_rite"))
                 .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.EARTHEN_RITE))
@@ -529,7 +536,7 @@ public class ProgressionBookScreen extends Screen {
         );
 
         ENTRIES.add(new BookEntry(
-                "corrupt_earthen_rite", EARTHEN_SPIRIT.get(), -4, 12).setSoulwood()
+                "corrupt_earthen_rite", -4, 12).setSoulwood()
                 .setObjectSupplier(RiteEntryObject::new)
                 .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.EARTHEN_RITE, "corrupt_earthen_rite"))
                 .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.EARTHEN_RITE))
@@ -538,7 +545,7 @@ public class ProgressionBookScreen extends Screen {
         );
 
         ENTRIES.add(new BookEntry(
-                "wicked_rite", WICKED_SPIRIT.get(), 2, 10)
+                "wicked_rite", 2, 10)
                 .setObjectSupplier(RiteEntryObject::new)
                 .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.WICKED_RITE, "wicked_rite"))
                 .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.WICKED_RITE))
@@ -547,7 +554,7 @@ public class ProgressionBookScreen extends Screen {
         );
 
         ENTRIES.add(new BookEntry(
-                "corrupt_wicked_rite", WICKED_SPIRIT.get(), 3, 10).setSoulwood()
+                "corrupt_wicked_rite", 3, 10).setSoulwood()
                 .setObjectSupplier(RiteEntryObject::new)
                 .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.WICKED_RITE, "corrupt_wicked_rite"))
                 .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.WICKED_RITE))
@@ -556,7 +563,7 @@ public class ProgressionBookScreen extends Screen {
         );
 
         ENTRIES.add(new BookEntry(
-                "aerial_rite", AERIAL_SPIRIT.get(), 3, 11)
+                "aerial_rite", 3, 11)
                 .setObjectSupplier(RiteEntryObject::new)
                 .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.AERIAL_RITE, "aerial_rite"))
                 .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.AERIAL_RITE))
@@ -565,7 +572,7 @@ public class ProgressionBookScreen extends Screen {
         );
 
         ENTRIES.add(new BookEntry(
-                "corrupt_aerial_rite", AERIAL_SPIRIT.get(), 4, 11).setSoulwood()
+                "corrupt_aerial_rite", 4, 11).setSoulwood()
                 .setObjectSupplier(RiteEntryObject::new)
                 .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.AERIAL_RITE, "corrupt_aerial_rite"))
                 .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.AERIAL_RITE))
@@ -574,7 +581,7 @@ public class ProgressionBookScreen extends Screen {
         );
 
         ENTRIES.add(new BookEntry(
-                "aqueous_rite", AQUEOUS_SPIRIT.get(), 3, 12)
+                "aqueous_rite", 3, 12)
                 .setObjectSupplier(RiteEntryObject::new)
                 .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.AQUEOUS_RITE, "aqueous_rite"))
                 .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.AQUEOUS_RITE))
@@ -583,7 +590,7 @@ public class ProgressionBookScreen extends Screen {
         );
 
         ENTRIES.add(new BookEntry(
-                "corrupt_aqueous_rite", AQUEOUS_SPIRIT.get(), 4, 12).setSoulwood()
+                "corrupt_aqueous_rite", 4, 12).setSoulwood()
                 .setObjectSupplier(RiteEntryObject::new)
                 .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.AQUEOUS_RITE, "corrupt_aqueous_rite"))
                 .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.AQUEOUS_RITE))
@@ -592,7 +599,7 @@ public class ProgressionBookScreen extends Screen {
         );
 
         ENTRIES.add(new BookEntry(
-                "arcane_rite", ARCANE_SPIRIT.get(), 0, 11)
+                "arcane_rite", 0, 11)
                 .setObjectSupplier(RiteEntryObject::new)
                 .addPage(new HeadlineTextPage("arcane_rite", "arcane_rite.description.1"))
                 .addPage(new TextPage("arcane_rite.description.2"))
@@ -869,6 +876,41 @@ public class ProgressionBookScreen extends Screen {
             builder.setColor(rite.getEffectSpirit().getEndColor());
         }
         renderTexture(rite.getIcon(), stack, builder, x, y + 1, 0, 0, 16, 16, 16, 16);
+        shaderInstance.setUniformDefaults();
+        RenderSystem.enableDepthTest();
+        RenderSystem.defaultBlendFunc();
+        RenderSystem.disableBlend();
+    }
+
+    public static void renderWavyIcon(ResourceLocation location, PoseStack stack, int x, int y) {
+        renderWavyIcon(location, stack, x, y, 0);
+    }
+
+    public static void renderWavyIcon(ResourceLocation location, PoseStack stack, int x, int y, int z) {
+        ExtendedShaderInstance shaderInstance = (ExtendedShaderInstance) LodestoneShaderRegistry.DISTORTED_TEXTURE.getInstance().get();
+        shaderInstance.safeGetUniform("YFrequency").set(10f);
+        shaderInstance.safeGetUniform("XFrequency").set(12f);
+        shaderInstance.safeGetUniform("Speed").set(1000f);
+        shaderInstance.safeGetUniform("Intensity").set(50f);
+        shaderInstance.safeGetUniform("UVCoordinates").set(new Vector4f(0f, 1f, 0f, 1f));
+        Supplier<ShaderInstance> shaderInstanceSupplier = () -> shaderInstance;
+
+        VFXBuilders.ScreenVFXBuilder builder = VFXBuilders.createScreen()
+                .setPosColorTexLightmapDefaultFormat()
+                .setShader(shaderInstanceSupplier)
+                .setAlpha(0.7f)
+                .setZLevel(z)
+                .setShader(() -> shaderInstance);
+
+        RenderSystem.enableBlend();
+        RenderSystem.disableDepthTest();
+        RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE);
+        renderTexture(location, stack, builder, x, y, 0, 0, 16, 16, 16, 16);
+        builder.setAlpha(0.1f);
+        renderTexture(location, stack, builder, x - 1, y, 0, 0, 16, 16, 16, 16);
+        renderTexture(location, stack, builder, x + 1, y, 0, 0, 16, 16, 16, 16);
+        renderTexture(location, stack, builder, x, y - 1, 0, 0, 16, 16, 16, 16);
+        renderTexture(location, stack, builder, x, y + 1, 0, 0, 16, 16, 16, 16);
         shaderInstance.setUniformDefaults();
         RenderSystem.enableDepthTest();
         RenderSystem.defaultBlendFunc();
