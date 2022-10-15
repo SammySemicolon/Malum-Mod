@@ -53,7 +53,7 @@ public class CurioTokenOfGratitude extends MalumCurioItem implements IEventRespo
     @Override
     public void takeDamageEvent(LivingEntity attacker, LivingEntity attacked, ItemStack stack) {
         if (attacked instanceof Player player && player.getUUID().equals(BOYA)) {
-            player.level.playSound(player, player.blockPosition(), SoundEvents.NETHER_BRICKS_BREAK, SoundSource.PLAYERS, 1, player.level.random.nextFloat()*2);
+            player.level.playSound(null, player.blockPosition(), SoundEvents.NETHER_BRICKS_BREAK, SoundSource.PLAYERS, 1, player.level.random.nextFloat()*2);
         }
     }
 
