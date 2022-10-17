@@ -6,7 +6,7 @@ import com.sammy.malum.common.block.ether.EtherBrazierBlock;
 import com.sammy.malum.common.block.ether.EtherSconceBlock;
 import com.sammy.malum.common.block.ether.EtherTorchBlock;
 import com.sammy.malum.common.item.NodeItem;
-import com.sammy.malum.common.item.PrideweaveItem;
+import com.sammy.malum.common.item.cosmetic.PrideweaveItem;
 import com.sammy.malum.common.item.ether.AbstractEtherItem;
 import com.sammy.malum.common.item.impetus.CrackedImpetusItem;
 import com.sammy.malum.common.item.impetus.ImpetusItem;

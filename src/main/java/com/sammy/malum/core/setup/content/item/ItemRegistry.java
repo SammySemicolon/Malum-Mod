@@ -9,9 +9,9 @@ import com.sammy.malum.common.blockentity.crucible.SpiritCrucibleCoreBlockEntity
 import com.sammy.malum.common.blockentity.obelisk.BrilliantObeliskBlockEntity;
 import com.sammy.malum.common.blockentity.obelisk.RunewoodObeliskBlockEntity;
 import com.sammy.malum.common.blockentity.storage.PlinthCoreBlockEntity;
-import com.sammy.malum.common.entity.nitrate.EthericNitrateEntity;
-import com.sammy.malum.common.entity.nitrate.VividNitrateEntity;
 import com.sammy.malum.common.item.*;
+import com.sammy.malum.common.item.cosmetic.AncientWeaveItem;
+import com.sammy.malum.common.item.cosmetic.PrideweaveItem;
 import com.sammy.malum.common.item.equipment.armor.SoulHunterArmorItem;
 import com.sammy.malum.common.item.equipment.armor.SoulStainedSteelArmorItem;
 import com.sammy.malum.common.item.equipment.curios.*;
@@ -35,7 +35,6 @@ import com.sammy.malum.core.setup.content.item.tabs.*;
 import com.sammy.malum.core.systems.item.ItemSkin;
 import net.minecraft.client.color.item.ItemColors;
 import net.minecraft.client.player.AbstractClientPlayer;
-import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.client.renderer.item.ItemPropertyFunction;
 import net.minecraft.nbt.CompoundTag;
@@ -44,7 +43,6 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.ComposterBlock;
@@ -73,7 +71,6 @@ import java.awt.*;
 import java.util.List;
 import java.util.*;
 import java.util.function.Function;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 import static com.sammy.malum.MalumMod.MALUM;
@@ -547,7 +544,10 @@ public class ItemRegistry {
     public static final RegistryObject<Item> BELT_OF_THE_MAGEBANE = ITEMS.register("belt_of_the_magebane", () -> new CurioMagebaneBelt(GEAR_PROPERTIES()));
     //endregion
 
-    //region prideweave
+    //region cosmetics
+
+    public static final RegistryObject<Item> ESOTERIC_SPOOL = ITEMS.register("esoteric_spool", () -> new Item(COSMETIC_PROPERTIES()));
+    public static final RegistryObject<Item> ANCIENT_WEAVE = ITEMS.register("ancient_weave", () -> new AncientWeaveItem(COSMETIC_PROPERTIES()));
 
     public static final RegistryObject<PrideweaveItem> ACE_PRIDEWEAVE = ITEMS.register("ace_prideweave", () -> new PrideweaveItem(COSMETIC_PROPERTIES()));
     public static final RegistryObject<PrideweaveItem> AGENDER_PRIDEWEAVE = ITEMS.register("agender_prideweave", () -> new PrideweaveItem(COSMETIC_PROPERTIES()));

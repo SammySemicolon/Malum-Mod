@@ -20,7 +20,6 @@ public class ScarfModel extends EntityModel<Player> {
 	public ScarfModel(ModelPart root) {
 		this.headScarf = root.getChild("head_scarf");
 		this.torsoScarf = root.getChild("torso_scarf");
-
 	}
 
 	public static LayerDefinition createBodyLayer() {
