@@ -405,7 +405,7 @@ public class BlockRegistry {
     public static final RegistryObject<Block> BLIGHTED_EARTH = BLOCKS.register("blighted_earth", () -> new BlightedSoilBlock(BLIGHT_PROPERTIES()));
     public static final RegistryObject<Block> BLIGHTED_SOIL = BLOCKS.register("blighted_soil", () -> new BlightedSoilBlock(BLIGHT_PROPERTIES()));
     public static final RegistryObject<Block> BLIGHTED_WEED = BLOCKS.register("blighted_weed", () -> new BlightedGrassBlock(BLIGHT_PLANTS_PROPERTIES().isCutoutLayer()));
-    public static final RegistryObject<Block> BLIGHTED_SPIRE = BLOCKS.register("blighted_spire", () -> new BlightedGrassBlock(BLIGHT_PLANTS_PROPERTIES().isCutoutLayer()));
+    public static final RegistryObject<Block> BLIGHTED_TUMOR = BLOCKS.register("blighted_tumor", () -> new BlightedGrassBlock(BLIGHT_PLANTS_PROPERTIES().isCutoutLayer()));
     public static final RegistryObject<Block> BLIGHTED_SOULWOOD = BLOCKS.register("blighted_soulwood", () -> new BlightedSoulwoodBlock(SOULWOOD_PROPERTIES()));
     //endregion
 

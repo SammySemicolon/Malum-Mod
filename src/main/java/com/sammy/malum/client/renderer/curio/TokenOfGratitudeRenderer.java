@@ -39,7 +39,6 @@ public class TokenOfGratitudeRenderer implements ICurioRenderer {
     private static final ResourceLocation DELLY_NECKLACE = MalumMod.malumPath("textures/cosmetic/delly_necklace.png");
     private static final ResourceLocation LOFI = MalumMod.malumPath("textures/cosmetic/lofi_tail.png");
 
-
     private static final ResourceLocation TRANS_SCARF = MalumMod.malumPath("textures/cosmetic/trans_scarf.png");
 
     @Override

@@ -1,21 +1,21 @@
 {
   "type": "malum:spirit_infusion",
   "input": {
-    "item": "malum:esoteric_spool",
-    "count": 1
+    "tag": "forge:ingots/iron",
+    "count": 4
   },
   "output": {
-    "item": "malum:bi_prideweave"
+    "item": "malum:esoteric_spool"
   },
   "extra_items": [
     {
-      "item": "minecraft:wheat",
-      "count": 1
+      "item": "malum:hex_ash",
+      "count": 2
     }
   ],
   "spirits": [
     {
-      "type": "sacred",
+      "type": "arcane",
       "count": 4
     }
   ]

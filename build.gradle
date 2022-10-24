@@ -74,8 +74,10 @@ minecraft {
 
         data {
             workingDirectory project.file('run')
+
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
+            arg "-mixin.config=" + archivesBaseName + ".mixins.json"
 
             args '--mod', "${project.modId}", '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
 
@@ -153,12 +155,12 @@ dependencies {
 jar {
     manifest {
         attributes([
-            "Specification-Title": "malum",
-            "Specification-Vendor": "sammy",
+            "Specification-Title": "Malum",
+            "Specification-Vendor": "Sammy Semicolon",
             "Specification-Version": "1",
             "Implementation-Title": project.name,
             "Implementation-Version": "${version}",
-            "Implementation-Vendor" :"sammy",
+            "Implementation-Vendor" :"Sammy Semicolon",
             "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
             "MixinConfigs" :"${project.modId}.mixins.json"
         ])

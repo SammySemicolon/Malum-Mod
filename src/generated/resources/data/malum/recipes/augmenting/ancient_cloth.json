@@ -15,7 +15,7 @@
     }
   ],
   "augment": {
-    "item": "malum:eldritch_spirit"
+    "item": "malum:ancient_weave"
   },
   "tagAugment": "{\"malum:item_skin\":\"ancient_cloth\"}"
 }

@@ -23,6 +23,7 @@ import net.minecraft.world.level.block.state.properties.AttachFace;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.client.model.generators.ModelFile;
+import net.minecraftforge.client.model.generators.VariantBlockStateBuilder;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.RegistryObject;
 import team.lodestar.lodestone.helpers.DataHelper;
@@ -56,7 +57,7 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
         quartzClusterBlock(take(blocks, NATURAL_QUARTZ_CLUSTER));
         blightedSoilBlock(take(blocks, BLIGHTED_SOIL));
         blightedEarthBlock(take(blocks, BLIGHTED_EARTH));
-        blightedSpireBlock(take(blocks, BLIGHTED_SPIRE));
+        blightedTumorBlock(take(blocks, BLIGHTED_TUMOR));
         blightedSoulwoodBlock(take(blocks, BLIGHTED_SOULWOOD));
         sconceBlock(take(blocks, BLAZING_SCONCE));
         wallSconceBlock(take(blocks, WALL_BLAZING_SCONCE));
@@ -184,14 +185,19 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
                 .addModel();
     }
 
-    public void blightedSpireBlock(RegistryObject<Block> blockRegistryObject) {
+    public void blightedTumorBlock(RegistryObject<Block> blockRegistryObject) {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
-        ModelFile cross0 = models().withExistingParent(name, new ResourceLocation("block/cross")).texture("cross", malumPath("block/" + name + "_0"));
-        ModelFile cross1 = models().withExistingParent(name+"_1", new ResourceLocation("block/cross")).texture("cross", malumPath("block/" + name + "_1"));
+        Function<Integer, ModelFile> tumorFunction = (i) -> models().withExistingParent(name + "_" + i, new ResourceLocation("block/cross")).texture("cross", malumPath("block/" + name + "_" + i));
 
         getVariantBuilder(blockRegistryObject.get()).partialState().modelForState()
-                .modelFile(cross0)
-                .nextModel().modelFile(cross1)
+                .modelFile(tumorFunction.apply(0))
+                .nextModel().modelFile(tumorFunction.apply(1))
+                .nextModel().modelFile(tumorFunction.apply(2))
+                .nextModel().modelFile(tumorFunction.apply(3))
+                .nextModel().modelFile(tumorFunction.apply(4))
+                .nextModel().modelFile(tumorFunction.apply(5))
+                .nextModel().modelFile(tumorFunction.apply(6))
+                .nextModel().modelFile(tumorFunction.apply(7))
                 .addModel();
     }
 
@@ -494,14 +500,12 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
         ModelFile bottom = models().withExistingParent(name + "_bottom", new ResourceLocation("block/cross")).texture("cross", malumPath("block/" + name + "_bottom"));
         ModelFile top = models().withExistingParent(name + "_top", new ResourceLocation("block/cross")).texture("cross", malumPath("block/" + name + "_top"));
-
         getVariantBuilder(blockRegistryObject.get()).partialState().with(DoublePlantBlock.HALF, LOWER).modelForState().modelFile(bottom).addModel().partialState().with(DoublePlantBlock.HALF, UPPER).modelForState().modelFile(top).addModel();
     }
 
     public void plantBlock(RegistryObject<Block> blockRegistryObject) {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
         ModelFile cross = models().withExistingParent(name, new ResourceLocation("block/cross")).texture("cross", malumPath("block/" + name));
-
         getVariantBuilder(blockRegistryObject.get()).forAllStates(s -> ConfiguredModel.builder().modelFile(cross).build());
     }
 

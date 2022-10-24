@@ -46,7 +46,7 @@ public class MalumItemModels extends net.minecraftforge.client.model.generators.
         ItemRegistry.ClientOnly.registerItemSkins(null);
         Set<RegistryObject<Item>> items = new HashSet<>(ITEMS.getEntries());
 
-        blightedSpireItem(take(items, ItemRegistry.BLIGHTED_SPIRE));
+        blightedSpireItem(take(items, ItemRegistry.BLIGHTED_TUMOR));
         generatedItem(take(items, ItemRegistry.NATURAL_QUARTZ));
 
         takeAll(items, i -> i.get() instanceof MalumScytheItem);

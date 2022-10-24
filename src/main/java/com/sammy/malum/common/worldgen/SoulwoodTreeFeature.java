@@ -6,7 +6,6 @@ import com.sammy.malum.core.setup.content.block.BlockRegistry;
 import com.sammy.malum.core.setup.content.block.BlockTagRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.WorldGenLevel;
@@ -315,7 +314,7 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
                                 }
                             }
                             if (blockState.isAir() && !blockState.is(BlockTagRegistry.BLIGHTED_PLANTS)) {
-                                filler.entries.add(new BlockStateEntry((level.getRandom().nextFloat() < 0.2f ? BlockRegistry.BLIGHTED_SPIRE : BlockRegistry.BLIGHTED_WEED).get().defaultBlockState(), plantPos));
+                                filler.entries.add(new BlockStateEntry((level.getRandom().nextFloat() < 0.2f ? BlockRegistry.BLIGHTED_TUMOR : BlockRegistry.BLIGHTED_WEED).get().defaultBlockState(), plantPos));
                             }
                         }
                     }

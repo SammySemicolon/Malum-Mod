@@ -51,8 +51,8 @@ public class MalumAugmentingRecipes extends RecipeProvider {
 
         addSkin(consumer, both, Ingredient.of(Items.NETHERITE_SCRAP), "commando_drip");
 
-        addSkin(consumer, soulStainedSteel, Ingredient.of(ItemRegistry.ELDRITCH_SPIRIT.get()), "ancient_metal");
-        addSkin(consumer, soulHunter, Ingredient.of(ItemRegistry.ELDRITCH_SPIRIT.get()), "ancient_cloth");
+        addSkin(consumer, soulStainedSteel, Ingredient.of(ItemRegistry.ANCIENT_WEAVE.get()), "ancient_metal");
+        addSkin(consumer, soulHunter, Ingredient.of(ItemRegistry.ANCIENT_WEAVE.get()), "ancient_cloth");
     }
 
     public void addHoodie(Consumer<FinishedRecipe> consumer, Ingredient input, String value) {

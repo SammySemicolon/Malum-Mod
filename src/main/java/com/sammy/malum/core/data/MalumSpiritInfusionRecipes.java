@@ -431,14 +431,23 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider implements ICondi
             .build(consumer);
 
         new SpiritInfusionRecipeBuilder(ItemRegistry.NECKLACE_OF_THE_NARROW_EDGE.get(), 1, ItemRegistry.NECKLACE_OF_THE_HIDDEN_BLADE.get(), 1)
-            .addSpirit(WICKED_SPIRIT, 32)
-            .addSpirit(ARCANE_SPIRIT, 16)
-            .addSpirit(ELDRITCH_SPIRIT, 4)
-            .addExtraItem(ItemRegistry.SOULWOOD_PLANKS.get(), 16)
-            .addExtraItem(ItemRegistry.STAINED_SPIRIT_RESONATOR.get(), 1)
-            .addExtraItem(ItemRegistry.SOUL_STAINED_STEEL_INGOT.get(), 4)
-            .addExtraItem(ItemRegistry.CORRUPTED_RESONANCE.get(), 1)
-            .build(consumer);
+                .addSpirit(WICKED_SPIRIT, 32)
+                .addSpirit(ARCANE_SPIRIT, 16)
+                .addSpirit(ELDRITCH_SPIRIT, 4)
+                .addExtraItem(ItemRegistry.SOULWOOD_PLANKS.get(), 16)
+                .addExtraItem(ItemRegistry.STAINED_SPIRIT_RESONATOR.get(), 1)
+                .addExtraItem(ItemRegistry.SOUL_STAINED_STEEL_INGOT.get(), 4)
+                .addExtraItem(ItemRegistry.CORRUPTED_RESONANCE.get(), 1)
+                .build(consumer);
+
+        new SpiritInfusionRecipeBuilder(Ingredient.of(Tags.Items.INGOTS_IRON), 4, ItemRegistry.ESOTERIC_SPOOL.get(), 1)
+                .addSpirit(ARCANE_SPIRIT, 4)
+                .addExtraItem(ItemRegistry.HEX_ASH.get(), 2)
+                .build(consumer);
+
+        new SpiritInfusionRecipeBuilder(ItemRegistry.ESOTERIC_SPOOL.get(), 1, ItemRegistry.ANCIENT_WEAVE.get(), 1)
+                .addSpirit(ELDRITCH_SPIRIT, 2)
+                .build(consumer);
 
         prideweaveRecipe(consumer, Items.BREAD, ItemRegistry.ACE_PRIDEWEAVE);
         prideweaveRecipe(consumer, Items.ARROW, ItemRegistry.AGENDER_PRIDEWEAVE);
@@ -473,9 +482,8 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider implements ICondi
     }
 
     public void prideweaveRecipe(Consumer<FinishedRecipe> consumer, Item sideItem, RegistryObject<PrideweaveItem> output) {
-        new SpiritInfusionRecipeBuilder(ItemRegistry.ASTRAL_WEAVE.get(), 1, output.get(), 1)
+        new SpiritInfusionRecipeBuilder(ItemRegistry.ESOTERIC_SPOOL.get(), 1, output.get(), 1)
                 .addSpirit(SACRED_SPIRIT, 4)
-                .addExtraItem(Ingredient.of(ItemRegistry.HEX_ASH.get()), 1)
                 .addExtraItem(Ingredient.of(sideItem), 1)
                 .build(consumer);
     }

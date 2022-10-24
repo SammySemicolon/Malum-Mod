@@ -1,0 +1,30 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "malum:block/blighted_tumor_0"
+      },
+      {
+        "model": "malum:block/blighted_tumor_1"
+      },
+      {
+        "model": "malum:block/blighted_tumor_2"
+      },
+      {
+        "model": "malum:block/blighted_tumor_3"
+      },
+      {
+        "model": "malum:block/blighted_tumor_4"
+      },
+      {
+        "model": "malum:block/blighted_tumor_5"
+      },
+      {
+        "model": "malum:block/blighted_tumor_6"
+      },
+      {
+        "model": "malum:block/blighted_tumor_7"
+      }
+    ]
+  }
+}

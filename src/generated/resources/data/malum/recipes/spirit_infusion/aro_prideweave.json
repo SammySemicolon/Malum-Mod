@@ -1,17 +1,13 @@
 {
   "type": "malum:spirit_infusion",
   "input": {
-    "item": "malum:astral_weave",
+    "item": "malum:esoteric_spool",
     "count": 1
   },
   "output": {
     "item": "malum:aro_prideweave"
   },
   "extra_items": [
-    {
-      "item": "malum:hex_ash",
-      "count": 1
-    },
     {
       "item": "minecraft:arrow",
       "count": 1
