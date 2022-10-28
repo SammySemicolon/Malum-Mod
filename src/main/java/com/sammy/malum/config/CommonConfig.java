@@ -82,7 +82,7 @@ public class CommonConfig extends LodestoneConfig {
 
     public static ConfigValueHolder<Boolean> GENERATE_NATURAL_QUARTZ = new ConfigValueHolder<>(MALUM,"common/worldgen/natural_quartz", (builder ->
             builder.comment("Should natural quartz ore generate?")
-                    .define("generateBrilliantStone", true)));
+                    .define("generateNaturalQuartz", true)));
     public static ConfigValueHolder<Integer> NATURAL_QUARTZ_SIZE = new ConfigValueHolder<>(MALUM,"common/worldgen/natural_quartz", (builder ->
             builder.comment("Size of natural quartz ore veins.")
                     .define("naturalQuartzSize", 5)));
