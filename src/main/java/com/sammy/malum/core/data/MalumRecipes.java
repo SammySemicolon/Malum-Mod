@@ -499,12 +499,8 @@ public class MalumRecipes extends RecipeProvider implements IConditionBuilder {
 
         //THE DEVICE
         TheDeviceRecipeBuilder.shaped(ItemRegistry.THE_DEVICE.get()).define('X', ItemRegistry.TWISTED_ROCK.get()).define('Y', ItemRegistry.TAINTED_ROCK.get()).pattern("XYX").pattern("YXY").pattern("XYX").unlockedBy("has_bedrock", has(Items.BEDROCK)).save(consumer);
-
-        new SpiritInfusionRecipeBuilder(ItemRegistry.ESOTERIC_SPOOL.get(), 1, ItemRegistry.ANCIENT_WEAVE.get(), 1)
-                .addSpirit(ELDRITCH_SPIRIT, 2)
-                .build(consumer);
-
-        shapeless(ItemRegistry.ANCIENT_WEAVE.get()).requires(ItemRegistry.ESOTERIC_SPOOL.get()).requires(sideItem).unlockedBy("has_input", has(ItemRegistry.ESOTERIC_SPOOL.get())).save(consumer);
+        
+        shapeless(ItemRegistry.ANCIENT_WEAVE.get()).requires(ItemRegistry.ESOTERIC_SPOOL.get()).requires(ItemRegistry.BLIGHTED_GUNK.get(), 4).unlockedBy("has_input", has(ItemRegistry.ESOTERIC_SPOOL.get())).save(consumer);
 
         prideweaveRecipe(consumer, Items.BREAD, ItemRegistry.ACE_PRIDEWEAVE);
         prideweaveRecipe(consumer, Items.ARROW, ItemRegistry.AGENDER_PRIDEWEAVE);
