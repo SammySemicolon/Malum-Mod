@@ -1,7 +1,9 @@
 package com.sammy.malum.core.data;
 
 import com.sammy.malum.MalumMod;
+import com.sammy.malum.common.item.cosmetic.PrideweaveItem;
 import com.sammy.malum.common.item.impetus.ImpetusItem;
+import com.sammy.malum.core.data.builder.SpiritInfusionRecipeBuilder;
 import com.sammy.malum.core.data.builder.vanilla.TheDeviceRecipeBuilder;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
 import com.sammy.malum.core.setup.content.item.ItemTagRegistry;
@@ -34,6 +36,8 @@ import static com.sammy.malum.core.data.builder.vanilla.MetalNodeCookingRecipeBu
 import static com.sammy.malum.core.data.builder.vanilla.MetalNodeCookingRecipeBuilder.smeltingWithTag;
 import static com.sammy.malum.core.data.builder.vanilla.StackedMalumCookingRecipeBuilder.blastingWithCount;
 import static com.sammy.malum.core.data.builder.vanilla.StackedMalumCookingRecipeBuilder.smeltingWithCount;
+import static com.sammy.malum.core.setup.content.SpiritTypeRegistry.ELDRITCH_SPIRIT;
+import static com.sammy.malum.core.setup.content.SpiritTypeRegistry.SACRED_SPIRIT;
 import static net.minecraft.data.recipes.ShapedRecipeBuilder.shaped;
 import static net.minecraft.data.recipes.ShapelessRecipeBuilder.shapeless;
 import static net.minecraft.data.recipes.SimpleCookingRecipeBuilder.*;
@@ -495,6 +499,36 @@ public class MalumRecipes extends RecipeProvider implements IConditionBuilder {
 
         //THE DEVICE
         TheDeviceRecipeBuilder.shaped(ItemRegistry.THE_DEVICE.get()).define('X', ItemRegistry.TWISTED_ROCK.get()).define('Y', ItemRegistry.TAINTED_ROCK.get()).pattern("XYX").pattern("YXY").pattern("XYX").unlockedBy("has_bedrock", has(Items.BEDROCK)).save(consumer);
+
+        new SpiritInfusionRecipeBuilder(ItemRegistry.ESOTERIC_SPOOL.get(), 1, ItemRegistry.ANCIENT_WEAVE.get(), 1)
+                .addSpirit(ELDRITCH_SPIRIT, 2)
+                .build(consumer);
+
+        shapeless(ItemRegistry.ANCIENT_WEAVE.get()).requires(ItemRegistry.ESOTERIC_SPOOL.get()).requires(sideItem).unlockedBy("has_input", has(ItemRegistry.ESOTERIC_SPOOL.get())).save(consumer);
+
+        prideweaveRecipe(consumer, Items.BREAD, ItemRegistry.ACE_PRIDEWEAVE);
+        prideweaveRecipe(consumer, Items.ARROW, ItemRegistry.AGENDER_PRIDEWEAVE);
+        prideweaveRecipe(consumer, Items.ARROW, ItemRegistry.ARO_PRIDEWEAVE);
+        prideweaveRecipe(consumer, Items.WHEAT_SEEDS, ItemRegistry.AROACE_PRIDEWEAVE);
+        prideweaveRecipe(consumer, Items.WHEAT, ItemRegistry.BI_PRIDEWEAVE);
+        prideweaveRecipe(consumer, Items.RAW_IRON, ItemRegistry.DEMIBOY_PRIDEWEAVE);
+        prideweaveRecipe(consumer, Items.RAW_COPPER, ItemRegistry.DEMIGIRL_PRIDEWEAVE);
+        prideweaveRecipe(consumer, Items.MOSS_BLOCK, ItemRegistry.ENBY_PRIDEWEAVE);
+        prideweaveRecipe(consumer, Items.MELON_SLICE, ItemRegistry.GAY_PRIDEWEAVE);
+        prideweaveRecipe(consumer, Items.WATER_BUCKET, ItemRegistry.GENDERFLUID_PRIDEWEAVE);
+        prideweaveRecipe(consumer, Items.GLASS_BOTTLE, ItemRegistry.GENDERQUEER_PRIDEWEAVE);
+        prideweaveRecipe(consumer, Items.AZALEA, ItemRegistry.INTERSEX_PRIDEWEAVE);
+        prideweaveRecipe(consumer, Items.HONEYCOMB, ItemRegistry.LESBIAN_PRIDEWEAVE);
+        prideweaveRecipe(consumer, Items.CARROT, ItemRegistry.PAN_PRIDEWEAVE);
+        prideweaveRecipe(consumer, Items.REPEATER, ItemRegistry.PLURAL_PRIDEWEAVE);
+        prideweaveRecipe(consumer, Items.COMPARATOR, ItemRegistry.POLY_PRIDEWEAVE);
+        prideweaveRecipe(consumer, Items.STONE_BRICK_WALL, ItemRegistry.PRIDE_PRIDEWEAVE);
+        prideweaveRecipe(consumer, Items.EGG, ItemRegistry.TRANS_PRIDEWEAVE);
+    }
+
+
+    private void prideweaveRecipe(Consumer<FinishedRecipe> consumer, Item sideItem, RegistryObject<PrideweaveItem> output) {
+        shapeless(output.get()).requires(ItemRegistry.ESOTERIC_SPOOL.get()).requires(sideItem).unlockedBy("has_input", has(ItemRegistry.ESOTERIC_SPOOL.get())).save(consumer);
     }
 
     private void nodeSmelting(Consumer<FinishedRecipe> recipeConsumer, RegistryObject<ImpetusItem> impetus, RegistryObject<Item> node, TagKey<Item> tag) {

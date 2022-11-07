@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "malum:item/ancient_weave"
+    "layer0": "malum:item/cosmetic/weaves/ancient_weave"
   }
 }

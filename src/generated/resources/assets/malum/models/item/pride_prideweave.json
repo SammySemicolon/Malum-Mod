@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "malum:cosmetic/pridewear/weaves/prideweave_pride"
+    "layer0": "malum:item/cosmetic/weaves/pride/prideweave_pride"
   }
 }

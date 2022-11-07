@@ -50,6 +50,7 @@ public class MalumAugmentingRecipes extends RecipeProvider {
         addHoodie(consumer, Ingredient.of(ItemRegistry.TRANS_PRIDEWEAVE.get()), "trans");
 
         addSkin(consumer, both, Ingredient.of(Items.NETHERITE_SCRAP), "commando_drip");
+        addSkin(consumer, both, Ingredient.of(Items.COMPARATOR), "executioner_drip");
 
         addSkin(consumer, soulStainedSteel, Ingredient.of(ItemRegistry.ANCIENT_WEAVE.get()), "ancient_metal");
         addSkin(consumer, soulHunter, Ingredient.of(ItemRegistry.ANCIENT_WEAVE.get()), "ancient_cloth");

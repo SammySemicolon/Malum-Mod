@@ -48,11 +48,13 @@ public class MalumItemModels extends net.minecraftforge.client.model.generators.
 
         blightedSpireItem(take(items, ItemRegistry.BLIGHTED_TUMOR));
         generatedItem(take(items, ItemRegistry.NATURAL_QUARTZ));
+        cosmeticItem(take(items, ItemRegistry.ANCIENT_WEAVE), "weaves/");
+        cosmeticItem(take(items, ItemRegistry.ESOTERIC_SPOOL), "");
+        takeAll(items, i -> i.get() instanceof PrideweaveItem).forEach(this::prideweaveItem);
 
         takeAll(items, i -> i.get() instanceof MalumScytheItem);
         takeAll(items, i -> i.get() instanceof MalumSpiritItem).forEach(this::spiritSplinterItem);
         takeAll(items, i -> i.get() instanceof NodeItem).forEach(this::nodeItem);
-        takeAll(items, i -> i.get() instanceof PrideweaveItem).forEach(this::prideweaveItem);
         takeAll(items, i -> i.get() instanceof ImpetusItem || i.get() instanceof CrackedImpetusItem).forEach(this::impetusItem);
         takeAll(items, i -> i.get() instanceof MultiBlockItem).forEach(this::multiBlockItem);
         takeAll(items, i -> i.get() instanceof BlockItem && ((BlockItem) i.get()).getBlock() instanceof WallBlock).forEach(this::wallBlockItem);
@@ -101,7 +103,12 @@ public class MalumItemModels extends net.minecraftforge.client.model.generators.
 
     private void prideweaveItem(RegistryObject<Item> i) {
         String name = Registry.ITEM.getKey(i.get()).getPath();
-        withExistingParent(name, GENERATED).texture("layer0", malumPath("cosmetic/pridewear/weaves/" + "prideweave_" + name.replace("_prideweave", "")));
+        withExistingParent(name, GENERATED).texture("layer0", malumPath("item/cosmetic/weaves/pride/" + "prideweave_" + name.replace("_prideweave", "")));
+    }
+
+    private void cosmeticItem(RegistryObject<Item> i, String extraPath) {
+        String name = Registry.ITEM.getKey(i.get()).getPath();
+        withExistingParent(name, GENERATED).texture("layer0", malumPath("item/cosmetic/" + extraPath + name));
     }
 
     private void armorItem(RegistryObject<Item> i) {
@@ -116,10 +123,11 @@ public class MalumItemModels extends net.minecraftforge.client.model.generators.
             String itemSuffix = datagenData.itemTextureNames().get(((ArmorItem) i.get()).getSlot().getIndex());
             ResourceLocation itemTexturePath = new ResourceLocation(datagenData.itemTexturePath().getNamespace(), datagenData.itemTexturePath().getPath() + itemSuffix);
             getBuilder(i.get().getRegistryName().getPath()).override()
-                .predicate(new ResourceLocation(ItemSkin.MALUM_SKIN_TAG), value)
-                .model(withExistingParent(itemName+"_"+skin.key+"_"+itemSuffix, GENERATED).texture("layer0", itemTexturePath))
-                .end();
+                    .predicate(new ResourceLocation(ItemSkin.MALUM_SKIN_TAG), value)
+                    .model(withExistingParent(skin.key + "_" + itemSuffix, GENERATED).texture("layer0", itemTexturePath))
+                    .end();
         }
+
     }
     private void impetusItem(RegistryObject<Item> i) {
         String name = Registry.ITEM.getKey(i.get()).getPath();

@@ -2,6 +2,13 @@ package com.sammy.malum.core.setup.content.item;
 
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.client.model.*;
+import com.sammy.malum.client.model.cosmetic.*;
+import com.sammy.malum.client.model.cosmetic.ancient.AncientSoulHunterArmorModel;
+import com.sammy.malum.client.model.cosmetic.ancient.AncientSoulStainedSteelArmorModel;
+import com.sammy.malum.client.model.cosmetic.pride.PridewearArmorModel;
+import com.sammy.malum.client.model.cosmetic.pride.SlimPridewearArmorModel;
+import com.sammy.malum.client.model.cosmetic.risky.CommandoArmorModel;
+import com.sammy.malum.client.model.cosmetic.risky.ExecutionerArmorModel;
 import com.sammy.malum.common.block.MalumLeavesBlock;
 import com.sammy.malum.common.blockentity.FusionPlateBlockEntity;
 import com.sammy.malum.common.blockentity.crucible.SpiritCatalyzerCoreBlockEntity;
@@ -604,10 +611,12 @@ public class ItemRegistry {
 
         public static AncientSoulHunterArmorModel ANCIENT_SOUL_HUNTER_ARMOR;
         public static AncientSoulStainedSteelArmorModel ANCIENT_SOUL_STAINED_STEEL_ARMOR;
-        public static DrippedOutCommandoArmorModel DRIPPY_COMMANDO;
+
+        public static CommandoArmorModel COMMANDO;
+        public static ExecutionerArmorModel EXECUTIONER;
+
         public static PridewearArmorModel PRIDEWEAR;
         public static SlimPridewearArmorModel SLIM_PRIDEWEAR;
-
 
         public static TailModel TAIL_MODEL;
         public static HeadOverlayModel HEAD_OVERLAY_MODEL;
@@ -634,9 +643,25 @@ public class ItemRegistry {
             registerPridewear("pride");
             registerPridewear("trans");
 
-            registerSkin("commando_drip", p -> malumPath("textures/cosmetic/ror2/dripped_out_commando.png"), (p) -> DRIPPY_COMMANDO).addDatagenData(() -> new ItemSkin.DatagenData(malumPath("cosmetic/ror2/dripped_out_commando_"), malumPath("models/item/commando_"), List.of("boots", "leggings", "chestplate", "visor")));
-            registerSkin("ancient_cloth", p -> malumPath("textures/cosmetic/ancient/soul_hunter.png"), (p) -> ANCIENT_SOUL_HUNTER_ARMOR).addDatagenData(() -> new ItemSkin.DatagenData(malumPath("cosmetic/ancient/soul_hunter_"), malumPath("models/item/ancient_soul_hunter_"), List.of("boots", "leggings", "robe", "cloak")));
-            registerSkin("ancient_metal", p -> malumPath("textures/cosmetic/ancient/soul_stained_steel.png"), (p) -> ANCIENT_SOUL_STAINED_STEEL_ARMOR).addDatagenData(() -> new ItemSkin.DatagenData(malumPath("cosmetic/ancient/soul_stained_steel_"), malumPath("models/item/ancient_soul_hunter_"), List.of("boots", "leggings", "chestplate", "helmet")));
+            registerSkin("executioner_drip", p -> malumPath("textures/armor/cosmetic/starstorm_executioner.png"), (p) -> EXECUTIONER)
+                    .addDatagenData(() -> new ItemSkin.DatagenData(malumPath("item/cosmetic/armor_icons/executioner_"),
+                                    malumPath("models/item/executioner_"),
+                                    List.of("boots", "leggings", "chestplate", "visor")));
+
+            registerSkin("commando_drip", p -> malumPath("textures/armor/cosmetic/commando.png"), (p) -> COMMANDO)
+                    .addDatagenData(() -> new ItemSkin.DatagenData(malumPath("item/cosmetic/armor_icons/commando_"),
+                                    malumPath("models/item/commando_"),
+                                    List.of("boots", "leggings", "chestplate", "visor")));
+
+            registerSkin("ancient_cloth", p -> malumPath("textures/armor/cosmetic/ancient_soul_hunter.png"), (p) -> ANCIENT_SOUL_HUNTER_ARMOR)
+                    .addDatagenData(() -> new ItemSkin.DatagenData(malumPath("item/cosmetic/armor_icons/ancient_soul_hunter_"),
+                            malumPath("models/item/ancient_soul_hunter_"),
+                            List.of("boots", "leggings", "robe", "cloak")));
+
+            registerSkin("ancient_metal", p -> malumPath("textures/armor/cosmetic/ancient_soul_stained_steel.png"), (p) -> ANCIENT_SOUL_STAINED_STEEL_ARMOR)
+                    .addDatagenData(() -> new ItemSkin.DatagenData(malumPath("item/cosmetic/armor_icons/ancient_soul_stained_steel_"),
+                            malumPath("models/item/ancient_soul_hunter_"),
+                            List.of("boots", "leggings", "chestplate", "helmet")));
         }
         @SubscribeEvent(priority = EventPriority.LOWEST)
         public static void addItemProperties(FMLClientSetupEvent event) {
@@ -667,9 +692,12 @@ public class ItemRegistry {
             event.registerLayerDefinition(GenericSlimArmorModel.LAYER, GenericSlimArmorModel::createBodyLayer);
             event.registerLayerDefinition(GenericArmorModel.LAYER, GenericArmorModel::createBodyLayer);
 
-            event.registerLayerDefinition(DrippedOutCommandoArmorModel.LAYER, DrippedOutCommandoArmorModel::createBodyLayer);
+            event.registerLayerDefinition(CommandoArmorModel.LAYER, CommandoArmorModel::createBodyLayer);
+            event.registerLayerDefinition(ExecutionerArmorModel.LAYER, ExecutionerArmorModel::createBodyLayer);
+
             event.registerLayerDefinition(AncientSoulStainedSteelArmorModel.LAYER, AncientSoulStainedSteelArmorModel::createBodyLayer);
             event.registerLayerDefinition(AncientSoulHunterArmorModel.LAYER, AncientSoulHunterArmorModel::createBodyLayer);
+
             event.registerLayerDefinition(PridewearArmorModel.LAYER, PridewearArmorModel::createBodyLayer);
             event.registerLayerDefinition(SlimPridewearArmorModel.LAYER, SlimPridewearArmorModel::createBodyLayer);
 
@@ -685,9 +713,12 @@ public class ItemRegistry {
             GENERIC_SLIM_ARMOR = new GenericSlimArmorModel(event.getEntityModels().bakeLayer(GenericSlimArmorModel.LAYER));
             GENERIC_ARMOR = new GenericArmorModel(event.getEntityModels().bakeLayer(GenericArmorModel.LAYER));
 
-            DRIPPY_COMMANDO = new DrippedOutCommandoArmorModel(event.getEntityModels().bakeLayer(DrippedOutCommandoArmorModel.LAYER));
+            COMMANDO = new CommandoArmorModel(event.getEntityModels().bakeLayer(CommandoArmorModel.LAYER));
+            EXECUTIONER = new ExecutionerArmorModel(event.getEntityModels().bakeLayer(ExecutionerArmorModel.LAYER));
+
             ANCIENT_SOUL_HUNTER_ARMOR = new AncientSoulHunterArmorModel(event.getEntityModels().bakeLayer(AncientSoulHunterArmorModel.LAYER));
             ANCIENT_SOUL_STAINED_STEEL_ARMOR = new AncientSoulStainedSteelArmorModel(event.getEntityModels().bakeLayer(AncientSoulStainedSteelArmorModel.LAYER));
+
             PRIDEWEAR = new PridewearArmorModel(event.getEntityModels().bakeLayer(PridewearArmorModel.LAYER));
             SLIM_PRIDEWEAR = new SlimPridewearArmorModel(event.getEntityModels().bakeLayer(SlimPridewearArmorModel.LAYER));
 
@@ -751,19 +782,20 @@ public class ItemRegistry {
 
         public static void registerPridewear(String tag) {
             String drip = tag + "_drip";
-            String path = "cosmetic/pridewear/";
+            String armorIconPath = "item/cosmetic/armor_icons/pride/";
+            String armorSheetPath = "armor/cosmetic/pride/";
             ItemSkin skin = registerSkin(drip, p -> {
                 if (p instanceof AbstractClientPlayer clientPlayer && clientPlayer.getModelName().equals("slim")) {
-                    return malumPath("textures/" + path + drip + "_slim.png");
+                    return malumPath("textures/" + armorSheetPath + drip + "_slim.png");
                 }
-                return malumPath("textures/" + path + drip + ".png");
+                return malumPath("textures/" + armorSheetPath + drip + ".png");
             }, (p) -> {
                 if (p instanceof AbstractClientPlayer clientPlayer) {
                     return clientPlayer.getModelName().equals("slim") ? SLIM_PRIDEWEAR : PRIDEWEAR;
                 }
                 return PRIDEWEAR;
             });
-            skin.addDatagenData(() -> new ItemSkin.DatagenData(malumPath(path+"armor_icons/" + tag + "_"), malumPath("models/item/pridewear/armor_icons/" + tag + "_"), List.of("socks", "shorts", "hoodie", "beanie")));
+            skin.addDatagenData(() -> new ItemSkin.DatagenData(malumPath(armorIconPath + tag + "_"), malumPath("models/item/pridewear/armor_icons/" + tag + "_"), List.of("socks", "shorts", "hoodie", "beanie")));
         }
     }
 }
