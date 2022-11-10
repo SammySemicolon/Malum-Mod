@@ -499,7 +499,7 @@ public class MalumRecipes extends RecipeProvider implements IConditionBuilder {
 
         //THE DEVICE
         TheDeviceRecipeBuilder.shaped(ItemRegistry.THE_DEVICE.get()).define('X', ItemRegistry.TWISTED_ROCK.get()).define('Y', ItemRegistry.TAINTED_ROCK.get()).pattern("XYX").pattern("YXY").pattern("XYX").unlockedBy("has_bedrock", has(Items.BEDROCK)).save(consumer);
-        
+
         shapeless(ItemRegistry.ANCIENT_WEAVE.get()).requires(ItemRegistry.ESOTERIC_SPOOL.get()).requires(ItemRegistry.BLIGHTED_GUNK.get(), 4).unlockedBy("has_input", has(ItemRegistry.ESOTERIC_SPOOL.get())).save(consumer);
 
         prideweaveRecipe(consumer, Items.BREAD, ItemRegistry.ACE_PRIDEWEAVE);
@@ -521,7 +521,6 @@ public class MalumRecipes extends RecipeProvider implements IConditionBuilder {
         prideweaveRecipe(consumer, Items.STONE_BRICK_WALL, ItemRegistry.PRIDE_PRIDEWEAVE);
         prideweaveRecipe(consumer, Items.EGG, ItemRegistry.TRANS_PRIDEWEAVE);
     }
-
 
     private void prideweaveRecipe(Consumer<FinishedRecipe> consumer, Item sideItem, RegistryObject<PrideweaveItem> output) {
         shapeless(output.get()).requires(ItemRegistry.ESOTERIC_SPOOL.get()).requires(sideItem).unlockedBy("has_input", has(ItemRegistry.ESOTERIC_SPOOL.get())).save(consumer);

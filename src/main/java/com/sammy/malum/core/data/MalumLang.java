@@ -400,6 +400,7 @@ public class MalumLang extends LanguageProvider {
             "It requires far more to focus than other rites, taking the entire five runes to activate. It's as though I am pushing on some threshold, and need to break through. And in breaking through... momentum is conserved.",
             "And once altered, the wood's color changes, along with its magical disposition. What I dub Soulwood bears scars from the violent method of its creation. Those scars warp magic, altering its fundamental nature. Any spirit rite performed with a Soulwood totem will produce a vastly different effect.",
             "And now that I can obtain Soulwood, I can make totem bases out of it directly as well, bypassing the need to transmute Runewood totems.");
+
         addPage("arcane_rite",
             "The rite - if you could call something so chaotic that - corrupts and burns through the totem, altering its very base nature, and transmuting the world around it into some indeterminate blighted powder.");
         addPage("corrupt_arcane_rite",
@@ -463,7 +464,7 @@ public class MalumLang extends LanguageProvider {
             "The Undirected Rite, as the name suggests, is random. It transmutes, but it has no pattern to transmute things to. So, instead, you get something random, bits of disparate matter all jumbled together into a foul-smelling powder. I wouldn't recommend eating it, or growing things on it, but it's otherwise harmless.");
         addHeadline("blight.spread", "Blight Study: Spread");
         addPages("blight.spread",
-            "Blight does not spread on its own. It's just random matter, after all. But it has a spiritual memory, an echo of how it was created, and, given arcana, will effect that transmutation on nearby substances.");
+            "Blight does not spread on its own. It's just random matter, after all. But it has a spiritual memory, an echo of how it was created, and, given arcana, will effect that echo on nearby substances.");
         addHeadline("blight.arcane_rite", "Blight Study: Resonance");
         addPages("blight.arcane_rite",
             "That echo is why this substance is important for the Unchained Rite. The Rite remembers the violence of its creation, and resonates with the memory within the blight, applying its power to things laying on top of it.");
@@ -493,11 +494,13 @@ public class MalumLang extends LanguageProvider {
         addHeadline("necklace_of_tidal_affinity", "Water");
         addPages("necklace_of_tidal_affinity", "You are faster in water. While under the effect of conduit power, the effect is further improved. You also amass a strong damage reduction and are blessed with constant health regeneration.");
 
-        addSimpleEntryHeader("resource_transmutation", "Resource Transmgdsjfissd", "help");
-        addPages("transmutation.intro", "Besides creating soulwood, the unchained rite can be used to create a variety of blocks. Here are some uhhh, transmutation trees. Start by placing the block at the top, it will step through every block in the shown list before ending up as blight.");
-        addHeadline("transmutation.stone", "Transmutation Tree: Stone");
-        addHeadline("transmutation.deepslate", "Transmutation Tree: Deepslate");
-        addHeadline("transmutation.smooth_basalt", "Transmutation Tree: Smooth Basalt");
+        addSimpleEntryHeader("transmutation", "Transmutation", "Volatile Reactions");
+        addPages("transmutation.intro",
+                "The unchained rite is used to change the nature of the mundane, and this doesn't appear to be limited to just Souldwood. After countless hours spent trying to discover all the secrets the Rite holds, I've come to document just three transmutation trees of sorts.",
+                "A Blight-Based Transmutation revolves around using the Unchained Rite to change blocks, depending on which material we start with, the Rite will shift any given block forward in the tree, turning it into blight at the very end of it.");
+        addHeadline("transmutation.stone", "Transmutation: Basic");
+        addHeadline("transmutation.deepslate", "Transmutation: Endothermic");
+        addHeadline("transmutation.smooth_basalt", "Transmutation: Exothermic");
 
         addSimpleEntryHeader("alteration_plinth", "Alteration Plinth thing", "modify items and stuff");
         addPages("alteration_plinth.intro", "You can modify items, place thing A in the table, then right click with thing B. Currently the main purpose is changing the appearance of your malum armor. Try using an eldritch spirit, ancient scrap, or even an egg or moss block. There's a lot of vanity stuff that I don't feel like making a JEI tab for rn.");

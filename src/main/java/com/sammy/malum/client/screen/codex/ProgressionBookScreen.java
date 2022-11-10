@@ -124,7 +124,6 @@ public class ProgressionBookScreen extends Screen {
                 "natural_quartz", NATURAL_QUARTZ.get(), 3, 1)
                 .setObjectSupplier(MinorEntryObject::new)
                 .addPage(new HeadlineTextItemPage("natural_quartz", "natural_quartz.1", NATURAL_QUARTZ.get()))
-                .addPage(new TextPage("natural_quartz.2"))
         );
 
         ENTRIES.add(new BookEntry(
@@ -612,7 +611,8 @@ public class ProgressionBookScreen extends Screen {
         );
 
         ENTRIES.add(new BookEntry(
-                "blight", BLIGHTED_SOIL.get(), -1, 12).setSoulwood()
+                "blight", BLIGHTED_GUNK.get(), -1, 12).setSoulwood()
+                .setObjectSupplier(MinorEntryObject::new)
                 .addPage(new HeadlineTextPage("blight.intro", "blight.intro.1"))
                 .addPage(new HeadlineTextPage("blight.composition", "blight.composition.1"))
                 .addPage(new HeadlineTextPage("blight.spread", "blight.spread.1"))
@@ -620,27 +620,28 @@ public class ProgressionBookScreen extends Screen {
         );
 
         ENTRIES.add(new BookEntry(
-                "resource_transmutation", BLIGHTED_SOIL.get(), -1, 13).setSoulwood()
-                .addPage(new HeadlineTextPage("transmutation.intro", "transmutation.intro.1"))
-                .addPage(new SpiritTransmutationPage("transmutation.stone", STONE))
-                .addPage(new SpiritTransmutationPage("transmutation.deepslate", DEEPSLATE))
-                .addPage(new SpiritTransmutationPage("transmutation.smooth_basalt", SMOOTH_BASALT))
-        );
-
-        ENTRIES.add(new BookEntry(
                 "soulwood", SOULWOOD_GROWTH.get(), 1, 12).setSoulwood()
+                .setObjectSupplier(MinorEntryObject::new)
                 .addPage(new HeadlineTextPage("soulwood.intro", "soulwood.intro.1"))
                 .addPage(new HeadlineTextPage("soulwood.bonemeal", "soulwood.bonemeal.1"))
                 .addPage(new HeadlineTextPage("soulwood.color", "soulwood.color.1"))
                 .addPage(new HeadlineTextPage("soulwood.blight", "soulwood.blight.1"))
                 .addPage(new HeadlineTextPage("soulwood.sap", "soulwood.sap.1"))
         );
-
         ENTRIES.add(new BookEntry(
-                "alteration_plinth", ALTERATION_PLINTH.get(), 1, 13).setSoulwood()
-                .addPage(new HeadlineTextPage("alteration_plinth", "alteration_plinth.intro.1"))
-                .addPage(SpiritInfusionPage.fromOutput(ALTERATION_PLINTH.get()))
+                "transmutation", BLIGHTED_SOIL.get(), 0, 13).setSoulwood()
+                .addPage(new HeadlineTextPage("transmutation.intro", "transmutation.intro.1"))
+                .addPage(new TextPage("transmutation.intro.2"))
+                .addPage(new SpiritTransmutationPage("transmutation.stone", STONE))
+                .addPage(new SpiritTransmutationPage("transmutation.deepslate", DEEPSLATE))
+                .addPage(new SpiritTransmutationPage("transmutation.smooth_basalt", SMOOTH_BASALT))
         );
+
+//        ENTRIES.add(new BookEntry(
+//                "alteration_plinth", ALTERATION_PLINTH.get(), 1, 13).setSoulwood()
+//                .addPage(new HeadlineTextPage("alteration_plinth", "alteration_plinth.intro.1"))
+//                .addPage(SpiritInfusionPage.fromOutput(ALTERATION_PLINTH.get()))
+//        );
 
         ENTRIES.add(new BookEntry( //TODO: also name this something better
                 "metallurgic_trinkets", NECKLACE_OF_BLISSFUL_HARMONY.get(), -2, 14).setSoulwood()

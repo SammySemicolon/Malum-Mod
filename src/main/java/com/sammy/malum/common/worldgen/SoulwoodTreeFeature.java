@@ -305,12 +305,14 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
                             BlockState blockState = level.getBlockState(plantPos);
                             if (naturalNoiseValue > 2.5f) {
                                 if (lastSaplingPos == null || lastSaplingPos.distanceToSqr(plantPos.getX(), plantPos.getY(), plantPos.getZ()) > 5) {
-                                    if (level.getRandom().nextFloat() < 0.5f / (Math.pow(saplingsPlaced + 1, 2))) {
-                                        filler.entries.add(new BlockStateEntry(BlockRegistry.SOULWOOD_GROWTH.get().defaultBlockState(), plantPos));
-                                        lastSaplingPos = new Vec3(plantPos.getX(), plantPos.getY(), plantPos.getZ());
-                                        saplingsPlaced++;
+                                    if (BlockHelper.fromBlockPos(center).distanceToSqr(plantPos.getX(), plantPos.getY(), plantPos.getZ()) > 4) {
+                                        if (level.getRandom().nextFloat() < 0.5f / (Math.pow(saplingsPlaced + 1, 2))) {
+                                            filler.entries.add(new BlockStateEntry(BlockRegistry.SOULWOOD_GROWTH.get().defaultBlockState(), plantPos));
+                                            lastSaplingPos = new Vec3(plantPos.getX(), plantPos.getY(), plantPos.getZ());
+                                            saplingsPlaced++;
+                                        }
+                                        continue;
                                     }
-                                    continue;
                                 }
                             }
                             if (blockState.isAir() && !blockState.is(BlockTagRegistry.BLIGHTED_PLANTS)) {

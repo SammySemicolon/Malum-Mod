@@ -440,7 +440,7 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider implements ICondi
                 .addExtraItem(ItemRegistry.CORRUPTED_RESONANCE.get(), 1)
                 .build(consumer);
 
-        new SpiritInfusionRecipeBuilder(Ingredient.of(Tags.Items.INGOTS_IRON), 4, ItemRegistry.ESOTERIC_SPOOL.get(), 1)
+        new SpiritInfusionRecipeBuilder(Ingredient.of(Tags.Items.INGOTS_IRON), 4, ItemRegistry.ESOTERIC_SPOOL.get(), 4)
                 .addSpirit(ARCANE_SPIRIT, 4)
                 .addExtraItem(ItemRegistry.HEX_ASH.get(), 2)
                 .build(consumer);
