@@ -630,7 +630,7 @@ public class ProgressionBookScreen extends Screen {
         );
         ENTRIES.add(new BookEntry(
                 "transmutation", BLIGHTED_SOIL.get(), 0, 13).setSoulwood()
-                .addPage(new HeadlineTextPage("transmutation.intro", "transmutation.intro.1"))
+                .addPage(new HeadlineTextPage("transmutation", "transmutation.intro.1"))
                 .addPage(new TextPage("transmutation.intro.2"))
                 .addPage(new SpiritTransmutationPage("transmutation.stone", STONE))
                 .addPage(new SpiritTransmutationPage("transmutation.deepslate", DEEPSLATE))

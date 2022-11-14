@@ -162,13 +162,20 @@ public class BlockRegistry {
         return new LodestoneBlockProperties(Material.STONE, MaterialColor.STONE).needsPickaxe().requiresCorrectToolForDrops().strength(25f, 9999f).sound(SoundRegistry.RARE_EARTH);
     }
 
+    public static LodestoneBlockProperties MOTE_OF_MANA_PROPERTIES() {
+        return new LodestoneBlockProperties(Material.STONE, MaterialColor.COLOR_CYAN).needsPickaxe().requiresCorrectToolForDrops().strength(25f, 9999f).sound(SoundRegistry.RARE_EARTH);
+    }
+
 
     //region useful blocks
     public static final RegistryObject<Block> SPIRIT_ALTAR = BLOCKS.register("spirit_altar", () -> new SpiritAltarBlock<>(RUNEWOOD_PROPERTIES().isCutoutLayer().noOcclusion()).setBlockEntity(BlockEntityRegistry.SPIRIT_ALTAR));
     public static final RegistryObject<Block> SPIRIT_JAR = BLOCKS.register("spirit_jar", () -> new SpiritJarBlock<>(SPIRIT_JAR_PROPERTIES().isCutoutLayer().noOcclusion()).setBlockEntity(BlockEntityRegistry.SPIRIT_JAR));
     public static final RegistryObject<Block> ALTERATION_PLINTH = BLOCKS.register("alteration_plinth", () -> new AlterationPlinthBlock<>(SOULWOOD_PROPERTIES().isCutoutLayer().noOcclusion()).setBlockEntity(BlockEntityRegistry.ALTERATION_PLINTH));
+
     public static final RegistryObject<Block> SOUL_VIAL = BLOCKS.register("soul_vial", () -> new SoulVialBlock<>(SOUL_VIAL_PROPERTIES().isCutoutLayer().noOcclusion()).setBlockEntity(BlockEntityRegistry.SOUL_VIAL));
     public static final RegistryObject<Block> EMITTER_MIRROR = BLOCKS.register("emitter_mirror", () -> new EmitterMirrorBlock<>(HALLOWED_GOLD_PROPERTIES().isCutoutLayer().noOcclusion()).setBlockEntity(BlockEntityRegistry.EMITTER_MIRROR));
+
+    public static final RegistryObject<Block> MOTE_OF_MANA = BLOCKS.register("mote_of_mana", () -> new Block(TAINTED_ROCK_PROPERTIES().isCutoutLayer().noOcclusion()));
 
     public static final RegistryObject<Block> TWISTED_TABLET = BLOCKS.register("twisted_tablet", () -> new TwistedTabletBlock<>(TAINTED_ROCK_PROPERTIES().isCutoutLayer().noOcclusion()).setBlockEntity(BlockEntityRegistry.TWISTED_TABLET));
 
