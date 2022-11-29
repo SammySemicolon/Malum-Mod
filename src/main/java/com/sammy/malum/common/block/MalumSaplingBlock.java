@@ -3,6 +3,7 @@ package com.sammy.malum.common.block;
 import com.sammy.malum.core.setup.content.block.BlockTagRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.SaplingBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -30,7 +31,7 @@ public class MalumSaplingBlock extends SaplingBlock {
     }
 
     @Override
-    public void advanceTree(ServerLevel level, BlockPos pos, BlockState state, Random rand) {
+    public void advanceTree(ServerLevel level, BlockPos pos, BlockState state, RandomSource rand) {
         if (state.getValue(STAGE) == 0) {
             level.setBlock(pos, state.cycle(STAGE), 4);
         } else {

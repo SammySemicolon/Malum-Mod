@@ -17,6 +17,8 @@ import team.lodestar.lodestone.network.screenshake.PositionedScreenshakePacket;
 import team.lodestar.lodestone.setup.LodestonePacketRegistry;
 import team.lodestar.lodestone.systems.easing.Easing;
 
+import static com.sammy.malum.MalumMod.RANDOM;
+
 public class TheDevice extends Block {
     private final int funnyComparatorNumber;
 

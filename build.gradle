@@ -128,8 +128,9 @@ dependencies {
     runtimeOnly fg.deobf("curse.maven:spark-361579:3824951")
 
     // JEI Dependency
-    compileOnly fg.deobf("mezz.jei:jei-${minecraftVersion}:${jeiVersion}:api")
-    runtimeOnly fg.deobf("mezz.jei:jei-${minecraftVersion}:${jeiVersion}")
+    compileOnly fg.deobf("mezz.jei:jei-${minecraftVersion}-common-api:${jeiVersion}")
+    compileOnly fg.deobf("mezz.jei:jei-${minecraftVersion}-forge-api:${jeiVersion}")
+    runtimeOnly fg.deobf("mezz.jei:jei-${minecraftVersion}-forge:${jeiVersion}")
 
     // Curios dependency
     compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:${minecraftVersion}-${curiosVersion}:api")
@@ -137,17 +138,16 @@ dependencies {
 
     // Use local lodestone when in multiproject
     implementation fg.deobf("team.lodestar.lodestone:lodestone:${minecraftVersion}-${project.lodestoneVersion}")
-    implementation fg.deobf("com.jozufozu.flywheel:Flywheel-Forge:${flywheelVersion}")
+    implementation fg.deobf("com.jozufozu.flywheel:flywheel-forge-${minecraftVersion}:${flywheelVersion}")
 
-    implementation fg.deobf("se.mickelus.mutil:mutil:${minecraftVersion}-${mutilVersion}")
-    implementation fg.deobf("se.mickelus.tetra:tetra:${minecraftVersion}-${tetraVersion}")
+//    implementation fg.deobf("se.mickelus.mutil:mutil:${minecraftVersion}-${mutilVersion}")
+//    implementation fg.deobf("se.mickelus.tetra:tetra:${minecraftVersion}-${tetraVersion}")
 
     // CurseMaven Deps
-    implementation fg.deobf("curse.maven:supplementaries-328085:3872145")
-    implementation fg.deobf("curse.maven:farmers_delight-398521:3739914")
-    implementation fg.deobf("curse.maven:selene-499980:3842421")
-    implementation fg.deobf("curse.maven:supplementaries-412082:3871187")
-    implementation fg.deobf("curse.maven:jeed-532286:3820697")
+    implementation fg.deobf("curse.maven:supplementaries-412082:4120077")
+    implementation fg.deobf("curse.maven:farmers_delight-398521:3999157")
+//    implementation fg.deobf("curse.maven:selene-499980:3842421")
+//    implementation fg.deobf("curse.maven:jeed-532286:3820697")
 //    implementation fg.deobf("curse.maven:quark-243121:3840125")
 //    implementation fg.deobf("curse.maven:autoreglib-250363:3642382")
 }
