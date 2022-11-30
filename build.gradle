@@ -106,7 +106,6 @@ repositories {
         url = "https://maven.tterrag.com/"
     }
     maven { url = 'https://maven.blamejared.com/' }
-    maven { url = 'https://maven.tterrag.com/' }
     maven {
         name = "Curse Maven"
         url "https://cursemaven.com"
@@ -138,16 +137,17 @@ dependencies {
 
     // Use local lodestone when in multiproject
     implementation fg.deobf("team.lodestar.lodestone:lodestone:${minecraftVersion}-${lodestoneVersion}")
-    implementation fg.deobf("com.jozufozu.flywheel:flywheel-forge-${minecraftVersion}:${flywheelVersion}")
-    implementation fg.deobf("com.simibubi.create:create-${minecraftVersion}:${createVersion}:slim")
+//    implementation fg.deobf("com.jozufozu.flywheel:flywheel-forge-${minecraftVersion}:${flywheelVersion}")
+//    implementation fg.deobf("com.simibubi.create:create-${minecraftVersion}:${createVersion}:slim")
 
 //    implementation fg.deobf("se.mickelus.mutil:mutil:${minecraftVersion}-${mutilVersion}")
 //    implementation fg.deobf("se.mickelus.tetra:tetra:${minecraftVersion}-${tetraVersion}")
 
     // CurseMaven Deps
-    implementation fg.deobf("curse.maven:supplementaries-412082:4120077")
+    implementation fg.deobf("curse.maven:supplementaries-412082:4120070")
     implementation fg.deobf("curse.maven:farmers_delight-398521:3999157")
-//    implementation fg.deobf("curse.maven:selene-499980:3842421")
+    implementation fg.deobf("curse.maven:moonlight-499980:4096609")
+    implementation fg.deobf("curse.maven:create-328085:4011414")
 //    implementation fg.deobf("curse.maven:jeed-532286:3820697")
 //    implementation fg.deobf("curse.maven:quark-243121:3840125")
 //    implementation fg.deobf("curse.maven:autoreglib-250363:3642382")
