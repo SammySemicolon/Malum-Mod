@@ -8,6 +8,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
 import java.util.function.Consumer;
@@ -33,7 +34,7 @@ public class SpiritAugmentingRecipeBuilder {
     }
 
     public void build(Consumer<FinishedRecipe> consumerIn) {
-        build(consumerIn, "augment_with_"+ augment.getItems()[0].getItem().getRegistryName().getPath());
+        build(consumerIn, "augment_with_"+ ForgeRegistries.ITEMS.getKey(augment.getItems()[0].getItem()).getPath());
     }
 
     public class Result implements FinishedRecipe {

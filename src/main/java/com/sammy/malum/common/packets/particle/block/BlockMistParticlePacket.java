@@ -35,7 +35,7 @@ public class BlockMistParticlePacket extends BlockParticlePacket {
                 .enableNoClip()
                 .randomOffset(0.1f, 0f)
                 .randomMotion(0.001f, 0.002f)
-                .evenlyRepeatEdges(level, pos, 6, Direction.UP, Direction.DOWN);
+                .repeatSurroundBlock(level, pos, 6, Direction.UP, Direction.DOWN);
 
         ParticleBuilders.create(LodestoneParticleRegistry.SMOKE_PARTICLE)
                 .setAlpha(0.04f, 0.16f, 0)
@@ -47,7 +47,7 @@ public class BlockMistParticlePacket extends BlockParticlePacket {
                 .randomOffset(0.2f, 0)
                 .enableNoClip()
                 .randomMotion(0.001f, 0.002f)
-                .evenlyRepeatEdges(level, pos, 8, Direction.UP, Direction.DOWN);
+                .repeatSurroundBlock(level, pos, 8, Direction.UP, Direction.DOWN);
     }
 
     public static void register(SimpleChannel instance, int index) {

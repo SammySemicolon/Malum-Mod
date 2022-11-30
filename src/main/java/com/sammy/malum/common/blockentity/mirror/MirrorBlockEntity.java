@@ -10,7 +10,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.items.IItemHandler;
 import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntity;
 
@@ -71,7 +71,7 @@ public abstract class MirrorBlockEntity extends LodestoneBlockEntity {
     public void updateAttached() {
         attachedBlockEntity = level.getBlockEntity(getBlockPos().relative(direction.getOpposite()));
         if (attachedBlockEntity != null) {
-            attachedInventory = attachedBlockEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, direction.getOpposite());
+            attachedInventory = attachedBlockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER, direction.getOpposite());
         }
     }
 }

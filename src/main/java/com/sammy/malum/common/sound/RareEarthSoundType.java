@@ -4,6 +4,7 @@ import com.sammy.malum.core.setup.content.SoundRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.MultiPlayerGameMode;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
+import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -39,7 +40,7 @@ public class RareEarthSoundType extends ExtendedSoundType {
             float progress = gameMode.destroyProgress;
             float volume = (getVolume() + progress * progress * 4f) / 12f;
             float pitch = getPitch() * (0.5f + 0.15f * progress);
-            Minecraft.getInstance().getSoundManager().play(new SimpleSoundInstance(SoundEvents.NETHER_GOLD_ORE_HIT, SoundSource.BLOCKS, volume, pitch, pos));
+            Minecraft.getInstance().getSoundManager().play(new SimpleSoundInstance(SoundEvents.NETHER_GOLD_ORE_HIT, SoundSource.BLOCKS, volume, pitch, SoundInstance.createUnseededRandom(), pos));
         }
     }
 }

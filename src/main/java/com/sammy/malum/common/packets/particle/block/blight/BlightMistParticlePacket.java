@@ -51,7 +51,7 @@ public class BlightMistParticlePacket extends LodestoneClientPacket {
                     .randomOffset(0.1f, 0f)
                     .randomMotion(0.005f, 0.01f)
                     .overwriteRenderType(ParticleRenderTypes.TRANSPARENT)
-                    .evenlyRepeatEdges(level, pos, 2, Direction.UP);
+                    .repeatSurroundBlock(level, pos, 2, Direction.UP);
 
             ParticleBuilders.create(LodestoneParticleRegistry.SMOKE_PARTICLE)
                     .setAlpha(0.25f, 0.55f, 0)
@@ -64,7 +64,7 @@ public class BlightMistParticlePacket extends LodestoneClientPacket {
                     .enableNoClip()
                     .randomMotion(0.005f, 0.005f)
                     .overwriteRenderType(ParticleRenderTypes.TRANSPARENT)
-                    .evenlyRepeatEdges(level, pos, 2, Direction.UP);
+                    .repeatSurroundBlock(level, pos, 2, Direction.UP);
 
             color = new Color((int)(80*multiplier), (int)(40*multiplier), (int)(80*multiplier));
             ParticleBuilders.create(LodestoneParticleRegistry.SMOKE_PARTICLE)
@@ -77,7 +77,7 @@ public class BlightMistParticlePacket extends LodestoneClientPacket {
                     .randomOffset(0.2f, 0)
                     .enableNoClip()
                     .randomMotion(0.01f, 0.005f)
-                    .evenlyRepeatEdges(level, pos, 2, Direction.UP);
+                    .repeatSurroundBlock(level, pos, 2, Direction.UP);
         }
     }
 

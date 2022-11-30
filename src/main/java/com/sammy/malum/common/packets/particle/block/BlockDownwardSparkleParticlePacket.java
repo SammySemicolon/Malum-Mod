@@ -3,6 +3,7 @@ package com.sammy.malum.common.packets.particle.block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -27,7 +28,7 @@ public class BlockDownwardSparkleParticlePacket extends BlockParticlePacket
     @Override
     public void execute(Supplier<NetworkEvent.Context> context) {
         Level level = Minecraft.getInstance().level;
-        Random rand = level.random;
+        RandomSource rand = level.random;
         for (int i = 0; i <= 3; i++) {
             int spinDirection = (rand.nextBoolean() ? 1 : -1);
             int spinOffset = rand.nextInt(360);
@@ -69,7 +70,7 @@ public class BlockDownwardSparkleParticlePacket extends BlockParticlePacket
                     .enableNoClip()
                     .addMotion(0, -0.02f, 0)
                     .randomMotion(0.01f, 0.01f)
-                    .repeatEdges(level, pos, 2);
+                    .repeatRandomFace(level, pos, 2);
         }
     }
 

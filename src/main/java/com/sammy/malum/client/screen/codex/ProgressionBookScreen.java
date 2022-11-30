@@ -15,7 +15,6 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -1058,7 +1057,7 @@ public class ProgressionBookScreen extends Screen {
 
     public static void renderWrappingText(PoseStack mStack, String text, int x, int y, int w) {
         Font font = Minecraft.getInstance().font;
-        text = new TranslatableComponent(text).getString() + "\n";
+        text = Component.translatable(text).getString() + "\n";
         List<String> lines = new ArrayList<>();
 
         boolean italic = false;
@@ -1153,7 +1152,7 @@ public class ProgressionBookScreen extends Screen {
     }
 
     public static void renderText(PoseStack stack, String text, int x, int y) {
-        renderText(stack, new TranslatableComponent(text), x, y, getTextGlow(0));
+        renderText(stack, Component.translatable(text), x, y, getTextGlow(0));
     }
 
     public static void renderText(PoseStack stack, Component component, int x, int y) {
@@ -1162,7 +1161,7 @@ public class ProgressionBookScreen extends Screen {
     }
 
     public static void renderText(PoseStack stack, String text, int x, int y, float glow) {
-        renderText(stack, new TranslatableComponent(text), x, y, glow);
+        renderText(stack, Component.translatable(text), x, y, glow);
     }
 
     public static void renderText(PoseStack stack, Component component, int x, int y, float glow) {

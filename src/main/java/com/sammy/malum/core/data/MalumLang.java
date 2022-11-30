@@ -24,6 +24,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.WallSignBlock;
 import net.minecraft.world.level.block.WallTorchBlock;
 import net.minecraftforge.common.data.LanguageProvider;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import team.lodestar.lodestone.helpers.DataHelper;
 
@@ -95,17 +96,17 @@ public class MalumLang extends LanguageProvider {
         effects.forEach(e -> {
             String alteredPath = e.getId().getPath().replaceFirst("s_", "'s_");
             String name = DataHelper.toTitleCase(alteredPath, "_");
-            add("effect.malum." + e.get().getRegistryName().getPath(), name);
+            add("effect.malum." + ForgeRegistries.MOB_EFFECTS.getKey(e.get()).getPath(), name);
         });
 
         attributes.forEach(a -> {
             String name = DataHelper.toTitleCase(a.getId().getPath(), "_");
-            add("attribute.name.malum." + a.get().getRegistryName().getPath(), name);
+            add("attribute.name.malum." + ForgeRegistries.ATTRIBUTES.getKey(a.get()).getPath(), name);
         });
 
         entities.forEach(e -> {
             String name = DataHelper.toTitleCase(e.getId().getPath(), "_");
-            add("entity.malum." + e.get().getRegistryName().getPath(), name);
+            add("entity.malum." + ForgeRegistries.ENTITY_TYPES.getKey(e.get()).getPath(), name);
         });
 
         rites.forEach(r -> {

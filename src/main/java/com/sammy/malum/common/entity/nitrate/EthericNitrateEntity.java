@@ -7,6 +7,7 @@ import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
 import com.sammy.malum.core.setup.content.entity.EntityRegistry;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
@@ -65,7 +66,7 @@ public class EthericNitrateEntity extends AbstractNitrateEntity {
         float extraAlpha = (float) motion.length();
         float cycles = 3;
         Color firstColor = FIRST_COLOR.brighter();
-        Random rand = level.getRandom();
+        RandomSource rand = level.getRandom();
         for (int i = 0; i < cycles; i++) {
             float pDelta = i / cycles;
             double lerpX = Mth.lerp(pDelta, ox, x)-motion.x/4f;

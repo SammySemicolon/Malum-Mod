@@ -15,6 +15,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraftforge.common.Tags;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.lang.reflect.Field;
 import java.nio.file.Path;
@@ -33,7 +34,7 @@ public class MalumVanillaRecipeReplacements extends RecipeProvider {
 
     private void exclude(ItemLike item)
     {
-        excludes.add(item.asItem().getRegistryName());
+        excludes.add(ForgeRegistries.ITEMS.getKey(item.asItem()));
     }
 
     private void replace(ItemLike item, TagKey<Item> tag)
@@ -51,11 +52,6 @@ public class MalumVanillaRecipeReplacements extends RecipeProvider {
             if (modified != null)
                 consumer.accept(modified);
         });
-    }
-
-    @Override
-    protected void saveAdvancement(HashCache cache, JsonObject advancementJson, Path pathIn) {
-        //NOOP - We dont replace any of the advancement things yet...
     }
 
     private FinishedRecipe enhance(FinishedRecipe vanilla)

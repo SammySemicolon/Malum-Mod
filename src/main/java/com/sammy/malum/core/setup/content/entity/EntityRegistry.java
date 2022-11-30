@@ -23,7 +23,7 @@ import team.lodestar.lodestone.systems.entity.LodestoneBoatEntity;
 
 public class EntityRegistry
 {
-    public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITIES, MalumMod.MALUM);
+    public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, MalumMod.MALUM);
 
     public static final RegistryObject<EntityType<PlayerBoundItemEntity>> NATURAL_SPIRIT = ENTITY_TYPES.register("natural_spirit",
             () -> EntityType.Builder.<PlayerBoundItemEntity>of((e, w)->new PlayerBoundItemEntity(w), MobCategory.MISC).sized(0.5F, 0.75F).clientTrackingRange(10)
@@ -69,8 +69,9 @@ public class EntityRegistry
             EntityRenderers.register(EntityRegistry.ETHERIC_NITRATE.get(), EthericNitrateEntityRenderer::new);
             EntityRenderers.register(EntityRegistry.VIVID_NITRATE.get(), VividNitrateEntityRenderer::new);
 
-            EntityRenderers.register(EntityRegistry.RUNEWOOD_BOAT.get(), (manager) -> new MalumBoatRenderer(manager, "runewood"));
-            EntityRenderers.register(EntityRegistry.SOULWOOD_BOAT.get(), (manager) -> new MalumBoatRenderer(manager, "soulwood"));
+            EntityRenderers.register(EntityRegistry.RUNEWOOD_BOAT.get(), (manager) -> new MalumBoatRenderer(manager, "runewood", false));
+            EntityRenderers.register(EntityRegistry.SOULWOOD_BOAT.get(), (manager) -> new MalumBoatRenderer(manager, "soulwood", false));
+            // TODO add chest boats
         }
     }
 }

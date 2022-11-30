@@ -16,12 +16,14 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.registries.ForgeRegistries;
 import team.lodestar.lodestone.helpers.ItemHelper;
 import team.lodestar.lodestone.setup.LodestoneParticleRegistry;
 import team.lodestar.lodestone.setup.LodestoneScreenParticleRegistry;
@@ -35,7 +37,6 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Random;
 
 import static net.minecraft.util.Mth.nextFloat;
 import static net.minecraft.world.entity.EquipmentSlot.MAINHAND;
@@ -109,7 +110,7 @@ public class SpiritHelper {
             attacker = level.getNearestPlayer(position.x, position.y, position.z, 8, e -> true);
         }
         float speed = (0.15f + 0.25f / (totalCount + 1)) * speedMultiplier;
-        Random random = level.random;
+        RandomSource random = level.random;
         for (ItemStack stack : spirits) {
             int count = stack.getCount();
             if (count == 0) {
@@ -143,7 +144,7 @@ public class SpiritHelper {
     }
 
     public static MalumEntitySpiritData getEntitySpiritData(LivingEntity entity) {
-        ResourceLocation key = entity.getType().getRegistryName();
+        ResourceLocation key = ForgeRegistries.ENTITY_TYPES.getKey(entity.getType()) ;
         if (SpiritDataReloadListener.HAS_NO_DATA.contains(key))
             return null;
 
@@ -224,7 +225,7 @@ public class SpiritHelper {
     }
 
     public static void spawnSpiritGlimmerParticles(Level level, double x, double y, double z, float alphaMultiplier, Vec3 extraVelocity, Color color, Color endColor) {
-        Random rand = level.getRandom();
+        RandomSource rand = level.getRandom();
         ParticleBuilders.create(LodestoneParticleRegistry.TWINKLE_PARTICLE)
                 .setAlpha(0.4f * alphaMultiplier, 0f)
                 .setLifetime(5 + rand.nextInt(4))
@@ -246,7 +247,7 @@ public class SpiritHelper {
     }
 
     public static void spawnSpiritParticles(Level level, double x, double y, double z, float alphaMultiplier, Vec3 extraVelocity, Color color, Color endColor) {
-        Random rand = level.getRandom();
+        RandomSource rand = level.getRandom();
         ParticleBuilders.create(LodestoneParticleRegistry.WISP_PARTICLE)
                 .setAlpha(0.275f * alphaMultiplier, 0f)
                 .setLifetime(15 + rand.nextInt(4))
@@ -274,7 +275,7 @@ public class SpiritHelper {
     }
 
     public static void spawnSoulParticles(Level level, double x, double y, double z, float alphaMultiplier, float scaleMultiplier, Vec3 extraVelocity, Color color, Color endColor) {
-        Random rand = level.getRandom();
+        RandomSource rand = level.getRandom();
         ParticleBuilders.create(LodestoneParticleRegistry.WISP_PARTICLE)
                 .setAlpha(0.1f * alphaMultiplier, 0)
                 .setLifetime(8 + rand.nextInt(5))
@@ -328,7 +329,7 @@ public class SpiritHelper {
     }
 
     public static void spawnSpiritScreenParticles(Color color, Color endColor, ItemStack stack, float pXPosition, float pYPosition, ScreenParticle.RenderOrder renderOrder) {
-        Random rand = Minecraft.getInstance().level.getRandom();
+        RandomSource rand = Minecraft.getInstance().level.getRandom();
         ParticleBuilders.create(LodestoneScreenParticleRegistry.SPARKLE)
                 .setAlpha(0.04f, 0f)
                 .setLifetime(10 + rand.nextInt(10))

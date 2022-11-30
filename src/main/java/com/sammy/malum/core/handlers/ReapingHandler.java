@@ -8,6 +8,7 @@ import com.sammy.malum.core.listeners.ReapingDataReloadListener;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
 import com.sammy.malum.core.systems.reaping.MalumReapingDropsData;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobType;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -16,6 +17,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.registries.ForgeRegistries;
 import team.lodestar.lodestone.helpers.ItemHelper;
 
 import java.util.List;
@@ -27,7 +29,7 @@ public class ReapingHandler {
         if (event.isCanceled()) {
             return;
         }
-        LivingEntity target = event.getEntityLiving();
+        LivingEntity target = event.getEntity();
         LivingEntity attacker = null;
         if (event.getSource().getEntity() instanceof LivingEntity directAttacker) {
             attacker = directAttacker;
@@ -45,13 +47,13 @@ public class ReapingHandler {
                 });
             }
         }
-        List<MalumReapingDropsData> data = ReapingDataReloadListener.REAPING_DATA.get(target.getType().getRegistryName());
+        List<MalumReapingDropsData> data = ReapingDataReloadListener.REAPING_DATA.get(ForgeRegistries.ENTITY_TYPES.getKey(target.getType()));
         if (data != null) {
             MalumLivingEntityDataCapability capability = MalumLivingEntityDataCapability.getCapability(target);
             float multiplier = capability.exposedSoul > 0 ? 1 : 0.35f;
             for (MalumReapingDropsData dropData : data) {
                 Level level = target.level;
-                Random random = level.random;
+                RandomSource random = level.random;
                 if (random.nextFloat() < dropData.chance * multiplier) {
                     Ingredient ingredient = dropData.drop;
                     ItemStack stack = ItemHelper.copyWithNewCount(ingredient.getItems()[random.nextInt(ingredient.getItems().length)], Mth.nextInt(random, dropData.min, dropData.max));

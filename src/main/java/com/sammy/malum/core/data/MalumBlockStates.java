@@ -25,6 +25,7 @@ import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.client.model.generators.VariantBlockStateBuilder;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import team.lodestar.lodestone.helpers.DataHelper;
 
@@ -74,8 +75,8 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
         takeAll(blocks, predefinedModels::contains).forEach(this::customBlock);
         takeAll(blocks, layeredModels::contains).forEach(this::layeredBlock);
 
-        DataHelper.takeAll(blocks, b -> b.get().getRegistryName().getPath().startsWith("cut_") && b.get().getRegistryName().getPath().endsWith("_planks")).forEach(this::cutPlanksBlock);
-        DataHelper.takeAll(blocks, b -> b.get().getRegistryName().getPath().startsWith("cut_")).forEach(this::cutBlock);
+        DataHelper.takeAll(blocks, b -> ForgeRegistries.BLOCKS.getKey(b.get()).getPath().startsWith("cut_") && ForgeRegistries.BLOCKS.getKey(b.get()).getPath().endsWith("_planks")).forEach(this::cutPlanksBlock);
+        DataHelper.takeAll(blocks, b -> ForgeRegistries.BLOCKS.getKey(b.get()).getPath().startsWith("cut_")).forEach(this::cutBlock);
         DataHelper.takeAll(blocks, b -> b.get().getDescriptionId().endsWith("_cap")).forEach(this::pillarCapBlock);
 
         DataHelper.takeAll(blocks, b -> b.get() instanceof EtherBrazierBlock).forEach(this::brazierBlock);
@@ -303,14 +304,14 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
 
     public void torchBlock(RegistryObject<Block> blockRegistryObject) {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
-        ModelFile torch = models().torch(blockRegistryObject.get().getRegistryName().getPath(), malumPath("block/" + name));
+        ModelFile torch = models().torch(ForgeRegistries.BLOCKS.getKey(blockRegistryObject.get()).getPath(), malumPath("block/" + name));
 
         getVariantBuilder(blockRegistryObject.get()).forAllStates(s -> ConfiguredModel.builder().modelFile(torch).build());
     }
 
     public void wallTorchBlock(RegistryObject<Block> blockRegistryObject) {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
-        ModelFile torch = models().torchWall(blockRegistryObject.get().getRegistryName().getPath(), malumPath("block/" + name.substring(5)));
+        ModelFile torch = models().torchWall(ForgeRegistries.BLOCKS.getKey(blockRegistryObject.get()).getPath(), malumPath("block/" + name.substring(5)));
 
         getVariantBuilder(blockRegistryObject.get())
                 .partialState().with(WallTorchBlock.FACING, Direction.NORTH)

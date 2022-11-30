@@ -5,6 +5,7 @@ import com.sammy.malum.common.blockentity.totem.TotemPoleBlockEntity;
 import com.sammy.malum.core.setup.content.SoundRegistry;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -17,7 +18,11 @@ import static com.sammy.malum.core.setup.content.block.BlockRegistry.SOULWOOD_TO
 public class TotemCreatedBlightEvent extends ActiveBlightEvent {
     public int totemTakeoverTimer;
 
-    @Override
+    public TotemCreatedBlightEvent(CompoundTag compoundTag) {
+        super();
+    }
+
+	@Override
     public void tick(Level level) {
         if (totemTakeoverTimer == 0) {
             BlockState state = BlockHelper.setBlockStateWithExistingProperties(level, sourcePos, SOULWOOD_TOTEM_BASE.get().defaultBlockState(), 3);

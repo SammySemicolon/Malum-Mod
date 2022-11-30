@@ -7,6 +7,7 @@ import com.sammy.malum.core.helper.SpiritHelper;
 import com.sammy.malum.core.setup.content.entity.EntityRegistry;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
@@ -75,7 +76,7 @@ public class VividNitrateEntity extends AbstractNitrateEntity {
     @Override
     public void onExplode() {
         Vec3 deltaMovement = getDeltaMovement();
-        Random random = level.random;
+        RandomSource random = level.random;
         double x = Mth.lerp(0.5f, deltaMovement.x, Math.min(2, (0.9f + random.nextFloat() * 0.3f) * (random.nextBoolean() ? -deltaMovement.x : deltaMovement.x) + 0.45f - random.nextFloat() * 0.9f));
         double y = Mth.lerp(0.5f, deltaMovement.y, Math.min(2, (deltaMovement.y * (0.7f + random.nextFloat() * 0.3f) + 0.2f + random.nextFloat() * 0.4f)));
         double z = Mth.lerp(0.5f, deltaMovement.z, Math.min(2, (0.9f + random.nextFloat() * 0.3f) * (random.nextBoolean() ? -deltaMovement.z : deltaMovement.z) + 0.45f - random.nextFloat() * 0.9f));
@@ -101,7 +102,7 @@ public class VividNitrateEntity extends AbstractNitrateEntity {
         float cycles = 3;
         Color firstColor = COLOR_FUNCTION.apply(new ColorFunctionData(level, 0f)).brighter();
         Color secondColor = COLOR_FUNCTION.apply(new ColorFunctionData(level, 0.125f)).darker();
-        Random rand = level.getRandom();
+        RandomSource rand = level.getRandom();
         for (int i = 0; i < cycles; i++) {
             float pDelta = i / cycles;
             double lerpX = Mth.lerp(pDelta, ox, x) - motion.x / 4f;

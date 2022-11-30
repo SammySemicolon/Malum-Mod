@@ -8,6 +8,7 @@ import com.sammy.malum.core.setup.content.WorldEventTypes;
 import com.sammy.malum.core.setup.content.block.BlockRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.Level;
@@ -28,6 +29,10 @@ public class ActiveBlightEvent extends WorldEventInstance {
     public Map<Integer, Double> noiseValues;
 
     public ActiveBlightEvent() {
+        super(WorldEventTypes.ACTIVE_BLIGHT);
+    }
+
+    public ActiveBlightEvent(CompoundTag compoundTag) {
         super(WorldEventTypes.ACTIVE_BLIGHT);
     }
 

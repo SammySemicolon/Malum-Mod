@@ -9,6 +9,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -52,7 +53,7 @@ public class AlterationPlinthBlockEntity extends ItemPedestalBlockEntity {
             AugmentingRecipe recipe = AugmentingRecipe.getRecipe(level, target, applied);
             if (recipe != null) {
                 if (!level.isClientSide) {
-                    Random random = level.random;
+                    RandomSource random = level.random;
                     CompoundTag tag = target.getOrCreateTag();
                     CompoundTag modifiedTag = tag.copy().merge(recipe.tagAugment);
                     if (tag.equals(modifiedTag)) {

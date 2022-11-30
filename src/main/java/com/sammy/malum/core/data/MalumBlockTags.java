@@ -10,6 +10,7 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.block.*;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.registries.ForgeRegistries;
 import team.lodestar.lodestone.systems.block.LodestoneBlockProperties;
 import team.lodestar.lodestone.systems.block.LodestoneThrowawayBlockData;
 
@@ -48,16 +49,16 @@ public class MalumBlockTags extends BlockTagsProvider {
         tag(DIRT).add(getModBlocks(b -> b instanceof GrassBlock || b instanceof FarmBlock));
         tag(SAPLINGS).add(getModBlocks(b -> b instanceof SaplingBlock));
 
-        tag(LOGS).add(getModBlocks(b -> b.getRegistryName().getPath().endsWith("_log") || b.getRegistryName().getPath().endsWith("wood")));
-        tag(STRIPPED_LOGS).add(getModBlocks(b -> b.getRegistryName().getPath().startsWith("stripped_") && (b.getRegistryName().getPath().endsWith("_log") || b.getRegistryName().getPath().endsWith("wood"))));
-        tag(PLANKS).add(getModBlocks(b -> b.getRegistryName().getPath().endsWith("_planks")));
-        tag(WOODEN_BUTTONS).add(getModBlocks(b -> b.getRegistryName().getPath().endsWith("_button") && b.getRegistryName().getPath().contains("wood")));
-        tag(WOODEN_FENCES).add(getModBlocks(b -> b.getRegistryName().getPath().endsWith("_fence") && b.getRegistryName().getPath().contains("wood")));
-        tag(WOODEN_DOORS).add(getModBlocks(b -> b.getRegistryName().getPath().endsWith("_door") && b.getRegistryName().getPath().contains("wood")));
-        tag(WOODEN_STAIRS).add(getModBlocks(b -> b.getRegistryName().getPath().endsWith("_stairs") && b.getRegistryName().getPath().contains("wood")));
-        tag(WOODEN_SLABS).add(getModBlocks(b -> b.getRegistryName().getPath().endsWith("_slab") && b.getRegistryName().getPath().contains("wood")));
-        tag(WOODEN_TRAPDOORS).add(getModBlocks(b -> b.getRegistryName().getPath().endsWith("_trapdoor") && b.getRegistryName().getPath().contains("wood")));
-        tag(WOODEN_PRESSURE_PLATES).add(getModBlocks(b -> b.getRegistryName().getPath().endsWith("_pressure_plate") && b.getRegistryName().getPath().contains("wood")));
+        tag(LOGS).add(getModBlocks(b -> ForgeRegistries.BLOCKS.getKey(b).getPath().endsWith("_log") || ForgeRegistries.BLOCKS.getKey(b).getPath().endsWith("wood")));
+        tag(STRIPPED_LOGS).add(getModBlocks(b -> ForgeRegistries.BLOCKS.getKey(b).getPath().startsWith("stripped_") && (ForgeRegistries.BLOCKS.getKey(b).getPath().endsWith("_log") || ForgeRegistries.BLOCKS.getKey(b).getPath().endsWith("wood"))));
+        tag(PLANKS).add(getModBlocks(b -> ForgeRegistries.BLOCKS.getKey(b).getPath().endsWith("_planks")));
+        tag(WOODEN_BUTTONS).add(getModBlocks(b -> ForgeRegistries.BLOCKS.getKey(b).getPath().endsWith("_button") && ForgeRegistries.BLOCKS.getKey(b).getPath().contains("wood")));
+        tag(WOODEN_FENCES).add(getModBlocks(b -> ForgeRegistries.BLOCKS.getKey(b).getPath().endsWith("_fence") && ForgeRegistries.BLOCKS.getKey(b).getPath().contains("wood")));
+        tag(WOODEN_DOORS).add(getModBlocks(b -> ForgeRegistries.BLOCKS.getKey(b).getPath().endsWith("_door") && ForgeRegistries.BLOCKS.getKey(b).getPath().contains("wood")));
+        tag(WOODEN_STAIRS).add(getModBlocks(b -> ForgeRegistries.BLOCKS.getKey(b).getPath().endsWith("_stairs") && ForgeRegistries.BLOCKS.getKey(b).getPath().contains("wood")));
+        tag(WOODEN_SLABS).add(getModBlocks(b -> ForgeRegistries.BLOCKS.getKey(b).getPath().endsWith("_slab") && ForgeRegistries.BLOCKS.getKey(b).getPath().contains("wood")));
+        tag(WOODEN_TRAPDOORS).add(getModBlocks(b -> ForgeRegistries.BLOCKS.getKey(b).getPath().endsWith("_trapdoor") && ForgeRegistries.BLOCKS.getKey(b).getPath().contains("wood")));
+        tag(WOODEN_PRESSURE_PLATES).add(getModBlocks(b -> ForgeRegistries.BLOCKS.getKey(b).getPath().endsWith("_pressure_plate") && ForgeRegistries.BLOCKS.getKey(b).getPath().contains("wood")));
 
         tag(BlockTagRegistry.HEAT_SOURCES).add(BlockRegistry.BLOCK_OF_BLAZING_QUARTZ.get());
         tag(BlockTagRegistry.RUNEWOOD_LOGS).add(BlockRegistry.RUNEWOOD_LOG.get(),BlockRegistry.RUNEWOOD.get(),BlockRegistry.EXPOSED_RUNEWOOD_LOG.get(),BlockRegistry.REVEALED_RUNEWOOD_LOG.get());
@@ -66,10 +67,10 @@ public class MalumBlockTags extends BlockTagsProvider {
         tag(BlockTagRegistry.BLIGHTED_BLOCKS).add(BlockRegistry.BLIGHTED_SOIL.get());
         tag(BlockTagRegistry.BLIGHTED_PLANTS).add(BLIGHTED_WEED.get(), BLIGHTED_TUMOR.get(), SOULWOOD_GROWTH.get());
 
-        for (Block block : getModBlocks(b -> b.getRegistryName().getPath().contains("tainted_"))) {
+        for (Block block : getModBlocks(b -> ForgeRegistries.BLOCKS.getKey(b).getPath().contains("tainted_"))) {
             tag(BlockTagRegistry.TAINTED_ROCK).add(block);
         }
-        for (Block block : getModBlocks(b -> b.getRegistryName().getPath().contains("twisted_"))) {
+        for (Block block : getModBlocks(b -> ForgeRegistries.BLOCKS.getKey(b).getPath().contains("twisted_"))) {
             tag(BlockTagRegistry.TWISTED_ROCK).add(block);
         }
         tag(BlockTagRegistry.RITE_IMMUNE).add(RUNEWOOD_TOTEM_BASE.get(), RUNEWOOD_TOTEM_POLE.get(), SOULWOOD_TOTEM_BASE.get(), SOULWOOD_TOTEM_POLE.get());

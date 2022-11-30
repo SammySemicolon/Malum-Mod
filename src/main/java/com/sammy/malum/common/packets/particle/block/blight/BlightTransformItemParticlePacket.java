@@ -6,6 +6,7 @@ import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
@@ -34,7 +35,7 @@ public class BlightTransformItemParticlePacket extends SpiritBasedParticleEffect
     @Override
     public void execute(Supplier<NetworkEvent.Context> context) {
         Level level = Minecraft.getInstance().level;
-        Random rand = level.random;
+        RandomSource rand = level.random;
         List<MalumSpiritType> types = new ArrayList<>();
         for (String string : spirits) {
             types.add(SpiritHelper.getSpiritType(string));

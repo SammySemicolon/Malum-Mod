@@ -2,6 +2,7 @@ package com.sammy.malum.common.sound;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
+import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -38,6 +39,6 @@ public class QuartzClusterSoundType extends ExtendedSoundType {
     @Override
     @OnlyIn(value = Dist.CLIENT)
     public void onPlayHitSound(BlockPos pos) {
-        Minecraft.getInstance().getSoundManager().play(new SimpleSoundInstance(SoundEvents.AMETHYST_CLUSTER_HIT, SoundSource.BLOCKS, (getVolume() + 2.0F) / 16.0F, getPitch() * 1.65F, pos));
+        Minecraft.getInstance().getSoundManager().play(new SimpleSoundInstance(SoundEvents.AMETHYST_CLUSTER_HIT, SoundSource.BLOCKS, (getVolume() + 2.0F) / 16.0F, getPitch() * 1.65F, SoundInstance.createUnseededRandom(), pos));
     }
 }
