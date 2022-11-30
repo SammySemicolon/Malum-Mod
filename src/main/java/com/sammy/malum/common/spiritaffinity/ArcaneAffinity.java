@@ -21,7 +21,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.client.gui.ForgeIngameGui;
+import net.minecraftforge.client.gui.overlay.ForgeGui;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import team.lodestar.lodestone.handlers.ScreenParticleHandler;
@@ -63,7 +63,7 @@ public class ArcaneAffinity extends MalumSpiritAffinity {
         if (event.isCanceled() || event.getAmount() <= 0) {
             return;
         }
-        if (event.getEntityLiving() instanceof Player player) {
+        if (event.getEntity() instanceof Player player) {
             if (!player.level.isClientSide) {
                 MalumPlayerDataCapability.getCapabilityOptional(player).ifPresent(c -> {
                     c.soulWardProgress = getSoulWardCooldown(0) + getSoulWardCooldown(player);
@@ -121,7 +121,7 @@ public class ArcaneAffinity extends MalumSpiritAffinity {
     public static class ClientOnly {
         private static final ResourceLocation DEFAULT_SOUL_WARD = MalumMod.malumPath("textures/gui/soul_ward/default.png");
 
-        public static void renderSoulWard(ForgeIngameGui gui, PoseStack poseStack, int width, int height) {
+        public static void renderSoulWard(ForgeGui gui, PoseStack poseStack, int width, int height) {
             Minecraft minecraft = Minecraft.getInstance();
             if (!minecraft.options.hideGui && gui.shouldDrawSurvivalElements()) {
                 gui.setupOverlayRenderState(true, false);
@@ -134,7 +134,7 @@ public class ArcaneAffinity extends MalumSpiritAffinity {
                             float armor = (float) player.getAttribute(Attributes.ARMOR).getValue();
 
                             int left = width / 2 - 91;
-                            int top = height - gui.left_height;
+                            int top = height - gui.leftHeight;
 
                             if (armor == 0) {
                                 top += 4;

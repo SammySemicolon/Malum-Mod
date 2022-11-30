@@ -19,8 +19,8 @@ import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodData;
-import net.minecraftforge.client.event.RenderGameOverlayEvent;
-import net.minecraftforge.client.gui.ForgeIngameGui;
+import net.minecraftforge.client.event.RenderGuiEvent;
+import net.minecraftforge.client.gui.overlay.ForgeGui;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import team.lodestar.lodestone.setup.LodestoneShaderRegistry;
@@ -96,18 +96,18 @@ public class EarthenAffinity extends MalumSpiritAffinity {
     public static class ClientOnly {
         private static final ResourceLocation ICONS_TEXTURE = MalumMod.malumPath("textures/gui/icons.png");
 
-        public static void renderHeartOfStone(RenderGameOverlayEvent.Post event) {
+        public static void renderHeartOfStone(RenderGuiEvent.Post event) {
             Minecraft minecraft = Minecraft.getInstance();
             LocalPlayer player = minecraft.player;
-            if (event.getType() == RenderGameOverlayEvent.ElementType.ALL && !player.isCreative() && !player.isSpectator()) {
+            if (!player.isCreative() && !player.isSpectator()) {
                 MalumPlayerDataCapability.getCapabilityOptional(player).ifPresent(c -> {
-                    PoseStack poseStack = event.getMatrixStack();
+                    PoseStack poseStack = event.getPoseStack();
 
                     float absorb = Mth.ceil(player.getAbsorptionAmount());
                     float maxHealth = (float) player.getAttribute(Attributes.MAX_HEALTH).getValue();
 
                     int left = event.getWindow().getGuiScaledWidth() / 2 - 91;
-                    int top = event.getWindow().getGuiScaledHeight() - ((ForgeIngameGui) Minecraft.getInstance().gui).left_height;
+                    int top = event.getWindow().getGuiScaledHeight() - ((ForgeGui) Minecraft.getInstance().gui).leftHeight;
 
                     int healthRows = Mth.ceil((maxHealth + absorb) / 2.0F / 10.0F);
                     int rowHeight = Math.max(10 - (healthRows - 2), 3);

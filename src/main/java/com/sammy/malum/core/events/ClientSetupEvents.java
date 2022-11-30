@@ -7,11 +7,10 @@ import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.world.entity.EntityType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
-import net.minecraftforge.client.gui.ForgeIngameGui;
-import net.minecraftforge.client.gui.OverlayRegistry;
+import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
+import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
 import java.util.Map;
 
@@ -26,8 +25,8 @@ public class ClientSetupEvents {
     }
 
     @SubscribeEvent
-    public static void registerOverlays(FMLClientSetupEvent event) {
-        OverlayRegistry.registerOverlayAbove(ForgeIngameGui.ARMOR_LEVEL_ELEMENT, "Soul Ward", (gui, poseStack, partialTick, width, height) ->
-                ArcaneAffinity.ClientOnly.renderSoulWard(gui, poseStack, width, height));
+    public static void registerOverlays(RegisterGuiOverlaysEvent event) {
+        event.registerAbove(VanillaGuiOverlay.ARMOR_LEVEL.id(), "Soul Ward", (gui, poseStack, partialTick, width, height) ->
+            ArcaneAffinity.ClientOnly.renderSoulWard(gui, poseStack, width, height));
     }
 }

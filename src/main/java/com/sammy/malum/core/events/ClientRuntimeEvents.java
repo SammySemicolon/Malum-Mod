@@ -2,7 +2,7 @@ package com.sammy.malum.core.events;
 
 import com.sammy.malum.common.spiritaffinity.EarthenAffinity;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.RenderGameOverlayEvent;
+import net.minecraftforge.client.event.RenderGuiOverlayEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -10,7 +10,7 @@ import net.minecraftforge.fml.common.Mod;
 public class ClientRuntimeEvents {
 
     @SubscribeEvent
-    public static void renderOverlay(RenderGameOverlayEvent.Post event) {
+    public static void renderOverlay(RenderGuiOverlayEvent.Post event) {
         EarthenAffinity.ClientOnly.renderHeartOfStone(event);
     }
 }
