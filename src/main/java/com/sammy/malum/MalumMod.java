@@ -10,6 +10,7 @@ import com.sammy.malum.core.data.*;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.BlockTagsProvider;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.RandomSource;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -40,7 +41,7 @@ import static com.sammy.malum.core.setup.content.worldgen.FeatureRegistry.FEATUR
 public class MalumMod {
     public static final Logger LOGGER = LogManager.getLogger();
     public static final String MALUM = "malum";
-    public static final Random RANDOM = new Random();
+    public static final RandomSource RANDOM = RandomSource.create();
 
     public MalumMod() {
         IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();

@@ -4,7 +4,7 @@ import com.sammy.malum.config.CommonConfig;
 import com.sammy.malum.core.setup.content.worldgen.FeatureRegistry;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.levelgen.GenerationStep;
-import net.minecraftforge.event.world.BiomeLoadingEvent;
+import net.minecraftforge.event.level.BiomeLoadingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 

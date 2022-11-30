@@ -43,7 +43,7 @@ public class SpiritHarvestHandler {
         if (event.isCanceled() || event.getAmount() <= 0) {
             return;
         }
-        LivingEntity target = event.getEntityLiving();
+        LivingEntity target = event.getEntity();
         DamageSource source = event.getSource();
         if (source.getEntity() instanceof LivingEntity attacker) {
             ItemStack stack = attacker.getMainHandItem();
@@ -65,10 +65,10 @@ public class SpiritHarvestHandler {
             return;
         }
         if (event.getSource().getMsgId().equals(DamageSourceRegistry.SOUL_STRIKE_IDENTIFIER)) {
-            SpiritHelper.createSpiritEntities(event.getEntityLiving());
+            SpiritHelper.createSpiritEntities(event.getEntity());
             return;
         }
-        LivingEntity target = event.getEntityLiving();
+        LivingEntity target = event.getEntity();
         LivingEntity attacker = null;
         if (event.getSource().getEntity() instanceof LivingEntity directAttacker) {
             attacker = directAttacker;
@@ -99,7 +99,7 @@ public class SpiritHarvestHandler {
         if (event.isCanceled()) {
             return;
         }
-        LivingEntity entityLiving = event.getEntityLiving();
+        LivingEntity entityLiving = event.getEntity();
         MalumLivingEntityDataCapability capability = MalumLivingEntityDataCapability.getCapability(entityLiving);
         if (capability.soulsToApplyToDrops != null) {
             MalumEntitySpiritData spiritData = SpiritHelper.getEntitySpiritData(entityLiving);
@@ -128,7 +128,7 @@ public class SpiritHarvestHandler {
             return;
         }
 
-        ItemEntity entity = event.getEntityItem();
+        ItemEntity entity = event.getEntity();
         if (entity.level instanceof ServerLevel level) {
             MalumItemDataCapability.getCapabilityOptional(entity).ifPresent((e) -> {
                 // And here is where particles would go.

@@ -35,12 +35,12 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.item.ItemExpireEvent;
 import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.event.world.ExplosionEvent;
+import net.minecraftforge.event.level.ExplosionEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -56,7 +56,7 @@ public class RuntimeEvents {
     }
 
     @SubscribeEvent
-    public static void onEntityJoin(EntityJoinWorldEvent event) {
+    public static void onEntityJoin(EntityJoinLevelEvent event) {
         MalumPlayerDataCapability.playerJoin(event);
         CurioTokenOfGratitude.giveItem(event);
         SoulHarvestHandler.addEntity(event);
@@ -69,11 +69,11 @@ public class RuntimeEvents {
     @SubscribeEvent
     public static void playerLeftClick(PlayerInteractEvent.LeftClickBlock event) {
         BlockPos pos = event.getPos();
-        Level level = event.getWorld();
+        Level level = event.getLevel();
         BlockState state = level.getBlockState(pos);
         Block block = state.getBlock();
         if (block instanceof SpiritJarBlock jarBlock) {
-            Player player = event.getPlayer();
+            Player player = event.getEntity();
             BlockHitResult target = Item.getPlayerPOVHitResult(level, player, ClipContext.Fluid.NONE);
             if (target.getType() == HitResult.Type.BLOCK && target.getBlockPos().equals(pos) && target.getDirection().getAxis() == Direction.Axis.X) {
                 if (player.isCreative()) {
@@ -110,7 +110,7 @@ public class RuntimeEvents {
     }
 
     @SubscribeEvent
-    public static void onLivingTick(LivingEvent.LivingUpdateEvent event) {
+    public static void onLivingTick(LivingEvent.LivingTickEvent event) {
         SoulHarvestHandler.entityTick(event);
     }
 
@@ -149,12 +149,12 @@ public class RuntimeEvents {
     }
 
     @SubscribeEvent
-    public static void isPotionApplicable(PotionEvent.PotionApplicableEvent event) {
+    public static void isPotionApplicable(MobEffectEvent.Applicable event) {
         GluttonyEffect.canApplyPotion(event);
     }
 
     @SubscribeEvent
-    public static void onPotionApplied(PotionEvent.PotionAddedEvent event) {
+    public static void onPotionApplied(MobEffectEvent.Added event) {
         CurioAlchemicalRing.onPotionApplied(event);
     }
 

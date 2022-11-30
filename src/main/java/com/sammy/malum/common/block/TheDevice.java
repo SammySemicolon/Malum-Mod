@@ -11,6 +11,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.PacketDistributor;
 import team.lodestar.lodestone.helpers.BlockHelper;
 import team.lodestar.lodestone.network.screenshake.PositionedScreenshakePacket;
@@ -57,7 +58,7 @@ public class TheDevice extends Block {
 
     public void playSound(Level level, BlockPos pos) {
         if (level instanceof ServerLevel serverLevel) {
-            LodestonePacketRegistry.ORTUS_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> serverLevel.getChunkAt(pos)), new PositionedScreenshakePacket(40, BlockHelper.fromBlockPos(pos),4f,10f, Easing.EXPO_OUT).setIntensity(4f, 0));
+            LodestonePacketRegistry.ORTUS_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> serverLevel.getChunkAt(pos)), new PositionedScreenshakePacket(40, new Vec3(pos.getX(), pos.getY(), pos.getZ()),4f,10f, Easing.EXPO_OUT).setIntensity(4f, 0));
         }
         level.playSound(null, pos, SoundRegistry.SUSPICIOUS_SOUND.get(), SoundSource.BLOCKS, 1, 1);
     }

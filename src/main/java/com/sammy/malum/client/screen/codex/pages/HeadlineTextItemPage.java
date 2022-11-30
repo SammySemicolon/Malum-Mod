@@ -5,7 +5,6 @@ import com.sammy.malum.MalumMod;
 import com.sammy.malum.client.screen.codex.ProgressionBookScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
@@ -39,7 +38,7 @@ public class HeadlineTextItemPage extends BookPage
     {
         int guiLeft = guiLeft();
         int guiTop = guiTop();
-        Component component = new TranslatableComponent(headlineTranslationKey());
+        Component component = Component.translatable(headlineTranslationKey());
         ProgressionBookScreen.renderText(poseStack, component, guiLeft+75 - minecraft.font.width(component.getString())/2,guiTop+10);
         ProgressionBookScreen.renderWrappingText(poseStack, translationKey(), guiLeft+14,guiTop+76,126);
         ProgressionBookScreen.renderItem(poseStack, spiritStack, guiLeft+67, guiTop+44,mouseX,mouseY);
@@ -50,7 +49,7 @@ public class HeadlineTextItemPage extends BookPage
     {
         int guiLeft = guiLeft();
         int guiTop = guiTop();
-        Component component = new TranslatableComponent(headlineTranslationKey());
+        Component component = Component.translatable(headlineTranslationKey());
         ProgressionBookScreen.renderText(poseStack, component, guiLeft+218 - minecraft.font.width(component.getString())/2,guiTop+10);
         ProgressionBookScreen.renderWrappingText(poseStack, translationKey(), guiLeft+156,guiTop+76,126);
         ProgressionBookScreen.renderItem(poseStack, spiritStack, guiLeft+209, guiTop+44,mouseX,mouseY);

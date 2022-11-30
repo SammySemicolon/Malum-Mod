@@ -6,7 +6,6 @@ import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
 import com.sammy.malum.core.setup.content.block.BlockRegistry;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
@@ -60,11 +59,11 @@ public class MalumSpiritType {
     }
 
     public Component getCountComponent(int count) {
-        return new TextComponent(" " + count + " ").append(new TranslatableComponent(getDescription())).withStyle(Style.EMPTY.withColor(color.getRGB()));
+        return Component.literal(" " + count + " ").append(Component.translatable(getDescription())).withStyle(Style.EMPTY.withColor(color.getRGB()));
     }
 
     public Component getFlavourComponent(ItemStack stack) {
-        return new TranslatableComponent(getFlavourText()).withStyle(ChatFormatting.ITALIC).withStyle(Style.EMPTY.withColor(ColorHelper.darker(color, 1, 0.75f).getRGB()));
+        return Component.translatable(getFlavourText()).withStyle(ChatFormatting.ITALIC).withStyle(Style.EMPTY.withColor(ColorHelper.darker(color, 1, 0.75f).getRGB()));
     }
 
     public String getDescription() {

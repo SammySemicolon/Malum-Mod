@@ -3,7 +3,6 @@ package com.sammy.malum.client.screen.codex;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector4f;
-import com.sammy.malum.MalumMod;
 import com.sammy.malum.client.screen.codex.objects.*;
 import com.sammy.malum.client.screen.codex.pages.*;
 import com.sammy.malum.common.events.SetupMalumCodexEntriesEvent;
@@ -80,7 +79,7 @@ public class ProgressionBookScreen extends Screen {
     public static List<BookObject> OBJECTS = new ArrayList<>();
 
     protected ProgressionBookScreen() {
-        super(new TranslatableComponent("malum.gui.book.title"));
+        super(Component.translatable("malum.gui.book.title"));
         minecraft = Minecraft.getInstance();
         setupEntries();
         MinecraftForge.EVENT_BUS.post(new SetupMalumCodexEntriesEvent());

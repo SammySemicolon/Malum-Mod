@@ -3,13 +3,9 @@ package com.sammy.malum.core.events;
 import com.sammy.malum.common.capability.MalumItemDataCapability;
 import com.sammy.malum.common.capability.MalumLivingEntityDataCapability;
 import com.sammy.malum.common.capability.MalumPlayerDataCapability;
-import com.sammy.malum.core.handlers.MissingMappingHandler;
 import com.sammy.malum.core.setup.client.ParticleRegistry;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.Block;
-import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
+import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
-import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -22,18 +18,9 @@ public class SetupEvents {
         MalumLivingEntityDataCapability.registerCapabilities(event);
         MalumItemDataCapability.registerCapabilities(event);
     }
-    @SubscribeEvent
-    public static void correctMissingItemMappings(RegistryEvent.MissingMappings<Item> event) {
-        MissingMappingHandler.correctMissingItemMappings(event);
-    }
 
     @SubscribeEvent
-    public static void correctMissingBlockMappings(RegistryEvent.MissingMappings<Block> event) {
-        MissingMappingHandler.correctMissingBlockMappings(event);
-    }
-
-    @SubscribeEvent
-    public static void registerParticleFactory(ParticleFactoryRegisterEvent event) {
+    public static void registerParticleFactory(RegisterParticleProvidersEvent event) {
         ParticleRegistry.registerParticleFactory(event);
     }
 

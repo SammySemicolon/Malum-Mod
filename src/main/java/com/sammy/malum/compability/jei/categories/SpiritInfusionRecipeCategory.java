@@ -16,7 +16,6 @@ import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
@@ -51,23 +50,9 @@ public class SpiritInfusionRecipeCategory implements IRecipeCategory<SpiritInfus
         return JEIHandler.SPIRIT_INFUSION;
     }
 
-    @Nonnull
-    @Override
-    @SuppressWarnings("removal")
-    public ResourceLocation getUid() {
-        return UID;
-    }
-
-    @Nonnull
-    @Override
-    @SuppressWarnings("removal")
-    public Class<? extends SpiritInfusionRecipe> getRecipeClass() {
-        return SpiritInfusionRecipe.class;
-    }
-
     @Override
     public Component getTitle() {
-        return new TranslatableComponent("malum.jei." + UID.getPath());
+        return Component.translatable("malum.jei." + UID.getPath());
     }
 
     @Nonnull

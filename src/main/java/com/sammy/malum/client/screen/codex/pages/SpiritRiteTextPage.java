@@ -6,7 +6,6 @@ import com.sammy.malum.client.screen.codex.ProgressionBookScreen;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 
 public class SpiritRiteTextPage extends BookPage {
     public final MalumRiteType riteType;
@@ -30,7 +29,7 @@ public class SpiritRiteTextPage extends BookPage {
     public void renderLeft(Minecraft minecraft, PoseStack poseStack, float xOffset, float yOffset, int mouseX, int mouseY, float partialTicks) {
         int guiLeft = guiLeft();
         int guiTop = guiTop();
-        Component component = new TranslatableComponent(headlineTranslationKey());
+        Component component = Component.translatable(headlineTranslationKey());
         ProgressionBookScreen.renderText(poseStack, component, guiLeft + 75 - minecraft.font.width(component.getString()) / 2, guiTop + 10);
         ProgressionBookScreen.renderWrappingText(poseStack, translationKey(), guiLeft + 14, guiTop + 76, 126);
         ProgressionBookScreen.renderRiteIcon(riteType, poseStack, isCorrupted(), guiLeft + 67, guiTop + 44);
@@ -40,7 +39,7 @@ public class SpiritRiteTextPage extends BookPage {
     public void renderRight(Minecraft minecraft, PoseStack poseStack, float xOffset, float yOffset, int mouseX, int mouseY, float partialTicks) {
         int guiLeft = guiLeft();
         int guiTop = guiTop();
-        Component component = new TranslatableComponent(headlineTranslationKey());
+        Component component = Component.translatable(headlineTranslationKey());
         ProgressionBookScreen.renderText(poseStack, component, guiLeft + 218 - minecraft.font.width(component.getString()) / 2, guiTop + 10);
         ProgressionBookScreen.renderWrappingText(poseStack, translationKey(), guiLeft + 156, guiTop + 76, 126);
         ProgressionBookScreen.renderRiteIcon(riteType, poseStack, isCorrupted(), guiLeft + 209, guiTop + 44);

@@ -8,7 +8,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.items.ItemHandlerHelper;
 import org.jetbrains.annotations.NotNull;
 import team.lodestar.lodestone.helpers.CurioHelper;
@@ -16,7 +16,6 @@ import team.lodestar.lodestone.systems.item.IEventResponderItem;
 import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.type.capability.ICurio;
 
-import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -86,7 +85,7 @@ public class CurioTokenOfGratitude extends MalumCurioItem implements IEventRespo
         return ALWAYS_KEEP;
     }
 
-    public static void giveItem(EntityJoinWorldEvent event) {
+    public static void giveItem(EntityJoinLevelEvent event) {
         if (event.getEntity() instanceof Player playerEntity) {
             if (!playerEntity.level.isClientSide) {
                 if (GRADITUDE_CERTIFIED.stream().anyMatch(u -> u.equals(playerEntity.getUUID()))) {

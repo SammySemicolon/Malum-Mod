@@ -30,7 +30,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingSetAttackTargetEvent;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent;
@@ -53,18 +53,17 @@ public class SoulHarvestHandler {
 
     public static void specialSpawn(LivingSpawnEvent.SpecialSpawn event) {
         if (event.getSpawnReason() != null) {
-            if (event.getEntity() instanceof LivingEntity livingEntity) {
-                MalumLivingEntityDataCapability.getCapabilityOptional(livingEntity).ifPresent(ec -> {
-                    if (event.getSpawnReason().equals(MobSpawnType.SPAWNER)) {
-                        ec.spawnerSpawned = true;
-                    }
-                });
-            }
+            MalumLivingEntityDataCapability.getCapabilityOptional(event.getEntity()).ifPresent(ec -> {
+                if (event.getSpawnReason().equals(MobSpawnType.SPAWNER)) {
+                    ec.spawnerSpawned = true;
+                }
+            });
+
         }
     }
 
 
-    public static void addEntity(EntityJoinWorldEvent event) {
+    public static void addEntity(EntityJoinLevelEvent event) {
         if (event.getEntity() instanceof LivingEntity livingEntity) {
             MalumLivingEntityDataCapability.getCapabilityOptional(livingEntity).ifPresent(ec -> {
                 if (livingEntity instanceof Mob mob) {
@@ -77,7 +76,7 @@ public class SoulHarvestHandler {
     }
 
     public static void entityTarget(LivingSetAttackTargetEvent event) {
-        if (event.getEntityLiving() instanceof Mob mob) {
+        if (event.getEntity() instanceof Mob mob) {
             MalumLivingEntityDataCapability.getCapabilityOptional(mob).ifPresent(ec -> {
                 if (ec.soulless) {
                     mob.target = null;
@@ -86,8 +85,8 @@ public class SoulHarvestHandler {
         }
     }
 
-    public static void entityTick(LivingEvent.LivingUpdateEvent event) {
-        LivingEntity entity = event.getEntityLiving();
+    public static void entityTick(LivingEvent.LivingTickEvent event) {
+        LivingEntity entity = event.getEntity();
         MalumLivingEntityDataCapability.getCapabilityOptional(entity).ifPresent(ec -> {
             if (ec.exposedSoul > 0) {
                 ec.exposedSoul--;

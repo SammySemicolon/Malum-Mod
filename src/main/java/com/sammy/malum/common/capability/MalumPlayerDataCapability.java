@@ -16,7 +16,7 @@ import net.minecraftforge.common.capabilities.CapabilityToken;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
-import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.network.PacketDistributor;
 import team.lodestar.lodestone.systems.capability.LodestoneCapability;
@@ -58,7 +58,7 @@ public class MalumPlayerDataCapability implements LodestoneCapability {
         }
     }
 
-    public static void playerJoin(EntityJoinWorldEvent event) {
+    public static void playerJoin(EntityJoinLevelEvent event) {
         if (event.getEntity() instanceof Player player) {
             if (player instanceof ServerPlayer serverPlayer) {
                 syncSelf(serverPlayer);
@@ -76,7 +76,7 @@ public class MalumPlayerDataCapability implements LodestoneCapability {
 
     public static void playerClone(PlayerEvent.Clone event) {
         MalumPlayerDataCapability originalCapability = MalumPlayerDataCapability.getCapabilityOptional(event.getOriginal()).orElse(new MalumPlayerDataCapability());
-        MalumPlayerDataCapability capability = MalumPlayerDataCapability.getCapabilityOptional(event.getPlayer()).orElse(new MalumPlayerDataCapability());
+        MalumPlayerDataCapability capability = MalumPlayerDataCapability.getCapabilityOptional(event.getEntity()).orElse(new MalumPlayerDataCapability());
         capability.deserializeNBT(originalCapability.serializeNBT());
     }
 

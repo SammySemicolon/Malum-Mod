@@ -36,7 +36,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.ColorHandlerEvent;
+import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.DeferredRegister;
@@ -443,21 +443,21 @@ public class BlockRegistry {
 
     public static final RegistryObject<Block> BLOCK_OF_ARCANE_CHARCOAL = BLOCKS.register("block_of_arcane_charcoal", () -> new Block(ARCANE_CHARCOAL_PROPERTIES()));
 
-    public static final RegistryObject<Block> BLAZING_QUARTZ_ORE = BLOCKS.register("blazing_quartz_ore", () -> new OreBlock(BLAZE_QUARTZ_ORE_PROPERTIES().isCutoutLayer().lightLevel((b) -> 6), UniformInt.of(4, 7)));
+    public static final RegistryObject<Block> BLAZING_QUARTZ_ORE = BLOCKS.register("blazing_quartz_ore", () -> new DropExperienceBlock(BLAZE_QUARTZ_ORE_PROPERTIES().isCutoutLayer().lightLevel((b) -> 6), UniformInt.of(4, 7)));
     public static final RegistryObject<Block> BLOCK_OF_BLAZING_QUARTZ = BLOCKS.register("block_of_blazing_quartz", () -> new Block(BLAZE_QUARTZ_PROPERTIES().lightLevel((b) -> 14)));
 
-    public static final RegistryObject<Block> NATURAL_QUARTZ_ORE = BLOCKS.register("natural_quartz_ore", () -> new OreBlock(NATURAL_QUARTZ_PROPERTIES().isCutoutLayer(), UniformInt.of(1, 4)));
-    public static final RegistryObject<Block> DEEPSLATE_QUARTZ_ORE = BLOCKS.register("deepslate_quartz_ore", () -> new OreBlock(DEEPSLATE_QUARTZ_PROPERTIES().isCutoutLayer(), UniformInt.of(2, 5)));
+    public static final RegistryObject<Block> NATURAL_QUARTZ_ORE = BLOCKS.register("natural_quartz_ore", () -> new DropExperienceBlock(NATURAL_QUARTZ_PROPERTIES().isCutoutLayer(), UniformInt.of(1, 4)));
+    public static final RegistryObject<Block> DEEPSLATE_QUARTZ_ORE = BLOCKS.register("deepslate_quartz_ore", () -> new DropExperienceBlock(DEEPSLATE_QUARTZ_PROPERTIES().isCutoutLayer(), UniformInt.of(2, 5)));
     public static final RegistryObject<Block> NATURAL_QUARTZ_CLUSTER = BLOCKS.register("natural_quartz_cluster", () -> new AmethystClusterBlock(6, 3, NATURAL_QUARTZ_CLUSTER_PROPERTIES().isCutoutLayer()));
 
-    public static final RegistryObject<Block> BLOCK_OF_RARE_EARTHS = BLOCKS.register("block_of_rare_earths", () -> new OreBlock(RARE_EARTH_PROPERTIES(), UniformInt.of(10, 100)));
+    public static final RegistryObject<Block> BLOCK_OF_RARE_EARTHS = BLOCKS.register("block_of_rare_earths", () -> new DropExperienceBlock(RARE_EARTH_PROPERTIES(), UniformInt.of(10, 100)));
 
-    public static final RegistryObject<Block> BRILLIANT_STONE = BLOCKS.register("brilliant_stone", () -> new OreBlock(BRILLIANCE_PROPERTIES().isCutoutLayer(), UniformInt.of(14, 18)));
-    public static final RegistryObject<Block> BRILLIANT_DEEPSLATE = BLOCKS.register("brilliant_deepslate", () -> new OreBlock(DEEPSLATE_BRILLIANCE_PROPERTIES().isCutoutLayer(), UniformInt.of(16, 26)));
+    public static final RegistryObject<Block> BRILLIANT_STONE = BLOCKS.register("brilliant_stone", () -> new DropExperienceBlock(BRILLIANCE_PROPERTIES().isCutoutLayer(), UniformInt.of(14, 18)));
+    public static final RegistryObject<Block> BRILLIANT_DEEPSLATE = BLOCKS.register("brilliant_deepslate", () -> new DropExperienceBlock(DEEPSLATE_BRILLIANCE_PROPERTIES().isCutoutLayer(), UniformInt.of(16, 26)));
     public static final RegistryObject<Block> BLOCK_OF_BRILLIANCE = BLOCKS.register("block_of_brilliance", () -> new Block(BRILLIANCE_PROPERTIES()));
 
-    public static final RegistryObject<Block> SOULSTONE_ORE = BLOCKS.register("soulstone_ore", () -> new OreBlock(SOULSTONE_PROPERTIES()));
-    public static final RegistryObject<Block> DEEPSLATE_SOULSTONE_ORE = BLOCKS.register("deepslate_soulstone_ore", () -> new OreBlock(DEEPSLATE_SOULSTONE_PROPERTIES().strength(6f, 4f)));
+    public static final RegistryObject<Block> SOULSTONE_ORE = BLOCKS.register("soulstone_ore", () -> new DropExperienceBlock(SOULSTONE_PROPERTIES()));
+    public static final RegistryObject<Block> DEEPSLATE_SOULSTONE_ORE = BLOCKS.register("deepslate_soulstone_ore", () -> new DropExperienceBlock(DEEPSLATE_SOULSTONE_PROPERTIES().strength(6f, 4f)));
     public static final RegistryObject<Block> BLOCK_OF_RAW_SOULSTONE = BLOCKS.register("block_of_raw_soulstone", () -> new Block(SOULSTONE_PROPERTIES()));
     public static final RegistryObject<Block> BLOCK_OF_SOULSTONE = BLOCKS.register("block_of_soulstone", () -> new Block(SOULSTONE_PROPERTIES()));
 
@@ -479,7 +479,7 @@ public class BlockRegistry {
     public static class ClientOnly {
 
         @SubscribeEvent
-        public static void setBlockColors(ColorHandlerEvent.Block event) {
+        public static void setBlockColors(RegisterColorHandlersEvent.Block event) {
             BlockColors blockColors = event.getBlockColors();
             Set<RegistryObject<Block>> blocks = new HashSet<>(BLOCKS.getEntries());
             DataHelper.takeAll(blocks, b -> b.get() instanceof EtherTorchBlock || b.get() instanceof EtherWallTorchBlock).forEach(b -> blockColors.register((s, l, p, c) -> {

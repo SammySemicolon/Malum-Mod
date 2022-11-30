@@ -7,7 +7,7 @@ import com.sammy.malum.client.screen.codex.pages.BookPage;
 import com.sammy.malum.config.ClientConfig;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -30,7 +30,7 @@ public class EntryScreen extends Screen {
     public int grouping;
 
     public EntryScreen() {
-        super(new TranslatableComponent("malum.gui.entry.title"));
+        super(Component.translatable("malum.gui.entry.title"));
     }
 
 

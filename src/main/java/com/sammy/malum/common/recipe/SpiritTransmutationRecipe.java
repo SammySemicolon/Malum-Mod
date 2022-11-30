@@ -1,10 +1,8 @@
 package com.sammy.malum.common.recipe;
 
 import com.google.gson.JsonObject;
-import com.sammy.malum.MalumMod;
 import com.sammy.malum.core.setup.content.recipe.RecipeSerializerRegistry;
 import com.sammy.malum.core.setup.content.recipe.RecipeTypeRegistry;
-import net.minecraft.core.Registry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
@@ -14,7 +12,6 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.crafting.CraftingHelper;
-import net.minecraftforge.registries.ForgeRegistryEntry;
 import team.lodestar.lodestone.systems.recipe.ILodestoneRecipe;
 
 import javax.annotation.Nullable;
@@ -76,7 +73,7 @@ public class SpiritTransmutationRecipe extends ILodestoneRecipe {
         return level.getRecipeManager().getAllRecipesFor(RecipeTypeRegistry.SPIRIT_TRANSMUTATION.get());
     }
 
-    public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<SpiritTransmutationRecipe> {
+    public static class Serializer implements RecipeSerializer<SpiritTransmutationRecipe> {
 
         @Override
         public SpiritTransmutationRecipe fromJson(ResourceLocation recipeId, JsonObject json) {

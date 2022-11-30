@@ -10,7 +10,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import team.lodestar.lodestone.systems.recipe.IngredientWithCount;
 
-public class NodeCookingSerializer<T extends AbstractCookingRecipe> extends net.minecraftforge.registries.ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<T> {
+public class NodeCookingSerializer<T extends AbstractCookingRecipe> implements RecipeSerializer<T> {
    public final int defaultCookingTime;
    public final NodeBaker<T> factory;
 

@@ -1,8 +1,13 @@
 package com.sammy.malum.core.setup.content.item;
 
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.client.model.*;
-import com.sammy.malum.client.model.cosmetic.*;
+import com.sammy.malum.client.model.HeadOverlayModel;
+import com.sammy.malum.client.model.SoulHunterArmorModel;
+import com.sammy.malum.client.model.SoulStainedSteelArmorModel;
+import com.sammy.malum.client.model.TailModel;
+import com.sammy.malum.client.model.cosmetic.GenericArmorModel;
+import com.sammy.malum.client.model.cosmetic.GenericSlimArmorModel;
+import com.sammy.malum.client.model.cosmetic.ScarfModel;
 import com.sammy.malum.client.model.cosmetic.ancient.AncientSoulHunterArmorModel;
 import com.sammy.malum.client.model.cosmetic.ancient.AncientSoulStainedSteelArmorModel;
 import com.sammy.malum.client.model.cosmetic.pride.PridewearArmorModel;
@@ -16,7 +21,10 @@ import com.sammy.malum.common.blockentity.crucible.SpiritCrucibleCoreBlockEntity
 import com.sammy.malum.common.blockentity.obelisk.BrilliantObeliskBlockEntity;
 import com.sammy.malum.common.blockentity.obelisk.RunewoodObeliskBlockEntity;
 import com.sammy.malum.common.blockentity.storage.PlinthCoreBlockEntity;
-import com.sammy.malum.common.item.*;
+import com.sammy.malum.common.item.BrillianceChunkItem;
+import com.sammy.malum.common.item.CorruptResonanceItem;
+import com.sammy.malum.common.item.EncyclopediaArcanaItem;
+import com.sammy.malum.common.item.NodeItem;
 import com.sammy.malum.common.item.cosmetic.AncientWeaveItem;
 import com.sammy.malum.common.item.cosmetic.PrideweaveItem;
 import com.sammy.malum.common.item.equipment.armor.SoulHunterArmorItem;
@@ -54,8 +62,8 @@ import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.ComposterBlock;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.client.event.EntityRenderersEvent;
+import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -728,7 +736,7 @@ public class ItemRegistry {
         }
 
         @SubscribeEvent
-        public static void setItemColors(ColorHandlerEvent.Item event) {
+        public static void setItemColors(RegisterColorHandlersEvent.Item event) {
             ItemColors itemColors = event.getItemColors();
             Set<RegistryObject<Item>> items = new HashSet<>(ITEMS.getEntries());
 

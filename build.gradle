@@ -106,6 +106,7 @@ repositories {
         url = "https://maven.tterrag.com/"
     }
     maven { url = 'https://maven.blamejared.com/' }
+    maven { url = 'https://maven.tterrag.com/' }
     maven {
         name = "Curse Maven"
         url "https://cursemaven.com"
@@ -124,8 +125,7 @@ dependencies {
         annotationProcessor "org.spongepowered:mixin:${mixinVersion}:processor"
     }
 
-    runtimeOnly fg.deobf("curse.maven:stfu-407174:3759881")
-    runtimeOnly fg.deobf("curse.maven:spark-361579:3824951")
+    runtimeOnly fg.deobf("curse.maven:spark-361579:4057111")
 
     // JEI Dependency
     compileOnly fg.deobf("mezz.jei:jei-${minecraftVersion}-common-api:${jeiVersion}")
@@ -137,8 +137,9 @@ dependencies {
     runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${minecraftVersion}-${curiosVersion}")
 
     // Use local lodestone when in multiproject
-    implementation fg.deobf("team.lodestar.lodestone:lodestone:${minecraftVersion}-${project.lodestoneVersion}")
+    implementation fg.deobf("team.lodestar.lodestone:lodestone:${minecraftVersion}-${lodestoneVersion}")
     implementation fg.deobf("com.jozufozu.flywheel:flywheel-forge-${minecraftVersion}:${flywheelVersion}")
+    implementation fg.deobf("com.simibubi.create:create-${minecraftVersion}:${createVersion}:slim")
 
 //    implementation fg.deobf("se.mickelus.mutil:mutil:${minecraftVersion}-${mutilVersion}")
 //    implementation fg.deobf("se.mickelus.tetra:tetra:${minecraftVersion}-${tetraVersion}")

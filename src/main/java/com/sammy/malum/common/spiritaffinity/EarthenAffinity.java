@@ -62,7 +62,7 @@ public class EarthenAffinity extends MalumSpiritAffinity {
         if (event.isCanceled() || event.getAmount() <= 0) {
             return;
         }
-        if (event.getEntityLiving() instanceof Player player) {
+        if (event.getEntity() instanceof Player player) {
             if (!player.level.isClientSide) {
                 MalumPlayerDataCapability.getCapabilityOptional(player).ifPresent(c -> {
                     if (c.heartOfStone > 0) {
