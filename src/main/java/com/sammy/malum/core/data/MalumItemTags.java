@@ -38,7 +38,7 @@ public class MalumItemTags extends ItemTagsProvider {
         this.copy(BlockTags.STONE_BRICKS, net.minecraft.tags.ItemTags.STONE_BRICKS);
         this.copy(BlockTags.WOODEN_BUTTONS, net.minecraft.tags.ItemTags.WOODEN_BUTTONS);
         this.copy(BlockTags.BUTTONS, net.minecraft.tags.ItemTags.BUTTONS);
-        this.copy(BlockTags.CARPETS, net.minecraft.tags.ItemTags.CARPETS);
+        this.copy(BlockTags.WOOL_CARPETS, ItemTags.WOOL_CARPETS);
         this.copy(BlockTags.WOODEN_DOORS, net.minecraft.tags.ItemTags.WOODEN_DOORS);
         this.copy(BlockTags.WOODEN_STAIRS, net.minecraft.tags.ItemTags.WOODEN_STAIRS);
         this.copy(BlockTags.WOODEN_SLABS, net.minecraft.tags.ItemTags.WOODEN_SLABS);

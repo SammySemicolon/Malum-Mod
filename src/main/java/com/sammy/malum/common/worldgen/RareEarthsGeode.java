@@ -9,6 +9,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BuddingAmethystBlock;
@@ -35,7 +36,7 @@ public class RareEarthsGeode extends Feature<GeodeConfiguration> {
     @Override
     public boolean place(FeaturePlaceContext<GeodeConfiguration> context) {
         GeodeConfiguration geodeconfiguration = context.config();
-        Random random = context.random();
+        RandomSource random = context.random();
         BlockPos blockpos = context.origin();
         WorldGenLevel worldgenlevel = context.level();
         int i = geodeconfiguration.minGenOffset;

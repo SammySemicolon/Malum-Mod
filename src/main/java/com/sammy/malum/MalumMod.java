@@ -20,8 +20,6 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.Random;
-
 import static com.sammy.malum.core.setup.client.ParticleRegistry.PARTICLES;
 import static com.sammy.malum.core.setup.content.AttributeRegistry.ATTRIBUTES;
 import static com.sammy.malum.core.setup.content.ContainerRegistry.CONTAINERS;
@@ -93,6 +91,8 @@ public class MalumMod {
             generator.addProvider(event.includeServer(), new MalumSpiritFocusingRecipes(generator));
             generator.addProvider(event.includeServer(), new MalumSpiritTransmutationRecipes(generator));
             generator.addProvider(event.includeServer(), new MalumAugmentingRecipes(generator));
+            generator.addProvider(event.includeServer(), MalumPlacedFeatures.getProvider(event, generator));
+            generator.addProvider(event.includeServer(), MalumBiomeModifiers.getProvider(event, generator));
         }
     }
 }

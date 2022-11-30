@@ -7,6 +7,7 @@ import com.sammy.malum.core.setup.content.block.BlockTagRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
@@ -66,7 +67,7 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
     public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> context) {
         WorldGenLevel level = context.level();
         BlockPos pos = context.origin();
-        Random rand = context.random();
+        RandomSource rand = context.random();
         if (level.isEmptyBlock(pos.below()) || !BlockRegistry.SOULWOOD_GROWTH.get().defaultBlockState().canSurvive(level, pos)) {
             return false;
         }
@@ -214,7 +215,7 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
         return i > 1;
     }
 
-    public static void makeLeafBlob(LodestoneBlockFiller filler, Random rand, BlockPos pos) {
+    public static void makeLeafBlob(LodestoneBlockFiller filler, RandomSource rand, BlockPos pos) {
         makeLeafSlice(filler, rand, pos, 1, 0);
         makeLeafSlice(filler, rand, pos.above(1), 2, 1);
         makeLeafSlice(filler, rand, pos.above(2), 3, 2);
@@ -225,7 +226,7 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
         makeLeafSlice(filler, rand, pos.above(6), 1, 4);
     }
 
-    public static void makeLeafSlice(LodestoneBlockFiller filler, Random rand, BlockPos pos, int leavesSize, int leavesColor) {
+    public static void makeLeafSlice(LodestoneBlockFiller filler, RandomSource rand, BlockPos pos, int leavesSize, int leavesColor) {
         for (int x = -leavesSize; x <= leavesSize; x++) {
             for (int z = -leavesSize; z <= leavesSize; z++) {
                 if (Math.abs(x) == leavesSize && Math.abs(z) == leavesSize) {
