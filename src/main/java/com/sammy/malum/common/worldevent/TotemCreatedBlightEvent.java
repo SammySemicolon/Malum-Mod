@@ -18,6 +18,10 @@ import static com.sammy.malum.core.setup.content.block.BlockRegistry.SOULWOOD_TO
 public class TotemCreatedBlightEvent extends ActiveBlightEvent {
     public int totemTakeoverTimer;
 
+    public TotemCreatedBlightEvent() {
+        super();
+    }
+
     public TotemCreatedBlightEvent(CompoundTag compoundTag) {
         super();
     }
