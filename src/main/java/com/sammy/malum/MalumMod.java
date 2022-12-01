@@ -90,7 +90,7 @@ public class MalumMod {
             BlockTagsProvider provider = new MalumBlockTags(generator, event.getExistingFileHelper());
             generator.addProvider(event.includeServer(), new MalumBlockStates(generator, event.getExistingFileHelper()));
             generator.addProvider(event.includeServer(), new MalumItemModels(generator, event.getExistingFileHelper()));
-            generator.addProvider(event.includeServer(), new MalumLang(generator));
+            generator.addProvider(event.includeClient(), new MalumLang(generator));
             generator.addProvider(event.includeServer(), provider);
             generator.addProvider(event.includeServer(), new MalumBlockLootTables(generator));
             generator.addProvider(event.includeServer(), new MalumItemTags(generator, provider, event.getExistingFileHelper()));
