@@ -26,7 +26,7 @@ public class ClientSetupEvents {
 
     @SubscribeEvent
     public static void registerOverlays(RegisterGuiOverlaysEvent event) {
-        event.registerAbove(VanillaGuiOverlay.ARMOR_LEVEL.id(), "Soul Ward", (gui, poseStack, partialTick, width, height) ->
+        event.registerAbove(VanillaGuiOverlay.ARMOR_LEVEL.id(), "soul_ward", (gui, poseStack, partialTick, width, height) ->
             ArcaneAffinity.ClientOnly.renderSoulWard(gui, poseStack, width, height));
     }
 }
