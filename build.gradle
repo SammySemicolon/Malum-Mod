@@ -148,7 +148,7 @@ dependencies {
     implementation fg.deobf("curse.maven:farmers_delight-398521:3999157")
     implementation fg.deobf("curse.maven:moonlight-499980:4096609")
     implementation fg.deobf("curse.maven:create-328085:4011414")
-    runtimeOnly fg.deobf("curse.maven:world-stripper-250603:3921630")
+//    runtimeOnly fg.deobf("curse.maven:world-stripper-250603:3921630")
 //    implementation fg.deobf("curse.maven:jeed-532286:3820697")
 //    implementation fg.deobf("curse.maven:quark-243121:3840125")
 //    implementation fg.deobf("curse.maven:autoreglib-250363:3642382")
