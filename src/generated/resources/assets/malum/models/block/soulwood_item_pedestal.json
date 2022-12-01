@@ -1,7 +1,7 @@
 {
   "parent": "malum:block/templates/template_wood_item_pedestal",
   "textures": {
-    "pedestal": "malum:block/soulwood_item_pedestal",
-    "particle": "malum:block/soulwood_planks"
+    "particle": "malum:block/soulwood_planks",
+    "pedestal": "malum:block/soulwood_item_pedestal"
   }
 }

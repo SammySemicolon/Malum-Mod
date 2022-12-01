@@ -4,23 +4,22 @@
     {
       "conditions": [
         {
+          "type": "forge:not",
           "value": {
-            "tag": "forge:nuggets/aluminum",
-            "type": "forge:tag_empty"
-          },
-          "type": "forge:not"
+            "type": "forge:tag_empty",
+            "tag": "forge:nuggets/aluminum"
+          }
         }
       ],
       "recipe": {
         "type": "malum:spirit_focusing",
-        "time": 900,
         "durabilityCost": 2,
         "input": {
           "item": "malum:aluminum_impetus"
         },
         "output": {
-          "item": "malum:aluminum_node",
-          "count": 3
+          "count": 3,
+          "item": "malum:aluminum_node"
         },
         "spirits": [
           {
@@ -30,7 +29,8 @@
           {
             "type": "infernal"
           }
-        ]
+        ],
+        "time": 900
       }
     }
   ]

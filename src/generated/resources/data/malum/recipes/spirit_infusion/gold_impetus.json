@@ -1,26 +1,26 @@
 {
   "type": "malum:spirit_infusion",
+  "extra_items": [
+    {
+      "count": 4,
+      "tag": "forge:gunpowder"
+    },
+    {
+      "count": 1,
+      "item": "malum:rare_earths"
+    },
+    {
+      "count": 6,
+      "item": "minecraft:gold_ingot"
+    }
+  ],
   "input": {
-    "item": "malum:alchemical_impetus",
-    "count": 1
+    "count": 1,
+    "item": "malum:alchemical_impetus"
   },
   "output": {
     "item": "malum:gold_impetus"
   },
-  "extra_items": [
-    {
-      "tag": "forge:gunpowder",
-      "count": 4
-    },
-    {
-      "item": "malum:rare_earths",
-      "count": 1
-    },
-    {
-      "item": "minecraft:gold_ingot",
-      "count": 6
-    }
-  ],
   "spirits": [
     {
       "type": "earthen",

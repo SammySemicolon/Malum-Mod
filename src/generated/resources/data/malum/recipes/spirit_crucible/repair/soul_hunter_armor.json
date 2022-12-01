@@ -1,7 +1,7 @@
 {
   "type": "malum:spirit_repair",
-  "inputLookup": "none",
   "durabilityPercentage": 0.75,
+  "inputLookup": "none",
   "inputs": [
     "malum:soul_hunter_cloak",
     "malum:soul_hunter_robe",
@@ -9,8 +9,8 @@
     "malum:soul_hunter_boots"
   ],
   "repairMaterial": {
-    "item": "malum:spirit_fabric",
-    "count": 4
+    "count": 4,
+    "item": "malum:spirit_fabric"
   },
   "spirits": [
     {

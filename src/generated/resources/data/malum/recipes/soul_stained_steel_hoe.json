@@ -1,10 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "XX",
-    " #",
-    " #"
-  ],
   "key": {
     "#": {
       "tag": "forge:rods/wooden"
@@ -13,6 +8,11 @@
       "item": "malum:soul_stained_steel_ingot"
     }
   },
+  "pattern": [
+    "XX",
+    " #",
+    " #"
+  ],
   "result": {
     "item": "malum:soul_stained_steel_hoe"
   }

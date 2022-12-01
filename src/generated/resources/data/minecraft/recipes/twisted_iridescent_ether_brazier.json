@@ -1,9 +1,5 @@
 {
   "type": "lodestone:nbt_carry",
-  "pattern": [
-    "#X#",
-    "S#S"
-  ],
   "key": {
     "#": {
       "item": "malum:twisted_rock"
@@ -18,8 +14,12 @@
   "nbtCarry": {
     "item": "malum:iridescent_ether"
   },
+  "pattern": [
+    "#X#",
+    "S#S"
+  ],
   "result": {
-    "item": "malum:twisted_iridescent_ether_brazier",
-    "count": 2
+    "count": 2,
+    "item": "malum:twisted_iridescent_ether_brazier"
   }
 }

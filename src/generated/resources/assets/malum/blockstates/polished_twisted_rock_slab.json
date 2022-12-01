@@ -1,13 +1,13 @@
 {
   "variants": {
-    "type=top": {
-      "model": "malum:block/polished_twisted_rock_slab_top"
-    },
     "type=bottom": {
       "model": "malum:block/polished_twisted_rock_slab"
     },
     "type=double": {
       "model": "malum:block/polished_twisted_rock"
+    },
+    "type=top": {
+      "model": "malum:block/polished_twisted_rock_slab_top"
     }
   }
 }

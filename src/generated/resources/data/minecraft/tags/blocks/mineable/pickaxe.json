@@ -1,7 +1,7 @@
 {
-  "replace": false,
   "values": [
     "malum:emitter_mirror",
+    "malum:mote_of_mana",
     "malum:twisted_tablet",
     "malum:spirit_crucible",
     "malum:spirit_crucible_component",

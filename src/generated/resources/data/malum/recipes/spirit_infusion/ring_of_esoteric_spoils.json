@@ -1,22 +1,22 @@
 {
   "type": "malum:spirit_infusion",
+  "extra_items": [
+    {
+      "count": 1,
+      "item": "malum:stained_spirit_resonator"
+    },
+    {
+      "count": 8,
+      "item": "malum:processed_soulstone"
+    }
+  ],
   "input": {
-    "item": "malum:ornate_ring",
-    "count": 1
+    "count": 1,
+    "item": "malum:ornate_ring"
   },
   "output": {
     "item": "malum:ring_of_esoteric_spoils"
   },
-  "extra_items": [
-    {
-      "item": "malum:stained_spirit_resonator",
-      "count": 1
-    },
-    {
-      "item": "malum:processed_soulstone",
-      "count": 8
-    }
-  ],
   "spirits": [
     {
       "type": "wicked",

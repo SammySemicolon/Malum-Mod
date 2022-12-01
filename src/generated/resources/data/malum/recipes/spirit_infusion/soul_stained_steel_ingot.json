@@ -1,22 +1,22 @@
 {
   "type": "malum:spirit_infusion",
+  "extra_items": [
+    {
+      "count": 2,
+      "tag": "minecraft:soul_fire_base_blocks"
+    },
+    {
+      "count": 1,
+      "item": "malum:processed_soulstone"
+    }
+  ],
   "input": {
-    "item": "minecraft:iron_ingot",
-    "count": 1
+    "count": 1,
+    "item": "minecraft:iron_ingot"
   },
   "output": {
     "item": "malum:soul_stained_steel_ingot"
   },
-  "extra_items": [
-    {
-      "tag": "minecraft:soul_fire_base_blocks",
-      "count": 2
-    },
-    {
-      "item": "malum:processed_soulstone",
-      "count": 1
-    }
-  ],
   "spirits": [
     {
       "type": "wicked",

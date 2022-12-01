@@ -1,9 +1,9 @@
 {
   "type": "minecraft:smelting",
+  "cookingtime": 200,
+  "experience": 0.25,
   "ingredient": {
     "item": "malum:deepslate_quartz_ore"
   },
-  "result": "malum:natural_quartz",
-  "experience": 0.25,
-  "cookingtime": 200
+  "result": "malum:natural_quartz"
 }

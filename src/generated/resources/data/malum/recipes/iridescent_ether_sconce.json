@@ -4,16 +4,12 @@
     {
       "conditions": [
         {
-          "modid": "supplementaries",
-          "type": "forge:mod_loaded"
+          "type": "forge:mod_loaded",
+          "modid": "supplementaries"
         }
       ],
       "recipe": {
         "type": "lodestone:nbt_carry",
-        "pattern": [
-          "#X#",
-          " # "
-        ],
         "key": {
           "#": {
             "tag": "forge:nuggets/iron"
@@ -25,6 +21,10 @@
         "nbtCarry": {
           "item": "malum:iridescent_ether_torch"
         },
+        "pattern": [
+          "#X#",
+          " # "
+        ],
         "result": {
           "item": "malum:iridescent_ether_sconce"
         }

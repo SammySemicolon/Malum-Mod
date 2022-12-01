@@ -1,10 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "YYY",
-    " X ",
-    "YYY"
-  ],
   "key": {
     "X": {
       "item": "malum:soulwood_planks"
@@ -13,6 +8,11 @@
       "item": "malum:soulwood_planks_slab"
     }
   },
+  "pattern": [
+    "YYY",
+    " X ",
+    "YYY"
+  ],
   "result": {
     "item": "malum:soulwood_item_pedestal"
   }

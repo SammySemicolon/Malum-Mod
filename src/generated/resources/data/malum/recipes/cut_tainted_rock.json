@@ -1,16 +1,16 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "##",
-    "##"
-  ],
   "key": {
     "#": {
       "item": "malum:smooth_tainted_rock"
     }
   },
+  "pattern": [
+    "##",
+    "##"
+  ],
   "result": {
-    "item": "malum:cut_tainted_rock",
-    "count": 4
+    "count": 4,
+    "item": "malum:cut_tainted_rock"
   }
 }

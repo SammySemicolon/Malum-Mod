@@ -1,10 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    " X ",
-    "YZY",
-    " Y "
-  ],
   "key": {
     "X": {
       "tag": "forge:string"
@@ -16,6 +11,11 @@
       "tag": "minecraft:soul_fire_base_blocks"
     }
   },
+  "pattern": [
+    " X ",
+    "YZY",
+    " Y "
+  ],
   "result": {
     "item": "malum:spirit_pouch"
   }

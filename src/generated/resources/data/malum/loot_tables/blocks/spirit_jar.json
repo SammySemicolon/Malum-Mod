@@ -2,8 +2,12 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "rolls": 1.0,
       "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
       "entries": [
         {
           "type": "minecraft:item",
@@ -14,29 +18,25 @@
             },
             {
               "function": "minecraft:copy_nbt",
-              "source": "block_entity",
               "ops": [
                 {
+                  "op": "replace",
                   "source": "spirit",
-                  "target": "spirit",
-                  "op": "replace"
+                  "target": "spirit"
                 },
                 {
+                  "op": "replace",
                   "source": "count",
-                  "target": "count",
-                  "op": "replace"
+                  "target": "count"
                 }
-              ]
+              ],
+              "source": "block_entity"
             }
           ],
           "name": "malum:spirit_jar"
         }
       ],
-      "conditions": [
-        {
-          "condition": "minecraft:survives_explosion"
-        }
-      ]
+      "rolls": 1.0
     }
   ]
 }

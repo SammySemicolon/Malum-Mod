@@ -1,7 +1,7 @@
 {
   "type": "malum:spirit_repair",
-  "inputLookup": "none",
   "durabilityPercentage": 1.0,
+  "inputLookup": "none",
   "inputs": [
     "malum:cracked_iron_impetus",
     "malum:cracked_gold_impetus",
@@ -16,8 +16,8 @@
     "malum:cracked_tin_impetus"
   ],
   "repairMaterial": {
-    "item": "malum:infernal_spirit",
-    "count": 8
+    "count": 8,
+    "item": "malum:infernal_spirit"
   },
   "spirits": []
 }

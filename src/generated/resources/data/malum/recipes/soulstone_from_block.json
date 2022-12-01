@@ -6,7 +6,7 @@
     }
   ],
   "result": {
-    "item": "malum:processed_soulstone",
-    "count": 9
+    "count": 9,
+    "item": "malum:processed_soulstone"
   }
 }

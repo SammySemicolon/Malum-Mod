@@ -2,7 +2,7 @@
   "parent": "malum:block/templates/template_glowing_block",
   "textures": {
     "all": "malum:block/brilliant_stone",
-    "particle": "malum:block/brilliant_stone",
-    "glow": "malum:block/brilliant_stone_glow"
+    "glow": "malum:block/brilliant_stone_glow",
+    "particle": "malum:block/brilliant_stone"
   }
 }

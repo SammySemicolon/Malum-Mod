@@ -4,8 +4,10 @@
       "model": "malum:block/twisted_rock_item_stand",
       "x": 180
     },
-    "facing=up": {
-      "model": "malum:block/twisted_rock_item_stand"
+    "facing=east": {
+      "model": "malum:block/twisted_rock_item_stand",
+      "x": 90,
+      "y": 90
     },
     "facing=north": {
       "model": "malum:block/twisted_rock_item_stand",
@@ -16,15 +18,13 @@
       "x": 90,
       "y": 180
     },
+    "facing=up": {
+      "model": "malum:block/twisted_rock_item_stand"
+    },
     "facing=west": {
       "model": "malum:block/twisted_rock_item_stand",
       "x": 90,
       "y": 270
-    },
-    "facing=east": {
-      "model": "malum:block/twisted_rock_item_stand",
-      "x": 90,
-      "y": 90
     }
   }
 }

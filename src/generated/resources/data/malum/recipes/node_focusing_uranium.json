@@ -4,23 +4,22 @@
     {
       "conditions": [
         {
+          "type": "forge:not",
           "value": {
-            "tag": "forge:nuggets/uranium",
-            "type": "forge:tag_empty"
-          },
-          "type": "forge:not"
+            "type": "forge:tag_empty",
+            "tag": "forge:nuggets/uranium"
+          }
         }
       ],
       "recipe": {
         "type": "malum:spirit_focusing",
-        "time": 900,
         "durabilityCost": 2,
         "input": {
           "item": "malum:uranium_impetus"
         },
         "output": {
-          "item": "malum:uranium_node",
-          "count": 3
+          "count": 3,
+          "item": "malum:uranium_node"
         },
         "spirits": [
           {
@@ -30,7 +29,8 @@
           {
             "type": "infernal"
           }
-        ]
+        ],
+        "time": 900
       }
     }
   ]

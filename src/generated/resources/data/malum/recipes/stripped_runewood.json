@@ -1,17 +1,17 @@
 {
   "type": "minecraft:crafting_shaped",
   "group": "bark",
-  "pattern": [
-    "##",
-    "##"
-  ],
   "key": {
     "#": {
       "item": "malum:stripped_runewood_log"
     }
   },
+  "pattern": [
+    "##",
+    "##"
+  ],
   "result": {
-    "item": "malum:stripped_runewood",
-    "count": 3
+    "count": 3,
+    "item": "malum:stripped_runewood"
   }
 }

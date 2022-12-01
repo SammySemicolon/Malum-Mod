@@ -1,0 +1,13 @@
+// 1.19.2	2022-12-01T16:59:25.6982425	Recipes
+57b9fc5d1d6971e86209e1ba3d8d24433145973d data/minecraft/advancements/recipes/building_blocks/diorite.json
+52782355ad4992f8142ec98df604d3aadf085cc6 data/minecraft/advancements/recipes/building_blocks/granite.json
+cae9d9f55fd35a4eefbe4aa5f8ca6142b8528f11 data/minecraft/advancements/recipes/building_blocks/quartz_block.json
+48fc8010a4b4119d2ab556bd4183957e75639a6a data/minecraft/advancements/recipes/redstone/comparator.json
+6799e6b7f6bf77b8a19d3fcc55029a38433af2b7 data/minecraft/advancements/recipes/redstone/daylight_detector.json
+bfd93b1cebda65d46672c4fdd3bc232aecaa64e2 data/minecraft/advancements/recipes/redstone/observer.json
+95c1753bb1a7196a1059e7270325aa6ee0eee6ce data/minecraft/recipes/comparator.json
+1f6d5da14b2adb8b77ff9e4137a9e62c46be9823 data/minecraft/recipes/daylight_detector.json
+2f41525dbd967cad09d75c898323451a151b0de9 data/minecraft/recipes/diorite.json
+41e5b02d35084b258783a2922e0cac16879e9743 data/minecraft/recipes/granite.json
+ff24fd597f0ec277477606c53c858021717243ab data/minecraft/recipes/observer.json
+9f40a8b9a3c2e2d3d20d4d64e14c12c1165c4d21 data/minecraft/recipes/quartz_block.json

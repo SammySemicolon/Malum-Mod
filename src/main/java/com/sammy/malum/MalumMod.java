@@ -1,5 +1,7 @@
 package com.sammy.malum;
 
+import com.google.gson.JsonElement;
+import com.mojang.serialization.JsonOps;
 import com.sammy.malum.compability.create.CreateCompat;
 import com.sammy.malum.compability.farmersdelight.FarmersDelightCompat;
 import com.sammy.malum.compability.supplementaries.SupplementariesCompat;
@@ -7,10 +9,13 @@ import com.sammy.malum.compability.tetra.TetraCompat;
 import com.sammy.malum.config.ClientConfig;
 import com.sammy.malum.config.CommonConfig;
 import com.sammy.malum.core.data.*;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.BlockTagsProvider;
+import net.minecraft.resources.RegistryOps;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
+import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -32,7 +37,9 @@ import static com.sammy.malum.core.setup.content.item.MalumEnchantments.ENCHANTM
 import static com.sammy.malum.core.setup.content.potion.MalumMobEffectRegistry.EFFECTS;
 import static com.sammy.malum.core.setup.content.recipe.RecipeSerializerRegistry.RECIPE_SERIALIZERS;
 import static com.sammy.malum.core.setup.content.recipe.RecipeTypeRegistry.RECIPE_TYPES;
+import static com.sammy.malum.core.setup.content.worldgen.FeatureRegistry.ConfiguredFeatures.CONFIGURED_FEATURES;
 import static com.sammy.malum.core.setup.content.worldgen.FeatureRegistry.FEATURE_TYPES;
+import static com.sammy.malum.core.setup.content.worldgen.FeatureRegistry.PlacedFeatures.PLACED_FEATURES;
 
 @SuppressWarnings("unused")
 @Mod(MalumMod.MALUM)
@@ -60,6 +67,8 @@ public class MalumMod {
         RECIPE_TYPES.register(modBus);
         RECIPE_SERIALIZERS.register(modBus);
         FEATURE_TYPES.register(modBus);
+        CONFIGURED_FEATURES.register(modBus);
+        PLACED_FEATURES.register(modBus);
 
 
         TetraCompat.init();
@@ -91,8 +100,6 @@ public class MalumMod {
             generator.addProvider(event.includeServer(), new MalumSpiritFocusingRecipes(generator));
             generator.addProvider(event.includeServer(), new MalumSpiritTransmutationRecipes(generator));
             generator.addProvider(event.includeServer(), new MalumAugmentingRecipes(generator));
-            generator.addProvider(event.includeServer(), MalumPlacedFeatures.getProvider(event, generator));
-            generator.addProvider(event.includeServer(), MalumBiomeModifiers.getProvider(event, generator));
         }
     }
 }

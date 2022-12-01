@@ -1,5 +1,9 @@
 {
   "variants": {
+    "facing=east": {
+      "model": "malum:block/iridescent_wall_ether_sconce",
+      "y": 90
+    },
     "facing=north": {
       "model": "malum:block/iridescent_wall_ether_sconce"
     },
@@ -10,10 +14,6 @@
     "facing=west": {
       "model": "malum:block/iridescent_wall_ether_sconce",
       "y": 270
-    },
-    "facing=east": {
-      "model": "malum:block/iridescent_wall_ether_sconce",
-      "y": 90
     }
   }
 }

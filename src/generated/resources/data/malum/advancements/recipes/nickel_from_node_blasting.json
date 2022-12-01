@@ -1,19 +1,19 @@
 {
   "advancements": [
     {
-      "conditions": [
-        {
-          "value": {
-            "tag": "forge:nuggets/nickel",
-            "type": "forge:tag_empty"
-          },
-          "type": "forge:not"
-        }
-      ],
       "advancement": {
         "criteria": {},
         "requirements": []
-      }
+      },
+      "conditions": [
+        {
+          "type": "forge:not",
+          "value": {
+            "type": "forge:tag_empty",
+            "tag": "forge:nuggets/nickel"
+          }
+        }
+      ]
     }
   ]
 }

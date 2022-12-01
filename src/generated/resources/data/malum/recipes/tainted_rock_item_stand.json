@@ -1,9 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "YYY",
-    "XXX"
-  ],
   "key": {
     "X": {
       "item": "malum:tainted_rock"
@@ -12,8 +8,12 @@
       "item": "malum:tainted_rock_slab"
     }
   },
+  "pattern": [
+    "YYY",
+    "XXX"
+  ],
   "result": {
-    "item": "malum:tainted_rock_item_stand",
-    "count": 2
+    "count": 2,
+    "item": "malum:tainted_rock_item_stand"
   }
 }

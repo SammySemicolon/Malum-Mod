@@ -1,17 +1,17 @@
 {
   "type": "malum:spirit_focusing",
-  "time": 300,
   "durabilityCost": 1,
   "input": {
     "item": "malum:alchemical_impetus"
   },
   "output": {
-    "item": "minecraft:redstone",
-    "count": 8
+    "count": 8,
+    "item": "minecraft:redstone"
   },
   "spirits": [
     {
       "type": "arcane"
     }
-  ]
+  ],
+  "time": 300
 }

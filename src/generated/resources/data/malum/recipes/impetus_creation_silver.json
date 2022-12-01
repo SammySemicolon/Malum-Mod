@@ -4,36 +4,36 @@
     {
       "conditions": [
         {
+          "type": "forge:not",
           "value": {
-            "tag": "forge:ingots/silver",
-            "type": "forge:tag_empty"
-          },
-          "type": "forge:not"
+            "type": "forge:tag_empty",
+            "tag": "forge:ingots/silver"
+          }
         }
       ],
       "recipe": {
         "type": "malum:spirit_infusion",
+        "extra_items": [
+          {
+            "count": 4,
+            "tag": "forge:gunpowder"
+          },
+          {
+            "count": 1,
+            "item": "malum:rare_earths"
+          },
+          {
+            "count": 6,
+            "tag": "forge:ingots/silver"
+          }
+        ],
         "input": {
-          "item": "malum:alchemical_impetus",
-          "count": 1
+          "count": 1,
+          "item": "malum:alchemical_impetus"
         },
         "output": {
           "item": "malum:silver_impetus"
         },
-        "extra_items": [
-          {
-            "tag": "forge:gunpowder",
-            "count": 4
-          },
-          {
-            "item": "malum:rare_earths",
-            "count": 1
-          },
-          {
-            "tag": "forge:ingots/silver",
-            "count": 6
-          }
-        ],
         "spirits": [
           {
             "type": "earthen",

@@ -1,26 +1,26 @@
 {
   "type": "malum:spirit_infusion",
+  "extra_items": [
+    {
+      "count": 1,
+      "item": "malum:stained_spirit_resonator"
+    },
+    {
+      "count": 1,
+      "tag": "forge:storage_blocks/iron"
+    },
+    {
+      "count": 2,
+      "tag": "forge:ingots/iron"
+    }
+  ],
   "input": {
-    "item": "malum:ornate_necklace",
-    "count": 1
+    "count": 1,
+    "item": "malum:ornate_necklace"
   },
   "output": {
     "item": "malum:necklace_of_the_narrow_edge"
   },
-  "extra_items": [
-    {
-      "item": "malum:stained_spirit_resonator",
-      "count": 1
-    },
-    {
-      "tag": "forge:storage_blocks/iron",
-      "count": 1
-    },
-    {
-      "tag": "forge:ingots/iron",
-      "count": 2
-    }
-  ],
   "spirits": [
     {
       "type": "wicked",

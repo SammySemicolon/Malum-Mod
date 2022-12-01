@@ -1,5 +1,9 @@
 {
   "type": "malum:augmenting",
+  "augment": {
+    "item": "malum:ancient_weave"
+  },
+  "tagAugment": "{\"malum:item_skin\":\"ancient_metal\"}",
   "targetItem": [
     {
       "item": "malum:soul_stained_steel_helmet"
@@ -13,9 +17,5 @@
     {
       "item": "malum:soul_stained_steel_boots"
     }
-  ],
-  "augment": {
-    "item": "malum:ancient_weave"
-  },
-  "tagAugment": "{\"malum:item_skin\":\"ancient_metal\"}"
+  ]
 }

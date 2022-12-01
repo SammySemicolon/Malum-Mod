@@ -1,10 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    " X ",
-    "#Y#",
-    " X "
-  ],
   "key": {
     "#": {
       "item": "malum:soul_stained_steel_ingot"
@@ -16,6 +11,11 @@
       "tag": "forge:gems/quartz"
     }
   },
+  "pattern": [
+    " X ",
+    "#Y#",
+    " X "
+  ],
   "result": {
     "item": "malum:stained_spirit_resonator"
   }

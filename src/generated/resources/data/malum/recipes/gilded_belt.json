@@ -1,10 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "XXX",
-    "#Y#",
-    " # "
-  ],
   "key": {
     "#": {
       "item": "malum:hallowed_gold_ingot"
@@ -16,6 +11,11 @@
       "item": "malum:processed_soulstone"
     }
   },
+  "pattern": [
+    "XXX",
+    "#Y#",
+    " # "
+  ],
   "result": {
     "item": "malum:gilded_belt"
   }

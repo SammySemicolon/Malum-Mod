@@ -1,19 +1,19 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "#",
-    "\u0026"
-  ],
   "key": {
     "#": {
       "item": "malum:blazing_quartz"
     },
-    "\u0026": {
+    "&": {
       "item": "minecraft:stick"
     }
   },
+  "pattern": [
+    "#",
+    "&"
+  ],
   "result": {
-    "item": "malum:blazing_torch",
-    "count": 6
+    "count": 6,
+    "item": "malum:blazing_torch"
   }
 }

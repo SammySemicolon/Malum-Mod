@@ -1,16 +1,16 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "###",
-    "###"
-  ],
   "key": {
     "#": {
       "item": "malum:twisted_rock"
     }
   },
+  "pattern": [
+    "###",
+    "###"
+  ],
   "result": {
-    "item": "malum:twisted_rock_wall",
-    "count": 6
+    "count": 6,
+    "item": "malum:twisted_rock_wall"
   }
 }

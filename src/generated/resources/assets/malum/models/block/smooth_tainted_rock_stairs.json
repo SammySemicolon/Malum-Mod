@@ -1,8 +1,8 @@
 {
   "parent": "minecraft:block/stairs",
   "textures": {
-    "side": "malum:block/smooth_tainted_rock",
     "bottom": "malum:block/smooth_tainted_rock",
+    "side": "malum:block/smooth_tainted_rock",
     "top": "malum:block/smooth_tainted_rock"
   }
 }

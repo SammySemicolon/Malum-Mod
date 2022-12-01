@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#minecraft:is_forest",
+  "features": "malum:rare_runewood",
+  "step": "vegetal_decoration"
+}

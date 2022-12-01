@@ -1,7 +1,7 @@
 {
   "parent": "malum:block/templates/template_item_stand",
   "textures": {
-    "stand": "malum:block/soulwood_item_stand",
-    "particle": "malum:block/soulwood_planks"
+    "particle": "malum:block/soulwood_planks",
+    "stand": "malum:block/soulwood_item_stand"
   }
 }

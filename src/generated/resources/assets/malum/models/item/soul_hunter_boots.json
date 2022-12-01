@@ -1,140 +1,140 @@
 {
   "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "malum:item/soul_hunter_boots"
-  },
   "overrides": [
     {
+      "model": "malum:item/ace_drip_socks",
       "predicate": {
         "malum:item_skin": 0.0
-      },
-      "model": "malum:item/ace_drip_socks"
+      }
     },
     {
+      "model": "malum:item/agender_drip_socks",
       "predicate": {
         "malum:item_skin": 1.0
-      },
-      "model": "malum:item/agender_drip_socks"
+      }
     },
     {
+      "model": "malum:item/aro_drip_socks",
       "predicate": {
         "malum:item_skin": 2.0
-      },
-      "model": "malum:item/aro_drip_socks"
+      }
     },
     {
+      "model": "malum:item/aroace_drip_socks",
       "predicate": {
         "malum:item_skin": 3.0
-      },
-      "model": "malum:item/aroace_drip_socks"
+      }
     },
     {
+      "model": "malum:item/bi_drip_socks",
       "predicate": {
         "malum:item_skin": 4.0
-      },
-      "model": "malum:item/bi_drip_socks"
+      }
     },
     {
+      "model": "malum:item/demiboy_drip_socks",
       "predicate": {
         "malum:item_skin": 5.0
-      },
-      "model": "malum:item/demiboy_drip_socks"
+      }
     },
     {
+      "model": "malum:item/demigirl_drip_socks",
       "predicate": {
         "malum:item_skin": 6.0
-      },
-      "model": "malum:item/demigirl_drip_socks"
+      }
     },
     {
+      "model": "malum:item/enby_drip_socks",
       "predicate": {
         "malum:item_skin": 7.0
-      },
-      "model": "malum:item/enby_drip_socks"
+      }
     },
     {
+      "model": "malum:item/gay_drip_socks",
       "predicate": {
         "malum:item_skin": 8.0
-      },
-      "model": "malum:item/gay_drip_socks"
+      }
     },
     {
+      "model": "malum:item/genderfluid_drip_socks",
       "predicate": {
         "malum:item_skin": 9.0
-      },
-      "model": "malum:item/genderfluid_drip_socks"
+      }
     },
     {
+      "model": "malum:item/genderqueer_drip_socks",
       "predicate": {
         "malum:item_skin": 10.0
-      },
-      "model": "malum:item/genderqueer_drip_socks"
+      }
     },
     {
+      "model": "malum:item/intersex_drip_socks",
       "predicate": {
         "malum:item_skin": 11.0
-      },
-      "model": "malum:item/intersex_drip_socks"
+      }
     },
     {
+      "model": "malum:item/lesbian_drip_socks",
       "predicate": {
         "malum:item_skin": 12.0
-      },
-      "model": "malum:item/lesbian_drip_socks"
+      }
     },
     {
+      "model": "malum:item/pan_drip_socks",
       "predicate": {
         "malum:item_skin": 13.0
-      },
-      "model": "malum:item/pan_drip_socks"
+      }
     },
     {
+      "model": "malum:item/plural_drip_socks",
       "predicate": {
         "malum:item_skin": 14.0
-      },
-      "model": "malum:item/plural_drip_socks"
+      }
     },
     {
+      "model": "malum:item/poly_drip_socks",
       "predicate": {
         "malum:item_skin": 15.0
-      },
-      "model": "malum:item/poly_drip_socks"
+      }
     },
     {
+      "model": "malum:item/pride_drip_socks",
       "predicate": {
         "malum:item_skin": 16.0
-      },
-      "model": "malum:item/pride_drip_socks"
+      }
     },
     {
+      "model": "malum:item/trans_drip_socks",
       "predicate": {
         "malum:item_skin": 17.0
-      },
-      "model": "malum:item/trans_drip_socks"
+      }
     },
     {
+      "model": "malum:item/executioner_drip_boots",
       "predicate": {
         "malum:item_skin": 18.0
-      },
-      "model": "malum:item/executioner_drip_boots"
+      }
     },
     {
+      "model": "malum:item/commando_drip_boots",
       "predicate": {
         "malum:item_skin": 19.0
-      },
-      "model": "malum:item/commando_drip_boots"
+      }
     },
     {
+      "model": "malum:item/ancient_cloth_boots",
       "predicate": {
         "malum:item_skin": 20.0
-      },
-      "model": "malum:item/ancient_cloth_boots"
+      }
     },
     {
+      "model": "malum:item/ancient_metal_boots",
       "predicate": {
         "malum:item_skin": 21.0
-      },
-      "model": "malum:item/ancient_metal_boots"
+      }
     }
-  ]
+  ],
+  "textures": {
+    "layer0": "malum:item/soul_hunter_boots"
+  }
 }

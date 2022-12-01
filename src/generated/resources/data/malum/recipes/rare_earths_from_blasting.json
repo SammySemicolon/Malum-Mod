@@ -1,9 +1,9 @@
 {
   "type": "minecraft:blasting",
+  "cookingtime": 100,
+  "experience": 2.0,
   "ingredient": {
     "item": "malum:block_of_rare_earths"
   },
-  "result": "malum:rare_earths",
-  "experience": 2.0,
-  "cookingtime": 100
+  "result": "malum:rare_earths"
 }

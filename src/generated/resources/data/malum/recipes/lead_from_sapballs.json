@@ -1,20 +1,20 @@
 {
   "type": "minecraft:crafting_shaped",
+  "key": {
+    "O": {
+      "tag": "malum:sapballs"
+    },
+    "~": {
+      "tag": "forge:string"
+    }
+  },
   "pattern": [
     "~~ ",
     "~O ",
     "  ~"
   ],
-  "key": {
-    "~": {
-      "tag": "forge:string"
-    },
-    "O": {
-      "tag": "malum:sapballs"
-    }
-  },
   "result": {
-    "item": "minecraft:lead",
-    "count": 2
+    "count": 2,
+    "item": "minecraft:lead"
   }
 }

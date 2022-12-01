@@ -1,15 +1,15 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "###"
-  ],
   "key": {
     "#": {
       "item": "malum:tainted_rock_tiles"
     }
   },
+  "pattern": [
+    "###"
+  ],
   "result": {
-    "item": "malum:tainted_rock_tiles_slab",
-    "count": 6
+    "count": 6,
+    "item": "malum:tainted_rock_tiles_slab"
   }
 }

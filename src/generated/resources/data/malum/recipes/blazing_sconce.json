@@ -4,24 +4,24 @@
     {
       "conditions": [
         {
-          "modid": "supplementaries",
-          "type": "forge:mod_loaded"
+          "type": "forge:mod_loaded",
+          "modid": "supplementaries"
         }
       ],
       "recipe": {
         "type": "minecraft:crafting_shaped",
-        "pattern": [
-          "\u0026#\u0026",
-          " \u0026 "
-        ],
         "key": {
           "#": {
             "item": "malum:blazing_torch"
           },
-          "\u0026": {
+          "&": {
             "tag": "forge:nuggets/iron"
           }
         },
+        "pattern": [
+          "&#&",
+          " & "
+        ],
         "result": {
           "item": "malum:blazing_sconce"
         }

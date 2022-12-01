@@ -1,5 +1,9 @@
 {
   "type": "malum:augmenting",
+  "augment": {
+    "item": "malum:ancient_weave"
+  },
+  "tagAugment": "{\"malum:item_skin\":\"ancient_cloth\"}",
   "targetItem": [
     {
       "item": "malum:soul_hunter_cloak"
@@ -13,9 +17,5 @@
     {
       "item": "malum:soul_hunter_boots"
     }
-  ],
-  "augment": {
-    "item": "malum:ancient_weave"
-  },
-  "tagAugment": "{\"malum:item_skin\":\"ancient_cloth\"}"
+  ]
 }

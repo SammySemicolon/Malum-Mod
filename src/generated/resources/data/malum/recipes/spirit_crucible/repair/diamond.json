@@ -1,11 +1,11 @@
 {
   "type": "malum:spirit_repair",
-  "inputLookup": "diamond_",
   "durabilityPercentage": 0.5,
+  "inputLookup": "diamond_",
   "inputs": [],
   "repairMaterial": {
-    "tag": "forge:gems/diamond",
-    "count": 2
+    "count": 2,
+    "tag": "forge:gems/diamond"
   },
   "spirits": [
     {

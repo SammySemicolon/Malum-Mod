@@ -1,9 +1,15 @@
 package com.sammy.malum.core.data;
 
+import com.google.gson.JsonElement;
 import com.sammy.malum.core.setup.content.worldgen.FeatureRegistry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
+import net.minecraft.resources.RegistryOps;
+import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.common.data.JsonCodecProvider;
+import net.minecraftforge.common.world.BiomeModifier;
 import net.minecraftforge.data.event.GatherDataEvent;
+import net.minecraftforge.registries.ForgeRegistries;
 import team.lodestar.lodestone.data.provider.Providers;
 
 import static com.sammy.malum.MalumMod.MALUM;

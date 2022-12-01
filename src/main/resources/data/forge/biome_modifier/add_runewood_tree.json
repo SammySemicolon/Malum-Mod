@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#forge:is_plains",
+  "features": "malum:common_runewood",
+  "step": "vegetal_decoration"
+}

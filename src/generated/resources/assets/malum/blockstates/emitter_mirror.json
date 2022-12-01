@@ -4,8 +4,10 @@
       "model": "malum:block/emitter_mirror",
       "x": 180
     },
-    "facing=up": {
-      "model": "malum:block/emitter_mirror"
+    "facing=east": {
+      "model": "malum:block/emitter_mirror",
+      "x": 90,
+      "y": 90
     },
     "facing=north": {
       "model": "malum:block/emitter_mirror",
@@ -16,15 +18,13 @@
       "x": 90,
       "y": 180
     },
+    "facing=up": {
+      "model": "malum:block/emitter_mirror"
+    },
     "facing=west": {
       "model": "malum:block/emitter_mirror",
       "x": 90,
       "y": 270
-    },
-    "facing=east": {
-      "model": "malum:block/emitter_mirror",
-      "x": 90,
-      "y": 90
     }
   }
 }

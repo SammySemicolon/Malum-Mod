@@ -1,7 +1,7 @@
 {
   "type": "malum:spirit_repair",
-  "inputLookup": "none",
   "durabilityPercentage": 0.75,
+  "inputLookup": "none",
   "inputs": [
     "malum:soul_stained_steel_scythe",
     "malum:soul_stained_steel_helmet",
@@ -10,8 +10,8 @@
     "malum:soul_stained_steel_boots"
   ],
   "repairMaterial": {
-    "item": "malum:soul_stained_steel_ingot",
-    "count": 4
+    "count": 4,
+    "item": "malum:soul_stained_steel_ingot"
   },
   "spirits": [
     {

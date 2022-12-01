@@ -1,22 +1,22 @@
 {
   "type": "malum:spirit_infusion",
+  "extra_items": [
+    {
+      "count": 2,
+      "item": "malum:soulwood_planks"
+    },
+    {
+      "count": 4,
+      "item": "malum:soul_stained_steel_ingot"
+    }
+  ],
   "input": {
-    "item": "malum:soulwood_item_pedestal",
-    "count": 1
+    "count": 1,
+    "item": "malum:soulwood_item_pedestal"
   },
   "output": {
     "item": "malum:alteration_plinth"
   },
-  "extra_items": [
-    {
-      "item": "malum:soulwood_planks",
-      "count": 2
-    },
-    {
-      "item": "malum:soul_stained_steel_ingot",
-      "count": 4
-    }
-  ],
   "spirits": [
     {
       "type": "arcane",

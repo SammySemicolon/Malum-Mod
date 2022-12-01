@@ -1,30 +1,30 @@
 {
   "type": "malum:spirit_infusion",
+  "extra_items": [
+    {
+      "count": 16,
+      "item": "malum:soulwood_planks"
+    },
+    {
+      "count": 1,
+      "item": "malum:stained_spirit_resonator"
+    },
+    {
+      "count": 4,
+      "item": "malum:soul_stained_steel_ingot"
+    },
+    {
+      "count": 1,
+      "item": "malum:corrupted_resonance"
+    }
+  ],
   "input": {
-    "item": "malum:necklace_of_the_narrow_edge",
-    "count": 1
+    "count": 1,
+    "item": "malum:necklace_of_the_narrow_edge"
   },
   "output": {
     "item": "malum:necklace_of_the_hidden_blade"
   },
-  "extra_items": [
-    {
-      "item": "malum:soulwood_planks",
-      "count": 16
-    },
-    {
-      "item": "malum:stained_spirit_resonator",
-      "count": 1
-    },
-    {
-      "item": "malum:soul_stained_steel_ingot",
-      "count": 4
-    },
-    {
-      "item": "malum:corrupted_resonance",
-      "count": 1
-    }
-  ],
   "spirits": [
     {
       "type": "wicked",

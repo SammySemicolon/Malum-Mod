@@ -3,10 +3,10 @@
     "lit=false,waterlogged=false": {
       "model": "malum:block/blazing_sconce"
     },
-    "lit=true,waterlogged=false": {
+    "lit=false,waterlogged=true": {
       "model": "malum:block/blazing_sconce"
     },
-    "lit=false,waterlogged=true": {
+    "lit=true,waterlogged=false": {
       "model": "malum:block/blazing_sconce"
     },
     "lit=true,waterlogged=true": {

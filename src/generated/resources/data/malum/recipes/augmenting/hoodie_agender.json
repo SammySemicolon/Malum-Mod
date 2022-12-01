@@ -1,5 +1,9 @@
 {
   "type": "malum:augmenting",
+  "augment": {
+    "item": "malum:agender_prideweave"
+  },
+  "tagAugment": "{\"malum:item_skin\":\"agender_drip\"}",
   "targetItem": [
     {
       "item": "malum:soul_hunter_cloak"
@@ -25,9 +29,5 @@
     {
       "item": "malum:soul_stained_steel_boots"
     }
-  ],
-  "augment": {
-    "item": "malum:agender_prideweave"
-  },
-  "tagAugment": "{\"malum:item_skin\":\"agender_drip\"}"
+  ]
 }

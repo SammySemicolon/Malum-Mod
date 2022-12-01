@@ -1,9 +1,9 @@
 {
   "type": "minecraft:smelting",
+  "cookingtime": 200,
+  "experience": 0.1,
   "ingredient": {
     "item": "malum:holy_sap"
   },
-  "result": "malum:holy_syrup",
-  "experience": 0.1,
-  "cookingtime": 200
+  "result": "malum:holy_syrup"
 }

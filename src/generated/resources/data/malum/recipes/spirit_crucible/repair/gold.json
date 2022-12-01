@@ -1,11 +1,11 @@
 {
   "type": "malum:spirit_repair",
-  "inputLookup": "golden_",
   "durabilityPercentage": 0.5,
+  "inputLookup": "golden_",
   "inputs": [],
   "repairMaterial": {
-    "tag": "forge:ingots/gold",
-    "count": 2
+    "count": 2,
+    "tag": "forge:ingots/gold"
   },
   "spirits": [
     {

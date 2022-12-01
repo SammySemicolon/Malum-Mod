@@ -1,13 +1,13 @@
 {
   "variants": {
-    "type=top": {
-      "model": "malum:block/soulwood_panel_slab_top"
-    },
     "type=bottom": {
       "model": "malum:block/soulwood_panel_slab"
     },
     "type=double": {
       "model": "malum:block/soulwood_panel"
+    },
+    "type=top": {
+      "model": "malum:block/soulwood_panel_slab_top"
     }
   }
 }

@@ -1,5 +1,9 @@
 {
   "type": "malum:augmenting",
+  "augment": {
+    "item": "minecraft:comparator"
+  },
+  "tagAugment": "{\"malum:item_skin\":\"executioner_drip\"}",
   "targetItem": [
     {
       "item": "malum:soul_hunter_cloak"
@@ -25,9 +29,5 @@
     {
       "item": "malum:soul_stained_steel_boots"
     }
-  ],
-  "augment": {
-    "item": "minecraft:comparator"
-  },
-  "tagAugment": "{\"malum:item_skin\":\"executioner_drip\"}"
+  ]
 }
