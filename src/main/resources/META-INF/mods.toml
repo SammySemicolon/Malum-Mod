@@ -1,31 +1,42 @@
-
-modLoader="javafml"
-loaderVersion="[39,)"
-license="All rights reserved"
+modLoader = "javafml"
+loaderVersion = "[43,)"
+license = "All rights reserved"
 [[mods]]
-logoFile="malum.png"
-modId="malum"
-version="${file.jarVersion}"
-displayName="Malum"
-authors="Sammy;"
-description='''
+logoFile = "malum.png"
+modId = "malum"
+version = "${file.jarVersion}"
+displayName = "Malum"
+authors = "Sammy;"
+description = '''
 A dark magic mod focused on soul and spirit magic.
 '''
 [[dependencies.malum]]
-    modId="lodestone"
-    mandatory=true
-    versionRange="[FORGE-1.18.2-1.2,)"
-    ordering="AFTER"
-    side="BOTH"
+modId = "forge"
+mandatory = true
+versionRange = "[43,)"
+ordering = "NONE"
+side = "BOTH"
 [[dependencies.malum]]
-    modId="curios"
-    mandatory=true
-    versionRange="[FORGE-1.18.2,)"
-    ordering="AFTER"
-    side="BOTH"
+modId = "minecraft"
+mandatory = true
+versionRange = "[1.19,)"
+ordering = "NONE"
+side = "BOTH"
 [[dependencies.malum]]
-    modId="tetra"
-    mandatory=false
-    versionRange="[FORGE-1.18.2,)"
-    ordering="AFTER"
-    side="BOTH"
+modId = "lodestone"
+mandatory = true
+versionRange = "[1.19.2-2.0.0,)"
+ordering = "NONE"
+side = "BOTH"
+[[dependencies.malum]]
+modId = "curios"
+mandatory = true
+versionRange = "[FORGE-1.19.2-5.1.1.0,)"
+ordering = "NONE"
+side = "BOTH"
+[[dependencies.malum]]
+modId = "tetra"
+mandatory = false
+versionRange = "[FORGE-1.18.2,)"
+ordering = "AFTER"
+side = "BOTH"
