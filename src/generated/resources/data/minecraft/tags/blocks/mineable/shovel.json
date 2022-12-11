@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "malum:primordial_soup",
     "malum:blighted_earth",
     "malum:blighted_soil"
   ]

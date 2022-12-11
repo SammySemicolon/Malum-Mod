@@ -6,7 +6,7 @@
     ]
   },
   "criteria": {
-    "has_input": {
+    "has_spool": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
@@ -27,7 +27,7 @@
   },
   "requirements": [
     [
-      "has_input",
+      "has_spool",
       "has_the_recipe"
     ]
   ]

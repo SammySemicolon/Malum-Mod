@@ -10,12 +10,10 @@ import com.sammy.malum.client.model.cosmetic.pride.SlimPridewearArmorModel;
 import com.sammy.malum.client.model.cosmetic.risky.CommandoArmorModel;
 import com.sammy.malum.client.model.cosmetic.risky.ExecutionerArmorModel;
 import com.sammy.malum.common.block.MalumLeavesBlock;
-import com.sammy.malum.common.blockentity.FusionPlateBlockEntity;
 import com.sammy.malum.common.blockentity.crucible.SpiritCatalyzerCoreBlockEntity;
 import com.sammy.malum.common.blockentity.crucible.SpiritCrucibleCoreBlockEntity;
 import com.sammy.malum.common.blockentity.obelisk.BrilliantObeliskBlockEntity;
 import com.sammy.malum.common.blockentity.obelisk.RunewoodObeliskBlockEntity;
-import com.sammy.malum.common.blockentity.storage.PlinthCoreBlockEntity;
 import com.sammy.malum.common.item.*;
 import com.sammy.malum.common.item.cosmetic.AncientWeaveItem;
 import com.sammy.malum.common.item.cosmetic.PrideweaveItem;
@@ -403,12 +401,9 @@ public class ItemRegistry {
     public static final RegistryObject<Item> SPIRIT_CRUCIBLE = ITEMS.register("spirit_crucible", () -> new MultiBlockItem(BlockRegistry.SPIRIT_CRUCIBLE.get(), DEFAULT_PROPERTIES(), SpiritCrucibleCoreBlockEntity.STRUCTURE));
     public static final RegistryObject<Item> TWISTED_TABLET = ITEMS.register("twisted_tablet", () -> new BlockItem(BlockRegistry.TWISTED_TABLET.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> SPIRIT_CATALYZER = ITEMS.register("spirit_catalyzer", () -> new MultiBlockItem(BlockRegistry.SPIRIT_CATALYZER.get(), DEFAULT_PROPERTIES(), SpiritCatalyzerCoreBlockEntity.STRUCTURE));
-    public static final RegistryObject<Item> EMITTER_MIRROR = ITEMS.register("emitter_mirror", () -> new BlockItem(BlockRegistry.EMITTER_MIRROR.get(), HIDDEN_PROPERTIES()));
     public static final RegistryObject<Item> RUNEWOOD_TOTEM_BASE = ITEMS.register("runewood_totem_base", () -> new BlockItem(BlockRegistry.RUNEWOOD_TOTEM_BASE.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> SOULWOOD_TOTEM_BASE = ITEMS.register("soulwood_totem_base", () -> new BlockItem(BlockRegistry.SOULWOOD_TOTEM_BASE.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> ALTERATION_PLINTH = ITEMS.register("alteration_plinth", () -> new BlockItem(BlockRegistry.ALTERATION_PLINTH.get(), DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> SOULWOOD_PLINTH = ITEMS.register("soulwood_plinth", () -> new MultiBlockItem(BlockRegistry.SOULWOOD_PLINTH.get(), HIDDEN_PROPERTIES(), PlinthCoreBlockEntity.STRUCTURE));
-    public static final RegistryObject<Item> SOULWOOD_FUSION_PLATE = ITEMS.register("soulwood_fusion_plate", () -> new MultiBlockItem(BlockRegistry.SOULWOOD_FUSION_PLATE.get(), HIDDEN_PROPERTIES(), FusionPlateBlockEntity.STRUCTURE));
     //endregion
 
     //region materials
@@ -416,14 +411,15 @@ public class ItemRegistry {
     public static final RegistryObject<Item> GRIM_TALC = ITEMS.register("grim_talc", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> ALCHEMICAL_CALX = ITEMS.register("alchemical_calx", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> ASTRAL_WEAVE = ITEMS.register("astral_weave", () -> new Item(DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> RARE_EARTHS = ITEMS.register("rare_earths", () -> new Item(DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> AURIC_REMNANT = ITEMS.register("auric_remnant", () -> new Item(DEFAULT_PROPERTIES().rarity(Rarity.UNCOMMON)));
+    public static final RegistryObject<Item> MOTE_OF_MANA = ITEMS.register("mote_of_mana", () -> new BlockItem(BlockRegistry.MOTE_OF_MANA.get(), DEFAULT_PROPERTIES().rarity(Rarity.UNCOMMON)));
     public static final RegistryObject<Item> HEX_ASH = ITEMS.register("hex_ash", () -> new Item(DEFAULT_PROPERTIES()));
 
     public static final RegistryObject<Item> BLOCK_OF_ROTTING_ESSENCE = ITEMS.register("block_of_rotting_essence", () -> new BlockItem(BlockRegistry.BLOCK_OF_ROTTING_ESSENCE.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> BLOCK_OF_GRIM_TALC = ITEMS.register("block_of_grim_talc", () -> new BlockItem(BlockRegistry.BLOCK_OF_GRIM_TALC.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> BLOCK_OF_ALCHEMICAL_CALX = ITEMS.register("block_of_alchemical_calx", () -> new BlockItem(BlockRegistry.BLOCK_OF_ALCHEMICAL_CALX.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> BLOCK_OF_ASTRAL_WEAVE = ITEMS.register("block_of_astral_weave", () -> new BlockItem(BlockRegistry.BLOCK_OF_ASTRAL_WEAVE.get(), DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> BLOCK_OF_RARE_EARTHS = ITEMS.register("block_of_rare_earths", () -> new ItemNameBlockItem(BlockRegistry.BLOCK_OF_RARE_EARTHS.get(), new Item.Properties().tab(CreativeModeTab.TAB_BUILDING_BLOCKS)));
+    public static final RegistryObject<Item> BLOCK_OF_RARE_EARTHS = ITEMS.register("block_of_rare_earths", () -> new ItemNameBlockItem(BlockRegistry.BLOCK_OF_AURUM.get(), new Item.Properties().tab(CreativeModeTab.TAB_BUILDING_BLOCKS)));
     public static final RegistryObject<Item> BLOCK_OF_HEX_ASH = ITEMS.register("block_of_hex_ash", () -> new BlockItem(BlockRegistry.BLOCK_OF_HEX_ASH.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> BLOCK_OF_CURSED_GRIT = ITEMS.register("block_of_cursed_grit", () -> new BlockItem(BlockRegistry.BLOCK_OF_CURSED_GRIT.get(), DEFAULT_PROPERTIES()));
 
@@ -581,6 +577,11 @@ public class ItemRegistry {
     public static final RegistryObject<Item> THE_DEVICE = ITEMS.register("the_device", () -> new BlockItem(BlockRegistry.THE_DEVICE.get(), HIDDEN_PROPERTIES()));
     public static final RegistryObject<Item> CREATIVE_SCYTHE = ITEMS.register("creative_scythe", () -> new MagicScytheItem(Tiers.IRON, 9993, 9.1f, 999f, HIDDEN_PROPERTIES().durability(-1)));
     public static final RegistryObject<Item> TOKEN_OF_GRATITUDE = ITEMS.register("token_of_gratitude", () -> new CurioTokenOfGratitude(HIDDEN_PROPERTIES()));
+    public static final RegistryObject<Item> PRIMORDIAL_SOUP = ITEMS.register("primordial_soup", () -> new BlockItem(BlockRegistry.PRIMORDIAL_SOUP.get(), HIDDEN_PROPERTIES()));
+
+    public static final RegistryObject<Item> WEEPING_WELL_CORNER = ITEMS.register("weeping_well_corner", () -> new BlockItem(BlockRegistry.WEEPING_WELL_CORNER.get(), HIDDEN_PROPERTIES()));
+    public static final RegistryObject<Item> WEEPING_WELL_SIDE = ITEMS.register("weeping_well_side", () -> new BlockItem(BlockRegistry.WEEPING_WELL_SIDE.get(), HIDDEN_PROPERTIES()));
+    public static final RegistryObject<Item> WEEPING_WELL_CORE = ITEMS.register("weeping_well_core", () -> new BlockItem(BlockRegistry.WEEPING_WELL_CORE.get(), HIDDEN_PROPERTIES()));
     //endregion
 
     @Mod.EventBusSubscriber(modid = MalumMod.MALUM, bus = Mod.EventBusSubscriber.Bus.MOD)

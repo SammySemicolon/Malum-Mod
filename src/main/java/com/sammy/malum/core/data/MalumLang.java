@@ -334,7 +334,7 @@ public class MalumLang extends LanguageProvider {
         addEntryHeader("reactive_trinkets", "Reactive Trinkets", "Harnessing the harvest");
         addHeadline("reactive_trinkets.ring_of_curative_talent", "Ring of Curative Talent");
         addPages("reactive_trinkets.ring_of_curative_talent",
-            "The trinkets documented within cause effects whenever a spirit crystal is collected, feeding off the excess energy. This trinket restores my health whenever I collect arcana, for example.");
+            "The trinkets documented within cause effects whenever a spirit crystal is collected, feeding off the excess energy. As an example, this restorative trinket will replenish a small division of my health any time I collect arcana.");
         addHeadline("reactive_trinkets.ring_of_alchemical_mastery", "Ring of Alchemical Mastery");
         addPages("reactive_trinkets.ring_of_alchemical_mastery",
             "This ring, through alchemical trickery, is able to manipulate the potions running through my blood. Negative effects are filtered out, shortening their duration, while positive effects are maintained for longer than normal. Whenever I collect arcana, the ring momentarily works better.");
@@ -464,7 +464,7 @@ public class MalumLang extends LanguageProvider {
             "The Undirected Rite, as the name suggests, is random. It transmutes, but it has no pattern to transmute things to. So, instead, you get something random, bits of disparate matter all jumbled together into a foul-smelling powder. I wouldn't recommend eating it, or growing things on it, but it's otherwise harmless.");
         addHeadline("blight.spread", "Blight Study: Spread");
         addPages("blight.spread",
-            "Blight does not spread on its own. It's just random matter, after all. But it has a spiritual memory, an echo of how it was created, and, given arcana, will effect that echo on nearby substances.");
+            "Blight does not spread on its own. It's just random matter, after all. But it has a spiritual memory, a pattern which to replicate. When given arcana, or a valid fertilizer, blight will haphazardly echo this pattern on the nearby area.");
         addHeadline("blight.arcane_rite", "Blight Study: Resonance");
         addPages("blight.arcane_rite",
             "That echo is why this substance is important for the Unchained Rite. The Rite remembers the violence of its creation, and resonates with the memory within the blight, applying its power to things laying on top of it.");
@@ -475,7 +475,7 @@ public class MalumLang extends LanguageProvider {
             "After further study, I have discovered that the Soulwood produced by the Unchained Rite is actually an entirely different species from the Runewood it is made from. It grows differently, it acts differently... it appears the spiritual scars that created it go deeper than just its color and magic.");
         addHeadline("soulwood.bonemeal", "Soulwood Study: Growth");
         addPages("soulwood.bonemeal",
-            "The sapling doesn't accept most natural fertilizers, like bonemeal. Instead, its hunger lies towards the arcana - providing it with spirits will accelerate its growth instead.");
+            "Much like blight, the sapling accepts both spirit arcana and common fertilizers such as bonemeal. The end result is roughly the same across both options.");
         addHeadline("soulwood.color", "Soulwood Study: Color");
         addPages("soulwood.color",
             "The most obvious differences with the tree itself are shape and leaf color. Soulwood is more spindly than Runewood, and its leaves are a sickly purple hue instead of a rich orange-yellow. It can still be used for many of the same things, though.");

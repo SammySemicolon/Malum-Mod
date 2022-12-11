@@ -3,7 +3,6 @@ package com.sammy.malum.client.screen.codex;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector4f;
-import com.sammy.malum.MalumMod;
 import com.sammy.malum.client.screen.codex.objects.*;
 import com.sammy.malum.client.screen.codex.pages.*;
 import com.sammy.malum.common.events.SetupMalumCodexEntriesEvent;
@@ -143,9 +142,9 @@ public class ProgressionBookScreen extends Screen {
         );
 
         ENTRIES.add(new BookEntry(
-                "rare_earths", RARE_EARTHS.get(), -4, 2)
+                "rare_earths", AURIC_REMNANT.get(), -4, 2)
                 .setObjectSupplier(MinorEntryObject::new)
-                .addPage(new HeadlineTextItemPage("rare_earths", "rare_earths", RARE_EARTHS.get()))
+                .addPage(new HeadlineTextItemPage("rare_earths", "rare_earths", AURIC_REMNANT.get()))
         );
 
         ENTRIES.add(new BookEntry(
@@ -406,10 +405,10 @@ public class ProgressionBookScreen extends Screen {
 
         ENTRIES.add(new BookEntry(
                 "reactive_trinkets", RING_OF_ALCHEMICAL_MASTERY.get(), -7, 6)
-                .addPage(new HeadlineTextPage("reactive_trinkets.ring_of_alchemical_mastery", "reactive_trinkets.ring_of_alchemical_mastery.1"))
-                .addPage(SpiritInfusionPage.fromOutput(RING_OF_ALCHEMICAL_MASTERY.get()))
                 .addPage(new HeadlineTextPage("reactive_trinkets.ring_of_curative_talent", "reactive_trinkets.ring_of_curative_talent.1"))
                 .addPage(SpiritInfusionPage.fromOutput(RING_OF_CURATIVE_TALENT.get()))
+                .addPage(new HeadlineTextPage("reactive_trinkets.ring_of_alchemical_mastery", "reactive_trinkets.ring_of_alchemical_mastery.1"))
+                .addPage(SpiritInfusionPage.fromOutput(RING_OF_ALCHEMICAL_MASTERY.get()))
                 .addPage(new HeadlineTextPage("reactive_trinkets.ring_of_prowess", "reactive_trinkets.ring_of_prowess.1"))
                 .addPage(new TextPage("reactive_trinkets.ring_of_prowess.2"))
                 .addPage(SpiritInfusionPage.fromOutput(RING_OF_ARCANE_PROWESS.get()))

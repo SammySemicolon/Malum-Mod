@@ -143,13 +143,13 @@ dependencies {
     implementation fg.deobf("se.mickelus.tetra:tetra:${minecraftVersion}-${tetraVersion}")
 
     // CurseMaven Deps
-    implementation fg.deobf("curse.maven:supplementaries-328085:3872145")
-    implementation fg.deobf("curse.maven:farmers_delight-398521:3739914")
-    implementation fg.deobf("curse.maven:selene-499980:3842421")
-    implementation fg.deobf("curse.maven:supplementaries-412082:3871187")
-    implementation fg.deobf("curse.maven:jeed-532286:3820697")
-//    implementation fg.deobf("curse.maven:quark-243121:3840125")
-//    implementation fg.deobf("curse.maven:autoreglib-250363:3642382")
+    compileOnly fg.deobf("curse.maven:create-328085:3872145")
+    compileOnly fg.deobf("curse.maven:farmers_delight-398521:3739914")
+    compileOnly fg.deobf("curse.maven:selene-499980:3842421")
+    compileOnly fg.deobf("curse.maven:supplementaries-412082:3871187")
+    compileOnly fg.deobf("curse.maven:jeed-532286:3820697")
+//    compileOnly fg.deobf("curse.maven:quark-243121:3840125")
+//    compileOnly fg.deobf("curse.maven:autoreglib-250363:3642382")
 }
 
 jar {

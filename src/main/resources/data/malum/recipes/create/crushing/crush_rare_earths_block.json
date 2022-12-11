@@ -8,15 +8,15 @@
   "type": "create:crushing",
   "ingredients": [
     {
-      "item": "malum:block_of_rare_earths"
+      "item": "malum:block_of_aurum"
     }
   ],
   "results": [
     {
-      "item": "malum:rare_earths"
+      "item": "malum:auric_remnant"
     },
     {
-      "item": "malum:rare_earths",
+      "item": "malum:auric_remnant",
       "chance": 0.75
     },
     {

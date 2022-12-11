@@ -5,9 +5,6 @@ import com.sammy.malum.common.block.*;
 import com.sammy.malum.common.block.alteration_plinth.AlterationPlinthBlock;
 import com.sammy.malum.common.block.blight.*;
 import com.sammy.malum.common.block.ether.*;
-import com.sammy.malum.common.block.fusion_plate.FusionPlateComponentBlock;
-import com.sammy.malum.common.block.fusion_plate.FusionPlateCoreBlock;
-import com.sammy.malum.common.block.mirror.EmitterMirrorBlock;
 import com.sammy.malum.common.block.obelisk.BrillianceObeliskCoreBlock;
 import com.sammy.malum.common.block.obelisk.ObeliskComponentBlock;
 import com.sammy.malum.common.block.obelisk.RunewoodObeliskCoreBlock;
@@ -20,6 +17,9 @@ import com.sammy.malum.common.block.storage.*;
 import com.sammy.malum.common.block.tablet.TwistedTabletBlock;
 import com.sammy.malum.common.block.totem.TotemBaseBlock;
 import com.sammy.malum.common.block.totem.TotemPoleBlock;
+import com.sammy.malum.common.block.weeping_well.PrimordialSoupBlock;
+import com.sammy.malum.common.block.weeping_well.WeepingWellBlock;
+import com.sammy.malum.common.block.weeping_well.WeepingWellComponentBlock;
 import com.sammy.malum.common.blockentity.EtherBlockEntity;
 import com.sammy.malum.compability.supplementaries.SupplementariesCompat;
 import com.sammy.malum.core.setup.content.SoundRegistry;
@@ -61,6 +61,10 @@ import static net.minecraft.world.level.block.PressurePlateBlock.Sensitivity.MOB
 @SuppressWarnings("unused")
 public class BlockRegistry {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MALUM);
+
+    public static LodestoneBlockProperties WEEPING_WELL_PROPERTIES() {
+        return new LodestoneBlockProperties(Material.STONE, MaterialColor.STONE).needsPickaxe().sound(SoundRegistry.TAINTED_ROCK).requiresCorrectToolForDrops().strength(-1.0F, 3600000.0F);
+    }
 
     public static LodestoneBlockProperties TAINTED_ROCK_PROPERTIES() {
         return new LodestoneBlockProperties(Material.STONE, MaterialColor.STONE).needsPickaxe().sound(SoundRegistry.TAINTED_ROCK).requiresCorrectToolForDrops().strength(1.25F, 9.0F);
@@ -158,7 +162,7 @@ public class BlockRegistry {
         return new LodestoneBlockProperties(Material.STONE, MaterialColor.STONE).needsPickaxe().requiresCorrectToolForDrops().strength(1.5F).sound(SoundRegistry.QUARTZ_CLUSTER);
     }
 
-    public static LodestoneBlockProperties RARE_EARTH_PROPERTIES() {
+    public static LodestoneBlockProperties AURUM_PROPERTIES() {
         return new LodestoneBlockProperties(Material.STONE, MaterialColor.STONE).needsPickaxe().requiresCorrectToolForDrops().strength(25f, 9999f).sound(SoundRegistry.RARE_EARTH);
     }
 
@@ -173,9 +177,8 @@ public class BlockRegistry {
     public static final RegistryObject<Block> ALTERATION_PLINTH = BLOCKS.register("alteration_plinth", () -> new AlterationPlinthBlock<>(SOULWOOD_PROPERTIES().isCutoutLayer().noOcclusion()).setBlockEntity(BlockEntityRegistry.ALTERATION_PLINTH));
 
     public static final RegistryObject<Block> SOUL_VIAL = BLOCKS.register("soul_vial", () -> new SoulVialBlock<>(SOUL_VIAL_PROPERTIES().isCutoutLayer().noOcclusion()).setBlockEntity(BlockEntityRegistry.SOUL_VIAL));
-    public static final RegistryObject<Block> EMITTER_MIRROR = BLOCKS.register("emitter_mirror", () -> new EmitterMirrorBlock<>(HALLOWED_GOLD_PROPERTIES().isCutoutLayer().noOcclusion()).setBlockEntity(BlockEntityRegistry.EMITTER_MIRROR));
 
-    public static final RegistryObject<Block> MOTE_OF_MANA = BLOCKS.register("mote_of_mana", () -> new Block(TAINTED_ROCK_PROPERTIES().isCutoutLayer().noOcclusion()));
+    public static final RegistryObject<Block> MOTE_OF_MANA = BLOCKS.register("mote_of_mana", () -> new Block(MOTE_OF_MANA_PROPERTIES()));
 
     public static final RegistryObject<Block> TWISTED_TABLET = BLOCKS.register("twisted_tablet", () -> new TwistedTabletBlock<>(TAINTED_ROCK_PROPERTIES().isCutoutLayer().noOcclusion()).setBlockEntity(BlockEntityRegistry.TWISTED_TABLET));
 
@@ -191,17 +194,16 @@ public class BlockRegistry {
     public static final RegistryObject<Block> SPIRIT_CATALYZER = BLOCKS.register("spirit_catalyzer", () -> new SpiritCatalyzerCoreBlock<>(TAINTED_ROCK_PROPERTIES().isCutoutLayer().noOcclusion()).setBlockEntity(BlockEntityRegistry.SPIRIT_CATALYZER));
     public static final RegistryObject<Block> SPIRIT_CATALYZER_COMPONENT = BLOCKS.register("spirit_catalyzer_component", () -> new SpiritCatalyzerComponentBlock(TAINTED_ROCK_PROPERTIES().isCutoutLayer().lootFrom(SPIRIT_CATALYZER).noOcclusion(), ItemRegistry.SPIRIT_CATALYZER));
 
-    public static final RegistryObject<Block> SOULWOOD_PLINTH = BLOCKS.register("soulwood_plinth", () -> new PlinthCoreBlock<>(SOULWOOD_PROPERTIES().isCutoutLayer().noOcclusion()).setBlockEntity(BlockEntityRegistry.PLINTH));
-    public static final RegistryObject<Block> SOULWOOD_PLINTH_COMPONENT = BLOCKS.register("soulwood_plinth_component", () -> new PlinthComponentBlock(SOULWOOD_PROPERTIES().isCutoutLayer().lootFrom(SOULWOOD_PLINTH).noOcclusion(), ItemRegistry.SOULWOOD_PLINTH));
-
-    public static final RegistryObject<Block> SOULWOOD_FUSION_PLATE = BLOCKS.register("soulwood_fusion_plate", () -> new FusionPlateCoreBlock<>(SOULWOOD_PROPERTIES().isCutoutLayer().noOcclusion()).setBlockEntity(BlockEntityRegistry.FUSION_PLATE));
-    public static final RegistryObject<Block> SOULWOOD_FUSION_PLATE_COMPONENT = BLOCKS.register("soulwood_fusion_plate_component", () -> new FusionPlateComponentBlock(SOULWOOD_PROPERTIES().isCutoutLayer().lootFrom(SOULWOOD_FUSION_PLATE).noOcclusion(), ItemRegistry.SOULWOOD_FUSION_PLATE));
-
     public static final RegistryObject<Block> RUNEWOOD_TOTEM_BASE = BLOCKS.register("runewood_totem_base", () -> new TotemBaseBlock<>(RUNEWOOD_PROPERTIES().noOcclusion(), false).setBlockEntity(BlockEntityRegistry.TOTEM_BASE));
     public static final RegistryObject<Block> RUNEWOOD_TOTEM_POLE = BLOCKS.register("runewood_totem_pole", () -> new TotemPoleBlock<>(RUNEWOOD_PROPERTIES().noOcclusion(), BlockRegistry.RUNEWOOD_LOG, false).setBlockEntity(BlockEntityRegistry.TOTEM_POLE));
 
     public static final RegistryObject<Block> SOULWOOD_TOTEM_BASE = BLOCKS.register("soulwood_totem_base", () -> new TotemBaseBlock<>(SOULWOOD_PROPERTIES().noOcclusion(), true).setBlockEntity(BlockEntityRegistry.TOTEM_BASE));
     public static final RegistryObject<Block> SOULWOOD_TOTEM_POLE = BLOCKS.register("soulwood_totem_pole", () -> new TotemPoleBlock<>(SOULWOOD_PROPERTIES().noOcclusion(), BlockRegistry.SOULWOOD_LOG, true).setBlockEntity(BlockEntityRegistry.TOTEM_POLE));
+
+    public static final RegistryObject<Block> PRIMORDIAL_SOUP = BLOCKS.register("primordial_soup", () -> new PrimordialSoupBlock(BLIGHT_PROPERTIES().isCutoutLayer().noOcclusion()));
+    public static final RegistryObject<Block> WEEPING_WELL_CORNER = BLOCKS.register("weeping_well_corner", () -> new WeepingWellComponentBlock(TAINTED_ROCK_PROPERTIES().isCutoutLayer()));
+    public static final RegistryObject<Block> WEEPING_WELL_SIDE = BLOCKS.register("weeping_well_side", () -> new WeepingWellComponentBlock(TAINTED_ROCK_PROPERTIES().isCutoutLayer()));
+    public static final RegistryObject<Block> WEEPING_WELL_CORE = BLOCKS.register("weeping_well_core", () -> new WeepingWellBlock(TAINTED_ROCK_PROPERTIES().isCutoutLayer()));
     //endregion
 
     //region tainted rock
@@ -450,7 +452,7 @@ public class BlockRegistry {
     public static final RegistryObject<Block> DEEPSLATE_QUARTZ_ORE = BLOCKS.register("deepslate_quartz_ore", () -> new OreBlock(DEEPSLATE_QUARTZ_PROPERTIES().isCutoutLayer(), UniformInt.of(2, 5)));
     public static final RegistryObject<Block> NATURAL_QUARTZ_CLUSTER = BLOCKS.register("natural_quartz_cluster", () -> new AmethystClusterBlock(6, 3, NATURAL_QUARTZ_CLUSTER_PROPERTIES().isCutoutLayer()));
 
-    public static final RegistryObject<Block> BLOCK_OF_RARE_EARTHS = BLOCKS.register("block_of_rare_earths", () -> new OreBlock(RARE_EARTH_PROPERTIES(), UniformInt.of(10, 100)));
+    public static final RegistryObject<Block> BLOCK_OF_AURUM = BLOCKS.register("block_of_aurum", () -> new OreBlock(AURUM_PROPERTIES(), UniformInt.of(10, 100)));
 
     public static final RegistryObject<Block> BRILLIANT_STONE = BLOCKS.register("brilliant_stone", () -> new OreBlock(BRILLIANCE_PROPERTIES().isCutoutLayer(), UniformInt.of(14, 18)));
     public static final RegistryObject<Block> BRILLIANT_DEEPSLATE = BLOCKS.register("brilliant_deepslate", () -> new OreBlock(DEEPSLATE_BRILLIANCE_PROPERTIES().isCutoutLayer(), UniformInt.of(16, 26)));

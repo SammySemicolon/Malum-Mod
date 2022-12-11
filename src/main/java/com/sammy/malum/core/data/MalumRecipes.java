@@ -3,7 +3,6 @@ package com.sammy.malum.core.data;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.item.cosmetic.PrideweaveItem;
 import com.sammy.malum.common.item.impetus.ImpetusItem;
-import com.sammy.malum.core.data.builder.SpiritInfusionRecipeBuilder;
 import com.sammy.malum.core.data.builder.vanilla.TheDeviceRecipeBuilder;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
 import com.sammy.malum.core.setup.content.item.ItemTagRegistry;
@@ -36,8 +35,6 @@ import static com.sammy.malum.core.data.builder.vanilla.MetalNodeCookingRecipeBu
 import static com.sammy.malum.core.data.builder.vanilla.MetalNodeCookingRecipeBuilder.smeltingWithTag;
 import static com.sammy.malum.core.data.builder.vanilla.StackedMalumCookingRecipeBuilder.blastingWithCount;
 import static com.sammy.malum.core.data.builder.vanilla.StackedMalumCookingRecipeBuilder.smeltingWithCount;
-import static com.sammy.malum.core.setup.content.SpiritTypeRegistry.ELDRITCH_SPIRIT;
-import static com.sammy.malum.core.setup.content.SpiritTypeRegistry.SACRED_SPIRIT;
 import static net.minecraft.data.recipes.ShapedRecipeBuilder.shaped;
 import static net.minecraft.data.recipes.ShapelessRecipeBuilder.shapeless;
 import static net.minecraft.data.recipes.SimpleCookingRecipeBuilder.*;
@@ -139,8 +136,8 @@ public class MalumRecipes extends RecipeProvider implements IConditionBuilder {
         blastingWithCount(Ingredient.of(ItemRegistry.SOULSTONE_ORE.get()), ItemRegistry.PROCESSED_SOULSTONE.get(), 2, 0.25f, 100).unlockedBy("has_soulstone", has(ItemRegistry.RAW_SOULSTONE.get())).save(consumer, malumPath("soulstone_from_blasting"));
         smeltingWithCount(Ingredient.of(ItemRegistry.DEEPSLATE_SOULSTONE_ORE.get()), ItemRegistry.PROCESSED_SOULSTONE.get(), 2, 0.25f, 200).unlockedBy("has_soulstone", has(ItemRegistry.RAW_SOULSTONE.get())).save(consumer, malumPath("soulstone_from_deepslate_smelting"));
         blastingWithCount(Ingredient.of(ItemRegistry.DEEPSLATE_SOULSTONE_ORE.get()), ItemRegistry.PROCESSED_SOULSTONE.get(), 2, 0.25f, 100).unlockedBy("has_soulstone", has(ItemRegistry.RAW_SOULSTONE.get())).save(consumer, malumPath("soulstone_from_deepslate_blasting"));
-        smelting(Ingredient.of(ItemRegistry.BLOCK_OF_RARE_EARTHS.get()), ItemRegistry.RARE_EARTHS.get(), 2.0f, 200).unlockedBy("has_rare_earths", has(ItemRegistry.RARE_EARTHS.get())).save(consumer, malumPath("rare_earths_from_smelting"));
-        blasting(Ingredient.of(ItemRegistry.BLOCK_OF_RARE_EARTHS.get()), ItemRegistry.RARE_EARTHS.get(), 2.0f, 100).unlockedBy("has_rare_earths", has(ItemRegistry.RARE_EARTHS.get())).save(consumer, malumPath("rare_earths_from_blasting"));
+        smelting(Ingredient.of(ItemRegistry.BLOCK_OF_RARE_EARTHS.get()), ItemRegistry.AURIC_REMNANT.get(), 2.0f, 200).unlockedBy("has_rare_earths", has(ItemRegistry.AURIC_REMNANT.get())).save(consumer, malumPath("rare_earths_from_smelting"));
+        blasting(Ingredient.of(ItemRegistry.BLOCK_OF_RARE_EARTHS.get()), ItemRegistry.AURIC_REMNANT.get(), 2.0f, 100).unlockedBy("has_rare_earths", has(ItemRegistry.AURIC_REMNANT.get())).save(consumer, malumPath("rare_earths_from_blasting"));
 
         smeltingWithCount(Ingredient.of(ItemRegistry.CLUSTER_OF_BRILLIANCE.get()), ItemRegistry.CHUNK_OF_BRILLIANCE.get(), 2, 1, 200).unlockedBy("has_brilliance", has(ItemRegistry.CLUSTER_OF_BRILLIANCE.get())).save(consumer, malumPath("brilliance_from_raw_smelting"));
         blastingWithCount(Ingredient.of(ItemRegistry.CLUSTER_OF_BRILLIANCE.get()), ItemRegistry.CHUNK_OF_BRILLIANCE.get(), 2, 1, 100).unlockedBy("has_brilliance", has(ItemRegistry.CLUSTER_OF_BRILLIANCE.get())).save(consumer, malumPath("brilliance_from_raw_blasting"));
@@ -500,7 +497,7 @@ public class MalumRecipes extends RecipeProvider implements IConditionBuilder {
         //THE DEVICE
         TheDeviceRecipeBuilder.shaped(ItemRegistry.THE_DEVICE.get()).define('X', ItemRegistry.TWISTED_ROCK.get()).define('Y', ItemRegistry.TAINTED_ROCK.get()).pattern("XYX").pattern("YXY").pattern("XYX").unlockedBy("has_bedrock", has(Items.BEDROCK)).save(consumer);
 
-        shapeless(ItemRegistry.ANCIENT_WEAVE.get()).requires(ItemRegistry.ESOTERIC_SPOOL.get()).requires(ItemRegistry.BLIGHTED_GUNK.get(), 4).unlockedBy("has_input", has(ItemRegistry.ESOTERIC_SPOOL.get())).save(consumer);
+        shaped(ItemRegistry.ANCIENT_WEAVE.get()).define('X', ItemRegistry.ESOTERIC_SPOOL.get()).define('Y', ItemRegistry.BLIGHTED_GUNK.get()).pattern(" Y ").pattern("YXY").pattern(" Y ").unlockedBy("has_spool", has(ItemRegistry.ESOTERIC_SPOOL.get())).save(consumer);
 
         prideweaveRecipe(consumer, Items.BREAD, ItemRegistry.ACE_PRIDEWEAVE);
         prideweaveRecipe(consumer, Items.ARROW, ItemRegistry.AGENDER_PRIDEWEAVE);
@@ -523,7 +520,7 @@ public class MalumRecipes extends RecipeProvider implements IConditionBuilder {
     }
 
     private void prideweaveRecipe(Consumer<FinishedRecipe> consumer, Item sideItem, RegistryObject<PrideweaveItem> output) {
-        shapeless(output.get()).requires(ItemRegistry.ESOTERIC_SPOOL.get()).requires(sideItem).unlockedBy("has_input", has(ItemRegistry.ESOTERIC_SPOOL.get())).save(consumer);
+        shapeless(output.get()).requires(ItemRegistry.ESOTERIC_SPOOL.get()).requires(sideItem).unlockedBy("has_spool", has(ItemRegistry.ESOTERIC_SPOOL.get())).save(consumer);
     }
 
     private void nodeSmelting(Consumer<FinishedRecipe> recipeConsumer, RegistryObject<ImpetusItem> impetus, RegistryObject<Item> node, TagKey<Item> tag) {

@@ -1,7 +1,0 @@
-{
-  "parent": "malum:block/templates/template_mirror",
-  "textures": {
-    "mirror": "malum:block/emitter_mirror",
-    "particle": "malum:block/block_of_hallowed_gold"
-  }
-}

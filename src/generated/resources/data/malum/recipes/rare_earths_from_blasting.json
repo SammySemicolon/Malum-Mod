@@ -3,7 +3,7 @@
   "ingredient": {
     "item": "malum:block_of_rare_earths"
   },
-  "result": "malum:rare_earths",
+  "result": "malum:auric_remnant",
   "experience": 2.0,
   "cookingtime": 100
 }

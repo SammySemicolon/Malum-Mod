@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "malum:block/weeping_well_core"
+    },
+    "facing=south": {
+      "model": "malum:block/weeping_well_core",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "malum:block/weeping_well_core",
+      "y": 270
+    },
+    "facing=east": {
+      "model": "malum:block/weeping_well_core",
+      "y": 90
+    }
+  }
+}

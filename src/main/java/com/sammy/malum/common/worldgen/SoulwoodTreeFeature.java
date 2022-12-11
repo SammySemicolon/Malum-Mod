@@ -300,7 +300,7 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
                         if (level.getBlockState(immutable.below()).is(DIRT)) {
                             filler.entries.add(new BlockStateEntry(BlockRegistry.BLIGHTED_EARTH.get().defaultBlockState(), immutable.below()));
                         }
-                        if (level.getRandom().nextFloat() < 0.8f) {
+                        if (level.getRandom().nextFloat() < 0.25f) {
                             BlockPos plantPos = immutable.above();
                             BlockState blockState = level.getBlockState(plantPos);
                             if (naturalNoiseValue > 2.5f) {
@@ -311,11 +311,10 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
                                             lastSaplingPos = new Vec3(plantPos.getX(), plantPos.getY(), plantPos.getZ());
                                             saplingsPlaced++;
                                         }
-                                        continue;
                                     }
                                 }
                             }
-                            if (blockState.isAir() && !blockState.is(BlockTagRegistry.BLIGHTED_PLANTS)) {
+                            if ((blockState.isAir() || blockState.getMaterial().isReplaceable()) && !blockState.is(BlockTagRegistry.BLIGHTED_PLANTS)) {
                                 filler.entries.add(new BlockStateEntry((level.getRandom().nextFloat() < 0.2f ? BlockRegistry.BLIGHTED_TUMOR : BlockRegistry.BLIGHTED_WEED).get().defaultBlockState(), plantPos));
                             }
                         }

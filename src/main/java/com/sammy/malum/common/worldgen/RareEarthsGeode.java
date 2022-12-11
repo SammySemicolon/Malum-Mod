@@ -175,7 +175,7 @@ public class RareEarthsGeode extends Feature<GeodeConfiguration> {
 
         if (!potentialRareEarthPositions.isEmpty()) {
             BlockPos rareEarthPos = potentialRareEarthPositions.get(random.nextInt(potentialRareEarthPositions.size()));
-            worldgenlevel.setBlock(rareEarthPos, BlockRegistry.BLOCK_OF_RARE_EARTHS.get().defaultBlockState(), 2);
+            worldgenlevel.setBlock(rareEarthPos, BlockRegistry.BLOCK_OF_AURUM.get().defaultBlockState(), 2);
         }
         return true;
     }

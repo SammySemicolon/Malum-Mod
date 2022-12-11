@@ -19,6 +19,8 @@ import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConf
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.registries.RegistryObject;
 
+import java.util.Random;
+
 import static com.sammy.malum.core.setup.content.block.BlockTagRegistry.BLIGHTED_BLOCKS;
 
 public class SoulwoodGrowthBlock extends MalumSaplingBlock {
@@ -35,28 +37,25 @@ public class SoulwoodGrowthBlock extends MalumSaplingBlock {
     }
 
     @Override
-    public boolean isValidBonemealTarget(BlockGetter pLevel, BlockPos pPos, BlockState pState, boolean pIsClient) {
-        return false;
+    public void performBonemeal(ServerLevel pLevel, Random pRand, BlockPos pPos, BlockState pState) {
+        super.performBonemeal(pLevel, pRand, pPos, pState);
+        pLevel.levelEvent(1505, pPos, 0);
+        pLevel.playSound(null, pPos, SoundRegistry.MINOR_BLIGHT_MOTIF.get(), SoundSource.BLOCKS, 1, 0.9f + pLevel.random.nextFloat() * 0.25f);
+        pLevel.playSound(null, pPos, SoundEvents.BONE_MEAL_USE, SoundSource.BLOCKS, 1, 0.9f + pLevel.random.nextFloat() * 0.25f);
     }
 
     @Override
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         ItemStack itemInHand = pPlayer.getItemInHand(pHand);
-        if (itemInHand.getItem() instanceof MalumSpiritItem spiritItem) {
+        if (itemInHand.getItem() instanceof MalumSpiritItem) {
             if (pLevel instanceof ServerLevel serverLevel) {
-                for (int i = 0; i < 2; i++) {
-                    performBonemeal(serverLevel, pLevel.random, pPos, pState);
-                }
-                pLevel.levelEvent(1505, pPos, 0);
-                pLevel.playSound(null, pPos, SoundRegistry.MINOR_BLIGHT_MOTIF.get(), SoundSource.BLOCKS, 1, 0.9f + pLevel.random.nextFloat() * 0.25f);
-                pLevel.playSound(null, pPos, SoundEvents.BONE_MEAL_USE, SoundSource.BLOCKS, 1, 0.9f + pLevel.random.nextFloat() * 0.25f);
+                performBonemeal(serverLevel, pLevel.random, pPos, pState);
             }
             if (!pPlayer.isCreative()) {
                 itemInHand.shrink(1);
             }
             return InteractionResult.SUCCESS;
         }
-
         return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);
     }
 }

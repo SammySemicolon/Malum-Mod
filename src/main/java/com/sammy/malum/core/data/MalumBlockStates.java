@@ -9,6 +9,9 @@ import com.sammy.malum.common.block.storage.ItemPedestalBlock;
 import com.sammy.malum.common.block.storage.ItemStandBlock;
 import com.sammy.malum.common.block.totem.TotemBaseBlock;
 import com.sammy.malum.common.block.totem.TotemPoleBlock;
+import com.sammy.malum.common.block.weeping_well.PrimordialSoupBlock;
+import com.sammy.malum.common.block.weeping_well.WeepingWellBlock;
+import com.sammy.malum.common.block.weeping_well.WeepingWellComponentBlock;
 import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import net.mehvahdjukaar.supplementaries.common.block.blocks.SconceBlock;
@@ -21,6 +24,7 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.AttachFace;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraftforge.client.model.generators.BlockModelBuilder;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.client.model.generators.VariantBlockStateBuilder;
@@ -61,12 +65,18 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
         blightedSoulwoodBlock(take(blocks, BLIGHTED_SOULWOOD));
         sconceBlock(take(blocks, BLAZING_SCONCE));
         wallSconceBlock(take(blocks, WALL_BLAZING_SCONCE));
+        primordialSoupBlock(take(blocks, PRIMORDIAL_SOUP));
 
-        List<RegistryObject<Block>> customModels = new ArrayList<>(List.of(TWISTED_TABLET, ALTERATION_PLINTH, SOULWOOD_FUSION_PLATE_COMPONENT, SPIRIT_CATALYZER, SPIRIT_CATALYZER_COMPONENT));
+        weepingWellBlock(take(blocks, WEEPING_WELL_CORE), "weeping_well_core");
+        weepingWellBlock(take(blocks, WEEPING_WELL_CORNER), "weeping_well_corner");
+        weepingWellBlock(take(blocks, WEEPING_WELL_SIDE), "weeping_well_side");
+
+
+        List<RegistryObject<Block>> customModels = new ArrayList<>(List.of(TWISTED_TABLET, ALTERATION_PLINTH, SPIRIT_CATALYZER, SPIRIT_CATALYZER_COMPONENT));
 
         List<RegistryObject<Block>> predefinedModels = new ArrayList<>(List.of(
-                SOULWOOD_FUSION_PLATE, SPIRIT_ALTAR, SOUL_VIAL, SPIRIT_JAR, BRILLIANT_OBELISK, BRILLIANT_OBELISK_COMPONENT, RUNEWOOD_OBELISK,
-                RUNEWOOD_OBELISK_COMPONENT, SPIRIT_CRUCIBLE, SPIRIT_CRUCIBLE_COMPONENT, SOULWOOD_PLINTH, SOULWOOD_PLINTH_COMPONENT));
+                SPIRIT_ALTAR, SOUL_VIAL, SPIRIT_JAR, BRILLIANT_OBELISK, BRILLIANT_OBELISK_COMPONENT, RUNEWOOD_OBELISK,
+                RUNEWOOD_OBELISK_COMPONENT, SPIRIT_CRUCIBLE, SPIRIT_CRUCIBLE_COMPONENT));
 
         List<RegistryObject<Block>> layeredModels = new ArrayList<>(List.of(BRILLIANT_STONE, BRILLIANT_STONE, BLAZING_QUARTZ_ORE));
 
@@ -154,18 +164,40 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
                 .addModel();
     }
 
-    public void carpetBlock(RegistryObject<Block> blockRegistryObject) {
-        String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
-        ModelFile file = models().carpet(name, malumPath("block/" + name));
-
-        getVariantBuilder(blockRegistryObject.get()).partialState().modelForState().modelFile(file).addModel();
-    }
-
     public void quartzClusterBlock(RegistryObject<Block> blockRegistryObject) {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
         directionalBlock(blockRegistryObject.get(), models().cross(name, malumPath("block/"+name)));
     }
 
+    public void primordialSoupBlock(RegistryObject<Block> blockRegistryObject) {
+        String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
+        ModelFile model = models().withExistingParent(name, new ResourceLocation("block/powder_snow")).texture("texture", malumPath("block/" + name));
+        ModelFile topModel = models().getExistingFile(malumPath("block/weeping_well/" + name + "_top"));
+
+        getVariantBuilder(blockRegistryObject.get()).forAllStates(s -> ConfiguredModel.builder().modelFile(s.getValue(PrimordialSoupBlock.TOP) ? topModel : model).build());
+    }
+
+    public void weepingWellBlock(RegistryObject<Block> blockRegistryObject, String name) {
+        BlockModelBuilder model = models().withExistingParent(name, malumPath("block/weeping_well/" + name));
+        if (blockRegistryObject.get() instanceof WeepingWellComponentBlock) {
+            BlockModelBuilder tallModel = models().withExistingParent(name+"_tall", malumPath("block/weeping_well/" + name + "_tall"));
+            Direction[] directions = new Direction[]{Direction.NORTH, Direction.WEST, Direction.EAST, Direction.SOUTH};
+            VariantBlockStateBuilder variantBuilder = getVariantBuilder(blockRegistryObject.get());
+            for (Direction direction : directions) {
+                variantBuilder.partialState()
+                        .with(WeepingWellBlock.FACING, direction)
+                        .with(WeepingWellComponentBlock.TALL, false)
+                        .modelForState().modelFile(model).rotationY(((int) direction.toYRot() + 180) % 360).addModel()
+                        .partialState()
+                        .with(WeepingWellBlock.FACING, direction)
+                        .with(WeepingWellComponentBlock.TALL, true)
+                        .modelForState().modelFile(tallModel).rotationY(((int) direction.toYRot() + 180) % 360).addModel();
+            }
+            return;
+        }
+
+        getVariantBuilder(blockRegistryObject.get()).forAllStates(s -> ConfiguredModel.builder().modelFile(model).rotationY(((int) s.getValue(BlockStateProperties.HORIZONTAL_FACING).toYRot() + 180) % 360).build());
+    }
 
     public void blightedSoilBlock(RegistryObject<Block> blockRegistryObject) {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
@@ -194,10 +226,6 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
                 .nextModel().modelFile(tumorFunction.apply(1))
                 .nextModel().modelFile(tumorFunction.apply(2))
                 .nextModel().modelFile(tumorFunction.apply(3))
-                .nextModel().modelFile(tumorFunction.apply(4))
-                .nextModel().modelFile(tumorFunction.apply(5))
-                .nextModel().modelFile(tumorFunction.apply(6))
-                .nextModel().modelFile(tumorFunction.apply(7))
                 .addModel();
     }
 
