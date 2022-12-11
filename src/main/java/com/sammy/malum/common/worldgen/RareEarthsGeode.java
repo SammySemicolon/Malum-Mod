@@ -3,7 +3,7 @@ package com.sammy.malum.common.worldgen;
 import com.google.common.collect.Lists;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
-import com.sammy.malum.core.setup.content.block.BlockRegistry;
+import com.sammy.malum.registry.common.block.BlockRegistry;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

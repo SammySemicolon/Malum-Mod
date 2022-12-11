@@ -11,14 +11,9 @@ import com.sammy.malum.common.effect.WickedIntentEffect;
 import com.sammy.malum.common.enchantment.ReboundEnchantment;
 import com.sammy.malum.common.entity.nitrate.EthericExplosion;
 import com.sammy.malum.common.item.equipment.curios.*;
-import com.sammy.malum.common.spiritaffinity.ArcaneAffinity;
-import com.sammy.malum.common.spiritaffinity.EarthenAffinity;
 import com.sammy.malum.compability.create.CreateCompat;
 import com.sammy.malum.compability.tetra.TetraCompat;
-import com.sammy.malum.core.handlers.MalumAttributeEventHandler;
-import com.sammy.malum.core.handlers.ReapingHandler;
-import com.sammy.malum.core.handlers.SoulHarvestHandler;
-import com.sammy.malum.core.handlers.SpiritHarvestHandler;
+import com.sammy.malum.core.handlers.*;
 import com.sammy.malum.core.listeners.ReapingDataReloadListener;
 import com.sammy.malum.core.listeners.SpiritDataReloadListener;
 import net.minecraft.core.BlockPos;
@@ -132,8 +127,7 @@ public class RuntimeEvents {
 
     @SubscribeEvent
     public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
-        ArcaneAffinity.recoverSoulWard(event);
-        EarthenAffinity.recoverHeartOfStone(event);
+        SoulWardHandler.recoverSoulWard(event);
         SoulHarvestHandler.playerTick(event);
     }
 
@@ -175,13 +169,12 @@ public class RuntimeEvents {
             CreateCompat.LoadedOnly.convertCaramelToMagicDamage(event);
         }
         MalumAttributeEventHandler.processAttributes(event);
-        EarthenAffinity.consumeHeartOfStone(event);
         SpiritHarvestHandler.exposeSoul(event);
     }
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public static void onLateHurt(LivingHurtEvent event) {
-        ArcaneAffinity.consumeSoulWard(event);
+        SoulWardHandler.shieldPlayer(event);
     }
 
     @SubscribeEvent(priority = EventPriority.LOWEST)

@@ -1,6 +1,6 @@
 package com.sammy.malum.common.entity.nitrate;
 
-import com.sammy.malum.core.setup.content.DamageSourceRegistry;
+import com.sammy.malum.registry.common.DamageSourceRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;

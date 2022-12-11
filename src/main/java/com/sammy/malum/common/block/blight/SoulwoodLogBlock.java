@@ -2,7 +2,7 @@ package com.sammy.malum.common.block.blight;
 
 import com.sammy.malum.common.block.MalumLogBLock;
 import com.sammy.malum.common.item.spirit.MalumSpiritItem;
-import com.sammy.malum.core.setup.content.SoundRegistry;
+import com.sammy.malum.registry.common.SoundRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;

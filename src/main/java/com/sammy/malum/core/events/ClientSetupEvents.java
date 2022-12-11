@@ -1,7 +1,7 @@
 package com.sammy.malum.core.events;
 
-import com.sammy.malum.common.spiritaffinity.ArcaneAffinity;
 import com.sammy.malum.core.handlers.SoulHarvestHandler;
+import com.sammy.malum.core.handlers.SoulWardHandler;
 import com.sammy.malum.core.handlers.TouchOfDarknessHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.EntityRenderer;
@@ -30,7 +30,7 @@ public class ClientSetupEvents {
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public static void registerOverlays(FMLClientSetupEvent event) {
         OverlayRegistry.registerOverlayAbove(ForgeIngameGui.ARMOR_LEVEL_ELEMENT, "Soul Ward", (gui, poseStack, partialTick, width, height) ->
-                ArcaneAffinity.ClientOnly.renderSoulWard(gui, poseStack, width, height));
+                SoulWardHandler.ClientOnly.renderSoulWard(gui, poseStack, width, height));
         OverlayRegistry.registerOverlayAbove(ForgeIngameGui.SLEEP_FADE_ELEMENT, "Touch of Darkness", (gui, poseStack, partialTick, width, height) ->
                 TouchOfDarknessHandler.ClientOnly.renderVignette(gui, poseStack, width, height));
     }

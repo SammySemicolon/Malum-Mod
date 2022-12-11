@@ -2,9 +2,9 @@ package com.sammy.malum.common.item.spirit;
 
 import com.sammy.malum.common.packets.particle.entity.MajorEntityEffectParticlePacket;
 import com.sammy.malum.core.helper.SpiritHelper;
-import com.sammy.malum.core.setup.content.DamageSourceRegistry;
-import com.sammy.malum.core.setup.content.SoundRegistry;
-import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
+import com.sammy.malum.registry.common.DamageSourceRegistry;
+import com.sammy.malum.registry.common.SoundRegistry;
+import com.sammy.malum.registry.common.SpiritTypeRegistry;
 import com.sammy.malum.core.systems.item.IMalumEventResponderItem;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
@@ -17,7 +17,7 @@ import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.network.PacketDistributor;
 import team.lodestar.lodestone.systems.item.tools.LodestoneSwordItem;
 
-import static com.sammy.malum.core.setup.server.PacketRegistry.MALUM_CHANNEL;
+import static com.sammy.malum.registry.common.PacketRegistry.MALUM_CHANNEL;
 
 public class TyrvingItem extends LodestoneSwordItem implements IMalumEventResponderItem {
     public TyrvingItem(Tier material, int attackDamage, float attackSpeed, Properties properties) {

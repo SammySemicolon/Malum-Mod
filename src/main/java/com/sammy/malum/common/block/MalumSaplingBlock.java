@@ -1,6 +1,6 @@
 package com.sammy.malum.common.block;
 
-import com.sammy.malum.core.setup.content.block.BlockTagRegistry;
+import com.sammy.malum.registry.common.block.BlockTagRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.LevelReader;

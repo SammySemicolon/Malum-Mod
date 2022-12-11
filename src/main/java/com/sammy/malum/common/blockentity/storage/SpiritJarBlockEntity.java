@@ -3,7 +3,7 @@ package com.sammy.malum.common.blockentity.storage;
 import com.sammy.malum.common.item.spirit.MalumSpiritItem;
 import com.sammy.malum.common.item.spirit.SpiritPouchItem;
 import com.sammy.malum.core.helper.SpiritHelper;
-import com.sammy.malum.core.setup.content.block.BlockEntityRegistry;
+import com.sammy.malum.registry.common.block.BlockEntityRegistry;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

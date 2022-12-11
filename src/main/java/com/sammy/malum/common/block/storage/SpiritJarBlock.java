@@ -1,7 +1,7 @@
 package com.sammy.malum.common.block.storage;
 
 import com.sammy.malum.common.blockentity.storage.SpiritJarBlockEntity;
-import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
+import com.sammy.malum.registry.common.SpiritTypeRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.player.Player;

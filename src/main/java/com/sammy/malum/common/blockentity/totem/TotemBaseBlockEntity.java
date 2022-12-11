@@ -4,9 +4,9 @@ import com.sammy.malum.common.block.totem.TotemBaseBlock;
 import com.sammy.malum.common.blockentity.storage.ItemStandBlockEntity;
 import com.sammy.malum.common.packets.particle.block.TotemBaseActivationParticlePacket;
 import com.sammy.malum.core.helper.SpiritHelper;
-import com.sammy.malum.core.setup.content.SoundRegistry;
-import com.sammy.malum.core.setup.content.SpiritRiteRegistry;
-import com.sammy.malum.core.setup.content.block.BlockEntityRegistry;
+import com.sammy.malum.registry.common.SoundRegistry;
+import com.sammy.malum.registry.common.SpiritRiteRegistry;
+import com.sammy.malum.registry.common.block.BlockEntityRegistry;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import net.minecraft.core.BlockPos;
@@ -27,7 +27,7 @@ import javax.annotation.Nullable;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static com.sammy.malum.core.setup.server.PacketRegistry.MALUM_CHANNEL;
+import static com.sammy.malum.registry.common.PacketRegistry.MALUM_CHANNEL;
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.HORIZONTAL_FACING;
 
 public class TotemBaseBlockEntity extends LodestoneBlockEntity {

@@ -2,8 +2,8 @@ package com.sammy.malum.common.item.equipment.curios;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
-import com.sammy.malum.core.setup.content.item.ItemRegistry;
-import com.sammy.malum.core.setup.content.potion.MalumMobEffectRegistry;
+import com.sammy.malum.registry.common.item.ItemRegistry;
+import com.sammy.malum.registry.common.potion.MalumMobEffectRegistry;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -17,7 +17,7 @@ import team.lodestar.lodestone.helpers.EntityHelper;
 
 import java.util.UUID;
 
-import static com.sammy.malum.core.setup.content.item.ItemTagRegistry.GROSS_FOODS;
+import static com.sammy.malum.registry.common.item.ItemTagRegistry.GROSS_FOODS;
 
 public class CurioVeraciousRing extends MalumCurioItem {
 

@@ -20,9 +20,9 @@ import net.minecraftforge.network.PacketDistributor;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.sammy.malum.core.setup.content.SpiritTypeRegistry.ARCANE_SPIRIT;
-import static com.sammy.malum.core.setup.content.SpiritTypeRegistry.SACRED_SPIRIT;
-import static com.sammy.malum.core.setup.server.PacketRegistry.MALUM_CHANNEL;
+import static com.sammy.malum.registry.common.SpiritTypeRegistry.ARCANE_SPIRIT;
+import static com.sammy.malum.registry.common.SpiritTypeRegistry.SACRED_SPIRIT;
+import static com.sammy.malum.registry.common.PacketRegistry.MALUM_CHANNEL;
 import static net.minecraft.world.entity.ai.goal.EatBlockGoal.IS_TALL_GRASS;
 
 public class SacredRiteType extends MalumRiteType {

@@ -1,7 +1,7 @@
 package com.sammy.malum.common.blockentity.storage;
 
 import com.sammy.malum.core.helper.SpiritHelper;
-import com.sammy.malum.core.setup.content.block.BlockEntityRegistry;
+import com.sammy.malum.registry.common.block.BlockEntityRegistry;
 import com.sammy.malum.core.systems.item.ISoulContainerItem;
 import com.sammy.malum.core.systems.spirit.MalumEntitySpiritData;
 import net.minecraft.core.BlockPos;

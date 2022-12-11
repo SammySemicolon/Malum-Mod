@@ -5,7 +5,7 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.TallGrassBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
-import static com.sammy.malum.core.setup.content.block.BlockTagRegistry.BLIGHTED_BLOCKS;
+import static com.sammy.malum.registry.common.block.BlockTagRegistry.BLIGHTED_BLOCKS;
 
 public class BlightedGrassBlock extends TallGrassBlock {
     public BlightedGrassBlock(Properties p_57318_) {

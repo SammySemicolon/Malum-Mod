@@ -1,10 +1,8 @@
 package com.sammy.malum.common.entity.nitrate;
 
-import com.mojang.datafixers.util.Pair;
-import com.sammy.malum.common.packets.particle.block.blight.BlightTransformItemParticlePacket;
 import com.sammy.malum.common.packets.particle.entity.VividNitrateBounceParticlePacket;
 import com.sammy.malum.core.helper.SpiritHelper;
-import com.sammy.malum.core.setup.content.entity.EntityRegistry;
+import com.sammy.malum.registry.common.entity.EntityRegistry;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
@@ -24,8 +22,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.function.Function;
 
-import static com.sammy.malum.core.setup.content.SpiritTypeRegistry.ARCANE_SPIRIT;
-import static com.sammy.malum.core.setup.server.PacketRegistry.MALUM_CHANNEL;
+import static com.sammy.malum.registry.common.PacketRegistry.MALUM_CHANNEL;
 import static net.minecraft.util.Mth.nextFloat;
 
 public class VividNitrateEntity extends AbstractNitrateEntity {

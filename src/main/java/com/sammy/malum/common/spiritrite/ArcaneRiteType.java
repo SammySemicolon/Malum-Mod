@@ -28,8 +28,8 @@ import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntityInventory
 import java.util.List;
 import java.util.Set;
 
-import static com.sammy.malum.core.setup.content.SpiritTypeRegistry.ARCANE_SPIRIT;
-import static com.sammy.malum.core.setup.server.PacketRegistry.MALUM_CHANNEL;
+import static com.sammy.malum.registry.common.SpiritTypeRegistry.ARCANE_SPIRIT;
+import static com.sammy.malum.registry.common.PacketRegistry.MALUM_CHANNEL;
 
 public class ArcaneRiteType extends MalumRiteType {
     public ArcaneRiteType() {

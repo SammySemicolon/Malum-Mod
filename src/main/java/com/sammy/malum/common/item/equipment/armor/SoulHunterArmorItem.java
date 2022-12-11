@@ -1,11 +1,10 @@
 package com.sammy.malum.common.item.equipment.armor;
 
 import com.google.common.collect.ImmutableMultimap;
-import com.sammy.malum.core.setup.content.item.ItemRegistry;
+import com.sammy.malum.registry.common.item.ItemRegistry;
 import com.sammy.malum.core.systems.item.ItemSkin;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -23,7 +22,7 @@ import team.lodestar.lodestone.systems.model.LodestoneArmorModel;
 import java.util.UUID;
 import java.util.function.Consumer;
 
-import static com.sammy.malum.core.setup.content.item.ArmorTiers.ArmorTierEnum.SPIRIT_HUNTER;
+import static com.sammy.malum.registry.common.item.ArmorTiers.ArmorTierEnum.SPIRIT_HUNTER;
 
 public class SoulHunterArmorItem extends LodestoneArmorItem {
     public SoulHunterArmorItem(EquipmentSlot slot, Properties builder) {

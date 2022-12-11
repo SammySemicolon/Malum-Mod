@@ -1,10 +1,9 @@
 package com.sammy.malum.common.entity.nitrate;
 
 import com.sammy.malum.common.packets.particle.entity.EthericNitrateParticlePacket;
-import com.sammy.malum.common.packets.particle.entity.VividNitrateBounceParticlePacket;
 import com.sammy.malum.core.helper.SpiritHelper;
-import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
-import com.sammy.malum.core.setup.content.entity.EntityRegistry;
+import com.sammy.malum.registry.common.SpiritTypeRegistry;
+import com.sammy.malum.registry.common.entity.EntityRegistry;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
@@ -19,7 +18,7 @@ import team.lodestar.lodestone.systems.rendering.particle.ParticleRenderTypes;
 import java.awt.*;
 import java.util.Random;
 
-import static com.sammy.malum.core.setup.server.PacketRegistry.MALUM_CHANNEL;
+import static com.sammy.malum.registry.common.PacketRegistry.MALUM_CHANNEL;
 import static net.minecraft.util.Mth.nextFloat;
 
 public class EthericNitrateEntity extends AbstractNitrateEntity {

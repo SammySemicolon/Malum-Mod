@@ -2,7 +2,7 @@ package com.sammy.malum.common.block.blight;
 
 import com.sammy.malum.common.block.MalumSaplingBlock;
 import com.sammy.malum.common.item.spirit.MalumSpiritItem;
-import com.sammy.malum.core.setup.content.SoundRegistry;
+import com.sammy.malum.registry.common.SoundRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -21,7 +21,7 @@ import net.minecraftforge.registries.RegistryObject;
 
 import java.util.Random;
 
-import static com.sammy.malum.core.setup.content.block.BlockTagRegistry.BLIGHTED_BLOCKS;
+import static com.sammy.malum.registry.common.block.BlockTagRegistry.BLIGHTED_BLOCKS;
 
 public class SoulwoodGrowthBlock extends MalumSaplingBlock {
     public SoulwoodGrowthBlock(Properties properties, RegistryObject<? extends Feature<NoneFeatureConfiguration>> tree) {

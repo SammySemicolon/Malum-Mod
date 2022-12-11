@@ -5,7 +5,7 @@ import com.sammy.malum.common.capability.MalumPlayerDataCapability;
 import com.sammy.malum.config.CommonConfig;
 import com.sammy.malum.core.helper.SpiritHelper;
 import com.sammy.malum.core.listeners.ReapingDataReloadListener;
-import com.sammy.malum.core.setup.content.item.ItemRegistry;
+import com.sammy.malum.registry.common.item.ItemRegistry;
 import com.sammy.malum.core.systems.reaping.MalumReapingDropsData;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;

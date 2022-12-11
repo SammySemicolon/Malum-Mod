@@ -43,7 +43,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.sammy.malum.MalumMod.malumPath;
-import static com.sammy.malum.core.setup.server.PacketRegistry.MALUM_CHANNEL;
+import static com.sammy.malum.registry.common.PacketRegistry.MALUM_CHANNEL;
 import static net.minecraft.util.Mth.nextFloat;
 import static team.lodestar.lodestone.handlers.RenderHandler.DELAYED_RENDER;
 import static team.lodestar.lodestone.helpers.RenderHelper.FULL_BRIGHT;
@@ -62,7 +62,6 @@ public class SoulHarvestHandler {
             }
         }
     }
-
 
     public static void addEntity(EntityJoinWorldEvent event) {
         if (event.getEntity() instanceof LivingEntity livingEntity) {
@@ -92,8 +91,8 @@ public class SoulHarvestHandler {
             if (ec.exposedSoul > 0) {
                 ec.exposedSoul--;
             }
-            if (ec.ownerUUID != null && ec.soulHarvestProgress > 0) {
-                Player player = entity.level.getPlayerByUUID(ec.ownerUUID);
+            if (ec.soulThiefUUID != null && ec.soulHarvestProgress > 0) {
+                Player player = entity.level.getPlayerByUUID(ec.soulThiefUUID);
                 if (player != null) {
                     MalumPlayerDataCapability.getCapabilityOptional(player).ifPresent(c -> {
                         if (!player.isUsingItem() && ec.soulHarvestProgress > 10) {
@@ -103,7 +102,7 @@ public class SoulHarvestHandler {
                             if (c.targetedSoulUUID == null || !entity.getUUID().equals(c.targetedSoulUUID)) {
                                 ec.soulHarvestProgress -= 0.5f;
                                 if (ec.soulHarvestProgress == 0) {
-                                    ec.ownerUUID = null;
+                                    ec.soulThiefUUID = null;
                                 }
                             }
                         }
@@ -153,7 +152,7 @@ public class SoulHarvestHandler {
                                             removeSentience(mob);
                                         }
                                         ec.soulless = true;
-                                        ec.ownerUUID = player.getUUID();
+                                        ec.soulThiefUUID = player.getUUID();
                                         player.swing(player.getUsedItemHand(), true);
                                         player.releaseUsingItem();
                                         MalumLivingEntityDataCapability.sync(livingEntity);
@@ -182,10 +181,10 @@ public class SoulHarvestHandler {
                                 chosenEntity = entity;
                             }
                         }
-                        if (chosenEntity != null && (!chosenEntity.getUUID().equals(c.targetedSoulUUID) || MalumLivingEntityDataCapability.getCapability(chosenEntity).ownerUUID == null)) {
+                        if (chosenEntity != null && (!chosenEntity.getUUID().equals(c.targetedSoulUUID) || MalumLivingEntityDataCapability.getCapability(chosenEntity).soulThiefUUID == null)) {
                             c.targetedSoulUUID = chosenEntity.getUUID();
                             c.targetedSoulId = chosenEntity.getId();
-                            MalumLivingEntityDataCapability.getCapabilityOptional(chosenEntity).ifPresent(ec -> ec.ownerUUID = player.getUUID());
+                            MalumLivingEntityDataCapability.getCapabilityOptional(chosenEntity).ifPresent(ec -> ec.soulThiefUUID = player.getUUID());
                             if (chosenEntity.level instanceof ServerLevel) {
                                 MalumLivingEntityDataCapability.sync(chosenEntity);
                             }
@@ -229,8 +228,8 @@ public class SoulHarvestHandler {
             @Override
             public void render(PoseStack poseStack, MultiBufferSource pBuffer, int pPackedLight, T pLivingEntity, float pLimbSwing, float pLimbSwingAmount, float partialTicks, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch) {
                 MalumLivingEntityDataCapability.getCapabilityOptional(pLivingEntity).ifPresent(c -> {
-                    if (c.ownerUUID != null) {
-                        Player player = pLivingEntity.level.getPlayerByUUID(c.ownerUUID);
+                    if (c.soulThiefUUID != null) {
+                        Player player = pLivingEntity.level.getPlayerByUUID(c.soulThiefUUID);
                         if (player != null && player.isAlive() && pLivingEntity.isAlive()) {
                             MalumEntitySpiritData data = SpiritHelper.getEntitySpiritData(pLivingEntity);
                             poseStack.popPose();

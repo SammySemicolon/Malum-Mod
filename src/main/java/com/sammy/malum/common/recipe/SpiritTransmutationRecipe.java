@@ -1,10 +1,8 @@
 package com.sammy.malum.common.recipe;
 
 import com.google.gson.JsonObject;
-import com.sammy.malum.MalumMod;
-import com.sammy.malum.core.setup.content.recipe.RecipeSerializerRegistry;
-import com.sammy.malum.core.setup.content.recipe.RecipeTypeRegistry;
-import net.minecraft.core.Registry;
+import com.sammy.malum.registry.common.recipe.RecipeSerializerRegistry;
+import com.sammy.malum.registry.common.recipe.RecipeTypeRegistry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;

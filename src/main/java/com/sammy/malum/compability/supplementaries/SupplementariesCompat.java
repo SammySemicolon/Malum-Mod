@@ -7,7 +7,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraftforge.fml.ModList;
 
-import static com.sammy.malum.core.setup.content.block.BlockRegistry.RUNEWOOD_PROPERTIES;
+import static com.sammy.malum.registry.common.block.BlockRegistry.RUNEWOOD_PROPERTIES;
 
 public class SupplementariesCompat {
 

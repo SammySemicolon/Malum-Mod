@@ -2,8 +2,8 @@ package com.sammy.malum.common.entity.spirit;
 
 import com.sammy.malum.common.entity.FloatingItemEntity;
 import com.sammy.malum.core.helper.SpiritHelper;
-import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
-import com.sammy.malum.core.setup.content.entity.EntityRegistry;
+import com.sammy.malum.registry.common.SpiritTypeRegistry;
+import com.sammy.malum.registry.common.entity.EntityRegistry;
 import com.sammy.malum.core.systems.item.IFloatingGlowItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

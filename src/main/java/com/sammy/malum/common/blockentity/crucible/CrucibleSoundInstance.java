@@ -1,6 +1,6 @@
 package com.sammy.malum.common.blockentity.crucible;
 
-import com.sammy.malum.core.setup.content.SoundRegistry;
+import com.sammy.malum.registry.common.SoundRegistry;
 import net.minecraft.client.Minecraft;
 import team.lodestar.lodestone.systems.sound.LodestoneBlockEntitySoundInstance;
 

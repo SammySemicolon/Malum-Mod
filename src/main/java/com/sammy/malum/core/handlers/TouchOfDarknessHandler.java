@@ -1,23 +1,14 @@
 package com.sammy.malum.core.handlers;
 
-import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
-import com.sammy.malum.core.setup.client.ShaderRegistry;
+import com.sammy.malum.registry.client.ShaderRegistry;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GameRenderer;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.gui.ForgeIngameGui;
-import org.lwjgl.opengl.GL11;
-import team.lodestar.lodestone.setup.LodestoneShaderRegistry;
 import team.lodestar.lodestone.systems.rendering.ExtendedShaderInstance;
 import team.lodestar.lodestone.systems.rendering.VFXBuilders;
 
 import java.util.function.Consumer;
-import java.util.function.Function;
-
-import static org.lwjgl.opengl.GL11.GL_ALPHA_TEST;
-import static org.lwjgl.opengl.GL11.glDisable;
 
 public class TouchOfDarknessHandler {
 
@@ -33,6 +24,9 @@ public class TouchOfDarknessHandler {
             int width = instance.getWindow().getGuiScaledWidth();
             int height = instance.getWindow().getGuiScaledHeight();
 
+            if (true) {
+                return;
+            }
 //            float effectStrength = 0.4f;
             float effectStrength = (instance.level.getGameTime()%200)/200f;
 

@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import static com.sammy.malum.core.setup.server.PacketRegistry.MALUM_CHANNEL;
+import static com.sammy.malum.registry.common.PacketRegistry.MALUM_CHANNEL;
 
 public class MalumLivingEntityDataCapability implements LodestoneCapability {
 
@@ -36,7 +36,7 @@ public class MalumLivingEntityDataCapability implements LodestoneCapability {
     public float exposedSoul;
     public boolean soulless;
     public boolean spawnerSpawned;
-    public UUID ownerUUID;
+    public UUID soulThiefUUID;
 
     public List<ItemStack> soulsToApplyToDrops;
     public UUID killerUUID;
@@ -89,8 +89,8 @@ public class MalumLivingEntityDataCapability implements LodestoneCapability {
         }
         tag.putBoolean("soulless", soulless);
         tag.putBoolean("spawnerSpawned", spawnerSpawned);
-        if (ownerUUID != null) {
-            tag.putUUID("ownerUUID", ownerUUID);
+        if (soulThiefUUID != null) {
+            tag.putUUID("soulThiefUUID", soulThiefUUID);
         }
         return tag;
     }
@@ -118,9 +118,9 @@ public class MalumLivingEntityDataCapability implements LodestoneCapability {
 
         spawnerSpawned = tag.getBoolean("spawnerSpawned");
         if (tag.hasUUID("ownerUUID")) {
-            ownerUUID = tag.getUUID("ownerUUID");
+            soulThiefUUID = tag.getUUID("soulThiefUUID");
         } else {
-            ownerUUID = null;
+            soulThiefUUID = null;
         }
     }
 

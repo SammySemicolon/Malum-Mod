@@ -1,6 +1,6 @@
 package com.sammy.malum.common.block.blight;
 
-import com.sammy.malum.core.setup.content.SoundRegistry;
+import com.sammy.malum.registry.common.SoundRegistry;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.block.Block;

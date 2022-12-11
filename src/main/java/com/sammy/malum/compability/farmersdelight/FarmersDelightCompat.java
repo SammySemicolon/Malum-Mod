@@ -1,6 +1,6 @@
 package com.sammy.malum.compability.farmersdelight;
 
-import com.sammy.malum.core.setup.content.item.ItemRegistry;
+import com.sammy.malum.registry.common.item.ItemRegistry;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.registration.IRecipeRegistration;
 import net.minecraft.world.item.Item;
@@ -9,8 +9,8 @@ import net.minecraftforge.fml.ModList;
 import team.lodestar.lodestone.systems.item.tools.magic.MagicKnifeItem;
 import vectorwing.farmersdelight.common.utility.TextUtils;
 
-import static com.sammy.malum.core.setup.content.item.ItemRegistry.GEAR_PROPERTIES;
-import static com.sammy.malum.core.setup.content.item.ItemTiers.ItemTierEnum.SOUL_STAINED_STEEL;
+import static com.sammy.malum.registry.common.item.ItemRegistry.GEAR_PROPERTIES;
+import static com.sammy.malum.registry.common.item.ItemTiers.ItemTierEnum.SOUL_STAINED_STEEL;
 
 public class FarmersDelightCompat {
     public static boolean LOADED;

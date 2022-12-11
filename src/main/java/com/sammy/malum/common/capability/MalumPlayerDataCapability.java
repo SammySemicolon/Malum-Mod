@@ -2,8 +2,9 @@ package com.sammy.malum.common.capability;
 
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.packets.SyncMalumPlayerCapabilityDataPacket;
-import com.sammy.malum.core.setup.content.SpiritAffinityRegistry;
-import com.sammy.malum.core.setup.server.PacketRegistry;
+import com.sammy.malum.core.handlers.SoulWardHandler;
+import com.sammy.malum.registry.common.SpiritAffinityRegistry;
+import com.sammy.malum.registry.common.PacketRegistry;
 import com.sammy.malum.core.systems.spirit.MalumSpiritAffinity;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
@@ -35,11 +36,7 @@ public class MalumPlayerDataCapability implements LodestoneCapability {
 
     public MalumSpiritAffinity affinity;
 
-    public float soulWard;
-    public float soulWardProgress;
-
-    public float heartOfStone;
-    public float heartOfStoneProgress;
+    public SoulWardHandler soulWardHandler = new SoulWardHandler();
 
     public int soulsShattered;
     public boolean obtainedEncyclopedia;
@@ -93,11 +90,7 @@ public class MalumPlayerDataCapability implements LodestoneCapability {
         if (affinity != null) {
             tag.putString("affinity", affinity.identifier);
         }
-        tag.putFloat("soulWard", soulWard);
-        tag.putFloat("soulWardProgress", soulWardProgress);
-
-        tag.putFloat("heartOfStone", heartOfStone);
-        tag.putFloat("heartOfStoneProgress", heartOfStoneProgress);
+        tag.put("soulWardData", soulWardHandler.serializeNBT());
 
         tag.putInt("soulsShattered", soulsShattered);
         tag.putBoolean("obtainedEncyclopedia", obtainedEncyclopedia);
@@ -114,11 +107,7 @@ public class MalumPlayerDataCapability implements LodestoneCapability {
         targetedSoulId = tag.getInt("targetedSoulId");
         soulFetchCooldown = tag.getInt("soulFetchCooldown");
 
-        soulWard = tag.getFloat("soulWard");
-        soulWardProgress = tag.getFloat("soulWardProgress");
-
-        heartOfStone = tag.getFloat("heartOfStone");
-        heartOfStoneProgress = tag.getInt("heartOfStoneProgress");
+        soulWardHandler.deserializeNBT(tag.getCompound("soulWardData"));
 
         soulsShattered = tag.getInt("soulsShattered");
         obtainedEncyclopedia = tag.getBoolean("obtainedEncyclopedia");

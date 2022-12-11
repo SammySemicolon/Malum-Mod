@@ -4,7 +4,7 @@ import com.sammy.malum.common.capability.MalumItemDataCapability;
 import com.sammy.malum.common.capability.MalumLivingEntityDataCapability;
 import com.sammy.malum.common.capability.MalumPlayerDataCapability;
 import com.sammy.malum.core.handlers.MissingMappingHandler;
-import com.sammy.malum.core.setup.client.ParticleRegistry;
+import com.sammy.malum.registry.client.ParticleRegistry;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;

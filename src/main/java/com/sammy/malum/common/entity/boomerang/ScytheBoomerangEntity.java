@@ -1,10 +1,10 @@
 package com.sammy.malum.common.entity.boomerang;
 
 import com.sammy.malum.common.item.tools.MalumScytheItem;
-import com.sammy.malum.core.setup.content.DamageSourceRegistry;
-import com.sammy.malum.core.setup.content.SoundRegistry;
-import com.sammy.malum.core.setup.content.entity.EntityRegistry;
-import com.sammy.malum.core.setup.content.item.MalumEnchantments;
+import com.sammy.malum.registry.common.DamageSourceRegistry;
+import com.sammy.malum.registry.common.SoundRegistry;
+import com.sammy.malum.registry.common.entity.EntityRegistry;
+import com.sammy.malum.registry.common.item.MalumEnchantments;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;

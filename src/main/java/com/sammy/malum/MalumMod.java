@@ -6,8 +6,7 @@ import com.sammy.malum.compability.supplementaries.SupplementariesCompat;
 import com.sammy.malum.compability.tetra.TetraCompat;
 import com.sammy.malum.config.ClientConfig;
 import com.sammy.malum.config.CommonConfig;
-import com.sammy.malum.core.data.*;
-import com.sammy.malum.core.setup.content.recipe.RecipeTypeRegistry;
+import com.sammy.malum.data.*;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.BlockTagsProvider;
 import net.minecraft.resources.ResourceLocation;
@@ -22,19 +21,19 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.Random;
 
-import static com.sammy.malum.core.setup.client.ParticleRegistry.PARTICLES;
-import static com.sammy.malum.core.setup.content.AttributeRegistry.ATTRIBUTES;
-import static com.sammy.malum.core.setup.content.ContainerRegistry.CONTAINERS;
-import static com.sammy.malum.core.setup.content.recipe.RecipeSerializerRegistry.RECIPE_SERIALIZERS;
-import static com.sammy.malum.core.setup.content.SoundRegistry.SOUNDS;
-import static com.sammy.malum.core.setup.content.block.BlockEntityRegistry.BLOCK_ENTITY_TYPES;
-import static com.sammy.malum.core.setup.content.block.BlockRegistry.BLOCKS;
-import static com.sammy.malum.core.setup.content.entity.EntityRegistry.ENTITY_TYPES;
-import static com.sammy.malum.core.setup.content.item.ItemRegistry.ITEMS;
-import static com.sammy.malum.core.setup.content.item.MalumEnchantments.ENCHANTMENTS;
-import static com.sammy.malum.core.setup.content.potion.MalumMobEffectRegistry.EFFECTS;
-import static com.sammy.malum.core.setup.content.recipe.RecipeTypeRegistry.RECIPE_TYPES;
-import static com.sammy.malum.core.setup.content.worldgen.FeatureRegistry.FEATURE_TYPES;
+import static com.sammy.malum.registry.client.ParticleRegistry.PARTICLES;
+import static com.sammy.malum.registry.common.AttributeRegistry.ATTRIBUTES;
+import static com.sammy.malum.registry.common.ContainerRegistry.CONTAINERS;
+import static com.sammy.malum.registry.common.recipe.RecipeSerializerRegistry.RECIPE_SERIALIZERS;
+import static com.sammy.malum.registry.common.SoundRegistry.SOUNDS;
+import static com.sammy.malum.registry.common.block.BlockEntityRegistry.BLOCK_ENTITY_TYPES;
+import static com.sammy.malum.registry.common.block.BlockRegistry.BLOCKS;
+import static com.sammy.malum.registry.common.entity.EntityRegistry.ENTITY_TYPES;
+import static com.sammy.malum.registry.common.item.ItemRegistry.ITEMS;
+import static com.sammy.malum.registry.common.item.MalumEnchantments.ENCHANTMENTS;
+import static com.sammy.malum.registry.common.potion.MalumMobEffectRegistry.EFFECTS;
+import static com.sammy.malum.registry.common.recipe.RecipeTypeRegistry.RECIPE_TYPES;
+import static com.sammy.malum.registry.common.worldgen.FeatureRegistry.FEATURE_TYPES;
 
 @SuppressWarnings("unused")
 @Mod(MalumMod.MALUM)

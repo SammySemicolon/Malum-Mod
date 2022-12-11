@@ -12,7 +12,7 @@ import net.minecraftforge.network.PacketDistributor;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
-import static com.sammy.malum.core.setup.server.PacketRegistry.MALUM_CHANNEL;
+import static com.sammy.malum.registry.common.PacketRegistry.MALUM_CHANNEL;
 
 public class AuraRiteEffect extends EntityAffectingRiteEffect {
 

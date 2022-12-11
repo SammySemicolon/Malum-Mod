@@ -1,7 +1,7 @@
 package com.sammy.malum.common.block.blight;
 
 import com.sammy.malum.common.block.SapFilledLogBlock;
-import com.sammy.malum.core.setup.content.SoundRegistry;
+import com.sammy.malum.registry.common.SoundRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Player;

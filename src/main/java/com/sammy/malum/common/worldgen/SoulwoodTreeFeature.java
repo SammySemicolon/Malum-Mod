@@ -2,8 +2,8 @@ package com.sammy.malum.common.worldgen;
 
 import com.google.common.collect.ImmutableList;
 import com.sammy.malum.common.block.MalumLeavesBlock;
-import com.sammy.malum.core.setup.content.block.BlockRegistry;
-import com.sammy.malum.core.setup.content.block.BlockTagRegistry;
+import com.sammy.malum.registry.common.block.BlockRegistry;
+import com.sammy.malum.registry.common.block.BlockTagRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;

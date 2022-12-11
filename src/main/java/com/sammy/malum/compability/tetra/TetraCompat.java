@@ -1,6 +1,6 @@
 package com.sammy.malum.compability.tetra;
 
-import com.sammy.malum.core.setup.content.item.MalumEnchantments;
+import com.sammy.malum.registry.common.item.MalumEnchantments;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Arrow;
 import net.minecraft.world.item.ItemStack;

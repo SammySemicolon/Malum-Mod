@@ -1,8 +1,8 @@
 package com.sammy.malum.core.handlers;
 
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.core.setup.content.block.BlockRegistry;
-import com.sammy.malum.core.setup.content.item.ItemRegistry;
+import com.sammy.malum.registry.common.block.BlockRegistry;
+import com.sammy.malum.registry.common.item.ItemRegistry;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.event.RegistryEvent;

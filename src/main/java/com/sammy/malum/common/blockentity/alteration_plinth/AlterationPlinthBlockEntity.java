@@ -3,8 +3,8 @@ package com.sammy.malum.common.blockentity.alteration_plinth;
 import com.sammy.malum.common.blockentity.storage.ItemPedestalBlockEntity;
 import com.sammy.malum.common.packets.particle.block.blight.BlightTransformItemParticlePacket;
 import com.sammy.malum.common.recipe.AugmentingRecipe;
-import com.sammy.malum.core.setup.content.SoundRegistry;
-import com.sammy.malum.core.setup.content.block.BlockEntityRegistry;
+import com.sammy.malum.registry.common.SoundRegistry;
+import com.sammy.malum.registry.common.block.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundSource;
@@ -23,8 +23,8 @@ import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntityInventory
 import java.util.List;
 import java.util.Random;
 
-import static com.sammy.malum.core.setup.content.SpiritTypeRegistry.ARCANE_SPIRIT;
-import static com.sammy.malum.core.setup.server.PacketRegistry.MALUM_CHANNEL;
+import static com.sammy.malum.registry.common.SpiritTypeRegistry.ARCANE_SPIRIT;
+import static com.sammy.malum.registry.common.PacketRegistry.MALUM_CHANNEL;
 
 public class AlterationPlinthBlockEntity extends ItemPedestalBlockEntity {
     public AlterationPlinthBlockEntity(BlockPos pos, BlockState state) {

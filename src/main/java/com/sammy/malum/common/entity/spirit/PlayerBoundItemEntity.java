@@ -4,7 +4,7 @@ import com.sammy.malum.common.entity.FloatingItemEntity;
 import com.sammy.malum.common.item.spirit.MalumSpiritItem;
 import com.sammy.malum.core.handlers.SpiritHarvestHandler;
 import com.sammy.malum.core.helper.SpiritHelper;
-import com.sammy.malum.core.setup.content.entity.EntityRegistry;
+import com.sammy.malum.registry.common.entity.EntityRegistry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;

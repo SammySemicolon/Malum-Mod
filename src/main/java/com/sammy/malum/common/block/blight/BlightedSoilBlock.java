@@ -2,9 +2,8 @@ package com.sammy.malum.common.block.blight;
 
 import com.sammy.malum.common.item.spirit.MalumSpiritItem;
 import com.sammy.malum.common.packets.particle.block.blight.BlightMistParticlePacket;
-import com.sammy.malum.common.worldevent.ActiveBlightEvent;
 import com.sammy.malum.common.worldgen.SoulwoodTreeFeature;
-import com.sammy.malum.core.setup.content.SoundRegistry;
+import com.sammy.malum.registry.common.SoundRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -28,7 +27,7 @@ import team.lodestar.lodestone.systems.worldgen.LodestoneBlockFiller;
 
 import java.util.Random;
 
-import static com.sammy.malum.core.setup.server.PacketRegistry.MALUM_CHANNEL;
+import static com.sammy.malum.registry.common.PacketRegistry.MALUM_CHANNEL;
 
 public class BlightedSoilBlock extends Block implements BonemealableBlock {
     protected static final VoxelShape SHAPE = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 14.0D, 16.0D);

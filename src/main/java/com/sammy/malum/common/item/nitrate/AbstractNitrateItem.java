@@ -1,9 +1,7 @@
 package com.sammy.malum.common.item.nitrate;
 
 import com.sammy.malum.common.entity.nitrate.AbstractNitrateEntity;
-import com.sammy.malum.common.entity.nitrate.EthericNitrateEntity;
-import com.sammy.malum.core.setup.content.SoundRegistry;
-import net.minecraft.client.Minecraft;
+import com.sammy.malum.registry.common.SoundRegistry;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
@@ -13,16 +11,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import team.lodestar.lodestone.helpers.ColorHelper;
-import team.lodestar.lodestone.setup.LodestoneScreenParticleRegistry;
-import team.lodestar.lodestone.systems.easing.Easing;
-import team.lodestar.lodestone.systems.rendering.particle.ParticleBuilders;
-import team.lodestar.lodestone.systems.rendering.particle.screen.base.ScreenParticle;
 import team.lodestar.lodestone.systems.rendering.particle.screen.emitter.ItemParticleEmitter;
 
-import java.awt.*;
 import java.util.function.Function;
 
 public abstract class AbstractNitrateItem extends Item implements ItemParticleEmitter {
