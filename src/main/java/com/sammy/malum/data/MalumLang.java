@@ -556,8 +556,8 @@ public class MalumLang extends LanguageProvider {
 
         add("death.attack." + DamageSourceRegistry.VOODOO_IDENTIFIER, "%s's soul shattered");
         add("death.attack." + DamageSourceRegistry.VOODOO_IDENTIFIER + ".player", "%s's soul was shattered by %s");
-        add("death.attack." + DamageSourceRegistry.SOUL_STRIKE_IDENTIFIER, "%s's soul shattered");
-        add("death.attack." + DamageSourceRegistry.SOUL_STRIKE_IDENTIFIER + ".player", "%s's soul was shattered by %s");
+        add("death.attack." + DamageSourceRegistry.GUARANTEED_SOUL_SHATTER, "%s's soul shattered");
+        add("death.attack." + DamageSourceRegistry.GUARANTEED_SOUL_SHATTER + ".player", "%s's soul was shattered by %s");
         add("death.attack." + DamageSourceRegistry.MAGEBANE_IDENTIFIER, "%s got too confident with a soul hunter");
         add("death.attack." + DamageSourceRegistry.MAGEBANE_IDENTIFIER + ".player", "%s got too confident with %s");
         add("death.attack." + DamageSourceRegistry.SCYTHE_SWEEP_IDENTIFIER, "%s was sliced in twain");

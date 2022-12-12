@@ -2,6 +2,7 @@ package com.sammy.malum.common.capability;
 
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.packets.SyncLivingCapabilityDataPacket;
+import com.sammy.malum.core.handlers.TouchOfDarknessHandler;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
@@ -31,6 +32,7 @@ public class MalumLivingEntityDataCapability implements LodestoneCapability {
     public static Capability<MalumLivingEntityDataCapability> CAPABILITY = CapabilityManager.get(new CapabilityToken<>() {
     });
 
+    public TouchOfDarknessHandler touchOfDarknessHandler = new TouchOfDarknessHandler();
 
     public float soulHarvestProgress;
     public float exposedSoul;
@@ -75,6 +77,7 @@ public class MalumLivingEntityDataCapability implements LodestoneCapability {
     public CompoundTag serializeNBT() {
         CompoundTag tag = new CompoundTag();
 
+        tag.put("darknessAfflictionData", touchOfDarknessHandler.serializeNBT());
         tag.putFloat("soulHarvestProgress", soulHarvestProgress);
         tag.putFloat("exposedSoul", exposedSoul);
         if (soulsToApplyToDrops != null) {
@@ -97,6 +100,8 @@ public class MalumLivingEntityDataCapability implements LodestoneCapability {
 
     @Override
     public void deserializeNBT(CompoundTag tag) {
+        touchOfDarknessHandler.deserializeNBT(tag.getCompound("darknessAfflictionData"));
+
         soulHarvestProgress = tag.getFloat("soulHarvestProgress");
         exposedSoul = tag.getFloat("exposedSoul");
         soulless = tag.getBoolean("soulless");

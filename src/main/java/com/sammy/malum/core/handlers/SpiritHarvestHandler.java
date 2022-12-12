@@ -64,7 +64,7 @@ public class SpiritHarvestHandler {
         if (event.isCanceled()) {
             return;
         }
-        if (event.getSource().getMsgId().equals(DamageSourceRegistry.SOUL_STRIKE_IDENTIFIER)) {
+        if (event.getSource().getMsgId().equals(DamageSourceRegistry.GUARANTEED_SOUL_SHATTER)) {
             SpiritHelper.createSpiritEntities(event.getEntityLiving());
             return;
         }

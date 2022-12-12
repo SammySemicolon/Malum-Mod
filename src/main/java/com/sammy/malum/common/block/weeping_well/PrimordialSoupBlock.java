@@ -1,8 +1,11 @@
 package com.sammy.malum.common.block.weeping_well;
 
+import com.sammy.malum.common.capability.MalumLivingEntityDataCapability;
+import com.sammy.malum.core.handlers.TouchOfDarknessHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -59,7 +62,15 @@ public class PrimordialSoupBlock extends Block {
 
    @Override
    public void entityInside(BlockState pState, Level pLevel, BlockPos pPos, Entity pEntity) {
-      float intensity = pState.getValue(TOP) ? 0.9f : 0.01f;
-      pEntity.setDeltaMovement(pEntity.getDeltaMovement().multiply(intensity, intensity, intensity));
+      boolean isTop = pState.getValue(TOP);
+      float intensity = isTop ? 0.8f : 0.1f;
+      if (pEntity instanceof LivingEntity livingEntity) {
+         TouchOfDarknessHandler touchOfDarknessHandler = MalumLivingEntityDataCapability.getCapability(livingEntity).touchOfDarknessHandler;
+         if (touchOfDarknessHandler.isEntityRejected()) {
+            return;
+         }
+         pEntity.setDeltaMovement(pEntity.getDeltaMovement().multiply(intensity, intensity, intensity));
+         touchOfDarknessHandler.afflict(100);
+      }
    }
 }

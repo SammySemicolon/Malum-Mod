@@ -80,6 +80,10 @@ public class SoundRegistry {
     public static final RegistryObject<SoundEvent> MAJOR_BLIGHT_MOTIF = register(new SoundEvent(MalumMod.malumPath("blight_reacts")));
     public static final RegistryObject<SoundEvent> MINOR_BLIGHT_MOTIF = register(new SoundEvent(MalumMod.malumPath("blight_reacts_faintly")));
 
+    public static final RegistryObject<SoundEvent> SONG_OF_THE_VOID = register(new SoundEvent(MalumMod.malumPath("song_of_the_void")));
+    public static final RegistryObject<SoundEvent> VOID_REJECTION = register(new SoundEvent(MalumMod.malumPath("rejected_by_the_unknown")));
+    public static final RegistryObject<SoundEvent> VOID_TRANSMUTATION = register(new SoundEvent(MalumMod.malumPath("void_transmutation")));
+
     public static final RegistryObject<SoundEvent> ETHER_PLACE = register(new SoundEvent(MalumMod.malumPath("ether_place")));
     public static final RegistryObject<SoundEvent> ETHER_BREAK = register(new SoundEvent(MalumMod.malumPath("ether_break")));
 
@@ -114,9 +118,6 @@ public class SoundRegistry {
     public static final RegistryObject<SoundEvent> SOUL_WARD_HIT = register(new SoundEvent(MalumMod.malumPath("soul_ward_damaged")));
     public static final RegistryObject<SoundEvent> SOUL_WARD_GROW = register(new SoundEvent(MalumMod.malumPath("soul_ward_grows")));
     public static final RegistryObject<SoundEvent> SOUL_WARD_CHARGE = register(new SoundEvent(MalumMod.malumPath("soul_ward_charges")));
-
-    public static final RegistryObject<SoundEvent> HEART_OF_STONE_HIT = register(new SoundEvent(MalumMod.malumPath("heart_of_stone_hit")));
-    public static final RegistryObject<SoundEvent> HEART_OF_STONE_GROW = register(new SoundEvent(MalumMod.malumPath("heart_of_stone_grow")));
 
     public static final RegistryObject<SoundEvent> SUSPICIOUS_SOUND = register(new SoundEvent(MalumMod.malumPath("suspicious_sound_plays")));
 

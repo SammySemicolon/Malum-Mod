@@ -67,6 +67,10 @@
   "scythe_cuts": { "sounds":["malum:scythe/cut1","malum:scythe/cut2","malum:scythe/cut3"], "subtitle": "malum.subtitle.scythe_cuts" },
   "a_soul_shatters": { "sounds":["malum:scythe/harvest1","malum:scythe/harvest2","malum:scythe/harvest3"], "subtitle": "malum.subtitle.a_soul_shatters" },
 
+  "song_of_the_void": { "sounds":["malum:weeping_well/song_of_the_void0","malum:weeping_well/song_of_the_void1","malum:weeping_well/song_of_the_void2"], "subtitle": "malum.subtitle.song_of_the_void" },
+  "rejected_by_the_unknown": { "sounds":["malum:weeping_well/void_rejection0","malum:weeping_well/void_rejection1"], "subtitle": "malum.subtitle.rejected_by_the_unknown" },
+  "void_transmutation": { "sounds":["malum:weeping_well/void_transmutation0","malum:weeping_well/void_transmutation1"], "subtitle": "malum.subtitle.void_transmutation" },
+
   "totem_charges": { "sounds":["malum:totem/totem_charge1","malum:totem/totem_charge2","malum:totem/totem_charge3"], "subtitle": "malum.subtitle.totem_charges" },
   "spirit_rite_activated": { "sounds":["malum:totem/totem_activate"], "subtitle": "malum.subtitle.spirit_rite_activated" },
   "spirit_rite_cancelled": { "sounds":["malum:totem/totem_cancel"], "subtitle": "malum.subtitle.spirit_rite_cancelled" },
