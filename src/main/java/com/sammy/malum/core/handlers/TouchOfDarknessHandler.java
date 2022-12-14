@@ -7,6 +7,7 @@ import com.sammy.malum.common.capability.MalumLivingEntityDataCapability;
 import com.sammy.malum.registry.client.ShaderRegistry;
 import com.sammy.malum.registry.common.DamageSourceRegistry;
 import com.sammy.malum.registry.common.SoundRegistry;
+import com.sammy.malum.registry.common.SpiritTypeRegistry;
 import com.sammy.malum.registry.common.potion.MalumMobEffectRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
@@ -18,9 +19,15 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.client.gui.ForgeIngameGui;
 import net.minecraftforge.event.entity.living.LivingEvent;
+import team.lodestar.lodestone.handlers.ScreenParticleHandler;
+import team.lodestar.lodestone.setup.LodestoneScreenParticleRegistry;
 import team.lodestar.lodestone.systems.rendering.ExtendedShaderInstance;
 import team.lodestar.lodestone.systems.rendering.VFXBuilders;
+import team.lodestar.lodestone.systems.rendering.particle.ParticleBuilders;
+import team.lodestar.lodestone.systems.rendering.particle.screen.base.ScreenParticle;
 
+import java.awt.*;
+import java.util.Random;
 import java.util.function.Consumer;
 
 public class TouchOfDarknessHandler {
@@ -42,6 +49,7 @@ public class TouchOfDarknessHandler {
         tag.putInt("timeSpentInGoop", timeSpentInGoop);
         return tag;
     }
+
     public void deserializeNBT(CompoundTag tag) {
         expectedAffliction = tag.getInt("expectedAffliction");
         afflictionDuration = tag.getInt("afflictionDuration");
@@ -110,7 +118,7 @@ public class TouchOfDarknessHandler {
 
     public void reject(LivingEntity livingEntity) {
         expectedAffliction = 0;
-        currentAffliction+=40f;
+        currentAffliction += 40f;
         afflictionDuration = 0;
         rejection = 15;
         if (!livingEntity.level.isClientSide) {
@@ -119,31 +127,29 @@ public class TouchOfDarknessHandler {
         }
         livingEntity.addEffect(new MobEffectInstance(MalumMobEffectRegistry.REJECTED.get(), 400, 0));
     }
+
     public boolean isEntityRejected() {
         return rejection >= 10;
     }
+
     public static class ClientOnly {
         private static final Tesselator INSTANCE = new Tesselator();
 
-        public static void renderVignette(ForgeIngameGui gui, PoseStack poseStack, int width, int height) {
-            renderTextureOverlay(gui, poseStack);
-        }
-
-        protected static void renderTextureOverlay(ForgeIngameGui gui, PoseStack poseStack) {
-            Minecraft instance = Minecraft.getInstance();
-            Player player = instance.player;
+        public static void renderDarknessVignette(PoseStack poseStack) {
+            Minecraft minecraft = Minecraft.getInstance();
+            Player player = minecraft.player;
             TouchOfDarknessHandler darknessHandler = MalumLivingEntityDataCapability.getCapability(player).touchOfDarknessHandler;
             if (darknessHandler.currentAffliction == 0f) {
                 return;
             }
-            int width = instance.getWindow().getGuiScaledWidth();
-            int height = instance.getWindow().getGuiScaledHeight();
+            int screenWidth = minecraft.getWindow().getGuiScaledWidth();
+            int screenHeight = minecraft.getWindow().getGuiScaledHeight();
 
             float effectStrength = darknessHandler.currentAffliction / MAX_AFFLICTION;
 
-            float alpha = Math.min(1, effectStrength*5);
+            float alpha = Math.min(1, effectStrength * 5);
             float zoom = 0.5f + Math.min(0.35f, effectStrength);
-            float intensity = 1f + (effectStrength > 0.5f ? (effectStrength-0.5f)*4f : 0);
+            float intensity = 1f + (effectStrength > 0.5f ? (effectStrength - 0.5f) * 4f : 0);
 
             ExtendedShaderInstance shaderInstance = (ExtendedShaderInstance) ShaderRegistry.TOUCH_OF_DARKNESS.getInstance().get();
             shaderInstance.safeGetUniform("Speed").set(1000f);
@@ -151,7 +157,7 @@ public class TouchOfDarknessHandler {
             Consumer<Float> setIntensity = f -> shaderInstance.safeGetUniform("Intensity").set(f);
             VFXBuilders.ScreenVFXBuilder builder = VFXBuilders.createScreen()
                     .setPosColorTexDefaultFormat()
-                    .setPositionWithWidth(0, 0, width, height)
+                    .setPositionWithWidth(0, 0, screenWidth, screenHeight)
                     .overrideBufferBuilder(INSTANCE.getBuilder())
                     .setColor(0, 0, 0)
                     .setAlpha(alpha)
@@ -165,14 +171,51 @@ public class TouchOfDarknessHandler {
             setIntensity.accept(intensity);
             builder.draw(poseStack);
 
-            setZoom.accept(zoom*1.25f+0.15f);
-            setIntensity.accept(intensity*1.25f+0.5f);
-            builder.setAlpha(0.5f*alpha).draw(poseStack);
+            setZoom.accept(zoom * 1.25f + 0.15f);
+            setIntensity.accept(intensity * 1.25f + 0.5f);
+            builder.setAlpha(0.5f * alpha).draw(poseStack);
 
             RenderSystem.disableBlend();
             poseStack.popPose();
 
             shaderInstance.setUniformDefaults();
+        }
+        public static void addParticles(ForgeIngameGui gui, int width, int height) {
+            Minecraft minecraft = Minecraft.getInstance();
+            Player player = minecraft.player;
+            TouchOfDarknessHandler darknessHandler = MalumLivingEntityDataCapability.getCapability(player).touchOfDarknessHandler;
+            if (darknessHandler.currentAffliction == 0f) {
+                return;
+            }
+            Random random = minecraft.level.random;
+
+            if (ScreenParticleHandler.canSpawnParticles) {
+                if (!minecraft.options.hideGui && gui.shouldDrawSurvivalElements()) {
+                    int left = width / 2 - 91;
+                    int top = height - gui.left_height;
+                    int health = Mth.ceil(player.getHealth());
+                    for (int i = 0; i < health; i++) {
+                        int x = left + i % 10 * 8;
+                        float multiplier = Mth.nextFloat(random, 0.4f, 1f);
+                        Color color = new Color((int)(31*multiplier), (int)(19*multiplier), (int)(31*multiplier));
+
+                        //TODO: test if this actually works
+                        ParticleBuilders.create(LodestoneScreenParticleRegistry.WISP)
+                                .setLifetime(20)
+                                .setColor(color, color.darker())
+                                .setAlphaCoefficient(0.75f)
+                                .setScale(0.2f, 0f)
+                                .setAlpha(0.05f, 0)
+                                .setSpin(random.nextFloat() * 6.28f)
+                                .setSpinOffset(random.nextFloat() * 6.28f)
+                                .randomOffset(2)
+                                .randomMotion(0.5f, 0.5f)
+                                .addMotion(0, 0.2f)
+                                .overwriteRenderOrder(ScreenParticle.RenderOrder.BEFORE_UI)
+                                .repeat(x + 5, top + 5, 1);
+                    }
+                }
+            }
         }
     }
 }

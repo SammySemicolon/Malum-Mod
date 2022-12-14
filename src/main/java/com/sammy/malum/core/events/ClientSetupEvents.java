@@ -32,6 +32,8 @@ public class ClientSetupEvents {
         OverlayRegistry.registerOverlayAbove(ForgeIngameGui.ARMOR_LEVEL_ELEMENT, "Soul Ward", (gui, poseStack, partialTick, width, height) ->
                 SoulWardHandler.ClientOnly.renderSoulWard(gui, poseStack, width, height));
         OverlayRegistry.registerOverlayAbove(ForgeIngameGui.SLEEP_FADE_ELEMENT, "Touch of Darkness", (gui, poseStack, partialTick, width, height) ->
-                TouchOfDarknessHandler.ClientOnly.renderVignette(gui, poseStack, width, height));
+                TouchOfDarknessHandler.ClientOnly.renderDarknessVignette(poseStack));
+        OverlayRegistry.registerOverlayAbove(ForgeIngameGui.PLAYER_HEALTH_ELEMENT, "Touch of Darkness Particles", (gui, poseStack, partialTick, width, height) ->
+                TouchOfDarknessHandler.ClientOnly.addParticles(gui, width, height));
     }
 }
