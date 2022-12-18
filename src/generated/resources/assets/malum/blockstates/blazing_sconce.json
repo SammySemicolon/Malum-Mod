@@ -1,15 +1,15 @@
 {
   "variants": {
-    "lit=false,waterlogged=false": {
+    "facing=north": {
       "model": "malum:block/blazing_sconce"
     },
-    "lit=true,waterlogged=false": {
+    "facing=south": {
       "model": "malum:block/blazing_sconce"
     },
-    "lit=false,waterlogged=true": {
+    "facing=west": {
       "model": "malum:block/blazing_sconce"
     },
-    "lit=true,waterlogged=true": {
+    "facing=east": {
       "model": "malum:block/blazing_sconce"
     }
   }

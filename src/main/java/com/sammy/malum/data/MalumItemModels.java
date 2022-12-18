@@ -30,6 +30,7 @@ import team.lodestar.lodestone.systems.item.ModCombatItem;
 import team.lodestar.lodestone.systems.multiblock.MultiBlockItem;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static com.sammy.malum.MalumMod.malumPath;
 import static com.sammy.malum.registry.common.item.ItemRegistry.ITEMS;
@@ -50,6 +51,8 @@ public class MalumItemModels extends net.minecraftforge.client.model.generators.
         generatedItem(take(items, ItemRegistry.NATURAL_QUARTZ));
         cosmeticItem(take(items, ItemRegistry.ANCIENT_WEAVE), "weaves/");
         cosmeticItem(take(items, ItemRegistry.ESOTERIC_SPOOL), "");
+        generatedItem(take(items, ItemRegistry.BLAZING_SCONCE));
+
         takeAll(items, i -> i.get() instanceof PrideweaveItem).forEach(this::prideweaveItem);
 
         takeAll(items, i -> i.get() instanceof MalumScytheItem);
@@ -57,24 +60,25 @@ public class MalumItemModels extends net.minecraftforge.client.model.generators.
         takeAll(items, i -> i.get() instanceof NodeItem).forEach(this::nodeItem);
         takeAll(items, i -> i.get() instanceof ImpetusItem || i.get() instanceof CrackedImpetusItem).forEach(this::impetusItem);
         takeAll(items, i -> i.get() instanceof MultiBlockItem).forEach(this::multiBlockItem);
-        takeAll(items, i -> i.get() instanceof BlockItem && ((BlockItem) i.get()).getBlock() instanceof WallBlock).forEach(this::wallBlockItem);
-        takeAll(items, i -> i.get() instanceof BlockItem && ((BlockItem) i.get()).getBlock() instanceof FenceBlock).forEach(this::fenceBlockItem);
-        takeAll(items, i -> i.get() instanceof BlockItem && ((BlockItem) i.get()).getBlock() instanceof DoorBlock).forEach(this::generatedItem);
-        takeAll(items, i -> i.get() instanceof BlockItem && ((BlockItem) i.get()).getBlock() instanceof TrapDoorBlock).forEach(this::trapdoorBlockItem);
-        takeAll(items, i -> i.get() instanceof BlockItem && ((BlockItem) i.get()).getBlock() instanceof PressurePlateBlock).forEach(this::pressurePlateBlockItem);
-        takeAll(items, i -> i.get() instanceof BlockItem && ((BlockItem) i.get()).getBlock() instanceof ButtonBlock).forEach(this::buttonBlockItem);
-        takeAll(items, i -> i.get() instanceof BlockItem && ((BlockItem) i.get()).getBlock() instanceof BushBlock && !(((BlockItem) i.get()).getBlock() instanceof DoublePlantBlock)).forEach(this::blockGeneratedItem);
-        takeAll(items, i -> i.get() instanceof BlockItem && ((BlockItem) i.get()).getBlock() instanceof DoublePlantBlock).forEach(this::generatedItem);
-        takeAll(items, i -> i.get() instanceof BlockItem && ((BlockItem) i.get()).getBlock() instanceof EtherBrazierBlock).forEach(this::etherBrazierItem);
-        takeAll(items, i -> i.get() instanceof BlockItem && ((BlockItem) i.get()).getBlock() instanceof LanternBlock).forEach(this::generatedItem);
-        takeAll(items, i -> i.get() instanceof BlockItem && ((BlockItem) i.get()).getBlock() instanceof EtherSconceBlock).forEach(this::etherSconceItem);
-        takeAll(items, i -> i.get() instanceof BlockItem && ((BlockItem) i.get()).getBlock() instanceof EtherTorchBlock).forEach(this::etherTorchItem);
-        takeAll(items, i -> i.get() instanceof BlockItem && ((BlockItem) i.get()).getBlock() instanceof TorchBlock).forEach(this::generatedItem);
-        takeAll(items, i -> i.get() instanceof BlockItem && ((BlockItem) i.get()).getBlock() instanceof SconceBlock).forEach(this::generatedItem);
-        takeAll(items, i -> i.get() instanceof BlockItem && ((BlockItem) i.get()).getBlock() instanceof EtherBlock).forEach(this::etherItem);
-        takeAll(items, i -> i.get() instanceof SignItem).forEach(this::generatedItem);
 
-        takeAll(items, i -> i.get() instanceof BlockItem).forEach(this::blockItem);
+        Collection<RegistryObject<Item>> blockItems = new ArrayList<>(takeAll(items, i -> i.get() instanceof BlockItem));
+        takeAll(blockItems, i -> ((BlockItem) i.get()).getBlock() instanceof WallBlock).forEach(this::wallBlockItem);
+        takeAll(blockItems, i -> ((BlockItem) i.get()).getBlock() instanceof FenceBlock).forEach(this::fenceBlockItem);
+        takeAll(blockItems, i -> ((BlockItem) i.get()).getBlock() instanceof DoorBlock).forEach(this::generatedItem);
+        takeAll(blockItems, i -> ((BlockItem) i.get()).getBlock() instanceof TrapDoorBlock).forEach(this::trapdoorBlockItem);
+        takeAll(blockItems, i -> ((BlockItem) i.get()).getBlock() instanceof PressurePlateBlock).forEach(this::pressurePlateBlockItem);
+        takeAll(blockItems, i -> ((BlockItem) i.get()).getBlock() instanceof ButtonBlock).forEach(this::buttonBlockItem);
+        takeAll(blockItems, i -> ((BlockItem) i.get()).getBlock() instanceof BushBlock && !(((BlockItem) i.get()).getBlock() instanceof DoublePlantBlock)).forEach(this::blockGeneratedItem);
+        takeAll(blockItems, i -> ((BlockItem) i.get()).getBlock() instanceof DoublePlantBlock).forEach(this::generatedItem);
+        takeAll(blockItems, i -> ((BlockItem) i.get()).getBlock() instanceof EtherBrazierBlock).forEach(this::etherBrazierItem);
+        takeAll(blockItems, i -> ((BlockItem) i.get()).getBlock() instanceof LanternBlock).forEach(this::generatedItem);
+        takeAll(blockItems, i -> ((BlockItem) i.get()).getBlock() instanceof EtherSconceBlock).forEach(this::etherSconceItem);
+        takeAll(blockItems, i -> ((BlockItem) i.get()).getBlock() instanceof EtherTorchBlock).forEach(this::etherTorchItem);
+        takeAll(blockItems, i -> ((BlockItem) i.get()).getBlock() instanceof TorchBlock).forEach(this::generatedItem);
+        takeAll(blockItems, i -> ((BlockItem) i.get()).getBlock() instanceof EtherBlock).forEach(this::etherItem);
+        takeAll(blockItems, i -> i.get() instanceof SignItem).forEach(this::generatedItem);
+        takeAll(blockItems, i -> i.get() instanceof BlockItem).forEach(this::blockItem);
+
         takeAll(items, i -> i.get() instanceof DiggerItem).forEach(this::handheldItem);
         takeAll(items, i -> i.get() instanceof SoulStaveItem).forEach(this::handheldItem);
         takeAll(items, i -> i.get() instanceof ModCombatItem).forEach(this::handheldItem);

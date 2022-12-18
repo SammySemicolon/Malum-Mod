@@ -1,7 +1,7 @@
 {
   "type": "minecraft:smelting",
   "ingredient": {
-    "item": "malum:block_of_rare_earths"
+    "item": "malum:block_of_aurum"
   },
   "result": "malum:auric_remnant",
   "experience": 2.0,

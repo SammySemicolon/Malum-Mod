@@ -1,33 +1,18 @@
 {
   "variants": {
-    "facing=north,tall=false": {
+    "facing=north": {
       "model": "malum:block/weeping_well_corner"
     },
-    "facing=south,tall=false": {
+    "facing=south": {
       "model": "malum:block/weeping_well_corner",
       "y": 180
     },
-    "facing=west,tall=false": {
+    "facing=west": {
       "model": "malum:block/weeping_well_corner",
       "y": 270
     },
-    "facing=east,tall=false": {
+    "facing=east": {
       "model": "malum:block/weeping_well_corner",
-      "y": 90
-    },
-    "facing=north,tall=true": {
-      "model": "malum:block/weeping_well_corner_tall"
-    },
-    "facing=south,tall=true": {
-      "model": "malum:block/weeping_well_corner_tall",
-      "y": 180
-    },
-    "facing=west,tall=true": {
-      "model": "malum:block/weeping_well_corner_tall",
-      "y": 270
-    },
-    "facing=east,tall=true": {
-      "model": "malum:block/weeping_well_corner_tall",
       "y": 90
     }
   }

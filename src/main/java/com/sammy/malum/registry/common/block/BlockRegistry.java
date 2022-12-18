@@ -18,8 +18,8 @@ import com.sammy.malum.common.block.tablet.TwistedTabletBlock;
 import com.sammy.malum.common.block.totem.TotemBaseBlock;
 import com.sammy.malum.common.block.totem.TotemPoleBlock;
 import com.sammy.malum.common.block.weeping_well.PrimordialSoupBlock;
+import com.sammy.malum.common.block.weeping_well.VoidConduitBlock;
 import com.sammy.malum.common.block.weeping_well.WeepingWellBlock;
-import com.sammy.malum.common.block.weeping_well.WeepingWellComponentBlock;
 import com.sammy.malum.common.blockentity.EtherBlockEntity;
 import com.sammy.malum.compability.supplementaries.SupplementariesCompat;
 import com.sammy.malum.registry.common.SoundRegistry;
@@ -64,6 +64,10 @@ public class BlockRegistry {
 
     public static LodestoneBlockProperties WEEPING_WELL_PROPERTIES() {
         return new LodestoneBlockProperties(Material.STONE, MaterialColor.STONE).needsPickaxe().sound(SoundRegistry.TAINTED_ROCK).requiresCorrectToolForDrops().strength(-1.0F, 3600000.0F);
+    }
+
+    public static LodestoneBlockProperties PRIMORDIAL_SOUP_PROPERTIES() {
+        return new LodestoneBlockProperties(Material.PORTAL, MaterialColor.COLOR_BLACK).needsPickaxe().sound(SoundRegistry.BLIGHTED_EARTH).requiresCorrectToolForDrops().strength(-1.0F, 3600000.0F);
     }
 
     public static LodestoneBlockProperties TAINTED_ROCK_PROPERTIES() {
@@ -200,10 +204,11 @@ public class BlockRegistry {
     public static final RegistryObject<Block> SOULWOOD_TOTEM_BASE = BLOCKS.register("soulwood_totem_base", () -> new TotemBaseBlock<>(SOULWOOD_PROPERTIES().noOcclusion(), true).setBlockEntity(BlockEntityRegistry.TOTEM_BASE));
     public static final RegistryObject<Block> SOULWOOD_TOTEM_POLE = BLOCKS.register("soulwood_totem_pole", () -> new TotemPoleBlock<>(SOULWOOD_PROPERTIES().noOcclusion(), BlockRegistry.SOULWOOD_LOG, true).setBlockEntity(BlockEntityRegistry.TOTEM_POLE));
 
-    public static final RegistryObject<Block> PRIMORDIAL_SOUP = BLOCKS.register("primordial_soup", () -> new PrimordialSoupBlock(BLIGHT_PROPERTIES().isCutoutLayer().noOcclusion()));
-    public static final RegistryObject<Block> WEEPING_WELL_CORNER = BLOCKS.register("weeping_well_corner", () -> new WeepingWellComponentBlock(TAINTED_ROCK_PROPERTIES().isCutoutLayer()));
-    public static final RegistryObject<Block> WEEPING_WELL_SIDE = BLOCKS.register("weeping_well_side", () -> new WeepingWellComponentBlock(TAINTED_ROCK_PROPERTIES().isCutoutLayer()));
-    public static final RegistryObject<Block> WEEPING_WELL_CORE = BLOCKS.register("weeping_well_core", () -> new WeepingWellBlock(TAINTED_ROCK_PROPERTIES().isCutoutLayer()));
+    public static final RegistryObject<Block> VOID_CONDUIT = BLOCKS.register("void_conduit", () -> new VoidConduitBlock<>(PRIMORDIAL_SOUP_PROPERTIES().isCutoutLayer().noOcclusion()).setBlockEntity(BlockEntityRegistry.VOID_CONDUIT));
+    public static final RegistryObject<Block> PRIMORDIAL_SOUP = BLOCKS.register("primordial_soup", () -> new PrimordialSoupBlock(PRIMORDIAL_SOUP_PROPERTIES().isCutoutLayer().noOcclusion()));
+    public static final RegistryObject<Block> WEEPING_WELL_CORNER = BLOCKS.register("weeping_well_corner", () -> new WeepingWellBlock(WEEPING_WELL_PROPERTIES().isCutoutLayer()));
+    public static final RegistryObject<Block> WEEPING_WELL_SIDE = BLOCKS.register("weeping_well_side", () -> new WeepingWellBlock(WEEPING_WELL_PROPERTIES().isCutoutLayer()));
+    public static final RegistryObject<Block> WEEPING_WELL_CORE = BLOCKS.register("weeping_well_core", () -> new WeepingWellBlock(WEEPING_WELL_PROPERTIES().isCutoutLayer()));
     //endregion
 
     //region tainted rock

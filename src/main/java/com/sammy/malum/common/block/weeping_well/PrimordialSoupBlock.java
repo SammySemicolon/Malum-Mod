@@ -30,7 +30,7 @@ public class PrimordialSoupBlock extends Block {
    }
 
    public boolean skipRendering(BlockState pState, BlockState pAdjacentBlockState, Direction pDirection) {
-      return pAdjacentBlockState.is(this) || super.skipRendering(pState, pAdjacentBlockState, pDirection);
+      return (pAdjacentBlockState.getBlock() instanceof VoidConduitBlock || pAdjacentBlockState.is(this)) || super.skipRendering(pState, pAdjacentBlockState, pDirection);
    }
 
    public VoxelShape getOcclusionShape(BlockState pState, BlockGetter pLevel, BlockPos pPos) {
@@ -62,15 +62,8 @@ public class PrimordialSoupBlock extends Block {
 
    @Override
    public void entityInside(BlockState pState, Level pLevel, BlockPos pPos, Entity pEntity) {
-      boolean isTop = pState.getValue(TOP);
-      float intensity = isTop ? 0.8f : 0.1f;
       if (pEntity instanceof LivingEntity livingEntity) {
-         TouchOfDarknessHandler touchOfDarknessHandler = MalumLivingEntityDataCapability.getCapability(livingEntity).touchOfDarknessHandler;
-         if (touchOfDarknessHandler.isEntityRejected()) {
-            return;
-         }
-         pEntity.setDeltaMovement(pEntity.getDeltaMovement().multiply(intensity, intensity, intensity));
-         touchOfDarknessHandler.afflict(100);
+         TouchOfDarknessHandler.touchedByGoop(pState, livingEntity);
       }
    }
 }

@@ -11,7 +11,6 @@ import com.sammy.malum.common.block.totem.TotemBaseBlock;
 import com.sammy.malum.common.block.totem.TotemPoleBlock;
 import com.sammy.malum.common.block.weeping_well.PrimordialSoupBlock;
 import com.sammy.malum.common.block.weeping_well.WeepingWellBlock;
-import com.sammy.malum.common.block.weeping_well.WeepingWellComponentBlock;
 import com.sammy.malum.registry.common.SpiritTypeRegistry;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import net.mehvahdjukaar.supplementaries.common.block.blocks.SconceBlock;
@@ -66,6 +65,7 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
         sconceBlock(take(blocks, BLAZING_SCONCE));
         wallSconceBlock(take(blocks, WALL_BLAZING_SCONCE));
         primordialSoupBlock(take(blocks, PRIMORDIAL_SOUP));
+        voidConduitBlock(take(blocks, VOID_CONDUIT));
 
         weepingWellBlock(take(blocks, WEEPING_WELL_CORE), "weeping_well_core");
         weepingWellBlock(take(blocks, WEEPING_WELL_CORNER), "weeping_well_corner");
@@ -102,8 +102,6 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
         DataHelper.takeAll(blocks, b -> b.get() instanceof ItemStandBlock).forEach(this::itemStandBlock);
         DataHelper.takeAll(blocks, b -> b.get() instanceof MalumLeavesBlock).forEach(this::malumLeavesBlock);
 
-        DataHelper.takeAll(blocks, b -> b.get() instanceof SconceWallBlock).forEach(this::wallSconceBlock);
-        DataHelper.takeAll(blocks, b -> b.get() instanceof SconceBlock).forEach(this::sconceBlock);
         DataHelper.takeAll(blocks, b -> b.get() instanceof SignBlock).forEach(this::signBlock);
         DataHelper.takeAll(blocks, b -> b.get() instanceof GrassBlock).forEach(this::grassBlock);
         DataHelper.takeAll(blocks, b -> b.get() instanceof StairBlock).forEach(this::stairsBlock);
@@ -169,6 +167,10 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
         directionalBlock(blockRegistryObject.get(), models().cross(name, malumPath("block/"+name)));
     }
 
+    public void voidConduitBlock(RegistryObject<Block> blockRegistryObject) {
+        ModelFile topModel = models().getExistingFile(malumPath("block/weeping_well/primordial_soup_top"));
+        getVariantBuilder(blockRegistryObject.get()).forAllStates(s -> ConfiguredModel.builder().modelFile(topModel).build());
+    }
     public void primordialSoupBlock(RegistryObject<Block> blockRegistryObject) {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
         ModelFile model = models().withExistingParent(name, new ResourceLocation("block/powder_snow")).texture("texture", malumPath("block/" + name));
@@ -179,23 +181,6 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
 
     public void weepingWellBlock(RegistryObject<Block> blockRegistryObject, String name) {
         BlockModelBuilder model = models().withExistingParent(name, malumPath("block/weeping_well/" + name));
-        if (blockRegistryObject.get() instanceof WeepingWellComponentBlock) {
-            BlockModelBuilder tallModel = models().withExistingParent(name+"_tall", malumPath("block/weeping_well/" + name + "_tall"));
-            Direction[] directions = new Direction[]{Direction.NORTH, Direction.WEST, Direction.EAST, Direction.SOUTH};
-            VariantBlockStateBuilder variantBuilder = getVariantBuilder(blockRegistryObject.get());
-            for (Direction direction : directions) {
-                variantBuilder.partialState()
-                        .with(WeepingWellBlock.FACING, direction)
-                        .with(WeepingWellComponentBlock.TALL, false)
-                        .modelForState().modelFile(model).rotationY(((int) direction.toYRot() + 180) % 360).addModel()
-                        .partialState()
-                        .with(WeepingWellBlock.FACING, direction)
-                        .with(WeepingWellComponentBlock.TALL, true)
-                        .modelForState().modelFile(tallModel).rotationY(((int) direction.toYRot() + 180) % 360).addModel();
-            }
-            return;
-        }
-
         getVariantBuilder(blockRegistryObject.get()).forAllStates(s -> ConfiguredModel.builder().modelFile(model).rotationY(((int) s.getValue(BlockStateProperties.HORIZONTAL_FACING).toYRot() + 180) % 360).build());
     }
 

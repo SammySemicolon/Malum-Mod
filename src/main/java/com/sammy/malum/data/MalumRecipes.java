@@ -97,9 +97,6 @@ public class MalumRecipes extends RecipeProvider implements IConditionBuilder {
         shaped(ItemRegistry.SOUL_STAINED_STEEL_AXE.get()).define('#', Tags.Items.RODS_WOODEN).define('X', ItemRegistry.SOUL_STAINED_STEEL_INGOT.get()).pattern("XX ").pattern("X# ").pattern(" # ").unlockedBy("has_soul_stained_steel", has(ItemRegistry.SOUL_STAINED_STEEL_INGOT.get())).save(consumer);
         shaped(ItemRegistry.SOUL_STAINED_STEEL_SHOVEL.get()).define('#', Tags.Items.RODS_WOODEN).define('X', ItemRegistry.SOUL_STAINED_STEEL_INGOT.get()).pattern("X").pattern("#").pattern("#").unlockedBy("has_soul_stained_steel", has(ItemRegistry.SOUL_STAINED_STEEL_INGOT.get())).save(consumer);
         shaped(ItemRegistry.SOUL_STAINED_STEEL_SWORD.get()).define('#', Tags.Items.RODS_WOODEN).define('X', ItemRegistry.SOUL_STAINED_STEEL_INGOT.get()).pattern("X").pattern("X").pattern("#").unlockedBy("has_soul_stained_steel", has(ItemRegistry.SOUL_STAINED_STEEL_INGOT.get())).save(consumer);
-        ConditionalRecipe.builder().addCondition(new ModLoadedCondition("farmersdelight")).addRecipe(shaped(ItemRegistry.SOUL_STAINED_STEEL_KNIFE.get()).define('#', Tags.Items.RODS_WOODEN).define('X', ItemRegistry.SOUL_STAINED_STEEL_INGOT.get()).pattern(" X").pattern("# ").unlockedBy("has_soul_stained_steel", has(ItemRegistry.SOUL_STAINED_STEEL_INGOT.get()))::save)
-                .generateAdvancement()
-                .build(consumer, MalumMod.malumPath("soul_stained_steel_knife"));
 
         //TRINKETS
         shaped(ItemRegistry.GILDED_BELT.get()).define('#', ItemRegistry.HALLOWED_GOLD_INGOT.get()).define('X', Tags.Items.LEATHER).define('Y', ItemRegistry.PROCESSED_SOULSTONE.get()).pattern("XXX").pattern("#Y#").pattern(" # ").unlockedBy("has_hallowed_gold", has(ItemRegistry.HALLOWED_GOLD_INGOT.get())).save(consumer);
@@ -185,13 +182,6 @@ public class MalumRecipes extends RecipeProvider implements IConditionBuilder {
         shaped(Items.ZOMBIE_HEAD).define('#', ItemRegistry.GRIM_TALC.get()).define('&', Items.ROTTEN_FLESH).pattern("&&&").pattern("&#&").pattern("&&&").unlockedBy("has_grim_talc", has(ItemRegistry.GRIM_TALC.get())).save(consumer, malumPath("zombie_head_from_grim_talc"));
 
         shaped(ItemRegistry.BLAZING_TORCH.get(), 6).define('#', ItemRegistry.BLAZING_QUARTZ.get()).define('&', Items.STICK).pattern("#").pattern("&").unlockedBy("has_blazing_quartz", has(ItemRegistry.BLAZING_QUARTZ.get())).save(consumer, malumPath("blazing_torch"));
-
-        ConditionalRecipe.builder().addCondition(new ModLoadedCondition("supplementaries")).addRecipe(
-                shaped(ItemRegistry.BLAZING_SCONCE.get()).define('#', ItemRegistry.BLAZING_TORCH.get()).define('&', Tags.Items.NUGGETS_IRON).pattern("&#&").pattern(" & ").unlockedBy("has_blazing_quartz", has(ItemRegistry.BLAZING_QUARTZ.get()))
-                        ::save)
-                .generateAdvancement()
-                .build(consumer, MalumMod.malumPath("blazing_sconce"));
-
 
         //SAP & ARCANE CHARCOAL
         smelting(Ingredient.of(ItemTagRegistry.RUNEWOOD_LOGS), ItemRegistry.ARCANE_CHARCOAL.get(), 0.25f, 200).unlockedBy("has_runewood_planks", has(ItemTagRegistry.RUNEWOOD_LOGS)).save(consumer, malumPath("arcane_charcoal_from_runewood"));
@@ -488,11 +478,9 @@ public class MalumRecipes extends RecipeProvider implements IConditionBuilder {
         etherTorch(consumer, ItemRegistry.ETHER_TORCH.get(), ItemRegistry.ETHER.get());
         etherBrazier(consumer, ItemRegistry.TAINTED_ETHER_BRAZIER.get(), ItemRegistry.TAINTED_ROCK.get(), ItemRegistry.ETHER.get());
         etherBrazier(consumer, ItemRegistry.TWISTED_ETHER_BRAZIER.get(), ItemRegistry.TWISTED_ROCK.get(), ItemRegistry.ETHER.get());
-        etherSconce(consumer, ItemRegistry.ETHER_SCONCE.get(), ItemRegistry.ETHER_TORCH.get());
         etherTorch(consumer, ItemRegistry.IRIDESCENT_ETHER_TORCH.get(), ItemRegistry.IRIDESCENT_ETHER.get());
         etherBrazier(consumer, ItemRegistry.TAINTED_IRIDESCENT_ETHER_BRAZIER.get(), ItemRegistry.TAINTED_ROCK.get(), ItemRegistry.IRIDESCENT_ETHER.get());
         etherBrazier(consumer, ItemRegistry.TWISTED_IRIDESCENT_ETHER_BRAZIER.get(), ItemRegistry.TWISTED_ROCK.get(), ItemRegistry.IRIDESCENT_ETHER.get());
-        etherSconce(consumer, ItemRegistry.IRIDESCENT_ETHER_SCONCE.get(), ItemRegistry.IRIDESCENT_ETHER_TORCH.get());
 
         //THE DEVICE
         TheDeviceRecipeBuilder.shaped(ItemRegistry.THE_DEVICE.get()).define('X', ItemRegistry.TWISTED_ROCK.get()).define('Y', ItemRegistry.TAINTED_ROCK.get()).pattern("XYX").pattern("YXY").pattern("XYX").unlockedBy("has_bedrock", has(Items.BEDROCK)).save(consumer);
@@ -545,15 +533,6 @@ public class MalumRecipes extends RecipeProvider implements IConditionBuilder {
 
     private static void etherTorch(Consumer<FinishedRecipe> recipeConsumer, ItemLike output, ItemLike ether) {
         NBTCarryRecipeBuilder.shapedRecipe(output, 4, Ingredient.of(ether)).key('#', Ingredient.of(Tags.Items.RODS_WOODEN)).key('X', ether).patternLine("X").patternLine("#").addCriterion("has_ether", has(ItemRegistry.ETHER.get())).build(recipeConsumer, output.asItem().getRegistryName().getPath() + "_alternative");
-    }
-
-    private void etherSconce(Consumer<FinishedRecipe> recipeConsumer, ItemLike output, ItemLike etherTorch) {
-
-        ConditionalRecipe.builder().addCondition(new ModLoadedCondition("supplementaries")).addRecipe(
-                        NBTCarryRecipeBuilder.shapedRecipe(output, 1, Ingredient.of(etherTorch)).key('#', Ingredient.of(Tags.Items.NUGGETS_IRON)).key('X', etherTorch).patternLine("#X#").patternLine(" # ").addCriterion("has_ether", has(ItemRegistry.ETHER.get()))
-                                ::build)
-                .generateAdvancement()
-                .build(recipeConsumer, MalumMod.malumPath(output.asItem().getRegistryName().getPath()));
     }
 
     private static void shapelessPlanks(Consumer<FinishedRecipe> recipeConsumer, ItemLike planks, TagKey<Item> input) {

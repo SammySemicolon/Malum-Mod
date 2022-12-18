@@ -3,6 +3,7 @@ package com.sammy.malum.registry.common;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.packets.SyncLivingCapabilityDataPacket;
 import com.sammy.malum.common.packets.SyncMalumPlayerCapabilityDataPacket;
+import com.sammy.malum.common.packets.VoidRejectionPacket;
 import com.sammy.malum.common.packets.particle.block.*;
 import com.sammy.malum.common.packets.particle.block.blight.BlightMistParticlePacket;
 import com.sammy.malum.common.packets.particle.block.blight.BlightTransformItemParticlePacket;
@@ -25,6 +26,12 @@ public class PacketRegistry {
     @SubscribeEvent
     public static void registerNetworkStuff(FMLCommonSetupEvent event) {
         int index = 0;
+
+        //functionality
+        VoidRejectionPacket.register(MALUM_CHANNEL, index++);
+
+
+        //vfx
         AltarCraftParticlePacket.register(MALUM_CHANNEL, index++);
         AltarConsumeParticlePacket.register(MALUM_CHANNEL, index++);
 
