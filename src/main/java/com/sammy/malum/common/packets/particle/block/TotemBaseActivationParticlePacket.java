@@ -56,7 +56,7 @@ public class TotemBaseActivationParticlePacket extends LodestoneClientPacket {
                     .enableNoClip()
                     .randomOffset(0.1f, 0.1f)
                     .randomMotion(0.001f, 0.001f)
-                    .evenlyRepeatEdges(level, pos.above(i), 3, Direction.NORTH, Direction.SOUTH, Direction.EAST, Direction.WEST);
+                    .repeatSurroundBlock(level, pos.above(i), 3, Direction.NORTH, Direction.SOUTH, Direction.EAST, Direction.WEST);
 
             ParticleBuilders.create(LodestoneParticleRegistry.SMOKE_PARTICLE)
                     .setAlpha(0.06f, 0.14f, 0)
@@ -68,7 +68,7 @@ public class TotemBaseActivationParticlePacket extends LodestoneClientPacket {
                     .randomOffset(0.2f)
                     .enableNoClip()
                     .randomMotion(0.001f, 0.001f)
-                    .evenlyRepeatEdges(level, pos.above(i), 5, Direction.NORTH, Direction.SOUTH, Direction.EAST, Direction.WEST);
+                    .repeatSurroundBlock(level, pos.above(i), 5, Direction.NORTH, Direction.SOUTH, Direction.EAST, Direction.WEST);
         }
     }
 

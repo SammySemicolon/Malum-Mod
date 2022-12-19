@@ -142,9 +142,9 @@ public class ProgressionBookScreen extends Screen {
         );
 
         ENTRIES.add(new BookEntry(
-                "rare_earths", AURIC_REMNANT.get(), -4, 2)
+                "cthonic_gold", CTHONIC_GOLD.get(), -4, 2)
                 .setObjectSupplier(MinorEntryObject::new)
-                .addPage(new HeadlineTextItemPage("rare_earths", "rare_earths", AURIC_REMNANT.get()))
+                .addPage(new HeadlineTextItemPage("cthonic_gold", "cthonic_gold", CTHONIC_GOLD.get()))
         );
 
         ENTRIES.add(new BookEntry(

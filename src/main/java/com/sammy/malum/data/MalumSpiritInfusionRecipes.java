@@ -317,7 +317,7 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider implements ICondi
             .build(consumer);
 
         new SpiritInfusionRecipeBuilder(ItemRegistry.GILDED_BELT.get(), 1, ItemRegistry.BELT_OF_THE_PROSPECTOR.get(), 1)
-            .addExtraItem(ItemRegistry.AURIC_REMNANT.get(), 1)
+            .addExtraItem(ItemRegistry.CTHONIC_GOLD.get(), 1)
             .addExtraItem(Items.RAW_GOLD, 4)
             .addExtraItem(Items.RAW_IRON, 4)
             .addExtraItem(Items.RAW_COPPER, 4)
@@ -471,7 +471,7 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider implements ICondi
                     .addSpirit(EARTHEN_SPIRIT, 8)
                     .addSpirit(INFERNAL_SPIRIT, 8)
                     .addExtraItem(Ingredient.of(Tags.Items.GUNPOWDER), 4)
-                    .addExtraItem(Ingredient.of(ItemRegistry.AURIC_REMNANT.get()), 1)
+                    .addExtraItem(Ingredient.of(ItemRegistry.CTHONIC_GOLD.get()), 1)
                     .addExtraItem(Ingredient.of(ingot), 6)
                     ::build)
             .generateAdvancement()
@@ -483,7 +483,7 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider implements ICondi
             .addSpirit(EARTHEN_SPIRIT, 8)
             .addSpirit(INFERNAL_SPIRIT, 8)
             .addExtraItem(Ingredient.of(Tags.Items.GUNPOWDER), 4)
-            .addExtraItem(Ingredient.of(ItemRegistry.AURIC_REMNANT.get()), 1)
+            .addExtraItem(Ingredient.of(ItemRegistry.CTHONIC_GOLD.get()), 1)
             .addExtraItem(Ingredient.of(ingot), 6)
             .build(consumer);
     }

@@ -100,7 +100,7 @@ public class TouchOfDarknessHandler {
             if (handler.afflictionDuration < 20) { //increase in affliction strength decreases if effect is about to run out
                 increase *= handler.afflictionDuration / 20f;
             }
-            handler.currentAffliction += increase;
+            handler.currentAffliction = Math.min(MAX_AFFLICTION, handler.currentAffliction+increase);
             //if the entity's affliction reached the max, and the entity isn't close to actively being rejected, and is in the goop, they are rejected
             //rejection is set to 15, and the entity starts rapidly ascending as a result
             //we do this only on the server, and then communicate the rejection to the client using a packet

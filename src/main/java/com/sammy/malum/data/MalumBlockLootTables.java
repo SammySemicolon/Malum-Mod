@@ -92,7 +92,7 @@ public class MalumBlockLootTables extends LootTableProvider {
         add(take(blocks, BlockRegistry.NATURAL_QUARTZ_ORE).get(), createOreDrop(BlockRegistry.NATURAL_QUARTZ_ORE.get(), ItemRegistry.NATURAL_QUARTZ.get()));
         add(take(blocks, BlockRegistry.DEEPSLATE_QUARTZ_ORE).get(), createOreDrop(BlockRegistry.DEEPSLATE_QUARTZ_ORE.get(), ItemRegistry.NATURAL_QUARTZ.get()));
 
-        add(take(blocks, BlockRegistry.BLOCK_OF_AURUM).get(), createSingleItemTableWithSilkTouch(BlockRegistry.BLOCK_OF_AURUM.get(), ItemRegistry.AURIC_REMNANT.get()));
+        add(take(blocks, BlockRegistry.BLOCK_OF_CTHONIC_GOLD).get(), createSingleItemTableWithSilkTouch(BlockRegistry.BLOCK_OF_CTHONIC_GOLD.get(), ItemRegistry.CTHONIC_GOLD.get()));
 
         takeAll(blocks, b -> b.get().asItem() instanceof EtherItem etherItem && etherItem.iridescent);
 

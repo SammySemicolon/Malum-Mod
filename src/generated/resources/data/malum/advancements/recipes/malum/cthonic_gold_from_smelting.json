@@ -2,17 +2,17 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "malum:rare_earths_from_blasting"
+      "malum:cthonic_gold_from_smelting"
     ]
   },
   "criteria": {
-    "has_rare_earths": {
+    "has_cthonic_gold": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
             "items": [
-              "malum:auric_remnant"
+              "malum:cthonic_gold"
             ]
           }
         ]
@@ -21,13 +21,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "malum:rare_earths_from_blasting"
+        "recipe": "malum:cthonic_gold_from_smelting"
       }
     }
   },
   "requirements": [
     [
-      "has_rare_earths",
+      "has_cthonic_gold",
       "has_the_recipe"
     ]
   ]

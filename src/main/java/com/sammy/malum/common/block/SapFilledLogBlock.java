@@ -64,7 +64,7 @@ public class SapFilledLogBlock extends RotatedPillarBlock {
                     .enableNoClip()
                     .randomOffset(0.1f, 0.1f)
                     .randomMotion(0.001f, 0.001f)
-                    .evenlyRepeatEdges(level, pos, 8, Direction.NORTH, Direction.SOUTH, Direction.EAST, Direction.WEST);
+                    .repeatSurroundBlock(level, pos, 8, Direction.NORTH, Direction.SOUTH, Direction.EAST, Direction.WEST);
 
             ParticleBuilders.create(LodestoneParticleRegistry.SMOKE_PARTICLE)
                     .setAlpha(0.08f, 0f)
@@ -75,7 +75,7 @@ public class SapFilledLogBlock extends RotatedPillarBlock {
                     .randomOffset(0.2f)
                     .enableNoClip()
                     .randomMotion(0.001f, 0.001f)
-                    .evenlyRepeatEdges(level, pos, 12, Direction.NORTH, Direction.SOUTH, Direction.EAST, Direction.WEST);
+                    .repeatSurroundBlock(level, pos, 12, Direction.NORTH, Direction.SOUTH, Direction.EAST, Direction.WEST);
         }
     }
 }

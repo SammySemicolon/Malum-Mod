@@ -3,7 +3,7 @@
   "ingredient": {
     "item": "malum:block_of_aurum"
   },
-  "result": "malum:auric_remnant",
+  "result": "malum:cthonic_gold",
   "experience": 2.0,
   "cookingtime": 200
 }

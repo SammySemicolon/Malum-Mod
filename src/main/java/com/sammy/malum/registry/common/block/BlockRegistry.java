@@ -167,11 +167,11 @@ public class BlockRegistry {
     }
 
     public static LodestoneBlockProperties AURUM_PROPERTIES() {
-        return new LodestoneBlockProperties(Material.STONE, MaterialColor.STONE).needsPickaxe().requiresCorrectToolForDrops().strength(25f, 9999f).sound(SoundRegistry.RARE_EARTH);
+        return new LodestoneBlockProperties(Material.STONE, MaterialColor.STONE).needsPickaxe().requiresCorrectToolForDrops().strength(25f, 9999f).sound(SoundRegistry.CTHONIC_GOLD);
     }
 
     public static LodestoneBlockProperties MOTE_OF_MANA_PROPERTIES() {
-        return new LodestoneBlockProperties(Material.STONE, MaterialColor.COLOR_CYAN).needsPickaxe().requiresCorrectToolForDrops().strength(25f, 9999f).sound(SoundRegistry.RARE_EARTH);
+        return new LodestoneBlockProperties(Material.STONE, MaterialColor.COLOR_CYAN).needsPickaxe().requiresCorrectToolForDrops().strength(25f, 9999f).sound(SoundRegistry.CTHONIC_GOLD);
     }
 
 
@@ -457,7 +457,7 @@ public class BlockRegistry {
     public static final RegistryObject<Block> DEEPSLATE_QUARTZ_ORE = BLOCKS.register("deepslate_quartz_ore", () -> new OreBlock(DEEPSLATE_QUARTZ_PROPERTIES().isCutoutLayer(), UniformInt.of(2, 5)));
     public static final RegistryObject<Block> NATURAL_QUARTZ_CLUSTER = BLOCKS.register("natural_quartz_cluster", () -> new AmethystClusterBlock(6, 3, NATURAL_QUARTZ_CLUSTER_PROPERTIES().isCutoutLayer()));
 
-    public static final RegistryObject<Block> BLOCK_OF_AURUM = BLOCKS.register("block_of_aurum", () -> new OreBlock(AURUM_PROPERTIES(), UniformInt.of(10, 100)));
+    public static final RegistryObject<Block> BLOCK_OF_CTHONIC_GOLD = BLOCKS.register("block_of_cthonic_gold", () -> new OreBlock(AURUM_PROPERTIES(), UniformInt.of(10, 100)));
 
     public static final RegistryObject<Block> BRILLIANT_STONE = BLOCKS.register("brilliant_stone", () -> new OreBlock(BRILLIANCE_PROPERTIES().isCutoutLayer(), UniformInt.of(14, 18)));
     public static final RegistryObject<Block> BRILLIANT_DEEPSLATE = BLOCKS.register("brilliant_deepslate", () -> new OreBlock(DEEPSLATE_BRILLIANCE_PROPERTIES().isCutoutLayer(), UniformInt.of(16, 26)));
@@ -473,7 +473,7 @@ public class BlockRegistry {
 
     public static final RegistryObject<Block> THE_DEVICE = BLOCKS.register("the_device", () -> new TheDevice(TAINTED_ROCK_PROPERTIES()));
 
-    //    public static final RegistryObject<Block> BLOCK_OF_RARE_EARTHS = BLOCKS.register("block_of_rare_earths", () -> new OreBlock(RARE_EARTH_PROPERTIES(), UniformInt.of(10, 100)));
+    //    public static final RegistryObject<Block> BLOCK_OF_CTHONIC_GOLD = BLOCKS.register("block_of_rare_earths", () -> new OreBlock(CTHONIC_GOLD_PROPERTIES(), UniformInt.of(10, 100)));
     public static final RegistryObject<Block> BLOCK_OF_ROTTING_ESSENCE = BLOCKS.register("block_of_rotting_essence", () -> new Block(BlockBehaviour.Properties.copy(Blocks.FIRE_CORAL_BLOCK)));
     public static final RegistryObject<Block> BLOCK_OF_GRIM_TALC = BLOCKS.register("block_of_grim_talc", () -> new Block(BlockBehaviour.Properties.copy(Blocks.BONE_BLOCK)));
     public static final RegistryObject<Block> BLOCK_OF_ALCHEMICAL_CALX = BLOCKS.register("block_of_alchemical_calx", () -> new Block(BlockBehaviour.Properties.copy(Blocks.CALCITE)));

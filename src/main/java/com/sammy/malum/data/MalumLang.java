@@ -138,8 +138,8 @@ public class MalumLang extends LanguageProvider {
         addPages("natural_quartz",
             "Natural Quartz is, as the name implies, a natural equivalent of the nether resource. It's used for most of the same things. It's rare, and found deep underground, sometimes in geodes.");
 
-        addSimpleEntryHeader("rare_earths", "Rare Earths", "Thaumcraft wow no way");
-        addPages("rare_earths",
+        addSimpleEntryHeader("cthonic_gold", "Auric Remnant", "Compressed Gold");
+        addPages("cthonic_gold",
             "A rare resource found in golden geodes deep underground. Description to come.");
 
         addSimpleEntryHeader("runewood", "Runewood", "Arcane oak");

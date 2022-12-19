@@ -45,8 +45,8 @@ public class WorldgenEvents {
             event.getGeneration().addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, FeatureRegistry.PlacedFeatures.QUARTZ_GEODE_FEATURE);
             event.getGeneration().addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, FeatureRegistry.PlacedFeatures.DEEPSLATE_QUARTZ_GEODE_FEATURE);
         }
-        if (CommonConfig.GENERATE_RARE_EARTH.getConfigValue()) {
-            event.getGeneration().addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, FeatureRegistry.PlacedFeatures.RARE_EARTH_GEODE_FEATURE);
+        if (CommonConfig.GENERATE_CTHONIC_GOLD.getConfigValue()) {
+            event.getGeneration().addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, FeatureRegistry.PlacedFeatures.CTHONIC_GOLD_GEODE_FEATURE);
         }
     }
 }

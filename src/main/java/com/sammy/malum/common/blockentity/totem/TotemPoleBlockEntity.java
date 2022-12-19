@@ -269,7 +269,7 @@ public class TotemPoleBlockEntity extends LodestoneBlockEntity {
                     .randomOffset(0.1f, 0.2f)
                     .randomMotion(0.01f, 0.02f)
                     .overwriteRemovalProtocol(SimpleParticleOptions.SpecialRemovalProtocol.ENDING_CURVE_INVISIBLE)
-                    .evenlyRepeatEdges(level, worldPosition, 1, Direction.WEST, Direction.EAST, Direction.NORTH, Direction.SOUTH);
+                    .surroundBlock(level, worldPosition, Direction.WEST, Direction.EAST, Direction.NORTH, Direction.SOUTH);
 
             ParticleBuilders.create(LodestoneParticleRegistry.SMOKE_PARTICLE)
                     .setAlpha(0, 0.06f, 0.03f)
@@ -283,7 +283,7 @@ public class TotemPoleBlockEntity extends LodestoneBlockEntity {
                     .enableNoClip()
                     .randomMotion(0.01f, 0.02f)
                     .overwriteRemovalProtocol(SimpleParticleOptions.SpecialRemovalProtocol.ENDING_CURVE_INVISIBLE)
-                    .evenlyRepeatEdges(level, worldPosition, 1, Direction.WEST, Direction.EAST, Direction.NORTH, Direction.SOUTH);
+                    .surroundBlock(level, worldPosition, Direction.WEST, Direction.EAST, Direction.NORTH, Direction.SOUTH);
         }
     }
 }

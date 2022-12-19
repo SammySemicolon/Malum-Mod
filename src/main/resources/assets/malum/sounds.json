@@ -55,8 +55,8 @@
   "soulwood_leaves_place": { "sounds":["minecraft:block/azalea_leaves/break1","minecraft:block/azalea_leaves/break2","minecraft:block/azalea_leaves/break3","minecraft:block/azalea_leaves/break4","minecraft:block/azalea_leaves/break5","minecraft:block/azalea_leaves/break6","minecraft:block/azalea_leaves/break7"], "subtitle": "malum.subtitle.soulwood_leaves_place" },
   "soulwood_leaves_hit": { "sounds":["minecraft:block/azalea_leaves/step1","minecraft:block/azalea_leaves/step2","minecraft:block/azalea_leaves/step3","minecraft:block/azalea_leaves/step4","minecraft:block/azalea_leaves/step5"], "subtitle": "malum.subtitle.soulwood_leaves_step" },
 
-  "rare_earth_break": { "sounds":["malum:rare_earth/break1","malum:rare_earth/break2","malum:rare_earth/break3","malum:rare_earth/break4"]},
-  "rare_earth_place": { "sounds":["malum:rare_earth/break1","malum:rare_earth/break2","malum:rare_earth/break3","malum:rare_earth/break4"]},
+  "cthonic_gold_break": { "sounds":["malum:cthonic_gold/break1","malum:cthonic_gold/break2","malum:cthonic_gold/break3","malum:cthonic_gold/break4"]},
+  "cthonic_gold_place": { "sounds":["malum:cthonic_gold/break1","malum:cthonic_gold/break2","malum:cthonic_gold/break3","malum:cthonic_gold/break4"]},
 
   "blight_reacts": { "sounds":["malum:blight/blight_motif1","malum:blight/blight_motif2","malum:blight/blight_motif3","malum:blight/blight_motif4","malum:blight/blight_motif5","malum:blight/blight_motif6"], "subtitle": "malum.subtitle.blight_reacts" },
   "blight_reacts_faintly": { "sounds":["malum:blight/minor_blight_motif1","malum:blight/minor_blight_motif2","malum:blight/minor_blight_motif3","malum:blight/minor_blight_motif4","malum:blight/minor_blight_motif5","malum:blight/minor_blight_motif6"], "subtitle": "malum.subtitle.blight_reacts_faintly" },

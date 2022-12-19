@@ -69,7 +69,7 @@ public class BlockDownwardSparkleParticlePacket extends BlockParticlePacket
                     .enableNoClip()
                     .addMotion(0, -0.02f, 0)
                     .randomMotion(0.01f, 0.01f)
-                    .repeatEdges(level, pos, 2);
+                    .repeatSurroundBlock(level, pos, 2);
         }
     }
 
