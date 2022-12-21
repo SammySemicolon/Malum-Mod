@@ -437,8 +437,8 @@ public class BlockRegistry {
     //endregion
     public static final RegistryObject<Block> BLAZING_TORCH = BLOCKS.register("blazing_torch", () -> new TorchBlock(RUNEWOOD_PROPERTIES().isCutoutLayer().noCollission().instabreak().lightLevel((b) -> 14), ParticleTypes.FLAME));
     public static final RegistryObject<Block> WALL_BLAZING_TORCH = BLOCKS.register("wall_blazing_torch", () -> new WallTorchBlock(RUNEWOOD_PROPERTIES().isCutoutLayer().noCollission().instabreak().lightLevel((b) -> 14), ParticleTypes.FLAME));
-    public static final RegistryObject<Block> BLAZING_SCONCE = BLOCKS.register("blazing_sconce", () -> SupplementariesCompat.LOADED ? SupplementariesCompat.LoadedOnly.makeBlazingSconce() : new WallTorchBlock(RUNEWOOD_PROPERTIES().sound(SoundType.LANTERN).isCutoutLayer().noCollission().instabreak().lightLevel((b) -> 14), ParticleTypes.FLAME));
-    public static final RegistryObject<Block> WALL_BLAZING_SCONCE = BLOCKS.register("wall_blazing_sconce", () -> SupplementariesCompat.LOADED ? SupplementariesCompat.LoadedOnly.makeBlazingWallSconce() : new WallTorchBlock(RUNEWOOD_PROPERTIES().sound(SoundType.LANTERN).isCutoutLayer().noCollission().instabreak().lightLevel((b) -> 14), ParticleTypes.FLAME));
+    public static final RegistryObject<Block> BLAZING_SCONCE = BLOCKS.register("blazing_sconce", SupplementariesCompat.createBlazingSconce());
+    public static final RegistryObject<Block> WALL_BLAZING_SCONCE = BLOCKS.register("wall_blazing_sconce", SupplementariesCompat.createBlazingWallSconce());
 
     public static final RegistryObject<Block> BLOCK_OF_ARCANE_CHARCOAL = BLOCKS.register("block_of_arcane_charcoal", () -> new Block(ARCANE_CHARCOAL_PROPERTIES()));
 
