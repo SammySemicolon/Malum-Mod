@@ -4,11 +4,15 @@ import com.sammy.malum.common.blockentity.spirit_altar.IAltarProvider;
 import com.sammy.malum.common.blockentity.totem.TotemBaseBlockEntity;
 import com.sammy.malum.common.blockentity.totem.TotemPoleBlockEntity;
 import com.sammy.malum.common.item.spirit.MalumSpiritItem;
+import com.sammy.malum.common.recipe.AugmentingRecipe;
 import com.sammy.malum.core.helper.SpiritHelper;
 import com.sammy.malum.registry.common.block.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -93,12 +97,12 @@ public class ItemStandBlockEntity extends ItemHolderBlockEntity implements IAlta
         }
     }
 
-    @Nonnull
     @Override
-    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, Direction side) {
-        if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-            return inventory.inventoryOptional.cast();
+    public InteractionResult onUse(Player player, InteractionHand hand) {
+        InteractionResult result = AugmentingRecipe.performAugmentation(this, player, hand);
+        if (!result.equals(InteractionResult.PASS)) {
+            return result;
         }
-        return super.getCapability(cap, side);
+        return super.onUse(player, hand);
     }
 }

@@ -10,7 +10,6 @@ import com.sammy.malum.common.block.totem.TotemBaseBlock;
 import com.sammy.malum.common.block.totem.TotemPoleBlock;
 import com.sammy.malum.common.blockentity.EtherBlockEntity;
 import com.sammy.malum.common.blockentity.VoidConduitBlockEntity;
-import com.sammy.malum.common.blockentity.alteration_plinth.AlterationPlinthBlockEntity;
 import com.sammy.malum.common.blockentity.crucible.SpiritCatalyzerCoreBlockEntity;
 import com.sammy.malum.common.blockentity.crucible.SpiritCrucibleCoreBlockEntity;
 import com.sammy.malum.common.blockentity.mirror.EmitterMirrorBlockEntity;
@@ -51,7 +50,6 @@ public class BlockEntityRegistry {
     public static final RegistryObject<BlockEntityType<TwistedTabletBlockEntity>> TWISTED_TABLET = BLOCK_ENTITY_TYPES.register("twisted_tablet", () -> BlockEntityType.Builder.of(TwistedTabletBlockEntity::new, BlockRegistry.TWISTED_TABLET.get()).build(null));
     public static final RegistryObject<BlockEntityType<RunewoodObeliskBlockEntity>> RUNEWOOD_OBELISK = BLOCK_ENTITY_TYPES.register("runewood_obelisk", () -> BlockEntityType.Builder.of(RunewoodObeliskBlockEntity::new, BlockRegistry.RUNEWOOD_OBELISK.get()).build(null));
     public static final RegistryObject<BlockEntityType<BrilliantObeliskBlockEntity>> BRILLIANT_OBELISK = BLOCK_ENTITY_TYPES.register("brilliant_obelisk", () -> BlockEntityType.Builder.of(BrilliantObeliskBlockEntity::new, BlockRegistry.BRILLIANT_OBELISK.get()).build(null));
-    public static final RegistryObject<BlockEntityType<AlterationPlinthBlockEntity>> ALTERATION_PLINTH = BLOCK_ENTITY_TYPES.register("alteration_plinth", () -> BlockEntityType.Builder.of(AlterationPlinthBlockEntity::new, BlockRegistry.ALTERATION_PLINTH.get()).build(null));
 
     public static final RegistryObject<BlockEntityType<EtherBlockEntity>> ETHER = BLOCK_ENTITY_TYPES.register("ether", () -> BlockEntityType.Builder.of(EtherBlockEntity::new, getBlocks(EtherBlock.class)).build(null));
 
@@ -98,7 +96,6 @@ public class BlockEntityRegistry {
             event.registerBlockEntityRenderer(TOTEM_POLE.get(), TotemPoleRenderer::new);
             event.registerBlockEntityRenderer(ITEM_STAND.get(), ItemStandRenderer::new);
             event.registerBlockEntityRenderer(ITEM_PEDESTAL.get(), ItemPedestalRenderer::new);
-            event.registerBlockEntityRenderer(ALTERATION_PLINTH.get(), ItemPedestalRenderer::new);
             event.registerBlockEntityRenderer(SPIRIT_JAR.get(), SpiritJarRenderer::new);
             event.registerBlockEntityRenderer(SOUL_VIAL.get(), SoulVialRenderer::new);
         }

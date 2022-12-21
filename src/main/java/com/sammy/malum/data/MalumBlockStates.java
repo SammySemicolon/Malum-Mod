@@ -72,7 +72,7 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
         weepingWellBlock(take(blocks, WEEPING_WELL_SIDE), "weeping_well_side");
 
 
-        List<RegistryObject<Block>> customModels = new ArrayList<>(List.of(TWISTED_TABLET, ALTERATION_PLINTH, SPIRIT_CATALYZER, SPIRIT_CATALYZER_COMPONENT));
+        List<RegistryObject<Block>> customModels = new ArrayList<>(List.of(TWISTED_TABLET, SPIRIT_CATALYZER, SPIRIT_CATALYZER_COMPONENT));
 
         List<RegistryObject<Block>> predefinedModels = new ArrayList<>(List.of(
                 SPIRIT_ALTAR, SOUL_VIAL, SPIRIT_JAR, BRILLIANT_OBELISK, BRILLIANT_OBELISK_COMPONENT, RUNEWOOD_OBELISK,
@@ -173,7 +173,7 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
     }
     public void primordialSoupBlock(RegistryObject<Block> blockRegistryObject) {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
-        ModelFile model = models().withExistingParent(name, new ResourceLocation("block/powder_snow")).texture("texture", malumPath("block/" + name));
+        ModelFile model = models().withExistingParent(name, new ResourceLocation("block/powder_snow")).texture("texture", malumPath("block/weeping_well/" + name));
         ModelFile topModel = models().getExistingFile(malumPath("block/weeping_well/" + name + "_top"));
 
         getVariantBuilder(blockRegistryObject.get()).forAllStates(s -> ConfiguredModel.builder().modelFile(s.getValue(PrimordialSoupBlock.TOP) ? topModel : model).build());

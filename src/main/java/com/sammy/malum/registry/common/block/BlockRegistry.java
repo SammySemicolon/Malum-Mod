@@ -2,7 +2,6 @@ package com.sammy.malum.registry.common.block;
 
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.block.*;
-import com.sammy.malum.common.block.alteration_plinth.AlterationPlinthBlock;
 import com.sammy.malum.common.block.blight.*;
 import com.sammy.malum.common.block.ether.*;
 import com.sammy.malum.common.block.obelisk.BrillianceObeliskCoreBlock;
@@ -170,19 +169,12 @@ public class BlockRegistry {
         return new LodestoneBlockProperties(Material.STONE, MaterialColor.STONE).needsPickaxe().requiresCorrectToolForDrops().strength(25f, 9999f).sound(SoundRegistry.CTHONIC_GOLD);
     }
 
-    public static LodestoneBlockProperties MOTE_OF_MANA_PROPERTIES() {
-        return new LodestoneBlockProperties(Material.STONE, MaterialColor.COLOR_CYAN).needsPickaxe().requiresCorrectToolForDrops().strength(25f, 9999f).sound(SoundRegistry.CTHONIC_GOLD);
-    }
-
 
     //region useful blocks
     public static final RegistryObject<Block> SPIRIT_ALTAR = BLOCKS.register("spirit_altar", () -> new SpiritAltarBlock<>(RUNEWOOD_PROPERTIES().isCutoutLayer().noOcclusion()).setBlockEntity(BlockEntityRegistry.SPIRIT_ALTAR));
     public static final RegistryObject<Block> SPIRIT_JAR = BLOCKS.register("spirit_jar", () -> new SpiritJarBlock<>(SPIRIT_JAR_PROPERTIES().isCutoutLayer().noOcclusion()).setBlockEntity(BlockEntityRegistry.SPIRIT_JAR));
-    public static final RegistryObject<Block> ALTERATION_PLINTH = BLOCKS.register("alteration_plinth", () -> new AlterationPlinthBlock<>(SOULWOOD_PROPERTIES().isCutoutLayer().noOcclusion()).setBlockEntity(BlockEntityRegistry.ALTERATION_PLINTH));
 
     public static final RegistryObject<Block> SOUL_VIAL = BLOCKS.register("soul_vial", () -> new SoulVialBlock<>(SOUL_VIAL_PROPERTIES().isCutoutLayer().noOcclusion()).setBlockEntity(BlockEntityRegistry.SOUL_VIAL));
-
-    public static final RegistryObject<Block> MOTE_OF_MANA = BLOCKS.register("mote_of_mana", () -> new Block(MOTE_OF_MANA_PROPERTIES()));
 
     public static final RegistryObject<Block> TWISTED_TABLET = BLOCKS.register("twisted_tablet", () -> new TwistedTabletBlock<>(TAINTED_ROCK_PROPERTIES().isCutoutLayer().noOcclusion()).setBlockEntity(BlockEntityRegistry.TWISTED_TABLET));
 
@@ -474,7 +466,7 @@ public class BlockRegistry {
     public static final RegistryObject<Block> THE_DEVICE = BLOCKS.register("the_device", () -> new TheDevice(TAINTED_ROCK_PROPERTIES()));
 
     //    public static final RegistryObject<Block> BLOCK_OF_CTHONIC_GOLD = BLOCKS.register("block_of_rare_earths", () -> new OreBlock(CTHONIC_GOLD_PROPERTIES(), UniformInt.of(10, 100)));
-    public static final RegistryObject<Block> BLOCK_OF_ROTTING_ESSENCE = BLOCKS.register("block_of_rotting_essence", () -> new Block(BlockBehaviour.Properties.copy(Blocks.FIRE_CORAL_BLOCK)));
+    public static final RegistryObject<Block> BLOCK_OF_ROTTING_ESSENCE = BLOCKS.register("block_of_rotting_essence", () -> new Block(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_RED).strength(1F, 6.0F).sound(SoundType.CORAL_BLOCK)));
     public static final RegistryObject<Block> BLOCK_OF_GRIM_TALC = BLOCKS.register("block_of_grim_talc", () -> new Block(BlockBehaviour.Properties.copy(Blocks.BONE_BLOCK)));
     public static final RegistryObject<Block> BLOCK_OF_ALCHEMICAL_CALX = BLOCKS.register("block_of_alchemical_calx", () -> new Block(BlockBehaviour.Properties.copy(Blocks.CALCITE)));
     public static final RegistryObject<Block> BLOCK_OF_ASTRAL_WEAVE = BLOCKS.register("block_of_astral_weave", () -> new Block(BlockBehaviour.Properties.copy(Blocks.LIGHT_BLUE_WOOL)));

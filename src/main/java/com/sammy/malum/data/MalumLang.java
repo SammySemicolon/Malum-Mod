@@ -138,7 +138,7 @@ public class MalumLang extends LanguageProvider {
         addPages("natural_quartz",
             "Natural Quartz is, as the name implies, a natural equivalent of the nether resource. It's used for most of the same things. It's rare, and found deep underground, sometimes in geodes.");
 
-        addSimpleEntryHeader("cthonic_gold", "Auric Remnant", "Compressed Gold");
+        addSimpleEntryHeader("cthonic_gold", "Cthonic Gold", "Compressed Wealth");
         addPages("cthonic_gold",
             "A rare resource found in golden geodes deep underground. Description to come.");
 
@@ -281,9 +281,9 @@ public class MalumLang extends LanguageProvider {
         addSimpleEntryHeader("focus_ashes", "Arising of Ashes", "Creating powdered reagents");
         addPages("focus_ashes", "By applying differing qualities of arcana to an Alchemical Impetus, I can cause powders of various forms to be created. It is a simple yet very useful arcane recipe.");
 
-        addSimpleEntryHeader("focus_metals", "Magecraft of Metals", "Forming banded crystals"); // TODO: 7/12/22 replace Rare Earths when we decide on name
+        addSimpleEntryHeader("focus_metals", "Magecraft of Metals", "Forming banded crystals");
         addPages("focus_metals",
-            "By altering the composition of the Alchemical Impetus with niter, sulfur, and Rare Earths, it is possible to alter the artifact in such a way that allows for forming nodes of most pure metals.",
+            "By altering the composition of the Alchemical Impetus with niter, sulfur, and cthonic gold, it is possible to alter the artifact in such a way that allows for forming nodes of most pure metals.",
             "It isn't particularly efficient or fast, but it is certainly better than having to mine for every ingot I need. Each metallic node can be processed at a furnace of any kind into two thirds of an ingot worth of metal nuggets.");
 
         addSimpleEntryHeader("focus_crystals", "Creation of Crystals", "Forming irregular crystals");
@@ -545,10 +545,10 @@ public class MalumLang extends LanguageProvider {
         add("malum.jei.spirit_transmutation", "The Unchained Rite");
 
         add("itemGroup.malum", "Malum");
-        add("itemGroup.malum_shaped_stones", "Malum: Spirit Stones");
-        add("itemGroup.malum_spirits", "Malum: Spirits");
-        add("itemGroup.malum_natural_wonders", "Malum: Natural Wonders");
+        add("itemGroup.malum_shaped_stones", "Malum: Arcane Construct");
+        add("itemGroup.malum_natural_wonders", "Malum: Born from Arcana");
         add("itemGroup.malum_impetus", "Malum: Metallurgic Magic");
+        add("itemGroup.malum_cosmetics", "Malum: Drip");
 
         add("enchantment.malum.haunted.desc", "Deals extra magic damage.");
         add("enchantment.malum.rebound.desc", "Allows the item to be thrown much like a boomerang, cooldown decreases with tier.");

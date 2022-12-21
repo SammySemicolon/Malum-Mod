@@ -22,7 +22,6 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.crafting.ConditionalRecipe;
 import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
-import net.minecraftforge.common.crafting.conditions.ModLoadedCondition;
 import net.minecraftforge.common.crafting.conditions.TagEmptyCondition;
 import net.minecraftforge.registries.RegistryObject;
 import team.lodestar.lodestone.data.builder.NBTCarryRecipeBuilder;
@@ -133,8 +132,8 @@ public class MalumRecipes extends RecipeProvider implements IConditionBuilder {
         blastingWithCount(Ingredient.of(ItemRegistry.SOULSTONE_ORE.get()), ItemRegistry.PROCESSED_SOULSTONE.get(), 2, 0.25f, 100).unlockedBy("has_soulstone", has(ItemRegistry.RAW_SOULSTONE.get())).save(consumer, malumPath("soulstone_from_blasting"));
         smeltingWithCount(Ingredient.of(ItemRegistry.DEEPSLATE_SOULSTONE_ORE.get()), ItemRegistry.PROCESSED_SOULSTONE.get(), 2, 0.25f, 200).unlockedBy("has_soulstone", has(ItemRegistry.RAW_SOULSTONE.get())).save(consumer, malumPath("soulstone_from_deepslate_smelting"));
         blastingWithCount(Ingredient.of(ItemRegistry.DEEPSLATE_SOULSTONE_ORE.get()), ItemRegistry.PROCESSED_SOULSTONE.get(), 2, 0.25f, 100).unlockedBy("has_soulstone", has(ItemRegistry.RAW_SOULSTONE.get())).save(consumer, malumPath("soulstone_from_deepslate_blasting"));
-        smelting(Ingredient.of(ItemRegistry.BLOCK_OF_AURUM.get()), ItemRegistry.CTHONIC_GOLD.get(), 2.0f, 200).unlockedBy("has_cthonic_gold", has(ItemRegistry.CTHONIC_GOLD.get())).save(consumer, malumPath("cthonic_gold_from_smelting"));
-        blasting(Ingredient.of(ItemRegistry.BLOCK_OF_AURUM.get()), ItemRegistry.CTHONIC_GOLD.get(), 2.0f, 100).unlockedBy("has_cthonic_gold", has(ItemRegistry.CTHONIC_GOLD.get())).save(consumer, malumPath("cthonic_gold_from_blasting"));
+        smelting(Ingredient.of(ItemRegistry.BLOCK_OF_CTHONIC_GOLD.get()), ItemRegistry.CTHONIC_GOLD.get(), 2.0f, 200).unlockedBy("has_cthonic_gold", has(ItemRegistry.CTHONIC_GOLD.get())).save(consumer, malumPath("cthonic_gold_from_smelting"));
+        blasting(Ingredient.of(ItemRegistry.BLOCK_OF_CTHONIC_GOLD.get()), ItemRegistry.CTHONIC_GOLD.get(), 2.0f, 100).unlockedBy("has_cthonic_gold", has(ItemRegistry.CTHONIC_GOLD.get())).save(consumer, malumPath("cthonic_gold_from_blasting"));
 
         smeltingWithCount(Ingredient.of(ItemRegistry.CLUSTER_OF_BRILLIANCE.get()), ItemRegistry.CHUNK_OF_BRILLIANCE.get(), 2, 1, 200).unlockedBy("has_brilliance", has(ItemRegistry.CLUSTER_OF_BRILLIANCE.get())).save(consumer, malumPath("brilliance_from_raw_smelting"));
         blastingWithCount(Ingredient.of(ItemRegistry.CLUSTER_OF_BRILLIANCE.get()), ItemRegistry.CHUNK_OF_BRILLIANCE.get(), 2, 1, 100).unlockedBy("has_brilliance", has(ItemRegistry.CLUSTER_OF_BRILLIANCE.get())).save(consumer, malumPath("brilliance_from_raw_blasting"));

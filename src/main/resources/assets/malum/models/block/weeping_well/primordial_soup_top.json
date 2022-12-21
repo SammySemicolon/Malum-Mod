@@ -2,8 +2,8 @@
 	"credit": "Made with Blockbench",
 	"parent": "block/block",
 	"textures": {
-		"0": "malum:block/primordial_soup",
-		"particle": "malum:block/primordial_soup"
+		"0": "malum:block/weeping_well/primordial_soup",
+		"particle": "malum:block/weeping_well/primordial_soup"
 	},
 	"elements": [
 		{

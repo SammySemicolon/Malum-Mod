@@ -1,5 +1,6 @@
 package com.sammy.malum.common.entity.nitrate;
 
+import com.sammy.malum.common.item.ether.EtherItem;
 import com.sammy.malum.common.packets.particle.entity.EthericNitrateParticlePacket;
 import com.sammy.malum.core.helper.SpiritHelper;
 import com.sammy.malum.registry.common.SpiritTypeRegistry;
@@ -23,7 +24,7 @@ import static net.minecraft.util.Mth.nextFloat;
 
 public class EthericNitrateEntity extends AbstractNitrateEntity {
 
-    public static final Color FIRST_COLOR = SpiritTypeRegistry.INFERNAL_SPIRIT.getColor();
+    public static final Color FIRST_COLOR = new Color(EtherItem.DEFAULT_FIRST_COLOR);
     public static final Color SECOND_COLOR = new Color(178, 28, 73);
 
     public EthericNitrateEntity(Level level) {

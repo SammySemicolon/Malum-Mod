@@ -30,7 +30,7 @@ import static team.lodestar.lodestone.helpers.RenderHelper.FULL_BRIGHT;
 
 public class VoidConduitRenderer implements BlockEntityRenderer<VoidConduitBlockEntity> {
 
-    public static final ResourceLocation VIGNETTE = MalumMod.malumPath("textures/block/primordial_soup_vignette.png");
+    public static final ResourceLocation VIGNETTE = MalumMod.malumPath("textures/block/weeping_well/primordial_soup_vignette.png");
 
     public VoidConduitRenderer(BlockEntityRendererProvider.Context context) {
     }

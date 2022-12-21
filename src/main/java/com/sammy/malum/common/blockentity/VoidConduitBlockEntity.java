@@ -8,6 +8,7 @@ import com.sammy.malum.registry.common.block.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
@@ -17,6 +18,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.network.PacketDistributor;
@@ -45,7 +47,15 @@ public class VoidConduitBlockEntity extends LodestoneBlockEntity {
     @Override
     public void tick() {
         super.tick();
-        if (level.isClientSide) {
+        if (level instanceof ServerLevel serverLevel) {
+            if (serverLevel.getGameTime() % 40L == 0) {
+                List<ItemEntity> items = serverLevel.getEntitiesOfClass(ItemEntity.class, new AABB(worldPosition.below()).inflate(1));
+                for (ItemEntity item : items) {
+
+                }
+            }
+        }
+        else {
             if (level.getGameTime() % 6L == 0) {
                 float multiplier = Mth.nextFloat(level.random, 0.4f, 1f);
                 Color color = new Color((int)(12*multiplier), (int)(3*multiplier), (int)(12*multiplier));

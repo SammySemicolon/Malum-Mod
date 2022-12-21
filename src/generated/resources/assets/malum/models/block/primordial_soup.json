@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/powder_snow",
   "textures": {
-    "texture": "malum:block/primordial_soup"
+    "texture": "malum:block/weeping_well/primordial_soup"
   }
 }
