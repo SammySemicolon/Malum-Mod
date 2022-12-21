@@ -80,12 +80,11 @@ public class MalumLang extends LanguageProvider {
             add(i.get().getDescriptionId(), name);
         });
 
-
-        for (RegistryObject<SoundEvent> sound : sounds) {
-            String name = correctSoundName(sound.getId().getPath()).replaceAll("_", " ");
+        sounds.forEach(s -> {
+            String name = correctSoundName(s.getId().getPath()).replaceAll("_", " ");
             name = name.substring(0, 1).toUpperCase() + name.substring(1);
-            add("malum.subtitle." + sound.getId().getPath(), name);
-        }
+            add("malum.subtitle." + s.getId().getPath(), name);
+        });
 
         enchantments.forEach(e -> {
             String name = DataHelper.toTitleCase(e.getId().getPath(), "_");

@@ -62,8 +62,6 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
         blightedEarthBlock(take(blocks, BLIGHTED_EARTH));
         blightedTumorBlock(take(blocks, BLIGHTED_TUMOR));
         blightedSoulwoodBlock(take(blocks, BLIGHTED_SOULWOOD));
-        sconceBlock(take(blocks, BLAZING_SCONCE));
-        wallSconceBlock(take(blocks, WALL_BLAZING_SCONCE));
         primordialSoupBlock(take(blocks, PRIMORDIAL_SOUP));
         voidConduitBlock(take(blocks, VOID_CONDUIT));
 
@@ -72,16 +70,16 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
         weepingWellBlock(take(blocks, WEEPING_WELL_SIDE), "weeping_well_side");
 
 
-        List<RegistryObject<Block>> customModels = new ArrayList<>(List.of(TWISTED_TABLET, SPIRIT_CATALYZER, SPIRIT_CATALYZER_COMPONENT));
+        List<RegistryObject<Block>> customStatesAndModels = new ArrayList<>(List.of(BLAZING_SCONCE, WALL_BLAZING_SCONCE, TWISTED_TABLET, SPIRIT_CATALYZER, SPIRIT_CATALYZER_COMPONENT));
 
-        List<RegistryObject<Block>> predefinedModels = new ArrayList<>(List.of(
+        List<RegistryObject<Block>> customModelsSimpleStates = new ArrayList<>(List.of(
                 SPIRIT_ALTAR, SOUL_VIAL, SPIRIT_JAR, BRILLIANT_OBELISK, BRILLIANT_OBELISK_COMPONENT, RUNEWOOD_OBELISK,
                 RUNEWOOD_OBELISK_COMPONENT, SPIRIT_CRUCIBLE, SPIRIT_CRUCIBLE_COMPONENT));
 
-        List<RegistryObject<Block>> layeredModels = new ArrayList<>(List.of(BRILLIANT_STONE, BRILLIANT_STONE, BLAZING_QUARTZ_ORE));
+        List<RegistryObject<Block>> layeredModels = new ArrayList<>(List.of(BRILLIANT_STONE, BRILLIANT_DEEPSLATE, BLAZING_QUARTZ_ORE));
 
-        takeAll(blocks, customModels::contains);
-        takeAll(blocks, predefinedModels::contains).forEach(this::customBlock);
+        takeAll(blocks, customStatesAndModels::contains);
+        takeAll(blocks, customModelsSimpleStates::contains).forEach(this::customBlock);
         takeAll(blocks, layeredModels::contains).forEach(this::layeredBlock);
 
         DataHelper.takeAll(blocks, b -> b.get().getRegistryName().getPath().startsWith("cut_") && b.get().getRegistryName().getPath().endsWith("_planks")).forEach(this::cutPlanksBlock);

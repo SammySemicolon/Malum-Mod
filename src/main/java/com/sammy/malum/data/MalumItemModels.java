@@ -77,7 +77,7 @@ public class MalumItemModels extends net.minecraftforge.client.model.generators.
         takeAll(blockItems, i -> ((BlockItem) i.get()).getBlock() instanceof TorchBlock).forEach(this::generatedItem);
         takeAll(blockItems, i -> ((BlockItem) i.get()).getBlock() instanceof EtherBlock).forEach(this::etherItem);
         takeAll(blockItems, i -> i.get() instanceof SignItem).forEach(this::generatedItem);
-        takeAll(blockItems, i -> i.get() instanceof BlockItem).forEach(this::blockItem);
+        blockItems.forEach(this::blockItem);
 
         takeAll(items, i -> i.get() instanceof DiggerItem).forEach(this::handheldItem);
         takeAll(items, i -> i.get() instanceof SoulStaveItem).forEach(this::handheldItem);
