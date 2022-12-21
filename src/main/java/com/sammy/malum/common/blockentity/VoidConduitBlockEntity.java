@@ -32,16 +32,48 @@ import team.lodestar.lodestone.systems.rendering.particle.ParticleRenderTypes;
 import team.lodestar.lodestone.systems.rendering.particle.SimpleParticleOptions;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 import static com.sammy.malum.registry.common.PacketRegistry.MALUM_CHANNEL;
 import static com.sammy.malum.registry.common.SpiritTypeRegistry.ARCANE_SPIRIT;
 
 public class VoidConduitBlockEntity extends LodestoneBlockEntity {
+
+    public final List<ItemStack> eatenItems = new ArrayList<>();
+    public int progress;
+
     protected static final VoxelShape WELL_SHAPE = Block.box(-16.0D, 11.0D, -16.0D, 32.0D, 13.0D, 32.0D);
     public VoidConduitBlockEntity(BlockPos pos, BlockState state) {
         super(BlockEntityRegistry.VOID_CONDUIT.get(), pos, state);
+    }
+
+    @Override
+    protected void saveAdditional(CompoundTag compound) {
+        if (!eatenItems.isEmpty()) {
+            compound.putInt("itemCount", eatenItems.size());
+            for (int i = 0; i < eatenItems.size(); i++) {
+                CompoundTag itemTag = new CompoundTag();
+                ItemStack stack = eatenItems.get(i);
+                stack.save(itemTag);
+                compound.put("item_"+i, itemTag);
+            }
+        }
+        compound.putInt("progress", progress);
+        super.saveAdditional(compound);
+    }
+
+    @Override
+    public void load(CompoundTag compound) {
+        for (int i = 0; i < compound.getInt("itemCount"); i++) {
+            CompoundTag itemTag = compound.getCompound("item_"+i);
+            eatenItems.add(ItemStack.of(itemTag));
+        }
+        progress = compound.getInt("progress");
+        super.load(compound);
     }
 
     @Override
@@ -49,9 +81,14 @@ public class VoidConduitBlockEntity extends LodestoneBlockEntity {
         super.tick();
         if (level instanceof ServerLevel serverLevel) {
             if (serverLevel.getGameTime() % 40L == 0) {
-                List<ItemEntity> items = serverLevel.getEntitiesOfClass(ItemEntity.class, new AABB(worldPosition.below()).inflate(1));
-                for (ItemEntity item : items) {
+                List<ItemEntity> items = serverLevel.getEntitiesOfClass(
+                        ItemEntity.class,
+                        new AABB(worldPosition.offset(1, -3, 1), worldPosition.offset(-1, -1, -1)).inflate(1))
+                        .stream().sorted(Comparator.comparingInt(itemEntity -> itemEntity.age)).collect(Collectors.toList());
 
+                for (ItemEntity entity : items) {
+                    eatenItems.add(entity.getItem());
+                    entity.discard();
                 }
             }
         }

@@ -44,6 +44,18 @@ public class MissingMappingHandler {
             if (mapping.key.equals(MalumMod.malumPath("ring_of_prowess"))) {
                 mapping.remap(ItemRegistry.RING_OF_ARCANE_PROWESS.get());
             }
+
+            if (mapping.key.equals(MalumMod.malumPath("blighted_spire"))) {
+                mapping.remap(ItemRegistry.BLIGHTED_TUMOR.get());
+            }
+
+            if (mapping.key.equals(MalumMod.malumPath("rare_earths"))) {
+                mapping.remap(ItemRegistry.CTHONIC_GOLD.get());
+            }
+
+            if (mapping.key.equals(MalumMod.malumPath("block_of_rare_earths"))) {
+                mapping.remap(ItemRegistry.BLOCK_OF_CTHONIC_GOLD.get());
+            }
         }
     }
 
@@ -63,6 +75,12 @@ public class MissingMappingHandler {
             }
             if (mapping.key.equals(MalumMod.malumPath("soulwood_sapling"))) {
                 mapping.remap(BlockRegistry.SOULWOOD_GROWTH.get());
+            }
+            if (mapping.key.equals(MalumMod.malumPath("blighted_spire"))) {
+                mapping.remap(BlockRegistry.BLIGHTED_TUMOR.get());
+            }
+            if (mapping.key.equals(MalumMod.malumPath("block_of_rare_earths"))) {
+                mapping.remap(BlockRegistry.BLOCK_OF_CTHONIC_GOLD.get());
             }
         }
     }

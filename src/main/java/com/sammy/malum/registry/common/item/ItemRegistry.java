@@ -366,7 +366,7 @@ public class ItemRegistry {
 
     public static final RegistryObject<Item> BLAZING_QUARTZ_ORE = ITEMS.register("blazing_quartz_ore", () -> new BlockItem(BlockRegistry.BLAZING_QUARTZ_ORE.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> BLAZING_QUARTZ = ITEMS.register("blazing_quartz", () -> new LodestoneFuelItem(DEFAULT_PROPERTIES(), 1600));
-    public static final RegistryObject<Item> BLAZING_QUARTZ_FRAGMENT = ITEMS.register("blazing_quartz_fragment", () -> new LodestoneFuelItem(new Item.Properties().tab(CreativeModeTab.TAB_MISC), 200));
+    public static final RegistryObject<Item> BLAZING_QUARTZ_FRAGMENT = ITEMS.register("blazing_quartz_fragment", () -> new LodestoneFuelItem(DEFAULT_PROPERTIES(), 200));
     public static final RegistryObject<Item> BLOCK_OF_BLAZING_QUARTZ = ITEMS.register("block_of_blazing_quartz", () -> new LodestoneFuelBlockItem(BlockRegistry.BLOCK_OF_BLAZING_QUARTZ.get(), DEFAULT_PROPERTIES(), 16000));
 
     public static final RegistryObject<Item> NATURAL_QUARTZ_ORE = ITEMS.register("natural_quartz_ore", () -> new BlockItem(BlockRegistry.NATURAL_QUARTZ_ORE.get(), DEFAULT_PROPERTIES()));

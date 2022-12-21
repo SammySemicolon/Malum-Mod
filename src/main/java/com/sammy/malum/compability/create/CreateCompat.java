@@ -26,14 +26,7 @@ public class CreateCompat {
                 LivingEntity target = event.getEntityLiving();
                 ItemStack item = potatoProjectile.getItem();
                 DamageSource damageSource = event.getSource().getEntity() instanceof Player player ? DamageSourceRegistry.causeVoodooDamage(player) : DamageSourceRegistry.VOODOO;
-                if (item.getItem().equals(HOLY_CARAMEL.get())) {
-                    float amount = event.getAmount() / 2f;
-                    event.setAmount(amount);
-                    if (target.isAlive()) {
-                        target.invulnerableTime = 0;
-                        target.hurt(damageSource, amount);
-                    }
-                } else if (item.getItem().equals(UNHOLY_CARAMEL.get())) {
+                if (item.getItem().equals(UNHOLY_CARAMEL.get()) || item.getItem().equals(HOLY_CARAMEL.get())) {
                     event.setCanceled(true);
                     target.invulnerableTime = 0;
                     target.hurt(damageSource, event.getAmount());
