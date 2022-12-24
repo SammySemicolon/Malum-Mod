@@ -1,31 +1,22 @@
 package com.sammy.malum.common.blockentity;
 
-import com.sammy.malum.common.blockentity.storage.ItemPedestalBlockEntity;
-import com.sammy.malum.common.packets.particle.block.blight.BlightTransformItemParticlePacket;
-import com.sammy.malum.common.recipe.AugmentingRecipe;
+import com.sammy.malum.common.recipe.FavorOfTheVoidRecipe;
 import com.sammy.malum.registry.common.SoundRegistry;
 import com.sammy.malum.registry.common.block.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.network.PacketDistributor;
 import team.lodestar.lodestone.helpers.BlockHelper;
 import team.lodestar.lodestone.setup.LodestoneParticleRegistry;
 import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntity;
-import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntityInventory;
 import team.lodestar.lodestone.systems.easing.Easing;
 import team.lodestar.lodestone.systems.rendering.particle.ParticleBuilders;
 import team.lodestar.lodestone.systems.rendering.particle.ParticleRenderTypes;
@@ -35,11 +26,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Random;
 import java.util.stream.Collectors;
-
-import static com.sammy.malum.registry.common.PacketRegistry.MALUM_CHANNEL;
-import static com.sammy.malum.registry.common.SpiritTypeRegistry.ARCANE_SPIRIT;
 
 public class VoidConduitBlockEntity extends LodestoneBlockEntity {
 
@@ -68,6 +55,7 @@ public class VoidConduitBlockEntity extends LodestoneBlockEntity {
 
     @Override
     public void load(CompoundTag compound) {
+        eatenItems.clear();
         for (int i = 0; i < compound.getInt("itemCount"); i++) {
             CompoundTag itemTag = compound.getCompound("item_"+i);
             eatenItems.add(ItemStack.of(itemTag));
@@ -89,6 +77,38 @@ public class VoidConduitBlockEntity extends LodestoneBlockEntity {
                 for (ItemEntity entity : items) {
                     eatenItems.add(entity.getItem());
                     entity.discard();
+                }
+                BlockHelper.updateAndNotifyState(level, worldPosition);
+            }
+            if (!eatenItems.isEmpty()) {
+                progress++;
+                if (progress >= 80) {
+                    progress = 60;
+                    ItemStack stack = eatenItems.get(eatenItems.size()-1);
+                    FavorOfTheVoidRecipe recipe = FavorOfTheVoidRecipe.getRecipe(level, stack);
+                    if (recipe != null) {
+                        int amount = recipe.output.getCount() * stack.getCount();
+                        while (amount > 0) {
+                            int count = Math.min(64, amount);
+                            ItemStack outputStack = new ItemStack(recipe.output.getItem(), count);
+                            outputStack.setTag(recipe.output.getTag());
+                            ItemEntity entity = new ItemEntity(level, worldPosition.getX()+0.5f, worldPosition.getY()+0.5f, worldPosition.getZ()+0.5f, outputStack);
+                            entity.setDeltaMovement(0, 0.45f, 0);
+                            level.addFreshEntity(entity);
+                            amount-=count;
+                        }
+                        level.playSound(null, worldPosition, SoundRegistry.VOID_TRANSMUTATION.get(), SoundSource.HOSTILE, 2f, Mth.nextFloat(level.getRandom(), 0.85f, 1.35f));
+                    }
+                    else {
+                        ItemEntity entity = new ItemEntity(level, worldPosition.getX()+0.5f, worldPosition.getY()+0.5f, worldPosition.getZ()+0.5f, stack);
+                        entity.setDeltaMovement(0, 0.45f, 0);
+                        level.addFreshEntity(entity);
+                        level.playSound(null, worldPosition, SoundRegistry.VOID_REJECTION.get(), SoundSource.HOSTILE, 2f, Mth.nextFloat(level.getRandom(), 0.85f, 1.35f));
+                    }
+                    eatenItems.remove(eatenItems.size()-1);
+                }
+                if (eatenItems.isEmpty()) {
+                    progress = 0;
                 }
             }
         }

@@ -1,9 +1,9 @@
-package com.sammy.malum.data;
+package com.sammy.malum.data.recipe;
 
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.item.cosmetic.PrideweaveItem;
 import com.sammy.malum.common.item.impetus.ImpetusItem;
-import com.sammy.malum.data.builder.SpiritInfusionRecipeBuilder;
+import com.sammy.malum.data.recipe.builder.SpiritInfusionRecipeBuilder;
 import com.sammy.malum.registry.common.item.ItemRegistry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.recipes.FinishedRecipe;

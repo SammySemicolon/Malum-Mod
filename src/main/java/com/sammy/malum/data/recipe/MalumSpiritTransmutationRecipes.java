@@ -1,7 +1,7 @@
-package com.sammy.malum.data;
+package com.sammy.malum.data.recipe;
 
 import com.mojang.datafixers.util.Pair;
-import com.sammy.malum.data.builder.SpiritTransmutationRecipeBuilder;
+import com.sammy.malum.data.recipe.builder.SpiritTransmutationRecipeBuilder;
 import com.sammy.malum.registry.common.item.ItemRegistry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.recipes.FinishedRecipe;
@@ -57,7 +57,7 @@ public class MalumSpiritTransmutationRecipes extends RecipeProvider {
         new Pair<>(RUNEWOOD_PLANKS_FENCE_GATE, SOULWOOD_PLANKS_FENCE_GATE),
         new Pair<>(RUNEWOOD_ITEM_STAND, SOULWOOD_ITEM_STAND),
         new Pair<>(RUNEWOOD_ITEM_PEDESTAL, SOULWOOD_ITEM_PEDESTAL),
-        new Pair<>(RUNEWOOD_SIGN, SOULWOOD_SIGN) // Wall sign already handled by this
+        new Pair<>(RUNEWOOD_SIGN, SOULWOOD_SIGN) // Wall sign already handled by this. Is it??? Wire? Huh ? How
     );
 
     @Override

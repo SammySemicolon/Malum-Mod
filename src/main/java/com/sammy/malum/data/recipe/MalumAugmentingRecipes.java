@@ -1,7 +1,7 @@
-package com.sammy.malum.data;
+package com.sammy.malum.data.recipe;
 
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.data.builder.SpiritAugmentingRecipeBuilder;
+import com.sammy.malum.data.recipe.builder.SpiritAugmentingRecipeBuilder;
 import com.sammy.malum.registry.common.item.ItemRegistry;
 import com.sammy.malum.core.systems.item.ItemSkin;
 import net.minecraft.data.DataGenerator;

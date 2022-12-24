@@ -1,4 +1,4 @@
-package com.sammy.malum.data;
+package com.sammy.malum.data.recipe;
 
 import com.google.gson.JsonObject;
 import net.minecraft.data.DataGenerator;

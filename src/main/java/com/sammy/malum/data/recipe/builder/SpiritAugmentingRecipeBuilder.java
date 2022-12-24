@@ -1,4 +1,4 @@
-package com.sammy.malum.data.builder;
+package com.sammy.malum.data.recipe.builder;
 
 import com.google.gson.JsonObject;
 import com.sammy.malum.MalumMod;

@@ -1,9 +1,9 @@
-package com.sammy.malum.data;
+package com.sammy.malum.data.recipe;
 
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.item.impetus.ImpetusItem;
-import com.sammy.malum.data.builder.SpiritFocusingRecipeBuilder;
-import com.sammy.malum.data.builder.SpiritRepairRecipeBuilder;
+import com.sammy.malum.data.recipe.builder.SpiritFocusingRecipeBuilder;
+import com.sammy.malum.data.recipe.builder.SpiritRepairRecipeBuilder;
 import com.sammy.malum.registry.common.item.ItemRegistry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.recipes.FinishedRecipe;

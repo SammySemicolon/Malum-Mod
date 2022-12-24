@@ -7,6 +7,7 @@ import com.sammy.malum.compability.tetra.TetraCompat;
 import com.sammy.malum.config.ClientConfig;
 import com.sammy.malum.config.CommonConfig;
 import com.sammy.malum.data.*;
+import com.sammy.malum.data.recipe.*;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.BlockTagsProvider;
 import net.minecraft.resources.ResourceLocation;
@@ -91,6 +92,7 @@ public class MalumMod {
             generator.addProvider(new MalumSpiritInfusionRecipes(generator));
             generator.addProvider(new MalumSpiritFocusingRecipes(generator));
             generator.addProvider(new MalumSpiritTransmutationRecipes(generator));
+            generator.addProvider(new MalumVoidFavorRecipes(generator));
             generator.addProvider(new MalumAugmentingRecipes(generator));
         }
     }

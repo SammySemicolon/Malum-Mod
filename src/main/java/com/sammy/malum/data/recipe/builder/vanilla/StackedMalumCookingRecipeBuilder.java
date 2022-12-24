@@ -1,4 +1,4 @@
-package com.sammy.malum.data.builder.vanilla;
+package com.sammy.malum.data.recipe.builder.vanilla;
 
 import com.google.gson.JsonObject;
 import net.minecraft.advancements.Advancement;
