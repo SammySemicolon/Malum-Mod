@@ -14,7 +14,7 @@ import team.lodestar.lodestone.setup.LodestoneParticleRegistry;
 import team.lodestar.lodestone.systems.easing.Easing;
 import team.lodestar.lodestone.systems.network.LodestoneClientPacket;
 import team.lodestar.lodestone.systems.rendering.particle.ParticleBuilders;
-import team.lodestar.lodestone.systems.rendering.particle.ParticleRenderTypes;
+import team.lodestar.lodestone.systems.rendering.particle.LodestoneWorldParticleRenderType;
 
 import java.awt.*;
 import java.util.function.Supplier;
@@ -50,7 +50,7 @@ public class BlightMistParticlePacket extends LodestoneClientPacket {
                     .enableNoClip()
                     .randomOffset(0.1f, 0f)
                     .randomMotion(0.005f, 0.01f)
-                    .overwriteRenderType(ParticleRenderTypes.TRANSPARENT)
+                    .overwriteRenderType(LodestoneWorldParticleRenderType.TRANSPARENT)
                     .repeatSurroundBlock(level, pos, 2, Direction.UP);
 
             ParticleBuilders.create(LodestoneParticleRegistry.SMOKE_PARTICLE)
@@ -63,7 +63,7 @@ public class BlightMistParticlePacket extends LodestoneClientPacket {
                     .randomOffset(0.2f, 0)
                     .enableNoClip()
                     .randomMotion(0.005f, 0.005f)
-                    .overwriteRenderType(ParticleRenderTypes.TRANSPARENT)
+                    .overwriteRenderType(LodestoneWorldParticleRenderType.TRANSPARENT)
                     .repeatSurroundBlock(level, pos, 2, Direction.UP);
 
             color = new Color((int)(80*multiplier), (int)(40*multiplier), (int)(80*multiplier));

@@ -13,7 +13,7 @@ import team.lodestar.lodestone.helpers.ColorHelper;
 import team.lodestar.lodestone.setup.LodestoneParticleRegistry;
 import team.lodestar.lodestone.systems.easing.Easing;
 import team.lodestar.lodestone.systems.rendering.particle.ParticleBuilders;
-import team.lodestar.lodestone.systems.rendering.particle.ParticleRenderTypes;
+import team.lodestar.lodestone.systems.rendering.particle.LodestoneWorldParticleRenderType;
 import team.lodestar.lodestone.systems.rendering.particle.SimpleParticleOptions;
 
 import java.awt.*;
@@ -122,7 +122,7 @@ public class VividNitrateEntity extends AbstractNitrateEntity {
                     .randomMotion(0.01f, 0.01f)
                     .overwriteRemovalProtocol(SimpleParticleOptions.SpecialRemovalProtocol.INVISIBLE)
                     .repeat(level, lerpX, lerpY, lerpZ, 1)
-                    .overwriteRenderType(ParticleRenderTypes.TRANSPARENT)
+                    .overwriteRenderType(LodestoneWorldParticleRenderType.TRANSPARENT)
                     .setColorCoefficient(2.75f)
                     .repeat(level, lerpX, lerpY, lerpZ, 1);
         }

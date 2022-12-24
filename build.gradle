@@ -136,7 +136,7 @@ dependencies {
     runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${minecraftVersion}-${curiosVersion}")
 
     // Use local lodestone when in multiproject
-    implementation fg.deobf("team.lodestar.lodestone:lodestone:${minecraftVersion}-${project.lodestoneVersion}")
+    implementation fg.deobf("team.lodestar.lodestone:depth_test-lodestone:${minecraftVersion}-${project.lodestoneVersion}")
 
     compileOnly fg.deobf("com.jozufozu.flywheel:Flywheel-Forge:${flywheelVersion}")
     compileOnly fg.deobf("se.mickelus.mutil:mutil:${minecraftVersion}-${mutilVersion}")

@@ -14,7 +14,7 @@ import net.minecraftforge.network.PacketDistributor;
 import team.lodestar.lodestone.setup.LodestoneParticleRegistry;
 import team.lodestar.lodestone.systems.easing.Easing;
 import team.lodestar.lodestone.systems.rendering.particle.ParticleBuilders;
-import team.lodestar.lodestone.systems.rendering.particle.ParticleRenderTypes;
+import team.lodestar.lodestone.systems.rendering.particle.LodestoneWorldParticleRenderType;
 
 import java.awt.*;
 import java.util.Random;
@@ -88,7 +88,7 @@ public class EthericNitrateEntity extends AbstractNitrateEntity {
                 .enableNoClip()
                 .addMotion(norm.x, norm.y, norm.z)
                 .randomMotion(0.01f, 0.01f)
-                .overwriteRenderType(ParticleRenderTypes.TRANSPARENT)
+                .overwriteRenderType(LodestoneWorldParticleRenderType.TRANSPARENT)
                 .repeat(level, lerpX, lerpY, lerpZ, 1)
                 .setColorCoefficient(2f)
                 .repeat(level, lerpX, lerpY, lerpZ, 1);

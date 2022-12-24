@@ -18,8 +18,8 @@ import team.lodestar.lodestone.helpers.BlockHelper;
 import team.lodestar.lodestone.setup.LodestoneParticleRegistry;
 import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntity;
 import team.lodestar.lodestone.systems.easing.Easing;
+import team.lodestar.lodestone.systems.rendering.particle.LodestoneWorldParticleRenderType;
 import team.lodestar.lodestone.systems.rendering.particle.ParticleBuilders;
-import team.lodestar.lodestone.systems.rendering.particle.ParticleRenderTypes;
 import team.lodestar.lodestone.systems.rendering.particle.SimpleParticleOptions;
 
 import java.awt.*;
@@ -131,7 +131,7 @@ public class VoidConduitBlockEntity extends LodestoneBlockEntity {
                         .randomOffset(3f, 0.02f)
                         .enableNoClip()
                         .overwriteRemovalProtocol(SimpleParticleOptions.SpecialRemovalProtocol.ENDING_CURVE_INVISIBLE)
-                        .overwriteRenderType(ParticleRenderTypes.TRANSPARENT)
+                        .overwriteRenderType(LodestoneWorldParticleRenderType.TRANSPARENT)
                         .surroundVoxelShape(level, worldPosition, WELL_SHAPE, 8);
             }
         }

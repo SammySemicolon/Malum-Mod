@@ -16,7 +16,7 @@ import team.lodestar.lodestone.helpers.ColorHelper;
 import team.lodestar.lodestone.setup.LodestoneParticleRegistry;
 import team.lodestar.lodestone.systems.easing.Easing;
 import team.lodestar.lodestone.systems.rendering.particle.ParticleBuilders;
-import team.lodestar.lodestone.systems.rendering.particle.ParticleRenderTypes;
+import team.lodestar.lodestone.systems.rendering.particle.LodestoneWorldParticleRenderType;
 import team.lodestar.lodestone.systems.rendering.particle.SimpleParticleOptions;
 
 import java.awt.*;
@@ -100,7 +100,7 @@ public class BlightTransformItemParticlePacket extends SpiritBasedParticleEffect
                 .randomOffset(0.1f, 0.1f)
                 .randomMotion(0.01f, 0.02f)
                 .addMotion(0, 0.01f, 0)
-                .overwriteRenderType(ParticleRenderTypes.TRANSPARENT)
+                .overwriteRenderType(LodestoneWorldParticleRenderType.TRANSPARENT)
                 .repeat(level, posX, posY, posZ, 2);
 
             ParticleBuilders.create(LodestoneParticleRegistry.SMOKE_PARTICLE)
@@ -114,7 +114,7 @@ public class BlightTransformItemParticlePacket extends SpiritBasedParticleEffect
                 .enableNoClip()
                 .randomMotion(0.015f, 0.015f)
                 .addMotion(0, 0.01f, 0)
-                .overwriteRenderType(ParticleRenderTypes.TRANSPARENT)
+                .overwriteRenderType(LodestoneWorldParticleRenderType.TRANSPARENT)
                 .repeat(level, posX, posY, posZ, 3);
 
             color = new Color((int)(80*multiplier), (int)(40*multiplier), (int)(80*multiplier));
