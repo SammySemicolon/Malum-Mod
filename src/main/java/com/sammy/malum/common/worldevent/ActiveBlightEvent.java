@@ -61,7 +61,7 @@ public class ActiveBlightEvent extends WorldEventInstance {
         } else {
             SoulwoodTreeFeature.generateBlight(level, filler, noiseValues, sourcePos, intensity);
         }
-        filler.entries.stream().filter(e -> e.state.getBlock() instanceof BlightedSoilBlock).map(e -> e.pos).forEach(p -> MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(p)), new BlightMistParticlePacket(p)));
+        filler.getEntries().entrySet().stream().filter(e -> e.getValue().getState().getBlock() instanceof BlightedSoilBlock).map(Map.Entry::getKey).forEach(p -> MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(p)), new BlightMistParticlePacket(p)));
 
         level.playSound(null, sourcePos, SoundRegistry.MAJOR_BLIGHT_MOTIF.get(), SoundSource.BLOCKS, 1f, 1.8f);
     }

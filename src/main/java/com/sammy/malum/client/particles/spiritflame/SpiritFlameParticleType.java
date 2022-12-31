@@ -16,7 +16,6 @@ public class SpiritFlameParticleType extends ParticleType<WorldParticleOptions> 
         super(false, WorldParticleOptions.DESERIALIZER);
     }
 
-
     @Override
     public Codec<WorldParticleOptions> codec() {
         return WorldParticleOptions.codecFor(this);
@@ -28,7 +27,6 @@ public class SpiritFlameParticleType extends ParticleType<WorldParticleOptions> 
         public Factory(SpriteSet sprite) {
             this.sprite = sprite;
         }
-
 
         @Nullable
         @Override

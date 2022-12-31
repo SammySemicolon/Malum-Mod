@@ -155,12 +155,12 @@ public class RuntimeEvents {
 
     @SubscribeEvent
     public static void onStartUsingItem(LivingEntityUseItemEvent.Start event) {
-        CurioVeraciousRing.accelerateEating(event);
+        CurioVoraciousRing.accelerateEating(event);
     }
 
     @SubscribeEvent
     public static void onFinishUsingItem(LivingEntityUseItemEvent.Finish event) {
-        CurioVeraciousRing.finishEating(event);
+        CurioVoraciousRing.finishEating(event);
         GluttonyEffect.finishEating(event);
     }
 

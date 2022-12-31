@@ -53,10 +53,10 @@ public class CommonConfig extends LodestoneConfig {
                     .define("generateSoulstone", true)));
     public static ConfigValueHolder<Integer> SOULSTONE_SIZE = new ConfigValueHolder<>(MALUM,"common/worldgen/soulstone", (builder ->
             builder.comment("Size of soulstone ore veins underground.")
-                    .define("soulstoneSize", 12)));
+                    .define("soulstoneSize", 8)));
     public static ConfigValueHolder<Integer> SOULSTONE_AMOUNT = new ConfigValueHolder<>(MALUM,"common/worldgen/soulstone", (builder ->
             builder.comment("Amount of soulstone ore veins.")
-                    .define("soulstoneAmount", 8)));
+                    .define("soulstoneAmount", 3)));
     public static ConfigValueHolder<Integer> SOULSTONE_MIN_Y = new ConfigValueHolder<>(MALUM,"common/worldgen/soulstone", (builder ->
             builder.comment("Minimum height at which soulstone ore can spawn.")
                     .define("soulstoneMinY", -64)));
@@ -69,10 +69,10 @@ public class CommonConfig extends LodestoneConfig {
                     .define("generateSurfaceSoulstone", true)));
     public static ConfigValueHolder<Integer> SURFACE_SOULSTONE_SIZE = new ConfigValueHolder<>(MALUM,"common/worldgen/soulstone", (builder ->
             builder.comment("Size of soulstone ore veins on the surface.")
-                    .define("surfaceSoulstoneSize", 6)));
+                    .define("surfaceSoulstoneSize", 4)));
     public static ConfigValueHolder<Integer> SURFACE_SOULSTONE_AMOUNT = new ConfigValueHolder<>(MALUM,"common/worldgen/soulstone", (builder ->
             builder.comment("Amount of soulstone ore veins on the surface.")
-                    .define("surfaceSoulstoneAmount", 8)));
+                    .define("surfaceSoulstoneAmount", 4)));
     public static ConfigValueHolder<Integer> SURFACE_SOULSTONE_MIN_Y = new ConfigValueHolder<>(MALUM,"common/worldgen/soulstone", (builder ->
             builder.comment("Minimum height at which surface soulstone ore can spawn.")
                     .define("surfaceSoulstoneMinY", 60)));

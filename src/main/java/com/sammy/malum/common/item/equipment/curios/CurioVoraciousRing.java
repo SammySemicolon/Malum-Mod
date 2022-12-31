@@ -19,9 +19,9 @@ import java.util.UUID;
 
 import static com.sammy.malum.registry.common.item.ItemTagRegistry.GROSS_FOODS;
 
-public class CurioVeraciousRing extends MalumCurioItem {
+public class CurioVoraciousRing extends MalumCurioItem {
 
-    public CurioVeraciousRing(Properties builder) {
+    public CurioVoraciousRing(Properties builder) {
         super(builder);
     }
 
@@ -50,7 +50,7 @@ public class CurioVeraciousRing extends MalumCurioItem {
                     if (gluttony != null) {
                         player.getFoodData().eat(1, 0.25f*(gluttony.amplifier+1));
                     }
-                    player.getFoodData().eat(2, 1f);
+                    player.getFoodData().eat(1, 1f);
                     MobEffectInstance hunger = player.getEffect(MobEffects.HUNGER);
                     if (hunger != null) {
                         EntityHelper.shortenEffect(hunger, player, 150);

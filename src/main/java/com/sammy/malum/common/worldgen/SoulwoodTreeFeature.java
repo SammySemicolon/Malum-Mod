@@ -25,9 +25,7 @@ import team.lodestar.lodestone.helpers.DataHelper;
 import team.lodestar.lodestone.systems.worldgen.LodestoneBlockFiller;
 import team.lodestar.lodestone.systems.worldgen.LodestoneBlockFiller.BlockStateEntry;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.sammy.malum.common.worldgen.RunewoodTreeFeature.canPlace;
@@ -91,7 +89,7 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
                     twistCooldown = minimumTwistCooldown + rand.nextInt(extraTwistCooldown + 1);
                     BlockPos trunkPos = twistedPos.above(i);
                     if (canPlace(level, trunkPos)) {
-                        treeFiller.entries.add(new BlockStateEntry(defaultLog, trunkPos));
+                        treeFiller.getEntries().put(trunkPos, new BlockStateEntry(defaultLog));
                         twistCooldown--;
                     } else {
                         return false;
@@ -108,7 +106,7 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
             }
             BlockPos trunkPos = twistedPos.above(i);
             if (canPlace(level, trunkPos)) {
-                treeFiller.entries.add(new BlockStateEntry(i == 0 ? blightedLog : defaultLog, trunkPos));
+                treeFiller.getEntries().put(trunkPos, new BlockStateEntry(i == 0 ? blightedLog : defaultLog));
                 twistCooldown--;
             } else {
                 return false;
@@ -119,22 +117,22 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
         makeLeafBlob(leavesFiller, rand, trunkTop);
         for (Direction direction : directions) //side trunk placement
         {
-            int blightedIndex = 0;
+            BlockPos blightedPos = null;
             int sideTrunkHeight = minimumSideTrunkHeight + rand.nextInt(extraSideTrunkHeight + 1);
             for (int i = 0; i < sideTrunkHeight; i++) {
                 BlockPos sideTrunkPos = pos.relative(direction).above(i);
                 if (canPlace(level, sideTrunkPos)) {
                     if (i == 0) {
-                        blightedIndex = treeFiller.entries.size();
+                        blightedPos = sideTrunkPos;
                     }
-                    treeFiller.entries.add(new BlockStateEntry(i == 0 ? blightedLog : defaultLog, sideTrunkPos));
+                    treeFiller.getEntries().put(sideTrunkPos, new BlockStateEntry(i == 0 ? blightedLog : defaultLog));
                 } else {
                     return false;
                 }
             }
             boolean success = downwardsTrunk(level, treeFiller, pos.relative(direction));
             if (success) {
-                treeFiller.replace(blightedIndex, e -> e.replaceState(defaultLog));
+                treeFiller.replace(blightedPos, e -> new BlockStateEntry(defaultLog));
             }
         }
         for (Direction direction : directions) //tree top placement
@@ -151,7 +149,7 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
                     twistCooldown = minimumTwistCooldown + rand.nextInt(extraTwistCooldown + 1);
                     BlockPos offsetPos = branchConnectionPos.above();
                     if (canPlace(level, offsetPos)) {
-                        treeFiller.entries.add(new BlockStateEntry(defaultLog.setValue(RotatedPillarBlock.AXIS, direction.getAxis()), offsetPos));
+                        treeFiller.getEntries().put(offsetPos, new BlockStateEntry(defaultLog.setValue(RotatedPillarBlock.AXIS, direction.getAxis())));
                     } else {
                         return false;
                     }
@@ -159,7 +157,7 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
                     twists--;
                 }
                 if (canPlace(level, branchConnectionPos)) {
-                    treeFiller.entries.add(new BlockStateEntry(defaultLog.setValue(RotatedPillarBlock.AXIS, direction.getAxis()), branchConnectionPos));
+                    treeFiller.getEntries().put(branchConnectionPos, new BlockStateEntry(defaultLog.setValue(RotatedPillarBlock.AXIS, direction.getAxis())));
                     twistCooldown--;
                 } else {
                     return false;
@@ -171,7 +169,7 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
             {
                 BlockPos branchPos = branchEndPos.above(i);
                 if (canPlace(level, branchPos)) {
-                    treeFiller.entries.add(new BlockStateEntry(defaultLog, branchPos));
+                    treeFiller.getEntries().put(branchPos, new BlockStateEntry(defaultLog));
                 } else {
                     return false;
                 }
@@ -181,15 +179,16 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
         generateBlight(level, blightFiller, pos.below(), 6);
 
         int sapBlockCount = minimumSapBlockCount + rand.nextInt(extraSapBlockCount + 1);
-        int[] sapBlockIndexes = DataHelper.nextInts(sapBlockCount, treeFiller.entries.size());
-        for (Integer index : sapBlockIndexes) {
-            treeFiller.replace(index, e -> e.replaceState(BlockHelper.getBlockStateWithExistingProperties(e.state, BlockRegistry.EXPOSED_SOULWOOD_LOG.get().defaultBlockState())));
+        ArrayList<BlockPos> sapBlockPositions = new ArrayList<>(treeFiller.getEntries().keySet());
+        Collections.shuffle(sapBlockPositions);
+        for (BlockPos blockPos : sapBlockPositions.subList(0, sapBlockCount)) {
+            treeFiller.replace(blockPos, e -> e.getState().getBlock().equals(BlockRegistry.BLIGHTED_SOULWOOD.get()) ? e : new BlockStateEntry(BlockHelper.getBlockStateWithExistingProperties(e.getState(), BlockRegistry.EXPOSED_SOULWOOD_LOG.get().defaultBlockState())));
         }
 
         blightFiller.fill(level);
         treeFiller.fill(level);
         leavesFiller.fill(level);
-        updateLeaves(level, treeFiller.entries.stream().map(e -> e.pos).collect(Collectors.toSet()));
+        updateLeaves(level, treeFiller.getEntries().keySet());
         return true;
     }
 
@@ -202,7 +201,7 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
             BlockPos trunkPos = pos.below(i);
             if (canPlace(level, trunkPos)) {
                 boolean blighted = !canPlace(level, trunkPos.below());
-                filler.entries.add(new BlockStateEntry(blighted ? blightedLog : defaultLog, trunkPos));
+                filler.getEntries().put(trunkPos, new BlockStateEntry(blighted ? blightedLog : defaultLog));
             } else {
                 break;
             }
@@ -233,7 +232,7 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
                 }
                 BlockPos leavesPos = new BlockPos(pos).offset(x, 0, z);
                 int offsetColor = leavesColor + Mth.nextInt(rand, leavesColor == 0 ? 0 : -1, leavesColor == 4 ? 0 : 1);
-                filler.entries.add(new BlockStateEntry(BlockRegistry.SOULWOOD_LEAVES.get().defaultBlockState().setValue(MalumLeavesBlock.COLOR, offsetColor), leavesPos));
+                filler.getEntries().put(leavesPos, new BlockStateEntry(BlockRegistry.SOULWOOD_LEAVES.get().defaultBlockState().setValue(MalumLeavesBlock.COLOR, offsetColor)));
             }
         }
     }
@@ -286,7 +285,7 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
                             break;
                         }
                         if ((plantState.getMaterial().isReplaceable() || plantState.is(REPLACEABLE_PLANTS) || plantState.is(FLOWERS))) {
-                            filler.entries.add(new BlockStateEntry(Blocks.AIR.defaultBlockState(), blockPos.immutable()));
+                            filler.getEntries().put(blockPos.immutable(), new BlockStateEntry(Blocks.AIR.defaultBlockState()));
                             blockPos.move(Direction.DOWN);
                         } else {
                             break;
@@ -296,9 +295,9 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
 
                     BlockPos immutable = blockPos.immutable();
                     if (level.getBlockState(immutable).is(MOSS_REPLACEABLE)) {
-                        filler.entries.add(new BlockStateEntry(BlockRegistry.BLIGHTED_SOIL.get().defaultBlockState(), immutable));
+                        filler.getEntries().put(immutable, new BlockStateEntry(BlockRegistry.BLIGHTED_SOIL.get().defaultBlockState()));
                         if (level.getBlockState(immutable.below()).is(DIRT)) {
-                            filler.entries.add(new BlockStateEntry(BlockRegistry.BLIGHTED_EARTH.get().defaultBlockState(), immutable.below()));
+                            filler.getEntries().put(immutable.below(), new BlockStateEntry(BlockRegistry.BLIGHTED_EARTH.get().defaultBlockState()));
                         }
                         if (level.getRandom().nextFloat() < 0.25f) {
                             BlockPos plantPos = immutable.above();
@@ -307,7 +306,7 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
                                 if (lastSaplingPos == null || lastSaplingPos.distanceToSqr(plantPos.getX(), plantPos.getY(), plantPos.getZ()) > 5) {
                                     if (BlockHelper.fromBlockPos(center).distanceToSqr(plantPos.getX(), plantPos.getY(), plantPos.getZ()) > 4) {
                                         if (level.getRandom().nextFloat() < 0.5f / (Math.pow(saplingsPlaced + 1, 2))) {
-                                            filler.entries.add(new BlockStateEntry(BlockRegistry.SOULWOOD_GROWTH.get().defaultBlockState(), plantPos));
+                                            filler.getEntries().put(plantPos, new BlockStateEntry(BlockRegistry.SOULWOOD_GROWTH.get().defaultBlockState()));
                                             lastSaplingPos = new Vec3(plantPos.getX(), plantPos.getY(), plantPos.getZ());
                                             saplingsPlaced++;
                                         }
@@ -315,7 +314,7 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
                                 }
                             }
                             if ((blockState.isAir() || blockState.getMaterial().isReplaceable()) && !blockState.is(BlockTagRegistry.BLIGHTED_PLANTS)) {
-                                filler.entries.add(new BlockStateEntry((level.getRandom().nextFloat() < 0.2f ? BlockRegistry.BLIGHTED_TUMOR : BlockRegistry.BLIGHTED_WEED).get().defaultBlockState(), plantPos));
+                                filler.getEntries().put(plantPos, new BlockStateEntry((level.getRandom().nextFloat() < 0.2f ? BlockRegistry.BLIGHTED_TUMOR : BlockRegistry.BLIGHTED_WEED).get().defaultBlockState()));
                             }
                         }
                     }

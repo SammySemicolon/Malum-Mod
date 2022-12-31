@@ -4,6 +4,7 @@ import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.worldgen.RareEarthsGeode;
 import com.sammy.malum.common.worldgen.RunewoodTreeFeature;
 import com.sammy.malum.common.worldgen.SoulwoodTreeFeature;
+import com.sammy.malum.common.worldgen.WeepingWellFeature;
 import com.sammy.malum.config.CommonConfig;
 import com.sammy.malum.registry.common.block.BlockRegistry;
 import net.minecraft.core.Holder;
@@ -43,6 +44,7 @@ public class FeatureRegistry {
 
     public static final DeferredRegister<Feature<?>> FEATURE_TYPES = DeferredRegister.create(ForgeRegistries.FEATURES, MALUM);
 
+    public static final RegistryObject<WeepingWellFeature> WEEPING_WELL = FEATURE_TYPES.register("weeping_well", WeepingWellFeature::new);
     public static final RegistryObject<RunewoodTreeFeature> RUNEWOOD_TREE = FEATURE_TYPES.register("runewood_tree", RunewoodTreeFeature::new);
     public static final RegistryObject<SoulwoodTreeFeature> SOULWOOD_TREE = FEATURE_TYPES.register("soulwood_tree", SoulwoodTreeFeature::new);
     public static final RegistryObject<RareEarthsGeode> CTHONIC_GOLD_GEODE = FEATURE_TYPES.register("cthonic_gold_geode", ()->new RareEarthsGeode(GeodeConfiguration.CODEC));

@@ -67,6 +67,8 @@
   "scythe_cuts": { "sounds":["malum:scythe/cut1","malum:scythe/cut2","malum:scythe/cut3"], "subtitle": "malum.subtitle.scythe_cuts" },
   "a_soul_shatters": { "sounds":["malum:scythe/harvest1","malum:scythe/harvest2","malum:scythe/harvest3"], "subtitle": "malum.subtitle.a_soul_shatters" },
 
+  "the_unknown_weeps": { "sounds":["malum:weeping_well/uncanny_valley"], "subtitle": "malum.subtitle.the_unknown_weeps" },
+  "the_void_heart_beats": { "sounds":["malum:weeping_well/void_heartbeat"], "subtitle": "malum.subtitle.the_void_heart_beats" },
   "song_of_the_void": { "sounds":["malum:weeping_well/song_of_the_void0","malum:weeping_well/song_of_the_void1","malum:weeping_well/song_of_the_void2"], "subtitle": "malum.subtitle.song_of_the_void" },
   "rejected_by_the_unknown": { "sounds":["malum:weeping_well/void_rejection0","malum:weeping_well/void_rejection1"], "subtitle": "malum.subtitle.rejected_by_the_unknown" },
   "void_transmutation": { "sounds":["malum:weeping_well/void_transmutation0","malum:weeping_well/void_transmutation1"], "subtitle": "malum.subtitle.void_transmutation" },

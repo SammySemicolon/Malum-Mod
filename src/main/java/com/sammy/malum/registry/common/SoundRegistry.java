@@ -80,6 +80,8 @@ public class SoundRegistry {
     public static final RegistryObject<SoundEvent> MAJOR_BLIGHT_MOTIF = register(new SoundEvent(MalumMod.malumPath("blight_reacts")));
     public static final RegistryObject<SoundEvent> MINOR_BLIGHT_MOTIF = register(new SoundEvent(MalumMod.malumPath("blight_reacts_faintly")));
 
+    public static final RegistryObject<SoundEvent> UNCANNY_VALLEY = register(new SoundEvent(MalumMod.malumPath("the_unknown_weeps")));
+    public static final RegistryObject<SoundEvent> VOID_HEARTBEAT = register(new SoundEvent(MalumMod.malumPath("the_void_heart_beats")));
     public static final RegistryObject<SoundEvent> SONG_OF_THE_VOID = register(new SoundEvent(MalumMod.malumPath("song_of_the_void")));
     public static final RegistryObject<SoundEvent> VOID_REJECTION = register(new SoundEvent(MalumMod.malumPath("rejected_by_the_unknown")));
     public static final RegistryObject<SoundEvent> VOID_TRANSMUTATION = register(new SoundEvent(MalumMod.malumPath("void_transmutation")));

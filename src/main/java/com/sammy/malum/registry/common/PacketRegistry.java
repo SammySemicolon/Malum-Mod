@@ -40,6 +40,7 @@ public class PacketRegistry {
         EthericNitrateParticlePacket.register(MALUM_CHANNEL, index++);
         VividNitrateBounceParticlePacket.register(MALUM_CHANNEL, index++);
         SuccessfulSoulHarvestParticlePacket.register(MALUM_CHANNEL, index++);
+        VoidConduitParticlePacket.register(MALUM_CHANNEL, index++);
 
         BlockParticlePacket.register(MALUM_CHANNEL, index++);
         BlockMistParticlePacket.register(MALUM_CHANNEL, index++);

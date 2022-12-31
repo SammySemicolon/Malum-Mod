@@ -525,7 +525,7 @@ public class ItemRegistry {
     public static final RegistryObject<Item> RING_OF_CURATIVE_TALENT = ITEMS.register("ring_of_curative_talent", () -> new CurioCurativeRing(GEAR_PROPERTIES()));
     public static final RegistryObject<Item> RING_OF_ARCANE_PROWESS = ITEMS.register("ring_of_arcane_prowess", () -> new CurioRingOfProwess(GEAR_PROPERTIES()));
     public static final RegistryObject<Item> RING_OF_ALCHEMICAL_MASTERY = ITEMS.register("ring_of_alchemical_mastery", () -> new CurioAlchemicalRing(GEAR_PROPERTIES()));
-    public static final RegistryObject<Item> RING_OF_DESPERATE_VORACITY = ITEMS.register("ring_of_desperate_voracity", () -> new CurioVeraciousRing(GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> RING_OF_DESPERATE_VORACITY = ITEMS.register("ring_of_desperate_voracity", () -> new CurioVoraciousRing(GEAR_PROPERTIES()));
     public static final RegistryObject<Item> RING_OF_THE_HOARDER = ITEMS.register("ring_of_the_hoarder", () -> new CurioHoarderRing(GEAR_PROPERTIES()));
     public static final RegistryObject<Item> RING_OF_THE_DEMOLITIONIST = ITEMS.register("ring_of_the_demolitionist", () -> new CurioDemolitionistRing(GEAR_PROPERTIES()));
 

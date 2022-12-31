@@ -25,12 +25,12 @@ public class MalumVoidFavorRecipes extends RecipeProvider {
 
     @Override
     public String getName() {
-        return "Malum Block Transmutation Recipe Provider";
+        return "Malum Void Favor Recipe Provider";
     }
 
     @Override
     protected void buildCraftingRecipes(Consumer<FinishedRecipe> consumer) {
-        new VoidFavorRecipeBuilder(Ingredient.of(Tags.Items.RAW_MATERIALS), 2, ItemRegistry.RAW_SOULSTONE.get(), 1)
+        new VoidFavorRecipeBuilder(Ingredient.of(Tags.Items.RAW_MATERIALS), 1, ItemRegistry.RAW_SOULSTONE.get(), 1)
             .build(consumer);
     }
 }

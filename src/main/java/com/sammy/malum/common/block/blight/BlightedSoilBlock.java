@@ -25,6 +25,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.network.PacketDistributor;
 import team.lodestar.lodestone.systems.worldgen.LodestoneBlockFiller;
 
+import java.util.Map;
 import java.util.Random;
 
 import static com.sammy.malum.registry.common.PacketRegistry.MALUM_CHANNEL;
@@ -84,6 +85,7 @@ public class BlightedSoilBlock extends Block implements BonemealableBlock {
         pLevel.playSound(null, pPos, SoundEvents.BONE_MEAL_USE, SoundSource.BLOCKS, 1.2f, 0.8f);
         LodestoneBlockFiller filler = new LodestoneBlockFiller(false);
         SoulwoodTreeFeature.generateBlight(pLevel, filler, pPos, 4);
-        filler.entries.stream().filter(e -> e.state.getBlock() instanceof BlightedSoilBlock).map(e -> e.pos).forEach(p -> MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> pLevel.getChunkAt(p)), new BlightMistParticlePacket(p)));
+
+        filler.getEntries().entrySet().stream().filter(e -> e.getValue().getState().getBlock() instanceof BlightedSoilBlock).map(Map.Entry::getKey).forEach(p -> MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> pLevel.getChunkAt(p)), new BlightMistParticlePacket(p)));
     }
 }

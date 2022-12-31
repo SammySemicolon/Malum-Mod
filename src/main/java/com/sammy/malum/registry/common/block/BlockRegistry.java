@@ -312,7 +312,7 @@ public class BlockRegistry {
     //endregion
 
     //region runewood
-    public static final RegistryObject<Block> RUNEWOOD_SAPLING = BLOCKS.register("runewood_sapling", () -> new MalumSaplingBlock(RUNEWOOD_PLANTS_PROPERTIES().isCutoutLayer().randomTicks(), FeatureRegistry.RUNEWOOD_TREE));
+    public static final RegistryObject<Block> RUNEWOOD_SAPLING = BLOCKS.register("runewood_sapling", () -> new MalumSaplingBlock(RUNEWOOD_PLANTS_PROPERTIES().isCutoutLayer().randomTicks(), FeatureRegistry.WEEPING_WELL));
     public static final RegistryObject<Block> RUNEWOOD_LEAVES = BLOCKS.register("runewood_leaves", () -> new MalumLeavesBlock(RUNEWOOD_LEAVES_PROPERTIES().isCutoutLayer(), new Color(175, 65, 48), new Color(251, 193, 76)));
 
     public static final RegistryObject<Block> STRIPPED_RUNEWOOD_LOG = BLOCKS.register("stripped_runewood_log", () -> new RotatedPillarBlock(RUNEWOOD_PROPERTIES()));

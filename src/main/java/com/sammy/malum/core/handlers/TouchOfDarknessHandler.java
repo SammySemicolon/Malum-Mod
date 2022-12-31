@@ -6,6 +6,7 @@ import com.sammy.malum.common.block.weeping_well.PrimordialSoupBlock;
 import com.sammy.malum.common.capability.MalumLivingEntityDataCapability;
 import com.sammy.malum.common.packets.SyncMalumPlayerCapabilityDataPacket;
 import com.sammy.malum.common.packets.VoidRejectionPacket;
+import com.sammy.malum.common.packets.particle.block.VoidConduitParticlePacket;
 import com.sammy.malum.registry.client.ShaderRegistry;
 import com.sammy.malum.registry.common.DamageSourceRegistry;
 import com.sammy.malum.registry.common.PacketRegistry;
@@ -25,7 +26,9 @@ import net.minecraftforge.client.gui.ForgeIngameGui;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.network.PacketDistributor;
 import team.lodestar.lodestone.handlers.ScreenParticleHandler;
+import team.lodestar.lodestone.helpers.ColorHelper;
 import team.lodestar.lodestone.setup.LodestoneScreenParticleRegistry;
+import team.lodestar.lodestone.systems.easing.Easing;
 import team.lodestar.lodestone.systems.rendering.ExtendedShaderInstance;
 import team.lodestar.lodestone.systems.rendering.VFXBuilders;
 import team.lodestar.lodestone.systems.rendering.particle.ParticleBuilders;
@@ -95,7 +98,7 @@ public class TouchOfDarknessHandler {
                 handler.expectedAffliction = 0;
             }
         }
-        if (handler.currentAffliction < handler.expectedAffliction) { //increment the affliction until it reaches the limit value
+        if (handler.currentAffliction <= handler.expectedAffliction) { //increment the affliction until it reaches the limit value
             float increase = 1.55f;
             if (handler.afflictionDuration < 20) { //increase in affliction strength decreases if effect is about to run out
                 increase *= handler.afflictionDuration / 20f;
@@ -105,7 +108,7 @@ public class TouchOfDarknessHandler {
             //rejection is set to 15, and the entity starts rapidly ascending as a result
             //we do this only on the server, and then communicate the rejection to the client using a packet
             if (!livingEntity.level.isClientSide) {
-                if (handler.currentAffliction >= MAX_AFFLICTION && (handler.rejection < 5 || handler.rejection > 25) && isInTheGoop) {
+                if (handler.currentAffliction >= MAX_AFFLICTION && (handler.rejection < 5 || handler.rejection > 25) && handler.timeSpentInGoop > 40) {
                     handler.reject(livingEntity);
                 }
             }
@@ -113,18 +116,22 @@ public class TouchOfDarknessHandler {
         //if the expected affliction is lower than the current affliction, it diminishes.
         //current affliction diminishes faster if the expected value is 0
         if (handler.currentAffliction > handler.expectedAffliction) {
-            handler.currentAffliction = Math.max(handler.currentAffliction - (handler.expectedAffliction == 0 ? 2f : 0.75f), 0);
+            handler.currentAffliction = Math.max(handler.currentAffliction - (handler.expectedAffliction == 0 ? 1.5f : 0.75f), 0);
         }
-        //if the entity is in the primordial soup, is at max affliction, and has the rejected status, rejection increases
+        //if we in the goop, we in the goop
         if (isInTheGoop) {
             handler.timeSpentInGoop++;
-        }
-        if (handler.currentAffliction >= TouchOfDarknessHandler.MAX_AFFLICTION && handler.isEntityRejected()) {
-            handler.rejection += 2;
+            if (livingEntity.level.getGameTime() % 8L == 0) {
+                livingEntity.level.playSound(null, livingEntity.blockPosition(), SoundRegistry.SONG_OF_THE_VOID.get(), SoundSource.HOSTILE, 0.5f+handler.timeSpentInGoop*0.02f, 0.5f+handler.timeSpentInGoop*0.04f);
+            }
         }
         //if we ain't in the goop, we ain't in the goop.
         if (!isInTheGoop || handler.isEntityRejected()) {
             handler.timeSpentInGoop = 0;
+        }
+        //rejection grows while at max affliction, and already rejected.
+        if (handler.currentAffliction >= TouchOfDarknessHandler.MAX_AFFLICTION && handler.isEntityRejected()) {
+            handler.rejection += 2;
         }
         //rejection diminishes naturally
         handler.rejection = Math.max(handler.rejection - 1, 0);
@@ -153,6 +160,7 @@ public class TouchOfDarknessHandler {
         rejection = 10;
         if (!livingEntity.level.isClientSide) {
             PacketRegistry.MALUM_CHANNEL.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> livingEntity), new VoidRejectionPacket(livingEntity.getId()));
+            PacketRegistry.MALUM_CHANNEL.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> livingEntity), new VoidConduitParticlePacket(livingEntity.getX(), livingEntity.getY()+livingEntity.getBbHeight()/2f, livingEntity.getZ()));
             livingEntity.hurt(new DamageSource(DamageSourceRegistry.GUARANTEED_SOUL_SHATTER), 4);
             livingEntity.level.playSound(null, livingEntity.blockPosition(), SoundRegistry.VOID_REJECTION.get(), SoundSource.HOSTILE, 2f, Mth.nextFloat(livingEntity.getRandom(), 0.85f, 1.35f));
         }
@@ -176,8 +184,7 @@ public class TouchOfDarknessHandler {
             int screenWidth = minecraft.getWindow().getGuiScaledWidth();
             int screenHeight = minecraft.getWindow().getGuiScaledHeight();
 
-            float effectStrength = darknessHandler.currentAffliction / MAX_AFFLICTION;
-
+            float effectStrength = Easing.SINE_IN_OUT.ease(darknessHandler.currentAffliction / MAX_AFFLICTION, 0, 1, 1);
             float alpha = Math.min(1, effectStrength * 5);
             float zoom = 0.5f + Math.min(0.35f, effectStrength);
             float intensity = 1f + (effectStrength > 0.5f ? (effectStrength - 0.5f) * 2.5f : 0);
