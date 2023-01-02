@@ -84,7 +84,7 @@ public class VoidConduitBlockEntity extends LodestoneBlockEntity {
                 level.playSound(null, worldPosition, SoundRegistry.UNCANNY_VALLEY.get(), SoundSource.HOSTILE, 3f, Mth.nextFloat(level.getRandom(), 0.55f, 1.75f));
             }
             if (serverLevel.getGameTime() % 20L == 0) {
-                level.playSound(null, worldPosition, SoundRegistry.VOID_HEARTBEAT.get(), SoundSource.HOSTILE, 3f, Mth.nextFloat(level.getRandom(), 0.95f, 1.15f));
+                level.playSound(null, worldPosition, SoundRegistry.VOID_HEARTBEAT.get(), SoundSource.HOSTILE, 4f, Mth.nextFloat(level.getRandom(), 0.95f, 1.15f));
             }
             if (serverLevel.getGameTime() % 40L == 0) {
                 List<ItemEntity> items = serverLevel.getEntitiesOfClass(
