@@ -20,10 +20,7 @@ import team.lodestar.lodestone.helpers.DataHelper;
 import team.lodestar.lodestone.systems.worldgen.LodestoneBlockFiller;
 import team.lodestar.lodestone.systems.worldgen.LodestoneBlockFiller.BlockStateEntry;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class RunewoodTreeFeature extends Feature<NoneFeatureConfiguration> {
@@ -114,7 +111,7 @@ public class RunewoodTreeFeature extends Feature<NoneFeatureConfiguration> {
             makeLeafBlob(leavesFiller, rand, branchStartPos.above(1));
         }
         int sapBlockCount = minimumSapBlockCount + rand.nextInt(extraSapBlockCount + 1);
-        List<BlockPos> sapBlockPositions = treeFiller.getEntries().keySet().stream().toList();
+        ArrayList<BlockPos> sapBlockPositions = new ArrayList<>(treeFiller.getEntries().keySet());
         Collections.shuffle(sapBlockPositions);
         for (BlockPos blockPos : sapBlockPositions.subList(0, sapBlockCount)) {
             treeFiller.replace(blockPos, e -> new BlockStateEntry(BlockHelper.getBlockStateWithExistingProperties(e.getState(), BlockRegistry.EXPOSED_RUNEWOOD_LOG.get().defaultBlockState())));

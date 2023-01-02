@@ -14,8 +14,10 @@ import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.RotatedPillarBlock;
+import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.WallSide;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
@@ -69,6 +71,50 @@ public class WeepingWellFeature extends Feature<NoneFeatureConfiguration> {
                 BlockPos immutable = segmentPosition.immutable();
                 filler.getEntries().put(immutable, new BlockStateEntry(state));
                 filler.getEntries().put(immutable.below(), new BlockStateEntry(Blocks.DEEPSLATE.defaultBlockState()));
+            }
+        }
+
+        int startingIndex = rand.nextInt(2);
+        Direction cachedChosenDirection = null;
+        for (int i = 0; i < 2; i++) {
+            Direction columnDirection = directions[startingIndex + i * 2];
+            BlockPos.MutableBlockPos columnPosition = pos.mutable().move(0, 2, 0).move(columnDirection, 3);
+            if (rand.nextBoolean()) {
+                Direction chosenDirection;
+                if (cachedChosenDirection == null) {
+                    chosenDirection = rand.nextBoolean() ? columnDirection.getCounterClockWise() : columnDirection.getClockWise();
+                } else {
+                    chosenDirection = rand.nextBoolean() ? cachedChosenDirection.getOpposite() : null;
+                }
+                if (chosenDirection != null) {
+                    columnPosition.move(chosenDirection);
+                }
+                cachedChosenDirection = chosenDirection;
+            }
+            int columnHeight = 3 + rand.nextInt(4);
+            int wallHeightDifference = 1 + rand.nextInt(3);
+            int wallHeight = columnHeight - wallHeightDifference;
+            for (int j = 0; j < columnHeight; j++) {
+                BlockState state;
+                if (j == 0 || j == columnHeight - 1) {
+                    state = BlockRegistry.TAINTED_ROCK_COLUMN_CAP.get().defaultBlockState().setValue(BlockStateProperties.FACING, j == 0 ? Direction.DOWN : Direction.UP);
+                } else {
+                    state = BlockRegistry.TAINTED_ROCK_COLUMN.get().defaultBlockState().setValue(BlockStateProperties.AXIS, Direction.Axis.Y);
+                }
+                filler.getEntries().put(columnPosition.immutable(), new BlockStateEntry(state));
+                if (j < wallHeight) {
+                    BlockState wallState = BlockRegistry.TAINTED_ROCK_BRICKS_WALL.get().defaultBlockState();
+                    final WallSide wallSide = j == wallHeight-1 ? WallSide.LOW : WallSide.TALL;
+                    switch (columnDirection) {
+                        case SOUTH -> wallState = wallState.setValue(WallBlock.SOUTH_WALL, wallSide);
+                        case NORTH -> wallState = wallState.setValue(WallBlock.NORTH_WALL, wallSide);
+                        case WEST -> wallState = wallState.setValue(WallBlock.WEST_WALL, wallSide);
+                        case EAST -> wallState = wallState.setValue(WallBlock.EAST_WALL, wallSide);
+                    }
+                    filler.getEntries().put(columnPosition.move(columnDirection.getOpposite()).immutable(), new BlockStateEntry(wallState));
+                    columnPosition.move(columnDirection);
+                }
+                columnPosition.move(0, 1, 0);
             }
         }
 

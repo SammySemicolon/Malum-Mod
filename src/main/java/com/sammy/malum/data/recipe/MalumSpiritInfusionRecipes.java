@@ -37,14 +37,7 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider implements ICondi
     @Override
     protected void buildCraftingRecipes(Consumer<FinishedRecipe> consumer) {
         new SpiritInfusionRecipeBuilder(Items.GUNPOWDER, 1, ItemRegistry.HEX_ASH.get(), 1)
-                .addSpirit(SACRED_SPIRIT, 4)
-                .addSpirit(WICKED_SPIRIT, 4)
-                .addSpirit(ARCANE_SPIRIT, 4)
-                .addSpirit(ELDRITCH_SPIRIT, 4)
-                .addSpirit(EARTHEN_SPIRIT, 4)
-                .addSpirit(INFERNAL_SPIRIT, 4)
-                .addSpirit(AERIAL_SPIRIT, 4)
-                .addSpirit(AQUEOUS_SPIRIT, 4)
+            .addSpirit(ARCANE_SPIRIT, 1)
             .build(consumer);
 
         new SpiritInfusionRecipeBuilder(Items.CLAY_BALL, 4, ItemRegistry.ALCHEMICAL_CALX.get(), 4)

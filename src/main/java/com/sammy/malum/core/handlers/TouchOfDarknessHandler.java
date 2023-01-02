@@ -19,6 +19,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.state.BlockState;
@@ -108,7 +109,7 @@ public class TouchOfDarknessHandler {
             //rejection is set to 15, and the entity starts rapidly ascending as a result
             //we do this only on the server, and then communicate the rejection to the client using a packet
             if (!livingEntity.level.isClientSide) {
-                if (handler.currentAffliction >= MAX_AFFLICTION && (handler.rejection < 5 || handler.rejection > 25) && handler.timeSpentInGoop > 40) {
+                if (handler.currentAffliction >= MAX_AFFLICTION && (handler.rejection < 5 || handler.rejection > 25) && handler.timeSpentInGoop > 60) {
                     handler.reject(livingEntity);
                 }
             }
@@ -121,8 +122,14 @@ public class TouchOfDarknessHandler {
         //if we in the goop, we in the goop
         if (isInTheGoop) {
             handler.timeSpentInGoop++;
-            if (livingEntity.level.getGameTime() % 8L == 0) {
+            boolean isPlayer = livingEntity instanceof Player;
+            if (isPlayer && livingEntity.level.getGameTime() % 8L == 0) {
                 livingEntity.level.playSound(null, livingEntity.blockPosition(), SoundRegistry.SONG_OF_THE_VOID.get(), SoundSource.HOSTILE, 0.5f+handler.timeSpentInGoop*0.02f, 0.5f+handler.timeSpentInGoop*0.04f);
+            }
+            if (!isPlayer) {
+                if (livingEntity.getDeltaMovement().y > 0) {
+                    livingEntity.setDeltaMovement(livingEntity.getDeltaMovement().multiply(1, 0.5f, 1));
+                }
             }
         }
         //if we ain't in the goop, we ain't in the goop.
@@ -154,6 +161,10 @@ public class TouchOfDarknessHandler {
     }
 
     public void reject(LivingEntity livingEntity) {
+        if (!(livingEntity instanceof Player)) {
+            livingEntity.remove(Entity.RemovalReason.DISCARDED);
+            return;
+        }
         expectedAffliction = 0;
         currentAffliction += 40f;
         afflictionDuration = 0;
