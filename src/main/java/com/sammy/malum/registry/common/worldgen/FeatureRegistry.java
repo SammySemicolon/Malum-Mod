@@ -53,6 +53,8 @@ public class FeatureRegistry {
     public static final class ConfiguredFeatures {
         public static final Holder<ConfiguredFeature<NoneFeatureConfiguration, ?>> RUNEWOOD_TREE_FEATURE = FeatureUtils.register("runewood_tree", FeatureRegistry.RUNEWOOD_TREE.get(), INSTANCE);
 
+        public static final Holder<ConfiguredFeature<NoneFeatureConfiguration, ?>> WEEPING_WELL_FEATURE = FeatureUtils.register("weeping_well", FeatureRegistry.WEEPING_WELL.get(), INSTANCE);
+
         public static final Holder<ConfiguredFeature<OreConfiguration, ?>> BLAZING_QUARTZ_FEATURE = FeatureUtils.register("blazing_quartz", Feature.ORE,
                 new OreConfiguration(OreFeatures.NETHERRACK, BlockRegistry.BLAZING_QUARTZ_ORE.get().defaultBlockState(), CommonConfig.BLAZE_QUARTZ_SIZE.getConfigValue()));
 
@@ -84,6 +86,9 @@ public class FeatureRegistry {
         public static final Holder<PlacedFeature> RARE_RUNEWOOD_TREE = PlacementUtils.register("rare_runewood", ConfiguredFeatures.RUNEWOOD_TREE_FEATURE,
                 InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, new ChancePlacementFilter(CommonConfig.RARE_RUNEWOOD_CHANCE.getConfigValue().floatValue()), CountPlacement.of(3));
 
+        public static final Holder<PlacedFeature> WEEPING_WELL_FEATURE = PlacementUtils.register("weeping_well", ConfiguredFeatures.WEEPING_WELL_FEATURE,
+                RarityFilter.onAverageOnceEvery(30), InSquarePlacement.spread(), HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(6), VerticalAnchor.absolute(0)), BiomeFilter.biome(), DimensionPlacementFilter.of(DimensionPlacementFilter.fromStrings(CommonConfig.WEEPING_WELL_ALLOWED_DIMENSIONS.getConfigValue())));
+
         public static final Holder<PlacedFeature> BLAZING_QUARTZ_FEATURE = PlacementUtils.register("blazing_quartz_ore", ConfiguredFeatures.BLAZING_QUARTZ_FEATURE,
                 CountPlacement.of(CommonConfig.BLAZE_QUARTZ_AMOUNT.getConfigValue()), InSquarePlacement.spread(), PlacementUtils.RANGE_8_8);
 
@@ -107,7 +112,6 @@ public class FeatureRegistry {
 
         public static final Holder<PlacedFeature> CTHONIC_GOLD_GEODE_FEATURE = PlacementUtils.register("rare_earth_geode", ConfiguredFeatures.CTHONIC_GOLD_GEODE_FEATURE,
                 RarityFilter.onAverageOnceEvery(30), InSquarePlacement.spread(), HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(6), VerticalAnchor.aboveBottom(40)), BiomeFilter.biome(), DimensionPlacementFilter.of(DimensionPlacementFilter.fromStrings(CommonConfig.CTHONIC_GOLD_ALLOWED_DIMENSIONS.getConfigValue())));
-
 
 
     }

@@ -22,6 +22,15 @@ public class CommonConfig extends LodestoneConfig {
             builder.comment("Chance for runewood trees to generate in forest biomes.")
                     .defineInRange("runewoodRareChance", 0.01d, 0, 1)));
 
+
+    public static ConfigValueHolder<Boolean> GENERATE_WEEPING_WELLS = new ConfigValueHolder<>(MALUM,"common/worldgen/weeping_well", (builder ->
+            builder.comment("Should the void be curious?")
+                    .define("generateTheUnknown", true)));
+
+    public static final ConfigValueHolder<List<? extends String>> WEEPING_WELL_ALLOWED_DIMENSIONS = new ConfigValueHolder<>(MALUM,"common/worldgen/weeping_well", (builder) ->
+            builder.comment("Which dimensions is the void interested in?")
+                    .defineList("markedDimensions", new ArrayList<>(List.of("minecraft:overworld")), s -> s instanceof String));
+
     public static ConfigValueHolder<Boolean> GENERATE_BLAZE_QUARTZ = new ConfigValueHolder<>(MALUM,"common/worldgen/blazing_quartz", (builder ->
             builder.comment("Should blaze quartz ore generate?")
                     .define("generateBlazeQuartz", true)));

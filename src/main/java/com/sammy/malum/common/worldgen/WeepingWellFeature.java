@@ -44,6 +44,27 @@ public class WeepingWellFeature extends Feature<NoneFeatureConfiguration> {
         LodestoneBlockFiller filler = new LodestoneBlockFiller(false);
         Direction[] directions = new Direction[]{Direction.NORTH, Direction.WEST, Direction.SOUTH, Direction.EAST};
 
+        BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
+        for (int x = -3; x <= 3; x++) {
+            for (int y = -6; y <= 5; y++) {
+                for (int z = -3; z <= 3; z++) {
+                    mutableBlockPos.set(pos.getX()+x, pos.getY()+y, pos.getZ()+z);
+                    if (y <= 1) {
+                        if (!canPlace(level, mutableBlockPos)) {
+                            return false;
+                        }
+                    }
+                    else {
+                        if (!level.isEmptyBlock(pos) || !level.getBlockState(pos).getMaterial().isReplaceable()) {
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
+
+
+
         int wellDepth = 4;
         for (int i = 0; i < 9; i++) {
             int xOffset = (i / 3) - 1;

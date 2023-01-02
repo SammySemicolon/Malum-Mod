@@ -123,7 +123,7 @@ public class TouchOfDarknessHandler {
         if (isInTheGoop) {
             handler.timeSpentInGoop++;
             boolean isPlayer = livingEntity instanceof Player;
-            if (isPlayer && livingEntity.level.getGameTime() % 8L == 0) {
+            if (isPlayer && livingEntity.level.getGameTime() % 6L == 0) {
                 livingEntity.level.playSound(null, livingEntity.blockPosition(), SoundRegistry.SONG_OF_THE_VOID.get(), SoundSource.HOSTILE, 0.5f+handler.timeSpentInGoop*0.02f, 0.5f+handler.timeSpentInGoop*0.04f);
             }
             if (!isPlayer) {
