@@ -27,7 +27,7 @@ public class WorldgenEvents {
         if (CommonConfig.GENERATE_WEEPING_WELLS.getConfigValue()) {
             event.getGeneration().addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, FeatureRegistry.PlacedFeatures.WEEPING_WELL_FEATURE);
         }
-        
+
         if (event.getCategory().equals(Biome.BiomeCategory.NETHER)) {
             if (CommonConfig.GENERATE_BLAZE_QUARTZ.getConfigValue()) {
                 event.getGeneration().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, FeatureRegistry.PlacedFeatures.BLAZING_QUARTZ_FEATURE);

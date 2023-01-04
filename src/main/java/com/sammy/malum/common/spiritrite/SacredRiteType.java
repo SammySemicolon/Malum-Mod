@@ -72,7 +72,7 @@ public class SacredRiteType extends MalumRiteType {
             @Override
             public void riteEffect(TotemBaseBlockEntity totemBase) {
                 getNearbyEntities(totemBase, LivingEntity.class).forEach(e -> {
-                    if (e.getHealth() < e.getMaxHealth() * 0.75f) {
+                    if (e.getHealth() < e.getMaxHealth()) {
                         e.heal(2);
                         MALUM_CHANNEL.send(PacketDistributor.TRACKING_ENTITY.with(() -> e), new MinorEntityEffectParticlePacket(getEffectSpirit().getColor(), e.getX(), e.getY() + e.getBbHeight() / 2f, e.getZ()));
                     }

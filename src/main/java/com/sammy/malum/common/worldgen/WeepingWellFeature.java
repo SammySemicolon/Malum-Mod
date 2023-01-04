@@ -9,6 +9,7 @@ import com.sammy.malum.common.block.weeping_well.WeepingWellBlock;
 import com.sammy.malum.registry.common.block.BlockRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Block;
@@ -20,7 +21,9 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.WallSide;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
+import net.minecraft.world.level.levelgen.feature.RuinedPortalFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
+import net.minecraft.world.level.material.FluidState;
 import team.lodestar.lodestone.helpers.BlockHelper;
 import team.lodestar.lodestone.helpers.DataHelper;
 import team.lodestar.lodestone.systems.worldgen.LodestoneBlockFiller;
@@ -40,38 +43,62 @@ public class WeepingWellFeature extends Feature<NoneFeatureConfiguration> {
     public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> context) {
         WorldGenLevel level = context.level();
         BlockPos pos = context.origin();
+        BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
+        while (true) {
+            if (level.isOutsideBuildHeight(mutableBlockPos)) {
+                return false;
+            }
+            final boolean isSpaceEmpty = level.isEmptyBlock(mutableBlockPos) && level.isFluidAtPosition(mutableBlockPos, FluidState::isEmpty);
+            final boolean isSpaceBelowSolid = !level.isEmptyBlock(mutableBlockPos.move(0, -1, 0));
+            if ((isSpaceEmpty && isSpaceBelowSolid)) {
+                pos = mutableBlockPos.move(0, -2, 0).immutable();
+                break;
+            }
+        }
+
         Random rand = context.random();
         LodestoneBlockFiller filler = new LodestoneBlockFiller(false);
         Direction[] directions = new Direction[]{Direction.NORTH, Direction.WEST, Direction.SOUTH, Direction.EAST};
 
-        BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
-        for (int x = -3; x <= 3; x++) {
-            for (int y = -6; y <= 5; y++) {
-                for (int z = -3; z <= 3; z++) {
+        mutableBlockPos = new BlockPos.MutableBlockPos();
+        int failedSolidChecks = 0;
+        int failedNonSolidChecks = 0;
+
+        for (int x = -2; x <= 2; x++) {
+            for (int y = -5; y <= 4; y++) {
+                for (int z = -2; z <= 2; z++) {
                     mutableBlockPos.set(pos.getX()+x, pos.getY()+y, pos.getZ()+z);
-                    if (y <= 1) {
-                        if (!canPlace(level, mutableBlockPos)) {
-                            return false;
+                    if (y <= 0) {
+                        if (level.isEmptyBlock(mutableBlockPos) || !level.isFluidAtPosition(mutableBlockPos, FluidState::isEmpty)) {
+                            failedSolidChecks++;
                         }
                     }
                     else {
-                        if (!level.isEmptyBlock(pos) || !level.getBlockState(pos).getMaterial().isReplaceable()) {
-                            return false;
+                        if (!canPlace(level, mutableBlockPos)) {
+                            failedNonSolidChecks++;
                         }
                     }
                 }
             }
         }
-
-
-
+        if (failedSolidChecks >= 25) {
+            return false;
+        }
+        if (failedNonSolidChecks >= 50) {
+            return false;
+        }
         int wellDepth = 4;
+        int airPocketHeight = 2;
         for (int i = 0; i < 9; i++) {
             int xOffset = (i / 3) - 1;
             int zOffset = i % 3 - 1;
             for (int j = 0; j <= wellDepth; j++) {
                 BlockPos primordialGoopPos = pos.offset(xOffset, -j, zOffset);
                 filler.getEntries().put(primordialGoopPos, new BlockStateEntry(BlockRegistry.PRIMORDIAL_SOUP.get().defaultBlockState().setValue(PrimordialSoupBlock.TOP, j == 0)));
+            }
+            for (int j = 1; j <= airPocketHeight; j++) {
+                BlockPos airPocketPos = pos.offset(xOffset, j, zOffset);
+                filler.getEntries().put(airPocketPos, new BlockStateEntry(Blocks.CAVE_AIR.defaultBlockState()));
             }
         }
         filler.getEntries().replace(pos, new BlockStateEntry(BlockRegistry.VOID_CONDUIT.get().defaultBlockState()));
@@ -92,6 +119,8 @@ public class WeepingWellFeature extends Feature<NoneFeatureConfiguration> {
                 BlockPos immutable = segmentPosition.immutable();
                 filler.getEntries().put(immutable, new BlockStateEntry(state));
                 filler.getEntries().put(immutable.below(), new BlockStateEntry(Blocks.DEEPSLATE.defaultBlockState()));
+                filler.getEntries().put(immutable.above(), new BlockStateEntry(Blocks.CAVE_AIR.defaultBlockState()));
+                filler.getEntries().put(immutable.above(2), new BlockStateEntry(Blocks.CAVE_AIR.defaultBlockState()));
             }
         }
 
