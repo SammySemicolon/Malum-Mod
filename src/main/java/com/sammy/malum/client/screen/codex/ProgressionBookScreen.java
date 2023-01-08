@@ -144,7 +144,10 @@ public class ProgressionBookScreen extends Screen {
         ENTRIES.add(new BookEntry(
                 "cthonic_gold", CTHONIC_GOLD.get(), -4, 2)
                 .setObjectSupplier(MinorEntryObject::new)
-                .addPage(new HeadlineTextItemPage("cthonic_gold", "cthonic_gold", CTHONIC_GOLD.get()))
+                .addPage(new HeadlineTextItemPage("cthonic_gold", "cthonic_gold.1", CTHONIC_GOLD.get()))
+                .addPage(new TextPage("cthonic_gold.2"))
+                .addPage(new TextPage("cthonic_gold.3"))
+                .addPage(new TextPage("cthonic_gold.4"))
         );
 
         ENTRIES.add(new BookEntry(
@@ -188,8 +191,8 @@ public class ProgressionBookScreen extends Screen {
                 .addPage(new TextPage("esoteric_reaping.3"))
                 .addPage(new HeadlineTextItemPage("esoteric_reaping.rotting_essence", "esoteric_reaping.rotting_essence.1", ROTTING_ESSENCE.get()))
                 .addPage(new HeadlineTextItemPage("esoteric_reaping.grim_talc", "esoteric_reaping.grim_talc.1", GRIM_TALC.get()))
-                .addPage(new HeadlineTextItemPage("esoteric_reaping.astral_weave", "esoteric_reaping.astral_weave.1", ASTRAL_WEAVE.get()))
                 .addPage(new HeadlineTextItemPage("esoteric_reaping.calx", "esoteric_reaping.calx.1", ALCHEMICAL_CALX.get()))
+                .addPage(new HeadlineTextItemPage("esoteric_reaping.astral_weave", "esoteric_reaping.astral_weave.1", ASTRAL_WEAVE.get()))
         );
 
         ENTRIES.add(new BookEntry(
@@ -266,10 +269,10 @@ public class ProgressionBookScreen extends Screen {
         );
 
 
-        ENTRIES.add(new BookEntry(
-                "soul_something", 3, 8)
-                .setObjectSupplier((e, x, y) -> new IconObject(e, malumPath("textures/gui/book/icons/soul_blade.png"), x, y))
-        );
+//        ENTRIES.add(new BookEntry(
+//                "soul_something", 3, 8)
+//                .setObjectSupplier((e, x, y) -> new IconObject(e, malumPath("textures/gui/book/icons/soul_blade.png"), x, y))
+//        );
 
         ENTRIES.add(new BookEntry(
                 "spirit_focusing", SPIRIT_CRUCIBLE.get(), 7, 6)
@@ -388,10 +391,10 @@ public class ProgressionBookScreen extends Screen {
                 .addPage(SpiritInfusionPage.fromOutput(SOUL_STAINED_STEEL_BOOTS.get()))
         );
 
-        ENTRIES.add(new BookEntry(
-                "soul_ward", -3, 8)
-                .setObjectSupplier((e, x, y) -> new IconObject(e, malumPath("textures/gui/book/icons/soul_ward.png"), x, y))
-        );
+//        ENTRIES.add(new BookEntry(
+//                "soul_ward", -3, 8)
+//                .setObjectSupplier((e, x, y) -> new IconObject(e, malumPath("textures/gui/book/icons/soul_ward.png"), x, y))
+//        );
 
         ENTRIES.add(new BookEntry(
                 "spirit_trinkets", ORNATE_RING.get(), -5, 6)
@@ -404,7 +407,7 @@ public class ProgressionBookScreen extends Screen {
         );
 
         ENTRIES.add(new BookEntry(
-                "reactive_trinkets", RING_OF_ALCHEMICAL_MASTERY.get(), -7, 6)
+                "reactive_trinkets", RING_OF_CURATIVE_TALENT.get(), -7, 6)
                 .addPage(new HeadlineTextPage("reactive_trinkets.ring_of_curative_talent", "reactive_trinkets.ring_of_curative_talent.1"))
                 .addPage(SpiritInfusionPage.fromOutput(RING_OF_CURATIVE_TALENT.get()))
                 .addPage(new HeadlineTextPage("reactive_trinkets.ring_of_alchemical_mastery", "reactive_trinkets.ring_of_alchemical_mastery.1"))

@@ -88,7 +88,7 @@ public class FeatureRegistry {
                 InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, new ChancePlacementFilter(CommonConfig.RARE_RUNEWOOD_CHANCE.getConfigValue().floatValue()), CountPlacement.of(3));
 
         public static final Holder<PlacedFeature> WEEPING_WELL_FEATURE = PlacementUtils.register("weeping_well", ConfiguredFeatures.WEEPING_WELL_FEATURE,
-                RarityFilter.onAverageOnceEvery(4), InSquarePlacement.spread(), HeightRangePlacement.of(ConstantHeight.of(VerticalAnchor.absolute(0))), BiomeFilter.biome(), DimensionPlacementFilter.of(DimensionPlacementFilter.fromStrings(CommonConfig.WEEPING_WELL_ALLOWED_DIMENSIONS.getConfigValue())));
+                RarityFilter.onAverageOnceEvery(2), InSquarePlacement.spread(), HeightRangePlacement.of(ConstantHeight.of(VerticalAnchor.absolute(0))), BiomeFilter.biome(), DimensionPlacementFilter.of(DimensionPlacementFilter.fromStrings(CommonConfig.WEEPING_WELL_ALLOWED_DIMENSIONS.getConfigValue())));
 
         public static final Holder<PlacedFeature> BLAZING_QUARTZ_FEATURE = PlacementUtils.register("blazing_quartz_ore", ConfiguredFeatures.BLAZING_QUARTZ_FEATURE,
                 CountPlacement.of(CommonConfig.BLAZE_QUARTZ_AMOUNT.getConfigValue()), InSquarePlacement.spread(), PlacementUtils.RANGE_8_8);

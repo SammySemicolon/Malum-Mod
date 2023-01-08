@@ -51,10 +51,15 @@ public class WeepingWellFeature extends Feature<NoneFeatureConfiguration> {
             final boolean isSpaceEmpty = level.isEmptyBlock(mutableBlockPos) && level.isFluidAtPosition(mutableBlockPos, FluidState::isEmpty);
             final boolean isSpaceBelowSolid = !level.isEmptyBlock(mutableBlockPos.move(0, -1, 0));
             if ((isSpaceEmpty && isSpaceBelowSolid)) {
-                pos = mutableBlockPos.move(0, -2, 0).immutable();
+                pos = mutableBlockPos.below();
                 break;
             }
         }
+
+        if (!isSufficientlyFlat(level, pos)) {
+            return false;
+        }
+
 
         Random rand = context.random();
         LodestoneBlockFiller filler = new LodestoneBlockFiller(false);
@@ -87,12 +92,13 @@ public class WeepingWellFeature extends Feature<NoneFeatureConfiguration> {
         if (failedNonSolidChecks >= 50) {
             return false;
         }
+        pos = pos.below();
         int wellDepth = 4;
         int airPocketHeight = 2;
         for (int i = 0; i < 9; i++) {
             int xOffset = (i / 3) - 1;
             int zOffset = i % 3 - 1;
-            for (int j = 0; j <= wellDepth; j++) {
+            for (int j = 0; j < wellDepth; j++) {
                 BlockPos primordialGoopPos = pos.offset(xOffset, -j, zOffset);
                 filler.getEntries().put(primordialGoopPos, new BlockStateEntry(BlockRegistry.PRIMORDIAL_SOUP.get().defaultBlockState().setValue(PrimordialSoupBlock.TOP, j == 0)));
             }
@@ -170,6 +176,14 @@ public class WeepingWellFeature extends Feature<NoneFeatureConfiguration> {
 
         filler.fill(level);
         return true;
+    }
+
+    private boolean isSufficientlyFlat(WorldGenLevel level, BlockPos origin) {
+        final long count = BlockPos.betweenClosedStream(origin.offset(-3, 0, -3), origin.offset(3, 0, 3))
+                .filter(pos -> level.getBlockState(pos).isFaceSturdy(level, pos.below(), Direction.UP))
+                .filter(pos -> level.getBlockState(pos.above()).isAir())
+                .count();
+        return count >= 20; //maximum is 49
     }
 
     public static boolean canPlace(WorldGenLevel level, BlockPos pos) {
