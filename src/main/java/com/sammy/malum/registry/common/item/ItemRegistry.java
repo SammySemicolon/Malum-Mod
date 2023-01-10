@@ -473,19 +473,19 @@ public class ItemRegistry {
     //endregion
 
     //region ether
-    public static final RegistryObject<Item> ETHER = ITEMS.register("ether", () -> new EtherItem(BlockRegistry.ETHER.get(), BUILDING_PROPERTIES(), false));
-    public static final RegistryObject<Item> ETHER_TORCH = ITEMS.register("ether_torch", () -> new EtherTorchItem(BlockRegistry.ETHER_TORCH.get(), BlockRegistry.WALL_ETHER_TORCH.get(), BUILDING_PROPERTIES(), false));
-    public static final RegistryObject<Item> TAINTED_ETHER_BRAZIER = ITEMS.register("tainted_ether_brazier", () -> new EtherBrazierItem(BlockRegistry.TAINTED_ETHER_BRAZIER.get(), BUILDING_PROPERTIES(), false));
-    public static final RegistryObject<Item> TWISTED_ETHER_BRAZIER = ITEMS.register("twisted_ether_brazier", () -> new EtherBrazierItem(BlockRegistry.TWISTED_ETHER_BRAZIER.get(), BUILDING_PROPERTIES(), false));
+    public static final RegistryObject<Item> ETHER = ITEMS.register("ether", () -> new EtherItem(BlockRegistry.ETHER.get(), DEFAULT_PROPERTIES(), false));
+    public static final RegistryObject<Item> ETHER_TORCH = ITEMS.register("ether_torch", () -> new EtherTorchItem(BlockRegistry.ETHER_TORCH.get(), BlockRegistry.WALL_ETHER_TORCH.get(), DEFAULT_PROPERTIES(), false));
+    public static final RegistryObject<Item> TAINTED_ETHER_BRAZIER = ITEMS.register("tainted_ether_brazier", () -> new EtherBrazierItem(BlockRegistry.TAINTED_ETHER_BRAZIER.get(), DEFAULT_PROPERTIES(), false));
+    public static final RegistryObject<Item> TWISTED_ETHER_BRAZIER = ITEMS.register("twisted_ether_brazier", () -> new EtherBrazierItem(BlockRegistry.TWISTED_ETHER_BRAZIER.get(), DEFAULT_PROPERTIES(), false));
 
-    public static final RegistryObject<Item> ETHER_SCONCE = ITEMS.register("ether_sconce", () -> new EtherSconceItem(BlockRegistry.ETHER_SCONCE.get(), BlockRegistry.WALL_ETHER_SCONCE.get(), SupplementariesCompat.LOADED ? BUILDING_PROPERTIES() : HIDDEN_PROPERTIES(), false));
+    public static final RegistryObject<Item> ETHER_SCONCE = ITEMS.register("ether_sconce", () -> new EtherSconceItem(BlockRegistry.ETHER_SCONCE.get(), BlockRegistry.WALL_ETHER_SCONCE.get(), SupplementariesCompat.LOADED ? DEFAULT_PROPERTIES() : HIDDEN_PROPERTIES(), false));
 
-    public static final RegistryObject<Item> IRIDESCENT_ETHER = ITEMS.register("iridescent_ether", () -> new EtherItem(BlockRegistry.IRIDESCENT_ETHER.get(), BUILDING_PROPERTIES(), true));
-    public static final RegistryObject<Item> IRIDESCENT_ETHER_TORCH = ITEMS.register("iridescent_ether_torch", () -> new EtherTorchItem(BlockRegistry.IRIDESCENT_ETHER_TORCH.get(), BlockRegistry.IRIDESCENT_WALL_ETHER_TORCH.get(), BUILDING_PROPERTIES(), true));
-    public static final RegistryObject<Item> TAINTED_IRIDESCENT_ETHER_BRAZIER = ITEMS.register("tainted_iridescent_ether_brazier", () -> new EtherBrazierItem(BlockRegistry.TAINTED_IRIDESCENT_ETHER_BRAZIER.get(), BUILDING_PROPERTIES(), true));
-    public static final RegistryObject<Item> TWISTED_IRIDESCENT_ETHER_BRAZIER = ITEMS.register("twisted_iridescent_ether_brazier", () -> new EtherBrazierItem(BlockRegistry.TWISTED_IRIDESCENT_ETHER_BRAZIER.get(), BUILDING_PROPERTIES(), true));
+    public static final RegistryObject<Item> IRIDESCENT_ETHER = ITEMS.register("iridescent_ether", () -> new EtherItem(BlockRegistry.IRIDESCENT_ETHER.get(), DEFAULT_PROPERTIES(), true));
+    public static final RegistryObject<Item> IRIDESCENT_ETHER_TORCH = ITEMS.register("iridescent_ether_torch", () -> new EtherTorchItem(BlockRegistry.IRIDESCENT_ETHER_TORCH.get(), BlockRegistry.IRIDESCENT_WALL_ETHER_TORCH.get(), DEFAULT_PROPERTIES(), true));
+    public static final RegistryObject<Item> TAINTED_IRIDESCENT_ETHER_BRAZIER = ITEMS.register("tainted_iridescent_ether_brazier", () -> new EtherBrazierItem(BlockRegistry.TAINTED_IRIDESCENT_ETHER_BRAZIER.get(), DEFAULT_PROPERTIES(), true));
+    public static final RegistryObject<Item> TWISTED_IRIDESCENT_ETHER_BRAZIER = ITEMS.register("twisted_iridescent_ether_brazier", () -> new EtherBrazierItem(BlockRegistry.TWISTED_IRIDESCENT_ETHER_BRAZIER.get(), DEFAULT_PROPERTIES(), true));
 
-    public static final RegistryObject<Item> IRIDESCENT_ETHER_SCONCE = ITEMS.register("iridescent_ether_sconce", () -> new EtherSconceItem(BlockRegistry.IRIDESCENT_ETHER_SCONCE.get(), BlockRegistry.IRIDESCENT_WALL_ETHER_SCONCE.get(), SupplementariesCompat.LOADED ? BUILDING_PROPERTIES() : HIDDEN_PROPERTIES(), true));
+    public static final RegistryObject<Item> IRIDESCENT_ETHER_SCONCE = ITEMS.register("iridescent_ether_sconce", () -> new EtherSconceItem(BlockRegistry.IRIDESCENT_ETHER_SCONCE.get(), BlockRegistry.IRIDESCENT_WALL_ETHER_SCONCE.get(), SupplementariesCompat.LOADED ? DEFAULT_PROPERTIES() : HIDDEN_PROPERTIES(), true));
     //endregion
 
     //region contents
