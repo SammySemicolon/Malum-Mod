@@ -253,7 +253,7 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider implements ICondi
             .build(consumer);
 
         new SpiritInfusionRecipeBuilder(ItemRegistry.ORNATE_NECKLACE.get(), 1, ItemRegistry.NECKLACE_OF_BLISSFUL_HARMONY.get(), 1)
-            .addExtraItem(ItemRegistry.IRON_NODE.get(), 6)
+            .addExtraItem(Ingredient.of(Tags.Items.INGOTS_IRON), 6)
             .addExtraItem(Items.PHANTOM_MEMBRANE, 4)
             .addExtraItem(ItemRegistry.ASTRAL_WEAVE.get(), 2)
             .addExtraItem(Items.DIAMOND, 2)

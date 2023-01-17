@@ -446,11 +446,12 @@ public class ProgressionBookScreen extends Screen {
                 .addPage(SpiritInfusionPage.fromOutput(RING_OF_THE_HOARDER.get()))
         );
 
-//        ENTRIES.add(new BookEntry(
-//            "necklace_of_elemental_shielding", GILDED_BELT.get(), -7, 4)
-//            .addPage(new HeadlineTextPage("necklace_of_elemental_shielding", "necklace_of_elemental_shielding.1"))
-//            .addPage(SpiritInfusionPage.fromOutput(NECKLACE_OF_TIDAL_AFFINITY.get()))
-//        );
+        ENTRIES.add(new BookEntry(
+                "necklace_of_blissful_harmony", NECKLACE_OF_BLISSFUL_HARMONY.get(), -7, 4)
+                .addPage(new HeadlineTextPage("necklace_of_blissful_harmony", "necklace_of_blissful_harmony.1"))
+                .addPage(SpiritInfusionPage.fromOutput(NECKLACE_OF_BLISSFUL_HARMONY.get()))
+                .addPage(new TextPage("necklace_of_blissful_harmony.2"))
+        );
 
         ENTRIES.add(new BookEntry(
                 "necklace_of_the_mystic_mirror", NECKLACE_OF_THE_MYSTIC_MIRROR.get(), 6, 12)

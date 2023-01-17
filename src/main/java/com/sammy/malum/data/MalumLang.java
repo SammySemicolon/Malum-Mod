@@ -347,7 +347,7 @@ public class MalumLang extends LanguageProvider {
 
         addSimpleEntryHeader("ring_of_esoteric_spoils", "Ring of Esoteric Spoils", "Be fruitful and multiply");
         addPages("ring_of_esoteric_spoils",
-                "It can be tiring, harvesting the sheer quantities of arcana I need for my research. This ring can increase the efficiency of the harvest, allowing me to reap an additional spirit from every soul shattered. At a certain point, though, \"efficiency\" ceases to explain it. How am I obtaining more power than the soul itself has?");
+                "It can be tiring, harvesting the sheer quantities of arcana I need for my research. This ring can increase the efficiency of the harvest, allowing me to reap an additional spirit from every slain soul. At a certain point, though, \"efficiency\" ceases to explain it. How am I obtaining more power than the soul itself has?");
 
         addSimpleEntryHeader("belt_of_the_starved", "Belt of the Starved", "Channeling voracity");
         addPages("belt_of_the_starved",
@@ -363,6 +363,11 @@ public class MalumLang extends LanguageProvider {
         addHeadline("belt_of_the_prospector.ring_of_the_hoarder", "Ring of The Hoarder");
         addPages("belt_of_the_prospector.ring_of_the_hoarder",
                 "While wearing this ring, any item created from the destruction caused by your explosions is directly teleported to your location.");
+
+        addSimpleEntryHeader("necklace_of_blissful_harmony", "Necklace of Blissful Harmony", "No sign of morning coming");
+        addPages("necklace_of_blissful_harmony",
+                "To focus on my magics I more often than not need peace and clarity. Not always does this bliss come to me naturally, but that changes now. While worn, this accessory will hide my presence from nearby adversaries, decreasing their likelihood of taking interest in me.",
+                "Upon further studies, it would appear that the effects of my newly forged trinket are " + italic("especially") + " potent when exerting their influence over any soul bearing wicked spirit.");
 
         addEntryHeader("necklace_of_the_mystic_mirror", "Necklace of the Mystic Mirror", "As without, so within");
         addHeadline("necklace_of_the_mystic_mirror", "The Mystic Mirror");
@@ -390,8 +395,8 @@ public class MalumLang extends LanguageProvider {
 
         addSimpleEntryHeader("totem_magic", "Totem Magic", "Arcana unleashed");
         addPages("totem_magic",
-                "Up until now, when performing spirit arcana, I have limited my research to personal enhancement and material production. Now, I affect the world. To begin with, I may engrave spirit arcana into Runewood Logs, forming a rune representing the magic.",
-                "If unwanted, engraved spirits can be stripped off with an axe, but I have uses in mind. With a Runewood Totem Base, and then a specific set of runes in a Runewood Log pillar placed above my totem base, I can perform a Spirit Rite. These rituals soak power into the world around them, changing the beings or blocks in the area.",
+                "Up until now, when performing spirit arcana, I have limited my research to personal enhancement and material production. Now, I affect the world.",
+                "To begin with Totem Magic, I may engrave spirit arcana into Runewood Logs, forming a rune representing the magic. If unwanted, engraved spirits can be stripped off with an axe, but I have uses in mind. With a Runewood Totem Base, and then a specific set of runes in a totem pole placed above my totem base, I can perform a Spirit Rite.",
                 "While each rite does offer a unique function, they follow patterns and categorize easily. For what I term \"aura rites\", they are simple, effect-providing rites that affect anything living within eight blocks of the base. For other rituals which alter beings, most affect anything within half the range of an aura rite.",
                 "For those which alter blocks, most affect the five-by-five area on the level beneath the base, towards where the runes are facing. These rituals can also be made more selective with the use of Item Stands. By placing them on the sides of the rune pillars, you can make the ritual only recognize and alter the types of blocks lying on the stands.",
                 "One caveat is that no rite's totem may function within the range of another, identical ritual. If you try, the first one will simply fizzle out, the energies coursing through it disrupted.");
@@ -406,7 +411,7 @@ public class MalumLang extends LanguageProvider {
         addPage("arcane_rite",
                 "The rite - if you could call something so chaotic that - corrupts and burns through the totem, altering its very base nature, and transmuting the world around it into some indeterminate blighted powder.");
         addPage("corrupt_arcane_rite",
-                "Now already scarred, the power bleeds from the totem, corrupting and warping things around it that are above that blighted substance, whether in pedestals, placed, or just loose.");
+                "Now already scarred, the power bleeds from the totem, corrupting and warping the nearby area. Any nearby block placed atop that blighted substance will be altered, given a new form.");
 
         addEntryHeader("sacred_rite", "Sacred Rites", "Invigorating the soul");
         addPage("sacred_rite", "Nearby friendly beings are slowly healed.");
@@ -489,8 +494,6 @@ public class MalumLang extends LanguageProvider {
                 "The sticky lifeblood of the tree also seems to well up much more often in a tree than in Runewood. The sap's effects are corrupted as well; rather than restoring my vigor, Unholy Syrup enhances it, increasing my attack strength.");
 
         addSimpleEntryHeader("metallurgic_trinkets", "Metallurgic Trinkets", "yeah");
-        addHeadline("necklace_of_blissful_harmony", "Necklace of Blissful Harmony");
-        addPages("necklace_of_blissful_harmony", "To focus on my magics I find myself needing peace and clarity. Not always does this bliss come to me naturally, to fix this issue I have created this necklace. While worn, this accessory will hide my presence from nearby adversaries, decreasing their likelihood of taking interest in me.");
         addHeadline("ring_of_the_demolitionist", "ring_of_the_demolitionist");
         addPages("ring_of_the_demolitionist", "Your explosions are bigger.");
         addHeadline("necklace_of_tidal_affinity", "Water");
@@ -498,14 +501,11 @@ public class MalumLang extends LanguageProvider {
 
         addSimpleEntryHeader("transmutation", "Transmutation", "Volatile Reactions");
         addPages("transmutation.intro",
-                "The unchained rite is used to change the nature of the mundane, and this doesn't appear to be limited to just Souldwood. After countless hours spent trying to discover all the secrets the Rite holds, I've come to document just three transmutation trees of sorts.",
-                "A Blight-Based Transmutation revolves around using the Unchained Rite to change blocks, depending on which material we start with, the Rite will shift any given block forward in the tree, turning it into blight at the very end of it.");
+                "The unchained rite is used to change the nature of the mundane, and upon further study, this doesn't appear to be limited to just Souldwood. After countless hours spent trying to discover all the secrets the Rite holds, I've come to document just three transmutation trees of sorts.",
+                "An Unchained Transmutation revolves around using the chaotic ritual to change matter, depending on which material we start with, the Rite will shift any given block forward in the tree, turning it into blight at the very end of it. There doesn't appear to be any reason for ");
         addHeadline("transmutation.stone", "Transmutation: Basic");
         addHeadline("transmutation.deepslate", "Transmutation: Endothermic");
         addHeadline("transmutation.smooth_basalt", "Transmutation: Exothermic");
-
-        addSimpleEntryHeader("alteration_plinth", "Alteration Plinth thing", "modify items and stuff");
-        addPages("alteration_plinth.intro", "You can modify items, place thing A in the table, then right click with thing B. Currently the main purpose is changing the appearance of your malum armor. Try using an eldritch spirit, ancient scrap, or even an egg or moss block. There's a lot of vanity stuff that I don't feel like making a JEI tab for rn.");
 
         addSimpleEntryHeader("etheric_nitrate", "Etheric Nitrate", "La bomba");
         addPages("etheric_nitrate", "It's a throwable bomb. Not much to it, but it looks pretty I guess.");
@@ -519,11 +519,11 @@ public class MalumLang extends LanguageProvider {
         addPages("tyrving", "The Tyrving is a rather esoteric blade. It's strange design makes it appear as a weak weapon not suited for combat. However, it's hex ash lining and twisted rock form cause it to deal extra magic damage to the soul, the greater the soul the more benefit.",
                 "The weapon can also be repaired using arcane restoration quite efficiently.");
 
-        addSimpleEntryHeader("magebane_belt", "Magebane Belt", "Retaliation");
-        addPages("magebane_belt", "By twisting a gilded belt into it's rather sinister alter ego I may create the magebane belt. This alteration exchanges defense for offense, allowing my soul ward shielding to reroute any damage it absorbs back to the inflicter.");
+        addSimpleEntryHeader("magebane_belt", "Magebane Belt", "Newfound Ruin");
+        addPages("magebane_belt", "The Magebane Belt is, to say the least, a work of art. It's effect is simple; When struck by magic damage, the belt will absorb some of the loose arcana and reroute it directly into the bearer's soul ward, causing it to begin recovery right away.");
 
-        addSimpleEntryHeader("necklace_of_the_hidden_blade", "Necklace of The Hidden Blade", "No idea what to put here");
-        addPages("necklace_of_the_hidden_blade", "When the bearer of this necklace is struck, they receive a temporary but incredibly powerful boost to their scythe's damage output proportional to the amount of damage taken. The effect lasts for a single strike.");
+        addSimpleEntryHeader("necklace_of_the_hidden_blade", "Necklace of The Hidden Blade", "Wicked Retaliation");
+        addPages("necklace_of_the_hidden_blade", "When the bearer of this necklace is struck, they receive a temporary but incredibly powerful boost to their scythe's damage output. The strength of this effect is exponentially proportional to the amount of damage taken, but lasts for only a single strike.");
 
         addSimpleEntryHeader("the_device", "The Device.", "microwave to recharge");
         addPage("the_device", "even works while bended");

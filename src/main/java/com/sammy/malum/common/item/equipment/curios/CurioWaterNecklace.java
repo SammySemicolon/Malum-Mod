@@ -32,12 +32,13 @@ public class CurioWaterNecklace extends MalumCurioItem implements IMalumEventRes
         map.put(ForgeMod.SWIM_SPEED.get(), new AttributeModifier(uuids.computeIfAbsent(0, (i) -> UUID.randomUUID()), "Swim Speed", 0.15f, AttributeModifier.Operation.ADDITION) {
             @Override
             public double getAmount() {
+                double amount = super.getAmount();
                 if (slotContext.entity() != null) {
                     if (slotContext.entity().hasEffect(MobEffects.CONDUIT_POWER)) {
-                        return 0.45f;
+                        return amount * 3f;
                     }
                 }
-                return super.getAmount();
+                return amount;
             }
         });
         return map;
@@ -45,7 +46,7 @@ public class CurioWaterNecklace extends MalumCurioItem implements IMalumEventRes
 
     @Override
     public void curioTick(String identifier, int index, LivingEntity livingEntity, ItemStack stack) {
-        if (livingEntity.level.getGameTime() % 40L == 0 && livingEntity.isSwimming() && livingEntity.hasEffect(MobEffects.CONDUIT_POWER)) {
+        if (livingEntity.level.getGameTime() % 40L == 0 && livingEntity.isSwimming()) {
             AttributeInstance attribute = livingEntity.getAttribute(ForgeMod.SWIM_SPEED.get());
             if (attribute != null) {
                 attribute.setDirty();
