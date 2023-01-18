@@ -10,6 +10,8 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.network.PacketDistributor;
 import team.lodestar.lodestone.setup.LodestoneParticleRegistry;
 import team.lodestar.lodestone.systems.easing.Easing;
@@ -56,6 +58,7 @@ public class EthericNitrateEntity extends AbstractNitrateEntity {
         return 2.75f;
     }
 
+    @OnlyIn(Dist.CLIENT)
     @Override
     public void spawnParticles() {
         double ox = xOld, oy = yOld + getYOffset(0) + 0.25f, oz = zOld;

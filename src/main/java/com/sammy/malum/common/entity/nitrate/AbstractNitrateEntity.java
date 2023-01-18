@@ -1,6 +1,7 @@
 package com.sammy.malum.common.entity.nitrate;
 
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -86,7 +87,7 @@ public abstract class AbstractNitrateEntity extends ThrowableProjectile {
         if (windUp < 1f) {
             windUp += 0.1f;
         }
-        if (level.isClientSide) {
+        if (!(level instanceof ServerLevel)) {
             spawnParticles();
         }
     }
