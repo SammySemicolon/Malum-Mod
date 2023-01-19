@@ -29,6 +29,7 @@ public class SyncMalumPlayerCapabilityDataPacket extends LodestoneClientPacket {
     }
 
     @OnlyIn(Dist.CLIENT)
+    @Override
     public void execute(Supplier<NetworkEvent.Context> context) {
         Player player = Minecraft.getInstance().level.getPlayerByUUID(uuid);
         MalumPlayerDataCapability.getCapabilityOptional(player).ifPresent(c -> c.deserializeNBT(tag));

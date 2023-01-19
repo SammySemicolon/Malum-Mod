@@ -81,19 +81,6 @@ public class ArcaneRiteType extends MalumRiteType {
                 Level level = totemBase.getLevel();
                 BlockPos pos = totemBase.getBlockPos();
                 List<BlockPos> nearbyBlocks = getNearbyBlocks(totemBase, BlightedSoilBlock.class).toList();
-                List<ItemEntity> nearbyItems = getNearbyEntities(totemBase, ItemEntity.class, e -> e.level.getBlockState(e.blockPosition()).getBlock() instanceof BlightedSoilBlock).toList();
-                for (ItemEntity itemEntity : nearbyItems) {
-                    if (!totemBase.cachedFilterInstances.isEmpty() && !totemBase.cachedFilterInstances.stream().map(e -> e.inventory.getStackInSlot(0)).anyMatch(i -> i.getItem().equals(itemEntity.getItem().getItem()))) {
-                        continue;
-                    }
-                    var recipe = SpiritTransmutationRecipe.getRecipe(level, itemEntity.getItem());
-                    if (recipe != null) {
-                        Vec3 itemPos = itemEntity.position();
-                        level.addFreshEntity(new ItemEntity(level, itemPos.x, itemPos.y, itemPos.z, recipe.output.copy()));
-                        MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(itemEntity.blockPosition())), new BlightTransformItemParticlePacket(List.of(ARCANE_SPIRIT.identifier), itemPos));
-                        itemEntity.getItem().shrink(1);
-                    }
-                }
                 for (BlockPos p : nearbyBlocks) {
                     BlockPos posToTransmute = p.above();
                     BlockState stateToTransmute = level.getBlockState(posToTransmute);

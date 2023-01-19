@@ -632,7 +632,7 @@ public class ProgressionBookScreen extends Screen {
                 .addPage(new HeadlineTextPage("soulwood.sap", "soulwood.sap.1"))
         );
         ENTRIES.add(new BookEntry(
-                "transmutation", BLIGHTED_SOIL.get(), 0, 13).setSoulwood()
+                "transmutation", SOUL_SAND, 0, 13).setSoulwood()
                 .addPage(new HeadlineTextPage("transmutation", "transmutation.intro.1"))
                 .addPage(new TextPage("transmutation.intro.2"))
                 .addPage(new SpiritTransmutationPage("transmutation.stone", STONE))
@@ -641,28 +641,18 @@ public class ProgressionBookScreen extends Screen {
         );
 
 //        ENTRIES.add(new BookEntry(
-//                "alteration_plinth", ALTERATION_PLINTH.get(), 1, 13).setSoulwood()
-//                .addPage(new HeadlineTextPage("alteration_plinth", "alteration_plinth.intro.1"))
-//                .addPage(SpiritInfusionPage.fromOutput(ALTERATION_PLINTH.get()))
+//                "cursed_grit", CURSED_GRIT.get(), -2, 14).setSoulwood()
+//                .addPage(new HeadlineTextPage("cursed_grit", "cursed_grit.1"))
+//                .addPage(SpiritInfusionPage.fromOutput(CURSED_GRIT.get()))
 //        );
-
-        ENTRIES.add(new BookEntry( //TODO: also name this something better
-                "metallurgic_trinkets", NECKLACE_OF_BLISSFUL_HARMONY.get(), -2, 14).setSoulwood()
-                .addPage(new HeadlineTextPage("necklace_of_blissful_harmony", "necklace_of_blissful_harmony.1"))
-                .addPage(SpiritInfusionPage.fromOutput(NECKLACE_OF_BLISSFUL_HARMONY.get()))
-                .addPage(new HeadlineTextPage("ring_of_the_demolitionist", "ring_of_the_demolitionist.1"))
-                .addPage(SpiritInfusionPage.fromOutput(RING_OF_THE_DEMOLITIONIST.get()))
-                .addPage(new HeadlineTextPage("necklace_of_tidal_affinity", "necklace_of_tidal_affinity.1"))
-                .addPage(SpiritInfusionPage.fromOutput(NECKLACE_OF_TIDAL_AFFINITY.get()))
-        );
-
-        ENTRIES.add(new BookEntry(
-                "etheric_nitrate", ETHERIC_NITRATE.get(), 2, 14).setSoulwood()
-                .addPage(new HeadlineTextPage("etheric_nitrate", "etheric_nitrate.1"))
-                .addPage(SpiritInfusionPage.fromOutput(ETHERIC_NITRATE.get()))
-                .addPage(new HeadlineTextPage("etheric_nitrate.vivid_nitrate", "etheric_nitrate.vivid_nitrate.1"))
-                .addPage(SpiritInfusionPage.fromOutput(VIVID_NITRATE.get()))
-        );
+//
+//        ENTRIES.add(new BookEntry(
+//                "etheric_nitrate", ETHERIC_NITRATE.get(), -3, 15).setSoulwood()
+//                .addPage(new HeadlineTextPage("etheric_nitrate", "etheric_nitrate.1"))
+//                .addPage(SpiritInfusionPage.fromOutput(ETHERIC_NITRATE.get()))
+//                .addPage(new HeadlineTextPage("etheric_nitrate.vivid_nitrate", "etheric_nitrate.vivid_nitrate.1"))
+//                .addPage(SpiritInfusionPage.fromOutput(VIVID_NITRATE.get()))
+//        );
 
         ENTRIES.add(new BookEntry(
                 "corrupted_resonance", CORRUPTED_RESONANCE.get(), 0, 15).setSoulwood()
@@ -673,6 +663,7 @@ public class ProgressionBookScreen extends Screen {
         ENTRIES.add(new BookEntry(
                 "magebane_belt", BELT_OF_THE_MAGEBANE.get(), -1, 16).setSoulwood()
                 .addPage(new HeadlineTextPage("magebane_belt", "magebane_belt.1"))
+                .addPage(new TextPage("magebane_belt.2"))
                 .addPage(SpiritInfusionPage.fromOutput(BELT_OF_THE_MAGEBANE.get()))
         );
 

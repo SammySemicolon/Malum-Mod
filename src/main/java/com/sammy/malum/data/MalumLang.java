@@ -277,7 +277,7 @@ public class MalumLang extends LanguageProvider {
 
         addSimpleEntryHeader("spirit_focusing", "Spirit Focusing", "Mystic replication");
         addPages("spirit_focusing",
-                "Using the opposing polarities of Twisted and Tainted Rock, I have created a device that draws in and focuses arcane energy. Similar to the Spirit Altar, if given a compatible substrate, I can use this process to produce things.",
+                "Using the opposing polarities of Twisted and Tainted Rock, I have created a device that draws in and focuses arcane energy. If given a compatible substrate, I can use this process to create things.",
                 "The basic substrate here is the Alchemical Impetus, an artifact similar to those I've seen in the past. By focusing arcana into it, I can cause bits of the calx to transmute into something new, though this damages the Impetus in the process.");
 
         addSimpleEntryHeader("focus_ashes", "Arising of Ashes", "Creating powdered reagents");
@@ -364,7 +364,7 @@ public class MalumLang extends LanguageProvider {
         addPages("belt_of_the_prospector.ring_of_the_hoarder",
                 "While wearing this ring, any item created from the destruction caused by your explosions is directly teleported to your location.");
 
-        addSimpleEntryHeader("necklace_of_blissful_harmony", "Necklace of Blissful Harmony", "No sign of morning coming");
+        addSimpleEntryHeader("necklace_of_blissful_harmony", "The Blissful Harmony", "No sign of morning coming");
         addPages("necklace_of_blissful_harmony",
                 "To focus on my magics I more often than not need peace and clarity. Not always does this bliss come to me naturally, but that changes now. While worn, this accessory will hide my presence from nearby adversaries, decreasing their likelihood of taking interest in me.",
                 "Upon further studies, it would appear that the effects of my newly forged trinket are " + italic("especially") + " potent when exerting their influence over any soul bearing wicked spirit.");
@@ -493,12 +493,6 @@ public class MalumLang extends LanguageProvider {
         addPages("soulwood.sap",
                 "The sticky lifeblood of the tree also seems to well up much more often in a tree than in Runewood. The sap's effects are corrupted as well; rather than restoring my vigor, Unholy Syrup enhances it, increasing my attack strength.");
 
-        addSimpleEntryHeader("metallurgic_trinkets", "Metallurgic Trinkets", "yeah");
-        addHeadline("ring_of_the_demolitionist", "ring_of_the_demolitionist");
-        addPages("ring_of_the_demolitionist", "Your explosions are bigger.");
-        addHeadline("necklace_of_tidal_affinity", "Water");
-        addPages("necklace_of_tidal_affinity", "You are faster in water. While under the effect of conduit power, the effect is further improved. You also amass a strong damage reduction and are blessed with constant health regeneration.");
-
         addSimpleEntryHeader("transmutation", "Transmutation", "Volatile Reactions");
         addPages("transmutation.intro",
                 "The unchained rite is used to change the nature of the mundane, and upon further study, this doesn't appear to be limited to just Souldwood. After countless hours spent trying to discover all the secrets the Rite holds, I've come to document just three transmutation trees of sorts.",
@@ -507,20 +501,16 @@ public class MalumLang extends LanguageProvider {
         addHeadline("transmutation.deepslate", "Transmutation: Endothermic");
         addHeadline("transmutation.smooth_basalt", "Transmutation: Exothermic");
 
-        addSimpleEntryHeader("etheric_nitrate", "Etheric Nitrate", "La bomba");
-        addPages("etheric_nitrate", "It's a throwable bomb. Not much to it, but it looks pretty I guess.");
-        addHeadline("etheric_nitrate.vivid_nitrate", "Vivid Nitrate");
-        addPages("etheric_nitrate.vivid_nitrate", "Vivid nitrate, which lacks a proper texture as of right now, is a devilish creation. It's a much more potent version of etheric nitrate that also bounces every time it explodes.");
-
-        addSimpleEntryHeader("corrupted_resonance", "Corrupted Resonance", "Cool expensive material");
-        addPages("corrupted_resonance", "This thing is expensive, and used to craft some powerful items in malum. Using the alteration plinth players will be able to combine any weapon with this item to allow their weapon to shatter souls. This isn't implemented yet.");
+        addSimpleEntryHeader("corrupted_resonance", "Corrupted Resonance", "Advanced Magics");
+        addPages("corrupted_resonance", "To fuel any further magics, I will need a catalyst. Something beautiful, full of magic, serving as the basis for any complex craft born from it. Corrupted Resonance is perfect for the role.");
 
         addSimpleEntryHeader("tyrving", "Tyrving", "Ancient Relic");
         addPages("tyrving", "The Tyrving is a rather esoteric blade. It's strange design makes it appear as a weak weapon not suited for combat. However, it's hex ash lining and twisted rock form cause it to deal extra magic damage to the soul, the greater the soul the more benefit.",
                 "The weapon can also be repaired using arcane restoration quite efficiently.");
 
         addSimpleEntryHeader("magebane_belt", "Magebane Belt", "Newfound Ruin");
-        addPages("magebane_belt", "The Magebane Belt is, to say the least, a work of art. It's effect is simple; When struck by magic damage, the belt will absorb some of the loose arcana and reroute it directly into the bearer's soul ward, causing it to begin recovery right away.");
+        addPages("magebane_belt", "The Magebane Belt is one of my more devious inventions, and dead simple too. Normally, after being struck by any attack, soul ward will not recover until a long moment after. That moment of downtime has proven itself detrimental far too frequently. But that ends now.",
+                "The belt will absorb loose arcane essence of any instance of magical damage that strikes its bearer, and convert that repurposed energy into an immediate recovery of my arcane barrier.");
 
         addSimpleEntryHeader("necklace_of_the_hidden_blade", "Necklace of The Hidden Blade", "Wicked Retaliation");
         addPages("necklace_of_the_hidden_blade", "When the bearer of this necklace is struck, they receive a temporary but incredibly powerful boost to their scythe's damage output. The strength of this effect is exponentially proportional to the amount of damage taken, but lasts for only a single strike.");

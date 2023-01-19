@@ -133,8 +133,5 @@ public class MalumSpiritTransmutationRecipes extends RecipeProvider {
 
         new SpiritTransmutationRecipeBuilder(Blocks.ICE, BLIGHTED_SOIL.get())
             .build(consumer, "ice_to_blighted_soil");
-
-        new SpiritTransmutationRecipeBuilder(ItemRegistry.HEX_ASH.get(), ItemRegistry.CURSED_GRIT.get())
-            .build(consumer);
     }
 }
