@@ -14,23 +14,19 @@ import net.minecraft.world.level.Level;
 import static net.minecraft.client.renderer.texture.OverlayTexture.NO_OVERLAY;
 
 
-public class SpiritJarRenderer implements BlockEntityRenderer<SpiritJarBlockEntity>
-{
-    public SpiritJarRenderer(BlockEntityRendererProvider.Context context)
-    {
+public class SpiritJarRenderer implements BlockEntityRenderer<SpiritJarBlockEntity> {
+    public SpiritJarRenderer(BlockEntityRendererProvider.Context context) {
     }
-    
+
     @Override
-    public void render(SpiritJarBlockEntity blockEntityIn, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int combinedLightIn, int combinedOverlayIn)
-    {
+    public void render(SpiritJarBlockEntity blockEntityIn, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int combinedLightIn, int combinedOverlayIn) {
         Level level = Minecraft.getInstance().level;
         ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
-        if (blockEntityIn.type != null)
-        {
+        if (blockEntityIn.type != null) {
             poseStack.pushPose();
-            double y =  0.5f + Math.sin((level.getGameTime() + partialTicks) / 20f) * 0.2f;
-            poseStack.translate(0.5f,y,0.5f);
-            poseStack.mulPose(Vector3f.YP.rotationDegrees((level.getGameTime() + partialTicks) * 3));
+            double y = 0.5f + Math.sin((level.getGameTime() + partialTicks) / 20f) * 0.2f;
+            poseStack.translate(0.5f, y, 0.5f);
+            poseStack.mulPose(Vector3f.YP.rotationDegrees(((level.getGameTime() % 360) + partialTicks) * 3));
             poseStack.scale(0.6f, 0.6f, 0.6f);
             itemRenderer.renderStatic(blockEntityIn.type.getSplinterItem().getDefaultInstance(), ItemTransforms.TransformType.FIXED, combinedLightIn, NO_OVERLAY, poseStack, bufferIn, 0);
             poseStack.popPose();

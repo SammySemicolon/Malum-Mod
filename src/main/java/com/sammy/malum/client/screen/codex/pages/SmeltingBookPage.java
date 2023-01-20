@@ -18,7 +18,7 @@ public class SmeltingBookPage extends BookPage {
     private final ItemStack outputStack;
 
     public SmeltingBookPage(ItemStack inputStack, ItemStack outputStack) {
-        super(MalumMod.prefix("textures/gui/book/pages/smelting_page.png"));
+        super(MalumMod.malumPath("textures/gui/book/pages/smelting_page.png"));
         this.inputStack = inputStack;
         this.outputStack = outputStack;
     }

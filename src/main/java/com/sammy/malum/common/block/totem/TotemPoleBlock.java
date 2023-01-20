@@ -1,24 +1,26 @@
 package com.sammy.malum.common.block.totem;
 
-import com.sammy.malum.common.blockentity.totem.TotemPoleTileEntity;
-import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
-import com.sammy.ortus.systems.block.OrtusBlock;
+import com.sammy.malum.common.blockentity.totem.TotemPoleBlockEntity;
+import com.sammy.malum.registry.common.SpiritTypeRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.phys.HitResult;
+import team.lodestar.lodestone.systems.block.LodestoneEntityBlock;
 
 import java.util.function.Supplier;
 
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.HORIZONTAL_FACING;
 
-public class TotemPoleBlock<T extends TotemPoleTileEntity> extends OrtusBlock<T> {
+public class TotemPoleBlock<T extends TotemPoleBlockEntity> extends LodestoneEntityBlock<T> {
 
     public final Supplier<? extends Block> logBlock;
     public final boolean corrupted;
@@ -31,10 +33,24 @@ public class TotemPoleBlock<T extends TotemPoleTileEntity> extends OrtusBlock<T>
     }
 
     @Override
+    public boolean hasAnalogOutputSignal(BlockState pState) {
+        return true;
+    }
+
+    @Override
+    public int getAnalogOutputSignal(BlockState pState, Level pLevel, BlockPos pPos) {
+        BlockEntity be = pLevel.getBlockEntity(pPos);
+        if (be instanceof TotemPoleBlockEntity pole) {
+            return Math.min(SpiritTypeRegistry.getIndexForSpiritType(pole.type) + 1, 15);
+        }
+        return 0;
+    }
+
+
+    @Override
     public ItemStack getCloneItemStack(BlockState state, HitResult target, BlockGetter world, BlockPos pos, Player player) {
         return logBlock.get().getCloneItemStack(world, pos, state);
     }
-
 
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {

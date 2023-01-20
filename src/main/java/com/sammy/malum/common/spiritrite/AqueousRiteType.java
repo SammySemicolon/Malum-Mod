@@ -1,17 +1,13 @@
 package com.sammy.malum.common.spiritrite;
 
-import com.sammy.malum.common.packets.particle.MagicParticlePacket;
-import com.sammy.malum.core.setup.content.potion.EffectRegistry;
+import com.sammy.malum.registry.common.potion.MalumMobEffectRegistry;
+import com.sammy.malum.core.systems.rites.AuraRiteEffect;
+import com.sammy.malum.core.systems.rites.MalumRiteEffect;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.Level;
-import net.minecraftforge.network.PacketDistributor;
+import net.minecraft.world.entity.LivingEntity;
 
-import static com.sammy.malum.core.setup.content.SpiritTypeRegistry.*;
-import static com.sammy.malum.core.setup.server.PacketRegistry.INSTANCE;
+import static com.sammy.malum.registry.common.SpiritTypeRegistry.AQUEOUS_SPIRIT;
+import static com.sammy.malum.registry.common.SpiritTypeRegistry.ARCANE_SPIRIT;
 
 public class AqueousRiteType extends MalumRiteType {
     public AqueousRiteType() {
@@ -19,26 +15,12 @@ public class AqueousRiteType extends MalumRiteType {
     }
 
     @Override
-    public void riteEffect(Level level, BlockPos pos, int height) {
-        if (!level.isClientSide) {
-            getNearbyEntities(Player.class, level, pos, false).forEach(e -> {
-                if (e.getEffect(EffectRegistry.AQUEOUS_AURA.get()) == null) {
-                    INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(() -> e), new MagicParticlePacket(AQUEOUS_SPIRIT_COLOR, e.blockPosition().getX(), e.blockPosition().getY() + e.getBbHeight() / 2f, e.blockPosition().getZ()));
-                }
-                e.addEffect(new MobEffectInstance(EffectRegistry.AQUEOUS_AURA.get(), 200, 1));
-            });
-        }
+    public MalumRiteEffect getNaturalRiteEffect() {
+        return new AuraRiteEffect(LivingEntity.class, MalumMobEffectRegistry.POSEIDONS_GRASP, AQUEOUS_SPIRIT);
     }
 
     @Override
-    public void corruptedRiteEffect(Level level, BlockPos pos, int height) {
-        if (!level.isClientSide) {
-            getNearbyEntities(Player.class, level, pos, false).forEach(e -> {
-                if (e.getEffect(MobEffects.WATER_BREATHING) == null) {
-                    INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(() -> e), new MagicParticlePacket(AQUEOUS_SPIRIT_COLOR, e.blockPosition().getX(), e.blockPosition().getY() + e.getBbHeight() / 2f, e.blockPosition().getZ()));
-                }
-                e.addEffect(new MobEffectInstance(MobEffects.WATER_BREATHING, 200, 0));
-            });
-        }
+    public MalumRiteEffect getCorruptedEffect() {
+        return new AuraRiteEffect(LivingEntity.class, MalumMobEffectRegistry.ANGLERS_LURE, AQUEOUS_SPIRIT);
     }
 }

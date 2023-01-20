@@ -1,0 +1,8 @@
+{
+	"parent": "malum:block/templates/template_sconce",
+	"textures": {
+		"fire": "malum:block/blazing_sconce_fire",
+		"particle": "malum:block/blazing_sconce",
+		"sconce": "malum:block/blazing_sconce"
+	}
+}

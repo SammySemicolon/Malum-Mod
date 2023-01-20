@@ -1,0 +1,34 @@
+{
+  "type": "malum:spirit_infusion",
+  "input": {
+    "item": "malum:ornate_ring",
+    "count": 1
+  },
+  "output": {
+    "item": "malum:ring_of_the_demolitionist"
+  },
+  "extra_items": [
+    {
+      "item": "malum:copper_node",
+      "count": 6
+    },
+    {
+      "item": "minecraft:gunpowder",
+      "count": 4
+    },
+    {
+      "item": "malum:cursed_grit",
+      "count": 4
+    }
+  ],
+  "spirits": [
+    {
+      "type": "infernal",
+      "count": 32
+    },
+    {
+      "type": "eldritch",
+      "count": 4
+    }
+  ]
+}

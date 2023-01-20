@@ -1,0 +1,14 @@
+{
+  "registry_name": "betterend:shadow_walker",
+  "primary_type": "eldritch",
+  "spirits": [
+    {
+      "spirit": "wicked",
+      "count": 1
+    },
+    {
+      "spirit": "eldritch",
+      "count": 2
+    }
+  ]
+}

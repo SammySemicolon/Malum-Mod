@@ -10,6 +10,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -34,12 +35,21 @@ public class SpiritJarItem extends BlockItem {
     }
 
     @Override
+    public Rarity getRarity(ItemStack pStack) {
+        if (pStack.hasTag() && pStack.getTag().contains("spirit")) {
+            MalumSpiritType spirit = SpiritHelper.getSpiritType(pStack.getTag().getString("spirit"));
+            return spirit.rarity;
+        }
+        return super.getRarity(pStack);
+    }
+
+    @Override
     public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
         if (pStack.hasTag() && pStack.getTag().contains("spirit")) {
             MalumSpiritType spirit = SpiritHelper.getSpiritType(pStack.getTag().getString("spirit"));
             int count = pStack.getTag().getInt("count");
             pTooltip.add(new TranslatableComponent("malum.spirit.description.stored_spirit").withStyle(ChatFormatting.GRAY));
-            pTooltip.add(spirit.getComponent(count));
+            pTooltip.add(spirit.getCountComponent(count));
         }
     }
 

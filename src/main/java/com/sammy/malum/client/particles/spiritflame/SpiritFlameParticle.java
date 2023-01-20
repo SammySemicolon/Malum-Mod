@@ -1,9 +1,9 @@
 package com.sammy.malum.client.particles.spiritflame;
 
-import com.sammy.ortus.systems.rendering.particle.world.FrameSetParticle;
-import com.sammy.ortus.systems.rendering.particle.world.WorldParticleOptions;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.ParticleEngine;
+import team.lodestar.lodestone.systems.rendering.particle.world.FrameSetParticle;
+import team.lodestar.lodestone.systems.rendering.particle.world.WorldParticleOptions;
 
 public class SpiritFlameParticle extends FrameSetParticle {
 
@@ -18,7 +18,7 @@ public class SpiritFlameParticle extends FrameSetParticle {
     public void tick() {
         super.tick();
         xd *= 0.9f;
-        if (data.gravity && age < 5) {
+        if (age < 5) {
             yd += 0.005f;
         } else {
             yd *= 0.9f;

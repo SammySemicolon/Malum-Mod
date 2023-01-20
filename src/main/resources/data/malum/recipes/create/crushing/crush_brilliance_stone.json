@@ -1,0 +1,36 @@
+{
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "create"
+    }
+  ],
+  "type": "create:crushing",
+  "ingredients": [
+    {
+      "item": "malum:brilliant_stone"
+    }
+  ],
+  "results": [
+    {
+      "item": "malum:crushed_brilliance",
+      "count": 1
+    },
+    {
+      "item": "malum:crushed_brilliance",
+      "count": 1,
+      "chance": 0.75
+    },
+    {
+      "item": "create:experience_nugget",
+      "count": 3,
+      "chance": 0.75
+    },
+    {
+      "item": "minecraft:cobblestone",
+      "count": 1,
+      "chance": 0.125
+    }
+  ],
+  "processingTime": 300
+}

@@ -1,17 +1,8 @@
 package com.sammy.malum.common.blockentity.crucible;
 
 import com.sammy.malum.common.item.spirit.MalumSpiritItem;
-import com.sammy.malum.core.setup.content.block.BlockEntityRegistry;
-import com.sammy.malum.core.setup.content.block.BlockRegistry;
-import com.sammy.ortus.helpers.BlockHelper;
-import com.sammy.ortus.helpers.DataHelper;
-import com.sammy.ortus.setup.OrtusParticles;
-import com.sammy.ortus.systems.blockentity.OrtusBlockEntityInventory;
-import com.sammy.ortus.systems.multiblock.HorizontalDirectionStructure;
-import com.sammy.ortus.systems.multiblock.MultiBlockCoreEntity;
-
-import com.sammy.ortus.systems.multiblock.MultiBlockStructure;
-import com.sammy.ortus.systems.rendering.particle.ParticleBuilders;
+import com.sammy.malum.registry.common.block.BlockEntityRegistry;
+import com.sammy.malum.registry.common.block.BlockRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -27,8 +18,16 @@ import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
+import team.lodestar.lodestone.helpers.BlockHelper;
+import team.lodestar.lodestone.setup.LodestoneParticleRegistry;
+import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntityInventory;
+import team.lodestar.lodestone.systems.multiblock.HorizontalDirectionStructure;
+import team.lodestar.lodestone.systems.multiblock.MultiBlockCoreEntity;
+import team.lodestar.lodestone.systems.multiblock.MultiBlockStructure;
+import team.lodestar.lodestone.systems.rendering.particle.ParticleBuilders;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.awt.*;
 import java.util.function.Supplier;
 
@@ -37,15 +36,15 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity impleme
     public static final ICrucibleAccelerator.CrucibleAcceleratorType CATALYZER = new ICrucibleAccelerator.ArrayCrucibleAcceleratorType("catalyzer",
             new float[]{0.2f, 0.25f, 0.3f, 0.4f, 0.45f, 0.5f, 0.6f, 0.8f},
             new int[]{1, 1, 1, 2, 2, 3, 3, 5},
-            new float[]{0.25f, 0.5f, 0.75f, 1f, 1.5f, 2f, 3f, 8f});
+            new float[]{0.25f, 0.5f, 0.75f, 1f, 1.5f, 2.25f, 3.5f, 8f});
 
-    public OrtusBlockEntityInventory inventory;
+    public LodestoneBlockEntityInventory inventory;
     public int burnTicks;
     IAccelerationTarget target;
 
     public SpiritCatalyzerCoreBlockEntity(BlockEntityType<? extends SpiritCatalyzerCoreBlockEntity> type, MultiBlockStructure structure, BlockPos pos, BlockState state) {
         super(type, structure, pos, state);
-        inventory = new OrtusBlockEntityInventory(1, 64, t -> !(t.getItem() instanceof MalumSpiritItem)) {
+        inventory = new LodestoneBlockEntityInventory(1, 64, t -> !(t.getItem() instanceof MalumSpiritItem)) {
             @Override
             public void onContentsChanged(int slot) {
                 super.onContentsChanged(slot);
@@ -131,7 +130,7 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity impleme
             float random = level.random.nextFloat() * 0.04f;
             Vec3 velocity = startPos.subtract(targetItemPos.add(random, random, random)).normalize().scale(-0.08f);
 
-            ParticleBuilders.create(OrtusParticles.WISP_PARTICLE)
+            ParticleBuilders.create(LodestoneParticleRegistry.WISP_PARTICLE)
                     .setAlpha(alpha * 5f, 0f)
                     .setLifetime((int) (10 + level.random.nextInt(8) + Math.sin((0.2 * level.getGameTime()) % 6.28f)))
                     .setScale(0.15f + level.random.nextFloat() * 0.15f, 0)
@@ -139,13 +138,13 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity impleme
                     .setSpinOffset((0.075f * level.getGameTime() % 6.28f))
                     .setSpin(0.1f + level.random.nextFloat() * 0.05f)
                     .setColor(color.brighter(), endColor)
-                    .setAlphaCurveMultiplier(0.5f)
-                    .setColorCurveMultiplier(0.75f)
+                    .setAlphaCoefficient(0.5f)
+                    .setColorCoefficient(0.75f)
                     .setMotion(velocity.x, velocity.y, velocity.z)
                     .enableNoClip()
                     .repeat(level, startPos.x, startPos.y, startPos.z, 1);
 
-            ParticleBuilders.create(OrtusParticles.WISP_PARTICLE)
+            ParticleBuilders.create(LodestoneParticleRegistry.WISP_PARTICLE)
                     .setAlpha(alpha * 3, 0f)
                     .setLifetime(15)
                     .setScale(0.2f + level.random.nextFloat() * 0.15f, 0)
@@ -155,7 +154,7 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity impleme
                     .enableNoClip()
                     .repeat(level, startPos.x, startPos.y, startPos.z, 1);
 
-            ParticleBuilders.create(OrtusParticles.STAR_PARTICLE)
+            ParticleBuilders.create(LodestoneParticleRegistry.STAR_PARTICLE)
                     .setAlpha(alpha * 3, 0f)
                     .setLifetime(15)
                     .setScale(0.45f + level.random.nextFloat() * 0.15f, 0)
@@ -175,26 +174,17 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity impleme
     }
 
     @Override
-    public void onBreak() {
-        inventory.dumpItems(level, DataHelper.fromBlockPos(worldPosition).add(0.5f, 0.5f, 0.5f));
-        super.onBreak();
+    public void onBreak(@Nullable Player player) {
+        inventory.dumpItems(level, BlockHelper.fromBlockPos(worldPosition).add(0.5f, 0.5f, 0.5f));
+        super.onBreak(player);
     }
 
     public static Vec3 getItemPos(SpiritCatalyzerCoreBlockEntity blockEntity) {
-        return DataHelper.fromBlockPos(blockEntity.getBlockPos()).add(blockEntity.itemOffset());
+        return BlockHelper.fromBlockPos(blockEntity.getBlockPos()).add(blockEntity.itemOffset());
     }
 
     public Vec3 itemOffset() {
         return new Vec3(0.5f, 1.95f, 0.5f);
-    }
-
-    @Nonnull
-    @Override
-    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap) {
-        if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-            return inventory.inventoryOptional.cast();
-        }
-        return super.getCapability(cap);
     }
 
     @Nonnull

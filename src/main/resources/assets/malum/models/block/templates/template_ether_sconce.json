@@ -1,0 +1,85 @@
+{
+	"credit": "Made with Blockbench",
+	"elements": [
+		{
+			"from": [7, 0, 7],
+			"to": [9, 8, 9],
+			"rotation": {"angle": 0, "axis": "y", "origin": [15, 7, 16]},
+			"faces": {
+				"north": {"uv": [10, 5, 12, 13], "texture": "#sconce"},
+				"east": {"uv": [10, 5, 12, 13], "texture": "#sconce"},
+				"south": {"uv": [10, 5, 12, 13], "texture": "#sconce"},
+				"west": {"uv": [10, 5, 12, 13], "texture": "#sconce"},
+				"down": {"uv": [7, 13, 9, 15], "texture": "#sconce", "cullface": "down"}
+			}
+		},
+		{
+			"from": [6, 8, 6],
+			"to": [10, 9, 10],
+			"rotation": {"angle": 0, "axis": "y", "origin": [17, 16, 17]},
+			"faces": {
+				"north": {"uv": [6, 4, 10, 5], "texture": "#sconce"},
+				"east": {"uv": [6, 4, 10, 5], "texture": "#sconce"},
+				"south": {"uv": [6, 4, 10, 5], "texture": "#sconce"},
+				"west": {"uv": [6, 4, 10, 5], "texture": "#sconce"},
+				"up": {"uv": [0, 0, 4, 4], "texture": "#sconce"},
+				"down": {"uv": [0, 12, 4, 16], "texture": "#sconce"}
+			}
+		},
+		{
+			"from": [7, 9, 7],
+			"to": [9, 9, 9],
+			"rotation": {"angle": 0, "axis": "y", "origin": [17, 16, 17]},
+			"faces": {
+				"up": {"uv": [1, 1, 3, 3], "texture": "#overlay", "tintindex": 1}
+			}
+		},
+		{
+			"from": [6, 9, 6],
+			"to": [10, 11, 6],
+			"rotation": {"angle": 0, "axis": "y", "origin": [17, 17, 14]},
+			"faces": {
+				"north": {"uv": [6, 2, 10, 4], "texture": "#sconce"},
+				"south": {"uv": [6, 2, 10, 4], "texture": "#sconce"}
+			}
+		},
+		{
+			"from": [6, 9, 10],
+			"to": [10, 11, 10],
+			"rotation": {"angle": 0, "axis": "y", "origin": [17, 17, 18]},
+			"faces": {
+				"north": {"uv": [6, 2, 10, 4], "texture": "#sconce"},
+				"south": {"uv": [6, 2, 10, 4], "texture": "#sconce"}
+			}
+		},
+		{
+			"from": [10, 9, 6],
+			"to": [10, 11, 10],
+			"rotation": {"angle": 0, "axis": "y", "origin": [17, 17, 17]},
+			"faces": {
+				"east": {"uv": [6, 2, 10, 4], "texture": "#sconce"},
+				"west": {"uv": [6, 2, 10, 4], "texture": "#sconce"}
+			}
+		},
+		{
+			"from": [6, 9, 6],
+			"to": [6, 11, 10],
+			"rotation": {"angle": 0, "axis": "y", "origin": [13, 17, 17]},
+			"faces": {
+				"east": {"uv": [6, 2, 10, 4], "texture": "#sconce"},
+				"west": {"uv": [6, 2, 10, 4], "texture": "#sconce"}
+			}
+		}
+	],
+	"groups": [
+		0,
+		1,
+		2,
+		{
+			"name": "group",
+			"origin": [13, 20, 21],
+			"color": 0,
+			"children": [3, 4, 5, 6]
+		}
+	]
+}

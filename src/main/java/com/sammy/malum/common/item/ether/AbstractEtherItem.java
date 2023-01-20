@@ -1,17 +1,17 @@
 package com.sammy.malum.common.item.ether;
 
-import com.sammy.ortus.systems.rendering.particle.screen.emitter.ItemParticleEmitter;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.DyeableLeatherItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
+import team.lodestar.lodestone.systems.rendering.particle.screen.emitter.ItemParticleEmitter;
 
 public abstract class AbstractEtherItem extends BlockItem implements DyeableLeatherItem, ItemParticleEmitter {
-    public static final String firstColor = "firstColor";
-    public static final String secondColor = "secondColor";
-    public static final int defaultFirstColor = 15712278;
-    public static final int defaultSecondColor = 4607909;
+    public static final String FIRST_COLOR = "firstColor";
+    public static final String SECOND_COLOR = "secondColor";
+    public static final int DEFAULT_FIRST_COLOR = 15712278;
+    public static final int DEFAULT_SECOND_COLOR = 4607909;
 
     public final boolean iridescent;
 
@@ -21,7 +21,7 @@ public abstract class AbstractEtherItem extends BlockItem implements DyeableLeat
     }
 
     public String colorLookup() {
-        return iridescent ? secondColor : firstColor;
+        return iridescent ? SECOND_COLOR : FIRST_COLOR;
     }
 
     public int getSecondColor(ItemStack stack) {
@@ -30,26 +30,26 @@ public abstract class AbstractEtherItem extends BlockItem implements DyeableLeat
         }
         CompoundTag tag = stack.getTagElement("display");
 
-        return tag != null && tag.contains(secondColor, 99) ? tag.getInt(secondColor) : defaultSecondColor;
+        return tag != null && tag.contains(SECOND_COLOR, 99) ? tag.getInt(SECOND_COLOR) : DEFAULT_SECOND_COLOR;
     }
 
     public void setSecondColor(ItemStack stack, int color) {
-        stack.getOrCreateTagElement("display").putInt(secondColor, color);
+        stack.getOrCreateTagElement("display").putInt(SECOND_COLOR, color);
     }
 
     public int getFirstColor(ItemStack stack) {
         CompoundTag tag = stack.getTagElement("display");
-        return tag != null && tag.contains(firstColor, 99) ? tag.getInt(firstColor) : defaultFirstColor;
+        return tag != null && tag.contains(FIRST_COLOR, 99) ? tag.getInt(FIRST_COLOR) : DEFAULT_FIRST_COLOR;
     }
 
     public void setFirstColor(ItemStack stack, int color) {
-        stack.getOrCreateTagElement("display").putInt(firstColor, color);
+        stack.getOrCreateTagElement("display").putInt(FIRST_COLOR, color);
     }
 
     @Override
     public int getColor(ItemStack stack) {
         CompoundTag tag = stack.getTagElement("display");
-        return tag != null && tag.contains(colorLookup(), 99) ? tag.getInt(colorLookup()) : defaultFirstColor;
+        return tag != null && tag.contains(colorLookup(), 99) ? tag.getInt(colorLookup()) : DEFAULT_FIRST_COLOR;
     }
 
     @Override

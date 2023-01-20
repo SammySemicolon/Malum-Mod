@@ -1,0 +1,46 @@
+{
+  "advancements": [
+    {
+      "conditions": [
+        {
+          "modid": "supplementaries",
+          "type": "forge:mod_loaded"
+        }
+      ],
+      "advancement": {
+        "parent": "minecraft:recipes/root",
+        "rewards": {
+          "recipes": [
+            "malum:ether_sconce"
+          ]
+        },
+        "criteria": {
+          "has_ether": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+              "items": [
+                {
+                  "items": [
+                    "malum:ether"
+                  ]
+                }
+              ]
+            }
+          },
+          "has_the_recipe": {
+            "trigger": "minecraft:recipe_unlocked",
+            "conditions": {
+              "recipe": "malum:ether_sconce"
+            }
+          }
+        },
+        "requirements": [
+          [
+            "has_ether",
+            "has_the_recipe"
+          ]
+        ]
+      }
+    }
+  ]
+}

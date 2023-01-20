@@ -1,0 +1,50 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "value": {
+            "tag": "forge:ingots/silver",
+            "type": "forge:tag_empty"
+          },
+          "type": "forge:not"
+        }
+      ],
+      "recipe": {
+        "type": "malum:spirit_infusion",
+        "input": {
+          "item": "malum:alchemical_impetus",
+          "count": 1
+        },
+        "output": {
+          "item": "malum:silver_impetus"
+        },
+        "extra_items": [
+          {
+            "tag": "forge:gunpowder",
+            "count": 4
+          },
+          {
+            "item": "malum:cthonic_gold",
+            "count": 1
+          },
+          {
+            "tag": "forge:ingots/silver",
+            "count": 6
+          }
+        ],
+        "spirits": [
+          {
+            "type": "earthen",
+            "count": 8
+          },
+          {
+            "type": "infernal",
+            "count": 8
+          }
+        ]
+      }
+    }
+  ]
+}

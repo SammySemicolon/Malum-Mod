@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "malum:poly_prideweave"
+    ]
+  },
+  "criteria": {
+    "has_spool": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "malum:esoteric_spool"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "malum:poly_prideweave"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_spool",
+      "has_the_recipe"
+    ]
+  ]
+}

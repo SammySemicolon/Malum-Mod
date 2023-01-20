@@ -9,6 +9,10 @@
     {
       "spirit": "infernal",
       "count": 2
+    },
+    {
+      "spirit": "sacred",
+      "count": 1
     }
   ]
 }

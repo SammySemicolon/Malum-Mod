@@ -4,9 +4,15 @@
   "compatibilityLevel": "JAVA_17",
   "refmap": "malum.refmap.json",
   "mixins": [
-    "ItemStackMixin"
+    "ExplosionMixin",
+    "FishingHookEntityMixin",
+    "ItemStackMixin",
+    "LivingEntityMixin",
+    "PlayerMixin"
   ],
   "client": [
+    "ElytraLayerMixin",
+    "ForgeIngameGuiMixin"
   ],
   "injectors": {
     "defaultRequire": 1

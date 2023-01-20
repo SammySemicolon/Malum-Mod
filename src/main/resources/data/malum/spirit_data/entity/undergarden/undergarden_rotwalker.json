@@ -1,0 +1,17 @@
+{
+  "registry_name": "undergarden:rotwalker",
+  "primary_type": "wicked",
+  "spirits": [
+    {
+      "spirit": "arcane",
+      "count": 1
+    },
+    {
+      "spirit": "wicked",
+      "count": 1
+    }
+  ],
+  "spirit_item": {
+    "item": "undergarden:utheric_shard"
+  }
+}

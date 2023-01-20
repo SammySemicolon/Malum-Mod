@@ -1,31 +1,33 @@
 package com.sammy.malum.common.blockentity.crucible;
 
-import com.sammy.ortus.helpers.BlockHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import team.lodestar.lodestone.helpers.BlockHelper;
 
-import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public interface IAccelerationTarget {
 
     boolean canBeAccelerated();
 
-    ArrayList<ICrucibleAccelerator> getAccelerators();
+    List<ICrucibleAccelerator> getAccelerators();
 
-    ArrayList<BlockPos> getAcceleratorPositions();
+    List<BlockPos> getAcceleratorPositions();
 
     default int getLookupRange() {
         return 4;
     }
 
-    default HashMap<ICrucibleAccelerator.CrucibleAcceleratorType, Integer> recalibrateAccelerators(Level level, BlockPos pos) {
+    default Map<ICrucibleAccelerator.CrucibleAcceleratorType, Integer> recalibrateAccelerators(Level level, BlockPos pos) {
         getAccelerators().clear();
         getAcceleratorPositions().clear();
-        ArrayList<ICrucibleAccelerator> nearbyAccelerators = BlockHelper.getBlockEntities(ICrucibleAccelerator.class, level, pos, getLookupRange());
-        HashMap<ICrucibleAccelerator.CrucibleAcceleratorType, Integer> entries = new HashMap<>();
+        Collection<ICrucibleAccelerator> nearbyAccelerators = BlockHelper.getBlockEntities(ICrucibleAccelerator.class, level, pos, getLookupRange());
+        Map<ICrucibleAccelerator.CrucibleAcceleratorType, Integer> entries = new HashMap<>();
         for (ICrucibleAccelerator accelerator : nearbyAccelerators) {
             if (accelerator.canStartAccelerating() && (accelerator.getTarget() == null || accelerator.getTarget() == this)) {
                 accelerator.setTarget(this);
@@ -43,7 +45,7 @@ public interface IAccelerationTarget {
 
     default void saveAcceleratorData(CompoundTag compound) {
         CompoundTag acceleratorTag = new CompoundTag();
-        ArrayList<BlockPos> positions = getAcceleratorPositions();
+        List<BlockPos> positions = getAcceleratorPositions();
         if (!positions.isEmpty()) {
             acceleratorTag.putInt("amount", positions.size());
             for (int i = 0; i < positions.size(); i++) {

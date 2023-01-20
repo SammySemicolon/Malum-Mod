@@ -1,0 +1,19 @@
+{
+  "advancements": [
+    {
+      "conditions": [
+        {
+          "value": {
+            "tag": "forge:nuggets/uranium",
+            "type": "forge:tag_empty"
+          },
+          "type": "forge:not"
+        }
+      ],
+      "advancement": {
+        "criteria": {},
+        "requirements": []
+      }
+    }
+  ]
+}

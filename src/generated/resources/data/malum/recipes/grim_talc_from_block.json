@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "malum:block_of_grim_talc"
+    }
+  ],
+  "result": {
+    "item": "malum:grim_talc",
+    "count": 9
+  }
+}

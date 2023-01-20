@@ -1,6 +1,6 @@
 package com.sammy.malum.common.entity;
 
-import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
+import com.sammy.malum.registry.common.SpiritTypeRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
@@ -10,7 +10,6 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
@@ -22,22 +21,25 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkHooks;
+import team.lodestar.lodestone.helpers.EntityHelper;
+import team.lodestar.lodestone.systems.easing.Easing;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public abstract class FloatingEntity extends Entity {
+
     protected static final EntityDataAccessor<Integer> DATA_COLOR = SynchedEntityData.defineId(FloatingEntity.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Integer> DATA_END_COLOR = SynchedEntityData.defineId(FloatingEntity.class, EntityDataSerializers.INT);
-    public final ArrayList<Vec3> pastPositions = new ArrayList<>();
-    public Color color = SpiritTypeRegistry.SACRED_SPIRIT_COLOR;
-    public Color endColor = SpiritTypeRegistry.SACRED_SPIRIT.endColor;
+    public final ArrayList<EntityHelper.PastPosition> pastPositions = new ArrayList<>(); // *screaming*
+    public Color startColor = SpiritTypeRegistry.ARCANE_SPIRIT.getColor();
+    public Color endColor = SpiritTypeRegistry.ARCANE_SPIRIT.getEndColor();
     public int maxAge;
     public int age;
     public float moveTime;
-    public int range = 3;
     public float windUp;
-    public final float hoverStart;
+    public float hoverStart;
 
     public FloatingEntity(EntityType<? extends FloatingEntity> type, Level level) {
         super(type, level);
@@ -47,41 +49,35 @@ public abstract class FloatingEntity extends Entity {
 
     @Override
     protected void defineSynchedData() {
-        this.getEntityData().define(DATA_COLOR, SpiritTypeRegistry.SACRED_SPIRIT_COLOR.getRGB());
-        this.getEntityData().define(DATA_END_COLOR, SpiritTypeRegistry.SACRED_SPIRIT.endColor.getRGB());
+        this.getEntityData().define(DATA_COLOR, SpiritTypeRegistry.ARCANE_SPIRIT.getColor().getRGB());
+        this.getEntityData().define(DATA_END_COLOR, SpiritTypeRegistry.ARCANE_SPIRIT.getEndColor().getRGB());
     }
 
     @Override
     public void addAdditionalSaveData(CompoundTag compound) {
         compound.putInt("age", age);
+        compound.putInt("maxAge", maxAge);
         compound.putFloat("moveTime", moveTime);
-        compound.putInt("range", range);
         compound.putFloat("windUp", windUp);
-        compound.putInt("red", color.getRed());
-        compound.putInt("green", color.getGreen());
-        compound.putInt("blue", color.getBlue());
-        compound.putInt("endRed", endColor.getRed());
-        compound.putInt("endGreen", endColor.getGreen());
-        compound.putInt("endBlue", endColor.getBlue());
+
+        compound.putInt("start", startColor.getRGB());
+        compound.putInt("end", endColor.getRGB());
     }
 
     @Override
     public void readAdditionalSaveData(CompoundTag compound) {
         age = compound.getInt("age");
+        maxAge = compound.getInt("maxAge");
         moveTime = compound.getFloat("moveTime");
-        int range = compound.getInt("range");
-        if (range > 0) {
-            this.range = range;
-        }
         windUp = compound.getFloat("windUp");
-        color = new Color(compound.getInt("red"), compound.getInt("green"), compound.getInt("blue"));
-        endColor = new Color(compound.getInt("endRed"), compound.getInt("endGreen"), compound.getInt("endBlue"));
+        startColor = new Color(compound.getInt("start"));
+        endColor = new Color(compound.getInt("end"));
     }
 
     @Override
     public void onSyncedDataUpdated(EntityDataAccessor<?> pKey) {
         if (DATA_COLOR.equals(pKey)) {
-            color = new Color(entityData.get(DATA_COLOR));
+            startColor = new Color(entityData.get(DATA_COLOR));
         }
         if (DATA_END_COLOR.equals(pKey)) {
             endColor = new Color(entityData.get(DATA_END_COLOR));
@@ -92,6 +88,7 @@ public abstract class FloatingEntity extends Entity {
     @Override
     public void tick() {
         super.tick();
+        hoverStart = getHoverStart(0);
         baseTick();
         trackPastPositions();
         age++;
@@ -99,43 +96,30 @@ public abstract class FloatingEntity extends Entity {
             windUp += 0.02f;
         }
         if (age > maxAge) {
-            remove(RemovalReason.KILLED);
+            discard();
         }
         if (level.isClientSide) {
-            double x = getX(), y = getY() + getYOffset(0) + 0.25f, z = getZ();
+            double x = xOld, y = yOld + getYOffset(0) + 0.25f, z = zOld;
             spawnParticles(x, y, z);
-        } else {
-            move();
         }
+        move();
     }
 
     public void trackPastPositions() {
-        Vec3 position = position().add(0, getYOffset(0) + 0.25F, 0);
-        if (!pastPositions.isEmpty()) {
-            Vec3 latest = pastPositions.get(pastPositions.size() - 1);
-            float distance = (float) latest.distanceTo(position);
-            if (distance > 0.1f) {
-                pastPositions.add(position);
+        EntityHelper.trackPastPositions(pastPositions, position().add(0, getYOffset(0) + 0.25F, 0), 0.01f);
+        removeOldPositions(pastPositions);
+    }
+
+    public void removeOldPositions(List<EntityHelper.PastPosition> pastPositions) {
+        int amount = pastPositions.size() - 1;
+        List<EntityHelper.PastPosition> toRemove = new ArrayList<>();
+        for (int i = 0; i < amount; i++) {
+            EntityHelper.PastPosition excess = pastPositions.get(i);
+            if (excess.time > 9) {
+                toRemove.add(excess);
             }
-            int excess = pastPositions.size() - 1;
-            ArrayList<Vec3> toRemove = new ArrayList<>();
-            float efficiency = (float) (excess * 0.12f + Math.exp((Math.max(0, excess - 20)) * 0.2f));
-            float ratio = 0.3f;
-            if (efficiency > 0f) {
-                for (int i = 0; i < excess; i++) {
-                    Vec3 excessPosition = pastPositions.get(i);
-                    Vec3 nextExcessPosition = pastPositions.get(i + 1);
-                    pastPositions.set(i, excessPosition.lerp(nextExcessPosition, Math.min(1, ratio * (excess - i) * (ratio + efficiency))));
-                    float excessDistance = (float) excessPosition.distanceTo(nextExcessPosition);
-                    if (excessDistance < 0.05f) {
-                        toRemove.add(pastPositions.get(i));
-                    }
-                }
-                pastPositions.removeAll(toRemove);
-            }
-        } else {
-            pastPositions.add(position);
         }
+        pastPositions.removeAll(toRemove);
     }
 
     public void baseTick() {
@@ -161,6 +145,7 @@ public abstract class FloatingEntity extends Entity {
         this.setXRot(lerpRotation(this.xRotO, (float) (Mth.atan2(movement.y, distance) * (double) (180F / (float) Math.PI))));
         this.setYRot(lerpRotation(this.yRotO, (float) (Mth.atan2(movement.x, movement.z) * (double) (180F / (float) Math.PI))));
         this.setPos(nextX, nextY, nextZ);
+        ProjectileUtil.rotateTowardsMovement(this, 0.2F);
     }
 
     protected static float lerpRotation(float p_37274_, float p_37275_) {
@@ -183,11 +168,15 @@ public abstract class FloatingEntity extends Entity {
     }
 
     public float getYOffset(float partialTicks) {
-        return Mth.sin(((float) age + partialTicks) / 20.0F + hoverStart) * 0.1F + 0.1F;
+        return Mth.sin(((float) age + partialTicks) / 10.0F + getHoverStart(partialTicks)) * 0.1F + 0.1F;
     }
 
     public float getRotation(float partialTicks) {
-        return ((float) age + partialTicks) / 20.0F + this.hoverStart;
+        return ((float) age + partialTicks) / 20.0F + getHoverStart(partialTicks)/2f;
+    }
+
+    public float getHoverStart(float partialTicks) {
+        return hoverStart + (1 - Easing.SINE_OUT.ease(Math.min(1, (age + partialTicks) / 60f), 0, 1, 1)) * 0.35f;
     }
 
     @Override

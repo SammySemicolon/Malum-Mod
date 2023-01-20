@@ -1,0 +1,42 @@
+{
+  "type": "malum:spirit_infusion",
+  "input": {
+    "item": "malum:soulwood_log",
+    "count": 4
+  },
+  "output": {
+    "item": "malum:soulwood_totem_base",
+    "count": 4
+  },
+  "extra_items": [
+    {
+      "item": "malum:soulwood_planks",
+      "count": 6
+    },
+    {
+      "item": "malum:hex_ash",
+      "count": 2
+    }
+  ],
+  "spirits": [
+    {
+      "type": "aerial",
+      "count": 2
+    },
+    {
+      "type": "aqueous",
+      "count": 2
+    },
+    {
+      "type": "earthen",
+      "count": 2
+    },
+    {
+      "type": "infernal",
+      "count": 2
+    },
+    {
+      "type": "eldritch"
+    }
+  ]
+}

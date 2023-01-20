@@ -5,6 +5,10 @@
     {
       "spirit": "aqueous",
       "count": 3
+    },
+    {
+      "spirit": "sacred",
+      "count": 2
     }
   ]
 }

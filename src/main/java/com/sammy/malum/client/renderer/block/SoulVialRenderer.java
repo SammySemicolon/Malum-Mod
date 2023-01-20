@@ -16,10 +16,10 @@ public class SoulVialRenderer implements BlockEntityRenderer<SoulVialBlockEntity
     public void render(SoulVialBlockEntity blockEntityIn, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int combinedLightIn, int combinedOverlayIn) {
         if (blockEntityIn.data != null) {
             poseStack.pushPose();
-            double y = 0.5f + Math.sin((blockEntityIn.getLevel().getGameTime() + partialTicks) / 20f) * 0.08f;
+            double y = 0.5f + Math.sin(((blockEntityIn.getLevel().getGameTime() % 360) + partialTicks) / 20f) * 0.08f;
             poseStack.translate(0.5f, y, 0.5f);
             poseStack.scale(0.75f, 0.75f, 0.75f);
-            SoulEntityRenderer.renderSoul(poseStack, blockEntityIn.data.primaryType.color.darker());
+            SoulEntityRenderer.renderSoul(poseStack, blockEntityIn.data.primaryType.getColor().darker());
             poseStack.popPose();
         }
     }

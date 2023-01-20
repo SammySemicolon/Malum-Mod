@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "malum:alchemical_calx"
+    }
+  },
+  "result": {
+    "item": "malum:block_of_alchemical_calx"
+  }
+}

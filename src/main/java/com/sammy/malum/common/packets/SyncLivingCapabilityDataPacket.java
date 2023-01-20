@@ -1,19 +1,20 @@
 package com.sammy.malum.common.packets;
 
-import com.sammy.malum.common.capability.LivingEntityDataCapability;
+import com.sammy.malum.common.capability.MalumLivingEntityDataCapability;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.fml.loading.FMLEnvironment;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.network.NetworkEvent;
 import net.minecraftforge.network.simple.SimpleChannel;
+import team.lodestar.lodestone.systems.network.LodestoneClientPacket;
 
 import java.util.function.Supplier;
 
-public class SyncLivingCapabilityDataPacket {
+public class SyncLivingCapabilityDataPacket extends LodestoneClientPacket {
     private final int entityId;
     private final CompoundTag tag;
 
@@ -22,34 +23,24 @@ public class SyncLivingCapabilityDataPacket {
         this.tag = tag;
     }
 
-    public static void register(SimpleChannel instance, int index) {
-        instance.registerMessage(index, SyncLivingCapabilityDataPacket.class, SyncLivingCapabilityDataPacket::encode, SyncLivingCapabilityDataPacket::decode, SyncLivingCapabilityDataPacket::execute);
-    }
-
-    public static SyncLivingCapabilityDataPacket decode(FriendlyByteBuf buf) {
-        return new SyncLivingCapabilityDataPacket(buf.readInt(), buf.readNbt());
-    }
-
     public void encode(FriendlyByteBuf buf) {
         buf.writeInt(entityId);
         buf.writeNbt(tag);
     }
 
+    @OnlyIn(Dist.CLIENT)
     public void execute(Supplier<NetworkEvent.Context> context) {
-        context.get().enqueueWork(() -> {
-            if (FMLEnvironment.dist == Dist.CLIENT) {
-                ClientOnly.syncData(entityId, tag);
-            }
-        });
-        context.get().setPacketHandled(true);
+        Entity entity = Minecraft.getInstance().level.getEntity(entityId);
+        if (entity instanceof LivingEntity livingEntity) {
+            MalumLivingEntityDataCapability.getCapabilityOptional(livingEntity).ifPresent(c -> c.deserializeNBT(tag));
+        }
     }
 
-    public static class ClientOnly {
-        public static void syncData(int entityId, CompoundTag tag) {
-            Entity entity = Minecraft.getInstance().level.getEntity(entityId);
-            if (entity instanceof LivingEntity livingEntity) {
-                LivingEntityDataCapability.getCapability(livingEntity).ifPresent(c -> c.deserializeNBT(tag));
-            }
-        }
+    public static void register(SimpleChannel instance, int index) {
+        instance.registerMessage(index, SyncLivingCapabilityDataPacket.class, SyncLivingCapabilityDataPacket::encode, SyncLivingCapabilityDataPacket::decode, SyncLivingCapabilityDataPacket::handle);
+    }
+
+    public static SyncLivingCapabilityDataPacket decode(FriendlyByteBuf buf) {
+        return new SyncLivingCapabilityDataPacket(buf.readInt(), buf.readNbt());
     }
 }

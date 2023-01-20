@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "malum:rotting_essence_from_block"
+    ]
+  },
+  "criteria": {
+    "has_rotting_essence": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "malum:rotting_essence"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "malum:rotting_essence_from_block"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_rotting_essence",
+      "has_the_recipe"
+    ]
+  ]
+}

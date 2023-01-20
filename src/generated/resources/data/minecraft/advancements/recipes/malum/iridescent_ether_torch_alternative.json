@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "minecraft:iridescent_ether_torch_alternative"
+    ]
+  },
+  "criteria": {
+    "has_ether": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "malum:ether"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "minecraft:iridescent_ether_torch_alternative"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_ether",
+      "has_the_recipe"
+    ]
+  ]
+}

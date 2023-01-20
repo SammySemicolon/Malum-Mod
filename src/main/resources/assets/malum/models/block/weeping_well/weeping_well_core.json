@@ -1,0 +1,33 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "block/block",
+	"texture_size": [64, 64],
+	"textures": {
+		"deepslate": "block/deepslate",
+		"deepslate_top": "block/deepslate_top",
+		"weeping_well": "malum:block/weeping_well/weeping_well",
+		"particle": "block/deepslate"
+	},
+	"elements": [
+		{
+			"from": [0, 0, 0],
+			"to": [16, 16, 16],
+			"faces": {
+				"north": {"uv": [0, 0, 16, 16], "texture": "#deepslate"},
+				"east": {"uv": [0, 0, 16, 16], "texture": "#deepslate"},
+				"south": {"uv": [0, 0, 16, 16], "texture": "#deepslate"},
+				"west": {"uv": [0, 0, 16, 16], "texture": "#deepslate"},
+				"up": {"uv": [0, 0, 16, 16], "texture": "#deepslate_top"},
+				"down": {"uv": [0, 0, 16, 16], "texture": "#deepslate_top"}
+			}
+		},
+		{
+			"from": [-0.001, -0.001, 4.999],
+			"to": [16.001, 16.001, 16.001],
+			"faces": {
+				"south": {"uv": [0, 0, 4.0005, 4.0005], "texture": "#weeping_well"},
+				"up": {"uv": [8, 0, 12.0005, 2.7505], "texture": "#weeping_well"}
+			}
+		}
+	]
+}

@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "malum:blighted_weed",
+    "malum:blighted_tumor",
+    "malum:soulwood_growth"
+  ]
+}

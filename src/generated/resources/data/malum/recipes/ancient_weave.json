@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " Y ",
+    "YXY",
+    " Y "
+  ],
+  "key": {
+    "X": {
+      "item": "malum:esoteric_spool"
+    },
+    "Y": {
+      "item": "malum:blighted_gunk"
+    }
+  },
+  "result": {
+    "item": "malum:ancient_weave"
+  }
+}

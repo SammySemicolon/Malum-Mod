@@ -3,12 +3,9 @@ package com.sammy.malum.client.renderer.block;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Vector3f;
-import com.sammy.malum.common.blockentity.totem.TotemPoleTileEntity;
-import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
+import com.sammy.malum.common.blockentity.totem.TotemPoleBlockEntity;
+import com.sammy.malum.registry.common.SpiritTypeRegistry;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
-import com.sammy.ortus.handlers.RenderHandler;
-import com.sammy.ortus.helpers.RenderHelper;
-import com.sammy.ortus.setup.OrtusRenderTypes;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
@@ -17,15 +14,19 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.Material;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import team.lodestar.lodestone.handlers.RenderHandler;
+import team.lodestar.lodestone.setup.LodestoneRenderTypeRegistry;
+import team.lodestar.lodestone.systems.rendering.VFXBuilders;
 
 import java.awt.*;
 import java.util.HashMap;
+import java.util.Map;
 
-import static com.sammy.ortus.helpers.RenderHelper.FULL_BRIGHT;
+import static team.lodestar.lodestone.helpers.RenderHelper.FULL_BRIGHT;
 
 
-public class TotemPoleRenderer implements BlockEntityRenderer<TotemPoleTileEntity> {
-    public static HashMap<MalumSpiritType, Material> overlayHashmap = new HashMap<>();
+public class TotemPoleRenderer implements BlockEntityRenderer<TotemPoleBlockEntity> {
+    public static Map<MalumSpiritType, Material> overlayHashmap = new HashMap<>();
 
     public TotemPoleRenderer(BlockEntityRendererProvider.Context context) {
         SpiritTypeRegistry.SPIRITS.forEach((s, t) ->
@@ -34,17 +35,17 @@ public class TotemPoleRenderer implements BlockEntityRenderer<TotemPoleTileEntit
     }
 
     @Override
-    public void render(TotemPoleTileEntity blockEntityIn, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int combinedLightIn, int combinedOverlayIn) {
+    public void render(TotemPoleBlockEntity blockEntityIn, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int combinedLightIn, int combinedOverlayIn) {
         Direction direction = blockEntityIn.getBlockState().getValue(BlockStateProperties.HORIZONTAL_FACING);
         if (blockEntityIn.type == null) {
             return;
         }
-        renderQuad(overlayHashmap.get(blockEntityIn.type), blockEntityIn.type.color, blockEntityIn.currentColor/20f, direction, poseStack);
+        renderQuad(overlayHashmap.get(blockEntityIn.type), blockEntityIn.type.getColor(), blockEntityIn.currentColor/20f, direction, poseStack);
     }
 
     public void renderQuad(Material material, Color color, float alpha, Direction direction, PoseStack poseStack) {
         TextureAtlasSprite sprite = material.sprite();
-        VertexConsumer consumer = RenderHandler.DELAYED_RENDER.getBuffer(OrtusRenderTypes.ADDITIVE_BLOCK);
+        VertexConsumer consumer = RenderHandler.DELAYED_RENDER.getBuffer(LodestoneRenderTypeRegistry.ADDITIVE_BLOCK);
 
         Vector3f[] positions = new Vector3f[]{new Vector3f(0, 0, 2.01f), new Vector3f(2, 0, 2.01f), new Vector3f(2, 2, 2.01f), new Vector3f(0, 2, 2.01f)};
 
@@ -52,7 +53,8 @@ public class TotemPoleRenderer implements BlockEntityRenderer<TotemPoleTileEntit
         poseStack.translate(0.5f, 0.5f, 0.5f);
         poseStack.mulPose(Vector3f.YN.rotationDegrees(direction.toYRot()));
         poseStack.translate(-0.5f, -0.5f, -0.5f);
-        RenderHelper.create()
+        VFXBuilders.createWorld()
+                .setPosColorTexLightmapDefaultFormat()
                 .setColor(color, alpha)
                 .setLight(FULL_BRIGHT)
                 .setUV(sprite.getU0(), sprite.getV0(), sprite.getU1(), sprite.getV1())

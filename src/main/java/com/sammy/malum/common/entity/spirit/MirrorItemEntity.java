@@ -2,10 +2,9 @@ package com.sammy.malum.common.entity.spirit;
 
 import com.sammy.malum.common.entity.FloatingItemEntity;
 import com.sammy.malum.core.helper.SpiritHelper;
-import com.sammy.malum.core.setup.content.entity.EntityRegistry;
-import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
+import com.sammy.malum.registry.common.SpiritTypeRegistry;
+import com.sammy.malum.registry.common.entity.EntityRegistry;
 import com.sammy.malum.core.systems.item.IFloatingGlowItem;
-import com.sammy.ortus.helpers.ColorHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -13,6 +12,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import team.lodestar.lodestone.helpers.ColorHelper;
 
 public class MirrorItemEntity extends FloatingItemEntity {
 
@@ -42,14 +42,14 @@ public class MirrorItemEntity extends FloatingItemEntity {
     @Override
     public void setItem(ItemStack pStack) {
         if (!(pStack.getItem() instanceof IFloatingGlowItem)) {
-            setColor(ColorHelper.brighter(SpiritTypeRegistry.ARCANE_SPIRIT_COLOR, 2), SpiritTypeRegistry.ARCANE_SPIRIT.endColor);
+            setColor(ColorHelper.brighter(SpiritTypeRegistry.ARCANE_SPIRIT.getColor(), 2), SpiritTypeRegistry.ARCANE_SPIRIT.getEndColor());
         }
         super.setItem(pStack);
     }
 
     @Override
     public void spawnParticles(double x, double y, double z) {
-        SpiritHelper.spawnSpiritParticles(level, x, y, z, 1.5f, Vec3.ZERO, color, endColor);
+        SpiritHelper.spawnSpiritParticles(level, x, y, z, 1.5f, Vec3.ZERO, startColor, endColor);
     }
 
     @Override

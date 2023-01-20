@@ -1,23 +1,27 @@
 package com.sammy.malum.common.worldgen;
 
-import com.sammy.malum.common.block.MalumSaplingBlock;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import com.sammy.malum.common.block.MalumLeavesBlock;
-import com.sammy.malum.core.setup.content.block.BlockRegistry;
-import com.sammy.ortus.helpers.BlockHelper;
-import com.sammy.ortus.helpers.DataHelper;
-import com.sammy.ortus.systems.worldgen.OrtusBlockFiller;
-import com.sammy.ortus.systems.worldgen.OrtusBlockFiller.BlockStateEntry;
+import com.sammy.malum.common.block.MalumSaplingBlock;
+import com.sammy.malum.registry.common.block.BlockRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.WorldGenLevel;
-import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
+import team.lodestar.lodestone.helpers.BlockHelper;
+import team.lodestar.lodestone.helpers.DataHelper;
+import team.lodestar.lodestone.systems.worldgen.LodestoneBlockFiller;
+import team.lodestar.lodestone.systems.worldgen.LodestoneBlockFiller.BlockStateEntry;
 
-import java.util.Random;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class RunewoodTreeFeature extends Feature<NoneFeatureConfiguration> {
     public RunewoodTreeFeature() {
@@ -49,8 +53,8 @@ public class RunewoodTreeFeature extends Feature<NoneFeatureConfiguration> {
         }
         BlockState defaultLog = BlockRegistry.RUNEWOOD_LOG.get().defaultBlockState();
 
-        OrtusBlockFiller treeFiller = new OrtusBlockFiller(false);
-        OrtusBlockFiller leavesFiller = new OrtusBlockFiller(true);
+        LodestoneBlockFiller treeFiller = new LodestoneBlockFiller(false);
+        LodestoneBlockFiller leavesFiller = new LodestoneBlockFiller(true);
 
         int trunkHeight = minimumTrunkHeight + rand.nextInt(extraTrunkHeight + 1);
         BlockPos trunkTop = pos.above(trunkHeight);
@@ -60,7 +64,7 @@ public class RunewoodTreeFeature extends Feature<NoneFeatureConfiguration> {
         {
             BlockPos trunkPos = pos.above(i);
             if (canPlace(level, trunkPos)) {
-                treeFiller.entries.add(new BlockStateEntry(defaultLog, trunkPos));
+                treeFiller.getEntries().put(trunkPos, new BlockStateEntry(defaultLog));
             } else {
                 return false;
             }
@@ -73,7 +77,7 @@ public class RunewoodTreeFeature extends Feature<NoneFeatureConfiguration> {
             for (int i = 0; i < sideTrunkHeight; i++) {
                 BlockPos sideTrunkPos = pos.relative(direction).above(i);
                 if (canPlace(level, sideTrunkPos)) {
-                    treeFiller.entries.add(new BlockStateEntry(defaultLog, sideTrunkPos));
+                    treeFiller.getEntries().put(sideTrunkPos, new BlockStateEntry(defaultLog));
                 } else {
                     return false;
                 }
@@ -89,7 +93,7 @@ public class RunewoodTreeFeature extends Feature<NoneFeatureConfiguration> {
             {
                 BlockPos branchConnectionPos = branchStartPos.relative(direction.getOpposite(), i);
                 if (canPlace(level, branchConnectionPos)) {
-                    treeFiller.entries.add(new BlockStateEntry(defaultLog.setValue(RotatedPillarBlock.AXIS, direction.getAxis()), branchConnectionPos));
+                    treeFiller.getEntries().put(branchConnectionPos, new BlockStateEntry(defaultLog.setValue(RotatedPillarBlock.AXIS, direction.getAxis())));
                 } else {
                     return false;
                 }
@@ -99,7 +103,7 @@ public class RunewoodTreeFeature extends Feature<NoneFeatureConfiguration> {
             {
                 BlockPos branchPos = branchStartPos.above(i);
                 if (canPlace(level, branchPos)) {
-                    treeFiller.entries.add(new BlockStateEntry(defaultLog, branchPos));
+                    treeFiller.getEntries().put(branchPos, new BlockStateEntry(defaultLog));
                 } else {
                     return false;
                 }
@@ -107,94 +111,25 @@ public class RunewoodTreeFeature extends Feature<NoneFeatureConfiguration> {
             makeLeafBlob(leavesFiller, rand, branchStartPos.above(1));
         }
         int sapBlockCount = minimumSapBlockCount + rand.nextInt(extraSapBlockCount + 1);
-        int[] sapBlockIndexes = DataHelper.nextInts(rand, sapBlockCount, treeFiller.entries.size());
-        for (Integer index : sapBlockIndexes) {
-            BlockStateEntry oldEntry = treeFiller.entries.get(index);
-            BlockState newState = BlockHelper.getBlockStateWithExistingProperties(oldEntry.state, BlockRegistry.EXPOSED_RUNEWOOD_LOG.get().defaultBlockState());
-            treeFiller.replaceAt(index, new BlockStateEntry(newState, oldEntry.pos));
+        ArrayList<BlockPos> sapBlockPositions = new ArrayList<>(treeFiller.getEntries().keySet());
+        Collections.shuffle(sapBlockPositions);
+        for (BlockPos blockPos : sapBlockPositions.subList(0, sapBlockCount)) {
+            treeFiller.replace(blockPos, e -> new BlockStateEntry(BlockHelper.getBlockStateWithExistingProperties(e.getState(), BlockRegistry.EXPOSED_RUNEWOOD_LOG.get().defaultBlockState())));
         }
+
         treeFiller.fill(level);
         leavesFiller.fill(level);
+        updateLeaves(level, treeFiller.getEntries().keySet());
         return true;
     }
 
-//    public static void makeHallowedGround(WorldGenLevel level, OrtusBlockFiller groundFiller, OrtusBlockFiller grassFiller, Random rand, BlockPos pos, int size, float tallGrassProbability)
-//    {
-//        for (int x = -size; x <= size; x++)
-//        {
-//            for (int z = -size; z <= size; z++)
-//            {
-//                if (Math.abs(x) == size && Math.abs(z) == size)
-//                {
-//                    continue;
-//                }
-//                BlockPos grassPos = level.getHeight(Heightmap.Type.Level_SURFACE, pos.add(x, 0, z)).down();
-//                do
-//                {
-//                    if (level.getBlockState(grassPos).getBlock() instanceof BushBlock)
-//                    {
-//                        groundFiller.entries.add(new BlockStateEntry(Blocks.AIR.getDefaultState(), grassPos));
-//                        grassPos = grassPos.down();
-//                    }
-//                    else
-//                    {
-//                        break;
-//                    }
-//                }
-//                while (true);
-//                if (level.getBlockState(grassPos).getBlock() instanceof GrassBlock)
-//                {
-//                    groundFiller.entries.add(new BlockStateEntry(MalumBlocks.SUN_KISSED_GRASS_BLOCK.get().getDefaultState(), grassPos));
-//                    if (rand.nextFloat() < 0.25f)
-//                    {
-//                        if (rand.nextFloat() < tallGrassProbability)
-//                        {
-//                            DoublePlantBlock tallGrassBlock;
-//                            if (rand.nextBoolean())
-//                            {
-//                                tallGrassBlock = (DoublePlantBlock) MalumBlocks.TALL_SUN_KISSED_GRASS.get();
-//                            }
-//                            else
-//                            {
-//                                tallGrassBlock = (DoublePlantBlock) MalumBlocks.LAVENDER.get();
-//                            }
-//                            BlockStateEntry tallGrassEntry = new BlockStateEntry(tallGrassBlock.getDefaultState().with(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER), grassPos.up())
-//                            {
-//                                @Override
-//                                public boolean canPlace(WorldGenLevel level)
-//                                {
-//                                    return super.canPlace(level) && super.canPlace(level, pos.up());
-//                                }
-//
-//                                @Override
-//                                public void additionalPlacement(WorldGenLevel level)
-//                                {
-//                                    level.setBlockState(pos.up(), state.with(DoublePlantBlock.HALF, DoubleBlockHalf.UPPER), 3);
-//                                    if (level instanceof Level)
-//                                    {
-//                                        MalumHelper.updateState((Level) level, pos.up());
-//                                    }
-//                                }
-//                            };
-//                            grassFiller.entries.add(tallGrassEntry);
-//                        }
-//                        else
-//                        {
-//                            groundFiller.entries.add(new BlockStateEntry(MalumBlocks.SUN_KISSED_GRASS.get().getDefaultState(), grassPos.up()));
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//    }
-
-    public static void downwardsTrunk(WorldGenLevel level, OrtusBlockFiller filler, BlockPos pos) {
+    public static void downwardsTrunk(WorldGenLevel level, LodestoneBlockFiller filler, BlockPos pos) {
         int i = 0;
         do {
             i++;
             BlockPos trunkPos = pos.below(i);
             if (canPlace(level, trunkPos)) {
-                filler.entries.add(new BlockStateEntry(BlockRegistry.RUNEWOOD_LOG.get().defaultBlockState(), trunkPos));
+                filler.getEntries().put(trunkPos, new BlockStateEntry(BlockRegistry.RUNEWOOD_LOG.get().defaultBlockState()));
             } else {
                 break;
             }
@@ -205,7 +140,7 @@ public class RunewoodTreeFeature extends Feature<NoneFeatureConfiguration> {
         while (true);
     }
 
-    public static void makeLeafBlob(OrtusBlockFiller filler, Random rand, BlockPos pos) {
+    public static void makeLeafBlob(LodestoneBlockFiller filler, Random rand, BlockPos pos) {
         makeLeafSlice(filler, pos, 1, 0);
         makeLeafSlice(filler, pos.above(1), 2, 1);
         makeLeafSlice(filler, pos.above(2), 2, 2);
@@ -213,14 +148,14 @@ public class RunewoodTreeFeature extends Feature<NoneFeatureConfiguration> {
         makeLeafSlice(filler, pos.above(4), 1, 4);
     }
 
-    public static void makeLeafSlice(OrtusBlockFiller filler, BlockPos pos, int leavesSize, int leavesColor) {
+    public static void makeLeafSlice(LodestoneBlockFiller filler, BlockPos pos, int leavesSize, int leavesColor) {
         for (int x = -leavesSize; x <= leavesSize; x++) {
             for (int z = -leavesSize; z <= leavesSize; z++) {
                 if (Math.abs(x) == leavesSize && Math.abs(z) == leavesSize) {
                     continue;
                 }
                 BlockPos leavesPos = new BlockPos(pos).offset(x, 0, z);
-                filler.entries.add(new BlockStateEntry(BlockRegistry.RUNEWOOD_LEAVES.get().defaultBlockState().setValue(LeavesBlock.DISTANCE, 1).setValue(MalumLeavesBlock.COLOR, leavesColor), leavesPos));
+                filler.getEntries().put(leavesPos, new BlockStateEntry(BlockRegistry.RUNEWOOD_LEAVES.get().defaultBlockState().setValue(MalumLeavesBlock.COLOR, leavesColor)));
             }
         }
     }
@@ -231,5 +166,49 @@ public class RunewoodTreeFeature extends Feature<NoneFeatureConfiguration> {
         }
         BlockState state = level.getBlockState(pos);
         return state.getBlock() instanceof MalumSaplingBlock || level.isEmptyBlock(pos) || state.getMaterial().isReplaceable();
+    }
+
+    public static void updateLeaves(LevelAccessor pLevel, Set<BlockPos> logPositions) {
+        List<Set<BlockPos>> list = Lists.newArrayList();
+        for (int j = 0; j < 6; ++j) {
+            list.add(Sets.newHashSet());
+        }
+
+        BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
+
+        for (BlockPos pos : Lists.newArrayList(logPositions)) {
+            for (Direction direction : Direction.values()) {
+                mutable.setWithOffset(pos, direction);
+                if (!logPositions.contains(mutable)) {
+                    BlockState blockstate = pLevel.getBlockState(mutable);
+                    if (blockstate.hasProperty(BlockStateProperties.DISTANCE)) {
+                        list.get(0).add(mutable.immutable());
+                        pLevel.setBlock(mutable, blockstate.setValue(BlockStateProperties.DISTANCE, 1), 19);
+                    }
+                }
+            }
+        }
+
+        for (int l = 1; l < 6; ++l) {
+            Set<BlockPos> set = list.get(l - 1);
+            Set<BlockPos> set1 = list.get(l);
+
+            for (BlockPos pos : set) {
+                for (Direction direction1 : Direction.values()) {
+                    mutable.setWithOffset(pos, direction1);
+                    if (!set.contains(mutable) && !set1.contains(mutable)) {
+                        BlockState blockstate1 = pLevel.getBlockState(mutable);
+                        if (blockstate1.hasProperty(BlockStateProperties.DISTANCE)) {
+                            int k = blockstate1.getValue(BlockStateProperties.DISTANCE);
+                            if (k > l + 1) {
+                                BlockState blockstate2 = blockstate1.setValue(BlockStateProperties.DISTANCE, l + 1);
+                                pLevel.setBlock(mutable, blockstate2, 19);
+                                set1.add(mutable.immutable());
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }

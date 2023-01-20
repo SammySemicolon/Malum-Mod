@@ -1,0 +1,42 @@
+{
+  "type": "malum:spirit_infusion",
+  "input": {
+    "item": "malum:soul_stained_steel_sword",
+    "count": 1
+  },
+  "output": {
+    "item": "malum:tyrving"
+  },
+  "extra_items": [
+    {
+      "item": "malum:twisted_rock",
+      "count": 16
+    },
+    {
+      "item": "malum:soulwood_planks",
+      "count": 8
+    },
+    {
+      "item": "malum:hex_ash",
+      "count": 4
+    },
+    {
+      "tag": "forge:obsidian",
+      "count": 4
+    },
+    {
+      "item": "malum:corrupted_resonance",
+      "count": 1
+    }
+  ],
+  "spirits": [
+    {
+      "type": "wicked",
+      "count": 24
+    },
+    {
+      "type": "eldritch",
+      "count": 6
+    }
+  ]
+}

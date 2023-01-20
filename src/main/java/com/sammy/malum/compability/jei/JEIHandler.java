@@ -1,20 +1,27 @@
 package com.sammy.malum.compability.jei;
 
+import com.google.common.collect.Maps;
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.common.recipe.BlockTransmutationRecipe;
 import com.sammy.malum.common.recipe.SpiritFocusingRecipe;
 import com.sammy.malum.common.recipe.SpiritInfusionRecipe;
 import com.sammy.malum.common.recipe.SpiritRepairRecipe;
+import com.sammy.malum.common.recipe.SpiritTransmutationRecipe;
 import com.sammy.malum.compability.farmersdelight.FarmersDelightCompat;
 import com.sammy.malum.compability.jei.categories.*;
-import com.sammy.malum.core.setup.content.SpiritRiteRegistry;
-import com.sammy.malum.core.setup.content.item.ItemRegistry;
-import com.sammy.ortus.systems.recipe.IRecipeComponent;
+import com.sammy.malum.compability.jei.recipes.SpiritTransmutationWrapper;
+import com.sammy.malum.registry.common.SpiritRiteRegistry;
+import com.sammy.malum.registry.common.item.ItemRegistry;
+import com.sammy.malum.core.systems.rites.MalumRiteType;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
-import mezz.jei.api.constants.VanillaRecipeCategoryUid;
-import mezz.jei.api.gui.IRecipeLayout;
+import mezz.jei.api.constants.RecipeTypes;
+import mezz.jei.api.constants.VanillaTypes;
+import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
+import mezz.jei.api.helpers.IGuiHelper;
+import mezz.jei.api.recipe.IFocusFactory;
 import mezz.jei.api.recipe.IRecipeManager;
+import mezz.jei.api.recipe.RecipeIngredientRole;
+import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
@@ -23,20 +30,26 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.RecipeManager;
+import org.apache.commons.compress.utils.Lists;
+import team.lodestar.lodestone.systems.recipe.IRecipeComponent;
 
 import javax.annotation.Nonnull;
-
 import java.util.List;
-
-import static com.sammy.malum.MalumMod.prefix;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 
 @JeiPlugin
 public class JEIHandler implements IModPlugin {
     private static final ResourceLocation ID = new ResourceLocation(MalumMod.MALUM, "main");
 
-    public static int addItemsToJei(IRecipeLayout iRecipeLayout, int left, int top, boolean vertical, List<? extends IRecipeComponent> components, int baseIndex) {
+    public static final RecipeType<SpiritInfusionRecipe> SPIRIT_INFUSION = new RecipeType<>(SpiritInfusionRecipeCategory.UID, SpiritInfusionRecipe.class);
+    public static final RecipeType<SpiritTransmutationWrapper> TRANSMUTATION = new RecipeType<>(SpiritTransmutationRecipeCategory.UID, SpiritTransmutationWrapper.class);
+    public static final RecipeType<SpiritFocusingRecipe> FOCUSING = new RecipeType<>(SpiritFocusingRecipeCategory.UID, SpiritFocusingRecipe.class);
+    public static final RecipeType<MalumRiteType> RITES = new RecipeType<>(SpiritRiteRecipeCategory.UID, MalumRiteType.class);
+    public static final RecipeType<SpiritRepairRecipe> SPIRIT_REPAIR = new RecipeType<>(SpiritRepairRecipeCategory.UID, SpiritRepairRecipe.class);
+
+    public static void addItemsToJei(IRecipeLayoutBuilder iRecipeLayout, RecipeIngredientRole role, int left, int top, boolean vertical, List<? extends IRecipeComponent> components) {
         int slots = components.size();
         if (vertical) {
             top -= 10 * (slots - 1);
@@ -47,50 +60,72 @@ public class JEIHandler implements IModPlugin {
             int offset = i * 20;
             int oLeft = left + 1 + (vertical ? 0 : offset);
             int oTop = top + 1 + (vertical ? offset : 0);
-            ItemStack stack = components.get(i).getStack();
-            iRecipeLayout.getItemStacks().init(baseIndex + i, true, oLeft, oTop);
-            iRecipeLayout.getItemStacks().set(baseIndex + i, stack);
+            iRecipeLayout.addSlot(role, oLeft, oTop).addItemStacks(components.get(i).getStacks());
         }
-        return baseIndex + components.size() + 1;
     }
 
     @Override
     public void registerCategories(IRecipeCategoryRegistration registry) {
-        registry.addRecipeCategories(new SpiritInfusionRecipeCategory(registry.getJeiHelpers().getGuiHelper()));
-        registry.addRecipeCategories(new BlockTransmutationRecipeCategory(registry.getJeiHelpers().getGuiHelper()));
-        registry.addRecipeCategories(new SpiritFocusingRecipeCategory(registry.getJeiHelpers().getGuiHelper()));
-        registry.addRecipeCategories(new SpiritRiteRecipeCategory(registry.getJeiHelpers().getGuiHelper()));
-        registry.addRecipeCategories(new SpiritRepairRecipeCategory(registry.getJeiHelpers().getGuiHelper()));
+        IGuiHelper guiHelper = registry.getJeiHelpers().getGuiHelper();
+
+        registry.addRecipeCategories(new SpiritInfusionRecipeCategory(guiHelper),
+            new SpiritTransmutationRecipeCategory(guiHelper),
+            new SpiritFocusingRecipeCategory(guiHelper),
+            new SpiritRiteRecipeCategory(guiHelper),
+            new SpiritRepairRecipeCategory(guiHelper));
     }
 
     @Override
     public void registerRecipes(@Nonnull IRecipeRegistration registry) {
         ClientLevel level = Minecraft.getInstance().level;
-        registry.addRecipes(SpiritInfusionRecipe.getRecipes(level), SpiritInfusionRecipeCategory.UID);
-        registry.addRecipes(BlockTransmutationRecipe.getRecipes(level), BlockTransmutationRecipeCategory.UID);
-        registry.addRecipes(SpiritFocusingRecipe.getRecipes(level), SpiritFocusingRecipeCategory.UID);
-        registry.addRecipes(SpiritRiteRegistry.RITES, SpiritRiteRecipeCategory.UID);
-        registry.addRecipes(SpiritRepairRecipe.getRecipes(level), SpiritRepairRecipeCategory.UID);
-        if (FarmersDelightCompat.LOADED) {
-            FarmersDelightCompat.LoadedOnly.addInfo(registry);
+        if (level != null) {
+            registry.addRecipes(SPIRIT_INFUSION, SpiritInfusionRecipe.getRecipes(level));
+
+            List<SpiritTransmutationRecipe> transmutation = SpiritTransmutationRecipe.getRecipes(level);
+            List<SpiritTransmutationRecipe> leftovers = Lists.newArrayList();
+            Map<String, List<SpiritTransmutationRecipe>> groups = Maps.newLinkedHashMap();
+            for (SpiritTransmutationRecipe recipe : transmutation) {
+                if (recipe.group != null) {
+                    var group = groups.computeIfAbsent(recipe.group, k -> Lists.newArrayList());
+                    group.add(recipe);
+                } else
+                    leftovers.add(recipe);
+            }
+
+            registry.addRecipes(TRANSMUTATION, groups.values().stream()
+                .map(SpiritTransmutationWrapper::new)
+                .collect(Collectors.toList()));
+            registry.addRecipes(TRANSMUTATION, leftovers.stream()
+                .map(List::of)
+                .map(SpiritTransmutationWrapper::new)
+                .collect(Collectors.toList()));
+
+            registry.addRecipes(FOCUSING, SpiritFocusingRecipe.getRecipes(level));
+            registry.addRecipes(RITES, SpiritRiteRegistry.RITES);
+            registry.addRecipes(SPIRIT_REPAIR, SpiritRepairRecipe.getRecipes(level));
+            if (FarmersDelightCompat.LOADED) {
+                FarmersDelightCompat.LoadedOnly.addInfo(registry);
+            }
         }
     }
 
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registry) {
-        registry.addRecipeCatalyst(new ItemStack(ItemRegistry.SPIRIT_ALTAR.get()), SpiritInfusionRecipeCategory.UID);
-        registry.addRecipeCatalyst(new ItemStack(ItemRegistry.RUNEWOOD_TOTEM_BASE.get()), SpiritRiteRecipeCategory.UID);
-        registry.addRecipeCatalyst(new ItemStack(ItemRegistry.SOULWOOD_TOTEM_BASE.get()), BlockTransmutationRecipeCategory.UID);
-        registry.addRecipeCatalyst(new ItemStack(ItemRegistry.SPIRIT_CRUCIBLE.get()), SpiritFocusingRecipeCategory.UID);
-        registry.addRecipeCatalyst(new ItemStack(ItemRegistry.SPIRIT_CRUCIBLE.get()), SpiritRepairRecipeCategory.UID);
+        registry.addRecipeCatalyst(new ItemStack(ItemRegistry.SPIRIT_ALTAR.get()), SPIRIT_INFUSION);
+        registry.addRecipeCatalyst(new ItemStack(ItemRegistry.SPIRIT_CRUCIBLE.get()), FOCUSING, SPIRIT_REPAIR);
+        registry.addRecipeCatalyst(new ItemStack(ItemRegistry.TWISTED_TABLET.get()), SPIRIT_REPAIR);
+        registry.addRecipeCatalyst(new ItemStack(ItemRegistry.RUNEWOOD_TOTEM_BASE.get()), RITES);
+        registry.addRecipeCatalyst(new ItemStack(ItemRegistry.SOULWOOD_TOTEM_BASE.get()), TRANSMUTATION);
     }
 
     @Override
     public void onRuntimeAvailable(IJeiRuntime jeiRuntime) {
         IRecipeManager recipeRegistry = jeiRuntime.getRecipeManager();
-        RecipeManager recipeManager = Minecraft.getInstance().level.getRecipeManager();
-        recipeManager.byKey(prefix("the_device"))
-                .ifPresent(r -> recipeRegistry.hideRecipe(r, VanillaRecipeCategoryUid.CRAFTING));
+        IFocusFactory focusFactory = jeiRuntime.getJeiHelpers().getFocusFactory();
+        recipeRegistry.hideRecipes(RecipeTypes.CRAFTING, recipeRegistry
+            .createRecipeLookup(RecipeTypes.CRAFTING)
+            .limitFocus(List.of(focusFactory.createFocus(RecipeIngredientRole.OUTPUT, VanillaTypes.ITEM_STACK, new ItemStack(ItemRegistry.THE_DEVICE.get()))))
+            .get().toList());
     }
 
     @Nonnull

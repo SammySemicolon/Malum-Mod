@@ -7,14 +7,26 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.fml.ModList;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class BookEntry {
     public final ItemStack iconStack;
     public final String identifier;
     public final int xOffset;
     public final int yOffset;
-    public ArrayList<BookPage> pages = new ArrayList<>();
+    public List<BookPage> pages = new ArrayList<>();
     public EntryObjectSupplier objectSupplier = EntryObject::new;
+
+    public boolean isSoulwood;
+    public boolean isDark;
+
+    public BookEntry(String identifier, int xOffset, int yOffset) {
+        this.iconStack = null;
+        this.identifier = identifier;
+        this.xOffset = xOffset;
+        this.yOffset = yOffset;
+    }
+
     public BookEntry(String identifier, Item item, int xOffset, int yOffset) {
         this.iconStack = item.getDefaultInstance();
         this.identifier = identifier;
@@ -28,6 +40,16 @@ public class BookEntry {
 
     public String descriptionTranslationKey() {
         return "malum.gui.book.entry." + identifier + ".description";
+    }
+
+    public BookEntry setSoulwood() {
+        isSoulwood = true;
+        return this;
+    }
+
+    public BookEntry setDark() {
+        isDark = true;
+        return this;
     }
 
     public BookEntry addPage(BookPage page) {

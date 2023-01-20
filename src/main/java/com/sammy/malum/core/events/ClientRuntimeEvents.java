@@ -1,12 +1,8 @@
 package com.sammy.malum.core.events;
 
-import com.sammy.malum.common.spiritaffinity.ArcaneAffinity;
-import com.sammy.malum.common.spiritaffinity.EarthenAffinity;
-import com.sammy.ortus.handlers.ScreenParticleHandler;
-import net.minecraft.client.Minecraft;
+import com.sammy.malum.core.handlers.TouchOfDarknessHandler;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
-import net.minecraftforge.client.event.RenderLevelLastEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -17,7 +13,8 @@ public class ClientRuntimeEvents {
 
     @SubscribeEvent
     public static void renderOverlay(RenderGameOverlayEvent.Post event) {
-        EarthenAffinity.ClientOnly.renderHeartOfStone(event);
-        ArcaneAffinity.ClientOnly.renderSoulWard(event);
+    }
+    @SubscribeEvent(priority = EventPriority.LOWEST)
+    public static void lateRenderTick(TickEvent.RenderTickEvent event) {
     }
 }

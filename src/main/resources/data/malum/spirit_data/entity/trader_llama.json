@@ -9,6 +9,10 @@
     {
       "spirit": "aerial",
       "count": 1
+    },
+    {
+      "spirit": "wicked",
+      "count": 1
     }
   ]
 }

@@ -3,7 +3,6 @@ package com.sammy.malum.common.item.spirit;
 import com.sammy.malum.common.entity.spirit.SoulEntity;
 import com.sammy.malum.core.systems.item.ISoulContainerItem;
 import com.sammy.malum.core.systems.spirit.MalumEntitySpiritData;
-import com.sammy.ortus.helpers.ItemHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -22,6 +21,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
+import team.lodestar.lodestone.helpers.ItemHelper;
 
 import java.util.List;
 

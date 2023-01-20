@@ -1,0 +1,22 @@
+{
+  "type": "malum:spirit_repair",
+  "inputLookup": "none",
+  "durabilityPercentage": 1,
+  "inputs": [
+    "minecraft:trident"
+  ],
+  "repairMaterial": {
+    "item": "minecraft:heart_of_the_sea",
+    "count": 1
+  },
+  "spirits": [
+    {
+      "type": "aqueous",
+      "count": 16
+    },
+    {
+      "type": "arcane",
+      "count": 16
+    }
+  ]
+}

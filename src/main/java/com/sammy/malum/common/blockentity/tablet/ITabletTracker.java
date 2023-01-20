@@ -1,24 +1,23 @@
 package com.sammy.malum.common.blockentity.tablet;
 
-import com.sammy.ortus.helpers.BlockHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import team.lodestar.lodestone.helpers.BlockHelper;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
-import java.util.Set;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.FACING;
 
 public interface ITabletTracker {
-    ArrayList<TwistedTabletBlockEntity> getTablets();
+    List<TwistedTabletBlockEntity> getTablets();
 
-    Set<BlockPos> getTabletPositions();
+    List<BlockPos> getTabletPositions();
 
     default int getLookupRange() {
         return 4;
@@ -28,7 +27,7 @@ public interface ITabletTracker {
         getTablets().clear();
         getTabletPositions().clear();
         int range = getLookupRange();
-        ArrayList<TwistedTabletBlockEntity> nearbyTablets = BlockHelper.getBlockEntities(TwistedTabletBlockEntity.class, level, pos, range);
+        Collection<TwistedTabletBlockEntity> nearbyTablets = BlockHelper.getBlockEntities(TwistedTabletBlockEntity.class, level, pos, range);
 
         nearbyTablets = nearbyTablets.stream().filter(tabletBlockEntity -> {
             Direction direction = tabletBlockEntity.getBlockState().getValue(FACING);
@@ -51,11 +50,14 @@ public interface ITabletTracker {
     }
 
     default void saveTwistedTabletData(CompoundTag compound) {
-        if (!getTabletPositions().isEmpty()) {
-            CompoundTag twistedTabletTag = new CompoundTag();
-            AtomicInteger tabletNumber = new AtomicInteger(0);
-            twistedTabletTag.putInt("amount", getTabletPositions().size());
-            getTabletPositions().forEach(pos -> BlockHelper.saveBlockPos(twistedTabletTag, pos, "" + tabletNumber.getAndIncrement()));
+        CompoundTag twistedTabletTag = new CompoundTag();
+
+        List<BlockPos> tabletPositions = getTabletPositions();
+        if (!tabletPositions.isEmpty()) {
+            twistedTabletTag.putInt("amount", tabletPositions.size());
+            for (int i = 0; i < tabletPositions.size(); i++) {
+                BlockHelper.saveBlockPos(twistedTabletTag, tabletPositions.get(i), "tablet_" + i);
+            }
             compound.put("twistedTabletData", twistedTabletTag);
         }
     }
@@ -65,7 +67,7 @@ public interface ITabletTracker {
             CompoundTag twistedTabletTag = compound.getCompound("twistedTabletData");
             int amount = twistedTabletTag.getInt("amount");
             for (int i = 0; i < amount; i++) {
-                BlockPos pos = BlockHelper.loadBlockPos(twistedTabletTag, "" + i);
+                BlockPos pos = BlockHelper.loadBlockPos(twistedTabletTag, "tablet_" + i);
                 if (level != null && level.getBlockEntity(pos) instanceof TwistedTabletBlockEntity tabletBlockEntity) {
                     getTabletPositions().add(pos);
                     getTablets().add(tabletBlockEntity);

@@ -15,7 +15,7 @@ public class SpiritRepairPage extends BookPage {
     private final SpiritRepairRecipe recipe;
 
     public SpiritRepairPage(Predicate<SpiritRepairRecipe> predicate) {
-        super(MalumMod.prefix("textures/gui/book/pages/spirit_repair_page.png"));
+        super(MalumMod.malumPath("textures/gui/book/pages/spirit_repair_page.png"));
         if (Minecraft.getInstance() == null) //this is null during datagen
         {
             this.recipe = null;
@@ -25,7 +25,7 @@ public class SpiritRepairPage extends BookPage {
     }
 
     public SpiritRepairPage(SpiritRepairRecipe recipe) {
-        super(MalumMod.prefix("textures/gui/book/pages/spirit_repair_page.png"));
+        super(MalumMod.malumPath("textures/gui/book/pages/spirit_repair_page.png"));
         this.recipe = recipe;
     }
 

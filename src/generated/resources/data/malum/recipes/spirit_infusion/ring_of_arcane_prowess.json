@@ -1,0 +1,26 @@
+{
+  "type": "malum:spirit_infusion",
+  "input": {
+    "item": "malum:gilded_ring",
+    "count": 1
+  },
+  "output": {
+    "item": "malum:ring_of_arcane_prowess"
+  },
+  "extra_items": [
+    {
+      "item": "malum:cluster_of_brilliance",
+      "count": 4
+    },
+    {
+      "item": "malum:alchemical_calx",
+      "count": 4
+    }
+  ],
+  "spirits": [
+    {
+      "type": "arcane",
+      "count": 24
+    }
+  ]
+}

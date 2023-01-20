@@ -1,22 +1,27 @@
 package com.sammy.malum.common.block.spirit_crucible;
 
 import com.sammy.malum.common.blockentity.crucible.SpiritCatalyzerCoreBlockEntity;
-import com.sammy.ortus.systems.block.WaterLoggedBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.ItemHandlerHelper;
+import net.minecraftforge.items.wrapper.EmptyHandler;
+import team.lodestar.lodestone.systems.block.WaterLoggedEntityBlock;
 
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.HORIZONTAL_FACING;
 
-public class SpiritCatalyzerCoreBlock<T extends SpiritCatalyzerCoreBlockEntity> extends WaterLoggedBlock<T> {
+public class SpiritCatalyzerCoreBlock<T extends SpiritCatalyzerCoreBlockEntity> extends WaterLoggedEntityBlock<T> {
     public static final VoxelShape NORTH_SOUTH_SHAPE = makeNorthSouthShape();
     public static final VoxelShape WEST_EAST_SHAPE = makeWestEastShape();
 
@@ -36,6 +41,20 @@ public class SpiritCatalyzerCoreBlock<T extends SpiritCatalyzerCoreBlockEntity> 
             }
         }
         return super.getShape(pState, pLevel, pPos, pContext);
+    }
+
+    @Override
+    public boolean hasAnalogOutputSignal(BlockState pState) {
+        return true;
+    }
+
+    @Override
+    public int getAnalogOutputSignal(BlockState pState, Level pLevel, BlockPos pPos) {
+        BlockEntity be = pLevel.getBlockEntity(pPos);
+        if (be instanceof SpiritCatalyzerCoreBlockEntity catalyzer) {
+            return ItemHandlerHelper.calcRedstoneFromInventory(catalyzer.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).orElse(new EmptyHandler()));
+        }
+        return 0;
     }
 
     @Override

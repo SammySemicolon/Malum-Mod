@@ -1,0 +1,46 @@
+{
+  "type": "malum:spirit_infusion",
+  "input": {
+    "item": "malum:etheric_nitrate",
+    "count": 8
+  },
+  "output": {
+    "item": "malum:vivid_nitrate",
+    "count": 8
+  },
+  "extra_items": [
+    {
+      "item": "malum:cursed_grit",
+      "count": 4
+    },
+    {
+      "tag": "forge:gunpowder",
+      "count": 4
+    },
+    {
+      "tag": "forge:gems/prismarine",
+      "count": 2
+    }
+  ],
+  "spirits": [
+    {
+      "type": "aerial",
+      "count": 4
+    },
+    {
+      "type": "aqueous",
+      "count": 4
+    },
+    {
+      "type": "infernal",
+      "count": 4
+    },
+    {
+      "type": "earthen",
+      "count": 4
+    },
+    {
+      "type": "eldritch"
+    }
+  ]
+}

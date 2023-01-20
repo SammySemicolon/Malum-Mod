@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "malum:block_of_alchemical_calx"
+    ]
+  },
+  "criteria": {
+    "has_alchemical_calx": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "malum:alchemical_calx"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "malum:block_of_alchemical_calx"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_alchemical_calx",
+      "has_the_recipe"
+    ]
+  ]
+}

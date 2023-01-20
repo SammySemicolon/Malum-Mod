@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "malum:block_of_astral_weave"
+    ]
+  },
+  "criteria": {
+    "has_astral_weave": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "malum:astral_weave"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "malum:block_of_astral_weave"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_astral_weave",
+      "has_the_recipe"
+    ]
+  ]
+}

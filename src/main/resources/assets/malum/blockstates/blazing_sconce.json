@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=true": {
+      "model": "malum:block/blazing_sconce"
+    },
+    "lit=false": {
+      "model": "malum:block/blazing_sconce_off"
+    }
+  }
+}

@@ -2,8 +2,7 @@ package com.sammy.malum.common.entity.spirit;
 
 import com.sammy.malum.common.entity.FloatingEntity;
 import com.sammy.malum.core.helper.SpiritHelper;
-import com.sammy.malum.core.setup.content.AttributeRegistry;
-import com.sammy.malum.core.setup.content.entity.EntityRegistry;
+import com.sammy.malum.registry.common.entity.EntityRegistry;
 import com.sammy.malum.core.systems.spirit.MalumEntitySpiritData;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
@@ -25,19 +24,17 @@ public class SoulEntity extends FloatingEntity {
     public SoulEntity(Level level) {
         super(EntityRegistry.NATURAL_SOUL.get(), level);
         maxAge = 2000;
-        range = 8;
     }
 
     public SoulEntity(Level level, MalumEntitySpiritData spiritData, UUID ownerUUID, double posX, double posY, double posZ, double velX, double velY, double velZ) {
         super(EntityRegistry.NATURAL_SOUL.get(), level);
         this.spiritData = spiritData;
         if (!spiritData.equals(EMPTY)) {
-            this.color = spiritData.primaryType.color;
-            getEntityData().set(DATA_COLOR, color.getRGB());
-            this.endColor = spiritData.primaryType.endColor;
+            this.startColor = spiritData.primaryType.getColor();
+            getEntityData().set(DATA_COLOR, startColor.getRGB());
+            this.endColor = spiritData.primaryType.getEndColor();
             getEntityData().set(DATA_END_COLOR, endColor.getRGB());
         }
-        range = 8;
         setThief(ownerUUID);
         setPos(posX, posY, posZ);
         setDeltaMovement(velX, velY, velZ);
@@ -53,9 +50,6 @@ public class SoulEntity extends FloatingEntity {
     public void updateThief() {
         if (!level.isClientSide) {
             thief = (LivingEntity) ((ServerLevel) level).getEntity(thiefUUID);
-            if (thief != null) {
-                range = (int) thief.getAttributeValue(AttributeRegistry.SPIRIT_REACH.get());
-            }
         }
     }
 
@@ -63,11 +57,12 @@ public class SoulEntity extends FloatingEntity {
     public void spawnParticles(double x, double y, double z) {
         Vec3 motion = getDeltaMovement();
         Vec3 norm = motion.normalize().scale(0.025f);
-        for (int i = 0; i < 4; i++) {
-            double lerpX = Mth.lerp(i / 4.0f, x - motion.x, x);
-            double lerpY = Mth.lerp(i / 4.0f, y - motion.y, y);
-            double lerpZ = Mth.lerp(i / 4.0f, z - motion.z, z);
-            SpiritHelper.spawnSoulParticles(level, lerpX, lerpY, lerpZ, 0.25f, 1, norm, color, endColor);
+        float cycles = 4;
+        for (int i = 0; i < cycles; i++) {
+            double lerpX = Mth.lerp(i / cycles, x - motion.x, x);
+            double lerpY = Mth.lerp(i / cycles, y - motion.y, y);
+            double lerpZ = Mth.lerp(i / cycles, z - motion.z, z);
+            SpiritHelper.spawnSoulParticles(level, lerpX, lerpY, lerpZ, 0.25f, 1, norm, startColor, endColor);
         }
     }
 
@@ -84,7 +79,7 @@ public class SoulEntity extends FloatingEntity {
         setDeltaMovement(getDeltaMovement().multiply(0.95f, 0.97f, 0.95f));
         if (thief == null || !thief.isAlive()) {
             if (level.getGameTime() % 40L == 0) {
-                Player playerEntity = level.getNearestPlayer(this, range * 5f);
+                Player playerEntity = level.getNearestPlayer(this, 10);
                 if (playerEntity != null) {
                     setThief(playerEntity.getUUID());
                 }
@@ -94,7 +89,7 @@ public class SoulEntity extends FloatingEntity {
         float sine = Mth.sin(level.getGameTime()*0.05f)*0.2f;
         Vec3 desiredLocation = thief.position().add(0, thief.getBbHeight() / 4, 0).add(-sine, sine, -sine);
         float distance = (float) distanceToSqr(desiredLocation);
-        float velocity = Mth.lerp(Math.min(moveTime, 20) / 20f, 0.1f, 0.05f + (range * 0.025f));
+        float velocity = Mth.lerp(Math.min(moveTime, 20) / 20f, 0.05f, 0.1f);
         if (distance > 2) {
             moveTime++;
             Vec3 desiredMotion = desiredLocation.subtract(position()).normalize().multiply(velocity, velocity, velocity).add(0, 0.075f, 0);

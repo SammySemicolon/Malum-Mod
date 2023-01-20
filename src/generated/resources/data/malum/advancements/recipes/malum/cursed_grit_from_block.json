@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "malum:cursed_grit_from_block"
+    ]
+  },
+  "criteria": {
+    "has_cursed_grit": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "malum:cursed_grit"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "malum:cursed_grit_from_block"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_cursed_grit",
+      "has_the_recipe"
+    ]
+  ]
+}

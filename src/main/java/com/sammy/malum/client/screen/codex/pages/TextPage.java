@@ -9,9 +9,11 @@ public class TextPage extends BookPage {
     public final String translationKey;
 
     public TextPage(String translationKey) {
-        super(MalumMod.prefix("textures/gui/book/pages/blank_page.png"));
+        super(MalumMod.malumPath("textures/gui/book/pages/blank_page.png"));
         this.translationKey = translationKey;
     }
+
+
 
     public String translationKey() {
         return "malum.gui.book.entry.page.text." + translationKey;
@@ -21,13 +23,13 @@ public class TextPage extends BookPage {
     public void renderLeft(Minecraft minecraft, PoseStack poseStack, float xOffset, float yOffset, int mouseX, int mouseY, float partialTicks) {
         int guiLeft = guiLeft();
         int guiTop = guiTop();
-        ProgressionBookScreen.renderWrappingText(poseStack, translationKey(), guiLeft + 16, guiTop + 10, 120);
+        ProgressionBookScreen.renderWrappingText(poseStack, translationKey(), guiLeft + 14, guiTop + 10, 126);
     }
 
     @Override
     public void renderRight(Minecraft minecraft, PoseStack poseStack, float xOffset, float yOffset, int mouseX, int mouseY, float partialTicks) {
         int guiLeft = guiLeft();
         int guiTop = guiTop();
-        ProgressionBookScreen.renderWrappingText(poseStack, translationKey(), guiLeft + 158, guiTop + 10, 120);
+        ProgressionBookScreen.renderWrappingText(poseStack, translationKey(), guiLeft + 156, guiTop + 10, 126);
     }
 }

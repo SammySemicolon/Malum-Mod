@@ -14,7 +14,7 @@ import javax.annotation.Nonnull;
 import java.awt.*;
 
 public class SpiritPouchContainerScreen extends AbstractContainerScreen<SpiritPouchContainer> {
-    public static final ResourceLocation BACKGROUND = MalumMod.prefix("textures/gui/spirit_pouch.png");
+    public static final ResourceLocation BACKGROUND = MalumMod.malumPath("textures/gui/spirit_pouch.png");
     public static final Color textColor = new Color(49, 35, 41);
 
     public SpiritPouchContainerScreen(SpiritPouchContainer screenContainer, Inventory inv, Component titleIn) {

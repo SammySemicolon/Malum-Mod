@@ -1,0 +1,10 @@
+{
+  "type": "malum:spirit_transmutation",
+  "input": {
+    "item": "malum:vertical_runewood_planks_slab"
+  },
+  "output": {
+    "item": "malum:vertical_soulwood_planks_slab"
+  },
+  "group": "soulwood"
+}

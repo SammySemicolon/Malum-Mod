@@ -1,0 +1,19 @@
+{
+  "replace": false,
+  "values": [
+    "malum:ether_torch",
+    "malum:wall_ether_torch",
+    "malum:ether",
+    "malum:tainted_ether_brazier",
+    "malum:twisted_ether_brazier",
+    "malum:ether_sconce",
+    "malum:wall_ether_sconce",
+    "malum:iridescent_ether_torch",
+    "malum:iridescent_wall_ether_torch",
+    "malum:iridescent_ether",
+    "malum:tainted_iridescent_ether_brazier",
+    "malum:twisted_iridescent_ether_brazier",
+    "malum:iridescent_ether_sconce",
+    "malum:iridescent_wall_ether_sconce"
+  ]
+}

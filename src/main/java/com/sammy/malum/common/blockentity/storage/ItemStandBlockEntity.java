@@ -1,15 +1,19 @@
 package com.sammy.malum.common.blockentity.storage;
 
-import com.sammy.malum.common.blockentity.altar.IAltarProvider;
+import com.sammy.malum.common.blockentity.spirit_altar.IAltarProvider;
+import com.sammy.malum.common.blockentity.totem.TotemBaseBlockEntity;
+import com.sammy.malum.common.blockentity.totem.TotemPoleBlockEntity;
 import com.sammy.malum.common.item.spirit.MalumSpiritItem;
+import com.sammy.malum.common.recipe.AugmentingRecipe;
 import com.sammy.malum.core.helper.SpiritHelper;
-import com.sammy.malum.core.setup.content.block.BlockEntityRegistry;
-import com.sammy.ortus.helpers.BlockHelper;
-import com.sammy.ortus.helpers.DataHelper;
-import com.sammy.ortus.systems.blockentity.OrtusBlockEntityInventory;
-import com.sammy.ortus.systems.blockentity.ItemHolderBlockEntity;
+import com.sammy.malum.registry.common.block.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -17,6 +21,9 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
+import team.lodestar.lodestone.helpers.BlockHelper;
+import team.lodestar.lodestone.systems.blockentity.ItemHolderBlockEntity;
+import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntityInventory;
 
 import javax.annotation.Nonnull;
 
@@ -25,7 +32,7 @@ public class ItemStandBlockEntity extends ItemHolderBlockEntity implements IAlta
 
     public ItemStandBlockEntity(BlockEntityType<? extends ItemStandBlockEntity> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
-        inventory = new OrtusBlockEntityInventory(1, 64) {
+        inventory = new LodestoneBlockEntityInventory(1, 64) {
             @Override
             public void onContentsChanged(int slot) {
                 super.onContentsChanged(slot);
@@ -39,7 +46,7 @@ public class ItemStandBlockEntity extends ItemHolderBlockEntity implements IAlta
     }
 
     @Override
-    public OrtusBlockEntityInventory getInventoryForAltar() {
+    public LodestoneBlockEntityInventory getInventoryForAltar() {
         return inventory;
     }
 
@@ -54,13 +61,27 @@ public class ItemStandBlockEntity extends ItemHolderBlockEntity implements IAlta
     }
 
     public Vec3 getItemPos() {
-        return DataHelper.fromBlockPos(getBlockPos()).add(itemOffset());
+        return BlockHelper.fromBlockPos(getBlockPos()).add(itemOffset());
     }
 
     public Vec3 itemOffset() {
         Direction direction = getBlockState().getValue(BlockStateProperties.FACING);
         Vec3 directionVector = new Vec3(direction.getStepX(), direction.getStepY(), direction.getStepZ());
         return new Vec3(0.5f - directionVector.x() * 0.25f, 0.5f - directionVector.y() * 0.1f, 0.5f - directionVector.z() * 0.25f);
+    }
+
+    @Override
+    public void onPlace(LivingEntity placer, ItemStack stack) {
+        Direction direction = getBlockState().getValue(BlockStateProperties.FACING);
+        BlockPos totemPolePos = getBlockPos().relative(direction.getOpposite());
+        if (level.getBlockEntity(totemPolePos) instanceof TotemPoleBlockEntity totemPole) {
+            TotemBaseBlockEntity totemBase = totemPole.totemBase;
+            if (totemBase != null) {
+                totemBase.addFilter(this);
+                BlockHelper.updateState(level, totemBase.getBlockPos());
+                BlockHelper.updateState(level, totemPole.getBlockPos());
+            }
+        }
     }
 
     @Override
@@ -71,26 +92,17 @@ public class ItemStandBlockEntity extends ItemHolderBlockEntity implements IAlta
                 double x = pos.x;
                 double y = pos.y + Math.sin((level.getGameTime()) / 20f) * 0.05f;
                 double z = pos.z;
-                SpiritHelper.spawnSpiritParticles(level, x, y, z, item.type.color, item.type.endColor);
+                SpiritHelper.spawnSpiritGlimmerParticles(level, x, y, z, item.type.getColor(), item.type.getEndColor());
             }
         }
     }
 
-    @Nonnull
     @Override
-    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap) {
-        if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-            return inventory.inventoryOptional.cast();
+    public InteractionResult onUse(Player player, InteractionHand hand) {
+        InteractionResult result = AugmentingRecipe.performAugmentation(this, player, hand);
+        if (!result.equals(InteractionResult.PASS)) {
+            return result;
         }
-        return super.getCapability(cap);
-    }
-
-    @Nonnull
-    @Override
-    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, Direction side) {
-        if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-            return inventory.inventoryOptional.cast();
-        }
-        return super.getCapability(cap, side);
+        return super.onUse(player, hand);
     }
 }

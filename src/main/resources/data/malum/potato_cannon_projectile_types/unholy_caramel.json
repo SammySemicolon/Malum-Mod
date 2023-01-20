@@ -1,0 +1,9 @@
+{
+  "items": [
+    "malum:unholy_caramel"
+  ],
+  "sticky": true,
+  "damage": 8,
+  "reload_ticks": 20,
+  "velocity_multiplier": 1.2
+}

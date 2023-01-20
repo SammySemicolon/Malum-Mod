@@ -1,8 +1,8 @@
 package com.sammy.malum.common.enchantment;
 
 import com.sammy.malum.common.entity.boomerang.ScytheBoomerangEntity;
-import com.sammy.malum.core.setup.content.AttributeRegistry;
-import com.sammy.malum.core.setup.content.item.MalumEnchantments;
+import com.sammy.malum.registry.common.AttributeRegistry;
+import com.sammy.malum.registry.common.item.MalumEnchantments;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -13,6 +13,7 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import team.lodestar.lodestone.setup.LodestoneAttributeRegistry;
 
 public class ReboundEnchantment extends Enchantment {
     public ReboundEnchantment() {
@@ -33,14 +34,13 @@ public class ReboundEnchantment extends Enchantment {
                 if (!level.isClientSide) {
                     player.setItemInHand(event.getHand(), ItemStack.EMPTY);
                     double baseDamage = player.getAttributes().getValue(Attributes.ATTACK_DAMAGE);
-                    float multiplier = 1.2f;
-                    double damage = 1.0F + baseDamage * multiplier;
+                    double magicDamage = player.getAttributes().getValue(LodestoneAttributeRegistry.MAGIC_DAMAGE.get());
 
                     int slot = event.getHand() == InteractionHand.OFF_HAND ? player.getInventory().getContainerSize() - 1 : player.getInventory().selected;
                     ScytheBoomerangEntity entity = new ScytheBoomerangEntity(level);
                     entity.setPos(player.position().x, player.position().y + player.getBbHeight() / 2f, player.position().z);
 
-                    entity.setData((float) damage, player.getUUID(), slot, stack);
+                    entity.setData((float)baseDamage, (float)magicDamage, player.getUUID(), slot, stack);
                     entity.getEntityData().set(ScytheBoomerangEntity.SCYTHE, stack);
 
                     entity.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, (float) (1.5F + player.getAttributeValue(AttributeRegistry.SCYTHE_PROFICIENCY.get()) * 0.125f), 0F);

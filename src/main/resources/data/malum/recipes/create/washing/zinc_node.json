@@ -1,0 +1,24 @@
+{
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "create"
+    }
+  ],
+  "type": "create:splashing",
+  "ingredients": [
+    {
+      "item": "malum:zinc_node"
+    }
+  ],
+  "results": [
+    {
+      "item": "create:zinc_nugget",
+      "count": 6
+    },
+    {
+      "item": "minecraft:gunpowder",
+      "chance": 0.25
+    }
+  ]
+}

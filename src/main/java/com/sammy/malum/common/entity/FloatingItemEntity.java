@@ -1,6 +1,6 @@
 package com.sammy.malum.common.entity;
 
-import com.sammy.malum.core.setup.content.item.ItemRegistry;
+import com.sammy.malum.registry.common.item.ItemRegistry;
 import com.sammy.malum.core.systems.item.IFloatingGlowItem;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -14,6 +14,7 @@ import net.minecraft.world.level.Level;
 import java.awt.*;
 
 public class FloatingItemEntity extends FloatingEntity {
+
     private static final EntityDataAccessor<ItemStack> DATA_ITEM_STACK = SynchedEntityData.defineId(FloatingItemEntity.class, EntityDataSerializers.ITEM_STACK);
 
     public ItemStack itemStack = ItemStack.EMPTY;
@@ -32,7 +33,7 @@ public class FloatingItemEntity extends FloatingEntity {
     }
 
     public void setColor(Color color, Color endColor) {
-        this.color = color;
+        this.startColor = color;
         getEntityData().set(DATA_COLOR, color.getRGB());
         this.endColor = endColor;
         getEntityData().set(DATA_END_COLOR, endColor.getRGB());

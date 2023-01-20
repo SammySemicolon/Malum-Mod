@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": {
+    "item": "malum:brilliant_deepslate"
+  },
+  "result": {
+    "item": "malum:chunk_of_brilliance",
+    "count": 2
+  },
+  "experience": 1.0,
+  "cookingtime": 100
+}

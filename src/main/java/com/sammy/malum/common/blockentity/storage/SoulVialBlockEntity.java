@@ -1,10 +1,7 @@
 package com.sammy.malum.common.blockentity.storage;
 
 import com.sammy.malum.core.helper.SpiritHelper;
-import com.sammy.malum.core.setup.content.block.BlockEntityRegistry;
-import com.sammy.ortus.helpers.BlockHelper;
-import com.sammy.ortus.helpers.ItemHelper;
-import com.sammy.ortus.systems.blockentity.OrtusBlockEntity;
+import com.sammy.malum.registry.common.block.BlockEntityRegistry;
 import com.sammy.malum.core.systems.item.ISoulContainerItem;
 import com.sammy.malum.core.systems.spirit.MalumEntitySpiritData;
 import net.minecraft.core.BlockPos;
@@ -17,8 +14,11 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import team.lodestar.lodestone.helpers.BlockHelper;
+import team.lodestar.lodestone.helpers.ItemHelper;
+import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntity;
 
-public class SoulVialBlockEntity extends OrtusBlockEntity {
+public class SoulVialBlockEntity extends LodestoneBlockEntity {
 
     public MalumEntitySpiritData data;
 
@@ -98,7 +98,7 @@ public class SoulVialBlockEntity extends OrtusBlockEntity {
         if (level.isClientSide) {
             if (data != null) {
                 double y = 0.5f + Math.sin(level.getGameTime() / 20f) * 0.08f;
-                SpiritHelper.spawnSoulParticles(level, worldPosition.getX() + 0.5f, worldPosition.getY() + y, worldPosition.getZ() + 0.5f, 1, 0.75f, Vec3.ZERO, data.primaryType.color, data.primaryType.endColor);
+                SpiritHelper.spawnSoulParticles(level, worldPosition.getX() + 0.5f, worldPosition.getY() + y, worldPosition.getZ() + 0.5f, 1, 0.75f, Vec3.ZERO, data.primaryType.getColor(), data.primaryType.getEndColor());
             }
         }
     }

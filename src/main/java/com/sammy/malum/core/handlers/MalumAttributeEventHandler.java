@@ -1,8 +1,7 @@
 package com.sammy.malum.core.handlers;
 
-import com.sammy.malum.common.entity.boomerang.ScytheBoomerangEntity;
 import com.sammy.malum.common.item.tools.MalumScytheItem;
-import com.sammy.malum.core.setup.content.AttributeRegistry;
+import com.sammy.malum.registry.common.AttributeRegistry;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.EntityDamageSource;
 import net.minecraft.world.entity.LivingEntity;
@@ -18,17 +17,16 @@ public class MalumAttributeEventHandler {
         DamageSource source = event.getSource();
         if (source.getEntity() instanceof LivingEntity attacker) {
             float amount = event.getAmount();
-            ItemStack stack = attacker.getMainHandItem();
-
-            if (source.getDirectEntity() instanceof ScytheBoomerangEntity) {
-                stack = ((ScytheBoomerangEntity) source.getDirectEntity()).scythe;
+            ItemStack stack = MalumScytheItem.getScytheItemStack(source, attacker);
+            if (stack.isEmpty()) {
+                return;
             }
             if (source instanceof EntityDamageSource entityDamageSource) {
                 if (entityDamageSource.isThorns()) {
                     return;
                 }
             }
-            if (stack.getItem() instanceof MalumScytheItem) {
+            if (!event.getSource().isMagic()) {
                 AttributeInstance scytheProficiency = attacker.getAttribute(AttributeRegistry.SCYTHE_PROFICIENCY.get());
                 if (scytheProficiency != null && scytheProficiency.getValue() > 0) {
                     event.setAmount((float) (amount + scytheProficiency.getValue() * 0.5f));

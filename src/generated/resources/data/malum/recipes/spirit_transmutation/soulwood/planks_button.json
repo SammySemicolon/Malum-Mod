@@ -1,0 +1,10 @@
+{
+  "type": "malum:spirit_transmutation",
+  "input": {
+    "item": "malum:runewood_planks_button"
+  },
+  "output": {
+    "item": "malum:soulwood_planks_button"
+  },
+  "group": "soulwood"
+}

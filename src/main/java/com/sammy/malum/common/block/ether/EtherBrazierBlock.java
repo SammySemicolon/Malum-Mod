@@ -39,23 +39,18 @@ public class EtherBrazierBlock<T extends EtherBlockEntity> extends EtherBlock<T>
     }
     
     @Nullable
-    public BlockState getStateForPlacement(BlockPlaceContext context)
-    {
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
         FluidState fluidstate = context.getLevel().getFluidState(context.getClickedPos());
-    
-        BlockState blockstate = this.defaultBlockState();
-        for (Direction direction : context.getNearestLookingDirections())
-        {
-            if (direction.getAxis() == Direction.Axis.Y)
-            {
+        BlockState blockstate = super.getStateForPlacement(context);
+        for (Direction direction : context.getNearestLookingDirections()) {
+            if (direction.getAxis() == Direction.Axis.Y) {
                 blockstate = this.defaultBlockState().setValue(HANGING, direction == Direction.UP).setValue(ROTATED, context.getHorizontalDirection() == Direction.NORTH || context.getHorizontalDirection() == Direction.SOUTH);
-                if (blockstate.canSurvive(context.getLevel(), context.getClickedPos()))
-                {
+                if (blockstate.canSurvive(context.getLevel(), context.getClickedPos())) {
                     return blockstate.setValue(WATERLOGGED, fluidstate.getType() == Fluids.WATER);
                 }
             }
         }
-        
+
         return blockstate;
     }
 

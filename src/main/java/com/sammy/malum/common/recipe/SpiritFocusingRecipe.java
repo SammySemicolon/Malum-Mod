@@ -2,11 +2,9 @@ package com.sammy.malum.common.recipe;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.sammy.malum.MalumMod;
-import com.sammy.malum.core.setup.content.RecipeSerializerRegistry;
-import com.sammy.malum.core.systems.recipe.*;
-import com.sammy.ortus.systems.recipe.IOrtusRecipe;
-import com.sammy.ortus.systems.recipe.IngredientWithCount;
+import com.sammy.malum.registry.common.recipe.RecipeSerializerRegistry;
+import com.sammy.malum.registry.common.recipe.RecipeTypeRegistry;
+import com.sammy.malum.core.systems.recipe.SpiritWithCount;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -14,24 +12,17 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.registries.ForgeRegistryEntry;
+import team.lodestar.lodestone.systems.recipe.ILodestoneRecipe;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
-public class SpiritFocusingRecipe extends IOrtusRecipe {
+public class SpiritFocusingRecipe extends ILodestoneRecipe {
     public static final String NAME = "spirit_focusing";
-
-    public static class Type implements RecipeType<SpiritFocusingRecipe> {
-        @Override
-        public String toString() {
-            return MalumMod.MALUM + ":" + NAME;
-        }
-
-        public static final SpiritFocusingRecipe.Type INSTANCE = new SpiritFocusingRecipe.Type();
-    }
 
     private final ResourceLocation id;
 
@@ -39,10 +30,10 @@ public class SpiritFocusingRecipe extends IOrtusRecipe {
     public final int durabilityCost;
 
     public final Ingredient input;
-    public final IngredientWithCount output;
-    public final ArrayList<SpiritWithCount> spirits;
+    public final ItemStack output;
+    public final List<SpiritWithCount> spirits;
 
-    public SpiritFocusingRecipe(ResourceLocation id, int time, int durabilityCost, Ingredient input, IngredientWithCount output, ArrayList<SpiritWithCount> spirits) {
+    public SpiritFocusingRecipe(ResourceLocation id, int time, int durabilityCost, Ingredient input, ItemStack output, List<SpiritWithCount> spirits) {
         this.id = id;
         this.time = time;
         this.durabilityCost = durabilityCost;
@@ -58,7 +49,7 @@ public class SpiritFocusingRecipe extends IOrtusRecipe {
 
     @Override
     public RecipeType<?> getType() {
-        return Type.INSTANCE;
+        return RecipeTypeRegistry.SPIRIT_FOCUSING.get();
     }
 
     @Override
@@ -66,8 +57,8 @@ public class SpiritFocusingRecipe extends IOrtusRecipe {
         return id;
     }
 
-    public ArrayList<ItemStack> getSortedSpirits(ArrayList<ItemStack> stacks) {
-        ArrayList<ItemStack> sortedStacks = new ArrayList<>();
+    public List<ItemStack> getSortedSpirits(List<ItemStack> stacks) {
+        List<ItemStack> sortedStacks = new ArrayList<>();
         for (SpiritWithCount item : spirits) {
             for (ItemStack stack : stacks) {
                 if (item.matches(stack)) {
@@ -79,14 +70,14 @@ public class SpiritFocusingRecipe extends IOrtusRecipe {
         return sortedStacks;
     }
 
-    public boolean doSpiritsMatch(ArrayList<ItemStack> spirits) {
+    public boolean doSpiritsMatch(List<ItemStack> spirits) {
         if (this.spirits.size() == 0) {
             return true;
         }
         if (this.spirits.size() != spirits.size()) {
             return false;
         }
-        ArrayList<ItemStack> sortedStacks = getSortedSpirits(spirits);
+        List<ItemStack> sortedStacks = getSortedSpirits(spirits);
         if (sortedStacks.size() < this.spirits.size()) {
             return false;
         }
@@ -105,10 +96,10 @@ public class SpiritFocusingRecipe extends IOrtusRecipe {
     }
 
     public boolean doesOutputMatch(ItemStack output) {
-        return this.output.ingredient.test(output);
+        return output.getItem().equals(this.output.getItem());
     }
 
-    public static SpiritFocusingRecipe getRecipe(Level level, ItemStack stack, ArrayList<ItemStack> spirits) {
+    public static SpiritFocusingRecipe getRecipe(Level level, ItemStack stack, List<ItemStack> spirits) {
         return getRecipe(level, c -> c.doesInputMatch(stack) && c.doSpiritsMatch(spirits));
     }
 
@@ -123,7 +114,7 @@ public class SpiritFocusingRecipe extends IOrtusRecipe {
     }
 
     public static List<SpiritFocusingRecipe> getRecipes(Level level) {
-        return level.getRecipeManager().getAllRecipesFor(Type.INSTANCE);
+        return level.getRecipeManager().getAllRecipesFor(RecipeTypeRegistry.SPIRIT_FOCUSING.get());
     }
 
     public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<SpiritFocusingRecipe> {
@@ -137,10 +128,10 @@ public class SpiritFocusingRecipe extends IOrtusRecipe {
             Ingredient input = Ingredient.fromJson(inputObject);
 
             JsonObject outputObject = json.getAsJsonObject("output");
-            IngredientWithCount output = IngredientWithCount.deserialize(outputObject);
+            ItemStack output = CraftingHelper.getItemStack(outputObject, true);
 
             JsonArray spiritsArray = json.getAsJsonArray("spirits");
-            ArrayList<SpiritWithCount> spirits = new ArrayList<>();
+            List<SpiritWithCount> spirits = new ArrayList<>();
             for (int i = 0; i < spiritsArray.size(); i++) {
                 JsonObject spiritObject = spiritsArray.get(i).getAsJsonObject();
                 spirits.add(SpiritWithCount.deserialize(spiritObject));
@@ -157,9 +148,9 @@ public class SpiritFocusingRecipe extends IOrtusRecipe {
             int time = buffer.readInt();
             int durabilityCost = buffer.readInt();
             Ingredient input = Ingredient.fromNetwork(buffer);
-            IngredientWithCount output = IngredientWithCount.read(buffer);
+            ItemStack output = buffer.readItem();
             int spiritCount = buffer.readInt();
-            ArrayList<SpiritWithCount> spirits = new ArrayList<>();
+            List<SpiritWithCount> spirits = new ArrayList<>();
             for (int i = 0; i < spiritCount; i++) {
                 spirits.add(new SpiritWithCount(buffer.readItem()));
             }
@@ -171,7 +162,7 @@ public class SpiritFocusingRecipe extends IOrtusRecipe {
             buffer.writeInt(recipe.time);
             buffer.writeInt(recipe.durabilityCost);
             recipe.input.toNetwork(buffer);
-            recipe.output.write(buffer);
+            buffer.writeItem(recipe.output);
             buffer.writeInt(recipe.spirits.size());
             for (SpiritWithCount item : recipe.spirits) {
                 buffer.writeItem(item.getStack());

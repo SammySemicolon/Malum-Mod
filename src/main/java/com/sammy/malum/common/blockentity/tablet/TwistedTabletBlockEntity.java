@@ -1,8 +1,7 @@
 package com.sammy.malum.common.blockentity.tablet;
 
-import com.sammy.malum.common.blockentity.altar.IAltarProvider;
 import com.sammy.malum.common.blockentity.storage.ItemStandBlockEntity;
-import com.sammy.malum.core.setup.content.block.BlockEntityRegistry;
+import com.sammy.malum.registry.common.block.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.state.BlockState;

@@ -1,0 +1,37 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "value": {
+            "tag": "forge:nuggets/silver",
+            "type": "forge:tag_empty"
+          },
+          "type": "forge:not"
+        }
+      ],
+      "recipe": {
+        "type": "malum:spirit_focusing",
+        "time": 900,
+        "durabilityCost": 2,
+        "input": {
+          "item": "malum:silver_impetus"
+        },
+        "output": {
+          "item": "malum:silver_node",
+          "count": 3
+        },
+        "spirits": [
+          {
+            "type": "earthen",
+            "count": 2
+          },
+          {
+            "type": "infernal"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -17,7 +17,8 @@ public class ImportantEntryObject extends EntryObject {
         int posX = offsetPosX(xOffset);
         int posY = offsetPosY(yOffset);
         renderTransparentTexture(FADE_TEXTURE, poseStack, posX-13, posY-13, 1, 252, 58, 58, 512, 512);
-        renderTexture(FRAME_TEXTURE, poseStack, posX, posY, 34, 252, width, height, 512, 512);
+        renderTexture(FRAME_TEXTURE, poseStack, posX, posY, 34, getFrameTextureV(), width, height, 512, 512);
+        renderTexture(FRAME_TEXTURE, poseStack, posX, posY, 133, getBackgroundTextureV(), width, height, 512, 512);
         minecraft.getItemRenderer().renderAndDecorateItem(entry.iconStack, posX + 8, posY + 8);
     }
 }

@@ -1,0 +1,34 @@
+{
+  "type": "malum:spirit_infusion",
+  "input": {
+    "item": "malum:ornate_ring",
+    "count": 1
+  },
+  "output": {
+    "item": "malum:ring_of_esoteric_spoils"
+  },
+  "extra_items": [
+    {
+      "item": "malum:stained_spirit_resonator",
+      "count": 1
+    },
+    {
+      "item": "malum:processed_soulstone",
+      "count": 8
+    }
+  ],
+  "spirits": [
+    {
+      "type": "wicked",
+      "count": 8
+    },
+    {
+      "type": "arcane",
+      "count": 8
+    },
+    {
+      "type": "eldritch",
+      "count": 2
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "malum:block_of_hex_ash"
+    }
+  ],
+  "result": {
+    "item": "malum:hex_ash",
+    "count": 9
+  }
+}

@@ -13,8 +13,11 @@
   ],
   "results": [
     {
-      "item": "malum:raw_soulstone",
-      "count": 2
+      "item": "malum:crushed_soulstone"
+    },
+    {
+      "item": "malum:crushed_soulstone",
+      "chance": 0.75
     },
     {
       "item": "create:experience_nugget",

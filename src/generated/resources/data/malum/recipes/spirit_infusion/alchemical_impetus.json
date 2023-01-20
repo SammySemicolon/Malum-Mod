@@ -1,0 +1,30 @@
+{
+  "type": "malum:spirit_infusion",
+  "input": {
+    "item": "malum:alchemical_calx",
+    "count": 8
+  },
+  "output": {
+    "item": "malum:alchemical_impetus"
+  },
+  "extra_items": [
+    {
+      "item": "malum:processed_soulstone",
+      "count": 3
+    },
+    {
+      "item": "malum:hex_ash",
+      "count": 1
+    }
+  ],
+  "spirits": [
+    {
+      "type": "arcane",
+      "count": 4
+    },
+    {
+      "type": "earthen",
+      "count": 4
+    }
+  ]
+}

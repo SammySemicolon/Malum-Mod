@@ -1,0 +1,39 @@
+{
+  "type": "malum:spirit_infusion",
+  "input": {
+    "item": "malum:twisted_rock_item_pedestal",
+    "count": 2
+  },
+  "output": {
+    "item": "malum:spirit_catalyzer",
+    "count": 2
+  },
+  "extra_items": [
+    {
+      "item": "malum:ether",
+      "count": 1
+    },
+    {
+      "item": "malum:tainted_rock",
+      "count": 8
+    },
+    {
+      "item": "malum:twisted_rock",
+      "count": 8
+    }
+  ],
+  "spirits": [
+    {
+      "type": "infernal",
+      "count": 4
+    },
+    {
+      "type": "aerial",
+      "count": 4
+    },
+    {
+      "type": "eldritch",
+      "count": 2
+    }
+  ]
+}

@@ -11,7 +11,7 @@ public class CraftingBookPage extends BookPage {
     private final ItemStack[] inputStacks;
 
     public CraftingBookPage(ItemStack outputStack, ItemStack... inputStacks) {
-        super(MalumMod.prefix("textures/gui/book/pages/crafting_page.png"));
+        super(MalumMod.malumPath("textures/gui/book/pages/crafting_page.png"));
         this.outputStack = outputStack;
         this.inputStacks = inputStacks;
     }
@@ -21,7 +21,7 @@ public class CraftingBookPage extends BookPage {
     }
 
     public CraftingBookPage(ItemStack outputStack, Item... inputItems) {
-        super(MalumMod.prefix("textures/gui/book/pages/crafting_page.png"));
+        super(MalumMod.malumPath("textures/gui/book/pages/crafting_page.png"));
         this.outputStack = outputStack;
 
         ItemStack[] inputStacks = new ItemStack[inputItems.length];

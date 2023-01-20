@@ -1,7 +1,9 @@
 package com.sammy.malum.common.block;
 
+import com.sammy.malum.registry.common.block.BlockTagRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.SaplingBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.Feature;
@@ -17,6 +19,14 @@ public class MalumSaplingBlock extends SaplingBlock {
     public MalumSaplingBlock(Properties properties, RegistryObject<? extends Feature<NoneFeatureConfiguration>> tree) {
         super(null, properties);
         this.tree = tree;
+    }
+
+    @Override
+    public boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos) {
+        if (pLevel.getBlockState(pPos.below()).is(BlockTagRegistry.BLIGHTED_BLOCKS)) {
+            return true;
+        }
+        return super.canSurvive(pState, pLevel, pPos);
     }
 
     @Override
