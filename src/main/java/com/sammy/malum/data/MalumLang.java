@@ -7,6 +7,7 @@ import com.sammy.malum.common.item.spirit.SpiritJarItem;
 import com.sammy.malum.registry.common.DamageSourceRegistry;
 import com.sammy.malum.registry.common.SpiritRiteRegistry;
 import com.sammy.malum.registry.common.SpiritTypeRegistry;
+import com.sammy.malum.registry.common.block.BlockRegistry;
 import com.sammy.malum.registry.common.potion.MalumMobEffectRegistry;
 import com.sammy.malum.core.systems.item.ISoulContainerItem;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
@@ -58,6 +59,10 @@ public class MalumLang extends LanguageProvider {
         Set<RegistryObject<EntityType<?>>> entities = new HashSet<>(ENTITY_TYPES.getEntries());
         List<MalumRiteType> rites = SpiritRiteRegistry.RITES;
         List<MalumSpiritType> spirits = new ArrayList<>(SpiritTypeRegistry.SPIRITS.values());
+
+        add(DataHelper.take(blocks, BlockRegistry.PRIMORDIAL_SOUP).get(), "The Weeping Well");
+        add(DataHelper.take(blocks, BlockRegistry.VOID_CONDUIT).get(), "The Weeping Well");
+
         DataHelper.takeAll(blocks, i -> i.get() instanceof WallTorchBlock);
         DataHelper.takeAll(blocks, i -> i.get() instanceof EtherWallTorchBlock);
         DataHelper.takeAll(blocks, i -> i.get() instanceof WallSignBlock);

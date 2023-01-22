@@ -76,6 +76,13 @@ public class MalumSpiritFocusingRecipes extends RecipeProvider implements ICondi
                 .addSpirit(ELDRITCH_SPIRIT, 1)
                 .build(consumer, "netherite");
 
+
+        new SpiritRepairRecipeBuilder(1.0f, Ingredient.of(Items.HEART_OF_THE_SEA), 1)
+                .addItem(Items.TRIDENT)
+                .addSpirit(AQUEOUS_SPIRIT, 16)
+                .addSpirit(ARCANE_SPIRIT, 16)
+                .build(consumer, "trident");
+
         new SpiritRepairRecipeBuilder(0.75f, Ingredient.of(ItemRegistry.TWISTED_ROCK.get()), 8)
                 .addItem(ItemRegistry.TYRVING.get())
                 .addSpirit(WICKED_SPIRIT, 16)
