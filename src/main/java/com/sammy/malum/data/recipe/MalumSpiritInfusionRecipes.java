@@ -377,6 +377,7 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider implements ICondi
 
         new SpiritInfusionRecipeBuilder(Items.GLOWSTONE_DUST, 4, ItemRegistry.CURSED_GRIT.get(), 4)
                 .addSpirit(INFERNAL_SPIRIT, 4)
+                .addSpirit(WICKED_SPIRIT, 2)
                 .addSpirit(ARCANE_SPIRIT, 2)
                 .build(consumer);
 

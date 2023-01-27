@@ -39,43 +39,42 @@ public class MalumSpiritFocusingRecipes extends RecipeProvider implements ICondi
         int metalDuration = 900;
         int shortDuration = 300;
 
-        new SpiritRepairRecipeBuilder("wooden_", 0.5f, Ingredient.of(ItemTags.PLANKS), 4)
+        new SpiritRepairRecipeBuilder("wooden_.+", 0.5f, Ingredient.of(ItemTags.PLANKS), 4)
                 .addSpirit(EARTHEN_SPIRIT, 2)
                 .build(consumer, "wooden");
 
-        new SpiritRepairRecipeBuilder("flint_", 0.5f, Ingredient.of(Items.FLINT), 2)
+        new SpiritRepairRecipeBuilder("flint_.+", 0.5f, Ingredient.of(Items.FLINT), 2)
                 .addSpirit(EARTHEN_SPIRIT, 4)
                 .build(consumer, "flint");
 
-        new SpiritRepairRecipeBuilder("stone_", 0.5f, Ingredient.of(ItemTags.STONE_TOOL_MATERIALS), 2)
+        new SpiritRepairRecipeBuilder("stone_.+", 0.5f, Ingredient.of(ItemTags.STONE_TOOL_MATERIALS), 2)
                 .addSpirit(EARTHEN_SPIRIT, 4)
                 .build(consumer, "stone");
 
-        new SpiritRepairRecipeBuilder("copper_", 0.5f, Ingredient.of(Tags.Items.INGOTS_COPPER), 2)
+        new SpiritRepairRecipeBuilder("copper_.+", 0.5f, Ingredient.of(Tags.Items.INGOTS_COPPER), 2)
                 .addSpirit(EARTHEN_SPIRIT, 6)
                 .build(consumer, "copper");
 
-        new SpiritRepairRecipeBuilder("iron_", 0.5f, Ingredient.of(Tags.Items.INGOTS_IRON), 2)
+        new SpiritRepairRecipeBuilder("iron_.+", 0.5f, Ingredient.of(Tags.Items.INGOTS_IRON), 2)
                 .addItem(ItemRegistry.CRUDE_SCYTHE.get())
                 .addSpirit(EARTHEN_SPIRIT, 8)
                 .build(consumer, "iron");
 
-        new SpiritRepairRecipeBuilder("golden_", 0.5f, Ingredient.of(Tags.Items.INGOTS_GOLD), 2)
+        new SpiritRepairRecipeBuilder("golden_.+", 0.5f, Ingredient.of(Tags.Items.INGOTS_GOLD), 2)
                 .addSpirit(ARCANE_SPIRIT, 8)
                 .build(consumer, "gold");
 
-        new SpiritRepairRecipeBuilder("diamond_", 0.5f, Ingredient.of(Tags.Items.GEMS_DIAMOND), 2)
+        new SpiritRepairRecipeBuilder("diamond_.+", 0.5f, Ingredient.of(Tags.Items.GEMS_DIAMOND), 2)
                 .addSpirit(ARCANE_SPIRIT, 16)
                 .addSpirit(EARTHEN_SPIRIT, 8)
                 .build(consumer, "diamond");
 
-        new SpiritRepairRecipeBuilder("netherite_", 0.5f, Ingredient.of(Tags.Items.INGOTS_NETHERITE), 1)
+        new SpiritRepairRecipeBuilder("netherite_.+", 0.5f, Ingredient.of(Tags.Items.INGOTS_NETHERITE), 1)
                 .addSpirit(INFERNAL_SPIRIT, 16)
                 .addSpirit(ARCANE_SPIRIT, 8)
                 .addSpirit(EARTHEN_SPIRIT, 8)
                 .addSpirit(ELDRITCH_SPIRIT, 1)
                 .build(consumer, "netherite");
-
 
         new SpiritRepairRecipeBuilder(1.0f, Ingredient.of(Items.HEART_OF_THE_SEA), 1)
                 .addItem(Items.TRIDENT)

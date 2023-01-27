@@ -463,16 +463,15 @@ public class BlockRegistry {
     public static final RegistryObject<Block> BLOCK_OF_HALLOWED_GOLD = BLOCKS.register("block_of_hallowed_gold", () -> new Block(HALLOWED_GOLD_PROPERTIES()));
     public static final RegistryObject<Block> BLOCK_OF_SOUL_STAINED_STEEL = BLOCKS.register("block_of_soul_stained_steel", () -> new Block(SOUL_STAINED_STEEL_BLOCK_PROPERTIES()));
 
-    public static final RegistryObject<Block> THE_DEVICE = BLOCKS.register("the_device", () -> new TheDevice(TAINTED_ROCK_PROPERTIES()));
-
-    //    public static final RegistryObject<Block> BLOCK_OF_CTHONIC_GOLD = BLOCKS.register("block_of_rare_earths", () -> new OreBlock(CTHONIC_GOLD_PROPERTIES(), UniformInt.of(10, 100)));
     public static final RegistryObject<Block> BLOCK_OF_ROTTING_ESSENCE = BLOCKS.register("block_of_rotting_essence", () -> new Block(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_RED).strength(1F, 6.0F).sound(SoundType.CORAL_BLOCK)));
     public static final RegistryObject<Block> BLOCK_OF_GRIM_TALC = BLOCKS.register("block_of_grim_talc", () -> new Block(BlockBehaviour.Properties.copy(Blocks.BONE_BLOCK)));
     public static final RegistryObject<Block> BLOCK_OF_ALCHEMICAL_CALX = BLOCKS.register("block_of_alchemical_calx", () -> new Block(BlockBehaviour.Properties.copy(Blocks.CALCITE)));
     public static final RegistryObject<Block> BLOCK_OF_ASTRAL_WEAVE = BLOCKS.register("block_of_astral_weave", () -> new Block(BlockBehaviour.Properties.copy(Blocks.LIGHT_BLUE_WOOL)));
     public static final RegistryObject<Block> BLOCK_OF_HEX_ASH = BLOCKS.register("block_of_hex_ash", () -> new Block(BlockBehaviour.Properties.copy(Blocks.PURPLE_CONCRETE_POWDER)));
     public static final RegistryObject<Block> BLOCK_OF_CURSED_GRIT = BLOCKS.register("block_of_cursed_grit", () -> new Block(BlockBehaviour.Properties.copy(Blocks.RED_CONCRETE_POWDER)));
+//    public static final RegistryObject<Block> BLOCK_OF_VOID_SALTS = BLOCKS.register("block_of_void_salts", () -> new Block(BlockBehaviour.Properties.copy(Blocks.BLACK_CONCRETE_POWDER)));
 
+    public static final RegistryObject<Block> THE_DEVICE = BLOCKS.register("the_device", () -> new TheDevice(TAINTED_ROCK_PROPERTIES()));
 
     @Mod.EventBusSubscriber(modid = MalumMod.MALUM, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
     public static class ClientOnly {

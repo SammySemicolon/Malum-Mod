@@ -11,6 +11,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.network.PacketDistributor;
 
 import static com.sammy.malum.registry.common.SpiritTypeRegistry.ARCANE_SPIRIT;
@@ -26,7 +27,7 @@ public class WickedRiteType extends MalumRiteType {
         return new EntityAffectingRiteEffect() {
             @Override
             public void riteEffect(TotemBaseBlockEntity totemBase) {
-                getNearbyEntities(totemBase, LivingEntity.class).forEach(e -> {
+                getNearbyEntities(totemBase, LivingEntity.class, e -> !(e instanceof Player)).forEach(e -> {
                     if (e.getHealth() > 2.5f && !e.isInvulnerableTo(DamageSourceRegistry.VOODOO)) {
                         MALUM_CHANNEL.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> e), new MinorEntityEffectParticlePacket(getEffectSpirit().getColor(), e.getX(), e.getY() + e.getBbHeight() / 2f, e.getZ()));
                         e.hurt(DamageSourceRegistry.VOODOO, 2);

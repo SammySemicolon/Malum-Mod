@@ -14,6 +14,7 @@ import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Bee;
 import net.minecraft.world.entity.animal.Chicken;
 import net.minecraft.world.entity.animal.Sheep;
+import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.network.PacketDistributor;
 
@@ -71,7 +72,7 @@ public class SacredRiteType extends MalumRiteType {
         return new EntityAffectingRiteEffect() {
             @Override
             public void riteEffect(TotemBaseBlockEntity totemBase) {
-                getNearbyEntities(totemBase, LivingEntity.class).forEach(e -> {
+                getNearbyEntities(totemBase, LivingEntity.class, e -> !(e instanceof Monster)).forEach(e -> {
                     if (e.getHealth() < e.getMaxHealth()) {
                         e.heal(2);
                         MALUM_CHANNEL.send(PacketDistributor.TRACKING_ENTITY.with(() -> e), new MinorEntityEffectParticlePacket(getEffectSpirit().getColor(), e.getX(), e.getY() + e.getBbHeight() / 2f, e.getZ()));

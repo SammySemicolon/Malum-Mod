@@ -21,6 +21,7 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.*;
+import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.RegistryObject;
@@ -37,7 +38,7 @@ import static com.sammy.malum.registry.common.item.ItemRegistry.ITEMS;
 import static team.lodestar.lodestone.helpers.DataHelper.take;
 import static team.lodestar.lodestone.helpers.DataHelper.takeAll;
 
-public class MalumItemModels extends net.minecraftforge.client.model.generators.ItemModelProvider {
+public class MalumItemModels extends ItemModelProvider {
     public MalumItemModels(DataGenerator generator, ExistingFileHelper existingFileHelper) {
         super(generator, MalumMod.MALUM, existingFileHelper);
     }

@@ -13,7 +13,7 @@
     "occultism:chalk_purple"
   ],
   "repairMaterial": {
-    "tag": "forge:dust/obsidian",
+    "tag": "forge:dusts/obsidian",
     "count": 2
   },
   "spirits": [

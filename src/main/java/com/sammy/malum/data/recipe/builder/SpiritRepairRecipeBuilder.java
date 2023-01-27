@@ -20,22 +20,25 @@ import java.util.function.Consumer;
 
 public class SpiritRepairRecipeBuilder {
 
-    public final String inputLookup;
+    public final String itemIdRegex;
+    public final String modIdRegex;
     public final float durabilityPercentage;
     public final List<Item> inputs = new ArrayList<>();
     public final IngredientWithCount repairMaterial;
     public final List<SpiritWithCount> spirits = new ArrayList<>();
 
-    public SpiritRepairRecipeBuilder(String inputLookup, float durabilityPercentage, Ingredient repairMaterial, int repairMaterialCount) {
-        this.inputLookup = inputLookup;
+    public SpiritRepairRecipeBuilder(String itemIdRegex, String modIdRegex, float durabilityPercentage, IngredientWithCount repairMaterial) {
+        this.itemIdRegex = itemIdRegex;
+        this.modIdRegex = modIdRegex;
         this.durabilityPercentage = durabilityPercentage;
-        this.repairMaterial = new IngredientWithCount(repairMaterial, repairMaterialCount);
+        this.repairMaterial = repairMaterial;
     }
+    public SpiritRepairRecipeBuilder(String itemIdRegex, float durabilityPercentage, Ingredient repairMaterial, int repairMaterialCount) {
+        this(itemIdRegex, "", durabilityPercentage, new IngredientWithCount(repairMaterial, repairMaterialCount));
 
+    }
     public SpiritRepairRecipeBuilder(float durabilityPercentage, Ingredient repairMaterial, int repairMaterialCount) {
-        this.inputLookup = "none";
-        this.durabilityPercentage = durabilityPercentage;
-        this.repairMaterial = new IngredientWithCount(repairMaterial, repairMaterialCount);
+        this("", "", durabilityPercentage, new IngredientWithCount(repairMaterial, repairMaterialCount));
     }
 
     public SpiritRepairRecipeBuilder addItem(Item item) {
@@ -78,9 +81,8 @@ public class SpiritRepairRecipeBuilder {
                 spiritsJson.add(spirit.serialize());
             }
 
-            if (inputLookup != null) {
-                json.addProperty("inputLookup", inputLookup);
-            }
+            json.addProperty("itemIdRegex", itemIdRegex);
+            json.addProperty("modIdRegex", modIdRegex);
             json.addProperty("durabilityPercentage", durabilityPercentage);
             json.add("inputs", inputsJson);
             json.add("repairMaterial", repairMaterial.serialize());
