@@ -28,14 +28,13 @@ import team.lodestar.lodestone.setup.LodestoneScreenParticleRegistry;
 import team.lodestar.lodestone.systems.easing.Easing;
 import team.lodestar.lodestone.systems.rendering.particle.ParticleBuilders;
 import team.lodestar.lodestone.systems.rendering.particle.SimpleParticleOptions;
+import team.lodestar.lodestone.systems.rendering.particle.screen.ScreenParticleRenderType;
 import team.lodestar.lodestone.systems.rendering.particle.screen.base.ScreenParticle;
 
 import javax.annotation.Nullable;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.*;
 import java.util.List;
-import java.util.Random;
 
 import static net.minecraft.util.Mth.nextFloat;
 import static net.minecraft.world.entity.EquipmentSlot.MAINHAND;
@@ -327,9 +326,9 @@ public class SpiritHelper {
                 .repeat(level, x, y, z, 1);
     }
 
-    public static void spawnSpiritScreenParticles(Color color, Color endColor, ItemStack stack, float pXPosition, float pYPosition) {
+    public static void spawnSpiritScreenParticles(HashMap<ScreenParticleRenderType, ArrayList<ScreenParticle>> target, Color color, Color endColor, ItemStack stack, float pXPosition, float pYPosition) {
         Random rand = Minecraft.getInstance().level.getRandom();
-        ParticleBuilders.create(LodestoneScreenParticleRegistry.SPARKLE)
+        ParticleBuilders.create(LodestoneScreenParticleRegistry.SPARKLE, target)
                 .setAlpha(0.04f, 0f)
                 .setLifetime(10 + rand.nextInt(10))
                 .setScale(0.8f + rand.nextFloat() * 0.1f, 0)
@@ -337,10 +336,9 @@ public class SpiritHelper {
                 .setColorCoefficient(2f)
                 .randomOffset(0.05f)
                 .randomMotion(0.05f, 0.05f)
-                .centerOnStack(stack)
                 .repeat(pXPosition, pYPosition, 1);
 
-        ParticleBuilders.create(LodestoneScreenParticleRegistry.WISP)
+        ParticleBuilders.create(LodestoneScreenParticleRegistry.WISP, target)
                 .setAlpha(0.02f, 0f)
                 .setLifetime(20 + rand.nextInt(8))
                 .setSpin(nextFloat(rand, 0.2f, 0.4f))
@@ -349,7 +347,6 @@ public class SpiritHelper {
                 .setColorCoefficient(1.25f)
                 .randomOffset(0.1f)
                 .randomMotion(0.4f, 0.4f)
-                .centerOnStack(stack)
                 .repeat(pXPosition, pYPosition, 1)
                 .setLifetime(10 + rand.nextInt(2))
                 .setSpin(nextFloat(rand, 0.05f, 0.1f))

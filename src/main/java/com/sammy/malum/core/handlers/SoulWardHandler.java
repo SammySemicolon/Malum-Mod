@@ -9,7 +9,6 @@ import com.sammy.malum.config.CommonConfig;
 import com.sammy.malum.core.systems.item.IMalumEventResponderItem;
 import com.sammy.malum.registry.common.AttributeRegistry;
 import com.sammy.malum.registry.common.SoundRegistry;
-import com.sammy.malum.registry.common.SpiritAffinityRegistry;
 import com.sammy.malum.registry.common.SpiritTypeRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
@@ -32,7 +31,6 @@ import team.lodestar.lodestone.setup.LodestoneShaderRegistry;
 import team.lodestar.lodestone.systems.rendering.ExtendedShaderInstance;
 import team.lodestar.lodestone.systems.rendering.VFXBuilders;
 import team.lodestar.lodestone.systems.rendering.particle.ParticleBuilders;
-import team.lodestar.lodestone.systems.rendering.particle.screen.base.ScreenParticle;
 
 public class SoulWardHandler {
     public float soulWard;
@@ -180,7 +178,7 @@ public class SoulWardHandler {
                                     .draw(poseStack);
 
                             if (ScreenParticleHandler.canSpawnParticles) {
-                                ParticleBuilders.create(LodestoneScreenParticleRegistry.WISP)
+                                ParticleBuilders.create(LodestoneScreenParticleRegistry.WISP, ScreenParticleHandler.EARLY_PARTICLES)
                                         .setLifetime(20)
                                         .setColor(SpiritTypeRegistry.ARCANE_SPIRIT.getColor().brighter(), SpiritTypeRegistry.ARCANE_SPIRIT.getEndColor())
                                         .setAlphaCoefficient(0.75f)

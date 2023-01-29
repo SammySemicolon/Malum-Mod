@@ -9,8 +9,12 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 import team.lodestar.lodestone.handlers.screenparticle.ParticleEmitterHandler.ItemParticleSupplier;
+import team.lodestar.lodestone.systems.rendering.particle.screen.ScreenParticleRenderType;
+import team.lodestar.lodestone.systems.rendering.particle.screen.base.ScreenParticle;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import static com.sammy.malum.core.helper.SpiritHelper.spawnSpiritScreenParticles;
@@ -39,7 +43,7 @@ public class MalumSpiritItem extends Item implements IFloatingGlowItem, ItemPart
     }
 
     @Override
-    public void spawnParticles(Level level, float partialTick, ItemStack stack, float x, float y) {
-        spawnSpiritScreenParticles(type.getColor(), type.getEndColor(), stack, x, y);
+    public void spawnParticles(HashMap<ScreenParticleRenderType, ArrayList<ScreenParticle>> target, Level level, float partialTick, ItemStack stack, float x, float y) {
+        spawnSpiritScreenParticles(target, type.getColor(), type.getEndColor(), stack, x, y);
     }
 }
