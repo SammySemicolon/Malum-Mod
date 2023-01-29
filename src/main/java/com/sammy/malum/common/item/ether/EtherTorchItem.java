@@ -1,6 +1,5 @@
 package com.sammy.malum.common.item.ether;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.Item;
@@ -10,12 +9,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import team.lodestar.lodestone.setup.LodestoneScreenParticleRegistry;
 import team.lodestar.lodestone.systems.easing.Easing;
 import team.lodestar.lodestone.systems.rendering.particle.ParticleBuilders;
-import team.lodestar.lodestone.systems.rendering.particle.screen.base.ScreenParticle;
 
 import javax.annotation.Nullable;
 import java.awt.*;
@@ -59,11 +55,9 @@ public class EtherTorchItem extends AbstractEtherItem {
         blockToItemMap.remove(this.wallBlock);
     }
 
-    @OnlyIn(value = Dist.CLIENT)
     @Override
-    public void particleTick(ItemStack stack, float x, float y, ScreenParticle.RenderOrder renderOrder) {
-        Level level = Minecraft.getInstance().level;
-        float gameTime = level.getGameTime() + Minecraft.getInstance().timer.partialTick;
+    public void spawnParticles(Level level, float partialTick, ItemStack stack, float x, float y) {
+        float gameTime = level.getGameTime() + partialTick;
         AbstractEtherItem etherItem = (AbstractEtherItem) stack.getItem();
         Color firstColor = new Color(etherItem.getFirstColor(stack));
         Color secondColor = new Color(etherItem.getSecondColor(stack));
@@ -79,7 +73,6 @@ public class EtherTorchItem extends AbstractEtherItem {
                 .setSpin(0, 1)
                 .setSpinEasing(Easing.EXPO_IN_OUT)
                 .setAlphaEasing(Easing.QUINTIC_IN)
-                .overwriteRenderOrder(renderOrder)
                 .centerOnStack(stack, 0, -1)
                 .repeat(x, y, 1)
                 .setScale((float) (0.75f - Math.sin(gameTime * 0.075f) * 0.125f), 0)

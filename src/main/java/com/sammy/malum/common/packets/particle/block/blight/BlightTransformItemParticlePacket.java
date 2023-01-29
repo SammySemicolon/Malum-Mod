@@ -61,7 +61,7 @@ public class BlightTransformItemParticlePacket extends SpiritBasedParticleEffect
                     .addMotion(0, 0.28f+rand.nextFloat()*0.15f, 0)
                     .disableNoClip()
                     .randomMotion(0.1f, 0.15f)
-                    .overwriteRemovalProtocol(SimpleParticleOptions.SpecialRemovalProtocol.ENDING_CURVE_INVISIBLE)
+                    .setRemovalProtocol(SimpleParticleOptions.SpecialRemovalProtocol.ENDING_CURVE_INVISIBLE)
                     .repeat(level, posX, posY, posZ, 2);
             }
             int spinOffset = rand.nextInt(360);
@@ -79,7 +79,7 @@ public class BlightTransformItemParticlePacket extends SpiritBasedParticleEffect
                     .randomOffset(0.4f)
                     .enableNoClip()
                     .randomMotion(0.01f, 0.01f)
-                    .overwriteRemovalProtocol(SimpleParticleOptions.SpecialRemovalProtocol.ENDING_CURVE_INVISIBLE)
+                    .setRemovalProtocol(SimpleParticleOptions.SpecialRemovalProtocol.ENDING_CURVE_INVISIBLE)
                     .repeat(level, posX, posY, posZ, 5);
             }
         }
@@ -100,7 +100,7 @@ public class BlightTransformItemParticlePacket extends SpiritBasedParticleEffect
                 .randomOffset(0.1f, 0.1f)
                 .randomMotion(0.01f, 0.02f)
                 .addMotion(0, 0.01f, 0)
-                .overwriteRenderType(LodestoneWorldParticleRenderType.TRANSPARENT)
+                .setRenderType(LodestoneWorldParticleRenderType.TRANSPARENT)
                 .repeat(level, posX, posY, posZ, 2);
 
             ParticleBuilders.create(LodestoneParticleRegistry.SMOKE_PARTICLE)
@@ -114,7 +114,7 @@ public class BlightTransformItemParticlePacket extends SpiritBasedParticleEffect
                 .enableNoClip()
                 .randomMotion(0.015f, 0.015f)
                 .addMotion(0, 0.01f, 0)
-                .overwriteRenderType(LodestoneWorldParticleRenderType.TRANSPARENT)
+                .setRenderType(LodestoneWorldParticleRenderType.TRANSPARENT)
                 .repeat(level, posX, posY, posZ, 3);
 
             color = new Color((int)(80*multiplier), (int)(40*multiplier), (int)(80*multiplier));

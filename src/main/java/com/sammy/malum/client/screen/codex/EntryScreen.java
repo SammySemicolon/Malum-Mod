@@ -12,11 +12,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Player;
-import team.lodestar.lodestone.handlers.ScreenParticleHandler;
 
 import static com.sammy.malum.client.screen.codex.ProgressionBookScreen.isHovering;
 import static com.sammy.malum.client.screen.codex.ProgressionBookScreen.renderTexture;
-import static team.lodestar.lodestone.systems.rendering.particle.screen.base.ScreenParticle.RenderOrder.BEFORE_TOOLTIPS;
 
 public class EntryScreen extends Screen {
     public static final ResourceLocation BOOK_TEXTURE = MalumMod.malumPath("textures/gui/book/entry.png");
@@ -82,7 +80,6 @@ public class EntryScreen extends Screen {
                 }
             }
         }
-        ScreenParticleHandler.renderParticles(BEFORE_TOOLTIPS);
     }
 
     @Override
@@ -149,7 +146,6 @@ public class EntryScreen extends Screen {
 
     public void close(boolean ignoreNextInput) {
         ProgressionBookScreen.openScreen(ignoreNextInput);
-        ScreenParticleHandler.wipeParticles();
         openObject.exit();
     }
 
@@ -160,7 +156,6 @@ public class EntryScreen extends Screen {
 
     public static void openScreen(EntryObject newObject) {
         Minecraft.getInstance().setScreen(getInstance(newObject));
-        ScreenParticleHandler.wipeParticles();
         screen.playSound();
     }
 

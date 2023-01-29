@@ -1,16 +1,12 @@
 package com.sammy.malum.common.item.nitrate;
 
 import com.sammy.malum.common.entity.nitrate.EthericNitrateEntity;
-import net.minecraft.client.Minecraft;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import team.lodestar.lodestone.helpers.ColorHelper;
 import team.lodestar.lodestone.setup.LodestoneScreenParticleRegistry;
 import team.lodestar.lodestone.systems.easing.Easing;
 import team.lodestar.lodestone.systems.rendering.particle.ParticleBuilders;
-import team.lodestar.lodestone.systems.rendering.particle.screen.base.ScreenParticle;
 
 import java.awt.*;
 
@@ -20,11 +16,8 @@ public class EthericNitrateItem extends AbstractNitrateItem {
         super(pProperties, p -> new EthericNitrateEntity(p, p.level));
     }
 
-    @OnlyIn(value = Dist.CLIENT)
     @Override
-    public void particleTick(ItemStack stack, float x, float y, ScreenParticle.RenderOrder renderOrder) {
-        Level level = Minecraft.getInstance().level;
-        float partialTick = Minecraft.getInstance().timer.partialTick;
+    public void spawnParticles(Level level, float partialTick, ItemStack stack, float x, float y) {
         float gameTime = (float) (level.getGameTime() + partialTick + Math.sin(((level.getGameTime() + partialTick) * 0.1f)));
         Color firstColor = ColorHelper.brighter(EthericNitrateEntity.FIRST_COLOR, 2);
         Color secondColor = EthericNitrateEntity.SECOND_COLOR;
@@ -40,7 +33,6 @@ public class EthericNitrateItem extends AbstractNitrateItem {
                 .setSpin(0, 1)
                 .setSpinEasing(Easing.EXPO_IN_OUT)
                 .setAlphaEasing(Easing.QUINTIC_IN)
-                .overwriteRenderOrder(renderOrder)
                 .centerOnStack(stack, -1, 4)
                 .repeat(x, y, 1)
                 .setScale((float) (1.4f - Math.sin(gameTime * 0.075f) * 0.125f), 0)

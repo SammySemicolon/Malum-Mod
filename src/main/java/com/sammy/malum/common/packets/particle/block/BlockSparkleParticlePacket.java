@@ -49,7 +49,7 @@ public class BlockSparkleParticlePacket extends BlockParticlePacket
                     .addMotion(0, 0.28f+rand.nextFloat()*0.15f, 0)
                     .disableNoClip()
                     .randomMotion(0.1f, 0.15f)
-                    .overwriteRemovalProtocol(SimpleParticleOptions.SpecialRemovalProtocol.ENDING_CURVE_INVISIBLE)
+                    .setRemovalProtocol(SimpleParticleOptions.SpecialRemovalProtocol.ENDING_CURVE_INVISIBLE)
                     .repeat(level, pos.getX()+0.5f, pos.getY()+0.2f, pos.getZ()+0.5f, 1);
         }
         for (int i = 0; i < 2; i++) {
@@ -67,7 +67,7 @@ public class BlockSparkleParticlePacket extends BlockParticlePacket
                     .randomOffset(0.4f)
                     .enableNoClip()
                     .randomMotion(0.01f, 0.01f)
-                    .overwriteRemovalProtocol(SimpleParticleOptions.SpecialRemovalProtocol.ENDING_CURVE_INVISIBLE)
+                    .setRemovalProtocol(SimpleParticleOptions.SpecialRemovalProtocol.ENDING_CURVE_INVISIBLE)
                     .repeatSurroundBlock(level, pos, 1);
         }
     }

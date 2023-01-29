@@ -11,11 +11,11 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import team.lodestar.lodestone.systems.rendering.particle.screen.emitter.ItemParticleEmitter;
+import team.lodestar.lodestone.handlers.screenparticle.ParticleEmitterHandler.ItemParticleSupplier;
 
 import java.util.function.Function;
 
-public abstract class AbstractNitrateItem extends Item implements ItemParticleEmitter {
+public abstract class AbstractNitrateItem extends Item implements ItemParticleSupplier {
 
     public final Function<Player, AbstractNitrateEntity> entitySupplier;
 

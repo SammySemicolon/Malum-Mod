@@ -247,7 +247,7 @@ public class TotemPoleBlockEntity extends LodestoneBlockEntity {
                         .setColorCoefficient(0.5f)
                         .randomMotion(0.0025f, 0.0025f)
                         .enableNoClip()
-                        .overwriteRemovalProtocol(SimpleParticleOptions.SpecialRemovalProtocol.ENDING_CURVE_INVISIBLE)
+                        .setRemovalProtocol(SimpleParticleOptions.SpecialRemovalProtocol.ENDING_CURVE_INVISIBLE)
                         .repeat(level, itemPos.x, itemPos.y, itemPos.z, 1);
             }
         }
@@ -268,7 +268,7 @@ public class TotemPoleBlockEntity extends LodestoneBlockEntity {
                     .enableNoClip()
                     .randomOffset(0.1f, 0.2f)
                     .randomMotion(0.01f, 0.02f)
-                    .overwriteRemovalProtocol(SimpleParticleOptions.SpecialRemovalProtocol.ENDING_CURVE_INVISIBLE)
+                    .setRemovalProtocol(SimpleParticleOptions.SpecialRemovalProtocol.ENDING_CURVE_INVISIBLE)
                     .surroundBlock(level, worldPosition, Direction.WEST, Direction.EAST, Direction.NORTH, Direction.SOUTH);
 
             ParticleBuilders.create(LodestoneParticleRegistry.SMOKE_PARTICLE)
@@ -282,7 +282,7 @@ public class TotemPoleBlockEntity extends LodestoneBlockEntity {
                     .randomOffset(0.1f, 0.2f)
                     .enableNoClip()
                     .randomMotion(0.01f, 0.02f)
-                    .overwriteRemovalProtocol(SimpleParticleOptions.SpecialRemovalProtocol.ENDING_CURVE_INVISIBLE)
+                    .setRemovalProtocol(SimpleParticleOptions.SpecialRemovalProtocol.ENDING_CURVE_INVISIBLE)
                     .surroundBlock(level, worldPosition, Direction.WEST, Direction.EAST, Direction.NORTH, Direction.SOUTH);
         }
     }

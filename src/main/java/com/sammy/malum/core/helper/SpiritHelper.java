@@ -235,7 +235,7 @@ public class SpiritHelper {
                 .enableNoClip()
                 .addMotion(extraVelocity.x, extraVelocity.y, extraVelocity.z)
                 .randomMotion(0.02f, 0.02f)
-                .overwriteRemovalProtocol(SimpleParticleOptions.SpecialRemovalProtocol.INVISIBLE)
+                .setRemovalProtocol(SimpleParticleOptions.SpecialRemovalProtocol.INVISIBLE)
                 .repeat(level, x, y, z, 1);
 
         spawnSpiritParticles(level, x, y, z, 1, extraVelocity, color, endColor);
@@ -264,7 +264,7 @@ public class SpiritHelper {
                 .setSpin(nextFloat(rand, 0.05f, 0.1f))
                 .setScale(0.15f + rand.nextFloat() * 0.05f, 0f)
                 .randomMotion(0.01f, 0.01f)
-                .overwriteRemovalProtocol(SimpleParticleOptions.SpecialRemovalProtocol.INVISIBLE)
+                .setRemovalProtocol(SimpleParticleOptions.SpecialRemovalProtocol.INVISIBLE)
                 .repeat(level, x, y, z, 1);
 
     }
@@ -327,7 +327,7 @@ public class SpiritHelper {
                 .repeat(level, x, y, z, 1);
     }
 
-    public static void spawnSpiritScreenParticles(Color color, Color endColor, ItemStack stack, float pXPosition, float pYPosition, ScreenParticle.RenderOrder renderOrder) {
+    public static void spawnSpiritScreenParticles(Color color, Color endColor, ItemStack stack, float pXPosition, float pYPosition) {
         Random rand = Minecraft.getInstance().level.getRandom();
         ParticleBuilders.create(LodestoneScreenParticleRegistry.SPARKLE)
                 .setAlpha(0.04f, 0f)
@@ -337,7 +337,6 @@ public class SpiritHelper {
                 .setColorCoefficient(2f)
                 .randomOffset(0.05f)
                 .randomMotion(0.05f, 0.05f)
-                .overwriteRenderOrder(renderOrder)
                 .centerOnStack(stack)
                 .repeat(pXPosition, pYPosition, 1);
 
@@ -350,7 +349,6 @@ public class SpiritHelper {
                 .setColorCoefficient(1.25f)
                 .randomOffset(0.1f)
                 .randomMotion(0.4f, 0.4f)
-                .overwriteRenderOrder(renderOrder)
                 .centerOnStack(stack)
                 .repeat(pXPosition, pYPosition, 1)
                 .setLifetime(10 + rand.nextInt(2))

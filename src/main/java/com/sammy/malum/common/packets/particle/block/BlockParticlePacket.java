@@ -50,7 +50,7 @@ public class BlockParticlePacket extends LodestoneClientPacket {
                 .enableNoClip()
                 .randomOffset(0.1f, 0.1f)
                 .randomMotion(0.001f, 0.001f)
-                .overwriteRemovalProtocol(SimpleParticleOptions.SpecialRemovalProtocol.ENDING_CURVE_INVISIBLE)
+                .setRemovalProtocol(SimpleParticleOptions.SpecialRemovalProtocol.ENDING_CURVE_INVISIBLE)
                 .repeatSurroundBlock(level, pos, 6, Direction.NORTH, Direction.SOUTH, Direction.EAST, Direction.WEST);
 
         ParticleBuilders.create(LodestoneParticleRegistry.SMOKE_PARTICLE)
@@ -63,7 +63,7 @@ public class BlockParticlePacket extends LodestoneClientPacket {
                 .randomOffset(0.2f)
                 .enableNoClip()
                 .randomMotion(0.001f, 0.001f)
-                .overwriteRemovalProtocol(SimpleParticleOptions.SpecialRemovalProtocol.ENDING_CURVE_INVISIBLE)
+                .setRemovalProtocol(SimpleParticleOptions.SpecialRemovalProtocol.ENDING_CURVE_INVISIBLE)
                 .repeatSurroundBlock(level, pos, 8, Direction.NORTH, Direction.SOUTH, Direction.EAST, Direction.WEST);
     }
 

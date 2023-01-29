@@ -585,7 +585,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
                 .setColorCoefficient(0.5f)
                 .randomMotion(0.0025f, 0.0025f)
                 .enableNoClip()
-                .overwriteRemovalProtocol(SimpleParticleOptions.SpecialRemovalProtocol.ENDING_CURVE_INVISIBLE)
+                .setRemovalProtocol(SimpleParticleOptions.SpecialRemovalProtocol.ENDING_CURVE_INVISIBLE)
                 .repeat(level, itemPos.x, itemPos.y, itemPos.z, 1);
     }
 

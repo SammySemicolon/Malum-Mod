@@ -123,9 +123,9 @@ public class VividNitrateEntity extends AbstractNitrateEntity {
                     .randomOffset(0.02f)
                     .enableNoClip()
                     .randomMotion(0.01f, 0.01f)
-                    .overwriteRemovalProtocol(SimpleParticleOptions.SpecialRemovalProtocol.INVISIBLE)
+                    .setRemovalProtocol(SimpleParticleOptions.SpecialRemovalProtocol.INVISIBLE)
                     .repeat(level, lerpX, lerpY, lerpZ, 1)
-                    .overwriteRenderType(LodestoneWorldParticleRenderType.TRANSPARENT)
+                    .setRenderType(LodestoneWorldParticleRenderType.TRANSPARENT)
                     .setColorCoefficient(2.75f)
                     .repeat(level, lerpX, lerpY, lerpZ, 1);
         }

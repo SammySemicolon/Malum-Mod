@@ -25,7 +25,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.client.gui.ForgeIngameGui;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import team.lodestar.lodestone.handlers.ScreenParticleHandler;
+import team.lodestar.lodestone.handlers.screenparticle.ScreenParticleHandler;
 import team.lodestar.lodestone.helpers.ItemHelper;
 import team.lodestar.lodestone.setup.LodestoneScreenParticleRegistry;
 import team.lodestar.lodestone.setup.LodestoneShaderRegistry;
@@ -191,7 +191,6 @@ public class SoulWardHandler {
                                         .randomOffset(2)
                                         .randomMotion(0.5f, 0.5f)
                                         .addMotion(0, 0.2f)
-                                        .overwriteRenderOrder(ScreenParticle.RenderOrder.BEFORE_UI)
                                         .repeat(x + 5, y + 5, 1);
                             }
                         }

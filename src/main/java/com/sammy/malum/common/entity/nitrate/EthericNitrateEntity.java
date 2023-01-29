@@ -91,7 +91,7 @@ public class EthericNitrateEntity extends AbstractNitrateEntity {
                 .enableNoClip()
                 .addMotion(norm.x, norm.y, norm.z)
                 .randomMotion(0.01f, 0.01f)
-                .overwriteRenderType(LodestoneWorldParticleRenderType.TRANSPARENT)
+                .setRenderType(LodestoneWorldParticleRenderType.TRANSPARENT)
                 .repeat(level, lerpX, lerpY, lerpZ, 1)
                 .setColorCoefficient(2f)
                 .repeat(level, lerpX, lerpY, lerpZ, 1);

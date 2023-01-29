@@ -43,7 +43,7 @@ public class MinorBlockSparkleParticlePacket extends BlockParticlePacket
                     .randomOffset(0.4f)
                     .enableNoClip()
                     .randomMotion(0.01f, 0.01f)
-                    .overwriteRemovalProtocol(SimpleParticleOptions.SpecialRemovalProtocol.ENDING_CURVE_INVISIBLE)
+                    .setRemovalProtocol(SimpleParticleOptions.SpecialRemovalProtocol.ENDING_CURVE_INVISIBLE)
                     .repeatSurroundBlock(level, pos, 1);
         }
     }

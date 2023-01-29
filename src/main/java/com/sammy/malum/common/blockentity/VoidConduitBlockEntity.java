@@ -173,8 +173,8 @@ public class VoidConduitBlockEntity extends LodestoneBlockEntity {
                     .addMotion(0, level.random.nextFloat() * 0.01f, 0)
                     .randomOffset(3f, 0.02f)
                     .enableNoClip()
-                    .overwriteRemovalProtocol(SimpleParticleOptions.SpecialRemovalProtocol.ENDING_CURVE_INVISIBLE)
-                    .overwriteRenderType(LodestoneWorldParticleRenderType.TRANSPARENT)
+                    .setRemovalProtocol(SimpleParticleOptions.SpecialRemovalProtocol.ENDING_CURVE_INVISIBLE)
+                    .setRenderType(LodestoneWorldParticleRenderType.TRANSPARENT)
                     .surroundVoxelShape(level, blockPos, WELL_SHAPE, 12);
         }
     }

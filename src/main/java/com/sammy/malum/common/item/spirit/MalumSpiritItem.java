@@ -7,18 +7,15 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.Nullable;
-import team.lodestar.lodestone.systems.rendering.particle.screen.base.ScreenParticle;
-import team.lodestar.lodestone.systems.rendering.particle.screen.emitter.ItemParticleEmitter;
+import team.lodestar.lodestone.handlers.screenparticle.ParticleEmitterHandler.ItemParticleSupplier;
 
 import java.awt.*;
 import java.util.List;
 
 import static com.sammy.malum.core.helper.SpiritHelper.spawnSpiritScreenParticles;
 
-public class MalumSpiritItem extends Item implements IFloatingGlowItem, ItemParticleEmitter {
+public class MalumSpiritItem extends Item implements IFloatingGlowItem, ItemParticleSupplier {
     public MalumSpiritType type;
 
     public MalumSpiritItem(Properties properties, MalumSpiritType type) {
@@ -41,9 +38,8 @@ public class MalumSpiritItem extends Item implements IFloatingGlowItem, ItemPart
         return type.getEndColor();
     }
 
-    @OnlyIn(value = Dist.CLIENT)
     @Override
-    public void particleTick(ItemStack stack, float x, float y, ScreenParticle.RenderOrder renderOrder) {
-        spawnSpiritScreenParticles(type.getColor(), type.getEndColor(), stack, x, y, renderOrder);
+    public void spawnParticles(Level level, float partialTick, ItemStack stack, float x, float y) {
+        spawnSpiritScreenParticles(type.getColor(), type.getEndColor(), stack, x, y);
     }
 }

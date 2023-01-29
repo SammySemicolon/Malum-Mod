@@ -27,7 +27,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.common.MinecraftForge;
 import org.lwjgl.opengl.GL11;
-import team.lodestar.lodestone.handlers.ScreenParticleHandler;
+import team.lodestar.lodestone.handlers.screenparticle.ScreenParticleHandler;
 import team.lodestar.lodestone.setup.LodestoneShaderRegistry;
 import team.lodestar.lodestone.systems.easing.Easing;
 import team.lodestar.lodestone.systems.recipe.IRecipeComponent;
@@ -47,7 +47,6 @@ import static com.sammy.malum.registry.common.item.ItemRegistry.*;
 import static net.minecraft.util.FastColor.ARGB32.color;
 import static net.minecraft.world.item.Items.*;
 import static org.lwjgl.opengl.GL11C.GL_SCISSOR_TEST;
-import static team.lodestar.lodestone.systems.rendering.particle.screen.base.ScreenParticle.RenderOrder.BEFORE_TOOLTIPS;
 
 public class ProgressionBookScreen extends Screen {
     public enum BookTheme {
@@ -726,7 +725,7 @@ public class ProgressionBookScreen extends Screen {
         cut();
 
         renderEntries(poseStack, mouseX, mouseY, partialTicks);
-        ScreenParticleHandler.renderParticles(BEFORE_TOOLTIPS);
+        ScreenParticleHandler.renderAfterUiParticles();
         GL11.glDisable(GL_SCISSOR_TEST);
 
         renderTransparentTexture(FADE_TEXTURE, poseStack, guiLeft, guiTop, 1, 1, bookWidth, bookHeight, 512, 512);
@@ -1196,7 +1195,7 @@ public class ProgressionBookScreen extends Screen {
 
     public static void openScreen(boolean ignoreNextMouseClick) {
         Minecraft.getInstance().setScreen(getInstance());
-        ScreenParticleHandler.wipeParticles();
+        ScreenParticleHandler.clearParticles();
         screen.playSound();
         screen.ignoreNextMouseInput = ignoreNextMouseClick;
     }

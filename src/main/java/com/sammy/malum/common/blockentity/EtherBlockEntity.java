@@ -188,7 +188,7 @@ public class EtherBlockEntity extends LodestoneBlockEntity {
                             .randomMotion(0.001f, 0.005f)
                             .setMotionCoefficient(0.985f-level.random.nextFloat() * 0.04f)
                             .enableNoClip()
-                            .overwriteRemovalProtocol(SimpleParticleOptions.SpecialRemovalProtocol.ENDING_CURVE_INVISIBLE)
+                            .setRemovalProtocol(SimpleParticleOptions.SpecialRemovalProtocol.ENDING_CURVE_INVISIBLE)
                             .spawn(level, x, y, z);
                 }
                 if (level.random.nextFloat() < 0.25f) {
@@ -205,7 +205,7 @@ public class EtherBlockEntity extends LodestoneBlockEntity {
                             .randomMotion(0, 0.015f)
                             .setMotionCoefficient(0.97f-level.random.nextFloat() * 0.025f)
                             .enableNoClip()
-                            .overwriteRemovalProtocol(SimpleParticleOptions.SpecialRemovalProtocol.ENDING_CURVE_INVISIBLE)
+                            .setRemovalProtocol(SimpleParticleOptions.SpecialRemovalProtocol.ENDING_CURVE_INVISIBLE)
                             .spawn(level, x, y, z);
                 }
             }

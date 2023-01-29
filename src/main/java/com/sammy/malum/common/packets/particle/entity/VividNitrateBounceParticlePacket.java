@@ -51,7 +51,7 @@ public class VividNitrateBounceParticlePacket extends ColorBasedParticleEffectPa
                     .addMotion(0, 0.3f + rand.nextFloat() * 0.15f * motionMultiplier, 0)
                     .disableNoClip()
                     .randomMotion(0.2f*motionMultiplier, 0.25f*motionMultiplier)
-                    .overwriteRemovalProtocol(SimpleParticleOptions.SpecialRemovalProtocol.ENDING_CURVE_INVISIBLE)
+                    .setRemovalProtocol(SimpleParticleOptions.SpecialRemovalProtocol.ENDING_CURVE_INVISIBLE)
                     .repeat(level, posX, posY, posZ, 4);
         }
         int spinOffset = rand.nextInt(360);
@@ -70,7 +70,7 @@ public class VividNitrateBounceParticlePacket extends ColorBasedParticleEffectPa
                     .randomOffset(0.6f)
                     .enableNoClip()
                     .randomMotion(0.02f, 0.02f)
-                    .overwriteRemovalProtocol(SimpleParticleOptions.SpecialRemovalProtocol.ENDING_CURVE_INVISIBLE)
+                    .setRemovalProtocol(SimpleParticleOptions.SpecialRemovalProtocol.ENDING_CURVE_INVISIBLE)
                     .repeat(level, posX, posY, posZ, 5);
         }
     }

@@ -73,8 +73,8 @@ public class VoidConduitParticlePacket extends LodestoneClientPacket {
                     .addMotion(0, 0.3f + rand.nextFloat() * 0.15f * motionMultiplier, 0)
                     .disableNoClip()
                     .randomMotion(extraMotion, extraMotion)
-                    .overwriteRemovalProtocol(SimpleParticleOptions.SpecialRemovalProtocol.ENDING_CURVE_INVISIBLE)
-                    .overwriteRenderType(LodestoneWorldParticleRenderType.TRANSPARENT)
+                    .setRemovalProtocol(SimpleParticleOptions.SpecialRemovalProtocol.ENDING_CURVE_INVISIBLE)
+                    .setRenderType(LodestoneWorldParticleRenderType.TRANSPARENT)
                     .repeat(level, posX, posY, posZ, 6);
         }
         int spinOffset = rand.nextInt(360);
@@ -95,8 +95,8 @@ public class VoidConduitParticlePacket extends LodestoneClientPacket {
                     .randomOffset(0.6f)
                     .enableNoClip()
                     .randomMotion(0.02f, 0.02f)
-                    .overwriteRemovalProtocol(SimpleParticleOptions.SpecialRemovalProtocol.ENDING_CURVE_INVISIBLE)
-                    .overwriteRenderType(LodestoneWorldParticleRenderType.TRANSPARENT)
+                    .setRemovalProtocol(SimpleParticleOptions.SpecialRemovalProtocol.ENDING_CURVE_INVISIBLE)
+                    .setRenderType(LodestoneWorldParticleRenderType.TRANSPARENT)
                     .repeat(level, posX, posY, posZ, 5);
         }
     }
