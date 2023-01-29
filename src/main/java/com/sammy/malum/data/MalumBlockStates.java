@@ -68,8 +68,7 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
         weepingWellBlock(take(blocks, WEEPING_WELL_CORE), "weeping_well_core");
         weepingWellBlock(take(blocks, WEEPING_WELL_CORNER), "weeping_well_corner");
         weepingWellBlock(take(blocks, WEEPING_WELL_SIDE), "weeping_well_side");
-
-
+        
         List<RegistryObject<Block>> customStatesAndModels = new ArrayList<>(List.of(BLAZING_SCONCE, WALL_BLAZING_SCONCE, TWISTED_TABLET, SPIRIT_CATALYZER, SPIRIT_CATALYZER_COMPONENT));
 
         List<RegistryObject<Block>> customModelsSimpleStates = new ArrayList<>(List.of(

@@ -1,7 +1,7 @@
 package com.sammy.malum.common.item.equipment.curios;
 
 import com.sammy.malum.registry.common.item.ItemRegistry;
-import com.sammy.malum.registry.common.potion.MalumMobEffectRegistry;
+import com.sammy.malum.registry.common.MobEffectRegistry;
 import com.sammy.malum.core.systems.item.IMalumEventResponderItem;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -30,7 +30,7 @@ public class CurioHiddenBladeNecklace extends MalumCurioItem implements IMalumEv
         if (amplifier >= 6) {
             amplifier *= amplifier / 6f;
         }
-        MobEffect effect = MalumMobEffectRegistry.WICKED_INTENT.get();
+        MobEffect effect = MobEffectRegistry.WICKED_INTENT.get();
         attacked.addEffect(new MobEffectInstance(effect, 40, amplifier - 1));
     }
 }

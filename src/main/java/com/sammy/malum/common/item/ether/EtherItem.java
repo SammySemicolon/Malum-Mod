@@ -18,6 +18,7 @@ public class EtherItem extends AbstractEtherItem {
         super(blockIn, builder, iridescent);
     }
 
+
     @OnlyIn(value = Dist.CLIENT)
     @Override
     public void particleTick(ItemStack stack, float x, float y, ScreenParticle.RenderOrder renderOrder) {

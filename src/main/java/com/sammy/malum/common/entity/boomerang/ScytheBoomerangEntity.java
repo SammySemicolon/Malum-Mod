@@ -4,7 +4,7 @@ import com.sammy.malum.common.item.tools.MalumScytheItem;
 import com.sammy.malum.registry.common.DamageSourceRegistry;
 import com.sammy.malum.registry.common.SoundRegistry;
 import com.sammy.malum.registry.common.entity.EntityRegistry;
-import com.sammy.malum.registry.common.item.MalumEnchantments;
+import com.sammy.malum.registry.common.item.EnchantmentRegistry;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
@@ -176,7 +176,7 @@ public class ScytheBoomerangEntity extends ThrowableItemProjectile {
                     if (isAlive()) {
                         ItemHandlerHelper.giveItemToPlayer(playerEntity, scythe, slot);
                         if (!playerEntity.isCreative()) {
-                            int enchantmentLevel = EnchantmentHelper.getItemEnchantmentLevel(MalumEnchantments.REBOUND.get(), scythe);
+                            int enchantmentLevel = EnchantmentHelper.getItemEnchantmentLevel(EnchantmentRegistry.REBOUND.get(), scythe);
                             if (enchantmentLevel < 4) {
                                 int cooldown = 100 - 25 * (enchantmentLevel - 1);
                                 playerEntity.getCooldowns().addCooldown(scythe.getItem(), cooldown);

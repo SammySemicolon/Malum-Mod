@@ -1,7 +1,7 @@
 package com.sammy.malum.common.effect;
 
 import com.sammy.malum.registry.common.SpiritTypeRegistry;
-import com.sammy.malum.registry.common.potion.MalumMobEffectRegistry;
+import com.sammy.malum.registry.common.MobEffectRegistry;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -19,7 +19,7 @@ public class AqueousAura extends MobEffect {
     }
 
     public static AABB growBoundingBox(Player player, AABB original) {
-        MobEffectInstance effect = player.getEffect(MalumMobEffectRegistry.POSEIDONS_GRASP.get());
+        MobEffectInstance effect = player.getEffect(MobEffectRegistry.POSEIDONS_GRASP.get());
         if (effect != null) {
             original = original.inflate((effect.amplifier + 1) * 1.5f);
         }

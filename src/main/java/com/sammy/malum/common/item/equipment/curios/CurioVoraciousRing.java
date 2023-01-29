@@ -3,7 +3,7 @@ package com.sammy.malum.common.item.equipment.curios;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import com.sammy.malum.registry.common.item.ItemRegistry;
-import com.sammy.malum.registry.common.potion.MalumMobEffectRegistry;
+import com.sammy.malum.registry.common.MobEffectRegistry;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -46,7 +46,7 @@ public class CurioVoraciousRing extends MalumCurioItem {
             ItemStack stack = event.getResultStack();
             if (CurioHelper.hasCurioEquipped(player, ItemRegistry.RING_OF_DESPERATE_VORACITY.get())) {
                 if (stack.is(GROSS_FOODS)) {
-                    MobEffectInstance gluttony = player.getEffect(MalumMobEffectRegistry.GLUTTONY.get());
+                    MobEffectInstance gluttony = player.getEffect(MobEffectRegistry.GLUTTONY.get());
                     if (gluttony != null) {
                         player.getFoodData().eat(1, 0.25f*(gluttony.amplifier+1));
                     }

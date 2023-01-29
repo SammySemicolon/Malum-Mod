@@ -31,8 +31,8 @@ import static com.sammy.malum.registry.common.block.BlockEntityRegistry.BLOCK_EN
 import static com.sammy.malum.registry.common.block.BlockRegistry.BLOCKS;
 import static com.sammy.malum.registry.common.entity.EntityRegistry.ENTITY_TYPES;
 import static com.sammy.malum.registry.common.item.ItemRegistry.ITEMS;
-import static com.sammy.malum.registry.common.item.MalumEnchantments.ENCHANTMENTS;
-import static com.sammy.malum.registry.common.potion.MalumMobEffectRegistry.EFFECTS;
+import static com.sammy.malum.registry.common.item.EnchantmentRegistry.ENCHANTMENTS;
+import static com.sammy.malum.registry.common.MobEffectRegistry.EFFECTS;
 import static com.sammy.malum.registry.common.recipe.RecipeTypeRegistry.RECIPE_TYPES;
 import static com.sammy.malum.registry.common.worldgen.FeatureRegistry.FEATURE_TYPES;
 

@@ -8,7 +8,7 @@ import com.sammy.malum.core.listeners.SpiritDataReloadListener;
 import com.sammy.malum.registry.common.AttributeRegistry;
 import com.sammy.malum.registry.common.SoundRegistry;
 import com.sammy.malum.registry.common.SpiritTypeRegistry;
-import com.sammy.malum.registry.common.item.MalumEnchantments;
+import com.sammy.malum.registry.common.item.EnchantmentRegistry;
 import com.sammy.malum.core.systems.recipe.SpiritWithCount;
 import com.sammy.malum.core.systems.spirit.MalumEntitySpiritData;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
@@ -191,7 +191,7 @@ public class SpiritHelper {
             spiritBonus += attacker.getAttributeValue(AttributeRegistry.SPIRIT_SPOILS.get());
         }
         if (!harvestStack.isEmpty()) {
-            int spiritPlunder = EnchantmentHelper.getItemEnchantmentLevel(MalumEnchantments.SPIRIT_PLUNDER.get(), harvestStack);
+            int spiritPlunder = EnchantmentHelper.getItemEnchantmentLevel(EnchantmentRegistry.SPIRIT_PLUNDER.get(), harvestStack);
             if (spiritPlunder > 0) {
                 harvestStack.hurtAndBreak(spiritPlunder, attacker, (e) -> e.broadcastBreakEvent(MAINHAND));
             }

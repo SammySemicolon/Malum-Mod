@@ -1,4 +1,4 @@
-package com.sammy.malum.registry.common.potion;
+package com.sammy.malum.registry.common;
 
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.effect.*;
@@ -18,7 +18,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
-public class MalumMobEffectRegistry {
+public class MobEffectRegistry {
     public static final Map<ResourceLocation, Float> ALCHEMICAL_PROFICIENCY_MAP = new HashMap<>();
     public static final DeferredRegister<MobEffect> EFFECTS = DeferredRegister.create(ForgeRegistries.MOB_EFFECTS, MalumMod.MALUM);
 

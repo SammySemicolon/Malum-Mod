@@ -1,7 +1,7 @@
 package com.sammy.malum.common.effect;
 
 import com.sammy.malum.registry.common.SpiritTypeRegistry;
-import com.sammy.malum.registry.common.potion.MalumMobEffectRegistry;
+import com.sammy.malum.registry.common.MobEffectRegistry;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
@@ -23,8 +23,8 @@ public class InfernalAura extends MobEffect {
 
     public static void increaseDigSpeed(PlayerEvent.BreakSpeed event) {
         Player player = event.getPlayer();
-        if (player.hasEffect(MalumMobEffectRegistry.MINERS_RAGE.get())) {
-            event.setNewSpeed(event.getOriginalSpeed() * (1 + 0.2f *player.getEffect(MalumMobEffectRegistry.MINERS_RAGE.get()).getAmplifier()));
+        if (player.hasEffect(MobEffectRegistry.MINERS_RAGE.get())) {
+            event.setNewSpeed(event.getOriginalSpeed() * (1 + 0.2f *player.getEffect(MobEffectRegistry.MINERS_RAGE.get()).getAmplifier()));
         }
     }
 }

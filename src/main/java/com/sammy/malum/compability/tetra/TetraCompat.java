@@ -1,6 +1,6 @@
 package com.sammy.malum.compability.tetra;
 
-import com.sammy.malum.registry.common.item.MalumEnchantments;
+import com.sammy.malum.registry.common.item.EnchantmentRegistry;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Arrow;
 import net.minecraft.world.item.ItemStack;
@@ -30,7 +30,7 @@ public class TetraCompat {
 
         static
         {
-            TetraEnchantmentHelper.registerMapping(SOUL_HUNTER_TOOL, new TetraEnchantmentHelper.EnchantmentRules(MalumEnchantments.SOUL_HUNTER_WEAPON, "additions/malum_something", "exclusions/malum_something"));
+            TetraEnchantmentHelper.registerMapping(SOUL_HUNTER_TOOL, new TetraEnchantmentHelper.EnchantmentRules(EnchantmentRegistry.SOUL_HUNTER_WEAPON, "additions/malum_something", "exclusions/malum_something"));
         }
         public static boolean hasSoulStrike(ItemStack stack) {
             if (stack.getItem() instanceof ModularItem modularItem) {

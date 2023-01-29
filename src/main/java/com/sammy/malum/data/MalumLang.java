@@ -8,7 +8,7 @@ import com.sammy.malum.registry.common.DamageSourceRegistry;
 import com.sammy.malum.registry.common.SpiritRiteRegistry;
 import com.sammy.malum.registry.common.SpiritTypeRegistry;
 import com.sammy.malum.registry.common.block.BlockRegistry;
-import com.sammy.malum.registry.common.potion.MalumMobEffectRegistry;
+import com.sammy.malum.registry.common.MobEffectRegistry;
 import com.sammy.malum.core.systems.item.ISoulContainerItem;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
@@ -39,8 +39,8 @@ import static com.sammy.malum.registry.common.SoundRegistry.SOUNDS;
 import static com.sammy.malum.registry.common.block.BlockRegistry.BLOCKS;
 import static com.sammy.malum.registry.common.entity.EntityRegistry.ENTITY_TYPES;
 import static com.sammy.malum.registry.common.item.ItemRegistry.ITEMS;
-import static com.sammy.malum.registry.common.item.MalumEnchantments.ENCHANTMENTS;
-import static com.sammy.malum.registry.common.potion.MalumMobEffectRegistry.EFFECTS;
+import static com.sammy.malum.registry.common.item.EnchantmentRegistry.ENCHANTMENTS;
+import static com.sammy.malum.registry.common.MobEffectRegistry.EFFECTS;
 
 public class MalumLang extends LanguageProvider {
     public MalumLang(DataGenerator gen) {
@@ -560,15 +560,15 @@ public class MalumLang extends LanguageProvider {
         add("death.attack." + DamageSourceRegistry.SCYTHE_SWEEP_IDENTIFIER, "%s was sliced in twain");
         add("death.attack." + DamageSourceRegistry.SCYTHE_SWEEP_IDENTIFIER + ".player", "%s was sliced in twain by %s");
 
-        addEffectDescription(MalumMobEffectRegistry.GAIAN_BULWARK, "You are protected by an earthen bulwark, increasing your armor.");
-        addEffectDescription(MalumMobEffectRegistry.EARTHEN_MIGHT, "Your fists and tools are reinforced with earth, increasing your overall damage.");
-        addEffectDescription(MalumMobEffectRegistry.MINERS_RAGE, "Your tools are bolstered with radiance, increasing your mining and attack speed.");
-        addEffectDescription(MalumMobEffectRegistry.IFRITS_EMBRACE, "The warm embrace of fire coats your soul, mending your seared scars.");
-        addEffectDescription(MalumMobEffectRegistry.ZEPHYRS_COURAGE, "The zephyr propels you forward, increasing your movement speed.");
-        addEffectDescription(MalumMobEffectRegistry.AETHERS_CHARM, "The heavens call for you, increasing jump height and decreasing gravity.");
-        addEffectDescription(MalumMobEffectRegistry.POSEIDONS_GRASP, "You reach out for further power, increasing your reach and item pickup distance.");
-        addEffectDescription(MalumMobEffectRegistry.ANGLERS_LURE, "Let any fish who meets my gaze learn the true meaning of fear; for I am the harbinger of death. The bane of creatures sub-aqueous, my rod is true and unwavering as I cast into the aquatic abyss. A man, scorned by this uncaring Earth, finds solace in the sea. My only friend, the worm upon my hook. Wriggling, writhing, struggling to surmount the mortal pointlessness that permeates this barren world. I am alone. I am empty. And yet, I fish.");
-        addEffectDescription(MalumMobEffectRegistry.GLUTTONY, "You feed on the vulnerable, increasing scythe proficiency and gradually restoring lost hunger.");
+        addEffectDescription(MobEffectRegistry.GAIAN_BULWARK, "You are protected by an earthen bulwark, increasing your armor.");
+        addEffectDescription(MobEffectRegistry.EARTHEN_MIGHT, "Your fists and tools are reinforced with earth, increasing your overall damage.");
+        addEffectDescription(MobEffectRegistry.MINERS_RAGE, "Your tools are bolstered with radiance, increasing your mining and attack speed.");
+        addEffectDescription(MobEffectRegistry.IFRITS_EMBRACE, "The warm embrace of fire coats your soul, mending your seared scars.");
+        addEffectDescription(MobEffectRegistry.ZEPHYRS_COURAGE, "The zephyr propels you forward, increasing your movement speed.");
+        addEffectDescription(MobEffectRegistry.AETHERS_CHARM, "The heavens call for you, increasing jump height and decreasing gravity.");
+        addEffectDescription(MobEffectRegistry.POSEIDONS_GRASP, "You reach out for further power, increasing your reach and item pickup distance.");
+        addEffectDescription(MobEffectRegistry.ANGLERS_LURE, "Let any fish who meets my gaze learn the true meaning of fear; for I am the harbinger of death. The bane of creatures sub-aqueous, my rod is true and unwavering as I cast into the aquatic abyss. A man, scorned by this uncaring Earth, finds solace in the sea. My only friend, the worm upon my hook. Wriggling, writhing, struggling to surmount the mortal pointlessness that permeates this barren world. I am alone. I am empty. And yet, I fish.");
+        addEffectDescription(MobEffectRegistry.GLUTTONY, "You feed on the vulnerable, increasing scythe proficiency and gradually restoring lost hunger.");
 
         addTetraMaterial("soul_stained_steel", "Soulstained Steel");
         addTetraMaterial("hallowed_gold", "Hallowed Gold");

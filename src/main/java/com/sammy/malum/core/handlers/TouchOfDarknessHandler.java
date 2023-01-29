@@ -4,15 +4,13 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import com.sammy.malum.common.block.weeping_well.PrimordialSoupBlock;
 import com.sammy.malum.common.capability.MalumLivingEntityDataCapability;
-import com.sammy.malum.common.packets.SyncMalumPlayerCapabilityDataPacket;
 import com.sammy.malum.common.packets.VoidRejectionPacket;
 import com.sammy.malum.common.packets.particle.block.VoidConduitParticlePacket;
 import com.sammy.malum.registry.client.ShaderRegistry;
 import com.sammy.malum.registry.common.DamageSourceRegistry;
 import com.sammy.malum.registry.common.PacketRegistry;
 import com.sammy.malum.registry.common.SoundRegistry;
-import com.sammy.malum.registry.common.SpiritTypeRegistry;
-import com.sammy.malum.registry.common.potion.MalumMobEffectRegistry;
+import com.sammy.malum.registry.common.MobEffectRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundSource;
@@ -23,23 +21,13 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.client.gui.ForgeIngameGui;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.network.PacketDistributor;
-import team.lodestar.lodestone.handlers.ScreenParticleHandler;
-import team.lodestar.lodestone.helpers.ColorHelper;
-import team.lodestar.lodestone.setup.LodestoneScreenParticleRegistry;
 import team.lodestar.lodestone.systems.easing.Easing;
 import team.lodestar.lodestone.systems.rendering.ExtendedShaderInstance;
 import team.lodestar.lodestone.systems.rendering.VFXBuilders;
-import team.lodestar.lodestone.systems.rendering.particle.ParticleBuilders;
-import team.lodestar.lodestone.systems.rendering.particle.screen.base.ScreenParticle;
 
-import java.awt.*;
-import java.util.Random;
 import java.util.function.Consumer;
-
-import static com.sammy.malum.common.block.weeping_well.PrimordialSoupBlock.TOP;
 
 public class TouchOfDarknessHandler {
 
@@ -175,7 +163,7 @@ public class TouchOfDarknessHandler {
             livingEntity.hurt(new DamageSource(DamageSourceRegistry.GUARANTEED_SOUL_SHATTER), 4);
             livingEntity.level.playSound(null, livingEntity.blockPosition(), SoundRegistry.VOID_REJECTION.get(), SoundSource.HOSTILE, 2f, Mth.nextFloat(livingEntity.getRandom(), 0.85f, 1.35f));
         }
-        livingEntity.addEffect(new MobEffectInstance(MalumMobEffectRegistry.REJECTED.get(), 400, 0));
+        livingEntity.addEffect(new MobEffectInstance(MobEffectRegistry.REJECTED.get(), 400, 0));
     }
 
     public boolean isEntityRejected() {

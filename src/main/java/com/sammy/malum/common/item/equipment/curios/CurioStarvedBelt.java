@@ -3,7 +3,7 @@ package com.sammy.malum.common.item.equipment.curios;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import com.sammy.malum.registry.common.SoundRegistry;
-import com.sammy.malum.registry.common.potion.MalumMobEffectRegistry;
+import com.sammy.malum.registry.common.MobEffectRegistry;
 import com.sammy.malum.core.systems.item.IMalumEventResponderItem;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -34,7 +34,7 @@ public class CurioStarvedBelt extends MalumCurioItem implements IMalumEventRespo
 
     @Override
     public void pickupSpirit(LivingEntity collector, ItemStack stack, double arcaneResonance) {
-        MobEffect gluttony = MalumMobEffectRegistry.GLUTTONY.get();
+        MobEffect gluttony = MobEffectRegistry.GLUTTONY.get();
         MobEffectInstance effect = collector.getEffect(gluttony);
         if (effect == null) {
             collector.addEffect(new MobEffectInstance(gluttony, 100+(int)(arcaneResonance*25), 0, true, true, true));

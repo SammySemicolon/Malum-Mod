@@ -1,7 +1,7 @@
 package com.sammy.malum.common.effect;
 
 import com.sammy.malum.registry.common.SpiritTypeRegistry;
-import com.sammy.malum.registry.common.potion.MalumMobEffectRegistry;
+import com.sammy.malum.registry.common.MobEffectRegistry;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -20,7 +20,7 @@ public class CorruptedAerialAura extends MobEffect {
 
     public static void onEntityJump(LivingEvent.LivingJumpEvent event) {
         LivingEntity entity = event.getEntityLiving();
-        MobEffectInstance effectInstance = entity.getEffect(MalumMobEffectRegistry.AETHERS_CHARM.get());
+        MobEffectInstance effectInstance = entity.getEffect(MobEffectRegistry.AETHERS_CHARM.get());
         if (effectInstance != null) {
             entity.setDeltaMovement(entity.getDeltaMovement().add(0, effectInstance.getAmplifier() * 0.15f, 0));
         }
@@ -28,7 +28,7 @@ public class CorruptedAerialAura extends MobEffect {
 
     public static void onEntityFall(LivingFallEvent event) {
         LivingEntity entity = event.getEntityLiving();
-        MobEffectInstance effectInstance = entity.getEffect(MalumMobEffectRegistry.AETHERS_CHARM.get());
+        MobEffectInstance effectInstance = entity.getEffect(MobEffectRegistry.AETHERS_CHARM.get());
         if (effectInstance != null) {
             event.setDistance(event.getDistance() / (6 + effectInstance.getAmplifier()));
         }

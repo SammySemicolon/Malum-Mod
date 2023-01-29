@@ -4,7 +4,7 @@ import com.sammy.malum.common.item.tools.MalumScytheItem;
 import com.sammy.malum.registry.common.AttributeRegistry;
 import com.sammy.malum.registry.common.SoundRegistry;
 import com.sammy.malum.registry.common.item.ItemRegistry;
-import com.sammy.malum.registry.common.potion.MalumMobEffectRegistry;
+import com.sammy.malum.registry.common.MobEffectRegistry;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.EntityDamageSource;
@@ -34,7 +34,7 @@ public class WickedIntentEffect extends MobEffect {
             if (MalumScytheItem.getScytheItemStack(source, livingEntity).isEmpty()) {
                 return;
             }
-            MobEffectInstance effect = livingEntity.getEffect(MalumMobEffectRegistry.WICKED_INTENT.get());
+            MobEffectInstance effect = livingEntity.getEffect(MobEffectRegistry.WICKED_INTENT.get());
             if (effect != null) {
                 Level level = livingEntity.level;
                 if (livingEntity instanceof Player player) {

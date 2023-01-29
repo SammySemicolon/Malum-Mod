@@ -159,7 +159,7 @@ public class SpiritRepairRecipe extends ILodestoneRecipe {
             }
             for (Item item : REPAIRABLE) {
                 if (item.getRegistryName().getPath().matches(itemIdRegex)) {
-                    if (!item.getRegistryName().getNamespace().matches(modIdRegex)) {
+                    if (!modIdRegex.equals("") && !item.getRegistryName().getNamespace().matches(modIdRegex)) {
                         continue;
                     }
                     if (item instanceof IRepairOutputOverride repairOutputOverride && repairOutputOverride.ignoreDuringLookup()) {

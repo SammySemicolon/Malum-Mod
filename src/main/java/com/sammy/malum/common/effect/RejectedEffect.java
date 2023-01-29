@@ -1,26 +1,14 @@
 package com.sammy.malum.common.effect;
 
 import com.sammy.malum.common.capability.MalumLivingEntityDataCapability;
-import com.sammy.malum.common.item.tools.MalumScytheItem;
 import com.sammy.malum.core.handlers.TouchOfDarknessHandler;
-import com.sammy.malum.registry.common.AttributeRegistry;
 import com.sammy.malum.registry.common.DamageSourceRegistry;
-import com.sammy.malum.registry.common.SoundRegistry;
-import com.sammy.malum.registry.common.item.ItemRegistry;
-import com.sammy.malum.registry.common.potion.MalumMobEffectRegistry;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.damagesource.EntityDamageSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.Level;
-import net.minecraftforge.common.ForgeMod;
-import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import team.lodestar.lodestone.helpers.ColorHelper;
 
 public class RejectedEffect extends MobEffect {

@@ -3,7 +3,7 @@ package com.sammy.malum.common.item.equipment.curios;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import com.sammy.malum.registry.common.item.ItemRegistry;
-import com.sammy.malum.registry.common.potion.MalumMobEffectRegistry;
+import com.sammy.malum.registry.common.MobEffectRegistry;
 import com.sammy.malum.core.systems.item.IMalumEventResponderItem;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
@@ -37,7 +37,7 @@ public class CurioAlchemicalRing extends MalumCurioItem implements IMalumEventRe
         if (event.getOldPotionEffect() == null && CurioHelper.hasCurioEquipped(entity, ItemRegistry.RING_OF_ALCHEMICAL_MASTERY.get())) {
             MobEffectInstance effect = event.getPotionEffect();
             MobEffect type = effect.getEffect();
-            float multiplier = MalumMobEffectRegistry.ALCHEMICAL_PROFICIENCY_MAP.getOrDefault(type.getRegistryName(), 1f);
+            float multiplier = MobEffectRegistry.ALCHEMICAL_PROFICIENCY_MAP.getOrDefault(type.getRegistryName(), 1f);
             if (type.isBeneficial()) {
                 EntityHelper.extendEffect(effect, entity, (int) (effect.getDuration()*0.25f*multiplier));
             }
@@ -50,7 +50,7 @@ public class CurioAlchemicalRing extends MalumCurioItem implements IMalumEventRe
     @Override
     public void pickupSpirit(LivingEntity collector, ItemStack stack, double arcaneResonance) {
         collector.getActiveEffectsMap().forEach((e, i) -> {
-            float multiplier = MalumMobEffectRegistry.ALCHEMICAL_PROFICIENCY_MAP.getOrDefault(e.getRegistryName(), 1f);
+            float multiplier = MobEffectRegistry.ALCHEMICAL_PROFICIENCY_MAP.getOrDefault(e.getRegistryName(), 1f);
             if (e.isBeneficial()) {
                 int base = 40 +(int)(arcaneResonance*20);
                 EntityHelper.extendEffect(i, collector, (int) (base*multiplier), 1200);
