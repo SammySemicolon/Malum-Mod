@@ -1,10 +1,11 @@
 package com.sammy.malum.common.blockentity.storage;
 
+import com.sammy.malum.client.CommonParticleEffects;
 import com.sammy.malum.common.item.spirit.MalumSpiritItem;
 import com.sammy.malum.common.item.spirit.SpiritPouchItem;
 import com.sammy.malum.core.helper.SpiritHelper;
-import com.sammy.malum.registry.common.block.BlockEntityRegistry;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
+import com.sammy.malum.registry.common.block.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -27,7 +28,10 @@ import team.lodestar.lodestone.helpers.BlockHelper;
 import team.lodestar.lodestone.setup.LodestoneParticleRegistry;
 import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntity;
 import team.lodestar.lodestone.systems.container.ItemInventory;
-import team.lodestar.lodestone.systems.rendering.particle.ParticleBuilders;
+import team.lodestar.lodestone.systems.particle.WorldParticleBuilder;
+import team.lodestar.lodestone.systems.particle.data.ColorParticleData;
+import team.lodestar.lodestone.systems.particle.data.GenericParticleData;
+import team.lodestar.lodestone.systems.particle.data.SpinParticleData;
 
 import javax.annotation.Nonnull;
 import java.awt.*;
@@ -236,7 +240,7 @@ public class SpiritJarBlockEntity extends LodestoneBlockEntity {
                 double x = getBlockPos().getX() + 0.5f;
                 double y = getBlockPos().getY() + 0.5f + Math.sin(level.getGameTime() / 20f) * 0.2f;
                 double z = getBlockPos().getZ() + 0.5f;
-                SpiritHelper.spawnSpiritGlimmerParticles(level, x, y, z, type.getColor(), type.getEndColor());
+                CommonParticleEffects.spawnSpiritGlimmerParticles(level, x, y, z, type.getColor(), type.getEndColor());
             }
         }
     }
@@ -244,14 +248,14 @@ public class SpiritJarBlockEntity extends LodestoneBlockEntity {
     @OnlyIn(value = Dist.CLIENT)
     public void spawnUseParticles(Level level, BlockPos pos, MalumSpiritType type) {
         Color color = type.getColor();
-        ParticleBuilders.create(LodestoneParticleRegistry.WISP_PARTICLE)
-                .setAlpha(0.15f, 0f)
+        WorldParticleBuilder.create(LodestoneParticleRegistry.WISP_PARTICLE)
+                .setTransparencyData(GenericParticleData.create(0.15f, 0f).build())
+                .setScaleData(GenericParticleData.create(0.3f, 0).build())
+                .setSpinData(SpinParticleData.create(0.2f).build())
+                .setColorData(ColorParticleData.create(color, color.darker()).build())
                 .setLifetime(20)
-                .setScale(0.3f, 0)
-                .setSpin(0.2f)
-                .randomMotion(0.02f)
-                .randomOffset(0.1f, 0.1f)
-                .setColor(color, color.darker())
+                .setRandomMotion(0.02f)
+                .setRandomOffset(0.1f, 0.1f)
                 .enableNoClip()
                 .repeat(level, pos.getX() + 0.5f, pos.getY() + 0.5f + Math.sin(level.getGameTime() / 20f) * 0.2f, pos.getZ() + 0.5f, 10);
     }

@@ -2,6 +2,7 @@ package com.sammy.malum.common.capability;
 
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.packets.SyncLivingCapabilityDataPacket;
+import com.sammy.malum.core.handlers.SoulDataHandler;
 import com.sammy.malum.core.handlers.TouchOfDarknessHandler;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -32,24 +33,11 @@ public class MalumLivingEntityDataCapability implements LodestoneCapability {
     public static Capability<MalumLivingEntityDataCapability> CAPABILITY = CapabilityManager.get(new CapabilityToken<>() {
     });
 
+    public SoulDataHandler soulData = new SoulDataHandler();
     public TouchOfDarknessHandler touchOfDarknessHandler = new TouchOfDarknessHandler();
-
-    public float soulHarvestProgress;
-    public float exposedSoul;
-    public boolean soulless;
-    public boolean spawnerSpawned;
-    public UUID soulThiefUUID;
 
     public List<ItemStack> soulsToApplyToDrops;
     public UUID killerUUID;
-
-    public float getPreviewProgress() {
-        return soulless ? 10 : Math.min(10, soulHarvestProgress);
-    }
-
-    public float getHarvestProgress() {
-        return Math.max(0, soulHarvestProgress - 10);
-    }
 
     public MalumLivingEntityDataCapability() {
     }
@@ -77,9 +65,9 @@ public class MalumLivingEntityDataCapability implements LodestoneCapability {
     public CompoundTag serializeNBT() {
         CompoundTag tag = new CompoundTag();
 
+        tag.put("soulData", soulData.serializeNBT());
         tag.put("darknessAfflictionData", touchOfDarknessHandler.serializeNBT());
-        tag.putFloat("soulHarvestProgress", soulHarvestProgress);
-        tag.putFloat("exposedSoul", exposedSoul);
+
         if (soulsToApplyToDrops != null) {
             ListTag souls = new ListTag();
             for (ItemStack soul : soulsToApplyToDrops) {
@@ -90,21 +78,18 @@ public class MalumLivingEntityDataCapability implements LodestoneCapability {
         if (killerUUID != null) {
             tag.putUUID("killerUUID", killerUUID);
         }
-        tag.putBoolean("soulless", soulless);
-        tag.putBoolean("spawnerSpawned", spawnerSpawned);
-        if (soulThiefUUID != null) {
-            tag.putUUID("soulThiefUUID", soulThiefUUID);
-        }
         return tag;
     }
 
     @Override
     public void deserializeNBT(CompoundTag tag) {
-        touchOfDarknessHandler.deserializeNBT(tag.getCompound("darknessAfflictionData"));
+        if (tag.contains("soulData")) {
+            soulData.deserializeNBT(tag.getCompound("soulData"));
+        }
+        if (tag.contains("darknessAfflictionData")) {
+            touchOfDarknessHandler.deserializeNBT(tag.getCompound("darknessAfflictionData"));
+        }
 
-        soulHarvestProgress = tag.getFloat("soulHarvestProgress");
-        exposedSoul = tag.getFloat("exposedSoul");
-        soulless = tag.getBoolean("soulless");
         if (tag.contains("soulsToApplyToDrops", Tag.TAG_LIST)) {
             soulsToApplyToDrops = new ArrayList<>();
             ListTag souls = tag.getList("soulsToApplyToDrops", Tag.TAG_COMPOUND);
@@ -119,13 +104,6 @@ public class MalumLivingEntityDataCapability implements LodestoneCapability {
             killerUUID = tag.getUUID("killerUUID");
         } else {
             killerUUID = null;
-        }
-
-        spawnerSpawned = tag.getBoolean("spawnerSpawned");
-        if (tag.hasUUID("ownerUUID")) {
-            soulThiefUUID = tag.getUUID("soulThiefUUID");
-        } else {
-            soulThiefUUID = null;
         }
     }
 

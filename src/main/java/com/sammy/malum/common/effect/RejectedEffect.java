@@ -3,7 +3,6 @@ package com.sammy.malum.common.effect;
 import com.sammy.malum.common.capability.MalumLivingEntityDataCapability;
 import com.sammy.malum.core.handlers.TouchOfDarknessHandler;
 import com.sammy.malum.registry.common.DamageSourceRegistry;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
@@ -22,7 +21,7 @@ public class RejectedEffect extends MobEffect {
         TouchOfDarknessHandler handler = MalumLivingEntityDataCapability.getCapability(pLivingEntity).touchOfDarknessHandler;
         handler.afflict(20);
         if (pLivingEntity.level.getGameTime() % 60L == 0) {
-            pLivingEntity.hurt(new DamageSource(DamageSourceRegistry.GUARANTEED_SOUL_SHATTER), 1);
+            pLivingEntity.hurt(DamageSourceRegistry.VOODOO, 1);
         }
     }
 

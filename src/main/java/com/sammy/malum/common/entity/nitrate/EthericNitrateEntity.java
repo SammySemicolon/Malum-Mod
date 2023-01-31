@@ -1,9 +1,8 @@
 package com.sammy.malum.common.entity.nitrate;
 
+import com.sammy.malum.client.CommonParticleEffects;
 import com.sammy.malum.common.item.ether.EtherItem;
 import com.sammy.malum.common.packets.particle.entity.EthericNitrateParticlePacket;
-import com.sammy.malum.core.helper.SpiritHelper;
-import com.sammy.malum.registry.common.SpiritTypeRegistry;
 import com.sammy.malum.registry.common.entity.EntityRegistry;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
@@ -15,8 +14,11 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.network.PacketDistributor;
 import team.lodestar.lodestone.setup.LodestoneParticleRegistry;
 import team.lodestar.lodestone.systems.easing.Easing;
-import team.lodestar.lodestone.systems.rendering.particle.ParticleBuilders;
-import team.lodestar.lodestone.systems.rendering.particle.LodestoneWorldParticleRenderType;
+import team.lodestar.lodestone.systems.particle.WorldParticleBuilder;
+import team.lodestar.lodestone.systems.particle.data.ColorParticleData;
+import team.lodestar.lodestone.systems.particle.data.GenericParticleData;
+import team.lodestar.lodestone.systems.particle.data.SpinParticleData;
+import team.lodestar.lodestone.systems.particle.world.LodestoneWorldParticleRenderType;
 
 import java.awt.*;
 import java.util.Random;
@@ -71,30 +73,29 @@ public class EthericNitrateEntity extends AbstractNitrateEntity {
         Random rand = level.getRandom();
         for (int i = 0; i < cycles; i++) {
             float pDelta = i / cycles;
-            double lerpX = Mth.lerp(pDelta, ox, x)-motion.x/4f;
-            double lerpY = Mth.lerp(pDelta, oy, y)-motion.y/4f;
-            double lerpZ = Mth.lerp(pDelta, oz, z)-motion.z/4f;
+            double lerpX = Mth.lerp(pDelta, ox, x) - motion.x / 4f;
+            double lerpY = Mth.lerp(pDelta, oy, y) - motion.y / 4f;
+            double lerpZ = Mth.lerp(pDelta, oz, z) - motion.z / 4f;
             float alphaMultiplier = (0.35f + extraAlpha) * Math.min(1, windUp * 2);
-            SpiritHelper.spawnSpiritParticles(level, lerpX, lerpY, lerpZ, alphaMultiplier, norm, firstColor, SECOND_COLOR);
+            CommonParticleEffects.spawnSpiritParticles(level, lerpX, lerpY, lerpZ, alphaMultiplier, norm, firstColor, SECOND_COLOR);
 
-            ParticleBuilders.create(LodestoneParticleRegistry.SMOKE_PARTICLE)
-                .setAlpha(Math.min(1, 0.25f * alphaMultiplier), 0f)
-                .setAlphaEasing(Easing.SINE_IN, Easing.SINE_OUT)
-                .setLifetime(65 + rand.nextInt(15))
-                .setSpin(nextFloat(rand, -0.1f, 0.1f))
-                .setSpinOffset(rand.nextFloat() * 6.28f)
-                .setScale(0.2f + rand.nextFloat() * 0.05f, 0.3f, 0f)
-                .setColor(SECOND_COLOR, SECOND_SMOKE_COLOR)
-                .setColorEasing(Easing.QUINTIC_OUT)
-                .setColorCoefficient(1.25f)
-                .randomOffset(0.02f)
-                .enableNoClip()
-                .addMotion(norm.x, norm.y, norm.z)
-                .randomMotion(0.01f, 0.01f)
-                .setRenderType(LodestoneWorldParticleRenderType.TRANSPARENT)
-                .repeat(level, lerpX, lerpY, lerpZ, 1)
-                .setColorCoefficient(2f)
-                .repeat(level, lerpX, lerpY, lerpZ, 1);
+            final ColorParticleData.ColorParticleDataBuilder colorDataBuilder = ColorParticleData.create(SECOND_COLOR, SECOND_SMOKE_COLOR)
+                    .setEasing(Easing.QUINTIC_OUT)
+                    .setCoefficient(1.25f);
+            WorldParticleBuilder.create(LodestoneParticleRegistry.SMOKE_PARTICLE)
+                    .setTransparencyData(GenericParticleData.create(Math.min(1, 0.25f * alphaMultiplier), 0f).setEasing(Easing.SINE_IN, Easing.SINE_OUT).build())
+                    .setLifetime(65 + rand.nextInt(15))
+                    .setSpinData(SpinParticleData.create(nextFloat(rand, -0.1f, 0.1f)).setSpinOffset(rand.nextFloat() * 6.28f).build())
+                    .setScaleData(GenericParticleData.create(0.2f + rand.nextFloat() * 0.05f, 0.3f, 0f).build())
+                    .setColorData(colorDataBuilder.build())
+                    .setRandomOffset(0.02f)
+                    .enableNoClip()
+                    .addMotion(norm.x, norm.y, norm.z)
+                    .setRandomMotion(0.01f, 0.01f)
+                    .setRenderType(LodestoneWorldParticleRenderType.TRANSPARENT)
+                    .spawn(level, lerpX, lerpY, lerpZ)
+                    .setColorData(colorDataBuilder.setCoefficient(2f).build())
+                    .spawn(level, lerpX, lerpY, lerpZ);
         }
     }
 }

@@ -36,9 +36,9 @@ public class EthericExplosion extends Explosion {
     @Override
     public DamageSource getDamageSource() {
         if (getSourceMob() != null) {
-            return DamageSourceRegistry.SOUL_STRIKE;
+            return DamageSourceRegistry.VOODOO;
         }
-        return DamageSourceRegistry.causeSoulStrikeDamage(getSourceMob());
+        return DamageSourceRegistry.causeVoodooDamage(getSourceMob());
     }
 
     public static void processExplosion(ExplosionEvent.Detonate event) {

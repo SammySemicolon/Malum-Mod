@@ -11,8 +11,11 @@ import net.minecraftforge.network.simple.SimpleChannel;
 import team.lodestar.lodestone.helpers.ColorHelper;
 import team.lodestar.lodestone.setup.LodestoneParticleRegistry;
 import team.lodestar.lodestone.systems.easing.Easing;
-import team.lodestar.lodestone.systems.rendering.particle.ParticleBuilders;
-import team.lodestar.lodestone.systems.rendering.particle.SimpleParticleOptions;
+import team.lodestar.lodestone.systems.particle.SimpleParticleOptions;
+import team.lodestar.lodestone.systems.particle.WorldParticleBuilder;
+import team.lodestar.lodestone.systems.particle.data.ColorParticleData;
+import team.lodestar.lodestone.systems.particle.data.GenericParticleData;
+import team.lodestar.lodestone.systems.particle.data.SpinParticleData;
 
 import java.awt.*;
 import java.util.Random;
@@ -32,42 +35,34 @@ public class BlockSparkleParticlePacket extends BlockParticlePacket
         for (int i = 0; i < 5; i++) {
             int spinDirection = (rand.nextBoolean() ? 1 : -1);
             int spinOffset = rand.nextInt(360);
-            ParticleBuilders.create(LodestoneParticleRegistry.TWINKLE_PARTICLE)
-                    .setAlpha(0, 0.8f, 0)
+            WorldParticleBuilder.create(LodestoneParticleRegistry.TWINKLE_PARTICLE)
+                    .setTransparencyData(GenericParticleData.create(0, 0.8f, 0).build())
+                    .setSpinData(SpinParticleData.create(0.7f*spinDirection, 0).setCoefficient(1.25f).setSpinOffset(spinOffset).setEasing(Easing.CUBIC_IN).build())
+                    .setScaleData(GenericParticleData.create(0.05f, 0.1f, 0).setCoefficient(0.8f).setEasing(Easing.QUINTIC_OUT, Easing.EXPO_IN_OUT).build())
+                    .setColorData(ColorParticleData.create(ColorHelper.brighter(color, 2), color).build())
                     .setLifetime(20)
-                    .setSpinOffset(spinOffset)
-                    .setSpinCoefficient(1.25f)
-                    .setSpin(0.7f*spinDirection, 0)
-                    .setSpinEasing(Easing.CUBIC_IN)
-                    .setScale(0.05f, 0.1f, 0)
-                    .setScaleCoefficient(0.8f)
-                    .setScaleEasing(Easing.QUINTIC_OUT, Easing.EXPO_IN_OUT)
-                    .setColor(ColorHelper.brighter(color, 2), color)
                     .enableNoClip()
-                    .randomOffset(0.6f)
+                    .setRandomOffset(0.6f)
                     .setGravity(1.1f)
                     .addMotion(0, 0.28f+rand.nextFloat()*0.15f, 0)
                     .disableNoClip()
-                    .randomMotion(0.1f, 0.15f)
-                    .setRemovalProtocol(SimpleParticleOptions.SpecialRemovalProtocol.ENDING_CURVE_INVISIBLE)
+                    .setRandomMotion(0.1f, 0.15f)
+                    .setDiscardFunction(SimpleParticleOptions.ParticleDiscardFunctionType.ENDING_CURVE_INVISIBLE)
                     .repeat(level, pos.getX()+0.5f, pos.getY()+0.2f, pos.getZ()+0.5f, 1);
         }
         for (int i = 0; i < 2; i++) {
             int spinDirection = (rand.nextBoolean() ? 1 : -1);
             int spinOffset = rand.nextInt(360);
-            ParticleBuilders.create(LodestoneParticleRegistry.SMOKE_PARTICLE)
-                    .setAlpha(0.05f, 0.08f, 0)
-                    .setAlphaEasing(Easing.SINE_IN, Easing.CIRC_IN)
+            WorldParticleBuilder.create(LodestoneParticleRegistry.SMOKE_PARTICLE)
+                    .setTransparencyData(GenericParticleData.create(0.05f, 0.08f, 0).setEasing(Easing.SINE_IN, Easing.CIRC_IN).build())
+                    .setSpinData(SpinParticleData.create((0.125f+rand.nextFloat()*0.075f)*spinDirection).setSpinOffset(spinOffset).build())
+                    .setScaleData(GenericParticleData.create(0.35f, 0.5f, 0).setEasing(Easing.QUINTIC_OUT, Easing.SINE_IN).build())
+                    .setColorData(ColorParticleData.create(color, color).build())
                     .setLifetime(50+rand.nextInt(10))
-                    .setSpinOffset(spinOffset)
-                    .setSpin((0.125f+rand.nextFloat()*0.075f)*spinDirection)
-                    .setScale(0.35f, 0.5f, 0)
-                    .setScaleEasing(Easing.QUINTIC_OUT, Easing.SINE_IN)
-                    .setColor(color, color)
-                    .randomOffset(0.4f)
+                    .setRandomOffset(0.4f)
                     .enableNoClip()
-                    .randomMotion(0.01f, 0.01f)
-                    .setRemovalProtocol(SimpleParticleOptions.SpecialRemovalProtocol.ENDING_CURVE_INVISIBLE)
+                    .setRandomMotion(0.01f, 0.01f)
+                    .setDiscardFunction(SimpleParticleOptions.ParticleDiscardFunctionType.ENDING_CURVE_INVISIBLE)
                     .repeatSurroundBlock(level, pos, 1);
         }
     }

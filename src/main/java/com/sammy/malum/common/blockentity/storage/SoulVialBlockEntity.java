@@ -1,9 +1,9 @@
 package com.sammy.malum.common.blockentity.storage;
 
-import com.sammy.malum.core.helper.SpiritHelper;
-import com.sammy.malum.registry.common.block.BlockEntityRegistry;
+import com.sammy.malum.client.CommonParticleEffects;
 import com.sammy.malum.core.systems.item.ISoulContainerItem;
 import com.sammy.malum.core.systems.spirit.MalumEntitySpiritData;
+import com.sammy.malum.registry.common.block.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.InteractionHand;
@@ -98,7 +98,7 @@ public class SoulVialBlockEntity extends LodestoneBlockEntity {
         if (level.isClientSide) {
             if (data != null) {
                 double y = 0.5f + Math.sin(level.getGameTime() / 20f) * 0.08f;
-                SpiritHelper.spawnSoulParticles(level, worldPosition.getX() + 0.5f, worldPosition.getY() + y, worldPosition.getZ() + 0.5f, 1, 0.75f, Vec3.ZERO, data.primaryType.getColor(), data.primaryType.getEndColor());
+                CommonParticleEffects.spawnSoulParticles(level, worldPosition.getX() + 0.5f, worldPosition.getY() + y, worldPosition.getZ() + 0.5f, 1, 0.75f, Vec3.ZERO, data.primaryType.getColor(), data.primaryType.getEndColor());
             }
         }
     }

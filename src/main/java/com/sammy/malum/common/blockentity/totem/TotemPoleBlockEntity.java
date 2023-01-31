@@ -5,10 +5,10 @@ import com.sammy.malum.common.block.totem.TotemPoleBlock;
 import com.sammy.malum.common.blockentity.storage.ItemStandBlockEntity;
 import com.sammy.malum.common.packets.particle.block.BlockParticlePacket;
 import com.sammy.malum.core.helper.SpiritHelper;
+import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import com.sammy.malum.registry.common.SoundRegistry;
 import com.sammy.malum.registry.common.block.BlockEntityRegistry;
 import com.sammy.malum.registry.common.item.ItemRegistry;
-import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -31,8 +31,11 @@ import team.lodestar.lodestone.helpers.BlockHelper;
 import team.lodestar.lodestone.setup.LodestoneParticleRegistry;
 import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntity;
 import team.lodestar.lodestone.systems.easing.Easing;
-import team.lodestar.lodestone.systems.rendering.particle.ParticleBuilders;
-import team.lodestar.lodestone.systems.rendering.particle.SimpleParticleOptions;
+import team.lodestar.lodestone.systems.particle.SimpleParticleOptions;
+import team.lodestar.lodestone.systems.particle.WorldParticleBuilder;
+import team.lodestar.lodestone.systems.particle.data.ColorParticleData;
+import team.lodestar.lodestone.systems.particle.data.GenericParticleData;
+import team.lodestar.lodestone.systems.particle.data.SpinParticleData;
 
 import javax.annotation.Nullable;
 import java.awt.*;
@@ -231,24 +234,18 @@ public class TotemPoleBlockEntity extends LodestoneBlockEntity {
         if (level.getGameTime() % 6L == 0) {
             if (!itemStandBlockEntity.inventory.getStackInSlot(0).isEmpty()) {
                 Vec3 itemPos = itemStandBlockEntity.getItemPos();
-                ParticleBuilders.create(LodestoneParticleRegistry.STAR_PARTICLE)
-                        .setAlpha(0.04f, 0.1f, 0f)
-                        .setScaleEasing(Easing.SINE_IN, Easing.SINE_OUT)
+                WorldParticleBuilder.create(LodestoneParticleRegistry.STAR_PARTICLE)
+                        .setTransparencyData(GenericParticleData.create(0.04f, 0.1f, 0f).build())
+                        .setScaleData(GenericParticleData.create(0.5f, 1f + level.random.nextFloat() * 0.1f, 0).setEasing(Easing.QUINTIC_IN, Easing.CUBIC_IN_OUT).build())
+                        .setSpinData(SpinParticleData.create(0, 0.2f, 0).setSpinOffset((level.getGameTime()*0.02f)%360).setEasing(Easing.CUBIC_IN, Easing.EXPO_IN).build())
+                        .setColorData(ColorParticleData.create(type.getColor(), type.getEndColor()).setEasing(Easing.BOUNCE_IN_OUT).setCoefficient(0.5f).build())
                         .setLifetime(25)
-                        .setScale(0.5f, 1f + level.random.nextFloat() * 0.1f, 0)
-                        .setScaleEasing(Easing.QUINTIC_IN, Easing.CUBIC_IN_OUT)
-                        .setSpinOffset((level.getGameTime()*0.02f)%360)
-                        .setSpin(0, 0.2f, 0)
-                        .setSpinEasing(Easing.CUBIC_IN, Easing.EXPO_IN)
-                        .randomOffset(0.1)
-                        .randomMotion(0.02f)
-                        .setColor(type.getColor(), type.getEndColor())
-                        .setColorEasing(Easing.BOUNCE_IN_OUT)
-                        .setColorCoefficient(0.5f)
-                        .randomMotion(0.0025f, 0.0025f)
+                        .setRandomOffset(0.1)
+                        .setRandomMotion(0.02f)
+                        .setRandomMotion(0.0025f, 0.0025f)
                         .enableNoClip()
-                        .setRemovalProtocol(SimpleParticleOptions.SpecialRemovalProtocol.ENDING_CURVE_INVISIBLE)
-                        .repeat(level, itemPos.x, itemPos.y, itemPos.z, 1);
+                        .setDiscardFunction(SimpleParticleOptions.ParticleDiscardFunctionType.ENDING_CURVE_INVISIBLE)
+                        .spawn(level, itemPos.x, itemPos.y, itemPos.z);
             }
         }
     }
@@ -256,33 +253,30 @@ public class TotemPoleBlockEntity extends LodestoneBlockEntity {
         if (level.getGameTime() % 6L == 0) {
             Color color = type.getColor();
             Color endColor = type.getEndColor();
-            ParticleBuilders.create(LodestoneParticleRegistry.WISP_PARTICLE)
-                    .setAlpha(0, 0.06f, 0.12f)
+            WorldParticleBuilder.create(LodestoneParticleRegistry.WISP_PARTICLE)
+                    .setTransparencyData(GenericParticleData.create(0, 0.06f, 0.12f).build())
+                    .setSpinData(SpinParticleData.create(0.2f).build())
+                    .setScaleData(GenericParticleData.create(0, 0.4f, 0).setEasing(Easing.LINEAR, Easing.CIRC_IN_OUT).build())
+                    .setColorData(ColorParticleData.create(color, endColor).setEasing(Easing.SINE_IN).setCoefficient(0.5f).build())
                     .setLifetime(35)
-                    .setSpin(0.2f)
-                    .setScale(0, 0.4f, 0)
-                    .setScaleEasing(Easing.LINEAR, Easing.CIRC_IN_OUT)
-                    .setColor(color, endColor)
-                    .setColorCoefficient(0.5f)
                     .addMotion(0, Mth.nextFloat(level.random, -0.03f, 0.03f), 0)
                     .enableNoClip()
-                    .randomOffset(0.1f, 0.2f)
-                    .randomMotion(0.01f, 0.02f)
-                    .setRemovalProtocol(SimpleParticleOptions.SpecialRemovalProtocol.ENDING_CURVE_INVISIBLE)
+                    .setRandomOffset(0.1f, 0.2f)
+                    .setRandomMotion(0.01f, 0.02f)
+                    .setDiscardFunction(SimpleParticleOptions.ParticleDiscardFunctionType.ENDING_CURVE_INVISIBLE)
                     .surroundBlock(level, worldPosition, Direction.WEST, Direction.EAST, Direction.NORTH, Direction.SOUTH);
 
-            ParticleBuilders.create(LodestoneParticleRegistry.SMOKE_PARTICLE)
-                    .setAlpha(0, 0.06f, 0.03f)
+            WorldParticleBuilder.create(LodestoneParticleRegistry.SMOKE_PARTICLE)
+                    .setTransparencyData(GenericParticleData.create(0, 0.06f, 0.03f).build())
+                    .setSpinData(SpinParticleData.create(0.1f).build())
+                    .setScaleData(GenericParticleData.create(0f, 0.55f, 0.3f).build())
+                    .setColorData(ColorParticleData.create(color, endColor).setCoefficient(0.5f).build())
                     .setLifetime(60)
-                    .setSpin(0.1f)
-                    .setScale(0f, 0.55f, 0.3f)
-                    .setColor(color, endColor)
-                    .setColorCoefficient(0.5f)
                     .addMotion(0, Mth.nextFloat(level.random, -0.03f, 0.03f), 0)
-                    .randomOffset(0.1f, 0.2f)
+                    .setRandomOffset(0.1f, 0.2f)
                     .enableNoClip()
-                    .randomMotion(0.01f, 0.02f)
-                    .setRemovalProtocol(SimpleParticleOptions.SpecialRemovalProtocol.ENDING_CURVE_INVISIBLE)
+                    .setRandomMotion(0.01f, 0.02f)
+                    .setDiscardFunction(SimpleParticleOptions.ParticleDiscardFunctionType.ENDING_CURVE_INVISIBLE)
                     .surroundBlock(level, worldPosition, Direction.WEST, Direction.EAST, Direction.NORTH, Direction.SOUTH);
         }
     }

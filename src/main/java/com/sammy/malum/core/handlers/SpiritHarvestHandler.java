@@ -5,14 +5,12 @@ import com.sammy.malum.common.capability.MalumLivingEntityDataCapability;
 import com.sammy.malum.common.container.SpiritPouchContainer;
 import com.sammy.malum.common.entity.boomerang.ScytheBoomerangEntity;
 import com.sammy.malum.common.item.spirit.SpiritPouchItem;
-import com.sammy.malum.compability.tetra.TetraCompat;
 import com.sammy.malum.config.CommonConfig;
 import com.sammy.malum.core.helper.SpiritHelper;
-import com.sammy.malum.registry.common.AttributeRegistry;
-import com.sammy.malum.registry.common.DamageSourceRegistry;
-import com.sammy.malum.registry.common.item.ItemTagRegistry;
 import com.sammy.malum.core.systems.item.IMalumEventResponderItem;
 import com.sammy.malum.core.systems.spirit.MalumEntitySpiritData;
+import com.sammy.malum.registry.common.AttributeRegistry;
+import com.sammy.malum.registry.common.DamageSourceRegistry;
 import net.minecraft.core.NonNullList;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -29,7 +27,6 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.event.entity.item.ItemExpireEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import team.lodestar.lodestone.helpers.ItemHelper;
 import team.lodestar.lodestone.systems.container.ItemInventory;
 
@@ -39,35 +36,11 @@ import java.util.stream.Collectors;
 
 public class SpiritHarvestHandler {
 
-    public static void exposeSoul(LivingHurtEvent event) {
-        if (event.isCanceled() || event.getAmount() <= 0) {
-            return;
-        }
-        LivingEntity target = event.getEntityLiving();
-        DamageSource source = event.getSource();
-        if (source.getEntity() instanceof LivingEntity attacker) {
-            ItemStack stack = attacker.getMainHandItem();
-            if (source.getDirectEntity() instanceof ScytheBoomerangEntity) {
-                stack = ((ScytheBoomerangEntity) source.getDirectEntity()).scythe;
-            }
-
-            if (stack.is(ItemTagRegistry.SOUL_HUNTER_WEAPON) || (TetraCompat.LOADED && TetraCompat.LoadedOnly.hasSoulStrike(stack))) {
-                MalumLivingEntityDataCapability.getCapabilityOptional(target).ifPresent(e -> e.exposedSoul = 200);
-            }
-        }
-        if (source.getDirectEntity() != null && source.getDirectEntity().getTags().contains("malum:soul_arrow")) {
-            MalumLivingEntityDataCapability.getCapabilityOptional(target).ifPresent(e -> e.exposedSoul = 200);
-        }
-    }
-
     public static void shatterSoul(LivingDeathEvent event) {
         if (event.isCanceled()) {
             return;
         }
-        if (event.getSource().getMsgId().equals(DamageSourceRegistry.GUARANTEED_SOUL_SHATTER)) {
-            SpiritHelper.createSpiritEntities(event.getEntityLiving());
-            return;
-        }
+        DamageSource source = event.getSource();
         LivingEntity target = event.getEntityLiving();
         LivingEntity attacker = null;
         if (event.getSource().getEntity() instanceof LivingEntity directAttacker) {
@@ -76,21 +49,21 @@ public class SpiritHarvestHandler {
         if (attacker == null) {
             attacker = target.getLastHurtByMob();
         }
+        if (attacker == null && source.getMsgId().equals(DamageSourceRegistry.VOODOO_IDENTIFIER)) {
+            SpiritHelper.createSpiritEntities(event.getEntityLiving());
+            return;
+        }
         if (attacker != null) {
-            LivingEntity finalAttacker = attacker;
             ItemStack stack = attacker.getMainHandItem();
-            DamageSource source = event.getSource();
             if (source.getDirectEntity() instanceof ScytheBoomerangEntity scytheBoomerang) {
                 stack = scytheBoomerang.scythe;
             }
             if (!(target instanceof Player)) {
-                ItemStack finalStack = stack;
-                MalumLivingEntityDataCapability.getCapabilityOptional(target).ifPresent(e -> {
-                    if (e.exposedSoul > 0 && !e.soulless && (!CommonConfig.SOULLESS_SPAWNERS.getConfigValue() || (CommonConfig.SOULLESS_SPAWNERS.getConfigValue() && !e.spawnerSpawned))) {
-                        SpiritHelper.createSpiritsFromWeapon(target, finalAttacker, finalStack);
-                        e.soulless = true;
-                    }
-                });
+                SoulDataHandler soulData = MalumLivingEntityDataCapability.getCapability(target).soulData;
+                if (soulData.exposedSoulDuration > 0 && !soulData.soulless && (!CommonConfig.SOULLESS_SPAWNERS.getConfigValue() || (CommonConfig.SOULLESS_SPAWNERS.getConfigValue() && !soulData.spawnerSpawned))) {
+                    SpiritHelper.createSpiritsFromWeapon(target, attacker, stack);
+                    soulData.soulless = true;
+                }
             }
         }
     }

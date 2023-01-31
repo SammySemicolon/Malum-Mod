@@ -9,7 +9,10 @@ import net.minecraftforge.network.NetworkEvent;
 import net.minecraftforge.network.simple.SimpleChannel;
 import team.lodestar.lodestone.setup.LodestoneParticleRegistry;
 import team.lodestar.lodestone.systems.network.LodestoneClientPacket;
-import team.lodestar.lodestone.systems.rendering.particle.ParticleBuilders;
+import team.lodestar.lodestone.systems.particle.WorldParticleBuilder;
+import team.lodestar.lodestone.systems.particle.data.ColorParticleData;
+import team.lodestar.lodestone.systems.particle.data.GenericParticleData;
+import team.lodestar.lodestone.systems.particle.data.SpinParticleData;
 
 import java.awt.*;
 import java.util.function.Supplier;
@@ -45,21 +48,25 @@ public class SuccessfulSoulHarvestParticlePacket extends LodestoneClientPacket {
     @Override
     public void execute(Supplier<NetworkEvent.Context> context) {
         Level level = Minecraft.getInstance().level;
-        ParticleBuilders.create(LodestoneParticleRegistry.SPARKLE_PARTICLE)
-                .setAlpha(1.0f, 0).setScale(0.4f, 0).setLifetime(20)
-                .randomOffset(0.5, 0).randomMotion(0, 0.125f)
+        WorldParticleBuilder.create(LodestoneParticleRegistry.SPARKLE_PARTICLE)
+                .setTransparencyData(GenericParticleData.create(1.0f, 0).build())
+                .setScaleData(GenericParticleData.create(0.4f, 0).build())
+                .setColorData(ColorParticleData.create(color, endColor).build())
+                .setSpinData(SpinParticleData.create(0.4f).build())
+                .setLifetime(20)
+                .setRandomOffset(0.5, 0).setRandomMotion(0, 0.125f)
                 .addMotion(0, 0.28f, 0)
-                .setColor(color, endColor)
-                .setSpin(0.4f)
                 .setGravity(1)
                 .repeat(level, posX, posY, posZ, 40);
 
-        ParticleBuilders.create(LodestoneParticleRegistry.SPARKLE_PARTICLE)
-                .setAlpha(0.75f, 0).setScale(0.2f, 0).setLifetime(40)
-                .randomOffset(0.5, 0.5).randomMotion(0.125f, 0.05)
+        WorldParticleBuilder.create(LodestoneParticleRegistry.SPARKLE_PARTICLE)
+                .setTransparencyData(GenericParticleData.create(0.75f, 0).build())
+                .setScaleData(GenericParticleData.create(0.2f, 0).build())
+                .setColorData(ColorParticleData.create(color, endColor).build())
+                .setSpinData(SpinParticleData.create(0.3f).build())
+                .setLifetime(40)
+                .setRandomOffset(0.5, 0.5).setRandomMotion(0.125f, 0.05)
                 .addMotion(0, 0.15f, 0)
-                .setColor(color, endColor)
-                .setSpin(0.3f)
                 .setGravity(1)
                 .repeat(level, posX, posY, posZ, 30);
     }

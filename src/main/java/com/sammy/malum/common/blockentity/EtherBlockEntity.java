@@ -21,8 +21,11 @@ import team.lodestar.lodestone.helpers.ColorHelper;
 import team.lodestar.lodestone.setup.LodestoneParticleRegistry;
 import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntity;
 import team.lodestar.lodestone.systems.easing.Easing;
-import team.lodestar.lodestone.systems.rendering.particle.ParticleBuilders;
-import team.lodestar.lodestone.systems.rendering.particle.SimpleParticleOptions;
+import team.lodestar.lodestone.systems.particle.SimpleParticleOptions;
+import team.lodestar.lodestone.systems.particle.WorldParticleBuilder;
+import team.lodestar.lodestone.systems.particle.data.ColorParticleData;
+import team.lodestar.lodestone.systems.particle.data.GenericParticleData;
+import team.lodestar.lodestone.systems.particle.data.SpinParticleData;
 
 import java.awt.*;
 
@@ -147,65 +150,50 @@ public class EtherBlockEntity extends LodestoneBlockEntity {
                 lifeTime -= 2;
                 scale *= 1.25f;
             }
-            ParticleBuilders.create(LodestoneParticleRegistry.WISP_PARTICLE)
-                    .setScale(scale, 0)
-                    .setAlpha(0.75f, 0.25f)
+            WorldParticleBuilder.create(LodestoneParticleRegistry.WISP_PARTICLE)
+                    .setScaleData(GenericParticleData.create(scale, 0).build())
+                    .setTransparencyData(GenericParticleData.create(0.75f, 0.25f).build())
+                    .setColorData(ColorParticleData.create(firstColor, secondColor).setCoefficient(1.4f).setEasing(Easing.BOUNCE_IN_OUT).build())
+                    .setSpinData(SpinParticleData.create(0.2f, 0.4f).setSpinOffset((level.getGameTime() * 0.2f) % 6.28f).setEasing(Easing.QUARTIC_IN).build())
                     .setLifetime(lifeTime)
-                    .setColor(firstColor, secondColor)
-                    .setColorCoefficient(1.4f)
-                    .setColorEasing(Easing.BOUNCE_IN_OUT)
-                    .setSpinOffset((level.getGameTime() * 0.2f) % 6.28f)
-                    .setSpin(0.2f, 0.4f)
-                    .setSpinEasing(Easing.QUARTIC_IN)
                     .addMotion(0, velocity, 0)
                     .enableNoClip()
                     .spawn(level, x, y, z);
 
-            ParticleBuilders.create(LodestoneParticleRegistry.TWINKLE_PARTICLE)
-                    .setScale(scale * 2, scale * 0.1f)
+            WorldParticleBuilder.create(LodestoneParticleRegistry.TWINKLE_PARTICLE)
+                    .setScaleData(GenericParticleData.create(scale * 2, scale * 0.1f).build())
+                    .setTransparencyData(GenericParticleData.create(0.25f, 0).build())
+                    .setColorData(ColorParticleData.create(firstColor, secondColor).setEasing(Easing.SINE_IN).setCoefficient(2.25f).build())
+                    .setSpinData(SpinParticleData.create(0, 2).setEasing(Easing.QUARTIC_IN).build())
                     .setLifetime(lifeTime)
-                    .setAlpha(0.25f, 0)
-                    .setColor(firstColor, secondColor)
-                    .setColorEasing(Easing.SINE_IN)
-                    .setColorCoefficient(2.25f)
-                    .setSpin(0, 2)
-                    .setSpinEasing(Easing.QUARTIC_IN)
                     .enableNoClip()
                     .spawn(level, x, y, z);
             if (level.getGameTime() % 2L == 0) {
                 y += 0.15f;
                 if (level.random.nextFloat() < 0.5f) {
-                    ParticleBuilders.create(ParticleRegistry.SPIRIT_FLAME_PARTICLE)
-                            .setScale(0.5f, 0.75f, 0)
-                            .setColor(firstColor, secondColor)
-                            .setColorEasing(Easing.CIRC_IN_OUT)
-                            .setColorCoefficient(2.5f)
-                            .setAlpha(0.2f, 1f, 0)
-                            .setAlphaEasing(Easing.SINE_IN, Easing.QUAD_IN)
-                            .setAlphaCoefficient(3.5f)
-                            .randomOffset(0.15f, 0.2f)
+                    WorldParticleBuilder.create(ParticleRegistry.SPIRIT_FLAME_PARTICLE)
+                            .setScaleData(GenericParticleData.create(0.5f, 0.75f, 0).build())
+                            .setColorData(ColorParticleData.create(firstColor, secondColor).setEasing(Easing.CIRC_IN_OUT).setCoefficient(2.5f).build())
+                            .setTransparencyData(GenericParticleData.create(0.2f, 1f, 0).setEasing(Easing.SINE_IN, Easing.QUAD_IN).setCoefficient(3.5f).build())
+                            .setRandomOffset(0.15f, 0.2f)
                             .addMotion(0, 0.0035f, 0)
-                            .randomMotion(0.001f, 0.005f)
-                            .setMotionCoefficient(0.985f-level.random.nextFloat() * 0.04f)
+                            .setRandomMotion(0.001f, 0.005f)
+                            .addActor(p -> p.setParticleSpeed(p.getParticleSpeed().scale(0.985f-level.random.nextFloat() * 0.04f)))
                             .enableNoClip()
-                            .setRemovalProtocol(SimpleParticleOptions.SpecialRemovalProtocol.ENDING_CURVE_INVISIBLE)
+                            .setDiscardFunction(SimpleParticleOptions.ParticleDiscardFunctionType.ENDING_CURVE_INVISIBLE)
                             .spawn(level, x, y, z);
                 }
                 if (level.random.nextFloat() < 0.25f) {
-                    ParticleBuilders.create(ParticleRegistry.SPIRIT_FLAME_PARTICLE)
-                            .setScale(0.3f, 0.5f, 0)
-                            .setColor(firstColor, secondColor)
-                            .setColorEasing(Easing.CIRC_IN_OUT)
-                            .setColorCoefficient(3.5f)
-                            .setAlpha(0.2f, 1f, 0)
-                            .setAlphaEasing(Easing.SINE_IN, Easing.CIRC_IN_OUT)
-                            .setAlphaCoefficient(3.5f)
-                            .randomOffset(0.1f, 0.225f)
+                    WorldParticleBuilder.create(ParticleRegistry.SPIRIT_FLAME_PARTICLE)
+                            .setScaleData(GenericParticleData.create(0.3f, 0.5f, 0).build())
+                            .setColorData(ColorParticleData.create(firstColor, secondColor).setEasing(Easing.CIRC_IN_OUT).setCoefficient(3.5f).build())
+                            .setTransparencyData(GenericParticleData.create(0.2f, 1f, 0).setEasing(Easing.SINE_IN, Easing.CIRC_IN_OUT).setCoefficient(3.5f).build())
+                            .setRandomOffset(0.1f, 0.225f)
                             .addMotion(0, velocity / 2f, 0)
-                            .randomMotion(0, 0.015f)
-                            .setMotionCoefficient(0.97f-level.random.nextFloat() * 0.025f)
+                            .setRandomMotion(0, 0.015f)
+                            .addActor(p -> p.setParticleSpeed(p.getParticleSpeed().scale(0.97f-level.random.nextFloat() * 0.025f)))
                             .enableNoClip()
-                            .setRemovalProtocol(SimpleParticleOptions.SpecialRemovalProtocol.ENDING_CURVE_INVISIBLE)
+                            .setDiscardFunction(SimpleParticleOptions.ParticleDiscardFunctionType.ENDING_CURVE_INVISIBLE)
                             .spawn(level, x, y, z);
                 }
             }

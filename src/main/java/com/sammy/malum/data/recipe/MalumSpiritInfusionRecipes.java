@@ -57,16 +57,16 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider implements ICondi
             .build(consumer);
 
         new SpiritInfusionRecipeBuilder(Items.GLOWSTONE_DUST, 4, ItemRegistry.ETHER.get(), 2)
-            .addSpirit(INFERNAL_SPIRIT, 4)
+            .addSpirit(INFERNAL_SPIRIT, 2)
             .addSpirit(ARCANE_SPIRIT, 1)
-            .addExtraItem(ItemRegistry.BLAZING_QUARTZ_FRAGMENT.get(), 4)
+            .addExtraItem(ItemRegistry.BLAZING_QUARTZ.get(), 1)
             .addExtraItem(Items.BLAZE_POWDER, 1)
             .build(consumer);
 
         new SpiritInfusionRecipeBuilder(ItemRegistry.ETHER.get(), 1, ItemRegistry.IRIDESCENT_ETHER.get(), 1)
-            .addSpirit(AQUEOUS_SPIRIT, 4)
+            .addSpirit(AQUEOUS_SPIRIT, 2)
             .addExtraItem(Items.PRISMARINE_CRYSTALS, 1)
-            .addExtraItem(ItemRegistry.ARCANE_CHARCOAL_FRAGMENT.get(), 2)
+            .addExtraItem(ItemRegistry.ARCANE_CHARCOAL.get(), 1)
             .build(consumer);
 
         new SpiritInfusionRecipeBuilder(Items.GOLD_INGOT, 1, ItemRegistry.HALLOWED_GOLD_INGOT.get(), 1)

@@ -11,7 +11,10 @@ import net.minecraftforge.network.NetworkEvent;
 import net.minecraftforge.network.simple.SimpleChannel;
 import team.lodestar.lodestone.setup.LodestoneParticleRegistry;
 import team.lodestar.lodestone.systems.easing.Easing;
-import team.lodestar.lodestone.systems.rendering.particle.ParticleBuilders;
+import team.lodestar.lodestone.systems.particle.WorldParticleBuilder;
+import team.lodestar.lodestone.systems.particle.data.ColorParticleData;
+import team.lodestar.lodestone.systems.particle.data.GenericParticleData;
+import team.lodestar.lodestone.systems.particle.data.SpinParticleData;
 
 import java.awt.*;
 import java.util.function.Supplier;
@@ -25,28 +28,26 @@ public class BlockMistParticlePacket extends BlockParticlePacket {
     @Override
     public void execute(Supplier<NetworkEvent.Context> context) {
         Level level = Minecraft.getInstance().level;
-        ParticleBuilders.create(LodestoneParticleRegistry.SMOKE_PARTICLE)
-                .setAlpha(0.08f, 0.32f, 0)
+        WorldParticleBuilder.create(LodestoneParticleRegistry.SMOKE_PARTICLE)
+                .setTransparencyData(GenericParticleData.create(0.08f, 0.32f, 0).build())
+                .setSpinData(SpinParticleData.create(0.2f).build())
+                .setScaleData(GenericParticleData.create(0.15f, 0.2f, 0).setEasing(Easing.QUINTIC_OUT, Easing.SINE_IN).build())
+                .setColorData(ColorParticleData.create(color, color).build())
                 .setLifetime(15)
-                .setSpin(0.2f)
-                .setScale(0.15f, 0.2f, 0)
-                .setScaleEasing(Easing.QUINTIC_OUT, Easing.SINE_IN)
-                .setColor(color, color)
                 .enableNoClip()
-                .randomOffset(0.1f, 0f)
-                .randomMotion(0.001f, 0.002f)
+                .setRandomOffset(0.1f, 0f)
+                .setRandomMotion(0.001f, 0.002f)
                 .repeatSurroundBlock(level, pos, 6, Direction.UP, Direction.DOWN);
 
-        ParticleBuilders.create(LodestoneParticleRegistry.SMOKE_PARTICLE)
-                .setAlpha(0.04f, 0.16f, 0)
+        WorldParticleBuilder.create(LodestoneParticleRegistry.SMOKE_PARTICLE)
+                .setTransparencyData(GenericParticleData.create(0.04f, 0.16f, 0).build())
+                .setSpinData(SpinParticleData.create(0.1f).build())
+                .setScaleData(GenericParticleData.create(0.35f, 0.4f, 0).setEasing(Easing.QUINTIC_OUT, Easing.SINE_IN).build())
+                .setColorData(ColorParticleData.create(color, color).build())
                 .setLifetime(20)
-                .setSpin(0.1f)
-                .setScale(0.35f, 0.4f, 0)
-                .setScaleEasing(Easing.QUINTIC_OUT, Easing.SINE_IN)
-                .setColor(color, color)
-                .randomOffset(0.2f, 0)
+                .setRandomOffset(0.2f, 0)
                 .enableNoClip()
-                .randomMotion(0.001f, 0.002f)
+                .setRandomMotion(0.001f, 0.002f)
                 .repeatSurroundBlock(level, pos, 8, Direction.UP, Direction.DOWN);
     }
 

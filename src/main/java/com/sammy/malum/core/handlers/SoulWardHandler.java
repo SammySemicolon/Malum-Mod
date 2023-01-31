@@ -28,9 +28,13 @@ import team.lodestar.lodestone.handlers.screenparticle.ScreenParticleHandler;
 import team.lodestar.lodestone.helpers.ItemHelper;
 import team.lodestar.lodestone.setup.LodestoneScreenParticleRegistry;
 import team.lodestar.lodestone.setup.LodestoneShaderRegistry;
+import team.lodestar.lodestone.systems.particle.ScreenParticleBuilder;
+import team.lodestar.lodestone.systems.particle.data.ColorParticleData;
+import team.lodestar.lodestone.systems.particle.data.GenericParticleData;
+import team.lodestar.lodestone.systems.particle.data.SpinParticleData;
 import team.lodestar.lodestone.systems.rendering.ExtendedShaderInstance;
 import team.lodestar.lodestone.systems.rendering.VFXBuilders;
-import team.lodestar.lodestone.systems.rendering.particle.ParticleBuilders;
+
 
 public class SoulWardHandler {
     public float soulWard;
@@ -178,16 +182,15 @@ public class SoulWardHandler {
                                     .draw(poseStack);
 
                             if (ScreenParticleHandler.canSpawnParticles) {
-                                ParticleBuilders.create(LodestoneScreenParticleRegistry.WISP, ScreenParticleHandler.EARLY_PARTICLES)
+                                final float spin = minecraft.level.random.nextFloat() * 6.28f;
+                                ScreenParticleBuilder.create(LodestoneScreenParticleRegistry.WISP, ScreenParticleHandler.EARLY_PARTICLES)
                                         .setLifetime(20)
-                                        .setColor(SpiritTypeRegistry.ARCANE_SPIRIT.getColor().brighter(), SpiritTypeRegistry.ARCANE_SPIRIT.getEndColor())
-                                        .setAlphaCoefficient(0.75f)
-                                        .setScale(0.2f * progress, 0f)
-                                        .setAlpha(0.05f, 0)
-                                        .setSpin(Minecraft.getInstance().level.random.nextFloat() * 6.28f)
-                                        .setSpinOffset(Minecraft.getInstance().level.random.nextFloat() * 6.28f)
-                                        .randomOffset(2)
-                                        .randomMotion(0.5f, 0.5f)
+                                        .setColorData(ColorParticleData.create(SpiritTypeRegistry.ARCANE_SPIRIT.getColor().brighter(), SpiritTypeRegistry.ARCANE_SPIRIT.getEndColor()).build())
+                                        .setScaleData(GenericParticleData.create(0.2f * progress, 0f).build())
+                                        .setTransparencyData(GenericParticleData.create(0.05f, 0).setCoefficient(0.75f).build())
+                                        .setSpinData(SpinParticleData.create(spin).build())
+                                        .setRandomOffset(2)
+                                        .setRandomMotion(0.5f, 0.5f)
                                         .addMotion(0, 0.2f)
                                         .repeat(x + 5, y + 5, 1);
                             }

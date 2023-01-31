@@ -4,14 +4,14 @@ import com.sammy.malum.MalumMod;
 import com.sammy.malum.client.screen.codex.ProgressionBookScreen;
 import com.sammy.malum.common.block.ether.EtherWallTorchBlock;
 import com.sammy.malum.common.item.spirit.SpiritJarItem;
-import com.sammy.malum.registry.common.DamageSourceRegistry;
-import com.sammy.malum.registry.common.SpiritRiteRegistry;
-import com.sammy.malum.registry.common.SpiritTypeRegistry;
-import com.sammy.malum.registry.common.block.BlockRegistry;
-import com.sammy.malum.registry.common.MobEffectRegistry;
 import com.sammy.malum.core.systems.item.ISoulContainerItem;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
+import com.sammy.malum.registry.common.DamageSourceRegistry;
+import com.sammy.malum.registry.common.MobEffectRegistry;
+import com.sammy.malum.registry.common.SpiritRiteRegistry;
+import com.sammy.malum.registry.common.SpiritTypeRegistry;
+import com.sammy.malum.registry.common.block.BlockRegistry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.effect.MobEffect;
@@ -35,12 +35,12 @@ import java.util.Set;
 import java.util.function.Supplier;
 
 import static com.sammy.malum.registry.common.AttributeRegistry.ATTRIBUTES;
+import static com.sammy.malum.registry.common.MobEffectRegistry.EFFECTS;
 import static com.sammy.malum.registry.common.SoundRegistry.SOUNDS;
 import static com.sammy.malum.registry.common.block.BlockRegistry.BLOCKS;
 import static com.sammy.malum.registry.common.entity.EntityRegistry.ENTITY_TYPES;
-import static com.sammy.malum.registry.common.item.ItemRegistry.ITEMS;
 import static com.sammy.malum.registry.common.item.EnchantmentRegistry.ENCHANTMENTS;
-import static com.sammy.malum.registry.common.MobEffectRegistry.EFFECTS;
+import static com.sammy.malum.registry.common.item.ItemRegistry.ITEMS;
 
 public class MalumLang extends LanguageProvider {
     public MalumLang(DataGenerator gen) {
@@ -189,8 +189,8 @@ public class MalumLang extends LanguageProvider {
         addSimpleEntryHeader("esoteric_reaping", "Esoteric Reaping", "Leaked magic");
         addPages("esoteric_reaping",
                 "When a being dies, its soul disperses. This is basic theory, and well proven by this point. It's been proposed that sometimes, that power leaks into the body of the creature as it dies, to explain the existence of reagents they drop. That hadn't been proven yet.",
-                "But now, with my scythe, I have proved it beyond doubt. When a soul is shattered, the energy stays in physical form. It happens even without striking the soul, but it's much more likely for it to infuse a bit of that creature when that happens, so far more reagents are produced that way.",
-                "I have discovered four such reagents, which I will detail further in this entry. In summary, the flesh of zombies can curdle to Rotting Essence; the bones of skeletons can crystallize to Grim Talc; the magic of witches can form Alchemical Calx; and the wings of phantoms can spin to Astral Weave.");
+                "But now, with my scythe, I have proved it beyond doubt. When a soul is shattered, even if only for a brief moment, the energy collides with what's left of it's vessel. This phenomena appears to create a strong reaction, a change of sorts.",
+                "I have discovered four reagents born through this process, which I will detail further in this entry. In summary, the flesh of zombies can curdle to Rotting Essence; the bones of skeletons can crystallize to Grim Talc; the magic of witches can form Alchemical Calx; and the wings of phantoms can spin to Astral Weave.");
         addHeadline("esoteric_reaping.rotting_essence", "Rotting Essence");
         addPages("esoteric_reaping.rotting_essence",
                 "When exposed to this magic, the flesh of the undead can curdle into Rotting Essence, a toxic and foul substance that smells like death itself.");
@@ -309,16 +309,16 @@ public class MalumLang extends LanguageProvider {
                 "It appears that materials in tune with spirit arcana, such as Soulstained Steel or Hallowed Gold, are more efficient in this process. They will be repaired more than their mundane counterparts would for the same cost.");
 
         addEntryHeader("spirit_metals", "Spirit Metals", "Arcana refined");
+        addHeadline("spirit_metals.soulstained_steel", "Soulstained Steel");
+        addPages("spirit_metals.soulstained_steel",
+                "Iron is mundane, in a word. By using Hex Ash as my source of carbon, and attuning the metal with Soulstone, I can create a metal that is " + italic("simultaneously") + " in and out of phase with the world.",
+                "Anything made from Soulstained Steel is capable of striking the soul, without the need for specifics of engineering like with my crude scythe. Wearing the metal in its base form as armor is dangerous, as it will touch your own soul as well, so I must engineer a countermeasure.");
         addHeadline("spirit_metals.hallowed_gold", "Hallowed Gold");
         addPages("spirit_metals.hallowed_gold",
                 "Gold is often used as a thaumaturgical base, its natural conductivity of magic making it quite useful. Spirit arcana are no exception. In fact, using Sacred arcana, we can enhance those properties.",
                 "Hallowed Gold, as a metal, acts much like its mundane counterpart. The inherent innocence of the arcana infused into the alloy makes other arcana glide through it smoothly, creating the perfect conductor for my purposes.");
         addHeadline("spirit_metals.hallowed_gold.spirit_jar", "Spirit Jar");
         addPages("spirit_metals.hallowed_gold.spirit_jar", "A simple application of this metal is the Spirit Jar. As spirits in their raw form don't have mass, by trapping them under Hallowed Gold you can store far more than you could physically. The capacity of these jars is near-infinite, though each only stores one type of spirit.");
-        addHeadline("spirit_metals.soulstained_steel", "Soulstained Steel");
-        addPages("spirit_metals.soulstained_steel",
-                "Iron is mundane, in a word. By using Hex Ash as my source of carbon, and attuning the metal with Soulstone, I can create a metal that is " + italic("simultaneously") + " in and out of phase with the world.",
-                "Anything made from Soulstained Steel is capable of striking the soul, without the need for specifics of engineering like with my crude scythe. Wearing the metal in its base form as armor is dangerous, as it will touch your own soul as well, so I must engineer a countermeasure.");
 
         addSimpleEntryHeader("soulstained_scythe", "Soulstained Scythe", "Reap");
         addPages("soulstained_scythe", "The scythe I created to harvest spirits was useful, but ultimately has outlived that usefulness. I have grown fond of the utility it provides, though, and so instead of discarding it I sought to improve it. With Soulstained Steel, I was able to create a more effective weapon and maintain the scythe's advantages.");
@@ -553,10 +553,6 @@ public class MalumLang extends LanguageProvider {
 
         add("death.attack." + DamageSourceRegistry.VOODOO_IDENTIFIER, "%s's soul shattered");
         add("death.attack." + DamageSourceRegistry.VOODOO_IDENTIFIER + ".player", "%s's soul was shattered by %s");
-        add("death.attack." + DamageSourceRegistry.GUARANTEED_SOUL_SHATTER, "%s's soul shattered");
-        add("death.attack." + DamageSourceRegistry.GUARANTEED_SOUL_SHATTER + ".player", "%s's soul was shattered by %s");
-        add("death.attack." + DamageSourceRegistry.MAGEBANE_IDENTIFIER, "%s got too confident with a soul hunter");
-        add("death.attack." + DamageSourceRegistry.MAGEBANE_IDENTIFIER + ".player", "%s got too confident with %s");
         add("death.attack." + DamageSourceRegistry.SCYTHE_SWEEP_IDENTIFIER, "%s was sliced in twain");
         add("death.attack." + DamageSourceRegistry.SCYTHE_SWEEP_IDENTIFIER + ".player", "%s was sliced in twain by %s");
 

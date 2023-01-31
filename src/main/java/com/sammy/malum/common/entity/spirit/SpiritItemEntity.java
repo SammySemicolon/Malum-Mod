@@ -1,9 +1,9 @@
 package com.sammy.malum.common.entity.spirit;
 
+import com.sammy.malum.client.CommonParticleEffects;
 import com.sammy.malum.common.entity.FloatingItemEntity;
 import com.sammy.malum.common.item.spirit.MalumSpiritItem;
 import com.sammy.malum.core.handlers.SpiritHarvestHandler;
-import com.sammy.malum.core.helper.SpiritHelper;
 import com.sammy.malum.registry.common.entity.EntityRegistry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
@@ -17,16 +17,16 @@ import team.lodestar.lodestone.helpers.ItemHelper;
 
 import java.util.UUID;
 
-public class PlayerBoundItemEntity extends FloatingItemEntity {
+public class SpiritItemEntity extends FloatingItemEntity {
     public UUID ownerUUID;
     public LivingEntity owner;
 
-    public PlayerBoundItemEntity(Level level) {
+    public SpiritItemEntity(Level level) {
         super(EntityRegistry.NATURAL_SPIRIT.get(), level);
         maxAge = 4000;
     }
 
-    public PlayerBoundItemEntity(Level level, UUID ownerUUID, ItemStack stack, double posX, double posY, double posZ, double velX, double velY, double velZ) {
+    public SpiritItemEntity(Level level, UUID ownerUUID, ItemStack stack, double posX, double posY, double posZ, double velX, double velY, double velZ) {
         this(level);
         setOwner(ownerUUID);
         setItem(stack);
@@ -61,7 +61,7 @@ public class PlayerBoundItemEntity extends FloatingItemEntity {
             double lerpX = Mth.lerp(i / cycles, x - motion.x, x);
             double lerpY = Mth.lerp(i / cycles, y - motion.y, y);
             double lerpZ = Mth.lerp(i / cycles, z - motion.z, z);
-            SpiritHelper.spawnSpiritParticles(level, lerpX, lerpY, lerpZ, 0.55f+extraAlpha, norm, startColor, endColor);
+            CommonParticleEffects.spawnSpiritParticles(level, lerpX, lerpY, lerpZ, 0.55f+extraAlpha, norm, startColor, endColor);
         }
     }
 

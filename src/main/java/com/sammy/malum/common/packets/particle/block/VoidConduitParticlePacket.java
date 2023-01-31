@@ -1,12 +1,9 @@
 package com.sammy.malum.common.packets.particle.block;
 
-import com.sammy.malum.common.packets.particle.ColorBasedParticleEffectPacket;
-import com.sammy.malum.common.packets.particle.SpiritBasedParticleEffectPacket;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.network.NetworkEvent;
@@ -15,13 +12,14 @@ import team.lodestar.lodestone.helpers.ColorHelper;
 import team.lodestar.lodestone.setup.LodestoneParticleRegistry;
 import team.lodestar.lodestone.systems.easing.Easing;
 import team.lodestar.lodestone.systems.network.LodestoneClientPacket;
-import team.lodestar.lodestone.systems.rendering.particle.LodestoneWorldParticleRenderType;
-import team.lodestar.lodestone.systems.rendering.particle.ParticleBuilders;
-import team.lodestar.lodestone.systems.rendering.particle.SimpleParticleOptions;
+import team.lodestar.lodestone.systems.particle.SimpleParticleOptions;
+import team.lodestar.lodestone.systems.particle.WorldParticleBuilder;
+import team.lodestar.lodestone.systems.particle.data.ColorParticleData;
+import team.lodestar.lodestone.systems.particle.data.GenericParticleData;
+import team.lodestar.lodestone.systems.particle.data.SpinParticleData;
+import team.lodestar.lodestone.systems.particle.world.LodestoneWorldParticleRenderType;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 import java.util.function.Supplier;
 
@@ -55,25 +53,19 @@ public class VoidConduitParticlePacket extends LodestoneClientPacket {
             int spinOffset = rand.nextInt(360);
             float motionMultiplier = (float) (1+Math.pow(rand.nextFloat()+i*0.2f, 2));
             float extraMotion = 0.2f * motionMultiplier * ((8 - i) / 8f);
-            ParticleBuilders.create(LodestoneParticleRegistry.TWINKLE_PARTICLE)
-                    .setAlpha(0.2f, 1f, 0)
+            WorldParticleBuilder.create(LodestoneParticleRegistry.TWINKLE_PARTICLE)
+                    .setTransparencyData(GenericParticleData.create(0.2f, 1f, 0).build())
+                    .setSpinData(SpinParticleData.create(0.9f * spinDirection, 0).setSpinOffset(spinOffset).setCoefficient(1.25f).setEasing(Easing.CUBIC_IN).build())
+                    .setScaleData(GenericParticleData.create(0.075f, 0.25f, 0).setCoefficient(0.8f).setEasing(Easing.QUINTIC_OUT, Easing.EXPO_IN_OUT).build())
+                    .setColorData(ColorParticleData.create(ColorHelper.brighter(color, 2), color).build())
                     .setLifetime(30)
-                    .setSpinOffset(spinOffset)
-                    .setSpinCoefficient(1.25f)
-                    .setSpin(0.9f * spinDirection, 0)
-                    .setSpinEasing(Easing.CUBIC_IN)
-                    .setSpinCoefficient(1.2f)
-                    .setScale(0.075f, 0.25f, 0)
-                    .setScaleCoefficient(0.8f)
-                    .setScaleEasing(Easing.QUINTIC_OUT, Easing.EXPO_IN_OUT)
-                    .setColor(ColorHelper.brighter(color, 2), color)
                     .enableNoClip()
-                    .randomOffset(0.85f)
+                    .setRandomOffset(0.85f)
                     .setGravity(1.1f)
                     .addMotion(0, 0.3f + rand.nextFloat() * 0.15f * motionMultiplier, 0)
                     .disableNoClip()
-                    .randomMotion(extraMotion, extraMotion)
-                    .setRemovalProtocol(SimpleParticleOptions.SpecialRemovalProtocol.ENDING_CURVE_INVISIBLE)
+                    .setRandomMotion(extraMotion, extraMotion)
+                    .setDiscardFunction(SimpleParticleOptions.ParticleDiscardFunctionType.ENDING_CURVE_INVISIBLE)
                     .setRenderType(LodestoneWorldParticleRenderType.TRANSPARENT)
                     .repeat(level, posX, posY, posZ, 6);
         }
@@ -83,19 +75,16 @@ public class VoidConduitParticlePacket extends LodestoneClientPacket {
             Color color = new Color((int)(4*multiplier), (int)(2*multiplier), (int)(4*multiplier));
             int spinDirection = (rand.nextBoolean() ? 1 : -1);
             float scaleMultiplier = (float) (1+Math.pow(rand.nextFloat(), 2));
-            ParticleBuilders.create(LodestoneParticleRegistry.SPARKLE_PARTICLE)
-                    .setAlpha(0.7f, 0.5f, 0)
-                    .setAlphaEasing(Easing.SINE_IN, Easing.CIRC_IN)
+            WorldParticleBuilder.create(LodestoneParticleRegistry.SPARKLE_PARTICLE)
+                    .setTransparencyData(GenericParticleData.create(0.7f, 0.5f, 0).setEasing(Easing.SINE_IN, Easing.CIRC_IN).build())
+                    .setSpinData(SpinParticleData.create((0.125f + rand.nextFloat() * 0.075f) * spinDirection).setSpinOffset(spinOffset).build())
+                    .setScaleData(GenericParticleData.create(1.8f*scaleMultiplier, 0.6f, 0).setEasing(Easing.EXPO_OUT, Easing.SINE_IN).build())
+                    .setColorData(ColorParticleData.create(color.brighter(), color.darker()).build())
                     .setLifetime(25)
-                    .setSpinOffset(spinOffset)
-                    .setSpin((0.125f + rand.nextFloat() * 0.075f) * spinDirection)
-                    .setScale(1.8f*scaleMultiplier, 0.6f, 0)
-                    .setScaleEasing(Easing.EXPO_OUT, Easing.SINE_IN)
-                    .setColor(color.brighter(), color.darker())
-                    .randomOffset(0.6f)
+                    .setRandomOffset(0.6f)
                     .enableNoClip()
-                    .randomMotion(0.02f, 0.02f)
-                    .setRemovalProtocol(SimpleParticleOptions.SpecialRemovalProtocol.ENDING_CURVE_INVISIBLE)
+                    .setRandomMotion(0.02f, 0.02f)
+                    .setDiscardFunction(SimpleParticleOptions.ParticleDiscardFunctionType.ENDING_CURVE_INVISIBLE)
                     .setRenderType(LodestoneWorldParticleRenderType.TRANSPARENT)
                     .repeat(level, posX, posY, posZ, 5);
         }

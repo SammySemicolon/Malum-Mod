@@ -1,7 +1,6 @@
 package com.sammy.malum.common.blockentity;
 
 import com.sammy.malum.common.packets.particle.block.VoidConduitParticlePacket;
-import com.sammy.malum.common.packets.particle.block.blight.BlightTransformItemParticlePacket;
 import com.sammy.malum.common.recipe.FavorOfTheVoidRecipe;
 import com.sammy.malum.registry.common.SoundRegistry;
 import com.sammy.malum.registry.common.block.BlockEntityRegistry;
@@ -24,9 +23,12 @@ import team.lodestar.lodestone.helpers.BlockHelper;
 import team.lodestar.lodestone.setup.LodestoneParticleRegistry;
 import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntity;
 import team.lodestar.lodestone.systems.easing.Easing;
-import team.lodestar.lodestone.systems.rendering.particle.LodestoneWorldParticleRenderType;
-import team.lodestar.lodestone.systems.rendering.particle.ParticleBuilders;
-import team.lodestar.lodestone.systems.rendering.particle.SimpleParticleOptions;
+import team.lodestar.lodestone.systems.particle.SimpleParticleOptions;
+import team.lodestar.lodestone.systems.particle.WorldParticleBuilder;
+import team.lodestar.lodestone.systems.particle.data.ColorParticleData;
+import team.lodestar.lodestone.systems.particle.data.GenericParticleData;
+import team.lodestar.lodestone.systems.particle.data.SpinParticleData;
+import team.lodestar.lodestone.systems.particle.world.LodestoneWorldParticleRenderType;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -35,7 +37,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.sammy.malum.registry.common.PacketRegistry.MALUM_CHANNEL;
-import static com.sammy.malum.registry.common.SpiritTypeRegistry.ARCANE_SPIRIT;
 
 public class VoidConduitBlockEntity extends LodestoneBlockEntity {
 
@@ -160,20 +161,16 @@ public class VoidConduitBlockEntity extends LodestoneBlockEntity {
             float multiplier = Mth.nextFloat(level.random, 0.4f, 1f);
             Color color = new Color((int) (12 * multiplier), (int) (3 * multiplier), (int) (12 * multiplier));
             Color endColor = color.darker();
-            ParticleBuilders.create(LodestoneParticleRegistry.WISP_PARTICLE)
-                    .setAlpha(0, 0.2f, 0f)
-                    .setAlphaEasing(Easing.SINE_IN, Easing.SINE_OUT)
+            WorldParticleBuilder.create(LodestoneParticleRegistry.WISP_PARTICLE)
+                    .setTransparencyData(GenericParticleData.create(0, 0.2f, 0f).setEasing(Easing.SINE_IN, Easing.SINE_OUT).build())
                     .setLifetime(60)
-                    .setSpin(0.1f, 0.4f, 0)
-                    .setSpinEasing(Easing.SINE_IN, Easing.SINE_OUT)
-                    .setScale(0f, 0.9f, 0.5f)
-                    .setScaleEasing(Easing.SINE_IN, Easing.SINE_OUT)
-                    .setColor(color, endColor)
-                    .setColorCoefficient(0.5f)
+                    .setSpinData(SpinParticleData.create(0.1f, 0.4f, 0).setEasing(Easing.SINE_IN, Easing.SINE_OUT).build())
+                    .setScaleData(GenericParticleData.create(0f, 0.9f, 0.5f).setEasing(Easing.SINE_IN, Easing.SINE_OUT).build())
+                    .setColorData(ColorParticleData.create(color, endColor).setCoefficient(0.5f).build())
                     .addMotion(0, level.random.nextFloat() * 0.01f, 0)
-                    .randomOffset(3f, 0.02f)
+                    .setRandomOffset(3f, 0.02f)
                     .enableNoClip()
-                    .setRemovalProtocol(SimpleParticleOptions.SpecialRemovalProtocol.ENDING_CURVE_INVISIBLE)
+                    .setDiscardFunction(SimpleParticleOptions.ParticleDiscardFunctionType.ENDING_CURVE_INVISIBLE)
                     .setRenderType(LodestoneWorldParticleRenderType.TRANSPARENT)
                     .surroundVoxelShape(level, blockPos, WELL_SHAPE, 12);
         }

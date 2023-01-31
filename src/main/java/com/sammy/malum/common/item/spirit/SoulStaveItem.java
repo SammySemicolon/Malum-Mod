@@ -1,8 +1,7 @@
 package com.sammy.malum.common.item.spirit;
 
 import com.sammy.malum.common.capability.MalumPlayerDataCapability;
-import com.sammy.malum.common.entity.spirit.SoulEntity;
-import com.sammy.malum.core.systems.item.ISoulContainerItem;
+import com.sammy.malum.core.handlers.SoulHarvestHandler;
 import com.sammy.malum.core.systems.spirit.MalumEntitySpiritData;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
@@ -22,10 +21,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-import static net.minecraft.world.InteractionHand.MAIN_HAND;
-import static net.minecraft.world.InteractionHand.OFF_HAND;
-
-public class SoulStaveItem extends Item implements ISoulContainerItem {
+public class SoulStaveItem extends Item {
     public SoulStaveItem(Properties pProperties) {
         super(pProperties);
     }
@@ -59,35 +55,17 @@ public class SoulStaveItem extends Item implements ISoulContainerItem {
         super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced);
     }
 
-    @Override
-    public InteractionResultHolder<ItemStack> interactWithSoul(Player pPlayer, InteractionHand pHand, SoulEntity soul) {
-        ItemStack stack = pPlayer.getItemInHand(pHand);
-        ItemStack otherStack = pPlayer.getItemInHand(pHand.equals(MAIN_HAND) ? OFF_HAND : MAIN_HAND);
-        if (otherStack.getItem() instanceof ISoulContainerItem) {
-            return InteractionResultHolder.fail(stack);
-        }
-        if (!soul.spiritData.equals(MalumEntitySpiritData.EMPTY) && (!stack.getOrCreateTag().contains(MalumEntitySpiritData.SOUL_DATA))) {
-            soul.spiritData.saveTo(stack.getOrCreateTag());
-            soul.discard();
-            pPlayer.swing(pHand, true);
-            return InteractionResultHolder.success(stack);
-        }
-        return InteractionResultHolder.fail(stack);
-    }
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
         if (pLevel instanceof ServerLevel serverLevel) {
-            MalumPlayerDataCapability.getCapabilityOptional(pPlayer).ifPresent(c -> {
-                if (c.targetedSoulUUID != null) {
-                    LivingEntity entity = (LivingEntity) serverLevel.getEntity(c.targetedSoulUUID);
-                    if (entity != null && entity.isAlive()) {
-                        pPlayer.startUsingItem(pUsedHand);
-                    }
-                } else {
-                    fetchSoul(pPlayer, pUsedHand);
+            SoulHarvestHandler soulHarvestHandler = MalumPlayerDataCapability.getCapability(pPlayer).soulHarvestHandler;
+            if (soulHarvestHandler.targetedSoulUUID != null) {
+                LivingEntity entity = (LivingEntity) serverLevel.getEntity(soulHarvestHandler.targetedSoulUUID);
+                if (entity != null && entity.isAlive()) {
+                    pPlayer.startUsingItem(pUsedHand);
                 }
-            });
+            }
         }
         return super.use(pLevel, pPlayer, pUsedHand);
     }

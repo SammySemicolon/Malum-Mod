@@ -1,7 +1,7 @@
 package com.sammy.malum.common.entity.nitrate;
 
+import com.sammy.malum.client.CommonParticleEffects;
 import com.sammy.malum.common.packets.particle.entity.VividNitrateBounceParticlePacket;
-import com.sammy.malum.core.helper.SpiritHelper;
 import com.sammy.malum.registry.common.entity.EntityRegistry;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
@@ -14,9 +14,12 @@ import net.minecraftforge.network.PacketDistributor;
 import team.lodestar.lodestone.helpers.ColorHelper;
 import team.lodestar.lodestone.setup.LodestoneParticleRegistry;
 import team.lodestar.lodestone.systems.easing.Easing;
-import team.lodestar.lodestone.systems.rendering.particle.ParticleBuilders;
-import team.lodestar.lodestone.systems.rendering.particle.LodestoneWorldParticleRenderType;
-import team.lodestar.lodestone.systems.rendering.particle.SimpleParticleOptions;
+import team.lodestar.lodestone.systems.particle.SimpleParticleOptions;
+import team.lodestar.lodestone.systems.particle.WorldParticleBuilder;
+import team.lodestar.lodestone.systems.particle.data.ColorParticleData;
+import team.lodestar.lodestone.systems.particle.data.GenericParticleData;
+import team.lodestar.lodestone.systems.particle.data.SpinParticleData;
+import team.lodestar.lodestone.systems.particle.world.LodestoneWorldParticleRenderType;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -108,25 +111,22 @@ public class VividNitrateEntity extends AbstractNitrateEntity {
             double lerpY = Mth.lerp(pDelta, oy, y) - motion.y / 4f;
             double lerpZ = Mth.lerp(pDelta, oz, z) - motion.z / 4f;
             float alphaMultiplier = (0.30f + extraAlpha) * Math.min(1, windUp * 2);
-            SpiritHelper.spawnSpiritParticles(level, lerpX, lerpY, lerpZ, alphaMultiplier + 0.1f, norm, firstColor, secondColor);
+            CommonParticleEffects.spawnSpiritParticles(level, lerpX, lerpY, lerpZ, alphaMultiplier + 0.1f, norm, firstColor, secondColor);
 
-            ParticleBuilders.create(LodestoneParticleRegistry.SMOKE_PARTICLE)
-                    .setAlpha(Math.min(1, 0.1f * alphaMultiplier), 0f)
-                    .setAlphaEasing(Easing.SINE_IN, Easing.SINE_OUT)
+            final ColorParticleData.ColorParticleDataBuilder colorDataBuilder = ColorParticleData.create(secondColor, SECOND_SMOKE_COLOR).setEasing(Easing.SINE_OUT).setCoefficient(2.25f);
+            WorldParticleBuilder.create(LodestoneParticleRegistry.SMOKE_PARTICLE)
+                    .setTransparencyData(GenericParticleData.create(Math.min(1, 0.1f * alphaMultiplier), 0f).setEasing(Easing.SINE_IN, Easing.SINE_OUT).build())
                     .setLifetime(65 + rand.nextInt(15))
-                    .setSpin(nextFloat(rand, -0.1f, 0.1f))
-                    .setSpinOffset(rand.nextFloat() * 6.28f)
-                    .setScale(0.2f + rand.nextFloat() * 0.05f, 0.3f, 0f)
-                    .setColor(secondColor, SECOND_SMOKE_COLOR)
-                    .setColorEasing(Easing.SINE_OUT)
-                    .setColorCoefficient(2.25f)
-                    .randomOffset(0.02f)
+                    .setSpinData(SpinParticleData.create(nextFloat(rand, -0.1f, 0.1f)).setSpinOffset(rand.nextFloat() * 6.28f).build())
+                    .setScaleData(GenericParticleData.create(0.2f + rand.nextFloat() * 0.05f, 0.3f, 0f).build())
+                    .setColorData(colorDataBuilder.build())
+                    .setRandomOffset(0.02f)
                     .enableNoClip()
-                    .randomMotion(0.01f, 0.01f)
-                    .setRemovalProtocol(SimpleParticleOptions.SpecialRemovalProtocol.INVISIBLE)
+                    .setRandomMotion(0.01f, 0.01f)
+                    .setDiscardFunction(SimpleParticleOptions.ParticleDiscardFunctionType.INVISIBLE)
                     .repeat(level, lerpX, lerpY, lerpZ, 1)
                     .setRenderType(LodestoneWorldParticleRenderType.TRANSPARENT)
-                    .setColorCoefficient(2.75f)
+                    .setColorData(colorDataBuilder.setCoefficient(2.75f).build())
                     .repeat(level, lerpX, lerpY, lerpZ, 1);
         }
     }

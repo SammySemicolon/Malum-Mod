@@ -2,10 +2,9 @@ package com.sammy.malum.common.capability;
 
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.packets.SyncMalumPlayerCapabilityDataPacket;
+import com.sammy.malum.core.handlers.SoulHarvestHandler;
 import com.sammy.malum.core.handlers.SoulWardHandler;
-import com.sammy.malum.registry.common.SpiritAffinityRegistry;
 import com.sammy.malum.registry.common.PacketRegistry;
-import com.sammy.malum.core.systems.spirit.MalumSpiritAffinity;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -23,22 +22,14 @@ import net.minecraftforge.network.PacketDistributor;
 import team.lodestar.lodestone.systems.capability.LodestoneCapability;
 import team.lodestar.lodestone.systems.capability.LodestoneCapabilityProvider;
 
-import java.util.UUID;
-
 public class MalumPlayerDataCapability implements LodestoneCapability {
 
     public static Capability<MalumPlayerDataCapability> CAPABILITY = CapabilityManager.get(new CapabilityToken<>() {
     });
 
-    public UUID targetedSoulUUID;
-    public int targetedSoulId;
-    public int soulFetchCooldown;
-
-    public MalumSpiritAffinity affinity;
-
     public SoulWardHandler soulWardHandler = new SoulWardHandler();
+    public SoulHarvestHandler soulHarvestHandler = new SoulHarvestHandler();
 
-    public int soulsShattered;
     public boolean obtainedEncyclopedia;
 
     public MalumPlayerDataCapability() {
@@ -81,35 +72,22 @@ public class MalumPlayerDataCapability implements LodestoneCapability {
     public CompoundTag serializeNBT() {
         CompoundTag tag = new CompoundTag();
 
-        if (targetedSoulUUID != null) {
-            tag.putUUID("targetedSoulUUID", targetedSoulUUID);
-        }
-        tag.putInt("targetedSoulId", targetedSoulId);
-        tag.putInt("soulFetchCooldown", soulFetchCooldown);
-
-        if (affinity != null) {
-            tag.putString("affinity", affinity.identifier);
-        }
         tag.put("soulWardData", soulWardHandler.serializeNBT());
+        tag.put("soulHarvestData", soulHarvestHandler.serializeNBT());
 
-        tag.putInt("soulsShattered", soulsShattered);
         tag.putBoolean("obtainedEncyclopedia", obtainedEncyclopedia);
         return tag;
     }
 
     @Override
     public void deserializeNBT(CompoundTag tag) {
-        affinity = SpiritAffinityRegistry.AFFINITIES.get(tag.getString("affinity"));
-
-        if (tag.contains("targetedSoulUUID")) {
-            targetedSoulUUID = tag.getUUID("targetedSoulUUID");
+        if (tag.contains("soulWardData")) {
+            soulWardHandler.deserializeNBT(tag.getCompound("soulWardData"));
         }
-        targetedSoulId = tag.getInt("targetedSoulId");
-        soulFetchCooldown = tag.getInt("soulFetchCooldown");
+        if (tag.contains("soulHarvestData")) {
+            soulHarvestHandler.deserializeNBT(tag.getCompound("soulHarvestData"));
+        }
 
-        soulWardHandler.deserializeNBT(tag.getCompound("soulWardData"));
-
-        soulsShattered = tag.getInt("soulsShattered");
         obtainedEncyclopedia = tag.getBoolean("obtainedEncyclopedia");
     }
 

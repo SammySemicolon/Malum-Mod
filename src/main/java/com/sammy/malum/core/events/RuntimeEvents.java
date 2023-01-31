@@ -54,7 +54,7 @@ public class RuntimeEvents {
     public static void onEntityJoin(EntityJoinWorldEvent event) {
         MalumPlayerDataCapability.playerJoin(event);
         CurioTokenOfGratitude.giveItem(event);
-        SoulHarvestHandler.addEntity(event);
+        SoulDataHandler.updateAi(event);
         if (TetraCompat.LOADED) {
             TetraCompat.LoadedOnly.fireArrow(event);
         }
@@ -81,7 +81,7 @@ public class RuntimeEvents {
 
     @SubscribeEvent
     public static void onEntityJoin(LivingSpawnEvent.SpecialSpawn event) {
-        SoulHarvestHandler.specialSpawn(event);
+        SoulDataHandler.markAsSpawnerSpawned(event);
     }
 
     @SubscribeEvent
@@ -95,8 +95,8 @@ public class RuntimeEvents {
     }
 
     @SubscribeEvent
-    public static void onLivingTarget(LivingSetAttackTargetEvent event) {
-        SoulHarvestHandler.entityTarget(event);
+    public static void onLivingTarget(LivingChangeTargetEvent event) {
+        SoulDataHandler.preventTargeting(event);
     }
 
     @SubscribeEvent
@@ -106,7 +106,7 @@ public class RuntimeEvents {
 
     @SubscribeEvent
     public static void onLivingTick(LivingEvent.LivingUpdateEvent event) {
-        SoulHarvestHandler.entityTick(event);
+        SoulDataHandler.manageSoul(event);
         TouchOfDarknessHandler.entityTick(event);
     }
 
@@ -170,7 +170,7 @@ public class RuntimeEvents {
             CreateCompat.LoadedOnly.convertCaramelToMagicDamage(event);
         }
         MalumAttributeEventHandler.processAttributes(event);
-        SpiritHarvestHandler.exposeSoul(event);
+        SoulDataHandler.exposeSoul(event);
     }
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
@@ -185,7 +185,7 @@ public class RuntimeEvents {
 
     @SubscribeEvent
     public static void onDeath(LivingDeathEvent event) {
-        ReapingHandler.tryCreateReapingDrops(event);
+        EsotericReapingHandler.tryCreateReapingDrops(event);
         SpiritHarvestHandler.shatterSoul(event);
     }
 

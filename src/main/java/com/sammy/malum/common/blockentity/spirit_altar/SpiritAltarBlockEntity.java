@@ -1,14 +1,14 @@
 package com.sammy.malum.common.blockentity.spirit_altar;
 
+import com.sammy.malum.client.CommonParticleEffects;
 import com.sammy.malum.common.item.spirit.MalumSpiritItem;
 import com.sammy.malum.common.packets.particle.block.functional.AltarConsumeParticlePacket;
 import com.sammy.malum.common.packets.particle.block.functional.AltarCraftParticlePacket;
 import com.sammy.malum.common.recipe.SpiritInfusionRecipe;
-import com.sammy.malum.core.helper.SpiritHelper;
+import com.sammy.malum.core.systems.recipe.SpiritWithCount;
 import com.sammy.malum.registry.common.SoundRegistry;
 import com.sammy.malum.registry.common.SpiritTypeRegistry;
 import com.sammy.malum.registry.common.block.BlockEntityRegistry;
-import com.sammy.malum.core.systems.recipe.SpiritWithCount;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -36,9 +36,12 @@ import team.lodestar.lodestone.setup.LodestoneParticleRegistry;
 import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntity;
 import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntityInventory;
 import team.lodestar.lodestone.systems.easing.Easing;
+import team.lodestar.lodestone.systems.particle.SimpleParticleOptions;
+import team.lodestar.lodestone.systems.particle.WorldParticleBuilder;
+import team.lodestar.lodestone.systems.particle.data.ColorParticleData;
+import team.lodestar.lodestone.systems.particle.data.GenericParticleData;
+import team.lodestar.lodestone.systems.particle.data.SpinParticleData;
 import team.lodestar.lodestone.systems.recipe.IngredientWithCount;
-import team.lodestar.lodestone.systems.rendering.particle.ParticleBuilders;
-import team.lodestar.lodestone.systems.rendering.particle.SimpleParticleOptions;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -389,7 +392,7 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
                 double x = getBlockPos().getX() + offset.x();
                 double y = getBlockPos().getY() + offset.y();
                 double z = getBlockPos().getZ() + offset.z();
-                SpiritHelper.spawnSpiritGlimmerParticles(level, x, y, z, color, endColor);
+                CommonParticleEffects.spawnSpiritGlimmerParticles(level, x, y, z, color, endColor);
                 if (recipe != null) {
                     Vec3 velocity = new Vec3(x, y, z).subtract(itemPos).normalize().scale(particleVelocityMultiplier);
                     float alpha = 0.07f / spiritInventory.nonEmptyItemAmount;
@@ -398,50 +401,42 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
                             accelerator.addParticles(color, endColor, alpha, worldPosition, itemPos);
                         }
                     }
-                    ParticleBuilders.create(LodestoneParticleRegistry.WISP_PARTICLE)
-                            .setAlpha(0.15f, 0.25f, 0f)
+                    WorldParticleBuilder.create(LodestoneParticleRegistry.WISP_PARTICLE)
+                            .setTransparencyData(GenericParticleData.create(0.15f, 0.25f, 0f).build())
+                            .setColorData(ColorParticleData.create(color, endColor).setEasing(Easing.BOUNCE_IN_OUT).setCoefficient(0.8f).build())
+                            .setScaleData(GenericParticleData.create(0.225f*scaleMultiplier, 0).build())
+                            .setSpinData(SpinParticleData.create(0.1f + level.random.nextFloat() * 0.1f).build())
                             .setLifetime(particleAge)
-                            .setScale(0.225f*scaleMultiplier, 0)
-                            .randomOffset(0.02f)
-                            .randomMotion(0.01f, 0.01f)
-                            .setColor(color, endColor)
-                            .setColorEasing(Easing.BOUNCE_IN_OUT)
-                            .setColorCoefficient(0.8f)
-                            .setSpin(0.1f + level.random.nextFloat() * 0.1f)
-                            .randomMotion(0.0025f, 0.0025f)
+                            .setRandomOffset(0.02f)
+                            .setRandomMotion(0.01f, 0.01f)
+                            .setRandomMotion(0.0025f, 0.0025f)
                             .addMotion(velocity.x, velocity.y, velocity.z)
                             .enableNoClip()
                             .repeat(level, x, y, z, 1);
 
-                    ParticleBuilders.create(LodestoneParticleRegistry.WISP_PARTICLE)
-                            .setAlpha(0.05f, 0.15f, 0f)
+                    WorldParticleBuilder.create(LodestoneParticleRegistry.WISP_PARTICLE)
+                            .setTransparencyData(GenericParticleData.create(0.05f, 0.15f, 0f).build())
+                            .setScaleData(GenericParticleData.create(0.1f*scaleMultiplier, 0).build())
                             .setLifetime(particleAge)
-                            .setScale(0.1f*scaleMultiplier, 0)
-                            .randomOffset(0.02f)
-                            .randomMotion(0.01f, 0.01f)
-                            .setColor(endColor, color.darker())
-                            .setColorEasing(Easing.BOUNCE_IN_OUT)
-                            .setColorCoefficient(0.8f)
-                            .setSpin(0.1f + level.random.nextFloat() * 0.1f)
-                            .randomMotion(0.0025f, 0.0025f)
+                            .setRandomOffset(0.02f)
+                            .setRandomMotion(0.01f, 0.01f)
+                            .setColorData(ColorParticleData.create(endColor, color.darker()).setEasing(Easing.BOUNCE_IN_OUT).setCoefficient(0.8f).build())
+                            .setSpinData(SpinParticleData.create(0.1f + level.random.nextFloat() * 0.1f).build())
+                            .setRandomMotion(0.0025f, 0.0025f)
                             .addMotion(velocity.x, velocity.y, velocity.z)
                             .enableNoClip()
                             .repeat(level, x, y, z, 1);
 
-                    ParticleBuilders.create(LodestoneParticleRegistry.TWINKLE_PARTICLE)
-                            .setAlpha(alpha*0.5f, alpha*3.5f, 0f)
-                            .setScaleEasing(Easing.SINE_IN, Easing.SINE_OUT)
+                    WorldParticleBuilder.create(LodestoneParticleRegistry.TWINKLE_PARTICLE)
+                            .setTransparencyData(GenericParticleData.create(alpha*0.5f, alpha*3.5f, 0f).build())
+                            .setScaleData(GenericParticleData.create(0.2f, 0.4f*scaleMultiplier, 0).setEasing(Easing.QUINTIC_IN, Easing.CUBIC_IN_OUT).build())
                             .setLifetime(particleAge)
-                            .setScale(0.2f, 0.4f*scaleMultiplier, 0)
-                            .setScaleEasing(Easing.QUINTIC_IN, Easing.CUBIC_IN_OUT)
-                            .randomOffset(0.1)
-                            .randomMotion(0.02f)
-                            .setColor(color, endColor)
-                            .setColorEasing(Easing.BOUNCE_IN_OUT)
-                            .setColorCoefficient(0.5f)
-                            .randomMotion(0.0025f, 0.0025f)
+                            .setRandomOffset(0.1)
+                            .setRandomMotion(0.02f)
+                            .setColorData(ColorParticleData.create(color, endColor).setEasing(Easing.BOUNCE_IN_OUT).setCoefficient(0.5f).build())
+                            .setRandomMotion(0.0025f, 0.0025f)
                             .enableNoClip()
-                            .setRemovalProtocol(SimpleParticleOptions.SpecialRemovalProtocol.ENDING_CURVE_INVISIBLE)
+                            .setDiscardFunction(SimpleParticleOptions.ParticleDiscardFunctionType.ENDING_CURVE_INVISIBLE)
                             .repeat(level, itemPos.x, itemPos.y, itemPos.z, 1);
                 }
             }

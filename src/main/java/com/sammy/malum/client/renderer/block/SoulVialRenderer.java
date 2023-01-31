@@ -1,7 +1,6 @@
 package com.sammy.malum.client.renderer.block;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.sammy.malum.client.renderer.entity.SoulEntityRenderer;
 import com.sammy.malum.common.blockentity.storage.SoulVialBlockEntity;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
@@ -19,7 +18,7 @@ public class SoulVialRenderer implements BlockEntityRenderer<SoulVialBlockEntity
             double y = 0.5f + Math.sin(((blockEntityIn.getLevel().getGameTime() % 360) + partialTicks) / 20f) * 0.08f;
             poseStack.translate(0.5f, y, 0.5f);
             poseStack.scale(0.75f, 0.75f, 0.75f);
-            SoulEntityRenderer.renderSoul(poseStack, blockEntityIn.data.primaryType.getColor().darker());
+        //    SoulEntityRenderer.renderSoul(poseStack, blockEntityIn.data.primaryType.getColor().darker());
             poseStack.popPose();
         }
     }
