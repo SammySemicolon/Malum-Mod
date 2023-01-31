@@ -64,7 +64,9 @@ public class SoulHarvestHandler {
     }
 
     public void deserializeNBT(CompoundTag tag) {
-        targetedSoulUUID = tag.getUUID("targetedSoulUUID");
+        if (tag.contains("targetedSoulUUID")) {
+            targetedSoulUUID = tag.getUUID("targetedSoulUUID");
+        }
         targetedSoulId = tag.getInt("targetedSoulId");
         soulFetchCooldown = tag.getInt("soulFetchCooldown");
     }
