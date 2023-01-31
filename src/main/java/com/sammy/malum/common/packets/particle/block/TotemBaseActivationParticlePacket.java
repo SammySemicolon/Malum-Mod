@@ -50,22 +50,22 @@ public class TotemBaseActivationParticlePacket extends LodestoneClientPacket {
         for (int i = 0; i < colors.size(); i++) {
             Color color = colors.get(i);
             WorldParticleBuilder.create(LodestoneParticleRegistry.WISP_PARTICLE)
-                    .setTransparencyData(GenericParticleData.create(0.1f, 0.22f, 0).build())
+                    .setTransparencyData(GenericParticleData.create(0.1f, 0.22f, 0).setCoefficient(0.8f).setEasing(Easing.QUINTIC_OUT, Easing.SINE_IN_OUT).build())
                     .setSpinData(SpinParticleData.create(0.2f).build())
-                    .setScaleData(GenericParticleData.create(0.15f, 0.2f, 0).setEasing(Easing.QUINTIC_OUT, Easing.SINE_IN).build())
+                    .setScaleData(GenericParticleData.create(0.15f, 0.2f, 0.1f).setCoefficient(0.7f).setEasing(Easing.QUINTIC_OUT, Easing.SINE_IN_OUT).build())
                     .setColorData(ColorParticleData.create(color, color).build())
-                    .setLifetime(15)
+                    .setLifetime(25)
                     .enableNoClip()
                     .setRandomOffset(0.1f, 0.1f)
                     .setRandomMotion(0.001f, 0.001f)
                     .repeatSurroundBlock(level, pos.above(i), 3, Direction.NORTH, Direction.SOUTH, Direction.EAST, Direction.WEST);
 
             WorldParticleBuilder.create(LodestoneParticleRegistry.SMOKE_PARTICLE)
-                    .setTransparencyData(GenericParticleData.create(0.06f, 0.14f, 0).build())
+                    .setTransparencyData(GenericParticleData.create(0.06f, 0.14f, 0).setCoefficient(0.8f).setEasing(Easing.QUINTIC_OUT, Easing.SINE_IN_OUT).build())
                     .setSpinData(SpinParticleData.create(0.1f).build())
-                    .setScaleData(GenericParticleData.create(0.35f, 0.4f, 0).setEasing(Easing.QUINTIC_OUT, Easing.SINE_IN).build())
+                    .setScaleData(GenericParticleData.create(0.35f, 0.4f, 0.1f).setCoefficient(0.7f).setEasing(Easing.QUINTIC_OUT, Easing.SINE_IN_OUT).build())
                     .setColorData(ColorParticleData.create(color, color).build())
-                    .setLifetime(20)
+                    .setLifetime(30)
                     .setRandomOffset(0.2f)
                     .enableNoClip()
                     .setRandomMotion(0.001f, 0.001f)

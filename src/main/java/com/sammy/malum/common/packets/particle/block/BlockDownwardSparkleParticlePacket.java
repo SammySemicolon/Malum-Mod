@@ -36,16 +36,16 @@ public class BlockDownwardSparkleParticlePacket extends BlockParticlePacket
             int spinOffset = rand.nextInt(360);
             WorldParticleBuilder.create(LodestoneParticleRegistry.TWINKLE_PARTICLE)
                     .setTransparencyData(GenericParticleData.create(0, 0.8f, 0).build())
-                    .setLifetime(25)
                     .setSpinData(SpinParticleData.create(0, 0.8f * spinDirection, 0.1f * spinDirection).setCoefficient(2f).setSpinOffset(spinOffset).setEasing(Easing.CUBIC_IN, Easing.QUINTIC_OUT).build())
-                    .setScaleData(GenericParticleData.create(0.05f, 0.1f, 0).setCoefficient(0.8f).setEasing(Easing.QUINTIC_OUT, Easing.EXPO_IN_OUT).build())
+                    .setScaleData(GenericParticleData.create(0.05f, 0.1f, 0).setCoefficient(0.8f).setEasing(Easing.QUINTIC_OUT, Easing.SINE_IN).build())
                     .setColorData(ColorParticleData.create(ColorHelper.brighter(color, 2), color).build())
+                    .setLifetime(25)
                     .enableNoClip()
                     .setRandomOffset(0.6f)
                     .setGravity(0.3f)
                     .disableNoClip()
                     .setRandomMotion(0.1f, 0.15f)
-                    .repeat(level, pos.getX() + 0.5f, pos.getY() + 0.2f, pos.getZ() + 0.5f, 1);
+                    .spawn(level, pos.getX() + 0.5f, pos.getY() + 0.2f, pos.getZ() + 0.5f);
         }
 
 
@@ -56,6 +56,7 @@ public class BlockDownwardSparkleParticlePacket extends BlockParticlePacket
                     .setTransparencyData(GenericParticleData.create(0.05f, 0.08f, 0).setCoefficient(0.8f + rand.nextFloat() * 0.4f).setEasing(Easing.SINE_IN, Easing.CIRC_IN).build())
                     .setSpinData(SpinParticleData.create((0.1f + rand.nextFloat() * 0.05f) * spinDirection).setSpinOffset(spinOffset).build()).setScaleData(GenericParticleData.create(0.35f, 0.5f, 0).setCoefficient(0.8f + rand.nextFloat() * 0.4f).setEasing(Easing.QUINTIC_OUT, Easing.SINE_IN).build())
                     .setColorData(ColorParticleData.create(color, color).build())
+                    .setScaleData(GenericParticleData.create(0.35f, 0.5f, 0.25f).setCoefficient(0.8f+rand.nextFloat()*0.4f).setEasing(Easing.QUINTIC_OUT, Easing.CIRC_IN).build())
                     .setLifetime(50 + rand.nextInt(10))
                     .setRandomOffset(0.4f)
                     .enableNoClip()
