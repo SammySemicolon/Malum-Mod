@@ -487,7 +487,7 @@ public class MalumRecipes extends RecipeProvider implements IConditionBuilder {
         shaped(ItemRegistry.ANCIENT_WEAVE.get()).define('X', ItemRegistry.ESOTERIC_SPOOL.get()).define('Y', ItemRegistry.BLIGHTED_GUNK.get()).pattern(" Y ").pattern("YXY").pattern(" Y ").unlockedBy("has_spool", has(ItemRegistry.ESOTERIC_SPOOL.get())).save(consumer);
 
         prideweaveRecipe(consumer, Items.BREAD, ItemRegistry.ACE_PRIDEWEAVE);
-        prideweaveRecipe(consumer, Items.ARROW, ItemRegistry.AGENDER_PRIDEWEAVE);
+        prideweaveRecipe(consumer, Items.BOOK, ItemRegistry.AGENDER_PRIDEWEAVE);
         prideweaveRecipe(consumer, Items.ARROW, ItemRegistry.ARO_PRIDEWEAVE);
         prideweaveRecipe(consumer, Items.WHEAT_SEEDS, ItemRegistry.AROACE_PRIDEWEAVE);
         prideweaveRecipe(consumer, Items.WHEAT, ItemRegistry.BI_PRIDEWEAVE);
