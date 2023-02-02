@@ -13,14 +13,14 @@
       "count": 1
     },
     {
-      "item": "malum:arcane_charcoal_fragment",
-      "count": 2
+      "item": "malum:arcane_charcoal",
+      "count": 1
     }
   ],
   "spirits": [
     {
       "type": "aqueous",
-      "count": 4
+      "count": 2
     }
   ]
 }

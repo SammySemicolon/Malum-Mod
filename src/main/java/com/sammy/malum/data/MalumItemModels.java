@@ -13,9 +13,8 @@ import com.sammy.malum.common.item.impetus.ImpetusItem;
 import com.sammy.malum.common.item.spirit.MalumSpiritItem;
 import com.sammy.malum.common.item.spirit.SoulStaveItem;
 import com.sammy.malum.common.item.tools.MalumScytheItem;
-import com.sammy.malum.registry.common.item.ItemRegistry;
 import com.sammy.malum.core.systems.item.ItemSkin;
-import net.mehvahdjukaar.supplementaries.common.block.blocks.SconceBlock;
+import com.sammy.malum.registry.common.item.ItemRegistry;
 import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
@@ -31,7 +30,6 @@ import team.lodestar.lodestone.systems.item.ModCombatItem;
 import team.lodestar.lodestone.systems.multiblock.MultiBlockItem;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static com.sammy.malum.MalumMod.malumPath;
 import static com.sammy.malum.registry.common.item.ItemRegistry.ITEMS;
@@ -53,6 +51,8 @@ public class MalumItemModels extends ItemModelProvider {
         cosmeticItem(take(items, ItemRegistry.ANCIENT_WEAVE), "weaves/");
         cosmeticItem(take(items, ItemRegistry.ESOTERIC_SPOOL), "");
         generatedItem(take(items, ItemRegistry.BLAZING_SCONCE));
+
+        handheldItem(take(items, ItemRegistry.SOUL_STAINED_STEEL_KNIFE));
 
         takeAll(items, i -> i.get() instanceof PrideweaveItem).forEach(this::prideweaveItem);
 

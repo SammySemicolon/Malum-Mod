@@ -10,8 +10,8 @@
   },
   "extra_items": [
     {
-      "item": "malum:blazing_quartz_fragment",
-      "count": 4
+      "item": "malum:blazing_quartz",
+      "count": 1
     },
     {
       "item": "minecraft:blaze_powder",
@@ -21,7 +21,7 @@
   "spirits": [
     {
       "type": "infernal",
-      "count": 4
+      "count": 2
     },
     {
       "type": "arcane"
