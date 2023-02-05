@@ -57,14 +57,14 @@ public class MalumAugmentingRecipes extends RecipeProvider {
 
     public void addHoodie(Consumer<FinishedRecipe> consumer, Ingredient input, String value) {
         Ingredient both = Ingredient.of(ItemRegistry.SOUL_HUNTER_CLOAK.get(), ItemRegistry.SOUL_STAINED_STEEL_HELMET.get(), ItemRegistry.SOUL_HUNTER_ROBE.get(), ItemRegistry.SOUL_STAINED_STEEL_CHESTPLATE.get(), ItemRegistry.SOUL_HUNTER_LEGGINGS.get(), ItemRegistry.SOUL_STAINED_STEEL_LEGGINGS.get(), ItemRegistry.SOUL_HUNTER_BOOTS.get(), ItemRegistry.SOUL_STAINED_STEEL_BOOTS.get());
-        new SpiritAugmentingRecipeBuilder(both, input, makeStringTag(ItemSkin.MALUM_SKIN_TAG, value + "_drip")).build(consumer, MalumMod.malumPath("augmenting/hoodie_" + value));
+        new SpiritAugmentingRecipeBuilder(both, input, makeSkinTagAddition(ItemSkin.MALUM_SKIN_TAG, value + "_drip")).build(consumer, MalumMod.malumPath("augmenting/hoodie_" + value));
     }
 
     public void addSkin(Consumer<FinishedRecipe> consumer, Ingredient armors, Ingredient input, String value) {
-        new SpiritAugmentingRecipeBuilder(armors, input, makeStringTag(ItemSkin.MALUM_SKIN_TAG, value)).build(consumer, MalumMod.malumPath("augmenting/" + value));
+        new SpiritAugmentingRecipeBuilder(armors, input, makeSkinTagAddition(ItemSkin.MALUM_SKIN_TAG, value)).build(consumer, MalumMod.malumPath("augmenting/" + value));
     }
 
-    public CompoundTag makeStringTag(String key, String value) {
+    public CompoundTag makeSkinTagAddition(String key, String value) {
         CompoundTag tag = new CompoundTag();
         tag.putString(key, value);
         return tag;

@@ -14,6 +14,7 @@ import com.sammy.malum.common.item.spirit.MalumSpiritItem;
 import com.sammy.malum.common.item.spirit.SoulStaveItem;
 import com.sammy.malum.common.item.tools.MalumScytheItem;
 import com.sammy.malum.core.systems.item.ItemSkin;
+import com.sammy.malum.registry.client.ItemSkinRegistry;
 import com.sammy.malum.registry.common.item.ItemRegistry;
 import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;
@@ -43,7 +44,7 @@ public class MalumItemModels extends ItemModelProvider {
 
     @Override
     protected void registerModels() {
-        ItemRegistry.ClientOnly.registerItemSkins(null);
+        ItemSkinRegistry.registerItemSkins(null);
         Set<RegistryObject<Item>> items = new HashSet<>(ITEMS.getEntries());
 
         blightedSpireItem(take(items, ItemRegistry.BLIGHTED_TUMOR));
@@ -118,7 +119,7 @@ public class MalumItemModels extends ItemModelProvider {
 
     private void armorItem(RegistryObject<Item> i) {
         generatedItem(i);
-        for (ItemSkin skin : ItemRegistry.ClientOnly.SKINS.values()) {
+        for (ItemSkin skin : ItemSkinRegistry.SKINS.values()) {
             int value = skin.index;
             if (skin.dataSupplier == null) {
                 continue;

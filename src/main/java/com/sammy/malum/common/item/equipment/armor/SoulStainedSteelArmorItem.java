@@ -1,8 +1,9 @@
 package com.sammy.malum.common.item.equipment.armor;
 
 import com.google.common.collect.ImmutableMultimap;
+import com.sammy.malum.registry.client.ItemSkinRegistry;
+import com.sammy.malum.registry.client.ModelRegistry;
 import com.sammy.malum.registry.common.AttributeRegistry;
-import com.sammy.malum.registry.common.item.ItemRegistry;
 import com.sammy.malum.core.systems.item.ItemSkin;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
@@ -48,7 +49,7 @@ public class SoulStainedSteelArmorItem extends LodestoneArmorItem {
 
     @Override
     public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
-        ItemSkin skin = ItemRegistry.ClientOnly.getSkin(stack);
+        ItemSkin skin = ItemSkinRegistry.getSkin(stack);
         if (skin != null && entity instanceof LivingEntity livingEntity) {
             return skin.armorTextureFunction.apply(livingEntity).toString();
         }
@@ -66,8 +67,8 @@ public class SoulStainedSteelArmorItem extends LodestoneArmorItem {
                 float f1 = Mth.rotLerp(pticks, entity.yHeadRotO, entity.yHeadRot);
                 float netHeadYaw = f1 - f;
                 float netHeadPitch = Mth.lerp(pticks, entity.xRotO, entity.getXRot());
-                ItemSkin skin = ItemRegistry.ClientOnly.getSkin(itemStack);
-                LodestoneArmorModel model = skin != null ? skin.modelFunction.apply(entity) : ItemRegistry.ClientOnly.SOUL_STAINED_ARMOR;
+                ItemSkin skin = ItemSkinRegistry.getSkin(itemStack);
+                LodestoneArmorModel model = skin != null ? skin.modelFunction.apply(entity) : ModelRegistry.SOUL_STAINED_ARMOR;
 
                 model.slot = slot;
                 model.copyFromDefault(_default);
