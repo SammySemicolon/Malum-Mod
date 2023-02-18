@@ -70,8 +70,8 @@ public class MalumScytheItem extends ModCombatItem implements IMalumEventRespond
     public static ItemStack getScytheItemStack(DamageSource source, LivingEntity attacker) {
         ItemStack stack = attacker.getMainHandItem();
 
-        if (source.getDirectEntity() instanceof ScytheBoomerangEntity) {
-            stack = ((ScytheBoomerangEntity) source.getDirectEntity()).scythe;
+        if (source.getDirectEntity() instanceof ScytheBoomerangEntity scytheBoomerang) {
+            stack = scytheBoomerang.getItem();
         }
         return stack.getItem() instanceof MalumScytheItem ? stack : ItemStack.EMPTY;
     }

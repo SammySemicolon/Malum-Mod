@@ -4,8 +4,8 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Vector3f;
 import com.sammy.malum.common.blockentity.totem.TotemPoleBlockEntity;
-import com.sammy.malum.registry.common.SpiritTypeRegistry;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
+import com.sammy.malum.registry.common.SpiritTypeRegistry;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
@@ -21,8 +21,6 @@ import team.lodestar.lodestone.systems.rendering.VFXBuilders;
 import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
-
-import static team.lodestar.lodestone.helpers.RenderHelper.FULL_BRIGHT;
 
 
 public class TotemPoleRenderer implements BlockEntityRenderer<TotemPoleBlockEntity> {
@@ -56,16 +54,8 @@ public class TotemPoleRenderer implements BlockEntityRenderer<TotemPoleBlockEnti
         VFXBuilders.createWorld()
                 .setPosColorTexLightmapDefaultFormat()
                 .setColor(color, alpha)
-                .setLight(FULL_BRIGHT)
                 .setUV(sprite.getU0(), sprite.getV0(), sprite.getU1(), sprite.getV1())
                 .renderQuad(consumer, poseStack, positions, 0.5f);
         poseStack.popPose();
-    }
-
-    public float rotation(Direction direction) {
-        if (direction == Direction.NORTH || direction == Direction.SOUTH) {
-            direction = direction.getOpposite();
-        }
-        return direction.toYRot();
     }
 }

@@ -5,12 +5,10 @@ import com.sammy.malum.registry.common.DamageSourceRegistry;
 import com.sammy.malum.registry.common.SoundRegistry;
 import com.sammy.malum.registry.common.entity.EntityRegistry;
 import com.sammy.malum.registry.common.item.EnchantmentRegistry;
+import com.sammy.malum.registry.common.item.ItemRegistry;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -37,86 +35,114 @@ import java.util.Random;
 import java.util.UUID;
 
 public class ScytheBoomerangEntity extends ThrowableItemProjectile {
-    public static final EntityDataAccessor<ItemStack> SCYTHE = SynchedEntityData.defineId(ScytheBoomerangEntity.class, EntityDataSerializers.ITEM_STACK);
 
-    public ItemStack scythe;
-    public UUID ownerUUID;
-    public Player owner;
+    protected UUID ownerUUID;
+    protected Player owner;
 
-    public int slot;
-    public float damage;
-    public float magicDamage;
+    protected int slot;
+    protected float damage;
+    protected float magicDamage;
     public int age;
-    public int returnAge = 8;
-    public boolean returning;
+    protected int timeUntilReturn = 8;
+
+    public int enemiesHit;
 
     public ScytheBoomerangEntity(Level level) {
         super(EntityRegistry.SCYTHE_BOOMERANG.get(), level);
         noPhysics = false;
     }
 
-    public Player getScytheOwner() {
-        if (owner == null) {
-            if (!level.isClientSide) {
-                owner = (Player) ((ServerLevel) level).getEntity(ownerUUID);
-            }
-        }
-        return owner;
+    public ScytheBoomerangEntity(Level level, double pX, double pY, double pZ) {
+        super(EntityRegistry.SCYTHE_BOOMERANG.get(), pX, pY, pZ, level);
+        noPhysics = false;
     }
 
-    public void setData(float damage, float magicDamage, UUID ownerUUID, int slot, ItemStack scythe) {
+    public void setData(float damage, float magicDamage, UUID ownerUUID, int slot) {
         this.damage = damage;
         this.magicDamage = magicDamage;
         this.ownerUUID = ownerUUID;
         this.slot = slot;
-        this.scythe = scythe;
     }
 
-    public void shootFromRotation(Entity shooter, float rotationPitch, float rotationYaw, float pitchOffset, float velocity, float innacuracy) {
-        float f = -Mth.sin(rotationYaw * ((float) Math.PI / 180F)) * Mth.cos(rotationPitch * ((float) Math.PI / 180F));
-        float f1 = -Mth.sin((rotationPitch + pitchOffset) * ((float) Math.PI / 180F));
-        float f2 = Mth.cos(rotationYaw * ((float) Math.PI / 180F)) * Mth.cos(rotationPitch * ((float) Math.PI / 180F));
-        this.shoot(f, f1, f2, velocity, innacuracy);
-        Vec3 vec3 = shooter.getDeltaMovement();
-        this.setDeltaMovement(this.getDeltaMovement().add(vec3.x, 0, vec3.z));
+    @Override
+    public void addAdditionalSaveData(CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
+        if (ownerUUID != null) {
+            compound.putUUID("ownerUUID", ownerUUID);
+        }
+        if (slot != 0) {
+            compound.putInt("slot", slot);
+        }
+        if (damage != 0) {
+            compound.putFloat("damage", damage);
+        }
+        if (magicDamage != 0) {
+            compound.putFloat("magicDamage", magicDamage);
+        }
+        if (age != 0) {
+            compound.putInt("age", age);
+        }
+        if (timeUntilReturn != 0) {
+            compound.putInt("timeUntilReturn", timeUntilReturn);
+        }
+        if (enemiesHit != 0) {
+            compound.putInt("enemiesHit", enemiesHit);
+        }
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag compound) {
+        super.readAdditionalSaveData(compound);
+        if (compound.contains("ownerUUID")) {
+            ownerUUID = compound.getUUID("ownerUUID");
+            owner = getScytheOwner();
+        }
+        slot = compound.getInt("slot");
+        damage = compound.getFloat("damage");
+        magicDamage = compound.getFloat("magicDamage");
+        age = compound.getInt("age");
+        timeUntilReturn = compound.getInt("timeUntilReturn");
+        enemiesHit = compound.getInt("enemiesHit");
     }
 
     @Override
     protected void onHitBlock(BlockHitResult result) {
         super.onHitBlock(result);
-        returning = true;
+        timeUntilReturn = 0;
+    }
+
+    @Override
+    protected boolean canHitEntity(Entity pTarget) {
+        return !pTarget.equals(getScytheOwner());
     }
 
     @Override
     protected void onHitEntity(EntityHitResult result) {
         Player scytheOwner = getScytheOwner();
-        DamageSource source = DamageSource.indirectMobAttack(this, scytheOwner);
-        Entity entity = result.getEntity();
+        Entity target = result.getEntity();
         if (level.isClientSide) {
             return;
         }
-        if (entity.equals(owner)) {
-            return;
-        }
-        boolean success = entity.hurt(source, damage);
-        if (success) {
-            if (entity instanceof LivingEntity livingentity) {
-                scythe.hurtAndBreak(1, scytheOwner, (e) -> remove(RemovalReason.KILLED));
-                ItemHelper.applyEnchantments(owner, livingentity, scythe);
-                int i = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.FIRE_ASPECT, scythe);
-                if (i > 0) {
-                    livingentity.setSecondsOnFire(i * 4);
-                }
-                if (magicDamage > 0) {
-                    if (livingentity.isAlive()) {
-                        livingentity.invulnerableTime = 0;
-                        livingentity.hurt(DamageSourceRegistry.causeVoodooDamage(scytheOwner), magicDamage);
-                    }
+        DamageSource source = DamageSource.indirectMobAttack(this, scytheOwner);
+        boolean success = target.hurt(source, damage);
+        if (success && target instanceof LivingEntity livingentity) {
+            ItemStack scythe = getItem();
+            scythe.hurtAndBreak(1, scytheOwner, (e) -> remove(RemovalReason.KILLED));
+            ItemHelper.applyEnchantments(owner, livingentity, scythe);
+            int i = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.FIRE_ASPECT, scythe);
+            if (i > 0) {
+                livingentity.setSecondsOnFire(i * 4);
+            }
+            if (magicDamage > 0) {
+                if (livingentity.isAlive()) {
+                    livingentity.invulnerableTime = 0;
+                    livingentity.hurt(DamageSourceRegistry.causeVoodooDamage(scytheOwner), magicDamage);
                 }
             }
-            returnAge += 4;
-            entity.level.playSound(null, entity.getX(), entity.getY(), entity.getZ(), SoundRegistry.SCYTHE_CUT.get(), entity.getSoundSource(), 1.0F, 0.9f + entity.level.random.nextFloat() * 0.2f);
+
         }
+        timeUntilReturn += 4;
+        target.level.playSound(null, target.getX(), target.getY(), target.getZ(), SoundRegistry.SCYTHE_CUT.get(), target.getSoundSource(), 1.0F, 0.9f + target.level.random.nextFloat() * 0.2f);
         super.onHitEntity(result);
     }
 
@@ -124,6 +150,7 @@ public class ScytheBoomerangEntity extends ThrowableItemProjectile {
     public void tick() {
         super.tick();
         age++;
+        ItemStack scythe = getItem();
         if (level.isClientSide) {
             if (!isInWaterRainOrBubble()) {
                 if (EnchantmentHelper.getItemEnchantmentLevel(Enchantments.FIRE_ASPECT, getItem()) > 0) {
@@ -138,40 +165,31 @@ public class ScytheBoomerangEntity extends ThrowableItemProjectile {
                     level.addParticle(ParticleTypes.FLAME, vector.x, vector.y, vector.z, 0, 0, 0);
                 }
             }
-        }
-
-        if (!level.isClientSide) {
+        } else {
             Player playerEntity = getScytheOwner();
             if (playerEntity == null || !playerEntity.isAlive()) {
-                ItemEntity entityitem = new ItemEntity(level, getX(), getY() + 0.5, getZ(), scythe);
-                entityitem.setPickUpDelay(40);
-                entityitem.setDeltaMovement(entityitem.getDeltaMovement().multiply(0, 1, 0));
-                level.addFreshEntity(entityitem);
+                ItemEntity itemEntity = new ItemEntity(level, getX(), getY() + 0.5, getZ(), scythe);
+                itemEntity.setPickUpDelay(40);
+                level.addFreshEntity(itemEntity);
                 remove(RemovalReason.DISCARDED);
                 return;
             }
             if (age % 3 == 0) {
-                level.playSound(null, blockPosition(), SoundEvents.PLAYER_ATTACK_SWEEP, SoundSource.PLAYERS, 1, 1.25f);
+                level.playSound(null, blockPosition(), SoundEvents.PLAYER_ATTACK_SWEEP, SoundSource.PLAYERS, 0.75f, 1.25f);
             }
             if (this.xRotO == 0.0F && this.yRotO == 0.0F) {
-                Vec3 vector3d = getDeltaMovement();
-//                float f = Mth.sqrt(horizontalMag(vector3d));
-                setYRot((float) (Mth.atan2(vector3d.x, vector3d.z) * (double) (180F / (float) Math.PI)));
-//                setXRot((float) (Mth.atan2(vector3d.y, f) * (double) (180F / (float) Math.PI)));
+                Vec3 motion = getDeltaMovement();
+                setYRot((float) (Mth.atan2(motion.x, motion.z) * (double) (180F / (float) Math.PI)));
                 yRotO = getYRot();
                 xRotO = getXRot();
             }
-            if (age > returnAge) {
-                returning = true;
-            }
-            if (returning) {
+            if (timeUntilReturn <= 0) {
                 noPhysics = true;
                 Vec3 ownerPos = playerEntity.position().add(0, 1, 0);
                 Vec3 motion = ownerPos.subtract(position());
                 setDeltaMovement(motion.normalize().scale(0.75f));
-            }
-            float distance = distanceTo(playerEntity);
-            if (age > 8) {
+                float distance = distanceTo(playerEntity);
+
                 if (distance < 3f) {
                     if (isAlive()) {
                         ItemHandlerHelper.giveItemToPlayer(playerEntity, scythe, slot);
@@ -179,50 +197,35 @@ public class ScytheBoomerangEntity extends ThrowableItemProjectile {
                             int enchantmentLevel = EnchantmentHelper.getItemEnchantmentLevel(EnchantmentRegistry.REBOUND.get(), scythe);
                             if (enchantmentLevel < 4) {
                                 int cooldown = 100 - 25 * (enchantmentLevel - 1);
-                                playerEntity.getCooldowns().addCooldown(scythe.getItem(), cooldown);
+                                if (cooldown > 0) {
+                                    playerEntity.getCooldowns().addCooldown(scythe.getItem(), cooldown);
+                                }
                             }
                         }
                         remove(RemovalReason.DISCARDED);
                     }
                 }
             }
+            timeUntilReturn--;
         }
     }
 
-    @Override
-    public void addAdditionalSaveData(CompoundTag compound) {
-        super.addAdditionalSaveData(compound);
-        compound.put("scythe", scythe.serializeNBT());
-        if (ownerUUID != null) {
-            compound.putUUID("ownerUUID", ownerUUID);
+    public Player getScytheOwner() {
+        if (owner == null) {
+            if (!level.isClientSide) {
+                owner = (Player) ((ServerLevel) level).getEntity(ownerUUID);
+            }
         }
-        compound.putInt("slot", slot);
-        compound.putFloat("damage", damage);
-        compound.putFloat("magicDamage", magicDamage);
-        compound.putInt("age", age);
-        compound.putBoolean("returning", returning);
-        compound.putInt("returnAge", returnAge);
+        return owner;
     }
 
-    @Override
-    public void readAdditionalSaveData(CompoundTag compound) {
-        super.readAdditionalSaveData(compound);
-
-        if (compound.contains("scythe")) {
-            scythe = ItemStack.of(compound.getCompound("scythe"));
-        }
-        entityData.set(SCYTHE, scythe);
-
-        if (compound.contains("ownerUUID")) {
-            ownerUUID = compound.getUUID("ownerUUID");
-            owner = getScytheOwner();
-        }
-        slot = compound.getInt("slot");
-        damage = compound.getFloat("damage");
-        magicDamage = compound.getFloat("magicDamage");
-        age = compound.getInt("age");
-        returning = compound.getBoolean("returning");
-        returnAge = compound.getInt("returnAge");
+    public void shootFromRotation(Entity shooter, float rotationPitch, float rotationYaw, float pitchOffset, float velocity, float innacuracy) {
+        float f = -Mth.sin(rotationYaw * ((float) Math.PI / 180F)) * Mth.cos(rotationPitch * ((float) Math.PI / 180F));
+        float f1 = -Mth.sin((rotationPitch + pitchOffset) * ((float) Math.PI / 180F));
+        float f2 = Mth.cos(rotationYaw * ((float) Math.PI / 180F)) * Mth.cos(rotationPitch * ((float) Math.PI / 180F));
+        this.shoot(f, f1, f2, velocity, innacuracy);
+        Vec3 vec3 = shooter.getDeltaMovement();
+        this.setDeltaMovement(this.getDeltaMovement().add(vec3.x, 0, vec3.z));
     }
 
     @Override
@@ -241,25 +244,8 @@ public class ScytheBoomerangEntity extends ThrowableItemProjectile {
     }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        entityData.define(SCYTHE, ItemStack.EMPTY);
-    }
-
-    @Override
     protected Item getDefaultItem() {
-        if (scythe == null) {
-            scythe = entityData.get(SCYTHE);
-        }
-        return scythe.getItem();
-    }
-
-    @Override
-    public ItemStack getItem() {
-        if (scythe == null) {
-            scythe = entityData.get(SCYTHE);
-        }
-        return scythe;
+        return ItemRegistry.SOUL_STAINED_STEEL_SCYTHE.get();
     }
 
     @Override

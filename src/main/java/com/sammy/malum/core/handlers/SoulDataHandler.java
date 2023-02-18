@@ -2,7 +2,7 @@ package com.sammy.malum.core.handlers;
 
 import com.sammy.malum.common.capability.MalumLivingEntityDataCapability;
 import com.sammy.malum.common.capability.MalumPlayerDataCapability;
-import com.sammy.malum.common.entity.boomerang.ScytheBoomerangEntity;
+import com.sammy.malum.common.item.tools.MalumScytheItem;
 import com.sammy.malum.compability.tetra.TetraCompat;
 import com.sammy.malum.registry.common.item.ItemTagRegistry;
 import net.minecraft.nbt.CompoundTag;
@@ -14,7 +14,10 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
-import net.minecraftforge.event.entity.living.*;
+import net.minecraftforge.event.entity.living.LivingChangeTargetEvent;
+import net.minecraftforge.event.entity.living.LivingEvent;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.event.entity.living.LivingSpawnEvent;
 
 import java.util.UUID;
 
@@ -101,10 +104,7 @@ public class SoulDataHandler {
         DamageSource source = event.getSource();
         SoulDataHandler soulData = MalumLivingEntityDataCapability.getCapability(target).soulData;
         if (source.getEntity() instanceof LivingEntity attacker) {
-            ItemStack stack = attacker.getMainHandItem();
-            if (source.getDirectEntity() instanceof ScytheBoomerangEntity) {
-                stack = ((ScytheBoomerangEntity) source.getDirectEntity()).scythe;
-            }
+            ItemStack stack = MalumScytheItem.getScytheItemStack(source, attacker);
 
             if (stack.is(ItemTagRegistry.SOUL_HUNTER_WEAPON) || (TetraCompat.LOADED && TetraCompat.LoadedOnly.hasSoulStrike(stack))) {
                 soulData.exposedSoulDuration = 200;

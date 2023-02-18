@@ -3,8 +3,8 @@ package com.sammy.malum.core.handlers;
 import com.sammy.malum.common.capability.MalumItemDataCapability;
 import com.sammy.malum.common.capability.MalumLivingEntityDataCapability;
 import com.sammy.malum.common.container.SpiritPouchContainer;
-import com.sammy.malum.common.entity.boomerang.ScytheBoomerangEntity;
 import com.sammy.malum.common.item.spirit.SpiritPouchItem;
+import com.sammy.malum.common.item.tools.MalumScytheItem;
 import com.sammy.malum.config.CommonConfig;
 import com.sammy.malum.core.helper.SpiritHelper;
 import com.sammy.malum.core.systems.item.IMalumEventResponderItem;
@@ -54,10 +54,7 @@ public class SpiritHarvestHandler {
             return;
         }
         if (attacker != null) {
-            ItemStack stack = attacker.getMainHandItem();
-            if (source.getDirectEntity() instanceof ScytheBoomerangEntity scytheBoomerang) {
-                stack = scytheBoomerang.scythe;
-            }
+            ItemStack stack = MalumScytheItem.getScytheItemStack(source, attacker);
             if (!(target instanceof Player)) {
                 SoulDataHandler soulData = MalumLivingEntityDataCapability.getCapability(target).soulData;
                 if (soulData.exposedSoulDuration > 0 && !soulData.soulless && (!CommonConfig.SOULLESS_SPAWNERS.getConfigValue() || (CommonConfig.SOULLESS_SPAWNERS.getConfigValue() && !soulData.spawnerSpawned))) {
