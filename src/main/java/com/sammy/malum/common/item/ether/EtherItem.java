@@ -39,10 +39,10 @@ public class EtherItem extends AbstractEtherItem {
                 .setLifetime(6)
                 .setRandomOffset(0.05f)
                 .setSpinData(spinDataBuilder.build())
-                .spawn(x+xOffset, y+yOffset)
+                .spawnOnStack(xOffset, yOffset)
                 .setScaleData(GenericParticleData.create((float) (1.4f - Math.sin(time * 0.075f) * 0.125f), 0).build())
                 .setColorData(ColorParticleData.create(secondColor, firstColor).build())
                 .setSpinData(spinDataBuilder.setSpinOffset(0.785f-0.01f * time % 6.28f).build())
-                .spawn(x+xOffset, y+yOffset);
+                .spawnOnStack(xOffset, yOffset);
     }
 }

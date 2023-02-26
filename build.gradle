@@ -169,7 +169,6 @@ jar {
 
 jar.finalizedBy('reobfJar')
 tasks.withType(GenerateModuleMetadata) {
-
     enabled = false
 }
 publishing {

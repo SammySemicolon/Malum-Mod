@@ -37,10 +37,10 @@ public class EthericNitrateItem extends AbstractNitrateItem {
                 .setColorData(ColorParticleData.create(firstColor, secondColor).setCoefficient(1.25f).build())
                 .setRandomOffset(0.05f)
                 .setSpinData(spinParticleData.build())
-                .spawn(x - 1, y + 4)
+                .spawnOnStack(-1, +4)
                 .setScaleData(GenericParticleData.create((float) (1.4f - Math.sin(gameTime * 0.075f) * 0.125f), 0).build())
                 .setColorData(ColorParticleData.create(secondColor, firstColor).build())
                 .setSpinData(spinParticleData.setSpinOffset(0.785f - 0.01f * gameTime % 6.28f).build())
-                .spawn(x - 1, y + 4);
+                .spawnOnStack(-1, +4);
     }
 }

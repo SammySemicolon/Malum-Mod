@@ -132,7 +132,7 @@ public class CommonParticleEffects {
                 .setColorData(ColorParticleData.create(color, endColor).setCoefficient(2f).build())
                 .setRandomOffset(0.05f)
                 .setRandomMotion(0.05f, 0.05f)
-                .spawn(pXPosition, pYPosition);
+                .spawnOnStack(0, 0);
 
         ScreenParticleBuilder.create(LodestoneScreenParticleRegistry.WISP, target)
                 .setTransparencyData(GenericParticleData.create(0.02f, 0f).build())
@@ -142,11 +142,11 @@ public class CommonParticleEffects {
                 .setLifetime(20 + rand.nextInt(8))
                 .setRandomOffset(0.1f)
                 .setRandomMotion(0.4f, 0.4f)
-                .spawn(pXPosition, pYPosition)
+                .spawnOnStack(0, 0)
                 .setLifetime(10 + rand.nextInt(2))
                 .setSpinData(SpinParticleData.create(nextFloat(rand, 0.05f, 0.1f)).build())
                 .setScaleData(GenericParticleData.create(0.8f + rand.nextFloat() * 0.4f, 0f).build())
                 .setRandomMotion(0.01f, 0.01f)
-                .spawn(pXPosition, pYPosition);
+                .spawnOnStack(0, 0);
     }
 }

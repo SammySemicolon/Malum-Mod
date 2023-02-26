@@ -74,8 +74,8 @@ public class ProgressionBookScreen extends Screen {
     public float cachedYOffset;
     public boolean ignoreNextMouseInput;
 
-    public static List<BookEntry> ENTRIES = new ArrayList<>();
-    public static List<BookObject> OBJECTS = new ArrayList<>();
+    public static final List<BookEntry> ENTRIES = new ArrayList<>();
+    public static final List<BookObject> OBJECTS = new ArrayList<>();
 
     protected ProgressionBookScreen() {
         super(new TranslatableComponent("malum.gui.book.title"));
