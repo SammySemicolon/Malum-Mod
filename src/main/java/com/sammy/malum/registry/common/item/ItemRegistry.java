@@ -10,7 +10,7 @@ import com.sammy.malum.common.item.BrillianceChunkItem;
 import com.sammy.malum.common.item.CorruptResonanceItem;
 import com.sammy.malum.common.item.EncyclopediaArcanaItem;
 import com.sammy.malum.common.item.NodeItem;
-import com.sammy.malum.common.item.cosmetic.AncientWeaveItem;
+import com.sammy.malum.common.item.cosmetic.GenericWeaveItem;
 import com.sammy.malum.common.item.cosmetic.PrideweaveItem;
 import com.sammy.malum.common.item.equipment.armor.SoulHunterArmorItem;
 import com.sammy.malum.common.item.equipment.armor.SoulStainedSteelArmorItem;
@@ -380,6 +380,7 @@ public class ItemRegistry {
 
     //region crafting blocks
     public static final RegistryObject<Item> SPIRIT_ALTAR = ITEMS.register("spirit_altar", () -> new BlockItem(BlockRegistry.SPIRIT_ALTAR.get(), DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> WEAVERS_WORKBENCH = ITEMS.register("weavers_workbench", () -> new BlockItem(BlockRegistry.WEAVERS_WORKBENCH.get(), COSMETIC_PROPERTIES()));
     public static final RegistryObject<Item> SPIRIT_JAR = ITEMS.register("spirit_jar", () -> new SpiritJarItem(BlockRegistry.SPIRIT_JAR.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> SOUL_VIAL = ITEMS.register("soul_vial", () -> new SoulVialItem(BlockRegistry.SOUL_VIAL.get(), HIDDEN_PROPERTIES()));
     public static final RegistryObject<Item> RUNEWOOD_OBELISK = ITEMS.register("runewood_obelisk", () -> new MultiBlockItem(BlockRegistry.RUNEWOOD_OBELISK.get(), DEFAULT_PROPERTIES(), RunewoodObeliskBlockEntity.STRUCTURE));
@@ -533,7 +534,11 @@ public class ItemRegistry {
 
     //region cosmetics
     public static final RegistryObject<Item> ESOTERIC_SPOOL = ITEMS.register("esoteric_spool", () -> new Item(COSMETIC_PROPERTIES()));
-    public static final RegistryObject<Item> ANCIENT_WEAVE = ITEMS.register("ancient_weave", () -> new AncientWeaveItem(COSMETIC_PROPERTIES()));
+    public static final RegistryObject<Item> ANCIENT_WEAVE = ITEMS.register("ancient_weave", () -> new GenericWeaveItem(COSMETIC_PROPERTIES()));
+    public static final RegistryObject<Item> CORNERED_WEAVE = ITEMS.register("cornered_weave", () -> new GenericWeaveItem(COSMETIC_PROPERTIES()));
+    public static final RegistryObject<Item> DREADED_WEAVE = ITEMS.register("dreaded_weave", () -> new GenericWeaveItem(COSMETIC_PROPERTIES()));
+    public static final RegistryObject<Item> MECHANICAL_WEAVE_V1 = ITEMS.register("mechanical_weave_v1", () -> new GenericWeaveItem(COSMETIC_PROPERTIES()));
+    public static final RegistryObject<Item> MECHANICAL_WEAVE_V2 = ITEMS.register("mechanical_weave_v2", () -> new GenericWeaveItem(COSMETIC_PROPERTIES()));
 
     public static final RegistryObject<PrideweaveItem> ACE_PRIDEWEAVE = ITEMS.register("ace_prideweave", () -> new PrideweaveItem(COSMETIC_PROPERTIES()));
     public static final RegistryObject<PrideweaveItem> AGENDER_PRIDEWEAVE = ITEMS.register("agender_prideweave", () -> new PrideweaveItem(COSMETIC_PROPERTIES()));

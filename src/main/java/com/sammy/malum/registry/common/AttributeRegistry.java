@@ -19,11 +19,6 @@ public class AttributeRegistry {
     public static final RegistryObject<Attribute> SPIRIT_SPOILS = registerAttribute(ATTRIBUTES, MALUM, "spirit_spoils", (id) -> new RangedAttribute(id, 0.0D, 0.0D, 2048.0D).setSyncable(true));
     public static final RegistryObject<Attribute> ARCANE_RESONANCE = registerAttribute(ATTRIBUTES, MALUM, "arcane_resonance", (id) -> new RangedAttribute(id, 0.0D, 0.0D, 2048.0D).setSyncable(true));
 
-    public static final RegistryObject<Attribute> HEART_OF_STONE_STRENGTH = registerAttribute(ATTRIBUTES, MALUM, "heart_of_stone_strength", (id) -> new RangedAttribute(id, 2D, 0.0D, 2048.0D).setSyncable(true));
-    public static final RegistryObject<Attribute> HEART_OF_STONE_RECOVERY_SPEED = registerAttribute(ATTRIBUTES, MALUM, "heart_of_stone_recovery_speed", (id) -> new RangedAttribute(id, 0D, 0.0D, 2048.0D).setSyncable(true));
-    public static final RegistryObject<Attribute> HEART_OF_STONE_COST = registerAttribute(ATTRIBUTES, MALUM, "heart_of_stone_hunger_cost", (id) -> new RangedAttribute(id, 0D, 0.0D, 2048.0D).setSyncable(true));
-    public static final RegistryObject<Attribute> HEART_OF_STONE_CAP = registerAttribute(ATTRIBUTES, MALUM, "heart_of_stone_capacity", (id) -> new RangedAttribute(id, 0D, 0.0D, 2048.0D).setSyncable(true));
-
     public static final RegistryObject<Attribute> SOUL_WARD_STRENGTH = registerAttribute(ATTRIBUTES, MALUM, "soul_ward_strength", (id) -> new RangedAttribute(id, 1D, 0.0D, 2048.0D).setSyncable(true));
     public static final RegistryObject<Attribute> SOUL_WARD_RECOVERY_SPEED = registerAttribute(ATTRIBUTES, MALUM, "soul_ward_recovery_speed", (id) -> new RangedAttribute(id, 0D, 0.0D, 2048.0D).setSyncable(true));
     public static final RegistryObject<Attribute> SOUL_WARD_CAP = registerAttribute(ATTRIBUTES, MALUM, "soul_ward_capacity", (id) -> new RangedAttribute(id, 0D, 0.0D, 2048.0D).setSyncable(true));
@@ -36,11 +31,7 @@ public class AttributeRegistry {
             event.add(e, SPIRIT_SPOILS.get());
             event.add(e, ARCANE_RESONANCE.get());
 
-            event.add(e, HEART_OF_STONE_STRENGTH.get());
-            event.add(e, HEART_OF_STONE_RECOVERY_SPEED.get());
-            event.add(e, HEART_OF_STONE_COST.get());
-            event.add(e, HEART_OF_STONE_CAP.get());
-
+            //TODO: figure out if this event runs for the Player entity, if not, the stuff below can be removed
             event.add(e, SOUL_WARD_STRENGTH.get());
             event.add(e, SOUL_WARD_RECOVERY_SPEED.get());
             event.add(e, SOUL_WARD_CAP.get());

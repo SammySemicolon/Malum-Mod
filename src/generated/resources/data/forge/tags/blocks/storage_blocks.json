@@ -1,0 +1,19 @@
+{
+  "replace": false,
+  "values": [
+    "malum:block_of_arcane_charcoal",
+    "malum:block_of_blazing_quartz",
+    "malum:block_of_brilliance",
+    "malum:block_of_raw_soulstone",
+    "malum:block_of_soulstone",
+    "malum:block_of_hallowed_gold",
+    "malum:block_of_soul_stained_steel",
+    "malum:block_of_rotting_essence",
+    "malum:block_of_grim_talc",
+    "malum:block_of_alchemical_calx",
+    "malum:block_of_astral_weave",
+    "malum:block_of_hex_ash",
+    "malum:block_of_cursed_grit",
+    "malum:block_of_void_salts"
+  ]
+}

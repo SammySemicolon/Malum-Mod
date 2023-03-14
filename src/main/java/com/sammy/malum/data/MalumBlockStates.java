@@ -59,6 +59,7 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
         blightedSoulwoodBlock(take(blocks, BLIGHTED_SOULWOOD));
         primordialSoupBlock(take(blocks, PRIMORDIAL_SOUP));
         voidConduitBlock(take(blocks, VOID_CONDUIT));
+        weaversWorkbenchBlock(take(blocks, WEAVERS_WORKBENCH));
 
         weepingWellBlock(take(blocks, WEEPING_WELL_CORE), "weeping_well_core");
         weepingWellBlock(take(blocks, WEEPING_WELL_CORNER), "weeping_well_corner");
@@ -141,18 +142,6 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
         getVariantBuilder(blockRegistryObject.get()).forAllStates(s -> ConfiguredModel.builder().modelFile(glowModel).build());
     }
 
-    public void rotatedBlock(RegistryObject<Block> blockRegistryObject) {
-        String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
-        ModelFile file = models().cubeAll(name, malumPath("block/" + name));
-
-        getVariantBuilder(blockRegistryObject.get()).partialState().modelForState()
-                .modelFile(file)
-                .nextModel().modelFile(file).rotationY(90)
-                .nextModel().modelFile(file).rotationY(180)
-                .nextModel().modelFile(file).rotationY(270)
-                .addModel();
-    }
-
     public void quartzClusterBlock(RegistryObject<Block> blockRegistryObject) {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
         directionalBlock(blockRegistryObject.get(), models().cross(name, malumPath("block/"+name)));
@@ -162,6 +151,7 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
         ModelFile topModel = models().getExistingFile(malumPath("block/weeping_well/primordial_soup_top"));
         getVariantBuilder(blockRegistryObject.get()).forAllStates(s -> ConfiguredModel.builder().modelFile(topModel).build());
     }
+
     public void primordialSoupBlock(RegistryObject<Block> blockRegistryObject) {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
         ModelFile model = models().withExistingParent(name, new ResourceLocation("block/powder_snow")).texture("texture", malumPath("block/weeping_well/" + name));
@@ -173,6 +163,10 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
     public void weepingWellBlock(RegistryObject<Block> blockRegistryObject, String name) {
         BlockModelBuilder model = models().withExistingParent(name, malumPath("block/weeping_well/" + name));
         getVariantBuilder(blockRegistryObject.get()).forAllStates(s -> ConfiguredModel.builder().modelFile(model).rotationY(((int) s.getValue(BlockStateProperties.HORIZONTAL_FACING).toYRot() + 180) % 360).build());
+    }
+
+    public void weaversWorkbenchBlock(RegistryObject<Block> blockRegistryObject) {
+        getVariantBuilder(blockRegistryObject.get()).forAllStates(s -> ConfiguredModel.builder().modelFile(models().getExistingFile(malumPath("block/weavers_workbench"))).rotationY(((int) s.getValue(BlockStateProperties.HORIZONTAL_FACING).toYRot() + 180) % 360).build());
     }
 
     public void blightedSoilBlock(RegistryObject<Block> blockRegistryObject) {
@@ -213,48 +207,6 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
         simpleBlock(blockRegistryObject.get(), models().cubeBottomTop("blighted_earth", malumPath("block/blighted_earth"),  new ResourceLocation("block/dirt"), malumPath("block/blighted_soil_0")));
     }
 
-    public void wallMirrorBlock(RegistryObject<Block> blockRegistryObject) {
-        String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
-        String particleName = "block_of_hallowed_gold";
-        ModelFile stand = models().withExistingParent(name, malumPath("block/templates/template_mirror")).texture("mirror", malumPath("block/"+name)).texture("particle", malumPath("block/" + particleName));
-
-        getVariantBuilder(blockRegistryObject.get()).partialState()
-                .partialState().with(BlockStateProperties.FACING, Direction.NORTH)
-                .modelForState().modelFile(stand).rotationX(90).addModel()
-                .partialState().with(BlockStateProperties.FACING, Direction.WEST)
-                .modelForState().modelFile(stand).rotationX(90).rotationY(270).addModel()
-                .partialState().with(BlockStateProperties.FACING, Direction.SOUTH)
-                .modelForState().modelFile(stand).rotationX(90).rotationY(180).addModel()
-                .partialState().with(BlockStateProperties.FACING, Direction.EAST)
-                .modelForState().modelFile(stand).rotationX(90).rotationY(90).addModel()
-                .partialState().with(BlockStateProperties.FACING, Direction.DOWN)
-                .modelForState().modelFile(stand).rotationX(180).addModel()
-                .partialState().with(BlockStateProperties.FACING, Direction.UP)
-                .modelForState().modelFile(stand).addModel();
-    }
-
-    public void sconceBlock(RegistryObject<Block> blockRegistryObject) {
-        String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
-        ModelFile sconce = models().withExistingParent(name, malumPath("block/templates/template_sconce")).texture("sconce", malumPath("block/"+name)).texture("fire", malumPath("block/" + name + "_fire")).texture("particle", malumPath("block/"+name));
-
-        getVariantBuilder(blockRegistryObject.get()).forAllStates(s -> ConfiguredModel.builder().modelFile(sconce).build());
-    }
-
-    public void wallSconceBlock(RegistryObject<Block> blockRegistryObject) {
-        String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
-        String textureName = name.replaceFirst("wall_", "");
-        ModelFile sconce = models().withExistingParent(name, malumPath("block/templates/template_sconce_wall")).texture("sconce", malumPath("block/"+textureName)).texture("fire", malumPath("block/"+textureName+"_fire")).texture("particle", malumPath("block/"+textureName));
-
-        getVariantBuilder(blockRegistryObject.get())
-                .partialState().with(WallTorchBlock.FACING, Direction.NORTH)
-                .modelForState().modelFile(sconce).addModel()
-                .partialState().with(WallTorchBlock.FACING, Direction.WEST)
-                .modelForState().modelFile(sconce).rotationY(270).addModel()
-                .partialState().with(WallTorchBlock.FACING, Direction.SOUTH)
-                .modelForState().modelFile(sconce).rotationY(180).addModel()
-                .partialState().with(WallTorchBlock.FACING, Direction.EAST)
-                .modelForState().modelFile(sconce).rotationY(90).addModel();
-    }
     public void etherBlock(RegistryObject<Block> blockRegistryObject) {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
         ModelFile empty = models().withExistingParent(name, new ResourceLocation("block/air")).texture("particle", malumPath("item/ether"));

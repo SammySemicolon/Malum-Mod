@@ -5,7 +5,7 @@ import com.sammy.malum.common.blockentity.spirit_altar.IAltarProvider;
 import com.sammy.malum.common.blockentity.totem.TotemBaseBlockEntity;
 import com.sammy.malum.common.blockentity.totem.TotemPoleBlockEntity;
 import com.sammy.malum.common.item.spirit.MalumSpiritItem;
-import com.sammy.malum.common.recipe.AugmentingRecipe;
+import com.sammy.malum.registry.client.ItemSkinRegistry;
 import com.sammy.malum.registry.common.block.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -94,7 +94,7 @@ public class ItemStandBlockEntity extends ItemHolderBlockEntity implements IAlta
 
     @Override
     public InteractionResult onUse(Player player, InteractionHand hand) {
-        InteractionResult result = AugmentingRecipe.performAugmentation(this, player, hand);
+        InteractionResult result = ItemSkinRegistry.performAugmentation(this, player, hand);
         if (!result.equals(InteractionResult.PASS)) {
             return result;
         }

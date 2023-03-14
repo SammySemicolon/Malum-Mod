@@ -14,6 +14,7 @@ import com.sammy.malum.client.model.cosmetic.pride.PridewearArmorModel;
 import com.sammy.malum.client.model.cosmetic.pride.SlimPridewearArmorModel;
 import com.sammy.malum.client.model.cosmetic.risky.CommandoArmorModel;
 import com.sammy.malum.client.model.cosmetic.risky.ExecutionerArmorModel;
+import com.sammy.malum.client.model.cosmetic.ultrakill.UltrakillMachineArmorModel;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -34,6 +35,8 @@ public class ModelRegistry {
     public static CommandoArmorModel COMMANDO;
     public static ExecutionerArmorModel EXECUTIONER;
 
+    public static UltrakillMachineArmorModel ULTRAKILL_MACHINE;
+
     public static PridewearArmorModel PRIDEWEAR;
     public static SlimPridewearArmorModel SLIM_PRIDEWEAR;
 
@@ -50,6 +53,8 @@ public class ModelRegistry {
 
         event.registerLayerDefinition(CommandoArmorModel.LAYER, CommandoArmorModel::createBodyLayer);
         event.registerLayerDefinition(ExecutionerArmorModel.LAYER, ExecutionerArmorModel::createBodyLayer);
+
+        event.registerLayerDefinition(UltrakillMachineArmorModel.LAYER, UltrakillMachineArmorModel::createBodyLayer);
 
         event.registerLayerDefinition(AncientSoulStainedSteelArmorModel.LAYER, AncientSoulStainedSteelArmorModel::createBodyLayer);
         event.registerLayerDefinition(AncientSoulHunterArmorModel.LAYER, AncientSoulHunterArmorModel::createBodyLayer);
@@ -71,6 +76,8 @@ public class ModelRegistry {
 
         COMMANDO = new CommandoArmorModel(event.getEntityModels().bakeLayer(CommandoArmorModel.LAYER));
         EXECUTIONER = new ExecutionerArmorModel(event.getEntityModels().bakeLayer(ExecutionerArmorModel.LAYER));
+
+        ULTRAKILL_MACHINE = new UltrakillMachineArmorModel(event.getEntityModels().bakeLayer(UltrakillMachineArmorModel.LAYER));
 
         ANCIENT_SOUL_HUNTER_ARMOR = new AncientSoulHunterArmorModel(event.getEntityModels().bakeLayer(AncientSoulHunterArmorModel.LAYER));
         ANCIENT_SOUL_STAINED_STEEL_ARMOR = new AncientSoulStainedSteelArmorModel(event.getEntityModels().bakeLayer(AncientSoulStainedSteelArmorModel.LAYER));

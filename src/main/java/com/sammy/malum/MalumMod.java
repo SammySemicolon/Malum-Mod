@@ -93,7 +93,6 @@ public class MalumMod {
             generator.addProvider(new MalumSpiritFocusingRecipes(generator));
             generator.addProvider(new MalumSpiritTransmutationRecipes(generator));
             generator.addProvider(new MalumVoidFavorRecipes(generator));
-            generator.addProvider(new MalumAugmentingRecipes(generator));
         }
     }
 }

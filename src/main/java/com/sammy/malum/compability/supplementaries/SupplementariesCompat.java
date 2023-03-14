@@ -11,7 +11,7 @@ import net.minecraftforge.fml.ModList;
 
 import java.util.function.Supplier;
 
-import static com.sammy.malum.registry.common.block.BlockRegistry.RUNEWOOD_PROPERTIES;
+import static com.sammy.malum.registry.common.block.MalumBlockProperties.RUNEWOOD;
 
 public class SupplementariesCompat {
 
@@ -21,13 +21,13 @@ public class SupplementariesCompat {
         return () ->
                 SupplementariesCompat.LOADED ?
                         SupplementariesCompat.LoadedOnly.createActualBlazingSconce() :
-                        new TorchBlock(RUNEWOOD_PROPERTIES().sound(SoundType.LANTERN).isCutoutLayer().noCollission().instabreak().lightLevel((b) -> 14), ParticleTypes.FLAME);
+                        new TorchBlock(RUNEWOOD().sound(SoundType.LANTERN).setCutoutRenderType().noCollission().instabreak().lightLevel((b) -> 14), ParticleTypes.FLAME);
     }
     public static Supplier<Block> createBlazingWallSconce() {
         return () ->
                 SupplementariesCompat.LOADED ?
                         SupplementariesCompat.LoadedOnly.createActualBlazingWallSconce() :
-                        new WallTorchBlock(RUNEWOOD_PROPERTIES().sound(SoundType.LANTERN).isCutoutLayer().noCollission().instabreak().lightLevel((b) -> 14), ParticleTypes.FLAME);
+                        new WallTorchBlock(RUNEWOOD().sound(SoundType.LANTERN).setCutoutRenderType().noCollission().instabreak().lightLevel((b) -> 14), ParticleTypes.FLAME);
     }
 
     public static void init() {
@@ -36,11 +36,11 @@ public class SupplementariesCompat {
 
     public static class LoadedOnly {
         public static Block createActualBlazingSconce() {
-            return new SconceBlock(RUNEWOOD_PROPERTIES().sound(SoundType.LANTERN).isCutoutLayer().noCollission().instabreak().lightLevel((b) -> 14), ()->ParticleTypes.FLAME);
+            return new SconceBlock(RUNEWOOD().sound(SoundType.LANTERN).setCutoutRenderType().noCollission().instabreak().lightLevel((b) -> 14), ()->ParticleTypes.FLAME);
         }
 
         public static Block createActualBlazingWallSconce() {
-            return new SconceWallBlock(RUNEWOOD_PROPERTIES().sound(SoundType.LANTERN).isCutoutLayer().noCollission().instabreak().lightLevel((b) -> 14), ()->ParticleTypes.FLAME);
+            return new SconceWallBlock(RUNEWOOD().sound(SoundType.LANTERN).setCutoutRenderType().noCollission().instabreak().lightLevel((b) -> 14), ()->ParticleTypes.FLAME);
         }
     }
 }

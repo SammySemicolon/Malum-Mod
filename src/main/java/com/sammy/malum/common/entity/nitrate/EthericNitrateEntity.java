@@ -1,7 +1,6 @@
 package com.sammy.malum.common.entity.nitrate;
 
 import com.sammy.malum.client.CommonParticleEffects;
-import com.sammy.malum.common.item.ether.EtherItem;
 import com.sammy.malum.common.packets.particle.entity.EthericNitrateParticlePacket;
 import com.sammy.malum.registry.common.entity.EntityRegistry;
 import net.minecraft.server.level.ServerLevel;
@@ -28,8 +27,8 @@ import static net.minecraft.util.Mth.nextFloat;
 
 public class EthericNitrateEntity extends AbstractNitrateEntity {
 
-    public static final Color FIRST_COLOR = new Color(EtherItem.DEFAULT_FIRST_COLOR);
-    public static final Color SECOND_COLOR = new Color(178, 28, 73);
+    public static final Color FIRST_COLOR = new Color(243, 185, 44);
+    public static final Color SECOND_COLOR = new Color(194, 35, 137);
 
     public EthericNitrateEntity(Level level) {
         super(EntityRegistry.ETHERIC_NITRATE.get(), level);

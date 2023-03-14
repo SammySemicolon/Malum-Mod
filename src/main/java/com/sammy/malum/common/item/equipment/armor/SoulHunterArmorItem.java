@@ -49,9 +49,9 @@ public class SoulHunterArmorItem extends LodestoneArmorItem {
 
     @Override
     public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
-        ItemSkin skin = ItemSkinRegistry.getSkin(stack);
+        ItemSkin skin = ItemSkinRegistry.getAppliedItemSkin(stack);
         if (skin != null && entity instanceof LivingEntity livingEntity) {
-            return skin.armorTextureFunction.apply(livingEntity).toString();
+            return skin.textureFunction.apply(livingEntity).toString();
         }
         return super.getArmorTexture(stack, entity, slot, type);
     }
@@ -67,7 +67,7 @@ public class SoulHunterArmorItem extends LodestoneArmorItem {
                 float f1 = Mth.rotLerp(pticks, entity.yHeadRotO, entity.yHeadRot);
                 float netHeadYaw = f1 - f;
                 float netHeadPitch = Mth.lerp(pticks, entity.xRotO, entity.getXRot());
-                ItemSkin skin = ItemSkinRegistry.getSkin(itemStack);
+                ItemSkin skin = ItemSkinRegistry.getAppliedItemSkin(itemStack);
                 LodestoneArmorModel model = skin != null ? skin.modelFunction.apply(entity) : ModelRegistry.SOUL_HUNTER_ARMOR;
 
                 model.slot = slot;

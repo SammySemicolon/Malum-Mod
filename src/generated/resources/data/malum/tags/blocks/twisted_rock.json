@@ -1,7 +1,6 @@
 {
   "replace": false,
   "values": [
-    "malum:twisted_tablet",
     "malum:twisted_rock",
     "malum:smooth_twisted_rock",
     "malum:polished_twisted_rock",
@@ -33,8 +32,8 @@
     "malum:twisted_rock_tiles_stairs",
     "malum:cracked_twisted_rock_tiles_stairs",
     "malum:cracked_small_twisted_rock_bricks_stairs",
-    "malum:twisted_rock_pressure_plate",
     "malum:twisted_rock_button",
+    "malum:twisted_rock_pressure_plate",
     "malum:twisted_rock_wall",
     "malum:twisted_rock_bricks_wall",
     "malum:small_twisted_rock_bricks_wall",

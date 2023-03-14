@@ -17,7 +17,6 @@ import net.minecraftforge.registries.RegistryObject;
      public static final RegistryObject<RecipeType<SpiritFocusingRecipe>> SPIRIT_FOCUSING = RECIPE_TYPES.register(SpiritFocusingRecipe.NAME, () -> registerRecipeType(SpiritFocusingRecipe.NAME));
      public static final RegistryObject<RecipeType<SpiritTransmutationRecipe>> SPIRIT_TRANSMUTATION = RECIPE_TYPES.register(SpiritTransmutationRecipe.NAME, () -> registerRecipeType(SpiritTransmutationRecipe.NAME));
      public static final RegistryObject<RecipeType<SpiritRepairRecipe>> SPIRIT_REPAIR = RECIPE_TYPES.register(SpiritRepairRecipe.NAME, () -> registerRecipeType(SpiritRepairRecipe.NAME));
-     public static final RegistryObject<RecipeType<AugmentingRecipe>> AUGMENTING = RECIPE_TYPES.register(AugmentingRecipe.NAME, () -> registerRecipeType(AugmentingRecipe.NAME));
 
      public static <T extends Recipe<?>> RecipeType<T> registerRecipeType(final String identifier) {
          return new RecipeType<>() {

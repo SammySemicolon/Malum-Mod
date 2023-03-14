@@ -44,7 +44,6 @@ public class MalumVanillaRecipeReplacements extends RecipeProvider {
     @Override
     protected void buildCraftingRecipes(Consumer<FinishedRecipe> consumer)
     {
-//        replace(Items.SLIME_BALL, Tags.Items.SLIMEBALLS);
         replace(Items.QUARTZ, Tags.Items.GEMS_QUARTZ);
         super.buildCraftingRecipes(vanilla -> {
             FinishedRecipe modified = enhance(vanilla);
@@ -55,7 +54,6 @@ public class MalumVanillaRecipeReplacements extends RecipeProvider {
 
     @Override
     protected void saveAdvancement(HashCache cache, JsonObject advancementJson, Path pathIn) {
-        //NOOP - We dont replace any of the advancement things yet...
     }
 
     private FinishedRecipe enhance(FinishedRecipe vanilla)

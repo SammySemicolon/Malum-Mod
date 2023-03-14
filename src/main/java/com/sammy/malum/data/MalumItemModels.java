@@ -119,18 +119,18 @@ public class MalumItemModels extends ItemModelProvider {
 
     private void armorItem(RegistryObject<Item> i) {
         generatedItem(i);
-        for (ItemSkin skin : ItemSkinRegistry.SKINS.values()) {
+        for (Map.Entry<String, ItemSkin> entry : ItemSkinRegistry.SKINS.entrySet()) {
+            ItemSkin skin = entry.getValue();
             int value = skin.index;
-            if (skin.dataSupplier == null) {
+            ItemSkin.ItemSkinDatagenData datagenData = ItemSkinRegistry.SKIN_DATAGEN_DATA.get(skin);
+            if (datagenData == null) {
                 continue;
             }
-            ItemSkin.DatagenData datagenData = skin.dataSupplier.get();
-            String itemName = Registry.ITEM.getKey(i.get()).getPath();
-            String itemSuffix = datagenData.itemTextureNames().get(((ArmorItem) i.get()).getSlot().getIndex());
-            ResourceLocation itemTexturePath = new ResourceLocation(datagenData.itemTexturePath().getNamespace(), datagenData.itemTexturePath().getPath() + itemSuffix);
+            String itemSuffix = datagenData.getSuffix((LodestoneArmorItem) i.get());
+            ResourceLocation itemTexturePath = new ResourceLocation(datagenData.itemTexturePrefix+itemSuffix);
             getBuilder(i.get().getRegistryName().getPath()).override()
                     .predicate(new ResourceLocation(ItemSkin.MALUM_SKIN_TAG), value)
-                    .model(withExistingParent(skin.key + "_" + itemSuffix, GENERATED).texture("layer0", itemTexturePath))
+                    .model(withExistingParent(entry.getKey() + "_" + itemSuffix, GENERATED).texture("layer0", itemTexturePath))
                     .end();
         }
 

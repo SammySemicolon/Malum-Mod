@@ -2,7 +2,7 @@ package com.sammy.malum.core.handlers;
 
 import com.sammy.malum.common.capability.MalumLivingEntityDataCapability;
 import com.sammy.malum.common.capability.MalumPlayerDataCapability;
-import com.sammy.malum.common.item.tools.MalumScytheItem;
+import com.sammy.malum.common.entity.boomerang.ScytheBoomerangEntity;
 import com.sammy.malum.compability.tetra.TetraCompat;
 import com.sammy.malum.registry.common.item.ItemTagRegistry;
 import net.minecraft.nbt.CompoundTag;
@@ -104,8 +104,7 @@ public class SoulDataHandler {
         DamageSource source = event.getSource();
         SoulDataHandler soulData = MalumLivingEntityDataCapability.getCapability(target).soulData;
         if (source.getEntity() instanceof LivingEntity attacker) {
-            ItemStack stack = MalumScytheItem.getScytheItemStack(source, attacker);
-
+            ItemStack stack = getSoulHunterWeapon(source, attacker);
             if (stack.is(ItemTagRegistry.SOUL_HUNTER_WEAPON) || (TetraCompat.LOADED && TetraCompat.LoadedOnly.hasSoulStrike(stack))) {
                 soulData.exposedSoulDuration = 200;
             }
@@ -147,5 +146,14 @@ public class SoulDataHandler {
 
     public static void removeSentience(Mob mob) {
         mob.goalSelector.getAvailableGoals().removeIf(g -> g.getGoal() instanceof LookAtPlayerGoal || g.getGoal() instanceof MeleeAttackGoal || g.getGoal() instanceof SwellGoal || g.getGoal() instanceof PanicGoal || g.getGoal() instanceof RandomLookAroundGoal || g.getGoal() instanceof AvoidEntityGoal);
+    }
+
+    public static ItemStack getSoulHunterWeapon(DamageSource source, LivingEntity attacker) {
+        ItemStack stack = attacker.getMainHandItem();
+
+        if (source.getDirectEntity() instanceof ScytheBoomerangEntity scytheBoomerang) {
+            stack = scytheBoomerang.getItem();
+        }
+        return stack;
     }
 }
