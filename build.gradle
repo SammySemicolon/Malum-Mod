@@ -25,9 +25,7 @@ group = 'com.sammy.malum'
 archivesBaseName = project.modId
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
-sourceSets {
-    main.resources.srcDirs += 'src/generated/resources'
-}
+sourceSets { main.resources.srcDirs += 'src/generated/resources' }
 
 jar {
 //    exclude 'com/sammy/malum/core/data/**'
@@ -171,6 +169,12 @@ jar.finalizedBy('reobfJar')
 tasks.withType(GenerateModuleMetadata) {
     enabled = false
 }
+
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
 publishing {
     publications {
         mavenJava(MavenPublication) {

@@ -128,11 +128,23 @@
       "predicate": {
         "malum:item_skin": 20.0
       },
-      "model": "malum:item/ancient_cloth_robe"
+      "model": "malum:item/ultrakill_v1_chestplate"
     },
     {
       "predicate": {
         "malum:item_skin": 21.0
+      },
+      "model": "malum:item/ultrakill_v2_chestplate"
+    },
+    {
+      "predicate": {
+        "malum:item_skin": 22.0
+      },
+      "model": "malum:item/ancient_cloth_robe"
+    },
+    {
+      "predicate": {
+        "malum:item_skin": 23.0
       },
       "model": "malum:item/ancient_metal_chestplate"
     }

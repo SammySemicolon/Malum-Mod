@@ -12,9 +12,6 @@
   "soulstone_place": { "sounds":["malum:heavy_ore/break1","malum:heavy_ore/break2","malum:heavy_ore/break3","malum:heavy_ore/break4"], "subtitle": "malum.subtitle.soulstone_place" },
   "soulstone_hit": { "sounds":["malum:heavy_ore/hit1","malum:heavy_ore/hit2","malum:heavy_ore/hit3","malum:heavy_ore/hit4", "block/basalt/step1","block/basalt/step2","block/basalt/step3","block/basalt/step4","block/basalt/step5","block/basalt/step6"], "subtitle": "malum.subtitle.soulstone_hit" },
 
-  "brilliance_break": { "sounds":["malum:brilliant_ore/break1","malum:brilliant_ore/break2","malum:brilliant_ore/break3","malum:brilliant_ore/break4","malum:brilliant_ore/break5","malum:brilliant_ore/break6"], "subtitle": "malum.subtitle.brilliance_break" },
-  "brilliance_place": { "sounds":["malum:brilliant_ore/break1","malum:brilliant_ore/break2","malum:brilliant_ore/break3","malum:brilliant_ore/break4","malum:brilliant_ore/break5","malum:brilliant_ore/break6"], "subtitle": "malum.subtitle.brilliance_place" },
-
   "deepslate_soulstone_break": { "sounds":["malum:heavy_ore/deepslate/break1","malum:heavy_ore/deepslate/break2","malum:heavy_ore/deepslate/break3","malum:heavy_ore/deepslate/break4"], "subtitle": "malum.subtitle.deepslate_soulstone_break" },
   "deepslate_soulstone_step": { "sounds":["malum:heavy_ore/hit1","malum:heavy_ore/hit2","malum:heavy_ore/hit3","malum:heavy_ore/hit4", "block/deepslate/step1","block/deepslate/step2","block/deepslate/step3","block/deepslate/step4","block/deepslate/step5","block/deepslate/step6"], "subtitle": "malum.subtitle.deepslate_soulstone_step" },
   "deepslate_soulstone_place": { "sounds":["malum:heavy_ore/deepslate/break1","malum:heavy_ore/deepslate/break2","malum:heavy_ore/deepslate/break3","malum:heavy_ore/deepslate/break4"], "subtitle": "malum.subtitle.deepslate_soulstone_place" },
@@ -104,5 +101,6 @@
   "heart_of_stone_grow": { "sounds":["malum:affinity/heart_of_stone/grow1","malum:affinity/heart_of_stone/grow2","malum:affinity/heart_of_stone/grow3","malum:affinity/heart_of_stone/grow4"], "subtitle": "malum.subtitle.heart_of_stone_grow" },
   "heart_of_stone_hit": { "sounds":["malum:affinity/heart_of_stone/hit1","malum:affinity/heart_of_stone/hit2","malum:affinity/heart_of_stone/hit3","malum:affinity/heart_of_stone/hit4"], "subtitle": "malum.subtitle.heart_of_stone_hit" },
 
-  "suspicious_sound_plays": { "sounds":["malum:suspicious_sound"], "subtitle": "malum.subtitle.suspicious_sound_plays" }
+  "the_deep_beckons": { "sounds":["malum:suspicious_sound"], "subtitle": "malum.subtitle.the_deep_beckons" },
+  "the_heavens_sing": { "sounds":["malum:heavenly_organs"], "subtitle": "malum.subtitle.the_heavens_sing" }
 }

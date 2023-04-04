@@ -50,6 +50,10 @@ public class MalumItemModels extends ItemModelProvider {
         blightedSpireItem(take(items, ItemRegistry.BLIGHTED_TUMOR));
         generatedItem(take(items, ItemRegistry.NATURAL_QUARTZ));
         cosmeticItem(take(items, ItemRegistry.ANCIENT_WEAVE), "weaves/");
+        cosmeticItem(take(items, ItemRegistry.DREADED_WEAVE), "weaves/");
+        cosmeticItem(take(items, ItemRegistry.CORNERED_WEAVE), "weaves/");
+        cosmeticItem(take(items, ItemRegistry.MECHANICAL_WEAVE_V1), "weaves/");
+        cosmeticItem(take(items, ItemRegistry.MECHANICAL_WEAVE_V2), "weaves/");
         cosmeticItem(take(items, ItemRegistry.ESOTERIC_SPOOL), "");
         generatedItem(take(items, ItemRegistry.BLAZING_SCONCE));
 
@@ -97,6 +101,7 @@ public class MalumItemModels extends ItemModelProvider {
         String name = Registry.ITEM.getKey(i.get()).getPath();
         withExistingParent(name, GENERATED).texture("layer0", malumPath("block/" + name+"_0"));
     }
+
     private void multiBlockItem(RegistryObject<Item> i) {
         String name = Registry.ITEM.getKey(i.get()).getPath();
         getBuilder(name).parent(new ModelFile.UncheckedModelFile(malumPath("item/" + name + "_item")));

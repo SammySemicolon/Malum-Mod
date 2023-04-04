@@ -3,12 +3,10 @@ package com.sammy.malum.data;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.registry.common.block.BlockTagRegistry;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.tags.BlockTagsProvider;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import team.lodestar.lodestone.systems.block.LodestoneBlockProperties;
-import team.lodestar.lodestone.systems.block.data.LodestoneDatagenBlockData;
+import team.lodestar.lodestone.systems.datagen.LodestoneBlockTagsProvider;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -16,9 +14,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.function.Predicate;
 
-import static com.sammy.malum.registry.common.block.BlockRegistry.*;
+import static com.sammy.malum.registry.common.block.BlockRegistry.BLOCKS;
 
-public class MalumBlockTags extends BlockTagsProvider {
+public class MalumBlockTags extends LodestoneBlockTagsProvider {
     public MalumBlockTags(DataGenerator generatorIn, ExistingFileHelper existingFileHelper) {
         super(generatorIn, MalumMod.MALUM, existingFileHelper);
     }
@@ -31,13 +29,7 @@ public class MalumBlockTags extends BlockTagsProvider {
         tag(BlockTagRegistry.ENDLESS_FLAME);
         tag(BlockTagRegistry.GREATER_AERIAL_WHITELIST);
 
-        for (Block block : getModBlocks(b -> b.properties instanceof LodestoneBlockProperties)) {
-            LodestoneBlockProperties properties = (LodestoneBlockProperties) block.properties;
-            LodestoneDatagenBlockData data = properties.getDatagenData();
-            for (TagKey<Block> tag : data.getTags()) {
-                tag(tag).add(block);
-            }
-        }
+        addTagsFromBlockProperties(getModBlocks(b -> b.properties instanceof LodestoneBlockProperties));
     }
 
     @Override

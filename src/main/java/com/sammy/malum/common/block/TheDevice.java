@@ -20,8 +20,8 @@ import team.lodestar.lodestone.systems.easing.Easing;
 public class TheDevice extends Block {
     private final int funnyComparatorNumber;
 
-    public TheDevice(Properties p_49795_) {
-        super(p_49795_);
+    public TheDevice(Properties properties) {
+        super(properties);
         funnyComparatorNumber = RANDOM.nextInt(16);
     }
 
@@ -57,6 +57,6 @@ public class TheDevice extends Block {
         if (level instanceof ServerLevel serverLevel) {
             LodestonePacketRegistry.ORTUS_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> serverLevel.getChunkAt(pos)), new PositionedScreenshakePacket(40, BlockHelper.fromBlockPos(pos),4f,10f, Easing.EXPO_OUT).setIntensity(4f, 0));
         }
-        level.playSound(null, pos, SoundRegistry.SUSPICIOUS_SOUND.get(), SoundSource.BLOCKS, 1, 1);
+        level.playSound(null, pos, SoundRegistry.THE_DEEP_BECKONS.get(), SoundSource.BLOCKS, 1, 1);
     }
 }

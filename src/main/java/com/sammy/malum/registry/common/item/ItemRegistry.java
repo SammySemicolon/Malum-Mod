@@ -274,11 +274,11 @@ public class ItemRegistry {
     public static final RegistryObject<Item> RUNEWOOD_TRAPDOOR = ITEMS.register("runewood_trapdoor", () -> new BlockItem(BlockRegistry.RUNEWOOD_TRAPDOOR.get(), NATURE_PROPERTIES()));
     public static final RegistryObject<Item> SOLID_RUNEWOOD_TRAPDOOR = ITEMS.register("solid_runewood_trapdoor", () -> new BlockItem(BlockRegistry.SOLID_RUNEWOOD_TRAPDOOR.get(), NATURE_PROPERTIES()));
 
-    public static final RegistryObject<Item> RUNEWOOD_PLANKS_BUTTON = ITEMS.register("runewood_planks_button", () -> new BlockItem(BlockRegistry.RUNEWOOD_PLANKS_BUTTON.get(), NATURE_PROPERTIES()));
-    public static final RegistryObject<Item> RUNEWOOD_PLANKS_PRESSURE_PLATE = ITEMS.register("runewood_planks_pressure_plate", () -> new BlockItem(BlockRegistry.RUNEWOOD_PLANKS_PRESSURE_PLATE.get(), NATURE_PROPERTIES()));
+    public static final RegistryObject<Item> RUNEWOOD_PLANKS_BUTTON = ITEMS.register("runewood_planks_button", () -> new BlockItem(BlockRegistry.RUNEWOOD_BUTTON.get(), NATURE_PROPERTIES()));
+    public static final RegistryObject<Item> RUNEWOOD_PLANKS_PRESSURE_PLATE = ITEMS.register("runewood_planks_pressure_plate", () -> new BlockItem(BlockRegistry.RUNEWOOD_PRESSURE_PLATE.get(), NATURE_PROPERTIES()));
 
-    public static final RegistryObject<Item> RUNEWOOD_PLANKS_FENCE = ITEMS.register("runewood_planks_fence", () -> new BlockItem(BlockRegistry.RUNEWOOD_PLANKS_FENCE.get(), NATURE_PROPERTIES()));
-    public static final RegistryObject<Item> RUNEWOOD_PLANKS_FENCE_GATE = ITEMS.register("runewood_planks_fence_gate", () -> new BlockItem(BlockRegistry.RUNEWOOD_PLANKS_FENCE_GATE.get(), NATURE_PROPERTIES()));
+    public static final RegistryObject<Item> RUNEWOOD_PLANKS_FENCE = ITEMS.register("runewood_planks_fence", () -> new BlockItem(BlockRegistry.RUNEWOOD_FENCE.get(), NATURE_PROPERTIES()));
+    public static final RegistryObject<Item> RUNEWOOD_PLANKS_FENCE_GATE = ITEMS.register("runewood_planks_fence_gate", () -> new BlockItem(BlockRegistry.RUNEWOOD_FENCE_GATE.get(), NATURE_PROPERTIES()));
 
     public static final RegistryObject<Item> RUNEWOOD_ITEM_STAND = ITEMS.register("runewood_item_stand", () -> new BlockItem(BlockRegistry.RUNEWOOD_ITEM_STAND.get(), NATURE_PROPERTIES()));
     public static final RegistryObject<Item> RUNEWOOD_ITEM_PEDESTAL = ITEMS.register("runewood_item_pedestal", () -> new BlockItem(BlockRegistry.RUNEWOOD_ITEM_PEDESTAL.get(), NATURE_PROPERTIES()));
@@ -335,11 +335,11 @@ public class ItemRegistry {
     public static final RegistryObject<Item> SOULWOOD_TRAPDOOR = ITEMS.register("soulwood_trapdoor", () -> new BlockItem(BlockRegistry.SOULWOOD_TRAPDOOR.get(), NATURE_PROPERTIES()));
     public static final RegistryObject<Item> SOLID_SOULWOOD_TRAPDOOR = ITEMS.register("solid_soulwood_trapdoor", () -> new BlockItem(BlockRegistry.SOLID_SOULWOOD_TRAPDOOR.get(), NATURE_PROPERTIES()));
 
-    public static final RegistryObject<Item> SOULWOOD_PLANKS_BUTTON = ITEMS.register("soulwood_planks_button", () -> new BlockItem(BlockRegistry.SOULWOOD_PLANKS_BUTTON.get(), NATURE_PROPERTIES()));
-    public static final RegistryObject<Item> SOULWOOD_PLANKS_PRESSURE_PLATE = ITEMS.register("soulwood_planks_pressure_plate", () -> new BlockItem(BlockRegistry.SOULWOOD_PLANKS_PRESSURE_PLATE.get(), NATURE_PROPERTIES()));
+    public static final RegistryObject<Item> SOULWOOD_PLANKS_BUTTON = ITEMS.register("soulwood_planks_button", () -> new BlockItem(BlockRegistry.SOULWOOD_BUTTON.get(), NATURE_PROPERTIES()));
+    public static final RegistryObject<Item> SOULWOOD_PLANKS_PRESSURE_PLATE = ITEMS.register("soulwood_planks_pressure_plate", () -> new BlockItem(BlockRegistry.SOULWOOD_PRESSURE_PLATE.get(), NATURE_PROPERTIES()));
 
-    public static final RegistryObject<Item> SOULWOOD_PLANKS_FENCE = ITEMS.register("soulwood_planks_fence", () -> new BlockItem(BlockRegistry.SOULWOOD_PLANKS_FENCE.get(), NATURE_PROPERTIES()));
-    public static final RegistryObject<Item> SOULWOOD_PLANKS_FENCE_GATE = ITEMS.register("soulwood_planks_fence_gate", () -> new BlockItem(BlockRegistry.SOULWOOD_PLANKS_FENCE_GATE.get(), NATURE_PROPERTIES()));
+    public static final RegistryObject<Item> SOULWOOD_PLANKS_FENCE = ITEMS.register("soulwood_planks_fence", () -> new BlockItem(BlockRegistry.SOULWOOD_FENCE.get(), NATURE_PROPERTIES()));
+    public static final RegistryObject<Item> SOULWOOD_PLANKS_FENCE_GATE = ITEMS.register("soulwood_planks_fence_gate", () -> new BlockItem(BlockRegistry.SOULWOOD_FENCE_GATE.get(), NATURE_PROPERTIES()));
 
     public static final RegistryObject<Item> SOULWOOD_ITEM_STAND = ITEMS.register("soulwood_item_stand", () -> new BlockItem(BlockRegistry.SOULWOOD_ITEM_STAND.get(), NATURE_PROPERTIES()));
     public static final RegistryObject<Item> SOULWOOD_ITEM_PEDESTAL = ITEMS.register("soulwood_item_pedestal", () -> new BlockItem(BlockRegistry.SOULWOOD_ITEM_PEDESTAL.get(), NATURE_PROPERTIES()));
@@ -562,6 +562,7 @@ public class ItemRegistry {
 
     //region hidden items
     public static final RegistryObject<Item> THE_DEVICE = ITEMS.register("the_device", () -> new BlockItem(BlockRegistry.THE_DEVICE.get(), HIDDEN_PROPERTIES()));
+    public static final RegistryObject<Item> THE_VESSEL = ITEMS.register("the_vessel", () -> new BlockItem(BlockRegistry.THE_VESSEL.get(), HIDDEN_PROPERTIES()));
     public static final RegistryObject<Item> CREATIVE_SCYTHE = ITEMS.register("creative_scythe", () -> new MagicScytheItem(Tiers.IRON, 9993, 9.1f, 999f, HIDDEN_PROPERTIES().durability(-1)));
     public static final RegistryObject<Item> TOKEN_OF_GRATITUDE = ITEMS.register("token_of_gratitude", () -> new CurioTokenOfGratitude(HIDDEN_PROPERTIES()));
     public static final RegistryObject<Item> PRIMORDIAL_SOUP = ITEMS.register("primordial_soup", () -> new BlockItem(BlockRegistry.PRIMORDIAL_SOUP.get(), HIDDEN_PROPERTIES()));

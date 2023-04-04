@@ -1,19 +1,19 @@
 {
   "variants": {
     "facing=north": {
-      "model": "malum:block/wall_blazing_torch",
-      "y": 270
+      "model": "malum:block/wall_blazing_torch"
     },
     "facing=south": {
       "model": "malum:block/wall_blazing_torch",
-      "y": 90
+      "y": 180
     },
     "facing=west": {
       "model": "malum:block/wall_blazing_torch",
-      "y": 180
+      "y": 270
     },
     "facing=east": {
-      "model": "malum:block/wall_blazing_torch"
+      "model": "malum:block/wall_blazing_torch",
+      "y": 90
     }
   }
 }

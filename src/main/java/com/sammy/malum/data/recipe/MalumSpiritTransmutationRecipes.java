@@ -2,7 +2,6 @@ package com.sammy.malum.data.recipe;
 
 import com.mojang.datafixers.util.Pair;
 import com.sammy.malum.data.recipe.builder.SpiritTransmutationRecipeBuilder;
-import com.sammy.malum.registry.common.item.ItemRegistry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeProvider;
@@ -51,10 +50,10 @@ public class MalumSpiritTransmutationRecipes extends RecipeProvider {
         new Pair<>(RUNEWOOD_DOOR, SOULWOOD_DOOR),
         new Pair<>(RUNEWOOD_TRAPDOOR, SOULWOOD_TRAPDOOR),
         new Pair<>(SOLID_RUNEWOOD_TRAPDOOR, SOLID_SOULWOOD_TRAPDOOR),
-        new Pair<>(RUNEWOOD_PLANKS_BUTTON, SOULWOOD_PLANKS_BUTTON),
-        new Pair<>(RUNEWOOD_PLANKS_PRESSURE_PLATE, SOULWOOD_PLANKS_PRESSURE_PLATE),
-        new Pair<>(RUNEWOOD_PLANKS_FENCE, SOULWOOD_PLANKS_FENCE),
-        new Pair<>(RUNEWOOD_PLANKS_FENCE_GATE, SOULWOOD_PLANKS_FENCE_GATE),
+        new Pair<>(RUNEWOOD_BUTTON, SOULWOOD_BUTTON),
+        new Pair<>(RUNEWOOD_PRESSURE_PLATE, SOULWOOD_PRESSURE_PLATE),
+        new Pair<>(RUNEWOOD_FENCE, SOULWOOD_FENCE),
+        new Pair<>(RUNEWOOD_FENCE_GATE, SOULWOOD_FENCE_GATE),
         new Pair<>(RUNEWOOD_ITEM_STAND, SOULWOOD_ITEM_STAND),
         new Pair<>(RUNEWOOD_ITEM_PEDESTAL, SOULWOOD_ITEM_PEDESTAL),
         new Pair<>(RUNEWOOD_SIGN, SOULWOOD_SIGN) // Wall sign already handled by this. Is it??? Wire? Huh ? How

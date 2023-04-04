@@ -41,7 +41,7 @@ public class VividNitrateBounceParticlePacket extends ColorBasedParticleEffectPa
                     .setSpinData(SpinParticleData.create(0.9f * spinDirection, 0).setSpinOffset(spinOffset).setCoefficient(1.25f).setEasing(Easing.CUBIC_IN).build())
                     .setScaleData(GenericParticleData.create(0.075f, 0.25f, 0).setCoefficient(0.8f).setEasing(Easing.QUINTIC_OUT, Easing.EXPO_IN_OUT).build())
                     .setColorData(ColorParticleData.create(ColorHelper.brighter(color, 2), color).build())
-                    .setLifetime(15)
+                    .setLifetime(20)
                     .enableNoClip()
                     .setRandomOffset(0.85f)
                     .setGravity(1.1f)

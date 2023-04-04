@@ -14,7 +14,6 @@ import net.minecraftforge.network.PacketDistributor;
 import team.lodestar.lodestone.helpers.ColorHelper;
 import team.lodestar.lodestone.setup.LodestoneParticleRegistry;
 import team.lodestar.lodestone.systems.easing.Easing;
-import team.lodestar.lodestone.systems.particle.SimpleParticleOptions;
 import team.lodestar.lodestone.systems.particle.WorldParticleBuilder;
 import team.lodestar.lodestone.systems.particle.data.ColorParticleData;
 import team.lodestar.lodestone.systems.particle.data.GenericParticleData;
@@ -113,9 +112,11 @@ public class VividNitrateEntity extends AbstractNitrateEntity {
             float alphaMultiplier = (0.30f + extraAlpha) * Math.min(1, windUp * 2);
             CommonParticleEffects.spawnSpiritParticles(level, lerpX, lerpY, lerpZ, alphaMultiplier + 0.1f, norm, firstColor, secondColor);
 
-            final ColorParticleData.ColorParticleDataBuilder colorDataBuilder = ColorParticleData.create(secondColor, SECOND_SMOKE_COLOR).setEasing(Easing.SINE_OUT).setCoefficient(2.25f);
+            final ColorParticleData.ColorParticleDataBuilder colorDataBuilder = ColorParticleData.create(secondColor, SECOND_SMOKE_COLOR)
+                    .setEasing(Easing.QUINTIC_OUT)
+                    .setCoefficient(1.75f);
             WorldParticleBuilder.create(LodestoneParticleRegistry.SMOKE_PARTICLE)
-                    .setTransparencyData(GenericParticleData.create(Math.min(1, 0.1f * alphaMultiplier), 0f).setEasing(Easing.SINE_IN, Easing.SINE_OUT).build())
+                    .setTransparencyData(GenericParticleData.create(Math.min(1, 0.25f * alphaMultiplier), 0f).setEasing(Easing.SINE_IN, Easing.SINE_OUT).build())
                     .setLifetime(65 + rand.nextInt(15))
                     .setSpinData(SpinParticleData.create(nextFloat(rand, -0.1f, 0.1f)).setSpinOffset(rand.nextFloat() * 6.28f).build())
                     .setScaleData(GenericParticleData.create(0.2f + rand.nextFloat() * 0.05f, 0.3f, 0f).build())
@@ -123,11 +124,10 @@ public class VividNitrateEntity extends AbstractNitrateEntity {
                     .setRandomOffset(0.02f)
                     .enableNoClip()
                     .setRandomMotion(0.01f, 0.01f)
-                    .setDiscardFunction(SimpleParticleOptions.ParticleDiscardFunctionType.INVISIBLE)
-                    .repeat(level, lerpX, lerpY, lerpZ, 1)
                     .setRenderType(LodestoneWorldParticleRenderType.TRANSPARENT)
+                    .spawn(level, lerpX, lerpY, lerpZ)
                     .setColorData(colorDataBuilder.setCoefficient(2.75f).build())
-                    .repeat(level, lerpX, lerpY, lerpZ, 1);
+                    .spawn(level, lerpX, lerpY, lerpZ);
         }
     }
 

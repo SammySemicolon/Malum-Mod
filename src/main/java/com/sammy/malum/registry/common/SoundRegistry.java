@@ -121,11 +121,11 @@ public class SoundRegistry {
     public static final RegistryObject<SoundEvent> SOUL_WARD_GROW = register(new SoundEvent(MalumMod.malumPath("soul_ward_grows")));
     public static final RegistryObject<SoundEvent> SOUL_WARD_CHARGE = register(new SoundEvent(MalumMod.malumPath("soul_ward_charges")));
 
-    public static final RegistryObject<SoundEvent> SUSPICIOUS_SOUND = register(new SoundEvent(MalumMod.malumPath("suspicious_sound_plays")));
+    public static final RegistryObject<SoundEvent> THE_DEEP_BECKONS = register(new SoundEvent(MalumMod.malumPath("the_deep_beckons")));
+    public static final RegistryObject<SoundEvent> THE_HEAVENS_SIGN = register(new SoundEvent(MalumMod.malumPath("the_heavens_sing")));
 
     public static final SoundType SOULSTONE = new ForgeSoundType(1.0F, 1.0F, SOULSTONE_BREAK, SOULSTONE_STEP, SOULSTONE_PLACE, SOULSTONE_HIT, () -> SoundEvents.STONE_FALL);
     public static final SoundType DEEPSLATE_SOULSTONE = new ForgeSoundType(1.0F, 1.0F, DEEPSLATE_SOULSTONE_BREAK, DEEPSLATE_SOULSTONE_STEP, DEEPSLATE_SOULSTONE_PLACE, DEEPSLATE_SOULSTONE_HIT, () -> SoundEvents.DEEPSLATE_FALL);
-    public static final SoundType BRILLIANCE = new ForgeSoundType(1.0F, 1.0F, BRILLIANCE_BREAK, () -> SoundEvents.STONE_STEP, BRILLIANCE_PLACE, () -> SoundEvents.STONE_HIT, () -> SoundEvents.STONE_FALL);
     public static final SoundType BLAZING_QUARTZ_ORE = new ForgeSoundType(1.0F, 1.0F, BLAZING_QUARTZ_ORE_BREAK, () -> SoundEvents.NETHER_ORE_STEP, BLAZING_QUARTZ_ORE_PLACE, () -> SoundEvents.NETHER_ORE_HIT, () -> SoundEvents.NETHER_GOLD_ORE_FALL);
     public static final SoundType NATURAL_QUARTZ = new QuartzSoundType(1.0F, 0.9f, ()->SoundEvents.STONE_BREAK, ()->SoundEvents.STONE_STEP, ()->SoundEvents.STONE_PLACE, ()->SoundEvents.STONE_HIT, ()->SoundEvents.STONE_FALL);
     public static final SoundType DEEPSLATE_QUARTZ = new QuartzSoundType(1.0F, 0.9f, ()->SoundEvents.DEEPSLATE_BREAK, ()->SoundEvents.DEEPSLATE_STEP, ()->SoundEvents.DEEPSLATE_PLACE, ()->SoundEvents.DEEPSLATE_HIT, ()->SoundEvents.DEEPSLATE_FALL);

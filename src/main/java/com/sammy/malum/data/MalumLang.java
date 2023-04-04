@@ -336,8 +336,7 @@ public class MalumLang extends LanguageProvider {
         addHeadline("spirit_trinkets.guardian_ring", "Ring of the Guardian");
         addPages("spirit_trinkets.guardian_ring",
                 "As a first attempt to create a trinket using these as a base, I have designed one that mimics Soulstained Armor's Soul Ward.");
-
-
+        
         addEntryHeader("reactive_trinkets", "Reactive Trinkets", "Harnessing the harvest");
         addHeadline("reactive_trinkets.ring_of_curative_talent", "Ring of Curative Talent");
         addPages("reactive_trinkets.ring_of_curative_talent",

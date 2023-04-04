@@ -57,7 +57,7 @@ public class EthericNitrateParticlePacket extends LodestoneClientPacket {
             float motionMultiplier = (float) (1+Math.pow(rand.nextFloat(), 2));
             WorldParticleBuilder.create(LodestoneParticleRegistry.TWINKLE_PARTICLE)
                     .setTransparencyData(GenericParticleData.create(0.2f, 0.8f, 0).build())
-                    .setLifetime(12)
+                    .setLifetime(20)
                     .setSpinData(SpinParticleData.create(0.9f * spinDirection, 0).setSpinOffset(spinOffset).setCoefficient(1.25f).setEasing(Easing.CUBIC_IN).build())
                     .setScaleData(GenericParticleData.create(0.075f, 0.25f, 0).setCoefficient(0.8f).setEasing(Easing.QUINTIC_OUT, Easing.EXPO_IN_OUT).build())
                     .setColorData(ColorParticleData.create(EthericNitrateEntity.FIRST_COLOR.brighter(), EthericNitrateEntity.SECOND_COLOR.darker()).build())
