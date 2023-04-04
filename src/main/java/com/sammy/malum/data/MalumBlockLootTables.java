@@ -256,6 +256,6 @@ public class MalumBlockLootTables extends LootTableProvider {
     }
 
     protected void add(ResourceLocation path, LootTable.Builder lootTable) {
-        tables.add(Pair.of(() -> (lootBuilder) -> lootBuilder.accept(path, lootTable), LootContextParamSets.BLOCK));
+         tables.add(Pair.of(() -> (lootBuilder) -> lootBuilder.accept(path, lootTable), LootContextParamSets.BLOCK));
     }
 }

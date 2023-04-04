@@ -1,6 +1,6 @@
 package com.sammy.malum.common.block.weavers_workbench;
 
-import com.sammy.malum.common.blockentity.WeaversWorkbenchBlockEntity;
+import com.sammy.malum.common.blockentity.weaver.WeaversWorkbenchBlockEntity;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.block.Block;
