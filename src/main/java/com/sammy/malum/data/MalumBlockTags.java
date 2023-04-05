@@ -1,20 +1,19 @@
 package com.sammy.malum.data;
 
-import com.sammy.malum.MalumMod;
-import com.sammy.malum.registry.common.block.BlockTagRegistry;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.world.level.block.Block;
-import net.minecraftforge.common.data.ExistingFileHelper;
-import team.lodestar.lodestone.systems.block.LodestoneBlockProperties;
-import team.lodestar.lodestone.systems.datagen.LodestoneBlockTagsProvider;
+import com.sammy.malum.*;
+import com.sammy.malum.registry.common.block.*;
+import net.minecraft.data.*;
+import net.minecraft.world.level.block.*;
+import net.minecraftforge.common.data.*;
+import net.minecraftforge.registries.*;
+import team.lodestar.lodestone.systems.datagen.providers.*;
 
-import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.function.Predicate;
+import javax.annotation.*;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
 
-import static com.sammy.malum.registry.common.block.BlockRegistry.BLOCKS;
+import static com.sammy.malum.registry.common.block.BlockRegistry.*;
 
 public class MalumBlockTags extends LodestoneBlockTagsProvider {
     public MalumBlockTags(DataGenerator generatorIn, ExistingFileHelper existingFileHelper) {
@@ -24,12 +23,14 @@ public class MalumBlockTags extends LodestoneBlockTagsProvider {
     @SuppressWarnings("unchecked")
     @Override
     protected void addTags() {
+        Set<RegistryObject<Block>> blocks = new HashSet<>(BLOCKS.getEntries());
+
         tag(BlockTagRegistry.RITE_IMMUNE).addTags(BlockTagRegistry.TAINTED_ROCK, BlockTagRegistry.TWISTED_ROCK);
 
         tag(BlockTagRegistry.ENDLESS_FLAME);
         tag(BlockTagRegistry.GREATER_AERIAL_WHITELIST);
 
-        addTagsFromBlockProperties(getModBlocks(b -> b.properties instanceof LodestoneBlockProperties));
+        addTagsFromBlockProperties(blocks.stream().map(RegistryObject::get).collect(Collectors.toList()));
     }
 
     @Override

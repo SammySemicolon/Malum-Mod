@@ -1,8 +1,0 @@
-{
-  "parent": "malum:block/templates/template_totem_pole",
-  "textures": {
-    "side": "malum:block/runewood_log",
-    "top": "malum:block/runewood_log_top",
-    "front": "malum:spirit/infernal_runewood_cutout"
-  }
-}

@@ -1,42 +1,32 @@
 package com.sammy.malum.data;
 
-
-import com.sammy.malum.MalumMod;
-import com.sammy.malum.common.block.MalumLeavesBlock;
 import com.sammy.malum.common.block.ether.*;
-import com.sammy.malum.common.block.storage.ItemPedestalBlock;
-import com.sammy.malum.common.block.storage.ItemStandBlock;
-import com.sammy.malum.common.block.totem.TotemBaseBlock;
-import com.sammy.malum.common.block.totem.TotemPoleBlock;
-import com.sammy.malum.common.block.weeping_well.PrimordialSoupBlock;
-import com.sammy.malum.core.systems.spirit.MalumSpiritType;
-import com.sammy.malum.registry.common.SpiritTypeRegistry;
-import net.minecraft.core.Direction;
-import net.minecraft.core.Registry;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.resources.ResourceLocation;
+import com.sammy.malum.common.block.weeping_well.*;
+import com.sammy.malum.core.systems.spirit.*;
+import com.sammy.malum.registry.common.*;
+import net.minecraft.core.*;
+import net.minecraft.data.*;
+import net.minecraft.resources.*;
 import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraftforge.client.model.generators.BlockModelBuilder;
-import net.minecraftforge.client.model.generators.ConfiguredModel;
-import net.minecraftforge.client.model.generators.ModelFile;
-import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.registries.RegistryObject;
-import team.lodestar.lodestone.helpers.DataHelper;
-import team.lodestar.lodestone.systems.datagen.statesmith.BlockStateSmithTypes;
+import net.minecraft.world.level.block.state.properties.*;
+import net.minecraftforge.client.model.generators.*;
+import net.minecraftforge.common.data.*;
+import net.minecraftforge.registries.*;
+import team.lodestar.lodestone.systems.datagen.*;
+import team.lodestar.lodestone.systems.datagen.providers.*;
+import team.lodestar.lodestone.systems.datagen.statesmith.*;
 
-import javax.annotation.Nonnull;
+import javax.annotation.*;
 import java.util.*;
-import java.util.function.Function;
+import java.util.function.*;
 
-import static com.sammy.malum.MalumMod.malumPath;
+import static com.sammy.malum.MalumMod.*;
 import static com.sammy.malum.registry.common.block.BlockRegistry.*;
-import static team.lodestar.lodestone.helpers.DataHelper.take;
-import static team.lodestar.lodestone.helpers.DataHelper.takeAll;
 
-public class MalumBlockStates extends net.minecraftforge.client.model.generators.BlockStateProvider {
-    public MalumBlockStates(DataGenerator gen, ExistingFileHelper exFileHelper) {
-        super(gen, MalumMod.MALUM, exFileHelper);
+public class MalumBlockStates extends LodestoneBlockStateProvider {
+
+    public MalumBlockStates(DataGenerator gen, ExistingFileHelper exFileHelper, LodestoneItemModelProvider itemModelProvider) {
+        super(gen, MALUM, exFileHelper, itemModelProvider);
     }
 
     @Nonnull
@@ -47,74 +37,184 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
 
     @Override
     protected void registerStatesAndModels() {
-        Set<RegistryObject<Block>> blocks = new HashSet<>(BLOCKS.getEntries());
+        Set<Supplier<Block>> blocks = new HashSet<>(BLOCKS.getEntries());
 
-        quartzClusterBlock(take(blocks, NATURAL_QUARTZ_CLUSTER));
-        blightedSoilBlock(take(blocks, BLIGHTED_SOIL));
-        blightedEarthBlock(take(blocks, BLIGHTED_EARTH));
-        blightedTumorBlock(take(blocks, BLIGHTED_TUMOR));
-        blightedSoulwoodBlock(take(blocks, BLIGHTED_SOULWOOD));
-        primordialSoupBlock(take(blocks, PRIMORDIAL_SOUP));
-        voidConduitBlock(take(blocks, VOID_CONDUIT));
-        weaversWorkbenchBlock(take(blocks, WEAVERS_WORKBENCH));
+        AbstractBlockStateSmith.StateSmithData data = new AbstractBlockStateSmith.StateSmithData(this, blocks::remove);
 
-        weepingWellBlock(take(blocks, WEEPING_WELL_CORE), "weeping_well_core");
-        weepingWellBlock(take(blocks, WEEPING_WELL_CORNER), "weeping_well_corner");
-        weepingWellBlock(take(blocks, WEEPING_WELL_SIDE), "weeping_well_side");
-        
-        List<RegistryObject<Block>> customStatesAndModels = new ArrayList<>(List.of(BLAZING_SCONCE, WALL_BLAZING_SCONCE, TWISTED_TABLET, SPIRIT_CATALYZER, SPIRIT_CATALYZER_COMPONENT));
+        setTexturePath("arcane_rock/tainted/");
+        BlockStateSmithTypes.FULL_BLOCK.act(data,
+                TAINTED_ROCK, POLISHED_TAINTED_ROCK, SMOOTH_TAINTED_ROCK,
+                TAINTED_ROCK_BRICKS, TAINTED_ROCK_TILES, SMALL_TAINTED_ROCK_BRICKS,
+                CRACKED_TAINTED_ROCK_BRICKS, CRACKED_TAINTED_ROCK_TILES, CRACKED_SMALL_TAINTED_ROCK_BRICKS,
+                CHISELED_TAINTED_ROCK);
 
-        List<RegistryObject<Block>> customModelsSimpleStates = new ArrayList<>(List.of(
-                SPIRIT_ALTAR, SOUL_VIAL, SPIRIT_JAR, BRILLIANT_OBELISK, BRILLIANT_OBELISK_COMPONENT, RUNEWOOD_OBELISK,
-                RUNEWOOD_OBELISK_COMPONENT, SPIRIT_CRUCIBLE, SPIRIT_CRUCIBLE_COMPONENT));
+        BlockStateSmithTypes.SLAB_BLOCK.act(data, TAINTED_ROCK_SLAB, POLISHED_TAINTED_ROCK_SLAB, SMOOTH_TAINTED_ROCK_SLAB,
+                TAINTED_ROCK_BRICKS_SLAB, TAINTED_ROCK_TILES_SLAB, SMALL_TAINTED_ROCK_BRICKS_SLAB,
+                CRACKED_TAINTED_ROCK_BRICKS_SLAB, CRACKED_TAINTED_ROCK_TILES_SLAB, CRACKED_SMALL_TAINTED_ROCK_BRICKS_SLAB);
 
-        List<RegistryObject<Block>> layeredModels = new ArrayList<>(List.of(BRILLIANT_STONE, BRILLIANT_DEEPSLATE, BLAZING_QUARTZ_ORE));
+        BlockStateSmithTypes.STAIRS_BLOCK.act(data, TAINTED_ROCK_STAIRS, POLISHED_TAINTED_ROCK_STAIRS, SMOOTH_TAINTED_ROCK_STAIRS,
+                TAINTED_ROCK_BRICKS_STAIRS, TAINTED_ROCK_TILES_STAIRS, SMALL_TAINTED_ROCK_BRICKS_STAIRS,
+                CRACKED_TAINTED_ROCK_BRICKS_STAIRS, CRACKED_TAINTED_ROCK_TILES_STAIRS, CRACKED_SMALL_TAINTED_ROCK_BRICKS_STAIRS);
 
-        takeAll(blocks, customStatesAndModels::contains);
-        takeAll(blocks, customModelsSimpleStates::contains).forEach(this::customBlock);
-        takeAll(blocks, layeredModels::contains).forEach(this::layeredBlock);
+        BlockStateSmithTypes.WALL_BLOCK.act(data, TAINTED_ROCK_WALL,
+                TAINTED_ROCK_BRICKS_WALL, TAINTED_ROCK_TILES_WALL, SMALL_TAINTED_ROCK_BRICKS_WALL,
+                CRACKED_TAINTED_ROCK_BRICKS_WALL, CRACKED_TAINTED_ROCK_TILES_WALL, CRACKED_SMALL_TAINTED_ROCK_BRICKS_WALL);
 
-        DataHelper.takeAll(blocks, b -> b.get().getRegistryName().getPath().startsWith("cut_") && b.get().getRegistryName().getPath().endsWith("_planks")).forEach(this::cutPlanksBlock);
-        DataHelper.takeAll(blocks, b -> b.get().getRegistryName().getPath().startsWith("cut_")).forEach(this::cutBlock);
-        DataHelper.takeAll(blocks, b -> b.get().getDescriptionId().endsWith("_cap")).forEach(this::pillarCapBlock);
+        BlockStateSmithTypes.CUSTOM_MODEL.act(data, this::simpleBlock, this::cutRockBlockModel, CUT_TAINTED_ROCK);
+        BlockStateSmithTypes.CUSTOM_MODEL.act(data, this::directionalBlock, this::columnCapModel, TAINTED_ROCK_COLUMN_CAP);
+        BlockStateSmithTypes.CUSTOM_MODEL.act(data, this::simpleBlock, this::rockItemPedestalModel, TAINTED_ROCK_ITEM_PEDESTAL);
+        BlockStateSmithTypes.CUSTOM_MODEL.act(data, this::directionalBlock, this::rockItemStandModel, TAINTED_ROCK_ITEM_STAND);
 
-        DataHelper.takeAll(blocks, b -> b.get() instanceof EtherBrazierBlock).forEach(this::brazierBlock);
-        DataHelper.takeAll(blocks, b -> b.get() instanceof EtherWallSconceBlock).forEach(this::wallEtherSconceBlock);
-        DataHelper.takeAll(blocks, b -> b.get() instanceof EtherSconceBlock).forEach(this::etherSconceBlock);
-        DataHelper.takeAll(blocks, b -> b.get() instanceof EtherWallTorchBlock).forEach(this::wallEtherTorchBlock);
-        DataHelper.takeAll(blocks, b -> b.get() instanceof EtherTorchBlock).forEach(this::etherTorchBlock);
-        DataHelper.takeAll(blocks, b -> b.get() instanceof EtherBlock).forEach(this::etherBlock);
+        BlockStateSmithTypes.LOG_BLOCK.act(data, TAINTED_ROCK_COLUMN);
+        BlockStateSmithTypes.BUTTON_BLOCK.act(data, TAINTED_ROCK_BUTTON);
+        BlockStateSmithTypes.PRESSURE_PLATE_BLOCK.act(data, TAINTED_ROCK_PRESSURE_PLATE);
 
-        DataHelper.takeAll(blocks, b -> b.get() instanceof TotemBaseBlock).forEach(this::totemBaseBlock);
-        DataHelper.takeAll(blocks, b -> b.get() instanceof TotemPoleBlock).forEach(this::totemPoleBlock);
-        DataHelper.takeAll(blocks, b -> b.get() instanceof ItemPedestalBlock).forEach(this::itemPedestalBlock);
-        DataHelper.takeAll(blocks, b -> b.get() instanceof ItemStandBlock).forEach(this::itemStandBlock);
-        DataHelper.takeAll(blocks, b -> b.get() instanceof MalumLeavesBlock).forEach(this::malumLeavesBlock);
+        setTexturePath("arcane_rock/twisted/");
+        BlockStateSmithTypes.FULL_BLOCK.act(data,
+                TWISTED_ROCK, POLISHED_TWISTED_ROCK, SMOOTH_TWISTED_ROCK,
+                TWISTED_ROCK_BRICKS, TWISTED_ROCK_TILES, SMALL_TWISTED_ROCK_BRICKS,
+                CRACKED_TWISTED_ROCK_BRICKS, CRACKED_TWISTED_ROCK_TILES, CRACKED_SMALL_TWISTED_ROCK_BRICKS,
+                CHISELED_TWISTED_ROCK);
 
-        Collection<RegistryObject<Block>> slabs = DataHelper.takeAll(blocks, b -> b.get() instanceof SlabBlock);
+        BlockStateSmithTypes.SLAB_BLOCK.act(data, TWISTED_ROCK_SLAB, POLISHED_TWISTED_ROCK_SLAB, SMOOTH_TWISTED_ROCK_SLAB,
+                TWISTED_ROCK_BRICKS_SLAB, TWISTED_ROCK_TILES_SLAB, SMALL_TWISTED_ROCK_BRICKS_SLAB,
+                CRACKED_TWISTED_ROCK_BRICKS_SLAB, CRACKED_TWISTED_ROCK_TILES_SLAB, CRACKED_SMALL_TWISTED_ROCK_BRICKS_SLAB);
 
-        BlockStateSmithTypes.PREDEFINED_MODEL.act(this, this::simpleBlock,
-                DataHelper.takeAll(blocks, SPIRIT_ALTAR, SPIRIT_JAR, SOUL_VIAL, BRILLIANT_OBELISK, BRILLIANT_OBELISK_COMPONENT, RUNEWOOD_OBELISK, RUNEWOOD_OBELISK_COMPONENT, SPIRIT_CRUCIBLE, SPIRIT_CRUCIBLE_COMPONENT));
+        BlockStateSmithTypes.STAIRS_BLOCK.act(data, TWISTED_ROCK_STAIRS, POLISHED_TWISTED_ROCK_STAIRS, SMOOTH_TWISTED_ROCK_STAIRS,
+                TWISTED_ROCK_BRICKS_STAIRS, TWISTED_ROCK_TILES_STAIRS, SMALL_TWISTED_ROCK_BRICKS_STAIRS,
+                CRACKED_TWISTED_ROCK_BRICKS_STAIRS, CRACKED_TWISTED_ROCK_TILES_STAIRS, CRACKED_SMALL_TWISTED_ROCK_BRICKS_STAIRS);
 
-        BlockStateSmithTypes.PRESSURE_PLATE_BLOCK.act(this, DataHelper.takeAll(blocks, RUNEWOOD_PRESSURE_PLATE, SOULWOOD_PRESSURE_PLATE, TAINTED_ROCK_PRESSURE_PLATE, TWISTED_ROCK_PRESSURE_PLATE));
-        BlockStateSmithTypes.TRAPDOOR_BLOCK.act(this, DataHelper.takeAll(blocks, RUNEWOOD_TRAPDOOR, SOLID_RUNEWOOD_TRAPDOOR, SOULWOOD_TRAPDOOR, SOLID_SOULWOOD_TRAPDOOR));
-        BlockStateSmithTypes.BUTTON_BLOCK.act(this, DataHelper.takeAll(blocks, RUNEWOOD_BUTTON, SOULWOOD_BUTTON, TAINTED_ROCK_BUTTON, TWISTED_ROCK_BUTTON));
-        BlockStateSmithTypes.WOODEN_SIGN_BLOCK.act(this, DataHelper.takeAll(blocks, RUNEWOOD_SIGN, RUNEWOOD_WALL_SIGN, SOULWOOD_SIGN, SOULWOOD_WALL_SIGN));
-        BlockStateSmithTypes.WOOD_BLOCK.act(this, DataHelper.takeAll(blocks, RUNEWOOD, SOULWOOD, STRIPPED_RUNEWOOD, STRIPPED_SOULWOOD));
-        BlockStateSmithTypes.FENCE_GATE_BLOCK.act(this, DataHelper.takeAll(blocks, RUNEWOOD_FENCE_GATE, SOULWOOD_FENCE_GATE));
-        BlockStateSmithTypes.FENCE_BLOCK.act(this, DataHelper.takeAll(blocks, RUNEWOOD_FENCE, SOULWOOD_FENCE));
-        BlockStateSmithTypes.DOOR_BLOCK.act(this, DataHelper.takeAll(blocks, RUNEWOOD_DOOR, SOULWOOD_DOOR));
-        BlockStateSmithTypes.WALL_TORCH_BLOCK.act(this, DataHelper.takeAll(blocks, WALL_BLAZING_TORCH));
-        BlockStateSmithTypes.TORCH_BLOCK.act(this, DataHelper.takeAll(blocks, BLAZING_TORCH));
+        BlockStateSmithTypes.WALL_BLOCK.act(data, TWISTED_ROCK_WALL,
+                TWISTED_ROCK_BRICKS_WALL, TWISTED_ROCK_TILES_WALL, SMALL_TWISTED_ROCK_BRICKS_WALL,
+                CRACKED_TWISTED_ROCK_BRICKS_WALL, CRACKED_TWISTED_ROCK_TILES_WALL, CRACKED_SMALL_TWISTED_ROCK_BRICKS_WALL);
 
-        BlockStateSmithTypes.WALL_BLOCK.act(this, DataHelper.takeAll(blocks, b -> b.get() instanceof WallBlock));
-        BlockStateSmithTypes.STAIRS_BLOCK.act(this, DataHelper.takeAll(blocks, b -> b.get() instanceof StairBlock));
-        BlockStateSmithTypes.LOG_BLOCK.act(this, DataHelper.takeAll(blocks, b -> b.get() instanceof RotatedPillarBlock));
-        BlockStateSmithTypes.CROSS_MODEL_BLOCK.act(this, DataHelper.takeAll(blocks, b -> b.get() instanceof BushBlock));
+        BlockStateSmithTypes.CUSTOM_MODEL.act(data, this::simpleBlock, this::cutRockBlockModel, CUT_TWISTED_ROCK);
+        BlockStateSmithTypes.CUSTOM_MODEL.act(data, this::directionalBlock, this::columnCapModel, TWISTED_ROCK_COLUMN_CAP);
+        BlockStateSmithTypes.CUSTOM_MODEL.act(data, this::simpleBlock, this::rockItemPedestalModel, TWISTED_ROCK_ITEM_PEDESTAL);
+        BlockStateSmithTypes.CUSTOM_MODEL.act(data, this::directionalBlock, this::rockItemStandModel, TWISTED_ROCK_ITEM_STAND);
 
-        BlockStateSmithTypes.FULL_BLOCK.act(this, blocks);
-        BlockStateSmithTypes.SLAB_BLOCK.act(this, slabs);
+        BlockStateSmithTypes.LOG_BLOCK.act(data, TWISTED_ROCK_COLUMN);
+        BlockStateSmithTypes.BUTTON_BLOCK.act(data, TWISTED_ROCK_BUTTON);
+        BlockStateSmithTypes.PRESSURE_PLATE_BLOCK.act(data, TWISTED_ROCK_PRESSURE_PLATE);
 
+        setTexturePath("runewood/");
+
+
+
+        setTexturePath("soulwood/");
+
+//        quartzClusterBlock(take(blocks, NATURAL_QUARTZ_CLUSTER));
+//        blightedSoilBlock(take(blocks, BLIGHTED_SOIL));
+//        blightedEarthBlock(take(blocks, BLIGHTED_EARTH));
+//        blightedTumorBlock(take(blocks, BLIGHTED_TUMOR));
+//        blightedSoulwoodBlock(take(blocks, BLIGHTED_SOULWOOD));
+//        primordialSoupBlock(take(blocks, PRIMORDIAL_SOUP));
+//        voidConduitBlock(take(blocks, VOID_CONDUIT));
+//        weaversWorkbenchBlock(take(blocks, WEAVERS_WORKBENCH));
+//
+//        weepingWellBlock(take(blocks, WEEPING_WELL_CORE), "weeping_well_core");
+//        weepingWellBlock(take(blocks, WEEPING_WELL_CORNER), "weeping_well_corner");
+//        weepingWellBlock(take(blocks, WEEPING_WELL_SIDE), "weeping_well_side");
+//
+//        List<RegistryObject<Block>> customStatesAndModels = new ArrayList<>(List.of(BLAZING_SCONCE, WALL_BLAZING_SCONCE, TWISTED_TABLET, SPIRIT_CATALYZER, SPIRIT_CATALYZER_COMPONENT));
+//
+//        List<RegistryObject<Block>> customModelsSimpleStates = new ArrayList<>(List.of(
+//                SPIRIT_ALTAR, SOUL_VIAL, SPIRIT_JAR, BRILLIANT_OBELISK, BRILLIANT_OBELISK_COMPONENT, RUNEWOOD_OBELISK,
+//                RUNEWOOD_OBELISK_COMPONENT, SPIRIT_CRUCIBLE, SPIRIT_CRUCIBLE_COMPONENT));
+//
+//        List<RegistryObject<Block>> layeredModels = new ArrayList<>(List.of(BRILLIANT_STONE, BRILLIANT_DEEPSLATE, BLAZING_QUARTZ_ORE));
+//
+//        takeAll(blocks, customStatesAndModels::contains);
+//        takeAll(blocks, customModelsSimpleStates::contains).forEach(this::customBlock);
+//        takeAll(blocks, layeredModels::contains).forEach(this::layeredBlock);
+//
+//        DataHelper.takeAll(blocks, b -> b.get().getRegistryName().getPath().startsWith("cut_") && b.get().getRegistryName().getPath().endsWith("_planks")).forEach(this::cutPlanksBlock);
+//        DataHelper.takeAll(blocks, b -> b.get().getRegistryName().getPath().startsWith("cut_")).forEach(this::cutBlock);
+//        DataHelper.takeAll(blocks, b -> b.get().getDescriptionId().endsWith("_cap")).forEach(this::pillarCapBlock);
+//
+//        DataHelper.takeAll(blocks, b -> b.get() instanceof EtherBrazierBlock).forEach(this::brazierBlock);
+//        DataHelper.takeAll(blocks, b -> b.get() instanceof EtherWallSconceBlock).forEach(this::wallEtherSconceBlock);
+//        DataHelper.takeAll(blocks, b -> b.get() instanceof EtherSconceBlock).forEach(this::etherSconceBlock);
+//        DataHelper.takeAll(blocks, b -> b.get() instanceof EtherWallTorchBlock).forEach(this::wallEtherTorchBlock);
+//        DataHelper.takeAll(blocks, b -> b.get() instanceof EtherTorchBlock).forEach(this::etherTorchBlock);
+//        DataHelper.takeAll(blocks, b -> b.get() instanceof EtherBlock).forEach(this::etherBlock);
+//
+//        DataHelper.takeAll(blocks, b -> b.get() instanceof TotemBaseBlock).forEach(this::totemBaseBlock);
+//        DataHelper.takeAll(blocks, b -> b.get() instanceof TotemPoleBlock).forEach(this::totemPoleBlock);
+//        DataHelper.takeAll(blocks, b -> b.get() instanceof ItemPedestalBlock).forEach(this::itemPedestalBlock);
+//        DataHelper.takeAll(blocks, b -> b.get() instanceof ItemStandBlock).forEach(this::itemStandBlock);
+//        DataHelper.takeAll(blocks, b -> b.get() instanceof MalumLeavesBlock).forEach(this::malumLeavesBlock);
+//
+//        Collection<RegistryObject<Block>> slabs = DataHelper.takeAll(blocks, b -> b.get() instanceof SlabBlock);
+//
+//        BlockStateSmithTypes.PREDEFINED_MODEL.act(this, this::simpleBlock,
+//                DataHelper.takeAll(blocks, SPIRIT_ALTAR, SPIRIT_JAR, SOUL_VIAL, BRILLIANT_OBELISK, BRILLIANT_OBELISK_COMPONENT, RUNEWOOD_OBELISK, RUNEWOOD_OBELISK_COMPONENT, SPIRIT_CRUCIBLE, SPIRIT_CRUCIBLE_COMPONENT));
+//
+//        BlockStateSmithTypes.PRESSURE_PLATE_BLOCK.act(this, DataHelper.takeAll(blocks, RUNEWOOD_PRESSURE_PLATE, SOULWOOD_PRESSURE_PLATE, TAINTED_ROCK_PRESSURE_PLATE, TWISTED_ROCK_PRESSURE_PLATE));
+//        BlockStateSmithTypes.TRAPDOOR_BLOCK.act(this, DataHelper.takeAll(blocks, RUNEWOOD_TRAPDOOR, SOLID_RUNEWOOD_TRAPDOOR, SOULWOOD_TRAPDOOR, SOLID_SOULWOOD_TRAPDOOR));
+//        BlockStateSmithTypes.BUTTON_BLOCK.act(this, DataHelper.takeAll(blocks, RUNEWOOD_BUTTON, SOULWOOD_BUTTON, TAINTED_ROCK_BUTTON, TWISTED_ROCK_BUTTON));
+//        BlockStateSmithTypes.WOODEN_SIGN_BLOCK.act(this, DataHelper.takeAll(blocks, RUNEWOOD_SIGN, RUNEWOOD_WALL_SIGN, SOULWOOD_SIGN, SOULWOOD_WALL_SIGN));
+//        BlockStateSmithTypes.WOOD_BLOCK.act(this, DataHelper.takeAll(blocks, RUNEWOOD, SOULWOOD, STRIPPED_RUNEWOOD, STRIPPED_SOULWOOD));
+//        BlockStateSmithTypes.FENCE_GATE_BLOCK.act(this, DataHelper.takeAll(blocks, RUNEWOOD_FENCE_GATE, SOULWOOD_FENCE_GATE));
+//        BlockStateSmithTypes.FENCE_BLOCK.act(this, DataHelper.takeAll(blocks, RUNEWOOD_FENCE, SOULWOOD_FENCE));
+//        BlockStateSmithTypes.DOOR_BLOCK.act(this, DataHelper.takeAll(blocks, RUNEWOOD_DOOR, SOULWOOD_DOOR));
+//        BlockStateSmithTypes.WALL_TORCH_BLOCK.act(this, DataHelper.takeAll(blocks, WALL_BLAZING_TORCH));
+//        BlockStateSmithTypes.TORCH_BLOCK.act(this, DataHelper.takeAll(blocks, BLAZING_TORCH));
+//
+//        BlockStateSmithTypes.WALL_BLOCK.act(this, DataHelper.takeAll(blocks, b -> b.get() instanceof WallBlock));
+//        BlockStateSmithTypes.STAIRS_BLOCK.act(this, DataHelper.takeAll(blocks, b -> b.get() instanceof StairBlock));
+//        BlockStateSmithTypes.LOG_BLOCK.act(this, DataHelper.takeAll(blocks, b -> b.get() instanceof RotatedPillarBlock));
+//        BlockStateSmithTypes.CROSS_MODEL_BLOCK.act(this, DataHelper.takeAll(blocks, b -> b.get() instanceof BushBlock));
+//
+//        BlockStateSmithTypes.FULL_BLOCK.act(this, blocks);
+//        BlockStateSmithTypes.SLAB_BLOCK.act(this, slabs);
+
+    }
+
+    public ModelFile columnCapModel(Block block) {
+        String name = getBlockName(block);
+        ResourceLocation top = getBlockTexture(name.replace("_cap", "") + "_top");
+        ResourceLocation side = getBlockTexture(name);
+        return models().cubeBottomTop(name, side, top, top);
+    }
+
+    public ModelFile cutRockBlockModel(Block block) {
+        String name = getBlockName(block);
+        ResourceLocation top = getBlockTexture(name.replace("cut_", "polished_"));
+        ResourceLocation side = getBlockTexture(name);
+        return models().cubeBottomTop(name, side, top, top);
+    }
+
+    public ModelFile rockItemPedestalModel(Block block) {
+        return itemPedestalModel(block, "template_rock_item_pedestal", "");
+    }
+
+    public ModelFile woodenItemPedestalModel(Block block) {
+        return itemPedestalModel(block, "template_wooden_item_pedestal", "_planks");
+    }
+
+    public ModelFile itemPedestalModel(Block block, String template, String affix) {
+        String name = getBlockName(block);
+        ResourceLocation parent = malumPath("block/templates/" + template);
+        ResourceLocation pedestal = getBlockTexture(name);
+        ResourceLocation particle = getBlockTexture(name.replace("_item_pedestal", "") + affix);
+        return models().withExistingParent(name, parent).texture("pedestal", pedestal).texture("particle", particle);
+    }
+
+    public ModelFile rockItemStandModel(Block block) {
+        return itemStandModel(block, "");
+    }
+
+    public ModelFile woodenItemStandModel(Block block) {
+        return itemStandModel(block, "_planks");
+    }
+
+    public ModelFile itemStandModel(Block block, String affix) {
+        String name = getBlockName(block);
+        ResourceLocation parent = malumPath("block/templates/template_item_stand");
+        ResourceLocation stand = getBlockTexture(name);
+        ResourceLocation particle = getBlockTexture(name.replace("_item_stand", "") + affix);
+        return models().withExistingParent(name, parent).texture("stand", stand).texture("particle", particle);
     }
 
     public void customBlock(RegistryObject<Block> blockRegistryObject) {
@@ -132,7 +232,7 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
 
     public void quartzClusterBlock(RegistryObject<Block> blockRegistryObject) {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
-        directionalBlock(blockRegistryObject.get(), models().cross(name, malumPath("block/"+name)));
+        directionalBlock(blockRegistryObject.get(), models().cross(name, malumPath("block/" + name)));
     }
 
     public void voidConduitBlock(RegistryObject<Block> blockRegistryObject) {
@@ -160,7 +260,7 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
     public void blightedSoilBlock(RegistryObject<Block> blockRegistryObject) {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
         ModelFile soil0 = models().cubeAll(name, malumPath("block/" + name + "_0"));
-        ModelFile soil1 = models().cubeAll(name+"_1", malumPath("block/" + name + "_1"));
+        ModelFile soil1 = models().cubeAll(name + "_1", malumPath("block/" + name + "_1"));
 
         getVariantBuilder(blockRegistryObject.get()).partialState().modelForState()
                 .modelFile(soil0)
@@ -192,7 +292,7 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
     }
 
     public void blightedEarthBlock(RegistryObject<Block> blockRegistryObject) {
-        simpleBlock(blockRegistryObject.get(), models().cubeBottomTop("blighted_earth", malumPath("block/blighted_earth"),  new ResourceLocation("block/dirt"), malumPath("block/blighted_soil_0")));
+        simpleBlock(blockRegistryObject.get(), models().cubeBottomTop("blighted_earth", malumPath("block/blighted_earth"), new ResourceLocation("block/dirt"), malumPath("block/blighted_soil_0")));
     }
 
     public void etherBlock(RegistryObject<Block> blockRegistryObject) {
@@ -322,13 +422,6 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
         ModelFile leaves = models().withExistingParent(name, new ResourceLocation("block/leaves")).texture("all", malumPath("block/" + name));
         simpleBlock(blockRegistryObject.get(), leaves);
-    }
-
-    public void pillarCapBlock(RegistryObject<Block> blockRegistryObject) {
-        String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
-        String baseName = name.substring(0, name.length() - 11);
-        String pillarName = name.substring(0, name.length() - 4) + "_top";
-        directionalBlock(blockRegistryObject.get(), models().cubeBottomTop(name, malumPath("block/" + name), malumPath("block/" + pillarName), malumPath("block/smooth_" + baseName)));
     }
 
     public void brazierBlock(RegistryObject<Block> blockRegistryObject) {

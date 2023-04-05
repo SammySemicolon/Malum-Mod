@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/stairs",
-  "textures": {
-    "side": "malum:block/cracked_small_twisted_rock_bricks",
-    "bottom": "malum:block/cracked_small_twisted_rock_bricks",
-    "top": "malum:block/cracked_small_twisted_rock_bricks"
-  }
-}

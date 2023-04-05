@@ -1,9 +1,0 @@
-{
-  "parent": "malum:block/templates/template_ether_sconce",
-  "textures": {
-    "sconce": "malum:block/ether_sconce",
-    "overlay": "malum:block/ether_sconce_overlay",
-    "fire": "malum:block/ether_sconce_fire",
-    "particle": "malum:block/ether_sconce"
-  }
-}

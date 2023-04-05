@@ -1,9 +1,0 @@
-{
-  "parent": "malum:block/templates/template_totem_base",
-  "textures": {
-    "side": "malum:block/runewood_log",
-    "top": "malum:block/runewood_log_top",
-    "planks": "malum:block/runewood_planks",
-    "panel": "malum:block/runewood_panel"
-  }
-}

@@ -10,8 +10,9 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
-public class WeaversWorkbenchContainerScreen extends AbstractContainerScreen<WeaversWorkbenchContainer> {
+import javax.annotation.*;
 
+public class WeaversWorkbenchContainerScreen extends AbstractContainerScreen<WeaversWorkbenchContainer> {
     private static final ResourceLocation TEXTURE = MalumMod.malumPath("textures/gui/weavers_workbench.png");
 
     public WeaversWorkbenchContainerScreen(WeaversWorkbenchContainer pMenu, Inventory pPlayerInventory, Component pTitle) {
@@ -22,7 +23,12 @@ public class WeaversWorkbenchContainerScreen extends AbstractContainerScreen<Wea
         this.imageHeight = 166;
 
     }
-
+    @Override
+    public void render(@Nonnull PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
+        this.renderBackground(poseStack);
+        super.render(poseStack, mouseX, mouseY, partialTicks);
+        this.renderTooltip(poseStack, mouseX, mouseY);
+    }
     @Override
     protected void renderBg(PoseStack pPoseStack, float pPartialTick, int pMouseX, int pMouseY) {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
@@ -30,10 +36,5 @@ public class WeaversWorkbenchContainerScreen extends AbstractContainerScreen<Wea
         RenderSystem.setShaderTexture(0, TEXTURE);
         blit(pPoseStack, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight);
     }
-
-    @Override
-    protected void renderLabels(PoseStack pPoseStack, int pMouseX, int pMouseY) {
-    }
-
 }
 

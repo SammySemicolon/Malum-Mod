@@ -1,43 +1,35 @@
 package com.sammy.malum.data;
 
-import com.sammy.malum.MalumMod;
-import com.sammy.malum.common.block.ether.EtherBlock;
-import com.sammy.malum.common.block.ether.EtherBrazierBlock;
-import com.sammy.malum.common.block.ether.EtherSconceBlock;
-import com.sammy.malum.common.block.ether.EtherTorchBlock;
-import com.sammy.malum.common.item.NodeItem;
-import com.sammy.malum.common.item.cosmetic.PrideweaveItem;
-import com.sammy.malum.common.item.ether.AbstractEtherItem;
-import com.sammy.malum.common.item.impetus.CrackedImpetusItem;
-import com.sammy.malum.common.item.impetus.ImpetusItem;
-import com.sammy.malum.common.item.spirit.MalumSpiritItem;
-import com.sammy.malum.common.item.spirit.SoulStaveItem;
-import com.sammy.malum.common.item.tools.MalumScytheItem;
-import com.sammy.malum.core.systems.item.ItemSkin;
-import com.sammy.malum.registry.client.ItemSkinRegistry;
-import com.sammy.malum.registry.common.item.ItemRegistry;
-import net.minecraft.core.Registry;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.resources.ResourceLocation;
+import com.sammy.malum.*;
+import com.sammy.malum.common.item.*;
+import com.sammy.malum.common.item.cosmetic.*;
+import com.sammy.malum.common.item.ether.*;
+import com.sammy.malum.common.item.impetus.*;
+import com.sammy.malum.common.item.spirit.*;
+import com.sammy.malum.common.item.tools.*;
+import com.sammy.malum.core.systems.item.*;
+import com.sammy.malum.registry.client.*;
+import net.minecraft.core.*;
+import net.minecraft.data.*;
+import net.minecraft.resources.*;
 import net.minecraft.world.item.*;
-import net.minecraft.world.level.block.*;
-import net.minecraftforge.client.model.generators.ItemModelProvider;
-import net.minecraftforge.client.model.generators.ModelFile;
-import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.registries.RegistryObject;
-import team.lodestar.lodestone.helpers.DataHelper;
-import team.lodestar.lodestone.systems.item.LodestoneArmorItem;
-import team.lodestar.lodestone.systems.item.ModCombatItem;
-import team.lodestar.lodestone.systems.multiblock.MultiBlockItem;
+import net.minecraftforge.client.model.generators.*;
+import net.minecraftforge.common.data.*;
+import net.minecraftforge.registries.*;
+import team.lodestar.lodestone.helpers.*;
+import team.lodestar.lodestone.systems.datagen.*;
+import team.lodestar.lodestone.systems.datagen.itemsmith.*;
+import team.lodestar.lodestone.systems.datagen.providers.*;
+import team.lodestar.lodestone.systems.item.*;
 
 import java.util.*;
+import java.util.function.*;
 
-import static com.sammy.malum.MalumMod.malumPath;
-import static com.sammy.malum.registry.common.item.ItemRegistry.ITEMS;
-import static team.lodestar.lodestone.helpers.DataHelper.take;
-import static team.lodestar.lodestone.helpers.DataHelper.takeAll;
+import static com.sammy.malum.MalumMod.*;
+import static com.sammy.malum.registry.common.item.ItemRegistry.*;
+import static team.lodestar.lodestone.systems.datagen.ItemModelSmithTypes.GENERATED;
 
-public class MalumItemModels extends ItemModelProvider {
+public class MalumItemModels extends LodestoneItemModelProvider {
     public MalumItemModels(DataGenerator generator, ExistingFileHelper existingFileHelper) {
         super(generator, MalumMod.MALUM, existingFileHelper);
     }
@@ -45,57 +37,49 @@ public class MalumItemModels extends ItemModelProvider {
     @Override
     protected void registerModels() {
         ItemSkinRegistry.registerItemSkins(null);
-        Set<RegistryObject<Item>> items = new HashSet<>(ITEMS.getEntries());
+        Set<Supplier<Item>> items = new HashSet<>(ITEMS.getEntries());
 
-        blightedSpireItem(take(items, ItemRegistry.BLIGHTED_TUMOR));
-        generatedItem(take(items, ItemRegistry.NATURAL_QUARTZ));
-        cosmeticItem(take(items, ItemRegistry.ANCIENT_WEAVE), "weaves/");
-        cosmeticItem(take(items, ItemRegistry.DREADED_WEAVE), "weaves/");
-        cosmeticItem(take(items, ItemRegistry.CORNERED_WEAVE), "weaves/");
-        cosmeticItem(take(items, ItemRegistry.MECHANICAL_WEAVE_V1), "weaves/");
-        cosmeticItem(take(items, ItemRegistry.MECHANICAL_WEAVE_V2), "weaves/");
-        cosmeticItem(take(items, ItemRegistry.ESOTERIC_SPOOL), "");
-        generatedItem(take(items, ItemRegistry.BLAZING_SCONCE));
+        items.removeIf(i -> i.get() instanceof BlockItem);
+        items.removeIf(i -> i.get() instanceof MalumScytheItem);
 
-        handheldItem(take(items, ItemRegistry.SOUL_STAINED_STEEL_KNIFE));
+        AbstractItemModelSmith.ItemModelSmithData data = new AbstractItemModelSmith.ItemModelSmithData(this, items::remove);
 
-        takeAll(items, i -> i.get() instanceof PrideweaveItem).forEach(this::prideweaveItem);
+//        blightedSpireItem(take(items, ItemRegistry.BLIGHTED_TUMOR));
 
-        takeAll(items, i -> i.get() instanceof MalumScytheItem);
-        takeAll(items, i -> i.get() instanceof MalumSpiritItem).forEach(this::spiritSplinterItem);
-        takeAll(items, i -> i.get() instanceof NodeItem).forEach(this::nodeItem);
-        takeAll(items, i -> i.get() instanceof ImpetusItem || i.get() instanceof CrackedImpetusItem).forEach(this::impetusItem);
-        takeAll(items, i -> i.get() instanceof MultiBlockItem).forEach(this::multiBlockItem);
+//        takeAll(items, i -> i.get() instanceof MultiBlockItem).forEach(this::multiBlockItem);
 
-        Collection<RegistryObject<Item>> blockItems = new ArrayList<>(takeAll(items, i -> i.get() instanceof BlockItem));
-        takeAll(blockItems, i -> ((BlockItem) i.get()).getBlock() instanceof WallBlock).forEach(this::wallBlockItem);
-        takeAll(blockItems, i -> ((BlockItem) i.get()).getBlock() instanceof FenceBlock).forEach(this::fenceBlockItem);
-        takeAll(blockItems, i -> ((BlockItem) i.get()).getBlock() instanceof DoorBlock).forEach(this::generatedItem);
-        takeAll(blockItems, i -> ((BlockItem) i.get()).getBlock() instanceof TrapDoorBlock).forEach(this::trapdoorBlockItem);
-        takeAll(blockItems, i -> ((BlockItem) i.get()).getBlock() instanceof PressurePlateBlock).forEach(this::pressurePlateBlockItem);
-        takeAll(blockItems, i -> ((BlockItem) i.get()).getBlock() instanceof ButtonBlock).forEach(this::buttonBlockItem);
-        takeAll(blockItems, i -> ((BlockItem) i.get()).getBlock() instanceof BushBlock && !(((BlockItem) i.get()).getBlock() instanceof DoublePlantBlock)).forEach(this::blockGeneratedItem);
-        takeAll(blockItems, i -> ((BlockItem) i.get()).getBlock() instanceof DoublePlantBlock).forEach(this::generatedItem);
-        takeAll(blockItems, i -> ((BlockItem) i.get()).getBlock() instanceof EtherBrazierBlock).forEach(this::etherBrazierItem);
-        takeAll(blockItems, i -> ((BlockItem) i.get()).getBlock() instanceof LanternBlock).forEach(this::generatedItem);
-        takeAll(blockItems, i -> ((BlockItem) i.get()).getBlock() instanceof EtherSconceBlock).forEach(this::etherSconceItem);
-        takeAll(blockItems, i -> ((BlockItem) i.get()).getBlock() instanceof EtherTorchBlock).forEach(this::etherTorchItem);
-        takeAll(blockItems, i -> ((BlockItem) i.get()).getBlock() instanceof TorchBlock).forEach(this::generatedItem);
-        takeAll(blockItems, i -> ((BlockItem) i.get()).getBlock() instanceof EtherBlock).forEach(this::etherItem);
-        takeAll(blockItems, i -> i.get() instanceof SignItem).forEach(this::generatedItem);
-        blockItems.forEach(this::blockItem);
+        setTexturePath("cosmetic/weaves/pride");
+        ItemModelSmithTypes.GENERATED_ITEM.act(data, items.stream().filter(i -> i.get() instanceof PrideweaveItem).toList());
+        setTexturePath("cosmetic/weaves");
+        ItemModelSmithTypes.GENERATED_ITEM.act(data, items.stream().filter(i -> i.get() instanceof AbstractWeaveItem).toList());
 
-        takeAll(items, i -> i.get() instanceof DiggerItem).forEach(this::handheldItem);
-        takeAll(items, i -> i.get() instanceof SoulStaveItem).forEach(this::handheldItem);
-        takeAll(items, i -> i.get() instanceof ModCombatItem).forEach(this::handheldItem);
-        takeAll(items, i -> i.get() instanceof SwordItem).forEach(this::handheldItem);
-        takeAll(items, i -> i.get() instanceof BowItem).forEach(this::handheldItem);
-        takeAll(items, i -> i.get() instanceof LodestoneArmorItem).forEach(this::armorItem);
-        items.forEach(this::generatedItem);
+        setTexturePath("impetus/");
+        ItemModelSmithTypes.GENERATED_ITEM.act(data, items.stream().filter(i -> i.get() instanceof ImpetusItem || i.get() instanceof CrackedImpetusItem || i.get() instanceof NodeItem).toList());
+
+
+
+
+//        takeAll(blockItems, i -> ((BlockItem) i.get()).getBlock() instanceof EtherBrazierBlock).forEach(this::etherBrazierItem);
+//        takeAll(blockItems, i -> ((BlockItem) i.get()).getBlock() instanceof EtherSconceBlock).forEach(this::etherSconceItem);
+//        takeAll(blockItems, i -> ((BlockItem) i.get()).getBlock() instanceof EtherTorchBlock).forEach(this::etherTorchItem);
+//        takeAll(blockItems, i -> ((BlockItem) i.get()).getBlock() instanceof EtherBlock).forEach(this::etherItem);
+
+        setTexturePath("");
+        SPIRIT_ITEM.act(data, items.stream().filter(i -> i.get() instanceof MalumSpiritItem).toList());
+        ItemModelSmithTypes.HANDHELD_ITEM.act(data, items.stream().filter(i -> i.get() instanceof DiggerItem).toList());
+        ItemModelSmithTypes.HANDHELD_ITEM.act(data, items.stream().filter(i -> i.get() instanceof SwordItem).toList());
+        ItemModelSmithTypes.HANDHELD_ITEM.act(data, items.stream().filter(i -> i.get() instanceof ModCombatItem).toList());
+        ItemModelSmithTypes.HANDHELD_ITEM.act(data, SOULWOOD_STAVE, SOUL_STAINED_STEEL_KNIFE);
+
+        ItemModelSmithTypes.GENERATED_ITEM.act(data, NATURAL_QUARTZ);
+//
+//        takeAll(items, i -> i.get() instanceof LodestoneArmorItem).forEach(this::armorItem);
+       // ItemModelSmithTypes.GENERATED_ITEM.act(data, items);
     }
 
-    private static final ResourceLocation GENERATED = new ResourceLocation("item/generated");
-    private static final ResourceLocation HANDHELD = new ResourceLocation("item/handheld");
+    public static ItemModelSmith SPIRIT_ITEM = new ItemModelSmith((item, provider) -> {
+        provider.createGenericModel(item, GENERATED, provider.modLoc("item/spirit_shard"));
+    });
 
     private void blightedSpireItem(RegistryObject<Item> i) {
         String name = Registry.ITEM.getKey(i.get()).getPath();
@@ -123,7 +107,8 @@ public class MalumItemModels extends ItemModelProvider {
     }
 
     private void armorItem(RegistryObject<Item> i) {
-        generatedItem(i);
+        String name = getItemName(i.get());
+        createGenericModel(i.get(), GENERATED, getItemTexture(name));
         for (Map.Entry<String, ItemSkin> entry : ItemSkinRegistry.SKINS.entrySet()) {
             ItemSkin skin = entry.getValue();
             int value = skin.index;
@@ -193,54 +178,6 @@ public class MalumItemModels extends ItemModelProvider {
         }
         withExistingParent(name, GENERATED).texture("layer0", malumPath("item/ether"));
     }
-
-    private void handheldItem(RegistryObject<Item> i) {
-        String name = Registry.ITEM.getKey(i.get()).getPath();
-        withExistingParent(name, HANDHELD).texture("layer0", malumPath("item/" + name));
-    }
-
-    private void generatedItem(RegistryObject<Item> i) {
-        String name = Registry.ITEM.getKey(i.get()).getPath();
-        withExistingParent(name, GENERATED).texture("layer0", malumPath("item/" + name));
-    }
-
-    private void blockGeneratedItem(RegistryObject<Item> i) {
-        String name = Registry.ITEM.getKey(i.get()).getPath();
-        withExistingParent(name, GENERATED).texture("layer0", malumPath("block/" + name));
-    }
-
-    private void blockItem(RegistryObject<Item> i) {
-        String name = Registry.ITEM.getKey(i.get()).getPath();
-        getBuilder(name).parent(new ModelFile.UncheckedModelFile(malumPath("block/" + name)));
-    }
-
-    private void trapdoorBlockItem(RegistryObject<Item> i) {
-        String name = Registry.ITEM.getKey(i.get()).getPath();
-        getBuilder(name).parent(new ModelFile.UncheckedModelFile(malumPath("block/" + name + "_bottom")));
-    }
-
-    private void fenceBlockItem(RegistryObject<Item> i) {
-        String name = Registry.ITEM.getKey(i.get()).getPath();
-        String baseName = name.substring(0, name.length() - 6);
-        fenceInventory(name, malumPath("block/" + baseName));
-    }
-
-    private void wallBlockItem(RegistryObject<Item> i) {
-        String name = Registry.ITEM.getKey(i.get()).getPath();
-        String baseName = name.substring(0, name.length() - 5);
-        wallInventory(name, malumPath("block/" + baseName));
-    }
-
-    private void pressurePlateBlockItem(RegistryObject<Item> i) {
-        String name = Registry.ITEM.getKey(i.get()).getPath();
-        getBuilder(name).parent(new ModelFile.UncheckedModelFile(malumPath("block/" + name + "_up")));
-    }
-
-    private void buttonBlockItem(RegistryObject<Item> i) {
-        String name = Registry.ITEM.getKey(i.get()).getPath();
-        getBuilder(name).parent(new ModelFile.UncheckedModelFile(malumPath("block/" + name + "_inventory")));
-    }
-
     @Override
     public String getName() {
         return "Malum Item Models";

@@ -1,9 +1,6 @@
 {
   "variants": {
-    "waterlogged=false": {
-      "model": "malum:block/tainted_rock_item_pedestal"
-    },
-    "waterlogged=true": {
+    "": {
       "model": "malum:block/tainted_rock_item_pedestal"
     }
   }

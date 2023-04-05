@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/outer_stairs",
-  "textures": {
-    "side": "malum:block/soulwood_panel",
-    "bottom": "malum:block/soulwood_panel",
-    "top": "malum:block/soulwood_panel"
-  }
-}

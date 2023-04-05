@@ -81,8 +81,9 @@ public class MalumMod {
         public static void gatherData(GatherDataEvent event) {
             DataGenerator generator = event.getGenerator();
             BlockTagsProvider provider = new MalumBlockTags(generator, event.getExistingFileHelper());
-            generator.addProvider(new MalumBlockStates(generator, event.getExistingFileHelper()));
-            generator.addProvider(new MalumItemModels(generator, event.getExistingFileHelper()));
+            MalumItemModels itemProvider = new MalumItemModels(generator, event.getExistingFileHelper());
+            generator.addProvider(itemProvider);
+            generator.addProvider(new MalumBlockStates(generator, event.getExistingFileHelper(), itemProvider));
             generator.addProvider(new MalumLang(generator));
             generator.addProvider(provider);
             generator.addProvider(new MalumBlockLootTables(generator));

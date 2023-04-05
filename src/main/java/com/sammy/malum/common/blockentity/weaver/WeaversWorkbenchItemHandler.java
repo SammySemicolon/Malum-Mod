@@ -1,40 +1,28 @@
 package com.sammy.malum.common.blockentity.weaver;
 
-import net.minecraft.core.NonNullList;
-import net.minecraft.world.SimpleContainer;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.items.ItemStackHandler;
-import org.jetbrains.annotations.NotNull;
+import net.minecraft.world.item.*;
+import net.minecraftforge.items.*;
+import org.jetbrains.annotations.*;
 
 public class WeaversWorkbenchItemHandler extends ItemStackHandler {
 
-    private final WeaversWorkbenchBlockEntity entity;
-    private final int outputs;
+    public final WeaversWorkbenchBlockEntity entity;
+    public final int outputs;
+    public boolean isCrafting;
 
-    public WeaversWorkbenchItemHandler(BlockEntity blockEntity, int outputs) {
-        this.entity = (WeaversWorkbenchBlockEntity) blockEntity;
-        this.outputs = outputs;
-    }
-
-    public WeaversWorkbenchItemHandler(int size, int outputs, BlockEntity blockEntity) {
+    public WeaversWorkbenchItemHandler(int size, int outputs, WeaversWorkbenchBlockEntity blockEntity) {
         super(size + outputs);
-        this.entity = (WeaversWorkbenchBlockEntity) blockEntity;
-        this.outputs = outputs;
-    }
-
-    public WeaversWorkbenchItemHandler(NonNullList<ItemStack> stacks, int outputs, BlockEntity blockEntity) {
-        super(stacks);
-        this.entity = (WeaversWorkbenchBlockEntity) blockEntity;
+        this.entity =  blockEntity;
         this.outputs = outputs;
     }
 
     @Override
-    protected void onContentsChanged(int slot) {
-        this.entity.setChanged();
-        if(slot < 2){
-            this.entity.tryCraft();
+    public void onContentsChanged(int slot) {
+        if (!isCrafting) {
+            this.entity.setChanged();
+            if (slot < 2) {
+                this.entity.tryCraft();
+            }
         }
     }
 
@@ -42,10 +30,11 @@ public class WeaversWorkbenchItemHandler extends ItemStackHandler {
     public boolean isItemValid(int slot, @NotNull ItemStack stack) {
         return true;
     }
+
     @NotNull
     @Override
     public ItemStack insertItem(int slot, @NotNull ItemStack stack, boolean simulate) {
-        if(slot >= this.getSlots() - this.outputs){
+        if (slot >= this.getSlots() - this.outputs) {
             return stack;
         }
         //todo: check if item allowed

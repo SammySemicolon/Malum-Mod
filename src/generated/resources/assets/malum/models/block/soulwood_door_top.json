@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/door_top",
-  "textures": {
-    "bottom": "malum:block/soulwood_door_bottom",
-    "top": "malum:block/soulwood_door_top"
-  }
-}
