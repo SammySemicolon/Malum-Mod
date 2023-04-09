@@ -1,0 +1,15 @@
+{
+  "parent": "item/handheld",
+  "loader": "forge:separate-perspective",
+  "base": {
+    "parent": "malum:item/night_terror_handheld"
+  },
+  "perspectives": {
+    "gui": {
+      "parent": "malum:item/night_terror_gui"
+    },
+    "fixed": {
+      "parent": "malum:item/night_terror_gui"
+    }
+  }
+}

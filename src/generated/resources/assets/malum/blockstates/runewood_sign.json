@@ -1,0 +1,100 @@
+{
+  "variants": {
+    "rotation=0,waterlogged=false": {
+      "model": "malum:block/runewood_sign"
+    },
+    "rotation=1,waterlogged=false": {
+      "model": "malum:block/runewood_sign"
+    },
+    "rotation=2,waterlogged=false": {
+      "model": "malum:block/runewood_sign"
+    },
+    "rotation=3,waterlogged=false": {
+      "model": "malum:block/runewood_sign"
+    },
+    "rotation=4,waterlogged=false": {
+      "model": "malum:block/runewood_sign"
+    },
+    "rotation=5,waterlogged=false": {
+      "model": "malum:block/runewood_sign"
+    },
+    "rotation=6,waterlogged=false": {
+      "model": "malum:block/runewood_sign"
+    },
+    "rotation=7,waterlogged=false": {
+      "model": "malum:block/runewood_sign"
+    },
+    "rotation=8,waterlogged=false": {
+      "model": "malum:block/runewood_sign"
+    },
+    "rotation=9,waterlogged=false": {
+      "model": "malum:block/runewood_sign"
+    },
+    "rotation=10,waterlogged=false": {
+      "model": "malum:block/runewood_sign"
+    },
+    "rotation=11,waterlogged=false": {
+      "model": "malum:block/runewood_sign"
+    },
+    "rotation=12,waterlogged=false": {
+      "model": "malum:block/runewood_sign"
+    },
+    "rotation=13,waterlogged=false": {
+      "model": "malum:block/runewood_sign"
+    },
+    "rotation=14,waterlogged=false": {
+      "model": "malum:block/runewood_sign"
+    },
+    "rotation=15,waterlogged=false": {
+      "model": "malum:block/runewood_sign"
+    },
+    "rotation=0,waterlogged=true": {
+      "model": "malum:block/runewood_sign"
+    },
+    "rotation=1,waterlogged=true": {
+      "model": "malum:block/runewood_sign"
+    },
+    "rotation=2,waterlogged=true": {
+      "model": "malum:block/runewood_sign"
+    },
+    "rotation=3,waterlogged=true": {
+      "model": "malum:block/runewood_sign"
+    },
+    "rotation=4,waterlogged=true": {
+      "model": "malum:block/runewood_sign"
+    },
+    "rotation=5,waterlogged=true": {
+      "model": "malum:block/runewood_sign"
+    },
+    "rotation=6,waterlogged=true": {
+      "model": "malum:block/runewood_sign"
+    },
+    "rotation=7,waterlogged=true": {
+      "model": "malum:block/runewood_sign"
+    },
+    "rotation=8,waterlogged=true": {
+      "model": "malum:block/runewood_sign"
+    },
+    "rotation=9,waterlogged=true": {
+      "model": "malum:block/runewood_sign"
+    },
+    "rotation=10,waterlogged=true": {
+      "model": "malum:block/runewood_sign"
+    },
+    "rotation=11,waterlogged=true": {
+      "model": "malum:block/runewood_sign"
+    },
+    "rotation=12,waterlogged=true": {
+      "model": "malum:block/runewood_sign"
+    },
+    "rotation=13,waterlogged=true": {
+      "model": "malum:block/runewood_sign"
+    },
+    "rotation=14,waterlogged=true": {
+      "model": "malum:block/runewood_sign"
+    },
+    "rotation=15,waterlogged=true": {
+      "model": "malum:block/runewood_sign"
+    }
+  }
+}

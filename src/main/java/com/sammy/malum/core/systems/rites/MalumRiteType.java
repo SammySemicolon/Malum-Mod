@@ -47,7 +47,7 @@ public abstract class MalumRiteType {
     }
 
     public ResourceLocation getIcon() {
-        return MalumMod.malumPath("textures/spirit/rite/" + identifier.replace("greater_", "").replace("_rite", "") + ".png");
+        return MalumMod.malumPath("textures/vfx/rite/" + identifier.replace("greater_", "").replace("_rite", "") + ".png");
     }
 
     public MalumSpiritType getEffectSpirit() {

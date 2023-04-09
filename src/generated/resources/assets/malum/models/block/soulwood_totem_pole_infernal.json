@@ -1,0 +1,8 @@
+{
+  "parent": "malum:block/templates/template_totem_pole",
+  "textures": {
+    "side": "malum:block/soulwood/soulwood_log",
+    "top": "malum:block/soulwood/soulwood_log_top",
+    "front": "malum:block/soulwood/totem_poles/infernal_soulwood_cutout"
+  }
+}

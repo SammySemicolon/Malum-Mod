@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/button",
+  "textures": {
+    "texture": "malum:block/arcane_rock/twisted/twisted_rock"
+  }
+}

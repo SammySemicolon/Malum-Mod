@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "malum:block/storage_blocks/block_of_blazing_quartz"
+  }
+}

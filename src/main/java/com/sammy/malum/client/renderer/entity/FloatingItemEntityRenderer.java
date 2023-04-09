@@ -133,8 +133,6 @@ public class FloatingItemEntityRenderer extends EntityRenderer<FloatingItemEntit
         poseStack.pushPose();
         poseStack.mulPose(Minecraft.getInstance().getEntityRenderDispatcher().cameraOrientation());
         poseStack.mulPose(Vector3f.YP.rotationDegrees(180f));
-
-        builder.setOffset(0, 0, 0);
         for (int i = 0; i < 3; i++) {
             float size = (0.125f + i * 0.13f) * multiplier;
             float alpha = (0.75f - i * 0.3f);

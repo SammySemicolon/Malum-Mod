@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/leaves",
+  "textures": {
+    "all": "malum:block/runewood/runewood_leaves"
+  }
+}

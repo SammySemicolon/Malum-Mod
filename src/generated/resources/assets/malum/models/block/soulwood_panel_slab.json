@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "side": "malum:block/soulwood/soulwood_panel",
+    "bottom": "malum:block/soulwood/soulwood_panel",
+    "top": "malum:block/soulwood/soulwood_panel"
+  }
+}

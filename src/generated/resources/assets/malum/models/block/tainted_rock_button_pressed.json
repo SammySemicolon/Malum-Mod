@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/button_pressed",
+  "textures": {
+    "texture": "malum:block/arcane_rock/tainted/tainted_rock"
+  }
+}

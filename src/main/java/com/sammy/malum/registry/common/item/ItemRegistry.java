@@ -69,7 +69,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.sammy.malum.MalumMod.MALUM;
-import static com.sammy.malum.registry.common.item.ItemTiers.ItemTierEnum.SOUL_STAINED_STEEL;
+import static com.sammy.malum.registry.common.item.ItemTiers.ItemTierEnum.*;
 import static net.minecraft.world.item.Items.GLASS_BOTTLE;
 import static team.lodestar.lodestone.helpers.ColorHelper.brighter;
 import static team.lodestar.lodestone.helpers.ColorHelper.darker;
@@ -79,31 +79,31 @@ public class ItemRegistry {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MALUM);
 
     public static Item.Properties DEFAULT_PROPERTIES() {
-        return new Item.Properties().tab(MalumCreativeTab.INSTANCE);
+        return new Item.Properties().tab(CreativeTabRegistry.CONTENT);
     }
     
     public static Item.Properties BUILDING_PROPERTIES() {
-        return new Item.Properties().tab(MalumBuildingTab.INSTANCE);
+        return new Item.Properties().tab(CreativeTabRegistry.BUILDING);
     }
 
     public static Item.Properties NATURE_PROPERTIES() {
-        return new Item.Properties().tab(MalumNatureTab.INSTANCE);
+        return new Item.Properties().tab(CreativeTabRegistry.NATURE);
     }
 
     public static Item.Properties GEAR_PROPERTIES() {
-        return new Item.Properties().tab(MalumCreativeTab.INSTANCE).stacksTo(1);
+        return new Item.Properties().tab(CreativeTabRegistry.CONTENT).stacksTo(1);
     }
 
     public static Item.Properties IMPETUS_PROPERTIES() {
-        return new Item.Properties().tab(MalumImpetusTab.INSTANCE).stacksTo(1);
-    }
-
-    public static Item.Properties COSMETIC_PROPERTIES() {
-        return new Item.Properties().tab(MalumCosmeticsTab.INSTANCE);
+        return new Item.Properties().tab(CreativeTabRegistry.METALLURGY).stacksTo(1);
     }
 
     public static Item.Properties NODE_PROPERTIES() {
-        return new Item.Properties().tab(MalumImpetusTab.INSTANCE);
+        return new Item.Properties().tab(CreativeTabRegistry.METALLURGY);
+    }
+
+    public static Item.Properties COSMETIC_PROPERTIES() {
+        return new Item.Properties().tab(CreativeTabRegistry.COSMETIC);
     }
 
     public static Item.Properties HIDDEN_PROPERTIES() {
@@ -504,6 +504,8 @@ public class ItemRegistry {
 
     public static final RegistryObject<Item> TYRVING = ITEMS.register("tyrving", () -> new TyrvingItem(ItemTiers.ItemTierEnum.TYRVING, 0, -0.3f, GEAR_PROPERTIES()));
 
+    public static final RegistryObject<Item> NIGHT_TERROR = ITEMS.register("night_terror", () -> new NightTerrorScytheItem(VOID, -8f, -0.1f, 8, GEAR_PROPERTIES()));
+
     public static final RegistryObject<Item> ETHERIC_NITRATE = ITEMS.register("etheric_nitrate", () -> new EthericNitrateItem(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> VIVID_NITRATE = ITEMS.register("vivid_nitrate", () -> new VividNitrateItem(DEFAULT_PROPERTIES()));
 
@@ -565,10 +567,6 @@ public class ItemRegistry {
     public static final RegistryObject<Item> CREATIVE_SCYTHE = ITEMS.register("creative_scythe", () -> new MagicScytheItem(Tiers.IRON, 9993, 9.1f, 999f, HIDDEN_PROPERTIES().durability(-1)));
     public static final RegistryObject<Item> TOKEN_OF_GRATITUDE = ITEMS.register("token_of_gratitude", () -> new CurioTokenOfGratitude(HIDDEN_PROPERTIES()));
     public static final RegistryObject<Item> PRIMORDIAL_SOUP = ITEMS.register("primordial_soup", () -> new BlockItem(BlockRegistry.PRIMORDIAL_SOUP.get(), HIDDEN_PROPERTIES()));
-
-    public static final RegistryObject<Item> WEEPING_WELL_CORNER = ITEMS.register("weeping_well_corner", () -> new BlockItem(BlockRegistry.WEEPING_WELL_CORNER.get(), HIDDEN_PROPERTIES()));
-    public static final RegistryObject<Item> WEEPING_WELL_SIDE = ITEMS.register("weeping_well_side", () -> new BlockItem(BlockRegistry.WEEPING_WELL_SIDE.get(), HIDDEN_PROPERTIES()));
-    public static final RegistryObject<Item> WEEPING_WELL_CORE = ITEMS.register("weeping_well_core", () -> new BlockItem(BlockRegistry.WEEPING_WELL_CORE.get(), HIDDEN_PROPERTIES()));
     //endregion
 
     @Mod.EventBusSubscriber(modid = MalumMod.MALUM, bus = Mod.EventBusSubscriber.Bus.MOD)

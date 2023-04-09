@@ -1,49 +1,36 @@
 package com.sammy.malum.common.entity.boomerang;
 
-import com.sammy.malum.common.item.tools.MalumScytheItem;
-import com.sammy.malum.registry.common.DamageSourceRegistry;
-import com.sammy.malum.registry.common.SoundRegistry;
-import com.sammy.malum.registry.common.entity.EntityRegistry;
-import com.sammy.malum.registry.common.item.EnchantmentRegistry;
-import com.sammy.malum.registry.common.item.ItemRegistry;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.Mth;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraft.world.item.enchantment.Enchantments;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.EntityHitResult;
-import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.items.ItemHandlerHelper;
-import net.minecraftforge.network.NetworkHooks;
-import team.lodestar.lodestone.helpers.ItemHelper;
+import com.sammy.malum.common.item.tools.*;
+import com.sammy.malum.registry.common.*;
+import com.sammy.malum.registry.common.entity.*;
+import com.sammy.malum.registry.common.item.*;
+import net.minecraft.core.particles.*;
+import net.minecraft.nbt.*;
+import net.minecraft.network.protocol.*;
+import net.minecraft.sounds.*;
+import net.minecraft.util.*;
+import net.minecraft.world.damagesource.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.item.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.entity.projectile.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.item.enchantment.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.phys.*;
+import net.minecraftforge.items.*;
+import net.minecraftforge.network.*;
+import team.lodestar.lodestone.helpers.*;
 
-import java.util.Random;
-import java.util.UUID;
+import java.util.*;
 
 public class ScytheBoomerangEntity extends ThrowableItemProjectile {
-
-    protected UUID ownerUUID;
-    protected Player owner;
 
     protected int slot;
     protected float damage;
     protected float magicDamage;
     public int age;
-    protected int timeUntilReturn = 8;
+    protected int returnTimer = 8;
 
     public int enemiesHit;
 
@@ -57,19 +44,16 @@ public class ScytheBoomerangEntity extends ThrowableItemProjectile {
         noPhysics = false;
     }
 
-    public void setData(float damage, float magicDamage, UUID ownerUUID, int slot) {
+    public void setData(Entity owner, float damage, float magicDamage, int slot) {
+        setOwner(owner);
         this.damage = damage;
         this.magicDamage = magicDamage;
-        this.ownerUUID = ownerUUID;
         this.slot = slot;
     }
 
     @Override
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
-        if (ownerUUID != null) {
-            compound.putUUID("ownerUUID", ownerUUID);
-        }
         if (slot != 0) {
             compound.putInt("slot", slot);
         }
@@ -82,8 +66,8 @@ public class ScytheBoomerangEntity extends ThrowableItemProjectile {
         if (age != 0) {
             compound.putInt("age", age);
         }
-        if (timeUntilReturn != 0) {
-            compound.putInt("timeUntilReturn", timeUntilReturn);
+        if (returnTimer != 0) {
+            compound.putInt("returnTimer", returnTimer);
         }
         if (enemiesHit != 0) {
             compound.putInt("enemiesHit", enemiesHit);
@@ -93,56 +77,53 @@ public class ScytheBoomerangEntity extends ThrowableItemProjectile {
     @Override
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
-        if (compound.contains("ownerUUID")) {
-            ownerUUID = compound.getUUID("ownerUUID");
-            owner = getScytheOwner();
-        }
         slot = compound.getInt("slot");
         damage = compound.getFloat("damage");
         magicDamage = compound.getFloat("magicDamage");
         age = compound.getInt("age");
-        timeUntilReturn = compound.getInt("timeUntilReturn");
+        returnTimer = compound.getInt("returnTimer");
         enemiesHit = compound.getInt("enemiesHit");
     }
 
     @Override
     protected void onHitBlock(BlockHitResult result) {
         super.onHitBlock(result);
-        timeUntilReturn = 0;
+        returnTimer = 0;
     }
 
     @Override
     protected boolean canHitEntity(Entity pTarget) {
-        return !pTarget.equals(getScytheOwner());
+        return !pTarget.equals(getOwner());
     }
 
     @Override
     protected void onHitEntity(EntityHitResult result) {
-        Player scytheOwner = getScytheOwner();
-        Entity target = result.getEntity();
-        if (level.isClientSide) {
-            return;
-        }
-        DamageSource source = DamageSource.indirectMobAttack(this, scytheOwner);
-        boolean success = target.hurt(source, damage);
-        if (success && target instanceof LivingEntity livingentity) {
-            ItemStack scythe = getItem();
-            scythe.hurtAndBreak(1, scytheOwner, (e) -> remove(RemovalReason.KILLED));
-            ItemHelper.applyEnchantments(owner, livingentity, scythe);
-            int i = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.FIRE_ASPECT, scythe);
-            if (i > 0) {
-                livingentity.setSecondsOnFire(i * 4);
+        if (getOwner() instanceof LivingEntity scytheOwner) {
+            Entity target = result.getEntity();
+            if (level.isClientSide) {
+                return;
             }
-            if (magicDamage > 0) {
-                if (livingentity.isAlive()) {
-                    livingentity.invulnerableTime = 0;
-                    livingentity.hurt(DamageSourceRegistry.causeVoodooDamage(scytheOwner), magicDamage);
+            DamageSource source = DamageSource.indirectMobAttack(this, scytheOwner);
+            boolean success = target.hurt(source, damage);
+            if (success && target instanceof LivingEntity livingentity) {
+                ItemStack scythe = getItem();
+                scythe.hurtAndBreak(1, scytheOwner, (e) -> remove(RemovalReason.KILLED));
+                ItemHelper.applyEnchantments(scytheOwner, livingentity, scythe);
+                int i = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.FIRE_ASPECT, scythe);
+                if (i > 0) {
+                    livingentity.setSecondsOnFire(i * 4);
                 }
-            }
+                if (magicDamage > 0) {
+                    if (livingentity.isAlive()) {
+                        livingentity.invulnerableTime = 0;
+                        livingentity.hurt(DamageSourceRegistry.causeVoodooDamage(scytheOwner), magicDamage);
+                    }
+                }
 
+            }
+            returnTimer += 4;
+            target.level.playSound(null, target.getX(), target.getY(), target.getZ(), SoundRegistry.SCYTHE_CUT.get(), target.getSoundSource(), 1.0F, 0.9f + target.level.random.nextFloat() * 0.2f);
         }
-        timeUntilReturn += 4;
-        target.level.playSound(null, target.getX(), target.getY(), target.getZ(), SoundRegistry.SCYTHE_CUT.get(), target.getSoundSource(), 1.0F, 0.9f + target.level.random.nextFloat() * 0.2f);
         super.onHitEntity(result);
     }
 
@@ -166,57 +147,50 @@ public class ScytheBoomerangEntity extends ThrowableItemProjectile {
                 }
             }
         } else {
-            Player playerEntity = getScytheOwner();
-            if (playerEntity == null || !playerEntity.isAlive()) {
+            Entity entity = getOwner();
+            if (entity == null || !entity.isAlive()) {
                 ItemEntity itemEntity = new ItemEntity(level, getX(), getY() + 0.5, getZ(), scythe);
                 itemEntity.setPickUpDelay(40);
                 level.addFreshEntity(itemEntity);
                 remove(RemovalReason.DISCARDED);
                 return;
             }
-            if (age % 3 == 0) {
-                level.playSound(null, blockPosition(), SoundEvents.PLAYER_ATTACK_SWEEP, SoundSource.PLAYERS, 0.75f, 1.25f);
-            }
-            if (this.xRotO == 0.0F && this.yRotO == 0.0F) {
-                Vec3 motion = getDeltaMovement();
-                setYRot((float) (Mth.atan2(motion.x, motion.z) * (double) (180F / (float) Math.PI)));
-                yRotO = getYRot();
-                xRotO = getXRot();
-            }
-            if (timeUntilReturn <= 0) {
-                noPhysics = true;
-                Vec3 ownerPos = playerEntity.position().add(0, 1, 0);
-                Vec3 motion = ownerPos.subtract(position());
-                setDeltaMovement(motion.normalize().scale(0.75f));
-                float distance = distanceTo(playerEntity);
+            if (entity instanceof LivingEntity scytheOwner) {
+                if (age % 3 == 0) {
+                    level.playSound(null, blockPosition(), SoundEvents.PLAYER_ATTACK_SWEEP, SoundSource.PLAYERS, 0.75f, 1.25f);
+                }
+                if (this.xRotO == 0.0F && this.yRotO == 0.0F) {
+                    Vec3 motion = getDeltaMovement();
+                    setYRot((float) (Mth.atan2(motion.x, motion.z) * (double) (180F / (float) Math.PI)));
+                    yRotO = getYRot();
+                    xRotO = getXRot();
+                }
+                if (returnTimer <= 0) {
+                    noPhysics = true;
+                    Vec3 ownerPos = scytheOwner.position().add(0, 1, 0);
+                    Vec3 motion = ownerPos.subtract(position());
+                    setDeltaMovement(motion.normalize().scale(0.75f));
+                    float distance = distanceTo(scytheOwner);
 
-                if (distance < 3f) {
-                    if (isAlive()) {
-                        ItemHandlerHelper.giveItemToPlayer(playerEntity, scythe, slot);
-                        if (!playerEntity.isCreative()) {
-                            int enchantmentLevel = EnchantmentHelper.getItemEnchantmentLevel(EnchantmentRegistry.REBOUND.get(), scythe);
-                            if (enchantmentLevel < 4) {
-                                int cooldown = 100 - 25 * (enchantmentLevel - 1);
-                                if (cooldown > 0) {
-                                    playerEntity.getCooldowns().addCooldown(scythe.getItem(), cooldown);
+                    if (isAlive() && distance < 3f) {
+                        if (scytheOwner instanceof Player player) {
+                            ItemHandlerHelper.giveItemToPlayer(player, scythe, slot);
+                            if (!player.isCreative()) {
+                                int enchantmentLevel = EnchantmentHelper.getItemEnchantmentLevel(EnchantmentRegistry.REBOUND.get(), scythe);
+                                if (enchantmentLevel < 4) {
+                                    int cooldown = 100 - 25 * (enchantmentLevel - 1);
+                                    if (cooldown > 0) {
+                                        player.getCooldowns().addCooldown(scythe.getItem(), cooldown);
+                                    }
                                 }
                             }
+                            remove(RemovalReason.DISCARDED);
                         }
-                        remove(RemovalReason.DISCARDED);
                     }
                 }
-            }
-            timeUntilReturn--;
-        }
-    }
-
-    public Player getScytheOwner() {
-        if (owner == null) {
-            if (!level.isClientSide) {
-                owner = (Player) ((ServerLevel) level).getEntity(ownerUUID);
+                returnTimer--;
             }
         }
-        return owner;
     }
 
     public void shootFromRotation(Entity shooter, float rotationPitch, float rotationYaw, float pitchOffset, float velocity, float innacuracy) {

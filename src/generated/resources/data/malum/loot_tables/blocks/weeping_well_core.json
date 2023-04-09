@@ -7,7 +7,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "malum:weeping_well_core"
+          "name": "minecraft:air"
         }
       ],
       "conditions": [

@@ -48,13 +48,14 @@ public class MalumItemModels extends LodestoneItemModelProvider {
 
 //        takeAll(items, i -> i.get() instanceof MultiBlockItem).forEach(this::multiBlockItem);
 
-        setTexturePath("cosmetic/weaves/pride");
+        setTexturePath("cosmetic/weaves/pride/");
         ItemModelSmithTypes.GENERATED_ITEM.act(data, items.stream().filter(i -> i.get() instanceof PrideweaveItem).toList());
-        setTexturePath("cosmetic/weaves");
+        setTexturePath("cosmetic/weaves/");
         ItemModelSmithTypes.GENERATED_ITEM.act(data, items.stream().filter(i -> i.get() instanceof AbstractWeaveItem).toList());
 
         setTexturePath("impetus/");
-        ItemModelSmithTypes.GENERATED_ITEM.act(data, items.stream().filter(i -> i.get() instanceof ImpetusItem || i.get() instanceof CrackedImpetusItem || i.get() instanceof NodeItem).toList());
+        IMPETUS_ITEM.act(data, items.stream().filter(i -> i.get() instanceof ImpetusItem || i.get() instanceof CrackedImpetusItem).toList());
+        ItemModelSmithTypes.GENERATED_ITEM.act(data, items.stream().filter(i -> i.get() instanceof NodeItem).toList());
 
 
 
@@ -71,11 +72,20 @@ public class MalumItemModels extends LodestoneItemModelProvider {
         ItemModelSmithTypes.HANDHELD_ITEM.act(data, items.stream().filter(i -> i.get() instanceof ModCombatItem).toList());
         ItemModelSmithTypes.HANDHELD_ITEM.act(data, SOULWOOD_STAVE, SOUL_STAINED_STEEL_KNIFE);
 
-        ItemModelSmithTypes.GENERATED_ITEM.act(data, NATURAL_QUARTZ);
-//
+
+        ItemModelSmithTypes.GENERATED_ITEM.act(data, items);
+
 //        takeAll(items, i -> i.get() instanceof LodestoneArmorItem).forEach(this::armorItem);
-       // ItemModelSmithTypes.GENERATED_ITEM.act(data, items);
+        // ItemModelSmithTypes.GENERATED_ITEM.act(data, items);
     }
+
+    public static ItemModelSmith IMPETUS_ITEM = new ItemModelSmith((item, provider) -> {
+        String name = provider.getItemName(item);
+        List<String> split = DataHelper.reverseOrder(new ArrayList<>(), Arrays.asList(name.split("_")));
+        split.remove(0);
+        String alteredName = String.join("_", split);
+        provider.createGenericModel(item, GENERATED, provider.getItemTexture(alteredName));
+    });
 
     public static ItemModelSmith SPIRIT_ITEM = new ItemModelSmith((item, provider) -> {
         provider.createGenericModel(item, GENERATED, provider.modLoc("item/spirit_shard"));
@@ -91,21 +101,6 @@ public class MalumItemModels extends LodestoneItemModelProvider {
         getBuilder(name).parent(new ModelFile.UncheckedModelFile(malumPath("item/" + name + "_item")));
     }
 
-    private void nodeItem(RegistryObject<Item> i) {
-        String name = Registry.ITEM.getKey(i.get()).getPath();
-        withExistingParent(name, GENERATED).texture("layer0", malumPath("item/impetus/" + name));
-    }
-
-    private void prideweaveItem(RegistryObject<Item> i) {
-        String name = Registry.ITEM.getKey(i.get()).getPath();
-        withExistingParent(name, GENERATED).texture("layer0", malumPath("item/cosmetic/weaves/pride/" + "prideweave_" + name.replace("_prideweave", "")));
-    }
-
-    private void cosmeticItem(RegistryObject<Item> i, String extraPath) {
-        String name = Registry.ITEM.getKey(i.get()).getPath();
-        withExistingParent(name, GENERATED).texture("layer0", malumPath("item/cosmetic/" + extraPath + name));
-    }
-
     private void armorItem(RegistryObject<Item> i) {
         String name = getItemName(i.get());
         createGenericModel(i.get(), GENERATED, getItemTexture(name));
@@ -117,25 +112,12 @@ public class MalumItemModels extends LodestoneItemModelProvider {
                 continue;
             }
             String itemSuffix = datagenData.getSuffix((LodestoneArmorItem) i.get());
-            ResourceLocation itemTexturePath = new ResourceLocation(datagenData.itemTexturePrefix+itemSuffix);
+            ResourceLocation itemTexturePath = new ResourceLocation(datagenData.itemTexturePrefix + itemSuffix);
             getBuilder(i.get().getRegistryName().getPath()).override()
                     .predicate(new ResourceLocation(ItemSkin.MALUM_SKIN_TAG), value)
                     .model(withExistingParent(entry.getKey() + "_" + itemSuffix, GENERATED).texture("layer0", itemTexturePath))
                     .end();
         }
-
-    }
-    private void impetusItem(RegistryObject<Item> i) {
-        String name = Registry.ITEM.getKey(i.get()).getPath();
-        List<String> split = DataHelper.reverseOrder(new ArrayList<>(), Arrays.asList(name.split("_")));
-        split.remove(0);
-        String alteredName = String.join("_", split);
-        withExistingParent(name, GENERATED).texture("layer0", malumPath("item/impetus/" + alteredName));
-    }
-
-    private void spiritSplinterItem(RegistryObject<Item> i) {
-        String name = Registry.ITEM.getKey(i.get()).getPath();
-        withExistingParent(name, GENERATED).texture("layer0", malumPath("item/spirit_shard"));
     }
 
     private void etherBrazierItem(RegistryObject<Item> i) {

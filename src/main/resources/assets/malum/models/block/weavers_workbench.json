@@ -4,7 +4,7 @@
 	"texture_size": [64, 64],
 	"textures": {
 		"0": "malum:block/weavers_workbench",
-		"particle": "malum:block/runewood_planks"
+		"particle": "malum:block/runewood/runewood_planks"
 	},
 	"elements": [
 		{

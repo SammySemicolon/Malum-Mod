@@ -1,0 +1,8 @@
+{
+  "parent": "malum:block/templates/template_glowing_block",
+  "textures": {
+    "all": "malum:block/ores/brilliant_deepslate",
+    "glow": "malum:block/ores/brilliant_deepslate_glow",
+    "particle": "malum:block/ores/brilliant_deepslate"
+  }
+}

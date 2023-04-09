@@ -84,7 +84,7 @@ public class MalumSpiritType {
     }
 
     public ResourceLocation getOverlayTexture() {
-        return MalumMod.malumPath("spirit/" + identifier + "_glow");
+        return MalumMod.malumPath("vfx/totem_poles/" + identifier + "_glow");
     }
 
     public BlockState getBlockState(boolean isCorrupt, BlockHitResult hit) {

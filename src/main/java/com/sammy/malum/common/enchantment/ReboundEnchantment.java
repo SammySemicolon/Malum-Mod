@@ -37,7 +37,7 @@ public class ReboundEnchantment extends Enchantment {
 
                     int slot = event.getHand() == InteractionHand.OFF_HAND ? player.getInventory().getContainerSize() - 1 : player.getInventory().selected;
                     ScytheBoomerangEntity entity = new ScytheBoomerangEntity(level, player.position().x, player.position().y + player.getBbHeight() / 2f, player.position().z);
-                    entity.setData(baseDamage, magicDamage, player.getUUID(), slot);
+                    entity.setData(player, baseDamage, magicDamage, slot);
                     entity.setItem(stack);
 
                     entity.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, (float) (1.5F + player.getAttributeValue(AttributeRegistry.SCYTHE_PROFICIENCY.get()) * 0.125f), 0F);

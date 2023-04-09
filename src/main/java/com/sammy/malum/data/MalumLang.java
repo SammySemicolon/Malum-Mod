@@ -540,10 +540,10 @@ public class MalumLang extends LanguageProvider {
         add("malum.jei.spirit_rite", "Spirit Rites");
         add("malum.jei.spirit_transmutation", "The Unchained Rite");
 
-        add("itemGroup.malum", "Malum");
-        add("itemGroup.malum_shaped_stones", "Malum: Arcane Construct");
+        add("itemGroup.malum_basis_of_magic", "Malum: Basis of Magic");
+        add("itemGroup.malum_arcane_construct", "Malum: Arcane Construct");
         add("itemGroup.malum_natural_wonders", "Malum: Born from Arcana");
-        add("itemGroup.malum_impetus", "Malum: Metallurgic Magic");
+        add("itemGroup.malum_metallurgic_magics", "Malum: Metallurgic Magics");
         add("itemGroup.malum_cosmetics", "Malum: Drip");
 
         add("enchantment.malum.haunted.desc", "Deals extra magic damage.");

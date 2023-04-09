@@ -23,6 +23,13 @@ public class MalumVoidFavorRecipes extends RecipeProvider {
     protected void buildCraftingRecipes(Consumer<FinishedRecipe> consumer) {
         new VoidFavorRecipeBuilder(Ingredient.of(Tags.Items.RAW_MATERIALS), 1, ItemRegistry.RAW_SOULSTONE.get(), 1)
                 .build(consumer);
+
+        new VoidFavorRecipeBuilder(Ingredient.of(ItemRegistry.HEX_ASH.get()), 4, ItemRegistry.VOID_SALTS.get(), 1)
+                .build(consumer);
+        new VoidFavorRecipeBuilder(Ingredient.of(ItemRegistry.HEX_ASH.get()), 4, ItemRegistry.VOID_SALTS.get(), 1)
+                .build(consumer);
+
+
         new VoidFavorRecipeBuilder(Ingredient.of(ItemRegistry.THE_DEVICE.get()), 1, ItemRegistry.THE_VESSEL.get(), 1)
                 .build(consumer);
     }

@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/door_bottom",
+  "textures": {
+    "bottom": "malum:block/runewood/runewood_door_bottom",
+    "top": "malum:block/runewood/runewood_door_top"
+  }
+}

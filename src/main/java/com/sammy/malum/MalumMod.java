@@ -7,6 +7,7 @@ import com.sammy.malum.compability.tetra.TetraCompat;
 import com.sammy.malum.config.ClientConfig;
 import com.sammy.malum.config.CommonConfig;
 import com.sammy.malum.data.*;
+import com.sammy.malum.data.block.*;
 import com.sammy.malum.data.recipe.*;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.BlockTagsProvider;
@@ -82,8 +83,9 @@ public class MalumMod {
             DataGenerator generator = event.getGenerator();
             BlockTagsProvider provider = new MalumBlockTags(generator, event.getExistingFileHelper());
             MalumItemModels itemProvider = new MalumItemModels(generator, event.getExistingFileHelper());
+            MalumBlockStates blockStateProvider = new MalumBlockStates(generator, event.getExistingFileHelper(), itemProvider);
+            generator.addProvider(blockStateProvider);
             generator.addProvider(itemProvider);
-            generator.addProvider(new MalumBlockStates(generator, event.getExistingFileHelper(), itemProvider));
             generator.addProvider(new MalumLang(generator));
             generator.addProvider(provider);
             generator.addProvider(new MalumBlockLootTables(generator));
