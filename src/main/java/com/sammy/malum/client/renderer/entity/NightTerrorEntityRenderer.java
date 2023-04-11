@@ -59,19 +59,22 @@ public class NightTerrorEntityRenderer extends EntityRenderer<NightTerrorSeekerE
         List<Vector4f> mappedPastPositions = positions.stream().map(p -> p.position).map(p -> new Vector4f((float) p.x, (float) p.y, (float) p.z, 1)).collect(Collectors.toList());
         VFXBuilders.WorldVFXBuilder builder = VFXBuilders.createWorld().setPosColorTexLightmapDefaultFormat().setOffset(-x, -y, -z);
 
-        float trailVisibility = Mth.clamp(entity.age / 10f,0, 1);
+        float fadeOut = Easing.SINE_IN_OUT.ease(Mth.clamp((entity.age - entity.fadeoutStart) / (float) entity.fadeoutDuration, 0, 1), 0, 1, 1);
+        float trailVisibility = Mth.clamp(entity.age / 10f,0, 1) * (entity.age > entity.fadeoutStart ? (1 - fadeOut) : 1);
+
+
         Color firstColor = NightTerrorSeekerEntity.NIGHT_TERROR_PURPLE;
         Color secondColor = NightTerrorSeekerEntity.NIGHT_TERROR_DARK;
 
         VertexConsumer lightBuffer = DELAYED_RENDER.getBuffer(LIGHT_TYPE);
         builder.setColor(firstColor);
-        builder.renderTrail(lightBuffer, poseStack, mappedPastPositions, f -> 0.4f, f -> builder.setAlpha(Math.max(0, Easing.SINE_IN.ease(f, 0, 0.5f, 1))));
-        builder.renderTrail(lightBuffer, poseStack, mappedPastPositions, f -> 0.2f, f -> builder.setAlpha(Math.max(0, Easing.SINE_IN.ease(f, 0, 0.75f, 1))));
+        builder.renderTrail(lightBuffer, poseStack, mappedPastPositions, f -> 0.3f, f -> builder.setAlpha(trailVisibility * Math.max(0, Easing.SINE_IN.ease(f, 0, 0.5f, 1))));
+        builder.renderTrail(lightBuffer, poseStack, mappedPastPositions, f -> 0.2f, f -> builder.setAlpha(trailVisibility * Math.max(0, Easing.SINE_IN.ease(f, 0, 0.75f, 1))));
 
         VertexConsumer darkBuffer = DELAYED_RENDER.getBuffer(DARK_TYPE);
         builder.setColor(secondColor);
-        builder.renderTrail(darkBuffer, poseStack, mappedPastPositions, f -> 0.45f, f -> builder.setAlpha(Math.max(0, Easing.SINE_IN.ease(f, 0, 0.5f, 1))));
-        builder.renderTrail(darkBuffer, poseStack, mappedPastPositions, f -> 0.25f, f -> builder.setAlpha(Math.max(0, Easing.SINE_IN.ease(f, 0, 0.75f, 1))));
+        builder.renderTrail(darkBuffer, poseStack, mappedPastPositions, f -> 0.35f, f -> builder.setAlpha(trailVisibility * Math.max(0, Easing.SINE_IN.ease(f, 0, 0.5f, 1))));
+        builder.renderTrail(darkBuffer, poseStack, mappedPastPositions, f -> 0.25f, f -> builder.setAlpha(trailVisibility * Math.max(0, Easing.SINE_IN.ease(f, 0, 0.75f, 1))));
 
 
         poseStack.translate(0, 0.25F, 0);

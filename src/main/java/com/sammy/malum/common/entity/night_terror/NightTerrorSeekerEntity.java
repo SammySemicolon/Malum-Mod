@@ -205,9 +205,9 @@ public class NightTerrorSeekerEntity extends ThrowableProjectile {
             Random rand = nightTerrorSeekerEntity.level.getRandom();
             for (int i = 0; i < cycles; i++) {
                 float pDelta = i / cycles;
-                double lerpX = Mth.lerp(pDelta, ox, x) - motion.x / 4f;
-                double lerpY = Mth.lerp(pDelta, oy, y) - motion.y / 4f;
-                double lerpZ = Mth.lerp(pDelta, oz, z) - motion.z / 4f;
+                double lerpX = Mth.lerp(pDelta, ox, x) + motion.x / 4f;
+                double lerpY = Mth.lerp(pDelta, oy, y) + motion.y / 4f;
+                double lerpZ = Mth.lerp(pDelta, oz, z) + motion.z / 4f;
                 float alphaMultiplier = (0.35f + extraAlpha) * Math.min(1, nightTerrorSeekerEntity.age * 0.2f);
                 CommonParticleEffects.spawnSpiritParticles(nightTerrorSeekerEntity.level, lerpX, lerpY, lerpZ, alphaMultiplier*0.8f, norm, firstColor, firstColor.darker());
 

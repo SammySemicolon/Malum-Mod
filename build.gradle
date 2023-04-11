@@ -137,11 +137,11 @@ dependencies {
     // Use local lodestone when in multiproject
     implementation fg.deobf("team.lodestar.lodestone:lodestone:${minecraftVersion}-${project.lodestoneVersion}")
 
-    compileOnly fg.deobf("com.jozufozu.flywheel:Flywheel-Forge:${flywheelVersion}")
     compileOnly fg.deobf("se.mickelus.mutil:mutil:${minecraftVersion}-${mutilVersion}")
     compileOnly fg.deobf("se.mickelus.tetra:tetra:${minecraftVersion}-${tetraVersion}")
 
     // CurseMaven Deps
+    compileOnly fg.deobf("com.jozufozu.flywheel:Flywheel-Forge:${flywheelVersion}")
     compileOnly fg.deobf("curse.maven:create-328085:3872145")
     compileOnly fg.deobf("curse.maven:farmers_delight-398521:3739914")
     compileOnly fg.deobf("curse.maven:selene-499980:3842421")
