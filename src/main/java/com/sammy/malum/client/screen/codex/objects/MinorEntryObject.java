@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.sammy.malum.client.screen.codex.BookEntry;
 import net.minecraft.client.Minecraft;
 
+import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.*;
 import static com.sammy.malum.client.screen.codex.ProgressionBookScreen.*;
 
 public class MinorEntryObject extends EntryObject {

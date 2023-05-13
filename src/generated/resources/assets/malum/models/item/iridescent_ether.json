@@ -1,6 +1,7 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "malum:item/iridescent_ether"
+    "layer0": "malum:item/iridescent_ether",
+    "layer1": "malum:item/iridescent_ether_overlay"
   }
 }

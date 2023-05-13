@@ -9,6 +9,7 @@ import net.minecraft.client.Minecraft;
 
 import java.util.Optional;
 
+import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.*;
 import static com.sammy.malum.client.screen.codex.ProgressionBookScreen.*;
 
 public class RiteEntryObject extends EntryObject {

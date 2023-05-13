@@ -1,14 +1,16 @@
 package com.sammy.malum.client.screen.codex.pages;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.sammy.malum.MalumMod;
-import com.sammy.malum.client.screen.codex.ProgressionBookScreen;
-import com.sammy.malum.common.recipe.SpiritRepairRecipe;
-import net.minecraft.client.Minecraft;
-import net.minecraft.world.item.Item;
+import com.mojang.blaze3d.vertex.*;
+import com.sammy.malum.*;
+import com.sammy.malum.client.screen.codex.*;
+import com.sammy.malum.common.recipe.*;
+import net.minecraft.client.*;
+import net.minecraft.world.item.*;
 
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
+import java.util.function.*;
+import java.util.stream.*;
+
+import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.*;
 
 @SuppressWarnings("all")
 public class SpiritRepairPage extends BookPage {
@@ -39,26 +41,26 @@ public class SpiritRepairPage extends BookPage {
     }
 
     @Override
-    public void renderLeft(Minecraft minecraft, PoseStack poseStack, float xOffset, float yOffset, int mouseX, int mouseY, float partialTicks) {
+    public void renderLeft(Minecraft minecraft, PoseStack poseStack, EntryScreen screen, float yOffset, int mouseX, int mouseY, float partialTicks, float xOffset) {
         int guiLeft = guiLeft();
         int guiTop = guiTop();
-        ProgressionBookScreen.renderComponent(poseStack, recipe.repairMaterial, guiLeft + 48, guiTop + 59, mouseX, mouseY);
-        ProgressionBookScreen.renderItem(poseStack, recipe.inputs.stream().map(s -> s.getDefaultInstance()).peek(s -> s.setDamageValue((int) (s.getMaxDamage() * recipe.durabilityPercentage))).collect(Collectors.toList()), guiLeft + 86, guiTop + 59, mouseX, mouseY);
-        ProgressionBookScreen.renderItem(poseStack, recipe.inputs.stream().map(s -> SpiritRepairRecipe.getRepairRecipeOutput(s.getDefaultInstance())).collect(Collectors.toList()), guiLeft + 67, guiTop + 126, mouseX, mouseY);
+        renderComponent(screen, poseStack, recipe.repairMaterial, guiLeft + 48, guiTop + 59, mouseX, mouseY);
+        renderItem(screen, poseStack, recipe.inputs.stream().map(s -> s.getDefaultInstance()).peek(s -> s.setDamageValue((int) (s.getMaxDamage() * recipe.durabilityPercentage))).collect(Collectors.toList()), guiLeft + 86, guiTop + 59, mouseX, mouseY);
+        renderItem(screen, poseStack, recipe.inputs.stream().map(s -> SpiritRepairRecipe.getRepairRecipeOutput(s.getDefaultInstance())).collect(Collectors.toList()), guiLeft + 67, guiTop + 126, mouseX, mouseY);
         if (!recipe.spirits.isEmpty()) {
-            ProgressionBookScreen.renderComponents(poseStack, recipe.spirits, guiLeft + 65, guiTop + 16, mouseX, mouseY, false);
+            renderComponents(screen, poseStack, recipe.spirits, guiLeft + 65, guiTop + 16, mouseX, mouseY, false);
         }
     }
 
     @Override
-    public void renderRight(Minecraft minecraft, PoseStack poseStack, float xOffset, float yOffset, int mouseX, int mouseY, float partialTicks) {
+    public void renderRight(Minecraft minecraft, PoseStack poseStack, EntryScreen screen, float yOffset, int mouseX, int mouseY, float partialTicks, float xOffset) {
         int guiLeft = guiLeft();
         int guiTop = guiTop();
-        ProgressionBookScreen.renderComponent(poseStack, recipe.repairMaterial, guiLeft + 190, guiTop + 59, mouseX, mouseY);
-        ProgressionBookScreen.renderItem(poseStack, recipe.inputs.stream().map(s -> s.getDefaultInstance()).peek(s -> s.setDamageValue((int) (s.getMaxDamage() * recipe.durabilityPercentage))).collect(Collectors.toList()), guiLeft + 228, guiTop + 59, mouseX, mouseY);
-        ProgressionBookScreen.renderItem(poseStack, recipe.inputs.stream().map(s -> SpiritRepairRecipe.getRepairRecipeOutput(s.getDefaultInstance())).collect(Collectors.toList()), guiLeft + 209, guiTop + 126, mouseX, mouseY);
+        renderComponent(screen, poseStack, recipe.repairMaterial, guiLeft + 190, guiTop + 59, mouseX, mouseY);
+        renderItem(screen, poseStack, recipe.inputs.stream().map(s -> s.getDefaultInstance()).peek(s -> s.setDamageValue((int) (s.getMaxDamage() * recipe.durabilityPercentage))).collect(Collectors.toList()), guiLeft + 228, guiTop + 59, mouseX, mouseY);
+        renderItem(screen, poseStack, recipe.inputs.stream().map(s -> SpiritRepairRecipe.getRepairRecipeOutput(s.getDefaultInstance())).collect(Collectors.toList()), guiLeft + 209, guiTop + 126, mouseX, mouseY);
         if (!recipe.spirits.isEmpty()) {
-            ProgressionBookScreen.renderComponents(poseStack, recipe.spirits, guiLeft + 207, guiTop + 16, mouseX, mouseY, false);
+            renderComponents(screen, poseStack, recipe.spirits, guiLeft + 207, guiTop + 16, mouseX, mouseY, false);
         }
     }
 }

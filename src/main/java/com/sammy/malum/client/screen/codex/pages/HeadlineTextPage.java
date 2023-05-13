@@ -1,11 +1,12 @@
 package com.sammy.malum.client.screen.codex.pages;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.sammy.malum.MalumMod;
-import com.sammy.malum.client.screen.codex.ProgressionBookScreen;
-import net.minecraft.client.Minecraft;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
+import com.mojang.blaze3d.vertex.*;
+import com.sammy.malum.*;
+import com.sammy.malum.client.screen.codex.*;
+import net.minecraft.client.*;
+import net.minecraft.network.chat.*;
+
+import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.*;
 
 public class HeadlineTextPage extends BookPage {
     private final String headlineTranslationKey;
@@ -26,20 +27,20 @@ public class HeadlineTextPage extends BookPage {
     }
 
     @Override
-    public void renderLeft(Minecraft minecraft, PoseStack poseStack, float xOffset, float yOffset, int mouseX, int mouseY, float partialTicks) {
+    public void renderLeft(Minecraft minecraft, PoseStack poseStack, EntryScreen screen, float yOffset, int mouseX, int mouseY, float partialTicks, float xOffset) {
         int guiLeft = guiLeft();
         int guiTop = guiTop();
         Component component = new TranslatableComponent(headlineTranslationKey());
-        ProgressionBookScreen.renderText(poseStack, component, guiLeft + 75 - minecraft.font.width(component.getString()) / 2, guiTop + 10);
-        ProgressionBookScreen.renderWrappingText(poseStack, translationKey(), guiLeft + 14, guiTop + 31, 125);
+        renderText(poseStack, component, guiLeft + 75 - minecraft.font.width(component.getString()) / 2, guiTop + 10);
+        renderWrappingText(poseStack, translationKey(), guiLeft + 14, guiTop + 31, 125);
     }
 
     @Override
-    public void renderRight(Minecraft minecraft, PoseStack poseStack, float xOffset, float yOffset, int mouseX, int mouseY, float partialTicks) {
+    public void renderRight(Minecraft minecraft, PoseStack poseStack, EntryScreen screen, float yOffset, int mouseX, int mouseY, float partialTicks, float xOffset) {
         int guiLeft = guiLeft();
         int guiTop = guiTop();
         Component component = new TranslatableComponent(headlineTranslationKey());
-        ProgressionBookScreen.renderText(poseStack, component, guiLeft + 218 - minecraft.font.width(component.getString()) / 2, guiTop + 10);
-        ProgressionBookScreen.renderWrappingText(poseStack, translationKey(), guiLeft + 156, guiTop + 31, 125);
+        renderText(poseStack, component, guiLeft + 218 - minecraft.font.width(component.getString()) / 2, guiTop + 10);
+        renderWrappingText(poseStack, translationKey(), guiLeft + 156, guiTop + 31, 125);
     }
 }

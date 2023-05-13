@@ -8,6 +8,6 @@ public class CreativeTabRegistry {
     public static final MalumTab BUILDING = new MalumTab("arcane_construct", ItemRegistry.TAINTED_ROCK);
     public static final MalumTab NATURE = new MalumTab("natural_wonders", ItemRegistry.RUNEWOOD_SAPLING);
     public static final MalumTab METALLURGY = new MalumTab("metallurgic_magics", ItemRegistry.ALCHEMICAL_IMPETUS);
-    public static final MalumTab COSMETIC = new MalumTab("cosmetics", ItemRegistry.ANCIENT_WEAVE);
+    public static final MalumTab COSMETIC = new MalumTab("cosmetics", ItemRegistry.WEAVERS_WORKBENCH);
 
 }

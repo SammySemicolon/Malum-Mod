@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "side": "malum:block/blight/blighted_soulwood",
+    "bottom": "malum:block/blight/blighted_soil_0",
+    "top": "malum:block/soulwood/soulwood_log_top"
+  }
+}

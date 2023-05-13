@@ -53,7 +53,7 @@ public class WeaversWorkbenchContainerScreen extends AbstractContainerScreen<Wea
 
         ItemStack output = weaversWorkbenchContainer.itemHandler.getStackInSlot(2);
 
-        if (!cachedOutput.equals(output)) {
+        if (!output.equals(cachedOutput)) {
             setupArmorStand();
         }
         cachedOutput = output;
@@ -64,7 +64,7 @@ public class WeaversWorkbenchContainerScreen extends AbstractContainerScreen<Wea
     protected void setupArmorStand() {
         this.armorStand = new ArmorStand(Minecraft.getInstance().level, 0.0, 0.0, 0.0);
         this.armorStand.setNoBasePlate(true);
-     //   this.armorStand.setShowArms(true);
+        this.armorStand.setShowArms(true);
         this.armorStand.yBodyRot = 210.0F;
         this.armorStand.setXRot(25.0F);
         this.armorStand.yHeadRot = this.armorStand.yBodyRot;

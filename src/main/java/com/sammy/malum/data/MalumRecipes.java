@@ -1,43 +1,35 @@
 package com.sammy.malum.data;
 
-import com.sammy.malum.MalumMod;
-import com.sammy.malum.common.item.cosmetic.PrideweaveItem;
-import com.sammy.malum.common.item.impetus.ImpetusItem;
-import com.sammy.malum.data.recipe.builder.vanilla.TheDeviceRecipeBuilder;
-import com.sammy.malum.registry.common.item.ItemRegistry;
-import com.sammy.malum.registry.common.item.ItemTagRegistry;
+import com.sammy.malum.*;
+import com.sammy.malum.common.item.impetus.*;
+import com.sammy.malum.data.recipe.builder.vanilla.*;
+import com.sammy.malum.registry.common.item.*;
 import net.minecraft.advancements.critereon.*;
-import net.minecraft.core.Registry;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.data.recipes.FinishedRecipe;
-import net.minecraft.data.recipes.RecipeProvider;
-import net.minecraft.tags.ItemTags;
-import net.minecraft.tags.TagKey;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.level.ItemLike;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraftforge.common.Tags;
-import net.minecraftforge.common.crafting.ConditionalRecipe;
-import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
-import net.minecraftforge.common.crafting.conditions.TagEmptyCondition;
-import net.minecraftforge.registries.RegistryObject;
-import team.lodestar.lodestone.data.builder.NBTCarryRecipeBuilder;
-import team.lodestar.lodestone.systems.recipe.IngredientWithCount;
+import net.minecraft.core.*;
+import net.minecraft.data.*;
+import net.minecraft.data.recipes.*;
+import net.minecraft.tags.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.*;
+import net.minecraftforge.common.*;
+import net.minecraftforge.common.crafting.*;
+import net.minecraftforge.common.crafting.conditions.*;
+import net.minecraftforge.registries.*;
+import team.lodestar.lodestone.data.builder.*;
+import team.lodestar.lodestone.systems.recipe.*;
 
-import java.util.function.Consumer;
+import java.util.function.*;
 
-import static com.sammy.malum.MalumMod.malumPath;
-import static com.sammy.malum.data.recipe.builder.vanilla.MetalNodeCookingRecipeBuilder.blastingWithTag;
-import static com.sammy.malum.data.recipe.builder.vanilla.MetalNodeCookingRecipeBuilder.smeltingWithTag;
-import static com.sammy.malum.data.recipe.builder.vanilla.StackedMalumCookingRecipeBuilder.blastingWithCount;
-import static com.sammy.malum.data.recipe.builder.vanilla.StackedMalumCookingRecipeBuilder.smeltingWithCount;
-import static net.minecraft.data.recipes.ShapedRecipeBuilder.shaped;
-import static net.minecraft.data.recipes.ShapelessRecipeBuilder.shapeless;
+import static com.sammy.malum.MalumMod.*;
+import static com.sammy.malum.data.recipe.builder.vanilla.MetalNodeCookingRecipeBuilder.*;
+import static com.sammy.malum.data.recipe.builder.vanilla.StackedMalumCookingRecipeBuilder.*;
+import static net.minecraft.data.recipes.ShapedRecipeBuilder.*;
+import static net.minecraft.data.recipes.ShapelessRecipeBuilder.*;
+import static net.minecraft.data.recipes.SimpleCookingRecipeBuilder.smoking;
 import static net.minecraft.data.recipes.SimpleCookingRecipeBuilder.*;
-import static net.minecraft.data.recipes.SingleItemRecipeBuilder.stonecutting;
+import static net.minecraft.data.recipes.SingleItemRecipeBuilder.*;
 import static team.lodestar.lodestone.setup.LodestoneItemTags.*;
 
 public class MalumRecipes extends RecipeProvider implements IConditionBuilder {
@@ -485,29 +477,33 @@ public class MalumRecipes extends RecipeProvider implements IConditionBuilder {
         //THE DEVICE
         TheDeviceRecipeBuilder.shaped(ItemRegistry.THE_DEVICE.get()).define('X', ItemRegistry.TWISTED_ROCK.get()).define('Y', ItemRegistry.TAINTED_ROCK.get()).pattern("XYX").pattern("YXY").pattern("XYX").unlockedBy("has_bedrock", has(Items.BEDROCK)).save(consumer);
 
-        shaped(ItemRegistry.ANCIENT_WEAVE.get()).define('X', ItemRegistry.ESOTERIC_SPOOL.get()).define('Y', ItemRegistry.BLIGHTED_GUNK.get()).pattern(" Y ").pattern("YXY").pattern(" Y ").unlockedBy("has_spool", has(ItemRegistry.ESOTERIC_SPOOL.get())).save(consumer);
+        weaveRecipe(consumer, ItemRegistry.BLIGHTED_GUNK.get(), ItemRegistry.ANCIENT_WEAVE);
+        weaveRecipe(consumer, Items.IRON_INGOT, ItemRegistry.CORNERED_WEAVE);
+        weaveRecipe(consumer, Items.COPPER_INGOT, ItemRegistry.DREADED_WEAVE);
+        weaveRecipe(consumer, Items.LAPIS_LAZULI, ItemRegistry.MECHANICAL_WEAVE_V1);
+        weaveRecipe(consumer, Items.REDSTONE, ItemRegistry.MECHANICAL_WEAVE_V2);
 
-        prideweaveRecipe(consumer, Items.BREAD, ItemRegistry.ACE_PRIDEWEAVE);
-        prideweaveRecipe(consumer, Items.BOOK, ItemRegistry.AGENDER_PRIDEWEAVE);
-        prideweaveRecipe(consumer, Items.ARROW, ItemRegistry.ARO_PRIDEWEAVE);
-        prideweaveRecipe(consumer, Items.WHEAT_SEEDS, ItemRegistry.AROACE_PRIDEWEAVE);
-        prideweaveRecipe(consumer, Items.WHEAT, ItemRegistry.BI_PRIDEWEAVE);
-        prideweaveRecipe(consumer, Items.RAW_IRON, ItemRegistry.DEMIBOY_PRIDEWEAVE);
-        prideweaveRecipe(consumer, Items.RAW_COPPER, ItemRegistry.DEMIGIRL_PRIDEWEAVE);
-        prideweaveRecipe(consumer, Items.MOSS_BLOCK, ItemRegistry.ENBY_PRIDEWEAVE);
-        prideweaveRecipe(consumer, Items.MELON_SLICE, ItemRegistry.GAY_PRIDEWEAVE);
-        prideweaveRecipe(consumer, Items.WATER_BUCKET, ItemRegistry.GENDERFLUID_PRIDEWEAVE);
-        prideweaveRecipe(consumer, Items.GLASS_BOTTLE, ItemRegistry.GENDERQUEER_PRIDEWEAVE);
-        prideweaveRecipe(consumer, Items.AZALEA, ItemRegistry.INTERSEX_PRIDEWEAVE);
-        prideweaveRecipe(consumer, Items.HONEYCOMB, ItemRegistry.LESBIAN_PRIDEWEAVE);
-        prideweaveRecipe(consumer, Items.CARROT, ItemRegistry.PAN_PRIDEWEAVE);
-        prideweaveRecipe(consumer, Items.REPEATER, ItemRegistry.PLURAL_PRIDEWEAVE);
-        prideweaveRecipe(consumer, Items.COMPARATOR, ItemRegistry.POLY_PRIDEWEAVE);
-        prideweaveRecipe(consumer, Items.STONE_BRICK_WALL, ItemRegistry.PRIDE_PRIDEWEAVE);
-        prideweaveRecipe(consumer, Items.EGG, ItemRegistry.TRANS_PRIDEWEAVE);
+        weaveRecipe(consumer, Items.BREAD, ItemRegistry.ACE_PRIDEWEAVE);
+        weaveRecipe(consumer, Items.BOOK, ItemRegistry.AGENDER_PRIDEWEAVE);
+        weaveRecipe(consumer, Items.ARROW, ItemRegistry.ARO_PRIDEWEAVE);
+        weaveRecipe(consumer, Items.WHEAT_SEEDS, ItemRegistry.AROACE_PRIDEWEAVE);
+        weaveRecipe(consumer, Items.WHEAT, ItemRegistry.BI_PRIDEWEAVE);
+        weaveRecipe(consumer, Items.RAW_IRON, ItemRegistry.DEMIBOY_PRIDEWEAVE);
+        weaveRecipe(consumer, Items.RAW_COPPER, ItemRegistry.DEMIGIRL_PRIDEWEAVE);
+        weaveRecipe(consumer, Items.MOSS_BLOCK, ItemRegistry.ENBY_PRIDEWEAVE);
+        weaveRecipe(consumer, Items.MELON_SLICE, ItemRegistry.GAY_PRIDEWEAVE);
+        weaveRecipe(consumer, Items.WATER_BUCKET, ItemRegistry.GENDERFLUID_PRIDEWEAVE);
+        weaveRecipe(consumer, Items.GLASS_BOTTLE, ItemRegistry.GENDERQUEER_PRIDEWEAVE);
+        weaveRecipe(consumer, Items.AZALEA, ItemRegistry.INTERSEX_PRIDEWEAVE);
+        weaveRecipe(consumer, Items.HONEYCOMB, ItemRegistry.LESBIAN_PRIDEWEAVE);
+        weaveRecipe(consumer, Items.CARROT, ItemRegistry.PAN_PRIDEWEAVE);
+        weaveRecipe(consumer, Items.REPEATER, ItemRegistry.PLURAL_PRIDEWEAVE);
+        weaveRecipe(consumer, Items.COMPARATOR, ItemRegistry.POLY_PRIDEWEAVE);
+        weaveRecipe(consumer, Items.STONE_BRICK_WALL, ItemRegistry.PRIDE_PRIDEWEAVE);
+        weaveRecipe(consumer, Items.EGG, ItemRegistry.TRANS_PRIDEWEAVE);
     }
 
-    private void prideweaveRecipe(Consumer<FinishedRecipe> consumer, Item sideItem, RegistryObject<PrideweaveItem> output) {
+    private void weaveRecipe(Consumer<FinishedRecipe> consumer, Item sideItem, Supplier<? extends Item> output) {
         shapeless(output.get()).requires(ItemRegistry.ESOTERIC_SPOOL.get()).requires(sideItem).unlockedBy("has_spool", has(ItemRegistry.ESOTERIC_SPOOL.get())).save(consumer);
     }
 

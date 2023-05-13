@@ -1,36 +1,36 @@
 package com.sammy.malum.client.screen.codex;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.sammy.malum.MalumMod;
-import com.sammy.malum.client.screen.codex.objects.EntryObject;
-import com.sammy.malum.client.screen.codex.pages.BookPage;
-import com.sammy.malum.config.ClientConfig;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.network.chat.TranslatableComponent;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.entity.player.Player;
+import com.mojang.blaze3d.vertex.*;
+import com.sammy.malum.*;
+import com.sammy.malum.client.screen.codex.objects.*;
+import com.sammy.malum.client.screen.codex.pages.*;
+import com.sammy.malum.config.*;
+import com.sammy.malum.registry.common.*;
+import net.minecraft.client.*;
+import net.minecraft.network.chat.*;
+import net.minecraft.resources.*;
+import net.minecraft.sounds.*;
 
-import static com.sammy.malum.client.screen.codex.ProgressionBookScreen.isHovering;
-import static com.sammy.malum.client.screen.codex.ProgressionBookScreen.renderTexture;
+import java.util.function.*;
 
-public class EntryScreen extends Screen {
-    public static final ResourceLocation BOOK_TEXTURE = MalumMod.malumPath("textures/gui/book/entry.png");
+import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.*;
+
+public class EntryScreen extends AbstractMalumScreen {
 
     public static EntryScreen screen;
-    public static EntryObject openObject;
+
+    public static final ResourceLocation BOOK_TEXTURE = MalumMod.malumPath("textures/gui/book/entry.png");
 
     public final int bookWidth = 292;
     public final int bookHeight = 190;
+    public final EntryObject openObject;
 
     public int grouping;
 
-    public EntryScreen() {
+    public EntryScreen(EntryObject openObject) {
         super(new TranslatableComponent("malum.gui.entry.title"));
+        this.openObject = openObject;
     }
-
 
     @Override
     public void render(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
@@ -73,9 +73,9 @@ public class EntryScreen extends Screen {
                 if (i < openEntry.pages.size()) {
                     BookPage page = openEntry.pages.get(i);
                     if (i % 2 == 0) {
-                        page.renderLeft(minecraft, poseStack, ProgressionBookScreen.screen.xOffset, ProgressionBookScreen.screen.yOffset, mouseX, mouseY, partialTicks);
+                        page.renderLeft(minecraft, poseStack, screen, ProgressionBookScreen.screen.yOffset, mouseX, mouseY, partialTicks, ProgressionBookScreen.screen.xOffset);
                     } else {
-                        page.renderRight(minecraft, poseStack, ProgressionBookScreen.screen.xOffset, ProgressionBookScreen.screen.yOffset, mouseX, mouseY, partialTicks);
+                        page.renderRight(minecraft, poseStack, screen, ProgressionBookScreen.screen.yOffset, mouseX, mouseY, partialTicks, ProgressionBookScreen.screen.xOffset);
                     }
                 }
             }
@@ -111,34 +111,31 @@ public class EntryScreen extends Screen {
     }
 
     @Override
-    public boolean isPauseScreen() {
-        return false;
-    }
-
-    @Override
-    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-        if (Minecraft.getInstance().options.keyInventory.matches(keyCode, scanCode)) {
-            close(false);
-        }
-        return super.keyPressed(keyCode, scanCode, modifiers);
-    }
-
-    @Override
     public void onClose() {
         close(false);
+    }
+
+    @Override
+    public boolean isHovering(double mouseX, double mouseY, int posX, int posY, int width, int height) {
+        return ArcanaCodexHelper.isHovering(mouseX, mouseY, posX, posY, width, height);
+    }
+
+    @Override
+    public Supplier<SoundEvent> getSweetenerSound() {
+        return SoundRegistry.ARCANA_SWEETENER_NORMAL;
     }
 
     public void nextPage() {
         if (grouping < openObject.entry.pages.size() / 2f - 1) {
             grouping += 1;
-            screen.playSound();
+            screen.playSound(SoundRegistry.ARCANA_PAGE_FLIP);
         }
     }
 
     public void previousPage(boolean ignore) {
         if (grouping > 0) {
             grouping -= 1;
-            screen.playSound();
+            screen.playSound(SoundRegistry.ARCANA_PAGE_FLIP);
         } else {
             close(ignore);
         }
@@ -146,24 +143,12 @@ public class EntryScreen extends Screen {
 
     public void close(boolean ignoreNextInput) {
         ProgressionBookScreen.openScreen(ignoreNextInput);
+        screen.playSweetenedSound(SoundRegistry.ARCANA_ENTRY_CLOSE);
         openObject.exit();
     }
 
-    public void playSound() {
-        Player playerEntity = Minecraft.getInstance().player;
-        playerEntity.playNotifySound(SoundEvents.BOOK_PAGE_TURN, SoundSource.PLAYERS, 1.0f, 1.0f);
-    }
-
-    public static void openScreen(EntryObject newObject) {
-        Minecraft.getInstance().setScreen(getInstance(newObject));
-        screen.playSound();
-    }
-
-    public static EntryScreen getInstance(EntryObject newObject) {
-        if (screen == null || !newObject.equals(openObject)) {
-            screen = new EntryScreen();
-            openObject = newObject;
-        }
-        return screen;
+    public static void openScreen(EntryObject entryObject) {
+        Minecraft.getInstance().setScreen(new EntryScreen(entryObject));
+        screen.playSweetenedSound(SoundRegistry.ARCANA_ENTRY_OPEN);
     }
 }

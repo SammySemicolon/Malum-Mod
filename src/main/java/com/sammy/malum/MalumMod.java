@@ -8,6 +8,7 @@ import com.sammy.malum.config.ClientConfig;
 import com.sammy.malum.config.CommonConfig;
 import com.sammy.malum.data.*;
 import com.sammy.malum.data.block.*;
+import com.sammy.malum.data.item.*;
 import com.sammy.malum.data.recipe.*;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.BlockTagsProvider;

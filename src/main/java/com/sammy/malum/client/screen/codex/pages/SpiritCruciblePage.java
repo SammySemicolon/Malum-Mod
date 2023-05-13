@@ -1,13 +1,15 @@
 package com.sammy.malum.client.screen.codex.pages;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.sammy.malum.MalumMod;
-import com.sammy.malum.client.screen.codex.ProgressionBookScreen;
-import com.sammy.malum.common.recipe.SpiritFocusingRecipe;
-import net.minecraft.client.Minecraft;
-import net.minecraft.world.item.Item;
+import com.mojang.blaze3d.vertex.*;
+import com.sammy.malum.*;
+import com.sammy.malum.client.screen.codex.*;
+import com.sammy.malum.common.recipe.*;
+import net.minecraft.client.*;
+import net.minecraft.world.item.*;
 
-import java.util.function.Predicate;
+import java.util.function.*;
+
+import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.*;
 
 @SuppressWarnings("all")
 public class SpiritCruciblePage extends BookPage {
@@ -42,20 +44,20 @@ public class SpiritCruciblePage extends BookPage {
     }
 
     @Override
-    public void renderLeft(Minecraft minecraft, PoseStack poseStack, float xOffset, float yOffset, int mouseX, int mouseY, float partialTicks) {
+    public void renderLeft(Minecraft minecraft, PoseStack poseStack, EntryScreen screen, float yOffset, int mouseX, int mouseY, float partialTicks, float xOffset) {
         int guiLeft = guiLeft();
         int guiTop = guiTop();
-        ProgressionBookScreen.renderItem(poseStack, recipe.input, guiLeft + 67, guiTop + 59, mouseX, mouseY);
-        ProgressionBookScreen.renderItem(poseStack, recipe.output, guiLeft + 67, guiTop + 126, mouseX, mouseY);
-        ProgressionBookScreen.renderComponents(poseStack, recipe.spirits, guiLeft + 65, guiTop + 16, mouseX, mouseY, false);
+        renderItem(screen, poseStack, recipe.input, guiLeft + 67, guiTop + 59, mouseX, mouseY);
+        renderItem(screen, poseStack, recipe.output, guiLeft + 67, guiTop + 126, mouseX, mouseY);
+        renderComponents(screen, poseStack, recipe.spirits, guiLeft + 65, guiTop + 16, mouseX, mouseY, false);
     }
 
     @Override
-    public void renderRight(Minecraft minecraft, PoseStack poseStack, float xOffset, float yOffset, int mouseX, int mouseY, float partialTicks) {
+    public void renderRight(Minecraft minecraft, PoseStack poseStack, EntryScreen screen, float yOffset, int mouseX, int mouseY, float partialTicks, float xOffset) {
         int guiLeft = guiLeft();
         int guiTop = guiTop();
-        ProgressionBookScreen.renderItem(poseStack, recipe.input, guiLeft + 209, guiTop + 59, mouseX, mouseY);
-        ProgressionBookScreen.renderItem(poseStack, recipe.output, guiLeft + 209, guiTop + 126, mouseX, mouseY);
-        ProgressionBookScreen.renderComponents(poseStack, recipe.spirits, guiLeft + 207, guiTop + 16, mouseX, mouseY, false);
+        renderItem(screen, poseStack, recipe.input, guiLeft + 209, guiTop + 59, mouseX, mouseY);
+        renderItem(screen, poseStack, recipe.output, guiLeft + 209, guiTop + 126, mouseX, mouseY);
+        renderComponents(screen, poseStack, recipe.spirits, guiLeft + 207, guiTop + 16, mouseX, mouseY, false);
     }
 }

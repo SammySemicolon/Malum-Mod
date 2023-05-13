@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "XYX",
+    "XZX"
+  ],
+  "key": {
+    "Z": {
+      "tag": "forge:ingots/gold"
+    },
+    "Y": {
+      "item": "malum:hex_ash"
+    },
+    "X": {
+      "item": "malum:runewood_planks"
+    }
+  },
+  "result": {
+    "item": "malum:weavers_workbench"
+  }
+}

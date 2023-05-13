@@ -185,7 +185,8 @@ public class MalumBlockProperties {
                 .addTag(BlockTags.BEACON_BASE_BLOCKS)
                 .needsPickaxe()
                 .requiresCorrectToolForDrops()
-                .strength(5.0F, 3.0F);
+                .strength(5.0F, 3.0F)
+                .sound(SoundRegistry.BRILLIANCE_BLOCK);
     }
 
     public static LodestoneBlockProperties ARCANE_CHARCOAL_BLOCK() {
