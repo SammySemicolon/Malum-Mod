@@ -141,7 +141,7 @@ dependencies {
 
     // CurseMaven Deps
     compileOnly fg.deobf("com.jozufozu.flywheel:Flywheel-Forge:${flywheelVersion}")
-    compileOnly fg.deobf("curse.maven:create-328085:3872145")
+    compileOnly fg.deobf("curse.maven:create-328085:4550986")
     compileOnly fg.deobf("curse.maven:farmers_delight-398521:3739914")
     compileOnly fg.deobf("curse.maven:selene-499980:3842421")
     compileOnly fg.deobf("curse.maven:supplementaries-412082:3871187")
