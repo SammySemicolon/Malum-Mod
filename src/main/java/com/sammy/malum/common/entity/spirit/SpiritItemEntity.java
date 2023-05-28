@@ -1,8 +1,8 @@
 package com.sammy.malum.common.entity.spirit;
 
-import com.sammy.malum.client.CommonParticleEffects;
+import com.sammy.malum.client.ParticleEffects;
 import com.sammy.malum.common.entity.FloatingItemEntity;
-import com.sammy.malum.common.item.spirit.MalumSpiritItem;
+import com.sammy.malum.common.item.spirit.SpiritShardItem;
 import com.sammy.malum.core.handlers.SpiritHarvestHandler;
 import com.sammy.malum.registry.common.entity.EntityRegistry;
 import net.minecraft.nbt.CompoundTag;
@@ -61,7 +61,7 @@ public class SpiritItemEntity extends FloatingItemEntity {
             double lerpX = Mth.lerp(i / cycles, x - motion.x, x);
             double lerpY = Mth.lerp(i / cycles, y - motion.y, y);
             double lerpZ = Mth.lerp(i / cycles, z - motion.z, z);
-            CommonParticleEffects.spawnSpiritParticles(level, lerpX, lerpY, lerpZ, 0.55f+extraAlpha, norm, startColor, endColor);
+            ParticleEffects.spawnSpiritParticles(level, lerpX, lerpY, lerpZ, 0.55f+extraAlpha, norm, startColor, endColor);
         }
     }
 
@@ -93,7 +93,7 @@ public class SpiritItemEntity extends FloatingItemEntity {
         if (distance < 0.4f) {
             if (isAlive()) {
                 ItemStack stack = getItem();
-                if (stack.getItem() instanceof MalumSpiritItem) {
+                if (stack.getItem() instanceof SpiritShardItem) {
                     SpiritHarvestHandler.pickupSpirit(stack, owner);
                 }
                 else {

@@ -1,6 +1,6 @@
 package com.sammy.malum.core.handlers;
 
-import com.sammy.malum.common.item.tools.MalumScytheItem;
+import com.sammy.malum.common.item.curiosities.weapons.MalumScytheItem;
 import com.sammy.malum.registry.common.AttributeRegistry;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.EntityDamageSource;

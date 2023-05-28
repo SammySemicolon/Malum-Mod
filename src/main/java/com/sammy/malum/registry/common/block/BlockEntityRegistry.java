@@ -3,25 +3,26 @@ package com.sammy.malum.registry.common.block;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.client.renderer.block.*;
 import com.sammy.malum.common.block.ether.EtherBlock;
+import com.sammy.malum.common.block.mana_mote.*;
 import com.sammy.malum.common.block.storage.ItemPedestalBlock;
 import com.sammy.malum.common.block.storage.ItemStandBlock;
-import com.sammy.malum.common.block.totem.TotemBaseBlock;
-import com.sammy.malum.common.block.totem.TotemPoleBlock;
-import com.sammy.malum.common.blockentity.EtherBlockEntity;
-import com.sammy.malum.common.blockentity.VoidConduitBlockEntity;
-import com.sammy.malum.common.blockentity.weaver.WeaversWorkbenchBlockEntity;
-import com.sammy.malum.common.blockentity.crucible.SpiritCatalyzerCoreBlockEntity;
-import com.sammy.malum.common.blockentity.crucible.SpiritCrucibleCoreBlockEntity;
-import com.sammy.malum.common.blockentity.obelisk.BrilliantObeliskBlockEntity;
-import com.sammy.malum.common.blockentity.obelisk.RunewoodObeliskBlockEntity;
-import com.sammy.malum.common.blockentity.spirit_altar.SpiritAltarBlockEntity;
-import com.sammy.malum.common.blockentity.storage.ItemPedestalBlockEntity;
-import com.sammy.malum.common.blockentity.storage.ItemStandBlockEntity;
-import com.sammy.malum.common.blockentity.storage.SoulVialBlockEntity;
-import com.sammy.malum.common.blockentity.storage.SpiritJarBlockEntity;
-import com.sammy.malum.common.blockentity.tablet.TwistedTabletBlockEntity;
-import com.sammy.malum.common.blockentity.totem.TotemBaseBlockEntity;
-import com.sammy.malum.common.blockentity.totem.TotemPoleBlockEntity;
+import com.sammy.malum.common.block.curiosities.totem.TotemBaseBlock;
+import com.sammy.malum.common.block.curiosities.totem.TotemPoleBlock;
+import com.sammy.malum.common.block.ether.EtherBlockEntity;
+import com.sammy.malum.common.block.curiosities.weeping_well.VoidConduitBlockEntity;
+import com.sammy.malum.common.block.curiosities.weavers_workbench.WeaversWorkbenchBlockEntity;
+import com.sammy.malum.common.block.curiosities.spirit_crucible.SpiritCatalyzerCoreBlockEntity;
+import com.sammy.malum.common.block.curiosities.spirit_crucible.SpiritCrucibleCoreBlockEntity;
+import com.sammy.malum.common.block.curiosities.obelisk.BrilliantObeliskBlockEntity;
+import com.sammy.malum.common.block.curiosities.obelisk.RunewoodObeliskBlockEntity;
+import com.sammy.malum.common.block.curiosities.spirit_altar.SpiritAltarBlockEntity;
+import com.sammy.malum.common.block.storage.ItemPedestalBlockEntity;
+import com.sammy.malum.common.block.storage.ItemStandBlockEntity;
+import com.sammy.malum.common.block.storage.SoulVialBlockEntity;
+import com.sammy.malum.common.block.storage.SpiritJarBlockEntity;
+import com.sammy.malum.common.block.curiosities.tablet.TwistedTabletBlockEntity;
+import com.sammy.malum.common.block.curiosities.totem.TotemBaseBlockEntity;
+import com.sammy.malum.common.block.curiosities.totem.TotemPoleBlockEntity;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.api.distmarker.Dist;
@@ -63,6 +64,7 @@ public class BlockEntityRegistry {
     public static final RegistryObject<BlockEntityType<TotemBaseBlockEntity>> TOTEM_BASE = BLOCK_ENTITY_TYPES.register("totem_base", () -> BlockEntityType.Builder.of(TotemBaseBlockEntity::new, getBlocks(TotemBaseBlock.class)).build(null));
     public static final RegistryObject<BlockEntityType<TotemPoleBlockEntity>> TOTEM_POLE = BLOCK_ENTITY_TYPES.register("totem_pole", () -> BlockEntityType.Builder.of(TotemPoleBlockEntity::new, getBlocks(TotemPoleBlock.class)).build(null));
 
+    public static final RegistryObject<BlockEntityType<MoteOfManaBlockEntity>> MOTE_OF_MANA = BLOCK_ENTITY_TYPES.register("mote_of_mana", () -> BlockEntityType.Builder.of(MoteOfManaBlockEntity::new, getBlocks(SpiritMoteBlock.class)).build(null));
 
     public static Block[] getBlocks(Class<?>... blockClasses) {
         Collection<RegistryObject<Block>> blocks = BlockRegistry.BLOCKS.getEntries();
@@ -100,6 +102,7 @@ public class BlockEntityRegistry {
             event.registerBlockEntityRenderer(ITEM_PEDESTAL.get(), ItemPedestalRenderer::new);
             event.registerBlockEntityRenderer(SPIRIT_JAR.get(), SpiritJarRenderer::new);
             event.registerBlockEntityRenderer(SOUL_VIAL.get(), SoulVialRenderer::new);
+            event.registerBlockEntityRenderer(MOTE_OF_MANA.get(), MoteOfManaRenderer::new);
         }
     }
 }

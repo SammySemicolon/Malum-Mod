@@ -1,30 +1,21 @@
 package com.sammy.malum.common.spiritrite;
 
-import com.sammy.malum.common.blockentity.totem.TotemBaseBlockEntity;
-import com.sammy.malum.common.packets.particle.entity.MajorEntityEffectParticlePacket;
-import com.sammy.malum.common.packets.particle.entity.MinorEntityEffectParticlePacket;
-import com.sammy.malum.core.systems.rites.EntityAffectingRiteEffect;
-import com.sammy.malum.core.systems.rites.MalumRiteEffect;
-import com.sammy.malum.core.systems.rites.MalumRiteType;
-import net.minecraft.Util;
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.goal.EatBlockGoal;
-import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.animal.Bee;
-import net.minecraft.world.entity.animal.Chicken;
-import net.minecraft.world.entity.animal.Sheep;
-import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraftforge.network.PacketDistributor;
+import com.sammy.malum.client.vfx.*;
+import com.sammy.malum.common.block.curiosities.totem.*;
+import com.sammy.malum.core.systems.rites.*;
+import com.sammy.malum.registry.common.*;
+import net.minecraft.*;
+import net.minecraft.core.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.animal.*;
+import net.minecraft.world.entity.monster.*;
+import net.minecraft.world.level.block.*;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
-import static com.sammy.malum.registry.common.SpiritTypeRegistry.ARCANE_SPIRIT;
-import static com.sammy.malum.registry.common.SpiritTypeRegistry.SACRED_SPIRIT;
-import static com.sammy.malum.registry.common.PacketRegistry.MALUM_CHANNEL;
-import static net.minecraft.world.entity.ai.goal.EatBlockGoal.IS_TALL_GRASS;
+import static com.sammy.malum.registry.common.SpiritTypeRegistry.*;
+import static net.minecraft.world.entity.ai.goal.EatBlockGoal.*;
 
 public class SacredRiteType extends MalumRiteType {
 
@@ -37,7 +28,7 @@ public class SacredRiteType extends MalumRiteType {
                     if (IS_TALL_GRASS.test(sheep.level.getBlockState(blockpos)) || sheep.level.getBlockState(blockpos.below()).is(Blocks.GRASS_BLOCK)) {
                         EatBlockGoal goal = sheep.eatBlockGoal;
                         goal.start();
-                        MALUM_CHANNEL.send(PacketDistributor.TRACKING_ENTITY.with(() -> sheep), new MajorEntityEffectParticlePacket(SACRED_SPIRIT.getColor(), sheep.getX(), sheep.getY() + sheep.getBbHeight() / 2f, sheep.getZ()));
+                        ParticleEffectTypeRegistry.HEXING_SMOKE.createEntityEffect(sheep, new ColorEffectData(SACRED_SPIRIT.getPrimaryColor()));
                     }
                 }
             }
@@ -49,7 +40,7 @@ public class SacredRiteType extends MalumRiteType {
                 if (goal.canBeeUse()) {
                     goal.successfulPollinatingTicks += 40;
                     goal.tick();
-                    MALUM_CHANNEL.send(PacketDistributor.TRACKING_ENTITY.with(() -> bee), new MinorEntityEffectParticlePacket(SACRED_SPIRIT.getColor(), bee.getX(), bee.getY() + bee.getBbHeight() / 2f, bee.getZ()));
+                    ParticleEffectTypeRegistry.HEXING_SMOKE.createEntityEffect(bee, new ColorEffectData(SACRED_SPIRIT.getPrimaryColor()));
                 }
             }
         });
@@ -58,7 +49,7 @@ public class SacredRiteType extends MalumRiteType {
             @Override
             public void act(TotemBaseBlockEntity totemBaseBlockEntity, Chicken chicken) {
                 chicken.eggTime -= 80;
-                MALUM_CHANNEL.send(PacketDistributor.TRACKING_ENTITY.with(() -> chicken), new MinorEntityEffectParticlePacket(SACRED_SPIRIT.getColor(), chicken.getX(), chicken.getY() + chicken.getBbHeight() / 2f, chicken.getZ()));
+                ParticleEffectTypeRegistry.HEXING_SMOKE.createEntityEffect(chicken, new ColorEffectData(SACRED_SPIRIT.getPrimaryColor()));
             }
         });
     });
@@ -75,7 +66,7 @@ public class SacredRiteType extends MalumRiteType {
                 getNearbyEntities(totemBase, LivingEntity.class, e -> !(e instanceof Monster)).forEach(e -> {
                     if (e.getHealth() < e.getMaxHealth()) {
                         e.heal(2);
-                        MALUM_CHANNEL.send(PacketDistributor.TRACKING_ENTITY.with(() -> e), new MinorEntityEffectParticlePacket(getEffectSpirit().getColor(), e.getX(), e.getY() + e.getBbHeight() / 2f, e.getZ()));
+                        ParticleEffectTypeRegistry.HEXING_SMOKE.createEntityEffect(e, new ColorEffectData(SACRED_SPIRIT.getPrimaryColor()));
                     }
                 });
             }
@@ -85,13 +76,12 @@ public class SacredRiteType extends MalumRiteType {
     @Override
     public MalumRiteEffect getCorruptedEffect() {
         return new EntityAffectingRiteEffect() {
-            @SuppressWarnings("ConstantConditions")
             @Override
             public void riteEffect(TotemBaseBlockEntity totemBase) {
                 getNearbyEntities(totemBase, Animal.class).forEach(e -> {
                     if (e.getAge() < 0) {
                         if (totemBase.getLevel().random.nextFloat() <= 0.04f) {
-                            MALUM_CHANNEL.send(PacketDistributor.TRACKING_ENTITY.with(() -> e), new MajorEntityEffectParticlePacket(getEffectSpirit().getColor(), e.getX(), e.getY() + e.getBbHeight() / 2f, e.getZ()));
+                            ParticleEffectTypeRegistry.HEXING_SMOKE.createEntityEffect(e, new ColorEffectData(SACRED_SPIRIT.getPrimaryColor()));
                             e.ageUp(25);
                         }
                     }

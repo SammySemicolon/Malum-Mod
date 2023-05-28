@@ -25,9 +25,18 @@ public class MalumItemModelSmithTypes {
         provider.createGenericModel(item, GENERATED, provider.modLoc("item/spirit_shard"));
     });
 
-    public static ItemModelSmith ETHER_OVERLAY_ITEM = new ItemModelSmith((item, provider) -> {
+    public static ItemModelSmith SPIRIT_MOTE_ITEM = new ItemModelSmith((item, provider) -> {
+        provider.createGenericModel(item, GENERATED, provider.modLoc("item/spirit_mote"));
+    });
+
+    public static ItemModelSmith GENERATED_OVERLAY_ITEM = new ItemModelSmith((item, provider) -> {
         String name = provider.getItemName(item);
         provider.withExistingParent(name, GENERATED).texture("layer0", provider.modLoc("item/"+name)).texture("layer1", provider.modLoc("item/"+name+"_overlay"));
+    });
+
+    public static ItemModelSmith HANDHELD_OVERLAY_ITEM = new ItemModelSmith((item, provider) -> {
+        String name = provider.getItemName(item);
+        provider.withExistingParent(name, HANDHELD).texture("layer0", provider.modLoc("item/"+name)).texture("layer1", provider.modLoc("item/"+name+"_overlay"));
     });
 
     public static ItemModelSmith ETHER_BRAZIER_ITEM = new ItemModelSmith((item, provider) -> {

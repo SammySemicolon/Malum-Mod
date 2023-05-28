@@ -1,11 +1,11 @@
 package com.sammy.malum.common.spiritrite;
 
 import com.sammy.malum.common.block.blight.BlightedSoilBlock;
-import com.sammy.malum.common.blockentity.spirit_altar.IAltarProvider;
-import com.sammy.malum.common.blockentity.totem.TotemBaseBlockEntity;
-import com.sammy.malum.common.packets.particle.block.BlockSparkleParticlePacket;
-import com.sammy.malum.common.packets.particle.block.blight.BlightMistParticlePacket;
-import com.sammy.malum.common.packets.particle.block.blight.BlightTransformItemParticlePacket;
+import com.sammy.malum.common.block.curiosities.spirit_altar.IAltarProvider;
+import com.sammy.malum.common.block.curiosities.totem.TotemBaseBlockEntity;
+import com.sammy.malum.common.packets.particle.curiosities.rite.generic.BlockSparkleParticlePacket;
+import com.sammy.malum.common.packets.particle.curiosities.blight.BlightMistParticlePacket;
+import com.sammy.malum.common.packets.particle.curiosities.blight.BlightTransformItemParticlePacket;
 import com.sammy.malum.common.recipe.SpiritTransmutationRecipe;
 import com.sammy.malum.common.worldevent.TotemCreatedBlightEvent;
 import com.sammy.malum.core.systems.rites.MalumRiteEffect;
@@ -105,7 +105,7 @@ public class ArcaneRiteType extends MalumRiteType {
                             BlockEntity entity = level.getBlockEntity(posToTransmute);
                             BlockState newState = BlockHelper.setBlockStateWithExistingProperties(level, posToTransmute, block.defaultBlockState(), 3);
                             level.levelEvent(2001, posToTransmute, Block.getId(newState));
-                            MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(posToTransmute)), new BlockSparkleParticlePacket(ARCANE_SPIRIT.getColor(), posToTransmute));
+                            MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(posToTransmute)), new BlockSparkleParticlePacket(ARCANE_SPIRIT.getPrimaryColor(), posToTransmute));
                             MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(posToTransmute)), new BlightMistParticlePacket(posToTransmute)); //TODO: convert these 2 into a single packet, rlly don't feel like doing it rn
                             if (block instanceof EntityBlock entityBlock) {
                                 if (entity != null) {

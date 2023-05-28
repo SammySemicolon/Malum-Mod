@@ -1,20 +1,20 @@
 package com.sammy.malum.registry.common;
 
-import com.sammy.malum.MalumMod;
-import com.sammy.malum.common.packets.SyncLivingCapabilityDataPacket;
-import com.sammy.malum.common.packets.SyncMalumPlayerCapabilityDataPacket;
-import com.sammy.malum.common.packets.VoidRejectionPacket;
-import com.sammy.malum.common.packets.particle.block.*;
-import com.sammy.malum.common.packets.particle.block.blight.BlightMistParticlePacket;
-import com.sammy.malum.common.packets.particle.block.blight.BlightTransformItemParticlePacket;
-import com.sammy.malum.common.packets.particle.block.functional.AltarConsumeParticlePacket;
-import com.sammy.malum.common.packets.particle.block.functional.AltarCraftParticlePacket;
-import com.sammy.malum.common.packets.particle.entity.*;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.network.NetworkRegistry;
-import net.minecraftforge.network.simple.SimpleChannel;
+import com.sammy.malum.*;
+import com.sammy.malum.common.packets.*;
+import com.sammy.malum.common.packets.particle.*;
+import com.sammy.malum.common.packets.particle.curiosities.altar.*;
+import com.sammy.malum.common.packets.particle.curiosities.blight.*;
+import com.sammy.malum.common.packets.particle.curiosities.nitrate.*;
+import com.sammy.malum.common.packets.particle.curiosities.rite.*;
+import com.sammy.malum.common.packets.particle.curiosities.rite.generic.*;
+import com.sammy.malum.common.packets.particle.curiosities.void_conduit.*;
+import com.sammy.malum.common.packets.particle.curiosities.wand.*;
+import net.minecraftforge.eventbus.api.*;
+import net.minecraftforge.fml.common.*;
+import net.minecraftforge.fml.event.lifecycle.*;
+import net.minecraftforge.network.*;
+import net.minecraftforge.network.simple.*;
 
 @SuppressWarnings("unused")
 @Mod.EventBusSubscriber(modid = MalumMod.MALUM, bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -30,25 +30,26 @@ public class PacketRegistry {
         //functionality
         VoidRejectionPacket.register(MALUM_CHANNEL, index++);
 
+        ParticleEffectPacket.register(MALUM_CHANNEL, index++);
 
         //vfx
         AltarCraftParticlePacket.register(MALUM_CHANNEL, index++);
         AltarConsumeParticlePacket.register(MALUM_CHANNEL, index++);
 
-        MinorEntityEffectParticlePacket.register(MALUM_CHANNEL, index++);
         MajorEntityEffectParticlePacket.register(MALUM_CHANNEL, index++);
         EthericNitrateParticlePacket.register(MALUM_CHANNEL, index++);
         VividNitrateBounceParticlePacket.register(MALUM_CHANNEL, index++);
         SuccessfulSoulHarvestParticlePacket.register(MALUM_CHANNEL, index++);
         VoidConduitParticlePacket.register(MALUM_CHANNEL, index++);
+        SpiritNodeCreationPacket.register(MALUM_CHANNEL, index++);
 
-        BlockParticlePacket.register(MALUM_CHANNEL, index++);
-        BlockMistParticlePacket.register(MALUM_CHANNEL, index++);
+        TotemPoleActivationEffectPacket.register(MALUM_CHANNEL, index++);
+        SacredMistRiteEffectPacket.register(MALUM_CHANNEL, index++);
         BlockSparkleParticlePacket.register(MALUM_CHANNEL, index++);
-        MinorBlockSparkleParticlePacket.register(MALUM_CHANNEL, index++);
-        FireBlockExtinguishSparkleParticlePacket.register(MALUM_CHANNEL, index++);
-        BlockDownwardSparkleParticlePacket.register(MALUM_CHANNEL, index++);
-        TotemBaseActivationParticlePacket.register(MALUM_CHANNEL, index++);
+        InfernalAccelerationRiteEffectPacket.register(MALUM_CHANNEL, index++);
+        InfernalExtinguishRiteEffectPacket.register(MALUM_CHANNEL, index++);
+        AerialBlockFallRiteEffectPacket.register(MALUM_CHANNEL, index++);
+        SpiritRiteActivationEffectPacket.register(MALUM_CHANNEL, index++);
 
         SyncMalumPlayerCapabilityDataPacket.register(MALUM_CHANNEL, index++);
         SyncLivingCapabilityDataPacket.register(MALUM_CHANNEL, index++);

@@ -1,7 +1,7 @@
 package com.sammy.malum.common.worldgen;
 
 import com.google.common.collect.ImmutableList;
-import com.sammy.malum.common.block.MalumLeavesBlock;
+import com.sammy.malum.common.block.nature.MalumLeavesBlock;
 import com.sammy.malum.registry.common.block.BlockRegistry;
 import com.sammy.malum.registry.common.block.BlockTagRegistry;
 import net.minecraft.core.BlockPos;
@@ -21,12 +21,10 @@ import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConf
 import net.minecraft.world.level.levelgen.synth.PerlinSimplexNoise;
 import net.minecraft.world.phys.Vec3;
 import team.lodestar.lodestone.helpers.BlockHelper;
-import team.lodestar.lodestone.helpers.DataHelper;
 import team.lodestar.lodestone.systems.worldgen.LodestoneBlockFiller;
 import team.lodestar.lodestone.systems.worldgen.LodestoneBlockFiller.BlockStateEntry;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static com.sammy.malum.common.worldgen.RunewoodTreeFeature.canPlace;
 import static com.sammy.malum.common.worldgen.RunewoodTreeFeature.updateLeaves;

@@ -1,7 +1,7 @@
 package com.sammy.malum.data;
 
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.common.item.NodeItem;
+import com.sammy.malum.common.item.impetus.NodeItem;
 import com.sammy.malum.registry.common.block.BlockTagRegistry;
 import com.sammy.malum.registry.common.item.ItemTagRegistry;
 import net.minecraft.data.DataGenerator;

@@ -158,6 +158,16 @@ public class MalumBlockProperties {
                 .lightLevel((b) -> 14);
     }
 
+    public static LodestoneBlockProperties MANA_MOTE_BLOCK() {
+        return new LodestoneBlockProperties(Material.METAL, MaterialColor.COLOR_LIGHT_GRAY)
+                .noOcclusion()
+                .addTag(Tags.Blocks.STORAGE_BLOCKS)
+                .needsPickaxe()
+                .requiresCorrectToolForDrops()
+                .strength(8.0F, 8.0f)
+                .sound(SoundRegistry.BLAZING_QUARTZ_BLOCK);
+    }
+
     public static LodestoneBlockProperties SOULSTONE_BLOCK() {
         return new LodestoneBlockProperties(Material.STONE, MaterialColor.NETHER)
                 .addTag(Tags.Blocks.STORAGE_BLOCKS)

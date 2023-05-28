@@ -1,63 +1,50 @@
 package com.sammy.malum.registry.common.block;
 
-import com.sammy.malum.MalumMod;
-import com.sammy.malum.common.block.*;
+import com.sammy.malum.*;
 import com.sammy.malum.common.block.blight.*;
+import com.sammy.malum.common.block.curiosities.obelisk.*;
+import com.sammy.malum.common.block.curiosities.spirit_altar.*;
+import com.sammy.malum.common.block.curiosities.spirit_crucible.*;
+import com.sammy.malum.common.block.curiosities.tablet.*;
+import com.sammy.malum.common.block.curiosities.totem.*;
+import com.sammy.malum.common.block.curiosities.weavers_workbench.*;
+import com.sammy.malum.common.block.curiosities.weeping_well.*;
 import com.sammy.malum.common.block.ether.*;
-import com.sammy.malum.common.block.obelisk.BrillianceObeliskCoreBlock;
-import com.sammy.malum.common.block.obelisk.ObeliskComponentBlock;
-import com.sammy.malum.common.block.obelisk.RunewoodObeliskCoreBlock;
-import com.sammy.malum.common.block.spirit_altar.SpiritAltarBlock;
-import com.sammy.malum.common.block.spirit_crucible.SpiritCatalyzerComponentBlock;
-import com.sammy.malum.common.block.spirit_crucible.SpiritCatalyzerCoreBlock;
-import com.sammy.malum.common.block.spirit_crucible.SpiritCrucibleComponentBlock;
-import com.sammy.malum.common.block.spirit_crucible.SpiritCrucibleCoreBlock;
+import com.sammy.malum.common.block.mana_mote.*;
+import com.sammy.malum.common.block.nature.*;
+import com.sammy.malum.common.block.nature.soulwood.*;
 import com.sammy.malum.common.block.storage.*;
-import com.sammy.malum.common.block.tablet.TwistedTabletBlock;
-import com.sammy.malum.common.block.totem.TotemBaseBlock;
-import com.sammy.malum.common.block.totem.TotemPoleBlock;
-import com.sammy.malum.common.block.weavers_workbench.WeaversWorkbenchBlock;
-import com.sammy.malum.common.block.weeping_well.PrimordialSoupBlock;
-import com.sammy.malum.common.block.weeping_well.VoidConduitBlock;
-import com.sammy.malum.common.block.weeping_well.WeepingWellBlock;
-import com.sammy.malum.common.blockentity.EtherBlockEntity;
-import com.sammy.malum.compability.supplementaries.SupplementariesCompat;
-import com.sammy.malum.registry.common.SpiritTypeRegistry;
-import com.sammy.malum.registry.common.item.ItemRegistry;
-import com.sammy.malum.registry.common.worldgen.FeatureRegistry;
-import net.minecraft.client.color.block.BlockColors;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.util.Mth;
-import net.minecraft.util.valueproviders.UniformInt;
+import com.sammy.malum.common.block.the_device.*;
+import com.sammy.malum.compability.supplementaries.*;
+import com.sammy.malum.registry.common.*;
+import com.sammy.malum.registry.common.item.*;
+import com.sammy.malum.registry.common.worldgen.*;
+import net.minecraft.client.color.block.*;
+import net.minecraft.core.particles.*;
+import net.minecraft.util.*;
+import net.minecraft.util.valueproviders.*;
 import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.material.Material;
-import net.minecraft.world.level.material.MaterialColor;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.ColorHandlerEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
-import team.lodestar.lodestone.helpers.DataHelper;
-import team.lodestar.lodestone.systems.block.LodestoneBlockProperties;
-import team.lodestar.lodestone.systems.block.LodestoneDirectionalBlock;
-import team.lodestar.lodestone.systems.block.LodestoneLogBlock;
-import team.lodestar.lodestone.systems.block.sign.LodestoneStandingSignBlock;
-import team.lodestar.lodestone.systems.block.sign.LodestoneWallSignBlock;
+import net.minecraft.world.level.block.entity.*;
+import net.minecraft.world.level.material.*;
+import net.minecraftforge.api.distmarker.*;
+import net.minecraftforge.client.event.*;
+import net.minecraftforge.eventbus.api.*;
+import net.minecraftforge.fml.common.*;
+import net.minecraftforge.registries.*;
+import team.lodestar.lodestone.helpers.*;
+import team.lodestar.lodestone.systems.block.*;
+import team.lodestar.lodestone.systems.block.sign.*;
 
 import java.awt.*;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
-import static com.sammy.malum.MalumMod.MALUM;
+import static com.sammy.malum.MalumMod.*;
 import static com.sammy.malum.registry.common.block.BlockTagRegistry.*;
+import static net.minecraft.tags.BlockTags.FENCES;
+import static net.minecraft.tags.BlockTags.FENCE_GATES;
 import static net.minecraft.tags.BlockTags.*;
-import static net.minecraft.world.level.block.PressurePlateBlock.Sensitivity.EVERYTHING;
-import static net.minecraft.world.level.block.PressurePlateBlock.Sensitivity.MOBS;
-import static net.minecraftforge.common.Tags.Blocks.FENCE_GATES_WOODEN;
-import static net.minecraftforge.common.Tags.Blocks.STORAGE_BLOCKS;
+import static net.minecraft.world.level.block.PressurePlateBlock.Sensitivity.*;
+import static net.minecraftforge.common.Tags.Blocks.*;
 
 
 public class BlockRegistry {
@@ -212,7 +199,7 @@ public class BlockRegistry {
     public static final RegistryObject<Block> STRIPPED_RUNEWOOD = BLOCKS.register("stripped_runewood", () -> new RotatedPillarBlock(MalumBlockProperties.RUNEWOOD().addTags(LOGS, STRIPPED_LOGS, RUNEWOOD_LOGS)));
     public static final RegistryObject<Block> RUNEWOOD = BLOCKS.register("runewood", () -> new LodestoneLogBlock(MalumBlockProperties.RUNEWOOD().addTags(LOGS, RUNEWOOD_LOGS), STRIPPED_RUNEWOOD));
 
-    public static final RegistryObject<Block> REVEALED_RUNEWOOD_LOG = BLOCKS.register("revealed_runewood_log", () -> new SapFilledLogBlock(MalumBlockProperties.RUNEWOOD().addTags(LOGS, RUNEWOOD_LOGS), STRIPPED_RUNEWOOD_LOG, ItemRegistry.HOLY_SAP, SpiritTypeRegistry.INFERNAL_SPIRIT.getColor()));
+    public static final RegistryObject<Block> REVEALED_RUNEWOOD_LOG = BLOCKS.register("revealed_runewood_log", () -> new SapFilledLogBlock(MalumBlockProperties.RUNEWOOD().addTags(LOGS, RUNEWOOD_LOGS), STRIPPED_RUNEWOOD_LOG, ItemRegistry.HOLY_SAP, SpiritTypeRegistry.INFERNAL_SPIRIT.getPrimaryColor()));
     public static final RegistryObject<Block> EXPOSED_RUNEWOOD_LOG = BLOCKS.register("exposed_runewood_log", () -> new LodestoneLogBlock(MalumBlockProperties.RUNEWOOD().addTags(LOGS, STRIPPED_LOGS, RUNEWOOD_LOGS), REVEALED_RUNEWOOD_LOG));
 
     public static final RegistryObject<Block> RUNEWOOD_PLANKS = BLOCKS.register("runewood_planks", () -> new Block(MalumBlockProperties.RUNEWOOD().addTags(PLANKS)));
@@ -307,6 +294,17 @@ public class BlockRegistry {
     public static final RegistryObject<Block> BLIGHTED_SOULWOOD = BLOCKS.register("blighted_soulwood", () -> new BlightedSoulwoodBlock(MalumBlockProperties.SOULWOOD()));
     //endregion
 
+    //region empowered blocks
+    public static final RegistryObject<SpiritMoteBlock> MOTE_OF_SACRED_ARCANA = BLOCKS.register("mote_of_sacred_arcana", () -> new SpiritMoteBlock(MalumBlockProperties.MANA_MOTE_BLOCK(), SpiritTypeRegistry.SACRED_SPIRIT).setBlockEntity(BlockEntityRegistry.MOTE_OF_MANA));
+    public static final RegistryObject<SpiritMoteBlock> MOTE_OF_WICKED_ARCANA = BLOCKS.register("mote_of_wicked_arcana", () -> new SpiritMoteBlock(MalumBlockProperties.MANA_MOTE_BLOCK(), SpiritTypeRegistry.WICKED_SPIRIT).setBlockEntity(BlockEntityRegistry.MOTE_OF_MANA));
+    public static final RegistryObject<SpiritMoteBlock> MOTE_OF_RAW_ARCANA = BLOCKS.register("mote_of_raw_arcana", () -> new SpiritMoteBlock(MalumBlockProperties.MANA_MOTE_BLOCK(), SpiritTypeRegistry.ARCANE_SPIRIT).setBlockEntity(BlockEntityRegistry.MOTE_OF_MANA));
+    public static final RegistryObject<SpiritMoteBlock> MOTE_OF_ELDRITCH_ARCANA = BLOCKS.register("mote_of_eldritch_arcana", () -> new SpiritMoteBlock(MalumBlockProperties.MANA_MOTE_BLOCK(), SpiritTypeRegistry.ELDRITCH_SPIRIT).setBlockEntity(BlockEntityRegistry.MOTE_OF_MANA));
+    public static final RegistryObject<SpiritMoteBlock> MOTE_OF_AERIAL_ARCANA = BLOCKS.register("mote_of_aerial_arcana", () -> new SpiritMoteBlock(MalumBlockProperties.MANA_MOTE_BLOCK(), SpiritTypeRegistry.AERIAL_SPIRIT).setBlockEntity(BlockEntityRegistry.MOTE_OF_MANA));
+    public static final RegistryObject<SpiritMoteBlock> MOTE_OF_AQUEOUS_ARCANA = BLOCKS.register("mote_of_aqueous_arcana", () -> new SpiritMoteBlock(MalumBlockProperties.MANA_MOTE_BLOCK(), SpiritTypeRegistry.AQUEOUS_SPIRIT).setBlockEntity(BlockEntityRegistry.MOTE_OF_MANA));
+    public static final RegistryObject<SpiritMoteBlock> MOTE_OF_INFERNAL_ARCANA = BLOCKS.register("mote_of_infernal_arcana", () -> new SpiritMoteBlock(MalumBlockProperties.MANA_MOTE_BLOCK(), SpiritTypeRegistry.INFERNAL_SPIRIT).setBlockEntity(BlockEntityRegistry.MOTE_OF_MANA));
+    public static final RegistryObject<SpiritMoteBlock> MOTE_OF_EARTHEN_ARCANA = BLOCKS.register("mote_of_earthen_arcana", () -> new SpiritMoteBlock(MalumBlockProperties.MANA_MOTE_BLOCK(), SpiritTypeRegistry.EARTHEN_SPIRIT).setBlockEntity(BlockEntityRegistry.MOTE_OF_MANA));
+    //endregion
+
     //region ether
     public static final RegistryObject<Block> ETHER = BLOCKS.register("ether", () -> new EtherBlock<>(MalumBlockProperties.ETHER().addTag(TRAY_HEAT_SOURCES).setCutoutRenderType()).setBlockEntity(BlockEntityRegistry.ETHER));
     public static final RegistryObject<Block> ETHER_TORCH = BLOCKS.register("ether_torch", () -> new EtherTorchBlock<>(MalumBlockProperties.RUNEWOOD().addTag(TRAY_HEAT_SOURCES).setCutoutRenderType().noCollission().instabreak().lightLevel((b) -> 14)).setBlockEntity(BlockEntityRegistry.ETHER));
@@ -350,7 +348,7 @@ public class BlockRegistry {
     public static final RegistryObject<Block> SOULSTONE_ORE = BLOCKS.register("soulstone_ore", () -> new OreBlock(MalumBlockProperties.SOULSTONE_ORE(false)));
     public static final RegistryObject<Block> DEEPSLATE_SOULSTONE_ORE = BLOCKS.register("deepslate_soulstone_ore", () -> new OreBlock(MalumBlockProperties.SOULSTONE_ORE(true)));
     public static final RegistryObject<Block> BLOCK_OF_RAW_SOULSTONE = BLOCKS.register("block_of_raw_soulstone", () -> new Block(MalumBlockProperties.SOULSTONE_BLOCK()));
-    public static final RegistryObject<Block> BLOCK_OF_SOULSTONE = BLOCKS.register("block_of_soulstone", () -> new Block(MalumBlockProperties.SOULSTONE_BLOCK()));
+    public static final RegistryObject<Block> BLOCK_OF_SOULSTONE = BLOCKS.register("block_of_soulstone", () -> new SoulstoneBlock(MalumBlockProperties.SOULSTONE_BLOCK()));
 
     public static final RegistryObject<Block> BLOCK_OF_HALLOWED_GOLD = BLOCKS.register("block_of_hallowed_gold", () -> new Block(MalumBlockProperties.HALLOWED_GOLD()));
     public static final RegistryObject<Block> BLOCK_OF_SOUL_STAINED_STEEL = BLOCKS.register("block_of_soul_stained_steel", () -> new Block(MalumBlockProperties.SOUL_STAINED_STEEL_BLOCK()));
@@ -360,6 +358,7 @@ public class BlockRegistry {
     public static final RegistryObject<Block> BLOCK_OF_ALCHEMICAL_CALX = BLOCKS.register("block_of_alchemical_calx", () -> new Block(LodestoneBlockProperties.copy(Blocks.CALCITE).addTag(STORAGE_BLOCKS)));
     public static final RegistryObject<Block> BLOCK_OF_ASTRAL_WEAVE = BLOCKS.register("block_of_astral_weave", () -> new Block(LodestoneBlockProperties.copy(Blocks.LIGHT_BLUE_WOOL).addTag(STORAGE_BLOCKS)));
     public static final RegistryObject<Block> BLOCK_OF_HEX_ASH = BLOCKS.register("block_of_hex_ash", () -> new Block(LodestoneBlockProperties.copy(Blocks.PURPLE_CONCRETE_POWDER).addTag(STORAGE_BLOCKS)));
+    public static final RegistryObject<Block> MASS_OF_BLIGHTED_GUNK = BLOCKS.register("mass_of_blighted_gunk", () -> new Block(MalumBlockProperties.BLIGHT().addTag(STORAGE_BLOCKS)));
     public static final RegistryObject<Block> BLOCK_OF_CURSED_GRIT = BLOCKS.register("block_of_cursed_grit", () -> new Block(LodestoneBlockProperties.copy(Blocks.RED_CONCRETE_POWDER).addTag(STORAGE_BLOCKS)));
     public static final RegistryObject<Block> BLOCK_OF_VOID_SALTS = BLOCKS.register("block_of_void_salts", () -> new Block(LodestoneBlockProperties.copy(Blocks.BLACK_CONCRETE_POWDER).addTag(STORAGE_BLOCKS)));
 

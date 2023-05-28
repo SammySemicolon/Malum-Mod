@@ -2,10 +2,10 @@ package com.sammy.malum.core.handlers;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
-import com.sammy.malum.common.block.weeping_well.PrimordialSoupBlock;
+import com.sammy.malum.common.block.curiosities.weeping_well.PrimordialSoupBlock;
 import com.sammy.malum.common.capability.MalumLivingEntityDataCapability;
 import com.sammy.malum.common.packets.VoidRejectionPacket;
-import com.sammy.malum.common.packets.particle.block.VoidConduitParticlePacket;
+import com.sammy.malum.common.packets.particle.curiosities.void_conduit.VoidConduitParticlePacket;
 import com.sammy.malum.registry.client.ShaderRegistry;
 import com.sammy.malum.registry.common.DamageSourceRegistry;
 import com.sammy.malum.registry.common.PacketRegistry;

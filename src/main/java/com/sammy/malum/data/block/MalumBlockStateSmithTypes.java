@@ -1,8 +1,8 @@
 package com.sammy.malum.data.block;
 
+import com.sammy.malum.common.block.curiosities.totem.*;
+import com.sammy.malum.common.block.curiosities.weeping_well.*;
 import com.sammy.malum.common.block.ether.*;
-import com.sammy.malum.common.block.totem.*;
-import com.sammy.malum.common.block.weeping_well.*;
 import com.sammy.malum.core.systems.spirit.*;
 import com.sammy.malum.data.item.*;
 import com.sammy.malum.registry.common.*;

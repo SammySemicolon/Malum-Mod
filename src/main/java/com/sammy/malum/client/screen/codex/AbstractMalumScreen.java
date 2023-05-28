@@ -16,16 +16,25 @@ public abstract class AbstractMalumScreen extends Screen {
 
     public abstract boolean isHovering(double mouseX, double mouseY, int posX, int posY, int width, int height);
 
-    public void playSweetenedSound(Supplier<SoundEvent> soundEvent) {
-        playSound(soundEvent);
-        playSound(getSweetenerSound());
-    }
-
     public abstract Supplier<SoundEvent> getSweetenerSound();
 
+    public void playPageFlipSound(Supplier<SoundEvent> soundEvent, float pitch) {
+        playSound(soundEvent, Math.max(1, pitch * 0.8f));
+        playSound(getSweetenerSound(), pitch);
+    }
+
+    public void playSweetenedSound(Supplier<SoundEvent> soundEvent, float sweetenerPitch) {
+        playSound(soundEvent);
+        playSound(getSweetenerSound(), sweetenerPitch);
+    }
+
     public void playSound(Supplier<SoundEvent> soundEvent) {
+        playSound(soundEvent, 1);
+    }
+
+    public void playSound(Supplier<SoundEvent> soundEvent, float pitch) {
         Player playerEntity = Minecraft.getInstance().player;
-        playerEntity.playNotifySound(soundEvent.get(), SoundSource.PLAYERS, 1.0f, 1.0f);
+        playerEntity.playNotifySound(soundEvent.get(), SoundSource.PLAYERS, 1f, pitch);
     }
 
     @Override

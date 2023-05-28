@@ -48,7 +48,7 @@ public class ArcanaCodexHelper {
         shaderInstance.safeGetUniform("Speed").set(2000f * (corrupted ? -0.75f : 1));
         shaderInstance.safeGetUniform("Intensity").set(corrupted ? 14f : 50f);
         Supplier<ShaderInstance> shaderInstanceSupplier = () -> shaderInstance;
-        Color color = rite.getEffectSpirit().getColor();
+        Color color = rite.getEffectSpirit().getPrimaryColor();
 
         VFXBuilders.ScreenVFXBuilder builder = VFXBuilders.createScreen()
                 .setPosColorTexLightmapDefaultFormat()
@@ -67,7 +67,7 @@ public class ArcanaCodexHelper {
         renderTexture(rite.getIcon(), stack, builder, x + 1, y, 0, 0, 16, 16, 16, 16);
         renderTexture(rite.getIcon(), stack, builder, x, y - 1, 0, 0, 16, 16, 16, 16);
         if (corrupted) {
-            builder.setColor(rite.getEffectSpirit().getEndColor());
+            builder.setColor(rite.getEffectSpirit().getSecondaryColor());
         }
         renderTexture(rite.getIcon(), stack, builder, x, y + 1, 0, 0, 16, 16, 16, 16);
         shaderInstance.setUniformDefaults();

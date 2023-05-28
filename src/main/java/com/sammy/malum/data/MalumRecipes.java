@@ -164,6 +164,8 @@ public class MalumRecipes extends RecipeProvider implements IConditionBuilder {
         shapeless(ItemRegistry.HEX_ASH.get(), 9).requires(ItemRegistry.BLOCK_OF_HEX_ASH.get()).unlockedBy("has_hex_ash", has(ItemRegistry.HEX_ASH.get())).save(consumer, malumPath("hex_ash_from_block"));
         shaped(ItemRegistry.BLOCK_OF_CURSED_GRIT.get()).define('#', ItemRegistry.CURSED_GRIT.get()).pattern("###").pattern("###").pattern("###").unlockedBy("has_cursed_grit", has(ItemRegistry.CURSED_GRIT.get())).save(consumer, malumPath("block_of_cursed_grit"));
         shapeless(ItemRegistry.CURSED_GRIT.get(), 9).requires(ItemRegistry.BLOCK_OF_CURSED_GRIT.get()).unlockedBy("has_cursed_grit", has(ItemRegistry.CURSED_GRIT.get())).save(consumer, malumPath("cursed_grit_from_block"));
+        shaped(ItemRegistry.MASS_OF_BLIGHTED_GUNK.get()).define('#', ItemRegistry.BLIGHTED_GUNK.get()).pattern("###").pattern("###").pattern("###").unlockedBy("has_blighted_gunk", has(ItemRegistry.BLIGHTED_GUNK.get())).save(consumer, malumPath("bligh"));
+        shapeless(ItemRegistry.BLIGHTED_GUNK.get(), 9).requires(ItemRegistry.MASS_OF_BLIGHTED_GUNK.get()).unlockedBy("has_blighted_gunk", has(ItemRegistry.BLIGHTED_GUNK.get())).save(consumer, malumPath("blighted_gunk_from_mass"));
 
         //MISC
         shaped(Items.NETHERRACK, 2).define('Z', ItemRegistry.BLAZING_QUARTZ.get()).define('Y', Tags.Items.COBBLESTONE).pattern("ZY").pattern("YZ").unlockedBy("has_blazing_quartz", has(ItemRegistry.BLAZING_QUARTZ.get())).save(consumer, malumPath("netherrack_from_blazing_quartz"));

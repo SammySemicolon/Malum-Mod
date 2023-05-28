@@ -1,7 +1,7 @@
 package com.sammy.malum.core.systems.rites;
 
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.common.blockentity.totem.TotemBaseBlockEntity;
+import com.sammy.malum.common.block.curiosities.totem.TotemBaseBlockEntity;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;

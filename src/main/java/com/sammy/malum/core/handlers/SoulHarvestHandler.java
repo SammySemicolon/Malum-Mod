@@ -5,8 +5,8 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Vector3f;
 import com.sammy.malum.common.capability.MalumLivingEntityDataCapability;
 import com.sammy.malum.common.capability.MalumPlayerDataCapability;
-import com.sammy.malum.common.item.spirit.SoulStaveItem;
-import com.sammy.malum.common.packets.particle.entity.SuccessfulSoulHarvestParticlePacket;
+import com.sammy.malum.common.item.curiosities.SoulStaveItem;
+import com.sammy.malum.common.packets.particle.SuccessfulSoulHarvestParticlePacket;
 import com.sammy.malum.core.helper.SpiritHelper;
 import com.sammy.malum.core.systems.spirit.MalumEntitySpiritData;
 import net.minecraft.client.Minecraft;
@@ -138,7 +138,7 @@ public class SoulHarvestHandler {
                             if (soulData.soulSeparationProgress >= HARVEST_DURATION) {
                                 Vec3 position = entity.position().add(0, entity.getEyeHeight() / 2f, 0);
                                 MalumEntitySpiritData data = SpiritHelper.getEntitySpiritData(livingEntity);
-                                MALUM_CHANNEL.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> entity), new SuccessfulSoulHarvestParticlePacket(data.primaryType.getColor(), data.primaryType.getEndColor(), position.x, position.y, position.z));
+                                MALUM_CHANNEL.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> entity), new SuccessfulSoulHarvestParticlePacket(data.primaryType.getPrimaryColor(), data.primaryType.getSecondaryColor(), position.x, position.y, position.z));
                                 if (livingEntity instanceof Mob mob) {
                                     SoulDataHandler.removeSentience(mob);
                                 }
@@ -183,7 +183,7 @@ public class SoulHarvestHandler {
                         if (player != null && player.isAlive() && pLivingEntity.isAlive()) {
                             MalumEntitySpiritData data = SpiritHelper.getEntitySpiritData(pLivingEntity);
                             poseStack.popPose();
-                            renderSoulHarvestEffects(poseStack, pLivingEntity, player, data.primaryType.getColor(), c.soulData, partialTicks);
+                            renderSoulHarvestEffects(poseStack, pLivingEntity, player, data.primaryType.getPrimaryColor(), c.soulData, partialTicks);
                             poseStack.pushPose();
                         }
                     }

@@ -1,7 +1,7 @@
 package com.sammy.malum.common.spiritrite.greater;
 
-import com.sammy.malum.common.blockentity.totem.TotemBaseBlockEntity;
-import com.sammy.malum.common.packets.particle.block.BlockSparkleParticlePacket;
+import com.sammy.malum.common.block.curiosities.totem.TotemBaseBlockEntity;
+import com.sammy.malum.common.packets.particle.curiosities.rite.generic.BlockSparkleParticlePacket;
 import com.sammy.malum.core.systems.rites.BlockAffectingRiteEffect;
 import com.sammy.malum.core.systems.rites.MalumRiteEffect;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
@@ -40,7 +40,7 @@ public class EldritchEarthenRiteType extends MalumRiteType {
                         if (state.getBlock() instanceof InfestedBlock infestedBlock && level instanceof ServerLevel serverLevel) {
                             infestedBlock.spawnAfterBreak(state, serverLevel, p, ItemStack.EMPTY);
                         }
-                        MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(p)), new BlockSparkleParticlePacket(EARTHEN_SPIRIT.getColor(), p));
+                        MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(p)), new BlockSparkleParticlePacket(EARTHEN_SPIRIT.getPrimaryColor(), p));
                     }
                 });
             }
@@ -66,7 +66,7 @@ public class EldritchEarthenRiteType extends MalumRiteType {
                         BlockState cobblestone = Blocks.COBBLESTONE.defaultBlockState();
                         level.setBlockAndUpdate(p, cobblestone);
                         level.levelEvent(2001, p, Block.getId(cobblestone));
-                        MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(p)), new BlockSparkleParticlePacket(EARTHEN_SPIRIT.getColor(), p));
+                        MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(p)), new BlockSparkleParticlePacket(EARTHEN_SPIRIT.getPrimaryColor(), p));
                     }
                 });
             }

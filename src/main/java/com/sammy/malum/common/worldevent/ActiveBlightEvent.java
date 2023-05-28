@@ -1,7 +1,7 @@
 package com.sammy.malum.common.worldevent;
 
 import com.sammy.malum.common.block.blight.BlightedSoilBlock;
-import com.sammy.malum.common.packets.particle.block.blight.BlightMistParticlePacket;
+import com.sammy.malum.common.packets.particle.curiosities.blight.BlightMistParticlePacket;
 import com.sammy.malum.common.worldgen.SoulwoodTreeFeature;
 import com.sammy.malum.registry.common.SoundRegistry;
 import com.sammy.malum.registry.common.WorldEventTypes;

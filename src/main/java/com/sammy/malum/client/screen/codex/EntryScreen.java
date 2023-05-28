@@ -17,7 +17,7 @@ import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.*;
 
 public class EntryScreen extends AbstractMalumScreen {
 
-    public static EntryScreen screen;
+    public static EntryScreen entryScreen;
 
     public static final ResourceLocation BOOK_TEXTURE = MalumMod.malumPath("textures/gui/book/entry.png");
 
@@ -73,9 +73,9 @@ public class EntryScreen extends AbstractMalumScreen {
                 if (i < openEntry.pages.size()) {
                     BookPage page = openEntry.pages.get(i);
                     if (i % 2 == 0) {
-                        page.renderLeft(minecraft, poseStack, screen, ProgressionBookScreen.screen.yOffset, mouseX, mouseY, partialTicks, ProgressionBookScreen.screen.xOffset);
+                        page.renderLeft(minecraft, poseStack, entryScreen, ProgressionBookScreen.screen.yOffset, mouseX, mouseY, partialTicks, ProgressionBookScreen.screen.xOffset);
                     } else {
-                        page.renderRight(minecraft, poseStack, screen, ProgressionBookScreen.screen.yOffset, mouseX, mouseY, partialTicks, ProgressionBookScreen.screen.xOffset);
+                        page.renderRight(minecraft, poseStack, entryScreen, ProgressionBookScreen.screen.yOffset, mouseX, mouseY, partialTicks, ProgressionBookScreen.screen.xOffset);
                     }
                 }
             }
@@ -128,14 +128,14 @@ public class EntryScreen extends AbstractMalumScreen {
     public void nextPage() {
         if (grouping < openObject.entry.pages.size() / 2f - 1) {
             grouping += 1;
-            screen.playSound(SoundRegistry.ARCANA_PAGE_FLIP);
+            entryScreen.playPageFlipSound(SoundRegistry.ARCANA_PAGE_FLIP, getSweetenerPitch());
         }
     }
 
     public void previousPage(boolean ignore) {
         if (grouping > 0) {
             grouping -= 1;
-            screen.playSound(SoundRegistry.ARCANA_PAGE_FLIP);
+            entryScreen.playPageFlipSound(SoundRegistry.ARCANA_PAGE_FLIP, getSweetenerPitch());
         } else {
             close(ignore);
         }
@@ -143,12 +143,17 @@ public class EntryScreen extends AbstractMalumScreen {
 
     public void close(boolean ignoreNextInput) {
         ProgressionBookScreen.openScreen(ignoreNextInput);
-        screen.playSweetenedSound(SoundRegistry.ARCANA_ENTRY_CLOSE);
+        playSweetenedSound(SoundRegistry.ARCANA_ENTRY_CLOSE, 0.85f);
         openObject.exit();
     }
 
     public static void openScreen(EntryObject entryObject) {
-        Minecraft.getInstance().setScreen(new EntryScreen(entryObject));
-        screen.playSweetenedSound(SoundRegistry.ARCANA_ENTRY_OPEN);
+        entryScreen = new EntryScreen(entryObject);
+        entryScreen.playSweetenedSound(SoundRegistry.ARCANA_ENTRY_OPEN, 1.15f);
+        Minecraft.getInstance().setScreen(entryScreen);
+    }
+
+    public float getSweetenerPitch() {
+        return 1 + (float)grouping / openObject.entry.pages.size();
     }
 }

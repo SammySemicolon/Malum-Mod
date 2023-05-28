@@ -185,7 +185,7 @@ public class SoulWardHandler {
                                 final float spin = minecraft.level.random.nextFloat() * 6.28f;
                                 ScreenParticleBuilder.create(LodestoneScreenParticleRegistry.WISP, ScreenParticleHandler.EARLY_PARTICLES)
                                         .setLifetime(20)
-                                        .setColorData(ColorParticleData.create(SpiritTypeRegistry.ARCANE_SPIRIT.getColor().brighter(), SpiritTypeRegistry.ARCANE_SPIRIT.getEndColor()).build())
+                                        .setColorData(ColorParticleData.create(SpiritTypeRegistry.ARCANE_SPIRIT.getPrimaryColor().brighter(), SpiritTypeRegistry.ARCANE_SPIRIT.getSecondaryColor()).build())
                                         .setScaleData(GenericParticleData.create(0.2f * progress, 0f).build())
                                         .setTransparencyData(GenericParticleData.create(0.05f, 0).setCoefficient(0.75f).build())
                                         .setSpinData(SpinParticleData.create(spin).build())

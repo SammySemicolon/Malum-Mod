@@ -1,78 +1,58 @@
 package com.sammy.malum.registry.common.item;
 
-import com.sammy.malum.MalumMod;
-import com.sammy.malum.common.block.MalumLeavesBlock;
-import com.sammy.malum.common.blockentity.crucible.SpiritCatalyzerCoreBlockEntity;
-import com.sammy.malum.common.blockentity.crucible.SpiritCrucibleCoreBlockEntity;
-import com.sammy.malum.common.blockentity.obelisk.BrilliantObeliskBlockEntity;
-import com.sammy.malum.common.blockentity.obelisk.RunewoodObeliskBlockEntity;
-import com.sammy.malum.common.item.BrillianceChunkItem;
-import com.sammy.malum.common.item.CorruptResonanceItem;
-import com.sammy.malum.common.item.EncyclopediaArcanaItem;
-import com.sammy.malum.common.item.NodeItem;
-import com.sammy.malum.common.item.cosmetic.GenericWeaveItem;
-import com.sammy.malum.common.item.cosmetic.PrideweaveItem;
-import com.sammy.malum.common.item.equipment.armor.SoulHunterArmorItem;
-import com.sammy.malum.common.item.equipment.armor.SoulStainedSteelArmorItem;
-import com.sammy.malum.common.item.equipment.curios.*;
+import com.sammy.malum.*;
+import com.sammy.malum.common.block.curiosities.obelisk.*;
+import com.sammy.malum.common.block.curiosities.spirit_crucible.*;
+import com.sammy.malum.common.block.nature.*;
+import com.sammy.malum.common.item.*;
+import com.sammy.malum.common.item.cosmetic.*;
+import com.sammy.malum.common.item.curiosities.*;
+import com.sammy.malum.common.item.curiosities.armor.*;
+import com.sammy.malum.common.item.curiosities.curios.*;
+import com.sammy.malum.common.item.curiosities.nitrate.*;
+import com.sammy.malum.common.item.curiosities.weapons.*;
+import com.sammy.malum.common.item.curiosities.weapons.unique.*;
 import com.sammy.malum.common.item.ether.*;
-import com.sammy.malum.common.item.food.HolyCaramelItem;
-import com.sammy.malum.common.item.food.HolySyrupItem;
-import com.sammy.malum.common.item.food.UnholySyrupItem;
-import com.sammy.malum.common.item.impetus.CrackedImpetusItem;
-import com.sammy.malum.common.item.impetus.ImpetusItem;
-import com.sammy.malum.common.item.nitrate.EthericNitrateItem;
-import com.sammy.malum.common.item.nitrate.VividNitrateItem;
+import com.sammy.malum.common.item.food.*;
+import com.sammy.malum.common.item.impetus.*;
 import com.sammy.malum.common.item.spirit.*;
-import com.sammy.malum.common.item.tools.MalumScytheItem;
-import com.sammy.malum.common.item.tools.magic.MagicScytheItem;
-import com.sammy.malum.compability.farmersdelight.FarmersDelightCompat;
-import com.sammy.malum.compability.supplementaries.SupplementariesCompat;
-import com.sammy.malum.core.systems.item.ItemSkin;
-import com.sammy.malum.registry.client.ItemSkinRegistry;
-import com.sammy.malum.registry.common.SpiritTypeRegistry;
-import com.sammy.malum.registry.common.block.BlockRegistry;
-import com.sammy.malum.registry.common.entity.EntityRegistry;
+import com.sammy.malum.compability.farmersdelight.*;
+import com.sammy.malum.compability.supplementaries.*;
+import com.sammy.malum.core.systems.item.*;
+import com.sammy.malum.registry.client.*;
+import com.sammy.malum.registry.common.*;
+import com.sammy.malum.registry.common.block.*;
+import com.sammy.malum.registry.common.entity.*;
 import com.sammy.malum.registry.common.item.tabs.*;
-import net.minecraft.client.color.item.ItemColors;
-import net.minecraft.client.renderer.item.ItemProperties;
-import net.minecraft.client.renderer.item.ItemPropertyFunction;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.food.FoodProperties;
+import net.minecraft.client.color.item.*;
+import net.minecraft.client.renderer.item.*;
+import net.minecraft.nbt.*;
+import net.minecraft.resources.*;
+import net.minecraft.world.effect.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.food.*;
 import net.minecraft.world.item.*;
-import net.minecraft.world.level.block.ComposterBlock;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.ColorHandlerEvent;
-import net.minecraftforge.eventbus.api.EventPriority;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
-import team.lodestar.lodestone.helpers.ColorHelper;
-import team.lodestar.lodestone.helpers.DataHelper;
-import team.lodestar.lodestone.systems.item.LodestoneArmorItem;
-import team.lodestar.lodestone.systems.item.LodestoneBoatItem;
-import team.lodestar.lodestone.systems.item.LodestoneFuelBlockItem;
-import team.lodestar.lodestone.systems.item.LodestoneFuelItem;
+import net.minecraft.world.level.block.*;
+import net.minecraftforge.api.distmarker.*;
+import net.minecraftforge.client.event.*;
+import net.minecraftforge.eventbus.api.*;
+import net.minecraftforge.fml.common.*;
+import net.minecraftforge.fml.event.lifecycle.*;
+import net.minecraftforge.registries.*;
+import team.lodestar.lodestone.helpers.*;
+import team.lodestar.lodestone.systems.item.*;
 import team.lodestar.lodestone.systems.item.tools.magic.*;
-import team.lodestar.lodestone.systems.multiblock.MultiBlockItem;
+import team.lodestar.lodestone.systems.multiblock.*;
 
 import java.awt.*;
 import java.util.*;
-import java.util.stream.Collectors;
+import java.util.function.*;
+import java.util.stream.*;
 
-import static com.sammy.malum.MalumMod.MALUM;
+import static com.sammy.malum.MalumMod.*;
 import static com.sammy.malum.registry.common.item.ItemTiers.ItemTierEnum.*;
-import static net.minecraft.world.item.Items.GLASS_BOTTLE;
-import static team.lodestar.lodestone.helpers.ColorHelper.brighter;
-import static team.lodestar.lodestone.helpers.ColorHelper.darker;
+import static net.minecraft.world.item.Items.*;
+import static team.lodestar.lodestone.helpers.ColorHelper.*;
 
 @SuppressWarnings("unused")
 public class ItemRegistry {
@@ -81,6 +61,7 @@ public class ItemRegistry {
     public static Item.Properties DEFAULT_PROPERTIES() {
         return new Item.Properties().tab(CreativeTabRegistry.CONTENT);
     }
+
     
     public static Item.Properties BUILDING_PROPERTIES() {
         return new Item.Properties().tab(CreativeTabRegistry.BUILDING);
@@ -90,16 +71,16 @@ public class ItemRegistry {
         return new Item.Properties().tab(CreativeTabRegistry.NATURE);
     }
 
-    public static Item.Properties GEAR_PROPERTIES() {
-        return new Item.Properties().tab(CreativeTabRegistry.CONTENT).stacksTo(1);
-    }
-
     public static Item.Properties IMPETUS_PROPERTIES() {
         return new Item.Properties().tab(CreativeTabRegistry.METALLURGY).stacksTo(1);
     }
 
     public static Item.Properties NODE_PROPERTIES() {
         return new Item.Properties().tab(CreativeTabRegistry.METALLURGY);
+    }
+
+    public static Item.Properties GEAR_PROPERTIES() {
+        return new Item.Properties().tab(CreativeTabRegistry.CONTENT).stacksTo(1);
     }
 
     public static Item.Properties COSMETIC_PROPERTIES() {
@@ -113,14 +94,14 @@ public class ItemRegistry {
     public static final RegistryObject<Item> ENCYCLOPEDIA_ARCANA = ITEMS.register("encyclopedia_arcana", () -> new EncyclopediaArcanaItem(GEAR_PROPERTIES().rarity(Rarity.UNCOMMON)));
 
     //region spirits
-    public static final RegistryObject<Item> SACRED_SPIRIT = ITEMS.register("sacred_spirit", () -> new MalumSpiritItem(DEFAULT_PROPERTIES(), SpiritTypeRegistry.SACRED_SPIRIT));
-    public static final RegistryObject<Item> WICKED_SPIRIT = ITEMS.register("wicked_spirit", () -> new MalumSpiritItem(DEFAULT_PROPERTIES(), SpiritTypeRegistry.WICKED_SPIRIT));
-    public static final RegistryObject<Item> ARCANE_SPIRIT = ITEMS.register("arcane_spirit", () -> new MalumSpiritItem(DEFAULT_PROPERTIES(), SpiritTypeRegistry.ARCANE_SPIRIT));
-    public static final RegistryObject<Item> ELDRITCH_SPIRIT = ITEMS.register("eldritch_spirit", () -> new MalumSpiritItem(DEFAULT_PROPERTIES(), SpiritTypeRegistry.ELDRITCH_SPIRIT));
-    public static final RegistryObject<Item> EARTHEN_SPIRIT = ITEMS.register("earthen_spirit", () -> new MalumSpiritItem(DEFAULT_PROPERTIES(), SpiritTypeRegistry.EARTHEN_SPIRIT));
-    public static final RegistryObject<Item> INFERNAL_SPIRIT = ITEMS.register("infernal_spirit", () -> new MalumSpiritItem(DEFAULT_PROPERTIES(), SpiritTypeRegistry.INFERNAL_SPIRIT));
-    public static final RegistryObject<Item> AERIAL_SPIRIT = ITEMS.register("aerial_spirit", () -> new MalumSpiritItem(DEFAULT_PROPERTIES(), SpiritTypeRegistry.AERIAL_SPIRIT));
-    public static final RegistryObject<Item> AQUEOUS_SPIRIT = ITEMS.register("aqueous_spirit", () -> new MalumSpiritItem(DEFAULT_PROPERTIES(), SpiritTypeRegistry.AQUEOUS_SPIRIT));
+    public static final RegistryObject<SpiritShardItem> SACRED_SPIRIT = ITEMS.register("sacred_spirit", () -> new SpiritShardItem(DEFAULT_PROPERTIES(), SpiritTypeRegistry.SACRED_SPIRIT));
+    public static final RegistryObject<SpiritShardItem> WICKED_SPIRIT = ITEMS.register("wicked_spirit", () -> new SpiritShardItem(DEFAULT_PROPERTIES(), SpiritTypeRegistry.WICKED_SPIRIT));
+    public static final RegistryObject<SpiritShardItem> ARCANE_SPIRIT = ITEMS.register("arcane_spirit", () -> new SpiritShardItem(DEFAULT_PROPERTIES(), SpiritTypeRegistry.ARCANE_SPIRIT));
+    public static final RegistryObject<SpiritShardItem> ELDRITCH_SPIRIT = ITEMS.register("eldritch_spirit", () -> new SpiritShardItem(DEFAULT_PROPERTIES(), SpiritTypeRegistry.ELDRITCH_SPIRIT));
+    public static final RegistryObject<SpiritShardItem> EARTHEN_SPIRIT = ITEMS.register("earthen_spirit", () -> new SpiritShardItem(DEFAULT_PROPERTIES(), SpiritTypeRegistry.EARTHEN_SPIRIT));
+    public static final RegistryObject<SpiritShardItem> INFERNAL_SPIRIT = ITEMS.register("infernal_spirit", () -> new SpiritShardItem(DEFAULT_PROPERTIES(), SpiritTypeRegistry.INFERNAL_SPIRIT));
+    public static final RegistryObject<SpiritShardItem> AERIAL_SPIRIT = ITEMS.register("aerial_spirit", () -> new SpiritShardItem(DEFAULT_PROPERTIES(), SpiritTypeRegistry.AERIAL_SPIRIT));
+    public static final RegistryObject<SpiritShardItem> AQUEOUS_SPIRIT = ITEMS.register("aqueous_spirit", () -> new SpiritShardItem(DEFAULT_PROPERTIES(), SpiritTypeRegistry.AQUEOUS_SPIRIT));
     //endregion
 
     //region random stuff
@@ -407,13 +388,14 @@ public class ItemRegistry {
     public static final RegistryObject<Item> BLOCK_OF_CTHONIC_GOLD = ITEMS.register("block_of_cthonic_gold", () -> new ItemNameBlockItem(BlockRegistry.BLOCK_OF_CTHONIC_GOLD.get(), new Item.Properties().tab(CreativeModeTab.TAB_BUILDING_BLOCKS)));
     public static final RegistryObject<Item> BLOCK_OF_HEX_ASH = ITEMS.register("block_of_hex_ash", () -> new BlockItem(BlockRegistry.BLOCK_OF_HEX_ASH.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> BLOCK_OF_ALCHEMICAL_CALX = ITEMS.register("block_of_alchemical_calx", () -> new BlockItem(BlockRegistry.BLOCK_OF_ALCHEMICAL_CALX.get(), DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> MASS_OF_BLIGHTED_GUNK = ITEMS.register("mass_of_blighted_gunk", () -> new BlockItem(BlockRegistry.MASS_OF_BLIGHTED_GUNK.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> BLOCK_OF_CURSED_GRIT = ITEMS.register("block_of_cursed_grit", () -> new BlockItem(BlockRegistry.BLOCK_OF_CURSED_GRIT.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> BLOCK_OF_VOID_SALTS = ITEMS.register("block_of_void_salts", () -> new BlockItem(BlockRegistry.BLOCK_OF_VOID_SALTS.get(), HIDDEN_PROPERTIES()));
 
     public static final RegistryObject<Item> SPIRIT_FABRIC = ITEMS.register("spirit_fabric", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> SPECTRAL_LENS = ITEMS.register("spectral_lens", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> POPPET = ITEMS.register("poppet", () -> new Item(DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> CORRUPTED_RESONANCE = ITEMS.register("corrupted_resonance", () -> new CorruptResonanceItem(DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> CORRUPTED_RESONANCE = ITEMS.register("corrupted_resonance", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> NULL_GROWTH = ITEMS.register("null_growth", () -> new Item(HIDDEN_PROPERTIES()));
 
     public static final RegistryObject<Item> HALLOWED_GOLD_INGOT = ITEMS.register("hallowed_gold_ingot", () -> new Item(DEFAULT_PROPERTIES()));
@@ -638,17 +620,17 @@ public class ItemRegistry {
                 AbstractEtherItem etherItem = (AbstractEtherItem) s.getItem();
                 return c == 0 ? etherItem.getFirstColor(s) : etherItem.getSecondColor(s);
             }, i.get()));
-            registerItemColor(itemColors, ItemRegistry.SACRED_SPIRIT, SpiritTypeRegistry.SACRED_SPIRIT.getColor());
-            registerItemColor(itemColors, ItemRegistry.WICKED_SPIRIT, SpiritTypeRegistry.WICKED_SPIRIT.getColor());
-            registerItemColor(itemColors, ItemRegistry.ARCANE_SPIRIT, brighter(SpiritTypeRegistry.ARCANE_SPIRIT.getColor(), 1));
-            registerItemColor(itemColors, ItemRegistry.ELDRITCH_SPIRIT, darker(SpiritTypeRegistry.ELDRITCH_SPIRIT.getColor(), 1));
-            registerItemColor(itemColors, ItemRegistry.AERIAL_SPIRIT, brighter(SpiritTypeRegistry.AERIAL_SPIRIT.getColor(), 1));
-            registerItemColor(itemColors, ItemRegistry.AQUEOUS_SPIRIT, brighter(SpiritTypeRegistry.AQUEOUS_SPIRIT.getColor(), 1));
-            registerItemColor(itemColors, ItemRegistry.INFERNAL_SPIRIT, brighter(SpiritTypeRegistry.INFERNAL_SPIRIT.getColor(), 1));
-            registerItemColor(itemColors, ItemRegistry.EARTHEN_SPIRIT, brighter(SpiritTypeRegistry.EARTHEN_SPIRIT.getColor(), 1));
+            registerItemColor(itemColors, ItemRegistry.SACRED_SPIRIT, SpiritTypeRegistry.SACRED_SPIRIT.getPrimaryColor());
+            registerItemColor(itemColors, ItemRegistry.WICKED_SPIRIT, SpiritTypeRegistry.WICKED_SPIRIT.getPrimaryColor());
+            registerItemColor(itemColors, ItemRegistry.ARCANE_SPIRIT, brighter(SpiritTypeRegistry.ARCANE_SPIRIT.getPrimaryColor(), 1));
+            registerItemColor(itemColors, ItemRegistry.ELDRITCH_SPIRIT, darker(SpiritTypeRegistry.ELDRITCH_SPIRIT.getPrimaryColor(), 1));
+            registerItemColor(itemColors, ItemRegistry.AERIAL_SPIRIT, brighter(SpiritTypeRegistry.AERIAL_SPIRIT.getPrimaryColor(), 1));
+            registerItemColor(itemColors, ItemRegistry.AQUEOUS_SPIRIT, brighter(SpiritTypeRegistry.AQUEOUS_SPIRIT.getPrimaryColor(), 1));
+            registerItemColor(itemColors, ItemRegistry.INFERNAL_SPIRIT, brighter(SpiritTypeRegistry.INFERNAL_SPIRIT.getPrimaryColor(), 1));
+            registerItemColor(itemColors, ItemRegistry.EARTHEN_SPIRIT, brighter(SpiritTypeRegistry.EARTHEN_SPIRIT.getPrimaryColor(), 1));
         }
 
-        public static void registerItemColor(ItemColors itemColors, RegistryObject<Item> item, Color color) {
+        public static void registerItemColor(ItemColors itemColors, Supplier<? extends Item> item, Color color) {
             int r = color.getRed();
             int g = color.getGreen();
             int b = color.getBlue();

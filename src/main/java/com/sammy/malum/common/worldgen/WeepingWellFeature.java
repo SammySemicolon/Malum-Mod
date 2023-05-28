@@ -1,38 +1,25 @@
 package com.sammy.malum.common.worldgen;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
-import com.sammy.malum.common.block.MalumLeavesBlock;
-import com.sammy.malum.common.block.MalumSaplingBlock;
-import com.sammy.malum.common.block.weeping_well.PrimordialSoupBlock;
-import com.sammy.malum.common.block.weeping_well.WeepingWellBlock;
+import com.sammy.malum.common.block.curiosities.weeping_well.PrimordialSoupBlock;
+import com.sammy.malum.common.block.curiosities.weeping_well.WeepingWellBlock;
 import com.sammy.malum.registry.common.block.BlockRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.WallSide;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
-import net.minecraft.world.level.levelgen.feature.RuinedPortalFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraft.world.level.material.FluidState;
-import team.lodestar.lodestone.helpers.BlockHelper;
-import team.lodestar.lodestone.helpers.DataHelper;
 import team.lodestar.lodestone.systems.worldgen.LodestoneBlockFiller;
 import team.lodestar.lodestone.systems.worldgen.LodestoneBlockFiller.BlockStateEntry;
 
-import java.util.List;
 import java.util.Random;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 public class WeepingWellFeature extends Feature<NoneFeatureConfiguration> {
     public WeepingWellFeature() {

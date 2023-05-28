@@ -14,7 +14,7 @@ import team.lodestar.lodestone.helpers.ColorHelper;
 
 public class CorruptedAerialAura extends MobEffect {
     public CorruptedAerialAura() {
-        super(MobEffectCategory.BENEFICIAL, ColorHelper.getColor(SpiritTypeRegistry.AERIAL_SPIRIT.getColor()));
+        super(MobEffectCategory.BENEFICIAL, ColorHelper.getColor(SpiritTypeRegistry.AERIAL_SPIRIT.getPrimaryColor()));
         addAttributeModifier(ForgeMod.ENTITY_GRAVITY.get(), "e2306a3e-4ffc-45dc-b9c6-30acb18efab3", -0.30f, AttributeModifier.Operation.MULTIPLY_TOTAL);
     }
 

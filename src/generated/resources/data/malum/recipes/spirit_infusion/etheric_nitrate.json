@@ -25,7 +25,11 @@
   "spirits": [
     {
       "type": "infernal",
-      "count": 4
+      "count": 8
+    },
+    {
+      "type": "arcane",
+      "count": 8
     }
   ]
 }

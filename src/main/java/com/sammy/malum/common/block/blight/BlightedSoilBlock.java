@@ -1,34 +1,22 @@
 package com.sammy.malum.common.block.blight;
 
-import com.sammy.malum.common.item.spirit.MalumSpiritItem;
-import com.sammy.malum.common.packets.particle.block.blight.BlightMistParticlePacket;
-import com.sammy.malum.common.worldgen.SoulwoodTreeFeature;
-import com.sammy.malum.registry.common.SoundRegistry;
-import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.BonemealableBlock;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.Shapes;
-import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.network.PacketDistributor;
-import team.lodestar.lodestone.systems.worldgen.LodestoneBlockFiller;
+import com.sammy.malum.common.item.spirit.*;
+import com.sammy.malum.common.worldgen.*;
+import com.sammy.malum.registry.common.*;
+import net.minecraft.core.*;
+import net.minecraft.server.level.*;
+import net.minecraft.sounds.*;
+import net.minecraft.world.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.*;
+import net.minecraft.world.phys.*;
+import net.minecraft.world.phys.shapes.*;
+import team.lodestar.lodestone.systems.worldgen.*;
 
-import java.util.Map;
-import java.util.Random;
-
-import static com.sammy.malum.registry.common.PacketRegistry.MALUM_CHANNEL;
+import java.util.*;
 
 public class BlightedSoilBlock extends Block implements BonemealableBlock {
     protected static final VoxelShape SHAPE = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 14.0D, 16.0D);
@@ -57,7 +45,7 @@ public class BlightedSoilBlock extends Block implements BonemealableBlock {
         if (pLevel instanceof ServerLevel serverLevel) {
             ItemStack itemInHand = pPlayer.getItemInHand(pHand);
             Item item = itemInHand.getItem();
-            if (item instanceof MalumSpiritItem) {
+            if (item instanceof SpiritShardItem) {
                 if (!pPlayer.isCreative()) {
                     itemInHand.shrink(1);
                 }
@@ -86,6 +74,8 @@ public class BlightedSoilBlock extends Block implements BonemealableBlock {
         LodestoneBlockFiller filler = new LodestoneBlockFiller(false);
         SoulwoodTreeFeature.generateBlight(pLevel, filler, pPos, 4);
 
-        filler.getEntries().entrySet().stream().filter(e -> e.getValue().getState().getBlock() instanceof BlightedSoilBlock).map(Map.Entry::getKey).forEach(p -> MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> pLevel.getChunkAt(p)), new BlightMistParticlePacket(p)));
+
+        filler.getEntries().entrySet().stream().filter(e -> e.getValue().getState().getBlock() instanceof BlightedSoilBlock).map(Map.Entry::getKey)
+                .forEach(p -> ParticleEffectTypeRegistry.BLIGHTING_MIST.createBlockEffect(pLevel, p, null));
     }
 }

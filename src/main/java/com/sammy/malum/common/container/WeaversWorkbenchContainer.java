@@ -1,6 +1,6 @@
 package com.sammy.malum.common.container;
 
-import com.sammy.malum.common.blockentity.weaver.*;
+import com.sammy.malum.common.block.curiosities.weavers_workbench.*;
 import com.sammy.malum.common.item.cosmetic.*;
 import com.sammy.malum.registry.common.*;
 import net.minecraft.network.*;

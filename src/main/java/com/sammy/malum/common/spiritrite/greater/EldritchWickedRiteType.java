@@ -1,7 +1,7 @@
 package com.sammy.malum.common.spiritrite.greater;
 
-import com.sammy.malum.common.blockentity.totem.TotemBaseBlockEntity;
-import com.sammy.malum.common.packets.particle.entity.MajorEntityEffectParticlePacket;
+import com.sammy.malum.common.block.curiosities.totem.TotemBaseBlockEntity;
+import com.sammy.malum.common.packets.particle.curiosities.rite.generic.MajorEntityEffectParticlePacket;
 import com.sammy.malum.core.systems.rites.EntityAffectingRiteEffect;
 import com.sammy.malum.core.systems.rites.MalumRiteEffect;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
@@ -29,7 +29,7 @@ public class EldritchWickedRiteType extends MalumRiteType {
             public void riteEffect(TotemBaseBlockEntity totemBase) {
                 getNearbyEntities(totemBase, LivingEntity.class, e -> !(e instanceof Player)).forEach(e -> {
                     if (e.getHealth() <= 2.5f && !e.isInvulnerableTo(DamageSourceRegistry.VOODOO)) {
-                        MALUM_CHANNEL.send(PacketDistributor.TRACKING_ENTITY.with(() -> e), new MajorEntityEffectParticlePacket(getEffectSpirit().getColor(), e.getX(), e.getY()+ e.getBbHeight() / 2f, e.getZ()));
+                        MALUM_CHANNEL.send(PacketDistributor.TRACKING_ENTITY.with(() -> e), new MajorEntityEffectParticlePacket(getEffectSpirit().getPrimaryColor(), e.getX(), e.getY()+ e.getBbHeight() / 2f, e.getZ()));
                         e.hurt(DamageSourceRegistry.VOODOO, 10f);
                     }
                 });
@@ -50,7 +50,7 @@ public class EldritchWickedRiteType extends MalumRiteType {
                 nearbyEntities.removeIf(Animal::isInLove);
                 for (Animal entity : nearbyEntities) {
                     entity.hurt(DamageSourceRegistry.VOODOO, entity.getMaxHealth());
-                    MALUM_CHANNEL.send(PacketDistributor.TRACKING_ENTITY.with(() -> entity), new MajorEntityEffectParticlePacket(WICKED_SPIRIT.getColor(), entity.getX(), entity.getY() + entity.getBbHeight() / 2f, entity.getZ()));
+                    MALUM_CHANNEL.send(PacketDistributor.TRACKING_ENTITY.with(() -> entity), new MajorEntityEffectParticlePacket(WICKED_SPIRIT.getPrimaryColor(), entity.getX(), entity.getY() + entity.getBbHeight() / 2f, entity.getZ()));
                     if (maxKills-- <= 0) {
                         return;
                     }

@@ -1,6 +1,5 @@
 package com.sammy.malum.common.block.storage;
 
-import com.sammy.malum.common.blockentity.storage.SpiritJarBlockEntity;
 import com.sammy.malum.registry.common.SpiritTypeRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -43,10 +42,8 @@ public class SpiritJarBlock<T extends SpiritJarBlockEntity> extends WaterLoggedE
         if (be instanceof SpiritJarBlockEntity jar) {
             IItemHandler jarHandler = jar.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, Direction.DOWN).orElse(new EmptyHandler());
             ItemStack item = jarHandler.extractItem(0, pPlayer.isShiftKeyDown() ? 64 : 1, false);
-
             if (!item.isEmpty()) {
                 ItemHandlerHelper.giveItemToPlayer(pPlayer, item, pPlayer.getInventory().selected);
-
                 if (!pLevel.isClientSide) {
                     BlockHelper.updateAndNotifyState(pLevel, pPos);
                 }
@@ -78,7 +75,6 @@ public class SpiritJarBlock<T extends SpiritJarBlockEntity> extends WaterLoggedE
         shape = Shapes.join(shape, Shapes.box(0.21875, 0.90625, 0.21875, 0.78125, 1.03125, 0.78125), BooleanOp.OR);
         shape = Shapes.join(shape, Shapes.box(0.28125, 0.84375, 0.28125, 0.71875, 0.90625, 0.71875), BooleanOp.OR);
         shape = Shapes.join(shape, Shapes.box(0.34375, -0.03125, 0.34375, 0.65625, 0.09375, 0.65625), BooleanOp.OR);
-
         return shape;
     }
 }

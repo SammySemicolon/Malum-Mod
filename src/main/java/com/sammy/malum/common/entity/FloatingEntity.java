@@ -33,8 +33,8 @@ public abstract class FloatingEntity extends Entity {
     protected static final EntityDataAccessor<Integer> DATA_COLOR = SynchedEntityData.defineId(FloatingEntity.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Integer> DATA_END_COLOR = SynchedEntityData.defineId(FloatingEntity.class, EntityDataSerializers.INT);
     public final ArrayList<EntityHelper.PastPosition> pastPositions = new ArrayList<>(); // *screaming*
-    public Color startColor = SpiritTypeRegistry.ARCANE_SPIRIT.getColor();
-    public Color endColor = SpiritTypeRegistry.ARCANE_SPIRIT.getEndColor();
+    public Color startColor = SpiritTypeRegistry.ARCANE_SPIRIT.getPrimaryColor();
+    public Color endColor = SpiritTypeRegistry.ARCANE_SPIRIT.getSecondaryColor();
     public int maxAge;
     public int age;
     public float moveTime;
@@ -49,8 +49,8 @@ public abstract class FloatingEntity extends Entity {
 
     @Override
     protected void defineSynchedData() {
-        this.getEntityData().define(DATA_COLOR, SpiritTypeRegistry.ARCANE_SPIRIT.getColor().getRGB());
-        this.getEntityData().define(DATA_END_COLOR, SpiritTypeRegistry.ARCANE_SPIRIT.getEndColor().getRGB());
+        this.getEntityData().define(DATA_COLOR, SpiritTypeRegistry.ARCANE_SPIRIT.getPrimaryColor().getRGB());
+        this.getEntityData().define(DATA_END_COLOR, SpiritTypeRegistry.ARCANE_SPIRIT.getSecondaryColor().getRGB());
     }
 
     @Override

@@ -30,20 +30,20 @@ public class BookPage {
     public void renderBackgroundLeft(Minecraft minecraft, PoseStack poseStack, float xOffset, float yOffset, int mouseX, int mouseY, float partialTicks) {
         int guiLeft = guiLeft();
         int guiTop = guiTop();
-        renderTexture(BACKGROUND, poseStack, guiLeft, guiTop, 1, 1, screen.bookWidth - 147, screen.bookHeight, 512, 512);
+        renderTexture(BACKGROUND, poseStack, guiLeft, guiTop, 1, 1, entryScreen.bookWidth - 147, entryScreen.bookHeight, 512, 512);
     }
 
     public void renderBackgroundRight(Minecraft minecraft, PoseStack poseStack, float xOffset, float yOffset, int mouseX, int mouseY, float partialTicks) {
         int guiLeft = guiLeft();
         int guiTop = guiTop();
-        renderTexture(BACKGROUND, poseStack, guiLeft + 147, guiTop, 148, 1, screen.bookWidth - 147, screen.bookHeight, 512, 512);
+        renderTexture(BACKGROUND, poseStack, guiLeft + 147, guiTop, 148, 1, entryScreen.bookWidth - 147, entryScreen.bookHeight, 512, 512);
     }
 
     public int guiLeft() {
-        return (screen.width - screen.bookWidth) / 2;
+        return (entryScreen.width - entryScreen.bookWidth) / 2;
     }
 
     public int guiTop() {
-        return (screen.height - screen.bookHeight) / 2;
+        return (entryScreen.height - entryScreen.bookHeight) / 2;
     }
 }

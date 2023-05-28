@@ -4,28 +4,14 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Vector3f;
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.common.blockentity.VoidConduitBlockEntity;
-import com.sammy.malum.common.blockentity.totem.TotemPoleBlockEntity;
-import com.sammy.malum.core.systems.spirit.MalumSpiritType;
-import com.sammy.malum.registry.common.SpiritTypeRegistry;
+import com.sammy.malum.common.block.curiosities.weeping_well.VoidConduitBlockEntity;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
-import net.minecraft.client.renderer.texture.TextureAtlas;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.resources.model.Material;
-import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import team.lodestar.lodestone.handlers.RenderHandler;
 import team.lodestar.lodestone.setup.LodestoneRenderTypeRegistry;
 import team.lodestar.lodestone.systems.rendering.VFXBuilders;
-
-import java.awt.*;
-import java.util.HashMap;
-import java.util.Map;
-
-import static team.lodestar.lodestone.helpers.RenderHelper.FULL_BRIGHT;
 
 
 public class VoidConduitRenderer implements BlockEntityRenderer<VoidConduitBlockEntity> {

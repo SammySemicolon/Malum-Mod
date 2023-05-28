@@ -3,7 +3,7 @@ package com.sammy.malum.core.handlers;
 import com.sammy.malum.common.capability.MalumItemDataCapability;
 import com.sammy.malum.common.capability.MalumLivingEntityDataCapability;
 import com.sammy.malum.common.container.SpiritPouchContainer;
-import com.sammy.malum.common.item.spirit.SpiritPouchItem;
+import com.sammy.malum.common.item.curiosities.SpiritPouchItem;
 import com.sammy.malum.config.CommonConfig;
 import com.sammy.malum.core.helper.SpiritHelper;
 import com.sammy.malum.core.systems.item.IMalumEventResponderItem;

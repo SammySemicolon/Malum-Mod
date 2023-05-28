@@ -74,18 +74,21 @@ public class ProgressionBookScreen extends AbstractProgressionCodexScreen {
     @Override
     public void onClose() {
         super.onClose();
-        playSweetenedSound(SoundRegistry.ARCANA_CODEX_CLOSE);
+        playSweetenedSound(SoundRegistry.ARCANA_CODEX_CLOSE, 0.75f);
     }
 
     public static void openScreen(boolean ignoreNextMouseClick) {
-        Minecraft.getInstance().setScreen(screen == null ? new ProgressionBookScreen() : screen);
+        if (screen == null) {
+            screen = new ProgressionBookScreen();
+        }
+        Minecraft.getInstance().setScreen(screen);
         ScreenParticleHandler.clearParticles();
         screen.ignoreNextMouseInput = ignoreNextMouseClick;
     }
 
     public static void openCodexViaItem() {
         openScreen(true);
-        screen.playSweetenedSound(SoundRegistry.ARCANA_CODEX_OPEN);
+        screen.playSweetenedSound(SoundRegistry.ARCANA_CODEX_OPEN, 1.25f);
     }
 
     public static void setupEntries() {

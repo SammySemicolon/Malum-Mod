@@ -3,7 +3,7 @@ package com.sammy.malum.client.renderer.block;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Vector3f;
-import com.sammy.malum.common.blockentity.totem.TotemPoleBlockEntity;
+import com.sammy.malum.common.block.curiosities.totem.TotemPoleBlockEntity;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import com.sammy.malum.registry.common.SpiritTypeRegistry;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -28,7 +28,7 @@ public class TotemPoleRenderer implements BlockEntityRenderer<TotemPoleBlockEnti
 
     public TotemPoleRenderer(BlockEntityRendererProvider.Context context) {
         SpiritTypeRegistry.SPIRITS.forEach((s, t) ->
-                overlayHashmap.put(t, new Material(TextureAtlas.LOCATION_BLOCKS, t.getOverlayTexture()))
+                overlayHashmap.put(t, new Material(TextureAtlas.LOCATION_BLOCKS, t.getTotemGlowTexture()))
         );
     }
 
@@ -38,7 +38,7 @@ public class TotemPoleRenderer implements BlockEntityRenderer<TotemPoleBlockEnti
         if (blockEntityIn.type == null) {
             return;
         }
-        renderQuad(overlayHashmap.get(blockEntityIn.type), blockEntityIn.type.getColor(), blockEntityIn.currentColor/20f, direction, poseStack);
+        renderQuad(overlayHashmap.get(blockEntityIn.type), blockEntityIn.type.getPrimaryColor(), blockEntityIn.currentColor/20f, direction, poseStack);
     }
 
     public void renderQuad(Material material, Color color, float alpha, Direction direction, PoseStack poseStack) {

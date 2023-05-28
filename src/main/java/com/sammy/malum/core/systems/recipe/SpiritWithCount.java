@@ -1,7 +1,7 @@
 package com.sammy.malum.core.systems.recipe;
 
 import com.google.gson.JsonObject;
-import com.sammy.malum.common.item.spirit.MalumSpiritItem;
+import com.sammy.malum.common.item.spirit.SpiritShardItem;
 import com.sammy.malum.core.helper.SpiritHelper;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import net.minecraft.nbt.CompoundTag;
@@ -18,7 +18,7 @@ public class SpiritWithCount implements IRecipeComponent {
     public final int count;
 
     public SpiritWithCount(ItemStack stack) {
-        this.type = ((MalumSpiritItem)stack.getItem()).type;
+        this.type = ((SpiritShardItem)stack.getItem()).type;
         this.count = stack.getCount();
     }
 
@@ -45,7 +45,7 @@ public class SpiritWithCount implements IRecipeComponent {
         return object;
     }
     public Component getComponent() {
-        return type.getCountComponent(count);
+        return type.getSpiritJarCounterComponent(count);
     }
 
     public CompoundTag save(CompoundTag tag) {
@@ -72,7 +72,7 @@ public class SpiritWithCount implements IRecipeComponent {
 
     @Override
     public Item getItem() {
-        return type.getSplinterItem();
+        return type.getSpiritShardItem();
     }
 
     @Override

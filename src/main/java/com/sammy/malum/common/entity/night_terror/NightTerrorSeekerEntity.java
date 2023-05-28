@@ -209,7 +209,7 @@ public class NightTerrorSeekerEntity extends ThrowableProjectile {
                 double lerpY = Mth.lerp(pDelta, oy, y) + motion.y / 4f;
                 double lerpZ = Mth.lerp(pDelta, oz, z) + motion.z / 4f;
                 float alphaMultiplier = (0.35f + extraAlpha) * Math.min(1, nightTerrorSeekerEntity.age * 0.2f);
-                CommonParticleEffects.spawnSpiritParticles(nightTerrorSeekerEntity.level, lerpX, lerpY, lerpZ, alphaMultiplier*0.8f, norm, firstColor, firstColor.darker());
+                ParticleEffects.spawnSpiritParticles(nightTerrorSeekerEntity.level, lerpX, lerpY, lerpZ, alphaMultiplier*0.8f, norm, firstColor, firstColor.darker());
 
                 final ColorParticleData.ColorParticleDataBuilder colorDataBuilder = ColorParticleData.create(NIGHT_TERROR_DARK, NIGHT_TERROR_DARK)
                         .setEasing(Easing.QUINTIC_OUT)

@@ -10,7 +10,7 @@ import com.sammy.malum.common.effect.InfernalAura;
 import com.sammy.malum.common.effect.WickedIntentEffect;
 import com.sammy.malum.common.enchantment.ReboundEnchantment;
 import com.sammy.malum.common.entity.nitrate.EthericExplosion;
-import com.sammy.malum.common.item.equipment.curios.*;
+import com.sammy.malum.common.item.curiosities.curios.*;
 import com.sammy.malum.compability.create.CreateCompat;
 import com.sammy.malum.compability.tetra.TetraCompat;
 import com.sammy.malum.core.handlers.*;

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "malum:blighted_gunk"
+    }
+  },
+  "result": {
+    "item": "malum:mass_of_blighted_gunk"
+  }
+}

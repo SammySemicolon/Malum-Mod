@@ -1,13 +1,11 @@
 package com.sammy.malum.data.block;
 
 import com.sammy.malum.data.item.*;
-import net.minecraft.core.*;
 import net.minecraft.data.*;
 import net.minecraft.resources.*;
 import net.minecraft.world.level.block.*;
 import net.minecraftforge.client.model.generators.*;
 import net.minecraftforge.common.data.*;
-import net.minecraftforge.registries.*;
 import team.lodestar.lodestone.systems.datagen.*;
 import team.lodestar.lodestone.systems.datagen.providers.*;
 import team.lodestar.lodestone.systems.datagen.statesmith.*;
@@ -152,11 +150,11 @@ public class MalumBlockStates extends LodestoneBlockStateProvider {
 
         setTexturePath("storage_blocks/");
         BlockStateSmithTypes.FULL_BLOCK.act(data,
-                BLOCK_OF_ARCANE_CHARCOAL, BLOCK_OF_BLAZING_QUARTZ,
-                BLOCK_OF_BRILLIANCE, BLOCK_OF_RAW_SOULSTONE, BLOCK_OF_SOULSTONE,
-                BLOCK_OF_HALLOWED_GOLD, BLOCK_OF_SOUL_STAINED_STEEL, BLOCK_OF_ROTTING_ESSENCE,
-                BLOCK_OF_GRIM_TALC, BLOCK_OF_ALCHEMICAL_CALX, BLOCK_OF_ASTRAL_WEAVE,
-                BLOCK_OF_HEX_ASH, BLOCK_OF_CURSED_GRIT, BLOCK_OF_VOID_SALTS);
+                BLOCK_OF_ARCANE_CHARCOAL, BLOCK_OF_BLAZING_QUARTZ, BLOCK_OF_BRILLIANCE,
+                BLOCK_OF_RAW_SOULSTONE, BLOCK_OF_SOULSTONE, BLOCK_OF_HALLOWED_GOLD,
+                BLOCK_OF_SOUL_STAINED_STEEL, BLOCK_OF_ROTTING_ESSENCE, BLOCK_OF_GRIM_TALC,
+                BLOCK_OF_ALCHEMICAL_CALX, BLOCK_OF_ASTRAL_WEAVE, BLOCK_OF_HEX_ASH,
+                MASS_OF_BLIGHTED_GUNK, BLOCK_OF_CURSED_GRIT, BLOCK_OF_VOID_SALTS);
 
         setTexturePath("blight/");
         MalumBlockStateSmithTypes.BLIGHTED_BLOCK.act(data, BLIGHTED_SOIL);
@@ -167,13 +165,10 @@ public class MalumBlockStates extends LodestoneBlockStateProvider {
 
         setTexturePath("");
         BlockStateSmithTypes.CUSTOM_MODEL.act(data, ItemModelSmithTypes.GENERATED_ITEM, this::simpleBlock, this::etherModel, ETHER);
-        BlockStateSmithTypes.CUSTOM_MODEL.act(data, MalumItemModelSmithTypes.ETHER_OVERLAY_ITEM, this::simpleBlock, this::etherTorchModel, ETHER_TORCH);
+        BlockStateSmithTypes.CUSTOM_MODEL.act(data, MalumItemModelSmithTypes.GENERATED_OVERLAY_ITEM, this::simpleBlock, this::etherTorchModel, ETHER_TORCH);
         BlockStateSmithTypes.CUSTOM_MODEL.act(data, ItemModelSmithTypes.NO_MODEL, (b, m) -> horizontalBlock(b, m, 90), this::wallEtherTorchModel, WALL_ETHER_TORCH);
 
-        BlockStateSmithTypes.CUSTOM_MODEL.act(data, MalumItemModelSmithTypes.ETHER_OVERLAY_ITEM, this::simpleBlock, this::etherModel, IRIDESCENT_ETHER);
-
-
-
+        BlockStateSmithTypes.CUSTOM_MODEL.act(data, MalumItemModelSmithTypes.GENERATED_OVERLAY_ITEM, this::simpleBlock, this::etherModel, IRIDESCENT_ETHER);
 
         BlockStateSmithTypes.CUSTOM_MODEL.act(data, ItemModelSmithTypes.BLOCK_MODEL_ITEM, this::simpleBlock, this::predefinedModel,
                 SPIRIT_ALTAR, SPIRIT_JAR, SOUL_VIAL);
@@ -200,6 +195,10 @@ public class MalumBlockStates extends LodestoneBlockStateProvider {
         BlockStateSmithTypes.WALL_TORCH_BLOCK.act(data, WALL_BLAZING_TORCH);
 
         BlockStateSmithTypes.FULL_BLOCK.act(data, THE_DEVICE, THE_VESSEL);
+
+        BlockStateSmithTypes.CUSTOM_MODEL.act(data, ItemModelSmithTypes.NO_MODEL, this::simpleBlock, this::airModel,
+                MOTE_OF_SACRED_ARCANA, MOTE_OF_WICKED_ARCANA, MOTE_OF_RAW_ARCANA, MOTE_OF_ELDRITCH_ARCANA,
+                MOTE_OF_AERIAL_ARCANA, MOTE_OF_AQUEOUS_ARCANA, MOTE_OF_INFERNAL_ARCANA, MOTE_OF_EARTHEN_ARCANA);
     }
 
     public ModelFile columnCapModel(Block block) {
@@ -306,47 +305,9 @@ public class MalumBlockStates extends LodestoneBlockStateProvider {
         return models().cubeBottomTop(name, side, bottom, top);
     }
 
-    public void etherSconceBlock(RegistryObject<Block> blockRegistryObject) {
-        String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
-        ModelFile sconce = models().withExistingParent(name, malumPath("block/templates/template_ether_sconce")).texture("sconce", malumPath("block/ether_sconce")).texture("overlay", malumPath("block/ether_sconce_overlay")).texture("fire", malumPath("block/ether_sconce_fire")).texture("particle", malumPath("block/ether_sconce"));
-
-        getVariantBuilder(blockRegistryObject.get()).forAllStates(s -> ConfiguredModel.builder().modelFile(sconce).build());
-    }
-
-    public void wallEtherSconceBlock(RegistryObject<Block> blockRegistryObject) {
-        String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
-        ModelFile sconce = models().withExistingParent(name, malumPath("block/templates/template_ether_sconce_wall")).texture("sconce", malumPath("block/ether_sconce")).texture("overlay", malumPath("block/ether_sconce_overlay")).texture("fire", malumPath("block/ether_sconce_fire")).texture("particle", malumPath("block/ether_sconce"));
-
-        getVariantBuilder(blockRegistryObject.get())
-                .partialState().with(WallTorchBlock.FACING, Direction.NORTH)
-                .modelForState().modelFile(sconce).addModel()
-                .partialState().with(WallTorchBlock.FACING, Direction.WEST)
-                .modelForState().modelFile(sconce).rotationY(270).addModel()
-                .partialState().with(WallTorchBlock.FACING, Direction.SOUTH)
-                .modelForState().modelFile(sconce).rotationY(180).addModel()
-                .partialState().with(WallTorchBlock.FACING, Direction.EAST)
-                .modelForState().modelFile(sconce).rotationY(90).addModel();
-    }
-
-    public void etherTorchBlock(RegistryObject<Block> blockRegistryObject) {
-        String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
-        ModelFile torch = models().withExistingParent(name, malumPath("block/templates/template_ether_torch")).texture("torch", malumPath("block/ether_torch")).texture("colored", malumPath("block/ether_torch_overlay")).texture("particle", malumPath("block/runewood_planks"));
-
-        getVariantBuilder(blockRegistryObject.get()).forAllStates(s -> ConfiguredModel.builder().modelFile(torch).build());
-    }
-
-    public void wallEtherTorchBlock(RegistryObject<Block> blockRegistryObject) {
-        String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
-        ModelFile torch = models().withExistingParent(name, malumPath("block/templates/template_ether_torch_wall")).texture("torch", malumPath("block/ether_torch")).texture("colored", malumPath("block/ether_torch_overlay")).texture("particle", malumPath("block/runewood_planks"));
-
-        getVariantBuilder(blockRegistryObject.get())
-                .partialState().with(WallTorchBlock.FACING, Direction.NORTH)
-                .modelForState().modelFile(torch).rotationY(270).addModel()
-                .partialState().with(WallTorchBlock.FACING, Direction.WEST)
-                .modelForState().modelFile(torch).rotationY(180).addModel()
-                .partialState().with(WallTorchBlock.FACING, Direction.SOUTH)
-                .modelForState().modelFile(torch).rotationY(90).addModel()
-                .partialState().with(WallTorchBlock.FACING, Direction.EAST)
-                .modelForState().modelFile(torch).addModel();
+    //TODO: move this to lodestone
+    public ModelFile airModel(Block block) {
+        String name = getBlockName(block);
+        return models().withExistingParent(name, new ResourceLocation("block/air"));
     }
 }

@@ -117,7 +117,7 @@ public class MalumLang extends LanguageProvider {
             add(r.translationIdentifier(true), r.corruptName);
         });
 
-        spirits.forEach(s -> add(s.getDescription(), DataHelper.toTitleCase(s.identifier + "_spirit", "_")));
+        spirits.forEach(s -> add(s.getSpiritDescription(), DataHelper.toTitleCase(s.identifier + "_spirit", "_")));
 
         addSimpleEntryHeader("introduction", "Introduction", "On the nature of souls");
         addPages("introduction",
@@ -368,7 +368,8 @@ public class MalumLang extends LanguageProvider {
         addPages("belt_of_the_prospector.ring_of_the_hoarder",
                 "While wearing this ring, any item created from the destruction caused by your explosions is directly teleported to your location.");
 
-        addSimpleEntryHeader("necklace_of_blissful_harmony", "The Blissful Harmony", "No sign of morning coming");
+        addEntryHeader("necklace_of_blissful_harmony", "Necklace of Blissful Harmony", "No sign of morning coming");
+        addHeadline("necklace_of_blissful_harmony", "The Blissful Harmony");
         addPages("necklace_of_blissful_harmony",
                 "To focus on my magics I more often than not need peace and clarity. Not always does this bliss come to me naturally, but that changes now. While worn, this accessory will hide my presence from nearby adversaries, decreasing their likelihood of taking interest in me.",
                 "Upon further studies, it would appear that the effects of my newly forged trinket are " + italic("especially") + " potent when exerting their influence over any soul bearing wicked spirit.");
@@ -392,7 +393,7 @@ public class MalumLang extends LanguageProvider {
         addEntryHeader("altar_acceleration", "Altar Acceleration", "Obelisks");
         addHeadline("altar_acceleration.runewood_obelisk", "Runewood Obelisk");
         addPages("altar_acceleration.runewood_obelisk",
-                "Spirit Infusion, as essential as it is, has grown to be tedious. Even producing a stack of simple Hex Ash takes several minutes. Using a Hallowed Spirit Resonator, I have found a way to accelerate it. By placing up to four hallowed obelisks nearby the altar I may increase the processing speed.");
+                "Spirit Infusion, as essential as it is, has grown to be tedious. Even producing a stack of simple Hex Ash takes several minutes. Using a Hallowed Spirit Resonator, I have found a way to accelerate it. By placing up to four hallowed obelisks nearby the altar I may increase the processing speed by 25% with each obelisk.");
         addHeadline("altar_acceleration.brilliant_obelisk", "Brilliant Obelisk");
         addPages("altar_acceleration.brilliant_obelisk",
                 "While not useful for Infusion, per-se, the design of the obelisk can be used in another way as well. By socketing Brilliance instead of a Resonator, the obelisk will harmonize with the Brilliance of enchanting, causing it to provide as much force of enchanting as five bookshelves do.");
@@ -544,7 +545,7 @@ public class MalumLang extends LanguageProvider {
         add("itemGroup.malum_arcane_construct", "Malum: Arcane Construct");
         add("itemGroup.malum_natural_wonders", "Malum: Born from Arcana");
         add("itemGroup.malum_metallurgic_magics", "Malum: Metallurgic Magics");
-        add("itemGroup.malum_cosmetics", "Malum: Drip");
+        add("itemGroup.malum_cosmetics", "Malum: Self Expression");
 
         add("enchantment.malum.haunted.desc", "Deals extra magic damage.");
         add("enchantment.malum.rebound.desc", "Allows the item to be thrown much like a boomerang, cooldown decreases with tier.");

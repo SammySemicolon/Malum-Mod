@@ -134,7 +134,6 @@ dependencies {
     compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:${minecraftVersion}-${curiosVersion}:api")
     runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${minecraftVersion}-${curiosVersion}")
 
-    // Use local lodestone when in multiproject
     implementation fg.deobf("team.lodestar.lodestone:lodestone:${minecraftVersion}-${project.lodestoneVersion}")
 
     compileOnly fg.deobf("se.mickelus.mutil:mutil:${minecraftVersion}-${mutilVersion}")
@@ -146,7 +145,6 @@ dependencies {
     compileOnly fg.deobf("curse.maven:farmers_delight-398521:3739914")
     compileOnly fg.deobf("curse.maven:selene-499980:3842421")
     compileOnly fg.deobf("curse.maven:supplementaries-412082:3871187")
-    compileOnly fg.deobf("curse.maven:jeed-532286:3820697")
 //    compileOnly fg.deobf("curse.maven:quark-243121:3840125")
 //    compileOnly fg.deobf("curse.maven:autoreglib-250363:3642382")
 }

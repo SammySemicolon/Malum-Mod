@@ -1,25 +1,21 @@
 package com.sammy.malum.common.spiritrite.greater;
 
-import com.sammy.malum.common.blockentity.totem.TotemBaseBlockEntity;
-import com.sammy.malum.common.packets.particle.block.BlockMistParticlePacket;
-import com.sammy.malum.common.packets.particle.entity.MajorEntityEffectParticlePacket;
-import com.sammy.malum.core.systems.rites.BlockAffectingRiteEffect;
-import com.sammy.malum.core.systems.rites.EntityAffectingRiteEffect;
-import com.sammy.malum.core.systems.rites.MalumRiteEffect;
-import com.sammy.malum.core.systems.rites.MalumRiteType;
-import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.BonemealableBlock;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.network.PacketDistributor;
+import com.sammy.malum.common.block.curiosities.totem.*;
+import com.sammy.malum.common.packets.particle.curiosities.rite.generic.*;
+import com.sammy.malum.core.systems.rites.*;
+import net.minecraft.core.*;
+import net.minecraft.server.level.*;
+import net.minecraft.world.entity.animal.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.*;
+import net.minecraftforge.network.*;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.*;
+import java.util.stream.*;
 
+import static com.sammy.malum.registry.common.PacketRegistry.*;
 import static com.sammy.malum.registry.common.SpiritTypeRegistry.*;
-import static com.sammy.malum.registry.common.PacketRegistry.MALUM_CHANNEL;
 
 public class EldritchSacredRiteType extends MalumRiteType {
     public EldritchSacredRiteType() {
@@ -51,7 +47,7 @@ public class EldritchSacredRiteType extends MalumRiteType {
                             state.randomTick((ServerLevel) level, p, level.random);
                         }
                         BlockPos particlePos = state.canOcclude() ? p : p.below();
-                        MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(pos)), new BlockMistParticlePacket(SACRED_SPIRIT.getColor(), particlePos));
+                     //   MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(pos)), new SacredMistRiteEffectPacket(SACRED_SPIRIT, particlePos));
                     }
                 });
             }
@@ -73,7 +69,7 @@ public class EldritchSacredRiteType extends MalumRiteType {
                 entities.forEach(e -> {
                     if (level.random.nextFloat() <= 0.01f) {
                         e.setInLoveTime(600);
-                        MALUM_CHANNEL.send(PacketDistributor.TRACKING_ENTITY.with(() -> e), new MajorEntityEffectParticlePacket(SACRED_SPIRIT.getColor(), e.getX(), e.getY() + e.getBbHeight() / 2f, e.getZ()));
+                        MALUM_CHANNEL.send(PacketDistributor.TRACKING_ENTITY.with(() -> e), new MajorEntityEffectParticlePacket(SACRED_SPIRIT.getPrimaryColor(), e.getX(), e.getY() + e.getBbHeight() / 2f, e.getZ()));
                     }
                 });
             }

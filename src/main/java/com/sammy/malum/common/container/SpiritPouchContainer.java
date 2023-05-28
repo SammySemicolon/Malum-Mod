@@ -1,7 +1,7 @@
 package com.sammy.malum.common.container;
 
-import com.sammy.malum.common.item.spirit.MalumSpiritItem;
-import com.sammy.malum.common.item.spirit.SpiritPouchItem;
+import com.sammy.malum.common.item.spirit.SpiritShardItem;
+import com.sammy.malum.common.item.curiosities.SpiritPouchItem;
 import com.sammy.malum.registry.common.ContainerRegistry;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -33,7 +33,7 @@ public class SpiritPouchContainer extends AbstractContainerMenu {
                 addSlot(new Slot(inventory, index, 8 + j * 18, 18 + i * 18) {
                     @Override
                     public boolean mayPlace(ItemStack stack) {
-                        return stack.getItem() instanceof MalumSpiritItem;
+                        return stack.getItem() instanceof SpiritShardItem;
                     }
                 });
             }

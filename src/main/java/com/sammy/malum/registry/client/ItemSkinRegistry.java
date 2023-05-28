@@ -1,10 +1,10 @@
 package com.sammy.malum.registry.client;
 
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.common.blockentity.spirit_altar.IAltarProvider;
-import com.sammy.malum.common.item.equipment.armor.SoulHunterArmorItem;
-import com.sammy.malum.common.item.equipment.armor.SoulStainedSteelArmorItem;
-import com.sammy.malum.common.packets.particle.block.blight.BlightTransformItemParticlePacket;
+import com.sammy.malum.common.block.curiosities.spirit_altar.IAltarProvider;
+import com.sammy.malum.common.item.curiosities.armor.SoulHunterArmorItem;
+import com.sammy.malum.common.item.curiosities.armor.SoulStainedSteelArmorItem;
+import com.sammy.malum.common.packets.particle.curiosities.blight.BlightTransformItemParticlePacket;
 import com.sammy.malum.core.systems.item.ItemSkin;
 import com.sammy.malum.registry.common.SoundRegistry;
 import com.sammy.malum.registry.common.item.ItemRegistry;

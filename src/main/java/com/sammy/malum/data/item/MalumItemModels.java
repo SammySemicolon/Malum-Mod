@@ -1,12 +1,11 @@
 package com.sammy.malum.data.item;
 
 import com.sammy.malum.*;
-import com.sammy.malum.common.item.*;
 import com.sammy.malum.common.item.cosmetic.*;
 import com.sammy.malum.common.item.ether.*;
+import com.sammy.malum.common.item.curiosities.weapons.*;
 import com.sammy.malum.common.item.impetus.*;
 import com.sammy.malum.common.item.spirit.*;
-import com.sammy.malum.common.item.tools.*;
 import com.sammy.malum.registry.client.*;
 import net.minecraft.core.*;
 import net.minecraft.data.*;
@@ -51,7 +50,8 @@ public class MalumItemModels extends LodestoneItemModelProvider {
 
 
         setTexturePath("");
-        MalumItemModelSmithTypes.SPIRIT_ITEM.act(data, items.stream().filter(i -> i.get() instanceof MalumSpiritItem).toList());
+        MalumItemModelSmithTypes.SPIRIT_ITEM.act(data, items.stream().filter(i -> i.get() instanceof SpiritShardItem).toList());
+
         ItemModelSmithTypes.HANDHELD_ITEM.act(data, items.stream().filter(i -> i.get() instanceof DiggerItem).toList());
         ItemModelSmithTypes.HANDHELD_ITEM.act(data, items.stream().filter(i -> i.get() instanceof SwordItem).toList());
         ItemModelSmithTypes.HANDHELD_ITEM.act(data, items.stream().filter(i -> i.get() instanceof ModCombatItem).toList());
@@ -63,11 +63,6 @@ public class MalumItemModels extends LodestoneItemModelProvider {
 
 
         ItemModelSmithTypes.GENERATED_ITEM.act(data, items);
-    }
-
-    private void blightedSpireItem(RegistryObject<Item> i) {
-        String name = Registry.ITEM.getKey(i.get()).getPath();
-        withExistingParent(name, GENERATED).texture("layer0", malumPath("block/" + name+"_0"));
     }
 
     private void etherBrazierItem(RegistryObject<Item> i) {

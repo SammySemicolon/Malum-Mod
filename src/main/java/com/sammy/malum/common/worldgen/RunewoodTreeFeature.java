@@ -2,8 +2,8 @@ package com.sammy.malum.common.worldgen;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
-import com.sammy.malum.common.block.MalumLeavesBlock;
-import com.sammy.malum.common.block.MalumSaplingBlock;
+import com.sammy.malum.common.block.nature.MalumLeavesBlock;
+import com.sammy.malum.common.block.nature.MalumSaplingBlock;
 import com.sammy.malum.registry.common.block.BlockRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -16,12 +16,10 @@ import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import team.lodestar.lodestone.helpers.BlockHelper;
-import team.lodestar.lodestone.helpers.DataHelper;
 import team.lodestar.lodestone.systems.worldgen.LodestoneBlockFiller;
 import team.lodestar.lodestone.systems.worldgen.LodestoneBlockFiller.BlockStateEntry;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class RunewoodTreeFeature extends Feature<NoneFeatureConfiguration> {
     public RunewoodTreeFeature() {

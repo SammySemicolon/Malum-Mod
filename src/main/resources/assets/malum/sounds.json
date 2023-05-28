@@ -1,5 +1,4 @@
 {
-
   "arcana_codex_opened": { "sounds":["malum:codex/book_open1", "malum:codex/book_open2", "malum:codex/book_open3", "malum:codex/book_open4"], "subtitle": "malum.subtitle.arcana_codex_opened" },
   "arcana_codex_closed": { "sounds":["malum:codex/book_close1", "malum:codex/book_close2", "malum:codex/book_close3", "malum:codex/book_close4"], "subtitle": "malum.subtitle.arcana_codex_closed" },
   "arcana_entry_opened": { "sounds":["malum:codex/book_entry_open1", "malum:codex/book_entry_open2", "malum:codex/book_entry_open3", "malum:codex/book_entry_open4"], "subtitle": "malum.subtitle.arcana_entry_opened" },
@@ -106,6 +105,7 @@
   "hungry_belt_feeds": { "sounds":["malum:curiosities/starved_belt/nom1", "malum:curiosities/starved_belt/nom2", "malum:curiosities/starved_belt/nom3", "malum:curiosities/starved_belt/nom4"], "subtitle": "malum.subtitle.hungry_belt_feeds" },
   "hidden_blade_strikes": { "sounds":["malum:curiosities/hidden_blade/strike1", "malum:curiosities/hidden_blade/strike2", "malum:curiosities/hidden_blade/strike3"], "subtitle": "malum.subtitle.hidden_blade_strikes" },
   "nitrate_thrown": { "sounds":["minecraft:random/bow"], "subtitle": "malum.subtitle.nitrate_thrown" },
+  "spirit_mote_created": { "sounds":["malum:curiosities/spirit_mote/light_wand1", "malum:curiosities/spirit_mote/light_wand2", "malum:curiosities/spirit_mote/light_wand3"], "subtitle": "malum.subtitle.construct_wand_activated" },
 
   "gilded_trinket_equipped": { "sounds":["malum:curiosities/equip_holy"], "subtitle": "malum.subtitle.gilded_trinket_equipped" },
   "ornate_trinket_equipped": { "sounds":["malum:curiosities/equip_sinister"], "subtitle": "malum.subtitle.ornate_trinket_equipped" },

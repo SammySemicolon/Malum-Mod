@@ -1,6 +1,6 @@
 package com.sammy.malum.common.entity.boomerang;
 
-import com.sammy.malum.common.item.tools.*;
+import com.sammy.malum.common.item.curiosities.weapons.*;
 import com.sammy.malum.registry.common.*;
 import com.sammy.malum.registry.common.entity.*;
 import com.sammy.malum.registry.common.item.*;

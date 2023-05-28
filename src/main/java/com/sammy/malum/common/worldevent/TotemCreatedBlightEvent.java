@@ -1,7 +1,7 @@
 package com.sammy.malum.common.worldevent;
 
-import com.sammy.malum.common.blockentity.totem.TotemBaseBlockEntity;
-import com.sammy.malum.common.blockentity.totem.TotemPoleBlockEntity;
+import com.sammy.malum.common.block.curiosities.totem.TotemBaseBlockEntity;
+import com.sammy.malum.common.block.curiosities.totem.TotemPoleBlockEntity;
 import com.sammy.malum.registry.common.SoundRegistry;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import net.minecraft.core.BlockPos;

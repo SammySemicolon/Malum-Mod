@@ -1,38 +1,29 @@
 package com.sammy.malum.common.spiritrite.greater;
 
-import com.sammy.malum.common.blockentity.totem.TotemBaseBlockEntity;
-import com.sammy.malum.common.packets.particle.block.BlockDownwardSparkleParticlePacket;
-import com.sammy.malum.common.packets.particle.entity.MinorEntityEffectParticlePacket;
-import com.sammy.malum.registry.common.SoundRegistry;
-import com.sammy.malum.registry.common.block.BlockTagRegistry;
-import com.sammy.malum.core.systems.rites.BlockAffectingRiteEffect;
-import com.sammy.malum.core.systems.rites.EntityAffectingRiteEffect;
-import com.sammy.malum.core.systems.rites.MalumRiteEffect;
-import com.sammy.malum.core.systems.rites.MalumRiteType;
-import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.stats.ServerStatsCounter;
-import net.minecraft.stats.Stat;
-import net.minecraft.stats.Stats;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.world.entity.item.FallingBlockEntity;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.enchantment.Enchantments;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.FallingBlock;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.network.PacketDistributor;
+import com.sammy.malum.client.vfx.*;
+import com.sammy.malum.common.block.curiosities.totem.*;
+import com.sammy.malum.common.packets.particle.curiosities.rite.*;
+import com.sammy.malum.core.systems.rites.*;
+import com.sammy.malum.registry.common.*;
+import com.sammy.malum.registry.common.block.*;
+import net.minecraft.core.*;
+import net.minecraft.resources.*;
+import net.minecraft.server.level.*;
+import net.minecraft.sounds.*;
+import net.minecraft.stats.*;
+import net.minecraft.tags.*;
+import net.minecraft.world.entity.item.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.item.enchantment.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.*;
+import net.minecraftforge.network.*;
 
-import java.util.List;
+import java.util.*;
 
+import static com.sammy.malum.registry.common.PacketRegistry.*;
 import static com.sammy.malum.registry.common.SpiritTypeRegistry.*;
-import static com.sammy.malum.registry.common.PacketRegistry.MALUM_CHANNEL;
 
 public class EldritchAerialRiteType extends MalumRiteType {
     public EldritchAerialRiteType() {
@@ -54,7 +45,7 @@ public class EldritchAerialRiteType extends MalumRiteType {
                             if (!state.isAir() && level.getBlockEntity(p) == null && canSilkTouch(serverLevel, pos, state)) {
                                 FallingBlockEntity.fall(level, p, state);
                                 level.playSound(null, p, SoundRegistry.AERIAL_FALL.get(), SoundSource.BLOCKS, 0.5f, 2.6F + (level.random.nextFloat() - level.random.nextFloat()) * 0.8F);
-                                MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(pos)), new BlockDownwardSparkleParticlePacket(AERIAL_SPIRIT.getColor(), p));
+                                MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(pos)), new AerialBlockFallRiteEffectPacket(AERIAL_SPIRIT.getPrimaryColor(), p));
                             }
                         }
                     });
@@ -63,9 +54,25 @@ public class EldritchAerialRiteType extends MalumRiteType {
         };
     }
 
-    private static final List<Item> TOOLS = List.of(Items.NETHERITE_PICKAXE, Items.NETHERITE_AXE, Items.NETHERITE_SHOVEL, Items.NETHERITE_HOE);
+    @Override
+    public MalumRiteEffect getCorruptedEffect() {
+        return new EntityAffectingRiteEffect() {
+            @Override
+            public void riteEffect(TotemBaseBlockEntity totemBase) {
+                getNearbyEntities(totemBase, ServerPlayer.class).forEach(p -> {
+                    ServerStatsCounter stats = p.getStats();
+                    Stat<ResourceLocation> sleepStat = Stats.CUSTOM.get(Stats.TIME_SINCE_REST);
+                    int value = stats.getValue(sleepStat);
+                    stats.setValue(p, sleepStat, Math.max(0, value-500));
+                    ParticleEffectTypeRegistry.HEXING_SMOKE.createEntityEffect(p, new ColorEffectData(AERIAL_SPIRIT));
+                });
+            }
+        };
+    }
 
+    private static final List<Item> TOOLS = List.of(Items.NETHERITE_PICKAXE, Items.NETHERITE_AXE, Items.NETHERITE_SHOVEL, Items.NETHERITE_HOE);
     // From Botania, modified slightly
+
     private static ItemStack getToolForState(BlockState state) {
         if (!state.requiresCorrectToolForDrops()) {
             return new ItemStack(Items.NETHERITE_PICKAXE);
@@ -94,21 +101,5 @@ public class EldritchAerialRiteType extends MalumRiteType {
         List<ItemStack> drops = Block.getDrops(state, level, pos, null, null, harvestToolStack);
         Item blockItem = state.getBlock().asItem();
         return drops.stream().anyMatch(s -> s.getItem() == blockItem);
-    }
-
-    @Override
-    public MalumRiteEffect getCorruptedEffect() {
-        return new EntityAffectingRiteEffect() {
-            @Override
-            public void riteEffect(TotemBaseBlockEntity totemBase) {
-                getNearbyEntities(totemBase, ServerPlayer.class).forEach(p -> {
-                    ServerStatsCounter stats = p.getStats();
-                    Stat<ResourceLocation> sleepStat = Stats.CUSTOM.get(Stats.TIME_SINCE_REST);
-                    int value = stats.getValue(sleepStat);
-                    stats.setValue(p, sleepStat, Math.max(0, value-500));
-                    MALUM_CHANNEL.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> p), new MinorEntityEffectParticlePacket(AERIAL_SPIRIT.getColor(), p.getX(), p.getY()+ p.getBbHeight() / 2f, p.getZ()));
-                });
-            }
-        };
     }
 }

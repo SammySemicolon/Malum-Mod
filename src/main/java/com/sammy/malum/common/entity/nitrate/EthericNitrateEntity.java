@@ -1,7 +1,7 @@
 package com.sammy.malum.common.entity.nitrate;
 
 import com.sammy.malum.client.*;
-import com.sammy.malum.common.packets.particle.entity.*;
+import com.sammy.malum.common.packets.particle.curiosities.nitrate.*;
 import com.sammy.malum.registry.common.entity.*;
 import net.minecraft.server.level.*;
 import net.minecraft.util.*;
@@ -78,7 +78,7 @@ public class EthericNitrateEntity extends AbstractNitrateEntity {
                 double lerpY = Mth.lerp(pDelta, oy, y) - motion.y / 4f;
                 double lerpZ = Mth.lerp(pDelta, oz, z) - motion.z / 4f;
                 float alphaMultiplier = (0.35f + extraAlpha) * Math.min(1, ethericNitrateEntity.windUp * 2);
-                CommonParticleEffects.spawnSpiritParticles(ethericNitrateEntity.level, lerpX, lerpY, lerpZ, alphaMultiplier, norm, firstColor, SECOND_COLOR);
+                ParticleEffects.spawnSpiritParticles(ethericNitrateEntity.level, lerpX, lerpY, lerpZ, alphaMultiplier, norm, firstColor, SECOND_COLOR);
 
                 final ColorParticleData.ColorParticleDataBuilder colorDataBuilder = ColorParticleData.create(SECOND_COLOR, SECOND_SMOKE_COLOR)
                         .setEasing(Easing.QUINTIC_OUT)

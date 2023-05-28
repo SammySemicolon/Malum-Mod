@@ -38,7 +38,7 @@ public class SpiritJarItem extends BlockItem {
     public Rarity getRarity(ItemStack pStack) {
         if (pStack.hasTag() && pStack.getTag().contains("spirit")) {
             MalumSpiritType spirit = SpiritHelper.getSpiritType(pStack.getTag().getString("spirit"));
-            return spirit.rarity;
+            return spirit.getItemRarity();
         }
         return super.getRarity(pStack);
     }
@@ -49,7 +49,7 @@ public class SpiritJarItem extends BlockItem {
             MalumSpiritType spirit = SpiritHelper.getSpiritType(pStack.getTag().getString("spirit"));
             int count = pStack.getTag().getInt("count");
             pTooltip.add(new TranslatableComponent("malum.spirit.description.stored_spirit").withStyle(ChatFormatting.GRAY));
-            pTooltip.add(spirit.getCountComponent(count));
+            pTooltip.add(spirit.getSpiritJarCounterComponent(count));
         }
     }
 

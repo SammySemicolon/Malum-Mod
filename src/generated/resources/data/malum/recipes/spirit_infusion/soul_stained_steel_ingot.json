@@ -9,12 +9,8 @@
   },
   "extra_items": [
     {
-      "tag": "minecraft:soul_fire_base_blocks",
-      "count": 2
-    },
-    {
       "item": "malum:processed_soulstone",
-      "count": 1
+      "count": 4
     }
   ],
   "spirits": [

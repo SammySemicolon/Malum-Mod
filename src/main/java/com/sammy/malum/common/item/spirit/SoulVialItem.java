@@ -1,5 +1,6 @@
 package com.sammy.malum.common.item.spirit;
 
+import com.sammy.malum.common.item.curiosities.*;
 import com.sammy.malum.core.systems.item.ISoulContainerItem;
 import com.sammy.malum.core.systems.spirit.MalumEntitySpiritData;
 import net.minecraft.ChatFormatting;
