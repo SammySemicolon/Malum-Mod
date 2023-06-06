@@ -8,8 +8,6 @@ import com.sammy.malum.common.packets.particle.curiosities.blight.*;
 import com.sammy.malum.common.packets.particle.curiosities.nitrate.*;
 import com.sammy.malum.common.packets.particle.curiosities.rite.*;
 import com.sammy.malum.common.packets.particle.curiosities.rite.generic.*;
-import com.sammy.malum.common.packets.particle.curiosities.void_conduit.*;
-import com.sammy.malum.common.packets.particle.curiosities.wand.*;
 import net.minecraftforge.eventbus.api.*;
 import net.minecraftforge.fml.common.*;
 import net.minecraftforge.fml.event.lifecycle.*;
@@ -40,8 +38,6 @@ public class PacketRegistry {
         EthericNitrateParticlePacket.register(MALUM_CHANNEL, index++);
         VividNitrateBounceParticlePacket.register(MALUM_CHANNEL, index++);
         SuccessfulSoulHarvestParticlePacket.register(MALUM_CHANNEL, index++);
-        VoidConduitParticlePacket.register(MALUM_CHANNEL, index++);
-        SpiritNodeCreationPacket.register(MALUM_CHANNEL, index++);
 
         TotemPoleActivationEffectPacket.register(MALUM_CHANNEL, index++);
         SacredMistRiteEffectPacket.register(MALUM_CHANNEL, index++);

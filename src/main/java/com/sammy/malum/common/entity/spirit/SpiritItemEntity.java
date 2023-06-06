@@ -1,25 +1,29 @@
 package com.sammy.malum.common.entity.spirit;
 
-import com.sammy.malum.client.ParticleEffects;
-import com.sammy.malum.common.entity.FloatingItemEntity;
-import com.sammy.malum.common.item.spirit.SpiritShardItem;
-import com.sammy.malum.core.handlers.SpiritHarvestHandler;
-import com.sammy.malum.registry.common.entity.EntityRegistry;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.Mth;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.Vec3;
-import team.lodestar.lodestone.helpers.ItemHelper;
+import com.sammy.malum.client.*;
+import com.sammy.malum.common.entity.*;
+import com.sammy.malum.common.item.spirit.*;
+import com.sammy.malum.core.handlers.*;
+import com.sammy.malum.registry.common.*;
+import com.sammy.malum.registry.common.entity.*;
+import net.minecraft.nbt.*;
+import net.minecraft.server.level.*;
+import net.minecraft.sounds.*;
+import net.minecraft.util.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.phys.*;
+import team.lodestar.lodestone.helpers.*;
 
-import java.util.UUID;
+import java.util.*;
 
 public class SpiritItemEntity extends FloatingItemEntity {
     public UUID ownerUUID;
     public LivingEntity owner;
+    public int soundCooldown = 20 + random.nextInt(100);
+
 
     public SpiritItemEntity(Level level) {
         super(EntityRegistry.NATURAL_SPIRIT.get(), level);
@@ -36,19 +40,24 @@ public class SpiritItemEntity extends FloatingItemEntity {
     }
 
     @Override
+    public void addAdditionalSaveData(CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
+        if (ownerUUID != null) {
+            compound.putUUID("ownerUUID", ownerUUID);
+        }
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag compound) {
+        super.readAdditionalSaveData(compound);
+        if (compound.contains("ownerUUID")) {
+            setOwner(compound.getUUID("ownerUUID"));
+        }
+    }
+
+    @Override
     public boolean fireImmune() {
         return true;
-    }
-
-    public void setOwner(UUID ownerUUID) {
-        this.ownerUUID = ownerUUID;
-        updateOwner();
-    }
-
-    public void updateOwner() {
-        if (!level.isClientSide) {
-            owner = (LivingEntity) ((ServerLevel) level).getEntity(ownerUUID);
-        }
     }
 
     @Override
@@ -67,6 +76,12 @@ public class SpiritItemEntity extends FloatingItemEntity {
 
     @Override
     public void move() {
+        if (soundCooldown-- == 0) {
+            if (random.nextFloat() < 0.4f) {
+                level.playSound(null, blockPosition(), SoundRegistry.ARCANE_WHISPERS.get(), SoundSource.NEUTRAL, 0.3f, Mth.nextFloat(random, 1.1f, 2f));
+            }
+            soundCooldown = random.nextInt(40) + 40;
+        }
         float friction = 0.94f;
         setDeltaMovement(getDeltaMovement().multiply(friction, friction, friction));
         if (owner == null || !owner.isAlive()) {
@@ -89,7 +104,6 @@ public class SpiritItemEntity extends FloatingItemEntity {
         float zMotion = (float) Mth.lerp(easing, getDeltaMovement().z, desiredMotion.z);
         Vec3 resultingMotion = new Vec3(xMotion, yMotion, zMotion);
         setDeltaMovement(resultingMotion);
-
         if (distance < 0.4f) {
             if (isAlive()) {
                 ItemStack stack = getItem();
@@ -99,24 +113,22 @@ public class SpiritItemEntity extends FloatingItemEntity {
                 else {
                     ItemHelper.giveItemToEntity(stack, owner);
                 }
+                if (random.nextFloat() < 0.6f) {
+                    level.playSound(null, blockPosition(), SoundRegistry.SPIRIT_PICKUP.get(), SoundSource.NEUTRAL, 0.3f, Mth.nextFloat(random, 1.1f, 2f));
+                }
                 remove(RemovalReason.DISCARDED);
             }
         }
     }
 
-    @Override
-    public void addAdditionalSaveData(CompoundTag compound) {
-        super.addAdditionalSaveData(compound);
-        if (ownerUUID != null) {
-            compound.putUUID("ownerUUID", ownerUUID);
-        }
+    public void setOwner(UUID ownerUUID) {
+        this.ownerUUID = ownerUUID;
+        updateOwner();
     }
 
-    @Override
-    public void readAdditionalSaveData(CompoundTag compound) {
-        super.readAdditionalSaveData(compound);
-        if (compound.contains("ownerUUID")) {
-            setOwner(compound.getUUID("ownerUUID"));
+    public void updateOwner() {
+        if (!level.isClientSide) {
+            owner = (LivingEntity) ((ServerLevel) level).getEntity(ownerUUID);
         }
     }
 }

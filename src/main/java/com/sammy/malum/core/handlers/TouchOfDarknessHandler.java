@@ -1,33 +1,27 @@
 package com.sammy.malum.core.handlers;
 
-import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.systems.*;
 import com.mojang.blaze3d.vertex.*;
-import com.sammy.malum.common.block.curiosities.weeping_well.PrimordialSoupBlock;
-import com.sammy.malum.common.capability.MalumLivingEntityDataCapability;
-import com.sammy.malum.common.packets.VoidRejectionPacket;
-import com.sammy.malum.common.packets.particle.curiosities.void_conduit.VoidConduitParticlePacket;
-import com.sammy.malum.registry.client.ShaderRegistry;
-import com.sammy.malum.registry.common.DamageSourceRegistry;
-import com.sammy.malum.registry.common.PacketRegistry;
-import com.sammy.malum.registry.common.SoundRegistry;
-import com.sammy.malum.registry.common.MobEffectRegistry;
-import net.minecraft.client.Minecraft;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.Mth;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.event.entity.living.LivingEvent;
-import net.minecraftforge.network.PacketDistributor;
-import team.lodestar.lodestone.systems.easing.Easing;
-import team.lodestar.lodestone.systems.rendering.ExtendedShaderInstance;
-import team.lodestar.lodestone.systems.rendering.VFXBuilders;
+import com.sammy.malum.common.block.curiosities.weeping_well.*;
+import com.sammy.malum.common.capability.*;
+import com.sammy.malum.common.packets.*;
+import com.sammy.malum.registry.client.*;
+import com.sammy.malum.registry.common.*;
+import net.minecraft.client.*;
+import net.minecraft.nbt.*;
+import net.minecraft.sounds.*;
+import net.minecraft.util.*;
+import net.minecraft.world.damagesource.*;
+import net.minecraft.world.effect.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.level.block.state.*;
+import net.minecraftforge.event.entity.living.*;
+import net.minecraftforge.network.*;
+import team.lodestar.lodestone.systems.easing.*;
+import team.lodestar.lodestone.systems.rendering.*;
 
-import java.util.function.Consumer;
+import java.util.function.*;
 
 public class TouchOfDarknessHandler {
 
@@ -159,7 +153,7 @@ public class TouchOfDarknessHandler {
         rejection = 10;
         if (!livingEntity.level.isClientSide) {
             PacketRegistry.MALUM_CHANNEL.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> livingEntity), new VoidRejectionPacket(livingEntity.getId()));
-            PacketRegistry.MALUM_CHANNEL.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> livingEntity), new VoidConduitParticlePacket(livingEntity.getX(), livingEntity.getY()+livingEntity.getBbHeight()/2f, livingEntity.getZ()));
+            ParticleEffectTypeRegistry.WEEPING_WELL_REACTS.createEntityEffect(livingEntity);
             livingEntity.hurt(new DamageSource(DamageSourceRegistry.VOODOO_IDENTIFIER), 4);
             livingEntity.level.playSound(null, livingEntity.blockPosition(), SoundRegistry.VOID_REJECTION.get(), SoundSource.HOSTILE, 2f, Mth.nextFloat(livingEntity.getRandom(), 0.85f, 1.35f));
         }

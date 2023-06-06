@@ -76,8 +76,11 @@
   "blight_reacts": { "sounds":["malum:blocks/blight/blight_motif1","malum:blocks/blight/blight_motif2","malum:blocks/blight/blight_motif3","malum:blocks/blight/blight_motif4","malum:blocks/blight/blight_motif5","malum:blocks/blight/blight_motif6"], "subtitle": "malum.subtitle.blight_reacts" },
   "blight_reacts_faintly": { "sounds":["malum:blocks/blight/minor_blight_motif1","malum:blocks/blight/minor_blight_motif2","malum:blocks/blight/minor_blight_motif3","malum:blocks/blight/minor_blight_motif4","malum:blocks/blight/minor_blight_motif5","malum:blocks/blight/minor_blight_motif6"], "subtitle": "malum.subtitle.blight_reacts_faintly" },
 
-  "scythe_cuts": { "sounds":["malum:curiosities/scythe/cut1","malum:curiosities/scythe/cut2","malum:curiosities/scythe/cut3"], "subtitle": "malum.subtitle.scythe_cuts" },
+  "arcane_whispers": { "sounds":["malum:curiosities/spirit/spirit_idle1","malum:curiosities/spirit/spirit_idle2","malum:curiosities/spirit/spirit_idle3","malum:curiosities/spirit/spirit_idle4"], "subtitle": "malum.subtitle.arcane_whispers" },
+  "spirit_picked_up": { "sounds":["malum:curiosities/spirit/spirit_pickup1","malum:curiosities/spirit/spirit_pickup2","malum:curiosities/spirit/spirit_pickup3","malum:curiosities/spirit/spirit_pickup4"], "subtitle": "malum.subtitle.spirit_picked_up" },
   "a_soul_shatters": { "sounds":["malum:curiosities/soul_shatter1","malum:curiosities/soul_shatter2","malum:curiosities/soul_shatter3"], "subtitle": "malum.subtitle.a_soul_shatters" },
+
+  "scythe_cuts": { "sounds":["malum:curiosities/scythe/cut1","malum:curiosities/scythe/cut2","malum:curiosities/scythe/cut3"], "subtitle": "malum.subtitle.scythe_cuts" },
 
   "the_unknown_weeps": { "sounds":["malum:weeping_well/uncanny_valley0","malum:weeping_well/uncanny_valley1"], "subtitle": "malum.subtitle.the_unknown_weeps" },
   "the_void_heart_beats": { "sounds":["malum:weeping_well/void_heartbeat"], "subtitle": "malum.subtitle.the_void_heart_beats" },

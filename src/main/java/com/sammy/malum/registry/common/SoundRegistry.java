@@ -28,8 +28,11 @@ public class SoundRegistry {
     public static final RegistryObject<SoundEvent> ARCANA_TRANSITION_NORMAL = register(new SoundEvent(MalumMod.malumPath("arcana_transition_normal")));
     public static final RegistryObject<SoundEvent> ARCANA_TRANSITION_EVIL = register(new SoundEvent(MalumMod.malumPath("arcana_transition_evil")));
 
-    public static final RegistryObject<SoundEvent> SCYTHE_CUT = register(new SoundEvent(MalumMod.malumPath("scythe_cuts")));
+    public static final RegistryObject<SoundEvent> ARCANE_WHISPERS = register(new SoundEvent(MalumMod.malumPath("arcane_whispers")));
+    public static final RegistryObject<SoundEvent> SPIRIT_PICKUP = register(new SoundEvent(MalumMod.malumPath("spirit_picked_up")));
     public static final RegistryObject<SoundEvent> SPIRIT_HARVEST = register(new SoundEvent(MalumMod.malumPath("a_soul_shatters")));
+
+    public static final RegistryObject<SoundEvent> SCYTHE_CUT = register(new SoundEvent(MalumMod.malumPath("scythe_cuts")));
 
     public static final RegistryObject<SoundEvent> ALTAR_CRAFT = register(new SoundEvent(MalumMod.malumPath("spirit_altar_completes_infusion")));
     public static final RegistryObject<SoundEvent> ALTAR_LOOP = register(new SoundEvent(MalumMod.malumPath("spirit_altar_infuses")));

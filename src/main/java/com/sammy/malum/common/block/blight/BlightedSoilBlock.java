@@ -1,6 +1,7 @@
 package com.sammy.malum.common.block.blight;
 
 import com.sammy.malum.common.item.spirit.*;
+import com.sammy.malum.common.worldevent.*;
 import com.sammy.malum.common.worldgen.*;
 import com.sammy.malum.registry.common.*;
 import net.minecraft.core.*;
@@ -73,9 +74,6 @@ public class BlightedSoilBlock extends Block implements BonemealableBlock {
         pLevel.playSound(null, pPos, SoundEvents.BONE_MEAL_USE, SoundSource.BLOCKS, 1.2f, 0.8f);
         LodestoneBlockFiller filler = new LodestoneBlockFiller(false);
         SoulwoodTreeFeature.generateBlight(pLevel, filler, pPos, 4);
-
-
-        filler.getEntries().entrySet().stream().filter(e -> e.getValue().getState().getBlock() instanceof BlightedSoilBlock).map(Map.Entry::getKey)
-                .forEach(p -> ParticleEffectTypeRegistry.BLIGHTING_MIST.createBlockEffect(pLevel, p, null));
+        ActiveBlightEvent.createBlightVFX(pLevel, filler);
     }
 }

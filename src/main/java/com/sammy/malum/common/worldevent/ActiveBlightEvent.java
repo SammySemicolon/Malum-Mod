@@ -1,21 +1,16 @@
 package com.sammy.malum.common.worldevent;
 
-import com.sammy.malum.common.block.blight.BlightedSoilBlock;
-import com.sammy.malum.common.packets.particle.curiosities.blight.BlightMistParticlePacket;
-import com.sammy.malum.common.worldgen.SoulwoodTreeFeature;
-import com.sammy.malum.registry.common.SoundRegistry;
-import com.sammy.malum.registry.common.WorldEventTypes;
-import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.level.Level;
-import net.minecraftforge.network.PacketDistributor;
-import team.lodestar.lodestone.systems.worldevent.WorldEventInstance;
-import team.lodestar.lodestone.systems.worldgen.LodestoneBlockFiller;
+import com.sammy.malum.common.block.blight.*;
+import com.sammy.malum.common.worldgen.*;
+import com.sammy.malum.registry.common.*;
+import net.minecraft.core.*;
+import net.minecraft.server.level.*;
+import net.minecraft.sounds.*;
+import net.minecraft.world.level.*;
+import team.lodestar.lodestone.systems.worldevent.*;
+import team.lodestar.lodestone.systems.worldgen.*;
 
-import java.util.Map;
-
-import static com.sammy.malum.registry.common.PacketRegistry.MALUM_CHANNEL;
+import java.util.*;
 
 public class ActiveBlightEvent extends WorldEventInstance {
     public int blightTimer, intensity, rate, times;
@@ -61,8 +56,12 @@ public class ActiveBlightEvent extends WorldEventInstance {
         } else {
             SoulwoodTreeFeature.generateBlight(level, filler, noiseValues, sourcePos, intensity);
         }
-        filler.getEntries().entrySet().stream().filter(e -> e.getValue().getState().getBlock() instanceof BlightedSoilBlock).map(Map.Entry::getKey).forEach(p -> MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(p)), new BlightMistParticlePacket(p)));
-
+        createBlightVFX(level, filler);
         level.playSound(null, sourcePos, SoundRegistry.MAJOR_BLIGHT_MOTIF.get(), SoundSource.BLOCKS, 1f, 1.8f);
+    }
+
+    public static void createBlightVFX(ServerLevel level, LodestoneBlockFiller filler) {
+        filler.getEntries().entrySet().stream().filter(e -> e.getValue().getState().getBlock() instanceof BlightedSoilBlock).map(Map.Entry::getKey)
+                .forEach(p -> ParticleEffectTypeRegistry.BLIGHTING_MIST.createBlockEffect(level, p, null));
     }
 }

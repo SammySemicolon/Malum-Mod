@@ -1,6 +1,6 @@
 package com.sammy.malum.client.vfx.types;
 
-import com.sammy.malum.client.vfx.*;
+import com.sammy.malum.client.vfx.types.base.*;
 import net.minecraft.util.*;
 import net.minecraft.world.phys.*;
 import team.lodestar.lodestone.setup.*;

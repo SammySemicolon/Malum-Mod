@@ -1,42 +1,33 @@
 package com.sammy.malum.common.block.curiosities.weeping_well;
 
-import com.sammy.malum.common.packets.particle.curiosities.void_conduit.VoidConduitParticlePacket;
-import com.sammy.malum.common.recipe.FavorOfTheVoidRecipe;
-import com.sammy.malum.registry.common.SoundRegistry;
-import com.sammy.malum.registry.common.block.BlockEntityRegistry;
-import com.sammy.malum.registry.common.item.ItemRegistry;
-import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.Mth;
-import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.network.PacketDistributor;
-import team.lodestar.lodestone.helpers.BlockHelper;
-import team.lodestar.lodestone.setup.LodestoneParticleRegistry;
-import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntity;
-import team.lodestar.lodestone.systems.easing.Easing;
-import team.lodestar.lodestone.systems.particle.SimpleParticleOptions;
-import team.lodestar.lodestone.systems.particle.WorldParticleBuilder;
-import team.lodestar.lodestone.systems.particle.data.ColorParticleData;
-import team.lodestar.lodestone.systems.particle.data.GenericParticleData;
-import team.lodestar.lodestone.systems.particle.data.SpinParticleData;
-import team.lodestar.lodestone.systems.particle.world.LodestoneWorldParticleRenderType;
+import com.sammy.malum.common.recipe.*;
+import com.sammy.malum.registry.common.*;
+import com.sammy.malum.registry.common.block.*;
+import com.sammy.malum.registry.common.item.*;
+import net.minecraft.core.*;
+import net.minecraft.nbt.*;
+import net.minecraft.server.level.*;
+import net.minecraft.sounds.*;
+import net.minecraft.util.*;
+import net.minecraft.world.entity.item.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.*;
+import net.minecraft.world.phys.*;
+import net.minecraft.world.phys.shapes.*;
+import team.lodestar.lodestone.helpers.*;
+import team.lodestar.lodestone.setup.*;
+import team.lodestar.lodestone.systems.blockentity.*;
+import team.lodestar.lodestone.systems.easing.*;
+import team.lodestar.lodestone.systems.particle.*;
+import team.lodestar.lodestone.systems.particle.data.*;
+import team.lodestar.lodestone.systems.particle.world.*;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
-
-import static com.sammy.malum.registry.common.PacketRegistry.MALUM_CHANNEL;
+import java.util.*;
+import java.util.stream.*;
 
 public class VoidConduitBlockEntity extends LodestoneBlockEntity {
 
@@ -138,7 +129,7 @@ public class VoidConduitBlockEntity extends LodestoneBlockEntity {
                         }
                     }
                     progress = resultingProgress;
-                    MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new VoidConduitParticlePacket(worldPosition.getX()+0.5f, worldPosition.getY()+0.75f, worldPosition.getZ()+0.5f));
+                    ParticleEffectTypeRegistry.WEEPING_WELL_REACTS.createPositionedEffect(level, worldPosition.getX()+0.5f, worldPosition.getY()+0.75f, worldPosition.getZ()+0.5f);
                     eatenItems.remove(eatenItems.size()-1);
                     BlockHelper.updateAndNotifyState(level, worldPosition);
                 }

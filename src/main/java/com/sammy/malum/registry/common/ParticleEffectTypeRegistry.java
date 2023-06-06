@@ -1,7 +1,7 @@
 package com.sammy.malum.registry.common;
 
-import com.sammy.malum.client.vfx.*;
 import com.sammy.malum.client.vfx.types.*;
+import com.sammy.malum.client.vfx.types.base.*;
 
 import java.util.*;
 
@@ -18,5 +18,10 @@ public class ParticleEffectTypeRegistry {
 
     //Blight vfx
     public static final ParticleEffectType BLIGHTING_MIST = new BlightingMistParticleEffectType("blighting_mist");
+
+    //Void vfx
+    public static final ParticleEffectType WEEPING_WELL_REACTS = new WeepingWellReactionParticleEffectType("weeping_well_reacts");
+
+    public static final ParticleEffectType SPIRIT_MOTE_SPARKLES = new SpiritMoteCreationParticleEffectType("spirit_mote_sparkles");
 
 }

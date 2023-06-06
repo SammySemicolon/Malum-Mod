@@ -29,7 +29,6 @@ public class MalumItemDataCapability implements LodestoneCapability {
     public static Capability<MalumItemDataCapability> CAPABILITY = CapabilityManager.get(new CapabilityToken<>() {
     });
 
-
     public MalumItemDataCapability() {
     }
 

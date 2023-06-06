@@ -219,7 +219,7 @@ ea41f383ef641cde2c4e863adb4b8c6dccfb25e1 assets/malum/blockstates/wall_ether_tor
 55635004672302336ef4a04dbe0d38dff66c4cd9 assets/malum/blockstates/weeping_well_core.json
 55188decc0c9a982e5ba40f8df2adea65a032e32 assets/malum/blockstates/weeping_well_corner.json
 62e007ecef751f8b9b42eaa138f06d18cc008d05 assets/malum/blockstates/weeping_well_side.json
-930d7aa15368cee9914a04ff3bfe12f5b3a16a84 assets/malum/lang/en_us.json
+88df118ee165e76c2883d13b97c58be94bd8e38a assets/malum/lang/en_us.json
 c2637401df2afc394d62b5c6bde312c604cdb21f assets/malum/models/block/blazing_quartz_ore.json
 fbfd3011e71b659b1f045f76d7b50fbf9a725317 assets/malum/models/block/blazing_torch.json
 782e64739e04f0b87aa0aeafb55893cc348df504 assets/malum/models/block/blighted_earth.json
@@ -803,7 +803,6 @@ bca5d8d59ae1501b4eb9abcf6e9a2cefec6a766b assets/malum/models/item/intersex_drip_
 bc333164babcad2b1fd5a3a1a1726217bcd11126 assets/malum/models/item/iridescent_ether.json
 796795dd5bd51024bed4f4d8837dc58812711351 assets/malum/models/item/iron_impetus.json
 d4f1f9e290de45238d8b51b854dad21eeea8bd73 assets/malum/models/item/iron_node.json
-9cdced5b930399ba8faf2af2a305ac4b5f0f4afc assets/malum/models/item/lamplighters_wand.json
 35c658b7a78693febfeb439c91a599c58cacb27b assets/malum/models/item/lead_impetus.json
 16d2b3723af382f6dcac02f50f0415f7f28a0db7 assets/malum/models/item/lead_node.json
 127962ed2a578135725a2ebf69b35ec7c552bc1b assets/malum/models/item/lesbian_drip_beanie.json

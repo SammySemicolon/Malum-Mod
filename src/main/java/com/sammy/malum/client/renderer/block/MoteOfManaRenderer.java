@@ -45,8 +45,8 @@ public class MoteOfManaRenderer implements BlockEntityRenderer<MoteOfManaBlockEn
         poseStack.translate(0.5f,0.5f,0.5f);
         MalumSpiritType spiritType = ((SpiritMoteBlock)blockEntityIn.getBlockState().getBlock()).spiritType;
         drawWobblyCube(poseStack, spiritType.getPrimaryColor(), 1f, 0.86f, offsetMap, bottomVertices, topVertices);
-        drawWobblyCube(poseStack, spiritType.getSecondaryColor(), -0.92f, 0.5f, offsetMap, bottomVertices, topVertices);
-        drawWobblyCube(poseStack, spiritType.getPrimaryColor(), 1.12f, 0.6f, offsetMap, bottomVertices, topVertices);
+        drawWobblyCube(poseStack, spiritType.getSecondaryColor(), -0.92f, 0.6f, offsetMap, bottomVertices, topVertices);
+        drawWobblyCube(poseStack, spiritType.getPrimaryColor(), 1.12f, 0.5f, offsetMap, bottomVertices, topVertices);
         poseStack.popPose();
     }
 

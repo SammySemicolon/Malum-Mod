@@ -22,7 +22,6 @@ public class CommonConfig extends LodestoneConfig {
             builder.comment("Chance for runewood trees to generate in forest biomes.")
                     .defineInRange("runewoodRareChance", 0.01d, 0, 1)));
 
-
     public static ConfigValueHolder<Boolean> GENERATE_WEEPING_WELLS = new ConfigValueHolder<>(MALUM,"common/worldgen/weeping_well", (builder ->
             builder.comment("Should the void be curious?")
                     .define("generateTheUnknown", true)));
@@ -150,14 +149,6 @@ public class CommonConfig extends LodestoneConfig {
     public static ConfigValueHolder<Integer> SOUL_WARD_RATE = new ConfigValueHolder<>(MALUM,"common/spirit/affinity/soul_ward", (builder ->
             builder.comment("Base time in ticks it takes for one point of soul ward to recover.")
                     .define("soulWardRate", 60)));
-
-    public static ConfigValueHolder<Double> HEART_OF_STONE_COST = new ConfigValueHolder<>(MALUM,"common/spirit/affinity/heart_of_stone", (builder ->
-            builder.comment("Amount of hunger consumed when recovering a point of heart of stone. Do note that this will only matter if the player has the earthen affinity.")
-                    .defineInRange("heartOfStoneCost", 0.2d, 0, 1)));
-    public static ConfigValueHolder<Integer> HEART_OF_STONE_RATE = new ConfigValueHolder<>(MALUM,"common/spirit/affinity/heart_of_stone", (builder ->
-            builder.comment("Base time in ticks it takes for one point of heart of stone to recover.")
-                    .define("heartOfStoneRate", 40)));
-
 
     public CommonConfig(ForgeConfigSpec.Builder builder) {
         super(MALUM, "common", builder);

@@ -65,7 +65,6 @@ public class MalumMod {
         RECIPE_SERIALIZERS.register(modBus);
         FEATURE_TYPES.register(modBus);
 
-
         TetraCompat.init();
         FarmersDelightCompat.init();
         CreateCompat.init();

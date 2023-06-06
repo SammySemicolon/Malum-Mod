@@ -1,6 +1,7 @@
 package com.sammy.malum.common.packets;
 
 import com.sammy.malum.client.vfx.*;
+import com.sammy.malum.client.vfx.types.base.*;
 import com.sammy.malum.registry.common.*;
 import net.minecraft.client.*;
 import net.minecraft.client.multiplayer.*;
@@ -24,10 +25,18 @@ public class ParticleEffectPacket extends LodestoneClientPacket {
         this.colorData = colorData;
     }
 
+    public ParticleEffectPacket(String id, PositionEffectData positionData) {
+        this(id, positionData, null);
+    }
+
     public void encode(FriendlyByteBuf buf) {
         buf.writeUtf(id);
         positionData.encode(buf);
-        colorData.encode(buf);
+        boolean nonNullColorData = colorData != null;
+        buf.writeBoolean(nonNullColorData);
+        if (nonNullColorData) {
+            colorData.encode(buf);
+        }
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -47,6 +56,6 @@ public class ParticleEffectPacket extends LodestoneClientPacket {
     }
 
     public static ParticleEffectPacket decode(FriendlyByteBuf buf) {
-        return new ParticleEffectPacket(buf.readUtf(), new PositionEffectData(buf), new ColorEffectData(buf));
+        return new ParticleEffectPacket(buf.readUtf(), new PositionEffectData(buf), buf.readBoolean() ? new ColorEffectData(buf) : null);
     }
 }

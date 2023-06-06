@@ -1,7 +1,7 @@
 package com.sammy.malum.common.block.mana_mote;
 
+import com.sammy.malum.client.vfx.*;
 import com.sammy.malum.common.item.spirit.*;
-import com.sammy.malum.common.packets.particle.curiosities.rite.generic.*;
 import com.sammy.malum.core.systems.spirit.*;
 import com.sammy.malum.registry.common.*;
 import net.minecraft.core.*;
@@ -14,9 +14,6 @@ import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.phys.*;
-import net.minecraftforge.network.*;
-
-import static com.sammy.malum.registry.common.PacketRegistry.MALUM_CHANNEL;
 
 public class SoulstoneBlock extends Block {
     public SoulstoneBlock(Properties pProperties) {
@@ -40,7 +37,7 @@ public class SoulstoneBlock extends Block {
             stack.shrink(2);
         }
         if (!pLevel.isClientSide) {
-            MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> pLevel.getChunkAt(pPos)), new BlockSparkleParticlePacket(spiritType.getPrimaryColor(), pPos));
+            ParticleEffectTypeRegistry.SPIRIT_MOTE_SPARKLES.createBlockEffect(pLevel, pPos, new ColorEffectData(spiritType));
         }
         return InteractionResult.SUCCESS;
     }

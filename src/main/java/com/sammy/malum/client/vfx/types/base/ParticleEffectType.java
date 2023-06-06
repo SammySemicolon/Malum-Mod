@@ -1,5 +1,6 @@
-package com.sammy.malum.client.vfx;
+package com.sammy.malum.client.vfx.types.base;
 
+import com.sammy.malum.client.vfx.*;
 import com.sammy.malum.common.packets.*;
 import com.sammy.malum.registry.common.*;
 import net.minecraft.core.*;
@@ -23,24 +24,44 @@ public abstract class ParticleEffectType {
 
     public abstract Supplier<ParticleEffectActor> get();
 
-    public ParticleEffectPacket createPacket(PositionEffectData positionData, ColorEffectData colorData) {
-        return new ParticleEffectPacket(id, positionData, colorData);
-    }
-
-    public void createEffect(PacketDistributor.PacketTarget target, PositionEffectData positionData, ColorEffectData colorData) {
-        MALUM_CHANNEL.send(target, createPacket(positionData, colorData));
+    public void createEntityEffect(Entity entity) {
+        createEntityEffect(entity, null);
     }
 
     public void createEntityEffect(Entity entity, ColorEffectData colorData) {
         createEntityEffect(PacketDistributor.TRACKING_ENTITY_AND_SELF, entity, colorData);
     }
 
+    public void createEntityEffect(PacketDistributor<Entity> packetDistributor, Entity entity) {
+        createEntityEffect(packetDistributor, entity, null);
+    }
+
     public void createEntityEffect(PacketDistributor<Entity> packetDistributor, Entity entity, ColorEffectData colorData) {
         createEffect(packetDistributor.with(() -> entity), new PositionEffectData(entity), colorData);
     }
 
+    public void createBlockEffect(Level level, BlockPos pos) {
+        createBlockEffect(level, pos, null);
+    }
+
     public void createBlockEffect(Level level, BlockPos pos, ColorEffectData colorData) {
         createEffect(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(pos)), new PositionEffectData(pos), colorData);
+    }
+
+    public void createPositionedEffect(Level level, double posX, double posY, double posZ) {
+        createPositionedEffect(level, posX, posY, posZ, null);
+    }
+
+    public void createPositionedEffect(Level level, double posX, double posY, double posZ, ColorEffectData colorData) {
+        createEffect(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(new BlockPos(posX, posY, posZ))), new PositionEffectData(posX, posY, posZ), colorData);
+    }
+
+    public void createEffect(PacketDistributor.PacketTarget target, PositionEffectData positionData, ColorEffectData colorData) {
+        MALUM_CHANNEL.send(target, createPacket(positionData, colorData));
+    }
+
+    public ParticleEffectPacket createPacket(PositionEffectData positionData, ColorEffectData colorData) {
+        return new ParticleEffectPacket(id, positionData, colorData);
     }
 
     public interface ParticleEffectActor {
