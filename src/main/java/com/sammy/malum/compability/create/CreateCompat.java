@@ -1,7 +1,7 @@
 package com.sammy.malum.compability.create;
 
 import com.sammy.malum.registry.common.DamageSourceRegistry;
-import com.simibubi.create.content.curiosities.weapons.PotatoProjectileEntity;
+import com.simibubi.create.content.equipment.potatoCannon.PotatoProjectileEntity;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
