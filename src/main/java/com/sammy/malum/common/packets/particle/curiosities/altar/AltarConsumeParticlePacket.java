@@ -29,8 +29,8 @@ public class AltarConsumeParticlePacket extends ItemAbsorbParticleEffectPacket {
     @OnlyIn(Dist.CLIENT)
     @Override
     public void execute(Supplier<NetworkEvent.Context> context) {
-        super.execute(context);
         alpha = 0.1f / spirits.size();
+        super.execute(context);
     }
 
     @OnlyIn(Dist.CLIENT)

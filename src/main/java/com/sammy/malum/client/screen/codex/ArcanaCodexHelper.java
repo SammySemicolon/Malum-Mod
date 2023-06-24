@@ -19,6 +19,7 @@ import team.lodestar.lodestone.setup.*;
 import team.lodestar.lodestone.systems.easing.*;
 import team.lodestar.lodestone.systems.recipe.*;
 import team.lodestar.lodestone.systems.rendering.*;
+import team.lodestar.lodestone.systems.rendering.shader.*;
 
 import java.awt.*;
 import java.util.*;

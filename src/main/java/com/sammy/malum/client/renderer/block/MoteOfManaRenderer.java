@@ -53,6 +53,7 @@ public class MoteOfManaRenderer implements BlockEntityRenderer<MoteOfManaBlockEn
     public static void drawWobblyCube(PoseStack poseStack, Color color, float scale, float alpha, Collection<Vector3f[]> offsetMap, Vector3f[] bottomVertices, Vector3f[] topVertices) {
         poseStack.pushPose();
         poseStack.scale(scale,scale,scale);
+        poseStack.translate(-0.5f, -0.5f, -0.5f);
         for (Vector3f[] offsets : offsetMap) {
             drawSide(poseStack, color, alpha, offsets);
         }
@@ -63,13 +64,10 @@ public class MoteOfManaRenderer implements BlockEntityRenderer<MoteOfManaBlockEn
 
     public static void drawSide(PoseStack poseStack, Color color, float alpha, Vector3f[] offsets) {
         VertexConsumer consumer = RenderHandler.DELAYED_RENDER.getBuffer(LodestoneRenderTypeRegistry.ADDITIVE_TEXTURE.applyAndCache(MOTE_OF_MANA_TEXTURE));
-        poseStack.pushPose();
-        poseStack.translate(-0.5f, -0.5f, -0.5f);
         VFXBuilders.createWorld()
                 .setPosColorTexLightmapDefaultFormat()
                 .setColor(color, alpha)
                 .renderQuad(consumer, poseStack, offsets, 1f);
-        poseStack.popPose();
     }
 
     public static void applyWobble(Vector3f[] offsets, float initialOffset) {

@@ -41,7 +41,7 @@ public class AltarCraftParticlePacket extends SpiritBasedParticleEffectPacket {
                 .setRandomOffset(0.1f)
                 .addMotion(0, 0.26f, 0)
                 .setRandomMotion(0.03f, 0.04f)
-                .setGravity(1)
+                .setGravityStrength(1)
                 .repeat(level, posX, posY, posZ, 32);
 
         WorldParticleBuilder.create(LodestoneParticleRegistry.WISP_PARTICLE)

@@ -120,7 +120,7 @@ public class SpiritHarvestHandler {
         }
     }
 
-    public static void pickupSpirit(ItemStack stack, LivingEntity collector) {
+    public static void pickupSpirit(LivingEntity collector, ItemStack stack) {
         if (collector instanceof Player player) {
             AttributeInstance instance = player.getAttribute(AttributeRegistry.ARCANE_RESONANCE.get());
             ItemHelper.getEventResponders(collector).forEach(s -> {
@@ -145,6 +145,6 @@ public class SpiritHarvestHandler {
                 }
             }
         }
-        ItemHelper.giveItemToEntity(stack, collector);
+        ItemHelper.giveItemToEntity(collector, stack);
     }
 }

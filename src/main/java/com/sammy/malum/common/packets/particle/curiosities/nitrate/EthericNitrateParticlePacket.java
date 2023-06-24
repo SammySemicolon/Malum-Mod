@@ -46,7 +46,7 @@ public class EthericNitrateParticlePacket extends PositionBasedParticleEffectPac
                     .setColorData(ColorParticleData.create(EthericNitrateEntity.FIRST_COLOR.brighter(), EthericNitrateEntity.SECOND_COLOR.darker()).build())
                     .enableNoClip()
                     .setRandomOffset(0.85f)
-                    .setGravity(1.1f)
+                    .setGravityStrength(1.1f)
                     .addMotion(0, 0.3f + rand.nextFloat() * 0.15f * motionMultiplier, 0)
                     .disableNoClip()
                     .setRandomMotion(0.2f*motionMultiplier, 0.25f*motionMultiplier)

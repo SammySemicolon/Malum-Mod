@@ -70,8 +70,6 @@ public class SoundRegistry {
     public static final RegistryObject<SoundEvent> SOUL_WARD_GROW = register(new SoundEvent(MalumMod.malumPath("soul_ward_grows")));
     public static final RegistryObject<SoundEvent> SOUL_WARD_CHARGE = register(new SoundEvent(MalumMod.malumPath("soul_ward_charges")));
 
-
-
     public static final RegistryObject<SoundEvent> SOULSTONE_BREAK = register(new SoundEvent(MalumMod.malumPath("soulstone_break")));
     public static final RegistryObject<SoundEvent> SOULSTONE_PLACE = register(new SoundEvent(MalumMod.malumPath("soulstone_place")));
     public static final RegistryObject<SoundEvent> SOULSTONE_STEP = register(new SoundEvent(MalumMod.malumPath("soulstone_step")));

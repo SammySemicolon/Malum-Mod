@@ -1,42 +1,39 @@
 package com.sammy.malum;
 
-import com.sammy.malum.compability.create.CreateCompat;
-import com.sammy.malum.compability.farmersdelight.FarmersDelightCompat;
-import com.sammy.malum.compability.supplementaries.SupplementariesCompat;
-import com.sammy.malum.compability.tetra.TetraCompat;
-import com.sammy.malum.config.ClientConfig;
-import com.sammy.malum.config.CommonConfig;
+import com.sammy.malum.compability.create.*;
+import com.sammy.malum.compability.farmersdelight.*;
+import com.sammy.malum.compability.tetra.*;
+import com.sammy.malum.config.*;
 import com.sammy.malum.data.*;
 import com.sammy.malum.data.block.*;
 import com.sammy.malum.data.item.*;
 import com.sammy.malum.data.recipe.*;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.data.tags.BlockTagsProvider;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.ModLoadingContext;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import net.minecraft.data.*;
+import net.minecraft.data.tags.*;
+import net.minecraft.resources.*;
+import net.minecraftforge.eventbus.api.*;
+import net.minecraftforge.fml.*;
+import net.minecraftforge.fml.common.*;
+import net.minecraftforge.fml.config.*;
+import net.minecraftforge.fml.javafmlmod.*;
+import net.minecraftforge.forge.event.lifecycle.*;
+import org.apache.logging.log4j.*;
 
-import java.util.Random;
+import java.util.*;
 
-import static com.sammy.malum.registry.client.ParticleRegistry.PARTICLES;
-import static com.sammy.malum.registry.common.AttributeRegistry.ATTRIBUTES;
-import static com.sammy.malum.registry.common.ContainerRegistry.CONTAINERS;
-import static com.sammy.malum.registry.common.recipe.RecipeSerializerRegistry.RECIPE_SERIALIZERS;
-import static com.sammy.malum.registry.common.SoundRegistry.SOUNDS;
-import static com.sammy.malum.registry.common.block.BlockEntityRegistry.BLOCK_ENTITY_TYPES;
-import static com.sammy.malum.registry.common.block.BlockRegistry.BLOCKS;
-import static com.sammy.malum.registry.common.entity.EntityRegistry.ENTITY_TYPES;
-import static com.sammy.malum.registry.common.item.ItemRegistry.ITEMS;
-import static com.sammy.malum.registry.common.item.EnchantmentRegistry.ENCHANTMENTS;
-import static com.sammy.malum.registry.common.MobEffectRegistry.EFFECTS;
-import static com.sammy.malum.registry.common.recipe.RecipeTypeRegistry.RECIPE_TYPES;
-import static com.sammy.malum.registry.common.worldgen.FeatureRegistry.FEATURE_TYPES;
+import static com.sammy.malum.registry.client.ParticleRegistry.*;
+import static com.sammy.malum.registry.common.AttributeRegistry.*;
+import static com.sammy.malum.registry.common.ContainerRegistry.*;
+import static com.sammy.malum.registry.common.MobEffectRegistry.*;
+import static com.sammy.malum.registry.common.SoundRegistry.*;
+import static com.sammy.malum.registry.common.block.BlockEntityRegistry.*;
+import static com.sammy.malum.registry.common.block.BlockRegistry.*;
+import static com.sammy.malum.registry.common.entity.EntityRegistry.*;
+import static com.sammy.malum.registry.common.item.EnchantmentRegistry.*;
+import static com.sammy.malum.registry.common.item.ItemRegistry.*;
+import static com.sammy.malum.registry.common.recipe.RecipeSerializerRegistry.*;
+import static com.sammy.malum.registry.common.recipe.RecipeTypeRegistry.*;
+import static com.sammy.malum.registry.common.worldgen.FeatureRegistry.*;
 
 @SuppressWarnings("unused")
 @Mod(MalumMod.MALUM)
@@ -68,7 +65,6 @@ public class MalumMod {
         TetraCompat.init();
         FarmersDelightCompat.init();
         CreateCompat.init();
-        SupplementariesCompat.init();
 
         modBus.addListener(DataOnly::gatherData);
     }

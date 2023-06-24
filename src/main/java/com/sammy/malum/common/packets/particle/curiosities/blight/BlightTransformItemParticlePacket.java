@@ -53,7 +53,7 @@ public class BlightTransformItemParticlePacket extends SpiritBasedParticleEffect
                     .setRandomOffset(0.1f, 0.1f)
                     .setRandomMotion(0.01f, 0.02f)
                     .addMotion(0, 0.01f, 0)
-                    .setRenderType(LodestoneWorldParticleRenderType.TRANSPARENT)
+                    .setRenderType(LodestoneWorldParticleRenderType.LUMITRANSPARENT)
                     .repeat(level, posX, posY, posZ, 2);
 
             WorldParticleBuilder.create(LodestoneParticleRegistry.SMOKE_PARTICLE)
@@ -66,7 +66,7 @@ public class BlightTransformItemParticlePacket extends SpiritBasedParticleEffect
                     .enableNoClip()
                     .setRandomMotion(0.015f, 0.015f)
                     .addMotion(0, 0.01f, 0)
-                    .setRenderType(LodestoneWorldParticleRenderType.TRANSPARENT)
+                    .setRenderType(LodestoneWorldParticleRenderType.LUMITRANSPARENT)
                     .repeat(level, posX, posY, posZ, 3);
 
             color = new Color((int)(80*multiplier), (int)(40*multiplier), (int)(80*multiplier));
@@ -101,7 +101,7 @@ public class BlightTransformItemParticlePacket extends SpiritBasedParticleEffect
                     .setColorData(ColorParticleData.create(ColorHelper.brighter(color, 2), color).build())
                     .enableNoClip()
                     .setRandomOffset(0.6f)
-                    .setGravity(1.1f)
+                    .setGravityStrength(1.1f)
                     .addMotion(0, 0.28f + rand.nextFloat() * 0.15f, 0)
                     .disableNoClip()
                     .setRandomMotion(0.1f, 0.15f)

@@ -1,4 +1,4 @@
-package com.sammy.malum.data;
+package com.sammy.malum.data.item;
 
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.item.impetus.NodeItem;

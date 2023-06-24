@@ -162,7 +162,7 @@ public class VoidConduitBlockEntity extends LodestoneBlockEntity {
                     .setRandomOffset(3f, 0.02f)
                     .enableNoClip()
                     .setDiscardFunction(SimpleParticleOptions.ParticleDiscardFunctionType.ENDING_CURVE_INVISIBLE)
-                    .setRenderType(LodestoneWorldParticleRenderType.TRANSPARENT)
+                    .setRenderType(LodestoneWorldParticleRenderType.LUMITRANSPARENT)
                     .surroundVoxelShape(level, blockPos, WELL_SHAPE, 12);
         }
     }

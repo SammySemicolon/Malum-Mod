@@ -59,7 +59,7 @@ public class SoulVialBlockEntity extends LodestoneBlockEntity {
                     if (stack.getCount() > 1) {
                         ItemStack split = stack.split(1);
                         split.getOrCreateTag().remove(MalumEntitySpiritData.SOUL_DATA);
-                        ItemHelper.giveItemToEntity(split, player);
+                        ItemHelper.giveItemToEntity(player, split);
                     } else {
                         stack.getOrCreateTag().remove(MalumEntitySpiritData.SOUL_DATA);
                     }
@@ -70,7 +70,7 @@ public class SoulVialBlockEntity extends LodestoneBlockEntity {
                         ItemStack split = stack.split(1);
                         data.saveTo(split.getOrCreateTag());
                         data = null;
-                        ItemHelper.giveItemToEntity(split, player);
+                        ItemHelper.giveItemToEntity(player, split);
                     } else {
                         data.saveTo(stack.getOrCreateTag());
                         data = null;

@@ -32,8 +32,8 @@ import team.lodestar.lodestone.systems.particle.ScreenParticleBuilder;
 import team.lodestar.lodestone.systems.particle.data.ColorParticleData;
 import team.lodestar.lodestone.systems.particle.data.GenericParticleData;
 import team.lodestar.lodestone.systems.particle.data.SpinParticleData;
-import team.lodestar.lodestone.systems.rendering.ExtendedShaderInstance;
 import team.lodestar.lodestone.systems.rendering.VFXBuilders;
+import team.lodestar.lodestone.systems.rendering.shader.*;
 
 
 public class SoulWardHandler {

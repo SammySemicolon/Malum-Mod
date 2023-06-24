@@ -17,7 +17,6 @@ import com.sammy.malum.common.item.food.*;
 import com.sammy.malum.common.item.impetus.*;
 import com.sammy.malum.common.item.spirit.*;
 import com.sammy.malum.compability.farmersdelight.*;
-import com.sammy.malum.compability.supplementaries.*;
 import com.sammy.malum.core.systems.item.*;
 import com.sammy.malum.registry.client.*;
 import com.sammy.malum.registry.common.*;
@@ -105,9 +104,6 @@ public class ItemRegistry {
     //endregion
 
     //region random stuff
-    public static final RegistryObject<Item> BLAZING_TORCH = ITEMS.register("blazing_torch", () -> new StandingAndWallBlockItem(BlockRegistry.BLAZING_TORCH.get(), BlockRegistry.WALL_BLAZING_TORCH.get(), new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
-    public static final RegistryObject<Item> BLAZING_SCONCE = ITEMS.register("blazing_sconce", () -> new StandingAndWallBlockItem(BlockRegistry.BLAZING_SCONCE.get(), BlockRegistry.WALL_BLAZING_SCONCE.get(), SupplementariesCompat.LOADED ? new Item.Properties().tab(CreativeModeTab.TAB_MISC) : HIDDEN_PROPERTIES()));
-    
     public static final RegistryObject<Item> COPPER_NUGGET = ITEMS.register("copper_nugget", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MATERIALS)));
     public static final RegistryObject<Item> COAL_FRAGMENT = ITEMS.register("coal_fragment", () -> new LodestoneFuelItem(new Item.Properties().tab(CreativeModeTab.TAB_MATERIALS), 200));
     public static final RegistryObject<Item> CHARCOAL_FRAGMENT = ITEMS.register("charcoal_fragment", () -> new LodestoneFuelItem(new Item.Properties().tab(CreativeModeTab.TAB_MATERIALS), 200));
@@ -452,14 +448,10 @@ public class ItemRegistry {
     public static final RegistryObject<Item> TAINTED_ETHER_BRAZIER = ITEMS.register("tainted_ether_brazier", () -> new EtherBrazierItem(BlockRegistry.TAINTED_ETHER_BRAZIER.get(), DEFAULT_PROPERTIES(), false));
     public static final RegistryObject<Item> TWISTED_ETHER_BRAZIER = ITEMS.register("twisted_ether_brazier", () -> new EtherBrazierItem(BlockRegistry.TWISTED_ETHER_BRAZIER.get(), DEFAULT_PROPERTIES(), false));
 
-    public static final RegistryObject<Item> ETHER_SCONCE = ITEMS.register("ether_sconce", () -> new EtherSconceItem(BlockRegistry.ETHER_SCONCE.get(), BlockRegistry.WALL_ETHER_SCONCE.get(), SupplementariesCompat.LOADED ? DEFAULT_PROPERTIES() : HIDDEN_PROPERTIES(), false));
-
     public static final RegistryObject<Item> IRIDESCENT_ETHER = ITEMS.register("iridescent_ether", () -> new EtherItem(BlockRegistry.IRIDESCENT_ETHER.get(), DEFAULT_PROPERTIES(), true));
     public static final RegistryObject<Item> IRIDESCENT_ETHER_TORCH = ITEMS.register("iridescent_ether_torch", () -> new EtherTorchItem(BlockRegistry.IRIDESCENT_ETHER_TORCH.get(), BlockRegistry.IRIDESCENT_WALL_ETHER_TORCH.get(), DEFAULT_PROPERTIES(), true));
     public static final RegistryObject<Item> TAINTED_IRIDESCENT_ETHER_BRAZIER = ITEMS.register("tainted_iridescent_ether_brazier", () -> new EtherBrazierItem(BlockRegistry.TAINTED_IRIDESCENT_ETHER_BRAZIER.get(), DEFAULT_PROPERTIES(), true));
     public static final RegistryObject<Item> TWISTED_IRIDESCENT_ETHER_BRAZIER = ITEMS.register("twisted_iridescent_ether_brazier", () -> new EtherBrazierItem(BlockRegistry.TWISTED_IRIDESCENT_ETHER_BRAZIER.get(), DEFAULT_PROPERTIES(), true));
-
-    public static final RegistryObject<Item> IRIDESCENT_ETHER_SCONCE = ITEMS.register("iridescent_ether_sconce", () -> new EtherSconceItem(BlockRegistry.IRIDESCENT_ETHER_SCONCE.get(), BlockRegistry.IRIDESCENT_WALL_ETHER_SCONCE.get(), SupplementariesCompat.LOADED ? DEFAULT_PROPERTIES() : HIDDEN_PROPERTIES(), true));
     //endregion
 
     //region contents

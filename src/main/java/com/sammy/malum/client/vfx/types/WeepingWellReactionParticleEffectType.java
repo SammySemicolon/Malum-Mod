@@ -21,8 +21,6 @@ public class WeepingWellReactionParticleEffectType extends ParticleEffectType {
     @Override
     public Supplier<ParticleEffectActor> get() {
         return () -> (level, random, positionData, colorData) -> {
-            Color primaryColor = colorData.getPrimaryColor();
-            Color secondaryColor = colorData.getSecondaryColor(); //TODO: potentially make these matter?
             double posX = positionData.posX;
             double posY = positionData.posY;
             double posZ = positionData.posZ;
@@ -41,12 +39,12 @@ public class WeepingWellReactionParticleEffectType extends ParticleEffectType {
                         .setLifetime(30)
                         .enableNoClip()
                         .setRandomOffset(0.85f)
-                        .setGravity(1.1f)
+                        .setGravityStrength(1.1f)
                         .addMotion(0, 0.3f + random.nextFloat() * 0.15f * motionMultiplier, 0)
                         .disableNoClip()
                         .setRandomMotion(extraMotion, extraMotion)
                         .setDiscardFunction(SimpleParticleOptions.ParticleDiscardFunctionType.ENDING_CURVE_INVISIBLE)
-                        .setRenderType(LodestoneWorldParticleRenderType.TRANSPARENT)
+                        .setRenderType(LodestoneWorldParticleRenderType.LUMITRANSPARENT)
                         .repeat(level, posX, posY, posZ, 6);
             }
             int spinOffset = random.nextInt(360);
@@ -65,7 +63,7 @@ public class WeepingWellReactionParticleEffectType extends ParticleEffectType {
                         .enableNoClip()
                         .setRandomMotion(0.02f, 0.02f)
                         .setDiscardFunction(SimpleParticleOptions.ParticleDiscardFunctionType.ENDING_CURVE_INVISIBLE)
-                        .setRenderType(LodestoneWorldParticleRenderType.TRANSPARENT)
+                        .setRenderType(LodestoneWorldParticleRenderType.LUMITRANSPARENT)
                         .repeat(level, posX, posY, posZ, 5);
             }
         };

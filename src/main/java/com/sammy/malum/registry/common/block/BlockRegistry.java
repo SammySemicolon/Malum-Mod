@@ -15,12 +15,10 @@ import com.sammy.malum.common.block.nature.*;
 import com.sammy.malum.common.block.nature.soulwood.*;
 import com.sammy.malum.common.block.storage.*;
 import com.sammy.malum.common.block.the_device.*;
-import com.sammy.malum.compability.supplementaries.*;
 import com.sammy.malum.registry.common.*;
 import com.sammy.malum.registry.common.item.*;
 import com.sammy.malum.registry.common.worldgen.*;
 import net.minecraft.client.color.block.*;
-import net.minecraft.core.particles.*;
 import net.minecraft.util.*;
 import net.minecraft.util.valueproviders.*;
 import net.minecraft.world.level.block.*;
@@ -31,12 +29,10 @@ import net.minecraftforge.client.event.*;
 import net.minecraftforge.eventbus.api.*;
 import net.minecraftforge.fml.common.*;
 import net.minecraftforge.registries.*;
-import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.systems.block.*;
 import team.lodestar.lodestone.systems.block.sign.*;
 
 import java.awt.*;
-import java.util.*;
 
 import static com.sammy.malum.MalumMod.*;
 import static com.sammy.malum.registry.common.block.BlockTagRegistry.*;
@@ -312,24 +308,13 @@ public class BlockRegistry {
     public static final RegistryObject<Block> TAINTED_ETHER_BRAZIER = BLOCKS.register("tainted_ether_brazier", () -> new EtherBrazierBlock<>(MalumBlockProperties.TAINTED_ROCK().addTag(TRAY_HEAT_SOURCES).setCutoutRenderType().lightLevel((b) -> 14).noOcclusion()).setBlockEntity(BlockEntityRegistry.ETHER));
     public static final RegistryObject<Block> TWISTED_ETHER_BRAZIER = BLOCKS.register("twisted_ether_brazier", () -> new EtherBrazierBlock<>(MalumBlockProperties.TWISTED_ROCK().addTag(TRAY_HEAT_SOURCES).setCutoutRenderType().lightLevel((b) -> 14).noOcclusion()).setBlockEntity(BlockEntityRegistry.ETHER));
 
-    public static final RegistryObject<Block> ETHER_SCONCE = BLOCKS.register("ether_sconce", () -> new EtherSconceBlock<>(MalumBlockProperties.RUNEWOOD().addTag(TRAY_HEAT_SOURCES).sound(SoundType.LANTERN).setCutoutRenderType().noCollission().instabreak().lightLevel((b) -> 14)).setBlockEntity(BlockEntityRegistry.ETHER));
-    public static final RegistryObject<Block> WALL_ETHER_SCONCE = BLOCKS.register("wall_ether_sconce", () -> new EtherWallSconceBlock<>(MalumBlockProperties.RUNEWOOD().addTag(TRAY_HEAT_SOURCES).sound(SoundType.LANTERN).setCutoutRenderType().noCollission().instabreak().lightLevel((b) -> 14).lootFrom(ETHER_SCONCE)).setBlockEntity(BlockEntityRegistry.ETHER));
-
     public static final RegistryObject<Block> IRIDESCENT_ETHER = BLOCKS.register("iridescent_ether", () -> new EtherBlock<>(MalumBlockProperties.ETHER().addTag(TRAY_HEAT_SOURCES).setCutoutRenderType()).setBlockEntity(BlockEntityRegistry.ETHER));
     public static final RegistryObject<Block> IRIDESCENT_ETHER_TORCH = BLOCKS.register("iridescent_ether_torch", () -> new EtherTorchBlock<>(MalumBlockProperties.RUNEWOOD().addTag(TRAY_HEAT_SOURCES).setCutoutRenderType().noCollission().instabreak().lightLevel((b) -> 14)).setBlockEntity(BlockEntityRegistry.ETHER));
     public static final RegistryObject<Block> IRIDESCENT_WALL_ETHER_TORCH = BLOCKS.register("iridescent_wall_ether_torch", () -> new EtherWallTorchBlock<>(MalumBlockProperties.RUNEWOOD().addTag(TRAY_HEAT_SOURCES).setCutoutRenderType().noCollission().instabreak().lightLevel((b) -> 14).lootFrom(IRIDESCENT_ETHER_TORCH)).setBlockEntity(BlockEntityRegistry.ETHER));
     public static final RegistryObject<Block> TAINTED_IRIDESCENT_ETHER_BRAZIER = BLOCKS.register("tainted_iridescent_ether_brazier", () -> new EtherBrazierBlock<>(MalumBlockProperties.TAINTED_ROCK().addTag(TRAY_HEAT_SOURCES).setCutoutRenderType().lightLevel((b) -> 14).noOcclusion()).setBlockEntity(BlockEntityRegistry.ETHER));
     public static final RegistryObject<Block> TWISTED_IRIDESCENT_ETHER_BRAZIER = BLOCKS.register("twisted_iridescent_ether_brazier", () -> new EtherBrazierBlock<>(MalumBlockProperties.TWISTED_ROCK().addTag(TRAY_HEAT_SOURCES).setCutoutRenderType().lightLevel((b) -> 14).noOcclusion()).setBlockEntity(BlockEntityRegistry.ETHER));
 
-    public static final RegistryObject<Block> IRIDESCENT_ETHER_SCONCE = BLOCKS.register("iridescent_ether_sconce", () -> new EtherSconceBlock<>(MalumBlockProperties.RUNEWOOD().addTag(TRAY_HEAT_SOURCES).sound(SoundType.LANTERN).setCutoutRenderType().noCollission().instabreak().lightLevel((b) -> 14)).setBlockEntity(BlockEntityRegistry.ETHER));
-    public static final RegistryObject<Block> IRIDESCENT_WALL_ETHER_SCONCE = BLOCKS.register("iridescent_wall_ether_sconce", () -> new EtherWallSconceBlock<>(MalumBlockProperties.RUNEWOOD().addTag(TRAY_HEAT_SOURCES).sound(SoundType.LANTERN).setCutoutRenderType().noCollission().instabreak().lightLevel((b) -> 14).lootFrom(IRIDESCENT_ETHER_SCONCE)).setBlockEntity(BlockEntityRegistry.ETHER));
-
     //endregion
-    public static final RegistryObject<Block> BLAZING_TORCH = BLOCKS.register("blazing_torch", () -> new TorchBlock(MalumBlockProperties.RUNEWOOD().setCutoutRenderType().noCollission().instabreak().lightLevel((b) -> 14), ParticleTypes.FLAME));
-    public static final RegistryObject<Block> WALL_BLAZING_TORCH = BLOCKS.register("wall_blazing_torch", () -> new WallTorchBlock(MalumBlockProperties.RUNEWOOD().setCutoutRenderType().noCollission().instabreak().lightLevel((b) -> 14), ParticleTypes.FLAME));
-    public static final RegistryObject<Block> BLAZING_SCONCE = BLOCKS.register("blazing_sconce", SupplementariesCompat.createBlazingSconce());
-    public static final RegistryObject<Block> WALL_BLAZING_SCONCE = BLOCKS.register("wall_blazing_sconce", SupplementariesCompat.createBlazingWallSconce());
-
     public static final RegistryObject<Block> BLOCK_OF_ARCANE_CHARCOAL = BLOCKS.register("block_of_arcane_charcoal", () -> new Block(MalumBlockProperties.ARCANE_CHARCOAL_BLOCK()));
 
     public static final RegistryObject<Block> BLAZING_QUARTZ_ORE = BLOCKS.register("blazing_quartz_ore", () -> new OreBlock(MalumBlockProperties.BLAZING_QUARTZ_ORE().setCutoutRenderType().lightLevel((b) -> 6), UniformInt.of(4, 7)));
@@ -371,18 +356,7 @@ public class BlockRegistry {
         @SubscribeEvent
         public static void setBlockColors(ColorHandlerEvent.Block event) {
             BlockColors blockColors = event.getBlockColors();
-            Set<RegistryObject<Block>> blocks = new HashSet<>(BLOCKS.getEntries());
-            DataHelper.takeAll(blocks, b -> b.get() instanceof EtherTorchBlock || b.get() instanceof EtherWallTorchBlock).forEach(b -> blockColors.register((s, l, p, c) -> {
-                BlockEntity blockEntity = l.getBlockEntity(p);
-                if (blockEntity instanceof EtherBlockEntity etherBlockEntity) {
-                    if (etherBlockEntity.firstColor != null) {
-                        return c == 1 ? etherBlockEntity.firstColor.getRGB() : -1;
-                    }
-                }
-                return -1;
-            }, b.get()));
-
-            DataHelper.getAll(blocks, b -> b.get() instanceof EtherBlock).forEach(b -> blockColors.register((s, l, p, c) -> {
+            blockColors.register((s, l, p, c) -> {
                 BlockEntity blockEntity = l.getBlockEntity(p);
                 if (blockEntity instanceof EtherBlockEntity etherBlockEntity) {
                     if (etherBlockEntity.firstColor != null) {
@@ -390,9 +364,8 @@ public class BlockRegistry {
                     }
                 }
                 return -1;
-            }, b.get()));
-
-            DataHelper.takeAll(blocks, b -> b.get() instanceof MalumLeavesBlock).forEach(b -> blockColors.register((s, l, p, c) -> {
+            }, ETHER.get(), IRIDESCENT_ETHER.get());
+            blockColors.register((s, l, p, c) -> {
                 float i = s.getValue(MalumLeavesBlock.COLOR);
                 float max = MalumLeavesBlock.COLOR.getPossibleValues().size();
                 MalumLeavesBlock malumLeavesBlock = (MalumLeavesBlock) s.getBlock();
@@ -400,7 +373,7 @@ public class BlockRegistry {
                 int green = (int) Mth.lerp(i / max, malumLeavesBlock.minColor.getGreen(), malumLeavesBlock.maxColor.getGreen());
                 int blue = (int) Mth.lerp(i / max, malumLeavesBlock.minColor.getBlue(), malumLeavesBlock.maxColor.getBlue());
                 return red << 16 | green << 8 | blue;
-            }, b.get()));
+            }, RUNEWOOD_LEAVES.get(), SOULWOOD_LEAVES.get());
         }
     }
 }

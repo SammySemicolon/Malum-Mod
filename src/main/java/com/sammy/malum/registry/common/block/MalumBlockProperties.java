@@ -160,6 +160,7 @@ public class MalumBlockProperties {
 
     public static LodestoneBlockProperties MANA_MOTE_BLOCK() {
         return new LodestoneBlockProperties(Material.METAL, MaterialColor.COLOR_LIGHT_GRAY)
+                .setCutoutRenderType()
                 .noOcclusion()
                 .addTag(Tags.Blocks.STORAGE_BLOCKS)
                 .needsPickaxe()

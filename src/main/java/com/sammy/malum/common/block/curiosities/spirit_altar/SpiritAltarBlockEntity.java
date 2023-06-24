@@ -378,12 +378,12 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
             return;
         }
         MalumSpiritType activeSpiritType = spiritItem.type;
-        for (IAltarAccelerator accelerator : accelerators) {
-            if (accelerator != null) {
-                accelerator.addParticles(this, activeSpiritType, itemPos);
-            }
-        }
         if (recipe != null) {
+            for (IAltarAccelerator accelerator : accelerators) {
+                if (accelerator != null) {
+                    accelerator.addParticles(this, activeSpiritType, itemPos);
+                }
+            }
             Color firstColor = activeSpiritType.getPrimaryColor();
             Color secondColor = activeSpiritType.getSecondaryColor();
             WorldParticleBuilder.create(LodestoneParticleRegistry.TWINKLE_PARTICLE)

@@ -44,7 +44,7 @@ public class VividNitrateBounceParticlePacket extends ColorBasedParticleEffectPa
                     .setLifetime(20)
                     .enableNoClip()
                     .setRandomOffset(0.85f)
-                    .setGravity(1.1f)
+                    .setGravityStrength(1.1f)
                     .addMotion(0, 0.3f + rand.nextFloat() * 0.15f * motionMultiplier, 0)
                     .disableNoClip()
                     .setRandomMotion(0.2f*motionMultiplier, 0.25f*motionMultiplier)

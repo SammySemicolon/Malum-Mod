@@ -108,10 +108,10 @@ public class SpiritItemEntity extends FloatingItemEntity {
             if (isAlive()) {
                 ItemStack stack = getItem();
                 if (stack.getItem() instanceof SpiritShardItem) {
-                    SpiritHarvestHandler.pickupSpirit(stack, owner);
+                    SpiritHarvestHandler.pickupSpirit(owner, stack);
                 }
                 else {
-                    ItemHelper.giveItemToEntity(stack, owner);
+                    ItemHelper.giveItemToEntity(owner, stack);
                 }
                 if (random.nextFloat() < 0.6f) {
                     level.playSound(null, blockPosition(), SoundRegistry.SPIRIT_PICKUP.get(), SoundSource.NEUTRAL, 0.3f, Mth.nextFloat(random, 1.1f, 2f));

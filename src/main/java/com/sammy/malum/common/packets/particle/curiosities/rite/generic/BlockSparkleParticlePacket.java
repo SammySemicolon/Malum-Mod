@@ -40,7 +40,7 @@ public class BlockSparkleParticlePacket extends ColorBasedBlockParticleEffectPac
                     .setLifetime(20)
                     .enableNoClip()
                     .setRandomOffset(0.6f)
-                    .setGravity(1.1f)
+                    .setGravityStrength(1.1f)
                     .addMotion(0, 0.28f + rand.nextFloat() * 0.15f, 0)
                     .disableNoClip()
                     .setRandomMotion(0.1f, 0.15f)

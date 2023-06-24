@@ -47,6 +47,14 @@ public class MalumItemModelSmithTypes {
         provider.withExistingParent(name, GENERATED).texture("layer0", provider.modLoc("item/"+brazierName)).texture("layer1", provider.modLoc("item/"+overlayName+"_overlay"));
     });
 
+    public static ItemModelSmith IRIDESCENT_ETHER_BRAZIER_ITEM = new ItemModelSmith((item, provider) -> {
+        String name = provider.getItemName(item);
+        String rockType = name.split("_")[0];
+        String brazierName = rockType + "_ether_brazier";
+        String overlayName = name.replace(rockType+"_", "");
+        provider.withExistingParent(name, GENERATED).texture("layer0", provider.modLoc("item/"+brazierName)).texture("layer1", provider.modLoc("item/"+overlayName)).texture("layer2", provider.modLoc("item/"+overlayName+"_overlay"));
+    });
+
     public static ItemModelSmith ARMOR_ITEM = new ItemModelSmith((item, provider) -> {
         String name = provider.getItemName(item);
         provider.createGenericModel(item, GENERATED, provider.getItemTexture(name));

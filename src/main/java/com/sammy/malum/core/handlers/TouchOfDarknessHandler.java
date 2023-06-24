@@ -20,6 +20,7 @@ import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.network.*;
 import team.lodestar.lodestone.systems.easing.*;
 import team.lodestar.lodestone.systems.rendering.*;
+import team.lodestar.lodestone.systems.rendering.shader.*;
 
 import java.util.function.*;
 

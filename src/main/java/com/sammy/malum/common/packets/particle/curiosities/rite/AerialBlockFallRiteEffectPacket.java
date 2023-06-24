@@ -39,7 +39,7 @@ public class AerialBlockFallRiteEffectPacket extends ColorBasedBlockParticleEffe
                     .setLifetime(25)
                     .enableNoClip()
                     .setRandomOffset(0.6f)
-                    .setGravity(0.3f)
+                    .setGravityStrength(0.3f)
                     .disableNoClip()
                     .setRandomMotion(0.1f, 0.15f)
                     .spawn(level, pos.getX() + 0.5f, pos.getY() + 0.2f, pos.getZ() + 0.5f);

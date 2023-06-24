@@ -132,7 +132,7 @@ public class VividNitrateEntity extends AbstractNitrateEntity {
                         .setRandomOffset(0.02f)
                         .enableNoClip()
                         .setRandomMotion(0.01f, 0.01f)
-                        .setRenderType(LodestoneWorldParticleRenderType.TRANSPARENT)
+                        .setRenderType(LodestoneWorldParticleRenderType.LUMITRANSPARENT)
                         .spawn(vividNitrateEntity.level, lerpX, lerpY, lerpZ)
                         .setColorData(colorDataBuilder.setCoefficient(2.75f).build())
                         .spawn(vividNitrateEntity.level, lerpX, lerpY, lerpZ);

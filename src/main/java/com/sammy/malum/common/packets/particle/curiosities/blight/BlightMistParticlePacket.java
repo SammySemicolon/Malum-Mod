@@ -41,7 +41,7 @@ public class BlightMistParticlePacket extends BlockBasedParticleEffectPacket {
                     .enableNoClip()
                     .setRandomOffset(0.1f, 0f)
                     .setRandomMotion(0.005f, 0.01f)
-                    .setRenderType(LodestoneWorldParticleRenderType.TRANSPARENT)
+                    .setRenderType(LodestoneWorldParticleRenderType.LUMITRANSPARENT)
                     .repeatSurroundBlock(level, pos, 2, Direction.UP);
 
             WorldParticleBuilder.create(LodestoneParticleRegistry.SMOKE_PARTICLE)
@@ -53,7 +53,7 @@ public class BlightMistParticlePacket extends BlockBasedParticleEffectPacket {
                     .setRandomOffset(0.2f, 0)
                     .enableNoClip()
                     .setRandomMotion(0.005f, 0.005f)
-                    .setRenderType(LodestoneWorldParticleRenderType.TRANSPARENT)
+                    .setRenderType(LodestoneWorldParticleRenderType.LUMITRANSPARENT)
                     .repeatSurroundBlock(level, pos, 2, Direction.UP);
 
             color = new Color((int)(80*multiplier), (int)(40*multiplier), (int)(80*multiplier));

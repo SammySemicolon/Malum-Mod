@@ -1,8 +1,0 @@
-{
-  "parent": "malum:block/templates/template_ether_torch",
-  "textures": {
-    "torch": "malum:block/ether_torch",
-    "colored": "malum:block/ether_torch_overlay",
-    "particle": "malum:block/runewood/runewood_planks"
-  }
-}

@@ -1,5 +1,6 @@
 package com.sammy.malum.data.block;
 
+import com.sammy.malum.*;
 import com.sammy.malum.data.item.*;
 import net.minecraft.data.*;
 import net.minecraft.resources.*;
@@ -63,7 +64,8 @@ public class MalumBlockStates extends LodestoneBlockStateProvider {
         BlockStateSmithTypes.BUTTON_BLOCK.act(data, TAINTED_ROCK_BUTTON);
         BlockStateSmithTypes.PRESSURE_PLATE_BLOCK.act(data, TAINTED_ROCK_PRESSURE_PLATE);
 
-        MalumBlockStateSmithTypes.BRAZIER_BLOCK.act(data, TAINTED_ETHER_BRAZIER, TAINTED_IRIDESCENT_ETHER_BRAZIER);
+        MalumBlockStateSmithTypes.BRAZIER_BLOCK.act(data, TAINTED_ETHER_BRAZIER);
+        MalumBlockStateSmithTypes.IRIDESCENT_BRAZIER_BLOCK.act(data, TAINTED_IRIDESCENT_ETHER_BRAZIER);
 
         setTexturePath("arcane_rock/twisted/");
         BlockStateSmithTypes.FULL_BLOCK.act(data,
@@ -93,7 +95,8 @@ public class MalumBlockStates extends LodestoneBlockStateProvider {
         BlockStateSmithTypes.BUTTON_BLOCK.act(data, TWISTED_ROCK_BUTTON);
         BlockStateSmithTypes.PRESSURE_PLATE_BLOCK.act(data, TWISTED_ROCK_PRESSURE_PLATE);
 
-        MalumBlockStateSmithTypes.BRAZIER_BLOCK.act(data, TWISTED_ETHER_BRAZIER, TWISTED_IRIDESCENT_ETHER_BRAZIER);
+        MalumBlockStateSmithTypes.BRAZIER_BLOCK.act(data, TWISTED_ETHER_BRAZIER);
+        MalumBlockStateSmithTypes.IRIDESCENT_BRAZIER_BLOCK.act(data, TWISTED_IRIDESCENT_ETHER_BRAZIER);
 
         setTexturePath("runewood/");
         BlockStateSmithTypes.FULL_BLOCK.act(data, RUNEWOOD_PLANKS, VERTICAL_RUNEWOOD_PLANKS, RUNEWOOD_PANEL, RUNEWOOD_TILES);
@@ -165,7 +168,7 @@ public class MalumBlockStates extends LodestoneBlockStateProvider {
 
         setTexturePath("");
         BlockStateSmithTypes.CUSTOM_MODEL.act(data, ItemModelSmithTypes.GENERATED_ITEM, this::simpleBlock, this::etherModel, ETHER);
-        BlockStateSmithTypes.CUSTOM_MODEL.act(data, MalumItemModelSmithTypes.GENERATED_OVERLAY_ITEM, this::simpleBlock, this::etherTorchModel, ETHER_TORCH);
+        BlockStateSmithTypes.CUSTOM_MODEL.act(data, MalumItemModelSmithTypes.GENERATED_OVERLAY_ITEM, (b, m) -> getVariantBuilder(b).forAllStates(s -> ConfiguredModel.builder().modelFile(m).build()), this::etherTorchModel, ETHER_TORCH);
         BlockStateSmithTypes.CUSTOM_MODEL.act(data, ItemModelSmithTypes.NO_MODEL, (b, m) -> horizontalBlock(b, m, 90), this::wallEtherTorchModel, WALL_ETHER_TORCH);
 
         BlockStateSmithTypes.CUSTOM_MODEL.act(data, MalumItemModelSmithTypes.GENERATED_OVERLAY_ITEM, this::simpleBlock, this::etherModel, IRIDESCENT_ETHER);
@@ -191,14 +194,16 @@ public class MalumBlockStates extends LodestoneBlockStateProvider {
                 WEEPING_WELL_CORE, WEEPING_WELL_CORNER, WEEPING_WELL_SIDE);
         MalumBlockStateSmithTypes.PRIMORDIAL_SOUP.act(data, PRIMORDIAL_SOUP);
 
-        BlockStateSmithTypes.TORCH_BLOCK.act(data, BLAZING_TORCH);
-        BlockStateSmithTypes.WALL_TORCH_BLOCK.act(data, WALL_BLAZING_TORCH);
-
         BlockStateSmithTypes.FULL_BLOCK.act(data, THE_DEVICE, THE_VESSEL);
 
-        BlockStateSmithTypes.CUSTOM_MODEL.act(data, ItemModelSmithTypes.NO_MODEL, this::simpleBlock, this::airModel,
+        BlockStateSmithTypes.CUSTOM_MODEL.act(data, ItemModelSmithTypes.NO_MODEL, this::simpleBlock, this::cubeModelAirTexture,
                 MOTE_OF_SACRED_ARCANA, MOTE_OF_WICKED_ARCANA, MOTE_OF_RAW_ARCANA, MOTE_OF_ELDRITCH_ARCANA,
                 MOTE_OF_AERIAL_ARCANA, MOTE_OF_AQUEOUS_ARCANA, MOTE_OF_INFERNAL_ARCANA, MOTE_OF_EARTHEN_ARCANA);
+    }
+
+    public ModelFile cubeModelAirTexture(Block block) {
+        String name = getBlockName(block);
+        return models().cubeAll(name, MalumMod.malumPath("block/air"));
     }
 
     public ModelFile columnCapModel(Block block) {
@@ -270,15 +275,12 @@ public class MalumBlockStates extends LodestoneBlockStateProvider {
     }
 
     public ModelFile etherTorchModel(Block block) {
-        String name = getBlockName(block);
-        return models().withExistingParent(name, malumPath("block/templates/template_ether_torch")).texture("torch", malumPath("block/ether_torch")).texture("colored", malumPath("block/ether_torch_overlay")).texture("particle", malumPath("block/runewood/runewood_planks"));
+        return models().getExistingFile(malumPath("block/ether_torch"));
     }
 
     public ModelFile wallEtherTorchModel(Block block) {
-        String name = getBlockName(block);
-        return models().withExistingParent(name, malumPath("block/templates/template_ether_torch_wall")).texture("torch", malumPath("block/ether_torch")).texture("colored", malumPath("block/ether_torch_overlay")).texture("particle", malumPath("block/runewood/runewood_planks"));
+        return models().getExistingFile(malumPath("block/ether_torch_wall"));
     }
-
     public ModelFile totemBaseModel(Block block) {
         String name = getBlockName(block);
         String woodName = name.substring(0, 8);
@@ -303,11 +305,5 @@ public class MalumBlockStates extends LodestoneBlockStateProvider {
         ResourceLocation bottom = new ResourceLocation("block/dirt");
         ResourceLocation top = getBlockTexture("blighted_soil_0");
         return models().cubeBottomTop(name, side, bottom, top);
-    }
-
-    //TODO: move this to lodestone
-    public ModelFile airModel(Block block) {
-        String name = getBlockName(block);
-        return models().withExistingParent(name, new ResourceLocation("block/air"));
     }
 }

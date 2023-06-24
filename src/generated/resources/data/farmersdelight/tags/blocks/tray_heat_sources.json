@@ -7,15 +7,11 @@
     "malum:twisted_iridescent_ether_brazier",
     "malum:iridescent_wall_ether_torch",
     "malum:wall_ether_torch",
-    "malum:iridescent_ether_sconce",
     "malum:iridescent_ether_torch",
-    "malum:wall_ether_sconce",
     "malum:twisted_ether_brazier",
     "malum:ether",
     "malum:ether",
     "malum:ether_torch",
-    "malum:ether_sconce",
-    "malum:iridescent_wall_ether_sconce",
     "malum:tainted_ether_brazier"
   ]
 }

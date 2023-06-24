@@ -29,7 +29,7 @@ public class  ItemPedestalRenderer implements BlockEntityRenderer<ItemPedestalBl
             poseStack.pushPose();
             Vector3f offset = new Vector3f(blockEntityIn.itemOffset());
             if (stack.getItem() instanceof SpiritShardItem) {
-                double y = Math.sin(((level.getGameTime() + partialTicks)) / 20f) * 0.1f;
+                double y = Math.sin((((level.getGameTime() % 360) + partialTicks)) / 20f) * 0.1f;
                 poseStack.translate(0, y, 0);
             }
             poseStack.translate(offset.x(), offset.y(), offset.z());

@@ -46,7 +46,7 @@ public class SuccessfulSoulHarvestParticlePacket extends PositionBasedParticleEf
                 .setLifetime(20)
                 .setRandomOffset(0.5, 0).setRandomMotion(0, 0.125f)
                 .addMotion(0, 0.28f, 0)
-                .setGravity(1)
+                .setGravityStrength(1)
                 .repeat(level, posX, posY, posZ, 40);
 
         WorldParticleBuilder.create(LodestoneParticleRegistry.SPARKLE_PARTICLE)
@@ -57,7 +57,7 @@ public class SuccessfulSoulHarvestParticlePacket extends PositionBasedParticleEf
                 .setLifetime(40)
                 .setRandomOffset(0.5, 0.5).setRandomMotion(0.125f, 0.05)
                 .addMotion(0, 0.15f, 0)
-                .setGravity(1)
+                .setGravityStrength(1)
                 .repeat(level, posX, posY, posZ, 30);
     }
 

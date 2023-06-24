@@ -11,7 +11,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.block.WallTorchBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.HitResult;
@@ -29,9 +29,7 @@ import team.lodestar.lodestone.systems.particle.data.SpinParticleData;
 import java.awt.*;
 
 public class EtherBlockEntity extends LodestoneBlockEntity {
-    public int firstColorRGB;
     public Color firstColor;
-    public int secondColorRGB;
     public Color secondColor;
 
     public EtherBlockEntity(BlockEntityType<? extends EtherBlockEntity> type, BlockPos pos, BlockState state) {
@@ -43,43 +41,30 @@ public class EtherBlockEntity extends LodestoneBlockEntity {
     }
 
     public void setFirstColor(int rgb) {
-        firstColorRGB = rgb;
         firstColor = new Color(rgb);
     }
 
     public void setSecondColor(int rgb) {
-        secondColorRGB = rgb;
         secondColor = new Color(rgb);
     }
 
     @Override
     public void load(CompoundTag compound) {
-        if (compound.contains("firstColor")) {
-            setFirstColor(compound.getInt("firstColor"));
-        } else {
-            setFirstColor(EtherItem.DEFAULT_FIRST_COLOR);
-        }
+        setFirstColor(compound.contains("firstColor") ? compound.getInt("firstColor") : EtherItem.DEFAULT_FIRST_COLOR);
         if (getBlockState().getBlock().asItem() instanceof AbstractEtherItem etherItem && etherItem.iridescent) {
-            if (compound.contains("secondColor")) {
-                setSecondColor(compound.getInt("secondColor"));
-            } else {
-                setSecondColor(EtherItem.DEFAULT_SECOND_COLOR);
-            }
+            setSecondColor(compound.contains("secondColor") ? compound.getInt("secondColor") : EtherItem.DEFAULT_SECOND_COLOR);
         }
-
         super.load(compound);
     }
 
     @Override
     protected void saveAdditional(CompoundTag compound) {
-        compound.putByte("godDammit", (byte) 0); //TODO: figure out what to do about this. For reference, the client won't be told of our block entity data and load() won't run if there is nothing in the compound
-        //this could be fixed by just removing the optimization below, but I like said optimization.
-        if (firstColor != null && firstColorRGB != EtherItem.DEFAULT_FIRST_COLOR) {
-            compound.putInt("firstColor", firstColorRGB);
+        if (firstColor != null) {
+            compound.putInt("firstColor", firstColor.getRGB());
         }
         if (getBlockState().getBlock().asItem() instanceof AbstractEtherItem etherItem && etherItem.iridescent) {
-            if (secondColor != null && secondColorRGB != EtherItem.DEFAULT_SECOND_COLOR) {
-                compound.putInt("secondColor", secondColorRGB);
+            if (secondColor != null && secondColor.getRGB() != EtherItem.DEFAULT_SECOND_COLOR) {
+                compound.putInt("secondColor", secondColor.getRGB());
             }
         }
         super.saveAdditional(compound);
@@ -99,10 +84,10 @@ public class EtherBlockEntity extends LodestoneBlockEntity {
         ItemStack stack = state.getBlock().asItem().getDefaultInstance();
         AbstractEtherItem etherItem = (AbstractEtherItem) stack.getItem();
         if (firstColor != null) {
-            etherItem.setFirstColor(stack, firstColorRGB);
+            etherItem.setFirstColor(stack, firstColor.getRGB());
         }
         if (secondColor != null) {
-            etherItem.setSecondColor(stack, secondColorRGB);
+            etherItem.setSecondColor(stack, secondColor.getRGB());
         }
         return super.onClone(state, target, level, pos, player);
     }
@@ -121,6 +106,7 @@ public class EtherBlockEntity extends LodestoneBlockEntity {
             if (firstColor == null) {
                 return;
             }
+            Block block = getBlockState().getBlock();
             Color firstColor = ColorHelper.darker(this.firstColor, 1);
             Color secondColor = this.secondColor == null ? firstColor : ColorHelper.brighter(this.secondColor, 1);
             double x = worldPosition.getX() + 0.5;
@@ -129,22 +115,19 @@ public class EtherBlockEntity extends LodestoneBlockEntity {
             int lifeTime = 14 + level.random.nextInt(4);
             float scale = 0.17f + level.random.nextFloat() * 0.03f;
             float velocity = 0.04f + level.random.nextFloat() * 0.02f;
-            if (getBlockState().getBlock() instanceof EtherWallTorchBlock) {
+
+            if (block instanceof EtherWallTorchBlock) {
                 Direction direction = getBlockState().getValue(WallTorchBlock.FACING);
-                x += direction.getNormal().getX() * -0.28f;
-                y += 0.2f;
-                z += direction.getNormal().getZ() * -0.28f;
+                x += direction.getNormal().getX() * -0.15f;
+                y += 0.3f;
+                z += direction.getNormal().getZ() * -0.15f;
                 lifeTime -= 6;
             }
-
-            if (getBlockState().getBlock() instanceof EtherTorchBlock || getBlockState().getBlock() instanceof EtherWallTorchBlock) {
+            if (block instanceof EtherTorchBlock) {
+                y += 0.2f;
                 lifeTime -= 4;
             }
-
-            if (getBlockState().getBlock() instanceof EtherSconceBlock || getBlockState().getBlock() instanceof EtherWallSconceBlock) {
-                y+=0.05f;
-            }
-            if (getBlockState().getBlock() instanceof EtherBrazierBlock) {
+            if (block instanceof EtherBrazierBlock) {
                 y -= 0.2f;
                 lifeTime -= 2;
                 scale *= 1.25f;
