@@ -17,6 +17,7 @@ import static team.lodestar.lodestone.setup.LodestoneShaderRegistry.registerShad
 public class ShaderRegistry {
 
     public static ShaderHolder TOUCH_OF_DARKNESS = new ShaderHolder(MalumMod.malumPath("touch_of_darkness"), DefaultVertexFormat.POSITION_COLOR_TEX, "Speed", "Zoom", "Distortion", "Intensity", "Wibble");
+
     @SubscribeEvent
     public static void shaderRegistry(RegisterShadersEvent event) throws IOException {
         ResourceManager resourceManager = event.getResourceManager();

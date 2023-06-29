@@ -31,6 +31,7 @@ public class CurioTokenOfGratitude extends MalumCurioItem implements IEventRespo
     public static final UUID BOBBU = validateForGratitude("3ab4b4b3-dceb-4ff9-a901-fa6edd746070");
     public static final UUID DELLY = validateForGratitude("7c3a2f88-f6b8-47ff-971d-73544eb5ae62");
     public static final UUID LOFI = validateForGratitude("85715c8f-4f71-4ebd-9f3a-96dfd8e8e390");
+    public static final UUID CREECHURE = validateForGratitude("9acb0ed8-a6a3-46bc-a6ff-23c176e5ec3d");
     public static final UUID BOYA = validateForGratitude("0f73fdde-34b2-4d0a-a8e5-c98758a90576");
 
     static {

@@ -47,7 +47,7 @@ public class TokenOfGratitudeRenderer implements ICurioRenderer {
             if (playerEntity.getUUID().equals(CurioTokenOfGratitude.SAMMY)) {
                 renderTail(stack, SAMMY, poseStack, playerEntity, renderTypeBuffer, light, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch);
             }
-            if (playerEntity.getUUID().equals(CurioTokenOfGratitude.LOFI)) {
+            if (playerEntity.getUUID().equals(CurioTokenOfGratitude.LOFI) || playerEntity.getUUID().equals(CurioTokenOfGratitude.CREECHURE)) {
                 renderTail(stack, LOFI, poseStack, playerEntity, renderTypeBuffer, light, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch);
             }
             if (playerEntity.getUUID().equals(CurioTokenOfGratitude.OWL_PERSON)) {

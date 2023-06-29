@@ -1,7 +1,7 @@
 package com.sammy.malum.data.item;
 
 import com.sammy.malum.core.systems.item.*;
-import com.sammy.malum.registry.client.*;
+import com.sammy.malum.registry.common.*;
 import net.minecraft.resources.*;
 import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.systems.datagen.itemsmith.*;
@@ -23,10 +23,6 @@ public class MalumItemModelSmithTypes {
 
     public static ItemModelSmith SPIRIT_ITEM = new ItemModelSmith((item, provider) -> {
         provider.createGenericModel(item, GENERATED, provider.modLoc("item/spirit_shard"));
-    });
-
-    public static ItemModelSmith SPIRIT_MOTE_ITEM = new ItemModelSmith((item, provider) -> {
-        provider.createGenericModel(item, GENERATED, provider.modLoc("item/spirit_mote"));
     });
 
     public static ItemModelSmith GENERATED_OVERLAY_ITEM = new ItemModelSmith((item, provider) -> {
@@ -54,6 +50,12 @@ public class MalumItemModelSmithTypes {
         String overlayName = name.replace(rockType+"_", "");
         provider.withExistingParent(name, GENERATED).texture("layer0", provider.modLoc("item/"+brazierName)).texture("layer1", provider.modLoc("item/"+overlayName)).texture("layer2", provider.modLoc("item/"+overlayName+"_overlay"));
     });
+
+    public static ItemModelSmith IRIDESCENT_ETHER_TORCH_ITEM = new ItemModelSmith((item, provider) -> {
+        String name = provider.getItemName(item);
+        provider.withExistingParent(name, HANDHELD).texture("layer0", provider.modLoc("item/ether_torch")).texture("layer1", provider.modLoc("item/"+name)).texture("layer2", provider.modLoc("item/"+name+"_overlay"));
+    });
+
 
     public static ItemModelSmith ARMOR_ITEM = new ItemModelSmith((item, provider) -> {
         String name = provider.getItemName(item);

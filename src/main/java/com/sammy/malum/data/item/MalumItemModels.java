@@ -2,11 +2,11 @@ package com.sammy.malum.data.item;
 
 import com.sammy.malum.*;
 import com.sammy.malum.common.item.cosmetic.*;
-import com.sammy.malum.common.item.ether.*;
 import com.sammy.malum.common.item.curiosities.weapons.*;
+import com.sammy.malum.common.item.ether.*;
 import com.sammy.malum.common.item.impetus.*;
 import com.sammy.malum.common.item.spirit.*;
-import com.sammy.malum.registry.client.*;
+import com.sammy.malum.registry.common.*;
 import net.minecraft.core.*;
 import net.minecraft.data.*;
 import net.minecraft.world.item.*;

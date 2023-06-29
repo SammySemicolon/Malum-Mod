@@ -2,7 +2,6 @@ package com.sammy.malum.common.block.curiosities.weavers_workbench;
 
 import com.sammy.malum.common.container.*;
 import com.sammy.malum.common.packets.particle.curiosities.blight.*;
-import com.sammy.malum.registry.client.*;
 import com.sammy.malum.registry.common.*;
 import com.sammy.malum.registry.common.block.*;
 import net.minecraft.core.*;
@@ -25,8 +24,8 @@ import team.lodestar.lodestone.systems.blockentity.*;
 import java.util.*;
 
 import static com.sammy.malum.core.systems.item.ItemSkin.*;
-import static com.sammy.malum.registry.common.PacketRegistry.MALUM_CHANNEL;
-import static com.sammy.malum.registry.common.SpiritTypeRegistry.ARCANE_SPIRIT;
+import static com.sammy.malum.registry.common.PacketRegistry.*;
+import static com.sammy.malum.registry.common.SpiritTypeRegistry.*;
 
 public class WeaversWorkbenchBlockEntity extends LodestoneBlockEntity {
 
@@ -84,7 +83,7 @@ public class WeaversWorkbenchBlockEntity extends LodestoneBlockEntity {
         }
         if (!target.isEmpty() && !weave.isEmpty()) {
             ItemStack result = target.copy();
-            String skinTag = ItemSkinRegistry.getApplicableItemSkinTag(target, weave);
+            String skinTag = getApplicableItemSkinTag(target, weave);
             if (skinTag != null) {
                 CompoundTag tag = target.getOrCreateTag();
                 CompoundTag modifiedTag = tag.copy();

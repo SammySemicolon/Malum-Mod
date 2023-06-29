@@ -163,7 +163,7 @@ public class SoulWardHandler {
                         shaderInstance.safeGetUniform("Speed").set(550f);
                         shaderInstance.safeGetUniform("Intensity").set(120f);
                         VFXBuilders.ScreenVFXBuilder builder = VFXBuilders.createScreen()
-                                .setPosColorTexLightmapDefaultFormat()
+                                .setPosColorTexDefaultFormat()
                                 .setShader(() -> shaderInstance);
 
                         int size = 13;
