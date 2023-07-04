@@ -2,6 +2,7 @@ package com.sammy.malum.client.vfx.types;
 
 import com.sammy.malum.client.vfx.types.base.*;
 import net.minecraft.util.*;
+import net.minecraftforge.api.distmarker.*;
 import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.setup.*;
 import team.lodestar.lodestone.systems.easing.*;
@@ -18,6 +19,7 @@ public class WeepingWellReactionParticleEffectType extends ParticleEffectType {
         super(id);
     }
 
+    @OnlyIn(Dist.CLIENT)
     @Override
     public Supplier<ParticleEffectActor> get() {
         return () -> (level, random, positionData, colorData) -> {

@@ -6,6 +6,7 @@ import com.sammy.malum.registry.common.*;
 import net.minecraft.core.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.level.*;
+import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.network.*;
 
 import java.util.*;
@@ -22,7 +23,8 @@ public abstract class ParticleEffectType {
         ParticleEffectTypeRegistry.EFFECT_TYPES.put(id, this);
     }
 
-    public abstract Supplier<ParticleEffectActor> get();
+    @OnlyIn(Dist.CLIENT)
+    public abstract Supplier<ParticleEffectActor>  get();
 
     public void createEntityEffect(Entity entity) {
         createEntityEffect(entity, null);

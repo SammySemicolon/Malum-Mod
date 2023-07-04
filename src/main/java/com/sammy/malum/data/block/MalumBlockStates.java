@@ -201,6 +201,8 @@ public class MalumBlockStates extends LodestoneBlockStateProvider {
         BlockStateSmithTypes.CUSTOM_MODEL.act(data, ItemModelSmithTypes.NO_MODEL, this::simpleBlock, this::cubeModelAirTexture,
                 MOTE_OF_SACRED_ARCANA, MOTE_OF_WICKED_ARCANA, MOTE_OF_RAW_ARCANA, MOTE_OF_ELDRITCH_ARCANA,
                 MOTE_OF_AERIAL_ARCANA, MOTE_OF_AQUEOUS_ARCANA, MOTE_OF_INFERNAL_ARCANA, MOTE_OF_EARTHEN_ARCANA);
+
+        simpleBlock(TAINTED_ROCK.get());
     }
 
     public ModelFile cubeModelAirTexture(Block block) {

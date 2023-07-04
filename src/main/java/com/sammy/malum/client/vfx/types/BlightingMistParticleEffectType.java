@@ -3,6 +3,7 @@ package com.sammy.malum.client.vfx.types;
 import com.sammy.malum.client.vfx.types.base.*;
 import net.minecraft.core.*;
 import net.minecraft.util.*;
+import net.minecraftforge.api.distmarker.*;
 import team.lodestar.lodestone.setup.*;
 import team.lodestar.lodestone.systems.easing.*;
 import team.lodestar.lodestone.systems.particle.*;
@@ -18,6 +19,7 @@ public class BlightingMistParticleEffectType extends ParticleEffectType {
         super(id);
     }
 
+    @OnlyIn(Dist.CLIENT)
     @Override
     public Supplier<ParticleEffectActor> get() {
         return () -> (level, random, positionData, colorData) -> {
