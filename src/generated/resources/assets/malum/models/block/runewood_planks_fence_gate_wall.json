@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/template_fence_gate_wall",
   "textures": {
-    "texture": "malum:block/runewood_planks"
+    "texture": "malum:block/runewood/runewood_planks"
   }
 }

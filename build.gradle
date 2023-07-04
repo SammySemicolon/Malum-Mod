@@ -6,9 +6,9 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
-        classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
-        classpath 'org.parchmentmc:librarian:1.+'
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: "${forgegradleVersion}", changing: false
+        classpath "org.spongepowered:mixingradle:${mixingradleVersion}"
+        classpath "org.parchmentmc:librarian:${librarianVersion}"
     }
 }
 apply plugin: 'net.minecraftforge.gradle'
@@ -25,9 +25,7 @@ group = 'com.sammy.malum'
 archivesBaseName = project.modId
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
-sourceSets {
-    main.resources.srcDirs += 'src/generated/resources'
-}
+sourceSets { main.resources.srcDirs += 'src/generated/resources' }
 
 jar {
 //    exclude 'com/sammy/malum/core/data/**'
@@ -37,6 +35,7 @@ jar {
 
 mixin {
     add sourceSets.main, "${project.modId}.refmap.json"
+    config "${project.modId}.mixins.json"
 }
 
 minecraft {
@@ -171,9 +170,14 @@ jar {
 
 jar.finalizedBy('reobfJar')
 tasks.withType(GenerateModuleMetadata) {
-
     enabled = false
 }
+
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
 publishing {
     publications {
         mavenJava(MavenPublication) {

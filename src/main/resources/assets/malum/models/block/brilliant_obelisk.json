@@ -2,6 +2,6 @@
 	"parent": "malum:block/runewood_obelisk",
 	"texture_size": [32, 32],
 	"textures": {
-		"0": "malum:block/brilliant_obelisk"
+		"obelisk": "malum:block/brilliant_obelisk"
 	}
 }

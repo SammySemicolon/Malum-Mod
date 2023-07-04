@@ -1,13 +1,13 @@
 {
   "registry_name": "duckling:duck",
-  "primary_type": "aqueous",
+  "primary_type": "sacred",
   "spirits": [
     {
-      "spirit": "aqueous",
+      "spirit": "sacred",
       "count": 1
     },
     {
-      "spirit": "aerial",
+      "spirit": "aqueous",
       "count": 1
     }
   ]

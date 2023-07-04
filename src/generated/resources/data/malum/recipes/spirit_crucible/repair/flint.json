@@ -1,5 +1,10 @@
 {
   "type": "malum:spirit_repair",
+<<<<<<< HEAD
+=======
+  "itemIdRegex": "flint_.+",
+  "modIdRegex": "",
+>>>>>>> 1.5.1-1.18.2
   "durabilityPercentage": 0.5,
   "inputLookup": "flint_",
   "inputs": [],

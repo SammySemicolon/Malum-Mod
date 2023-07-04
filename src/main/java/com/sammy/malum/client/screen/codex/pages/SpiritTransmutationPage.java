@@ -1,20 +1,21 @@
 package com.sammy.malum.client.screen.codex.pages;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.sammy.malum.MalumMod;
-import com.sammy.malum.client.screen.codex.ProgressionBookScreen;
-import com.sammy.malum.common.recipe.SpiritTransmutationRecipe;
-import com.sammy.malum.core.setup.content.item.ItemRegistry;
-import net.minecraft.client.Minecraft;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
-import team.lodestar.lodestone.helpers.DataHelper;
-import team.lodestar.lodestone.systems.recipe.WrappedIngredient;
+import com.mojang.blaze3d.vertex.*;
+import com.sammy.malum.*;
+import com.sammy.malum.client.screen.codex.*;
+import com.sammy.malum.common.recipe.*;
+import com.sammy.malum.registry.common.item.*;
+import net.minecraft.client.*;
+import net.minecraft.network.chat.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.item.crafting.*;
+import net.minecraftforge.data.loading.*;
+import team.lodestar.lodestone.helpers.*;
+import team.lodestar.lodestone.systems.recipe.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+
+import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.*;
 
 @SuppressWarnings("all")
 public class SpiritTransmutationPage extends BookPage {
@@ -24,8 +25,7 @@ public class SpiritTransmutationPage extends BookPage {
     public SpiritTransmutationPage(String headlineTranslationKey, Item start) {
         super(MalumMod.malumPath("textures/gui/book/pages/spirit_transmutation_page.png"));
         this.headlineTranslationKey = headlineTranslationKey;
-        if (Minecraft.getInstance() == null) //this is null during datagen
-        {
+        if (DatagenModLoader.isRunningDataGen()) {
             return;
         }
         SpiritTransmutationRecipe recipe = SpiritTransmutationRecipe.getRecipe(Minecraft.getInstance().level, start);
@@ -50,26 +50,26 @@ public class SpiritTransmutationPage extends BookPage {
     }
 
     @Override
-    public void renderLeft(Minecraft minecraft, PoseStack poseStack, float xOffset, float yOffset, int mouseX, int mouseY, float partialTicks) {
+    public void renderLeft(Minecraft minecraft, PoseStack poseStack, EntryScreen screen, float yOffset, int mouseX, int mouseY, float partialTicks, float xOffset) {
         int guiLeft = guiLeft();
         int guiTop = guiTop();
-        Component component = Component.translatable(headlineTranslationKey());
-        ProgressionBookScreen.renderText(poseStack, component, guiLeft + 75 - minecraft.font.width(component.getString()) / 2, guiTop + 10);
+        Component component = new TranslatableComponent(headlineTranslationKey());
+        renderText(poseStack, component, guiLeft + 75 - minecraft.font.width(component.getString()) / 2, guiTop + 10);
         List<WrappedIngredient> copy = new ArrayList<>(itemTree);
-        ProgressionBookScreen.renderComponent(poseStack, copy.remove(0), guiLeft + 67, guiTop + 44, mouseX, mouseY);
-        ProgressionBookScreen.renderComponent(poseStack, copy.remove(copy.size() - 1), guiLeft + 67, guiTop + 126, mouseX, mouseY);
-        ProgressionBookScreen.renderComponents(poseStack, copy, guiLeft + 65, guiTop + 82, mouseX, mouseY, false);
+        renderComponent(screen, poseStack, copy.remove(0), guiLeft + 67, guiTop + 44, mouseX, mouseY);
+        renderComponent(screen, poseStack, copy.remove(copy.size() - 1), guiLeft + 67, guiTop + 126, mouseX, mouseY);
+        renderComponents(screen, poseStack, copy, guiLeft + 65, guiTop + 82, mouseX, mouseY, false);
     }
 
     @Override
-    public void renderRight(Minecraft minecraft, PoseStack poseStack, float xOffset, float yOffset, int mouseX, int mouseY, float partialTicks) {
+    public void renderRight(Minecraft minecraft, PoseStack poseStack, EntryScreen screen, float yOffset, int mouseX, int mouseY, float partialTicks, float xOffset) {
         int guiLeft = guiLeft();
         int guiTop = guiTop();
-        Component component = Component.translatable(headlineTranslationKey());
-        ProgressionBookScreen.renderText(poseStack, component, guiLeft + 218 - minecraft.font.width(component.getString()) / 2, guiTop + 10);
+        Component component = new TranslatableComponent(headlineTranslationKey());
+        renderText(poseStack, component, guiLeft + 218 - minecraft.font.width(component.getString()) / 2, guiTop + 10);
         List<WrappedIngredient> copy = new ArrayList<>(itemTree);
-        ProgressionBookScreen.renderComponent(poseStack, copy.remove(0), guiLeft + 209, guiTop + 44, mouseX, mouseY);
-        ProgressionBookScreen.renderComponent(poseStack, copy.remove(copy.size() - 1), guiLeft + 209, guiTop + 126, mouseX, mouseY);
-        ProgressionBookScreen.renderComponents(poseStack, DataHelper.reverseOrder(new ArrayList<>(), copy), guiLeft + 207, guiTop + 82, mouseX, mouseY, false);
+        renderComponent(screen, poseStack, copy.remove(0), guiLeft + 209, guiTop + 44, mouseX, mouseY);
+        renderComponent(screen, poseStack, copy.remove(copy.size() - 1), guiLeft + 209, guiTop + 126, mouseX, mouseY);
+        renderComponents(screen, poseStack, DataHelper.reverseOrder(new ArrayList<>(), copy), guiLeft + 207, guiTop + 82, mouseX, mouseY, false);
     }
 }

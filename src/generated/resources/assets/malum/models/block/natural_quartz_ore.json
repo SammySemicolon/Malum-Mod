@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "malum:block/natural_quartz_ore"
+    "all": "malum:block/ores/natural_quartz_ore"
   }
 }

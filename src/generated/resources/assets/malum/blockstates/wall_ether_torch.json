@@ -1,19 +1,45 @@
 {
   "variants": {
+<<<<<<< HEAD
     "facing=east": {
       "model": "malum:block/wall_ether_torch"
     },
     "facing=north": {
       "model": "malum:block/wall_ether_torch",
+=======
+    "facing=north,waterlogged=false": {
+      "model": "malum:block/ether_torch_wall",
+>>>>>>> 1.5.1-1.18.2
       "y": 270
     },
-    "facing=south": {
-      "model": "malum:block/wall_ether_torch",
+    "facing=south,waterlogged=false": {
+      "model": "malum:block/ether_torch_wall",
       "y": 90
     },
-    "facing=west": {
-      "model": "malum:block/wall_ether_torch",
+    "facing=west,waterlogged=false": {
+      "model": "malum:block/ether_torch_wall",
       "y": 180
+<<<<<<< HEAD
+=======
+    },
+    "facing=east,waterlogged=false": {
+      "model": "malum:block/ether_torch_wall"
+    },
+    "facing=north,waterlogged=true": {
+      "model": "malum:block/ether_torch_wall",
+      "y": 270
+    },
+    "facing=south,waterlogged=true": {
+      "model": "malum:block/ether_torch_wall",
+      "y": 90
+    },
+    "facing=west,waterlogged=true": {
+      "model": "malum:block/ether_torch_wall",
+      "y": 180
+    },
+    "facing=east,waterlogged=true": {
+      "model": "malum:block/ether_torch_wall"
+>>>>>>> 1.5.1-1.18.2
     }
   }
 }

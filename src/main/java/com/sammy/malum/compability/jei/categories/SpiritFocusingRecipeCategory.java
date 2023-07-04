@@ -2,10 +2,10 @@ package com.sammy.malum.compability.jei.categories;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.client.screen.codex.ProgressionBookScreen;
+import com.sammy.malum.client.screen.codex.*;
 import com.sammy.malum.common.recipe.SpiritFocusingRecipe;
 import com.sammy.malum.compability.jei.JEIHandler;
-import com.sammy.malum.core.setup.content.item.ItemRegistry;
+import com.sammy.malum.registry.common.item.ItemRegistry;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -40,7 +40,7 @@ public class SpiritFocusingRecipeCategory implements IRecipeCategory<SpiritFocus
     public void draw(SpiritFocusingRecipe recipe, IRecipeSlotsView recipeSlotsView, PoseStack stack, double mouseX, double mouseY) {
         overlay.draw(stack);
         if (recipe.spirits.size() > 0) {
-            ProgressionBookScreen.renderItemFrames(stack, recipe.spirits.size(), 61, 12, false);
+            ArcanaCodexHelper.renderItemFrames(stack, recipe.spirits.size(), 61, 12, false);
         }
     }
 

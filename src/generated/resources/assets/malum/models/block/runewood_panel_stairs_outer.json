@@ -1,8 +1,14 @@
 {
   "parent": "minecraft:block/outer_stairs",
   "textures": {
+<<<<<<< HEAD
     "bottom": "malum:block/runewood_panel",
     "side": "malum:block/runewood_panel",
     "top": "malum:block/runewood_panel"
+=======
+    "side": "malum:block/runewood/runewood_panel",
+    "bottom": "malum:block/runewood/runewood_panel",
+    "top": "malum:block/runewood/runewood_panel"
+>>>>>>> 1.5.1-1.18.2
   }
 }

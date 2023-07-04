@@ -1,23 +1,29 @@
 {
   "variants": {
-    "facing=down": {
+    "facing=down,waterlogged=false": {
       "model": "malum:block/twisted_rock_item_stand",
       "x": 180
     },
+<<<<<<< HEAD
     "facing=east": {
       "model": "malum:block/twisted_rock_item_stand",
       "x": 90,
       "y": 90
+=======
+    "facing=up,waterlogged=false": {
+      "model": "malum:block/twisted_rock_item_stand"
+>>>>>>> 1.5.1-1.18.2
     },
-    "facing=north": {
+    "facing=north,waterlogged=false": {
       "model": "malum:block/twisted_rock_item_stand",
       "x": 90
     },
-    "facing=south": {
+    "facing=south,waterlogged=false": {
       "model": "malum:block/twisted_rock_item_stand",
       "x": 90,
       "y": 180
     },
+<<<<<<< HEAD
     "facing=up": {
       "model": "malum:block/twisted_rock_item_stand"
     },
@@ -25,6 +31,43 @@
       "model": "malum:block/twisted_rock_item_stand",
       "x": 90,
       "y": 270
+=======
+    "facing=west,waterlogged=false": {
+      "model": "malum:block/twisted_rock_item_stand",
+      "x": 90,
+      "y": 270
+    },
+    "facing=east,waterlogged=false": {
+      "model": "malum:block/twisted_rock_item_stand",
+      "x": 90,
+      "y": 90
+    },
+    "facing=down,waterlogged=true": {
+      "model": "malum:block/twisted_rock_item_stand",
+      "x": 180
+    },
+    "facing=up,waterlogged=true": {
+      "model": "malum:block/twisted_rock_item_stand"
+    },
+    "facing=north,waterlogged=true": {
+      "model": "malum:block/twisted_rock_item_stand",
+      "x": 90
+    },
+    "facing=south,waterlogged=true": {
+      "model": "malum:block/twisted_rock_item_stand",
+      "x": 90,
+      "y": 180
+    },
+    "facing=west,waterlogged=true": {
+      "model": "malum:block/twisted_rock_item_stand",
+      "x": 90,
+      "y": 270
+    },
+    "facing=east,waterlogged=true": {
+      "model": "malum:block/twisted_rock_item_stand",
+      "x": 90,
+      "y": 90
+>>>>>>> 1.5.1-1.18.2
     }
   }
 }

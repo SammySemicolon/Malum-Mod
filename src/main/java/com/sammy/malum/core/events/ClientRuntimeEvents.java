@@ -1,9 +1,10 @@
 package com.sammy.malum.core.events;
 
-import com.sammy.malum.common.spiritaffinity.EarthenAffinity;
+import com.sammy.malum.core.handlers.TouchOfDarknessHandler;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.RenderGuiEvent;
-import net.minecraftforge.client.event.RenderGuiOverlayEvent;
+import net.minecraftforge.client.event.RenderGameOverlayEvent;
+import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -11,7 +12,9 @@ import net.minecraftforge.fml.common.Mod;
 public class ClientRuntimeEvents {
 
     @SubscribeEvent
-    public static void renderOverlay(RenderGuiEvent.Post event) {
-        EarthenAffinity.ClientOnly.renderHeartOfStone(event);
+    public static void renderOverlay(RenderGameOverlayEvent.Post event) {
+    }
+    @SubscribeEvent(priority = EventPriority.LOWEST)
+    public static void lateRenderTick(TickEvent.RenderTickEvent event) {
     }
 }

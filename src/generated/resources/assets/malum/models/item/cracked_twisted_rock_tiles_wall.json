@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/wall_inventory",
   "textures": {
-    "wall": "malum:block/cracked_twisted_rock_tiles"
+    "wall": "malum:block/arcane_rock/twisted/cracked_twisted_rock_tiles"
   }
 }

@@ -1,7 +1,7 @@
 package com.sammy.malum.core.systems.rites;
 
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.common.blockentity.totem.TotemBaseBlockEntity;
+import com.sammy.malum.common.block.curiosities.totem.TotemBaseBlockEntity;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
@@ -47,7 +47,7 @@ public abstract class MalumRiteType {
     }
 
     public ResourceLocation getIcon() {
-        return MalumMod.malumPath("textures/spirit/rite/" + identifier.replace("greater_", "").replace("_rite", "") + ".png");
+        return MalumMod.malumPath("textures/vfx/rite/" + identifier.replace("greater_", "").replace("_rite", "") + ".png");
     }
 
     public MalumSpiritType getEffectSpirit() {

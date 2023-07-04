@@ -5,7 +5,7 @@
 	"texture_size": [32, 32],
 	"textures": {
 		"jar": "malum:block/spirit_jar",
-		"particle": "malum:block/block_of_hallowed_gold"
+		"particle": "malum:block/storage_blocks/block_of_hallowed_gold"
 	},
 	"elements": [
 		{

@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "malum:block/cracked_tainted_rock_tiles"
+    "all": "malum:block/arcane_rock/tainted/cracked_tainted_rock_tiles"
   }
 }

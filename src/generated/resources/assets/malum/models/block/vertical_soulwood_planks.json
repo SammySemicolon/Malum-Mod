@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "malum:block/vertical_soulwood_planks"
+    "all": "malum:block/soulwood/vertical_soulwood_planks"
   }
 }

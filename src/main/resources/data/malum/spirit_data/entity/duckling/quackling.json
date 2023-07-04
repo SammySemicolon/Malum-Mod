@@ -1,17 +1,13 @@
 {
   "registry_name": "duckling:quackling",
-  "primary_type": "aqueous",
+  "primary_type": "sacred",
   "spirits": [
     {
-      "spirit": "aqueous",
-      "count": 2
-    },
-    {
-      "spirit": "aerial",
-      "count": 2
-    },
-    {
       "spirit": "sacred",
+      "count": 1
+    },
+    {
+      "spirit": "aqueous",
       "count": 1
     }
   ]

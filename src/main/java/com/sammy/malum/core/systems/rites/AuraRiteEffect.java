@@ -1,7 +1,7 @@
 package com.sammy.malum.core.systems.rites;
 
-import com.sammy.malum.common.blockentity.totem.TotemBaseBlockEntity;
-import com.sammy.malum.common.packets.particle.entity.MajorEntityEffectParticlePacket;
+import com.sammy.malum.common.block.curiosities.totem.TotemBaseBlockEntity;
+import com.sammy.malum.common.packets.particle.curiosities.rite.generic.MajorEntityEffectParticlePacket;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -12,7 +12,7 @@ import net.minecraftforge.network.PacketDistributor;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
-import static com.sammy.malum.core.setup.server.PacketRegistry.MALUM_CHANNEL;
+import static com.sammy.malum.registry.common.PacketRegistry.MALUM_CHANNEL;
 
 public class AuraRiteEffect extends EntityAffectingRiteEffect {
 
@@ -36,7 +36,7 @@ public class AuraRiteEffect extends EntityAffectingRiteEffect {
     public void riteEffect(TotemBaseBlockEntity totemBase) {
         getNearbyEntities(totemBase, getEntityClass()).filter(getEntityPredicate()).forEach(e -> {
             if (!e.hasEffect(effect.get())) {
-                MALUM_CHANNEL.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> e), new MajorEntityEffectParticlePacket(spirit.getColor(), e.getX(), e.getY()+ e.getBbHeight() / 2f, e.getZ()));
+                MALUM_CHANNEL.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> e), new MajorEntityEffectParticlePacket(spirit.getPrimaryColor(), e.getX(), e.getY()+ e.getBbHeight() / 2f, e.getZ()));
             }
             e.addEffect(new MobEffectInstance(effect.get(), getEffectDuration(), getEffectAmplifier(), true, true));
         });

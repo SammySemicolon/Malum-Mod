@@ -1,6 +1,5 @@
 package com.sammy.malum.common.block.storage;
 
-import com.sammy.malum.common.blockentity.storage.ItemPedestalBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;

@@ -15,8 +15,8 @@ import javax.annotation.Nullable;
 @OnlyIn(Dist.CLIENT)
 public class SpiritFlameParticle extends FrameSetParticle {
 
-    public SpiritFlameParticle(ClientLevel world, WorldParticleOptions data, ParticleEngine.MutableSpriteSet spriteSet, double x, double y, double z, double xd, double yd, double zd) {
-        super(world, data, spriteSet, x, y, z, xd, yd, zd);
+    public SpiritFlameParticle(ClientLevel world, WorldParticleOptions options, ParticleEngine.MutableSpriteSet spriteSet, double x, double y, double z, double xd, double yd, double zd) {
+        super(world, options, spriteSet, x, y, z, xd, yd, zd);
         addFrames(0, 37);
         addLoop(38, 77, 2);
         setLifetime(frameSet.size());

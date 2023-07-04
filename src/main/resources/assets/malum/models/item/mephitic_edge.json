@@ -1,0 +1,15 @@
+{
+  "parent": "item/handheld",
+  "loader": "forge:separate-perspective",
+  "base": {
+    "parent": "malum:item/mephitic_edge_handheld"
+  },
+  "perspectives": {
+    "gui": {
+      "parent": "malum:item/mephitic_edge_gui"
+    },
+    "fixed": {
+      "parent": "malum:item/mephitic_edge_gui"
+    }
+  }
+}

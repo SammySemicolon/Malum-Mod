@@ -2,9 +2,9 @@ package com.sammy.malum.compability.jei.categories;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.client.screen.codex.ProgressionBookScreen;
+import com.sammy.malum.client.screen.codex.*;
 import com.sammy.malum.compability.jei.JEIHandler;
-import com.sammy.malum.core.setup.content.item.ItemRegistry;
+import com.sammy.malum.registry.common.item.ItemRegistry;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
@@ -44,7 +44,7 @@ public class SpiritRiteRecipeCategory implements IRecipeCategory<MalumRiteType> 
     public void draw(MalumRiteType rite, IRecipeSlotsView recipeSlotsView, PoseStack poseStack, double mouseX, double mouseY) {
         overlay.draw(poseStack);
         String translated = I18n.get(rite.translationIdentifier(false));
-        ProgressionBookScreen.renderText(poseStack, Component.literal(translated), 71 - font.width(translated) / 2, 160);
+        ArcanaCodexHelper.renderText(poseStack, new TextComponent(translated), 71 - font.width(translated) / 2, 160);
     }
 
     @Override
@@ -73,7 +73,7 @@ public class SpiritRiteRecipeCategory implements IRecipeCategory<MalumRiteType> 
     public void setRecipe(IRecipeLayoutBuilder builder, MalumRiteType rite, IFocusGroup focuses) {
         for (int i = 0; i < rite.spirits.size(); i++) {
             builder.addSlot(RecipeIngredientRole.CATALYST, 63, 121 - 20 * i)
-                 .addItemStack(rite.spirits.get(i).getSplinterItem().getDefaultInstance());
+                 .addItemStack(rite.spirits.get(i).getSpiritShardItem().getDefaultInstance());
         }
     }
 }

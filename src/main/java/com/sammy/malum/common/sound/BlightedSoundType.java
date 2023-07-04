@@ -1,6 +1,6 @@
 package com.sammy.malum.common.sound;
 
-import com.sammy.malum.core.setup.content.SoundRegistry;
+import com.sammy.malum.registry.common.SoundRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.client.resources.sounds.SoundInstance;

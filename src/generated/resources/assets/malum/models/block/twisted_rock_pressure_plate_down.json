@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/pressure_plate_down",
   "textures": {
-    "texture": "malum:block/twisted_rock"
+    "texture": "malum:block/arcane_rock/twisted/twisted_rock"
   }
 }

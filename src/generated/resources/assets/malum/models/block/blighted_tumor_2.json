@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cross",
   "textures": {
-    "cross": "malum:block/blighted_tumor_2"
+    "cross": "malum:block/blight/blighted_tumor_2"
   }
 }

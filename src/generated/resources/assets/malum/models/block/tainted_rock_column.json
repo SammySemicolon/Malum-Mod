@@ -1,7 +1,12 @@
 {
   "parent": "minecraft:block/cube_column",
   "textures": {
+<<<<<<< HEAD
     "end": "malum:block/tainted_rock_column_top",
     "side": "malum:block/tainted_rock_column"
+=======
+    "side": "malum:block/arcane_rock/tainted/tainted_rock_column",
+    "end": "malum:block/arcane_rock/tainted/tainted_rock_column_top"
+>>>>>>> 1.5.1-1.18.2
   }
 }

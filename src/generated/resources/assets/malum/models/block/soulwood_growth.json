@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cross",
   "textures": {
-    "cross": "malum:block/soulwood_growth"
+    "cross": "malum:block/soulwood/soulwood_growth"
   }
 }

@@ -1,6 +1,6 @@
 package com.sammy.malum.common.entity.nitrate;
 
-import com.sammy.malum.core.setup.content.DamageSourceRegistry;
+import com.sammy.malum.registry.common.DamageSourceRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
@@ -36,9 +36,9 @@ public class EthericExplosion extends Explosion {
     @Override
     public DamageSource getDamageSource() {
         if (getSourceMob() != null) {
-            return DamageSourceRegistry.SOUL_STRIKE;
+            return DamageSourceRegistry.VOODOO;
         }
-        return DamageSourceRegistry.causeSoulStrikeDamage(getSourceMob());
+        return DamageSourceRegistry.causeVoodooDamage(getSourceMob());
     }
 
     public static void processExplosion(ExplosionEvent.Detonate event) {

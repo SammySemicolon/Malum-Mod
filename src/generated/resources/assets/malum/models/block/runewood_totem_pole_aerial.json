@@ -1,8 +1,14 @@
 {
   "parent": "malum:block/templates/template_totem_pole",
   "textures": {
+<<<<<<< HEAD
     "front": "malum:spirit/aerial_runewood_cutout",
     "side": "malum:block/runewood_log",
     "top": "malum:block/runewood_log_top"
+=======
+    "side": "malum:block/runewood/runewood_log",
+    "top": "malum:block/runewood/runewood_log_top",
+    "front": "malum:block/runewood/totem_poles/aerial_runewood_cutout"
+>>>>>>> 1.5.1-1.18.2
   }
 }

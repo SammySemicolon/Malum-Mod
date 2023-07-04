@@ -4,7 +4,7 @@
 	"texture_size": [32, 32],
 	"textures": {
 		"plinth": "malum:block/soulwood_plinth",
-		"particle": "malum:block/soulwood_planks"
+		"particle": "malum:block/soulwood/soulwood_planks"
 	},
 	"elements": [
 		{

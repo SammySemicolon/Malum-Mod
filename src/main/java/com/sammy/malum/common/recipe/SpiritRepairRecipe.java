@@ -3,8 +3,8 @@ package com.sammy.malum.common.recipe;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.sammy.malum.core.setup.content.recipe.RecipeSerializerRegistry;
-import com.sammy.malum.core.setup.content.recipe.RecipeTypeRegistry;
+import com.sammy.malum.registry.common.recipe.RecipeSerializerRegistry;
+import com.sammy.malum.registry.common.recipe.RecipeTypeRegistry;
 import com.sammy.malum.core.systems.recipe.SpiritWithCount;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -145,9 +145,8 @@ public class SpiritRepairRecipe extends ILodestoneRecipe {
                 REPAIRABLE = ForgeRegistries.ITEMS.getEntries().stream().map(Map.Entry::getValue).filter(Item::canBeDepleted).collect(Collectors.toList());
             }
             float durabilityPercentage = json.getAsJsonPrimitive("durabilityPercentage").getAsFloat();
-            String inputLookup = json.has("inputLookup") ? json.get("inputLookup").getAsString() : "none";
-            String itemName = inputLookup.contains(":") ? inputLookup.substring(inputLookup.indexOf(":")) : inputLookup;
-            String modName = inputLookup.contains(":") ? inputLookup.substring(0, inputLookup.indexOf(":") - 1) : null;
+            String itemIdRegex = json.get("itemIdRegex").getAsString();
+            String modIdRegex = json.get("modIdRegex").getAsString();
             JsonArray inputsArray = json.getAsJsonArray("inputs");
             List<Item> inputs = new ArrayList<>();
             for (JsonElement jsonElement : inputsArray) {
@@ -158,8 +157,8 @@ public class SpiritRepairRecipe extends ILodestoneRecipe {
                 inputs.add(input);
             }
             for (Item item : REPAIRABLE) {
-                if (ForgeRegistries.ITEMS.getKey(item).getPath().contains(itemName)) {
-                    if (modName != null && !ForgeRegistries.ITEMS.getKey(item).getNamespace().equals(modName)) {
+                if (item.getRegistryName().getPath().matches(itemIdRegex)) {
+                    if (!modIdRegex.equals("") && !item.getRegistryName().getNamespace().matches(modIdRegex)) {
                         continue;
                     }
                     if (item instanceof IRepairOutputOverride repairOutputOverride && repairOutputOverride.ignoreDuringLookup()) {

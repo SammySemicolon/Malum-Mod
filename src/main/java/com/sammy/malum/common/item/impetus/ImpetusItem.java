@@ -19,6 +19,7 @@ public class ImpetusItem extends Item implements SpiritRepairRecipe.IRepairOutpu
         cracked.get().setRepairedVariant(this);
         return this;
     }
+
     public CrackedImpetusItem getCrackedVariant() {
         return cracked.get();
     }

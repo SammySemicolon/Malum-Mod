@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/wall_inventory",
   "textures": {
-    "wall": "malum:block/small_tainted_rock_bricks"
+    "wall": "malum:block/arcane_rock/tainted/small_tainted_rock_bricks"
   }
 }

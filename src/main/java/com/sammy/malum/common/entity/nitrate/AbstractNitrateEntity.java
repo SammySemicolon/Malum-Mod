@@ -1,18 +1,16 @@
 package com.sammy.malum.common.entity.nitrate;
 
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.util.Mth;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.projectile.ThrowableProjectile;
-import net.minecraft.world.level.Explosion;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.HitResult;
-import team.lodestar.lodestone.helpers.EntityHelper;
+import net.minecraft.nbt.*;
+import net.minecraft.util.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.projectile.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.phys.*;
+import team.lodestar.lodestone.helpers.*;
 
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.*;
 
 public abstract class AbstractNitrateEntity extends ThrowableProjectile {
     public static final Color SECOND_SMOKE_COLOR = new Color(45, 45, 45);
@@ -86,9 +84,7 @@ public abstract class AbstractNitrateEntity extends ThrowableProjectile {
         if (windUp < 1f) {
             windUp += 0.1f;
         }
-        if (level.isClientSide) {
-            spawnParticles();
-        }
+        spawnParticles();
     }
 
     public void trackPastPositions() {

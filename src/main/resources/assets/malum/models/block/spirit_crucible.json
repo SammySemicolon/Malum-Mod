@@ -3,9 +3,9 @@
 	"parent": "block/block",
 	"texture_size": [32, 32],
 	"textures": {
-		"smooth": "malum:block/smooth_tainted_rock",
+		"smooth": "malum:block/arcane_rock/tainted/smooth_tainted_rock",
 		"crucible": "malum:block/spirit_crucible",
-		"particle": "malum:block/smooth_tainted_rock"
+		"particle": "malum:block/arcane_rock/tainted/smooth_tainted_rock"
 	},
 	"elements": [
 		{

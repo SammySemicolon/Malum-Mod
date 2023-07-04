@@ -1,9 +1,6 @@
 {
   "variants": {
-    "waterlogged=false": {
-      "model": "malum:block/runewood_item_pedestal"
-    },
-    "waterlogged=true": {
+    "": {
       "model": "malum:block/runewood_item_pedestal"
     }
   }

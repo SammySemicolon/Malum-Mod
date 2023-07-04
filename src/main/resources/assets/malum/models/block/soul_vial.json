@@ -4,7 +4,7 @@
 	"texture_size": [32, 32],
 	"textures": {
 		"0": "malum:block/soul_vial",
-		"particle": "malum:block/block_of_soul_stained_steel"
+		"particle": "malum:block/storage_blocks/block_of_soul_stained_steel"
 	},
 	"elements": [
 		{

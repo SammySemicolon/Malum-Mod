@@ -1,8 +1,14 @@
 {
   "parent": "minecraft:block/inner_stairs",
   "textures": {
+<<<<<<< HEAD
     "bottom": "malum:block/cracked_tainted_rock_tiles",
     "side": "malum:block/cracked_tainted_rock_tiles",
     "top": "malum:block/cracked_tainted_rock_tiles"
+=======
+    "side": "malum:block/arcane_rock/tainted/cracked_tainted_rock_tiles",
+    "bottom": "malum:block/arcane_rock/tainted/cracked_tainted_rock_tiles",
+    "top": "malum:block/arcane_rock/tainted/cracked_tainted_rock_tiles"
+>>>>>>> 1.5.1-1.18.2
   }
 }

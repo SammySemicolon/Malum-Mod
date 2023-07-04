@@ -1,0 +1,10 @@
+{
+  "registry_name": "aquaculture:bayad",
+  "primary_type": "aqueous",
+  "spirits": [
+    {
+      "spirit": "aqueous",
+      "count": 1
+    }
+  ]
+}

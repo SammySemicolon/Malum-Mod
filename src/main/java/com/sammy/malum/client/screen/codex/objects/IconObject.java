@@ -1,14 +1,11 @@
 package com.sammy.malum.client.screen.codex.objects;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.sammy.malum.client.screen.codex.BookEntry;
-import com.sammy.malum.client.screen.codex.EntryScreen;
-import com.sammy.malum.client.screen.codex.pages.SpiritRiteTextPage;
-import net.minecraft.client.Minecraft;
-import net.minecraft.resources.ResourceLocation;
+import com.mojang.blaze3d.vertex.*;
+import com.sammy.malum.client.screen.codex.*;
+import net.minecraft.client.*;
+import net.minecraft.resources.*;
 
-import java.util.Optional;
-
+import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.*;
 import static com.sammy.malum.client.screen.codex.ProgressionBookScreen.*;
 
 public class IconObject extends EntryObject {

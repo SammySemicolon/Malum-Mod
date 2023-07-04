@@ -1,0 +1,14 @@
+{
+  "registry_name": "waddles:adelie_penguin",
+  "primary_type": "aqueous",
+  "spirits": [
+    {
+      "spirit": "aqueous",
+      "count": 1
+    },
+    {
+      "spirit": "sacred",
+      "count": 1
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "malum:block/blighted_weed"
+    "layer0": "malum:block/blight/blighted_weed"
   }
 }

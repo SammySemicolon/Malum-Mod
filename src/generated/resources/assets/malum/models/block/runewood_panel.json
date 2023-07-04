@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "malum:block/runewood_panel"
+    "all": "malum:block/runewood/runewood_panel"
   }
 }

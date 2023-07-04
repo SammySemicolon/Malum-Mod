@@ -10,15 +10,10 @@ import com.sammy.malum.common.effect.InfernalAura;
 import com.sammy.malum.common.effect.WickedIntentEffect;
 import com.sammy.malum.common.enchantment.ReboundEnchantment;
 import com.sammy.malum.common.entity.nitrate.EthericExplosion;
-import com.sammy.malum.common.item.equipment.curios.*;
-import com.sammy.malum.common.spiritaffinity.ArcaneAffinity;
-import com.sammy.malum.common.spiritaffinity.EarthenAffinity;
+import com.sammy.malum.common.item.curiosities.curios.*;
 import com.sammy.malum.compability.create.CreateCompat;
 import com.sammy.malum.compability.tetra.TetraCompat;
-import com.sammy.malum.core.handlers.MalumAttributeEventHandler;
-import com.sammy.malum.core.handlers.ReapingHandler;
-import com.sammy.malum.core.handlers.SoulHarvestHandler;
-import com.sammy.malum.core.handlers.SpiritHarvestHandler;
+import com.sammy.malum.core.handlers.*;
 import com.sammy.malum.core.listeners.ReapingDataReloadListener;
 import com.sammy.malum.core.listeners.SpiritDataReloadListener;
 import net.minecraft.core.BlockPos;
@@ -59,7 +54,7 @@ public class RuntimeEvents {
     public static void onEntityJoin(EntityJoinLevelEvent event) {
         MalumPlayerDataCapability.playerJoin(event);
         CurioTokenOfGratitude.giveItem(event);
-        SoulHarvestHandler.addEntity(event);
+        SoulDataHandler.updateAi(event);
         if (TetraCompat.LOADED) {
             TetraCompat.LoadedOnly.fireArrow(event);
         }
@@ -86,7 +81,7 @@ public class RuntimeEvents {
 
     @SubscribeEvent
     public static void onEntityJoin(LivingSpawnEvent.SpecialSpawn event) {
-        SoulHarvestHandler.specialSpawn(event);
+        SoulDataHandler.markAsSpawnerSpawned(event);
     }
 
     @SubscribeEvent
@@ -100,8 +95,8 @@ public class RuntimeEvents {
     }
 
     @SubscribeEvent
-    public static void onLivingTarget(LivingSetAttackTargetEvent event) {
-        SoulHarvestHandler.entityTarget(event);
+    public static void onLivingTarget(LivingChangeTargetEvent event) {
+        SoulDataHandler.preventTargeting(event);
     }
 
     @SubscribeEvent
@@ -110,8 +105,9 @@ public class RuntimeEvents {
     }
 
     @SubscribeEvent
-    public static void onLivingTick(LivingEvent.LivingTickEvent event) {
-        SoulHarvestHandler.entityTick(event);
+    public static void onLivingTick(LivingEvent.LivingUpdateEvent event) {
+        SoulDataHandler.manageSoul(event);
+        TouchOfDarknessHandler.entityTick(event);
     }
 
     @SubscribeEvent
@@ -132,8 +128,7 @@ public class RuntimeEvents {
 
     @SubscribeEvent
     public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
-        ArcaneAffinity.recoverSoulWard(event);
-        EarthenAffinity.recoverHeartOfStone(event);
+        SoulWardHandler.recoverSoulWard(event);
         SoulHarvestHandler.playerTick(event);
     }
 
@@ -160,12 +155,12 @@ public class RuntimeEvents {
 
     @SubscribeEvent
     public static void onStartUsingItem(LivingEntityUseItemEvent.Start event) {
-        CurioVeraciousRing.accelerateEating(event);
+        CurioVoraciousRing.accelerateEating(event);
     }
 
     @SubscribeEvent
     public static void onFinishUsingItem(LivingEntityUseItemEvent.Finish event) {
-        CurioVeraciousRing.finishEating(event);
+        CurioVoraciousRing.finishEating(event);
         GluttonyEffect.finishEating(event);
     }
 
@@ -175,13 +170,12 @@ public class RuntimeEvents {
             CreateCompat.LoadedOnly.convertCaramelToMagicDamage(event);
         }
         MalumAttributeEventHandler.processAttributes(event);
-        EarthenAffinity.consumeHeartOfStone(event);
-        SpiritHarvestHandler.exposeSoul(event);
+        SoulDataHandler.exposeSoul(event);
     }
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public static void onLateHurt(LivingHurtEvent event) {
-        ArcaneAffinity.consumeSoulWard(event);
+        SoulWardHandler.shieldPlayer(event);
     }
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
@@ -191,7 +185,7 @@ public class RuntimeEvents {
 
     @SubscribeEvent
     public static void onDeath(LivingDeathEvent event) {
-        ReapingHandler.tryCreateReapingDrops(event);
+        EsotericReapingHandler.tryCreateReapingDrops(event);
         SpiritHarvestHandler.shatterSoul(event);
     }
 

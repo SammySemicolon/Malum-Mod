@@ -1,6 +1,6 @@
 package com.sammy.malum.mixin;
 
-import com.sammy.malum.core.setup.content.potion.MalumMobEffectRegistry;
+import com.sammy.malum.registry.common.MobEffectRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.effect.MobEffect;
@@ -14,10 +14,10 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 public class ForgeIngameGuiMixin {
 
     @ModifyArg(method = "renderFood", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/player/LocalPlayer;hasEffect(Lnet/minecraft/world/effect/MobEffect;)Z"))
-    private MobEffect malumGluttonyIsVisuallyHungerMixin(MobEffect effect) {
+    private MobEffect malum$renderFood(MobEffect effect) {
         LocalPlayer player = Minecraft.getInstance().player;
-        if (effect.equals(MobEffects.HUNGER) && player.hasEffect(MalumMobEffectRegistry.GLUTTONY.get())) {
-            return MalumMobEffectRegistry.GLUTTONY.get();
+        if (effect.equals(MobEffects.HUNGER) && player.hasEffect(MobEffectRegistry.GLUTTONY.get())) {
+            return MobEffectRegistry.GLUTTONY.get();
         }
         return MobEffects.HUNGER;
     }

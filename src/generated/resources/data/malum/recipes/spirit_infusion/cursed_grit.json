@@ -1,0 +1,26 @@
+{
+  "type": "malum:spirit_infusion",
+  "input": {
+    "item": "minecraft:glowstone_dust",
+    "count": 4
+  },
+  "output": {
+    "item": "malum:cursed_grit",
+    "count": 4
+  },
+  "extra_items": [],
+  "spirits": [
+    {
+      "type": "infernal",
+      "count": 4
+    },
+    {
+      "type": "wicked",
+      "count": 2
+    },
+    {
+      "type": "arcane",
+      "count": 2
+    }
+  ]
+}

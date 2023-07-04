@@ -1,10 +1,12 @@
 package com.sammy.malum.client.screen.codex.pages;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.sammy.malum.MalumMod;
-import com.sammy.malum.client.screen.codex.ProgressionBookScreen;
-import net.minecraft.client.Minecraft;
+import com.mojang.blaze3d.vertex.*;
+import com.sammy.malum.*;
+import com.sammy.malum.client.screen.codex.*;
+import net.minecraft.client.*;
 import net.minecraft.world.item.*;
+
+import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.renderItem;
 
 public class CraftingBookPage extends BookPage {
     private final ItemStack outputStack;
@@ -32,7 +34,7 @@ public class CraftingBookPage extends BookPage {
     }
 
     @Override
-    public void renderLeft(Minecraft minecraft, PoseStack poseStack, float xOffset, float yOffset, int mouseX, int mouseY, float partialTicks) {
+    public void renderLeft(Minecraft minecraft, PoseStack poseStack, EntryScreen screen, float yOffset, int mouseX, int mouseY, float partialTicks, float xOffset) {
         int guiLeft = guiLeft();
         int guiTop = guiTop();
 
@@ -43,17 +45,17 @@ public class CraftingBookPage extends BookPage {
                     ItemStack itemStack = inputStacks[index];
                     int itemPosX = guiLeft + 45 + j * 22;
                     int itemPosY = guiTop + 34 + i * 22;
-                    ProgressionBookScreen.renderItem(poseStack, itemStack, itemPosX, itemPosY, mouseX, mouseY);
+                    renderItem(screen, poseStack, itemStack, itemPosX, itemPosY, mouseX, mouseY);
                 }
             }
         }
 
-        ProgressionBookScreen.renderItem(poseStack, outputStack, guiLeft + 67, guiTop + 126, mouseX, mouseY);
+        renderItem(screen, poseStack, outputStack, guiLeft + 67, guiTop + 126, mouseX, mouseY);
 
     }
 
     @Override
-    public void renderRight(Minecraft minecraft, PoseStack poseStack, float xOffset, float yOffset, int mouseX, int mouseY, float partialTicks) {
+    public void renderRight(Minecraft minecraft, PoseStack poseStack, EntryScreen screen, float yOffset, int mouseX, int mouseY, float partialTicks, float xOffset) {
         int guiLeft = guiLeft();
         int guiTop = guiTop();
 
@@ -64,12 +66,12 @@ public class CraftingBookPage extends BookPage {
                     ItemStack itemStack = inputStacks[index];
                     int itemPosX = guiLeft + 187 + j * 22;
                     int itemPosY = guiTop + 34 + i * 22;
-                    ProgressionBookScreen.renderItem(poseStack, itemStack, itemPosX, itemPosY, mouseX, mouseY);
+                    renderItem(screen, poseStack, itemStack, itemPosX, itemPosY, mouseX, mouseY);
                 }
             }
         }
 
-        ProgressionBookScreen.renderItem(poseStack, outputStack, guiLeft + 209, guiTop + 126, mouseX, mouseY);
+        renderItem(screen, poseStack, outputStack, guiLeft + 209, guiTop + 126, mouseX, mouseY);
     }
 
     public static CraftingBookPage fullPage(Item output, Item input) {

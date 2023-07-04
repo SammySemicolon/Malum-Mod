@@ -1,6 +1,5 @@
 {
-  "parent": "minecraft:block/air",
   "textures": {
-    "particle": "malum:block/soulwood_planks"
+    "particle": "malum:block/soulwood/soulwood_planks"
   }
 }

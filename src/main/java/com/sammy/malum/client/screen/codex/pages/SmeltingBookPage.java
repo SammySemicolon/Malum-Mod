@@ -1,16 +1,16 @@
 package com.sammy.malum.client.screen.codex.pages;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.sammy.malum.MalumMod;
-import com.sammy.malum.client.screen.codex.ProgressionBookScreen;
-import net.minecraft.client.Minecraft;
-import net.minecraft.world.SimpleContainer;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.item.crafting.SmeltingRecipe;
+import com.mojang.blaze3d.vertex.*;
+import com.sammy.malum.*;
+import com.sammy.malum.client.screen.codex.*;
+import net.minecraft.client.*;
+import net.minecraft.world.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.item.crafting.*;
 
-import java.util.Optional;
+import java.util.*;
+
+import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.renderItem;
 
 @SuppressWarnings("all")
 public class SmeltingBookPage extends BookPage {
@@ -45,19 +45,19 @@ public class SmeltingBookPage extends BookPage {
     }
 
     @Override
-    public void renderLeft(Minecraft minecraft, PoseStack poseStack, float xOffset, float yOffset, int mouseX, int mouseY, float partialTicks) {
+    public void renderLeft(Minecraft minecraft, PoseStack poseStack, EntryScreen screen, float yOffset, int mouseX, int mouseY, float partialTicks, float xOffset) {
         int guiLeft = guiLeft();
         int guiTop = guiTop();
-        ProgressionBookScreen.renderItem(poseStack, inputStack, guiLeft + 67, guiTop + 59, mouseX, mouseY);
-        ProgressionBookScreen.renderItem(poseStack, outputStack, guiLeft + 67, guiTop + 126, mouseX, mouseY);
+        renderItem(screen, poseStack, inputStack, guiLeft + 67, guiTop + 59, mouseX, mouseY);
+        renderItem(screen, poseStack, outputStack, guiLeft + 67, guiTop + 126, mouseX, mouseY);
 
     }
 
     @Override
-    public void renderRight(Minecraft minecraft, PoseStack poseStack, float xOffset, float yOffset, int mouseX, int mouseY, float partialTicks) {
+    public void renderRight(Minecraft minecraft, PoseStack poseStack, EntryScreen screen, float yOffset, int mouseX, int mouseY, float partialTicks, float xOffset) {
         int guiLeft = guiLeft();
         int guiTop = guiTop();
-        ProgressionBookScreen.renderItem(poseStack, inputStack, guiLeft + 209, guiTop + 59, mouseX, mouseY);
-        ProgressionBookScreen.renderItem(poseStack, outputStack, guiLeft + 209, guiTop + 126, mouseX, mouseY);
+        renderItem(screen, poseStack, inputStack, guiLeft + 209, guiTop + 59, mouseX, mouseY);
+        renderItem(screen, poseStack, outputStack, guiLeft + 209, guiTop + 126, mouseX, mouseY);
     }
 }

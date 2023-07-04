@@ -6,13 +6,14 @@
     }
   ],
   "type": "malum:spirit_repair",
-  "inputLookup": "none",
+  "itemIdRegex": "",
+  "modIdRegex": "",
   "durabilityPercentage": 1,
   "inputs": [
     "occultism:chalk_purple"
   ],
   "repairMaterial": {
-    "tag": "forge:dust/obsidian",
+    "tag": "forge:dusts/obsidian",
     "count": 2
   },
   "spirits": [

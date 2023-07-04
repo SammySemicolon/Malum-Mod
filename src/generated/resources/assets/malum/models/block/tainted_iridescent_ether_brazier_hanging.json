@@ -1,7 +1,7 @@
 {
   "parent": "malum:block/templates/template_ether_brazier_hanging",
   "textures": {
-    "brazier": "malum:block/tainted_ether_brazier",
-    "particle": "malum:block/tainted_rock"
+    "brazier": "malum:block/arcane_rock/tainted/tainted_ether_brazier",
+    "particle": "malum:block/arcane_rock/tainted/tainted_rock"
   }
 }

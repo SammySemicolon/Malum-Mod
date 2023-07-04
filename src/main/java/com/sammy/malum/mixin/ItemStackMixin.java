@@ -2,9 +2,9 @@ package com.sammy.malum.mixin;
 
 import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.Multimap;
-import com.sammy.malum.common.item.tools.MalumScytheItem;
-import com.sammy.malum.core.setup.content.AttributeRegistry;
-import com.sammy.malum.core.setup.content.item.MalumEnchantments;
+import com.sammy.malum.common.item.curiosities.weapons.MalumScytheItem;
+import com.sammy.malum.registry.common.AttributeRegistry;
+import com.sammy.malum.registry.common.item.EnchantmentRegistry;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -40,7 +40,7 @@ public abstract class ItemStackMixin {
                 AttributeModifier modifier = entry.getValue();
                 double amount = modifier.getAmount();
                 if (modifier.getId().equals(UUIDS.get(MAGIC_DAMAGE))) {
-                    int enchantmentLevel = EnchantmentHelper.getItemEnchantmentLevel(MalumEnchantments.HAUNTED.get(), (ItemStack) (Object) this);
+                    int enchantmentLevel = EnchantmentHelper.getItemEnchantmentLevel(EnchantmentRegistry.HAUNTED.get(), (ItemStack) (Object) this);
                     if (enchantmentLevel > 0) {
                         amount += enchantmentLevel;
                     }

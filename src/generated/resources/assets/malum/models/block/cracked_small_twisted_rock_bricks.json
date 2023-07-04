@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "malum:block/cracked_small_twisted_rock_bricks"
+    "all": "malum:block/arcane_rock/twisted/cracked_small_twisted_rock_bricks"
   }
 }

@@ -6,8 +6,13 @@
       "item": "minecraft:prismarine_crystals"
     },
     {
+<<<<<<< HEAD
       "count": 2,
       "item": "malum:arcane_charcoal_fragment"
+=======
+      "item": "malum:arcane_charcoal",
+      "count": 1
+>>>>>>> 1.5.1-1.18.2
     }
   ],
   "input": {
@@ -20,7 +25,7 @@
   "spirits": [
     {
       "type": "aqueous",
-      "count": 4
+      "count": 2
     }
   ]
 }

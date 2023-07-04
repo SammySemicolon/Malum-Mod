@@ -1,9 +1,6 @@
 {
   "variants": {
-    "waterlogged=false": {
-      "model": "malum:block/soul_vial"
-    },
-    "waterlogged=true": {
+    "": {
       "model": "malum:block/soul_vial"
     }
   }

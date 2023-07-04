@@ -1,6 +1,5 @@
 {
-  "parent": "minecraft:block/air",
   "textures": {
-    "particle": "malum:block/runewood_planks"
+    "particle": "malum:block/runewood/runewood_planks"
   }
 }

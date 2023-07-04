@@ -25,22 +25,23 @@
   "spirits": [
     {
       "type": "aerial",
-      "count": 4
+      "count": 8
     },
     {
       "type": "aqueous",
-      "count": 4
+      "count": 8
     },
     {
       "type": "infernal",
-      "count": 4
+      "count": 8
     },
     {
       "type": "earthen",
-      "count": 4
+      "count": 8
     },
     {
-      "type": "eldritch"
+      "type": "eldritch",
+      "count": 2
     }
   ]
 }

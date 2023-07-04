@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "malum:mass_of_blighted_gunk"
+    }
+  ],
+  "result": {
+    "item": "malum:blighted_gunk",
+    "count": 9
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "registry_name": "natural_decoration:little_marsh_tit",
+  "primary_type": "aerial",
+  "spirits": [
+    {
+      "spirit": "aerial",
+      "count": 1
+    }
+  ]
+}

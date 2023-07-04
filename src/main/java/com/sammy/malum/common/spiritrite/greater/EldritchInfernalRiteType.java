@@ -1,28 +1,22 @@
 package com.sammy.malum.common.spiritrite.greater;
 
-import com.sammy.malum.common.blockentity.totem.TotemBaseBlockEntity;
-import com.sammy.malum.common.packets.particle.block.BlockSparkleParticlePacket;
-import com.sammy.malum.common.packets.particle.block.MinorBlockSparkleParticlePacket;
-import com.sammy.malum.core.systems.rites.BlockAffectingRiteEffect;
-import com.sammy.malum.core.systems.rites.MalumRiteEffect;
-import com.sammy.malum.core.systems.rites.MalumRiteType;
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.SimpleContainer;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.item.crafting.SmeltingRecipe;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.AbstractFurnaceBlock;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.network.PacketDistributor;
+import com.sammy.malum.common.block.curiosities.totem.*;
+import com.sammy.malum.common.packets.particle.curiosities.rite.generic.*;
+import com.sammy.malum.core.systems.rites.*;
+import net.minecraft.core.*;
+import net.minecraft.world.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.entity.*;
+import net.minecraft.world.level.block.state.*;
+import net.minecraftforge.network.*;
 
-import java.util.Optional;
+import java.util.*;
 
-import static com.sammy.malum.core.setup.content.SpiritTypeRegistry.*;
-import static com.sammy.malum.core.setup.server.PacketRegistry.MALUM_CHANNEL;
+import static com.sammy.malum.registry.common.PacketRegistry.*;
+import static com.sammy.malum.registry.common.SpiritTypeRegistry.*;
 
 public class EldritchInfernalRiteType extends MalumRiteType {
     public EldritchInfernalRiteType() {
@@ -47,7 +41,7 @@ public class EldritchInfernalRiteType extends MalumRiteType {
                             BlockState newState = block.defaultBlockState();
                             level.setBlockAndUpdate(p, newState);
                             level.levelEvent(2001, p, Block.getId(newState));
-                            MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(p)), new BlockSparkleParticlePacket(INFERNAL_SPIRIT.getColor(), p));
+                            MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(p)), new BlockSparkleParticlePacket(INFERNAL_SPIRIT.getPrimaryColor(), p));
                         }
                     }
                 });
@@ -64,7 +58,7 @@ public class EldritchInfernalRiteType extends MalumRiteType {
                 getNearbyBlocks(totemBase, AbstractFurnaceBlock.class).map(b -> level.getBlockEntity(b)).filter(e -> e instanceof AbstractFurnaceBlockEntity).map(e -> (AbstractFurnaceBlockEntity) e).forEach(f -> {
                     if (f.isLit()) {
                         BlockPos blockPos = f.getBlockPos();
-                        MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(blockPos)), new MinorBlockSparkleParticlePacket(INFERNAL_SPIRIT.getColor(), blockPos));
+                    //    MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(blockPos)), new InfernalAccelerationRiteEffectPacket(INFERNAL_SPIRIT.getPrimaryColor(), blockPos));
                         f.cookingProgress = Math.min(f.cookingProgress + 5, f.cookingTotalTime-1);
                     }
                 });

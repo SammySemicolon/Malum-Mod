@@ -4,7 +4,7 @@
 	"texture_size": [32, 32],
 	"textures": {
 		"crucible": "malum:block/spirit_crucible",
-		"particle": "malum:block/smooth_tainted_rock"
+		"particle": "malum:block/arcane_rock/tainted/smooth_tainted_rock"
 	},
 	"elements": [
 		{

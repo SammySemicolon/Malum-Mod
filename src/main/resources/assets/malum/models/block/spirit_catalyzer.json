@@ -4,7 +4,7 @@
 	"texture_size": [32, 32],
 	"textures": {
 		"catalyzer": "malum:block/spirit_catalyzer",
-		"particle": "malum:block/tainted_rock"
+		"particle": "malum:block/arcane_rock/tainted/tainted_rock"
 	},
 	"elements": [
 		{

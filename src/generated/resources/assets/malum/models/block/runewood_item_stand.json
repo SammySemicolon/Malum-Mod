@@ -1,7 +1,12 @@
 {
   "parent": "malum:block/templates/template_item_stand",
   "textures": {
+<<<<<<< HEAD
     "particle": "malum:block/runewood_planks",
     "stand": "malum:block/runewood_item_stand"
+=======
+    "stand": "malum:block/runewood/runewood_item_stand",
+    "particle": "malum:block/runewood/runewood_planks"
+>>>>>>> 1.5.1-1.18.2
   }
 }

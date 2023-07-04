@@ -1,5 +1,10 @@
 {
   "type": "malum:spirit_repair",
+<<<<<<< HEAD
+=======
+  "itemIdRegex": "none",
+  "modIdRegex": "",
+>>>>>>> 1.5.1-1.18.2
   "durabilityPercentage": 1.0,
   "inputLookup": "none",
   "inputs": [

@@ -1,7 +1,7 @@
 package com.sammy.malum.core.systems.rites;
 
-import com.sammy.malum.common.blockentity.totem.TotemBaseBlockEntity;
-import com.sammy.malum.core.setup.content.block.BlockTagRegistry;
+import com.sammy.malum.common.block.curiosities.totem.TotemBaseBlockEntity;
+import com.sammy.malum.registry.common.block.BlockTagRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.BlockItem;

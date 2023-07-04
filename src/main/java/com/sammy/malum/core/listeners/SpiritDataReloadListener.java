@@ -3,7 +3,7 @@ package com.sammy.malum.core.listeners;
 import com.google.gson.*;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.core.helper.SpiritHelper;
-import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
+import com.sammy.malum.registry.common.SpiritTypeRegistry;
 import com.sammy.malum.core.systems.recipe.SpiritWithCount;
 import com.sammy.malum.core.systems.spirit.MalumEntitySpiritData;
 import net.minecraft.core.Registry;

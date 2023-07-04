@@ -1,8 +1,8 @@
 package com.sammy.malum.mixin;
 
-import com.sammy.malum.common.item.equipment.curios.CurioDemolitionistRing;
-import com.sammy.malum.common.item.equipment.curios.CurioHoarderRing;
-import com.sammy.malum.common.item.equipment.curios.CurioProspectorBelt;
+import com.sammy.malum.common.item.curiosities.curios.CurioDemolitionistRing;
+import com.sammy.malum.common.item.curiosities.curios.CurioHoarderRing;
+import com.sammy.malum.common.item.curiosities.curios.CurioProspectorBelt;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;

@@ -9,6 +9,7 @@ import net.minecraft.network.chat.Component;
 
 import java.util.Arrays;
 
+import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.*;
 import static com.sammy.malum.client.screen.codex.ProgressionBookScreen.*;
 
 public class EntryObject extends BookObject {

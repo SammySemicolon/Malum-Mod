@@ -1,8 +1,9 @@
 {
   "values": [
-    "malum:runewood_leaves",
-    "malum:soulwood_leaves",
+    "malum:mass_of_blighted_gunk",
     "malum:blighted_earth",
-    "malum:blighted_soil"
+    "malum:soulwood_leaves",
+    "malum:blighted_soil",
+    "malum:runewood_leaves"
   ]
 }

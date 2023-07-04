@@ -1,7 +1,12 @@
 {
   "parent": "minecraft:block/cube_column",
   "textures": {
+<<<<<<< HEAD
     "end": "malum:block/soulwood_beam_top",
     "side": "malum:block/soulwood_beam"
+=======
+    "side": "malum:block/soulwood/soulwood_beam",
+    "end": "malum:block/soulwood/soulwood_beam_top"
+>>>>>>> 1.5.1-1.18.2
   }
 }

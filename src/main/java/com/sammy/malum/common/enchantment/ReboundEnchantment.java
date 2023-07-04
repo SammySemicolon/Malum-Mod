@@ -1,8 +1,8 @@
 package com.sammy.malum.common.enchantment;
 
 import com.sammy.malum.common.entity.boomerang.ScytheBoomerangEntity;
-import com.sammy.malum.core.setup.content.AttributeRegistry;
-import com.sammy.malum.core.setup.content.item.MalumEnchantments;
+import com.sammy.malum.registry.common.AttributeRegistry;
+import com.sammy.malum.registry.common.item.EnchantmentRegistry;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -17,7 +17,7 @@ import team.lodestar.lodestone.setup.LodestoneAttributeRegistry;
 
 public class ReboundEnchantment extends Enchantment {
     public ReboundEnchantment() {
-        super(Rarity.UNCOMMON, MalumEnchantments.REBOUND_SCYTHE, new EquipmentSlot[]{EquipmentSlot.MAINHAND, EquipmentSlot.OFFHAND});
+        super(Rarity.UNCOMMON, EnchantmentRegistry.REBOUND_SCYTHE, new EquipmentSlot[]{EquipmentSlot.MAINHAND, EquipmentSlot.OFFHAND});
     }
 
     @Override

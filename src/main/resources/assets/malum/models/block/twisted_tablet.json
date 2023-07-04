@@ -4,7 +4,7 @@
 	"textures": {
 		"tablet_0": "malum:block/twisted_tablet_1",
 		"tablet_1": "malum:block/twisted_tablet_0",
-		"particle": "malum:block/tainted_rock"
+		"particle": "malum:block/arcane_rock/tainted/tainted_rock"
 	},
 	"elements": [
 		{

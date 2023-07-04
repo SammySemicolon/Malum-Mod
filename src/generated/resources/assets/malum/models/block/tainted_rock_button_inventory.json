@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/button_inventory",
   "textures": {
-    "texture": "malum:block/tainted_rock"
+    "texture": "malum:block/arcane_rock/tainted/tainted_rock"
   }
 }

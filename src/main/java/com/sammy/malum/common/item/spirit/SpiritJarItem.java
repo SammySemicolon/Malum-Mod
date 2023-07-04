@@ -37,7 +37,7 @@ public class SpiritJarItem extends BlockItem {
     public Rarity getRarity(ItemStack pStack) {
         if (pStack.hasTag() && pStack.getTag().contains("spirit")) {
             MalumSpiritType spirit = SpiritHelper.getSpiritType(pStack.getTag().getString("spirit"));
-            return spirit.rarity;
+            return spirit.getItemRarity();
         }
         return super.getRarity(pStack);
     }

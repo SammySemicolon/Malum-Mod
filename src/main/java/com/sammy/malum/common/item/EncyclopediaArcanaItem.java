@@ -16,7 +16,7 @@ public class EncyclopediaArcanaItem extends Item {
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         if (level.isClientSide) {
-            ProgressionBookScreen.openScreen(true);
+            ProgressionBookScreen.openCodexViaItem();
             player.swing(hand);
             return InteractionResultHolder.success(player.getItemInHand(hand));
         }

@@ -1,0 +1,10 @@
+{
+  "registry_name": "sullysmod:lanternfish",
+  "primary_type": "aqueous",
+  "spirits": [
+    {
+      "spirit": "aqueous",
+      "count": 1
+    }
+  ]
+}

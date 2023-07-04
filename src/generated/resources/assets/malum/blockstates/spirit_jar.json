@@ -1,9 +1,6 @@
 {
   "variants": {
-    "waterlogged=false": {
-      "model": "malum:block/spirit_jar"
-    },
-    "waterlogged=true": {
+    "": {
       "model": "malum:block/spirit_jar"
     }
   }

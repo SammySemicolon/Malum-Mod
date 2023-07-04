@@ -1,7 +1,7 @@
 package com.sammy.malum.common.effect;
 
-import com.sammy.malum.core.setup.content.SoundRegistry;
-import com.sammy.malum.core.setup.content.potion.MalumMobEffectRegistry;
+import com.sammy.malum.registry.common.SoundRegistry;
+import com.sammy.malum.registry.common.MobEffectRegistry;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
@@ -19,7 +19,7 @@ import team.lodestar.lodestone.helpers.ColorHelper;
 import team.lodestar.lodestone.helpers.EntityHelper;
 import team.lodestar.lodestone.setup.LodestoneAttributeRegistry;
 
-import static com.sammy.malum.core.setup.content.item.ItemTagRegistry.GROSS_FOODS;
+import static com.sammy.malum.registry.common.item.ItemTagRegistry.GROSS_FOODS;
 
 public class GluttonyEffect extends MobEffect {
     public GluttonyEffect() {

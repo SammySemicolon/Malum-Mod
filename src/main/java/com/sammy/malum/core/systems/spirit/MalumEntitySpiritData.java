@@ -2,7 +2,7 @@ package com.sammy.malum.core.systems.spirit;
 
 import com.google.gson.JsonSyntaxException;
 import com.sammy.malum.core.helper.SpiritHelper;
-import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
+import com.sammy.malum.registry.common.SpiritTypeRegistry;
 import com.sammy.malum.core.systems.recipe.SpiritWithCount;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;

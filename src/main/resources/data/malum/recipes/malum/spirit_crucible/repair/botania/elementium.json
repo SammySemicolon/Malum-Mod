@@ -6,7 +6,8 @@
     }
   ],
   "type": "malum:spirit_repair",
-  "inputLookup": "elementium_",
+  "itemIdRegex": "elementium_.+",
+  "modIdRegex": "botania",
   "durabilityPercentage": 1,
   "inputs": [
     "botania:star_sword",

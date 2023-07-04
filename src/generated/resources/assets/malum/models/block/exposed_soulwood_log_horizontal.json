@@ -1,7 +1,12 @@
 {
   "parent": "minecraft:block/cube_column_horizontal",
   "textures": {
+<<<<<<< HEAD
     "end": "malum:block/exposed_soulwood_log_top",
     "side": "malum:block/exposed_soulwood_log"
+=======
+    "side": "malum:block/soulwood/exposed_soulwood_log",
+    "end": "malum:block/soulwood/exposed_soulwood_log_top"
+>>>>>>> 1.5.1-1.18.2
   }
 }

@@ -1,26 +1,19 @@
 package com.sammy.malum.common.spiritrite.greater;
 
-import com.sammy.malum.common.blockentity.totem.TotemBaseBlockEntity;
-import com.sammy.malum.common.packets.particle.entity.MajorEntityEffectParticlePacket;
-import com.sammy.malum.common.packets.particle.entity.MinorEntityEffectParticlePacket;
-import com.sammy.malum.core.systems.rites.BlockAffectingRiteEffect;
-import com.sammy.malum.core.systems.rites.EntityAffectingRiteEffect;
-import com.sammy.malum.core.systems.rites.MalumRiteEffect;
-import com.sammy.malum.core.systems.rites.MalumRiteType;
-import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.entity.monster.Drowned;
-import net.minecraft.world.entity.monster.Zombie;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.PointedDripstoneBlock;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.network.PacketDistributor;
+import com.sammy.malum.client.vfx.*;
+import com.sammy.malum.common.block.curiosities.totem.*;
+import com.sammy.malum.core.systems.rites.*;
+import com.sammy.malum.registry.common.*;
+import net.minecraft.core.*;
+import net.minecraft.server.level.*;
+import net.minecraft.world.entity.monster.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.*;
 
-import java.util.Set;
+import java.util.*;
 
-import static com.sammy.malum.core.setup.content.SpiritTypeRegistry.*;
-import static com.sammy.malum.core.setup.server.PacketRegistry.MALUM_CHANNEL;
+import static com.sammy.malum.registry.common.SpiritTypeRegistry.*;
 
 public class EldritchAqueousRiteType extends MalumRiteType {
     public EldritchAqueousRiteType() {
@@ -31,7 +24,6 @@ public class EldritchAqueousRiteType extends MalumRiteType {
     public MalumRiteEffect getNaturalRiteEffect() {
         return new BlockAffectingRiteEffect() {
 
-            @SuppressWarnings("ConstantConditions")
             @Override
             public void riteEffect(TotemBaseBlockEntity totemBase) {
                 Level level = totemBase.getLevel();
@@ -40,12 +32,11 @@ public class EldritchAqueousRiteType extends MalumRiteType {
                         for (int i = 0; i < 4 + level.random.nextInt(2); i++) {
                             level.getBlockState(p).randomTick((ServerLevel) level, p, level.random);
                         }
-                        MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(p)), new MinorEntityEffectParticlePacket(AQUEOUS_SPIRIT.getColor(), p.getX() + 0.5f, p.getY() + 0.5f, p.getZ() + 0.5f));
+                        ParticleEffectTypeRegistry.DRIPPING_SMOKE.createBlockEffect(level, p, new ColorEffectData(AQUEOUS_SPIRIT.getPrimaryColor()));
                     }
                 });
             }
 
-            @SuppressWarnings("ConstantConditions")
             @Override
             public boolean canAffectBlock(TotemBaseBlockEntity totemBase, Set<Block> filters, BlockState state, BlockPos pos) {
                 return super.canAffectBlock(totemBase, filters, state, pos) && PointedDripstoneBlock.isStalactiteStartPos(state, totemBase.getLevel(), pos);
@@ -61,7 +52,8 @@ public class EldritchAqueousRiteType extends MalumRiteType {
                 getNearbyEntities(totemBase, Zombie.class).filter(z -> !(z instanceof Drowned)).forEach(e -> {
                     if (!e.isUnderWaterConverting()) {
                         e.startUnderWaterConversion(100);
-                        MALUM_CHANNEL.send(PacketDistributor.TRACKING_ENTITY.with(() -> e), new MajorEntityEffectParticlePacket(AQUEOUS_SPIRIT.getColor(), e.getX(), e.getY() + e.getBbHeight() / 2f, e.getZ()));
+
+                        ParticleEffectTypeRegistry.HEXING_SMOKE.createEntityEffect(e, new ColorEffectData(AQUEOUS_SPIRIT.getPrimaryColor()));
                     }
                 });
             }

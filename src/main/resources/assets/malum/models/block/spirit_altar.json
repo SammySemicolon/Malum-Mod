@@ -5,7 +5,7 @@
 	"texture_size": [64, 64],
 	"textures": {
 		"altar": "malum:block/spirit_altar",
-		"particle": "malum:block/runewood_planks"
+		"particle": "malum:block/runewood/runewood_planks"
 	},
 	"elements": [
 		{

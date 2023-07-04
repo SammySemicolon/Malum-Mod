@@ -1,8 +1,14 @@
 {
   "parent": "minecraft:block/slab_top",
   "textures": {
+<<<<<<< HEAD
     "bottom": "malum:block/small_twisted_rock_bricks",
     "side": "malum:block/small_twisted_rock_bricks",
     "top": "malum:block/small_twisted_rock_bricks"
+=======
+    "side": "malum:block/arcane_rock/twisted/small_twisted_rock_bricks",
+    "bottom": "malum:block/arcane_rock/twisted/small_twisted_rock_bricks",
+    "top": "malum:block/arcane_rock/twisted/small_twisted_rock_bricks"
+>>>>>>> 1.5.1-1.18.2
   }
 }

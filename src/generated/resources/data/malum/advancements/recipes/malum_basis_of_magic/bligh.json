@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "malum:bligh"
+    ]
+  },
+  "criteria": {
+    "has_blighted_gunk": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "malum:blighted_gunk"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "malum:bligh"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_blighted_gunk",
+      "has_the_recipe"
+    ]
+  ]
+}

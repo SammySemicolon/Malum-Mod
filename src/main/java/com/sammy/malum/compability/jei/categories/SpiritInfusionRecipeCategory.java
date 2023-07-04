@@ -2,10 +2,10 @@ package com.sammy.malum.compability.jei.categories;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.client.screen.codex.ProgressionBookScreen;
+import com.sammy.malum.client.screen.codex.*;
 import com.sammy.malum.common.recipe.SpiritInfusionRecipe;
 import com.sammy.malum.compability.jei.JEIHandler;
-import com.sammy.malum.core.setup.content.item.ItemRegistry;
+import com.sammy.malum.registry.common.item.ItemRegistry;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -39,9 +39,9 @@ public class SpiritInfusionRecipeCategory implements IRecipeCategory<SpiritInfus
     @Override
     public void draw(SpiritInfusionRecipe recipe, IRecipeSlotsView recipeSlotsView, PoseStack poseStack, double mouseX, double mouseY) {
         overlay.draw(poseStack);
-        ProgressionBookScreen.renderItemFrames(poseStack, recipe.spirits.size(), 19, 48, true);
+        ArcanaCodexHelper.renderItemFrames(poseStack, recipe.spirits.size(), 19, 48, true);
         if (!recipe.extraItems.isEmpty()) {
-            ProgressionBookScreen.renderItemFrames(poseStack, recipe.extraItems.size(), 103, 48, true);
+            ArcanaCodexHelper.renderItemFrames(poseStack, recipe.extraItems.size(), 103, 48, true);
         }
     }
 

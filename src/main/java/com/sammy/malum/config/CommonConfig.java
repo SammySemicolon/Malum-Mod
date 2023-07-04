@@ -22,6 +22,14 @@ public class CommonConfig extends LodestoneConfig {
             builder.comment("Chance for runewood trees to generate in forest biomes.")
                     .defineInRange("runewoodRareChance", 0.01d, 0, 1)));
 
+    public static ConfigValueHolder<Boolean> GENERATE_WEEPING_WELLS = new ConfigValueHolder<>(MALUM,"common/worldgen/weeping_well", (builder ->
+            builder.comment("Should the void be curious?")
+                    .define("generateTheUnknown", true)));
+
+    public static final ConfigValueHolder<List<? extends String>> WEEPING_WELL_ALLOWED_DIMENSIONS = new ConfigValueHolder<>(MALUM,"common/worldgen/weeping_well", (builder) ->
+            builder.comment("Which dimensions is the void interested in?")
+                    .defineList("markedDimensions", new ArrayList<>(List.of("minecraft:overworld")), s -> s instanceof String));
+
     public static ConfigValueHolder<Boolean> GENERATE_BLAZE_QUARTZ = new ConfigValueHolder<>(MALUM,"common/worldgen/blazing_quartz", (builder ->
             builder.comment("Should blaze quartz ore generate?")
                     .define("generateBlazeQuartz", true)));
@@ -53,10 +61,10 @@ public class CommonConfig extends LodestoneConfig {
                     .define("generateSoulstone", true)));
     public static ConfigValueHolder<Integer> SOULSTONE_SIZE = new ConfigValueHolder<>(MALUM,"common/worldgen/soulstone", (builder ->
             builder.comment("Size of soulstone ore veins underground.")
-                    .define("soulstoneSize", 12)));
+                    .define("soulstoneSize", 8)));
     public static ConfigValueHolder<Integer> SOULSTONE_AMOUNT = new ConfigValueHolder<>(MALUM,"common/worldgen/soulstone", (builder ->
             builder.comment("Amount of soulstone ore veins.")
-                    .define("soulstoneAmount", 8)));
+                    .define("soulstoneAmount", 3)));
     public static ConfigValueHolder<Integer> SOULSTONE_MIN_Y = new ConfigValueHolder<>(MALUM,"common/worldgen/soulstone", (builder ->
             builder.comment("Minimum height at which soulstone ore can spawn.")
                     .define("soulstoneMinY", -64)));
@@ -69,10 +77,10 @@ public class CommonConfig extends LodestoneConfig {
                     .define("generateSurfaceSoulstone", true)));
     public static ConfigValueHolder<Integer> SURFACE_SOULSTONE_SIZE = new ConfigValueHolder<>(MALUM,"common/worldgen/soulstone", (builder ->
             builder.comment("Size of soulstone ore veins on the surface.")
-                    .define("surfaceSoulstoneSize", 6)));
+                    .define("surfaceSoulstoneSize", 4)));
     public static ConfigValueHolder<Integer> SURFACE_SOULSTONE_AMOUNT = new ConfigValueHolder<>(MALUM,"common/worldgen/soulstone", (builder ->
             builder.comment("Amount of soulstone ore veins on the surface.")
-                    .define("surfaceSoulstoneAmount", 8)));
+                    .define("surfaceSoulstoneAmount", 4)));
     public static ConfigValueHolder<Integer> SURFACE_SOULSTONE_MIN_Y = new ConfigValueHolder<>(MALUM,"common/worldgen/soulstone", (builder ->
             builder.comment("Minimum height at which surface soulstone ore can spawn.")
                     .define("surfaceSoulstoneMinY", 60)));
@@ -104,13 +112,13 @@ public class CommonConfig extends LodestoneConfig {
         builder.comment("Which dimensions can quartz geodes generate in?")
             .defineList("quartzGeodeDimensions", new ArrayList<>(List.of("minecraft:overworld")), s -> s instanceof String));
 
-    public static ConfigValueHolder<Boolean> GENERATE_RARE_EARTH = new ConfigValueHolder<>(MALUM,"common/worldgen/rare_earth", (builder ->
-            builder.comment("Should rare earth generate?")
-                    .define("generateRareEarth", true)));
+    public static ConfigValueHolder<Boolean> GENERATE_CTHONIC_GOLD = new ConfigValueHolder<>(MALUM,"common/worldgen/cthonic_gold", (builder ->
+            builder.comment("Should cthonic gold generate?")
+                    .define("generateCthonicGold", true)));
 
-    public static final ConfigValueHolder<List<? extends String>> RARE_EARTHS_ALLOWED_DIMENSIONS = new ConfigValueHolder<>(MALUM,"common/worldgen/rare_earth", (builder) ->
-        builder.comment("Which dimensions can rare earths generate in?")
-            .defineList("rareEarthDimensions", new ArrayList<>(List.of("minecraft:overworld")), s -> s instanceof String));
+    public static final ConfigValueHolder<List<? extends String>> CTHONIC_GOLD_ALLOWED_DIMENSIONS = new ConfigValueHolder<>(MALUM,"common/worldgen/cthonic_gold", (builder) ->
+        builder.comment("Which dimensions can cthonic gold generate in?")
+            .defineList("cthonicGoldDimensions", new ArrayList<>(List.of("minecraft:overworld")), s -> s instanceof String));
 
     public static ConfigValueHolder<Boolean> ULTIMATE_REBOUND = new ConfigValueHolder<>(MALUM,"common/item/rebound", (builder ->
             builder.comment("If set to true, you may put rebound on any weapon in the game.")
@@ -141,14 +149,6 @@ public class CommonConfig extends LodestoneConfig {
     public static ConfigValueHolder<Integer> SOUL_WARD_RATE = new ConfigValueHolder<>(MALUM,"common/spirit/affinity/soul_ward", (builder ->
             builder.comment("Base time in ticks it takes for one point of soul ward to recover.")
                     .define("soulWardRate", 60)));
-
-    public static ConfigValueHolder<Double> HEART_OF_STONE_COST = new ConfigValueHolder<>(MALUM,"common/spirit/affinity/heart_of_stone", (builder ->
-            builder.comment("Amount of hunger consumed when recovering a point of heart of stone. Do note that this will only matter if the player has the earthen affinity.")
-                    .defineInRange("heartOfStoneCost", 0.2d, 0, 1)));
-    public static ConfigValueHolder<Integer> HEART_OF_STONE_RATE = new ConfigValueHolder<>(MALUM,"common/spirit/affinity/heart_of_stone", (builder ->
-            builder.comment("Base time in ticks it takes for one point of heart of stone to recover.")
-                    .define("heartOfStoneRate", 40)));
-
 
     public CommonConfig(ForgeConfigSpec.Builder builder) {
         super(MALUM, "common", builder);

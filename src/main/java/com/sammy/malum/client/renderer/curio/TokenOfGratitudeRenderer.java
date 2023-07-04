@@ -4,8 +4,8 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Vector3f;
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.common.item.equipment.curios.CurioTokenOfGratitude;
-import com.sammy.malum.core.setup.content.item.ItemRegistry;
+import com.sammy.malum.common.item.curiosities.curios.CurioTokenOfGratitude;
+import com.sammy.malum.registry.client.ModelRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.HumanoidModel;
@@ -32,9 +32,9 @@ import java.util.UUID;
 public class TokenOfGratitudeRenderer implements ICurioRenderer {
 
     private static final ResourceLocation SAMMY = MalumMod.malumPath("textures/cosmetic/sammy_tail.png");
-    private static final ResourceLocation OWL_PERSON_EYES = MalumMod.malumPath("textures/cosmetic/patreon/owl_person_eyes.png");
-    private static final ResourceLocation OWL_PERSON_ELYTRA = MalumMod.malumPath("textures/cosmetic/patreon/owl_person_elytra.png");
-    private static final ResourceLocation SNAKE_FELLA_SCARF = MalumMod.malumPath("textures/cosmetic/patreon/snake_scarf.png");
+    private static final ResourceLocation OWL_PERSON_EYES = MalumMod.malumPath("textures/cosmetic/owl_person_eyes.png");
+    private static final ResourceLocation OWL_PERSON_ELYTRA = MalumMod.malumPath("textures/cosmetic/owl_person_elytra.png");
+    private static final ResourceLocation SNAKE_FELLA_SCARF = MalumMod.malumPath("textures/cosmetic/snake_scarf.png");
     private static final ResourceLocation BOBBU_SCARF = MalumMod.malumPath("textures/cosmetic/bobbu_scarf.png");
     private static final ResourceLocation DELLY_NECKLACE = MalumMod.malumPath("textures/cosmetic/delly_necklace.png");
     private static final ResourceLocation LOFI = MalumMod.malumPath("textures/cosmetic/lofi_tail.png");
@@ -47,7 +47,7 @@ public class TokenOfGratitudeRenderer implements ICurioRenderer {
             if (playerEntity.getUUID().equals(CurioTokenOfGratitude.SAMMY)) {
                 renderTail(stack, SAMMY, poseStack, playerEntity, renderTypeBuffer, light, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch);
             }
-            if (playerEntity.getUUID().equals(CurioTokenOfGratitude.LOFI)) {
+            if (playerEntity.getUUID().equals(CurioTokenOfGratitude.LOFI) || playerEntity.getUUID().equals(CurioTokenOfGratitude.CREECHURE)) {
                 renderTail(stack, LOFI, poseStack, playerEntity, renderTypeBuffer, light, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch);
             }
             if (playerEntity.getUUID().equals(CurioTokenOfGratitude.OWL_PERSON)) {
@@ -72,14 +72,13 @@ public class TokenOfGratitudeRenderer implements ICurioRenderer {
         if (uuid.equals(CurioTokenOfGratitude.OWL_PERSON)) {
             return OWL_PERSON_ELYTRA;
         }
-        //test comment for push
         return original;
     }
 
     public static void renderGlowingEyes(AbstractClientPlayer playerEntity, RenderType renderType, PoseStack poseStack, MultiBufferSource renderTypeBuffer, int light) {
         VertexConsumer vertexconsumer = renderTypeBuffer.getBuffer(renderType);
-        ICurioRenderer.followHeadRotations(playerEntity, ItemRegistry.ClientOnly.HEAD_OVERLAY_MODEL.overlay);
-        ItemRegistry.ClientOnly.HEAD_OVERLAY_MODEL.renderToBuffer(poseStack, vertexconsumer, light, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
+        ICurioRenderer.followHeadRotations(playerEntity, ModelRegistry.HEAD_OVERLAY_MODEL.overlay);
+        ModelRegistry.HEAD_OVERLAY_MODEL.renderToBuffer(poseStack, vertexconsumer, light, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
     }
 
 
@@ -102,11 +101,11 @@ public class TokenOfGratitudeRenderer implements ICurioRenderer {
         double ambientYRotation = Math.cos(playerEntity.level.getGameTime() / 24f) * -ambientFactor;
         poseStack.mulPose(Vector3f.YP.rotationDegrees((float) ambientYRotation));
         VertexConsumer vertexconsumer = ItemRenderer.getArmorFoilBuffer(renderTypeBuffer, RenderType.armorCutoutNoCull(texture), false, stack.hasFoil());
-        ItemRegistry.ClientOnly.TAIL_MODEL.setupAnim(playerEntity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
-        ItemRegistry.ClientOnly.TAIL_MODEL.prepareMobModel(playerEntity, limbSwing, limbSwingAmount, partialTicks);
+        ModelRegistry.TAIL_MODEL.setupAnim(playerEntity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
+        ModelRegistry.TAIL_MODEL.prepareMobModel(playerEntity, limbSwing, limbSwingAmount, partialTicks);
         ICurioRenderer.translateIfSneaking(poseStack, playerEntity);
         ICurioRenderer.rotateIfSneaking(poseStack, playerEntity);
-        ItemRegistry.ClientOnly.TAIL_MODEL.renderToBuffer(poseStack, vertexconsumer, light, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
+        ModelRegistry.TAIL_MODEL.renderToBuffer(poseStack, vertexconsumer, light, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
         poseStack.popPose();
     }
 
@@ -121,10 +120,10 @@ public class TokenOfGratitudeRenderer implements ICurioRenderer {
         if (render instanceof LivingEntityRenderer livingEntityRenderer) {
             EntityModel<AbstractClientPlayer> model = livingEntityRenderer.getModel();
             if (model instanceof HumanoidModel humanoidModel) {
-                ItemRegistry.ClientOnly.SCARF.copyFromDefault(humanoidModel);
+                ModelRegistry.SCARF.copyFromDefault(humanoidModel);
             }
         }
-        ItemRegistry.ClientOnly.SCARF.setupAnim(playerEntity, playerEntity.animationPosition, playerEntity.animationSpeed, playerEntity.tickCount + pticks, netHeadYaw, netHeadPitch);
-        ItemRegistry.ClientOnly.SCARF.renderToBuffer(poseStack, vertexconsumer, light, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
+        ModelRegistry.SCARF.setupAnim(playerEntity, playerEntity.animationPosition, playerEntity.animationSpeed, playerEntity.tickCount + pticks, netHeadYaw, netHeadPitch);
+        ModelRegistry.SCARF.renderToBuffer(poseStack, vertexconsumer, light, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
     }
 }

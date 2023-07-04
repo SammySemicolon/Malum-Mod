@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/button",
   "textures": {
-    "texture": "malum:block/soulwood_planks"
+    "texture": "malum:block/soulwood/soulwood_planks"
   }
 }

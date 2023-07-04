@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/template_orientable_trapdoor_open",
   "textures": {
-    "texture": "malum:block/runewood_trapdoor"
+    "texture": "malum:block/runewood/runewood_trapdoor"
   }
 }

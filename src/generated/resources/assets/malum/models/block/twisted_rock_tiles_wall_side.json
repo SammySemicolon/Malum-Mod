@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/template_wall_side",
   "textures": {
-    "wall": "malum:block/twisted_rock_tiles"
+    "wall": "malum:block/arcane_rock/twisted/twisted_rock_tiles"
   }
 }

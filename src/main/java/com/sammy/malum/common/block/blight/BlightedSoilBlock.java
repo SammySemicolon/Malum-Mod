@@ -1,33 +1,25 @@
 package com.sammy.malum.common.block.blight;
 
-import com.sammy.malum.common.item.spirit.MalumSpiritItem;
-import com.sammy.malum.common.packets.particle.block.blight.BlightMistParticlePacket;
-import com.sammy.malum.common.worldevent.ActiveBlightEvent;
-import com.sammy.malum.common.worldgen.SoulwoodTreeFeature;
-import com.sammy.malum.core.setup.content.SoundRegistry;
-import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.Shapes;
-import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.network.PacketDistributor;
-import team.lodestar.lodestone.systems.worldgen.LodestoneBlockFiller;
+import com.sammy.malum.common.item.spirit.*;
+import com.sammy.malum.common.worldevent.*;
+import com.sammy.malum.common.worldgen.*;
+import com.sammy.malum.registry.common.*;
+import net.minecraft.core.*;
+import net.minecraft.server.level.*;
+import net.minecraft.sounds.*;
+import net.minecraft.world.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.*;
+import net.minecraft.world.phys.*;
+import net.minecraft.world.phys.shapes.*;
+import team.lodestar.lodestone.systems.worldgen.*;
 
-import static com.sammy.malum.core.setup.server.PacketRegistry.MALUM_CHANNEL;
+import java.util.*;
 
-public class BlightedSoilBlock extends Block {
+public class BlightedSoilBlock extends Block implements BonemealableBlock {
     protected static final VoxelShape SHAPE = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 14.0D, 16.0D);
 
     public BlightedSoilBlock(Properties p_49795_) {
@@ -51,23 +43,37 @@ public class BlightedSoilBlock extends Block {
 
     @Override
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
-        if (!pLevel.isClientSide) {
+        if (pLevel instanceof ServerLevel serverLevel) {
             ItemStack itemInHand = pPlayer.getItemInHand(pHand);
             Item item = itemInHand.getItem();
-            if (item instanceof MalumSpiritItem) {
+            if (item instanceof SpiritShardItem) {
                 if (!pPlayer.isCreative()) {
                     itemInHand.shrink(1);
                 }
-                pLevel.playSound(null, pPos, SoundRegistry.MAJOR_BLIGHT_MOTIF.get(), SoundSource.BLOCKS, 0.8f, 0.8f);
-                pLevel.playSound(null, pPos, SoundEvents.BONE_MEAL_USE, SoundSource.BLOCKS, 1.2f, 0.8f);
-                if (pLevel instanceof ServerLevel serverLevel) {
-                    LodestoneBlockFiller filler = new LodestoneBlockFiller(false);
-                    SoulwoodTreeFeature.generateBlight(serverLevel, filler, pPos, 4);
-                    filler.entries.stream().filter(e -> e.state.getBlock() instanceof BlightedSoilBlock).map(e -> e.pos).forEach(p -> MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> serverLevel.getChunkAt(p)), new BlightMistParticlePacket(p)));
-                }
+                serverLevel.levelEvent(1505, pPos, 0);
+                performBonemeal(serverLevel, pLevel.random, pPos, pState);
                 return InteractionResult.SUCCESS;
             }
         }
         return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);
+    }
+
+    @Override
+    public boolean isValidBonemealTarget(BlockGetter pLevel, BlockPos pPos, BlockState pState, boolean pIsClient) {
+        return true;
+    }
+
+    @Override
+    public boolean isBonemealSuccess(Level pLevel, Random pRandom, BlockPos pPos, BlockState pState) {
+        return true;
+    }
+
+    @Override
+    public void performBonemeal(ServerLevel pLevel, Random pRandom, BlockPos pPos, BlockState pState) {
+        pLevel.playSound(null, pPos, SoundRegistry.MAJOR_BLIGHT_MOTIF.get(), SoundSource.BLOCKS, 0.8f, 0.8f);
+        pLevel.playSound(null, pPos, SoundEvents.BONE_MEAL_USE, SoundSource.BLOCKS, 1.2f, 0.8f);
+        LodestoneBlockFiller filler = new LodestoneBlockFiller(false);
+        SoulwoodTreeFeature.generateBlight(pLevel, filler, pPos, 4);
+        ActiveBlightEvent.createBlightVFX(pLevel, filler);
     }
 }

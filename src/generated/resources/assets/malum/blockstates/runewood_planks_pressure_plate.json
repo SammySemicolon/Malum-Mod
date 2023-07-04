@@ -1,7 +1,7 @@
 {
   "variants": {
     "powered=false": {
-      "model": "malum:block/runewood_planks_pressure_plate_up"
+      "model": "malum:block/runewood_planks_pressure_plate"
     },
     "powered=true": {
       "model": "malum:block/runewood_planks_pressure_plate_down"

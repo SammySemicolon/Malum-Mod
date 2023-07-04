@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "malum:block/blighted_soil_1"
+    "all": "malum:block/blight/blighted_soil_1"
   }
 }
