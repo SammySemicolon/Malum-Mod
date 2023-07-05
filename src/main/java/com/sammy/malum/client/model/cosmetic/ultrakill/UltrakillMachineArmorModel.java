@@ -14,7 +14,7 @@ import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.world.entity.EquipmentSlot;
-import team.lodestar.lodestone.helpers.RenderHelper;
+import team.lodestar.lodestone.helpers.render.RenderHelper;
 import team.lodestar.lodestone.systems.model.LodestoneArmorModel;
 
 public class UltrakillMachineArmorModel extends LodestoneArmorModel {

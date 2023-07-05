@@ -1,45 +1,52 @@
 package com.sammy.malum;
 
-import com.sammy.malum.compability.create.*;
-import com.sammy.malum.compability.farmersdelight.*;
-import com.sammy.malum.compability.tetra.*;
-import com.sammy.malum.config.*;
-import com.sammy.malum.data.*;
-import com.sammy.malum.data.block.*;
-import com.sammy.malum.data.item.*;
+import com.sammy.malum.compability.create.CreateCompat;
+import com.sammy.malum.compability.farmersdelight.FarmersDelightCompat;
+import com.sammy.malum.compability.tetra.TetraCompat;
+import com.sammy.malum.config.ClientConfig;
+import com.sammy.malum.config.CommonConfig;
+import com.sammy.malum.data.MalumLang;
+import com.sammy.malum.data.MalumRecipes;
+import com.sammy.malum.data.block.MalumBlockLootTables;
+import com.sammy.malum.data.block.MalumBlockStates;
+import com.sammy.malum.data.block.MalumBlockTags;
+import com.sammy.malum.data.item.MalumItemModels;
+import com.sammy.malum.data.item.MalumItemTags;
 import com.sammy.malum.data.recipe.*;
-import net.minecraft.data.*;
-import net.minecraft.data.tags.*;
-import net.minecraft.resources.*;
-import net.minecraftforge.eventbus.api.*;
-import net.minecraftforge.fml.*;
-import net.minecraftforge.fml.common.*;
-import net.minecraftforge.fml.config.*;
-import net.minecraftforge.fml.javafmlmod.*;
-import net.minecraftforge.forge.event.lifecycle.*;
-import org.apache.logging.log4j.*;
+import net.minecraft.data.DataGenerator;
+import net.minecraft.data.tags.BlockTagsProvider;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.RandomSource;
+import net.minecraftforge.data.event.GatherDataEvent;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.ModLoadingContext;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import team.lodestar.lodestone.systems.config.ConfigGroup;
 
-import java.util.*;
-
-import static com.sammy.malum.registry.client.ParticleRegistry.*;
-import static com.sammy.malum.registry.common.AttributeRegistry.*;
-import static com.sammy.malum.registry.common.ContainerRegistry.*;
-import static com.sammy.malum.registry.common.MobEffectRegistry.*;
-import static com.sammy.malum.registry.common.SoundRegistry.*;
-import static com.sammy.malum.registry.common.block.BlockEntityRegistry.*;
-import static com.sammy.malum.registry.common.block.BlockRegistry.*;
-import static com.sammy.malum.registry.common.entity.EntityRegistry.*;
-import static com.sammy.malum.registry.common.item.EnchantmentRegistry.*;
-import static com.sammy.malum.registry.common.item.ItemRegistry.*;
-import static com.sammy.malum.registry.common.recipe.RecipeSerializerRegistry.*;
-import static com.sammy.malum.registry.common.recipe.RecipeTypeRegistry.*;
-import static com.sammy.malum.registry.common.worldgen.FeatureRegistry.*;
+import static com.sammy.malum.registry.client.ParticleRegistry.PARTICLES;
+import static com.sammy.malum.registry.common.AttributeRegistry.ATTRIBUTES;
+import static com.sammy.malum.registry.common.ContainerRegistry.CONTAINERS;
+import static com.sammy.malum.registry.common.MobEffectRegistry.EFFECTS;
+import static com.sammy.malum.registry.common.SoundRegistry.SOUNDS;
+import static com.sammy.malum.registry.common.block.BlockEntityRegistry.BLOCK_ENTITY_TYPES;
+import static com.sammy.malum.registry.common.block.BlockRegistry.BLOCKS;
+import static com.sammy.malum.registry.common.entity.EntityRegistry.ENTITY_TYPES;
+import static com.sammy.malum.registry.common.item.EnchantmentRegistry.ENCHANTMENTS;
+import static com.sammy.malum.registry.common.item.ItemRegistry.ITEMS;
+import static com.sammy.malum.registry.common.recipe.RecipeSerializerRegistry.RECIPE_SERIALIZERS;
+import static com.sammy.malum.registry.common.recipe.RecipeTypeRegistry.RECIPE_TYPES;
+import static com.sammy.malum.registry.common.worldgen.FeatureRegistry.FEATURE_TYPES;
 
 @SuppressWarnings("unused")
 @Mod(MalumMod.MALUM)
 public class MalumMod {
     public static final Logger LOGGER = LogManager.getLogger();
     public static final String MALUM = "malum";
+    public static final ConfigGroup MALUM_CONFIG_GROUP = new ConfigGroup(MALUM, "common");
     public static final RandomSource RANDOM = RandomSource.create();
 
     public MalumMod() {
@@ -61,8 +68,8 @@ public class MalumMod {
         RECIPE_TYPES.register(modBus);
         RECIPE_SERIALIZERS.register(modBus);
         FEATURE_TYPES.register(modBus);
-        CONFIGURED_FEATURES.register(modBus);
-        PLACED_FEATURES.register(modBus);
+//        CONFIGURED_FEATURES.register(modBus);
+//        PLACED_FEATURES.register(modBus);
 
         TetraCompat.init();
         FarmersDelightCompat.init();
@@ -82,18 +89,18 @@ public class MalumMod {
             BlockTagsProvider provider = new MalumBlockTags(generator, event.getExistingFileHelper());
             MalumItemModels itemProvider = new MalumItemModels(generator, event.getExistingFileHelper());
             MalumBlockStates blockStateProvider = new MalumBlockStates(generator, event.getExistingFileHelper(), itemProvider);
-            generator.addProvider(blockStateProvider);
-            generator.addProvider(itemProvider);
-            generator.addProvider(new MalumLang(generator));
-            generator.addProvider(provider);
-            generator.addProvider(new MalumBlockLootTables(generator));
-            generator.addProvider(new MalumItemTags(generator, provider, event.getExistingFileHelper()));
-            generator.addProvider(new MalumRecipes(generator));
-            generator.addProvider(new MalumVanillaRecipeReplacements(generator));
-            generator.addProvider(new MalumSpiritInfusionRecipes(generator));
-            generator.addProvider(new MalumSpiritFocusingRecipes(generator));
-            generator.addProvider(new MalumSpiritTransmutationRecipes(generator));
-            generator.addProvider(new MalumVoidFavorRecipes(generator));
+            generator.addProvider(event.includeServer(), blockStateProvider);
+            generator.addProvider(event.includeServer(), itemProvider);
+            generator.addProvider(event.includeClient(), new MalumLang(generator));
+            generator.addProvider(event.includeServer(), provider);
+            generator.addProvider(event.includeServer(), new MalumBlockLootTables(generator));
+            generator.addProvider(event.includeServer(), new MalumItemTags(generator, provider, event.getExistingFileHelper()));
+            generator.addProvider(event.includeServer(), new MalumRecipes(generator));
+            generator.addProvider(event.includeServer(), new MalumVanillaRecipeReplacements(generator));
+            generator.addProvider(event.includeServer(), new MalumSpiritInfusionRecipes(generator));
+            generator.addProvider(event.includeServer(), new MalumSpiritFocusingRecipes(generator));
+            generator.addProvider(event.includeServer(), new MalumSpiritTransmutationRecipes(generator));
+            generator.addProvider(event.includeServer(), new MalumVoidFavorRecipes(generator));
         }
     }
 }

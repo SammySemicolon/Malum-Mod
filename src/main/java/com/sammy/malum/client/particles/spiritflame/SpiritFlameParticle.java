@@ -7,8 +7,8 @@ import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.SpriteSet;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import team.lodestar.lodestone.systems.rendering.particle.world.FrameSetParticle;
-import team.lodestar.lodestone.systems.rendering.particle.world.WorldParticleOptions;
+import team.lodestar.lodestone.systems.particle.world.FrameSetParticle;
+import team.lodestar.lodestone.systems.particle.world.WorldParticleOptions;
 
 import javax.annotation.Nullable;
 

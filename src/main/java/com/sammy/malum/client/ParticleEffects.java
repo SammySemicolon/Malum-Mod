@@ -1,8 +1,9 @@
 package com.sammy.malum.client;
 
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import team.lodestar.lodestone.setup.LodestoneParticleRegistry;
+import team.lodestar.lodestone.registry.common.particle.LodestoneParticleRegistry;
 import team.lodestar.lodestone.systems.easing.Easing;
 import team.lodestar.lodestone.systems.particle.SimpleParticleOptions;
 import team.lodestar.lodestone.systems.particle.WorldParticleBuilder;
@@ -21,7 +22,7 @@ public class ParticleEffects {
     }
 
     public static void spawnSpiritGlimmerParticles(Level level, double x, double y, double z, float alphaMultiplier, Vec3 extraVelocity, Color color, Color endColor) {
-        Random rand = level.getRandom();
+        RandomSource rand = level.getRandom();
         WorldParticleBuilder.create(LodestoneParticleRegistry.TWINKLE_PARTICLE)
                 .setTransparencyData(GenericParticleData.create(0.4f * alphaMultiplier, 0f).build())
                 .setScaleData(GenericParticleData.create(0.25f + rand.nextFloat() * 0.1f, 0).build())
@@ -42,7 +43,7 @@ public class ParticleEffects {
     }
 
     public static void spawnSpiritParticles(Level level, double x, double y, double z, float alphaMultiplier, Vec3 extraVelocity, Color color, Color endColor) {
-        Random rand = level.getRandom();
+        RandomSource rand = level.getRandom();
         WorldParticleBuilder.create(LodestoneParticleRegistry.WISP_PARTICLE)
                 .setTransparencyData(GenericParticleData.create(0.275f * alphaMultiplier, 0f).build())
                 .setLifetime(15 + rand.nextInt(4))
@@ -64,7 +65,7 @@ public class ParticleEffects {
     }
 
     public static void spawnSoulParticles(Level level, double x, double y, double z, float alphaMultiplier, float scaleMultiplier, Vec3 extraVelocity, Color color, Color endColor) {
-        Random rand = level.getRandom();
+        RandomSource rand = level.getRandom();
         WorldParticleBuilder.create(LodestoneParticleRegistry.WISP_PARTICLE)
                 .setTransparencyData(GenericParticleData.create(0.1f * alphaMultiplier, 0).build())
                 .setScaleData(GenericParticleData.create((0.2f + rand.nextFloat() * 0.2f) * scaleMultiplier, 0).setEasing(Easing.QUINTIC_IN).build())

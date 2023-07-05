@@ -8,6 +8,7 @@ import com.sammy.malum.core.systems.recipe.*;
 import com.sammy.malum.core.systems.spirit.*;
 import com.sammy.malum.registry.common.*;
 import com.sammy.malum.registry.common.block.*;
+import com.simibubi.create.foundation.utility.BlockHelper;
 import net.minecraft.core.*;
 import net.minecraft.nbt.*;
 import net.minecraft.sounds.*;
@@ -26,7 +27,10 @@ import net.minecraftforge.items.wrapper.*;
 import net.minecraftforge.network.*;
 import org.jetbrains.annotations.*;
 import team.lodestar.lodestone.helpers.*;
-import team.lodestar.lodestone.setup.*;
+import team.lodestar.lodestone.helpers.block.BlockEntityHelper;
+import team.lodestar.lodestone.helpers.block.BlockPosHelper;
+import team.lodestar.lodestone.helpers.block.BlockStateHelper;
+import team.lodestar.lodestone.registry.common.particle.LodestoneParticleRegistry;
 import team.lodestar.lodestone.systems.blockentity.*;
 import team.lodestar.lodestone.systems.easing.*;
 import team.lodestar.lodestone.systems.particle.*;
@@ -246,7 +250,7 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
     }
 
     public static Vec3 getItemPos(SpiritAltarBlockEntity blockEntity) {
-        return BlockHelper.fromBlockPos(blockEntity.getBlockPos()).add(blockEntity.itemOffset());
+        return BlockPosHelper.fromBlockPos(blockEntity.getBlockPos()).add(blockEntity.itemOffset());
     }
 
     public Vec3 itemOffset() {
@@ -274,7 +278,7 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
         int extras = extrasInventory.nonEmptyItemAmount;
         if (extras < recipe.extraItems.size()) {
             progress *= 0.8f;
-            Collection<IAltarProvider> altarProviders = BlockHelper.getBlockEntities(IAltarProvider.class, level, worldPosition, HORIZONTAL_RANGE, VERTICAL_RANGE, HORIZONTAL_RANGE);
+            Collection<IAltarProvider> altarProviders = BlockEntityHelper.getBlockEntities(IAltarProvider.class, level, worldPosition, HORIZONTAL_RANGE, VERTICAL_RANGE, HORIZONTAL_RANGE);
             for (IAltarProvider provider : altarProviders) {
                 LodestoneBlockEntityInventory inventoryForAltar = provider.getInventoryForAltar();
                 ItemStack providedStack = inventoryForAltar.getStackInSlot(0);
@@ -296,7 +300,7 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
                     MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(provider.getBlockPosForAltar())), new AltarConsumeParticlePacket(providedStack, recipe.spirits.stream().map(s -> s.type.identifier).collect(Collectors.toList()), providedItemPos.x, providedItemPos.y, providedItemPos.z, itemPos.x, itemPos.y, itemPos.z));
                     extrasInventory.insertItem(level, providedStack.split(requestedItem.count));
                     inventoryForAltar.updateData();
-                    BlockHelper.updateAndNotifyState(level, provider.getBlockPosForAltar());
+                    BlockStateHelper.updateAndNotifyState(level, provider.getBlockPosForAltar());
                     break;
                 }
             }
@@ -331,14 +335,14 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
         level.addFreshEntity(new ItemEntity(level, itemPos.x, itemPos.y, itemPos.z, outputStack));
         init();
         recalibrateAccelerators();
-        BlockHelper.updateAndNotifyState(level, worldPosition);
+        BlockStateHelper.updateAndNotifyState(level, worldPosition);
     }
 
     public void recalibrateAccelerators() {
         speed = 1f;
         accelerators.clear();
         acceleratorPositions.clear();
-        Collection<IAltarAccelerator> nearbyAccelerators = BlockHelper.getBlockEntities(IAltarAccelerator.class, level, worldPosition, HORIZONTAL_RANGE, VERTICAL_RANGE, HORIZONTAL_RANGE);
+        Collection<IAltarAccelerator> nearbyAccelerators = BlockEntityHelper.getBlockEntities(IAltarAccelerator.class, level, worldPosition, HORIZONTAL_RANGE, VERTICAL_RANGE, HORIZONTAL_RANGE);
         Map<IAltarAccelerator.AltarAcceleratorType, Integer> entries = new HashMap<>();
         for (IAltarAccelerator accelerator : nearbyAccelerators) {
             if (accelerator.canAccelerate()) {
@@ -445,7 +449,7 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, Direction side) {
-        if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+        if (cap == ForgeCapabilities.ITEM_HANDLER) {
             if (side == null)
                 return internalInventory.cast();
             return exposedInventory.cast();

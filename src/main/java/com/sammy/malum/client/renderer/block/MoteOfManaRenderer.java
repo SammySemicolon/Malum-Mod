@@ -11,7 +11,7 @@ import net.minecraft.client.renderer.blockentity.*;
 import net.minecraft.resources.*;
 import net.minecraft.util.*;
 import team.lodestar.lodestone.handlers.*;
-import team.lodestar.lodestone.setup.*;
+import team.lodestar.lodestone.registry.client.LodestoneRenderTypeRegistry;
 import team.lodestar.lodestone.systems.rendering.*;
 
 import java.awt.*;
