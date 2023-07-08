@@ -1,27 +1,32 @@
 package com.sammy.malum.client.renderer.entity;
 
-import com.mojang.blaze3d.vertex.*;
-import com.mojang.math.*;
-import com.sammy.malum.common.entity.nitrate.*;
-import net.minecraft.client.renderer.*;
-import net.minecraft.client.renderer.entity.*;
-import net.minecraft.client.renderer.texture.*;
-import net.minecraft.resources.*;
-import net.minecraft.util.*;
-import net.minecraft.world.phys.*;
-import team.lodestar.lodestone.helpers.*;
-import team.lodestar.lodestone.setup.*;
-import team.lodestar.lodestone.systems.easing.*;
-import team.lodestar.lodestone.systems.rendering.*;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.math.Vector3f;
+import com.mojang.math.Vector4f;
+import com.sammy.malum.common.entity.nitrate.EthericNitrateEntity;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.entity.EntityRenderer;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.texture.TextureAtlas;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
+import net.minecraft.world.phys.Vec3;
+import team.lodestar.lodestone.helpers.EntityHelper;
+import team.lodestar.lodestone.helpers.render.ColorHelper;
+import team.lodestar.lodestone.registry.client.LodestoneRenderTypeRegistry;
+import team.lodestar.lodestone.systems.easing.Easing;
+import team.lodestar.lodestone.systems.rendering.VFXBuilders;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.*;
-import java.util.stream.*;
+import java.util.stream.Collectors;
 
-import static com.sammy.malum.MalumMod.*;
-import static com.sammy.malum.client.renderer.entity.FloatingItemEntityRenderer.*;
-import static team.lodestar.lodestone.handlers.RenderHandler.*;
+import static com.sammy.malum.MalumMod.malumPath;
+import static com.sammy.malum.client.renderer.entity.FloatingItemEntityRenderer.renderSpiritGlimmer;
+import static team.lodestar.lodestone.handlers.RenderHandler.DELAYED_RENDER;
 
 public class EthericNitrateEntityRenderer extends EntityRenderer<EthericNitrateEntity> {
 
@@ -56,7 +61,8 @@ public class EthericNitrateEntityRenderer extends EntityRenderer<EthericNitrateE
         }
 
         List<Vector4f> mappedPastPositions = positions.stream().map(p -> p.position).map(p -> new Vector4f((float) p.x, (float) p.y, (float) p.z, 1)).collect(Collectors.toList());
-        VFXBuilders.WorldVFXBuilder builder = VFXBuilders.createWorld().setPosColorTexLightmapDefaultFormat().setOffset(-x, -y, -z);
+        VFXBuilders.WorldVFXBuilder builder = VFXBuilders.createWorld().setPosColorTexLightmapDefaultFormat();
+        Vector3f offset = new Vector3f(-x, -y, -z);
 
         VertexConsumer lightBuffer = DELAYED_RENDER.getBuffer(LIGHT_TYPE);
         float trailVisibility = Math.min(entity.windUp, 1);
@@ -67,13 +73,12 @@ public class EthericNitrateEntityRenderer extends EntityRenderer<EthericNitrateE
             float alpha = (0.16f - i * 0.04f) * trailVisibility;
             builder
                     .setAlpha(alpha)
-                    .renderTrail(lightBuffer, poseStack, mappedPastPositions, f -> size, f -> builder.setAlpha(alpha * f).setColor(ColorHelper.colorLerp(Easing.SINE_IN, f * 3f, secondColor, firstColor)))
-                    .renderTrail(lightBuffer, poseStack, mappedPastPositions, f -> 1.5f * size, f -> builder.setAlpha(alpha * f * 1.5f).setColor(ColorHelper.colorLerp(Easing.SINE_IN, f * 2f, secondColor, firstColor)))
-                    .renderTrail(lightBuffer, poseStack, mappedPastPositions, f -> size * 2.5f, f -> builder.setAlpha(alpha * f / 4f).setColor(ColorHelper.colorLerp(Easing.SINE_IN, f * 2f, secondColor, firstColor)));
+                    .renderTrail(lightBuffer, poseStack, offset, mappedPastPositions, f -> size, f -> builder.setAlpha(alpha * f).setColor(ColorHelper.colorLerp(Easing.SINE_IN, f * 3f, secondColor, firstColor)))
+                    .renderTrail(lightBuffer, poseStack, offset, mappedPastPositions, f -> 1.5f * size, f -> builder.setAlpha(alpha * f * 1.5f).setColor(ColorHelper.colorLerp(Easing.SINE_IN, f * 2f, secondColor, firstColor)))
+                    .renderTrail(lightBuffer, poseStack, offset, mappedPastPositions, f -> size * 2.5f, f -> builder.setAlpha(alpha * f / 4f).setColor(ColorHelper.colorLerp(Easing.SINE_IN, f * 2f, secondColor, firstColor)));
         }
         poseStack.translate(0, entity.getYOffset(partialTicks) + 0.25F, 0);
         poseStack.scale(1.2f*trailVisibility,1.2f*trailVisibility,1.2f*trailVisibility);
-        builder.setOffset(0, 0, 0);
         builder.setColor(firstColor);
         builder.setAlpha(trailVisibility);
         renderSpiritGlimmer(poseStack, builder, partialTicks);

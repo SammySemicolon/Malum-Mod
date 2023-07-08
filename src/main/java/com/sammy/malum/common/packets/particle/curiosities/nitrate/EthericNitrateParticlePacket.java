@@ -4,11 +4,12 @@ import com.sammy.malum.common.entity.nitrate.*;
 import com.sammy.malum.common.packets.particle.base.*;
 import net.minecraft.client.*;
 import net.minecraft.network.*;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.*;
 import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.network.*;
 import net.minecraftforge.network.simple.*;
-import team.lodestar.lodestone.setup.*;
+import team.lodestar.lodestone.registry.common.particle.LodestoneParticleRegistry;
 import team.lodestar.lodestone.systems.easing.*;
 import team.lodestar.lodestone.systems.particle.*;
 import team.lodestar.lodestone.systems.particle.data.*;
@@ -33,7 +34,7 @@ public class EthericNitrateParticlePacket extends PositionBasedParticleEffectPac
     @Override
     public void execute(Supplier<NetworkEvent.Context> context) {
         Level level = Minecraft.getInstance().level;
-        Random rand = level.random;
+        RandomSource rand = level.random;
         for (int i = 0; i < 3; i++) {
             int spinDirection = (rand.nextBoolean() ? 1 : -1);
             int spinOffset = rand.nextInt(360);
@@ -46,7 +47,7 @@ public class EthericNitrateParticlePacket extends PositionBasedParticleEffectPac
                     .setColorData(ColorParticleData.create(EthericNitrateEntity.FIRST_COLOR.brighter(), EthericNitrateEntity.SECOND_COLOR.darker()).build())
                     .enableNoClip()
                     .setRandomOffset(0.85f)
-                    .setGravityStrength(1.1f)
+                    .setGravity(1.1f)
                     .addMotion(0, 0.3f + rand.nextFloat() * 0.15f * motionMultiplier, 0)
                     .disableNoClip()
                     .setRandomMotion(0.2f*motionMultiplier, 0.25f*motionMultiplier)

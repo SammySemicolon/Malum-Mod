@@ -21,11 +21,15 @@ import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraft.world.level.levelgen.synth.PerlinSimplexNoise;
 import net.minecraft.world.phys.Vec3;
-import team.lodestar.lodestone.helpers.BlockHelper;
+import team.lodestar.lodestone.helpers.block.BlockPosHelper;
+import team.lodestar.lodestone.helpers.block.BlockStateHelper;
 import team.lodestar.lodestone.systems.worldgen.LodestoneBlockFiller;
 import team.lodestar.lodestone.systems.worldgen.LodestoneBlockFiller.BlockStateEntry;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.sammy.malum.common.worldgen.RunewoodTreeFeature.canPlace;
 import static com.sammy.malum.common.worldgen.RunewoodTreeFeature.updateLeaves;
@@ -181,7 +185,7 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
         ArrayList<BlockPos> sapBlockPositions = new ArrayList<>(treeFiller.getEntries().keySet());
         Collections.shuffle(sapBlockPositions);
         for (BlockPos blockPos : sapBlockPositions.subList(0, sapBlockCount)) {
-            treeFiller.replace(blockPos, e -> e.getState().getBlock().equals(BlockRegistry.BLIGHTED_SOULWOOD.get()) ? e : new BlockStateEntry(BlockHelper.getBlockStateWithExistingProperties(e.getState(), BlockRegistry.EXPOSED_SOULWOOD_LOG.get().defaultBlockState())));
+            treeFiller.replace(blockPos, e -> e.getState().getBlock().equals(BlockRegistry.BLIGHTED_SOULWOOD.get()) ? e : new BlockStateEntry(BlockStateHelper.getBlockStateWithExistingProperties(e.getState(), BlockRegistry.EXPOSED_SOULWOOD_LOG.get().defaultBlockState())));
         }
 
         blightFiller.fill(level);
@@ -303,7 +307,7 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
                             BlockState blockState = level.getBlockState(plantPos);
                             if (naturalNoiseValue > 2.5f) {
                                 if (lastSaplingPos == null || lastSaplingPos.distanceToSqr(plantPos.getX(), plantPos.getY(), plantPos.getZ()) > 5) {
-                                    if (BlockHelper.fromBlockPos(center).distanceToSqr(plantPos.getX(), plantPos.getY(), plantPos.getZ()) > 4) {
+                                    if (BlockPosHelper.fromBlockPos(center).distanceToSqr(plantPos.getX(), plantPos.getY(), plantPos.getZ()) > 4) {
                                         if (level.getRandom().nextFloat() < 0.5f / (Math.pow(saplingsPlaced + 1, 2))) {
                                             filler.getEntries().put(plantPos, new BlockStateEntry(BlockRegistry.SOULWOOD_GROWTH.get().defaultBlockState()));
                                             lastSaplingPos = new Vec3(plantPos.getX(), plantPos.getY(), plantPos.getZ());

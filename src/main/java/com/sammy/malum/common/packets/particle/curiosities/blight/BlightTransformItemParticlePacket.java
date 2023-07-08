@@ -10,8 +10,8 @@ import net.minecraft.world.phys.*;
 import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.network.*;
 import net.minecraftforge.network.simple.*;
-import team.lodestar.lodestone.helpers.*;
-import team.lodestar.lodestone.setup.*;
+import team.lodestar.lodestone.helpers.render.ColorHelper;
+import team.lodestar.lodestone.registry.common.particle.LodestoneParticleRegistry;
 import team.lodestar.lodestone.systems.easing.*;
 import team.lodestar.lodestone.systems.particle.*;
 import team.lodestar.lodestone.systems.particle.data.*;
@@ -37,7 +37,7 @@ public class BlightTransformItemParticlePacket extends SpiritBasedParticleEffect
     public void execute(Supplier<NetworkEvent.Context> context) {
         super.execute(context);
         Level level = Minecraft.getInstance().level;
-        Random rand = level.random;
+        RandomSource rand = level.random;
         for (int i = 0; i < 3; i++) {
             float multiplier = Mth.nextFloat(rand, 0.4f, 1f);
             float timeMultiplier = Mth.nextFloat(rand, 0.9f, 1.4f);
@@ -88,7 +88,7 @@ public class BlightTransformItemParticlePacket extends SpiritBasedParticleEffect
     @Override
     public void execute(Supplier<NetworkEvent.Context> context, MalumSpiritType spiritType) {
         Level level = Minecraft.getInstance().level;
-        Random rand = level.random;
+        RandomSource rand = level.random;
         Color color = spiritType.getPrimaryColor();
         for (int i = 0; i < 3; i++) {
             int spinDirection = (rand.nextBoolean() ? 1 : -1);
@@ -101,7 +101,7 @@ public class BlightTransformItemParticlePacket extends SpiritBasedParticleEffect
                     .setColorData(ColorParticleData.create(ColorHelper.brighter(color, 2), color).build())
                     .enableNoClip()
                     .setRandomOffset(0.6f)
-                    .setGravityStrength(1.1f)
+                    .setGravity(1.1f)
                     .addMotion(0, 0.28f + rand.nextFloat() * 0.15f, 0)
                     .disableNoClip()
                     .setRandomMotion(0.1f, 0.15f)

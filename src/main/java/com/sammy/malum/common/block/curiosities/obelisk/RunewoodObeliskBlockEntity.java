@@ -6,8 +6,8 @@ import com.sammy.malum.registry.common.block.*;
 import net.minecraft.core.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.phys.*;
-import team.lodestar.lodestone.helpers.*;
-import team.lodestar.lodestone.setup.*;
+import team.lodestar.lodestone.helpers.block.BlockPosHelper;
+import team.lodestar.lodestone.registry.common.particle.LodestoneParticleRegistry;
 import team.lodestar.lodestone.systems.easing.*;
 import team.lodestar.lodestone.systems.multiblock.*;
 import team.lodestar.lodestone.systems.particle.*;
@@ -38,7 +38,7 @@ public class RunewoodObeliskBlockEntity extends ObeliskCoreBlockEntity implement
     public void addParticles(SpiritAltarBlockEntity blockEntity, MalumSpiritType activeSpiritType, Vec3 altarItemPos) {
         Color firstColor = activeSpiritType.getPrimaryColor();
         Color secondColor = activeSpiritType.getSecondaryColor();
-        Vec3 startPos = BlockHelper.fromBlockPos(worldPosition).add(0.5f, 2.15f, 0.5f);
+        Vec3 startPos = BlockPosHelper.fromBlockPos(worldPosition).add(0.5f, 2.15f, 0.5f);
         float alpha = 0.06f;
         WorldParticleBuilder.create(LodestoneParticleRegistry.SMOKE_PARTICLE)
                 .setTransparencyData(GenericParticleData.create(alpha/4f, alpha, 0f).setEasing(Easing.ELASTIC_IN, Easing.SINE_IN_OUT).build())

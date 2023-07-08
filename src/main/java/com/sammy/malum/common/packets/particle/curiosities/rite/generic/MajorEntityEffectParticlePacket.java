@@ -3,13 +3,14 @@ package com.sammy.malum.common.packets.particle.curiosities.rite.generic;
 import com.sammy.malum.common.packets.particle.base.color.ColorBasedParticleEffectPacket;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.network.NetworkEvent;
 import net.minecraftforge.network.simple.SimpleChannel;
-import team.lodestar.lodestone.helpers.ColorHelper;
-import team.lodestar.lodestone.setup.LodestoneParticleRegistry;
+import team.lodestar.lodestone.helpers.render.ColorHelper;
+import team.lodestar.lodestone.registry.common.particle.LodestoneParticleRegistry;
 import team.lodestar.lodestone.systems.easing.Easing;
 import team.lodestar.lodestone.systems.particle.WorldParticleBuilder;
 import team.lodestar.lodestone.systems.particle.data.ColorParticleData;
@@ -30,7 +31,7 @@ public class MajorEntityEffectParticlePacket extends ColorBasedParticleEffectPac
     @Override
     public void execute(Supplier<NetworkEvent.Context> context) {
         Level level = Minecraft.getInstance().level;
-        Random rand = level.random;
+        RandomSource rand = level.random;
         for (int i = 0; i <= 3; i++) {
             int spinDirection = (rand.nextBoolean() ? 1 : -1);
             WorldParticleBuilder.create(LodestoneParticleRegistry.WISP_PARTICLE)

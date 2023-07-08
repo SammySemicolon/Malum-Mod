@@ -3,13 +3,14 @@ package com.sammy.malum.common.packets.particle.curiosities.nitrate;
 import com.sammy.malum.common.packets.particle.base.color.ColorBasedParticleEffectPacket;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.network.NetworkEvent;
 import net.minecraftforge.network.simple.SimpleChannel;
-import team.lodestar.lodestone.helpers.ColorHelper;
-import team.lodestar.lodestone.setup.LodestoneParticleRegistry;
+import team.lodestar.lodestone.helpers.render.ColorHelper;
+import team.lodestar.lodestone.registry.common.particle.LodestoneParticleRegistry;
 import team.lodestar.lodestone.systems.easing.Easing;
 import team.lodestar.lodestone.systems.particle.SimpleParticleOptions;
 import team.lodestar.lodestone.systems.particle.WorldParticleBuilder;
@@ -31,7 +32,7 @@ public class VividNitrateBounceParticlePacket extends ColorBasedParticleEffectPa
     @Override
     public void execute(Supplier<NetworkEvent.Context> context) {
         Level level = Minecraft.getInstance().level;
-        Random rand = level.random;
+        RandomSource rand = level.random;
         for (int i = 0; i < 4; i++) {
             int spinDirection = (rand.nextBoolean() ? 1 : -1);
             int spinOffset = rand.nextInt(360);
@@ -44,7 +45,7 @@ public class VividNitrateBounceParticlePacket extends ColorBasedParticleEffectPa
                     .setLifetime(20)
                     .enableNoClip()
                     .setRandomOffset(0.85f)
-                    .setGravityStrength(1.1f)
+                    .setGravity(1.1f)
                     .addMotion(0, 0.3f + rand.nextFloat() * 0.15f * motionMultiplier, 0)
                     .disableNoClip()
                     .setRandomMotion(0.2f*motionMultiplier, 0.25f*motionMultiplier)

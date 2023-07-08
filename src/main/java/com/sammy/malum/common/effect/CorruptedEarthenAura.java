@@ -6,11 +6,10 @@ import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import team.lodestar.lodestone.helpers.ColorHelper;
 
 public class CorruptedEarthenAura extends MobEffect {
     public CorruptedEarthenAura() {
-        super(MobEffectCategory.BENEFICIAL, ColorHelper.getColor(SpiritTypeRegistry.EARTHEN_SPIRIT.getPrimaryColor()));
+        super(MobEffectCategory.BENEFICIAL, SpiritTypeRegistry.EARTHEN_SPIRIT.getPrimaryColor().getRGB());
         addAttributeModifier(Attributes.ATTACK_DAMAGE, "e2a25284-a8b1-41a5-9472-90cc83793d44", 1, AttributeModifier.Operation.ADDITION);
     }
 

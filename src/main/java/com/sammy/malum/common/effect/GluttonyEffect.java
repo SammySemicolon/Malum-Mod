@@ -15,9 +15,9 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.living.MobEffectEvent;
 import net.minecraftforge.eventbus.api.Event;
-import team.lodestar.lodestone.helpers.ColorHelper;
 import team.lodestar.lodestone.helpers.EntityHelper;
-import team.lodestar.lodestone.setup.LodestoneAttributeRegistry;
+import team.lodestar.lodestone.helpers.render.ColorHelper;
+import team.lodestar.lodestone.registry.common.LodestoneAttributeRegistry;
 
 import static com.sammy.malum.registry.common.item.ItemTagRegistry.GROSS_FOODS;
 
@@ -30,7 +30,7 @@ public class GluttonyEffect extends MobEffect {
     public static void canApplyPotion(MobEffectEvent.Applicable event) {
         MobEffectInstance potionEffect = event.getEffectInstance();
         LivingEntity entityLiving = event.getEntity();
-        if (potionEffect.getEffect().equals(MobEffects.HUNGER) && entityLiving.hasEffect(MalumMobEffectRegistry.GLUTTONY.get())) {
+        if (potionEffect.getEffect().equals(MobEffects.HUNGER) && entityLiving.hasEffect(MobEffectRegistry.GLUTTONY.get())) {
             event.setResult(Event.Result.DENY);
         }
     }

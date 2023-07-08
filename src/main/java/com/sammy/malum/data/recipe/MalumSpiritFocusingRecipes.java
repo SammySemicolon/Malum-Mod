@@ -22,7 +22,7 @@ import net.minecraftforge.registries.RegistryObject;
 import java.util.function.Consumer;
 
 import static com.sammy.malum.registry.common.SpiritTypeRegistry.*;
-import static team.lodestar.lodestone.setup.LodestoneItemTags.*;
+import static team.lodestar.lodestone.registry.common.tag.LodestoneItemTags.*;
 
 public class MalumSpiritFocusingRecipes extends RecipeProvider implements IConditionBuilder {
     public MalumSpiritFocusingRecipes(DataGenerator generatorIn) {

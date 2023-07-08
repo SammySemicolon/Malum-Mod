@@ -4,6 +4,7 @@ import com.sammy.malum.client.vfx.*;
 import com.sammy.malum.common.packets.*;
 import com.sammy.malum.registry.common.*;
 import net.minecraft.core.*;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.level.*;
 import net.minecraftforge.api.distmarker.*;
@@ -67,6 +68,6 @@ public abstract class ParticleEffectType {
     }
 
     public interface ParticleEffectActor {
-        void act(Level level, Random random, PositionEffectData positionData, ColorEffectData colorData);
+        void act(Level level, RandomSource random, PositionEffectData positionData, ColorEffectData colorData);
     }
 }

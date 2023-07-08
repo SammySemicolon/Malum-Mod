@@ -4,8 +4,8 @@ import com.sammy.malum.client.vfx.types.base.*;
 import net.minecraft.core.*;
 import net.minecraft.util.*;
 import net.minecraftforge.api.distmarker.*;
-import team.lodestar.lodestone.helpers.*;
-import team.lodestar.lodestone.setup.*;
+import team.lodestar.lodestone.helpers.render.ColorHelper;
+import team.lodestar.lodestone.registry.common.particle.LodestoneParticleRegistry;
 import team.lodestar.lodestone.systems.easing.*;
 import team.lodestar.lodestone.systems.particle.*;
 import team.lodestar.lodestone.systems.particle.data.*;
@@ -38,7 +38,7 @@ public class SpiritMoteCreationParticleEffectType extends ParticleEffectType {
                         .setLifetime(lifetime)
                         .setRandomOffset(0.6f)
                         .enableNoClip()
-                        .setGravityStrength(1.1f)
+                        .setGravity(1.1f)
                         .addMotion(0, 0.25f + random.nextFloat() * 0.1f, 0)
                         .disableNoClip()
                         .setRandomMotion(0.1f, 0.12f)

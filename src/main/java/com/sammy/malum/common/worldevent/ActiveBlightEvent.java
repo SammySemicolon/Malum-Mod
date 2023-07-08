@@ -1,22 +1,19 @@
 package com.sammy.malum.common.worldevent;
 
 import com.sammy.malum.common.block.blight.BlightedSoilBlock;
-import com.sammy.malum.common.packets.particle.block.blight.BlightMistParticlePacket;
 import com.sammy.malum.common.worldgen.SoulwoodTreeFeature;
-import com.sammy.malum.core.setup.content.SoundRegistry;
-import com.sammy.malum.core.setup.content.WorldEventTypes;
-import com.sammy.malum.core.setup.content.block.BlockRegistry;
+import com.sammy.malum.registry.common.ParticleEffectTypeRegistry;
+import com.sammy.malum.registry.common.SoundRegistry;
+import com.sammy.malum.registry.common.WorldEventTypes;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.network.PacketDistributor;
 import team.lodestar.lodestone.systems.worldevent.WorldEventInstance;
 import team.lodestar.lodestone.systems.worldgen.LodestoneBlockFiller;
 
-import java.util.*;
+import java.util.Map;
 
 public class ActiveBlightEvent extends WorldEventInstance {
     public int blightTimer, intensity, rate, times;

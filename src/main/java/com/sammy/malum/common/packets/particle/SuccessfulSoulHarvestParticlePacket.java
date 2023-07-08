@@ -7,7 +7,7 @@ import net.minecraft.world.level.*;
 import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.network.*;
 import net.minecraftforge.network.simple.*;
-import team.lodestar.lodestone.setup.*;
+import team.lodestar.lodestone.registry.common.particle.LodestoneParticleRegistry;
 import team.lodestar.lodestone.systems.particle.*;
 import team.lodestar.lodestone.systems.particle.data.*;
 
@@ -46,7 +46,7 @@ public class SuccessfulSoulHarvestParticlePacket extends PositionBasedParticleEf
                 .setLifetime(20)
                 .setRandomOffset(0.5, 0).setRandomMotion(0, 0.125f)
                 .addMotion(0, 0.28f, 0)
-                .setGravityStrength(1)
+                .setGravity(1)
                 .repeat(level, posX, posY, posZ, 40);
 
         WorldParticleBuilder.create(LodestoneParticleRegistry.SPARKLE_PARTICLE)
@@ -57,7 +57,7 @@ public class SuccessfulSoulHarvestParticlePacket extends PositionBasedParticleEf
                 .setLifetime(40)
                 .setRandomOffset(0.5, 0.5).setRandomMotion(0.125f, 0.05)
                 .addMotion(0, 0.15f, 0)
-                .setGravityStrength(1)
+                .setGravity(1)
                 .repeat(level, posX, posY, posZ, 30);
     }
 

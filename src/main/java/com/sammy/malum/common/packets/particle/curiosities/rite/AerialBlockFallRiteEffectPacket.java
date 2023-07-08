@@ -4,12 +4,13 @@ import com.sammy.malum.common.packets.particle.base.color.*;
 import net.minecraft.client.*;
 import net.minecraft.core.*;
 import net.minecraft.network.*;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.*;
 import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.network.*;
 import net.minecraftforge.network.simple.*;
-import team.lodestar.lodestone.helpers.*;
-import team.lodestar.lodestone.setup.*;
+import team.lodestar.lodestone.helpers.render.ColorHelper;
+import team.lodestar.lodestone.registry.common.particle.LodestoneParticleRegistry;
 import team.lodestar.lodestone.systems.easing.*;
 import team.lodestar.lodestone.systems.particle.*;
 import team.lodestar.lodestone.systems.particle.data.*;
@@ -27,7 +28,7 @@ public class AerialBlockFallRiteEffectPacket extends ColorBasedBlockParticleEffe
     @Override
     public void execute(Supplier<NetworkEvent.Context> context) {
         Level level = Minecraft.getInstance().level;
-        Random rand = level.random;
+        RandomSource rand = level.random;
         for (int i = 0; i <= 3; i++) {
             int spinDirection = (rand.nextBoolean() ? 1 : -1);
             int spinOffset = rand.nextInt(360);
@@ -39,7 +40,7 @@ public class AerialBlockFallRiteEffectPacket extends ColorBasedBlockParticleEffe
                     .setLifetime(25)
                     .enableNoClip()
                     .setRandomOffset(0.6f)
-                    .setGravityStrength(0.3f)
+                    .setGravity(0.3f)
                     .disableNoClip()
                     .setRandomMotion(0.1f, 0.15f)
                     .spawn(level, pos.getX() + 0.5f, pos.getY() + 0.2f, pos.getZ() + 0.5f);

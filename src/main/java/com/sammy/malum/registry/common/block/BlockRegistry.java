@@ -1,46 +1,70 @@
 package com.sammy.malum.registry.common.block;
 
-import com.sammy.malum.*;
-import com.sammy.malum.common.block.blight.*;
-import com.sammy.malum.common.block.curiosities.obelisk.*;
-import com.sammy.malum.common.block.curiosities.spirit_altar.*;
-import com.sammy.malum.common.block.curiosities.spirit_crucible.*;
-import com.sammy.malum.common.block.curiosities.tablet.*;
-import com.sammy.malum.common.block.curiosities.totem.*;
-import com.sammy.malum.common.block.curiosities.weavers_workbench.*;
-import com.sammy.malum.common.block.curiosities.weeping_well.*;
+import com.sammy.malum.MalumMod;
+import com.sammy.malum.common.block.blight.BlightedGrassBlock;
+import com.sammy.malum.common.block.blight.BlightedSoilBlock;
+import com.sammy.malum.common.block.blight.BlightedSoulwoodBlock;
+import com.sammy.malum.common.block.curiosities.obelisk.BrillianceObeliskCoreBlock;
+import com.sammy.malum.common.block.curiosities.obelisk.ObeliskComponentBlock;
+import com.sammy.malum.common.block.curiosities.obelisk.RunewoodObeliskCoreBlock;
+import com.sammy.malum.common.block.curiosities.spirit_altar.SpiritAltarBlock;
+import com.sammy.malum.common.block.curiosities.spirit_crucible.SpiritCatalyzerComponentBlock;
+import com.sammy.malum.common.block.curiosities.spirit_crucible.SpiritCatalyzerCoreBlock;
+import com.sammy.malum.common.block.curiosities.spirit_crucible.SpiritCrucibleComponentBlock;
+import com.sammy.malum.common.block.curiosities.spirit_crucible.SpiritCrucibleCoreBlock;
+import com.sammy.malum.common.block.curiosities.tablet.TwistedTabletBlock;
+import com.sammy.malum.common.block.curiosities.totem.TotemBaseBlock;
+import com.sammy.malum.common.block.curiosities.totem.TotemPoleBlock;
+import com.sammy.malum.common.block.curiosities.weavers_workbench.WeaversWorkbenchBlock;
+import com.sammy.malum.common.block.curiosities.weeping_well.PrimordialSoupBlock;
+import com.sammy.malum.common.block.curiosities.weeping_well.VoidConduitBlock;
+import com.sammy.malum.common.block.curiosities.weeping_well.WeepingWellBlock;
 import com.sammy.malum.common.block.ether.*;
-import com.sammy.malum.common.block.mana_mote.*;
-import com.sammy.malum.common.block.nature.*;
-import com.sammy.malum.common.block.nature.soulwood.*;
+import com.sammy.malum.common.block.mana_mote.SoulstoneBlock;
+import com.sammy.malum.common.block.mana_mote.SpiritMoteBlock;
+import com.sammy.malum.common.block.nature.MalumLeavesBlock;
+import com.sammy.malum.common.block.nature.MalumLogBLock;
+import com.sammy.malum.common.block.nature.MalumSaplingBlock;
+import com.sammy.malum.common.block.nature.SapFilledLogBlock;
+import com.sammy.malum.common.block.nature.soulwood.SapFilledSoulwoodLogBlock;
+import com.sammy.malum.common.block.nature.soulwood.SoulwoodBlock;
+import com.sammy.malum.common.block.nature.soulwood.SoulwoodGrowthBlock;
+import com.sammy.malum.common.block.nature.soulwood.SoulwoodLogBlock;
 import com.sammy.malum.common.block.storage.*;
-import com.sammy.malum.common.block.the_device.*;
-import com.sammy.malum.registry.common.*;
-import com.sammy.malum.registry.common.item.*;
-import com.sammy.malum.registry.common.worldgen.*;
-import net.minecraft.client.color.block.*;
-import net.minecraft.util.*;
-import net.minecraft.util.valueproviders.*;
+import com.sammy.malum.common.block.the_device.TheDevice;
+import com.sammy.malum.common.block.the_device.TheVessel;
+import com.sammy.malum.registry.common.SpiritTypeRegistry;
+import com.sammy.malum.registry.common.item.ItemRegistry;
+import com.sammy.malum.registry.common.worldgen.FeatureRegistry;
+import net.minecraft.client.color.block.BlockColors;
+import net.minecraft.util.Mth;
+import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.entity.*;
-import net.minecraft.world.level.material.*;
-import net.minecraftforge.api.distmarker.*;
-import net.minecraftforge.client.event.*;
-import net.minecraftforge.eventbus.api.*;
-import net.minecraftforge.fml.common.*;
-import net.minecraftforge.registries.*;
-import team.lodestar.lodestone.systems.block.*;
-import team.lodestar.lodestone.systems.block.sign.*;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.MaterialColor;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.RegisterColorHandlersEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
+import team.lodestar.lodestone.systems.block.LodestoneBlockProperties;
+import team.lodestar.lodestone.systems.block.LodestoneDirectionalBlock;
+import team.lodestar.lodestone.systems.block.LodestoneLogBlock;
+import team.lodestar.lodestone.systems.block.sign.LodestoneStandingSignBlock;
+import team.lodestar.lodestone.systems.block.sign.LodestoneWallSignBlock;
 
 import java.awt.*;
 
-import static com.sammy.malum.MalumMod.*;
+import static com.sammy.malum.MalumMod.MALUM;
 import static com.sammy.malum.registry.common.block.BlockTagRegistry.*;
-import static net.minecraft.tags.BlockTags.FENCES;
-import static net.minecraft.tags.BlockTags.FENCE_GATES;
 import static net.minecraft.tags.BlockTags.*;
-import static net.minecraft.world.level.block.PressurePlateBlock.Sensitivity.*;
-import static net.minecraftforge.common.Tags.Blocks.*;
+import static net.minecraft.world.level.block.PressurePlateBlock.Sensitivity.EVERYTHING;
+import static net.minecraft.world.level.block.PressurePlateBlock.Sensitivity.MOBS;
+import static net.minecraftforge.common.Tags.Blocks.FENCE_GATES_WOODEN;
+import static net.minecraftforge.common.Tags.Blocks.STORAGE_BLOCKS;
 
 
 public class BlockRegistry {
@@ -354,7 +378,7 @@ public class BlockRegistry {
     public static class ClientOnly {
 
         @SubscribeEvent
-        public static void setBlockColors(ColorHandlerEvent.Block event) {
+        public static void setBlockColors(RegisterColorHandlersEvent.Block event) {
             BlockColors blockColors = event.getBlockColors();
             blockColors.register((s, l, p, c) -> {
                 BlockEntity blockEntity = l.getBlockEntity(p);

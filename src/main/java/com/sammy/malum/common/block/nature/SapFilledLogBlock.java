@@ -16,8 +16,8 @@ import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.items.ItemHandlerHelper;
-import team.lodestar.lodestone.helpers.BlockHelper;
-import team.lodestar.lodestone.setup.LodestoneParticleRegistry;
+import team.lodestar.lodestone.helpers.block.BlockStateHelper;
+import team.lodestar.lodestone.registry.common.particle.LodestoneParticleRegistry;
 import team.lodestar.lodestone.systems.particle.WorldParticleBuilder;
 import team.lodestar.lodestone.systems.particle.data.ColorParticleData;
 import team.lodestar.lodestone.systems.particle.data.GenericParticleData;
@@ -55,7 +55,7 @@ public class SapFilledLogBlock extends RotatedPillarBlock {
         level.playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.BOTTLE_FILL, SoundSource.NEUTRAL, 1.0F, 1.0F);
         ItemHandlerHelper.giveItemToPlayer(player, new ItemStack(sap.get()));
         if (level.random.nextBoolean()) {
-            BlockHelper.setBlockStateWithExistingProperties(level, pos, drained.get().defaultBlockState(), 3);
+            BlockStateHelper.setBlockStateWithExistingProperties(level, pos, drained.get().defaultBlockState(), 3);
         }
         if (level.isClientSide) {
             WorldParticleBuilder.create(LodestoneParticleRegistry.WISP_PARTICLE)

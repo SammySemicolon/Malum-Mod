@@ -13,7 +13,7 @@ import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.living.LivingChangeTargetEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
@@ -60,18 +60,16 @@ public class SoulDataHandler {
 
     public static void markAsSpawnerSpawned(LivingSpawnEvent.SpecialSpawn event) {
         if (event.getSpawnReason() != null) {
-            if (event.getEntity() instanceof LivingEntity livingEntity) {
-                MalumLivingEntityDataCapability.getCapabilityOptional(livingEntity).ifPresent(ec -> {
-                    SoulDataHandler soulData = ec.soulData;
-                    if (event.getSpawnReason().equals(MobSpawnType.SPAWNER)) {
-                        soulData.spawnerSpawned = true;
-                    }
-                });
-            }
+            MalumLivingEntityDataCapability.getCapabilityOptional(event.getEntity()).ifPresent(ec -> {
+                SoulDataHandler soulData = ec.soulData;
+                if (event.getSpawnReason().equals(MobSpawnType.SPAWNER)) {
+                    soulData.spawnerSpawned = true;
+                }
+            });
         }
     }
 
-    public static void updateAi(EntityJoinWorldEvent event) {
+    public static void updateAi(EntityJoinLevelEvent event) {
         if (event.getEntity() instanceof LivingEntity livingEntity) {
             MalumLivingEntityDataCapability.getCapabilityOptional(livingEntity).ifPresent(ec -> {
                 SoulDataHandler soulData = ec.soulData;
@@ -85,7 +83,7 @@ public class SoulDataHandler {
     }
 
     public static void preventTargeting(LivingChangeTargetEvent event) {
-        if (event.getEntityLiving() instanceof Mob mob) {
+        if (event.getEntity() instanceof Mob mob) {
             MalumLivingEntityDataCapability.getCapabilityOptional(mob).ifPresent(ec -> {
                 SoulDataHandler soulData = ec.soulData;
                 if (soulData.soulless) {
@@ -100,7 +98,7 @@ public class SoulDataHandler {
         if (event.isCanceled() || event.getAmount() <= 0) {
             return;
         }
-        LivingEntity target = event.getEntityLiving();
+        LivingEntity target = event.getEntity();
         DamageSource source = event.getSource();
         SoulDataHandler soulData = MalumLivingEntityDataCapability.getCapability(target).soulData;
         if (source.getEntity() instanceof LivingEntity attacker) {
@@ -114,9 +112,9 @@ public class SoulDataHandler {
         }
     }
 
-    public static void manageSoul(LivingEvent.LivingUpdateEvent event) {
+    public static void manageSoul(LivingEvent.LivingTickEvent event) {
         //here we tick down all the data and reset it overtime.
-        LivingEntity entity = event.getEntityLiving();
+        LivingEntity entity = event.getEntity();
         SoulDataHandler soulData = MalumLivingEntityDataCapability.getCapability(entity).soulData;
         if (soulData.exposedSoulDuration > 0) {
             soulData.exposedSoulDuration--;

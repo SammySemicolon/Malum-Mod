@@ -4,7 +4,7 @@ import com.sammy.malum.client.vfx.types.base.*;
 import net.minecraft.util.*;
 import net.minecraft.world.phys.*;
 import net.minecraftforge.api.distmarker.*;
-import team.lodestar.lodestone.setup.*;
+import team.lodestar.lodestone.registry.common.particle.LodestoneParticleRegistry;
 import team.lodestar.lodestone.systems.easing.*;
 import team.lodestar.lodestone.systems.particle.*;
 import team.lodestar.lodestone.systems.particle.data.*;

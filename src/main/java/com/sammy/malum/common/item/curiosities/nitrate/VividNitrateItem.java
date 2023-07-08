@@ -3,7 +3,7 @@ package com.sammy.malum.common.item.curiosities.nitrate;
 import com.sammy.malum.common.entity.nitrate.VividNitrateEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import team.lodestar.lodestone.setup.LodestoneScreenParticleRegistry;
+import team.lodestar.lodestone.registry.common.particle.LodestoneScreenParticleRegistry;
 import team.lodestar.lodestone.systems.easing.Easing;
 import team.lodestar.lodestone.systems.particle.ScreenParticleBuilder;
 import team.lodestar.lodestone.systems.particle.data.ColorParticleData;

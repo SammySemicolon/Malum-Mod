@@ -1,8 +1,6 @@
 package com.sammy.malum.common.recipe;
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.sammy.malum.core.systems.recipe.SpiritWithCount;
 import com.sammy.malum.registry.common.recipe.RecipeSerializerRegistry;
 import com.sammy.malum.registry.common.recipe.RecipeTypeRegistry;
 import net.minecraft.network.FriendlyByteBuf;
@@ -12,12 +10,10 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.crafting.CraftingHelper;
-import net.minecraftforge.registries.ForgeRegistryEntry;
 import team.lodestar.lodestone.systems.recipe.ILodestoneRecipe;
 import team.lodestar.lodestone.systems.recipe.IngredientWithCount;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -77,7 +73,7 @@ public class FavorOfTheVoidRecipe extends ILodestoneRecipe {
         return level.getRecipeManager().getAllRecipesFor(RecipeTypeRegistry.VOID_FAVOR.get());
     }
 
-    public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<FavorOfTheVoidRecipe> {
+    public static class Serializer implements RecipeSerializer<FavorOfTheVoidRecipe> {
         @Override
         public FavorOfTheVoidRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
             JsonObject inputObject = json.getAsJsonObject("input");

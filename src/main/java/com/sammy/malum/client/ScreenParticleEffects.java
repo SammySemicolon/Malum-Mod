@@ -1,8 +1,9 @@
 package com.sammy.malum.client;
 
 import net.minecraft.client.*;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.*;
-import team.lodestar.lodestone.setup.*;
+import team.lodestar.lodestone.registry.common.particle.LodestoneScreenParticleRegistry;
 import team.lodestar.lodestone.systems.easing.*;
 import team.lodestar.lodestone.systems.particle.*;
 import team.lodestar.lodestone.systems.particle.data.*;
@@ -16,7 +17,7 @@ import static net.minecraft.util.Mth.nextFloat;
 
 public class ScreenParticleEffects {
     public static void spawnSpiritShardScreenParticles(HashMap<LodestoneScreenParticleRenderType, ArrayList<ScreenParticle>> target, Color color, Color endColor, ItemStack stack, float pXPosition, float pYPosition) {
-        Random rand = Minecraft.getInstance().level.getRandom();
+        RandomSource rand = Minecraft.getInstance().level.getRandom();
         ScreenParticleBuilder.create(LodestoneScreenParticleRegistry.SPARKLE, target)
                 .setTransparencyData(GenericParticleData.create(0.04f, 0f).setEasing(Easing.SINE_IN_OUT).build())
                 .setScaleData(GenericParticleData.create(0.8f + rand.nextFloat() * 0.1f, 0).setEasing(Easing.SINE_IN_OUT, Easing.BOUNCE_IN_OUT).build())

@@ -5,7 +5,8 @@ import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import team.lodestar.lodestone.helpers.BlockHelper;
+import team.lodestar.lodestone.helpers.NBTHelper;
+import team.lodestar.lodestone.helpers.block.BlockEntityHelper;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -27,7 +28,7 @@ public interface ITabletTracker {
         getTablets().clear();
         getTabletPositions().clear();
         int range = getLookupRange();
-        Collection<TwistedTabletBlockEntity> nearbyTablets = BlockHelper.getBlockEntities(TwistedTabletBlockEntity.class, level, pos, range);
+        Collection<TwistedTabletBlockEntity> nearbyTablets = BlockEntityHelper.getBlockEntities(TwistedTabletBlockEntity.class, level, pos, range);
 
         nearbyTablets = nearbyTablets.stream().filter(tabletBlockEntity -> {
             Direction direction = tabletBlockEntity.getBlockState().getValue(FACING);
@@ -56,7 +57,7 @@ public interface ITabletTracker {
         if (!tabletPositions.isEmpty()) {
             twistedTabletTag.putInt("amount", tabletPositions.size());
             for (int i = 0; i < tabletPositions.size(); i++) {
-                BlockHelper.saveBlockPos(twistedTabletTag, tabletPositions.get(i), "tablet_" + i);
+                NBTHelper.saveBlockPos(twistedTabletTag, tabletPositions.get(i), "tablet_" + i);
             }
             compound.put("twistedTabletData", twistedTabletTag);
         }
@@ -67,7 +68,7 @@ public interface ITabletTracker {
             CompoundTag twistedTabletTag = compound.getCompound("twistedTabletData");
             int amount = twistedTabletTag.getInt("amount");
             for (int i = 0; i < amount; i++) {
-                BlockPos pos = BlockHelper.loadBlockPos(twistedTabletTag, "tablet_" + i);
+                BlockPos pos = NBTHelper.loadBlockPos(twistedTabletTag, "tablet_" + i);
                 if (level != null && level.getBlockEntity(pos) instanceof TwistedTabletBlockEntity tabletBlockEntity) {
                     getTabletPositions().add(pos);
                     getTablets().add(tabletBlockEntity);

@@ -17,7 +17,7 @@ import net.minecraftforge.registries.*;
 import java.util.function.*;
 
 import static com.sammy.malum.registry.common.SpiritTypeRegistry.*;
-import static team.lodestar.lodestone.setup.LodestoneItemTags.*;
+import static team.lodestar.lodestone.registry.common.tag.LodestoneItemTags.*;
 
 public class MalumSpiritInfusionRecipes extends RecipeProvider implements IConditionBuilder {
     public MalumSpiritInfusionRecipes(DataGenerator generatorIn) {

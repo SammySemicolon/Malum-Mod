@@ -1,28 +1,30 @@
 package com.sammy.malum.core.handlers;
 
-import com.mojang.blaze3d.systems.*;
-import com.mojang.blaze3d.vertex.*;
-import com.sammy.malum.common.block.curiosities.weeping_well.*;
-import com.sammy.malum.common.capability.*;
-import com.sammy.malum.common.packets.*;
-import com.sammy.malum.registry.client.*;
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.Tesselator;
+import com.sammy.malum.common.block.curiosities.weeping_well.PrimordialSoupBlock;
+import com.sammy.malum.common.capability.MalumLivingEntityDataCapability;
+import com.sammy.malum.common.packets.VoidRejectionPacket;
+import com.sammy.malum.registry.client.ShaderRegistry;
 import com.sammy.malum.registry.common.*;
-import net.minecraft.client.*;
-import net.minecraft.nbt.*;
-import net.minecraft.sounds.*;
-import net.minecraft.util.*;
-import net.minecraft.world.damagesource.*;
-import net.minecraft.world.effect.*;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.player.*;
-import net.minecraft.world.level.block.state.*;
-import net.minecraftforge.event.entity.living.*;
-import net.minecraftforge.network.*;
-import team.lodestar.lodestone.systems.easing.*;
-import team.lodestar.lodestone.systems.rendering.*;
-import team.lodestar.lodestone.systems.rendering.shader.*;
+import net.minecraft.client.Minecraft;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.Mth;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.event.entity.living.LivingEvent;
+import net.minecraftforge.network.PacketDistributor;
+import team.lodestar.lodestone.systems.easing.Easing;
+import team.lodestar.lodestone.systems.rendering.VFXBuilders;
+import team.lodestar.lodestone.systems.rendering.shader.ExtendedShaderInstance;
 
-import java.util.function.*;
+import java.util.function.Consumer;
 
 public class TouchOfDarknessHandler {
 
@@ -72,8 +74,8 @@ public class TouchOfDarknessHandler {
         return value;
     }
 
-    public static void entityTick(LivingEvent.LivingUpdateEvent event) {
-        LivingEntity livingEntity = event.getEntityLiving();
+    public static void entityTick(LivingEvent.LivingTickEvent event) {
+        LivingEntity livingEntity = event.getEntity();
         TouchOfDarknessHandler handler = MalumLivingEntityDataCapability.getCapability(livingEntity).touchOfDarknessHandler;
         boolean isInTheGoop = livingEntity.level.getBlockState(livingEntity.blockPosition()).getBlock() instanceof PrimordialSoupBlock;
         if (handler.afflictionDuration > 0) { // tick down the duration of touch of darkness.

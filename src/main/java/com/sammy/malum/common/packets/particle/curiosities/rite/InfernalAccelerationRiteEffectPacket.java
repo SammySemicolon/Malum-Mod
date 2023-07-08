@@ -5,11 +5,12 @@ import com.sammy.malum.core.systems.spirit.*;
 import net.minecraft.client.*;
 import net.minecraft.core.*;
 import net.minecraft.network.*;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.*;
 import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.network.*;
 import net.minecraftforge.network.simple.*;
-import team.lodestar.lodestone.setup.*;
+import team.lodestar.lodestone.registry.common.particle.LodestoneParticleRegistry;
 import team.lodestar.lodestone.systems.easing.*;
 import team.lodestar.lodestone.systems.particle.*;
 import team.lodestar.lodestone.systems.particle.data.*;
@@ -29,7 +30,7 @@ public class InfernalAccelerationRiteEffectPacket extends SpiritBasedBlockPartic
     @Override
     public void execute(Supplier<NetworkEvent.Context> context, MalumSpiritType spiritType) {
         Level level = Minecraft.getInstance().level;
-        Random rand = level.random;
+        RandomSource rand = level.random;
         Color color = spiritType.getPrimaryColor();
         Color endColor = spiritType.getSecondaryColor();
         for (int i = 0; i < 3; i++) {

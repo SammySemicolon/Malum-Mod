@@ -9,7 +9,7 @@ import net.minecraft.world.phys.*;
 import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.network.*;
 import net.minecraftforge.network.simple.*;
-import team.lodestar.lodestone.setup.*;
+import team.lodestar.lodestone.registry.common.particle.LodestoneParticleRegistry;
 import team.lodestar.lodestone.systems.particle.*;
 import team.lodestar.lodestone.systems.particle.data.*;
 
@@ -41,7 +41,7 @@ public class AltarCraftParticlePacket extends SpiritBasedParticleEffectPacket {
                 .setRandomOffset(0.1f)
                 .addMotion(0, 0.26f, 0)
                 .setRandomMotion(0.03f, 0.04f)
-                .setGravityStrength(1)
+                .setGravity(1)
                 .repeat(level, posX, posY, posZ, 32);
 
         WorldParticleBuilder.create(LodestoneParticleRegistry.WISP_PARTICLE)

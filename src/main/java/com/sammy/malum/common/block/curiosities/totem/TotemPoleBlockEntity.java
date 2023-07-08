@@ -26,8 +26,8 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ToolActions;
 import net.minecraftforge.network.PacketDistributor;
-import team.lodestar.lodestone.helpers.BlockHelper;
-import team.lodestar.lodestone.setup.LodestoneParticleRegistry;
+import team.lodestar.lodestone.helpers.block.BlockStateHelper;
+import team.lodestar.lodestone.registry.common.particle.LodestoneParticleRegistry;
 import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntity;
 import team.lodestar.lodestone.systems.easing.Easing;
 import team.lodestar.lodestone.systems.particle.SimpleParticleOptions;
@@ -83,7 +83,7 @@ public class TotemPoleBlockEntity extends LodestoneBlockEntity {
             if (corrupted) {
                 level.playSound(null, worldPosition, SoundRegistry.MAJOR_BLIGHT_MOTIF.get(), SoundSource.BLOCKS, 1, 1);
             }
-            BlockHelper.updateState(level, worldPosition);
+            BlockStateHelper.updateState(level, worldPosition);
             return InteractionResult.SUCCESS;
         }
         if (held.canPerformAction(ToolActions.AXE_STRIP)) {
@@ -98,7 +98,7 @@ public class TotemPoleBlockEntity extends LodestoneBlockEntity {
                 if (corrupted) {
                     level.playSound(null, worldPosition, SoundRegistry.MAJOR_BLIGHT_MOTIF.get(), SoundSource.BLOCKS, 1, 1);
                 }
-                BlockHelper.updateState(level, worldPosition);
+                BlockStateHelper.updateState(level, worldPosition);
                 return InteractionResult.SUCCESS;
             }
             if (type != null) {
@@ -192,7 +192,7 @@ public class TotemPoleBlockEntity extends LodestoneBlockEntity {
         MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new TotemPoleActivationEffectPacket(type.getPrimaryColor(), worldPosition));
         this.type = type;
         this.currentColor = 10;
-        BlockHelper.updateState(level, worldPosition);
+        BlockStateHelper.updateState(level, worldPosition);
     }
 
     public void riteStarting(TotemBaseBlockEntity totemBase, int height) {
@@ -202,18 +202,18 @@ public class TotemPoleBlockEntity extends LodestoneBlockEntity {
         this.baseLevel = worldPosition.getY() - height;
         this.totemBase = totemBase;
         this.haunted = false;
-        BlockHelper.updateState(level, worldPosition);
+        BlockStateHelper.updateState(level, worldPosition);
     }
 
     public void riteComplete() {
         this.desiredColor = 20;
-        BlockHelper.updateState(level, worldPosition);
+        BlockStateHelper.updateState(level, worldPosition);
     }
 
     public void riteEnding() {
         this.desiredColor = 0;
         this.haunted = false;
-        BlockHelper.updateState(level, worldPosition);
+        BlockStateHelper.updateState(level, worldPosition);
     }
 
     @Override

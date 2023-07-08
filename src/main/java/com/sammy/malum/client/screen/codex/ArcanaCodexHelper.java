@@ -1,31 +1,30 @@
 package com.sammy.malum.client.screen.codex;
 
-import com.mojang.blaze3d.systems.*;
-import com.mojang.blaze3d.vertex.*;
-import com.mojang.math.*;
-import com.sammy.malum.core.systems.rites.*;
-import net.minecraft.*;
-import net.minecraft.client.*;
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Vector4f;
+import com.sammy.malum.core.systems.rites.MalumRiteType;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.renderer.*;
-import net.minecraft.network.chat.*;
+import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.*;
-import net.minecraft.util.*;
-import net.minecraft.world.item.*;
-import net.minecraft.world.item.crafting.*;
-import org.lwjgl.opengl.*;
-import team.lodestar.lodestone.setup.*;
-import team.lodestar.lodestone.systems.easing.*;
-import team.lodestar.lodestone.systems.recipe.*;
-import team.lodestar.lodestone.systems.rendering.*;
-import team.lodestar.lodestone.systems.rendering.shader.*;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import org.lwjgl.opengl.GL11;
+import team.lodestar.lodestone.registry.client.LodestoneShaderRegistry;
+import team.lodestar.lodestone.systems.easing.Easing;
+import team.lodestar.lodestone.systems.recipe.IRecipeComponent;
+import team.lodestar.lodestone.systems.rendering.VFXBuilders;
+import team.lodestar.lodestone.systems.rendering.shader.ExtendedShaderInstance;
 
 import java.awt.*;
-import java.util.*;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.function.*;
-import java.util.stream.*;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 import static com.sammy.malum.config.ClientConfig.BOOK_THEME;
 import static net.minecraft.util.FastColor.ARGB32.color;
@@ -255,7 +254,7 @@ public class ArcanaCodexHelper {
 
     public static void renderWrappingText(PoseStack mStack, String text, int x, int y, int w) {
         net.minecraft.client.gui.Font font = Minecraft.getInstance().font;
-        text = new TranslatableComponent(text).getString() + "\n";
+        text = Component.translatable(text).getString() + "\n";
         java.util.List<String> lines = new ArrayList<>();
 
         boolean italic = false;
@@ -350,7 +349,7 @@ public class ArcanaCodexHelper {
     }
 
     public static void renderText(PoseStack stack, String text, int x, int y) {
-        renderText(stack, new TranslatableComponent(text), x, y, getTextGlow(0));
+        renderText(stack, Component.translatable(text), x, y, getTextGlow(0));
     }
 
     public static void renderText(PoseStack stack, net.minecraft.network.chat.Component component, int x, int y) {
@@ -359,7 +358,7 @@ public class ArcanaCodexHelper {
     }
 
     public static void renderText(PoseStack stack, String text, int x, int y, float glow) {
-        renderText(stack, new TranslatableComponent(text), x, y, glow);
+        renderText(stack, Component.translatable(text), x, y, glow);
     }
 
     public static void renderText(PoseStack stack, Component component, int x, int y, float glow) {

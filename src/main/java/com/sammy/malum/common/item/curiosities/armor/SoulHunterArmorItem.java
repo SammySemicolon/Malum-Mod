@@ -1,9 +1,9 @@
 package com.sammy.malum.common.item.curiosities.armor;
 
 import com.google.common.collect.ImmutableMultimap;
-import com.sammy.malum.registry.client.ModelRegistry;
 import com.sammy.malum.core.systems.item.ItemSkin;
-import com.sammy.malum.registry.common.*;
+import com.sammy.malum.registry.client.ModelRegistry;
+import com.sammy.malum.registry.common.ItemSkinRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.util.Mth;
@@ -15,8 +15,8 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.IItemRenderProperties;
-import team.lodestar.lodestone.setup.LodestoneAttributeRegistry;
+import net.minecraftforge.client.extensions.common.IClientItemExtensions;
+import team.lodestar.lodestone.registry.common.LodestoneAttributeRegistry;
 import team.lodestar.lodestone.systems.item.LodestoneArmorItem;
 import team.lodestar.lodestone.systems.model.LodestoneArmorModel;
 
@@ -58,10 +58,10 @@ public class SoulHunterArmorItem extends LodestoneArmorItem {
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public void initializeClient(Consumer<net.minecraftforge.client.IItemRenderProperties> consumer) {
-        consumer.accept(new IItemRenderProperties() {
+    public void initializeClient(Consumer<IClientItemExtensions> consumer) {
+        consumer.accept(new IClientItemExtensions() {
             @Override
-            public LodestoneArmorModel getArmorModel(LivingEntity entity, ItemStack itemStack, EquipmentSlot armorSlot, HumanoidModel _default) {
+            public LodestoneArmorModel getHumanoidArmorModel(LivingEntity entity, ItemStack itemStack, EquipmentSlot armorSlot, HumanoidModel _default) {
                 float pticks = Minecraft.getInstance().getFrameTime();
                 float f = Mth.rotLerp(pticks, entity.yBodyRotO, entity.yBodyRot);
                 float f1 = Mth.rotLerp(pticks, entity.yHeadRotO, entity.yHeadRot);

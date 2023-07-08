@@ -1,8 +1,8 @@
 package com.sammy.malum.common.block.storage;
 
 import com.sammy.malum.client.ParticleEffects;
-import com.sammy.malum.common.item.spirit.SpiritShardItem;
 import com.sammy.malum.common.item.curiosities.SpiritPouchItem;
+import com.sammy.malum.common.item.spirit.SpiritShardItem;
 import com.sammy.malum.core.helper.SpiritHelper;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import com.sammy.malum.registry.common.block.BlockEntityRegistry;
@@ -20,12 +20,12 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import org.jetbrains.annotations.NotNull;
-import team.lodestar.lodestone.helpers.BlockHelper;
-import team.lodestar.lodestone.setup.LodestoneParticleRegistry;
+import team.lodestar.lodestone.helpers.block.BlockStateHelper;
+import team.lodestar.lodestone.registry.common.particle.LodestoneParticleRegistry;
 import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntity;
 import team.lodestar.lodestone.systems.container.ItemInventory;
 import team.lodestar.lodestone.systems.particle.WorldParticleBuilder;
@@ -78,7 +78,7 @@ public class SpiritJarBlockEntity extends LodestoneBlockEntity {
                         type = spiritItem.type;
                     count += stack.getCount();
                     if (!level.isClientSide) {
-                        BlockHelper.updateAndNotifyState(level, worldPosition);
+                        BlockStateHelper.updateAndNotifyState(level, worldPosition);
                     }
                 }
                 return ItemStack.EMPTY;
@@ -102,7 +102,7 @@ public class SpiritJarBlockEntity extends LodestoneBlockEntity {
                     type = null;
                 }
                 if (!level.isClientSide) {
-                    BlockHelper.updateAndNotifyState(level, worldPosition);
+                    BlockStateHelper.updateAndNotifyState(level, worldPosition);
                 }
             }
 
@@ -141,7 +141,7 @@ public class SpiritJarBlockEntity extends LodestoneBlockEntity {
             if (player.level.isClientSide) {
                 spawnUseParticles(level, worldPosition, type);
             } else {
-                BlockHelper.updateAndNotifyState(level, worldPosition);
+                BlockStateHelper.updateAndNotifyState(level, worldPosition);
             }
         }
 
@@ -263,7 +263,7 @@ public class SpiritJarBlockEntity extends LodestoneBlockEntity {
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, Direction side) {
-        if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+        if (cap == ForgeCapabilities.ITEM_HANDLER) {
             return inventory.cast();
         }
         return super.getCapability(cap, side);

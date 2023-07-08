@@ -1,7 +1,7 @@
 package com.sammy.malum.core.data;
 
 import com.google.gson.JsonElement;
-import com.sammy.malum.core.setup.content.worldgen.FeatureRegistry;
+import com.sammy.malum.registry.common.worldgen.FeatureRegistry;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.Registry;
@@ -23,7 +23,6 @@ import net.minecraftforge.common.world.ForgeBiomeModifiers;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.holdersets.AnyHolderSet;
-import team.lodestar.lodestone.data.provider.Providers;
 
 import java.util.HashMap;
 import java.util.Map;

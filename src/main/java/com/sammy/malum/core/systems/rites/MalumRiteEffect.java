@@ -8,7 +8,7 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
-import team.lodestar.lodestone.helpers.BlockHelper;
+import team.lodestar.lodestone.helpers.block.BlockPosHelper;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -53,19 +53,19 @@ public abstract class MalumRiteEffect {
 
     public Stream<BlockPos> getNearbyBlocks(TotemBaseBlockEntity totemBase, Class<?> clazz) {
         Set<Block> blockFilters = getBlockFilters(totemBase);
-        return BlockHelper.getBlocksStream(getRiteEffectCenter(totemBase), getRiteEffectRadius(), p -> canAffectBlock(totemBase, blockFilters, clazz, totemBase.getLevel().getBlockState(p), p));
+        return BlockPosHelper.getBlocksStream(getRiteEffectCenter(totemBase), getRiteEffectRadius(), p -> canAffectBlock(totemBase, blockFilters, clazz, totemBase.getLevel().getBlockState(p), p));
     }
 
     public Stream<BlockPos> getNearbyBlocks(TotemBaseBlockEntity totemBase, Class<?> clazz, int height) {
         Set<Block> blockFilters = getBlockFilters(totemBase);
         int horizontal = getRiteEffectRadius();
-        return BlockHelper.getBlocksStream(getRiteEffectCenter(totemBase), horizontal, height, horizontal, p -> canAffectBlock(totemBase, blockFilters, clazz, totemBase.getLevel().getBlockState(p), p));
+        return BlockPosHelper.getBlocksStream(getRiteEffectCenter(totemBase), horizontal, height, horizontal, p -> canAffectBlock(totemBase, blockFilters, clazz, totemBase.getLevel().getBlockState(p), p));
     }
 
     public Stream<BlockPos> getBlocksUnderBase(TotemBaseBlockEntity totemBase, Class<?> clazz) {
         Set<Block> blockFilters = getBlockFilters(totemBase);
         int horizontal = getRiteEffectRadius();
-        return BlockHelper.getPlaneOfBlocksStream(getRiteEffectCenter(totemBase).below(), horizontal, p -> canAffectBlock(totemBase, blockFilters, clazz, totemBase.getLevel().getBlockState(p), p));
+        return BlockPosHelper.getPlaneOfBlocksStream(getRiteEffectCenter(totemBase).below(), horizontal, p -> canAffectBlock(totemBase, blockFilters, clazz, totemBase.getLevel().getBlockState(p), p));
     }
 
     public Set<Block> getBlockFilters(TotemBaseBlockEntity totemBase) {

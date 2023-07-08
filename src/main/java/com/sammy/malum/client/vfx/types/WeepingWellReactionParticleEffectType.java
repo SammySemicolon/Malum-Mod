@@ -3,8 +3,8 @@ package com.sammy.malum.client.vfx.types;
 import com.sammy.malum.client.vfx.types.base.*;
 import net.minecraft.util.*;
 import net.minecraftforge.api.distmarker.*;
-import team.lodestar.lodestone.helpers.*;
-import team.lodestar.lodestone.setup.*;
+import team.lodestar.lodestone.helpers.render.ColorHelper;
+import team.lodestar.lodestone.registry.common.particle.LodestoneParticleRegistry;
 import team.lodestar.lodestone.systems.easing.*;
 import team.lodestar.lodestone.systems.particle.*;
 import team.lodestar.lodestone.systems.particle.data.*;
@@ -41,7 +41,7 @@ public class WeepingWellReactionParticleEffectType extends ParticleEffectType {
                         .setLifetime(30)
                         .enableNoClip()
                         .setRandomOffset(0.85f)
-                        .setGravityStrength(1.1f)
+                        .setGravity(1.1f)
                         .addMotion(0, 0.3f + random.nextFloat() * 0.15f * motionMultiplier, 0)
                         .disableNoClip()
                         .setRandomMotion(extraMotion, extraMotion)

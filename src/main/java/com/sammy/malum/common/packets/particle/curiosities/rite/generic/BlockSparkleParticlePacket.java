@@ -4,12 +4,13 @@ import com.sammy.malum.common.packets.particle.base.color.*;
 import net.minecraft.client.*;
 import net.minecraft.core.*;
 import net.minecraft.network.*;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.*;
 import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.network.*;
 import net.minecraftforge.network.simple.*;
-import team.lodestar.lodestone.helpers.*;
-import team.lodestar.lodestone.setup.*;
+import team.lodestar.lodestone.helpers.render.ColorHelper;
+import team.lodestar.lodestone.registry.common.particle.LodestoneParticleRegistry;
 import team.lodestar.lodestone.systems.easing.*;
 import team.lodestar.lodestone.systems.particle.*;
 import team.lodestar.lodestone.systems.particle.data.*;
@@ -28,7 +29,7 @@ public class BlockSparkleParticlePacket extends ColorBasedBlockParticleEffectPac
     @Override
     public void execute(Supplier<NetworkEvent.Context> context) {
         Level level = Minecraft.getInstance().level;
-        Random rand = level.random;
+        RandomSource rand = level.random;
         for (int i = 0; i < 5; i++) {
             int spinDirection = (rand.nextBoolean() ? 1 : -1);
             int spinOffset = rand.nextInt(360);
@@ -40,7 +41,7 @@ public class BlockSparkleParticlePacket extends ColorBasedBlockParticleEffectPac
                     .setLifetime(20)
                     .enableNoClip()
                     .setRandomOffset(0.6f)
-                    .setGravityStrength(1.1f)
+                    .setGravity(1.1f)
                     .addMotion(0, 0.28f + rand.nextFloat() * 0.15f, 0)
                     .disableNoClip()
                     .setRandomMotion(0.1f, 0.15f)

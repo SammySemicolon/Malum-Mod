@@ -2,16 +2,16 @@ package com.sammy.malum.registry.client;
 
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.sammy.malum.MalumMod;
-import net.minecraft.server.packs.resources.*;
+import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterShadersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import team.lodestar.lodestone.systems.rendering.shader.*;
+import team.lodestar.lodestone.systems.rendering.shader.ShaderHolder;
 
 import java.io.IOException;
 
-import static team.lodestar.lodestone.setup.LodestoneShaderRegistry.registerShader;
+import static team.lodestar.lodestone.registry.client.LodestoneShaderRegistry.registerShader;
 
 @Mod.EventBusSubscriber(value = Dist.CLIENT, modid = MalumMod.MALUM, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ShaderRegistry {

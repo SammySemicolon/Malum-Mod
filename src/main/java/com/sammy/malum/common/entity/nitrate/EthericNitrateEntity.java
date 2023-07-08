@@ -1,25 +1,27 @@
 package com.sammy.malum.common.entity.nitrate;
 
-import com.sammy.malum.client.*;
-import com.sammy.malum.common.packets.particle.curiosities.nitrate.*;
-import com.sammy.malum.registry.common.entity.*;
-import net.minecraft.server.level.*;
-import net.minecraft.util.*;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.level.*;
-import net.minecraft.world.phys.*;
-import net.minecraftforge.network.*;
-import team.lodestar.lodestone.setup.*;
-import team.lodestar.lodestone.systems.easing.*;
-import team.lodestar.lodestone.systems.particle.*;
-import team.lodestar.lodestone.systems.particle.data.*;
-import team.lodestar.lodestone.systems.particle.world.*;
+import com.sammy.malum.client.ParticleEffects;
+import com.sammy.malum.common.packets.particle.curiosities.nitrate.EthericNitrateParticlePacket;
+import com.sammy.malum.registry.common.entity.EntityRegistry;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.network.PacketDistributor;
+import team.lodestar.lodestone.registry.common.particle.LodestoneParticleRegistry;
+import team.lodestar.lodestone.systems.easing.Easing;
+import team.lodestar.lodestone.systems.particle.WorldParticleBuilder;
+import team.lodestar.lodestone.systems.particle.data.ColorParticleData;
+import team.lodestar.lodestone.systems.particle.data.GenericParticleData;
+import team.lodestar.lodestone.systems.particle.data.SpinParticleData;
+import team.lodestar.lodestone.systems.particle.world.LodestoneWorldParticleRenderType;
 
 import java.awt.*;
-import java.util.*;
 
-import static com.sammy.malum.registry.common.PacketRegistry.*;
-import static net.minecraft.util.Mth.*;
+import static com.sammy.malum.registry.common.PacketRegistry.MALUM_CHANNEL;
+import static net.minecraft.util.Mth.nextFloat;
 
 public class EthericNitrateEntity extends AbstractNitrateEntity {
 
@@ -71,7 +73,7 @@ public class EthericNitrateEntity extends AbstractNitrateEntity {
             float extraAlpha = (float) motion.length();
             float cycles = 3;
             Color firstColor = FIRST_COLOR.brighter();
-            Random rand = ethericNitrateEntity.level.getRandom();
+            RandomSource rand = ethericNitrateEntity.level.getRandom();
             for (int i = 0; i < cycles; i++) {
                 float pDelta = i / cycles;
                 double lerpX = Mth.lerp(pDelta, ox, x) - motion.x / 4f;

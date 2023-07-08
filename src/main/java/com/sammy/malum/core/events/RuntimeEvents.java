@@ -105,7 +105,7 @@ public class RuntimeEvents {
     }
 
     @SubscribeEvent
-    public static void onLivingTick(LivingEvent.LivingUpdateEvent event) {
+    public static void onLivingTick(LivingEvent.LivingTickEvent event) {
         SoulDataHandler.manageSoul(event);
         TouchOfDarknessHandler.entityTick(event);
     }

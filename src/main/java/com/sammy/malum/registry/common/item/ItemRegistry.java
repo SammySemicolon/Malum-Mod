@@ -1,56 +1,87 @@
 package com.sammy.malum.registry.common.item;
 
-import com.sammy.malum.*;
-import com.sammy.malum.common.block.curiosities.obelisk.*;
-import com.sammy.malum.common.block.curiosities.spirit_crucible.*;
-import com.sammy.malum.common.block.nature.*;
-import com.sammy.malum.common.item.*;
-import com.sammy.malum.common.item.cosmetic.*;
-import com.sammy.malum.common.item.curiosities.*;
-import com.sammy.malum.common.item.curiosities.armor.*;
+import com.sammy.malum.MalumMod;
+import com.sammy.malum.common.block.curiosities.obelisk.BrilliantObeliskBlockEntity;
+import com.sammy.malum.common.block.curiosities.obelisk.RunewoodObeliskBlockEntity;
+import com.sammy.malum.common.block.curiosities.spirit_crucible.SpiritCatalyzerCoreBlockEntity;
+import com.sammy.malum.common.block.curiosities.spirit_crucible.SpiritCrucibleCoreBlockEntity;
+import com.sammy.malum.common.block.nature.MalumLeavesBlock;
+import com.sammy.malum.common.item.BrillianceChunkItem;
+import com.sammy.malum.common.item.EncyclopediaArcanaItem;
+import com.sammy.malum.common.item.cosmetic.GenericWeaveItem;
+import com.sammy.malum.common.item.cosmetic.PrideweaveItem;
+import com.sammy.malum.common.item.curiosities.SoulStaveItem;
+import com.sammy.malum.common.item.curiosities.SpiritPouchItem;
+import com.sammy.malum.common.item.curiosities.armor.SoulHunterArmorItem;
+import com.sammy.malum.common.item.curiosities.armor.SoulStainedSteelArmorItem;
 import com.sammy.malum.common.item.curiosities.curios.*;
-import com.sammy.malum.common.item.curiosities.nitrate.*;
-import com.sammy.malum.common.item.curiosities.weapons.*;
-import com.sammy.malum.common.item.curiosities.weapons.unique.*;
-import com.sammy.malum.common.item.ether.*;
-import com.sammy.malum.common.item.food.*;
-import com.sammy.malum.common.item.impetus.*;
-import com.sammy.malum.common.item.spirit.*;
-import com.sammy.malum.compability.farmersdelight.*;
-import com.sammy.malum.core.systems.item.*;
-import com.sammy.malum.registry.common.*;
-import com.sammy.malum.registry.common.block.*;
-import com.sammy.malum.registry.common.entity.*;
-import com.sammy.malum.registry.common.item.tabs.*;
-import net.minecraft.client.color.item.*;
-import net.minecraft.client.renderer.item.*;
-import net.minecraft.nbt.*;
-import net.minecraft.resources.*;
-import net.minecraft.world.effect.*;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.food.*;
+import com.sammy.malum.common.item.curiosities.nitrate.EthericNitrateItem;
+import com.sammy.malum.common.item.curiosities.nitrate.VividNitrateItem;
+import com.sammy.malum.common.item.curiosities.weapons.MagicScytheItem;
+import com.sammy.malum.common.item.curiosities.weapons.MalumScytheItem;
+import com.sammy.malum.common.item.curiosities.weapons.unique.MephiticEdgeScytheItem;
+import com.sammy.malum.common.item.curiosities.weapons.unique.TyrvingItem;
+import com.sammy.malum.common.item.ether.AbstractEtherItem;
+import com.sammy.malum.common.item.ether.EtherBrazierItem;
+import com.sammy.malum.common.item.ether.EtherItem;
+import com.sammy.malum.common.item.ether.EtherTorchItem;
+import com.sammy.malum.common.item.food.HolyCaramelItem;
+import com.sammy.malum.common.item.food.HolySyrupItem;
+import com.sammy.malum.common.item.food.UnholySyrupItem;
+import com.sammy.malum.common.item.impetus.CrackedImpetusItem;
+import com.sammy.malum.common.item.impetus.ImpetusItem;
+import com.sammy.malum.common.item.impetus.NodeItem;
+import com.sammy.malum.common.item.spirit.SoulVialItem;
+import com.sammy.malum.common.item.spirit.SpiritJarItem;
+import com.sammy.malum.common.item.spirit.SpiritShardItem;
+import com.sammy.malum.compability.farmersdelight.FarmersDelightCompat;
+import com.sammy.malum.core.systems.item.ItemSkin;
+import com.sammy.malum.registry.common.ItemSkinRegistry;
+import com.sammy.malum.registry.common.SpiritTypeRegistry;
+import com.sammy.malum.registry.common.block.BlockRegistry;
+import com.sammy.malum.registry.common.entity.EntityRegistry;
+import com.sammy.malum.registry.common.item.tabs.CreativeTabRegistry;
+import net.minecraft.client.color.item.ItemColors;
+import net.minecraft.client.renderer.item.ItemProperties;
+import net.minecraft.client.renderer.item.ItemPropertyFunction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
-import net.minecraft.world.level.block.*;
-import net.minecraftforge.api.distmarker.*;
-import net.minecraftforge.client.event.*;
-import net.minecraftforge.eventbus.api.*;
-import net.minecraftforge.fml.common.*;
-import net.minecraftforge.fml.event.lifecycle.*;
-import net.minecraftforge.registries.*;
-import team.lodestar.lodestone.helpers.*;
-import team.lodestar.lodestone.systems.item.*;
+import net.minecraft.world.level.block.ComposterBlock;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.RegisterColorHandlersEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
+import team.lodestar.lodestone.helpers.DataHelper;
+import team.lodestar.lodestone.systems.item.LodestoneArmorItem;
+import team.lodestar.lodestone.systems.item.LodestoneBoatItem;
+import team.lodestar.lodestone.systems.item.LodestoneFuelBlockItem;
+import team.lodestar.lodestone.systems.item.LodestoneFuelItem;
 import team.lodestar.lodestone.systems.item.tools.magic.*;
-import team.lodestar.lodestone.systems.multiblock.*;
+import team.lodestar.lodestone.systems.multiblock.MultiBlockItem;
 
 import java.awt.*;
-import java.util.*;
-import java.util.function.*;
-import java.util.stream.*;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
-import static com.sammy.malum.MalumMod.*;
-import static com.sammy.malum.registry.common.item.ItemTiers.ItemTierEnum.*;
-import static net.minecraft.world.item.Items.*;
-import static team.lodestar.lodestone.helpers.ColorHelper.*;
+import static com.sammy.malum.MalumMod.MALUM;
+import static com.sammy.malum.registry.common.item.ItemTiers.ItemTierEnum.SOUL_STAINED_STEEL;
+import static com.sammy.malum.registry.common.item.ItemTiers.ItemTierEnum.VOID;
+import static net.minecraft.world.item.Items.GLASS_BOTTLE;
+import static team.lodestar.lodestone.helpers.render.ColorHelper.brighter;
+import static team.lodestar.lodestone.helpers.render.ColorHelper.darker;
 
 @SuppressWarnings("unused")
 public class ItemRegistry {
@@ -585,13 +616,13 @@ public class ItemRegistry {
         }
 
         @SubscribeEvent
-        public static void setItemColors(ColorHandlerEvent.Item event) {
+        public static void setItemColors(RegisterColorHandlersEvent.Item event) {
             ItemColors itemColors = event.getItemColors();
             Set<RegistryObject<Item>> items = new HashSet<>(ITEMS.getEntries());
 
             DataHelper.takeAll(items, i -> i.get() instanceof BlockItem && ((BlockItem) i.get()).getBlock() instanceof MalumLeavesBlock).forEach(item -> {
                 MalumLeavesBlock malumLeavesBlock = (MalumLeavesBlock) ((BlockItem) item.get()).getBlock();
-                itemColors.register((s, c) -> ColorHelper.getColor(malumLeavesBlock.minColor), item.get());
+                itemColors.register((s, c) -> malumLeavesBlock.minColor.getRGB(), item.get());
             });
             DataHelper.takeAll(items, i -> i.get() instanceof EtherTorchItem || i.get() instanceof EtherBrazierItem).forEach(i -> itemColors.register((s, c) -> {
                 AbstractEtherItem etherItem = (AbstractEtherItem) s.getItem();

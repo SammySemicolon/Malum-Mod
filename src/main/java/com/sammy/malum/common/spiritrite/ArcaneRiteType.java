@@ -22,7 +22,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.PacketDistributor;
 import team.lodestar.lodestone.handlers.WorldEventHandler;
-import team.lodestar.lodestone.helpers.BlockHelper;
+import team.lodestar.lodestone.helpers.block.BlockStateHelper;
 import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntityInventory;
 
 import java.util.List;
@@ -93,7 +93,7 @@ public class ArcaneRiteType extends MalumRiteType {
                             level.addFreshEntity(new ItemEntity(level, itemPos.x, itemPos.y, itemPos.z, recipe.output.copy()));
                             MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(p)), new BlightTransformItemParticlePacket(List.of(ARCANE_SPIRIT.identifier), itemPos));
                             inventoryForAltar.getStackInSlot(0).shrink(1);
-                            BlockHelper.updateAndNotifyState(level, p);
+                            BlockStateHelper.updateAndNotifyState(level, p);
                         }
                     }
                     ItemStack stack = stateToTransmute.getBlock().asItem().getDefaultInstance();
@@ -103,7 +103,7 @@ public class ArcaneRiteType extends MalumRiteType {
                         if (output.getItem() instanceof BlockItem blockItem) {
                             Block block = blockItem.getBlock();
                             BlockEntity entity = level.getBlockEntity(posToTransmute);
-                            BlockState newState = BlockHelper.setBlockStateWithExistingProperties(level, posToTransmute, block.defaultBlockState(), 3);
+                            BlockState newState = BlockStateHelper.setBlockStateWithExistingProperties(level, posToTransmute, block.defaultBlockState(), 3);
                             level.levelEvent(2001, posToTransmute, Block.getId(newState));
                             MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(posToTransmute)), new BlockSparkleParticlePacket(ARCANE_SPIRIT.getPrimaryColor(), posToTransmute));
                             MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(posToTransmute)), new BlightMistParticlePacket(posToTransmute)); //TODO: convert these 2 into a single packet, rlly don't feel like doing it rn
