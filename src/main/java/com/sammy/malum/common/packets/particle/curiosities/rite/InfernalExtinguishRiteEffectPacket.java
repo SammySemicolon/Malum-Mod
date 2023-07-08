@@ -5,6 +5,7 @@ import net.minecraft.client.*;
 import net.minecraft.core.*;
 import net.minecraft.core.particles.*;
 import net.minecraft.network.*;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.*;
 import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.network.*;
@@ -24,7 +25,7 @@ public class InfernalExtinguishRiteEffectPacket extends BlockSparkleParticlePack
     @Override
     public void execute(Supplier<NetworkEvent.Context> context) {
         Level level = Minecraft.getInstance().level;
-        Random rand = level.random;
+        RandomSource rand = level.random;
 
         for(int i = 0; i < 8; ++i) {
             double d0 = pos.getX() + rand.nextFloat();

@@ -510,7 +510,7 @@ public class MalumRecipes extends RecipeProvider implements IConditionBuilder {
     }
 
     private void nodeSmelting(Consumer<FinishedRecipe> recipeConsumer, RegistryObject<ImpetusItem> impetus, RegistryObject<Item> node, TagKey<Item> tag) {
-        String name = node.get().getRegistryName().getPath().replaceFirst("_node", "");
+        String name = ForgeRegistries.ITEMS.getKey(node.get()).getPath().replaceFirst("_node", "");
 
         ConditionalRecipe.builder().addCondition(not(new TagEmptyCondition(tag.location().toString()))).addRecipe(
                         smeltingWithTag(new IngredientWithCount(Ingredient.of(tag), 6), Ingredient.of(node.get()), 0.25f, 200)
@@ -526,11 +526,11 @@ public class MalumRecipes extends RecipeProvider implements IConditionBuilder {
     }
 
     private static void etherBrazier(Consumer<FinishedRecipe> recipeConsumer, ItemLike output, ItemLike rock, ItemLike ether) {
-        NBTCarryRecipeBuilder.shapedRecipe(output, 2, Ingredient.of(ether)).key('#', rock).key('S', Ingredient.of(Tags.Items.RODS_WOODEN)).key('X', ether).patternLine("#X#").patternLine("S#S").addCriterion("has_ether", has(ItemRegistry.ETHER.get())).build(recipeConsumer, output.asItem().getRegistryName().getPath());
+        NBTCarryRecipeBuilder.shapedRecipe(output, 2, Ingredient.of(ether)).key('#', rock).key('S', Ingredient.of(Tags.Items.RODS_WOODEN)).key('X', ether).patternLine("#X#").patternLine("S#S").addCriterion("has_ether", has(ItemRegistry.ETHER.get())).build(recipeConsumer, ForgeRegistries.ITEMS.getKey(output.asItem()).getPath());
     }
 
     private static void etherTorch(Consumer<FinishedRecipe> recipeConsumer, ItemLike output, ItemLike ether) {
-        NBTCarryRecipeBuilder.shapedRecipe(output, 4, Ingredient.of(ether)).key('#', Ingredient.of(Tags.Items.RODS_WOODEN)).key('X', ether).patternLine("X").patternLine("#").addCriterion("has_ether", has(ItemRegistry.ETHER.get())).build(recipeConsumer, output.asItem().getRegistryName().getPath() + "_alternative");
+        NBTCarryRecipeBuilder.shapedRecipe(output, 4, Ingredient.of(ether)).key('#', Ingredient.of(Tags.Items.RODS_WOODEN)).key('X', ether).patternLine("X").patternLine("#").addCriterion("has_ether", has(ItemRegistry.ETHER.get())).build(recipeConsumer, ForgeRegistries.ITEMS.getKey(output.asItem()).getPath() + "_alternative");
     }
 
     private static void shapelessPlanks(Consumer<FinishedRecipe> recipeConsumer, ItemLike planks, TagKey<Item> input) {

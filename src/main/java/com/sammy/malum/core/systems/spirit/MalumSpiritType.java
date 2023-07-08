@@ -1,23 +1,25 @@
 package com.sammy.malum.core.systems.spirit;
 
-import com.sammy.malum.*;
-import com.sammy.malum.common.block.mana_mote.*;
-import com.sammy.malum.common.item.spirit.*;
-import com.sammy.malum.registry.common.*;
-import com.sammy.malum.registry.common.block.*;
-import net.minecraft.*;
+import com.sammy.malum.MalumMod;
+import com.sammy.malum.common.block.mana_mote.SpiritMoteBlock;
+import com.sammy.malum.common.item.spirit.SpiritShardItem;
+import com.sammy.malum.registry.common.SpiritTypeRegistry;
+import com.sammy.malum.registry.common.block.BlockRegistry;
+import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.*;
-import net.minecraft.resources.*;
-import net.minecraft.world.item.*;
-import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.state.*;
-import net.minecraft.world.level.block.state.properties.*;
-import net.minecraft.world.phys.*;
-import team.lodestar.lodestone.helpers.*;
+import net.minecraft.network.chat.Style;
+import net.minecraft.network.chat.TextColor;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Rarity;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.phys.BlockHitResult;
+import team.lodestar.lodestone.helpers.render.ColorHelper;
 
 import java.awt.*;
-import java.util.function.*;
+import java.util.function.Supplier;
 
 public class MalumSpiritType {
 
@@ -57,11 +59,11 @@ public class MalumSpiritType {
     }
 
     public Component getSpiritJarCounterComponent(int count) {
-        return new TextComponent(" " + count + " ").append(new TranslatableComponent(getSpiritDescription())).withStyle(Style.EMPTY.withColor(primaryColor.getRGB()));
+        return Component.literal(" " + count + " ").append(Component.translatable(getSpiritDescription())).withStyle(Style.EMPTY.withColor(primaryColor.getRGB()));
     }
 
     public Component getSpiritShardFlavourTextComponent(ItemStack stack) {
-        return new TranslatableComponent(getSpiritFlavourText()).withStyle(ChatFormatting.ITALIC).withStyle(Style.EMPTY.withColor(ColorHelper.darker(primaryColor, 1, 0.75f).getRGB()));
+        return Component.translatable(getSpiritFlavourText()).withStyle(ChatFormatting.ITALIC).withStyle(Style.EMPTY.withColor(ColorHelper.darker(primaryColor, 1, 0.75f).getRGB()));
     }
 
     public String getSpiritDescription() {

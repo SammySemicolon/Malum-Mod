@@ -40,7 +40,7 @@ public class SpiritHarvestHandler {
             return;
         }
         DamageSource source = event.getSource();
-        LivingEntity target = event.getEntityLiving();
+        LivingEntity target = event.getEntity();
         LivingEntity attacker = null;
         if (event.getSource().getEntity() instanceof LivingEntity directAttacker) {
             attacker = directAttacker;
@@ -49,7 +49,7 @@ public class SpiritHarvestHandler {
             attacker = target.getLastHurtByMob();
         }
         if (attacker == null && source.getMsgId().equals(DamageSourceRegistry.VOODOO_IDENTIFIER)) {
-            SpiritHelper.createSpiritEntities(event.getEntityLiving());
+            SpiritHelper.createSpiritEntities(event.getEntity());
             return;
         }
         if (attacker != null) {
@@ -145,6 +145,6 @@ public class SpiritHarvestHandler {
                 }
             }
         }
-        ItemHelper.giveItemToEntity(collector, stack);
+        ItemHelper.giveItemToEntity(stack, collector);
     }
 }

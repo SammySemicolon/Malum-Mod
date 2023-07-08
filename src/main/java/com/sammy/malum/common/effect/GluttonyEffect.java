@@ -1,7 +1,7 @@
 package com.sammy.malum.common.effect;
 
-import com.sammy.malum.registry.common.SoundRegistry;
 import com.sammy.malum.registry.common.MobEffectRegistry;
+import com.sammy.malum.registry.common.SoundRegistry;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
@@ -39,7 +39,7 @@ public class GluttonyEffect extends MobEffect {
         ItemStack stack = event.getResultStack();
         if (stack.is(GROSS_FOODS)) {
             LivingEntity entity = event.getEntity();
-            MobEffectInstance effect = entity.getEffect(MalumMobEffectRegistry.GLUTTONY.get());
+            MobEffectInstance effect = entity.getEffect(MobEffectRegistry.GLUTTONY.get());
             if (effect != null) {
                 EntityHelper.extendEffect(effect, entity, 200, 1000);
                 Level level = entity.level;

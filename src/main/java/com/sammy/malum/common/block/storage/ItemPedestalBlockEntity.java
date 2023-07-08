@@ -1,15 +1,17 @@
 package com.sammy.malum.common.block.storage;
 
-import com.sammy.malum.client.*;
-import com.sammy.malum.common.block.curiosities.spirit_altar.*;
-import com.sammy.malum.common.item.spirit.*;
-import com.sammy.malum.registry.common.block.*;
-import net.minecraft.core.*;
-import net.minecraft.world.level.block.entity.*;
-import net.minecraft.world.level.block.state.*;
-import net.minecraft.world.phys.*;
-import team.lodestar.lodestone.helpers.*;
-import team.lodestar.lodestone.systems.blockentity.*;
+import com.sammy.malum.client.ParticleEffects;
+import com.sammy.malum.common.block.curiosities.spirit_altar.IAltarProvider;
+import com.sammy.malum.common.item.spirit.SpiritShardItem;
+import com.sammy.malum.registry.common.block.BlockEntityRegistry;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
+import team.lodestar.lodestone.helpers.block.BlockPosHelper;
+import team.lodestar.lodestone.helpers.block.BlockStateHelper;
+import team.lodestar.lodestone.systems.blockentity.ItemHolderBlockEntity;
+import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntityInventory;
 
 public class ItemPedestalBlockEntity extends ItemHolderBlockEntity implements IAltarProvider {
 
@@ -22,7 +24,7 @@ public class ItemPedestalBlockEntity extends ItemHolderBlockEntity implements IA
             @Override
             public void onContentsChanged(int slot) {
                 super.onContentsChanged(slot);
-                BlockHelper.updateAndNotifyState(level, worldPosition);
+                BlockStateHelper.updateAndNotifyState(level, worldPosition);
             }
         };
     }
@@ -43,7 +45,7 @@ public class ItemPedestalBlockEntity extends ItemHolderBlockEntity implements IA
     }
 
     public Vec3 getItemPos() {
-        return BlockHelper.fromBlockPos(getBlockPos()).add(itemOffset());
+        return BlockPosHelper.fromBlockPos(getBlockPos()).add(itemOffset());
     }
 
     public Vec3 itemOffset() {

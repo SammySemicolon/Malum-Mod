@@ -16,6 +16,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import team.lodestar.lodestone.helpers.ItemHelper;
+import team.lodestar.lodestone.helpers.block.BlockStateHelper;
 import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntity;
 
 public class SoulVialBlockEntity extends LodestoneBlockEntity {
@@ -78,7 +79,7 @@ public class SoulVialBlockEntity extends LodestoneBlockEntity {
                 }
             }
             player.swing(hand, true);
-            BlockHelper.updateAndNotifyState(level, worldPosition);
+            BlockStateHelper.updateAndNotifyState(level, worldPosition);
             return InteractionResult.SUCCESS;
         }
         return super.onUse(player, hand);

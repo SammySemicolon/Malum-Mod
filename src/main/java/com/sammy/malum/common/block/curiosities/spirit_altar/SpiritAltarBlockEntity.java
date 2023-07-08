@@ -82,14 +82,14 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
             public void onContentsChanged(int slot) {
                 super.onContentsChanged(slot);
                 needsSync = true;
-                BlockHelper.updateAndNotifyState(level, worldPosition);
+                BlockStateHelper.updateAndNotifyState(level, worldPosition);
             }
         };
         extrasInventory = new LodestoneBlockEntityInventory(8, 1) {
             @Override
             public void onContentsChanged(int slot) {
                 super.onContentsChanged(slot);
-                BlockHelper.updateAndNotifyState(level, worldPosition);
+                BlockStateHelper.updateAndNotifyState(level, worldPosition);
             }
         };
         spiritInventory = new LodestoneBlockEntityInventory(SpiritTypeRegistry.SPIRITS.size(), 64) {
@@ -98,7 +98,7 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
                 super.onContentsChanged(slot);
                 needsSync = true;
                 spiritAmount = Math.max(1, Mth.lerp(0.15f, spiritAmount, nonEmptyItemAmount + 1));
-                BlockHelper.updateAndNotifyState(level, worldPosition);
+                BlockStateHelper.updateAndNotifyState(level, worldPosition);
             }
 
             @Override
@@ -135,7 +135,7 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
         if (!acceleratorPositions.isEmpty()) {
             compound.putInt("acceleratorAmount", acceleratorPositions.size());
             for (int i = 0; i < acceleratorPositions.size(); i++) {
-                BlockHelper.saveBlockPos(compound, acceleratorPositions.get(i), "" + i);
+                NBTHelper.saveBlockPos(compound, acceleratorPositions.get(i), "" + i);
             }
         }
 
@@ -155,7 +155,7 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
         accelerators.clear();
         int amount = compound.getInt("acceleratorAmount");
         for (int i = 0; i < amount; i++) {
-            BlockPos pos = BlockHelper.loadBlockPos(compound, "" + i);
+            BlockPos pos = NBTHelper.loadBlockPos(compound, "" + i);
             if (level != null && level.getBlockEntity(pos) instanceof IAltarAccelerator accelerator) {
                 acceleratorPositions.add(pos);
                 accelerators.add(accelerator);

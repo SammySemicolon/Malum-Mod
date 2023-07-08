@@ -18,6 +18,8 @@ import net.minecraftforge.common.extensions.IForgeBlock;
 
 import java.awt.*;
 
+import static com.sammy.malum.MalumMod.RANDOM;
+
 public class MalumLeavesBlock extends LeavesBlock implements IForgeBlock {
     public static final IntegerProperty COLOR = IntegerProperty.create("color", 0, 4);
     public final Color maxColor;

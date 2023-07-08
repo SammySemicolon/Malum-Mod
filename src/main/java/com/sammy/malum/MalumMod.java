@@ -47,6 +47,7 @@ public class MalumMod {
     public static final Logger LOGGER = LogManager.getLogger();
     public static final String MALUM = "malum";
     public static final ConfigGroup MALUM_CONFIG_GROUP = new ConfigGroup(MALUM, "common");
+    public static final ConfigGroup MALUM_CONFIG_GROUP_CLIENT = new ConfigGroup(MALUM, "client");
     public static final RandomSource RANDOM = RandomSource.create();
 
     public MalumMod() {

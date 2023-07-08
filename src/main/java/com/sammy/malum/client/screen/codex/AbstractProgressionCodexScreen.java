@@ -34,7 +34,7 @@ public abstract class AbstractProgressionCodexScreen extends AbstractMalumScreen
     }
 
     protected AbstractProgressionCodexScreen(int bookWidth, int bookHeight, int bookInsideWidth, int bookInsideHeight, int backgroundImageWidth, int backgroundImageHeight) {
-        super(new TranslatableComponent("malum.gui.book.title"));
+        super(Component.translatable("malum.gui.book.title"));
         this.bookWidth = bookWidth;
         this.bookHeight = bookHeight;
         this.bookInsideWidth = bookInsideWidth;

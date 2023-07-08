@@ -21,7 +21,7 @@ public class CurioHarmonyNecklace extends MalumCurioItem {
 
     public static void preventDetection(LivingEvent.LivingVisibilityEvent event) {
         if (event.getLookingEntity() instanceof LivingEntity watcher) {
-            LivingEntity target = event.getEntityLiving();
+            LivingEntity target = event.getEntity();
             if (CurioHelper.hasCurioEquipped(target, ItemRegistry.NECKLACE_OF_BLISSFUL_HARMONY.get())) {
                 MalumEntitySpiritData data = SpiritHelper.getEntitySpiritData(watcher);
                 float visibilityModifier = data == null ? 0.5f : 0.5f / (1+data.dataEntries.stream().map(s -> s.type.equals(SpiritTypeRegistry.WICKED_SPIRIT) ? 1 : 0).count());

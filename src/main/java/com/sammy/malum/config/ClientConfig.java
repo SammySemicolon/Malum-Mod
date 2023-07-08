@@ -1,12 +1,14 @@
 package com.sammy.malum.config;
 
 
-import com.sammy.malum.client.screen.codex.*;
+import com.sammy.malum.client.screen.codex.ArcanaCodexHelper;
 import net.minecraftforge.common.ForgeConfigSpec;
 import org.apache.commons.lang3.tuple.Pair;
+import team.lodestar.lodestone.systems.config.ConfigValueHolder;
 import team.lodestar.lodestone.systems.config.LodestoneConfig;
 
 import static com.sammy.malum.MalumMod.MALUM;
+import static com.sammy.malum.MalumMod.MALUM_CONFIG_GROUP_CLIENT;
 
 public class ClientConfig extends LodestoneConfig {
 
@@ -19,7 +21,7 @@ public class ClientConfig extends LodestoneConfig {
                     .define("scrollDirection", false)));
 
     public ClientConfig(ForgeConfigSpec.Builder builder) {
-        super(MALUM,"client", builder);
+        super(MALUM_CONFIG_GROUP_CLIENT, builder);
     }
 
     public static final ClientConfig INSTANCE;
