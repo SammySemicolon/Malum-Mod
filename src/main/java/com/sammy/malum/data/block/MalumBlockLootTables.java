@@ -121,11 +121,11 @@ public class MalumBlockLootTables extends LootTableProvider {
         map.forEach((loc, table) -> LootTables.validate(validationtracker, loc, table));
     }
 
-    protected static <T> T applyExplosionDecay(ItemLike p_124132_, FunctionUserBuilder<T> p_124133_) {
+    protected static <T extends FunctionUserBuilder<T>> T applyExplosionDecay(ItemLike p_124132_, FunctionUserBuilder<T> p_124133_) {
         return (T)(!EXPLOSION_RESISTANT.contains(p_124132_.asItem()) ? p_124133_.apply(ApplyExplosionDecay.explosionDecay()) : p_124133_.unwrap());
     }
 
-    protected static <T> T applyExplosionCondition(ItemLike p_124135_, ConditionUserBuilder<T> p_124136_) {
+    protected static <T extends ConditionUserBuilder<T>> T applyExplosionCondition(ItemLike p_124135_, ConditionUserBuilder<T> p_124136_) {
         return (T)(!EXPLOSION_RESISTANT.contains(p_124135_.asItem()) ? p_124136_.when(ExplosionCondition.survivesExplosion()) : p_124136_.unwrap());
     }
 

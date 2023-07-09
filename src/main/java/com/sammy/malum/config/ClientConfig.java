@@ -12,11 +12,11 @@ import static com.sammy.malum.MalumMod.MALUM_CONFIG_GROUP_CLIENT;
 
 public class ClientConfig extends LodestoneConfig {
 
-    public static ConfigValueHolder<ArcanaCodexHelper.BookTheme> BOOK_THEME = new ConfigValueHolder<>(MALUM,"client/codex", (builder ->
+    public static ConfigValueHolder<ArcanaCodexHelper.BookTheme> BOOK_THEME = new ConfigValueHolder<>(MALUM_CONFIG_GROUP_CLIENT,"client/codex", (builder ->
             builder.comment("What theme should the encyclopedia arcana be in?")
                     .defineEnum("bookTheme", ArcanaCodexHelper.BookTheme.DEFAULT)));
 
-    public static ConfigValueHolder<Boolean> SCROLL_DIRECTION = new ConfigValueHolder<>(MALUM,"client/codex", (builder ->
+    public static ConfigValueHolder<Boolean> SCROLL_DIRECTION = new ConfigValueHolder<>(MALUM_CONFIG_GROUP_CLIENT,"client/codex", (builder ->
             builder.comment("Should the scroll direction be reversed in the encyclopedia arcana entry screen? This simply affects how you move through pages in an entry.")
                     .define("scrollDirection", false)));
 
