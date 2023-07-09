@@ -1,7 +1,6 @@
 package com.sammy.malum.core.handlers;
 
 import com.sammy.malum.MalumMod;
-import com.simibubi.create.Create;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -45,7 +44,7 @@ public class MalumResourcePackHandler {
 		try {
 			Files.createDirectories(Paths.get(name));
 		} catch (IOException var2) {
-			Create.LOGGER.warn("Could not create Folder: {}", name);
+			MalumMod.LOGGER.warn("Could not create Folder: {}", name);
 		}
 
 	}
