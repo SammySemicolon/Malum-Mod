@@ -139,16 +139,15 @@ dependencies {
 //    implementation fg.deobf("com.jozufozu.flywheel:flywheel-forge-${minecraftVersion}:${flywheelVersion}")
 //    implementation fg.deobf("com.simibubi.create:create-${minecraftVersion}:${createVersion}:slim")
 
-//    implementation fg.deobf("se.mickelus.mutil:mutil:${minecraftVersion}-${mutilVersion}")
-//    implementation fg.deobf("se.mickelus.tetra:tetra:${minecraftVersion}-${tetraVersion}")
-
+    implementation fg.deobf("curse.maven:mutil-351914:3941314")
+    implementation fg.deobf("curse.maven:tetra-289712:4628304")
     // CurseMaven Deps
     implementation fg.deobf("curse.maven:supplementaries-412082:4120070")
     implementation fg.deobf("curse.maven:farmers_delight-398521:3999157")
     implementation fg.deobf("curse.maven:moonlight-499980:4096609")
     implementation fg.deobf("curse.maven:create-328085:4011414")
-//    runtimeOnly fg.deobf("curse.maven:world-stripper-250603:3921630")
-//    implementation fg.deobf("curse.maven:jeed-532286:3820697")
+    runtimeOnly fg.deobf("curse.maven:world-stripper-250603:3921630")
+    implementation fg.deobf("curse.maven:jeed-532286:4599099")
 //    implementation fg.deobf("curse.maven:quark-243121:3840125")
 //    implementation fg.deobf("curse.maven:autoreglib-250363:3642382")
 }

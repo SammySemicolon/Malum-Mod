@@ -48,7 +48,7 @@ public class WeaversWorkbenchBlockEntity extends LodestoneBlockEntity {
     @NotNull
     @Override
     public <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap) {
-        if(cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY){
+        if(cap == ForgeCapabilities.ITEM_HANDLER){
             return handler.cast();
         }
         return super.getCapability(cap);

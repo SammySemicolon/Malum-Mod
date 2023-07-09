@@ -12,7 +12,7 @@
         "type": "minecraft:crafting_shaped",
         "key": {
           "#": {
-            "item": "malum:blazing_torch"
+            "item": "malum:ether_torch"
           },
           "&": {
             "tag": "forge:nuggets/iron"

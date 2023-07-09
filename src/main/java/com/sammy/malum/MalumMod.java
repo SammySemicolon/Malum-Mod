@@ -39,7 +39,7 @@ import static com.sammy.malum.registry.common.item.EnchantmentRegistry.ENCHANTME
 import static com.sammy.malum.registry.common.item.ItemRegistry.ITEMS;
 import static com.sammy.malum.registry.common.recipe.RecipeSerializerRegistry.RECIPE_SERIALIZERS;
 import static com.sammy.malum.registry.common.recipe.RecipeTypeRegistry.RECIPE_TYPES;
-import static com.sammy.malum.registry.common.worldgen.FeatureRegistry.FEATURE_TYPES;
+import static com.sammy.malum.registry.common.worldgen.FeatureRegistry.*;
 
 @SuppressWarnings("unused")
 @Mod(MalumMod.MALUM)
@@ -69,8 +69,8 @@ public class MalumMod {
         RECIPE_TYPES.register(modBus);
         RECIPE_SERIALIZERS.register(modBus);
         FEATURE_TYPES.register(modBus);
-//        CONFIGURED_FEATURES.register(modBus);
-//        PLACED_FEATURES.register(modBus);
+        CONFIGURED_FEATURES.register(modBus);
+        PLACED_FEATURES.register(modBus);
 
         TetraCompat.init();
         FarmersDelightCompat.init();
