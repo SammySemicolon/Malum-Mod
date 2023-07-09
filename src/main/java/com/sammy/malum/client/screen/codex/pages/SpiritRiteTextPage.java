@@ -31,7 +31,7 @@ public class SpiritRiteTextPage extends BookPage {
     public void renderLeft(Minecraft minecraft, PoseStack poseStack, EntryScreen screen, float yOffset, int mouseX, int mouseY, float partialTicks, float xOffset) {
         int guiLeft = guiLeft();
         int guiTop = guiTop();
-        Component component = new TranslatableComponent(headlineTranslationKey());
+        Component component = Component.translatable(headlineTranslationKey());
         renderText(poseStack, component, guiLeft + 75 - minecraft.font.width(component.getString()) / 2, guiTop + 10);
         renderWrappingText(poseStack, translationKey(), guiLeft + 14, guiTop + 76, 126);
         renderRiteIcon(riteType, poseStack, isCorrupted(), guiLeft + 67, guiTop + 44);
@@ -41,7 +41,7 @@ public class SpiritRiteTextPage extends BookPage {
     public void renderRight(Minecraft minecraft, PoseStack poseStack, EntryScreen screen, float yOffset, int mouseX, int mouseY, float partialTicks, float xOffset) {
         int guiLeft = guiLeft();
         int guiTop = guiTop();
-        Component component = new TranslatableComponent(headlineTranslationKey());
+        Component component = Component.translatable(headlineTranslationKey());
         renderText(poseStack, component, guiLeft + 218 - minecraft.font.width(component.getString()) / 2, guiTop + 10);
         renderWrappingText(poseStack, translationKey(), guiLeft + 156, guiTop + 76, 126);
         renderRiteIcon(riteType, poseStack, isCorrupted(), guiLeft + 209, guiTop + 44);

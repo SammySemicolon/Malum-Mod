@@ -48,7 +48,7 @@ public class SpiritJarItem extends BlockItem {
             MalumSpiritType spirit = SpiritHelper.getSpiritType(pStack.getTag().getString("spirit"));
             int count = pStack.getTag().getInt("count");
             pTooltip.add(Component.translatable("malum.spirit.description.stored_spirit").withStyle(ChatFormatting.GRAY));
-            pTooltip.add(spirit.getCountComponent(count));
+            pTooltip.add(spirit.getSpiritJarCounterComponent(count));
         }
     }
 

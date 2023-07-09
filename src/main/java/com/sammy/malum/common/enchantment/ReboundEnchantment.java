@@ -28,20 +28,17 @@ public class ReboundEnchantment extends Enchantment {
     public static void onRightClickItem(PlayerInteractEvent.RightClickItem event) {
         Player player = event.getEntity();
         ItemStack stack = event.getItemStack();
-        int enchantmentLevel = EnchantmentHelper.getItemEnchantmentLevel(EnchantmentRegistry.REBOUND.get(), stack);
-        if (enchantmentLevel > 0) {
+        if (EnchantmentHelper.getItemEnchantmentLevel(EnchantmentRegistry.REBOUND.get(), stack) > 0) {
             Level level = player.level;
             if (!level.isClientSide) {
                 player.setItemInHand(event.getHand(), ItemStack.EMPTY);
-                double baseDamage = player.getAttributes().getValue(Attributes.ATTACK_DAMAGE);
-                double magicDamage = player.getAttributes().getValue(LodestoneAttributeRegistry.MAGIC_DAMAGE.get());
+                float baseDamage = (float) player.getAttributes().getValue(Attributes.ATTACK_DAMAGE);
+                float magicDamage = (float) player.getAttributes().getValue(LodestoneAttributeRegistry.MAGIC_DAMAGE.get());
 
                 int slot = event.getHand() == InteractionHand.OFF_HAND ? player.getInventory().getContainerSize() - 1 : player.getInventory().selected;
-                ScytheBoomerangEntity entity = new ScytheBoomerangEntity(level);
-                entity.setPos(player.position().x, player.position().y + player.getBbHeight() / 2f, player.position().z);
-
-                entity.setData(player, (float)baseDamage, (float)magicDamage, slot);
-                entity.getEntityData().set(ScytheBoomerangEntity.SCYTHE, stack);
+                ScytheBoomerangEntity entity = new ScytheBoomerangEntity(level, player.position().x, player.position().y + player.getBbHeight() / 2f, player.position().z);
+                entity.setData(player, baseDamage, magicDamage, slot);
+                entity.setItem(stack);
 
                 entity.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, (float) (1.5F + player.getAttributeValue(AttributeRegistry.SCYTHE_PROFICIENCY.get()) * 0.125f), 0F);
                 level.addFreshEntity(entity);

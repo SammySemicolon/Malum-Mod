@@ -10,6 +10,7 @@ import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.level.*;
 import net.minecraftforge.event.entity.living.*;
 import team.lodestar.lodestone.helpers.*;
+import team.lodestar.lodestone.helpers.render.ColorHelper;
 
 public class WickedIntentEffect extends MobEffect {
     public WickedIntentEffect() {

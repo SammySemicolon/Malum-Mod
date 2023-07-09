@@ -19,6 +19,7 @@ import net.minecraftforge.items.*;
 import net.minecraftforge.network.*;
 import org.jetbrains.annotations.*;
 import team.lodestar.lodestone.helpers.*;
+import team.lodestar.lodestone.helpers.block.BlockPosHelper;
 import team.lodestar.lodestone.systems.blockentity.*;
 
 import java.util.*;
@@ -39,7 +40,7 @@ public class WeaversWorkbenchBlockEntity extends LodestoneBlockEntity {
     public InteractionResult onUse(Player player, InteractionHand hand) {
         if (player instanceof ServerPlayer serverPlayer) {
             MenuProvider container = new SimpleMenuProvider((w, p, pl) -> new WeaversWorkbenchContainer(w, p, this), WeaversWorkbenchContainer.component);
-            NetworkHooks.openGui(serverPlayer, container, buf -> buf.writeBlockPos(this.getBlockPos()));
+            NetworkHooks.openScreen(serverPlayer, container, buf -> buf.writeBlockPos(this.getBlockPos()));
         }
         return InteractionResult.SUCCESS;
     }
@@ -99,7 +100,7 @@ public class WeaversWorkbenchBlockEntity extends LodestoneBlockEntity {
     }
 
     public Vec3 getItemPos() {
-        return BlockHelper.fromBlockPos(getBlockPos()).add(itemOffset());
+        return BlockPosHelper.fromBlockPos(getBlockPos()).add(itemOffset());
     }
 
     public Vec3 itemOffset() {

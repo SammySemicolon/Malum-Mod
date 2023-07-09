@@ -111,7 +111,7 @@ public class SpiritItemEntity extends FloatingItemEntity {
                     SpiritHarvestHandler.pickupSpirit(owner, stack);
                 }
                 else {
-                    ItemHelper.giveItemToEntity(owner, stack);
+                    ItemHelper.giveItemToEntity(stack, owner);
                 }
                 if (random.nextFloat() < 0.6f) {
                     level.playSound(null, blockPosition(), SoundRegistry.SPIRIT_PICKUP.get(), SoundSource.NEUTRAL, 0.3f, Mth.nextFloat(random, 1.1f, 2f));

@@ -5,6 +5,7 @@ import com.sammy.malum.common.block.curiosities.weeping_well.WeepingWellBlock;
 import com.sammy.malum.registry.common.block.BlockRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -48,7 +49,7 @@ public class WeepingWellFeature extends Feature<NoneFeatureConfiguration> {
         }
 
 
-        Random rand = context.random();
+        RandomSource rand = context.random();
         LodestoneBlockFiller filler = new LodestoneBlockFiller(false);
         Direction[] directions = new Direction[]{Direction.NORTH, Direction.WEST, Direction.SOUTH, Direction.EAST};
 

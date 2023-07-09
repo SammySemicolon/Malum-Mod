@@ -53,7 +53,7 @@ public class SpiritTransmutationPage extends BookPage {
     public void renderLeft(Minecraft minecraft, PoseStack poseStack, EntryScreen screen, float yOffset, int mouseX, int mouseY, float partialTicks, float xOffset) {
         int guiLeft = guiLeft();
         int guiTop = guiTop();
-        Component component = new TranslatableComponent(headlineTranslationKey());
+        Component component = Component.translatable(headlineTranslationKey());
         renderText(poseStack, component, guiLeft + 75 - minecraft.font.width(component.getString()) / 2, guiTop + 10);
         List<WrappedIngredient> copy = new ArrayList<>(itemTree);
         renderComponent(screen, poseStack, copy.remove(0), guiLeft + 67, guiTop + 44, mouseX, mouseY);
@@ -65,7 +65,7 @@ public class SpiritTransmutationPage extends BookPage {
     public void renderRight(Minecraft minecraft, PoseStack poseStack, EntryScreen screen, float yOffset, int mouseX, int mouseY, float partialTicks, float xOffset) {
         int guiLeft = guiLeft();
         int guiTop = guiTop();
-        Component component = new TranslatableComponent(headlineTranslationKey());
+        Component component = Component.translatable(headlineTranslationKey());
         renderText(poseStack, component, guiLeft + 218 - minecraft.font.width(component.getString()) / 2, guiTop + 10);
         List<WrappedIngredient> copy = new ArrayList<>(itemTree);
         renderComponent(screen, poseStack, copy.remove(0), guiLeft + 209, guiTop + 44, mouseX, mouseY);

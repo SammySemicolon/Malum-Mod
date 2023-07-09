@@ -17,7 +17,7 @@ import java.util.*;
 
 public class WeaversWorkbenchContainer extends AbstractContainerMenu {
 
-    public static final Component component = new TextComponent("Weaver's Workbench");
+    public static final Component component = Component.literal("Weaver's Workbench");
     public final WeaversWorkbenchItemHandler itemHandler;
     public final WeaversWorkbenchBlockEntity blockEntity;
 

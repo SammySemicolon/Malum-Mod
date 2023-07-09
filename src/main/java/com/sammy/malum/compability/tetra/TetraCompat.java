@@ -26,7 +26,8 @@ public class TetraCompat {
 
         static
         {
-            TetraEnchantmentHelper.registerMapping(SOUL_HUNTER_TOOL, new TetraEnchantmentHelper.EnchantmentRules(EnchantmentRegistry.SOUL_HUNTER_WEAPON, "additions/malum_something", "exclusions/malum_something"));
+            // TODO
+//            TetraEnchantmentHelper.registerMapping(SOUL_HUNTER_TOOL, new TetraEnchantmentHelper.EnchantmentRules(EnchantmentRegistry.SOUL_HUNTER_WEAPON, "additions/malum_something", "exclusions/malum_something"));
         }
         public static boolean hasSoulStrike(ItemStack stack) {
 //            if (stack.getItem() instanceof ModularItem modularItem) {
