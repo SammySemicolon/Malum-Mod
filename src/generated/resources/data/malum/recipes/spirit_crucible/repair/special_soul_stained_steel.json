@@ -1,12 +1,6 @@
 {
   "type": "malum:spirit_repair",
-<<<<<<< HEAD
-=======
-  "itemIdRegex": "",
-  "modIdRegex": "",
->>>>>>> 1.5.1-1.18.2
   "durabilityPercentage": 0.75,
-  "inputLookup": "none",
   "inputs": [
     "malum:soul_stained_steel_scythe",
     "malum:soul_stained_steel_helmet",
@@ -14,6 +8,8 @@
     "malum:soul_stained_steel_leggings",
     "malum:soul_stained_steel_boots"
   ],
+  "itemIdRegex": "",
+  "modIdRegex": "",
   "repairMaterial": {
     "count": 4,
     "item": "malum:soul_stained_steel_ingot"

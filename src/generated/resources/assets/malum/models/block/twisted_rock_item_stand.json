@@ -1,12 +1,7 @@
 {
   "parent": "malum:block/templates/template_item_stand",
   "textures": {
-<<<<<<< HEAD
-    "particle": "malum:block/twisted_rock",
-    "stand": "malum:block/twisted_rock_item_stand"
-=======
-    "stand": "malum:block/arcane_rock/twisted/twisted_rock_item_stand",
-    "particle": "malum:block/arcane_rock/twisted/twisted_rock"
->>>>>>> 1.5.1-1.18.2
+    "particle": "malum:block/arcane_rock/twisted/twisted_rock",
+    "stand": "malum:block/arcane_rock/twisted/twisted_rock_item_stand"
   }
 }

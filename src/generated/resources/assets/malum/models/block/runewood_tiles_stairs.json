@@ -1,14 +1,8 @@
 {
   "parent": "minecraft:block/stairs",
   "textures": {
-<<<<<<< HEAD
-    "bottom": "malum:block/runewood_tiles",
-    "side": "malum:block/runewood_tiles",
-    "top": "malum:block/runewood_tiles"
-=======
-    "side": "malum:block/runewood/runewood_tiles",
     "bottom": "malum:block/runewood/runewood_tiles",
+    "side": "malum:block/runewood/runewood_tiles",
     "top": "malum:block/runewood/runewood_tiles"
->>>>>>> 1.5.1-1.18.2
   }
 }

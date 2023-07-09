@@ -2,13 +2,8 @@
   "type": "malum:spirit_infusion",
   "extra_items": [
     {
-<<<<<<< HEAD
-      "count": 4,
-      "item": "malum:blazing_quartz_fragment"
-=======
-      "item": "malum:blazing_quartz",
-      "count": 1
->>>>>>> 1.5.1-1.18.2
+      "count": 1,
+      "item": "malum:blazing_quartz"
     },
     {
       "count": 1,

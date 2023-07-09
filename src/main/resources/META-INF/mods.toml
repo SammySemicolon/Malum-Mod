@@ -25,7 +25,7 @@ side = "BOTH"
 [[dependencies.malum]]
 modId = "lodestone"
 mandatory = true
-versionRange = "[1.19.2-2.0.0,)"
+versionRange = "[1.19.2-1.4.1,)"
 ordering = "NONE"
 side = "BOTH"
 [[dependencies.malum]]
@@ -37,6 +37,6 @@ side = "BOTH"
 [[dependencies.malum]]
 modId = "tetra"
 mandatory = false
-versionRange = "[FORGE-1.18.2,)"
+versionRange = "[FORGE-1.19.2,)"
 ordering = "AFTER"
 side = "BOTH"

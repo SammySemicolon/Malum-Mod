@@ -2,17 +2,8 @@
   "type": "malum:spirit_infusion",
   "extra_items": [
     {
-<<<<<<< HEAD
-      "count": 2,
-      "tag": "minecraft:soul_fire_base_blocks"
-    },
-    {
-      "count": 1,
+      "count": 4,
       "item": "malum:processed_soulstone"
-=======
-      "item": "malum:processed_soulstone",
-      "count": 4
->>>>>>> 1.5.1-1.18.2
     }
   ],
   "input": {

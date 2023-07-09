@@ -2,13 +2,8 @@
   "type": "malum:spirit_infusion",
   "extra_items": [
     {
-<<<<<<< HEAD
       "count": 6,
-      "item": "malum:iron_node"
-=======
-      "tag": "forge:ingots/iron",
-      "count": 6
->>>>>>> 1.5.1-1.18.2
+      "tag": "forge:ingots/iron"
     },
     {
       "count": 4,

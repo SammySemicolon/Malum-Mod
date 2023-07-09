@@ -1,4 +1,4 @@
-// 1.19.2	2022-12-01T16:59:25.6897337	Malum Block Transmutation Recipe Provider
+// 1.19.2	2023-07-09T16:17:30.9481994	Malum Block Transmutation Recipe Provider
 c45db7dd2ce30a63bb68bd185618b8f2b3871554 data/malum/recipes/spirit_transmutation/basalt.json
 429daaacb0d0d8af0c2fa35e403f95227c5fd21c data/malum/recipes/spirit_transmutation/blighted_soil.json
 7e2c166ed6a2b521cccd580efa14812d6ff1777d data/malum/recipes/spirit_transmutation/calcite.json
@@ -6,7 +6,6 @@ c45db7dd2ce30a63bb68bd185618b8f2b3871554 data/malum/recipes/spirit_transmutation
 24f26e65f181ece341b8817b2533dc77807b83c9 data/malum/recipes/spirit_transmutation/clay.json
 3fdb30bc0269ae1fec6bd0401fa41c911dcbc956 data/malum/recipes/spirit_transmutation/cobbled_deepslate.json
 e11337d40f1f5e5311ed7090ab6af7367b061e85 data/malum/recipes/spirit_transmutation/cobblestone.json
-30cb05f2d9b37067c1dfdb982ad7d69875820f9e data/malum/recipes/spirit_transmutation/cursed_grit.json
 9f01945420a6d2666dfe99c5bc5eea09caecdd07 data/malum/recipes/spirit_transmutation/dripstone_block.json
 8d4c342a184c0148f84a26343aeb2511903c0a89 data/malum/recipes/spirit_transmutation/dripstone_block_to_stone.json
 8849a56683c635e8086533ed90e89a071ced7ce0 data/malum/recipes/spirit_transmutation/gravel.json

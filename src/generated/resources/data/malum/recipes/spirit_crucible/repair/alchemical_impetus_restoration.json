@@ -1,15 +1,11 @@
 {
   "type": "malum:spirit_repair",
-<<<<<<< HEAD
-=======
-  "itemIdRegex": "none",
-  "modIdRegex": "",
->>>>>>> 1.5.1-1.18.2
   "durabilityPercentage": 1.0,
-  "inputLookup": "none",
   "inputs": [
     "malum:cracked_alchemical_impetus"
   ],
+  "itemIdRegex": "none",
+  "modIdRegex": "",
   "repairMaterial": {
     "count": 8,
     "item": "malum:arcane_spirit"

@@ -1,12 +1,7 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-<<<<<<< HEAD
-    "has_input": {
-=======
     "has_spool": {
-      "trigger": "minecraft:inventory_changed",
->>>>>>> 1.5.1-1.18.2
       "conditions": {
         "items": [
           {

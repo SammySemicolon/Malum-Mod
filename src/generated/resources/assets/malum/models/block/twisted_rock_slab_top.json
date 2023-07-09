@@ -1,14 +1,8 @@
 {
   "parent": "minecraft:block/slab_top",
   "textures": {
-<<<<<<< HEAD
-    "bottom": "malum:block/twisted_rock",
-    "side": "malum:block/twisted_rock",
-    "top": "malum:block/twisted_rock"
-=======
-    "side": "malum:block/arcane_rock/twisted/twisted_rock",
     "bottom": "malum:block/arcane_rock/twisted/twisted_rock",
+    "side": "malum:block/arcane_rock/twisted/twisted_rock",
     "top": "malum:block/arcane_rock/twisted/twisted_rock"
->>>>>>> 1.5.1-1.18.2
   }
 }

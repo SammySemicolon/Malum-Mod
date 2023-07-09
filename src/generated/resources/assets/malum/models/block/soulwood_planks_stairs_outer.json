@@ -1,14 +1,8 @@
 {
   "parent": "minecraft:block/outer_stairs",
   "textures": {
-<<<<<<< HEAD
-    "bottom": "malum:block/soulwood_planks",
-    "side": "malum:block/soulwood_planks",
-    "top": "malum:block/soulwood_planks"
-=======
-    "side": "malum:block/soulwood/soulwood_planks",
     "bottom": "malum:block/soulwood/soulwood_planks",
+    "side": "malum:block/soulwood/soulwood_planks",
     "top": "malum:block/soulwood/soulwood_planks"
->>>>>>> 1.5.1-1.18.2
   }
 }

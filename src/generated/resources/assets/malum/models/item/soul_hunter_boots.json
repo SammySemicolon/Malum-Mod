@@ -122,38 +122,28 @@
       }
     },
     {
-      "model": "malum:item/ancient_cloth_boots",
+      "model": "malum:item/ultrakill_v1_boots",
       "predicate": {
         "malum:item_skin": 20.0
-<<<<<<< HEAD
       }
-=======
-      },
-      "model": "malum:item/ultrakill_v1_boots"
->>>>>>> 1.5.1-1.18.2
+    },
+    {
+      "model": "malum:item/ultrakill_v2_boots",
+      "predicate": {
+        "malum:item_skin": 21.0
+      }
+    },
+    {
+      "model": "malum:item/ancient_cloth_boots",
+      "predicate": {
+        "malum:item_skin": 22.0
+      }
     },
     {
       "model": "malum:item/ancient_metal_boots",
       "predicate": {
-        "malum:item_skin": 21.0
-<<<<<<< HEAD
-      }
-=======
-      },
-      "model": "malum:item/ultrakill_v2_boots"
-    },
-    {
-      "predicate": {
-        "malum:item_skin": 22.0
-      },
-      "model": "malum:item/ancient_cloth_boots"
-    },
-    {
-      "predicate": {
         "malum:item_skin": 23.0
-      },
-      "model": "malum:item/ancient_metal_boots"
->>>>>>> 1.5.1-1.18.2
+      }
     }
   ],
   "textures": {

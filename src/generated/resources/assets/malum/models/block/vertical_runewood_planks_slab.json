@@ -1,14 +1,8 @@
 {
   "parent": "minecraft:block/slab",
   "textures": {
-<<<<<<< HEAD
-    "bottom": "malum:block/vertical_runewood_planks",
-    "side": "malum:block/vertical_runewood_planks",
-    "top": "malum:block/vertical_runewood_planks"
-=======
-    "side": "malum:block/runewood/vertical_runewood_planks",
     "bottom": "malum:block/runewood/vertical_runewood_planks",
+    "side": "malum:block/runewood/vertical_runewood_planks",
     "top": "malum:block/runewood/vertical_runewood_planks"
->>>>>>> 1.5.1-1.18.2
   }
 }

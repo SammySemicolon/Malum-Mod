@@ -1,9 +1,9 @@
 {
   "type": "minecraft:smelting",
+  "cookingtime": 200,
+  "experience": 2.0,
   "ingredient": {
     "item": "malum:block_of_cthonic_gold"
   },
-  "result": "malum:cthonic_gold",
-  "experience": 2.0,
-  "cookingtime": 200
+  "result": "malum:cthonic_gold"
 }

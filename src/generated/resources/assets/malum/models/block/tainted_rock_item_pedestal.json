@@ -1,12 +1,7 @@
 {
   "parent": "malum:block/templates/template_rock_item_pedestal",
   "textures": {
-<<<<<<< HEAD
-    "particle": "malum:block/tainted_rock",
-    "pedestal": "malum:block/tainted_rock_item_pedestal"
-=======
-    "pedestal": "malum:block/arcane_rock/tainted/tainted_rock_item_pedestal",
-    "particle": "malum:block/arcane_rock/tainted/tainted_rock"
->>>>>>> 1.5.1-1.18.2
+    "particle": "malum:block/arcane_rock/tainted/tainted_rock",
+    "pedestal": "malum:block/arcane_rock/tainted/tainted_rock_item_pedestal"
   }
 }

@@ -1,14 +1,8 @@
 {
   "parent": "minecraft:block/inner_stairs",
   "textures": {
-<<<<<<< HEAD
-    "bottom": "malum:block/polished_twisted_rock",
-    "side": "malum:block/polished_twisted_rock",
-    "top": "malum:block/polished_twisted_rock"
-=======
-    "side": "malum:block/arcane_rock/twisted/polished_twisted_rock",
     "bottom": "malum:block/arcane_rock/twisted/polished_twisted_rock",
+    "side": "malum:block/arcane_rock/twisted/polished_twisted_rock",
     "top": "malum:block/arcane_rock/twisted/polished_twisted_rock"
->>>>>>> 1.5.1-1.18.2
   }
 }

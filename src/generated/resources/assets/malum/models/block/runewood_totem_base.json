@@ -1,16 +1,9 @@
 {
   "parent": "malum:block/templates/template_totem_base",
   "textures": {
-<<<<<<< HEAD
-    "panel": "malum:block/runewood_panel",
-    "planks": "malum:block/runewood_planks",
-    "side": "malum:block/runewood_log",
-    "top": "malum:block/runewood_log_top"
-=======
-    "side": "malum:block/runewood/runewood_log",
-    "top": "malum:block/runewood/runewood_log_top",
+    "panel": "malum:block/runewood/runewood_panel",
     "planks": "malum:block/runewood/runewood_planks",
-    "panel": "malum:block/runewood/runewood_panel"
->>>>>>> 1.5.1-1.18.2
+    "side": "malum:block/runewood/runewood_log",
+    "top": "malum:block/runewood/runewood_log_top"
   }
 }

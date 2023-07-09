@@ -1,12 +1,7 @@
 {
   "parent": "minecraft:block/cube_column",
   "textures": {
-<<<<<<< HEAD
-    "end": "malum:block/stripped_runewood_log",
-    "side": "malum:block/stripped_runewood_log"
-=======
-    "side": "malum:block/runewood/stripped_runewood_log",
-    "end": "malum:block/runewood/stripped_runewood_log"
->>>>>>> 1.5.1-1.18.2
+    "end": "malum:block/runewood/stripped_runewood_log",
+    "side": "malum:block/runewood/stripped_runewood_log"
   }
 }

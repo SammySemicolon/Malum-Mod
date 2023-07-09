@@ -1,14 +1,8 @@
 {
   "parent": "minecraft:block/slab_top",
   "textures": {
-<<<<<<< HEAD
-    "bottom": "malum:block/tainted_rock",
-    "side": "malum:block/tainted_rock",
-    "top": "malum:block/tainted_rock"
-=======
-    "side": "malum:block/arcane_rock/tainted/tainted_rock",
     "bottom": "malum:block/arcane_rock/tainted/tainted_rock",
+    "side": "malum:block/arcane_rock/tainted/tainted_rock",
     "top": "malum:block/arcane_rock/tainted/tainted_rock"
->>>>>>> 1.5.1-1.18.2
   }
 }
