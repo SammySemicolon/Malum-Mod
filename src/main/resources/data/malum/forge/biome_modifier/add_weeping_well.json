@@ -1,6 +1,6 @@
 {
   "type": "forge:add_features",
   "biomes": "#minecraft:is_overworld",
-  "features": "malum:rare_earth_geode",
-  "step": "local_modifications"
+  "features": "malum:weeping_well",
+  "step": "underground_structures"
 }

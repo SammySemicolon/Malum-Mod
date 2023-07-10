@@ -39,9 +39,9 @@ import static com.sammy.malum.registry.common.item.EnchantmentRegistry.ENCHANTME
 import static com.sammy.malum.registry.common.item.ItemRegistry.ITEMS;
 import static com.sammy.malum.registry.common.recipe.RecipeSerializerRegistry.RECIPE_SERIALIZERS;
 import static com.sammy.malum.registry.common.recipe.RecipeTypeRegistry.RECIPE_TYPES;
-import static com.sammy.malum.registry.common.worldgen.FeatureRegistry.*;
-import static com.sammy.malum.registry.common.worldgen.FeatureRegistry.ConfiguredFeatures.CONFIGURED_FEATURES;
-import static com.sammy.malum.registry.common.worldgen.FeatureRegistry.PlacedFeatures.PLACED_FEATURES;
+import static com.sammy.malum.registry.common.worldgen.ConfiguredFeatureRegistry.CONFIGURED_FEATURES;
+import static com.sammy.malum.registry.common.worldgen.FeatureRegistry.FEATURE_TYPES;
+import static com.sammy.malum.registry.common.worldgen.PlacedFeatureRegistry.PLACED_FEATURES;
 
 @SuppressWarnings("unused")
 @Mod(MalumMod.MALUM)
