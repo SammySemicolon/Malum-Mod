@@ -1,16 +1,15 @@
 package com.sammy.malum.compability.create;
 
-import com.sammy.malum.registry.common.DamageSourceRegistry;
-import com.simibubi.create.content.curiosities.weapons.PotatoProjectileEntity;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.fml.ModList;
+import com.sammy.malum.registry.common.*;
+import com.simibubi.create.content.equipment.potatoCannon.*;
+import net.minecraft.world.damagesource.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.item.*;
+import net.minecraftforge.event.entity.living.*;
+import net.minecraftforge.fml.*;
 
-import static com.sammy.malum.registry.common.item.ItemRegistry.HOLY_CARAMEL;
-import static com.sammy.malum.registry.common.item.ItemRegistry.UNHOLY_CARAMEL;
+import static com.sammy.malum.registry.common.item.ItemRegistry.*;
 
 public class CreateCompat {
     public static boolean LOADED;
