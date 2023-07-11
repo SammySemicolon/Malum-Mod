@@ -1,6 +1,6 @@
 package com.sammy.malum.client.vfx.types;
 
-import com.sammy.malum.client.vfx.types.base.*;
+import com.sammy.malum.client.vfx.*;
 import net.minecraft.core.*;
 import net.minecraft.util.*;
 import net.minecraftforge.api.distmarker.*;

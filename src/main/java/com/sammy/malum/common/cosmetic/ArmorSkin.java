@@ -1,30 +1,26 @@
-package com.sammy.malum.core.systems.item;
+package com.sammy.malum.common.cosmetic;
 
-import com.sammy.malum.registry.common.ItemSkinRegistry;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.LivingEntity;
+import com.sammy.malum.registry.common.item.*;
 import net.minecraft.world.item.*;
-import team.lodestar.lodestone.systems.item.LodestoneArmorItem;
-import team.lodestar.lodestone.systems.model.LodestoneArmorModel;
+import team.lodestar.lodestone.systems.item.*;
 
 import java.util.*;
-import java.util.function.Function;
 
-public class ItemSkin {
+public class ArmorSkin {
     public static final String MALUM_SKIN_TAG = "malum:item_skin";
 
     public final Class<? extends LodestoneArmorItem> validArmorClass;
     public final Item weaveItem;
     public final int index;
 
-    public ItemSkin(Class<? extends LodestoneArmorItem> validArmorClass, Item weaveItem) {
+    public ArmorSkin(Class<? extends LodestoneArmorItem> validArmorClass, Item weaveItem) {
         this.validArmorClass = validArmorClass;
         this.weaveItem = weaveItem;
-        this.index = ItemSkinRegistry.SKINS.size();
+        this.index = ArmorSkinRegistry.SKINS.size();
     }
 
     public static String getApplicableItemSkinTag(ItemStack target, ItemStack weave) {
-        for (Map.Entry<String, ItemSkin> entry : ItemSkinRegistry.SKINS.entrySet()) {
+        for (Map.Entry<String, ArmorSkin> entry : ArmorSkinRegistry.SKINS.entrySet()) {
             if (entry.getValue().validArmorClass.isInstance(target.getItem()) && entry.getValue().weaveItem.equals(weave.getItem())) {
                 return entry.getKey();
             }
@@ -32,11 +28,11 @@ public class ItemSkin {
         return null;
     }
 
-    public static ItemSkin getAppliedItemSkin(ItemStack stack) {
-        return stack.hasTag() ? ItemSkinRegistry.SKINS.get(stack.getTag().getString(MALUM_SKIN_TAG)) : null;
+    public static ArmorSkin getAppliedItemSkin(ItemStack stack) {
+        return stack.hasTag() ? ArmorSkinRegistry.SKINS.get(stack.getTag().getString(MALUM_SKIN_TAG)) : null;
     }
 
-    public static class ItemSkinDatagenData {
+    public static class ArmorSkinDatagenData {
         public final String itemTexturePrefix;
         public final String itemModelPrefix;
         public final String helmetSuffix;
@@ -44,7 +40,7 @@ public class ItemSkin {
         public final String leggingsSuffix;
         public final String bootsSuffix;
 
-        public ItemSkinDatagenData(String itemTexturePrefix, String itemModelPrefix, String helmetSuffix, String chestplateSuffix, String leggingsSuffix, String bootsSuffix) {
+        public ArmorSkinDatagenData(String itemTexturePrefix, String itemModelPrefix, String helmetSuffix, String chestplateSuffix, String leggingsSuffix, String bootsSuffix) {
             this.itemTexturePrefix = itemTexturePrefix;
             this.itemModelPrefix = itemModelPrefix;
             this.helmetSuffix = helmetSuffix;
@@ -69,16 +65,6 @@ public class ItemSkin {
                 }
             }
             return null;
-        }
-    }
-    public static class ItemSkinRenderingData {
-
-        public final Function<LivingEntity, ResourceLocation> textureFunction;
-        public final Function<LivingEntity, LodestoneArmorModel> modelFunction;
-
-        public ItemSkinRenderingData(Function<LivingEntity, ResourceLocation> textureFunction, Function<LivingEntity, LodestoneArmorModel> modelFunction) {
-            this.textureFunction = textureFunction;
-            this.modelFunction = modelFunction;
         }
     }
 }

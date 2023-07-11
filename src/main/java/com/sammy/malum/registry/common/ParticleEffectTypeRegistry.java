@@ -1,7 +1,7 @@
 package com.sammy.malum.registry.common;
 
+import com.sammy.malum.client.vfx.*;
 import com.sammy.malum.client.vfx.types.*;
-import com.sammy.malum.client.vfx.types.base.*;
 
 import java.util.*;
 

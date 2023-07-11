@@ -1,31 +1,26 @@
 package com.sammy.malum.common.item.curiosities.armor;
 
-import com.google.common.collect.ImmutableMultimap;
-import com.sammy.malum.registry.client.ModelRegistry;
-import com.sammy.malum.core.systems.item.ItemSkin;
-import com.sammy.malum.registry.common.*;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.model.HumanoidModel;
-import net.minecraft.util.Mth;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.Attribute;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.IItemRenderProperties;
-import team.lodestar.lodestone.setup.LodestoneAttributeRegistry;
-import team.lodestar.lodestone.systems.item.LodestoneArmorItem;
-import team.lodestar.lodestone.systems.model.LodestoneArmorModel;
+import com.google.common.collect.*;
+import com.sammy.malum.common.cosmetic.*;
+import com.sammy.malum.registry.client.*;
+import com.sammy.malum.registry.common.item.*;
+import net.minecraft.client.*;
+import net.minecraft.client.model.*;
+import net.minecraft.util.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.*;
+import net.minecraft.world.item.*;
+import net.minecraftforge.api.distmarker.*;
+import net.minecraftforge.client.*;
+import team.lodestar.lodestone.setup.*;
+import team.lodestar.lodestone.systems.model.*;
 
-import java.util.UUID;
-import java.util.function.Consumer;
+import java.util.*;
+import java.util.function.*;
 
-import static com.sammy.malum.registry.common.item.ArmorTiers.ArmorTierEnum.SPIRIT_HUNTER;
+import static com.sammy.malum.registry.common.item.ArmorTiers.ArmorTierEnum.*;
 
-public class SoulHunterArmorItem extends LodestoneArmorItem {
+public class SoulHunterArmorItem extends MalumArmorItem {
     public SoulHunterArmorItem(EquipmentSlot slot, Properties builder) {
         super(SPIRIT_HUNTER, slot, builder);
     }
@@ -47,15 +42,6 @@ public class SoulHunterArmorItem extends LodestoneArmorItem {
         return "spirit_hunter_reforged";
     }
 
-    @Override
-    public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
-        ItemSkin skin = ItemSkin.getAppliedItemSkin(stack);
-        if (skin != null && entity instanceof LivingEntity livingEntity) {
-            return ItemSkinRegistry.ClientOnly.SKIN_RENDERING_DATA.get(skin).textureFunction.apply(livingEntity).toString();
-        }
-        return super.getArmorTexture(stack, entity, slot, type);
-    }
-
     @OnlyIn(Dist.CLIENT)
     @Override
     public void initializeClient(Consumer<net.minecraftforge.client.IItemRenderProperties> consumer) {
@@ -67,9 +53,11 @@ public class SoulHunterArmorItem extends LodestoneArmorItem {
                 float f1 = Mth.rotLerp(pticks, entity.yHeadRotO, entity.yHeadRot);
                 float netHeadYaw = f1 - f;
                 float netHeadPitch = Mth.lerp(pticks, entity.xRotO, entity.getXRot());
-                ItemSkin skin = ItemSkin.getAppliedItemSkin(itemStack);
-                LodestoneArmorModel model = skin != null ? ItemSkinRegistry.ClientOnly.SKIN_RENDERING_DATA.get(skin).modelFunction.apply(entity) : ModelRegistry.SOUL_HUNTER_ARMOR;
-
+                ArmorSkin skin = ArmorSkin.getAppliedItemSkin(itemStack);
+                LodestoneArmorModel model = ModelRegistry.SOUL_HUNTER_ARMOR;
+                if (skin != null) {
+                    model = ArmorSkinRegistry.ClientOnly.SKIN_RENDERING_DATA.get(skin).getModel(entity);
+                }
                 model.slot = slot;
                 model.copyFromDefault(_default);
                 model.setupAnim(entity, entity.animationPosition, entity.animationSpeed, entity.tickCount + pticks, netHeadYaw, netHeadPitch);

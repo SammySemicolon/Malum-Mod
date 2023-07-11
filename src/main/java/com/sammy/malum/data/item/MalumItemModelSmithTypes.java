@@ -1,7 +1,7 @@
 package com.sammy.malum.data.item;
 
-import com.sammy.malum.core.systems.item.*;
-import com.sammy.malum.registry.common.*;
+import com.sammy.malum.common.cosmetic.*;
+import com.sammy.malum.registry.common.item.*;
 import net.minecraft.resources.*;
 import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.systems.datagen.itemsmith.*;
@@ -60,17 +60,17 @@ public class MalumItemModelSmithTypes {
     public static ItemModelSmith ARMOR_ITEM = new ItemModelSmith((item, provider) -> {
         String name = provider.getItemName(item);
         provider.createGenericModel(item, GENERATED, provider.getItemTexture(name));
-        for (Map.Entry<String, ItemSkin> entry : ItemSkinRegistry.SKINS.entrySet()) {
-            ItemSkin skin = entry.getValue();
+        for (Map.Entry<String, ArmorSkin> entry : ArmorSkinRegistry.SKINS.entrySet()) {
+            ArmorSkin skin = entry.getValue();
             int value = skin.index;
-            ItemSkin.ItemSkinDatagenData datagenData = ItemSkinRegistry.SKIN_DATAGEN_DATA.get(skin);
+            ArmorSkin.ArmorSkinDatagenData datagenData = ArmorSkinRegistry.SKIN_DATAGEN_DATA.get(skin);
             if (datagenData == null) {
                 continue;
             }
             String itemSuffix = datagenData.getSuffix((LodestoneArmorItem) item);
             ResourceLocation itemTexturePath = new ResourceLocation(datagenData.itemTexturePrefix + itemSuffix);
             provider.getBuilder(item.getRegistryName().getPath()).override()
-                    .predicate(new ResourceLocation(ItemSkin.MALUM_SKIN_TAG), value)
+                    .predicate(new ResourceLocation(ArmorSkin.MALUM_SKIN_TAG), value)
                     .model(provider.withExistingParent(entry.getKey() + "_" + itemSuffix, GENERATED).texture("layer0", itemTexturePath))
                     .end();
         }

@@ -6,7 +6,7 @@ import com.sammy.malum.common.item.curiosities.weapons.*;
 import com.sammy.malum.common.item.ether.*;
 import com.sammy.malum.common.item.impetus.*;
 import com.sammy.malum.common.item.spirit.*;
-import com.sammy.malum.registry.common.*;
+import com.sammy.malum.registry.common.item.*;
 import net.minecraft.core.*;
 import net.minecraft.data.*;
 import net.minecraft.world.item.*;
@@ -31,7 +31,7 @@ public class MalumItemModels extends LodestoneItemModelProvider {
 
     @Override
     protected void registerModels() {
-        ItemSkinRegistry.registerItemSkins(null);
+        ArmorSkinRegistry.registerItemSkins(null);
         Set<Supplier<Item>> items = new HashSet<>(ITEMS.getEntries());
 
         items.removeIf(i -> i.get() instanceof BlockItem);

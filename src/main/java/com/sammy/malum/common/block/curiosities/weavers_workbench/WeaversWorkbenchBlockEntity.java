@@ -23,7 +23,7 @@ import team.lodestar.lodestone.systems.blockentity.*;
 
 import java.util.*;
 
-import static com.sammy.malum.core.systems.item.ItemSkin.*;
+import static com.sammy.malum.common.cosmetic.ArmorSkin.*;
 import static com.sammy.malum.registry.common.PacketRegistry.*;
 import static com.sammy.malum.registry.common.SpiritTypeRegistry.*;
 

@@ -1,7 +1,6 @@
 package com.sammy.malum.common.packets;
 
 import com.sammy.malum.client.vfx.*;
-import com.sammy.malum.client.vfx.types.base.*;
 import com.sammy.malum.registry.common.*;
 import net.minecraft.client.*;
 import net.minecraft.client.multiplayer.*;

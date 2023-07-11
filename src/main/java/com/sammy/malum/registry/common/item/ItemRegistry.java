@@ -4,6 +4,7 @@ import com.sammy.malum.*;
 import com.sammy.malum.common.block.curiosities.obelisk.*;
 import com.sammy.malum.common.block.curiosities.spirit_crucible.*;
 import com.sammy.malum.common.block.nature.*;
+import com.sammy.malum.common.cosmetic.*;
 import com.sammy.malum.common.item.*;
 import com.sammy.malum.common.item.cosmetic.*;
 import com.sammy.malum.common.item.curiosities.*;
@@ -17,7 +18,6 @@ import com.sammy.malum.common.item.food.*;
 import com.sammy.malum.common.item.impetus.*;
 import com.sammy.malum.common.item.spirit.*;
 import com.sammy.malum.compability.farmersdelight.*;
-import com.sammy.malum.core.systems.item.*;
 import com.sammy.malum.registry.common.*;
 import com.sammy.malum.registry.common.block.*;
 import com.sammy.malum.registry.common.entity.*;
@@ -570,17 +570,17 @@ public class ItemRegistry {
                     return -1;
                 }
                 CompoundTag nbt = stack.getTag();
-                if (!nbt.contains(ItemSkin.MALUM_SKIN_TAG)) {
+                if (!nbt.contains(ArmorSkin.MALUM_SKIN_TAG)) {
                     return -1;
                 }
-                ItemSkin itemSkin = ItemSkinRegistry.SKINS.get(nbt.getString(ItemSkin.MALUM_SKIN_TAG));
-                if (itemSkin == null) {
+                ArmorSkin armorSkin = ArmorSkinRegistry.SKINS.get(nbt.getString(ArmorSkin.MALUM_SKIN_TAG));
+                if (armorSkin == null) {
                     return -1;
                 }
-                return itemSkin.index;
+                return armorSkin.index;
             };
             for (LodestoneArmorItem armor : armors) {
-                ItemProperties.register(armor, new ResourceLocation(ItemSkin.MALUM_SKIN_TAG), itemPropertyFunction);
+                ItemProperties.register(armor, new ResourceLocation(ArmorSkin.MALUM_SKIN_TAG), itemPropertyFunction);
             }
         }
 
