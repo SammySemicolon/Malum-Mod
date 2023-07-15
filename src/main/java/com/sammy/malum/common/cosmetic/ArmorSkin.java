@@ -1,23 +1,30 @@
 package com.sammy.malum.common.cosmetic;
 
+import com.sammy.malum.client.cosmetic.*;
 import com.sammy.malum.registry.common.item.*;
 import net.minecraft.world.item.*;
+import net.minecraftforge.api.distmarker.*;
 import team.lodestar.lodestone.systems.item.*;
 
 import java.util.*;
 
-public class ArmorSkin {
+public abstract class ArmorSkin {
     public static final String MALUM_SKIN_TAG = "malum:item_skin";
 
+    public final String id;
     public final Class<? extends LodestoneArmorItem> validArmorClass;
     public final Item weaveItem;
     public final int index;
 
-    public ArmorSkin(Class<? extends LodestoneArmorItem> validArmorClass, Item weaveItem) {
+    public ArmorSkin(String id, Class<? extends LodestoneArmorItem> validArmorClass, Item weaveItem) {
+        this.id = id;
         this.validArmorClass = validArmorClass;
         this.weaveItem = weaveItem;
         this.index = ArmorSkinRegistry.SKINS.size();
     }
+
+    @OnlyIn(Dist.CLIENT)
+    public abstract ArmorSkinRenderingData getRenderingData();
 
     public static String getApplicableItemSkinTag(ItemStack target, ItemStack weave) {
         for (Map.Entry<String, ArmorSkin> entry : ArmorSkinRegistry.SKINS.entrySet()) {

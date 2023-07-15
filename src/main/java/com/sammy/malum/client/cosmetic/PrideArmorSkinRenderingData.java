@@ -13,8 +13,8 @@ public class PrideArmorSkinRenderingData extends ArmorSkinRenderingData {
     private final ResourceLocation standardTexture;
 
     public PrideArmorSkinRenderingData(String type) {
-        this.slimTexture = malumPath("textures/armor/cosmetic/pride/" + type + "_slim.png");
-        this.standardTexture = malumPath("textures/armor/cosmetic/pride/" + type + ".png");
+        this.slimTexture = malumPath("textures/armor/cosmetic/pride/" + type + "_drip_slim.png");
+        this.standardTexture = malumPath("textures/armor/cosmetic/pride/" + type + "_drip.png");
     }
     @Override
     public ResourceLocation getTexture(LivingEntity livingEntity, boolean slim) {

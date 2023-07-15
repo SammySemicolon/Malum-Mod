@@ -1,9 +1,9 @@
 package com.sammy.malum.common.item.curiosities.armor;
 
 import com.google.common.collect.*;
+import com.sammy.malum.client.cosmetic.*;
 import com.sammy.malum.common.cosmetic.*;
 import com.sammy.malum.registry.client.*;
-import com.sammy.malum.registry.common.item.*;
 import net.minecraft.client.*;
 import net.minecraft.client.model.*;
 import net.minecraft.util.*;
@@ -56,7 +56,7 @@ public class SoulHunterArmorItem extends MalumArmorItem {
                 ArmorSkin skin = ArmorSkin.getAppliedItemSkin(itemStack);
                 LodestoneArmorModel model = ModelRegistry.SOUL_HUNTER_ARMOR;
                 if (skin != null) {
-                    model = ArmorSkinRegistry.ClientOnly.SKIN_RENDERING_DATA.get(skin).getModel(entity);
+                    model = ArmorSkinRenderingData.RENDERING_DATA.apply(skin).getModel(entity);
                 }
                 model.slot = slot;
                 model.copyFromDefault(_default);

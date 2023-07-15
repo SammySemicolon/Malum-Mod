@@ -1,20 +1,17 @@
 package com.sammy.malum.registry.common.item;
 
 import com.sammy.malum.*;
-import com.sammy.malum.client.cosmetic.*;
 import com.sammy.malum.common.cosmetic.*;
+import com.sammy.malum.common.cosmetic.ancient.*;
+import com.sammy.malum.common.cosmetic.risk_of_rain.*;
 import com.sammy.malum.common.item.curiosities.armor.*;
-import com.sammy.malum.registry.client.*;
 import net.minecraft.world.item.*;
 import net.minecraftforge.data.loading.*;
 import net.minecraftforge.eventbus.api.*;
 import net.minecraftforge.fml.common.*;
 import net.minecraftforge.fml.event.lifecycle.*;
-import team.lodestar.lodestone.systems.item.*;
 
 import java.util.*;
-
-import static com.sammy.malum.MalumMod.*;
 
 @Mod.EventBusSubscriber(modid = MalumMod.MALUM, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ArmorSkinRegistry {
@@ -25,11 +22,6 @@ public class ArmorSkinRegistry {
     @SubscribeEvent
     public static void wipeCache(InterModEnqueueEvent event) {
         SKIN_DATAGEN_DATA = null;
-    }
-
-    @SubscribeEvent
-    public static void registerRenderingData(FMLClientSetupEvent event) {
-        ClientOnly.addRenderingData();
     }
 
     @SubscribeEvent
@@ -53,48 +45,42 @@ public class ArmorSkinRegistry {
         registerPridewear("pride", ItemRegistry.PRIDE_PRIDEWEAVE.get());
         registerPridewear("trans", ItemRegistry.TRANS_PRIDEWEAVE.get());
 
-        registerItemSkin("executioner_drip",
-                new ArmorSkin(LodestoneArmorItem.class, ItemRegistry.DREADED_WEAVE.get()),
+        registerItemSkin(new ExecutionerArmorSkin("executioner_drip", MalumArmorItem.class, ItemRegistry.DREADED_WEAVE.get()),
                 new ArmorSkin.ArmorSkinDatagenData(
                         "malum:item/cosmetic/armor_icons/executioner_",
                         "malum:models/item/executioner_",
                         "visor", "chestplate", "leggings", "boots"
                 ));
 
-        registerItemSkin("commando_drip",
-                new ArmorSkin(LodestoneArmorItem.class, ItemRegistry.CORNERED_WEAVE.get()),
+        registerItemSkin(new CommandoArmorSkin("commando_drip", MalumArmorItem.class, ItemRegistry.CORNERED_WEAVE.get()),
                 new ArmorSkin.ArmorSkinDatagenData(
                         "malum:item/cosmetic/armor_icons/commando_",
                         "malum:models/item/commando_",
                         "visor", "chestplate", "leggings", "boots"
                 ));
 
-        registerItemSkin("ultrakill_v1",
-                new ArmorSkin(LodestoneArmorItem.class, ItemRegistry.MECHANICAL_WEAVE_V1.get()),
+        registerItemSkin(new UltrakillArmorSkin("ultrakill_v1", MalumArmorItem.class, ItemRegistry.MECHANICAL_WEAVE_V1.get()),
                 new ArmorSkin.ArmorSkinDatagenData(
                         "malum:item/cosmetic/armor_icons/v1_",
                         "malum:models/item/v1_",
                         "visor", "chestplate", "leggings", "boots"
                 ));
 
-        registerItemSkin("ultrakill_v2",
-                new ArmorSkin(LodestoneArmorItem.class, ItemRegistry.MECHANICAL_WEAVE_V2.get()),
+        registerItemSkin(new UltrakillArmorSkin("ultrakill_v2", MalumArmorItem.class, ItemRegistry.MECHANICAL_WEAVE_V2.get()),
                 new ArmorSkin.ArmorSkinDatagenData(
                         "malum:item/cosmetic/armor_icons/v2_",
                         "malum:models/item/v2_",
                         "visor", "chestplate", "leggings", "boots"
                 ));
 
-        registerItemSkin("ancient_cloth",
-                new ArmorSkin(SoulHunterArmorItem.class, ItemRegistry.ANCIENT_WEAVE.get()),
+        registerItemSkin(new AncientClothArmorSkin("ancient_cloth", ItemRegistry.ANCIENT_WEAVE.get()),
                 new ArmorSkin.ArmorSkinDatagenData(
                         "malum:item/cosmetic/armor_icons/ancient_soul_hunter_",
                         "malum:models/item/ancient_soul_hunter_",
                         "cloak", "robe", "leggings", "boots"
                 ));
 
-        registerItemSkin("ancient_metal",
-                new ArmorSkin(SoulStainedSteelArmorItem.class, ItemRegistry.ANCIENT_WEAVE.get()),
+        registerItemSkin(new AncientMetalArmorSkin("ancient_metal", ItemRegistry.ANCIENT_WEAVE.get()),
                 new ArmorSkin.ArmorSkinDatagenData(
                         "malum:item/cosmetic/armor_icons/ancient_soul_stained_steel_",
                         "malum:models/item/ancient_soul_stained_steel_",
@@ -107,85 +93,19 @@ public class ArmorSkinRegistry {
         return skin;
     }
 
-    public static ArmorSkin registerItemSkin(String tag, ArmorSkin skin, ArmorSkin.ArmorSkinDatagenData datagenData) {
+    public static void registerItemSkin(ArmorSkin skin, ArmorSkin.ArmorSkinDatagenData datagenData) {
         if (DatagenModLoader.isRunningDataGen()) {
             SKIN_DATAGEN_DATA.put(skin, datagenData);
         }
-        return registerItemSkin(tag, skin);
+        registerItemSkin(skin.id, skin);
     }
 
     public static void registerPridewear(String tag, Item prideweave) {
-        String drip = tag + "_drip";
-        registerItemSkin(drip,
-                new PrideArmorSkin(LodestoneArmorItem.class, prideweave),
+        registerItemSkin(new PrideArmorSkin(tag, MalumArmorItem.class, prideweave),
                 new ArmorSkin.ArmorSkinDatagenData(
                         "malum:item/cosmetic/armor_icons/pride/" + tag + "_",
                         "malum:models/item/pridewear" + tag + "_",
                         "beanie", "hoodie", "shorts", "socks"
                 ));
-    }
-
-    public static class ClientOnly {
-        public static Map<ArmorSkin, ArmorSkinRenderingData> SKIN_RENDERING_DATA = new HashMap<>();
-
-        public static void addRenderingData() {
-            registerPridewearRenderingData("ace");
-            registerPridewearRenderingData("agender");
-            registerPridewearRenderingData("aro");
-            registerPridewearRenderingData("aroace");
-            registerPridewearRenderingData("bi");
-            registerPridewearRenderingData("demiboy");
-            registerPridewearRenderingData("demigirl");
-            registerPridewearRenderingData("enby");
-            registerPridewearRenderingData("gay");
-            registerPridewearRenderingData("genderfluid");
-            registerPridewearRenderingData("genderqueer");
-            registerPridewearRenderingData("intersex");
-            registerPridewearRenderingData("lesbian");
-            registerPridewearRenderingData("pan");
-            registerPridewearRenderingData("plural");
-            registerPridewearRenderingData("poly");
-            registerPridewearRenderingData("pride");
-            registerPridewearRenderingData("trans");
-
-            registerItemSkinRenderingData("executioner_drip", new SimpleArmorSkinRenderingData(
-                    malumPath("textures/armor/cosmetic/starstorm_executioner.png"),
-                    ModelRegistry.EXECUTIONER
-            ));
-
-            registerItemSkinRenderingData("commando_drip", new SimpleArmorSkinRenderingData(
-                    malumPath("textures/armor/cosmetic/commando.png"),
-                    ModelRegistry.COMMANDO
-            ));
-
-            registerItemSkinRenderingData("ultrakill_v1", new SimpleArmorSkinRenderingData(
-                    malumPath("textures/armor/cosmetic/v1.png"),
-                    ModelRegistry.ULTRAKILL_MACHINE
-            ));
-
-            registerItemSkinRenderingData("ultrakill_v2", new SimpleArmorSkinRenderingData(
-                    malumPath("textures/armor/cosmetic/v2.png"),
-                    ModelRegistry.ULTRAKILL_MACHINE
-            ));
-
-            registerItemSkinRenderingData("ancient_cloth", new SimpleArmorSkinRenderingData(
-                    malumPath("textures/armor/cosmetic/ancient_soul_hunter.png"),
-                    ModelRegistry.ANCIENT_SOUL_HUNTER_ARMOR
-            ));
-
-            registerItemSkinRenderingData("ancient_metal", new SimpleArmorSkinRenderingData(
-                    malumPath("textures/armor/cosmetic/ancient_soul_stained_steel.png"),
-                    ModelRegistry.ANCIENT_SOUL_STAINED_STEEL_ARMOR
-            ));
-        }
-
-        public static void registerPridewearRenderingData(String tag) {
-            String drip = tag + "_drip";
-            registerItemSkinRenderingData(drip, new PrideArmorSkinRenderingData(drip));
-        }
-
-        public static void registerItemSkinRenderingData(String tag, ArmorSkinRenderingData data) {
-            SKIN_RENDERING_DATA.put(SKINS.get(tag), data);
-        }
     }
 }
