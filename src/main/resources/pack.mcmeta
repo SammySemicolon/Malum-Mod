@@ -1,6 +1,8 @@
 {
     "pack": {
-        "description": "malum resources",
-        "pack_format": 12
+        "description": {
+            "text": "${modId} resources"
+        },
+        "pack_format": 15
     }
 }
