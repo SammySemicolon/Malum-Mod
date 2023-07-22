@@ -1,7 +1,7 @@
 package com.sammy.malum.data.item;
 
 import com.sammy.malum.*;
-import com.sammy.malum.common.item.cosmetic.*;
+import com.sammy.malum.common.item.cosmetic.weaves.*;
 import com.sammy.malum.common.item.curiosities.weapons.*;
 import com.sammy.malum.common.item.ether.*;
 import com.sammy.malum.common.item.impetus.*;

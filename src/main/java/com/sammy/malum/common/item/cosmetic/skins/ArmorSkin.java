@@ -1,4 +1,4 @@
-package com.sammy.malum.common.cosmetic;
+package com.sammy.malum.common.item.cosmetic.skins;
 
 import com.sammy.malum.client.cosmetic.*;
 import com.sammy.malum.registry.common.item.*;

@@ -1,7 +1,7 @@
-package com.sammy.malum.common.cosmetic.risk_of_rain;
+package com.sammy.malum.common.item.cosmetic.skins.risk_of_rain;
 
 import com.sammy.malum.client.cosmetic.*;
-import com.sammy.malum.common.cosmetic.*;
+import com.sammy.malum.common.item.cosmetic.skins.*;
 import com.sammy.malum.registry.client.*;
 import net.minecraft.world.item.*;
 import net.minecraftforge.api.distmarker.*;

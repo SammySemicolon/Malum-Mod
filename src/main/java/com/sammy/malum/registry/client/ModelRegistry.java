@@ -1,10 +1,7 @@
 package com.sammy.malum.registry.client;
 
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.client.model.HeadOverlayModel;
-import com.sammy.malum.client.model.SoulHunterArmorModel;
-import com.sammy.malum.client.model.SoulStainedSteelArmorModel;
-import com.sammy.malum.client.model.TailModel;
+import com.sammy.malum.client.model.*;
 import com.sammy.malum.client.model.cosmetic.*;
 import com.sammy.malum.client.model.cosmetic.ancient.AncientSoulHunterArmorModel;
 import com.sammy.malum.client.model.cosmetic.ancient.AncientSoulStainedSteelArmorModel;
@@ -38,7 +35,9 @@ public class ModelRegistry {
     public static PridewearArmorModel PRIDEWEAR;
     public static SlimPridewearArmorModel SLIM_PRIDEWEAR;
 
+    public static TopHatModel TOP_HAT;
     public static TailModel TAIL_MODEL;
+
     public static HeadOverlayModel HEAD_OVERLAY_MODEL;
     public static ScarfModel SCARF;
 
@@ -60,7 +59,9 @@ public class ModelRegistry {
         event.registerLayerDefinition(PridewearArmorModel.LAYER, PridewearArmorModel::createBodyLayer);
         event.registerLayerDefinition(SlimPridewearArmorModel.LAYER, SlimPridewearArmorModel::createBodyLayer);
 
+        event.registerLayerDefinition(TopHatModel.LAYER, TopHatModel::createBodyLayer);
         event.registerLayerDefinition(TailModel.LAYER, TailModel::createBodyLayer);
+
         event.registerLayerDefinition(HeadOverlayModel.LAYER, HeadOverlayModel::createBodyLayer);
         event.registerLayerDefinition(ScarfModel.LAYER, ScarfModel::createBodyLayer);
     }
@@ -83,7 +84,9 @@ public class ModelRegistry {
         PRIDEWEAR = new PridewearArmorModel(event.getEntityModels().bakeLayer(PridewearArmorModel.LAYER));
         SLIM_PRIDEWEAR = new SlimPridewearArmorModel(event.getEntityModels().bakeLayer(SlimPridewearArmorModel.LAYER));
 
+        TOP_HAT = new TopHatModel(event.getEntityModels().bakeLayer(TopHatModel.LAYER));
         TAIL_MODEL = new TailModel(event.getEntityModels().bakeLayer(TailModel.LAYER));
+
         HEAD_OVERLAY_MODEL = new HeadOverlayModel(event.getEntityModels().bakeLayer(HeadOverlayModel.LAYER));
         SCARF = new ScarfModel(event.getEntityModels().bakeLayer(ScarfModel.LAYER));
     }

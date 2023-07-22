@@ -1,9 +1,9 @@
 package com.sammy.malum.registry.common.item;
 
 import com.sammy.malum.*;
-import com.sammy.malum.common.cosmetic.*;
-import com.sammy.malum.common.cosmetic.ancient.*;
-import com.sammy.malum.common.cosmetic.risk_of_rain.*;
+import com.sammy.malum.common.item.cosmetic.skins.*;
+import com.sammy.malum.common.item.cosmetic.skins.ancient.*;
+import com.sammy.malum.common.item.cosmetic.skins.risk_of_rain.*;
 import com.sammy.malum.common.item.curiosities.armor.*;
 import net.minecraft.world.item.*;
 import net.minecraftforge.data.loading.*;

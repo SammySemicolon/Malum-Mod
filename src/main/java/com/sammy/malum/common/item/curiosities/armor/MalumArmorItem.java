@@ -1,7 +1,7 @@
 package com.sammy.malum.common.item.curiosities.armor;
 
 import com.sammy.malum.client.cosmetic.*;
-import com.sammy.malum.common.cosmetic.*;
+import com.sammy.malum.common.item.cosmetic.skins.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.item.*;
 import team.lodestar.lodestone.systems.item.*;

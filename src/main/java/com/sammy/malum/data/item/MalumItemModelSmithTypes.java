@@ -1,6 +1,6 @@
 package com.sammy.malum.data.item;
 
-import com.sammy.malum.common.cosmetic.*;
+import com.sammy.malum.common.item.cosmetic.skins.*;
 import com.sammy.malum.registry.common.item.*;
 import net.minecraft.resources.*;
 import team.lodestar.lodestone.helpers.*;

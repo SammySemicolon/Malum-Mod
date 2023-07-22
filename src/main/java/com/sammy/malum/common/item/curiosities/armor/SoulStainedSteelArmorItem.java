@@ -2,7 +2,7 @@ package com.sammy.malum.common.item.curiosities.armor;
 
 import com.google.common.collect.*;
 import com.sammy.malum.client.cosmetic.*;
-import com.sammy.malum.common.cosmetic.*;
+import com.sammy.malum.common.item.cosmetic.skins.*;
 import com.sammy.malum.registry.client.*;
 import com.sammy.malum.registry.common.*;
 import net.minecraft.client.*;

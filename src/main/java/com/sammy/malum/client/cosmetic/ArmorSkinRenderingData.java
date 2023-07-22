@@ -1,6 +1,6 @@
 package com.sammy.malum.client.cosmetic;
 
-import com.sammy.malum.common.cosmetic.*;
+import com.sammy.malum.common.item.cosmetic.skins.*;
 import net.minecraft.*;
 import net.minecraft.client.player.*;
 import net.minecraft.resources.*;

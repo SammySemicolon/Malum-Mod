@@ -1,4 +1,4 @@
-package com.sammy.malum.common.item.cosmetic;
+package com.sammy.malum.common.item.cosmetic.weaves;
 
 import net.minecraft.world.item.Item;
 
