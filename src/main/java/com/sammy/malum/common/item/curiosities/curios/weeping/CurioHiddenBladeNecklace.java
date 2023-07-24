@@ -8,7 +8,7 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.item.*;
 import net.minecraftforge.event.entity.living.*;
 
-public class CurioHiddenBladeNecklace extends MalumCurioItem implements IMalumEventResponderItem {
+public class CurioHiddenBladeNecklace extends MalumCurioItem implements IMalumEventResponderItem, IVoidItem {
     public CurioHiddenBladeNecklace(Properties builder) {
         super(builder, MalumTrinketType.VOID);
     }

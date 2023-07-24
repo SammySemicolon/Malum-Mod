@@ -27,15 +27,17 @@ public class SpiritInfusionRecipe extends ILodestoneRecipe {
     private final ResourceLocation id;
 
     public final IngredientWithCount input;
+    public final boolean useNbtFromInput;
 
     public final ItemStack output;
 
     public final List<SpiritWithCount> spirits;
     public final List<IngredientWithCount> extraItems;
 
-    public SpiritInfusionRecipe(ResourceLocation id, IngredientWithCount input, ItemStack output, List<SpiritWithCount> spirits, List<IngredientWithCount> extraItems) {
+    public SpiritInfusionRecipe(ResourceLocation id, IngredientWithCount input, boolean useNbtFromInput, ItemStack output, List<SpiritWithCount> spirits, List<IngredientWithCount> extraItems) {
         this.id = id;
         this.input = input;
+        this.useNbtFromInput = useNbtFromInput;
         this.output = output;
         this.spirits = spirits;
         this.extraItems = extraItems;
@@ -121,7 +123,7 @@ public class SpiritInfusionRecipe extends ILodestoneRecipe {
         public SpiritInfusionRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
             JsonObject inputObject = json.getAsJsonObject("input");
             IngredientWithCount input = IngredientWithCount.deserialize(inputObject);
-
+            boolean useNbtFromInput = !json.has("useNbtFromInput") || json.getAsJsonPrimitive("useNbtFromInput").getAsBoolean();
             JsonObject outputObject = json.getAsJsonObject("output");
             ItemStack output = CraftingHelper.getItemStack(outputObject, true);
             JsonArray extraItemsArray = json.getAsJsonArray("extra_items");
@@ -140,13 +142,14 @@ public class SpiritInfusionRecipe extends ILodestoneRecipe {
             if (spirits.isEmpty()) {
                 return null;
             }
-            return new SpiritInfusionRecipe(recipeId, input, output, spirits, extraItems);
+            return new SpiritInfusionRecipe(recipeId, input, useNbtFromInput, output, spirits, extraItems);
         }
 
         @Nullable
         @Override
         public SpiritInfusionRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
             IngredientWithCount input = IngredientWithCount.read(buffer);
+            boolean useNbtFromInput = buffer.readBoolean();
             ItemStack output = buffer.readItem();
             int extraItemCount = buffer.readInt();
             List<IngredientWithCount> extraItems = new ArrayList<>();
@@ -158,12 +161,13 @@ public class SpiritInfusionRecipe extends ILodestoneRecipe {
             for (int i = 0; i < spiritCount; i++) {
                 spirits.add(new SpiritWithCount(buffer.readItem()));
             }
-            return new SpiritInfusionRecipe(recipeId, input, output, spirits, extraItems);
+            return new SpiritInfusionRecipe(recipeId, input, useNbtFromInput, output, spirits, extraItems);
         }
 
         @Override
         public void toNetwork(FriendlyByteBuf buffer, SpiritInfusionRecipe recipe) {
             recipe.input.write(buffer);
+            buffer.writeBoolean(recipe.useNbtFromInput);
             buffer.writeItem(recipe.output);
             buffer.writeInt(recipe.extraItems.size());
             for (IngredientWithCount item : recipe.extraItems) {

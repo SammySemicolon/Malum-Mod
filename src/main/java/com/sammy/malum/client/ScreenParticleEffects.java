@@ -2,6 +2,7 @@ package com.sammy.malum.client;
 
 import com.sammy.malum.common.item.ether.*;
 import net.minecraft.client.*;
+import net.minecraft.util.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import team.lodestar.lodestone.setup.*;
@@ -46,19 +47,39 @@ public class ScreenParticleEffects {
     }
 
     public static void spawnVoidItemScreenParticles(ScreenParticleHolder target, Level level, float partialTick) {
+        float multiplier = Mth.nextFloat(level.random, 0.4f, 1.2f);
+        float timeMultiplier = Mth.nextFloat(level.random, 0.9f, 1.4f);
+        Color color = new Color((int)(31*multiplier), (int)(19*multiplier), (int)(31*multiplier));
+        Color endColor = new Color((int)(111*multiplier), (int)(31*multiplier), (int)(121*multiplier));
         float gameTime = level.getGameTime() + partialTick;
-        final SpinParticleData.SpinParticleDataBuilder spinDataBuilder = SpinParticleData.create(0, 1).setSpinOffset(0.025f * gameTime % 6.28f).setEasing(Easing.EXPO_IN_OUT);
-        ScreenParticleBuilder.create(LodestoneScreenParticleRegistry.SMOKE, target)
-                .setTransparencyData(GenericParticleData.create(0.11f, 0f).setEasing(Easing.QUINTIC_IN).build())
-                .setScaleData(GenericParticleData.create((float) (0.75f + Math.sin(gameTime * 0.05f) * 0.125f), 0).build())
-                .setColorData(ColorParticleData.create(Color.BLACK, Color.BLACK).setCoefficient(1.25f).build())
-                .setSpinData(spinDataBuilder.build())
-                .setLifetime(7)
+        Random rand = Minecraft.getInstance().level.getRandom();
+        boolean spinDirection = level.random.nextBoolean();
+        SpinParticleData spinParticleData = SpinParticleData.create(0, spinDirection ? 1 : -2).setSpinOffset(0.025f * gameTime % 6.28f).setEasing(Easing.EXPO_IN_OUT).build();
+        ScreenParticleBuilder.create(LodestoneScreenParticleRegistry.STAR, target)
+                .setScaleData(GenericParticleData.create(1.2f + rand.nextFloat() * 0.1f, 0).setEasing(Easing.SINE_IN_OUT, Easing.BOUNCE_IN_OUT).build())
+                .setTransparencyData(GenericParticleData.create(0.1f, 0.5f, 0f).setEasing(Easing.SINE_IN_OUT).build())
+                .setColorData(ColorParticleData.create(color, endColor).setCoefficient(2f).build())
+                .setSpinData(spinParticleData)
+                .setLifetime((int) ((10 + rand.nextInt(10))*timeMultiplier))
                 .setRandomOffset(0.05f)
-                .spawnOnStack(0, -1)
-                .setScaleData(GenericParticleData.create((float) (0.75f - Math.sin(gameTime * 0.075f) * 0.125f), 0).build())
-                .setColorData(ColorParticleData.create(Color.BLACK, Color.BLACK).build())
-                .setSpinData(spinDataBuilder.setSpinOffset(0.785f - 0.01f * gameTime % 6.28f).build())
-                .spawnOnStack(0, -1);
+                .setRandomMotion(0.05f, 0.05f)
+                .setRenderType(LodestoneScreenParticleRenderType.LUMITRANSPARENT)
+                .spawnOnStack(0, 0);
+
+        ScreenParticleBuilder.create(LodestoneScreenParticleRegistry.WISP, target)
+                .setScaleData(GenericParticleData.create(0.8f + rand.nextFloat() * 0.6f, 0).setEasing(Easing.EXPO_OUT).build())
+                .setTransparencyData(GenericParticleData.create(0.1f, 0.15f, 0f).setEasing(Easing.SINE_IN_OUT).build())
+                .setColorData(ColorParticleData.create(color, endColor.darker()).setCoefficient(1.25f).build())
+                .setSpinData(spinParticleData)
+                .setLifetime(20 + rand.nextInt(8))
+                .setRandomOffset(0.1f)
+                .setRandomMotion(0.4f, 0.4f)
+                .setRenderType(LodestoneScreenParticleRenderType.LUMITRANSPARENT)
+                .spawnOnStack(0, 0)
+                .setLifetime((int) ((10 + rand.nextInt(2))*timeMultiplier))
+                .setSpinData(SpinParticleData.create(nextFloat(rand, 0.05f, 0.1f)).build())
+                .setScaleData(GenericParticleData.create(0.8f + rand.nextFloat() * 0.4f, 0f).build())
+                .setRandomMotion(0.01f, 0.01f)
+                .spawnOnStack(0, 0);
     }
 }

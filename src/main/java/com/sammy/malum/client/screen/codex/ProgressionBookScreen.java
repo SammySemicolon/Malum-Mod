@@ -673,12 +673,6 @@ public class ProgressionBookScreen extends AbstractProgressionCodexScreen {
         );
 
         ENTRIES.add(new BookEntry(
-                "necklace_of_the_hidden_blade", NECKLACE_OF_THE_HIDDEN_BLADE.get(), 1, 16).setSoulwood()
-                .addPage(new HeadlineTextPage("necklace_of_the_hidden_blade", "necklace_of_the_hidden_blade.1"))
-                .addPage(SpiritInfusionPage.fromOutput(NECKLACE_OF_THE_HIDDEN_BLADE.get()))
-        );
-
-        ENTRIES.add(new BookEntry(
                 "tyrving", TYRVING.get(), 0, 17).setSoulwood()
                 .addPage(new HeadlineTextPage("tyrving", "tyrving.1"))
                 .addPage(SpiritInfusionPage.fromOutput(TYRVING.get()))

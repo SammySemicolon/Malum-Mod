@@ -424,16 +424,6 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider implements ICondi
                 .addExtraItem(ItemRegistry.CORRUPTED_RESONANCE.get(), 1)
                 .build(consumer);
 
-        new SpiritInfusionRecipeBuilder(ItemRegistry.NECKLACE_OF_THE_NARROW_EDGE.get(), 1, ItemRegistry.NECKLACE_OF_THE_HIDDEN_BLADE.get(), 1)
-                .addSpirit(WICKED_SPIRIT, 32)
-                .addSpirit(ARCANE_SPIRIT, 16)
-                .addSpirit(ELDRITCH_SPIRIT, 4)
-                .addExtraItem(ItemRegistry.SOULWOOD_PLANKS.get(), 16)
-                .addExtraItem(ItemRegistry.STAINED_SPIRIT_RESONATOR.get(), 1)
-                .addExtraItem(ItemRegistry.SOUL_STAINED_STEEL_INGOT.get(), 4)
-                .addExtraItem(ItemRegistry.CORRUPTED_RESONANCE.get(), 1)
-                .build(consumer);
-
         new SpiritInfusionRecipeBuilder(Ingredient.of(Tags.Items.INGOTS_IRON), 4, ItemRegistry.ESOTERIC_SPOOL.get(), 4)
                 .addSpirit(ARCANE_SPIRIT, 4)
                 .addExtraItem(ItemRegistry.HEX_ASH.get(), 2)

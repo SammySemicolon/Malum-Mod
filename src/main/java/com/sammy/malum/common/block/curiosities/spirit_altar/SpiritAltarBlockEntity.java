@@ -309,7 +309,7 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
         ItemStack stack = inventory.getStackInSlot(0);
         ItemStack outputStack = recipe.output.copy();
         Vec3 itemPos = getItemPos(this);
-        if (inventory.getStackInSlot(0).hasTag()) {
+        if (recipe.useNbtFromInput && inventory.getStackInSlot(0).hasTag()) {
             outputStack.setTag(stack.getTag());
         }
         stack.shrink(recipe.input.count);

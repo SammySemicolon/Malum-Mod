@@ -517,9 +517,6 @@ public class MalumLang extends LanguageProvider {
         addPages("magebane_belt", "The Magebane Belt is one of my more devious inventions, and dead simple too. Normally, after being struck by any attack, soul ward will not recover until a long moment after. That moment of downtime has proven itself detrimental far too frequently. But that ends now.",
                 "The belt will absorb loose arcane essence of any instance of magical damage that strikes its bearer, and convert that repurposed energy into an immediate recovery of my arcane barrier.");
 
-        addSimpleEntryHeader("necklace_of_the_hidden_blade", "Necklace of The Hidden Blade", "Wicked Retaliation");
-        addPages("necklace_of_the_hidden_blade", "When the bearer of this necklace is struck, they receive a temporary but incredibly powerful boost to their scythe's damage output. The strength of this effect is exponentially proportional to the amount of damage taken, but lasts for only a single strike.");
-
         addSimpleEntryHeader("the_device", "The Device.", "microwave to recharge");
         addPage("the_device", "even works while bended");
 
