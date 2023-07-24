@@ -5,11 +5,19 @@ import com.sammy.malum.common.block.curiosities.obelisk.*;
 import com.sammy.malum.common.block.curiosities.spirit_crucible.*;
 import com.sammy.malum.common.block.nature.*;
 import com.sammy.malum.common.item.*;
+import com.sammy.malum.common.item.cosmetic.curios.*;
 import com.sammy.malum.common.item.cosmetic.skins.*;
 import com.sammy.malum.common.item.cosmetic.weaves.*;
 import com.sammy.malum.common.item.curiosities.*;
 import com.sammy.malum.common.item.curiosities.armor.*;
 import com.sammy.malum.common.item.curiosities.curios.*;
+import com.sammy.malum.common.item.curiosities.curios.alchemical.*;
+import com.sammy.malum.common.item.curiosities.curios.rotten.*;
+import com.sammy.malum.common.item.curiosities.curios.misc.*;
+import com.sammy.malum.common.item.curiosities.curios.prospector.*;
+import com.sammy.malum.common.item.curiosities.curios.soulward.*;
+import com.sammy.malum.common.item.curiosities.curios.spirit.*;
+import com.sammy.malum.common.item.curiosities.curios.weeping.*;
 import com.sammy.malum.common.item.curiosities.nitrate.*;
 import com.sammy.malum.common.item.curiosities.weapons.*;
 import com.sammy.malum.common.item.curiosities.weapons.unique.*;
@@ -59,7 +67,6 @@ public class ItemRegistry {
     public static Item.Properties DEFAULT_PROPERTIES() {
         return new Item.Properties().tab(CreativeTabRegistry.CONTENT);
     }
-
     
     public static Item.Properties BUILDING_PROPERTIES() {
         return new Item.Properties().tab(CreativeTabRegistry.BUILDING);
@@ -84,6 +91,15 @@ public class ItemRegistry {
     public static Item.Properties COSMETIC_PROPERTIES() {
         return new Item.Properties().tab(CreativeTabRegistry.COSMETIC);
     }
+
+    public static Item.Properties VOID_PROPERTIES() {
+        return new Item.Properties().tab(CreativeTabRegistry.VOID);
+    }
+
+    public static Item.Properties VOID_GEAR_PROPERTIES() {
+        return new Item.Properties().tab(CreativeTabRegistry.VOID).stacksTo(1);
+    }
+
 
     public static Item.Properties HIDDEN_PROPERTIES() {
         return new Item.Properties().stacksTo(1);
@@ -375,7 +391,6 @@ public class ItemRegistry {
     public static final RegistryObject<Item> HEX_ASH = ITEMS.register("hex_ash", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> ALCHEMICAL_CALX = ITEMS.register("alchemical_calx", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> CURSED_GRIT = ITEMS.register("cursed_grit", () -> new Item(DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> VOID_SALTS = ITEMS.register("void_salts", () -> new Item(HIDDEN_PROPERTIES()));
 
     public static final RegistryObject<Item> BLOCK_OF_ROTTING_ESSENCE = ITEMS.register("block_of_rotting_essence", () -> new BlockItem(BlockRegistry.BLOCK_OF_ROTTING_ESSENCE.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> BLOCK_OF_GRIM_TALC = ITEMS.register("block_of_grim_talc", () -> new BlockItem(BlockRegistry.BLOCK_OF_GRIM_TALC.get(), DEFAULT_PROPERTIES()));
@@ -391,7 +406,6 @@ public class ItemRegistry {
     public static final RegistryObject<Item> SPECTRAL_LENS = ITEMS.register("spectral_lens", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> POPPET = ITEMS.register("poppet", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> CORRUPTED_RESONANCE = ITEMS.register("corrupted_resonance", () -> new Item(DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> NULL_GROWTH = ITEMS.register("null_growth", () -> new Item(HIDDEN_PROPERTIES()));
 
     public static final RegistryObject<Item> HALLOWED_GOLD_INGOT = ITEMS.register("hallowed_gold_ingot", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> HALLOWED_GOLD_NUGGET = ITEMS.register("hallowed_gold_nugget", () -> new Item(DEFAULT_PROPERTIES()));
@@ -499,12 +513,23 @@ public class ItemRegistry {
     public static final RegistryObject<Item> NECKLACE_OF_THE_MYSTIC_MIRROR = ITEMS.register("necklace_of_the_mystic_mirror", () -> new CurioMirrorNecklace(GEAR_PROPERTIES()));
     public static final RegistryObject<Item> NECKLACE_OF_TIDAL_AFFINITY = ITEMS.register("necklace_of_tidal_affinity", () -> new CurioWaterNecklace(GEAR_PROPERTIES()));
     public static final RegistryObject<Item> NECKLACE_OF_THE_NARROW_EDGE = ITEMS.register("necklace_of_the_narrow_edge", () -> new CurioNarrowNecklace(GEAR_PROPERTIES()));
-    public static final RegistryObject<Item> NECKLACE_OF_THE_HIDDEN_BLADE = ITEMS.register("necklace_of_the_hidden_blade", () -> new CurioHiddenBladeNecklace(GEAR_PROPERTIES()));
     public static final RegistryObject<Item> NECKLACE_OF_BLISSFUL_HARMONY = ITEMS.register("necklace_of_blissful_harmony", () -> new CurioHarmonyNecklace(GEAR_PROPERTIES()));
 
     public static final RegistryObject<Item> BELT_OF_THE_STARVED = ITEMS.register("belt_of_the_starved", () -> new CurioStarvedBelt(GEAR_PROPERTIES()));
     public static final RegistryObject<Item> BELT_OF_THE_PROSPECTOR = ITEMS.register("belt_of_the_prospector", () -> new CurioProspectorBelt(GEAR_PROPERTIES()));
     public static final RegistryObject<Item> BELT_OF_THE_MAGEBANE = ITEMS.register("belt_of_the_magebane", () -> new CurioMagebaneBelt(GEAR_PROPERTIES()));
+    //endregion
+
+    //region chronicles of the void
+
+    public static final RegistryObject<Item> VOID_SALTS = ITEMS.register("void_salts", () -> new Item(VOID_PROPERTIES()));
+    public static final RegistryObject<Item> STRANGE_NUCLEUS = ITEMS.register("strange_nucleus", () -> new Item(VOID_PROPERTIES()));
+
+    public static final RegistryObject<Item> RING_OF_BLOODY_TEMPERANCE = ITEMS.register("ring_of_bloody_temperance", () -> new CurioTemperanceRing(VOID_GEAR_PROPERTIES()));
+
+    public static final RegistryObject<Item> NECKLACE_OF_THE_HIDDEN_BLADE = ITEMS.register("necklace_of_the_hidden_blade", () -> new CurioHiddenBladeNecklace(VOID_GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> NECKLACE_OF_THE_WATCHER = ITEMS.register("necklace_of_the_watcher", () -> new CurioWatcherNecklace(VOID_GEAR_PROPERTIES()));
+
     //endregion
 
     //region cosmetics
@@ -533,6 +558,9 @@ public class ItemRegistry {
     public static final RegistryObject<PrideweaveItem> POLY_PRIDEWEAVE = ITEMS.register("poly_prideweave", () -> new PrideweaveItem(COSMETIC_PROPERTIES()));
     public static final RegistryObject<PrideweaveItem> PRIDE_PRIDEWEAVE = ITEMS.register("pride_prideweave", () -> new PrideweaveItem(COSMETIC_PROPERTIES()));
     public static final RegistryObject<PrideweaveItem> TRANS_PRIDEWEAVE = ITEMS.register("trans_prideweave", () -> new PrideweaveItem(COSMETIC_PROPERTIES()));
+
+    public static final RegistryObject<Item> TOPHAT = ITEMS.register("tophat", () -> new CurioTopHat(COSMETIC_PROPERTIES().stacksTo(1)));
+
     //endregion
 
     //region hidden items

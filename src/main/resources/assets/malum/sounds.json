@@ -9,6 +9,63 @@
   "arcana_transition_normal": { "sounds":["malum:codex/book_transition_normal1", "malum:codex/book_transition_normal2"], "subtitle": "malum.subtitle.arcana_transition_normal" },
   "arcana_transition_evil": { "sounds":["malum:codex/book_transition_evil1", "malum:codex/book_transition_evil2"], "subtitle": "malum.subtitle.arcana_transition_evil" },
 
+  "pedestal_item_inserted": { "sounds":["malum:block_interaction/pedestal_item_insert1","malum:block_interaction/pedestal_item_insert2","malum:block_interaction/pedestal_item_insert3"], "subtitle": "malum.subtitle.pedestal_item_inserted" },
+  "pedestal_item_picked_up": { "sounds":["malum:block_interaction/pedestal_item_remove1","malum:block_interaction/pedestal_item_remove2","malum:block_interaction/pedestal_item_remove3"], "subtitle": "malum.subtitle.pedestal_item_picked_up" },
+  "pedestal_spirit_inserted": { "sounds":["malum:block_interaction/pedestal_spirit_insert1","malum:block_interaction/pedestal_spirit_insert2","malum:block_interaction/pedestal_spirit_insert3"], "subtitle": "malum.subtitle.pedestal_spirit_inserted" },
+  "pedestal_spirit_picked_up": { "sounds":["malum:block_interaction/pedestal_spirit_remove1","malum:block_interaction/pedestal_spirit_remove2","malum:block_interaction/pedestal_spirit_remove3"], "subtitle": "malum.subtitle.pedestal_spirit_picked_up" },
+
+  "arcane_whispers": { "sounds":["malum:curiosities/spirit/spirit_idle1","malum:curiosities/spirit/spirit_idle2","malum:curiosities/spirit/spirit_idle3","malum:curiosities/spirit/spirit_idle4"], "subtitle": "malum.subtitle.arcane_whispers" },
+  "spirit_picked_up": { "sounds":["malum:curiosities/spirit/spirit_pickup1","malum:curiosities/spirit/spirit_pickup2","malum:curiosities/spirit/spirit_pickup3","malum:curiosities/spirit/spirit_pickup4"], "subtitle": "malum.subtitle.spirit_picked_up" },
+  "a_soul_shatters": { "sounds":["malum:curiosities/soul_shatter1","malum:curiosities/soul_shatter2","malum:curiosities/soul_shatter3"], "subtitle": "malum.subtitle.a_soul_shatters" },
+
+  "scythe_cuts": { "sounds":["malum:curiosities/scythe/cut1","malum:curiosities/scythe/cut2","malum:curiosities/scythe/cut3"], "subtitle": "malum.subtitle.scythe_cuts" },
+
+  "cloth_trinket_equipped": { "sounds":["malum:equip_sounds/cloth/equip_cloth1", "malum:equip_sounds/cloth/equip_cloth2", "malum:equip_sounds/cloth/equip_cloth3"], "subtitle": "malum.subtitle.ornate_trinket_equipped" },
+  "ornate_trinket_equipped": { "sounds":["malum:equip_sounds/gilded/equip_ornate"], "subtitle": "malum.subtitle.ornate_trinket_equipped" },
+  "gilded_trinket_equipped": { "sounds":["malum:equip_sounds/ornate/equip_gilded"], "subtitle": "malum.subtitle.gilded_trinket_equipped" },
+  "alchemical_trinket_equipped": { "sounds":["malum:equip_sounds/alchemical/equip_alchemical1", "malum:equip_sounds/alchemical/equip_alchemical2", "malum:equip_sounds/alchemical/equip_alchemical3"], "subtitle": "malum.subtitle.alchemical_trinket_equipped" },
+  "rotten_trinket_equipped": { "sounds":["malum:equip_sounds/rotten/equip_rotten1", "malum:equip_sounds/rotten/equip_rotten2", "malum:equip_sounds/rotten/equip_rotten3"], "subtitle": "malum.subtitle.rotten_trinket_equipped" },
+  "metallic_trinket_equipped": { "sounds":["malum:equip_sounds/metallic/equip_metallic1", "malum:equip_sounds/metallic/equip_metallic2", "malum:equip_sounds/metallic/equip_metallic3"], "subtitle": "malum.subtitle.metallic_trinket_equipped" },
+  "void_trinket_equipped": { "sounds":["malum:equip_sounds/void/equip_void1", "malum:equip_sounds/void/equip_void2", "malum:equip_sounds/void/equip_void3"], "subtitle": "malum.subtitle.void_trinket_equipped" },
+
+  "the_unknown_weeps": { "sounds":["malum:weeping_well/uncanny_valley0","malum:weeping_well/uncanny_valley1"], "subtitle": "malum.subtitle.the_unknown_weeps" },
+  "the_void_heart_beats": { "sounds":["malum:weeping_well/void_heartbeat"], "subtitle": "malum.subtitle.the_void_heart_beats" },
+  "song_of_the_void": { "sounds":["malum:weeping_well/song_of_the_void0","malum:weeping_well/song_of_the_void1","malum:weeping_well/song_of_the_void2"], "subtitle": "malum.subtitle.song_of_the_void" },
+  "rejected_by_the_unknown": { "sounds":["malum:weeping_well/void_rejection0","malum:weeping_well/void_rejection1"], "subtitle": "malum.subtitle.rejected_by_the_unknown" },
+  "void_transmutation": { "sounds":["malum:weeping_well/void_transmutation0","malum:weeping_well/void_transmutation1"], "subtitle": "malum.subtitle.void_transmutation" },
+
+  "blight_reacts": { "sounds":["malum:blocks/blight/blight_motif1","malum:blocks/blight/blight_motif2","malum:blocks/blight/blight_motif3","malum:blocks/blight/blight_motif4","malum:blocks/blight/blight_motif5","malum:blocks/blight/blight_motif6"], "subtitle": "malum.subtitle.blight_reacts" },
+  "blight_reacts_faintly": { "sounds":["malum:blocks/blight/minor_blight_motif1","malum:blocks/blight/minor_blight_motif2","malum:blocks/blight/minor_blight_motif3","malum:blocks/blight/minor_blight_motif4","malum:blocks/blight/minor_blight_motif5","malum:blocks/blight/minor_blight_motif6"], "subtitle": "malum.subtitle.blight_reacts_faintly" },
+
+  "totem_charges": { "sounds":["malum:totem/totem_charge1","malum:totem/totem_charge2","malum:totem/totem_charge3"], "subtitle": "malum.subtitle.totem_charges" },
+  "spirit_rite_activated": { "sounds":["malum:totem/totem_activate"], "subtitle": "malum.subtitle.spirit_rite_activated" },
+  "spirit_rite_cancelled": { "sounds":["malum:totem/totem_cancel"], "subtitle": "malum.subtitle.spirit_rite_cancelled" },
+  "spirit_engraved": { "sounds":["malum:totem/totem_engrave1","malum:totem/totem_engrave2","malum:totem/totem_engrave3"], "subtitle": "malum.subtitle.spirit_engraved" },
+
+  "spirit_altar_completes_infusion": { "sounds":["malum:altar/altar_craft1","malum:altar/altar_craft2"], "subtitle": "malum.subtitle.spirit_altar_completes_infusion" },
+  "spirit_altar_infuses": { "sounds":["malum:altar/altar_loop"], "subtitle": "malum.subtitle.spirit_altar_infuses" },
+  "spirit_altar_speeds_up": { "sounds":["malum:altar/altar_speedup1","malum:altar/altar_speedup2"], "subtitle": "malum.subtitle.spirit_altar_speeds_up" },
+  "spirit_altar_absorbs_item": { "sounds":["malum:altar/altar_consume1", "malum:altar/altar_consume2"], "subtitle": "malum.subtitle.spirit_altar_absorbs_item" },
+  "alteration_plinth_alters": { "sounds":["malum:plinth/alter1","malum:plinth/alter2","malum:plinth/alter3"], "subtitle": "malum.subtitle.alteration_plinth_alters" },
+
+  "spirit_crucible_completes_focusing": { "sounds":["malum:crucible/crucible_craft1", "malum:crucible/crucible_craft2", "malum:crucible/crucible_craft3"], "subtitle": "malum.subtitle.spirit_crucible_completes_focusing" },
+  "spirit_crucible_focuses": { "sounds":["malum:crucible/crucible_loop"], "subtitle": "malum.subtitle.spirit_crucible_focuses" },
+  "impetus_takes_damage": { "sounds":["malum:crucible/impetus_crack1", "malum:crucible/impetus_crack2", "malum:crucible/impetus_crack3"], "subtitle": "malum.subtitle.impetus_takes_damage" },
+
+  "aerial_magic_swooshes": { "sounds":["minecraft:mob/phantom/flap1","minecraft:mob/phantom/flap2","minecraft:mob/phantom/flap3","minecraft:mob/phantom/flap4","minecraft:mob/phantom/flap5","minecraft:mob/phantom/flap6"], "subtitle": "malum.subtitle.aerial_magic_swooshes" },
+  "void_slash_swooshes": { "sounds":["malum:void_slash"], "subtitle": "malum.subtitle.void_slash_swooshes" },
+  "hungry_belt_feeds": { "sounds":["malum:curiosities/starved_belt/nom1", "malum:curiosities/starved_belt/nom2", "malum:curiosities/starved_belt/nom3", "malum:curiosities/starved_belt/nom4"], "subtitle": "malum.subtitle.hungry_belt_feeds" },
+  "hidden_blade_strikes": { "sounds":["malum:curiosities/hidden_blade/strike1", "malum:curiosities/hidden_blade/strike2", "malum:curiosities/hidden_blade/strike3"], "subtitle": "malum.subtitle.hidden_blade_strikes" },
+  "nitrate_thrown": { "sounds":["minecraft:random/bow"], "subtitle": "malum.subtitle.nitrate_thrown" },
+  "spirit_mote_created": { "sounds":["malum:curiosities/spirit_mote/created1", "malum:curiosities/spirit_mote/created2", "malum:curiosities/spirit_mote/created3"], "subtitle": "malum.subtitle.spirit_mote_created" },
+
+  "soul_ward_grows": { "sounds":["malum:curiosities/soul_ward/grow1","malum:curiosities/soul_ward/grow2","malum:curiosities/soul_ward/grow3","malum:curiosities/soul_ward/grow4"], "subtitle": "malum.subtitle.soul_ward_grows" },
+  "soul_ward_damaged": { "sounds":["malum:curiosities/soul_ward/grow1","malum:curiosities/soul_ward/grow2","malum:curiosities/soul_ward/grow3","malum:curiosities/soul_ward/grow4"], "subtitle": "malum.subtitle.soul_ward_damaged" },
+  "soul_ward_charges": { "sounds":["malum:curiosities/soul_ward/charge1","malum:curiosities/soul_ward/charge2"], "subtitle": "malum.subtitle.soul_ward_charges" },
+
+  "the_deep_beckons": { "sounds":["malum:suspicious_sound"], "subtitle": "malum.subtitle.the_deep_beckons" },
+  "the_heavens_sing": { "sounds":["malum:heavenly_organs"], "subtitle": "malum.subtitle.the_heavens_sing" },
+
   "arcane_rock_break": { "sounds":["malum:blocks/arcane_rock/break1","malum:blocks/arcane_rock/break2","malum:blocks/arcane_rock/break3","malum:blocks/arcane_rock/break4","malum:blocks/arcane_rock/break5","malum:blocks/arcane_rock/break6"], "subtitle": "malum.subtitle.arcane_rock_break" },
   "arcane_rock_step": { "sounds":["malum:blocks/arcane_rock/hit1","malum:blocks/arcane_rock/hit2","malum:blocks/arcane_rock/hit3","malum:blocks/arcane_rock/hit4","malum:blocks/arcane_rock/hit5","malum:blocks/arcane_rock/hit6", "block/basalt/step1","block/basalt/step2","block/basalt/step3","block/basalt/step4","block/basalt/step5","block/basalt/step6"], "subtitle": "malum.subtitle.arcane_rock_step" },
   "arcane_rock_place": { "sounds":["malum:blocks/arcane_rock/break1","malum:blocks/arcane_rock/break2","malum:blocks/arcane_rock/break3","malum:blocks/arcane_rock/break4","malum:blocks/arcane_rock/break5","malum:blocks/arcane_rock/break6"], "subtitle": "malum.subtitle.arcane_rock_place" },
@@ -71,52 +128,5 @@
   "soulwood_leaves_break": { "sounds":["minecraft:block/azalea_leaves/break1","minecraft:block/azalea_leaves/break2","minecraft:block/azalea_leaves/break3","minecraft:block/azalea_leaves/break4","minecraft:block/azalea_leaves/break5","minecraft:block/azalea_leaves/break6","minecraft:block/azalea_leaves/break7"], "subtitle": "malum.subtitle.soulwood_leaves_break" },
   "soulwood_leaves_step": { "sounds":["minecraft:block/azalea_leaves/step1","minecraft:block/azalea_leaves/step2","minecraft:block/azalea_leaves/step3","minecraft:block/azalea_leaves/step4","minecraft:block/azalea_leaves/step5"], "subtitle": "malum.subtitle.soulwood_leaves_step" },
   "soulwood_leaves_place": { "sounds":["minecraft:block/azalea_leaves/break1","minecraft:block/azalea_leaves/break2","minecraft:block/azalea_leaves/break3","minecraft:block/azalea_leaves/break4","minecraft:block/azalea_leaves/break5","minecraft:block/azalea_leaves/break6","minecraft:block/azalea_leaves/break7"], "subtitle": "malum.subtitle.soulwood_leaves_place" },
-  "soulwood_leaves_hit": { "sounds":["minecraft:block/azalea_leaves/step1","minecraft:block/azalea_leaves/step2","minecraft:block/azalea_leaves/step3","minecraft:block/azalea_leaves/step4","minecraft:block/azalea_leaves/step5"], "subtitle": "malum.subtitle.soulwood_leaves_step" },
-
-  "blight_reacts": { "sounds":["malum:blocks/blight/blight_motif1","malum:blocks/blight/blight_motif2","malum:blocks/blight/blight_motif3","malum:blocks/blight/blight_motif4","malum:blocks/blight/blight_motif5","malum:blocks/blight/blight_motif6"], "subtitle": "malum.subtitle.blight_reacts" },
-  "blight_reacts_faintly": { "sounds":["malum:blocks/blight/minor_blight_motif1","malum:blocks/blight/minor_blight_motif2","malum:blocks/blight/minor_blight_motif3","malum:blocks/blight/minor_blight_motif4","malum:blocks/blight/minor_blight_motif5","malum:blocks/blight/minor_blight_motif6"], "subtitle": "malum.subtitle.blight_reacts_faintly" },
-
-  "arcane_whispers": { "sounds":["malum:curiosities/spirit/spirit_idle1","malum:curiosities/spirit/spirit_idle2","malum:curiosities/spirit/spirit_idle3","malum:curiosities/spirit/spirit_idle4"], "subtitle": "malum.subtitle.arcane_whispers" },
-  "spirit_picked_up": { "sounds":["malum:curiosities/spirit/spirit_pickup1","malum:curiosities/spirit/spirit_pickup2","malum:curiosities/spirit/spirit_pickup3","malum:curiosities/spirit/spirit_pickup4"], "subtitle": "malum.subtitle.spirit_picked_up" },
-  "a_soul_shatters": { "sounds":["malum:curiosities/soul_shatter1","malum:curiosities/soul_shatter2","malum:curiosities/soul_shatter3"], "subtitle": "malum.subtitle.a_soul_shatters" },
-
-  "scythe_cuts": { "sounds":["malum:curiosities/scythe/cut1","malum:curiosities/scythe/cut2","malum:curiosities/scythe/cut3"], "subtitle": "malum.subtitle.scythe_cuts" },
-
-  "the_unknown_weeps": { "sounds":["malum:weeping_well/uncanny_valley0","malum:weeping_well/uncanny_valley1"], "subtitle": "malum.subtitle.the_unknown_weeps" },
-  "the_void_heart_beats": { "sounds":["malum:weeping_well/void_heartbeat"], "subtitle": "malum.subtitle.the_void_heart_beats" },
-  "song_of_the_void": { "sounds":["malum:weeping_well/song_of_the_void0","malum:weeping_well/song_of_the_void1","malum:weeping_well/song_of_the_void2"], "subtitle": "malum.subtitle.song_of_the_void" },
-  "rejected_by_the_unknown": { "sounds":["malum:weeping_well/void_rejection0","malum:weeping_well/void_rejection1"], "subtitle": "malum.subtitle.rejected_by_the_unknown" },
-  "void_transmutation": { "sounds":["malum:weeping_well/void_transmutation0","malum:weeping_well/void_transmutation1"], "subtitle": "malum.subtitle.void_transmutation" },
-
-  "totem_charges": { "sounds":["malum:totem/totem_charge1","malum:totem/totem_charge2","malum:totem/totem_charge3"], "subtitle": "malum.subtitle.totem_charges" },
-  "spirit_rite_activated": { "sounds":["malum:totem/totem_activate"], "subtitle": "malum.subtitle.spirit_rite_activated" },
-  "spirit_rite_cancelled": { "sounds":["malum:totem/totem_cancel"], "subtitle": "malum.subtitle.spirit_rite_cancelled" },
-  "spirit_engraved": { "sounds":["malum:totem/totem_engrave1","malum:totem/totem_engrave2","malum:totem/totem_engrave3"], "subtitle": "malum.subtitle.spirit_engraved" },
-
-  "spirit_altar_completes_infusion": { "sounds":["malum:altar/altar_craft1","malum:altar/altar_craft2"], "subtitle": "malum.subtitle.spirit_altar_completes_infusion" },
-  "spirit_altar_infuses": { "sounds":["malum:altar/altar_loop"], "subtitle": "malum.subtitle.spirit_altar_infuses" },
-  "spirit_altar_speeds_up": { "sounds":["malum:altar/altar_speedup1","malum:altar/altar_speedup2"], "subtitle": "malum.subtitle.spirit_altar_speeds_up" },
-  "spirit_altar_absorbs_item": { "sounds":["malum:altar/altar_consume1", "malum:altar/altar_consume2"], "subtitle": "malum.subtitle.spirit_altar_absorbs_item" },
-  "alteration_plinth_alters": { "sounds":["malum:plinth/alter1","malum:plinth/alter2","malum:plinth/alter3"], "subtitle": "malum.subtitle.alteration_plinth_alters" },
-
-  "spirit_crucible_completes_focusing": { "sounds":["malum:crucible/crucible_craft1", "malum:crucible/crucible_craft2", "malum:crucible/crucible_craft3"], "subtitle": "malum.subtitle.spirit_crucible_completes_focusing" },
-  "spirit_crucible_focuses": { "sounds":["malum:crucible/crucible_loop"], "subtitle": "malum.subtitle.spirit_crucible_focuses" },
-  "impetus_takes_damage": { "sounds":["malum:crucible/impetus_crack1", "malum:crucible/impetus_crack2", "malum:crucible/impetus_crack3"], "subtitle": "malum.subtitle.impetus_takes_damage" },
-
-  "aerial_magic_swooshes": { "sounds":["minecraft:mob/phantom/flap1","minecraft:mob/phantom/flap2","minecraft:mob/phantom/flap3","minecraft:mob/phantom/flap4","minecraft:mob/phantom/flap5","minecraft:mob/phantom/flap6"], "subtitle": "malum.subtitle.aerial_magic_swooshes" },
-  "void_slash_swooshes": { "sounds":["malum:void_slash"], "subtitle": "malum.subtitle.void_slash_swooshes" },
-  "hungry_belt_feeds": { "sounds":["malum:curiosities/starved_belt/nom1", "malum:curiosities/starved_belt/nom2", "malum:curiosities/starved_belt/nom3", "malum:curiosities/starved_belt/nom4"], "subtitle": "malum.subtitle.hungry_belt_feeds" },
-  "hidden_blade_strikes": { "sounds":["malum:curiosities/hidden_blade/strike1", "malum:curiosities/hidden_blade/strike2", "malum:curiosities/hidden_blade/strike3"], "subtitle": "malum.subtitle.hidden_blade_strikes" },
-  "nitrate_thrown": { "sounds":["minecraft:random/bow"], "subtitle": "malum.subtitle.nitrate_thrown" },
-  "spirit_mote_created": { "sounds":["malum:curiosities/spirit_mote/light_wand1", "malum:curiosities/spirit_mote/light_wand2", "malum:curiosities/spirit_mote/light_wand3"], "subtitle": "malum.subtitle.construct_wand_activated" },
-
-  "gilded_trinket_equipped": { "sounds":["malum:curiosities/equip_holy"], "subtitle": "malum.subtitle.gilded_trinket_equipped" },
-  "ornate_trinket_equipped": { "sounds":["malum:curiosities/equip_sinister"], "subtitle": "malum.subtitle.ornate_trinket_equipped" },
-
-  "soul_ward_grows": { "sounds":["malum:curiosities/soul_ward/grow1","malum:curiosities/soul_ward/grow2","malum:curiosities/soul_ward/grow3","malum:curiosities/soul_ward/grow4"], "subtitle": "malum.subtitle.soul_ward_grows" },
-  "soul_ward_damaged": { "sounds":["malum:curiosities/soul_ward/grow1","malum:curiosities/soul_ward/grow2","malum:curiosities/soul_ward/grow3","malum:curiosities/soul_ward/grow4"], "subtitle": "malum.subtitle.soul_ward_damaged" },
-  "soul_ward_charges": { "sounds":["malum:curiosities/soul_ward/charge1","malum:curiosities/soul_ward/charge2"], "subtitle": "malum.subtitle.soul_ward_charges" },
-
-  "the_deep_beckons": { "sounds":["malum:suspicious_sound"], "subtitle": "malum.subtitle.the_deep_beckons" },
-  "the_heavens_sing": { "sounds":["malum:heavenly_organs"], "subtitle": "malum.subtitle.the_heavens_sing" }
+  "soulwood_leaves_hit": { "sounds":["minecraft:block/azalea_leaves/step1","minecraft:block/azalea_leaves/step2","minecraft:block/azalea_leaves/step3","minecraft:block/azalea_leaves/step4","minecraft:block/azalea_leaves/step5"], "subtitle": "malum.subtitle.soulwood_leaves_step" }
 }

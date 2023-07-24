@@ -9,7 +9,7 @@ import team.lodestar.lodestone.systems.particle.ScreenParticleBuilder;
 import team.lodestar.lodestone.systems.particle.data.ColorParticleData;
 import team.lodestar.lodestone.systems.particle.data.GenericParticleData;
 import team.lodestar.lodestone.systems.particle.data.SpinParticleData;
-import team.lodestar.lodestone.systems.particle.screen.LodestoneScreenParticleRenderType;
+import team.lodestar.lodestone.systems.particle.screen.*;
 import team.lodestar.lodestone.systems.particle.screen.base.ScreenParticle;
 
 import java.awt.*;
@@ -30,7 +30,7 @@ public class VividNitrateItem extends AbstractNitrateItem {
     }
 
     @Override
-    public void spawnParticles(HashMap<LodestoneScreenParticleRenderType, ArrayList<ScreenParticle>> target, Level level, float partialTick, ItemStack stack, float x, float y) {
+    public void spawnLateParticles(ScreenParticleHolder target, Level level, float partialTick, ItemStack stack, float x, float y) {
         float gameTime = (float) (level.getGameTime() + partialTick + Math.sin(((level.getGameTime() + partialTick) * 0.1f)));
         Color firstColor = COLOR_FUNCTION.apply(new VividNitrateEntity.ColorFunctionData(level, 40f, 0, partialTick)).brighter();
         Color secondColor = COLOR_FUNCTION.apply(new VividNitrateEntity.ColorFunctionData(level, 40f, 0.125f, partialTick)).darker();

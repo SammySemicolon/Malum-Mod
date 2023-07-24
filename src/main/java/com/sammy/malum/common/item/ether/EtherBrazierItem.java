@@ -9,7 +9,7 @@ import team.lodestar.lodestone.systems.particle.ScreenParticleBuilder;
 import team.lodestar.lodestone.systems.particle.data.ColorParticleData;
 import team.lodestar.lodestone.systems.particle.data.GenericParticleData;
 import team.lodestar.lodestone.systems.particle.data.SpinParticleData;
-import team.lodestar.lodestone.systems.particle.screen.LodestoneScreenParticleRenderType;
+import team.lodestar.lodestone.systems.particle.screen.*;
 import team.lodestar.lodestone.systems.particle.screen.base.ScreenParticle;
 
 import java.awt.*;
@@ -22,7 +22,7 @@ public class EtherBrazierItem extends AbstractEtherItem {
     }
 
     @Override
-    public void spawnParticles(HashMap<LodestoneScreenParticleRenderType, ArrayList<ScreenParticle>> target, Level level, float partialTick, ItemStack stack, float x, float y) {
+    public void spawnLateParticles(ScreenParticleHolder target, Level level, float partialTick, ItemStack stack, float x, float y) {
         float time = level.getGameTime() + partialTick;
         AbstractEtherItem etherItem = (AbstractEtherItem) stack.getItem();
         Color firstColor = new Color(etherItem.getFirstColor(stack));

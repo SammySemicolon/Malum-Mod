@@ -6,27 +6,18 @@ import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.ItemStack;
+import top.theillusivec4.curios.api.*;
 
 import java.util.UUID;
 
-public class CurioOrnateRing extends MalumCurioItem
-{
-    public CurioOrnateRing(Properties builder)
-    {
-        super(builder);
+public class CurioOrnateRing extends MalumCurioItem {
+    public CurioOrnateRing(Properties builder) {
+        super(builder, MalumTrinketType.ORNATE);
     }
 
     @Override
-    public Multimap<Attribute, AttributeModifier> getAttributeModifiers(String identifier, ItemStack stack)
-    {
-        Multimap<Attribute, AttributeModifier> map = HashMultimap.create();
-        map.put(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(uuids.computeIfAbsent(0, (i) -> UUID.randomUUID()), "Curio armor toughness", 1f, AttributeModifier.Operation.ADDITION));
-        return map;
-    }
-
-    @Override
-    public boolean isOrnate()
-    {
-        return true;
+    public void addAttributeModifiers(Multimap<Attribute, AttributeModifier> map, SlotContext slotContext, ItemStack stack) {
+        addAttributeModifier(map, Attributes.ARMOR_TOUGHNESS, uuid -> new AttributeModifier(uuid,
+                "Curio Armor Toughness", 1f, AttributeModifier.Operation.ADDITION));
     }
 }

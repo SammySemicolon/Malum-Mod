@@ -4,7 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Vector3f;
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.common.item.curiosities.curios.CurioTokenOfGratitude;
+import com.sammy.malum.common.item.cosmetic.curios.CurioTokenOfGratitude;
 import com.sammy.malum.registry.client.ModelRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.EntityModel;

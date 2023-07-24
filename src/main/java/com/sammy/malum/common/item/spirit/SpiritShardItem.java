@@ -10,7 +10,7 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 import team.lodestar.lodestone.handlers.screenparticle.ParticleEmitterHandler.ItemParticleSupplier;
-import team.lodestar.lodestone.systems.particle.screen.LodestoneScreenParticleRenderType;
+import team.lodestar.lodestone.systems.particle.screen.*;
 import team.lodestar.lodestone.systems.particle.screen.base.ScreenParticle;
 
 import java.awt.*;
@@ -42,7 +42,7 @@ public class SpiritShardItem extends Item implements IFloatingGlowItem, ItemPart
     }
 
     @Override
-    public void spawnParticles(HashMap<LodestoneScreenParticleRenderType, ArrayList<ScreenParticle>> target, Level level, float partialTick, ItemStack stack, float x, float y) {
-        ScreenParticleEffects.spawnSpiritShardScreenParticles(target, type.getPrimaryColor(), type.getSecondaryColor(), stack, x, y);
+    public void spawnLateParticles(ScreenParticleHolder target, Level level, float partialTick, ItemStack stack, float x, float y) {
+        ScreenParticleEffects.spawnSpiritShardScreenParticles(target, type.getPrimaryColor(), type.getSecondaryColor());
     }
 }

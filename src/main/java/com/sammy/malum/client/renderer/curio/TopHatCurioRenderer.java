@@ -21,7 +21,7 @@ public class TopHatCurioRenderer implements ICurioRenderer {
     @Override
     public <T extends LivingEntity, M extends EntityModel<T>> void render(ItemStack stack, SlotContext slotContext, PoseStack poseStack, RenderLayerParent<T, M> renderLayerParent, MultiBufferSource renderTypeBuffer, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
         final LivingEntity livingEntity = slotContext.entity();
-        renderTopHat(livingEntity, LodestoneRenderTypeRegistry.TEXTURE.applyAndCache(HAT), poseStack, renderTypeBuffer, light);
+        renderTopHat(livingEntity, RenderType.entityTranslucent(HAT), poseStack, renderTypeBuffer, light);
     }
 
     public static void renderTopHat(LivingEntity livingEntity, RenderType renderType, PoseStack poseStack, MultiBufferSource renderTypeBuffer, int light) {

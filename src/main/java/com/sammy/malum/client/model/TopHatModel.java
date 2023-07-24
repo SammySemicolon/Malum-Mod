@@ -23,8 +23,7 @@ public class TopHatModel extends EntityModel<Player> {
 		PartDefinition topHat = partdefinition.addOrReplaceChild("topHat", CubeListBuilder.create().texOffs(36, 0).addBox(-6.5F, -9.0F, -6.5F, 13.0F, 2.0F, 13.0F, new CubeDeformation(0.0F))
 				.texOffs(36, 15).addBox(-6.5F, -9.0F, -6.5F, 13.0F, 2.0F, 13.0F, new CubeDeformation(0.35F))
 				.texOffs(0, 0).addBox(-4.5F, -20.0F, -4.5F, 9.0F, 11.0F, 9.0F, new CubeDeformation(0.0F))
-				.texOffs(0, 20).addBox(-4.5F, -20.0F, -4.5F, 9.0F, 11.0F, 9.0F, new CubeDeformation(0.35F)), PartPose.offset(0.0F, 0.0F, 0.0F));
-
+				.texOffs(0, 20).addBox(-4.5F, -20.0F, -4.5F, 9.0F, 11.0F, 9.0F, new CubeDeformation(0.35F)), PartPose.offset(0.0F, 1.0F, 0.0F));
 		return LayerDefinition.create(meshdefinition, 96, 64);
 	}
 

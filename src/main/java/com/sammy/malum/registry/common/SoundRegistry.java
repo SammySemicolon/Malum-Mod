@@ -28,9 +28,24 @@ public class SoundRegistry {
     public static final RegistryObject<SoundEvent> ARCANA_TRANSITION_NORMAL = register(new SoundEvent(MalumMod.malumPath("arcana_transition_normal")));
     public static final RegistryObject<SoundEvent> ARCANA_TRANSITION_EVIL = register(new SoundEvent(MalumMod.malumPath("arcana_transition_evil")));
 
+    public static final RegistryObject<SoundEvent> PEDESTAL_ITEM_INSERT = register(new SoundEvent(MalumMod.malumPath("pedestal_item_inserted")));
+    public static final RegistryObject<SoundEvent> PEDESTAL_ITEM_PICKUP = register(new SoundEvent(MalumMod.malumPath("pedestal_item_picked_up")));
+    public static final RegistryObject<SoundEvent> PEDESTAL_SPIRIT_INSERT = register(new SoundEvent(MalumMod.malumPath("pedestal_spirit_inserted")));
+    public static final RegistryObject<SoundEvent> PEDESTAL_SPIRIT_PICKUP = register(new SoundEvent(MalumMod.malumPath("pedestal_spirit_picked_up")));
+
+    public static final RegistryObject<SoundEvent> CLOTH_TRINKET_EQUIP = register(new SoundEvent(MalumMod.malumPath("cloth_trinket_equipped")));
+    public static final RegistryObject<SoundEvent> ORNATE_TRINKET_EQUIP = register(new SoundEvent(MalumMod.malumPath("ornate_trinket_equipped")));
+    public static final RegistryObject<SoundEvent> GILDED_TRINKET_EQUIP = register(new SoundEvent(MalumMod.malumPath("gilded_trinket_equipped")));
+    public static final RegistryObject<SoundEvent> ALCHEMICAL_TRINKET_EQUIP = register(new SoundEvent(MalumMod.malumPath("alchemical_trinket_equipped")));
+    public static final RegistryObject<SoundEvent> ROTTEN_TRINKET_EQUIP = register(new SoundEvent(MalumMod.malumPath("rotten_trinket_equipped")));
+    public static final RegistryObject<SoundEvent> METALLIC_TRINKET_EQUIP = register(new SoundEvent(MalumMod.malumPath("metallic_trinket_equipped")));
+    public static final RegistryObject<SoundEvent> VOID_TRINKET_EQUIP = register(new SoundEvent(MalumMod.malumPath("void_trinket_equipped")));
+
+
+
     public static final RegistryObject<SoundEvent> ARCANE_WHISPERS = register(new SoundEvent(MalumMod.malumPath("arcane_whispers")));
     public static final RegistryObject<SoundEvent> SPIRIT_PICKUP = register(new SoundEvent(MalumMod.malumPath("spirit_picked_up")));
-    public static final RegistryObject<SoundEvent> SPIRIT_HARVEST = register(new SoundEvent(MalumMod.malumPath("a_soul_shatters")));
+    public static final RegistryObject<SoundEvent> SOUL_SHATTER = register(new SoundEvent(MalumMod.malumPath("a_soul_shatters")));
 
     public static final RegistryObject<SoundEvent> SCYTHE_CUT = register(new SoundEvent(MalumMod.malumPath("scythe_cuts")));
 
@@ -56,10 +71,8 @@ public class SoundRegistry {
     public static final RegistryObject<SoundEvent> VOID_REJECTION = register(new SoundEvent(MalumMod.malumPath("rejected_by_the_unknown")));
     public static final RegistryObject<SoundEvent> VOID_TRANSMUTATION = register(new SoundEvent(MalumMod.malumPath("void_transmutation")));
 
-    public static final RegistryObject<SoundEvent> SINISTER_EQUIP = register(new SoundEvent(MalumMod.malumPath("ornate_trinket_equipped")));
-    public static final RegistryObject<SoundEvent> HOLY_EQUIP = register(new SoundEvent(MalumMod.malumPath("gilded_trinket_equipped")));
-
     public static final RegistryObject<SoundEvent> AERIAL_FALL = register(new SoundEvent(MalumMod.malumPath("aerial_magic_swooshes")));
+
     public static final RegistryObject<SoundEvent> VOID_SLASH = register(new SoundEvent(MalumMod.malumPath("void_slash_swooshes")));
     public static final RegistryObject<SoundEvent> HIDDEN_BLADE_STRIKES = register(new SoundEvent(MalumMod.malumPath("hidden_blade_strikes")));
     public static final RegistryObject<SoundEvent> HUNGRY_BELT_FEEDS = register(new SoundEvent(MalumMod.malumPath("hungry_belt_feeds")));
