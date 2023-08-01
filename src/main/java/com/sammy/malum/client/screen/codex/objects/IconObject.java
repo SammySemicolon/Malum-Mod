@@ -6,12 +6,12 @@ import net.minecraft.client.*;
 import net.minecraft.resources.*;
 
 import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.*;
-import static com.sammy.malum.client.screen.codex.ProgressionBookScreen.*;
+import static com.sammy.malum.client.screen.codex.ArcanaProgressionScreen.*;
 
 public class IconObject extends EntryObject {
     public final ResourceLocation textureLocation;
-    public IconObject(BookEntry entry, ResourceLocation textureLocation, int posX, int posY) {
-        super(entry.setDark(), posX, posY);
+    public IconObject(AbstractProgressionCodexScreen screen, BookEntry entry, ResourceLocation textureLocation, int posX, int posY) {
+        super(screen, entry.setDark(), posX, posY);
         this.textureLocation = textureLocation;
     }
 

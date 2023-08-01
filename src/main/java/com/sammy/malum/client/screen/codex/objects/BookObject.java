@@ -4,17 +4,18 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.sammy.malum.client.screen.codex.*;
 import net.minecraft.client.Minecraft;
 
-import static com.sammy.malum.client.screen.codex.ProgressionBookScreen.screen;
-
 public class BookObject {
+
+    public final AbstractProgressionCodexScreen screen;
+    public final int posX;
+    public final int posY;
+    public final int width;
+    public final int height;
     public boolean isHovering;
     public float hover;
-    public int posX;
-    public int posY;
-    public int width;
-    public int height;
 
-    public BookObject(int posX, int posY, int width, int height) {
+    public BookObject(AbstractProgressionCodexScreen screen, int posX, int posY, int width, int height) {
+        this.screen = screen;
         this.posX = posX;
         this.posY = posY;
         this.width = width;

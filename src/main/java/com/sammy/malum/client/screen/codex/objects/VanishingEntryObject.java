@@ -7,16 +7,15 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Player;
 
 
-public class VanishingEntryObject extends EntryObject
-{
-    public VanishingEntryObject(BookEntry entry, int posX, int posY) {
-        super(entry, posX, posY);
+public class VanishingEntryObject extends EntryObject {
+    public VanishingEntryObject(AbstractProgressionCodexScreen screen, BookEntry entry, int posX, int posY) {
+        super(screen, entry, posX, posY);
     }
 
     @Override
     public void exit() {
         Player playerEntity = Minecraft.getInstance().player;
         playerEntity.playNotifySound(SoundRegistry.THE_DEEP_BECKONS.get(), SoundSource.PLAYERS, 1.0f, 1.0f);
-        ProgressionBookScreen.screen.bookObjects.remove(this);
+        screen.bookObjects.remove(this);
     }
 }

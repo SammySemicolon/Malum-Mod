@@ -11,7 +11,7 @@ import team.lodestar.lodestone.helpers.CurioHelper;
 public class CurioHoarderRing extends MalumCurioItem {
 
     public CurioHoarderRing(Properties builder) {
-        super(builder, MalumTrinketType.GILDED);
+        super(builder, MalumTrinketType.METALLIC);
     }
 
     public static boolean hasHoarderRing(LivingEntity entity) {

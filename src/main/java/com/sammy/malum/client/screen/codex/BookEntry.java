@@ -65,12 +65,13 @@ public class BookEntry {
         }
         return this;
     }
-    public BookEntry setObjectSupplier(EntryObjectSupplier objectSupplier)
-    {
+
+    public BookEntry setObjectSupplier(EntryObjectSupplier objectSupplier) {
         this.objectSupplier = objectSupplier;
         return this;
     }
+
     public interface EntryObjectSupplier {
-        EntryObject getBookObject(BookEntry entry, int x, int y);
+        EntryObject getBookObject(AbstractProgressionCodexScreen screen, BookEntry entry, int x, int y);
     }
 }

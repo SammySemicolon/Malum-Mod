@@ -40,7 +40,7 @@ public class SpiritInfusionPage extends BookPage {
     }
 
     @Override
-    public void renderLeft(Minecraft minecraft, PoseStack poseStack, EntryScreen screen, float yOffset, int mouseX, int mouseY, float partialTicks, float xOffset) {
+    public void renderLeft(Minecraft minecraft, PoseStack poseStack, EntryScreen screen, int mouseX, int mouseY, float partialTicks) {
         int guiLeft = guiLeft();
         int guiTop = guiTop();
         Runnable renderSpirits = renderBufferedComponents(screen, poseStack, recipe.spirits, guiLeft + 23, guiTop + 59, mouseX, mouseY, true);
@@ -53,7 +53,7 @@ public class SpiritInfusionPage extends BookPage {
     }
 
     @Override
-    public void renderRight(Minecraft minecraft, PoseStack poseStack, EntryScreen screen, float yOffset, int mouseX, int mouseY, float partialTicks, float xOffset) {
+    public void renderRight(Minecraft minecraft, PoseStack poseStack, EntryScreen screen, int mouseX, int mouseY, float partialTicks) {
         int guiLeft = guiLeft();
         int guiTop = guiTop();
         Runnable renderSpirits = renderBufferedComponents(screen, poseStack, recipe.spirits, guiLeft + 165, guiTop + 59, mouseX, mouseY, true);

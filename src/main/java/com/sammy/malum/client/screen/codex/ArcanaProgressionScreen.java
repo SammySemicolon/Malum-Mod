@@ -23,9 +23,9 @@ import static com.sammy.malum.registry.common.item.ItemRegistry.*;
 import static net.minecraft.world.item.Items.*;
 import static org.lwjgl.opengl.GL11C.GL_SCISSOR_TEST;
 
-public class ProgressionBookScreen extends AbstractProgressionCodexScreen {
+public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
 
-    public static ProgressionBookScreen screen;
+    public static ArcanaProgressionScreen screen;
 
     public static final List<BookEntry> ENTRIES = new ArrayList<>();
 
@@ -33,7 +33,7 @@ public class ProgressionBookScreen extends AbstractProgressionCodexScreen {
     public static final ResourceLocation FADE_TEXTURE = malumPath("textures/gui/book/fade.png");
     public static final ResourceLocation BACKGROUND_TEXTURE = malumPath("textures/gui/book/background.png");
 
-    protected ProgressionBookScreen() {
+    protected ArcanaProgressionScreen() {
         super(1024, 2560);
         minecraft = Minecraft.getInstance();
         setupEntries();
@@ -48,17 +48,36 @@ public class ProgressionBookScreen extends AbstractProgressionCodexScreen {
         int guiLeft = (width - bookWidth) / 2;
         int guiTop = (height - bookHeight) / 2;
 
-        renderBackground(BACKGROUND_TEXTURE, poseStack, 0.1f, 0.4f);
+        renderBackground(poseStack, 0.1f, 0.4f);
         GL11.glEnable(GL_SCISSOR_TEST);
         cut();
 
         renderEntries(poseStack, mouseX, mouseY, partialTicks);
-        ScreenParticleHandler.renderEarlyParticles();
         GL11.glDisable(GL_SCISSOR_TEST);
 
         renderTransparentTexture(FADE_TEXTURE, poseStack, guiLeft, guiTop, 1, 1, bookWidth, bookHeight, 512, 512);
         renderTexture(FRAME_TEXTURE, poseStack, guiLeft, guiTop, 1, 1, bookWidth, bookHeight, 512, 512);
         lateEntryRender(poseStack, mouseX, mouseY, partialTicks);
+    }
+
+    public void renderBackground(PoseStack poseStack, float xModifier, float yModifier) {
+        int insideLeft = getInsideLeft();
+        int insideTop = getInsideTop();
+        float uOffset = (bookInsideWidth / 4f - xOffset * xModifier);
+        float vOffset = (backgroundImageHeight - bookInsideHeight - yOffset * yModifier);
+        if (uOffset <= 0) {
+            uOffset = 0;
+        }
+        if (uOffset > bookInsideWidth / 2f) {
+            uOffset = bookInsideWidth / 2f;
+        }
+        if (vOffset <= backgroundImageHeight / 2f) {
+            vOffset = backgroundImageHeight / 2f;
+        }
+        if (vOffset > backgroundImageHeight - bookInsideHeight) {
+            vOffset = backgroundImageHeight - bookInsideHeight;
+        }
+        renderTexture(BACKGROUND_TEXTURE, poseStack, insideLeft, insideTop, uOffset, vOffset, bookInsideWidth, bookInsideHeight, backgroundImageWidth / 2, backgroundImageHeight / 2);
     }
 
     @Override
@@ -77,17 +96,22 @@ public class ProgressionBookScreen extends AbstractProgressionCodexScreen {
         playSweetenedSound(SoundRegistry.ARCANA_CODEX_CLOSE, 0.75f);
     }
 
-    public static void openScreen(boolean ignoreNextMouseClick) {
-        if (screen == null) {
-            screen = new ProgressionBookScreen();
-        }
-        Minecraft.getInstance().setScreen(screen);
+    @Override
+    public void openScreen(boolean ignoreNextMouseClick) {
+        Minecraft.getInstance().setScreen(this);
         ScreenParticleHandler.clearParticles();
-        screen.ignoreNextMouseInput = ignoreNextMouseClick;
+        this.ignoreNextMouseInput = ignoreNextMouseClick;
+    }
+
+    public static ArcanaProgressionScreen getScreenInstance() {
+        if (screen == null) {
+            screen = new ArcanaProgressionScreen();
+        }
+        return screen;
     }
 
     public static void openCodexViaItem() {
-        openScreen(true);
+        getScreenInstance().openScreen(true);
         screen.playSweetenedSound(SoundRegistry.ARCANA_CODEX_OPEN, 1.25f);
     }
 
@@ -107,7 +131,7 @@ public class ProgressionBookScreen extends AbstractProgressionCodexScreen {
 
         ENTRIES.add(new BookEntry(
                 "spirit_crystals", 0, 1)
-                .setObjectSupplier((e, x, y) -> new IconObject(e, malumPath("textures/gui/book/icons/soul_shard.png"), x, y))
+                .setObjectSupplier((s, e, x, y) -> new IconObject(s, e, malumPath("textures/gui/book/icons/soul_shard.png"), x, y))
                 .addPage(new HeadlineTextPage("spirit_crystals", "spirit_crystals.1"))
                 .addPage(new TextPage("spirit_crystals.2"))
                 .addPage(new TextPage("spirit_crystals.3"))
@@ -116,7 +140,7 @@ public class ProgressionBookScreen extends AbstractProgressionCodexScreen {
         ENTRIES.add(new BookEntry(
                 "runewood", RUNEWOOD_SAPLING.get(), 1, 2)
                 .addPage(new HeadlineTextItemPage("runewood", "runewood.1", RUNEWOOD_SAPLING.get()))
-                .addPage(new HeadlineTextPage("runewood.arcane_charcoal", "runewood.arcane_charcoal.1"))
+                .addPage(new HeadlineTextItemPage("runewood.arcane_charcoal", "runewood.arcane_charcoal.1", ARCANE_CHARCOAL.get()))
                 .addPage(new SmeltingBookPage(RUNEWOOD_LOG.get(), ARCANE_CHARCOAL.get()))
                 .addPage(CraftingBookPage.fullPage(BLOCK_OF_ARCANE_CHARCOAL.get(), ARCANE_CHARCOAL.get()))
                 .addPage(new HeadlineTextPage("runewood.holy_sap", "runewood.holy_sap.1"))

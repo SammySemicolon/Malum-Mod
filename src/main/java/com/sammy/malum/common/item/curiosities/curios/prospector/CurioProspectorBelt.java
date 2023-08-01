@@ -18,7 +18,7 @@ import top.theillusivec4.curios.api.CuriosApi;
 public class CurioProspectorBelt extends MalumCurioItem {
 
     public CurioProspectorBelt(Properties builder) {
-        super(builder, MalumTrinketType.GILDED);
+        super(builder, MalumTrinketType.METALLIC);
     }
 
     public static void processExplosion(ExplosionEvent.Detonate event) {

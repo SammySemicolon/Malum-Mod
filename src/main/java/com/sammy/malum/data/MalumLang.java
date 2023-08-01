@@ -1,7 +1,7 @@
 package com.sammy.malum.data;
 
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.client.screen.codex.ProgressionBookScreen;
+import com.sammy.malum.client.screen.codex.ArcanaProgressionScreen;
 import com.sammy.malum.common.block.ether.EtherWallTorchBlock;
 import com.sammy.malum.common.item.spirit.SpiritJarItem;
 import com.sammy.malum.core.systems.item.ISoulContainerItem;
@@ -49,7 +49,7 @@ public class MalumLang extends LanguageProvider {
 
     @Override
     protected void addTranslations() {
-        ProgressionBookScreen.setupEntries();
+        ArcanaProgressionScreen.setupEntries();
         Set<RegistryObject<Block>> blocks = new HashSet<>(BLOCKS.getEntries());
         Set<RegistryObject<Item>> items = new HashSet<>(ITEMS.getEntries());
         Set<RegistryObject<SoundEvent>> sounds = new HashSet<>(SOUNDS.getEntries());
@@ -228,7 +228,7 @@ public class MalumLang extends LanguageProvider {
                 "It is the impulse of creation, the first principle of all things. It is found within those who have opened their soul to power, or whose origins lie in that power.",
                 "I suspect that this arcana, unlike others, can join a soul over time. Most things about the soul are defined early on. The impulses that define you are woven into your very self, after all. But lacking an impulse, perhaps this arcana is different. A witch was not born a mage, after all.");
 
-        addSimpleEntryHeader("elemental_arcana", "Earthen Spirit", "Focused Magic");
+        addSimpleEntryHeader("elemental_arcana", "Elemental Arcana", "Focused magic");
         addHeadline("elemental_arcana.aerial", "Aerial Spirit");
         addPages("elemental_arcana.aerial",
                 "Aerial arcana is the simplest of the elemental arcana. That very simplicity that gives it its utility. I have heard tales of magi soaring on the winds, ruling the skies. If any arcana is to make those tales achievable, it is this.",

@@ -1,16 +1,16 @@
 package com.sammy.malum.client.screen.codex.objects;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.sammy.malum.client.screen.codex.BookEntry;
+import com.sammy.malum.client.screen.codex.*;
 import net.minecraft.client.Minecraft;
 
 import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.*;
-import static com.sammy.malum.client.screen.codex.ProgressionBookScreen.*;
+import static com.sammy.malum.client.screen.codex.ArcanaProgressionScreen.*;
 
 public class ImportantEntryObject extends EntryObject {
 
-    public ImportantEntryObject(BookEntry entry, int posX, int posY) {
-        super(entry, posX, posY);
+    public ImportantEntryObject(AbstractProgressionCodexScreen screen, BookEntry entry, int posX, int posY) {
+        super(screen, entry, posX, posY);
     }
 
     @Override

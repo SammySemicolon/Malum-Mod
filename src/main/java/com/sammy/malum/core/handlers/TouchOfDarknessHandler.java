@@ -2,6 +2,7 @@ package com.sammy.malum.core.handlers;
 
 import com.mojang.blaze3d.systems.*;
 import com.mojang.blaze3d.vertex.*;
+import com.sammy.malum.common.block.curiosities.spirit_altar.*;
 import com.sammy.malum.common.block.curiosities.weeping_well.*;
 import com.sammy.malum.common.capability.*;
 import com.sammy.malum.common.packets.*;
@@ -18,16 +19,19 @@ import net.minecraft.world.entity.player.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.network.*;
+import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.systems.easing.*;
 import team.lodestar.lodestone.systems.rendering.*;
 import team.lodestar.lodestone.systems.rendering.shader.*;
 
+import java.util.*;
 import java.util.function.*;
 
 public class TouchOfDarknessHandler {
 
     public static final float MAX_AFFLICTION = 100f;
 
+    public int weepingWellInfluence;
     public int expectedAffliction;
     public int afflictionDuration;
     public float currentAffliction;
@@ -36,6 +40,7 @@ public class TouchOfDarknessHandler {
 
     public CompoundTag serializeNBT() {
         CompoundTag tag = new CompoundTag();
+        tag.putInt("weepingWellInfluence", weepingWellInfluence);
         tag.putInt("expectedAffliction", expectedAffliction);
         tag.putInt("afflictionDuration", afflictionDuration);
         tag.putFloat("currentAffliction", currentAffliction);
@@ -45,6 +50,7 @@ public class TouchOfDarknessHandler {
     }
 
     public void deserializeNBT(CompoundTag tag) {
+        weepingWellInfluence = tag.getInt("weepingWellInfluence");
         expectedAffliction = tag.getInt("expectedAffliction");
         afflictionDuration = tag.getInt("afflictionDuration");
         currentAffliction = tag.getFloat("currentAffliction");
@@ -52,7 +58,7 @@ public class TouchOfDarknessHandler {
         timeSpentInGoop = tag.getInt("timeSpentInGoop");
     }
 
-    public static void touchedByGoop(BlockState pState, LivingEntity livingEntity) {
+    public static void handlePrimordialSoupContact(BlockState pState, LivingEntity livingEntity) {
         //while a living entity is in the primordial soup, we will bring their expected affliction to 100, slow their movement down.
         float intensity = 0.4f;
         TouchOfDarknessHandler touchOfDarknessHandler = MalumLivingEntityDataCapability.getCapability(livingEntity).touchOfDarknessHandler;
@@ -61,6 +67,15 @@ public class TouchOfDarknessHandler {
         }
         livingEntity.setDeltaMovement(livingEntity.getDeltaMovement().multiply(intensity, intensity, intensity));
         touchOfDarknessHandler.afflict(100);
+    }
+
+    public static boolean checkForWeepingWellInfluence(LivingEntity livingEntity) {
+        TouchOfDarknessHandler handler = MalumLivingEntityDataCapability.getCapability(livingEntity).touchOfDarknessHandler;
+        boolean foundWeepingWell = !BlockHelper.getBlockEntities(VoidConduitBlockEntity.class, livingEntity.level, livingEntity.blockPosition(), 8).isEmpty();
+        if (foundWeepingWell) {
+            handler.weepingWellInfluence = 200;
+        }
+        return handler.weepingWellInfluence > 0;
     }
 
     public static double updateEntityGravity(LivingEntity livingEntity, double value) {
@@ -76,7 +91,10 @@ public class TouchOfDarknessHandler {
         LivingEntity livingEntity = event.getEntityLiving();
         TouchOfDarknessHandler handler = MalumLivingEntityDataCapability.getCapability(livingEntity).touchOfDarknessHandler;
         boolean isInTheGoop = livingEntity.level.getBlockState(livingEntity.blockPosition()).getBlock() instanceof PrimordialSoupBlock;
-        if (handler.afflictionDuration > 0) { // tick down the duration of touch of darkness.
+        if (handler.weepingWellInfluence > 0) { //tick down weeping well influence, if it reaches 0, the player isn't around the weeping well
+            handler.weepingWellInfluence--;
+        }
+        if (handler.afflictionDuration > 0) { //tick down the duration of touch of darkness.
             handler.afflictionDuration--;
             if (handler.afflictionDuration == 0) { //if it reaches zero, set expectedAffliction to 0, eventually ending the effect
                 handler.expectedAffliction = 0;

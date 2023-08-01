@@ -45,7 +45,7 @@ public class SmeltingBookPage extends BookPage {
     }
 
     @Override
-    public void renderLeft(Minecraft minecraft, PoseStack poseStack, EntryScreen screen, float yOffset, int mouseX, int mouseY, float partialTicks, float xOffset) {
+    public void renderLeft(Minecraft minecraft, PoseStack poseStack, EntryScreen screen, int mouseX, int mouseY, float partialTicks) {
         int guiLeft = guiLeft();
         int guiTop = guiTop();
         renderItem(screen, poseStack, inputStack, guiLeft + 67, guiTop + 59, mouseX, mouseY);
@@ -54,7 +54,7 @@ public class SmeltingBookPage extends BookPage {
     }
 
     @Override
-    public void renderRight(Minecraft minecraft, PoseStack poseStack, EntryScreen screen, float yOffset, int mouseX, int mouseY, float partialTicks, float xOffset) {
+    public void renderRight(Minecraft minecraft, PoseStack poseStack, EntryScreen screen, int mouseX, int mouseY, float partialTicks) {
         int guiLeft = guiLeft();
         int guiTop = guiTop();
         renderItem(screen, poseStack, inputStack, guiLeft + 209, guiTop + 59, mouseX, mouseY);

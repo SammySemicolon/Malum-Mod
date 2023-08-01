@@ -12,7 +12,7 @@ import team.lodestar.lodestone.helpers.CurioHelper;
 
 public class CurioHarmonyNecklace extends MalumCurioItem {
     public CurioHarmonyNecklace(Properties builder) {
-        super(builder, MalumTrinketType.GILDED);
+        super(builder, MalumTrinketType.METALLIC);
     }
 
     public static void preventDetection(LivingEvent.LivingVisibilityEvent event) {

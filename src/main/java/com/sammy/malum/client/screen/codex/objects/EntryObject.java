@@ -1,8 +1,7 @@
 package com.sammy.malum.client.screen.codex.objects;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.sammy.malum.client.screen.codex.BookEntry;
-import com.sammy.malum.client.screen.codex.EntryScreen;
+import com.sammy.malum.client.screen.codex.*;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.TranslatableComponent;
@@ -10,13 +9,13 @@ import net.minecraft.network.chat.TranslatableComponent;
 import java.util.Arrays;
 
 import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.*;
-import static com.sammy.malum.client.screen.codex.ProgressionBookScreen.*;
+import static com.sammy.malum.client.screen.codex.ArcanaProgressionScreen.*;
 
 public class EntryObject extends BookObject {
     public final BookEntry entry;
 
-    public EntryObject(BookEntry entry, int posX, int posY) {
-        super(posX, posY, 32, 32);
+    public EntryObject(AbstractProgressionCodexScreen screen, BookEntry entry, int posX, int posY) {
+        super(screen, posX, posY, 32, 32);
         this.entry = entry;
     }
 

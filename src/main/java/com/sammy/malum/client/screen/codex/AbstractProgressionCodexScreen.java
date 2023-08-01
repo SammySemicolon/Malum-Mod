@@ -40,7 +40,7 @@ public abstract class AbstractProgressionCodexScreen extends AbstractMalumScreen
         this.bookInsideWidth = bookInsideWidth;
         this.bookInsideHeight = bookInsideHeight;
         this.backgroundImageWidth = backgroundImageWidth;
-        this.backgroundImageHeight = backgroundImageHeight ;
+        this.backgroundImageHeight = backgroundImageHeight;
         minecraft = Minecraft.getInstance();
     }
 
@@ -48,17 +48,19 @@ public abstract class AbstractProgressionCodexScreen extends AbstractMalumScreen
         bookObjects.clear();
         this.width = minecraft.getWindow().getGuiScaledWidth();
         this.height = minecraft.getWindow().getGuiScaledHeight();
-        int guiLeft = (width - bookWidth) / 2;
-        int guiTop = (height - bookHeight) / 2;
+        int guiLeft = getGuiLeft();
+        int guiTop = getGuiTop();
         int coreX = guiLeft + bookInsideWidth;
         int coreY = guiTop + bookInsideHeight;
         int width = 40;
         int height = 48;
         for (BookEntry entry : getEntries()) {
-            bookObjects.add(entry.objectSupplier.getBookObject(entry, coreX + entry.xOffset * width, coreY - entry.yOffset * height));
+            bookObjects.add(entry.objectSupplier.getBookObject(this, entry, coreX + entry.xOffset * width, coreY - entry.yOffset * height));
         }
         faceObject(bookObjects.get(0));
     }
+
+    public abstract void openScreen(boolean ignoreNextMouseClick);
 
     public abstract Collection<BookEntry> getEntries();
 
@@ -105,10 +107,8 @@ public abstract class AbstractProgressionCodexScreen extends AbstractMalumScreen
     public void faceObject(BookObject object) {
         this.width = minecraft.getWindow().getGuiScaledWidth();
         this.height = minecraft.getWindow().getGuiScaledHeight();
-        int guiLeft = (width - bookWidth) / 2;
-        int guiTop = (height - bookHeight) / 2;
-        xOffset = -object.posX + guiLeft + bookInsideWidth;
-        yOffset = -object.posY + guiTop + bookInsideHeight;
+        xOffset = -object.posX + getGuiLeft() + bookInsideWidth;
+        yOffset = -object.posY + getGuiTop() + bookInsideHeight;
     }
 
     public void renderEntries(PoseStack stack, int mouseX, int mouseY, float partialTicks) {
@@ -116,7 +116,7 @@ public abstract class AbstractProgressionCodexScreen extends AbstractMalumScreen
             BookObject object = bookObjects.get(i);
             boolean isHovering = object.isHovering(this, xOffset, yOffset, mouseX, mouseY);
             object.isHovering = isHovering;
-            object.hover = isHovering ? Math.min(object.hover+1, object.hoverCap()) : Math.max(object.hover-1, 0);
+            object.hover = isHovering ? Math.min(object.hover + 1, object.hoverCap()) : Math.max(object.hover - 1, 0);
             object.render(minecraft, stack, xOffset, yOffset, mouseX, mouseY, partialTicks);
         }
     }
@@ -128,37 +128,35 @@ public abstract class AbstractProgressionCodexScreen extends AbstractMalumScreen
         }
     }
 
-    public void renderBackground(ResourceLocation texture, PoseStack poseStack, float xModifier, float yModifier) {
-        int guiLeft = (width - bookWidth) / 2;
-        int guiTop = (height - bookHeight) / 2;
-        int insideLeft = guiLeft + 17;
-        int insideTop = guiTop + 14;
-        float uOffset = (backgroundImageWidth - xOffset) * xModifier;
-        float vOffset = Math.min(backgroundImageHeight - bookInsideHeight, (backgroundImageHeight - bookInsideHeight - yOffset * yModifier));
-        if (vOffset <= backgroundImageHeight / 2f) {
-            vOffset = backgroundImageHeight / 2f;
-        }
-        if (uOffset <= 0) {
-            uOffset = 0;
-        }
-        if (uOffset > (bookInsideWidth - 8) / 2f) {
-            uOffset = (bookInsideWidth - 8) / 2f;
-        }
-        renderTexture(texture, poseStack, insideLeft, insideTop, uOffset, vOffset, bookInsideWidth, bookInsideHeight, backgroundImageWidth / 2, backgroundImageHeight / 2);
-    }
-
     public boolean isInView(double mouseX, double mouseY) {
-        int guiLeft = (width - bookWidth) / 2;
-        int guiTop = (height - bookHeight) / 2;
-        return !(mouseX < guiLeft + 17) && !(mouseY < guiTop + 14) && !(mouseX > guiLeft + (bookWidth - 17)) && !(mouseY > (guiTop + bookHeight - 14));
+        return mouseX >= getInsideLeft()
+                && mouseY >= getInsideTop()
+                && mouseX <= (getInsideLeft() + bookInsideWidth)
+                && mouseY <= (getInsideTop() + bookInsideHeight);
     }
 
     public void cut() {
         int scale = (int) getMinecraft().getWindow().getGuiScale();
-        int guiLeft = (width - bookWidth) / 2;
-        int guiTop = (height - bookHeight) / 2;
-        int insideLeft = guiLeft + 17;
-        int insideTop = guiTop + 18;
-        GL11.glScissor(insideLeft * scale, insideTop * scale, bookInsideWidth * scale, (bookInsideHeight + 1) * scale); // do not ask why the 1 is needed please
+        GL11.glScissor(
+                getInsideLeft() * scale,
+                getMinecraft().getWindow().getHeight() - (getInsideTop() + bookInsideHeight) * scale,
+                bookInsideWidth * scale,
+                bookInsideHeight * scale);
+    }
+
+    public int getInsideLeft() {
+        return getGuiLeft() + 17;
+    }
+
+    public int getInsideTop() {
+        return getGuiTop() + 14;
+    }
+
+    public int getGuiLeft() {
+        return (width - bookWidth) / 2;
+    }
+
+    public int getGuiTop() {
+        return (height - bookHeight) / 2;
     }
 }

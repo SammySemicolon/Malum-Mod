@@ -8,7 +8,7 @@ import team.lodestar.lodestone.helpers.CurioHelper;
 public class CurioDemolitionistRing extends MalumCurioItem {
 
     public CurioDemolitionistRing(Properties builder) {
-        super(builder, MalumTrinketType.ORNATE);
+        super(builder, MalumTrinketType.METALLIC);
     }
 
     public static float increaseExplosionRadius(LivingEntity source, float original) {

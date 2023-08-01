@@ -46,9 +46,9 @@ public class EntryScreen extends AbstractMalumScreen {
                 if (i < openEntry.pages.size()) {
                     BookPage page = openEntry.pages.get(i);
                     if (i % 2 == 0) {
-                        page.renderBackgroundLeft(minecraft, poseStack, ProgressionBookScreen.screen.xOffset, ProgressionBookScreen.screen.yOffset, mouseX, mouseY, partialTicks);
+                        page.renderBackgroundLeft(poseStack);
                     } else {
-                        page.renderBackgroundRight(minecraft, poseStack, ProgressionBookScreen.screen.xOffset, ProgressionBookScreen.screen.yOffset, mouseX, mouseY, partialTicks);
+                        page.renderBackgroundRight(poseStack);
                     }
                 }
             }
@@ -73,9 +73,9 @@ public class EntryScreen extends AbstractMalumScreen {
                 if (i < openEntry.pages.size()) {
                     BookPage page = openEntry.pages.get(i);
                     if (i % 2 == 0) {
-                        page.renderLeft(minecraft, poseStack, entryScreen, ProgressionBookScreen.screen.yOffset, mouseX, mouseY, partialTicks, ProgressionBookScreen.screen.xOffset);
+                        page.renderLeft(minecraft, poseStack, this, mouseX, mouseY, partialTicks);
                     } else {
-                        page.renderRight(minecraft, poseStack, entryScreen, ProgressionBookScreen.screen.yOffset, mouseX, mouseY, partialTicks, ProgressionBookScreen.screen.xOffset);
+                        page.renderRight(minecraft, poseStack, this, mouseX, mouseY, partialTicks);
                     }
                 }
             }
@@ -122,27 +122,27 @@ public class EntryScreen extends AbstractMalumScreen {
 
     @Override
     public Supplier<SoundEvent> getSweetenerSound() {
-        return SoundRegistry.ARCANA_SWEETENER_NORMAL;
+        return openObject.screen.getSweetenerSound();
     }
 
     public void nextPage() {
         if (grouping < openObject.entry.pages.size() / 2f - 1) {
             grouping += 1;
-            entryScreen.playPageFlipSound(SoundRegistry.ARCANA_PAGE_FLIP, getSweetenerPitch());
+            playPageFlipSound(SoundRegistry.ARCANA_PAGE_FLIP, getSweetenerPitch());
         }
     }
 
     public void previousPage(boolean ignore) {
         if (grouping > 0) {
             grouping -= 1;
-            entryScreen.playPageFlipSound(SoundRegistry.ARCANA_PAGE_FLIP, getSweetenerPitch());
+            playPageFlipSound(SoundRegistry.ARCANA_PAGE_FLIP, getSweetenerPitch());
         } else {
             close(ignore);
         }
     }
 
     public void close(boolean ignoreNextInput) {
-        ProgressionBookScreen.openScreen(ignoreNextInput);
+        openObject.screen.openScreen(ignoreNextInput);
         playSweetenedSound(SoundRegistry.ARCANA_ENTRY_CLOSE, 0.85f);
         openObject.exit();
     }

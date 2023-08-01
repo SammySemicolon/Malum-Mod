@@ -10,11 +10,9 @@ import top.theillusivec4.curios.api.*;
 
 import java.util.UUID;
 
-public class CurioNarrowNecklace extends MalumCurioItem
-{
-    public CurioNarrowNecklace(Properties builder)
-    {
-        super(builder, MalumTrinketType.ORNATE);
+public class CurioNarrowNecklace extends MalumCurioItem {
+    public CurioNarrowNecklace(Properties builder) {
+        super(builder, MalumTrinketType.METALLIC);
     }
 
     @Override

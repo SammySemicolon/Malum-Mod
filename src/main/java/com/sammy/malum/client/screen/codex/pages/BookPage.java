@@ -9,34 +9,34 @@ import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.*;
 import static com.sammy.malum.client.screen.codex.EntryScreen.*;
 
 public class BookPage {
-    public final ResourceLocation BACKGROUND;
+    public final ResourceLocation background;
 
     public BookPage(ResourceLocation background) {
-        this.BACKGROUND = background;
+        this.background = background;
     }
 
     public boolean isValid() {
         return true;
     }
 
-    public void renderLeft(Minecraft minecraft, PoseStack poseStack, EntryScreen screen, float yOffset, int mouseX, int mouseY, float partialTicks, float xOffset) {
+    public void renderLeft(Minecraft minecraft, PoseStack poseStack, EntryScreen screen, int mouseX, int mouseY, float partialTicks) {
 
     }
 
-    public void renderRight(Minecraft minecraft, PoseStack poseStack, EntryScreen screen, float yOffset, int mouseX, int mouseY, float partialTicks, float xOffset) {
+    public void renderRight(Minecraft minecraft, PoseStack poseStack, EntryScreen screen, int mouseX, int mouseY, float partialTicks) {
 
     }
 
-    public void renderBackgroundLeft(Minecraft minecraft, PoseStack poseStack, float xOffset, float yOffset, int mouseX, int mouseY, float partialTicks) {
+    public void renderBackgroundLeft(PoseStack poseStack) {
         int guiLeft = guiLeft();
         int guiTop = guiTop();
-        renderTexture(BACKGROUND, poseStack, guiLeft, guiTop, 1, 1, entryScreen.bookWidth - 147, entryScreen.bookHeight, 512, 512);
+        renderTexture(background, poseStack, guiLeft, guiTop, 1, 1, entryScreen.bookWidth - 147, entryScreen.bookHeight, 512, 512);
     }
 
-    public void renderBackgroundRight(Minecraft minecraft, PoseStack poseStack, float xOffset, float yOffset, int mouseX, int mouseY, float partialTicks) {
+    public void renderBackgroundRight(PoseStack poseStack) {
         int guiLeft = guiLeft();
         int guiTop = guiTop();
-        renderTexture(BACKGROUND, poseStack, guiLeft + 147, guiTop, 148, 1, entryScreen.bookWidth - 147, entryScreen.bookHeight, 512, 512);
+        renderTexture(background, poseStack, guiLeft + 147, guiTop, 148, 1, entryScreen.bookWidth - 147, entryScreen.bookHeight, 512, 512);
     }
 
     public int guiLeft() {

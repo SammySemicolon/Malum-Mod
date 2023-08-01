@@ -1,6 +1,7 @@
 package com.sammy.malum.common.item;
 
-import com.sammy.malum.client.screen.codex.ProgressionBookScreen;
+import com.sammy.malum.client.screen.codex.*;
+import com.sammy.malum.core.handlers.*;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
@@ -15,8 +16,14 @@ public class EncyclopediaArcanaItem extends Item {
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+        boolean isNearWeepingWell = TouchOfDarknessHandler.checkForWeepingWellInfluence(player);
         if (level.isClientSide) {
-            ProgressionBookScreen.openCodexViaItem();
+            if (isNearWeepingWell) {
+                VoidProgressionScreen.openCodexViaItem();
+            }
+            else {
+                ArcanaProgressionScreen.openCodexViaItem();
+            }
             player.swing(hand);
             return InteractionResultHolder.success(player.getItemInHand(hand));
         }
