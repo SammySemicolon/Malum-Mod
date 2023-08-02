@@ -1,7 +1,6 @@
 package com.sammy.malum.client.renderer.block;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
 import com.sammy.malum.common.block.storage.ItemPedestalBlockEntity;
 import com.sammy.malum.common.item.spirit.SpiritShardItem;
 import net.minecraft.client.Minecraft;
@@ -12,6 +11,10 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import org.joml.*;
+import org.joml.Math;
+
+import java.lang.*;
 
 import static net.minecraft.client.renderer.texture.OverlayTexture.NO_OVERLAY;
 

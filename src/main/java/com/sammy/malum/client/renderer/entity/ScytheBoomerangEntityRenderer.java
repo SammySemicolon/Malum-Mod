@@ -1,7 +1,7 @@
 package com.sammy.malum.client.renderer.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
+import org.joml.*;
 import com.sammy.malum.common.entity.boomerang.ScytheBoomerangEntity;
 import com.sammy.malum.common.item.curiosities.weapons.MalumScytheItem;
 import net.minecraft.client.renderer.MultiBufferSource;

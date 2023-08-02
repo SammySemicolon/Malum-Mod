@@ -10,11 +10,14 @@ import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.blockentity.*;
 import net.minecraft.resources.*;
 import net.minecraft.util.*;
+import org.joml.*;
+import org.joml.Math;
 import team.lodestar.lodestone.handlers.*;
 import team.lodestar.lodestone.registry.client.LodestoneRenderTypeRegistry;
 import team.lodestar.lodestone.systems.rendering.*;
 
 import java.awt.*;
+import java.lang.*;
 import java.util.*;
 
 

@@ -2,7 +2,7 @@ package com.sammy.malum.client.renderer.block;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Vector3f;
+import org.joml.*;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.block.curiosities.weeping_well.VoidConduitBlockEntity;
 import net.minecraft.client.renderer.MultiBufferSource;

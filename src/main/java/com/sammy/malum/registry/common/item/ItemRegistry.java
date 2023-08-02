@@ -90,7 +90,6 @@ public class ItemRegistry {
     public static Item.Properties DEFAULT_PROPERTIES() {
         return new Item.Properties().tab(CreativeTabRegistry.CONTENT);
     }
-
     
     public static Item.Properties BUILDING_PROPERTIES() {
         return new Item.Properties().tab(CreativeTabRegistry.BUILDING);

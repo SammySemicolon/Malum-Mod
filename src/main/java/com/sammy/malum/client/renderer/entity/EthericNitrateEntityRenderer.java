@@ -2,7 +2,7 @@ package com.sammy.malum.client.renderer.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Vector3f;
+import org.joml.*;
 import com.mojang.math.Vector4f;
 import com.sammy.malum.common.entity.nitrate.EthericNitrateEntity;
 import net.minecraft.client.renderer.MultiBufferSource;
