@@ -6,7 +6,7 @@ import com.sammy.malum.common.capability.MalumPlayerDataCapability;
 import com.sammy.malum.core.handlers.SoulWardHandler;
 import com.sammy.malum.registry.common.AttributeRegistry;
 import com.sammy.malum.core.systems.item.IMalumEventResponderItem;
-import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.*;
 import net.minecraft.world.damagesource.EntityDamageSource;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -26,11 +26,10 @@ public class CurioMagebaneBelt extends MalumCurioItem implements IMalumEventResp
     public void onSoulwardAbsorbDamage(LivingHurtEvent event, Player wardedPlayer, ItemStack stack, float soulwardLost, float damageAbsorbed) {
         DamageSource source = event.getSource();
         if (source.getEntity() != null) {
-            if (source instanceof EntityDamageSource entityDamageSource) {
-                if (entityDamageSource.isMagic() && !entityDamageSource.isThorns()) {
-                    SoulWardHandler handler = MalumPlayerDataCapability.getCapability(wardedPlayer).soulWardHandler;
-                    handler.soulWardProgress = 0;
-                }
+            if (source.isMagic() && !entityDamageSource.isThorns()) {
+                SoulWardHandler handler = MalumPlayerDataCapability.getCapability(wardedPlayer).soulWardHandler;
+                handler.soulWardProgress = 0;
+
             }
         }
     }

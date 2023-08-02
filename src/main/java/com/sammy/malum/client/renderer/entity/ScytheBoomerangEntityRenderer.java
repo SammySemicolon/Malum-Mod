@@ -1,6 +1,8 @@
 package com.sammy.malum.client.renderer.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.*;
+import net.minecraft.world.item.*;
 import org.joml.*;
 import com.sammy.malum.common.entity.boomerang.ScytheBoomerangEntity;
 import com.sammy.malum.common.item.curiosities.weapons.MalumScytheItem;
@@ -13,7 +15,6 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.ItemStack;
 
 public class ScytheBoomerangEntityRenderer extends EntityRenderer<ScytheBoomerangEntity> {
     public final ItemRenderer itemRenderer;
@@ -29,11 +30,11 @@ public class ScytheBoomerangEntityRenderer extends EntityRenderer<ScytheBoomeran
     public void render(ScytheBoomerangEntity entityIn, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int packedLightIn) {
         poseStack.pushPose();
         ItemStack itemstack = entityIn.getItem();
-        BakedModel model = this.itemRenderer.getModel(itemstack, entityIn.level, null, 1);
-        poseStack.mulPose(Vector3f.XP.rotationDegrees(90F));
+        BakedModel model = this.itemRenderer.getModel(itemstack, entityIn.level(), null, 1);
+        poseStack.mulPose(Axis.XP.rotationDegrees(90F));
         poseStack.scale(2f, 2f, 2f);
-        poseStack.mulPose(Vector3f.ZP.rotation((entityIn.age + partialTicks) * 0.9f));
-        itemRenderer.render(itemstack, itemstack.getItem() instanceof MalumScytheItem ? ItemTransforms.TransformType.NONE : ItemTransforms.TransformType.FIXED, false, poseStack, bufferIn, packedLightIn, OverlayTexture.NO_OVERLAY, model);
+        poseStack.mulPose(Axis.ZP.rotation((entityIn.age + partialTicks) * 0.9f));
+        itemRenderer.render(itemstack, itemstack.getItem() instanceof MalumScytheItem ? ItemDisplayContext.NONE : ItemDisplayContext.FIXED, false, poseStack, bufferIn, packedLightIn, OverlayTexture.NO_OVERLAY, model);
 
         poseStack.popPose();
 

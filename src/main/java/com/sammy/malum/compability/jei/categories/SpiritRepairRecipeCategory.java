@@ -16,6 +16,7 @@ import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import net.minecraft.client.gui.*;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
@@ -42,10 +43,10 @@ public class SpiritRepairRecipeCategory implements IRecipeCategory<SpiritRepairR
     }
 
     @Override
-    public void draw(SpiritRepairRecipe recipe, IRecipeSlotsView recipeSlotsView, PoseStack poseStack, double mouseX, double mouseY) {
-        overlay.draw(poseStack);
+    public void draw(SpiritRepairRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+        overlay.draw(guiGraphics);
         if (recipe.spirits.size() > 0) {
-            ArcanaCodexHelper.renderItemFrames(poseStack, recipe.spirits.size(), 61, 12, false);
+            ArcanaCodexHelper.renderItemFrames(guiGraphics.pose(), recipe.spirits.size(), 61, 12, false);
         }
     }
 

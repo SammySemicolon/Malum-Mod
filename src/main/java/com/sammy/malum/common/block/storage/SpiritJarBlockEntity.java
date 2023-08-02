@@ -138,14 +138,14 @@ public class SpiritJarBlockEntity extends LodestoneBlockEntity {
         lastClickUUID = player.getUUID();
 
         if (count != 0) {
-            if (player.level.isClientSide) {
+            if (player.level().isClientSide) {
                 spawnUseParticles(level, worldPosition, type);
             } else {
                 BlockStateHelper.updateAndNotifyState(level, worldPosition);
             }
         }
 
-        return InteractionResult.sidedSuccess(player.level.isClientSide);
+        return InteractionResult.sidedSuccess(player.level().isClientSide);
     }
 
     public int insertHeldItem(Player player) {

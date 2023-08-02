@@ -22,17 +22,17 @@ public class FishingHookEntityMixin {
     @Final
     private int lureSpeed;
     @Unique
-    private Player player;
+    private Player lodestone$player;
 
     @ModifyVariable(method = "<init>(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/level/Level;II)V", at = @At("RETURN"), index = 1, argsOnly = true)
     private Player malumFishingStatChangesPlayerGrabberMixin(Player player) {
-        return this.player = player;
+        return this.lodestone$player = player;
     }
 
     @Inject(method = "<init>(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/level/Level;II)V", at = @At("RETURN"))
     private void malumModifyFishingLuckStatsMixin(Player p_37106_, Level p_37107_, int p_37108_, int p_37109_, CallbackInfo ci) {
-        if (player.hasEffect(MobEffectRegistry.ANGLERS_LURE.get())) {
-            float bonus = (player.getEffect(MobEffectRegistry.ANGLERS_LURE.get()).getAmplifier() / 2f);
+        if (lodestone$player.hasEffect(MobEffectRegistry.ANGLERS_LURE.get())) {
+            float bonus = (lodestone$player.getEffect(MobEffectRegistry.ANGLERS_LURE.get()).getAmplifier() / 2f);
             luck += bonus*2f;
             lureSpeed += bonus + 0.5f;
         }

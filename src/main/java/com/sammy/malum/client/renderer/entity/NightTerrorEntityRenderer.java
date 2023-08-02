@@ -3,7 +3,6 @@ package com.sammy.malum.client.renderer.entity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import org.joml.*;
-import com.mojang.math.Vector4f;
 import com.sammy.malum.common.entity.night_terror.NightTerrorSeekerEntity;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -13,6 +12,7 @@ import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
+import org.joml.Math;
 import team.lodestar.lodestone.helpers.EntityHelper;
 import team.lodestar.lodestone.registry.client.LodestoneRenderTypeRegistry;
 import team.lodestar.lodestone.systems.easing.Easing;
@@ -67,7 +67,6 @@ public class NightTerrorEntityRenderer extends EntityRenderer<NightTerrorSeekerE
         float fadeOut = Easing.SINE_IN_OUT.ease(Mth.clamp((entity.age - entity.fadeoutStart) / (float) entity.fadeoutDuration, 0, 1), 0, 1, 1);
         float trailVisibility = Mth.clamp(entity.age / 10f,0, 1) * (entity.age > entity.fadeoutStart ? (1 - fadeOut) : 1);
 
-
         Color firstColor = NightTerrorSeekerEntity.NIGHT_TERROR_PURPLE;
         Color secondColor = NightTerrorSeekerEntity.NIGHT_TERROR_DARK;
 
@@ -80,7 +79,6 @@ public class NightTerrorEntityRenderer extends EntityRenderer<NightTerrorSeekerE
         builder.setColor(secondColor);
         builder.renderTrail(darkBuffer, poseStack, offset, mappedPastPositions, f -> 0.35f, f -> builder.setAlpha(trailVisibility * Math.max(0, Easing.SINE_IN.ease(f, 0, 0.5f, 1))));
         builder.renderTrail(darkBuffer, poseStack, offset, mappedPastPositions, f -> 0.25f, f -> builder.setAlpha(trailVisibility * Math.max(0, Easing.SINE_IN.ease(f, 0, 0.75f, 1))));
-
 
         poseStack.translate(0, 0.25F, 0);
         poseStack.scale(1.2f * trailVisibility, 1.2f * trailVisibility, 1.2f * trailVisibility);

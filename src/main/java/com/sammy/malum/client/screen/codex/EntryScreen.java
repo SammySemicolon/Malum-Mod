@@ -7,6 +7,7 @@ import com.sammy.malum.client.screen.codex.pages.BookPage;
 import com.sammy.malum.config.ClientConfig;
 import com.sammy.malum.registry.common.SoundRegistry;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.*;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
@@ -33,10 +34,11 @@ public class EntryScreen extends AbstractMalumScreen {
     }
 
     @Override
-    public void render(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
+    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
+        PoseStack poseStack = guiGraphics.pose();
         BookEntry openEntry = openObject.entry;
-        renderBackground(poseStack);
-        super.render(poseStack, mouseX, mouseY, partialTicks);
+        renderBackground(guiGraphics);
+        super.render(guiGraphics, mouseX, mouseY, partialTicks);
         int guiLeft = (width - bookWidth) / 2;
         int guiTop = (height - bookHeight) / 2;
         renderTexture(BOOK_TEXTURE, poseStack, guiLeft, guiTop, 1, 1, bookWidth, bookHeight, 512, 512);

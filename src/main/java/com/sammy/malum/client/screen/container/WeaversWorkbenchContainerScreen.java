@@ -7,6 +7,7 @@ import com.mojang.math.*;
 import com.sammy.malum.*;
 import com.sammy.malum.common.container.*;
 import net.minecraft.client.*;
+import net.minecraft.client.gui.*;
 import net.minecraft.client.gui.screens.inventory.*;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.entity.*;
@@ -20,6 +21,8 @@ import net.minecraft.world.item.*;
 import javax.annotation.*;
 
 public class WeaversWorkbenchContainerScreen extends AbstractContainerScreen<WeaversWorkbenchContainer> {
+
+    //TODO: this can most likely just call some code in the smithing table container screen now !!!
 
     public static final Quaternion ROTATION = Quaternion.fromXYZ(0.43633232F, 0.0F, 3.1415927F);
     private static final ResourceLocation TEXTURE = MalumMod.malumPath("textures/gui/weavers_workbench.png");
@@ -38,14 +41,16 @@ public class WeaversWorkbenchContainerScreen extends AbstractContainerScreen<Wea
         this.imageHeight = 166;
         setupArmorStand();
     }
+
     @Override
-    public void render(@Nonnull PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
-        this.renderBackground(poseStack);
-        super.render(poseStack, mouseX, mouseY, partialTicks);
-        this.renderTooltip(poseStack, mouseX, mouseY);
+    public void render(@Nonnull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
+        this.renderBackground(guiGraphics);
+        super.render(guiGraphics, mouseX, mouseY, partialTicks);
+        this.renderTooltip(guiGraphics, mouseX, mouseY);
     }
+
     @Override
-    protected void renderBg(PoseStack pPoseStack, float pPartialTick, int pMouseX, int pMouseY) {
+    protected void renderBg(GuiGraphics guiGraphics, float pPartialTick, int pMouseX, int pMouseY) {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
         RenderSystem.setShaderTexture(0, TEXTURE);
@@ -84,7 +89,7 @@ public class WeaversWorkbenchContainerScreen extends AbstractContainerScreen<Wea
                 ItemStack itemStack = stack.copy();
                 Item var8 = stack.getItem();
                 if (var8 instanceof ArmorItem armorItem) {
-                    this.armorStand.setItemSlot(armorItem.getSlot(), itemStack);
+                    this.armorStand.setItemSlot(armorItem.getEquipmentSlot(), itemStack);
                 }
             }
         }
@@ -97,7 +102,7 @@ public class WeaversWorkbenchContainerScreen extends AbstractContainerScreen<Wea
         RenderSystem.applyModelViewMatrix();
         matrices.pushPose();
         matrices.translate(x, y, -950.0);
-        matrices.mulPoseMatrix((Matrix4f.createScaleMatrix((float)size, (float)size, (float)(-size))));
+        matrices.mulPoseMatrix((Matrix4f.createScaleMatrix((float) size, (float) size, (float) (-size))));
         matrices.mulPose(matrixMultiplier);
         Lighting.setupForEntityInInventory();
         EntityRenderDispatcher entityRenderDispatcher = Minecraft.getInstance().getEntityRenderDispatcher();

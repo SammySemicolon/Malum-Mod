@@ -45,8 +45,8 @@ public class MoteOfManaRenderer implements BlockEntityRenderer<MoteOfManaBlockEn
             offsetMap.add(new Vector3f[]{bottomVertices[i], bottomVertices[(i + 1) % 4], topVertices[(i + 1) % 4], topVertices[(i) % 4]});
         }
         poseStack.pushPose();
-        poseStack.translate(0.5f,0.5f,0.5f);
-        MalumSpiritType spiritType = ((SpiritMoteBlock)blockEntityIn.getBlockState().getBlock()).spiritType;
+        poseStack.translate(0.5f, 0.5f, 0.5f);
+        MalumSpiritType spiritType = ((SpiritMoteBlock) blockEntityIn.getBlockState().getBlock()).spiritType;
         drawWobblyCube(poseStack, spiritType.getPrimaryColor(), 1f, 0.86f, offsetMap, bottomVertices, topVertices);
         drawWobblyCube(poseStack, spiritType.getSecondaryColor(), -0.92f, 0.6f, offsetMap, bottomVertices, topVertices);
         drawWobblyCube(poseStack, spiritType.getPrimaryColor(), 1.12f, 0.5f, offsetMap, bottomVertices, topVertices);
@@ -55,7 +55,7 @@ public class MoteOfManaRenderer implements BlockEntityRenderer<MoteOfManaBlockEn
 
     public static void drawWobblyCube(PoseStack poseStack, Color color, float scale, float alpha, Collection<Vector3f[]> offsetMap, Vector3f[] bottomVertices, Vector3f[] topVertices) {
         poseStack.pushPose();
-        poseStack.scale(scale,scale,scale);
+        poseStack.scale(scale, scale, scale);
         poseStack.translate(-0.5f, -0.5f, -0.5f);
         for (Vector3f[] offsets : offsetMap) {
             drawSide(poseStack, color, alpha, offsets);

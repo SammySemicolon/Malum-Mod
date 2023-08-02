@@ -16,7 +16,7 @@ import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.*;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -41,10 +41,10 @@ public class SpiritRiteRecipeCategory implements IRecipeCategory<MalumRiteType> 
     }
 
     @Override
-    public void draw(MalumRiteType rite, IRecipeSlotsView recipeSlotsView, PoseStack poseStack, double mouseX, double mouseY) {
-        overlay.draw(poseStack);
+    public void draw(MalumRiteType rite, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+        overlay.draw(guiGraphics);
         String translated = I18n.get(rite.translationIdentifier(false));
-        ArcanaCodexHelper.renderText(poseStack, Component.literal(translated), 71 - font.width(translated) / 2, 160);
+        ArcanaCodexHelper.renderText(guiGraphics.pose(), Component.literal(translated), 71 - font.width(translated) / 2, 160);
     }
 
     @Override

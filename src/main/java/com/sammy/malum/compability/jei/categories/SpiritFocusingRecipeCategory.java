@@ -15,6 +15,7 @@ import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import net.minecraft.client.gui.*;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -37,10 +38,10 @@ public class SpiritFocusingRecipeCategory implements IRecipeCategory<SpiritFocus
     }
 
     @Override
-    public void draw(SpiritFocusingRecipe recipe, IRecipeSlotsView recipeSlotsView, PoseStack stack, double mouseX, double mouseY) {
-        overlay.draw(stack);
+    public void draw(SpiritFocusingRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+        overlay.draw(guiGraphics);
         if (recipe.spirits.size() > 0) {
-            ArcanaCodexHelper.renderItemFrames(stack, recipe.spirits.size(), 61, 12, false);
+            ArcanaCodexHelper.renderItemFrames(guiGraphics.pose(), recipe.spirits.size(), 61, 12, false);
         }
     }
 

@@ -171,7 +171,7 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity impleme
 
 	@Override
 	public InteractionResult onUse(Player player, InteractionHand hand) {
-		inventory.interact(player.level, player, hand);
+		inventory.interact(player.level(), player, hand);
 		return InteractionResult.SUCCESS;
 	}
 

@@ -2,6 +2,7 @@ package com.sammy.malum.client.renderer.block;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.math.*;
 import org.joml.*;
 import com.sammy.malum.common.block.curiosities.totem.TotemPoleBlockEntity;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
@@ -49,7 +50,7 @@ public class TotemPoleRenderer implements BlockEntityRenderer<TotemPoleBlockEnti
 
         poseStack.pushPose();
         poseStack.translate(0.5f, 0.5f, 0.5f);
-        poseStack.mulPose(Vector3f.YN.rotationDegrees(direction.toYRot()));
+        poseStack.mulPose(Axis.YN.rotationDegrees(direction.toYRot()));
         poseStack.translate(-0.5f, -0.5f, -0.5f);
         VFXBuilders.createWorld()
                 .setPosColorTexLightmapDefaultFormat()

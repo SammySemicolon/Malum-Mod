@@ -76,35 +76,6 @@ public class MalumItemModels extends LodestoneItemModelProvider {
         withExistingParent(name, GENERATED).texture("layer0", malumPath("item/ether_brazier_overlay")).texture("layer1", malumPath("item/" + textureName));
     }
 
-    private void etherTorchItem(RegistryObject<Item> i) {
-        String name = Registry.ITEM.getKey(i.get()).getPath();
-        AbstractEtherItem etherItem = (AbstractEtherItem) i.get();
-        if (etherItem.iridescent) {
-            withExistingParent(name, GENERATED).texture("layer0", malumPath("item/iridescent_ether_torch")).texture("layer1", malumPath("item/ether_torch")).texture("layer2", malumPath("item/iridescent_ether_torch_overlay"));
-            return;
-        }
-        withExistingParent(name, GENERATED).texture("layer0", malumPath("item/ether_torch_overlay")).texture("layer1", malumPath("item/ether_torch"));
-    }
-
-    private void etherSconceItem(RegistryObject<Item> i) {
-        String name = Registry.ITEM.getKey(i.get()).getPath();
-        AbstractEtherItem etherItem = (AbstractEtherItem) i.get();
-        if (etherItem.iridescent) {
-            withExistingParent(name, GENERATED).texture("layer0", malumPath("item/iridescent_ether_sconce")).texture("layer1", malumPath("item/ether_sconce")).texture("layer2", malumPath("item/iridescent_ether_sconce_overlay"));
-            return;
-        }
-        withExistingParent(name, GENERATED).texture("layer0", malumPath("item/ether_sconce_overlay")).texture("layer1", malumPath("item/ether_sconce"));
-    }
-
-    private void etherItem(RegistryObject<Item> i) {
-        String name = Registry.ITEM.getKey(i.get()).getPath();
-        AbstractEtherItem etherItem = (AbstractEtherItem) i.get();
-        if (etherItem.iridescent) {
-            withExistingParent(name, GENERATED).texture("layer0", malumPath("item/iridescent_ether")).texture("layer1", malumPath("item/iridescent_ether_overlay"));
-            return;
-        }
-        withExistingParent(name, GENERATED).texture("layer0", malumPath("item/ether"));
-    }
     @Override
     public String getName() {
         return "Malum Item Models";

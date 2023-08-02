@@ -38,12 +38,7 @@ public class MalumRecipes extends RecipeProvider implements IConditionBuilder {
     }
 
     @Override
-    public String getName() {
-        return "Malum Recipe Provider";
-    }
-
-    @Override
-    protected void buildCraftingRecipes(Consumer<FinishedRecipe> consumer) {
+    protected void buildRecipes(Consumer<FinishedRecipe> consumer) {
         //KEY ITEMS
         shapeless(ItemRegistry.ENCYCLOPEDIA_ARCANA.get()).requires(Items.BOOK).requires(ItemRegistry.PROCESSED_SOULSTONE.get()).unlockedBy("has_soulstone", has(ItemRegistry.PROCESSED_SOULSTONE.get())).save(consumer);
         shaped(ItemRegistry.CRUDE_SCYTHE.get()).define('#', Tags.Items.RODS_WOODEN).define('Y', ItemRegistry.PROCESSED_SOULSTONE.get()).define('X', Tags.Items.INGOTS_IRON).pattern("XXY").pattern(" #X").pattern("#  ").unlockedBy("has_soulstone", has(ItemRegistry.RAW_SOULSTONE.get())).save(consumer);

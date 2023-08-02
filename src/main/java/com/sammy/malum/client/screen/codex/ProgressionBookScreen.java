@@ -7,6 +7,7 @@ import com.sammy.malum.common.events.*;
 import com.sammy.malum.registry.common.*;
 import com.sammy.malum.registry.common.item.*;
 import net.minecraft.client.*;
+import net.minecraft.client.gui.*;
 import net.minecraft.resources.*;
 import net.minecraft.sounds.*;
 import net.minecraft.world.item.*;
@@ -42,9 +43,10 @@ public class ProgressionBookScreen extends AbstractProgressionCodexScreen {
     }
 
     @Override
-    public void render(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
-        renderBackground(poseStack);
-        super.render(poseStack, mouseX, mouseY, partialTicks);
+    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
+        PoseStack poseStack = guiGraphics.pose();
+        renderBackground(guiGraphics);
+        super.render(guiGraphics, mouseX, mouseY, partialTicks);
         int guiLeft = (width - bookWidth) / 2;
         int guiTop = (height - bookHeight) / 2;
 

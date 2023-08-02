@@ -14,12 +14,15 @@ import net.minecraft.resources.*;
 import net.minecraft.util.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.phys.*;
+import org.joml.*;
+import org.joml.Math;
 import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.helpers.render.ColorHelper;
 import team.lodestar.lodestone.registry.client.LodestoneRenderTypeRegistry;
 import team.lodestar.lodestone.systems.easing.*;
 import team.lodestar.lodestone.systems.rendering.*;
 
+import java.lang.*;
 import java.util.*;
 import java.util.stream.*;
 
@@ -74,15 +77,6 @@ public class FloatingItemEntityRenderer extends EntityRenderer<FloatingItemEntit
                     .renderTrail(lightBuffer, poseStack, offset, mappedPastPositions, f -> 1.5f * size, f -> builder.setAlpha(alpha * f / 2f).setColor(ColorHelper.colorLerp(Easing.SINE_IN, f * 2f, entity.endColor, entity.startColor)))
                     .renderTrail(lightBuffer, poseStack, offset, mappedPastPositions, f -> size * 2.5f, f -> builder.setAlpha(alpha * f / 4f).setColor(ColorHelper.colorLerp(Easing.SINE_IN, f * 2f, entity.endColor, entity.startColor)));
         }
-        ItemStack itemStack = entity.getItem();
-        BakedModel model = this.itemRenderer.getModel(itemStack, entity.level, null, entity.getItem().getCount());
-        float yOffset = entity.getYOffset(partialTicks);
-        float scale = model.getTransforms().getTransform(ItemTransforms.TransformType.GROUND).scale.y();
-        float rotation = entity.getRotation(partialTicks);
-        poseStack.translate(0.0D, (yOffset + 0.25F * scale), 0.0D);
-        poseStack.mulPose(Vector3f.YP.rotation(rotation));
-        this.itemRenderer.render(itemStack, ItemTransforms.TransformType.GROUND, false, poseStack, bufferIn, packedLightIn, OverlayTexture.NO_OVERLAY, model);
-        poseStack.popPose();
         poseStack.pushPose();
         renderSpirit(entity, itemRenderer, partialTicks, poseStack, bufferIn, packedLightIn);
         poseStack.popPose();
@@ -91,15 +85,15 @@ public class FloatingItemEntityRenderer extends EntityRenderer<FloatingItemEntit
 
     public static void renderSpirit(FloatingItemEntity entity, ItemRenderer itemRenderer, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int packedLightIn) {
         ItemStack itemStack = entity.getItem();
-        BakedModel model = itemRenderer.getModel(itemStack, entity.level, null, entity.getItem().getCount());
+        BakedModel model = itemRenderer.getModel(itemStack, entity.level(), null, entity.getItem().getCount());
         VFXBuilders.WorldVFXBuilder builder = VFXBuilders.createWorld().setPosColorTexLightmapDefaultFormat().setColor(entity.startColor);
         float yOffset = entity.getYOffset(partialTicks);
-        float scale = model.getTransforms().getTransform(ItemTransforms.TransformType.GROUND).scale.y();
+        float scale = model.getTransforms().getTransform(ItemDisplayContext.GROUND).scale.y();
         float rotation = entity.getRotation(partialTicks);
         poseStack.pushPose();
         poseStack.translate(0.0D, (yOffset + 0.25F * scale), 0.0D);
-        poseStack.mulPose(Vector3f.YP.rotation(rotation));
-        itemRenderer.render(itemStack, ItemTransforms.TransformType.GROUND, false, poseStack, bufferIn, packedLightIn, OverlayTexture.NO_OVERLAY, model);
+        poseStack.mulPose(Axis.YP.rotation(rotation));
+        itemRenderer.render(itemStack, ItemDisplayContext.GROUND, false, poseStack, bufferIn, packedLightIn, OverlayTexture.NO_OVERLAY, model);
         poseStack.popPose();
         poseStack.pushPose();
         poseStack.translate(0.0D, (yOffset + 0.5F * scale), 0.0D);
@@ -110,14 +104,14 @@ public class FloatingItemEntityRenderer extends EntityRenderer<FloatingItemEntit
     public static void renderSpiritGlimmer(PoseStack poseStack, VFXBuilders.WorldVFXBuilder builder, float partialTicks) {
         ClientLevel level = Minecraft.getInstance().level;
         float v = level.getGameTime() + partialTicks;
-        float time = (float) ((Math.sin(v) + v % 15f) / 15f);
+        float time = (Math.sin(v) + v % 15f) / 15f;
         if (time >= 0.5f) {
             time = 1f - time;
         }
         float multiplier = 1 + Easing.BOUNCE_IN_OUT.ease(time*2f, 0, 0.25f, 1);
         poseStack.pushPose();
         poseStack.mulPose(Minecraft.getInstance().getEntityRenderDispatcher().cameraOrientation());
-        poseStack.mulPose(Vector3f.YP.rotationDegrees(180f));
+        poseStack.mulPose(Axis.YP.rotationDegrees(180f));
         for (int i = 0; i < 3; i++) {
             float size = (0.125f + i * 0.13f) * multiplier;
             float alpha = (0.75f - i * 0.3f);

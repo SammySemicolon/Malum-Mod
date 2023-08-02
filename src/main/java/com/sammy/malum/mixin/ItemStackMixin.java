@@ -40,7 +40,7 @@ public abstract class ItemStackMixin {
                 AttributeModifier modifier = entry.getValue();
                 double amount = modifier.getAmount();
                 if (modifier.getId().equals(UUIDS.get(MAGIC_DAMAGE))) {
-                    int enchantmentLevel = EnchantmentHelper.getItemEnchantmentLevel(EnchantmentRegistry.HAUNTED.get(), (ItemStack) (Object) this);
+                    int enchantmentLevel = ((ItemStack) (Object) this).getEnchantmentLevel(EnchantmentRegistry.HAUNTED.get());
                     if (enchantmentLevel > 0) {
                         amount += enchantmentLevel;
                     }
