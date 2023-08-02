@@ -58,6 +58,12 @@ public class TotemBaseBlockEntity extends LodestoneBlockEntity {
             if (rite != null) {
                 progress++;
                 if (progress >= rite.getRiteTickRate(corrupted)) {
+                    if (direction == null) {
+                        BlockPos polePos = worldPosition.above(height);
+                        if (level.getBlockEntity(polePos) instanceof TotemPoleBlockEntity pole) {
+                            direction = pole.direction;
+                        }
+                    }
                     rite.executeRite(this);
                     progress = 0;
                     BlockHelper.updateAndNotifyState(level, worldPosition);
