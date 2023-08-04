@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 public class LivingEntityMixin {
 
     @ModifyVariable(method = "travel", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;getFluidState(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/material/FluidState;"))
-    private double malum$travel(double value) {
+    private double malum$travel(double value) { //TODO: this is rlly bad
         return TouchOfDarknessHandler.updateEntityGravity((LivingEntity)((Object)this), value);
     }
 }

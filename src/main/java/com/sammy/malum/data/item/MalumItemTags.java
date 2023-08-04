@@ -2,10 +2,10 @@ package com.sammy.malum.data.item;
 
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.item.impetus.NodeItem;
+import com.sammy.malum.data.block.*;
 import com.sammy.malum.registry.common.block.BlockTagRegistry;
 import com.sammy.malum.registry.common.item.ItemTagRegistry;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.tags.BlockTagsProvider;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
@@ -20,7 +20,7 @@ import static com.sammy.malum.registry.common.item.ItemTagRegistry.*;
 import static team.lodestar.lodestone.registry.common.tag.LodestoneItemTags.NUGGETS_COPPER;
 
 public class MalumItemTags extends ItemTagsProvider {
-    public MalumItemTags(DataGenerator dataGenerator, BlockTagsProvider blockTagProvider, ExistingFileHelper existingFileHelper) {
+    public MalumItemTags(DataGenerator dataGenerator, MalumBlockTags blockTagProvider, ExistingFileHelper existingFileHelper) {
         super(dataGenerator, blockTagProvider, MalumMod.MALUM, existingFileHelper);
     }
 

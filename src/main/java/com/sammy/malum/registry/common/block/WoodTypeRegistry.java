@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WoodTypeRegistry {
+
     public static final WoodType RUNEWOOD = WoodType.register(new WoodType("runewood", MalumBlockSetTypes.RUNEWOOD));
     public static final WoodType SOULWOOD = WoodType.register(new WoodType("soulwood", MalumBlockSetTypes.SOULWOOD));
+
 }

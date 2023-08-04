@@ -8,7 +8,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantments;
-import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.*;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraftforge.event.level.ExplosionEvent;
 import team.lodestar.lodestone.helpers.CurioHelper;
@@ -21,14 +21,14 @@ public class CurioProspectorBelt extends MalumCurioItem {
     }
 
     public static void processExplosion(ExplosionEvent.Detonate event) {
-        LivingEntity exploder = event.getExplosion().getSourceMob();
+        LivingEntity exploder = event.getExplosion().getIndirectSourceEntity();
         if (exploder != null && CurioHelper.hasCurioEquipped(exploder, ItemRegistry.BELT_OF_THE_PROSPECTOR.get())) {
             event.getAffectedEntities().removeIf(e -> e instanceof ItemEntity itemEntity && itemEntity.getItem().is(ItemTagRegistry.PROSPECTORS_TREASURE));
         }
     }
 
 
-    public static LootContext.Builder applyFortune(Entity source, LootContext.Builder builder) {
+    public static LootParams.Builder applyFortune(Entity source, LootParams.Builder builder) {
         if (source instanceof LivingEntity livingEntity) {
             if (CurioHelper.hasCurioEquipped(livingEntity, ItemRegistry.BELT_OF_THE_PROSPECTOR.get())) {
                 int fortuneBonus = 3 + CuriosApi.getCuriosHelper().getCuriosHandler(livingEntity).map(h -> h.getFortuneLevel(null)).orElse(0);

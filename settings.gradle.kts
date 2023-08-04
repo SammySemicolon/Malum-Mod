@@ -15,7 +15,7 @@ pluginManagement {
 	}
 }
 
-rootProject.name = "Lodestone"
+rootProject.name = "Malum"
 
 plugins {
 	id("org.gradle.toolchains.foojay-resolver-convention") version "0.5.0"

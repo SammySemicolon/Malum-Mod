@@ -3,6 +3,7 @@ package com.sammy.malum.client.renderer.block;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.*;
+import net.minecraft.resources.*;
 import org.joml.*;
 import com.sammy.malum.common.block.curiosities.totem.TotemPoleBlockEntity;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
@@ -25,12 +26,8 @@ import java.util.Map;
 
 
 public class TotemPoleRenderer implements BlockEntityRenderer<TotemPoleBlockEntity> {
-    public static Map<MalumSpiritType, Material> overlayHashmap = new HashMap<>();
 
     public TotemPoleRenderer(BlockEntityRendererProvider.Context context) {
-        SpiritTypeRegistry.SPIRITS.forEach((s, t) ->
-                overlayHashmap.put(t, new Material(TextureAtlas.LOCATION_BLOCKS, t.getTotemGlowTexture()))
-        );
     }
 
     @Override
@@ -39,12 +36,11 @@ public class TotemPoleRenderer implements BlockEntityRenderer<TotemPoleBlockEnti
         if (blockEntityIn.type == null) {
             return;
         }
-        renderQuad(overlayHashmap.get(blockEntityIn.type), blockEntityIn.type.getPrimaryColor(), blockEntityIn.currentColor/20f, direction, poseStack);
+        renderQuad(blockEntityIn.type.getTotemGlowTexture(), blockEntityIn.type.getPrimaryColor(), blockEntityIn.currentColor/20f, direction, poseStack);
     }
 
-    public void renderQuad(Material material, Color color, float alpha, Direction direction, PoseStack poseStack) {
-        TextureAtlasSprite sprite = material.sprite();
-        VertexConsumer consumer = RenderHandler.DELAYED_RENDER.getBuffer(LodestoneRenderTypeRegistry.ADDITIVE_BLOCK);
+    public void renderQuad(ResourceLocation texture, Color color, float alpha, Direction direction, PoseStack poseStack) {
+        VertexConsumer consumer = RenderHandler.DELAYED_RENDER.getBuffer(LodestoneRenderTypeRegistry.ADDITIVE_TEXTURE.applyAndCache(texture));
 
         Vector3f[] positions = new Vector3f[]{new Vector3f(0, 0, 2.01f), new Vector3f(2, 0, 2.01f), new Vector3f(2, 2, 2.01f), new Vector3f(0, 2, 2.01f)};
 
@@ -55,7 +51,6 @@ public class TotemPoleRenderer implements BlockEntityRenderer<TotemPoleBlockEnti
         VFXBuilders.createWorld()
                 .setPosColorTexLightmapDefaultFormat()
                 .setColor(color, alpha)
-                .setUV(sprite.getU0(), sprite.getV0(), sprite.getU1(), sprite.getV1())
                 .renderQuad(consumer, poseStack, positions, 0.5f);
         poseStack.popPose();
     }

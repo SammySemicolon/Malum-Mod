@@ -32,8 +32,7 @@ public class ContainerRegistry {
 
     @SubscribeEvent
     public static void bindContainerRenderers(FMLClientSetupEvent event) {
-        DistExecutor.runWhenOn(Dist.CLIENT, () -> () ->
-        {
+        DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> {
             MenuScreens.register(ContainerRegistry.SPIRIT_POUCH.get(), SpiritPouchContainerScreen::new);
             MenuScreens.register(ContainerRegistry.WEAVERS_WORKBENCH.get(), WeaversWorkbenchContainerScreen::new);
         });

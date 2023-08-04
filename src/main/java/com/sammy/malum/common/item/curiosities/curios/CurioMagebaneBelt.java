@@ -6,8 +6,10 @@ import com.sammy.malum.common.capability.MalumPlayerDataCapability;
 import com.sammy.malum.core.handlers.SoulWardHandler;
 import com.sammy.malum.registry.common.AttributeRegistry;
 import com.sammy.malum.core.systems.item.IMalumEventResponderItem;
+import net.minecraft.core.registries.*;
+import net.minecraft.resources.*;
+import net.minecraft.tags.*;
 import net.minecraft.world.damagesource.*;
-import net.minecraft.world.damagesource.EntityDamageSource;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.player.Player;
@@ -18,6 +20,8 @@ import java.util.UUID;
 
 public class CurioMagebaneBelt extends MalumCurioItem implements IMalumEventResponderItem {
 
+    public static final TagKey<DamageType> MAGIC_DAMAGE = TagKey.create(Registries.DAMAGE_TYPE, new ResourceLocation("forge:is_magic"));
+
     public CurioMagebaneBelt(Properties builder) {
         super(builder);
     }
@@ -26,10 +30,9 @@ public class CurioMagebaneBelt extends MalumCurioItem implements IMalumEventResp
     public void onSoulwardAbsorbDamage(LivingHurtEvent event, Player wardedPlayer, ItemStack stack, float soulwardLost, float damageAbsorbed) {
         DamageSource source = event.getSource();
         if (source.getEntity() != null) {
-            if (source.isMagic() && !entityDamageSource.isThorns()) {
+            if ((source.is(MAGIC_DAMAGE) || source.is(DamageTypeTags.WITCH_RESISTANT_TO)) && !source.is(DamageTypeTags.AVOIDS_GUARDIAN_THORNS)) {
                 SoulWardHandler handler = MalumPlayerDataCapability.getCapability(wardedPlayer).soulWardHandler;
                 handler.soulWardProgress = 0;
-
             }
         }
     }

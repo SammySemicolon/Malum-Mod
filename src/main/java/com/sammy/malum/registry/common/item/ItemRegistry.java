@@ -371,7 +371,7 @@ public class ItemRegistry {
     public static final RegistryObject<Item> BRILLIANT_DEEPSLATE = ITEMS.register("brilliant_deepslate", () -> new BlockItem(BlockRegistry.BRILLIANT_DEEPSLATE.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> CLUSTER_OF_BRILLIANCE = ITEMS.register("cluster_of_brilliance", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> CRUSHED_BRILLIANCE = ITEMS.register("crushed_brilliance", () -> new Item(DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> CHUNK_OF_BRILLIANCE = ITEMS.register("chunk_of_brilliance", () -> new BrillianceChunkItem(new Item.Properties().tab(CreativeModeTab.TAB_MISC).food((new FoodProperties.Builder()).fast().alwaysEat().build())));
+    public static final RegistryObject<Item> CHUNK_OF_BRILLIANCE = ITEMS.register("chunk_of_brilliance", () -> new BrillianceChunkItem(DEFAULT_PROPERTIES().food((new FoodProperties.Builder()).fast().alwaysEat().build())));
     public static final RegistryObject<Item> BLOCK_OF_BRILLIANCE = ITEMS.register("block_of_brilliance", () -> new BlockItem(BlockRegistry.BLOCK_OF_BRILLIANCE.get(), DEFAULT_PROPERTIES()));
 
     public static final RegistryObject<Item> SOULSTONE_ORE = ITEMS.register("soulstone_ore", () -> new BlockItem(BlockRegistry.SOULSTONE_ORE.get(), DEFAULT_PROPERTIES()));
@@ -410,7 +410,7 @@ public class ItemRegistry {
     public static final RegistryObject<Item> BLOCK_OF_ROTTING_ESSENCE = ITEMS.register("block_of_rotting_essence", () -> new BlockItem(BlockRegistry.BLOCK_OF_ROTTING_ESSENCE.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> BLOCK_OF_GRIM_TALC = ITEMS.register("block_of_grim_talc", () -> new BlockItem(BlockRegistry.BLOCK_OF_GRIM_TALC.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> BLOCK_OF_ASTRAL_WEAVE = ITEMS.register("block_of_astral_weave", () -> new BlockItem(BlockRegistry.BLOCK_OF_ASTRAL_WEAVE.get(), DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> BLOCK_OF_CTHONIC_GOLD = ITEMS.register("block_of_cthonic_gold", () -> new ItemNameBlockItem(BlockRegistry.BLOCK_OF_CTHONIC_GOLD.get(), new Item.Properties().tab(CreativeModeTab.TAB_BUILDING_BLOCKS)));
+    public static final RegistryObject<Item> BLOCK_OF_CTHONIC_GOLD = ITEMS.register("block_of_cthonic_gold", () -> new ItemNameBlockItem(BlockRegistry.BLOCK_OF_CTHONIC_GOLD.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> BLOCK_OF_HEX_ASH = ITEMS.register("block_of_hex_ash", () -> new BlockItem(BlockRegistry.BLOCK_OF_HEX_ASH.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> BLOCK_OF_ALCHEMICAL_CALX = ITEMS.register("block_of_alchemical_calx", () -> new BlockItem(BlockRegistry.BLOCK_OF_ALCHEMICAL_CALX.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> MASS_OF_BLIGHTED_GUNK = ITEMS.register("mass_of_blighted_gunk", () -> new BlockItem(BlockRegistry.MASS_OF_BLIGHTED_GUNK.get(), DEFAULT_PROPERTIES()));

@@ -14,7 +14,6 @@ import com.sammy.malum.data.item.MalumItemModels;
 import com.sammy.malum.data.item.MalumItemTags;
 import com.sammy.malum.data.recipe.*;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.tags.BlockTagsProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
 import net.minecraftforge.data.event.GatherDataEvent;
@@ -89,7 +88,7 @@ public class MalumMod {
     public static class DataOnly {
         public static void gatherData(GatherDataEvent event) {
             DataGenerator generator = event.getGenerator();
-            BlockTagsProvider provider = new MalumBlockTags(generator, event.getExistingFileHelper());
+            MalumBlockTags provider = new MalumBlockTags(generator, event.getExistingFileHelper());
             MalumItemModels itemProvider = new MalumItemModels(generator, event.getExistingFileHelper());
             MalumBlockStates blockStateProvider = new MalumBlockStates(generator, event.getExistingFileHelper(), itemProvider);
             generator.addProvider(event.includeServer(), blockStateProvider);

@@ -20,7 +20,6 @@ public class EntityRegistry
 {
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, MalumMod.MALUM);
 
-
     public static final RegistryObject<EntityType<LodestoneBoatEntity>> RUNEWOOD_BOAT = ENTITY_TYPES.register("runewood_boat",
             () -> EntityType.Builder.<LodestoneBoatEntity>of((t, w)->new LodestoneBoatEntity(t, w, ItemRegistry.RUNEWOOD_BOAT, ItemRegistry.RUNEWOOD_PLANKS), MobCategory.MISC).sized(1.375F, 0.5625F).clientTrackingRange(10)
                     .build(MalumMod.malumPath("runewood_boat").toString()));
