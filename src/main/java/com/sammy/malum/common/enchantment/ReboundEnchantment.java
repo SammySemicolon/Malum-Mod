@@ -28,8 +28,8 @@ public class ReboundEnchantment extends Enchantment {
     public static void onRightClickItem(PlayerInteractEvent.RightClickItem event) {
         Player player = event.getEntity();
         ItemStack stack = event.getItemStack();
-        if (EnchantmentHelper.getItemEnchantmentLevel(EnchantmentRegistry.REBOUND.get(), stack) > 0) {
-            Level level = player.level;
+        if (stack.getEnchantmentLevel(EnchantmentRegistry.REBOUND.get()) > 0) {
+            Level level = player.level();
             if (!level.isClientSide) {
                 player.setItemInHand(event.getHand(), ItemStack.EMPTY);
                 float baseDamage = (float) player.getAttributes().getValue(Attributes.ATTACK_DAMAGE);

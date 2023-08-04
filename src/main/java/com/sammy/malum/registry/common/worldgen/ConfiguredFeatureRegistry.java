@@ -2,6 +2,7 @@ package com.sammy.malum.registry.common.worldgen;
 
 import com.sammy.malum.registry.common.block.BlockRegistry;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.*;
 import net.minecraft.data.worldgen.features.OreFeatures;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -14,6 +15,7 @@ import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.GeodeConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
+import net.minecraft.world.level.levelgen.structure.templatesystem.*;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
 
@@ -21,25 +23,24 @@ import java.util.List;
 import java.util.function.Supplier;
 
 import static com.sammy.malum.MalumMod.MALUM;
-import static net.minecraft.data.worldgen.features.OreFeatures.DEEPSLATE_ORE_REPLACEABLES;
-import static net.minecraft.data.worldgen.features.OreFeatures.STONE_ORE_REPLACEABLES;
+import static net.minecraft.tags.BlockTags.*;
 import static net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration.INSTANCE;
 
 public final class ConfiguredFeatureRegistry {
-	public static final DeferredRegister<ConfiguredFeature<?, ?>> CONFIGURED_FEATURES = DeferredRegister.create(Registry.CONFIGURED_FEATURE_REGISTRY, MALUM);
+	public static final DeferredRegister<ConfiguredFeature<?, ?>> CONFIGURED_FEATURES = DeferredRegister.create(Registries.CONFIGURED_FEATURE, MALUM);
 
 	public static final RegistryObject<ConfiguredFeature<?, ?>> RUNEWOOD_TREE_FEATURE = CONFIGURED_FEATURES.register("runewood_tree", () -> new ConfiguredFeature<>(FeatureRegistry.RUNEWOOD_TREE.get(), INSTANCE));
 
 	public static final RegistryObject<ConfiguredFeature<?, ?>> WEEPING_WELL_FEATURE = CONFIGURED_FEATURES.register("weeping_well", () -> new ConfiguredFeature<>(FeatureRegistry.WEEPING_WELL.get(), INSTANCE));
 
 	public static final RegistryObject<ConfiguredFeature<?, ?>> BLAZING_QUARTZ_FEATURE = CONFIGURED_FEATURES.register("blazing_quartz", () -> new ConfiguredFeature<>(Feature.ORE,
-			new OreConfiguration(OreFeatures.NETHERRACK, BlockRegistry.BLAZING_QUARTZ_ORE.get().defaultBlockState(), 14)));
+			new OreConfiguration(new BlockMatchTest(Blocks.NETHERRACK), BlockRegistry.BLAZING_QUARTZ_ORE.get().defaultBlockState(), 14)));
 
-	public static final Supplier<List<OreConfiguration.TargetBlockState>> BRILLIANCE_TARGET_LIST = () -> List.of(OreConfiguration.target(STONE_ORE_REPLACEABLES, BlockRegistry.BRILLIANT_STONE.get().defaultBlockState()), OreConfiguration.target(DEEPSLATE_ORE_REPLACEABLES, BlockRegistry.BRILLIANT_DEEPSLATE.get().defaultBlockState()));
+	public static final Supplier<List<OreConfiguration.TargetBlockState>> BRILLIANCE_TARGET_LIST = () -> List.of(OreConfiguration.target(new TagMatchTest(STONE_ORE_REPLACEABLES), BlockRegistry.BRILLIANT_STONE.get().defaultBlockState()), OreConfiguration.target(new TagMatchTest(DEEPSLATE_ORE_REPLACEABLES), BlockRegistry.BRILLIANT_DEEPSLATE.get().defaultBlockState()));
 	public static final RegistryObject<ConfiguredFeature<?, ?>> BRILLIANCE_FEATURE = CONFIGURED_FEATURES.register("brilliance", () -> new ConfiguredFeature<>(Feature.ORE,
 			new OreConfiguration(BRILLIANCE_TARGET_LIST.get(), 4)));
 
-	public static final Supplier<List<OreConfiguration.TargetBlockState>> SOULSTONE_TARGET_LIST =  () -> List.of(OreConfiguration.target(STONE_ORE_REPLACEABLES, BlockRegistry.SOULSTONE_ORE.get().defaultBlockState()), OreConfiguration.target(DEEPSLATE_ORE_REPLACEABLES, BlockRegistry.DEEPSLATE_SOULSTONE_ORE.get().defaultBlockState()));
+	public static final Supplier<List<OreConfiguration.TargetBlockState>> SOULSTONE_TARGET_LIST =  () -> List.of(OreConfiguration.target(new TagMatchTest(STONE_ORE_REPLACEABLES), BlockRegistry.SOULSTONE_ORE.get().defaultBlockState()), OreConfiguration.target(new TagMatchTest(DEEPSLATE_ORE_REPLACEABLES), BlockRegistry.DEEPSLATE_SOULSTONE_ORE.get().defaultBlockState()));
 	public static final RegistryObject<ConfiguredFeature<?, ?>> SOULSTONE_FEATURE = CONFIGURED_FEATURES.register("soulstone_ore", () -> new ConfiguredFeature<>(Feature.ORE,
 			new OreConfiguration(SOULSTONE_TARGET_LIST.get(), 8)));
 
@@ -47,7 +48,7 @@ public final class ConfiguredFeatureRegistry {
 			new OreConfiguration(SOULSTONE_TARGET_LIST.get(), 4)));
 
 
-	public static final Supplier<List<OreConfiguration.TargetBlockState>> NATURAL_QUARTZ_TARGET_LIST = () -> List.of(OreConfiguration.target(STONE_ORE_REPLACEABLES, BlockRegistry.NATURAL_QUARTZ_ORE.get().defaultBlockState()), OreConfiguration.target(DEEPSLATE_ORE_REPLACEABLES, BlockRegistry.DEEPSLATE_QUARTZ_ORE.get().defaultBlockState()));
+	public static final Supplier<List<OreConfiguration.TargetBlockState>> NATURAL_QUARTZ_TARGET_LIST = () -> List.of(OreConfiguration.target(new TagMatchTest(STONE_ORE_REPLACEABLES), BlockRegistry.NATURAL_QUARTZ_ORE.get().defaultBlockState()), OreConfiguration.target(new TagMatchTest(DEEPSLATE_ORE_REPLACEABLES), BlockRegistry.DEEPSLATE_QUARTZ_ORE.get().defaultBlockState()));
 	public static final  RegistryObject<ConfiguredFeature<?, ?>> NATURAL_QUARTZ_FEATURE = CONFIGURED_FEATURES.register("natural_quartz", () -> new ConfiguredFeature<>(Feature.ORE,
 			new OreConfiguration(NATURAL_QUARTZ_TARGET_LIST.get(), 5)));
 
