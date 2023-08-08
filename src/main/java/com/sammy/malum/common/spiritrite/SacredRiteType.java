@@ -1,7 +1,7 @@
 package com.sammy.malum.common.spiritrite;
 
-import com.sammy.malum.client.vfx.*;
 import com.sammy.malum.common.block.curiosities.totem.*;
+import com.sammy.malum.core.systems.particle_effects.*;
 import com.sammy.malum.core.systems.rites.*;
 import com.sammy.malum.registry.common.*;
 import net.minecraft.*;

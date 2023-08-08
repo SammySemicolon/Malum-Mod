@@ -4,6 +4,7 @@ import com.sammy.malum.client.*;
 import com.sammy.malum.common.item.spirit.*;
 import com.sammy.malum.common.packets.particle.curiosities.altar.*;
 import com.sammy.malum.common.recipe.*;
+import com.sammy.malum.core.systems.particle_effects.*;
 import com.sammy.malum.core.systems.recipe.*;
 import com.sammy.malum.core.systems.spirit.*;
 import com.sammy.malum.registry.common.*;
@@ -41,6 +42,7 @@ import java.util.*;
 import java.util.stream.*;
 
 import static com.sammy.malum.registry.common.PacketRegistry.*;
+import static com.sammy.malum.registry.common.SpiritTypeRegistry.SACRED_SPIRIT;
 
 public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
 
@@ -324,7 +326,9 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
             }
         }
         spiritInventory.updateData();
-        MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new AltarCraftParticlePacket(recipe.spirits.stream().map(s -> s.type.identifier).collect(Collectors.toList()), itemPos));
+        ParticleEffectTypeRegistry.SPIRIT_ALTAR_CRAFTS.createPositionedEffect(level, itemPos, ColorEffectData.fromSpirits(
+                recipe.spirits.stream().map(r -> r.type).collect(Collectors.toList()),
+                s -> new ColorEffectData.ColorRecord(s.getPrimaryColor())));
         progress *= 0.75f;
         extrasInventory.clear();
         level.playSound(null, worldPosition, SoundRegistry.ALTAR_CRAFT.get(), SoundSource.BLOCKS, 1, 0.9f + level.random.nextFloat() * 0.2f);

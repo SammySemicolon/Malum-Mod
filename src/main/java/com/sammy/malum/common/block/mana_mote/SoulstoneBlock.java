@@ -1,7 +1,7 @@
 package com.sammy.malum.common.block.mana_mote;
 
-import com.sammy.malum.client.vfx.*;
 import com.sammy.malum.common.item.spirit.*;
+import com.sammy.malum.core.systems.particle_effects.*;
 import com.sammy.malum.core.systems.spirit.*;
 import com.sammy.malum.registry.common.*;
 import net.minecraft.core.*;

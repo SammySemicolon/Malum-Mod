@@ -1,7 +1,6 @@
-package com.sammy.malum.client.vfx.types;
+package com.sammy.malum.client.effects.basic;
 
-import com.sammy.malum.client.vfx.*;
-import net.minecraft.core.*;
+import com.sammy.malum.core.systems.particle_effects.*;
 import net.minecraft.util.*;
 import net.minecraftforge.api.distmarker.*;
 import team.lodestar.lodestone.helpers.*;
@@ -13,9 +12,11 @@ import team.lodestar.lodestone.systems.particle.data.*;
 import java.awt.*;
 import java.util.function.*;
 
-public class SpiritMoteCreationParticleEffectType extends ParticleEffectType {
+public class RisingSparklesParticleEffect extends ParticleEffectType {
 
-    public SpiritMoteCreationParticleEffectType(String id) {
+    //Generic sparkle particles all shooting up from a singular point
+
+    public RisingSparklesParticleEffect(String id) {
         super(id);
     }
 
@@ -23,9 +24,13 @@ public class SpiritMoteCreationParticleEffectType extends ParticleEffectType {
     @Override
     public Supplier<ParticleEffectActor> get() {
         return () -> (level, random, positionData, colorData) -> {
-            Color primaryColor = colorData.getPrimaryColor();
-            Color secondaryColor = colorData.getSecondaryColor();
-            BlockPos pos = positionData.getAsBlockPos();
+            ColorEffectData.ColorRecord colorRecord = colorData.getDefaultColorRecord();
+            Color primaryColor = colorData.getPrimaryColor(colorRecord);
+            Color secondaryColor = colorData.getSecondaryColor(colorRecord);
+            double posX = positionData.posX;
+            double posY = positionData.posY;
+            double posZ = positionData.posZ;
+
             for (int i = 0; i < 6; i++) {
                 int spinDirection = (random.nextBoolean() ? 1 : -1);
                 int spinOffset = random.nextInt(360);
@@ -36,30 +41,14 @@ public class SpiritMoteCreationParticleEffectType extends ParticleEffectType {
                         .setScaleData(GenericParticleData.create(0.075f, 0.15f, 0).setCoefficient(0.8f).setEasing(Easing.QUINTIC_OUT, Easing.EXPO_IN_OUT).build())
                         .setColorData(ColorParticleData.create(ColorHelper.brighter(primaryColor, 2), secondaryColor).setCoefficient(Mth.nextFloat(random, 0.6f, 1.1f)).build())
                         .setLifetime(lifetime)
-                        .setRandomOffset(0.6f)
+                        .setRandomOffset(0.2f)
                         .enableNoClip()
                         .setGravityStrength(1.1f)
                         .addMotion(0, 0.25f + random.nextFloat() * 0.1f, 0)
                         .disableNoClip()
                         .setRandomMotion(0.1f, 0.12f)
                         .setDiscardFunction(SimpleParticleOptions.ParticleDiscardFunctionType.ENDING_CURVE_INVISIBLE)
-                        .surroundBlock(level, pos);
-            }
-            for (int i = 0; i < 8; i++) {
-                int spinDirection = (random.nextBoolean() ? 1 : -1);
-                int spinOffset = random.nextInt(360);
-                int lifetime = (int) (30 * Mth.nextFloat(random, 0.9f, 1.8f));
-                WorldParticleBuilder.create(LodestoneParticleRegistry.SMOKE_PARTICLE)
-                        .setTransparencyData(GenericParticleData.create(0.12f, 0.06f, 0).setEasing(Easing.SINE_IN, Easing.SINE_IN).build())
-                        .setSpinData(SpinParticleData.create((0.125f + random.nextFloat() * 0.075f) * spinDirection).setSpinOffset(spinOffset).build())
-                        .setScaleData(GenericParticleData.create(0.85f, 0.5f, 0).setEasing(Easing.EXPO_OUT, Easing.SINE_IN).setCoefficient(0.8f).build())
-                        .setColorData(ColorParticleData.create(primaryColor.brighter(), secondaryColor.darker()).setCoefficient(0.6f).build())
-                        .setLifetime(lifetime)
-                        .setRandomOffset(0.4f)
-                        .enableNoClip()
-                        .setRandomMotion(0.01f, 0.01f)
-                        .setDiscardFunction(SimpleParticleOptions.ParticleDiscardFunctionType.ENDING_CURVE_INVISIBLE)
-                        .repeatSurroundBlock(level, pos, 2);
+                        .repeat(level, posX, posY, posZ, 2);
             }
         };
     }

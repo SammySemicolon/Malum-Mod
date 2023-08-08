@@ -1,10 +1,11 @@
-package com.sammy.malum.client.vfx;
+package com.sammy.malum.core.systems.particle_effects;
 
 import com.sammy.malum.common.packets.*;
 import com.sammy.malum.registry.common.*;
 import net.minecraft.core.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.level.*;
+import net.minecraft.world.phys.*;
 import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.network.*;
 
@@ -23,7 +24,7 @@ public abstract class ParticleEffectType {
     }
 
     @OnlyIn(Dist.CLIENT)
-    public abstract Supplier<ParticleEffectActor>  get();
+    public abstract Supplier<? extends ParticleEffectActor> get();
 
     public void createEntityEffect(Entity entity) {
         createEntityEffect(entity, null);
@@ -53,6 +54,14 @@ public abstract class ParticleEffectType {
         createPositionedEffect(level, posX, posY, posZ, null);
     }
 
+    public void createPositionedEffect(Level level, Vec3 pos) {
+        createPositionedEffect(level, pos.x, pos.y, pos.z, null);
+    }
+
+    public void createPositionedEffect(Level level, Vec3 pos, ColorEffectData colorData) {
+        createPositionedEffect(level, pos.x, pos.y, pos.z, colorData);
+    }
+
     public void createPositionedEffect(Level level, double posX, double posY, double posZ, ColorEffectData colorData) {
         createEffect(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(new BlockPos(posX, posY, posZ))), new PositionEffectData(posX, posY, posZ), colorData);
     }
@@ -61,7 +70,7 @@ public abstract class ParticleEffectType {
         MALUM_CHANNEL.send(target, createPacket(positionData, colorData));
     }
 
-    public ParticleEffectPacket createPacket(PositionEffectData positionData, ColorEffectData colorData) {
+    private ParticleEffectPacket createPacket(PositionEffectData positionData, ColorEffectData colorData) {
         return new ParticleEffectPacket(id, positionData, colorData);
     }
 

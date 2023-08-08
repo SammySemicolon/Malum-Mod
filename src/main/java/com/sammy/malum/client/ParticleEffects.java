@@ -60,7 +60,6 @@ public class ParticleEffects {
                 .setScaleData(GenericParticleData.create(0.15f + rand.nextFloat() * 0.05f, 0f).build())
                 .setRandomMotion(0.01f, 0.01f)
                 .repeat(level, x, y, z, 1);
-
     }
 
     public static void spawnSoulParticles(Level level, double x, double y, double z, float alphaMultiplier, float scaleMultiplier, Vec3 extraVelocity, Color color, Color endColor) {

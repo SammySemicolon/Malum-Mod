@@ -1,6 +1,6 @@
-package com.sammy.malum.client.vfx.types;
+package com.sammy.malum.client.effects.basic;
 
-import com.sammy.malum.client.vfx.*;
+import com.sammy.malum.core.systems.particle_effects.*;
 import net.minecraft.util.*;
 import net.minecraftforge.api.distmarker.*;
 import team.lodestar.lodestone.helpers.*;
@@ -12,11 +12,13 @@ import team.lodestar.lodestone.systems.particle.data.*;
 import java.awt.*;
 import java.util.function.*;
 
-public class HexingSmokeParticleEffectType extends ParticleEffectType {
+public class HexingSmokeParticleEffect extends ParticleEffectType {
+
+    //Generic circular mist of particles
 
     public final float intensity;
 
-    public HexingSmokeParticleEffectType(String id, float intensity) {
+    public HexingSmokeParticleEffect(String id, float intensity) {
         super(id);
         this.intensity = intensity;
     }
@@ -25,8 +27,9 @@ public class HexingSmokeParticleEffectType extends ParticleEffectType {
     @Override
     public Supplier<ParticleEffectType.ParticleEffectActor> get() {
         return () -> (level, random, positionData, colorData) -> {
-            Color primaryColor = colorData.getPrimaryColor();
-            Color secondaryColor = colorData.getSecondaryColor();
+            ColorEffectData.ColorRecord colorRecord = colorData.getDefaultColorRecord();
+            Color primaryColor = colorData.getPrimaryColor(colorRecord);
+            Color secondaryColor = colorData.getSecondaryColor(colorRecord);
             double posX = positionData.posX;
             double posY = positionData.posY;
             double posZ = positionData.posZ;

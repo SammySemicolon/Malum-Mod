@@ -1,0 +1,127 @@
+package com.sammy.malum.core.systems.particle_effects;
+
+import com.sammy.malum.*;
+import com.sammy.malum.core.helper.*;
+import com.sammy.malum.core.systems.spirit.*;
+import net.minecraft.core.*;
+import net.minecraft.network.*;
+
+import javax.annotation.*;
+import java.awt.*;
+import java.util.*;
+import java.util.List;
+import java.util.function.*;
+import java.util.stream.*;
+
+public class ColorEffectData {
+
+    public final ArrayList<ColorRecord> colorRecordList = new ArrayList<>();
+    public int recordCycleCounter;
+
+    public static ColorEffectData fromSpirits(Collection<MalumSpiritType> malumSpiritTypes) {
+        return fromSpirits(malumSpiritTypes, ColorRecord::new);
+    }
+    public static ColorEffectData fromSpirits(Collection<MalumSpiritType> malumSpiritTypes, Function<MalumSpiritType, ColorRecord> spiritColorMapper) {
+        return new ColorEffectData(malumSpiritTypes.stream().map(spiritColorMapper).collect(Collectors.toList()));
+    }
+
+    public ColorEffectData(ColorRecord colorRecord) {
+        colorRecordList.add(colorRecord);
+    }
+
+    public ColorEffectData(Collection<ColorRecord> colorRecords) {
+        colorRecordList.addAll(colorRecords);
+    }
+
+    public ColorEffectData(Color primaryColor) {
+        this(new ColorRecord(primaryColor));
+    }
+
+    public ColorEffectData(MalumSpiritType spiritType) {
+        this(new ColorRecord(spiritType));
+    }
+
+    public ColorEffectData(Color primaryColor, Color secondaryColor) {
+        this(new ColorRecord(primaryColor, secondaryColor));
+    }
+
+    public ColorEffectData(Color primaryColor, Color secondaryColor, @Nullable MalumSpiritType spiritType) {
+        this(new ColorRecord(primaryColor, secondaryColor, spiritType));
+    }
+
+    public ColorEffectData(FriendlyByteBuf buf) {
+        boolean isEmpty = buf.readBoolean();
+        if (!isEmpty) {
+            int colorDataCount = buf.readInt();
+            for (int i = 0; i < colorDataCount; i++) {
+                colorRecordList.add(new ColorRecord(
+                        new Color(buf.readInt()),
+                        new Color(buf.readInt()),
+                        buf.readBoolean() ? SpiritHelper.getSpiritType(buf.readUtf()) : null
+                ));
+            }
+        }
+    }
+
+    public void encode(FriendlyByteBuf buf) {
+        buf.writeBoolean(colorRecordList.isEmpty());
+        if (!colorRecordList.isEmpty()) {
+            buf.writeInt(colorRecordList.size());
+            for (ColorRecord colorRecord : this.colorRecordList) {
+                buf.writeInt(colorRecord.primaryColor.getRGB());
+                buf.writeInt(colorRecord.secondaryColor.getRGB());
+                boolean nonNullSpirit = colorRecord.spiritType != null;
+                buf.writeBoolean(nonNullSpirit);
+                if (nonNullSpirit) {
+                    buf.writeUtf(colorRecord.spiritType.identifier);
+                }
+            }
+        }
+    }
+
+    public ColorRecord getDefaultColorRecord() {
+        if (colorRecordList.isEmpty()) {
+            return null;
+        }
+        return colorRecordList.get(0);
+    }
+
+    public ColorRecord getRandomColorRecord() {
+        if (colorRecordList.isEmpty()) {
+            return null;
+        }
+        return colorRecordList.get(MalumMod.RANDOM.nextInt(colorRecordList.size()));
+    }
+
+    public ColorRecord getCyclingColorRecord() {
+        if (colorRecordList.isEmpty()) {
+            return null;
+        }
+        return colorRecordList.get(recordCycleCounter++ % colorRecordList.size());
+    }
+
+    public Color getPrimaryColor(ColorRecord colorRecord) {
+        return colorRecord.primaryColor;
+    }
+
+    public Color getSecondaryColor(ColorRecord colorRecord) {
+        return colorRecord.secondaryColor;
+    }
+
+    @Nullable
+    public MalumSpiritType getSpiritType(ColorRecord colorRecord) {
+        return colorRecord.spiritType;
+    }
+
+    public record ColorRecord(Color primaryColor, Color secondaryColor, @Nullable MalumSpiritType spiritType) {
+        public ColorRecord(Color color) {
+            this(color, color);
+        }
+        public ColorRecord(MalumSpiritType type) {
+            this(type.getPrimaryColor(), type.getSecondaryColor(), type);
+        }
+        public ColorRecord(Color primaryColor, Color secondaryColor) {
+            this(primaryColor, secondaryColor, null);
+        }
+    }
+}

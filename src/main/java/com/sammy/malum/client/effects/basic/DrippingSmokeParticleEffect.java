@@ -1,6 +1,6 @@
-package com.sammy.malum.client.vfx.types;
+package com.sammy.malum.client.effects.basic;
 
-import com.sammy.malum.client.vfx.*;
+import com.sammy.malum.core.systems.particle_effects.*;
 import net.minecraft.util.*;
 import net.minecraft.world.phys.*;
 import net.minecraftforge.api.distmarker.*;
@@ -13,10 +13,11 @@ import team.lodestar.lodestone.systems.particle.world.*;
 import java.awt.*;
 import java.util.function.*;
 
-public class DrippingSmokeParticleEffectType extends ParticleEffectType {
+public class DrippingSmokeParticleEffect extends ParticleEffectType {
 
+    //Downwards spiraling mist of particles
     public final float intensity;
-    public DrippingSmokeParticleEffectType(String id, float intensity) {
+    public DrippingSmokeParticleEffect(String id, float intensity) {
         super(id);
         this.intensity = intensity;
     }
@@ -25,8 +26,9 @@ public class DrippingSmokeParticleEffectType extends ParticleEffectType {
     @Override
     public Supplier<ParticleEffectActor> get() {
         return () -> (level, random, positionData, colorData) -> {
-            Color primaryColor = colorData.getPrimaryColor();
-            Color secondaryColor = colorData.getSecondaryColor();
+            ColorEffectData.ColorRecord colorRecord = colorData.getDefaultColorRecord();
+            Color primaryColor = colorData.getPrimaryColor(colorRecord);
+            Color secondaryColor = colorData.getSecondaryColor(colorRecord);
             double posX = positionData.posX + 0.5f;
             double posY = positionData.posY + 0.65f;
             double posZ = positionData.posZ + 0.5f;

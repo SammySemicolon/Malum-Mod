@@ -1,6 +1,6 @@
-package com.sammy.malum.client.vfx.types;
+package com.sammy.malum.client.effects;
 
-import com.sammy.malum.client.vfx.*;
+import com.sammy.malum.core.systems.particle_effects.*;
 import net.minecraft.core.*;
 import net.minecraft.util.*;
 import net.minecraftforge.api.distmarker.*;
@@ -13,9 +13,9 @@ import team.lodestar.lodestone.systems.particle.world.*;
 import java.awt.*;
 import java.util.function.*;
 
-public class BlightingMistParticleEffectType extends ParticleEffectType {
+public class BlightingMistParticleEffect extends ParticleEffectType {
 
-    public BlightingMistParticleEffectType(String id) {
+    public BlightingMistParticleEffect(String id) {
         super(id);
     }
 

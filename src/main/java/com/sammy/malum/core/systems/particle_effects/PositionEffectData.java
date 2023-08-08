@@ -1,4 +1,4 @@
-package com.sammy.malum.client.vfx;
+package com.sammy.malum.core.systems.particle_effects;
 
 import net.minecraft.core.*;
 import net.minecraft.network.*;

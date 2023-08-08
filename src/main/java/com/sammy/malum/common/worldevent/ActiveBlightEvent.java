@@ -62,6 +62,6 @@ public class ActiveBlightEvent extends WorldEventInstance {
 
     public static void createBlightVFX(ServerLevel level, LodestoneBlockFiller filler) {
         filler.getEntries().entrySet().stream().filter(e -> e.getValue().getState().getBlock() instanceof BlightedSoilBlock).map(Map.Entry::getKey)
-                .forEach(p -> ParticleEffectTypeRegistry.BLIGHTING_MIST.createBlockEffect(level, p, null));
+                .forEach(p -> ParticleEffectTypeRegistry.BLIGHTING_MIST.createBlockEffect(level, p));
     }
 }
