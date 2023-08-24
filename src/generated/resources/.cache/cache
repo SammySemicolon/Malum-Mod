@@ -219,7 +219,7 @@ cb6a17c4dca30d064eedc28529420373d25d1933 assets/malum/blockstates/wall_ether_tor
 55635004672302336ef4a04dbe0d38dff66c4cd9 assets/malum/blockstates/weeping_well_core.json
 55188decc0c9a982e5ba40f8df2adea65a032e32 assets/malum/blockstates/weeping_well_corner.json
 62e007ecef751f8b9b42eaa138f06d18cc008d05 assets/malum/blockstates/weeping_well_side.json
-e3053eff1bc68c097407bcb55f24213a5b83e3e2 assets/malum/lang/en_us.json
+0cae5e96047dcba6ef07699fe7d757c0787481fd assets/malum/lang/en_us.json
 c2637401df2afc394d62b5c6bde312c604cdb21f assets/malum/models/block/blazing_quartz_ore.json
 782e64739e04f0b87aa0aeafb55893cc348df504 assets/malum/models/block/blighted_earth.json
 c0b5a7b1d337a7090eaf86d07fd8b47d35fbc1e1 assets/malum/models/block/blighted_soil.json
@@ -2229,9 +2229,9 @@ f033d822b48de30f3fb61fce071a924a6955133d data/minecraft/recipes/observer.json
 ddbfda4cbb4b8f2e39f52cde67d5b0d9f05279d3 data/minecraft/tags/blocks/leaves.json
 5222d214211542a5574aed8b0aba716c1910d9cf data/minecraft/tags/blocks/logs.json
 1f783ff7d1f657a03e7ca5fd12e633ef9e987358 data/minecraft/tags/blocks/mineable/axe.json
-2f44fbde8ad61e5375ef71b2f56e85a91eef904b data/minecraft/tags/blocks/mineable/hoe.json
-583eeb392600c5912dbe93306c9e8b3782be3137 data/minecraft/tags/blocks/mineable/pickaxe.json
-69f101435729367fc32b7dee4471befc92747d97 data/minecraft/tags/blocks/mineable/shovel.json
+05d04cc202d3b088158e0bd48a7cd52424ed1669 data/minecraft/tags/blocks/mineable/hoe.json
+4f748661e97a9e772b76443b4440ed6a9ae58716 data/minecraft/tags/blocks/mineable/pickaxe.json
+baaebec7a55b81960e72de5ba6ddbf84e4f25755 data/minecraft/tags/blocks/mineable/shovel.json
 115f6e20a06d1eb85cac0e9ae1600601d83bc69f data/minecraft/tags/blocks/planks.json
 d168d8e3b43e6778d4b9db9c314c3aa3f08cbcc5 data/minecraft/tags/blocks/pressure_plates.json
 2a73d99f25cfc497bc7fbac067a0e5b7ed4b7d76 data/minecraft/tags/blocks/saplings.json

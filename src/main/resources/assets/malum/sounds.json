@@ -31,7 +31,7 @@
   "the_unknown_weeps": { "sounds":["malum:weeping_well/uncanny_valley0","malum:weeping_well/uncanny_valley1"], "subtitle": "malum.subtitle.the_unknown_weeps" },
   "the_void_heart_beats": { "sounds":["malum:weeping_well/void_heartbeat"], "subtitle": "malum.subtitle.the_void_heart_beats" },
   "song_of_the_void": { "sounds":["malum:weeping_well/song_of_the_void0","malum:weeping_well/song_of_the_void1","malum:weeping_well/song_of_the_void2"], "subtitle": "malum.subtitle.song_of_the_void" },
-  "rejected_by_the_unknown": { "sounds":["malum:weeping_well/void_rejection0","malum:weeping_well/void_rejection1"], "subtitle": "malum.subtitle.rejected_by_the_unknown" },
+  "rejected_by_the_unknown": { "sounds":["malum:weeping_well/void_rejection"], "subtitle": "malum.subtitle.rejected_by_the_unknown" },
   "void_transmutation": { "sounds":["malum:weeping_well/void_transmutation0","malum:weeping_well/void_transmutation1"], "subtitle": "malum.subtitle.void_transmutation" },
 
   "blight_reacts": { "sounds":["malum:blocks/blight/blight_motif1","malum:blocks/blight/blight_motif2","malum:blocks/blight/blight_motif3","malum:blocks/blight/blight_motif4","malum:blocks/blight/blight_motif5","malum:blocks/blight/blight_motif6"], "subtitle": "malum.subtitle.blight_reacts" },

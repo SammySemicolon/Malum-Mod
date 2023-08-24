@@ -313,8 +313,8 @@ public class BlockRegistry {
     public static final RegistryObject<Block> IRIDESCENT_WALL_ETHER_TORCH = BLOCKS.register("iridescent_wall_ether_torch", () -> new EtherWallTorchBlock<>(MalumBlockProperties.RUNEWOOD().addTag(TRAY_HEAT_SOURCES).setCutoutRenderType().noCollission().instabreak().lightLevel((b) -> 14).lootFrom(IRIDESCENT_ETHER_TORCH)).setBlockEntity(BlockEntityRegistry.ETHER));
     public static final RegistryObject<Block> TAINTED_IRIDESCENT_ETHER_BRAZIER = BLOCKS.register("tainted_iridescent_ether_brazier", () -> new EtherBrazierBlock<>(MalumBlockProperties.TAINTED_ROCK().addTag(TRAY_HEAT_SOURCES).setCutoutRenderType().lightLevel((b) -> 14).noOcclusion()).setBlockEntity(BlockEntityRegistry.ETHER));
     public static final RegistryObject<Block> TWISTED_IRIDESCENT_ETHER_BRAZIER = BLOCKS.register("twisted_iridescent_ether_brazier", () -> new EtherBrazierBlock<>(MalumBlockProperties.TWISTED_ROCK().addTag(TRAY_HEAT_SOURCES).setCutoutRenderType().lightLevel((b) -> 14).noOcclusion()).setBlockEntity(BlockEntityRegistry.ETHER));
-
     //endregion
+
     public static final RegistryObject<Block> BLOCK_OF_ARCANE_CHARCOAL = BLOCKS.register("block_of_arcane_charcoal", () -> new Block(MalumBlockProperties.ARCANE_CHARCOAL_BLOCK()));
 
     public static final RegistryObject<Block> BLAZING_QUARTZ_ORE = BLOCKS.register("blazing_quartz_ore", () -> new OreBlock(MalumBlockProperties.BLAZING_QUARTZ_ORE().setCutoutRenderType().lightLevel((b) -> 6), UniformInt.of(4, 7)));
@@ -338,14 +338,14 @@ public class BlockRegistry {
     public static final RegistryObject<Block> BLOCK_OF_HALLOWED_GOLD = BLOCKS.register("block_of_hallowed_gold", () -> new Block(MalumBlockProperties.HALLOWED_GOLD()));
     public static final RegistryObject<Block> BLOCK_OF_SOUL_STAINED_STEEL = BLOCKS.register("block_of_soul_stained_steel", () -> new Block(MalumBlockProperties.SOUL_STAINED_STEEL_BLOCK()));
 
-    public static final RegistryObject<Block> BLOCK_OF_ROTTING_ESSENCE = BLOCKS.register("block_of_rotting_essence", () -> new Block(new LodestoneBlockProperties(Material.STONE, MaterialColor.COLOR_RED).addTag(STORAGE_BLOCKS).strength(1F, 6.0F).sound(SoundType.CORAL_BLOCK)));
-    public static final RegistryObject<Block> BLOCK_OF_GRIM_TALC = BLOCKS.register("block_of_grim_talc", () -> new Block(LodestoneBlockProperties.copy(Blocks.BONE_BLOCK).addTag(STORAGE_BLOCKS)));
-    public static final RegistryObject<Block> BLOCK_OF_ALCHEMICAL_CALX = BLOCKS.register("block_of_alchemical_calx", () -> new Block(LodestoneBlockProperties.copy(Blocks.CALCITE).addTag(STORAGE_BLOCKS)));
-    public static final RegistryObject<Block> BLOCK_OF_ASTRAL_WEAVE = BLOCKS.register("block_of_astral_weave", () -> new Block(LodestoneBlockProperties.copy(Blocks.LIGHT_BLUE_WOOL).addTag(STORAGE_BLOCKS)));
-    public static final RegistryObject<Block> BLOCK_OF_HEX_ASH = BLOCKS.register("block_of_hex_ash", () -> new Block(LodestoneBlockProperties.copy(Blocks.PURPLE_CONCRETE_POWDER).addTag(STORAGE_BLOCKS)));
-    public static final RegistryObject<Block> MASS_OF_BLIGHTED_GUNK = BLOCKS.register("mass_of_blighted_gunk", () -> new Block(MalumBlockProperties.BLIGHT().addTag(STORAGE_BLOCKS)));
-    public static final RegistryObject<Block> BLOCK_OF_CURSED_GRIT = BLOCKS.register("block_of_cursed_grit", () -> new Block(LodestoneBlockProperties.copy(Blocks.RED_CONCRETE_POWDER).addTag(STORAGE_BLOCKS)));
-    public static final RegistryObject<Block> BLOCK_OF_VOID_SALTS = BLOCKS.register("block_of_void_salts", () -> new Block(LodestoneBlockProperties.copy(Blocks.BLACK_CONCRETE_POWDER).addTag(STORAGE_BLOCKS)));
+    public static final RegistryObject<Block> BLOCK_OF_ROTTING_ESSENCE = BLOCKS.register("block_of_rotting_essence", () -> new Block(new LodestoneBlockProperties(Material.STONE, MaterialColor.COLOR_RED).needsPickaxe().addTags(STORAGE_BLOCKS).strength(1F, 6.0F).sound(SoundType.CORAL_BLOCK)));
+    public static final RegistryObject<Block> BLOCK_OF_GRIM_TALC = BLOCKS.register("block_of_grim_talc", () -> new Block(LodestoneBlockProperties.copy(Blocks.BONE_BLOCK).needsPickaxe().addTags(STORAGE_BLOCKS)));
+    public static final RegistryObject<Block> BLOCK_OF_ALCHEMICAL_CALX = BLOCKS.register("block_of_alchemical_calx", () -> new Block(LodestoneBlockProperties.copy(Blocks.CALCITE).needsPickaxe().addTags(STORAGE_BLOCKS)));
+    public static final RegistryObject<Block> BLOCK_OF_ASTRAL_WEAVE = BLOCKS.register("block_of_astral_weave", () -> new Block(LodestoneBlockProperties.copy(Blocks.LIGHT_BLUE_WOOL).needsPickaxe().needsHoe().addTags(STORAGE_BLOCKS)));
+    public static final RegistryObject<Block> BLOCK_OF_HEX_ASH = BLOCKS.register("block_of_hex_ash", () -> new Block(LodestoneBlockProperties.copy(Blocks.PURPLE_CONCRETE_POWDER).needsPickaxe().needsHoe().addTags(STORAGE_BLOCKS)));
+    public static final RegistryObject<Block> MASS_OF_BLIGHTED_GUNK = BLOCKS.register("mass_of_blighted_gunk", () -> new Block(MalumBlockProperties.BLIGHT().needsPickaxe().addTags(STORAGE_BLOCKS)));
+    public static final RegistryObject<Block> BLOCK_OF_CURSED_GRIT = BLOCKS.register("block_of_cursed_grit", () -> new Block(LodestoneBlockProperties.copy(Blocks.RED_CONCRETE_POWDER).needsPickaxe().needsShovel().addTags(STORAGE_BLOCKS)));
+    public static final RegistryObject<Block> BLOCK_OF_VOID_SALTS = BLOCKS.register("block_of_void_salts", () -> new Block(LodestoneBlockProperties.copy(Blocks.BLACK_CONCRETE_POWDER).needsPickaxe().needsShovel().addTags(STORAGE_BLOCKS)));
 
     public static final RegistryObject<Block> THE_DEVICE = BLOCKS.register("the_device", () -> new TheDevice(MalumBlockProperties.TAINTED_ROCK()));
     public static final RegistryObject<Block> THE_VESSEL = BLOCKS.register("the_vessel", () -> new TheVessel(MalumBlockProperties.TWISTED_ROCK()));

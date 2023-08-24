@@ -10,13 +10,16 @@ import com.sammy.malum.registry.client.*;
 import com.sammy.malum.registry.common.*;
 import net.minecraft.client.*;
 import net.minecraft.nbt.*;
+import net.minecraft.network.chat.*;
 import net.minecraft.sounds.*;
 import net.minecraft.util.*;
 import net.minecraft.world.damagesource.*;
 import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.level.block.state.*;
+import net.minecraftforge.common.*;
 import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.network.*;
 import team.lodestar.lodestone.helpers.*;
@@ -29,6 +32,7 @@ import java.util.function.*;
 
 public class TouchOfDarknessHandler {
 
+    public static final UUID GRAVITY_MODIFIER_UUID = UUID.fromString("d0aea6b5-f6c5-479d-b70c-455e46a62184");
     public static final float MAX_AFFLICTION = 100f;
 
     public int weepingWellInfluence;
@@ -78,13 +82,21 @@ public class TouchOfDarknessHandler {
         return handler.weepingWellInfluence > 0;
     }
 
-    public static double updateEntityGravity(LivingEntity livingEntity, double value) {
+    public static AttributeModifier getEntityGravityAttributeModifier(LivingEntity livingEntity) {
+        return new AttributeModifier(GRAVITY_MODIFIER_UUID, "Weeping Well Gravity Modifier", 0, AttributeModifier.Operation.MULTIPLY_TOTAL) {
+            @Override
+            public double getAmount() {
+                return updateEntityGravity(livingEntity);
+            }
+        };
+    }
+
+    public static double updateEntityGravity(LivingEntity livingEntity) {
         TouchOfDarknessHandler handler = MalumLivingEntityDataCapability.getCapability(livingEntity).touchOfDarknessHandler;
         if (handler.timeSpentInGoop > 0) {
-            double intensity = 1- Math.min(60, handler.timeSpentInGoop) / 60f;
-            return value * intensity;
+            return -Math.min(60, handler.timeSpentInGoop) / 60f;
         }
-        return value;
+        return 0;
     }
 
     public static void entityTick(LivingEvent.LivingUpdateEvent event) {
@@ -101,11 +113,13 @@ public class TouchOfDarknessHandler {
             }
         }
         if (handler.currentAffliction <= handler.expectedAffliction) { //increment the affliction until it reaches the limit value
-            float increase = 1.55f;
-            if (handler.afflictionDuration < 20) { //increase in affliction strength decreases if effect is about to run out
-                increase *= handler.afflictionDuration / 20f;
+            if (handler.currentAffliction < handler.expectedAffliction) {
+                float increase = 1.55f;
+                if (handler.afflictionDuration < 20) { //increase in affliction strength decreases if effect is about to run out
+                    increase *= handler.afflictionDuration / 20f;
+                }
+                handler.currentAffliction = Math.min(MAX_AFFLICTION, handler.currentAffliction + increase);
             }
-            handler.currentAffliction = Math.min(MAX_AFFLICTION, handler.currentAffliction+increase);
             //if the entity's affliction reached the max, and the entity isn't close to actively being rejected, and is in the goop, they are rejected
             //rejection is set to 15, and the entity starts rapidly ascending as a result
             //we do this only on the server, and then communicate the rejection to the client using a packet
@@ -118,14 +132,28 @@ public class TouchOfDarknessHandler {
         //if the expected affliction is lower than the current affliction, it diminishes.
         //current affliction diminishes faster if the expected value is 0
         if (handler.currentAffliction > handler.expectedAffliction) {
-            handler.currentAffliction = Math.max(handler.currentAffliction - (handler.expectedAffliction == 0 ? 1.5f : 0.75f), 0);
+            handler.currentAffliction = Math.max(handler.currentAffliction - (handler.expectedAffliction == 0 ? 1.5f : 0.75f), handler.expectedAffliction);
+        }
+        //update entity gravity
+        AttributeInstance gravity = livingEntity.getAttribute(ForgeMod.ENTITY_GRAVITY.get());
+        if (gravity != null) {
+            boolean hasModifier = gravity.getModifier(GRAVITY_MODIFIER_UUID) != null;
+            if (handler.timeSpentInGoop > 0) {
+                if (!hasModifier) {
+                    gravity.addTransientModifier(getEntityGravityAttributeModifier(livingEntity));
+                }
+                gravity.setDirty();
+            }
+            else if (hasModifier) {
+                gravity.removeModifier(GRAVITY_MODIFIER_UUID);
+            }
         }
         //if we in the goop, we in the goop
         if (isInTheGoop) {
             handler.timeSpentInGoop++;
             boolean isPlayer = livingEntity instanceof Player;
             if (isPlayer && livingEntity.level.getGameTime() % 6L == 0) {
-                livingEntity.level.playSound(null, livingEntity.blockPosition(), SoundRegistry.SONG_OF_THE_VOID.get(), SoundSource.HOSTILE, 0.5f+handler.timeSpentInGoop*0.02f, 0.5f+handler.timeSpentInGoop*0.04f);
+                livingEntity.level.playSound(null, livingEntity.blockPosition(), SoundRegistry.SONG_OF_THE_VOID.get(), SoundSource.HOSTILE, 0.5f+handler.timeSpentInGoop*0.02f, 0.5f+handler.timeSpentInGoop*0.03f);
             }
             if (!isPlayer) {
                 if (livingEntity.getDeltaMovement().y > 0) {
@@ -174,7 +202,7 @@ public class TouchOfDarknessHandler {
             PacketRegistry.MALUM_CHANNEL.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> livingEntity), new VoidRejectionPacket(livingEntity.getId()));
             ParticleEffectTypeRegistry.WEEPING_WELL_REACTS.createEntityEffect(livingEntity);
             livingEntity.hurt(new DamageSource(DamageSourceRegistry.VOODOO_IDENTIFIER), 4);
-            livingEntity.level.playSound(null, livingEntity.blockPosition(), SoundRegistry.VOID_REJECTION.get(), SoundSource.HOSTILE, 2f, Mth.nextFloat(livingEntity.getRandom(), 0.85f, 1.35f));
+            livingEntity.level.playSound(null, livingEntity.blockPosition(), SoundRegistry.VOID_REJECTION.get(), SoundSource.HOSTILE, 2f, Mth.nextFloat(livingEntity.getRandom(), 0.5f, 0.8f));
         }
         livingEntity.addEffect(new MobEffectInstance(MobEffectRegistry.REJECTED.get(), 400, 0));
     }

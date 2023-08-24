@@ -1,8 +1,12 @@
 {
   "replace": false,
   "values": [
+    "malum:block_of_cursed_grit",
+    "malum:mass_of_blighted_gunk",
     "malum:mass_of_blighted_gunk",
     "malum:blighted_earth",
-    "malum:blighted_soil"
+    "malum:block_of_void_salts",
+    "malum:blighted_soil",
+    "malum:block_of_hex_ash"
   ]
 }
