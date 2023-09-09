@@ -58,6 +58,7 @@ import java.util.stream.*;
 import static com.sammy.malum.MalumMod.*;
 import static com.sammy.malum.registry.common.item.ItemTiers.ItemTierEnum.*;
 import static net.minecraft.world.item.Items.*;
+import static net.minecraft.world.item.Rarity.UNCOMMON;
 import static team.lodestar.lodestone.helpers.ColorHelper.*;
 
 @SuppressWarnings("unused")
@@ -105,7 +106,7 @@ public class ItemRegistry {
         return new Item.Properties().stacksTo(1);
     }
 
-    public static final RegistryObject<Item> ENCYCLOPEDIA_ARCANA = ITEMS.register("encyclopedia_arcana", () -> new EncyclopediaArcanaItem(GEAR_PROPERTIES().rarity(Rarity.UNCOMMON)));
+    public static final RegistryObject<Item> ENCYCLOPEDIA_ARCANA = ITEMS.register("encyclopedia_arcana", () -> new EncyclopediaArcanaItem(GEAR_PROPERTIES().rarity(UNCOMMON)));
 
     //region spirits
     public static final RegistryObject<SpiritShardItem> SACRED_SPIRIT = ITEMS.register("sacred_spirit", () -> new SpiritShardItem(DEFAULT_PROPERTIES(), SpiritTypeRegistry.SACRED_SPIRIT));
@@ -387,7 +388,7 @@ public class ItemRegistry {
     public static final RegistryObject<Item> ROTTING_ESSENCE = ITEMS.register("rotting_essence", () -> new Item(DEFAULT_PROPERTIES().food((new FoodProperties.Builder()).nutrition(6).saturationMod(0.2F).effect(() -> new MobEffectInstance(MobEffects.HUNGER, 600, 1), 0.95f).build())));
     public static final RegistryObject<Item> GRIM_TALC = ITEMS.register("grim_talc", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> ASTRAL_WEAVE = ITEMS.register("astral_weave", () -> new Item(DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> CTHONIC_GOLD = ITEMS.register("cthonic_gold", () -> new Item(DEFAULT_PROPERTIES().rarity(Rarity.UNCOMMON)));
+    public static final RegistryObject<Item> CTHONIC_GOLD = ITEMS.register("cthonic_gold", () -> new Item(DEFAULT_PROPERTIES().rarity(UNCOMMON)));
     public static final RegistryObject<Item> HEX_ASH = ITEMS.register("hex_ash", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> ALCHEMICAL_CALX = ITEMS.register("alchemical_calx", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> CURSED_GRIT = ITEMS.register("cursed_grit", () -> new Item(DEFAULT_PROPERTIES()));
@@ -524,6 +525,8 @@ public class ItemRegistry {
 
     public static final RegistryObject<Item> VOID_SALTS = ITEMS.register("void_salts", () -> new Item(VOID_PROPERTIES()));
     public static final RegistryObject<Item> STRANGE_NUCLEUS = ITEMS.register("strange_nucleus", () -> new Item(VOID_PROPERTIES()));
+    public static final RegistryObject<Item> ANOMALOUS_SNARE = ITEMS.register("anomalous_snare", () -> new Item(VOID_PROPERTIES()));
+    public static final RegistryObject<Item> FUSED_CONSCIOUSNESS = ITEMS.register("fused_consciousness", () -> new FusedConsciousnessItem(VOID_PROPERTIES().rarity(UNCOMMON)));
 
     public static final RegistryObject<Item> RING_OF_BLOODY_TEMPERANCE = ITEMS.register("ring_of_bloody_temperance", () -> new CurioTemperanceRing(VOID_GEAR_PROPERTIES()));
 

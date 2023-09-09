@@ -24,9 +24,9 @@ import javax.annotation.Nullable;
 public abstract class ExplosionMixin {
 
     @Unique
-    boolean hasEarthenRing;
+    boolean malum$hasHoarderRing;
     @Unique
-    ItemStack droppedItem;
+    ItemStack malum$droppedItem;
 
     @Shadow
     @Nullable
@@ -49,16 +49,16 @@ public abstract class ExplosionMixin {
 
     @Inject(method = "finalizeExplosion", at = @At(value = "HEAD"))
     private void malum$finalizeExplosion(boolean pSpawnParticles, CallbackInfo ci) {
-        hasEarthenRing = CurioHoarderRing.hasHoarderRing(getSourceMob());
+        malum$hasHoarderRing = CurioHoarderRing.hasHoarderRing(getSourceMob());
     }
 
     @ModifyArg(method = "finalizeExplosion", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/Block;popResource(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/item/ItemStack;)V"), index = 2)
     private ItemStack malum$popResourceCache(ItemStack pStack) {
-        return droppedItem = pStack;
+        return malum$droppedItem = pStack;
     }
 
     @ModifyArg(method = "finalizeExplosion", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/Block;popResource(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/item/ItemStack;)V"), index = 1)
     private BlockPos malum$popResource(BlockPos value) {
-        return CurioHoarderRing.getExplosionPos(hasEarthenRing, value, getSourceMob(), droppedItem);
+        return CurioHoarderRing.getExplosionPos(malum$hasHoarderRing, value, getSourceMob(), malum$droppedItem);
     }
 }

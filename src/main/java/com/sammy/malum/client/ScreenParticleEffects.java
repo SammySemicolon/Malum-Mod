@@ -46,17 +46,17 @@ public class ScreenParticleEffects {
                 .spawnOnStack(0, 0);
     }
 
-    public static void spawnVoidItemScreenParticles(ScreenParticleHolder target, Level level, float partialTick) {
-        float multiplier = Mth.nextFloat(level.random, 0.4f, 1.2f);
+    public static void spawnVoidItemScreenParticles(ScreenParticleHolder target, Level level, float intensity, float partialTick) {
+        float colorMultiplier = Mth.nextFloat(level.random, 0.4f, 1.2f);
         float timeMultiplier = Mth.nextFloat(level.random, 0.9f, 1.4f);
-        Color color = new Color((int)(31*multiplier), (int)(19*multiplier), (int)(31*multiplier));
-        Color endColor = new Color((int)(111*multiplier), (int)(31*multiplier), (int)(121*multiplier));
+        Color color = new Color((int)(31*colorMultiplier), (int)(19*colorMultiplier), (int)(31*colorMultiplier));
+        Color endColor = new Color((int)(111*colorMultiplier), (int)(31*colorMultiplier), (int)(121*colorMultiplier));
         float gameTime = level.getGameTime() + partialTick;
         Random rand = Minecraft.getInstance().level.getRandom();
         boolean spinDirection = level.random.nextBoolean();
         SpinParticleData spinParticleData = SpinParticleData.create(0, spinDirection ? 1 : -2).setSpinOffset(0.025f * gameTime % 6.28f).setEasing(Easing.EXPO_IN_OUT).build();
         ScreenParticleBuilder.create(LodestoneScreenParticleRegistry.STAR, target)
-                .setScaleData(GenericParticleData.create(1.2f + rand.nextFloat() * 0.1f, 0).setEasing(Easing.SINE_IN_OUT, Easing.BOUNCE_IN_OUT).build())
+                .setScaleData(GenericParticleData.create(1.2f * intensity + rand.nextFloat() * 0.1f * intensity, 0).setEasing(Easing.SINE_IN_OUT, Easing.BOUNCE_IN_OUT).build())
                 .setTransparencyData(GenericParticleData.create(0.1f, 0.5f, 0f).setEasing(Easing.SINE_IN_OUT).build())
                 .setColorData(ColorParticleData.create(color, endColor).setCoefficient(2f).build())
                 .setSpinData(spinParticleData)
@@ -67,7 +67,7 @@ public class ScreenParticleEffects {
                 .spawnOnStack(0, 0);
 
         ScreenParticleBuilder.create(LodestoneScreenParticleRegistry.WISP, target)
-                .setScaleData(GenericParticleData.create(0.8f + rand.nextFloat() * 0.6f, 0).setEasing(Easing.EXPO_OUT).build())
+                .setScaleData(GenericParticleData.create(0.8f * intensity + rand.nextFloat() * 0.6f * intensity, 0).setEasing(Easing.EXPO_OUT).build())
                 .setTransparencyData(GenericParticleData.create(0.1f, 0.15f, 0f).setEasing(Easing.SINE_IN_OUT).build())
                 .setColorData(ColorParticleData.create(color, endColor.darker()).setCoefficient(1.25f).build())
                 .setSpinData(spinParticleData)

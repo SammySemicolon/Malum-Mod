@@ -3,10 +3,10 @@
   "values": [
     "malum:block_of_astral_weave",
     "malum:mass_of_blighted_gunk",
-    "malum:mass_of_blighted_gunk",
     "malum:blighted_earth",
     "malum:soulwood_leaves",
     "malum:blighted_soil",
-    "malum:runewood_leaves"
+    "malum:runewood_leaves",
+    "malum:block_of_hex_ash"
   ]
 }

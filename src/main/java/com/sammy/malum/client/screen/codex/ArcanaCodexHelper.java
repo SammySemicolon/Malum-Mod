@@ -47,7 +47,7 @@ public class ArcanaCodexHelper {
         shaderInstance.safeGetUniform("YFrequency").set(corrupted ? 5f : 11f);
         shaderInstance.safeGetUniform("XFrequency").set(corrupted ? 12f : 17f);
         shaderInstance.safeGetUniform("Speed").set(2000f * (corrupted ? -0.75f : 1));
-        shaderInstance.safeGetUniform("Intensity").set(corrupted ? 7f : 11f);
+        shaderInstance.safeGetUniform("Intensity").set(corrupted ? 14f : 50f);
         Supplier<ShaderInstance> shaderInstanceSupplier = () -> shaderInstance;
         Color color = rite.getEffectSpirit().getPrimaryColor();
 

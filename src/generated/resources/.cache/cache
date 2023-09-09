@@ -219,7 +219,7 @@ cb6a17c4dca30d064eedc28529420373d25d1933 assets/malum/blockstates/wall_ether_tor
 55635004672302336ef4a04dbe0d38dff66c4cd9 assets/malum/blockstates/weeping_well_core.json
 55188decc0c9a982e5ba40f8df2adea65a032e32 assets/malum/blockstates/weeping_well_corner.json
 62e007ecef751f8b9b42eaa138f06d18cc008d05 assets/malum/blockstates/weeping_well_side.json
-0cae5e96047dcba6ef07699fe7d757c0787481fd assets/malum/lang/en_us.json
+fef6d51679dc4f681a328912a5ae683fdca74753 assets/malum/lang/en_us.json
 c2637401df2afc394d62b5c6bde312c604cdb21f assets/malum/models/block/blazing_quartz_ore.json
 782e64739e04f0b87aa0aeafb55893cc348df504 assets/malum/models/block/blighted_earth.json
 c0b5a7b1d337a7090eaf86d07fd8b47d35fbc1e1 assets/malum/models/block/blighted_soil.json
@@ -622,6 +622,7 @@ b2a2685514e8fbc896eb9677e63abe76e5c54beb assets/malum/models/item/ancient_cloth_
 399bf3c12f423775e61f9407f230c7b0dd0d269c assets/malum/models/item/ancient_metal_helmet.json
 92b91217d1739fcd623a9382bf22da8d9d7147b6 assets/malum/models/item/ancient_metal_leggings.json
 8158d8694c2e5408314880e8ee11adf77c5419a2 assets/malum/models/item/ancient_weave.json
+e30a0b3264fbc447a48eb560884c8237a2e202ed assets/malum/models/item/anomalous_snare.json
 651fd0e81ceafbe8e07fa0e52c16d7e1810ee390 assets/malum/models/item/aqueous_spirit.json
 3dcfadf0ce314ea0fe314263d6755bd6c070ea39 assets/malum/models/item/arcane_charcoal.json
 3ba6bc77b2e346b4de89fde97183bd2e68dbe85e assets/malum/models/item/arcane_charcoal_fragment.json
@@ -761,6 +762,7 @@ c747823083462f770b00092436a6c0efd913cc22 assets/malum/models/item/executioner_dr
 81dc6dc7859fa373769cf3ac2f03c15d441b16eb assets/malum/models/item/executioner_drip_visor.json
 5f7c497c6ebc3a265cb07e33b73b58e81aa72bd6 assets/malum/models/item/exposed_runewood_log.json
 42d876dd8d91c3b7af2383b569b140a776c36a9b assets/malum/models/item/exposed_soulwood_log.json
+9de986f99ce972c931762308eb91bcff280762f4 assets/malum/models/item/fused_consciousness.json
 0203f98cc4d81338e31b6e019c8a9a28c746d89f assets/malum/models/item/gay_beanie.json
 8e94c4a82e3b5c34a5208e868c6588c2315500ec assets/malum/models/item/gay_hoodie.json
 ac2ba7ea5e6c7f032a9f6da8f5e9288112d00c3b assets/malum/models/item/gay_prideweave.json
@@ -2229,9 +2231,9 @@ f033d822b48de30f3fb61fce071a924a6955133d data/minecraft/recipes/observer.json
 ddbfda4cbb4b8f2e39f52cde67d5b0d9f05279d3 data/minecraft/tags/blocks/leaves.json
 5222d214211542a5574aed8b0aba716c1910d9cf data/minecraft/tags/blocks/logs.json
 1f783ff7d1f657a03e7ca5fd12e633ef9e987358 data/minecraft/tags/blocks/mineable/axe.json
-05d04cc202d3b088158e0bd48a7cd52424ed1669 data/minecraft/tags/blocks/mineable/hoe.json
+dc7a85f0d4fb76bd7f24656936c912c2f6f23b80 data/minecraft/tags/blocks/mineable/hoe.json
 4f748661e97a9e772b76443b4440ed6a9ae58716 data/minecraft/tags/blocks/mineable/pickaxe.json
-baaebec7a55b81960e72de5ba6ddbf84e4f25755 data/minecraft/tags/blocks/mineable/shovel.json
+e789a1028c4443a22a9b914c2b235d87a16a7290 data/minecraft/tags/blocks/mineable/shovel.json
 115f6e20a06d1eb85cac0e9ae1600601d83bc69f data/minecraft/tags/blocks/planks.json
 d168d8e3b43e6778d4b9db9c314c3aa3f08cbcc5 data/minecraft/tags/blocks/pressure_plates.json
 2a73d99f25cfc497bc7fbac067a0e5b7ed4b7d76 data/minecraft/tags/blocks/saplings.json

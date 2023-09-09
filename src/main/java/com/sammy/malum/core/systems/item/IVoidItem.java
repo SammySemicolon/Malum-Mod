@@ -10,6 +10,10 @@ public interface IVoidItem extends ParticleEmitterHandler.ItemParticleSupplier {
 
     @Override
     default void spawnEarlyParticles(ScreenParticleHolder target, Level level, float partialTick, ItemStack stack, float x, float y) {
-        ScreenParticleEffects.spawnVoidItemScreenParticles(target, level, partialTick);
+        ScreenParticleEffects.spawnVoidItemScreenParticles(target, level, getVoidParticleIntensity(), partialTick);
+    }
+
+    default float getVoidParticleIntensity() {
+        return 1f;
     }
 }
