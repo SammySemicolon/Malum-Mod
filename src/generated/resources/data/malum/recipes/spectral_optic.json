@@ -7,16 +7,17 @@
   ],
   "key": {
     "#": {
-      "item": "malum:soul_stained_steel_ingot"
+      "item": "malum:hallowed_gold_ingot"
     },
     "X": {
       "item": "malum:runewood_planks"
     },
     "Y": {
-      "tag": "forge:gems/quartz"
+      "item": "malum:spectral_lens"
     }
   },
   "result": {
-    "item": "malum:stained_spirit_resonator"
+    "item": "malum:spectral_optic",
+    "count": 2
   }
 }

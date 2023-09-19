@@ -65,13 +65,7 @@ public class SpiritItemEntity extends FloatingItemEntity {
         Vec3 motion = getDeltaMovement();
         Vec3 norm = motion.normalize().scale(0.05f);
         float extraAlpha = (float) motion.length();
-        float cycles = 2;
-        for (int i = 0; i < cycles; i++) {
-            double lerpX = Mth.lerp(i / cycles, x - motion.x, x);
-            double lerpY = Mth.lerp(i / cycles, y - motion.y, y);
-            double lerpZ = Mth.lerp(i / cycles, z - motion.z, z);
-            ParticleEffects.spawnSpiritParticles(level, lerpX, lerpY, lerpZ, 0.55f+extraAlpha, norm, startColor, endColor);
-        }
+        ParticleEffects.spiritLightSpecs(level, x, y, z, 0.55f + extraAlpha, norm, startColor, endColor);
     }
 
     @Override

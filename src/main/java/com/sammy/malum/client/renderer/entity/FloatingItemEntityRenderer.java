@@ -18,6 +18,7 @@ import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.setup.*;
 import team.lodestar.lodestone.systems.easing.*;
 import team.lodestar.lodestone.systems.rendering.*;
+import team.lodestar.lodestone.systems.rendering.trail.*;
 
 import java.util.*;
 import java.util.stream.*;
@@ -36,52 +37,30 @@ public class FloatingItemEntityRenderer extends EntityRenderer<FloatingItemEntit
         this.shadowStrength = 0;
     }
 
-    private static final ResourceLocation LIGHT_TRAIL = malumPath("textures/vfx/light_trail.png");
+    private static final ResourceLocation LIGHT_TRAIL = malumPath("textures/vfx/concentrated_trail.png");
     private static final RenderType LIGHT_TYPE = LodestoneRenderTypeRegistry.ADDITIVE_TEXTURE_TRIANGLE.apply(LIGHT_TRAIL);
     @Override
     public void render(FloatingItemEntity entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int packedLightIn) {
+        List<TrailPoint> trailPoints = entity.trailPointBuilder.getTrailPoints(partialTicks);
         poseStack.pushPose();
-        List<EntityHelper.PastPosition> positions = new ArrayList<>(entity.pastPositions);
-        if (positions.size() > 1) {
-            for (int i = 0; i < positions.size() - 2; i++) {
-                EntityHelper.PastPosition position = positions.get(i);
-                EntityHelper.PastPosition nextPosition = positions.get(i + 1);
-                float x = (float) Mth.lerp(partialTicks, position.position.x, nextPosition.position.x);
-                float y = (float) Mth.lerp(partialTicks, position.position.y, nextPosition.position.y);
-                float z = (float) Mth.lerp(partialTicks, position.position.z, nextPosition.position.z);
-                positions.set(i, new EntityHelper.PastPosition(new Vec3(x, y, z), position.time));
+        if (trailPoints.size() > 3) {
+            float x = (float) Mth.lerp(partialTicks, entity.xOld, entity.getX());
+            float y = (float) Mth.lerp(partialTicks, entity.yOld, entity.getY());
+            float z = (float) Mth.lerp(partialTicks, entity.zOld, entity.getZ());
+            trailPoints.add(new TrailPoint(new Vec3(x, y + entity.getYOffset(partialTicks) + 0.25F, z).add(entity.getDeltaMovement().multiply(partialTicks, partialTicks, partialTicks))));
+            poseStack.translate(-x, -y, -z);
+            VFXBuilders.WorldVFXBuilder builder = VFXBuilders.createWorld().setPosColorTexLightmapDefaultFormat();
+            VertexConsumer lightBuffer = DELAYED_RENDER.getBuffer(LIGHT_TYPE);
+            for (int i = 0; i < 2; i++) {
+                float size = 0.4f + i * 0.2f;
+                float alpha = (0.7f - i * 0.35f);
+                builder.setAlpha(alpha)
+                        .renderTrail(lightBuffer, poseStack, trailPoints, f -> size, f -> builder.setAlpha(alpha * f).setColor(ColorHelper.colorLerp(Easing.SINE_IN, f * 3f, entity.endColor, entity.startColor)))
+                        .renderTrail(lightBuffer, poseStack, trailPoints, f -> 1.5f * size, f -> builder.setAlpha(alpha * f / 2f).setColor(ColorHelper.colorLerp(Easing.SINE_IN, f * 2f, entity.endColor, entity.startColor)))
+                        .renderTrail(lightBuffer, poseStack, trailPoints, f -> size * 2.5f, f -> builder.setAlpha(alpha * f / 4f).setColor(ColorHelper.colorLerp(Easing.SINE_IN, f * 2f, entity.endColor, entity.startColor)));
             }
+            poseStack.translate(x, y, z);
         }
-        float x = (float) Mth.lerp(partialTicks, entity.xOld, entity.getX());
-        float y = (float) Mth.lerp(partialTicks, entity.yOld, entity.getY());
-        float z = (float) Mth.lerp(partialTicks, entity.zOld, entity.getZ());
-        if (positions.size() > 1) {
-            positions.set(positions.size() - 1, new EntityHelper.PastPosition(new Vec3(x, y + entity.getYOffset(partialTicks) + 0.25F, z).add(entity.getDeltaMovement().multiply(partialTicks, partialTicks, partialTicks)), 0));
-        }
-
-        List<Vector4f> mappedPastPositions = positions.stream().map(p -> p.position).map(p -> new Vector4f((float) p.x, (float) p.y, (float) p.z, 1)).collect(Collectors.toList());
-        VFXBuilders.WorldVFXBuilder builder = VFXBuilders.createWorld().setPosColorTexLightmapDefaultFormat().setOffset(-x, -y, -z);
-
-        VertexConsumer lightBuffer = DELAYED_RENDER.getBuffer(LIGHT_TYPE);
-        for (int i = 0; i < 3; i++) {
-            float size = 0.225f + i * 0.15f;
-            float alpha = (0.3f - i * 0.12f);
-            builder
-                    .setAlpha(alpha)
-                    .renderTrail(lightBuffer, poseStack, mappedPastPositions, f -> size, f -> builder.setAlpha(alpha * f).setColor(ColorHelper.colorLerp(Easing.SINE_IN, f * 3f, entity.endColor, entity.startColor)))
-                    .renderTrail(lightBuffer, poseStack, mappedPastPositions, f -> 1.5f * size, f -> builder.setAlpha(alpha * f / 2f).setColor(ColorHelper.colorLerp(Easing.SINE_IN, f * 2f, entity.endColor, entity.startColor)))
-                    .renderTrail(lightBuffer, poseStack, mappedPastPositions, f -> size * 2.5f, f -> builder.setAlpha(alpha * f / 4f).setColor(ColorHelper.colorLerp(Easing.SINE_IN, f * 2f, entity.endColor, entity.startColor)));
-        }
-        ItemStack itemStack = entity.getItem();
-        BakedModel model = this.itemRenderer.getModel(itemStack, entity.level, null, entity.getItem().getCount());
-        float yOffset = entity.getYOffset(partialTicks);
-        float scale = model.getTransforms().getTransform(ItemTransforms.TransformType.GROUND).scale.y();
-        float rotation = entity.getRotation(partialTicks);
-        poseStack.translate(0.0D, (yOffset + 0.25F * scale), 0.0D);
-        poseStack.mulPose(Vector3f.YP.rotation(rotation));
-        this.itemRenderer.render(itemStack, ItemTransforms.TransformType.GROUND, false, poseStack, bufferIn, packedLightIn, OverlayTexture.NO_OVERLAY, model);
-        poseStack.popPose();
-        poseStack.pushPose();
         renderSpirit(entity, itemRenderer, partialTicks, poseStack, bufferIn, packedLightIn);
         poseStack.popPose();
         super.render(entity, entityYaw, partialTicks, poseStack, bufferIn, packedLightIn);

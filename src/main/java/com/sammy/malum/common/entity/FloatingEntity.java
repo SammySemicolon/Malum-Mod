@@ -23,6 +23,7 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkHooks;
 import team.lodestar.lodestone.helpers.EntityHelper;
 import team.lodestar.lodestone.systems.easing.Easing;
+import team.lodestar.lodestone.systems.rendering.trail.*;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -32,7 +33,7 @@ public abstract class FloatingEntity extends Entity {
 
     protected static final EntityDataAccessor<Integer> DATA_COLOR = SynchedEntityData.defineId(FloatingEntity.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Integer> DATA_END_COLOR = SynchedEntityData.defineId(FloatingEntity.class, EntityDataSerializers.INT);
-    public final ArrayList<EntityHelper.PastPosition> pastPositions = new ArrayList<>(); // *screaming*
+    public final TrailPointBuilder trailPointBuilder = TrailPointBuilder.create(10);
     public Color startColor = SpiritTypeRegistry.ARCANE_SPIRIT.getPrimaryColor();
     public Color endColor = SpiritTypeRegistry.ARCANE_SPIRIT.getSecondaryColor();
     public int maxAge;
@@ -106,20 +107,8 @@ public abstract class FloatingEntity extends Entity {
     }
 
     public void trackPastPositions() {
-        EntityHelper.trackPastPositions(pastPositions, position().add(0, getYOffset(0) + 0.25F, 0), 0.01f);
-        removeOldPositions(pastPositions);
-    }
-
-    public void removeOldPositions(List<EntityHelper.PastPosition> pastPositions) {
-        int amount = pastPositions.size() - 1;
-        List<EntityHelper.PastPosition> toRemove = new ArrayList<>();
-        for (int i = 0; i < amount; i++) {
-            EntityHelper.PastPosition excess = pastPositions.get(i);
-            if (excess.time > 9) {
-                toRemove.add(excess);
-            }
-        }
-        pastPositions.removeAll(toRemove);
+        trailPointBuilder.addTrailPoint(position().add(0, getYOffset(0)+0.25f, 0f));
+        trailPointBuilder.tickTrailPoints();
     }
 
     public void baseTick() {

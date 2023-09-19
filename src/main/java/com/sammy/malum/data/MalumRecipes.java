@@ -52,18 +52,20 @@ public class MalumRecipes extends RecipeProvider implements IConditionBuilder {
         shaped(ItemRegistry.SPIRIT_POUCH.get()).define('X', Tags.Items.STRING).define('Y', ItemRegistry.SPIRIT_FABRIC.get()).define('Z', ItemTags.SOUL_FIRE_BASE_BLOCKS).pattern(" X ").pattern("YZY").pattern(" Y ").unlockedBy("has_spirit_fabric", has(ItemRegistry.SPIRIT_FABRIC.get())).save(consumer);
         shaped(ItemRegistry.WEAVERS_WORKBENCH.get()).define('Z', Tags.Items.INGOTS_GOLD).define('Y', ItemRegistry.HEX_ASH.get()).define('X', ItemRegistry.RUNEWOOD_PLANKS.get()).pattern("XYX").pattern("XZX").unlockedBy("has_hex_ash", has(ItemRegistry.HEX_ASH.get())).save(consumer);
 
+        //CRAFTING COMPONENTS
+        shaped(ItemRegistry.SPECTRAL_LENS.get()).define('X', ItemRegistry.HEX_ASH.get()).define('Y', Tags.Items.GLASS_PANES).pattern(" X ").pattern("XYX").pattern(" X ").unlockedBy("has_hex_ash", has(ItemRegistry.HEX_ASH.get())).save(consumer);
+        shaped(ItemRegistry.SPECTRAL_OPTIC.get(), 2).define('#', ItemRegistry.HALLOWED_GOLD_INGOT.get()).define('X', ItemRegistry.RUNEWOOD_PLANKS.get()).define('Y', ItemRegistry.SPECTRAL_LENS.get()).pattern(" X ").pattern("#Y#").pattern(" X ").unlockedBy("has_hallowed_gold", has(ItemRegistry.HALLOWED_GOLD_INGOT.get())).save(consumer);
+
         //SPIRIT METALS
         shaped(ItemRegistry.BLOCK_OF_SOUL_STAINED_STEEL.get()).define('#', ItemRegistry.SOUL_STAINED_STEEL_INGOT.get()).pattern("###").pattern("###").pattern("###").unlockedBy("has_soul_stained_steel", has(ItemRegistry.SOUL_STAINED_STEEL_INGOT.get())).save(consumer);
         shaped(ItemRegistry.SOUL_STAINED_STEEL_INGOT.get()).define('#', ItemRegistry.SOUL_STAINED_STEEL_NUGGET.get()).pattern("###").pattern("###").pattern("###").unlockedBy("has_soul_stained_steel", has(ItemRegistry.SOUL_STAINED_STEEL_INGOT.get())).save(consumer, malumPath("soul_stained_steel_from_nuggets"));
         shapeless(ItemRegistry.SOUL_STAINED_STEEL_NUGGET.get(), 9).requires(ItemRegistry.SOUL_STAINED_STEEL_INGOT.get()).unlockedBy("has_soul_stained_steel", has(ItemRegistry.SOUL_STAINED_STEEL_INGOT.get())).save(consumer);
         shapeless(ItemRegistry.SOUL_STAINED_STEEL_INGOT.get(), 9).requires(ItemRegistry.BLOCK_OF_SOUL_STAINED_STEEL.get()).unlockedBy("has_soul_stained_steel", has(ItemRegistry.SOUL_STAINED_STEEL_INGOT.get())).save(consumer, malumPath("soul_stained_steel_from_block"));
-        shaped(ItemRegistry.STAINED_SPIRIT_RESONATOR.get()).define('#', ItemRegistry.SOUL_STAINED_STEEL_INGOT.get()).define('X', ItemRegistry.RUNEWOOD_PLANKS.get()).define('Y', Tags.Items.GEMS_QUARTZ).pattern(" X ").pattern("#Y#").pattern(" X ").unlockedBy("has_soul_stained_steel", has(ItemRegistry.SOUL_STAINED_STEEL_INGOT.get())).save(consumer);
 
         shaped(ItemRegistry.BLOCK_OF_HALLOWED_GOLD.get()).define('#', ItemRegistry.HALLOWED_GOLD_INGOT.get()).pattern("###").pattern("###").pattern("###").unlockedBy("has_hallowed_gold", has(ItemRegistry.HALLOWED_GOLD_INGOT.get())).save(consumer);
         shaped(ItemRegistry.HALLOWED_GOLD_INGOT.get()).define('#', ItemRegistry.HALLOWED_GOLD_NUGGET.get()).pattern("###").pattern("###").pattern("###").unlockedBy("has_hallowed_gold", has(ItemRegistry.HALLOWED_GOLD_INGOT.get())).save(consumer, malumPath("hallowed_gold_from_nuggets"));
         shapeless(ItemRegistry.HALLOWED_GOLD_NUGGET.get(), 9).requires(ItemRegistry.HALLOWED_GOLD_INGOT.get()).unlockedBy("has_hallowed_gold", has(ItemRegistry.HALLOWED_GOLD_INGOT.get())).save(consumer);
         shapeless(ItemRegistry.HALLOWED_GOLD_INGOT.get(), 9).requires(ItemRegistry.BLOCK_OF_HALLOWED_GOLD.get()).unlockedBy("has_hallowed_gold", has(ItemRegistry.HALLOWED_GOLD_INGOT.get())).save(consumer, malumPath("hallowed_gold_from_block"));
-        shaped(ItemRegistry.HALLOWED_SPIRIT_RESONATOR.get()).define('#', ItemRegistry.HALLOWED_GOLD_INGOT.get()).define('X', ItemRegistry.RUNEWOOD_PLANKS.get()).define('Y', Tags.Items.GEMS_QUARTZ).pattern(" X ").pattern("#Y#").pattern(" X ").unlockedBy("has_hallowed_gold", has(ItemRegistry.HALLOWED_GOLD_INGOT.get())).save(consumer);
 
         //NODES
         smeltingWithCount(Ingredient.of(ItemRegistry.IRON_NODE.get()), Items.IRON_NUGGET, 6, 0.25f, 200).unlockedBy("has_impetus", has(ItemRegistry.IRON_IMPETUS.get())).save(consumer, malumPath("iron_from_node_smelting"));

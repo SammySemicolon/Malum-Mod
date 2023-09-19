@@ -405,19 +405,17 @@ public class ItemRegistry {
 
     public static final RegistryObject<Item> SPIRIT_FABRIC = ITEMS.register("spirit_fabric", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> SPECTRAL_LENS = ITEMS.register("spectral_lens", () -> new Item(DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> FOCUS_LENS = ITEMS.register("focus_lens", () -> new Item(DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> SPECTRAL_OPTIC = ITEMS.register("spectral_optic", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> POPPET = ITEMS.register("poppet", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> CORRUPTED_RESONANCE = ITEMS.register("corrupted_resonance", () -> new Item(DEFAULT_PROPERTIES()));
 
     public static final RegistryObject<Item> HALLOWED_GOLD_INGOT = ITEMS.register("hallowed_gold_ingot", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> HALLOWED_GOLD_NUGGET = ITEMS.register("hallowed_gold_nugget", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> BLOCK_OF_HALLOWED_GOLD = ITEMS.register("block_of_hallowed_gold", () -> new BlockItem(BlockRegistry.BLOCK_OF_HALLOWED_GOLD.get(), DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> HALLOWED_SPIRIT_RESONATOR = ITEMS.register("hallowed_spirit_resonator", () -> new Item(DEFAULT_PROPERTIES()));
 
     public static final RegistryObject<Item> SOUL_STAINED_STEEL_INGOT = ITEMS.register("soul_stained_steel_ingot", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> SOUL_STAINED_STEEL_NUGGET = ITEMS.register("soul_stained_steel_nugget", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> BLOCK_OF_SOUL_STAINED_STEEL = ITEMS.register("block_of_soul_stained_steel", () -> new BlockItem(BlockRegistry.BLOCK_OF_SOUL_STAINED_STEEL.get(), DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> STAINED_SPIRIT_RESONATOR = ITEMS.register("stained_spirit_resonator", () -> new Item(DEFAULT_PROPERTIES()));
 
     public static final RegistryObject<CrackedImpetusItem> CRACKED_IRON_IMPETUS = ITEMS.register("cracked_iron_impetus", () -> new CrackedImpetusItem(IMPETUS_PROPERTIES()));
     public static final RegistryObject<ImpetusItem> IRON_IMPETUS = ITEMS.register("iron_impetus", () -> new ImpetusItem(IMPETUS_PROPERTIES().durability(100)).setCrackedVariant(CRACKED_IRON_IMPETUS));

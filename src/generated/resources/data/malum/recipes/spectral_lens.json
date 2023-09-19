@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " X ",
+    "XYX",
+    " X "
+  ],
+  "key": {
+    "X": {
+      "item": "malum:hex_ash"
+    },
+    "Y": {
+      "tag": "forge:glass_panes"
+    }
+  },
+  "result": {
+    "item": "malum:spectral_lens"
+  }
+}

@@ -37,54 +37,54 @@ public class NightTerrorEntityRenderer extends EntityRenderer<NightTerrorSeekerE
 
     @Override
     public void render(NightTerrorSeekerEntity entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int packedLightIn) {
-        poseStack.pushPose();
-        List<EntityHelper.PastPosition> positions = new ArrayList<>(entity.pastPositions);
-        if (positions.size() > 1) {
-            for (int i = 0; i < positions.size() - 2; i++) {
-                EntityHelper.PastPosition position = positions.get(i);
-                EntityHelper.PastPosition nextPosition = positions.get(i + 1);
-                float x = (float) Mth.lerp(partialTicks, position.position.x, nextPosition.position.x);
-                float y = (float) Mth.lerp(partialTicks, position.position.y, nextPosition.position.y);
-                float z = (float) Mth.lerp(partialTicks, position.position.z, nextPosition.position.z);
-                positions.set(i, new EntityHelper.PastPosition(new Vec3(x, y, z), position.time));
-            }
-        }
-        float x = (float) Mth.lerp(partialTicks, entity.xOld, entity.getX());
-        float y = (float) Mth.lerp(partialTicks, entity.yOld, entity.getY());
-        float z = (float) Mth.lerp(partialTicks, entity.zOld, entity.getZ());
-        if (positions.size() > 1) {
-            positions.set(positions.size() - 1, new EntityHelper.PastPosition(new Vec3(x, y + 0.25F, z).add(entity.getDeltaMovement().multiply(partialTicks, partialTicks, partialTicks)), 0));
-        }
-
-        List<Vector4f> mappedPastPositions = positions.stream().map(p -> p.position).map(p -> new Vector4f((float) p.x, (float) p.y, (float) p.z, 1)).collect(Collectors.toList());
-        VFXBuilders.WorldVFXBuilder builder = VFXBuilders.createWorld().setPosColorTexLightmapDefaultFormat().setOffset(-x, -y, -z);
-
-        float fadeOut = Easing.SINE_IN_OUT.ease(Mth.clamp((entity.age - entity.fadeoutStart) / (float) entity.fadeoutDuration, 0, 1), 0, 1, 1);
-        float trailVisibility = Mth.clamp(entity.age / 10f,0, 1) * (entity.age > entity.fadeoutStart ? (1 - fadeOut) : 1);
-
-
-        Color firstColor = NightTerrorSeekerEntity.NIGHT_TERROR_PURPLE;
-        Color secondColor = NightTerrorSeekerEntity.NIGHT_TERROR_DARK;
-
-        VertexConsumer lightBuffer = DELAYED_RENDER.getBuffer(LIGHT_TYPE);
-        builder.setColor(firstColor);
-        builder.renderTrail(lightBuffer, poseStack, mappedPastPositions, f -> 0.3f, f -> builder.setAlpha(trailVisibility * Math.max(0, Easing.SINE_IN.ease(f, 0, 0.5f, 1))));
-        builder.renderTrail(lightBuffer, poseStack, mappedPastPositions, f -> 0.2f, f -> builder.setAlpha(trailVisibility * Math.max(0, Easing.SINE_IN.ease(f, 0, 0.75f, 1))));
-
-        VertexConsumer darkBuffer = DELAYED_RENDER.getBuffer(DARK_TYPE);
-        builder.setColor(secondColor);
-        builder.renderTrail(darkBuffer, poseStack, mappedPastPositions, f -> 0.35f, f -> builder.setAlpha(trailVisibility * Math.max(0, Easing.SINE_IN.ease(f, 0, 0.5f, 1))));
-        builder.renderTrail(darkBuffer, poseStack, mappedPastPositions, f -> 0.25f, f -> builder.setAlpha(trailVisibility * Math.max(0, Easing.SINE_IN.ease(f, 0, 0.75f, 1))));
-
-
-        poseStack.translate(0, 0.25F, 0);
-        poseStack.scale(1.2f * trailVisibility, 1.2f * trailVisibility, 1.2f * trailVisibility);
-        builder.setOffset(0, 0, 0);
-        builder.setColor(firstColor);
-        builder.setAlpha(trailVisibility);
-        renderSpiritGlimmer(poseStack, builder, partialTicks);
-
-        poseStack.popPose();
+//        poseStack.pushPose();
+//        List<EntityHelper.PastPosition> positions = new ArrayList<>(entity.pastPositions);
+//        if (positions.size() > 1) {
+//            for (int i = 0; i < positions.size() - 2; i++) {
+//                EntityHelper.PastPosition position = positions.get(i);
+//                EntityHelper.PastPosition nextPosition = positions.get(i + 1);
+//                float x = (float) Mth.lerp(partialTicks, position.position.x, nextPosition.position.x);
+//                float y = (float) Mth.lerp(partialTicks, position.position.y, nextPosition.position.y);
+//                float z = (float) Mth.lerp(partialTicks, position.position.z, nextPosition.position.z);
+//                positions.set(i, new EntityHelper.PastPosition(new Vec3(x, y, z), position.time));
+//            }
+//        }
+//        float x = (float) Mth.lerp(partialTicks, entity.xOld, entity.getX());
+//        float y = (float) Mth.lerp(partialTicks, entity.yOld, entity.getY());
+//        float z = (float) Mth.lerp(partialTicks, entity.zOld, entity.getZ());
+//        if (positions.size() > 1) {
+//            positions.set(positions.size() - 1, new EntityHelper.PastPosition(new Vec3(x, y + 0.25F, z).add(entity.getDeltaMovement().multiply(partialTicks, partialTicks, partialTicks)), 0));
+//        }
+//
+//        List<Vector4f> mappedPastPositions = positions.stream().map(p -> p.position).map(p -> new Vector4f((float) p.x, (float) p.y, (float) p.z, 1)).collect(Collectors.toList());
+//        VFXBuilders.WorldVFXBuilder builder = VFXBuilders.createWorld().setPosColorTexLightmapDefaultFormat().setOffset(-x, -y, -z);
+//
+//        float fadeOut = Easing.SINE_IN_OUT.ease(Mth.clamp((entity.age - entity.fadeoutStart) / (float) entity.fadeoutDuration, 0, 1), 0, 1, 1);
+//        float trailVisibility = Mth.clamp(entity.age / 10f,0, 1) * (entity.age > entity.fadeoutStart ? (1 - fadeOut) : 1);
+//
+//
+//        Color firstColor = NightTerrorSeekerEntity.NIGHT_TERROR_PURPLE;
+//        Color secondColor = NightTerrorSeekerEntity.NIGHT_TERROR_DARK;
+//
+//        VertexConsumer lightBuffer = DELAYED_RENDER.getBuffer(LIGHT_TYPE);
+//        builder.setColor(firstColor);
+//        builder.renderTrail(lightBuffer, poseStack, mappedPastPositions, f -> 0.3f, f -> builder.setAlpha(trailVisibility * Math.max(0, Easing.SINE_IN.ease(f, 0, 0.5f, 1))));
+//        builder.renderTrail(lightBuffer, poseStack, mappedPastPositions, f -> 0.2f, f -> builder.setAlpha(trailVisibility * Math.max(0, Easing.SINE_IN.ease(f, 0, 0.75f, 1))));
+//
+//        VertexConsumer darkBuffer = DELAYED_RENDER.getBuffer(DARK_TYPE);
+//        builder.setColor(secondColor);
+//        builder.renderTrail(darkBuffer, poseStack, mappedPastPositions, f -> 0.35f, f -> builder.setAlpha(trailVisibility * Math.max(0, Easing.SINE_IN.ease(f, 0, 0.5f, 1))));
+//        builder.renderTrail(darkBuffer, poseStack, mappedPastPositions, f -> 0.25f, f -> builder.setAlpha(trailVisibility * Math.max(0, Easing.SINE_IN.ease(f, 0, 0.75f, 1))));
+//
+//
+//        poseStack.translate(0, 0.25F, 0);
+//        poseStack.scale(1.2f * trailVisibility, 1.2f * trailVisibility, 1.2f * trailVisibility);
+//        builder.setOffset(0, 0, 0);
+//        builder.setColor(firstColor);
+//        builder.setAlpha(trailVisibility);
+//        renderSpiritGlimmer(poseStack, builder, partialTicks);
+//
+//        poseStack.popPose();
 
         super.render(entity, entityYaw, partialTicks, poseStack, bufferIn, packedLightIn);
     }

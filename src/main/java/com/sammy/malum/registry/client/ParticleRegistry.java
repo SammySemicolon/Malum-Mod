@@ -10,6 +10,8 @@ import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+import team.lodestar.lodestone.setup.*;
+import team.lodestar.lodestone.systems.particle.type.*;
 
 @SuppressWarnings("unused")
 public class ParticleRegistry {
@@ -17,11 +19,17 @@ public class ParticleRegistry {
 
     public static RegistryObject<SpiritFlameParticleType> SPIRIT_FLAME_PARTICLE = PARTICLES.register("spirit_flame", SpiritFlameParticleType::new);
 
+    public static RegistryObject<LodestoneParticleType> LIGHT_SPEC_SMALL = PARTICLES.register("light_spec_small", LodestoneParticleType::new);
+    public static RegistryObject<LodestoneParticleType> LIGHT_SPEC_LARGE = PARTICLES.register("light_spec_large", LodestoneParticleType::new);
+
     public static RegistryObject<SimpleParticleType> SCYTHE_CUT_ATTACK_PARTICLE = PARTICLES.register("scythe_cut_attack", () -> new SimpleParticleType(true));
     public static RegistryObject<SimpleParticleType> SCYTHE_SWEEP_ATTACK_PARTICLE = PARTICLES.register("scythe_sweep_attack", () -> new SimpleParticleType(true));
 
     public static void registerParticleFactory(ParticleFactoryRegisterEvent event) {
         Minecraft.getInstance().particleEngine.register(SPIRIT_FLAME_PARTICLE.get(), SpiritFlameParticleType.Factory::new);
+
+        Minecraft.getInstance().particleEngine.register(LIGHT_SPEC_SMALL.get(), LodestoneParticleType.Factory::new);
+        Minecraft.getInstance().particleEngine.register(LIGHT_SPEC_LARGE.get(), LodestoneParticleType.Factory::new);
 
         Minecraft.getInstance().particleEngine.register(SCYTHE_CUT_ATTACK_PARTICLE.get(), ScytheAttackParticle.Factory::new);
         Minecraft.getInstance().particleEngine.register(SCYTHE_SWEEP_ATTACK_PARTICLE.get(), ScytheAttackParticle.Factory::new);

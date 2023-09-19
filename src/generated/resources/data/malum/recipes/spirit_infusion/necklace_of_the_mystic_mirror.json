@@ -9,15 +9,15 @@
   },
   "extra_items": [
     {
-      "item": "malum:hallowed_spirit_resonator",
-      "count": 1
-    },
-    {
       "item": "malum:runewood_planks",
       "count": 8
     },
     {
-      "item": "malum:spectral_lens",
+      "item": "malum:spectral_optic",
+      "count": 4
+    },
+    {
+      "item": "minecraft:ender_eye",
       "count": 1
     }
   ],

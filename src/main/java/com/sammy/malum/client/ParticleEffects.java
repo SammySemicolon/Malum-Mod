@@ -1,9 +1,9 @@
 package com.sammy.malum.client;
 
+import com.sammy.malum.registry.client.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import team.lodestar.lodestone.setup.LodestoneParticleRegistry;
-import team.lodestar.lodestone.systems.easing.Easing;
 import team.lodestar.lodestone.systems.particle.SimpleParticleOptions;
 import team.lodestar.lodestone.systems.particle.WorldParticleBuilder;
 import team.lodestar.lodestone.systems.particle.data.ColorParticleData;
@@ -34,80 +34,41 @@ public class ParticleEffects {
                 .setDiscardFunction(SimpleParticleOptions.ParticleDiscardFunctionType.INVISIBLE)
                 .spawn(level, x, y, z);
 
-        spawnSpiritParticles(level, x, y, z, 1, extraVelocity, color, endColor);
+        spiritLightSpecs(level, x, y, z, 1, extraVelocity, color, endColor);
     }
 
-    public static void spawnSpiritParticles(Level level, double x, double y, double z, Color color, Color endColor) {
-        spawnSpiritParticles(level, x, y, z, 1, Vec3.ZERO, color, endColor);
+    public static void spiritLightSpecs(Level level, double x, double y, double z, Color color, Color endColor) {
+        spiritLightSpecs(level, x, y, z, 1, Vec3.ZERO, color, endColor);
     }
 
-    public static void spawnSpiritParticles(Level level, double x, double y, double z, float alphaMultiplier, Vec3 extraVelocity, Color color, Color endColor) {
+    public static void spiritLightSpecs(Level level, double x, double y, double z, float alphaMultiplier, Vec3 extraVelocity, Color color, Color endColor) {
         Random rand = level.getRandom();
-        WorldParticleBuilder.create(LodestoneParticleRegistry.WISP_PARTICLE)
-                .setTransparencyData(GenericParticleData.create(0.275f * alphaMultiplier, 0f).build())
-                .setLifetime(15 + rand.nextInt(4))
-                .setSpinData(SpinParticleData.create(nextFloat(rand, 0.05f, 0.1f)).build())
-                .setScaleData(GenericParticleData.create(0.05f + rand.nextFloat() * 0.025f, 0).build())
-                .setColorData(ColorParticleData.create(color, endColor).setCoefficient(1.25f).build())
-                .setRandomOffset(0.02f)
-                .enableNoClip()
-                .addMotion(extraVelocity.x, extraVelocity.y, extraVelocity.z)
-                .setRandomMotion(0.01f, 0.01f)
-                .setDiscardFunction(SimpleParticleOptions.ParticleDiscardFunctionType.INVISIBLE)
-                .repeat(level, x, y, z, 1)
-                .setTransparencyData(GenericParticleData.create(0.2f * alphaMultiplier, 0f).build())
-                .setLifetime(10 + rand.nextInt(2))
-                .setScaleData(GenericParticleData.create(0.15f + rand.nextFloat() * 0.05f, 0f).build())
-                .setRandomMotion(0.01f, 0.01f)
-                .repeat(level, x, y, z, 1);
-    }
+        final ColorParticleData colorData = ColorParticleData.create(color, endColor).setCoefficient(1.25f).build();
+        final SpinParticleData spinData = SpinParticleData.createRandomDirection(rand, nextFloat(rand, 0.05f, 0.1f)).randomSpinOffset(rand).build();
 
-    public static void spawnSoulParticles(Level level, double x, double y, double z, float alphaMultiplier, float scaleMultiplier, Vec3 extraVelocity, Color color, Color endColor) {
-        Random rand = level.getRandom();
-        WorldParticleBuilder.create(LodestoneParticleRegistry.WISP_PARTICLE)
-                .setTransparencyData(GenericParticleData.create(0.1f * alphaMultiplier, 0).build())
-                .setScaleData(GenericParticleData.create((0.2f + rand.nextFloat() * 0.2f) * scaleMultiplier, 0).setEasing(Easing.QUINTIC_IN).build())
-                .setColorData(ColorParticleData.create(color, endColor).build())
-                .setLifetime(8 + rand.nextInt(5))
-                .setRandomOffset(0.05f)
-                .enableNoClip()
-                .addMotion(extraVelocity.x, extraVelocity.y, extraVelocity.z)
-                .setRandomMotion(0.01f * scaleMultiplier, 0.01f * scaleMultiplier)
-                .repeat(level, x, y, z, 1);
-
-        WorldParticleBuilder.create(LodestoneParticleRegistry.SMOKE_PARTICLE)
-                .setTransparencyData(GenericParticleData.create(0, 0.05f * alphaMultiplier, 0f).setEasing(Easing.CUBIC_IN, Easing.CUBIC_OUT).build())
-                .setSpinData(SpinParticleData.create(0.05f * level.getGameTime() % 6.28f, 0, nextFloat(rand, 0.05f, 0.4f)).setEasing(Easing.CUBIC_IN).build())
-                .setScaleData(GenericParticleData.create((0.2f + rand.nextFloat() * 0.1f) * scaleMultiplier, 0.1f * scaleMultiplier).setEasing(Easing.QUINTIC_IN).build())
-                .setColorData(ColorParticleData.create(color, endColor).build())
-                .setLifetime(80 + rand.nextInt(10))
-                .setRandomOffset(0.1f)
-                .enableNoClip()
-                .addMotion(extraVelocity.x, extraVelocity.y, extraVelocity.z)
-                .setRandomMotion(0.01f * scaleMultiplier, 0.01f * scaleMultiplier)
-                .repeat(level, x, y, z, 1)
-                .setTransparencyData(GenericParticleData.create(0.12f * alphaMultiplier, 0f).build())
-                .setSpinData(SpinParticleData.create(0, nextFloat(rand, 0.1f, 0.5f)).build())
-                .setScaleData(GenericParticleData.create((0.15f + rand.nextFloat() * 0.1f) * scaleMultiplier, 0.1f * scaleMultiplier).build())
+        WorldParticleBuilder.create(rand.nextFloat() < 0.8 ? ParticleRegistry.LIGHT_SPEC_SMALL : ParticleRegistry.LIGHT_SPEC_LARGE)
+                .setTransparencyData(GenericParticleData.create(0.8f, 0f).build())
+                .setSpinData(spinData)
+                .setScaleData(GenericParticleData.create(0.025f, 0.25f + rand.nextFloat() * 0.05f, 0).build())
+                .setColorData(colorData)
                 .setLifetime(10 + rand.nextInt(5))
-                .setRandomMotion(0.03f * scaleMultiplier, 0.03f * scaleMultiplier)
-                .repeat(level, x, y, z, 2);
-
-        WorldParticleBuilder.create(LodestoneParticleRegistry.STAR_PARTICLE)
-                .setTransparencyData(GenericParticleData.create((rand.nextFloat() * 0.1f + 0.1f) * alphaMultiplier, 0f).build())
-                .setSpinData(SpinParticleData.create(0.025f * level.getGameTime() % 6.28f, 0, nextFloat(rand, 0.05f, 0.4f)).build())
-                .setScaleData(GenericParticleData.create((0.7f + rand.nextFloat() * 0.1f) * scaleMultiplier, 0.1f * scaleMultiplier).build())
-                .setColorData(ColorParticleData.create(color, endColor).build())
-                .setLifetime(20 + rand.nextInt(10))
+                .enableNoClip()
                 .setRandomOffset(0.01f)
-                .enableNoClip()
-                .addMotion(extraVelocity.x, extraVelocity.y, extraVelocity.z)
-                .repeat(level, x, y, z, 1)
-                .setTransparencyData(GenericParticleData.create((rand.nextFloat() * 0.05f + 0.05f) * alphaMultiplier, 0f).build())
-                .setSpinData(SpinParticleData.create(0, nextFloat(rand, 0.1f, 0.5f)).build())
-                .setScaleData(GenericParticleData.create((0.5f + rand.nextFloat() * 0.1f) * scaleMultiplier, 0.1f * scaleMultiplier).build())
-                .setLifetime(10 + rand.nextInt(5))
-                .repeat(level, x, y, z, 1);
-    }
+                .addMotion(extraVelocity)
+                .addActor(p -> p.setParticleSpeed(p.getParticleSpeed().scale(0.95f)))
+                .spawn(level, x, y, z);
 
+        WorldParticleBuilder.create(LodestoneParticleRegistry.WISP_PARTICLE)
+                .setTransparencyData(GenericParticleData.create(0.4f * alphaMultiplier, 0f).build())
+                .setSpinData(spinData)
+                .setScaleData(GenericParticleData.create(0.05f, 0.1f + rand.nextFloat() * 0.05f, 0).build())
+                .setColorData(colorData)
+                .setLifetime(10 + rand.nextInt(5))
+                .enableNoClip()
+                .addMotion(extraVelocity)
+                .addActor(p -> p.setParticleSpeed(p.getParticleSpeed().scale(0.95f)))
+                .spawn(level, x, y, z)
+                .setScaleData(GenericParticleData.create(0.075f, 0.15f + rand.nextFloat() * 0.05f, 0).build())
+                .spawn(level, x, y, z);
+    }
 }

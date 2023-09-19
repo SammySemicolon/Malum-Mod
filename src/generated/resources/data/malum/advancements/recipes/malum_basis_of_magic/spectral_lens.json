@@ -2,17 +2,17 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "malum:hallowed_spirit_resonator"
+      "malum:spectral_lens"
     ]
   },
   "criteria": {
-    "has_hallowed_gold": {
+    "has_hex_ash": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
             "items": [
-              "malum:hallowed_gold_ingot"
+              "malum:hex_ash"
             ]
           }
         ]
@@ -21,13 +21,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "malum:hallowed_spirit_resonator"
+        "recipe": "malum:spectral_lens"
       }
     }
   },
   "requirements": [
     [
-      "has_hallowed_gold",
+      "has_hex_ash",
       "has_the_recipe"
     ]
   ]

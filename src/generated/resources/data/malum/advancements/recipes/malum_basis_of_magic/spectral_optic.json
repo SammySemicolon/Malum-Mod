@@ -2,17 +2,17 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "malum:stained_spirit_resonator"
+      "malum:spectral_optic"
     ]
   },
   "criteria": {
-    "has_soul_stained_steel": {
+    "has_hallowed_gold": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
             "items": [
-              "malum:soul_stained_steel_ingot"
+              "malum:hallowed_gold_ingot"
             ]
           }
         ]
@@ -21,13 +21,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "malum:stained_spirit_resonator"
+        "recipe": "malum:spectral_optic"
       }
     }
   },
   "requirements": [
     [
-      "has_soul_stained_steel",
+      "has_hallowed_gold",
       "has_the_recipe"
     ]
   ]

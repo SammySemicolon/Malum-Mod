@@ -92,14 +92,4 @@ public class SoulVialBlockEntity extends LodestoneBlockEntity {
         }
         setChanged();
     }
-
-    @Override
-    public void tick() {
-        if (level.isClientSide) {
-            if (data != null) {
-                double y = 0.5f + Math.sin(level.getGameTime() / 20f) * 0.08f;
-                ParticleEffects.spawnSoulParticles(level, worldPosition.getX() + 0.5f, worldPosition.getY() + y, worldPosition.getZ() + 0.5f, 1, 0.75f, Vec3.ZERO, data.primaryType.getPrimaryColor(), data.primaryType.getSecondaryColor());
-            }
-        }
-    }
 }

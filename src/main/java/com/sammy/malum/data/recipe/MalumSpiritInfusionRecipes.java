@@ -71,7 +71,7 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider implements ICondi
                 .build(consumer);
 
         new SpiritInfusionRecipeBuilder(ItemRegistry.RUNEWOOD_PLANKS.get(), 2, ItemRegistry.RUNEWOOD_OBELISK.get(), 1)
-                .addExtraItem(ItemRegistry.HALLOWED_SPIRIT_RESONATOR.get(), 1)
+                .addExtraItem(ItemRegistry.HALLOWED_GOLD_INGOT.get(), 2)
                 .addExtraItem(ItemRegistry.HEX_ASH.get(), 1)
                 .addSpirit(AERIAL_SPIRIT, 8)
                 .addSpirit(SACRED_SPIRIT, 4)
@@ -205,9 +205,7 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider implements ICondi
                 .addSpirit(EARTHEN_SPIRIT, 2)
                 .build(consumer);
 
-
         new SpiritInfusionRecipeBuilder(ItemRegistry.ORNATE_RING.get(), 1, ItemRegistry.RING_OF_ESOTERIC_SPOILS.get(), 1)
-                .addExtraItem(ItemRegistry.STAINED_SPIRIT_RESONATOR.get(), 1)
                 .addExtraItem(ItemRegistry.PROCESSED_SOULSTONE.get(), 8)
                 .addSpirit(WICKED_SPIRIT, 8)
                 .addSpirit(ARCANE_SPIRIT, 8)
@@ -266,7 +264,6 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider implements ICondi
                 .build(consumer);
 
         new SpiritInfusionRecipeBuilder(ItemRegistry.ORNATE_NECKLACE.get(), 1, ItemRegistry.NECKLACE_OF_THE_NARROW_EDGE.get(), 1)
-                .addExtraItem(ItemRegistry.STAINED_SPIRIT_RESONATOR.get(), 1)
                 .addExtraItem(Ingredient.of(Tags.Items.STORAGE_BLOCKS_IRON), 1)
                 .addExtraItem(Ingredient.of(Tags.Items.INGOTS_IRON), 2)
                 .addSpirit(WICKED_SPIRIT, 16)
@@ -275,9 +272,9 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider implements ICondi
                 .build(consumer);
 
         new SpiritInfusionRecipeBuilder(ItemRegistry.ORNATE_NECKLACE.get(), 1, ItemRegistry.NECKLACE_OF_THE_MYSTIC_MIRROR.get(), 1)
-                .addExtraItem(ItemRegistry.HALLOWED_SPIRIT_RESONATOR.get(), 1)
                 .addExtraItem(ItemRegistry.RUNEWOOD_PLANKS.get(), 8)
-                .addExtraItem(ItemRegistry.SPECTRAL_LENS.get(), 1)
+                .addExtraItem(ItemRegistry.SPECTRAL_OPTIC.get(), 4)
+                .addExtraItem(Items.ENDER_EYE, 1)
                 .addSpirit(SACRED_SPIRIT, 24)
                 .build(consumer);
 
@@ -318,12 +315,6 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider implements ICondi
                 .addSpirit(EARTHEN_SPIRIT, 32)
                 .addSpirit(INFERNAL_SPIRIT, 32)
                 .addSpirit(ARCANE_SPIRIT, 16)
-                .build(consumer);
-
-        new SpiritInfusionRecipeBuilder(Items.GLASS_PANE, 4, ItemRegistry.SPECTRAL_LENS.get(), 4)
-                .addSpirit(ARCANE_SPIRIT, 2)
-                .addSpirit(AQUEOUS_SPIRIT, 2)
-                .addExtraItem(Items.ENDER_PEARL, 1)
                 .build(consumer);
 
         new SpiritInfusionRecipeBuilder(Items.HAY_BLOCK, 1, ItemRegistry.POPPET.get(), 2)

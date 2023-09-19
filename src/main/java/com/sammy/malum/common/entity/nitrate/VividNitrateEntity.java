@@ -118,7 +118,7 @@ public class VividNitrateEntity extends AbstractNitrateEntity {
                 double lerpY = Mth.lerp(pDelta, oy, y) - motion.y / 4f;
                 double lerpZ = Mth.lerp(pDelta, oz, z) - motion.z / 4f;
                 float alphaMultiplier = (0.30f + extraAlpha) * Math.min(1, vividNitrateEntity.windUp * 2);
-                ParticleEffects.spawnSpiritParticles(vividNitrateEntity.level, lerpX, lerpY, lerpZ, alphaMultiplier + 0.1f, norm, firstColor, secondColor);
+                ParticleEffects.spiritLightSpecs(vividNitrateEntity.level, lerpX, lerpY, lerpZ, alphaMultiplier + 0.1f, norm, firstColor, secondColor);
 
                 final ColorParticleData.ColorParticleDataBuilder colorDataBuilder = ColorParticleData.create(secondColor, SECOND_SMOKE_COLOR)
                         .setEasing(Easing.QUINTIC_OUT)
