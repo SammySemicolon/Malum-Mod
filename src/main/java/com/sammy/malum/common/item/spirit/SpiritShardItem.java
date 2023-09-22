@@ -1,8 +1,8 @@
 package com.sammy.malum.common.item.spirit;
 
-import com.sammy.malum.client.*;
 import com.sammy.malum.core.systems.item.IFloatingGlowItem;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
+import com.sammy.malum.visual_effects.*;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -11,11 +11,8 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 import team.lodestar.lodestone.handlers.screenparticle.ParticleEmitterHandler.ItemParticleSupplier;
 import team.lodestar.lodestone.systems.particle.screen.*;
-import team.lodestar.lodestone.systems.particle.screen.base.ScreenParticle;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class SpiritShardItem extends Item implements IFloatingGlowItem, ItemParticleSupplier {

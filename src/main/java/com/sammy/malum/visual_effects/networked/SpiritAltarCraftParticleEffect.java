@@ -1,4 +1,4 @@
-package com.sammy.malum.client.effects;
+package com.sammy.malum.visual_effects.networked;
 
 import com.sammy.malum.core.systems.particle_effects.*;
 import net.minecraft.util.*;
@@ -7,6 +7,7 @@ import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.setup.*;
 import team.lodestar.lodestone.systems.easing.*;
 import team.lodestar.lodestone.systems.particle.*;
+import team.lodestar.lodestone.systems.particle.builder.*;
 import team.lodestar.lodestone.systems.particle.data.*;
 
 import java.awt.*;

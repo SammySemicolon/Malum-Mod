@@ -1,6 +1,6 @@
 package com.sammy.malum.common.block.curiosities.totem;
 
-import com.sammy.malum.common.block.storage.ItemStandBlockEntity;
+import com.sammy.malum.common.block.storage.stand.ItemStandBlockEntity;
 import com.sammy.malum.common.packets.particle.curiosities.rite.SpiritRiteActivationEffectPacket;
 import com.sammy.malum.core.helper.SpiritHelper;
 import com.sammy.malum.registry.common.SoundRegistry;

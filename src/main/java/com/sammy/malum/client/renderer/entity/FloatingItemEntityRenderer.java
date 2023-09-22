@@ -47,17 +47,17 @@ public class FloatingItemEntityRenderer extends EntityRenderer<FloatingItemEntit
             float x = (float) Mth.lerp(partialTicks, entity.xOld, entity.getX());
             float y = (float) Mth.lerp(partialTicks, entity.yOld, entity.getY());
             float z = (float) Mth.lerp(partialTicks, entity.zOld, entity.getZ());
-            trailPoints.add(new TrailPoint(new Vec3(x, y + entity.getYOffset(partialTicks) + 0.25F, z).add(entity.getDeltaMovement().multiply(partialTicks, partialTicks, partialTicks))));
+            trailPoints.add(new TrailPoint(new Vec3(x, y + entity.getYOffset(partialTicks) + 0.25F, z).add(entity.getDeltaMovement().scale(1+partialTicks))));
             poseStack.translate(-x, -y, -z);
             VFXBuilders.WorldVFXBuilder builder = VFXBuilders.createWorld().setPosColorTexLightmapDefaultFormat();
             VertexConsumer lightBuffer = DELAYED_RENDER.getBuffer(LIGHT_TYPE);
             for (int i = 0; i < 2; i++) {
-                float size = 0.4f + i * 0.2f;
+                float size = 0.2f + i * 0.2f;
                 float alpha = (0.7f - i * 0.35f);
                 builder.setAlpha(alpha)
-                        .renderTrail(lightBuffer, poseStack, trailPoints, f -> size, f -> builder.setAlpha(alpha * f).setColor(ColorHelper.colorLerp(Easing.SINE_IN, f * 3f, entity.endColor, entity.startColor)))
-                        .renderTrail(lightBuffer, poseStack, trailPoints, f -> 1.5f * size, f -> builder.setAlpha(alpha * f / 2f).setColor(ColorHelper.colorLerp(Easing.SINE_IN, f * 2f, entity.endColor, entity.startColor)))
-                        .renderTrail(lightBuffer, poseStack, trailPoints, f -> size * 2.5f, f -> builder.setAlpha(alpha * f / 4f).setColor(ColorHelper.colorLerp(Easing.SINE_IN, f * 2f, entity.endColor, entity.startColor)));
+                        .renderTrail(lightBuffer, poseStack, trailPoints, f -> size, f -> builder.setAlpha(alpha * f).setColor(ColorHelper.colorLerp(Easing.SINE_IN, f * 2f, entity.endColor, entity.startColor)))
+                        .renderTrail(lightBuffer, poseStack, trailPoints, f -> 1.5f * size, f -> builder.setAlpha(alpha * f / 2f).setColor(ColorHelper.colorLerp(Easing.SINE_IN, f * 1.5f, entity.endColor, entity.startColor)))
+                        .renderTrail(lightBuffer, poseStack, trailPoints, f -> size * 2.5f, f -> builder.setAlpha(alpha * f / 4f).setColor(ColorHelper.colorLerp(Easing.SINE_IN, f * 1.5f, entity.endColor, entity.startColor)));
             }
             poseStack.translate(x, y, z);
         }

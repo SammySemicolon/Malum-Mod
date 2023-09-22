@@ -1,11 +1,11 @@
 package com.sammy.malum.common.entity.spirit;
 
-import com.sammy.malum.client.*;
 import com.sammy.malum.common.entity.*;
 import com.sammy.malum.common.item.spirit.*;
 import com.sammy.malum.core.handlers.*;
 import com.sammy.malum.registry.common.*;
 import com.sammy.malum.registry.common.entity.*;
+import com.sammy.malum.visual_effects.*;
 import net.minecraft.nbt.*;
 import net.minecraft.server.level.*;
 import net.minecraft.sounds.*;
@@ -64,8 +64,7 @@ public class SpiritItemEntity extends FloatingItemEntity {
     public void spawnParticles(double x, double y, double z) {
         Vec3 motion = getDeltaMovement();
         Vec3 norm = motion.normalize().scale(0.05f);
-        float extraAlpha = (float) motion.length();
-        ParticleEffects.spiritLightSpecs(level, x, y, z, 0.55f + extraAlpha, norm, startColor, endColor);
+        SpiritLightSpecs.spiritLightSpecs(level, new Vec3(x, y, z), startColor, endColor, builder -> builder.setMotion(norm));
     }
 
     @Override

@@ -1,7 +1,7 @@
 package com.sammy.malum.common.spiritrite;
 
 import com.sammy.malum.common.block.blight.BlightedSoilBlock;
-import com.sammy.malum.common.block.curiosities.spirit_altar.IAltarProvider;
+import com.sammy.malum.common.block.storage.IMalumSpecialItemAccessPoint;
 import com.sammy.malum.common.block.curiosities.totem.TotemBaseBlockEntity;
 import com.sammy.malum.common.packets.particle.curiosities.rite.generic.BlockSparkleParticlePacket;
 import com.sammy.malum.common.packets.particle.curiosities.blight.BlightMistParticlePacket;
@@ -84,12 +84,12 @@ public class ArcaneRiteType extends MalumRiteType {
                 for (BlockPos p : nearbyBlocks) {
                     BlockPos posToTransmute = p.above();
                     BlockState stateToTransmute = level.getBlockState(posToTransmute);
-                    if (level.getBlockEntity(posToTransmute) instanceof IAltarProvider iAltarProvider) {
-                        LodestoneBlockEntityInventory inventoryForAltar = iAltarProvider.getInventoryForAltar();
+                    if (level.getBlockEntity(posToTransmute) instanceof IMalumSpecialItemAccessPoint iMalumSpecialItemAccessPoint) {
+                        LodestoneBlockEntityInventory inventoryForAltar = iMalumSpecialItemAccessPoint.getSuppliedInventory();
                         ItemStack stack = inventoryForAltar.getStackInSlot(0);
                         var recipe = SpiritTransmutationRecipe.getRecipe(level, stack);
                         if (recipe != null) {
-                            Vec3 itemPos = iAltarProvider.getItemPosForAltar();
+                            Vec3 itemPos = iMalumSpecialItemAccessPoint.getItemCenterPos();
                             level.addFreshEntity(new ItemEntity(level, itemPos.x, itemPos.y, itemPos.z, recipe.output.copy()));
                             MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(p)), new BlightTransformItemParticlePacket(List.of(ARCANE_SPIRIT.identifier), itemPos));
                             inventoryForAltar.getStackInSlot(0).shrink(1);

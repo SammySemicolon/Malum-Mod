@@ -1,8 +1,8 @@
 package com.sammy.malum.registry.common;
 
-import com.sammy.malum.client.effects.*;
-import com.sammy.malum.client.effects.basic.*;
 import com.sammy.malum.core.systems.particle_effects.*;
+import com.sammy.malum.visual_effects.networked.*;
+import com.sammy.malum.visual_effects.networked.basic.*;
 
 import java.util.*;
 

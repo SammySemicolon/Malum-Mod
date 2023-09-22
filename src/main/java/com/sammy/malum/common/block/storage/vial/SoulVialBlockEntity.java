@@ -1,6 +1,5 @@
-package com.sammy.malum.common.block.storage;
+package com.sammy.malum.common.block.storage.vial;
 
-import com.sammy.malum.client.ParticleEffects;
 import com.sammy.malum.core.systems.item.ISoulContainerItem;
 import com.sammy.malum.core.systems.spirit.MalumEntitySpiritData;
 import com.sammy.malum.registry.common.block.BlockEntityRegistry;
@@ -13,7 +12,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.Vec3;
 import team.lodestar.lodestone.helpers.BlockHelper;
 import team.lodestar.lodestone.helpers.ItemHelper;
 import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntity;

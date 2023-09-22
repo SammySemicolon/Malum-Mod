@@ -1,8 +1,8 @@
 package com.sammy.malum.common.entity.night_terror;
 
-import com.sammy.malum.client.*;
 import com.sammy.malum.registry.common.*;
 import com.sammy.malum.registry.common.entity.*;
+import com.sammy.malum.visual_effects.*;
 import net.minecraft.nbt.*;
 import net.minecraft.network.protocol.*;
 import net.minecraft.util.*;
@@ -16,6 +16,7 @@ import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.setup.*;
 import team.lodestar.lodestone.systems.easing.*;
 import team.lodestar.lodestone.systems.particle.*;
+import team.lodestar.lodestone.systems.particle.builder.*;
 import team.lodestar.lodestone.systems.particle.data.*;
 import team.lodestar.lodestone.systems.particle.world.*;
 
@@ -209,7 +210,7 @@ public class NightTerrorSeekerEntity extends ThrowableProjectile {
                 double lerpY = Mth.lerp(pDelta, oy, y) + motion.y / 4f;
                 double lerpZ = Mth.lerp(pDelta, oz, z) + motion.z / 4f;
                 float alphaMultiplier = (0.35f + extraAlpha) * Math.min(1, nightTerrorSeekerEntity.age * 0.2f);
-                ParticleEffects.spiritLightSpecs(nightTerrorSeekerEntity.level, lerpX, lerpY, lerpZ, alphaMultiplier*0.8f, norm, firstColor, firstColor.darker());
+                SpiritLightSpecs.spiritLightSpecs(nightTerrorSeekerEntity.level, new Vec3(lerpX, lerpY, lerpZ), firstColor, firstColor.darker(), b -> b.setMotion(norm));
 
                 final ColorParticleData.ColorParticleDataBuilder colorDataBuilder = ColorParticleData.create(NIGHT_TERROR_DARK, NIGHT_TERROR_DARK)
                         .setEasing(Easing.QUINTIC_OUT)

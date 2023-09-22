@@ -1,4 +1,4 @@
-package com.sammy.malum.common.block.storage;
+package com.sammy.malum.common.block.storage.stand;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -70,7 +70,6 @@ public class ItemStandBlock<T extends ItemStandBlockEntity> extends WaterLoggedE
         }
         return super.getShape(state, level, pos, context);
     }
-
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {

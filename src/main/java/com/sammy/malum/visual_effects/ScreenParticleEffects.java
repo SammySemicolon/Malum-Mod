@@ -1,4 +1,4 @@
-package com.sammy.malum.client;
+package com.sammy.malum.visual_effects;
 
 import com.sammy.malum.common.item.ether.*;
 import net.minecraft.client.*;
@@ -8,6 +8,7 @@ import net.minecraft.world.level.Level;
 import team.lodestar.lodestone.setup.*;
 import team.lodestar.lodestone.systems.easing.*;
 import team.lodestar.lodestone.systems.particle.*;
+import team.lodestar.lodestone.systems.particle.builder.*;
 import team.lodestar.lodestone.systems.particle.data.*;
 import team.lodestar.lodestone.systems.particle.screen.*;
 import team.lodestar.lodestone.systems.particle.screen.base.*;

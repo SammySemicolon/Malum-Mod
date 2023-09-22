@@ -1,6 +1,6 @@
 package com.sammy.malum.common.block.curiosities.spirit_crucible;
 
-import com.sammy.malum.client.ParticleEffects;
+import com.sammy.malum.visual_effects.SpiritLightSpecs;
 import com.sammy.malum.common.block.curiosities.tablet.ITabletTracker;
 import com.sammy.malum.common.block.curiosities.tablet.TwistedTabletBlockEntity;
 import com.sammy.malum.common.item.impetus.ImpetusItem;
@@ -42,7 +42,7 @@ import team.lodestar.lodestone.systems.easing.Easing;
 import team.lodestar.lodestone.systems.multiblock.MultiBlockCoreEntity;
 import team.lodestar.lodestone.systems.multiblock.MultiBlockStructure;
 import team.lodestar.lodestone.systems.particle.SimpleParticleOptions;
-import team.lodestar.lodestone.systems.particle.WorldParticleBuilder;
+import team.lodestar.lodestone.systems.particle.builder.*;
 import team.lodestar.lodestone.systems.particle.data.ColorParticleData;
 import team.lodestar.lodestone.systems.particle.data.GenericParticleData;
 import team.lodestar.lodestone.systems.particle.data.SpinParticleData;
@@ -339,7 +339,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
 
     public void repair() {
         Vec3 itemPos = getItemPos(this);
-        Vec3 providedItemPos = validTablet.getItemPos();
+        Vec3 providedItemPos = validTablet.getItemCenterPos();
         ItemStack damagedItem = inventory.getStackInSlot(0);
         ItemStack repairMaterial = validTablet.inventory.getStackInSlot(0);
         ItemStack result = SpiritRepairRecipe.getRepairRecipeOutput(damagedItem);
@@ -463,7 +463,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
                     double x = getBlockPos().getX() + offset.x();
                     double y = getBlockPos().getY() + offset.y();
                     double z = getBlockPos().getZ() + offset.z();
-                    ParticleEffects.spawnSpiritGlimmerParticles(level, x, y, z, color, endColor);
+                    SpiritLightSpecs.spiritLightSpecs(level, new Vec3(x,y,z), color, endColor);
                 }
             }
         }
@@ -488,7 +488,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
             for (int i = 0; i < colors.size(); i++) {
                 Color color = colors.get(i);
                 Color endColor = endColors.get(i);
-                Vec3 tabletItemPos = tabletBlockEntity.getItemPos();
+                Vec3 tabletItemPos = tabletBlockEntity.getItemCenterPos();
                 Vec3 velocity = tabletItemPos.subtract(itemPos).normalize().scale(-0.1f);
 
                 starParticles(itemPos, color, endColor);

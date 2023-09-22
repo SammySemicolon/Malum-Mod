@@ -1,4 +1,4 @@
-package com.sammy.malum.common.block.storage;
+package com.sammy.malum.common.block.storage.jar;
 
 import com.sammy.malum.registry.common.SpiritTypeRegistry;
 import net.minecraft.core.BlockPos;

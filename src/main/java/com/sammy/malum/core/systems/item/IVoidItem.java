@@ -1,6 +1,6 @@
 package com.sammy.malum.core.systems.item;
 
-import com.sammy.malum.client.*;
+import com.sammy.malum.visual_effects.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import team.lodestar.lodestone.handlers.screenparticle.*;

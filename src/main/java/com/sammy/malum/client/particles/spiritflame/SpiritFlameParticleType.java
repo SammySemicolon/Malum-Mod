@@ -18,7 +18,7 @@ public class SpiritFlameParticleType extends ParticleType<WorldParticleOptions> 
 
     @Override
     public Codec<WorldParticleOptions> codec() {
-        return WorldParticleOptions.codecFor(this);
+        return WorldParticleOptions.worldCodec(this);
     }
 
     public static class Factory implements ParticleProvider<WorldParticleOptions> {

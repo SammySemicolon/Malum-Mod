@@ -1,7 +1,7 @@
 package com.sammy.malum.common.block.curiosities.totem;
 
 import com.google.common.collect.Sets;
-import com.sammy.malum.common.block.storage.ItemStandBlockEntity;
+import com.sammy.malum.common.block.storage.stand.ItemStandBlockEntity;
 import com.sammy.malum.common.packets.particle.curiosities.rite.generic.TotemPoleActivationEffectPacket;
 import com.sammy.malum.core.helper.SpiritHelper;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
@@ -31,7 +31,7 @@ import team.lodestar.lodestone.setup.LodestoneParticleRegistry;
 import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntity;
 import team.lodestar.lodestone.systems.easing.Easing;
 import team.lodestar.lodestone.systems.particle.SimpleParticleOptions;
-import team.lodestar.lodestone.systems.particle.WorldParticleBuilder;
+import team.lodestar.lodestone.systems.particle.builder.*;
 import team.lodestar.lodestone.systems.particle.data.ColorParticleData;
 import team.lodestar.lodestone.systems.particle.data.GenericParticleData;
 import team.lodestar.lodestone.systems.particle.data.SpinParticleData;
@@ -232,7 +232,7 @@ public class TotemPoleBlockEntity extends LodestoneBlockEntity {
     public void filterParticles(ItemStandBlockEntity itemStandBlockEntity) {
         if (level.getGameTime() % 6L == 0) {
             if (!itemStandBlockEntity.inventory.getStackInSlot(0).isEmpty()) {
-                Vec3 itemPos = itemStandBlockEntity.getItemPos();
+                Vec3 itemPos = itemStandBlockEntity.getItemCenterPos();
                 WorldParticleBuilder.create(LodestoneParticleRegistry.STAR_PARTICLE)
                         .setTransparencyData(GenericParticleData.create(0.04f, 0.1f, 0f).build())
                         .setScaleData(GenericParticleData.create(0.5f, 1f + level.random.nextFloat() * 0.1f, 0).setEasing(Easing.QUINTIC_IN, Easing.CUBIC_IN_OUT).build())

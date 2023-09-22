@@ -1,6 +1,6 @@
 package com.sammy.malum.common.block.curiosities.spirit_altar;
 
-import com.sammy.malum.client.*;
+import com.sammy.malum.common.block.storage.*;
 import com.sammy.malum.common.item.spirit.*;
 import com.sammy.malum.common.packets.particle.curiosities.altar.*;
 import com.sammy.malum.common.recipe.*;
@@ -9,6 +9,7 @@ import com.sammy.malum.core.systems.recipe.*;
 import com.sammy.malum.core.systems.spirit.*;
 import com.sammy.malum.registry.common.*;
 import com.sammy.malum.registry.common.block.*;
+import com.sammy.malum.visual_effects.*;
 import net.minecraft.core.*;
 import net.minecraft.nbt.*;
 import net.minecraft.sounds.*;
@@ -31,6 +32,7 @@ import team.lodestar.lodestone.setup.*;
 import team.lodestar.lodestone.systems.blockentity.*;
 import team.lodestar.lodestone.systems.easing.*;
 import team.lodestar.lodestone.systems.particle.*;
+import team.lodestar.lodestone.systems.particle.builder.*;
 import team.lodestar.lodestone.systems.particle.data.*;
 import team.lodestar.lodestone.systems.recipe.*;
 
@@ -42,7 +44,6 @@ import java.util.*;
 import java.util.stream.*;
 
 import static com.sammy.malum.registry.common.PacketRegistry.*;
-import static com.sammy.malum.registry.common.SpiritTypeRegistry.SACRED_SPIRIT;
 
 public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
 
@@ -276,9 +277,9 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
         int extras = extrasInventory.nonEmptyItemAmount;
         if (extras < recipe.extraItems.size()) {
             progress *= 0.8f;
-            Collection<IAltarProvider> altarProviders = BlockHelper.getBlockEntities(IAltarProvider.class, level, worldPosition, HORIZONTAL_RANGE, VERTICAL_RANGE, HORIZONTAL_RANGE);
-            for (IAltarProvider provider : altarProviders) {
-                LodestoneBlockEntityInventory inventoryForAltar = provider.getInventoryForAltar();
+            Collection<IMalumSpecialItemAccessPoint> altarProviders = BlockHelper.getBlockEntities(IMalumSpecialItemAccessPoint.class, level, worldPosition, HORIZONTAL_RANGE, VERTICAL_RANGE, HORIZONTAL_RANGE);
+            for (IMalumSpecialItemAccessPoint provider : altarProviders) {
+                LodestoneBlockEntityInventory inventoryForAltar = provider.getSuppliedInventory();
                 ItemStack providedStack = inventoryForAltar.getStackInSlot(0);
                 IngredientWithCount requestedItem = recipe.extraItems.get(extras);
                 boolean matches = requestedItem.matches(providedStack);
@@ -293,12 +294,12 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
                 requestedItem = recipe.extraItems.get(extras);
                 matches = requestedItem.matches(providedStack);
                 if (matches) {
-                    level.playSound(null, provider.getBlockPosForAltar(), SoundRegistry.ALTAR_CONSUME.get(), SoundSource.BLOCKS, 1, 0.9f + level.random.nextFloat() * 0.2f);
-                    Vec3 providedItemPos = provider.getItemPosForAltar();
-                    MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(provider.getBlockPosForAltar())), new AltarConsumeParticlePacket(providedStack, recipe.spirits.stream().map(s -> s.type.identifier).collect(Collectors.toList()), providedItemPos.x, providedItemPos.y, providedItemPos.z, itemPos.x, itemPos.y, itemPos.z));
+                    level.playSound(null, provider.getAccessPointBlockPos(), SoundRegistry.ALTAR_CONSUME.get(), SoundSource.BLOCKS, 1, 0.9f + level.random.nextFloat() * 0.2f);
+                    Vec3 providedItemPos = provider.getItemCenterPos();
+                    MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(provider.getAccessPointBlockPos())), new AltarConsumeParticlePacket(providedStack, recipe.spirits.stream().map(s -> s.type.identifier).collect(Collectors.toList()), providedItemPos.x, providedItemPos.y, providedItemPos.z, itemPos.x, itemPos.y, itemPos.z));
                     extrasInventory.insertItem(level, providedStack.split(requestedItem.count));
                     inventoryForAltar.updateData();
-                    BlockHelper.updateAndNotifyState(level, provider.getBlockPosForAltar());
+                    BlockHelper.updateAndNotifyState(level, provider.getAccessPointBlockPos());
                     break;
                 }
             }
@@ -410,10 +411,11 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
                 Vec3 offset = getSpiritOffset(spiritsRendered++, 0);
                 Color color = spiritSplinterItem.type.getPrimaryColor();
                 Color endColor = spiritSplinterItem.type.getSecondaryColor();
-                double x = getBlockPos().getX() + offset.x();
-                double y = getBlockPos().getY() + offset.y();
-                double z = getBlockPos().getZ() + offset.z();
-                ParticleEffects.spawnSpiritGlimmerParticles(level, x, y, z, color, endColor);
+                final BlockPos blockPos = getBlockPos();
+                double x = blockPos.getX() + offset.x();
+                double y = blockPos.getY() + offset.y();
+                double z = blockPos.getZ() + offset.z();
+                SpiritLightSpecs.spiritLightSpecs(level, new Vec3(blockPos.getX()+offset.x, blockPos.getY()+offset.y, blockPos.getZ()+offset.z), color, endColor);
                 if (recipe != null) {
                     Vec3 velocity = new Vec3(x, y, z).subtract(itemPos).normalize().scale(particleVelocityMultiplier);
                     WorldParticleBuilder.create(LodestoneParticleRegistry.WISP_PARTICLE)

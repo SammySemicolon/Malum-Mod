@@ -1,6 +1,6 @@
 package com.sammy.malum.core.events;
 
-import com.sammy.malum.common.block.storage.SpiritJarBlock;
+import com.sammy.malum.common.block.storage.jar.SpiritJarBlock;
 import com.sammy.malum.common.capability.MalumItemDataCapability;
 import com.sammy.malum.common.capability.MalumLivingEntityDataCapability;
 import com.sammy.malum.common.capability.MalumPlayerDataCapability;
