@@ -16,8 +16,10 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
 import team.lodestar.lodestone.helpers.*;
+import team.lodestar.lodestone.systems.particle.builder.*;
 
 import java.util.*;
+import java.util.function.*;
 
 public class SpiritItemEntity extends FloatingItemEntity {
     public UUID ownerUUID;
@@ -64,7 +66,7 @@ public class SpiritItemEntity extends FloatingItemEntity {
     public void spawnParticles(double x, double y, double z) {
         Vec3 motion = getDeltaMovement();
         Vec3 norm = motion.normalize().scale(0.05f);
-        SpiritLightSpecs.spiritLightSpecs(level, new Vec3(x, y, z), startColor, endColor, builder -> builder.setMotion(norm));
+        SpiritLightSpecs.spiritLightSpecs(level, new Vec3(x, y, z), startColor, endColor, b -> b.setMotion(norm));
     }
 
     @Override

@@ -6,9 +6,9 @@ import net.minecraft.world.level.block.Block;
 import team.lodestar.lodestone.setup.LodestoneScreenParticleRegistry;
 import team.lodestar.lodestone.systems.easing.Easing;
 import team.lodestar.lodestone.systems.particle.builder.*;
-import team.lodestar.lodestone.systems.particle.data.ColorParticleData;
+import team.lodestar.lodestone.systems.particle.data.color.ColorParticleData;
 import team.lodestar.lodestone.systems.particle.data.GenericParticleData;
-import team.lodestar.lodestone.systems.particle.data.SpinParticleData;
+import team.lodestar.lodestone.systems.particle.data.spin.*;
 import team.lodestar.lodestone.systems.particle.screen.*;
 import team.lodestar.lodestone.systems.particle.screen.base.ScreenParticle;
 
@@ -30,7 +30,7 @@ public class EtherItem extends AbstractEtherItem {
         float alphaMultiplier = etherItem.iridescent ? 0.75f : 0.5f;
         final int yOffset = etherItem.iridescent ? 3 : 4;
         final int xOffset = etherItem.iridescent ? -1 : 0;
-        final SpinParticleData.SpinParticleDataBuilder spinDataBuilder = SpinParticleData.create(0, 1).setSpinOffset(0.025f * time % 6.28f).setEasing(Easing.EXPO_IN_OUT);
+        final SpinParticleDataBuilder spinDataBuilder = SpinParticleData.create(0, 1).setSpinOffset(0.025f * time % 6.28f).setEasing(Easing.EXPO_IN_OUT);
         ScreenParticleBuilder.create(LodestoneScreenParticleRegistry.STAR, target)
                 .setTransparencyData(GenericParticleData.create(0.09f*alphaMultiplier, 0f).setEasing(Easing.QUINTIC_IN).build())
                 .setScaleData(GenericParticleData.create((float) (1.5f + Math.sin(time * 0.1f) * 0.125f), 0).build())

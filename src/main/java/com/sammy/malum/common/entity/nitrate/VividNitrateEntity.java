@@ -15,6 +15,8 @@ import team.lodestar.lodestone.systems.easing.*;
 import team.lodestar.lodestone.systems.particle.*;
 import team.lodestar.lodestone.systems.particle.builder.*;
 import team.lodestar.lodestone.systems.particle.data.*;
+import team.lodestar.lodestone.systems.particle.data.color.*;
+import team.lodestar.lodestone.systems.particle.data.spin.*;
 import team.lodestar.lodestone.systems.particle.world.*;
 
 import java.awt.*;
@@ -121,7 +123,7 @@ public class VividNitrateEntity extends AbstractNitrateEntity {
                 float alphaMultiplier = (0.30f + extraAlpha) * Math.min(1, vividNitrateEntity.windUp * 2);
                 SpiritLightSpecs.spiritLightSpecs(vividNitrateEntity.level, new Vec3(lerpX, lerpY, lerpZ), firstColor, secondColor, b -> b.setMotion(norm));
 
-                final ColorParticleData.ColorParticleDataBuilder colorDataBuilder = ColorParticleData.create(secondColor, SECOND_SMOKE_COLOR)
+                final ColorParticleDataBuilder colorDataBuilder = ColorParticleData.create(secondColor, SECOND_SMOKE_COLOR)
                         .setEasing(Easing.QUINTIC_OUT)
                         .setCoefficient(1.75f);
                 WorldParticleBuilder.create(LodestoneParticleRegistry.SMOKE_PARTICLE)

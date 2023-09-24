@@ -30,9 +30,9 @@ import team.lodestar.lodestone.setup.LodestoneParticleRegistry;
 import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntity;
 import team.lodestar.lodestone.systems.container.ItemInventory;
 import team.lodestar.lodestone.systems.particle.builder.*;
-import team.lodestar.lodestone.systems.particle.data.ColorParticleData;
+import team.lodestar.lodestone.systems.particle.data.color.ColorParticleData;
 import team.lodestar.lodestone.systems.particle.data.GenericParticleData;
-import team.lodestar.lodestone.systems.particle.data.SpinParticleData;
+import team.lodestar.lodestone.systems.particle.data.spin.SpinParticleData;
 
 import javax.annotation.Nonnull;
 import java.awt.*;
@@ -241,7 +241,7 @@ public class SpiritJarBlockEntity extends LodestoneBlockEntity {
                 double x = getBlockPos().getX() + 0.5f;
                 double y = getBlockPos().getY() + 0.5f + (float)Math.sin((level.getGameTime() % 360) / 20f) * 0.2f;
                 double z = getBlockPos().getZ() + 0.5f;
-                SpiritLightSpecs.stationarySpiritLightSpecs(level, new Vec3(x, y, z), type.getPrimaryColor(), type.getSecondaryColor());
+                SpiritLightSpecs.rotatingLightSpecs(level, new Vec3(x, y, z), type.getPrimaryColor(), type.getSecondaryColor(), 0.4f, 3);
             }
         }
     }

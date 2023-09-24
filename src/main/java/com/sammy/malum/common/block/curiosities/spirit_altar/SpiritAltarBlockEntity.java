@@ -41,18 +41,20 @@ import javax.annotation.*;
 import java.awt.*;
 import java.util.List;
 import java.util.*;
+import java.util.function.*;
 import java.util.stream.*;
 
 import static com.sammy.malum.registry.common.PacketRegistry.*;
 
 public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
 
+    private static final Vec3 ALTAR_ITEM_OFFSET = new Vec3(0.5f, 1.25f, 0.5f);
     private static final int HORIZONTAL_RANGE = 4;
     private static final int VERTICAL_RANGE = 3;
 
     public float speed = 1f;
     public int progress;
-    public float spinUp;
+    public float spiritYLevel;
 
     public List<BlockPos> acceleratorPositions = new ArrayList<>();
     public List<IAltarAccelerator> accelerators = new ArrayList<>();
@@ -122,8 +124,8 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
         if (progress != 0) {
             compound.putInt("progress", progress);
         }
-        if (spinUp != 0) {
-            compound.putFloat("spinUp", spinUp);
+        if (spiritYLevel != 0) {
+            compound.putFloat("spiritYLevel", spiritYLevel);
         }
         if (speed != 0) {
             compound.putFloat("speed", speed);
@@ -146,7 +148,7 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
     @Override
     public void load(CompoundTag compound) {
         progress = compound.getInt("progress");
-        spinUp = compound.getFloat("spinUp");
+        spiritYLevel = compound.getFloat("spiritYLevel");
         speed = compound.getFloat("speed");
         spiritAmount = compound.getFloat("spiritAmount");
 
@@ -182,7 +184,6 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
         if (hand.equals(InteractionHand.MAIN_HAND)) {
             ItemStack heldStack = player.getMainHandItem();
             recalibrateAccelerators();
-
             if (!(heldStack.getItem() instanceof SpiritShardItem)) {
                 ItemStack stack = inventory.interact(level, player, hand);
                 if (!stack.isEmpty()) {
@@ -214,8 +215,8 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
         super.tick();
         spiritAmount = Math.max(1, Mth.lerp(0.1f, spiritAmount, spiritInventory.nonEmptyItemAmount));
         if (!possibleRecipes.isEmpty()) {
-            if (spinUp < 30) {
-                spinUp++;
+            if (spiritYLevel < 30) {
+                spiritYLevel++;
             }
             isCrafting = true;
             progress++;
@@ -237,37 +238,16 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
         } else {
             isCrafting = false;
             progress = 0;
-            if (spinUp > 0) {
-                float spinUp = 0.1f + Easing.QUAD_OUT.ease(Math.min(1, this.spinUp/10f), 0, 1, 1)*1.4f;
-                this.spinUp -= spinUp;
+            if (spiritYLevel > 0) {
+                this.spiritYLevel = Math.max(spiritYLevel-0.8f, 0);
             }
         }
         if (level.isClientSide) {
-            spiritSpin += 1 + spinUp / 15f + speed / 2f;
-            passiveParticles();
+            spiritSpin += 1 + spiritYLevel * 0.05f + speed * 0.5f;
+            SpiritAltarParticleEffects.passiveSpiritAltarParticles(this);
         }
     }
 
-    public static Vec3 getItemPos(SpiritAltarBlockEntity blockEntity) {
-        return BlockHelper.fromBlockPos(blockEntity.getBlockPos()).add(blockEntity.itemOffset());
-    }
-
-    public Vec3 itemOffset() {
-        return new Vec3(0.5f, 1.25f, 0.5f);
-    }
-
-    public Vec3 getSpiritOffset(int slot, float partialTicks) {
-        float distance = 1 - getSpinUp(Easing.SINE_OUT) * 0.25f + (float) Math.sin((spiritSpin + partialTicks) / 20f) * 0.025f;
-        float height = 0.75f + getSpinUp(Easing.QUARTIC_OUT) * getSpinUp(Easing.BACK_OUT) * 0.5f;
-        return DataHelper.rotatingRadialOffset(new Vec3(0.5f, height, 0.5f), distance, slot, spiritAmount, (long) (spiritSpin + partialTicks), 360);
-    }
-
-    public float getSpinUp(Easing easing) {
-        if (spinUp > 30) {
-            return 1;
-        }
-        return easing.ease(spinUp / 30f, 0, 1, 1);
-    }
     public boolean consume() {
         Vec3 itemPos = getItemPos(this);
         if (recipe.extraItems.isEmpty()) {
@@ -327,7 +307,7 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
             }
         }
         spiritInventory.updateData();
-        ParticleEffectTypeRegistry.SPIRIT_ALTAR_CRAFTS.createPositionedEffect(level, itemPos, ColorEffectData.fromSpirits(
+        ParticleEffectTypeRegistry.SPIRIT_ALTAR_CRAFTS.createBlockEffect(level, worldPosition, ColorEffectData.fromSpirits(
                 recipe.spirits.stream().map(r -> r.type).collect(Collectors.toList()),
                 s -> new ColorEffectData.ColorRecord(s.getPrimaryColor())));
         progress *= 0.75f;
@@ -359,93 +339,24 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
         }
     }
 
-    public void passiveParticles() {
-        Vec3 itemPos = getItemPos(this);
-        float particleVelocityMultiplier = -0.015f;
-        int particleAge = 40;
-        float scaleMultiplier = 1f;
-        if (recipe != null) {
-            if (recipe.spirits.size() > 1) {
-                int amount = (recipe.spirits.size() - 2);
-                particleVelocityMultiplier -= amount * 0.005f;
-                particleAge -= amount * 5;
-                scaleMultiplier += amount * 0.02f;
-            }
+    public float getSpinUp(Easing easing) {
+        if (spiritYLevel > 30) {
+            return 1;
         }
-        int spiritCount = spiritInventory.nonEmptyItemAmount;
-        Item currentItem = spiritInventory.getStackInSlot(0).getItem();
-        if (spiritCount > 1) {
-            float duration = 30f * spiritCount;
-            float gameTime = (getLevel().getGameTime() % duration) / 30f;
-            currentItem = spiritInventory.getStackInSlot(Mth.floor(gameTime)).getItem();
-        }
-        if (!(currentItem instanceof SpiritShardItem spiritItem)) {
-            return;
-        }
-        MalumSpiritType activeSpiritType = spiritItem.type;
-        if (recipe != null) {
-            for (IAltarAccelerator accelerator : accelerators) {
-                if (accelerator != null) {
-                    accelerator.addParticles(this, activeSpiritType, itemPos);
-                }
-            }
-            Color firstColor = activeSpiritType.getPrimaryColor();
-            Color secondColor = activeSpiritType.getSecondaryColor();
-            WorldParticleBuilder.create(LodestoneParticleRegistry.TWINKLE_PARTICLE)
-                    .setTransparencyData(GenericParticleData.create(0.035f, 0.22f, 0f).setEasing(Easing.SINE_IN_OUT, Easing.QUARTIC_OUT).build())
-                    .setScaleData(GenericParticleData.create(0.2f, 0.4f * scaleMultiplier, 0).setEasing(Easing.QUINTIC_IN, Easing.CUBIC_IN_OUT).build())
-                    .setLifetime(particleAge)
-                    .setRandomOffset(0.1)
-                    .setRandomMotion(0.02f)
-                    .setColorData(ColorParticleData.create(firstColor, secondColor).setEasing(Easing.BOUNCE_IN_OUT).setCoefficient(0.5f).build())
-                    .setRandomMotion(0.0025f, 0.0025f)
-                    .enableNoClip()
-                    .setDiscardFunction(SimpleParticleOptions.ParticleDiscardFunctionType.ENDING_CURVE_INVISIBLE)
-                    .repeat(level, itemPos.x, itemPos.y, itemPos.z, 1);
-        }
+        return easing.ease(spiritYLevel / 30f, 0, 1, 1);
+    }
+    public static Vec3 getItemPos(SpiritAltarBlockEntity blockEntity) {
+        return BlockHelper.fromBlockPos(blockEntity.getBlockPos()).add(blockEntity.getCentralItemOffset());
+    }
 
-        int spiritsRendered = 0;
-        for (int i = 0; i < spiritInventory.slotCount; i++) {
-            ItemStack item = spiritInventory.getStackInSlot(i);
-            if (item.getItem() instanceof SpiritShardItem spiritSplinterItem) {
-                Vec3 offset = getSpiritOffset(spiritsRendered++, 0);
-                Color color = spiritSplinterItem.type.getPrimaryColor();
-                Color endColor = spiritSplinterItem.type.getSecondaryColor();
-                final BlockPos blockPos = getBlockPos();
-                double x = blockPos.getX() + offset.x();
-                double y = blockPos.getY() + offset.y();
-                double z = blockPos.getZ() + offset.z();
-                SpiritLightSpecs.spiritLightSpecs(level, new Vec3(blockPos.getX()+offset.x, blockPos.getY()+offset.y, blockPos.getZ()+offset.z), color, endColor);
-                if (recipe != null) {
-                    Vec3 velocity = new Vec3(x, y, z).subtract(itemPos).normalize().scale(particleVelocityMultiplier);
-                    WorldParticleBuilder.create(LodestoneParticleRegistry.WISP_PARTICLE)
-                            .setTransparencyData(GenericParticleData.create(0.15f, 0.25f, 0f).build())
-                            .setColorData(ColorParticleData.create(color, endColor).setEasing(Easing.BOUNCE_IN_OUT).setCoefficient(0.8f).build())
-                            .setScaleData(GenericParticleData.create(0.225f*scaleMultiplier, 0).build())
-                            .setSpinData(SpinParticleData.create(0.1f + level.random.nextFloat() * 0.1f).build())
-                            .setLifetime(particleAge)
-                            .setRandomOffset(0.02f)
-                            .setRandomMotion(0.01f, 0.01f)
-                            .setRandomMotion(0.0025f, 0.0025f)
-                            .addMotion(velocity.x, velocity.y, velocity.z)
-                            .enableNoClip()
-                            .repeat(level, x, y, z, 1);
+    public Vec3 getCentralItemOffset() {
+        return ALTAR_ITEM_OFFSET;
+    }
 
-                    WorldParticleBuilder.create(LodestoneParticleRegistry.WISP_PARTICLE)
-                            .setTransparencyData(GenericParticleData.create(0.05f, 0.15f, 0f).build())
-                            .setScaleData(GenericParticleData.create(0.1f*scaleMultiplier, 0).build())
-                            .setLifetime(particleAge)
-                            .setRandomOffset(0.02f)
-                            .setRandomMotion(0.01f, 0.01f)
-                            .setColorData(ColorParticleData.create(endColor, color.darker()).setEasing(Easing.BOUNCE_IN_OUT).setCoefficient(0.8f).build())
-                            .setSpinData(SpinParticleData.create(0.1f + level.random.nextFloat() * 0.1f).build())
-                            .setRandomMotion(0.0025f, 0.0025f)
-                            .addMotion(velocity.x, velocity.y, velocity.z)
-                            .enableNoClip()
-                            .repeat(level, x, y, z, 1);
-                }
-            }
-        }
+    public Vec3 getSpiritItemOffset(int slot, float partialTicks) {
+        float distance = 1 - getSpinUp(Easing.SINE_OUT) * 0.25f + (float) Math.sin((spiritSpin % 6.2831f + partialTicks) / 20f) * 0.025f;
+        float height = 0.75f + getSpinUp(Easing.QUARTIC_OUT) * getSpinUp(Easing.BACK_OUT) * 0.5f;
+        return DataHelper.rotatingRadialOffset(new Vec3(0.5f, height, 0.5f), distance, slot, spiritAmount, (long) (spiritSpin + partialTicks), 360);
     }
 
     @Nonnull

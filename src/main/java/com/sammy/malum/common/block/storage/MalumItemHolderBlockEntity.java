@@ -1,9 +1,12 @@
 package com.sammy.malum.common.block.storage;
 
 import com.sammy.malum.common.item.spirit.*;
+import com.sammy.malum.core.helper.*;
 import com.sammy.malum.core.systems.spirit.*;
 import com.sammy.malum.visual_effects.*;
 import net.minecraft.core.*;
+import net.minecraft.world.entity.monster.*;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.phys.*;
@@ -45,7 +48,7 @@ public abstract class MalumItemHolderBlockEntity extends ItemHolderBlockEntity i
         if (level.isClientSide) {
             if (inventory.getStackInSlot(0).getItem() instanceof SpiritShardItem item) {
                 MalumSpiritType type = item.type;
-                SpiritLightSpecs.stationarySpiritLightSpecs(level, getItemCenterPos(), type.getPrimaryColor(), type.getSecondaryColor());
+                SpiritLightSpecs.rotatingLightSpecs(level, getItemCenterPos(), type.getPrimaryColor(), type.getSecondaryColor(), 0.4f, 2);
             }
         }
     }
