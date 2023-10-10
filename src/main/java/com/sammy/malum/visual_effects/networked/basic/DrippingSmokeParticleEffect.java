@@ -37,7 +37,7 @@ public class DrippingSmokeParticleEffect extends ParticleEffectType {
             double posZ = positionData.posZ + 0.5f;
 
             int adjustedLifespan = (int) (60 * (intensity) * 0.6f);
-            Function<Float, Consumer<GenericParticle>> actorFunction = f -> (p -> p.setParticleSpeed(p.getParticleSpeed().add(new Vec3(posX, posY, posZ).subtract(p.getPos()).normalize().multiply(f, 0, f))));
+            Function<Float, Consumer<LodestoneWorldParticleActor>> actorFunction = f -> (p -> p.setParticleMotion(p.getParticleSpeed().add(new Vec3(posX, posY, posZ).subtract(p.getParticlePosition()).normalize().multiply(f, 0, f))));
 
             for (int i = 0; i < 2; i++) {
                 int spinDirection = (random.nextBoolean() ? 1 : -1);

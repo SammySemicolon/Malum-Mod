@@ -54,8 +54,6 @@ public class MalumEntitySpiritData {
 
     public static MalumEntitySpiritData load(CompoundTag tag) {
         CompoundTag nbt = tag.getCompound(SOUL_DATA);
-
-
         String type = nbt.getString("primaryType");
         int dataAmount = nbt.getInt("dataAmount");
         if (dataAmount == 0) {

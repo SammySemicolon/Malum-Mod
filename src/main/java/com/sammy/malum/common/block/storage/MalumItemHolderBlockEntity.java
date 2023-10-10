@@ -48,7 +48,7 @@ public abstract class MalumItemHolderBlockEntity extends ItemHolderBlockEntity i
         if (level.isClientSide) {
             if (inventory.getStackInSlot(0).getItem() instanceof SpiritShardItem item) {
                 MalumSpiritType type = item.type;
-                SpiritLightSpecs.rotatingLightSpecs(level, getItemCenterPos(), type.getPrimaryColor(), type.getSecondaryColor(), 0.4f, 2);
+                SpiritLightSpecs.rotatingLightSpecs(level, getItemCenterPos(), type, 0.4f, 2);
             }
         }
     }

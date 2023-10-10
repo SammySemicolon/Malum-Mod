@@ -20,6 +20,7 @@ import team.lodestar.lodestone.systems.particle.builder.*;
 import team.lodestar.lodestone.systems.particle.data.*;
 import team.lodestar.lodestone.systems.particle.data.color.*;
 import team.lodestar.lodestone.systems.particle.data.spin.*;
+import team.lodestar.lodestone.systems.particle.render_types.*;
 import team.lodestar.lodestone.systems.particle.world.*;
 
 import java.awt.*;
@@ -212,7 +213,7 @@ public class NightTerrorSeekerEntity extends ThrowableProjectile {
                 double lerpY = Mth.lerp(pDelta, oy, y) + motion.y / 4f;
                 double lerpZ = Mth.lerp(pDelta, oz, z) + motion.z / 4f;
                 float alphaMultiplier = (0.35f + extraAlpha) * Math.min(1, nightTerrorSeekerEntity.age * 0.2f);
-                SpiritLightSpecs.spiritLightSpecs(nightTerrorSeekerEntity.level, new Vec3(lerpX, lerpY, lerpZ), firstColor, firstColor.darker(), b -> b.setMotion(norm));
+//                SpiritLightSpecs.spiritLightSpecs(nightTerrorSeekerEntity.level, new Vec3(lerpX, lerpY, lerpZ), firstColor, firstColor.darker(), b -> b.setMotion(norm));
 
                 final ColorParticleDataBuilder colorDataBuilder = ColorParticleData.create(NIGHT_TERROR_DARK, NIGHT_TERROR_DARK)
                         .setEasing(Easing.QUINTIC_OUT)

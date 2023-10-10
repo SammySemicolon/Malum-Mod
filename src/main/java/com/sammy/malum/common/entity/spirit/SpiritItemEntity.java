@@ -66,7 +66,10 @@ public class SpiritItemEntity extends FloatingItemEntity {
     public void spawnParticles(double x, double y, double z) {
         Vec3 motion = getDeltaMovement();
         Vec3 norm = motion.normalize().scale(0.05f);
-        SpiritLightSpecs.spiritLightSpecs(level, new Vec3(x, y, z), startColor, endColor, b -> b.setMotion(norm));
+        var lightSpecs = SpiritLightSpecs.spiritLightSpecs(level, new Vec3(x, y, z), spiritType);
+        lightSpecs.getBuilder().setMotion(norm);
+        lightSpecs.getBloomBuilder().setMotion(norm);
+        lightSpecs.spawnParticles();
     }
 
     @Override

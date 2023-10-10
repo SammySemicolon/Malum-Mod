@@ -204,7 +204,7 @@ public class SpiritHelper {
             return spirits;
         }
         for (SpiritWithCount spiritWithCount : data.dataEntries) {
-            spirits.add(new ItemStack(spiritWithCount.type.getSpiritShardItem(), spiritWithCount.count));
+            spirits.add(new ItemStack(spiritWithCount.type.spiritShard.get(), spiritWithCount.count));
         }
         return spirits;
     }

@@ -36,7 +36,7 @@ public class SpiritRiteRecipePage extends BookPage {
 
     public void renderRite(PoseStack poseStack, EntryScreen screen, int left, int top, int mouseX, int mouseY, List<MalumSpiritType> spirits) {
         for (int i = 0; i < spirits.size(); i++) {
-            ItemStack stack = spirits.get(i).getSpiritShardItem().getDefaultInstance();
+            ItemStack stack = spirits.get(i).spiritShard.get().getDefaultInstance();
             renderItem(screen, poseStack, stack, left, top - 20 * i, mouseX, mouseY);
         }
     }

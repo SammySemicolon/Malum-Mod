@@ -48,7 +48,7 @@ public class HexingSmokeParticleEffect extends ParticleEffectType {
                         .enableNoClip()
                         .setRandomOffset(0.2f, 0.2f)
                         .setRandomMotion(0.02f)
-                        .addActor(p -> p.setParticleSpeed(p.getParticleSpeed().scale(0.95f)))
+                        .addActor(p -> p.setParticleMotion(p.getParticleSpeed().scale(0.95f)))
                         .repeat(level, posX, posY, posZ, (int) (4*intensity));
             }
             WorldParticleBuilder.create(LodestoneParticleRegistry.WISP_PARTICLE)
@@ -60,7 +60,7 @@ public class HexingSmokeParticleEffect extends ParticleEffectType {
                     .enableNoClip()
                     .setRandomOffset(0.05f, 0.05f)
                     .setRandomMotion(0.05f)
-                    .addActor(p -> p.setParticleSpeed(p.getParticleSpeed().scale(0.5f)))
+                    .addActor(p -> p.setParticleMotion(p.getParticleSpeed().scale(0.5f)))
                     .repeat(level, posX, posY, posZ, (int) (6*intensity));
             WorldParticleBuilder.create(LodestoneParticleRegistry.SMOKE_PARTICLE)
                     .setTransparencyData(GenericParticleData.create(0, 0.05f, 0).build())
@@ -71,7 +71,7 @@ public class HexingSmokeParticleEffect extends ParticleEffectType {
                     .enableNoClip()
                     .setRandomOffset(0.15f, 0.15f)
                     .setRandomMotion(0.015f, 0.015f)
-                    .addActor(p -> p.setParticleSpeed(p.getParticleSpeed().scale(0.92f)))
+                    .addActor(p -> p.setParticleMotion(p.getParticleSpeed().scale(0.92f)))
                     .repeat(level, posX, posY, posZ, (int) (10*intensity));
         };
     }

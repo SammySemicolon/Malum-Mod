@@ -1,6 +1,5 @@
 package com.sammy.malum.common.item.spirit;
 
-import com.sammy.malum.core.systems.item.IFloatingGlowItem;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import com.sammy.malum.visual_effects.*;
 import net.minecraft.network.chat.Component;
@@ -15,7 +14,7 @@ import team.lodestar.lodestone.systems.particle.screen.*;
 import java.awt.*;
 import java.util.List;
 
-public class SpiritShardItem extends Item implements IFloatingGlowItem, ItemParticleSupplier {
+public class SpiritShardItem extends Item implements ItemParticleSupplier {
     public final MalumSpiritType type;
 
     public SpiritShardItem(Properties properties, MalumSpiritType type) {
@@ -25,17 +24,7 @@ public class SpiritShardItem extends Item implements IFloatingGlowItem, ItemPart
 
     @Override
     public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
-        pTooltip.add(type.getSpiritShardFlavourTextComponent(pStack));
-    }
-
-    @Override
-    public Color getColor() {
-        return type.getPrimaryColor();
-    }
-
-    @Override
-    public Color getEndColor() {
-        return type.getSecondaryColor();
+        pTooltip.add(type.getSpiritShardFlavourTextComponent());
     }
 
     @Override

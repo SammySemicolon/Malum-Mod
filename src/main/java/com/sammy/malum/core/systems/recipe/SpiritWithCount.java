@@ -72,7 +72,7 @@ public class SpiritWithCount implements IRecipeComponent {
 
     @Override
     public Item getItem() {
-        return type.getSpiritShardItem();
+        return type.spiritShard.get();
     }
 
     @Override

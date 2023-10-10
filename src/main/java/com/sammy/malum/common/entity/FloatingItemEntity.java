@@ -1,7 +1,7 @@
 package com.sammy.malum.common.entity;
 
+import com.sammy.malum.common.item.spirit.*;
 import com.sammy.malum.registry.common.item.ItemRegistry;
-import com.sammy.malum.core.systems.item.IFloatingGlowItem;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -10,8 +10,6 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-
-import java.awt.*;
 
 public class FloatingItemEntity extends FloatingEntity {
 
@@ -24,20 +22,14 @@ public class FloatingItemEntity extends FloatingEntity {
     }
 
     public void setItem(ItemStack pStack) {
-        if (pStack.getItem() instanceof IFloatingGlowItem glow) {
-            setColor(glow.getColor(), glow.getEndColor());
+        if (pStack.getItem() instanceof SpiritShardItem shardItem) {
+            this.spiritType = shardItem.type;
         }
         if (!pStack.is(this.getDefaultItem()) || pStack.hasTag()) {
             this.getEntityData().set(DATA_ITEM_STACK, pStack);
         }
     }
 
-    public void setColor(Color color, Color endColor) {
-        this.startColor = color;
-        getEntityData().set(DATA_COLOR, color.getRGB());
-        this.endColor = endColor;
-        getEntityData().set(DATA_END_COLOR, endColor.getRGB());
-    }
     @Override
     protected void defineSynchedData() {
         this.getEntityData().define(DATA_ITEM_STACK, ItemStack.EMPTY);

@@ -20,7 +20,9 @@ import team.lodestar.lodestone.systems.easing.*;
 import team.lodestar.lodestone.systems.rendering.*;
 import team.lodestar.lodestone.systems.rendering.trail.*;
 
+import java.awt.*;
 import java.util.*;
+import java.util.List;
 import java.util.stream.*;
 
 import static com.sammy.malum.MalumMod.*;
@@ -51,13 +53,15 @@ public class FloatingItemEntityRenderer extends EntityRenderer<FloatingItemEntit
             poseStack.translate(-x, -y, -z);
             VFXBuilders.WorldVFXBuilder builder = VFXBuilders.createWorld().setPosColorTexLightmapDefaultFormat();
             VertexConsumer lightBuffer = DELAYED_RENDER.getBuffer(LIGHT_TYPE);
+            final Color primaryColor = entity.spiritType.getPrimaryColor();
+            final Color secondaryColor = entity.spiritType.getSecondaryColor();
             for (int i = 0; i < 2; i++) {
                 float size = 0.2f + i * 0.2f;
                 float alpha = (0.7f - i * 0.35f);
                 builder.setAlpha(alpha)
-                        .renderTrail(lightBuffer, poseStack, trailPoints, f -> size, f -> builder.setAlpha(alpha * f).setColor(ColorHelper.colorLerp(Easing.SINE_IN, f * 2f, entity.endColor, entity.startColor)))
-                        .renderTrail(lightBuffer, poseStack, trailPoints, f -> 1.5f * size, f -> builder.setAlpha(alpha * f / 2f).setColor(ColorHelper.colorLerp(Easing.SINE_IN, f * 1.5f, entity.endColor, entity.startColor)))
-                        .renderTrail(lightBuffer, poseStack, trailPoints, f -> size * 2.5f, f -> builder.setAlpha(alpha * f / 4f).setColor(ColorHelper.colorLerp(Easing.SINE_IN, f * 1.5f, entity.endColor, entity.startColor)));
+                        .renderTrail(lightBuffer, poseStack, trailPoints, f -> size, f -> builder.setAlpha(alpha * f).setColor(ColorHelper.colorLerp(Easing.SINE_IN, f * 2f, secondaryColor, primaryColor)))
+                        .renderTrail(lightBuffer, poseStack, trailPoints, f -> 1.5f * size, f -> builder.setAlpha(alpha * f / 2f).setColor(ColorHelper.colorLerp(Easing.SINE_IN, f * 1.5f, secondaryColor, primaryColor)))
+                        .renderTrail(lightBuffer, poseStack, trailPoints, f -> size * 2.5f, f -> builder.setAlpha(alpha * f / 4f).setColor(ColorHelper.colorLerp(Easing.SINE_IN, f * 1.5f, secondaryColor, primaryColor)));
             }
             poseStack.translate(x, y, z);
         }
@@ -69,7 +73,7 @@ public class FloatingItemEntityRenderer extends EntityRenderer<FloatingItemEntit
     public static void renderSpirit(FloatingItemEntity entity, ItemRenderer itemRenderer, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int packedLightIn) {
         ItemStack itemStack = entity.getItem();
         BakedModel model = itemRenderer.getModel(itemStack, entity.level, null, entity.getItem().getCount());
-        VFXBuilders.WorldVFXBuilder builder = VFXBuilders.createWorld().setPosColorTexLightmapDefaultFormat().setColor(entity.startColor);
+        VFXBuilders.WorldVFXBuilder builder = VFXBuilders.createWorld().setPosColorTexLightmapDefaultFormat().setColor(entity.spiritType.getPrimaryColor());
         float yOffset = entity.getYOffset(partialTicks);
         float scale = model.getTransforms().getTransform(ItemTransforms.TransformType.GROUND).scale.y();
         float rotation = entity.getRotation(partialTicks);

@@ -65,7 +65,7 @@ public class SpiritJarBlockEntity extends LodestoneBlockEntity {
         @Override
         public ItemStack getStackInSlot(int slot) {
             if (slot == 0 && type != null) {
-                return new ItemStack(type.getSpiritShardItem(), count); // Yes, this can create a stack bigger than 64. It's fine.
+                return new ItemStack(type.spiritShard.get(), count); // Yes, this can create a stack bigger than 64. It's fine.
             } else
                 return ItemStack.EMPTY;
         }
@@ -107,7 +107,7 @@ public class SpiritJarBlockEntity extends LodestoneBlockEntity {
                 }
             }
 
-            return new ItemStack(extractedType.getSpiritShardItem(), amountToExtract);
+            return new ItemStack(extractedType.spiritShard.get(), amountToExtract);
         }
 
         @Override
@@ -241,7 +241,7 @@ public class SpiritJarBlockEntity extends LodestoneBlockEntity {
                 double x = getBlockPos().getX() + 0.5f;
                 double y = getBlockPos().getY() + 0.5f + (float)Math.sin((level.getGameTime() % 360) / 20f) * 0.2f;
                 double z = getBlockPos().getZ() + 0.5f;
-                SpiritLightSpecs.rotatingLightSpecs(level, new Vec3(x, y, z), type.getPrimaryColor(), type.getSecondaryColor(), 0.4f, 3);
+                SpiritLightSpecs.rotatingLightSpecs(level, new Vec3(x, y, z), type, 0.4f, 3);
             }
         }
     }

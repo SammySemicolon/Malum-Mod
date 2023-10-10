@@ -27,7 +27,7 @@ public class SoulstoneBlock extends Block {
             return super.use(pState, pLevel, pPos, player, pHand, pHit);
         }
         MalumSpiritType spiritType = spiritShardItem.type;
-        BlockState blockstate = spiritType.getSpiritMoteBlock().defaultBlockState();
+        BlockState blockstate = spiritType.spiritMote.get().defaultBlockState();
         SoundType soundtype = blockstate.getSoundType(pLevel, pPos, player);
         pLevel.setBlock(pPos, blockstate, 3);
         pLevel.levelEvent(2001, pPos, Block.getId(pState));

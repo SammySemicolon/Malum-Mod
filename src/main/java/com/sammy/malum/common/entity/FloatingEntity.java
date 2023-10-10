@@ -1,5 +1,6 @@
 package com.sammy.malum.common.entity;
 
+import com.sammy.malum.core.systems.spirit.*;
 import com.sammy.malum.registry.common.SpiritTypeRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -31,11 +32,9 @@ import java.util.List;
 
 public abstract class FloatingEntity extends Entity {
 
-    protected static final EntityDataAccessor<Integer> DATA_COLOR = SynchedEntityData.defineId(FloatingEntity.class, EntityDataSerializers.INT);
-    protected static final EntityDataAccessor<Integer> DATA_END_COLOR = SynchedEntityData.defineId(FloatingEntity.class, EntityDataSerializers.INT);
+    protected static final EntityDataAccessor<String> DATA_SPIRIT = SynchedEntityData.defineId(FloatingEntity.class, EntityDataSerializers.STRING);
     public final TrailPointBuilder trailPointBuilder = TrailPointBuilder.create(10);
-    public Color startColor = SpiritTypeRegistry.ARCANE_SPIRIT.getPrimaryColor();
-    public Color endColor = SpiritTypeRegistry.ARCANE_SPIRIT.getSecondaryColor();
+    public MalumSpiritType spiritType = SpiritTypeRegistry.SACRED_SPIRIT;
     public int maxAge;
     public int age;
     public float moveTime;
@@ -50,8 +49,7 @@ public abstract class FloatingEntity extends Entity {
 
     @Override
     protected void defineSynchedData() {
-        this.getEntityData().define(DATA_COLOR, SpiritTypeRegistry.ARCANE_SPIRIT.getPrimaryColor().getRGB());
-        this.getEntityData().define(DATA_END_COLOR, SpiritTypeRegistry.ARCANE_SPIRIT.getSecondaryColor().getRGB());
+        this.getEntityData().define(DATA_SPIRIT, SpiritTypeRegistry.SACRED_SPIRIT.identifier);
     }
 
     @Override
@@ -61,8 +59,7 @@ public abstract class FloatingEntity extends Entity {
         compound.putFloat("moveTime", moveTime);
         compound.putFloat("windUp", windUp);
 
-        compound.putInt("start", startColor.getRGB());
-        compound.putInt("end", endColor.getRGB());
+        compound.putString("spiritType", spiritType.identifier);
     }
 
     @Override
@@ -71,17 +68,13 @@ public abstract class FloatingEntity extends Entity {
         maxAge = compound.getInt("maxAge");
         moveTime = compound.getFloat("moveTime");
         windUp = compound.getFloat("windUp");
-        startColor = new Color(compound.getInt("start"));
-        endColor = new Color(compound.getInt("end"));
+        spiritType = SpiritTypeRegistry.SPIRITS.get(compound.getString("spiritType"));
     }
 
     @Override
     public void onSyncedDataUpdated(EntityDataAccessor<?> pKey) {
-        if (DATA_COLOR.equals(pKey)) {
-            startColor = new Color(entityData.get(DATA_COLOR));
-        }
-        if (DATA_END_COLOR.equals(pKey)) {
-            endColor = new Color(entityData.get(DATA_END_COLOR));
+        if (DATA_SPIRIT.equals(pKey)) {
+            spiritType = SpiritTypeRegistry.SPIRITS.get(entityData.get(DATA_SPIRIT));
         }
         super.onSyncedDataUpdated(pKey);
     }

@@ -458,12 +458,10 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
                 ItemStack item = spiritInventory.getStackInSlot(i);
                 if (item.getItem() instanceof SpiritShardItem spiritSplinterItem) {
                     Vec3 offset = spiritOffset(spiritsRendered++, 0);
-                    Color color = spiritSplinterItem.type.getPrimaryColor();
-                    Color endColor = spiritSplinterItem.type.getSecondaryColor();
                     double x = getBlockPos().getX() + offset.x();
                     double y = getBlockPos().getY() + offset.y();
                     double z = getBlockPos().getZ() + offset.z();
-                    SpiritLightSpecs.spiritLightSpecs(level, new Vec3(x,y,z), color, endColor);
+                    SpiritLightSpecs.spiritLightSpecs(level, new Vec3(x,y,z), spiritSplinterItem.type);
                 }
             }
         }
