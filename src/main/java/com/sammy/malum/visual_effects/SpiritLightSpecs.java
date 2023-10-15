@@ -6,6 +6,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.setup.LodestoneParticleRegistry;
+import team.lodestar.lodestone.systems.easing.*;
 import team.lodestar.lodestone.systems.particle.*;
 import team.lodestar.lodestone.systems.particle.builder.*;
 import team.lodestar.lodestone.systems.particle.data.color.ColorParticleData;
@@ -80,7 +81,7 @@ public class SpiritLightSpecs {
         return WorldParticleBuilder.create(LodestoneParticleRegistry.WISP_PARTICLE)
                 .setTransparencyData(GenericParticleData.create(0.35f, 0f).build())
                 .setSpinData(spinData)
-                .setScaleData(GenericParticleData.create(0.04f, RandomHelper.randomBetween(rand, 0.08f, 0.15f), 0).setCoefficient(1.15f).build())
+                .setScaleData(GenericParticleData.create(0.04f, RandomHelper.randomBetween(rand, 0.08f, 0.14f), 0).setEasing(Easing.SINE_IN, Easing.SINE_IN_OUT).build())
                 .setColorData(spiritType.createBloomColorData().build())
                 .setLifetime(lifetime)
                 .enableNoClip();

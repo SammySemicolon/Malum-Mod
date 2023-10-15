@@ -3,6 +3,7 @@ package com.sammy.malum.client.renderer.entity;
 import com.mojang.blaze3d.vertex.*;
 import com.mojang.math.*;
 import com.sammy.malum.common.entity.*;
+import com.sammy.malum.core.systems.spirit.*;
 import net.minecraft.client.*;
 import net.minecraft.client.multiplayer.*;
 import net.minecraft.client.renderer.*;
@@ -10,9 +11,12 @@ import net.minecraft.client.renderer.block.model.*;
 import net.minecraft.client.renderer.entity.*;
 import net.minecraft.client.renderer.texture.*;
 import net.minecraft.client.resources.model.*;
+import net.minecraft.network.chat.*;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraft.resources.*;
 import net.minecraft.util.*;
 import net.minecraft.world.item.*;
+import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
 import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.setup.*;
@@ -21,9 +25,7 @@ import team.lodestar.lodestone.systems.rendering.*;
 import team.lodestar.lodestone.systems.rendering.trail.*;
 
 import java.awt.*;
-import java.util.*;
 import java.util.List;
-import java.util.stream.*;
 
 import static com.sammy.malum.MalumMod.*;
 import static team.lodestar.lodestone.LodestoneLib.*;
@@ -40,7 +42,7 @@ public class FloatingItemEntityRenderer extends EntityRenderer<FloatingItemEntit
     }
 
     private static final ResourceLocation LIGHT_TRAIL = malumPath("textures/vfx/concentrated_trail.png");
-    private static final RenderType LIGHT_TYPE = LodestoneRenderTypeRegistry.ADDITIVE_TEXTURE_TRIANGLE.apply(LIGHT_TRAIL);
+    private static final RenderType TRAIL_TYPE = LodestoneRenderTypeRegistry.ADDITIVE_TEXTURE_TRIANGLE.apply(LIGHT_TRAIL);
     @Override
     public void render(FloatingItemEntity entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int packedLightIn) {
         List<TrailPoint> trailPoints = entity.trailPointBuilder.getTrailPoints(partialTicks);
@@ -52,7 +54,7 @@ public class FloatingItemEntityRenderer extends EntityRenderer<FloatingItemEntit
             trailPoints.add(new TrailPoint(new Vec3(x, y + entity.getYOffset(partialTicks) + 0.25F, z).add(entity.getDeltaMovement().scale(1+partialTicks))));
             poseStack.translate(-x, -y, -z);
             VFXBuilders.WorldVFXBuilder builder = VFXBuilders.createWorld().setPosColorTexLightmapDefaultFormat();
-            VertexConsumer lightBuffer = DELAYED_RENDER.getBuffer(LIGHT_TYPE);
+            VertexConsumer lightBuffer = DELAYED_RENDER.getBuffer(TRAIL_TYPE);
             final Color primaryColor = entity.spiritType.getPrimaryColor();
             final Color secondaryColor = entity.spiritType.getSecondaryColor();
             for (int i = 0; i < 2; i++) {
@@ -73,7 +75,6 @@ public class FloatingItemEntityRenderer extends EntityRenderer<FloatingItemEntit
     public static void renderSpirit(FloatingItemEntity entity, ItemRenderer itemRenderer, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int packedLightIn) {
         ItemStack itemStack = entity.getItem();
         BakedModel model = itemRenderer.getModel(itemStack, entity.level, null, entity.getItem().getCount());
-        VFXBuilders.WorldVFXBuilder builder = VFXBuilders.createWorld().setPosColorTexLightmapDefaultFormat().setColor(entity.spiritType.getPrimaryColor());
         float yOffset = entity.getYOffset(partialTicks);
         float scale = model.getTransforms().getTransform(ItemTransforms.TransformType.GROUND).scale.y();
         float rotation = entity.getRotation(partialTicks);
@@ -84,27 +85,35 @@ public class FloatingItemEntityRenderer extends EntityRenderer<FloatingItemEntit
         poseStack.popPose();
         poseStack.pushPose();
         poseStack.translate(0.0D, (yOffset + 0.5F * scale), 0.0D);
-        renderSpiritGlimmer(poseStack, builder, partialTicks);
+        renderSpiritGlimmer(poseStack, entity.spiritType, partialTicks);
         poseStack.popPose();
     }
 
-    public static void renderSpiritGlimmer(PoseStack poseStack, VFXBuilders.WorldVFXBuilder builder, float partialTicks) {
-        ClientLevel level = Minecraft.getInstance().level;
-        float v = level.getGameTime() + partialTicks;
-        float time = (float) ((Math.sin(v) + v % 15f) / 15f);
-        if (time >= 0.5f) {
-            time = 1f - time;
-        }
-        float multiplier = 1 + Easing.BOUNCE_IN_OUT.ease(time*2f, 0, 0.25f, 1);
+    public static void renderSpiritItem(PoseStack poseStack, MultiBufferSource bufferIn, ItemRenderer itemRenderer, ItemStack stack, float yOffset, float rotation, int packedLightIn) {
+        Level level = Minecraft.getInstance().level;
+        BakedModel model = itemRenderer.getModel(stack, level, null, stack.getCount());
+        float scale = model.getTransforms().getTransform(ItemTransforms.TransformType.GROUND).scale.y();
+        poseStack.pushPose();
+        poseStack.translate(0.0D, (yOffset + 0.25F * scale), 0.0D);
+        poseStack.mulPose(Vector3f.YP.rotation(rotation));
+        itemRenderer.render(stack, ItemTransforms.TransformType.GROUND, false, poseStack, bufferIn, packedLightIn, OverlayTexture.NO_OVERLAY, model);
+        poseStack.popPose();
+    }
+    public static void renderSpiritGlimmer(PoseStack poseStack, MalumSpiritType spiritType, float partialTicks) {
+        Level level = Minecraft.getInstance().level;
+        VertexConsumer bloom = DELAYED_RENDER.getBuffer(LodestoneRenderTypeRegistry.ADDITIVE_TEXTURE.applyAndCache(lodestonePath("textures/particle/twinkle.png")));
+        VertexConsumer star = DELAYED_RENDER.getBuffer(LodestoneRenderTypeRegistry.ADDITIVE_TEXTURE.applyAndCache(malumPath("textures/particle/star.png")));
+        VFXBuilders.WorldVFXBuilder builder = VFXBuilders.createWorld().setPosColorTexLightmapDefaultFormat().setColor(spiritType.getPrimaryColor());
+        float gameTime = level.getGameTime() + partialTicks;
+        float sine = (float) Math.abs(((Math.sin((gameTime / 80f) % 360)) * 0.2f));
+        float bounce = EasingHelper.weightedEasingLerp(Easing.BOUNCE_IN_OUT, (gameTime % 20)/20f, 0.025f, 0.05f, 0.025f);
+        float scale = 0.1f + sine + bounce;
+
         poseStack.pushPose();
         poseStack.mulPose(Minecraft.getInstance().getEntityRenderDispatcher().cameraOrientation());
         poseStack.mulPose(Vector3f.YP.rotationDegrees(180f));
-        for (int i = 0; i < 3; i++) {
-            float size = (0.125f + i * 0.13f) * multiplier;
-            float alpha = (0.75f - i * 0.3f);
-            builder.setAlpha(alpha * 0.6f).renderQuad(DELAYED_RENDER.getBuffer(LodestoneRenderTypeRegistry.ADDITIVE_TEXTURE.applyAndCache(lodestonePath("textures/particle/wisp.png"))), poseStack, size * 0.75f);
-            builder.setAlpha(alpha).renderQuad(DELAYED_RENDER.getBuffer(LodestoneRenderTypeRegistry.ADDITIVE_TEXTURE.applyAndCache(lodestonePath("textures/particle/twinkle.png"))), poseStack, size);
-        }
+        builder.setAlpha(0.45f).renderQuad(bloom, poseStack, scale);
+        builder.setAlpha(0.75f).renderQuad(star, poseStack, scale*1.25f);
         poseStack.popPose();
     }
 

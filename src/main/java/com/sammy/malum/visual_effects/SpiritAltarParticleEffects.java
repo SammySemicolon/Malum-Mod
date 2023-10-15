@@ -95,25 +95,6 @@ public class SpiritAltarParticleEffects {
         for (int i = 0; i < 8; i++) {
             int finalI = i;
             Vec3 offsetPosition = DataHelper.rotatingRadialOffset(targetPos, 0.6f, i, 8, gameTime, 160);
-
-            var lightSpecs = spiritLightSpecs(level, offsetPosition, activeSpiritType);
-            lightSpecs.getBuilder().act(b -> b
-                    .modifyColorData(d -> d.multiplyCoefficient(0.35f))
-                    .modifyData(b::getScaleData, d -> d.multiplyValue(2f).multiplyCoefficient(0.9f))
-                    .modifyData(b::getTransparencyData, d -> d.multiplyCoefficient(0.9f))
-                    .multiplyLifetime(1.5f)
-                    .setLifetime(b.getParticleOptions().lifetimeSupplier.get() + finalI * 2));
-            lightSpecs.getBloomBuilder().act(b -> b
-                    .modifyColorData(d -> d.multiplyCoefficient(0.35f))
-                    .modifyData(b::getScaleData, d -> d.multiplyValue(1.6f).multiplyCoefficient(0.9f))
-                    .modifyData(b::getTransparencyData, d -> d.multiplyCoefficient(0.9f))
-                    .setLifetime((int) (b.getParticleOptions().lifetimeSupplier.get() + finalI * 2.5f)));
-            lightSpecs.spawnParticles();
-        }
-
-        for (int i = 0; i < 8; i++) {
-            int finalI = i;
-            Vec3 offsetPosition = DataHelper.rotatingRadialOffset(targetPos, 0.6f, i, 8, gameTime, 160);
             Consumer<WorldParticleBuilder> behavior = b -> b.addActor(p -> {
                 if (level.getGameTime() > gameTime + finalI * 4 && level.getGameTime() < gameTime + (finalI + 4) * 4) {
                     p.setParticleMotion(p.getParticleSpeed().add(0, 0.015f, 0));

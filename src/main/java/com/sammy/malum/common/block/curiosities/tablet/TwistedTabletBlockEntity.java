@@ -15,10 +15,11 @@ public class TwistedTabletBlockEntity extends ItemStandBlockEntity {
     }
 
     @Override
-    public Vec3 getItemOffset() {
+    public Vec3 getItemOffset(float partialTicks) {
         Direction direction = getBlockState().getValue(BlockStateProperties.FACING);
+        float gameTime = level.getGameTime() + partialTicks;
         float xOffset = direction.getStepX() * 0.25f;
-        float yOffset = direction.getStepY() * 0.4f + (inventory.getStackInSlot(0).getItem() instanceof SpiritShardItem ? (float)Math.sin((level.getGameTime() % 360) / 20f) * 0.05f : 0);
+        float yOffset = direction.getStepY() * 0.4f + (inventory.getStackInSlot(0).getItem() instanceof SpiritShardItem ? (float)Math.sin((gameTime % 360) / 20f) * 0.05f : 0);
         float zOffset = direction.getStepY() * 0.25f;
         return new Vec3(0.5f - xOffset, 0.5f - yOffset, 0.5f - zOffset);
     }

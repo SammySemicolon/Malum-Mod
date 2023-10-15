@@ -7,7 +7,10 @@ import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntityInventory
 public interface IMalumSpecialItemAccessPoint
 {
     LodestoneBlockEntityInventory getSuppliedInventory();
-    Vec3 getItemCenterPos();
-    Vec3 getItemOffset();
+    default Vec3 getItemCenterPos() {
+        return getItemCenterPos(0);
+    }
+    Vec3 getItemCenterPos(float partialTicks);
+    Vec3 getItemOffset(float partialTicks);
     BlockPos getAccessPointBlockPos();
 }

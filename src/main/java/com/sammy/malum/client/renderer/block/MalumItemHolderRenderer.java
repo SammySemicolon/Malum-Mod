@@ -27,7 +27,7 @@ public class MalumItemHolderRenderer implements BlockEntityRenderer<MalumItemHol
         ItemStack stack = blockEntityIn.inventory.getStackInSlot(0);
         if (!stack.isEmpty()) {
             poseStack.pushPose();
-            Vec3 itemOffset = blockEntityIn.getItemOffset();
+            Vec3 itemOffset = blockEntityIn.getItemOffset(partialTicks);
             poseStack.translate(itemOffset.x(), itemOffset.y(), itemOffset.z());
             poseStack.mulPose(Vector3f.YP.rotationDegrees(((level.getGameTime() % 360) + partialTicks) * 3));
             poseStack.scale(0.6f, 0.6f, 0.6f);

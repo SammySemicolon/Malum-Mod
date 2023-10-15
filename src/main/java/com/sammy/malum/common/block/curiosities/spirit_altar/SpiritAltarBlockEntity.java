@@ -6,7 +6,6 @@ import com.sammy.malum.common.packets.particle.curiosities.altar.*;
 import com.sammy.malum.common.recipe.*;
 import com.sammy.malum.core.systems.particle_effects.*;
 import com.sammy.malum.core.systems.recipe.*;
-import com.sammy.malum.core.systems.spirit.*;
 import com.sammy.malum.registry.common.*;
 import com.sammy.malum.registry.common.block.*;
 import com.sammy.malum.visual_effects.*;
@@ -28,20 +27,14 @@ import net.minecraftforge.items.wrapper.*;
 import net.minecraftforge.network.*;
 import org.jetbrains.annotations.*;
 import team.lodestar.lodestone.helpers.*;
-import team.lodestar.lodestone.setup.*;
 import team.lodestar.lodestone.systems.blockentity.*;
 import team.lodestar.lodestone.systems.easing.*;
-import team.lodestar.lodestone.systems.particle.*;
-import team.lodestar.lodestone.systems.particle.builder.*;
-import team.lodestar.lodestone.systems.particle.data.*;
 import team.lodestar.lodestone.systems.recipe.*;
 
 import javax.annotation.Nullable;
 import javax.annotation.*;
-import java.awt.*;
 import java.util.List;
 import java.util.*;
-import java.util.function.*;
 import java.util.stream.*;
 
 import static com.sammy.malum.registry.common.PacketRegistry.*;
