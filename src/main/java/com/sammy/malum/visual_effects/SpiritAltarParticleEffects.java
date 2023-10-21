@@ -13,6 +13,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.*;
 import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.systems.blockentity.*;
+import team.lodestar.lodestone.systems.easing.*;
 import team.lodestar.lodestone.systems.particle.builder.*;
 
 import java.util.*;
@@ -109,9 +110,9 @@ public class SpiritAltarParticleEffects {
         }
         for (int i = 0; i < 24; i++) {
             MalumSpiritType cyclingSpiritType = colorData.getCyclingColorRecord().spiritType();
-            float xVelocity = RandomHelper.randomBetween(random, -0.075f, 0.075f);
-            float yVelocity = RandomHelper.randomBetween(random, 0.2f, 0.4f);
-            float zVelocity = RandomHelper.randomBetween(random, -0.075f, 0.075f);
+            float xVelocity = RandomHelper.randomBetween(random, Easing.CUBIC_OUT, -0.075f, 0.075f);
+            float yVelocity = RandomHelper.randomBetween(random, 0.2f, 0.5f);
+            float zVelocity = RandomHelper.randomBetween(random, Easing.CUBIC_OUT, -0.075f, 0.075f);
             float gravityStrength = RandomHelper.randomBetween(random, 0.75f, 1f);
             if (random.nextFloat() < 0.85f) {
                 var sparkParticles = SparkParticleEffects.spiritMotionSparks(level, targetPos, cyclingSpiritType);
