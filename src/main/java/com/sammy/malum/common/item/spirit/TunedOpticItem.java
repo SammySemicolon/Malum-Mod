@@ -1,0 +1,31 @@
+package com.sammy.malum.common.item.spirit;
+
+import com.sammy.malum.core.systems.spirit.*;
+import com.sammy.malum.visual_effects.*;
+import net.minecraft.network.chat.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.*;
+import org.jetbrains.annotations.*;
+import team.lodestar.lodestone.handlers.screenparticle.ParticleEmitterHandler.*;
+import team.lodestar.lodestone.systems.particle.screen.*;
+
+import java.util.*;
+
+public class TunedOpticItem extends Item implements ItemParticleSupplier {
+    public final MalumSpiritType type;
+
+    public TunedOpticItem(Properties properties, MalumSpiritType type) {
+        super(properties.rarity(type.getItemRarity()));
+        this.type = type;
+    }
+
+    @Override
+    public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
+        pTooltip.add(type.getSpiritShardFlavourTextComponent());
+    }
+
+    @Override
+    public void spawnLateParticles(ScreenParticleHolder target, Level level, float partialTick, ItemStack stack, float x, float y) {
+        ScreenParticleEffects.spawnSpiritShardScreenParticles(target, type.getPrimaryColor(), type.getSecondaryColor());
+    }
+}

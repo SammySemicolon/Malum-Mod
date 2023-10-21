@@ -25,6 +25,10 @@ public class MalumItemModelSmithTypes {
         provider.createGenericModel(item, GENERATED, provider.modLoc("item/spirit_shard"));
     });
 
+    public static ItemModelSmith SPIRIT_OPTIC_ITEM = new ItemModelSmith((item, provider) -> {
+        provider.withExistingParent(provider.getItemName(item), HANDHELD).texture("layer0", provider.modLoc("item/tuned_optic")).texture("layer1", provider.modLoc("item/tuned_optic_glow"));
+    });
+
     public static ItemModelSmith GENERATED_OVERLAY_ITEM = new ItemModelSmith((item, provider) -> {
         String name = provider.getItemName(item);
         provider.withExistingParent(name, GENERATED).texture("layer0", provider.modLoc("item/"+name)).texture("layer1", provider.modLoc("item/"+name+"_overlay"));

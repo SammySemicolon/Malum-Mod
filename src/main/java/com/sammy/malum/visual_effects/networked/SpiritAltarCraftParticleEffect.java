@@ -31,7 +31,7 @@ public class SpiritAltarCraftParticleEffect extends ParticleEffectType {
             if (!(level.getBlockEntity(positionData.getAsBlockPos()) instanceof SpiritAltarBlockEntity spiritAltar)) {
                 return;
             }
-            SpiritAltarParticleEffects.craftItemParticles(spiritAltar);
+            SpiritAltarParticleEffects.craftItemParticles(spiritAltar, colorData);
         };
     }
 }

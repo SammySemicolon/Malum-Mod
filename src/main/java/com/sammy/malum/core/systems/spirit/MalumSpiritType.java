@@ -42,12 +42,15 @@ public class MalumSpiritType {
     private final float bloomColorCoefficient;
     private final Easing bloomColorEasing;
 
+    private final Color itemColor;
+
     protected Rarity itemRarity;
     protected Component spiritItemDescription;
 
     public MalumSpiritType(String identifier, Supplier<SpiritShardItem> spiritShard, Supplier<SpiritMoteBlock> spiritMote,
                            Color primaryColor, Color secondaryColor, float mainColorCoefficient, Easing mainColorEasing,
-                           Color primaryBloomColor, Color secondaryBloomColor, float bloomColorCoefficient, Easing bloomColorEasing) {
+                           Color primaryBloomColor, Color secondaryBloomColor, float bloomColorCoefficient, Easing bloomColorEasing,
+                           Color itemColor) {
         this.identifier = identifier;
         this.spiritShard = spiritShard;
         this.spiritMote = spiritMote;
@@ -59,6 +62,7 @@ public class MalumSpiritType {
         this.secondaryBloomColor = secondaryBloomColor;
         this.bloomColorCoefficient = bloomColorCoefficient;
         this.bloomColorEasing = bloomColorEasing;
+        this.itemColor = itemColor;
     }
 
     public Color getPrimaryColor() {
@@ -67,6 +71,10 @@ public class MalumSpiritType {
 
     public Color getSecondaryColor() {
         return secondaryColor;
+    }
+
+    public Color getItemColor() {
+        return itemColor;
     }
 
     public ColorParticleDataBuilder createMainColorData() {

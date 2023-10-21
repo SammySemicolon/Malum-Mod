@@ -23,6 +23,9 @@ public class SpiritTypeBuilder {
     public float bloomColorCoefficient;
     public Easing bloomColorEasing = Easing.LINEAR;
 
+    public Color itemColor;
+
+
     public SpiritTypeBuilder(String identifier, Supplier<SpiritShardItem> spiritShard, Supplier<SpiritMoteBlock> spiritMote) {
         this.identifier = identifier;
         this.spiritShard = spiritShard;
@@ -59,9 +62,19 @@ public class SpiritTypeBuilder {
         return this;
     }
 
+    public SpiritTypeBuilder setItemColor(Function<SpiritTypeBuilder, Color> colorFunction) {
+        return setItemColor(colorFunction.apply(this));
+    }
+
+    public SpiritTypeBuilder setItemColor(Color itemColor) {
+        this.itemColor = itemColor;
+        return this;
+    }
+
     public MalumSpiritType build() {
         return new MalumSpiritType(identifier, spiritShard, spiritMote,
                 primaryColor, secondaryColor, mainColorCoefficient, mainColorEasing,
-                primaryBloomColor, secondaryBloomColor, bloomColorCoefficient, bloomColorEasing);
+                primaryBloomColor, secondaryBloomColor, bloomColorCoefficient, bloomColorEasing,
+                itemColor);
     }
 }

@@ -238,7 +238,7 @@ public class SpiritJarBlockEntity extends LodestoneBlockEntity {
     public void tick() {
         if (level.isClientSide) {
             if (type != null) {
-                double time = (level.getGameTime() % 360) * (2 * Math.PI) / 120f;
+                double time = (level.getGameTime() * 0.05f) % 6.2831f;
                 double x = getBlockPos().getX() + 0.5f;
                 double y = getBlockPos().getY() + 0.5f + (float)Math.sin(time) * 0.2f;
                 double z = getBlockPos().getZ() + 0.5f;

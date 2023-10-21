@@ -162,7 +162,6 @@ public class MalumBlockProperties {
         return new LodestoneBlockProperties(Material.METAL, MaterialColor.COLOR_LIGHT_GRAY)
                 .setCutoutRenderType()
                 .noOcclusion()
-                .addTag(Tags.Blocks.STORAGE_BLOCKS)
                 .needsPickaxe()
                 .requiresCorrectToolForDrops()
                 .strength(8.0F, 8.0f)

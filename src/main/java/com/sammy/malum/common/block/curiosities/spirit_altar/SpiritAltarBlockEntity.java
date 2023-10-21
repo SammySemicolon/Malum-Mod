@@ -301,8 +301,7 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
         }
         spiritInventory.updateData();
         ParticleEffectTypeRegistry.SPIRIT_ALTAR_CRAFTS.createBlockEffect(level, worldPosition, ColorEffectData.fromSpirits(
-                recipe.spirits.stream().map(r -> r.type).collect(Collectors.toList()),
-                s -> new ColorEffectData.ColorRecord(s.getPrimaryColor())));
+                recipe.spirits.stream().map(r -> r.type).collect(Collectors.toList())));
         progress *= 0.75f;
         extrasInventory.clear();
         level.playSound(null, worldPosition, SoundRegistry.ALTAR_CRAFT.get(), SoundSource.BLOCKS, 1, 0.9f + level.random.nextFloat() * 0.2f);

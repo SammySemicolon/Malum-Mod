@@ -68,7 +68,7 @@ public class ItemRegistry {
     public static Item.Properties DEFAULT_PROPERTIES() {
         return new Item.Properties().tab(CreativeTabRegistry.CONTENT);
     }
-    
+
     public static Item.Properties BUILDING_PROPERTIES() {
         return new Item.Properties().tab(CreativeTabRegistry.BUILDING);
     }
@@ -113,10 +113,10 @@ public class ItemRegistry {
     public static final RegistryObject<SpiritShardItem> WICKED_SPIRIT = ITEMS.register("wicked_spirit", () -> new SpiritShardItem(DEFAULT_PROPERTIES(), SpiritTypeRegistry.WICKED_SPIRIT));
     public static final RegistryObject<SpiritShardItem> ARCANE_SPIRIT = ITEMS.register("arcane_spirit", () -> new SpiritShardItem(DEFAULT_PROPERTIES(), SpiritTypeRegistry.ARCANE_SPIRIT));
     public static final RegistryObject<SpiritShardItem> ELDRITCH_SPIRIT = ITEMS.register("eldritch_spirit", () -> new SpiritShardItem(DEFAULT_PROPERTIES(), SpiritTypeRegistry.ELDRITCH_SPIRIT));
-    public static final RegistryObject<SpiritShardItem> EARTHEN_SPIRIT = ITEMS.register("earthen_spirit", () -> new SpiritShardItem(DEFAULT_PROPERTIES(), SpiritTypeRegistry.EARTHEN_SPIRIT));
-    public static final RegistryObject<SpiritShardItem> INFERNAL_SPIRIT = ITEMS.register("infernal_spirit", () -> new SpiritShardItem(DEFAULT_PROPERTIES(), SpiritTypeRegistry.INFERNAL_SPIRIT));
-    public static final RegistryObject<SpiritShardItem> AERIAL_SPIRIT = ITEMS.register("aerial_spirit", () -> new SpiritShardItem(DEFAULT_PROPERTIES(), SpiritTypeRegistry.AERIAL_SPIRIT));
     public static final RegistryObject<SpiritShardItem> AQUEOUS_SPIRIT = ITEMS.register("aqueous_spirit", () -> new SpiritShardItem(DEFAULT_PROPERTIES(), SpiritTypeRegistry.AQUEOUS_SPIRIT));
+    public static final RegistryObject<SpiritShardItem> AERIAL_SPIRIT = ITEMS.register("aerial_spirit", () -> new SpiritShardItem(DEFAULT_PROPERTIES(), SpiritTypeRegistry.AERIAL_SPIRIT));
+    public static final RegistryObject<SpiritShardItem> INFERNAL_SPIRIT = ITEMS.register("infernal_spirit", () -> new SpiritShardItem(DEFAULT_PROPERTIES(), SpiritTypeRegistry.INFERNAL_SPIRIT));
+    public static final RegistryObject<SpiritShardItem> EARTHEN_SPIRIT = ITEMS.register("earthen_spirit", () -> new SpiritShardItem(DEFAULT_PROPERTIES(), SpiritTypeRegistry.EARTHEN_SPIRIT));
     //endregion
 
     //region random stuff
@@ -406,6 +406,10 @@ public class ItemRegistry {
     public static final RegistryObject<Item> SPIRIT_FABRIC = ITEMS.register("spirit_fabric", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> SPECTRAL_LENS = ITEMS.register("spectral_lens", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> SPECTRAL_OPTIC = ITEMS.register("spectral_optic", () -> new Item(DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> ATTUNED_OPTIC_AERIAL = ITEMS.register("aerial_tuned_optic", () -> new TunedOpticItem(DEFAULT_PROPERTIES(), SpiritTypeRegistry.AERIAL_SPIRIT));
+    public static final RegistryObject<Item> ATTUNED_OPTIC_AQUEOUS = ITEMS.register("aqueous_tuned_optic", () -> new TunedOpticItem(DEFAULT_PROPERTIES(), SpiritTypeRegistry.AQUEOUS_SPIRIT));
+    public static final RegistryObject<Item> ATTUNED_OPTIC_INFERNAL = ITEMS.register("infernal_tuned_optic", () -> new TunedOpticItem(DEFAULT_PROPERTIES(), SpiritTypeRegistry.INFERNAL_SPIRIT));
+    public static final RegistryObject<Item> ATTUNED_OPTIC_EARTHEN = ITEMS.register("earthen_tuned_optic", () -> new TunedOpticItem(DEFAULT_PROPERTIES(), SpiritTypeRegistry.EARTHEN_SPIRIT));
     public static final RegistryObject<Item> POPPET = ITEMS.register("poppet", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> CORRUPTED_RESONANCE = ITEMS.register("corrupted_resonance", () -> new Item(DEFAULT_PROPERTIES()));
 
@@ -594,7 +598,7 @@ public class ItemRegistry {
 
         @SubscribeEvent(priority = EventPriority.LOWEST)
         public static void addItemProperties(FMLClientSetupEvent event) {
-            Set<LodestoneArmorItem> armors = ItemRegistry.ITEMS.getEntries().stream().filter(r -> r.get() instanceof LodestoneArmorItem).map(r -> (LodestoneArmorItem)r.get()).collect(Collectors.toSet());
+            Set<LodestoneArmorItem> armors = ItemRegistry.ITEMS.getEntries().stream().filter(r -> r.get() instanceof LodestoneArmorItem).map(r -> (LodestoneArmorItem) r.get()).collect(Collectors.toSet());
             ItemPropertyFunction itemPropertyFunction = (stack, level, holder, holderID) -> {
                 if (!stack.hasTag()) {
                     return -1;
@@ -641,22 +645,11 @@ public class ItemRegistry {
                 AbstractEtherItem etherItem = (AbstractEtherItem) s.getItem();
                 return c == 0 ? etherItem.getFirstColor(s) : etherItem.getSecondColor(s);
             }, i.get()));
-            registerItemColor(itemColors, ItemRegistry.SACRED_SPIRIT, SpiritTypeRegistry.SACRED_SPIRIT.getPrimaryColor());
-            registerItemColor(itemColors, ItemRegistry.WICKED_SPIRIT, SpiritTypeRegistry.WICKED_SPIRIT.getPrimaryColor());
-            registerItemColor(itemColors, ItemRegistry.ARCANE_SPIRIT, brighter(SpiritTypeRegistry.ARCANE_SPIRIT.getPrimaryColor(), 1));
-            registerItemColor(itemColors, ItemRegistry.ELDRITCH_SPIRIT, darker(SpiritTypeRegistry.ELDRITCH_SPIRIT.getPrimaryColor(), 1));
-            registerItemColor(itemColors, ItemRegistry.AERIAL_SPIRIT, brighter(SpiritTypeRegistry.AERIAL_SPIRIT.getPrimaryColor(), 1));
-            registerItemColor(itemColors, ItemRegistry.AQUEOUS_SPIRIT, brighter(SpiritTypeRegistry.AQUEOUS_SPIRIT.getPrimaryColor(), 1));
-            registerItemColor(itemColors, ItemRegistry.INFERNAL_SPIRIT, brighter(SpiritTypeRegistry.INFERNAL_SPIRIT.getPrimaryColor(), 1));
-            registerItemColor(itemColors, ItemRegistry.EARTHEN_SPIRIT, brighter(SpiritTypeRegistry.EARTHEN_SPIRIT.getPrimaryColor(), 1));
-        }
 
-        public static void registerItemColor(ItemColors itemColors, Supplier<? extends Item> item, Color color) {
-            int r = color.getRed();
-            int g = color.getGreen();
-            int b = color.getBlue();
-            itemColors.register((stack, i) -> r << 16 | g << 8 | b, item.get());
+            DataHelper.takeAll(items, i -> i.get() instanceof SpiritShardItem).forEach(item ->
+                    itemColors.register((s, c) -> ColorHelper.getColor(((SpiritShardItem) item.get()).type.getItemColor()), item.get()));
+            DataHelper.takeAll(items, i -> i.get() instanceof TunedOpticItem).forEach(item ->
+                    itemColors.register((s, c) -> c == 1 ? ColorHelper.getColor(((TunedOpticItem) item.get()).type.getItemColor()) : -1, item.get()));
         }
-
     }
 }

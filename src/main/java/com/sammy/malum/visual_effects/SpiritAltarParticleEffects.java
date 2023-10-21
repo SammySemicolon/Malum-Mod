@@ -4,6 +4,7 @@ import com.sammy.malum.common.block.curiosities.obelisk.*;
 import com.sammy.malum.common.block.curiosities.spirit_altar.*;
 import com.sammy.malum.common.item.spirit.*;
 import com.sammy.malum.common.recipe.*;
+import com.sammy.malum.core.systems.particle_effects.*;
 import com.sammy.malum.core.systems.spirit.*;
 import net.minecraft.core.*;
 import net.minecraft.util.*;
@@ -82,16 +83,73 @@ public class SpiritAltarParticleEffects {
         }
     }
 
-    public static void craftItemParticles(SpiritAltarBlockEntity altar) {
+    public static void craftItemParticles(SpiritAltarBlockEntity altar, ColorEffectData colorData) {
         MalumSpiritType activeSpiritType = getCentralSpiritType(altar);
         if (activeSpiritType == null) {
             return;
         }
         Level level = altar.getLevel();
         long gameTime = level.getGameTime();
+        Random random = level.random;
         BlockPos altarPos = altar.getBlockPos();
         Vec3 targetPos = altar.getCentralItemOffset().add(altarPos.getX(),altarPos.getY(), altarPos.getZ());
 
+        for (int i = 0; i < 2; i++) {
+            MalumSpiritType cyclingSpiritType = colorData.getCyclingColorRecord().spiritType();
+            var centralLightSpecs = spiritLightSpecs(level, targetPos, cyclingSpiritType);
+            centralLightSpecs.getBuilder()
+                    .multiplyLifetime(0.5f)
+                    .modifyData(WorldParticleBuilder::getScaleData, d -> d.multiplyValue(6f))
+                    .modifyData(WorldParticleBuilder::getTransparencyData, d -> d.multiplyValue(3f));
+            centralLightSpecs.getBloomBuilder()
+                    .multiplyLifetime(0.5f)
+                    .modifyData(WorldParticleBuilder::getScaleData, d -> d.multiplyValue(6f))
+                    .modifyData(WorldParticleBuilder::getTransparencyData, d -> d.multiplyValue(3f));
+            centralLightSpecs.spawnParticles();
+        }
+        for (int i = 0; i < 24; i++) {
+            MalumSpiritType cyclingSpiritType = colorData.getCyclingColorRecord().spiritType();
+            float xVelocity = RandomHelper.randomBetween(random, -0.075f, 0.075f);
+            float yVelocity = RandomHelper.randomBetween(random, 0.2f, 0.4f);
+            float zVelocity = RandomHelper.randomBetween(random, -0.075f, 0.075f);
+            float gravityStrength = RandomHelper.randomBetween(random, 0.75f, 1f);
+            if (random.nextFloat() < 0.85f) {
+                var sparkParticles = SparkParticleEffects.spiritMotionSparks(level, targetPos, cyclingSpiritType);
+                sparkParticles.getBuilder()
+                        .disableNoClip()
+                        .multiplyLifetime(3)
+                        .setGravityStrength(gravityStrength)
+                        .setMotion(xVelocity, yVelocity, zVelocity)
+                        .modifyData(SparkParticleBuilder::getScaleData, d -> d.multiplyValue(2f));
+                sparkParticles.getBloomBuilder()
+                        .disableNoClip()
+                        .multiplyLifetime(3)
+                        .setGravityStrength(gravityStrength)
+                        .setMotion(xVelocity, yVelocity, zVelocity)
+                        .modifyData(WorldParticleBuilder::getTransparencyData, d -> d.multiplyValue(1.25f));
+                sparkParticles.spawnParticles();
+            }
+            if (random.nextFloat() < 0.85f) {
+                xVelocity *= 1.25f;
+                yVelocity *= 0.75f;
+                zVelocity *= 1.25f;
+                var lightSpecs = SpiritLightSpecs.spiritLightSpecs(level, targetPos, cyclingSpiritType);
+                lightSpecs.getBuilder()
+                        .disableNoClip()
+                        .multiplyLifetime(6)
+                        .setGravityStrength(gravityStrength)
+                        .multiplyLifetime(0.8f)
+                        .setMotion(xVelocity, yVelocity, zVelocity)
+                        .modifyData(WorldParticleBuilder::getScaleData, d -> d.multiplyValue(2.5f));
+                lightSpecs.getBloomBuilder()
+                        .disableNoClip()
+                        .multiplyLifetime(6)
+                        .setGravityStrength(gravityStrength)
+                        .setMotion(xVelocity, yVelocity, zVelocity)
+                        .modifyData(WorldParticleBuilder::getTransparencyData, d -> d.multiplyValue(1.25f));
+                lightSpecs.spawnParticles();
+            }
+        }
         for (int i = 0; i < 8; i++) {
             int finalI = i;
             Vec3 offsetPosition = DataHelper.rotatingRadialOffset(targetPos, 0.6f, i, 8, gameTime, 160);
