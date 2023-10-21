@@ -238,8 +238,9 @@ public class SpiritJarBlockEntity extends LodestoneBlockEntity {
     public void tick() {
         if (level.isClientSide) {
             if (type != null) {
+                double time = (level.getGameTime() % 360) * (2 * Math.PI) / 120f;
                 double x = getBlockPos().getX() + 0.5f;
-                double y = getBlockPos().getY() + 0.5f + (float)Math.sin((level.getGameTime() % 360) / 20f) * 0.2f;
+                double y = getBlockPos().getY() + 0.5f + (float)Math.sin(time) * 0.2f;
                 double z = getBlockPos().getZ() + 0.5f;
                 SpiritLightSpecs.rotatingLightSpecs(level, new Vec3(x, y, z), type, 0.4f, 3);
             }

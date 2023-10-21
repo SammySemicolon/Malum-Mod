@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab_top",
-  "textures": {
-    "side": "malum:block/arcane_rock/twisted/cracked_small_twisted_rock_bricks",
-    "bottom": "malum:block/arcane_rock/twisted/cracked_small_twisted_rock_bricks",
-    "top": "malum:block/arcane_rock/twisted/cracked_small_twisted_rock_bricks"
-  }
-}

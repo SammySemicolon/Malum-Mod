@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/wall_inventory",
+  "textures": {
+    "wall": "malum:block/arcane_rock/tainted/runic_tainted_rock_bricks"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "malum:tainted_rock_tiles"
+  },
+  "result": "malum:runic_tainted_rock_tiles",
+  "experience": 0.1,
+  "cookingtime": 200
+}

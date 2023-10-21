@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
 import com.sammy.malum.client.renderer.entity.*;
 import com.sammy.malum.common.block.curiosities.spirit_altar.SpiritAltarBlockEntity;
+import com.sammy.malum.common.item.spirit.*;
 import com.sammy.malum.registry.common.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -27,19 +28,14 @@ public class SpiritAltarRenderer implements BlockEntityRenderer<SpiritAltarBlock
         Level level = Minecraft.getInstance().level;
         ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
         LodestoneBlockEntityInventory inventory = blockEntityIn.spiritInventory;
-
-        poseStack.translate(0, 2, 0);
-        FloatingItemEntityRenderer.renderSpiritGlimmer(poseStack, SpiritTypeRegistry.SACRED_SPIRIT, partialTicks);
-        poseStack.translate(0, -2, 0);
-
-
         int spiritsRendered = 0;
         for (int i = 0; i < inventory.slotCount; i++) {
             ItemStack item = inventory.getStackInSlot(i);
-            if (!item.isEmpty()) {
+            if (item.getItem() instanceof SpiritShardItem shardItem) {
                 poseStack.pushPose();
                 Vector3f offset = new Vector3f(blockEntityIn.getSpiritItemOffset(spiritsRendered++, partialTicks));
                 poseStack.translate(offset.x(), offset.y(), offset.z());
+                FloatingItemEntityRenderer.renderSpiritGlimmer(poseStack, shardItem.type, partialTicks);
                 poseStack.mulPose(Vector3f.YP.rotationDegrees(((level.getGameTime() % 360) + partialTicks) * 3));
                 poseStack.scale(0.5f, 0.5f, 0.5f);
                 itemRenderer.renderStatic(item, ItemTransforms.TransformType.FIXED, combinedLightIn, NO_OVERLAY, poseStack, bufferIn, 0);

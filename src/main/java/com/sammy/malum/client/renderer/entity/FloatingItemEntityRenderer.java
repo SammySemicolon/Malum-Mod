@@ -98,22 +98,25 @@ public class FloatingItemEntityRenderer extends EntityRenderer<FloatingItemEntit
         poseStack.mulPose(Vector3f.YP.rotation(rotation));
         itemRenderer.render(stack, ItemTransforms.TransformType.GROUND, false, poseStack, bufferIn, packedLightIn, OverlayTexture.NO_OVERLAY, model);
         poseStack.popPose();
+
     }
+
     public static void renderSpiritGlimmer(PoseStack poseStack, MalumSpiritType spiritType, float partialTicks) {
         Level level = Minecraft.getInstance().level;
         VertexConsumer bloom = DELAYED_RENDER.getBuffer(LodestoneRenderTypeRegistry.ADDITIVE_TEXTURE.applyAndCache(lodestonePath("textures/particle/twinkle.png")));
         VertexConsumer star = DELAYED_RENDER.getBuffer(LodestoneRenderTypeRegistry.ADDITIVE_TEXTURE.applyAndCache(malumPath("textures/particle/star.png")));
         VFXBuilders.WorldVFXBuilder builder = VFXBuilders.createWorld().setPosColorTexLightmapDefaultFormat().setColor(spiritType.getPrimaryColor());
         float gameTime = level.getGameTime() + partialTicks;
-        float sine = (float) Math.abs(((Math.sin((gameTime / 80f) % 360)) * 0.2f));
+        float sine = (float) Math.abs(((Math.sin((gameTime / 80f) % 360)) * 0.075f));
         float bounce = EasingHelper.weightedEasingLerp(Easing.BOUNCE_IN_OUT, (gameTime % 20)/20f, 0.025f, 0.05f, 0.025f);
-        float scale = 0.1f + sine + bounce;
+        float scale = 0.12f + sine + bounce;
 
         poseStack.pushPose();
         poseStack.mulPose(Minecraft.getInstance().getEntityRenderDispatcher().cameraOrientation());
         poseStack.mulPose(Vector3f.YP.rotationDegrees(180f));
-        builder.setAlpha(0.45f).renderQuad(bloom, poseStack, scale);
-        builder.setAlpha(0.75f).renderQuad(star, poseStack, scale*1.25f);
+        builder.setAlpha(0.6f).renderQuad(star, poseStack, scale*1.2f);
+        builder.setAlpha(0.8f).renderQuad(bloom, poseStack, scale*0.8f);
+        builder.setAlpha(0.2f).setColor(spiritType.getSecondaryColor()).renderQuad(bloom, poseStack, scale*1.2f);
         poseStack.popPose();
     }
 

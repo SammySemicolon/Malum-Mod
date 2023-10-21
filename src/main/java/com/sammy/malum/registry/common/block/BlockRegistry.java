@@ -92,9 +92,9 @@ public class BlockRegistry {
     public static final RegistryObject<Block> TAINTED_ROCK_BRICKS = BLOCKS.register("tainted_rock_bricks", () -> new Block(MalumBlockProperties.TAINTED_ROCK()));
     public static final RegistryObject<Block> TAINTED_ROCK_TILES = BLOCKS.register("tainted_rock_tiles", () -> new Block(MalumBlockProperties.TAINTED_ROCK()));
     public static final RegistryObject<Block> SMALL_TAINTED_ROCK_BRICKS = BLOCKS.register("small_tainted_rock_bricks", () -> new Block(MalumBlockProperties.TAINTED_ROCK()));
-    public static final RegistryObject<Block> CRACKED_TAINTED_ROCK_BRICKS = BLOCKS.register("cracked_tainted_rock_bricks", () -> new Block(MalumBlockProperties.TAINTED_ROCK()));
-    public static final RegistryObject<Block> CRACKED_TAINTED_ROCK_TILES = BLOCKS.register("cracked_tainted_rock_tiles", () -> new Block(MalumBlockProperties.TAINTED_ROCK()));
-    public static final RegistryObject<Block> CRACKED_SMALL_TAINTED_ROCK_BRICKS = BLOCKS.register("cracked_small_tainted_rock_bricks", () -> new Block(MalumBlockProperties.TAINTED_ROCK()));
+    public static final RegistryObject<Block> RUNIC_TAINTED_ROCK_BRICKS = BLOCKS.register("runic_tainted_rock_bricks", () -> new Block(MalumBlockProperties.TAINTED_ROCK()));
+    public static final RegistryObject<Block> RUNIC_TAINTED_ROCK_TILES = BLOCKS.register("runic_tainted_rock_tiles", () -> new Block(MalumBlockProperties.TAINTED_ROCK()));
+    public static final RegistryObject<Block> RUNIC_SMALL_TAINTED_ROCK_BRICKS = BLOCKS.register("runic_small_tainted_rock_bricks", () -> new Block(MalumBlockProperties.TAINTED_ROCK()));
 
     public static final RegistryObject<Block> TAINTED_ROCK_COLUMN = BLOCKS.register("tainted_rock_column", () -> new RotatedPillarBlock(MalumBlockProperties.TAINTED_ROCK()));
     public static final RegistryObject<Block> TAINTED_ROCK_COLUMN_CAP = BLOCKS.register("tainted_rock_column_cap", () -> new LodestoneDirectionalBlock(MalumBlockProperties.TAINTED_ROCK()));
@@ -108,9 +108,9 @@ public class BlockRegistry {
     public static final RegistryObject<Block> TAINTED_ROCK_BRICKS_SLAB = BLOCKS.register("tainted_rock_bricks_slab", () -> new SlabBlock(MalumBlockProperties.TAINTED_ROCK().addTags(SLABS)));
     public static final RegistryObject<Block> TAINTED_ROCK_TILES_SLAB = BLOCKS.register("tainted_rock_tiles_slab", () -> new SlabBlock(MalumBlockProperties.TAINTED_ROCK().addTags(SLABS)));
     public static final RegistryObject<Block> SMALL_TAINTED_ROCK_BRICKS_SLAB = BLOCKS.register("small_tainted_rock_bricks_slab", () -> new SlabBlock(MalumBlockProperties.TAINTED_ROCK().addTags(SLABS)));
-    public static final RegistryObject<Block> CRACKED_TAINTED_ROCK_BRICKS_SLAB = BLOCKS.register("cracked_tainted_rock_bricks_slab", () -> new SlabBlock(MalumBlockProperties.TAINTED_ROCK().addTags(SLABS)));
-    public static final RegistryObject<Block> CRACKED_TAINTED_ROCK_TILES_SLAB = BLOCKS.register("cracked_tainted_rock_tiles_slab", () -> new SlabBlock(MalumBlockProperties.TAINTED_ROCK().addTags(SLABS)));
-    public static final RegistryObject<Block> CRACKED_SMALL_TAINTED_ROCK_BRICKS_SLAB = BLOCKS.register("cracked_small_tainted_rock_bricks_slab", () -> new SlabBlock(MalumBlockProperties.TAINTED_ROCK().addTags(SLABS)));
+    public static final RegistryObject<Block> RUNIC_TAINTED_ROCK_BRICKS_SLAB = BLOCKS.register("runic_tainted_rock_bricks_slab", () -> new SlabBlock(MalumBlockProperties.TAINTED_ROCK().addTags(SLABS)));
+    public static final RegistryObject<Block> RUNIC_TAINTED_ROCK_TILES_SLAB = BLOCKS.register("runic_tainted_rock_tiles_slab", () -> new SlabBlock(MalumBlockProperties.TAINTED_ROCK().addTags(SLABS)));
+    public static final RegistryObject<Block> RUNIC_SMALL_TAINTED_ROCK_BRICKS_SLAB = BLOCKS.register("runic_small_tainted_rock_bricks_slab", () -> new SlabBlock(MalumBlockProperties.TAINTED_ROCK().addTags(SLABS)));
 
     public static final RegistryObject<Block> TAINTED_ROCK_STAIRS = BLOCKS.register("tainted_rock_stairs", () -> new StairBlock(() -> TAINTED_ROCK.get().defaultBlockState(), MalumBlockProperties.TAINTED_ROCK().addTags(STAIRS)));
     public static final RegistryObject<Block> SMOOTH_TAINTED_ROCK_STAIRS = BLOCKS.register("smooth_tainted_rock_stairs", () -> new StairBlock(() -> TAINTED_ROCK.get().defaultBlockState(), MalumBlockProperties.TAINTED_ROCK().addTags(STAIRS)));
@@ -118,9 +118,9 @@ public class BlockRegistry {
     public static final RegistryObject<Block> TAINTED_ROCK_BRICKS_STAIRS = BLOCKS.register("tainted_rock_bricks_stairs", () -> new StairBlock(() -> TAINTED_ROCK.get().defaultBlockState(), MalumBlockProperties.TAINTED_ROCK().addTags(STAIRS)));
     public static final RegistryObject<Block> TAINTED_ROCK_TILES_STAIRS = BLOCKS.register("tainted_rock_tiles_stairs", () -> new StairBlock(() -> TAINTED_ROCK.get().defaultBlockState(), MalumBlockProperties.TAINTED_ROCK().addTags(STAIRS)));
     public static final RegistryObject<Block> SMALL_TAINTED_ROCK_BRICKS_STAIRS = BLOCKS.register("small_tainted_rock_bricks_stairs", () -> new StairBlock(() -> TAINTED_ROCK.get().defaultBlockState(), MalumBlockProperties.TAINTED_ROCK().addTags(STAIRS)));
-    public static final RegistryObject<Block> CRACKED_TAINTED_ROCK_BRICKS_STAIRS = BLOCKS.register("cracked_tainted_rock_bricks_stairs", () -> new StairBlock(() -> TAINTED_ROCK.get().defaultBlockState(), MalumBlockProperties.TAINTED_ROCK().addTags(STAIRS)));
-    public static final RegistryObject<Block> CRACKED_TAINTED_ROCK_TILES_STAIRS = BLOCKS.register("cracked_tainted_rock_tiles_stairs", () -> new StairBlock(() -> TAINTED_ROCK.get().defaultBlockState(), MalumBlockProperties.TAINTED_ROCK().addTags(STAIRS)));
-    public static final RegistryObject<Block> CRACKED_SMALL_TAINTED_ROCK_BRICKS_STAIRS = BLOCKS.register("cracked_small_tainted_rock_bricks_stairs", () -> new StairBlock(() -> TAINTED_ROCK.get().defaultBlockState(), MalumBlockProperties.TAINTED_ROCK().addTags(STAIRS)));
+    public static final RegistryObject<Block> RUNIC_TAINTED_ROCK_BRICKS_STAIRS = BLOCKS.register("runic_tainted_rock_bricks_stairs", () -> new StairBlock(() -> TAINTED_ROCK.get().defaultBlockState(), MalumBlockProperties.TAINTED_ROCK().addTags(STAIRS)));
+    public static final RegistryObject<Block> RUNIC_TAINTED_ROCK_TILES_STAIRS = BLOCKS.register("runic_tainted_rock_tiles_stairs", () -> new StairBlock(() -> TAINTED_ROCK.get().defaultBlockState(), MalumBlockProperties.TAINTED_ROCK().addTags(STAIRS)));
+    public static final RegistryObject<Block> RUNIC_SMALL_TAINTED_ROCK_BRICKS_STAIRS = BLOCKS.register("runic_small_tainted_rock_bricks_stairs", () -> new StairBlock(() -> TAINTED_ROCK.get().defaultBlockState(), MalumBlockProperties.TAINTED_ROCK().addTags(STAIRS)));
 
     public static final RegistryObject<Block> TAINTED_ROCK_BUTTON = BLOCKS.register("tainted_rock_button", () -> new StoneButtonBlock(MalumBlockProperties.TAINTED_ROCK().addTag(BUTTONS)));
     public static final RegistryObject<Block> TAINTED_ROCK_PRESSURE_PLATE = BLOCKS.register("tainted_rock_pressure_plate", () -> new PressurePlateBlock(MOBS, MalumBlockProperties.TAINTED_ROCK().addTag(PRESSURE_PLATES)));
@@ -129,9 +129,9 @@ public class BlockRegistry {
     public static final RegistryObject<Block> TAINTED_ROCK_BRICKS_WALL = BLOCKS.register("tainted_rock_bricks_wall", () -> new WallBlock(MalumBlockProperties.TAINTED_ROCK().addTag(WALLS)));
     public static final RegistryObject<Block> TAINTED_ROCK_TILES_WALL = BLOCKS.register("tainted_rock_tiles_wall", () -> new WallBlock(MalumBlockProperties.TAINTED_ROCK().addTag(WALLS)));
     public static final RegistryObject<Block> SMALL_TAINTED_ROCK_BRICKS_WALL = BLOCKS.register("small_tainted_rock_bricks_wall", () -> new WallBlock(MalumBlockProperties.TAINTED_ROCK().addTag(WALLS)));
-    public static final RegistryObject<Block> CRACKED_TAINTED_ROCK_BRICKS_WALL = BLOCKS.register("cracked_tainted_rock_bricks_wall", () -> new WallBlock(MalumBlockProperties.TAINTED_ROCK().addTag(WALLS)));
-    public static final RegistryObject<Block> CRACKED_TAINTED_ROCK_TILES_WALL = BLOCKS.register("cracked_tainted_rock_tiles_wall", () -> new WallBlock(MalumBlockProperties.TAINTED_ROCK().addTag(WALLS)));
-    public static final RegistryObject<Block> CRACKED_SMALL_TAINTED_ROCK_BRICKS_WALL = BLOCKS.register("cracked_small_tainted_rock_bricks_wall", () -> new WallBlock(MalumBlockProperties.TAINTED_ROCK().addTag(WALLS)));
+    public static final RegistryObject<Block> RUNIC_TAINTED_ROCK_BRICKS_WALL = BLOCKS.register("runic_tainted_rock_bricks_wall", () -> new WallBlock(MalumBlockProperties.TAINTED_ROCK().addTag(WALLS)));
+    public static final RegistryObject<Block> RUNIC_TAINTED_ROCK_TILES_WALL = BLOCKS.register("runic_tainted_rock_tiles_wall", () -> new WallBlock(MalumBlockProperties.TAINTED_ROCK().addTag(WALLS)));
+    public static final RegistryObject<Block> RUNIC_SMALL_TAINTED_ROCK_BRICKS_WALL = BLOCKS.register("runic_small_tainted_rock_bricks_wall", () -> new WallBlock(MalumBlockProperties.TAINTED_ROCK().addTag(WALLS)));
 
     public static final RegistryObject<Block> TAINTED_ROCK_ITEM_STAND = BLOCKS.register("tainted_rock_item_stand", () -> new ItemStandBlock<>(MalumBlockProperties.TAINTED_ROCK().noOcclusion()).setBlockEntity(BlockEntityRegistry.ITEM_STAND));
     public static final RegistryObject<Block> TAINTED_ROCK_ITEM_PEDESTAL = BLOCKS.register("tainted_rock_item_pedestal", () -> new ItemPedestalBlock<>(MalumBlockProperties.TAINTED_ROCK().noOcclusion()).setBlockEntity(BlockEntityRegistry.ITEM_PEDESTAL));
@@ -144,9 +144,9 @@ public class BlockRegistry {
     public static final RegistryObject<Block> TWISTED_ROCK_BRICKS = BLOCKS.register("twisted_rock_bricks", () -> new Block(MalumBlockProperties.TWISTED_ROCK()));
     public static final RegistryObject<Block> TWISTED_ROCK_TILES = BLOCKS.register("twisted_rock_tiles", () -> new Block(MalumBlockProperties.TWISTED_ROCK()));
     public static final RegistryObject<Block> SMALL_TWISTED_ROCK_BRICKS = BLOCKS.register("small_twisted_rock_bricks", () -> new Block(MalumBlockProperties.TWISTED_ROCK()));
-    public static final RegistryObject<Block> CRACKED_TWISTED_ROCK_BRICKS = BLOCKS.register("cracked_twisted_rock_bricks", () -> new Block(MalumBlockProperties.TWISTED_ROCK()));
-    public static final RegistryObject<Block> CRACKED_TWISTED_ROCK_TILES = BLOCKS.register("cracked_twisted_rock_tiles", () -> new Block(MalumBlockProperties.TWISTED_ROCK()));
-    public static final RegistryObject<Block> CRACKED_SMALL_TWISTED_ROCK_BRICKS = BLOCKS.register("cracked_small_twisted_rock_bricks", () -> new Block(MalumBlockProperties.TWISTED_ROCK()));
+    public static final RegistryObject<Block> RUNIC_TWISTED_ROCK_BRICKS = BLOCKS.register("runic_twisted_rock_bricks", () -> new Block(MalumBlockProperties.TWISTED_ROCK()));
+    public static final RegistryObject<Block> RUNIC_TWISTED_ROCK_TILES = BLOCKS.register("runic_twisted_rock_tiles", () -> new Block(MalumBlockProperties.TWISTED_ROCK()));
+    public static final RegistryObject<Block> RUNIC_SMALL_TWISTED_ROCK_BRICKS = BLOCKS.register("runic_small_twisted_rock_bricks", () -> new Block(MalumBlockProperties.TWISTED_ROCK()));
 
     public static final RegistryObject<Block> TWISTED_ROCK_COLUMN = BLOCKS.register("twisted_rock_column", () -> new RotatedPillarBlock(MalumBlockProperties.TWISTED_ROCK()));
     public static final RegistryObject<Block> TWISTED_ROCK_COLUMN_CAP = BLOCKS.register("twisted_rock_column_cap", () -> new LodestoneDirectionalBlock(MalumBlockProperties.TWISTED_ROCK()));
@@ -160,9 +160,9 @@ public class BlockRegistry {
     public static final RegistryObject<Block> TWISTED_ROCK_BRICKS_SLAB = BLOCKS.register("twisted_rock_bricks_slab", () -> new SlabBlock(MalumBlockProperties.TWISTED_ROCK().addTags(SLABS)));
     public static final RegistryObject<Block> TWISTED_ROCK_TILES_SLAB = BLOCKS.register("twisted_rock_tiles_slab", () -> new SlabBlock(MalumBlockProperties.TWISTED_ROCK().addTags(SLABS)));
     public static final RegistryObject<Block> SMALL_TWISTED_ROCK_BRICKS_SLAB = BLOCKS.register("small_twisted_rock_bricks_slab", () -> new SlabBlock(MalumBlockProperties.TWISTED_ROCK().addTags(SLABS)));
-    public static final RegistryObject<Block> CRACKED_TWISTED_ROCK_BRICKS_SLAB = BLOCKS.register("cracked_twisted_rock_bricks_slab", () -> new SlabBlock(MalumBlockProperties.TWISTED_ROCK().addTags(SLABS)));
-    public static final RegistryObject<Block> CRACKED_TWISTED_ROCK_TILES_SLAB = BLOCKS.register("cracked_twisted_rock_tiles_slab", () -> new SlabBlock(MalumBlockProperties.TWISTED_ROCK().addTags(SLABS)));
-    public static final RegistryObject<Block> CRACKED_SMALL_TWISTED_ROCK_BRICKS_SLAB = BLOCKS.register("cracked_small_twisted_rock_bricks_slab", () -> new SlabBlock(MalumBlockProperties.TWISTED_ROCK().addTags(SLABS)));
+    public static final RegistryObject<Block> RUNIC_TWISTED_ROCK_BRICKS_SLAB = BLOCKS.register("runic_twisted_rock_bricks_slab", () -> new SlabBlock(MalumBlockProperties.TWISTED_ROCK().addTags(SLABS)));
+    public static final RegistryObject<Block> RUNIC_TWISTED_ROCK_TILES_SLAB = BLOCKS.register("runic_twisted_rock_tiles_slab", () -> new SlabBlock(MalumBlockProperties.TWISTED_ROCK().addTags(SLABS)));
+    public static final RegistryObject<Block> RUNIC_SMALL_TWISTED_ROCK_BRICKS_SLAB = BLOCKS.register("runic_small_twisted_rock_bricks_slab", () -> new SlabBlock(MalumBlockProperties.TWISTED_ROCK().addTags(SLABS)));
 
     public static final RegistryObject<Block> TWISTED_ROCK_STAIRS = BLOCKS.register("twisted_rock_stairs", () -> new StairBlock(() -> TWISTED_ROCK.get().defaultBlockState(), MalumBlockProperties.TWISTED_ROCK().addTags(STAIRS)));
     public static final RegistryObject<Block> SMOOTH_TWISTED_ROCK_STAIRS = BLOCKS.register("smooth_twisted_rock_stairs", () -> new StairBlock(() -> TWISTED_ROCK.get().defaultBlockState(), MalumBlockProperties.TWISTED_ROCK().addTags(STAIRS)));
@@ -170,9 +170,9 @@ public class BlockRegistry {
     public static final RegistryObject<Block> TWISTED_ROCK_BRICKS_STAIRS = BLOCKS.register("twisted_rock_bricks_stairs", () -> new StairBlock(() -> TWISTED_ROCK.get().defaultBlockState(), MalumBlockProperties.TWISTED_ROCK().addTags(STAIRS)));
     public static final RegistryObject<Block> TWISTED_ROCK_TILES_STAIRS = BLOCKS.register("twisted_rock_tiles_stairs", () -> new StairBlock(() -> TWISTED_ROCK.get().defaultBlockState(), MalumBlockProperties.TWISTED_ROCK().addTags(STAIRS)));
     public static final RegistryObject<Block> SMALL_TWISTED_ROCK_BRICKS_STAIRS = BLOCKS.register("small_twisted_rock_bricks_stairs", () -> new StairBlock(() -> TWISTED_ROCK.get().defaultBlockState(), MalumBlockProperties.TWISTED_ROCK().addTags(STAIRS)));
-    public static final RegistryObject<Block> CRACKED_TWISTED_ROCK_BRICKS_STAIRS = BLOCKS.register("cracked_twisted_rock_bricks_stairs", () -> new StairBlock(() -> TWISTED_ROCK.get().defaultBlockState(), MalumBlockProperties.TWISTED_ROCK().addTags(STAIRS)));
-    public static final RegistryObject<Block> CRACKED_TWISTED_ROCK_TILES_STAIRS = BLOCKS.register("cracked_twisted_rock_tiles_stairs", () -> new StairBlock(() -> TWISTED_ROCK.get().defaultBlockState(), MalumBlockProperties.TWISTED_ROCK().addTags(STAIRS)));
-    public static final RegistryObject<Block> CRACKED_SMALL_TWISTED_ROCK_BRICKS_STAIRS = BLOCKS.register("cracked_small_twisted_rock_bricks_stairs", () -> new StairBlock(() -> TWISTED_ROCK.get().defaultBlockState(), MalumBlockProperties.TWISTED_ROCK().addTags(STAIRS)));
+    public static final RegistryObject<Block> RUNIC_TWISTED_ROCK_BRICKS_STAIRS = BLOCKS.register("runic_twisted_rock_bricks_stairs", () -> new StairBlock(() -> TWISTED_ROCK.get().defaultBlockState(), MalumBlockProperties.TWISTED_ROCK().addTags(STAIRS)));
+    public static final RegistryObject<Block> RUNIC_TWISTED_ROCK_TILES_STAIRS = BLOCKS.register("runic_twisted_rock_tiles_stairs", () -> new StairBlock(() -> TWISTED_ROCK.get().defaultBlockState(), MalumBlockProperties.TWISTED_ROCK().addTags(STAIRS)));
+    public static final RegistryObject<Block> RUNIC_SMALL_TWISTED_ROCK_BRICKS_STAIRS = BLOCKS.register("runic_small_twisted_rock_bricks_stairs", () -> new StairBlock(() -> TWISTED_ROCK.get().defaultBlockState(), MalumBlockProperties.TWISTED_ROCK().addTags(STAIRS)));
 
     public static final RegistryObject<Block> TWISTED_ROCK_BUTTON = BLOCKS.register("twisted_rock_button", () -> new StoneButtonBlock(MalumBlockProperties.TWISTED_ROCK().addTag(BUTTONS)));
     public static final RegistryObject<Block> TWISTED_ROCK_PRESSURE_PLATE = BLOCKS.register("twisted_rock_pressure_plate", () -> new PressurePlateBlock(MOBS, MalumBlockProperties.TWISTED_ROCK().addTag(PRESSURE_PLATES)));
@@ -181,9 +181,9 @@ public class BlockRegistry {
     public static final RegistryObject<Block> TWISTED_ROCK_BRICKS_WALL = BLOCKS.register("twisted_rock_bricks_wall", () -> new WallBlock(MalumBlockProperties.TWISTED_ROCK().addTag(WALLS)));
     public static final RegistryObject<Block> TWISTED_ROCK_TILES_WALL = BLOCKS.register("twisted_rock_tiles_wall", () -> new WallBlock(MalumBlockProperties.TWISTED_ROCK().addTag(WALLS)));
     public static final RegistryObject<Block> SMALL_TWISTED_ROCK_BRICKS_WALL = BLOCKS.register("small_twisted_rock_bricks_wall", () -> new WallBlock(MalumBlockProperties.TWISTED_ROCK().addTag(WALLS)));
-    public static final RegistryObject<Block> CRACKED_TWISTED_ROCK_BRICKS_WALL = BLOCKS.register("cracked_twisted_rock_bricks_wall", () -> new WallBlock(MalumBlockProperties.TWISTED_ROCK().addTag(WALLS)));
-    public static final RegistryObject<Block> CRACKED_TWISTED_ROCK_TILES_WALL = BLOCKS.register("cracked_twisted_rock_tiles_wall", () -> new WallBlock(MalumBlockProperties.TWISTED_ROCK().addTag(WALLS)));
-    public static final RegistryObject<Block> CRACKED_SMALL_TWISTED_ROCK_BRICKS_WALL = BLOCKS.register("cracked_small_twisted_rock_bricks_wall", () -> new WallBlock(MalumBlockProperties.TWISTED_ROCK().addTag(WALLS)));
+    public static final RegistryObject<Block> RUNIC_TWISTED_ROCK_BRICKS_WALL = BLOCKS.register("runic_twisted_rock_bricks_wall", () -> new WallBlock(MalumBlockProperties.TWISTED_ROCK().addTag(WALLS)));
+    public static final RegistryObject<Block> RUNIC_TWISTED_ROCK_TILES_WALL = BLOCKS.register("runic_twisted_rock_tiles_wall", () -> new WallBlock(MalumBlockProperties.TWISTED_ROCK().addTag(WALLS)));
+    public static final RegistryObject<Block> RUNIC_SMALL_TWISTED_ROCK_BRICKS_WALL = BLOCKS.register("runic_small_twisted_rock_bricks_wall", () -> new WallBlock(MalumBlockProperties.TWISTED_ROCK().addTag(WALLS)));
 
     public static final RegistryObject<Block> TWISTED_ROCK_ITEM_STAND = BLOCKS.register("twisted_rock_item_stand", () -> new ItemStandBlock<>(MalumBlockProperties.TWISTED_ROCK().noOcclusion()).setBlockEntity(BlockEntityRegistry.ITEM_STAND));
     public static final RegistryObject<Block> TWISTED_ROCK_ITEM_PEDESTAL = BLOCKS.register("twisted_rock_item_pedestal", () -> new ItemPedestalBlock<>(MalumBlockProperties.TWISTED_ROCK().noOcclusion()).setBlockEntity(BlockEntityRegistry.ITEM_PEDESTAL));
