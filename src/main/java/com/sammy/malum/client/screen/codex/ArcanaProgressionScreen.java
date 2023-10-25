@@ -695,7 +695,7 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
         );
 
         ENTRIES.add(new BookEntry(
-                "tyrving", TYRVING.get(), 0, 17).setSoulwood()
+                "tyrving", TYRVING.get(), 1, 16).setSoulwood()
                 .addPage(new HeadlineTextPage("tyrving", "tyrving.1"))
                 .addPage(SpiritInfusionPage.fromOutput(TYRVING.get()))
                 .addPage(new TextPage("tyrving.2"))

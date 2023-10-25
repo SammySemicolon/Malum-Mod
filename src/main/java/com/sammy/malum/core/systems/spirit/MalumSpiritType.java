@@ -121,7 +121,7 @@ public class MalumSpiritType {
     }
 
     public ResourceLocation getTotemGlowTexture() {
-        return MalumMod.malumPath("vfx/totem_poles/" + identifier + "_glow");
+        return MalumMod.malumPath("textures/vfx/totem_poles/" + identifier + "_glow.png");
     }
 
     public BlockState getTotemPoleBlockState(boolean isCorrupt, BlockHitResult hit) {

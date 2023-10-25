@@ -73,13 +73,4 @@ public class SpiritTypeRegistry {
         List<MalumSpiritType> types = SPIRITS.values().stream().toList();
         return types.indexOf(type);
     }
-
-    @OnlyIn(Dist.CLIENT)
-    @SubscribeEvent
-    public static void stitchTextures(TextureStitchEvent.Pre event) {
-        if (!event.getAtlas().location().equals(TextureAtlas.LOCATION_BLOCKS)) {
-            return;
-        }
-        SPIRITS.forEach((s, t) -> event.addSprite(t.getTotemGlowTexture()));
-    }
 }

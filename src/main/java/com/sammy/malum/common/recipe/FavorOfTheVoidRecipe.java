@@ -8,8 +8,7 @@ import com.sammy.malum.registry.common.recipe.RecipeTypeRegistry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.registries.ForgeRegistryEntry;
@@ -26,11 +25,11 @@ public class FavorOfTheVoidRecipe extends ILodestoneRecipe {
 
     private final ResourceLocation id;
 
-    public final IngredientWithCount input;
+    public final Ingredient input;
 
     public final ItemStack output;
 
-    public FavorOfTheVoidRecipe(ResourceLocation id, IngredientWithCount input, ItemStack output) {
+    public FavorOfTheVoidRecipe(ResourceLocation id, Ingredient input, ItemStack output) {
         this.id = id;
         this.input = input;
         this.output = output;
@@ -52,7 +51,7 @@ public class FavorOfTheVoidRecipe extends ILodestoneRecipe {
     }
 
     public boolean doesInputMatch(ItemStack input) {
-        return this.input.matches(input);
+        return this.input.test(input);
     }
 
     public boolean doesOutputMatch(ItemStack output) {
@@ -81,7 +80,7 @@ public class FavorOfTheVoidRecipe extends ILodestoneRecipe {
         @Override
         public FavorOfTheVoidRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
             JsonObject inputObject = json.getAsJsonObject("input");
-            IngredientWithCount input = IngredientWithCount.deserialize(inputObject);
+            Ingredient input = Ingredient.fromJson(inputObject);
 
             JsonObject outputObject = json.getAsJsonObject("output");
             ItemStack output = CraftingHelper.getItemStack(outputObject, true);
@@ -91,14 +90,14 @@ public class FavorOfTheVoidRecipe extends ILodestoneRecipe {
         @Nullable
         @Override
         public FavorOfTheVoidRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
-            IngredientWithCount input = IngredientWithCount.read(buffer);
+            Ingredient input = Ingredient.fromNetwork(buffer);
             ItemStack output = buffer.readItem();
             return new FavorOfTheVoidRecipe(recipeId, input, output);
         }
 
         @Override
         public void toNetwork(FriendlyByteBuf buffer, FavorOfTheVoidRecipe recipe) {
-            recipe.input.write(buffer);
+            recipe.input.toNetwork(buffer);
             buffer.writeItem(recipe.output);
         }
     }

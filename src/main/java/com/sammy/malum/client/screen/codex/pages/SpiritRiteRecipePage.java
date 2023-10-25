@@ -6,18 +6,40 @@ import com.sammy.malum.client.screen.codex.*;
 import com.sammy.malum.core.systems.rites.*;
 import com.sammy.malum.core.systems.spirit.*;
 import net.minecraft.client.*;
+import net.minecraft.resources.*;
 import net.minecraft.world.item.*;
+import team.lodestar.lodestone.handlers.screenparticle.*;
+import team.lodestar.lodestone.helpers.*;
+import team.lodestar.lodestone.setup.*;
+import team.lodestar.lodestone.systems.easing.*;
+import team.lodestar.lodestone.systems.particle.builder.*;
+import team.lodestar.lodestone.systems.particle.data.*;
+import team.lodestar.lodestone.systems.particle.data.color.*;
+import team.lodestar.lodestone.systems.particle.data.spin.*;
+import team.lodestar.lodestone.systems.particle.screen.*;
 
 import java.util.*;
 
-import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.renderItem;
+import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.*;
+import static net.minecraft.util.Mth.nextFloat;
 
 public class SpiritRiteRecipePage extends BookPage {
+
+    private static final ScreenParticleHolder RITE_PARTICLES = new ScreenParticleHolder();
+
     private final MalumRiteType riteType;
 
     public SpiritRiteRecipePage(MalumRiteType riteType) {
         super(MalumMod.malumPath("textures/gui/book/pages/spirit_rite_recipe_page.png"));
         this.riteType = riteType;
+    }
+
+    @Override
+    public void render(Minecraft minecraft, PoseStack poseStack, EntryScreen screen, int mouseX, int mouseY, float partialTicks) {
+        if (ScreenParticleHandler.canSpawnParticles) {
+            RITE_PARTICLES.tick();
+        }
+        ScreenParticleHandler.renderParticles(RITE_PARTICLES);
     }
 
     @Override
@@ -35,9 +57,32 @@ public class SpiritRiteRecipePage extends BookPage {
     }
 
     public void renderRite(PoseStack poseStack, EntryScreen screen, int left, int top, int mouseX, int mouseY, List<MalumSpiritType> spirits) {
+        Random rand = Minecraft.getInstance().level.random;
         for (int i = 0; i < spirits.size(); i++) {
+            final int y = top - 20 * i;
+            MalumSpiritType spiritType = spirits.get(i);
+            ResourceLocation spiritTexture = spiritType.getTotemGlowTexture();
             ItemStack stack = spirits.get(i).spiritShard.get().getDefaultInstance();
-            renderItem(screen, poseStack, stack, left, top - 20 * i, mouseX, mouseY);
+            renderRiteIcon(spiritTexture, spiritType, poseStack, parentEntry.isSoulwood, 0.25f, left, y);
+            if (screen.isHovering(mouseX, mouseY, left, y, 16, 16)) {
+                screen.renderComponentTooltip(poseStack, screen.getTooltipFromItem(stack), mouseX, mouseY);
+            }
+            if (ScreenParticleHandler.canSpawnParticles) {
+                final int x = left + 8;
+                float xOffset = 25;
+                float yMotion = RandomHelper.randomBetween(rand, 0.2f, 0.4f) * (rand.nextBoolean() ? -1 : 1);
+                int lifetime = RandomHelper.randomBetween(rand, 40, 80);
+                float yScale = RandomHelper.randomBetween(rand, 0.2f, 0.6f);
+                ScreenParticleBuilder.create(LodestoneScreenParticleRegistry.WISP, RITE_PARTICLES)
+                        .setTransparencyData(GenericParticleData.create(0.04f, 0.4f, 0f).setEasing(Easing.SINE_IN_OUT).build())
+                        .setSpinData(SpinParticleData.create(nextFloat(rand, 0.2f, 0.4f)).setEasing(Easing.EXPO_OUT).build())
+                        .setScaleData(GenericParticleData.create(yScale, 0).build())
+                        .setColorData(spiritType.createMainColorData().setCoefficient(0.25f).build())
+                        .setLifetime(lifetime)
+                        .setMotion(0, yMotion)
+                        .spawn(x -xOffset, y+8)
+                        .spawn(x+xOffset, y+8);
+            }
         }
     }
 }

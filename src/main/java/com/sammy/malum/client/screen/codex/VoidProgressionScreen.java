@@ -106,6 +106,7 @@ public class VoidProgressionScreen extends AbstractProgressionCodexScreen {
 
     public static void openCodexViaItem() {
         getScreenInstance().openScreen(true);
+        setupEntries();
         screen.playSweetenedSound(SoundRegistry.ARCANA_CODEX_OPEN, 1.25f);
         screen.setupObjects();
     }
@@ -113,7 +114,59 @@ public class VoidProgressionScreen extends AbstractProgressionCodexScreen {
     public static void setupEntries() {
         VOID_ENTRIES.clear();
         VOID_ENTRIES.add(new BookEntry(
-                "test", STRANGE_NUCLEUS.get(), 0, -1)
+                "void.introduction", ENCYCLOPEDIA_ARCANA.get(), 0, -1)
+        );
+
+        VOID_ENTRIES.add(new BookEntry(
+                "void.weeping_well", BLIGHTED_EARTH.get(), 0, 1)
+        );
+
+        VOID_ENTRIES.add(new BookEntry(
+                "void.void_salts", VOID_SALTS.get(), 2, 2)
+        );
+        VOID_ENTRIES.add(new BookEntry(
+                "void.strange_nucleus", STRANGE_NUCLEUS.get(), 1, 3)
+        );
+        VOID_ENTRIES.add(new BookEntry(
+                "void.crystallized_nihility", CRYSTALLIZED_NIHILITY.get(), -1, 3)
+        );
+        VOID_ENTRIES.add(new BookEntry(
+                "void.null_slate", NULL_SLATE.get(), -2, 2)
+        );
+
+        VOID_ENTRIES.add(new BookEntry(
+                "void.ring_of_growing_flesh", RING_OF_GROWING_FLESH.get(), -3, 4)
+        );
+        VOID_ENTRIES.add(new BookEntry(
+                "void.ring_of_gruesome_satiation", RING_OF_GRUESOME_SATIATION.get(), -4, 5)
+        );
+        VOID_ENTRIES.add(new BookEntry(
+                "void.necklace_of_the_watcher", NECKLACE_OF_THE_WATCHER.get(), -2, 5)
+        );
+        VOID_ENTRIES.add(new BookEntry(
+                "void.necklace_of_the_hidden_blade", NECKLACE_OF_THE_HIDDEN_BLADE.get(), -3, 6)
+        );
+
+        VOID_ENTRIES.add(new BookEntry(
+                "void.something1", BARRIER, 3, 4)
+        );
+        VOID_ENTRIES.add(new BookEntry(
+                "void.something2", BARRIER, 4, 5)
+        );
+        VOID_ENTRIES.add(new BookEntry(
+                "void.something3", BARRIER, 2, 5)
+        );
+        VOID_ENTRIES.add(new BookEntry(
+                "void.something4", BARRIER, 3, 6)
+        );
+
+
+        VOID_ENTRIES.add(new BookEntry(
+                "void.anomalous_snare", ANOMALOUS_SNARE.get(), 0, 6)
+        );
+
+        VOID_ENTRIES.add(new BookEntry(
+                "void.fused_consciousness", FUSED_CONSCIOUSNESS.get(), 0, 7)
         );
     }
 }

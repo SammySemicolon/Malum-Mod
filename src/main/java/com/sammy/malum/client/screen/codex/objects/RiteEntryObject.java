@@ -35,6 +35,6 @@ public class RiteEntryObject extends EntryObject {
         renderTransparentTexture(FADE_TEXTURE, poseStack, posX - 13, posY - 13, 1, 252, 58, 58, 512, 512);
         renderTexture(FRAME_TEXTURE, poseStack, posX, posY, 1, getFrameTextureV(), width, height, 512, 512);
         renderTexture(FRAME_TEXTURE, poseStack, posX, posY, 100, getBackgroundTextureV(), width, height, 512, 512);
-        renderRiteIcon(riteType, poseStack, entry.isSoulwood, posX + 8, posY + 8);
+        renderRiteIcon(riteType, poseStack, entry.isSoulwood, 0.4f, posX + 8, posY + 8);
     }
 }

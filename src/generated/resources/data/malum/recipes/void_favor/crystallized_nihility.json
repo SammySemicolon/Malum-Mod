@@ -1,0 +1,9 @@
+{
+  "type": "malum:favor_of_the_void",
+  "input": {
+    "item": "minecraft:ghast_tear"
+  },
+  "output": {
+    "item": "malum:crystallized_nihility"
+  }
+}

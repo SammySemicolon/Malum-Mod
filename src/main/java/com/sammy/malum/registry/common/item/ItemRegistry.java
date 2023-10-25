@@ -50,16 +50,13 @@ import team.lodestar.lodestone.systems.item.*;
 import team.lodestar.lodestone.systems.item.tools.magic.*;
 import team.lodestar.lodestone.systems.multiblock.*;
 
-import java.awt.*;
 import java.util.*;
-import java.util.function.*;
 import java.util.stream.*;
 
 import static com.sammy.malum.MalumMod.*;
 import static com.sammy.malum.registry.common.item.ItemTiers.ItemTierEnum.*;
 import static net.minecraft.world.item.Items.*;
 import static net.minecraft.world.item.Rarity.UNCOMMON;
-import static team.lodestar.lodestone.helpers.ColorHelper.*;
 
 @SuppressWarnings("unused")
 public class ItemRegistry {
@@ -527,11 +524,14 @@ public class ItemRegistry {
     //region chronicles of the void
 
     public static final RegistryObject<Item> VOID_SALTS = ITEMS.register("void_salts", () -> new Item(VOID_PROPERTIES()));
+    public static final RegistryObject<Item> NULL_SLATE = ITEMS.register("null_slate", () -> new Item(VOID_PROPERTIES()));
     public static final RegistryObject<Item> STRANGE_NUCLEUS = ITEMS.register("strange_nucleus", () -> new Item(VOID_PROPERTIES()));
+    public static final RegistryObject<Item> CRYSTALLIZED_NIHILITY = ITEMS.register("crystallized_nihility", () -> new Item(VOID_PROPERTIES()));
     public static final RegistryObject<Item> ANOMALOUS_SNARE = ITEMS.register("anomalous_snare", () -> new Item(VOID_PROPERTIES()));
     public static final RegistryObject<Item> FUSED_CONSCIOUSNESS = ITEMS.register("fused_consciousness", () -> new FusedConsciousnessItem(VOID_PROPERTIES().rarity(UNCOMMON)));
 
-    public static final RegistryObject<Item> RING_OF_BLOODY_TEMPERANCE = ITEMS.register("ring_of_bloody_temperance", () -> new CurioTemperanceRing(VOID_GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> RING_OF_GROWING_FLESH = ITEMS.register("ring_of_growing_flesh", () -> new CurioGrowingFleshRing(VOID_GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> RING_OF_GRUESOME_SATIATION = ITEMS.register("ring_of_gruesome_satiation", () -> new CurioGruesomeSatiationRing(VOID_GEAR_PROPERTIES()));
 
     public static final RegistryObject<Item> NECKLACE_OF_THE_HIDDEN_BLADE = ITEMS.register("necklace_of_the_hidden_blade", () -> new CurioHiddenBladeNecklace(VOID_GEAR_PROPERTIES()));
     public static final RegistryObject<Item> NECKLACE_OF_THE_WATCHER = ITEMS.register("necklace_of_the_watcher", () -> new CurioWatcherNecklace(VOID_GEAR_PROPERTIES()));

@@ -99,11 +99,11 @@ public class SpiritAltarParticleEffects {
             MalumSpiritType cyclingSpiritType = colorData.getCyclingColorRecord().spiritType();
             var centralLightSpecs = spiritLightSpecs(level, targetPos, cyclingSpiritType);
             centralLightSpecs.getBuilder()
-                    .multiplyLifetime(0.5f)
+                    .multiplyLifetime(0.6f)
                     .modifyData(WorldParticleBuilder::getScaleData, d -> d.multiplyValue(6f))
                     .modifyData(WorldParticleBuilder::getTransparencyData, d -> d.multiplyValue(3f));
             centralLightSpecs.getBloomBuilder()
-                    .multiplyLifetime(0.5f)
+                    .multiplyLifetime(0.6f)
                     .modifyData(WorldParticleBuilder::getScaleData, d -> d.multiplyValue(6f))
                     .modifyData(WorldParticleBuilder::getTransparencyData, d -> d.multiplyValue(3f));
             centralLightSpecs.spawnParticles();
@@ -118,13 +118,13 @@ public class SpiritAltarParticleEffects {
                 var sparkParticles = SparkParticleEffects.spiritMotionSparks(level, targetPos, cyclingSpiritType);
                 sparkParticles.getBuilder()
                         .disableNoClip()
-                        .multiplyLifetime(3)
+                        .multiplyLifetime(2)
                         .setGravityStrength(gravityStrength)
                         .setMotion(xVelocity, yVelocity, zVelocity)
                         .modifyData(SparkParticleBuilder::getScaleData, d -> d.multiplyValue(2f));
                 sparkParticles.getBloomBuilder()
                         .disableNoClip()
-                        .multiplyLifetime(3)
+                        .multiplyLifetime(2)
                         .setGravityStrength(gravityStrength)
                         .setMotion(xVelocity, yVelocity, zVelocity)
                         .modifyData(WorldParticleBuilder::getTransparencyData, d -> d.multiplyValue(1.25f));
@@ -137,14 +137,14 @@ public class SpiritAltarParticleEffects {
                 var lightSpecs = SpiritLightSpecs.spiritLightSpecs(level, targetPos, cyclingSpiritType);
                 lightSpecs.getBuilder()
                         .disableNoClip()
-                        .multiplyLifetime(6)
+                        .multiplyLifetime(4)
                         .setGravityStrength(gravityStrength)
                         .multiplyLifetime(0.8f)
                         .setMotion(xVelocity, yVelocity, zVelocity)
                         .modifyData(WorldParticleBuilder::getScaleData, d -> d.multiplyValue(2.5f));
                 lightSpecs.getBloomBuilder()
                         .disableNoClip()
-                        .multiplyLifetime(6)
+                        .multiplyLifetime(4)
                         .setGravityStrength(gravityStrength)
                         .setMotion(xVelocity, yVelocity, zVelocity)
                         .modifyData(WorldParticleBuilder::getTransparencyData, d -> d.multiplyValue(1.25f));

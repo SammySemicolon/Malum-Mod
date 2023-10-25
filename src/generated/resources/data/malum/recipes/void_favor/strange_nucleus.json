@@ -1,9 +1,9 @@
 {
   "type": "malum:favor_of_the_void",
   "input": {
-    "tag": "forge:raw_materials"
+    "tag": "forge:ender_pearls"
   },
   "output": {
-    "item": "malum:raw_soulstone"
+    "item": "malum:strange_nucleus"
   }
 }

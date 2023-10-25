@@ -4,6 +4,7 @@ import com.mojang.blaze3d.systems.*;
 import com.mojang.blaze3d.vertex.*;
 import com.mojang.math.*;
 import com.sammy.malum.core.systems.rites.*;
+import com.sammy.malum.core.systems.spirit.*;
 import net.minecraft.*;
 import net.minecraft.client.*;
 import net.minecraft.client.gui.Font;
@@ -38,23 +39,25 @@ public class ArcanaCodexHelper {
         DEFAULT, EASY_READING
     }
 
-    public static void renderRiteIcon(MalumRiteType rite, PoseStack stack, boolean corrupted, int x, int y) {
-        renderRiteIcon(rite, stack, corrupted, x, y, 0);
+    public static void renderRiteIcon(MalumRiteType rite, PoseStack stack, boolean corrupted, float glowAlpha, int x, int y) {
+        renderRiteIcon(rite.getIcon(), rite.getEffectSpirit(), stack, corrupted, glowAlpha, x, y, 0);
     }
 
-    public static void renderRiteIcon(MalumRiteType rite, PoseStack stack, boolean corrupted, int x, int y, int z) {
+    public static void renderRiteIcon(ResourceLocation texture, MalumSpiritType spiritType, PoseStack stack, boolean corrupted, float glowAlpha, int x, int y) {
+        renderRiteIcon(texture, spiritType, stack, corrupted, glowAlpha, x, y, 0);
+    }
+    public static void renderRiteIcon(ResourceLocation texture, MalumSpiritType spiritType, PoseStack stack, boolean corrupted, float glowAlpha, int x, int y, int z) {
         ExtendedShaderInstance shaderInstance = (ExtendedShaderInstance) LodestoneShaderRegistry.DISTORTED_TEXTURE.getInstance().get();
         shaderInstance.safeGetUniform("YFrequency").set(corrupted ? 5f : 11f);
         shaderInstance.safeGetUniform("XFrequency").set(corrupted ? 12f : 17f);
         shaderInstance.safeGetUniform("Speed").set(2000f * (corrupted ? -0.75f : 1));
         shaderInstance.safeGetUniform("Intensity").set(corrupted ? 14f : 50f);
         Supplier<ShaderInstance> shaderInstanceSupplier = () -> shaderInstance;
-        Color color = rite.getEffectSpirit().getPrimaryColor();
 
         VFXBuilders.ScreenVFXBuilder builder = VFXBuilders.createScreen()
                 .setPosColorTexLightmapDefaultFormat()
                 .setShader(shaderInstanceSupplier)
-                .setColor(color)
+                .setColor(spiritType.getPrimaryColor())
                 .setAlpha(0.9f)
                 .setZLevel(z)
                 .setShader(() -> shaderInstance);
@@ -62,15 +65,15 @@ public class ArcanaCodexHelper {
         RenderSystem.enableBlend();
         RenderSystem.disableDepthTest();
         RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE);
-        renderTexture(rite.getIcon(), stack, builder, x, y, 0, 0, 16, 16, 16, 16);
-        builder.setAlpha(0.4f);
-        renderTexture(rite.getIcon(), stack, builder, x - 1, y, 0, 0, 16, 16, 16, 16);
-        renderTexture(rite.getIcon(), stack, builder, x + 1, y, 0, 0, 16, 16, 16, 16);
-        renderTexture(rite.getIcon(), stack, builder, x, y - 1, 0, 0, 16, 16, 16, 16);
+        renderTexture(texture, stack, builder, x, y, 0, 0, 16, 16, 16, 16);
+        builder.setAlpha(glowAlpha);
+        renderTexture(texture, stack, builder, x - 1, y, 0, 0, 16, 16, 16, 16);
+        renderTexture(texture, stack, builder, x + 1, y, 0, 0, 16, 16, 16, 16);
+        renderTexture(texture, stack, builder, x, y - 1, 0, 0, 16, 16, 16, 16);
         if (corrupted) {
-            builder.setColor(rite.getEffectSpirit().getSecondaryColor());
+            builder.setColor(spiritType.getSecondaryColor());
         }
-        renderTexture(rite.getIcon(), stack, builder, x, y + 1, 0, 0, 16, 16, 16, 16);
+        renderTexture(texture, stack, builder, x, y + 1, 0, 0, 16, 16, 16, 16);
         shaderInstance.setUniformDefaults();
         RenderSystem.enableDepthTest();
         RenderSystem.defaultBlendFunc();

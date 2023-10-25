@@ -10,6 +10,7 @@ import static com.sammy.malum.client.screen.codex.EntryScreen.*;
 
 public class BookPage {
     public final ResourceLocation background;
+    protected BookEntry parentEntry;
 
     public BookPage(ResourceLocation background) {
         this.background = background;
@@ -17,6 +18,10 @@ public class BookPage {
 
     public boolean isValid() {
         return true;
+    }
+
+    public void render(Minecraft minecraft, PoseStack poseStack, EntryScreen screen, int mouseX, int mouseY, float partialTicks) {
+
     }
 
     public void renderLeft(Minecraft minecraft, PoseStack poseStack, EntryScreen screen, int mouseX, int mouseY, float partialTicks) {
@@ -45,5 +50,10 @@ public class BookPage {
 
     public int guiTop() {
         return (entryScreen.height - entryScreen.bookHeight) / 2;
+    }
+
+    public BookPage setParentEntry(BookEntry parentEntry) {
+        this.parentEntry = parentEntry;
+        return this;
     }
 }

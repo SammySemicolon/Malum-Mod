@@ -16,25 +16,25 @@ import javax.annotation.Nullable;
 import java.util.function.Consumer;
 
 public class VoidFavorRecipeBuilder {
-    private final IngredientWithCount input;
+    private final Ingredient input;
 
     private final ItemStack output;
 
-    public VoidFavorRecipeBuilder(Ingredient input, int inputCount, ItemStack output) {
-        this.input = new IngredientWithCount(input, inputCount);
+    public VoidFavorRecipeBuilder(Ingredient input, ItemStack output) {
+        this.input = input;
         this.output = output;
     }
 
-    public VoidFavorRecipeBuilder(Ingredient input, int inputCount, ItemLike output, int outputCount) {
-        this(input, inputCount, new ItemStack(output, outputCount));
+    public VoidFavorRecipeBuilder(Ingredient input, ItemLike output, int outputCount) {
+        this(input, new ItemStack(output, outputCount));
     }
 
-    public VoidFavorRecipeBuilder(ItemLike input, int inputCount, ItemStack output) {
-        this(Ingredient.of(input), inputCount, output);
+    public VoidFavorRecipeBuilder(ItemLike input, ItemStack output) {
+        this(Ingredient.of(input), output);
     }
 
-    public VoidFavorRecipeBuilder(ItemLike input, int inputCount, ItemLike output, int outputCount) {
-        this(Ingredient.of(input), inputCount, new ItemStack(output, outputCount));
+    public VoidFavorRecipeBuilder(ItemLike input, ItemLike output, int outputCount) {
+        this(Ingredient.of(input), new ItemStack(output, outputCount));
     }
 
     public void build(Consumer<FinishedRecipe> consumerIn, String recipeName) {
@@ -58,7 +58,7 @@ public class VoidFavorRecipeBuilder {
 
         @Override
         public void serializeRecipeData(JsonObject json) {
-            JsonObject inputObject = input.serialize();
+            JsonElement inputObject = input.toJson();
             JsonElement outputObject = Ingredient.of(output).toJson();
             if (output.getCount() != 1) {
                 outputObject.getAsJsonObject().addProperty("count", output.getCount());

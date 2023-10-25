@@ -77,6 +77,7 @@ public class EntryScreen extends AbstractMalumScreen {
                     } else {
                         page.renderRight(minecraft, poseStack, this, mouseX, mouseY, partialTicks);
                     }
+                    page.render(minecraft, poseStack, this, mouseX, mouseY, partialTicks);
                 }
             }
         }

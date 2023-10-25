@@ -54,14 +54,14 @@ public class BookEntry {
 
     public BookEntry addPage(BookPage page) {
         if (page.isValid()) {
-            pages.add(page);
+            pages.add(page.setParentEntry(this));
         }
         return this;
     }
 
     public BookEntry addModCompatPage(BookPage page, String modId) {
         if (ModList.get().isLoaded(modId)) {
-            pages.add(page);
+            addPage(page);
         }
         return this;
     }
