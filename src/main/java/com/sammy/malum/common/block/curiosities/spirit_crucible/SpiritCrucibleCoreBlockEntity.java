@@ -339,7 +339,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
 
     public void repair() {
         Vec3 itemPos = getItemPos(this);
-        Vec3 providedItemPos = validTablet.getItemCenterPos();
+        Vec3 providedItemPos = validTablet.getItemPos();
         ItemStack damagedItem = inventory.getStackInSlot(0);
         ItemStack repairMaterial = validTablet.inventory.getStackInSlot(0);
         ItemStack result = SpiritRepairRecipe.getRepairRecipeOutput(damagedItem);
@@ -486,7 +486,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
             for (int i = 0; i < colors.size(); i++) {
                 Color color = colors.get(i);
                 Color endColor = endColors.get(i);
-                Vec3 tabletItemPos = tabletBlockEntity.getItemCenterPos();
+                Vec3 tabletItemPos = tabletBlockEntity.getItemPos();
                 Vec3 velocity = tabletItemPos.subtract(itemPos).normalize().scale(-0.1f);
 
                 starParticles(itemPos, color, endColor);

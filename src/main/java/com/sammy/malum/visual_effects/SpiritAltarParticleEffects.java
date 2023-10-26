@@ -2,10 +2,12 @@ package com.sammy.malum.visual_effects;
 
 import com.sammy.malum.common.block.curiosities.obelisk.*;
 import com.sammy.malum.common.block.curiosities.spirit_altar.*;
+import com.sammy.malum.common.block.storage.*;
 import com.sammy.malum.common.item.spirit.*;
 import com.sammy.malum.common.recipe.*;
-import com.sammy.malum.core.systems.particle_effects.*;
+
 import com.sammy.malum.core.systems.spirit.*;
+import com.sammy.malum.visual_effects.networked.data.*;
 import net.minecraft.core.*;
 import net.minecraft.util.*;
 import net.minecraft.world.item.*;
@@ -14,6 +16,7 @@ import net.minecraft.world.phys.*;
 import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.systems.blockentity.*;
 import team.lodestar.lodestone.systems.easing.*;
+import team.lodestar.lodestone.systems.particle.*;
 import team.lodestar.lodestone.systems.particle.builder.*;
 
 import java.util.*;
@@ -45,7 +48,7 @@ public class SpiritAltarParticleEffects {
         }
         Level level = altar.getLevel();
         Random random = level.random;
-        Vec3 itemPos = SpiritAltarBlockEntity.getItemPos(altar);
+        Vec3 itemPos = altar.getItemPos();
         LodestoneBlockEntityInventory spiritInventory = altar.spiritInventory;
         SpiritInfusionRecipe recipe = altar.recipe;
         if (recipe != null) {
@@ -84,6 +87,63 @@ public class SpiritAltarParticleEffects {
         }
     }
 
+    public static void eatItemParticles(SpiritAltarBlockEntity altar, MalumItemHolderBlockEntity holder, ColorEffectData colorData, ItemStack stack) {
+        MalumSpiritType activeSpiritType = getCentralSpiritType(altar);
+        if (activeSpiritType == null) {
+            return;
+        }
+        Level level = altar.getLevel();
+        long gameTime = level.getGameTime();
+        Random random = level.random;
+        Vec3 altarTargetPos = altar.getItemPos();
+        Vec3 holderTargetPos = holder.getItemPos();
+        for (int i = 0; i < 2; i++) {
+            SpiritLightSpecs.coolLookingShinyThing(level, holderTargetPos, activeSpiritType);
+        }
+        for (int i = 0; i < 16; i++) {
+            MalumSpiritType cyclingSpiritType = colorData.getCyclingColorRecord().spiritType();
+            Vec3 velocity = altarTargetPos.subtract(holderTargetPos).normalize().scale(RandomHelper.randomBetween(random, 0.01f, 0.02f));
+            int finalI = i;
+            Vec3 offsetPosition = DataHelper.rotatingRadialOffset(holderTargetPos, 0.5f, i, 16, gameTime, 160);
+            final Consumer<LodestoneWorldParticleActor> behavior = p -> {
+                if (level.getGameTime() > gameTime + finalI * 2 && level.getGameTime() < gameTime + (finalI + 4) * 2) {
+                    p.setParticleMotion(p.getParticleSpeed().add(velocity));
+                }
+            };
+            var lightSpecs = spiritLightSpecs(level, offsetPosition, cyclingSpiritType);
+            lightSpecs.getBuilder().act(b -> b
+                    .addActor(behavior)
+                    .multiplyLifetime(2.5f)
+                    .modifyData(b::getScaleData, d -> d.multiplyValue(RandomHelper.randomBetween(random, 1f, 2f))));
+            lightSpecs.getBloomBuilder().act(b -> b
+                    .addActor(behavior)
+                    .multiplyLifetime(2f)
+                    .modifyData(b::getScaleData, d -> d.multiplyValue(RandomHelper.randomBetween(random, 0.6f, 1.5f))));
+            lightSpecs.spawnParticles();
+
+            var crumbles = ItemCrumbleParticleEffects.spawnItemCrumbs(level, holderTargetPos, stack);
+            crumbles.getBuilder().multiplyLifetime(1 + i / 16f).addActor(behavior);
+            crumbles.spawnParticles();
+            crumbles.getBuilder().setRandomOffset(0.2f);
+            crumbles.spawnParticles();
+        }
+        Vec3 velocity = altarTargetPos.subtract(holderTargetPos).normalize().scale(RandomHelper.randomBetween(random, 0.01f, 0.02f));
+        for (int i = 0; i < 16; i++) {
+            int finalI = i;
+            final Consumer<LodestoneWorldParticleActor> behavior = p -> {
+                if (level.getGameTime() > gameTime + finalI && level.getGameTime() < gameTime + (finalI + 6)) {
+                    p.setParticleMotion(p.getParticleSpeed().add(velocity));
+                }
+            };
+            var crumbles = ItemCrumbleParticleEffects.spawnItemCrumbs(level, holderTargetPos, stack);
+            crumbles.getBuilder().addActor(behavior);
+            if (i % 2 == 0) {
+                crumbles.spawnParticles();
+            }
+            crumbles.getBuilder().setRandomOffset(0.15f);
+            crumbles.spawnParticles();
+        }
+    }
     public static void craftItemParticles(SpiritAltarBlockEntity altar, ColorEffectData colorData) {
         MalumSpiritType activeSpiritType = getCentralSpiritType(altar);
         if (activeSpiritType == null) {
@@ -97,16 +157,7 @@ public class SpiritAltarParticleEffects {
 
         for (int i = 0; i < 2; i++) {
             MalumSpiritType cyclingSpiritType = colorData.getCyclingColorRecord().spiritType();
-            var centralLightSpecs = spiritLightSpecs(level, targetPos, cyclingSpiritType);
-            centralLightSpecs.getBuilder()
-                    .multiplyLifetime(0.6f)
-                    .modifyData(WorldParticleBuilder::getScaleData, d -> d.multiplyValue(6f))
-                    .modifyData(WorldParticleBuilder::getTransparencyData, d -> d.multiplyValue(3f));
-            centralLightSpecs.getBloomBuilder()
-                    .multiplyLifetime(0.6f)
-                    .modifyData(WorldParticleBuilder::getScaleData, d -> d.multiplyValue(6f))
-                    .modifyData(WorldParticleBuilder::getTransparencyData, d -> d.multiplyValue(3f));
-            centralLightSpecs.spawnParticles();
+            SpiritLightSpecs.coolLookingShinyThing(level, targetPos, cyclingSpiritType);
         }
         for (int i = 0; i < 24; i++) {
             MalumSpiritType cyclingSpiritType = colorData.getCyclingColorRecord().spiritType();
@@ -207,7 +258,6 @@ public class SpiritAltarParticleEffects {
                     .multiplyLifetime(1.5f)
                     .modifyData(b::getScaleData, d -> d.multiplyValue(RandomHelper.randomBetween(random, 0.6f, 1.5f))));
             lightSpecs.spawnParticles();
-
         }
     }
 }

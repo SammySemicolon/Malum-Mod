@@ -1,9 +1,10 @@
 package com.sammy.malum.common.block.mana_mote;
 
 import com.sammy.malum.common.item.spirit.*;
-import com.sammy.malum.core.systems.particle_effects.*;
+
 import com.sammy.malum.core.systems.spirit.*;
 import com.sammy.malum.registry.common.*;
+import com.sammy.malum.visual_effects.networked.data.*;
 import net.minecraft.core.*;
 import net.minecraft.sounds.*;
 import net.minecraft.util.*;
@@ -37,7 +38,7 @@ public class SoulstoneBlock extends Block {
             stack.shrink(2);
         }
         if (!pLevel.isClientSide) {
-            ParticleEffectTypeRegistry.SPIRIT_MOTE_SPARKLES.createBlockEffect(pLevel, pPos, new ColorEffectData(spiritType));
+            ParticleEffectTypeRegistry.SPIRIT_MOTE_SPARKLES.createPositionedEffect(pLevel, new PositionEffectData(pPos), new ColorEffectData(spiritType));
         }
         return InteractionResult.SUCCESS;
     }

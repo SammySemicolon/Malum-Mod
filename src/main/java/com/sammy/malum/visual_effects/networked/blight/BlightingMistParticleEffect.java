@@ -1,18 +1,16 @@
-package com.sammy.malum.visual_effects.networked;
+package com.sammy.malum.visual_effects.networked.blight;
 
-import com.sammy.malum.core.systems.particle_effects.*;
+import com.sammy.malum.visual_effects.networked.*;
 import net.minecraft.core.*;
 import net.minecraft.util.*;
 import net.minecraftforge.api.distmarker.*;
 import team.lodestar.lodestone.setup.*;
 import team.lodestar.lodestone.systems.easing.*;
-import team.lodestar.lodestone.systems.particle.*;
 import team.lodestar.lodestone.systems.particle.builder.*;
 import team.lodestar.lodestone.systems.particle.data.*;
 import team.lodestar.lodestone.systems.particle.data.color.*;
 import team.lodestar.lodestone.systems.particle.data.spin.*;
 import team.lodestar.lodestone.systems.particle.render_types.*;
-import team.lodestar.lodestone.systems.particle.world.*;
 
 import java.awt.*;
 import java.util.function.*;
@@ -26,7 +24,7 @@ public class BlightingMistParticleEffect extends ParticleEffectType {
     @OnlyIn(Dist.CLIENT)
     @Override
     public Supplier<ParticleEffectActor> get() {
-        return () -> (level, random, positionData, colorData) -> {
+        return () -> (level, random, positionData, colorData, nbtData) -> {
             BlockPos pos = positionData.getAsBlockPos();
             for (int i = 0; i < 3; i++) {
                 float multiplier = Mth.nextFloat(level.random, 0.4f, 1f);

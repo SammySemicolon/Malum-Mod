@@ -65,9 +65,9 @@ public class SpiritWithCount implements IRecipeComponent {
         return new ItemStack(getItem(), getCount());
     }
 
-    @Override // *screaming*
-    public ArrayList<ItemStack> getStacks() {
-        return new ArrayList<>(List.of(getStack()));
+    @Override
+    public List<ItemStack> getStacks() {
+        return List.of(getStack());
     }
 
     @Override

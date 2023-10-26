@@ -22,6 +22,21 @@ import static net.minecraft.util.Mth.nextFloat;
 
 public class SpiritLightSpecs {
 
+    public static void coolLookingShinyThing(Level level, Vec3 pos, MalumSpiritType spiritType) {
+        var centralLightSpecs = spiritLightSpecs(level, pos, spiritType);
+        centralLightSpecs.getBuilder()
+                .multiplyLifetime(0.6f)
+                .modifyColorData(d -> d.multiplyCoefficient(0.5f))
+                .modifyData(WorldParticleBuilder::getScaleData, d -> d.multiplyValue(6f))
+                .modifyData(WorldParticleBuilder::getTransparencyData, d -> d.multiplyValue(3f));
+        centralLightSpecs.getBloomBuilder()
+                .multiplyLifetime(0.6f)
+                .modifyColorData(d -> d.multiplyCoefficient(0.5f))
+                .modifyData(WorldParticleBuilder::getScaleData, d -> d.multiplyValue(4f))
+                .modifyData(WorldParticleBuilder::getTransparencyData, d -> d.multiplyValue(3f));
+        centralLightSpecs.spawnParticles();
+    }
+
     public static void rotatingLightSpecs(Level level, Vec3 pos, MalumSpiritType spiritType, float distance, int rotatingSpecs) {
         rotatingLightSpecs(level, pos, spiritType, distance, rotatingSpecs, b -> {});
     }

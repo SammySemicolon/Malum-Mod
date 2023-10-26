@@ -4,6 +4,7 @@ import com.sammy.malum.common.recipe.*;
 import com.sammy.malum.registry.common.*;
 import com.sammy.malum.registry.common.block.*;
 import com.sammy.malum.registry.common.item.*;
+import com.sammy.malum.visual_effects.networked.data.*;
 import net.minecraft.core.*;
 import net.minecraft.nbt.*;
 import net.minecraft.server.level.*;
@@ -133,7 +134,7 @@ public class VoidConduitBlockEntity extends LodestoneBlockEntity {
                         }
                     }
                     progress = resultingProgress;
-                    ParticleEffectTypeRegistry.WEEPING_WELL_REACTS.createPositionedEffect(level, worldPosition.getX()+0.5f, worldPosition.getY()+0.75f, worldPosition.getZ()+0.5f);
+                    ParticleEffectTypeRegistry.WEEPING_WELL_REACTS.createPositionedEffect(level, new PositionEffectData(worldPosition.getX()+0.5f, worldPosition.getY()+0.75f, worldPosition.getZ()+0.5f));
                     eatenItems.remove(eatenItems.size()-1);
                     BlockHelper.updateAndNotifyState(level, worldPosition);
                 }

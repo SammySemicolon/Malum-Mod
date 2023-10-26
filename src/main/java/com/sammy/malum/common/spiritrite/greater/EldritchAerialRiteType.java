@@ -2,10 +2,11 @@ package com.sammy.malum.common.spiritrite.greater;
 
 import com.sammy.malum.common.block.curiosities.totem.*;
 import com.sammy.malum.common.packets.particle.curiosities.rite.*;
-import com.sammy.malum.core.systems.particle_effects.*;
+
 import com.sammy.malum.core.systems.rites.*;
 import com.sammy.malum.registry.common.*;
 import com.sammy.malum.registry.common.block.*;
+import com.sammy.malum.visual_effects.networked.data.*;
 import net.minecraft.core.*;
 import net.minecraft.resources.*;
 import net.minecraft.server.level.*;

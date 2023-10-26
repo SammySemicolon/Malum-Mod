@@ -29,7 +29,7 @@ public abstract class MalumItemHolderBlockEntity extends ItemHolderBlockEntity i
     }
 
     @Override
-    public Vec3 getItemCenterPos(float partialTicks) {
+    public Vec3 getItemPos(float partialTicks) {
         final BlockPos blockPos = getBlockPos();
         final Vec3 offset = getItemOffset(partialTicks);
         return new Vec3(blockPos.getX()+offset.x, blockPos.getY()+offset.y, blockPos.getZ()+offset.z);
@@ -45,7 +45,7 @@ public abstract class MalumItemHolderBlockEntity extends ItemHolderBlockEntity i
         if (level.isClientSide) {
             if (inventory.getStackInSlot(0).getItem() instanceof SpiritShardItem item) {
                 MalumSpiritType type = item.type;
-                SpiritLightSpecs.rotatingLightSpecs(level, getItemCenterPos(), type, 0.4f, 2);
+                SpiritLightSpecs.rotatingLightSpecs(level, getItemPos(), type, 0.4f, 2);
             }
         }
     }

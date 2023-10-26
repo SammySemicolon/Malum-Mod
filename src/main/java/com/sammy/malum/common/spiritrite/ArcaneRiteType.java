@@ -89,7 +89,7 @@ public class ArcaneRiteType extends MalumRiteType {
                         ItemStack stack = inventoryForAltar.getStackInSlot(0);
                         var recipe = SpiritTransmutationRecipe.getRecipe(level, stack);
                         if (recipe != null) {
-                            Vec3 itemPos = iMalumSpecialItemAccessPoint.getItemCenterPos();
+                            Vec3 itemPos = iMalumSpecialItemAccessPoint.getItemPos();
                             level.addFreshEntity(new ItemEntity(level, itemPos.x, itemPos.y, itemPos.z, recipe.output.copy()));
                             MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(p)), new BlightTransformItemParticlePacket(List.of(ARCANE_SPIRIT.identifier), itemPos));
                             inventoryForAltar.getStackInSlot(0).shrink(1);

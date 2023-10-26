@@ -1,8 +1,10 @@
 package com.sammy.malum.registry.common;
 
-import com.sammy.malum.core.systems.particle_effects.*;
 import com.sammy.malum.visual_effects.networked.*;
-import com.sammy.malum.visual_effects.networked.basic.*;
+import com.sammy.malum.visual_effects.networked.altar.*;
+import com.sammy.malum.visual_effects.networked.blight.*;
+import com.sammy.malum.visual_effects.networked.generic.*;
+import com.sammy.malum.visual_effects.networked.weeping_well.*;
 
 import java.util.*;
 
@@ -22,6 +24,7 @@ public class ParticleEffectTypeRegistry {
 
     //Functional vfx
     public static final ParticleEffectType SPIRIT_ALTAR_CRAFTS = new SpiritAltarCraftParticleEffect("spirit_altar_crafts");
+    public static final ParticleEffectType SPIRIT_ALTAR_EATS_ITEM = new SpiritAltarEatItemParticleEffect("spirit_altar_eats_item");
 
     //Void vfx
     public static final ParticleEffectType WEEPING_WELL_REACTS = new WeepingWellReactionParticleEffect("weeping_well_reacts");

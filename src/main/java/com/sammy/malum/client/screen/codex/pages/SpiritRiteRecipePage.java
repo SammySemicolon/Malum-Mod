@@ -80,8 +80,8 @@ public class SpiritRiteRecipePage extends BookPage {
                         .setColorData(spiritType.createMainColorData().setCoefficient(0.25f).build())
                         .setLifetime(lifetime)
                         .setMotion(0, yMotion)
-                        .spawn(x -xOffset, y+8)
-                        .spawn(x+xOffset, y+8);
+                        .spawn(x -xOffset, y)
+                        .spawn(x+xOffset, y);
             }
         }
     }

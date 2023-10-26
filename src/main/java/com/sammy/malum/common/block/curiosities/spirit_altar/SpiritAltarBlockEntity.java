@@ -2,13 +2,14 @@ package com.sammy.malum.common.block.curiosities.spirit_altar;
 
 import com.sammy.malum.common.block.storage.*;
 import com.sammy.malum.common.item.spirit.*;
-import com.sammy.malum.common.packets.particle.curiosities.altar.*;
 import com.sammy.malum.common.recipe.*;
-import com.sammy.malum.core.systems.particle_effects.*;
+
 import com.sammy.malum.core.systems.recipe.*;
 import com.sammy.malum.registry.common.*;
 import com.sammy.malum.registry.common.block.*;
 import com.sammy.malum.visual_effects.*;
+import com.sammy.malum.visual_effects.networked.altar.*;
+import com.sammy.malum.visual_effects.networked.data.*;
 import net.minecraft.core.*;
 import net.minecraft.nbt.*;
 import net.minecraft.sounds.*;
@@ -24,7 +25,6 @@ import net.minecraftforge.common.capabilities.*;
 import net.minecraftforge.common.util.*;
 import net.minecraftforge.items.*;
 import net.minecraftforge.items.wrapper.*;
-import net.minecraftforge.network.*;
 import org.jetbrains.annotations.*;
 import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.systems.blockentity.*;
@@ -35,9 +35,6 @@ import javax.annotation.Nullable;
 import javax.annotation.*;
 import java.util.List;
 import java.util.*;
-import java.util.stream.*;
-
-import static com.sammy.malum.registry.common.PacketRegistry.*;
 
 public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
 
@@ -242,7 +239,6 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
     }
 
     public boolean consume() {
-        Vec3 itemPos = getItemPos(this);
         if (recipe.extraItems.isEmpty()) {
             return true;
         }
@@ -268,8 +264,7 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
                 matches = requestedItem.matches(providedStack);
                 if (matches) {
                     level.playSound(null, provider.getAccessPointBlockPos(), SoundRegistry.ALTAR_CONSUME.get(), SoundSource.BLOCKS, 1, 0.9f + level.random.nextFloat() * 0.2f);
-                    Vec3 providedItemPos = provider.getItemCenterPos();
-                    MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(provider.getAccessPointBlockPos())), new AltarConsumeParticlePacket(providedStack, recipe.spirits.stream().map(s -> s.type.identifier).collect(Collectors.toList()), providedItemPos.x, providedItemPos.y, providedItemPos.z, itemPos.x, itemPos.y, itemPos.z));
+                    ParticleEffectTypeRegistry.SPIRIT_ALTAR_EATS_ITEM.createPositionedEffect(level, new PositionEffectData(worldPosition), ColorEffectData.fromRecipe(recipe.spirits), SpiritAltarEatItemParticleEffect.createData(provider.getAccessPointBlockPos(), providedStack));
                     extrasInventory.insertItem(level, providedStack.split(requestedItem.count));
                     inventoryForAltar.updateData();
                     BlockHelper.updateAndNotifyState(level, provider.getAccessPointBlockPos());
@@ -284,7 +279,7 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
     public void craft() {
         ItemStack stack = inventory.getStackInSlot(0);
         ItemStack outputStack = recipe.output.copy();
-        Vec3 itemPos = getItemPos(this);
+        Vec3 itemPos = getItemPos();
         if (recipe.useNbtFromInput && inventory.getStackInSlot(0).hasTag()) {
             outputStack.setTag(stack.getTag());
         }
@@ -300,8 +295,7 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
             }
         }
         spiritInventory.updateData();
-        ParticleEffectTypeRegistry.SPIRIT_ALTAR_CRAFTS.createBlockEffect(level, worldPosition, ColorEffectData.fromSpirits(
-                recipe.spirits.stream().map(r -> r.type).collect(Collectors.toList())));
+        ParticleEffectTypeRegistry.SPIRIT_ALTAR_CRAFTS.createPositionedEffect(level, new PositionEffectData(worldPosition), ColorEffectData.fromRecipe(recipe.spirits));
         progress *= 0.75f;
         extrasInventory.clear();
         level.playSound(null, worldPosition, SoundRegistry.ALTAR_CRAFT.get(), SoundSource.BLOCKS, 1, 0.9f + level.random.nextFloat() * 0.2f);
@@ -337,8 +331,11 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
         }
         return easing.ease(spiritYLevel / 30f, 0, 1, 1);
     }
-    public static Vec3 getItemPos(SpiritAltarBlockEntity blockEntity) {
-        return BlockHelper.fromBlockPos(blockEntity.getBlockPos()).add(blockEntity.getCentralItemOffset());
+
+    public Vec3 getItemPos() {
+        final BlockPos blockPos = getBlockPos();
+        final Vec3 offset = getCentralItemOffset();
+        return new Vec3(blockPos.getX()+offset.x, blockPos.getY()+offset.y, blockPos.getZ()+offset.z);
     }
 
     public Vec3 getCentralItemOffset() {

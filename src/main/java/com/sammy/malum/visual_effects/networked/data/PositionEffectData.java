@@ -1,4 +1,4 @@
-package com.sammy.malum.core.systems.particle_effects;
+package com.sammy.malum.visual_effects.networked.data;
 
 import net.minecraft.core.*;
 import net.minecraft.network.*;

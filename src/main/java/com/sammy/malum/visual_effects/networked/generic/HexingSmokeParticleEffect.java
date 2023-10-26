@@ -1,12 +1,13 @@
-package com.sammy.malum.visual_effects.networked.basic;
+package com.sammy.malum.visual_effects.networked.generic;
 
-import com.sammy.malum.core.systems.particle_effects.*;
+
+import com.sammy.malum.visual_effects.networked.*;
+import com.sammy.malum.visual_effects.networked.data.*;
 import net.minecraft.util.*;
 import net.minecraftforge.api.distmarker.*;
 import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.setup.*;
 import team.lodestar.lodestone.systems.easing.*;
-import team.lodestar.lodestone.systems.particle.*;
 import team.lodestar.lodestone.systems.particle.builder.*;
 import team.lodestar.lodestone.systems.particle.data.*;
 import team.lodestar.lodestone.systems.particle.data.color.*;
@@ -29,7 +30,7 @@ public class HexingSmokeParticleEffect extends ParticleEffectType {
     @OnlyIn(Dist.CLIENT)
     @Override
     public Supplier<ParticleEffectType.ParticleEffectActor> get() {
-        return () -> (level, random, positionData, colorData) -> {
+        return () -> (level, random, positionData, colorData, nbtData) -> {
             ColorEffectData.ColorRecord colorRecord = colorData.getDefaultColorRecord();
             Color primaryColor = colorData.getPrimaryColor(colorRecord);
             Color secondaryColor = colorData.getSecondaryColor(colorRecord);

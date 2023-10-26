@@ -164,7 +164,6 @@ public class VoidProgressionScreen extends AbstractProgressionCodexScreen {
         VOID_ENTRIES.add(new BookEntry(
                 "void.anomalous_snare", ANOMALOUS_SNARE.get(), 0, 6)
         );
-
         VOID_ENTRIES.add(new BookEntry(
                 "void.fused_consciousness", FUSED_CONSCIOUSNESS.get(), 0, 7)
         );

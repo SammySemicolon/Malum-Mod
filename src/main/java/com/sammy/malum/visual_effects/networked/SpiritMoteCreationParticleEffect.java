@@ -1,6 +1,6 @@
 package com.sammy.malum.visual_effects.networked;
 
-import com.sammy.malum.core.systems.particle_effects.*;
+import com.sammy.malum.visual_effects.networked.data.*;
 import net.minecraft.core.*;
 import net.minecraft.util.*;
 import net.minecraftforge.api.distmarker.*;
@@ -25,7 +25,7 @@ public class SpiritMoteCreationParticleEffect extends ParticleEffectType {
     @OnlyIn(Dist.CLIENT)
     @Override
     public Supplier<ParticleEffectActor> get() {
-        return () -> (level, random, positionData, colorData) -> {
+        return () -> (level, random, positionData, colorData, nbtData) -> {
             ColorEffectData.ColorRecord colorRecord = colorData.getDefaultColorRecord();
             Color primaryColor = colorData.getPrimaryColor(colorRecord);
             Color secondaryColor = colorData.getSecondaryColor(colorRecord);

@@ -232,7 +232,7 @@ public class TotemPoleBlockEntity extends LodestoneBlockEntity {
     public void filterParticles(ItemStandBlockEntity itemStandBlockEntity) {
         if (level.getGameTime() % 6L == 0) {
             if (!itemStandBlockEntity.inventory.getStackInSlot(0).isEmpty()) {
-                Vec3 itemPos = itemStandBlockEntity.getItemCenterPos();
+                Vec3 itemPos = itemStandBlockEntity.getItemPos();
                 WorldParticleBuilder.create(LodestoneParticleRegistry.STAR_PARTICLE)
                         .setTransparencyData(GenericParticleData.create(0.04f, 0.1f, 0f).build())
                         .setScaleData(GenericParticleData.create(0.5f, 1f + level.random.nextFloat() * 0.1f, 0).setEasing(Easing.QUINTIC_IN, Easing.CUBIC_IN_OUT).build())

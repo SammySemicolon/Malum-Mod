@@ -1,9 +1,10 @@
 package com.sammy.malum.common.spiritrite.greater;
 
 import com.sammy.malum.common.block.curiosities.totem.*;
-import com.sammy.malum.core.systems.particle_effects.*;
+
 import com.sammy.malum.core.systems.rites.*;
 import com.sammy.malum.registry.common.*;
+import com.sammy.malum.visual_effects.networked.data.*;
 import net.minecraft.core.*;
 import net.minecraft.server.level.*;
 import net.minecraft.world.entity.monster.*;
@@ -32,7 +33,7 @@ public class EldritchAqueousRiteType extends MalumRiteType {
                         for (int i = 0; i < 4 + level.random.nextInt(2); i++) {
                             level.getBlockState(p).randomTick((ServerLevel) level, p, level.random);
                         }
-                        ParticleEffectTypeRegistry.DRIPPING_SMOKE.createBlockEffect(level, p, new ColorEffectData(AQUEOUS_SPIRIT.getPrimaryColor()));
+                        ParticleEffectTypeRegistry.DRIPPING_SMOKE.createPositionedEffect(level, new PositionEffectData(p), new ColorEffectData(AQUEOUS_SPIRIT.getPrimaryColor()));
                     }
                 });
             }

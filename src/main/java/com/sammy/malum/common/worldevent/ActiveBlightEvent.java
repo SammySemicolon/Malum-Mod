@@ -3,6 +3,7 @@ package com.sammy.malum.common.worldevent;
 import com.sammy.malum.common.block.blight.*;
 import com.sammy.malum.common.worldgen.*;
 import com.sammy.malum.registry.common.*;
+import com.sammy.malum.visual_effects.networked.data.*;
 import net.minecraft.core.*;
 import net.minecraft.server.level.*;
 import net.minecraft.sounds.*;
@@ -62,6 +63,6 @@ public class ActiveBlightEvent extends WorldEventInstance {
 
     public static void createBlightVFX(ServerLevel level, LodestoneBlockFiller filler) {
         filler.getEntries().entrySet().stream().filter(e -> e.getValue().getState().getBlock() instanceof BlightedSoilBlock).map(Map.Entry::getKey)
-                .forEach(p -> ParticleEffectTypeRegistry.BLIGHTING_MIST.createBlockEffect(level, p));
+                .forEach(p -> ParticleEffectTypeRegistry.BLIGHTING_MIST.createPositionedEffect(level, new PositionEffectData(p)));
     }
 }

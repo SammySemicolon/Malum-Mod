@@ -1,15 +1,14 @@
-package com.sammy.malum.core.systems.particle_effects;
+package com.sammy.malum.visual_effects.networked.data;
 
 import com.sammy.malum.*;
 import com.sammy.malum.core.helper.*;
+import com.sammy.malum.core.systems.recipe.*;
 import com.sammy.malum.core.systems.spirit.*;
-import net.minecraft.core.*;
 import net.minecraft.network.*;
 
 import javax.annotation.*;
 import java.awt.*;
 import java.util.*;
-import java.util.List;
 import java.util.function.*;
 import java.util.stream.*;
 
@@ -18,6 +17,9 @@ public class ColorEffectData {
     public final ArrayList<ColorRecord> colorRecordList = new ArrayList<>();
     public int recordCycleCounter;
 
+    public static ColorEffectData fromRecipe(Collection<SpiritWithCount> malumSpiritTypes) {
+        return fromSpirits(malumSpiritTypes.stream().map(s -> s.type).collect(Collectors.toList()), ColorRecord::new);
+    }
     public static ColorEffectData fromSpirits(Collection<MalumSpiritType> malumSpiritTypes) {
         return fromSpirits(malumSpiritTypes, ColorRecord::new);
     }
