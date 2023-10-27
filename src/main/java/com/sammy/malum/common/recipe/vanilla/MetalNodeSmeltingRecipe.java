@@ -4,6 +4,7 @@ import com.sammy.malum.registry.common.recipe.RecipeSerializerRegistry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.CookingBookCategory;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.SmeltingRecipe;
@@ -15,7 +16,7 @@ public class MetalNodeSmeltingRecipe extends SmeltingRecipe implements INodeSmel
     public final IngredientWithCount output;
 
     public MetalNodeSmeltingRecipe(ResourceLocation pId, String pGroup, Ingredient pIngredient, IngredientWithCount output, float pExperience, int pCookingTime) {
-        super(pId, pGroup, pIngredient, ItemStack.EMPTY, pExperience, pCookingTime);
+        super(pId, pGroup, CookingBookCategory.MISC, pIngredient, ItemStack.EMPTY, pExperience, pCookingTime);
         this.output = output;
     }
 
@@ -29,17 +30,6 @@ public class MetalNodeSmeltingRecipe extends SmeltingRecipe implements INodeSmel
     public RecipeSerializer<?> getSerializer() {
         return RecipeSerializerRegistry.METAL_NODE_SMELTING_SERIALIZER.get();
     }
-
-    @Override
-    public ItemStack getResultItem() {
-        return output.getStack();
-    }
-
-    @Override
-    public ItemStack assemble(Container pInv) {
-        return output.getStack();
-    }
-
 
     @Override
     public IngredientWithCount getOutput() {
