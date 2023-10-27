@@ -16,6 +16,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.registries.ForgeRegistries;
 import team.lodestar.lodestone.helpers.ItemHelper;
 
 import java.util.List;
@@ -45,7 +46,7 @@ public class EsotericReapingHandler {
                 });
             }
         }
-        List<MalumReapingDropsData> data = ReapingDataReloadListener.REAPING_DATA.get(target.getType().getRegistryName());
+        List<MalumReapingDropsData> data = ReapingDataReloadListener.REAPING_DATA.get(ForgeRegistries.ENTITY_TYPES.getKey(target.getType()));//TODO maybe wrong impl
         if (data != null) {
             SoulDataHandler soulData = MalumLivingEntityDataCapability.getCapability(target).soulData;
             if (soulData.exposedSoulDuration > 0) {

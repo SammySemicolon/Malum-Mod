@@ -2,6 +2,7 @@ package com.sammy.malum.client.renderer.curio;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.math.Axis;
 import com.mojang.math.Vector3f;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.item.cosmetic.curios.CurioTokenOfGratitude;
@@ -93,13 +94,13 @@ public class TokenOfGratitudeRenderer implements ICurioRenderer {
             Vec3 desiredDirection = look.yRot((float) Math.toRadians(90)).normalize();
             Vec3 sidewaysVelocity = desiredDirection.scale(movement.dot(desiredDirection));
             double speedAndDirection = (sidewaysVelocity.length() * -Math.signum(desiredDirection.dot(sidewaysVelocity))) / wagSpeed;
-            poseStack.mulPose(Vector3f.YP.rotationDegrees((float) (speedAndDirection * factor)));
+            poseStack.mulPose(Axis.YP.rotationDegrees((float) (speedAndDirection * factor)));
         }
         float ambientFactor = playerEntity.isShiftKeyDown() ? 2 : 6;
-        double ambientXRotation = Math.sin(playerEntity.level.getGameTime() / 18f) * ambientFactor;
-        poseStack.mulPose(Vector3f.XP.rotationDegrees((float) ambientXRotation));
-        double ambientYRotation = Math.cos(playerEntity.level.getGameTime() / 24f) * -ambientFactor;
-        poseStack.mulPose(Vector3f.YP.rotationDegrees((float) ambientYRotation));
+        double ambientXRotation = Math.sin(playerEntity.level().getGameTime() / 18f) * ambientFactor;
+        poseStack.mulPose(Axis.XP.rotationDegrees((float) ambientXRotation));
+        double ambientYRotation = Math.cos(playerEntity.level().getGameTime() / 24f) * -ambientFactor;
+        poseStack.mulPose(Axis.YP.rotationDegrees((float) ambientYRotation));
         VertexConsumer vertexconsumer = ItemRenderer.getArmorFoilBuffer(renderTypeBuffer, RenderType.armorCutoutNoCull(texture), false, stack.hasFoil());
         ModelRegistry.TAIL_MODEL.setupAnim(playerEntity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
         ModelRegistry.TAIL_MODEL.prepareMobModel(playerEntity, limbSwing, limbSwingAmount, partialTicks);

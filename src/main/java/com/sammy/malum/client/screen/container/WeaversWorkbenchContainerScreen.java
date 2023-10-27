@@ -7,6 +7,9 @@ import com.mojang.math.*;
 import com.sammy.malum.*;
 import com.sammy.malum.common.container.*;
 import net.minecraft.client.*;
+import net.minecraft.client.gui.Gui;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.*;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.entity.*;
@@ -16,12 +19,15 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.decoration.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
+import org.joml.Matrix4f;
+import org.joml.Matrix4fc;
+import org.joml.Quaternionf;
 
 import javax.annotation.*;
 
 public class WeaversWorkbenchContainerScreen extends AbstractContainerScreen<WeaversWorkbenchContainer> {
 
-    public static final Quaternion ROTATION = Quaternion.fromXYZ(0.43633232F, 0.0F, 3.1415927F);
+    public static final Quaternionf ROTATION = new Quaternionf(0.43633232F, 0.0F, 3.1415927F, 0);
     private static final ResourceLocation TEXTURE = MalumMod.malumPath("textures/gui/weavers_workbench.png");
 
     private final WeaversWorkbenchContainer weaversWorkbenchContainer;
@@ -39,17 +45,17 @@ public class WeaversWorkbenchContainerScreen extends AbstractContainerScreen<Wea
         setupArmorStand();
     }
     @Override
-    public void render(@Nonnull PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
+    public void render(@Nonnull GuiGraphics poseStack, int mouseX, int mouseY, float partialTicks) {
         this.renderBackground(poseStack);
         super.render(poseStack, mouseX, mouseY, partialTicks);
         this.renderTooltip(poseStack, mouseX, mouseY);
     }
     @Override
-    protected void renderBg(PoseStack pPoseStack, float pPartialTick, int pMouseX, int pMouseY) {
+    protected void renderBg(GuiGraphics pGuiGraphics, float pPartialTick, int pMouseX, int pMouseY) {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
-        RenderSystem.setShaderTexture(0, TEXTURE);
-        blit(pPoseStack, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight);
+        //RenderSystem.setShaderTexture(0, TEXTURE);
+        pGuiGraphics.blit(TEXTURE, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight);
 
         ItemStack output = weaversWorkbenchContainer.itemHandler.getStackInSlot(2);
 
@@ -58,7 +64,7 @@ public class WeaversWorkbenchContainerScreen extends AbstractContainerScreen<Wea
         }
         cachedOutput = output;
 
-        drawEntity(pPoseStack, this.leftPos + 141, this.topPos + 65, 25, ROTATION, null, this.armorStand);
+        drawEntity(pGuiGraphics.pose(), this.leftPos + 141, this.topPos + 65, 25, ROTATION, null, this.armorStand);
     }
 
     protected void setupArmorStand() {
@@ -84,25 +90,25 @@ public class WeaversWorkbenchContainerScreen extends AbstractContainerScreen<Wea
                 ItemStack itemStack = stack.copy();
                 Item var8 = stack.getItem();
                 if (var8 instanceof ArmorItem armorItem) {
-                    this.armorStand.setItemSlot(armorItem.getSlot(), itemStack);
+                    this.armorStand.setItemSlot(armorItem.getEquipmentSlot(), itemStack);
                 }
             }
         }
     }
 
-    public static void drawEntity(PoseStack matrices, int x, int y, int size, Quaternion matrixMultiplier, @Nullable Quaternion rotation, LivingEntity entity) {
+    public static void drawEntity(PoseStack matrices, int x, int y, int size, Quaternionf matrixMultiplier, @Nullable Quaternionf rotation, LivingEntity entity) {
         PoseStack matrixStack = RenderSystem.getModelViewStack();
         matrixStack.pushPose();
         matrixStack.translate(0.0, 0.0, 1000.0);
         RenderSystem.applyModelViewMatrix();
         matrices.pushPose();
         matrices.translate(x, y, -950.0);
-        matrices.mulPoseMatrix((Matrix4f.createScaleMatrix((float)size, (float)size, (float)(-size))));
+        matrices.mulPoseMatrix((new Matrix4f()).scaling((float)size, (float)size, (float)(-size)));
         matrices.mulPose(matrixMultiplier);
         Lighting.setupForEntityInInventory();
         EntityRenderDispatcher entityRenderDispatcher = Minecraft.getInstance().getEntityRenderDispatcher();
         if (rotation != null) {
-            rotation.conj();
+            rotation.conjugate();
             entityRenderDispatcher.overrideCameraOrientation(rotation);
         }
 

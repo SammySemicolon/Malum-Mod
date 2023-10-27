@@ -104,7 +104,8 @@ public class ScytheBoomerangEntity extends ThrowableItemProjectile {
             if (level().isClientSide) {
                 return;
             }
-            DamageSource source = DamageSource.indirectMobAttack(this, scytheOwner);
+            //DamageSource source = DamageSource.indirectMobAttack(this, scytheOwner);
+            DamageSource source = target.damageSources().mobProjectile(this, scytheOwner);
             boolean success = target.hurt(source, damage);
             if (success && target instanceof LivingEntity livingentity) {
                 ItemStack scythe = getItem();

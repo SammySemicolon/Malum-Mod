@@ -3,6 +3,7 @@ package com.sammy.malum.registry.common.item;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -38,17 +39,19 @@ public class ArmorTiers
         }
         
         @Override
-        public int getDurabilityForSlot(EquipmentSlot slot)
+        public int getDurabilityForType(ArmorItem.Type slot)
         {
-            return durabilityMultiplier * MAX_DAMAGE_ARRAY[slot.getIndex()];
+            return durabilityMultiplier * MAX_DAMAGE_ARRAY[slot.getSlot().getIndex()];
         }
         
         @Override
-        public int getDefenseForSlot(EquipmentSlot slot)
+        public int getDefenseForType(ArmorItem.Type slot)
         {
-            return damageReduction[slot.getIndex()];
+            return damageReduction[slot.getSlot().getIndex()];
         }
-        
+
+
+
         @Override
         public int getEnchantmentValue()
         {

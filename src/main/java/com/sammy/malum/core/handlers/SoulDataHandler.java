@@ -16,6 +16,7 @@ import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.living.LivingChangeTargetEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.event.entity.living.MobSpawnEvent;
 
 import java.util.UUID;
 
@@ -56,16 +57,12 @@ public class SoulDataHandler {
         }
     }
 
-    public static void markAsSpawnerSpawned(LivingSpawnEvent.SpecialSpawn event) {
-        if (event.getSpawnReason() != null) {
-            if (event.getEntity() instanceof LivingEntity livingEntity) {
-                MalumLivingEntityDataCapability.getCapabilityOptional(livingEntity).ifPresent(ec -> {
-                    SoulDataHandler soulData = ec.soulData;
-                    if (event.getSpawnReason().equals(MobSpawnType.SPAWNER)) {
-                        soulData.spawnerSpawned = true;
-                    }
-                });
-            }
+    public static void markAsSpawnerSpawned(MobSpawnEvent.PositionCheck event) {
+        if (event.getSpawner() != null) {
+            MalumLivingEntityDataCapability.getCapabilityOptional(event.getEntity()).ifPresent(ec -> {
+                SoulDataHandler soulData = ec.soulData;
+                soulData.spawnerSpawned = true;
+            });
         }
     }
 

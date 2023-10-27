@@ -202,7 +202,7 @@ public class TouchOfDarknessHandler {
         if (!livingEntity.level().isClientSide) {
             PacketRegistry.MALUM_CHANNEL.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> livingEntity), new VoidRejectionPacket(livingEntity.getId()));
             ParticleEffectTypeRegistry.WEEPING_WELL_REACTS.createEntityEffect(livingEntity);
-            livingEntity.hurt(new DamageSource(DamageSourceRegistry.VOODOO_IDENTIFIER), 4);
+            livingEntity.hurt(DamageSourceRegistry.create(livingEntity.level(), DamageSourceRegistry.VOODOO), 4);
             livingEntity.level().playSound(null, livingEntity.blockPosition(), SoundRegistry.VOID_REJECTION.get(), SoundSource.HOSTILE, 2f, Mth.nextFloat(livingEntity.getRandom(), 0.5f, 0.8f));
         }
         livingEntity.addEffect(new MobEffectInstance(MobEffectRegistry.REJECTED.get(), 400, 0));

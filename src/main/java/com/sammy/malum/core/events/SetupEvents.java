@@ -20,6 +20,8 @@ public class SetupEvents {
         MalumLivingEntityDataCapability.registerCapabilities(event);
         MalumItemDataCapability.registerCapabilities(event);
     }
+
+    /*TODO
     @SubscribeEvent
     public static void correctMissingItemMappings(RegistryEvent.MissingMappings<Item> event) {
         MissingMappingHandler.correctMissingItemMappings(event);
@@ -29,6 +31,8 @@ public class SetupEvents {
     public static void correctMissingBlockMappings(RegistryEvent.MissingMappings<Block> event) {
         MissingMappingHandler.correctMissingBlockMappings(event);
     }
+
+     */
 
 
 

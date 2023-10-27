@@ -3,6 +3,7 @@ package com.sammy.malum.client.screen.codex;
 import com.mojang.blaze3d.vertex.*;
 import com.sammy.malum.client.screen.codex.objects.*;
 import net.minecraft.client.*;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.*;
 import net.minecraft.resources.*;
 import org.lwjgl.opengl.*;
@@ -34,7 +35,7 @@ public abstract class AbstractProgressionCodexScreen extends AbstractMalumScreen
     }
 
     protected AbstractProgressionCodexScreen(int bookWidth, int bookHeight, int bookInsideWidth, int bookInsideHeight, int backgroundImageWidth, int backgroundImageHeight) {
-        super(new TranslatableComponent("malum.gui.book.title"));
+        super(Component.translatable("malum.gui.book.title"));
         this.bookWidth = bookWidth;
         this.bookHeight = bookHeight;
         this.bookInsideWidth = bookInsideWidth;
@@ -111,20 +112,20 @@ public abstract class AbstractProgressionCodexScreen extends AbstractMalumScreen
         yOffset = -object.posY + getGuiTop() + bookInsideHeight;
     }
 
-    public void renderEntries(PoseStack stack, int mouseX, int mouseY, float partialTicks) {
+    public void renderEntries(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
         for (int i = bookObjects.size() - 1; i >= 0; i--) {
             BookObject object = bookObjects.get(i);
             boolean isHovering = object.isHovering(this, xOffset, yOffset, mouseX, mouseY);
             object.isHovering = isHovering;
             object.hover = isHovering ? Math.min(object.hover + 1, object.hoverCap()) : Math.max(object.hover - 1, 0);
-            object.render(minecraft, stack, xOffset, yOffset, mouseX, mouseY, partialTicks);
+            object.render(minecraft, guiGraphics, xOffset, yOffset, mouseX, mouseY, partialTicks);
         }
     }
 
-    public void lateEntryRender(PoseStack stack, int mouseX, int mouseY, float partialTicks) {
+    public void lateEntryRender(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
         for (int i = bookObjects.size() - 1; i >= 0; i--) {
             BookObject object = bookObjects.get(i);
-            object.lateRender(minecraft, stack, xOffset, yOffset, mouseX, mouseY, partialTicks);
+            object.lateRender(minecraft, guiGraphics, xOffset, yOffset, mouseX, mouseY, partialTicks);
         }
     }
 

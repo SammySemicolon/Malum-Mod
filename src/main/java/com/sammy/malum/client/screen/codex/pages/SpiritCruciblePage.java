@@ -5,6 +5,7 @@ import com.sammy.malum.*;
 import com.sammy.malum.client.screen.codex.*;
 import com.sammy.malum.common.recipe.*;
 import net.minecraft.client.*;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.world.item.*;
 
 import java.util.function.*;
@@ -44,20 +45,20 @@ public class SpiritCruciblePage extends BookPage {
     }
 
     @Override
-    public void renderLeft(Minecraft minecraft, PoseStack poseStack, EntryScreen screen, int mouseX, int mouseY, float partialTicks) {
+    public void renderLeft(Minecraft minecraft, GuiGraphics guiGraphics, EntryScreen screen, int mouseX, int mouseY, float partialTicks) {
         int guiLeft = guiLeft();
         int guiTop = guiTop();
-        renderItem(screen, poseStack, recipe.input, guiLeft + 67, guiTop + 59, mouseX, mouseY);
-        renderItem(screen, poseStack, recipe.output, guiLeft + 67, guiTop + 126, mouseX, mouseY);
-        renderComponents(screen, poseStack, recipe.spirits, guiLeft + 65, guiTop + 16, mouseX, mouseY, false);
+        renderItem(screen, guiGraphics, recipe.input, guiLeft + 67, guiTop + 59, mouseX, mouseY);
+        renderItem(screen, guiGraphics, recipe.output, guiLeft + 67, guiTop + 126, mouseX, mouseY);
+        renderComponents(screen, guiGraphics, recipe.spirits, guiLeft + 65, guiTop + 16, mouseX, mouseY, false);
     }
 
     @Override
-    public void renderRight(Minecraft minecraft, PoseStack poseStack, EntryScreen screen, int mouseX, int mouseY, float partialTicks) {
+    public void renderRight(Minecraft minecraft, GuiGraphics guiGraphics, EntryScreen screen, int mouseX, int mouseY, float partialTicks) {
         int guiLeft = guiLeft();
         int guiTop = guiTop();
-        renderItem(screen, poseStack, recipe.input, guiLeft + 209, guiTop + 59, mouseX, mouseY);
-        renderItem(screen, poseStack, recipe.output, guiLeft + 209, guiTop + 126, mouseX, mouseY);
-        renderComponents(screen, poseStack, recipe.spirits, guiLeft + 207, guiTop + 16, mouseX, mouseY, false);
+        renderItem(screen, guiGraphics, recipe.input, guiLeft + 209, guiTop + 59, mouseX, mouseY);
+        renderItem(screen, guiGraphics, recipe.output, guiLeft + 209, guiTop + 126, mouseX, mouseY);
+        renderComponents(screen, guiGraphics, recipe.spirits, guiLeft + 207, guiTop + 16, mouseX, mouseY, false);
     }
 }

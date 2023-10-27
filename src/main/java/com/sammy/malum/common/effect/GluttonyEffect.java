@@ -43,7 +43,7 @@ public class GluttonyEffect extends MobEffect {
             if (effect != null) {
                 EntityHelper.extendEffect(effect, entity, 200, 1000);
                 Level level = entity.level();
-                level().playSound(null, entity.blockPosition(), SoundRegistry.HUNGRY_BELT_FEEDS.get(), SoundSource.PLAYERS, 1.7f, 1.2f + level().random.nextFloat() * 0.5f);
+                level.playSound(null, entity.blockPosition(), SoundRegistry.HUNGRY_BELT_FEEDS.get(), SoundSource.PLAYERS, 1.7f, 1.2f + level.random.nextFloat() * 0.5f);
             }
         }
     }

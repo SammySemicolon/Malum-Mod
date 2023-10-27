@@ -4,6 +4,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.container.SpiritPouchContainer;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
@@ -22,14 +23,14 @@ public class SpiritPouchContainerScreen extends AbstractContainerScreen<SpiritPo
     }
 
     @Override
-    public void render(@Nonnull PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
+    public void render(@Nonnull GuiGraphics poseStack, int mouseX, int mouseY, float partialTicks) {
         this.renderBackground(poseStack);
         super.render(poseStack, mouseX, mouseY, partialTicks);
         this.renderTooltip(poseStack, mouseX, mouseY);
     }
 
     @Override
-    protected void renderLabels(@Nonnull PoseStack poseStack, int mouseX, int mouseY) {
+    protected void renderLabels(@Nonnull GuiGraphics poseStack, int mouseX, int mouseY) {
         if (this.minecraft != null && this.minecraft.player != null) {
 //            Color color = textColor;
 //            Color insideColor = MalumHelper.darker(color, 3);
@@ -48,10 +49,10 @@ public class SpiritPouchContainerScreen extends AbstractContainerScreen<SpiritPo
     }
 
     @Override
-    protected void renderBg(PoseStack poseStack, float partialTicks, int x, int y) {
+    protected void renderBg(GuiGraphics guiGraphics, float partialTicks, int x, int y) {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        RenderSystem.setShaderTexture(0, BACKGROUND);
-        blit(poseStack, leftPos, topPos, 0, 0, imageWidth, imageHeight);
+        //RenderSystem.setShaderTexture(0, BACKGROUND);
+        guiGraphics.blit(BACKGROUND, leftPos, topPos, 0, 0, imageWidth, imageHeight);
     }
 }

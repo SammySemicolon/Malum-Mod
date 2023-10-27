@@ -3,6 +3,7 @@ package com.sammy.malum.client.screen.codex.pages;
 import com.mojang.blaze3d.vertex.*;
 import com.sammy.malum.client.screen.codex.*;
 import net.minecraft.client.*;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.*;
 
 import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.*;
@@ -20,15 +21,15 @@ public class BookPage {
         return true;
     }
 
-    public void render(Minecraft minecraft, PoseStack poseStack, EntryScreen screen, int mouseX, int mouseY, float partialTicks) {
+    public void render(Minecraft minecraft, GuiGraphics guiGraphics, EntryScreen screen, int mouseX, int mouseY, float partialTicks) {
 
     }
 
-    public void renderLeft(Minecraft minecraft, PoseStack poseStack, EntryScreen screen, int mouseX, int mouseY, float partialTicks) {
+    public void renderLeft(Minecraft minecraft, GuiGraphics guiGraphics, EntryScreen screen, int mouseX, int mouseY, float partialTicks) {
 
     }
 
-    public void renderRight(Minecraft minecraft, PoseStack poseStack, EntryScreen screen, int mouseX, int mouseY, float partialTicks) {
+    public void renderRight(Minecraft minecraft, GuiGraphics guiGraphics, EntryScreen screen, int mouseX, int mouseY, float partialTicks) {
 
     }
 

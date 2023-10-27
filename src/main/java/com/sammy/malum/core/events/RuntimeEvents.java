@@ -86,7 +86,7 @@ public class RuntimeEvents {
 
 
     @SubscribeEvent
-    public static void onEntityJoin(LivingSpawnEvent.SpecialSpawn event) {
+    public static void onEntityJoin(MobSpawnEvent.PositionCheck event) {
         SoulDataHandler.markAsSpawnerSpawned(event);
     }
 

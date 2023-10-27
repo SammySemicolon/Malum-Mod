@@ -62,40 +62,42 @@ import static net.minecraft.world.item.Rarity.UNCOMMON;
 public class ItemRegistry {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MALUM);
 
+    public static final List<Item> CONTENT = new ArrayList<>();
+
     public static Item.Properties DEFAULT_PROPERTIES() {
-        return new Item.Properties().tab(CreativeTabRegistry.CONTENT);
+        return new Item.Properties();
     }
 
     public static Item.Properties BUILDING_PROPERTIES() {
-        return new Item.Properties().tab(CreativeTabRegistry.BUILDING);
+        return new Item.Properties();
     }
 
     public static Item.Properties NATURE_PROPERTIES() {
-        return new Item.Properties().tab(CreativeTabRegistry.NATURE);
+        return new Item.Properties();
     }
 
     public static Item.Properties IMPETUS_PROPERTIES() {
-        return new Item.Properties().tab(CreativeTabRegistry.METALLURGY).stacksTo(1);
+        return new Item.Properties().stacksTo(1);
     }
 
     public static Item.Properties NODE_PROPERTIES() {
-        return new Item.Properties().tab(CreativeTabRegistry.METALLURGY);
+        return new Item.Properties();
     }
 
     public static Item.Properties GEAR_PROPERTIES() {
-        return new Item.Properties().tab(CreativeTabRegistry.CONTENT).stacksTo(1);
+        return new Item.Properties().stacksTo(1);
     }
 
     public static Item.Properties COSMETIC_PROPERTIES() {
-        return new Item.Properties().tab(CreativeTabRegistry.COSMETIC);
+        return new Item.Properties();
     }
 
     public static Item.Properties VOID_PROPERTIES() {
-        return new Item.Properties().tab(CreativeTabRegistry.VOID);
+        return new Item.Properties();
     }
 
     public static Item.Properties VOID_GEAR_PROPERTIES() {
-        return new Item.Properties().tab(CreativeTabRegistry.VOID).stacksTo(1);
+        return new Item.Properties().stacksTo(1);
     }
 
 

@@ -6,6 +6,8 @@ import com.sammy.malum.client.screen.codex.*;
 import com.sammy.malum.common.recipe.*;
 import com.sammy.malum.registry.common.item.*;
 import net.minecraft.client.*;
+import net.minecraft.client.gui.Gui;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.*;
@@ -50,26 +52,26 @@ public class SpiritTransmutationPage extends BookPage {
     }
 
     @Override
-    public void renderLeft(Minecraft minecraft, PoseStack poseStack, EntryScreen screen, int mouseX, int mouseY, float partialTicks) {
+    public void renderLeft(Minecraft minecraft, GuiGraphics guiGraphics, EntryScreen screen, int mouseX, int mouseY, float partialTicks) {
         int guiLeft = guiLeft();
         int guiTop = guiTop();
-        Component component = new TranslatableComponent(headlineTranslationKey());
-        renderText(poseStack, component, guiLeft + 75 - minecraft.font.width(component.getString()) / 2, guiTop + 10);
+        Component component = Component.translatable(headlineTranslationKey());
+        renderText(guiGraphics, component, guiLeft + 75 - minecraft.font.width(component.getString()) / 2, guiTop + 10);
         List<WrappedIngredient> copy = new ArrayList<>(itemTree);
-        renderComponent(screen, poseStack, copy.remove(0), guiLeft + 67, guiTop + 44, mouseX, mouseY);
-        renderComponent(screen, poseStack, copy.remove(copy.size() - 1), guiLeft + 67, guiTop + 126, mouseX, mouseY);
-        renderComponents(screen, poseStack, copy, guiLeft + 65, guiTop + 82, mouseX, mouseY, false);
+        renderComponent(screen, guiGraphics, copy.remove(0), guiLeft + 67, guiTop + 44, mouseX, mouseY);
+        renderComponent(screen, guiGraphics, copy.remove(copy.size() - 1), guiLeft + 67, guiTop + 126, mouseX, mouseY);
+        renderComponents(screen, guiGraphics, copy, guiLeft + 65, guiTop + 82, mouseX, mouseY, false);
     }
 
     @Override
-    public void renderRight(Minecraft minecraft, PoseStack poseStack, EntryScreen screen, int mouseX, int mouseY, float partialTicks) {
+    public void renderRight(Minecraft minecraft, GuiGraphics guiGraphics, EntryScreen screen, int mouseX, int mouseY, float partialTicks) {
         int guiLeft = guiLeft();
         int guiTop = guiTop();
-        Component component = new TranslatableComponent(headlineTranslationKey());
-        renderText(poseStack, component, guiLeft + 218 - minecraft.font.width(component.getString()) / 2, guiTop + 10);
+        Component component = Component.translatable(headlineTranslationKey());
+        renderText(guiGraphics, component, guiLeft + 218 - minecraft.font.width(component.getString()) / 2, guiTop + 10);
         List<WrappedIngredient> copy = new ArrayList<>(itemTree);
-        renderComponent(screen, poseStack, copy.remove(0), guiLeft + 209, guiTop + 44, mouseX, mouseY);
-        renderComponent(screen, poseStack, copy.remove(copy.size() - 1), guiLeft + 209, guiTop + 126, mouseX, mouseY);
-        renderComponents(screen, poseStack, DataHelper.reverseOrder(new ArrayList<>(), copy), guiLeft + 207, guiTop + 82, mouseX, mouseY, false);
+        renderComponent(screen, guiGraphics, copy.remove(0), guiLeft + 209, guiTop + 44, mouseX, mouseY);
+        renderComponent(screen, guiGraphics, copy.remove(copy.size() - 1), guiLeft + 209, guiTop + 126, mouseX, mouseY);
+        renderComponents(screen, guiGraphics, DataHelper.reverseOrder(new ArrayList<>(), copy), guiLeft + 207, guiTop + 82, mouseX, mouseY, false);
     }
 }

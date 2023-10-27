@@ -7,6 +7,7 @@ import com.sammy.malum.client.screen.codex.pages.*;
 import com.sammy.malum.config.*;
 import com.sammy.malum.registry.common.*;
 import net.minecraft.client.*;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.*;
 import net.minecraft.resources.*;
 import net.minecraft.sounds.*;
@@ -28,15 +29,16 @@ public class EntryScreen extends AbstractMalumScreen {
     public int grouping;
 
     public EntryScreen(EntryObject openObject) {
-        super(new TranslatableComponent("malum.gui.entry.title"));
+        super(Component.translatable("malum.gui.entry.title"));
         this.openObject = openObject;
     }
 
     @Override
-    public void render(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
+    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
         BookEntry openEntry = openObject.entry;
-        renderBackground(poseStack);
-        super.render(poseStack, mouseX, mouseY, partialTicks);
+        renderBackground(guiGraphics);
+        super.render(guiGraphics, mouseX, mouseY, partialTicks);
+        PoseStack poseStack = guiGraphics.pose();
         int guiLeft = (width - bookWidth) / 2;
         int guiTop = (height - bookHeight) / 2;
         renderTexture(BOOK_TEXTURE, poseStack, guiLeft, guiTop, 1, 1, bookWidth, bookHeight, 512, 512);
@@ -72,11 +74,11 @@ public class EntryScreen extends AbstractMalumScreen {
             for (int i = openPages; i < openPages + 2; i++) {
                 if (i < openEntry.pages.size()) {
                     BookPage page = openEntry.pages.get(i);
-                    page.render(minecraft, poseStack, this, mouseX, mouseY, partialTicks);
+                    page.render(minecraft, guiGraphics, this, mouseX, mouseY, partialTicks);
                     if (i % 2 == 0) {
-                        page.renderLeft(minecraft, poseStack, this, mouseX, mouseY, partialTicks);
+                        page.renderLeft(minecraft, guiGraphics, this, mouseX, mouseY, partialTicks);
                     } else {
-                        page.renderRight(minecraft, poseStack, this, mouseX, mouseY, partialTicks);
+                        page.renderRight(minecraft, guiGraphics, this, mouseX, mouseY, partialTicks);
                     }
                 }
             }

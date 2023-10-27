@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.*;
 import com.sammy.malum.*;
 import com.sammy.malum.client.screen.codex.*;
 import net.minecraft.client.*;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.*;
 import net.minecraft.world.item.*;
 
@@ -34,22 +35,22 @@ public class HeadlineTextItemPage extends BookPage {
     }
 
     @Override
-    public void renderLeft(Minecraft minecraft, PoseStack poseStack, EntryScreen screen, int mouseX, int mouseY, float partialTicks) {
+    public void renderLeft(Minecraft minecraft, GuiGraphics guiGraphics, EntryScreen screen, int mouseX, int mouseY, float partialTicks) {
         int guiLeft = guiLeft();
         int guiTop = guiTop();
-        Component component = new TranslatableComponent(headlineTranslationKey());
-        renderText(poseStack, component, guiLeft + 75 - minecraft.font.width(component.getString()) / 2, guiTop + 10);
-        renderWrappingText(poseStack, translationKey(), guiLeft + 14, guiTop + 76, 126);
-        renderItem(screen, poseStack, spiritStack, guiLeft + 67, guiTop + 44, mouseX, mouseY);
+        Component component = Component.translatable(headlineTranslationKey());
+        renderText(guiGraphics, component, guiLeft + 75 - minecraft.font.width(component.getString()) / 2, guiTop + 10);
+        renderWrappingText(guiGraphics, translationKey(), guiLeft + 14, guiTop + 76, 126);
+        renderItem(screen, guiGraphics, spiritStack, guiLeft + 67, guiTop + 44, mouseX, mouseY);
     }
 
     @Override
-    public void renderRight(Minecraft minecraft, PoseStack poseStack, EntryScreen screen, int mouseX, int mouseY, float partialTicks) {
+    public void renderRight(Minecraft minecraft, GuiGraphics guiGraphics, EntryScreen screen, int mouseX, int mouseY, float partialTicks) {
         int guiLeft = guiLeft();
         int guiTop = guiTop();
-        Component component = new TranslatableComponent(headlineTranslationKey());
-        renderText(poseStack, component, guiLeft + 218 - minecraft.font.width(component.getString()) / 2, guiTop + 10);
-        renderWrappingText(poseStack, translationKey(), guiLeft + 156, guiTop + 76, 126);
-        renderItem(screen, poseStack, spiritStack, guiLeft + 209, guiTop + 44, mouseX, mouseY);
+        Component component = Component.translatable(headlineTranslationKey());
+        renderText(guiGraphics, component, guiLeft + 218 - minecraft.font.width(component.getString()) / 2, guiTop + 10);
+        renderWrappingText(guiGraphics, translationKey(), guiLeft + 156, guiTop + 76, 126);
+        renderItem(screen, guiGraphics, spiritStack, guiLeft + 209, guiTop + 44, mouseX, mouseY);
     }
 }

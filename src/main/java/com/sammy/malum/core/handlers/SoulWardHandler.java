@@ -17,6 +17,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
@@ -85,7 +86,7 @@ public class SoulWardHandler {
                     DamageSource source = event.getSource();
 
                     float amount = event.getAmount();
-                    float multiplier = source.isMagic() ? CommonConfig.SOUL_WARD_MAGIC.getConfigValue().floatValue() : CommonConfig.SOUL_WARD_PHYSICAL.getConfigValue().floatValue();
+                    float multiplier = source.is(DamageTypes.MAGIC) ? CommonConfig.SOUL_WARD_MAGIC.getConfigValue().floatValue() : CommonConfig.SOUL_WARD_PHYSICAL.getConfigValue().floatValue();
 
                     for (ItemStack s : ItemHelper.getEventResponders(player)) {
                         if (s.getItem() instanceof IMalumEventResponderItem eventItem) {
