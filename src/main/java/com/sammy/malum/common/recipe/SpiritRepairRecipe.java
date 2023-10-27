@@ -15,7 +15,6 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.ForgeRegistryEntry;
 import team.lodestar.lodestone.systems.recipe.ILodestoneRecipe;
 import team.lodestar.lodestone.systems.recipe.IngredientWithCount;
 
@@ -119,7 +118,7 @@ public class SpiritRepairRecipe extends ILodestoneRecipe {
     }
 
     public static List<SpiritRepairRecipe> getRecipes(Level level) {
-        return level().getRecipeManager().getAllRecipesFor(RecipeTypeRegistry.SPIRIT_REPAIR.get());
+        return level.getRecipeManager().getAllRecipesFor(RecipeTypeRegistry.SPIRIT_REPAIR.get());
     }
 
     public static ItemStack getRepairRecipeOutput(ItemStack input) {
@@ -136,7 +135,7 @@ public class SpiritRepairRecipe extends ILodestoneRecipe {
         }
     }
 
-    public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<SpiritRepairRecipe> {
+    public static class Serializer implements RecipeSerializer<SpiritRepairRecipe> {
 
         public static List<Item> REPAIRABLE;
 
@@ -158,8 +157,8 @@ public class SpiritRepairRecipe extends ILodestoneRecipe {
                 inputs.add(input);
             }
             for (Item item : REPAIRABLE) {
-                if (item.getRegistryName().getPath().matches(itemIdRegex)) {
-                    if (!modIdRegex.equals("") && !item.getRegistryName().getNamespace().matches(modIdRegex)) {
+                if (ForgeRegistries.ITEMS.getKey(item).getPath().matches(itemIdRegex)) {
+                    if (!modIdRegex.equals("") && !ForgeRegistries.ITEMS.getKey(item).getNamespace().matches(modIdRegex)) {
                         continue;
                     }
                     if (item instanceof IRepairOutputOverride repairOutputOverride && repairOutputOverride.ignoreDuringLookup()) {

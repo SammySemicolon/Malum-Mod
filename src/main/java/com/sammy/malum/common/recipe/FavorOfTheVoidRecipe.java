@@ -11,7 +11,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.crafting.CraftingHelper;
-import net.minecraftforge.registries.ForgeRegistryEntry;
 import team.lodestar.lodestone.systems.recipe.ILodestoneRecipe;
 import team.lodestar.lodestone.systems.recipe.IngredientWithCount;
 
@@ -73,10 +72,10 @@ public class FavorOfTheVoidRecipe extends ILodestoneRecipe {
     }
 
     public static List<FavorOfTheVoidRecipe> getRecipes(Level level) {
-        return level().getRecipeManager().getAllRecipesFor(RecipeTypeRegistry.VOID_FAVOR.get());
+        return level.getRecipeManager().getAllRecipesFor(RecipeTypeRegistry.VOID_FAVOR.get());
     }
 
-    public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<FavorOfTheVoidRecipe> {
+    public static class Serializer implements RecipeSerializer<FavorOfTheVoidRecipe> {
         @Override
         public FavorOfTheVoidRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
             JsonObject inputObject = json.getAsJsonObject("input");

@@ -114,10 +114,10 @@ public class SpiritFocusingRecipe extends ILodestoneRecipe {
     }
 
     public static List<SpiritFocusingRecipe> getRecipes(Level level) {
-        return level().getRecipeManager().getAllRecipesFor(RecipeTypeRegistry.SPIRIT_FOCUSING.get());
+        return level.getRecipeManager().getAllRecipesFor(RecipeTypeRegistry.SPIRIT_FOCUSING.get());
     }
 
-    public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<SpiritFocusingRecipe> {
+    public static class Serializer implements RecipeSerializer<SpiritFocusingRecipe> {
 
         @Override
         public SpiritFocusingRecipe fromJson(ResourceLocation recipeId, JsonObject json) {

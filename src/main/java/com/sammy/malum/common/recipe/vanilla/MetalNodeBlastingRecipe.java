@@ -5,6 +5,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.BlastingRecipe;
+import net.minecraft.world.item.crafting.CookingBookCategory;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import team.lodestar.lodestone.systems.recipe.IngredientWithCount;
@@ -15,7 +16,7 @@ public class MetalNodeBlastingRecipe extends BlastingRecipe implements INodeSmel
     public final IngredientWithCount output;
 
     public MetalNodeBlastingRecipe(ResourceLocation pId, String pGroup, Ingredient pIngredient, IngredientWithCount output, float pExperience, int pCookingTime) {
-        super(pId, pGroup, pIngredient, ItemStack.EMPTY, pExperience, pCookingTime);
+        super(pId, pGroup, CookingBookCategory.MISC, pIngredient, ItemStack.EMPTY, pExperience, pCookingTime);
         this.output = output;
     }
 
@@ -27,16 +28,6 @@ public class MetalNodeBlastingRecipe extends BlastingRecipe implements INodeSmel
     @Override
     public RecipeSerializer<?> getSerializer() {
         return RecipeSerializerRegistry.METAL_NODE_BLASTING_SERIALIZER.get();
-    }
-
-    @Override
-    public ItemStack getResultItem() {
-        return output.getStack();
-    }
-
-    @Override
-    public ItemStack assemble(Container pInv) {
-        return output.getStack();
     }
 
     @Override

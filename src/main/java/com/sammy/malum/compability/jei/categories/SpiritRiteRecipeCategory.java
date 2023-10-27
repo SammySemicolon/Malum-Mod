@@ -45,7 +45,7 @@ public class SpiritRiteRecipeCategory implements IRecipeCategory<MalumRiteType> 
     public void draw(MalumRiteType rite, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
         overlay.draw(guiGraphics);
         String translated = I18n.get(rite.translationIdentifier(false));
-        ArcanaCodexHelper.renderText(guiGraphics.pose(), Component.literal(translated), 71 - font.width(translated) / 2, 160);
+        ArcanaCodexHelper.renderText(guiGraphics, Component.literal(translated), 71 - font.width(translated) / 2, 160);
     }
 
     @Override
