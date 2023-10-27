@@ -29,7 +29,7 @@ public class SoulStainedSteelArmorItem extends MalumArmorItem {
     @Override
     public ImmutableMultimap.Builder<Attribute, AttributeModifier> createExtraAttributes(EquipmentSlot slot) {
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = new ImmutableMultimap.Builder<>();
-        UUID uuid = ARMOR_MODIFIER_UUID_PER_SLOT[slot.getIndex()];
+        UUID uuid = ARMOR_MODIFIER_UUID_PER_TYPE.get(slot.getIndex());
         builder.put(AttributeRegistry.SOUL_WARD_CAP.get(), new AttributeModifier(uuid, "Soul Ward Cap", 3f, AttributeModifier.Operation.ADDITION));
         return builder;
     }

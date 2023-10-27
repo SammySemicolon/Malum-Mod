@@ -29,8 +29,9 @@ public class SoulHunterArmorItem extends MalumArmorItem {
 
     @Override
     public ImmutableMultimap.Builder<Attribute, AttributeModifier> createExtraAttributes(EquipmentSlot slot) {
+
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = new ImmutableMultimap.Builder<>();
-        UUID uuid = ARMOR_MODIFIER_UUID_PER_TYPE[slot.getIndex()];
+        UUID uuid = ARMOR_MODIFIER_UUID_PER_TYPE.get(slot.getIndex());
         builder.put(LodestoneAttributeRegistry.MAGIC_PROFICIENCY.get(), new AttributeModifier(uuid, "Magic Proficiency", 2f, AttributeModifier.Operation.ADDITION));
         return builder;
     }
