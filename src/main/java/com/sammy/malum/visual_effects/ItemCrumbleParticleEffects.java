@@ -27,15 +27,15 @@ public class ItemCrumbleParticleEffects {
         Random rand = level.getRandom();
         final SpinParticleData spinData = SpinParticleData.createRandomDirection(rand, 0, nextFloat(rand, 0.5f, 0.75f), 0).setCoefficient(0.75f).randomSpinOffset(rand).build();
         final Consumer<LodestoneWorldParticleActor> slowDown = p -> p.setParticleMotion(p.getParticleSpeed().scale(0.925f));
-        int lifetime = RandomHelper.randomBetween(rand, 20, 40);
+        int lifetime = RandomHelper.randomBetween(rand, 30, 40);
         final ItemCrumbParticleBuilder worldParticleBuilder = makeCrumbles(rand, stack, spinData, lifetime, slowDown);
         return new ParticleEffectSpawner<>(level, pos, worldParticleBuilder);
     }
     public static ParticleEffectSpawner<ItemCrumbParticleBuilder> spawnGlowingItemCrumbs(Level level, Vec3 pos, ItemStack stack, MalumSpiritType spiritType) {
         Random rand = level.getRandom();
-        final SpinParticleData spinData = SpinParticleData.createRandomDirection(rand, nextFloat(rand, 0.05f, 0.1f)).randomSpinOffset(rand).build();
+        final SpinParticleData spinData = SpinParticleData.createRandomDirection(rand, 0, nextFloat(rand, 0.5f, 0.75f), 0).setCoefficient(0.75f).randomSpinOffset(rand).build();
         final Consumer<LodestoneWorldParticleActor> slowDown = p -> p.setParticleMotion(p.getParticleSpeed().scale(0.925f));
-        int lifetime = RandomHelper.randomBetween(rand, 20, 40);
+        int lifetime = RandomHelper.randomBetween(rand, 30, 40);
         final ItemCrumbParticleBuilder worldParticleBuilder = makeCrumbles(rand, stack, spinData, lifetime, slowDown);
         final WorldParticleBuilder bloomParticleBuilder = SpiritLightSpecs.spiritBloom(level, spiritType, spinData, lifetime).addActor(slowDown);
         return new ParticleEffectSpawner<>(level, pos, worldParticleBuilder, bloomParticleBuilder);
