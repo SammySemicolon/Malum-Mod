@@ -7,6 +7,7 @@ import com.sammy.malum.registry.common.item.*;
 import net.minecraft.core.particles.*;
 import net.minecraft.nbt.*;
 import net.minecraft.network.protocol.*;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.sounds.*;
 import net.minecraft.util.*;
 import net.minecraft.world.damagesource.*;
@@ -100,10 +101,11 @@ public class ScytheBoomerangEntity extends ThrowableItemProjectile {
     protected void onHitEntity(EntityHitResult result) {
         if (getOwner() instanceof LivingEntity scytheOwner) {
             Entity target = result.getEntity();
-            if (level.isClientSide) {
+            if (level().isClientSide) {
                 return;
             }
-            DamageSource source = DamageSource.indirectMobAttack(this, scytheOwner);
+            //DamageSource source = DamageSource.indirectMobAttack(this, scytheOwner);
+            DamageSource source = target.damageSources().mobProjectile(this, scytheOwner);
             boolean success = target.hurt(source, damage);
             if (success && target instanceof LivingEntity livingentity) {
                 ItemStack scythe = getItem();
@@ -122,7 +124,7 @@ public class ScytheBoomerangEntity extends ThrowableItemProjectile {
 
             }
             returnTimer += 4;
-            target.level.playSound(null, target.getX(), target.getY(), target.getZ(), SoundRegistry.SCYTHE_CUT.get(), target.getSoundSource(), 1.0F, 0.9f + target.level.random.nextFloat() * 0.2f);
+            target.level().playSound(null, target.getX(), target.getY(), target.getZ(), SoundRegistry.SCYTHE_CUT.get(), target.getSoundSource(), 1.0F, 0.9f + target.level().random.nextFloat() * 0.2f);
         }
         super.onHitEntity(result);
     }
@@ -132,7 +134,7 @@ public class ScytheBoomerangEntity extends ThrowableItemProjectile {
         super.tick();
         age++;
         ItemStack scythe = getItem();
-        if (level.isClientSide) {
+        if (level().isClientSide) {
             if (!isInWaterRainOrBubble()) {
                 if (EnchantmentHelper.getItemEnchantmentLevel(Enchantments.FIRE_ASPECT, getItem()) > 0) {
                     Vec3 vector = new Vec3(getRandomX(0.7), getRandomY(), getRandomZ(0.7));
@@ -140,24 +142,24 @@ public class ScytheBoomerangEntity extends ThrowableItemProjectile {
                         Random random = new Random();
                         float rotation = random.nextFloat();
                         vector = new Vec3(Math.cos(this.age) * 0.8f + this.getX(), getY(0.1), Math.sin(this.age) * 0.8f + this.getZ());
-                        level.addParticle(ParticleTypes.FLAME, Math.cos(this.age + rotation * 2 - 1) * 0.8f + this.getX(), vector.y, Math.sin(this.age + rotation * 2 - 1) * 0.8f + this.getZ(), 0, 0, 0);
-                        level.addParticle(ParticleTypes.FLAME, Math.cos(this.age + rotation * 2 - 1) * 0.8f + this.getX(), vector.y, Math.sin(this.age + rotation * 2 - 1) * 0.8f + this.getZ(), 0, 0, 0);
+                        level().addParticle(ParticleTypes.FLAME, Math.cos(this.age + rotation * 2 - 1) * 0.8f + this.getX(), vector.y, Math.sin(this.age + rotation * 2 - 1) * 0.8f + this.getZ(), 0, 0, 0);
+                        level().addParticle(ParticleTypes.FLAME, Math.cos(this.age + rotation * 2 - 1) * 0.8f + this.getX(), vector.y, Math.sin(this.age + rotation * 2 - 1) * 0.8f + this.getZ(), 0, 0, 0);
                     }
-                    level.addParticle(ParticleTypes.FLAME, vector.x, vector.y, vector.z, 0, 0, 0);
+                    level().addParticle(ParticleTypes.FLAME, vector.x, vector.y, vector.z, 0, 0, 0);
                 }
             }
         } else {
             Entity entity = getOwner();
             if (entity == null || !entity.isAlive()) {
-                ItemEntity itemEntity = new ItemEntity(level, getX(), getY() + 0.5, getZ(), scythe);
+                ItemEntity itemEntity = new ItemEntity(level(), getX(), getY() + 0.5, getZ(), scythe);
                 itemEntity.setPickUpDelay(40);
-                level.addFreshEntity(itemEntity);
+                level().addFreshEntity(itemEntity);
                 remove(RemovalReason.DISCARDED);
                 return;
             }
             if (entity instanceof LivingEntity scytheOwner) {
                 if (age % 3 == 0) {
-                    level.playSound(null, blockPosition(), SoundEvents.PLAYER_ATTACK_SWEEP, SoundSource.PLAYERS, 0.75f, 1.25f);
+                    level().playSound(null, blockPosition(), SoundEvents.PLAYER_ATTACK_SWEEP, SoundSource.PLAYERS, 0.75f, 1.25f);
                 }
                 if (this.xRotO == 0.0F && this.yRotO == 0.0F) {
                     Vec3 motion = getDeltaMovement();
@@ -203,7 +205,7 @@ public class ScytheBoomerangEntity extends ThrowableItemProjectile {
     }
 
     @Override
-    public Packet<?> getAddEntityPacket() {
+    public Packet<ClientGamePacketListener> getAddEntityPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 

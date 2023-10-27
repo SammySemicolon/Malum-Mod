@@ -39,7 +39,7 @@ public class WeaversWorkbenchBlockEntity extends LodestoneBlockEntity {
     public InteractionResult onUse(Player player, InteractionHand hand) {
         if (player instanceof ServerPlayer serverPlayer) {
             MenuProvider container = new SimpleMenuProvider((w, p, pl) -> new WeaversWorkbenchContainer(w, p, this), WeaversWorkbenchContainer.component);
-            NetworkHooks.openGui(serverPlayer, container, buf -> buf.writeBlockPos(this.getBlockPos()));
+            NetworkHooks.openScreen(serverPlayer, container, buf -> buf.writeBlockPos(this.getBlockPos()));
         }
         return InteractionResult.SUCCESS;
     }
@@ -47,7 +47,7 @@ public class WeaversWorkbenchBlockEntity extends LodestoneBlockEntity {
     @NotNull
     @Override
     public <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap) {
-        if(cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY){
+        if(cap == ForgeCapabilities.ITEM_HANDLER){
             return handler.cast();
         }
         return super.getCapability(cap);
@@ -56,8 +56,8 @@ public class WeaversWorkbenchBlockEntity extends LodestoneBlockEntity {
     public void onCraft() {
         if (!level.isClientSide) {
             Vec3 itemPos = getItemPos();
-            MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(getBlockPos())), new BlightTransformItemParticlePacket(List.of(ARCANE_SPIRIT.identifier), itemPos));
-            level.playSound(null, getBlockPos(), SoundRegistry.ALTERATION_PLINTH_ALTERS.get(), SoundSource.BLOCKS, 1, 0.9f + level.random.nextFloat() * 0.25f);
+            MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level().getChunkAt(getBlockPos())), new BlightTransformItemParticlePacket(List.of(ARCANE_SPIRIT.identifier), itemPos));
+            level().playSound(null, getBlockPos(), SoundRegistry.ALTERATION_PLINTH_ALTERS.get(), SoundSource.BLOCKS, 1, 0.9f + level().random.nextFloat() * 0.25f);
         }
         itemHandler.getStackInSlot(0).shrink(1);
         itemHandler.getStackInSlot(1).shrink(1);

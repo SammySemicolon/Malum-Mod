@@ -55,7 +55,7 @@ public class MalumLivingEntityDataCapability implements LodestoneCapability {
 
     public static void syncEntityCapability(PlayerEvent.StartTracking event) {
         if (event.getTarget() instanceof LivingEntity livingEntity) {
-            if (livingEntity.level instanceof ServerLevel) {
+            if (livingEntity.level() instanceof ServerLevel) {
                 MalumLivingEntityDataCapability.sync(livingEntity);
             }
         }

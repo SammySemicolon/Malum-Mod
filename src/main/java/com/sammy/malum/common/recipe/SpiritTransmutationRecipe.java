@@ -71,7 +71,7 @@ public class SpiritTransmutationRecipe extends ILodestoneRecipe {
     }
 
     public static List<SpiritTransmutationRecipe> getRecipes(Level level) {
-        return level.getRecipeManager().getAllRecipesFor(RecipeTypeRegistry.SPIRIT_TRANSMUTATION.get());
+        return level().getRecipeManager().getAllRecipesFor(RecipeTypeRegistry.SPIRIT_TRANSMUTATION.get());
     }
 
     public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<SpiritTransmutationRecipe> {

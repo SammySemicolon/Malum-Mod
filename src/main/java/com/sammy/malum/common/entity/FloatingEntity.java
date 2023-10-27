@@ -5,6 +5,7 @@ import com.sammy.malum.registry.common.SpiritTypeRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -22,13 +23,8 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkHooks;
-import team.lodestar.lodestone.helpers.EntityHelper;
 import team.lodestar.lodestone.systems.easing.Easing;
 import team.lodestar.lodestone.systems.rendering.trail.*;
-
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public abstract class FloatingEntity extends Entity {
 
@@ -92,7 +88,7 @@ public abstract class FloatingEntity extends Entity {
         if (age > maxAge) {
             discard();
         }
-        if (level.isClientSide) {
+        if (level().isClientSide) {
             double x = xOld, y = yOld + getYOffset(0) + 0.25f, z = zOld;
             spawnParticles(x, y, z);
         }
@@ -105,16 +101,16 @@ public abstract class FloatingEntity extends Entity {
     }
 
     public void baseTick() {
-        BlockHitResult result = level.clip(new ClipContext(position(), position().add(getDeltaMovement()), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this));
+        BlockHitResult result = level().clip(new ClipContext(position(), position().add(getDeltaMovement()), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this));
         if (result.getType() == HitResult.Type.BLOCK) {
             BlockPos blockpos = result.getBlockPos();
-            BlockState blockstate = this.level.getBlockState(blockpos);
+            BlockState blockstate = this.level().getBlockState(blockpos);
             if (blockstate.is(Blocks.NETHER_PORTAL)) {
                 this.handleInsidePortal(blockpos);
             } else if (blockstate.is(Blocks.END_GATEWAY)) {
-                BlockEntity blockentity = this.level.getBlockEntity(blockpos);
+                BlockEntity blockentity = this.level().getBlockEntity(blockpos);
                 if (blockentity instanceof TheEndGatewayBlockEntity && TheEndGatewayBlockEntity.canEntityTeleport(this)) {
-                    TheEndGatewayBlockEntity.teleportEntity(this.level, blockpos, blockstate, this, (TheEndGatewayBlockEntity) blockentity);
+                    TheEndGatewayBlockEntity.teleportEntity(this.level(), blockpos, blockstate, this, (TheEndGatewayBlockEntity) blockentity);
                 }
             }
         }
@@ -162,7 +158,7 @@ public abstract class FloatingEntity extends Entity {
     }
 
     @Override
-    public Packet<?> getAddEntityPacket() {
+    public Packet<ClientGamePacketListener> getAddEntityPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 

@@ -3,6 +3,7 @@ package com.sammy.malum.data.recipe;
 import com.mojang.datafixers.util.Pair;
 import com.sammy.malum.data.recipe.builder.SpiritTransmutationRecipeBuilder;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.world.level.block.Block;
@@ -15,13 +16,8 @@ import java.util.function.Consumer;
 import static com.sammy.malum.registry.common.block.BlockRegistry.*;
 
 public class MalumSpiritTransmutationRecipes extends RecipeProvider {
-    public MalumSpiritTransmutationRecipes(DataGenerator generatorIn) {
+    public MalumSpiritTransmutationRecipes(PackOutput generatorIn) {
         super(generatorIn);
-    }
-
-    @Override
-    public String getName() {
-        return "Malum Block Transmutation Recipe Provider";
     }
 
     private static final List<Pair<RegistryObject<Block>, RegistryObject<Block>>> SOULWOOD_TRANSMUTATIONS = List.of(
@@ -60,7 +56,7 @@ public class MalumSpiritTransmutationRecipes extends RecipeProvider {
     );
 
     @Override
-    protected void buildCraftingRecipes(Consumer<FinishedRecipe> consumer) {
+    protected void buildRecipes(Consumer<FinishedRecipe> consumer) {
         for (var transmutation : SOULWOOD_TRANSMUTATIONS) {
             new SpiritTransmutationRecipeBuilder(transmutation.getFirst(), transmutation.getSecond())
                 .group("soulwood")

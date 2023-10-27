@@ -72,7 +72,7 @@ public class SpiritPouchContainer extends AbstractContainerMenu {
 
     @Override
     public void removed(Player playerIn) {
-        playerIn.level.playSound(null, playerIn.blockPosition(), SoundEvents.ARMOR_EQUIP_LEATHER, SoundSource.PLAYERS, 1, 1);
+        playerIn.level().playSound(null, playerIn.blockPosition(), SoundEvents.ARMOR_EQUIP_LEATHER, SoundSource.PLAYERS, 1, 1);
         super.removed(playerIn);
         this.inventory.stopOpen(playerIn);
     }

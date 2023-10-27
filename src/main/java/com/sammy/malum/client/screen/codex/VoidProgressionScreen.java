@@ -7,6 +7,7 @@ import com.sammy.malum.common.events.*;
 import com.sammy.malum.registry.common.*;
 import com.sammy.malum.registry.common.item.*;
 import net.minecraft.client.*;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.*;
 import net.minecraft.sounds.*;
 import net.minecraft.world.item.*;
@@ -42,22 +43,22 @@ public class VoidProgressionScreen extends AbstractProgressionCodexScreen {
     }
 
     @Override
-    public void render(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
-        renderBackground(poseStack);
-        super.render(poseStack, mouseX, mouseY, partialTicks);
+    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
+        renderBackground(guiGraphics);
+        super.render(guiGraphics, mouseX, mouseY, partialTicks);
         int guiLeft = (width - bookWidth) / 2;
         int guiTop = (height - bookHeight) / 2;
-
+        PoseStack poseStack = guiGraphics.pose();
         renderBackground(poseStack, 0.2f, 0.2f);
 
         GL11.glEnable(GL_SCISSOR_TEST);
         cut();
-        renderEntries(poseStack, mouseX, mouseY, partialTicks);
+        renderEntries(guiGraphics, mouseX, mouseY, partialTicks);
         GL11.glDisable(GL_SCISSOR_TEST);
 
         renderTransparentTexture(FADE_TEXTURE, poseStack, guiLeft, guiTop, 1, 1, bookWidth, bookHeight, 512, 512);
         renderTexture(FRAME_TEXTURE, poseStack, guiLeft, guiTop, 1, 1, bookWidth, bookHeight, 512, 512);
-        lateEntryRender(poseStack, mouseX, mouseY, partialTicks);
+        lateEntryRender(guiGraphics, mouseX, mouseY, partialTicks);
     }
 
     public void renderBackground(PoseStack poseStack, float xModifier, float yModifier) {

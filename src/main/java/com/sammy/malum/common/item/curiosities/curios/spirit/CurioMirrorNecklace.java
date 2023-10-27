@@ -7,7 +7,7 @@ import com.sammy.malum.registry.common.AttributeRegistry;
 import com.sammy.malum.core.systems.item.IMalumEventResponderItem;
 import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.item.ItemStack;
-import team.lodestar.lodestone.setup.LodestoneAttributeRegistry;
+import team.lodestar.lodestone.registry.common.LodestoneAttributeRegistry;
 import top.theillusivec4.curios.api.*;
 
 import java.util.UUID;

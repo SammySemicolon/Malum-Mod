@@ -1,5 +1,6 @@
 package com.sammy.malum.common.sound;
 
+import com.sammy.malum.MalumMod;
 import com.sammy.malum.registry.common.SoundRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.MultiPlayerGameMode;
@@ -39,7 +40,7 @@ public class RareEarthSoundType extends ExtendedSoundType {
             float progress = gameMode.destroyProgress;
             float volume = (getVolume() + progress * progress * 4f) / 12f;
             float pitch = getPitch() * (0.5f + 0.15f * progress);
-            Minecraft.getInstance().getSoundManager().play(new SimpleSoundInstance(SoundEvents.NETHER_GOLD_ORE_HIT, SoundSource.BLOCKS, volume, pitch, pos));
+            Minecraft.getInstance().getSoundManager().play(new SimpleSoundInstance(SoundEvents.NETHER_GOLD_ORE_HIT, SoundSource.BLOCKS, volume, pitch, MalumMod.RANDOM, pos));
         }
     }
 }

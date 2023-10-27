@@ -7,6 +7,7 @@ import com.sammy.malum.common.block.nature.MalumSaplingBlock;
 import com.sammy.malum.registry.common.block.BlockRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.RotatedPillarBlock;
@@ -45,7 +46,7 @@ public class RunewoodTreeFeature extends Feature<NoneFeatureConfiguration> {
     public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> context) {
         WorldGenLevel level = context.level();
         BlockPos pos = context.origin();
-        Random rand = context.random();
+        var rand = context.random();
         if (level.isEmptyBlock(pos.below()) || !BlockRegistry.RUNEWOOD_SAPLING.get().defaultBlockState().canSurvive(level, pos)) {
             return false;
         }
@@ -138,7 +139,7 @@ public class RunewoodTreeFeature extends Feature<NoneFeatureConfiguration> {
         while (true);
     }
 
-    public static void makeLeafBlob(LodestoneBlockFiller filler, Random rand, BlockPos pos) {
+    public static void makeLeafBlob(LodestoneBlockFiller filler, RandomSource rand, BlockPos pos) {
         makeLeafSlice(filler, pos, 1, 0);
         makeLeafSlice(filler, pos.above(1), 2, 1);
         makeLeafSlice(filler, pos.above(2), 2, 2);
@@ -163,7 +164,7 @@ public class RunewoodTreeFeature extends Feature<NoneFeatureConfiguration> {
             return false;
         }
         BlockState state = level.getBlockState(pos);
-        return state.getBlock() instanceof MalumSaplingBlock || level.isEmptyBlock(pos) || state.getMaterial().isReplaceable();
+        return state.getBlock() instanceof MalumSaplingBlock || level.isEmptyBlock(pos) || state.canBeReplaced();
     }
 
     public static void updateLeaves(LevelAccessor pLevel, Set<BlockPos> logPositions) {

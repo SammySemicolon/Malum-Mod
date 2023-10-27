@@ -30,7 +30,7 @@ public class MajorEntityEffectParticlePacket extends ColorBasedParticleEffectPac
     @Override
     public void execute(Supplier<NetworkEvent.Context> context) {
         Level level = Minecraft.getInstance().level;
-        Random rand = level.random;
+        var rand = level.random;
         for (int i = 0; i <= 3; i++) {
             int spinDirection = (rand.nextBoolean() ? 1 : -1);
             WorldParticleBuilder.create(LodestoneParticleRegistry.WISP_PARTICLE)

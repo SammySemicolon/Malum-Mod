@@ -35,7 +35,7 @@ public class EldritchInfernalRiteType extends MalumRiteType {
                     Optional<SmeltingRecipe> optional = level.getRecipeManager().getRecipeFor(RecipeType.SMELTING, new SimpleContainer(new ItemStack(state.getBlock().asItem(), 1)), level);
                     if (optional.isPresent()) {
                         SmeltingRecipe recipe = optional.get();
-                        ItemStack output = recipe.getResultItem();
+                        ItemStack output = recipe.getResultItem(null);//TOOD maybe give access?
                         if (output.getItem() instanceof BlockItem) {
                             Block block = ((BlockItem) output.getItem()).getBlock();
                             BlockState newState = block.defaultBlockState();
@@ -58,7 +58,7 @@ public class EldritchInfernalRiteType extends MalumRiteType {
                 getNearbyBlocks(totemBase, AbstractFurnaceBlock.class).map(b -> level.getBlockEntity(b)).filter(e -> e instanceof AbstractFurnaceBlockEntity).map(e -> (AbstractFurnaceBlockEntity) e).forEach(f -> {
                     if (f.isLit()) {
                         BlockPos blockPos = f.getBlockPos();
-                    //    MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(blockPos)), new InfernalAccelerationRiteEffectPacket(INFERNAL_SPIRIT.getPrimaryColor(), blockPos));
+                    //    MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level().getChunkAt(blockPos)), new InfernalAccelerationRiteEffectPacket(INFERNAL_SPIRIT.getPrimaryColor(), blockPos));
                         f.cookingProgress = Math.min(f.cookingProgress + 5, f.cookingTotalTime-1);
                     }
                 });

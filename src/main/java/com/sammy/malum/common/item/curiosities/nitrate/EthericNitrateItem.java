@@ -20,7 +20,7 @@ import java.util.HashMap;
 public class EthericNitrateItem extends AbstractNitrateItem {
 
     public EthericNitrateItem(Properties pProperties) {
-        super(pProperties, p -> new EthericNitrateEntity(p, p.level));
+        super(pProperties, p -> new EthericNitrateEntity(p, p.level()));
     }
 
     @Override

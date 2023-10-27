@@ -2,13 +2,13 @@ package com.sammy.malum.client.renderer.block;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Vector3f;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.block.curiosities.weeping_well.VoidConduitBlockEntity;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
+import org.joml.Vector3f;
 import team.lodestar.lodestone.handlers.RenderHandler;
 import team.lodestar.lodestone.setup.LodestoneRenderTypeRegistry;
 import team.lodestar.lodestone.systems.rendering.VFXBuilders;

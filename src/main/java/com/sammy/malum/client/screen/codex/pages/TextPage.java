@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.*;
 import com.sammy.malum.*;
 import com.sammy.malum.client.screen.codex.*;
 import net.minecraft.client.*;
+import net.minecraft.client.gui.GuiGraphics;
 
 import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.*;
 
@@ -20,16 +21,16 @@ public class TextPage extends BookPage {
     }
 
     @Override
-    public void renderLeft(Minecraft minecraft, PoseStack poseStack, EntryScreen screen, int mouseX, int mouseY, float partialTicks) {
+    public void renderLeft(Minecraft minecraft, GuiGraphics guiGraphics, EntryScreen screen, int mouseX, int mouseY, float partialTicks) {
         int guiLeft = guiLeft();
         int guiTop = guiTop();
-        renderWrappingText(poseStack, translationKey(), guiLeft + 14, guiTop + 10, 126);
+        renderWrappingText(guiGraphics, translationKey(), guiLeft + 14, guiTop + 10, 126);
     }
 
     @Override
-    public void renderRight(Minecraft minecraft, PoseStack poseStack, EntryScreen screen, int mouseX, int mouseY, float partialTicks) {
+    public void renderRight(Minecraft minecraft, GuiGraphics guiGraphics, EntryScreen screen, int mouseX, int mouseY, float partialTicks) {
         int guiLeft = guiLeft();
         int guiTop = guiTop();
-        renderWrappingText(poseStack, translationKey(), guiLeft + 156, guiTop + 10, 126);
+        renderWrappingText(guiGraphics, translationKey(), guiLeft + 156, guiTop + 10, 126);
     }
 }

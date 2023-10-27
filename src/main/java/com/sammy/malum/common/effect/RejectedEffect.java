@@ -20,8 +20,8 @@ public class RejectedEffect extends MobEffect {
     public void applyEffectTick(LivingEntity pLivingEntity, int pAmplifier) {
         TouchOfDarknessHandler handler = MalumLivingEntityDataCapability.getCapability(pLivingEntity).touchOfDarknessHandler;
         handler.afflict(20);
-        if (pLivingEntity.level.getGameTime() % 60L == 0) {
-            pLivingEntity.hurt(DamageSourceRegistry.VOODOO, 1);
+        if (pLivingEntity.level().getGameTime() % 60L == 0) {
+            pLivingEntity.hurt(DamageSourceRegistry.create(pLivingEntity.level(), DamageSourceRegistry.VOODOO), 1);
         }
     }
 

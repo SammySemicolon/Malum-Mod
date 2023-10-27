@@ -47,7 +47,7 @@ public class SpiritAltarParticleEffects {
             return;
         }
         Level level = altar.getLevel();
-        Random random = level.random;
+        var random = level.random;
         Vec3 itemPos = altar.getItemPos();
         LodestoneBlockEntityInventory spiritInventory = altar.spiritInventory;
         SpiritInfusionRecipe recipe = altar.recipe;
@@ -94,7 +94,7 @@ public class SpiritAltarParticleEffects {
         }
         Level level = altar.getLevel();
         long gameTime = level.getGameTime();
-        Random random = level.random;
+        var random = level.random;
         Vec3 altarTargetPos = altar.getItemPos();
         Vec3 holderTargetPos = holder.getItemPos();
         for (int i = 0; i < 2; i++) {
@@ -151,7 +151,7 @@ public class SpiritAltarParticleEffects {
         }
         Level level = altar.getLevel();
         long gameTime = level.getGameTime();
-        Random random = level.random;
+        var random = level.random;
         BlockPos altarPos = altar.getBlockPos();
         Vec3 targetPos = altar.getCentralItemOffset().add(altarPos.getX(),altarPos.getY(), altarPos.getZ());
 
@@ -234,7 +234,7 @@ public class SpiritAltarParticleEffects {
         Vec3 startPos = obelisk.getParticleOffset().add(obeliskPos.getX(), obeliskPos.getY(), obeliskPos.getZ());
         spiritLightSpecs(level, startPos, spiritType).spawnParticles();
         if (level.getGameTime() % 2L == 0) {
-            Random random = level.random;
+            var random = level.random;
             long gameTime = level.getGameTime();
             BlockPos altarPos = altar.getBlockPos();
             Vec3 targetPos = altar.getCentralItemOffset().add(altarPos.getX(),altarPos.getY(), altarPos.getZ());

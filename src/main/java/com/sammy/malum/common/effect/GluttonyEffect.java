@@ -13,11 +13,11 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level; 
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
-import net.minecraftforge.event.entity.living.PotionEvent;
+import net.minecraftforge.event.entity.living.MobEffectEvent;
 import net.minecraftforge.eventbus.api.Event;
 import team.lodestar.lodestone.helpers.ColorHelper;
 import team.lodestar.lodestone.helpers.EntityHelper;
-import team.lodestar.lodestone.setup.LodestoneAttributeRegistry;
+import team.lodestar.lodestone.registry.common.LodestoneAttributeRegistry;
 
 import static com.sammy.malum.registry.common.item.ItemTagRegistry.GROSS_FOODS;
 
@@ -27,9 +27,9 @@ public class GluttonyEffect extends MobEffect {
         addAttributeModifier(LodestoneAttributeRegistry.MAGIC_PROFICIENCY.get(), "4d82fd0a-24b6-45f5-8d7a-983f99fd6783", 2f, AttributeModifier.Operation.ADDITION);
     }
 
-    public static void canApplyPotion(PotionEvent.PotionApplicableEvent event) {
-        MobEffectInstance potionEffect = event.getPotionEffect();
-        LivingEntity entityLiving = event.getEntityLiving();
+    public static void canApplyPotion(MobEffectEvent.Applicable event) {
+        MobEffectInstance potionEffect = event.getEffectInstance();
+        LivingEntity entityLiving = event.getEntity();
         if (potionEffect.getEffect().equals(MobEffects.HUNGER) && entityLiving.hasEffect(MobEffectRegistry.GLUTTONY.get())) {
             event.setResult(Event.Result.DENY);
         }
@@ -38,11 +38,11 @@ public class GluttonyEffect extends MobEffect {
     public static void finishEating(LivingEntityUseItemEvent.Finish event) {
         ItemStack stack = event.getResultStack();
         if (stack.is(GROSS_FOODS)) {
-            LivingEntity entity = event.getEntityLiving();
+            LivingEntity entity = event.getEntity();
             MobEffectInstance effect = entity.getEffect(MobEffectRegistry.GLUTTONY.get());
             if (effect != null) {
                 EntityHelper.extendEffect(effect, entity, 200, 1000);
-                Level level = entity.level;
+                Level level = entity.level();
                 level.playSound(null, entity.blockPosition(), SoundRegistry.HUNGRY_BELT_FEEDS.get(), SoundSource.PLAYERS, 1.7f, 1.2f + level.random.nextFloat() * 0.5f);
             }
         }

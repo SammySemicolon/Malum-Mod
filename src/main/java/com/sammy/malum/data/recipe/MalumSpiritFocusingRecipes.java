@@ -6,6 +6,7 @@ import com.sammy.malum.data.recipe.builder.SpiritFocusingRecipeBuilder;
 import com.sammy.malum.data.recipe.builder.SpiritRepairRecipeBuilder;
 import com.sammy.malum.registry.common.item.ItemRegistry;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.tags.ItemTags;
@@ -17,25 +18,21 @@ import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.crafting.ConditionalRecipe;
 import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
 import net.minecraftforge.common.crafting.conditions.TagEmptyCondition;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 import java.util.function.Consumer;
 
 import static com.sammy.malum.registry.common.SpiritTypeRegistry.*;
-import static team.lodestar.lodestone.setup.LodestoneItemTags.*;
+import static team.lodestar.lodestone.registry.common.tag.LodestoneItemTags.*;
 
 public class MalumSpiritFocusingRecipes extends RecipeProvider implements IConditionBuilder {
-    public MalumSpiritFocusingRecipes(DataGenerator generatorIn) {
+    public MalumSpiritFocusingRecipes(PackOutput generatorIn) {
         super(generatorIn);
     }
 
     @Override
-    public String getName() {
-        return "Malum Spirit Crucible Recipe Provider";
-    }
-
-    @Override
-    protected void buildCraftingRecipes(Consumer<FinishedRecipe> consumer) {
+    protected void buildRecipes(Consumer<FinishedRecipe> consumer) {
         int metalDuration = 900;
         int shortDuration = 300;
 
@@ -190,7 +187,7 @@ public class MalumSpiritFocusingRecipes extends RecipeProvider implements ICondi
         new SpiritFocusingRecipeBuilder(duration, 2, Ingredient.of(impetus.get()), node.get(), 3)
                 .addSpirit(EARTHEN_SPIRIT, 2)
                 .addSpirit(INFERNAL_SPIRIT, 4)
-                .build(consumer, MalumMod.malumPath("node_focusing_" + node.get().getRegistryName().getPath().replace("_node", "")));
+                .build(consumer, MalumMod.malumPath("node_focusing_" + ForgeRegistries.ITEMS.getKey(node.get()).getPath().replace("_node", "")));
     }
 
     public void addImpetusRecipes(Consumer<FinishedRecipe> consumer, int duration, RegistryObject<ImpetusItem> impetus, RegistryObject<Item> node, TagKey<Item> nugget) {

@@ -7,15 +7,18 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.ExplosionDamageCalculator;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.event.world.ExplosionEvent;
+import net.minecraftforge.event.level.ExplosionEvent;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
 public class EthericExplosion extends Explosion {
+    /*TODO?
     public EthericExplosion(Level pLevel, @Nullable Entity pSource, double pToBlowX, double pToBlowY, double pToBlowZ, float pRadius) {
         super(pLevel, pSource, pToBlowX, pToBlowY, pToBlowZ, pRadius);
     }
+
+     */
 
     public EthericExplosion(Level pLevel, @Nullable Entity pSource, double pToBlowX, double pToBlowY, double pToBlowZ, float pRadius, List<BlockPos> pPositions) {
         super(pLevel, pSource, pToBlowX, pToBlowY, pToBlowZ, pRadius, pPositions);
@@ -35,10 +38,10 @@ public class EthericExplosion extends Explosion {
 
     @Override
     public DamageSource getDamageSource() {
-        if (getSourceMob() != null) {
-            return DamageSourceRegistry.VOODOO;
+        if (getDirectSourceEntity() != null) {
+            return DamageSourceRegistry.create(getDirectSourceEntity().level(), DamageSourceRegistry.VOODOO, getDirectSourceEntity());
         }
-        return DamageSourceRegistry.causeVoodooDamage(getSourceMob());
+        return DamageSourceRegistry.create(getDirectSourceEntity().level(), DamageSourceRegistry.VOODOO);
     }
 
     public static void processExplosion(ExplosionEvent.Detonate event) {

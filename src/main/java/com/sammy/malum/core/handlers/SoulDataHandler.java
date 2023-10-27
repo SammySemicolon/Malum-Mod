@@ -3,7 +3,6 @@ package com.sammy.malum.core.handlers;
 import com.sammy.malum.common.capability.MalumLivingEntityDataCapability;
 import com.sammy.malum.common.capability.MalumPlayerDataCapability;
 import com.sammy.malum.common.entity.boomerang.ScytheBoomerangEntity;
-import com.sammy.malum.compability.tetra.TetraCompat;
 import com.sammy.malum.registry.common.item.ItemTagRegistry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.damagesource.DamageSource;
@@ -13,11 +12,11 @@ import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.living.LivingChangeTargetEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.event.entity.living.LivingSpawnEvent;
+import net.minecraftforge.event.entity.living.MobSpawnEvent;
 
 import java.util.UUID;
 
@@ -58,20 +57,16 @@ public class SoulDataHandler {
         }
     }
 
-    public static void markAsSpawnerSpawned(LivingSpawnEvent.SpecialSpawn event) {
-        if (event.getSpawnReason() != null) {
-            if (event.getEntity() instanceof LivingEntity livingEntity) {
-                MalumLivingEntityDataCapability.getCapabilityOptional(livingEntity).ifPresent(ec -> {
-                    SoulDataHandler soulData = ec.soulData;
-                    if (event.getSpawnReason().equals(MobSpawnType.SPAWNER)) {
-                        soulData.spawnerSpawned = true;
-                    }
-                });
-            }
+    public static void markAsSpawnerSpawned(MobSpawnEvent.PositionCheck event) {
+        if (event.getSpawner() != null) {
+            MalumLivingEntityDataCapability.getCapabilityOptional(event.getEntity()).ifPresent(ec -> {
+                SoulDataHandler soulData = ec.soulData;
+                soulData.spawnerSpawned = true;
+            });
         }
     }
 
-    public static void updateAi(EntityJoinWorldEvent event) {
+    public static void updateAi(EntityJoinLevelEvent event) {
         if (event.getEntity() instanceof LivingEntity livingEntity) {
             MalumLivingEntityDataCapability.getCapabilityOptional(livingEntity).ifPresent(ec -> {
                 SoulDataHandler soulData = ec.soulData;
@@ -85,7 +80,7 @@ public class SoulDataHandler {
     }
 
     public static void preventTargeting(LivingChangeTargetEvent event) {
-        if (event.getEntityLiving() instanceof Mob mob) {
+        if (event.getEntity() instanceof Mob mob) {
             MalumLivingEntityDataCapability.getCapabilityOptional(mob).ifPresent(ec -> {
                 SoulDataHandler soulData = ec.soulData;
                 if (soulData.soulless) {
@@ -100,12 +95,12 @@ public class SoulDataHandler {
         if (event.isCanceled() || event.getAmount() <= 0) {
             return;
         }
-        LivingEntity target = event.getEntityLiving();
+        LivingEntity target = event.getEntity();
         DamageSource source = event.getSource();
         SoulDataHandler soulData = MalumLivingEntityDataCapability.getCapability(target).soulData;
         if (source.getEntity() instanceof LivingEntity attacker) {
             ItemStack stack = getSoulHunterWeapon(source, attacker);
-            if (stack.is(ItemTagRegistry.SOUL_HUNTER_WEAPON) || (TetraCompat.LOADED && TetraCompat.LoadedOnly.hasSoulStrike(stack))) {
+            if (stack.is(ItemTagRegistry.SOUL_HUNTER_WEAPON) /*|| (TetraCompat.LOADED && TetraCompat.LoadedOnly.hasSoulStrike(stack))*/) {
                 soulData.exposedSoulDuration = 200;
             }
         }
@@ -114,16 +109,16 @@ public class SoulDataHandler {
         }
     }
 
-    public static void manageSoul(LivingEvent.LivingUpdateEvent event) {
+    public static void manageSoul(LivingEvent.LivingTickEvent event) {
         //here we tick down all the data and reset it overtime.
-        LivingEntity entity = event.getEntityLiving();
+        LivingEntity entity = event.getEntity();
         SoulDataHandler soulData = MalumLivingEntityDataCapability.getCapability(entity).soulData;
         if (soulData.exposedSoulDuration > 0) {
             soulData.exposedSoulDuration--;
         }
 
         if (soulData.soulThiefUUID != null && soulData.soulSeparationProgress > 0) {
-            Player soulThief = entity.level.getPlayerByUUID(soulData.soulThiefUUID);
+            Player soulThief = entity.level().getPlayerByUUID(soulData.soulThiefUUID);
             if (soulThief != null) {
                 SoulHarvestHandler soulHarvestHandler = MalumPlayerDataCapability.getCapability(soulThief).soulHarvestHandler;
 

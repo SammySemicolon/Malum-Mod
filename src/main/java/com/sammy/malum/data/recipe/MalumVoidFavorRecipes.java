@@ -11,17 +11,12 @@ import net.minecraftforge.common.*;
 import java.util.function.*;
 
 public class MalumVoidFavorRecipes extends RecipeProvider {
-    public MalumVoidFavorRecipes(DataGenerator generatorIn) {
+    public MalumVoidFavorRecipes(PackOutput generatorIn) {
         super(generatorIn);
     }
 
     @Override
-    public String getName() {
-        return "Malum Void Favor Recipe Provider";
-    }
-
-    @Override
-    protected void buildCraftingRecipes(Consumer<FinishedRecipe> consumer) {
+    protected void buildRecipes(Consumer<FinishedRecipe> consumer) {
         new VoidFavorRecipeBuilder(Ingredient.of(Tags.Items.RAW_MATERIALS), ItemRegistry.RAW_SOULSTONE.get(), 1)
                 .build(consumer);
 

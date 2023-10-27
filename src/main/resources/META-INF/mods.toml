@@ -1,30 +1,40 @@
 modLoader="javafml"
-loaderVersion="[39,)"
-license="All rights reserved"
+loaderVersion="${loaderVersionRange}"
+license="${modLicense}"
 [[mods]]
-logoFile="malum.png"
-modId="malum"
-version="${file.jarVersion}"
-displayName="Malum"
-authors="Sammy;"
-description='''
-A dark magic mod focused on soul and spirit magic.
-'''
-[[dependencies.malum]]
-    modId="lodestone"
-    mandatory=true
-    versionRange="[FORGE-1.18.2-1.4.1,)"
-    ordering="AFTER"
-    side="BOTH"
-[[dependencies.malum]]
-    modId="curios"
-    mandatory=true
-    versionRange="[FORGE-1.18.2,)"
-    ordering="AFTER"
-    side="BOTH"
-[[dependencies.malum]]
-    modId="tetra"
-    mandatory=false
-    versionRange="[FORGE-1.18.2,)"
-    ordering="AFTER"
-    side="BOTH"
+modId="${modId}"
+version="${modVersion}"
+displayName="${modName}"
+authors="${modAuthors}"
+description='''${modDescription}'''
+[[dependencies.${modId}]]
+modId="forge"
+mandatory=true
+versionRange="${forgeVersionRange}"
+ordering="NONE"
+# Side this dependency is applied on - BOTH, CLIENT, or SERVER
+side="BOTH"
+# Here's another dependency
+[[dependencies.${modId}]]
+modId="minecraft"
+mandatory=true
+versionRange="${minecraftVersionRange}"
+ordering="NONE"
+side="BOTH"
+[[dependencies.${modId}]]
+modId = "lodestone"
+mandatory = true
+versionRange = "[1.20.1-1.4.2,)"
+ordering = "NONE"
+side = "BOTH"
+[[dependencies.${modId}]]
+modId = "curios"
+mandatory = true
+versionRange = "[5.2.0,)"
+ordering = "NONE"
+side = "BOTH"
+# Features are specific properties of the game environment, that you may want to declare you require. This example declares
+# that your mod requires GL version 3.2 or higher. Other features will be added. They are side aware so declaring this won't
+# stop your mod loading on the server for example.
+#[features.${modId}]
+#openGLVersion="[3.2,)"

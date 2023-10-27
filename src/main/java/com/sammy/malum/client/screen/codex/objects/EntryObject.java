@@ -4,7 +4,8 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.sammy.malum.client.screen.codex.*;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.network.chat.Component;
 
 import java.util.Arrays;
 
@@ -25,19 +26,25 @@ public class EntryObject extends BookObject {
     }
 
     @Override
-    public void render(Minecraft minecraft, PoseStack poseStack, float xOffset, float yOffset, int mouseX, int mouseY, float partialTicks) {
+    public void render(Minecraft minecraft, GuiGraphics guiGraphics, float xOffset, float yOffset, int mouseX, int mouseY, float partialTicks) {
         int posX = offsetPosX(xOffset);
         int posY = offsetPosY(yOffset);
-        renderTransparentTexture(FADE_TEXTURE, poseStack, posX - 13, posY - 13, 1, 252, 58, 58, 512, 512);
-        renderTexture(FRAME_TEXTURE, poseStack, posX, posY, 1, getFrameTextureV(), width, height, 512, 512);
-        renderTexture(FRAME_TEXTURE, poseStack, posX, posY, 100, getBackgroundTextureV(), width, height, 512, 512);
-        minecraft.getItemRenderer().renderAndDecorateItem(entry.iconStack, posX + 8, posY + 8);
+        renderTransparentTexture(FADE_TEXTURE, guiGraphics.pose(), posX - 13, posY - 13, 1, 252, 58, 58, 512, 512);
+        renderTexture(FRAME_TEXTURE, guiGraphics.pose(), posX, posY, 1, getFrameTextureV(), width, height, 512, 512);
+        renderTexture(FRAME_TEXTURE, guiGraphics.pose(), posX, posY, 100, getBackgroundTextureV(), width, height, 512, 512);
+        guiGraphics.renderItem(entry.iconStack, posX + 8, posY + 8);
     }
 
     @Override
-    public void lateRender(Minecraft minecraft, PoseStack poseStack, float xOffset, float yOffset, int mouseX, int mouseY, float partialTicks) {
+    public void lateRender(Minecraft minecraft, GuiGraphics guiGraphics, float xOffset, float yOffset, int mouseX, int mouseY, float partialTicks) {
         if (isHovering) {
-            screen.renderComponentTooltip(poseStack, Arrays.asList(new TranslatableComponent(entry.translationKey()), new TranslatableComponent(entry.descriptionTranslationKey()).withStyle(ChatFormatting.GRAY)), mouseX, mouseY, minecraft.font);
+            guiGraphics.renderComponentTooltip(
+                    minecraft.font,
+                    Arrays.asList(Component.translatable(entry.translationKey()), Component.translatable(entry.descriptionTranslationKey()).withStyle(ChatFormatting.GRAY)),
+                    mouseX,
+                    mouseY
+            );
+           // screen.renderComponentTooltip(guiGraphics, Arrays.asList(Component.translatable(entry.translationKey()), Component.translatable(entry.descriptionTranslationKey()).withStyle(ChatFormatting.GRAY)), mouseX, mouseY, minecraft.font);
         }
     }
 

@@ -59,7 +59,7 @@ public abstract class AbstractNitrateEntity extends ThrowableProjectile {
     protected void onHit(HitResult pResult) {
         super.onHit(pResult);
 
-        EthericExplosion.explode(level, this, getX(), getY(0.0625D), getZ(), getExplosionRadius(), Explosion.BlockInteraction.BREAK);
+        EthericExplosion.explode(level(), this, getX(), getY(0.0625D), getZ(), getExplosionRadius(), Explosion.BlockInteraction.DESTROY);
         onExplode();
         if (pierce <= 0) {
             discard();

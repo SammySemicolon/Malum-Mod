@@ -115,7 +115,7 @@ public class SpiritInfusionRecipe extends ILodestoneRecipe {
     }
 
     public static List<SpiritInfusionRecipe> getRecipes(Level level) {
-        return level.getRecipeManager().getAllRecipesFor(RecipeTypeRegistry.SPIRIT_INFUSION.get());
+        return level().getRecipeManager().getAllRecipesFor(RecipeTypeRegistry.SPIRIT_INFUSION.get());
     }
 
     public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<SpiritInfusionRecipe> {

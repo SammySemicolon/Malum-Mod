@@ -3,6 +3,8 @@ package com.sammy.malum.client.screen.codex.objects;
 import com.mojang.blaze3d.vertex.*;
 import com.sammy.malum.client.screen.codex.*;
 import net.minecraft.client.*;
+import net.minecraft.client.gui.Gui;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.*;
 
 import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.*;
@@ -21,9 +23,10 @@ public class IconObject extends EntryObject {
     }
 
     @Override
-    public void render(Minecraft minecraft, PoseStack poseStack, float xOffset, float yOffset, int mouseX, int mouseY, float partialTicks) {
+    public void render(Minecraft minecraft, GuiGraphics guiGraphics, float xOffset, float yOffset, int mouseX, int mouseY, float partialTicks) {
         int posX = offsetPosX(xOffset);
         int posY = offsetPosY(yOffset);
+        PoseStack poseStack = guiGraphics.pose();
         renderTransparentTexture(FADE_TEXTURE, poseStack, posX-13, posY-13, 1, 252, 58, 58, 512, 512);
         renderTexture(FRAME_TEXTURE, poseStack, posX, posY, 67, getFrameTextureV(), width, height, 512, 512);
         renderTexture(FRAME_TEXTURE, poseStack, posX, posY, 166, getBackgroundTextureV(), width, height, 512, 512);

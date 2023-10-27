@@ -4,6 +4,8 @@ import com.mojang.blaze3d.vertex.*;
 import com.sammy.malum.*;
 import com.sammy.malum.client.screen.codex.*;
 import net.minecraft.client.*;
+import net.minecraft.client.gui.Gui;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.world.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.*;
@@ -34,7 +36,7 @@ public class SmeltingBookPage extends BookPage {
         Optional<SmeltingRecipe> optional = Minecraft.getInstance().level.getRecipeManager().getRecipeFor(RecipeType.SMELTING, new SimpleContainer(new ItemStack(input, 1)), Minecraft.getInstance().level);
         if (optional.isPresent()) {
             SmeltingRecipe recipe = optional.get();
-            return new SmeltingBookPage(new ItemStack(input), recipe.getResultItem());
+            return new SmeltingBookPage(new ItemStack(input), recipe.getResultItem(null));//TODO mayby get access
         }
         return new SmeltingBookPage(ItemStack.EMPTY, ItemStack.EMPTY);
     }
@@ -45,19 +47,19 @@ public class SmeltingBookPage extends BookPage {
     }
 
     @Override
-    public void renderLeft(Minecraft minecraft, PoseStack poseStack, EntryScreen screen, int mouseX, int mouseY, float partialTicks) {
+    public void renderLeft(Minecraft minecraft, GuiGraphics guiGraphics, EntryScreen screen, int mouseX, int mouseY, float partialTicks) {
         int guiLeft = guiLeft();
         int guiTop = guiTop();
-        renderItem(screen, poseStack, inputStack, guiLeft + 67, guiTop + 59, mouseX, mouseY);
-        renderItem(screen, poseStack, outputStack, guiLeft + 67, guiTop + 126, mouseX, mouseY);
+        renderItem(screen, guiGraphics, inputStack, guiLeft + 67, guiTop + 59, mouseX, mouseY);
+        renderItem(screen, guiGraphics, outputStack, guiLeft + 67, guiTop + 126, mouseX, mouseY);
 
     }
 
     @Override
-    public void renderRight(Minecraft minecraft, PoseStack poseStack, EntryScreen screen, int mouseX, int mouseY, float partialTicks) {
+    public void renderRight(Minecraft minecraft, GuiGraphics guiGraphics, EntryScreen screen, int mouseX, int mouseY, float partialTicks) {
         int guiLeft = guiLeft();
         int guiTop = guiTop();
-        renderItem(screen, poseStack, inputStack, guiLeft + 209, guiTop + 59, mouseX, mouseY);
-        renderItem(screen, poseStack, outputStack, guiLeft + 209, guiTop + 126, mouseX, mouseY);
+        renderItem(screen, guiGraphics, inputStack, guiLeft + 209, guiTop + 59, mouseX, mouseY);
+        renderItem(screen, guiGraphics, outputStack, guiLeft + 209, guiTop + 126, mouseX, mouseY);
     }
 }

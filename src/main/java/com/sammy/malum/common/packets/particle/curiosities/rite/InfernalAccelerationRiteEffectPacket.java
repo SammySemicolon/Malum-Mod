@@ -32,7 +32,7 @@ public class InfernalAccelerationRiteEffectPacket extends SpiritBasedBlockPartic
     @Override
     public void execute(Supplier<NetworkEvent.Context> context, MalumSpiritType spiritType) {
         Level level = Minecraft.getInstance().level;
-        Random rand = level.random;
+        var rand = level.random;
         Color color = spiritType.getPrimaryColor();
         Color endColor = spiritType.getSecondaryColor();
         for (int i = 0; i < 3; i++) {

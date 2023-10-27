@@ -45,7 +45,7 @@ public class EthericNitrateEntity extends AbstractNitrateEntity {
     @Override
     public void onExplode() {
         if (level instanceof ServerLevel) {
-            MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(blockPosition())), new EthericNitrateParticlePacket(getX(), getY(), getZ()));
+            MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level().getChunkAt(blockPosition())), new EthericNitrateParticlePacket(getX(), getY(), getZ()));
         }
     }
 
@@ -61,7 +61,7 @@ public class EthericNitrateEntity extends AbstractNitrateEntity {
 
     @Override
     public void spawnParticles() {
-        if (level.isClientSide) {
+        if (level().isClientSide) {
             ClientOnly.spawnParticles(this);
         }
     }
@@ -75,7 +75,7 @@ public class EthericNitrateEntity extends AbstractNitrateEntity {
             float extraAlpha = (float) motion.length();
             float cycles = 3;
             Color firstColor = FIRST_COLOR.brighter();
-            Random rand = ethericNitrateEntity.level.getRandom();
+            var rand = ethericNitrateEntity.level().getRandom();
             for (int i = 0; i < cycles; i++) {
                 float pDelta = i / cycles;
                 double lerpX = Mth.lerp(pDelta, ox, x) - motion.x / 4f;
@@ -98,9 +98,9 @@ public class EthericNitrateEntity extends AbstractNitrateEntity {
                         .addMotion(norm.x, norm.y, norm.z)
                         .setRandomMotion(0.01f, 0.01f)
                         .setRenderType(LodestoneWorldParticleRenderType.LUMITRANSPARENT)
-                        .spawn(ethericNitrateEntity.level, lerpX, lerpY, lerpZ)
+                        .spawn(ethericNitrateEntity.level(), lerpX, lerpY, lerpZ)
                         .setColorData(colorDataBuilder.setCoefficient(2f).build())
-                        .spawn(ethericNitrateEntity.level, lerpX, lerpY, lerpZ);
+                        .spawn(ethericNitrateEntity.level(), lerpX, lerpY, lerpZ);
             }
         }
     }

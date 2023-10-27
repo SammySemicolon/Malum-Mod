@@ -46,7 +46,7 @@ public abstract class SpiritBasedBlockParticleEffectPacket extends BlockBasedPar
         double posX = buf.readInt();
         double posY = buf.readInt();
         double posZ = buf.readInt();
-        return provider.getPacket(spirits, new BlockPos(posX, posY, posZ));
+        return provider.getPacket(spirits, new BlockPos((int)posX, (int)posY, (int)posZ));
     }
 
     public interface PacketProvider<T extends SpiritBasedBlockParticleEffectPacket> {

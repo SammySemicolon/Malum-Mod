@@ -23,7 +23,7 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
 import net.minecraftforge.network.NetworkHooks;
@@ -80,7 +80,7 @@ public class SpiritPouchItem extends Item {
                 ItemStack remainder = inventory.addItem(toInsert);
                 pSlot.set(remainder);
                 if (remainder.getCount() != toInsert.getCount())
-                    pPlayer.playSound(SoundEvents.BUNDLE_INSERT, 0.8F, 0.8F + pPlayer.getLevel().getRandom().nextFloat() * 0.4F);
+                    pPlayer.playSound(SoundEvents.BUNDLE_INSERT, 0.8F, 0.8F + pPlayer.level().getRandom().nextFloat() * 0.4F);
             }
 
             return true;
@@ -97,7 +97,7 @@ public class SpiritPouchItem extends Item {
             if (!pOther.isEmpty() && pOther.getItem().canFitInsideContainerItems()) {
                 ItemStack remainder = inventory.addItem(pOther.copy());
                 if (pOther.getCount() != remainder.getCount())
-                    pPlayer.playSound(SoundEvents.BUNDLE_INSERT, 0.8F, 0.8F + pPlayer.getLevel().getRandom().nextFloat() * 0.4F);
+                    pPlayer.playSound(SoundEvents.BUNDLE_INSERT, 0.8F, 0.8F + pPlayer.level().getRandom().nextFloat() * 0.4F);
 
                 pOther.shrink(pOther.getCount() - remainder.getCount());
             }
@@ -112,8 +112,8 @@ public class SpiritPouchItem extends Item {
             ItemStack stack = playerIn.getItemInHand(handIn);
             MenuProvider container =
                     new SimpleMenuProvider((w, p, pl) -> new SpiritPouchContainer(w, p, stack), stack.getHoverName());
-            NetworkHooks.openGui((ServerPlayer) playerIn, container, b -> b.writeItem(stack));
-            playerIn.level.playSound(null, playerIn.getX(), playerIn.getY(), playerIn.getZ(), SoundEvents.ARMOR_EQUIP_LEATHER, SoundSource.PLAYERS, 1, 1);
+            NetworkHooks.openScreen((ServerPlayer) playerIn, container, b -> b.writeItem(stack));
+            playerIn.level().playSound(null, playerIn.getX(), playerIn.getY(), playerIn.getZ(), SoundEvents.ARMOR_EQUIP_LEATHER, SoundSource.PLAYERS, 1, 1);
         }
         return InteractionResultHolder.success(playerIn.getItemInHand(handIn));
     }
@@ -128,7 +128,7 @@ public class SpiritPouchItem extends Item {
         @Nonnull
         @Override
         public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> capability, @Nullable Direction facing) {
-            return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.orEmpty(capability, opt);
+            return ForgeCapabilities.ITEM_HANDLER.orEmpty(capability, opt);
         }
     }
 

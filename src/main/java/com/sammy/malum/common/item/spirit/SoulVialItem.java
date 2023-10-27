@@ -6,7 +6,6 @@ import com.sammy.malum.core.systems.spirit.MalumEntitySpiritData;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -41,7 +40,7 @@ public class SoulVialItem extends BlockItem implements ISoulContainerItem {
             CompoundTag tag = pStack.getTag();
             if (tag.contains(MalumEntitySpiritData.SOUL_DATA)) {
                 MalumEntitySpiritData data = MalumEntitySpiritData.load(tag);
-                pTooltipComponents.add(new TranslatableComponent("malum.spirit.description.stored_soul").withStyle(ChatFormatting.GRAY));
+                pTooltipComponents.add(Component.translatable("malum.spirit.description.stored_soul").withStyle(ChatFormatting.GRAY));
                 pTooltipComponents.addAll(data.createTooltip());
             }
         }

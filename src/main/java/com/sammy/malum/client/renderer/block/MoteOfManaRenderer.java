@@ -10,6 +10,7 @@ import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.blockentity.*;
 import net.minecraft.resources.*;
 import net.minecraft.util.*;
+import org.joml.Vector3f;
 import team.lodestar.lodestone.handlers.*;
 import team.lodestar.lodestone.setup.*;
 import team.lodestar.lodestone.systems.rendering.*;

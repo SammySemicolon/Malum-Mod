@@ -7,6 +7,7 @@ import com.sammy.malum.common.events.*;
 import com.sammy.malum.registry.common.*;
 import com.sammy.malum.registry.common.item.*;
 import net.minecraft.client.*;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.*;
 import net.minecraft.sounds.*;
 import net.minecraft.world.item.*;
@@ -42,22 +43,22 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
     }
 
     @Override
-    public void render(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
-        renderBackground(poseStack);
-        super.render(poseStack, mouseX, mouseY, partialTicks);
+    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
+        renderBackground(guiGraphics);
+        super.render(guiGraphics, mouseX, mouseY, partialTicks);
         int guiLeft = (width - bookWidth) / 2;
         int guiTop = (height - bookHeight) / 2;
 
-        renderBackground(poseStack, 0.1f, 0.4f);
+        renderBackground(guiGraphics.pose(), 0.1f, 0.4f);
         GL11.glEnable(GL_SCISSOR_TEST);
         cut();
 
-        renderEntries(poseStack, mouseX, mouseY, partialTicks);
+        renderEntries(guiGraphics, mouseX, mouseY, partialTicks);
         GL11.glDisable(GL_SCISSOR_TEST);
 
-        renderTransparentTexture(FADE_TEXTURE, poseStack, guiLeft, guiTop, 1, 1, bookWidth, bookHeight, 512, 512);
-        renderTexture(FRAME_TEXTURE, poseStack, guiLeft, guiTop, 1, 1, bookWidth, bookHeight, 512, 512);
-        lateEntryRender(poseStack, mouseX, mouseY, partialTicks);
+        renderTransparentTexture(FADE_TEXTURE, guiGraphics.pose(), guiLeft, guiTop, 1, 1, bookWidth, bookHeight, 512, 512);
+        renderTexture(FRAME_TEXTURE, guiGraphics.pose(), guiLeft, guiTop, 1, 1, bookWidth, bookHeight, 512, 512);
+        lateEntryRender(guiGraphics, mouseX, mouseY, partialTicks);
     }
 
     public void renderBackground(PoseStack poseStack, float xModifier, float yModifier) {

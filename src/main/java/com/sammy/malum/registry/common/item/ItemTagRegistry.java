@@ -6,6 +6,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
+import net.minecraftforge.registries.ForgeRegistries;
 
 public class ItemTagRegistry {
     public static final TagKey<Item> SOUL_HUNTER_WEAPON = malumTag("soul_hunter_weapon");
@@ -23,11 +24,11 @@ public class ItemTagRegistry {
     public static final TagKey<Item> STRIPPED_LOGS = forgeTag("stripped_logs");
 
     private static TagKey<Item> modTag(String path) {
-        return TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(path));
+        return TagKey.create(ForgeRegistries.ITEMS.getRegistryKey(), new ResourceLocation(path));
     }
 
     private static TagKey<Item> malumTag(String path) {
-        return TagKey.create(Registry.ITEM_REGISTRY, MalumMod.malumPath(path));
+        return TagKey.create(ForgeRegistries.ITEMS.getRegistryKey(), MalumMod.malumPath(path));
     }
 
     private static TagKey<Item> forgeTag(String name) {

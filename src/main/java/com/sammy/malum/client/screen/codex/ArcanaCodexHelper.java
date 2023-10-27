@@ -8,6 +8,7 @@ import com.sammy.malum.core.systems.spirit.*;
 import net.minecraft.*;
 import net.minecraft.client.*;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.network.chat.Component;
@@ -15,6 +16,7 @@ import net.minecraft.resources.*;
 import net.minecraft.util.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.*;
+import org.joml.Vector4f;
 import org.lwjgl.opengl.*;
 import team.lodestar.lodestone.setup.*;
 import team.lodestar.lodestone.systems.easing.*;
@@ -137,59 +139,59 @@ public class ArcanaCodexHelper {
         RenderSystem.disableBlend();
     }
 
-    public static void renderComponents(AbstractMalumScreen screen, PoseStack poseStack, java.util.List<? extends IRecipeComponent> components, int left, int top, int mouseX, int mouseY, boolean vertical) {
+    public static void renderComponents(AbstractMalumScreen screen, GuiGraphics guiGraphics, java.util.List<? extends IRecipeComponent> components, int left, int top, int mouseX, int mouseY, boolean vertical) {
         java.util.List<ItemStack> items = components.stream().map(IRecipeComponent::getStack).collect(Collectors.toList());
-        renderItemList(screen, poseStack, items, left, top, mouseX, mouseY, vertical).run();
+        renderItemList(screen, guiGraphics, items, left, top, mouseX, mouseY, vertical).run();
     }
 
-    public static Runnable renderBufferedComponents(AbstractMalumScreen screen, PoseStack poseStack, java.util.List<? extends IRecipeComponent> components, int left, int top, int mouseX, int mouseY, boolean vertical) {
+    public static Runnable renderBufferedComponents(AbstractMalumScreen screen, GuiGraphics guiGraphics, java.util.List<? extends IRecipeComponent> components, int left, int top, int mouseX, int mouseY, boolean vertical) {
         java.util.List<ItemStack> items = components.stream().map(IRecipeComponent::getStack).collect(Collectors.toList());
-        return renderItemList(screen, poseStack, items, left, top, mouseX, mouseY, vertical);
+        return renderItemList(screen, guiGraphics, items, left, top, mouseX, mouseY, vertical);
     }
 
-    public static void renderComponent(AbstractMalumScreen screen, PoseStack poseStack, IRecipeComponent component, int posX, int posY, int mouseX, int mouseY) {
+    public static void renderComponent(AbstractMalumScreen screen, GuiGraphics guiGraphics, IRecipeComponent component, int posX, int posY, int mouseX, int mouseY) {
         if (component.getStacks().size() == 1) {
-            renderItem(screen, poseStack, component.getStack(), posX, posY, mouseX, mouseY);
+            renderItem(screen, guiGraphics, component.getStack(), posX, posY, mouseX, mouseY);
             return;
         }
         int index = (int) (Minecraft.getInstance().level.getGameTime() % (20L * component.getStacks().size()) / 20);
         ItemStack stack = component.getStacks().get(index);
-        Minecraft.getInstance().getItemRenderer().renderAndDecorateItem(stack, posX, posY);
-        Minecraft.getInstance().getItemRenderer().renderGuiItemDecorations(Minecraft.getInstance().font, stack, posX, posY, null);
+        guiGraphics.renderItem(stack, posX, posY);
+        guiGraphics.renderItemDecorations(Minecraft.getInstance().font, stack, posX, posY, null);
         if (screen.isHovering(mouseX, mouseY, posX, posY, 16, 16)) {
-            screen.renderComponentTooltip(poseStack, screen.getTooltipFromItem(stack), mouseX, mouseY);
+            guiGraphics.renderComponentTooltip(Minecraft.getInstance().font, screen.getTooltipFromItem(Minecraft.getInstance(), stack), mouseX, mouseY);
         }
     }
 
-    public static void renderItem(AbstractMalumScreen screen, PoseStack poseStack, Ingredient ingredient, int posX, int posY, int mouseX, int mouseY) {
-        renderItem(screen, poseStack, List.of(ingredient.getItems()), posX, posY, mouseX, mouseY);
+    public static void renderItem(AbstractMalumScreen screen, GuiGraphics guiGraphics, Ingredient ingredient, int posX, int posY, int mouseX, int mouseY) {
+        renderItem(screen, guiGraphics, List.of(ingredient.getItems()), posX, posY, mouseX, mouseY);
     }
 
-    public static void renderItem(AbstractMalumScreen screen, PoseStack poseStack, java.util.List<ItemStack> stacks, int posX, int posY, int mouseX, int mouseY) {
+    public static void renderItem(AbstractMalumScreen screen, GuiGraphics guiGraphics, java.util.List<ItemStack> stacks, int posX, int posY, int mouseX, int mouseY) {
         if (stacks.size() == 1) {
-            renderItem(screen, poseStack, stacks.get(0), posX, posY, mouseX, mouseY);
+            renderItem(screen, guiGraphics, stacks.get(0), posX, posY, mouseX, mouseY);
             return;
         }
         int index = (int) (Minecraft.getInstance().level.getGameTime() % (20L * stacks.size()) / 20);
         ItemStack stack = stacks.get(index);
-        Minecraft.getInstance().getItemRenderer().renderAndDecorateItem(stack, posX, posY);
-        Minecraft.getInstance().getItemRenderer().renderGuiItemDecorations(Minecraft.getInstance().font, stack, posX, posY, null);
+        guiGraphics.renderItem(stack, posX, posY);
+        guiGraphics.renderItemDecorations(Minecraft.getInstance().font, stack, posX, posY, null);
         if (screen.isHovering(mouseX, mouseY, posX, posY, 16, 16)) {
-            screen.renderComponentTooltip(poseStack, screen.getTooltipFromItem(stack), mouseX, mouseY);
+            guiGraphics.renderComponentTooltip(Minecraft.getInstance().font, screen.getTooltipFromItem(Minecraft.getInstance(), stack), mouseX, mouseY);
         }
     }
 
-    public static void renderItem(AbstractMalumScreen screen, PoseStack poseStack, ItemStack stack, int posX, int posY, int mouseX, int mouseY) {
-        Minecraft.getInstance().getItemRenderer().renderAndDecorateItem(stack, posX, posY);
-        Minecraft.getInstance().getItemRenderer().renderGuiItemDecorations(Minecraft.getInstance().font, stack, posX, posY, null);
+    public static void renderItem(AbstractMalumScreen screen, GuiGraphics guiGraphics, ItemStack stack, int posX, int posY, int mouseX, int mouseY) {
+        guiGraphics.renderItem(stack, posX, posY);
+        guiGraphics.renderItemDecorations(Minecraft.getInstance().font, stack, posX, posY, null);
         if (screen.isHovering(mouseX, mouseY, posX, posY, 16, 16)) {
-            screen.renderComponentTooltip(poseStack, screen.getTooltipFromItem(stack), mouseX, mouseY);
+            guiGraphics.renderComponentTooltip(Minecraft.getInstance().font, screen.getTooltipFromItem(Minecraft.getInstance(), stack), mouseX, mouseY);
         }
     }
 
-    public static Runnable renderItemList(AbstractMalumScreen screen, PoseStack poseStack, java.util.List<ItemStack> items, int left, int top, int mouseX, int mouseY, boolean vertical) {
+    public static Runnable renderItemList(AbstractMalumScreen screen, GuiGraphics guiGraphics, java.util.List<ItemStack> items, int left, int top, int mouseX, int mouseY, boolean vertical) {
         int slots = items.size();
-        renderItemFrames(poseStack, slots, left, top, vertical);
+        renderItemFrames(guiGraphics.pose(), slots, left, top, vertical);
         return () -> {
             int finalLeft = left;
             int finalTop = top;
@@ -203,7 +205,7 @@ public class ArcanaCodexHelper {
                 int offset = i * 20;
                 int oLeft = finalLeft + 2 + (vertical ? 0 : offset);
                 int oTop = finalTop + 2 + (vertical ? offset : 0);
-                renderItem(screen, poseStack, stack, oLeft, oTop, mouseX, mouseY);
+                renderItem(screen, guiGraphics, stack, oLeft, oTop, mouseX, mouseY);
             }
         };
     }
@@ -256,9 +258,9 @@ public class ArcanaCodexHelper {
         }
     }
 
-    public static void renderWrappingText(PoseStack mStack, String text, int x, int y, int w) {
+    public static void renderWrappingText(GuiGraphics guiGraphics, String text, int x, int y, int w) {
         net.minecraft.client.gui.Font font = Minecraft.getInstance().font;
-        text = new TranslatableComponent(text).getString() + "\n";
+        text = Component.translatable(text).getString() + "\n";
         java.util.List<String> lines = new ArrayList<>();
 
         boolean italic = false;
@@ -337,7 +339,7 @@ public class ArcanaCodexHelper {
 
         for (int i = 0; i < lines.size(); i++) {
             String currentLine = lines.get(i);
-            renderRawText(mStack, currentLine, x, y + i * (font.lineHeight + 1), getTextGlow(i / 4f));
+            renderRawText(guiGraphics, currentLine, x, y + i * (font.lineHeight + 1), getTextGlow(i / 4f));
         }
     }
 
@@ -352,28 +354,28 @@ public class ArcanaCodexHelper {
         return line;
     }
 
-    public static void renderText(PoseStack stack, String text, int x, int y) {
-        renderText(stack, new TranslatableComponent(text), x, y, getTextGlow(0));
+    public static void renderText(GuiGraphics guiGraphics, String text, int x, int y) {
+        renderText(guiGraphics, Component.translatable(text), x, y, getTextGlow(0));
     }
 
-    public static void renderText(PoseStack stack, net.minecraft.network.chat.Component component, int x, int y) {
+    public static void renderText(GuiGraphics guiGraphics, net.minecraft.network.chat.Component component, int x, int y) {
         String text = component.getString();
-        renderRawText(stack, text, x, y, getTextGlow(0));
+        renderRawText(guiGraphics, text, x, y, getTextGlow(0));
     }
 
-    public static void renderText(PoseStack stack, String text, int x, int y, float glow) {
-        renderText(stack, new TranslatableComponent(text), x, y, glow);
+    public static void renderText(GuiGraphics guiGraphics, String text, int x, int y, float glow) {
+        renderText(guiGraphics, Component.translatable(text), x, y, glow);
     }
 
-    public static void renderText(PoseStack stack, Component component, int x, int y, float glow) {
+    public static void renderText(GuiGraphics guiGraphics, Component component, int x, int y, float glow) {
         String text = component.getString();
-        renderRawText(stack, text, x, y, glow);
+        renderRawText(guiGraphics, text, x, y, glow);
     }
 
-    private static void renderRawText(PoseStack stack, String text, int x, int y, float glow) {
+    private static void renderRawText(GuiGraphics guiGraphics, String text, int x, int y, float glow) {
         Font font = Minecraft.getInstance().font;
         if (BOOK_THEME.getConfigValue().equals(BookTheme.EASY_READING)) {
-            font.draw(stack, text, x, y, 0);
+            guiGraphics.drawString(font, text, x, y, 0);
             return;
         }
 
@@ -382,16 +384,16 @@ public class ArcanaCodexHelper {
         int g = (int) Mth.lerp(glow, 44, 39);
         int b = (int) Mth.lerp(glow, 191, 228);
 
-        font.draw(stack, text, x - 1, y, color(96, 255, 210, 243));
-        font.draw(stack, text, x + 1, y, color(128, 240, 131, 232));
-        font.draw(stack, text, x, y - 1, color(128, 255, 183, 236));
-        font.draw(stack, text, x, y + 1, color(96, 236, 110, 226));
+        guiGraphics.drawString(font, text, x - 1, y, color(96, 255, 210, 243));
+        guiGraphics.drawString(font, text, x + 1, y, color(128, 240, 131, 232));
+        guiGraphics.drawString(font, text, x, y - 1, color(128, 255, 183, 236));
+        guiGraphics.drawString(font, text, x, y + 1, color(96, 236, 110, 226));
 
-        font.draw(stack, text, x, y, color(255, r, g, b));
+        guiGraphics.drawString(font, text, x, y, color(255, r, g, b));
     }
 
     public static float getTextGlow(float offset) {
-        return Mth.sin(offset + Minecraft.getInstance().player.level.getGameTime() / 40f) / 2f + 0.5f;
+        return Mth.sin(offset + Minecraft.getInstance().player.level().getGameTime() / 40f) / 2f + 0.5f;
     }
 
     public static boolean isHovering(double mouseX, double mouseY, int posX, int posY, int width, int height) {

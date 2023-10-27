@@ -19,7 +19,7 @@ public class WickedIntentEffect extends MobEffect {
 
     public static void removeWickedIntent(LivingDamageEvent event) {
         DamageSource source = event.getSource();
-        if (source.isMagic() || (source instanceof EntityDamageSource entityDamageSource && entityDamageSource.isThorns())) {
+        if (source.is(DamageTypes.MAGIC) || (source.is(DamageTypes.THORNS))) {
             return;
         }
         if (source.getEntity() instanceof LivingEntity livingEntity) {
@@ -28,7 +28,7 @@ public class WickedIntentEffect extends MobEffect {
             }
             MobEffectInstance effect = livingEntity.getEffect(MobEffectRegistry.WICKED_INTENT.get());
             if (effect != null) {
-                Level level = livingEntity.level;
+                Level level = livingEntity.level();
                 livingEntity.removeEffect(effect.getEffect());
                 level.playSound(null, livingEntity.blockPosition(), SoundRegistry.HIDDEN_BLADE_STRIKES.get(), SoundSource.PLAYERS, 2.5f, 1 + level.random.nextFloat() * 0.15f);
             }

@@ -74,7 +74,7 @@ public class SpiritLightSpecs {
     }
 
     public static ParticleEffectSpawner<WorldParticleBuilder> spiritLightSpecs(Level level, Vec3 pos, MalumSpiritType spiritType, Supplier<LodestoneParticleType> particle) {
-        Random rand = level.getRandom();
+        var rand = level.getRandom();
         final ColorParticleData colorData = spiritType.createMainColorData(0.7f).build();
         final SpinParticleData spinData = SpinParticleData.createRandomDirection(rand, nextFloat(rand, 0.05f, 0.1f)).randomSpinOffset(rand).build();
         final Consumer<LodestoneWorldParticleActor> slowDown = p -> p.setParticleMotion(p.getParticleSpeed().scale(0.95f));
@@ -92,7 +92,7 @@ public class SpiritLightSpecs {
     }
 
     public static WorldParticleBuilder spiritBloom(Level level, MalumSpiritType spiritType, SpinParticleData spinData, int lifetime) {
-        Random rand = level.random;
+        var rand = level.random;
         return WorldParticleBuilder.create(LodestoneParticleRegistry.WISP_PARTICLE)
                 .setTransparencyData(GenericParticleData.create(0.35f, 0f).build())
                 .setSpinData(spinData)

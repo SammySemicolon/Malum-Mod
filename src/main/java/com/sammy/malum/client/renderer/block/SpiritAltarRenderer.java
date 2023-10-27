@@ -1,7 +1,7 @@
 package com.sammy.malum.client.renderer.block;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import com.sammy.malum.client.renderer.entity.*;
 import com.sammy.malum.common.block.curiosities.spirit_altar.SpiritAltarBlockEntity;
 import com.sammy.malum.common.item.spirit.*;
@@ -12,9 +12,11 @@ import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.entity.ItemRenderer;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import org.joml.Vector3f;
 import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntityInventory;
 
 import static net.minecraft.client.renderer.texture.OverlayTexture.NO_OVERLAY;
@@ -33,12 +35,12 @@ public class SpiritAltarRenderer implements BlockEntityRenderer<SpiritAltarBlock
             ItemStack item = inventory.getStackInSlot(i);
             if (item.getItem() instanceof SpiritShardItem shardItem) {
                 poseStack.pushPose();
-                Vector3f offset = new Vector3f(blockEntityIn.getSpiritItemOffset(spiritsRendered++, partialTicks));
+                Vector3f offset = blockEntityIn.getSpiritItemOffset(spiritsRendered++, partialTicks).toVector3f();
                 poseStack.translate(offset.x(), offset.y(), offset.z());
                 FloatingItemEntityRenderer.renderSpiritGlimmer(poseStack, shardItem.type, partialTicks);
-                poseStack.mulPose(Vector3f.YP.rotationDegrees(((level.getGameTime() % 360) + partialTicks) * 3));
+                poseStack.mulPose(Axis.YP.rotationDegrees(((level.getGameTime() % 360) + partialTicks) * 3));
                 poseStack.scale(0.5f, 0.5f, 0.5f);
-                itemRenderer.renderStatic(item, ItemTransforms.TransformType.FIXED, combinedLightIn, NO_OVERLAY, poseStack, bufferIn, 0);
+                itemRenderer.renderStatic(item, ItemDisplayContext.FIXED, combinedLightIn, NO_OVERLAY, poseStack, bufferIn, level, 0);
                 poseStack.popPose();
             }
         }
@@ -47,9 +49,9 @@ public class SpiritAltarRenderer implements BlockEntityRenderer<SpiritAltarBlock
             poseStack.pushPose();
             Vec3 offset = blockEntityIn.getCentralItemOffset();
             poseStack.translate(offset.x, offset.y, offset.z);
-            poseStack.mulPose(Vector3f.YP.rotationDegrees(((level.getGameTime() % 360) + partialTicks) * 3));
+            poseStack.mulPose(Axis.YP.rotationDegrees(((level.getGameTime() % 360) + partialTicks) * 3));
             poseStack.scale(0.45f, 0.45f, 0.45f);
-            itemRenderer.renderStatic(stack, ItemTransforms.TransformType.FIXED, combinedLightIn, NO_OVERLAY, poseStack, bufferIn, 0);
+            itemRenderer.renderStatic(stack, ItemDisplayContext.FIXED, combinedLightIn, NO_OVERLAY, poseStack, bufferIn, level, 0);
             poseStack.popPose();
         }
     }

@@ -147,7 +147,7 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
         int amount = compound.getInt("acceleratorAmount");
         for (int i = 0; i < amount; i++) {
             BlockPos pos = BlockHelper.loadBlockPos(compound, "" + i);
-            if (level != null && level.getBlockEntity(pos) instanceof IAltarAccelerator accelerator) {
+            if (level != null && level().getBlockEntity(pos) instanceof IAltarAccelerator accelerator) {
                 acceleratorPositions.add(pos);
                 accelerators.add(accelerator);
             }
@@ -263,7 +263,7 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
                 requestedItem = recipe.extraItems.get(extras);
                 matches = requestedItem.matches(providedStack);
                 if (matches) {
-                    level.playSound(null, provider.getAccessPointBlockPos(), SoundRegistry.ALTAR_CONSUME.get(), SoundSource.BLOCKS, 1, 0.9f + level.random.nextFloat() * 0.2f);
+                    level().playSound(null, provider.getAccessPointBlockPos(), SoundRegistry.ALTAR_CONSUME.get(), SoundSource.BLOCKS, 1, 0.9f + level().random.nextFloat() * 0.2f);
                     ParticleEffectTypeRegistry.SPIRIT_ALTAR_EATS_ITEM.createPositionedEffect(level, new PositionEffectData(worldPosition), ColorEffectData.fromRecipe(recipe.spirits), SpiritAltarEatItemParticleEffect.createData(provider.getAccessPointBlockPos(), providedStack));
                     extrasInventory.insertItem(level, providedStack.split(requestedItem.count));
                     inventoryForAltar.updateData();
@@ -298,8 +298,8 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
         ParticleEffectTypeRegistry.SPIRIT_ALTAR_CRAFTS.createPositionedEffect(level, new PositionEffectData(worldPosition), ColorEffectData.fromRecipe(recipe.spirits));
         progress *= 0.75f;
         extrasInventory.clear();
-        level.playSound(null, worldPosition, SoundRegistry.ALTAR_CRAFT.get(), SoundSource.BLOCKS, 1, 0.9f + level.random.nextFloat() * 0.2f);
-        level.addFreshEntity(new ItemEntity(level, itemPos.x, itemPos.y, itemPos.z, outputStack));
+        level().playSound(null, worldPosition, SoundRegistry.ALTAR_CRAFT.get(), SoundSource.BLOCKS, 1, 0.9f + level().random.nextFloat() * 0.2f);
+        level().addFreshEntity(new ItemEntity(level, itemPos.x, itemPos.y, itemPos.z, outputStack));
         init();
         recalibrateAccelerators();
         BlockHelper.updateAndNotifyState(level, worldPosition);
@@ -351,7 +351,7 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, Direction side) {
-        if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+        if (cap == ForgeCapabilities.ITEM_HANDLER) {
             if (side == null)
                 return internalInventory.cast();
             return exposedInventory.cast();

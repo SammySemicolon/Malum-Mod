@@ -5,6 +5,7 @@ import com.sammy.malum.*;
 import com.sammy.malum.client.screen.codex.*;
 import com.sammy.malum.common.recipe.*;
 import net.minecraft.client.*;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.world.item.*;
 
 import java.util.function.*;
@@ -41,26 +42,26 @@ public class SpiritRepairPage extends BookPage {
     }
 
     @Override
-    public void renderLeft(Minecraft minecraft, PoseStack poseStack, EntryScreen screen, int mouseX, int mouseY, float partialTicks) {
+    public void renderLeft(Minecraft minecraft, GuiGraphics guiGraphics, EntryScreen screen, int mouseX, int mouseY, float partialTicks) {
         int guiLeft = guiLeft();
         int guiTop = guiTop();
-        renderComponent(screen, poseStack, recipe.repairMaterial, guiLeft + 48, guiTop + 59, mouseX, mouseY);
-        renderItem(screen, poseStack, recipe.inputs.stream().map(s -> s.getDefaultInstance()).peek(s -> s.setDamageValue((int) (s.getMaxDamage() * recipe.durabilityPercentage))).collect(Collectors.toList()), guiLeft + 86, guiTop + 59, mouseX, mouseY);
-        renderItem(screen, poseStack, recipe.inputs.stream().map(s -> SpiritRepairRecipe.getRepairRecipeOutput(s.getDefaultInstance())).collect(Collectors.toList()), guiLeft + 67, guiTop + 126, mouseX, mouseY);
+        renderComponent(screen, guiGraphics, recipe.repairMaterial, guiLeft + 48, guiTop + 59, mouseX, mouseY);
+        renderItem(screen, guiGraphics, recipe.inputs.stream().map(s -> s.getDefaultInstance()).peek(s -> s.setDamageValue((int) (s.getMaxDamage() * recipe.durabilityPercentage))).collect(Collectors.toList()), guiLeft + 86, guiTop + 59, mouseX, mouseY);
+        renderItem(screen, guiGraphics, recipe.inputs.stream().map(s -> SpiritRepairRecipe.getRepairRecipeOutput(s.getDefaultInstance())).collect(Collectors.toList()), guiLeft + 67, guiTop + 126, mouseX, mouseY);
         if (!recipe.spirits.isEmpty()) {
-            renderComponents(screen, poseStack, recipe.spirits, guiLeft + 65, guiTop + 16, mouseX, mouseY, false);
+            renderComponents(screen, guiGraphics, recipe.spirits, guiLeft + 65, guiTop + 16, mouseX, mouseY, false);
         }
     }
 
     @Override
-    public void renderRight(Minecraft minecraft, PoseStack poseStack, EntryScreen screen, int mouseX, int mouseY, float partialTicks) {
+    public void renderRight(Minecraft minecraft, GuiGraphics guiGraphics, EntryScreen screen, int mouseX, int mouseY, float partialTicks) {
         int guiLeft = guiLeft();
         int guiTop = guiTop();
-        renderComponent(screen, poseStack, recipe.repairMaterial, guiLeft + 190, guiTop + 59, mouseX, mouseY);
-        renderItem(screen, poseStack, recipe.inputs.stream().map(s -> s.getDefaultInstance()).peek(s -> s.setDamageValue((int) (s.getMaxDamage() * recipe.durabilityPercentage))).collect(Collectors.toList()), guiLeft + 228, guiTop + 59, mouseX, mouseY);
-        renderItem(screen, poseStack, recipe.inputs.stream().map(s -> SpiritRepairRecipe.getRepairRecipeOutput(s.getDefaultInstance())).collect(Collectors.toList()), guiLeft + 209, guiTop + 126, mouseX, mouseY);
+        renderComponent(screen, guiGraphics, recipe.repairMaterial, guiLeft + 190, guiTop + 59, mouseX, mouseY);
+        renderItem(screen, guiGraphics, recipe.inputs.stream().map(s -> s.getDefaultInstance()).peek(s -> s.setDamageValue((int) (s.getMaxDamage() * recipe.durabilityPercentage))).collect(Collectors.toList()), guiLeft + 228, guiTop + 59, mouseX, mouseY);
+        renderItem(screen, guiGraphics, recipe.inputs.stream().map(s -> SpiritRepairRecipe.getRepairRecipeOutput(s.getDefaultInstance())).collect(Collectors.toList()), guiLeft + 209, guiTop + 126, mouseX, mouseY);
         if (!recipe.spirits.isEmpty()) {
-            renderComponents(screen, poseStack, recipe.spirits, guiLeft + 207, guiTop + 16, mouseX, mouseY, false);
+            renderComponents(screen, guiGraphics, recipe.spirits, guiLeft + 207, guiTop + 16, mouseX, mouseY, false);
         }
     }
 }

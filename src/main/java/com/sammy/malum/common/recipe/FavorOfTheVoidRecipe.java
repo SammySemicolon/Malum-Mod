@@ -73,7 +73,7 @@ public class FavorOfTheVoidRecipe extends ILodestoneRecipe {
     }
 
     public static List<FavorOfTheVoidRecipe> getRecipes(Level level) {
-        return level.getRecipeManager().getAllRecipesFor(RecipeTypeRegistry.VOID_FAVOR.get());
+        return level().getRecipeManager().getAllRecipesFor(RecipeTypeRegistry.VOID_FAVOR.get());
     }
 
     public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<FavorOfTheVoidRecipe> {

@@ -31,7 +31,7 @@ public class BlockSparkleParticlePacket extends ColorBasedBlockParticleEffectPac
     @Override
     public void execute(Supplier<NetworkEvent.Context> context) {
         Level level = Minecraft.getInstance().level;
-        Random rand = level.random;
+        var rand = level.random;
         for (int i = 0; i < 5; i++) {
             int spinDirection = (rand.nextBoolean() ? 1 : -1);
             int spinOffset = rand.nextInt(360);

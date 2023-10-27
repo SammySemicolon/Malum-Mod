@@ -7,6 +7,7 @@ import com.sammy.malum.registry.common.block.BlockTagRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
@@ -62,7 +63,7 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
     public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> context) {
         WorldGenLevel level = context.level();
         BlockPos pos = context.origin();
-        Random rand = context.random();
+        var rand = context.random();
         if (level.isEmptyBlock(pos.below()) || !BlockRegistry.SOULWOOD_GROWTH.get().defaultBlockState().canSurvive(level, pos)) {
             return false;
         }
@@ -211,7 +212,7 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
         return i > 1;
     }
 
-    public static void makeLeafBlob(LodestoneBlockFiller filler, Random rand, BlockPos pos) {
+    public static void makeLeafBlob(LodestoneBlockFiller filler, RandomSource rand, BlockPos pos) {
         makeLeafSlice(filler, rand, pos, 1, 0);
         makeLeafSlice(filler, rand, pos.above(1), 2, 1);
         makeLeafSlice(filler, rand, pos.above(2), 3, 2);
@@ -222,7 +223,7 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
         makeLeafSlice(filler, rand, pos.above(6), 1, 4);
     }
 
-    public static void makeLeafSlice(LodestoneBlockFiller filler, Random rand, BlockPos pos, int leavesSize, int leavesColor) {
+    public static void makeLeafSlice(LodestoneBlockFiller filler, RandomSource rand, BlockPos pos, int leavesSize, int leavesColor) {
         for (int x = -leavesSize; x <= leavesSize; x++) {
             for (int z = -leavesSize; z <= leavesSize; z++) {
                 if (Math.abs(x) == leavesSize && Math.abs(z) == leavesSize) {
@@ -282,7 +283,7 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
                         if (plantState.is(BlockTagRegistry.BLIGHTED_PLANTS)) {
                             break;
                         }
-                        if ((plantState.getMaterial().isReplaceable() || plantState.is(REPLACEABLE_PLANTS) || plantState.is(FLOWERS))) {
+                        if ((plantState.canBeReplaced() || plantState.is(REPLACEABLE) || plantState.is(FLOWERS))) {
                             filler.getEntries().put(blockPos.immutable(), new BlockStateEntry(Blocks.AIR.defaultBlockState()));
                             blockPos.move(Direction.DOWN);
                         } else {
@@ -311,7 +312,7 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
                                     }
                                 }
                             }
-                            if ((blockState.isAir() || blockState.getMaterial().isReplaceable()) && !blockState.is(BlockTagRegistry.BLIGHTED_PLANTS)) {
+                            if ((blockState.isAir() || blockState.canBeReplaced()) && !blockState.is(BlockTagRegistry.BLIGHTED_PLANTS)) {
                                 filler.getEntries().put(plantPos, new BlockStateEntry((level.getRandom().nextFloat() < 0.2f ? BlockRegistry.BLIGHTED_TUMOR : BlockRegistry.BLIGHTED_WEED).get().defaultBlockState()));
                             }
                         }

@@ -41,7 +41,7 @@ public class MalumScytheItem extends ModCombatItem implements IMalumEventRespond
                 spawnSweepParticles(player, ParticleRegistry.SCYTHE_CUT_ATTACK_PARTICLE.get());
                 sound = SoundRegistry.SCYTHE_CUT.get();
             }
-            attacker.level.playSound(null, target.getX(), target.getY(), target.getZ(), sound, attacker.getSoundSource(), 1, 1);
+            attacker.level().playSound(null, target.getX(), target.getY(), target.getZ(), sound, attacker.getSoundSource(), 1, 1);
         }
 
         if (!canSweep || event.getSource().isMagic() || event.getSource().getMsgId().equals(DamageSourceRegistry.SCYTHE_SWEEP_IDENTIFIER)) {
@@ -49,7 +49,7 @@ public class MalumScytheItem extends ModCombatItem implements IMalumEventRespond
         }
         int level = EnchantmentHelper.getEnchantmentLevel(Enchantments.SWEEPING_EDGE, attacker);
         float damage = event.getAmount() * (0.5f + EnchantmentHelper.getSweepingDamageRatio(attacker));
-        target.level.getEntities(attacker, target.getBoundingBox().inflate(1 + level * 0.25f)).forEach(e -> {
+        target.level().getEntities(attacker, target.getBoundingBox().inflate(1 + level * 0.25f)).forEach(e -> {
             if (e instanceof LivingEntity livingEntity) {
                 if (livingEntity.isAlive()) {
                     livingEntity.hurt((DamageSourceRegistry.causeScytheSweepDamage(attacker)), damage);
@@ -62,8 +62,8 @@ public class MalumScytheItem extends ModCombatItem implements IMalumEventRespond
     public void spawnSweepParticles(Player player, SimpleParticleType type) {
         double d0 = (-Mth.sin(player.getYRot() * ((float) Math.PI / 180F)));
         double d1 = Mth.cos(player.getYRot() * ((float) Math.PI / 180F));
-        if (player.level instanceof ServerLevel) {
-            ((ServerLevel) player.level).sendParticles(type, player.getX() + d0, player.getY(0.5D), player.getZ() + d1, 0, d0, 0.0D, d1, 0.0D);
+        if (player.level() instanceof ServerLevel) {
+            ((ServerLevel) player.level()).sendParticles(type, player.getX() + d0, player.getY(0.5D), player.getZ() + d1, 0, d0, 0.0D, d1, 0.0D);
         }
     }
 

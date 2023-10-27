@@ -57,7 +57,7 @@ public abstract class ArmorSkin {
         }
 
         public String getSuffix(LodestoneArmorItem item) {
-            switch (item.getSlot()) {
+            switch (item.getEquipmentSlot()) {
                 case HEAD -> {
                     return helmetSuffix;
                 }

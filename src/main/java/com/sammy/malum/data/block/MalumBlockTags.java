@@ -2,26 +2,31 @@ package com.sammy.malum.data.block;
 
 import com.sammy.malum.*;
 import com.sammy.malum.registry.common.block.*;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.*;
 import net.minecraft.world.level.block.*;
 import net.minecraftforge.common.data.*;
 import net.minecraftforge.registries.*;
+import org.jetbrains.annotations.Nullable;
 import team.lodestar.lodestone.systems.datagen.providers.*;
 
 import javax.annotation.*;
 import java.util.*;
+import java.util.concurrent.CompletableFuture;
 import java.util.function.*;
 import java.util.stream.*;
 
 import static com.sammy.malum.registry.common.block.BlockRegistry.*;
 
 public class MalumBlockTags extends LodestoneBlockTagsProvider {
-    public MalumBlockTags(DataGenerator generatorIn, ExistingFileHelper existingFileHelper) {
-        super(generatorIn, MalumMod.MALUM, existingFileHelper);
+
+
+    public MalumBlockTags(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, @Nullable ExistingFileHelper existingFileHelper) {
+        super(output, lookupProvider, MalumMod.MALUM, existingFileHelper);
     }
 
     @SuppressWarnings("unchecked")
-    @Override
+
     protected void addTags() {
         Set<RegistryObject<Block>> blocks = new HashSet<>(BLOCKS.getEntries());
 
@@ -36,6 +41,11 @@ public class MalumBlockTags extends LodestoneBlockTagsProvider {
     @Override
     public String getName() {
         return "Malum Block Tags";
+    }
+
+    @Override
+    protected void addTags(HolderLookup.Provider pProvider) {
+        addTags();
     }
 
     @Nonnull

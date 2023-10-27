@@ -2,7 +2,7 @@ package com.sammy.malum.client.renderer.block;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import com.sammy.malum.common.block.curiosities.totem.TotemPoleBlockEntity;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import com.sammy.malum.registry.common.SpiritTypeRegistry;
@@ -15,6 +15,7 @@ import net.minecraft.client.resources.model.Material;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.*;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import org.joml.Vector3f;
 import team.lodestar.lodestone.handlers.RenderHandler;
 import team.lodestar.lodestone.setup.LodestoneRenderTypeRegistry;
 import team.lodestar.lodestone.systems.rendering.VFXBuilders;
@@ -45,7 +46,7 @@ public class TotemPoleRenderer implements BlockEntityRenderer<TotemPoleBlockEnti
 
         poseStack.pushPose();
         poseStack.translate(0.5f, 0.5f, 0.5f);
-        poseStack.mulPose(Vector3f.YN.rotationDegrees(direction.toYRot()));
+        poseStack.mulPose(Axis.YN.rotationDegrees(direction.toYRot()));
         poseStack.translate(-0.5f, -0.5f, -0.5f);
         VFXBuilders.createWorld()
                 .setPosColorTexLightmapDefaultFormat()

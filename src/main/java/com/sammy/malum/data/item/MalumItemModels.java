@@ -25,8 +25,8 @@ import static com.sammy.malum.registry.common.item.ItemRegistry.*;
 import static team.lodestar.lodestone.systems.datagen.ItemModelSmithTypes.*;
 
 public class MalumItemModels extends LodestoneItemModelProvider {
-    public MalumItemModels(DataGenerator generator, ExistingFileHelper existingFileHelper) {
-        super(generator, MalumMod.MALUM, existingFileHelper);
+    public MalumItemModels(PackOutput output, ExistingFileHelper existingFileHelper) {
+        super(output, MalumMod.MALUM, existingFileHelper);
     }
 
     @Override

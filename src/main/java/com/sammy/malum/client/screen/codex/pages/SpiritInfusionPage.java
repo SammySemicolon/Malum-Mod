@@ -5,6 +5,7 @@ import com.sammy.malum.*;
 import com.sammy.malum.client.screen.codex.*;
 import com.sammy.malum.common.recipe.*;
 import net.minecraft.client.*;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.world.item.*;
 import net.minecraftforge.data.loading.*;
 
@@ -40,29 +41,29 @@ public class SpiritInfusionPage extends BookPage {
     }
 
     @Override
-    public void renderLeft(Minecraft minecraft, PoseStack poseStack, EntryScreen screen, int mouseX, int mouseY, float partialTicks) {
+    public void renderLeft(Minecraft minecraft, GuiGraphics guiGraphics, EntryScreen screen, int mouseX, int mouseY, float partialTicks) {
         int guiLeft = guiLeft();
         int guiTop = guiTop();
-        Runnable renderSpirits = renderBufferedComponents(screen, poseStack, recipe.spirits, guiLeft + 23, guiTop + 59, mouseX, mouseY, true);
+        Runnable renderSpirits = renderBufferedComponents(screen, guiGraphics, recipe.spirits, guiLeft + 23, guiTop + 59, mouseX, mouseY, true);
         if (!recipe.extraItems.isEmpty()) {
-            renderComponents(screen, poseStack, recipe.extraItems, guiLeft + 107, guiTop + 59, mouseX, mouseY, true);
+            renderComponents(screen, guiGraphics, recipe.extraItems, guiLeft + 107, guiTop + 59, mouseX, mouseY, true);
         }
         renderSpirits.run();
-        renderComponent(screen, poseStack, recipe.input, guiLeft + 67, guiTop + 59, mouseX, mouseY);
-        renderItem(screen, poseStack, recipe.output, guiLeft + 67, guiTop + 126, mouseX, mouseY);
+        renderComponent(screen, guiGraphics, recipe.input, guiLeft + 67, guiTop + 59, mouseX, mouseY);
+        renderItem(screen, guiGraphics, recipe.output, guiLeft + 67, guiTop + 126, mouseX, mouseY);
     }
 
     @Override
-    public void renderRight(Minecraft minecraft, PoseStack poseStack, EntryScreen screen, int mouseX, int mouseY, float partialTicks) {
+    public void renderRight(Minecraft minecraft, GuiGraphics guiGraphics, EntryScreen screen, int mouseX, int mouseY, float partialTicks) {
         int guiLeft = guiLeft();
         int guiTop = guiTop();
-        Runnable renderSpirits = renderBufferedComponents(screen, poseStack, recipe.spirits, guiLeft + 165, guiTop + 59, mouseX, mouseY, true);
+        Runnable renderSpirits = renderBufferedComponents(screen, guiGraphics, recipe.spirits, guiLeft + 165, guiTop + 59, mouseX, mouseY, true);
         if (!recipe.extraItems.isEmpty()) {
-            Runnable renderExtraItems = renderBufferedComponents(screen, poseStack, recipe.extraItems, guiLeft + 249, guiTop + 59, mouseX, mouseY, true);
+            Runnable renderExtraItems = renderBufferedComponents(screen, guiGraphics, recipe.extraItems, guiLeft + 249, guiTop + 59, mouseX, mouseY, true);
             renderExtraItems.run();
         }
         renderSpirits.run();
-        renderComponent(screen, poseStack, recipe.input, guiLeft + 209, guiTop + 59, mouseX, mouseY);
-        renderItem(screen, poseStack, recipe.output, guiLeft + 209, guiTop + 126, mouseX, mouseY);
+        renderComponent(screen, guiGraphics, recipe.input, guiLeft + 209, guiTop + 59, mouseX, mouseY);
+        renderItem(screen, guiGraphics, recipe.output, guiLeft + 209, guiTop + 126, mouseX, mouseY);
     }
 }

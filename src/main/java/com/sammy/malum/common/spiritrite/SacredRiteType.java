@@ -25,7 +25,7 @@ public class SacredRiteType extends MalumRiteType {
             public void act(TotemBaseBlockEntity totemBaseBlockEntity, Sheep sheep) {
                 if (sheep.getRandom().nextInt(sheep.isBaby() ? 5 : 25) == 0) {
                     BlockPos blockpos = sheep.blockPosition();
-                    if (IS_TALL_GRASS.test(sheep.level.getBlockState(blockpos)) || sheep.level.getBlockState(blockpos.below()).is(Blocks.GRASS_BLOCK)) {
+                    if (IS_TALL_GRASS.test(sheep.level().getBlockState(blockpos)) || sheep.level().getBlockState(blockpos.below()).is(Blocks.GRASS_BLOCK)) {
                         EatBlockGoal goal = sheep.eatBlockGoal;
                         goal.start();
                         ParticleEffectTypeRegistry.HEXING_SMOKE.createEntityEffect(sheep, new ColorEffectData(SACRED_SPIRIT.getPrimaryColor()));

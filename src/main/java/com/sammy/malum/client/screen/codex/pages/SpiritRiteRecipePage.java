@@ -6,6 +6,8 @@ import com.sammy.malum.client.screen.codex.*;
 import com.sammy.malum.core.systems.rites.*;
 import com.sammy.malum.core.systems.spirit.*;
 import net.minecraft.client.*;
+import net.minecraft.client.gui.Gui;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.*;
 import net.minecraft.world.item.*;
 import team.lodestar.lodestone.handlers.screenparticle.*;
@@ -35,7 +37,7 @@ public class SpiritRiteRecipePage extends BookPage {
     }
 
     @Override
-    public void render(Minecraft minecraft, PoseStack poseStack, EntryScreen screen, int mouseX, int mouseY, float partialTicks) {
+    public void render(Minecraft minecraft, GuiGraphics guiGraphics, EntryScreen screen, int mouseX, int mouseY, float partialTicks) {
         if (ScreenParticleHandler.canSpawnParticles) {
             RITE_PARTICLES.tick();
         }
@@ -43,21 +45,22 @@ public class SpiritRiteRecipePage extends BookPage {
     }
 
     @Override
-    public void renderLeft(Minecraft minecraft, PoseStack poseStack, EntryScreen screen, int mouseX, int mouseY, float partialTicks) {
+    public void renderLeft(Minecraft minecraft, GuiGraphics guiGraphics, EntryScreen screen, int mouseX, int mouseY, float partialTicks) {
         int guiLeft = guiLeft();
         int guiTop = guiTop();
-        renderRite(poseStack, screen, guiLeft + 67, guiTop + 123, mouseX, mouseY, riteType.spirits);
+        renderRite(guiGraphics, screen, guiLeft + 67, guiTop + 123, mouseX, mouseY, riteType.spirits);
     }
 
     @Override
-    public void renderRight(Minecraft minecraft, PoseStack poseStack, EntryScreen screen, int mouseX, int mouseY, float partialTicks) {
+    public void renderRight(Minecraft minecraft, GuiGraphics guiGraphics, EntryScreen screen, int mouseX, int mouseY, float partialTicks) {
         int guiLeft = guiLeft();
         int guiTop = guiTop();
-        renderRite(poseStack, screen, guiLeft + 209, guiTop + 123, mouseX, mouseY, riteType.spirits);
+        renderRite(guiGraphics, screen, guiLeft + 209, guiTop + 123, mouseX, mouseY, riteType.spirits);
     }
 
-    public void renderRite(PoseStack poseStack, EntryScreen screen, int left, int top, int mouseX, int mouseY, List<MalumSpiritType> spirits) {
-        Random rand = Minecraft.getInstance().level.random;
+    public void renderRite(GuiGraphics guiGraphics, EntryScreen screen, int left, int top, int mouseX, int mouseY, List<MalumSpiritType> spirits) {
+        var rand = Minecraft.getInstance().level.random;
+        PoseStack poseStack = guiGraphics.pose();
         for (int i = 0; i < spirits.size(); i++) {
             final int y = top - 20 * i;
             MalumSpiritType spiritType = spirits.get(i);
@@ -65,7 +68,7 @@ public class SpiritRiteRecipePage extends BookPage {
             ItemStack stack = spirits.get(i).spiritShard.get().getDefaultInstance();
             renderRiteIcon(spiritTexture, spiritType, poseStack, parentEntry.isSoulwood, 0.25f, left, y);
             if (screen.isHovering(mouseX, mouseY, left, y, 16, 16)) {
-                screen.renderComponentTooltip(poseStack, screen.getTooltipFromItem(stack), mouseX, mouseY);
+                guiGraphics.renderComponentTooltip(Minecraft.getInstance().font, screen.getTooltipFromItem(Minecraft.getInstance(), stack), mouseX, mouseY);
             }
             if (ScreenParticleHandler.canSpawnParticles) {
                 final int x = left + 8;

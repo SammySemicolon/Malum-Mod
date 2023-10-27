@@ -9,6 +9,7 @@ import com.sammy.malum.common.packets.*;
 import com.sammy.malum.registry.client.*;
 import com.sammy.malum.registry.common.*;
 import net.minecraft.client.*;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.nbt.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.sounds.*;
@@ -75,7 +76,7 @@ public class TouchOfDarknessHandler {
 
     public static boolean checkForWeepingWellInfluence(LivingEntity livingEntity) {
         TouchOfDarknessHandler handler = MalumLivingEntityDataCapability.getCapability(livingEntity).touchOfDarknessHandler;
-        boolean foundWeepingWell = !BlockHelper.getBlockEntities(VoidConduitBlockEntity.class, livingEntity.level, livingEntity.blockPosition(), 8).isEmpty();
+        boolean foundWeepingWell = !BlockHelper.getBlockEntities(VoidConduitBlockEntity.class, livingEntity.level(), livingEntity.blockPosition(), 8).isEmpty();
         if (foundWeepingWell) {
             handler.weepingWellInfluence = 200;
         }
@@ -99,10 +100,10 @@ public class TouchOfDarknessHandler {
         return 0;
     }
 
-    public static void entityTick(LivingEvent.LivingUpdateEvent event) {
-        LivingEntity livingEntity = event.getEntityLiving();
+    public static void entityTick(LivingEvent.LivingTickEvent event) {
+        LivingEntity livingEntity = event.getEntity();
         TouchOfDarknessHandler handler = MalumLivingEntityDataCapability.getCapability(livingEntity).touchOfDarknessHandler;
-        boolean isInTheGoop = livingEntity.level.getBlockState(livingEntity.blockPosition()).getBlock() instanceof PrimordialSoupBlock;
+        boolean isInTheGoop = livingEntity.level().getBlockState(livingEntity.blockPosition()).getBlock() instanceof PrimordialSoupBlock;
         if (handler.weepingWellInfluence > 0) { //tick down weeping well influence, if it reaches 0, the player isn't around the weeping well
             handler.weepingWellInfluence--;
         }
@@ -123,7 +124,7 @@ public class TouchOfDarknessHandler {
             //if the entity's affliction reached the max, and the entity isn't close to actively being rejected, and is in the goop, they are rejected
             //rejection is set to 15, and the entity starts rapidly ascending as a result
             //we do this only on the server, and then communicate the rejection to the client using a packet
-            if (!livingEntity.level.isClientSide) {
+            if (!livingEntity.level().isClientSide) {
                 if (handler.currentAffliction >= MAX_AFFLICTION && (handler.rejection < 5 || handler.rejection > 25) && handler.timeSpentInGoop > 60) {
                     handler.reject(livingEntity);
                 }
@@ -152,8 +153,8 @@ public class TouchOfDarknessHandler {
         if (isInTheGoop) {
             handler.timeSpentInGoop++;
             boolean isPlayer = livingEntity instanceof Player;
-            if (isPlayer && livingEntity.level.getGameTime() % 6L == 0) {
-                livingEntity.level.playSound(null, livingEntity.blockPosition(), SoundRegistry.SONG_OF_THE_VOID.get(), SoundSource.HOSTILE, 0.5f+handler.timeSpentInGoop*0.02f, 0.5f+handler.timeSpentInGoop*0.03f);
+            if (isPlayer && livingEntity.level().getGameTime() % 6L == 0) {
+                livingEntity.level().playSound(null, livingEntity.blockPosition(), SoundRegistry.SONG_OF_THE_VOID.get(), SoundSource.HOSTILE, 0.5f+handler.timeSpentInGoop*0.02f, 0.5f+handler.timeSpentInGoop*0.03f);
             }
             if (!isPlayer) {
                 if (livingEntity.getDeltaMovement().y > 0) {
@@ -198,11 +199,11 @@ public class TouchOfDarknessHandler {
         currentAffliction += 40f;
         afflictionDuration = 0;
         rejection = 10;
-        if (!livingEntity.level.isClientSide) {
+        if (!livingEntity.level().isClientSide) {
             PacketRegistry.MALUM_CHANNEL.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> livingEntity), new VoidRejectionPacket(livingEntity.getId()));
             ParticleEffectTypeRegistry.WEEPING_WELL_REACTS.createEntityEffect(livingEntity);
-            livingEntity.hurt(new DamageSource(DamageSourceRegistry.VOODOO_IDENTIFIER), 4);
-            livingEntity.level.playSound(null, livingEntity.blockPosition(), SoundRegistry.VOID_REJECTION.get(), SoundSource.HOSTILE, 2f, Mth.nextFloat(livingEntity.getRandom(), 0.5f, 0.8f));
+            livingEntity.hurt(DamageSourceRegistry.create(livingEntity.level(), DamageSourceRegistry.VOODOO), 4);
+            livingEntity.level().playSound(null, livingEntity.blockPosition(), SoundRegistry.VOID_REJECTION.get(), SoundSource.HOSTILE, 2f, Mth.nextFloat(livingEntity.getRandom(), 0.5f, 0.8f));
         }
         livingEntity.addEffect(new MobEffectInstance(MobEffectRegistry.REJECTED.get(), 400, 0));
     }
@@ -214,8 +215,9 @@ public class TouchOfDarknessHandler {
     public static class ClientOnly {
         private static final Tesselator INSTANCE = new Tesselator();
 
-        public static void renderDarknessVignette(PoseStack poseStack) {
+        public static void renderDarknessVignette(GuiGraphics guiGraphics) {
             Minecraft minecraft = Minecraft.getInstance();
+            PoseStack poseStack = guiGraphics.pose();
             Player player = minecraft.player;
             TouchOfDarknessHandler darknessHandler = MalumLivingEntityDataCapability.getCapability(player).touchOfDarknessHandler;
             if (darknessHandler.currentAffliction == 0f) {

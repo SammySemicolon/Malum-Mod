@@ -7,7 +7,6 @@ import com.sammy.malum.registry.common.*;
 import com.sammy.malum.registry.common.block.*;
 import net.minecraft.*;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.*;
 import net.minecraft.resources.*;
 import net.minecraft.world.item.*;
@@ -103,7 +102,7 @@ public class MalumSpiritType {
 
     public Component getSpiritShardFlavourTextComponent() {
         if (spiritItemDescription == null) {
-            spiritItemDescription = new TranslatableComponent(getSpiritFlavourText()).withStyle(ChatFormatting.ITALIC).withStyle(Style.EMPTY.withColor(ColorHelper.darker(primaryColor, 1, 0.75f).getRGB()));
+            spiritItemDescription = Component.translatable(getSpiritFlavourText()).withStyle(ChatFormatting.ITALIC).withStyle(Style.EMPTY.withColor(ColorHelper.darker(primaryColor, 1, 0.75f).getRGB()));
         }
         return spiritItemDescription;
     }
@@ -113,7 +112,7 @@ public class MalumSpiritType {
     }
 
     public Component getSpiritJarCounterComponent(int count) {
-        return new TextComponent(" " + count + " ").append(new TranslatableComponent(getSpiritDescription())).withStyle(Style.EMPTY.withColor(primaryColor.getRGB()));
+        return Component.literal(" " + count + " ").append(Component.translatable(getSpiritDescription())).withStyle(Style.EMPTY.withColor(primaryColor.getRGB()));
     }
 
     public String getSpiritDescription() {

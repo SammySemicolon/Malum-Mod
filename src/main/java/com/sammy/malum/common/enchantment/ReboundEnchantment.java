@@ -13,7 +13,7 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import team.lodestar.lodestone.setup.LodestoneAttributeRegistry;
+import team.lodestar.lodestone.registry.common.LodestoneAttributeRegistry;
 
 public class ReboundEnchantment extends Enchantment {
     public ReboundEnchantment() {
@@ -26,10 +26,11 @@ public class ReboundEnchantment extends Enchantment {
     }
 
     public static void onRightClickItem(PlayerInteractEvent.RightClickItem event) {
-        if (event.getEntityLiving() instanceof Player player) {
+        if (true) {
+            Player player = event.getEntity();
             ItemStack stack = event.getItemStack();
             if (EnchantmentHelper.getItemEnchantmentLevel(EnchantmentRegistry.REBOUND.get(), stack) > 0) {
-                Level level = player.level;
+                Level level = player.level();
                 if (!level.isClientSide) {
                     player.setItemInHand(event.getHand(), ItemStack.EMPTY);
                     float baseDamage = (float) player.getAttributes().getValue(Attributes.ATTACK_DAMAGE);
@@ -41,7 +42,7 @@ public class ReboundEnchantment extends Enchantment {
                     entity.setItem(stack);
 
                     entity.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, (float) (1.5F + player.getAttributeValue(AttributeRegistry.SCYTHE_PROFICIENCY.get()) * 0.125f), 0F);
-                    level.addFreshEntity(entity);
+                    level().addFreshEntity(entity);
                 }
                 player.awardStat(Stats.ITEM_USED.get(stack.getItem()));
             }
