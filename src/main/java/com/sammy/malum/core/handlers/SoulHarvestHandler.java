@@ -2,7 +2,7 @@ package com.sammy.malum.core.handlers;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import com.sammy.malum.common.capability.MalumLivingEntityDataCapability;
 import com.sammy.malum.common.capability.MalumPlayerDataCapability;
 import com.sammy.malum.common.item.curiosities.SoulStaveItem;
@@ -84,7 +84,7 @@ public class SoulHarvestHandler {
                 soulHarvestHandler.soulFetchCooldown--;
                 if (soulHarvestHandler.soulFetchCooldown <= 0) {
                     soulHarvestHandler.soulFetchCooldown = 5;
-                    List<LivingEntity> entities = new ArrayList<>(player.level.getEntitiesOfClass(LivingEntity.class, player.getBoundingBox().inflate(7f), e -> !e.getUUID().equals(player.getUUID())));
+                    List<LivingEntity> entities = new ArrayList<>(player.level().getEntitiesOfClass(LivingEntity.class, player.getBoundingBox().inflate(7f), e -> !e.getUUID().equals(player.getUUID())));
                     double biggestAngle = 0;
                     LivingEntity chosenEntity = null;
                     for (LivingEntity entity : entities) {
@@ -106,7 +106,7 @@ public class SoulHarvestHandler {
                         soulHarvestHandler.targetedSoulUUID = chosenEntity.getUUID();
                         soulHarvestHandler.targetedSoulId = chosenEntity.getId();
                         MalumLivingEntityDataCapability.getCapability(chosenEntity).soulData.soulThiefUUID = player.getUUID();
-                        if (chosenEntity.level instanceof ServerLevel) {
+                        if (chosenEntity.level() instanceof ServerLevel) {
                             MalumLivingEntityDataCapability.sync(chosenEntity);
                         }
                     }
@@ -118,7 +118,7 @@ public class SoulHarvestHandler {
                 //Here we essentially "prime" the entity that we are targeting.
                 //If the player isn't using their staff, we raise their target's soul harvest progress to ten, which the renderer understands as "put a target on this guy"
                 //If the player is using their staff, we instead just start draining the soul
-                Entity entity = player.level.getEntity(soulHarvestHandler.targetedSoulId);
+                Entity entity = player.level().getEntity(soulHarvestHandler.targetedSoulId);
                 if (entity instanceof LivingEntity livingEntity) {
                     SoulDataHandler soulData = MalumLivingEntityDataCapability.getCapability(livingEntity).soulData;
                     if (soulData.soulSeparationProgress < desiredProgress) {
@@ -129,9 +129,9 @@ public class SoulHarvestHandler {
             //and here's where all the magic happens. When a player is using their staff, we check if the harvest progress has reached it's maximum.
             //Once it has, we will spawn a soul and mark the targeted entity as soulless.
             if (isUsingStave) {
-                if (player.level instanceof ServerLevel) {
+                if (player.level() instanceof ServerLevel) {
                     if (soulHarvestHandler.targetedSoulUUID != null) {
-                        Entity entity = player.level.getEntity(soulHarvestHandler.targetedSoulId);
+                        Entity entity = player.level().getEntity(soulHarvestHandler.targetedSoulId);
                         if (entity instanceof LivingEntity livingEntity) {
                             SoulDataHandler soulData = MalumLivingEntityDataCapability.getCapability(livingEntity).soulData;
 
@@ -179,7 +179,7 @@ public class SoulHarvestHandler {
             public void render(PoseStack poseStack, MultiBufferSource pBuffer, int pPackedLight, T pLivingEntity, float pLimbSwing, float pLimbSwingAmount, float partialTicks, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch) {
                 MalumLivingEntityDataCapability.getCapabilityOptional(pLivingEntity).ifPresent(c -> {
                     if (c.soulData.soulThiefUUID != null) {
-                        Player player = pLivingEntity.level.getPlayerByUUID(c.soulData.soulThiefUUID);
+                        Player player = pLivingEntity.level().getPlayerByUUID(c.soulData.soulThiefUUID);
                         if (player != null && player.isAlive() && pLivingEntity.isAlive()) {
                             MalumEntitySpiritData data = SpiritHelper.getEntitySpiritData(pLivingEntity);
                             poseStack.popPose();
@@ -203,7 +203,7 @@ public class SoulHarvestHandler {
 
                 poseStack.translate(toPlayer.x, toPlayer.y + target.getBbHeight() / 2f, toPlayer.z);
                 poseStack.mulPose(Minecraft.getInstance().getEntityRenderDispatcher().cameraOrientation());
-                poseStack.mulPose(Vector3f.YP.rotationDegrees(180f));
+                poseStack.mulPose(Axis.YP.rotationDegrees(180f));
 
                 //preview
                 float intensity = Math.min(10, soulData.soulSeparationProgress) / 10f;

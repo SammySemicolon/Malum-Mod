@@ -100,8 +100,8 @@ public class TotemBaseBlockEntity extends LodestoneBlockEntity {
                 }
             });
             if (height > 1) {
-                level.playSound(null, worldPosition, SoundRegistry.TOTEM_CHARGE.get(), SoundSource.BLOCKS, 1, 0.5f);
-                MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new SpiritRiteActivationEffectPacket(spirits.stream().map(s -> s.identifier).toList(), worldPosition.above()));
+                level().playSound(null, worldPosition, SoundRegistry.TOTEM_CHARGE.get(), SoundSource.BLOCKS, 1, 0.5f);
+                MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level().getChunkAt(worldPosition)), new SpiritRiteActivationEffectPacket(spirits.stream().map(s -> s.identifier).toList(), worldPosition.above()));
             }
         }
     }
@@ -202,8 +202,8 @@ public class TotemBaseBlockEntity extends LodestoneBlockEntity {
     }
 
     public void completeRite(MalumRiteType rite) {
-        level.playSound(null, worldPosition, SoundRegistry.TOTEM_ACTIVATED.get(), SoundSource.BLOCKS, 1, 0.75f + height * 0.1f);
-        MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new SpiritRiteActivationEffectPacket(spirits.stream().map(s -> s.identifier).collect(Collectors.toCollection(ArrayList::new)), worldPosition.above()));
+        level().playSound(null, worldPosition, SoundRegistry.TOTEM_ACTIVATED.get(), SoundSource.BLOCKS, 1, 0.75f + height * 0.1f);
+        MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level().getChunkAt(worldPosition)), new SpiritRiteActivationEffectPacket(spirits.stream().map(s -> s.identifier).collect(Collectors.toCollection(ArrayList::new)), worldPosition.above()));
         poles.forEach(p -> {
             if (level.getBlockEntity(p) instanceof TotemPoleBlockEntity pole) {
                 pole.riteComplete();
@@ -243,8 +243,8 @@ public class TotemBaseBlockEntity extends LodestoneBlockEntity {
 
     public void endRite() {
         if (height > 1) {
-            level.playSound(null, worldPosition, SoundRegistry.TOTEM_CANCELLED.get(), SoundSource.BLOCKS, 1, 1);
-            MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new SpiritRiteActivationEffectPacket(spirits.stream().map(s -> s.identifier).collect(Collectors.toCollection(ArrayList::new)), worldPosition.above()));
+            level().playSound(null, worldPosition, SoundRegistry.TOTEM_CANCELLED.get(), SoundSource.BLOCKS, 1, 1);
+            MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level().getChunkAt(worldPosition)), new SpiritRiteActivationEffectPacket(spirits.stream().map(s -> s.identifier).collect(Collectors.toCollection(ArrayList::new)), worldPosition.above()));
         }
         resetRite();
     }

@@ -12,10 +12,12 @@ import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.advancements.critereon.MinMaxBounds;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.core.Registry;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
+import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.StringRepresentable;
+import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantments;
@@ -26,7 +28,6 @@ import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.block.state.properties.SlabType;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
-import net.minecraft.world.level.storage.loot.LootTables;
 import net.minecraft.world.level.storage.loot.ValidationContext;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
@@ -38,6 +39,7 @@ import net.minecraft.world.level.storage.loot.providers.nbt.ContextNbtProvider;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.NumberProvider;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import team.lodestar.lodestone.systems.block.LodestoneBlockProperties;
 
@@ -65,67 +67,64 @@ public class MalumBlockLootTables extends LootTableProvider {
 
     private final List<Pair<Supplier<Consumer<BiConsumer<ResourceLocation, LootTable.Builder>>>, LootContextParamSet>> tables = new ArrayList<>();
 
-    public MalumBlockLootTables(DataGenerator dataGeneratorIn) {
-        super(dataGeneratorIn);
+    public MalumBlockLootTables(PackOutput pOutput) {
+        super(pOutput, Set.of(), List.of(
+                new SubProviderEntry(BlocksLoot::new, LootContextParamSets.BLOCK))
+        );
+    }
+    public static class BlocksLoot extends BlockLootSubProvider {
+
+        protected BlocksLoot() {
+            super(Set.of(), FeatureFlags.REGISTRY.allFlags());
+        }
+
+        @Override
+        protected void generate() {
+            Set<RegistryObject<Block>> blocks = new HashSet<>(BLOCKS.getEntries());
+
+            takeAll(blocks, b -> b.get().properties instanceof LodestoneBlockProperties && ((LodestoneBlockProperties) b.get().properties).getDatagenData().hasInheritedLootTable);
+
+            add(take(blocks, BlockRegistry.RUNEWOOD_LEAVES).get(), (b)->createLeavesDrops(b, BlockRegistry.RUNEWOOD_SAPLING.get(), MAGIC_SAPLING_DROP_CHANCE));
+            add(take(blocks, BlockRegistry.SOULWOOD_LEAVES).get(), (b)->createLeavesDrops(b, BlockRegistry.SOULWOOD_GROWTH.get(), MAGIC_SAPLING_DROP_CHANCE));
+
+            add(take(blocks, BlockRegistry.BLIGHTED_SOULWOOD).get(), createSingleItemTableWithSilkTouch(BlockRegistry.BLIGHTED_SOULWOOD.get(), ItemRegistry.SOULWOOD_LOG.get()));
+            add(take(blocks, BlockRegistry.BLIGHTED_SOIL).get(), createBlightedDrop(BlockRegistry.BLIGHTED_SOIL.get(), 4));
+            add(take(blocks, BlockRegistry.BLIGHTED_EARTH).get(), createBlightedDrop(BlockRegistry.BLIGHTED_EARTH.get(), 4).withPool(LootPool.lootPool().add(applyExplosionDecay(BlockRegistry.BLIGHTED_EARTH.get(), LootItem.lootTableItem(Blocks.DIRT)))));
+            add(take(blocks, BlockRegistry.BLIGHTED_TUMOR).get(), createBlightedPlantDrop(BlockRegistry.BLIGHTED_TUMOR.get(), 2));
+            add(take(blocks, BlockRegistry.BLIGHTED_WEED).get(), createBlightedPlantDrop(BlockRegistry.BLIGHTED_WEED.get(), 1));
+
+            add(take(blocks, BlockRegistry.BRILLIANT_STONE).get(), createOreDrop(BlockRegistry.BRILLIANT_STONE.get(), ItemRegistry.CLUSTER_OF_BRILLIANCE.get()));
+            add(take(blocks, BlockRegistry.BRILLIANT_DEEPSLATE).get(), createOreDrop(BlockRegistry.BRILLIANT_DEEPSLATE.get(), ItemRegistry.CLUSTER_OF_BRILLIANCE.get()));
+            add(take(blocks, BlockRegistry.SOULSTONE_ORE).get(), createOreDrop(BlockRegistry.SOULSTONE_ORE.get(), ItemRegistry.RAW_SOULSTONE.get()));
+            add(take(blocks, BlockRegistry.DEEPSLATE_SOULSTONE_ORE).get(), createOreDrop(BlockRegistry.DEEPSLATE_SOULSTONE_ORE.get(), ItemRegistry.RAW_SOULSTONE.get()));
+            add(take(blocks, BlockRegistry.BLAZING_QUARTZ_ORE).get(), createOreDrop(BlockRegistry.BLAZING_QUARTZ_ORE.get(), ItemRegistry.BLAZING_QUARTZ.get()));
+            add(take(blocks, BlockRegistry.NATURAL_QUARTZ_ORE).get(), createOreDrop(BlockRegistry.NATURAL_QUARTZ_ORE.get(), ItemRegistry.NATURAL_QUARTZ.get()));
+            add(take(blocks, BlockRegistry.DEEPSLATE_QUARTZ_ORE).get(), createOreDrop(BlockRegistry.DEEPSLATE_QUARTZ_ORE.get(), ItemRegistry.NATURAL_QUARTZ.get()));
+
+            add(take(blocks, BlockRegistry.BLOCK_OF_CTHONIC_GOLD).get(), createSingleItemTableWithSilkTouch(BlockRegistry.BLOCK_OF_CTHONIC_GOLD.get(), ItemRegistry.CTHONIC_GOLD.get()));
+
+            takeAll(blocks, b -> b.get() instanceof SaplingBlock).forEach(b -> add(b.get(), createSingleItemTable(b.get().asItem())));
+            takeAll(blocks, b -> b.get() instanceof DoublePlantBlock).forEach(b -> add(b.get(), createSingleItemTableWithSilkTouchOrShears(b.get(), b.get().asItem())));
+            takeAll(blocks, b -> b.get() instanceof BushBlock).forEach(b -> add(b.get(), createSingleItemTableWithSilkTouchOrShears(b.get(), b.get().asItem())));
+
+            takeAll(blocks, b -> b.get() instanceof GrassBlock).forEach(b -> add(b.get(), createSingleItemTableWithSilkTouch(b.get(), Items.DIRT)));
+            takeAll(blocks, b -> b.get() instanceof SlabBlock).forEach(b -> add(b.get(), createSlabItemTable(b.get())));
+            takeAll(blocks, b -> b.get() instanceof DoorBlock).forEach(b -> add(b.get(), createDoorTable(b.get())));
+
+            takeAll(blocks, b -> b.get() instanceof EtherBlock).forEach(b -> add(b.get(), createEtherDrop(b.get())));
+            takeAll(blocks, b -> b.get() instanceof SpiritJarBlock).forEach(b -> add(b.get(), createJarDrop(b.get())));
+            takeAll(blocks, b -> b.get() instanceof SoulVialBlock).forEach(b -> add(b.get(), createVialDrop(b.get())));
+
+            takeAll(blocks, b -> true).forEach(b -> add(b.get(), createSingleItemTable(b.get().asItem())));
+        }
     }
 
-    @Override
-    public String getName() {
-        return "Malum Loot Tables";
-    }
 
-    @Override
-    protected List<Pair<Supplier<Consumer<BiConsumer<ResourceLocation, LootTable.Builder>>>, LootContextParamSet>> getTables() {
-        Set<RegistryObject<Block>> blocks = new HashSet<>(BLOCKS.getEntries());
-
-        takeAll(blocks, b -> b.get().properties instanceof LodestoneBlockProperties && ((LodestoneBlockProperties) b.get().properties).getDatagenData().hasInheritedLootTable);
-
-        add(take(blocks, BlockRegistry.RUNEWOOD_LEAVES).get(), (b)->createLeavesDrops(b, BlockRegistry.RUNEWOOD_SAPLING.get(), MAGIC_SAPLING_DROP_CHANCE));
-        add(take(blocks, BlockRegistry.SOULWOOD_LEAVES).get(), (b)->createLeavesDrops(b, BlockRegistry.SOULWOOD_GROWTH.get(), MAGIC_SAPLING_DROP_CHANCE));
-
-        add(take(blocks, BlockRegistry.BLIGHTED_SOULWOOD).get(), createSingleItemTableWithSilkTouch(BlockRegistry.BLIGHTED_SOULWOOD.get(), ItemRegistry.SOULWOOD_LOG.get()));
-        add(take(blocks, BlockRegistry.BLIGHTED_SOIL).get(), createBlightedDrop(BlockRegistry.BLIGHTED_SOIL.get(), 4));
-        add(take(blocks, BlockRegistry.BLIGHTED_EARTH).get(), createBlightedDrop(BlockRegistry.BLIGHTED_EARTH.get(), 4).withPool(LootPool.lootPool().add(applyExplosionDecay(BlockRegistry.BLIGHTED_EARTH.get(), LootItem.lootTableItem(Blocks.DIRT)))));
-        add(take(blocks, BlockRegistry.BLIGHTED_TUMOR).get(), createBlightedPlantDrop(BlockRegistry.BLIGHTED_TUMOR.get(), 2));
-        add(take(blocks, BlockRegistry.BLIGHTED_WEED).get(), createBlightedPlantDrop(BlockRegistry.BLIGHTED_WEED.get(), 1));
-
-        add(take(blocks, BlockRegistry.BRILLIANT_STONE).get(), createOreDrop(BlockRegistry.BRILLIANT_STONE.get(), ItemRegistry.CLUSTER_OF_BRILLIANCE.get()));
-        add(take(blocks, BlockRegistry.BRILLIANT_DEEPSLATE).get(), createOreDrop(BlockRegistry.BRILLIANT_DEEPSLATE.get(), ItemRegistry.CLUSTER_OF_BRILLIANCE.get()));
-        add(take(blocks, BlockRegistry.SOULSTONE_ORE).get(), createOreDrop(BlockRegistry.SOULSTONE_ORE.get(), ItemRegistry.RAW_SOULSTONE.get()));
-        add(take(blocks, BlockRegistry.DEEPSLATE_SOULSTONE_ORE).get(), createOreDrop(BlockRegistry.DEEPSLATE_SOULSTONE_ORE.get(), ItemRegistry.RAW_SOULSTONE.get()));
-        add(take(blocks, BlockRegistry.BLAZING_QUARTZ_ORE).get(), createOreDrop(BlockRegistry.BLAZING_QUARTZ_ORE.get(), ItemRegistry.BLAZING_QUARTZ.get()));
-        add(take(blocks, BlockRegistry.NATURAL_QUARTZ_ORE).get(), createOreDrop(BlockRegistry.NATURAL_QUARTZ_ORE.get(), ItemRegistry.NATURAL_QUARTZ.get()));
-        add(take(blocks, BlockRegistry.DEEPSLATE_QUARTZ_ORE).get(), createOreDrop(BlockRegistry.DEEPSLATE_QUARTZ_ORE.get(), ItemRegistry.NATURAL_QUARTZ.get()));
-
-        add(take(blocks, BlockRegistry.BLOCK_OF_CTHONIC_GOLD).get(), createSingleItemTableWithSilkTouch(BlockRegistry.BLOCK_OF_CTHONIC_GOLD.get(), ItemRegistry.CTHONIC_GOLD.get()));
-
-        takeAll(blocks, b -> b.get() instanceof SaplingBlock).forEach(b -> add(b.get(), createSingleItemTable(b.get().asItem())));
-        takeAll(blocks, b -> b.get() instanceof DoublePlantBlock).forEach(b -> add(b.get(), createSingleItemTableWithSilkTouchOrShears(b.get(), b.get().asItem())));
-        takeAll(blocks, b -> b.get() instanceof BushBlock).forEach(b -> add(b.get(), createSingleItemTableWithSilkTouchOrShears(b.get(), b.get().asItem())));
-
-        takeAll(blocks, b -> b.get() instanceof GrassBlock).forEach(b -> add(b.get(), createSingleItemTableWithSilkTouch(b.get(), Items.DIRT)));
-        takeAll(blocks, b -> b.get() instanceof SlabBlock).forEach(b -> add(b.get(), createSlabItemTable(b.get())));
-        takeAll(blocks, b -> b.get() instanceof DoorBlock).forEach(b -> add(b.get(), createDoorTable(b.get())));
-
-        takeAll(blocks, b -> b.get() instanceof EtherBlock).forEach(b -> add(b.get(), createEtherDrop(b.get())));
-        takeAll(blocks, b -> b.get() instanceof SpiritJarBlock).forEach(b -> add(b.get(), createJarDrop(b.get())));
-        takeAll(blocks, b -> b.get() instanceof SoulVialBlock).forEach(b -> add(b.get(), createVialDrop(b.get())));
-
-        takeAll(blocks, b -> true).forEach(b -> add(b.get(), createSingleItemTable(b.get().asItem())));
-
-        return tables;
-    }
-
-    @Override
-    protected void validate(Map<ResourceLocation, LootTable> map, ValidationContext validationtracker) {
-        map.forEach((loc, table) -> LootTables.validate(validationtracker, loc, table));
-    }
-
-    protected static <T> T applyExplosionDecay(ItemLike p_124132_, FunctionUserBuilder<T> p_124133_) {
+    protected static <T extends FunctionUserBuilder<T>> T applyExplosionDecay(ItemLike p_124132_, FunctionUserBuilder<T> p_124133_) {
         return (T)(!EXPLOSION_RESISTANT.contains(p_124132_.asItem()) ? p_124133_.apply(ApplyExplosionDecay.explosionDecay()) : p_124133_.unwrap());
     }
 
-    protected static <T> T applyExplosionCondition(ItemLike p_124135_, ConditionUserBuilder<T> p_124136_) {
+    protected static <T extends ConditionUserBuilder<T>> T applyExplosionCondition(ItemLike p_124135_, ConditionUserBuilder<T> p_124136_) {
         return (T)(!EXPLOSION_RESISTANT.contains(p_124135_.asItem()) ? p_124136_.when(ExplosionCondition.survivesExplosion()) : p_124136_.unwrap());
     }
 
@@ -222,7 +221,7 @@ public class MalumBlockLootTables extends LootTableProvider {
     }
 
     protected Iterable<Block> getKnownBlocks() {
-        return Registry.BLOCK;
+        return ForgeRegistries.BLOCKS;
     }
 
     public void dropPottedContents(Block p_124253_) {

@@ -18,12 +18,11 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
+import team.lodestar.lodestone.registry.common.LodestoneAttributeRegistry;
 
 import java.util.Map;
 
 import static net.minecraft.world.item.Item.BASE_ATTACK_DAMAGE_UUID;
-import static team.lodestar.lodestone.setup.LodestoneAttributeRegistry.MAGIC_DAMAGE;
-import static team.lodestar.lodestone.setup.LodestoneAttributeRegistry.UUIDS;
 
 @Mixin(ItemStack.class)
 public abstract class ItemStackMixin {
@@ -39,7 +38,7 @@ public abstract class ItemStackMixin {
                 Attribute key = entry.getKey();
                 AttributeModifier modifier = entry.getValue();
                 double amount = modifier.getAmount();
-                if (modifier.getId().equals(UUIDS.get(MAGIC_DAMAGE))) {
+                if (modifier.getId().equals(LodestoneAttributeRegistry.UUIDS.get(LodestoneAttributeRegistry.MAGIC_DAMAGE))) {
                     int enchantmentLevel = EnchantmentHelper.getItemEnchantmentLevel(EnchantmentRegistry.HAUNTED.get(), (ItemStack) (Object) this);
                     if (enchantmentLevel > 0) {
                         amount += enchantmentLevel;

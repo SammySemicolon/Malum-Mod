@@ -30,20 +30,15 @@ import static net.minecraft.data.recipes.ShapelessRecipeBuilder.*;
 import static net.minecraft.data.recipes.SimpleCookingRecipeBuilder.smoking;
 import static net.minecraft.data.recipes.SimpleCookingRecipeBuilder.*;
 import static net.minecraft.data.recipes.SingleItemRecipeBuilder.*;
-import static team.lodestar.lodestone.setup.LodestoneItemTags.*;
 
 public class MalumRecipes extends RecipeProvider implements IConditionBuilder {
-    public MalumRecipes(DataGenerator generatorIn) {
-        super(generatorIn);
+
+    public MalumRecipes(PackOutput pOutput) {
+        super(pOutput);
     }
 
     @Override
-    public String getName() {
-        return "Malum Recipe Provider";
-    }
-
-    @Override
-    protected void buildCraftingRecipes(Consumer<FinishedRecipe> consumer) {
+    protected void buildRecipes(Consumer<FinishedRecipe> consumer) {
         //KEY ITEMS
         shapeless(ItemRegistry.ENCYCLOPEDIA_ARCANA.get()).requires(Items.BOOK).requires(ItemRegistry.PROCESSED_SOULSTONE.get()).unlockedBy("has_soulstone", has(ItemRegistry.PROCESSED_SOULSTONE.get())).save(consumer);
         shaped(ItemRegistry.CRUDE_SCYTHE.get()).define('#', Tags.Items.RODS_WOODEN).define('Y', ItemRegistry.PROCESSED_SOULSTONE.get()).define('X', Tags.Items.INGOTS_IRON).pattern("XXY").pattern(" #X").pattern("#  ").unlockedBy("has_soulstone", has(ItemRegistry.RAW_SOULSTONE.get())).save(consumer);
@@ -585,6 +580,8 @@ public class MalumRecipes extends RecipeProvider implements IConditionBuilder {
         String s = Registry.ITEM.getKey(input.asItem()).getPath();
         shaped(sign, 3).group("sign").define('#', input).define('X', Tags.Items.RODS_WOODEN).pattern("###").pattern("###").pattern(" X ").unlockedBy("has_" + s, has(input)).save(recipeConsumer);
     }
+
+
 
     protected static EnterBlockTrigger.TriggerInstance insideOf(Block pBlock) {
         return new EnterBlockTrigger.TriggerInstance(EntityPredicate.Composite.ANY, pBlock, StatePropertiesPredicate.ANY);

@@ -28,9 +28,9 @@ public class WickedIntentEffect extends MobEffect {
             }
             MobEffectInstance effect = livingEntity.getEffect(MobEffectRegistry.WICKED_INTENT.get());
             if (effect != null) {
-                Level level = livingEntity.level;
+                Level level = livingEntity.level();
                 livingEntity.removeEffect(effect.getEffect());
-                level.playSound(null, livingEntity.blockPosition(), SoundRegistry.HIDDEN_BLADE_STRIKES.get(), SoundSource.PLAYERS, 2.5f, 1 + level.random.nextFloat() * 0.15f);
+                level().playSound(null, livingEntity.blockPosition(), SoundRegistry.HIDDEN_BLADE_STRIKES.get(), SoundSource.PLAYERS, 2.5f, 1 + level().random.nextFloat() * 0.15f);
             }
         }
     }

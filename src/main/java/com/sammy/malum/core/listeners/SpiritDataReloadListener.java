@@ -13,6 +13,7 @@ import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.event.AddReloadListenerEvent;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.*;
 
@@ -66,7 +67,7 @@ public class SpiritDataReloadListener extends SimpleJsonResourceReloadListener {
             JsonObject object = entry.getAsJsonObject();
             String name = object.getAsJsonPrimitive("registry_name").getAsString();
             ResourceLocation resourceLocation = new ResourceLocation(name);
-            if (!Registry.ENTITY_TYPE.containsKey(resourceLocation)) {
+            if (!ForgeRegistries.ENTITY_TYPES.containsKey(resourceLocation)) {
                 continue;
             }
             if (!object.has("primary_type")) {

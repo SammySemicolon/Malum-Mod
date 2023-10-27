@@ -64,9 +64,9 @@ public class CurioTokenOfGratitude extends MalumCurioItem implements IEventRespo
         return ALWAYS_KEEP;
     }
 
-    public static void giveItem(EntityJoinWorldEvent event) {
+    public static void giveItem(EntityJoinLevelEvent event) {
         if (event.getEntity() instanceof Player playerEntity) {
-            if (!playerEntity.level.isClientSide) {
+            if (!playerEntity.level().isClientSide) {
                 if (GRADITUDE_CERTIFIED.stream().anyMatch(u -> u.equals(playerEntity.getUUID()))) {
                     if (CurioHelper.findCosmeticCurio(s -> s.getItem().equals(ItemRegistry.TOKEN_OF_GRATITUDE.get()), playerEntity).isEmpty()) {
                         ItemHandlerHelper.giveItemToPlayer(playerEntity, ItemRegistry.TOKEN_OF_GRATITUDE.get().getDefaultInstance());

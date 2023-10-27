@@ -17,20 +17,17 @@ import net.minecraftforge.registries.*;
 import java.util.function.*;
 
 import static com.sammy.malum.registry.common.SpiritTypeRegistry.*;
-import static team.lodestar.lodestone.setup.LodestoneItemTags.*;
+import static team.lodestar.lodestone.registry.common.tag.LodestoneItemTags.*;
 
 public class MalumSpiritInfusionRecipes extends RecipeProvider implements IConditionBuilder {
-    public MalumSpiritInfusionRecipes(DataGenerator generatorIn) {
+    public MalumSpiritInfusionRecipes(PackOutput generatorIn) {
         super(generatorIn);
     }
 
-    @Override
-    public String getName() {
-        return "Malum Spirit Infusion Recipe Provider";
-    }
+
 
     @Override
-    protected void buildCraftingRecipes(Consumer<FinishedRecipe> consumer) {
+    protected void buildRecipes(Consumer<FinishedRecipe> consumer) {
         new SpiritInfusionRecipeBuilder(Items.GUNPOWDER, 1, ItemRegistry.HEX_ASH.get(), 1)
                 .addSpirit(ARCANE_SPIRIT, 1)
                 .build(consumer);

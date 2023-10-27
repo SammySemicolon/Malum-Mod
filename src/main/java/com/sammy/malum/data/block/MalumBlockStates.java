@@ -4,6 +4,7 @@ import com.sammy.malum.*;
 import com.sammy.malum.data.item.*;
 import net.minecraft.data.*;
 import net.minecraft.resources.*;
+import net.minecraft.server.packs.repository.Pack;
 import net.minecraft.world.level.block.*;
 import net.minecraftforge.client.model.generators.*;
 import net.minecraftforge.common.data.*;
@@ -20,8 +21,8 @@ import static com.sammy.malum.registry.common.block.BlockRegistry.*;
 
 public class MalumBlockStates extends LodestoneBlockStateProvider {
 
-    public MalumBlockStates(DataGenerator gen, ExistingFileHelper exFileHelper, LodestoneItemModelProvider itemModelProvider) {
-        super(gen, MALUM, exFileHelper, itemModelProvider);
+    public MalumBlockStates(PackOutput output, ExistingFileHelper exFileHelper, LodestoneItemModelProvider itemModelProvider) {
+        super(output, MALUM, exFileHelper, itemModelProvider);
     }
 
     @Nonnull

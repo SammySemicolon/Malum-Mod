@@ -61,7 +61,7 @@ public class EldritchEarthenRiteType extends MalumRiteType {
                 Level level = totemBase.getLevel();
                 getBlocksUnderBase(totemBase, Block.class).forEach(p -> {
                     BlockState state = level.getBlockState(p);
-                    boolean canBreak = state.isAir() || state.getMaterial().isReplaceable();
+                    boolean canBreak = state.isAir() || state.canBeReplaced();
                     if (canBreak) {
                         BlockState cobblestone = Blocks.COBBLESTONE.defaultBlockState();
                         level.setBlockAndUpdate(p, cobblestone);

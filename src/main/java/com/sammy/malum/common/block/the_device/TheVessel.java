@@ -11,6 +11,6 @@ public class TheVessel extends TheDevice {
     }
 
     public void playSound(Level level, BlockPos pos) {
-        level.playSound(null, pos, SoundRegistry.THE_HEAVENS_SIGN.get(), SoundSource.BLOCKS, 1, 1);
+        level().playSound(null, pos, SoundRegistry.THE_HEAVENS_SIGN.get(), SoundSource.BLOCKS, 1, 1);
     }
 }

@@ -119,7 +119,7 @@ public class SpiritRepairRecipe extends ILodestoneRecipe {
     }
 
     public static List<SpiritRepairRecipe> getRecipes(Level level) {
-        return level.getRecipeManager().getAllRecipesFor(RecipeTypeRegistry.SPIRIT_REPAIR.get());
+        return level().getRecipeManager().getAllRecipesFor(RecipeTypeRegistry.SPIRIT_REPAIR.get());
     }
 
     public static ItemStack getRepairRecipeOutput(ItemStack input) {

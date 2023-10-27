@@ -4,24 +4,30 @@ import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.item.impetus.NodeItem;
 import com.sammy.malum.registry.common.block.BlockTagRegistry;
 import com.sammy.malum.registry.common.item.ItemTagRegistry;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.tags.BlockTagsProvider;
+import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.RegistryObject;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.concurrent.CompletableFuture;
 
 import static com.sammy.malum.registry.common.item.ItemRegistry.*;
 import static com.sammy.malum.registry.common.item.ItemTagRegistry.*;
-import static team.lodestar.lodestone.setup.LodestoneItemTags.NUGGETS_COPPER;
 
 public class MalumItemTags extends ItemTagsProvider {
-    public MalumItemTags(DataGenerator dataGenerator, BlockTagsProvider blockTagProvider, ExistingFileHelper existingFileHelper) {
-        super(dataGenerator, blockTagProvider, MalumMod.MALUM, existingFileHelper);
+
+
+    public MalumItemTags(PackOutput pOutput, CompletableFuture<HolderLookup.Provider> pLookupProvider, CompletableFuture<TagLookup<Block>> pBlockTags, @Nullable ExistingFileHelper existingFileHelper) {
+        super(pOutput, pLookupProvider, pBlockTags, MalumMod.MALUM, existingFileHelper);
     }
 
     @Override
@@ -30,6 +36,10 @@ public class MalumItemTags extends ItemTagsProvider {
     }
 
     @Override
+    protected void addTags(HolderLookup.Provider pProvider) {
+        addTags();
+    }
+
     protected void addTags() {
         tag(Tags.Items.GEMS).add(PROCESSED_SOULSTONE.get(), BLAZING_QUARTZ.get());
 

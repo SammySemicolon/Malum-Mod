@@ -39,7 +39,7 @@ public class CurioWaterNecklace extends MalumCurioItem implements IMalumEventRes
 
     @Override
     public void curioTick(String identifier, int index, LivingEntity livingEntity, ItemStack stack) {
-        if (livingEntity.level.getGameTime() % 40L == 0 && livingEntity.isSwimming()) {
+        if (livingEntity.level().getGameTime() % 40L == 0 && livingEntity.isSwimming()) {
             AttributeInstance attribute = livingEntity.getAttribute(ForgeMod.SWIM_SPEED.get());
             if (attribute != null) {
                 attribute.setDirty();

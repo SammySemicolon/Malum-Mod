@@ -40,7 +40,7 @@ public class SpiritHarvestHandler {
             return;
         }
         DamageSource source = event.getSource();
-        LivingEntity target = event.getEntityLiving();
+        LivingEntity target = event.getEntity();
         LivingEntity attacker = null;
         if (event.getSource().getEntity() instanceof LivingEntity directAttacker) {
             attacker = directAttacker;
@@ -49,7 +49,7 @@ public class SpiritHarvestHandler {
             attacker = target.getLastHurtByMob();
         }
         if (attacker == null && source.getMsgId().equals(DamageSourceRegistry.VOODOO_IDENTIFIER)) {
-            SpiritHelper.createSpiritEntities(event.getEntityLiving());
+            SpiritHelper.createSpiritEntities(event.getEntity());
             return;
         }
         if (attacker != null) {
@@ -68,7 +68,7 @@ public class SpiritHarvestHandler {
         if (event.isCanceled()) {
             return;
         }
-        LivingEntity entityLiving = event.getEntityLiving();
+        LivingEntity entityLiving = event.getEntity();
         MalumLivingEntityDataCapability capability = MalumLivingEntityDataCapability.getCapability(entityLiving);
         if (capability.soulsToApplyToDrops != null) {
             MalumEntitySpiritData spiritData = SpiritHelper.getEntitySpiritData(entityLiving);
@@ -97,8 +97,8 @@ public class SpiritHarvestHandler {
             return;
         }
 
-        ItemEntity entity = event.getEntityItem();
-        if (entity.level instanceof ServerLevel level) {
+        ItemEntity entity = event.getEntity();
+        if (entity.level() instanceof ServerLevel level) {
             MalumItemDataCapability.getCapabilityOptional(entity).ifPresent((e) -> {
                 // And here is where particles would go.
                 // IF I HAD ANY
@@ -134,7 +134,7 @@ public class SpiritHarvestHandler {
                         ItemInventory inventory = SpiritPouchItem.getInventory(item);
                         ItemStack result = inventory.addItem(stack);
                         if (result.isEmpty()) {
-                            Level level = player.level;
+                            Level level = player.level();
                             level.playSound(null, player.getX(), player.getY() + 0.5, player.getZ(), SoundEvents.ITEM_PICKUP, SoundSource.PLAYERS, 0.2F, ((level.random.nextFloat() - level.random.nextFloat()) * 0.7F + 1.0F) * 2.0F);
                             if (player.containerMenu instanceof SpiritPouchContainer pouchMenu) {
                                 pouchMenu.update(inventory);

@@ -22,7 +22,7 @@ public class InfernalAura extends MobEffect {
     }
 
     public static void increaseDigSpeed(PlayerEvent.BreakSpeed event) {
-        Player player = event.getPlayer();
+        Player player = event.getEntity();
         if (player.hasEffect(MobEffectRegistry.MINERS_RAGE.get())) {
             event.setNewSpeed(event.getOriginalSpeed() * (1 + 0.2f *player.getEffect(MobEffectRegistry.MINERS_RAGE.get()).getAmplifier()));
         }

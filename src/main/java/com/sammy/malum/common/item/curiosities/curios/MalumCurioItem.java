@@ -55,7 +55,7 @@ public class MalumCurioItem extends Item implements ICurioItem {
 
     @Override
     public void playRightClickEquipSound(LivingEntity livingEntity, ItemStack stack) {
-        livingEntity.level.playSound(null, livingEntity.blockPosition(), type.sound.get(), SoundSource.PLAYERS, 1.0f, 1.0f);
+        livingEntity.level().playSound(null, livingEntity.blockPosition(), type.sound.get(), SoundSource.PLAYERS, 1.0f, 1.0f);
     }
 
     @Override

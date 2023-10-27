@@ -75,7 +75,7 @@ public class VividNitrateEntity extends AbstractNitrateEntity {
     @Override
     public void onExplode() {
         Vec3 deltaMovement = getDeltaMovement();
-        Random random = level.random;
+        var random = level().random;
         double x = Mth.lerp(0.5f, deltaMovement.x, Math.min(2, (0.9f + random.nextFloat() * 0.3f) * (random.nextBoolean() ? -deltaMovement.x : deltaMovement.x) + 0.45f - random.nextFloat() * 0.9f));
         double y = Mth.lerp(0.5f, deltaMovement.y, Math.min(2, (deltaMovement.y * (0.7f + random.nextFloat() * 0.3f) + 0.2f + random.nextFloat() * 0.4f)));
         double z = Mth.lerp(0.5f, deltaMovement.z, Math.min(2, (0.9f + random.nextFloat() * 0.3f) * (random.nextBoolean() ? -deltaMovement.z : deltaMovement.z) + 0.45f - random.nextFloat() * 0.9f));
@@ -86,14 +86,14 @@ public class VividNitrateEntity extends AbstractNitrateEntity {
         }
         y = Math.min(y, 1f);
         setDeltaMovement(x, y, z);
-        if (level instanceof ServerLevel) {
-            MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(blockPosition())), new VividNitrateBounceParticlePacket(COLOR_FUNCTION.apply(new ColorFunctionData(level, 0f)), getX(), getY(), getZ()));
+        if (level() instanceof ServerLevel) {
+            MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level().getChunkAt(blockPosition())), new VividNitrateBounceParticlePacket(COLOR_FUNCTION.apply(new ColorFunctionData(level(), 0f)), getX(), getY(), getZ()));
         }
     }
 
     @Override
     public void spawnParticles() {
-        if (level.isClientSide) {
+        if (level().isClientSide) {
             ClientOnly.spawnParticles(this);
         }
     }
@@ -113,9 +113,9 @@ public class VividNitrateEntity extends AbstractNitrateEntity {
             Vec3 norm = motion.normalize().scale(0.1f);
             float extraAlpha = (float) motion.length();
             float cycles = 3;
-            Color firstColor = COLOR_FUNCTION.apply(new ColorFunctionData(vividNitrateEntity.level, 0f)).brighter();
-            Color secondColor = COLOR_FUNCTION.apply(new ColorFunctionData(vividNitrateEntity.level, 0.125f)).darker();
-            Random rand = vividNitrateEntity.level.getRandom();
+            Color firstColor = COLOR_FUNCTION.apply(new ColorFunctionData(vividNitrateEntity.level(), 0f)).brighter();
+            Color secondColor = COLOR_FUNCTION.apply(new ColorFunctionData(vividNitrateEntity.level(), 0.125f)).darker();
+            var rand = vividNitrateEntity.level().getRandom();
             for (int i = 0; i < cycles; i++) {
                 float pDelta = i / cycles;
                 double lerpX = Mth.lerp(pDelta, ox, x) - motion.x / 4f;
@@ -137,9 +137,9 @@ public class VividNitrateEntity extends AbstractNitrateEntity {
                         .enableNoClip()
                         .setRandomMotion(0.01f, 0.01f)
                         .setRenderType(LodestoneWorldParticleRenderType.LUMITRANSPARENT)
-                        .spawn(vividNitrateEntity.level, lerpX, lerpY, lerpZ)
+                        .spawn(vividNitrateEntity.level(), lerpX, lerpY, lerpZ)
                         .setColorData(colorDataBuilder.setCoefficient(2.75f).build())
-                        .spawn(vividNitrateEntity.level, lerpX, lerpY, lerpZ);
+                        .spawn(vividNitrateEntity.level(), lerpX, lerpY, lerpZ);
             }
         }
     }

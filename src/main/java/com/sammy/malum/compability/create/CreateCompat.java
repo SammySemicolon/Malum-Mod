@@ -23,7 +23,7 @@ public class CreateCompat {
 
         public static void convertCaramelToMagicDamage(LivingHurtEvent event) {
             if (event.getSource().getDirectEntity() instanceof PotatoProjectileEntity potatoProjectile) {
-                LivingEntity target = event.getEntityLiving();
+                LivingEntity target = event.getEntity();
                 ItemStack item = potatoProjectile.getItem();
                 DamageSource damageSource = event.getSource().getEntity() instanceof Player player ? DamageSourceRegistry.causeVoodooDamage(player) : DamageSourceRegistry.VOODOO;
                 if (item.getItem().equals(UNHOLY_CARAMEL.get()) || item.getItem().equals(HOLY_CARAMEL.get())) {

@@ -52,7 +52,7 @@ public class SapFilledLogBlock extends RotatedPillarBlock {
     }
 
     public void collectSap(Level level, BlockPos pos, Player player) {
-        level.playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.BOTTLE_FILL, SoundSource.NEUTRAL, 1.0F, 1.0F);
+        level().playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.BOTTLE_FILL, SoundSource.NEUTRAL, 1.0F, 1.0F);
         ItemHandlerHelper.giveItemToPlayer(player, new ItemStack(sap.get()));
         if (level.random.nextBoolean()) {
             BlockHelper.setBlockStateWithExistingProperties(level, pos, drained.get().defaultBlockState(), 3);

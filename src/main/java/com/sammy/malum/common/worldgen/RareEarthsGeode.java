@@ -35,7 +35,7 @@ public class RareEarthsGeode extends Feature<GeodeConfiguration> {
     @Override
     public boolean place(FeaturePlaceContext<GeodeConfiguration> context) {
         GeodeConfiguration geodeconfiguration = context.config();
-        Random random = context.random();
+        var random = context.random();
         BlockPos blockpos = context.origin();
         WorldGenLevel worldgenlevel = context.level();
         int i = geodeconfiguration.minGenOffset;

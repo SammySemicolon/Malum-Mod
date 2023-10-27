@@ -41,7 +41,7 @@ public class BlightTransformItemParticlePacket extends SpiritBasedParticleEffect
     public void execute(Supplier<NetworkEvent.Context> context) {
         super.execute(context);
         Level level = Minecraft.getInstance().level;
-        Random rand = level.random;
+        var rand = level.random;
         for (int i = 0; i < 3; i++) {
             float multiplier = Mth.nextFloat(rand, 0.4f, 1f);
             float timeMultiplier = Mth.nextFloat(rand, 0.9f, 1.4f);
@@ -92,7 +92,7 @@ public class BlightTransformItemParticlePacket extends SpiritBasedParticleEffect
     @Override
     public void execute(Supplier<NetworkEvent.Context> context, MalumSpiritType spiritType) {
         Level level = Minecraft.getInstance().level;
-        Random rand = level.random;
+        var rand = level.random;
         Color color = spiritType.getPrimaryColor();
         for (int i = 0; i < 3; i++) {
             int spinDirection = (rand.nextBoolean() ? 1 : -1);

@@ -71,7 +71,7 @@ public class SpiritHelper {
                 }
             });
         } else {
-            createSpiritEntities(spirits, spirits.stream().mapToInt(ItemStack::getCount).sum(), target.level, target.position().add(0, target.getEyeHeight() / 2f, 0), attacker);
+            createSpiritEntities(spirits, spirits.stream().mapToInt(ItemStack::getCount).sum(), target.level(), target.position().add(0, target.getEyeHeight() / 2f, 0), attacker);
         }
     }
 
@@ -83,7 +83,7 @@ public class SpiritHelper {
         if (spirits.isEmpty()) {
             return;
         }
-        createSpiritEntities(spirits, spirits.stream().mapToInt(ItemStack::getCount).sum(), target.level, target.position().add(0, target.getEyeHeight() / 2f, 0), speedMultiplier, attacker);
+        createSpiritEntities(spirits, spirits.stream().mapToInt(ItemStack::getCount).sum(), target.level(), target.position().add(0, target.getEyeHeight() / 2f, 0), speedMultiplier, attacker);
     }
 
     public static void createSpiritEntities(MalumEntitySpiritData data, Level level, Vec3 position, LivingEntity attacker) {
@@ -99,7 +99,7 @@ public class SpiritHelper {
             attacker = level.getNearestPlayer(position.x, position.y, position.z, 8, e -> true);
         }
         float speed = (0.15f + 0.25f / (totalCount + 1)) * speedMultiplier;
-        Random random = level.random;
+        var random = level.random;
         for (ItemStack stack : spirits) {
             int count = stack.getCount();
             if (count == 0) {
@@ -188,7 +188,7 @@ public class SpiritHelper {
             spiritBonus += spiritPlunder;
         }
         for (int i = 0; i < spiritBonus * spoilsMultiplier; i++) {
-            int random = attacker.level.random.nextInt(spirits.size());
+            int random = attacker.level().random.nextInt(spirits.size());
             spirits.get(random).grow(1);
         }
         return spirits;

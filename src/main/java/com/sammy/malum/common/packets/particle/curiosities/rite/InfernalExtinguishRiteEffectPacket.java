@@ -24,7 +24,7 @@ public class InfernalExtinguishRiteEffectPacket extends BlockSparkleParticlePack
     @Override
     public void execute(Supplier<NetworkEvent.Context> context) {
         Level level = Minecraft.getInstance().level;
-        Random rand = level.random;
+        var rand = level.random;
 
         for(int i = 0; i < 8; ++i) {
             double d0 = pos.getX() + rand.nextFloat();

@@ -18,6 +18,8 @@ import net.minecraftforge.common.extensions.IForgeBlock;
 
 import java.awt.*;
 
+import static com.sammy.malum.MalumMod.RANDOM;
+
 public class MalumLeavesBlock extends LeavesBlock implements IForgeBlock {
     public static final IntegerProperty COLOR = IntegerProperty.create("color", 0, 4);
     public final Color maxColor;
@@ -42,7 +44,7 @@ public class MalumLeavesBlock extends LeavesBlock implements IForgeBlock {
     @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
         if (player.getItemInHand(handIn).getItem().equals(ItemRegistry.INFERNAL_SPIRIT.get())) {
-            level.setBlockAndUpdate(pos, state.setValue(COLOR, (state.getValue(COLOR) + 1) % 5));
+            level().setBlockAndUpdate(pos, state.setValue(COLOR, (state.getValue(COLOR) + 1) % 5));
             player.swing(handIn);
             player.playSound(SoundEvents.BLAZE_SHOOT, 1F, 1.5f + RANDOM.nextFloat() * 0.5f);
             return InteractionResult.SUCCESS;

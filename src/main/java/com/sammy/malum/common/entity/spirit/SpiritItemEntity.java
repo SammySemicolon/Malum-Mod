@@ -66,7 +66,7 @@ public class SpiritItemEntity extends FloatingItemEntity {
     public void spawnParticles(double x, double y, double z) {
         Vec3 motion = getDeltaMovement();
         Vec3 norm = motion.normalize().scale(0.05f);
-        var lightSpecs = SpiritLightSpecs.spiritLightSpecs(level, new Vec3(x, y, z), spiritType);
+        var lightSpecs = SpiritLightSpecs.spiritLightSpecs(level(), new Vec3(x, y, z), spiritType);
         lightSpecs.getBuilder().setMotion(norm);
         lightSpecs.getBloomBuilder().setMotion(norm);
         lightSpecs.spawnParticles();
@@ -76,15 +76,15 @@ public class SpiritItemEntity extends FloatingItemEntity {
     public void move() {
         if (soundCooldown-- == 0) {
             if (random.nextFloat() < 0.4f) {
-                level.playSound(null, blockPosition(), SoundRegistry.ARCANE_WHISPERS.get(), SoundSource.NEUTRAL, 0.3f, Mth.nextFloat(random, 1.1f, 2f));
+                level().playSound(null, blockPosition(), SoundRegistry.ARCANE_WHISPERS.get(), SoundSource.NEUTRAL, 0.3f, Mth.nextFloat(random, 1.1f, 2f));
             }
             soundCooldown = random.nextInt(40) + 40;
         }
         float friction = 0.94f;
         setDeltaMovement(getDeltaMovement().multiply(friction, friction, friction));
         if (owner == null || !owner.isAlive()) {
-            if (level.getGameTime() % 40L == 0) {
-                Player playerEntity = level.getNearestPlayer(this, 50);
+            if (level().getGameTime() % 40L == 0) {
+                Player playerEntity = level().getNearestPlayer(this, 50);
                 if (playerEntity != null) {
                     setOwner(playerEntity.getUUID());
                 }
@@ -112,7 +112,7 @@ public class SpiritItemEntity extends FloatingItemEntity {
                     ItemHelper.giveItemToEntity(owner, stack);
                 }
                 if (random.nextFloat() < 0.6f) {
-                    level.playSound(null, blockPosition(), SoundRegistry.SPIRIT_PICKUP.get(), SoundSource.NEUTRAL, 0.3f, Mth.nextFloat(random, 1.1f, 2f));
+                    level().playSound(null, blockPosition(), SoundRegistry.SPIRIT_PICKUP.get(), SoundSource.NEUTRAL, 0.3f, Mth.nextFloat(random, 1.1f, 2f));
                 }
                 remove(RemovalReason.DISCARDED);
             }
@@ -125,8 +125,13 @@ public class SpiritItemEntity extends FloatingItemEntity {
     }
 
     public void updateOwner() {
-        if (!level.isClientSide) {
-            owner = (LivingEntity) ((ServerLevel) level).getEntity(ownerUUID);
+        if (!level().isClientSide) {
+            owner = (LivingEntity) ((ServerLevel) level()).getEntity(ownerUUID);
         }
+    }
+
+    @Override
+    public boolean alwaysAccepts() {
+        return super.alwaysAccepts();
     }
 }

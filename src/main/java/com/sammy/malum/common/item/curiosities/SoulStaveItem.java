@@ -48,7 +48,7 @@ public class SoulStaveItem extends Item {
             CompoundTag tag = pStack.getTag();
             if (tag.contains(MalumEntitySpiritData.SOUL_DATA)) {
                 MalumEntitySpiritData data = MalumEntitySpiritData.load(tag);
-                pTooltipComponents.add(new TranslatableComponent("malum.spirit.description.stored_soul").withStyle(ChatFormatting.GRAY));
+                pTooltipComponents.add(Component.translatable("malum.spirit.description.stored_soul").withStyle(ChatFormatting.GRAY));
                 pTooltipComponents.addAll(data.createTooltip());
             }
         }

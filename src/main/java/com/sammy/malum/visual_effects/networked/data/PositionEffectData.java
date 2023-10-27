@@ -35,6 +35,6 @@ public class PositionEffectData {
     }
 
     public BlockPos getAsBlockPos() {
-        return new BlockPos(posX, posY, posZ);
+        return new BlockPos((int)posX, (int)posY, (int)posZ);
     }
 }

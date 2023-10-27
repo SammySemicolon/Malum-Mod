@@ -2,7 +2,6 @@ package com.sammy.malum.core.handlers;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector4f;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.capability.MalumPlayerDataCapability;
 import com.sammy.malum.config.CommonConfig;
@@ -11,6 +10,7 @@ import com.sammy.malum.registry.common.AttributeRegistry;
 import com.sammy.malum.registry.common.SoundRegistry;
 import com.sammy.malum.registry.common.SpiritTypeRegistry;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
@@ -21,9 +21,10 @@ import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.client.gui.ForgeIngameGui;
+import net.minecraftforge.client.gui.overlay.ForgeGui;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import org.joml.Vector4f;
 import team.lodestar.lodestone.handlers.screenparticle.ScreenParticleHandler;
 import team.lodestar.lodestone.helpers.ItemHelper;
 import team.lodestar.lodestone.setup.LodestoneScreenParticleRegistry;
@@ -59,7 +60,7 @@ public class SoulWardHandler {
         if (soulWardCap != null) {
             if (soulWardHandler.soulWard < soulWardCap.getValue() && soulWardHandler.soulWardProgress <= 0) {
                 soulWardHandler.soulWard++;
-                if (player.level.isClientSide && !player.isCreative()) {
+                if (player.level().isClientSide && !player.isCreative()) {
                     player.playSound(soulWardHandler.soulWard >= soulWardCap.getValue() ? SoundRegistry.SOUL_WARD_CHARGE.get() : SoundRegistry.SOUL_WARD_GROW.get(), 1, Mth.nextFloat(player.getRandom(), 0.6f, 1.4f));
                 }
                 soulWardHandler.soulWardProgress = getSoulWardCooldown(player);
@@ -76,8 +77,8 @@ public class SoulWardHandler {
         if (event.isCanceled() || event.getAmount() <= 0) {
             return;
         }
-        if (event.getEntityLiving() instanceof Player player) {
-            if (!player.level.isClientSide) {
+        if (event.getEntity() instanceof Player player) {
+            if (!player.level().isClientSide) {
                 SoulWardHandler soulWardHandler = MalumPlayerDataCapability.getCapability(player).soulWardHandler;
                 soulWardHandler.soulWardProgress = getSoulWardCooldown(0) + getSoulWardCooldown(player);
                 if (soulWardHandler.soulWard > 0) {
@@ -107,7 +108,7 @@ public class SoulWardHandler {
                             eventItem.onSoulwardAbsorbDamage(event, player, s, soulwardLost, absorbed);
                         }
                     }
-                    player.level.playSound(null, player.blockPosition(), SoundRegistry.SOUL_WARD_HIT.get(), SoundSource.PLAYERS, 1, Mth.nextFloat(player.getRandom(), 1.5f, 2f));
+                    player.level().playSound(null, player.blockPosition(), SoundRegistry.SOUL_WARD_HIT.get(), SoundSource.PLAYERS, 1, Mth.nextFloat(player.getRandom(), 1.5f, 2f));
                     event.setAmount(result);
 
                     MalumPlayerDataCapability.syncTrackingAndSelf(player);
@@ -131,8 +132,9 @@ public class SoulWardHandler {
     }
 
     public static class ClientOnly {
-        public static void renderSoulWard(ForgeIngameGui gui, PoseStack poseStack, int width, int height) {
+        public static void renderSoulWard(ForgeGui gui, GuiGraphics guiGraphics, int width, int height) {
             Minecraft minecraft = Minecraft.getInstance();
+            PoseStack poseStack = guiGraphics.pose();
             if (!minecraft.options.hideGui && gui.shouldDrawSurvivalElements()) {
                 gui.setupOverlayRenderState(true, false);
                 LocalPlayer player = minecraft.player;
@@ -144,7 +146,7 @@ public class SoulWardHandler {
                         float armor = (float) player.getAttribute(Attributes.ARMOR).getValue();
 
                         int left = width / 2 - 91;
-                        int top = height - gui.left_height;
+                        int top = height - gui.leftHeight;
 
                         if (armor == 0) {
                             top += 4;

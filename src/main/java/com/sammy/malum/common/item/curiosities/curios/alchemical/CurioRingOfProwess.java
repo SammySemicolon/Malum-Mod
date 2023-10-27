@@ -14,7 +14,7 @@ public class CurioRingOfProwess extends MalumCurioItem implements IMalumEventRes
 
     @Override
     public void pickupSpirit(LivingEntity collector, ItemStack stack, double arcaneResonance) {
-        Level level = collector.level;
+        Level level = collector.level();
         int floored = (int) Math.floor(arcaneResonance);
         int i = 1 + level.random.nextInt(1+floored) + level.random.nextInt(2+floored);
 

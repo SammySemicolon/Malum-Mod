@@ -3,13 +3,15 @@ package com.sammy.malum.core.events;
 import com.sammy.malum.core.handlers.SoulHarvestHandler;
 import com.sammy.malum.core.handlers.SoulWardHandler;
 import com.sammy.malum.core.handlers.TouchOfDarknessHandler;
+import com.sammy.malum.registry.client.ParticleRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.world.entity.EntityType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
-import net.minecraftforge.client.gui.ForgeIngameGui;
-import net.minecraftforge.client.gui.OverlayRegistry;
+import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
+import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
+import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -27,11 +29,16 @@ public class ClientSetupEvents {
         }
     }
 
-    @SubscribeEvent(priority = EventPriority.LOWEST)
-    public static void registerOverlays(FMLClientSetupEvent event) {
-        OverlayRegistry.registerOverlayAbove(ForgeIngameGui.ARMOR_LEVEL_ELEMENT, "Soul Ward", (gui, poseStack, partialTick, width, height) ->
+    @SubscribeEvent
+    public static void registerOverlays(RegisterGuiOverlaysEvent event) {
+        event.registerAbove(VanillaGuiOverlay.ARMOR_LEVEL.id(), "soul_ward", (gui, poseStack, partialTick, width, height) ->
                 SoulWardHandler.ClientOnly.renderSoulWard(gui, poseStack, width, height));
-        OverlayRegistry.registerOverlayAbove(ForgeIngameGui.SLEEP_FADE_ELEMENT, "Touch of Darkness", (gui, poseStack, partialTick, width, height) ->
+        event.registerAbove(VanillaGuiOverlay.SLEEP_FADE.id(), "touch_of_darkness", (gui, poseStack, partialTick, width, height) ->
                 TouchOfDarknessHandler.ClientOnly.renderDarknessVignette(poseStack));
+    }
+
+    @SubscribeEvent
+    public static void registerParticleFactory(RegisterParticleProvidersEvent event) {
+        ParticleRegistry.registerParticleFactory(event);
     }
 }

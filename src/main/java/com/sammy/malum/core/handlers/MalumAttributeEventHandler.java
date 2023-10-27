@@ -3,7 +3,6 @@ package com.sammy.malum.core.handlers;
 import com.sammy.malum.common.item.curiosities.weapons.MalumScytheItem;
 import com.sammy.malum.registry.common.AttributeRegistry;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.damagesource.EntityDamageSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.item.ItemStack;

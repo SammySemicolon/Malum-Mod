@@ -27,7 +27,7 @@ public class EsotericReapingHandler {
         if (event.isCanceled()) {
             return;
         }
-        LivingEntity target = event.getEntityLiving();
+        LivingEntity target = event.getEntity();
         LivingEntity attacker = null;
         if (event.getSource().getEntity() instanceof LivingEntity directAttacker) {
             attacker = directAttacker;
@@ -50,8 +50,8 @@ public class EsotericReapingHandler {
             SoulDataHandler soulData = MalumLivingEntityDataCapability.getCapability(target).soulData;
             if (soulData.exposedSoulDuration > 0) {
                 for (MalumReapingDropsData dropData : data) {
-                    Level level = target.level;
-                    Random random = level.random;
+                    Level level = target.level();
+                    var random = level.random;
                     if (random.nextFloat() < dropData.chance) {
                         Ingredient ingredient = dropData.drop;
                         ItemStack stack = ItemHelper.copyWithNewCount(ingredient.getItems()[random.nextInt(ingredient.getItems().length)], Mth.nextInt(random, dropData.min, dropData.max));

@@ -7,7 +7,7 @@ import net.minecraft.world.item.*;
 import team.lodestar.lodestone.systems.item.*;
 
 public class MalumArmorItem extends LodestoneArmorItem {
-    public MalumArmorItem(ArmorMaterial materialIn, EquipmentSlot slot, Properties builder) {
+    public MalumArmorItem(ArmorMaterial materialIn, ArmorItem.Type slot, Properties builder) {
         super(materialIn, slot, builder);
     }
 

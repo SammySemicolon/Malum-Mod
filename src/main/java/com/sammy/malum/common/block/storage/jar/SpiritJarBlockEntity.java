@@ -22,7 +22,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.items.IItemHandler;
 import org.jetbrains.annotations.NotNull;
 import team.lodestar.lodestone.helpers.BlockHelper;
@@ -139,14 +139,14 @@ public class SpiritJarBlockEntity extends LodestoneBlockEntity {
         lastClickUUID = player.getUUID();
 
         if (count != 0) {
-            if (player.level.isClientSide) {
+            if (player.level().isClientSide) {
                 spawnUseParticles(level, worldPosition, type);
             } else {
                 BlockHelper.updateAndNotifyState(level, worldPosition);
             }
         }
 
-        return InteractionResult.sidedSuccess(player.level.isClientSide);
+        return InteractionResult.sidedSuccess(player.level().isClientSide);
     }
 
     public int insertHeldItem(Player player) {
@@ -265,7 +265,7 @@ public class SpiritJarBlockEntity extends LodestoneBlockEntity {
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, Direction side) {
-        if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+        if (cap == ForgeCapabilities.ITEM_HANDLER) {
             return inventory.cast();
         }
         return super.getCapability(cap, side);

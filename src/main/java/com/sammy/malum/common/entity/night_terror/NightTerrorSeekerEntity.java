@@ -2,9 +2,9 @@ package com.sammy.malum.common.entity.night_terror;
 
 import com.sammy.malum.registry.common.*;
 import com.sammy.malum.registry.common.entity.*;
-import com.sammy.malum.visual_effects.*;
 import net.minecraft.nbt.*;
 import net.minecraft.network.protocol.*;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.util.*;
 import net.minecraft.world.damagesource.*;
 import net.minecraft.world.entity.*;
@@ -15,13 +15,11 @@ import net.minecraftforge.network.*;
 import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.setup.*;
 import team.lodestar.lodestone.systems.easing.*;
-import team.lodestar.lodestone.systems.particle.*;
 import team.lodestar.lodestone.systems.particle.builder.*;
 import team.lodestar.lodestone.systems.particle.data.*;
 import team.lodestar.lodestone.systems.particle.data.color.*;
 import team.lodestar.lodestone.systems.particle.data.spin.*;
 import team.lodestar.lodestone.systems.particle.render_types.*;
-import team.lodestar.lodestone.systems.particle.world.*;
 
 import java.awt.*;
 import java.util.List;
@@ -104,7 +102,7 @@ public class NightTerrorSeekerEntity extends ThrowableProjectile {
     protected void onHitEntity(EntityHitResult result) {
         if (getOwner() instanceof LivingEntity scytheOwner) {
             Entity target = result.getEntity();
-            if (level.isClientSide) {
+            if (level().isClientSide) {
                 return;
             }
             DamageSource source = DamageSourceRegistry.causeVoodooDamage(scytheOwner);
@@ -112,7 +110,7 @@ public class NightTerrorSeekerEntity extends ThrowableProjectile {
             if (age < fadeoutStart) {
                 fadeoutStart += 4;
             }
-            target.level.playSound(null, target.getX(), target.getY(), target.getZ(), SoundRegistry.SCYTHE_CUT.get(), target.getSoundSource(), 1.0F, 0.9f + target.level.random.nextFloat() * 0.2f);
+            target.level().playSound(null, target.getX(), target.getY(), target.getZ(), SoundRegistry.SCYTHE_CUT.get(), target.getSoundSource(), 1.0F, 0.9f + target.level.random.nextFloat() * 0.2f);
         }
         super.onHitEntity(result);
     }
@@ -121,7 +119,7 @@ public class NightTerrorSeekerEntity extends ThrowableProjectile {
         super.tick();
         trackPastPositions();
         age++;
-        if (level.isClientSide) {
+        if (level().isClientSide) {
             ClientOnly.spawnParticles(this);
         }
         if (this.xRotO == 0.0F && this.yRotO == 0.0F) {
@@ -130,7 +128,7 @@ public class NightTerrorSeekerEntity extends ThrowableProjectile {
             yRotO = getYRot();
             xRotO = getXRot();
         }
-        if (!level.isClientSide) {
+        if (!level().isClientSide) {
             if (age > fadeoutStart) {
                 Vec3 motion = getDeltaMovement().scale(0.92f);
                 setDeltaMovement(motion);
@@ -168,7 +166,7 @@ public class NightTerrorSeekerEntity extends ThrowableProjectile {
     }
 
     @Override
-    public Packet<?> getAddEntityPacket() {
+    public Packet<ClientGamePacketListener> getAddEntityPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 
@@ -206,7 +204,7 @@ public class NightTerrorSeekerEntity extends ThrowableProjectile {
             float extraAlpha = (float) motion.length();
             float cycles = 3;
             Color firstColor = NIGHT_TERROR_PURPLE.brighter();
-            Random rand = nightTerrorSeekerEntity.level.getRandom();
+            var rand = nightTerrorSeekerEntity.level().getRandom();
             for (int i = 0; i < cycles; i++) {
                 float pDelta = i / cycles;
                 double lerpX = Mth.lerp(pDelta, ox, x) + motion.x / 4f;
@@ -229,9 +227,9 @@ public class NightTerrorSeekerEntity extends ThrowableProjectile {
                         .addMotion(norm.x, norm.y, norm.z)
                         .setRandomMotion(0.01f, 0.01f)
                         .setRenderType(LodestoneWorldParticleRenderType.LUMITRANSPARENT)
-                        .spawn(nightTerrorSeekerEntity.level, lerpX, lerpY, lerpZ)
+                        .spawn(nightTerrorSeekerEntity.level(), lerpX, lerpY, lerpZ)
                         .setColorData(colorDataBuilder.setCoefficient(2f).build())
-                        .spawn(nightTerrorSeekerEntity.level, lerpX, lerpY, lerpZ);
+                        .spawn(nightTerrorSeekerEntity.level(), lerpX, lerpY, lerpZ);
             }
         }
     }

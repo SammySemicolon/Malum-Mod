@@ -21,7 +21,7 @@ import static com.sammy.malum.common.entity.nitrate.VividNitrateEntity.COLOR_FUN
 public class VividNitrateItem extends AbstractNitrateItem {
 
     public VividNitrateItem(Properties pProperties) {
-        super(pProperties, p -> new VividNitrateEntity(p, p.level));
+        super(pProperties, p -> new VividNitrateEntity(p, p.level()));
     }
 
     @Override

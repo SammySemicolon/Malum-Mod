@@ -106,7 +106,7 @@ public class FloatingItemEntityRenderer extends EntityRenderer<FloatingItemEntit
         VertexConsumer bloom = DELAYED_RENDER.getBuffer(LodestoneRenderTypeRegistry.ADDITIVE_TEXTURE.applyAndCache(lodestonePath("textures/particle/twinkle.png")));
         VertexConsumer star = DELAYED_RENDER.getBuffer(LodestoneRenderTypeRegistry.ADDITIVE_TEXTURE.applyAndCache(malumPath("textures/particle/star.png")));
         VFXBuilders.WorldVFXBuilder builder = VFXBuilders.createWorld().setPosColorTexLightmapDefaultFormat().setColor(spiritType.getPrimaryColor());
-        float gameTime = level.getGameTime() + partialTicks;
+        float gameTime = level().getGameTime() + partialTicks;
         float sine = (float) Math.abs(((Math.sin((gameTime / 80f) % 360)) * 0.075f));
         float bounce = EasingHelper.weightedEasingLerp(Easing.BOUNCE_IN_OUT, (gameTime % 20)/20f, 0.025f, 0.05f, 0.025f);
         float scale = 0.12f + sine + bounce;

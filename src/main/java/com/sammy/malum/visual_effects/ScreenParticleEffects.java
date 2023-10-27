@@ -24,7 +24,7 @@ import static net.minecraft.util.Mth.nextFloat;
 
 public class ScreenParticleEffects {
     public static void spawnSpiritShardScreenParticles(ScreenParticleHolder target, Color color, Color endColor) {
-        Random rand = Minecraft.getInstance().level.getRandom();
+        var rand = Minecraft.getInstance().level.getRandom();
         ScreenParticleBuilder.create(LodestoneScreenParticleRegistry.SPARKLE, target)
                 .setTransparencyData(GenericParticleData.create(0.04f, 0f).setEasing(Easing.SINE_IN_OUT).build())
                 .setScaleData(GenericParticleData.create(0.8f + rand.nextFloat() * 0.1f, 0).setEasing(Easing.SINE_IN_OUT, Easing.BOUNCE_IN_OUT).build())
@@ -56,7 +56,7 @@ public class ScreenParticleEffects {
         Color color = new Color((int)(31*colorMultiplier), (int)(19*colorMultiplier), (int)(31*colorMultiplier));
         Color endColor = new Color((int)(111*colorMultiplier), (int)(31*colorMultiplier), (int)(121*colorMultiplier));
         float gameTime = level.getGameTime() + partialTick;
-        Random rand = Minecraft.getInstance().level.getRandom();
+        var rand = Minecraft.getInstance().level.getRandom();
         boolean spinDirection = level.random.nextBoolean();
         SpinParticleData spinParticleData = SpinParticleData.create(0, spinDirection ? 1 : -2).setSpinOffset(0.025f * gameTime % 6.28f).setEasing(Easing.EXPO_IN_OUT).build();
         ScreenParticleBuilder.create(LodestoneScreenParticleRegistry.STAR, target)

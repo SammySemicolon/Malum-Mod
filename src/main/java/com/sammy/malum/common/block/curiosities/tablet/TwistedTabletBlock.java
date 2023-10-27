@@ -14,7 +14,7 @@ import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.wrapper.EmptyHandler;
 import team.lodestar.lodestone.systems.block.WaterLoggedEntityBlock;
@@ -68,7 +68,7 @@ public class TwistedTabletBlock<T extends TwistedTabletBlockEntity> extends Wate
     public int getAnalogOutputSignal(BlockState pState, Level pLevel, BlockPos pPos) {
         BlockEntity be = pLevel.getBlockEntity(pPos);
         if (be instanceof TwistedTabletBlockEntity tablet) {
-            return ItemHandlerHelper.calcRedstoneFromInventory(tablet.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).orElse(new EmptyHandler()));
+            return ItemHandlerHelper.calcRedstoneFromInventory(tablet.getCapability(ForgeCapabilities.ITEM_HANDLER).orElse(new EmptyHandler()));
         }
         return 0;
     }

@@ -48,7 +48,7 @@ public class WeepingWellFeature extends Feature<NoneFeatureConfiguration> {
         }
 
 
-        Random rand = context.random();
+        var rand = context.random();
         LodestoneBlockFiller filler = new LodestoneBlockFiller(false);
         Direction[] directions = new Direction[]{Direction.NORTH, Direction.WEST, Direction.SOUTH, Direction.EAST};
 
@@ -178,6 +178,6 @@ public class WeepingWellFeature extends Feature<NoneFeatureConfiguration> {
             return false;
         }
         BlockState state = level.getBlockState(pos);
-        return level.isEmptyBlock(pos) || state.getMaterial().isReplaceable();
+        return level.isEmptyBlock(pos) || state.canBeReplaced();
     }
 }

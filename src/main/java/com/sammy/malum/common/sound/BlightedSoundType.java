@@ -1,5 +1,6 @@
 package com.sammy.malum.common.sound;
 
+import com.sammy.malum.MalumMod;
 import com.sammy.malum.registry.common.SoundRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
@@ -38,7 +39,7 @@ public class BlightedSoundType extends ExtendedSoundType {
     @Override
     @OnlyIn(value = Dist.CLIENT)
     public void onPlayHitSound(BlockPos pos) {
-        Minecraft.getInstance().getSoundManager().play(new SimpleSoundInstance(SoundRegistry.MINOR_BLIGHT_MOTIF.get(), SoundSource.BLOCKS, (getVolume() + 1.0F) / 8.0F, getPitch() * 2F, pos));
+        Minecraft.getInstance().getSoundManager().play(new SimpleSoundInstance(SoundRegistry.MINOR_BLIGHT_MOTIF.get(), SoundSource.BLOCKS, (getVolume() + 1.0F) / 8.0F, getPitch() * 2F, MalumMod.RANDOM,pos));
     }
 
     @Override

@@ -40,7 +40,7 @@ public class SoulwoodLogBlock extends MalumLogBLock {
     public boolean createTotemPole(Level level, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit, ItemStack stack, SpiritShardItem spirit) {
         boolean success = super.createTotemPole(level, pos, player, handIn, hit, stack, spirit);
         if (success) {
-            level.playSound(null, pos, SoundRegistry.MAJOR_BLIGHT_MOTIF.get(), SoundSource.BLOCKS, 1, 1);
+            level().playSound(null, pos, SoundRegistry.MAJOR_BLIGHT_MOTIF.get(), SoundSource.BLOCKS, 1, 1);
         }
         return success;
     }

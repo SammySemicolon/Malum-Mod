@@ -10,7 +10,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 import static com.sammy.malum.MalumMod.MALUM;
-import static team.lodestar.lodestone.setup.LodestoneAttributeRegistry.registerAttribute;
+import static team.lodestar.lodestone.registry.common.LodestoneAttributeRegistry.registerAttribute;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class AttributeRegistry {

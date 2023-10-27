@@ -2,6 +2,7 @@ package com.sammy.malum.visual_effects;
 
 import com.sammy.malum.core.systems.spirit.*;
 import net.minecraft.client.particle.*;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
@@ -24,7 +25,7 @@ import static net.minecraft.util.Mth.nextFloat;
 public class ItemCrumbleParticleEffects {
 
     public static ParticleEffectSpawner<ItemCrumbParticleBuilder> spawnItemCrumbs(Level level, Vec3 pos, ItemStack stack) {
-        Random rand = level.getRandom();
+        var rand = level.getRandom();
         final SpinParticleData spinData = SpinParticleData.createRandomDirection(rand, 0, nextFloat(rand, 0.5f, 0.75f), 0).setCoefficient(0.75f).randomSpinOffset(rand).build();
         final Consumer<LodestoneWorldParticleActor> slowDown = p -> p.setParticleMotion(p.getParticleSpeed().scale(0.925f));
         int lifetime = RandomHelper.randomBetween(rand, 20, 40);
@@ -32,7 +33,7 @@ public class ItemCrumbleParticleEffects {
         return new ParticleEffectSpawner<>(level, pos, worldParticleBuilder);
     }
     public static ParticleEffectSpawner<ItemCrumbParticleBuilder> spawnGlowingItemCrumbs(Level level, Vec3 pos, ItemStack stack, MalumSpiritType spiritType) {
-        Random rand = level.getRandom();
+        var rand = level.getRandom();
         final SpinParticleData spinData = SpinParticleData.createRandomDirection(rand, nextFloat(rand, 0.05f, 0.1f)).randomSpinOffset(rand).build();
         final Consumer<LodestoneWorldParticleActor> slowDown = p -> p.setParticleMotion(p.getParticleSpeed().scale(0.925f));
         int lifetime = RandomHelper.randomBetween(rand, 20, 40);
@@ -41,7 +42,7 @@ public class ItemCrumbleParticleEffects {
         return new ParticleEffectSpawner<>(level, pos, worldParticleBuilder, bloomParticleBuilder);
     }
 
-    public static ItemCrumbParticleBuilder makeCrumbles(Random rand, ItemStack stack, SpinParticleData spinData, int lifetime, Consumer<LodestoneWorldParticleActor> slowDown) {
+    public static ItemCrumbParticleBuilder makeCrumbles(RandomSource rand, ItemStack stack, SpinParticleData spinData, int lifetime, Consumer<LodestoneWorldParticleActor> slowDown) {
         return ItemCrumbParticleBuilder.create(LodestoneParticleRegistry.ITEM_PARTICLE, stack)
                 .setSpinData(spinData)
                 .setTransparencyData(GenericParticleData.create(0.5f, 1f, 0.25f).setEasing(Easing.EXPO_IN, Easing.SINE_IN_OUT).build())

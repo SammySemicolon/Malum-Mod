@@ -6,11 +6,12 @@ import net.minecraft.core.Registry;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
  public class RecipeTypeRegistry {
 
-     public static final DeferredRegister<RecipeType<?>> RECIPE_TYPES = DeferredRegister.create(Registry.RECIPE_TYPE.key(), MalumMod.MALUM);
+     public static final DeferredRegister<RecipeType<?>> RECIPE_TYPES = DeferredRegister.create(ForgeRegistries.RECIPE_TYPES.getRegistryKey(), MalumMod.MALUM);
 
      public static final RegistryObject<RecipeType<FavorOfTheVoidRecipe>> VOID_FAVOR = RECIPE_TYPES.register(FavorOfTheVoidRecipe.NAME, () -> registerRecipeType(FavorOfTheVoidRecipe.NAME));
      public static final RegistryObject<RecipeType<SpiritInfusionRecipe>> SPIRIT_INFUSION = RECIPE_TYPES.register(SpiritInfusionRecipe.NAME, () -> registerRecipeType(SpiritInfusionRecipe.NAME));

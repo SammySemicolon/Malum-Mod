@@ -2,10 +2,12 @@ package com.sammy.malum.registry.common.block;
 
 import com.sammy.malum.MalumMod;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
+import net.minecraftforge.registries.ForgeRegistries;
 
 public class BlockTagRegistry {
 
@@ -30,11 +32,11 @@ public class BlockTagRegistry {
     public static final TagKey<Block> STRIPPED_LOGS = forgeTag("stripped_logs");
 
     private static TagKey<Block> modTag(String path) {
-        return TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation(path));
+        return TagKey.create(ForgeRegistries.BLOCKS.getRegistryKey(), new ResourceLocation(path));
     }
 
     private static TagKey<Block> malumTag(String path) {
-        return TagKey.create(Registry.BLOCK_REGISTRY, MalumMod.malumPath(path));
+        return TagKey.create(ForgeRegistries.BLOCKS.getRegistryKey(), MalumMod.malumPath(path));
     }
 
     private static TagKey<Block> forgeTag(String name) {
