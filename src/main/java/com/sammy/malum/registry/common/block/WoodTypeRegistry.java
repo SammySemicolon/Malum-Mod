@@ -1,6 +1,5 @@
 package com.sammy.malum.registry.common.block;
 
-import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.WoodType;
 
 import java.util.ArrayList;
@@ -14,7 +13,6 @@ public class WoodTypeRegistry {
 
     public static final WoodType RUNEWOOD = WoodType.register(new WoodType("runewood", MalumBlockSetTypes.RUNEWOOD));
     public static final WoodType SOULWOOD = WoodType.register(new WoodType("soulwood", MalumBlockSetTypes.SOULWOOD));
-
 
 
 }

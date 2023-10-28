@@ -10,6 +10,6 @@ import net.minecraftforge.registries.RegistryObject;
 public class StructureRegistry {
     public static final DeferredRegister<StructureType<?>> STRUCTURES = DeferredRegister.create(Registries.STRUCTURE_TYPE, MalumMod.MALUM);
 
-    public static final RegistryObject<StructureType<WeepingWellStructure>> WEEPING_WELL = STRUCTURES.register("weeping_well", () -> () ->(WeepingWellStructure.CODEC));
+    public static final RegistryObject<StructureType<WeepingWellStructure>> WEEPING_WELL = STRUCTURES.register("weeping_well", () -> () -> (WeepingWellStructure.CODEC));
 
 }

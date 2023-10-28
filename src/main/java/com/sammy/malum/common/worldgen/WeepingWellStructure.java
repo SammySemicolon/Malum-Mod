@@ -11,7 +11,6 @@ import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.StructureType;
 import net.minecraft.world.level.levelgen.structure.pools.JigsawPlacement;
 import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
-import org.intellij.lang.annotations.Identifier;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,22 +59,22 @@ public class WeepingWellStructure extends Structure {
 
     public boolean isSufficientlyFlat(GenerationContext context, BlockPos origin, int check) {
         List<BlockPos> blockPosList = new ArrayList<>();
-        for(int x = -check; x < check; x++){
-            for(int z = -check; z < check; z++){
+        for (int x = -check; x < check; x++) {
+            for (int z = -check; z < check; z++) {
                 blockPosList.add(origin.offset(x, 0, z));
             }
         }
         int count = 0;
-        for(BlockPos pos : blockPosList){
+        for (BlockPos pos : blockPosList) {
             NoiseColumn blockView = context.chunkGenerator().getBaseColumn(pos.getX(), pos.getZ(), context.heightAccessor(), context.randomState());
-            if(blockView.getBlock(pos.getY()).isAir() && !blockView.getBlock(pos.below().getY()).isAir()){
+            if (blockView.getBlock(pos.getY()).isAir() && !blockView.getBlock(pos.below().getY()).isAir()) {
                 count++;
             }
         }
         return count >= check * check * 2;
     }
 
-    public int getValidY(NoiseColumn sample){
+    public int getValidY(NoiseColumn sample) {
         int maxLength = 0;
         int currentLength = 0;
         int maxIndex = min - 1;

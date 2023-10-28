@@ -1,13 +1,9 @@
 package com.sammy.malum.registry.common.worldgen;
 
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.common.worldgen.RunewoodTreeFeature;
 import com.sammy.malum.registry.common.block.BlockRegistry;
-import net.minecraft.core.Holder;
-import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
-import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -17,13 +13,15 @@ import net.minecraft.world.level.levelgen.GeodeCrackSettings;
 import net.minecraft.world.level.levelgen.GeodeLayerSettings;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.configurations.*;
+import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.GeodeConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
 
 import java.util.List;
-import java.util.function.Supplier;
 
 
 public class ConfiguredFeatureRegistry {
@@ -68,7 +66,6 @@ public class ConfiguredFeatureRegistry {
 
         context.register(ConfiguredFeatureRegistry.CONFIGURED_RUNEWOOD_TREE, addTreeConfig(FeatureRegistry.RUNEWOOD_TREE.get()));
         context.register(ConfiguredFeatureRegistry.CONFIGURED_SOULWOOD_TREE, addTreeConfig(FeatureRegistry.SOULWOOD_TREE.get()));
-
 
 
         context.register(ConfiguredFeatureRegistry.CONFIGURED_QUARTZ_GEODE_FEATURE, new ConfiguredFeature<>(Feature.GEODE, new GeodeConfiguration(
@@ -142,7 +139,7 @@ public class ConfiguredFeatureRegistry {
 
     }
 
-    private static ConfiguredFeature<?,?> addTreeConfig(Feature<NoneFeatureConfiguration> feature) {
+    private static ConfiguredFeature<?, ?> addTreeConfig(Feature<NoneFeatureConfiguration> feature) {
         return new ConfiguredFeature<>(feature, FeatureConfiguration.NONE);
     }
 
