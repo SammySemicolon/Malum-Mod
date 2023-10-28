@@ -1,12 +1,13 @@
 package com.sammy.malum.client.screen.codex;
 
-import net.minecraft.client.*;
-import net.minecraft.client.gui.screens.*;
-import net.minecraft.network.chat.*;
-import net.minecraft.sounds.*;
-import net.minecraft.world.entity.player.*;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.player.Player;
 
-import java.util.function.*;
+import java.util.function.Supplier;
 
 public abstract class AbstractMalumScreen extends Screen {
 

@@ -3,9 +3,9 @@ package com.sammy.malum.data.recipe.builder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.registry.common.recipe.RecipeSerializerRegistry;
 import com.sammy.malum.core.systems.recipe.SpiritWithCount;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
+import com.sammy.malum.registry.common.recipe.RecipeSerializerRegistry;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
@@ -33,10 +33,12 @@ public class SpiritRepairRecipeBuilder {
         this.durabilityPercentage = durabilityPercentage;
         this.repairMaterial = repairMaterial;
     }
+
     public SpiritRepairRecipeBuilder(String itemIdRegex, float durabilityPercentage, Ingredient repairMaterial, int repairMaterialCount) {
         this(itemIdRegex, "", durabilityPercentage, new IngredientWithCount(repairMaterial, repairMaterialCount));
 
     }
+
     public SpiritRepairRecipeBuilder(float durabilityPercentage, Ingredient repairMaterial, int repairMaterialCount) {
         this("", "", durabilityPercentage, new IngredientWithCount(repairMaterial, repairMaterialCount));
     }

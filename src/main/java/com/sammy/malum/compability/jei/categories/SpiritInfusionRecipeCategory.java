@@ -1,8 +1,7 @@
 package com.sammy.malum.compability.jei.categories;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.client.screen.codex.*;
+import com.sammy.malum.client.screen.codex.ArcanaCodexHelper;
 import com.sammy.malum.common.recipe.SpiritInfusionRecipe;
 import com.sammy.malum.compability.jei.JEIHandler;
 import com.sammy.malum.registry.common.item.ItemRegistry;
@@ -75,9 +74,9 @@ public class SpiritInfusionRecipeCategory implements IRecipeCategory<SpiritInfus
         JEIHandler.addItemsToJei(builder, RecipeIngredientRole.INPUT, 104, 49, true, recipe.extraItems);
 
         builder.addSlot(RecipeIngredientRole.INPUT, 63, 57)
-             .addItemStacks(recipe.input.getStacks());
+                .addItemStacks(recipe.input.getStacks());
 
         builder.addSlot(RecipeIngredientRole.OUTPUT, 63, 124)
-             .addItemStack(recipe.output);
+                .addItemStack(recipe.output);
     }
 }

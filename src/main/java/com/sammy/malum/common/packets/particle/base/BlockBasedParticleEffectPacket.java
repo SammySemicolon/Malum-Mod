@@ -1,8 +1,8 @@
 package com.sammy.malum.common.packets.particle.base;
 
-import net.minecraft.core.*;
-import net.minecraft.network.*;
-import team.lodestar.lodestone.systems.network.*;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.FriendlyByteBuf;
+import team.lodestar.lodestone.systems.network.LodestoneClientPacket;
 
 public abstract class BlockBasedParticleEffectPacket extends LodestoneClientPacket {
     protected final BlockPos pos;

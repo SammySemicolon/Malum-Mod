@@ -1,8 +1,8 @@
 package com.sammy.malum.visual_effects.networked.data;
 
-import net.minecraft.core.*;
-import net.minecraft.network.*;
-import net.minecraft.world.entity.*;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.entity.Entity;
 
 public class PositionEffectData {
 
@@ -35,6 +35,6 @@ public class PositionEffectData {
     }
 
     public BlockPos getAsBlockPos() {
-        return new BlockPos((int)posX, (int)posY, (int)posZ);
+        return new BlockPos((int) posX, (int) posY, (int) posZ);
     }
 }

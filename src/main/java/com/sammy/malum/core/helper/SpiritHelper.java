@@ -5,13 +5,13 @@ import com.sammy.malum.common.capability.MalumLivingEntityDataCapability;
 import com.sammy.malum.common.entity.spirit.SpiritItemEntity;
 import com.sammy.malum.config.CommonConfig;
 import com.sammy.malum.core.listeners.SpiritDataReloadListener;
+import com.sammy.malum.core.systems.recipe.SpiritWithCount;
+import com.sammy.malum.core.systems.spirit.MalumEntitySpiritData;
+import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import com.sammy.malum.registry.common.AttributeRegistry;
 import com.sammy.malum.registry.common.SoundRegistry;
 import com.sammy.malum.registry.common.SpiritTypeRegistry;
 import com.sammy.malum.registry.common.item.EnchantmentRegistry;
-import com.sammy.malum.core.systems.recipe.SpiritWithCount;
-import com.sammy.malum.core.systems.spirit.MalumEntitySpiritData;
-import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
@@ -24,7 +24,8 @@ import net.minecraft.world.phys.Vec3;
 import team.lodestar.lodestone.helpers.ItemHelper;
 
 import javax.annotation.Nullable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import static net.minecraft.util.Mth.nextFloat;

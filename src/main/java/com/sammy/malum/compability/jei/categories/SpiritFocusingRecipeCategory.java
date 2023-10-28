@@ -1,8 +1,7 @@
 package com.sammy.malum.compability.jei.categories;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.client.screen.codex.*;
+import com.sammy.malum.client.screen.codex.ArcanaCodexHelper;
 import com.sammy.malum.common.recipe.SpiritFocusingRecipe;
 import com.sammy.malum.compability.jei.JEIHandler;
 import com.sammy.malum.registry.common.item.ItemRegistry;
@@ -72,8 +71,8 @@ public class SpiritFocusingRecipeCategory implements IRecipeCategory<SpiritFocus
         JEIHandler.addItemsToJei(builder, RecipeIngredientRole.INPUT, 62, 13, false, recipe.spirits);
 
         builder.addSlot(RecipeIngredientRole.INPUT, 63, 57)
-                  .addIngredients(recipe.input);
+                .addIngredients(recipe.input);
         builder.addSlot(RecipeIngredientRole.OUTPUT, 63, 124)
-                  .addItemStack(recipe.output);
+                .addItemStack(recipe.output);
     }
 }

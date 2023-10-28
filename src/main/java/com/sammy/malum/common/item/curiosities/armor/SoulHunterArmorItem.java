@@ -1,26 +1,28 @@
 package com.sammy.malum.common.item.curiosities.armor;
 
-import com.google.common.collect.*;
-import com.sammy.malum.client.cosmetic.*;
-import com.sammy.malum.common.item.cosmetic.skins.*;
-import com.sammy.malum.registry.client.*;
-import net.minecraft.client.*;
-import net.minecraft.client.model.*;
-import net.minecraft.util.*;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.attributes.*;
-import net.minecraft.world.item.*;
-import net.minecraftforge.api.distmarker.*;
-import net.minecraftforge.client.*;
+import com.google.common.collect.ImmutableMultimap;
+import com.sammy.malum.client.cosmetic.ArmorSkinRenderingData;
+import com.sammy.malum.common.item.cosmetic.skins.ArmorSkin;
+import com.sammy.malum.registry.client.ModelRegistry;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.util.Mth;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import team.lodestar.lodestone.registry.common.LodestoneAttributeRegistry;
-import team.lodestar.lodestone.setup.*;
-import team.lodestar.lodestone.systems.model.*;
+import team.lodestar.lodestone.systems.model.LodestoneArmorModel;
 
-import java.util.*;
-import java.util.function.*;
+import java.util.UUID;
+import java.util.function.Consumer;
 
-import static com.sammy.malum.registry.common.item.ArmorTiers.ArmorTierEnum.*;
+import static com.sammy.malum.registry.common.item.ArmorTiers.ArmorTierEnum.SPIRIT_HUNTER;
 
 public class SoulHunterArmorItem extends MalumArmorItem {
     public SoulHunterArmorItem(ArmorItem.Type slot, Properties builder) {
@@ -63,7 +65,13 @@ public class SoulHunterArmorItem extends MalumArmorItem {
                 }
                 model.slot = armorSlot;
                 model.copyFromDefault(_default);
-                model.setupAnim(entity, entity.animationPosition, entity.animationSpeed, entity.tickCount + pticks, netHeadYaw, netHeadPitch);
+
+                //pLimbSwing, pLimbSwingAmount
+                /*
+                f8 = pEntity.walkAnimation.speed(pPartialTicks);
+                f5 = pEntity.walkAnimation.position(pPartialTicks);
+                 */
+                model.setupAnim(entity, entity.walkAnimation.position(), entity.walkAnimation.speed(), entity.tickCount + pticks, netHeadYaw, netHeadPitch);
                 return model;
             }
         });

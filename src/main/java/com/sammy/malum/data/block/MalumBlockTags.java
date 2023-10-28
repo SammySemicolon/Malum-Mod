@@ -1,22 +1,22 @@
 package com.sammy.malum.data.block;
 
-import com.sammy.malum.*;
-import com.sammy.malum.registry.common.block.*;
+import com.sammy.malum.MalumMod;
+import com.sammy.malum.registry.common.block.BlockTagRegistry;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.data.*;
-import net.minecraft.world.level.block.*;
-import net.minecraftforge.common.data.*;
-import net.minecraftforge.registries.*;
+import net.minecraft.data.PackOutput;
+import net.minecraft.world.level.block.Block;
+import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.Nullable;
-import team.lodestar.lodestone.systems.datagen.providers.*;
+import team.lodestar.lodestone.systems.datagen.providers.LodestoneBlockTagsProvider;
 
-import javax.annotation.*;
+import javax.annotation.Nonnull;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
-import java.util.function.*;
-import java.util.stream.*;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
-import static com.sammy.malum.registry.common.block.BlockRegistry.*;
+import static com.sammy.malum.registry.common.block.BlockRegistry.BLOCKS;
 
 public class MalumBlockTags extends LodestoneBlockTagsProvider {
 

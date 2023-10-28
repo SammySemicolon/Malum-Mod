@@ -1,10 +1,14 @@
 package com.sammy.malum.common.item.curiosities.armor;
 
-import com.sammy.malum.client.cosmetic.*;
-import com.sammy.malum.common.item.cosmetic.skins.*;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.item.*;
-import team.lodestar.lodestone.systems.item.*;
+import com.sammy.malum.client.cosmetic.ArmorSkinRenderingData;
+import com.sammy.malum.common.item.cosmetic.skins.ArmorSkin;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.ArmorMaterial;
+import net.minecraft.world.item.ItemStack;
+import team.lodestar.lodestone.systems.item.LodestoneArmorItem;
 
 public class MalumArmorItem extends LodestoneArmorItem {
     public MalumArmorItem(ArmorMaterial materialIn, ArmorItem.Type slot, Properties builder) {

@@ -1,9 +1,11 @@
 package com.sammy.malum.common.item.cosmetic.skins;
 
-import com.sammy.malum.client.cosmetic.*;
-import net.minecraft.world.item.*;
-import net.minecraftforge.api.distmarker.*;
-import team.lodestar.lodestone.systems.item.*;
+import com.sammy.malum.client.cosmetic.ArmorSkinRenderingData;
+import com.sammy.malum.client.cosmetic.PrideArmorSkinRenderingData;
+import net.minecraft.world.item.Item;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import team.lodestar.lodestone.systems.item.LodestoneArmorItem;
 
 public class PrideArmorSkin extends ArmorSkin {
     public PrideArmorSkin(String id, Class<? extends LodestoneArmorItem> validArmorClass, Item weaveItem) {

@@ -15,7 +15,6 @@ import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.registries.RegistryObject;
 
-import java.util.Random;
 import java.util.function.Supplier;
 
 public class MalumSaplingBlock extends SaplingBlock {

@@ -1,19 +1,21 @@
 package com.sammy.malum.common.packets;
 
-import com.sammy.malum.registry.common.*;
-import com.sammy.malum.visual_effects.networked.*;
-import com.sammy.malum.visual_effects.networked.data.*;
-import net.minecraft.client.*;
-import net.minecraft.client.multiplayer.*;
-import net.minecraft.nbt.*;
-import net.minecraft.network.*;
-import net.minecraftforge.api.distmarker.*;
-import net.minecraftforge.network.*;
-import net.minecraftforge.network.simple.*;
-import team.lodestar.lodestone.systems.network.*;
+import com.sammy.malum.registry.common.ParticleEffectTypeRegistry;
+import com.sammy.malum.visual_effects.networked.ParticleEffectType;
+import com.sammy.malum.visual_effects.networked.data.ColorEffectData;
+import com.sammy.malum.visual_effects.networked.data.NBTEffectData;
+import com.sammy.malum.visual_effects.networked.data.PositionEffectData;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.network.NetworkEvent;
+import net.minecraftforge.network.simple.SimpleChannel;
+import team.lodestar.lodestone.systems.network.LodestoneClientPacket;
 
-import javax.annotation.*;
-import java.util.function.*;
+import javax.annotation.Nullable;
+import java.util.function.Supplier;
 
 public class ParticleEffectPacket extends LodestoneClientPacket {
 

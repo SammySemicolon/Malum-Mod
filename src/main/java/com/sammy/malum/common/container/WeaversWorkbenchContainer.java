@@ -1,19 +1,22 @@
 package com.sammy.malum.common.container;
 
-import com.sammy.malum.common.block.curiosities.weavers_workbench.*;
-import com.sammy.malum.common.item.cosmetic.weaves.*;
-import com.sammy.malum.registry.common.*;
-import net.minecraft.network.*;
-import net.minecraft.network.chat.*;
-import net.minecraft.world.entity.player.*;
-import net.minecraft.world.inventory.*;
-import net.minecraft.world.item.*;
-import net.minecraft.world.level.block.entity.*;
-import net.minecraftforge.items.*;
-import team.lodestar.lodestone.systems.item.*;
+import com.sammy.malum.common.block.curiosities.weavers_workbench.WeaversWorkbenchBlockEntity;
+import com.sammy.malum.common.block.curiosities.weavers_workbench.WeaversWorkbenchItemHandler;
+import com.sammy.malum.common.item.cosmetic.weaves.AbstractWeaveItem;
+import com.sammy.malum.registry.common.ContainerRegistry;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraftforge.items.SlotItemHandler;
+import team.lodestar.lodestone.systems.item.LodestoneArmorItem;
 
-import javax.annotation.*;
-import java.util.*;
+import javax.annotation.Nonnull;
+import java.util.Objects;
 
 public class WeaversWorkbenchContainer extends AbstractContainerMenu {
 
@@ -24,6 +27,7 @@ public class WeaversWorkbenchContainer extends AbstractContainerMenu {
     public WeaversWorkbenchContainer(int windowId, Inventory playerInv, FriendlyByteBuf data) {
         this(windowId, playerInv, getTileEntity(playerInv, data));
     }
+
     public WeaversWorkbenchContainer(int windowId, Inventory playerInv, WeaversWorkbenchBlockEntity blockEntity) {
         super(ContainerRegistry.WEAVERS_WORKBENCH.get(), windowId);
         this.itemHandler = blockEntity.itemHandler;

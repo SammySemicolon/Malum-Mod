@@ -31,9 +31,9 @@ import team.lodestar.lodestone.setup.LodestoneParticleRegistry;
 import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntity;
 import team.lodestar.lodestone.systems.easing.Easing;
 import team.lodestar.lodestone.systems.particle.SimpleParticleOptions;
-import team.lodestar.lodestone.systems.particle.builder.*;
-import team.lodestar.lodestone.systems.particle.data.color.ColorParticleData;
+import team.lodestar.lodestone.systems.particle.builder.WorldParticleBuilder;
 import team.lodestar.lodestone.systems.particle.data.GenericParticleData;
+import team.lodestar.lodestone.systems.particle.data.color.ColorParticleData;
 import team.lodestar.lodestone.systems.particle.data.spin.SpinParticleData;
 
 import javax.annotation.Nullable;
@@ -236,7 +236,7 @@ public class TotemPoleBlockEntity extends LodestoneBlockEntity {
                 WorldParticleBuilder.create(LodestoneParticleRegistry.STAR_PARTICLE)
                         .setTransparencyData(GenericParticleData.create(0.04f, 0.1f, 0f).build())
                         .setScaleData(GenericParticleData.create(0.5f, 1f + level().random.nextFloat() * 0.1f, 0).setEasing(Easing.QUINTIC_IN, Easing.CUBIC_IN_OUT).build())
-                        .setSpinData(SpinParticleData.create(0, 0.2f, 0).setSpinOffset((level.getGameTime()*0.02f)%360).setEasing(Easing.CUBIC_IN, Easing.EXPO_IN).build())
+                        .setSpinData(SpinParticleData.create(0, 0.2f, 0).setSpinOffset((level.getGameTime() * 0.02f) % 360).setEasing(Easing.CUBIC_IN, Easing.EXPO_IN).build())
                         .setColorData(ColorParticleData.create(type.getPrimaryColor(), type.getSecondaryColor()).setEasing(Easing.BOUNCE_IN_OUT).setCoefficient(0.5f).build())
                         .setLifetime(25)
                         .setRandomOffset(0.1)
@@ -248,6 +248,7 @@ public class TotemPoleBlockEntity extends LodestoneBlockEntity {
             }
         }
     }
+
     public void passiveParticles() {
         if (level.getGameTime() % 6L == 0) {
             Color color = type.getPrimaryColor();

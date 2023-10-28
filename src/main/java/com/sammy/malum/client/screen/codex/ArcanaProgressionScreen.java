@@ -1,25 +1,31 @@
 package com.sammy.malum.client.screen.codex;
 
-import com.mojang.blaze3d.vertex.*;
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.sammy.malum.client.screen.codex.objects.*;
 import com.sammy.malum.client.screen.codex.pages.*;
-import com.sammy.malum.common.events.*;
-import com.sammy.malum.registry.common.*;
-import com.sammy.malum.registry.common.item.*;
-import net.minecraft.client.*;
+import com.sammy.malum.common.events.SetupMalumCodexEntriesEvent;
+import com.sammy.malum.registry.common.SoundRegistry;
+import com.sammy.malum.registry.common.SpiritRiteRegistry;
+import com.sammy.malum.registry.common.item.ItemRegistry;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.resources.*;
-import net.minecraft.sounds.*;
-import net.minecraft.world.item.*;
-import net.minecraftforge.common.*;
-import org.lwjgl.opengl.*;
-import team.lodestar.lodestone.handlers.screenparticle.*;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraftforge.common.MinecraftForge;
+import org.lwjgl.opengl.GL11;
+import team.lodestar.lodestone.handlers.screenparticle.ScreenParticleHandler;
 
-import java.util.*;
-import java.util.function.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.function.Supplier;
 
-import static com.sammy.malum.MalumMod.*;
-import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.*;
+import static com.sammy.malum.MalumMod.malumPath;
+import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.renderTexture;
+import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.renderTransparentTexture;
 import static com.sammy.malum.registry.common.item.ItemRegistry.*;
 import static net.minecraft.world.item.Items.*;
 import static org.lwjgl.opengl.GL11C.GL_SCISSOR_TEST;

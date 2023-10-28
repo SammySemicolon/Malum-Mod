@@ -1,16 +1,14 @@
 package com.sammy.malum.common.item.curiosities.curios.spirit;
 
-import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
-import com.sammy.malum.common.item.curiosities.curios.*;
-import com.sammy.malum.registry.common.AttributeRegistry;
+import com.sammy.malum.common.item.curiosities.curios.MalumCurioItem;
 import com.sammy.malum.core.systems.item.IMalumEventResponderItem;
-import net.minecraft.world.entity.ai.attributes.*;
+import com.sammy.malum.registry.common.AttributeRegistry;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.ItemStack;
 import team.lodestar.lodestone.registry.common.LodestoneAttributeRegistry;
-import top.theillusivec4.curios.api.*;
-
-import java.util.UUID;
+import top.theillusivec4.curios.api.SlotContext;
 
 public class CurioMirrorNecklace extends MalumCurioItem implements IMalumEventResponderItem {
     public CurioMirrorNecklace(Properties builder) {

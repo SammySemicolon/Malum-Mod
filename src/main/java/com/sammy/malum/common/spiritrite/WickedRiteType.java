@@ -1,21 +1,26 @@
 package com.sammy.malum.common.spiritrite;
 
-import com.sammy.malum.common.block.curiosities.totem.*;
+import com.sammy.malum.common.block.curiosities.totem.TotemBaseBlockEntity;
+import com.sammy.malum.core.systems.rites.EntityAffectingRiteEffect;
+import com.sammy.malum.core.systems.rites.MalumRiteEffect;
+import com.sammy.malum.core.systems.rites.MalumRiteType;
+import com.sammy.malum.registry.common.DamageSourceRegistry;
+import com.sammy.malum.registry.common.ParticleEffectTypeRegistry;
+import com.sammy.malum.visual_effects.networked.data.ColorEffectData;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.player.Player;
 
-import com.sammy.malum.core.systems.rites.*;
-import com.sammy.malum.registry.common.*;
-import com.sammy.malum.visual_effects.networked.data.*;
-import net.minecraft.world.effect.*;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.monster.*;
-import net.minecraft.world.entity.player.*;
-
-import static com.sammy.malum.registry.common.SpiritTypeRegistry.*;
+import static com.sammy.malum.registry.common.SpiritTypeRegistry.ARCANE_SPIRIT;
+import static com.sammy.malum.registry.common.SpiritTypeRegistry.WICKED_SPIRIT;
 
 public class WickedRiteType extends MalumRiteType {
     public WickedRiteType() {
         super("wicked_rite", ARCANE_SPIRIT, WICKED_SPIRIT, WICKED_SPIRIT);
     }
+
     @Override
     public MalumRiteEffect getNaturalRiteEffect() {
         return new EntityAffectingRiteEffect() {

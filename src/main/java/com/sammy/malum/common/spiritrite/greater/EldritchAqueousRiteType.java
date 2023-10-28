@@ -1,18 +1,23 @@
 package com.sammy.malum.common.spiritrite.greater;
 
-import com.sammy.malum.common.block.curiosities.totem.*;
+import com.sammy.malum.common.block.curiosities.totem.TotemBaseBlockEntity;
+import com.sammy.malum.core.systems.rites.BlockAffectingRiteEffect;
+import com.sammy.malum.core.systems.rites.EntityAffectingRiteEffect;
+import com.sammy.malum.core.systems.rites.MalumRiteEffect;
+import com.sammy.malum.core.systems.rites.MalumRiteType;
+import com.sammy.malum.registry.common.ParticleEffectTypeRegistry;
+import com.sammy.malum.visual_effects.networked.data.ColorEffectData;
+import com.sammy.malum.visual_effects.networked.data.PositionEffectData;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.monster.Drowned;
+import net.minecraft.world.entity.monster.Zombie;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.PointedDripstoneBlock;
+import net.minecraft.world.level.block.state.BlockState;
 
-import com.sammy.malum.core.systems.rites.*;
-import com.sammy.malum.registry.common.*;
-import com.sammy.malum.visual_effects.networked.data.*;
-import net.minecraft.core.*;
-import net.minecraft.server.level.*;
-import net.minecraft.world.entity.monster.*;
-import net.minecraft.world.level.*;
-import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.state.*;
-
-import java.util.*;
+import java.util.Set;
 
 import static com.sammy.malum.registry.common.SpiritTypeRegistry.*;
 
@@ -28,7 +33,7 @@ public class EldritchAqueousRiteType extends MalumRiteType {
             @Override
             public void riteEffect(TotemBaseBlockEntity totemBase) {
                 Level level = totemBase.getLevel();
-                getNearbyBlocks(totemBase, PointedDripstoneBlock.class, getRiteEffectRadius()*4).forEach(p -> {
+                getNearbyBlocks(totemBase, PointedDripstoneBlock.class, getRiteEffectRadius() * 4).forEach(p -> {
                     if (level.random.nextFloat() < 0.1f) {
                         for (int i = 0; i < 4 + level.random.nextInt(2); i++) {
                             level.getBlockState(p).randomTick((ServerLevel) level, p, level.random);

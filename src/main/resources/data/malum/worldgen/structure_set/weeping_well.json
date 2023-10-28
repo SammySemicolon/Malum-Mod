@@ -1,0 +1,14 @@
+{
+  "structures": [
+    {
+      "structure": "malum:weeping_well",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "salt": 4206969,
+    "spacing": 12,
+    "separation": 8
+  }
+}

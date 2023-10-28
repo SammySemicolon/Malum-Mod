@@ -1,8 +1,8 @@
 package com.sammy.malum.common.packets.particle.base.color;
 
-import com.sammy.malum.common.packets.particle.base.*;
-import net.minecraft.core.*;
-import net.minecraft.network.*;
+import com.sammy.malum.common.packets.particle.base.BlockBasedParticleEffectPacket;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.FriendlyByteBuf;
 
 import java.awt.*;
 

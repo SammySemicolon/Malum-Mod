@@ -1,28 +1,31 @@
 package com.sammy.malum.data.item;
 
-import com.sammy.malum.*;
-import com.sammy.malum.common.item.cosmetic.weaves.*;
-import com.sammy.malum.common.item.curiosities.weapons.*;
-import com.sammy.malum.common.item.ether.*;
-import com.sammy.malum.common.item.impetus.*;
-import com.sammy.malum.common.item.spirit.*;
-import com.sammy.malum.registry.common.item.*;
-import net.minecraft.core.*;
-import net.minecraft.data.*;
-import net.minecraft.world.item.*;
-import net.minecraftforge.common.data.*;
-import net.minecraftforge.registries.*;
-import team.lodestar.lodestone.systems.datagen.*;
-import team.lodestar.lodestone.systems.datagen.itemsmith.*;
-import team.lodestar.lodestone.systems.datagen.providers.*;
-import team.lodestar.lodestone.systems.item.*;
+import com.sammy.malum.MalumMod;
+import com.sammy.malum.common.item.cosmetic.weaves.AbstractWeaveItem;
+import com.sammy.malum.common.item.cosmetic.weaves.PrideweaveItem;
+import com.sammy.malum.common.item.curiosities.weapons.MalumScytheItem;
+import com.sammy.malum.common.item.impetus.CrackedImpetusItem;
+import com.sammy.malum.common.item.impetus.ImpetusItem;
+import com.sammy.malum.common.item.impetus.NodeItem;
+import com.sammy.malum.common.item.spirit.SpiritShardItem;
+import com.sammy.malum.common.item.spirit.TunedOpticItem;
+import com.sammy.malum.registry.common.item.ArmorSkinRegistry;
+import net.minecraft.data.PackOutput;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.DiggerItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.SwordItem;
+import net.minecraftforge.common.data.ExistingFileHelper;
+import team.lodestar.lodestone.systems.datagen.ItemModelSmithTypes;
+import team.lodestar.lodestone.systems.datagen.itemsmith.AbstractItemModelSmith;
+import team.lodestar.lodestone.systems.datagen.providers.LodestoneItemModelProvider;
+import team.lodestar.lodestone.systems.item.ModCombatItem;
 
-import java.util.*;
-import java.util.function.*;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.function.Supplier;
 
-import static com.sammy.malum.MalumMod.*;
 import static com.sammy.malum.registry.common.item.ItemRegistry.*;
-import static team.lodestar.lodestone.systems.datagen.ItemModelSmithTypes.*;
 
 public class MalumItemModels extends LodestoneItemModelProvider {
     public MalumItemModels(PackOutput output, ExistingFileHelper existingFileHelper) {

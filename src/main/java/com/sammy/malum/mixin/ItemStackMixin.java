@@ -45,7 +45,7 @@ public abstract class ItemStackMixin {
                     }
 
                     copied.put(key, new AttributeModifier(
-                         modifier.getId(), modifier.getName(), amount, modifier.getOperation()
+                            modifier.getId(), modifier.getName(), amount, modifier.getOperation()
                     ));
                 } else if (modifier.getId().equals(BASE_ATTACK_DAMAGE_UUID) && getItem() instanceof MalumScytheItem) {
                     AttributeInstance instance = player.getAttribute(AttributeRegistry.SCYTHE_PROFICIENCY.get());
@@ -54,7 +54,7 @@ public abstract class ItemStackMixin {
                     }
 
                     copied.put(key, new AttributeModifier(
-                         modifier.getId(), modifier.getName(), amount, modifier.getOperation()
+                            modifier.getId(), modifier.getName(), amount, modifier.getOperation()
                     ));
                 } else {
                     copied.put(key, modifier);

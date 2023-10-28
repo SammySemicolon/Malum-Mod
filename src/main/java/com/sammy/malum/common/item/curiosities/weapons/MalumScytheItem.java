@@ -1,11 +1,11 @@
 package com.sammy.malum.common.item.curiosities.weapons;
 
 import com.sammy.malum.common.entity.boomerang.ScytheBoomerangEntity;
+import com.sammy.malum.core.systems.item.IMalumEventResponderItem;
 import com.sammy.malum.registry.client.ParticleRegistry;
 import com.sammy.malum.registry.common.DamageSourceRegistry;
 import com.sammy.malum.registry.common.SoundRegistry;
 import com.sammy.malum.registry.common.item.ItemRegistry;
-import com.sammy.malum.core.systems.item.IMalumEventResponderItem;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;

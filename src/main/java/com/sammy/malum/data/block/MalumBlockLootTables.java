@@ -3,15 +3,14 @@ package com.sammy.malum.data.block;
 import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
 import com.sammy.malum.common.block.ether.EtherBlock;
-import com.sammy.malum.common.block.storage.vial.SoulVialBlock;
 import com.sammy.malum.common.block.storage.jar.SpiritJarBlock;
+import com.sammy.malum.common.block.storage.vial.SoulVialBlock;
 import com.sammy.malum.registry.common.block.BlockRegistry;
 import com.sammy.malum.registry.common.item.ItemRegistry;
 import net.minecraft.advancements.critereon.EnchantmentPredicate;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.advancements.critereon.MinMaxBounds;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
-import net.minecraft.core.Registry;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.data.loot.LootTableProvider;
@@ -28,7 +27,6 @@ import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.block.state.properties.SlabType;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
-import net.minecraft.world.level.storage.loot.ValidationContext;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
 import net.minecraft.world.level.storage.loot.functions.*;
@@ -43,7 +41,10 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import team.lodestar.lodestone.systems.block.LodestoneBlockProperties;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -72,6 +73,7 @@ public class MalumBlockLootTables extends LootTableProvider {
                 new SubProviderEntry(BlocksLoot::new, LootContextParamSets.BLOCK))
         );
     }
+
     public static class BlocksLoot extends BlockLootSubProvider {
 
         protected BlocksLoot() {
@@ -84,8 +86,8 @@ public class MalumBlockLootTables extends LootTableProvider {
 
             takeAll(blocks, b -> b.get().properties instanceof LodestoneBlockProperties && ((LodestoneBlockProperties) b.get().properties).getDatagenData().hasInheritedLootTable);
 
-            add(take(blocks, BlockRegistry.RUNEWOOD_LEAVES).get(), (b)->createLeavesDrops(b, BlockRegistry.RUNEWOOD_SAPLING.get(), MAGIC_SAPLING_DROP_CHANCE));
-            add(take(blocks, BlockRegistry.SOULWOOD_LEAVES).get(), (b)->createLeavesDrops(b, BlockRegistry.SOULWOOD_GROWTH.get(), MAGIC_SAPLING_DROP_CHANCE));
+            add(take(blocks, BlockRegistry.RUNEWOOD_LEAVES).get(), (b) -> createLeavesDrops(b, BlockRegistry.RUNEWOOD_SAPLING.get(), MAGIC_SAPLING_DROP_CHANCE));
+            add(take(blocks, BlockRegistry.SOULWOOD_LEAVES).get(), (b) -> createLeavesDrops(b, BlockRegistry.SOULWOOD_GROWTH.get(), MAGIC_SAPLING_DROP_CHANCE));
 
             add(take(blocks, BlockRegistry.BLIGHTED_SOULWOOD).get(), createSingleItemTableWithSilkTouch(BlockRegistry.BLIGHTED_SOULWOOD.get(), ItemRegistry.SOULWOOD_LOG.get()));
             add(take(blocks, BlockRegistry.BLIGHTED_SOIL).get(), createBlightedDrop(BlockRegistry.BLIGHTED_SOIL.get(), 4));
@@ -121,11 +123,11 @@ public class MalumBlockLootTables extends LootTableProvider {
 
 
     protected static <T extends FunctionUserBuilder<T>> T applyExplosionDecay(ItemLike p_124132_, FunctionUserBuilder<T> p_124133_) {
-        return (T)(!EXPLOSION_RESISTANT.contains(p_124132_.asItem()) ? p_124133_.apply(ApplyExplosionDecay.explosionDecay()) : p_124133_.unwrap());
+        return !EXPLOSION_RESISTANT.contains(p_124132_.asItem()) ? p_124133_.apply(ApplyExplosionDecay.explosionDecay()) : p_124133_.unwrap();
     }
 
     protected static <T extends ConditionUserBuilder<T>> T applyExplosionCondition(ItemLike p_124135_, ConditionUserBuilder<T> p_124136_) {
-        return (T)(!EXPLOSION_RESISTANT.contains(p_124135_.asItem()) ? p_124136_.when(ExplosionCondition.survivesExplosion()) : p_124136_.unwrap());
+        return !EXPLOSION_RESISTANT.contains(p_124135_.asItem()) ? p_124136_.when(ExplosionCondition.survivesExplosion()) : p_124136_.unwrap();
     }
 
     protected static LootTable.Builder createBlightedDrop(Block block, int gunkAmount) {
@@ -226,7 +228,7 @@ public class MalumBlockLootTables extends LootTableProvider {
 
     public void dropPottedContents(Block p_124253_) {
         this.add(p_124253_, (p_176061_) -> {
-            return createPotFlowerItemTable(((FlowerPotBlock)p_176061_).getContent());
+            return createPotFlowerItemTable(((FlowerPotBlock) p_176061_).getContent());
         });
     }
 
@@ -255,6 +257,6 @@ public class MalumBlockLootTables extends LootTableProvider {
     }
 
     protected void add(ResourceLocation path, LootTable.Builder lootTable) {
-         tables.add(Pair.of(() -> (lootBuilder) -> lootBuilder.accept(path, lootTable), LootContextParamSets.BLOCK));
+        tables.add(Pair.of(() -> (lootBuilder) -> lootBuilder.accept(path, lootTable), LootContextParamSets.BLOCK));
     }
 }

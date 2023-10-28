@@ -1,17 +1,19 @@
 package com.sammy.malum.common.worldevent;
 
-import com.sammy.malum.common.block.blight.*;
-import com.sammy.malum.common.worldgen.*;
-import com.sammy.malum.registry.common.*;
-import com.sammy.malum.visual_effects.networked.data.*;
-import net.minecraft.core.*;
-import net.minecraft.server.level.*;
-import net.minecraft.sounds.*;
-import net.minecraft.world.level.*;
-import team.lodestar.lodestone.systems.worldevent.*;
-import team.lodestar.lodestone.systems.worldgen.*;
+import com.sammy.malum.common.block.blight.BlightedSoilBlock;
+import com.sammy.malum.common.worldgen.SoulwoodTreeFeature;
+import com.sammy.malum.registry.common.ParticleEffectTypeRegistry;
+import com.sammy.malum.registry.common.SoundRegistry;
+import com.sammy.malum.registry.common.WorldEventTypes;
+import com.sammy.malum.visual_effects.networked.data.PositionEffectData;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.level.Level;
+import team.lodestar.lodestone.systems.worldevent.WorldEventInstance;
+import team.lodestar.lodestone.systems.worldgen.LodestoneBlockFiller;
 
-import java.util.*;
+import java.util.Map;
 
 public class ActiveBlightEvent extends WorldEventInstance {
     public int blightTimer, intensity, rate, times;
@@ -44,7 +46,7 @@ public class ActiveBlightEvent extends WorldEventInstance {
             blightTimer = rate;
             times--;
             createBlight((ServerLevel) level);
-            intensity+=2;
+            intensity += 2;
         } else {
             blightTimer--;
         }

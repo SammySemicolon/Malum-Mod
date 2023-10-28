@@ -11,11 +11,10 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import team.lodestar.lodestone.systems.block.WaterLoggedEntityBlock;
 
-public class SoulVialBlock<T extends SoulVialBlockEntity> extends WaterLoggedEntityBlock<T>
-{
+public class SoulVialBlock<T extends SoulVialBlockEntity> extends WaterLoggedEntityBlock<T> {
     public static final VoxelShape SHAPE = makeShape();
-    public SoulVialBlock(Properties properties)
-    {
+
+    public SoulVialBlock(Properties properties) {
         super(properties);
     }
 
@@ -38,7 +37,7 @@ public class SoulVialBlock<T extends SoulVialBlockEntity> extends WaterLoggedEnt
         return 0;
     }
 
-    public static VoxelShape makeShape(){
+    public static VoxelShape makeShape() {
         VoxelShape shape = Shapes.empty();
         shape = Shapes.join(shape, Shapes.box(0.21875, 0.03125, 0.21875, 0.78125, 0.78125, 0.78125), BooleanOp.OR);
         shape = Shapes.join(shape, Shapes.box(0.28125, 0.84375, 0.28125, 0.71875, 0.96875, 0.71875), BooleanOp.OR);

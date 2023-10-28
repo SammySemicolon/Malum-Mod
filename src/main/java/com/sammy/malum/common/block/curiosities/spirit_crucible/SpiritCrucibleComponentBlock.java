@@ -22,6 +22,7 @@ import team.lodestar.lodestone.systems.multiblock.MultiblockComponentBlock;
 public class SpiritCrucibleComponentBlock extends MultiblockComponentBlock {
     public static final VoxelShape SHAPE = makeShape();
     public static final VoxelShape RENDER_SHAPE = makeRenderShape();
+
     public SpiritCrucibleComponentBlock(Properties properties) {
         super(properties);
     }

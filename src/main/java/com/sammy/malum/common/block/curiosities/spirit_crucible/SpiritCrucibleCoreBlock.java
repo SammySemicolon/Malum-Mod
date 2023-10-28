@@ -16,6 +16,7 @@ import team.lodestar.lodestone.systems.block.WaterLoggedEntityBlock;
 
 public class SpiritCrucibleCoreBlock<T extends SpiritCrucibleCoreBlockEntity> extends WaterLoggedEntityBlock<T> {
     public static final VoxelShape SHAPE = makeShape();
+
     public SpiritCrucibleCoreBlock(Properties properties) {
         super(properties);
     }
@@ -39,7 +40,7 @@ public class SpiritCrucibleCoreBlock<T extends SpiritCrucibleCoreBlockEntity> ex
         return true;
     }
 
-    public static VoxelShape makeShape(){
+    public static VoxelShape makeShape() {
         VoxelShape shape = Shapes.empty();
         shape = Shapes.join(shape, Shapes.box(0.125, 0.75, 0.125, 0.875, 1, 0.875), BooleanOp.OR);
         shape = Shapes.join(shape, Shapes.box(0, 0, 0, 1, 0.75, 1), BooleanOp.OR);

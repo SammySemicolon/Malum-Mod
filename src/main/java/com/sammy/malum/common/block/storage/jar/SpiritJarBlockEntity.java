@@ -1,11 +1,11 @@
 package com.sammy.malum.common.block.storage.jar;
 
-import com.sammy.malum.visual_effects.SpiritLightSpecs;
-import com.sammy.malum.common.item.spirit.SpiritShardItem;
 import com.sammy.malum.common.item.curiosities.SpiritPouchItem;
+import com.sammy.malum.common.item.spirit.SpiritShardItem;
 import com.sammy.malum.core.helper.SpiritHelper;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import com.sammy.malum.registry.common.block.BlockEntityRegistry;
+import com.sammy.malum.visual_effects.SpiritLightSpecs;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -17,21 +17,21 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.*;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
 import org.jetbrains.annotations.NotNull;
 import team.lodestar.lodestone.helpers.BlockHelper;
 import team.lodestar.lodestone.setup.LodestoneParticleRegistry;
 import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntity;
 import team.lodestar.lodestone.systems.container.ItemInventory;
-import team.lodestar.lodestone.systems.particle.builder.*;
-import team.lodestar.lodestone.systems.particle.data.color.ColorParticleData;
+import team.lodestar.lodestone.systems.particle.builder.WorldParticleBuilder;
 import team.lodestar.lodestone.systems.particle.data.GenericParticleData;
+import team.lodestar.lodestone.systems.particle.data.color.ColorParticleData;
 import team.lodestar.lodestone.systems.particle.data.spin.SpinParticleData;
 
 import javax.annotation.Nonnull;
@@ -240,7 +240,7 @@ public class SpiritJarBlockEntity extends LodestoneBlockEntity {
             if (type != null) {
                 double time = (level.getGameTime() * 0.05f) % 6.2831f;
                 double x = getBlockPos().getX() + 0.5f;
-                double y = getBlockPos().getY() + 0.5f + (float)Math.sin(time) * 0.2f;
+                double y = getBlockPos().getY() + 0.5f + (float) Math.sin(time) * 0.2f;
                 double z = getBlockPos().getZ() + 0.5f;
                 SpiritLightSpecs.rotatingLightSpecs(level, new Vec3(x, y, z), type, 0.4f, 3);
             }

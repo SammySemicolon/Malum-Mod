@@ -1,8 +1,8 @@
 package com.sammy.malum.common.block.curiosities.weavers_workbench;
 
-import net.minecraft.world.item.*;
-import net.minecraftforge.items.*;
-import org.jetbrains.annotations.*;
+import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.items.ItemStackHandler;
+import org.jetbrains.annotations.NotNull;
 
 public class WeaversWorkbenchItemHandler extends ItemStackHandler {
 
@@ -12,7 +12,7 @@ public class WeaversWorkbenchItemHandler extends ItemStackHandler {
 
     public WeaversWorkbenchItemHandler(int size, int outputs, WeaversWorkbenchBlockEntity blockEntity) {
         super(size + outputs);
-        this.entity =  blockEntity;
+        this.entity = blockEntity;
         this.outputs = outputs;
     }
 

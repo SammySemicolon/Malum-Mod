@@ -5,8 +5,8 @@ import com.sammy.malum.common.capability.MalumPlayerDataCapability;
 import com.sammy.malum.config.CommonConfig;
 import com.sammy.malum.core.helper.SpiritHelper;
 import com.sammy.malum.core.listeners.ReapingDataReloadListener;
-import com.sammy.malum.registry.common.item.ItemRegistry;
 import com.sammy.malum.core.systems.reaping.MalumReapingDropsData;
+import com.sammy.malum.registry.common.item.ItemRegistry;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobType;
@@ -20,7 +20,6 @@ import net.minecraftforge.registries.ForgeRegistries;
 import team.lodestar.lodestone.helpers.ItemHelper;
 
 import java.util.List;
-import java.util.Random;
 
 public class EsotericReapingHandler {
 

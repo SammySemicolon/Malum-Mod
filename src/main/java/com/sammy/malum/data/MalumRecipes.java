@@ -1,35 +1,44 @@
 package com.sammy.malum.data;
 
-import com.sammy.malum.*;
-import com.sammy.malum.common.item.impetus.*;
-import com.sammy.malum.data.recipe.builder.vanilla.*;
-import com.sammy.malum.registry.common.item.*;
+import com.sammy.malum.MalumMod;
+import com.sammy.malum.common.item.impetus.ImpetusItem;
+import com.sammy.malum.data.recipe.builder.vanilla.TheDeviceRecipeBuilder;
+import com.sammy.malum.registry.common.item.ItemRegistry;
+import com.sammy.malum.registry.common.item.ItemTagRegistry;
 import net.minecraft.advancements.critereon.*;
-import net.minecraft.core.*;
-import net.minecraft.data.*;
-import net.minecraft.data.recipes.*;
-import net.minecraft.tags.*;
-import net.minecraft.world.item.*;
-import net.minecraft.world.item.crafting.*;
-import net.minecraft.world.level.*;
-import net.minecraft.world.level.block.*;
-import net.minecraftforge.common.*;
-import net.minecraftforge.common.crafting.*;
-import net.minecraftforge.common.crafting.conditions.*;
-import net.minecraftforge.registries.*;
-import team.lodestar.lodestone.data.builder.*;
-import team.lodestar.lodestone.systems.recipe.*;
+import net.minecraft.data.PackOutput;
+import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.RecipeCategory;
+import net.minecraft.data.recipes.RecipeProvider;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraftforge.common.Tags;
+import net.minecraftforge.common.crafting.ConditionalRecipe;
+import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
+import net.minecraftforge.common.crafting.conditions.TagEmptyCondition;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
+import team.lodestar.lodestone.data.builder.NBTCarryRecipeBuilder;
+import team.lodestar.lodestone.systems.recipe.IngredientWithCount;
 
-import java.util.function.*;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 
-import static com.sammy.malum.MalumMod.*;
-import static com.sammy.malum.data.recipe.builder.vanilla.MetalNodeCookingRecipeBuilder.*;
-import static com.sammy.malum.data.recipe.builder.vanilla.StackedMalumCookingRecipeBuilder.*;
-import static net.minecraft.data.recipes.ShapedRecipeBuilder.*;
-import static net.minecraft.data.recipes.ShapelessRecipeBuilder.*;
-import static net.minecraft.data.recipes.SimpleCookingRecipeBuilder.smoking;
+import static com.sammy.malum.MalumMod.malumPath;
+import static com.sammy.malum.data.recipe.builder.vanilla.MetalNodeCookingRecipeBuilder.blastingWithTag;
+import static com.sammy.malum.data.recipe.builder.vanilla.MetalNodeCookingRecipeBuilder.smeltingWithTag;
+import static com.sammy.malum.data.recipe.builder.vanilla.StackedMalumCookingRecipeBuilder.blastingWithCount;
+import static com.sammy.malum.data.recipe.builder.vanilla.StackedMalumCookingRecipeBuilder.smeltingWithCount;
+import static net.minecraft.data.recipes.ShapedRecipeBuilder.shaped;
+import static net.minecraft.data.recipes.ShapelessRecipeBuilder.shapeless;
 import static net.minecraft.data.recipes.SimpleCookingRecipeBuilder.*;
-import static net.minecraft.data.recipes.SingleItemRecipeBuilder.*;
+import static net.minecraft.data.recipes.SingleItemRecipeBuilder.stonecutting;
 import static team.lodestar.lodestone.registry.common.tag.LodestoneItemTags.*;
 
 public class MalumRecipes extends RecipeProvider implements IConditionBuilder {
@@ -109,7 +118,7 @@ public class MalumRecipes extends RecipeProvider implements IConditionBuilder {
         shapeless(RecipeCategory.MISC, ItemRegistry.COPPER_NUGGET.get(), 9).requires(INGOTS_COPPER).unlockedBy("has_copper", has(INGOTS_COPPER)).save(consumer, malumPath("copper_nugget_from_ingot"));
 
         //ORE SMELTING
-        smelting(Ingredient.of(ItemRegistry.BLAZING_QUARTZ_ORE.get()),RecipeCategory.MISC, ItemRegistry.BLAZING_QUARTZ.get(), 0.25f, 200).unlockedBy("has_blazing_quartz", has(ItemRegistry.BLAZING_QUARTZ.get())).save(consumer, malumPath("blazing_quartz_from_smelting"));
+        smelting(Ingredient.of(ItemRegistry.BLAZING_QUARTZ_ORE.get()), RecipeCategory.MISC, ItemRegistry.BLAZING_QUARTZ.get(), 0.25f, 200).unlockedBy("has_blazing_quartz", has(ItemRegistry.BLAZING_QUARTZ.get())).save(consumer, malumPath("blazing_quartz_from_smelting"));
         blasting(Ingredient.of(ItemRegistry.BLAZING_QUARTZ_ORE.get()), RecipeCategory.MISC, ItemRegistry.BLAZING_QUARTZ.get(), 0.25f, 100).unlockedBy("has_blazing_quartz", has(ItemRegistry.BLAZING_QUARTZ.get())).save(consumer, malumPath("blazing_quartz_from_blasting"));
         smelting(Ingredient.of(ItemRegistry.NATURAL_QUARTZ_ORE.get()), RecipeCategory.MISC, ItemRegistry.NATURAL_QUARTZ.get(), 0.25f, 200).unlockedBy("has_natural_quartz", has(ItemRegistry.NATURAL_QUARTZ.get())).save(consumer, malumPath("natural_quartz_from_smelting"));
         blasting(Ingredient.of(ItemRegistry.NATURAL_QUARTZ_ORE.get()), RecipeCategory.MISC, ItemRegistry.NATURAL_QUARTZ.get(), 0.25f, 100).unlockedBy("has_natural_quartz", has(ItemRegistry.NATURAL_QUARTZ.get())).save(consumer, malumPath("natural_quartz_from_blasting"));
@@ -274,31 +283,31 @@ public class MalumRecipes extends RecipeProvider implements IConditionBuilder {
         shaped(RecipeCategory.MISC, ItemRegistry.POLISHED_TAINTED_ROCK.get(), 4).define('#', ItemRegistry.TAINTED_ROCK.get()).pattern("##").pattern("##").unlockedBy("has_tainted_rock", has(ItemRegistry.TAINTED_ROCK.get())).save(consumer);
         shaped(RecipeCategory.MISC, ItemRegistry.POLISHED_TAINTED_ROCK_SLAB.get(), 6).define('#', ItemRegistry.POLISHED_TAINTED_ROCK.get()).pattern("###").unlockedBy("has_tainted_rock", has(ItemRegistry.TAINTED_ROCK.get())).save(consumer);
         shaped(RecipeCategory.MISC, ItemRegistry.POLISHED_TAINTED_ROCK_STAIRS.get(), 4).define('#', ItemRegistry.POLISHED_TAINTED_ROCK.get()).pattern("#  ").pattern("## ").pattern("###").unlockedBy("has_tainted_rock", has(ItemRegistry.TAINTED_ROCK.get())).save(consumer);
-        stonecutting(Ingredient.of(ItemRegistry.POLISHED_TAINTED_ROCK.get()),RecipeCategory.MISC,  ItemRegistry.POLISHED_TAINTED_ROCK_SLAB.get(), 2).unlockedBy("has_polished_tainted_rock", has(ItemRegistry.POLISHED_TAINTED_ROCK.get())).save(consumer, malumPath("polished_tainted_rock_slab_stonecutting"));
-        stonecutting(Ingredient.of(ItemRegistry.POLISHED_TAINTED_ROCK.get()),RecipeCategory.MISC,  ItemRegistry.POLISHED_TAINTED_ROCK_STAIRS.get()).unlockedBy("has_polished_tainted_rock", has(ItemRegistry.POLISHED_TAINTED_ROCK.get())).save(consumer, malumPath("polished_tainted_rock_stairs_stonecutting"));
+        stonecutting(Ingredient.of(ItemRegistry.POLISHED_TAINTED_ROCK.get()), RecipeCategory.MISC, ItemRegistry.POLISHED_TAINTED_ROCK_SLAB.get(), 2).unlockedBy("has_polished_tainted_rock", has(ItemRegistry.POLISHED_TAINTED_ROCK.get())).save(consumer, malumPath("polished_tainted_rock_slab_stonecutting"));
+        stonecutting(Ingredient.of(ItemRegistry.POLISHED_TAINTED_ROCK.get()), RecipeCategory.MISC, ItemRegistry.POLISHED_TAINTED_ROCK_STAIRS.get()).unlockedBy("has_polished_tainted_rock", has(ItemRegistry.POLISHED_TAINTED_ROCK.get())).save(consumer, malumPath("polished_tainted_rock_stairs_stonecutting"));
 
-        smelting(Ingredient.of(ItemRegistry.TAINTED_ROCK.get()),RecipeCategory.MISC,  ItemRegistry.SMOOTH_TAINTED_ROCK.get(), 0.1f, 200).unlockedBy("has_tainted_rock", has(ItemRegistry.TAINTED_ROCK.get())).save(consumer);
+        smelting(Ingredient.of(ItemRegistry.TAINTED_ROCK.get()), RecipeCategory.MISC, ItemRegistry.SMOOTH_TAINTED_ROCK.get(), 0.1f, 200).unlockedBy("has_tainted_rock", has(ItemRegistry.TAINTED_ROCK.get())).save(consumer);
         shaped(RecipeCategory.MISC, ItemRegistry.SMOOTH_TAINTED_ROCK_SLAB.get(), 6).define('#', ItemRegistry.SMOOTH_TAINTED_ROCK.get()).pattern("###").unlockedBy("has_tainted_rock", has(ItemRegistry.TAINTED_ROCK.get())).save(consumer);
         shaped(RecipeCategory.MISC, ItemRegistry.SMOOTH_TAINTED_ROCK_STAIRS.get(), 4).define('#', ItemRegistry.SMOOTH_TAINTED_ROCK.get()).pattern("#  ").pattern("## ").pattern("###").unlockedBy("has_tainted_rock", has(ItemRegistry.TAINTED_ROCK.get())).save(consumer);
         stonecutting(Ingredient.of(ItemRegistry.SMOOTH_TAINTED_ROCK.get()), RecipeCategory.MISC, ItemRegistry.SMOOTH_TAINTED_ROCK_SLAB.get(), 2).unlockedBy("has_smooth_tainted_rock", has(ItemRegistry.POLISHED_TAINTED_ROCK.get())).save(consumer, malumPath("smooth_tainted_rock_slab_stonecutting"));
-        stonecutting(Ingredient.of(ItemRegistry.SMOOTH_TAINTED_ROCK.get()),RecipeCategory.MISC,  ItemRegistry.SMOOTH_TAINTED_ROCK_STAIRS.get()).unlockedBy("has_smooth_tainted_rock", has(ItemRegistry.POLISHED_TAINTED_ROCK.get())).save(consumer, malumPath("smooth_tainted_rock_stairs_stonecutting"));
+        stonecutting(Ingredient.of(ItemRegistry.SMOOTH_TAINTED_ROCK.get()), RecipeCategory.MISC, ItemRegistry.SMOOTH_TAINTED_ROCK_STAIRS.get()).unlockedBy("has_smooth_tainted_rock", has(ItemRegistry.POLISHED_TAINTED_ROCK.get())).save(consumer, malumPath("smooth_tainted_rock_stairs_stonecutting"));
 
         shaped(RecipeCategory.MISC, ItemRegistry.TAINTED_ROCK_BRICKS.get(), 4).define('#', ItemRegistry.POLISHED_TAINTED_ROCK.get()).pattern("##").pattern("##").unlockedBy("has_tainted_rock", has(ItemRegistry.TAINTED_ROCK.get())).save(consumer);
         shaped(RecipeCategory.MISC, ItemRegistry.TAINTED_ROCK_BRICKS.get(), 4).define('#', ItemRegistry.SMALL_TAINTED_ROCK_BRICKS.get()).pattern("##").pattern("##").unlockedBy("has_tainted_rock", has(ItemRegistry.TAINTED_ROCK.get())).save(consumer, malumPath("tainted_rock_bricks_from_small_bricks"));
         shaped(RecipeCategory.MISC, ItemRegistry.TAINTED_ROCK_BRICKS_SLAB.get(), 6).define('#', ItemRegistry.TAINTED_ROCK_BRICKS.get()).pattern("###").unlockedBy("has_tainted_rock", has(ItemRegistry.TAINTED_ROCK.get())).save(consumer);
         shaped(RecipeCategory.MISC, ItemRegistry.TAINTED_ROCK_BRICKS_STAIRS.get(), 4).define('#', ItemRegistry.TAINTED_ROCK_BRICKS.get()).pattern("#  ").pattern("## ").pattern("###").unlockedBy("has_tainted_rock", has(ItemRegistry.TAINTED_ROCK.get())).save(consumer);
         shaped(RecipeCategory.MISC, ItemRegistry.TAINTED_ROCK_BRICKS_WALL.get(), 6).define('#', ItemRegistry.TAINTED_ROCK_BRICKS.get()).pattern("###").pattern("###").unlockedBy("has_tainted_rock", has(ItemRegistry.TAINTED_ROCK.get())).save(consumer);
-        stonecutting(Ingredient.of(ItemRegistry.POLISHED_TAINTED_ROCK.get()),RecipeCategory.MISC,  ItemRegistry.TAINTED_ROCK_BRICKS.get()).unlockedBy("has_tainted_rock", has(ItemRegistry.TAINTED_ROCK.get())).save(consumer, malumPath("tainted_rock_bricks_stonecutting_from_polished"));
-        stonecutting(Ingredient.of(ItemRegistry.TAINTED_ROCK_BRICKS.get()),RecipeCategory.MISC,  ItemRegistry.TAINTED_ROCK_BRICKS_SLAB.get(), 2).unlockedBy("has_tainted_rock", has(ItemRegistry.TAINTED_ROCK.get())).save(consumer, malumPath("tainted_rock_bricks_slab_stonecutting"));
-        stonecutting(Ingredient.of(ItemRegistry.TAINTED_ROCK_BRICKS.get()),RecipeCategory.MISC,  ItemRegistry.TAINTED_ROCK_BRICKS_STAIRS.get()).unlockedBy("has_tainted_rock", has(ItemRegistry.TAINTED_ROCK.get())).save(consumer, malumPath("tainted_rock_bricks_stairs_stonecutting"));
-        stonecutting(Ingredient.of(ItemRegistry.TAINTED_ROCK_BRICKS.get()),RecipeCategory.MISC,  ItemRegistry.TAINTED_ROCK_BRICKS_WALL.get()).unlockedBy("has_tainted_rock", has(ItemRegistry.TAINTED_ROCK.get())).save(consumer, malumPath("tainted_rock_brick_wall_stonecutting"));
+        stonecutting(Ingredient.of(ItemRegistry.POLISHED_TAINTED_ROCK.get()), RecipeCategory.MISC, ItemRegistry.TAINTED_ROCK_BRICKS.get()).unlockedBy("has_tainted_rock", has(ItemRegistry.TAINTED_ROCK.get())).save(consumer, malumPath("tainted_rock_bricks_stonecutting_from_polished"));
+        stonecutting(Ingredient.of(ItemRegistry.TAINTED_ROCK_BRICKS.get()), RecipeCategory.MISC, ItemRegistry.TAINTED_ROCK_BRICKS_SLAB.get(), 2).unlockedBy("has_tainted_rock", has(ItemRegistry.TAINTED_ROCK.get())).save(consumer, malumPath("tainted_rock_bricks_slab_stonecutting"));
+        stonecutting(Ingredient.of(ItemRegistry.TAINTED_ROCK_BRICKS.get()), RecipeCategory.MISC, ItemRegistry.TAINTED_ROCK_BRICKS_STAIRS.get()).unlockedBy("has_tainted_rock", has(ItemRegistry.TAINTED_ROCK.get())).save(consumer, malumPath("tainted_rock_bricks_stairs_stonecutting"));
+        stonecutting(Ingredient.of(ItemRegistry.TAINTED_ROCK_BRICKS.get()), RecipeCategory.MISC, ItemRegistry.TAINTED_ROCK_BRICKS_WALL.get()).unlockedBy("has_tainted_rock", has(ItemRegistry.TAINTED_ROCK.get())).save(consumer, malumPath("tainted_rock_brick_wall_stonecutting"));
 
         shaped(RecipeCategory.MISC, ItemRegistry.RUNIC_TAINTED_ROCK_BRICKS_WALL.get(), 6).define('#', ItemRegistry.RUNIC_TAINTED_ROCK_BRICKS.get()).pattern("###").pattern("###").unlockedBy("has_tainted_rock", has(ItemRegistry.TAINTED_ROCK.get())).save(consumer);
-        smelting(Ingredient.of(ItemRegistry.TAINTED_ROCK_BRICKS.get()),RecipeCategory.MISC,  ItemRegistry.RUNIC_TAINTED_ROCK_BRICKS.get(), 0.1f, 200).unlockedBy("has_tainted_rock", has(ItemRegistry.TAINTED_ROCK.get())).save(consumer);
+        smelting(Ingredient.of(ItemRegistry.TAINTED_ROCK_BRICKS.get()), RecipeCategory.MISC, ItemRegistry.RUNIC_TAINTED_ROCK_BRICKS.get(), 0.1f, 200).unlockedBy("has_tainted_rock", has(ItemRegistry.TAINTED_ROCK.get())).save(consumer);
         shaped(RecipeCategory.MISC, ItemRegistry.RUNIC_TAINTED_ROCK_BRICKS_SLAB.get(), 6).define('#', ItemRegistry.RUNIC_TAINTED_ROCK_BRICKS.get()).pattern("###").unlockedBy("has_cracked_tainted_rock", has(ItemRegistry.TAINTED_ROCK.get())).save(consumer);
         shaped(RecipeCategory.MISC, ItemRegistry.RUNIC_TAINTED_ROCK_BRICKS_STAIRS.get(), 4).define('#', ItemRegistry.RUNIC_TAINTED_ROCK_BRICKS.get()).pattern("#  ").pattern("## ").pattern("###").unlockedBy("has_cracked_tainted_rock", has(ItemRegistry.TAINTED_ROCK.get())).save(consumer);
-        stonecutting(Ingredient.of(ItemRegistry.RUNIC_TAINTED_ROCK_BRICKS.get()),RecipeCategory.MISC,  ItemRegistry.RUNIC_TAINTED_ROCK_BRICKS_SLAB.get(), 2).unlockedBy("has_cracked_tainted_rock_bricks", has(ItemRegistry.RUNIC_TAINTED_ROCK_BRICKS.get())).save(consumer, malumPath("cracked_tainted_rock_bricks_slab_stonecutting"));
-        stonecutting(Ingredient.of(ItemRegistry.RUNIC_TAINTED_ROCK_BRICKS.get()),RecipeCategory.MISC,  ItemRegistry.RUNIC_TAINTED_ROCK_BRICKS_STAIRS.get()).unlockedBy("has_cracked_tainted_rock_bricks", has(ItemRegistry.RUNIC_TAINTED_ROCK_BRICKS.get())).save(consumer, malumPath("cracked_tainted_rock_bricks_stairs_stonecutting"));
+        stonecutting(Ingredient.of(ItemRegistry.RUNIC_TAINTED_ROCK_BRICKS.get()), RecipeCategory.MISC, ItemRegistry.RUNIC_TAINTED_ROCK_BRICKS_SLAB.get(), 2).unlockedBy("has_cracked_tainted_rock_bricks", has(ItemRegistry.RUNIC_TAINTED_ROCK_BRICKS.get())).save(consumer, malumPath("cracked_tainted_rock_bricks_slab_stonecutting"));
+        stonecutting(Ingredient.of(ItemRegistry.RUNIC_TAINTED_ROCK_BRICKS.get()), RecipeCategory.MISC, ItemRegistry.RUNIC_TAINTED_ROCK_BRICKS_STAIRS.get()).unlockedBy("has_cracked_tainted_rock_bricks", has(ItemRegistry.RUNIC_TAINTED_ROCK_BRICKS.get())).save(consumer, malumPath("cracked_tainted_rock_bricks_stairs_stonecutting"));
 
         shaped(RecipeCategory.MISC, ItemRegistry.TAINTED_ROCK_TILES.get(), 4).define('#', ItemRegistry.TAINTED_ROCK_BRICKS.get()).pattern("##").pattern("##").unlockedBy("has_tainted_rock", has(ItemRegistry.TAINTED_ROCK.get())).save(consumer);
         shaped(RecipeCategory.MISC, ItemRegistry.TAINTED_ROCK_TILES_SLAB.get(), 6).define('#', ItemRegistry.TAINTED_ROCK_TILES.get()).pattern("###").unlockedBy("has_tainted_rock", has(ItemRegistry.TAINTED_ROCK.get())).save(consumer);
@@ -306,19 +315,19 @@ public class MalumRecipes extends RecipeProvider implements IConditionBuilder {
         shaped(RecipeCategory.MISC, ItemRegistry.TAINTED_ROCK_TILES_WALL.get(), 6).define('#', ItemRegistry.TAINTED_ROCK_TILES.get()).pattern("###").pattern("###").unlockedBy("has_tainted_rock", has(ItemRegistry.TAINTED_ROCK.get())).save(consumer);
         stonecutting(Ingredient.of(ItemRegistry.TAINTED_ROCK.get()), RecipeCategory.MISC, ItemRegistry.TAINTED_ROCK_TILES.get()).unlockedBy("has_tainted_rock", has(ItemRegistry.TAINTED_ROCK.get())).save(consumer, malumPath("tainted_rock_tiles_stonecutting"));
         stonecutting(Ingredient.of(ItemRegistry.POLISHED_TAINTED_ROCK.get()), RecipeCategory.MISC, ItemRegistry.TAINTED_ROCK_TILES.get()).unlockedBy("has_tainted_rock", has(ItemRegistry.TAINTED_ROCK.get())).save(consumer, malumPath("tainted_rock_tiles_stonecutting_from_polished"));
-        stonecutting(Ingredient.of(ItemRegistry.TAINTED_ROCK_BRICKS.get()),RecipeCategory.MISC,  ItemRegistry.TAINTED_ROCK_TILES.get()).unlockedBy("has_tainted_rock", has(ItemRegistry.TAINTED_ROCK.get())).save(consumer, malumPath("tainted_rock_tiles_stonecutting_from_bricks"));
+        stonecutting(Ingredient.of(ItemRegistry.TAINTED_ROCK_BRICKS.get()), RecipeCategory.MISC, ItemRegistry.TAINTED_ROCK_TILES.get()).unlockedBy("has_tainted_rock", has(ItemRegistry.TAINTED_ROCK.get())).save(consumer, malumPath("tainted_rock_tiles_stonecutting_from_bricks"));
         stonecutting(Ingredient.of(ItemRegistry.TAINTED_ROCK_TILES.get()), RecipeCategory.MISC, ItemRegistry.TAINTED_ROCK_TILES_SLAB.get(), 2).unlockedBy("has_tainted_rock", has(ItemRegistry.TAINTED_ROCK.get())).save(consumer, malumPath("tainted_rock_tiles_slab_stonecutting"));
-        stonecutting(Ingredient.of(ItemRegistry.TAINTED_ROCK_TILES.get()),RecipeCategory.MISC,  ItemRegistry.TAINTED_ROCK_TILES_STAIRS.get()).unlockedBy("has_tainted_rock", has(ItemRegistry.TAINTED_ROCK.get())).save(consumer, malumPath("tainted_rock_tiles_stairs_stonecutting"));
-        stonecutting(Ingredient.of(ItemRegistry.TAINTED_ROCK_TILES.get()),RecipeCategory.MISC,  ItemRegistry.TAINTED_ROCK_TILES_WALL.get()).unlockedBy("has_tainted_rock", has(ItemRegistry.TAINTED_ROCK.get())).save(consumer, malumPath("tainted_rock_tiles_wall_stonecutting"));
+        stonecutting(Ingredient.of(ItemRegistry.TAINTED_ROCK_TILES.get()), RecipeCategory.MISC, ItemRegistry.TAINTED_ROCK_TILES_STAIRS.get()).unlockedBy("has_tainted_rock", has(ItemRegistry.TAINTED_ROCK.get())).save(consumer, malumPath("tainted_rock_tiles_stairs_stonecutting"));
+        stonecutting(Ingredient.of(ItemRegistry.TAINTED_ROCK_TILES.get()), RecipeCategory.MISC, ItemRegistry.TAINTED_ROCK_TILES_WALL.get()).unlockedBy("has_tainted_rock", has(ItemRegistry.TAINTED_ROCK.get())).save(consumer, malumPath("tainted_rock_tiles_wall_stonecutting"));
 
         smelting(Ingredient.of(ItemRegistry.TAINTED_ROCK_TILES.get()), RecipeCategory.MISC, ItemRegistry.RUNIC_TAINTED_ROCK_TILES.get(), 0.1f, 200).unlockedBy("has_tainted_rock", has(ItemRegistry.TAINTED_ROCK.get())).save(consumer);
         shaped(RecipeCategory.MISC, ItemRegistry.RUNIC_TAINTED_ROCK_TILES_SLAB.get(), 6).define('#', ItemRegistry.RUNIC_TAINTED_ROCK_TILES.get()).pattern("###").unlockedBy("has_cracked_tainted_rock", has(ItemRegistry.TAINTED_ROCK.get())).save(consumer);
         shaped(RecipeCategory.MISC, ItemRegistry.RUNIC_TAINTED_ROCK_TILES_STAIRS.get(), 4).define('#', ItemRegistry.RUNIC_TAINTED_ROCK_TILES.get()).pattern("#  ").pattern("## ").pattern("###").unlockedBy("has_cracked_tainted_rock", has(ItemRegistry.TAINTED_ROCK.get())).save(consumer);
         shaped(RecipeCategory.MISC, ItemRegistry.RUNIC_TAINTED_ROCK_TILES_WALL.get(), 6).define('#', ItemRegistry.RUNIC_TAINTED_ROCK_TILES.get()).pattern("###").pattern("###").unlockedBy("has_tainted_rock", has(ItemRegistry.TAINTED_ROCK.get())).save(consumer);
-        stonecutting(Ingredient.of(ItemRegistry.RUNIC_TAINTED_ROCK_BRICKS.get()),RecipeCategory.MISC,  ItemRegistry.RUNIC_TAINTED_ROCK_TILES.get()).unlockedBy("has_tainted_rock", has(ItemRegistry.TAINTED_ROCK.get())).save(consumer, malumPath("cracked_tainted_rock_tiles_stonecutting"));
-        stonecutting(Ingredient.of(ItemRegistry.RUNIC_TAINTED_ROCK_TILES.get()),RecipeCategory.MISC,  ItemRegistry.RUNIC_TAINTED_ROCK_TILES_SLAB.get(), 2).unlockedBy("has_cracked_tainted_rock_tiles", has(ItemRegistry.RUNIC_TAINTED_ROCK_TILES.get())).save(consumer, malumPath("cracked_tainted_rock_tiles_slab_stonecutting"));
-        stonecutting(Ingredient.of(ItemRegistry.RUNIC_TAINTED_ROCK_TILES.get()),RecipeCategory.MISC,  ItemRegistry.RUNIC_TAINTED_ROCK_TILES_STAIRS.get()).unlockedBy("has_cracked_tainted_rock_tiles", has(ItemRegistry.RUNIC_TAINTED_ROCK_TILES.get())).save(consumer, malumPath("cracked_tainted_rock_tiles_stairs_stonecutting"));
-        stonecutting(Ingredient.of(ItemRegistry.RUNIC_TAINTED_ROCK_TILES.get()),RecipeCategory.MISC,  ItemRegistry.RUNIC_TAINTED_ROCK_TILES_WALL.get()).unlockedBy("has_tainted_rock", has(ItemRegistry.TAINTED_ROCK.get())).save(consumer, malumPath("cracked_tainted_rock_tiles_wall_stonecutting"));
+        stonecutting(Ingredient.of(ItemRegistry.RUNIC_TAINTED_ROCK_BRICKS.get()), RecipeCategory.MISC, ItemRegistry.RUNIC_TAINTED_ROCK_TILES.get()).unlockedBy("has_tainted_rock", has(ItemRegistry.TAINTED_ROCK.get())).save(consumer, malumPath("cracked_tainted_rock_tiles_stonecutting"));
+        stonecutting(Ingredient.of(ItemRegistry.RUNIC_TAINTED_ROCK_TILES.get()), RecipeCategory.MISC, ItemRegistry.RUNIC_TAINTED_ROCK_TILES_SLAB.get(), 2).unlockedBy("has_cracked_tainted_rock_tiles", has(ItemRegistry.RUNIC_TAINTED_ROCK_TILES.get())).save(consumer, malumPath("cracked_tainted_rock_tiles_slab_stonecutting"));
+        stonecutting(Ingredient.of(ItemRegistry.RUNIC_TAINTED_ROCK_TILES.get()), RecipeCategory.MISC, ItemRegistry.RUNIC_TAINTED_ROCK_TILES_STAIRS.get()).unlockedBy("has_cracked_tainted_rock_tiles", has(ItemRegistry.RUNIC_TAINTED_ROCK_TILES.get())).save(consumer, malumPath("cracked_tainted_rock_tiles_stairs_stonecutting"));
+        stonecutting(Ingredient.of(ItemRegistry.RUNIC_TAINTED_ROCK_TILES.get()), RecipeCategory.MISC, ItemRegistry.RUNIC_TAINTED_ROCK_TILES_WALL.get()).unlockedBy("has_tainted_rock", has(ItemRegistry.TAINTED_ROCK.get())).save(consumer, malumPath("cracked_tainted_rock_tiles_wall_stonecutting"));
 
         shaped(RecipeCategory.MISC, ItemRegistry.SMALL_TAINTED_ROCK_BRICKS.get(), 4).define('#', ItemRegistry.TAINTED_ROCK_TILES.get()).pattern("##").pattern("##").unlockedBy("has_tainted_rock", has(ItemRegistry.TAINTED_ROCK.get())).save(consumer);
         shaped(RecipeCategory.MISC, ItemRegistry.SMALL_TAINTED_ROCK_BRICKS_SLAB.get(), 6).define('#', ItemRegistry.SMALL_TAINTED_ROCK_BRICKS.get()).pattern("###").unlockedBy("has_tainted_rock", has(ItemRegistry.TAINTED_ROCK.get())).save(consumer);
@@ -327,18 +336,18 @@ public class MalumRecipes extends RecipeProvider implements IConditionBuilder {
         stonecutting(Ingredient.of(ItemRegistry.TAINTED_ROCK.get()), RecipeCategory.MISC, ItemRegistry.SMALL_TAINTED_ROCK_BRICKS.get()).unlockedBy("has_tainted_rock", has(ItemRegistry.TAINTED_ROCK.get())).save(consumer, malumPath("small_tainted_rock_bricks_stonecutting"));
         stonecutting(Ingredient.of(ItemRegistry.TAINTED_ROCK_BRICKS.get()), RecipeCategory.MISC, ItemRegistry.SMALL_TAINTED_ROCK_BRICKS.get()).unlockedBy("has_tainted_rock", has(ItemRegistry.TAINTED_ROCK.get())).save(consumer, malumPath("small_tainted_rock_bricks_stonecutting_alt"));
 
-        stonecutting(Ingredient.of(ItemRegistry.SMALL_TAINTED_ROCK_BRICKS.get()),RecipeCategory.MISC,  ItemRegistry.SMALL_TAINTED_ROCK_BRICKS_SLAB.get(), 2).unlockedBy("has_tainted_rock", has(ItemRegistry.TAINTED_ROCK.get())).save(consumer, malumPath("small_tainted_rock_bricks_slab_stonecutting"));
-        stonecutting(Ingredient.of(ItemRegistry.SMALL_TAINTED_ROCK_BRICKS.get()),RecipeCategory.MISC,  ItemRegistry.SMALL_TAINTED_ROCK_BRICKS_STAIRS.get()).unlockedBy("has_tainted_rock", has(ItemRegistry.TAINTED_ROCK.get())).save(consumer, malumPath("small_tainted_rock_bricks_stairs_stonecutting"));
-        stonecutting(Ingredient.of(ItemRegistry.SMALL_TAINTED_ROCK_BRICKS.get()),RecipeCategory.MISC,  ItemRegistry.SMALL_TAINTED_ROCK_BRICKS_WALL.get()).unlockedBy("has_tainted_rock", has(ItemRegistry.TAINTED_ROCK.get())).save(consumer, malumPath("small_tainted_rock_bricks_wall_stonecutting"));
+        stonecutting(Ingredient.of(ItemRegistry.SMALL_TAINTED_ROCK_BRICKS.get()), RecipeCategory.MISC, ItemRegistry.SMALL_TAINTED_ROCK_BRICKS_SLAB.get(), 2).unlockedBy("has_tainted_rock", has(ItemRegistry.TAINTED_ROCK.get())).save(consumer, malumPath("small_tainted_rock_bricks_slab_stonecutting"));
+        stonecutting(Ingredient.of(ItemRegistry.SMALL_TAINTED_ROCK_BRICKS.get()), RecipeCategory.MISC, ItemRegistry.SMALL_TAINTED_ROCK_BRICKS_STAIRS.get()).unlockedBy("has_tainted_rock", has(ItemRegistry.TAINTED_ROCK.get())).save(consumer, malumPath("small_tainted_rock_bricks_stairs_stonecutting"));
+        stonecutting(Ingredient.of(ItemRegistry.SMALL_TAINTED_ROCK_BRICKS.get()), RecipeCategory.MISC, ItemRegistry.SMALL_TAINTED_ROCK_BRICKS_WALL.get()).unlockedBy("has_tainted_rock", has(ItemRegistry.TAINTED_ROCK.get())).save(consumer, malumPath("small_tainted_rock_bricks_wall_stonecutting"));
 
-        smelting(Ingredient.of(ItemRegistry.SMALL_TAINTED_ROCK_BRICKS.get()),RecipeCategory.MISC,  ItemRegistry.RUNIC_SMALL_TAINTED_ROCK_BRICKS.get(), 0.1f, 200).unlockedBy("has_tainted_rock", has(ItemRegistry.TAINTED_ROCK.get())).save(consumer, malumPath("cracked_small_tainted_rock_bricks_smelting"));
+        smelting(Ingredient.of(ItemRegistry.SMALL_TAINTED_ROCK_BRICKS.get()), RecipeCategory.MISC, ItemRegistry.RUNIC_SMALL_TAINTED_ROCK_BRICKS.get(), 0.1f, 200).unlockedBy("has_tainted_rock", has(ItemRegistry.TAINTED_ROCK.get())).save(consumer, malumPath("cracked_small_tainted_rock_bricks_smelting"));
         shaped(RecipeCategory.MISC, ItemRegistry.RUNIC_SMALL_TAINTED_ROCK_BRICKS_SLAB.get(), 6).define('#', ItemRegistry.RUNIC_SMALL_TAINTED_ROCK_BRICKS.get()).pattern("###").unlockedBy("has_tainted_rock", has(ItemRegistry.TAINTED_ROCK.get())).save(consumer);
         shaped(RecipeCategory.MISC, ItemRegistry.RUNIC_SMALL_TAINTED_ROCK_BRICKS_STAIRS.get(), 4).define('#', ItemRegistry.RUNIC_SMALL_TAINTED_ROCK_BRICKS.get()).pattern("#  ").pattern("## ").pattern("###").unlockedBy("has_tainted_rock", has(ItemRegistry.TAINTED_ROCK.get())).save(consumer);
         shaped(RecipeCategory.MISC, ItemRegistry.RUNIC_SMALL_TAINTED_ROCK_BRICKS_WALL.get(), 6).define('#', ItemRegistry.RUNIC_SMALL_TAINTED_ROCK_BRICKS.get()).pattern("###").pattern("###").unlockedBy("has_tainted_rock", has(ItemRegistry.TAINTED_ROCK.get())).save(consumer);
-        stonecutting(Ingredient.of(ItemRegistry.TAINTED_ROCK_BRICKS.get()),RecipeCategory.MISC,  ItemRegistry.RUNIC_SMALL_TAINTED_ROCK_BRICKS.get()).unlockedBy("has_tainted_rock", has(ItemRegistry.TAINTED_ROCK.get())).save(consumer, malumPath("cracked_small_tainted_rock_bricks_stonecutting_alt"));
+        stonecutting(Ingredient.of(ItemRegistry.TAINTED_ROCK_BRICKS.get()), RecipeCategory.MISC, ItemRegistry.RUNIC_SMALL_TAINTED_ROCK_BRICKS.get()).unlockedBy("has_tainted_rock", has(ItemRegistry.TAINTED_ROCK.get())).save(consumer, malumPath("cracked_small_tainted_rock_bricks_stonecutting_alt"));
 
-        stonecutting(Ingredient.of(ItemRegistry.RUNIC_SMALL_TAINTED_ROCK_BRICKS.get()),RecipeCategory.MISC,  ItemRegistry.RUNIC_SMALL_TAINTED_ROCK_BRICKS_SLAB.get(), 2).unlockedBy("has_tainted_rock", has(ItemRegistry.TAINTED_ROCK.get())).save(consumer, malumPath("cracked_small_tainted_rock_bricks_slab_stonecutting"));
-        stonecutting(Ingredient.of(ItemRegistry.RUNIC_SMALL_TAINTED_ROCK_BRICKS.get()),RecipeCategory.MISC,  ItemRegistry.RUNIC_SMALL_TAINTED_ROCK_BRICKS_STAIRS.get()).unlockedBy("has_tainted_rock", has(ItemRegistry.TAINTED_ROCK.get())).save(consumer, malumPath("cracked_small_tainted_rock_bricks_stairs_stonecutting"));
+        stonecutting(Ingredient.of(ItemRegistry.RUNIC_SMALL_TAINTED_ROCK_BRICKS.get()), RecipeCategory.MISC, ItemRegistry.RUNIC_SMALL_TAINTED_ROCK_BRICKS_SLAB.get(), 2).unlockedBy("has_tainted_rock", has(ItemRegistry.TAINTED_ROCK.get())).save(consumer, malumPath("cracked_small_tainted_rock_bricks_slab_stonecutting"));
+        stonecutting(Ingredient.of(ItemRegistry.RUNIC_SMALL_TAINTED_ROCK_BRICKS.get()), RecipeCategory.MISC, ItemRegistry.RUNIC_SMALL_TAINTED_ROCK_BRICKS_STAIRS.get()).unlockedBy("has_tainted_rock", has(ItemRegistry.TAINTED_ROCK.get())).save(consumer, malumPath("cracked_small_tainted_rock_bricks_stairs_stonecutting"));
         stonecutting(Ingredient.of(ItemRegistry.RUNIC_SMALL_TAINTED_ROCK_BRICKS.get()), RecipeCategory.MISC, ItemRegistry.RUNIC_SMALL_TAINTED_ROCK_BRICKS_WALL.get()).unlockedBy("has_tainted_rock", has(ItemRegistry.TAINTED_ROCK.get())).save(consumer, malumPath("cracked_small_tainted_rock_bricks_wall_stonecutting"));
 
         shaped(RecipeCategory.MISC, ItemRegistry.CHISELED_TAINTED_ROCK.get()).define('#', ItemRegistry.TAINTED_ROCK_SLAB.get()).pattern("#").pattern("#").unlockedBy("has_tainted_rock", has(ItemRegistry.TAINTED_ROCK.get())).save(consumer);
@@ -347,16 +356,16 @@ public class MalumRecipes extends RecipeProvider implements IConditionBuilder {
         shapeless(RecipeCategory.MISC, ItemRegistry.TAINTED_ROCK_COLUMN.get()).requires(ItemRegistry.TAINTED_ROCK_COLUMN_CAP.get()).unlockedBy("has_tainted_rock", has(ItemRegistry.TAINTED_ROCK.get())).save(consumer, malumPath("tainted_rock_column_from_cap"));
 
         shaped(RecipeCategory.MISC, ItemRegistry.CUT_TAINTED_ROCK.get(), 4).define('#', ItemRegistry.SMOOTH_TAINTED_ROCK.get()).pattern("##").pattern("##").unlockedBy("has_tainted_rock", has(ItemRegistry.TAINTED_ROCK.get())).save(consumer);
-        stonecutting(Ingredient.of(ItemRegistry.TAINTED_ROCK.get()),RecipeCategory.MISC,  ItemRegistry.CUT_TAINTED_ROCK.get()).unlockedBy("has_tainted_rock", has(ItemRegistry.TAINTED_ROCK.get())).save(consumer, malumPath("cut_tainted_rock_stonecutting"));
-        stonecutting(Ingredient.of(ItemRegistry.TAINTED_ROCK.get()),RecipeCategory.MISC,  ItemRegistry.TAINTED_ROCK_COLUMN.get()).unlockedBy("has_tainted_rock", has(ItemRegistry.TAINTED_ROCK.get())).save(consumer, malumPath("tainted_rock_column_stonecutting"));
-        stonecutting(Ingredient.of(ItemRegistry.TAINTED_ROCK.get()),RecipeCategory.MISC,  ItemRegistry.TAINTED_ROCK_COLUMN_CAP.get()).unlockedBy("has_tainted_rock", has(ItemRegistry.TAINTED_ROCK.get())).save(consumer, malumPath("tainted_rock_column_cap_stonecutting"));
+        stonecutting(Ingredient.of(ItemRegistry.TAINTED_ROCK.get()), RecipeCategory.MISC, ItemRegistry.CUT_TAINTED_ROCK.get()).unlockedBy("has_tainted_rock", has(ItemRegistry.TAINTED_ROCK.get())).save(consumer, malumPath("cut_tainted_rock_stonecutting"));
+        stonecutting(Ingredient.of(ItemRegistry.TAINTED_ROCK.get()), RecipeCategory.MISC, ItemRegistry.TAINTED_ROCK_COLUMN.get()).unlockedBy("has_tainted_rock", has(ItemRegistry.TAINTED_ROCK.get())).save(consumer, malumPath("tainted_rock_column_stonecutting"));
+        stonecutting(Ingredient.of(ItemRegistry.TAINTED_ROCK.get()), RecipeCategory.MISC, ItemRegistry.TAINTED_ROCK_COLUMN_CAP.get()).unlockedBy("has_tainted_rock", has(ItemRegistry.TAINTED_ROCK.get())).save(consumer, malumPath("tainted_rock_column_cap_stonecutting"));
         stonecutting(Ingredient.of(ItemRegistry.TAINTED_ROCK.get()), RecipeCategory.MISC, ItemRegistry.TAINTED_ROCK_BRICKS.get()).unlockedBy("has_tainted_rock", has(ItemRegistry.TAINTED_ROCK.get())).save(consumer, malumPath("tainted_rock_bricks_stonecutting"));
-        stonecutting(Ingredient.of(ItemRegistry.TAINTED_ROCK.get()),RecipeCategory.MISC,  ItemRegistry.SMOOTH_TAINTED_ROCK.get()).unlockedBy("has_tainted_rock", has(ItemRegistry.TAINTED_ROCK.get())).save(consumer, malumPath("smooth_tainted_rock_stonecutting"));
+        stonecutting(Ingredient.of(ItemRegistry.TAINTED_ROCK.get()), RecipeCategory.MISC, ItemRegistry.SMOOTH_TAINTED_ROCK.get()).unlockedBy("has_tainted_rock", has(ItemRegistry.TAINTED_ROCK.get())).save(consumer, malumPath("smooth_tainted_rock_stonecutting"));
         stonecutting(Ingredient.of(ItemRegistry.TAINTED_ROCK.get()), RecipeCategory.MISC, ItemRegistry.POLISHED_TAINTED_ROCK.get()).unlockedBy("has_tainted_rock", has(ItemRegistry.TAINTED_ROCK.get())).save(consumer, malumPath("polished_tainted_rock_stonecutting"));
-        stonecutting(Ingredient.of(ItemRegistry.TAINTED_ROCK.get()),RecipeCategory.MISC,  ItemRegistry.CHISELED_TAINTED_ROCK.get()).unlockedBy("has_tainted_rock", has(ItemRegistry.TAINTED_ROCK.get())).save(consumer, malumPath("chiseled_tainted_rock_bricks_stonecutting"));
+        stonecutting(Ingredient.of(ItemRegistry.TAINTED_ROCK.get()), RecipeCategory.MISC, ItemRegistry.CHISELED_TAINTED_ROCK.get()).unlockedBy("has_tainted_rock", has(ItemRegistry.TAINTED_ROCK.get())).save(consumer, malumPath("chiseled_tainted_rock_bricks_stonecutting"));
         stonecutting(Ingredient.of(ItemRegistry.TAINTED_ROCK_BRICKS.get()), RecipeCategory.MISC, ItemRegistry.CHISELED_TAINTED_ROCK.get()).unlockedBy("has_tainted_rock", has(ItemRegistry.TAINTED_ROCK.get())).save(consumer, malumPath("chiseled_tainted_rock_bricks_stonecutting_alt"));
 
-        stonecutting(Ingredient.of(ItemRegistry.TAINTED_ROCK_BRICKS.get()),RecipeCategory.MISC,  ItemRegistry.SMALL_TAINTED_ROCK_BRICKS.get()).unlockedBy("has_tainted_rock", has(ItemRegistry.TAINTED_ROCK.get())).save(consumer, malumPath("small_tainted_rock_bricks_stonecutting_from_bricks"));
+        stonecutting(Ingredient.of(ItemRegistry.TAINTED_ROCK_BRICKS.get()), RecipeCategory.MISC, ItemRegistry.SMALL_TAINTED_ROCK_BRICKS.get()).unlockedBy("has_tainted_rock", has(ItemRegistry.TAINTED_ROCK.get())).save(consumer, malumPath("small_tainted_rock_bricks_stonecutting_from_bricks"));
         stonecutting(Ingredient.of(ItemRegistry.TAINTED_ROCK_TILES.get()), RecipeCategory.MISC, ItemRegistry.SMALL_TAINTED_ROCK_BRICKS.get()).unlockedBy("has_tainted_rock", has(ItemRegistry.TAINTED_ROCK.get())).save(consumer, malumPath("small_tainted_rock_bricks_stonecutting_from_tiles"));
 
         shaped(RecipeCategory.MISC, ItemRegistry.TAINTED_ROCK_ITEM_STAND.get(), 2).define('X', ItemRegistry.TAINTED_ROCK.get()).define('Y', ItemRegistry.TAINTED_ROCK_SLAB.get()).pattern("YYY").pattern("XXX").unlockedBy("has_tainted_rock", has(ItemRegistry.TAINTED_ROCK.get())).save(consumer);
@@ -369,9 +378,9 @@ public class MalumRecipes extends RecipeProvider implements IConditionBuilder {
         shaped(RecipeCategory.MISC, ItemRegistry.TWISTED_ROCK_WALL.get(), 6).define('#', ItemRegistry.TWISTED_ROCK.get()).pattern("###").pattern("###").unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer);
         shaped(RecipeCategory.MISC, ItemRegistry.TWISTED_ROCK_SLAB.get(), 6).define('#', ItemRegistry.TWISTED_ROCK.get()).pattern("###").unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer);
         shaped(RecipeCategory.MISC, ItemRegistry.TWISTED_ROCK_STAIRS.get(), 4).define('#', ItemRegistry.TWISTED_ROCK.get()).pattern("#  ").pattern("## ").pattern("###").unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer);
-        stonecutting(Ingredient.of(ItemRegistry.TWISTED_ROCK.get()),RecipeCategory.MISC,  ItemRegistry.TWISTED_ROCK_SLAB.get(), 2).unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer, malumPath("twisted_rock_slab_stonecutting"));
+        stonecutting(Ingredient.of(ItemRegistry.TWISTED_ROCK.get()), RecipeCategory.MISC, ItemRegistry.TWISTED_ROCK_SLAB.get(), 2).unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer, malumPath("twisted_rock_slab_stonecutting"));
         stonecutting(Ingredient.of(ItemRegistry.TWISTED_ROCK.get()), RecipeCategory.MISC, ItemRegistry.TWISTED_ROCK_STAIRS.get()).unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer, malumPath("twisted_rock_stairs_stonecutting"));
-        stonecutting(Ingredient.of(ItemRegistry.TWISTED_ROCK.get()),RecipeCategory.MISC,  ItemRegistry.TWISTED_ROCK_WALL.get()).unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer, malumPath("twisted_rock_wall_stonecutting"));
+        stonecutting(Ingredient.of(ItemRegistry.TWISTED_ROCK.get()), RecipeCategory.MISC, ItemRegistry.TWISTED_ROCK_WALL.get()).unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer, malumPath("twisted_rock_wall_stonecutting"));
 
         shaped(RecipeCategory.MISC, ItemRegistry.POLISHED_TWISTED_ROCK.get(), 4).define('#', ItemRegistry.TWISTED_ROCK.get()).pattern("##").pattern("##").unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer);
         shaped(RecipeCategory.MISC, ItemRegistry.POLISHED_TWISTED_ROCK_SLAB.get(), 6).define('#', ItemRegistry.POLISHED_TWISTED_ROCK.get()).pattern("###").unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer);
@@ -379,69 +388,69 @@ public class MalumRecipes extends RecipeProvider implements IConditionBuilder {
         stonecutting(Ingredient.of(ItemRegistry.POLISHED_TWISTED_ROCK.get()), RecipeCategory.MISC, ItemRegistry.POLISHED_TWISTED_ROCK_SLAB.get(), 2).unlockedBy("has_polished_twisted_rock", has(ItemRegistry.POLISHED_TWISTED_ROCK.get())).save(consumer, malumPath("polished_twisted_rock_slab_stonecutting"));
         stonecutting(Ingredient.of(ItemRegistry.POLISHED_TWISTED_ROCK.get()), RecipeCategory.MISC, ItemRegistry.POLISHED_TWISTED_ROCK_STAIRS.get()).unlockedBy("has_polished_twisted_rock", has(ItemRegistry.POLISHED_TWISTED_ROCK.get())).save(consumer, malumPath("polished_twisted_rock_stairs_stonecutting"));
 
-        smelting(Ingredient.of(ItemRegistry.TWISTED_ROCK.get()),RecipeCategory.MISC,  ItemRegistry.SMOOTH_TWISTED_ROCK.get(), 0.1f, 200).unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer);
+        smelting(Ingredient.of(ItemRegistry.TWISTED_ROCK.get()), RecipeCategory.MISC, ItemRegistry.SMOOTH_TWISTED_ROCK.get(), 0.1f, 200).unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer);
         shaped(RecipeCategory.MISC, ItemRegistry.SMOOTH_TWISTED_ROCK_SLAB.get(), 6).define('#', ItemRegistry.SMOOTH_TWISTED_ROCK.get()).pattern("###").unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer);
         shaped(RecipeCategory.MISC, ItemRegistry.SMOOTH_TWISTED_ROCK_STAIRS.get(), 4).define('#', ItemRegistry.SMOOTH_TWISTED_ROCK.get()).pattern("#  ").pattern("## ").pattern("###").unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer);
-        stonecutting(Ingredient.of(ItemRegistry.SMOOTH_TWISTED_ROCK.get()),RecipeCategory.MISC,  ItemRegistry.SMOOTH_TWISTED_ROCK_SLAB.get(), 2).unlockedBy("has_smooth_twisted_rock", has(ItemRegistry.POLISHED_TWISTED_ROCK.get())).save(consumer, malumPath("smooth_twisted_rock_slab_stonecutting"));
-        stonecutting(Ingredient.of(ItemRegistry.SMOOTH_TWISTED_ROCK.get()),RecipeCategory.MISC,  ItemRegistry.SMOOTH_TWISTED_ROCK_STAIRS.get()).unlockedBy("has_smooth_twisted_rock", has(ItemRegistry.POLISHED_TWISTED_ROCK.get())).save(consumer, malumPath("smooth_twisted_rock_stairs_stonecutting"));
+        stonecutting(Ingredient.of(ItemRegistry.SMOOTH_TWISTED_ROCK.get()), RecipeCategory.MISC, ItemRegistry.SMOOTH_TWISTED_ROCK_SLAB.get(), 2).unlockedBy("has_smooth_twisted_rock", has(ItemRegistry.POLISHED_TWISTED_ROCK.get())).save(consumer, malumPath("smooth_twisted_rock_slab_stonecutting"));
+        stonecutting(Ingredient.of(ItemRegistry.SMOOTH_TWISTED_ROCK.get()), RecipeCategory.MISC, ItemRegistry.SMOOTH_TWISTED_ROCK_STAIRS.get()).unlockedBy("has_smooth_twisted_rock", has(ItemRegistry.POLISHED_TWISTED_ROCK.get())).save(consumer, malumPath("smooth_twisted_rock_stairs_stonecutting"));
 
         shaped(RecipeCategory.MISC, ItemRegistry.TWISTED_ROCK_BRICKS.get(), 4).define('#', ItemRegistry.POLISHED_TWISTED_ROCK.get()).pattern("##").pattern("##").unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer);
         shaped(RecipeCategory.MISC, ItemRegistry.TWISTED_ROCK_BRICKS.get(), 4).define('#', ItemRegistry.SMALL_TWISTED_ROCK_BRICKS.get()).pattern("##").pattern("##").unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer, malumPath("twisted_rock_bricks_from_small_bricks"));
         shaped(RecipeCategory.MISC, ItemRegistry.TWISTED_ROCK_BRICKS_SLAB.get(), 6).define('#', ItemRegistry.TWISTED_ROCK_BRICKS.get()).pattern("###").unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer);
         shaped(RecipeCategory.MISC, ItemRegistry.TWISTED_ROCK_BRICKS_STAIRS.get(), 4).define('#', ItemRegistry.TWISTED_ROCK_BRICKS.get()).pattern("#  ").pattern("## ").pattern("###").unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer);
         shaped(RecipeCategory.MISC, ItemRegistry.TWISTED_ROCK_BRICKS_WALL.get(), 6).define('#', ItemRegistry.TWISTED_ROCK_BRICKS.get()).pattern("###").pattern("###").unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer);
-        stonecutting(Ingredient.of(ItemRegistry.POLISHED_TWISTED_ROCK.get()),RecipeCategory.MISC,  ItemRegistry.TWISTED_ROCK_BRICKS.get()).unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer, malumPath("twisted_rock_bricks_stonecutting_from_polished"));
-        stonecutting(Ingredient.of(ItemRegistry.TWISTED_ROCK_BRICKS.get()),RecipeCategory.MISC,  ItemRegistry.TWISTED_ROCK_BRICKS_SLAB.get(), 2).unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer, malumPath("twisted_rock_bricks_slab_stonecutting"));
-        stonecutting(Ingredient.of(ItemRegistry.TWISTED_ROCK_BRICKS.get()),RecipeCategory.MISC,  ItemRegistry.TWISTED_ROCK_BRICKS_STAIRS.get()).unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer, malumPath("twisted_rock_bricks_stairs_stonecutting"));
-        stonecutting(Ingredient.of(ItemRegistry.TWISTED_ROCK_BRICKS.get()),RecipeCategory.MISC,  ItemRegistry.TWISTED_ROCK_BRICKS_WALL.get()).unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer, malumPath("twisted_rock_brick_wall_stonecutting"));
+        stonecutting(Ingredient.of(ItemRegistry.POLISHED_TWISTED_ROCK.get()), RecipeCategory.MISC, ItemRegistry.TWISTED_ROCK_BRICKS.get()).unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer, malumPath("twisted_rock_bricks_stonecutting_from_polished"));
+        stonecutting(Ingredient.of(ItemRegistry.TWISTED_ROCK_BRICKS.get()), RecipeCategory.MISC, ItemRegistry.TWISTED_ROCK_BRICKS_SLAB.get(), 2).unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer, malumPath("twisted_rock_bricks_slab_stonecutting"));
+        stonecutting(Ingredient.of(ItemRegistry.TWISTED_ROCK_BRICKS.get()), RecipeCategory.MISC, ItemRegistry.TWISTED_ROCK_BRICKS_STAIRS.get()).unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer, malumPath("twisted_rock_bricks_stairs_stonecutting"));
+        stonecutting(Ingredient.of(ItemRegistry.TWISTED_ROCK_BRICKS.get()), RecipeCategory.MISC, ItemRegistry.TWISTED_ROCK_BRICKS_WALL.get()).unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer, malumPath("twisted_rock_brick_wall_stonecutting"));
 
         shaped(RecipeCategory.MISC, ItemRegistry.RUNIC_TWISTED_ROCK_BRICKS_WALL.get(), 6).define('#', ItemRegistry.RUNIC_TWISTED_ROCK_BRICKS.get()).pattern("###").pattern("###").unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer);
-        smelting(Ingredient.of(ItemRegistry.TWISTED_ROCK_BRICKS.get()),RecipeCategory.MISC,  ItemRegistry.RUNIC_TWISTED_ROCK_BRICKS.get(), 0.1f, 200).unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer);
+        smelting(Ingredient.of(ItemRegistry.TWISTED_ROCK_BRICKS.get()), RecipeCategory.MISC, ItemRegistry.RUNIC_TWISTED_ROCK_BRICKS.get(), 0.1f, 200).unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer);
         shaped(RecipeCategory.MISC, ItemRegistry.RUNIC_TWISTED_ROCK_BRICKS_SLAB.get(), 6).define('#', ItemRegistry.RUNIC_TWISTED_ROCK_BRICKS.get()).pattern("###").unlockedBy("has_cracked_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer);
         shaped(RecipeCategory.MISC, ItemRegistry.RUNIC_TWISTED_ROCK_BRICKS_STAIRS.get(), 4).define('#', ItemRegistry.RUNIC_TWISTED_ROCK_BRICKS.get()).pattern("#  ").pattern("## ").pattern("###").unlockedBy("has_cracked_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer);
-        stonecutting(Ingredient.of(ItemRegistry.RUNIC_TWISTED_ROCK_BRICKS.get()),RecipeCategory.MISC,  ItemRegistry.RUNIC_TWISTED_ROCK_BRICKS_SLAB.get(), 2).unlockedBy("has_cracked_twisted_rock_bricks", has(ItemRegistry.RUNIC_TWISTED_ROCK_BRICKS.get())).save(consumer, malumPath("cracked_twisted_rock_bricks_slab_stonecutting"));
-        stonecutting(Ingredient.of(ItemRegistry.RUNIC_TWISTED_ROCK_BRICKS.get()),RecipeCategory.MISC,  ItemRegistry.RUNIC_TWISTED_ROCK_BRICKS_STAIRS.get()).unlockedBy("has_cracked_twisted_rock_bricks", has(ItemRegistry.RUNIC_TWISTED_ROCK_BRICKS.get())).save(consumer, malumPath("cracked_twisted_rock_bricks_stairs_stonecutting"));
+        stonecutting(Ingredient.of(ItemRegistry.RUNIC_TWISTED_ROCK_BRICKS.get()), RecipeCategory.MISC, ItemRegistry.RUNIC_TWISTED_ROCK_BRICKS_SLAB.get(), 2).unlockedBy("has_cracked_twisted_rock_bricks", has(ItemRegistry.RUNIC_TWISTED_ROCK_BRICKS.get())).save(consumer, malumPath("cracked_twisted_rock_bricks_slab_stonecutting"));
+        stonecutting(Ingredient.of(ItemRegistry.RUNIC_TWISTED_ROCK_BRICKS.get()), RecipeCategory.MISC, ItemRegistry.RUNIC_TWISTED_ROCK_BRICKS_STAIRS.get()).unlockedBy("has_cracked_twisted_rock_bricks", has(ItemRegistry.RUNIC_TWISTED_ROCK_BRICKS.get())).save(consumer, malumPath("cracked_twisted_rock_bricks_stairs_stonecutting"));
 
         shaped(RecipeCategory.MISC, ItemRegistry.TWISTED_ROCK_TILES.get(), 4).define('#', ItemRegistry.TWISTED_ROCK_BRICKS.get()).pattern("##").pattern("##").unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer);
         shaped(RecipeCategory.MISC, ItemRegistry.TWISTED_ROCK_TILES_SLAB.get(), 6).define('#', ItemRegistry.TWISTED_ROCK_TILES.get()).pattern("###").unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer);
         shaped(RecipeCategory.MISC, ItemRegistry.TWISTED_ROCK_TILES_STAIRS.get(), 4).define('#', ItemRegistry.TWISTED_ROCK_TILES.get()).pattern("#  ").pattern("## ").pattern("###").unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer);
         shaped(RecipeCategory.MISC, ItemRegistry.TWISTED_ROCK_TILES_WALL.get(), 6).define('#', ItemRegistry.TWISTED_ROCK_TILES.get()).pattern("###").pattern("###").unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer);
-        stonecutting(Ingredient.of(ItemRegistry.TWISTED_ROCK.get()),RecipeCategory.MISC,  ItemRegistry.TWISTED_ROCK_TILES.get()).unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer, malumPath("twisted_rock_tiles_stonecutting"));
-        stonecutting(Ingredient.of(ItemRegistry.POLISHED_TWISTED_ROCK.get()),RecipeCategory.MISC,  ItemRegistry.TWISTED_ROCK_TILES.get()).unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer, malumPath("twisted_rock_tiles_stonecutting_from_polished"));
-        stonecutting(Ingredient.of(ItemRegistry.TWISTED_ROCK_BRICKS.get()),RecipeCategory.MISC,  ItemRegistry.TWISTED_ROCK_TILES.get()).unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer, malumPath("twisted_rock_tiles_stonecutting_from_bricks"));
+        stonecutting(Ingredient.of(ItemRegistry.TWISTED_ROCK.get()), RecipeCategory.MISC, ItemRegistry.TWISTED_ROCK_TILES.get()).unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer, malumPath("twisted_rock_tiles_stonecutting"));
+        stonecutting(Ingredient.of(ItemRegistry.POLISHED_TWISTED_ROCK.get()), RecipeCategory.MISC, ItemRegistry.TWISTED_ROCK_TILES.get()).unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer, malumPath("twisted_rock_tiles_stonecutting_from_polished"));
+        stonecutting(Ingredient.of(ItemRegistry.TWISTED_ROCK_BRICKS.get()), RecipeCategory.MISC, ItemRegistry.TWISTED_ROCK_TILES.get()).unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer, malumPath("twisted_rock_tiles_stonecutting_from_bricks"));
         stonecutting(Ingredient.of(ItemRegistry.TWISTED_ROCK_TILES.get()), RecipeCategory.MISC, ItemRegistry.TWISTED_ROCK_TILES_SLAB.get(), 2).unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer, malumPath("twisted_rock_tiles_slab_stonecutting"));
-        stonecutting(Ingredient.of(ItemRegistry.TWISTED_ROCK_TILES.get()),RecipeCategory.MISC,  ItemRegistry.TWISTED_ROCK_TILES_STAIRS.get()).unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer, malumPath("twisted_rock_tiles_stairs_stonecutting"));
-        stonecutting(Ingredient.of(ItemRegistry.TWISTED_ROCK_TILES.get()),RecipeCategory.MISC,  ItemRegistry.TWISTED_ROCK_TILES_WALL.get()).unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer, malumPath("twisted_rock_tiles_wall_stonecutting"));
+        stonecutting(Ingredient.of(ItemRegistry.TWISTED_ROCK_TILES.get()), RecipeCategory.MISC, ItemRegistry.TWISTED_ROCK_TILES_STAIRS.get()).unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer, malumPath("twisted_rock_tiles_stairs_stonecutting"));
+        stonecutting(Ingredient.of(ItemRegistry.TWISTED_ROCK_TILES.get()), RecipeCategory.MISC, ItemRegistry.TWISTED_ROCK_TILES_WALL.get()).unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer, malumPath("twisted_rock_tiles_wall_stonecutting"));
 
         smelting(Ingredient.of(ItemRegistry.TWISTED_ROCK_TILES.get()), RecipeCategory.MISC, ItemRegistry.RUNIC_TWISTED_ROCK_TILES.get(), 0.1f, 200).unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer);
         shaped(RecipeCategory.MISC, ItemRegistry.RUNIC_TWISTED_ROCK_TILES_SLAB.get(), 6).define('#', ItemRegistry.RUNIC_TWISTED_ROCK_TILES.get()).pattern("###").unlockedBy("has_cracked_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer);
         shaped(RecipeCategory.MISC, ItemRegistry.RUNIC_TWISTED_ROCK_TILES_STAIRS.get(), 4).define('#', ItemRegistry.RUNIC_TWISTED_ROCK_TILES.get()).pattern("#  ").pattern("## ").pattern("###").unlockedBy("has_cracked_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer);
         shaped(RecipeCategory.MISC, ItemRegistry.RUNIC_TWISTED_ROCK_TILES_WALL.get(), 6).define('#', ItemRegistry.RUNIC_TWISTED_ROCK_TILES.get()).pattern("###").pattern("###").unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer);
-        stonecutting(Ingredient.of(ItemRegistry.RUNIC_TWISTED_ROCK_BRICKS.get()),RecipeCategory.MISC,  ItemRegistry.RUNIC_TWISTED_ROCK_TILES.get()).unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer, malumPath("cracked_twisted_rock_tiles_stonecutting"));
-        stonecutting(Ingredient.of(ItemRegistry.RUNIC_TWISTED_ROCK_TILES.get()),RecipeCategory.MISC,  ItemRegistry.RUNIC_TWISTED_ROCK_TILES_SLAB.get(), 2).unlockedBy("has_cracked_twisted_rock_tiles", has(ItemRegistry.RUNIC_TWISTED_ROCK_TILES.get())).save(consumer, malumPath("cracked_twisted_rock_tiles_slab_stonecutting"));
-        stonecutting(Ingredient.of(ItemRegistry.RUNIC_TWISTED_ROCK_TILES.get()),RecipeCategory.MISC,  ItemRegistry.RUNIC_TWISTED_ROCK_TILES_STAIRS.get()).unlockedBy("has_cracked_twisted_rock_tiles", has(ItemRegistry.RUNIC_TWISTED_ROCK_TILES.get())).save(consumer, malumPath("cracked_twisted_rock_tiles_stairs_stonecutting"));
-        stonecutting(Ingredient.of(ItemRegistry.RUNIC_TWISTED_ROCK_TILES.get()),RecipeCategory.MISC,  ItemRegistry.RUNIC_TWISTED_ROCK_TILES_WALL.get()).unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer, malumPath("cracked_twisted_rock_tiles_wall_stonecutting"));
+        stonecutting(Ingredient.of(ItemRegistry.RUNIC_TWISTED_ROCK_BRICKS.get()), RecipeCategory.MISC, ItemRegistry.RUNIC_TWISTED_ROCK_TILES.get()).unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer, malumPath("cracked_twisted_rock_tiles_stonecutting"));
+        stonecutting(Ingredient.of(ItemRegistry.RUNIC_TWISTED_ROCK_TILES.get()), RecipeCategory.MISC, ItemRegistry.RUNIC_TWISTED_ROCK_TILES_SLAB.get(), 2).unlockedBy("has_cracked_twisted_rock_tiles", has(ItemRegistry.RUNIC_TWISTED_ROCK_TILES.get())).save(consumer, malumPath("cracked_twisted_rock_tiles_slab_stonecutting"));
+        stonecutting(Ingredient.of(ItemRegistry.RUNIC_TWISTED_ROCK_TILES.get()), RecipeCategory.MISC, ItemRegistry.RUNIC_TWISTED_ROCK_TILES_STAIRS.get()).unlockedBy("has_cracked_twisted_rock_tiles", has(ItemRegistry.RUNIC_TWISTED_ROCK_TILES.get())).save(consumer, malumPath("cracked_twisted_rock_tiles_stairs_stonecutting"));
+        stonecutting(Ingredient.of(ItemRegistry.RUNIC_TWISTED_ROCK_TILES.get()), RecipeCategory.MISC, ItemRegistry.RUNIC_TWISTED_ROCK_TILES_WALL.get()).unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer, malumPath("cracked_twisted_rock_tiles_wall_stonecutting"));
 
         shaped(RecipeCategory.MISC, ItemRegistry.SMALL_TWISTED_ROCK_BRICKS.get(), 4).define('#', ItemRegistry.TWISTED_ROCK_TILES.get()).pattern("##").pattern("##").unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer);
         shaped(RecipeCategory.MISC, ItemRegistry.SMALL_TWISTED_ROCK_BRICKS_SLAB.get(), 6).define('#', ItemRegistry.SMALL_TWISTED_ROCK_BRICKS.get()).pattern("###").unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer);
         shaped(RecipeCategory.MISC, ItemRegistry.SMALL_TWISTED_ROCK_BRICKS_STAIRS.get(), 4).define('#', ItemRegistry.SMALL_TWISTED_ROCK_BRICKS.get()).pattern("#  ").pattern("## ").pattern("###").unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer);
         shaped(RecipeCategory.MISC, ItemRegistry.SMALL_TWISTED_ROCK_BRICKS_WALL.get(), 6).define('#', ItemRegistry.SMALL_TWISTED_ROCK_BRICKS.get()).pattern("###").pattern("###").unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer);
-        stonecutting(Ingredient.of(ItemRegistry.TWISTED_ROCK.get()),RecipeCategory.MISC,  ItemRegistry.SMALL_TWISTED_ROCK_BRICKS.get()).unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer, malumPath("small_twisted_rock_bricks_stonecutting"));
-        stonecutting(Ingredient.of(ItemRegistry.TWISTED_ROCK_BRICKS.get()),RecipeCategory.MISC,  ItemRegistry.SMALL_TWISTED_ROCK_BRICKS.get()).unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer, malumPath("small_twisted_rock_bricks_stonecutting_alt"));
+        stonecutting(Ingredient.of(ItemRegistry.TWISTED_ROCK.get()), RecipeCategory.MISC, ItemRegistry.SMALL_TWISTED_ROCK_BRICKS.get()).unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer, malumPath("small_twisted_rock_bricks_stonecutting"));
+        stonecutting(Ingredient.of(ItemRegistry.TWISTED_ROCK_BRICKS.get()), RecipeCategory.MISC, ItemRegistry.SMALL_TWISTED_ROCK_BRICKS.get()).unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer, malumPath("small_twisted_rock_bricks_stonecutting_alt"));
 
-        stonecutting(Ingredient.of(ItemRegistry.SMALL_TWISTED_ROCK_BRICKS.get()),RecipeCategory.MISC,  ItemRegistry.SMALL_TWISTED_ROCK_BRICKS_SLAB.get(), 2).unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer, malumPath("small_twisted_rock_bricks_slab_stonecutting"));
+        stonecutting(Ingredient.of(ItemRegistry.SMALL_TWISTED_ROCK_BRICKS.get()), RecipeCategory.MISC, ItemRegistry.SMALL_TWISTED_ROCK_BRICKS_SLAB.get(), 2).unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer, malumPath("small_twisted_rock_bricks_slab_stonecutting"));
         stonecutting(Ingredient.of(ItemRegistry.SMALL_TWISTED_ROCK_BRICKS.get()), RecipeCategory.MISC, ItemRegistry.SMALL_TWISTED_ROCK_BRICKS_STAIRS.get()).unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer, malumPath("small_twisted_rock_bricks_stairs_stonecutting"));
-        stonecutting(Ingredient.of(ItemRegistry.SMALL_TWISTED_ROCK_BRICKS.get()),RecipeCategory.MISC,  ItemRegistry.SMALL_TWISTED_ROCK_BRICKS_WALL.get()).unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer, malumPath("small_twisted_rock_bricks_wall_stonecutting"));
+        stonecutting(Ingredient.of(ItemRegistry.SMALL_TWISTED_ROCK_BRICKS.get()), RecipeCategory.MISC, ItemRegistry.SMALL_TWISTED_ROCK_BRICKS_WALL.get()).unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer, malumPath("small_twisted_rock_bricks_wall_stonecutting"));
 
-        smelting(Ingredient.of(ItemRegistry.SMALL_TWISTED_ROCK_BRICKS.get()),RecipeCategory.MISC,  ItemRegistry.RUNIC_SMALL_TWISTED_ROCK_BRICKS.get(), 0.1f, 200).unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer, malumPath("cracked_small_twisted_rock_bricks_smelting"));
+        smelting(Ingredient.of(ItemRegistry.SMALL_TWISTED_ROCK_BRICKS.get()), RecipeCategory.MISC, ItemRegistry.RUNIC_SMALL_TWISTED_ROCK_BRICKS.get(), 0.1f, 200).unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer, malumPath("cracked_small_twisted_rock_bricks_smelting"));
         shaped(RecipeCategory.MISC, ItemRegistry.RUNIC_SMALL_TWISTED_ROCK_BRICKS_SLAB.get(), 6).define('#', ItemRegistry.RUNIC_SMALL_TWISTED_ROCK_BRICKS.get()).pattern("###").unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer);
         shaped(RecipeCategory.MISC, ItemRegistry.RUNIC_SMALL_TWISTED_ROCK_BRICKS_STAIRS.get(), 4).define('#', ItemRegistry.RUNIC_SMALL_TWISTED_ROCK_BRICKS.get()).pattern("#  ").pattern("## ").pattern("###").unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer);
         shaped(RecipeCategory.MISC, ItemRegistry.RUNIC_SMALL_TWISTED_ROCK_BRICKS_WALL.get(), 6).define('#', ItemRegistry.RUNIC_SMALL_TWISTED_ROCK_BRICKS.get()).pattern("###").pattern("###").unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer);
         stonecutting(Ingredient.of(ItemRegistry.TWISTED_ROCK_BRICKS.get()), RecipeCategory.MISC, ItemRegistry.RUNIC_SMALL_TWISTED_ROCK_BRICKS.get()).unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer, malumPath("cracked_small_twisted_rock_bricks_stonecutting_alt"));
 
-        stonecutting(Ingredient.of(ItemRegistry.RUNIC_SMALL_TWISTED_ROCK_BRICKS.get()),RecipeCategory.MISC,  ItemRegistry.RUNIC_SMALL_TWISTED_ROCK_BRICKS_SLAB.get(), 2).unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer, malumPath("cracked_small_twisted_rock_bricks_slab_stonecutting"));
-        stonecutting(Ingredient.of(ItemRegistry.RUNIC_SMALL_TWISTED_ROCK_BRICKS.get()),RecipeCategory.MISC,  ItemRegistry.RUNIC_SMALL_TWISTED_ROCK_BRICKS_STAIRS.get()).unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer, malumPath("cracked_small_twisted_rock_bricks_stairs_stonecutting"));
-        stonecutting(Ingredient.of(ItemRegistry.RUNIC_SMALL_TWISTED_ROCK_BRICKS.get()),RecipeCategory.MISC,  ItemRegistry.RUNIC_SMALL_TWISTED_ROCK_BRICKS_WALL.get()).unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer, malumPath("cracked_small_twisted_rock_bricks_wall_stonecutting"));
+        stonecutting(Ingredient.of(ItemRegistry.RUNIC_SMALL_TWISTED_ROCK_BRICKS.get()), RecipeCategory.MISC, ItemRegistry.RUNIC_SMALL_TWISTED_ROCK_BRICKS_SLAB.get(), 2).unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer, malumPath("cracked_small_twisted_rock_bricks_slab_stonecutting"));
+        stonecutting(Ingredient.of(ItemRegistry.RUNIC_SMALL_TWISTED_ROCK_BRICKS.get()), RecipeCategory.MISC, ItemRegistry.RUNIC_SMALL_TWISTED_ROCK_BRICKS_STAIRS.get()).unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer, malumPath("cracked_small_twisted_rock_bricks_stairs_stonecutting"));
+        stonecutting(Ingredient.of(ItemRegistry.RUNIC_SMALL_TWISTED_ROCK_BRICKS.get()), RecipeCategory.MISC, ItemRegistry.RUNIC_SMALL_TWISTED_ROCK_BRICKS_WALL.get()).unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer, malumPath("cracked_small_twisted_rock_bricks_wall_stonecutting"));
 
         shaped(RecipeCategory.MISC, ItemRegistry.CHISELED_TWISTED_ROCK.get()).define('#', ItemRegistry.TWISTED_ROCK_SLAB.get()).pattern("#").pattern("#").unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer);
         shaped(RecipeCategory.MISC, ItemRegistry.TWISTED_ROCK_COLUMN.get(), 2).define('#', ItemRegistry.TWISTED_ROCK_BRICKS.get()).pattern("#").pattern("#").unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer);
@@ -449,17 +458,17 @@ public class MalumRecipes extends RecipeProvider implements IConditionBuilder {
         shapeless(RecipeCategory.MISC, ItemRegistry.TWISTED_ROCK_COLUMN.get()).requires(ItemRegistry.TWISTED_ROCK_COLUMN_CAP.get()).unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer, malumPath("twisted_rock_column_from_cap"));
 
         shaped(RecipeCategory.MISC, ItemRegistry.CUT_TWISTED_ROCK.get(), 4).define('#', ItemRegistry.SMOOTH_TWISTED_ROCK.get()).pattern("##").pattern("##").unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer);
-        stonecutting(Ingredient.of(ItemRegistry.TWISTED_ROCK.get()),RecipeCategory.MISC,  ItemRegistry.CUT_TWISTED_ROCK.get()).unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer, malumPath("cut_twisted_rock_stonecutting"));
-        stonecutting(Ingredient.of(ItemRegistry.TWISTED_ROCK.get()),RecipeCategory.MISC,  ItemRegistry.TWISTED_ROCK_COLUMN.get()).unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer, malumPath("twisted_rock_column_stonecutting"));
-        stonecutting(Ingredient.of(ItemRegistry.TWISTED_ROCK.get()),RecipeCategory.MISC,  ItemRegistry.TWISTED_ROCK_COLUMN_CAP.get()).unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer, malumPath("twisted_rock_column_cap_stonecutting"));
-        stonecutting(Ingredient.of(ItemRegistry.TWISTED_ROCK.get()),RecipeCategory.MISC,  ItemRegistry.TWISTED_ROCK_BRICKS.get()).unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer, malumPath("twisted_rock_bricks_stonecutting"));
-        stonecutting(Ingredient.of(ItemRegistry.TWISTED_ROCK.get()),RecipeCategory.MISC,  ItemRegistry.SMOOTH_TWISTED_ROCK.get()).unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer, malumPath("smooth_twisted_rock_stonecutting"));
-        stonecutting(Ingredient.of(ItemRegistry.TWISTED_ROCK.get()),RecipeCategory.MISC,  ItemRegistry.POLISHED_TWISTED_ROCK.get()).unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer, malumPath("polished_twisted_rock_stonecutting"));
+        stonecutting(Ingredient.of(ItemRegistry.TWISTED_ROCK.get()), RecipeCategory.MISC, ItemRegistry.CUT_TWISTED_ROCK.get()).unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer, malumPath("cut_twisted_rock_stonecutting"));
+        stonecutting(Ingredient.of(ItemRegistry.TWISTED_ROCK.get()), RecipeCategory.MISC, ItemRegistry.TWISTED_ROCK_COLUMN.get()).unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer, malumPath("twisted_rock_column_stonecutting"));
+        stonecutting(Ingredient.of(ItemRegistry.TWISTED_ROCK.get()), RecipeCategory.MISC, ItemRegistry.TWISTED_ROCK_COLUMN_CAP.get()).unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer, malumPath("twisted_rock_column_cap_stonecutting"));
+        stonecutting(Ingredient.of(ItemRegistry.TWISTED_ROCK.get()), RecipeCategory.MISC, ItemRegistry.TWISTED_ROCK_BRICKS.get()).unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer, malumPath("twisted_rock_bricks_stonecutting"));
+        stonecutting(Ingredient.of(ItemRegistry.TWISTED_ROCK.get()), RecipeCategory.MISC, ItemRegistry.SMOOTH_TWISTED_ROCK.get()).unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer, malumPath("smooth_twisted_rock_stonecutting"));
+        stonecutting(Ingredient.of(ItemRegistry.TWISTED_ROCK.get()), RecipeCategory.MISC, ItemRegistry.POLISHED_TWISTED_ROCK.get()).unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer, malumPath("polished_twisted_rock_stonecutting"));
         stonecutting(Ingredient.of(ItemRegistry.TWISTED_ROCK.get()), RecipeCategory.MISC, ItemRegistry.CHISELED_TWISTED_ROCK.get()).unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer, malumPath("chiseled_twisted_rock_bricks_stonecutting"));
-        stonecutting(Ingredient.of(ItemRegistry.TWISTED_ROCK_BRICKS.get()),RecipeCategory.MISC,  ItemRegistry.CHISELED_TWISTED_ROCK.get()).unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer, malumPath("chiseled_twisted_rock_bricks_stonecutting_alt"));
+        stonecutting(Ingredient.of(ItemRegistry.TWISTED_ROCK_BRICKS.get()), RecipeCategory.MISC, ItemRegistry.CHISELED_TWISTED_ROCK.get()).unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer, malumPath("chiseled_twisted_rock_bricks_stonecutting_alt"));
 
         stonecutting(Ingredient.of(ItemRegistry.TWISTED_ROCK_BRICKS.get()), RecipeCategory.MISC, ItemRegistry.SMALL_TWISTED_ROCK_BRICKS.get()).unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer, malumPath("small_twisted_rock_bricks_stonecutting_from_bricks"));
-        stonecutting(Ingredient.of(ItemRegistry.TWISTED_ROCK_TILES.get()),RecipeCategory.MISC,  ItemRegistry.SMALL_TWISTED_ROCK_BRICKS.get()).unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer, malumPath("small_twisted_rock_bricks_stonecutting_from_tiles"));
+        stonecutting(Ingredient.of(ItemRegistry.TWISTED_ROCK_TILES.get()), RecipeCategory.MISC, ItemRegistry.SMALL_TWISTED_ROCK_BRICKS.get()).unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer, malumPath("small_twisted_rock_bricks_stonecutting_from_tiles"));
 
         shaped(RecipeCategory.MISC, ItemRegistry.TWISTED_ROCK_ITEM_STAND.get(), 2).define('X', ItemRegistry.TWISTED_ROCK.get()).define('Y', ItemRegistry.TWISTED_ROCK_SLAB.get()).pattern("YYY").pattern("XXX").unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer);
         shaped(RecipeCategory.MISC, ItemRegistry.TWISTED_ROCK_ITEM_PEDESTAL.get()).define('X', ItemRegistry.TWISTED_ROCK.get()).define('Y', ItemRegistry.TWISTED_ROCK_SLAB.get()).pattern("YYY").pattern(" X ").pattern("YYY").unlockedBy("has_twisted_rock", has(ItemRegistry.TWISTED_ROCK.get())).save(consumer);
@@ -581,7 +590,6 @@ public class MalumRecipes extends RecipeProvider implements IConditionBuilder {
         String s = ForgeRegistries.ITEMS.getKey(input.asItem()).getPath();
         shaped(RecipeCategory.MISC, sign, 3).group("sign").define('#', input).define('X', Tags.Items.RODS_WOODEN).pattern("###").pattern("###").pattern(" X ").unlockedBy("has_" + s, has(input)).save(recipeConsumer);
     }
-
 
 
     protected static EnterBlockTrigger.TriggerInstance insideOf(Block pBlock) {

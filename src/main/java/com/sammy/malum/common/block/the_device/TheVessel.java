@@ -1,9 +1,9 @@
 package com.sammy.malum.common.block.the_device;
 
-import com.sammy.malum.registry.common.*;
-import net.minecraft.core.*;
-import net.minecraft.sounds.*;
-import net.minecraft.world.level.*;
+import com.sammy.malum.registry.common.SoundRegistry;
+import net.minecraft.core.BlockPos;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.level.Level;
 
 public class TheVessel extends TheDevice {
     public TheVessel(Properties p_49795_) {

@@ -1,14 +1,14 @@
 package com.sammy.malum.common.spiritrite;
 
 import com.sammy.malum.common.block.curiosities.totem.TotemBaseBlockEntity;
-import com.sammy.malum.common.packets.particle.curiosities.rite.generic.BlockSparkleParticlePacket;
 import com.sammy.malum.common.packets.particle.curiosities.rite.InfernalExtinguishRiteEffectPacket;
+import com.sammy.malum.common.packets.particle.curiosities.rite.generic.BlockSparkleParticlePacket;
 import com.sammy.malum.common.packets.particle.curiosities.rite.generic.MajorEntityEffectParticlePacket;
-import com.sammy.malum.registry.common.block.BlockTagRegistry;
-import com.sammy.malum.registry.common.MobEffectRegistry;
 import com.sammy.malum.core.systems.rites.AuraRiteEffect;
 import com.sammy.malum.core.systems.rites.MalumRiteEffect;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
+import com.sammy.malum.registry.common.MobEffectRegistry;
+import com.sammy.malum.registry.common.block.BlockTagRegistry;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -19,9 +19,9 @@ import net.minecraft.world.level.block.BaseFireBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.network.PacketDistributor;
 
+import static com.sammy.malum.registry.common.PacketRegistry.MALUM_CHANNEL;
 import static com.sammy.malum.registry.common.SpiritTypeRegistry.ARCANE_SPIRIT;
 import static com.sammy.malum.registry.common.SpiritTypeRegistry.INFERNAL_SPIRIT;
-import static com.sammy.malum.registry.common.PacketRegistry.MALUM_CHANNEL;
 
 public class InfernalRiteType extends MalumRiteType {
     public InfernalRiteType() {

@@ -1,47 +1,49 @@
 package com.sammy.malum;
 
-import com.sammy.malum.compability.create.*;
-import com.sammy.malum.compability.farmersdelight.*;
-import com.sammy.malum.compability.tetra.*;
-import com.sammy.malum.config.*;
-import com.sammy.malum.data.*;
-import com.sammy.malum.data.block.*;
-import com.sammy.malum.data.item.*;
+import com.sammy.malum.compability.create.CreateCompat;
+import com.sammy.malum.compability.farmersdelight.FarmersDelightCompat;
+import com.sammy.malum.config.ClientConfig;
+import com.sammy.malum.config.CommonConfig;
+import com.sammy.malum.data.MalumLang;
+import com.sammy.malum.data.MalumRecipes;
+import com.sammy.malum.data.MalumWorldgenProvider;
+import com.sammy.malum.data.block.MalumBlockLootTables;
+import com.sammy.malum.data.block.MalumBlockStates;
+import com.sammy.malum.data.block.MalumBlockTags;
+import com.sammy.malum.data.item.MalumItemModels;
+import com.sammy.malum.data.item.MalumItemTags;
 import com.sammy.malum.data.recipe.*;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.data.*;
-import net.minecraft.data.tags.*;
-import net.minecraft.resources.*;
+import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.item.*;
 import net.minecraftforge.common.data.BlockTagsProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.data.event.GatherDataEvent;
-import net.minecraftforge.eventbus.api.*;
-import net.minecraftforge.fml.*;
-import net.minecraftforge.fml.common.*;
-import net.minecraftforge.fml.config.*;
-import net.minecraftforge.fml.javafmlmod.*;
-import org.apache.logging.log4j.*;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.ModLoadingContext;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-import java.util.*;
 import java.util.concurrent.CompletableFuture;
-import java.util.function.*;
 
-import static com.sammy.malum.registry.client.ParticleRegistry.*;
-import static com.sammy.malum.registry.common.AttributeRegistry.*;
-import static com.sammy.malum.registry.common.ContainerRegistry.*;
-import static com.sammy.malum.registry.common.MobEffectRegistry.*;
-import static com.sammy.malum.registry.common.SoundRegistry.*;
-import static com.sammy.malum.registry.common.block.BlockEntityRegistry.*;
-import static com.sammy.malum.registry.common.block.BlockRegistry.*;
-import static com.sammy.malum.registry.common.entity.EntityRegistry.*;
-import static com.sammy.malum.registry.common.item.EnchantmentRegistry.*;
-import static com.sammy.malum.registry.common.item.ItemRegistry.*;
-import static com.sammy.malum.registry.common.recipe.RecipeSerializerRegistry.*;
-import static com.sammy.malum.registry.common.recipe.RecipeTypeRegistry.*;
-import static com.sammy.malum.registry.common.worldgen.FeatureRegistry.*;
+import static com.sammy.malum.registry.client.ParticleRegistry.PARTICLES;
+import static com.sammy.malum.registry.common.AttributeRegistry.ATTRIBUTES;
+import static com.sammy.malum.registry.common.ContainerRegistry.CONTAINERS;
+import static com.sammy.malum.registry.common.MobEffectRegistry.EFFECTS;
+import static com.sammy.malum.registry.common.SoundRegistry.SOUNDS;
+import static com.sammy.malum.registry.common.block.BlockEntityRegistry.BLOCK_ENTITY_TYPES;
+import static com.sammy.malum.registry.common.block.BlockRegistry.BLOCKS;
+import static com.sammy.malum.registry.common.entity.EntityRegistry.ENTITY_TYPES;
+import static com.sammy.malum.registry.common.item.EnchantmentRegistry.ENCHANTMENTS;
+import static com.sammy.malum.registry.common.item.ItemRegistry.ITEMS;
+import static com.sammy.malum.registry.common.recipe.RecipeSerializerRegistry.RECIPE_SERIALIZERS;
+import static com.sammy.malum.registry.common.recipe.RecipeTypeRegistry.RECIPE_TYPES;
+import static com.sammy.malum.registry.common.worldgen.FeatureRegistry.FEATURE_TYPES;
 
 @SuppressWarnings("unused")
 @Mod(MalumMod.MALUM)
@@ -81,7 +83,6 @@ public class MalumMod {
         return new ResourceLocation(MALUM, path);
     }
 
-
     public static class DataOnly {
         public static void gatherData(GatherDataEvent event) {
             DataGenerator generator = event.getGenerator();
@@ -99,10 +100,9 @@ public class MalumMod {
             MalumVanillaRecipeReplacements vanillaRecipeReplacementsProvider = new MalumVanillaRecipeReplacements(output);
             MalumSpiritInfusionRecipes spiritInfusionRecipesProvider = new MalumSpiritInfusionRecipes(output);
             MalumSpiritFocusingRecipes spiritFocusingRecipesProvider = new MalumSpiritFocusingRecipes(output);
-            MalumSpiritTransmutationRecipes spiritTransmutationRecipesProvider =new MalumSpiritTransmutationRecipes(output);
+            MalumSpiritTransmutationRecipes spiritTransmutationRecipesProvider = new MalumSpiritTransmutationRecipes(output);
             MalumVoidFavorRecipes voidFavorRecipesProvider = new MalumVoidFavorRecipes(output);
-
-
+            MalumWorldgenProvider worldgenProvider = new MalumWorldgenProvider(output, provider);
 
             generator.addProvider(event.includeClient(), blockStateProvider);
             generator.addProvider(event.includeClient(), itemModelsProvider);
@@ -112,13 +112,14 @@ public class MalumMod {
             generator.addProvider(event.includeServer(), lootTablesProvider);
             generator.addProvider(event.includeServer(), itemTagsProvider);
 
-
             generator.addProvider(event.includeServer(), recipeProvider);
             generator.addProvider(event.includeServer(), vanillaRecipeReplacementsProvider);
             generator.addProvider(event.includeServer(), spiritInfusionRecipesProvider);
             generator.addProvider(event.includeServer(), spiritFocusingRecipesProvider);
             generator.addProvider(event.includeServer(), spiritTransmutationRecipesProvider);
             generator.addProvider(event.includeServer(), voidFavorRecipesProvider);
+
+            generator.addProvider(event.includeServer(), worldgenProvider);
         }
     }
 }

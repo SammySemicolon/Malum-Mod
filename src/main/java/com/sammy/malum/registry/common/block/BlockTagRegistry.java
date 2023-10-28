@@ -1,8 +1,6 @@
 package com.sammy.malum.registry.common.block;
 
 import com.sammy.malum.MalumMod;
-import net.minecraft.core.Registry;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;

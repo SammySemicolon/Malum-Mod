@@ -1,7 +1,7 @@
 package com.sammy.malum.common.item.curiosities.weapons.unique;
 
-import com.sammy.malum.common.item.curiosities.weapons.*;
-import net.minecraft.world.item.*;
+import com.sammy.malum.common.item.curiosities.weapons.MagicScytheItem;
+import net.minecraft.world.item.Tier;
 
 public class MephiticEdgeScytheItem extends MagicScytheItem {
     public MephiticEdgeScytheItem(Tier tier, float attackDamageIn, float attackSpeedIn, float magicDamage, Properties builderIn) {

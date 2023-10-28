@@ -55,6 +55,7 @@ public class SpiritCatalyzerComponentBlock extends MultiblockComponentBlock {
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(HORIZONTAL_FACING);
     }
+
     @Override
     public ItemStack getCloneItemStack(BlockState state, HitResult target, BlockGetter world, BlockPos pos, Player player) {
         return cloneStack.get().getDefaultInstance();
@@ -86,7 +87,8 @@ public class SpiritCatalyzerComponentBlock extends MultiblockComponentBlock {
 
         return shape;
     }
-    public static VoxelShape makeWestEastShape(){
+
+    public static VoxelShape makeWestEastShape() {
         VoxelShape shape = Shapes.empty();
         shape = Shapes.join(shape, Shapes.box(0.3125, 0, 0.75, 0.6875, 0.3125, 0.9375), BooleanOp.OR);
         shape = Shapes.join(shape, Shapes.box(0.1875, 0, 0.25, 0.3125, 0.4375, 0.75), BooleanOp.OR);

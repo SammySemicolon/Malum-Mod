@@ -1,7 +1,7 @@
 package com.sammy.malum.common.block.curiosities.tablet;
 
 import com.sammy.malum.common.block.storage.stand.ItemStandBlockEntity;
-import com.sammy.malum.common.item.spirit.*;
+import com.sammy.malum.common.item.spirit.SpiritShardItem;
 import com.sammy.malum.registry.common.block.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -19,7 +19,7 @@ public class TwistedTabletBlockEntity extends ItemStandBlockEntity {
         Direction direction = getBlockState().getValue(BlockStateProperties.FACING);
         float gameTime = level().getGameTime() + partialTicks;
         float xOffset = direction.getStepX() * 0.25f;
-        float yOffset = direction.getStepY() * 0.4f + (inventory.getStackInSlot(0).getItem() instanceof SpiritShardItem ? (float)Math.sin((gameTime % 360) / 20f) * 0.05f : 0);
+        float yOffset = direction.getStepY() * 0.4f + (inventory.getStackInSlot(0).getItem() instanceof SpiritShardItem ? (float) Math.sin((gameTime % 360) / 20f) * 0.05f : 0);
         float zOffset = direction.getStepY() * 0.25f;
         return new Vec3(0.5f - xOffset, 0.5f - yOffset, 0.5f - zOffset);
     }

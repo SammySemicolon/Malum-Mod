@@ -1,11 +1,6 @@
 package com.sammy.malum.registry.common.block;
 
-import com.sammy.malum.MalumMod;
 import net.minecraft.world.level.block.state.properties.WoodType;
-import net.minecraftforge.fml.common.Mod;
-
-import java.util.ArrayList;
-import java.util.List;
 
 //@Mod.EventBusSubscriber(modid= MalumMod.MALUM, bus= Mod.EventBusSubscriber.Bus.MOD)
 public class WoodTypeRegistry {

@@ -1,11 +1,5 @@
 package com.sammy.malum.core.handlers;
 
-import com.sammy.malum.MalumMod;
-import com.sammy.malum.registry.common.block.BlockRegistry;
-import com.sammy.malum.registry.common.item.ItemRegistry;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.Block;
-
 public class MissingMappingHandler {
 /*TODO this shit ass
     public static void correctMissingItemMappings(RegistryEvent.MissingMappings<Item> event) {

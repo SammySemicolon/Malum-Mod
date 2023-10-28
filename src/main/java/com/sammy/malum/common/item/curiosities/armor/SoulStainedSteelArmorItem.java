@@ -1,25 +1,28 @@
 package com.sammy.malum.common.item.curiosities.armor;
 
-import com.google.common.collect.*;
-import com.sammy.malum.client.cosmetic.*;
-import com.sammy.malum.common.item.cosmetic.skins.*;
-import com.sammy.malum.registry.client.*;
-import com.sammy.malum.registry.common.*;
-import net.minecraft.client.*;
-import net.minecraft.client.model.*;
-import net.minecraft.util.*;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.attributes.*;
-import net.minecraft.world.item.*;
-import net.minecraftforge.api.distmarker.*;
-import net.minecraftforge.client.*;
+import com.google.common.collect.ImmutableMultimap;
+import com.sammy.malum.client.cosmetic.ArmorSkinRenderingData;
+import com.sammy.malum.common.item.cosmetic.skins.ArmorSkin;
+import com.sammy.malum.registry.client.ModelRegistry;
+import com.sammy.malum.registry.common.AttributeRegistry;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.util.Mth;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
-import team.lodestar.lodestone.systems.model.*;
+import team.lodestar.lodestone.systems.model.LodestoneArmorModel;
 
-import java.util.*;
-import java.util.function.*;
+import java.util.UUID;
+import java.util.function.Consumer;
 
-import static com.sammy.malum.registry.common.item.ArmorTiers.ArmorTierEnum.*;
+import static com.sammy.malum.registry.common.item.ArmorTiers.ArmorTierEnum.SOUL_STAINED_STEEL;
 
 public class SoulStainedSteelArmorItem extends MalumArmorItem {
     public SoulStainedSteelArmorItem(ArmorItem.Type slot, Properties builder) {

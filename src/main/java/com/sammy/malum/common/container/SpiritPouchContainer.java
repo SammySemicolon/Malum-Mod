@@ -1,7 +1,7 @@
 package com.sammy.malum.common.container;
 
-import com.sammy.malum.common.item.spirit.SpiritShardItem;
 import com.sammy.malum.common.item.curiosities.SpiritPouchItem;
+import com.sammy.malum.common.item.spirit.SpiritShardItem;
 import com.sammy.malum.registry.common.ContainerRegistry;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;

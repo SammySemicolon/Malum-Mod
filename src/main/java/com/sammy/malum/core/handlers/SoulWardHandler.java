@@ -30,12 +30,12 @@ import team.lodestar.lodestone.handlers.screenparticle.ScreenParticleHandler;
 import team.lodestar.lodestone.helpers.ItemHelper;
 import team.lodestar.lodestone.setup.LodestoneScreenParticleRegistry;
 import team.lodestar.lodestone.setup.LodestoneShaderRegistry;
-import team.lodestar.lodestone.systems.particle.builder.*;
-import team.lodestar.lodestone.systems.particle.data.color.ColorParticleData;
+import team.lodestar.lodestone.systems.particle.builder.ScreenParticleBuilder;
 import team.lodestar.lodestone.systems.particle.data.GenericParticleData;
+import team.lodestar.lodestone.systems.particle.data.color.ColorParticleData;
 import team.lodestar.lodestone.systems.particle.data.spin.SpinParticleData;
 import team.lodestar.lodestone.systems.rendering.VFXBuilders;
-import team.lodestar.lodestone.systems.rendering.shader.*;
+import team.lodestar.lodestone.systems.rendering.shader.ExtendedShaderInstance;
 
 
 public class SoulWardHandler {
@@ -48,6 +48,7 @@ public class SoulWardHandler {
         tag.putFloat("soulWardProgress", soulWardProgress);
         return tag;
     }
+
     public void deserializeNBT(CompoundTag tag) {
         soulWard = tag.getFloat("soulWard");
         soulWardProgress = tag.getFloat("soulWardProgress");
@@ -206,6 +207,7 @@ public class SoulWardHandler {
                 }
             }
         }
+
         public static ResourceLocation getSoulWardTexture() {
             return MalumMod.malumPath("textures/gui/soul_ward/default.png");
         }

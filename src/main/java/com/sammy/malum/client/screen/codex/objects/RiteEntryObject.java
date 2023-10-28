@@ -1,7 +1,8 @@
 package com.sammy.malum.client.screen.codex.objects;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.sammy.malum.client.screen.codex.*;
+import com.sammy.malum.client.screen.codex.AbstractProgressionCodexScreen;
+import com.sammy.malum.client.screen.codex.BookEntry;
+import com.sammy.malum.client.screen.codex.EntryScreen;
 import com.sammy.malum.client.screen.codex.pages.SpiritRiteTextPage;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
 import net.minecraft.client.Minecraft;
@@ -10,10 +11,12 @@ import net.minecraft.client.gui.GuiGraphics;
 import java.util.Optional;
 
 import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.*;
-import static com.sammy.malum.client.screen.codex.ArcanaProgressionScreen.*;
+import static com.sammy.malum.client.screen.codex.ArcanaProgressionScreen.FADE_TEXTURE;
+import static com.sammy.malum.client.screen.codex.ArcanaProgressionScreen.FRAME_TEXTURE;
 
 public class RiteEntryObject extends EntryObject {
     public final MalumRiteType riteType;
+
     public RiteEntryObject(AbstractProgressionCodexScreen screen, BookEntry entry, int posX, int posY) {
         super(screen, entry.setDark(), posX, posY);
         Optional<SpiritRiteTextPage> page = entry.pages.stream().filter(p -> p instanceof SpiritRiteTextPage).map(p -> ((SpiritRiteTextPage) p)).findAny();

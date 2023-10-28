@@ -2,10 +2,10 @@ package com.sammy.malum.common.item.curiosities.weapons.unique;
 
 import com.sammy.malum.common.packets.particle.curiosities.rite.generic.MajorEntityEffectParticlePacket;
 import com.sammy.malum.core.helper.SpiritHelper;
+import com.sammy.malum.core.systems.item.IMalumEventResponderItem;
 import com.sammy.malum.registry.common.DamageSourceRegistry;
 import com.sammy.malum.registry.common.SoundRegistry;
 import com.sammy.malum.registry.common.SpiritTypeRegistry;
-import com.sammy.malum.core.systems.item.IMalumEventResponderItem;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageTypes;
@@ -33,7 +33,7 @@ public class TyrvingItem extends LodestoneSwordItem implements IMalumEventRespon
         if (attacker.level() instanceof ServerLevel) {
             float spiritCount = SpiritHelper.getEntitySpiritCount(target) * 2f;
             if (target instanceof Player) {
-                spiritCount = 4 * Math.max(1, (1 + target.getArmorValue() / 12f) * (1 + (1 - 1 / (float)target.getArmorValue())) / 12f);
+                spiritCount = 4 * Math.max(1, (1 + target.getArmorValue() / 12f) * (1 + (1 - 1 / (float) target.getArmorValue())) / 12f);
             }
 
             if (target.isAlive()) {

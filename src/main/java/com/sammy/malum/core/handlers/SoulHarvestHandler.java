@@ -212,7 +212,7 @@ public class SoulHarvestHandler {
                 VFXBuilders.createWorld().setPosColorTexLightmapDefaultFormat()
                         .setColor(color.brighter())
                         .setAlpha(intensity * 0.6f)
-                        .renderQuad(soulNoise, poseStack, intensity*0.4f);
+                        .renderQuad(soulNoise, poseStack, intensity * 0.4f);
                 poseStack.popPose();
             }
         }

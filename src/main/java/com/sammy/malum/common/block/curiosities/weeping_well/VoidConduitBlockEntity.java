@@ -1,38 +1,40 @@
 package com.sammy.malum.common.block.curiosities.weeping_well;
 
-import com.sammy.malum.common.recipe.*;
-import com.sammy.malum.registry.common.*;
-import com.sammy.malum.registry.common.block.*;
-import com.sammy.malum.registry.common.item.*;
-import com.sammy.malum.visual_effects.networked.data.*;
-import net.minecraft.core.*;
-import net.minecraft.nbt.*;
-import net.minecraft.server.level.*;
-import net.minecraft.sounds.*;
-import net.minecraft.util.*;
-import net.minecraft.world.entity.item.*;
-import net.minecraft.world.item.*;
-import net.minecraft.world.level.*;
-import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.state.*;
-import net.minecraft.world.phys.*;
-import net.minecraft.world.phys.shapes.*;
-import team.lodestar.lodestone.helpers.*;
-import team.lodestar.lodestone.setup.*;
-import team.lodestar.lodestone.systems.blockentity.*;
-import team.lodestar.lodestone.systems.easing.*;
-import team.lodestar.lodestone.systems.particle.*;
-import team.lodestar.lodestone.systems.particle.builder.*;
-import team.lodestar.lodestone.systems.particle.data.*;
-import team.lodestar.lodestone.systems.particle.data.color.*;
-import team.lodestar.lodestone.systems.particle.data.spin.*;
-import team.lodestar.lodestone.systems.particle.render_types.*;
-import team.lodestar.lodestone.systems.particle.world.*;
+import com.sammy.malum.common.recipe.FavorOfTheVoidRecipe;
+import com.sammy.malum.registry.common.ParticleEffectTypeRegistry;
+import com.sammy.malum.registry.common.SoundRegistry;
+import com.sammy.malum.registry.common.block.BlockEntityRegistry;
+import com.sammy.malum.registry.common.item.ItemRegistry;
+import com.sammy.malum.visual_effects.networked.data.PositionEffectData;
+import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.Mth;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.shapes.VoxelShape;
+import team.lodestar.lodestone.helpers.BlockHelper;
+import team.lodestar.lodestone.setup.LodestoneParticleRegistry;
+import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntity;
+import team.lodestar.lodestone.systems.easing.Easing;
+import team.lodestar.lodestone.systems.particle.SimpleParticleOptions;
+import team.lodestar.lodestone.systems.particle.builder.WorldParticleBuilder;
+import team.lodestar.lodestone.systems.particle.data.GenericParticleData;
+import team.lodestar.lodestone.systems.particle.data.color.ColorParticleData;
+import team.lodestar.lodestone.systems.particle.data.spin.SpinParticleData;
+import team.lodestar.lodestone.systems.particle.render_types.LodestoneWorldParticleRenderType;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
-import java.util.*;
-import java.util.stream.*;
+import java.util.stream.Collectors;
 
 public class VoidConduitBlockEntity extends LodestoneBlockEntity {
 
@@ -41,6 +43,7 @@ public class VoidConduitBlockEntity extends LodestoneBlockEntity {
     public int streak;
 
     protected static final VoxelShape WELL_SHAPE = Block.box(-16.0D, 11.0D, -16.0D, 32.0D, 13.0D, 32.0D);
+
     public VoidConduitBlockEntity(BlockPos pos, BlockState state) {
         super(BlockEntityRegistry.VOID_CONDUIT.get(), pos, state);
     }
@@ -53,7 +56,7 @@ public class VoidConduitBlockEntity extends LodestoneBlockEntity {
                 CompoundTag itemTag = new CompoundTag();
                 ItemStack stack = eatenItems.get(i);
                 stack.save(itemTag);
-                compound.put("item_"+i, itemTag);
+                compound.put("item_" + i, itemTag);
             }
         }
         compound.putInt("progress", progress);
@@ -65,7 +68,7 @@ public class VoidConduitBlockEntity extends LodestoneBlockEntity {
     public void load(CompoundTag compound) {
         eatenItems.clear();
         for (int i = 0; i < compound.getInt("itemCount"); i++) {
-            CompoundTag itemTag = compound.getCompound("item_"+i);
+            CompoundTag itemTag = compound.getCompound("item_" + i);
             eatenItems.add(ItemStack.of(itemTag));
         }
         progress = compound.getInt("progress");
@@ -85,14 +88,14 @@ public class VoidConduitBlockEntity extends LodestoneBlockEntity {
             }
             if (serverLevel.getGameTime() % 40L == 0) {
                 List<ItemEntity> items = serverLevel.getEntitiesOfClass(
-                        ItemEntity.class,
-                        new AABB(worldPosition.offset(1, -3, 1), worldPosition.offset(-1, -1, -1)).inflate(1))
+                                ItemEntity.class,
+                                new AABB(worldPosition.offset(1, -3, 1), worldPosition.offset(-1, -1, -1)).inflate(1))
                         .stream().sorted(Comparator.comparingInt(itemEntity -> itemEntity.age)).collect(Collectors.toList());
 
                 for (ItemEntity entity : items) {
                     ItemStack item = entity.getItem();
                     if (item.getItem().equals(ItemRegistry.BLIGHTED_GUNK.get())) {
-                        progress+=20;
+                        progress += 20;
                     }
                     eatenItems.add(item);
                     entity.discard();
@@ -103,14 +106,13 @@ public class VoidConduitBlockEntity extends LodestoneBlockEntity {
                 progress++;
                 if (progress >= 80) {
                     int resultingProgress = 65;
-                    ItemStack stack = eatenItems.get(eatenItems.size()-1);
+                    ItemStack stack = eatenItems.get(eatenItems.size() - 1);
                     if (stack.getItem().equals(ItemRegistry.BLIGHTED_GUNK.get())) {
-                        resultingProgress = 72+streak/4;
+                        resultingProgress = 72 + streak / 4;
                         streak++;
-                        level().playSound(null, worldPosition, SoundRegistry.HUNGRY_BELT_FEEDS.get(), SoundSource.PLAYERS, 0.7f, 0.6f + level().random.nextFloat() * 0.3f+streak*0.05f);
-                        level().playSound(null, worldPosition, SoundEvents.GENERIC_EAT, SoundSource.PLAYERS, 0.7f, 0.6f + level().random.nextFloat() * 0.2f+streak*0.05f);
-                    }
-                    else {
+                        level().playSound(null, worldPosition, SoundRegistry.HUNGRY_BELT_FEEDS.get(), SoundSource.PLAYERS, 0.7f, 0.6f + level().random.nextFloat() * 0.3f + streak * 0.05f);
+                        level().playSound(null, worldPosition, SoundEvents.GENERIC_EAT, SoundSource.PLAYERS, 0.7f, 0.6f + level().random.nextFloat() * 0.2f + streak * 0.05f);
+                    } else {
                         FavorOfTheVoidRecipe recipe = FavorOfTheVoidRecipe.getRecipe(level, stack);
                         float pitch = Mth.nextFloat(level.getRandom(), 0.85f, 1.35f) + streak * 0.1f;
                         if (recipe != null) {
@@ -134,24 +136,23 @@ public class VoidConduitBlockEntity extends LodestoneBlockEntity {
                         }
                     }
                     progress = resultingProgress;
-                    ParticleEffectTypeRegistry.WEEPING_WELL_REACTS.createPositionedEffect(level, new PositionEffectData(worldPosition.getX()+0.5f, worldPosition.getY()+0.75f, worldPosition.getZ()+0.5f));
-                    eatenItems.remove(eatenItems.size()-1);
+                    ParticleEffectTypeRegistry.WEEPING_WELL_REACTS.createPositionedEffect(level, new PositionEffectData(worldPosition.getX() + 0.5f, worldPosition.getY() + 0.75f, worldPosition.getZ() + 0.5f));
+                    eatenItems.remove(eatenItems.size() - 1);
                     BlockHelper.updateAndNotifyState(level, worldPosition);
                 }
                 if (eatenItems.isEmpty()) {
                     progress = 0;
                 }
-            }
-            else if (streak != 0) {
+            } else if (streak != 0) {
                 streak = 0;
             }
-        }
-        else {
+        } else {
             if (level.getGameTime() % 6L == 0) {
                 ClientOnly.spawnParticles(level, worldPosition);
             }
         }
     }
+
     public static class ClientOnly {
         public static void spawnParticles(Level level, BlockPos blockPos) {
             float multiplier = Mth.nextFloat(level.random, 0.4f, 1f);

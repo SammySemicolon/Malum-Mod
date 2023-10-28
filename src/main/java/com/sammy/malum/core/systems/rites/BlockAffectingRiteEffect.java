@@ -16,6 +16,6 @@ public abstract class BlockAffectingRiteEffect extends MalumRiteEffect {
 
     @Override
     public int getRiteEffectTickRate() {
-        return BASE_TICK_RATE*5;
+        return BASE_TICK_RATE * 5;
     }
 }

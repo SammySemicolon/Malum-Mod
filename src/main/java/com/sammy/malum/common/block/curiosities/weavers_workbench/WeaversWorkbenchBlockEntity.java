@@ -1,36 +1,43 @@
 package com.sammy.malum.common.block.curiosities.weavers_workbench;
 
-import com.sammy.malum.common.container.*;
-import com.sammy.malum.common.packets.particle.curiosities.blight.*;
-import com.sammy.malum.registry.common.*;
-import com.sammy.malum.registry.common.block.*;
-import net.minecraft.core.*;
-import net.minecraft.nbt.*;
-import net.minecraft.server.level.*;
-import net.minecraft.sounds.*;
-import net.minecraft.world.*;
-import net.minecraft.world.entity.player.*;
-import net.minecraft.world.item.*;
-import net.minecraft.world.level.block.state.*;
-import net.minecraft.world.phys.*;
-import net.minecraftforge.common.capabilities.*;
-import net.minecraftforge.common.util.*;
-import net.minecraftforge.items.*;
-import net.minecraftforge.network.*;
-import org.jetbrains.annotations.*;
-import team.lodestar.lodestone.helpers.*;
-import team.lodestar.lodestone.systems.blockentity.*;
+import com.sammy.malum.common.container.WeaversWorkbenchContainer;
+import com.sammy.malum.common.packets.particle.curiosities.blight.BlightTransformItemParticlePacket;
+import com.sammy.malum.registry.common.SoundRegistry;
+import com.sammy.malum.registry.common.block.BlockEntityRegistry;
+import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.SimpleMenuProvider;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.network.NetworkHooks;
+import net.minecraftforge.network.PacketDistributor;
+import org.jetbrains.annotations.NotNull;
+import team.lodestar.lodestone.helpers.BlockHelper;
+import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntity;
 
-import java.util.*;
+import java.util.List;
 
-import static com.sammy.malum.common.item.cosmetic.skins.ArmorSkin.*;
-import static com.sammy.malum.registry.common.PacketRegistry.*;
-import static com.sammy.malum.registry.common.SpiritTypeRegistry.*;
+import static com.sammy.malum.common.item.cosmetic.skins.ArmorSkin.MALUM_SKIN_TAG;
+import static com.sammy.malum.common.item.cosmetic.skins.ArmorSkin.getApplicableItemSkinTag;
+import static com.sammy.malum.registry.common.PacketRegistry.MALUM_CHANNEL;
+import static com.sammy.malum.registry.common.SpiritTypeRegistry.ARCANE_SPIRIT;
 
 public class WeaversWorkbenchBlockEntity extends LodestoneBlockEntity {
 
-    public final WeaversWorkbenchItemHandler itemHandler = new WeaversWorkbenchItemHandler(2, 1,this);
+    public final WeaversWorkbenchItemHandler itemHandler = new WeaversWorkbenchItemHandler(2, 1, this);
     private final LazyOptional<IItemHandler> handler = LazyOptional.of(() -> itemHandler);
+
     public WeaversWorkbenchBlockEntity(BlockPos pos, BlockState state) {
         super(BlockEntityRegistry.WEAVERS_WORKBENCH.get(), pos, state);
     }
@@ -47,7 +54,7 @@ public class WeaversWorkbenchBlockEntity extends LodestoneBlockEntity {
     @NotNull
     @Override
     public <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap) {
-        if(cap == ForgeCapabilities.ITEM_HANDLER){
+        if (cap == ForgeCapabilities.ITEM_HANDLER) {
             return handler.cast();
         }
         return super.getCapability(cap);

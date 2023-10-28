@@ -1,16 +1,14 @@
 package com.sammy.malum.client.screen.codex;
 
-import com.mojang.blaze3d.vertex.*;
-import com.sammy.malum.client.screen.codex.objects.*;
-import net.minecraft.client.*;
+import com.sammy.malum.client.screen.codex.objects.BookObject;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.network.chat.*;
-import net.minecraft.resources.*;
-import org.lwjgl.opengl.*;
+import net.minecraft.network.chat.Component;
+import org.lwjgl.opengl.GL11;
 
-import java.util.*;
-
-import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 public abstract class AbstractProgressionCodexScreen extends AbstractMalumScreen {
 

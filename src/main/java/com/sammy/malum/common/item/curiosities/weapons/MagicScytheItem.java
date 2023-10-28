@@ -9,6 +9,7 @@ import team.lodestar.lodestone.registry.common.LodestoneAttributeRegistry;
 public class MagicScytheItem extends MalumScytheItem {
 
     public final float magicDamage;
+
     public MagicScytheItem(Tier tier, float attackDamageIn, float attackSpeedIn, float magicDamage, Properties builderIn) {
         super(tier, attackDamageIn, attackSpeedIn, builderIn);
         this.magicDamage = magicDamage;

@@ -1,15 +1,17 @@
 package com.sammy.malum.common.packets.particle.base.spirit;
 
-import com.sammy.malum.common.packets.particle.base.*;
-import com.sammy.malum.core.helper.*;
-import com.sammy.malum.core.systems.spirit.*;
-import net.minecraft.core.*;
-import net.minecraft.network.*;
-import net.minecraftforge.api.distmarker.*;
-import net.minecraftforge.network.*;
+import com.sammy.malum.common.packets.particle.base.BlockBasedParticleEffectPacket;
+import com.sammy.malum.core.helper.SpiritHelper;
+import com.sammy.malum.core.systems.spirit.MalumSpiritType;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.network.NetworkEvent;
 
-import java.util.*;
-import java.util.function.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Supplier;
 
 public abstract class SpiritBasedBlockParticleEffectPacket extends BlockBasedParticleEffectPacket {
     protected final List<String> spirits;
@@ -46,7 +48,7 @@ public abstract class SpiritBasedBlockParticleEffectPacket extends BlockBasedPar
         double posX = buf.readInt();
         double posY = buf.readInt();
         double posZ = buf.readInt();
-        return provider.getPacket(spirits, new BlockPos((int)posX, (int)posY, (int)posZ));
+        return provider.getPacket(spirits, new BlockPos((int) posX, (int) posY, (int) posZ));
     }
 
     public interface PacketProvider<T extends SpiritBasedBlockParticleEffectPacket> {

@@ -1,13 +1,15 @@
 package com.sammy.malum.common.item.cosmetic.skins.ancient;
 
-import com.sammy.malum.client.cosmetic.*;
-import com.sammy.malum.common.item.cosmetic.skins.*;
-import com.sammy.malum.common.item.curiosities.armor.*;
-import com.sammy.malum.registry.client.*;
-import net.minecraft.world.item.*;
-import net.minecraftforge.api.distmarker.*;
+import com.sammy.malum.client.cosmetic.ArmorSkinRenderingData;
+import com.sammy.malum.client.cosmetic.SimpleArmorSkinRenderingData;
+import com.sammy.malum.common.item.cosmetic.skins.ArmorSkin;
+import com.sammy.malum.common.item.curiosities.armor.SoulHunterArmorItem;
+import com.sammy.malum.registry.client.ModelRegistry;
+import net.minecraft.world.item.Item;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
-import static com.sammy.malum.MalumMod.*;
+import static com.sammy.malum.MalumMod.malumPath;
 
 public class AncientClothArmorSkin extends ArmorSkin {
     public AncientClothArmorSkin(String id, Item weaveItem) {
