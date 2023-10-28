@@ -6,7 +6,6 @@ import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.CriterionTriggerInstance;
 import net.minecraft.advancements.RequirementsStrategy;
 import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
-import net.minecraft.core.Registry;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeBuilder;
 import net.minecraft.data.recipes.RecipeCategory;
@@ -15,7 +14,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.AbstractCookingRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.SimpleCookingSerializer;
 import net.minecraft.world.level.ItemLike;
 import net.minecraftforge.registries.ForgeRegistries;
 

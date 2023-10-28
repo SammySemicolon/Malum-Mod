@@ -2,7 +2,6 @@ package com.sammy.malum.registry.common.worldgen;
 
 import com.google.common.collect.ImmutableList;
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.config.CommonConfig;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
@@ -12,10 +11,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.placement.*;
-import team.lodestar.lodestone.systems.worldgen.ChancePlacementFilter;
-import team.lodestar.lodestone.systems.worldgen.DimensionPlacementFilter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class PlacedFeatureRegistry {
@@ -43,7 +39,6 @@ public class PlacedFeatureRegistry {
         context.register(ORE_NATURAL_QUARTZ, addOreFeature(features.getOrThrow(ConfiguredFeatureRegistry.CONFIGURED_NATURAL_QUARTZ_ORE), -64, 10, 2));
         context.register(ORE_BLAZING_QUARTZ, addOreFeature(features.getOrThrow(ConfiguredFeatureRegistry.CONFIGURED_BLAZING_QUARTZ_ORE), -16, 112, 16));
 
-
         context.register(RUNEWOOD_TREE,
                 new PlacedFeature(features.getOrThrow(ConfiguredFeatureRegistry.CONFIGURED_RUNEWOOD_TREE),
                         ImmutableList.<PlacementModifier>builder().add(
@@ -66,7 +61,6 @@ public class PlacedFeatureRegistry {
                 )
         );
 
-
         context.register(QUARTZ_GEODE_FEATURE,
                 new PlacedFeature(features.getOrThrow(ConfiguredFeatureRegistry.CONFIGURED_QUARTZ_GEODE_FEATURE),
                         ImmutableList.<PlacementModifier>builder().add(
@@ -83,7 +77,7 @@ public class PlacedFeatureRegistry {
         context.register(DEEPSLATE_QUARTZ_GEODE_FEATURE,
                 new PlacedFeature(features.getOrThrow(ConfiguredFeatureRegistry.CONFIGURED_DEEPSLATE_QUARTZ_GEODE_FEATURE),
                         ImmutableList.<PlacementModifier>builder().add(
-                                RarityFilter.onAverageOnceEvery(24),
+                                        RarityFilter.onAverageOnceEvery(24),
                                         InSquarePlacement.spread(),
                                         HeightRangePlacement.uniform(
                                                 VerticalAnchor.aboveBottom(6),
@@ -95,7 +89,7 @@ public class PlacedFeatureRegistry {
         context.register(CTHONIC_GOLD_GEODE_FEATURE,
                 new PlacedFeature(features.getOrThrow(ConfiguredFeatureRegistry.CONFIGURED_CTHONIC_GOLD_GEODE_FEATURE),
                         ImmutableList.<PlacementModifier>builder().add(
-                                RarityFilter.onAverageOnceEvery(30),
+                                        RarityFilter.onAverageOnceEvery(30),
                                         InSquarePlacement.spread(),
                                         HeightRangePlacement.uniform(
                                                 VerticalAnchor.aboveBottom(6),
@@ -103,8 +97,6 @@ public class PlacedFeatureRegistry {
                                         BiomeFilter.biome())
                                 .build()
                 ));
-
-
     }
 
 

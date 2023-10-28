@@ -34,7 +34,9 @@ public abstract class ExplosionMixin {
     @Final
     private float radius;
 
-    @Shadow @Nullable public abstract LivingEntity getIndirectSourceEntity();
+    @Shadow
+    @Nullable
+    public abstract LivingEntity getIndirectSourceEntity();
 
     @ModifyArg(method = "finalizeExplosion", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;getDrops(Lnet/minecraft/world/level/storage/loot/LootParams$Builder;)Ljava/util/List;"))
     private LootParams.Builder malum$getBlockDrops(LootParams.Builder builder) {

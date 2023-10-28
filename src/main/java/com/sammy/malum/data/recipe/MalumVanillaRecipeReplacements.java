@@ -2,7 +2,6 @@ package com.sammy.malum.data.recipe;
 
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.FinishedRecipe;
-import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.data.recipes.packs.VanillaRecipeProvider;

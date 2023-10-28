@@ -2,7 +2,6 @@ package com.sammy.malum.data.block;
 
 import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
-import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.block.ether.EtherBlock;
 import com.sammy.malum.common.block.storage.jar.SpiritJarBlock;
 import com.sammy.malum.common.block.storage.vial.SoulVialBlock;
@@ -42,7 +41,10 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import team.lodestar.lodestone.systems.block.LodestoneBlockProperties;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Function;

@@ -2,7 +2,6 @@ package com.sammy.malum.common.block.nature;
 
 import com.sammy.malum.registry.common.block.BlockTagRegistry;
 import com.sammy.malum.registry.common.worldgen.ConfiguredFeatureRegistry;
-import com.sammy.malum.registry.common.worldgen.FeatureRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
@@ -41,10 +40,10 @@ public class MalumSaplingBlock extends SaplingBlock {
         if (state.getValue(STAGE) == 0) {
             level.setBlock(pos, state.cycle(STAGE), 4);
         } else {
-           Holder<ConfiguredFeature<?, ?>> holder = level.registryAccess().registryOrThrow(Registries.CONFIGURED_FEATURE).getHolder(ConfiguredFeatureRegistry.CONFIGURED_RUNEWOOD_TREE).orElse(null);
-           if (!ForgeEventFactory.blockGrowFeature(level, rand, pos, holder).getResult().equals(Event.Result.DENY)) {
-               return;
-           }
+            Holder<ConfiguredFeature<?, ?>> holder = level.registryAccess().registryOrThrow(Registries.CONFIGURED_FEATURE).getHolder(ConfiguredFeatureRegistry.CONFIGURED_RUNEWOOD_TREE).orElse(null);
+            if (!ForgeEventFactory.blockGrowFeature(level, rand, pos, holder).getResult().equals(Event.Result.DENY)) {
+                return;
+            }
             tree.get().place(NoneFeatureConfiguration.INSTANCE, level, level.getChunkSource().getGenerator(), rand, pos);
         }
     }

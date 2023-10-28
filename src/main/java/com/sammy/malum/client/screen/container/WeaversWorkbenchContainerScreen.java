@@ -1,36 +1,28 @@
 package com.sammy.malum.client.screen.container;
 
-import com.mojang.blaze3d.platform.Lighting;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.container.WeaversWorkbenchContainer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.InventoryScreen;
-import net.minecraft.client.gui.screens.inventory.SmithingScreen;
 import net.minecraft.client.renderer.GameRenderer;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import org.joml.Matrix4f;
 import org.joml.Quaternionf;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 public class WeaversWorkbenchContainerScreen extends AbstractContainerScreen<WeaversWorkbenchContainer> {
 
-    public static final Quaternionf ROTATION = (new Quaternionf()).rotationXYZ(0.43633232F, 0.0F, (float)Math.PI);
+    public static final Quaternionf ROTATION = (new Quaternionf()).rotationXYZ(0.43633232F, 0.0F, (float) Math.PI);
     private static final ResourceLocation TEXTURE = MalumMod.malumPath("textures/gui/weavers_workbench.png");
 
     private final WeaversWorkbenchContainer weaversWorkbenchContainer;

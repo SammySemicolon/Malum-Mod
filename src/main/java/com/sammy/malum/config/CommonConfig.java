@@ -4,9 +4,6 @@ import net.minecraftforge.common.ForgeConfigSpec;
 import org.apache.commons.lang3.tuple.Pair;
 import team.lodestar.lodestone.systems.config.LodestoneConfig;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static com.sammy.malum.MalumMod.MALUM;
 
 public class CommonConfig extends LodestoneConfig {

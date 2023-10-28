@@ -46,7 +46,6 @@ import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
-import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;

@@ -12,7 +12,6 @@ import com.sammy.malum.registry.common.MobEffectRegistry;
 import com.sammy.malum.registry.common.SpiritRiteRegistry;
 import com.sammy.malum.registry.common.SpiritTypeRegistry;
 import com.sammy.malum.registry.common.block.BlockRegistry;
-import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.effect.MobEffect;
