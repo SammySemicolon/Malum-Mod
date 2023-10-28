@@ -41,10 +41,10 @@ public class MalumSaplingBlock extends SaplingBlock {
         if (state.getValue(STAGE) == 0) {
             level.setBlock(pos, state.cycle(STAGE), 4);
         } else {
-           // Holder<ConfiguredFeature<?, ?>> holder = level.registryAccess().registryOrThrow(Registries.CONFIGURED_FEATURE).getHolder(ConfiguredFeatureRegistry.RUNEWOOD_TREE_CONFIGURED_FEATURE).orElse(null);
-           // if (!ForgeEventFactory.blockGrowFeature(level, rand, pos, holder).getResult().equals(Event.Result.DENY)) {
-           //     return;
-           // }TODO
+           Holder<ConfiguredFeature<?, ?>> holder = level.registryAccess().registryOrThrow(Registries.CONFIGURED_FEATURE).getHolder(ConfiguredFeatureRegistry.CONFIGURED_RUNEWOOD_TREE).orElse(null);
+           if (!ForgeEventFactory.blockGrowFeature(level, rand, pos, holder).getResult().equals(Event.Result.DENY)) {
+               return;
+           }
             tree.get().place(NoneFeatureConfiguration.INSTANCE, level, level.getChunkSource().getGenerator(), rand, pos);
         }
     }

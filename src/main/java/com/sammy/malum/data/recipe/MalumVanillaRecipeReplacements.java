@@ -5,6 +5,7 @@ import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
+import net.minecraft.data.recipes.packs.VanillaRecipeProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
@@ -13,13 +14,14 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraftforge.common.Tags;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.lang.reflect.Field;
 import java.util.*;
 import java.util.function.Consumer;
 
 
-public class MalumVanillaRecipeReplacements extends RecipeProvider {
+public class MalumVanillaRecipeReplacements extends VanillaRecipeProvider {
 
     private final Map<Item, TagKey<Item>> replacements = new HashMap<>();
     private final Set<ResourceLocation> excludes = new HashSet<>();
@@ -27,7 +29,6 @@ public class MalumVanillaRecipeReplacements extends RecipeProvider {
     public MalumVanillaRecipeReplacements(PackOutput pOutput) {
         super(pOutput);
     }
-
 
     @Override
     public String getName() {
@@ -37,23 +38,17 @@ public class MalumVanillaRecipeReplacements extends RecipeProvider {
     @Override
     protected void buildRecipes(Consumer<FinishedRecipe> pWriter) {
         replace(Items.QUARTZ, Tags.Items.GEMS_QUARTZ);
-/*TODO
+
         super.buildRecipes(vanilla -> {
             FinishedRecipe modified = enhance(vanilla);
             if (modified != null)
                 pWriter.accept(modified);
         });
-
- */
     }
 
-
-/*
     private void exclude(ItemLike item) {
-        excludes.add(item.asItem().getRegistryName());
+        excludes.add(ForgeRegistries.ITEMS.getKey(item.asItem()));
     }
-
-     */
 
     private void replace(ItemLike item, TagKey<Item> tag) {
         replacements.put(item.asItem(), tag);

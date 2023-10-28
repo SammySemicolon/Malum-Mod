@@ -35,12 +35,38 @@ public class BiomeModifications {
         register(context, "natural_quartz_ore", () ->
                 addFeatureModifier(context,
                         getPlacedHolderSet(context, PlacedFeatureRegistry.ORE_NATURAL_QUARTZ),
-                        BiomeTagRegistry.HAS_SOULSTONE, GenerationStep.Decoration.UNDERGROUND_ORES));
+                        BiomeTagRegistry.HAS_QUARTZ, GenerationStep.Decoration.UNDERGROUND_ORES));
+
+        register(context, "blazing_quartz_ore", () ->
+                addFeatureModifier(context,
+                        getPlacedHolderSet(context, PlacedFeatureRegistry.ORE_BLAZING_QUARTZ),
+                        BiomeTagRegistry.HAS_BLAZING_QUARTZ, GenerationStep.Decoration.UNDERGROUND_ORES));
 
         register(context, "runwood_tree", () ->
                 addFeatureModifier(context,
                         getPlacedHolderSet(context, PlacedFeatureRegistry.RUNEWOOD_TREE),
                         BiomeTagRegistry.HAS_RUNEWOOD, GenerationStep.Decoration.VEGETAL_DECORATION));
+
+        register(context, "rare_runwood_tree", () ->
+                addFeatureModifier(context,
+                        getPlacedHolderSet(context, PlacedFeatureRegistry.RARE_RUNEWOOD_TREE),
+                        BiomeTagRegistry.HAS_RARE_RUNEWOOD, GenerationStep.Decoration.VEGETAL_DECORATION));
+
+        register(context, "quartz_geode", () ->
+                addFeatureModifier(context,
+                        getPlacedHolderSet(context, PlacedFeatureRegistry.QUARTZ_GEODE_FEATURE),
+                        BiomeTagRegistry.HAS_QUARTZ, GenerationStep.Decoration.UNDERGROUND_DECORATION));
+
+        register(context, "deepslate_quartz_geode", () ->
+                addFeatureModifier(context,
+                        getPlacedHolderSet(context, PlacedFeatureRegistry.DEEPSLATE_QUARTZ_GEODE_FEATURE),
+                        BiomeTagRegistry.HAS_QUARTZ, GenerationStep.Decoration.UNDERGROUND_DECORATION));
+
+        register(context, "rare_earth_geode", () ->
+                addFeatureModifier(context,
+                        getPlacedHolderSet(context, PlacedFeatureRegistry.CTHONIC_GOLD_GEODE_FEATURE),
+                        BiomeTagRegistry.HAS_CTHONIC, GenerationStep.Decoration.UNDERGROUND_DECORATION));
+
 
     }
 

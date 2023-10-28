@@ -45,7 +45,7 @@ public class EsotericReapingHandler {
                 });
             }
         }
-        List<MalumReapingDropsData> data = ReapingDataReloadListener.REAPING_DATA.get(ForgeRegistries.ENTITY_TYPES.getKey(target.getType()));//TODO maybe wrong impl
+        List<MalumReapingDropsData> data = ReapingDataReloadListener.REAPING_DATA.get(ForgeRegistries.ENTITY_TYPES.getKey(target.getType()));
         if (data != null) {
             SoulDataHandler soulData = MalumLivingEntityDataCapability.getCapability(target).soulData;
             if (soulData.exposedSoulDuration > 0) {

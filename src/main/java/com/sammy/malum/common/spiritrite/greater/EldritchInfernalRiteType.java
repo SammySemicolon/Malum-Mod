@@ -40,7 +40,7 @@ public class EldritchInfernalRiteType extends MalumRiteType {
                     Optional<SmeltingRecipe> optional = level.getRecipeManager().getRecipeFor(RecipeType.SMELTING, new SimpleContainer(new ItemStack(state.getBlock().asItem(), 1)), level);
                     if (optional.isPresent()) {
                         SmeltingRecipe recipe = optional.get();
-                        ItemStack output = recipe.getResultItem(null);//TOOD maybe give access?
+                        ItemStack output = recipe.getResultItem(level.registryAccess());
                         if (output.getItem() instanceof BlockItem) {
                             Block block = ((BlockItem) output.getItem()).getBlock();
                             BlockState newState = block.defaultBlockState();
