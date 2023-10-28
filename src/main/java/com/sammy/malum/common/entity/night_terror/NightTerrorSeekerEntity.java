@@ -110,12 +110,12 @@ public class NightTerrorSeekerEntity extends ThrowableProjectile {
             if (level().isClientSide) {
                 return;
             }
-            DamageSource source = DamageSourceRegistry.causeVoodooDamage(scytheOwner);
+            DamageSource source = DamageSourceRegistry.create(level(), DamageSourceRegistry.VOODOO, scytheOwner);
             target.hurt(source, magicDamage);
             if (age < fadeoutStart) {
                 fadeoutStart += 4;
             }
-            target.level().playSound(null, target.getX(), target.getY(), target.getZ(), SoundRegistry.SCYTHE_CUT.get(), target.getSoundSource(), 1.0F, 0.9f + target.level.random.nextFloat() * 0.2f);
+            target.level().playSound(null, target.getX(), target.getY(), target.getZ(), SoundRegistry.SCYTHE_CUT.get(), target.getSoundSource(), 1.0F, 0.9f + target.level().random.nextFloat() * 0.2f);
         }
         super.onHitEntity(result);
     }

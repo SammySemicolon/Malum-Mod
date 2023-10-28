@@ -31,6 +31,11 @@ public class MalumSpiritFocusingRecipes extends RecipeProvider implements ICondi
     }
 
     @Override
+    public String getName() {
+        return "Malum Spirit Crucible Recipe Provider";
+    }
+
+    @Override
     protected void buildRecipes(Consumer<FinishedRecipe> consumer) {
         int metalDuration = 900;
         int shortDuration = 300;

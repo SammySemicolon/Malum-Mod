@@ -1,14 +1,14 @@
 {
   "type": "malum:spirit_repair",
-  "itemIdRegex": "",
-  "modIdRegex": "",
   "durabilityPercentage": 1.0,
   "inputs": [
     "minecraft:trident"
   ],
+  "itemIdRegex": "",
+  "modIdRegex": "",
   "repairMaterial": {
-    "item": "minecraft:heart_of_the_sea",
-    "count": 1
+    "count": 1,
+    "item": "minecraft:heart_of_the_sea"
   },
   "spirits": [
     {

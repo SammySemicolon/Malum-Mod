@@ -8,6 +8,8 @@ import com.sammy.malum.common.container.WeaversWorkbenchContainer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.gui.screens.inventory.InventoryScreen;
+import net.minecraft.client.gui.screens.inventory.SmithingScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
@@ -28,7 +30,7 @@ import javax.annotation.Nullable;
 
 public class WeaversWorkbenchContainerScreen extends AbstractContainerScreen<WeaversWorkbenchContainer> {
 
-    public static final Quaternionf ROTATION = new Quaternionf(0.43633232F, 0.0F, 3.1415927F, 0);
+    public static final Quaternionf ROTATION = (new Quaternionf()).rotationXYZ(0.43633232F, 0.0F, (float)Math.PI);
     private static final ResourceLocation TEXTURE = MalumMod.malumPath("textures/gui/weavers_workbench.png");
 
     private final WeaversWorkbenchContainer weaversWorkbenchContainer;
@@ -67,7 +69,8 @@ public class WeaversWorkbenchContainerScreen extends AbstractContainerScreen<Wea
         }
         cachedOutput = output;
 
-        drawEntity(pGuiGraphics.pose(), this.leftPos + 141, this.topPos + 65, 25, ROTATION, null, this.armorStand);
+        InventoryScreen.renderEntityInInventory(pGuiGraphics, this.leftPos + 141, this.topPos + 65, 25, ROTATION, null, this.armorStand);
+        //drawEntity(pGuiGraphics.pose(), this.leftPos + 141, this.topPos + 65, 25, ROTATION, null, this.armorStand);
     }
 
     protected void setupArmorStand() {
@@ -97,35 +100,6 @@ public class WeaversWorkbenchContainerScreen extends AbstractContainerScreen<Wea
                 }
             }
         }
-    }
-
-    public static void drawEntity(PoseStack matrices, int x, int y, int size, Quaternionf matrixMultiplier, @Nullable Quaternionf rotation, LivingEntity entity) {
-        PoseStack matrixStack = RenderSystem.getModelViewStack();
-        matrixStack.pushPose();
-        matrixStack.translate(0.0, 0.0, 1000.0);
-        RenderSystem.applyModelViewMatrix();
-        matrices.pushPose();
-        matrices.translate(x, y, -950.0);
-        matrices.mulPoseMatrix((new Matrix4f()).scaling((float) size, (float) size, (float) (-size)));
-        matrices.mulPose(matrixMultiplier);
-        Lighting.setupForEntityInInventory();
-        EntityRenderDispatcher entityRenderDispatcher = Minecraft.getInstance().getEntityRenderDispatcher();
-        if (rotation != null) {
-            rotation.conjugate();
-            entityRenderDispatcher.overrideCameraOrientation(rotation);
-        }
-
-        entityRenderDispatcher.setRenderShadow(false);
-        MultiBufferSource.BufferSource immediate = Minecraft.getInstance().renderBuffers().bufferSource();
-        RenderSystem.runAsFancy(() -> {
-            entityRenderDispatcher.render(entity, 0.0, 0.0, 0.0, 0.0F, 1.0F, matrices, immediate, 15728880);
-        });
-        immediate.endBatch();
-        entityRenderDispatcher.setRenderShadow(true);
-        matrices.popPose();
-        Lighting.setupForFlatItems();
-        matrixStack.popPose();
-        RenderSystem.applyModelViewMatrix();
     }
 }
 

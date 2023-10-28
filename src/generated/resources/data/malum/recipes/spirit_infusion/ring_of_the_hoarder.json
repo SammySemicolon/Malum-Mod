@@ -1,26 +1,26 @@
 {
   "type": "malum:spirit_infusion",
+  "extra_items": [
+    {
+      "count": 2,
+      "item": "minecraft:ender_pearl"
+    },
+    {
+      "count": 4,
+      "tag": "forge:ingots/iron"
+    },
+    {
+      "count": 8,
+      "item": "minecraft:gunpowder"
+    }
+  ],
   "input": {
-    "item": "malum:gilded_ring",
-    "count": 1
+    "count": 1,
+    "item": "malum:gilded_ring"
   },
   "output": {
     "item": "malum:ring_of_the_hoarder"
   },
-  "extra_items": [
-    {
-      "item": "minecraft:ender_pearl",
-      "count": 2
-    },
-    {
-      "tag": "forge:ingots/iron",
-      "count": 4
-    },
-    {
-      "item": "minecraft:gunpowder",
-      "count": 8
-    }
-  ],
   "spirits": [
     {
       "type": "earthen",

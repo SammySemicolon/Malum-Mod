@@ -1,16 +1,18 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "##",
-    "##"
-  ],
+  "category": "misc",
   "key": {
     "#": {
       "item": "malum:polished_tainted_rock"
     }
   },
+  "pattern": [
+    "##",
+    "##"
+  ],
   "result": {
-    "item": "malum:tainted_rock_bricks",
-    "count": 4
-  }
+    "count": 4,
+    "item": "malum:tainted_rock_bricks"
+  },
+  "show_notification": true
 }

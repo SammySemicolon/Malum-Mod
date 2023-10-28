@@ -1,9 +1,10 @@
 {
   "type": "minecraft:smelting",
+  "category": "blocks",
+  "cookingtime": 200,
+  "experience": 0.1,
   "ingredient": {
     "item": "malum:small_twisted_rock_bricks"
   },
-  "result": "malum:runic_small_twisted_rock_bricks",
-  "experience": 0.1,
-  "cookingtime": 200
+  "result": "malum:runic_small_twisted_rock_bricks"
 }

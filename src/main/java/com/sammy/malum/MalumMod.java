@@ -4,6 +4,7 @@ import com.sammy.malum.compability.create.CreateCompat;
 import com.sammy.malum.compability.farmersdelight.FarmersDelightCompat;
 import com.sammy.malum.config.ClientConfig;
 import com.sammy.malum.config.CommonConfig;
+import com.sammy.malum.data.MalumBiomeTags;
 import com.sammy.malum.data.MalumLang;
 import com.sammy.malum.data.MalumRecipes;
 import com.sammy.malum.data.MalumWorldgenProvider;
@@ -13,6 +14,7 @@ import com.sammy.malum.data.block.MalumBlockTags;
 import com.sammy.malum.data.item.MalumItemModels;
 import com.sammy.malum.data.item.MalumItemTags;
 import com.sammy.malum.data.recipe.*;
+import com.sammy.malum.registry.common.item.tabs.CreativeTabRegistry;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
@@ -41,9 +43,11 @@ import static com.sammy.malum.registry.common.block.BlockRegistry.BLOCKS;
 import static com.sammy.malum.registry.common.entity.EntityRegistry.ENTITY_TYPES;
 import static com.sammy.malum.registry.common.item.EnchantmentRegistry.ENCHANTMENTS;
 import static com.sammy.malum.registry.common.item.ItemRegistry.ITEMS;
+import static com.sammy.malum.registry.common.item.tabs.CreativeTabRegistry.CREATIVE_MODE_TABS;
 import static com.sammy.malum.registry.common.recipe.RecipeSerializerRegistry.RECIPE_SERIALIZERS;
 import static com.sammy.malum.registry.common.recipe.RecipeTypeRegistry.RECIPE_TYPES;
 import static com.sammy.malum.registry.common.worldgen.FeatureRegistry.FEATURE_TYPES;
+import static com.sammy.malum.registry.common.worldgen.StructureRegistry.STRUCTURES;
 
 @SuppressWarnings("unused")
 @Mod(MalumMod.MALUM)
@@ -71,11 +75,14 @@ public class MalumMod {
         RECIPE_TYPES.register(modBus);
         RECIPE_SERIALIZERS.register(modBus);
         FEATURE_TYPES.register(modBus);
+        STRUCTURES.register(modBus);
+        CREATIVE_MODE_TABS.register(modBus);
 
         //TetraCompat.init();
         FarmersDelightCompat.init();
         CreateCompat.init();
 
+        modBus.addListener(CreativeTabRegistry::populateItemGroups);
         modBus.addListener(DataOnly::gatherData);
     }
 
@@ -90,11 +97,11 @@ public class MalumMod {
             CompletableFuture<HolderLookup.Provider> provider = event.getLookupProvider();
             ExistingFileHelper helper = event.getExistingFileHelper();
 
-            BlockTagsProvider blockTagsProvider = new MalumBlockTags(output, provider, helper);
+
             MalumItemModels itemModelsProvider = new MalumItemModels(output, helper);
-            MalumItemTags itemTagsProvider = new MalumItemTags(output, provider, blockTagsProvider.contentsGetter(), helper);
+
             MalumBlockStates blockStateProvider = new MalumBlockStates(output, helper, itemModelsProvider);
-            MalumLang langProvider = new MalumLang(generator);
+            MalumLang langProvider = new MalumLang(output);
             MalumBlockLootTables lootTablesProvider = new MalumBlockLootTables(output);
             MalumRecipes recipeProvider = new MalumRecipes(output);
             MalumVanillaRecipeReplacements vanillaRecipeReplacementsProvider = new MalumVanillaRecipeReplacements(output);
@@ -103,14 +110,16 @@ public class MalumMod {
             MalumSpiritTransmutationRecipes spiritTransmutationRecipesProvider = new MalumSpiritTransmutationRecipes(output);
             MalumVoidFavorRecipes voidFavorRecipesProvider = new MalumVoidFavorRecipes(output);
             MalumWorldgenProvider worldgenProvider = new MalumWorldgenProvider(output, provider);
+            MalumBlockTags blockTagsProvider = new MalumBlockTags(output, provider, helper);
+            MalumBiomeTags malumBiomeTags = new MalumBiomeTags(output, provider, helper);
 
             generator.addProvider(event.includeClient(), blockStateProvider);
             generator.addProvider(event.includeClient(), itemModelsProvider);
             generator.addProvider(event.includeClient(), langProvider);
 
-            generator.addProvider(event.includeServer(), blockTagsProvider);
+            //TODO generator.addProvider(event.includeServer(), blockTagsProvider);
             generator.addProvider(event.includeServer(), lootTablesProvider);
-            generator.addProvider(event.includeServer(), itemTagsProvider);
+            //TODO generator.addProvider(event.includeServer(), new MalumItemTags(output, provider, blockTagsProvider.contentsGetter(), helper));
 
             generator.addProvider(event.includeServer(), recipeProvider);
             generator.addProvider(event.includeServer(), vanillaRecipeReplacementsProvider);
@@ -120,6 +129,7 @@ public class MalumMod {
             generator.addProvider(event.includeServer(), voidFavorRecipesProvider);
 
             generator.addProvider(event.includeServer(), worldgenProvider);
+            generator.addProvider(event.includeServer(), malumBiomeTags);
         }
     }
 }

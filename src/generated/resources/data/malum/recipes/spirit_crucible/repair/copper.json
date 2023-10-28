@@ -1,12 +1,12 @@
 {
   "type": "malum:spirit_repair",
-  "itemIdRegex": "copper_.+",
-  "modIdRegex": "",
   "durabilityPercentage": 0.5,
   "inputs": [],
+  "itemIdRegex": "copper_.+",
+  "modIdRegex": "",
   "repairMaterial": {
-    "tag": "forge:ingots/copper",
-    "count": 2
+    "count": 2,
+    "tag": "forge:ingots/copper"
   },
   "spirits": [
     {

@@ -1,13 +1,12 @@
 {
   "type": "malum:spirit_focusing",
-  "time": 900,
   "durabilityCost": 2,
   "input": {
     "item": "malum:copper_impetus"
   },
   "output": {
-    "item": "malum:copper_node",
-    "count": 3
+    "count": 3,
+    "item": "malum:copper_node"
   },
   "spirits": [
     {
@@ -18,5 +17,6 @@
       "type": "infernal",
       "count": 4
     }
-  ]
+  ],
+  "time": 900
 }

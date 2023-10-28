@@ -1,19 +1,21 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "#",
-    "\u0026"
-  ],
+  "category": "misc",
   "key": {
     "#": {
       "item": "malum:blazing_quartz"
     },
-    "\u0026": {
+    "&": {
       "item": "minecraft:stick"
     }
   },
+  "pattern": [
+    "#",
+    "&"
+  ],
   "result": {
-    "item": "minecraft:torch",
-    "count": 6
-  }
+    "count": 6,
+    "item": "minecraft:torch"
+  },
+  "show_notification": true
 }

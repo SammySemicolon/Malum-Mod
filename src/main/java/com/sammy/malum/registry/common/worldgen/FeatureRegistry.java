@@ -40,7 +40,7 @@ import static net.minecraft.world.level.levelgen.feature.configurations.NoneFeat
 
 @Mod.EventBusSubscriber(modid = MalumMod.MALUM, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class FeatureRegistry {
-/*
+
     public static final DeferredRegister<Feature<?>> FEATURE_TYPES = DeferredRegister.create(ForgeRegistries.FEATURES, MALUM);
 
     public static final RegistryObject<WeepingWellFeature> WEEPING_WELL = FEATURE_TYPES.register("weeping_well", WeepingWellFeature::new);
@@ -48,7 +48,7 @@ public class FeatureRegistry {
     public static final RegistryObject<SoulwoodTreeFeature> SOULWOOD_TREE = FEATURE_TYPES.register("soulwood_tree", SoulwoodTreeFeature::new);
     public static final RegistryObject<RareEarthsGeode> CTHONIC_GOLD_GEODE = FEATURE_TYPES.register("cthonic_gold_geode", () -> new RareEarthsGeode(GeodeConfiguration.CODEC));
 
-
+/*
     public static final class ConfiguredFeatures {
         public static final Holder<ConfiguredFeature<NoneFeatureConfiguration, ?>> RUNEWOOD_TREE_FEATURE = FeatureUtils.register("runewood_tree", FeatureRegistry.RUNEWOOD_TREE.get(), INSTANCE);
 

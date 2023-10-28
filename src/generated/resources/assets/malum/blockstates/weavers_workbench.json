@@ -1,5 +1,9 @@
 {
   "variants": {
+    "facing=east": {
+      "model": "malum:block/weavers_workbench",
+      "y": 90
+    },
     "facing=north": {
       "model": "malum:block/weavers_workbench"
     },
@@ -10,10 +14,6 @@
     "facing=west": {
       "model": "malum:block/weavers_workbench",
       "y": 270
-    },
-    "facing=east": {
-      "model": "malum:block/weavers_workbench",
-      "y": 90
     }
   }
 }

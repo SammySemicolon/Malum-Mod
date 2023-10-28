@@ -38,27 +38,32 @@ public abstract class ItemStackMixin {
                 Attribute key = entry.getKey();
                 AttributeModifier modifier = entry.getValue();
                 double amount = modifier.getAmount();
-                if (modifier.getId().equals(LodestoneAttributeRegistry.UUIDS.get(LodestoneAttributeRegistry.MAGIC_DAMAGE))) {
-                    int enchantmentLevel = EnchantmentHelper.getItemEnchantmentLevel(EnchantmentRegistry.HAUNTED.get(), (ItemStack) (Object) this);
-                    if (enchantmentLevel > 0) {
-                        amount += enchantmentLevel;
-                    }
 
-                    copied.put(key, new AttributeModifier(
-                            modifier.getId(), modifier.getName(), amount, modifier.getOperation()
-                    ));
-                } else if (modifier.getId().equals(BASE_ATTACK_DAMAGE_UUID) && getItem() instanceof MalumScytheItem) {
-                    AttributeInstance instance = player.getAttribute(AttributeRegistry.SCYTHE_PROFICIENCY.get());
-                    if (instance != null && instance.getValue() > 0) {
-                        amount += instance.getValue() * 0.5f;
-                    }
+                if (modifier.getId() != null) {
+                    if (modifier.getId().equals(LodestoneAttributeRegistry.UUIDS.get(LodestoneAttributeRegistry.MAGIC_DAMAGE))) {
+                        int enchantmentLevel = EnchantmentHelper.getItemEnchantmentLevel(EnchantmentRegistry.HAUNTED.get(), (ItemStack) (Object) this);
+                        if (enchantmentLevel > 0) {
+                            amount += enchantmentLevel;
+                        }
 
-                    copied.put(key, new AttributeModifier(
-                            modifier.getId(), modifier.getName(), amount, modifier.getOperation()
-                    ));
-                } else {
-                    copied.put(key, modifier);
+                        copied.put(key, new AttributeModifier(
+                                modifier.getId(), modifier.getName(), amount, modifier.getOperation()
+                        ));
+                    } else if (modifier.getId().equals(BASE_ATTACK_DAMAGE_UUID) && getItem() instanceof MalumScytheItem) {
+                        AttributeInstance instance = player.getAttribute(AttributeRegistry.SCYTHE_PROFICIENCY.get());
+                        if (instance != null && instance.getValue() > 0) {
+                            amount += instance.getValue() * 0.5f;
+                        }
+
+                        copied.put(key, new AttributeModifier(
+                                modifier.getId(), modifier.getName(), amount, modifier.getOperation()
+                        ));
+                    } else {
+                        copied.put(key, modifier);
+                    }
                 }
+
+
             }
 
             return copied;

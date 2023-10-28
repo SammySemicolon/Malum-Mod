@@ -41,7 +41,7 @@ public class EthericNitrateEntity extends AbstractNitrateEntity {
 
     @Override
     public void onExplode() {
-        if (level instanceof ServerLevel) {
+        if (level() instanceof ServerLevel) {
             MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level().getChunkAt(blockPosition())), new EthericNitrateParticlePacket(getX(), getY(), getZ()));
         }
     }

@@ -28,6 +28,10 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider implements ICondi
         super(generatorIn);
     }
 
+    @Override
+    public String getName() {
+        return "Malum Spirit Infusion Recipe Provider";
+    }
 
     @Override
     protected void buildRecipes(Consumer<FinishedRecipe> consumer) {

@@ -1,7 +1,7 @@
 {
   "parent": "malum:block/templates/template_rock_item_pedestal",
   "textures": {
-    "pedestal": "malum:block/arcane_rock/twisted/twisted_rock_item_pedestal",
-    "particle": "malum:block/arcane_rock/twisted/twisted_rock"
+    "particle": "malum:block/arcane_rock/twisted/twisted_rock",
+    "pedestal": "malum:block/arcane_rock/twisted/twisted_rock_item_pedestal"
   }
 }

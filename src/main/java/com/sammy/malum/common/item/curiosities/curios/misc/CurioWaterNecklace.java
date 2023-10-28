@@ -37,11 +37,18 @@ public class CurioWaterNecklace extends MalumCurioItem implements IMalumEventRes
     }
 
     @Override
-    public void curioTick(String identifier, int index, LivingEntity livingEntity, ItemStack stack) {
+    public void curioTick(SlotContext slotContext, ItemStack stack) {
+        LivingEntity livingEntity = slotContext.entity();
         if (livingEntity.level().getGameTime() % 40L == 0 && livingEntity.isSwimming()) {
             AttributeInstance attribute = livingEntity.getAttribute(ForgeMod.SWIM_SPEED.get());
             if (attribute != null) {
                 attribute.setDirty();
+            }
+        }
+
+        if (livingEntity.level().getGameTime() % 20L == 0) {
+            if (livingEntity.hasEffect(MobEffects.CONDUIT_POWER)) {
+                livingEntity.heal(2);
             }
         }
     }
@@ -50,16 +57,6 @@ public class CurioWaterNecklace extends MalumCurioItem implements IMalumEventRes
     public void takeDamageEvent(LivingHurtEvent event, LivingEntity attacker, LivingEntity attacked, ItemStack stack) {
         if (attacked.hasEffect(MobEffects.CONDUIT_POWER)) {
             event.setAmount(event.getAmount() * 0.5f);
-        }
-    }
-
-    @Override
-    public void curioTick(SlotContext slotContext, ItemStack stack) {
-        LivingEntity entity = slotContext.entity();
-        if (entity.level.getGameTime() % 20L == 0) {
-            if (entity.hasEffect(MobEffects.CONDUIT_POWER)) {
-                entity.heal(2);
-            }
         }
     }
 }

@@ -1,152 +1,152 @@
 {
   "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "malum:item/soul_hunter_leggings"
-  },
   "overrides": [
     {
+      "model": "malum:item/ace_shorts",
       "predicate": {
         "malum:item_skin": 0.0
-      },
-      "model": "malum:item/ace_shorts"
+      }
     },
     {
+      "model": "malum:item/agender_shorts",
       "predicate": {
         "malum:item_skin": 1.0
-      },
-      "model": "malum:item/agender_shorts"
+      }
     },
     {
+      "model": "malum:item/aro_shorts",
       "predicate": {
         "malum:item_skin": 2.0
-      },
-      "model": "malum:item/aro_shorts"
+      }
     },
     {
+      "model": "malum:item/aroace_shorts",
       "predicate": {
         "malum:item_skin": 3.0
-      },
-      "model": "malum:item/aroace_shorts"
+      }
     },
     {
+      "model": "malum:item/bi_shorts",
       "predicate": {
         "malum:item_skin": 4.0
-      },
-      "model": "malum:item/bi_shorts"
+      }
     },
     {
+      "model": "malum:item/demiboy_shorts",
       "predicate": {
         "malum:item_skin": 5.0
-      },
-      "model": "malum:item/demiboy_shorts"
+      }
     },
     {
+      "model": "malum:item/demigirl_shorts",
       "predicate": {
         "malum:item_skin": 6.0
-      },
-      "model": "malum:item/demigirl_shorts"
+      }
     },
     {
+      "model": "malum:item/enby_shorts",
       "predicate": {
         "malum:item_skin": 7.0
-      },
-      "model": "malum:item/enby_shorts"
+      }
     },
     {
+      "model": "malum:item/gay_shorts",
       "predicate": {
         "malum:item_skin": 8.0
-      },
-      "model": "malum:item/gay_shorts"
+      }
     },
     {
+      "model": "malum:item/genderfluid_shorts",
       "predicate": {
         "malum:item_skin": 9.0
-      },
-      "model": "malum:item/genderfluid_shorts"
+      }
     },
     {
+      "model": "malum:item/genderqueer_shorts",
       "predicate": {
         "malum:item_skin": 10.0
-      },
-      "model": "malum:item/genderqueer_shorts"
+      }
     },
     {
+      "model": "malum:item/intersex_shorts",
       "predicate": {
         "malum:item_skin": 11.0
-      },
-      "model": "malum:item/intersex_shorts"
+      }
     },
     {
+      "model": "malum:item/lesbian_shorts",
       "predicate": {
         "malum:item_skin": 12.0
-      },
-      "model": "malum:item/lesbian_shorts"
+      }
     },
     {
+      "model": "malum:item/pan_shorts",
       "predicate": {
         "malum:item_skin": 13.0
-      },
-      "model": "malum:item/pan_shorts"
+      }
     },
     {
+      "model": "malum:item/plural_shorts",
       "predicate": {
         "malum:item_skin": 14.0
-      },
-      "model": "malum:item/plural_shorts"
+      }
     },
     {
+      "model": "malum:item/poly_shorts",
       "predicate": {
         "malum:item_skin": 15.0
-      },
-      "model": "malum:item/poly_shorts"
+      }
     },
     {
+      "model": "malum:item/pride_shorts",
       "predicate": {
         "malum:item_skin": 16.0
-      },
-      "model": "malum:item/pride_shorts"
+      }
     },
     {
+      "model": "malum:item/trans_shorts",
       "predicate": {
         "malum:item_skin": 17.0
-      },
-      "model": "malum:item/trans_shorts"
+      }
     },
     {
+      "model": "malum:item/executioner_drip_leggings",
       "predicate": {
         "malum:item_skin": 18.0
-      },
-      "model": "malum:item/executioner_drip_leggings"
+      }
     },
     {
+      "model": "malum:item/commando_drip_leggings",
       "predicate": {
         "malum:item_skin": 19.0
-      },
-      "model": "malum:item/commando_drip_leggings"
+      }
     },
     {
+      "model": "malum:item/ultrakill_v1_leggings",
       "predicate": {
         "malum:item_skin": 20.0
-      },
-      "model": "malum:item/ultrakill_v1_leggings"
+      }
     },
     {
+      "model": "malum:item/ultrakill_v2_leggings",
       "predicate": {
         "malum:item_skin": 21.0
-      },
-      "model": "malum:item/ultrakill_v2_leggings"
+      }
     },
     {
+      "model": "malum:item/ancient_cloth_leggings",
       "predicate": {
         "malum:item_skin": 22.0
-      },
-      "model": "malum:item/ancient_cloth_leggings"
+      }
     },
     {
+      "model": "malum:item/ancient_metal_leggings",
       "predicate": {
         "malum:item_skin": 23.0
-      },
-      "model": "malum:item/ancient_metal_leggings"
+      }
     }
-  ]
+  ],
+  "textures": {
+    "layer0": "malum:item/soul_hunter_leggings"
+  }
 }

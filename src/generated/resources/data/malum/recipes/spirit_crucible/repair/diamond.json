@@ -1,12 +1,12 @@
 {
   "type": "malum:spirit_repair",
-  "itemIdRegex": "diamond_.+",
-  "modIdRegex": "",
   "durabilityPercentage": 0.5,
   "inputs": [],
+  "itemIdRegex": "diamond_.+",
+  "modIdRegex": "",
   "repairMaterial": {
-    "tag": "forge:gems/diamond",
-    "count": 2
+    "count": 2,
+    "tag": "forge:gems/diamond"
   },
   "spirits": [
     {

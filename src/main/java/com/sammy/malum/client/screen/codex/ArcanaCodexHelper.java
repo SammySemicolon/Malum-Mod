@@ -384,12 +384,12 @@ public class ArcanaCodexHelper {
         int g = (int) Mth.lerp(glow, 44, 39);
         int b = (int) Mth.lerp(glow, 191, 228);
 
-        guiGraphics.drawString(font, text, x - 1, y, color(96, 255, 210, 243));
-        guiGraphics.drawString(font, text, x + 1, y, color(128, 240, 131, 232));
-        guiGraphics.drawString(font, text, x, y - 1, color(128, 255, 183, 236));
-        guiGraphics.drawString(font, text, x, y + 1, color(96, 236, 110, 226));
+        guiGraphics.drawString(font, text, x - 0.5f, y, color(96, 255, 210, 243), false);
+        guiGraphics.drawString(font, text, x + 0.5f, y, color(128, 240, 131, 232), false);
+        guiGraphics.drawString(font, text, x, y - 0.5f, color(128, 255, 183, 236), false);
+        guiGraphics.drawString(font, text, x, y + 0.5f, color(96, 236, 110, 226), false);
 
-        guiGraphics.drawString(font, text, x, y, color(255, r, g, b));
+        guiGraphics.drawString(font, text, x, y, color(255, r, g, b), false);
     }
 
     public static float getTextGlow(float offset) {

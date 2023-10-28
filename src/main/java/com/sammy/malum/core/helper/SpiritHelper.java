@@ -21,6 +21,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.registries.ForgeRegistries;
 import team.lodestar.lodestone.helpers.ItemHelper;
 
 import javax.annotation.Nullable;
@@ -134,7 +135,7 @@ public class SpiritHelper {
     }
 
     public static MalumEntitySpiritData getEntitySpiritData(LivingEntity entity) {
-        ResourceLocation key = entity.getType().getRegistryName();
+        ResourceLocation key = ForgeRegistries.ENTITY_TYPES.getKey(entity.getType());
         if (SpiritDataReloadListener.HAS_NO_DATA.contains(key))
             return null;
 

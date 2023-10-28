@@ -18,6 +18,7 @@ import java.lang.reflect.Field;
 import java.util.*;
 import java.util.function.Consumer;
 
+
 public class MalumVanillaRecipeReplacements extends RecipeProvider {
 
     private final Map<Item, TagKey<Item>> replacements = new HashMap<>();
@@ -25,6 +26,12 @@ public class MalumVanillaRecipeReplacements extends RecipeProvider {
 
     public MalumVanillaRecipeReplacements(PackOutput pOutput) {
         super(pOutput);
+    }
+
+
+    @Override
+    public String getName() {
+        return "Malum Void Favor Recipe Provider";
     }
 
     @Override

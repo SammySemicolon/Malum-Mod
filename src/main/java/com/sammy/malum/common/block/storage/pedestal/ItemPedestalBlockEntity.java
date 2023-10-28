@@ -23,7 +23,7 @@ public class ItemPedestalBlockEntity extends MalumItemHolderBlockEntity {
     @Override
     public Vec3 getItemOffset(float partialTicks) {
         if (inventory.getStackInSlot(0).getItem() instanceof SpiritShardItem) {
-            float gameTime = level().getGameTime() + partialTicks;
+            float gameTime = level.getGameTime() + partialTicks;
             return PEDESTAL_ITEM_OFFSET.add(0, (float) Math.sin((gameTime % 360) / 20f) * 0.05f, 0);
         }
         return PEDESTAL_ITEM_OFFSET;

@@ -1,15 +1,17 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "###"
-  ],
+  "category": "misc",
   "key": {
     "#": {
       "item": "malum:smooth_twisted_rock"
     }
   },
+  "pattern": [
+    "###"
+  ],
   "result": {
-    "item": "malum:smooth_twisted_rock_slab",
-    "count": 6
-  }
+    "count": 6,
+    "item": "malum:smooth_twisted_rock_slab"
+  },
+  "show_notification": true
 }

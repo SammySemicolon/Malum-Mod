@@ -123,7 +123,7 @@ public class TokenOfGratitudeRenderer implements ICurioRenderer {
                 ModelRegistry.SCARF.copyFromDefault(humanoidModel);
             }
         }
-        ModelRegistry.SCARF.setupAnim(playerEntity, playerEntity.animationPosition, playerEntity.animationSpeed, playerEntity.tickCount + pticks, netHeadYaw, netHeadPitch);
+        ModelRegistry.SCARF.setupAnim(playerEntity, playerEntity.walkAnimation.position(), playerEntity.walkAnimation.speed(), playerEntity.tickCount + pticks, netHeadYaw, netHeadPitch);
         ModelRegistry.SCARF.renderToBuffer(poseStack, vertexconsumer, light, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
     }
 }

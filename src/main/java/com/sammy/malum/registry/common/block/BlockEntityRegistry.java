@@ -71,7 +71,7 @@ public class BlockEntityRegistry {
         Collection<RegistryObject<Block>> blocks = BlockRegistry.BLOCKS.getEntries();
         List<Block> matchingBlocks = new ArrayList<>();
         for (RegistryObject<Block> registryObject : blocks) {
-            if (Arrays.stream(blockClasses).anyMatch(b -> b.isInstance(registryObject.get()))) {
+            if (registryObject.isPresent() && Arrays.stream(blockClasses).anyMatch(b -> b.isInstance(registryObject.get()))) {
                 matchingBlocks.add(registryObject.get());
             }
         }

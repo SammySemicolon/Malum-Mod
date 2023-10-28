@@ -1,11 +1,7 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
   "group": "sign",
-  "pattern": [
-    "###",
-    "###",
-    " X "
-  ],
   "key": {
     "#": {
       "item": "malum:soulwood_planks"
@@ -14,8 +10,14 @@
       "tag": "forge:rods/wooden"
     }
   },
+  "pattern": [
+    "###",
+    "###",
+    " X "
+  ],
   "result": {
-    "item": "malum:soulwood_sign",
-    "count": 3
-  }
+    "count": 3,
+    "item": "malum:soulwood_sign"
+  },
+  "show_notification": true
 }

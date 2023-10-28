@@ -113,9 +113,9 @@ public class EtherBlockEntity extends LodestoneBlockEntity {
             double x = worldPosition.getX() + 0.5;
             double y = worldPosition.getY() + 0.6;
             double z = worldPosition.getZ() + 0.5;
-            int lifeTime = 14 + level().random.nextInt(4);
-            float scale = 0.17f + level().random.nextFloat() * 0.03f;
-            float velocity = 0.04f + level().random.nextFloat() * 0.02f;
+            int lifeTime = 14 + level.random.nextInt(4);
+            float scale = 0.17f + level.random.nextFloat() * 0.03f;
+            float velocity = 0.04f + level.random.nextFloat() * 0.02f;
 
             if (block instanceof EtherWallTorchBlock) {
                 Direction direction = getBlockState().getValue(WallTorchBlock.FACING);

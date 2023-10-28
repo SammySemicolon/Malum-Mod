@@ -1,26 +1,26 @@
 {
   "type": "malum:spirit_infusion",
+  "extra_items": [
+    {
+      "count": 6,
+      "item": "malum:copper_node"
+    },
+    {
+      "count": 4,
+      "item": "minecraft:gunpowder"
+    },
+    {
+      "count": 4,
+      "item": "malum:cursed_grit"
+    }
+  ],
   "input": {
-    "item": "malum:ornate_ring",
-    "count": 1
+    "count": 1,
+    "item": "malum:ornate_ring"
   },
   "output": {
     "item": "malum:ring_of_the_demolitionist"
   },
-  "extra_items": [
-    {
-      "item": "malum:copper_node",
-      "count": 6
-    },
-    {
-      "item": "minecraft:gunpowder",
-      "count": 4
-    },
-    {
-      "item": "malum:cursed_grit",
-      "count": 4
-    }
-  ],
   "spirits": [
     {
       "type": "infernal",

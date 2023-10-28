@@ -81,10 +81,10 @@ public class VoidConduitBlockEntity extends LodestoneBlockEntity {
         super.tick();
         if (level instanceof ServerLevel serverLevel) {
             if (serverLevel.getGameTime() % 100L == 0) {
-                level().playSound(null, worldPosition, SoundRegistry.UNCANNY_VALLEY.get(), SoundSource.HOSTILE, 1f, Mth.nextFloat(level.getRandom(), 0.55f, 1.75f));
+                level.playSound(null, worldPosition, SoundRegistry.UNCANNY_VALLEY.get(), SoundSource.HOSTILE, 1f, Mth.nextFloat(level.getRandom(), 0.55f, 1.75f));
             }
             if (serverLevel.getGameTime() % 20L == 0) {
-                level().playSound(null, worldPosition, SoundRegistry.VOID_HEARTBEAT.get(), SoundSource.HOSTILE, 1.5f, Mth.nextFloat(level.getRandom(), 0.95f, 1.15f));
+                level.playSound(null, worldPosition, SoundRegistry.VOID_HEARTBEAT.get(), SoundSource.HOSTILE, 1.5f, Mth.nextFloat(level.getRandom(), 0.95f, 1.15f));
             }
             if (serverLevel.getGameTime() % 40L == 0) {
                 List<ItemEntity> items = serverLevel.getEntitiesOfClass(
@@ -110,8 +110,8 @@ public class VoidConduitBlockEntity extends LodestoneBlockEntity {
                     if (stack.getItem().equals(ItemRegistry.BLIGHTED_GUNK.get())) {
                         resultingProgress = 72 + streak / 4;
                         streak++;
-                        level().playSound(null, worldPosition, SoundRegistry.HUNGRY_BELT_FEEDS.get(), SoundSource.PLAYERS, 0.7f, 0.6f + level().random.nextFloat() * 0.3f + streak * 0.05f);
-                        level().playSound(null, worldPosition, SoundEvents.GENERIC_EAT, SoundSource.PLAYERS, 0.7f, 0.6f + level().random.nextFloat() * 0.2f + streak * 0.05f);
+                        level.playSound(null, worldPosition, SoundRegistry.HUNGRY_BELT_FEEDS.get(), SoundSource.PLAYERS, 0.7f, 0.6f + level.random.nextFloat() * 0.3f + streak * 0.05f);
+                        level.playSound(null, worldPosition, SoundEvents.GENERIC_EAT, SoundSource.PLAYERS, 0.7f, 0.6f + level.random.nextFloat() * 0.2f + streak * 0.05f);
                     } else {
                         FavorOfTheVoidRecipe recipe = FavorOfTheVoidRecipe.getRecipe(level, stack);
                         float pitch = Mth.nextFloat(level.getRandom(), 0.85f, 1.35f) + streak * 0.1f;
@@ -124,15 +124,15 @@ public class VoidConduitBlockEntity extends LodestoneBlockEntity {
                                 outputStack.setTag(recipe.output.getTag());
                                 ItemEntity entity = new ItemEntity(level, worldPosition.getX() + 0.5f, worldPosition.getY() + 0.5f, worldPosition.getZ() + 0.5f, outputStack);
                                 entity.setDeltaMovement(0, 0.65f, 0.15f);
-                                level().addFreshEntity(entity);
+                                level.addFreshEntity(entity);
                                 amount -= count;
                             }
-                            level().playSound(null, worldPosition, SoundRegistry.VOID_TRANSMUTATION.get(), SoundSource.HOSTILE, 2f, pitch);
+                            level.playSound(null, worldPosition, SoundRegistry.VOID_TRANSMUTATION.get(), SoundSource.HOSTILE, 2f, pitch);
                         } else {
                             ItemEntity entity = new ItemEntity(level, worldPosition.getX() + 0.5f, worldPosition.getY() + 0.5f, worldPosition.getZ() + 0.5f, stack);
                             entity.setDeltaMovement(0, 0.65f, 0.15f);
-                            level().addFreshEntity(entity);
-                            level().playSound(null, worldPosition, SoundRegistry.VOID_REJECTION.get(), SoundSource.HOSTILE, 2f, pitch);
+                            level.addFreshEntity(entity);
+                            level.playSound(null, worldPosition, SoundRegistry.VOID_REJECTION.get(), SoundSource.HOSTILE, 2f, pitch);
                         }
                     }
                     progress = resultingProgress;
@@ -164,7 +164,7 @@ public class VoidConduitBlockEntity extends LodestoneBlockEntity {
                     .setSpinData(SpinParticleData.create(0.1f, 0.4f, 0).setEasing(Easing.SINE_IN, Easing.SINE_OUT).build())
                     .setScaleData(GenericParticleData.create(0f, 0.9f, 0.5f).setEasing(Easing.SINE_IN, Easing.SINE_OUT).build())
                     .setColorData(ColorParticleData.create(color, endColor).setCoefficient(0.5f).build())
-                    .addMotion(0, level().random.nextFloat() * 0.01f, 0)
+                    .addMotion(0, level.random.nextFloat() * 0.01f, 0)
                     .setRandomOffset(3f, 0.02f)
                     .enableNoClip()
                     .setDiscardFunction(SimpleParticleOptions.ParticleDiscardFunctionType.ENDING_CURVE_INVISIBLE)

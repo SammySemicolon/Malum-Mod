@@ -15,54 +15,47 @@ public class CreativeTabRegistry {
 
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MalumMod.MALUM);
 
-    public static final RegistryObject<CreativeModeTab> CONTENT = CREATIVE_MODE_TABS.register(MalumMod.MALUM,
+    public static final RegistryObject<CreativeModeTab> CONTENT = CREATIVE_MODE_TABS.register(MalumMod.MALUM + ".content",
             () -> CreativeModeTab.builder()
-                    .title(Component.translatable("itemGroup." + MalumMod.MALUM + ".basis_of_magic"))
+                    .title(Component.translatable("itemGroup." + MalumMod.MALUM + "_basis_of_magic"))
                     .icon(() -> ItemRegistry.SPIRIT_ALTAR.get().getDefaultInstance())
                     .displayItems((parameters, output) -> output.accept(ItemRegistry.SPIRIT_ALTAR.get())).build()
     );
 
-    public static final RegistryObject<CreativeModeTab> BUILDING = CREATIVE_MODE_TABS.register(MalumMod.MALUM,
+    public static final RegistryObject<CreativeModeTab> BUILDING = CREATIVE_MODE_TABS.register(MalumMod.MALUM + ".building",
             () -> CreativeModeTab.builder()
-                    .title(Component.translatable("itemGroup." + MalumMod.MALUM + ".arcane_construct"))
+                    .title(Component.translatable("itemGroup." + MalumMod.MALUM + "_arcane_construct"))
                     .icon(() -> ItemRegistry.TAINTED_ROCK.get().getDefaultInstance())
                     .displayItems((parameters, output) -> output.accept(ItemRegistry.TAINTED_ROCK.get())).build()
     );
 
-    public static final RegistryObject<CreativeModeTab> NATURE = CREATIVE_MODE_TABS.register(MalumMod.MALUM,
+    public static final RegistryObject<CreativeModeTab> NATURE = CREATIVE_MODE_TABS.register(MalumMod.MALUM + ".nature",
             () -> CreativeModeTab.builder()
-                    .title(Component.translatable("itemGroup." + MalumMod.MALUM + ".natural_wonders"))
+                    .title(Component.translatable("itemGroup." + MalumMod.MALUM + "_natural_wonders"))
                     .icon(() -> ItemRegistry.RUNEWOOD_SAPLING.get().getDefaultInstance())
                     .displayItems((parameters, output) -> output.accept(ItemRegistry.RUNEWOOD_SAPLING.get())).build()
     );
 
-    public static final RegistryObject<CreativeModeTab> METALLURGY = CREATIVE_MODE_TABS.register(MalumMod.MALUM,
+    public static final RegistryObject<CreativeModeTab> METALLURGY = CREATIVE_MODE_TABS.register(MalumMod.MALUM + ".metallurgy",
             () -> CreativeModeTab.builder()
-                    .title(Component.translatable("itemGroup." + MalumMod.MALUM + ".metallurgic_magics"))
+                    .title(Component.translatable("itemGroup." + MalumMod.MALUM + "_metallurgic_magics"))
                     .icon(() -> ItemRegistry.ALCHEMICAL_IMPETUS.get().getDefaultInstance())
                     .displayItems((parameters, output) -> output.accept(ItemRegistry.ALCHEMICAL_IMPETUS.get())).build()
     );
 
-    public static final RegistryObject<CreativeModeTab> VOID = CREATIVE_MODE_TABS.register(MalumMod.MALUM,
+    public static final RegistryObject<CreativeModeTab> VOID = CREATIVE_MODE_TABS.register(MalumMod.MALUM + ".void",
             () -> CreativeModeTab.builder()
-                    .title(Component.translatable("itemGroup." + MalumMod.MALUM + ".void_chronicles"))
+                    .title(Component.translatable("itemGroup." + MalumMod.MALUM + "_void_chronicles"))
                     .icon(() -> ItemRegistry.STRANGE_NUCLEUS.get().getDefaultInstance())
                     .displayItems((parameters, output) -> output.accept(ItemRegistry.STRANGE_NUCLEUS.get())).build()
     );
 
-    public static final RegistryObject<CreativeModeTab> COSMETIC = CREATIVE_MODE_TABS.register(MalumMod.MALUM,
+    public static final RegistryObject<CreativeModeTab> COSMETIC = CREATIVE_MODE_TABS.register(MalumMod.MALUM + ".cosmetic",
             () -> CreativeModeTab.builder()
-                    .title(Component.translatable("itemGroup." + MalumMod.MALUM + ".cosmetics"))
+                    .title(Component.translatable("itemGroup." + MalumMod.MALUM + "_cosmetics"))
                     .icon(() -> ItemRegistry.WEAVERS_WORKBENCH.get().getDefaultInstance())
                     .displayItems((parameters, output) -> output.accept(ItemRegistry.WEAVERS_WORKBENCH.get())).build()
     );
-
-    //public static final MalumTab CONTENT = new MalumTab("basis_of_magic", ItemRegistry.SPIRIT_ALTAR);
-    //public static final MalumTab BUILDING = new MalumTab("arcane_construct", ItemRegistry.TAINTED_ROCK);
-    //public static final MalumTab NATURE = new MalumTab("natural_wonders", ItemRegistry.RUNEWOOD_SAPLING);
-    //public static final MalumTab METALLURGY = new MalumTab("metallurgic_magics", ItemRegistry.ALCHEMICAL_IMPETUS);
-    //public static final MalumTab VOID = new MalumTab("void_chronicles", ItemRegistry.STRANGE_NUCLEUS);
-    //public static final MalumTab COSMETIC = new MalumTab("cosmetics", ItemRegistry.WEAVERS_WORKBENCH);
 
     public static void populateItemGroups(BuildCreativeModeTabContentsEvent event) {
         if (event.getTabKey() == CONTENT.getKey()) {
@@ -284,7 +277,7 @@ public class CreativeTabRegistry {
             //endregion
         }
 
-        if (event.getTabKey() == METALLURGY.getKey()) {//TODO separate NODE and IMPEDUS
+        if (event.getTabKey() == METALLURGY.getKey()) {
             event.accept(CRACKED_IRON_IMPETUS);
             event.accept(IRON_IMPETUS);
             event.accept(IRON_NODE);
@@ -324,6 +317,7 @@ public class CreativeTabRegistry {
         }
 
         if (event.getTabKey() == CONTENT.getKey()) {
+            event.accept(ENCYCLOPEDIA_ARCANA);
             event.accept(SPIRIT_POUCH);
             event.accept(CRUDE_SCYTHE);
             event.accept(SOUL_STAINED_STEEL_SCYTHE);

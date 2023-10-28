@@ -1,10 +1,10 @@
 {
   "type": "malum:spirit_transmutation",
+  "group": "soulwood",
   "input": {
     "item": "malum:runewood_panel_slab"
   },
   "output": {
     "item": "malum:soulwood_panel_slab"
-  },
-  "group": "soulwood"
+  }
 }

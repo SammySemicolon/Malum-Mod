@@ -13,6 +13,7 @@ import com.sammy.malum.registry.common.SpiritRiteRegistry;
 import com.sammy.malum.registry.common.SpiritTypeRegistry;
 import com.sammy.malum.registry.common.block.BlockRegistry;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.EntityType;
@@ -25,6 +26,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.WallSignBlock;
 import net.minecraft.world.level.block.WallTorchBlock;
 import net.minecraftforge.common.data.LanguageProvider;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import team.lodestar.lodestone.helpers.DataHelper;
 
@@ -43,7 +45,7 @@ import static com.sammy.malum.registry.common.item.EnchantmentRegistry.ENCHANTME
 import static com.sammy.malum.registry.common.item.ItemRegistry.ITEMS;
 
 public class MalumLang extends LanguageProvider {
-    public MalumLang(DataGenerator gen) {
+    public MalumLang(PackOutput gen) {
         super(gen, MalumMod.MALUM, "en_us");
     }
 
@@ -99,17 +101,17 @@ public class MalumLang extends LanguageProvider {
         effects.forEach(e -> {
             String alteredPath = e.getId().getPath().replaceFirst("s_", "'s_");
             String name = DataHelper.toTitleCase(alteredPath, "_");
-            add("effect.malum." + e.get().getRegistryName().getPath(), name);
+            add("effect.malum." + ForgeRegistries.MOB_EFFECTS.getKey(e.get()).getPath(), name);
         });
 
         attributes.forEach(a -> {
             String name = DataHelper.toTitleCase(a.getId().getPath(), "_");
-            add("attribute.name.malum." + a.get().getRegistryName().getPath(), name);
+            add("attribute.name.malum." + ForgeRegistries.ATTRIBUTES.getKey(a.get()).getPath(), name);
         });
 
         entities.forEach(e -> {
             String name = DataHelper.toTitleCase(e.getId().getPath(), "_");
-            add("entity.malum." + e.get().getRegistryName().getPath(), name);
+            add("entity.malum." + ForgeRegistries.ENTITY_TYPES.getKey(e.get()).getPath(), name);
         });
 
         rites.forEach(r -> {

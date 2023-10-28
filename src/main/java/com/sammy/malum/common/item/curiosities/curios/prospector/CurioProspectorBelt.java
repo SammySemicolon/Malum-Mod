@@ -31,7 +31,7 @@ public class CurioProspectorBelt extends MalumCurioItem {
     public static LootParams.Builder applyFortune(Entity source, LootParams.Builder builder) {
         if (source instanceof LivingEntity livingEntity) {
             if (CurioHelper.hasCurioEquipped(livingEntity, ItemRegistry.BELT_OF_THE_PROSPECTOR.get())) {
-                int fortuneBonus = 3 + CuriosApi.getCuriosHelper().getCuriosHandler(livingEntity).map(h -> h.getFortuneLevel(null)).orElse(0);
+                int fortuneBonus = 3 + CuriosApi.getCuriosInventory(livingEntity).map(h -> h.getFortuneLevel(null)).orElse(0);
                 ItemStack diamondPickaxe = new ItemStack(Items.DIAMOND_PICKAXE);
                 diamondPickaxe.enchant(Enchantments.BLOCK_FORTUNE, fortuneBonus);
                 return builder.withParameter(LootContextParams.TOOL, diamondPickaxe);

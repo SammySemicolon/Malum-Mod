@@ -19,6 +19,11 @@ public class MalumSpiritTransmutationRecipes extends RecipeProvider {
         super(generatorIn);
     }
 
+    @Override
+    public String getName() {
+        return "Malum Block Transmutation Recipe Provider";
+    }
+
     private static final List<Pair<RegistryObject<Block>, RegistryObject<Block>>> SOULWOOD_TRANSMUTATIONS = List.of(
             new Pair<>(RUNEWOOD_SAPLING, SOULWOOD_GROWTH),
             new Pair<>(RUNEWOOD_LEAVES, SOULWOOD_LEAVES),

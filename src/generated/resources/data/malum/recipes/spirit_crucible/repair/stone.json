@@ -1,12 +1,12 @@
 {
   "type": "malum:spirit_repair",
-  "itemIdRegex": "stone_.+",
-  "modIdRegex": "",
   "durabilityPercentage": 0.5,
   "inputs": [],
+  "itemIdRegex": "stone_.+",
+  "modIdRegex": "",
   "repairMaterial": {
-    "tag": "minecraft:stone_tool_materials",
-    "count": 2
+    "count": 2,
+    "tag": "minecraft:stone_tool_materials"
   },
   "spirits": [
     {

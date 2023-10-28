@@ -1,12 +1,13 @@
 {
   "type": "minecraft:crafting_shapeless",
+  "category": "misc",
   "ingredients": [
     {
       "item": "malum:block_of_astral_weave"
     }
   ],
   "result": {
-    "item": "malum:astral_weave",
-    "count": 9
+    "count": 9,
+    "item": "malum:astral_weave"
   }
 }

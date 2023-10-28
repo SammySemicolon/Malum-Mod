@@ -9,6 +9,7 @@ import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
 import net.minecraft.core.Registry;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeBuilder;
+import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.AbstractCookingRecipe;
@@ -16,11 +17,13 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.SimpleCookingSerializer;
 import net.minecraft.world.level.ItemLike;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
 import java.util.function.Consumer;
 
 public class StackedMalumCookingRecipeBuilder implements RecipeBuilder {
+    private final RecipeCategory category;
     private final Item result;
     private final int resultCount;
     private final Ingredient ingredient;
@@ -29,9 +32,10 @@ public class StackedMalumCookingRecipeBuilder implements RecipeBuilder {
     private final Advancement.Builder advancement = Advancement.Builder.advancement();
     @Nullable
     private String group;
-    private final SimpleCookingSerializer<?> serializer;
+    private final RecipeSerializer<? extends AbstractCookingRecipe> serializer;
 
-    private StackedMalumCookingRecipeBuilder(ItemLike pResult, int resultCount, Ingredient pIngredient, float pExperience, int pCookingTime, SimpleCookingSerializer<?> pSerializer) {
+    private StackedMalumCookingRecipeBuilder(RecipeCategory pCategory, ItemLike pResult, int resultCount, Ingredient pIngredient, float pExperience, int pCookingTime, RecipeSerializer<? extends AbstractCookingRecipe> pSerializer) {
+        this.category = pCategory;
         this.result = pResult.asItem();
         this.resultCount = resultCount;
         this.ingredient = pIngredient;
@@ -40,24 +44,24 @@ public class StackedMalumCookingRecipeBuilder implements RecipeBuilder {
         this.serializer = pSerializer;
     }
 
-    public static StackedMalumCookingRecipeBuilder cookingWithCount(Ingredient pIngredient, ItemLike pResult, int resultCount, float pExperience, int pCookingTime, SimpleCookingSerializer<?> pSerializer) {
-        return new StackedMalumCookingRecipeBuilder(pResult, resultCount, pIngredient, pExperience, pCookingTime, pSerializer);
+    public static StackedMalumCookingRecipeBuilder cookingWithCount(Ingredient pIngredient, RecipeCategory pCategory, ItemLike pResult, int resultCount, float pExperience, int pCookingTime, RecipeSerializer<? extends AbstractCookingRecipe> pSerializer) {
+        return new StackedMalumCookingRecipeBuilder(pCategory, pResult, resultCount, pIngredient, pExperience, pCookingTime, pSerializer);
     }
 
-    public static StackedMalumCookingRecipeBuilder campfireCookingWithCount(Ingredient pIngredient, ItemLike pResult, int resultCount, float pExperience, int pCookingTime) {
-        return cookingWithCount(pIngredient, pResult, resultCount, pExperience, pCookingTime, RecipeSerializer.CAMPFIRE_COOKING_RECIPE);
+    public static StackedMalumCookingRecipeBuilder campfireCookingWithCount(Ingredient pIngredient, RecipeCategory pCategory, ItemLike pResult, int resultCount, float pExperience, int pCookingTime) {
+        return cookingWithCount(pIngredient, pCategory, pResult, resultCount, pExperience, pCookingTime, RecipeSerializer.CAMPFIRE_COOKING_RECIPE);
     }
 
-    public static StackedMalumCookingRecipeBuilder blastingWithCount(Ingredient pIngredient, ItemLike pResult, int resultCount, float pExperience, int pCookingTime) {
-        return cookingWithCount(pIngredient, pResult, resultCount, pExperience, pCookingTime, RecipeSerializer.BLASTING_RECIPE);
+    public static StackedMalumCookingRecipeBuilder blastingWithCount(Ingredient pIngredient, RecipeCategory pCategory, ItemLike pResult, int resultCount, float pExperience, int pCookingTime) {
+        return cookingWithCount(pIngredient, pCategory, pResult, resultCount, pExperience, pCookingTime, RecipeSerializer.BLASTING_RECIPE);
     }
 
-    public static StackedMalumCookingRecipeBuilder smeltingWithCount(Ingredient pIngredient, ItemLike pResult, int resultCount, float pExperience, int pCookingTime) {
-        return cookingWithCount(pIngredient, pResult, resultCount, pExperience, pCookingTime, RecipeSerializer.SMELTING_RECIPE);
+    public static StackedMalumCookingRecipeBuilder smeltingWithCount(Ingredient pIngredient, RecipeCategory pCategory, ItemLike pResult, int resultCount, float pExperience, int pCookingTime) {
+        return cookingWithCount(pIngredient, pCategory, pResult, resultCount, pExperience, pCookingTime, RecipeSerializer.SMELTING_RECIPE);
     }
 
-    public static StackedMalumCookingRecipeBuilder smoking(Ingredient pIngredient, ItemLike pResult, int resultCount, float pExperience, int pCookingTime) {
-        return cookingWithCount(pIngredient, pResult, resultCount, pExperience, pCookingTime, RecipeSerializer.SMOKING_RECIPE);
+    public static StackedMalumCookingRecipeBuilder smoking(Ingredient pIngredient, RecipeCategory pCategory, ItemLike pResult, int resultCount, float pExperience, int pCookingTime) {
+        return cookingWithCount(pIngredient, pCategory, pResult, resultCount, pExperience, pCookingTime, RecipeSerializer.SMOKING_RECIPE);
     }
 
     public StackedMalumCookingRecipeBuilder unlockedBy(String pCriterionName, CriterionTriggerInstance pCriterionTrigger) {
@@ -77,7 +81,7 @@ public class StackedMalumCookingRecipeBuilder implements RecipeBuilder {
     public void save(Consumer<FinishedRecipe> pFinishedRecipeConsumer, ResourceLocation pRecipeId) {
         this.ensureValid(pRecipeId);
         this.advancement.parent(new ResourceLocation("recipes/root")).addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(pRecipeId)).rewards(AdvancementRewards.Builder.recipe(pRecipeId)).requirements(RequirementsStrategy.OR);
-        pFinishedRecipeConsumer.accept(new StackedMalumCookingRecipeBuilder.Result(pRecipeId, this.group == null ? "" : this.group, this.ingredient, this.result, this.resultCount, this.experience, this.cookingTime, this.advancement, new ResourceLocation(pRecipeId.getNamespace(), "recipes/" + this.result.getItemCategory().getRecipeFolderName() + "/" + pRecipeId.getPath()), this.serializer));
+        pFinishedRecipeConsumer.accept(new StackedMalumCookingRecipeBuilder.Result(pRecipeId, this.group == null ? "" : this.group, this.ingredient, this.result, this.resultCount, this.experience, this.cookingTime, this.advancement, new ResourceLocation(pRecipeId.getNamespace(), "recipes/" + this.category.getFolderName() + "/" + pRecipeId.getPath()), this.serializer));
     }
 
     private void ensureValid(ResourceLocation pId) {
@@ -117,7 +121,7 @@ public class StackedMalumCookingRecipeBuilder implements RecipeBuilder {
             }
             pJson.add("ingredient", this.ingredient.toJson());
             JsonObject object = new JsonObject();
-            object.addProperty("item", Registry.ITEM.getKey(this.result).toString());
+            object.addProperty("item", ForgeRegistries.ITEMS.getKey(this.result).toString());
             object.addProperty("count", this.resultCount);
             pJson.add("result", object);
             pJson.addProperty("experience", this.experience);

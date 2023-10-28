@@ -1,9 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "#",
-    "X"
-  ],
+  "category": "misc",
   "key": {
     "#": {
       "item": "malum:soulwood_panel"
@@ -12,8 +9,13 @@
       "item": "malum:soulwood_planks"
     }
   },
+  "pattern": [
+    "#",
+    "X"
+  ],
   "result": {
-    "item": "malum:cut_soulwood_planks",
-    "count": 2
-  }
+    "count": 2,
+    "item": "malum:cut_soulwood_planks"
+  },
+  "show_notification": true
 }

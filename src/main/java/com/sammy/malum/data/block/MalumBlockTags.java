@@ -25,18 +25,6 @@ public class MalumBlockTags extends LodestoneBlockTagsProvider {
         super(output, lookupProvider, MalumMod.MALUM, existingFileHelper);
     }
 
-    @SuppressWarnings("unchecked")
-
-    protected void addTags() {
-        Set<RegistryObject<Block>> blocks = new HashSet<>(BLOCKS.getEntries());
-
-        tag(BlockTagRegistry.RITE_IMMUNE).addTags(BlockTagRegistry.TAINTED_ROCK, BlockTagRegistry.TWISTED_ROCK);
-
-        tag(BlockTagRegistry.ENDLESS_FLAME);
-        tag(BlockTagRegistry.GREATER_AERIAL_WHITELIST);
-
-        addTagsFromBlockProperties(blocks.stream().map(RegistryObject::get).collect(Collectors.toList()));
-    }
 
     @Override
     public String getName() {
@@ -45,7 +33,14 @@ public class MalumBlockTags extends LodestoneBlockTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider pProvider) {
-        addTags();
+        Set<RegistryObject<Block>> blocks = new HashSet<>(BLOCKS.getEntries());
+
+        tag(BlockTagRegistry.RITE_IMMUNE).addTags(BlockTagRegistry.TAINTED_ROCK, BlockTagRegistry.TWISTED_ROCK);
+
+        tag(BlockTagRegistry.ENDLESS_FLAME);
+        tag(BlockTagRegistry.GREATER_AERIAL_WHITELIST);
+
+        addTagsFromBlockProperties(blocks.stream().map(RegistryObject::get).collect(Collectors.toList()));
     }
 
     @Nonnull

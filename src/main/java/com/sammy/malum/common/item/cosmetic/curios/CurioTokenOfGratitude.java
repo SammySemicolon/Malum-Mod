@@ -54,9 +54,9 @@ public class CurioTokenOfGratitude extends MalumCurioItem implements IEventRespo
         if (slotContext.entity() instanceof Player player) {
             if (player.getUUID().equals(SAMMY) || player.getUUID().equals(LOFI) || player.getUUID().equals(CREECHURE)) {
                 int interval = player.isCrouching() ? 10 : 4000;
-                if (player.getLevel().getGameTime() % interval == 0) {
+                if (player.level().getGameTime() % interval == 0) {
                     SoundEvent soundEvent = player.getRandom().nextInt(8) == 0 ? SoundEvents.CAT_PURREOW : SoundEvents.CAT_PURR;
-                    player.level.playSound(player, player.blockPosition(), soundEvent, SoundSource.PLAYERS, 1, 1);
+                    player.level().playSound(player, player.blockPosition(), soundEvent, SoundSource.PLAYERS, 1, 1);
                 }
             }
         }

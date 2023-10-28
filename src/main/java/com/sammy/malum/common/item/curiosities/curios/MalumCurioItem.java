@@ -58,8 +58,8 @@ public class MalumCurioItem extends Item implements ICurioItem {
     }
 
     @Override
-    public void playRightClickEquipSound(LivingEntity livingEntity, ItemStack stack) {
-        livingEntity.level().playSound(null, livingEntity.blockPosition(), type.sound.get(), SoundSource.PLAYERS, 1.0f, 1.0f);
+    public void onEquipFromUse(SlotContext slotContext, ItemStack stack) {
+        slotContext.entity().level().playSound(null, slotContext.entity().blockPosition(), type.sound.get(), SoundSource.PLAYERS, 1.0f, 1.0f);
     }
 
     @Override
@@ -72,7 +72,7 @@ public class MalumCurioItem extends Item implements ICurioItem {
     }
 
     @Override
-    public boolean canRightClickEquip(ItemStack stack) {
+    public boolean canEquipFromUse(SlotContext slotContext, ItemStack stack) {
         return true;
     }
 

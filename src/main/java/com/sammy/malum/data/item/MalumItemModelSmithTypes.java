@@ -3,6 +3,7 @@ package com.sammy.malum.data.item;
 import com.sammy.malum.common.item.cosmetic.skins.ArmorSkin;
 import com.sammy.malum.registry.common.item.ArmorSkinRegistry;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.registries.ForgeRegistries;
 import team.lodestar.lodestone.helpers.DataHelper;
 import team.lodestar.lodestone.systems.datagen.itemsmith.ItemModelSmith;
 import team.lodestar.lodestone.systems.item.LodestoneArmorItem;
@@ -77,7 +78,7 @@ public class MalumItemModelSmithTypes {
             }
             String itemSuffix = datagenData.getSuffix((LodestoneArmorItem) item);
             ResourceLocation itemTexturePath = new ResourceLocation(datagenData.itemTexturePrefix + itemSuffix);
-            provider.getBuilder(item.getRegistryName().getPath()).override()
+            provider.getBuilder(ForgeRegistries.ITEMS.getKey(item).getPath()).override()
                     .predicate(new ResourceLocation(ArmorSkin.MALUM_SKIN_TAG), value)
                     .model(provider.withExistingParent(entry.getKey() + "_" + itemSuffix, GENERATED).texture("layer0", itemTexturePath))
                     .end();

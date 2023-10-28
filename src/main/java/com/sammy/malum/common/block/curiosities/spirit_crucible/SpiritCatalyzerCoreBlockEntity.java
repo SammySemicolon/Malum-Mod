@@ -131,15 +131,15 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity impleme
     public void addParticles(Color color, Color endColor, float alpha, BlockPos targetPos, Vec3 targetItemPos) {
         if (burnTicks > 0) {
             Vec3 startPos = getItemPos(this);
-            float random = level().random.nextFloat() * 0.04f;
+            float random = level.random.nextFloat() * 0.04f;
             Vec3 velocity = startPos.subtract(targetItemPos.add(random, random, random)).normalize().scale(-0.08f);
 
             WorldParticleBuilder.create(LodestoneParticleRegistry.WISP_PARTICLE)
                     .setTransparencyData(GenericParticleData.create(alpha * 5f, 0f).setCoefficient(0.5f).build())
-                    .setScaleData(GenericParticleData.create(0.15f + level().random.nextFloat() * 0.15f, 0).build())
-                    .setSpinData(SpinParticleData.create(0.1f + level().random.nextFloat() * 0.05f).setSpinOffset((0.075f * level().getGameTime() % 6.28f)).build())
+                    .setScaleData(GenericParticleData.create(0.15f + level.random.nextFloat() * 0.15f, 0).build())
+                    .setSpinData(SpinParticleData.create(0.1f + level.random.nextFloat() * 0.05f).setSpinOffset((0.075f * level.getGameTime() % 6.28f)).build())
                     .setColorData(ColorParticleData.create(color.brighter(), endColor).setCoefficient(0.75f).build())
-                    .setLifetime((int) (10 + level().random.nextInt(8) + Math.sin((0.2 * level().getGameTime()) % 6.28f)))
+                    .setLifetime((int) (10 + level.random.nextInt(8) + Math.sin((0.2 * level.getGameTime()) % 6.28f)))
                     .setRandomOffset(0.05)
                     .setMotion(velocity.x, velocity.y, velocity.z)
                     .enableNoClip()
@@ -147,21 +147,21 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity impleme
 
             WorldParticleBuilder.create(LodestoneParticleRegistry.WISP_PARTICLE)
                     .setTransparencyData(GenericParticleData.create(alpha * 3, 0f).build())
-                    .setScaleData(GenericParticleData.create(0.2f + level().random.nextFloat() * 0.15f, 0).build())
+                    .setScaleData(GenericParticleData.create(0.2f + level.random.nextFloat() * 0.15f, 0).build())
                     .setColorData(ColorParticleData.create(color, endColor).build())
                     .setLifetime(15)
                     .setRandomOffset(0.05)
-                    .setSpinData(SpinParticleData.create(0).setSpinOffset((0.15f * level().getGameTime()) % 6.28f).build())
+                    .setSpinData(SpinParticleData.create(0).setSpinOffset((0.15f * level.getGameTime()) % 6.28f).build())
                     .enableNoClip()
                     .repeat(level, startPos.x, startPos.y, startPos.z, 1);
 
             WorldParticleBuilder.create(LodestoneParticleRegistry.STAR_PARTICLE)
                     .setTransparencyData(GenericParticleData.create(alpha * 3, 0f).build())
-                    .setScaleData(GenericParticleData.create(0.45f + level().random.nextFloat() * 0.15f, 0).build())
+                    .setScaleData(GenericParticleData.create(0.45f + level.random.nextFloat() * 0.15f, 0).build())
                     .setColorData(ColorParticleData.create(color, endColor).build())
                     .setLifetime(15)
                     .setRandomOffset(0.05)
-                    .setSpinData(SpinParticleData.create(0).setSpinOffset((0.075f * level().getGameTime()) % 6.28f).build())
+                    .setSpinData(SpinParticleData.create(0).setSpinOffset((0.075f * level.getGameTime()) % 6.28f).build())
                     .enableNoClip()
                     .repeat(level, startPos.x, startPos.y, startPos.z, 1);
         }

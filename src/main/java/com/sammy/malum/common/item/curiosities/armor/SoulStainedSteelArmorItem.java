@@ -30,9 +30,9 @@ public class SoulStainedSteelArmorItem extends MalumArmorItem {
     }
 
     @Override
-    public ImmutableMultimap.Builder<Attribute, AttributeModifier> createExtraAttributes(EquipmentSlot slot) {
+    public ImmutableMultimap.Builder<Attribute, AttributeModifier> createExtraAttributes(ArmorItem.Type slot) {
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = new ImmutableMultimap.Builder<>();
-        UUID uuid = ARMOR_MODIFIER_UUID_PER_TYPE.get(slot.getIndex());
+        UUID uuid = ARMOR_MODIFIER_UUID_PER_TYPE.get(slot);
         builder.put(AttributeRegistry.SOUL_WARD_CAP.get(), new AttributeModifier(uuid, "Soul Ward Cap", 3f, AttributeModifier.Operation.ADDITION));
         return builder;
     }
@@ -64,7 +64,7 @@ public class SoulStainedSteelArmorItem extends MalumArmorItem {
                 }
                 model.slot = armorSlot;
                 model.copyFromDefault(_default);
-                model.setupAnim(entity, entity.animationPosition, entity.animationSpeed, entity.tickCount + pticks, netHeadYaw, netHeadPitch);
+                model.setupAnim(entity, entity.walkAnimation.position(), entity.walkAnimation.speed(), entity.tickCount + pticks, netHeadYaw, netHeadPitch);
                 return model;
             }
         });

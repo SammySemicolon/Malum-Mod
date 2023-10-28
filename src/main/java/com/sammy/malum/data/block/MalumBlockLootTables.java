@@ -2,6 +2,7 @@ package com.sammy.malum.data.block;
 
 import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
+import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.block.ether.EtherBlock;
 import com.sammy.malum.common.block.storage.jar.SpiritJarBlock;
 import com.sammy.malum.common.block.storage.vial.SoulVialBlock;
@@ -41,14 +42,12 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import team.lodestar.lodestone.systems.block.LodestoneBlockProperties;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static com.sammy.malum.registry.common.block.BlockRegistry.BLOCKS;
@@ -78,6 +77,11 @@ public class MalumBlockLootTables extends LootTableProvider {
 
         protected BlocksLoot() {
             super(Set.of(), FeatureFlags.REGISTRY.allFlags());
+        }
+
+        @Override
+        protected Iterable<Block> getKnownBlocks() {
+            return BlockRegistry.BLOCKS.getEntries().stream().map(Supplier::get).collect(Collectors.toList());
         }
 
         @Override

@@ -1,16 +1,18 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "###",
-    "###"
-  ],
+  "category": "misc",
   "key": {
     "#": {
       "item": "malum:runewood_planks"
     }
   },
+  "pattern": [
+    "###",
+    "###"
+  ],
   "result": {
-    "item": "malum:runewood_trapdoor",
-    "count": 2
-  }
+    "count": 2,
+    "item": "malum:runewood_trapdoor"
+  },
+  "show_notification": true
 }

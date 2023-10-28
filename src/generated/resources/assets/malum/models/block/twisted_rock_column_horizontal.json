@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:block/cube_column_horizontal",
   "textures": {
-    "side": "malum:block/arcane_rock/twisted/twisted_rock_column",
-    "end": "malum:block/arcane_rock/twisted/twisted_rock_column_top"
+    "end": "malum:block/arcane_rock/twisted/twisted_rock_column_top",
+    "side": "malum:block/arcane_rock/twisted/twisted_rock_column"
   }
 }
