@@ -12,7 +12,7 @@ import static com.sammy.malum.MalumMod.MALUM;
 public class CommonConfig extends LodestoneConfig {
 
     //worldgen
-    /*TODO
+
     public static ConfigValueHolder<Boolean> GENERATE_RUNEWOOD_TREES = new ConfigValueHolder<>(MALUM, "common/worldgen/runewood", (builder ->
             builder.comment("Should runewood trees naturally generate?")
                     .define("generateRunewood", true)));
@@ -122,7 +122,7 @@ public class CommonConfig extends LodestoneConfig {
                     .defineList("cthonicGoldDimensions", new ArrayList<>(List.of("minecraft:overworld")), s -> s instanceof String));
 
 
-     */
+
     public static ConfigValueHolder<Boolean> ULTIMATE_REBOUND = new ConfigValueHolder<>(MALUM, "common/item/rebound", (builder ->
             builder.comment("If set to true, you may put rebound on any weapon in the game.")
                     .define("enableUltimateRebound", false)));

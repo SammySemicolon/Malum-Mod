@@ -99,37 +99,25 @@ public class MalumMod {
 
 
             MalumItemModels itemModelsProvider = new MalumItemModels(output, helper);
-
-            MalumBlockStates blockStateProvider = new MalumBlockStates(output, helper, itemModelsProvider);
-            MalumLang langProvider = new MalumLang(output);
-            MalumBlockLootTables lootTablesProvider = new MalumBlockLootTables(output);
-            MalumRecipes recipeProvider = new MalumRecipes(output);
-            MalumVanillaRecipeReplacements vanillaRecipeReplacementsProvider = new MalumVanillaRecipeReplacements(output);
-            MalumSpiritInfusionRecipes spiritInfusionRecipesProvider = new MalumSpiritInfusionRecipes(output);
-            MalumSpiritFocusingRecipes spiritFocusingRecipesProvider = new MalumSpiritFocusingRecipes(output);
-            MalumSpiritTransmutationRecipes spiritTransmutationRecipesProvider = new MalumSpiritTransmutationRecipes(output);
-            MalumVoidFavorRecipes voidFavorRecipesProvider = new MalumVoidFavorRecipes(output);
-            MalumWorldgenProvider worldgenProvider = new MalumWorldgenProvider(output, provider);
             MalumBlockTags blockTagsProvider = new MalumBlockTags(output, provider, helper);
-            MalumBiomeTags malumBiomeTags = new MalumBiomeTags(output, provider, helper);
 
-            generator.addProvider(event.includeClient(), blockStateProvider);
+            generator.addProvider(event.includeClient(), new MalumBlockStates(output, helper, itemModelsProvider));
             generator.addProvider(event.includeClient(), itemModelsProvider);
-            generator.addProvider(event.includeClient(), langProvider);
+            generator.addProvider(event.includeClient(), new MalumLang(output));
 
             //TODO generator.addProvider(event.includeServer(), blockTagsProvider);
-            generator.addProvider(event.includeServer(), lootTablesProvider);
+            generator.addProvider(event.includeServer(), new MalumBlockLootTables(output));
             //TODO generator.addProvider(event.includeServer(), new MalumItemTags(output, provider, blockTagsProvider.contentsGetter(), helper));
 
-            generator.addProvider(event.includeServer(), recipeProvider);
-            generator.addProvider(event.includeServer(), vanillaRecipeReplacementsProvider);
-            generator.addProvider(event.includeServer(), spiritInfusionRecipesProvider);
-            generator.addProvider(event.includeServer(), spiritFocusingRecipesProvider);
-            generator.addProvider(event.includeServer(), spiritTransmutationRecipesProvider);
-            generator.addProvider(event.includeServer(), voidFavorRecipesProvider);
+            generator.addProvider(event.includeServer(), new MalumRecipes(output));
+            generator.addProvider(event.includeServer(), new MalumVanillaRecipeReplacements(output));
+            generator.addProvider(event.includeServer(), new MalumSpiritInfusionRecipes(output));
+            generator.addProvider(event.includeServer(), new MalumSpiritFocusingRecipes(output));
+            generator.addProvider(event.includeServer(), new MalumSpiritTransmutationRecipes(output));
+            generator.addProvider(event.includeServer(), new MalumVoidFavorRecipes(output));
 
-            generator.addProvider(event.includeServer(), worldgenProvider);
-            generator.addProvider(event.includeServer(), malumBiomeTags);
+            generator.addProvider(event.includeServer(), new MalumWorldgenProvider(output, provider));
+            generator.addProvider(event.includeServer(), new MalumBiomeTags(output, provider, helper));
         }
     }
 }

@@ -25,5 +25,6 @@ public class MalumBiomeTags extends BiomeTagsProvider {
         tag(BiomeTagRegistry.HAS_SOULSTONE).addTag(BiomeTags.IS_OVERWORLD);
         tag(BiomeTagRegistry.HAS_BRILLIANT).addTag(BiomeTags.IS_OVERWORLD);
         tag(BiomeTagRegistry.HAS_BLAZING_QUARTZ).addTag(BiomeTags.IS_NETHER);
+        tag(BiomeTagRegistry.HAS_RUNEWOOD).addTag(BiomeTags.IS_OVERWORLD);//Todo change to Forest and add rare for plains
     }
 }

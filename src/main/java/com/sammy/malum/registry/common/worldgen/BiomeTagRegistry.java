@@ -9,4 +9,5 @@ public class BiomeTagRegistry {
     public static final TagKey<Biome> HAS_SOULSTONE = TagKey.create(Registries.BIOME, MalumMod.malumPath("has_soulstone"));
     public static final TagKey<Biome> HAS_BRILLIANT = TagKey.create(Registries.BIOME, MalumMod.malumPath("has_brilliant"));
     public static final TagKey<Biome> HAS_BLAZING_QUARTZ = TagKey.create(Registries.BIOME, MalumMod.malumPath("has_blazing_quartz"));
+    public static final TagKey<Biome> HAS_RUNEWOOD = TagKey.create(Registries.BIOME, MalumMod.malumPath("has_runewood"));
 }

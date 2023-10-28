@@ -56,6 +56,11 @@ public class MalumWorldgenProvider extends DatapackBuiltinEntriesProvider {
                             getPlacedHolderSet(context, PlacedFeatureRegistry.ORE_NATURAL_QUARTZ),
                             BiomeTagRegistry.HAS_SOULSTONE, GenerationStep.Decoration.UNDERGROUND_ORES));
 
+            register(context, "runwood_tree", () ->
+                    addFeatureModifier(context,
+                            getPlacedHolderSet(context, PlacedFeatureRegistry.RUNEWOOD_TREE),
+                            BiomeTagRegistry.HAS_RUNEWOOD, GenerationStep.Decoration.VEGETAL_DECORATION));
+
         }
 
         public static HolderSet<PlacedFeature> getPlacedHolderSet(BootstapContext<?> context, ResourceKey<PlacedFeature>... placedFeatures) {

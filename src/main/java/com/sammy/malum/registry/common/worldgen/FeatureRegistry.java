@@ -38,7 +38,6 @@ import java.util.List;
 import static com.sammy.malum.MalumMod.MALUM;
 import static net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration.INSTANCE;
 
-@Mod.EventBusSubscriber(modid = MalumMod.MALUM, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class FeatureRegistry {
 
     public static final DeferredRegister<Feature<?>> FEATURE_TYPES = DeferredRegister.create(ForgeRegistries.FEATURES, MALUM);
