@@ -43,7 +43,7 @@ public class DataGenerators {
         generator.addProvider(event.includeClient(), itemModelsProvider);
 
 
-        //TODO generator.addProvider(event.includeServer(), blockTagsProvider);
+        //TODO this crashes generator.addProvider(event.includeServer(), blockTagsProvider);
         generator.addProvider(event.includeServer(), new MalumBlockLootTables(output));
         //TODO generator.addProvider(event.includeServer(), new MalumItemTags(output, provider, blockTagsProvider.contentsGetter(), helper));
 

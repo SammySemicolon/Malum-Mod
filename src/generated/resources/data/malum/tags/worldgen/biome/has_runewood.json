@@ -1,5 +1,7 @@
 {
   "values": [
-    "#minecraft:is_overworld"
+    "#forge:is_plains",
+    "#forge:is_mountain",
+    "#minecraft:is_hill"
   ]
 }

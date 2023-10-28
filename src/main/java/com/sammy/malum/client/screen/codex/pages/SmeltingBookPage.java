@@ -36,7 +36,7 @@ public class SmeltingBookPage extends BookPage {
         Optional<SmeltingRecipe> optional = Minecraft.getInstance().level.getRecipeManager().getRecipeFor(RecipeType.SMELTING, new SimpleContainer(new ItemStack(input, 1)), Minecraft.getInstance().level);
         if (optional.isPresent()) {
             SmeltingRecipe recipe = optional.get();
-            return new SmeltingBookPage(new ItemStack(input), recipe.getResultItem(null));//TODO mayby get access
+            return new SmeltingBookPage(new ItemStack(input), recipe.getResultItem(Minecraft.getInstance().level.registryAccess()));
         }
         return new SmeltingBookPage(ItemStack.EMPTY, ItemStack.EMPTY);
     }
