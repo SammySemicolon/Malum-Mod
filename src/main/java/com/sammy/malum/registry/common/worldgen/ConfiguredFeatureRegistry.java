@@ -47,15 +47,12 @@ public class ConfiguredFeatureRegistry {
             OreConfiguration.target(DEEPSLATE_ORE_REPLACEABLES, BlockRegistry.DEEPSLATE_QUARTZ_ORE.get().defaultBlockState()));
 
     public static void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> context) {
-        HolderGetter<ConfiguredFeature<?, ?>> features = context.lookup(Registries.CONFIGURED_FEATURE);
-
-
         context.register(ConfiguredFeatureRegistry.CONFIGURED_SOULSTONE_ORE, addOreConfig(SOULSTONE_TARGET_LIST, 30));
         context.register(ConfiguredFeatureRegistry.CONFIGURED_BRILLIANT_ORE, addOreConfig(BRILLIANT_TARGET_LIST, 30));
         context.register(ConfiguredFeatureRegistry.CONFIGURED_NATURAL_QUARTZ_ORE, addOreConfig(NATURAL_QUARTZ_TARGET_LIST, 30));
 
         context.register(ConfiguredFeatureRegistry.CONFIGURED_RUNEWOOD_TREE, addTreeConfig(FeatureRegistry.RUNEWOOD_TREE.get()));
-        //register(context, ConfiguredFeatureRegistry.CONFIGURED_SOULWOOD_TREE, () -> addTreeConfig(FeatureRegistry.SOULWOOD_TREE.get()));
+        context.register(ConfiguredFeatureRegistry.CONFIGURED_SOULWOOD_TREE, addTreeConfig(FeatureRegistry.SOULWOOD_TREE.get()));
     }
 
     private static ConfiguredFeature<?,?> addTreeConfig(Feature<NoneFeatureConfiguration> feature) {

@@ -6,24 +6,26 @@ import com.sammy.malum.config.ClientConfig;
 import com.sammy.malum.config.CommonConfig;
 import com.sammy.malum.data.MalumBiomeTags;
 import com.sammy.malum.data.MalumLang;
-import com.sammy.malum.data.MalumRecipes;
-import com.sammy.malum.data.MalumWorldgenProvider;
+import com.sammy.malum.data.RegistryDataGenerator;
 import com.sammy.malum.data.block.MalumBlockLootTables;
 import com.sammy.malum.data.block.MalumBlockStates;
 import com.sammy.malum.data.block.MalumBlockTags;
 import com.sammy.malum.data.item.MalumItemModels;
-import com.sammy.malum.data.item.MalumItemTags;
-import com.sammy.malum.data.recipe.*;
 import com.sammy.malum.registry.common.item.tabs.CreativeTabRegistry;
+import net.minecraft.DetectedVersion;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
+import net.minecraft.data.metadata.PackMetadataGenerator;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.PackType;
+import net.minecraft.server.packs.metadata.pack.PackMetadataSection;
 import net.minecraft.util.RandomSource;
-import net.minecraftforge.common.data.BlockTagsProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
@@ -31,7 +33,10 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.Arrays;
 import java.util.concurrent.CompletableFuture;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import static com.sammy.malum.registry.client.ParticleRegistry.PARTICLES;
 import static com.sammy.malum.registry.common.AttributeRegistry.ATTRIBUTES;
@@ -83,41 +88,9 @@ public class MalumMod {
         CreateCompat.init();
 
         modBus.addListener(CreativeTabRegistry::populateItemGroups);
-        modBus.addListener(DataOnly::gatherData);
     }
 
     public static ResourceLocation malumPath(String path) {
         return new ResourceLocation(MALUM, path);
-    }
-
-    public static class DataOnly {
-        public static void gatherData(GatherDataEvent event) {
-            DataGenerator generator = event.getGenerator();
-            PackOutput output = generator.getPackOutput();
-            CompletableFuture<HolderLookup.Provider> provider = event.getLookupProvider();
-            ExistingFileHelper helper = event.getExistingFileHelper();
-
-
-            MalumItemModels itemModelsProvider = new MalumItemModels(output, helper);
-            MalumBlockTags blockTagsProvider = new MalumBlockTags(output, provider, helper);
-
-            generator.addProvider(event.includeClient(), new MalumBlockStates(output, helper, itemModelsProvider));
-            generator.addProvider(event.includeClient(), itemModelsProvider);
-            generator.addProvider(event.includeClient(), new MalumLang(output));
-
-            //TODO generator.addProvider(event.includeServer(), blockTagsProvider);
-            generator.addProvider(event.includeServer(), new MalumBlockLootTables(output));
-            //TODO generator.addProvider(event.includeServer(), new MalumItemTags(output, provider, blockTagsProvider.contentsGetter(), helper));
-
-            generator.addProvider(event.includeServer(), new MalumRecipes(output));
-            generator.addProvider(event.includeServer(), new MalumVanillaRecipeReplacements(output));
-            generator.addProvider(event.includeServer(), new MalumSpiritInfusionRecipes(output));
-            generator.addProvider(event.includeServer(), new MalumSpiritFocusingRecipes(output));
-            generator.addProvider(event.includeServer(), new MalumSpiritTransmutationRecipes(output));
-            generator.addProvider(event.includeServer(), new MalumVoidFavorRecipes(output));
-
-            generator.addProvider(event.includeServer(), new MalumWorldgenProvider(output, provider));
-            generator.addProvider(event.includeServer(), new MalumBiomeTags(output, provider, helper));
-        }
     }
 }
