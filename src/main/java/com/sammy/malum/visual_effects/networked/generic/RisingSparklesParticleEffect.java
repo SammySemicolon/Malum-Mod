@@ -1,21 +1,22 @@
 package com.sammy.malum.visual_effects.networked.generic;
 
 
-import com.sammy.malum.visual_effects.networked.*;
-import com.sammy.malum.visual_effects.networked.data.*;
-import net.minecraft.util.*;
-import net.minecraftforge.api.distmarker.*;
-import team.lodestar.lodestone.helpers.*;
-import team.lodestar.lodestone.setup.*;
-import team.lodestar.lodestone.systems.easing.*;
-import team.lodestar.lodestone.systems.particle.*;
-import team.lodestar.lodestone.systems.particle.builder.*;
-import team.lodestar.lodestone.systems.particle.data.*;
-import team.lodestar.lodestone.systems.particle.data.color.*;
-import team.lodestar.lodestone.systems.particle.data.spin.*;
+import com.sammy.malum.visual_effects.networked.ParticleEffectType;
+import com.sammy.malum.visual_effects.networked.data.ColorEffectData;
+import net.minecraft.util.Mth;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import team.lodestar.lodestone.helpers.ColorHelper;
+import team.lodestar.lodestone.setup.LodestoneParticleRegistry;
+import team.lodestar.lodestone.systems.easing.Easing;
+import team.lodestar.lodestone.systems.particle.SimpleParticleOptions;
+import team.lodestar.lodestone.systems.particle.builder.WorldParticleBuilder;
+import team.lodestar.lodestone.systems.particle.data.GenericParticleData;
+import team.lodestar.lodestone.systems.particle.data.color.ColorParticleData;
+import team.lodestar.lodestone.systems.particle.data.spin.SpinParticleData;
 
 import java.awt.*;
-import java.util.function.*;
+import java.util.function.Supplier;
 
 public class RisingSparklesParticleEffect extends ParticleEffectType {
 

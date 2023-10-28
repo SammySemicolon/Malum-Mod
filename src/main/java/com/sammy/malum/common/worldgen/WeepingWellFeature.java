@@ -19,8 +19,6 @@ import net.minecraft.world.level.material.FluidState;
 import team.lodestar.lodestone.systems.worldgen.LodestoneBlockFiller;
 import team.lodestar.lodestone.systems.worldgen.LodestoneBlockFiller.BlockStateEntry;
 
-import java.util.Random;
-
 public class WeepingWellFeature extends Feature<NoneFeatureConfiguration> {
     public WeepingWellFeature() {
         super(NoneFeatureConfiguration.CODEC);
@@ -59,13 +57,12 @@ public class WeepingWellFeature extends Feature<NoneFeatureConfiguration> {
         for (int x = -2; x <= 2; x++) {
             for (int y = -5; y <= 4; y++) {
                 for (int z = -2; z <= 2; z++) {
-                    mutableBlockPos.set(pos.getX()+x, pos.getY()+y, pos.getZ()+z);
+                    mutableBlockPos.set(pos.getX() + x, pos.getY() + y, pos.getZ() + z);
                     if (y <= 0) {
                         if (level.isEmptyBlock(mutableBlockPos) || !level.isFluidAtPosition(mutableBlockPos, FluidState::isEmpty)) {
                             failedSolidChecks++;
                         }
-                    }
-                    else {
+                    } else {
                         if (!canPlace(level, mutableBlockPos)) {
                             failedNonSolidChecks++;
                         }
@@ -147,7 +144,7 @@ public class WeepingWellFeature extends Feature<NoneFeatureConfiguration> {
                 filler.getEntries().put(columnPosition.immutable(), new BlockStateEntry(state));
                 if (j < wallHeight) {
                     BlockState wallState = BlockRegistry.TAINTED_ROCK_BRICKS_WALL.get().defaultBlockState();
-                    final WallSide wallSide = j == wallHeight-1 ? WallSide.LOW : WallSide.TALL;
+                    final WallSide wallSide = j == wallHeight - 1 ? WallSide.LOW : WallSide.TALL;
                     switch (columnDirection) {
                         case SOUTH -> wallState = wallState.setValue(WallBlock.SOUTH_WALL, wallSide);
                         case NORTH -> wallState = wallState.setValue(WallBlock.NORTH_WALL, wallSide);

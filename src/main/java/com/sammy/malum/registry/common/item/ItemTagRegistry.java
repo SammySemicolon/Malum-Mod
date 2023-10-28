@@ -1,7 +1,6 @@
 package com.sammy.malum.registry.common.item;
 
 import com.sammy.malum.MalumMod;
-import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;

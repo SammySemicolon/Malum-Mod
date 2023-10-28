@@ -1,14 +1,14 @@
 {
   "type": "malum:spirit_infusion",
+  "extra_items": [],
   "input": {
-    "tag": "minecraft:stone_tool_materials",
-    "count": 16
+    "count": 16,
+    "tag": "minecraft:stone_tool_materials"
   },
   "output": {
-    "item": "malum:tainted_rock",
-    "count": 16
+    "count": 16,
+    "item": "malum:tainted_rock"
   },
-  "extra_items": [],
   "spirits": [
     {
       "type": "sacred"

@@ -1,19 +1,19 @@
 {
   "type": "malum:spirit_infusion",
-  "input": {
-    "tag": "forge:ingots/iron",
-    "count": 4
-  },
-  "output": {
-    "item": "malum:esoteric_spool",
-    "count": 4
-  },
   "extra_items": [
     {
-      "item": "malum:hex_ash",
-      "count": 2
+      "count": 2,
+      "item": "malum:hex_ash"
     }
   ],
+  "input": {
+    "count": 4,
+    "tag": "forge:ingots/iron"
+  },
+  "output": {
+    "count": 4,
+    "item": "malum:esoteric_spool"
+  },
   "spirits": [
     {
       "type": "arcane",

@@ -8,11 +8,11 @@ public abstract class EntityAffectingRiteEffect extends MalumRiteEffect {
 
     @Override
     public int getRiteEffectTickRate() {
-        return BASE_TICK_RATE*2;
+        return BASE_TICK_RATE * 2;
     }
 
     @Override
     public int getRiteEffectRadius() {
-        return BASE_RADIUS*2;
+        return BASE_RADIUS * 2;
     }
 }

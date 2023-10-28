@@ -1,23 +1,23 @@
 package com.sammy.malum.common.packets.particle.curiosities.nitrate;
 
-import com.sammy.malum.common.entity.nitrate.*;
-import com.sammy.malum.common.packets.particle.base.*;
-import net.minecraft.client.*;
-import net.minecraft.network.*;
-import net.minecraft.world.level.*;
-import net.minecraftforge.api.distmarker.*;
-import net.minecraftforge.network.*;
-import net.minecraftforge.network.simple.*;
-import team.lodestar.lodestone.setup.*;
-import team.lodestar.lodestone.systems.easing.*;
-import team.lodestar.lodestone.systems.particle.*;
-import team.lodestar.lodestone.systems.particle.builder.*;
-import team.lodestar.lodestone.systems.particle.data.*;
-import team.lodestar.lodestone.systems.particle.data.color.*;
-import team.lodestar.lodestone.systems.particle.data.spin.*;
+import com.sammy.malum.common.entity.nitrate.EthericNitrateEntity;
+import com.sammy.malum.common.packets.particle.base.PositionBasedParticleEffectPacket;
+import net.minecraft.client.Minecraft;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.level.Level;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.network.NetworkEvent;
+import net.minecraftforge.network.simple.SimpleChannel;
+import team.lodestar.lodestone.setup.LodestoneParticleRegistry;
+import team.lodestar.lodestone.systems.easing.Easing;
+import team.lodestar.lodestone.systems.particle.SimpleParticleOptions;
+import team.lodestar.lodestone.systems.particle.builder.WorldParticleBuilder;
+import team.lodestar.lodestone.systems.particle.data.GenericParticleData;
+import team.lodestar.lodestone.systems.particle.data.color.ColorParticleData;
+import team.lodestar.lodestone.systems.particle.data.spin.SpinParticleData;
 
-import java.util.*;
-import java.util.function.*;
+import java.util.function.Supplier;
 
 public class EthericNitrateParticlePacket extends PositionBasedParticleEffectPacket {
 
@@ -40,7 +40,7 @@ public class EthericNitrateParticlePacket extends PositionBasedParticleEffectPac
         for (int i = 0; i < 3; i++) {
             int spinDirection = (rand.nextBoolean() ? 1 : -1);
             int spinOffset = rand.nextInt(360);
-            float motionMultiplier = (float) (1+Math.pow(rand.nextFloat(), 2));
+            float motionMultiplier = (float) (1 + Math.pow(rand.nextFloat(), 2));
             WorldParticleBuilder.create(LodestoneParticleRegistry.TWINKLE_PARTICLE)
                     .setTransparencyData(GenericParticleData.create(0.2f, 0.8f, 0).build())
                     .setLifetime(20)
@@ -52,19 +52,19 @@ public class EthericNitrateParticlePacket extends PositionBasedParticleEffectPac
                     .setGravityStrength(1.1f)
                     .addMotion(0, 0.3f + rand.nextFloat() * 0.15f * motionMultiplier, 0)
                     .disableNoClip()
-                    .setRandomMotion(0.2f*motionMultiplier, 0.25f*motionMultiplier)
+                    .setRandomMotion(0.2f * motionMultiplier, 0.25f * motionMultiplier)
                     .setDiscardFunction(SimpleParticleOptions.ParticleDiscardFunctionType.ENDING_CURVE_INVISIBLE)
                     .repeat(level, posX, posY, posZ, 4);
         }
         int spinOffset = rand.nextInt(360);
         for (int i = 0; i < 3; i++) {
             int spinDirection = (rand.nextBoolean() ? 1 : -1);
-            float scaleMultiplier = (float) (1+Math.pow(rand.nextFloat(), 2)*0.5f);
+            float scaleMultiplier = (float) (1 + Math.pow(rand.nextFloat(), 2) * 0.5f);
             WorldParticleBuilder.create(LodestoneParticleRegistry.SPARKLE_PARTICLE)
                     .setTransparencyData(GenericParticleData.create(0.35f, 0.07f, 0).setEasing(Easing.SINE_IN, Easing.CIRC_IN).build())
                     .setLifetime(9)
                     .setSpinData(SpinParticleData.create((0.125f + rand.nextFloat() * 0.075f) * spinDirection).setSpinOffset(spinOffset).build())
-                    .setScaleData(GenericParticleData.create(0.8f*scaleMultiplier, 0.5f, 0).setEasing(Easing.EXPO_OUT, Easing.SINE_IN).build())
+                    .setScaleData(GenericParticleData.create(0.8f * scaleMultiplier, 0.5f, 0).setEasing(Easing.EXPO_OUT, Easing.SINE_IN).build())
                     .setColorData(ColorParticleData.create(EthericNitrateEntity.FIRST_COLOR.brighter(), EthericNitrateEntity.SECOND_COLOR.darker()).build())
                     .setRandomOffset(0.6f)
                     .enableNoClip()

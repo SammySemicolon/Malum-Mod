@@ -1,5 +1,9 @@
 {
   "variants": {
+    "facing=east": {
+      "model": "malum:block/spirit_catalyzer_component",
+      "y": 90
+    },
     "facing=north": {
       "model": "malum:block/spirit_catalyzer_component"
     },
@@ -10,10 +14,6 @@
     "facing=west": {
       "model": "malum:block/spirit_catalyzer_component",
       "y": 270
-    },
-    "facing=east": {
-      "model": "malum:block/spirit_catalyzer_component",
-      "y": 90
     }
   }
 }

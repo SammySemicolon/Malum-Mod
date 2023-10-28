@@ -10,8 +10,8 @@ import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
-import team.lodestar.lodestone.setup.*;
-import team.lodestar.lodestone.systems.particle.type.*;
+import team.lodestar.lodestone.systems.particle.type.LodestoneParticleType;
+import team.lodestar.lodestone.systems.particle.type.LodestoneSparkParticleType;
 
 @SuppressWarnings("unused")
 public class ParticleRegistry {

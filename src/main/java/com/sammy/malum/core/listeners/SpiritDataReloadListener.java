@@ -3,10 +3,9 @@ package com.sammy.malum.core.listeners;
 import com.google.gson.*;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.core.helper.SpiritHelper;
-import com.sammy.malum.registry.common.SpiritTypeRegistry;
 import com.sammy.malum.core.systems.recipe.SpiritWithCount;
 import com.sammy.malum.core.systems.spirit.MalumEntitySpiritData;
-import net.minecraft.core.Registry;
+import com.sammy.malum.registry.common.SpiritTypeRegistry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
@@ -22,32 +21,32 @@ public class SpiritDataReloadListener extends SimpleJsonResourceReloadListener {
     public static final Set<ResourceLocation> HAS_NO_DATA = new HashSet<>();
 
     public static final MalumEntitySpiritData DEFAULT_MONSTER_SPIRIT_DATA = MalumEntitySpiritData
-        .builder(SpiritTypeRegistry.WICKED_SPIRIT)
-        .build();
+            .builder(SpiritTypeRegistry.WICKED_SPIRIT)
+            .build();
     public static final MalumEntitySpiritData DEFAULT_CREATURE_SPIRIT_DATA = MalumEntitySpiritData
-        .builder(SpiritTypeRegistry.SACRED_SPIRIT)
-        .build();
+            .builder(SpiritTypeRegistry.SACRED_SPIRIT)
+            .build();
     public static final MalumEntitySpiritData DEFAULT_AMBIENT_SPIRIT_DATA = MalumEntitySpiritData
-        .builder(SpiritTypeRegistry.AERIAL_SPIRIT)
-        .build();
+            .builder(SpiritTypeRegistry.AERIAL_SPIRIT)
+            .build();
     public static final MalumEntitySpiritData DEFAULT_WATER_CREATURE_SPIRIT_DATA = MalumEntitySpiritData
-        .builder(SpiritTypeRegistry.AQUEOUS_SPIRIT)
-        .withSpirit(SpiritTypeRegistry.SACRED_SPIRIT)
-        .build();
+            .builder(SpiritTypeRegistry.AQUEOUS_SPIRIT)
+            .withSpirit(SpiritTypeRegistry.SACRED_SPIRIT)
+            .build();
     public static final MalumEntitySpiritData DEFAULT_WATER_AMBIENT_SPIRIT_DATA = MalumEntitySpiritData
-        .builder(SpiritTypeRegistry.AQUEOUS_SPIRIT)
-        .build();
+            .builder(SpiritTypeRegistry.AQUEOUS_SPIRIT)
+            .build();
     public static final MalumEntitySpiritData DEFAULT_UNDERGROUND_WATER_CREATURE_SPIRIT_DATA = MalumEntitySpiritData
-        .builder(SpiritTypeRegistry.AQUEOUS_SPIRIT)
-        .withSpirit(SpiritTypeRegistry.EARTHEN_SPIRIT)
-        .build();
+            .builder(SpiritTypeRegistry.AQUEOUS_SPIRIT)
+            .withSpirit(SpiritTypeRegistry.EARTHEN_SPIRIT)
+            .build();
     public static final MalumEntitySpiritData DEFAULT_AXOLOTL_SPIRIT_DATA = MalumEntitySpiritData // They're their own category
-        .builder(SpiritTypeRegistry.AQUEOUS_SPIRIT, 2)
-        .withSpirit(SpiritTypeRegistry.SACRED_SPIRIT)
-        .build();
+            .builder(SpiritTypeRegistry.AQUEOUS_SPIRIT, 2)
+            .withSpirit(SpiritTypeRegistry.SACRED_SPIRIT)
+            .build();
     public static final MalumEntitySpiritData DEFAULT_BOSS_SPIRIT_DATA = MalumEntitySpiritData
-        .builder(SpiritTypeRegistry.ELDRITCH_SPIRIT, 2)
-        .build();
+            .builder(SpiritTypeRegistry.ELDRITCH_SPIRIT, 2)
+            .build();
 
     private static final Gson GSON = (new GsonBuilder()).create();
 

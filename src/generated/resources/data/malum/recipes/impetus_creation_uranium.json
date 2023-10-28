@@ -4,36 +4,36 @@
     {
       "conditions": [
         {
+          "type": "forge:not",
           "value": {
-            "tag": "forge:ingots/uranium",
-            "type": "forge:tag_empty"
-          },
-          "type": "forge:not"
+            "type": "forge:tag_empty",
+            "tag": "forge:ingots/uranium"
+          }
         }
       ],
       "recipe": {
         "type": "malum:spirit_infusion",
+        "extra_items": [
+          {
+            "count": 4,
+            "tag": "forge:gunpowder"
+          },
+          {
+            "count": 1,
+            "item": "malum:cthonic_gold"
+          },
+          {
+            "count": 6,
+            "tag": "forge:ingots/uranium"
+          }
+        ],
         "input": {
-          "item": "malum:alchemical_impetus",
-          "count": 1
+          "count": 1,
+          "item": "malum:alchemical_impetus"
         },
         "output": {
           "item": "malum:uranium_impetus"
         },
-        "extra_items": [
-          {
-            "tag": "forge:gunpowder",
-            "count": 4
-          },
-          {
-            "item": "malum:cthonic_gold",
-            "count": 1
-          },
-          {
-            "tag": "forge:ingots/uranium",
-            "count": 6
-          }
-        ],
         "spirits": [
           {
             "type": "earthen",

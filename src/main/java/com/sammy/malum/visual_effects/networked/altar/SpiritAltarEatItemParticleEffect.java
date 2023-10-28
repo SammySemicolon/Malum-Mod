@@ -1,17 +1,17 @@
 package com.sammy.malum.visual_effects.networked.altar;
 
-import com.sammy.malum.common.block.curiosities.spirit_altar.*;
-import com.sammy.malum.common.block.storage.*;
-import com.sammy.malum.visual_effects.*;
-import com.sammy.malum.visual_effects.networked.*;
-import com.sammy.malum.visual_effects.networked.data.*;
-import net.minecraft.core.*;
-import net.minecraft.nbt.*;
-import net.minecraft.world.item.*;
-import net.minecraftforge.api.distmarker.*;
-import team.lodestar.lodestone.helpers.*;
+import com.sammy.malum.common.block.curiosities.spirit_altar.SpiritAltarBlockEntity;
+import com.sammy.malum.common.block.storage.MalumItemHolderBlockEntity;
+import com.sammy.malum.visual_effects.SpiritAltarParticleEffects;
+import com.sammy.malum.visual_effects.networked.ParticleEffectType;
+import com.sammy.malum.visual_effects.networked.data.NBTEffectData;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import team.lodestar.lodestone.helpers.BlockHelper;
 
-import java.util.function.*;
+import java.util.function.Supplier;
 
 public class SpiritAltarEatItemParticleEffect extends ParticleEffectType {
 

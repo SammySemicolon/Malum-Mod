@@ -4,16 +4,11 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import com.sammy.malum.common.block.curiosities.totem.TotemPoleBlockEntity;
-import com.sammy.malum.core.systems.spirit.MalumSpiritType;
-import com.sammy.malum.registry.common.SpiritTypeRegistry;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
-import net.minecraft.client.renderer.texture.TextureAtlas;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.resources.model.Material;
 import net.minecraft.core.Direction;
-import net.minecraft.resources.*;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import org.joml.Vector3f;
 import team.lodestar.lodestone.handlers.RenderHandler;
@@ -21,8 +16,6 @@ import team.lodestar.lodestone.setup.LodestoneRenderTypeRegistry;
 import team.lodestar.lodestone.systems.rendering.VFXBuilders;
 
 import java.awt.*;
-import java.util.HashMap;
-import java.util.Map;
 
 
 public class TotemPoleRenderer implements BlockEntityRenderer<TotemPoleBlockEntity> {
@@ -36,7 +29,7 @@ public class TotemPoleRenderer implements BlockEntityRenderer<TotemPoleBlockEnti
         if (blockEntityIn.type == null) {
             return;
         }
-        renderQuad(blockEntityIn.type.getTotemGlowTexture(), blockEntityIn.type.getPrimaryColor(), blockEntityIn.currentColor/20f, direction, poseStack);
+        renderQuad(blockEntityIn.type.getTotemGlowTexture(), blockEntityIn.type.getPrimaryColor(), blockEntityIn.currentColor / 20f, direction, poseStack);
     }
 
     public void renderQuad(ResourceLocation resourceLocation, Color color, float alpha, Direction direction, PoseStack poseStack) {

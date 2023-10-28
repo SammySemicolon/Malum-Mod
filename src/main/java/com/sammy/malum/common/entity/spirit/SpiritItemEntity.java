@@ -1,25 +1,23 @@
 package com.sammy.malum.common.entity.spirit;
 
-import com.sammy.malum.common.entity.*;
-import com.sammy.malum.common.item.spirit.*;
-import com.sammy.malum.core.handlers.*;
-import com.sammy.malum.registry.common.*;
-import com.sammy.malum.registry.common.entity.*;
-import com.sammy.malum.visual_effects.*;
-import net.minecraft.nbt.*;
-import net.minecraft.server.level.*;
-import net.minecraft.sounds.*;
-import net.minecraft.util.*;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.player.*;
-import net.minecraft.world.item.*;
-import net.minecraft.world.level.*;
-import net.minecraft.world.phys.*;
-import team.lodestar.lodestone.helpers.*;
-import team.lodestar.lodestone.systems.particle.builder.*;
+import com.sammy.malum.common.entity.FloatingItemEntity;
+import com.sammy.malum.common.item.spirit.SpiritShardItem;
+import com.sammy.malum.core.handlers.SpiritHarvestHandler;
+import com.sammy.malum.registry.common.SoundRegistry;
+import com.sammy.malum.registry.common.entity.EntityRegistry;
+import com.sammy.malum.visual_effects.SpiritLightSpecs;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.Mth;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
+import team.lodestar.lodestone.helpers.ItemHelper;
 
-import java.util.*;
-import java.util.function.*;
+import java.util.UUID;
 
 public class SpiritItemEntity extends FloatingItemEntity {
     public UUID ownerUUID;
@@ -93,7 +91,7 @@ public class SpiritItemEntity extends FloatingItemEntity {
         }
         Vec3 desiredLocation = owner.position().add(0, owner.getBbHeight() / 3, 0);
         float distance = (float) distanceToSqr(desiredLocation);
-        float velocity = windUp < 0.25f ? 0 : Math.min(windUp-0.25f, 0.8f)*5f;
+        float velocity = windUp < 0.25f ? 0 : Math.min(windUp - 0.25f, 0.8f) * 5f;
         moveTime++;
         Vec3 desiredMotion = desiredLocation.subtract(position()).normalize().multiply(velocity, velocity, velocity);
         float easing = 0.01f;
@@ -107,8 +105,7 @@ public class SpiritItemEntity extends FloatingItemEntity {
                 ItemStack stack = getItem();
                 if (stack.getItem() instanceof SpiritShardItem) {
                     SpiritHarvestHandler.pickupSpirit(owner, stack);
-                }
-                else {
+                } else {
                     ItemHelper.giveItemToEntity(owner, stack);
                 }
                 if (random.nextFloat() < 0.6f) {

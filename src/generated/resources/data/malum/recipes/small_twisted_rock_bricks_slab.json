@@ -1,15 +1,17 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "###"
-  ],
+  "category": "misc",
   "key": {
     "#": {
       "item": "malum:small_twisted_rock_bricks"
     }
   },
+  "pattern": [
+    "###"
+  ],
   "result": {
-    "item": "malum:small_twisted_rock_bricks_slab",
-    "count": 6
-  }
+    "count": 6,
+    "item": "malum:small_twisted_rock_bricks_slab"
+  },
+  "show_notification": true
 }

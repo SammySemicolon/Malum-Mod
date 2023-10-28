@@ -1,9 +1,5 @@
 {
   "type": "lodestone:nbt_carry",
-  "pattern": [
-    "X",
-    "#"
-  ],
   "key": {
     "#": {
       "tag": "forge:rods/wooden"
@@ -15,8 +11,12 @@
   "nbtCarry": {
     "item": "malum:ether"
   },
+  "pattern": [
+    "X",
+    "#"
+  ],
   "result": {
-    "item": "malum:ether_torch",
-    "count": 4
+    "count": 4,
+    "item": "malum:ether_torch"
   }
 }

@@ -5,6 +5,7 @@ import net.minecraft.world.item.Item;
 
 public class CrackedImpetusItem extends Item implements SpiritRepairRecipe.IRepairOutputOverride {
     public ImpetusItem impetus;
+
     public CrackedImpetusItem(Properties pProperties) {
         super(pProperties);
     }

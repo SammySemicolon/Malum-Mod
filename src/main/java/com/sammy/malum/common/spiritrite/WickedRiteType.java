@@ -1,30 +1,35 @@
 package com.sammy.malum.common.spiritrite;
 
-import com.sammy.malum.common.block.curiosities.totem.*;
+import com.sammy.malum.common.block.curiosities.totem.TotemBaseBlockEntity;
+import com.sammy.malum.core.systems.rites.EntityAffectingRiteEffect;
+import com.sammy.malum.core.systems.rites.MalumRiteEffect;
+import com.sammy.malum.core.systems.rites.MalumRiteType;
+import com.sammy.malum.registry.common.DamageSourceRegistry;
+import com.sammy.malum.registry.common.ParticleEffectTypeRegistry;
+import com.sammy.malum.visual_effects.networked.data.ColorEffectData;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.player.Player;
 
-import com.sammy.malum.core.systems.rites.*;
-import com.sammy.malum.registry.common.*;
-import com.sammy.malum.visual_effects.networked.data.*;
-import net.minecraft.world.effect.*;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.monster.*;
-import net.minecraft.world.entity.player.*;
-
-import static com.sammy.malum.registry.common.SpiritTypeRegistry.*;
+import static com.sammy.malum.registry.common.SpiritTypeRegistry.ARCANE_SPIRIT;
+import static com.sammy.malum.registry.common.SpiritTypeRegistry.WICKED_SPIRIT;
 
 public class WickedRiteType extends MalumRiteType {
     public WickedRiteType() {
         super("wicked_rite", ARCANE_SPIRIT, WICKED_SPIRIT, WICKED_SPIRIT);
     }
+
     @Override
     public MalumRiteEffect getNaturalRiteEffect() {
         return new EntityAffectingRiteEffect() {
             @Override
             public void riteEffect(TotemBaseBlockEntity totemBase) {
                 getNearbyEntities(totemBase, LivingEntity.class, e -> !(e instanceof Player)).forEach(e -> {
-                    if (e.getHealth() > 2.5f && !e.isInvulnerableTo(DamageSourceRegistry.VOODOO)) {
+                    if (e.getHealth() > 2.5f && !e.isInvulnerableTo(DamageSourceRegistry.create(e.level(), DamageSourceRegistry.VOODOO))) {
                         ParticleEffectTypeRegistry.HEXING_SMOKE.createEntityEffect(e, new ColorEffectData(WICKED_SPIRIT.getPrimaryColor()));
-                        e.hurt(DamageSourceRegistry.VOODOO, 2);
+                        e.hurt(DamageSourceRegistry.create(e.level(), DamageSourceRegistry.VOODOO), 2);
                     }
                 });
             }

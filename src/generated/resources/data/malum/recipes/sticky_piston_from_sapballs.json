@@ -1,9 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "S",
-    "P"
-  ],
+  "category": "misc",
   "key": {
     "P": {
       "item": "minecraft:piston"
@@ -12,7 +9,12 @@
       "tag": "malum:sapballs"
     }
   },
+  "pattern": [
+    "S",
+    "P"
+  ],
   "result": {
     "item": "minecraft:sticky_piston"
-  }
+  },
+  "show_notification": true
 }

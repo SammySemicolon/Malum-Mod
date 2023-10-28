@@ -1,22 +1,26 @@
 package com.sammy.malum.common.item.cosmetic.curios;
 
-import com.sammy.malum.common.item.curiosities.curios.*;
-import com.sammy.malum.registry.common.item.*;
-import net.minecraft.sounds.*;
-import net.minecraft.world.damagesource.*;
-import net.minecraft.world.entity.player.*;
-import net.minecraft.world.item.*;
-import net.minecraftforge.event.entity.*;
-import net.minecraftforge.items.*;
-import org.jetbrains.annotations.*;
-import team.lodestar.lodestone.helpers.*;
-import team.lodestar.lodestone.systems.item.*;
-import top.theillusivec4.curios.api.*;
-import top.theillusivec4.curios.api.type.capability.*;
+import com.sammy.malum.common.item.curiosities.curios.MalumCurioItem;
+import com.sammy.malum.registry.common.item.ItemRegistry;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.event.entity.EntityJoinLevelEvent;
+import net.minecraftforge.items.ItemHandlerHelper;
+import org.jetbrains.annotations.NotNull;
+import team.lodestar.lodestone.helpers.CurioHelper;
+import team.lodestar.lodestone.systems.item.IEventResponderItem;
+import top.theillusivec4.curios.api.SlotContext;
+import top.theillusivec4.curios.api.type.capability.ICurio;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
-import static top.theillusivec4.curios.api.type.capability.ICurio.DropRule.*;
+import static top.theillusivec4.curios.api.type.capability.ICurio.DropRule.ALWAYS_KEEP;
 
 public class CurioTokenOfGratitude extends MalumCurioItem implements IEventResponderItem {
     public static final List<UUID> GRADITUDE_CERTIFIED = new ArrayList<>();
@@ -50,9 +54,9 @@ public class CurioTokenOfGratitude extends MalumCurioItem implements IEventRespo
         if (slotContext.entity() instanceof Player player) {
             if (player.getUUID().equals(SAMMY) || player.getUUID().equals(LOFI) || player.getUUID().equals(CREECHURE)) {
                 int interval = player.isCrouching() ? 10 : 4000;
-                if (player.getLevel().getGameTime() % interval == 0) {
+                if (player.level().getGameTime() % interval == 0) {
                     SoundEvent soundEvent = player.getRandom().nextInt(8) == 0 ? SoundEvents.CAT_PURREOW : SoundEvents.CAT_PURR;
-                    player.level.playSound(player, player.blockPosition(), soundEvent, SoundSource.PLAYERS, 1, 1);
+                    player.level().playSound(player, player.blockPosition(), soundEvent, SoundSource.PLAYERS, 1, 1);
                 }
             }
         }

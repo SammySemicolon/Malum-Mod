@@ -43,14 +43,14 @@ public class MalumLogBLock extends LodestoneLogBlock {
     }
 
     public boolean createTotemPole(Level level, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit, ItemStack stack, SpiritShardItem spirit) {
-        level().setBlockAndUpdate(pos, spirit.type.getTotemPoleBlockState(isCorrupt, hit));
+        level.setBlockAndUpdate(pos, spirit.type.getTotemPoleBlockState(isCorrupt, hit));
         if (level.getBlockEntity(pos) instanceof TotemPoleBlockEntity blockEntity) {
             blockEntity.create(spirit.type);
         }
         if (!player.isCreative()) {
             stack.shrink(1);
         }
-        level().levelEvent(2001, pos, Block.getId(level.getBlockState(pos)));
+        level.levelEvent(2001, pos, Block.getId(level.getBlockState(pos)));
         player.swing(handIn, true);
         return true;
     }

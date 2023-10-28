@@ -1,18 +1,17 @@
 package com.sammy.malum.common.item.curiosities.curios.misc;
 
-import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
-import com.sammy.malum.common.item.curiosities.curios.*;
+import com.sammy.malum.common.item.curiosities.curios.MalumCurioItem;
 import com.sammy.malum.core.systems.item.IMalumEventResponderItem;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.*;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import top.theillusivec4.curios.api.SlotContext;
-
-import java.util.UUID;
 
 public class CurioWaterNecklace extends MalumCurioItem implements IMalumEventResponderItem {
     public CurioWaterNecklace(Properties builder) {
@@ -38,11 +37,18 @@ public class CurioWaterNecklace extends MalumCurioItem implements IMalumEventRes
     }
 
     @Override
-    public void curioTick(String identifier, int index, LivingEntity livingEntity, ItemStack stack) {
+    public void curioTick(SlotContext slotContext, ItemStack stack) {
+        LivingEntity livingEntity = slotContext.entity();
         if (livingEntity.level().getGameTime() % 40L == 0 && livingEntity.isSwimming()) {
             AttributeInstance attribute = livingEntity.getAttribute(ForgeMod.SWIM_SPEED.get());
             if (attribute != null) {
                 attribute.setDirty();
+            }
+        }
+
+        if (livingEntity.level().getGameTime() % 20L == 0) {
+            if (livingEntity.hasEffect(MobEffects.CONDUIT_POWER)) {
+                livingEntity.heal(2);
             }
         }
     }
@@ -51,16 +57,6 @@ public class CurioWaterNecklace extends MalumCurioItem implements IMalumEventRes
     public void takeDamageEvent(LivingHurtEvent event, LivingEntity attacker, LivingEntity attacked, ItemStack stack) {
         if (attacked.hasEffect(MobEffects.CONDUIT_POWER)) {
             event.setAmount(event.getAmount() * 0.5f);
-        }
-    }
-
-    @Override
-    public void curioTick(SlotContext slotContext, ItemStack stack) {
-        LivingEntity entity = slotContext.entity();
-        if (entity.level.getGameTime() % 20L == 0) {
-            if (entity.hasEffect(MobEffects.CONDUIT_POWER)) {
-                entity.heal(2);
-            }
         }
     }
 }

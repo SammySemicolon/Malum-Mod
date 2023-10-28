@@ -1,13 +1,13 @@
 {
   "variants": {
-    "type=top": {
-      "model": "malum:block/runic_twisted_rock_tiles_slab_top"
-    },
     "type=bottom": {
       "model": "malum:block/runic_twisted_rock_tiles_slab"
     },
     "type=double": {
       "model": "malum:block/runic_twisted_rock_tiles"
+    },
+    "type=top": {
+      "model": "malum:block/runic_twisted_rock_tiles_slab_top"
     }
   }
 }

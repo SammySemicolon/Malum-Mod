@@ -1,21 +1,23 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "XYX",
-    "XZX"
-  ],
+  "category": "misc",
   "key": {
-    "Z": {
-      "tag": "forge:ingots/gold"
+    "X": {
+      "item": "malum:runewood_planks"
     },
     "Y": {
       "item": "malum:hex_ash"
     },
-    "X": {
-      "item": "malum:runewood_planks"
+    "Z": {
+      "tag": "forge:ingots/gold"
     }
   },
+  "pattern": [
+    "XYX",
+    "XZX"
+  ],
   "result": {
     "item": "malum:weavers_workbench"
-  }
+  },
+  "show_notification": true
 }

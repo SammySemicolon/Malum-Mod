@@ -5,7 +5,6 @@ import com.sammy.malum.common.item.impetus.ImpetusItem;
 import com.sammy.malum.data.recipe.builder.SpiritFocusingRecipeBuilder;
 import com.sammy.malum.data.recipe.builder.SpiritRepairRecipeBuilder;
 import com.sammy.malum.registry.common.item.ItemRegistry;
-import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeProvider;
@@ -29,6 +28,11 @@ import static team.lodestar.lodestone.registry.common.tag.LodestoneItemTags.*;
 public class MalumSpiritFocusingRecipes extends RecipeProvider implements IConditionBuilder {
     public MalumSpiritFocusingRecipes(PackOutput generatorIn) {
         super(generatorIn);
+    }
+
+    @Override
+    public String getName() {
+        return "Malum Spirit Crucible Recipe Provider";
     }
 
     @Override

@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "malum:unholy_sapball"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_unholy_sap": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "malum:unholy_sap"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_unholy_sap",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "malum:unholy_sapball"
+    ]
+  },
+  "sends_telemetry_event": false
+}

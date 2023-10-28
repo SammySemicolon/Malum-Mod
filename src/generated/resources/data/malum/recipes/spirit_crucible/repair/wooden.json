@@ -1,12 +1,12 @@
 {
   "type": "malum:spirit_repair",
-  "itemIdRegex": "wooden_.+",
-  "modIdRegex": "",
   "durabilityPercentage": 0.5,
   "inputs": [],
+  "itemIdRegex": "wooden_.+",
+  "modIdRegex": "",
   "repairMaterial": {
-    "tag": "minecraft:planks",
-    "count": 4
+    "count": 4,
+    "tag": "minecraft:planks"
   },
   "spirits": [
     {

@@ -1,12 +1,12 @@
 {
   "type": "minecraft:smelting",
+  "cookingtime": 200,
+  "experience": 0.25,
   "ingredient": {
     "item": "malum:copper_node"
   },
   "result": {
-    "item": "malum:copper_nugget",
-    "count": 6
-  },
-  "experience": 0.25,
-  "cookingtime": 200
+    "count": 6,
+    "item": "malum:copper_nugget"
+  }
 }

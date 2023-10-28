@@ -1,10 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    " X ",
-    "#Y#",
-    " X "
-  ],
+  "category": "misc",
   "key": {
     "#": {
       "item": "malum:hallowed_gold_ingot"
@@ -16,8 +12,14 @@
       "item": "malum:spectral_lens"
     }
   },
+  "pattern": [
+    " X ",
+    "#Y#",
+    " X "
+  ],
   "result": {
-    "item": "malum:spectral_optic",
-    "count": 2
-  }
+    "count": 2,
+    "item": "malum:spectral_optic"
+  },
+  "show_notification": true
 }

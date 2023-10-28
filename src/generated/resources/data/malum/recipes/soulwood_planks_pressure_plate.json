@@ -1,14 +1,16 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "##"
-  ],
+  "category": "misc",
   "key": {
     "#": {
       "item": "malum:soulwood_planks"
     }
   },
+  "pattern": [
+    "##"
+  ],
   "result": {
     "item": "malum:soulwood_planks_pressure_plate"
-  }
+  },
+  "show_notification": true
 }

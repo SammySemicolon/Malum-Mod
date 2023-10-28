@@ -25,7 +25,10 @@ import team.lodestar.lodestone.helpers.BlockHelper;
 import team.lodestar.lodestone.systems.worldgen.LodestoneBlockFiller;
 import team.lodestar.lodestone.systems.worldgen.LodestoneBlockFiller.BlockStateEntry;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.sammy.malum.common.worldgen.RunewoodTreeFeature.canPlace;
 import static com.sammy.malum.common.worldgen.RunewoodTreeFeature.updateLeaves;
@@ -246,7 +249,7 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
     }
 
     public static void generateBlight(ServerLevelAccessor level, LodestoneBlockFiller filler, Map<Integer, Double> noiseValues, BlockPos pos, int radius) {
-        generateBlight(level, filler, pos, radius*2, radius, noiseValues);
+        generateBlight(level, filler, pos, radius * 2, radius, noiseValues);
         filler.fill(level);
     }
 

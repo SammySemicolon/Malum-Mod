@@ -1,7 +1,7 @@
 package com.sammy.malum.common.packets.particle.base.color;
 
-import com.sammy.malum.common.packets.particle.base.*;
-import net.minecraft.network.*;
+import com.sammy.malum.common.packets.particle.base.PositionBasedParticleEffectPacket;
+import net.minecraft.network.FriendlyByteBuf;
 
 import java.awt.*;
 

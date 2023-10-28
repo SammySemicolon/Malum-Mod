@@ -1,6 +1,6 @@
 package com.sammy.malum.common.entity;
 
-import com.sammy.malum.core.systems.spirit.*;
+import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import com.sammy.malum.registry.common.SpiritTypeRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -24,7 +24,7 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkHooks;
 import team.lodestar.lodestone.systems.easing.Easing;
-import team.lodestar.lodestone.systems.rendering.trail.*;
+import team.lodestar.lodestone.systems.rendering.trail.TrailPointBuilder;
 
 public abstract class FloatingEntity extends Entity {
 
@@ -96,7 +96,7 @@ public abstract class FloatingEntity extends Entity {
     }
 
     public void trackPastPositions() {
-        trailPointBuilder.addTrailPoint(position().add(0, getYOffset(0)+0.25f, 0f));
+        trailPointBuilder.addTrailPoint(position().add(0, getYOffset(0) + 0.25f, 0f));
         trailPointBuilder.tickTrailPoints();
     }
 
@@ -150,7 +150,7 @@ public abstract class FloatingEntity extends Entity {
     }
 
     public float getRotation(float partialTicks) {
-        return ((float) age + partialTicks) / 20.0F + getHoverStart(partialTicks)/2f;
+        return ((float) age + partialTicks) / 20.0F + getHoverStart(partialTicks) / 2f;
     }
 
     public float getHoverStart(float partialTicks) {

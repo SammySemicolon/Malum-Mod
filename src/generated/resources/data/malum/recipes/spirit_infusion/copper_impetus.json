@@ -1,26 +1,26 @@
 {
   "type": "malum:spirit_infusion",
+  "extra_items": [
+    {
+      "count": 4,
+      "tag": "forge:gunpowder"
+    },
+    {
+      "count": 1,
+      "item": "malum:cthonic_gold"
+    },
+    {
+      "count": 6,
+      "item": "minecraft:copper_ingot"
+    }
+  ],
   "input": {
-    "item": "malum:alchemical_impetus",
-    "count": 1
+    "count": 1,
+    "item": "malum:alchemical_impetus"
   },
   "output": {
     "item": "malum:copper_impetus"
   },
-  "extra_items": [
-    {
-      "tag": "forge:gunpowder",
-      "count": 4
-    },
-    {
-      "item": "malum:cthonic_gold",
-      "count": 1
-    },
-    {
-      "item": "minecraft:copper_ingot",
-      "count": 6
-    }
-  ],
   "spirits": [
     {
       "type": "earthen",

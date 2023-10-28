@@ -1,28 +1,27 @@
 package com.sammy.malum.client.screen.codex.pages;
 
-import com.mojang.blaze3d.vertex.*;
-import com.sammy.malum.*;
-import com.sammy.malum.client.screen.codex.*;
-import com.sammy.malum.core.systems.rites.*;
-import com.sammy.malum.core.systems.spirit.*;
-import net.minecraft.client.*;
-import net.minecraft.client.gui.Gui;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.sammy.malum.MalumMod;
+import com.sammy.malum.client.screen.codex.EntryScreen;
+import com.sammy.malum.core.systems.rites.MalumRiteType;
+import com.sammy.malum.core.systems.spirit.MalumSpiritType;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.resources.*;
-import net.minecraft.world.item.*;
-import team.lodestar.lodestone.handlers.screenparticle.*;
-import team.lodestar.lodestone.helpers.*;
-import team.lodestar.lodestone.setup.*;
-import team.lodestar.lodestone.systems.easing.*;
-import team.lodestar.lodestone.systems.particle.builder.*;
-import team.lodestar.lodestone.systems.particle.data.*;
-import team.lodestar.lodestone.systems.particle.data.color.*;
-import team.lodestar.lodestone.systems.particle.data.spin.*;
-import team.lodestar.lodestone.systems.particle.screen.*;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import team.lodestar.lodestone.handlers.screenparticle.ScreenParticleHandler;
+import team.lodestar.lodestone.helpers.RandomHelper;
+import team.lodestar.lodestone.setup.LodestoneScreenParticleRegistry;
+import team.lodestar.lodestone.systems.easing.Easing;
+import team.lodestar.lodestone.systems.particle.builder.ScreenParticleBuilder;
+import team.lodestar.lodestone.systems.particle.data.GenericParticleData;
+import team.lodestar.lodestone.systems.particle.data.spin.SpinParticleData;
+import team.lodestar.lodestone.systems.particle.screen.ScreenParticleHolder;
 
-import java.util.*;
+import java.util.List;
 
-import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.*;
+import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.renderRiteIcon;
 import static net.minecraft.util.Mth.nextFloat;
 
 public class SpiritRiteRecipePage extends BookPage {
@@ -68,7 +67,7 @@ public class SpiritRiteRecipePage extends BookPage {
             ItemStack stack = spirits.get(i).spiritShard.get().getDefaultInstance();
             renderRiteIcon(spiritTexture, spiritType, poseStack, parentEntry.isSoulwood, 0.25f, left, y);
             if (screen.isHovering(mouseX, mouseY, left, y, 16, 16)) {
-                guiGraphics.renderComponentTooltip(Minecraft.getInstance().font, screen.getTooltipFromItem(Minecraft.getInstance(), stack), mouseX, mouseY);
+                guiGraphics.renderComponentTooltip(Minecraft.getInstance().font, Screen.getTooltipFromItem(Minecraft.getInstance(), stack), mouseX, mouseY);
             }
             if (ScreenParticleHandler.canSpawnParticles) {
                 final int x = left + 8;
@@ -83,8 +82,8 @@ public class SpiritRiteRecipePage extends BookPage {
                         .setColorData(spiritType.createMainColorData().setCoefficient(0.25f).build())
                         .setLifetime(lifetime)
                         .setMotion(0, yMotion)
-                        .spawn(x -xOffset, y)
-                        .spawn(x+xOffset, y);
+                        .spawn(x - xOffset, y)
+                        .spawn(x + xOffset, y);
             }
         }
     }

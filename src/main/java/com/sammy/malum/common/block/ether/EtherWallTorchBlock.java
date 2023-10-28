@@ -56,7 +56,7 @@ public class EtherWallTorchBlock<T extends EtherBlockEntity> extends EtherBlock<
     public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
         Direction direction = state.getValue(HORIZONTAL_FACING);
         BlockPos blockpos = pos.relative(direction.getOpposite());
-        BlockState blockstate = level().getBlockState(blockpos);
+        BlockState blockstate = level.getBlockState(blockpos);
         return blockstate.isFaceSturdy(level, blockpos, direction);
     }
 

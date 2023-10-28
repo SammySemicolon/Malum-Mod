@@ -1,16 +1,17 @@
 package com.sammy.malum.visual_effects.networked.data;
 
-import com.sammy.malum.*;
-import com.sammy.malum.core.helper.*;
-import com.sammy.malum.core.systems.recipe.*;
-import com.sammy.malum.core.systems.spirit.*;
-import net.minecraft.network.*;
+import com.sammy.malum.MalumMod;
+import com.sammy.malum.core.helper.SpiritHelper;
+import com.sammy.malum.core.systems.recipe.SpiritWithCount;
+import com.sammy.malum.core.systems.spirit.MalumSpiritType;
+import net.minecraft.network.FriendlyByteBuf;
 
-import javax.annotation.*;
+import javax.annotation.Nullable;
 import java.awt.*;
-import java.util.*;
-import java.util.function.*;
-import java.util.stream.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class ColorEffectData {
 
@@ -20,9 +21,11 @@ public class ColorEffectData {
     public static ColorEffectData fromRecipe(Collection<SpiritWithCount> malumSpiritTypes) {
         return fromSpirits(malumSpiritTypes.stream().map(s -> s.type).collect(Collectors.toList()), ColorRecord::new);
     }
+
     public static ColorEffectData fromSpirits(Collection<MalumSpiritType> malumSpiritTypes) {
         return fromSpirits(malumSpiritTypes, ColorRecord::new);
     }
+
     public static ColorEffectData fromSpirits(Collection<MalumSpiritType> malumSpiritTypes, Function<MalumSpiritType, ColorRecord> spiritColorMapper) {
         return new ColorEffectData(malumSpiritTypes.stream().map(spiritColorMapper).collect(Collectors.toList()));
     }
@@ -119,9 +122,11 @@ public class ColorEffectData {
         public ColorRecord(Color color) {
             this(color, color);
         }
+
         public ColorRecord(MalumSpiritType type) {
             this(type.getPrimaryColor(), type.getSecondaryColor(), type);
         }
+
         public ColorRecord(Color primaryColor, Color secondaryColor) {
             this(primaryColor, secondaryColor, null);
         }

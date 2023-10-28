@@ -1,12 +1,12 @@
 {
   "type": "minecraft:blasting",
+  "cookingtime": 100,
+  "experience": 0.25,
   "ingredient": {
     "item": "malum:copper_node"
   },
   "result": {
-    "item": "malum:copper_nugget",
-    "count": 6
-  },
-  "experience": 0.25,
-  "cookingtime": 100
+    "count": 6,
+    "item": "malum:copper_nugget"
+  }
 }

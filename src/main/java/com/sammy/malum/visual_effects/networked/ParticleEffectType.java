@@ -1,19 +1,20 @@
 package com.sammy.malum.visual_effects.networked;
 
-import com.sammy.malum.common.packets.*;
-
-import com.sammy.malum.registry.common.*;
-import com.sammy.malum.visual_effects.networked.data.*;
+import com.sammy.malum.common.packets.ParticleEffectPacket;
+import com.sammy.malum.registry.common.ParticleEffectTypeRegistry;
+import com.sammy.malum.visual_effects.networked.data.ColorEffectData;
+import com.sammy.malum.visual_effects.networked.data.NBTEffectData;
+import com.sammy.malum.visual_effects.networked.data.PositionEffectData;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.level.*;
-import net.minecraftforge.api.distmarker.*;
-import net.minecraftforge.network.*;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.level.Level;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.network.PacketDistributor;
 
-import java.util.*;
-import java.util.function.*;
+import java.util.function.Supplier;
 
-import static com.sammy.malum.registry.common.PacketRegistry.*;
+import static com.sammy.malum.registry.common.PacketRegistry.MALUM_CHANNEL;
 
 public abstract class ParticleEffectType {
 

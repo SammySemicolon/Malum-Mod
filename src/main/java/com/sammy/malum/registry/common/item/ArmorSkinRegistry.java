@@ -1,17 +1,24 @@
 package com.sammy.malum.registry.common.item;
 
-import com.sammy.malum.*;
-import com.sammy.malum.common.item.cosmetic.skins.*;
-import com.sammy.malum.common.item.cosmetic.skins.ancient.*;
-import com.sammy.malum.common.item.cosmetic.skins.risk_of_rain.*;
-import com.sammy.malum.common.item.curiosities.armor.*;
-import net.minecraft.world.item.*;
-import net.minecraftforge.data.loading.*;
-import net.minecraftforge.eventbus.api.*;
-import net.minecraftforge.fml.common.*;
-import net.minecraftforge.fml.event.lifecycle.*;
+import com.sammy.malum.MalumMod;
+import com.sammy.malum.common.item.cosmetic.skins.ArmorSkin;
+import com.sammy.malum.common.item.cosmetic.skins.PrideArmorSkin;
+import com.sammy.malum.common.item.cosmetic.skins.UltrakillArmorSkin;
+import com.sammy.malum.common.item.cosmetic.skins.ancient.AncientClothArmorSkin;
+import com.sammy.malum.common.item.cosmetic.skins.ancient.AncientMetalArmorSkin;
+import com.sammy.malum.common.item.cosmetic.skins.risk_of_rain.CommandoArmorSkin;
+import com.sammy.malum.common.item.cosmetic.skins.risk_of_rain.ExecutionerArmorSkin;
+import com.sammy.malum.common.item.curiosities.armor.MalumArmorItem;
+import net.minecraft.world.item.Item;
+import net.minecraftforge.data.loading.DatagenModLoader;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 @Mod.EventBusSubscriber(modid = MalumMod.MALUM, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ArmorSkinRegistry {

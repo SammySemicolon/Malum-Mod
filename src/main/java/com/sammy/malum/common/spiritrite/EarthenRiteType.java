@@ -1,9 +1,9 @@
 package com.sammy.malum.common.spiritrite;
 
-import com.sammy.malum.registry.common.MobEffectRegistry;
 import com.sammy.malum.core.systems.rites.AuraRiteEffect;
 import com.sammy.malum.core.systems.rites.MalumRiteEffect;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
+import com.sammy.malum.registry.common.MobEffectRegistry;
 import net.minecraft.world.entity.LivingEntity;
 
 import static com.sammy.malum.registry.common.SpiritTypeRegistry.ARCANE_SPIRIT;

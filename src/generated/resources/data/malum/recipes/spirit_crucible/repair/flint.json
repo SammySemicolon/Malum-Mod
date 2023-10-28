@@ -1,12 +1,12 @@
 {
   "type": "malum:spirit_repair",
-  "itemIdRegex": "flint_.+",
-  "modIdRegex": "",
   "durabilityPercentage": 0.5,
   "inputs": [],
+  "itemIdRegex": "flint_.+",
+  "modIdRegex": "",
   "repairMaterial": {
-    "item": "minecraft:flint",
-    "count": 2
+    "count": 2,
+    "item": "minecraft:flint"
   },
   "spirits": [
     {

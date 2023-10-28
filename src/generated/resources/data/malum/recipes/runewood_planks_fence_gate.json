@@ -1,9 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "#W#",
-    "#W#"
-  ],
+  "category": "misc",
   "key": {
     "#": {
       "tag": "forge:rods/wooden"
@@ -12,7 +9,12 @@
       "item": "malum:runewood_planks"
     }
   },
+  "pattern": [
+    "#W#",
+    "#W#"
+  ],
   "result": {
     "item": "malum:runewood_planks_fence_gate"
-  }
+  },
+  "show_notification": true
 }

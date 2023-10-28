@@ -1,21 +1,21 @@
 package com.sammy.malum.client.screen.codex.pages;
 
-import com.mojang.blaze3d.vertex.*;
-import com.sammy.malum.*;
-import com.sammy.malum.client.screen.codex.*;
-import com.sammy.malum.common.recipe.*;
-import com.sammy.malum.registry.common.item.*;
-import net.minecraft.client.*;
-import net.minecraft.client.gui.Gui;
+import com.sammy.malum.MalumMod;
+import com.sammy.malum.client.screen.codex.EntryScreen;
+import com.sammy.malum.common.recipe.SpiritTransmutationRecipe;
+import com.sammy.malum.registry.common.item.ItemRegistry;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.network.chat.*;
-import net.minecraft.world.item.*;
-import net.minecraft.world.item.crafting.*;
-import net.minecraftforge.data.loading.*;
-import team.lodestar.lodestone.helpers.*;
-import team.lodestar.lodestone.systems.recipe.*;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraftforge.data.loading.DatagenModLoader;
+import team.lodestar.lodestone.helpers.DataHelper;
+import team.lodestar.lodestone.systems.recipe.WrappedIngredient;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.*;
 

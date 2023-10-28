@@ -1,12 +1,12 @@
 package com.sammy.malum.common.block.storage.pedestal;
 
-import com.sammy.malum.common.block.storage.*;
-import com.sammy.malum.common.item.spirit.*;
-import com.sammy.malum.registry.common.block.*;
-import net.minecraft.core.*;
-import net.minecraft.world.level.block.entity.*;
-import net.minecraft.world.level.block.state.*;
-import net.minecraft.world.phys.*;
+import com.sammy.malum.common.block.storage.MalumItemHolderBlockEntity;
+import com.sammy.malum.common.item.spirit.SpiritShardItem;
+import com.sammy.malum.registry.common.block.BlockEntityRegistry;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 
 public class ItemPedestalBlockEntity extends MalumItemHolderBlockEntity {
 
@@ -23,8 +23,8 @@ public class ItemPedestalBlockEntity extends MalumItemHolderBlockEntity {
     @Override
     public Vec3 getItemOffset(float partialTicks) {
         if (inventory.getStackInSlot(0).getItem() instanceof SpiritShardItem) {
-            float gameTime = level().getGameTime() + partialTicks;
-            return PEDESTAL_ITEM_OFFSET.add(0, (float)Math.sin((gameTime % 360) / 20f) * 0.05f, 0);
+            float gameTime = level.getGameTime() + partialTicks;
+            return PEDESTAL_ITEM_OFFSET.add(0, (float) Math.sin((gameTime % 360) / 20f) * 0.05f, 0);
         }
         return PEDESTAL_ITEM_OFFSET;
     }

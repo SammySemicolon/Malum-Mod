@@ -1,26 +1,30 @@
 package com.sammy.malum.visual_effects.networked.generic;
 
 
-import com.sammy.malum.visual_effects.networked.*;
-import com.sammy.malum.visual_effects.networked.data.*;
-import net.minecraft.util.*;
-import net.minecraft.world.phys.*;
-import net.minecraftforge.api.distmarker.*;
-import team.lodestar.lodestone.setup.*;
-import team.lodestar.lodestone.systems.easing.*;
-import team.lodestar.lodestone.systems.particle.*;
-import team.lodestar.lodestone.systems.particle.builder.*;
-import team.lodestar.lodestone.systems.particle.data.*;
-import team.lodestar.lodestone.systems.particle.data.color.*;
-import team.lodestar.lodestone.systems.particle.data.spin.*;
+import com.sammy.malum.visual_effects.networked.ParticleEffectType;
+import com.sammy.malum.visual_effects.networked.data.ColorEffectData;
+import net.minecraft.util.Mth;
+import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import team.lodestar.lodestone.setup.LodestoneParticleRegistry;
+import team.lodestar.lodestone.systems.easing.Easing;
+import team.lodestar.lodestone.systems.particle.LodestoneWorldParticleActor;
+import team.lodestar.lodestone.systems.particle.builder.WorldParticleBuilder;
+import team.lodestar.lodestone.systems.particle.data.GenericParticleData;
+import team.lodestar.lodestone.systems.particle.data.color.ColorParticleData;
+import team.lodestar.lodestone.systems.particle.data.spin.SpinParticleData;
 
 import java.awt.*;
-import java.util.function.*;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 public class DrippingSmokeParticleEffect extends ParticleEffectType {
 
     //Downwards spiraling mist of particles
     public final float intensity;
+
     public DrippingSmokeParticleEffect(String id, float intensity) {
         super(id);
         this.intensity = intensity;
@@ -45,7 +49,7 @@ public class DrippingSmokeParticleEffect extends ParticleEffectType {
                 int spinOffset = random.nextInt(360);
                 WorldParticleBuilder.create(LodestoneParticleRegistry.SMOKE_PARTICLE)
                         .setTransparencyData(GenericParticleData.create(0, 0.06f, 0).setCoefficient(1.2f).setEasing(Easing.SINE_IN_OUT, Easing.QUAD_IN).build())
-                        .setSpinData(SpinParticleData.create(0.05f*spinDirection, 0.2f*spinDirection, 0).setSpinOffset(spinOffset).setEasing(Easing.SINE_IN_OUT, Easing.SINE_IN).build())
+                        .setSpinData(SpinParticleData.create(0.05f * spinDirection, 0.2f * spinDirection, 0).setSpinOffset(spinOffset).setEasing(Easing.SINE_IN_OUT, Easing.SINE_IN).build())
                         .setScaleData(GenericParticleData.create(0.8f, 0.4f, 0f).setEasing(Easing.QUARTIC_IN_OUT, Easing.QUAD_IN).build())
                         .setColorData(ColorParticleData.create(primaryColor, secondaryColor).setEasing(Easing.BOUNCE_IN_OUT).build())
                         .setLifetime((int) (adjustedLifespan * Mth.nextFloat(random, 1.15f, 1.4f)))
@@ -61,7 +65,7 @@ public class DrippingSmokeParticleEffect extends ParticleEffectType {
                 int spinOffset = random.nextInt(360);
                 WorldParticleBuilder.create(LodestoneParticleRegistry.WISP_PARTICLE)
                         .setTransparencyData(GenericParticleData.create(0.02f, 0.14f, 0).setEasing(Easing.SINE_IN_OUT, Easing.EXPO_OUT).build())
-                        .setSpinData(SpinParticleData.create(0.1f*spinDirection, 0.25f*spinDirection, 0).setSpinOffset(spinOffset).setEasing(Easing.SINE_IN_OUT, Easing.SINE_IN).build())
+                        .setSpinData(SpinParticleData.create(0.1f * spinDirection, 0.25f * spinDirection, 0).setSpinOffset(spinOffset).setEasing(Easing.SINE_IN_OUT, Easing.SINE_IN).build())
                         .setScaleData(GenericParticleData.create(0.6f, 0.3f, 0f).setEasing(Easing.SINE_IN_OUT, Easing.EXPO_OUT).build())
                         .setColorData(ColorParticleData.create(primaryColor, secondaryColor).setEasing(Easing.BOUNCE_IN_OUT).build())
                         .setLifetime((int) (adjustedLifespan * Mth.nextFloat(random, 0.9f, 1.2f)))

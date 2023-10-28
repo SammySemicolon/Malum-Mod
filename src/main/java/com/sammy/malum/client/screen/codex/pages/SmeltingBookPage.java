@@ -1,16 +1,16 @@
 package com.sammy.malum.client.screen.codex.pages;
 
-import com.mojang.blaze3d.vertex.*;
-import com.sammy.malum.*;
-import com.sammy.malum.client.screen.codex.*;
-import net.minecraft.client.*;
-import net.minecraft.client.gui.Gui;
+import com.sammy.malum.MalumMod;
+import com.sammy.malum.client.screen.codex.EntryScreen;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.world.*;
-import net.minecraft.world.item.*;
-import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.SmeltingRecipe;
 
-import java.util.*;
+import java.util.Optional;
 
 import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.renderItem;
 

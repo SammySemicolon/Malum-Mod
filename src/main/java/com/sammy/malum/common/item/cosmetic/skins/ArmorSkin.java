@@ -1,12 +1,14 @@
 package com.sammy.malum.common.item.cosmetic.skins;
 
-import com.sammy.malum.client.cosmetic.*;
-import com.sammy.malum.registry.common.item.*;
-import net.minecraft.world.item.*;
-import net.minecraftforge.api.distmarker.*;
-import team.lodestar.lodestone.systems.item.*;
+import com.sammy.malum.client.cosmetic.ArmorSkinRenderingData;
+import com.sammy.malum.registry.common.item.ArmorSkinRegistry;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import team.lodestar.lodestone.systems.item.LodestoneArmorItem;
 
-import java.util.*;
+import java.util.Map;
 
 public abstract class ArmorSkin {
     public static final String MALUM_SKIN_TAG = "malum:item_skin";

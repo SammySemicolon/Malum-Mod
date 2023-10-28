@@ -1,13 +1,14 @@
 package com.sammy.malum.client.screen.codex.pages;
 
-import com.mojang.blaze3d.vertex.*;
-import com.sammy.malum.client.screen.codex.*;
-import net.minecraft.client.*;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.sammy.malum.client.screen.codex.BookEntry;
+import com.sammy.malum.client.screen.codex.EntryScreen;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.resources.*;
+import net.minecraft.resources.ResourceLocation;
 
-import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.*;
-import static com.sammy.malum.client.screen.codex.EntryScreen.*;
+import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.renderTexture;
+import static com.sammy.malum.client.screen.codex.EntryScreen.entryScreen;
 
 public class BookPage {
     public final ResourceLocation background;

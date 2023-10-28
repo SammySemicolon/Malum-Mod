@@ -9,7 +9,7 @@ import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber
 public class WorldgenEvents {
-
+/*
     @SubscribeEvent
     public static void addFeatures(BiomeLoadingEvent event) {
         if (event.getCategory().equals(Biome.BiomeCategory.PLAINS) || event.getCategory().equals(Biome.BiomeCategory.EXTREME_HILLS)) {
@@ -53,4 +53,6 @@ public class WorldgenEvents {
             event.getGeneration().addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, FeatureRegistry.PlacedFeatures.CTHONIC_GOLD_GEODE_FEATURE);
         }
     }
+    
+ */
 }

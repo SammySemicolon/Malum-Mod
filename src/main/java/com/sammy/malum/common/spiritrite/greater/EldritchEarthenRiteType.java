@@ -17,8 +17,8 @@ import net.minecraftforge.network.PacketDistributor;
 
 import java.util.Set;
 
-import static com.sammy.malum.registry.common.SpiritTypeRegistry.*;
 import static com.sammy.malum.registry.common.PacketRegistry.MALUM_CHANNEL;
+import static com.sammy.malum.registry.common.SpiritTypeRegistry.*;
 
 public class EldritchEarthenRiteType extends MalumRiteType {
     public EldritchEarthenRiteType() {
@@ -38,7 +38,7 @@ public class EldritchEarthenRiteType extends MalumRiteType {
                     if (canBreak) {
                         level.destroyBlock(p, true);
                         if (state.getBlock() instanceof InfestedBlock infestedBlock && level instanceof ServerLevel serverLevel) {
-                            infestedBlock.spawnAfterBreak(state, serverLevel, p, ItemStack.EMPTY);
+                            infestedBlock.spawnAfterBreak(state, serverLevel, p, ItemStack.EMPTY, true);
                         }
                         MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(p)), new BlockSparkleParticlePacket(EARTHEN_SPIRIT.getPrimaryColor(), p));
                     }

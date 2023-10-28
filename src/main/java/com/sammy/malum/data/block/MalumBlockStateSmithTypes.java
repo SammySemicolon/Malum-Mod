@@ -1,21 +1,22 @@
 package com.sammy.malum.data.block;
 
-import com.sammy.malum.common.block.curiosities.totem.*;
-import com.sammy.malum.common.block.curiosities.weeping_well.*;
-import com.sammy.malum.common.block.ether.*;
-import com.sammy.malum.core.systems.spirit.*;
-import com.sammy.malum.data.item.*;
-import com.sammy.malum.registry.common.*;
-import net.minecraft.resources.*;
-import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.state.properties.*;
-import net.minecraftforge.client.model.generators.*;
-import team.lodestar.lodestone.systems.datagen.*;
-import team.lodestar.lodestone.systems.datagen.statesmith.*;
+import com.sammy.malum.common.block.curiosities.totem.TotemPoleBlock;
+import com.sammy.malum.common.block.curiosities.weeping_well.PrimordialSoupBlock;
+import com.sammy.malum.common.block.ether.EtherBrazierBlock;
+import com.sammy.malum.core.systems.spirit.MalumSpiritType;
+import com.sammy.malum.data.item.MalumItemModelSmithTypes;
+import com.sammy.malum.registry.common.SpiritTypeRegistry;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraftforge.client.model.generators.ConfiguredModel;
+import net.minecraftforge.client.model.generators.ModelFile;
+import team.lodestar.lodestone.systems.datagen.ItemModelSmithTypes;
+import team.lodestar.lodestone.systems.datagen.statesmith.BlockStateSmith;
 
-import java.util.function.*;
+import java.util.function.Function;
 
-import static com.sammy.malum.MalumMod.*;
+import static com.sammy.malum.MalumMod.malumPath;
 
 public class MalumBlockStateSmithTypes {
 

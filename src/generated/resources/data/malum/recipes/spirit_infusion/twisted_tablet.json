@@ -1,22 +1,22 @@
 {
   "type": "malum:spirit_infusion",
+  "extra_items": [
+    {
+      "count": 4,
+      "item": "malum:tainted_rock"
+    },
+    {
+      "count": 4,
+      "item": "malum:twisted_rock"
+    }
+  ],
   "input": {
-    "item": "malum:tainted_rock_item_stand",
-    "count": 1
+    "count": 1,
+    "item": "malum:tainted_rock_item_stand"
   },
   "output": {
     "item": "malum:twisted_tablet"
   },
-  "extra_items": [
-    {
-      "item": "malum:tainted_rock",
-      "count": 4
-    },
-    {
-      "item": "malum:twisted_rock",
-      "count": 4
-    }
-  ],
   "spirits": [
     {
       "type": "aerial",

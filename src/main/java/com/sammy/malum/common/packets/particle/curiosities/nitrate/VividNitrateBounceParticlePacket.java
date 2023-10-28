@@ -12,13 +12,12 @@ import team.lodestar.lodestone.helpers.ColorHelper;
 import team.lodestar.lodestone.setup.LodestoneParticleRegistry;
 import team.lodestar.lodestone.systems.easing.Easing;
 import team.lodestar.lodestone.systems.particle.SimpleParticleOptions;
-import team.lodestar.lodestone.systems.particle.builder.*;
-import team.lodestar.lodestone.systems.particle.data.color.ColorParticleData;
+import team.lodestar.lodestone.systems.particle.builder.WorldParticleBuilder;
 import team.lodestar.lodestone.systems.particle.data.GenericParticleData;
+import team.lodestar.lodestone.systems.particle.data.color.ColorParticleData;
 import team.lodestar.lodestone.systems.particle.data.spin.SpinParticleData;
 
 import java.awt.*;
-import java.util.Random;
 import java.util.function.Supplier;
 
 public class VividNitrateBounceParticlePacket extends ColorBasedParticleEffectPacket {
@@ -35,7 +34,7 @@ public class VividNitrateBounceParticlePacket extends ColorBasedParticleEffectPa
         for (int i = 0; i < 4; i++) {
             int spinDirection = (rand.nextBoolean() ? 1 : -1);
             int spinOffset = rand.nextInt(360);
-            float motionMultiplier = (float) (1+Math.pow(rand.nextFloat(), 2));
+            float motionMultiplier = (float) (1 + Math.pow(rand.nextFloat(), 2));
             WorldParticleBuilder.create(LodestoneParticleRegistry.TWINKLE_PARTICLE)
                     .setTransparencyData(GenericParticleData.create(0.2f, 0.8f, 0).build())
                     .setSpinData(SpinParticleData.create(0.9f * spinDirection, 0).setSpinOffset(spinOffset).setCoefficient(1.25f).setEasing(Easing.CUBIC_IN).build())
@@ -47,19 +46,19 @@ public class VividNitrateBounceParticlePacket extends ColorBasedParticleEffectPa
                     .setGravityStrength(1.1f)
                     .addMotion(0, 0.3f + rand.nextFloat() * 0.15f * motionMultiplier, 0)
                     .disableNoClip()
-                    .setRandomMotion(0.2f*motionMultiplier, 0.25f*motionMultiplier)
+                    .setRandomMotion(0.2f * motionMultiplier, 0.25f * motionMultiplier)
                     .setDiscardFunction(SimpleParticleOptions.ParticleDiscardFunctionType.ENDING_CURVE_INVISIBLE)
                     .repeat(level, posX, posY, posZ, 4);
         }
         int spinOffset = rand.nextInt(360);
         for (int i = 0; i < 4; i++) {
             int spinDirection = (rand.nextBoolean() ? 1 : -1);
-            float scaleMultiplier = (float) (1+Math.pow(rand.nextFloat(), 2));
+            float scaleMultiplier = (float) (1 + Math.pow(rand.nextFloat(), 2));
             WorldParticleBuilder.create(LodestoneParticleRegistry.SPARKLE_PARTICLE)
                     .setTransparencyData(GenericParticleData.create(0.4f, 0.08f, 0).setEasing(Easing.SINE_IN, Easing.CIRC_IN_OUT).build())
                     .setLifetime(15)
                     .setSpinData(SpinParticleData.create((0.125f + rand.nextFloat() * 0.075f) * spinDirection).setSpinOffset(spinOffset).build())
-                    .setScaleData(GenericParticleData.create(1.4f*scaleMultiplier, 0.6f, 0).setEasing(Easing.EXPO_OUT, Easing.SINE_IN).build())
+                    .setScaleData(GenericParticleData.create(1.4f * scaleMultiplier, 0.6f, 0).setEasing(Easing.EXPO_OUT, Easing.SINE_IN).build())
                     .setColorData(ColorParticleData.create(color.brighter(), color.darker()).build())
                     .setRandomOffset(0.6f)
                     .enableNoClip()

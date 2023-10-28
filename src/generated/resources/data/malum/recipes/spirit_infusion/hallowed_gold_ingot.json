@@ -1,18 +1,18 @@
 {
   "type": "malum:spirit_infusion",
+  "extra_items": [
+    {
+      "count": 4,
+      "tag": "forge:gems/quartz"
+    }
+  ],
   "input": {
-    "item": "minecraft:gold_ingot",
-    "count": 1
+    "count": 1,
+    "item": "minecraft:gold_ingot"
   },
   "output": {
     "item": "malum:hallowed_gold_ingot"
   },
-  "extra_items": [
-    {
-      "tag": "forge:gems/quartz",
-      "count": 4
-    }
-  ],
   "spirits": [
     {
       "type": "sacred",

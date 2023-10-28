@@ -3,7 +3,6 @@ package com.sammy.malum.core.listeners;
 import com.google.gson.*;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.core.systems.reaping.MalumReapingDropsData;
-import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;

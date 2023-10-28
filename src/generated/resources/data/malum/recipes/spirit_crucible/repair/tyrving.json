@@ -1,14 +1,14 @@
 {
   "type": "malum:spirit_repair",
-  "itemIdRegex": "",
-  "modIdRegex": "",
   "durabilityPercentage": 0.75,
   "inputs": [
     "malum:tyrving"
   ],
+  "itemIdRegex": "",
+  "modIdRegex": "",
   "repairMaterial": {
-    "item": "malum:twisted_rock",
-    "count": 8
+    "count": 8,
+    "item": "malum:twisted_rock"
   },
   "spirits": [
     {

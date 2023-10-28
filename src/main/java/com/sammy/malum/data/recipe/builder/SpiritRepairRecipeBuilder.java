@@ -3,14 +3,15 @@ package com.sammy.malum.data.recipe.builder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.registry.common.recipe.RecipeSerializerRegistry;
 import com.sammy.malum.core.systems.recipe.SpiritWithCount;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
+import com.sammy.malum.registry.common.recipe.RecipeSerializerRegistry;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraftforge.registries.ForgeRegistries;
 import team.lodestar.lodestone.systems.recipe.IngredientWithCount;
 
 import javax.annotation.Nullable;
@@ -33,10 +34,12 @@ public class SpiritRepairRecipeBuilder {
         this.durabilityPercentage = durabilityPercentage;
         this.repairMaterial = repairMaterial;
     }
+
     public SpiritRepairRecipeBuilder(String itemIdRegex, float durabilityPercentage, Ingredient repairMaterial, int repairMaterialCount) {
         this(itemIdRegex, "", durabilityPercentage, new IngredientWithCount(repairMaterial, repairMaterialCount));
 
     }
+
     public SpiritRepairRecipeBuilder(float durabilityPercentage, Ingredient repairMaterial, int repairMaterialCount) {
         this("", "", durabilityPercentage, new IngredientWithCount(repairMaterial, repairMaterialCount));
     }
@@ -60,7 +63,7 @@ public class SpiritRepairRecipeBuilder {
     }
 
     public void build(Consumer<FinishedRecipe> consumerIn) {
-        build(consumerIn, inputs.get(0).getRegistryName().getPath());
+        build(consumerIn, ForgeRegistries.ITEMS.getKey(inputs.get(0)).getPath());
     }
 
     public class Result implements FinishedRecipe {
@@ -74,7 +77,7 @@ public class SpiritRepairRecipeBuilder {
         public void serializeRecipeData(JsonObject json) {
             JsonArray inputsJson = new JsonArray();
             for (Item item : inputs) {
-                inputsJson.add(item.getRegistryName().toString());
+                inputsJson.add(ForgeRegistries.ITEMS.getKey(item).toString());
             }
             JsonArray spiritsJson = new JsonArray();
             for (SpiritWithCount spirit : spirits) {

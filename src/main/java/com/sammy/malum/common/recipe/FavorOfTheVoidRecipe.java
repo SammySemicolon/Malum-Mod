@@ -1,21 +1,19 @@
 package com.sammy.malum.common.recipe;
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.sammy.malum.core.systems.recipe.SpiritWithCount;
 import com.sammy.malum.registry.common.recipe.RecipeSerializerRegistry;
 import com.sammy.malum.registry.common.recipe.RecipeTypeRegistry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import team.lodestar.lodestone.systems.recipe.ILodestoneRecipe;
-import team.lodestar.lodestone.systems.recipe.IngredientWithCount;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 

@@ -1,25 +1,27 @@
 package com.sammy.malum.core.systems.spirit;
 
-import com.sammy.malum.*;
-import com.sammy.malum.common.block.mana_mote.*;
-import com.sammy.malum.common.item.spirit.*;
-import com.sammy.malum.registry.common.*;
-import com.sammy.malum.registry.common.block.*;
-import net.minecraft.*;
+import com.sammy.malum.MalumMod;
+import com.sammy.malum.common.block.mana_mote.SpiritMoteBlock;
+import com.sammy.malum.common.item.spirit.SpiritShardItem;
+import com.sammy.malum.registry.common.SpiritTypeRegistry;
+import com.sammy.malum.registry.common.block.BlockRegistry;
+import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.*;
-import net.minecraft.resources.*;
-import net.minecraft.world.item.*;
-import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.state.*;
-import net.minecraft.world.level.block.state.properties.*;
-import net.minecraft.world.phys.*;
-import team.lodestar.lodestone.helpers.*;
-import team.lodestar.lodestone.systems.easing.*;
-import team.lodestar.lodestone.systems.particle.data.color.*;
+import net.minecraft.network.chat.Style;
+import net.minecraft.network.chat.TextColor;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Rarity;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.phys.BlockHitResult;
+import team.lodestar.lodestone.helpers.ColorHelper;
+import team.lodestar.lodestone.systems.easing.Easing;
+import team.lodestar.lodestone.systems.particle.data.color.ColorParticleData;
+import team.lodestar.lodestone.systems.particle.data.color.ColorParticleDataBuilder;
 
 import java.awt.*;
-import java.util.function.*;
+import java.util.function.Supplier;
 
 public class MalumSpiritType {
 
@@ -81,7 +83,7 @@ public class MalumSpiritType {
     }
 
     public ColorParticleDataBuilder createMainColorData(float coefficientMultiplier) {
-        return ColorParticleData.create(primaryColor, secondaryColor).setCoefficient(mainColorCoefficient*coefficientMultiplier).setEasing(mainColorEasing);
+        return ColorParticleData.create(primaryColor, secondaryColor).setCoefficient(mainColorCoefficient * coefficientMultiplier).setEasing(mainColorEasing);
     }
 
     public ColorParticleDataBuilder createBloomColorData() {
@@ -89,7 +91,7 @@ public class MalumSpiritType {
     }
 
     public ColorParticleDataBuilder createBloomColorData(float coefficientMultiplier) {
-        return ColorParticleData.create(primaryBloomColor, secondaryBloomColor).setCoefficient(bloomColorCoefficient*coefficientMultiplier).setEasing(bloomColorEasing);
+        return ColorParticleData.create(primaryBloomColor, secondaryBloomColor).setCoefficient(bloomColorCoefficient * coefficientMultiplier).setEasing(bloomColorEasing);
     }
 
     public Rarity getItemRarity() {

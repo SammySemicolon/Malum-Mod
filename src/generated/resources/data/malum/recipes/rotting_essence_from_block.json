@@ -1,12 +1,13 @@
 {
   "type": "minecraft:crafting_shapeless",
+  "category": "misc",
   "ingredients": [
     {
       "item": "malum:block_of_rotting_essence"
     }
   ],
   "result": {
-    "item": "malum:rotting_essence",
-    "count": 9
+    "count": 9,
+    "item": "malum:rotting_essence"
   }
 }

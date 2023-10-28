@@ -1,34 +1,32 @@
 package com.sammy.malum.client.screen.codex;
 
-import com.mojang.blaze3d.systems.*;
-import com.mojang.blaze3d.vertex.*;
-import com.mojang.math.*;
-import com.sammy.malum.core.systems.rites.*;
-import com.sammy.malum.core.systems.spirit.*;
-import net.minecraft.*;
-import net.minecraft.client.*;
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.sammy.malum.core.systems.rites.MalumRiteType;
+import com.sammy.malum.core.systems.spirit.MalumSpiritType;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.renderer.*;
-import net.minecraft.network.chat.*;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.*;
-import net.minecraft.util.*;
-import net.minecraft.world.item.*;
-import net.minecraft.world.item.crafting.*;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 import org.joml.Vector4f;
-import org.lwjgl.opengl.*;
-import team.lodestar.lodestone.setup.*;
-import team.lodestar.lodestone.systems.easing.*;
-import team.lodestar.lodestone.systems.recipe.*;
-import team.lodestar.lodestone.systems.rendering.*;
-import team.lodestar.lodestone.systems.rendering.shader.*;
+import org.lwjgl.opengl.GL11;
+import team.lodestar.lodestone.setup.LodestoneShaderRegistry;
+import team.lodestar.lodestone.systems.easing.Easing;
+import team.lodestar.lodestone.systems.recipe.IRecipeComponent;
+import team.lodestar.lodestone.systems.rendering.VFXBuilders;
+import team.lodestar.lodestone.systems.rendering.shader.ExtendedShaderInstance;
 
-import java.awt.*;
-import java.util.*;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.function.*;
-import java.util.stream.*;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 import static com.sammy.malum.config.ClientConfig.BOOK_THEME;
 import static net.minecraft.util.FastColor.ARGB32.color;
@@ -48,6 +46,7 @@ public class ArcanaCodexHelper {
     public static void renderRiteIcon(ResourceLocation texture, MalumSpiritType spiritType, PoseStack stack, boolean corrupted, float glowAlpha, int x, int y) {
         renderRiteIcon(texture, spiritType, stack, corrupted, glowAlpha, x, y, 0);
     }
+
     public static void renderRiteIcon(ResourceLocation texture, MalumSpiritType spiritType, PoseStack stack, boolean corrupted, float glowAlpha, int x, int y, int z) {
         ExtendedShaderInstance shaderInstance = (ExtendedShaderInstance) LodestoneShaderRegistry.DISTORTED_TEXTURE.getInstance().get();
         shaderInstance.safeGetUniform("YFrequency").set(corrupted ? 5f : 11f);
@@ -131,6 +130,7 @@ public class ArcanaCodexHelper {
     public static void renderTransparentTexture(ResourceLocation texture, PoseStack poseStack, int x, int y, float u, float v, int width, int height, int textureWidth, int textureHeight) {
         renderTransparentTexture(texture, poseStack, VFX_BUILDER, x, y, u, v, width, height, textureWidth, textureHeight);
     }
+
     public static void renderTransparentTexture(ResourceLocation texture, PoseStack poseStack, VFXBuilders.ScreenVFXBuilder builder, int x, int y, float u, float v, int width, int height, int textureWidth, int textureHeight) {
         RenderSystem.enableBlend();
         RenderSystem.enableDepthTest();
@@ -159,7 +159,7 @@ public class ArcanaCodexHelper {
         guiGraphics.renderItem(stack, posX, posY);
         guiGraphics.renderItemDecorations(Minecraft.getInstance().font, stack, posX, posY, null);
         if (screen.isHovering(mouseX, mouseY, posX, posY, 16, 16)) {
-            guiGraphics.renderComponentTooltip(Minecraft.getInstance().font, screen.getTooltipFromItem(Minecraft.getInstance(), stack), mouseX, mouseY);
+            guiGraphics.renderComponentTooltip(Minecraft.getInstance().font, Screen.getTooltipFromItem(Minecraft.getInstance(), stack), mouseX, mouseY);
         }
     }
 
@@ -177,7 +177,7 @@ public class ArcanaCodexHelper {
         guiGraphics.renderItem(stack, posX, posY);
         guiGraphics.renderItemDecorations(Minecraft.getInstance().font, stack, posX, posY, null);
         if (screen.isHovering(mouseX, mouseY, posX, posY, 16, 16)) {
-            guiGraphics.renderComponentTooltip(Minecraft.getInstance().font, screen.getTooltipFromItem(Minecraft.getInstance(), stack), mouseX, mouseY);
+            guiGraphics.renderComponentTooltip(Minecraft.getInstance().font, Screen.getTooltipFromItem(Minecraft.getInstance(), stack), mouseX, mouseY);
         }
     }
 
@@ -185,7 +185,7 @@ public class ArcanaCodexHelper {
         guiGraphics.renderItem(stack, posX, posY);
         guiGraphics.renderItemDecorations(Minecraft.getInstance().font, stack, posX, posY, null);
         if (screen.isHovering(mouseX, mouseY, posX, posY, 16, 16)) {
-            guiGraphics.renderComponentTooltip(Minecraft.getInstance().font, screen.getTooltipFromItem(Minecraft.getInstance(), stack), mouseX, mouseY);
+            guiGraphics.renderComponentTooltip(Minecraft.getInstance().font, Screen.getTooltipFromItem(Minecraft.getInstance(), stack), mouseX, mouseY);
         }
     }
 
@@ -384,12 +384,12 @@ public class ArcanaCodexHelper {
         int g = (int) Mth.lerp(glow, 44, 39);
         int b = (int) Mth.lerp(glow, 191, 228);
 
-        guiGraphics.drawString(font, text, x - 1, y, color(96, 255, 210, 243));
-        guiGraphics.drawString(font, text, x + 1, y, color(128, 240, 131, 232));
-        guiGraphics.drawString(font, text, x, y - 1, color(128, 255, 183, 236));
-        guiGraphics.drawString(font, text, x, y + 1, color(96, 236, 110, 226));
+        guiGraphics.drawString(font, text, x - 0.5f, y, color(96, 255, 210, 243), false);
+        guiGraphics.drawString(font, text, x + 0.5f, y, color(128, 240, 131, 232), false);
+        guiGraphics.drawString(font, text, x, y - 0.5f, color(128, 255, 183, 236), false);
+        guiGraphics.drawString(font, text, x, y + 0.5f, color(96, 236, 110, 226), false);
 
-        guiGraphics.drawString(font, text, x, y, color(255, r, g, b));
+        guiGraphics.drawString(font, text, x, y, color(255, r, g, b), false);
     }
 
     public static float getTextGlow(float offset) {

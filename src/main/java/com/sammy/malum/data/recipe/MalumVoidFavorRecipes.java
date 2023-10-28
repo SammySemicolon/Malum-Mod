@@ -1,14 +1,15 @@
 package com.sammy.malum.data.recipe;
 
-import com.sammy.malum.data.recipe.builder.*;
-import com.sammy.malum.registry.common.item.*;
-import net.minecraft.data.*;
-import net.minecraft.data.recipes.*;
-import net.minecraft.world.item.*;
-import net.minecraft.world.item.crafting.*;
-import net.minecraftforge.common.*;
+import com.sammy.malum.data.recipe.builder.VoidFavorRecipeBuilder;
+import com.sammy.malum.registry.common.item.ItemRegistry;
+import net.minecraft.data.PackOutput;
+import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.RecipeProvider;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraftforge.common.Tags;
 
-import java.util.function.*;
+import java.util.function.Consumer;
 
 public class MalumVoidFavorRecipes extends RecipeProvider {
     public MalumVoidFavorRecipes(PackOutput generatorIn) {

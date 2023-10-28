@@ -1,6 +1,6 @@
 package com.sammy.malum.common.item.curiosities.curios.prospector;
 
-import com.sammy.malum.common.item.curiosities.curios.*;
+import com.sammy.malum.common.item.curiosities.curios.MalumCurioItem;
 import com.sammy.malum.registry.common.item.ItemRegistry;
 import net.minecraft.world.entity.LivingEntity;
 import team.lodestar.lodestone.helpers.CurioHelper;

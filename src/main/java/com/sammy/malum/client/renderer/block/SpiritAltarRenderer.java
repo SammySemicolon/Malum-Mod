@@ -2,13 +2,11 @@ package com.sammy.malum.client.renderer.block;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
-import com.sammy.malum.client.renderer.entity.*;
+import com.sammy.malum.client.renderer.entity.FloatingItemEntityRenderer;
 import com.sammy.malum.common.block.curiosities.spirit_altar.SpiritAltarBlockEntity;
-import com.sammy.malum.common.item.spirit.*;
-import com.sammy.malum.registry.common.*;
+import com.sammy.malum.common.item.spirit.SpiritShardItem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.entity.ItemRenderer;

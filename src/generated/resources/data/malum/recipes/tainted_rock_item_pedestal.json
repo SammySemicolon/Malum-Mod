@@ -1,10 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "YYY",
-    " X ",
-    "YYY"
-  ],
+  "category": "misc",
   "key": {
     "X": {
       "item": "malum:tainted_rock"
@@ -13,7 +9,13 @@
       "item": "malum:tainted_rock_slab"
     }
   },
+  "pattern": [
+    "YYY",
+    " X ",
+    "YYY"
+  ],
   "result": {
     "item": "malum:tainted_rock_item_pedestal"
-  }
+  },
+  "show_notification": true
 }

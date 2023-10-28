@@ -1,20 +1,20 @@
 package com.sammy.malum.client.screen.codex;
 
-import com.mojang.blaze3d.vertex.*;
-import com.sammy.malum.*;
-import com.sammy.malum.client.screen.codex.objects.*;
-import com.sammy.malum.client.screen.codex.pages.*;
-import com.sammy.malum.config.*;
-import com.sammy.malum.registry.common.*;
-import net.minecraft.client.*;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.sammy.malum.MalumMod;
+import com.sammy.malum.client.screen.codex.objects.EntryObject;
+import com.sammy.malum.client.screen.codex.pages.BookPage;
+import com.sammy.malum.config.ClientConfig;
+import com.sammy.malum.registry.common.SoundRegistry;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.network.chat.*;
-import net.minecraft.resources.*;
-import net.minecraft.sounds.*;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
 
-import java.util.function.*;
+import java.util.function.Supplier;
 
-import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.*;
+import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.renderTexture;
 
 public class EntryScreen extends AbstractMalumScreen {
 
@@ -157,6 +157,6 @@ public class EntryScreen extends AbstractMalumScreen {
     }
 
     public float getSweetenerPitch() {
-        return 1 + (float)grouping / openObject.entry.pages.size();
+        return 1 + (float) grouping / openObject.entry.pages.size();
     }
 }

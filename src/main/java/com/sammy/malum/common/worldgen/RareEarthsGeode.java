@@ -23,11 +23,11 @@ import net.minecraft.world.level.material.FluidState;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.function.Predicate;
 
 public class RareEarthsGeode extends Feature<GeodeConfiguration> {
     private static final Direction[] DIRECTIONS = Direction.values();
+
     public RareEarthsGeode(Codec<GeodeConfiguration> config) {
         super(config);
     }
@@ -45,7 +45,7 @@ public class RareEarthsGeode extends Feature<GeodeConfiguration> {
         WorldgenRandom worldgenrandom = new WorldgenRandom(new LegacyRandomSource(worldgenlevel.getSeed()));
         NormalNoise normalnoise = NormalNoise.create(worldgenrandom, -4, 1.0D);
         List<BlockPos> list1 = Lists.newLinkedList();
-        double d0 = (double)k / (double)geodeconfiguration.outerWallDistance.getMaxValue();
+        double d0 = (double) k / (double) geodeconfiguration.outerWallDistance.getMaxValue();
         GeodeLayerSettings geodelayersettings = geodeconfiguration.geodeLayerSettings;
         GeodeBlockSettings geodeblocksettings = geodeconfiguration.geodeBlockSettings;
         GeodeCrackSettings geodecracksettings = geodeconfiguration.geodeCrackSettings;
@@ -54,10 +54,10 @@ public class RareEarthsGeode extends Feature<GeodeConfiguration> {
         double d3 = 1.0D / Math.sqrt(geodelayersettings.middleLayer + d0);
         double d4 = 1.0D / Math.sqrt(geodelayersettings.outerLayer + d0);
         double d5 = 1.0D / Math.sqrt(geodecracksettings.baseCrackSize + random.nextDouble() / 2.0D + (k > 3 ? d0 : 0.0D));
-        boolean flag = (double)random.nextFloat() < geodecracksettings.generateCrackChance;
+        boolean flag = (double) random.nextFloat() < geodecracksettings.generateCrackChance;
         int l = 0;
 
-        for(int i1 = 0; i1 < k; ++i1) {
+        for (int i1 = 0; i1 < k; ++i1) {
             int j1 = geodeconfiguration.outerWallDistance.sample(random);
             int k1 = geodeconfiguration.outerWallDistance.sample(random);
             int l1 = geodeconfiguration.outerWallDistance.sample(random);
@@ -99,24 +99,24 @@ public class RareEarthsGeode extends Feature<GeodeConfiguration> {
         List<BlockPos> potentialRareEarthPositions = new ArrayList<>();
         Predicate<BlockState> predicate = isReplaceable(geodeconfiguration.geodeBlockSettings.cannotReplace);
 
-        for(BlockPos blockpos3 : BlockPos.betweenClosed(blockpos.offset(i, i, i), blockpos.offset(j, j, j))) {
+        for (BlockPos blockpos3 : BlockPos.betweenClosed(blockpos.offset(i, i, i), blockpos.offset(j, j, j))) {
             double d8 = normalnoise.getValue(blockpos3.getX(), blockpos3.getY(), blockpos3.getZ()) * geodeconfiguration.noiseMultiplier;
             double d6 = 0.0D;
             double d7 = 0.0D;
 
-            for(Pair<BlockPos, Integer> pair : list) {
-                d6 += Mth.fastInvSqrt(blockpos3.distSqr(pair.getFirst()) + (double)pair.getSecond().intValue()) + d8;
+            for (Pair<BlockPos, Integer> pair : list) {
+                d6 += Mth.fastInvSqrt(blockpos3.distSqr(pair.getFirst()) + (double) pair.getSecond().intValue()) + d8;
             }
 
-            for(BlockPos blockpos6 : list1) {
-                d7 += Mth.fastInvSqrt(blockpos3.distSqr(blockpos6) + (double)geodecracksettings.crackPointOffset) + d8;
+            for (BlockPos blockpos6 : list1) {
+                d7 += Mth.fastInvSqrt(blockpos3.distSqr(blockpos6) + (double) geodecracksettings.crackPointOffset) + d8;
             }
 
             if (!(d6 < d4)) {
                 if (flag && d7 >= d5 && d6 < d1) {
                     this.safeSetBlock(worldgenlevel, blockpos3, Blocks.AIR.defaultBlockState(), predicate);
 
-                    for(Direction direction1 : DIRECTIONS) {
+                    for (Direction direction1 : DIRECTIONS) {
                         BlockPos blockpos2 = blockpos3.relative(direction1);
                         FluidState fluidstate = worldgenlevel.getFluidState(blockpos2);
                         if (!fluidstate.isEmpty()) {
@@ -130,7 +130,7 @@ public class RareEarthsGeode extends Feature<GeodeConfiguration> {
                         potentialRareEarthPositions.add(new BlockPos(blockpos3));
                     }
                 } else if (d6 >= d2) {
-                    boolean flag1 = (double)random.nextFloat() < geodeconfiguration.useAlternateLayer0Chance;
+                    boolean flag1 = (double) random.nextFloat() < geodeconfiguration.useAlternateLayer0Chance;
                     if (flag1) {
                         this.safeSetBlock(worldgenlevel, blockpos3, geodeblocksettings.alternateInnerLayerProvider.getState(random, blockpos3), predicate);
                     } else {
@@ -140,7 +140,7 @@ public class RareEarthsGeode extends Feature<GeodeConfiguration> {
                     if (predicate.test(state)) {
                         potentialRareEarthPositions.add(new BlockPos(blockpos3));
                     }
-                    if ((!geodeconfiguration.placementsRequireLayer0Alternate || flag1) && (double)random.nextFloat() < geodeconfiguration.usePotentialPlacementsChance) {
+                    if ((!geodeconfiguration.placementsRequireLayer0Alternate || flag1) && (double) random.nextFloat() < geodeconfiguration.usePotentialPlacementsChance) {
                         list2.add(blockpos3.immutable());
                     }
                 } else if (d6 >= d3) {
@@ -152,10 +152,10 @@ public class RareEarthsGeode extends Feature<GeodeConfiguration> {
         }
         List<BlockState> list3 = geodeblocksettings.innerPlacements;
 
-        for(BlockPos blockpos4 : list2) {
+        for (BlockPos blockpos4 : list2) {
             BlockState blockstate1 = Util.getRandom(list3, random);
 
-            for(Direction direction : DIRECTIONS) {
+            for (Direction direction : DIRECTIONS) {
                 if (blockstate1.hasProperty(BlockStateProperties.FACING)) {
                     blockstate1 = blockstate1.setValue(BlockStateProperties.FACING, direction);
                 }

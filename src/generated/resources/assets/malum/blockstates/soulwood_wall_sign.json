@@ -1,27 +1,27 @@
 {
   "variants": {
-    "facing=north,waterlogged=false": {
-      "model": "malum:block/soulwood_wall_sign"
-    },
-    "facing=south,waterlogged=false": {
-      "model": "malum:block/soulwood_wall_sign"
-    },
-    "facing=west,waterlogged=false": {
-      "model": "malum:block/soulwood_wall_sign"
-    },
     "facing=east,waterlogged=false": {
+      "model": "malum:block/soulwood_wall_sign"
+    },
+    "facing=east,waterlogged=true": {
+      "model": "malum:block/soulwood_wall_sign"
+    },
+    "facing=north,waterlogged=false": {
       "model": "malum:block/soulwood_wall_sign"
     },
     "facing=north,waterlogged=true": {
       "model": "malum:block/soulwood_wall_sign"
     },
+    "facing=south,waterlogged=false": {
+      "model": "malum:block/soulwood_wall_sign"
+    },
     "facing=south,waterlogged=true": {
       "model": "malum:block/soulwood_wall_sign"
     },
-    "facing=west,waterlogged=true": {
+    "facing=west,waterlogged=false": {
       "model": "malum:block/soulwood_wall_sign"
     },
-    "facing=east,waterlogged=true": {
+    "facing=west,waterlogged=true": {
       "model": "malum:block/soulwood_wall_sign"
     }
   }

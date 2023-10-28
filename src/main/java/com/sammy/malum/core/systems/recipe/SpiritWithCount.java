@@ -10,7 +10,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import team.lodestar.lodestone.systems.recipe.IRecipeComponent;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class SpiritWithCount implements IRecipeComponent {
@@ -18,7 +17,7 @@ public class SpiritWithCount implements IRecipeComponent {
     public final int count;
 
     public SpiritWithCount(ItemStack stack) {
-        this.type = ((SpiritShardItem)stack.getItem()).type;
+        this.type = ((SpiritShardItem) stack.getItem()).type;
         this.count = stack.getCount();
     }
 
@@ -44,6 +43,7 @@ public class SpiritWithCount implements IRecipeComponent {
         }
         return object;
     }
+
     public Component getComponent() {
         return type.getSpiritJarCounterComponent(count);
     }

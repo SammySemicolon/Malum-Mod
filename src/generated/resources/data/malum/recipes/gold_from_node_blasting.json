@@ -1,12 +1,12 @@
 {
   "type": "minecraft:blasting",
+  "cookingtime": 100,
+  "experience": 0.25,
   "ingredient": {
     "item": "malum:gold_node"
   },
   "result": {
-    "item": "minecraft:gold_nugget",
-    "count": 6
-  },
-  "experience": 0.25,
-  "cookingtime": 100
+    "count": 6,
+    "item": "minecraft:gold_nugget"
+  }
 }

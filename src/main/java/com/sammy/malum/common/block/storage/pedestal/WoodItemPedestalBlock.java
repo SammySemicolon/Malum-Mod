@@ -11,16 +11,14 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import java.util.stream.Stream;
 
-public class WoodItemPedestalBlock<T extends ItemPedestalBlockEntity> extends ItemPedestalBlock<T>
-{
+public class WoodItemPedestalBlock<T extends ItemPedestalBlockEntity> extends ItemPedestalBlock<T> {
     public static final VoxelShape SHAPE = Stream.of(
             Block.box(4, 0, 4, 12, 3, 12),
             Block.box(5, 3, 5, 11, 11, 11),
             Block.box(4, 11, 4, 12, 13, 12)
     ).reduce((v1, v2) -> Shapes.join(v1, v2, BooleanOp.OR)).get();
 
-    public WoodItemPedestalBlock(Properties properties)
-    {
+    public WoodItemPedestalBlock(Properties properties) {
         super(properties);
     }
 
