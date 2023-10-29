@@ -8,6 +8,7 @@ import com.sammy.malum.visual_effects.networked.blight.BlightingMistParticleEffe
 import com.sammy.malum.visual_effects.networked.generic.DrippingSmokeParticleEffect;
 import com.sammy.malum.visual_effects.networked.generic.HexingSmokeParticleEffect;
 import com.sammy.malum.visual_effects.networked.generic.RisingSparklesParticleEffect;
+import com.sammy.malum.visual_effects.networked.weeping_well.WeepingWellRadianceParticleEffect;
 import com.sammy.malum.visual_effects.networked.weeping_well.WeepingWellReactionParticleEffect;
 
 import java.util.LinkedHashMap;

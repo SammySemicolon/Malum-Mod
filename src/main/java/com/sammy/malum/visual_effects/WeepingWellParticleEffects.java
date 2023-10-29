@@ -1,9 +1,9 @@
 package com.sammy.malum.visual_effects;
 
 import com.sammy.malum.common.block.curiosities.weeping_well.*;
-import com.sammy.malum.common.entity.nitrate.*;
 import com.sammy.malum.registry.client.*;
 import net.minecraft.core.*;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.phys.*;
@@ -36,7 +36,7 @@ public class WeepingWellParticleEffects {
     private static final VoxelShape WELL_SHAPE = Block.box(-16.0D, 11.0D, -16.0D, 32.0D, 13.0D, 32.0D);
     private static final GenericParticleData SMOKE_TRANSPARENCY = GenericParticleData.create(0, 0.2f, 0f).setEasing(Easing.SINE_IN, Easing.SINE_OUT).build();
 
-    public static Color getWeepingWellSmokeColor(Random rand) {
+    public static Color getWeepingWellSmokeColor(RandomSource rand) {
         float colorMultiplier = RandomHelper.randomBetween(rand, 0.6f, 1.2f);
         return new Color((int) (12 * colorMultiplier), (int) (3 * colorMultiplier), (int) (12 * colorMultiplier));
     }
@@ -45,7 +45,7 @@ public class WeepingWellParticleEffects {
         Level level = voidConduit.getLevel();
         if (level.getGameTime() % 6L == 0) {
             final BlockPos blockPos = voidConduit.getBlockPos();
-            Random rand = level.random;
+            var rand = level.random;
             int lifetime = RandomHelper.randomBetween(rand, 40, 80);
             float yMotion = RandomHelper.randomBetween(rand, 0f, 0.02f);
             Color color = getWeepingWellSmokeColor(rand);
@@ -83,7 +83,7 @@ public class WeepingWellParticleEffects {
 
     public static void radiantWeepingWellParticles(VoidConduitBlockEntity voidConduit) {
         Level level = voidConduit.getLevel();
-        Random rand = level.random;
+        var rand = level.random;
         Color color = RADIANT_COLORS.get(((int) level.getGameTime() % 18) / 6);
         final BlockPos blockPos = voidConduit.getBlockPos();
         final ColorParticleData colorData = ColorParticleData.create(color, color.darker()).setCoefficient(0.5f).build();
@@ -123,13 +123,13 @@ public class WeepingWellParticleEffects {
     }
 
     public static ParticleEffectSpawner<WorldParticleBuilder> weepingWellSpecs(Level level, Vec3 pos) {
-        Random rand = level.random;
+        var rand = level.random;
         Color color = getWeepingWellSmokeColor(rand);
         ColorParticleData colorData = ColorParticleData.create(color, color.darker()).setCoefficient(0.5f).build();
         return weepingWellSpecs(level, pos, colorData, LodestoneWorldParticleRenderType.LUMITRANSPARENT);
     }
     public static ParticleEffectSpawner<WorldParticleBuilder> weepingWellSpecs(Level level, Vec3 pos, ColorParticleData colorData, LodestoneWorldParticleRenderType renderType) {
-        Random rand = level.random;
+        var rand = level.random;
         var lightSpecs = spiritLightSpecs(level, pos, colorData, colorData, ParticleRegistry.LIGHT_SPEC_SMALL);
         lightSpecs.getBuilder().act(b -> b
                 .setRenderType(renderType)

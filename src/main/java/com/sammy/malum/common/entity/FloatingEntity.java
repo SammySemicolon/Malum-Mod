@@ -23,13 +23,8 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkHooks;
-import team.lodestar.lodestone.helpers.EntityHelper;
 import team.lodestar.lodestone.systems.easing.Easing;
 import team.lodestar.lodestone.systems.rendering.trail.*;
-
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public abstract class FloatingEntity extends Entity {
 
@@ -59,7 +54,7 @@ public abstract class FloatingEntity extends Entity {
     }
 
     @Override
-    public Packet<?> getAddEntityPacket() {
+    public Packet<ClientGamePacketListener> getAddEntityPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 
@@ -180,15 +175,5 @@ public abstract class FloatingEntity extends Entity {
 
     public float getHoverStart(float partialTicks) {
         return hoverStart + (1 - Easing.SINE_OUT.ease(Math.min(1, (age + partialTicks) / 60f), 0, 1, 1)) * 0.35f;
-    }
-
-    @Override
-    public Packet<ClientGamePacketListener> getAddEntityPacket() {
-        return NetworkHooks.getEntitySpawningPacket(this);
-    }
-
-    @Override
-    public boolean isNoGravity() {
-        return true;
     }
 }

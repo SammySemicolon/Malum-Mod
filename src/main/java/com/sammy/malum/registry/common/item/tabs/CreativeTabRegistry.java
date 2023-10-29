@@ -403,7 +403,8 @@ public class CreativeTabRegistry {
             event.accept(NULL_SLATE);
             event.accept(STRANGE_NUCLEUS);
             event.accept(CRYSTALLIZED_NIHILITY);
-            event.accept(ANOMALOUS_SNARE);
+            event.accept(ANOMALOUS_DESIGN);
+            event.accept(COMPLETE_DESIGN);
             event.accept(FUSED_CONSCIOUSNESS);
         }
 
