@@ -22,7 +22,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import team.lodestar.lodestone.helpers.ColorHelper;
 import team.lodestar.lodestone.helpers.EasingHelper;
-import team.lodestar.lodestone.setup.LodestoneRenderTypeRegistry;
+import team.lodestar.lodestone.registry.client.LodestoneRenderTypeRegistry;
 import team.lodestar.lodestone.systems.easing.Easing;
 import team.lodestar.lodestone.systems.rendering.VFXBuilders;
 import team.lodestar.lodestone.systems.rendering.trail.TrailPoint;
@@ -59,8 +59,9 @@ public class FloatingItemEntityRenderer extends EntityRenderer<FloatingItemEntit
             poseStack.translate(-x, -y, -z);
             VFXBuilders.WorldVFXBuilder builder = VFXBuilders.createWorld().setPosColorTexLightmapDefaultFormat();
             VertexConsumer lightBuffer = DELAYED_RENDER.getBuffer(TRAIL_TYPE);
-            final Color primaryColor = entity.spiritType.getPrimaryColor();
-            final Color secondaryColor = entity.spiritType.getSecondaryColor();
+            final MalumSpiritType spiritType = entity.getSpiritType();
+            final Color primaryColor = spiritType.getPrimaryColor();
+            final Color secondaryColor = spiritType.getSecondaryColor();
             for (int i = 0; i < 2; i++) {
                 float size = 0.2f + i * 0.2f;
                 float alpha = (0.7f - i * 0.35f);
@@ -89,20 +90,8 @@ public class FloatingItemEntityRenderer extends EntityRenderer<FloatingItemEntit
         poseStack.popPose();
         poseStack.pushPose();
         poseStack.translate(0.0D, (yOffset + 0.5F * scale), 0.0D);
-        renderSpiritGlimmer(poseStack, entity.spiritType, partialTicks);
+        renderSpiritGlimmer(poseStack, entity.getSpiritType(), partialTicks);
         poseStack.popPose();
-    }
-
-    public static void renderSpiritItem(PoseStack poseStack, MultiBufferSource bufferIn, ItemRenderer itemRenderer, ItemStack stack, float yOffset, float rotation, int packedLightIn) {
-        Level level = Minecraft.getInstance().level;
-        BakedModel model = itemRenderer.getModel(stack, level, null, stack.getCount());
-        float scale = model.getTransforms().getTransform(ItemDisplayContext.GROUND).scale.y();
-        poseStack.pushPose();
-        poseStack.translate(0.0D, (yOffset + 0.25F * scale), 0.0D);
-        poseStack.mulPose(Axis.YP.rotation(rotation));
-        itemRenderer.render(stack, ItemDisplayContext.GROUND, false, poseStack, bufferIn, packedLightIn, OverlayTexture.NO_OVERLAY, model);
-        poseStack.popPose();
-
     }
 
     public static void renderSpiritGlimmer(PoseStack poseStack, MalumSpiritType spiritType, float partialTicks) {

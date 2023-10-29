@@ -10,8 +10,11 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 import org.joml.Vector3f;
 import team.lodestar.lodestone.handlers.RenderHandler;
-import team.lodestar.lodestone.setup.LodestoneRenderTypeRegistry;
+import team.lodestar.lodestone.registry.client.LodestoneRenderTypeRegistry;
 import team.lodestar.lodestone.systems.rendering.VFXBuilders;
+
+import java.awt.*;
+import java.util.*;
 
 
 public class VoidConduitRenderer implements BlockEntityRenderer<VoidConduitBlockEntity> {
@@ -23,10 +26,10 @@ public class VoidConduitRenderer implements BlockEntityRenderer<VoidConduitBlock
 
     @Override
     public void render(VoidConduitBlockEntity blockEntityIn, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int combinedLightIn, int combinedOverlayIn) {
-        renderQuad(poseStack);
+        renderQuad(blockEntityIn, poseStack, partialTicks);
     }
 
-    public void renderQuad(PoseStack poseStack) {
+    public void renderQuad(VoidConduitBlockEntity voidConduit, PoseStack poseStack, float partialTicks) {
         float height = 0.75f;
         float width = 1.5f;
         VertexConsumer textureConsumer = RenderHandler.DELAYED_RENDER.getBuffer(LodestoneRenderTypeRegistry.TRANSPARENT_TEXTURE.applyAndCache(VIGNETTE));
@@ -36,7 +39,6 @@ public class VoidConduitRenderer implements BlockEntityRenderer<VoidConduitBlock
         poseStack.pushPose();
         poseStack.translate(0.5f, 0.001f, 0.5f);
         builder.renderQuad(textureConsumer, poseStack, positions, 1f);
-        builder.setPosColorLightmapDefaultFormat();
         poseStack.popPose();
     }
 }

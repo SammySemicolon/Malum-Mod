@@ -572,7 +572,8 @@ public class ItemRegistry {
     public static final RegistryObject<Item> NULL_SLATE = ITEMS.register("null_slate", () -> new Item(VOID_PROPERTIES()));
     public static final RegistryObject<Item> STRANGE_NUCLEUS = ITEMS.register("strange_nucleus", () -> new Item(VOID_PROPERTIES()));
     public static final RegistryObject<Item> CRYSTALLIZED_NIHILITY = ITEMS.register("crystallized_nihility", () -> new Item(VOID_PROPERTIES()));
-    public static final RegistryObject<Item> ANOMALOUS_SNARE = ITEMS.register("anomalous_snare", () -> new Item(VOID_PROPERTIES()));
+    public static final RegistryObject<Item> ANOMALOUS_DESIGN = ITEMS.register("anomalous_design", () -> new Item(VOID_PROPERTIES()));
+    public static final RegistryObject<Item> COMPLETE_DESIGN = ITEMS.register("complete_design", () -> new SimpleFoiledItem(VOID_PROPERTIES()));
     public static final RegistryObject<Item> FUSED_CONSCIOUSNESS = ITEMS.register("fused_consciousness", () -> new FusedConsciousnessItem(VOID_PROPERTIES().rarity(UNCOMMON)));
 
     public static final RegistryObject<Item> RING_OF_GROWING_FLESH = ITEMS.register("ring_of_growing_flesh", () -> new CurioGrowingFleshRing(VOID_GEAR_PROPERTIES()));
@@ -580,6 +581,7 @@ public class ItemRegistry {
 
     public static final RegistryObject<Item> NECKLACE_OF_THE_HIDDEN_BLADE = ITEMS.register("necklace_of_the_hidden_blade", () -> new CurioHiddenBladeNecklace(VOID_GEAR_PROPERTIES()));
     public static final RegistryObject<Item> NECKLACE_OF_THE_WATCHER = ITEMS.register("necklace_of_the_watcher", () -> new CurioWatcherNecklace(VOID_GEAR_PROPERTIES()));
+
 
     //endregion
 
