@@ -72,6 +72,25 @@ public class WeepingWellParticleEffects {
             }
         }
     }
+
+
+    public static void radiantWeepingWellParticles(VoidConduitBlockEntity voidConduit) {
+        Level level = voidConduit.getLevel();
+        final BlockPos blockPos = voidConduit.getBlockPos();
+        Random rand = level.random;
+        int lifetime = RandomHelper.randomBetween(rand, 40, 80);
+        float xMotion = RandomHelper.randomBetween(rand, -0.02f, 0.02f);
+        float yMotion = 0.05f;
+        float zMotion = RandomHelper.randomBetween(rand, -0.02f, 0.02f);
+        Vec3 motion = new Vec3(xMotion, yMotion, zMotion);
+        DirectionalParticleBuilder.create(ParticleRegistry.SQUARE)
+                .setDirection(motion.normalize().scale(Math.PI/2f))
+                .setLifetime(lifetime)
+                .setMotion(motion)
+                .setRenderType(LodestoneWorldParticleRenderType.LUMITRANSPARENT)
+                .spawn(level, blockPos.getX(), blockPos.getY()+4, blockPos.getZ());
+    }
+
     public static ParticleEffectSpawner<WorldParticleBuilder> weepingWellSpecs(Level level, Vec3 pos) {
         Random rand = level.random;
         Color color = getWeepingWellSmokeColor(rand);

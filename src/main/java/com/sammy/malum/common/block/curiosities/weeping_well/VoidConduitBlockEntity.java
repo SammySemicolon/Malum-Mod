@@ -121,6 +121,7 @@ public class VoidConduitBlockEntity extends LodestoneBlockEntity {
         }
         else {
             WeepingWellParticleEffects.passiveWeepingWellParticles(this);
+            WeepingWellParticleEffects.radiantWeepingWellParticles(this);
         }
     }
 

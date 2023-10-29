@@ -19,21 +19,7 @@ import java.util.*;
 
 public class VoidConduitRenderer implements BlockEntityRenderer<VoidConduitBlockEntity> {
 
-    public static final ArrayList<Color> COLORS = new ArrayList<>();
-    static {
-        COLORS.add(new Color(242, 242, 89));
-        COLORS.add(new Color(242, 89, 242));
-        COLORS.add(new Color(89, 242, 242));
-        COLORS.add(new Color(242, 89, 89));
-        COLORS.add(new Color(116, 240, 30));
-        COLORS.add(new Color(240, 30, 116));
-        COLORS.add(new Color(30, 116, 240));
-        COLORS.add(new Color(116, 30, 240));
-    }
-
-
     public static final ResourceLocation VIGNETTE = MalumMod.malumPath("textures/block/weeping_well/primordial_soup_vignette.png");
-    public static final ResourceLocation SQUARE = MalumMod.malumPath("textures/vfx/expanding_square.png");
 
     public VoidConduitRenderer(BlockEntityRendererProvider.Context context) {
     }
