@@ -79,12 +79,12 @@ public class WeepingWellParticleEffects {
         final BlockPos blockPos = voidConduit.getBlockPos();
         Random rand = level.random;
         int lifetime = RandomHelper.randomBetween(rand, 40, 80);
-        float xMotion = RandomHelper.randomBetween(rand, -0.02f, 0.02f);
-        float yMotion = 0.05f;
-        float zMotion = RandomHelper.randomBetween(rand, -0.02f, 0.02f);
+        float xMotion = 0;
+        float yMotion = RandomHelper.randomBetween(rand, -0.05f, 0.05f);
+        float zMotion = 0;
         Vec3 motion = new Vec3(xMotion, yMotion, zMotion);
         DirectionalParticleBuilder.create(ParticleRegistry.SQUARE)
-                .setDirection(motion.normalize().scale(Math.PI/2f))
+                .setDirection(motion.normalize().scale(Math.PI*2))
                 .setLifetime(lifetime)
                 .setMotion(motion)
                 .setRenderType(LodestoneWorldParticleRenderType.LUMITRANSPARENT)
