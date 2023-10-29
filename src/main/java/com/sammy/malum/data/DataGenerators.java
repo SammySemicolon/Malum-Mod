@@ -5,6 +5,7 @@ import com.sammy.malum.data.block.MalumBlockLootTables;
 import com.sammy.malum.data.block.MalumBlockStates;
 import com.sammy.malum.data.block.MalumBlockTags;
 import com.sammy.malum.data.item.MalumItemModels;
+import com.sammy.malum.data.item.MalumItemTags;
 import com.sammy.malum.data.recipe.*;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
@@ -33,10 +34,9 @@ public class DataGenerators {
         generator.addProvider(event.includeClient(), new MalumBlockStates(output, helper, itemModelsProvider));
         generator.addProvider(event.includeClient(), itemModelsProvider);
 
-
-        //TODO this crashes generator.addProvider(event.includeServer(), blockTagsProvider);
+        generator.addProvider(event.includeServer(), blockTagsProvider);
         generator.addProvider(event.includeServer(), new MalumBlockLootTables(output));
-        //TODO generator.addProvider(event.includeServer(), new MalumItemTags(output, provider, blockTagsProvider.contentsGetter(), helper));
+        generator.addProvider(event.includeServer(), new MalumItemTags(output, provider, blockTagsProvider.contentsGetter(), helper));
 
         generator.addProvider(event.includeServer(), new MalumRecipes(output));
         generator.addProvider(event.includeServer(), new MalumVanillaRecipeReplacements(output));
