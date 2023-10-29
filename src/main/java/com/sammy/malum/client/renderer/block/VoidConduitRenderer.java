@@ -30,15 +30,16 @@ public class VoidConduitRenderer implements BlockEntityRenderer<VoidConduitBlock
     }
 
     public void renderQuad(VoidConduitBlockEntity voidConduit, PoseStack poseStack, float partialTicks) {
-        float height = 0.75f;
-        float width = 1.5f;
-        VertexConsumer textureConsumer = RenderHandler.DELAYED_RENDER.getBuffer(LodestoneRenderTypeRegistry.TRANSPARENT_TEXTURE.applyAndCache(VIGNETTE));
-        Vector3f[] positions = new Vector3f[]{new Vector3f(-width, height, width), new Vector3f(width, height, width), new Vector3f(width, height, -width), new Vector3f(-width, height, -width)};
-        VFXBuilders.WorldVFXBuilder builder = VFXBuilders.createWorld().setPosColorTexLightmapDefaultFormat();
-
-        poseStack.pushPose();
-        poseStack.translate(0.5f, 0.001f, 0.5f);
-        builder.renderQuad(textureConsumer, poseStack, positions, 1f);
-        poseStack.popPose();
+        if (voidConduit.lingeringRadiance == 0) {
+            float height = 0.75f;
+            float width = 1.5f;
+            VertexConsumer textureConsumer = RenderHandler.DELAYED_RENDER.getBuffer(LodestoneRenderTypeRegistry.TRANSPARENT_TEXTURE.applyAndCache(VIGNETTE));
+            Vector3f[] positions = new Vector3f[]{new Vector3f(-width, height, width), new Vector3f(width, height, width), new Vector3f(width, height, -width), new Vector3f(-width, height, -width)};
+            VFXBuilders.WorldVFXBuilder builder = VFXBuilders.createWorld().setPosColorTexLightmapDefaultFormat();
+            poseStack.pushPose();
+            poseStack.translate(0.5f, 0.001f, 0.5f);
+            builder.renderQuad(textureConsumer, poseStack, positions, 1f);
+            poseStack.popPose();
+        }
     }
 }
