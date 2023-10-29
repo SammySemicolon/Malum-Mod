@@ -23,14 +23,19 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkHooks;
+import team.lodestar.lodestone.helpers.EntityHelper;
 import team.lodestar.lodestone.systems.easing.Easing;
-import team.lodestar.lodestone.systems.rendering.trail.TrailPointBuilder;
+import team.lodestar.lodestone.systems.rendering.trail.*;
+
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class FloatingEntity extends Entity {
 
     protected static final EntityDataAccessor<String> DATA_SPIRIT = SynchedEntityData.defineId(FloatingEntity.class, EntityDataSerializers.STRING);
     public final TrailPointBuilder trailPointBuilder = TrailPointBuilder.create(10);
-    public MalumSpiritType spiritType = SpiritTypeRegistry.SACRED_SPIRIT;
+    protected MalumSpiritType spiritType = SpiritTypeRegistry.ARCANE_SPIRIT;
     public int maxAge;
     public int age;
     public float moveTime;
@@ -43,9 +48,29 @@ public abstract class FloatingEntity extends Entity {
         this.hoverStart = (float) (Math.random() * Math.PI * 2.0D);
     }
 
+    public MalumSpiritType getSpiritType() {
+        return spiritType;
+    }
+    public void setSpirit(MalumSpiritType spiritType) {
+        setSpirit(spiritType.identifier);
+    }
+    public void setSpirit(String spiritIdentifier) {
+        this.getEntityData().set(DATA_SPIRIT, spiritIdentifier);
+    }
+
+    @Override
+    public Packet<?> getAddEntityPacket() {
+        return NetworkHooks.getEntitySpawningPacket(this);
+    }
+
+    @Override
+    public boolean isNoGravity() {
+        return true;
+    }
+
     @Override
     protected void defineSynchedData() {
-        this.getEntityData().define(DATA_SPIRIT, SpiritTypeRegistry.SACRED_SPIRIT.identifier);
+        this.getEntityData().define(DATA_SPIRIT, SpiritTypeRegistry.ARCANE_SPIRIT.identifier);
     }
 
     @Override
@@ -64,7 +89,7 @@ public abstract class FloatingEntity extends Entity {
         maxAge = compound.getInt("maxAge");
         moveTime = compound.getFloat("moveTime");
         windUp = compound.getFloat("windUp");
-        spiritType = SpiritTypeRegistry.SPIRITS.get(compound.getString("spiritType"));
+        getEntityData().set(DATA_SPIRIT, compound.getString("spiritType"));
     }
 
     @Override

@@ -1,0 +1,45 @@
+{
+  "type": "malum:spirit_infusion",
+  "input": {
+    "item": "malum:anomalous_design",
+    "count": 1
+  },
+  "output": {
+    "item": "malum:complete_design"
+  },
+  "extra_items": [],
+  "spirits": [
+    {
+      "type": "sacred",
+      "count": 4
+    },
+    {
+      "type": "wicked",
+      "count": 4
+    },
+    {
+      "type": "arcane",
+      "count": 4
+    },
+    {
+      "type": "eldritch",
+      "count": 4
+    },
+    {
+      "type": "aerial",
+      "count": 4
+    },
+    {
+      "type": "aqueous",
+      "count": 4
+    },
+    {
+      "type": "earthen",
+      "count": 4
+    },
+    {
+      "type": "infernal",
+      "count": 4
+    }
+  ]
+}

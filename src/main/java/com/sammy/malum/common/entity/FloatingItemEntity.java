@@ -22,9 +22,6 @@ public class FloatingItemEntity extends FloatingEntity {
     }
 
     public void setItem(ItemStack pStack) {
-        if (pStack.getItem() instanceof SpiritShardItem shardItem) {
-            this.spiritType = shardItem.type;
-        }
         if (!pStack.is(this.getDefaultItem()) || pStack.hasTag()) {
             this.getEntityData().set(DATA_ITEM_STACK, pStack);
         }
@@ -49,7 +46,7 @@ public class FloatingItemEntity extends FloatingEntity {
     }
 
     protected Item getDefaultItem() {
-        return ItemRegistry.SACRED_SPIRIT.get();
+        return ItemRegistry.ARCANE_SPIRIT.get();
     }
 
     public ItemStack getItem() {

@@ -37,6 +37,9 @@ public class SpiritItemEntity extends FloatingItemEntity {
         setPos(posX, posY, posZ);
         setDeltaMovement(velX, velY, velZ);
         maxAge = 800;
+        if (stack.getItem() instanceof SpiritShardItem spiritShardItem) {
+            setSpirit(spiritShardItem.type);
+        }
     }
 
     @Override
