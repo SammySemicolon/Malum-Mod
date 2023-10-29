@@ -4,6 +4,7 @@ import com.sammy.malum.common.recipe.*;
 import com.sammy.malum.registry.common.*;
 import com.sammy.malum.registry.common.block.*;
 import com.sammy.malum.registry.common.item.*;
+import com.sammy.malum.visual_effects.*;
 import com.sammy.malum.visual_effects.networked.data.*;
 import net.minecraft.core.*;
 import net.minecraft.nbt.*;
@@ -39,8 +40,8 @@ public class VoidConduitBlockEntity extends LodestoneBlockEntity {
     public final List<ItemStack> eatenItems = new ArrayList<>();
     public int progress;
     public int streak;
+    public int lingeringRadiance;
 
-    protected static final VoxelShape WELL_SHAPE = Block.box(-16.0D, 11.0D, -16.0D, 32.0D, 13.0D, 32.0D);
     public VoidConduitBlockEntity(BlockPos pos, BlockState state) {
         super(BlockEntityRegistry.VOID_CONDUIT.get(), pos, state);
     }
@@ -58,6 +59,7 @@ public class VoidConduitBlockEntity extends LodestoneBlockEntity {
         }
         compound.putInt("progress", progress);
         compound.putInt("streak", streak);
+        compound.putInt("lingeringRadiance", lingeringRadiance);
         super.saveAdditional(compound);
     }
 
@@ -70,6 +72,7 @@ public class VoidConduitBlockEntity extends LodestoneBlockEntity {
         }
         progress = compound.getInt("progress");
         streak = compound.getInt("streak");
+        lingeringRadiance = compound.getInt("lingeringRadiance");
         super.load(compound);
     }
 
@@ -84,58 +87,28 @@ public class VoidConduitBlockEntity extends LodestoneBlockEntity {
                 level.playSound(null, worldPosition, SoundRegistry.VOID_HEARTBEAT.get(), SoundSource.HOSTILE, 1.5f, Mth.nextFloat(level.getRandom(), 0.95f, 1.15f));
             }
             if (serverLevel.getGameTime() % 40L == 0) {
-                List<ItemEntity> items = serverLevel.getEntitiesOfClass(
-                        ItemEntity.class,
-                        new AABB(worldPosition.offset(1, -3, 1), worldPosition.offset(-1, -1, -1)).inflate(1))
-                        .stream().sorted(Comparator.comparingInt(itemEntity -> itemEntity.age)).collect(Collectors.toList());
-
-                for (ItemEntity entity : items) {
-                    ItemStack item = entity.getItem();
-                    if (item.getItem().equals(ItemRegistry.BLIGHTED_GUNK.get())) {
-                        progress+=20;
-                    }
-                    eatenItems.add(item);
-                    entity.discard();
-                }
-                BlockHelper.updateAndNotifyState(level, worldPosition);
+                eatItems(serverLevel);
             }
             if (!eatenItems.isEmpty()) {
                 progress++;
                 if (progress >= 80) {
-                    int resultingProgress = 65;
+                    int resultingProgress = 60;
                     ItemStack stack = eatenItems.get(eatenItems.size()-1);
                     if (stack.getItem().equals(ItemRegistry.BLIGHTED_GUNK.get())) {
-                        resultingProgress = 72+streak/4;
+                        resultingProgress +=streak/2f;
                         streak++;
-                        level.playSound(null, worldPosition, SoundRegistry.HUNGRY_BELT_FEEDS.get(), SoundSource.PLAYERS, 0.7f, 0.6f + level.random.nextFloat() * 0.3f+streak*0.05f);
+                        level.playSound(null, worldPosition, SoundRegistry.VOID_EATS_GUNK.get(), SoundSource.PLAYERS, 0.7f, 0.6f + level.random.nextFloat() * 0.3f+streak*0.05f);
                         level.playSound(null, worldPosition, SoundEvents.GENERIC_EAT, SoundSource.PLAYERS, 0.7f, 0.6f + level.random.nextFloat() * 0.2f+streak*0.05f);
                     }
                     else {
-                        FavorOfTheVoidRecipe recipe = FavorOfTheVoidRecipe.getRecipe(level, stack);
-                        float pitch = Mth.nextFloat(level.getRandom(), 0.85f, 1.35f) + streak * 0.1f;
-                        if (recipe != null) {
-                            streak++;
-                            int amount = recipe.output.getCount() * stack.getCount();
-                            while (amount > 0) {
-                                int count = Math.min(64, amount);
-                                ItemStack outputStack = new ItemStack(recipe.output.getItem(), count);
-                                outputStack.setTag(recipe.output.getTag());
-                                ItemEntity entity = new ItemEntity(level, worldPosition.getX() + 0.5f, worldPosition.getY() + 0.5f, worldPosition.getZ() + 0.5f, outputStack);
-                                entity.setDeltaMovement(0, 0.65f, 0.15f);
-                                level.addFreshEntity(entity);
-                                amount -= count;
-                            }
-                            level.playSound(null, worldPosition, SoundRegistry.VOID_TRANSMUTATION.get(), SoundSource.HOSTILE, 2f, pitch);
-                        } else {
-                            ItemEntity entity = new ItemEntity(level, worldPosition.getX() + 0.5f, worldPosition.getY() + 0.5f, worldPosition.getZ() + 0.5f, stack);
-                            entity.setDeltaMovement(0, 0.65f, 0.15f);
-                            level.addFreshEntity(entity);
-                            level.playSound(null, worldPosition, SoundRegistry.VOID_REJECTION.get(), SoundSource.HOSTILE, 2f, pitch);
+                        Item result = spitOutItem(stack);
+                        if (result.equals(ItemRegistry.FUSED_CONSCIOUSNESS.get())) {
+                            lingeringRadiance = 3600;
                         }
                     }
                     progress = resultingProgress;
-                    ParticleEffectTypeRegistry.WEEPING_WELL_REACTS.createPositionedEffect(level, new PositionEffectData(worldPosition.getX()+0.5f, worldPosition.getY()+0.75f, worldPosition.getZ()+0.5f));
                     eatenItems.remove(eatenItems.size()-1);
+                    ParticleEffectTypeRegistry.WEEPING_WELL_REACTS.createPositionedEffect(level, new PositionEffectData(worldPosition.getX()+0.5f, worldPosition.getY()+0.75f, worldPosition.getZ()+0.5f));
                     BlockHelper.updateAndNotifyState(level, worldPosition);
                 }
                 if (eatenItems.isEmpty()) {
@@ -147,28 +120,46 @@ public class VoidConduitBlockEntity extends LodestoneBlockEntity {
             }
         }
         else {
-            if (level.getGameTime() % 6L == 0) {
-                ClientOnly.spawnParticles(level, worldPosition);
-            }
+            WeepingWellParticleEffects.passiveWeepingWellParticles(this);
         }
     }
-    public static class ClientOnly {
-        public static void spawnParticles(Level level, BlockPos blockPos) {
-            float multiplier = Mth.nextFloat(level.random, 0.4f, 1f);
-            Color color = new Color((int) (12 * multiplier), (int) (3 * multiplier), (int) (12 * multiplier));
-            Color endColor = color.darker();
-            WorldParticleBuilder.create(LodestoneParticleRegistry.WISP_PARTICLE)
-                    .setTransparencyData(GenericParticleData.create(0, 0.2f, 0f).setEasing(Easing.SINE_IN, Easing.SINE_OUT).build())
-                    .setLifetime(60)
-                    .setSpinData(SpinParticleData.create(0.1f, 0.4f, 0).setEasing(Easing.SINE_IN, Easing.SINE_OUT).build())
-                    .setScaleData(GenericParticleData.create(0f, 0.9f, 0.5f).setEasing(Easing.SINE_IN, Easing.SINE_OUT).build())
-                    .setColorData(ColorParticleData.create(color, endColor).setCoefficient(0.5f).build())
-                    .addMotion(0, level.random.nextFloat() * 0.01f, 0)
-                    .setRandomOffset(3f, 0.02f)
-                    .enableNoClip()
-                    .setDiscardFunction(SimpleParticleOptions.ParticleDiscardFunctionType.ENDING_CURVE_INVISIBLE)
-                    .setRenderType(LodestoneWorldParticleRenderType.LUMITRANSPARENT)
-                    .surroundVoxelShape(level, blockPos, WELL_SHAPE, 12);
+
+    public void eatItems(ServerLevel serverLevel) {
+        List<ItemEntity> items = serverLevel.getEntitiesOfClass(ItemEntity.class, new AABB(worldPosition.offset(1, -3, 1), worldPosition.offset(-1, -1, -1)).inflate(1))
+                .stream().sorted(Comparator.comparingInt(itemEntity -> itemEntity.age)).toList();
+        for (ItemEntity entity : items) {
+            ItemStack item = entity.getItem();
+            if (item.getItem().equals(ItemRegistry.BLIGHTED_GUNK.get())) {
+                progress+=20;
+            }
+            eatenItems.add(item);
+            entity.discard();
+        }
+        BlockHelper.updateAndNotifyState(level, worldPosition);
+    }
+    public Item spitOutItem(ItemStack stack) {
+        FavorOfTheVoidRecipe recipe = FavorOfTheVoidRecipe.getRecipe(level, stack);
+        float pitch = Mth.nextFloat(level.getRandom(), 0.85f, 1.35f) + streak * 0.1f;
+        if (recipe != null) {
+            streak++;
+            int amount = recipe.output.getCount() * stack.getCount();
+            while (amount > 0) {
+                int count = Math.min(64, amount);
+                ItemStack outputStack = new ItemStack(recipe.output.getItem(), count);
+                outputStack.setTag(recipe.output.getTag());
+                ItemEntity entity = new ItemEntity(level, worldPosition.getX() + 0.5f, worldPosition.getY() + 0.5f, worldPosition.getZ() + 0.5f, outputStack);
+                entity.setDeltaMovement(0, 0.65f, 0.15f);
+                level.addFreshEntity(entity);
+                amount -= count;
+            }
+            level.playSound(null, worldPosition, SoundRegistry.VOID_TRANSMUTATION.get(), SoundSource.HOSTILE, 2f, pitch);
+            return recipe.output.getItem();
+        } else {
+            ItemEntity entity = new ItemEntity(level, worldPosition.getX() + 0.5f, worldPosition.getY() + 0.5f, worldPosition.getZ() + 0.5f, stack);
+            entity.setDeltaMovement(0, 0.65f, 0.15f);
+            level.addFreshEntity(entity);
+            level.playSound(null, worldPosition, SoundRegistry.VOID_REJECTION.get(), SoundSource.HOSTILE, 2f, pitch);
+            return stack.getItem();
         }
     }
 }

@@ -1,15 +1,11 @@
 package com.sammy.malum.client.screen.codex;
 
 import com.mojang.blaze3d.vertex.*;
-import com.sammy.malum.client.screen.codex.objects.*;
-import com.sammy.malum.client.screen.codex.pages.*;
 import com.sammy.malum.common.events.*;
 import com.sammy.malum.registry.common.*;
-import com.sammy.malum.registry.common.item.*;
 import net.minecraft.client.*;
 import net.minecraft.resources.*;
 import net.minecraft.sounds.*;
-import net.minecraft.world.item.*;
 import net.minecraftforge.common.*;
 import org.lwjgl.opengl.*;
 import team.lodestar.lodestone.handlers.screenparticle.*;
@@ -162,7 +158,7 @@ public class VoidProgressionScreen extends AbstractProgressionCodexScreen {
 
 
         VOID_ENTRIES.add(new BookEntry(
-                "void.anomalous_snare", ANOMALOUS_SNARE.get(), 0, 6)
+                "void.anomalous_snare", ANOMALOUS_DESIGN.get(), 0, 6)
         );
         VOID_ENTRIES.add(new BookEntry(
                 "void.fused_consciousness", FUSED_CONSCIOUSNESS.get(), 0, 7)

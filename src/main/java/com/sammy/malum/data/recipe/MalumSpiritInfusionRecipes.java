@@ -420,6 +420,18 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider implements ICondi
                 .addExtraItem(ItemRegistry.HEX_ASH.get(), 2)
                 .build(consumer);
 
+
+        new SpiritInfusionRecipeBuilder(ItemRegistry.ANOMALOUS_DESIGN.get(), 1, ItemRegistry.COMPLETE_DESIGN.get(), 1)
+                .addSpirit(SACRED_SPIRIT, 4)
+                .addSpirit(WICKED_SPIRIT, 4)
+                .addSpirit(ARCANE_SPIRIT, 4)
+                .addSpirit(ELDRITCH_SPIRIT, 4)
+                .addSpirit(AERIAL_SPIRIT, 4)
+                .addSpirit(AQUEOUS_SPIRIT, 4)
+                .addSpirit(EARTHEN_SPIRIT, 4)
+                .addSpirit(INFERNAL_SPIRIT, 4)
+                .build(consumer);
+
         metalImpetusRecipe(consumer, ItemRegistry.IRON_IMPETUS, Items.IRON_INGOT);
         metalImpetusRecipe(consumer, ItemRegistry.COPPER_IMPETUS, Items.COPPER_INGOT);
         metalImpetusRecipe(consumer, ItemRegistry.GOLD_IMPETUS, Items.GOLD_INGOT);

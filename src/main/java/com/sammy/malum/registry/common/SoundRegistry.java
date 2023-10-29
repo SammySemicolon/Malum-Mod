@@ -70,6 +70,7 @@ public class SoundRegistry {
     public static final RegistryObject<SoundEvent> SONG_OF_THE_VOID = register(new SoundEvent(MalumMod.malumPath("song_of_the_void")));
     public static final RegistryObject<SoundEvent> VOID_REJECTION = register(new SoundEvent(MalumMod.malumPath("rejected_by_the_unknown")));
     public static final RegistryObject<SoundEvent> VOID_TRANSMUTATION = register(new SoundEvent(MalumMod.malumPath("void_transmutation")));
+    public static final RegistryObject<SoundEvent> VOID_EATS_GUNK = register(new SoundEvent(MalumMod.malumPath("void_eats_gunk")));
 
     public static final RegistryObject<SoundEvent> AERIAL_FALL = register(new SoundEvent(MalumMod.malumPath("aerial_magic_swooshes")));
 

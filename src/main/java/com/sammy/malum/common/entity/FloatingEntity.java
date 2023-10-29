@@ -12,6 +12,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
@@ -34,7 +35,7 @@ public abstract class FloatingEntity extends Entity {
 
     protected static final EntityDataAccessor<String> DATA_SPIRIT = SynchedEntityData.defineId(FloatingEntity.class, EntityDataSerializers.STRING);
     public final TrailPointBuilder trailPointBuilder = TrailPointBuilder.create(10);
-    public MalumSpiritType spiritType = SpiritTypeRegistry.SACRED_SPIRIT;
+    protected MalumSpiritType spiritType = SpiritTypeRegistry.ARCANE_SPIRIT;
     public int maxAge;
     public int age;
     public float moveTime;
@@ -47,9 +48,29 @@ public abstract class FloatingEntity extends Entity {
         this.hoverStart = (float) (Math.random() * Math.PI * 2.0D);
     }
 
+    public MalumSpiritType getSpiritType() {
+        return spiritType;
+    }
+    public void setSpirit(MalumSpiritType spiritType) {
+        setSpirit(spiritType.identifier);
+    }
+    public void setSpirit(String spiritIdentifier) {
+        this.getEntityData().set(DATA_SPIRIT, spiritIdentifier);
+    }
+
+    @Override
+    public Packet<?> getAddEntityPacket() {
+        return NetworkHooks.getEntitySpawningPacket(this);
+    }
+
+    @Override
+    public boolean isNoGravity() {
+        return true;
+    }
+
     @Override
     protected void defineSynchedData() {
-        this.getEntityData().define(DATA_SPIRIT, SpiritTypeRegistry.SACRED_SPIRIT.identifier);
+        this.getEntityData().define(DATA_SPIRIT, SpiritTypeRegistry.ARCANE_SPIRIT.identifier);
     }
 
     @Override
@@ -68,7 +89,7 @@ public abstract class FloatingEntity extends Entity {
         maxAge = compound.getInt("maxAge");
         moveTime = compound.getFloat("moveTime");
         windUp = compound.getFloat("windUp");
-        spiritType = SpiritTypeRegistry.SPIRITS.get(compound.getString("spiritType"));
+        getEntityData().set(DATA_SPIRIT, compound.getString("spiritType"));
     }
 
     @Override
@@ -159,15 +180,5 @@ public abstract class FloatingEntity extends Entity {
 
     public float getHoverStart(float partialTicks) {
         return hoverStart + (1 - Easing.SINE_OUT.ease(Math.min(1, (age + partialTicks) / 60f), 0, 1, 1)) * 0.35f;
-    }
-
-    @Override
-    public Packet<?> getAddEntityPacket() {
-        return NetworkHooks.getEntitySpawningPacket(this);
-    }
-
-    @Override
-    public boolean isNoGravity() {
-        return true;
     }
 }

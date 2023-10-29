@@ -25,7 +25,9 @@ public class MalumVoidFavorRecipes extends RecipeProvider {
         new VoidFavorRecipeBuilder(Ingredient.of(Tags.Items.RAW_MATERIALS), ItemRegistry.RAW_SOULSTONE.get(), 1)
                 .build(consumer);
 
-        new VoidFavorRecipeBuilder(Ingredient.of(Tags.Items.STORAGE_BLOCKS_IRON), ItemRegistry.ANOMALOUS_SNARE.get(), 1)
+        new VoidFavorRecipeBuilder(Ingredient.of(Tags.Items.STORAGE_BLOCKS_IRON), ItemRegistry.ANOMALOUS_DESIGN.get(), 1)
+                .build(consumer);
+        new VoidFavorRecipeBuilder(Ingredient.of(ItemRegistry.COMPLETE_DESIGN.get()), ItemRegistry.FUSED_CONSCIOUSNESS.get(), 1)
                 .build(consumer);
 
         new VoidFavorRecipeBuilder(Ingredient.of(ItemRegistry.PROCESSED_SOULSTONE.get()), ItemRegistry.NULL_SLATE.get(), 1)
