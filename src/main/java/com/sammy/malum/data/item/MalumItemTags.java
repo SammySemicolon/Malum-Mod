@@ -2,6 +2,7 @@ package com.sammy.malum.data.item;
 
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.item.impetus.NodeItem;
+import com.sammy.malum.registry.common.block.BlockRegistry;
 import com.sammy.malum.registry.common.block.BlockTagRegistry;
 import com.sammy.malum.registry.common.item.ItemTagRegistry;
 import net.minecraft.core.HolderLookup;
@@ -39,39 +40,42 @@ public class MalumItemTags extends ItemTagsProvider {
     protected void addTags(HolderLookup.Provider pProvider) {
         tag(Tags.Items.GEMS).add(PROCESSED_SOULSTONE.get(), BLAZING_QUARTZ.get());
 
-        this.copy(BlockTags.WOOL, net.minecraft.tags.ItemTags.WOOL);
-        this.copy(BlockTags.PLANKS, net.minecraft.tags.ItemTags.PLANKS);
-        this.copy(BlockTags.STONE_BRICKS, net.minecraft.tags.ItemTags.STONE_BRICKS);
-        this.copy(BlockTags.WOODEN_BUTTONS, net.minecraft.tags.ItemTags.WOODEN_BUTTONS);
-        this.copy(BlockTags.BUTTONS, net.minecraft.tags.ItemTags.BUTTONS);
-        this.copy(BlockTags.WOOL_CARPETS, net.minecraft.tags.ItemTags.WOOL_CARPETS);
-        this.copy(BlockTags.WOODEN_DOORS, net.minecraft.tags.ItemTags.WOODEN_DOORS);
-        this.copy(BlockTags.WOODEN_STAIRS, net.minecraft.tags.ItemTags.WOODEN_STAIRS);
-        this.copy(BlockTags.WOODEN_SLABS, net.minecraft.tags.ItemTags.WOODEN_SLABS);
-        this.copy(BlockTags.WOODEN_FENCES, net.minecraft.tags.ItemTags.WOODEN_FENCES);
-        this.copy(BlockTags.WOODEN_PRESSURE_PLATES, net.minecraft.tags.ItemTags.WOODEN_PRESSURE_PLATES);
-        this.copy(BlockTags.DOORS, net.minecraft.tags.ItemTags.DOORS);
-        this.copy(BlockTags.SAPLINGS, net.minecraft.tags.ItemTags.SAPLINGS);
-        this.copy(BlockTags.LOGS_THAT_BURN, net.minecraft.tags.ItemTags.LOGS_THAT_BURN);
-        this.copy(BlockTags.LOGS, net.minecraft.tags.ItemTags.LOGS);
+        tag(ItemTags.LOGS).addTag(RUNEWOOD_LOGS).addTag(SOULWOOD_LOGS);
+        tag(ItemTags.LOGS_THAT_BURN).addTag(RUNEWOOD_LOGS).addTag(SOULWOOD_LOGS);
+
+        //this.copy(BlockTags.WOOL, ItemTags.WOOL);
+        this.copy(BlockTags.PLANKS, ItemTags.PLANKS);
+        //this.copy(BlockTags.STONE_BRICKS, ItemTags.STONE_BRICKS);
+        this.copy(BlockTags.WOODEN_BUTTONS, ItemTags.WOODEN_BUTTONS);
+        this.copy(BlockTags.BUTTONS, ItemTags.BUTTONS);
+        //this.copy(BlockTags.WOOL_CARPETS, ItemTags.WOOL_CARPETS);
+        this.copy(BlockTags.WOODEN_DOORS, ItemTags.WOODEN_DOORS);
+        this.copy(BlockTags.WOODEN_STAIRS, ItemTags.WOODEN_STAIRS);
+        this.copy(BlockTags.WOODEN_SLABS, ItemTags.WOODEN_SLABS);
+        this.copy(BlockTags.WOODEN_FENCES, ItemTags.WOODEN_FENCES);
+        this.copy(BlockTags.WOODEN_PRESSURE_PLATES, ItemTags.WOODEN_PRESSURE_PLATES);
+        this.copy(BlockTags.DOORS, ItemTags.DOORS);
+        this.copy(BlockTags.SAPLINGS, ItemTags.SAPLINGS);
         this.copy(BlockTagRegistry.STRIPPED_LOGS, STRIPPED_LOGS);
-        this.copy(BlockTags.SAND, net.minecraft.tags.ItemTags.SAND);
-        this.copy(BlockTags.SLABS, net.minecraft.tags.ItemTags.SLABS);
-        this.copy(BlockTags.WALLS, net.minecraft.tags.ItemTags.WALLS);
-        this.copy(BlockTags.STAIRS, net.minecraft.tags.ItemTags.STAIRS);
-        this.copy(BlockTags.ANVIL, net.minecraft.tags.ItemTags.ANVIL);
-        this.copy(BlockTags.LEAVES, net.minecraft.tags.ItemTags.LEAVES);
-        this.copy(BlockTags.WOODEN_TRAPDOORS, net.minecraft.tags.ItemTags.WOODEN_TRAPDOORS);
-        this.copy(BlockTags.TRAPDOORS, net.minecraft.tags.ItemTags.TRAPDOORS);
-        this.copy(BlockTags.SMALL_FLOWERS, net.minecraft.tags.ItemTags.SMALL_FLOWERS);
-        this.copy(BlockTags.BEDS, net.minecraft.tags.ItemTags.BEDS);
-        this.copy(BlockTags.FENCES, net.minecraft.tags.ItemTags.FENCES);
-        this.copy(BlockTags.TALL_FLOWERS, net.minecraft.tags.ItemTags.TALL_FLOWERS);
-        this.copy(BlockTags.FLOWERS, net.minecraft.tags.ItemTags.FLOWERS);
-        this.copy(BlockTags.GOLD_ORES, net.minecraft.tags.ItemTags.GOLD_ORES);
-        this.copy(BlockTags.SOUL_FIRE_BASE_BLOCKS, net.minecraft.tags.ItemTags.SOUL_FIRE_BASE_BLOCKS);
+        //this.copy(BlockTags.SAND, ItemTags.SAND);
+        this.copy(BlockTags.SLABS, ItemTags.SLABS);
+        this.copy(BlockTags.WALLS, ItemTags.WALLS);
+        this.copy(BlockTags.STAIRS, ItemTags.STAIRS);
+        //this.copy(BlockTags.ANVIL, ItemTags.ANVIL);
+        this.copy(BlockTags.LEAVES, ItemTags.LEAVES);
+        this.copy(BlockTags.WOODEN_TRAPDOORS, ItemTags.WOODEN_TRAPDOORS);
+        this.copy(BlockTags.TRAPDOORS, ItemTags.TRAPDOORS);
+        //this.copy(BlockTags.SMALL_FLOWERS, ItemTags.SMALL_FLOWERS);
+        //this.copy(BlockTags.BEDS, ItemTags.BEDS);
+        this.copy(BlockTags.FENCES, ItemTags.FENCES);
+        //this.copy(BlockTags.TALL_FLOWERS, ItemTags.TALL_FLOWERS);
+        //this.copy(BlockTags.FLOWERS, ItemTags.FLOWERS);
+        //this.copy(BlockTags.GOLD_ORES, ItemTags.GOLD_ORES);
+        //this.copy(BlockTags.SOUL_FIRE_BASE_BLOCKS, ItemTags.SOUL_FIRE_BASE_BLOCKS);
         this.copy(Tags.Blocks.ORES, Tags.Items.ORES);
         this.copy(Tags.Blocks.STORAGE_BLOCKS, Tags.Items.STORAGE_BLOCKS);
+
+ 
 
         tag(Tags.Items.SLIMEBALLS).add(HOLY_SAPBALL.get(), UNHOLY_SAPBALL.get());
         tag(ItemTagRegistry.SAPBALLS).add(HOLY_SAPBALL.get(), UNHOLY_SAPBALL.get());
