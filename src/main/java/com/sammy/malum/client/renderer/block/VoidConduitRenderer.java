@@ -54,27 +54,5 @@ public class VoidConduitRenderer implements BlockEntityRenderer<VoidConduitBlock
         poseStack.translate(0.5f, 0.001f, 0.5f);
         builder.renderQuad(textureConsumer, poseStack, positions, 1f);
         poseStack.popPose();
-        if (voidConduit.lingeringRadiance > 0) {
-            float effectStrength = 1f;
-            if (voidConduit.lingeringRadiance < 2400) {
-                effectStrength = (float) voidConduit.lingeringRadiance / 2400f;
-            }
-            // create a for loop that renders the square animation using an additive texture render type
-            // the square should be rendered at the same position as the vignette
-            textureConsumer = RenderHandler.DELAYED_RENDER.getBuffer(LodestoneRenderTypeRegistry.ADDITIVE_TEXTURE.applyAndCache(SQUARE));
-            poseStack.pushPose();
-            poseStack.translate(0.5f, 0f, 0.5f);
-            for (int i = 0; i < 8; i++) {
-                poseStack.translate(0f, 0.001f, 0f);
-                //the frame for the animation should be calculated using the current tick and the index of the for loop
-                //the frame should be calculated using the modulus operator
-                float gameTime = (voidConduit.getLevel().getGameTime() + partialTicks) % 160;
-                int frame = (int) ((gameTime / 20 + i) % 8);
-                builder.setUV(0.125f * frame, 0f, 0.125f * (frame + 1), 1f);
-                builder.setColor(COLORS.get(i));
-                builder.renderQuad(textureConsumer, poseStack, positions, effectStrength);
-            }
-            poseStack.popPose();
-        }
     }
 }
