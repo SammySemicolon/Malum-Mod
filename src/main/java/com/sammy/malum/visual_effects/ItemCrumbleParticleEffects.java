@@ -37,7 +37,7 @@ public class ItemCrumbleParticleEffects {
         final Consumer<LodestoneWorldParticleActor> slowDown = p -> p.setParticleMotion(p.getParticleSpeed().scale(0.925f));
         int lifetime = RandomHelper.randomBetween(rand, 30, 40);
         final ItemCrumbParticleBuilder worldParticleBuilder = makeCrumbles(rand, stack, spinData, lifetime, slowDown);
-        final WorldParticleBuilder bloomParticleBuilder = SpiritLightSpecs.spiritBloom(level, spiritType, spinData, lifetime).addActor(slowDown);
+        final WorldParticleBuilder bloomParticleBuilder = SpiritLightSpecs.spiritBloom(level, spiritType, spinData, lifetime).addTickActor(slowDown);
         return new ParticleEffectSpawner<>(level, pos, worldParticleBuilder, bloomParticleBuilder);
     }
 
@@ -49,6 +49,6 @@ public class ItemCrumbleParticleEffects {
                 .setLifetime(lifetime)
                 .setDiscardFunction(SimpleParticleOptions.ParticleDiscardFunctionType.ENDING_CURVE_INVISIBLE)
                 .setRenderType(ParticleRenderType.TERRAIN_SHEET)
-                .addActor(slowDown);
+                .addTickActor(slowDown);
     }
 }

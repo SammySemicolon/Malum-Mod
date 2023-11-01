@@ -20,8 +20,11 @@ import static net.minecraft.util.Mth.nextFloat;
 public class SparkParticleEffects {
 
     public static ParticleEffectSpawner<SparkParticleBuilder> spiritMotionSparks(Level level, Vec3 pos, MalumSpiritType spiritType) {
+        return spiritMotionSparks(level, pos, spiritType.createMainColorData(1.25f).build(), spiritType.createBloomColorData().build());
+    }
+
+    public static ParticleEffectSpawner<SparkParticleBuilder> spiritMotionSparks(Level level, Vec3 pos, ColorParticleData colorData, ColorParticleData bloomColorData) {
         Random rand = level.getRandom();
-        final ColorParticleData colorData = spiritType.createMainColorData(1.25f).build();
         final SpinParticleData spinData = SpinParticleData.createRandomDirection(rand, nextFloat(rand, 0.05f, 0.1f)).randomSpinOffset(rand).build();
         final Consumer<LodestoneWorldParticleActor> slowDown = p -> p.setParticleMotion(p.getParticleSpeed().scale(0.95f));
         int lifetime = RandomHelper.randomBetween(rand, 10, 20);
@@ -32,8 +35,8 @@ public class SparkParticleEffects {
                 .setColorData(colorData)
                 .setLifetime(lifetime)
                 .enableNoClip()
-                .addActor(slowDown);
-        final WorldParticleBuilder bloomParticleBuilder = SpiritLightSpecs.spiritBloom(level, spiritType, spinData, lifetime).addActor(slowDown);
+                .addTickActor(slowDown);
+        final WorldParticleBuilder bloomParticleBuilder = SpiritLightSpecs.spiritBloom(level, bloomColorData, spinData, lifetime).addTickActor(slowDown);
 
         return new ParticleEffectSpawner<>(level, pos, sparkParticleBuilder, bloomParticleBuilder);
     }

@@ -53,7 +53,7 @@ public class DrippingSmokeParticleEffect extends ParticleEffectType {
                         .setRandomOffset(0.2f, 0.4f)
                         .setRandomMotion(0.02f)
                         .addMotion(0, -0.0075f - random.nextFloat() * 0.01f, 0)
-                        .addActor(actorFunction.apply(0.015f))
+                        .addTickActor(actorFunction.apply(0.015f))
                         .repeat(level, posX, posY, posZ, (int) (3 * intensity));
             }
             for (int i = 0; i < 2; i++) {
@@ -69,7 +69,7 @@ public class DrippingSmokeParticleEffect extends ParticleEffectType {
                         .setRandomOffset(0.2f, 0.4f)
                         .setRandomMotion(0.01f, 0)
                         .addMotion(0, -0.03f - random.nextFloat() * 0.015f, 0)
-                        .addActor(actorFunction.apply(0.04f))
+                        .addTickActor(actorFunction.apply(0.04f))
                         .repeat(level, posX, posY, posZ, (int) (2 * intensity));
             }
         };

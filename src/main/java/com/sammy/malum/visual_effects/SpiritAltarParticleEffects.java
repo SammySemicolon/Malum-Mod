@@ -112,17 +112,17 @@ public class SpiritAltarParticleEffects {
             };
             var lightSpecs = spiritLightSpecs(level, offsetPosition, cyclingSpiritType);
             lightSpecs.getBuilder().act(b -> b
-                    .addActor(behavior)
+                    .addTickActor(behavior)
                     .multiplyLifetime(2.5f)
                     .modifyData(b::getScaleData, d -> d.multiplyValue(RandomHelper.randomBetween(random, 1f, 2f))));
             lightSpecs.getBloomBuilder().act(b -> b
-                    .addActor(behavior)
+                    .addTickActor(behavior)
                     .multiplyLifetime(2f)
                     .modifyData(b::getScaleData, d -> d.multiplyValue(RandomHelper.randomBetween(random, 0.6f, 1.5f))));
             lightSpecs.spawnParticles();
 
             var crumbles = ItemCrumbleParticleEffects.spawnItemCrumbs(level, holderTargetPos, stack);
-            crumbles.getBuilder().multiplyLifetime(1 + i / 16f).addActor(behavior);
+            crumbles.getBuilder().multiplyLifetime(1 + i / 16f).addTickActor(behavior);
             crumbles.spawnParticles();
             crumbles.getBuilder().setRandomOffset(0.2f);
             crumbles.spawnParticles();
@@ -136,7 +136,7 @@ public class SpiritAltarParticleEffects {
                 }
             };
             var crumbles = ItemCrumbleParticleEffects.spawnItemCrumbs(level, holderTargetPos, stack);
-            crumbles.getBuilder().addActor(behavior);
+            crumbles.getBuilder().addTickActor(behavior);
             if (i % 2 == 0) {
                 crumbles.spawnParticles();
             }
@@ -156,10 +156,10 @@ public class SpiritAltarParticleEffects {
         Vec3 targetPos = altar.getCentralItemOffset().add(altarPos.getX(),altarPos.getY(), altarPos.getZ());
 
         for (int i = 0; i < 2; i++) {
-            MalumSpiritType cyclingSpiritType = colorData.getCyclingColorRecord().spiritType();
-            SpiritLightSpecs.coolLookingShinyThing(level, targetPos, cyclingSpiritType);
+            SpiritLightSpecs.coolLookingShinyThing(level, targetPos, activeSpiritType);
         }
         for (int i = 0; i < 24; i++) {
+            int lifeDelay = i / 8;
             MalumSpiritType cyclingSpiritType = colorData.getCyclingColorRecord().spiritType();
             float xVelocity = RandomHelper.randomBetween(random, Easing.CUBIC_OUT, -0.075f, 0.075f);
             float yVelocity = RandomHelper.randomBetween(random, 0.2f, 0.5f);
@@ -169,12 +169,14 @@ public class SpiritAltarParticleEffects {
                 var sparkParticles = SparkParticleEffects.spiritMotionSparks(level, targetPos, cyclingSpiritType);
                 sparkParticles.getBuilder()
                         .disableNoClip()
+                        .setLifeDelay(lifeDelay)
                         .multiplyLifetime(2)
                         .setGravityStrength(gravityStrength)
                         .setMotion(xVelocity, yVelocity, zVelocity)
                         .modifyData(SparkParticleBuilder::getScaleData, d -> d.multiplyValue(2f));
                 sparkParticles.getBloomBuilder()
                         .disableNoClip()
+                        .setLifeDelay(lifeDelay)
                         .multiplyLifetime(2)
                         .setGravityStrength(gravityStrength)
                         .setMotion(xVelocity, yVelocity, zVelocity)
@@ -188,13 +190,14 @@ public class SpiritAltarParticleEffects {
                 var lightSpecs = SpiritLightSpecs.spiritLightSpecs(level, targetPos, cyclingSpiritType);
                 lightSpecs.getBuilder()
                         .disableNoClip()
+                        .setLifeDelay(lifeDelay)
                         .multiplyLifetime(4)
                         .setGravityStrength(gravityStrength)
-                        .multiplyLifetime(0.8f)
                         .setMotion(xVelocity, yVelocity, zVelocity)
                         .modifyData(WorldParticleBuilder::getScaleData, d -> d.multiplyValue(2.5f));
                 lightSpecs.getBloomBuilder()
                         .disableNoClip()
+                        .setLifeDelay(lifeDelay)
                         .multiplyLifetime(4)
                         .setGravityStrength(gravityStrength)
                         .setMotion(xVelocity, yVelocity, zVelocity)
@@ -205,7 +208,7 @@ public class SpiritAltarParticleEffects {
         for (int i = 0; i < 8; i++) {
             int finalI = i;
             Vec3 offsetPosition = DataHelper.rotatingRadialOffset(targetPos, 0.6f, i, 8, gameTime, 160);
-            Consumer<WorldParticleBuilder> behavior = b -> b.addActor(p -> {
+            Consumer<WorldParticleBuilder> behavior = b -> b.addTickActor(p -> {
                 if (level.getGameTime() > gameTime + finalI * 4 && level.getGameTime() < gameTime + (finalI + 4) * 4) {
                     p.setParticleMotion(p.getParticleSpeed().add(0, 0.015f, 0));
                 }
@@ -241,7 +244,7 @@ public class SpiritAltarParticleEffects {
             Vec3 velocity = targetPos.subtract(startPos).normalize().scale(RandomHelper.randomBetween(random, 0.01f, 0.02f));
             double yOffset = Math.sin((gameTime % 360) / 30f) * 0.1f;
             Vec3 offsetPosition = DataHelper.rotatingRadialOffset(startPos.add(0, yOffset, 0), 0.45f, 0, 1, gameTime, 30);
-            Consumer<WorldParticleBuilder> behavior = b -> b.addActor(p -> {
+            Consumer<WorldParticleBuilder> behavior = b -> b.addTickActor(p -> {
                 if (gameTime % 6L == 0) {
                     p.setParticleMotion(p.getParticleSpeed().scale(1.05f));
                 }
