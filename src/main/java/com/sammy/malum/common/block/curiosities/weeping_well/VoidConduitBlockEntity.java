@@ -37,6 +37,27 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
+import com.sammy.malum.common.recipe.*;
+import com.sammy.malum.registry.common.*;
+import com.sammy.malum.registry.common.block.*;
+import com.sammy.malum.registry.common.item.*;
+import com.sammy.malum.visual_effects.*;
+import com.sammy.malum.visual_effects.networked.*;
+import com.sammy.malum.visual_effects.networked.data.*;
+import net.minecraft.core.*;
+import net.minecraft.nbt.*;
+import net.minecraft.server.level.*;
+import net.minecraft.sounds.*;
+import net.minecraft.util.*;
+import net.minecraft.world.entity.item.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.block.state.*;
+import net.minecraft.world.phys.*;
+import team.lodestar.lodestone.helpers.*;
+import team.lodestar.lodestone.systems.blockentity.*;
+
+import java.util.List;
+import java.util.*;
 
 public class VoidConduitBlockEntity extends LodestoneBlockEntity {
 
@@ -82,6 +103,9 @@ public class VoidConduitBlockEntity extends LodestoneBlockEntity {
     @Override
     public void tick() {
         super.tick();
+        if (lingeringRadiance > 0) {
+            lingeringRadiance--;
+        }
         if (level instanceof ServerLevel serverLevel) {
             if (serverLevel.getGameTime() % 100L == 0) {
                 level.playSound(null, worldPosition, SoundRegistry.UNCANNY_VALLEY.get(), SoundSource.HOSTILE, 1f, Mth.nextFloat(level.getRandom(), 0.55f, 1.75f));
@@ -96,6 +120,7 @@ public class VoidConduitBlockEntity extends LodestoneBlockEntity {
                 progress++;
                 if (progress >= 80) {
                     int resultingProgress = 60;
+                    ParticleEffectType particleEffectType = ParticleEffectTypeRegistry.WEEPING_WELL_REACTS;
                     ItemStack stack = eatenItems.get(eatenItems.size()-1);
                     if (stack.getItem().equals(ItemRegistry.BLIGHTED_GUNK.get())) {
                         resultingProgress +=streak/2f;
@@ -106,12 +131,13 @@ public class VoidConduitBlockEntity extends LodestoneBlockEntity {
                     else {
                         Item result = spitOutItem(stack);
                         if (result.equals(ItemRegistry.FUSED_CONSCIOUSNESS.get())) {
-                            lingeringRadiance = 3600;
+                            lingeringRadiance = 200;
+                            particleEffectType = ParticleEffectTypeRegistry.WEEPING_WELL_EMITS_RADIANCE;
                         }
                     }
                     progress = resultingProgress;
                     eatenItems.remove(eatenItems.size()-1);
-                    ParticleEffectTypeRegistry.WEEPING_WELL_REACTS.createPositionedEffect(level, new PositionEffectData(worldPosition.getX()+0.5f, worldPosition.getY()+0.75f, worldPosition.getZ()+0.5f));
+                    particleEffectType.createPositionedEffect(level, new PositionEffectData(worldPosition.getX()+0.5f, worldPosition.getY()+0.6f, worldPosition.getZ()+0.5f));
                     BlockHelper.updateAndNotifyState(level, worldPosition);
                 }
                 if (eatenItems.isEmpty()) {
@@ -123,8 +149,11 @@ public class VoidConduitBlockEntity extends LodestoneBlockEntity {
             }
         }
         else {
-            WeepingWellParticleEffects.passiveWeepingWellParticles(this);
-            WeepingWellParticleEffects.radiantWeepingWellParticles(this);
+            if (lingeringRadiance == 0) {
+                WeepingWellParticleEffects.passiveWeepingWellParticles(this);
+            } else {
+                RadiantParticleEffects.radiantWeepingWellParticles(this);
+            }
         }
     }
 
