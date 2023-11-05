@@ -1,20 +1,24 @@
 package com.sammy.malum.data.recipe;
 
-import com.sammy.malum.*;
-import com.sammy.malum.common.item.impetus.*;
-import com.sammy.malum.data.recipe.builder.*;
-import com.sammy.malum.registry.common.item.*;
-import net.minecraft.data.*;
-import net.minecraft.data.recipes.*;
-import net.minecraft.tags.*;
-import net.minecraft.world.item.*;
-import net.minecraft.world.item.crafting.*;
-import net.minecraftforge.common.*;
-import net.minecraftforge.common.crafting.*;
-import net.minecraftforge.common.crafting.conditions.*;
-import net.minecraftforge.registries.*;
+import com.sammy.malum.MalumMod;
+import com.sammy.malum.common.item.impetus.ImpetusItem;
+import com.sammy.malum.data.recipe.builder.SpiritInfusionRecipeBuilder;
+import com.sammy.malum.registry.common.item.ItemRegistry;
+import net.minecraft.data.PackOutput;
+import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.RecipeProvider;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraftforge.common.Tags;
+import net.minecraftforge.common.crafting.ConditionalRecipe;
+import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
+import net.minecraftforge.common.crafting.conditions.TagEmptyCondition;
+import net.minecraftforge.registries.RegistryObject;
 
-import java.util.function.*;
+import java.util.function.Consumer;
 
 import static com.sammy.malum.registry.common.SpiritTypeRegistry.*;
 import static team.lodestar.lodestone.registry.common.tag.LodestoneItemTags.*;
@@ -24,7 +28,10 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider implements ICondi
         super(generatorIn);
     }
 
-
+    @Override
+    public String getName() {
+        return "Malum Spirit Infusion Recipe Provider";
+    }
 
     @Override
     protected void buildRecipes(Consumer<FinishedRecipe> consumer) {
@@ -415,6 +422,18 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider implements ICondi
         new SpiritInfusionRecipeBuilder(Ingredient.of(Tags.Items.INGOTS_IRON), 4, ItemRegistry.ESOTERIC_SPOOL.get(), 4)
                 .addSpirit(ARCANE_SPIRIT, 4)
                 .addExtraItem(ItemRegistry.HEX_ASH.get(), 2)
+                .build(consumer);
+
+
+        new SpiritInfusionRecipeBuilder(ItemRegistry.ANOMALOUS_DESIGN.get(), 1, ItemRegistry.COMPLETE_DESIGN.get(), 1)
+                .addSpirit(SACRED_SPIRIT, 4)
+                .addSpirit(WICKED_SPIRIT, 4)
+                .addSpirit(ARCANE_SPIRIT, 4)
+                .addSpirit(ELDRITCH_SPIRIT, 4)
+                .addSpirit(AERIAL_SPIRIT, 4)
+                .addSpirit(AQUEOUS_SPIRIT, 4)
+                .addSpirit(EARTHEN_SPIRIT, 4)
+                .addSpirit(INFERNAL_SPIRIT, 4)
                 .build(consumer);
 
         metalImpetusRecipe(consumer, ItemRegistry.IRON_IMPETUS, Items.IRON_INGOT);

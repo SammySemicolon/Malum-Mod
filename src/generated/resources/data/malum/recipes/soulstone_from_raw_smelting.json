@@ -1,12 +1,12 @@
 {
   "type": "minecraft:smelting",
+  "cookingtime": 200,
+  "experience": 0.25,
   "ingredient": {
     "item": "malum:raw_soulstone"
   },
   "result": {
-    "item": "malum:processed_soulstone",
-    "count": 2
-  },
-  "experience": 0.25,
-  "cookingtime": 200
+    "count": 2,
+    "item": "malum:processed_soulstone"
+  }
 }

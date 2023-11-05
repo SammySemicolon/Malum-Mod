@@ -5,16 +5,14 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import team.lodestar.lodestone.setup.LodestoneScreenParticleRegistry;
 import team.lodestar.lodestone.systems.easing.Easing;
-import team.lodestar.lodestone.systems.particle.builder.*;
-import team.lodestar.lodestone.systems.particle.data.color.ColorParticleData;
+import team.lodestar.lodestone.systems.particle.builder.ScreenParticleBuilder;
 import team.lodestar.lodestone.systems.particle.data.GenericParticleData;
-import team.lodestar.lodestone.systems.particle.data.spin.*;
-import team.lodestar.lodestone.systems.particle.screen.*;
-import team.lodestar.lodestone.systems.particle.screen.base.ScreenParticle;
+import team.lodestar.lodestone.systems.particle.data.color.ColorParticleData;
+import team.lodestar.lodestone.systems.particle.data.spin.SpinParticleData;
+import team.lodestar.lodestone.systems.particle.data.spin.SpinParticleDataBuilder;
+import team.lodestar.lodestone.systems.particle.screen.ScreenParticleHolder;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.HashMap;
 
 import static com.sammy.malum.common.entity.nitrate.VividNitrateEntity.COLOR_FUNCTION;
 
@@ -46,6 +44,6 @@ public class VividNitrateItem extends AbstractNitrateItem {
                 .setScaleData(GenericParticleData.create((float) (1.4f - Math.sin(gameTime * 0.075f) * 0.125f), 0).build())
                 .setColorData(ColorParticleData.create(secondColor, firstColor).build())
                 .setSpinData(spinParticleData.setSpinOffset(0.785f - 0.01f * gameTime % 6.28f).build())
-                .spawnOnStack( -1, +4);
+                .spawnOnStack(-1, +4);
     }
 }

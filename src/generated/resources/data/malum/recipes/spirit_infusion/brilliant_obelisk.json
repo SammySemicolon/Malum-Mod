@@ -1,22 +1,22 @@
 {
   "type": "malum:spirit_infusion",
+  "extra_items": [
+    {
+      "count": 2,
+      "item": "malum:cluster_of_brilliance"
+    },
+    {
+      "count": 1,
+      "item": "malum:hex_ash"
+    }
+  ],
   "input": {
-    "item": "malum:runewood_planks",
-    "count": 2
+    "count": 2,
+    "item": "malum:runewood_planks"
   },
   "output": {
     "item": "malum:brilliant_obelisk"
   },
-  "extra_items": [
-    {
-      "item": "malum:cluster_of_brilliance",
-      "count": 2
-    },
-    {
-      "item": "malum:hex_ash",
-      "count": 1
-    }
-  ],
   "spirits": [
     {
       "type": "aerial",

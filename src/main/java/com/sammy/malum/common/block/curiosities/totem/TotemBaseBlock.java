@@ -6,11 +6,10 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import team.lodestar.lodestone.systems.block.LodestoneEntityBlock;
 
-public class TotemBaseBlock<T extends TotemBaseBlockEntity> extends LodestoneEntityBlock<T>
-{
+public class TotemBaseBlock<T extends TotemBaseBlockEntity> extends LodestoneEntityBlock<T> {
     public final boolean corrupted;
-    public TotemBaseBlock(Properties properties, boolean corrupted)
-    {
+
+    public TotemBaseBlock(Properties properties, boolean corrupted) {
         super(properties);
         this.corrupted = corrupted;
     }

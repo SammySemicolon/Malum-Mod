@@ -18,6 +18,7 @@ import java.util.function.Supplier;
 public class ObeliskComponentBlock extends MultiblockComponentBlock {
     public static final VoxelShape SHAPE = makeShape();
     private final Supplier<Item> cloneStack;
+
     public ObeliskComponentBlock(Properties properties, Supplier<Item> cloneStack) {
         super(properties);
         this.cloneStack = cloneStack;
@@ -33,7 +34,7 @@ public class ObeliskComponentBlock extends MultiblockComponentBlock {
         return cloneStack.get().getDefaultInstance();
     }
 
-    public static VoxelShape makeShape(){
+    public static VoxelShape makeShape() {
         VoxelShape shape = Shapes.empty();
         shape = Shapes.join(shape, Shapes.box(0.1875, 0, 0.1875, 0.8125, 0.5625, 0.8125), BooleanOp.OR);
 

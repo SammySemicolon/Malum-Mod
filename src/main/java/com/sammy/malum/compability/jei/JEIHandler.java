@@ -9,9 +9,9 @@ import com.sammy.malum.common.recipe.SpiritTransmutationRecipe;
 import com.sammy.malum.compability.farmersdelight.FarmersDelightCompat;
 import com.sammy.malum.compability.jei.categories.*;
 import com.sammy.malum.compability.jei.recipes.SpiritTransmutationWrapper;
+import com.sammy.malum.core.systems.rites.MalumRiteType;
 import com.sammy.malum.registry.common.SpiritRiteRegistry;
 import com.sammy.malum.registry.common.item.ItemRegistry;
-import com.sammy.malum.core.systems.rites.MalumRiteType;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.constants.RecipeTypes;
@@ -69,10 +69,10 @@ public class JEIHandler implements IModPlugin {
         IGuiHelper guiHelper = registry.getJeiHelpers().getGuiHelper();
 
         registry.addRecipeCategories(new SpiritInfusionRecipeCategory(guiHelper),
-            new SpiritTransmutationRecipeCategory(guiHelper),
-            new SpiritFocusingRecipeCategory(guiHelper),
-            new SpiritRiteRecipeCategory(guiHelper),
-            new SpiritRepairRecipeCategory(guiHelper));
+                new SpiritTransmutationRecipeCategory(guiHelper),
+                new SpiritFocusingRecipeCategory(guiHelper),
+                new SpiritRiteRecipeCategory(guiHelper),
+                new SpiritRepairRecipeCategory(guiHelper));
     }
 
     @Override
@@ -93,12 +93,12 @@ public class JEIHandler implements IModPlugin {
             }
 
             registry.addRecipes(TRANSMUTATION, groups.values().stream()
-                .map(SpiritTransmutationWrapper::new)
-                .collect(Collectors.toList()));
+                    .map(SpiritTransmutationWrapper::new)
+                    .collect(Collectors.toList()));
             registry.addRecipes(TRANSMUTATION, leftovers.stream()
-                .map(List::of)
-                .map(SpiritTransmutationWrapper::new)
-                .collect(Collectors.toList()));
+                    .map(List::of)
+                    .map(SpiritTransmutationWrapper::new)
+                    .collect(Collectors.toList()));
 
             registry.addRecipes(FOCUSING, SpiritFocusingRecipe.getRecipes(level));
             registry.addRecipes(RITES, SpiritRiteRegistry.RITES);
@@ -123,9 +123,9 @@ public class JEIHandler implements IModPlugin {
         IRecipeManager recipeRegistry = jeiRuntime.getRecipeManager();
         IFocusFactory focusFactory = jeiRuntime.getJeiHelpers().getFocusFactory();
         recipeRegistry.hideRecipes(RecipeTypes.CRAFTING, recipeRegistry
-            .createRecipeLookup(RecipeTypes.CRAFTING)
-            .limitFocus(List.of(focusFactory.createFocus(RecipeIngredientRole.OUTPUT, VanillaTypes.ITEM_STACK, new ItemStack(ItemRegistry.THE_DEVICE.get()))))
-            .get().toList());
+                .createRecipeLookup(RecipeTypes.CRAFTING)
+                .limitFocus(List.of(focusFactory.createFocus(RecipeIngredientRole.OUTPUT, VanillaTypes.ITEM_STACK, new ItemStack(ItemRegistry.THE_DEVICE.get()))))
+                .get().toList());
     }
 
     @Nonnull

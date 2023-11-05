@@ -2,7 +2,7 @@ package com.sammy.malum.client.particles.spiritflame;
 
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.ParticleEngine;
-import team.lodestar.lodestone.systems.particle.options.*;
+import team.lodestar.lodestone.systems.particle.options.WorldParticleOptions;
 import team.lodestar.lodestone.systems.particle.world.FrameSetParticle;
 
 public class SpiritFlameParticle extends FrameSetParticle {

@@ -1,24 +1,24 @@
 package com.sammy.malum.common.packets.particle.curiosities.altar;
 
-import com.sammy.malum.common.packets.particle.*;
-import com.sammy.malum.core.systems.spirit.*;
-import net.minecraft.client.*;
-import net.minecraft.network.*;
-import net.minecraft.world.item.*;
-import net.minecraft.world.level.*;
-import net.minecraft.world.phys.*;
-import net.minecraftforge.api.distmarker.*;
-import net.minecraftforge.network.*;
-import net.minecraftforge.network.simple.*;
-import team.lodestar.lodestone.setup.*;
-import team.lodestar.lodestone.systems.particle.*;
-import team.lodestar.lodestone.systems.particle.builder.*;
-import team.lodestar.lodestone.systems.particle.data.*;
-import team.lodestar.lodestone.systems.particle.data.color.*;
+import com.sammy.malum.common.packets.particle.ItemAbsorbParticleEffectPacket;
+import com.sammy.malum.core.systems.spirit.MalumSpiritType;
+import net.minecraft.client.Minecraft;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.network.NetworkEvent;
+import net.minecraftforge.network.simple.SimpleChannel;
+import team.lodestar.lodestone.setup.LodestoneParticleRegistry;
+import team.lodestar.lodestone.systems.particle.builder.WorldParticleBuilder;
+import team.lodestar.lodestone.systems.particle.data.GenericParticleData;
+import team.lodestar.lodestone.systems.particle.data.color.ColorParticleData;
 
 import java.awt.*;
 import java.util.List;
-import java.util.function.*;
+import java.util.function.Supplier;
 
 public class AltarConsumeParticlePacket extends ItemAbsorbParticleEffectPacket {
 

@@ -1,29 +1,38 @@
 package com.sammy.malum.common.spiritrite.greater;
 
-import com.sammy.malum.common.block.curiosities.totem.*;
-import com.sammy.malum.common.packets.particle.curiosities.rite.*;
+import com.sammy.malum.common.block.curiosities.totem.TotemBaseBlockEntity;
+import com.sammy.malum.common.packets.particle.curiosities.rite.AerialBlockFallRiteEffectPacket;
+import com.sammy.malum.core.systems.rites.BlockAffectingRiteEffect;
+import com.sammy.malum.core.systems.rites.EntityAffectingRiteEffect;
+import com.sammy.malum.core.systems.rites.MalumRiteEffect;
+import com.sammy.malum.core.systems.rites.MalumRiteType;
+import com.sammy.malum.registry.common.ParticleEffectTypeRegistry;
+import com.sammy.malum.registry.common.SoundRegistry;
+import com.sammy.malum.registry.common.block.BlockTagRegistry;
+import com.sammy.malum.visual_effects.networked.data.ColorEffectData;
+import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.stats.ServerStatsCounter;
+import net.minecraft.stats.Stat;
+import net.minecraft.stats.Stats;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.world.entity.item.FallingBlockEntity;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.FallingBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.network.PacketDistributor;
 
-import com.sammy.malum.core.systems.rites.*;
-import com.sammy.malum.registry.common.*;
-import com.sammy.malum.registry.common.block.*;
-import com.sammy.malum.visual_effects.networked.data.*;
-import net.minecraft.core.*;
-import net.minecraft.resources.*;
-import net.minecraft.server.level.*;
-import net.minecraft.sounds.*;
-import net.minecraft.stats.*;
-import net.minecraft.tags.*;
-import net.minecraft.world.entity.item.*;
-import net.minecraft.world.item.*;
-import net.minecraft.world.item.enchantment.*;
-import net.minecraft.world.level.*;
-import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.state.*;
-import net.minecraftforge.network.*;
+import java.util.List;
 
-import java.util.*;
-
-import static com.sammy.malum.registry.common.PacketRegistry.*;
+import static com.sammy.malum.registry.common.PacketRegistry.MALUM_CHANNEL;
 import static com.sammy.malum.registry.common.SpiritTypeRegistry.*;
 
 public class EldritchAerialRiteType extends MalumRiteType {
@@ -64,7 +73,7 @@ public class EldritchAerialRiteType extends MalumRiteType {
                     ServerStatsCounter stats = p.getStats();
                     Stat<ResourceLocation> sleepStat = Stats.CUSTOM.get(Stats.TIME_SINCE_REST);
                     int value = stats.getValue(sleepStat);
-                    stats.setValue(p, sleepStat, Math.max(0, value-500));
+                    stats.setValue(p, sleepStat, Math.max(0, value - 500));
                     ParticleEffectTypeRegistry.HEXING_SMOKE.createEntityEffect(p, new ColorEffectData(AERIAL_SPIRIT));
                 });
             }

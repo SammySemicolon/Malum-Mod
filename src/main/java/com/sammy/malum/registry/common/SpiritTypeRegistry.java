@@ -1,23 +1,22 @@
 package com.sammy.malum.registry.common;
 
-import com.sammy.malum.*;
-import com.sammy.malum.core.systems.spirit.*;
-import com.sammy.malum.registry.common.block.*;
-import com.sammy.malum.registry.common.item.*;
-import net.minecraft.client.renderer.texture.*;
-import net.minecraftforge.api.distmarker.*;
-import net.minecraftforge.client.event.*;
-import net.minecraftforge.eventbus.api.*;
-import net.minecraftforge.fml.common.*;
-import team.lodestar.lodestone.helpers.*;
-import team.lodestar.lodestone.systems.easing.*;
+import com.sammy.malum.MalumMod;
+import com.sammy.malum.core.systems.spirit.MalumSpiritType;
+import com.sammy.malum.core.systems.spirit.SpiritTypeProperty;
+import com.sammy.malum.registry.common.block.BlockRegistry;
+import com.sammy.malum.registry.common.item.ItemRegistry;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.fml.common.Mod;
+import team.lodestar.lodestone.helpers.ColorHelper;
+import team.lodestar.lodestone.systems.easing.Easing;
 
 import java.awt.*;
+import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.*;
+import java.util.Map;
 
 @SuppressWarnings("unchecked")
-@Mod.EventBusSubscriber(modid= MalumMod.MALUM, value= Dist.CLIENT, bus= Mod.EventBusSubscriber.Bus.MOD)
+@Mod.EventBusSubscriber(modid = MalumMod.MALUM, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class SpiritTypeRegistry {
 
     public static Map<String, MalumSpiritType> SPIRITS = new LinkedHashMap<>();

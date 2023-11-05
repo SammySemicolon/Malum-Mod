@@ -1,22 +1,25 @@
 package com.sammy.malum.client.renderer.block;
 
-import com.mojang.blaze3d.vertex.*;
-import com.mojang.math.*;
-import com.sammy.malum.*;
-import com.sammy.malum.common.block.mana_mote.*;
-import com.sammy.malum.core.systems.spirit.*;
-import net.minecraft.client.*;
-import net.minecraft.client.renderer.*;
-import net.minecraft.client.renderer.blockentity.*;
-import net.minecraft.resources.*;
-import net.minecraft.util.*;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.sammy.malum.MalumMod;
+import com.sammy.malum.common.block.mana_mote.MoteOfManaBlockEntity;
+import com.sammy.malum.common.block.mana_mote.SpiritMoteBlock;
+import com.sammy.malum.core.systems.spirit.MalumSpiritType;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 import org.joml.Vector3f;
-import team.lodestar.lodestone.handlers.*;
-import team.lodestar.lodestone.setup.*;
-import team.lodestar.lodestone.systems.rendering.*;
+import team.lodestar.lodestone.handlers.RenderHandler;
+import team.lodestar.lodestone.registry.client.LodestoneRenderTypeRegistry;
+import team.lodestar.lodestone.systems.rendering.VFXBuilders;
 
 import java.awt.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
 
 
 public class MoteOfManaRenderer implements BlockEntityRenderer<MoteOfManaBlockEntity> {
@@ -43,8 +46,8 @@ public class MoteOfManaRenderer implements BlockEntityRenderer<MoteOfManaBlockEn
             offsetMap.add(new Vector3f[]{bottomVertices[i], bottomVertices[(i + 1) % 4], topVertices[(i + 1) % 4], topVertices[(i) % 4]});
         }
         poseStack.pushPose();
-        poseStack.translate(0.5f,0.5f,0.5f);
-        MalumSpiritType spiritType = ((SpiritMoteBlock)blockEntityIn.getBlockState().getBlock()).spiritType;
+        poseStack.translate(0.5f, 0.5f, 0.5f);
+        MalumSpiritType spiritType = ((SpiritMoteBlock) blockEntityIn.getBlockState().getBlock()).spiritType;
         drawWobblyCube(poseStack, spiritType.getPrimaryColor(), 1f, 0.86f, offsetMap, bottomVertices, topVertices);
         drawWobblyCube(poseStack, spiritType.getSecondaryColor(), -0.92f, 0.6f, offsetMap, bottomVertices, topVertices);
         drawWobblyCube(poseStack, spiritType.getPrimaryColor(), 1.12f, 0.5f, offsetMap, bottomVertices, topVertices);
@@ -53,7 +56,7 @@ public class MoteOfManaRenderer implements BlockEntityRenderer<MoteOfManaBlockEn
 
     public static void drawWobblyCube(PoseStack poseStack, Color color, float scale, float alpha, Collection<Vector3f[]> offsetMap, Vector3f[] bottomVertices, Vector3f[] topVertices) {
         poseStack.pushPose();
-        poseStack.scale(scale,scale,scale);
+        poseStack.scale(scale, scale, scale);
         poseStack.translate(-0.5f, -0.5f, -0.5f);
         for (Vector3f[] offsets : offsetMap) {
             drawSide(poseStack, color, alpha, offsets);

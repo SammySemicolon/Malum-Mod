@@ -1,12 +1,13 @@
 {
   "type": "minecraft:crafting_shapeless",
+  "category": "misc",
   "ingredients": [
     {
       "tag": "forge:ingots/copper"
     }
   ],
   "result": {
-    "item": "malum:copper_nugget",
-    "count": 9
+    "count": 9,
+    "item": "malum:copper_nugget"
   }
 }

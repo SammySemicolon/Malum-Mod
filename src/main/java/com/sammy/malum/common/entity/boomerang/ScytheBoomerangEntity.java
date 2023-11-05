@@ -1,29 +1,37 @@
 package com.sammy.malum.common.entity.boomerang;
 
-import com.sammy.malum.common.item.curiosities.weapons.*;
-import com.sammy.malum.registry.common.*;
-import com.sammy.malum.registry.common.entity.*;
-import com.sammy.malum.registry.common.item.*;
-import net.minecraft.core.particles.*;
-import net.minecraft.nbt.*;
-import net.minecraft.network.protocol.*;
+import com.sammy.malum.common.item.curiosities.weapons.MalumScytheItem;
+import com.sammy.malum.registry.common.DamageSourceRegistry;
+import com.sammy.malum.registry.common.SoundRegistry;
+import com.sammy.malum.registry.common.entity.EntityRegistry;
+import com.sammy.malum.registry.common.item.EnchantmentRegistry;
+import com.sammy.malum.registry.common.item.ItemRegistry;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
-import net.minecraft.sounds.*;
-import net.minecraft.util.*;
-import net.minecraft.world.damagesource.*;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.item.*;
-import net.minecraft.world.entity.player.*;
-import net.minecraft.world.entity.projectile.*;
-import net.minecraft.world.item.*;
-import net.minecraft.world.item.enchantment.*;
-import net.minecraft.world.level.*;
-import net.minecraft.world.phys.*;
-import net.minecraftforge.items.*;
-import net.minecraftforge.network.*;
-import team.lodestar.lodestone.helpers.*;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.Mth;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.items.ItemHandlerHelper;
+import net.minecraftforge.network.NetworkHooks;
+import team.lodestar.lodestone.helpers.ItemHelper;
 
-import java.util.*;
+import java.util.Random;
 
 public class ScytheBoomerangEntity extends ThrowableItemProjectile {
 
@@ -118,7 +126,7 @@ public class ScytheBoomerangEntity extends ThrowableItemProjectile {
                 if (magicDamage > 0) {
                     if (livingentity.isAlive()) {
                         livingentity.invulnerableTime = 0;
-                        livingentity.hurt(DamageSourceRegistry.causeVoodooDamage(scytheOwner), magicDamage);
+                        livingentity.hurt(DamageSourceRegistry.create(level(), DamageSourceRegistry.VOODOO, scytheOwner), magicDamage);
                     }
                 }
 

@@ -1,15 +1,17 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "###"
-  ],
+  "category": "misc",
   "key": {
     "#": {
       "item": "malum:runewood_panel"
     }
   },
+  "pattern": [
+    "###"
+  ],
   "result": {
-    "item": "malum:runewood_panel_slab",
-    "count": 6
-  }
+    "count": 6,
+    "item": "malum:runewood_panel_slab"
+  },
+  "show_notification": true
 }

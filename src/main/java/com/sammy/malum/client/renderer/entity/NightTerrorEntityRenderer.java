@@ -1,27 +1,16 @@
 package com.sammy.malum.client.renderer.entity;
 
-import com.mojang.blaze3d.vertex.*;
-import com.mojang.math.*;
-import com.sammy.malum.common.entity.night_terror.*;
-import net.minecraft.client.renderer.*;
-import net.minecraft.client.renderer.entity.*;
-import net.minecraft.client.renderer.texture.*;
-import net.minecraft.resources.*;
-import net.minecraft.util.*;
-import net.minecraft.world.phys.*;
-import team.lodestar.lodestone.helpers.*;
-import team.lodestar.lodestone.setup.*;
-import team.lodestar.lodestone.systems.easing.*;
-import team.lodestar.lodestone.systems.rendering.*;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.sammy.malum.common.entity.night_terror.NightTerrorSeekerEntity;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.entity.EntityRenderer;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.texture.TextureAtlas;
+import net.minecraft.resources.ResourceLocation;
+import team.lodestar.lodestone.registry.client.LodestoneRenderTypeRegistry;
 
-import java.awt.*;
-import java.util.List;
-import java.util.*;
-import java.util.stream.*;
-
-import static com.sammy.malum.MalumMod.*;
-import static com.sammy.malum.client.renderer.entity.FloatingItemEntityRenderer.*;
-import static team.lodestar.lodestone.handlers.RenderHandler.*;
+import static com.sammy.malum.MalumMod.malumPath;
 
 public class NightTerrorEntityRenderer extends EntityRenderer<NightTerrorSeekerEntity> {
 

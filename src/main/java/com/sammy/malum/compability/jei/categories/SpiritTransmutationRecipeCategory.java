@@ -1,6 +1,5 @@
 package com.sammy.malum.compability.jei.categories;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.compability.jei.JEIHandler;
 import com.sammy.malum.compability.jei.recipes.SpiritTransmutationWrapper;
@@ -78,9 +77,9 @@ public class SpiritTransmutationRecipeCategory implements IRecipeCategory<Spirit
         }
 
         var input = builder.addSlot(RecipeIngredientRole.INPUT, 28, 27)
-            .addItemStacks(inputs);
+                .addItemStacks(inputs);
         var output = builder.addSlot(RecipeIngredientRole.OUTPUT, 93, 27)
-            .addItemStacks(outputs);
+                .addItemStacks(outputs);
         builder.createFocusLink(input, output);
     }
 }

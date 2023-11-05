@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shapeless",
+  "category": "misc",
   "ingredients": [
     {
       "item": "malum:unholy_sap"
@@ -9,7 +10,7 @@
     }
   ],
   "result": {
-    "item": "malum:unholy_sapball",
-    "count": 3
+    "count": 3,
+    "item": "malum:unholy_sapball"
   }
 }

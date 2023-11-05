@@ -1,8 +1,8 @@
 package com.sammy.malum.client.cosmetic;
 
-import net.minecraft.resources.*;
-import net.minecraft.world.entity.*;
-import team.lodestar.lodestone.systems.model.*;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.LivingEntity;
+import team.lodestar.lodestone.systems.model.LodestoneArmorModel;
 
 public class SimpleArmorSkinRenderingData extends ArmorSkinRenderingData {
 

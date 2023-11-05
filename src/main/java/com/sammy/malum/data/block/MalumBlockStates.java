@@ -1,22 +1,26 @@
 package com.sammy.malum.data.block;
 
-import com.sammy.malum.*;
-import com.sammy.malum.data.item.*;
-import net.minecraft.data.*;
-import net.minecraft.resources.*;
-import net.minecraft.server.packs.repository.Pack;
-import net.minecraft.world.level.block.*;
-import net.minecraftforge.client.model.generators.*;
-import net.minecraftforge.common.data.*;
-import team.lodestar.lodestone.systems.datagen.*;
-import team.lodestar.lodestone.systems.datagen.providers.*;
-import team.lodestar.lodestone.systems.datagen.statesmith.*;
+import com.sammy.malum.MalumMod;
+import com.sammy.malum.data.item.MalumItemModelSmithTypes;
+import net.minecraft.data.PackOutput;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.Block;
+import net.minecraftforge.client.model.generators.ConfiguredModel;
+import net.minecraftforge.client.model.generators.ModelFile;
+import net.minecraftforge.common.data.ExistingFileHelper;
+import team.lodestar.lodestone.systems.datagen.BlockStateSmithTypes;
+import team.lodestar.lodestone.systems.datagen.ItemModelSmithTypes;
+import team.lodestar.lodestone.systems.datagen.providers.LodestoneBlockStateProvider;
+import team.lodestar.lodestone.systems.datagen.providers.LodestoneItemModelProvider;
+import team.lodestar.lodestone.systems.datagen.statesmith.AbstractBlockStateSmith;
 
-import javax.annotation.*;
-import java.util.*;
-import java.util.function.*;
+import javax.annotation.Nonnull;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.function.Supplier;
 
-import static com.sammy.malum.MalumMod.*;
+import static com.sammy.malum.MalumMod.MALUM;
+import static com.sammy.malum.MalumMod.malumPath;
 import static com.sammy.malum.registry.common.block.BlockRegistry.*;
 
 public class MalumBlockStates extends LodestoneBlockStateProvider {
@@ -268,7 +272,7 @@ public class MalumBlockStates extends LodestoneBlockStateProvider {
         String name = getBlockName(block);
         ResourceLocation parent = malumPath("block/templates/template_glowing_block");
         ResourceLocation texture = getBlockTexture(name);
-        ResourceLocation glowingTexture = getBlockTexture(name+"_glow");
+        ResourceLocation glowingTexture = getBlockTexture(name + "_glow");
         return models().withExistingParent(name, parent).texture("all", texture).texture("glow", glowingTexture).texture("particle", texture);
     }
 
@@ -284,6 +288,7 @@ public class MalumBlockStates extends LodestoneBlockStateProvider {
     public ModelFile wallEtherTorchModel(Block block) {
         return models().getExistingFile(malumPath("block/ether_torch_wall"));
     }
+
     public ModelFile totemBaseModel(Block block) {
         String name = getBlockName(block);
         String woodName = name.substring(0, 8);

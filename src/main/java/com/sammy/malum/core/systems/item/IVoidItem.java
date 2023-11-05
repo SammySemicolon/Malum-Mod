@@ -1,10 +1,10 @@
 package com.sammy.malum.core.systems.item;
 
-import com.sammy.malum.visual_effects.*;
-import net.minecraft.world.item.*;
-import net.minecraft.world.level.*;
-import team.lodestar.lodestone.handlers.screenparticle.*;
-import team.lodestar.lodestone.systems.particle.screen.*;
+import com.sammy.malum.visual_effects.ScreenParticleEffects;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import team.lodestar.lodestone.handlers.screenparticle.ParticleEmitterHandler;
+import team.lodestar.lodestone.systems.particle.screen.ScreenParticleHolder;
 
 public interface IVoidItem extends ParticleEmitterHandler.ItemParticleSupplier {
 

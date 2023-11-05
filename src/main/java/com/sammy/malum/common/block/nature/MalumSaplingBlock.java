@@ -1,21 +1,22 @@
 package com.sammy.malum.common.block.nature;
 
 import com.sammy.malum.registry.common.block.BlockTagRegistry;
-import com.sammy.malum.registry.common.worldgen.FeatureRegistry;
+import com.sammy.malum.registry.common.worldgen.ConfiguredFeatureRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.SaplingBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.registries.RegistryObject;
 
-import java.util.Random;
 import java.util.function.Supplier;
 
 public class MalumSaplingBlock extends SaplingBlock {
@@ -39,7 +40,8 @@ public class MalumSaplingBlock extends SaplingBlock {
         if (state.getValue(STAGE) == 0) {
             level.setBlock(pos, state.cycle(STAGE), 4);
         } else {
-            if (!ForgeEventFactory.blockGrowFeature(level, rand, pos, Holder.direct(FeatureRegistry.ConfiguredFeatures.RUNEWOOD_TREE_FEATURE.get())).getResult().equals(Event.Result.DENY)) {
+            Holder<ConfiguredFeature<?, ?>> holder = level.registryAccess().registryOrThrow(Registries.CONFIGURED_FEATURE).getHolder(ConfiguredFeatureRegistry.CONFIGURED_RUNEWOOD_TREE).orElse(null);
+            if (!ForgeEventFactory.blockGrowFeature(level, rand, pos, holder).getResult().equals(Event.Result.DENY)) {
                 return;
             }
             tree.get().place(NoneFeatureConfiguration.INSTANCE, level, level.getChunkSource().getGenerator(), rand, pos);

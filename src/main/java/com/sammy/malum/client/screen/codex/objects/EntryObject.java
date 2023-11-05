@@ -1,7 +1,8 @@
 package com.sammy.malum.client.screen.codex.objects;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.sammy.malum.client.screen.codex.*;
+import com.sammy.malum.client.screen.codex.AbstractProgressionCodexScreen;
+import com.sammy.malum.client.screen.codex.BookEntry;
+import com.sammy.malum.client.screen.codex.EntryScreen;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -9,8 +10,10 @@ import net.minecraft.network.chat.Component;
 
 import java.util.Arrays;
 
-import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.*;
-import static com.sammy.malum.client.screen.codex.ArcanaProgressionScreen.*;
+import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.renderTexture;
+import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.renderTransparentTexture;
+import static com.sammy.malum.client.screen.codex.ArcanaProgressionScreen.FADE_TEXTURE;
+import static com.sammy.malum.client.screen.codex.ArcanaProgressionScreen.FRAME_TEXTURE;
 
 public class EntryObject extends BookObject {
     public final BookEntry entry;
@@ -44,7 +47,7 @@ public class EntryObject extends BookObject {
                     mouseX,
                     mouseY
             );
-           // screen.renderComponentTooltip(guiGraphics, Arrays.asList(Component.translatable(entry.translationKey()), Component.translatable(entry.descriptionTranslationKey()).withStyle(ChatFormatting.GRAY)), mouseX, mouseY, minecraft.font);
+            // screen.renderComponentTooltip(guiGraphics, Arrays.asList(Component.translatable(entry.translationKey()), Component.translatable(entry.descriptionTranslationKey()).withStyle(ChatFormatting.GRAY)), mouseX, mouseY, minecraft.font);
         }
     }
 

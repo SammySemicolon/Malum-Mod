@@ -34,7 +34,7 @@ public class MalumLeavesBlock extends LeavesBlock implements IForgeBlock {
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(DISTANCE, PERSISTENT, COLOR);
+        builder.add(DISTANCE, PERSISTENT, COLOR, WATERLOGGED);
     }
 
     public BlockState getStateForPlacement(BlockPlaceContext context) {
@@ -44,7 +44,7 @@ public class MalumLeavesBlock extends LeavesBlock implements IForgeBlock {
     @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
         if (player.getItemInHand(handIn).getItem().equals(ItemRegistry.INFERNAL_SPIRIT.get())) {
-            level().setBlockAndUpdate(pos, state.setValue(COLOR, (state.getValue(COLOR) + 1) % 5));
+            level.setBlockAndUpdate(pos, state.setValue(COLOR, (state.getValue(COLOR) + 1) % 5));
             player.swing(handIn);
             player.playSound(SoundEvents.BLAZE_SHOOT, 1F, 1.5f + RANDOM.nextFloat() * 0.5f);
             return InteractionResult.SUCCESS;

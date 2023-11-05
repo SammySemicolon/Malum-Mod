@@ -1,12 +1,13 @@
 {
   "type": "minecraft:crafting_shapeless",
+  "category": "misc",
   "ingredients": [
     {
       "item": "malum:block_of_raw_soulstone"
     }
   ],
   "result": {
-    "item": "malum:raw_soulstone",
-    "count": 9
+    "count": 9,
+    "item": "malum:raw_soulstone"
   }
 }

@@ -28,7 +28,7 @@ public class QuartzClusterSoundType extends ExtendedSoundType {
 
     @Override
     public void onPlayStepSound(Level level, BlockPos pos, BlockState state, SoundSource category) {
-        level.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.AMETHYST_CLUSTER_STEP, category, getVolume() * 0.65F, getPitch()* 1.3F);
+        level.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.AMETHYST_CLUSTER_STEP, category, getVolume() * 0.65F, getPitch() * 1.3F);
     }
 
     @Override

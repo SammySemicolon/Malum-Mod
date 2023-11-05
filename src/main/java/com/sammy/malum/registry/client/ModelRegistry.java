@@ -2,7 +2,9 @@ package com.sammy.malum.registry.client;
 
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.client.model.*;
-import com.sammy.malum.client.model.cosmetic.*;
+import com.sammy.malum.client.model.cosmetic.GenericArmorModel;
+import com.sammy.malum.client.model.cosmetic.GenericSlimArmorModel;
+import com.sammy.malum.client.model.cosmetic.ScarfModel;
 import com.sammy.malum.client.model.cosmetic.ancient.AncientSoulHunterArmorModel;
 import com.sammy.malum.client.model.cosmetic.ancient.AncientSoulStainedSteelArmorModel;
 import com.sammy.malum.client.model.cosmetic.pride.PridewearArmorModel;

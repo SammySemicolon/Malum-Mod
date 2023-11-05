@@ -1,20 +1,21 @@
 package com.sammy.malum.visual_effects.networked.generic;
 
 
-import com.sammy.malum.visual_effects.networked.*;
-import com.sammy.malum.visual_effects.networked.data.*;
-import net.minecraft.util.*;
-import net.minecraftforge.api.distmarker.*;
-import team.lodestar.lodestone.helpers.*;
-import team.lodestar.lodestone.setup.*;
-import team.lodestar.lodestone.systems.easing.*;
-import team.lodestar.lodestone.systems.particle.builder.*;
-import team.lodestar.lodestone.systems.particle.data.*;
-import team.lodestar.lodestone.systems.particle.data.color.*;
-import team.lodestar.lodestone.systems.particle.data.spin.*;
+import com.sammy.malum.visual_effects.networked.ParticleEffectType;
+import com.sammy.malum.visual_effects.networked.data.ColorEffectData;
+import net.minecraft.util.Mth;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import team.lodestar.lodestone.helpers.ColorHelper;
+import team.lodestar.lodestone.setup.LodestoneParticleRegistry;
+import team.lodestar.lodestone.systems.easing.Easing;
+import team.lodestar.lodestone.systems.particle.builder.WorldParticleBuilder;
+import team.lodestar.lodestone.systems.particle.data.GenericParticleData;
+import team.lodestar.lodestone.systems.particle.data.color.ColorParticleData;
+import team.lodestar.lodestone.systems.particle.data.spin.SpinParticleData;
 
 import java.awt.*;
-import java.util.function.*;
+import java.util.function.Supplier;
 
 public class HexingSmokeParticleEffect extends ParticleEffectType {
 
@@ -37,7 +38,7 @@ public class HexingSmokeParticleEffect extends ParticleEffectType {
             double posX = positionData.posX;
             double posY = positionData.posY;
             double posZ = positionData.posZ;
-            int adjustedLifespan = (int) (20 * (intensity)*0.6f);
+            int adjustedLifespan = (int) (20 * (intensity) * 0.6f);
             for (int i = 0; i <= 3; i++) {
                 int spinDirection = (random.nextBoolean() ? 1 : -1);
                 WorldParticleBuilder.create(LodestoneParticleRegistry.WISP_PARTICLE)
@@ -50,7 +51,7 @@ public class HexingSmokeParticleEffect extends ParticleEffectType {
                         .setRandomOffset(0.2f, 0.2f)
                         .setRandomMotion(0.02f)
                         .addActor(p -> p.setParticleMotion(p.getParticleSpeed().scale(0.95f)))
-                        .repeat(level, posX, posY, posZ, (int) (4*intensity));
+                        .repeat(level, posX, posY, posZ, (int) (4 * intensity));
             }
             WorldParticleBuilder.create(LodestoneParticleRegistry.WISP_PARTICLE)
                     .setTransparencyData(GenericParticleData.create(0.02f, 0.05f, 0).build())
@@ -62,7 +63,7 @@ public class HexingSmokeParticleEffect extends ParticleEffectType {
                     .setRandomOffset(0.05f, 0.05f)
                     .setRandomMotion(0.05f)
                     .addActor(p -> p.setParticleMotion(p.getParticleSpeed().scale(0.5f)))
-                    .repeat(level, posX, posY, posZ, (int) (6*intensity));
+                    .repeat(level, posX, posY, posZ, (int) (6 * intensity));
             WorldParticleBuilder.create(LodestoneParticleRegistry.SMOKE_PARTICLE)
                     .setTransparencyData(GenericParticleData.create(0, 0.05f, 0).build())
                     .setSpinData(SpinParticleData.create(0.1f, 0.25f, 0).setEasing(Easing.QUINTIC_OUT, Easing.SINE_IN).build())
@@ -73,7 +74,7 @@ public class HexingSmokeParticleEffect extends ParticleEffectType {
                     .setRandomOffset(0.15f, 0.15f)
                     .setRandomMotion(0.015f, 0.015f)
                     .addActor(p -> p.setParticleMotion(p.getParticleSpeed().scale(0.92f)))
-                    .repeat(level, posX, posY, posZ, (int) (10*intensity));
+                    .repeat(level, posX, posY, posZ, (int) (10 * intensity));
         };
     }
 }

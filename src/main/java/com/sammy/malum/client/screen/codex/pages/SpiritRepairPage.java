@@ -1,15 +1,14 @@
 package com.sammy.malum.client.screen.codex.pages;
 
-import com.mojang.blaze3d.vertex.*;
-import com.sammy.malum.*;
-import com.sammy.malum.client.screen.codex.*;
-import com.sammy.malum.common.recipe.*;
-import net.minecraft.client.*;
+import com.sammy.malum.MalumMod;
+import com.sammy.malum.client.screen.codex.EntryScreen;
+import com.sammy.malum.common.recipe.SpiritRepairRecipe;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.Item;
 
-import java.util.function.*;
-import java.util.stream.*;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.*;
 

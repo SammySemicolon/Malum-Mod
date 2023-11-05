@@ -1,21 +1,20 @@
 package com.sammy.malum.common.packets.particle.curiosities.rite;
 
-import com.sammy.malum.common.packets.particle.curiosities.rite.generic.*;
-import net.minecraft.client.*;
-import net.minecraft.core.*;
-import net.minecraft.core.particles.*;
-import net.minecraft.network.*;
-import net.minecraft.world.level.*;
-import net.minecraftforge.api.distmarker.*;
-import net.minecraftforge.network.*;
-import net.minecraftforge.network.simple.*;
+import com.sammy.malum.common.packets.particle.curiosities.rite.generic.BlockSparkleParticlePacket;
+import net.minecraft.client.Minecraft;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.level.Level;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.network.NetworkEvent;
+import net.minecraftforge.network.simple.SimpleChannel;
 
 import java.awt.*;
-import java.util.*;
-import java.util.function.*;
+import java.util.function.Supplier;
 
-public class InfernalExtinguishRiteEffectPacket extends BlockSparkleParticlePacket
-{
+public class InfernalExtinguishRiteEffectPacket extends BlockSparkleParticlePacket {
     public InfernalExtinguishRiteEffectPacket(Color color, BlockPos pos) {
         super(color, pos);
     }
@@ -26,7 +25,7 @@ public class InfernalExtinguishRiteEffectPacket extends BlockSparkleParticlePack
         Level level = Minecraft.getInstance().level;
         var rand = level.random;
 
-        for(int i = 0; i < 8; ++i) {
+        for (int i = 0; i < 8; ++i) {
             double d0 = pos.getX() + rand.nextFloat();
             double d1 = pos.getY() + rand.nextFloat();
             double d2 = pos.getZ() + rand.nextFloat();

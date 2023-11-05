@@ -1,17 +1,19 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    " # ",
-    "# #",
-    " # "
-  ],
+  "category": "misc",
   "key": {
     "#": {
       "item": "malum:soulwood_panel"
     }
   },
+  "pattern": [
+    " # ",
+    "# #",
+    " # "
+  ],
   "result": {
-    "item": "malum:soulwood_tiles",
-    "count": 4
-  }
+    "count": 4,
+    "item": "malum:soulwood_tiles"
+  },
+  "show_notification": true
 }

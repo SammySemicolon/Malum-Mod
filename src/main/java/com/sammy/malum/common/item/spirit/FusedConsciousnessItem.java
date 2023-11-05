@@ -1,8 +1,7 @@
 package com.sammy.malum.common.item.spirit;
 
-import com.sammy.malum.common.item.curiosities.curios.*;
-import com.sammy.malum.core.systems.item.*;
-import net.minecraft.world.item.*;
+import com.sammy.malum.core.systems.item.IVoidItem;
+import net.minecraft.world.item.SimpleFoiledItem;
 
 public class FusedConsciousnessItem extends SimpleFoiledItem implements IVoidItem {
     public FusedConsciousnessItem(Properties builder) {

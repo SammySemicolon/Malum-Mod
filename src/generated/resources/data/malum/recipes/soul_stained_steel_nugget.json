@@ -1,12 +1,13 @@
 {
   "type": "minecraft:crafting_shapeless",
+  "category": "misc",
   "ingredients": [
     {
       "item": "malum:soul_stained_steel_ingot"
     }
   ],
   "result": {
-    "item": "malum:soul_stained_steel_nugget",
-    "count": 9
+    "count": 9,
+    "item": "malum:soul_stained_steel_nugget"
   }
 }

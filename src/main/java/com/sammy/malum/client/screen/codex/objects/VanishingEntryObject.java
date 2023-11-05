@@ -1,6 +1,7 @@
 package com.sammy.malum.client.screen.codex.objects;
 
-import com.sammy.malum.client.screen.codex.*;
+import com.sammy.malum.client.screen.codex.AbstractProgressionCodexScreen;
+import com.sammy.malum.client.screen.codex.BookEntry;
 import com.sammy.malum.registry.common.SoundRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.sounds.SoundSource;

@@ -1,11 +1,11 @@
 package com.sammy.malum.common.spiritrite;
 
 import com.sammy.malum.common.block.blight.BlightedSoilBlock;
-import com.sammy.malum.common.block.storage.IMalumSpecialItemAccessPoint;
 import com.sammy.malum.common.block.curiosities.totem.TotemBaseBlockEntity;
-import com.sammy.malum.common.packets.particle.curiosities.rite.generic.BlockSparkleParticlePacket;
+import com.sammy.malum.common.block.storage.IMalumSpecialItemAccessPoint;
 import com.sammy.malum.common.packets.particle.curiosities.blight.BlightMistParticlePacket;
 import com.sammy.malum.common.packets.particle.curiosities.blight.BlightTransformItemParticlePacket;
+import com.sammy.malum.common.packets.particle.curiosities.rite.generic.BlockSparkleParticlePacket;
 import com.sammy.malum.common.recipe.SpiritTransmutationRecipe;
 import com.sammy.malum.common.worldevent.TotemCreatedBlightEvent;
 import com.sammy.malum.core.systems.rites.MalumRiteEffect;
@@ -28,8 +28,8 @@ import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntityInventory
 import java.util.List;
 import java.util.Set;
 
-import static com.sammy.malum.registry.common.SpiritTypeRegistry.ARCANE_SPIRIT;
 import static com.sammy.malum.registry.common.PacketRegistry.MALUM_CHANNEL;
+import static com.sammy.malum.registry.common.SpiritTypeRegistry.ARCANE_SPIRIT;
 
 public class ArcaneRiteType extends MalumRiteType {
     public ArcaneRiteType() {
@@ -58,7 +58,7 @@ public class ArcaneRiteType extends MalumRiteType {
 
             @Override
             public int getRiteEffectRadius() {
-                return (BASE_RADIUS * 2)+1;
+                return (BASE_RADIUS * 2) + 1;
             }
 
             @Override

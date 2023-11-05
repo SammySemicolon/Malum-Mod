@@ -1,7 +1,7 @@
 package com.sammy.malum.common.packets.particle.base;
 
-import net.minecraft.network.*;
-import team.lodestar.lodestone.systems.network.*;
+import net.minecraft.network.FriendlyByteBuf;
+import team.lodestar.lodestone.systems.network.LodestoneClientPacket;
 
 public abstract class PositionBasedParticleEffectPacket extends LodestoneClientPacket {
     protected final double posX;

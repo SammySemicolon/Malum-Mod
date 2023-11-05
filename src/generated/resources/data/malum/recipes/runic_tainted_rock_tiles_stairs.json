@@ -1,17 +1,19 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "#  ",
-    "## ",
-    "###"
-  ],
+  "category": "misc",
   "key": {
     "#": {
       "item": "malum:runic_tainted_rock_tiles"
     }
   },
+  "pattern": [
+    "#  ",
+    "## ",
+    "###"
+  ],
   "result": {
-    "item": "malum:runic_tainted_rock_tiles_stairs",
-    "count": 4
-  }
+    "count": 4,
+    "item": "malum:runic_tainted_rock_tiles_stairs"
+  },
+  "show_notification": true
 }

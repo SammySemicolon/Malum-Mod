@@ -64,7 +64,7 @@ public interface IAccelerationTarget {
             int amount = acceleratorTag.getInt("amount");
             for (int i = 0; i < amount; i++) {
                 BlockPos pos = BlockHelper.loadBlockPos(acceleratorTag, "accelerator_" + i + "_");
-                if (level != null && level().getBlockEntity(pos) instanceof ICrucibleAccelerator accelerator) {
+                if (level != null && level.getBlockEntity(pos) instanceof ICrucibleAccelerator accelerator) {
                     getAccelerators().add(accelerator);
                 } else if (level != null) {
                     continue;

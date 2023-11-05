@@ -1,10 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "YYY",
-    " X ",
-    "YYY"
-  ],
+  "category": "misc",
   "key": {
     "X": {
       "item": "malum:runewood_planks"
@@ -13,7 +9,13 @@
       "item": "malum:runewood_planks_slab"
     }
   },
+  "pattern": [
+    "YYY",
+    " X ",
+    "YYY"
+  ],
   "result": {
     "item": "malum:runewood_item_pedestal"
-  }
+  },
+  "show_notification": true
 }

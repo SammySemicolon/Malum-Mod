@@ -56,6 +56,7 @@ public class SpiritJarItem extends BlockItem {
     public void initializeClient(Consumer<IClientItemExtensions> consumer) {
         consumer.accept(new IClientItemExtensions() {
             static final NonNullLazy<BlockEntityWithoutLevelRenderer> renderer = NonNullLazy.of(() -> new SpiritJarItemRenderer(Minecraft.getInstance().getBlockEntityRenderDispatcher(), Minecraft.getInstance().getEntityModels()));
+
             @Override
             public BlockEntityWithoutLevelRenderer getCustomRenderer() {
                 return renderer.get();

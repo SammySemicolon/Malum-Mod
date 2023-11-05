@@ -1,15 +1,20 @@
 package com.sammy.malum.common.effect;
 
-import com.sammy.malum.common.item.curiosities.weapons.*;
-import com.sammy.malum.registry.common.*;
-import net.minecraft.sounds.*;
-import net.minecraft.world.damagesource.*;
-import net.minecraft.world.effect.*;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.attributes.*;
-import net.minecraft.world.level.*;
-import net.minecraftforge.event.entity.living.*;
-import team.lodestar.lodestone.helpers.*;
+import com.sammy.malum.common.item.curiosities.weapons.MalumScytheItem;
+import com.sammy.malum.registry.common.AttributeRegistry;
+import com.sammy.malum.registry.common.MobEffectRegistry;
+import com.sammy.malum.registry.common.SoundRegistry;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.level.Level;
+import net.minecraftforge.event.entity.living.LivingDamageEvent;
+import team.lodestar.lodestone.helpers.ColorHelper;
 
 public class WickedIntentEffect extends MobEffect {
     public WickedIntentEffect() {

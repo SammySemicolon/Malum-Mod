@@ -1,7 +1,6 @@
 package com.sammy.malum.client.screen.container;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.container.SpiritPouchContainer;
 import net.minecraft.client.gui.GuiGraphics;

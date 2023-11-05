@@ -1,22 +1,23 @@
 package com.sammy.malum.visual_effects;
 
-import com.sammy.malum.core.systems.spirit.*;
-import com.sammy.malum.registry.client.*;
+import com.sammy.malum.core.systems.spirit.MalumSpiritType;
+import com.sammy.malum.registry.client.ParticleRegistry;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import team.lodestar.lodestone.helpers.*;
+import team.lodestar.lodestone.helpers.DataHelper;
+import team.lodestar.lodestone.helpers.RandomHelper;
 import team.lodestar.lodestone.setup.LodestoneParticleRegistry;
-import team.lodestar.lodestone.systems.easing.*;
-import team.lodestar.lodestone.systems.particle.*;
-import team.lodestar.lodestone.systems.particle.builder.*;
-import team.lodestar.lodestone.systems.particle.data.color.ColorParticleData;
+import team.lodestar.lodestone.systems.easing.Easing;
+import team.lodestar.lodestone.systems.particle.LodestoneWorldParticleActor;
+import team.lodestar.lodestone.systems.particle.builder.WorldParticleBuilder;
 import team.lodestar.lodestone.systems.particle.data.GenericParticleData;
+import team.lodestar.lodestone.systems.particle.data.color.ColorParticleData;
 import team.lodestar.lodestone.systems.particle.data.spin.SpinParticleData;
-import team.lodestar.lodestone.systems.particle.type.*;
+import team.lodestar.lodestone.systems.particle.type.LodestoneParticleType;
 
-import java.util.*;
 import java.util.List;
-import java.util.function.*;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 import static net.minecraft.util.Mth.nextFloat;
 
@@ -38,11 +39,14 @@ public class SpiritLightSpecs {
     }
 
     public static void rotatingLightSpecs(Level level, Vec3 pos, MalumSpiritType spiritType, float distance, int rotatingSpecs) {
-        rotatingLightSpecs(level, pos, spiritType, distance, rotatingSpecs, b -> {});
+        rotatingLightSpecs(level, pos, spiritType, distance, rotatingSpecs, b -> {
+        });
     }
+
     public static void rotatingLightSpecs(Level level, Vec3 pos, MalumSpiritType spiritType, float distance, int rotatingSpecs, Consumer<WorldParticleBuilder> sharedModifier) {
         rotatingLightSpecs(level, pos, spiritType, distance, rotatingSpecs, sharedModifier, sharedModifier);
     }
+
     public static void rotatingLightSpecs(Level level, Vec3 pos, MalumSpiritType spiritType, float distance, int rotatingSpecs, Consumer<WorldParticleBuilder> lightSpecModifier, Consumer<WorldParticleBuilder> bloomModifier) {
         long gameTime = level.getGameTime();
         if (level.getGameTime() % 2L == 0) {
@@ -74,8 +78,10 @@ public class SpiritLightSpecs {
     }
 
     public static ParticleEffectSpawner<WorldParticleBuilder> spiritLightSpecs(Level level, Vec3 pos, MalumSpiritType spiritType, Supplier<LodestoneParticleType> particle) {
+        return spiritLightSpecs(level, pos, spiritType.createMainColorData().build(), spiritType.createBloomColorData().build(), particle);
+    }
+    public static ParticleEffectSpawner<WorldParticleBuilder> spiritLightSpecs(Level level, Vec3 pos, ColorParticleData colorData, ColorParticleData bloomColorData, Supplier<LodestoneParticleType> particle) {
         var rand = level.getRandom();
-        final ColorParticleData colorData = spiritType.createMainColorData(0.7f).build();
         final SpinParticleData spinData = SpinParticleData.createRandomDirection(rand, nextFloat(rand, 0.05f, 0.1f)).randomSpinOffset(rand).build();
         final Consumer<LodestoneWorldParticleActor> slowDown = p -> p.setParticleMotion(p.getParticleSpeed().scale(0.95f));
         int lifetime = RandomHelper.randomBetween(rand, 10, 20);
@@ -87,17 +93,20 @@ public class SpiritLightSpecs {
                 .setLifetime(lifetime)
                 .enableNoClip()
                 .addActor(slowDown);
-        final WorldParticleBuilder bloomParticleBuilder = SpiritLightSpecs.spiritBloom(level, spiritType, spinData, lifetime).addActor(slowDown);
+        final WorldParticleBuilder bloomParticleBuilder = SpiritLightSpecs.spiritBloom(level, bloomColorData, spinData, lifetime).addActor(slowDown);
         return new ParticleEffectSpawner<>(level, pos, worldParticleBuilder, bloomParticleBuilder);
     }
 
     public static WorldParticleBuilder spiritBloom(Level level, MalumSpiritType spiritType, SpinParticleData spinData, int lifetime) {
+        return spiritBloom(level, spiritType.createBloomColorData().build(), spinData, lifetime);
+    }
+    public static WorldParticleBuilder spiritBloom(Level level, ColorParticleData bloomColorData, SpinParticleData spinData, int lifetime) {
         var rand = level.random;
         return WorldParticleBuilder.create(LodestoneParticleRegistry.WISP_PARTICLE)
                 .setTransparencyData(GenericParticleData.create(0.35f, 0f).build())
                 .setSpinData(spinData)
                 .setScaleData(GenericParticleData.create(0.04f, RandomHelper.randomBetween(rand, 0.08f, 0.14f), 0).setEasing(Easing.SINE_IN, Easing.SINE_IN_OUT).build())
-                .setColorData(spiritType.createBloomColorData().build())
+                .setColorData(bloomColorData)
                 .setLifetime(lifetime)
                 .enableNoClip();
     }

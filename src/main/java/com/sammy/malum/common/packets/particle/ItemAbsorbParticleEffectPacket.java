@@ -1,10 +1,11 @@
 package com.sammy.malum.common.packets.particle;
 
-import com.sammy.malum.common.packets.particle.base.spirit.*;
-import net.minecraft.network.*;
-import net.minecraft.world.item.*;
+import com.sammy.malum.common.packets.particle.base.spirit.SpiritBasedParticleEffectPacket;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.item.ItemStack;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class ItemAbsorbParticleEffectPacket extends SpiritBasedParticleEffectPacket {
     protected final ItemStack stack;

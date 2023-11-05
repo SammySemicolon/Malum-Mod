@@ -1,22 +1,25 @@
 package com.sammy.malum.common.item.curiosities.curios;
 
-import com.google.common.collect.*;
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.Multimap;
 import com.sammy.malum.registry.common.SoundRegistry;
-import net.minecraft.*;
-import net.minecraft.sounds.*;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.*;
+import net.minecraft.Util;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
-import top.theillusivec4.curios.api.*;
+import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
 import java.util.Map;
 import java.util.UUID;
-import java.util.function.*;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 public class MalumCurioItem extends Item implements ICurioItem {
 
@@ -54,8 +57,8 @@ public class MalumCurioItem extends Item implements ICurioItem {
     }
 
     @Override
-    public void playRightClickEquipSound(LivingEntity livingEntity, ItemStack stack) {
-        livingEntity.level().playSound(null, livingEntity.blockPosition(), type.sound.get(), SoundSource.PLAYERS, 1.0f, 1.0f);
+    public void onEquipFromUse(SlotContext slotContext, ItemStack stack) {
+        slotContext.entity().level().playSound(null, slotContext.entity().blockPosition(), type.sound.get(), SoundSource.PLAYERS, 1.0f, 1.0f);
     }
 
     @Override
@@ -68,7 +71,7 @@ public class MalumCurioItem extends Item implements ICurioItem {
     }
 
     @Override
-    public boolean canRightClickEquip(ItemStack stack) {
+    public boolean canEquipFromUse(SlotContext slotContext, ItemStack stack) {
         return true;
     }
 

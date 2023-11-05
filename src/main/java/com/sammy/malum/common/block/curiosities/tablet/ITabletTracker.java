@@ -68,7 +68,7 @@ public interface ITabletTracker {
             int amount = twistedTabletTag.getInt("amount");
             for (int i = 0; i < amount; i++) {
                 BlockPos pos = BlockHelper.loadBlockPos(twistedTabletTag, "tablet_" + i);
-                if (level != null && level().getBlockEntity(pos) instanceof TwistedTabletBlockEntity tabletBlockEntity) {
+                if (level != null && level.getBlockEntity(pos) instanceof TwistedTabletBlockEntity tabletBlockEntity) {
                     getTabletPositions().add(pos);
                     getTablets().add(tabletBlockEntity);
                 }

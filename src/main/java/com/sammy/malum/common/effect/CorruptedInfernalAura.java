@@ -14,7 +14,7 @@ public class CorruptedInfernalAura extends MobEffect {
     @Override
     public void applyEffectTick(LivingEntity entityLivingBaseIn, int amplifier) {
         if (entityLivingBaseIn.getHealth() < entityLivingBaseIn.getMaxHealth()) {
-            entityLivingBaseIn.heal(amplifier+1);
+            entityLivingBaseIn.heal(amplifier + 1);
         }
     }
 

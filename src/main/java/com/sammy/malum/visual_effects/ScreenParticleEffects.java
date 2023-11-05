@@ -1,24 +1,18 @@
 package com.sammy.malum.visual_effects;
 
-import com.sammy.malum.common.item.ether.*;
-import net.minecraft.client.*;
-import net.minecraft.util.*;
-import net.minecraft.world.item.*;
+import net.minecraft.client.Minecraft;
+import net.minecraft.util.Mth;
 import net.minecraft.world.level.Level;
-import team.lodestar.lodestone.setup.*;
-import team.lodestar.lodestone.systems.easing.*;
-import team.lodestar.lodestone.systems.particle.*;
-import team.lodestar.lodestone.systems.particle.builder.*;
-import team.lodestar.lodestone.systems.particle.data.*;
-import team.lodestar.lodestone.systems.particle.data.color.*;
-import team.lodestar.lodestone.systems.particle.data.spin.*;
-import team.lodestar.lodestone.systems.particle.render_types.*;
-import team.lodestar.lodestone.systems.particle.screen.*;
-import team.lodestar.lodestone.systems.particle.screen.base.*;
+import team.lodestar.lodestone.setup.LodestoneScreenParticleRegistry;
+import team.lodestar.lodestone.systems.easing.Easing;
+import team.lodestar.lodestone.systems.particle.builder.ScreenParticleBuilder;
+import team.lodestar.lodestone.systems.particle.data.GenericParticleData;
+import team.lodestar.lodestone.systems.particle.data.color.ColorParticleData;
+import team.lodestar.lodestone.systems.particle.data.spin.SpinParticleData;
+import team.lodestar.lodestone.systems.particle.render_types.LodestoneScreenParticleRenderType;
+import team.lodestar.lodestone.systems.particle.screen.ScreenParticleHolder;
 
 import java.awt.*;
-import java.util.*;
-import java.util.logging.*;
 
 import static net.minecraft.util.Mth.nextFloat;
 
@@ -53,8 +47,8 @@ public class ScreenParticleEffects {
     public static void spawnVoidItemScreenParticles(ScreenParticleHolder target, Level level, float intensity, float partialTick) {
         float colorMultiplier = Mth.nextFloat(level.random, 0.4f, 1.2f);
         float timeMultiplier = Mth.nextFloat(level.random, 0.9f, 1.4f);
-        Color color = new Color((int)(31*colorMultiplier), (int)(19*colorMultiplier), (int)(31*colorMultiplier));
-        Color endColor = new Color((int)(111*colorMultiplier), (int)(31*colorMultiplier), (int)(121*colorMultiplier));
+        Color color = new Color((int) (31 * colorMultiplier), (int) (19 * colorMultiplier), (int) (31 * colorMultiplier));
+        Color endColor = new Color((int) (111 * colorMultiplier), (int) (31 * colorMultiplier), (int) (121 * colorMultiplier));
         float gameTime = level.getGameTime() + partialTick;
         var rand = Minecraft.getInstance().level.getRandom();
         boolean spinDirection = level.random.nextBoolean();
@@ -64,7 +58,7 @@ public class ScreenParticleEffects {
                 .setTransparencyData(GenericParticleData.create(0.1f, 0.5f, 0f).setEasing(Easing.SINE_IN_OUT).build())
                 .setColorData(ColorParticleData.create(color, endColor).setCoefficient(2f).build())
                 .setSpinData(spinParticleData)
-                .setLifetime((int) ((10 + rand.nextInt(10))*timeMultiplier))
+                .setLifetime((int) ((10 + rand.nextInt(10)) * timeMultiplier))
                 .setRandomOffset(0.05f)
                 .setRandomMotion(0.05f, 0.05f)
                 .setRenderType(LodestoneScreenParticleRenderType.LUMITRANSPARENT)
@@ -80,7 +74,7 @@ public class ScreenParticleEffects {
                 .setRandomMotion(0.4f, 0.4f)
                 .setRenderType(LodestoneScreenParticleRenderType.LUMITRANSPARENT)
                 .spawnOnStack(0, 0)
-                .setLifetime((int) ((10 + rand.nextInt(2))*timeMultiplier))
+                .setLifetime((int) ((10 + rand.nextInt(2)) * timeMultiplier))
                 .setSpinData(SpinParticleData.create(nextFloat(rand, 0.05f, 0.1f)).build())
                 .setScaleData(GenericParticleData.create(0.8f + rand.nextFloat() * 0.4f, 0f).build())
                 .setRandomMotion(0.01f, 0.01f)

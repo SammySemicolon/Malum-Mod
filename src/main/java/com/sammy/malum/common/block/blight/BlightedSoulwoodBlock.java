@@ -20,7 +20,7 @@ public class BlightedSoulwoodBlock extends Block {
     public BlockState getToolModifiedState(BlockState state, UseOnContext context, ToolAction toolAction, boolean simulate) {
         if (toolAction.equals(ToolActions.AXE_STRIP)) {
             if (!simulate) {
-                context.getLevel().playSound(null, context.getClickedPos(), SoundRegistry.MAJOR_BLIGHT_MOTIF.get(), SoundSource.BLOCKS,1, 1);
+                context.getLevel().playSound(null, context.getClickedPos(), SoundRegistry.MAJOR_BLIGHT_MOTIF.get(), SoundSource.BLOCKS, 1, 1);
             }
             return BlockRegistry.SOULWOOD_LOG.get().defaultBlockState();
         }

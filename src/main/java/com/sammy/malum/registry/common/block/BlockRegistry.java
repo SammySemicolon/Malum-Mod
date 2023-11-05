@@ -1,49 +1,73 @@
 package com.sammy.malum.registry.common.block;
 
-import com.sammy.malum.*;
-import com.sammy.malum.common.block.blight.*;
-import com.sammy.malum.common.block.curiosities.obelisk.*;
-import com.sammy.malum.common.block.curiosities.spirit_altar.*;
-import com.sammy.malum.common.block.curiosities.spirit_crucible.*;
-import com.sammy.malum.common.block.curiosities.tablet.*;
-import com.sammy.malum.common.block.curiosities.totem.*;
-import com.sammy.malum.common.block.curiosities.weavers_workbench.*;
-import com.sammy.malum.common.block.curiosities.weeping_well.*;
+import com.sammy.malum.MalumMod;
+import com.sammy.malum.common.block.blight.BlightedGrassBlock;
+import com.sammy.malum.common.block.blight.BlightedSoilBlock;
+import com.sammy.malum.common.block.blight.BlightedSoulwoodBlock;
+import com.sammy.malum.common.block.curiosities.obelisk.BrillianceObeliskCoreBlock;
+import com.sammy.malum.common.block.curiosities.obelisk.ObeliskComponentBlock;
+import com.sammy.malum.common.block.curiosities.obelisk.RunewoodObeliskCoreBlock;
+import com.sammy.malum.common.block.curiosities.spirit_altar.SpiritAltarBlock;
+import com.sammy.malum.common.block.curiosities.spirit_crucible.SpiritCatalyzerComponentBlock;
+import com.sammy.malum.common.block.curiosities.spirit_crucible.SpiritCatalyzerCoreBlock;
+import com.sammy.malum.common.block.curiosities.spirit_crucible.SpiritCrucibleComponentBlock;
+import com.sammy.malum.common.block.curiosities.spirit_crucible.SpiritCrucibleCoreBlock;
+import com.sammy.malum.common.block.curiosities.tablet.TwistedTabletBlock;
+import com.sammy.malum.common.block.curiosities.totem.TotemBaseBlock;
+import com.sammy.malum.common.block.curiosities.totem.TotemPoleBlock;
+import com.sammy.malum.common.block.curiosities.weavers_workbench.WeaversWorkbenchBlock;
+import com.sammy.malum.common.block.curiosities.weeping_well.PrimordialSoupBlock;
+import com.sammy.malum.common.block.curiosities.weeping_well.VoidConduitBlock;
+import com.sammy.malum.common.block.curiosities.weeping_well.WeepingWellBlock;
 import com.sammy.malum.common.block.ether.*;
-import com.sammy.malum.common.block.mana_mote.*;
-import com.sammy.malum.common.block.nature.*;
-import com.sammy.malum.common.block.nature.soulwood.*;
-import com.sammy.malum.common.block.storage.jar.*;
-import com.sammy.malum.common.block.storage.pedestal.*;
-import com.sammy.malum.common.block.storage.stand.*;
-import com.sammy.malum.common.block.storage.vial.*;
-import com.sammy.malum.common.block.the_device.*;
-import com.sammy.malum.registry.common.*;
-import com.sammy.malum.registry.common.item.*;
-import com.sammy.malum.registry.common.worldgen.*;
-import net.minecraft.client.color.block.*;
-import net.minecraft.util.*;
-import net.minecraft.util.valueproviders.*;
+import com.sammy.malum.common.block.mana_mote.SoulstoneBlock;
+import com.sammy.malum.common.block.mana_mote.SpiritMoteBlock;
+import com.sammy.malum.common.block.nature.MalumLeavesBlock;
+import com.sammy.malum.common.block.nature.MalumLogBLock;
+import com.sammy.malum.common.block.nature.MalumSaplingBlock;
+import com.sammy.malum.common.block.nature.SapFilledLogBlock;
+import com.sammy.malum.common.block.nature.soulwood.SapFilledSoulwoodLogBlock;
+import com.sammy.malum.common.block.nature.soulwood.SoulwoodBlock;
+import com.sammy.malum.common.block.nature.soulwood.SoulwoodGrowthBlock;
+import com.sammy.malum.common.block.nature.soulwood.SoulwoodLogBlock;
+import com.sammy.malum.common.block.storage.jar.SpiritJarBlock;
+import com.sammy.malum.common.block.storage.pedestal.ItemPedestalBlock;
+import com.sammy.malum.common.block.storage.pedestal.WoodItemPedestalBlock;
+import com.sammy.malum.common.block.storage.stand.ItemStandBlock;
+import com.sammy.malum.common.block.storage.vial.SoulVialBlock;
+import com.sammy.malum.common.block.the_device.TheDevice;
+import com.sammy.malum.common.block.the_device.TheVessel;
+import com.sammy.malum.registry.common.SpiritTypeRegistry;
+import com.sammy.malum.registry.common.item.ItemRegistry;
+import com.sammy.malum.registry.common.worldgen.FeatureRegistry;
+import net.minecraft.client.color.block.BlockColors;
+import net.minecraft.util.Mth;
+import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.entity.*;
-import net.minecraft.world.level.material.*;
-import net.minecraftforge.api.distmarker.*;
-import net.minecraftforge.client.event.*;
-import net.minecraftforge.eventbus.api.*;
-import net.minecraftforge.fml.common.*;
-import net.minecraftforge.registries.*;
-import team.lodestar.lodestone.systems.block.*;
-import team.lodestar.lodestone.systems.block.sign.*;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.properties.BlockSetType;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.RegisterColorHandlersEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
+import team.lodestar.lodestone.systems.block.LodestoneBlockProperties;
+import team.lodestar.lodestone.systems.block.LodestoneDirectionalBlock;
+import team.lodestar.lodestone.systems.block.LodestoneLogBlock;
+import team.lodestar.lodestone.systems.block.sign.LodestoneStandingSignBlock;
+import team.lodestar.lodestone.systems.block.sign.LodestoneWallSignBlock;
 
 import java.awt.*;
 
-import static com.sammy.malum.MalumMod.*;
+import static com.sammy.malum.MalumMod.MALUM;
 import static com.sammy.malum.registry.common.block.BlockTagRegistry.*;
-import static net.minecraft.tags.BlockTags.FENCES;
-import static net.minecraft.tags.BlockTags.FENCE_GATES;
 import static net.minecraft.tags.BlockTags.*;
-import static net.minecraft.world.level.block.PressurePlateBlock.Sensitivity.*;
-import static net.minecraftforge.common.Tags.Blocks.*;
+import static net.minecraft.world.level.block.PressurePlateBlock.Sensitivity.EVERYTHING;
+import static net.minecraft.world.level.block.PressurePlateBlock.Sensitivity.MOBS;
+import static net.minecraftforge.common.Tags.Blocks.FENCE_GATES_WOODEN;
+import static net.minecraftforge.common.Tags.Blocks.STORAGE_BLOCKS;
 
 
 public class BlockRegistry {
@@ -122,8 +146,8 @@ public class BlockRegistry {
     public static final RegistryObject<Block> RUNIC_TAINTED_ROCK_TILES_STAIRS = BLOCKS.register("runic_tainted_rock_tiles_stairs", () -> new StairBlock(() -> TAINTED_ROCK.get().defaultBlockState(), MalumBlockProperties.TAINTED_ROCK().addTags(STAIRS)));
     public static final RegistryObject<Block> RUNIC_SMALL_TAINTED_ROCK_BRICKS_STAIRS = BLOCKS.register("runic_small_tainted_rock_bricks_stairs", () -> new StairBlock(() -> TAINTED_ROCK.get().defaultBlockState(), MalumBlockProperties.TAINTED_ROCK().addTags(STAIRS)));
 
-    public static final RegistryObject<Block> TAINTED_ROCK_BUTTON = BLOCKS.register("tainted_rock_button", () -> new StoneButtonBlock(MalumBlockProperties.TAINTED_ROCK().addTag(BUTTONS)));
-    public static final RegistryObject<Block> TAINTED_ROCK_PRESSURE_PLATE = BLOCKS.register("tainted_rock_pressure_plate", () -> new PressurePlateBlock(MOBS, MalumBlockProperties.TAINTED_ROCK().addTag(PRESSURE_PLATES)));
+    public static final RegistryObject<Block> TAINTED_ROCK_BUTTON = BLOCKS.register("tainted_rock_button", () -> new ButtonBlock(MalumBlockProperties.TAINTED_ROCK().addTag(BUTTONS), BlockSetType.STONE, 20, false));
+    public static final RegistryObject<Block> TAINTED_ROCK_PRESSURE_PLATE = BLOCKS.register("tainted_rock_pressure_plate", () -> new PressurePlateBlock(MOBS, MalumBlockProperties.TAINTED_ROCK().addTag(PRESSURE_PLATES), BlockSetType.STONE));
 
     public static final RegistryObject<Block> TAINTED_ROCK_WALL = BLOCKS.register("tainted_rock_wall", () -> new WallBlock(MalumBlockProperties.TAINTED_ROCK().addTag(WALLS)));
     public static final RegistryObject<Block> TAINTED_ROCK_BRICKS_WALL = BLOCKS.register("tainted_rock_bricks_wall", () -> new WallBlock(MalumBlockProperties.TAINTED_ROCK().addTag(WALLS)));
@@ -174,8 +198,8 @@ public class BlockRegistry {
     public static final RegistryObject<Block> RUNIC_TWISTED_ROCK_TILES_STAIRS = BLOCKS.register("runic_twisted_rock_tiles_stairs", () -> new StairBlock(() -> TWISTED_ROCK.get().defaultBlockState(), MalumBlockProperties.TWISTED_ROCK().addTags(STAIRS)));
     public static final RegistryObject<Block> RUNIC_SMALL_TWISTED_ROCK_BRICKS_STAIRS = BLOCKS.register("runic_small_twisted_rock_bricks_stairs", () -> new StairBlock(() -> TWISTED_ROCK.get().defaultBlockState(), MalumBlockProperties.TWISTED_ROCK().addTags(STAIRS)));
 
-    public static final RegistryObject<Block> TWISTED_ROCK_BUTTON = BLOCKS.register("twisted_rock_button", () -> new StoneButtonBlock(MalumBlockProperties.TWISTED_ROCK().addTag(BUTTONS)));
-    public static final RegistryObject<Block> TWISTED_ROCK_PRESSURE_PLATE = BLOCKS.register("twisted_rock_pressure_plate", () -> new PressurePlateBlock(MOBS, MalumBlockProperties.TWISTED_ROCK().addTag(PRESSURE_PLATES)));
+    public static final RegistryObject<Block> TWISTED_ROCK_BUTTON = BLOCKS.register("twisted_rock_button", () -> new ButtonBlock(MalumBlockProperties.TWISTED_ROCK().addTag(BUTTONS), BlockSetType.STONE, 20, false));
+    public static final RegistryObject<Block> TWISTED_ROCK_PRESSURE_PLATE = BLOCKS.register("twisted_rock_pressure_plate", () -> new PressurePlateBlock(MOBS, MalumBlockProperties.TWISTED_ROCK().addTag(PRESSURE_PLATES), BlockSetType.STONE));
 
     public static final RegistryObject<Block> TWISTED_ROCK_WALL = BLOCKS.register("twisted_rock_wall", () -> new WallBlock(MalumBlockProperties.TWISTED_ROCK().addTag(WALLS)));
     public static final RegistryObject<Block> TWISTED_ROCK_BRICKS_WALL = BLOCKS.register("twisted_rock_bricks_wall", () -> new WallBlock(MalumBlockProperties.TWISTED_ROCK().addTag(WALLS)));
@@ -220,15 +244,15 @@ public class BlockRegistry {
     public static final RegistryObject<Block> CUT_RUNEWOOD_PLANKS = BLOCKS.register("cut_runewood_planks", () -> new Block(MalumBlockProperties.RUNEWOOD().addTags(PLANKS)));
     public static final RegistryObject<Block> RUNEWOOD_BEAM = BLOCKS.register("runewood_beam", () -> new RotatedPillarBlock(MalumBlockProperties.RUNEWOOD()));
 
-    public static final RegistryObject<Block> RUNEWOOD_DOOR = BLOCKS.register("runewood_door", () -> new DoorBlock(MalumBlockProperties.RUNEWOOD().addTags(DOORS, WOODEN_DOORS).setCutoutRenderType().noOcclusion()));
-    public static final RegistryObject<Block> RUNEWOOD_TRAPDOOR = BLOCKS.register("runewood_trapdoor", () -> new TrapDoorBlock(MalumBlockProperties.RUNEWOOD().addTags(TRAPDOORS, WOODEN_TRAPDOORS).setCutoutRenderType().noOcclusion()));
-    public static final RegistryObject<Block> SOLID_RUNEWOOD_TRAPDOOR = BLOCKS.register("solid_runewood_trapdoor", () -> new TrapDoorBlock(MalumBlockProperties.RUNEWOOD().addTags(TRAPDOORS, WOODEN_TRAPDOORS).noOcclusion()));
+    public static final RegistryObject<Block> RUNEWOOD_DOOR = BLOCKS.register("runewood_door", () -> new DoorBlock(MalumBlockProperties.RUNEWOOD().addTags(DOORS, WOODEN_DOORS).setCutoutRenderType().noOcclusion(), MalumBlockSetTypes.RUNEWOOD));
+    public static final RegistryObject<Block> RUNEWOOD_TRAPDOOR = BLOCKS.register("runewood_trapdoor", () -> new TrapDoorBlock(MalumBlockProperties.RUNEWOOD().addTags(TRAPDOORS, WOODEN_TRAPDOORS).setCutoutRenderType().noOcclusion(), MalumBlockSetTypes.RUNEWOOD));
+    public static final RegistryObject<Block> SOLID_RUNEWOOD_TRAPDOOR = BLOCKS.register("solid_runewood_trapdoor", () -> new TrapDoorBlock(MalumBlockProperties.RUNEWOOD().addTags(TRAPDOORS, WOODEN_TRAPDOORS).noOcclusion(), MalumBlockSetTypes.RUNEWOOD));
 
-    public static final RegistryObject<Block> RUNEWOOD_BUTTON = BLOCKS.register("runewood_planks_button", () -> new WoodButtonBlock(MalumBlockProperties.RUNEWOOD().addTags(BUTTONS, WOODEN_BUTTONS).addTags(BUTTONS, WOODEN_BUTTONS)));
-    public static final RegistryObject<Block> RUNEWOOD_PRESSURE_PLATE = BLOCKS.register("runewood_planks_pressure_plate", () -> new PressurePlateBlock(EVERYTHING, MalumBlockProperties.RUNEWOOD().addTags(PRESSURE_PLATES, WOODEN_PRESSURE_PLATES)));
+    public static final RegistryObject<Block> RUNEWOOD_BUTTON = BLOCKS.register("runewood_planks_button", () -> new ButtonBlock(MalumBlockProperties.RUNEWOOD().addTags(BUTTONS, WOODEN_BUTTONS).addTags(BUTTONS, WOODEN_BUTTONS), MalumBlockSetTypes.RUNEWOOD, 20, true));
+    public static final RegistryObject<Block> RUNEWOOD_PRESSURE_PLATE = BLOCKS.register("runewood_planks_pressure_plate", () -> new PressurePlateBlock(EVERYTHING, MalumBlockProperties.RUNEWOOD().addTags(PRESSURE_PLATES, WOODEN_PRESSURE_PLATES), MalumBlockSetTypes.RUNEWOOD));
 
     public static final RegistryObject<Block> RUNEWOOD_FENCE = BLOCKS.register("runewood_planks_fence", () -> new FenceBlock(MalumBlockProperties.RUNEWOOD().addTags(FENCES, WOODEN_FENCES)));
-    public static final RegistryObject<Block> RUNEWOOD_FENCE_GATE = BLOCKS.register("runewood_planks_fence_gate", () -> new FenceGateBlock(MalumBlockProperties.RUNEWOOD().addTags(FENCE_GATES, FENCE_GATES_WOODEN)));
+    public static final RegistryObject<Block> RUNEWOOD_FENCE_GATE = BLOCKS.register("runewood_planks_fence_gate", () -> new FenceGateBlock(MalumBlockProperties.RUNEWOOD().addTags(FENCE_GATES, FENCE_GATES_WOODEN), WoodTypeRegistry.RUNEWOOD));
 
     public static final RegistryObject<Block> RUNEWOOD_ITEM_STAND = BLOCKS.register("runewood_item_stand", () -> new ItemStandBlock<>(MalumBlockProperties.RUNEWOOD().noOcclusion()).setBlockEntity(BlockEntityRegistry.ITEM_STAND));
     public static final RegistryObject<Block> RUNEWOOD_ITEM_PEDESTAL = BLOCKS.register("runewood_item_pedestal", () -> new WoodItemPedestalBlock<>(MalumBlockProperties.RUNEWOOD().noOcclusion()).setBlockEntity(BlockEntityRegistry.ITEM_PEDESTAL));
@@ -268,15 +292,15 @@ public class BlockRegistry {
     public static final RegistryObject<Block> CUT_SOULWOOD_PLANKS = BLOCKS.register("cut_soulwood_planks", () -> new Block(MalumBlockProperties.SOULWOOD().addTags(PLANKS)));
     public static final RegistryObject<Block> SOULWOOD_BEAM = BLOCKS.register("soulwood_beam", () -> new RotatedPillarBlock(MalumBlockProperties.SOULWOOD()));
 
-    public static final RegistryObject<Block> SOULWOOD_DOOR = BLOCKS.register("soulwood_door", () -> new DoorBlock(MalumBlockProperties.SOULWOOD().addTags(DOORS, WOODEN_DOORS).setCutoutRenderType().noOcclusion()));
-    public static final RegistryObject<Block> SOULWOOD_TRAPDOOR = BLOCKS.register("soulwood_trapdoor", () -> new TrapDoorBlock(MalumBlockProperties.SOULWOOD().addTags(TRAPDOORS, WOODEN_TRAPDOORS).setCutoutRenderType().noOcclusion()));
-    public static final RegistryObject<Block> SOLID_SOULWOOD_TRAPDOOR = BLOCKS.register("solid_soulwood_trapdoor", () -> new TrapDoorBlock(MalumBlockProperties.SOULWOOD().addTags(TRAPDOORS, WOODEN_TRAPDOORS).noOcclusion()));
+    public static final RegistryObject<Block> SOULWOOD_DOOR = BLOCKS.register("soulwood_door", () -> new DoorBlock(MalumBlockProperties.SOULWOOD().addTags(DOORS, WOODEN_DOORS).setCutoutRenderType().noOcclusion(), MalumBlockSetTypes.SOULWOOD));
+    public static final RegistryObject<Block> SOULWOOD_TRAPDOOR = BLOCKS.register("soulwood_trapdoor", () -> new TrapDoorBlock(MalumBlockProperties.SOULWOOD().addTags(TRAPDOORS, WOODEN_TRAPDOORS).setCutoutRenderType().noOcclusion(), MalumBlockSetTypes.SOULWOOD));
+    public static final RegistryObject<Block> SOLID_SOULWOOD_TRAPDOOR = BLOCKS.register("solid_soulwood_trapdoor", () -> new TrapDoorBlock(MalumBlockProperties.SOULWOOD().addTags(TRAPDOORS, WOODEN_TRAPDOORS).noOcclusion(), MalumBlockSetTypes.SOULWOOD));
 
-    public static final RegistryObject<Block> SOULWOOD_BUTTON = BLOCKS.register("soulwood_planks_button", () -> new WoodButtonBlock(MalumBlockProperties.SOULWOOD().addTags(BUTTONS, WOODEN_BUTTONS)));
-    public static final RegistryObject<Block> SOULWOOD_PRESSURE_PLATE = BLOCKS.register("soulwood_planks_pressure_plate", () -> new PressurePlateBlock(EVERYTHING, MalumBlockProperties.SOULWOOD().addTags(PRESSURE_PLATES, WOODEN_PRESSURE_PLATES)));
+    public static final RegistryObject<Block> SOULWOOD_BUTTON = BLOCKS.register("soulwood_planks_button", () -> new ButtonBlock(MalumBlockProperties.SOULWOOD().addTags(BUTTONS, WOODEN_BUTTONS), MalumBlockSetTypes.SOULWOOD, 20, true));
+    public static final RegistryObject<Block> SOULWOOD_PRESSURE_PLATE = BLOCKS.register("soulwood_planks_pressure_plate", () -> new PressurePlateBlock(EVERYTHING, MalumBlockProperties.SOULWOOD().addTags(PRESSURE_PLATES, WOODEN_PRESSURE_PLATES), MalumBlockSetTypes.SOULWOOD));
 
     public static final RegistryObject<Block> SOULWOOD_FENCE = BLOCKS.register("soulwood_planks_fence", () -> new FenceBlock(MalumBlockProperties.SOULWOOD().addTags(FENCES, WOODEN_FENCES)));
-    public static final RegistryObject<Block> SOULWOOD_FENCE_GATE = BLOCKS.register("soulwood_planks_fence_gate", () -> new FenceGateBlock(MalumBlockProperties.SOULWOOD().addTags(FENCE_GATES, FENCE_GATES_WOODEN)));
+    public static final RegistryObject<Block> SOULWOOD_FENCE_GATE = BLOCKS.register("soulwood_planks_fence_gate", () -> new FenceGateBlock(MalumBlockProperties.SOULWOOD().addTags(FENCE_GATES, FENCE_GATES_WOODEN), WoodTypeRegistry.SOULWOOD));
 
     public static final RegistryObject<Block> SOULWOOD_ITEM_STAND = BLOCKS.register("soulwood_item_stand", () -> new ItemStandBlock<>(MalumBlockProperties.SOULWOOD().noOcclusion()).setBlockEntity(BlockEntityRegistry.ITEM_STAND));
     public static final RegistryObject<Block> SOULWOOD_ITEM_PEDESTAL = BLOCKS.register("soulwood_item_pedestal", () -> new WoodItemPedestalBlock<>(MalumBlockProperties.SOULWOOD().noOcclusion()).setBlockEntity(BlockEntityRegistry.ITEM_PEDESTAL));
@@ -320,28 +344,28 @@ public class BlockRegistry {
 
     public static final RegistryObject<Block> BLOCK_OF_ARCANE_CHARCOAL = BLOCKS.register("block_of_arcane_charcoal", () -> new Block(MalumBlockProperties.ARCANE_CHARCOAL_BLOCK()));
 
-    public static final RegistryObject<Block> BLAZING_QUARTZ_ORE = BLOCKS.register("blazing_quartz_ore", () -> new OreBlock(MalumBlockProperties.BLAZING_QUARTZ_ORE().setCutoutRenderType().lightLevel((b) -> 6), UniformInt.of(4, 7)));
+    public static final RegistryObject<Block> BLAZING_QUARTZ_ORE = BLOCKS.register("blazing_quartz_ore", () -> new DropExperienceBlock(MalumBlockProperties.BLAZING_QUARTZ_ORE().setCutoutRenderType().lightLevel((b) -> 6), UniformInt.of(4, 7)));
     public static final RegistryObject<Block> BLOCK_OF_BLAZING_QUARTZ = BLOCKS.register("block_of_blazing_quartz", () -> new Block(MalumBlockProperties.BLAZING_QUARTZ_BLOCK().lightLevel((b) -> 14)));
 
-    public static final RegistryObject<Block> NATURAL_QUARTZ_ORE = BLOCKS.register("natural_quartz_ore", () -> new OreBlock(MalumBlockProperties.NATURAL_QUARTZ_ORE(false).setCutoutRenderType(), UniformInt.of(1, 4)));
-    public static final RegistryObject<Block> DEEPSLATE_QUARTZ_ORE = BLOCKS.register("deepslate_quartz_ore", () -> new OreBlock(MalumBlockProperties.NATURAL_QUARTZ_ORE(true).setCutoutRenderType(), UniformInt.of(2, 5)));
+    public static final RegistryObject<Block> NATURAL_QUARTZ_ORE = BLOCKS.register("natural_quartz_ore", () -> new DropExperienceBlock(MalumBlockProperties.NATURAL_QUARTZ_ORE(false).setCutoutRenderType(), UniformInt.of(1, 4)));
+    public static final RegistryObject<Block> DEEPSLATE_QUARTZ_ORE = BLOCKS.register("deepslate_quartz_ore", () -> new DropExperienceBlock(MalumBlockProperties.NATURAL_QUARTZ_ORE(true).setCutoutRenderType(), UniformInt.of(2, 5)));
     public static final RegistryObject<Block> NATURAL_QUARTZ_CLUSTER = BLOCKS.register("natural_quartz_cluster", () -> new AmethystClusterBlock(6, 3, MalumBlockProperties.NATURAL_QUARTZ_CLUSTER().setCutoutRenderType()));
 
-    public static final RegistryObject<Block> BLOCK_OF_CTHONIC_GOLD = BLOCKS.register("block_of_cthonic_gold", () -> new OreBlock(MalumBlockProperties.CTHONIC_GOLD_ORE(), UniformInt.of(10, 100)));
+    public static final RegistryObject<Block> BLOCK_OF_CTHONIC_GOLD = BLOCKS.register("block_of_cthonic_gold", () -> new DropExperienceBlock(MalumBlockProperties.CTHONIC_GOLD_ORE(), UniformInt.of(10, 100)));
 
-    public static final RegistryObject<Block> BRILLIANT_STONE = BLOCKS.register("brilliant_stone", () -> new OreBlock(MalumBlockProperties.BRILLIANCE_ORE(false).setCutoutRenderType(), UniformInt.of(14, 18)));
-    public static final RegistryObject<Block> BRILLIANT_DEEPSLATE = BLOCKS.register("brilliant_deepslate", () -> new OreBlock(MalumBlockProperties.BRILLIANCE_ORE(true).setCutoutRenderType(), UniformInt.of(16, 26)));
+    public static final RegistryObject<Block> BRILLIANT_STONE = BLOCKS.register("brilliant_stone", () -> new DropExperienceBlock(MalumBlockProperties.BRILLIANCE_ORE(false).setCutoutRenderType(), UniformInt.of(14, 18)));
+    public static final RegistryObject<Block> BRILLIANT_DEEPSLATE = BLOCKS.register("brilliant_deepslate", () -> new DropExperienceBlock(MalumBlockProperties.BRILLIANCE_ORE(true).setCutoutRenderType(), UniformInt.of(16, 26)));
     public static final RegistryObject<Block> BLOCK_OF_BRILLIANCE = BLOCKS.register("block_of_brilliance", () -> new Block(MalumBlockProperties.BRILLIANCE_BLOCK()));
 
-    public static final RegistryObject<Block> SOULSTONE_ORE = BLOCKS.register("soulstone_ore", () -> new OreBlock(MalumBlockProperties.SOULSTONE_ORE(false)));
-    public static final RegistryObject<Block> DEEPSLATE_SOULSTONE_ORE = BLOCKS.register("deepslate_soulstone_ore", () -> new OreBlock(MalumBlockProperties.SOULSTONE_ORE(true)));
+    public static final RegistryObject<Block> SOULSTONE_ORE = BLOCKS.register("soulstone_ore", () -> new DropExperienceBlock(MalumBlockProperties.SOULSTONE_ORE(false)));
+    public static final RegistryObject<Block> DEEPSLATE_SOULSTONE_ORE = BLOCKS.register("deepslate_soulstone_ore", () -> new DropExperienceBlock(MalumBlockProperties.SOULSTONE_ORE(true)));
     public static final RegistryObject<Block> BLOCK_OF_RAW_SOULSTONE = BLOCKS.register("block_of_raw_soulstone", () -> new Block(MalumBlockProperties.SOULSTONE_BLOCK()));
     public static final RegistryObject<Block> BLOCK_OF_SOULSTONE = BLOCKS.register("block_of_soulstone", () -> new SoulstoneBlock(MalumBlockProperties.SOULSTONE_BLOCK()));
 
     public static final RegistryObject<Block> BLOCK_OF_HALLOWED_GOLD = BLOCKS.register("block_of_hallowed_gold", () -> new Block(MalumBlockProperties.HALLOWED_GOLD()));
     public static final RegistryObject<Block> BLOCK_OF_SOUL_STAINED_STEEL = BLOCKS.register("block_of_soul_stained_steel", () -> new Block(MalumBlockProperties.SOUL_STAINED_STEEL_BLOCK()));
 
-    public static final RegistryObject<Block> BLOCK_OF_ROTTING_ESSENCE = BLOCKS.register("block_of_rotting_essence", () -> new Block(new LodestoneBlockProperties(Material.STONE, MaterialColor.COLOR_RED).needsPickaxe().addTags(STORAGE_BLOCKS).strength(1F, 6.0F).sound(SoundType.CORAL_BLOCK)));
+    public static final RegistryObject<Block> BLOCK_OF_ROTTING_ESSENCE = BLOCKS.register("block_of_rotting_essence", () -> new Block(new LodestoneBlockProperties().needsPickaxe().addTags(STORAGE_BLOCKS).strength(1F, 6.0F).sound(SoundType.CORAL_BLOCK)));
     public static final RegistryObject<Block> BLOCK_OF_GRIM_TALC = BLOCKS.register("block_of_grim_talc", () -> new Block(LodestoneBlockProperties.copy(Blocks.BONE_BLOCK).needsPickaxe().addTags(STORAGE_BLOCKS)));
     public static final RegistryObject<Block> BLOCK_OF_ALCHEMICAL_CALX = BLOCKS.register("block_of_alchemical_calx", () -> new Block(LodestoneBlockProperties.copy(Blocks.CALCITE).needsPickaxe().addTags(STORAGE_BLOCKS)));
     public static final RegistryObject<Block> BLOCK_OF_ASTRAL_WEAVE = BLOCKS.register("block_of_astral_weave", () -> new Block(LodestoneBlockProperties.copy(Blocks.LIGHT_BLUE_WOOL).needsPickaxe().needsHoe().addTags(STORAGE_BLOCKS)));
@@ -357,7 +381,7 @@ public class BlockRegistry {
     public static class ClientOnly {
 
         @SubscribeEvent
-        public static void setBlockColors(ColorHandlerEvent.Block event) {
+        public static void setBlockColors(RegisterColorHandlersEvent.Block event) {
             BlockColors blockColors = event.getBlockColors();
             blockColors.register((s, l, p, c) -> {
                 BlockEntity blockEntity = l.getBlockEntity(p);

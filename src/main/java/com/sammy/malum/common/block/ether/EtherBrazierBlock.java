@@ -19,24 +19,22 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nullable;
 
-public class EtherBrazierBlock<T extends EtherBlockEntity> extends EtherBlock<T>
-{
+public class EtherBrazierBlock<T extends EtherBlockEntity> extends EtherBlock<T> {
     public static final VoxelShape SHAPE = Block.box(4, 0, 4, 12, 8, 12);
     public static final BooleanProperty ROTATED = BooleanProperty.create("rotated");
     public static final BooleanProperty HANGING = BlockStateProperties.HANGING;
 
-    public EtherBrazierBlock(Properties properties)
-    {
+    public EtherBrazierBlock(Properties properties) {
         super(properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(HANGING, false).setValue(WATERLOGGED, false).setValue(ROTATED, false));
-    
+
     }
 
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         return SHAPE;
     }
-    
+
     @Nullable
     public BlockState getStateForPlacement(BlockPlaceContext context) {
         FluidState fluidstate = context.getLevel().getFluidState(context.getClickedPos());
@@ -54,8 +52,7 @@ public class EtherBrazierBlock<T extends EtherBlockEntity> extends EtherBlock<T>
     }
 
     @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder)
-    {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(HANGING, WATERLOGGED, ROTATED);
     }
 
@@ -65,14 +62,12 @@ public class EtherBrazierBlock<T extends EtherBlockEntity> extends EtherBlock<T>
         return Block.canSupportCenter(level, pos.relative(direction), direction.getOpposite());
     }
 
-    protected static Direction getBlockConnected(BlockState state)
-    {
+    protected static Direction getBlockConnected(BlockState state) {
         return state.getValue(HANGING) ? Direction.DOWN : Direction.UP;
     }
-    
+
     @Override
-    public PushReaction getPistonPushReaction(BlockState state)
-    {
+    public PushReaction getPistonPushReaction(BlockState state) {
         return PushReaction.DESTROY;
     }
 

@@ -1,7 +1,5 @@
 {
   "type": "malum:spirit_repair",
-  "itemIdRegex": "",
-  "modIdRegex": "",
   "durabilityPercentage": 0.75,
   "inputs": [
     "malum:soul_stained_steel_sword",
@@ -11,9 +9,11 @@
     "malum:soul_stained_steel_hoe",
     "malum:soul_stained_steel_knife"
   ],
+  "itemIdRegex": "",
+  "modIdRegex": "",
   "repairMaterial": {
-    "item": "malum:soul_stained_steel_ingot",
-    "count": 2
+    "count": 2,
+    "item": "malum:soul_stained_steel_ingot"
   },
   "spirits": [
     {

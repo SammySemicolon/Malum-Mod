@@ -14,12 +14,11 @@ import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.wrapper.EmptyHandler;
 import team.lodestar.lodestone.systems.block.WaterLoggedEntityBlock;
 
-public class SpiritAltarBlock<T extends SpiritAltarBlockEntity> extends WaterLoggedEntityBlock<T>
-{
+public class SpiritAltarBlock<T extends SpiritAltarBlockEntity> extends WaterLoggedEntityBlock<T> {
     public static final VoxelShape SHAPE = makeShape();
     public static final VoxelShape RENDER_SHAPE = makeRenderShape();
-    public SpiritAltarBlock(Properties properties)
-    {
+
+    public SpiritAltarBlock(Properties properties) {
         super(properties);
     }
 
@@ -52,7 +51,7 @@ public class SpiritAltarBlock<T extends SpiritAltarBlockEntity> extends WaterLog
         return true;
     }
 
-    public static VoxelShape makeShape(){
+    public static VoxelShape makeShape() {
         VoxelShape shape = Shapes.empty();
         shape = Shapes.join(shape, Shapes.box(0.0625, 0, 0.0625, 0.9375, 0.25, 0.9375), BooleanOp.OR);
         shape = Shapes.join(shape, Shapes.box(0.1875, 0.25, 0.1875, 0.8125, 0.625, 0.8125), BooleanOp.OR);
@@ -69,7 +68,7 @@ public class SpiritAltarBlock<T extends SpiritAltarBlockEntity> extends WaterLog
         return shape;
     }
 
-    public static VoxelShape makeRenderShape(){
+    public static VoxelShape makeRenderShape() {
         VoxelShape shape = Shapes.empty();
         shape = Shapes.join(shape, Shapes.box(0.0625, 0, 0.0625, 0.9375, 0.25, 0.9375), BooleanOp.OR);
         shape = Shapes.join(shape, Shapes.box(0.1875, 0.25, 0.1875, 0.8125, 0.625, 0.8125), BooleanOp.OR);

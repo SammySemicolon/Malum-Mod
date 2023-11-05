@@ -1,132 +1,63 @@
 package com.sammy.malum.registry.common.item.tabs;
 
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.common.item.BrillianceChunkItem;
-import com.sammy.malum.common.item.cosmetic.curios.CurioTokenOfGratitude;
-import com.sammy.malum.common.item.cosmetic.curios.CurioTopHat;
-import com.sammy.malum.common.item.cosmetic.weaves.GenericWeaveItem;
-import com.sammy.malum.common.item.cosmetic.weaves.PrideweaveItem;
-import com.sammy.malum.common.item.curiosities.SoulStaveItem;
-import com.sammy.malum.common.item.curiosities.SpiritPouchItem;
-import com.sammy.malum.common.item.curiosities.armor.SoulHunterArmorItem;
-import com.sammy.malum.common.item.curiosities.armor.SoulStainedSteelArmorItem;
-import com.sammy.malum.common.item.curiosities.curios.CurioGildedBelt;
-import com.sammy.malum.common.item.curiosities.curios.CurioGildedRing;
-import com.sammy.malum.common.item.curiosities.curios.CurioOrnateNecklace;
-import com.sammy.malum.common.item.curiosities.curios.CurioOrnateRing;
-import com.sammy.malum.common.item.curiosities.curios.alchemical.CurioAlchemicalRing;
-import com.sammy.malum.common.item.curiosities.curios.alchemical.CurioCurativeRing;
-import com.sammy.malum.common.item.curiosities.curios.alchemical.CurioRingOfProwess;
-import com.sammy.malum.common.item.curiosities.curios.misc.CurioHarmonyNecklace;
-import com.sammy.malum.common.item.curiosities.curios.misc.CurioNarrowNecklace;
-import com.sammy.malum.common.item.curiosities.curios.misc.CurioWaterNecklace;
-import com.sammy.malum.common.item.curiosities.curios.prospector.CurioDemolitionistRing;
-import com.sammy.malum.common.item.curiosities.curios.prospector.CurioHoarderRing;
-import com.sammy.malum.common.item.curiosities.curios.prospector.CurioProspectorBelt;
-import com.sammy.malum.common.item.curiosities.curios.rotten.CurioStarvedBelt;
-import com.sammy.malum.common.item.curiosities.curios.rotten.CurioVoraciousRing;
-import com.sammy.malum.common.item.curiosities.curios.soulward.CurioMagebaneBelt;
-import com.sammy.malum.common.item.curiosities.curios.spirit.CurioArcaneSpoilRing;
-import com.sammy.malum.common.item.curiosities.curios.spirit.CurioMirrorNecklace;
-import com.sammy.malum.common.item.curiosities.curios.weeping.CurioGrowingFleshRing;
-import com.sammy.malum.common.item.curiosities.curios.weeping.CurioGruesomeSatiationRing;
-import com.sammy.malum.common.item.curiosities.curios.weeping.CurioHiddenBladeNecklace;
-import com.sammy.malum.common.item.curiosities.curios.weeping.CurioWatcherNecklace;
-import com.sammy.malum.common.item.curiosities.nitrate.EthericNitrateItem;
-import com.sammy.malum.common.item.curiosities.nitrate.VividNitrateItem;
-import com.sammy.malum.common.item.curiosities.weapons.MagicScytheItem;
-import com.sammy.malum.common.item.curiosities.weapons.MalumScytheItem;
-import com.sammy.malum.common.item.curiosities.weapons.unique.MephiticEdgeScytheItem;
-import com.sammy.malum.common.item.curiosities.weapons.unique.TyrvingItem;
-import com.sammy.malum.common.item.ether.EtherBrazierItem;
-import com.sammy.malum.common.item.ether.EtherItem;
-import com.sammy.malum.common.item.ether.EtherTorchItem;
-import com.sammy.malum.common.item.food.HolyCaramelItem;
-import com.sammy.malum.common.item.food.HolySyrupItem;
-import com.sammy.malum.common.item.impetus.CrackedImpetusItem;
-import com.sammy.malum.common.item.impetus.ImpetusItem;
-import com.sammy.malum.common.item.impetus.NodeItem;
-import com.sammy.malum.common.item.spirit.FusedConsciousnessItem;
-import com.sammy.malum.common.item.spirit.SpiritShardItem;
-import com.sammy.malum.compability.farmersdelight.FarmersDelightCompat;
-import com.sammy.malum.registry.common.SpiritTypeRegistry;
-import com.sammy.malum.registry.common.block.BlockRegistry;
-import com.sammy.malum.registry.common.entity.EntityRegistry;
-import com.sammy.malum.registry.common.item.*;
+import com.sammy.malum.registry.common.item.ItemRegistry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
-import team.lodestar.lodestone.systems.item.LodestoneBoatItem;
-import team.lodestar.lodestone.systems.item.LodestoneFuelBlockItem;
-import team.lodestar.lodestone.systems.item.LodestoneFuelItem;
-import team.lodestar.lodestone.systems.item.tools.magic.*;
 
 import static com.sammy.malum.registry.common.item.ItemRegistry.*;
-import static com.sammy.malum.registry.common.item.ItemTiers.ItemTierEnum.SOUL_STAINED_STEEL;
-import static com.sammy.malum.registry.common.item.ItemTiers.ItemTierEnum.VOID;
-import static net.minecraft.world.item.Items.GLASS_BOTTLE;
-import static net.minecraft.world.item.Rarity.UNCOMMON;
 
 public class CreativeTabRegistry {
 
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MalumMod.MALUM);
 
-    public static final RegistryObject<CreativeModeTab> CONTENT = CREATIVE_MODE_TABS.register(MalumMod.MALUM,
+    public static final RegistryObject<CreativeModeTab> CONTENT = CREATIVE_MODE_TABS.register(MalumMod.MALUM + ".content",
             () -> CreativeModeTab.builder()
-                    .title(Component.translatable("itemGroup." + MalumMod.MALUM + ".basis_of_magic"))
+                    .title(Component.translatable("itemGroup." + MalumMod.MALUM + "_basis_of_magic"))
                     .icon(() -> ItemRegistry.SPIRIT_ALTAR.get().getDefaultInstance())
                     .displayItems((parameters, output) -> output.accept(ItemRegistry.SPIRIT_ALTAR.get())).build()
     );
 
-    public static final RegistryObject<CreativeModeTab> BUILDING = CREATIVE_MODE_TABS.register(MalumMod.MALUM,
+    public static final RegistryObject<CreativeModeTab> BUILDING = CREATIVE_MODE_TABS.register(MalumMod.MALUM + ".building",
             () -> CreativeModeTab.builder()
-                    .title(Component.translatable("itemGroup." + MalumMod.MALUM + ".arcane_construct"))
+                    .title(Component.translatable("itemGroup." + MalumMod.MALUM + "_arcane_construct"))
                     .icon(() -> ItemRegistry.TAINTED_ROCK.get().getDefaultInstance())
                     .displayItems((parameters, output) -> output.accept(ItemRegistry.TAINTED_ROCK.get())).build()
     );
 
-    public static final RegistryObject<CreativeModeTab> NATURE = CREATIVE_MODE_TABS.register(MalumMod.MALUM,
+    public static final RegistryObject<CreativeModeTab> NATURE = CREATIVE_MODE_TABS.register(MalumMod.MALUM + ".nature",
             () -> CreativeModeTab.builder()
-                    .title(Component.translatable("itemGroup." + MalumMod.MALUM + ".natural_wonders"))
+                    .title(Component.translatable("itemGroup." + MalumMod.MALUM + "_natural_wonders"))
                     .icon(() -> ItemRegistry.RUNEWOOD_SAPLING.get().getDefaultInstance())
                     .displayItems((parameters, output) -> output.accept(ItemRegistry.RUNEWOOD_SAPLING.get())).build()
     );
 
-    public static final RegistryObject<CreativeModeTab> METALLURGY = CREATIVE_MODE_TABS.register(MalumMod.MALUM,
+    public static final RegistryObject<CreativeModeTab> METALLURGY = CREATIVE_MODE_TABS.register(MalumMod.MALUM + ".metallurgy",
             () -> CreativeModeTab.builder()
-                    .title(Component.translatable("itemGroup." + MalumMod.MALUM + ".metallurgic_magics"))
+                    .title(Component.translatable("itemGroup." + MalumMod.MALUM + "_metallurgic_magics"))
                     .icon(() -> ItemRegistry.ALCHEMICAL_IMPETUS.get().getDefaultInstance())
                     .displayItems((parameters, output) -> output.accept(ItemRegistry.ALCHEMICAL_IMPETUS.get())).build()
     );
 
-    public static final RegistryObject<CreativeModeTab> VOID = CREATIVE_MODE_TABS.register(MalumMod.MALUM,
+    public static final RegistryObject<CreativeModeTab> VOID = CREATIVE_MODE_TABS.register(MalumMod.MALUM + ".void",
             () -> CreativeModeTab.builder()
-                    .title(Component.translatable("itemGroup." + MalumMod.MALUM + ".void_chronicles"))
+                    .title(Component.translatable("itemGroup." + MalumMod.MALUM + "_void_chronicles"))
                     .icon(() -> ItemRegistry.STRANGE_NUCLEUS.get().getDefaultInstance())
                     .displayItems((parameters, output) -> output.accept(ItemRegistry.STRANGE_NUCLEUS.get())).build()
     );
 
-    public static final RegistryObject<CreativeModeTab> COSMETIC = CREATIVE_MODE_TABS.register(MalumMod.MALUM,
+    public static final RegistryObject<CreativeModeTab> COSMETIC = CREATIVE_MODE_TABS.register(MalumMod.MALUM + ".cosmetic",
             () -> CreativeModeTab.builder()
-                    .title(Component.translatable("itemGroup." + MalumMod.MALUM + ".cosmetics"))
+                    .title(Component.translatable("itemGroup." + MalumMod.MALUM + "_cosmetics"))
                     .icon(() -> ItemRegistry.WEAVERS_WORKBENCH.get().getDefaultInstance())
                     .displayItems((parameters, output) -> output.accept(ItemRegistry.WEAVERS_WORKBENCH.get())).build()
     );
 
-    //public static final MalumTab CONTENT = new MalumTab("basis_of_magic", ItemRegistry.SPIRIT_ALTAR);
-    //public static final MalumTab BUILDING = new MalumTab("arcane_construct", ItemRegistry.TAINTED_ROCK);
-    //public static final MalumTab NATURE = new MalumTab("natural_wonders", ItemRegistry.RUNEWOOD_SAPLING);
-    //public static final MalumTab METALLURGY = new MalumTab("metallurgic_magics", ItemRegistry.ALCHEMICAL_IMPETUS);
-    //public static final MalumTab VOID = new MalumTab("void_chronicles", ItemRegistry.STRANGE_NUCLEUS);
-    //public static final MalumTab COSMETIC = new MalumTab("cosmetics", ItemRegistry.WEAVERS_WORKBENCH);
-
-    public static void populateItemGroups(BuildCreativeModeTabContentsEvent event){
+    public static void populateItemGroups(BuildCreativeModeTabContentsEvent event) {
         if (event.getTabKey() == CONTENT.getKey()) {
             event.accept(SACRED_SPIRIT);
             event.accept(WICKED_SPIRIT);
@@ -164,7 +95,7 @@ public class CreativeTabRegistry {
             event.accept(BLOCK_OF_RAW_SOULSTONE);
             event.accept(PROCESSED_SOULSTONE);
             event.accept(BLOCK_OF_SOULSTONE);
-            
+
             event.accept(ETHER);
             event.accept(ETHER_TORCH);
             event.accept(TAINTED_ETHER_BRAZIER);
@@ -265,9 +196,9 @@ public class CreativeTabRegistry {
             event.accept(TWISTED_ROCK_TILES_SLAB);
             event.accept(SMALL_TWISTED_ROCK_BRICKS_SLAB);
             event.accept(RUNIC_TWISTED_ROCK_BRICKS_SLAB);
-            event.accept(RUNIC_TWISTED_ROCK_TILES_SLAB );
+            event.accept(RUNIC_TWISTED_ROCK_TILES_SLAB);
             event.accept(RUNIC_SMALL_TWISTED_ROCK_BRICKS_SLAB);
-                    
+
             event.accept(TWISTED_ROCK_STAIRS);
             event.accept(SMOOTH_TWISTED_ROCK_STAIRS);
             event.accept(POLISHED_TWISTED_ROCK_STAIRS);
@@ -277,18 +208,18 @@ public class CreativeTabRegistry {
             event.accept(RUNIC_TWISTED_ROCK_BRICKS_STAIRS);
             event.accept(RUNIC_TWISTED_ROCK_TILES_STAIRS);
             event.accept(RUNIC_SMALL_TWISTED_ROCK_BRICKS_STAIRS);
-            
+
             event.accept(TWISTED_ROCK_ITEM_STAND);
             event.accept(TWISTED_ROCK_ITEM_PEDESTAL);
             //endregion twisted rock
         }
-        
-        if(event.getTabKey() == NATURE.getKey()) {
+
+        if (event.getTabKey() == NATURE.getKey()) {
             //region runewood
             event.accept(HOLY_SAP);
             event.accept(HOLY_SAPBALL);
             event.accept(HOLY_SYRUP);
-            
+
 
             event.accept(RUNEWOOD_LEAVES);
             event.accept(RUNEWOOD_SAPLING);
@@ -346,7 +277,7 @@ public class CreativeTabRegistry {
             //endregion
         }
 
-        if (event.getTabKey() == METALLURGY.getKey()) {//TODO separate NODE and IMPEDUS
+        if (event.getTabKey() == METALLURGY.getKey()) {
             event.accept(CRACKED_IRON_IMPETUS);
             event.accept(IRON_IMPETUS);
             event.accept(IRON_NODE);
@@ -355,7 +286,7 @@ public class CreativeTabRegistry {
             event.accept(COPPER_NODE);
             event.accept(CRACKED_GOLD_IMPETUS);
             event.accept(GOLD_IMPETUS);
-            event.accept(GOLD_NODE );
+            event.accept(GOLD_NODE);
             event.accept(CRACKED_LEAD_IMPETUS);
             event.accept(LEAD_IMPETUS);
             event.accept(LEAD_NODE);
@@ -384,8 +315,9 @@ public class CreativeTabRegistry {
             event.accept(CRACKED_ALCHEMICAL_IMPETUS);
             event.accept(ALCHEMICAL_IMPETUS);
         }
-        
+
         if (event.getTabKey() == CONTENT.getKey()) {
+            event.accept(ENCYCLOPEDIA_ARCANA);
             event.accept(SPIRIT_POUCH);
             event.accept(CRUDE_SCYTHE);
             event.accept(SOUL_STAINED_STEEL_SCYTHE);
@@ -395,7 +327,7 @@ public class CreativeTabRegistry {
             event.accept(SOUL_STAINED_STEEL_AXE);
             event.accept(SOUL_STAINED_STEEL_SHOVEL);
             event.accept(SOUL_STAINED_STEEL_HOE);
-            
+
 
             event.accept(SOUL_STAINED_STEEL_HELMET);
             event.accept(SOUL_STAINED_STEEL_CHESTPLATE);
@@ -413,28 +345,28 @@ public class CreativeTabRegistry {
             event.accept(VIVID_NITRATE);
 
             event.accept(GILDED_RING);
-            event.accept(GILDED_BELT );
-            event.accept(ORNATE_RING );
+            event.accept(GILDED_BELT);
+            event.accept(ORNATE_RING);
             event.accept(ORNATE_NECKLACE);
 
-            event.accept(RING_OF_ESOTERIC_SPOILS );
+            event.accept(RING_OF_ESOTERIC_SPOILS);
             event.accept(RING_OF_CURATIVE_TALENT);
-            event.accept(RING_OF_ARCANE_PROWESS );
-            event.accept(RING_OF_ALCHEMICAL_MASTERY );
+            event.accept(RING_OF_ARCANE_PROWESS);
+            event.accept(RING_OF_ALCHEMICAL_MASTERY);
             event.accept(RING_OF_DESPERATE_VORACITY);
-            event.accept(RING_OF_THE_HOARDER );
-            event.accept(RING_OF_THE_DEMOLITIONIST );
+            event.accept(RING_OF_THE_HOARDER);
+            event.accept(RING_OF_THE_DEMOLITIONIST);
 
             event.accept(NECKLACE_OF_THE_MYSTIC_MIRROR);
             event.accept(NECKLACE_OF_TIDAL_AFFINITY);
-            event.accept(NECKLACE_OF_THE_NARROW_EDGE );
+            event.accept(NECKLACE_OF_THE_NARROW_EDGE);
             event.accept(NECKLACE_OF_BLISSFUL_HARMONY);
 
             event.accept(BELT_OF_THE_STARVED);
-            event.accept(BELT_OF_THE_PROSPECTOR );
-            event.accept(BELT_OF_THE_MAGEBANE );
+            event.accept(BELT_OF_THE_PROSPECTOR);
+            event.accept(BELT_OF_THE_MAGEBANE);
         }
-        
+
         if (event.getTabKey() == COSMETIC.getKey()) {
             //region cosmetics
             event.accept(ESOTERIC_SPOOL);
@@ -465,25 +397,26 @@ public class CreativeTabRegistry {
 
             event.accept(TOPHAT);
         }
-        
+
         if (event.getTabKey() == VOID.getKey()) {
             event.accept(VOID_SALTS);
             event.accept(NULL_SLATE);
             event.accept(STRANGE_NUCLEUS);
-            event.accept(CRYSTALLIZED_NIHILITY );
-            event.accept(ANOMALOUS_SNARE);
+            event.accept(CRYSTALLIZED_NIHILITY);
+            event.accept(ANOMALOUS_DESIGN);
+            event.accept(COMPLETE_DESIGN);
             event.accept(FUSED_CONSCIOUSNESS);
         }
-        
+
         if (event.getTabKey() == VOID.getKey()) {
-            event.accept(RING_OF_GROWING_FLESH );
+            event.accept(RING_OF_GROWING_FLESH);
             event.accept(RING_OF_GRUESOME_SATIATION);
 
             event.accept(NECKLACE_OF_THE_HIDDEN_BLADE);
             event.accept(NECKLACE_OF_THE_WATCHER);
 
         }
-        
+
         if (false) {
             event.accept(MEPHITIC_EDGE);
             event.accept(SOUL_STAINED_STEEL_KNIFE);

@@ -28,7 +28,7 @@ public class BlightedSoundType extends ExtendedSoundType {
 
     @Override
     public void onPlayStepSound(Level level, BlockPos pos, BlockState state, SoundSource category) {
-        level.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundRegistry.MINOR_BLIGHT_MOTIF.get(), category, getVolume() * 0.15F, getPitch()* 1.6F);
+        level.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundRegistry.MINOR_BLIGHT_MOTIF.get(), category, getVolume() * 0.15F, getPitch() * 1.6F);
     }
 
     @Override
@@ -39,7 +39,7 @@ public class BlightedSoundType extends ExtendedSoundType {
     @Override
     @OnlyIn(value = Dist.CLIENT)
     public void onPlayHitSound(BlockPos pos) {
-        Minecraft.getInstance().getSoundManager().play(new SimpleSoundInstance(SoundRegistry.MINOR_BLIGHT_MOTIF.get(), SoundSource.BLOCKS, (getVolume() + 1.0F) / 8.0F, getPitch() * 2F, MalumMod.RANDOM,pos));
+        Minecraft.getInstance().getSoundManager().play(new SimpleSoundInstance(SoundRegistry.MINOR_BLIGHT_MOTIF.get(), SoundSource.BLOCKS, (getVolume() + 1.0F) / 8.0F, getPitch() * 2F, MalumMod.RANDOM, pos));
     }
 
     @Override

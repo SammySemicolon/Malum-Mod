@@ -1,6 +1,6 @@
 package com.sammy.malum.common.item.curiosities.curios.alchemical;
 
-import com.sammy.malum.common.item.curiosities.curios.*;
+import com.sammy.malum.common.item.curiosities.curios.MalumCurioItem;
 import com.sammy.malum.core.systems.item.IMalumEventResponderItem;
 import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.LivingEntity;
@@ -16,7 +16,7 @@ public class CurioRingOfProwess extends MalumCurioItem implements IMalumEventRes
     public void pickupSpirit(LivingEntity collector, ItemStack stack, double arcaneResonance) {
         Level level = collector.level();
         int floored = (int) Math.floor(arcaneResonance);
-        int i = 1 + level.random.nextInt(1+floored) + level.random.nextInt(2+floored);
+        int i = 1 + level.random.nextInt(1 + floored) + level.random.nextInt(2 + floored);
 
         while (i > 0) {
             int j = ExperienceOrb.getExperienceValue(i);

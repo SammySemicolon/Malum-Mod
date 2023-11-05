@@ -1,8 +1,7 @@
 package com.sammy.malum.compability.jei.categories;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.client.screen.codex.*;
+import com.sammy.malum.client.screen.codex.ArcanaCodexHelper;
 import com.sammy.malum.common.recipe.SpiritRepairRecipe;
 import com.sammy.malum.compability.jei.JEIHandler;
 import com.sammy.malum.registry.common.item.ItemRegistry;
@@ -16,7 +15,6 @@ import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
-import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -79,20 +77,20 @@ public class SpiritRepairRecipeCategory implements IRecipeCategory<SpiritRepairR
         List<ItemStack> repairIngredient = recipe.repairMaterial.getStacks();
 
         List<ItemStack> damaged = repaired.stream()
-             .map(ItemStack::copy)
-             .peek(s -> s.setDamageValue((int) (s.getMaxDamage() * recipe.durabilityPercentage)))
-             .collect(Collectors.toCollection(ArrayList::new));
+                .map(ItemStack::copy)
+                .peek(s -> s.setDamageValue((int) (s.getMaxDamage() * recipe.durabilityPercentage)))
+                .collect(Collectors.toCollection(ArrayList::new));
 
         JEIHandler.addItemsToJei(builder, RecipeIngredientRole.INPUT, 62, 13, false, recipe.spirits);
 
         IRecipeSlotBuilder input = builder.addSlot(RecipeIngredientRole.INPUT, 82, 57)
-             .addItemStacks(damaged);
+                .addItemStacks(damaged);
 
         builder.addSlot(RecipeIngredientRole.INPUT, 44, 57)
-             .addItemStacks(repairIngredient);
+                .addItemStacks(repairIngredient);
 
         IRecipeSlotBuilder output = builder.addSlot(RecipeIngredientRole.OUTPUT, 63, 124)
-             .addItemStacks(repaired.stream().map(SpiritRepairRecipe::getRepairRecipeOutput).collect(Collectors.toList()));
+                .addItemStacks(repaired.stream().map(SpiritRepairRecipe::getRepairRecipeOutput).collect(Collectors.toList()));
 
         builder.createFocusLink(input, output);
     }

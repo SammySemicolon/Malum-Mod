@@ -28,7 +28,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.network.PacketDistributor;
-import team.lodestar.lodestone.setup.LodestoneRenderTypeRegistry;
+import team.lodestar.lodestone.registry.client.LodestoneRenderTypeRegistry;
 import team.lodestar.lodestone.systems.rendering.VFXBuilders;
 
 import java.awt.*;
@@ -212,7 +212,7 @@ public class SoulHarvestHandler {
                 VFXBuilders.createWorld().setPosColorTexLightmapDefaultFormat()
                         .setColor(color.brighter())
                         .setAlpha(intensity * 0.6f)
-                        .renderQuad(soulNoise, poseStack, intensity*0.4f);
+                        .renderQuad(soulNoise, poseStack, intensity * 0.4f);
                 poseStack.popPose();
             }
         }

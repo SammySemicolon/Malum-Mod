@@ -1,26 +1,28 @@
 package com.sammy.malum.visual_effects;
 
-import com.sammy.malum.common.block.curiosities.obelisk.*;
-import com.sammy.malum.common.block.curiosities.spirit_altar.*;
-import com.sammy.malum.common.block.storage.*;
-import com.sammy.malum.common.item.spirit.*;
-import com.sammy.malum.common.recipe.*;
-
-import com.sammy.malum.core.systems.spirit.*;
-import com.sammy.malum.visual_effects.networked.data.*;
-import net.minecraft.core.*;
-import net.minecraft.util.*;
-import net.minecraft.world.item.*;
+import com.sammy.malum.common.block.curiosities.obelisk.RunewoodObeliskBlockEntity;
+import com.sammy.malum.common.block.curiosities.spirit_altar.IAltarAccelerator;
+import com.sammy.malum.common.block.curiosities.spirit_altar.SpiritAltarBlockEntity;
+import com.sammy.malum.common.block.storage.MalumItemHolderBlockEntity;
+import com.sammy.malum.common.item.spirit.SpiritShardItem;
+import com.sammy.malum.common.recipe.SpiritInfusionRecipe;
+import com.sammy.malum.core.systems.spirit.MalumSpiritType;
+import com.sammy.malum.visual_effects.networked.data.ColorEffectData;
+import net.minecraft.core.BlockPos;
+import net.minecraft.util.Mth;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.*;
-import team.lodestar.lodestone.helpers.*;
-import team.lodestar.lodestone.systems.blockentity.*;
-import team.lodestar.lodestone.systems.easing.*;
-import team.lodestar.lodestone.systems.particle.*;
-import team.lodestar.lodestone.systems.particle.builder.*;
+import net.minecraft.world.phys.Vec3;
+import team.lodestar.lodestone.helpers.DataHelper;
+import team.lodestar.lodestone.helpers.RandomHelper;
+import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntityInventory;
+import team.lodestar.lodestone.systems.easing.Easing;
+import team.lodestar.lodestone.systems.particle.LodestoneWorldParticleActor;
+import team.lodestar.lodestone.systems.particle.builder.SparkParticleBuilder;
+import team.lodestar.lodestone.systems.particle.builder.WorldParticleBuilder;
 
-import java.util.*;
-import java.util.function.*;
+import java.util.function.Consumer;
 
 import static com.sammy.malum.visual_effects.SpiritLightSpecs.spiritLightSpecs;
 
@@ -144,6 +146,7 @@ public class SpiritAltarParticleEffects {
             crumbles.spawnParticles();
         }
     }
+
     public static void craftItemParticles(SpiritAltarBlockEntity altar, ColorEffectData colorData) {
         MalumSpiritType activeSpiritType = getCentralSpiritType(altar);
         if (activeSpiritType == null) {
@@ -153,7 +156,7 @@ public class SpiritAltarParticleEffects {
         long gameTime = level.getGameTime();
         var random = level.random;
         BlockPos altarPos = altar.getBlockPos();
-        Vec3 targetPos = altar.getCentralItemOffset().add(altarPos.getX(),altarPos.getY(), altarPos.getZ());
+        Vec3 targetPos = altar.getCentralItemOffset().add(altarPos.getX(), altarPos.getY(), altarPos.getZ());
 
         for (int i = 0; i < 2; i++) {
             MalumSpiritType cyclingSpiritType = colorData.getCyclingColorRecord().spiritType();
@@ -228,6 +231,7 @@ public class SpiritAltarParticleEffects {
             lightSpecs.spawnParticles();
         }
     }
+
     public static void runewoodObeliskParticles(RunewoodObeliskBlockEntity obelisk, SpiritAltarBlockEntity altar, MalumSpiritType spiritType) {
         Level level = obelisk.getLevel();
         BlockPos obeliskPos = obelisk.getBlockPos();
@@ -237,7 +241,7 @@ public class SpiritAltarParticleEffects {
             var random = level.random;
             long gameTime = level.getGameTime();
             BlockPos altarPos = altar.getBlockPos();
-            Vec3 targetPos = altar.getCentralItemOffset().add(altarPos.getX(),altarPos.getY(), altarPos.getZ());
+            Vec3 targetPos = altar.getCentralItemOffset().add(altarPos.getX(), altarPos.getY(), altarPos.getZ());
             Vec3 velocity = targetPos.subtract(startPos).normalize().scale(RandomHelper.randomBetween(random, 0.01f, 0.02f));
             double yOffset = Math.sin((gameTime % 360) / 30f) * 0.1f;
             Vec3 offsetPosition = DataHelper.rotatingRadialOffset(startPos.add(0, yOffset, 0), 0.45f, 0, 1, gameTime, 30);

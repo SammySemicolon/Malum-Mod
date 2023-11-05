@@ -1,13 +1,13 @@
 package com.sammy.malum.client.cosmetic;
 
-import com.sammy.malum.common.item.cosmetic.skins.*;
-import net.minecraft.*;
-import net.minecraft.client.player.*;
-import net.minecraft.resources.*;
-import net.minecraft.world.entity.*;
-import team.lodestar.lodestone.systems.model.*;
+import com.sammy.malum.common.item.cosmetic.skins.ArmorSkin;
+import net.minecraft.Util;
+import net.minecraft.client.player.AbstractClientPlayer;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.LivingEntity;
+import team.lodestar.lodestone.systems.model.LodestoneArmorModel;
 
-import java.util.function.*;
+import java.util.function.Function;
 
 public abstract class ArmorSkinRenderingData {
 

@@ -1,23 +1,19 @@
 package com.sammy.malum.common.item.curiosities.curios.soulward;
 
-import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import com.sammy.malum.common.capability.MalumPlayerDataCapability;
-import com.sammy.malum.common.item.curiosities.curios.*;
+import com.sammy.malum.common.item.curiosities.curios.MalumCurioItem;
 import com.sammy.malum.core.handlers.SoulWardHandler;
-import com.sammy.malum.registry.common.AttributeRegistry;
 import com.sammy.malum.core.systems.item.IMalumEventResponderItem;
+import com.sammy.malum.registry.common.AttributeRegistry;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
-import net.minecraft.world.damagesource.EntityDamageSource;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import top.theillusivec4.curios.api.*;
-
-import java.util.UUID;
+import top.theillusivec4.curios.api.SlotContext;
 
 public class CurioMagebaneBelt extends MalumCurioItem implements IMalumEventResponderItem {
 

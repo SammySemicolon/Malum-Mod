@@ -1,6 +1,5 @@
 package com.sammy.malum.common.block.curiosities.spirit_crucible;
 
-import com.sammy.malum.visual_effects.SpiritLightSpecs;
 import com.sammy.malum.common.block.curiosities.tablet.ITabletTracker;
 import com.sammy.malum.common.block.curiosities.tablet.TwistedTabletBlockEntity;
 import com.sammy.malum.common.item.impetus.ImpetusItem;
@@ -13,6 +12,7 @@ import com.sammy.malum.core.systems.recipe.SpiritWithCount;
 import com.sammy.malum.registry.common.SoundRegistry;
 import com.sammy.malum.registry.common.block.BlockEntityRegistry;
 import com.sammy.malum.registry.common.block.BlockRegistry;
+import com.sammy.malum.visual_effects.SpiritLightSpecs;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -28,8 +28,8 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.wrapper.CombinedInvWrapper;
 import net.minecraftforge.network.PacketDistributor;
@@ -42,9 +42,9 @@ import team.lodestar.lodestone.systems.easing.Easing;
 import team.lodestar.lodestone.systems.multiblock.MultiBlockCoreEntity;
 import team.lodestar.lodestone.systems.multiblock.MultiBlockStructure;
 import team.lodestar.lodestone.systems.particle.SimpleParticleOptions;
-import team.lodestar.lodestone.systems.particle.builder.*;
-import team.lodestar.lodestone.systems.particle.data.color.ColorParticleData;
+import team.lodestar.lodestone.systems.particle.builder.WorldParticleBuilder;
 import team.lodestar.lodestone.systems.particle.data.GenericParticleData;
+import team.lodestar.lodestone.systems.particle.data.color.ColorParticleData;
 import team.lodestar.lodestone.systems.particle.data.spin.SpinParticleData;
 
 import javax.annotation.Nonnull;
@@ -269,8 +269,8 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
         if (queuedCracks > 0) {
             crackTimer++;
             if (crackTimer % 7 == 0) {
-                float pitch = 0.95f + (crackTimer - 8) * 0.015f + level().random.nextFloat() * 0.05f;
-                level().playSound(null, worldPosition, SoundRegistry.IMPETUS_CRACK.get(), SoundSource.BLOCKS, 0.7f, pitch);
+                float pitch = 0.95f + (crackTimer - 8) * 0.015f + level.random.nextFloat() * 0.05f;
+                level.playSound(null, worldPosition, SoundRegistry.IMPETUS_CRACK.get(), SoundSource.BLOCKS, 0.7f, pitch);
                 queuedCracks--;
                 if (queuedCracks == 0) {
                     crackTimer = 0;
@@ -347,9 +347,9 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
         inventory.setStackInSlot(0, result);
 
         if (repairRecipe.repairMaterial.getItem() instanceof SpiritShardItem spiritShardItem) {
-            MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level().getChunkAt(worldPosition)), new AltarConsumeParticlePacket(repairMaterial, List.of(spiritShardItem.type.identifier), providedItemPos.x, providedItemPos.y, providedItemPos.z, itemPos.x, itemPos.y, itemPos.z));
+            MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new AltarConsumeParticlePacket(repairMaterial, List.of(spiritShardItem.type.identifier), providedItemPos.x, providedItemPos.y, providedItemPos.z, itemPos.x, itemPos.y, itemPos.z));
         } else {
-            MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level().getChunkAt(worldPosition)), new AltarConsumeParticlePacket(repairMaterial, repairRecipe.spirits.stream().map(s -> s.type.identifier).collect(Collectors.toList()), providedItemPos.x, providedItemPos.y, providedItemPos.z, itemPos.x, itemPos.y, itemPos.z));
+            MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new AltarConsumeParticlePacket(repairMaterial, repairRecipe.spirits.stream().map(s -> s.type.identifier).collect(Collectors.toList()), providedItemPos.x, providedItemPos.y, providedItemPos.z, itemPos.x, itemPos.y, itemPos.z));
         }
 
         repairMaterial.shrink(repairRecipe.repairMaterial.getCount());
@@ -367,9 +367,9 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
 
         spiritInventory.updateData();
         if (!repairRecipe.spirits.isEmpty()) {
-            MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level().getChunkAt(worldPosition)), new AltarCraftParticlePacket(repairRecipe.spirits.stream().map(s -> s.type.identifier).collect(Collectors.toList()), itemPos));
+            MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new AltarCraftParticlePacket(repairRecipe.spirits.stream().map(s -> s.type.identifier).collect(Collectors.toList()), itemPos));
         } else if (repairRecipe.repairMaterial.getItem() instanceof SpiritShardItem spiritShardItem) {
-            MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level().getChunkAt(worldPosition)), new AltarCraftParticlePacket(List.of(spiritShardItem.type.identifier), itemPos));
+            MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new AltarCraftParticlePacket(List.of(spiritShardItem.type.identifier), itemPos));
         }
         repairRecipe = SpiritRepairRecipe.getRecipe(level, damagedItem, repairMaterial, spiritInventory.nonEmptyItemStacks);
         fetchTablets(level, worldPosition.above());
@@ -393,7 +393,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
                 }
             }
             queuedCracks = durabilityCost;
-            boolean success = stack.hurt(durabilityCost, level().random, null);
+            boolean success = stack.hurt(durabilityCost, level.random, null);
             if (success && stack.getItem() instanceof ImpetusItem impetusItem) {
                 inventory.setStackInSlot(0, impetusItem.getCrackedVariant().getDefaultInstance());
             }
@@ -408,14 +408,14 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
             }
         }
         spiritInventory.updateData();
-        level().addFreshEntity(new ItemEntity(level, itemPos.x, itemPos.y, itemPos.z, outputStack));
-        MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level().getChunkAt(worldPosition)), new AltarCraftParticlePacket(focusingRecipe.spirits.stream().map(s -> s.type.identifier).collect(Collectors.toList()), itemPos));
+        level.addFreshEntity(new ItemEntity(level, itemPos.x, itemPos.y, itemPos.z, outputStack));
+        MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new AltarCraftParticlePacket(focusingRecipe.spirits.stream().map(s -> s.type.identifier).collect(Collectors.toList()), itemPos));
         focusingRecipe = SpiritFocusingRecipe.getRecipe(level, stack, spiritInventory.nonEmptyItemStacks);
         finishRecipe();
     }
 
     public void finishRecipe() {
-        level().playSound(null, worldPosition, SoundRegistry.CRUCIBLE_CRAFT.get(), SoundSource.BLOCKS, 1, 0.75f + level().random.nextFloat() * 0.5f);
+        level.playSound(null, worldPosition, SoundRegistry.CRUCIBLE_CRAFT.get(), SoundSource.BLOCKS, 1, 0.75f + level.random.nextFloat() * 0.5f);
         progress = 0;
         recalibrateAccelerators(level, worldPosition);
         BlockHelper.updateAndNotifyState(level, worldPosition);
@@ -461,7 +461,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
                     double x = getBlockPos().getX() + offset.x();
                     double y = getBlockPos().getY() + offset.y();
                     double z = getBlockPos().getZ() + offset.z();
-                    SpiritLightSpecs.spiritLightSpecs(level, new Vec3(x,y,z), spiritSplinterItem.type);
+                    SpiritLightSpecs.spiritLightSpecs(level, new Vec3(x, y, z), spiritSplinterItem.type);
                 }
             }
         }
@@ -493,8 +493,8 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
 
                 WorldParticleBuilder.create(LodestoneParticleRegistry.STAR_PARTICLE)
                         .setTransparencyData(GenericParticleData.create(0.24f / colors.size(), 0f).build())
-                        .setScaleData(GenericParticleData.create(0.45f + level().random.nextFloat() * 0.15f, 0).build())
-                        .setSpinData(SpinParticleData.create(0).setSpinOffset((0.075f * level().getGameTime()) % 6.28f).build())
+                        .setScaleData(GenericParticleData.create(0.45f + level.random.nextFloat() * 0.15f, 0).build())
+                        .setSpinData(SpinParticleData.create(0).setSpinOffset((0.075f * level.getGameTime()) % 6.28f).build())
                         .setColorData(ColorParticleData.create(color, endColor).build())
                         .setLifetime(15)
                         .setRandomOffset(0.05)
@@ -503,9 +503,9 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
 
                 WorldParticleBuilder.create(LodestoneParticleRegistry.WISP_PARTICLE)
                         .setTransparencyData(GenericParticleData.create(0.4f / colors.size(), 0f).setCoefficient(0.5f).build())
-                        .setScaleData(GenericParticleData.create(0.2f + level().random.nextFloat() * 0.15f, 0).build())
-                        .setLifetime((int) (10 + level().random.nextInt(8) + Math.sin((0.5 * level().getGameTime()) % 6.28f)))
-                        .setSpinData(SpinParticleData.create(0.1f + level().random.nextFloat() * 0.05f).setSpinOffset((0.075f * level().getGameTime() % 6.28f)).build())
+                        .setScaleData(GenericParticleData.create(0.2f + level.random.nextFloat() * 0.15f, 0).build())
+                        .setLifetime((int) (10 + level.random.nextInt(8) + Math.sin((0.5 * level.getGameTime()) % 6.28f)))
+                        .setSpinData(SpinParticleData.create(0.1f + level.random.nextFloat() * 0.05f).setSpinOffset((0.075f * level.getGameTime() % 6.28f)).build())
                         .setColorData(ColorParticleData.create(color.brighter(), endColor).setCoefficient(0.75f).build())
                         .setRandomOffset(0.05)
                         .setMotion(velocity.x, velocity.y, velocity.z)
@@ -555,8 +555,8 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
 
                 WorldParticleBuilder.create(LodestoneParticleRegistry.WISP_PARTICLE)
                         .setTransparencyData(GenericParticleData.create(0.12f / spiritInventory.nonEmptyItemAmount, 0f).build())
-                        .setSpinData(SpinParticleData.create(0).setSpinOffset((0.075f * level().getGameTime() % 6.28f)).build())
-                        .setScaleData(GenericParticleData.create(0.2f + level().random.nextFloat() * 0.1f, 0).build())
+                        .setSpinData(SpinParticleData.create(0).setSpinOffset((0.075f * level.getGameTime() % 6.28f)).build())
+                        .setScaleData(GenericParticleData.create(0.2f + level.random.nextFloat() * 0.1f, 0).build())
                         .setColorData(ColorParticleData.create(color, endColor).build())
                         .setLifetime(25)
                         .setRandomOffset(0.05)
@@ -571,7 +571,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
     public void starParticles(Vec3 itemPos, Color color, Color endColor) {
         WorldParticleBuilder.create(LodestoneParticleRegistry.STAR_PARTICLE)
                 .setTransparencyData(GenericParticleData.create(0.07f / spiritInventory.nonEmptyItemAmount, 0.16f / spiritInventory.nonEmptyItemAmount, 0f).setEasing(Easing.SINE_IN, Easing.SINE_OUT).build())
-                .setScaleData(GenericParticleData.create(0.2f, 0.45f + level().random.nextFloat() * 0.1f, 0).setEasing(Easing.QUINTIC_IN, Easing.CUBIC_IN_OUT).build())
+                .setScaleData(GenericParticleData.create(0.2f, 0.45f + level.random.nextFloat() * 0.1f, 0).setEasing(Easing.QUINTIC_IN, Easing.CUBIC_IN_OUT).build())
                 .setSpinData(SpinParticleData.create(0, 0.2f, 0).setEasing(Easing.CUBIC_IN, Easing.EXPO_IN).build())
                 .setColorData(ColorParticleData.create(color, endColor).setEasing(Easing.BOUNCE_IN_OUT).setCoefficient(0.5f).build())
                 .setLifetime(25)

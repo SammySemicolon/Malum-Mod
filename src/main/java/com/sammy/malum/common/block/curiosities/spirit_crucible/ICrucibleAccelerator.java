@@ -11,9 +11,11 @@ public interface ICrucibleAccelerator {
     default boolean canStartAccelerating() {
         return true;
     }
+
     default boolean canAccelerate() {
         return true;
     }
+
     IAccelerationTarget getTarget();
 
     void setTarget(IAccelerationTarget target);

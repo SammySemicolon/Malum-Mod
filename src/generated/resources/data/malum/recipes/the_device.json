@@ -1,10 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "XYX",
-    "YXY",
-    "XYX"
-  ],
+  "category": "misc",
   "key": {
     "X": {
       "item": "malum:twisted_rock"
@@ -13,7 +9,13 @@
       "item": "malum:tainted_rock"
     }
   },
+  "pattern": [
+    "XYX",
+    "YXY",
+    "XYX"
+  ],
   "result": {
     "item": "malum:the_device"
-  }
+  },
+  "show_notification": false
 }

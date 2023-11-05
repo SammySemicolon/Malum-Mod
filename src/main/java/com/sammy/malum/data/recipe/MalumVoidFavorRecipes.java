@@ -1,14 +1,15 @@
 package com.sammy.malum.data.recipe;
 
-import com.sammy.malum.data.recipe.builder.*;
-import com.sammy.malum.registry.common.item.*;
-import net.minecraft.data.*;
-import net.minecraft.data.recipes.*;
-import net.minecraft.world.item.*;
-import net.minecraft.world.item.crafting.*;
-import net.minecraftforge.common.*;
+import com.sammy.malum.data.recipe.builder.VoidFavorRecipeBuilder;
+import com.sammy.malum.registry.common.item.ItemRegistry;
+import net.minecraft.data.PackOutput;
+import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.RecipeProvider;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraftforge.common.Tags;
 
-import java.util.function.*;
+import java.util.function.Consumer;
 
 public class MalumVoidFavorRecipes extends RecipeProvider {
     public MalumVoidFavorRecipes(PackOutput generatorIn) {
@@ -20,7 +21,9 @@ public class MalumVoidFavorRecipes extends RecipeProvider {
         new VoidFavorRecipeBuilder(Ingredient.of(Tags.Items.RAW_MATERIALS), ItemRegistry.RAW_SOULSTONE.get(), 1)
                 .build(consumer);
 
-        new VoidFavorRecipeBuilder(Ingredient.of(Tags.Items.STORAGE_BLOCKS_IRON), ItemRegistry.ANOMALOUS_SNARE.get(), 1)
+        new VoidFavorRecipeBuilder(Ingredient.of(Tags.Items.STORAGE_BLOCKS_IRON), ItemRegistry.ANOMALOUS_DESIGN.get(), 1)
+                .build(consumer);
+        new VoidFavorRecipeBuilder(Ingredient.of(ItemRegistry.COMPLETE_DESIGN.get()), ItemRegistry.FUSED_CONSCIOUSNESS.get(), 1)
                 .build(consumer);
 
         new VoidFavorRecipeBuilder(Ingredient.of(ItemRegistry.PROCESSED_SOULSTONE.get()), ItemRegistry.NULL_SLATE.get(), 1)

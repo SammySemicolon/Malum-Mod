@@ -1,15 +1,10 @@
 package com.sammy.malum.common.item.curiosities.curios.rotten;
 
-import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
-import com.sammy.malum.common.item.curiosities.curios.*;
-import com.sammy.malum.registry.common.SoundRegistry;
-import com.sammy.malum.registry.common.MobEffectRegistry;
+import com.sammy.malum.common.item.curiosities.curios.MalumCurioItem;
 import com.sammy.malum.core.systems.item.IMalumEventResponderItem;
-import net.minecraft.*;
-import net.minecraft.network.chat.*;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
+import com.sammy.malum.registry.common.MobEffectRegistry;
+import com.sammy.malum.registry.common.SoundRegistry;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffect;
@@ -18,15 +13,10 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import org.jetbrains.annotations.*;
-import team.lodestar.lodestone.helpers.*;
-import top.theillusivec4.curios.api.*;
-
-import java.awt.*;
-import java.util.*;
-import java.util.List;
+import team.lodestar.lodestone.helpers.EntityHelper;
+import top.theillusivec4.curios.api.SlotContext;
 
 public class CurioStarvedBelt extends MalumCurioItem implements IMalumEventResponderItem {
 
@@ -45,9 +35,9 @@ public class CurioStarvedBelt extends MalumCurioItem implements IMalumEventRespo
         MobEffect gluttony = MobEffectRegistry.GLUTTONY.get();
         MobEffectInstance effect = collector.getEffect(gluttony);
         if (effect == null) {
-            collector.addEffect(new MobEffectInstance(gluttony, 100+(int)(arcaneResonance*100), 0, true, true, true));
+            collector.addEffect(new MobEffectInstance(gluttony, 100 + (int) (arcaneResonance * 100), 0, true, true, true));
         } else {
-            EntityHelper.extendEffect(effect, collector, 50, 200+(int)(arcaneResonance*200));
+            EntityHelper.extendEffect(effect, collector, 50, 200 + (int) (arcaneResonance * 200));
             EntityHelper.amplifyEffect(effect, collector, 1, 9);
         }
         Level level = collector.level();

@@ -1,6 +1,6 @@
 package com.sammy.malum.common.entity;
 
-import com.sammy.malum.core.systems.spirit.*;
+import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import com.sammy.malum.registry.common.SpiritTypeRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -30,7 +30,7 @@ public abstract class FloatingEntity extends Entity {
 
     protected static final EntityDataAccessor<String> DATA_SPIRIT = SynchedEntityData.defineId(FloatingEntity.class, EntityDataSerializers.STRING);
     public final TrailPointBuilder trailPointBuilder = TrailPointBuilder.create(10);
-    public MalumSpiritType spiritType = SpiritTypeRegistry.SACRED_SPIRIT;
+    protected MalumSpiritType spiritType = SpiritTypeRegistry.ARCANE_SPIRIT;
     public int maxAge;
     public int age;
     public float moveTime;
@@ -43,9 +43,29 @@ public abstract class FloatingEntity extends Entity {
         this.hoverStart = (float) (Math.random() * Math.PI * 2.0D);
     }
 
+    public MalumSpiritType getSpiritType() {
+        return spiritType;
+    }
+    public void setSpirit(MalumSpiritType spiritType) {
+        setSpirit(spiritType.identifier);
+    }
+    public void setSpirit(String spiritIdentifier) {
+        this.getEntityData().set(DATA_SPIRIT, spiritIdentifier);
+    }
+
+    @Override
+    public Packet<ClientGamePacketListener> getAddEntityPacket() {
+        return NetworkHooks.getEntitySpawningPacket(this);
+    }
+
+    @Override
+    public boolean isNoGravity() {
+        return true;
+    }
+
     @Override
     protected void defineSynchedData() {
-        this.getEntityData().define(DATA_SPIRIT, SpiritTypeRegistry.SACRED_SPIRIT.identifier);
+        this.getEntityData().define(DATA_SPIRIT, SpiritTypeRegistry.ARCANE_SPIRIT.identifier);
     }
 
     @Override
@@ -64,7 +84,7 @@ public abstract class FloatingEntity extends Entity {
         maxAge = compound.getInt("maxAge");
         moveTime = compound.getFloat("moveTime");
         windUp = compound.getFloat("windUp");
-        spiritType = SpiritTypeRegistry.SPIRITS.get(compound.getString("spiritType"));
+        getEntityData().set(DATA_SPIRIT, compound.getString("spiritType"));
     }
 
     @Override
@@ -96,7 +116,7 @@ public abstract class FloatingEntity extends Entity {
     }
 
     public void trackPastPositions() {
-        trailPointBuilder.addTrailPoint(position().add(0, getYOffset(0)+0.25f, 0f));
+        trailPointBuilder.addTrailPoint(position().add(0, getYOffset(0) + 0.25f, 0f));
         trailPointBuilder.tickTrailPoints();
     }
 
@@ -150,20 +170,10 @@ public abstract class FloatingEntity extends Entity {
     }
 
     public float getRotation(float partialTicks) {
-        return ((float) age + partialTicks) / 20.0F + getHoverStart(partialTicks)/2f;
+        return ((float) age + partialTicks) / 20.0F + getHoverStart(partialTicks) / 2f;
     }
 
     public float getHoverStart(float partialTicks) {
         return hoverStart + (1 - Easing.SINE_OUT.ease(Math.min(1, (age + partialTicks) / 60f), 0, 1, 1)) * 0.35f;
-    }
-
-    @Override
-    public Packet<ClientGamePacketListener> getAddEntityPacket() {
-        return NetworkHooks.getEntitySpawningPacket(this);
-    }
-
-    @Override
-    public boolean isNoGravity() {
-        return true;
     }
 }

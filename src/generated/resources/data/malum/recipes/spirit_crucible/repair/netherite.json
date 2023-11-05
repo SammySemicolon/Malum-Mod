@@ -1,12 +1,12 @@
 {
   "type": "malum:spirit_repair",
-  "itemIdRegex": "netherite_.+",
-  "modIdRegex": "",
   "durabilityPercentage": 0.5,
   "inputs": [],
+  "itemIdRegex": "netherite_.+",
+  "modIdRegex": "",
   "repairMaterial": {
-    "tag": "forge:ingots/netherite",
-    "count": 1
+    "count": 1,
+    "tag": "forge:ingots/netherite"
   },
   "spirits": [
     {

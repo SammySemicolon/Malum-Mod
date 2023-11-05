@@ -1,19 +1,21 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "C": {
+      "item": "minecraft:cobblestone"
+    },
+    "Q": {
+      "tag": "forge:gems/quartz"
+    }
+  },
   "pattern": [
     "CQ",
     "QC"
   ],
-  "key": {
-    "Q": {
-      "tag": "forge:gems/quartz"
-    },
-    "C": {
-      "item": "minecraft:cobblestone"
-    }
-  },
   "result": {
-    "item": "minecraft:diorite",
-    "count": 2
-  }
+    "count": 2,
+    "item": "minecraft:diorite"
+  },
+  "show_notification": true
 }

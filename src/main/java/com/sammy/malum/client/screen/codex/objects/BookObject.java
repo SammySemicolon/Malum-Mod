@@ -1,7 +1,6 @@
 package com.sammy.malum.client.screen.codex.objects;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.sammy.malum.client.screen.codex.*;
+import com.sammy.malum.client.screen.codex.AbstractProgressionCodexScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 

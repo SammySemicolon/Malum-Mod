@@ -1,12 +1,18 @@
 package com.sammy.malum.registry.common;
 
-import com.sammy.malum.visual_effects.networked.*;
-import com.sammy.malum.visual_effects.networked.altar.*;
-import com.sammy.malum.visual_effects.networked.blight.*;
-import com.sammy.malum.visual_effects.networked.generic.*;
-import com.sammy.malum.visual_effects.networked.weeping_well.*;
+import com.sammy.malum.visual_effects.networked.ParticleEffectType;
+import com.sammy.malum.visual_effects.networked.SpiritMoteCreationParticleEffect;
+import com.sammy.malum.visual_effects.networked.altar.SpiritAltarCraftParticleEffect;
+import com.sammy.malum.visual_effects.networked.altar.SpiritAltarEatItemParticleEffect;
+import com.sammy.malum.visual_effects.networked.blight.BlightingMistParticleEffect;
+import com.sammy.malum.visual_effects.networked.generic.DrippingSmokeParticleEffect;
+import com.sammy.malum.visual_effects.networked.generic.HexingSmokeParticleEffect;
+import com.sammy.malum.visual_effects.networked.generic.RisingSparklesParticleEffect;
+import com.sammy.malum.visual_effects.networked.weeping_well.WeepingWellRadianceParticleEffect;
+import com.sammy.malum.visual_effects.networked.weeping_well.WeepingWellReactionParticleEffect;
 
-import java.util.*;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class ParticleEffectTypeRegistry {
 
@@ -28,6 +34,7 @@ public class ParticleEffectTypeRegistry {
 
     //Void vfx
     public static final ParticleEffectType WEEPING_WELL_REACTS = new WeepingWellReactionParticleEffect("weeping_well_reacts");
+    public static final ParticleEffectType WEEPING_WELL_EMITS_RADIANCE = new WeepingWellRadianceParticleEffect("weeping_well_emits_radiance");
 
     public static final ParticleEffectType SPIRIT_MOTE_SPARKLES = new SpiritMoteCreationParticleEffect("spirit_mote_sparkles");
 

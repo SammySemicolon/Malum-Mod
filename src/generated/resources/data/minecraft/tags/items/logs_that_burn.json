@@ -1,4 +1,6 @@
 {
-  "replace": false,
-  "values": []
+  "values": [
+    "#malum:runewood_logs",
+    "#malum:soulwood_logs"
+  ]
 }

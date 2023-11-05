@@ -20,9 +20,6 @@ import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConf
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.registries.RegistryObject;
 
-import java.util.Random;
-import java.util.random.RandomGenerator;
-
 import static com.sammy.malum.registry.common.block.BlockTagRegistry.BLIGHTED_BLOCKS;
 
 public class SoulwoodGrowthBlock extends MalumSaplingBlock {

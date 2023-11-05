@@ -30,16 +30,16 @@ public abstract class MalumRiteType {
 
     public MalumRiteType(String identifier, String basicName, MalumSpiritType... spirits) {
         this(identifier,
-            basicName,
-            ("Twisted " + basicName)
-                .replaceAll("Twisted Greater", "Warped"),
-            spirits);
+                basicName,
+                ("Twisted " + basicName)
+                        .replaceAll("Twisted Greater", "Warped"),
+                spirits);
     }
 
     public MalumRiteType(String identifier, MalumSpiritType... spirits) {
         this(identifier,
-            DataHelper.toTitleCase(identifier, "_"),
-            spirits);
+                DataHelper.toTitleCase(identifier, "_"),
+                spirits);
     }
 
     public String translationIdentifier(boolean corrupt) {

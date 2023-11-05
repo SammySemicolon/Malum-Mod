@@ -1,12 +1,11 @@
 package com.sammy.malum.client.screen.codex.pages;
 
-import com.mojang.blaze3d.vertex.*;
-import com.sammy.malum.*;
-import com.sammy.malum.client.screen.codex.*;
-import com.sammy.malum.core.systems.rites.*;
-import net.minecraft.client.*;
+import com.sammy.malum.MalumMod;
+import com.sammy.malum.client.screen.codex.EntryScreen;
+import com.sammy.malum.core.systems.rites.MalumRiteType;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.network.chat.*;
+import net.minecraft.network.chat.Component;
 
 import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.*;
 

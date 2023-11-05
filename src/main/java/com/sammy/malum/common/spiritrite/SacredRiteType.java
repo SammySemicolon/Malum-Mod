@@ -1,21 +1,28 @@
 package com.sammy.malum.common.spiritrite;
 
-import com.sammy.malum.common.block.curiosities.totem.*;
-import com.sammy.malum.core.systems.rites.*;
-import com.sammy.malum.registry.common.*;
-import com.sammy.malum.visual_effects.networked.data.*;
-import net.minecraft.*;
-import net.minecraft.core.*;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.goal.*;
-import net.minecraft.world.entity.animal.*;
-import net.minecraft.world.entity.monster.*;
-import net.minecraft.world.level.block.*;
+import com.sammy.malum.common.block.curiosities.totem.TotemBaseBlockEntity;
+import com.sammy.malum.core.systems.rites.EntityAffectingRiteEffect;
+import com.sammy.malum.core.systems.rites.MalumRiteEffect;
+import com.sammy.malum.core.systems.rites.MalumRiteType;
+import com.sammy.malum.registry.common.ParticleEffectTypeRegistry;
+import com.sammy.malum.visual_effects.networked.data.ColorEffectData;
+import net.minecraft.Util;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.goal.EatBlockGoal;
+import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.animal.Bee;
+import net.minecraft.world.entity.animal.Chicken;
+import net.minecraft.world.entity.animal.Sheep;
+import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.level.block.Blocks;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
-import static com.sammy.malum.registry.common.SpiritTypeRegistry.*;
-import static net.minecraft.world.entity.ai.goal.EatBlockGoal.*;
+import static com.sammy.malum.registry.common.SpiritTypeRegistry.ARCANE_SPIRIT;
+import static com.sammy.malum.registry.common.SpiritTypeRegistry.SACRED_SPIRIT;
+import static net.minecraft.world.entity.ai.goal.EatBlockGoal.IS_TALL_GRASS;
 
 public class SacredRiteType extends MalumRiteType {
 

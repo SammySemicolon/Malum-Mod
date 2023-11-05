@@ -12,30 +12,30 @@ import net.minecraft.world.entity.player.Player;
 
 public class HeadOverlayModel extends EntityModel<Player> {
 
-	public static ModelLayerLocation LAYER = new ModelLayerLocation(MalumMod.malumPath("head_overlay"), "main");
-	public final ModelPart overlay;
+    public static ModelLayerLocation LAYER = new ModelLayerLocation(MalumMod.malumPath("head_overlay"), "main");
+    public final ModelPart overlay;
 
-	public HeadOverlayModel(ModelPart root) {
-		this.overlay = root.getChild("overlay");
-	}
+    public HeadOverlayModel(ModelPart root) {
+        this.overlay = root.getChild("overlay");
+    }
 
-	public static LayerDefinition createBodyLayer() {
-		MeshDefinition meshdefinition = new MeshDefinition();
-		PartDefinition partdefinition = meshdefinition.getRoot();
+    public static LayerDefinition createBodyLayer() {
+        MeshDefinition meshdefinition = new MeshDefinition();
+        PartDefinition partdefinition = meshdefinition.getRoot();
 
-		PartDefinition overlay = partdefinition.addOrReplaceChild("overlay", CubeListBuilder.create().texOffs(32, 0).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, new CubeDeformation(0.51F))
-				.texOffs(0, 0).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, new CubeDeformation(0.001F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+        PartDefinition overlay = partdefinition.addOrReplaceChild("overlay", CubeListBuilder.create().texOffs(32, 0).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, new CubeDeformation(0.51F))
+                .texOffs(0, 0).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, new CubeDeformation(0.001F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-		return LayerDefinition.create(meshdefinition, 64, 64);
-	}
+        return LayerDefinition.create(meshdefinition, 64, 64);
+    }
 
-	@Override
-	public void setupAnim(Player entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+    @Override
+    public void setupAnim(Player entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 
-	}
+    }
 
-	@Override
-	public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-		overlay.render(poseStack, buffer, packedLight, packedOverlay);
-	}
+    @Override
+    public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+        overlay.render(poseStack, buffer, packedLight, packedOverlay);
+    }
 }

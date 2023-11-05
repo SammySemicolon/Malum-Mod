@@ -1,18 +1,26 @@
 package com.sammy.malum.registry.common;
 
-import com.sammy.malum.*;
-import com.sammy.malum.common.packets.*;
-import com.sammy.malum.common.packets.particle.*;
-import com.sammy.malum.common.packets.particle.curiosities.altar.*;
-import com.sammy.malum.common.packets.particle.curiosities.blight.*;
-import com.sammy.malum.common.packets.particle.curiosities.nitrate.*;
+import com.sammy.malum.MalumMod;
+import com.sammy.malum.common.packets.ParticleEffectPacket;
+import com.sammy.malum.common.packets.SyncLivingCapabilityDataPacket;
+import com.sammy.malum.common.packets.SyncMalumPlayerCapabilityDataPacket;
+import com.sammy.malum.common.packets.VoidRejectionPacket;
+import com.sammy.malum.common.packets.particle.SuccessfulSoulHarvestParticlePacket;
+import com.sammy.malum.common.packets.particle.curiosities.altar.AltarConsumeParticlePacket;
+import com.sammy.malum.common.packets.particle.curiosities.altar.AltarCraftParticlePacket;
+import com.sammy.malum.common.packets.particle.curiosities.blight.BlightMistParticlePacket;
+import com.sammy.malum.common.packets.particle.curiosities.blight.BlightTransformItemParticlePacket;
+import com.sammy.malum.common.packets.particle.curiosities.nitrate.EthericNitrateParticlePacket;
+import com.sammy.malum.common.packets.particle.curiosities.nitrate.VividNitrateBounceParticlePacket;
 import com.sammy.malum.common.packets.particle.curiosities.rite.*;
-import com.sammy.malum.common.packets.particle.curiosities.rite.generic.*;
-import net.minecraftforge.eventbus.api.*;
-import net.minecraftforge.fml.common.*;
-import net.minecraftforge.fml.event.lifecycle.*;
-import net.minecraftforge.network.*;
-import net.minecraftforge.network.simple.*;
+import com.sammy.malum.common.packets.particle.curiosities.rite.generic.BlockSparkleParticlePacket;
+import com.sammy.malum.common.packets.particle.curiosities.rite.generic.MajorEntityEffectParticlePacket;
+import com.sammy.malum.common.packets.particle.curiosities.rite.generic.TotemPoleActivationEffectPacket;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.network.NetworkRegistry;
+import net.minecraftforge.network.simple.SimpleChannel;
 
 @SuppressWarnings("unused")
 @Mod.EventBusSubscriber(modid = MalumMod.MALUM, bus = Mod.EventBusSubscriber.Bus.MOD)
