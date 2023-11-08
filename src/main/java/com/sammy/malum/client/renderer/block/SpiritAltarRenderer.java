@@ -29,17 +29,19 @@ public class SpiritAltarRenderer implements BlockEntityRenderer<SpiritAltarBlock
         ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
         LodestoneBlockEntityInventory inventory = blockEntityIn.spiritInventory;
         int spiritsRendered = 0;
-        for (int i = 0; i < inventory.slotCount; i++) {
-            ItemStack item = inventory.getStackInSlot(i);
-            if (item.getItem() instanceof SpiritShardItem shardItem) {
-                poseStack.pushPose();
-                Vector3f offset = new Vector3f(blockEntityIn.getSpiritItemOffset(spiritsRendered++, partialTicks));
-                poseStack.translate(offset.x(), offset.y(), offset.z());
-                FloatingItemEntityRenderer.renderSpiritGlimmer(poseStack, shardItem.type, partialTicks);
-                poseStack.mulPose(Vector3f.YP.rotationDegrees(((level.getGameTime() % 360) + partialTicks) * 3));
-                poseStack.scale(0.5f, 0.5f, 0.5f);
-                itemRenderer.renderStatic(item, ItemTransforms.TransformType.FIXED, combinedLightIn, NO_OVERLAY, poseStack, bufferIn, 0);
-                poseStack.popPose();
+        if (!inventory.isEmpty()) {
+            for (int i = 0; i < inventory.slotCount; i++) {
+                ItemStack item = inventory.getStackInSlot(i);
+                if (item.getItem() instanceof SpiritShardItem shardItem) {
+                    poseStack.pushPose();
+                    Vector3f offset = new Vector3f(blockEntityIn.getSpiritItemOffset(spiritsRendered++, partialTicks));
+                    poseStack.translate(offset.x(), offset.y(), offset.z());
+                    FloatingItemEntityRenderer.renderSpiritGlimmer(poseStack, shardItem.type, partialTicks);
+                    poseStack.mulPose(Vector3f.YP.rotationDegrees(((level.getGameTime() % 360) + partialTicks) * 3));
+                    poseStack.scale(0.5f, 0.5f, 0.5f);
+                    itemRenderer.renderStatic(item, ItemTransforms.TransformType.FIXED, combinedLightIn, NO_OVERLAY, poseStack, bufferIn, 0);
+                    poseStack.popPose();
+                }
             }
         }
         ItemStack stack = blockEntityIn.inventory.getStackInSlot(0);

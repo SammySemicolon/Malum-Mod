@@ -7,6 +7,7 @@ import com.sammy.malum.visual_effects.*;
 import net.minecraft.core.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.phys.*;
+import net.minecraftforge.api.distmarker.*;
 import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.setup.*;
 import team.lodestar.lodestone.systems.easing.*;
@@ -39,6 +40,7 @@ public class RunewoodObeliskBlockEntity extends ObeliskCoreBlockEntity implement
         return 0.25f;
     }
 
+    @OnlyIn(Dist.CLIENT)
     @Override
     public void addParticles(SpiritAltarBlockEntity blockEntity, MalumSpiritType activeSpiritType) {
         SpiritAltarParticleEffects.runewoodObeliskParticles(this, blockEntity, activeSpiritType);

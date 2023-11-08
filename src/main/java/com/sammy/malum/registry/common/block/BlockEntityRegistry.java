@@ -11,7 +11,7 @@ import com.sammy.malum.common.block.curiosities.totem.TotemPoleBlock;
 import com.sammy.malum.common.block.ether.EtherBlockEntity;
 import com.sammy.malum.common.block.curiosities.weeping_well.VoidConduitBlockEntity;
 import com.sammy.malum.common.block.curiosities.weavers_workbench.WeaversWorkbenchBlockEntity;
-import com.sammy.malum.common.block.curiosities.spirit_crucible.SpiritCatalyzerCoreBlockEntity;
+import com.sammy.malum.common.block.curiosities.spirit_crucible.catalyzer.SpiritCatalyzerCoreBlockEntity;
 import com.sammy.malum.common.block.curiosities.spirit_crucible.SpiritCrucibleCoreBlockEntity;
 import com.sammy.malum.common.block.curiosities.obelisk.BrilliantObeliskBlockEntity;
 import com.sammy.malum.common.block.curiosities.obelisk.RunewoodObeliskBlockEntity;

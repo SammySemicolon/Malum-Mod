@@ -2,7 +2,9 @@ package com.sammy.malum.client.renderer.block;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
+import com.sammy.malum.client.renderer.entity.*;
 import com.sammy.malum.common.block.curiosities.spirit_crucible.SpiritCrucibleCoreBlockEntity;
+import com.sammy.malum.common.item.spirit.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
@@ -30,10 +32,11 @@ public class SpiritCrucibleRenderer implements BlockEntityRenderer<SpiritCrucibl
         if (!inventory.isEmpty()) {
             for (int i = 0; i < inventory.slotCount; i++) {
                 ItemStack item = inventory.getStackInSlot(i);
-                if (!item.isEmpty()) {
+                if (item.getItem() instanceof SpiritShardItem shardItem) {
                     poseStack.pushPose();
-                    Vector3f offset = new Vector3f(blockEntityIn.spiritOffset(spiritsRendered++, partialTicks));
+                    Vector3f offset = new Vector3f(blockEntityIn.getSpiritItemOffset(spiritsRendered++, partialTicks));
                     poseStack.translate(offset.x(), offset.y(), offset.z());
+                    FloatingItemEntityRenderer.renderSpiritGlimmer(poseStack, shardItem.type, partialTicks);
                     poseStack.mulPose(Vector3f.YP.rotationDegrees(((level.getGameTime() % 360) + partialTicks) * 3));
                     poseStack.scale(0.5f, 0.5f, 0.5f);
                     itemRenderer.renderStatic(item, ItemTransforms.TransformType.FIXED, combinedLightIn, NO_OVERLAY, poseStack, bufferIn, 0);
@@ -44,7 +47,7 @@ public class SpiritCrucibleRenderer implements BlockEntityRenderer<SpiritCrucibl
         ItemStack stack = blockEntityIn.inventory.getStackInSlot(0);
         if (!stack.isEmpty()) {
             poseStack.pushPose();
-            Vec3 offset = blockEntityIn.itemOffset();
+            Vec3 offset = blockEntityIn.getCentralItemOffset();
             poseStack.translate(offset.x, offset.y, offset.z);
             poseStack.mulPose(Vector3f.YP.rotationDegrees(((level.getGameTime() % 360) + partialTicks) * 3));
             poseStack.scale(0.45f, 0.45f, 0.45f);

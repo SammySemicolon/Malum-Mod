@@ -3,6 +3,7 @@ package com.sammy.malum.registry.common.item;
 import com.sammy.malum.*;
 import com.sammy.malum.common.block.curiosities.obelisk.*;
 import com.sammy.malum.common.block.curiosities.spirit_crucible.*;
+import com.sammy.malum.common.block.curiosities.spirit_crucible.catalyzer.*;
 import com.sammy.malum.common.block.nature.*;
 import com.sammy.malum.common.item.*;
 import com.sammy.malum.common.item.cosmetic.curios.*;

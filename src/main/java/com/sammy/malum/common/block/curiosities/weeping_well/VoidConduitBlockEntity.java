@@ -94,7 +94,7 @@ public class VoidConduitBlockEntity extends LodestoneBlockEntity {
                     else {
                         Item result = spitOutItem(stack);
                         if (result.equals(ItemRegistry.FUSED_CONSCIOUSNESS.get())) {
-                            lingeringRadiance = 200;
+                            lingeringRadiance = 400;
                             particleEffectType = ParticleEffectTypeRegistry.WEEPING_WELL_EMITS_RADIANCE;
                         }
                     }
@@ -112,7 +112,7 @@ public class VoidConduitBlockEntity extends LodestoneBlockEntity {
             }
         }
         else {
-            if (lingeringRadiance == 0) {
+            if (lingeringRadiance <= 100) {
                 WeepingWellParticleEffects.passiveWeepingWellParticles(this);
             } else {
                 RadiantParticleEffects.radiantWeepingWellParticles(this);

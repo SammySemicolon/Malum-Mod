@@ -6,7 +6,6 @@ import team.lodestar.lodestone.systems.particle.builder.*;
 
 import javax.annotation.*;
 import java.util.function.*;
-import java.util.logging.*;
 
 public class ParticleEffectSpawner<T extends AbstractWorldParticleBuilder<T, ?>> {
 
@@ -48,5 +47,8 @@ public class ParticleEffectSpawner<T extends AbstractWorldParticleBuilder<T, ?>>
         if (bloomSpawner != null) {
             bloomSpawner.accept(bloomBuilder);
         }
+    }
+    public void spawnParticlesRaw() {
+        particleSpawner.accept(builder);
     }
 }

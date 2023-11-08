@@ -80,6 +80,7 @@ public class SpiritAltarParticleEffects {
                     if (random.nextFloat() < 0.85f) {
                         var lightSpecs = SpiritLightSpecs.spiritLightSpecs(level, spiritPosition, activeSpiritType);
                         lightSpecs.getBuilder().multiplyLifetime(0.8f).setMotion(velocity.scale(1.5f)).modifyData(WorldParticleBuilder::getScaleData, d -> d.multiplyValue(1.6f));
+                        lightSpecs.getBloomBuilder().setMotion(velocity);
                         lightSpecs.spawnParticles();
                     }
                 }

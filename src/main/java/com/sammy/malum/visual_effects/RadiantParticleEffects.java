@@ -20,8 +20,6 @@ import java.util.*;
 import java.util.List;
 import java.util.function.*;
 
-import static com.sammy.malum.visual_effects.WeepingWellParticleEffects.getWeepingWellSmokeColor;
-
 public class RadiantParticleEffects {
     public static final java.util.List<Color> RADIANT_COLORS = List.of(
             new Color(179, 35, 218),

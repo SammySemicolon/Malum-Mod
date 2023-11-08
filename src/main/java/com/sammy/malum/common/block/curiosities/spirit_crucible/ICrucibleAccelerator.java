@@ -1,9 +1,7 @@
 package com.sammy.malum.common.block.curiosities.spirit_crucible;
 
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.phys.Vec3;
-
-import java.awt.*;
+import com.sammy.malum.common.block.curiosities.spirit_crucible.catalyzer.*;
+import com.sammy.malum.core.systems.spirit.*;
 
 public interface ICrucibleAccelerator {
     CrucibleAcceleratorType getAcceleratorType();
@@ -11,67 +9,15 @@ public interface ICrucibleAccelerator {
     default boolean canStartAccelerating() {
         return true;
     }
-    default boolean canAccelerate() {
+
+    default boolean canContinueAccelerating() {
         return true;
     }
-    IAccelerationTarget getTarget();
 
-    void setTarget(IAccelerationTarget target);
+    ICatalyzerAccelerationTarget getTarget();
 
-    default void addParticles(BlockPos targetPos, Vec3 targetItemPos) {
-    }
+    void setTarget(ICatalyzerAccelerationTarget target);
 
-    default void addParticles(Color color, Color endColor, float alpha, BlockPos targetPos, Vec3 targetItemPos) {
-
-    }
-
-    abstract class CrucibleAcceleratorType {
-        public final int maximumEntries;
-        public final String type;
-
-        public CrucibleAcceleratorType(int maximumEntries, String type) {
-            this.maximumEntries = maximumEntries;
-            this.type = type;
-        }
-
-        public float getDamageChance(int entries) {
-            return 0;
-        }
-
-        public int getMaximumDamage(int entries) {
-            return 0;
-        }
-
-        public float getAcceleration(int entries) {
-            return 0;
-        }
-    }
-
-    class ArrayCrucibleAcceleratorType extends CrucibleAcceleratorType {
-        public final float[] damageChance;
-        public final int[] maximumDamage;
-        public final float[] acceleration;
-
-        public ArrayCrucibleAcceleratorType(String type, float[] damageChance, int[] maximumDamage, float[] acceleration) {
-            super(damageChance.length, type);
-            this.damageChance = damageChance;
-            this.maximumDamage = maximumDamage;
-            this.acceleration = acceleration;
-        }
-
-        @Override
-        public float getDamageChance(int entries) {
-            return damageChance[entries - 1];
-        }
-
-        @Override
-        public int getMaximumDamage(int entries) {
-            return maximumDamage[entries - 1];
-        }
-
-        @Override
-        public float getAcceleration(int entries) {
-            return acceleration[entries - 1];
-        }
+    default void addParticles(ICatalyzerAccelerationTarget target, MalumSpiritType spiritType) {
     }
 }
