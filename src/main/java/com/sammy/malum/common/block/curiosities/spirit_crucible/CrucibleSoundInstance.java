@@ -14,7 +14,7 @@ public class CrucibleSoundInstance extends LodestoneBlockEntitySoundInstance<Spi
 
     @Override
     public void tick() {
-        if (blockEntity.focusingRecipe != null || blockEntity.repairRecipe != null) {
+        if (blockEntity.recipe != null) {
             super.tick();
             return;
         }

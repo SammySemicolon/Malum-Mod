@@ -28,8 +28,7 @@ public class SpiritCrucibleCoreBlock<T extends SpiritCrucibleCoreBlockEntity> ex
 
     @Override
     public int getAnalogOutputSignal(BlockState pState, Level pLevel, BlockPos pPos) {
-        BlockEntity be = pLevel.getBlockEntity(pPos);
-        if (be instanceof SpiritCrucibleCoreBlockEntity crucible) {
+        if (pLevel.getBlockEntity(pPos) instanceof SpiritCrucibleCoreBlockEntity crucible) {
             return ItemHandlerHelper.calcRedstoneFromInventory(crucible.getCapability(ForgeCapabilities.ITEM_HANDLER).orElse(new EmptyHandler()));
         }
         return 0;
