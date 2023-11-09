@@ -85,7 +85,7 @@ public class RadiantParticleEffects {
             int spinDirection = (rand.nextBoolean() ? 1 : -1);
             WorldParticleBuilder.create(LodestoneParticleRegistry.SPARKLE_PARTICLE)
                     .setTransparencyData(GenericParticleData.create(0.1f, 0.4f, 0).setEasing(Easing.QUAD_IN, Easing.CIRC_IN).build())
-                    .setSpinData(SpinParticleData.create((0.125f + rand.nextFloat() * 0.075f) * spinDirection).setSpinOffset(spinOffset).build())
+                    .setSpinData(SpinParticleData.create((0.05f + rand.nextFloat() * 0.025f) * spinDirection).setSpinOffset(spinOffset).build())
                     .setScaleData(GenericParticleData.create(3f, 5f, 0.6f).setEasing(Easing.QUARTIC_OUT, Easing.SINE_IN).build())
                     .setColorData(colorData)
                     .setLifeDelay(lifeDelay)

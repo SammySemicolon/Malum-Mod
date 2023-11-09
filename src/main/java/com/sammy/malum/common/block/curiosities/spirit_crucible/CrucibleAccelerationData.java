@@ -23,7 +23,7 @@ public class CrucibleAccelerationData {
         Map<CrucibleAcceleratorType, Integer> typeCount = new HashMap<>();
         for (ICrucibleAccelerator accelerator : nearbyAccelerators) {
             if (accelerator.canStartAccelerating()) {
-                if (accelerator.getTarget() == null || accelerator.getTarget().equals(target)) {
+                if (accelerator.getTarget() == null || accelerator.getTarget().equals(target) || (accelerator.getTarget() != null && !accelerator.getTarget().canBeAccelerated())) {
                     var acceleratorType = accelerator.getAcceleratorType();
                     int max = acceleratorType.maximumEntries;
                     int amount = typeCount.getOrDefault(acceleratorType, 0);
@@ -79,6 +79,7 @@ public class CrucibleAccelerationData {
                     typeCount.compute(accelerator.getAcceleratorType(), (type, count) -> count == null ? 1 : count + 1);
                     data.addAccelerator(accelerator);
                     accelerator.setTarget(target);
+                    BlockHelper.updateState(level, pos);
                 }
             }
         }
