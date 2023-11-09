@@ -47,7 +47,7 @@ public class SpiritCatalyzerRenderer implements BlockEntityRenderer<SpiritCataly
             itemRenderer.renderStatic(stack, ItemDisplayContext.FIXED, combinedLightIn, NO_OVERLAY, poseStack, bufferIn, level, 0);
             poseStack.popPose();
         }
-        if (blockEntityIn.getTarget() != null) {
+        if (blockEntityIn.getTarget() != null && blockEntityIn.intensity != null) {
             poseStack.pushPose();
             final BlockPos blockPos = blockEntityIn.getBlockPos();
             poseStack.translate(-blockPos.getX(), -blockPos.getY(), -blockPos.getZ());
@@ -66,7 +66,6 @@ public class SpiritCatalyzerRenderer implements BlockEntityRenderer<SpiritCataly
         Vec3 startPos = catalyzer.getItemOffset().add(catalyzerPos.getX(), catalyzerPos.getY(), catalyzerPos.getZ());
         Vec3 targetPos = catalyzer.getTarget().getAccelerationPoint();
         Vec3 difference = targetPos.subtract(startPos);
-        MalumMod.LOGGER.info(intensity);
         float distance = 0.35f + Easing.SINE_OUT.ease(intensity / 60f, 0, 0.35f, 1);
         float alpha = intensity / 60f;
         Vec3 midPoint = startPos.add(difference.scale(distance));

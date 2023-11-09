@@ -39,8 +39,8 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity impleme
 
     public LodestoneBlockEntityInventory inventory;
     public int burnTicks;
-    ICatalyzerAccelerationTarget target;
     public HashMap<MalumSpiritType, Integer> intensity;
+    protected ICatalyzerAccelerationTarget target;
 
     public SpiritCatalyzerCoreBlockEntity(BlockEntityType<? extends SpiritCatalyzerCoreBlockEntity> type, MultiBlockStructure structure, BlockPos pos, BlockState state) {
         super(type, structure, pos, state);
@@ -102,23 +102,23 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity impleme
             }
         }
         if (level.isClientSide) {
+            if (intensity == null) {
+                intensity = new HashMap<>();
+            }
             if (target != null) {
-                if (intensity == null) {
-                    intensity = new HashMap<>();
+                boolean canBeAccelerated = target.canBeAccelerated();
+                MalumSpiritType activeSpiritType = target.getActiveSpiritType();
+                if (activeSpiritType != null) {
+                    intensity.putIfAbsent(activeSpiritType, 0);
+                    if (canBeAccelerated) {
+                        intensity.put(activeSpiritType, Math.min(60, intensity.get(activeSpiritType) + 1));
+                    }
                 }
-                final boolean canBeAccelerated = target.canBeAccelerated();
-                final MalumSpiritType activeSpiritType = target.getActiveSpiritType();
-                intensity.putIfAbsent(activeSpiritType, 0);
                 for (MalumSpiritType spiritType : intensity.keySet()) {
                     if (canBeAccelerated && spiritType.equals(activeSpiritType)) {
                         continue;
                     }
                     intensity.put(spiritType, Math.max(0,intensity.get(spiritType) - 1));
-                }
-                if (activeSpiritType != null) {
-                    if (canBeAccelerated) {
-                        intensity.put(activeSpiritType, Math.min(60, intensity.get(activeSpiritType) + 1));
-                    }
                 }
             }
         }

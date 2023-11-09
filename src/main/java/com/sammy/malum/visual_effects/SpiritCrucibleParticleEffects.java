@@ -5,6 +5,7 @@ import com.sammy.malum.common.block.curiosities.spirit_crucible.catalyzer.*;
 import com.sammy.malum.common.item.spirit.*;
 import com.sammy.malum.common.recipe.*;
 import com.sammy.malum.core.systems.spirit.*;
+import com.sammy.malum.registry.client.*;
 import net.minecraft.core.*;
 import net.minecraft.util.*;
 import net.minecraft.world.item.*;
@@ -14,10 +15,13 @@ import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.setup.*;
 import team.lodestar.lodestone.systems.blockentity.*;
 import team.lodestar.lodestone.systems.easing.*;
+import team.lodestar.lodestone.systems.particle.*;
 import team.lodestar.lodestone.systems.particle.builder.*;
+import team.lodestar.lodestone.systems.particle.data.*;
 import team.lodestar.lodestone.systems.particle.data.spin.*;
 
 import java.util.*;
+import java.util.function.*;
 
 import static com.sammy.malum.visual_effects.SpiritLightSpecs.spiritLightSpecs;
 
@@ -95,6 +99,21 @@ public class SpiritCrucibleParticleEffects {
                     .modifyColorData(c -> c.multiplyCoefficient(0.8f));
             sparkParticles.getBloomBuilder().setMotion(velocity);
             sparkParticles.spawnParticlesRaw();
+        }
+        if (level.getGameTime() % 10L == 0) {
+            velocity = targetPos.subtract(startPos).normalize().scale(0.05f);
+            final Consumer<LodestoneWorldParticleActor> behavior = p -> p.setParticleMotion(p.getParticleSpeed().scale(0.98f));
+            DirectionalParticleBuilder.create(ParticleRegistry.CIRCLE)
+                    .setTransparencyData(GenericParticleData.create(0.6f, 0.2f, 0f).setEasing(Easing.SINE_IN_OUT, Easing.SINE_IN).build())
+                    .setScaleData(GenericParticleData.create(0.15f, 0).setEasing(Easing.SINE_IN_OUT).build())
+                    .setColorData(spiritType.createMainColorData().build())
+                    .setLifetime(60)
+                    .setMotion(velocity)
+                    .setDirection(velocity.normalize())
+                    .enableNoClip()
+                    .setSpritePicker(SimpleParticleOptions.ParticleSpritePicker.RANDOM_SPRITE)
+                    .addTickActor(behavior)
+                    .spawn(level, startPos.x, startPos.y, startPos.z);
         }
     }
 }
