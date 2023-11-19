@@ -207,7 +207,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
                         BlockHelper.updateAndNotifyState(level, worldPosition);
                     }
                 }
-//                progress += 1 + speed;
+                progress += 1 + speed;
                 if (progress >= recipe.time) {
                     craft();
                 }
