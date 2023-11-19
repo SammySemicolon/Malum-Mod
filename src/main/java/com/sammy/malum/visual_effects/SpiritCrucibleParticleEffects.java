@@ -24,6 +24,7 @@ import java.util.*;
 import java.util.function.*;
 
 import static com.sammy.malum.visual_effects.SpiritLightSpecs.spiritLightSpecs;
+import static net.minecraft.util.Mth.nextFloat;
 
 public class SpiritCrucibleParticleEffects {
 
@@ -45,14 +46,14 @@ public class SpiritCrucibleParticleEffects {
             }
         }
         if (recipe != null) {
-            var lightSpecs = spiritLightSpecs(level, itemPos, activeSpiritType, LodestoneParticleRegistry.STAR_PARTICLE);
+            var lightSpecs = spiritLightSpecs(level, itemPos, activeSpiritType, ParticleRegistry.STAR);
             lightSpecs.getBuilder()
                     .setSpinData(SpinParticleData.create(0).setSpinOffset((level.getGameTime() * 0.05f) % 6.28f).setEasing(Easing.CUBIC_IN, Easing.EXPO_IN).build())
-                    .modifyData(WorldParticleBuilder::getScaleData, d -> d.multiplyValue(1.7f))
-                    .modifyData(WorldParticleBuilder::getTransparencyData, d -> d.multiplyValue(0.5f));
+                    .modifyData(WorldParticleBuilder::getScaleData, d -> d.multiplyValue(2f))
+                    .modifyData(WorldParticleBuilder::getTransparencyData, d -> d.multiplyValue(0.25f));
             lightSpecs.getBloomBuilder()
-                    .modifyData(WorldParticleBuilder::getScaleData, d -> d.multiplyValue(1.3f))
-                    .modifyData(WorldParticleBuilder::getTransparencyData, d -> d.multiplyValue(0.75f));
+                    .modifyData(WorldParticleBuilder::getScaleData, d -> d.multiplyValue(2f))
+                    .modifyData(WorldParticleBuilder::getTransparencyData, d -> d.multiplyValue(0.5f));
             lightSpecs.spawnParticles();
         }
 
@@ -101,10 +102,12 @@ public class SpiritCrucibleParticleEffects {
             sparkParticles.spawnParticlesRaw();
         }
         if (level.getGameTime() % 10L == 0) {
-            velocity = targetPos.subtract(startPos).normalize().scale(0.05f);
+            velocity = targetPos.subtract(startPos).normalize().scale(0.02f * targetPos.distanceTo(startPos));
             final Consumer<LodestoneWorldParticleActor> behavior = p -> p.setParticleMotion(p.getParticleSpeed().scale(0.98f));
-            DirectionalParticleBuilder.create(ParticleRegistry.CIRCLE)
-                    .setTransparencyData(GenericParticleData.create(0.6f, 0.2f, 0f).setEasing(Easing.SINE_IN_OUT, Easing.SINE_IN).build())
+            final SpinParticleData spinData = SpinParticleData.createRandomDirection(random, RandomHelper.randomBetween(random, 0.1f, 0.2f)).randomSpinOffset(random).build();
+            DirectionalParticleBuilder.create(ParticleRegistry.HEXAGON)
+                    .setTransparencyData(GenericParticleData.create(0.6f, 0.4f, 0f).setEasing(Easing.SINE_IN_OUT, Easing.SINE_IN).build())
+                    .setSpinData(spinData)
                     .setScaleData(GenericParticleData.create(0.15f, 0).setEasing(Easing.SINE_IN_OUT).build())
                     .setColorData(spiritType.createMainColorData().build())
                     .setLifetime(60)
