@@ -273,7 +273,7 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider implements ICondi
 
         new SpiritInfusionRecipeBuilder(ItemRegistry.ORNATE_NECKLACE.get(), 1, ItemRegistry.NECKLACE_OF_THE_MYSTIC_MIRROR.get(), 1)
                 .addExtraItem(ItemRegistry.RUNEWOOD_PLANKS.get(), 8)
-                .addExtraItem(ItemRegistry.SPECTRAL_OPTIC.get(), 4)
+                .addExtraItem(ItemRegistry.SPECTRAL_OPTIC.get(), 1)
                 .addExtraItem(Items.ENDER_EYE, 1)
                 .addSpirit(SACRED_SPIRIT, 24)
                 .build(consumer);

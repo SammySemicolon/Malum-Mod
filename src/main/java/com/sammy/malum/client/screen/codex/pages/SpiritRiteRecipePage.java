@@ -14,14 +14,12 @@ import team.lodestar.lodestone.setup.*;
 import team.lodestar.lodestone.systems.easing.*;
 import team.lodestar.lodestone.systems.particle.builder.*;
 import team.lodestar.lodestone.systems.particle.data.*;
-import team.lodestar.lodestone.systems.particle.data.color.*;
 import team.lodestar.lodestone.systems.particle.data.spin.*;
 import team.lodestar.lodestone.systems.particle.screen.*;
 
 import java.util.*;
 
 import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.*;
-import static net.minecraft.util.Mth.nextFloat;
 
 public class SpiritRiteRecipePage extends BookPage {
 
@@ -35,11 +33,13 @@ public class SpiritRiteRecipePage extends BookPage {
     }
 
     @Override
-    public void render(Minecraft minecraft, PoseStack poseStack, EntryScreen screen, int mouseX, int mouseY, float partialTicks) {
-        if (ScreenParticleHandler.canSpawnParticles) {
-            RITE_PARTICLES.tick();
+    public void render(Minecraft minecraft, PoseStack poseStack, EntryScreen screen, int mouseX, int mouseY, float partialTicks, boolean isRepeat) {
+        if (!isRepeat) {
+            if (ScreenParticleHandler.canSpawnParticles) {
+                RITE_PARTICLES.tick();
+            }
+            ScreenParticleHandler.renderParticles(RITE_PARTICLES);
         }
-        ScreenParticleHandler.renderParticles(RITE_PARTICLES);
     }
 
     @Override
@@ -72,11 +72,12 @@ public class SpiritRiteRecipePage extends BookPage {
                 float xOffset = 25;
                 float yMotion = RandomHelper.randomBetween(rand, 0.2f, 0.4f) * (rand.nextBoolean() ? -1 : 1);
                 int lifetime = RandomHelper.randomBetween(rand, 40, 80);
-                float yScale = RandomHelper.randomBetween(rand, 0.2f, 0.6f);
+                float scale = RandomHelper.randomBetween(rand, 0.2f, 0.6f);
+                float spin = RandomHelper.randomBetween(rand, 0.2f, 0.4f);
                 ScreenParticleBuilder.create(LodestoneScreenParticleRegistry.WISP, RITE_PARTICLES)
                         .setTransparencyData(GenericParticleData.create(0.04f, 0.4f, 0f).setEasing(Easing.SINE_IN_OUT).build())
-                        .setSpinData(SpinParticleData.create(nextFloat(rand, 0.2f, 0.4f)).setEasing(Easing.EXPO_OUT).build())
-                        .setScaleData(GenericParticleData.create(yScale, 0).build())
+                        .setSpinData(SpinParticleData.create(spin).build())
+                        .setScaleData(GenericParticleData.create(scale, 0).build())
                         .setColorData(spiritType.createMainColorData().setCoefficient(0.25f).build())
                         .setLifetime(lifetime)
                         .setMotion(0, yMotion)

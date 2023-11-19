@@ -20,7 +20,7 @@ public class BookPage {
         return true;
     }
 
-    public void render(Minecraft minecraft, PoseStack poseStack, EntryScreen screen, int mouseX, int mouseY, float partialTicks) {
+    public void render(Minecraft minecraft, PoseStack poseStack, EntryScreen screen, int mouseX, int mouseY, float partialTicks, boolean isRepeat) {
 
     }
 
