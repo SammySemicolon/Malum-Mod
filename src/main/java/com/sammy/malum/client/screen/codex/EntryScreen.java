@@ -74,7 +74,8 @@ public class EntryScreen extends AbstractMalumScreen {
             for (int i = openPages; i < openPages + 2; i++) {
                 if (i < openEntry.pages.size()) {
                     BookPage page = openEntry.pages.get(i);
-                    page.render(minecraft, guiGraphics, this, mouseX, mouseY, partialTicks);
+                    boolean isRepeat = i % 2 != 0 && page.getClass().equals(openEntry.pages.get(i - 1).getClass());
+                    page.render(minecraft, guiGraphics, this, mouseX, mouseY, partialTicks, isRepeat);
                     if (i % 2 == 0) {
                         page.renderLeft(minecraft, guiGraphics, this, mouseX, mouseY, partialTicks);
                     } else {
