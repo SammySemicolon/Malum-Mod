@@ -3,10 +3,10 @@ package com.sammy.malum.common.block.curiosities.totem;
 import com.sammy.malum.common.block.storage.stand.ItemStandBlockEntity;
 import com.sammy.malum.common.packets.particle.curiosities.rite.SpiritRiteActivationEffectPacket;
 import com.sammy.malum.core.helper.SpiritHelper;
+import com.sammy.malum.core.systems.rites.*;
 import com.sammy.malum.registry.common.SoundRegistry;
 import com.sammy.malum.registry.common.SpiritRiteRegistry;
 import com.sammy.malum.registry.common.block.BlockEntityRegistry;
-import com.sammy.malum.core.systems.rites.MalumRiteType;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -57,7 +57,7 @@ public class TotemBaseBlockEntity extends LodestoneBlockEntity {
         if (!level.isClientSide) {
             if (rite != null) {
                 progress++;
-                if (progress >= rite.getRiteTickRate(corrupted)) {
+                if (progress >= rite.getRiteEffect(corrupted).getRiteEffectTickRate()) {
                     if (direction == null) {
                         BlockPos polePos = worldPosition.above(height);
                         if (level.getBlockEntity(polePos) instanceof TotemPoleBlockEntity pole) {
@@ -211,7 +211,7 @@ public class TotemBaseBlockEntity extends LodestoneBlockEntity {
         });
         progress = 0;
         rite.executeRite(this);
-        if (rite.isOneAndDone(corrupted)) {
+        if (rite.effect.category.equals(MalumRiteEffect.MalumRiteEffectCategory.ONE_TIME_EFFECT)) {
             return;
         }
         this.rite = rite;
@@ -219,8 +219,8 @@ public class TotemBaseBlockEntity extends LodestoneBlockEntity {
     }
 
     public void disableOtherRites() {
-        int range = rite.getRiteRadius(corrupted);
-        BlockHelper.getBlockEntitiesStream(TotemBaseBlockEntity.class, level, rite.getRiteEffectCenter(this), range).filter(blockEntity -> !blockEntity.equals(this) && rite.equals(blockEntity.rite) && corrupted == blockEntity.corrupted).forEach(TotemBaseBlockEntity::endRite);
+        int range = rite.getRiteEffect(corrupted).getRiteEffectHorizontalRadius();
+        BlockHelper.getBlockEntitiesStream(TotemBaseBlockEntity.class, level, rite.getRiteEffect(corrupted).getRiteEffectCenter(this), range).filter(blockEntity -> !blockEntity.equals(this) && rite.equals(blockEntity.rite) && corrupted == blockEntity.corrupted).forEach(TotemBaseBlockEntity::endRite);
 
         BlockHelper.getBlockEntitiesStream(TotemBaseBlockEntity.class, level, worldPosition, 10).filter(blockEntity -> !blockEntity.equals(this) && rite.equals(blockEntity.rite) && corrupted == blockEntity.corrupted).forEach(b -> {
             b.tryDisableRite(this);
@@ -228,9 +228,9 @@ public class TotemBaseBlockEntity extends LodestoneBlockEntity {
 
     }
     public void tryDisableRite(TotemBaseBlockEntity target) {
-        int range = rite.getRiteRadius(corrupted);
+        int range = rite.getRiteEffect(corrupted).getRiteEffectHorizontalRadius();
 
-        Collection<TotemBaseBlockEntity> otherTotems = BlockHelper.getBlockEntities(TotemBaseBlockEntity.class, level, rite.getRiteEffectCenter(this), range);
+        Collection<TotemBaseBlockEntity> otherTotems = BlockHelper.getBlockEntities(TotemBaseBlockEntity.class, level, rite.getRiteEffect(corrupted).getRiteEffectCenter(this), range);
         if (otherTotems.contains(target)) {
             endRite();
         }

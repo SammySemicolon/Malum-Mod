@@ -19,50 +19,15 @@ import static net.minecraft.world.entity.ai.goal.EatBlockGoal.*;
 
 public class SacredRiteType extends MalumRiteType {
 
-    public static final Map<Class<? extends Animal>, SacredRiteEntityActor<?>> ACTORS = Util.make(new HashMap<>(), m -> {
-        m.put(Sheep.class, new SacredRiteEntityActor<>(Sheep.class) {
-            @Override
-            public void act(TotemBaseBlockEntity totemBaseBlockEntity, Sheep sheep) {
-                if (sheep.getRandom().nextInt(sheep.isBaby() ? 5 : 25) == 0) {
-                    BlockPos blockpos = sheep.blockPosition();
-                    if (IS_TALL_GRASS.test(sheep.level.getBlockState(blockpos)) || sheep.level.getBlockState(blockpos.below()).is(Blocks.GRASS_BLOCK)) {
-                        EatBlockGoal goal = sheep.eatBlockGoal;
-                        goal.start();
-                        ParticleEffectTypeRegistry.HEXING_SMOKE.createEntityEffect(sheep, new ColorEffectData(SACRED_SPIRIT.getPrimaryColor()));
-                    }
-                }
-            }
-        });
-        m.put(Bee.class, new SacredRiteEntityActor<>(Bee.class) {
-            @Override
-            public void act(TotemBaseBlockEntity totemBaseBlockEntity, Bee bee) {
-                Bee.BeePollinateGoal goal = bee.beePollinateGoal;
-                if (goal.canBeeUse()) {
-                    goal.successfulPollinatingTicks += 40;
-                    goal.tick();
-                    ParticleEffectTypeRegistry.HEXING_SMOKE.createEntityEffect(bee, new ColorEffectData(SACRED_SPIRIT.getPrimaryColor()));
-                }
-            }
-        });
-
-        m.put(Chicken.class, new SacredRiteEntityActor<>(Chicken.class) {
-            @Override
-            public void act(TotemBaseBlockEntity totemBaseBlockEntity, Chicken chicken) {
-                chicken.eggTime -= 80;
-                ParticleEffectTypeRegistry.HEXING_SMOKE.createEntityEffect(chicken, new ColorEffectData(SACRED_SPIRIT.getPrimaryColor()));
-            }
-        });
-    });
-
     public SacredRiteType() {
         super("sacred_rite", ARCANE_SPIRIT, SACRED_SPIRIT, SACRED_SPIRIT);
     }
 
     @Override
     public MalumRiteEffect getNaturalRiteEffect() {
-        return new EntityAffectingRiteEffect() {
+        return new MalumRiteEffect(MalumRiteEffect.MalumRiteEffectCategory.LIVING_ENTITY_EFFECT) {
             @Override
-            public void riteEffect(TotemBaseBlockEntity totemBase) {
+            public void doRiteEffect(TotemBaseBlockEntity totemBase) {
                 getNearbyEntities(totemBase, LivingEntity.class, e -> !(e instanceof Monster)).forEach(e -> {
                     if (e.getHealth() < e.getMaxHealth()) {
                         e.heal(2);
@@ -75,9 +40,10 @@ public class SacredRiteType extends MalumRiteType {
 
     @Override
     public MalumRiteEffect getCorruptedEffect() {
-        return new EntityAffectingRiteEffect() {
+        return new MalumRiteEffect(MalumRiteEffect.MalumRiteEffectCategory.LIVING_ENTITY_EFFECT) {
+            @SuppressWarnings("DataFlowIssue")
             @Override
-            public void riteEffect(TotemBaseBlockEntity totemBase) {
+            public void doRiteEffect(TotemBaseBlockEntity totemBase) {
                 getNearbyEntities(totemBase, Animal.class).forEach(e -> {
                     if (e.getAge() < 0) {
                         if (totemBase.getLevel().random.nextFloat() <= 0.04f) {
@@ -85,19 +51,54 @@ public class SacredRiteType extends MalumRiteType {
                             e.ageUp(25);
                         }
                     }
-                    if (ACTORS.containsKey(e.getClass())) {
-                        SacredRiteEntityActor<? extends Animal> sacredRiteEntityActor = ACTORS.get(e.getClass());
-                        sacredRiteEntityActor.tryAct(totemBase, e);
+                    if (NOURISHMENT_RITE_ACTORS.containsKey(e.getClass())) {
+                        NourishmentRiteActor<? extends Animal> nourishmentRiteActor = NOURISHMENT_RITE_ACTORS.get(e.getClass());
+                        nourishmentRiteActor.tryAct(totemBase, e);
                     }
                 });
             }
         };
     }
 
-    public static abstract class SacredRiteEntityActor<T extends Animal> {
+    public static final Map<Class<? extends Animal>, NourishmentRiteActor<?>> NOURISHMENT_RITE_ACTORS = Util.make(new HashMap<>(), m -> {
+        m.put(Sheep.class, new NourishmentRiteActor<>(Sheep.class) {
+            @Override
+            public void act(TotemBaseBlockEntity totemBaseBlockEntity, Sheep sheep) {
+                if (sheep.getRandom().nextInt(sheep.isBaby() ? 5 : 25) == 0) {
+                    BlockPos blockpos = sheep.blockPosition();
+                    if (IS_TALL_GRASS.test(sheep.level.getBlockState(blockpos)) || sheep.level.getBlockState(blockpos.below()).is(Blocks.GRASS_BLOCK)) {
+                        EatBlockGoal goal = sheep.eatBlockGoal;
+                        goal.start();
+                        ParticleEffectTypeRegistry.HEXING_SMOKE.createEntityEffect(sheep, new ColorEffectData(SACRED_SPIRIT.getPrimaryColor()));
+                    }
+                }
+            }
+        });
+        m.put(Bee.class, new NourishmentRiteActor<>(Bee.class) {
+            @Override
+            public void act(TotemBaseBlockEntity totemBaseBlockEntity, Bee bee) {
+                Bee.BeePollinateGoal goal = bee.beePollinateGoal;
+                if (goal.canBeeUse()) {
+                    goal.successfulPollinatingTicks += 40;
+                    goal.tick();
+                    ParticleEffectTypeRegistry.HEXING_SMOKE.createEntityEffect(bee, new ColorEffectData(SACRED_SPIRIT.getPrimaryColor()));
+                }
+            }
+        });
+
+        m.put(Chicken.class, new NourishmentRiteActor<>(Chicken.class) {
+            @Override
+            public void act(TotemBaseBlockEntity totemBaseBlockEntity, Chicken chicken) {
+                chicken.eggTime -= 80;
+                ParticleEffectTypeRegistry.HEXING_SMOKE.createEntityEffect(chicken, new ColorEffectData(SACRED_SPIRIT.getPrimaryColor()));
+            }
+        });
+    });
+
+    public static abstract class NourishmentRiteActor<T extends Animal> {
         public final Class<T> targetClass;
 
-        public SacredRiteEntityActor(Class<T> targetClass) {
+        public NourishmentRiteActor(Class<T> targetClass) {
             this.targetClass = targetClass;
         }
 

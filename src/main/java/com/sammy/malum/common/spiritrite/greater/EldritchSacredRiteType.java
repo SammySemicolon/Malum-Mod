@@ -1,6 +1,7 @@
 package com.sammy.malum.common.spiritrite.greater;
 
 import com.sammy.malum.common.block.curiosities.totem.*;
+import com.sammy.malum.common.packets.particle.curiosities.rite.*;
 import com.sammy.malum.common.packets.particle.curiosities.rite.generic.*;
 import com.sammy.malum.core.systems.rites.*;
 import net.minecraft.core.*;
@@ -24,20 +25,21 @@ public class EldritchSacredRiteType extends MalumRiteType {
 
     @Override
     public MalumRiteEffect getNaturalRiteEffect() {
-        return new BlockAffectingRiteEffect() {
+        return new MalumRiteEffect(MalumRiteEffect.MalumRiteEffectCategory.RADIAL_BLOCK_EFFECT) {
+
             @Override
-            public int getRiteEffectRadius() {
-                return BASE_RADIUS * 2;
+            public int getRiteEffectHorizontalRadius() {
+                return 4;
             }
 
             @Override
-            public BlockPos getRiteEffectCenter(TotemBaseBlockEntity totemBase) {
-                return totemBase.getBlockPos();
+            public int getRiteEffectVerticalRadius() {
+                return 2;
             }
 
             @SuppressWarnings("ConstantConditions")
             @Override
-            public void riteEffect(TotemBaseBlockEntity totemBase) {
+            public void doRiteEffect(TotemBaseBlockEntity totemBase) {
                 Level level = totemBase.getLevel();
                 BlockPos pos = totemBase.getBlockPos();
                 getNearbyBlocks(totemBase, BonemealableBlock.class).forEach(p -> {
@@ -47,7 +49,7 @@ public class EldritchSacredRiteType extends MalumRiteType {
                             state.randomTick((ServerLevel) level, p, level.random);
                         }
                         BlockPos particlePos = state.canOcclude() ? p : p.below();
-                     //   MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(pos)), new SacredMistRiteEffectPacket(SACRED_SPIRIT, particlePos));
+                        MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(pos)), new SacredMistRiteEffectPacket(List.of(SACRED_SPIRIT.identifier), particlePos));
                     }
                 });
             }
@@ -56,22 +58,25 @@ public class EldritchSacredRiteType extends MalumRiteType {
 
     @Override
     public MalumRiteEffect getCorruptedEffect() {
-        return new EntityAffectingRiteEffect() {
+        return new MalumRiteEffect(MalumRiteEffect.MalumRiteEffectCategory.LIVING_ENTITY_EFFECT) {
 
             @SuppressWarnings("ConstantConditions")
             @Override
-            public void riteEffect(TotemBaseBlockEntity totemBase) {
+            public void doRiteEffect(TotemBaseBlockEntity totemBase) {
                 Level level = totemBase.getLevel();
-                List<Animal> entities = getNearbyEntities(totemBase, Animal.class, e -> e.canFallInLove() && e.getAge() == 0).collect(Collectors.toList()); //TODO: it'd be interesting to separate different entity types and then breed those respectively, this would allow you to have up to 30 cows, sheep and pigs rather than up to 30 animals
-                if (entities.size() > 30) {
-                    return;
-                }
-                entities.forEach(e -> {
-                    if (level.random.nextFloat() <= 0.01f) {
-                        e.setInLoveTime(600);
-                        MALUM_CHANNEL.send(PacketDistributor.TRACKING_ENTITY.with(() -> e), new MajorEntityEffectParticlePacket(SACRED_SPIRIT.getPrimaryColor(), e.getX(), e.getY() + e.getBbHeight() / 2f, e.getZ()));
+                Map<Class<? extends Animal>, List<Animal>> animalMap = getNearbyEntities(totemBase, Animal.class, e -> e.canFallInLove() && e.getAge() == 0).collect(Collectors.groupingBy(Animal::getClass));
+
+                for (List<Animal> animals : animalMap.values()) {
+                    if (animals.size() > 20) {
+                        continue;
                     }
-                });
+                    animals.forEach(e -> {
+                        if (level.random.nextFloat() <= 0.01f) {
+                            e.setInLoveTime(600);
+                            MALUM_CHANNEL.send(PacketDistributor.TRACKING_ENTITY.with(() -> e), new MajorEntityEffectParticlePacket(SACRED_SPIRIT.getPrimaryColor(), e.getX(), e.getY() + e.getBbHeight() / 2f, e.getZ()));
+                        }
+                    });
+                }
             }
         };
     }

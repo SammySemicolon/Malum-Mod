@@ -37,12 +37,4 @@ public class MalumBlockTags extends LodestoneBlockTagsProvider {
     public String getName() {
         return "Malum Block Tags";
     }
-
-    @Nonnull
-    private Block[] getModBlocks(Predicate<Block> predicate) {
-        List<Block> ret = new ArrayList<>(Collections.emptyList());
-        BLOCKS.getEntries().stream()
-                .filter(b -> predicate.test(b.get())).forEach(b -> ret.add(b.get()));
-        return ret.toArray(new Block[0]);
-    }
 }

@@ -6,16 +6,16 @@ import net.minecraft.core.BlockPos;
 public abstract class BlockAffectingRiteEffect extends MalumRiteEffect {
 
     public BlockAffectingRiteEffect() {
-        super();
+        super(MalumRiteEffectCategory.DIRECTIONAL_BLOCK_EFFECT);
     }
 
     @Override
     public BlockPos getRiteEffectCenter(TotemBaseBlockEntity totemBase) {
-        return totemBase.getBlockPos().relative(totemBase.direction, getRiteEffectRadius() + 1);
+        return totemBase.getBlockPos().relative(totemBase.direction, getRiteEffectHorizontalRadius() + 1);
     }
 
     @Override
-    public int getRiteEffectTickRate() {
-        return BASE_TICK_RATE*5;
+    public int getRiteEffectVerticalRadius() {
+        return 1;
     }
 }

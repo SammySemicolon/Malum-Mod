@@ -11,6 +11,7 @@ import net.minecraft.network.chat.*;
 import net.minecraft.resources.*;
 import net.minecraft.sounds.*;
 
+import java.util.*;
 import java.util.function.*;
 
 import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.*;
@@ -25,6 +26,7 @@ public class EntryScreen extends AbstractMalumScreen {
     public final int bookHeight = 190;
     public final EntryObject openObject;
 
+    public List<Runnable> lateRendering = new ArrayList<>();
     public int grouping;
 
     public EntryScreen(EntryObject openObject) {
@@ -74,6 +76,11 @@ public class EntryScreen extends AbstractMalumScreen {
                     BookPage page = openEntry.pages.get(i);
                     boolean isRepeat = i % 2 != 0 && page.getClass().equals(openEntry.pages.get(i - 1).getClass());
                     page.render(minecraft, poseStack, this, mouseX, mouseY, partialTicks, isRepeat);
+                }
+            }
+            for (int i = openPages; i < openPages + 2; i++) {
+                if (i < openEntry.pages.size()) {
+                    BookPage page = openEntry.pages.get(i);
                     if (i % 2 == 0) {
                         page.renderLeft(minecraft, poseStack, this, mouseX, mouseY, partialTicks);
                     } else {
@@ -81,6 +88,8 @@ public class EntryScreen extends AbstractMalumScreen {
                     }
                 }
             }
+            lateRendering.forEach(Runnable::run);
+            lateRendering.clear();
         }
     }
 
@@ -157,5 +166,9 @@ public class EntryScreen extends AbstractMalumScreen {
 
     public float getSweetenerPitch() {
         return 1 + (float)grouping / openObject.entry.pages.size();
+    }
+
+    public void renderLate(Runnable runnable) {
+        lateRendering.add(runnable);
     }
 }

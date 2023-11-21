@@ -11,6 +11,7 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.renderer.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraft.resources.*;
 import net.minecraft.util.*;
 import net.minecraft.world.item.*;
@@ -22,7 +23,6 @@ import team.lodestar.lodestone.systems.recipe.*;
 import team.lodestar.lodestone.systems.rendering.*;
 import team.lodestar.lodestone.systems.rendering.shader.*;
 
-import java.awt.*;
 import java.util.*;
 import java.util.List;
 import java.util.function.*;
@@ -356,7 +356,7 @@ public class ArcanaCodexHelper {
         renderText(stack, new TranslatableComponent(text), x, y, getTextGlow(0));
     }
 
-    public static void renderText(PoseStack stack, net.minecraft.network.chat.Component component, int x, int y) {
+    public static void renderText(PoseStack stack, Component component, int x, int y) {
         String text = component.getString();
         renderRawText(stack, text, x, y, getTextGlow(0));
     }
@@ -396,5 +396,15 @@ public class ArcanaCodexHelper {
 
     public static boolean isHovering(double mouseX, double mouseY, int posX, int posY, int width, int height) {
         return mouseX > posX && mouseX < posX + width && mouseY > posY && mouseY < posY + height;
+    }
+
+    public static List<Component> createTooltip(String text) {
+        text = new TranslatableComponent(text).getString();
+        List<Component> components = new ArrayList<>();
+        String[] lines = text.split("\n");
+        for (String line : lines) {
+            components.add(new TextComponent(line));
+        }
+        return components;
     }
 }

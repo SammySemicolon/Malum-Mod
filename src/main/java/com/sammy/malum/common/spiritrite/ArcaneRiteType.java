@@ -33,20 +33,16 @@ import static com.sammy.malum.registry.common.PacketRegistry.MALUM_CHANNEL;
 
 public class ArcaneRiteType extends MalumRiteType {
     public ArcaneRiteType() {
-        super("arcane_rite", "Undirected Rite", "Unchained Rite", ARCANE_SPIRIT, ARCANE_SPIRIT, ARCANE_SPIRIT, ARCANE_SPIRIT, ARCANE_SPIRIT);
+        super("arcane_rite", ARCANE_SPIRIT, ARCANE_SPIRIT, ARCANE_SPIRIT, ARCANE_SPIRIT, ARCANE_SPIRIT);
     }
 
     @Override
     public MalumRiteEffect getNaturalRiteEffect() {
-        return new MalumRiteEffect() {
-            @Override
-            public boolean isOneAndDone() {
-                return true;
-            }
+        return new MalumRiteEffect(MalumRiteEffect.MalumRiteEffectCategory.ONE_TIME_EFFECT) {
 
             @SuppressWarnings("ConstantConditions")
             @Override
-            public void riteEffect(TotemBaseBlockEntity totemBase) {
+            public void doRiteEffect(TotemBaseBlockEntity totemBase) {
                 WorldEventHandler.addWorldEvent(totemBase.getLevel(), new TotemCreatedBlightEvent().setPosition(totemBase.getBlockPos()).setBlightData(1, 4, 4));
             }
         };
@@ -54,30 +50,17 @@ public class ArcaneRiteType extends MalumRiteType {
 
     @Override
     public MalumRiteEffect getCorruptedEffect() {
-        return new MalumRiteEffect() {
-
-            @Override
-            public int getRiteEffectRadius() {
-                return (BASE_RADIUS * 2)+1;
-            }
-
-            @Override
-            public int getRiteEffectTickRate() {
-                return BASE_TICK_RATE * 5;
-            }
+        return new MalumRiteEffect(MalumRiteEffect.MalumRiteEffectCategory.RADIAL_BLOCK_EFFECT) {
 
             @Override
             public boolean canAffectBlock(TotemBaseBlockEntity totemBase, Set<Block> filters, BlockState state, BlockPos pos) {
-                //The rite looks for blighted soil, then tries to transmute anything above it.
-                //We wanna check for filters on the block above the blight, not the actual blight.
-                BlockPos actualPos = pos.above();
-                return super.canAffectBlock(totemBase, filters, totemBase.getLevel().getBlockState(actualPos), actualPos);
+                pos = pos.above();
+                return super.canAffectBlock(totemBase, filters, totemBase.getLevel().getBlockState(pos), pos);
             }
-
 
             @SuppressWarnings("ConstantConditions")
             @Override
-            public void riteEffect(TotemBaseBlockEntity totemBase) {
+            public void doRiteEffect(TotemBaseBlockEntity totemBase) {
                 Level level = totemBase.getLevel();
                 BlockPos pos = totemBase.getBlockPos();
                 List<BlockPos> nearbyBlocks = getNearbyBlocks(totemBase, BlightedSoilBlock.class).toList();

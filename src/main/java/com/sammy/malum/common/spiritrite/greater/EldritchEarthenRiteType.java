@@ -30,9 +30,9 @@ public class EldritchEarthenRiteType extends MalumRiteType {
         return new BlockAffectingRiteEffect() {
             @SuppressWarnings("ConstantConditions")
             @Override
-            public void riteEffect(TotemBaseBlockEntity totemBase) {
+            public void doRiteEffect(TotemBaseBlockEntity totemBase) {
                 Level level = totemBase.getLevel();
-                getBlocksUnderBase(totemBase, Block.class).forEach(p -> {
+                getBlocksAhead(totemBase).forEach(p -> {
                     BlockState state = level.getBlockState(p);
                     boolean canBreak = !state.isAir() && state.getDestroySpeed(level, p) != -1;
                     if (canBreak) {
@@ -57,9 +57,9 @@ public class EldritchEarthenRiteType extends MalumRiteType {
         return new BlockAffectingRiteEffect() {
             @SuppressWarnings("ConstantConditions")
             @Override
-            public void riteEffect(TotemBaseBlockEntity totemBase) {
+            public void doRiteEffect(TotemBaseBlockEntity totemBase) {
                 Level level = totemBase.getLevel();
-                getBlocksUnderBase(totemBase, Block.class).forEach(p -> {
+                getBlocksAhead(totemBase).forEach(p -> {
                     BlockState state = level.getBlockState(p);
                     boolean canBreak = state.isAir() || state.getMaterial().isReplaceable();
                     if (canBreak) {

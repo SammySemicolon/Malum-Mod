@@ -35,11 +35,11 @@ public class EldritchAerialRiteType extends MalumRiteType {
     public MalumRiteEffect getNaturalRiteEffect() {
         return new BlockAffectingRiteEffect() {
             @Override
-            public void riteEffect(TotemBaseBlockEntity totemBase) {
+            public void doRiteEffect(TotemBaseBlockEntity totemBase) {
                 Level level = totemBase.getLevel();
                 if (level instanceof ServerLevel serverLevel) {
                     BlockPos pos = totemBase.getBlockPos();
-                    getBlocksUnderBase(totemBase, Block.class).forEach(p -> {
+                    getBlocksAhead(totemBase).forEach(p -> {
                         BlockState stateBelow = level.getBlockState(p.below());
                         if (FallingBlock.isFree(stateBelow) || !stateBelow.canOcclude() || stateBelow.is(BlockTags.SLABS)) {
                             BlockState state = level.getBlockState(p);
@@ -57,9 +57,9 @@ public class EldritchAerialRiteType extends MalumRiteType {
 
     @Override
     public MalumRiteEffect getCorruptedEffect() {
-        return new EntityAffectingRiteEffect() {
+        return new MalumRiteEffect(MalumRiteEffect.MalumRiteEffectCategory.LIVING_ENTITY_EFFECT) {
             @Override
-            public void riteEffect(TotemBaseBlockEntity totemBase) {
+            public void doRiteEffect(TotemBaseBlockEntity totemBase) {
                 getNearbyEntities(totemBase, ServerPlayer.class).forEach(p -> {
                     ServerStatsCounter stats = p.getStats();
                     Stat<ResourceLocation> sleepStat = Stats.CUSTOM.get(Stats.TIME_SINCE_REST);

@@ -1,7 +1,7 @@
 package com.sammy.malum.common.spiritrite;
 
 import com.sammy.malum.registry.common.MobEffectRegistry;
-import com.sammy.malum.core.systems.rites.AuraRiteEffect;
+import com.sammy.malum.core.systems.rites.PotionRiteEffect;
 import com.sammy.malum.core.systems.rites.MalumRiteEffect;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
 import net.minecraft.world.entity.LivingEntity;
@@ -16,11 +16,11 @@ public class AqueousRiteType extends MalumRiteType {
 
     @Override
     public MalumRiteEffect getNaturalRiteEffect() {
-        return new AuraRiteEffect(LivingEntity.class, MobEffectRegistry.POSEIDONS_GRASP, AQUEOUS_SPIRIT);
+        return new PotionRiteEffect(LivingEntity.class, MobEffectRegistry.POSEIDONS_GRASP);
     }
 
     @Override
     public MalumRiteEffect getCorruptedEffect() {
-        return new AuraRiteEffect(LivingEntity.class, MobEffectRegistry.ANGLERS_LURE, AQUEOUS_SPIRIT);
+        return new PotionRiteEffect(LivingEntity.class, MobEffectRegistry.ANGLERS_LURE);
     }
 }

@@ -6,7 +6,7 @@ import com.sammy.malum.common.packets.particle.curiosities.rite.InfernalExtingui
 import com.sammy.malum.common.packets.particle.curiosities.rite.generic.MajorEntityEffectParticlePacket;
 import com.sammy.malum.registry.common.block.BlockTagRegistry;
 import com.sammy.malum.registry.common.MobEffectRegistry;
-import com.sammy.malum.core.systems.rites.AuraRiteEffect;
+import com.sammy.malum.core.systems.rites.PotionRiteEffect;
 import com.sammy.malum.core.systems.rites.MalumRiteEffect;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
 import net.minecraft.sounds.SoundEvents;
@@ -30,20 +30,16 @@ public class InfernalRiteType extends MalumRiteType {
 
     @Override
     public MalumRiteEffect getNaturalRiteEffect() {
-        return new AuraRiteEffect(LivingEntity.class, MobEffectRegistry.MINERS_RAGE, INFERNAL_SPIRIT);
+        return new PotionRiteEffect(LivingEntity.class, MobEffectRegistry.MINERS_RAGE);
     }
 
     @Override
     public MalumRiteEffect getCorruptedEffect() {
-        return new MalumRiteEffect() {
-            @Override
-            public int getRiteEffectRadius() {
-                return BASE_RADIUS * 4;
-            }
+        return new MalumRiteEffect(MalumRiteEffect.MalumRiteEffectCategory.AURA) {
 
             @SuppressWarnings("ConstantConditions")
             @Override
-            public void riteEffect(TotemBaseBlockEntity totemBase) {
+            public void doRiteEffect(TotemBaseBlockEntity totemBase) {
                 Level level = totemBase.getLevel();
                 getNearbyEntities(totemBase, LivingEntity.class).filter(e -> !(e instanceof Monster)).forEach(e -> {
                     if (e.isOnFire()) {
@@ -53,7 +49,6 @@ public class InfernalRiteType extends MalumRiteType {
                         e.clearFire();
                     }
                 });
-
 
                 getNearbyBlocks(totemBase, BaseFireBlock.class).forEach(p -> {
                     BlockState state = totemBase.getLevel().getBlockState(p);
