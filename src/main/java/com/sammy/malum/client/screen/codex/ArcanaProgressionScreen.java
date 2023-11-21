@@ -531,7 +531,7 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
                 .setObjectSupplier(RiteEntryObject::new)
                 .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.SACRED_RITE, "sacred_rite"))
                 .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.SACRED_RITE))
-                .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.ELDRITCH_SACRED_RITE, "sacred_rite.greater"))
+                .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.ELDRITCH_SACRED_RITE, "greater_sacred_rite"))
                 .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.ELDRITCH_SACRED_RITE))
         );
 
@@ -540,7 +540,7 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
                 .setObjectSupplier(RiteEntryObject::new)
                 .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.SACRED_RITE, "corrupt_sacred_rite"))
                 .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.SACRED_RITE))
-                .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.ELDRITCH_SACRED_RITE, "corrupt_sacred_rite.greater"))
+                .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.ELDRITCH_SACRED_RITE, "corrupt_greater_sacred_rite"))
                 .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.ELDRITCH_SACRED_RITE))
         );
 
@@ -549,7 +549,7 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
                 .setObjectSupplier(RiteEntryObject::new)
                 .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.INFERNAL_RITE, "infernal_rite"))
                 .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.INFERNAL_RITE))
-                .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.ELDRITCH_INFERNAL_RITE, "infernal_rite.greater"))
+                .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.ELDRITCH_INFERNAL_RITE, "greater_infernal_rite"))
                 .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.ELDRITCH_INFERNAL_RITE))
         );
 
@@ -558,7 +558,7 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
                 .setObjectSupplier(RiteEntryObject::new)
                 .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.INFERNAL_RITE, "corrupt_infernal_rite"))
                 .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.INFERNAL_RITE))
-                .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.ELDRITCH_INFERNAL_RITE, "corrupt_infernal_rite.greater"))
+                .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.ELDRITCH_INFERNAL_RITE, "corrupt_greater_infernal_rite"))
                 .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.ELDRITCH_INFERNAL_RITE))
         );
 
@@ -567,7 +567,7 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
                 .setObjectSupplier(RiteEntryObject::new)
                 .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.EARTHEN_RITE, "earthen_rite"))
                 .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.EARTHEN_RITE))
-                .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.ELDRITCH_EARTHEN_RITE, "earthen_rite.greater"))
+                .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.ELDRITCH_EARTHEN_RITE, "greater_earthen_rite"))
                 .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.ELDRITCH_EARTHEN_RITE))
         );
 
@@ -576,7 +576,7 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
                 .setObjectSupplier(RiteEntryObject::new)
                 .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.EARTHEN_RITE, "corrupt_earthen_rite"))
                 .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.EARTHEN_RITE))
-                .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.ELDRITCH_EARTHEN_RITE, "corrupt_earthen_rite.greater"))
+                .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.ELDRITCH_EARTHEN_RITE, "corrupt_greater_earthen_rite"))
                 .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.ELDRITCH_EARTHEN_RITE))
         );
 
@@ -585,7 +585,7 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
                 .setObjectSupplier(RiteEntryObject::new)
                 .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.WICKED_RITE, "wicked_rite"))
                 .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.WICKED_RITE))
-                .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.ELDRITCH_WICKED_RITE, "wicked_rite.greater"))
+                .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.ELDRITCH_WICKED_RITE, "greater_wicked_rite"))
                 .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.ELDRITCH_WICKED_RITE))
         );
 
@@ -594,7 +594,7 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
                 .setObjectSupplier(RiteEntryObject::new)
                 .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.WICKED_RITE, "corrupt_wicked_rite"))
                 .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.WICKED_RITE))
-                .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.ELDRITCH_WICKED_RITE, "corrupt_wicked_rite.greater"))
+                .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.ELDRITCH_WICKED_RITE, "corrupt_greater_wicked_rite"))
                 .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.ELDRITCH_WICKED_RITE))
         );
 
@@ -603,7 +603,7 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
                 .setObjectSupplier(RiteEntryObject::new)
                 .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.AERIAL_RITE, "aerial_rite"))
                 .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.AERIAL_RITE))
-                .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.ELDRITCH_AERIAL_RITE, "aerial_rite.greater"))
+                .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.ELDRITCH_AERIAL_RITE, "greater_aerial_rite"))
                 .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.ELDRITCH_AERIAL_RITE))
         );
 
@@ -612,7 +612,7 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
                 .setObjectSupplier(RiteEntryObject::new)
                 .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.AERIAL_RITE, "corrupt_aerial_rite"))
                 .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.AERIAL_RITE))
-                .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.ELDRITCH_AERIAL_RITE, "corrupt_aerial_rite.greater"))
+                .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.ELDRITCH_AERIAL_RITE, "corrupt_greater_aerial_rite"))
                 .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.ELDRITCH_AERIAL_RITE))
         );
 
@@ -621,7 +621,7 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
                 .setObjectSupplier(RiteEntryObject::new)
                 .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.AQUEOUS_RITE, "aqueous_rite"))
                 .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.AQUEOUS_RITE))
-                .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.ELDRITCH_AQUEOUS_RITE, "aqueous_rite.greater"))
+                .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.ELDRITCH_AQUEOUS_RITE, "greater_aqueous_rite"))
                 .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.ELDRITCH_AQUEOUS_RITE))
         );
 
@@ -630,7 +630,7 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
                 .setObjectSupplier(RiteEntryObject::new)
                 .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.AQUEOUS_RITE, "corrupt_aqueous_rite"))
                 .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.AQUEOUS_RITE))
-                .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.ELDRITCH_AQUEOUS_RITE, "corrupt_aqueous_rite.greater"))
+                .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.ELDRITCH_AQUEOUS_RITE, "corrupt_greater_aqueous_rite"))
                 .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.ELDRITCH_AQUEOUS_RITE))
         );
 

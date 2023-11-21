@@ -27,7 +27,6 @@ public class SpiritRiteRegistry {
 
     public static MalumRiteType ARCANE_RITE = create(new ArcaneRiteType());
 
-
     public static MalumRiteType create(MalumRiteType type) {
         RITES.add(type);
         return type;

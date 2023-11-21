@@ -42,12 +42,4 @@ public class MalumBlockTags extends LodestoneBlockTagsProvider {
 
         addTagsFromBlockProperties(blocks.stream().map(RegistryObject::get).collect(Collectors.toList()));
     }
-
-    @Nonnull
-    private Block[] getModBlocks(Predicate<Block> predicate) {
-        List<Block> ret = new ArrayList<>(Collections.emptyList());
-        BLOCKS.getEntries().stream()
-                .filter(b -> predicate.test(b.get())).forEach(b -> ret.add(b.get()));
-        return ret.toArray(new Block[0]);
-    }
 }

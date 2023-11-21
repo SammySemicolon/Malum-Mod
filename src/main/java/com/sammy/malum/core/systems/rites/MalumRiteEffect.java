@@ -10,62 +10,90 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import team.lodestar.lodestone.helpers.BlockHelper;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @SuppressWarnings("ConstantConditions")
 public abstract class MalumRiteEffect {
-    public static final int BASE_RADIUS = 2;
-    public static final int BASE_TICK_RATE = 20;
 
-    protected MalumRiteEffect() {
+    public enum MalumRiteEffectCategory { //TODO: make this not an enum
+        AURA(40, 8),
+        LIVING_ENTITY_EFFECT(40, 4),
+        DIRECTIONAL_BLOCK_EFFECT(160, 2),
+        RADIAL_BLOCK_EFFECT(80, 5),
+        ONE_TIME_EFFECT(0, 0);
+
+        private final int tickRate;
+        private final int range;
+        MalumRiteEffectCategory(int tickRate, int range) {
+            this.tickRate = tickRate;
+            this.range = range;
+        }
+
+        public String getTranslationKey() {
+            return "malum.gui.rite.category." + name().toLowerCase(Locale.ROOT);
+        }
     }
 
-    public abstract void riteEffect(TotemBaseBlockEntity totemBase);
+    public final MalumRiteEffectCategory category;
 
-    public boolean isOneAndDone() {
-        return false;
+    protected MalumRiteEffect(MalumRiteEffectCategory category) {
+        this.category = category;
     }
+
+    public abstract void doRiteEffect(TotemBaseBlockEntity totemBase);
 
     public BlockPos getRiteEffectCenter(TotemBaseBlockEntity totemBase) {
         return totemBase.getBlockPos();
     }
 
-    public int getRiteEffectRadius() {
-        return BASE_RADIUS;
+    public String getRiteCoverageDescriptor() {
+        int coverage = getRiteEffectHorizontalRadius();
+        if (coverage > 1) {
+            coverage = coverage * 2 + 1;
+        }
+        int yCoverage = getRiteEffectVerticalRadius();
+        if (yCoverage > 1) {
+            yCoverage = yCoverage * 2 + 1;
+        }
+        return coverage + "x" + yCoverage + "x" + coverage;
+    }
+
+    public int getRiteEffectHorizontalRadius() {
+        return category.range;
+    }
+
+    public int getRiteEffectVerticalRadius() {
+        return category.range;
     }
 
     public int getRiteEffectTickRate() {
-        return BASE_TICK_RATE;
+        return category.tickRate;
     }
 
     public <T extends Entity> Stream<T> getNearbyEntities(TotemBaseBlockEntity totemBase, Class<T> clazz) {
-        return new ArrayList<>(totemBase.getLevel().getEntitiesOfClass(clazz, new AABB(getRiteEffectCenter(totemBase)).inflate(getRiteEffectRadius()))).stream();
+        return getNearbyEntities(totemBase, clazz, e -> true);
     }
 
     public <T extends Entity> Stream<T> getNearbyEntities(TotemBaseBlockEntity totemBase, Class<T> clazz, Predicate<T> predicate) {
-        return totemBase.getLevel().getEntitiesOfClass(clazz, new AABB(getRiteEffectCenter(totemBase)).inflate(getRiteEffectRadius())).stream().filter(predicate);
+        final int horizontal = getRiteEffectHorizontalRadius();
+        final int vertical = getRiteEffectVerticalRadius();
+        return totemBase.getLevel().getEntitiesOfClass(clazz, new AABB(getRiteEffectCenter(totemBase)).inflate(horizontal, vertical, horizontal)).stream().filter(predicate);
     }
 
     public Stream<BlockPos> getNearbyBlocks(TotemBaseBlockEntity totemBase, Class<?> clazz) {
         Set<Block> blockFilters = getBlockFilters(totemBase);
-        return BlockHelper.getBlocksStream(getRiteEffectCenter(totemBase), getRiteEffectRadius(), p -> canAffectBlock(totemBase, blockFilters, clazz, totemBase.getLevel().getBlockState(p), p));
+        final int horizontal = getRiteEffectHorizontalRadius();
+        final int vertical = getRiteEffectVerticalRadius();
+        return BlockHelper.getBlocksStream(getRiteEffectCenter(totemBase), horizontal, vertical, horizontal, p -> canAffectBlock(totemBase, blockFilters, clazz, totemBase.getLevel().getBlockState(p), p));
     }
 
-    public Stream<BlockPos> getNearbyBlocks(TotemBaseBlockEntity totemBase, Class<?> clazz, int height) {
+    public Stream<BlockPos> getBlocksAhead(TotemBaseBlockEntity totemBase) {
         Set<Block> blockFilters = getBlockFilters(totemBase);
-        int horizontal = getRiteEffectRadius();
-        return BlockHelper.getBlocksStream(getRiteEffectCenter(totemBase), horizontal, height, horizontal, p -> canAffectBlock(totemBase, blockFilters, clazz, totemBase.getLevel().getBlockState(p), p));
-    }
-
-    public Stream<BlockPos> getBlocksUnderBase(TotemBaseBlockEntity totemBase, Class<?> clazz) {
-        Set<Block> blockFilters = getBlockFilters(totemBase);
-        int horizontal = getRiteEffectRadius();
-        return BlockHelper.getPlaneOfBlocksStream(getRiteEffectCenter(totemBase).below(), horizontal, p -> canAffectBlock(totemBase, blockFilters, clazz, totemBase.getLevel().getBlockState(p), p));
+        int horizontal = getRiteEffectHorizontalRadius();
+        return BlockHelper.getPlaneOfBlocksStream(getRiteEffectCenter(totemBase).below(), horizontal, p -> canAffectBlock(totemBase, blockFilters, totemBase.getLevel().getBlockState(p), p));
     }
 
     public Set<Block> getBlockFilters(TotemBaseBlockEntity totemBase) {

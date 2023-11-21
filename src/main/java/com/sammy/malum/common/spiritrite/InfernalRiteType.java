@@ -1,27 +1,22 @@
 package com.sammy.malum.common.spiritrite;
 
-import com.sammy.malum.common.block.curiosities.totem.TotemBaseBlockEntity;
-import com.sammy.malum.common.packets.particle.curiosities.rite.InfernalExtinguishRiteEffectPacket;
-import com.sammy.malum.common.packets.particle.curiosities.rite.generic.BlockSparkleParticlePacket;
-import com.sammy.malum.common.packets.particle.curiosities.rite.generic.MajorEntityEffectParticlePacket;
-import com.sammy.malum.core.systems.rites.AuraRiteEffect;
-import com.sammy.malum.core.systems.rites.MalumRiteEffect;
-import com.sammy.malum.core.systems.rites.MalumRiteType;
-import com.sammy.malum.registry.common.MobEffectRegistry;
-import com.sammy.malum.registry.common.block.BlockTagRegistry;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.BaseFireBlock;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.network.PacketDistributor;
+import com.sammy.malum.common.block.curiosities.totem.*;
+import com.sammy.malum.common.packets.particle.curiosities.rite.*;
+import com.sammy.malum.common.packets.particle.curiosities.rite.generic.*;
+import com.sammy.malum.core.systems.rites.*;
+import com.sammy.malum.registry.common.*;
+import com.sammy.malum.registry.common.block.*;
+import net.minecraft.sounds.*;
+import net.minecraft.world.effect.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.monster.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.*;
+import net.minecraftforge.network.*;
 
-import static com.sammy.malum.registry.common.PacketRegistry.MALUM_CHANNEL;
-import static com.sammy.malum.registry.common.SpiritTypeRegistry.ARCANE_SPIRIT;
-import static com.sammy.malum.registry.common.SpiritTypeRegistry.INFERNAL_SPIRIT;
+import static com.sammy.malum.registry.common.PacketRegistry.*;
+import static com.sammy.malum.registry.common.SpiritTypeRegistry.*;
 
 public class InfernalRiteType extends MalumRiteType {
     public InfernalRiteType() {
@@ -30,20 +25,16 @@ public class InfernalRiteType extends MalumRiteType {
 
     @Override
     public MalumRiteEffect getNaturalRiteEffect() {
-        return new AuraRiteEffect(LivingEntity.class, MobEffectRegistry.MINERS_RAGE, INFERNAL_SPIRIT);
+        return new PotionRiteEffect(LivingEntity.class, MobEffectRegistry.MINERS_RAGE);
     }
 
     @Override
     public MalumRiteEffect getCorruptedEffect() {
-        return new MalumRiteEffect() {
-            @Override
-            public int getRiteEffectRadius() {
-                return BASE_RADIUS * 4;
-            }
+        return new MalumRiteEffect(MalumRiteEffect.MalumRiteEffectCategory.AURA) {
 
             @SuppressWarnings("ConstantConditions")
             @Override
-            public void riteEffect(TotemBaseBlockEntity totemBase) {
+            public void doRiteEffect(TotemBaseBlockEntity totemBase) {
                 Level level = totemBase.getLevel();
                 getNearbyEntities(totemBase, LivingEntity.class).filter(e -> !(e instanceof Monster)).forEach(e -> {
                     if (e.isOnFire()) {
@@ -53,7 +44,6 @@ public class InfernalRiteType extends MalumRiteType {
                         e.clearFire();
                     }
                 });
-
 
                 getNearbyBlocks(totemBase, BaseFireBlock.class).forEach(p -> {
                     BlockState state = totemBase.getLevel().getBlockState(p);

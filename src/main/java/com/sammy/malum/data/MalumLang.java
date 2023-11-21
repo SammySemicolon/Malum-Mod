@@ -5,7 +5,7 @@ import com.sammy.malum.client.screen.codex.ArcanaProgressionScreen;
 import com.sammy.malum.common.block.ether.EtherWallTorchBlock;
 import com.sammy.malum.common.item.spirit.SpiritJarItem;
 import com.sammy.malum.core.systems.item.ISoulContainerItem;
-import com.sammy.malum.core.systems.rites.MalumRiteType;
+import com.sammy.malum.core.systems.rites.*;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import com.sammy.malum.registry.common.DamageSourceRegistry;
 import com.sammy.malum.registry.common.MobEffectRegistry;
@@ -29,10 +29,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import team.lodestar.lodestone.helpers.DataHelper;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Supplier;
 
 import static com.sammy.malum.registry.common.AttributeRegistry.ATTRIBUTES;
@@ -41,7 +38,7 @@ import static com.sammy.malum.registry.common.SoundRegistry.SOUNDS;
 import static com.sammy.malum.registry.common.block.BlockRegistry.BLOCKS;
 import static com.sammy.malum.registry.common.entity.EntityRegistry.ENTITY_TYPES;
 import static com.sammy.malum.registry.common.item.EnchantmentRegistry.ENCHANTMENTS;
-import static com.sammy.malum.registry.common.item.ItemRegistry.ITEMS;
+import static com.sammy.malum.registry.common.item.ItemRegistry.*;
 
 public class MalumLang extends LanguageProvider {
     public MalumLang(PackOutput gen) {
@@ -58,7 +55,6 @@ public class MalumLang extends LanguageProvider {
         Set<RegistryObject<MobEffect>> effects = new HashSet<>(EFFECTS.getEntries());
         Set<RegistryObject<Attribute>> attributes = new HashSet<>(ATTRIBUTES.getEntries());
         Set<RegistryObject<EntityType<?>>> entities = new HashSet<>(ENTITY_TYPES.getEntries());
-        List<MalumRiteType> rites = SpiritRiteRegistry.RITES;
         List<MalumSpiritType> spirits = new ArrayList<>(SpiritTypeRegistry.SPIRITS.values());
 
         add(DataHelper.take(blocks, BlockRegistry.PRIMORDIAL_SOUP).get(), "The Weeping Well");
@@ -113,12 +109,28 @@ public class MalumLang extends LanguageProvider {
             add("entity.malum." + ForgeRegistries.ENTITY_TYPES.getKey(e.get()).getPath(), name);
         });
 
-        rites.forEach(r -> {
-            add(r.translationIdentifier(false), r.basicName);
-            add(r.translationIdentifier(true), r.corruptName);
-        });
-
         spirits.forEach(s -> add(s.getSpiritDescription(), DataHelper.toTitleCase(s.identifier + "_spirit", "_")));
+
+        add("malum.gui.rite.type", "Type: ");
+        add("malum.gui.rite.coverage", "Coverage: ");
+        add("malum.gui.rite.effect", "Effect: ");
+
+        addRiteEffectCategory(MalumRiteEffect.MalumRiteEffectCategory.AURA);
+        addRiteEffectCategory(MalumRiteEffect.MalumRiteEffectCategory.LIVING_ENTITY_EFFECT);
+        addRiteEffectCategory(MalumRiteEffect.MalumRiteEffectCategory.DIRECTIONAL_BLOCK_EFFECT);
+        addRiteEffectCategory(MalumRiteEffect.MalumRiteEffectCategory.RADIAL_BLOCK_EFFECT);
+        addRiteEffectCategory(MalumRiteEffect.MalumRiteEffectCategory.ONE_TIME_EFFECT);
+
+        addRite(SpiritRiteRegistry.SACRED_RITE, "Rite of Healing", "Rite of Nourishment");
+        addRite(SpiritRiteRegistry.WICKED_RITE, "Rite of Decay", "Rite of Empowerment");
+        addRite(SpiritRiteRegistry.EARTHEN_RITE, "Rite of Warding", "Rite of the Challenger");
+        addRite(SpiritRiteRegistry.INFERNAL_RITE, "Rite of Haste", "Rite of the Extinguisher");
+        addRite(SpiritRiteRegistry.AERIAL_RITE, "Rite of Motion", "Rite of the Aether");
+        addRite(SpiritRiteRegistry.AQUEOUS_RITE, "Rite of Loyalty", "Rite of the Seas");
+
+        addRite(SpiritRiteRegistry.ARCANE_RITE, "Undirected Rite", "Unchained Rite");
+
+        addRite(SpiritRiteRegistry.ELDRITCH_SACRED_RITE, "Rite of Growth", "Rite of Lust");
 
         addSimpleEntryHeader("introduction", "Introduction", "On the nature of souls");
         addPages("introduction",
@@ -312,11 +324,11 @@ public class MalumLang extends LanguageProvider {
         addEntryHeader("spirit_metals", "Spirit Metals", "Arcana refined");
         addHeadline("spirit_metals.soulstained_steel", "Soulstained Steel");
         addPages("spirit_metals.soulstained_steel",
-                "Iron is mundane, in a word. By using Hex Ash as my source of carbon, and attuning the metal with Soulstone, I can create a metal that is " + italic("simultaneously") + " in and out of phase with the world.",
+                "Iron is mundane, in a word. By attuning the metal with Soulstone, I can create a steel that is " + italic("simultaneously") + " in and out of phase with the world.",
                 "Anything made from Soulstained Steel is capable of striking the soul, without the need for specifics of engineering like with my crude scythe. Wearing the metal in its base form as armor is dangerous, as it will touch your own soul as well, so I must engineer a countermeasure.");
         addHeadline("spirit_metals.hallowed_gold", "Hallowed Gold");
         addPages("spirit_metals.hallowed_gold",
-                "Gold is often used as a thaumaturgical base, its natural conductivity of magic making it quite useful. Spirit arcana are no exception. In fact, using Sacred arcana, we can enhance those properties.",
+                "Gold is often used as a thaumaturgical base, its natural conductivity of magic making it quite useful. Spirit arcana are no exception. In fact, using Sacred arcana, we can enhance those conductive properties.",
                 "Hallowed Gold, as a metal, acts much like its mundane counterpart. The inherent innocence of the arcana infused into the alloy makes other arcana glide through it smoothly, creating the perfect conductor for my purposes.");
         addHeadline("spirit_metals.hallowed_gold.spirit_jar", "Spirit Jar");
         addPages("spirit_metals.hallowed_gold.spirit_jar", "A simple application of this metal is the Spirit Jar. As spirits in their raw form don't have mass, by trapping them under Hallowed Gold you can store far more than you could physically. The capacity of these jars is near-infinite, though each only stores one type of spirit.");
@@ -420,52 +432,64 @@ public class MalumLang extends LanguageProvider {
                 "Now already scarred, the power bleeds from the totem, corrupting and warping the nearby area. Any nearby block placed atop that blighted substance will be altered, given a new form.");
 
         addEntryHeader("sacred_rite", "Sacred Rites", "Invigorating the soul");
-        addPage("sacred_rite", "Nearby friendly beings are slowly healed.");
-        addPage("sacred_rite.greater", "By twisting the power of vigor, you can cause crops planted on soil before the totem base to grow more quickly.");
+        addRiteEntry("sacred_rite",
+                "A simple aura rite, while active it will slowly mend the wounds of nearby entities.\n Avoids hostiles.",
+                "Recovers one heart of damage every second.");
+        addRiteEntry("greater_sacred_rite",
+                "An advanced rite, while active nearby crops planted on soil are filled with vigor and will grow more quickly.",
+                "Periodically ages nearby crops. Coverage matches water coverage.");
 
         addEntryHeader("corrupt_sacred_rite", "Corrupting the Sacred Rites", "Stimulating the soul");
-        addPage("corrupt_sacred_rite", "Nearby animals are nourished spiritually, making them grow up faster, and accelerating various biological processes.");
-        addPage("corrupt_sacred_rite.greater", "Nearby animals are made... " + italic("vigorous") + ", as if I had fed them myself.");
+        addRiteEntry("corrupt_sacred_rite",
+                "A simple rite, while active it will apply a spiritually nourishing effect to nearby animals, accelerating growth and certain biological processes.",
+                """
+                        Affected animals instantly gain 25 seconds worth of age
+                         - Sheep will feed on grass more frequently
+                         - Bees pollinate faster and more frequently
+                         - Chickens lay eggs more frequently""");
+        addRiteEntry("corrupt_greater_sacred_rite",
+                "An advanced rite, while active... nearby animals are made... " + italic("vigorous") + ", as if I had fed them myself.",
+                "Affected animals are fed until there are more than twenty.");
 
         addEntryHeader("wicked_rite", "Wicked Rites", "Maligning the soul");
         addPage("wicked_rite", "Nearby hostile beings are slowly brought to within an inch of death.");
-        addPage("wicked_rite.greater", "By twisting the power of malice like a knife, nearby beings on the brink of death are dealt a fatal blow to the body and soul.");
+        addPage("greater_wicked_rite", "By twisting the power of malice like a knife, nearby beings on the brink of death are dealt a fatal blow to the body and soul.");
 
         addEntryHeader("corrupt_wicked_rite", "Corrupting the Wicked Rites", "Endangering the soul");
         addPage("corrupt_wicked_rite", "Rather than harm, this rite enhances nearby hostile beings, granting protection, force, and speed. Rather useless, but might have niche applications.");
-        addPage("corrupt_wicked_rite.greater", "This rite is rather cruel, but necessary. It culls my herds, completely annihilating animals who would otherwise overcrowd.");
+        addPage("corrupt_greater_wicked_rite", "This rite is rather cruel, but necessary. It culls my herds, completely annihilating animals who would otherwise overcrowd.");
 
         addEntryHeader("aerial_rite", "Aerial Rites", "Uplifting the soul");
         addPage("aerial_rite", "A simple aura rite, nearby friendly beings will find their movements sped up.");
-        addPage("aerial_rite.greater", "By twisting the power of the air, blocks before the totem will be made to fall as though they were sand. Nothing Silk Touch cannot grab will be affected, though.");
+        addPage("greater_aerial_rite", "By twisting the power of the air, blocks before the totem will be made to fall as though they were sand. Nothing Silk Touch cannot grab will be affected, though.");
 
         addEntryHeader("corrupt_aerial_rite", "Corrupting the Aerial Rites", "Scattering the soul");
         addPage("corrupt_aerial_rite", "A simple aura rite, nearby friendly beings will have their connection to the earth disrupted, lowering their gravity.");
-        addPage("corrupt_aerial_rite.greater", "Slowly eases the stress of time on the mind, offsetting the effects of insomnia for those around it.");
+        addPage("corrupt_greater_aerial_rite", "Slowly eases the stress of time on the mind, offsetting the effects of insomnia for those around it.");
 
         addEntryHeader("earthen_rite", "Earthen Rites", "Grounding the soul");
         addPage("earthen_rite", "A simple aura rite, nearby friendly beings will find their bodies are tougher and more resistant to damage.");
-        addPage("earthen_rite.greater", "By twisting the power of the earth, you can cause blocks before the totem base to be broken.");
+        addPage("greater_earthen_rite", "By twisting the power of the earth, you can cause blocks before the totem base to be broken.");
 
         addEntryHeader("corrupt_earthen_rite", "Corrupting the Earthen Rites", "Honing the soul");
         addPage("corrupt_earthen_rite", "A simple aura rite, nearby friendly beings will find their attacks deal more damage.");
-        addPage("corrupt_earthen_rite.greater", "The earth coalesces, and like lava meeting water, cobblestone is created before the totem base.");
+        addPage("corrupt_greater_earthen_rite", "The earth coalesces, and like lava meeting water, cobblestone is created before the totem base.");
 
         addEntryHeader("infernal_rite", "Infernal Rites", "Igniting the soul");
         addPage("infernal_rite", "A simple aura rite, nearby friendly beings will find that their motions are infused with fiery vigor, letting them swing weapons and tools faster.");
-        addPage("infernal_rite.greater", "By twisting the power of fire, you can cause blocks before the totem base to be smelted.");
+        addPage("greater_infernal_rite", "By twisting the power of fire, you can cause blocks before the totem base to be smelted.");
 
         addEntryHeader("corrupt_infernal_rite", "Corrupting the Infernal Rites", "Extinguishing the soul");
         addPage("corrupt_infernal_rite", "A simple aura rite, nearby friendly beings and close fires will have the heat sucked out of them, extinguishing them and healing those who were burned.");
-        addPage("corrupt_infernal_rite.greater", "Instead of generating heat, this rite compresses it, causing furnaces to operate more quickly.");
+        addPage("corrupt_greater_infernal_rite", "Instead of generating heat, this rite compresses it, causing furnaces to operate more quickly.");
 
         addEntryHeader("aqueous_rite", "Aqueous Rites", "Molding the soul");
         addPage("aqueous_rite", "A simple aura rite, nearby friendly beings will find that their reach is extended, letting them more easily interact with the world.");
-        addPage("aqueous_rite.greater", "By twisting the power of the water, you can squeeze more fluids from the air, vastly increasing the drip speed of dripstone.");
+        addPage("greater_aqueous_rite", "By twisting the power of the water, you can squeeze more fluids from the air, vastly increasing the drip speed of dripstone.");
 
         addEntryHeader("corrupt_aqueous_rite", "Corrupting the Aqueous Rites", "Deforming the soul");
         addPage("corrupt_aqueous_rite", "A simple aura rite, nearby friendly beings will find themselves better at fishing.");
-        addPage("corrupt_aqueous_rite.greater", "Zombies near this rite will find themselves choking on their own breath, drowning even on land.");
+        addPage("corrupt_greater_aqueous_rite", "Zombies near this rite will find themselves choking on their own breath, drowning even on land.");
 
         addEntryHeader("blight", "A Study on Blight", "What, why, and how");
         addHeadline("blight.intro", "Blight Study: Preface");
@@ -550,7 +574,6 @@ public class MalumLang extends LanguageProvider {
         add("enchantment.malum.rebound.desc", "Allows the item to be thrown much like a boomerang, cooldown decreases with tier.");
         add("enchantment.malum.spirit_plunder.desc", "Increases the amount of spirits created when shattering a soul.");
 
-
         add("death.attack." + DamageSourceRegistry.VOODOO_IDENTIFIER, "%s's soul shattered");
         add("death.attack." + DamageSourceRegistry.VOODOO_IDENTIFIER + ".player", "%s's soul was shattered by %s");
         add("death.attack." + DamageSourceRegistry.SCYTHE_SWEEP_IDENTIFIER, "%s was sliced in twain");
@@ -617,20 +640,23 @@ public class MalumLang extends LanguageProvider {
         add("tetra.material." + identifier + ".prefix", name);
     }
 
+    public void addRite(MalumRiteType riteType, String basicName, String corruptName) {
+        add(riteType.translationIdentifier(false), basicName);
+        add(riteType.translationIdentifier(true), corruptName);
+    }
+
+    public void addRiteEffectCategory(MalumRiteEffect.MalumRiteEffectCategory category) {
+        add(category.getTranslationKey(), DataHelper.toTitleCase(category.name().toLowerCase(), "_"));
+    }
+
     public void addTetraImprovement(String identifier, String name, String description) {
         add("tetra.improvement." + identifier + ".name", name);
         add("tetra.improvement." + identifier + ".description", description);
     }
 
-    public void addTetraSocket(String identifier, String socket, String start, String end) {
-        add("tetra.variant.double_socket/" + identifier, "Socket " + socket);
-        add("tetra.variant.double_socket/" + identifier + ".description", start + ", fitted onto the side of the tool head. " + end);
-
-        add("tetra.variant.single_socket/" + identifier, "Socket " + socket);
-        add("tetra.variant.single_socket/" + identifier + ".description", start + ", attached where the head meets the handle. " + end);
-
-        add("tetra.variant.sword_socket/" + identifier, "Socket " + socket);
-        add("tetra.variant.sword_socket/" + identifier + ".description", start + ", fitted onto the sword where the blade meets the hilt." + end);
+    public void addRiteEntry(String identifier, String riteDescription, String riteHoverDescription) {
+        add("malum.gui.book.entry.page.text." + identifier, riteDescription);
+        add("malum.gui.book.entry.page.text." + identifier + ".hover", riteHoverDescription);
     }
 
     public void addEntryHeader(String identifier, String name, String description) {

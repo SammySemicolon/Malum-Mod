@@ -85,7 +85,7 @@ public class SpiritTransmutationPage extends BookPage {
             WrappedIngredient wrappedIngredient = itemTree.get(i);
             renderComponent(screen, guiGraphics, wrappedIngredient, leftStart+i*20, guiTop + 85, mouseX, mouseY);
         }
-        spawnParticles(guiLeft + 75, guiTop + 94, false);
+        spawnParticles(guiLeft + 29, guiTop + 94, false);
     }
 
     @Override
@@ -98,27 +98,30 @@ public class SpiritTransmutationPage extends BookPage {
         renderComponent(screen, guiGraphics, itemTree.get(itemTree.size() - 1), guiLeft + 209, guiTop + 126, mouseX, mouseY);
         int leftStart = guiLeft + 199 + (itemTree.size())*10;
         for (int i = 1; i < itemTree.size()-1; i++) {
-            WrappedIngredient wrappedIngredient = itemTree.get(itemTree.size() - i);
+            WrappedIngredient wrappedIngredient = itemTree.get(itemTree.size() - i-1);
             renderComponent(screen, guiGraphics, wrappedIngredient, leftStart-i*20, guiTop + 85, mouseX, mouseY);
         }
-        spawnParticles(guiLeft + 218, guiTop + 94, true);
+        spawnParticles(guiLeft + 264, guiTop + 94, true);
     }
 
     public void spawnParticles(float x,float y, boolean rightSide) {
         if (ScreenParticleHandler.canSpawnParticles) {
-            RandomSource rand = Minecraft.getInstance().level.random;
-            float scale = RandomHelper.randomBetween(rand, 0.2f, 0.4f);
-            float spin = RandomHelper.randomBetween(rand, 0.2f, 0.4f);
-            final double xOffset = Math.sin(((rightSide ? -1 : 1) *Minecraft.getInstance().level.getGameTime() % 320) / 320f * Math.PI * 2) * 46;
-            final double yOffset = Math.sin((Minecraft.getInstance().level.getGameTime() % 80) / 80f * Math.PI * 2) * 6;
-            ScreenParticleBuilder.create(LodestoneScreenParticleRegistry.WISP, TRANSMUTATION_PARTICLES)
-                    .setTransparencyData(GenericParticleData.create(0.2f, 0.4f, 0.2f).build())
-                    .setSpinData(SpinParticleData.create(spin).build())
-                    .setScaleData(GenericParticleData.create(0, scale, 0).build())
-                    .setColorData(SpiritTypeRegistry.ELDRITCH_SPIRIT.createMainColorData().setCoefficient(0.25f).build())
-                    .setLifetime(80)
-                    .setDiscardFunction(SimpleParticleOptions.ParticleDiscardFunctionType.ENDING_CURVE_INVISIBLE)
-                    .spawn(x-xOffset, y+yOffset);
+            for (int i = 0; i < 8; i++) {
+                RandomSource rand = Minecraft.getInstance().level.random;
+                float scale = RandomHelper.randomBetween(rand, 0.1f, 0.2f);
+                float spin = RandomHelper.randomBetween(rand, 0.2f, 0.4f);
+                final double xOffset = (rightSide ? 1 : -1) * 92 * ((Minecraft.getInstance().level.getGameTime()+i*30) % 100) / 100f;
+                final double yOffset = Math.sin(((Minecraft.getInstance().level.getGameTime()+i*16) % 80) / 80f * Math.PI * 2) * 6;
+                ScreenParticleBuilder.create(LodestoneScreenParticleRegistry.WISP, TRANSMUTATION_PARTICLES)
+                        .setTransparencyData(GenericParticleData.create(0.2f, 0.6f, 0f).build())
+                        .setSpinData(SpinParticleData.create(spin).build())
+                        .setScaleData(GenericParticleData.create(0, scale, 0).build())
+                        .setColorData(SpiritTypeRegistry.ARCANE_SPIRIT.createMainColorData().setCoefficient(0.75f).build())
+                        .setLifetime(i % 2 == 0 ? 20 : 40)
+                        .setDiscardFunction(SimpleParticleOptions.ParticleDiscardFunctionType.ENDING_CURVE_INVISIBLE)
+                        .setLifeDelay(i > 3 ? 0 : 15)
+                        .spawn(x - xOffset, y + yOffset);
+            }
         }
     }
 }
