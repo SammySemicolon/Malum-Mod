@@ -2,7 +2,9 @@ package com.sammy.malum.core.systems.spirit;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Maps;
+import com.sammy.malum.registry.common.item.*;
 import net.minecraft.world.level.block.state.properties.Property;
+import net.minecraftforge.registries.*;
 
 import java.util.Collection;
 import java.util.Map;
@@ -17,7 +19,6 @@ public class SpiritTypeProperty extends Property<String> {
     public SpiritTypeProperty(String name, Collection<MalumSpiritType> types) {
         super(name, String.class);
         this.values = ImmutableSet.copyOf(types.stream().map(s -> s.identifier).collect(Collectors.toList()));
-
         for (MalumSpiritType type : types) {
             if (this.types.containsKey(type.identifier)) {
                 throw new IllegalArgumentException("Multiple values have the same name '" + type.identifier + "'");

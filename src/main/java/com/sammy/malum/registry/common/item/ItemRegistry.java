@@ -63,7 +63,7 @@ import static net.minecraft.world.item.Rarity.*;
 public class ItemRegistry {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MALUM);
 
-    public static final Map<ResourceKey<CreativeModeTab>, Set<ResourceLocation>> TAB_SORTING = new HashMap<>();
+    public static final Map<ResourceKey<CreativeModeTab>, List<ResourceLocation>> TAB_SORTING = new HashMap<>();
 
     public static class LodestoneItemProperties extends Item.Properties {
         public final ResourceKey<CreativeModeTab> tab;
@@ -110,7 +110,7 @@ public class ItemRegistry {
     }
     public static <T extends Item> RegistryObject<T> register(String name, Item.Properties properties, Function<Item.Properties, T> function) {
         if (properties instanceof LodestoneItemProperties lodestoneItemProperties) {
-            TAB_SORTING.computeIfAbsent(lodestoneItemProperties.tab, (key) -> new HashSet<>()).add(MalumMod.malumPath(name));
+            TAB_SORTING.computeIfAbsent(lodestoneItemProperties.tab, (key) -> new ArrayList<>()).add(MalumMod.malumPath(name));
         }
         return ITEMS.register(name, () -> function.apply(properties));
     }
@@ -351,6 +351,21 @@ public class ItemRegistry {
     //endregion
 
     //region ores
+    public static final RegistryObject<Item> SOULSTONE_ORE = register("soulstone_ore", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.SOULSTONE_ORE.get(), p));
+    public static final RegistryObject<Item> DEEPSLATE_SOULSTONE_ORE = register("deepslate_soulstone_ore", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.DEEPSLATE_SOULSTONE_ORE.get(), p));
+    public static final RegistryObject<Item> RAW_SOULSTONE = register("raw_soulstone", DEFAULT_PROPERTIES(), Item::new);
+    public static final RegistryObject<Item> CRUSHED_SOULSTONE = register("crushed_soulstone", DEFAULT_PROPERTIES(), Item::new);
+    public static final RegistryObject<Item> BLOCK_OF_RAW_SOULSTONE = register("block_of_raw_soulstone", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BLOCK_OF_RAW_SOULSTONE.get(), p));
+    public static final RegistryObject<Item> PROCESSED_SOULSTONE = register("processed_soulstone", DEFAULT_PROPERTIES(), Item::new);
+    public static final RegistryObject<Item> BLOCK_OF_SOULSTONE = register("block_of_soulstone", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BLOCK_OF_SOULSTONE.get(), p));
+
+    public static final RegistryObject<Item> BRILLIANT_STONE = register("brilliant_stone", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BRILLIANT_STONE.get(), p));
+    public static final RegistryObject<Item> BRILLIANT_DEEPSLATE = register("brilliant_deepslate", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BRILLIANT_DEEPSLATE.get(), p));
+    public static final RegistryObject<Item> CLUSTER_OF_BRILLIANCE = register("cluster_of_brilliance", DEFAULT_PROPERTIES(), Item::new);
+    public static final RegistryObject<Item> CRUSHED_BRILLIANCE = register("crushed_brilliance", DEFAULT_PROPERTIES(), Item::new);
+    public static final RegistryObject<Item> CHUNK_OF_BRILLIANCE = register("chunk_of_brilliance", DEFAULT_PROPERTIES(), (p) -> new BrillianceChunkItem(p.food((new FoodProperties.Builder()).fast().alwaysEat().build())));
+    public static final RegistryObject<Item> BLOCK_OF_BRILLIANCE = register("block_of_brilliance", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BLOCK_OF_BRILLIANCE.get(), p));
+
     public static final RegistryObject<Item> ARCANE_CHARCOAL = register("arcane_charcoal", DEFAULT_PROPERTIES(), (p) -> new LodestoneFuelItem(p, 3200));
     public static final RegistryObject<Item> ARCANE_CHARCOAL_FRAGMENT = register("arcane_charcoal_fragment", DEFAULT_PROPERTIES(), (p) -> new LodestoneFuelItem(p, 400));
     public static final RegistryObject<Item> BLOCK_OF_ARCANE_CHARCOAL = register("block_of_arcane_charcoal", DEFAULT_PROPERTIES(), (p) -> new LodestoneFuelBlockItem(BlockRegistry.BLOCK_OF_ARCANE_CHARCOAL.get(), p, 32000));
@@ -363,28 +378,13 @@ public class ItemRegistry {
     public static final RegistryObject<Item> NATURAL_QUARTZ_ORE = register("natural_quartz_ore", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.NATURAL_QUARTZ_ORE.get(), p));
     public static final RegistryObject<Item> DEEPSLATE_QUARTZ_ORE = register("deepslate_quartz_ore", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.DEEPSLATE_QUARTZ_ORE.get(), p));
     public static final RegistryObject<Item> NATURAL_QUARTZ = register("natural_quartz", DEFAULT_PROPERTIES(), (p) -> new ItemNameBlockItem(BlockRegistry.NATURAL_QUARTZ_CLUSTER.get(), p));
-
-    public static final RegistryObject<Item> BRILLIANT_STONE = register("brilliant_stone", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BRILLIANT_STONE.get(), p));
-    public static final RegistryObject<Item> BRILLIANT_DEEPSLATE = register("brilliant_deepslate", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BRILLIANT_DEEPSLATE.get(), p));
-    public static final RegistryObject<Item> CLUSTER_OF_BRILLIANCE = register("cluster_of_brilliance", DEFAULT_PROPERTIES(), Item::new);
-    public static final RegistryObject<Item> CRUSHED_BRILLIANCE = register("crushed_brilliance", DEFAULT_PROPERTIES(), Item::new);
-    public static final RegistryObject<Item> CHUNK_OF_BRILLIANCE = register("chunk_of_brilliance", DEFAULT_PROPERTIES(), (p) -> new BrillianceChunkItem(p.food((new FoodProperties.Builder()).fast().alwaysEat().build())));
-    public static final RegistryObject<Item> BLOCK_OF_BRILLIANCE = register("block_of_brilliance", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BLOCK_OF_BRILLIANCE.get(), p));
-
-    public static final RegistryObject<Item> SOULSTONE_ORE = register("soulstone_ore", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.SOULSTONE_ORE.get(), p));
-    public static final RegistryObject<Item> DEEPSLATE_SOULSTONE_ORE = register("deepslate_soulstone_ore", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.DEEPSLATE_SOULSTONE_ORE.get(), p));
-    public static final RegistryObject<Item> RAW_SOULSTONE = register("raw_soulstone", DEFAULT_PROPERTIES(), Item::new);
-    public static final RegistryObject<Item> CRUSHED_SOULSTONE = register("crushed_soulstone", DEFAULT_PROPERTIES(), Item::new);
-    public static final RegistryObject<Item> BLOCK_OF_RAW_SOULSTONE = register("block_of_raw_soulstone", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BLOCK_OF_RAW_SOULSTONE.get(), p));
-    public static final RegistryObject<Item> PROCESSED_SOULSTONE = register("processed_soulstone", DEFAULT_PROPERTIES(), Item::new);
-    public static final RegistryObject<Item> BLOCK_OF_SOULSTONE = register("block_of_soulstone", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BLOCK_OF_SOULSTONE.get(), p));
     //endregion
 
     //region crafting blocks
     public static final RegistryObject<Item> SPIRIT_ALTAR = register("spirit_altar", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.SPIRIT_ALTAR.get(), p));
-    public static final RegistryObject<Item> WEAVERS_WORKBENCH = register("weavers_workbench", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.WEAVERS_WORKBENCH.get(), COSMETIC_PROPERTIES()));
+    public static final RegistryObject<Item> WEAVERS_WORKBENCH = register("weavers_workbench", COSMETIC_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.WEAVERS_WORKBENCH.get(), COSMETIC_PROPERTIES()));
     public static final RegistryObject<Item> SPIRIT_JAR = register("spirit_jar", DEFAULT_PROPERTIES(), (p) -> new SpiritJarItem(BlockRegistry.SPIRIT_JAR.get(), p));
-    public static final RegistryObject<Item> SOUL_VIAL = register("soul_vial", DEFAULT_PROPERTIES(), (p) -> new SoulVialItem(BlockRegistry.SOUL_VIAL.get(), HIDDEN_PROPERTIES()));
+    public static final RegistryObject<Item> SOUL_VIAL = register("soul_vial", HIDDEN_PROPERTIES(), (p) -> new SoulVialItem(BlockRegistry.SOUL_VIAL.get(), HIDDEN_PROPERTIES()));
     public static final RegistryObject<Item> RUNEWOOD_OBELISK = register("runewood_obelisk", DEFAULT_PROPERTIES(), (p) -> new MultiBlockItem(BlockRegistry.RUNEWOOD_OBELISK.get(), p, RunewoodObeliskBlockEntity.STRUCTURE));
     public static final RegistryObject<Item> BRILLIANT_OBELISK = register("brilliant_obelisk", DEFAULT_PROPERTIES(), (p) -> new MultiBlockItem(BlockRegistry.BRILLIANT_OBELISK.get(), p, BrilliantObeliskBlockEntity.STRUCTURE));
     public static final RegistryObject<Item> SPIRIT_CRUCIBLE = register("spirit_crucible", DEFAULT_PROPERTIES(), (p) -> new MultiBlockItem(BlockRegistry.SPIRIT_CRUCIBLE.get(), p, SpiritCrucibleCoreBlockEntity.STRUCTURE));
