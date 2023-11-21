@@ -49,6 +49,7 @@ java {
 
 mixin {
     add(sourceSets.main.get(), "${modId}.refmap.json")
+    config("malum.mixins.json")
 }
 
 minecraft {
