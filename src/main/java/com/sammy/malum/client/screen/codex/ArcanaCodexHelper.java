@@ -16,7 +16,8 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.*;
 import org.joml.*;
 import org.lwjgl.opengl.*;
-import team.lodestar.lodestone.setup.*;
+
+import team.lodestar.lodestone.registry.client.*;
 import team.lodestar.lodestone.systems.easing.*;
 import team.lodestar.lodestone.systems.recipe.*;
 import team.lodestar.lodestone.systems.rendering.*;

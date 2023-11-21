@@ -6,7 +6,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterShadersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import team.lodestar.lodestone.setup.LodestoneShaderRegistry;
+import team.lodestar.lodestone.registry.client.*;
 import team.lodestar.lodestone.systems.rendering.shader.ShaderHolder;
 
 import java.io.IOException;

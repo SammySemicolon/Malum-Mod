@@ -29,7 +29,7 @@ import net.minecraftforge.items.wrapper.*;
 import net.minecraftforge.network.*;
 import org.jetbrains.annotations.*;
 import team.lodestar.lodestone.helpers.*;
-import team.lodestar.lodestone.setup.*;
+
 import team.lodestar.lodestone.systems.blockentity.*;
 import team.lodestar.lodestone.systems.easing.*;
 import team.lodestar.lodestone.systems.multiblock.*;

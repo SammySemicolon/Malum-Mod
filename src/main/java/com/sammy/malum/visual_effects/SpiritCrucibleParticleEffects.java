@@ -12,7 +12,6 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
 import team.lodestar.lodestone.helpers.*;
-import team.lodestar.lodestone.setup.*;
 import team.lodestar.lodestone.systems.blockentity.*;
 import team.lodestar.lodestone.systems.easing.*;
 import team.lodestar.lodestone.systems.particle.*;
@@ -20,11 +19,9 @@ import team.lodestar.lodestone.systems.particle.builder.*;
 import team.lodestar.lodestone.systems.particle.data.*;
 import team.lodestar.lodestone.systems.particle.data.spin.*;
 
-import java.util.*;
 import java.util.function.*;
 
-import static com.sammy.malum.visual_effects.SpiritLightSpecs.spiritLightSpecs;
-import static net.minecraft.util.Mth.nextFloat;
+import static com.sammy.malum.visual_effects.SpiritLightSpecs.*;
 
 public class SpiritCrucibleParticleEffects {
 

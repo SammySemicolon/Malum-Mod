@@ -12,7 +12,8 @@ import net.minecraft.resources.*;
 import net.minecraft.world.item.*;
 import team.lodestar.lodestone.handlers.screenparticle.*;
 import team.lodestar.lodestone.helpers.*;
-import team.lodestar.lodestone.setup.*;
+
+import team.lodestar.lodestone.registry.common.particle.*;
 import team.lodestar.lodestone.systems.easing.*;
 import team.lodestar.lodestone.systems.particle.builder.*;
 import team.lodestar.lodestone.systems.particle.data.*;

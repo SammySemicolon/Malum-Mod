@@ -7,7 +7,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import team.lodestar.lodestone.setup.LodestoneParticleRegistry;
+import team.lodestar.lodestone.registry.common.particle.*;
 import team.lodestar.lodestone.systems.easing.Easing;
 import team.lodestar.lodestone.systems.particle.LodestoneWorldParticleActor;
 import team.lodestar.lodestone.systems.particle.builder.WorldParticleBuilder;

@@ -10,7 +10,7 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.phys.*;
 import net.minecraft.world.phys.shapes.*;
 import team.lodestar.lodestone.helpers.*;
-import team.lodestar.lodestone.setup.*;
+import team.lodestar.lodestone.registry.common.particle.*;
 import team.lodestar.lodestone.systems.easing.*;
 import team.lodestar.lodestone.systems.particle.*;
 import team.lodestar.lodestone.systems.particle.builder.*;

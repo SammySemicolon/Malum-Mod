@@ -18,7 +18,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.HitResult;
 import team.lodestar.lodestone.helpers.BlockHelper;
 import team.lodestar.lodestone.helpers.ColorHelper;
-import team.lodestar.lodestone.setup.LodestoneParticleRegistry;
+import team.lodestar.lodestone.registry.common.particle.*;
 import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntity;
 import team.lodestar.lodestone.systems.easing.Easing;
 import team.lodestar.lodestone.systems.particle.SimpleParticleOptions;
