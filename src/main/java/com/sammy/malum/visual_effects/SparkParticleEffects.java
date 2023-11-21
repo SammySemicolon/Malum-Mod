@@ -2,6 +2,7 @@ package com.sammy.malum.visual_effects;
 
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import com.sammy.malum.registry.client.ParticleRegistry;
+import net.minecraft.util.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import team.lodestar.lodestone.helpers.RandomHelper;
@@ -20,12 +21,11 @@ import static net.minecraft.util.Mth.nextFloat;
 public class SparkParticleEffects {
 
     public static ParticleEffectSpawner<SparkParticleBuilder> spiritMotionSparks(Level level, Vec3 pos, MalumSpiritType spiritType) {
-        var rand = level.getRandom();
         return spiritMotionSparks(level, pos, spiritType.createMainColorData(1.25f).build(), spiritType.createBloomColorData().build());
     }
 
     public static ParticleEffectSpawner<SparkParticleBuilder> spiritMotionSparks(Level level, Vec3 pos, ColorParticleData colorData, ColorParticleData bloomColorData) {
-        Random rand = level.getRandom();
+        RandomSource rand = level.getRandom();
         final SpinParticleData spinData = SpinParticleData.createRandomDirection(rand, nextFloat(rand, 0.05f, 0.1f)).randomSpinOffset(rand).build();
         final Consumer<LodestoneWorldParticleActor> slowDown = p -> p.setParticleMotion(p.getParticleSpeed().scale(0.95f));
         int lifetime = RandomHelper.randomBetween(rand, 10, 20);

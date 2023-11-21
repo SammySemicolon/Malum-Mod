@@ -41,7 +41,7 @@ public class EldritchWickedRiteType extends MalumRiteType {
         return new MalumRiteEffect(MalumRiteEffect.MalumRiteEffectCategory.LIVING_ENTITY_EFFECT) {
             @Override
             public void doRiteEffect(TotemBaseBlockEntity totemBase) {
-                Map<Class<? extends Animal>, List<Animal>> animalMap = getNearbyEntities(totemBase, Animal.class, e -> e.getAge() > 0 && !e.isInvulnerableTo(DamageSourceRegistry.VOODOO)).collect(Collectors.groupingBy(Animal::getClass));
+                Map<Class<? extends Animal>, List<Animal>> animalMap = getNearbyEntities(totemBase, Animal.class, e -> e.getAge() > 0 && !e.isInvulnerableTo(DamageSourceRegistry.create(e.level(), DamageSourceRegistry.VOODOO))).collect(Collectors.groupingBy(Animal::getClass));
                 for (List<Animal> animals : animalMap.values()) {
                     if (animals.size() < 20) {
                         return;

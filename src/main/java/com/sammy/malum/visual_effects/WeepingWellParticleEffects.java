@@ -40,7 +40,7 @@ public class WeepingWellParticleEffects {
         double posY = positionEffectData.posY;
         double posZ = positionEffectData.posZ;
         Vec3 pos = new Vec3(posX, posY, posZ);
-        Random rand = level.random;
+        RandomSource rand = level.random;
         Color color = getWeepingWellSmokeColor(rand);
         ColorParticleData colorData = ColorParticleData.create(color, color.darker()).setCoefficient(0.5f).build();
         Consumer<LodestoneWorldParticleActor> spawnBehavior = p -> p.tickParticle(2);
@@ -153,13 +153,13 @@ public class WeepingWellParticleEffects {
 
 
     public static ParticleEffectSpawner<SparkParticleBuilder> weepingWellSparks(Level level, Vec3 pos) {
-        Random rand = level.random;
+        RandomSource rand = level.random;
         Color color = getWeepingWellSmokeColor(rand);
         ColorParticleData colorData = ColorParticleData.create(color, color.darker()).setCoefficient(0.5f).build();
         return weepingWellSparks(level, pos, colorData, LodestoneWorldParticleRenderType.LUMITRANSPARENT);
     }
     public static ParticleEffectSpawner<SparkParticleBuilder> weepingWellSparks(Level level, Vec3 pos, ColorParticleData colorData, LodestoneWorldParticleRenderType renderType) {
-        Random rand = level.random;
+        RandomSource rand = level.random;
         var lightSpecs = SparkParticleEffects.spiritMotionSparks(level, pos, colorData, colorData);
         lightSpecs.getBuilder().act(b -> b
                 .setRenderType(renderType)
@@ -199,7 +199,7 @@ public class WeepingWellParticleEffects {
         return lightSpecs;
     }
     public static ParticleEffectSpawner<DirectionalParticleBuilder> weepingWellSquare(Level level, Vec3 pos, ColorParticleData colorData) {
-        Random rand = level.random;
+        RandomSource rand = level.random;
         final GenericParticleData scaleData = GenericParticleData.create(0.1f, RandomHelper.randomBetween(rand, 1.7f, 1.8f), 0.5f).setEasing(Easing.SINE_OUT, Easing.SINE_IN).setCoefficient(RandomHelper.randomBetween(rand, 1f, 1.25f)).build();
         final Consumer<LodestoneWorldParticleActor> behavior = p -> p.setParticleMotion(p.getParticleSpeed().scale(0.95f));
         float yMotion = RandomHelper.randomBetween(rand, 0.04f, 0.06f);

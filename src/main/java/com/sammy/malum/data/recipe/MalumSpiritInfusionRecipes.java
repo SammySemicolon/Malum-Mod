@@ -29,11 +29,6 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider implements ICondi
     }
 
     @Override
-    public String getName() {
-        return "Malum Spirit Infusion Recipe Provider";
-    }
-
-    @Override
     protected void buildRecipes(Consumer<FinishedRecipe> consumer) {
         new SpiritInfusionRecipeBuilder(Items.GUNPOWDER, 1, ItemRegistry.HEX_ASH.get(), 1)
                 .addSpirit(ARCANE_SPIRIT, 1)

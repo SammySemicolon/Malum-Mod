@@ -3,6 +3,7 @@ package com.sammy.malum.visual_effects;
 import com.sammy.malum.common.block.curiosities.weeping_well.*;
 import com.sammy.malum.visual_effects.networked.data.*;
 import net.minecraft.core.*;
+import net.minecraft.util.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
 import team.lodestar.lodestone.helpers.*;
@@ -31,7 +32,7 @@ public class RadiantParticleEffects {
         double posY = positionEffectData.posY;
         double posZ = positionEffectData.posZ;
         Vec3 pos = new Vec3(posX, posY, posZ);
-        Random rand = level.random;
+        RandomSource rand = level.random;
         Consumer<LodestoneWorldParticleActor> spawnBehavior = p -> p.tickParticle(2);
         for (int i = 0; i < 64; i++) {
             Color color = RADIANT_COLORS.get((i % 12) / 4);
@@ -109,7 +110,7 @@ public class RadiantParticleEffects {
 
     public static void radiantWeepingWellParticles(VoidConduitBlockEntity voidConduit) {
         Level level = voidConduit.getLevel();
-        Random rand = level.random;
+        RandomSource rand = level.random;
         Color color = RADIANT_COLORS.get(((int) level.getGameTime() % 27) / 9);
         final BlockPos blockPos = voidConduit.getBlockPos();
         final ColorParticleData colorData = ColorParticleData.create(color.brighter(), color).setCoefficient(0.5f).build();

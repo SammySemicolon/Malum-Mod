@@ -2,7 +2,7 @@ package com.sammy.malum.common.spiritrite.greater;
 
 import com.sammy.malum.common.block.curiosities.totem.TotemBaseBlockEntity;
 import com.sammy.malum.core.systems.rites.BlockAffectingRiteEffect;
-import com.sammy.malum.core.systems.rites.EntityAffectingRiteEffect;
+
 import com.sammy.malum.core.systems.rites.MalumRiteEffect;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
 import com.sammy.malum.registry.common.ParticleEffectTypeRegistry;

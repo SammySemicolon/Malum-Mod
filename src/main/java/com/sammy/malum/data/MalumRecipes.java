@@ -48,11 +48,6 @@ public class MalumRecipes extends RecipeProvider implements IConditionBuilder {
     }
 
     @Override
-    public String getName() {
-        return "Malum Recipe Provider";
-    }
-
-    @Override
     protected void buildRecipes(Consumer<FinishedRecipe> consumer) {
         //KEY ITEMS
         shapeless(RecipeCategory.MISC, ItemRegistry.ENCYCLOPEDIA_ARCANA.get()).requires(Items.BOOK).requires(ItemRegistry.PROCESSED_SOULSTONE.get()).unlockedBy("has_soulstone", has(ItemRegistry.PROCESSED_SOULSTONE.get())).save(consumer);

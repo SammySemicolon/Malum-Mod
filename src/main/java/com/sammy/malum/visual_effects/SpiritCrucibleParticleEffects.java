@@ -34,7 +34,7 @@ public class SpiritCrucibleParticleEffects {
             return;
         }
         Level level = crucible.getLevel();
-        Random random = level.random;
+        RandomSource random = level.random;
         Vec3 itemPos = crucible.getItemPos();
         LodestoneBlockEntityInventory spiritInventory = crucible.spiritInventory;
         SpiritFocusingRecipe recipe = crucible.recipe;
@@ -88,7 +88,7 @@ public class SpiritCrucibleParticleEffects {
         Level level = catalyzer.getLevel();
         BlockPos catalyzerPos = catalyzer.getBlockPos();
         Vec3 startPos = catalyzer.getItemOffset().add(catalyzerPos.getX(), catalyzerPos.getY(), catalyzerPos.getZ());
-        Random random = level.random;
+        RandomSource random = level.random;
         Vec3 targetPos = target.getAccelerationPoint();
         Vec3 velocity = targetPos.subtract(startPos).normalize().scale(RandomHelper.randomBetween(random, 0.06f, 0.12f));
         if (level.getGameTime() % 2L == 0) {
