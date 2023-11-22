@@ -1,6 +1,7 @@
 package com.sammy.malum.common.entity;
 
 import com.sammy.malum.core.systems.spirit.*;
+import com.sammy.malum.registry.MalumRegistries;
 import com.sammy.malum.registry.common.SpiritTypeRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -35,7 +36,7 @@ public abstract class FloatingEntity extends Entity {
 
     protected static final EntityDataAccessor<String> DATA_SPIRIT = SynchedEntityData.defineId(FloatingEntity.class, EntityDataSerializers.STRING);
     public final TrailPointBuilder trailPointBuilder = TrailPointBuilder.create(10);
-    protected MalumSpiritType spiritType = SpiritTypeRegistry.ARCANE_SPIRIT;
+    protected MalumSpiritType spiritType = SpiritTypeRegistry.ARCANE_SPIRIT.get();
     public int maxAge;
     public int age;
     public float moveTime;
@@ -52,7 +53,7 @@ public abstract class FloatingEntity extends Entity {
         return spiritType;
     }
     public void setSpirit(MalumSpiritType spiritType) {
-        setSpirit(spiritType.identifier);
+        setSpirit(spiritType.toString());
     }
     public void setSpirit(String spiritIdentifier) {
         this.getEntityData().set(DATA_SPIRIT, spiritIdentifier);
@@ -70,7 +71,7 @@ public abstract class FloatingEntity extends Entity {
 
     @Override
     protected void defineSynchedData() {
-        this.getEntityData().define(DATA_SPIRIT, SpiritTypeRegistry.ARCANE_SPIRIT.identifier);
+        this.getEntityData().define(DATA_SPIRIT, SpiritTypeRegistry.ARCANE_SPIRIT.get().toString());
     }
 
     @Override
@@ -80,7 +81,7 @@ public abstract class FloatingEntity extends Entity {
         compound.putFloat("moveTime", moveTime);
         compound.putFloat("windUp", windUp);
 
-        compound.putString("spiritType", spiritType.identifier);
+        compound.putString("spiritType", spiritType.toString());
     }
 
     @Override
@@ -95,7 +96,7 @@ public abstract class FloatingEntity extends Entity {
     @Override
     public void onSyncedDataUpdated(EntityDataAccessor<?> pKey) {
         if (DATA_SPIRIT.equals(pKey)) {
-            spiritType = SpiritTypeRegistry.SPIRITS.get(entityData.get(DATA_SPIRIT));
+            spiritType = MalumRegistries.SPIRITS.getValue(MalumRegistries.MalumKeys.SPIRITS.getRegistryName());
         }
         super.onSyncedDataUpdated(pKey);
     }

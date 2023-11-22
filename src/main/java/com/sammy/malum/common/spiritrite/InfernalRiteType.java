@@ -9,6 +9,7 @@ import com.sammy.malum.registry.common.MobEffectRegistry;
 import com.sammy.malum.core.systems.rites.PotionRiteEffect;
 import com.sammy.malum.core.systems.rites.MalumRiteEffect;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -18,6 +19,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseFireBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.network.PacketDistributor;
+import org.jetbrains.annotations.Nullable;
 
 import static com.sammy.malum.registry.common.SpiritTypeRegistry.ARCANE_SPIRIT;
 import static com.sammy.malum.registry.common.SpiritTypeRegistry.INFERNAL_SPIRIT;
@@ -25,7 +27,7 @@ import static com.sammy.malum.registry.common.PacketRegistry.MALUM_CHANNEL;
 
 public class InfernalRiteType extends MalumRiteType {
     public InfernalRiteType() {
-        super("infernal_rite", ARCANE_SPIRIT, INFERNAL_SPIRIT, INFERNAL_SPIRIT);
+        super("infernal_rite", ARCANE_SPIRIT.get(), INFERNAL_SPIRIT.get(), INFERNAL_SPIRIT.get());
     }
 
     @Override
@@ -55,12 +57,28 @@ public class InfernalRiteType extends MalumRiteType {
                     if (!state.is(BlockTagRegistry.ENDLESS_FLAME)) {
                         level.playSound(null, p, SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 1, 2.6F + (level.random.nextFloat() - level.random.nextFloat()) * 0.8F);
 
-                        MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(p)), new InfernalExtinguishRiteEffectPacket(INFERNAL_SPIRIT.getPrimaryColor(), p));
-                        MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(p)), new BlockSparkleParticlePacket(ARCANE_SPIRIT.getPrimaryColor(), p));
+                        MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(p)), new InfernalExtinguishRiteEffectPacket(INFERNAL_SPIRIT.get().getPrimaryColor(), p));
+                        MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(p)), new BlockSparkleParticlePacket(ARCANE_SPIRIT.get().getPrimaryColor(), p));
                         totemBase.getLevel().removeBlock(p, false);
                     }
                 });
             }
         };
+    }
+
+    @Override
+    public MalumRiteType setRegistryName(ResourceLocation name) {
+        return null;
+    }
+
+    @Nullable
+    @Override
+    public ResourceLocation getRegistryName() {
+        return null;
+    }
+
+    @Override
+    public Class<MalumRiteType> getRegistryType() {
+        return null;
     }
 }

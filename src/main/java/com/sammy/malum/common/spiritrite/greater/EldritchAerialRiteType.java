@@ -20,6 +20,7 @@ import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraftforge.network.*;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
@@ -28,7 +29,7 @@ import static com.sammy.malum.registry.common.SpiritTypeRegistry.*;
 
 public class EldritchAerialRiteType extends MalumRiteType {
     public EldritchAerialRiteType() {
-        super("greater_aerial_rite", ELDRITCH_SPIRIT, ARCANE_SPIRIT, AERIAL_SPIRIT, AERIAL_SPIRIT);
+        super("greater_aerial_rite", ELDRITCH_SPIRIT.get(), ARCANE_SPIRIT.get(), AERIAL_SPIRIT.get(), AERIAL_SPIRIT.get());
     }
 
     @Override
@@ -46,7 +47,7 @@ public class EldritchAerialRiteType extends MalumRiteType {
                             if (!state.isAir() && level.getBlockEntity(p) == null && canSilkTouch(serverLevel, pos, state)) {
                                 FallingBlockEntity.fall(level, p, state);
                                 level.playSound(null, p, SoundRegistry.AERIAL_FALL.get(), SoundSource.BLOCKS, 0.5f, 2.6F + (level.random.nextFloat() - level.random.nextFloat()) * 0.8F);
-                                MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(pos)), new AerialBlockFallRiteEffectPacket(AERIAL_SPIRIT.getPrimaryColor(), p));
+                                MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(pos)), new AerialBlockFallRiteEffectPacket(AERIAL_SPIRIT.get().getPrimaryColor(), p));
                             }
                         }
                     });
@@ -65,7 +66,7 @@ public class EldritchAerialRiteType extends MalumRiteType {
                     Stat<ResourceLocation> sleepStat = Stats.CUSTOM.get(Stats.TIME_SINCE_REST);
                     int value = stats.getValue(sleepStat);
                     stats.setValue(p, sleepStat, Math.max(0, value-500));
-                    ParticleEffectTypeRegistry.HEXING_SMOKE.createEntityEffect(p, new ColorEffectData(AERIAL_SPIRIT));
+                    ParticleEffectTypeRegistry.HEXING_SMOKE.createEntityEffect(p, new ColorEffectData(AERIAL_SPIRIT.get()));
                 });
             }
         };
@@ -102,5 +103,21 @@ public class EldritchAerialRiteType extends MalumRiteType {
         List<ItemStack> drops = Block.getDrops(state, level, pos, null, null, harvestToolStack);
         Item blockItem = state.getBlock().asItem();
         return drops.stream().anyMatch(s -> s.getItem() == blockItem);
+    }
+
+    @Override
+    public MalumRiteType setRegistryName(ResourceLocation name) {
+        return null;
+    }
+
+    @Nullable
+    @Override
+    public ResourceLocation getRegistryName() {
+        return null;
+    }
+
+    @Override
+    public Class<MalumRiteType> getRegistryType() {
+        return null;
     }
 }

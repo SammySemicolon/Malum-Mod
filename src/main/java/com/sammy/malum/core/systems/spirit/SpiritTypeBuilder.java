@@ -2,6 +2,7 @@ package com.sammy.malum.core.systems.spirit;
 
 import com.sammy.malum.common.block.mana_mote.*;
 import com.sammy.malum.common.item.spirit.*;
+import com.sammy.malum.registry.MalumRegistries;
 import team.lodestar.lodestone.systems.easing.*;
 
 import java.awt.*;
@@ -9,7 +10,6 @@ import java.util.function.*;
 
 public class SpiritTypeBuilder {
 
-    public final String identifier;
     public final Supplier<SpiritShardItem> spiritShard;
     public final Supplier<SpiritMoteBlock> spiritMote;
 
@@ -26,8 +26,7 @@ public class SpiritTypeBuilder {
     public Color itemColor;
 
 
-    public SpiritTypeBuilder(String identifier, Supplier<SpiritShardItem> spiritShard, Supplier<SpiritMoteBlock> spiritMote) {
-        this.identifier = identifier;
+    public SpiritTypeBuilder(Supplier<SpiritShardItem> spiritShard, Supplier<SpiritMoteBlock> spiritMote) {
         this.spiritShard = spiritShard;
         this.spiritMote = spiritMote;
     }
@@ -72,7 +71,7 @@ public class SpiritTypeBuilder {
     }
 
     public MalumSpiritType build() {
-        return new MalumSpiritType(identifier, spiritShard, spiritMote,
+        return new MalumSpiritType(spiritShard, spiritMote,
                 primaryColor, secondaryColor, mainColorCoefficient, mainColorEasing,
                 primaryBloomColor, secondaryBloomColor, bloomColorCoefficient, bloomColorEasing,
                 itemColor);

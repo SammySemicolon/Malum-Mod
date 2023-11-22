@@ -83,7 +83,7 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
                 BlockHelper.updateAndNotifyState(level, worldPosition);
             }
         };
-        spiritInventory = new LodestoneBlockEntityInventory(SpiritTypeRegistry.SPIRITS.size(), 64) {
+        spiritInventory = new LodestoneBlockEntityInventory(SpiritTypeRegistry.SPIRITS.getEntries().size(), 64) {
             @Override
             public void onContentsChanged(int slot) {
                 super.onContentsChanged(slot);

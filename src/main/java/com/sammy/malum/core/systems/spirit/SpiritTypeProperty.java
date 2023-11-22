@@ -6,6 +6,7 @@ import net.minecraft.world.level.block.state.properties.Property;
 
 import java.util.Collection;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -16,14 +17,14 @@ public class SpiritTypeProperty extends Property<String> {
 
    public SpiritTypeProperty(String name, Collection<MalumSpiritType> types) {
       super(name, String.class);
-      this.values = ImmutableSet.copyOf(types.stream().map(s -> s.identifier).collect(Collectors.toList()));
+      this.values = ImmutableSet.copyOf(types.stream().map(s -> Objects.requireNonNull(s.getRegistryName()).getNamespace()).collect(Collectors.toList()));
 
       for (MalumSpiritType type : types) {
-         if (this.types.containsKey(type.identifier)) {
-            throw new IllegalArgumentException("Multiple values have the same name '" + type.identifier + "'");
+         if (this.types.containsKey(Objects.requireNonNull(type.getRegistryName()).getNamespace())) {
+            throw new IllegalArgumentException("Multiple values have the same name '" + type.getRegistryName().getNamespace() + "'");
          }
 
-         this.types.put(type.identifier, type);
+         this.types.put(type.getRegistryName().getNamespace(), type);
       }
    }
 

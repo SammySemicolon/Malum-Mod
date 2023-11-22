@@ -4,6 +4,7 @@ import com.sammy.malum.common.block.curiosities.totem.*;
 import com.sammy.malum.common.packets.particle.curiosities.rite.generic.*;
 import com.sammy.malum.core.systems.rites.*;
 import net.minecraft.core.*;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.*;
@@ -12,6 +13,7 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraftforge.network.*;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
@@ -20,7 +22,7 @@ import static com.sammy.malum.registry.common.SpiritTypeRegistry.*;
 
 public class EldritchInfernalRiteType extends MalumRiteType {
     public EldritchInfernalRiteType() {
-        super("greater_infernal_rite", ELDRITCH_SPIRIT, ARCANE_SPIRIT, INFERNAL_SPIRIT, INFERNAL_SPIRIT);
+        super("greater_infernal_rite", ELDRITCH_SPIRIT.get(), ARCANE_SPIRIT.get(), INFERNAL_SPIRIT.get(), INFERNAL_SPIRIT.get());
     }
 
     @Override
@@ -41,7 +43,7 @@ public class EldritchInfernalRiteType extends MalumRiteType {
                             BlockState newState = block.defaultBlockState();
                             level.setBlockAndUpdate(p, newState);
                             level.levelEvent(2001, p, Block.getId(newState));
-                            MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(p)), new BlockSparkleParticlePacket(INFERNAL_SPIRIT.getPrimaryColor(), p));
+                            MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(p)), new BlockSparkleParticlePacket(INFERNAL_SPIRIT.get().getPrimaryColor(), p));
                         }
                     }
                 });
@@ -69,5 +71,21 @@ public class EldritchInfernalRiteType extends MalumRiteType {
                 return super.getRiteEffectTickRate()/4;
             }
         };
+    }
+
+    @Override
+    public MalumRiteType setRegistryName(ResourceLocation name) {
+        return null;
+    }
+
+    @Nullable
+    @Override
+    public ResourceLocation getRegistryName() {
+        return null;
+    }
+
+    @Override
+    public Class<MalumRiteType> getRegistryType() {
+        return null;
     }
 }

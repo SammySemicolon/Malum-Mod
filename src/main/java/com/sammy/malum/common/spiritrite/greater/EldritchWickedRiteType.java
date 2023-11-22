@@ -5,10 +5,12 @@ import com.sammy.malum.common.packets.particle.curiosities.rite.generic.MajorEnt
 import com.sammy.malum.core.systems.rites.MalumRiteEffect;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
 import com.sammy.malum.registry.common.DamageSourceRegistry;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.network.PacketDistributor;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -18,7 +20,7 @@ import static com.sammy.malum.registry.common.SpiritTypeRegistry.*;
 
 public class EldritchWickedRiteType extends MalumRiteType {
     public EldritchWickedRiteType() {
-        super("greater_wicked_rite", ELDRITCH_SPIRIT, ARCANE_SPIRIT, WICKED_SPIRIT, WICKED_SPIRIT);
+        super("greater_wicked_rite", ELDRITCH_SPIRIT.get(), ARCANE_SPIRIT.get(), WICKED_SPIRIT.get(), WICKED_SPIRIT.get());
     }
 
     @Override
@@ -50,7 +52,7 @@ public class EldritchWickedRiteType extends MalumRiteType {
                     animals.removeIf(Animal::isInLove);
                     for (Animal entity : animals) {
                         entity.hurt(DamageSourceRegistry.VOODOO, entity.getMaxHealth());
-                        MALUM_CHANNEL.send(PacketDistributor.TRACKING_ENTITY.with(() -> entity), new MajorEntityEffectParticlePacket(WICKED_SPIRIT.getPrimaryColor(), entity.getX(), entity.getY() + entity.getBbHeight() / 2f, entity.getZ()));
+                        MALUM_CHANNEL.send(PacketDistributor.TRACKING_ENTITY.with(() -> entity), new MajorEntityEffectParticlePacket(WICKED_SPIRIT.get().getPrimaryColor(), entity.getX(), entity.getY() + entity.getBbHeight() / 2f, entity.getZ()));
                         if (maxKills-- <= 0) {
                             return;
                         }
@@ -58,5 +60,21 @@ public class EldritchWickedRiteType extends MalumRiteType {
                 }
             }
         };
+    }
+
+    @Override
+    public MalumRiteType setRegistryName(ResourceLocation name) {
+        return null;
+    }
+
+    @Nullable
+    @Override
+    public ResourceLocation getRegistryName() {
+        return null;
+    }
+
+    @Override
+    public Class<MalumRiteType> getRegistryType() {
+        return null;
     }
 }

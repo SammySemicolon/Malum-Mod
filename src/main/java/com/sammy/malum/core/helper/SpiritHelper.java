@@ -5,6 +5,7 @@ import com.sammy.malum.common.capability.MalumLivingEntityDataCapability;
 import com.sammy.malum.common.entity.spirit.SpiritItemEntity;
 import com.sammy.malum.config.CommonConfig;
 import com.sammy.malum.core.listeners.SpiritDataReloadListener;
+import com.sammy.malum.registry.MalumRegistries;
 import com.sammy.malum.registry.common.AttributeRegistry;
 import com.sammy.malum.registry.common.SoundRegistry;
 import com.sammy.malum.registry.common.SpiritTypeRegistry;
@@ -128,8 +129,8 @@ public class SpiritHelper {
 
 
     public static MalumSpiritType getSpiritType(String spirit) {
-        MalumSpiritType type = SpiritTypeRegistry.SPIRITS.get(spirit);
-        return type == null ? SpiritTypeRegistry.SACRED_SPIRIT : type;
+        MalumSpiritType type = MalumRegistries.SPIRITS.getValue(MalumRegistries.SPIRITS.getRegistryName());
+        return type == null ? SpiritTypeRegistry.SACRED_SPIRIT.get() : type;
     }
 
     public static MalumEntitySpiritData getEntitySpiritData(LivingEntity entity) {

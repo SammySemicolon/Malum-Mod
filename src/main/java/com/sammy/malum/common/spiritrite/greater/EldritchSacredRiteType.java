@@ -5,12 +5,14 @@ import com.sammy.malum.common.packets.particle.curiosities.rite.*;
 import com.sammy.malum.common.packets.particle.curiosities.rite.generic.*;
 import com.sammy.malum.core.systems.rites.*;
 import net.minecraft.core.*;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.*;
 import net.minecraft.world.entity.animal.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraftforge.network.*;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 import java.util.stream.*;
@@ -20,7 +22,7 @@ import static com.sammy.malum.registry.common.SpiritTypeRegistry.*;
 
 public class EldritchSacredRiteType extends MalumRiteType {
     public EldritchSacredRiteType() {
-        super("greater_sacred_rite", ELDRITCH_SPIRIT, ARCANE_SPIRIT, SACRED_SPIRIT, SACRED_SPIRIT);
+        super("greater_sacred_rite", ELDRITCH_SPIRIT.get(), ARCANE_SPIRIT.get(), SACRED_SPIRIT.get(), SACRED_SPIRIT.get());
     }
 
     @Override
@@ -49,7 +51,7 @@ public class EldritchSacredRiteType extends MalumRiteType {
                             state.randomTick((ServerLevel) level, p, level.random);
                         }
                         BlockPos particlePos = state.canOcclude() ? p : p.below();
-                        MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(pos)), new SacredMistRiteEffectPacket(List.of(SACRED_SPIRIT.identifier), particlePos));
+                        MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(pos)), new SacredMistRiteEffectPacket(List.of(SACRED_SPIRIT.get().getRegistryName().getNamespace()), particlePos));
                     }
                 });
             }
@@ -73,11 +75,27 @@ public class EldritchSacredRiteType extends MalumRiteType {
                     animals.forEach(e -> {
                         if (level.random.nextFloat() <= 0.01f) {
                             e.setInLoveTime(600);
-                            MALUM_CHANNEL.send(PacketDistributor.TRACKING_ENTITY.with(() -> e), new MajorEntityEffectParticlePacket(SACRED_SPIRIT.getPrimaryColor(), e.getX(), e.getY() + e.getBbHeight() / 2f, e.getZ()));
+                            MALUM_CHANNEL.send(PacketDistributor.TRACKING_ENTITY.with(() -> e), new MajorEntityEffectParticlePacket(SACRED_SPIRIT.get().getPrimaryColor(), e.getX(), e.getY() + e.getBbHeight() / 2f, e.getZ()));
                         }
                     });
                 }
             }
         };
+    }
+
+    @Override
+    public MalumRiteType setRegistryName(ResourceLocation name) {
+        return null;
+    }
+
+    @Nullable
+    @Override
+    public ResourceLocation getRegistryName() {
+        return null;
+    }
+
+    @Override
+    public Class<MalumRiteType> getRegistryType() {
+        return null;
     }
 }

@@ -8,7 +8,7 @@ import team.lodestar.lodestone.helpers.ColorHelper;
 
 public class CorruptedInfernalAura extends MobEffect {
     public CorruptedInfernalAura() {
-        super(MobEffectCategory.BENEFICIAL, ColorHelper.getColor(SpiritTypeRegistry.INFERNAL_SPIRIT.getPrimaryColor()));
+        super(MobEffectCategory.BENEFICIAL, ColorHelper.getColor(SpiritTypeRegistry.INFERNAL_SPIRIT.get().getPrimaryColor()));
     }
 
     @Override

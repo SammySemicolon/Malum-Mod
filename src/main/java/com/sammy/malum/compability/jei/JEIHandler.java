@@ -9,6 +9,7 @@ import com.sammy.malum.common.recipe.SpiritTransmutationRecipe;
 import com.sammy.malum.compability.farmersdelight.FarmersDelightCompat;
 import com.sammy.malum.compability.jei.categories.*;
 import com.sammy.malum.compability.jei.recipes.SpiritTransmutationWrapper;
+import com.sammy.malum.registry.MalumRegistries;
 import com.sammy.malum.registry.common.SpiritRiteRegistry;
 import com.sammy.malum.registry.common.item.ItemRegistry;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
@@ -101,7 +102,7 @@ public class JEIHandler implements IModPlugin {
                 .collect(Collectors.toList()));
 
             registry.addRecipes(FOCUSING, SpiritFocusingRecipe.getRecipes(level));
-            registry.addRecipes(RITES, SpiritRiteRegistry.RITES);
+            registry.addRecipes(RITES, MalumRegistries.RITES.getValues().stream().toList());
             registry.addRecipes(SPIRIT_REPAIR, SpiritRepairRecipe.getRecipes(level));
             if (FarmersDelightCompat.LOADED) {
                 FarmersDelightCompat.LoadedOnly.addInfo(registry);

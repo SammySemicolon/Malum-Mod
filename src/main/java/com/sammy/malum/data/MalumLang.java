@@ -7,6 +7,7 @@ import com.sammy.malum.common.item.spirit.SpiritJarItem;
 import com.sammy.malum.core.systems.item.ISoulContainerItem;
 import com.sammy.malum.core.systems.rites.*;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
+import com.sammy.malum.registry.MalumRegistries;
 import com.sammy.malum.registry.common.DamageSourceRegistry;
 import com.sammy.malum.registry.common.MobEffectRegistry;
 import com.sammy.malum.registry.common.SpiritRiteRegistry;
@@ -54,7 +55,7 @@ public class MalumLang extends LanguageProvider {
         Set<RegistryObject<MobEffect>> effects = new HashSet<>(EFFECTS.getEntries());
         Set<RegistryObject<Attribute>> attributes = new HashSet<>(ATTRIBUTES.getEntries());
         Set<RegistryObject<EntityType<?>>> entities = new HashSet<>(ENTITY_TYPES.getEntries());
-        List<MalumSpiritType> spirits = new ArrayList<>(SpiritTypeRegistry.SPIRITS.values());
+        List<MalumSpiritType> spirits = MalumRegistries.SPIRITS.getValues().stream().toList();
 
         add(DataHelper.take(blocks, BlockRegistry.PRIMORDIAL_SOUP).get(), "The Weeping Well");
         add(DataHelper.take(blocks, BlockRegistry.VOID_CONDUIT).get(), "The Weeping Well");
@@ -108,7 +109,7 @@ public class MalumLang extends LanguageProvider {
             add("entity.malum." + e.get().getRegistryName().getPath(), name);
         });
 
-        spirits.forEach(s -> add(s.getSpiritDescription(), DataHelper.toTitleCase(s.identifier + "_spirit", "_")));
+        spirits.forEach(s -> add(s.getSpiritDescription(), DataHelper.toTitleCase(s.getRegistryName().getNamespace() + "_spirit", "_")));
 
         add("malum.gui.rite.type", "Type: ");
         add("malum.gui.rite.coverage", "Coverage: ");
@@ -120,16 +121,16 @@ public class MalumLang extends LanguageProvider {
         addRiteEffectCategory(MalumRiteEffect.MalumRiteEffectCategory.RADIAL_BLOCK_EFFECT);
         addRiteEffectCategory(MalumRiteEffect.MalumRiteEffectCategory.ONE_TIME_EFFECT);
 
-        addRite(SpiritRiteRegistry.SACRED_RITE, "Rite of Healing", "Rite of Nourishment");
-        addRite(SpiritRiteRegistry.WICKED_RITE, "Rite of Decay", "Rite of Empowerment");
-        addRite(SpiritRiteRegistry.EARTHEN_RITE, "Rite of Warding", "Rite of the Challenger");
-        addRite(SpiritRiteRegistry.INFERNAL_RITE, "Rite of Haste", "Rite of the Extinguisher");
-        addRite(SpiritRiteRegistry.AERIAL_RITE, "Rite of Motion", "Rite of the Aether");
-        addRite(SpiritRiteRegistry.AQUEOUS_RITE, "Rite of Loyalty", "Rite of the Seas");
+        addRite(SpiritRiteRegistry.SACRED_RITE.get(), "Rite of Healing", "Rite of Nourishment");
+        addRite(SpiritRiteRegistry.WICKED_RITE.get(), "Rite of Decay", "Rite of Empowerment");
+        addRite(SpiritRiteRegistry.EARTHEN_RITE.get(), "Rite of Warding", "Rite of the Challenger");
+        addRite(SpiritRiteRegistry.INFERNAL_RITE.get(), "Rite of Haste", "Rite of the Extinguisher");
+        addRite(SpiritRiteRegistry.AERIAL_RITE.get(), "Rite of Motion", "Rite of the Aether");
+        addRite(SpiritRiteRegistry.AQUEOUS_RITE.get(), "Rite of Loyalty", "Rite of the Seas");
 
-        addRite(SpiritRiteRegistry.ARCANE_RITE, "Undirected Rite", "Unchained Rite");
+        addRite(SpiritRiteRegistry.ARCANE_RITE.get(), "Undirected Rite", "Unchained Rite");
 
-        addRite(SpiritRiteRegistry.ELDRITCH_SACRED_RITE, "Rite of Growth", "Rite of Lust");
+        addRite(SpiritRiteRegistry.ELDRITCH_SACRED_RITE.get(), "Rite of Growth", "Rite of Lust");
 
         addSimpleEntryHeader("introduction", "Introduction", "On the nature of souls");
         addPages("introduction",

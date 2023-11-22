@@ -40,54 +40,54 @@ public class MalumSpiritFocusingRecipes extends RecipeProvider implements ICondi
         int shortDuration = 300;
 
         new SpiritRepairRecipeBuilder("wooden_.+", 0.5f, Ingredient.of(ItemTags.PLANKS), 4)
-                .addSpirit(EARTHEN_SPIRIT, 2)
+                .addSpirit(EARTHEN_SPIRIT.get(), 2)
                 .build(consumer, "wooden");
 
         new SpiritRepairRecipeBuilder("flint_.+", 0.5f, Ingredient.of(Items.FLINT), 2)
-                .addSpirit(EARTHEN_SPIRIT, 4)
+                .addSpirit(EARTHEN_SPIRIT.get(), 4)
                 .build(consumer, "flint");
 
         new SpiritRepairRecipeBuilder("stone_.+", 0.5f, Ingredient.of(ItemTags.STONE_TOOL_MATERIALS), 2)
-                .addSpirit(EARTHEN_SPIRIT, 4)
+                .addSpirit(EARTHEN_SPIRIT.get(), 4)
                 .build(consumer, "stone");
 
         new SpiritRepairRecipeBuilder("copper_.+", 0.5f, Ingredient.of(Tags.Items.INGOTS_COPPER), 2)
-                .addSpirit(EARTHEN_SPIRIT, 6)
+                .addSpirit(EARTHEN_SPIRIT.get(), 6)
                 .build(consumer, "copper");
 
         new SpiritRepairRecipeBuilder("iron_.+", 0.5f, Ingredient.of(Tags.Items.INGOTS_IRON), 2)
                 .addItem(ItemRegistry.CRUDE_SCYTHE.get())
-                .addSpirit(EARTHEN_SPIRIT, 8)
+                .addSpirit(EARTHEN_SPIRIT.get(), 8)
                 .build(consumer, "iron");
 
         new SpiritRepairRecipeBuilder("golden_.+", 0.5f, Ingredient.of(Tags.Items.INGOTS_GOLD), 2)
-                .addSpirit(ARCANE_SPIRIT, 8)
+                .addSpirit(ARCANE_SPIRIT.get(), 8)
                 .build(consumer, "gold");
 
         new SpiritRepairRecipeBuilder("diamond_.+", 0.5f, Ingredient.of(Tags.Items.GEMS_DIAMOND), 2)
-                .addSpirit(ARCANE_SPIRIT, 16)
-                .addSpirit(EARTHEN_SPIRIT, 8)
+                .addSpirit(ARCANE_SPIRIT.get(), 16)
+                .addSpirit(EARTHEN_SPIRIT.get(), 8)
                 .build(consumer, "diamond");
 
         new SpiritRepairRecipeBuilder("netherite_.+", 0.5f, Ingredient.of(Tags.Items.INGOTS_NETHERITE), 1)
-                .addSpirit(INFERNAL_SPIRIT, 16)
-                .addSpirit(ARCANE_SPIRIT, 8)
-                .addSpirit(EARTHEN_SPIRIT, 8)
-                .addSpirit(ELDRITCH_SPIRIT, 1)
+                .addSpirit(INFERNAL_SPIRIT.get(), 16)
+                .addSpirit(ARCANE_SPIRIT.get(), 8)
+                .addSpirit(EARTHEN_SPIRIT.get(), 8)
+                .addSpirit(ELDRITCH_SPIRIT.get(), 1)
                 .build(consumer, "netherite");
 
         new SpiritRepairRecipeBuilder(1.0f, Ingredient.of(Items.HEART_OF_THE_SEA), 1)
                 .addItem(Items.TRIDENT)
-                .addSpirit(AQUEOUS_SPIRIT, 16)
-                .addSpirit(ARCANE_SPIRIT, 16)
+                .addSpirit(AQUEOUS_SPIRIT.get(), 16)
+                .addSpirit(ARCANE_SPIRIT.get(), 16)
                 .build(consumer, "trident");
 
         new SpiritRepairRecipeBuilder(0.75f, Ingredient.of(ItemRegistry.TWISTED_ROCK.get()), 8)
                 .addItem(ItemRegistry.TYRVING.get())
-                .addSpirit(WICKED_SPIRIT, 16)
-                .addSpirit(ARCANE_SPIRIT, 8)
-                .addSpirit(EARTHEN_SPIRIT, 8)
-                .addSpirit(ELDRITCH_SPIRIT, 2)
+                .addSpirit(WICKED_SPIRIT.get(), 16)
+                .addSpirit(ARCANE_SPIRIT.get(), 8)
+                .addSpirit(EARTHEN_SPIRIT.get(), 8)
+                .addSpirit(ELDRITCH_SPIRIT.get(), 2)
                 .build(consumer, "tyrving");
 
         new SpiritRepairRecipeBuilder(0.75f, Ingredient.of(ItemRegistry.SOUL_STAINED_STEEL_INGOT.get()), 4)
@@ -96,9 +96,9 @@ public class MalumSpiritFocusingRecipes extends RecipeProvider implements ICondi
                 .addItem(ItemRegistry.SOUL_STAINED_STEEL_CHESTPLATE.get())
                 .addItem(ItemRegistry.SOUL_STAINED_STEEL_LEGGINGS.get())
                 .addItem(ItemRegistry.SOUL_STAINED_STEEL_BOOTS.get())
-                .addSpirit(ARCANE_SPIRIT, 16)
-                .addSpirit(EARTHEN_SPIRIT, 8)
-                .addSpirit(WICKED_SPIRIT, 4)
+                .addSpirit(ARCANE_SPIRIT.get(), 16)
+                .addSpirit(EARTHEN_SPIRIT.get(), 8)
+                .addSpirit(WICKED_SPIRIT.get(), 4)
                 .build(consumer, "special_soul_stained_steel");
 
         new SpiritRepairRecipeBuilder(0.75f, Ingredient.of(ItemRegistry.SOUL_STAINED_STEEL_INGOT.get()), 2)
@@ -108,9 +108,9 @@ public class MalumSpiritFocusingRecipes extends RecipeProvider implements ICondi
                 .addItem(ItemRegistry.SOUL_STAINED_STEEL_SHOVEL.get())
                 .addItem(ItemRegistry.SOUL_STAINED_STEEL_HOE.get())
                 .addItem(ItemRegistry.SOUL_STAINED_STEEL_KNIFE.get())
-                .addSpirit(ARCANE_SPIRIT, 8)
-                .addSpirit(EARTHEN_SPIRIT, 4)
-                .addSpirit(WICKED_SPIRIT, 2)
+                .addSpirit(ARCANE_SPIRIT.get(), 8)
+                .addSpirit(EARTHEN_SPIRIT.get(), 4)
+                .addSpirit(WICKED_SPIRIT.get(), 2)
                 .build(consumer, "soul_stained_steel");
 
         new SpiritRepairRecipeBuilder(0.75f, Ingredient.of(ItemRegistry.SPIRIT_FABRIC.get()), 4)
@@ -118,9 +118,9 @@ public class MalumSpiritFocusingRecipes extends RecipeProvider implements ICondi
                 .addItem(ItemRegistry.SOUL_HUNTER_ROBE.get())
                 .addItem(ItemRegistry.SOUL_HUNTER_LEGGINGS.get())
                 .addItem(ItemRegistry.SOUL_HUNTER_BOOTS.get())
-                .addSpirit(ARCANE_SPIRIT, 16)
-                .addSpirit(AERIAL_SPIRIT, 8)
-                .addSpirit(WICKED_SPIRIT, 4)
+                .addSpirit(ARCANE_SPIRIT.get(), 16)
+                .addSpirit(AERIAL_SPIRIT.get(), 8)
+                .addSpirit(WICKED_SPIRIT.get(), 4)
                 .build(consumer, "soul_hunter_armor");
 
         new SpiritRepairRecipeBuilder("none", 1f, Ingredient.of(ItemRegistry.ARCANE_SPIRIT.get()), 8)
@@ -142,35 +142,35 @@ public class MalumSpiritFocusingRecipes extends RecipeProvider implements ICondi
                 .build(consumer, "metal_impetus_restoration");
 
         new SpiritFocusingRecipeBuilder(shortDuration, 1, Ingredient.of(ItemRegistry.ALCHEMICAL_IMPETUS.get()), Items.GUNPOWDER, 8)
-                .addSpirit(EARTHEN_SPIRIT, 1)
+                .addSpirit(EARTHEN_SPIRIT.get(), 1)
                 .build(consumer);
 
         new SpiritFocusingRecipeBuilder(shortDuration, 1, Ingredient.of(ItemRegistry.ALCHEMICAL_IMPETUS.get()), Items.GLOWSTONE_DUST, 8)
-                .addSpirit(INFERNAL_SPIRIT, 1)
+                .addSpirit(INFERNAL_SPIRIT.get(), 1)
                 .build(consumer);
 
         new SpiritFocusingRecipeBuilder(shortDuration, 1, Ingredient.of(ItemRegistry.ALCHEMICAL_IMPETUS.get()), Items.REDSTONE, 8)
-                .addSpirit(ARCANE_SPIRIT, 1)
+                .addSpirit(ARCANE_SPIRIT.get(), 1)
                 .build(consumer);
 
         new SpiritFocusingRecipeBuilder(shortDuration, 1, Ingredient.of(ItemRegistry.ALCHEMICAL_IMPETUS.get()), Items.QUARTZ, 4)
-                .addSpirit(EARTHEN_SPIRIT, 2)
-                .addSpirit(ARCANE_SPIRIT, 2)
+                .addSpirit(EARTHEN_SPIRIT.get(), 2)
+                .addSpirit(ARCANE_SPIRIT.get(), 2)
                 .build(consumer);
 
         new SpiritFocusingRecipeBuilder(shortDuration, 1, Ingredient.of(ItemRegistry.ALCHEMICAL_IMPETUS.get()), ItemRegistry.BLAZING_QUARTZ.get(), 4)
-                .addSpirit(INFERNAL_SPIRIT, 2)
-                .addSpirit(ARCANE_SPIRIT, 2)
+                .addSpirit(INFERNAL_SPIRIT.get(), 2)
+                .addSpirit(ARCANE_SPIRIT.get(), 2)
                 .build(consumer);
 
         new SpiritFocusingRecipeBuilder(shortDuration, 1, Ingredient.of(ItemRegistry.ALCHEMICAL_IMPETUS.get()), Items.PRISMARINE_SHARD, 8)
-                .addSpirit(AQUEOUS_SPIRIT, 2)
-                .addSpirit(ARCANE_SPIRIT, 2)
+                .addSpirit(AQUEOUS_SPIRIT.get(), 2)
+                .addSpirit(ARCANE_SPIRIT.get(), 2)
                 .build(consumer);
 
         new SpiritFocusingRecipeBuilder(shortDuration, 1, Ingredient.of(ItemRegistry.ALCHEMICAL_IMPETUS.get()), Items.AMETHYST_SHARD, 8)
-                .addSpirit(AERIAL_SPIRIT, 2)
-                .addSpirit(ARCANE_SPIRIT, 2)
+                .addSpirit(AERIAL_SPIRIT.get(), 2)
+                .addSpirit(ARCANE_SPIRIT.get(), 2)
                 .build(consumer);
 
         addImpetusRecipes(consumer, metalDuration, ItemRegistry.IRON_IMPETUS, ItemRegistry.IRON_NODE);
@@ -188,16 +188,16 @@ public class MalumSpiritFocusingRecipes extends RecipeProvider implements ICondi
 
     public void addImpetusRecipes(Consumer<FinishedRecipe> consumer, int duration, RegistryObject<ImpetusItem> impetus, RegistryObject<Item> node) {
         new SpiritFocusingRecipeBuilder(duration, 2, Ingredient.of(impetus.get()), node.get(), 3)
-                .addSpirit(EARTHEN_SPIRIT, 2)
-                .addSpirit(INFERNAL_SPIRIT, 4)
+                .addSpirit(EARTHEN_SPIRIT.get(), 2)
+                .addSpirit(INFERNAL_SPIRIT.get(), 4)
                 .build(consumer, MalumMod.malumPath("node_focusing_" + node.get().getRegistryName().getPath().replace("_node", "")));
     }
 
     public void addImpetusRecipes(Consumer<FinishedRecipe> consumer, int duration, RegistryObject<ImpetusItem> impetus, RegistryObject<Item> node, TagKey<Item> nugget) {
         ConditionalRecipe.builder().addCondition(not(new TagEmptyCondition(nugget.location()))).addRecipe(
                         new SpiritFocusingRecipeBuilder(duration, 2, Ingredient.of(impetus.get()), node.get(), 3)
-                                .addSpirit(EARTHEN_SPIRIT, 2)
-                                .addSpirit(INFERNAL_SPIRIT, 1)
+                                .addSpirit(EARTHEN_SPIRIT.get(), 2)
+                                .addSpirit(INFERNAL_SPIRIT.get(), 1)
                                 ::build
                 )
                 .generateAdvancement()

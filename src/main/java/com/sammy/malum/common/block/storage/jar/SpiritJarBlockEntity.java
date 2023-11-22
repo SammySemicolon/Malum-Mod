@@ -1,5 +1,6 @@
 package com.sammy.malum.common.block.storage.jar;
 
+import com.sammy.malum.registry.MalumRegistries;
 import com.sammy.malum.visual_effects.SpiritLightSpecs;
 import com.sammy.malum.common.item.spirit.SpiritShardItem;
 import com.sammy.malum.common.item.curiosities.SpiritPouchItem;
@@ -36,6 +37,7 @@ import team.lodestar.lodestone.systems.particle.data.spin.SpinParticleData;
 
 import javax.annotation.Nonnull;
 import java.awt.*;
+import java.util.Objects;
 import java.util.UUID;
 
 public class SpiritJarBlockEntity extends LodestoneBlockEntity {
@@ -186,7 +188,7 @@ public class SpiritJarBlockEntity extends LodestoneBlockEntity {
                     ItemStack spiritStack = inventory.getItem(i);
                     if (spiritStack.getItem() instanceof SpiritShardItem spiritItem) {
                         MalumSpiritType type = spiritItem.type;
-                        if (type.identifier.equals(this.type.identifier)) {
+                        if (Objects.requireNonNull(Objects.requireNonNull(MalumRegistries.SPIRITS.getValue(MalumRegistries.MalumKeys.SPIRITS.getRegistryName())).getRegistryName()).getNamespace().equals(Objects.requireNonNull(this.type.getRegistryName()).getNamespace())) {
                             inventory.setItem(i, ItemStack.EMPTY);
                             inserted += spiritStack.getCount();
                             count += spiritStack.getCount();
@@ -218,7 +220,7 @@ public class SpiritJarBlockEntity extends LodestoneBlockEntity {
     @Override
     protected void saveAdditional(CompoundTag compound) {
         if (type != null) {
-            compound.putString("spirit", type.identifier);
+            compound.putString("spirit", MalumRegistries.SPIRITS.getValue(MalumRegistries.MalumKeys.SPIRITS.getRegistryName()).toString());
         }
         compound.putInt("count", count);
     }

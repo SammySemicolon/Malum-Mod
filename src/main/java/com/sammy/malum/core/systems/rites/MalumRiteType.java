@@ -7,12 +7,13 @@ import net.minecraft.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.registries.IForgeRegistryEntry;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public abstract class MalumRiteType {
+public abstract class MalumRiteType implements IForgeRegistryEntry<MalumRiteType> {
 
     public final List<MalumSpiritType> spirits;
     public final String identifier;

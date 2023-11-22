@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 import com.sammy.malum.common.item.spirit.SpiritShardItem;
 import com.sammy.malum.core.helper.SpiritHelper;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
+import com.sammy.malum.registry.MalumRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
@@ -38,7 +39,7 @@ public class SpiritWithCount implements IRecipeComponent {
 
     public JsonObject serialize() {
         JsonObject object = new JsonObject();
-        object.addProperty("type", type.identifier);
+        object.addProperty("type", MalumRegistries.SPIRITS.getValue(MalumRegistries.MalumKeys.SPIRITS.getRegistryName()).toString());
         if (getCount() > 1) {
             object.addProperty("count", getCount());
         }
@@ -49,7 +50,7 @@ public class SpiritWithCount implements IRecipeComponent {
     }
 
     public CompoundTag save(CompoundTag tag) {
-        tag.putString("type", type.identifier);
+        tag.putString("type", MalumRegistries.SPIRITS.getValue(MalumRegistries.MalumKeys.SPIRITS.getRegistryName()).toString());
         tag.putInt("count", count);
         return tag;
     }

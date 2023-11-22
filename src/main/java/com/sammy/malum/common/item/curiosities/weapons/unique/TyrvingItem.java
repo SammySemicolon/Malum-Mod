@@ -40,7 +40,7 @@ public class TyrvingItem extends LodestoneSwordItem implements IMalumEventRespon
                 target.hurt(DamageSourceRegistry.causeVoodooDamage(attacker), spiritCount);
             }
             attacker.level.playSound(null, target.blockPosition(), SoundRegistry.VOID_SLASH.get(), SoundSource.PLAYERS, 1, 1f + target.level.random.nextFloat() * 0.25f);
-            MALUM_CHANNEL.send(PacketDistributor.TRACKING_ENTITY.with(() -> target), new MajorEntityEffectParticlePacket(SpiritTypeRegistry.ELDRITCH_SPIRIT.getPrimaryColor(), target.getX(), target.getY() + target.getBbHeight() / 2, target.getZ()));
+            MALUM_CHANNEL.send(PacketDistributor.TRACKING_ENTITY.with(() -> target), new MajorEntityEffectParticlePacket(SpiritTypeRegistry.ELDRITCH_SPIRIT.get().getPrimaryColor(), target.getX(), target.getY() + target.getBbHeight() / 2, target.getZ()));
         }
     }
 

@@ -29,6 +29,8 @@ import static com.sammy.malum.registry.common.AttributeRegistry.*;
 import static com.sammy.malum.registry.common.ContainerRegistry.*;
 import static com.sammy.malum.registry.common.MobEffectRegistry.*;
 import static com.sammy.malum.registry.common.SoundRegistry.*;
+import static com.sammy.malum.registry.common.SpiritRiteRegistry.RITES;
+import static com.sammy.malum.registry.common.SpiritTypeRegistry.SPIRITS;
 import static com.sammy.malum.registry.common.block.BlockEntityRegistry.*;
 import static com.sammy.malum.registry.common.block.BlockRegistry.*;
 import static com.sammy.malum.registry.common.entity.EntityRegistry.*;
@@ -64,6 +66,8 @@ public class MalumMod {
         RECIPE_TYPES.register(modBus);
         RECIPE_SERIALIZERS.register(modBus);
         FEATURE_TYPES.register(modBus);
+        SPIRITS.register(modBus);
+        RITES.register(modBus);
 
         TetraCompat.init();
         FarmersDelightCompat.init();

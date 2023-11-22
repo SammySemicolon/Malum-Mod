@@ -107,14 +107,14 @@ public class ItemRegistry {
     public static final RegistryObject<Item> ENCYCLOPEDIA_ARCANA = ITEMS.register("encyclopedia_arcana", () -> new EncyclopediaArcanaItem(GEAR_PROPERTIES().rarity(UNCOMMON)));
 
     //region spirits
-    public static final RegistryObject<SpiritShardItem> SACRED_SPIRIT = ITEMS.register("sacred_spirit", () -> new SpiritShardItem(DEFAULT_PROPERTIES(), SpiritTypeRegistry.SACRED_SPIRIT));
-    public static final RegistryObject<SpiritShardItem> WICKED_SPIRIT = ITEMS.register("wicked_spirit", () -> new SpiritShardItem(DEFAULT_PROPERTIES(), SpiritTypeRegistry.WICKED_SPIRIT));
-    public static final RegistryObject<SpiritShardItem> ARCANE_SPIRIT = ITEMS.register("arcane_spirit", () -> new SpiritShardItem(DEFAULT_PROPERTIES(), SpiritTypeRegistry.ARCANE_SPIRIT));
-    public static final RegistryObject<SpiritShardItem> ELDRITCH_SPIRIT = ITEMS.register("eldritch_spirit", () -> new SpiritShardItem(DEFAULT_PROPERTIES(), SpiritTypeRegistry.ELDRITCH_SPIRIT));
-    public static final RegistryObject<SpiritShardItem> AQUEOUS_SPIRIT = ITEMS.register("aqueous_spirit", () -> new SpiritShardItem(DEFAULT_PROPERTIES(), SpiritTypeRegistry.AQUEOUS_SPIRIT));
-    public static final RegistryObject<SpiritShardItem> AERIAL_SPIRIT = ITEMS.register("aerial_spirit", () -> new SpiritShardItem(DEFAULT_PROPERTIES(), SpiritTypeRegistry.AERIAL_SPIRIT));
-    public static final RegistryObject<SpiritShardItem> INFERNAL_SPIRIT = ITEMS.register("infernal_spirit", () -> new SpiritShardItem(DEFAULT_PROPERTIES(), SpiritTypeRegistry.INFERNAL_SPIRIT));
-    public static final RegistryObject<SpiritShardItem> EARTHEN_SPIRIT = ITEMS.register("earthen_spirit", () -> new SpiritShardItem(DEFAULT_PROPERTIES(), SpiritTypeRegistry.EARTHEN_SPIRIT));
+    public static final RegistryObject<SpiritShardItem> SACRED_SPIRIT = ITEMS.register("sacred_spirit", () -> new SpiritShardItem(DEFAULT_PROPERTIES(), SpiritTypeRegistry.SACRED_SPIRIT.get()));
+    public static final RegistryObject<SpiritShardItem> WICKED_SPIRIT = ITEMS.register("wicked_spirit", () -> new SpiritShardItem(DEFAULT_PROPERTIES(), SpiritTypeRegistry.WICKED_SPIRIT.get()));
+    public static final RegistryObject<SpiritShardItem> ARCANE_SPIRIT = ITEMS.register("arcane_spirit", () -> new SpiritShardItem(DEFAULT_PROPERTIES(), SpiritTypeRegistry.ARCANE_SPIRIT.get()));
+    public static final RegistryObject<SpiritShardItem> ELDRITCH_SPIRIT = ITEMS.register("eldritch_spirit", () -> new SpiritShardItem(DEFAULT_PROPERTIES(), SpiritTypeRegistry.ELDRITCH_SPIRIT.get()));
+    public static final RegistryObject<SpiritShardItem> AQUEOUS_SPIRIT = ITEMS.register("aqueous_spirit", () -> new SpiritShardItem(DEFAULT_PROPERTIES(), SpiritTypeRegistry.AQUEOUS_SPIRIT.get()));
+    public static final RegistryObject<SpiritShardItem> AERIAL_SPIRIT = ITEMS.register("aerial_spirit", () -> new SpiritShardItem(DEFAULT_PROPERTIES(), SpiritTypeRegistry.AERIAL_SPIRIT.get()));
+    public static final RegistryObject<SpiritShardItem> INFERNAL_SPIRIT = ITEMS.register("infernal_spirit", () -> new SpiritShardItem(DEFAULT_PROPERTIES(), SpiritTypeRegistry.INFERNAL_SPIRIT.get()));
+    public static final RegistryObject<SpiritShardItem> EARTHEN_SPIRIT = ITEMS.register("earthen_spirit", () -> new SpiritShardItem(DEFAULT_PROPERTIES(), SpiritTypeRegistry.EARTHEN_SPIRIT.get()));
     //endregion
 
     //region random stuff
@@ -404,10 +404,10 @@ public class ItemRegistry {
     public static final RegistryObject<Item> SPIRIT_FABRIC = ITEMS.register("spirit_fabric", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> SPECTRAL_LENS = ITEMS.register("spectral_lens", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> SPECTRAL_OPTIC = ITEMS.register("spectral_optic", () -> new Item(DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> ATTUNED_OPTIC_AERIAL = ITEMS.register("aerial_tuned_optic", () -> new TunedOpticItem(DEFAULT_PROPERTIES(), SpiritTypeRegistry.AERIAL_SPIRIT));
-    public static final RegistryObject<Item> ATTUNED_OPTIC_AQUEOUS = ITEMS.register("aqueous_tuned_optic", () -> new TunedOpticItem(DEFAULT_PROPERTIES(), SpiritTypeRegistry.AQUEOUS_SPIRIT));
-    public static final RegistryObject<Item> ATTUNED_OPTIC_INFERNAL = ITEMS.register("infernal_tuned_optic", () -> new TunedOpticItem(DEFAULT_PROPERTIES(), SpiritTypeRegistry.INFERNAL_SPIRIT));
-    public static final RegistryObject<Item> ATTUNED_OPTIC_EARTHEN = ITEMS.register("earthen_tuned_optic", () -> new TunedOpticItem(DEFAULT_PROPERTIES(), SpiritTypeRegistry.EARTHEN_SPIRIT));
+    public static final RegistryObject<Item> ATTUNED_OPTIC_AERIAL = ITEMS.register("aerial_tuned_optic", () -> new TunedOpticItem(DEFAULT_PROPERTIES(), SpiritTypeRegistry.AERIAL_SPIRIT.get()));
+    public static final RegistryObject<Item> ATTUNED_OPTIC_AQUEOUS = ITEMS.register("aqueous_tuned_optic", () -> new TunedOpticItem(DEFAULT_PROPERTIES(), SpiritTypeRegistry.AQUEOUS_SPIRIT.get()));
+    public static final RegistryObject<Item> ATTUNED_OPTIC_INFERNAL = ITEMS.register("infernal_tuned_optic", () -> new TunedOpticItem(DEFAULT_PROPERTIES(), SpiritTypeRegistry.INFERNAL_SPIRIT.get()));
+    public static final RegistryObject<Item> ATTUNED_OPTIC_EARTHEN = ITEMS.register("earthen_tuned_optic", () -> new TunedOpticItem(DEFAULT_PROPERTIES(), SpiritTypeRegistry.EARTHEN_SPIRIT.get()));
     public static final RegistryObject<Item> POPPET = ITEMS.register("poppet", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> CORRUPTED_RESONANCE = ITEMS.register("corrupted_resonance", () -> new Item(DEFAULT_PROPERTIES()));
 

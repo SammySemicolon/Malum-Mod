@@ -3,6 +3,7 @@ package com.sammy.malum.core.systems.spirit;
 import com.sammy.malum.*;
 import com.sammy.malum.common.block.mana_mote.*;
 import com.sammy.malum.common.item.spirit.*;
+import com.sammy.malum.registry.MalumRegistries;
 import com.sammy.malum.registry.common.*;
 import com.sammy.malum.registry.common.block.*;
 import net.minecraft.*;
@@ -15,6 +16,8 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.level.block.state.properties.*;
 import net.minecraft.world.phys.*;
+import net.minecraftforge.registries.IForgeRegistryEntry;
+import org.jetbrains.annotations.Nullable;
 import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.systems.easing.*;
 import team.lodestar.lodestone.systems.particle.data.color.*;
@@ -22,13 +25,12 @@ import team.lodestar.lodestone.systems.particle.data.color.*;
 import java.awt.*;
 import java.util.function.*;
 
-public class MalumSpiritType {
+public class MalumSpiritType implements IForgeRegistryEntry<MalumSpiritType> {
 
     public static SpiritTypeBuilder create(String identifier, Supplier<SpiritShardItem> spiritShard, Supplier<SpiritMoteBlock> spiritMote) {
-        return new SpiritTypeBuilder(identifier, spiritShard, spiritMote);
+        return new SpiritTypeBuilder(spiritShard, spiritMote);
     }
 
-    public final String identifier;
     public final Supplier<SpiritShardItem> spiritShard;
     public final Supplier<SpiritMoteBlock> spiritMote;
 
@@ -47,11 +49,10 @@ public class MalumSpiritType {
     protected Rarity itemRarity;
     protected Component spiritItemDescription;
 
-    public MalumSpiritType(String identifier, Supplier<SpiritShardItem> spiritShard, Supplier<SpiritMoteBlock> spiritMote,
+    public MalumSpiritType(Supplier<SpiritShardItem> spiritShard, Supplier<SpiritMoteBlock> spiritMote,
                            Color primaryColor, Color secondaryColor, float mainColorCoefficient, Easing mainColorEasing,
                            Color primaryBloomColor, Color secondaryBloomColor, float bloomColorCoefficient, Easing bloomColorEasing,
                            Color itemColor) {
-        this.identifier = identifier;
         this.spiritShard = spiritShard;
         this.spiritMote = spiritMote;
         this.primaryColor = primaryColor;
@@ -96,7 +97,7 @@ public class MalumSpiritType {
     public Rarity getItemRarity() {
         if (itemRarity == null) {
             TextColor textColor = TextColor.fromRgb(ColorHelper.brighter(primaryColor, 1, 0.85f).getRGB());
-            itemRarity = Rarity.create("malum$" + identifier, (style) -> style.withColor(textColor));
+            itemRarity = Rarity.create("malum$" + MalumRegistries.MalumKeys.SPIRITS, (style) -> style.withColor(textColor));
         }
         return itemRarity;
     }
@@ -109,7 +110,7 @@ public class MalumSpiritType {
     }
 
     public String getSpiritFlavourText() {
-        return "malum.spirit.flavour." + identifier;
+        return "malum.spirit.flavour." + MalumRegistries.MalumKeys.SPIRITS;
     }
 
     public Component getSpiritJarCounterComponent(int count) {
@@ -117,15 +118,31 @@ public class MalumSpiritType {
     }
 
     public String getSpiritDescription() {
-        return "malum.spirit.description." + identifier;
+        return "malum.spirit.description." + MalumRegistries.MalumKeys.SPIRITS;
     }
 
     public ResourceLocation getTotemGlowTexture() {
-        return MalumMod.malumPath("textures/vfx/totem_poles/" + identifier + "_glow.png");
+        return MalumMod.malumPath("textures/vfx/totem_poles/" + MalumRegistries.MalumKeys.SPIRITS + "_glow.png");
     }
 
     public BlockState getTotemPoleBlockState(boolean isCorrupt, BlockHitResult hit) {
         Block base = isCorrupt ? BlockRegistry.SOULWOOD_TOTEM_POLE.get() : BlockRegistry.RUNEWOOD_TOTEM_POLE.get();
-        return base.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, hit.getDirection()).setValue(SpiritTypeRegistry.SPIRIT_TYPE_PROPERTY, identifier);
+        return base.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, hit.getDirection()).setValue(SpiritTypeRegistry.SPIRIT_TYPE_PROPERTY, MalumRegistries.MalumKeys.SPIRITS.toString());
+    }
+
+    @Override
+    public MalumSpiritType setRegistryName(ResourceLocation name) {
+        return null;
+    }
+
+    @Nullable
+    @Override
+    public ResourceLocation getRegistryName() {
+        return null;
+    }
+
+    @Override
+    public Class<MalumSpiritType> getRegistryType() {
+        return null;
     }
 }

@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 
 public class MalumEntitySpiritData {
     public static final String SOUL_DATA = "soul_data";
-    public static final MalumEntitySpiritData EMPTY = new MalumEntitySpiritData(SpiritTypeRegistry.SACRED_SPIRIT, new ArrayList<>(), null);
+    public static final MalumEntitySpiritData EMPTY = new MalumEntitySpiritData(SpiritTypeRegistry.SACRED_SPIRIT.get(), new ArrayList<>(), null);
     public final MalumSpiritType primaryType;
     public final int totalSpirits;
     public final List<SpiritWithCount> dataEntries;
@@ -41,7 +41,7 @@ public class MalumEntitySpiritData {
 
     public CompoundTag save() {
         CompoundTag tag = new CompoundTag();
-        tag.putString("primaryType", primaryType.identifier);
+        tag.putString("primaryType", primaryType.getRegistryName().getNamespace());
         tag.putInt("dataAmount", dataEntries.size());
         for (int i = 0; i < dataEntries.size(); i++) {
             CompoundTag dataTag = dataEntries.get(i).save(new CompoundTag());
