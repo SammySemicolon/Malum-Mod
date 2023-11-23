@@ -414,7 +414,6 @@ public class MalumSpiritInfusionRecipes {
                 .addExtraItem(ItemRegistry.HEX_ASH.get(), 2)
                 .build(consumer);
 
-
         new SpiritInfusionRecipeBuilder(ItemRegistry.ANOMALOUS_DESIGN.get(), 1, ItemRegistry.COMPLETE_DESIGN.get(), 1)
                 .addSpirit(SACRED_SPIRIT, 4)
                 .addSpirit(WICKED_SPIRIT, 4)
@@ -425,6 +424,16 @@ public class MalumSpiritInfusionRecipes {
                 .addSpirit(EARTHEN_SPIRIT, 4)
                 .addSpirit(INFERNAL_SPIRIT, 4)
                 .build(consumer);
+
+        new SpiritInfusionRecipeBuilder(ItemRegistry.RING_OF_CURATIVE_TALENT.get(), 1, ItemRegistry.RING_OF_GROWING_FLESH.get(), 1)
+                .addExtraItem(ItemRegistry.VOID_SALTS.get(), 16)
+                .addExtraItem(ItemRegistry.NULL_SLATE.get(), 8)
+                .addSpirit(SACRED_SPIRIT, 16)
+                .addSpirit(WICKED_SPIRIT, 16)
+                .addSpirit(ARCANE_SPIRIT, 16)
+                .addSpirit(ELDRITCH_SPIRIT, 16)
+                .build(consumer);
+
 
         metalImpetusRecipe(consumer, ItemRegistry.IRON_IMPETUS, Items.IRON_INGOT);
         metalImpetusRecipe(consumer, ItemRegistry.COPPER_IMPETUS, Items.COPPER_INGOT);
