@@ -14,10 +14,7 @@ import java.util.function.Consumer;
 
 import static com.sammy.malum.registry.common.block.BlockRegistry.*;
 
-public class MalumSpiritTransmutationRecipes extends RecipeProvider {
-    public MalumSpiritTransmutationRecipes(PackOutput generatorIn) {
-        super(generatorIn);
-    }
+public class MalumSpiritTransmutationRecipes {
 
     private static final List<Pair<RegistryObject<Block>, RegistryObject<Block>>> SOULWOOD_TRANSMUTATIONS = List.of(
             new Pair<>(RUNEWOOD_SAPLING, SOULWOOD_GROWTH),
@@ -54,8 +51,7 @@ public class MalumSpiritTransmutationRecipes extends RecipeProvider {
             new Pair<>(RUNEWOOD_SIGN, SOULWOOD_SIGN) // Wall sign already handled by this. Is it??? Wire? Huh ? How
     );
 
-    @Override
-    protected void buildRecipes(Consumer<FinishedRecipe> consumer) {
+    protected static void buildRecipes(Consumer<FinishedRecipe> consumer) {
         for (var transmutation : SOULWOOD_TRANSMUTATIONS) {
             new SpiritTransmutationRecipeBuilder(transmutation.getFirst(), transmutation.getSecond())
                     .group("soulwood")

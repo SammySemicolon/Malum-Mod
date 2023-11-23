@@ -1,26 +1,26 @@
 {
   "type": "malum:spirit_infusion",
+  "extra_items": [
+    {
+      "count": 8,
+      "item": "malum:runewood_planks"
+    },
+    {
+      "count": 1,
+      "item": "malum:spectral_optic"
+    },
+    {
+      "count": 1,
+      "item": "minecraft:ender_eye"
+    }
+  ],
   "input": {
-    "item": "malum:ornate_necklace",
-    "count": 1
+    "count": 1,
+    "item": "malum:ornate_necklace"
   },
   "output": {
     "item": "malum:necklace_of_the_mystic_mirror"
   },
-  "extra_items": [
-    {
-      "item": "malum:runewood_planks",
-      "count": 8
-    },
-    {
-      "item": "malum:spectral_optic",
-      "count": 1
-    },
-    {
-      "item": "minecraft:ender_eye",
-      "count": 1
-    }
-  ],
   "spirits": [
     {
       "type": "sacred",

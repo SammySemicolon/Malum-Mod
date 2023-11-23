@@ -1,13 +1,13 @@
 {
   "type": "malum:spirit_infusion",
+  "extra_items": [],
   "input": {
-    "item": "malum:anomalous_design",
-    "count": 1
+    "count": 1,
+    "item": "malum:anomalous_design"
   },
   "output": {
     "item": "malum:complete_design"
   },
-  "extra_items": [],
   "spirits": [
     {
       "type": "sacred",

@@ -15,8 +15,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.crafting.ConditionalRecipe;
-import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
-import net.minecraftforge.common.crafting.conditions.TagEmptyCondition;
+import net.minecraftforge.common.crafting.conditions.*;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
@@ -25,13 +24,9 @@ import java.util.function.Consumer;
 import static com.sammy.malum.registry.common.SpiritTypeRegistry.*;
 import static team.lodestar.lodestone.registry.common.tag.LodestoneItemTags.*;
 
-public class MalumSpiritFocusingRecipes extends RecipeProvider implements IConditionBuilder {
-    public MalumSpiritFocusingRecipes(PackOutput generatorIn) {
-        super(generatorIn);
-    }
+public class MalumSpiritFocusingRecipes implements IConditionBuilder {
 
-    @Override
-    protected void buildRecipes(Consumer<FinishedRecipe> consumer) {
+    protected static void buildRecipes(Consumer<FinishedRecipe> consumer) {
         int metalDuration = 900;
         int shortDuration = 300;
 
@@ -182,15 +177,15 @@ public class MalumSpiritFocusingRecipes extends RecipeProvider implements ICondi
         addImpetusRecipes(consumer, metalDuration, ItemRegistry.TIN_IMPETUS, ItemRegistry.TIN_NODE, NUGGETS_TIN);
     }
 
-    public void addImpetusRecipes(Consumer<FinishedRecipe> consumer, int duration, RegistryObject<ImpetusItem> impetus, RegistryObject<Item> node) {
+    public static void addImpetusRecipes(Consumer<FinishedRecipe> consumer, int duration, RegistryObject<ImpetusItem> impetus, RegistryObject<Item> node) {
         new SpiritFocusingRecipeBuilder(duration, 2, Ingredient.of(impetus.get()), node.get(), 3)
                 .addSpirit(EARTHEN_SPIRIT, 2)
                 .addSpirit(INFERNAL_SPIRIT, 4)
                 .build(consumer, MalumMod.malumPath("node_focusing_" + ForgeRegistries.ITEMS.getKey(node.get()).getPath().replace("_node", "")));
     }
 
-    public void addImpetusRecipes(Consumer<FinishedRecipe> consumer, int duration, RegistryObject<ImpetusItem> impetus, RegistryObject<Item> node, TagKey<Item> nugget) {
-        ConditionalRecipe.builder().addCondition(not(new TagEmptyCondition(nugget.location()))).addRecipe(
+    public static void addImpetusRecipes(Consumer<FinishedRecipe> consumer, int duration, RegistryObject<ImpetusItem> impetus, RegistryObject<Item> node, TagKey<Item> nugget) {
+        ConditionalRecipe.builder().addCondition(new NotCondition(new TagEmptyCondition(nugget.location()))).addRecipe(
                         new SpiritFocusingRecipeBuilder(duration, 2, Ingredient.of(impetus.get()), node.get(), 3)
                                 .addSpirit(EARTHEN_SPIRIT, 2)
                                 .addSpirit(INFERNAL_SPIRIT, 1)

@@ -14,8 +14,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.crafting.ConditionalRecipe;
-import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
-import net.minecraftforge.common.crafting.conditions.TagEmptyCondition;
+import net.minecraftforge.common.crafting.conditions.*;
 import net.minecraftforge.registries.RegistryObject;
 
 import java.util.function.Consumer;
@@ -23,13 +22,9 @@ import java.util.function.Consumer;
 import static com.sammy.malum.registry.common.SpiritTypeRegistry.*;
 import static team.lodestar.lodestone.registry.common.tag.LodestoneItemTags.*;
 
-public class MalumSpiritInfusionRecipes extends RecipeProvider implements IConditionBuilder {
-    public MalumSpiritInfusionRecipes(PackOutput generatorIn) {
-        super(generatorIn);
-    }
+public class MalumSpiritInfusionRecipes {
 
-    @Override
-    protected void buildRecipes(Consumer<FinishedRecipe> consumer) {
+    protected static void buildRecipes(Consumer<FinishedRecipe> consumer) {
         new SpiritInfusionRecipeBuilder(Items.GUNPOWDER, 1, ItemRegistry.HEX_ASH.get(), 1)
                 .addSpirit(ARCANE_SPIRIT, 1)
                 .build(consumer);
@@ -444,8 +439,8 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider implements ICondi
         metalImpetusRecipe(consumer, ItemRegistry.TIN_IMPETUS, INGOTS_TIN);
     }
 
-    public void metalImpetusRecipe(Consumer<FinishedRecipe> consumer, RegistryObject<ImpetusItem> output, TagKey<Item> ingot) {
-        ConditionalRecipe.builder().addCondition(not(new TagEmptyCondition(ingot.location().toString()))).addRecipe(
+    public static void metalImpetusRecipe(Consumer<FinishedRecipe> consumer, RegistryObject<ImpetusItem> output, TagKey<Item> ingot) {
+        ConditionalRecipe.builder().addCondition(new NotCondition(new TagEmptyCondition(ingot.location().toString()))).addRecipe(
                         new SpiritInfusionRecipeBuilder(ItemRegistry.ALCHEMICAL_IMPETUS.get(), 1, output.get(), 1)
                                 .addSpirit(EARTHEN_SPIRIT, 8)
                                 .addSpirit(INFERNAL_SPIRIT, 8)
@@ -457,7 +452,7 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider implements ICondi
                 .build(consumer, MalumMod.malumPath("impetus_creation_" + ingot.location().getPath().replace("ingots/", "")));
     }
 
-    public void metalImpetusRecipe(Consumer<FinishedRecipe> consumer, RegistryObject<ImpetusItem> output, Item ingot) {
+    public static void metalImpetusRecipe(Consumer<FinishedRecipe> consumer, RegistryObject<ImpetusItem> output, Item ingot) {
         new SpiritInfusionRecipeBuilder(ItemRegistry.ALCHEMICAL_IMPETUS.get(), 1, output.get(), 1)
                 .addSpirit(EARTHEN_SPIRIT, 8)
                 .addSpirit(INFERNAL_SPIRIT, 8)
