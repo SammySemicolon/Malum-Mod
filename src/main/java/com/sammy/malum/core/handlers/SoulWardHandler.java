@@ -14,7 +14,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.sounds.SoundSource;
+import net.minecraft.sounds.*;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
@@ -53,21 +53,27 @@ public class SoulWardHandler {
 
     public static void recoverSoulWard(TickEvent.PlayerTickEvent event) {
         Player player = event.player;
-        SoulWardHandler soulWardHandler = MalumPlayerDataCapability.getCapability(player).soulWardHandler;
-        AttributeInstance soulWardCap = player.getAttribute(AttributeRegistry.SOUL_WARD_CAP.get());
+        if (!player.level.isClientSide) {
+            SoulWardHandler soulWardHandler = MalumPlayerDataCapability.getCapability(player).soulWardHandler;
+            AttributeInstance soulWardCap = player.getAttribute(AttributeRegistry.SOUL_WARD_CAP.get());
 
-        if (soulWardCap != null) {
-            if (soulWardHandler.soulWard < soulWardCap.getValue() && soulWardHandler.soulWardProgress <= 0) {
-                soulWardHandler.soulWard++;
-                if (player.level.isClientSide && !player.isCreative()) {
-                    player.playSound(soulWardHandler.soulWard >= soulWardCap.getValue() ? SoundRegistry.SOUL_WARD_CHARGE.get() : SoundRegistry.SOUL_WARD_GROW.get(), 1, Mth.nextFloat(player.getRandom(), 0.6f, 1.4f));
+            if (soulWardCap != null) {
+                if (soulWardHandler.soulWard < soulWardCap.getValue() && soulWardHandler.soulWardProgress <= 0) {
+                    soulWardHandler.soulWard++;
+                    if (!player.isCreative()) {
+                        SoundEvent sound = soulWardHandler.soulWard >= soulWardCap.getValue() ? SoundRegistry.SOUL_WARD_CHARGE.get() : SoundRegistry.SOUL_WARD_GROW.get();
+                        float pitch = 1f + (soulWardHandler.soulWard / (float) soulWardCap.getValue()) * 0.5f + (Mth.ceil(soulWardHandler.soulWard) % 3) * 0.25f;
+                        player.level.playSound(null, player.blockPosition(), sound, SoundSource.PLAYERS, 1, pitch);
+                    }
+                    soulWardHandler.soulWardProgress = getSoulWardCooldown(player);
+                    MalumPlayerDataCapability.syncTrackingAndSelf(player);
+                } else {
+                    soulWardHandler.soulWardProgress--;
                 }
-                soulWardHandler.soulWardProgress = getSoulWardCooldown(player);
-            } else {
-                soulWardHandler.soulWardProgress--;
-            }
-            if (soulWardHandler.soulWard > soulWardCap.getValue()) {
-                soulWardHandler.soulWard = (float) soulWardCap.getValue();
+                if (soulWardHandler.soulWard > soulWardCap.getValue()) {
+                    soulWardHandler.soulWard = (float) soulWardCap.getValue();
+                    MalumPlayerDataCapability.syncTrackingAndSelf(player);
+                }
             }
         }
     }
@@ -78,8 +84,8 @@ public class SoulWardHandler {
         }
         if (event.getEntityLiving() instanceof Player player) {
             if (!player.level.isClientSide) {
-                SoulWardHandler soulWardHandler = MalumPlayerDataCapability.getCapability(player).soulWardHandler;
-                soulWardHandler.soulWardProgress = getSoulWardCooldown(0) + getSoulWardCooldown(player);
+            SoulWardHandler soulWardHandler = MalumPlayerDataCapability.getCapability(player).soulWardHandler;
+            soulWardHandler.soulWardProgress = getSoulWardCooldown(0) + getSoulWardCooldown(player);
                 if (soulWardHandler.soulWard > 0) {
                     DamageSource source = event.getSource();
 
@@ -107,7 +113,8 @@ public class SoulWardHandler {
                             eventItem.onSoulwardAbsorbDamage(event, player, s, soulwardLost, absorbed);
                         }
                     }
-                    player.level.playSound(null, player.blockPosition(), SoundRegistry.SOUL_WARD_HIT.get(), SoundSource.PLAYERS, 1, Mth.nextFloat(player.getRandom(), 1.5f, 2f));
+                    SoundEvent sound = soulWardHandler.soulWard == 0 ? SoundRegistry.SOUL_WARD_DEPLETE.get() : SoundRegistry.SOUL_WARD_HIT.get();
+                    player.level.playSound(null, player.blockPosition(), sound, SoundSource.PLAYERS, 1, Mth.nextFloat(player.getRandom(), 1f, 1.5f));
                     event.setAmount(result);
 
                     MalumPlayerDataCapability.syncTrackingAndSelf(player);
@@ -138,7 +145,8 @@ public class SoulWardHandler {
                 LocalPlayer player = minecraft.player;
                 if (!player.isCreative() && !player.isSpectator()) {
                     SoulWardHandler soulWardHandler = MalumPlayerDataCapability.getCapability(player).soulWardHandler;
-                    if (soulWardHandler.soulWard > 0) {
+                    final float soulWard = soulWardHandler.soulWard;
+                    if (soulWard > 0) {
                         float absorb = Mth.ceil(player.getAbsorptionAmount());
                         float maxHealth = (float) player.getAttribute(Attributes.MAX_HEALTH).getValue();
                         float armor = (float) player.getAttribute(Attributes.ARMOR).getValue();
@@ -167,12 +175,14 @@ public class SoulWardHandler {
                                 .setShader(() -> shaderInstance);
 
                         int size = 13;
-                        for (int i = 0; i < Math.ceil(Math.floor(soulWardHandler.soulWard) / 3f); i++) {
-                            int row = (int) (Math.ceil(i) / 10f);
+                        boolean forceDisplay = soulWard <= 1;
+                        double soulWardAmount = forceDisplay ? 1 : Math.ceil(Math.floor(soulWard) / 3f);
+                        for (int i = 0; i < soulWardAmount; i++) {
+                            int row = (int) (i / 10f);
                             int x = left + i % 10 * 8;
                             int y = top - row * 4 + rowHeight * 2 - 15;
-                            int progress = Math.min(3, (int) soulWardHandler.soulWard - i * 3);
-                            int xTextureOffset = 1 + (3 - progress) * 15;
+                            int progress = Math.min(3, (int) soulWard - i * 3);
+                            int xTextureOffset = forceDisplay ? 31 : 1 + (3 - progress) * 15;
 
                             shaderInstance.safeGetUniform("UVCoordinates").set(new Vector4f(xTextureOffset / 45f, (xTextureOffset + size) / 45f, 0, 15 / 45f));
                             shaderInstance.safeGetUniform("TimeOffset").set(i * 150f);

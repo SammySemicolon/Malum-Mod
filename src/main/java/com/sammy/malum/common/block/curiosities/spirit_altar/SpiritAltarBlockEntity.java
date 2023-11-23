@@ -1,5 +1,6 @@
 package com.sammy.malum.common.block.curiosities.spirit_altar;
 
+import com.sammy.malum.common.block.*;
 import com.sammy.malum.common.block.storage.*;
 import com.sammy.malum.common.item.spirit.*;
 import com.sammy.malum.common.recipe.*;
@@ -68,7 +69,7 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
     public SpiritAltarBlockEntity(BlockPos pos, BlockState state) {
         super(BlockEntityRegistry.SPIRIT_ALTAR.get(), pos, state);
 
-        inventory = new LodestoneBlockEntityInventory(1, 64, t -> !(t.getItem() instanceof SpiritShardItem)) {
+        inventory = new MalumBlockEntityInventory(1, 64, t -> !(t.getItem() instanceof SpiritShardItem)) {
             @Override
             public void onContentsChanged(int slot) {
                 super.onContentsChanged(slot);
@@ -76,14 +77,14 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
                 BlockHelper.updateAndNotifyState(level, worldPosition);
             }
         };
-        extrasInventory = new LodestoneBlockEntityInventory(8, 1) {
+        extrasInventory = new MalumBlockEntityInventory(8, 1) {
             @Override
             public void onContentsChanged(int slot) {
                 super.onContentsChanged(slot);
                 BlockHelper.updateAndNotifyState(level, worldPosition);
             }
         };
-        spiritInventory = new LodestoneBlockEntityInventory(SpiritTypeRegistry.SPIRITS.size(), 64) {
+        spiritInventory = new MalumBlockEntityInventory(SpiritTypeRegistry.SPIRITS.size(), 64) {
             @Override
             public void onContentsChanged(int slot) {
                 super.onContentsChanged(slot);
@@ -265,7 +266,7 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
                 if (matches) {
                     level.playSound(null, provider.getAccessPointBlockPos(), SoundRegistry.ALTAR_CONSUME.get(), SoundSource.BLOCKS, 1, 0.9f + level.random.nextFloat() * 0.2f);
                     ParticleEffectTypeRegistry.SPIRIT_ALTAR_EATS_ITEM.createPositionedEffect(level, new PositionEffectData(worldPosition), ColorEffectData.fromRecipe(recipe.spirits), SpiritAltarEatItemParticleEffect.createData(provider.getAccessPointBlockPos(), providedStack));
-                    extrasInventory.insertItem(level, providedStack.split(requestedItem.count));
+                    extrasInventory.insertItem(providedStack.split(requestedItem.count));
                     inventoryForAltar.updateData();
                     BlockHelper.updateAndNotifyState(level, provider.getAccessPointBlockPos());
                     break;

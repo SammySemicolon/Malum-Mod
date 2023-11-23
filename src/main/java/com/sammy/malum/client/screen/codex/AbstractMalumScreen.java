@@ -19,22 +19,18 @@ public abstract class AbstractMalumScreen extends Screen {
     public abstract Supplier<SoundEvent> getSweetenerSound();
 
     public void playPageFlipSound(Supplier<SoundEvent> soundEvent, float pitch) {
-        playSound(soundEvent, Math.max(1, pitch * 0.8f));
-        playSound(getSweetenerSound(), pitch);
+        playSound(soundEvent, 1, Math.max(1, pitch * 0.8f));
+        playSound(getSweetenerSound(), 0.2f, pitch);
     }
 
     public void playSweetenedSound(Supplier<SoundEvent> soundEvent, float sweetenerPitch) {
-        playSound(soundEvent);
-        playSound(getSweetenerSound(), sweetenerPitch);
+        playSound(soundEvent, 1, 1);
+        playSound(getSweetenerSound(), 0.2f, sweetenerPitch);
     }
 
-    public void playSound(Supplier<SoundEvent> soundEvent) {
-        playSound(soundEvent, 1);
-    }
-
-    public void playSound(Supplier<SoundEvent> soundEvent, float pitch) {
+    public void playSound(Supplier<SoundEvent> soundEvent, float volume, float pitch) {
         Player playerEntity = Minecraft.getInstance().player;
-        playerEntity.playNotifySound(soundEvent.get(), SoundSource.PLAYERS, 1f, pitch);
+        playerEntity.playNotifySound(soundEvent.get(), SoundSource.PLAYERS, volume, pitch);
     }
 
     @Override

@@ -41,8 +41,6 @@ public class SoundRegistry {
     public static final RegistryObject<SoundEvent> METALLIC_TRINKET_EQUIP = register(new SoundEvent(MalumMod.malumPath("metallic_trinket_equipped")));
     public static final RegistryObject<SoundEvent> VOID_TRINKET_EQUIP = register(new SoundEvent(MalumMod.malumPath("void_trinket_equipped")));
 
-
-
     public static final RegistryObject<SoundEvent> ARCANE_WHISPERS = register(new SoundEvent(MalumMod.malumPath("arcane_whispers")));
     public static final RegistryObject<SoundEvent> SPIRIT_PICKUP = register(new SoundEvent(MalumMod.malumPath("spirit_picked_up")));
     public static final RegistryObject<SoundEvent> SOUL_SHATTER = register(new SoundEvent(MalumMod.malumPath("a_soul_shatters")));
@@ -77,12 +75,14 @@ public class SoundRegistry {
     public static final RegistryObject<SoundEvent> VOID_SLASH = register(new SoundEvent(MalumMod.malumPath("void_slash_swooshes")));
     public static final RegistryObject<SoundEvent> HIDDEN_BLADE_STRIKES = register(new SoundEvent(MalumMod.malumPath("hidden_blade_strikes")));
     public static final RegistryObject<SoundEvent> HUNGRY_BELT_FEEDS = register(new SoundEvent(MalumMod.malumPath("hungry_belt_feeds")));
+    public static final RegistryObject<SoundEvent> FLESH_RING_ABSORBS = register(new SoundEvent(MalumMod.malumPath("flesh_ring_absorbs")));
     public static final RegistryObject<SoundEvent> NITRATE_THROWN = register(new SoundEvent(MalumMod.malumPath("nitrate_thrown")));
     public static final RegistryObject<SoundEvent> SPIRIT_MOTE_CREATED = register(new SoundEvent(MalumMod.malumPath("spirit_mote_created")));
 
     public static final RegistryObject<SoundEvent> SOUL_WARD_HIT = register(new SoundEvent(MalumMod.malumPath("soul_ward_damaged")));
     public static final RegistryObject<SoundEvent> SOUL_WARD_GROW = register(new SoundEvent(MalumMod.malumPath("soul_ward_grows")));
-    public static final RegistryObject<SoundEvent> SOUL_WARD_CHARGE = register(new SoundEvent(MalumMod.malumPath("soul_ward_charges")));
+    public static final RegistryObject<SoundEvent> SOUL_WARD_CHARGE = register(new SoundEvent(MalumMod.malumPath("soul_ward_charged")));
+    public static final RegistryObject<SoundEvent> SOUL_WARD_DEPLETE = register(new SoundEvent(MalumMod.malumPath("soul_ward_depleted")));
 
     public static final RegistryObject<SoundEvent> SOULSTONE_BREAK = register(new SoundEvent(MalumMod.malumPath("soulstone_break")));
     public static final RegistryObject<SoundEvent> SOULSTONE_PLACE = register(new SoundEvent(MalumMod.malumPath("soulstone_place")));

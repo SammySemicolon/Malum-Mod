@@ -56,13 +56,15 @@
   "aerial_magic_swooshes": { "sounds":["minecraft:mob/phantom/flap1","minecraft:mob/phantom/flap2","minecraft:mob/phantom/flap3","minecraft:mob/phantom/flap4","minecraft:mob/phantom/flap5","minecraft:mob/phantom/flap6"], "subtitle": "malum.subtitle.aerial_magic_swooshes" },
   "void_slash_swooshes": { "sounds":["malum:void_slash"], "subtitle": "malum.subtitle.void_slash_swooshes" },
   "hungry_belt_feeds": { "sounds":["malum:curiosities/starved_belt/nom1", "malum:curiosities/starved_belt/nom2", "malum:curiosities/starved_belt/nom3", "malum:curiosities/starved_belt/nom4"], "subtitle": "malum.subtitle.hungry_belt_feeds" },
+  "flesh_ring_absorbs": { "sounds":["malum:curiosities/cancer_ring/grow1", "malum:curiosities/cancer_ring/gro2", "malum:curiosities/cancer_ring/grow3"], "subtitle": "malum.subtitle.flesh_ring_absorbs" },
   "hidden_blade_strikes": { "sounds":["malum:curiosities/hidden_blade/strike1", "malum:curiosities/hidden_blade/strike2", "malum:curiosities/hidden_blade/strike3"], "subtitle": "malum.subtitle.hidden_blade_strikes" },
   "nitrate_thrown": { "sounds":["minecraft:random/bow"], "subtitle": "malum.subtitle.nitrate_thrown" },
   "spirit_mote_created": { "sounds":["malum:curiosities/spirit_mote/created1", "malum:curiosities/spirit_mote/created2", "malum:curiosities/spirit_mote/created3"], "subtitle": "malum.subtitle.spirit_mote_created" },
 
   "soul_ward_grows": { "sounds":["malum:curiosities/soul_ward/grow1","malum:curiosities/soul_ward/grow2","malum:curiosities/soul_ward/grow3","malum:curiosities/soul_ward/grow4"], "subtitle": "malum.subtitle.soul_ward_grows" },
-  "soul_ward_damaged": { "sounds":["malum:curiosities/soul_ward/grow1","malum:curiosities/soul_ward/grow2","malum:curiosities/soul_ward/grow3","malum:curiosities/soul_ward/grow4"], "subtitle": "malum.subtitle.soul_ward_damaged" },
-  "soul_ward_charges": { "sounds":["malum:curiosities/soul_ward/charge1","malum:curiosities/soul_ward/charge2"], "subtitle": "malum.subtitle.soul_ward_charges" },
+  "soul_ward_damaged": { "sounds":["malum:curiosities/soul_ward/dmg1","malum:curiosities/soul_ward/dmg2","malum:curiosities/soul_ward/dmg3","malum:curiosities/soul_ward/dmg4"], "subtitle": "malum.subtitle.soul_ward_damaged" },
+  "soul_ward_charged": { "sounds":["malum:curiosities/soul_ward/full1","malum:curiosities/soul_ward/full2"], "subtitle": "malum.subtitle.soul_ward_charged" },
+  "soul_ward_depleted": { "sounds":["malum:curiosities/soul_ward/break1","malum:curiosities/soul_ward/break2"], "subtitle": "malum.subtitle.soul_ward_depleted" },
 
   "the_deep_beckons": { "sounds":["malum:suspicious_sound"], "subtitle": "malum.subtitle.the_deep_beckons" },
   "the_heavens_sing": { "sounds":["malum:heavenly_organs"], "subtitle": "malum.subtitle.the_heavens_sing" },

@@ -93,7 +93,11 @@ public class MalumLang extends LanguageProvider {
         });
 
         effects.forEach(e -> {
-            String alteredPath = e.getId().getPath().replaceFirst("s_", "'s_");
+            String[] replacements = new String[]{"ns_", "rs_", "ts_"};
+            String alteredPath = e.getId().getPath();
+            for (String replacement : replacements) {
+                alteredPath = alteredPath.replaceFirst("s_", "'s_");
+            }
             String name = DataHelper.toTitleCase(alteredPath, "_");
             add("effect.malum." + e.get().getRegistryName().getPath(), name);
         });

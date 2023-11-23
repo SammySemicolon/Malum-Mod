@@ -1,5 +1,6 @@
 package com.sammy.malum.common.block.curiosities.spirit_crucible;
 
+import com.sammy.malum.common.block.*;
 import com.sammy.malum.core.systems.spirit.*;
 import com.sammy.malum.visual_effects.*;
 import com.sammy.malum.common.item.impetus.ImpetusItem;
@@ -75,7 +76,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
 
     public SpiritCrucibleCoreBlockEntity(BlockEntityType<? extends SpiritCrucibleCoreBlockEntity> type, MultiBlockStructure structure, BlockPos pos, BlockState state) {
         super(type, structure, pos, state);
-        inventory = new LodestoneBlockEntityInventory(1, 1, t -> !(t.getItem() instanceof SpiritShardItem)) {
+        inventory = new MalumBlockEntityInventory(1, 1, t -> !(t.getItem() instanceof SpiritShardItem)) {
             @Override
             public void onContentsChanged(int slot) {
                 super.onContentsChanged(slot);
@@ -83,7 +84,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
                 BlockHelper.updateAndNotifyState(level, worldPosition);
             }
         };
-        spiritInventory = new LodestoneBlockEntityInventory(4, 64) {
+        spiritInventory = new MalumBlockEntityInventory(4, 64) {
             @Override
             public void onContentsChanged(int slot) {
                 super.onContentsChanged(slot);

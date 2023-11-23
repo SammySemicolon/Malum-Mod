@@ -1,5 +1,6 @@
 package com.sammy.malum.common.block.curiosities.spirit_crucible.catalyzer;
 
+import com.sammy.malum.common.block.*;
 import com.sammy.malum.common.block.curiosities.spirit_crucible.*;
 import com.sammy.malum.common.item.spirit.SpiritShardItem;
 import com.sammy.malum.core.systems.spirit.*;
@@ -51,7 +52,7 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity impleme
 
     public SpiritCatalyzerCoreBlockEntity(BlockEntityType<? extends SpiritCatalyzerCoreBlockEntity> type, MultiBlockStructure structure, BlockPos pos, BlockState state) {
         super(type, structure, pos, state);
-        inventory = new LodestoneBlockEntityInventory(1, 64, t -> !(t.getItem() instanceof SpiritShardItem)) {
+        inventory = new MalumBlockEntityInventory(1, 64, t -> !(t.getItem() instanceof SpiritShardItem)) {
             @Override
             public void onContentsChanged(int slot) {
                 super.onContentsChanged(slot);
