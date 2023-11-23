@@ -48,7 +48,7 @@ public class SpiritRiteTextPage extends BookPage {
         int guiTop = guiTop();
         Component component = Component.translatable(headlineTranslationKey());
         renderText(guiGraphics, component, guiLeft + 218 - minecraft.font.width(component.getString()) / 2, guiTop + 10);
-        renderWrappingText(guiGraphics, translationKey(), guiLeft + 156, guiTop + 76, 126);
+        renderWrappingText(guiGraphics, translationKey(), guiLeft + 156, guiTop + 84, 126);
         final int riteIconX = guiLeft + 209;
         final int riteIconY = guiTop + 44;
         renderRiteIcon(riteType, guiGraphics.pose(), isCorrupted(), 0.4f, riteIconX, riteIconY);

@@ -12,6 +12,7 @@ import net.minecraft.nbt.*;
 import net.minecraft.sounds.*;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.player.*;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraftforge.network.*;
@@ -56,10 +57,11 @@ public class TotemBaseBlockEntity extends LodestoneBlockEntity {
                 progress++;
                 if (progress >= rite.getRiteEffect(corrupted).getRiteEffectTickRate()) {
                     if (direction == null) {
-                        BlockPos polePos = worldPosition.above(height);
-                        if (level.getBlockEntity(polePos) instanceof TotemPoleBlockEntity pole) {
-                            direction = pole.direction;
+                        final BlockState state = level.getBlockState(worldPosition.above(height));
+                        if (state.getBlock() instanceof TotemPoleBlock) {
+                            direction = state.getValue(FACING);
                         }
+                        return;
                     }
                     rite.executeRite(this);
                     progress = 0;
@@ -209,11 +211,11 @@ public class TotemBaseBlockEntity extends LodestoneBlockEntity {
             }
         });
         progress = 0;
+        this.rite = rite;
         rite.executeRite(this);
         if (rite.effect.category.equals(MalumRiteEffect.MalumRiteEffectCategory.ONE_TIME_EFFECT)) {
             return;
         }
-        this.rite = rite;
         disableOtherRites();
     }
 
