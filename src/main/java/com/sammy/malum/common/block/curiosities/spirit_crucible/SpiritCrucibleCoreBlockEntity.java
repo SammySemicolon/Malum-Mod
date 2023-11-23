@@ -1,6 +1,6 @@
 package com.sammy.malum.common.block.curiosities.spirit_crucible;
 
-import com.sammy.malum.common.block.curiosities.tablet.*;
+import com.sammy.malum.common.block.*;
 import com.sammy.malum.common.item.impetus.*;
 import com.sammy.malum.common.item.spirit.*;
 import com.sammy.malum.common.packets.particle.curiosities.altar.*;
@@ -29,7 +29,6 @@ import net.minecraftforge.items.wrapper.*;
 import net.minecraftforge.network.*;
 import org.jetbrains.annotations.*;
 import team.lodestar.lodestone.helpers.*;
-
 import team.lodestar.lodestone.systems.blockentity.*;
 import team.lodestar.lodestone.systems.easing.*;
 import team.lodestar.lodestone.systems.multiblock.*;
@@ -41,7 +40,6 @@ import team.lodestar.lodestone.systems.particle.data.spin.*;
 
 import javax.annotation.Nullable;
 import javax.annotation.*;
-import java.awt.*;
 import java.util.function.*;
 import java.util.stream.*;
 
@@ -70,7 +68,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
 
     public SpiritCrucibleCoreBlockEntity(BlockEntityType<? extends SpiritCrucibleCoreBlockEntity> type, MultiBlockStructure structure, BlockPos pos, BlockState state) {
         super(type, structure, pos, state);
-        inventory = new LodestoneBlockEntityInventory(1, 1, t -> !(t.getItem() instanceof SpiritShardItem)) {
+        inventory = new MalumBlockEntityInventory(1, 1, t -> !(t.getItem() instanceof SpiritShardItem)) {
             @Override
             public void onContentsChanged(int slot) {
                 super.onContentsChanged(slot);
@@ -78,7 +76,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
                 BlockHelper.updateAndNotifyState(level, worldPosition);
             }
         };
-        spiritInventory = new LodestoneBlockEntityInventory(4, 64) {
+        spiritInventory = new MalumBlockEntityInventory(4, 64) {
             @Override
             public void onContentsChanged(int slot) {
                 super.onContentsChanged(slot);

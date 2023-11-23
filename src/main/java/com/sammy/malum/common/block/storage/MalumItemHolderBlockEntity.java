@@ -1,21 +1,21 @@
 package com.sammy.malum.common.block.storage;
 
-import com.sammy.malum.common.item.spirit.SpiritShardItem;
-import com.sammy.malum.core.systems.spirit.MalumSpiritType;
-import com.sammy.malum.visual_effects.SpiritLightSpecs;
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.Vec3;
-import team.lodestar.lodestone.helpers.BlockHelper;
-import team.lodestar.lodestone.systems.blockentity.ItemHolderBlockEntity;
-import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntityInventory;
+import com.sammy.malum.common.block.*;
+import com.sammy.malum.common.item.spirit.*;
+import com.sammy.malum.core.systems.spirit.*;
+import com.sammy.malum.visual_effects.*;
+import net.minecraft.core.*;
+import net.minecraft.world.level.block.entity.*;
+import net.minecraft.world.level.block.state.*;
+import net.minecraft.world.phys.*;
+import team.lodestar.lodestone.helpers.*;
+import team.lodestar.lodestone.systems.blockentity.*;
 
 public abstract class MalumItemHolderBlockEntity extends ItemHolderBlockEntity implements IMalumSpecialItemAccessPoint {
 
     public MalumItemHolderBlockEntity(BlockEntityType<? extends MalumItemHolderBlockEntity> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
-        inventory = new LodestoneBlockEntityInventory(1, 64) {
+        inventory = new MalumBlockEntityInventory(1, 64) {
             @Override
             public void onContentsChanged(int slot) {
                 super.onContentsChanged(slot);
