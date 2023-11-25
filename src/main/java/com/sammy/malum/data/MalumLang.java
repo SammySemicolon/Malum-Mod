@@ -97,7 +97,11 @@ public class MalumLang extends LanguageProvider {
             String[] replacements = new String[]{"ns_", "rs_", "ts_"};
             String alteredPath = e.getId().getPath();
             for (String replacement : replacements) {
-                alteredPath = alteredPath.replaceFirst("s_", "'s_");
+                int index = alteredPath.indexOf(replacement);
+                if (index != -1) {
+                    alteredPath = alteredPath.replaceFirst("s_", "'s_");
+                    break;
+                }
             }
             String name = DataHelper.toTitleCase(alteredPath, "_");
             add("effect.malum." + ForgeRegistries.MOB_EFFECTS.getKey(e.get()).getPath(), name);

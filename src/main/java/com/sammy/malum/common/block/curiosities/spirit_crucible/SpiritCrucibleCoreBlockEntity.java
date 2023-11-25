@@ -1,6 +1,7 @@
 package com.sammy.malum.common.block.curiosities.spirit_crucible;
 
 import com.sammy.malum.common.block.*;
+import com.sammy.malum.common.block.storage.*;
 import com.sammy.malum.common.item.impetus.*;
 import com.sammy.malum.common.item.spirit.*;
 import com.sammy.malum.common.packets.particle.curiosities.altar.*;
@@ -197,6 +198,35 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
         }
         float speed = acceleratorData == null ? 0 : acceleratorData.speedIncrease;
         if (level instanceof ServerLevel) {
+            if (level.getBlockEntity(worldPosition.above(2)) instanceof MalumItemHolderBlockEntity itemHolderBlockEntity) {
+                ItemStack repairStack = itemHolderBlockEntity.inventory.getStackInSlot(0);
+                if (!repairStack.isEmpty()) {
+                    final ItemStack repairedStack = inventory.getStackInSlot(0);
+                    SpiritRepairRecipe repairRecipe = SpiritRepairRecipe.getRecipe(level, repairedStack, repairStack, spiritInventory.nonEmptyItemStacks);
+                    if (repairRecipe != null) {
+                        if (repairedStack.isDamaged()) {
+                            float repaired = repairedStack.getMaxDamage() * repairRecipe.durabilityPercentage;
+                            int newDurability = (int) Math.min(0, repairedStack.getDamageValue() - repaired);
+                            repairedStack.setDamageValue(newDurability);
+                        }
+                        if (repairedStack.getItem() instanceof CrackedImpetusItem crackedImpetusItem) {
+                            inventory.setStackInSlot(0, new ItemStack(crackedImpetusItem.impetus));
+                        }
+                        repairStack.shrink(repairRecipe.repairMaterial.count);
+                        for (SpiritWithCount spirit : repairRecipe.spirits) {
+                            for (int i = 0; i < spiritInventory.slotCount; i++) {
+                                ItemStack spiritStack = spiritInventory.getStackInSlot(i);
+                                if (spirit.matches(spiritStack)) {
+                                    spiritStack.shrink(spirit.count);
+                                    break;
+                                }
+                            }
+                        }
+                        BlockHelper.updateAndNotifyState(level, worldPosition);
+                        BlockHelper.updateAndNotifyState(level, worldPosition.above(2));
+                    }
+                }
+            }
             if (recipe != null) {
                 if (acceleratorData != null) {
                     boolean needsRecalibration = !acceleratorData.accelerators.stream().allMatch(ICrucibleAccelerator::canContinueAccelerating);
@@ -212,6 +242,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
             } else {
                 progress = 0;
             }
+
         }
         else {
             spiritSpin += 1 + speed * 0.1f;
