@@ -28,6 +28,7 @@ public class CurioTokenOfGratitude extends MalumCurioItem implements IEventRespo
     public static final UUID DELLY = validateForGratitude("7c3a2f88-f6b8-47ff-971d-73544eb5ae62");
     public static final UUID LOFI = validateForGratitude("85715c8f-4f71-4ebd-9f3a-96dfd8e8e390");
     public static final UUID CREECHURE = validateForGratitude("9acb0ed8-a6a3-46bc-a6ff-23c176e5ec3d");
+    public static final UUID SALT = validateForGratitude("3585541f-8289-45a9-b8d7-6729bb1d95da");
 
     static {
         addTransScarf(validateForGratitude("72155db3-d5e4-47fa-8200-c85bf7f87370")); //copilot says it's 'Snake'
@@ -48,7 +49,7 @@ public class CurioTokenOfGratitude extends MalumCurioItem implements IEventRespo
     @Override
     public void curioTick(SlotContext slotContext, ItemStack stack) {
         if (slotContext.entity() instanceof Player player) {
-            if (player.getUUID().equals(SAMMY) || player.getUUID().equals(LOFI) || player.getUUID().equals(CREECHURE)) {
+            if (player.getUUID().equals(SAMMY) || player.getUUID().equals(LOFI) || player.getUUID().equals(CREECHURE) || player.getUUID().equals(SALT)) {
                 int interval = player.isCrouching() ? 10 : 4000;
                 if (player.getLevel().getGameTime() % interval == 0) {
                     SoundEvent soundEvent = player.getRandom().nextInt(8) == 0 ? SoundEvents.CAT_PURREOW : SoundEvents.CAT_PURR;
