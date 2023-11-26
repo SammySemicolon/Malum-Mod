@@ -1,35 +1,34 @@
 package com.sammy.malum.client.screen.codex;
 
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.sammy.malum.core.systems.rites.MalumRiteType;
-import com.sammy.malum.core.systems.spirit.MalumSpiritType;
-import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.renderer.ShaderInstance;
-import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Mth;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
-import org.joml.Vector4f;
-import org.lwjgl.opengl.GL11;
-import team.lodestar.lodestone.setup.LodestoneShaderRegistry;
-import team.lodestar.lodestone.systems.easing.Easing;
-import team.lodestar.lodestone.systems.recipe.IRecipeComponent;
-import team.lodestar.lodestone.systems.rendering.VFXBuilders;
-import team.lodestar.lodestone.systems.rendering.shader.ExtendedShaderInstance;
+import com.mojang.blaze3d.systems.*;
+import com.mojang.blaze3d.vertex.*;
+import com.sammy.malum.core.systems.rites.*;
+import com.sammy.malum.core.systems.spirit.*;
+import net.minecraft.*;
+import net.minecraft.client.*;
+import net.minecraft.client.gui.*;
+import net.minecraft.client.gui.screens.*;
+import net.minecraft.client.renderer.*;
+import net.minecraft.network.chat.*;
+import net.minecraft.resources.*;
+import net.minecraft.util.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.item.crafting.*;
+import org.joml.*;
+import org.lwjgl.opengl.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Supplier;
-import java.util.stream.Collectors;
+import team.lodestar.lodestone.registry.client.*;
+import team.lodestar.lodestone.systems.easing.*;
+import team.lodestar.lodestone.systems.recipe.*;
+import team.lodestar.lodestone.systems.rendering.*;
+import team.lodestar.lodestone.systems.rendering.shader.*;
 
-import static com.sammy.malum.config.ClientConfig.BOOK_THEME;
-import static net.minecraft.util.FastColor.ARGB32.color;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
+import static com.sammy.malum.config.ClientConfig.*;
+import static net.minecraft.util.FastColor.ARGB32.*;
 
 public class ArcanaCodexHelper {
 
@@ -358,7 +357,7 @@ public class ArcanaCodexHelper {
         renderText(guiGraphics, Component.translatable(text), x, y, getTextGlow(0));
     }
 
-    public static void renderText(GuiGraphics guiGraphics, net.minecraft.network.chat.Component component, int x, int y) {
+    public static void renderText(GuiGraphics guiGraphics, Component component, int x, int y) {
         String text = component.getString();
         renderRawText(guiGraphics, text, x, y, getTextGlow(0));
     }
@@ -384,10 +383,10 @@ public class ArcanaCodexHelper {
         int g = (int) Mth.lerp(glow, 44, 39);
         int b = (int) Mth.lerp(glow, 191, 228);
 
-        guiGraphics.drawString(font, text, x - 0.5f, y, color(96, 255, 210, 243), false);
-        guiGraphics.drawString(font, text, x + 0.5f, y, color(128, 240, 131, 232), false);
-        guiGraphics.drawString(font, text, x, y - 0.5f, color(128, 255, 183, 236), false);
-        guiGraphics.drawString(font, text, x, y + 0.5f, color(96, 236, 110, 226), false);
+        guiGraphics.drawString(font, text, x - 1f, y, color(96, 255, 210, 243), false);
+        guiGraphics.drawString(font, text, x + 1f, y, color(128, 240, 131, 232), false);
+        guiGraphics.drawString(font, text, x, y - 1f, color(128, 255, 183, 236), false);
+        guiGraphics.drawString(font, text, x, y + 1f, color(96, 236, 110, 226), false);
 
         guiGraphics.drawString(font, text, x, y, color(255, r, g, b), false);
     }

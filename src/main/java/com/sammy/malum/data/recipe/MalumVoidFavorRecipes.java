@@ -11,13 +11,9 @@ import net.minecraftforge.common.Tags;
 
 import java.util.function.Consumer;
 
-public class MalumVoidFavorRecipes extends RecipeProvider {
-    public MalumVoidFavorRecipes(PackOutput generatorIn) {
-        super(generatorIn);
-    }
+public class MalumVoidFavorRecipes {
 
-    @Override
-    protected void buildRecipes(Consumer<FinishedRecipe> consumer) {
+    protected static void buildRecipes(Consumer<FinishedRecipe> consumer) {
         new VoidFavorRecipeBuilder(Ingredient.of(Tags.Items.RAW_MATERIALS), ItemRegistry.RAW_SOULSTONE.get(), 1)
                 .build(consumer);
 

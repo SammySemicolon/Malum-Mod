@@ -89,7 +89,7 @@ public class PlacedFeatureRegistry {
         context.register(CTHONIC_GOLD_GEODE_FEATURE,
                 new PlacedFeature(features.getOrThrow(ConfiguredFeatureRegistry.CONFIGURED_CTHONIC_GOLD_GEODE_FEATURE),
                         ImmutableList.<PlacementModifier>builder().add(
-                                        RarityFilter.onAverageOnceEvery(30),
+                                        RarityFilter.onAverageOnceEvery(16),
                                         InSquarePlacement.spread(),
                                         HeightRangePlacement.uniform(
                                                 VerticalAnchor.aboveBottom(6),

@@ -39,11 +39,6 @@ public class DataGenerators {
         generator.addProvider(event.includeServer(), new MalumItemTags(output, provider, blockTagsProvider.contentsGetter(), helper));
 
         generator.addProvider(event.includeServer(), new MalumRecipes(output));
-        generator.addProvider(event.includeServer(), new MalumVanillaRecipeReplacements(output));
-        generator.addProvider(event.includeServer(), new MalumSpiritInfusionRecipes(output));
-        generator.addProvider(event.includeServer(), new MalumSpiritFocusingRecipes(output));
-        generator.addProvider(event.includeServer(), new MalumSpiritTransmutationRecipes(output));
-        generator.addProvider(event.includeServer(), new MalumVoidFavorRecipes(output));
 
         generator.addProvider(event.includeServer(), new MalumBiomeTags(output, provider, helper));
 

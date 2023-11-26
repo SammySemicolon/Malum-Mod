@@ -1,18 +1,18 @@
 {
-  "type": "minecraft:geode",
+  "type": "malum:cthonic_gold_geode",
   "config": {
     "blocks": {
       "alternate_inner_layer_provider": {
         "type": "minecraft:simple_state_provider",
         "state": {
-          "Name": "minecraft:raw_gold_block"
+          "Name": "minecraft:deepslate_gold_ore"
         }
       },
       "cannot_replace": "#minecraft:features_cannot_replace",
       "filling_provider": {
         "type": "minecraft:simple_state_provider",
         "state": {
-          "Name": "minecraft:raw_gold_block"
+          "Name": "minecraft:deepslate_gold_ore"
         }
       },
       "inner_layer_provider": {
@@ -41,9 +41,9 @@
       }
     },
     "crack": {
-      "base_crack_size": 2.0,
+      "base_crack_size": 3.0,
       "crack_point_offset": 3,
-      "generate_crack_chance": 0.6000000238418579
+      "generate_crack_chance": 1.0
     },
     "distribution_points": {
       "type": "minecraft:uniform",
@@ -54,10 +54,10 @@
     },
     "invalid_blocks_threshold": 1,
     "layers": {
-      "filling": 0.02,
-      "inner_layer": 0.2,
-      "middle_layer": 0.6,
-      "outer_layer": 1.4
+      "filling": 0.4,
+      "inner_layer": 0.8,
+      "middle_layer": 1.4,
+      "outer_layer": 2.0
     },
     "max_gen_offset": 16,
     "min_gen_offset": -16,

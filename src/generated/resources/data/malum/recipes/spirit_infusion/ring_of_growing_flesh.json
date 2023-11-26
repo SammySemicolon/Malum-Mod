@@ -1,0 +1,38 @@
+{
+  "type": "malum:spirit_infusion",
+  "extra_items": [
+    {
+      "count": 16,
+      "item": "malum:void_salts"
+    },
+    {
+      "count": 8,
+      "item": "malum:null_slate"
+    }
+  ],
+  "input": {
+    "count": 1,
+    "item": "malum:ring_of_curative_talent"
+  },
+  "output": {
+    "item": "malum:ring_of_growing_flesh"
+  },
+  "spirits": [
+    {
+      "type": "sacred",
+      "count": 16
+    },
+    {
+      "type": "wicked",
+      "count": 16
+    },
+    {
+      "type": "arcane",
+      "count": 16
+    },
+    {
+      "type": "eldritch",
+      "count": 16
+    }
+  ]
+}

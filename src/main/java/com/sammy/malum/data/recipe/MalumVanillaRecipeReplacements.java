@@ -30,11 +30,6 @@ public class MalumVanillaRecipeReplacements extends VanillaRecipeProvider {
     }
 
     @Override
-    public String getName() {
-        return "Malum Void Favor Recipe Provider";
-    }
-
-    @Override
     protected void buildRecipes(Consumer<FinishedRecipe> pWriter) {
         replace(Items.QUARTZ, Tags.Items.GEMS_QUARTZ);
 

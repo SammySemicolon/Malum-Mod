@@ -33,9 +33,9 @@ public class EldritchInfernalRiteType extends MalumRiteType {
         return new BlockAffectingRiteEffect() {
             @SuppressWarnings("ConstantConditions")
             @Override
-            public void riteEffect(TotemBaseBlockEntity totemBase) {
+            public void doRiteEffect(TotemBaseBlockEntity totemBase) {
                 Level level = totemBase.getLevel();
-                getBlocksUnderBase(totemBase, Block.class).forEach(p -> {
+                getBlocksAhead(totemBase).forEach(p -> {
                     BlockState state = level.getBlockState(p);
                     Optional<SmeltingRecipe> optional = level.getRecipeManager().getRecipeFor(RecipeType.SMELTING, new SimpleContainer(new ItemStack(state.getBlock().asItem(), 1)), level);
                     if (optional.isPresent()) {
@@ -56,9 +56,9 @@ public class EldritchInfernalRiteType extends MalumRiteType {
 
     @Override
     public MalumRiteEffect getCorruptedEffect() {
-        return new MalumRiteEffect() {
+        return new MalumRiteEffect(MalumRiteEffect.MalumRiteEffectCategory.RADIAL_BLOCK_EFFECT) {
             @Override
-            public void riteEffect(TotemBaseBlockEntity totemBase) {
+            public void doRiteEffect(TotemBaseBlockEntity totemBase) {
                 Level level = totemBase.getLevel();
                 getNearbyBlocks(totemBase, AbstractFurnaceBlock.class).map(b -> level.getBlockEntity(b)).filter(e -> e instanceof AbstractFurnaceBlockEntity).map(e -> (AbstractFurnaceBlockEntity) e).forEach(f -> {
                     if (f.isLit()) {
@@ -71,12 +71,7 @@ public class EldritchInfernalRiteType extends MalumRiteType {
 
             @Override
             public int getRiteEffectTickRate() {
-                return BASE_TICK_RATE;
-            }
-
-            @Override
-            public int getRiteEffectRadius() {
-                return BASE_RADIUS * 2;
+                return super.getRiteEffectTickRate()/4;
             }
         };
     }

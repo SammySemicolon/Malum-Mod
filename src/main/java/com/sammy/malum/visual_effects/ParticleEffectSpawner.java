@@ -1,12 +1,11 @@
 package com.sammy.malum.visual_effects;
 
-import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.Vec3;
-import team.lodestar.lodestone.systems.particle.builder.AbstractWorldParticleBuilder;
-import team.lodestar.lodestone.systems.particle.builder.WorldParticleBuilder;
+import net.minecraft.world.level.*;
+import net.minecraft.world.phys.*;
+import team.lodestar.lodestone.systems.particle.builder.*;
 
-import javax.annotation.Nullable;
-import java.util.function.Consumer;
+import javax.annotation.*;
+import java.util.function.*;
 
 public class ParticleEffectSpawner<T extends AbstractWorldParticleBuilder<T, ?>> {
 
@@ -48,5 +47,8 @@ public class ParticleEffectSpawner<T extends AbstractWorldParticleBuilder<T, ?>>
         if (bloomSpawner != null) {
             bloomSpawner.accept(bloomBuilder);
         }
+    }
+    public void spawnParticlesRaw() {
+        particleSpawner.accept(builder);
     }
 }

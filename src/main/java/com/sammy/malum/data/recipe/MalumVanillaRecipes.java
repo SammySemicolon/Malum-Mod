@@ -1,4 +1,4 @@
-package com.sammy.malum.data;
+package com.sammy.malum.data.recipe;
 
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.item.impetus.ImpetusItem;
@@ -6,10 +6,8 @@ import com.sammy.malum.data.recipe.builder.vanilla.TheDeviceRecipeBuilder;
 import com.sammy.malum.registry.common.item.ItemRegistry;
 import com.sammy.malum.registry.common.item.ItemTagRegistry;
 import net.minecraft.advancements.critereon.*;
-import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeCategory;
-import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
@@ -20,8 +18,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.crafting.ConditionalRecipe;
-import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
-import net.minecraftforge.common.crafting.conditions.TagEmptyCondition;
+import net.minecraftforge.common.crafting.conditions.*;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import team.lodestar.lodestone.data.builder.NBTCarryRecipeBuilder;
@@ -41,19 +38,9 @@ import static net.minecraft.data.recipes.SimpleCookingRecipeBuilder.*;
 import static net.minecraft.data.recipes.SingleItemRecipeBuilder.stonecutting;
 import static team.lodestar.lodestone.registry.common.tag.LodestoneItemTags.*;
 
-public class MalumRecipes extends RecipeProvider implements IConditionBuilder {
+public class MalumVanillaRecipes implements IConditionBuilder {
 
-    public MalumRecipes(PackOutput pOutput) {
-        super(pOutput);
-    }
-
-    @Override
-    public String getName() {
-        return "Malum Recipe Provider";
-    }
-
-    @Override
-    protected void buildRecipes(Consumer<FinishedRecipe> consumer) {
+    protected static void buildRecipes(Consumer<FinishedRecipe> consumer) {
         //KEY ITEMS
         shapeless(RecipeCategory.MISC, ItemRegistry.ENCYCLOPEDIA_ARCANA.get()).requires(Items.BOOK).requires(ItemRegistry.PROCESSED_SOULSTONE.get()).unlockedBy("has_soulstone", has(ItemRegistry.PROCESSED_SOULSTONE.get())).save(consumer);
         shaped(RecipeCategory.MISC, ItemRegistry.CRUDE_SCYTHE.get()).define('#', Tags.Items.RODS_WOODEN).define('Y', ItemRegistry.PROCESSED_SOULSTONE.get()).define('X', Tags.Items.INGOTS_IRON).pattern("XXY").pattern(" #X").pattern("#  ").unlockedBy("has_soulstone", has(ItemRegistry.RAW_SOULSTONE.get())).save(consumer);
@@ -515,20 +502,20 @@ public class MalumRecipes extends RecipeProvider implements IConditionBuilder {
         weaveRecipe(consumer, Items.EGG, ItemRegistry.TRANS_PRIDEWEAVE);
     }
 
-    private void weaveRecipe(Consumer<FinishedRecipe> consumer, Item sideItem, Supplier<? extends Item> output) {
+    private static void weaveRecipe(Consumer<FinishedRecipe> consumer, Item sideItem, Supplier<? extends Item> output) {
         shapeless(RecipeCategory.MISC, output.get()).requires(ItemRegistry.ESOTERIC_SPOOL.get()).requires(sideItem).unlockedBy("has_spool", has(ItemRegistry.ESOTERIC_SPOOL.get())).save(consumer);
     }
 
-    private void nodeSmelting(Consumer<FinishedRecipe> recipeConsumer, RegistryObject<ImpetusItem> impetus, RegistryObject<Item> node, TagKey<Item> tag) {
+    private static void nodeSmelting(Consumer<FinishedRecipe> recipeConsumer, RegistryObject<ImpetusItem> impetus, RegistryObject<Item> node, TagKey<Item> tag) {
         String name = ForgeRegistries.ITEMS.getKey(node.get()).getPath().replaceFirst("_node", "");
 
-        ConditionalRecipe.builder().addCondition(not(new TagEmptyCondition(tag.location().toString()))).addRecipe(
+        ConditionalRecipe.builder().addCondition(new NotCondition(new TagEmptyCondition(tag.location().toString()))).addRecipe(
                         smeltingWithTag(new IngredientWithCount(Ingredient.of(tag), 6), Ingredient.of(node.get()), 0.25f, 200)
                                 ::build)
                 .generateAdvancement()
                 .build(recipeConsumer, MalumMod.malumPath(name + "_from_node_smelting"));
 
-        ConditionalRecipe.builder().addCondition(not(new TagEmptyCondition(tag.location().toString()))).addRecipe(
+        ConditionalRecipe.builder().addCondition(new NotCondition(new TagEmptyCondition(tag.location().toString()))).addRecipe(
                         blastingWithTag(new IngredientWithCount(Ingredient.of(tag), 6), Ingredient.of(node.get()), 0.25f, 100)
                                 ::build)
                 .generateAdvancement()

@@ -113,17 +113,17 @@ public class ConfiguredFeatureRegistry {
                 1)
         ));
 
-        context.register(ConfiguredFeatureRegistry.CONFIGURED_CTHONIC_GOLD_GEODE_FEATURE, new ConfiguredFeature<>(Feature.GEODE, new GeodeConfiguration(
+        context.register(ConfiguredFeatureRegistry.CONFIGURED_CTHONIC_GOLD_GEODE_FEATURE, new ConfiguredFeature<>(FeatureRegistry.CTHONIC_GOLD_GEODE.get(), new GeodeConfiguration(
                 new GeodeBlockSettings(
-                        BlockStateProvider.simple(Blocks.RAW_GOLD_BLOCK),
                         BlockStateProvider.simple(Blocks.DEEPSLATE_GOLD_ORE),
-                        BlockStateProvider.simple(Blocks.RAW_GOLD_BLOCK),
+                        BlockStateProvider.simple(Blocks.DEEPSLATE_GOLD_ORE),
+                        BlockStateProvider.simple(Blocks.DEEPSLATE_GOLD_ORE),
                         BlockStateProvider.simple(Blocks.CALCITE),
                         BlockStateProvider.simple(Blocks.SMOOTH_BASALT),
                         List.of(Blocks.DEEPSLATE_GOLD_ORE.defaultBlockState()),
                         BlockTags.FEATURES_CANNOT_REPLACE, BlockTags.GEODE_INVALID_BLOCKS),
-                new GeodeLayerSettings(0.02D, 0.2D, 0.6D, 1.4D),
-                new GeodeCrackSettings(0.6f, 2.0D, 3),
+                new GeodeLayerSettings(0.4D, 0.8D, 1.4D, 2D),
+                new GeodeCrackSettings(1f, 3.0D, 3),
                 0.85D,
                 0.2D,
                 true,

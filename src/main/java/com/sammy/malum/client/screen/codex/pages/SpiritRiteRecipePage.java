@@ -1,28 +1,28 @@
 package com.sammy.malum.client.screen.codex.pages;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.sammy.malum.MalumMod;
-import com.sammy.malum.client.screen.codex.EntryScreen;
-import com.sammy.malum.core.systems.rites.MalumRiteType;
-import com.sammy.malum.core.systems.spirit.MalumSpiritType;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.ItemStack;
-import team.lodestar.lodestone.handlers.screenparticle.ScreenParticleHandler;
-import team.lodestar.lodestone.helpers.RandomHelper;
-import team.lodestar.lodestone.setup.LodestoneScreenParticleRegistry;
-import team.lodestar.lodestone.systems.easing.Easing;
-import team.lodestar.lodestone.systems.particle.builder.ScreenParticleBuilder;
-import team.lodestar.lodestone.systems.particle.data.GenericParticleData;
-import team.lodestar.lodestone.systems.particle.data.spin.SpinParticleData;
-import team.lodestar.lodestone.systems.particle.screen.ScreenParticleHolder;
+import com.mojang.blaze3d.vertex.*;
+import com.sammy.malum.*;
+import com.sammy.malum.client.screen.codex.*;
+import com.sammy.malum.core.systems.rites.*;
+import com.sammy.malum.core.systems.spirit.*;
+import net.minecraft.client.*;
+import net.minecraft.client.gui.*;
+import net.minecraft.client.gui.screens.*;
+import net.minecraft.resources.*;
+import net.minecraft.world.item.*;
+import team.lodestar.lodestone.handlers.screenparticle.*;
+import team.lodestar.lodestone.helpers.*;
 
-import java.util.List;
+import team.lodestar.lodestone.registry.common.particle.*;
+import team.lodestar.lodestone.systems.easing.*;
+import team.lodestar.lodestone.systems.particle.builder.*;
+import team.lodestar.lodestone.systems.particle.data.*;
+import team.lodestar.lodestone.systems.particle.data.spin.*;
+import team.lodestar.lodestone.systems.particle.screen.*;
 
-import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.renderRiteIcon;
-import static net.minecraft.util.Mth.nextFloat;
+import java.util.*;
+
+import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.*;
 
 public class SpiritRiteRecipePage extends BookPage {
 
@@ -36,11 +36,13 @@ public class SpiritRiteRecipePage extends BookPage {
     }
 
     @Override
-    public void render(Minecraft minecraft, GuiGraphics guiGraphics, EntryScreen screen, int mouseX, int mouseY, float partialTicks) {
-        if (ScreenParticleHandler.canSpawnParticles) {
-            RITE_PARTICLES.tick();
+    public void render(Minecraft minecraft, GuiGraphics guiGraphics, EntryScreen screen, int mouseX, int mouseY, float partialTicks, boolean isRepeat) {
+        if (!isRepeat) {
+            if (ScreenParticleHandler.canSpawnParticles) {
+                RITE_PARTICLES.tick();
+            }
+            ScreenParticleHandler.renderParticles(RITE_PARTICLES);
         }
-        ScreenParticleHandler.renderParticles(RITE_PARTICLES);
     }
 
     @Override
@@ -58,7 +60,7 @@ public class SpiritRiteRecipePage extends BookPage {
     }
 
     public void renderRite(GuiGraphics guiGraphics, EntryScreen screen, int left, int top, int mouseX, int mouseY, List<MalumSpiritType> spirits) {
-        var rand = Minecraft.getInstance().level.random;
+        var rand = screen.getMinecraft().level.random;
         PoseStack poseStack = guiGraphics.pose();
         for (int i = 0; i < spirits.size(); i++) {
             final int y = top - 20 * i;
@@ -74,11 +76,12 @@ public class SpiritRiteRecipePage extends BookPage {
                 float xOffset = 25;
                 float yMotion = RandomHelper.randomBetween(rand, 0.2f, 0.4f) * (rand.nextBoolean() ? -1 : 1);
                 int lifetime = RandomHelper.randomBetween(rand, 40, 80);
-                float yScale = RandomHelper.randomBetween(rand, 0.2f, 0.6f);
+                float scale = RandomHelper.randomBetween(rand, 0.2f, 0.6f);
+                float spin = RandomHelper.randomBetween(rand, 0.2f, 0.4f);
                 ScreenParticleBuilder.create(LodestoneScreenParticleRegistry.WISP, RITE_PARTICLES)
                         .setTransparencyData(GenericParticleData.create(0.04f, 0.4f, 0f).setEasing(Easing.SINE_IN_OUT).build())
-                        .setSpinData(SpinParticleData.create(nextFloat(rand, 0.2f, 0.4f)).setEasing(Easing.EXPO_OUT).build())
-                        .setScaleData(GenericParticleData.create(yScale, 0).build())
+                        .setSpinData(SpinParticleData.create(spin).build())
+                        .setScaleData(GenericParticleData.create(scale, 0).build())
                         .setColorData(spiritType.createMainColorData().setCoefficient(0.25f).build())
                         .setLifetime(lifetime)
                         .setMotion(0, yMotion)

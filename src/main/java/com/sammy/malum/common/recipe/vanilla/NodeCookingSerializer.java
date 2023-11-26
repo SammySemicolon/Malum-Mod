@@ -35,7 +35,7 @@ public class NodeCookingSerializer<T extends AbstractCookingRecipe> implements R
         Ingredient ingredient = Ingredient.fromNetwork(pBuffer);
         IngredientWithCount result = IngredientWithCount.read(pBuffer);
         float f = pBuffer.readFloat();
-        int i = pBuffer.readVarInt();
+        int i = pBuffer.readInt();
         return this.factory.create(pRecipeId, s, ingredient, result, f, i);
     }
 
@@ -44,7 +44,7 @@ public class NodeCookingSerializer<T extends AbstractCookingRecipe> implements R
         pRecipe.getIngredients().get(0).toNetwork(pBuffer);
         ((INodeSmeltingRecipe) pRecipe).getOutput().write(pBuffer);
         pBuffer.writeFloat(pRecipe.getExperience());
-        pBuffer.writeVarInt(pRecipe.getCookingTime());
+        pBuffer.writeInt(pRecipe.getCookingTime());
     }
 
     public interface NodeBaker<T extends AbstractCookingRecipe> {

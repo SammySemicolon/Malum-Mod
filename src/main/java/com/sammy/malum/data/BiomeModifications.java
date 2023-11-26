@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
 
+@SuppressWarnings("unchecked")
 public class BiomeModifications {
     public static void bootstrap(BootstapContext<BiomeModifier> context) {
         register(context, "soulstone_ore", () ->

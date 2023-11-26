@@ -9,7 +9,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.network.NetworkEvent;
 import net.minecraftforge.network.simple.SimpleChannel;
 import team.lodestar.lodestone.helpers.ColorHelper;
-import team.lodestar.lodestone.setup.LodestoneParticleRegistry;
+import team.lodestar.lodestone.registry.common.particle.*;
 import team.lodestar.lodestone.systems.easing.Easing;
 import team.lodestar.lodestone.systems.particle.builder.WorldParticleBuilder;
 import team.lodestar.lodestone.systems.particle.data.GenericParticleData;
@@ -41,7 +41,7 @@ public class MajorEntityEffectParticlePacket extends ColorBasedParticleEffectPac
                     .enableNoClip()
                     .setRandomOffset(0.2f, 0.2f)
                     .setRandomMotion(0.02f)
-                    .addActor(p -> p.setParticleMotion(p.getParticleSpeed().scale(0.95f)))
+                    .addTickActor(p -> p.setParticleMotion(p.getParticleSpeed().scale(0.95f)))
                     .repeat(level, posX, posY, posZ, 8);
         }
         WorldParticleBuilder.create(LodestoneParticleRegistry.WISP_PARTICLE)
@@ -53,7 +53,7 @@ public class MajorEntityEffectParticlePacket extends ColorBasedParticleEffectPac
                 .enableNoClip()
                 .setRandomOffset(0.05f, 0.05f)
                 .setRandomMotion(0.05f)
-                .addActor(p -> p.setParticleMotion(p.getParticleSpeed().scale(0.5f)))
+                .addTickActor(p -> p.setParticleMotion(p.getParticleSpeed().scale(0.5f)))
                 .repeat(level, posX, posY, posZ, 12);
 
         WorldParticleBuilder.create(LodestoneParticleRegistry.SMOKE_PARTICLE)
@@ -65,7 +65,7 @@ public class MajorEntityEffectParticlePacket extends ColorBasedParticleEffectPac
                 .enableNoClip()
                 .setRandomOffset(0.15f, 0.15f)
                 .setRandomMotion(0.015f, 0.015f)
-                .addActor(p -> p.setParticleMotion(p.getParticleSpeed().scale(0.92f)))
+                .addTickActor(p -> p.setParticleMotion(p.getParticleSpeed().scale(0.92f)))
                 .repeat(level, posX, posY, posZ, 20);
     }
 

@@ -54,8 +54,7 @@ public class SpiritCrucibleComponentBlock extends MultiblockComponentBlock {
 
     @Override
     public int getAnalogOutputSignal(BlockState pState, Level pLevel, BlockPos pPos) {
-        BlockEntity be = pLevel.getBlockEntity(pPos);
-        if (be instanceof MultiBlockComponentEntity component) {
+        if (pLevel.getBlockEntity(pPos) instanceof MultiBlockComponentEntity component) {
             return ItemHandlerHelper.calcRedstoneFromInventory(component.getCapability(ForgeCapabilities.ITEM_HANDLER).orElse(new EmptyHandler()));
         }
         return 0;

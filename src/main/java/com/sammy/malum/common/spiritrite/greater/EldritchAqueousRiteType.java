@@ -2,7 +2,7 @@ package com.sammy.malum.common.spiritrite.greater;
 
 import com.sammy.malum.common.block.curiosities.totem.TotemBaseBlockEntity;
 import com.sammy.malum.core.systems.rites.BlockAffectingRiteEffect;
-import com.sammy.malum.core.systems.rites.EntityAffectingRiteEffect;
+
 import com.sammy.malum.core.systems.rites.MalumRiteEffect;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
 import com.sammy.malum.registry.common.ParticleEffectTypeRegistry;
@@ -31,9 +31,9 @@ public class EldritchAqueousRiteType extends MalumRiteType {
         return new BlockAffectingRiteEffect() {
 
             @Override
-            public void riteEffect(TotemBaseBlockEntity totemBase) {
+            public void doRiteEffect(TotemBaseBlockEntity totemBase) {
                 Level level = totemBase.getLevel();
-                getNearbyBlocks(totemBase, PointedDripstoneBlock.class, getRiteEffectRadius() * 4).forEach(p -> {
+                getNearbyBlocks(totemBase, PointedDripstoneBlock.class).forEach(p -> {
                     if (level.random.nextFloat() < 0.1f) {
                         for (int i = 0; i < 4 + level.random.nextInt(2); i++) {
                             level.getBlockState(p).randomTick((ServerLevel) level, p, level.random);
@@ -47,18 +47,22 @@ public class EldritchAqueousRiteType extends MalumRiteType {
             public boolean canAffectBlock(TotemBaseBlockEntity totemBase, Set<Block> filters, BlockState state, BlockPos pos) {
                 return super.canAffectBlock(totemBase, filters, state, pos) && PointedDripstoneBlock.isStalactiteStartPos(state, totemBase.getLevel(), pos);
             }
+
+            @Override
+            public int getRiteEffectVerticalRadius() {
+                return 5;
+            }
         };
     }
 
     @Override
     public MalumRiteEffect getCorruptedEffect() {
-        return new EntityAffectingRiteEffect() {
+        return new MalumRiteEffect(MalumRiteEffect.MalumRiteEffectCategory.LIVING_ENTITY_EFFECT) {
             @Override
-            public void riteEffect(TotemBaseBlockEntity totemBase) {
+            public void doRiteEffect(TotemBaseBlockEntity totemBase) {
                 getNearbyEntities(totemBase, Zombie.class).filter(z -> !(z instanceof Drowned)).forEach(e -> {
                     if (!e.isUnderWaterConverting()) {
                         e.startUnderWaterConversion(100);
-
                         ParticleEffectTypeRegistry.HEXING_SMOKE.createEntityEffect(e, new ColorEffectData(AQUEOUS_SPIRIT.getPrimaryColor()));
                     }
                 });
