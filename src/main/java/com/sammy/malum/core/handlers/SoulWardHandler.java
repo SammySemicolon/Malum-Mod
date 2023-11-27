@@ -65,7 +65,7 @@ public class SoulWardHandler {
                     if (!player.isCreative()) {
                         SoundEvent sound = soulWardHandler.soulWard >= soulWardCap.getValue() ? SoundRegistry.SOUL_WARD_CHARGE.get() : SoundRegistry.SOUL_WARD_GROW.get();
                         float pitch = 1f + (soulWardHandler.soulWard / (float) soulWardCap.getValue()) * 0.5f + (Mth.ceil(soulWardHandler.soulWard) % 3) * 0.25f;
-                        player.level().playSound(null, player.blockPosition(), sound, SoundSource.PLAYERS, 1, pitch);
+                        player.level().playSound(null, player.blockPosition(), sound, SoundSource.PLAYERS, 0.25f, pitch);
                     }
                     soulWardHandler.soulWardProgress = getSoulWardCooldown(player);
                     MalumPlayerDataCapability.syncTrackingAndSelf(player);

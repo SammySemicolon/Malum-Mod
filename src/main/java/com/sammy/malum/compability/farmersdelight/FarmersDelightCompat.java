@@ -21,8 +21,8 @@ public class FarmersDelightCompat {
 
     public static class LoadedOnly {
 
-        public static Item makeMagicKnife() {
-            return new MagicKnifeItem(SOUL_STAINED_STEEL, -1.5f, 0, 2, GEAR_PROPERTIES());
+        public static Item makeMagicKnife(Item.Properties properties) {
+            return new MagicKnifeItem(SOUL_STAINED_STEEL, -1.5f, 0, 2, properties);
         }
 
         public static void addInfo(IRecipeRegistration registration) {
