@@ -16,6 +16,7 @@ import net.minecraft.world.item.Tier;
 import net.minecraftforge.common.ToolActions;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.network.PacketDistributor;
+import team.lodestar.lodestone.registry.common.tag.*;
 import team.lodestar.lodestone.systems.item.tools.LodestoneSwordItem;
 
 import static com.sammy.malum.registry.common.PacketRegistry.MALUM_CHANNEL;
@@ -27,7 +28,7 @@ public class TyrvingItem extends LodestoneSwordItem implements IMalumEventRespon
 
     @Override
     public void hurtEvent(LivingHurtEvent event, LivingEntity attacker, LivingEntity target, ItemStack stack) {
-        if (event.getSource().is(DamageTypes.MAGIC)) {
+        if (event.getSource().is(LodestoneDamageTypeTags.IS_MAGIC)) {
             return;
         }
         if (attacker.level() instanceof ServerLevel) {

@@ -30,6 +30,7 @@ import team.lodestar.lodestone.handlers.screenparticle.ScreenParticleHandler;
 import team.lodestar.lodestone.helpers.ItemHelper;
 import team.lodestar.lodestone.registry.client.*;
 import team.lodestar.lodestone.registry.common.particle.*;
+import team.lodestar.lodestone.registry.common.tag.*;
 import team.lodestar.lodestone.systems.particle.builder.ScreenParticleBuilder;
 import team.lodestar.lodestone.systems.particle.data.GenericParticleData;
 import team.lodestar.lodestone.systems.particle.data.color.ColorParticleData;
@@ -92,7 +93,7 @@ public class SoulWardHandler {
                     DamageSource source = event.getSource();
 
                     float amount = event.getAmount();
-                    float multiplier = source.is(DamageTypes.MAGIC) ? CommonConfig.SOUL_WARD_MAGIC.getConfigValue().floatValue() : CommonConfig.SOUL_WARD_PHYSICAL.getConfigValue().floatValue();
+                    float multiplier = source.is(LodestoneDamageTypeTags.IS_MAGIC) ? CommonConfig.SOUL_WARD_MAGIC.getConfigValue().floatValue() : CommonConfig.SOUL_WARD_PHYSICAL.getConfigValue().floatValue();
 
                     for (ItemStack s : ItemHelper.getEventResponders(player)) {
                         if (s.getItem() instanceof IMalumEventResponderItem eventItem) {

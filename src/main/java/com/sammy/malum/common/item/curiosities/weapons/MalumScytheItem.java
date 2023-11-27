@@ -21,6 +21,7 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import team.lodestar.lodestone.helpers.CurioHelper;
+import team.lodestar.lodestone.registry.common.tag.*;
 import team.lodestar.lodestone.systems.item.ModCombatItem;
 
 public class MalumScytheItem extends ModCombatItem implements IMalumEventResponderItem {
@@ -45,7 +46,7 @@ public class MalumScytheItem extends ModCombatItem implements IMalumEventRespond
             attacker.level().playSound(null, target.getX(), target.getY(), target.getZ(), sound, attacker.getSoundSource(), 1, 1);
         }
 
-        if (!canSweep || event.getSource().is(DamageTypes.MAGIC) || event.getSource().getMsgId().equals(DamageSourceRegistry.SCYTHE_SWEEP_IDENTIFIER)) {
+        if (!canSweep || event.getSource().is(LodestoneDamageTypeTags.IS_MAGIC) || event.getSource().getMsgId().equals(DamageSourceRegistry.SCYTHE_SWEEP_IDENTIFIER)) {
             return;
         }
         int level = EnchantmentHelper.getEnchantmentLevel(Enchantments.SWEEPING_EDGE, attacker);

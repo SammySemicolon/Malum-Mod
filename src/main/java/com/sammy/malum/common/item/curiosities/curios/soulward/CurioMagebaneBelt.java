@@ -13,6 +13,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import team.lodestar.lodestone.registry.common.tag.*;
 import top.theillusivec4.curios.api.SlotContext;
 
 public class CurioMagebaneBelt extends MalumCurioItem implements IMalumEventResponderItem {
@@ -26,7 +27,7 @@ public class CurioMagebaneBelt extends MalumCurioItem implements IMalumEventResp
         DamageSource source = event.getSource();
         if (source.getEntity() != null) {
             if (true) {
-                if (source.is(DamageTypes.MAGIC) && !source.is(DamageTypes.THORNS)) {
+                if (source.is(LodestoneDamageTypeTags.IS_MAGIC) && !source.is(DamageTypes.THORNS)) {
                     SoulWardHandler handler = MalumPlayerDataCapability.getCapability(wardedPlayer).soulWardHandler;
                     handler.soulWardProgress = 0;
                 }
