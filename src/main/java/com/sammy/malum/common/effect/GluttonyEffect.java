@@ -35,19 +35,6 @@ public class GluttonyEffect extends MobEffect {
         }
     }
 
-    public static void finishEating(LivingEntityUseItemEvent.Finish event) {
-        ItemStack stack = event.getResultStack();
-        if (stack.is(GROSS_FOODS)) {
-            LivingEntity entity = event.getEntityLiving();
-            MobEffectInstance effect = entity.getEffect(MobEffectRegistry.GLUTTONY.get());
-            if (effect != null) {
-                EntityHelper.extendEffect(effect, entity, 200, 1000);
-                Level level = entity.level;
-                level.playSound(null, entity.blockPosition(), SoundRegistry.HUNGRY_BELT_FEEDS.get(), SoundSource.PLAYERS, 1.7f, 1.2f + level.random.nextFloat() * 0.5f);
-            }
-        }
-    }
-
     @Override
     public void applyEffectTick(LivingEntity entityLivingBaseIn, int amplifier) {
         if (entityLivingBaseIn instanceof Player player) {

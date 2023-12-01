@@ -11,8 +11,6 @@ import com.sammy.malum.data.recipe.*;
 import net.minecraft.data.*;
 import net.minecraft.data.tags.*;
 import net.minecraft.resources.*;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.item.*;
 import net.minecraftforge.eventbus.api.*;
 import net.minecraftforge.fml.*;
 import net.minecraftforge.fml.common.*;
@@ -22,7 +20,6 @@ import net.minecraftforge.forge.event.lifecycle.*;
 import org.apache.logging.log4j.*;
 
 import java.util.*;
-import java.util.function.*;
 
 import static com.sammy.malum.registry.client.ParticleRegistry.*;
 import static com.sammy.malum.registry.common.AttributeRegistry.*;

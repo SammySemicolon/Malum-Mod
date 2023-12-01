@@ -7,7 +7,7 @@ import com.sammy.malum.common.item.spirit.SpiritJarItem;
 import com.sammy.malum.core.systems.item.ISoulContainerItem;
 import com.sammy.malum.core.systems.rites.*;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
-import com.sammy.malum.registry.common.DamageSourceRegistry;
+import com.sammy.malum.registry.common.DamageTypeRegistry;
 import com.sammy.malum.registry.common.MobEffectRegistry;
 import com.sammy.malum.registry.common.SpiritRiteRegistry;
 import com.sammy.malum.registry.common.SpiritTypeRegistry;
@@ -581,10 +581,10 @@ public class MalumLang extends LanguageProvider {
         add("enchantment.malum.rebound.desc", "Allows the item to be thrown much like a boomerang, cooldown decreases with tier.");
         add("enchantment.malum.spirit_plunder.desc", "Increases the amount of spirits created when shattering a soul.");
 
-        add("death.attack." + DamageSourceRegistry.VOODOO_IDENTIFIER, "%s's soul shattered");
-        add("death.attack." + DamageSourceRegistry.VOODOO_IDENTIFIER + ".player", "%s's soul was shattered by %s");
-        add("death.attack." + DamageSourceRegistry.SCYTHE_SWEEP_IDENTIFIER, "%s was sliced in twain");
-        add("death.attack." + DamageSourceRegistry.SCYTHE_SWEEP_IDENTIFIER + ".player", "%s was sliced in twain by %s");
+        add("death.attack." + DamageTypeRegistry.VOODOO_IDENTIFIER, "%s's soul shattered");
+        add("death.attack." + DamageTypeRegistry.VOODOO_IDENTIFIER + ".player", "%s's soul was shattered by %s");
+        add("death.attack." + DamageTypeRegistry.SCYTHE_SWEEP_IDENTIFIER, "%s was sliced in twain");
+        add("death.attack." + DamageTypeRegistry.SCYTHE_SWEEP_IDENTIFIER + ".player", "%s was sliced in twain by %s");
 
         addEffectDescription(MobEffectRegistry.GAIAN_BULWARK, "You are protected by an earthen bulwark, increasing your armor.");
         addEffectDescription(MobEffectRegistry.EARTHEN_MIGHT, "Your fists and tools are reinforced with earth, increasing your overall damage.");

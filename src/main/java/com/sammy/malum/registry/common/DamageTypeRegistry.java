@@ -4,7 +4,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.EntityDamageSource;
 import net.minecraft.world.entity.Entity;
 
-public class DamageSourceRegistry {
+public class DamageTypeRegistry {
 
     public static final String VOODOO_IDENTIFIER = "voodoo";
     public static final String SCYTHE_SWEEP_IDENTIFIER = "scythe_sweep";

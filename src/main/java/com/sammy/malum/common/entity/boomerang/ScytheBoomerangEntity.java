@@ -116,7 +116,7 @@ public class ScytheBoomerangEntity extends ThrowableItemProjectile {
                 if (magicDamage > 0) {
                     if (livingentity.isAlive()) {
                         livingentity.invulnerableTime = 0;
-                        livingentity.hurt(DamageSourceRegistry.causeVoodooDamage(scytheOwner), magicDamage);
+                        livingentity.hurt(DamageTypeRegistry.causeVoodooDamage(scytheOwner), magicDamage);
                     }
                 }
 
@@ -200,11 +200,6 @@ public class ScytheBoomerangEntity extends ThrowableItemProjectile {
         this.shoot(f, f1, f2, velocity, innacuracy);
         Vec3 vec3 = shooter.getDeltaMovement();
         this.setDeltaMovement(this.getDeltaMovement().add(vec3.x, 0, vec3.z));
-    }
-
-    @Override
-    public Packet<?> getAddEntityPacket() {
-        return NetworkHooks.getEntitySpawningPacket(this);
     }
 
     @Override
