@@ -10,7 +10,7 @@ import net.minecraft.world.level.Level;
 
 import javax.annotation.Nullable;
 
-public class DamageSourceRegistry {
+public class DamageTypeRegistry {
 
     public static final String VOODOO_IDENTIFIER = "voodoo";
     public static final String SCYTHE_SWEEP_IDENTIFIER = "scythe_sweep";

@@ -9,7 +9,7 @@ import com.sammy.malum.core.helper.SpiritHelper;
 import com.sammy.malum.core.systems.item.IMalumEventResponderItem;
 import com.sammy.malum.core.systems.spirit.MalumEntitySpiritData;
 import com.sammy.malum.registry.common.AttributeRegistry;
-import com.sammy.malum.registry.common.DamageSourceRegistry;
+import com.sammy.malum.registry.common.DamageTypeRegistry;
 import net.minecraft.core.NonNullList;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -48,7 +48,7 @@ public class SpiritHarvestHandler {
         if (attacker == null) {
             attacker = target.getLastHurtByMob();
         }
-        if (attacker == null && source.getMsgId().equals(DamageSourceRegistry.VOODOO_IDENTIFIER)) {
+        if (attacker == null && source.getMsgId().equals(DamageTypeRegistry.VOODOO_IDENTIFIER)) {
             SpiritHelper.createSpiritEntities(event.getEntity());
             return;
         }

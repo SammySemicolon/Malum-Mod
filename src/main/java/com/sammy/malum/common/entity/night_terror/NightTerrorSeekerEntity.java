@@ -1,6 +1,6 @@
 package com.sammy.malum.common.entity.night_terror;
 
-import com.sammy.malum.registry.common.DamageSourceRegistry;
+import com.sammy.malum.registry.common.DamageTypeRegistry;
 import com.sammy.malum.registry.common.SoundRegistry;
 import com.sammy.malum.registry.common.entity.EntityRegistry;
 import net.minecraft.nbt.CompoundTag;
@@ -110,7 +110,7 @@ public class NightTerrorSeekerEntity extends ThrowableProjectile {
             if (level().isClientSide) {
                 return;
             }
-            DamageSource source = DamageSourceRegistry.create(level(), DamageSourceRegistry.VOODOO, scytheOwner);
+            DamageSource source = DamageTypeRegistry.create(level(), DamageTypeRegistry.VOODOO, scytheOwner);
             target.hurt(source, magicDamage);
             if (age < fadeoutStart) {
                 fadeoutStart += 4;

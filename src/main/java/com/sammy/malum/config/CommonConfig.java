@@ -36,7 +36,7 @@ public class CommonConfig extends LodestoneConfig {
                     .defineInRange("soulWardMagic", 0.1f, 0, 1)));
     public static ConfigValueHolder<Integer> SOUL_WARD_RATE = new ConfigValueHolder<>(MALUM, "common/spirit/affinity/soul_ward", (builder ->
             builder.comment("Base time in ticks it takes for one point of soul ward to recover.")
-                    .define("soulWardRate", 60)));
+                    .define("soulWardRate", 100)));
 
     public CommonConfig(ForgeConfigSpec.Builder builder) {
         super(MALUM, "common", builder);

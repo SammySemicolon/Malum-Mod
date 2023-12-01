@@ -24,10 +24,8 @@ public class DataGenerators {
     public static void gatherData(GatherDataEvent event) {
         DataGenerator generator = event.getGenerator();
         PackOutput output = generator.getPackOutput();
-        generator.addProvider(event.includeServer(), new MalumRecipes(output));
         CompletableFuture<HolderLookup.Provider> provider = event.getLookupProvider();
         ExistingFileHelper helper = event.getExistingFileHelper();
-
 
         MalumItemModels itemModelsProvider = new MalumItemModels(output, helper);
         MalumBlockTags blockTagsProvider = new MalumBlockTags(output, provider, helper);
@@ -42,6 +40,7 @@ public class DataGenerators {
         generator.addProvider(event.includeServer(), new MalumRecipes(output));
 
         generator.addProvider(event.includeServer(), new MalumBiomeTags(output, provider, helper));
+        generator.addProvider(event.includeServer(), new MalumDamageTypeTags(output, provider, helper));
 
         generator.addProvider(event.includeServer(), new RegistryDataGenerator(output, provider));
         generator.addProvider(event.includeClient(), new MalumLang(output));

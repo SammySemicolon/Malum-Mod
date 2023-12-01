@@ -35,9 +35,8 @@ public class CurioStarvedBelt extends MalumCurioItem implements IMalumEventRespo
         MobEffect gluttony = MobEffectRegistry.GLUTTONY.get();
         MobEffectInstance effect = collector.getEffect(gluttony);
         if (effect == null) {
-            collector.addEffect(new MobEffectInstance(gluttony, 100 + (int) (arcaneResonance * 100), 0, true, true, true));
+            collector.addEffect(new MobEffectInstance(gluttony, 600 + (int) (arcaneResonance * 600), 0, true, true, true));
         } else {
-            EntityHelper.extendEffect(effect, collector, 50, 200 + (int) (arcaneResonance * 200));
             EntityHelper.amplifyEffect(effect, collector, 1, 9);
         }
         Level level = collector.level();

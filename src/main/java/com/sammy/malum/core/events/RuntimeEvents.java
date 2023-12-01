@@ -167,7 +167,6 @@ public class RuntimeEvents {
     @SubscribeEvent
     public static void onFinishUsingItem(LivingEntityUseItemEvent.Finish event) {
         CurioVoraciousRing.finishEating(event);
-        GluttonyEffect.finishEating(event);
     }
 
     @SubscribeEvent
