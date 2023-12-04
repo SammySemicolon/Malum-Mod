@@ -22,9 +22,9 @@ public class WickedRiteType extends MalumRiteType {
             @Override
             public void doRiteEffect(TotemBaseBlockEntity totemBase) {
                 getNearbyEntities(totemBase, LivingEntity.class, e -> !(e instanceof Player)).forEach(e -> {
-                    if (e.getHealth() > 2.5f && !e.isInvulnerableTo(DamageSourceRegistry.VOODOO)) {
+                    if (e.getHealth() > 2.5f && !e.isInvulnerableTo(DamageTypeRegistry.VOODOO)) {
                         ParticleEffectTypeRegistry.HEXING_SMOKE.createEntityEffect(e, new ColorEffectData(WICKED_SPIRIT.getPrimaryColor()));
-                        e.hurt(DamageSourceRegistry.VOODOO, 2);
+                        e.hurt(DamageTypeRegistry.VOODOO, 2);
                     }
                 });
             }

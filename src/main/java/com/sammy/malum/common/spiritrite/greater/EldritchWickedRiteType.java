@@ -4,7 +4,7 @@ import com.sammy.malum.common.block.curiosities.totem.TotemBaseBlockEntity;
 import com.sammy.malum.common.packets.particle.curiosities.rite.generic.MajorEntityEffectParticlePacket;
 import com.sammy.malum.core.systems.rites.MalumRiteEffect;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
-import com.sammy.malum.registry.common.DamageSourceRegistry;
+import com.sammy.malum.registry.common.DamageTypeRegistry;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
@@ -27,9 +27,9 @@ public class EldritchWickedRiteType extends MalumRiteType {
             @Override
             public void doRiteEffect(TotemBaseBlockEntity totemBase) {
                 getNearbyEntities(totemBase, LivingEntity.class, e -> !(e instanceof Player)).forEach(e -> {
-                    if (e.getHealth() <= 2.5f && !e.isInvulnerableTo(DamageSourceRegistry.VOODOO)) {
+                    if (e.getHealth() <= 2.5f && !e.isInvulnerableTo(DamageTypeRegistry.VOODOO)) {
                         MALUM_CHANNEL.send(PacketDistributor.TRACKING_ENTITY.with(() -> e), new MajorEntityEffectParticlePacket(getEffectSpirit().getPrimaryColor(), e.getX(), e.getY()+ e.getBbHeight() / 2f, e.getZ()));
-                        e.hurt(DamageSourceRegistry.VOODOO, 10f);
+                        e.hurt(DamageTypeRegistry.VOODOO, 10f);
                     }
                 });
             }
@@ -41,7 +41,7 @@ public class EldritchWickedRiteType extends MalumRiteType {
         return new MalumRiteEffect(MalumRiteEffect.MalumRiteEffectCategory.LIVING_ENTITY_EFFECT) {
             @Override
             public void doRiteEffect(TotemBaseBlockEntity totemBase) {
-                Map<Class<? extends Animal>, List<Animal>> animalMap = getNearbyEntities(totemBase, Animal.class, e -> e.getAge() > 0 && !e.isInvulnerableTo(DamageSourceRegistry.VOODOO)).collect(Collectors.groupingBy(Animal::getClass));
+                Map<Class<? extends Animal>, List<Animal>> animalMap = getNearbyEntities(totemBase, Animal.class, e -> e.getAge() > 0 && !e.isInvulnerableTo(DamageTypeRegistry.VOODOO)).collect(Collectors.groupingBy(Animal::getClass));
                 for (List<Animal> animals : animalMap.values()) {
                     if (animals.size() < 20) {
                         return;
@@ -49,7 +49,7 @@ public class EldritchWickedRiteType extends MalumRiteType {
                     int maxKills = animals.size() - 20;
                     animals.removeIf(Animal::isInLove);
                     for (Animal entity : animals) {
-                        entity.hurt(DamageSourceRegistry.VOODOO, entity.getMaxHealth());
+                        entity.hurt(DamageTypeRegistry.VOODOO, entity.getMaxHealth());
                         MALUM_CHANNEL.send(PacketDistributor.TRACKING_ENTITY.with(() -> entity), new MajorEntityEffectParticlePacket(WICKED_SPIRIT.getPrimaryColor(), entity.getX(), entity.getY() + entity.getBbHeight() / 2f, entity.getZ()));
                         if (maxKills-- <= 0) {
                             return;

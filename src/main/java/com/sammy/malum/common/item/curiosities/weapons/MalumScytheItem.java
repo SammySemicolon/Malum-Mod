@@ -2,7 +2,7 @@ package com.sammy.malum.common.item.curiosities.weapons;
 
 import com.sammy.malum.common.entity.boomerang.ScytheBoomerangEntity;
 import com.sammy.malum.registry.client.ParticleRegistry;
-import com.sammy.malum.registry.common.DamageSourceRegistry;
+import com.sammy.malum.registry.common.DamageTypeRegistry;
 import com.sammy.malum.registry.common.SoundRegistry;
 import com.sammy.malum.registry.common.item.ItemRegistry;
 import com.sammy.malum.core.systems.item.IMalumEventResponderItem;
@@ -44,7 +44,7 @@ public class MalumScytheItem extends ModCombatItem implements IMalumEventRespond
             attacker.level.playSound(null, target.getX(), target.getY(), target.getZ(), sound, attacker.getSoundSource(), 1, 1);
         }
 
-        if (!canSweep || event.getSource().isMagic() || event.getSource().getMsgId().equals(DamageSourceRegistry.SCYTHE_SWEEP_IDENTIFIER)) {
+        if (!canSweep || event.getSource().isMagic() || event.getSource().getMsgId().equals(DamageTypeRegistry.SCYTHE_SWEEP_IDENTIFIER)) {
             return;
         }
         int level = EnchantmentHelper.getEnchantmentLevel(Enchantments.SWEEPING_EDGE, attacker);
@@ -52,7 +52,7 @@ public class MalumScytheItem extends ModCombatItem implements IMalumEventRespond
         target.level.getEntities(attacker, target.getBoundingBox().inflate(1 + level * 0.25f)).forEach(e -> {
             if (e instanceof LivingEntity livingEntity) {
                 if (livingEntity.isAlive()) {
-                    livingEntity.hurt((DamageSourceRegistry.causeScytheSweepDamage(attacker)), damage);
+                    livingEntity.hurt((DamageTypeRegistry.causeScytheSweepDamage(attacker)), damage);
                     livingEntity.knockback(0.4F, Mth.sin(attacker.getYRot() * ((float) Math.PI / 180F)), (-Mth.cos(attacker.getYRot() * ((float) Math.PI / 180F))));
                 }
             }

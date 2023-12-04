@@ -21,7 +21,7 @@ public class RejectedEffect extends MobEffect {
         TouchOfDarknessHandler handler = MalumLivingEntityDataCapability.getCapability(pLivingEntity).touchOfDarknessHandler;
         handler.afflict(20);
         if (pLivingEntity.level.getGameTime() % 60L == 0) {
-            pLivingEntity.hurt(DamageSourceRegistry.VOODOO, 1);
+            pLivingEntity.hurt(DamageTypeRegistry.VOODOO, 1);
         }
     }
 

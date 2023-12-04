@@ -1,6 +1,6 @@
 package com.sammy.malum.compability.create;
 
-import com.sammy.malum.registry.common.DamageSourceRegistry;
+import com.sammy.malum.registry.common.DamageTypeRegistry;
 import com.simibubi.create.content.equipment.potatoCannon.PotatoProjectileEntity;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
@@ -25,7 +25,7 @@ public class CreateCompat {
             if (event.getSource().getDirectEntity() instanceof PotatoProjectileEntity potatoProjectile) {
                 LivingEntity target = event.getEntityLiving();
                 ItemStack item = potatoProjectile.getItem();
-                DamageSource damageSource = event.getSource().getEntity() instanceof Player player ? DamageSourceRegistry.causeVoodooDamage(player) : DamageSourceRegistry.VOODOO;
+                DamageSource damageSource = event.getSource().getEntity() instanceof Player player ? DamageTypeRegistry.causeVoodooDamage(player) : DamageTypeRegistry.VOODOO;
                 if (item.getItem().equals(UNHOLY_CARAMEL.get()) || item.getItem().equals(HOLY_CARAMEL.get())) {
                     event.setCanceled(true);
                     target.invulnerableTime = 0;

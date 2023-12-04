@@ -2,7 +2,7 @@ package com.sammy.malum.common.item.curiosities.weapons.unique;
 
 import com.sammy.malum.common.packets.particle.curiosities.rite.generic.MajorEntityEffectParticlePacket;
 import com.sammy.malum.core.helper.SpiritHelper;
-import com.sammy.malum.registry.common.DamageSourceRegistry;
+import com.sammy.malum.registry.common.DamageTypeRegistry;
 import com.sammy.malum.registry.common.SoundRegistry;
 import com.sammy.malum.registry.common.SpiritTypeRegistry;
 import com.sammy.malum.core.systems.item.IMalumEventResponderItem;
@@ -37,7 +37,7 @@ public class TyrvingItem extends LodestoneSwordItem implements IMalumEventRespon
 
             if (target.isAlive()) {
                 target.invulnerableTime = 0;
-                target.hurt(DamageSourceRegistry.causeVoodooDamage(attacker), spiritCount);
+                target.hurt(DamageTypeRegistry.causeVoodooDamage(attacker), spiritCount);
             }
             attacker.level.playSound(null, target.blockPosition(), SoundRegistry.VOID_SLASH.get(), SoundSource.PLAYERS, 1, 1f + target.level.random.nextFloat() * 0.25f);
             MALUM_CHANNEL.send(PacketDistributor.TRACKING_ENTITY.with(() -> target), new MajorEntityEffectParticlePacket(SpiritTypeRegistry.ELDRITCH_SPIRIT.getPrimaryColor(), target.getX(), target.getY() + target.getBbHeight() / 2, target.getZ()));
