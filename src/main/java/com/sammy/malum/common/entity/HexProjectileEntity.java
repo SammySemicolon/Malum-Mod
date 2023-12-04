@@ -37,7 +37,6 @@ public class HexProjectileEntity extends ThrowableItemProjectile {
     public final TrailPointBuilder spinningTrailPointBuilder = TrailPointBuilder.create(20);
     public float spinOffset = (float) (random.nextFloat() * Math.PI * 2);
     public final TrailPointBuilder trailPointBuilder = TrailPointBuilder.create(12);
-    protected float damage;
     protected float magicDamage;
     public int age;
     public int soundCooldown = 20 + random.nextInt(100);
@@ -76,9 +75,6 @@ public class HexProjectileEntity extends ThrowableItemProjectile {
     @Override
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
-        if (damage != 0) {
-            compound.putFloat("damage", damage);
-        }
         if (magicDamage != 0) {
             compound.putFloat("magicDamage", magicDamage);
         }
@@ -93,7 +89,6 @@ public class HexProjectileEntity extends ThrowableItemProjectile {
     @Override
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
-        damage = compound.getFloat("damage");
         magicDamage = compound.getFloat("magicDamage");
         age = compound.getInt("age");
         getEntityData().set(DATA_FADING_AWAY, compound.getBoolean("fadingAway"));
@@ -121,20 +116,15 @@ public class HexProjectileEntity extends ThrowableItemProjectile {
             if (level().isClientSide) {
                 return;
             }
-            DamageSource source = target.damageSources().mobProjectile(this, staveOwner);
-            boolean success = target.hurt(source, damage);
+            target.invulnerableTime = 0;
+            DamageSource source = DamageTypeRegistry.create(level(), DamageTypeRegistry.VOODOO, this, staveOwner);
+            boolean success = target.hurt(source, magicDamage);
             if (success && target instanceof LivingEntity livingentity) {
                 ItemStack stave = getItem();
                 ItemHelper.applyEnchantments(staveOwner, livingentity, stave);
                 int i = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.FIRE_ASPECT, stave);
                 if (i > 0) {
                     livingentity.setSecondsOnFire(i * 4);
-                }
-                if (magicDamage > 0) {
-                    if (livingentity.isAlive()) {
-                        livingentity.invulnerableTime = 0;
-                        livingentity.hurt(DamageTypeRegistry.create(level(), DamageTypeRegistry.VOODOO, this, staveOwner), magicDamage);
-                    }
                 }
                 getEntityData().set(DATA_FADING_AWAY, true);
                 ParticleEffectTypeRegistry.HEX_BOLT_IMPACT.createPositionedEffect(level(), new PositionEffectData(position().add(getDeltaMovement().scale(0.5f))), new ColorEffectData(SpiritTypeRegistry.WICKED_SPIRIT), HexBoltHitEnemyParticleEffect.createData(getDeltaMovement().reverse().normalize()));
