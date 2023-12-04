@@ -2,17 +2,14 @@ package com.sammy.malum.common.item.curiosities.weapons;
 
 import com.google.common.collect.*;
 import com.sammy.malum.common.entity.*;
-import com.sammy.malum.registry.common.*;
-import com.sammy.malum.registry.common.item.*;
 import net.minecraft.stats.*;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
-import net.minecraft.world.item.enchantment.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
-import team.lodestar.lodestone.registry.common.*;
+import team.lodestar.lodestone.setup.*;
 
 public class MagicStaveItem extends MalumStaveItem {
 
@@ -33,7 +30,7 @@ public class MagicStaveItem extends MalumStaveItem {
     @Override
     public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
         ItemStack stack = pPlayer.getItemInHand(pUsedHand);
-        Level level = pPlayer.level();
+        Level level = pPlayer.level;
         if (!level.isClientSide && !pPlayer.getCooldowns().isOnCooldown(stack.getItem())) {
             float magicDamage = (float) pPlayer.getAttributes().getValue(LodestoneAttributeRegistry.MAGIC_DAMAGE.get());
             int angle = pUsedHand == InteractionHand.MAIN_HAND ? 225 : 90;

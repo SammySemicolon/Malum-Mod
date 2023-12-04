@@ -4,7 +4,6 @@ import com.sammy.malum.*;
 import com.sammy.malum.client.renderer.entity.*;
 import com.sammy.malum.common.entity.*;
 import com.sammy.malum.common.entity.boomerang.*;
-import com.sammy.malum.common.entity.night_terror.*;
 import com.sammy.malum.common.entity.nitrate.*;
 import com.sammy.malum.common.entity.spirit.*;
 import com.sammy.malum.registry.common.item.*;

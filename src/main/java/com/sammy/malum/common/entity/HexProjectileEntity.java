@@ -69,7 +69,9 @@ public class HexProjectileEntity extends ThrowableItemProjectile {
     public void onSyncedDataUpdated(EntityDataAccessor<?> pKey) {
         if (DATA_FADING_AWAY.equals(pKey)) {
             fadingAway = entityData.get(DATA_FADING_AWAY);
-            age = 70;
+            if (fadingAway) {
+                age = 70;
+            }
         }
         super.onSyncedDataUpdated(pKey);
     }
@@ -118,10 +120,10 @@ public class HexProjectileEntity extends ThrowableItemProjectile {
         }
         if (getOwner() instanceof LivingEntity staveOwner) {
             Entity target = result.getEntity();
-            if (level().isClientSide) {
+            if (level.isClientSide) {
                 return;
             }
-            DamageSource source = target.damageSources().mobProjectile(this, staveOwner);
+            DamageSource source = DamageSource.indirectMobAttack(this, staveOwner);
             boolean success = target.hurt(source, damage);
             if (success && target instanceof LivingEntity livingentity) {
                 ItemStack stave = getItem();
@@ -133,12 +135,12 @@ public class HexProjectileEntity extends ThrowableItemProjectile {
                 if (magicDamage > 0) {
                     if (livingentity.isAlive()) {
                         livingentity.invulnerableTime = 0;
-                        livingentity.hurt(DamageTypeRegistry.create(level(), DamageTypeRegistry.VOODOO, this, staveOwner), magicDamage);
+                        livingentity.hurt(DamageTypeRegistry.VOODOO, magicDamage);
                     }
                 }
                 getEntityData().set(DATA_FADING_AWAY, true);
-                ParticleEffectTypeRegistry.HEX_BOLT_IMPACT.createPositionedEffect(level(), new PositionEffectData(position().add(getDeltaMovement().scale(0.5f))), new ColorEffectData(SpiritTypeRegistry.WICKED_SPIRIT), HexBoltHitEnemyParticleEffect.createData(getDeltaMovement().reverse().normalize()));
-                target.level().playSound(null, target.getX(), target.getY(), target.getZ(), SoundRegistry.SCYTHE_CUT.get(), target.getSoundSource(), 1.0F, 0.9f + target.level().random.nextFloat() * 0.2f);
+                ParticleEffectTypeRegistry.HEX_BOLT_IMPACT.createPositionedEffect(level, new PositionEffectData(position().add(getDeltaMovement().scale(0.5f))), new ColorEffectData(SpiritTypeRegistry.WICKED_SPIRIT), HexBoltHitEnemyParticleEffect.createData(getDeltaMovement().reverse().normalize()));
+                target.level.playSound(null, target.getX(), target.getY(), target.getZ(), SoundRegistry.SCYTHE_CUT.get(), target.getSoundSource(), 1.0F, 0.9f + target.level.random.nextFloat() * 0.2f);
                 setDeltaMovement(getDeltaMovement().scale(0.05f));
             }
         }
@@ -154,7 +156,7 @@ public class HexProjectileEntity extends ThrowableItemProjectile {
         }
         if (soundCooldown-- == 0) {
             if (random.nextFloat() < 0.6f) {
-                level().playSound(null, blockPosition(), SoundRegistry.ARCANE_WHISPERS.get(), SoundSource.NEUTRAL, 0.3f, Mth.nextFloat(random, 1.1f, 2f));
+                level.playSound(null, blockPosition(), SoundRegistry.ARCANE_WHISPERS.get(), SoundSource.NEUTRAL, 0.3f, Mth.nextFloat(random, 1.1f, 2f));
             }
             soundCooldown = random.nextInt(40) + 40;
         }
@@ -178,10 +180,10 @@ public class HexProjectileEntity extends ThrowableItemProjectile {
             yRotO = getYRot();
             xRotO = getXRot();
         }
-        if (level().isClientSide && !fadingAway) {
+        if (level.isClientSide && !fadingAway) {
             float scalar = age > 70 ? 1f - (age - 70) / 10f : 1f;
             Vec3 norm = motion.normalize().scale(0.05f);
-            var lightSpecs = SpiritLightSpecs.spiritLightSpecs(level(), position(), SpiritTypeRegistry.WICKED_SPIRIT);
+            var lightSpecs = SpiritLightSpecs.spiritLightSpecs(level, position(), SpiritTypeRegistry.WICKED_SPIRIT);
             lightSpecs.getBuilder().multiplyLifetime(1.25f).setMotion(norm);
             lightSpecs.getBloomBuilder().multiplyLifetime(1.25f).setMotion(norm);
             lightSpecs.spawnParticles();
@@ -197,9 +199,9 @@ public class HexProjectileEntity extends ThrowableItemProjectile {
                     .enableNoClip()
                     .setSpritePicker(SimpleParticleOptions.ParticleSpritePicker.RANDOM_SPRITE)
                     .addTickActor(behavior)
-                    .spawn(level(), position().x, position().y, position().z)
+                    .spawn(level, position().x, position().y, position().z)
                     .setRenderType(LodestoneWorldParticleRenderType.LUMITRANSPARENT)
-                    .spawn(level(), position().x, position().y, position().z);
+                    .spawn(level, position().x, position().y, position().z);
 
         }
     }

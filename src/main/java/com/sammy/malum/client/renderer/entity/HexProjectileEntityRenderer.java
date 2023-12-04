@@ -10,9 +10,8 @@ import net.minecraft.client.renderer.texture.*;
 import net.minecraft.resources.*;
 import net.minecraft.util.*;
 import net.minecraft.world.phys.*;
-import org.joml.*;
 import team.lodestar.lodestone.helpers.*;
-import team.lodestar.lodestone.registry.client.*;
+import team.lodestar.lodestone.setup.*;
 import team.lodestar.lodestone.systems.easing.*;
 import team.lodestar.lodestone.systems.rendering.*;
 import team.lodestar.lodestone.systems.rendering.rendeertype.*;
@@ -37,8 +36,6 @@ public class HexProjectileEntityRenderer extends EntityRenderer<HexProjectileEnt
     }
 
     private static final ResourceLocation SAW = malumPath("textures/particle/saw.png");
-    private static final RenderType ADDITIVE_SAW = LodestoneRenderTypeRegistry.ADDITIVE_TEXTURE.apply(SAW);
-    private static final RenderType LUMITRANSPARENT_SAW = LodestoneRenderTypeRegistry.TRANSPARENT_TEXTURE.apply(SAW, ShaderUniformHandler.LUMITRANSPARENT);
 
     private static final ResourceLocation LIGHT_TRAIL = malumPath("textures/vfx/concentrated_trail.png");
     private static final RenderType TRAIL_TYPE = LodestoneRenderTypeRegistry.ADDITIVE_TEXTURE_TRIANGLE.apply(LIGHT_TRAIL);
