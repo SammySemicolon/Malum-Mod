@@ -59,10 +59,10 @@ public class PrimordialSoupBlock extends Block {
       return Shapes.empty();
    }
 
-   @Override
-   public void entityInside(BlockState pState, Level pLevel, BlockPos pPos, Entity pEntity) {
-      if (pEntity instanceof LivingEntity livingEntity) {
-         TouchOfDarknessHandler.handlePrimordialSoupContact(pState, livingEntity);
-      }
-   }
+    @Override
+    public void entityInside(BlockState pState, Level pLevel, BlockPos pPos, Entity pEntity) {
+        if (pEntity instanceof LivingEntity livingEntity) {
+            TouchOfDarknessHandler.handlePrimordialSoupContact(livingEntity);
+        }
+    }
 }

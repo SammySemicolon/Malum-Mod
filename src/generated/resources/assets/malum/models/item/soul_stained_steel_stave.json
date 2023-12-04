@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/handheld",
   "textures": {
-    "layer0": "malum:item/soul_stained_steel_lash"
+    "layer0": "malum:item/soul_stained_steel_stave"
   }
 }

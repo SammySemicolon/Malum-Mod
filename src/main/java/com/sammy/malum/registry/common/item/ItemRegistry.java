@@ -532,6 +532,8 @@ public class ItemRegistry {
     public static final RegistryObject<Item> COMPLETE_DESIGN = ITEMS.register("complete_design", () -> new SimpleFoiledItem(VOID_PROPERTIES()));
     public static final RegistryObject<Item> FUSED_CONSCIOUSNESS = ITEMS.register("fused_consciousness", () -> new FusedConsciousnessItem(VOID_PROPERTIES().rarity(UNCOMMON)));
 
+    public static final RegistryObject<Item> SOUL_STAINED_STEEL_STAVE = ITEMS.register("soul_stained_steel_stave", () -> new MagicStaveItem(SOUL_STAINED_STEEL, -4.5f, -0.1f, 5, VOID_GEAR_PROPERTIES()));
+
     public static final RegistryObject<Item> RING_OF_GROWING_FLESH = ITEMS.register("ring_of_growing_flesh", () -> new CurioGrowingFleshRing(VOID_GEAR_PROPERTIES()));
     public static final RegistryObject<Item> RING_OF_GRUESOME_SATIATION = ITEMS.register("ring_of_gruesome_satiation", () -> new CurioGruesomeSatiationRing(VOID_GEAR_PROPERTIES()));
 

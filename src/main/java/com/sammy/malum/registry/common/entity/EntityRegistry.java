@@ -2,6 +2,7 @@ package com.sammy.malum.registry.common.entity;
 
 import com.sammy.malum.*;
 import com.sammy.malum.client.renderer.entity.*;
+import com.sammy.malum.common.entity.*;
 import com.sammy.malum.common.entity.boomerang.*;
 import com.sammy.malum.common.entity.night_terror.*;
 import com.sammy.malum.common.entity.nitrate.*;
@@ -44,9 +45,9 @@ public class EntityRegistry
             () -> EntityType.Builder.<ScytheBoomerangEntity>of((e,w)->new ScytheBoomerangEntity(w), MobCategory.MISC).sized(2.5F, 0.75F).clientTrackingRange(10)
                     .build(MalumMod.malumPath("scythe_boomerang").toString()));
 
-    public static final RegistryObject<EntityType<NightTerrorSeekerEntity>> NIGHT_TERROR = ENTITY_TYPES.register("night_terror",
-            () -> EntityType.Builder.<NightTerrorSeekerEntity>of((e,w)->new NightTerrorSeekerEntity(w), MobCategory.MISC).sized(2F, 2F).clientTrackingRange(10)
-                    .build(MalumMod.malumPath("night_terror").toString()));
+    public static final RegistryObject<EntityType<HexProjectileEntity>> HEX_BOLT = ENTITY_TYPES.register("hex_bolt",
+            () -> EntityType.Builder.<HexProjectileEntity>of((e, w) -> new HexProjectileEntity(w), MobCategory.MISC).sized(0.8F, 0.8F).clientTrackingRange(10)
+                    .build(MalumMod.malumPath("hex_bolt").toString()));
 
     @Mod.EventBusSubscriber(modid= MalumMod.MALUM, value= Dist.CLIENT, bus= Mod.EventBusSubscriber.Bus.MOD)
     public static class ClientOnly {
@@ -57,10 +58,10 @@ public class EntityRegistry
 
             EntityRenderers.register(EntityRegistry.NATURAL_SPIRIT.get(), FloatingItemEntityRenderer::new);
             EntityRenderers.register(EntityRegistry.SCYTHE_BOOMERANG.get(), ScytheBoomerangEntityRenderer::new);
-            EntityRenderers.register(EntityRegistry.NIGHT_TERROR.get(), NightTerrorEntityRenderer::new);
 
             EntityRenderers.register(EntityRegistry.ETHERIC_NITRATE.get(), EthericNitrateEntityRenderer::new);
             EntityRenderers.register(EntityRegistry.VIVID_NITRATE.get(), VividNitrateEntityRenderer::new);
+            EntityRenderers.register(EntityRegistry.HEX_BOLT.get(), HexProjectileEntityRenderer::new);
         }
     }
 }

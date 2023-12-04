@@ -51,16 +51,12 @@ public abstract class FloatingEntity extends Entity {
     public MalumSpiritType getSpiritType() {
         return spiritType;
     }
+
     public void setSpirit(MalumSpiritType spiritType) {
         setSpirit(spiritType.identifier);
     }
     public void setSpirit(String spiritIdentifier) {
         this.getEntityData().set(DATA_SPIRIT, spiritIdentifier);
-    }
-
-    @Override
-    public Packet<?> getAddEntityPacket() {
-        return NetworkHooks.getEntitySpawningPacket(this);
     }
 
     @Override
@@ -79,7 +75,6 @@ public abstract class FloatingEntity extends Entity {
         compound.putInt("maxAge", maxAge);
         compound.putFloat("moveTime", moveTime);
         compound.putFloat("windUp", windUp);
-
         compound.putString("spiritType", spiritType.identifier);
     }
 
@@ -104,8 +99,9 @@ public abstract class FloatingEntity extends Entity {
     public void tick() {
         super.tick();
         hoverStart = getHoverStart(0);
+        trailPointBuilder.addTrailPoint(position().add(0, getYOffset(0) + 0.25f, 0f));
+        trailPointBuilder.tickTrailPoints();
         baseTick();
-        trackPastPositions();
         age++;
         if (windUp < 1f) {
             windUp += 0.02f;
@@ -118,11 +114,6 @@ public abstract class FloatingEntity extends Entity {
             spawnParticles(x, y, z);
         }
         move();
-    }
-
-    public void trackPastPositions() {
-        trailPointBuilder.addTrailPoint(position().add(0, getYOffset(0)+0.25f, 0f));
-        trailPointBuilder.tickTrailPoints();
     }
 
     public void baseTick() {

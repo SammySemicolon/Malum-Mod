@@ -8,6 +8,7 @@ import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.player.*;
 import team.lodestar.lodestone.helpers.ColorHelper;
 
 public class RejectedEffect extends MobEffect {
@@ -19,7 +20,7 @@ public class RejectedEffect extends MobEffect {
     @Override
     public void applyEffectTick(LivingEntity pLivingEntity, int pAmplifier) {
         TouchOfDarknessHandler handler = MalumLivingEntityDataCapability.getCapability(pLivingEntity).touchOfDarknessHandler;
-        handler.afflict(20);
+        handler.afflict(40);
         if (pLivingEntity.level.getGameTime() % 60L == 0) {
             pLivingEntity.hurt(DamageTypeRegistry.VOODOO, 1);
         }
