@@ -48,7 +48,7 @@ public class SpiritHarvestHandler {
         if (attacker == null) {
             attacker = target.getLastHurtByMob();
         }
-        if (attacker == null && source.getMsgId().equals(DamageTypeRegistry.VOODOO_IDENTIFIER)) {
+        if (attacker == null && source.is(DamageTypeRegistry.VOODOO)) {
             SpiritHelper.createSpiritEntities(event.getEntity());
             return;
         }

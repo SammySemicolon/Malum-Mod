@@ -541,6 +541,9 @@ public class ItemRegistry {
     public static final RegistryObject<Item> COMPLETE_DESIGN = register("complete_design", VOID_PROPERTIES(), SimpleFoiledItem::new);
     public static final RegistryObject<Item> FUSED_CONSCIOUSNESS = register("fused_consciousness", VOID_PROPERTIES(), (p) -> new FusedConsciousnessItem(p.rarity(UNCOMMON)));
 
+    public static final RegistryObject<Item> SOUL_STAINED_STEEL_STAVE = register("soul_stained_steel_stave", VOID_GEAR_PROPERTIES(), (p) -> new MagicStaveItem(SOUL_STAINED_STEEL, -4.5f, -0.1f, 5, p));
+
+
     public static final RegistryObject<Item> RING_OF_GROWING_FLESH = register("ring_of_growing_flesh", VOID_GEAR_PROPERTIES(), CurioGrowingFleshRing::new);
     public static final RegistryObject<Item> RING_OF_GRUESOME_SATIATION = register("ring_of_gruesome_satiation", VOID_GEAR_PROPERTIES(), CurioGruesomeSatiationRing::new);
 
