@@ -192,6 +192,11 @@ tasks.withType<ProcessResources> {
     }
 }
 
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
 tasks.withType<Jar> {
     val now = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").format(Date())
     manifest {
@@ -216,16 +221,12 @@ tasks.withType<Jar> {
 //	exclude 'assets/malum/models/block/bbmodels/**'
 //}
 
-java {
-    withJavadocJar()
-    withSourcesJar()
-}
-
 publishing {
     publications {
         register<MavenPublication>("mavenJava") {
             artifactId = baseArchivesName
             from(components["java"])
+            fg.component(this)
         }
     }
     repositories {
