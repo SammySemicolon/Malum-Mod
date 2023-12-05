@@ -48,7 +48,7 @@ public class EntityRegistry {
                     .build(MalumMod.malumPath("scythe_boomerang").toString()));
 
     public static final RegistryObject<EntityType<HexProjectileEntity>> HEX_BOLT = ENTITY_TYPES.register("hex_bolt",
-            () -> EntityType.Builder.<HexProjectileEntity>of((e, w) -> new HexProjectileEntity(w), MobCategory.MISC).sized(0.8F, 0.8F).clientTrackingRange(10)
+            () -> EntityType.Builder.<HexProjectileEntity>of((e, w) -> new HexProjectileEntity(w), MobCategory.MISC).sized(1F, 1.2F).clientTrackingRange(10)
                     .build(MalumMod.malumPath("hex_bolt").toString()));
 
     @Mod.EventBusSubscriber(modid = MalumMod.MALUM, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)

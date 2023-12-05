@@ -36,16 +36,15 @@ public class HexProjectileEntityRenderer extends EntityRenderer<HexProjectileEnt
         this.shadowStrength = 0;
     }
 
-    private static final ResourceLocation SAW = malumPath("textures/particle/saw.png");
-    private static final RenderType ADDITIVE_SAW = LodestoneRenderTypeRegistry.ADDITIVE_TEXTURE.apply(SAW);
-    private static final RenderType LUMITRANSPARENT_SAW = LodestoneRenderTypeRegistry.TRANSPARENT_TEXTURE.apply(SAW, ShaderUniformHandler.LUMITRANSPARENT);
-
     private static final ResourceLocation LIGHT_TRAIL = malumPath("textures/vfx/concentrated_trail.png");
     private static final RenderType TRAIL_TYPE = LodestoneRenderTypeRegistry.ADDITIVE_TEXTURE_TRIANGLE.apply(LIGHT_TRAIL);
 
     @Override
     public void render(HexProjectileEntity entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int packedLightIn) {
-        float effectScalar = entity.fadingAway ? 1 - (entity.age - 70) / 10f : 1;
+        if (entity.spawnDelay > 0) {
+            return;
+        }
+        float effectScalar = entity.fadingAway ? 1 - (entity.age - HexProjectileEntity.MAX_AGE + 10) / 10f : 1;
         List<TrailPoint> spinningTrailPoints = entity.spinningTrailPointBuilder.getTrailPoints(partialTicks);
         List<TrailPoint> trailPoints = entity.trailPointBuilder.getTrailPoints(partialTicks);
         poseStack.pushPose();

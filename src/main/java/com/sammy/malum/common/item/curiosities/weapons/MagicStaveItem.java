@@ -2,17 +2,31 @@ package com.sammy.malum.common.item.curiosities.weapons;
 
 import com.google.common.collect.*;
 import com.sammy.malum.common.entity.*;
+import com.sammy.malum.registry.client.*;
 import com.sammy.malum.registry.common.*;
 import com.sammy.malum.registry.common.item.*;
 import net.minecraft.stats.*;
+import net.minecraft.util.*;
 import net.minecraft.world.*;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
+import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.registry.common.*;
+import team.lodestar.lodestone.systems.easing.*;
+import team.lodestar.lodestone.systems.particle.*;
+import team.lodestar.lodestone.systems.particle.builder.*;
+import team.lodestar.lodestone.systems.particle.data.*;
+import team.lodestar.lodestone.systems.particle.data.spin.*;
+import team.lodestar.lodestone.systems.particle.render_types.*;
+import team.lodestar.lodestone.systems.particle.world.*;
+
+import java.util.*;
+import java.util.function.*;
 
 public class MagicStaveItem extends MalumStaveItem {
 
@@ -31,26 +45,94 @@ public class MagicStaveItem extends MalumStaveItem {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
-        ItemStack stack = pPlayer.getItemInHand(pUsedHand);
-        Level level = pPlayer.level();
-        if (!level.isClientSide && !pPlayer.getCooldowns().isOnCooldown(stack.getItem())) {
-            float magicDamage = (float) pPlayer.getAttributes().getValue(LodestoneAttributeRegistry.MAGIC_DAMAGE.get());
-            int angle = pUsedHand == InteractionHand.MAIN_HAND ? 225 : 90;
-            Vec3 pos = pPlayer.position().add(pPlayer.getLookAngle().scale(0.5)).add(0.5 * Math.sin(Math.toRadians(angle - pPlayer.yHeadRot)), pPlayer.getBbHeight() * 2 / 3, 0.5 * Math.cos(Math.toRadians(angle - pPlayer.yHeadRot)));
+    public void onUseTick(Level pLevel, LivingEntity pLivingEntity, ItemStack pStack, int pRemainingUseDuration) {
+        if (pLevel.isClientSide) {
+            RandomSource random = pLevel.random;
+            InteractionHand hand = pLivingEntity.getUsedItemHand();
+            Vec3 pos = getProjectileSpawnPos(pLivingEntity, hand, 1.5f, 0.6f);
+            float pct = Math.min(20, getUseDuration(pStack) - pRemainingUseDuration) / 20f;
+            final SpinParticleData spinData = SpinParticleData.createRandomDirection(random, 0.25f, 0.5f).setSpinOffset(RandomHelper.randomBetween(random, 0f, 6.28f)).build();
+            DirectionalParticleBuilder.create(ParticleRegistry.HEXAGON)
+                    .setTransparencyData(GenericParticleData.create(0.6f * pct, 0f).setEasing(Easing.SINE_IN_OUT, Easing.SINE_IN).build())
+                    .setSpinData(spinData)
+                    .setScaleData(GenericParticleData.create(0.3f * pct, 0).setEasing(Easing.SINE_IN_OUT).build())
+                    .setColorData(SpiritTypeRegistry.WICKED_SPIRIT.createMainColorData().build())
+                    .setLifetime(5)
+                    .setDirection(pLivingEntity.getLookAngle().normalize())
+                    .setMotion(pLivingEntity.getLookAngle().normalize().scale(0.05f))
+                    .enableNoClip()
+                    .enableForcedSpawn()
+                    .disableCull()
+                    .setLifeDelay(2)
+                    .setSpritePicker(SimpleParticleOptions.ParticleSpritePicker.RANDOM_SPRITE)
+                    .spawn(pLevel, pos.x, pos.y, pos.z)
+                    .setRenderType(LodestoneWorldParticleRenderType.LUMITRANSPARENT)
+                    .spawn(pLevel, pos.x, pos.y, pos.z);
+        }
+
+        super.onUseTick(pLevel, pLivingEntity, pStack, pRemainingUseDuration);
+    }
+
+    @Override
+    public void releaseUsing(ItemStack pStack, Level pLevel, LivingEntity pLivingEntity, int pTimeCharged) {
+        if (pTimeCharged <= getUseDuration(pStack) - 20) {
+            InteractionHand hand = pLivingEntity.getUsedItemHand();
+            for (int i = 0; i < 3; i++) {
+                fireProjectile(pLivingEntity, pStack, pLevel, hand, i);
+            }
+            if (pLivingEntity instanceof Player player) {
+                player.awardStat(Stats.ITEM_USED.get(this));
+                if (!player.getAbilities().instabuild) {
+                    pStack.hurtAndBreak(1, player, (p_220009_1_) -> {
+                        p_220009_1_.broadcastBreakEvent(hand);
+                    });
+                    player.getCooldowns().addCooldown(this, 80);
+                }
+                player.swing(hand, true);
+            }
+        }
+        super.releaseUsing(pStack, pLevel, pLivingEntity, pTimeCharged);
+    }
+
+    @Override
+    public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pHand) {
+        ItemStack itemstack = pPlayer.getItemInHand(pHand);
+        if (pPlayer.getCooldowns().isOnCooldown(itemstack.getItem())) {
+            return InteractionResultHolder.fail(itemstack);
+        } else {
+            pPlayer.startUsingItem(pHand);
+            return InteractionResultHolder.consume(itemstack);
+        }
+    }
+
+    @Override
+    public int getUseDuration(ItemStack pStack) {
+        return 72000;
+    }
+
+    @Override
+    public UseAnim getUseAnimation(ItemStack pStack) {
+        return UseAnim.BOW;
+    }
+
+    public void fireProjectile(LivingEntity player, ItemStack stack, Level level, InteractionHand hand, int count) {
+        if (!level.isClientSide) {
+            float pitchOffset = 3f + count;
+            int spawnDelay = count * 3;
+            float velocity = 2.5f + 0.5f * count;
+            float magicDamage = (float) player.getAttributes().getValue(LodestoneAttributeRegistry.MAGIC_DAMAGE.get()) * 1.5f;
+            Vec3 pos = getProjectileSpawnPos(player, hand, 0.5f, 0.5f);
             HexProjectileEntity entity = new HexProjectileEntity(level, pos.x, pos.y, pos.z);
-            entity.setData(pPlayer, magicDamage);
+            entity.setData(player, magicDamage, spawnDelay);
             entity.setItem(stack);
 
-            entity.shootFromRotation(pPlayer, pPlayer.getXRot(), pPlayer.getYRot(), 0.0F, 1.75f, 0F);
+            entity.shootFromRotation(player, player.getXRot(), player.getYRot(), -pitchOffset, velocity, 0F);
             level.addFreshEntity(entity);
-            stack.hurtAndBreak(1, pPlayer, (p_220009_1_) -> {
-                p_220009_1_.broadcastBreakEvent(pUsedHand);
-            });
-            pPlayer.getCooldowns().addCooldown(stack.getItem(), 15);
-            return InteractionResultHolder.success(stack);
         }
-        pPlayer.awardStat(Stats.ITEM_USED.get(stack.getItem()));
-        return super.use(pLevel, pPlayer, pUsedHand);
+    }
+
+    public Vec3 getProjectileSpawnPos(LivingEntity player, InteractionHand hand, float distance, float spread) {
+        int angle = hand == InteractionHand.MAIN_HAND ? 225 : 90;
+        return player.position().add(player.getLookAngle().scale(distance)).add(spread * Math.sin(Math.toRadians(angle - player.yHeadRot)), player.getBbHeight() * 0.9f, spread * Math.cos(Math.toRadians(angle - player.yHeadRot)));
     }
 }

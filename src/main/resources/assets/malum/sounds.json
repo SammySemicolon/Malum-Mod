@@ -4,8 +4,8 @@
   "arcana_entry_opened": { "sounds":["malum:codex/book_entry_open1", "malum:codex/book_entry_open2", "malum:codex/book_entry_open3", "malum:codex/book_entry_open4"], "subtitle": "malum.subtitle.arcana_entry_opened" },
   "arcana_entry_closed": { "sounds":["malum:codex/book_entry_close1", "malum:codex/book_entry_close2", "malum:codex/book_entry_close3", "malum:codex/book_entry_close4"], "subtitle": "malum.subtitle.arcana_entry_closed" },
   "arcana_page_flipped": { "sounds":["malum:codex/book_page_turn1", "malum:codex/book_page_turn2", "malum:codex/book_page_turn3", "malum:codex/book_page_turn4"], "subtitle": "malum.subtitle.arcana_page_flipped" },
-  "arcana_sweetener_normal": { "sounds":["malum:codex/book_swtnr_normal1", "malum:codex/book_swtnr_normal2", "malum:codex/book_swtnr_normal3", "malum:codex/book_swtnr_normal4", "malum:codex/book_swtnr_normal5", "malum:codex/book_swtnr_normal6"]},
-  "arcana_sweetener_evil": { "sounds":["malum:codex/book_swtnr_evil1", "malum:codex/book_swtnr_evil2", "malum:codex/book_swtnr_evil3", "malum:codex/book_swtnr_evil4", "malum:codex/book_swtnr_evil5", "malum:codex/book_swtnr_evil6"]},
+  "arcana_sweetener_normal": { "sounds":["malum:codex/book_swtnr_normal1", "malum:codex/book_swtnr_normal2", "malum:codex/book_swtnr_normal3", "malum:codex/book_swtnr_normal4", "malum:codex/book_swtnr_normal5", "malum:codex/book_swtnr_normal6", "malum:codex/book_swtnr_normal7", "malum:codex/book_swtnr_normal8", "malum:codex/book_swtnr_normal6"]},
+  "arcana_sweetener_evil": { "sounds":["malum:codex/book_swtnr_evil1", "malum:codex/book_swtnr_evil2", "malum:codex/book_swtnr_evil3", "malum:codex/book_swtnr_evil4", "malum:codex/book_swtnr_evil5", "malum:codex/book_swtnr_evil6", "malum:codex/book_swtnr_evil7", "malum:codex/book_swtnr_evil8", "malum:codex/book_swtnr_evil6"]},
   "arcana_transition_normal": { "sounds":["malum:codex/book_transition_normal1", "malum:codex/book_transition_normal2"], "subtitle": "malum.subtitle.arcana_transition_normal" },
   "arcana_transition_evil": { "sounds":["malum:codex/book_transition_evil1", "malum:codex/book_transition_evil2"], "subtitle": "malum.subtitle.arcana_transition_evil" },
 

@@ -77,7 +77,7 @@ public class SpiritItemEntity extends FloatingItemEntity {
     public void move() {
         if (soundCooldown-- == 0) {
             if (random.nextFloat() < 0.4f) {
-                level().playSound(null, blockPosition(), SoundRegistry.ARCANE_WHISPERS.get(), SoundSource.NEUTRAL, 0.3f, Mth.nextFloat(random, 1.1f, 2f));
+                level().playSound(null, blockPosition(), SoundRegistry.ARCANE_WHISPERS.get(), SoundSource.NEUTRAL, 0.3f, Mth.nextFloat(random, 0.8f, 2f));
             }
             soundCooldown = random.nextInt(40) + 40;
         }

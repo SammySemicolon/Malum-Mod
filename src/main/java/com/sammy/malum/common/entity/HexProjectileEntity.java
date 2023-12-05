@@ -32,13 +32,16 @@ import java.util.function.*;
 
 public class HexProjectileEntity extends ThrowableItemProjectile {
 
+    public static final int MAX_AGE = 60;
     protected static final EntityDataAccessor<Boolean> DATA_FADING_AWAY = SynchedEntityData.defineId(HexProjectileEntity.class, EntityDataSerializers.BOOLEAN);
+    protected static final EntityDataAccessor<Integer> DATA_SPAWN_DELAY = SynchedEntityData.defineId(HexProjectileEntity.class, EntityDataSerializers.INT);
 
     public final TrailPointBuilder spinningTrailPointBuilder = TrailPointBuilder.create(20);
     public float spinOffset = (float) (random.nextFloat() * Math.PI * 2);
     public final TrailPointBuilder trailPointBuilder = TrailPointBuilder.create(12);
     protected float magicDamage;
     public int age;
+    public int spawnDelay;
     public int soundCooldown = 20 + random.nextInt(100);
 
     public boolean fadingAway;
@@ -53,14 +56,16 @@ public class HexProjectileEntity extends ThrowableItemProjectile {
         noPhysics = false;
     }
 
-    public void setData(Entity owner, float magicDamage) {
+    public void setData(Entity owner, float magicDamage, int spawnDelay) {
         setOwner(owner);
         this.magicDamage = magicDamage;
+        getEntityData().set(DATA_SPAWN_DELAY, spawnDelay);
     }
 
     @Override
     protected void defineSynchedData() {
         this.getEntityData().define(DATA_FADING_AWAY, false);
+        this.getEntityData().define(DATA_SPAWN_DELAY, 0);
         super.defineSynchedData();
     }
 
@@ -68,7 +73,12 @@ public class HexProjectileEntity extends ThrowableItemProjectile {
     public void onSyncedDataUpdated(EntityDataAccessor<?> pKey) {
         if (DATA_FADING_AWAY.equals(pKey)) {
             fadingAway = entityData.get(DATA_FADING_AWAY);
-            age = 70;
+            if (fadingAway) {
+                age = MAX_AGE - 10;
+            }
+        }
+        if (DATA_SPAWN_DELAY.equals(pKey)) {
+            spawnDelay = entityData.get(DATA_SPAWN_DELAY);
         }
         super.onSyncedDataUpdated(pKey);
     }
@@ -81,6 +91,9 @@ public class HexProjectileEntity extends ThrowableItemProjectile {
         if (age != 0) {
             compound.putInt("age", age);
         }
+        if (spawnDelay != 0) {
+            compound.putInt("spawnDelay", spawnDelay);
+        }
         if (fadingAway) {
             compound.putBoolean("fadingAway", true);
         }
@@ -91,6 +104,7 @@ public class HexProjectileEntity extends ThrowableItemProjectile {
         super.readAdditionalSaveData(compound);
         magicDamage = compound.getFloat("magicDamage");
         age = compound.getInt("age");
+        getEntityData().set(DATA_SPAWN_DELAY, compound.getInt("spawnDelay"));
         getEntityData().set(DATA_FADING_AWAY, compound.getBoolean("fadingAway"));
     }
 
@@ -108,7 +122,7 @@ public class HexProjectileEntity extends ThrowableItemProjectile {
 
     @Override
     protected void onHitEntity(EntityHitResult result) {
-        if (fadingAway) {
+        if (fadingAway || spawnDelay != 0) {
             return;
         }
         if (getOwner() instanceof LivingEntity staveOwner) {
@@ -122,7 +136,7 @@ public class HexProjectileEntity extends ThrowableItemProjectile {
             if (success && target instanceof LivingEntity livingentity) {
                 ItemStack stave = getItem();
                 ItemHelper.applyEnchantments(staveOwner, livingentity, stave);
-                int i = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.FIRE_ASPECT, stave);
+                int i = stave.getEnchantmentLevel(Enchantments.FIRE_ASPECT);
                 if (i > 0) {
                     livingentity.setSecondsOnFire(i * 4);
                 }
@@ -137,6 +151,10 @@ public class HexProjectileEntity extends ThrowableItemProjectile {
 
     @Override
     public void tick() {
+        if (spawnDelay > 0) {
+            spawnDelay--;
+            return;
+        }
         super.tick();
         Vec3 motion = getDeltaMovement();
         if (!fadingAway) {
@@ -160,7 +178,7 @@ public class HexProjectileEntity extends ThrowableItemProjectile {
             trailPointBuilder.tickTrailPoints();
         }
         age++;
-        if (age >= 80) {
+        if (age >= MAX_AGE) {
             remove(RemovalReason.DISCARDED);
         }
         if (this.xRotO == 0.0F && this.yRotO == 0.0F) {
@@ -169,7 +187,7 @@ public class HexProjectileEntity extends ThrowableItemProjectile {
             xRotO = getXRot();
         }
         if (level().isClientSide && !fadingAway) {
-            float scalar = age > 70 ? 1f - (age - 70) / 10f : 1f;
+            float scalar = age > MAX_AGE ? 1f - (age - MAX_AGE + 10) / 10f : 1f;
             Vec3 norm = motion.normalize().scale(0.05f);
             var lightSpecs = SpiritLightSpecs.spiritLightSpecs(level(), position(), SpiritTypeRegistry.WICKED_SPIRIT);
             lightSpecs.getBuilder().multiplyLifetime(1.25f).setMotion(norm);
@@ -180,11 +198,13 @@ public class HexProjectileEntity extends ThrowableItemProjectile {
             DirectionalParticleBuilder.create(ParticleRegistry.SAW)
                     .setTransparencyData(GenericParticleData.create(0.9f * scalar, 0.4f * scalar, 0f).setEasing(Easing.SINE_IN_OUT, Easing.SINE_IN).build())
                     .setSpinData(spinData)
-                    .setScaleData(GenericParticleData.create(0.5f * scalar, 0).setEasing(Easing.SINE_IN_OUT).build())
+                    .setScaleData(GenericParticleData.create(0.4f * scalar, 0).setEasing(Easing.SINE_IN_OUT).build())
                     .setColorData(SpiritTypeRegistry.WICKED_SPIRIT.createMainColorData().build())
                     .setLifetime(Math.min(age * 3, 30))
                     .setDirection(getDeltaMovement().normalize())
                     .enableNoClip()
+                    .enableForcedSpawn()
+                    .disableCull()
                     .setSpritePicker(SimpleParticleOptions.ParticleSpritePicker.RANDOM_SPRITE)
                     .addTickActor(behavior)
                     .spawn(level(), position().x, position().y, position().z)

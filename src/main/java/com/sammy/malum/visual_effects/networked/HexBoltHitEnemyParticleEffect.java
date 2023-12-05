@@ -71,23 +71,28 @@ public class HexBoltHitEnemyParticleEffect extends ParticleEffectType {
                 Vec3 spawnPosition = pos.add(direction.scale(distance));
                 direction = direction.reverse();
                 float lifetimeMultiplier = 0.7f;
-                if (random.nextFloat() < 0.75f) {
+                if (random.nextFloat() < 0.8f) {
                     var lightSpecs = spiritLightSpecs(level, spawnPosition, spiritType);
                     lightSpecs.getBuilder()
                             .multiplyLifetime(lifetimeMultiplier)
+                            .disableCull()
+                            .enableForcedSpawn()
+                            .modifyData(WorldParticleBuilder::getScaleData, d -> d.multiplyValue(1.75f))
                             .setMotion(direction);
                     lightSpecs.getBloomBuilder()
                             .multiplyLifetime(lifetimeMultiplier)
                             .setMotion(direction);
                     lightSpecs.spawnParticles();
                 }
-                if (random.nextFloat() < 0.75f) {
+                if (random.nextFloat() < 0.8f) {
                     var sparks = SparkParticleEffects.spiritMotionSparks(level, spawnPosition, spiritType);
                     sparks.getBuilder()
                             .multiplyLifetime(lifetimeMultiplier)
+                            .disableCull()
+                            .enableForcedSpawn()
                             .setMotion(direction.scale(1.5f))
-                            .modifyData(SparkParticleBuilder::getScaleData, d -> d.multiplyValue(1.5f))
-                            .modifyData(SparkParticleBuilder::getLengthData, d -> d.multiplyValue(2.5f));
+                            .modifyData(SparkParticleBuilder::getScaleData, d -> d.multiplyValue(1.75f))
+                            .modifyData(SparkParticleBuilder::getLengthData, d -> d.multiplyValue(3f));
                     sparks.getBloomBuilder()
                             .multiplyLifetime(lifetimeMultiplier)
                             .setMotion(direction.scale(1.5f));
