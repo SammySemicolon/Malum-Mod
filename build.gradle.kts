@@ -216,11 +216,16 @@ tasks.withType<Jar> {
 //	exclude 'assets/malum/models/block/bbmodels/**'
 //}
 
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
 publishing {
     publications {
         register<MavenPublication>("mavenJava") {
             artifactId = baseArchivesName
-            artifact(tasks.jar.get())
+            from(components["java"])
         }
     }
     repositories {
