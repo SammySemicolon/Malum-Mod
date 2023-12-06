@@ -42,7 +42,6 @@ public class HexProjectileEntity extends ThrowableItemProjectile {
     protected float magicDamage;
     public int age;
     public int spawnDelay;
-    public int soundCooldown = 20 + random.nextInt(100);
 
     public boolean fadingAway;
 
@@ -110,6 +109,13 @@ public class HexProjectileEntity extends ThrowableItemProjectile {
 
     @Override
     protected void onHitBlock(BlockHitResult pResult) {
+        if (fadingAway || spawnDelay != 0) {
+            return;
+        }
+        if (!level().isClientSide) {
+            ParticleEffectTypeRegistry.HEX_BOLT_IMPACT.createPositionedEffect(level(), new PositionEffectData(position().add(getDeltaMovement().scale(0.25f))), new ColorEffectData(SpiritTypeRegistry.WICKED_SPIRIT), HexBoltHitEnemyParticleEffect.createData(getDeltaMovement().reverse().normalize()));
+            level().playSound(null, blockPosition(), SoundRegistry.STAVE_STRIKES.get(), getSoundSource(), 0.5f, Mth.nextFloat(random, 0.9F, 1.5F));
+        }
         getEntityData().set(DATA_FADING_AWAY, true);
         setDeltaMovement(getDeltaMovement().scale(0.05f));
         super.onHitBlock(pResult);
@@ -142,7 +148,7 @@ public class HexProjectileEntity extends ThrowableItemProjectile {
                 }
                 getEntityData().set(DATA_FADING_AWAY, true);
                 ParticleEffectTypeRegistry.HEX_BOLT_IMPACT.createPositionedEffect(level(), new PositionEffectData(position().add(getDeltaMovement().scale(0.5f))), new ColorEffectData(SpiritTypeRegistry.WICKED_SPIRIT), HexBoltHitEnemyParticleEffect.createData(getDeltaMovement().reverse().normalize()));
-                target.level().playSound(null, target.getX(), target.getY(), target.getZ(), SoundRegistry.SCYTHE_CUT.get(), target.getSoundSource(), 1.0F, 0.9f + target.level().random.nextFloat() * 0.2f);
+                level().playSound(null, blockPosition(), SoundRegistry.STAVE_STRIKES.get(), getSoundSource(), 0.75f, Mth.nextFloat(random, 1F, 1.4F));
                 setDeltaMovement(getDeltaMovement().scale(0.05f));
             }
         }
@@ -153,18 +159,15 @@ public class HexProjectileEntity extends ThrowableItemProjectile {
     public void tick() {
         if (spawnDelay > 0) {
             spawnDelay--;
+            if (spawnDelay == 0 && !level().isClientSide) {
+                level().playSound(null, blockPosition(), SoundRegistry.STAVE_FIRES.get(), SoundSource.PLAYERS, 0.5f, Mth.nextFloat(random, 0.9F, 1.5F));
+            }
             return;
         }
         super.tick();
         Vec3 motion = getDeltaMovement();
         if (!fadingAway) {
             setDeltaMovement(motion.x * 0.96, (motion.y > 0 ? motion.y * 0.98 : motion.y) - 0.015f, motion.z * 0.96);
-        }
-        if (soundCooldown-- == 0) {
-            if (random.nextFloat() < 0.6f) {
-                level().playSound(null, blockPosition(), SoundRegistry.ARCANE_WHISPERS.get(), SoundSource.NEUTRAL, 0.3f, Mth.nextFloat(random, 1.1f, 2f));
-            }
-            soundCooldown = random.nextInt(40) + 40;
         }
         float offsetScale = fadingAway ? 0f : 0.3f;
         for (int i = 0; i < 2; i++) {
@@ -200,7 +203,7 @@ public class HexProjectileEntity extends ThrowableItemProjectile {
                     .setSpinData(spinData)
                     .setScaleData(GenericParticleData.create(0.4f * scalar, 0).setEasing(Easing.SINE_IN_OUT).build())
                     .setColorData(SpiritTypeRegistry.WICKED_SPIRIT.createMainColorData().build())
-                    .setLifetime(Math.min(age * 3, 30))
+                    .setLifetime(Math.min(6+age * 3, 30))
                     .setDirection(getDeltaMovement().normalize())
                     .enableNoClip()
                     .enableForcedSpawn()

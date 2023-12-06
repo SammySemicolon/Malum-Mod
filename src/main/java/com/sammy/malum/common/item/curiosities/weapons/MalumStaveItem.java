@@ -30,7 +30,7 @@ public class MalumStaveItem extends ModCombatItem implements IMalumEventResponde
     public void hurtEvent(LivingHurtEvent event, LivingEntity attacker, LivingEntity target, ItemStack stack) {
         if (attacker instanceof Player player && !(event.getSource().getDirectEntity() instanceof HexProjectileEntity)) {
             spawnSweepParticles(player, ParticleRegistry.SCYTHE_CUT_ATTACK_PARTICLE.get());
-            attacker.level().playSound(null, target.getX(), target.getY(), target.getZ(), SoundRegistry.SCYTHE_CUT.get(), attacker.getSoundSource(), 1, 1);
+            attacker.level().playSound(null, target.blockPosition(), SoundRegistry.STAVE_STRIKES.get(), attacker.getSoundSource(), 0.75f, Mth.nextFloat(attacker.level().random, 0.5F, 1F));
         }
     }
 

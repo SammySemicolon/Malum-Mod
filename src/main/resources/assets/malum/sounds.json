@@ -20,6 +20,12 @@
 
   "scythe_cuts": { "sounds":["malum:curiosities/scythe/cut1","malum:curiosities/scythe/cut2","malum:curiosities/scythe/cut3"], "subtitle": "malum.subtitle.scythe_cuts" },
 
+  "stave_fires": { "sounds":["malum:curiosities/stave/fire1","malum:curiosities/stave/fire2"], "subtitle": "malum.subtitle.stave_fires" },
+  "stave_powers_up": { "sounds":["malum:curiosities/stave/charge1","malum:curiosities/stave/charge2"], "subtitle": "malum.subtitle.stave_powers_up" },
+  "stave_sizzles": { "sounds":["malum:curiosities/stave/sizzle1","malum:curiosities/stave/sizzle2"], "subtitle": "malum.subtitle.stave_sizzles" },
+  "stave_charged": { "sounds":["malum:curiosities/stave/sizzle1","malum:curiosities/stave/sizzle2"], "subtitle": "malum.subtitle.stave_charged" },
+  "stave_strikes": { "sounds":["malum:curiosities/stave/hit3","malum:curiosities/stave/hit2","malum:curiosities/stave/hit3","malum:curiosities/stave/hit4"], "subtitle": "malum.subtitle.stave_strikes" },
+
   "cloth_trinket_equipped": { "sounds":["malum:equip_sounds/cloth/equip_cloth1", "malum:equip_sounds/cloth/equip_cloth2", "malum:equip_sounds/cloth/equip_cloth3"], "subtitle": "malum.subtitle.ornate_trinket_equipped" },
   "ornate_trinket_equipped": { "sounds":["malum:equip_sounds/ornate/equip_ornate1", "malum:equip_sounds/ornate/equip_ornate2", "malum:equip_sounds/ornate/equip_ornate3"], "subtitle": "malum.subtitle.ornate_trinket_equipped" },
   "gilded_trinket_equipped": { "sounds":["malum:equip_sounds/gilded/equip_gilded1", "malum:equip_sounds/gilded/equip_gilded2", "malum:equip_sounds/gilded/equip_gilded3"], "subtitle": "malum.subtitle.gilded_trinket_equipped" },

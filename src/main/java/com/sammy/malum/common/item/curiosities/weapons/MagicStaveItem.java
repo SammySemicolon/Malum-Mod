@@ -4,7 +4,7 @@ import com.google.common.collect.*;
 import com.sammy.malum.common.entity.*;
 import com.sammy.malum.registry.client.*;
 import com.sammy.malum.registry.common.*;
-import com.sammy.malum.registry.common.item.*;
+import net.minecraft.sounds.*;
 import net.minecraft.stats.*;
 import net.minecraft.util.*;
 import net.minecraft.world.*;
@@ -12,7 +12,6 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
-import net.minecraft.world.item.enchantment.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
 import team.lodestar.lodestone.helpers.*;
@@ -23,10 +22,6 @@ import team.lodestar.lodestone.systems.particle.builder.*;
 import team.lodestar.lodestone.systems.particle.data.*;
 import team.lodestar.lodestone.systems.particle.data.spin.*;
 import team.lodestar.lodestone.systems.particle.render_types.*;
-import team.lodestar.lodestone.systems.particle.world.*;
-
-import java.util.*;
-import java.util.function.*;
 
 public class MagicStaveItem extends MalumStaveItem {
 
@@ -46,11 +41,12 @@ public class MagicStaveItem extends MalumStaveItem {
 
     @Override
     public void onUseTick(Level pLevel, LivingEntity pLivingEntity, ItemStack pStack, int pRemainingUseDuration) {
+        final int useDuration = getUseDuration(pStack);
         if (pLevel.isClientSide) {
             RandomSource random = pLevel.random;
             InteractionHand hand = pLivingEntity.getUsedItemHand();
             Vec3 pos = getProjectileSpawnPos(pLivingEntity, hand, 1.5f, 0.6f);
-            float pct = Math.min(20, getUseDuration(pStack) - pRemainingUseDuration) / 20f;
+            float pct = Math.min(20, useDuration - pRemainingUseDuration) / 20f;
             final SpinParticleData spinData = SpinParticleData.createRandomDirection(random, 0.25f, 0.5f).setSpinOffset(RandomHelper.randomBetween(random, 0f, 6.28f)).build();
             DirectionalParticleBuilder.create(ParticleRegistry.HEXAGON)
                     .setTransparencyData(GenericParticleData.create(0.6f * pct, 0f).setEasing(Easing.SINE_IN_OUT, Easing.SINE_IN).build())
@@ -68,6 +64,17 @@ public class MagicStaveItem extends MalumStaveItem {
                     .spawn(pLevel, pos.x, pos.y, pos.z)
                     .setRenderType(LodestoneWorldParticleRenderType.LUMITRANSPARENT)
                     .spawn(pLevel, pos.x, pos.y, pos.z);
+        }
+        if (pRemainingUseDuration == useDuration - 20) {
+            pLevel.playSound(null, pLivingEntity.blockPosition(), SoundRegistry.STAVE_CHARGED.get(), SoundSource.PLAYERS, 1f, Mth.nextFloat(pLevel.random, 1f, 1.4f));
+        }
+        else if (pRemainingUseDuration > useDuration - 20 && pRemainingUseDuration % 5 == 0) {
+            float pct = 0.25f+Math.min(20, useDuration - pRemainingUseDuration) / 20f;
+            pLevel.playSound(null, pLivingEntity.blockPosition(), SoundRegistry.STAVE_POWERS_UP.get(), SoundSource.PLAYERS, 0.5f, pct+Mth.nextFloat(pLevel.random, 0.2f, 0.4f));
+        }
+        else if (pRemainingUseDuration % 5 == 0) {
+            pLevel.playSound(null, pLivingEntity.blockPosition(), SoundRegistry.STAVE_POWERS_UP.get(), SoundSource.PLAYERS, 0.25f, Mth.nextFloat(pLevel.random, 0.2f, 0.6f));
+
         }
 
         super.onUseTick(pLevel, pLivingEntity, pStack, pRemainingUseDuration);
@@ -88,8 +95,12 @@ public class MagicStaveItem extends MalumStaveItem {
                     });
                     player.getCooldowns().addCooldown(this, 80);
                 }
+                pLevel.playSound(null, pLivingEntity.blockPosition(), SoundRegistry.STAVE_FIRES.get(), SoundSource.PLAYERS, 0.5f, Mth.nextFloat(pLevel.random, 0.8f, 1.2f));
                 player.swing(hand, true);
             }
+        }
+        else {
+            pLevel.playSound(null, pLivingEntity.blockPosition(), SoundRegistry.STAVE_SIZZLES.get(), SoundSource.PLAYERS, 0.5f, Mth.nextFloat(pLevel.random, 0.5f, 0.8f));
         }
         super.releaseUsing(pStack, pLevel, pLivingEntity, pTimeCharged);
     }
