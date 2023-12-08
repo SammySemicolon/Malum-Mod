@@ -1,38 +1,26 @@
-package com.sammy.malum.visual_effects.networked;
+package com.sammy.malum.visual_effects.networked.staff;
 
-import com.sammy.malum.common.block.curiosities.spirit_altar.*;
-import com.sammy.malum.common.block.storage.*;
+import com.sammy.malum.common.item.curiosities.weapons.staff.*;
 import com.sammy.malum.core.systems.spirit.*;
-import com.sammy.malum.registry.common.*;
 import com.sammy.malum.visual_effects.*;
+import com.sammy.malum.visual_effects.networked.*;
 import com.sammy.malum.visual_effects.networked.data.*;
-import net.minecraft.core.*;
 import net.minecraft.nbt.*;
 import net.minecraft.util.*;
-import net.minecraft.world.item.*;
 import net.minecraft.world.phys.*;
 import net.minecraftforge.api.distmarker.*;
 import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.systems.particle.builder.*;
+import team.lodestar.lodestone.systems.particle.data.color.*;
 
 import java.util.function.*;
 
-import static com.sammy.malum.visual_effects.SpiritLightSpecs.spiritLightSpecs;
+import static com.sammy.malum.visual_effects.SpiritLightSpecs.*;
 
-public class HexBoltHitEnemyParticleEffect extends ParticleEffectType {
+public class AuricBoltImpactParticleEffect extends ParticleEffectType {
 
-    public HexBoltHitEnemyParticleEffect(String id) {
+    public AuricBoltImpactParticleEffect(String id) {
         super(id);
-    }
-
-    public static NBTEffectData createData(Vec3 direction) {
-        CompoundTag tag = new CompoundTag();
-        CompoundTag directionTag = new CompoundTag();
-        directionTag.putDouble("x", direction.x);
-        directionTag.putDouble("y", direction.y);
-        directionTag.putDouble("z", direction.z);
-        tag.put("direction", directionTag);
-        return new NBTEffectData(tag);
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -42,6 +30,8 @@ public class HexBoltHitEnemyParticleEffect extends ParticleEffectType {
             if (!nbtData.compoundTag.contains("direction")) {
                 return;
             }
+            ColorParticleData colorParticleData = AuricFlameStaffItem.AURIC_COLOR_DATA;
+            ColorParticleData bloomParticleData = AuricFlameStaffItem.REVERSE_AURIC_COLOR_DATA;
             final CompoundTag directionData = nbtData.compoundTag.getCompound("direction");
             double dirX = directionData.getDouble("x");
             double dirY = directionData.getDouble("y");
@@ -57,11 +47,10 @@ public class HexBoltHitEnemyParticleEffect extends ParticleEffectType {
             double posZ = positionData.posZ;
             Vec3 pos = new Vec3(posX, posY, posZ);
 
-            MalumSpiritType spiritType = colorData.getSpiritType(colorData.getDefaultColorRecord());
             for (int i = 0; i < 32; i++) {
-                float spread = RandomHelper.randomBetween(random, 0.1f, 0.5f);
-                float speed = RandomHelper.randomBetween(random, 0.3f, 0.4f);
-                float distance = RandomHelper.randomBetween(random, 3f, 6f);
+                float spread = RandomHelper.randomBetween(random, 0.05f, 0.075f);
+                float speed = RandomHelper.randomBetween(random, 0.4f, 0.6f);
+                float distance = RandomHelper.randomBetween(random, 8f, 12f);
                 float angle = i / 32f * (float) Math.PI * 2f;
 
                 Vec3 direction = projectileDirection
@@ -72,7 +61,7 @@ public class HexBoltHitEnemyParticleEffect extends ParticleEffectType {
                 direction = direction.reverse();
                 float lifetimeMultiplier = 0.7f;
                 if (random.nextFloat() < 0.8f) {
-                    var lightSpecs = spiritLightSpecs(level, spawnPosition, spiritType);
+                    var lightSpecs = spiritLightSpecs(level, spawnPosition, colorParticleData, bloomParticleData);
                     lightSpecs.getBuilder()
                             .multiplyLifetime(lifetimeMultiplier)
                             .disableCull()
@@ -85,7 +74,7 @@ public class HexBoltHitEnemyParticleEffect extends ParticleEffectType {
                     lightSpecs.spawnParticles();
                 }
                 if (random.nextFloat() < 0.8f) {
-                    var sparks = SparkParticleEffects.spiritMotionSparks(level, spawnPosition, spiritType);
+                    var sparks = SparkParticleEffects.spiritMotionSparks(level, spawnPosition, colorParticleData, bloomParticleData);
                     sparks.getBuilder()
                             .multiplyLifetime(lifetimeMultiplier)
                             .disableCull()

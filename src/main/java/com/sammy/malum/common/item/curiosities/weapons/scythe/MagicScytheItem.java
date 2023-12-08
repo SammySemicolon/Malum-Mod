@@ -1,4 +1,4 @@
-package com.sammy.malum.common.item.curiosities.weapons;
+package com.sammy.malum.common.item.curiosities.weapons.scythe;
 
 import com.google.common.collect.ImmutableMultimap;
 import net.minecraft.world.entity.ai.attributes.Attribute;

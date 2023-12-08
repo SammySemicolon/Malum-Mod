@@ -1,4 +1,4 @@
-package com.sammy.malum.common.item.curiosities.weapons.unique;
+package com.sammy.malum.common.item.curiosities.weapons;
 
 import com.sammy.malum.common.packets.particle.curiosities.rite.generic.MajorEntityEffectParticlePacket;
 import com.sammy.malum.core.helper.SpiritHelper;

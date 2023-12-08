@@ -47,11 +47,11 @@ public class SoundRegistry {
 
     public static final RegistryObject<SoundEvent> SCYTHE_CUT = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("scythe_cuts")));
 
-    public static final RegistryObject<SoundEvent> STAVE_FIRES = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("stave_fires")));
-    public static final RegistryObject<SoundEvent> STAVE_POWERS_UP = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("stave_powers_up")));
-    public static final RegistryObject<SoundEvent> STAVE_SIZZLES = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("stave_sizzles")));
-    public static final RegistryObject<SoundEvent> STAVE_CHARGED = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("stave_charged")));
-    public static final RegistryObject<SoundEvent> STAVE_STRIKES = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("stave_strikes")));
+    public static final RegistryObject<SoundEvent> STAFF_FIRES = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("staff_fires")));
+    public static final RegistryObject<SoundEvent> STAFF_POWERS_UP = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("staff_powers_up")));
+    public static final RegistryObject<SoundEvent> STAFF_SIZZLES = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("staff_sizzles")));
+    public static final RegistryObject<SoundEvent> STAFF_CHARGED = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("staff_charged")));
+    public static final RegistryObject<SoundEvent> STAFF_STRIKES = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("staff_strikes")));
 
     public static final RegistryObject<SoundEvent> ALTAR_CRAFT = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("spirit_altar_completes_infusion")));
     public static final RegistryObject<SoundEvent> ALTAR_LOOP = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("spirit_altar_infuses")));

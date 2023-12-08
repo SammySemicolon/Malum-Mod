@@ -128,7 +128,7 @@ public class VoidProgressionScreen extends AbstractProgressionCodexScreen {
                 "void.strange_nucleus", STRANGE_NUCLEUS.get(), 1, 3)
         );
         VOID_ENTRIES.add(new BookEntry(
-                "void.crystallized_nihility", CRYSTALLIZED_NIHILITY.get(), -1, 3)
+                "void.mnemotic_fragment", MNEMONIC_FRAGMENT.get(), -1, 3)
         );
         VOID_ENTRIES.add(new BookEntry(
                 "void.null_slate", NULL_SLATE.get(), -2, 2)

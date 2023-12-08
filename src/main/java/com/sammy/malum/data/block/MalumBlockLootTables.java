@@ -4,7 +4,6 @@ import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
 import com.sammy.malum.common.block.ether.EtherBlock;
 import com.sammy.malum.common.block.storage.jar.SpiritJarBlock;
-import com.sammy.malum.common.block.storage.vial.SoulVialBlock;
 import com.sammy.malum.registry.common.block.BlockRegistry;
 import com.sammy.malum.registry.common.item.ItemRegistry;
 import net.minecraft.advancements.critereon.EnchantmentPredicate;
@@ -121,7 +120,6 @@ public class MalumBlockLootTables extends LootTableProvider {
 
             takeAll(blocks, b -> b.get() instanceof EtherBlock).forEach(b -> add(b.get(), createEtherDrop(b.get())));
             takeAll(blocks, b -> b.get() instanceof SpiritJarBlock).forEach(b -> add(b.get(), createJarDrop(b.get())));
-            takeAll(blocks, b -> b.get() instanceof SoulVialBlock).forEach(b -> add(b.get(), createVialDrop(b.get())));
 
             takeAll(blocks, b -> true).forEach(b -> add(b.get(), createSingleItemTable(b.get().asItem())));
         }
@@ -150,10 +148,6 @@ public class MalumBlockLootTables extends LootTableProvider {
 
     protected static LootTable.Builder createJarDrop(Block block) {
         return LootTable.lootTable().withPool(applyExplosionCondition(block, LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(block).apply(CopyNameFunction.copyName(CopyNameFunction.NameSource.BLOCK_ENTITY)).apply(CopyNbtFunction.copyData(ContextNbtProvider.BLOCK_ENTITY).copy("spirit", "spirit").copy("count", "count")))));
-    }
-
-    protected static LootTable.Builder createVialDrop(Block block) {
-        return LootTable.lootTable().withPool(applyExplosionCondition(block, LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(block).apply(CopyNameFunction.copyName(CopyNameFunction.NameSource.BLOCK_ENTITY)).apply(CopyNbtFunction.copyData(ContextNbtProvider.BLOCK_ENTITY).copy("spirit_data", "spirit_data")))));
     }
 
     protected static LootTable.Builder createSingleItemTable(ItemLike p_124127_) {

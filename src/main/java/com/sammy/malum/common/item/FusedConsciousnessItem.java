@@ -1,4 +1,4 @@
-package com.sammy.malum.common.item.spirit;
+package com.sammy.malum.common.item;
 
 import com.sammy.malum.core.systems.item.IVoidItem;
 import net.minecraft.world.item.SimpleFoiledItem;

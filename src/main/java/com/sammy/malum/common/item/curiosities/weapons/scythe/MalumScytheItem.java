@@ -1,4 +1,4 @@
-package com.sammy.malum.common.item.curiosities.weapons;
+package com.sammy.malum.common.item.curiosities.weapons.scythe;
 
 import com.sammy.malum.common.entity.boomerang.ScytheBoomerangEntity;
 import com.sammy.malum.core.systems.item.IMalumEventResponderItem;

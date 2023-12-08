@@ -135,7 +135,6 @@ public class RuntimeEvents {
     @SubscribeEvent
     public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
         SoulWardHandler.recoverSoulWard(event);
-        SoulHarvestHandler.playerTick(event);
     }
 
     @SubscribeEvent

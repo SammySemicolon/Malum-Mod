@@ -26,6 +26,7 @@ public class ParticleRegistry {
     public static RegistryObject<LodestoneParticleType> STAR = PARTICLES.register("star", LodestoneParticleType::new);
 
     public static RegistryObject<LodestoneSparkParticleType> ROUND_SPARK = PARTICLES.register("round_spark", LodestoneSparkParticleType::new);
+    public static RegistryObject<LodestoneSparkParticleType> SLASH = PARTICLES.register("slash", LodestoneSparkParticleType::new);
 
     public static RegistryObject<LodestoneDirectionalParticleType> SQUARE = PARTICLES.register("square", LodestoneDirectionalParticleType::new);
     public static RegistryObject<LodestoneDirectionalParticleType> CIRCLE = PARTICLES.register("circle", LodestoneDirectionalParticleType::new);
@@ -44,6 +45,7 @@ public class ParticleRegistry {
         Minecraft.getInstance().particleEngine.register(STAR.get(), LodestoneParticleType.Factory::new);
 
         Minecraft.getInstance().particleEngine.register(ROUND_SPARK.get(), LodestoneSparkParticleType.Factory::new);
+        Minecraft.getInstance().particleEngine.register(SLASH.get(), LodestoneSparkParticleType.Factory::new);
 
         Minecraft.getInstance().particleEngine.register(SQUARE.get(), LodestoneDirectionalParticleType.Factory::new);
         Minecraft.getInstance().particleEngine.register(CIRCLE.get(), LodestoneDirectionalParticleType.Factory::new);

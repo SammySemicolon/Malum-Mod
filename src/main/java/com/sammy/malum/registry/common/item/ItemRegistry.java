@@ -21,7 +21,8 @@ import com.sammy.malum.common.item.curiosities.curios.spirit.*;
 import com.sammy.malum.common.item.curiosities.curios.weeping.*;
 import com.sammy.malum.common.item.curiosities.nitrate.*;
 import com.sammy.malum.common.item.curiosities.weapons.*;
-import com.sammy.malum.common.item.curiosities.weapons.unique.*;
+import com.sammy.malum.common.item.curiosities.weapons.scythe.*;
+import com.sammy.malum.common.item.curiosities.weapons.staff.*;
 import com.sammy.malum.common.item.ether.*;
 import com.sammy.malum.common.item.food.*;
 import com.sammy.malum.common.item.impetus.*;
@@ -384,7 +385,6 @@ public class ItemRegistry {
     public static final RegistryObject<Item> SPIRIT_ALTAR = register("spirit_altar", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.SPIRIT_ALTAR.get(), p));
     public static final RegistryObject<Item> WEAVERS_WORKBENCH = register("weavers_workbench", COSMETIC_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.WEAVERS_WORKBENCH.get(), COSMETIC_PROPERTIES()));
     public static final RegistryObject<Item> SPIRIT_JAR = register("spirit_jar", DEFAULT_PROPERTIES(), (p) -> new SpiritJarItem(BlockRegistry.SPIRIT_JAR.get(), p));
-    public static final RegistryObject<Item> SOUL_VIAL = register("soul_vial", HIDDEN_PROPERTIES(), (p) -> new SoulVialItem(BlockRegistry.SOUL_VIAL.get(), HIDDEN_PROPERTIES()));
     public static final RegistryObject<Item> RUNEWOOD_OBELISK = register("runewood_obelisk", DEFAULT_PROPERTIES(), (p) -> new MultiBlockItem(BlockRegistry.RUNEWOOD_OBELISK.get(), p, RunewoodObeliskBlockEntity.STRUCTURE));
     public static final RegistryObject<Item> BRILLIANT_OBELISK = register("brilliant_obelisk", DEFAULT_PROPERTIES(), (p) -> new MultiBlockItem(BlockRegistry.BRILLIANT_OBELISK.get(), p, BrilliantObeliskBlockEntity.STRUCTURE));
     public static final RegistryObject<Item> SPIRIT_CRUCIBLE = register("spirit_crucible", DEFAULT_PROPERTIES(), (p) -> new MultiBlockItem(BlockRegistry.SPIRIT_CRUCIBLE.get(), p, SpiritCrucibleCoreBlockEntity.STRUCTURE));
@@ -485,7 +485,6 @@ public class ItemRegistry {
     public static final RegistryObject<Item> SPIRIT_POUCH = register("spirit_pouch", GEAR_PROPERTIES(), SpiritPouchItem::new);
     public static final RegistryObject<Item> CRUDE_SCYTHE = register("crude_scythe", GEAR_PROPERTIES(), (p) -> new MalumScytheItem(Tiers.IRON, 0, 0.1f, p.durability(500)));
     public static final RegistryObject<Item> SOUL_STAINED_STEEL_SCYTHE = register("soul_stained_steel_scythe", GEAR_PROPERTIES(), (p) -> new MagicScytheItem(SOUL_STAINED_STEEL, -2.5f, 0.1f, 4, p));
-    public static final RegistryObject<Item> SOULWOOD_STAVE = register("soulwood_stave", HIDDEN_PROPERTIES(), SoulStaveItem::new);
 
     public static final RegistryObject<Item> SOUL_STAINED_STEEL_SWORD = register("soul_stained_steel_sword", GEAR_PROPERTIES(), (p) -> new MagicSwordItem(SOUL_STAINED_STEEL, -3, 0, 3, p));
     public static final RegistryObject<Item> SOUL_STAINED_STEEL_PICKAXE = register("soul_stained_steel_pickaxe", GEAR_PROPERTIES(), (p) -> new MagicPickaxeItem(SOUL_STAINED_STEEL, -2, 0, 2, p));
@@ -536,13 +535,13 @@ public class ItemRegistry {
     public static final RegistryObject<Item> VOID_SALTS = register("void_salts", VOID_PROPERTIES(), Item::new);
     public static final RegistryObject<Item> NULL_SLATE = register("null_slate", VOID_PROPERTIES(), Item::new);
     public static final RegistryObject<Item> STRANGE_NUCLEUS = register("strange_nucleus", VOID_PROPERTIES(), Item::new);
-    public static final RegistryObject<Item> CRYSTALLIZED_NIHILITY = register("crystallized_nihility", VOID_PROPERTIES(), Item::new);
+    public static final RegistryObject<Item> MNEMONIC_FRAGMENT = register("mnemonic_fragment", VOID_PROPERTIES(), Item::new);
     public static final RegistryObject<Item> ANOMALOUS_DESIGN = register("anomalous_design", VOID_PROPERTIES(), Item::new);
     public static final RegistryObject<Item> COMPLETE_DESIGN = register("complete_design", VOID_PROPERTIES(), SimpleFoiledItem::new);
     public static final RegistryObject<Item> FUSED_CONSCIOUSNESS = register("fused_consciousness", VOID_PROPERTIES(), (p) -> new FusedConsciousnessItem(p.rarity(UNCOMMON)));
 
-    public static final RegistryObject<Item> SOUL_STAINED_STEEL_STAVE = register("soul_stained_steel_stave", VOID_GEAR_PROPERTIES(), (p) -> new MagicStaveItem(SOUL_STAINED_STEEL, -4.5f, -0.1f, 5, p));
-
+    public static final RegistryObject<Item> SOUL_STAINED_STEEL_STAFF = register("soul_stained_steel_staff", VOID_GEAR_PROPERTIES(), (p) -> new HexStaffItem(SOUL_STAINED_STEEL, 0.2f, 5, p));
+    public static final RegistryObject<Item> STAFF_OF_THE_AURIC_FLAME = register("staff_of_the_auric_flame", VOID_GEAR_PROPERTIES(), (p) -> new AuricFlameStaffItem(SOUL_STAINED_STEEL, 0.2f, 7, p));
 
     public static final RegistryObject<Item> RING_OF_GROWING_FLESH = register("ring_of_growing_flesh", VOID_GEAR_PROPERTIES(), CurioGrowingFleshRing::new);
     public static final RegistryObject<Item> RING_OF_GRUESOME_SATIATION = register("ring_of_gruesome_satiation", VOID_GEAR_PROPERTIES(), CurioGruesomeSatiationRing::new);
