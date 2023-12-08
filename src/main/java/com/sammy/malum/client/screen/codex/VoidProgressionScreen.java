@@ -1,6 +1,7 @@
 package com.sammy.malum.client.screen.codex;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.sammy.malum.client.screen.codex.objects.*;
 import com.sammy.malum.common.events.SetupMalumCodexEntriesEvent;
 import com.sammy.malum.registry.common.SoundRegistry;
 import net.minecraft.client.Minecraft;
@@ -115,6 +116,7 @@ public class VoidProgressionScreen extends AbstractProgressionCodexScreen {
         VOID_ENTRIES.clear();
         VOID_ENTRIES.add(new BookEntry(
                 "void.introduction", ENCYCLOPEDIA_ARCANA.get(), 0, -1)
+                .setObjectSupplier(ImportantEntryObject::new)
         );
 
         VOID_ENTRIES.add(new BookEntry(
@@ -148,7 +150,7 @@ public class VoidProgressionScreen extends AbstractProgressionCodexScreen {
         );
 
         VOID_ENTRIES.add(new BookEntry(
-                "void.something1", BARRIER, 3, 4)
+                "void.soul_stained_steel_staff", SOUL_STAINED_STEEL_STAFF.get(), 3, 4)
         );
         VOID_ENTRIES.add(new BookEntry(
                 "void.something2", BARRIER, 4, 5)
@@ -166,6 +168,19 @@ public class VoidProgressionScreen extends AbstractProgressionCodexScreen {
         );
         VOID_ENTRIES.add(new BookEntry(
                 "void.fused_consciousness", FUSED_CONSCIOUSNESS.get(), 0, 7)
+                .setObjectSupplier(ImportantEntryObject::new)
+        );
+        VOID_ENTRIES.add(new BookEntry(
+                "void.belt_of_the_limitless", BARRIER, -2, 8)
+        );
+        VOID_ENTRIES.add(new BookEntry(
+                "void.something5", BARRIER, 2, 8)
+        );
+        VOID_ENTRIES.add(new BookEntry(
+                "void.miracle_apparatus", BARRIER, 0, 9)
+        );
+        VOID_ENTRIES.add(new BookEntry(
+                "void.staff_of_the_auric_flame", STAFF_OF_THE_AURIC_FLAME.get(), 1, 10)
         );
     }
 }

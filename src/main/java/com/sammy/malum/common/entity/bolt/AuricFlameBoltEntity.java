@@ -7,6 +7,7 @@ import com.sammy.malum.registry.common.entity.*;
 import com.sammy.malum.registry.common.item.*;
 import com.sammy.malum.visual_effects.*;
 import com.sammy.malum.visual_effects.networked.*;
+import net.minecraft.sounds.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
@@ -32,6 +33,12 @@ public class AuricFlameBoltEntity extends AbstractBoltProjectileEntity {
         this(level);
         setPos(pX, pY, pZ);
         noPhysics = false;
+    }
+
+    @Override
+    public void playSound(SoundEvent pSound, float pVolume, float pPitch) {
+        super.playSound(pSound, pVolume, pPitch);
+        super.playSound(SoundRegistry.AURIC_FLAME_MOTIF.get(), pVolume+0.2f, pPitch+0.6f);
     }
 
     @Override

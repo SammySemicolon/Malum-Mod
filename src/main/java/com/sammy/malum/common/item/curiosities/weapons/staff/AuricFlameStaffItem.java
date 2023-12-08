@@ -2,6 +2,8 @@ package com.sammy.malum.common.item.curiosities.weapons.staff;
 
 import com.sammy.malum.common.entity.bolt.*;
 import com.sammy.malum.registry.client.*;
+import com.sammy.malum.registry.common.*;
+import net.minecraft.sounds.*;
 import net.minecraft.util.*;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.*;
@@ -28,8 +30,8 @@ public class AuricFlameStaffItem extends AbstractStaffItem {
     public static final ColorParticleData AURIC_COLOR_DATA = ColorParticleData.create(AURIC_YELLOW, AURIC_BLUE).setEasing(Easing.SINE_IN_OUT).setCoefficient(1.25f).build();
     public static final ColorParticleData REVERSE_AURIC_COLOR_DATA = ColorParticleData.create(AURIC_BLUE, AURIC_YELLOW).setEasing(Easing.SINE_IN_OUT).setCoefficient(1.25f).build();
 
-    public AuricFlameStaffItem(Tier tier, float attackSpeedIn, float magicDamage, Properties builderIn) {
-        super(tier, attackSpeedIn, 40, magicDamage, builderIn);
+    public AuricFlameStaffItem(Tier tier, float magicDamage, Properties builderIn) {
+        super(tier, 40, magicDamage, builderIn);
     }
 
     @OnlyIn(Dist.CLIENT)

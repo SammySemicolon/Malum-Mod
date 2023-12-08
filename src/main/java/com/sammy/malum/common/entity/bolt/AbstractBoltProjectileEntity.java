@@ -99,12 +99,12 @@ public abstract class AbstractBoltProjectileEntity extends ThrowableItemProjecti
 
     @Override
     protected void onHitBlock(BlockHitResult pResult) {
-        if (fadingAway || spawnDelay != 0) {
+        if (fadingAway || spawnDelay > 0) {
             return;
         }
         if (!level().isClientSide) {
             getOnHitVisualEffect().createPositionedEffect(level(), new PositionEffectData(position().add(getDeltaMovement().scale(0.25f))), new ColorEffectData(SpiritTypeRegistry.WICKED_SPIRIT), HexBoltImpactParticleEffect.createData(getDeltaMovement().reverse().normalize()));
-            level().playSound(null, blockPosition(), SoundRegistry.STAFF_STRIKES.get(), getSoundSource(), 0.5f, Mth.nextFloat(random, 0.9F, 1.5F));
+            playSound(SoundRegistry.STAFF_STRIKES.get(), 0.5f, Mth.nextFloat(random, 0.9F, 1.5F));
         }
         getEntityData().set(DATA_FADING_AWAY, true);
         setDeltaMovement(getDeltaMovement().scale(0.05f));
@@ -118,7 +118,7 @@ public abstract class AbstractBoltProjectileEntity extends ThrowableItemProjecti
 
     @Override
     protected void onHitEntity(EntityHitResult result) {
-        if (fadingAway || spawnDelay != 0) {
+        if (fadingAway || spawnDelay > 0) {
             return;
         }
         if (getOwner() instanceof LivingEntity staffOwner) {
@@ -138,7 +138,7 @@ public abstract class AbstractBoltProjectileEntity extends ThrowableItemProjecti
                 }
                 getEntityData().set(DATA_FADING_AWAY, true);
                 getOnHitVisualEffect().createPositionedEffect(level(), new PositionEffectData(position().add(getDeltaMovement().scale(0.5f))), new ColorEffectData(SpiritTypeRegistry.WICKED_SPIRIT), HexBoltImpactParticleEffect.createData(getDeltaMovement().reverse().normalize()));
-                level().playSound(null, blockPosition(), SoundRegistry.STAFF_STRIKES.get(), getSoundSource(), 0.75f, Mth.nextFloat(random, 1F, 1.4F));
+                playSound(SoundRegistry.STAFF_STRIKES.get(), 0.75f, Mth.nextFloat(random, 1f, 1.4f));
                 setDeltaMovement(getDeltaMovement().scale(0.05f));
             }
         }
@@ -150,9 +150,16 @@ public abstract class AbstractBoltProjectileEntity extends ThrowableItemProjecti
         if (spawnDelay > 0) {
             spawnDelay--;
             if (spawnDelay == 0 && !level().isClientSide) {
-                level().playSound(null, blockPosition(), SoundRegistry.STAFF_FIRES.get(), SoundSource.PLAYERS, 0.5f, Mth.nextFloat(random, 0.9F, 1.5F));
+                spawnDelay = -1;
+                playSound(SoundRegistry.STAFF_FIRES.get(), 0.5f, Mth.nextFloat(random, 0.9F, 1.5F));
             }
             return;
+        }
+        if (spawnDelay == 0) {
+            if (!level().isClientSide) {
+                playSound(SoundRegistry.STAFF_FIRES.get(), 0.5f, Mth.nextFloat(random, 0.9F, 1.5F));
+            }
+            spawnDelay--;
         }
         super.tick();
         Vec3 motion = getDeltaMovement();

@@ -24,7 +24,9 @@
   "staff_powers_up": { "sounds":["malum:curiosities/staff/charge1","malum:curiosities/staff/charge2"], "subtitle": "malum.subtitle.staff_powers_up" },
   "staff_sizzles": { "sounds":["malum:curiosities/staff/sizzle1","malum:curiosities/staff/sizzle2"], "subtitle": "malum.subtitle.staff_sizzles" },
   "staff_charged": { "sounds":["malum:curiosities/staff/sizzle1","malum:curiosities/staff/sizzle2"], "subtitle": "malum.subtitle.staff_charged" },
-  "staff_strikes": { "sounds":["malum:curiosities/staff/hit3","malum:curiosities/staff/hit2","malum:curiosities/staff/hit3","malum:curiosities/staff/hit4"], "subtitle": "malum.subtitle.staff_strikes" },
+  "staff_strikes": { "sounds":["malum:curiosities/staff/hit1","malum:curiosities/staff/hit2","malum:curiosities/staff/hit3","malum:curiosities/staff/hit4"], "subtitle": "malum.subtitle.staff_strikes" },
+
+  "auric_flame_motif": { "sounds":["malum:curiosities/staff/auric_flame_motif1","malum:curiosities/staff/auric_flame_motif2","malum:curiosities/staff/auric_flame_motif3"]},
 
   "cloth_trinket_equipped": { "sounds":["malum:equip_sounds/cloth/equip_cloth1", "malum:equip_sounds/cloth/equip_cloth2", "malum:equip_sounds/cloth/equip_cloth3"], "subtitle": "malum.subtitle.ornate_trinket_equipped" },
   "ornate_trinket_equipped": { "sounds":["malum:equip_sounds/ornate/equip_ornate1", "malum:equip_sounds/ornate/equip_ornate2", "malum:equip_sounds/ornate/equip_ornate3"], "subtitle": "malum.subtitle.ornate_trinket_equipped" },

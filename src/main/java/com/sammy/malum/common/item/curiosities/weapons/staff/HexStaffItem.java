@@ -13,7 +13,6 @@ import net.minecraftforge.api.distmarker.*;
 import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.registry.common.*;
 import team.lodestar.lodestone.systems.easing.*;
-import team.lodestar.lodestone.systems.particle.*;
 import team.lodestar.lodestone.systems.particle.builder.*;
 import team.lodestar.lodestone.systems.particle.data.*;
 import team.lodestar.lodestone.systems.particle.data.spin.*;
@@ -21,8 +20,8 @@ import team.lodestar.lodestone.systems.particle.render_types.*;
 
 public class HexStaffItem extends AbstractStaffItem {
 
-    public HexStaffItem(Tier tier, float attackSpeedIn, float magicDamage, Properties builderIn) {
-        super(tier, attackSpeedIn, 20, magicDamage, builderIn);
+    public HexStaffItem(Tier tier, float magicDamage, Properties builderIn) {
+        super(tier, 20, magicDamage, builderIn);
     }
 
     @OnlyIn(Dist.CLIENT)

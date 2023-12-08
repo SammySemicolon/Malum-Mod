@@ -26,7 +26,7 @@ import team.lodestar.lodestone.systems.item.ModCombatItem;
 public class MalumScytheItem extends ModCombatItem implements IMalumEventResponderItem {
 
     public MalumScytheItem(Tier tier, float attackDamageIn, float attackSpeedIn, Properties builderIn) {
-        super(tier, attackDamageIn + 3, attackSpeedIn - 3.2f, builderIn);
+        super(tier, attackDamageIn + 3 + tier.getAttackDamageBonus(), attackSpeedIn - 3.2f, builderIn);
     }
 
     @Override
