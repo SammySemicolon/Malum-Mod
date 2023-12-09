@@ -42,6 +42,11 @@ public abstract class AbstractBoltProjectileEntity extends ThrowableItemProjecti
         setOwner(owner);
         this.magicDamage = magicDamage;
         getEntityData().set(DATA_SPAWN_DELAY, spawnDelay);
+        if (!level().isClientSide) {
+            if (spawnDelay == 0) {
+                playSound(SoundRegistry.STAFF_FIRES.get(), 0.5f, Mth.nextFloat(random, 0.9F, 1.5F));
+            }
+        }
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -154,12 +159,6 @@ public abstract class AbstractBoltProjectileEntity extends ThrowableItemProjecti
                 playSound(SoundRegistry.STAFF_FIRES.get(), 0.5f, Mth.nextFloat(random, 0.9F, 1.5F));
             }
             return;
-        }
-        if (spawnDelay == 0) {
-            if (!level().isClientSide) {
-                playSound(SoundRegistry.STAFF_FIRES.get(), 0.5f, Mth.nextFloat(random, 0.9F, 1.5F));
-            }
-            spawnDelay--;
         }
         super.tick();
         Vec3 motion = getDeltaMovement();

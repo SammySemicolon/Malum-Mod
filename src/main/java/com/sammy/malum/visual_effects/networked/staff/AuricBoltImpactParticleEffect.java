@@ -50,7 +50,7 @@ public class AuricBoltImpactParticleEffect extends ParticleEffectType {
             for (int i = 0; i < 32; i++) {
                 float spread = RandomHelper.randomBetween(random, 0.05f, 0.075f);
                 float speed = RandomHelper.randomBetween(random, 0.4f, 0.6f);
-                float distance = RandomHelper.randomBetween(random, 8f, 12f);
+                float distance = RandomHelper.randomBetween(random, 4f, 12f);
                 float angle = i / 32f * (float) Math.PI * 2f;
 
                 Vec3 direction = projectileDirection
@@ -66,7 +66,7 @@ public class AuricBoltImpactParticleEffect extends ParticleEffectType {
                             .multiplyLifetime(lifetimeMultiplier)
                             .disableCull()
                             .enableForcedSpawn()
-                            .modifyData(WorldParticleBuilder::getScaleData, d -> d.multiplyValue(1.75f))
+                            .modifyData(WorldParticleBuilder::getScaleData, d -> d.multiplyValue(1.25f))
                             .setMotion(direction);
                     lightSpecs.getBloomBuilder()
                             .multiplyLifetime(lifetimeMultiplier)
@@ -80,8 +80,8 @@ public class AuricBoltImpactParticleEffect extends ParticleEffectType {
                             .disableCull()
                             .enableForcedSpawn()
                             .setMotion(direction.scale(1.5f))
-                            .modifyData(SparkParticleBuilder::getScaleData, d -> d.multiplyValue(1.75f))
-                            .modifyData(SparkParticleBuilder::getLengthData, d -> d.multiplyValue(3f));
+                            .modifyData(SparkParticleBuilder::getScaleData, d -> d.multiplyValue(1.25f))
+                            .modifyData(SparkParticleBuilder::getLengthData, d -> d.multiplyValue(2f));
                     sparks.getBloomBuilder()
                             .multiplyLifetime(lifetimeMultiplier)
                             .setMotion(direction.scale(1.5f));

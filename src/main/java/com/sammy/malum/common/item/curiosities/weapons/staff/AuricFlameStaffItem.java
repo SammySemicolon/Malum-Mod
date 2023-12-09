@@ -58,22 +58,22 @@ public class AuricFlameStaffItem extends AbstractStaffItem {
 
     @Override
     public int getCooldownDuration(Level level, LivingEntity livingEntity) {
-        return 120;
+        return 80;
     }
 
     @Override
     public int getProjectileCount(Level level, LivingEntity livingEntity, float pct) {
-        return pct == 1f ? 7 : 0;
+        return pct == 1f ? 5 : 0;
     }
 
     @Override
     public void fireProjectile(LivingEntity player, ItemStack stack, Level level, InteractionHand hand, float chargePercentage, int count) {
         final float ceil = (float) Math.ceil(count / 2f);
-        float spread = count > 0 ? ceil * 0.15f * (count % 2L == 0 ? 1 : -1) : 0f;
+        float spread = count > 0 ? ceil * 0.2f * (count % 2L == 0 ? 1 : -1) : 0f;
         float pitchOffset = 6f - (3f + ceil);
-        int spawnDelay = (int) (ceil * 4);
+        int spawnDelay = (int) (ceil * 2);
         float velocity = 2f;
-        float magicDamage = (float) player.getAttributes().getValue(LodestoneAttributeRegistry.MAGIC_DAMAGE.get()) - 2;
+        float magicDamage = (float) player.getAttributes().getValue(LodestoneAttributeRegistry.MAGIC_DAMAGE.get());
         Vec3 pos = getProjectileSpawnPos(player, hand, 0.5f, 0.5f);
         AuricFlameBoltEntity entity = new AuricFlameBoltEntity(level, pos.x, pos.y, pos.z);
         entity.setData(player, magicDamage, spawnDelay);

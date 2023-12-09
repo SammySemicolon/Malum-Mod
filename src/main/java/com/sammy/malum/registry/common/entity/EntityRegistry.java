@@ -52,7 +52,7 @@ public class EntityRegistry {
                     .build(MalumMod.malumPath("hex_bolt").toString()));
 
     public static final RegistryObject<EntityType<AuricFlameBoltEntity>> AURIC_FLAME_BOLT = ENTITY_TYPES.register("auric_flame_bolt",
-            () -> EntityType.Builder.<AuricFlameBoltEntity>of((e, w) -> new AuricFlameBoltEntity(w), MobCategory.MISC).sized(1F, 1.2F).clientTrackingRange(10)
+            () -> EntityType.Builder.<AuricFlameBoltEntity>of((e, w) -> new AuricFlameBoltEntity(w), MobCategory.MISC).sized(2F, 2F).clientTrackingRange(10)
                     .build(MalumMod.malumPath("auric_flame_bolt").toString()));
 
     @Mod.EventBusSubscriber(modid = MalumMod.MALUM, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
