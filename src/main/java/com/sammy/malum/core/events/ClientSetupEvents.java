@@ -1,6 +1,5 @@
 package com.sammy.malum.core.events;
 
-import com.sammy.malum.core.handlers.SoulHarvestHandler;
 import com.sammy.malum.core.handlers.SoulWardHandler;
 import com.sammy.malum.core.handlers.TouchOfDarknessHandler;
 import com.sammy.malum.registry.client.ParticleRegistry;
@@ -19,13 +18,12 @@ import java.util.Map;
 
 @Mod.EventBusSubscriber(value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ClientSetupEvents {
-    @SubscribeEvent
-    public static void addRenderLayers(EntityRenderersEvent.AddLayers event) {
-        for (Map.Entry<EntityType<?>, EntityRenderer<?>> entry : Minecraft.getInstance().getEntityRenderDispatcher().renderers.entrySet()) {
-            EntityRenderer<?> render = entry.getValue();
-            SoulHarvestHandler.ClientOnly.addRenderLayer(render);
-        }
-    }
+//    @SubscribeEvent
+//    public static void addRenderLayers(EntityRenderersEvent.AddLayers event) {
+//        for (Map.Entry<EntityType<?>, EntityRenderer<?>> entry : Minecraft.getInstance().getEntityRenderDispatcher().renderers.entrySet()) {
+//            EntityRenderer<?> render = entry.getValue();
+//        }
+//    }
 
     @SubscribeEvent
     public static void registerOverlays(RegisterGuiOverlaysEvent event) {

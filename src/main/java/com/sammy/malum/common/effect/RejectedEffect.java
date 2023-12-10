@@ -2,12 +2,13 @@ package com.sammy.malum.common.effect;
 
 import com.sammy.malum.common.capability.MalumLivingEntityDataCapability;
 import com.sammy.malum.core.handlers.TouchOfDarknessHandler;
-import com.sammy.malum.registry.common.DamageSourceRegistry;
+import com.sammy.malum.registry.common.DamageTypeRegistry;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.player.*;
 import team.lodestar.lodestone.helpers.ColorHelper;
 
 public class RejectedEffect extends MobEffect {
@@ -19,9 +20,12 @@ public class RejectedEffect extends MobEffect {
     @Override
     public void applyEffectTick(LivingEntity pLivingEntity, int pAmplifier) {
         TouchOfDarknessHandler handler = MalumLivingEntityDataCapability.getCapability(pLivingEntity).touchOfDarknessHandler;
-        handler.afflict(20);
+        handler.afflict(40);
         if (pLivingEntity.level().getGameTime() % 60L == 0) {
-            pLivingEntity.hurt(DamageSourceRegistry.create(pLivingEntity.level(), DamageSourceRegistry.VOODOO), 1);
+            if (pLivingEntity instanceof Player player && player.isCreative()) {
+                return;
+            }
+            pLivingEntity.hurt(DamageTypeRegistry.create(pLivingEntity.level(), DamageTypeRegistry.VOODOO), 1);
         }
     }
 

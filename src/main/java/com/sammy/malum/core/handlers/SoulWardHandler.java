@@ -30,6 +30,7 @@ import team.lodestar.lodestone.handlers.screenparticle.ScreenParticleHandler;
 import team.lodestar.lodestone.helpers.ItemHelper;
 import team.lodestar.lodestone.registry.client.*;
 import team.lodestar.lodestone.registry.common.particle.*;
+import team.lodestar.lodestone.registry.common.tag.*;
 import team.lodestar.lodestone.systems.particle.builder.ScreenParticleBuilder;
 import team.lodestar.lodestone.systems.particle.data.GenericParticleData;
 import team.lodestar.lodestone.systems.particle.data.color.ColorParticleData;
@@ -65,7 +66,7 @@ public class SoulWardHandler {
                     if (!player.isCreative()) {
                         SoundEvent sound = soulWardHandler.soulWard >= soulWardCap.getValue() ? SoundRegistry.SOUL_WARD_CHARGE.get() : SoundRegistry.SOUL_WARD_GROW.get();
                         float pitch = 1f + (soulWardHandler.soulWard / (float) soulWardCap.getValue()) * 0.5f + (Mth.ceil(soulWardHandler.soulWard) % 3) * 0.25f;
-                        player.level().playSound(null, player.blockPosition(), sound, SoundSource.PLAYERS, 1, pitch);
+                        player.level().playSound(null, player.blockPosition(), sound, SoundSource.PLAYERS, 0.25f, pitch);
                     }
                     soulWardHandler.soulWardProgress = getSoulWardCooldown(player);
                     MalumPlayerDataCapability.syncTrackingAndSelf(player);
@@ -92,7 +93,7 @@ public class SoulWardHandler {
                     DamageSource source = event.getSource();
 
                     float amount = event.getAmount();
-                    float multiplier = source.is(DamageTypes.MAGIC) ? CommonConfig.SOUL_WARD_MAGIC.getConfigValue().floatValue() : CommonConfig.SOUL_WARD_PHYSICAL.getConfigValue().floatValue();
+                    float multiplier = source.is(LodestoneDamageTypeTags.IS_MAGIC) ? CommonConfig.SOUL_WARD_MAGIC.getConfigValue().floatValue() : CommonConfig.SOUL_WARD_PHYSICAL.getConfigValue().floatValue();
 
                     for (ItemStack s : ItemHelper.getEventResponders(player)) {
                         if (s.getItem() instanceof IMalumEventResponderItem eventItem) {

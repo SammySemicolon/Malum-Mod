@@ -20,13 +20,13 @@ public abstract class AbstractMalumScreen extends Screen {
     public abstract Supplier<SoundEvent> getSweetenerSound();
 
     public void playPageFlipSound(Supplier<SoundEvent> soundEvent, float pitch) {
-        playSound(soundEvent, 0.5f, Math.max(1, pitch * 0.8f));
-        playSound(getSweetenerSound(), 0.2f, pitch);
+        playSound(soundEvent, 1f, Math.max(1, pitch * 0.8f));
+        playSound(getSweetenerSound(), 1f, pitch);
     }
 
     public void playSweetenedSound(Supplier<SoundEvent> soundEvent, float sweetenerPitch) {
-        playSound(soundEvent, 0.5f, 1);
-        playSound(getSweetenerSound(), 0.1f, sweetenerPitch);
+        playSound(soundEvent, 1f, 1);
+        playSound(getSweetenerSound(), 1f, sweetenerPitch);
     }
 
     public void playSound(Supplier<SoundEvent> soundEvent, float volume, float pitch) {

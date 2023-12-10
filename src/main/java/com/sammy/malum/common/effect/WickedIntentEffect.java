@@ -1,6 +1,6 @@
 package com.sammy.malum.common.effect;
 
-import com.sammy.malum.common.item.curiosities.weapons.MalumScytheItem;
+import com.sammy.malum.common.item.curiosities.weapons.scythe.MalumScytheItem;
 import com.sammy.malum.registry.common.AttributeRegistry;
 import com.sammy.malum.registry.common.MobEffectRegistry;
 import com.sammy.malum.registry.common.SoundRegistry;
@@ -15,6 +15,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import team.lodestar.lodestone.helpers.ColorHelper;
+import team.lodestar.lodestone.registry.common.tag.*;
 
 public class WickedIntentEffect extends MobEffect {
     public WickedIntentEffect() {
@@ -24,7 +25,7 @@ public class WickedIntentEffect extends MobEffect {
 
     public static void removeWickedIntent(LivingDamageEvent event) {
         DamageSource source = event.getSource();
-        if (source.is(DamageTypes.MAGIC) || (source.is(DamageTypes.THORNS))) {
+        if (source.is(LodestoneDamageTypeTags.IS_MAGIC) || (source.is(DamageTypes.THORNS))) {
             return;
         }
         if (source.getEntity() instanceof LivingEntity livingEntity) {

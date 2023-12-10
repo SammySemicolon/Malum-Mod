@@ -25,8 +25,6 @@ public class SoulDataHandler {
     public boolean soulless;
     public boolean spawnerSpawned;
 
-    public float soulSeparationProgress;
-    public UUID soulThiefUUID;
 
     public CompoundTag serializeNBT() {
         CompoundTag tag = new CompoundTag();
@@ -35,13 +33,6 @@ public class SoulDataHandler {
         }
         tag.putBoolean("soulless", soulless);
         tag.putBoolean("spawnerSpawned", spawnerSpawned);
-
-        if (soulSeparationProgress != 0) {
-            tag.putFloat("soulSeparationProgress", soulSeparationProgress);
-        }
-        if (soulThiefUUID != null) {
-            tag.putUUID("soulThiefUUID", soulThiefUUID);
-        }
         return tag;
     }
 
@@ -49,11 +40,6 @@ public class SoulDataHandler {
         exposedSoulDuration = tag.getFloat("exposedSoulDuration");
         soulless = tag.getBoolean("soulless");
         spawnerSpawned = tag.getBoolean("spawnerSpawned");
-
-        soulSeparationProgress = tag.getFloat("soulSeparationProgress");
-        if (tag.contains("soulThiefUUID")) {
-            soulThiefUUID = tag.getUUID("soulThiefUUID");
-        }
     }
 
     public static void markAsSpawnerSpawned(MobSpawnEvent.PositionCheck event) {
@@ -90,7 +76,6 @@ public class SoulDataHandler {
     }
 
     public static void exposeSoul(LivingHurtEvent event) {
-        //Here we expose an entity's soul if it is struck by a soul hunter weapon, or other means of shattering the soul
         if (event.isCanceled() || event.getAmount() <= 0) {
             return;
         }
@@ -109,32 +94,10 @@ public class SoulDataHandler {
     }
 
     public static void manageSoul(LivingEvent.LivingTickEvent event) {
-        //here we tick down all the data and reset it overtime.
         LivingEntity entity = event.getEntity();
         SoulDataHandler soulData = MalumLivingEntityDataCapability.getCapability(entity).soulData;
         if (soulData.exposedSoulDuration > 0) {
             soulData.exposedSoulDuration--;
-        }
-
-        if (soulData.soulThiefUUID != null && soulData.soulSeparationProgress > 0) {
-            Player soulThief = entity.level().getPlayerByUUID(soulData.soulThiefUUID);
-            if (soulThief != null) {
-                SoulHarvestHandler soulHarvestHandler = MalumPlayerDataCapability.getCapability(soulThief).soulHarvestHandler;
-
-                //If an entity is being targeted by a soul staff, and the isn't using a staff when the entity is past the "targeted" point, we rapidly remove separation progress.
-                if (!soulThief.isUsingItem() && soulData.soulSeparationProgress > SoulHarvestHandler.PRIMING_END) {
-                    soulData.soulSeparationProgress -= 2f;
-                }
-                //If the entity isn't soulless, and is in the "targeted" point, we slowly remove separation progress and forget the soul thief.
-                if (soulData.soulSeparationProgress <= SoulHarvestHandler.PRIMING_END && !soulData.soulless) {
-                    if (soulHarvestHandler.targetedSoulUUID == null || !entity.getUUID().equals(soulHarvestHandler.targetedSoulUUID)) {
-                        soulData.soulSeparationProgress -= 0.5f;
-                        if (soulData.soulSeparationProgress == 0) {
-                            soulData.soulThiefUUID = null;
-                        }
-                    }
-                }
-            }
         }
     }
 

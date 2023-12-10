@@ -4,8 +4,8 @@
   "arcana_entry_opened": { "sounds":["malum:codex/book_entry_open1", "malum:codex/book_entry_open2", "malum:codex/book_entry_open3", "malum:codex/book_entry_open4"], "subtitle": "malum.subtitle.arcana_entry_opened" },
   "arcana_entry_closed": { "sounds":["malum:codex/book_entry_close1", "malum:codex/book_entry_close2", "malum:codex/book_entry_close3", "malum:codex/book_entry_close4"], "subtitle": "malum.subtitle.arcana_entry_closed" },
   "arcana_page_flipped": { "sounds":["malum:codex/book_page_turn1", "malum:codex/book_page_turn2", "malum:codex/book_page_turn3", "malum:codex/book_page_turn4"], "subtitle": "malum.subtitle.arcana_page_flipped" },
-  "arcana_sweetener_normal": { "sounds":["malum:codex/book_swtnr_normal1", "malum:codex/book_swtnr_normal2", "malum:codex/book_swtnr_normal3", "malum:codex/book_swtnr_normal4", "malum:codex/book_swtnr_normal5", "malum:codex/book_swtnr_normal6"]},
-  "arcana_sweetener_evil": { "sounds":["malum:codex/book_swtnr_evil1", "malum:codex/book_swtnr_evil2", "malum:codex/book_swtnr_evil3", "malum:codex/book_swtnr_evil4", "malum:codex/book_swtnr_evil5", "malum:codex/book_swtnr_evil6"]},
+  "arcana_sweetener_normal": { "sounds":["malum:codex/book_swtnr_normal1", "malum:codex/book_swtnr_normal2", "malum:codex/book_swtnr_normal3", "malum:codex/book_swtnr_normal4", "malum:codex/book_swtnr_normal5", "malum:codex/book_swtnr_normal6", "malum:codex/book_swtnr_normal7", "malum:codex/book_swtnr_normal8"]},
+  "arcana_sweetener_evil": { "sounds":["malum:codex/book_swtnr_evil1", "malum:codex/book_swtnr_evil2", "malum:codex/book_swtnr_evil3", "malum:codex/book_swtnr_evil4", "malum:codex/book_swtnr_evil5", "malum:codex/book_swtnr_evil6", "malum:codex/book_swtnr_evil7", "malum:codex/book_swtnr_evil8"]},
   "arcana_transition_normal": { "sounds":["malum:codex/book_transition_normal1", "malum:codex/book_transition_normal2"], "subtitle": "malum.subtitle.arcana_transition_normal" },
   "arcana_transition_evil": { "sounds":["malum:codex/book_transition_evil1", "malum:codex/book_transition_evil2"], "subtitle": "malum.subtitle.arcana_transition_evil" },
 
@@ -19,6 +19,14 @@
   "a_soul_shatters": { "sounds":["malum:curiosities/soul_shatter1","malum:curiosities/soul_shatter2","malum:curiosities/soul_shatter3"], "subtitle": "malum.subtitle.a_soul_shatters" },
 
   "scythe_cuts": { "sounds":["malum:curiosities/scythe/cut1","malum:curiosities/scythe/cut2","malum:curiosities/scythe/cut3"], "subtitle": "malum.subtitle.scythe_cuts" },
+
+  "staff_fires": { "sounds":["malum:curiosities/staff/fire1","malum:curiosities/staff/fire2"], "subtitle": "malum.subtitle.staff_fires" },
+  "staff_powers_up": { "sounds":["malum:curiosities/staff/charge1","malum:curiosities/staff/charge2"], "subtitle": "malum.subtitle.staff_powers_up" },
+  "staff_sizzles": { "sounds":["malum:curiosities/staff/sizzle1","malum:curiosities/staff/sizzle2"], "subtitle": "malum.subtitle.staff_sizzles" },
+  "staff_charged": { "sounds":["malum:curiosities/staff/sizzle1","malum:curiosities/staff/sizzle2"], "subtitle": "malum.subtitle.staff_charged" },
+  "staff_strikes": { "sounds":["malum:curiosities/staff/hit1","malum:curiosities/staff/hit2","malum:curiosities/staff/hit3","malum:curiosities/staff/hit4"], "subtitle": "malum.subtitle.staff_strikes" },
+
+  "auric_flame_motif": { "sounds":["malum:curiosities/staff/auric_flame_motif1","malum:curiosities/staff/auric_flame_motif2","malum:curiosities/staff/auric_flame_motif3"]},
 
   "cloth_trinket_equipped": { "sounds":["malum:equip_sounds/cloth/equip_cloth1", "malum:equip_sounds/cloth/equip_cloth2", "malum:equip_sounds/cloth/equip_cloth3"], "subtitle": "malum.subtitle.ornate_trinket_equipped" },
   "ornate_trinket_equipped": { "sounds":["malum:equip_sounds/ornate/equip_ornate1", "malum:equip_sounds/ornate/equip_ornate2", "malum:equip_sounds/ornate/equip_ornate3"], "subtitle": "malum.subtitle.ornate_trinket_equipped" },

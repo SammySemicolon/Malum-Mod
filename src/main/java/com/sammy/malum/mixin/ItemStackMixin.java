@@ -2,7 +2,7 @@ package com.sammy.malum.mixin;
 
 import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.Multimap;
-import com.sammy.malum.common.item.curiosities.weapons.MalumScytheItem;
+import com.sammy.malum.common.item.curiosities.weapons.scythe.MalumScytheItem;
 import com.sammy.malum.registry.common.AttributeRegistry;
 import com.sammy.malum.registry.common.item.EnchantmentRegistry;
 import net.minecraft.world.entity.ai.attributes.Attribute;

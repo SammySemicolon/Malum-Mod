@@ -3,7 +3,7 @@ package com.sammy.malum.data.item;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.item.cosmetic.weaves.AbstractWeaveItem;
 import com.sammy.malum.common.item.cosmetic.weaves.PrideweaveItem;
-import com.sammy.malum.common.item.curiosities.weapons.MalumScytheItem;
+import com.sammy.malum.common.item.curiosities.weapons.scythe.MalumScytheItem;
 import com.sammy.malum.common.item.impetus.CrackedImpetusItem;
 import com.sammy.malum.common.item.impetus.ImpetusItem;
 import com.sammy.malum.common.item.impetus.NodeItem;
@@ -59,7 +59,7 @@ public class MalumItemModels extends LodestoneItemModelProvider {
         ItemModelSmithTypes.HANDHELD_ITEM.act(data, items.stream().filter(i -> i.get() instanceof DiggerItem).toList());
         ItemModelSmithTypes.HANDHELD_ITEM.act(data, items.stream().filter(i -> i.get() instanceof SwordItem).toList());
         ItemModelSmithTypes.HANDHELD_ITEM.act(data, items.stream().filter(i -> i.get() instanceof ModCombatItem).toList());
-        ItemModelSmithTypes.HANDHELD_ITEM.act(data, SOULWOOD_STAVE, SOUL_STAINED_STEEL_KNIFE);
+        ItemModelSmithTypes.HANDHELD_ITEM.act(data, SOUL_STAINED_STEEL_KNIFE);
 
         MalumItemModelSmithTypes.ARMOR_ITEM.act(data,
                 SOUL_HUNTER_CLOAK, SOUL_HUNTER_ROBE, SOUL_HUNTER_LEGGINGS, SOUL_HUNTER_BOOTS,

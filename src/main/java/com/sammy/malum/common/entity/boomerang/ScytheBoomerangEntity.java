@@ -1,15 +1,13 @@
 package com.sammy.malum.common.entity.boomerang;
 
-import com.sammy.malum.common.item.curiosities.weapons.MalumScytheItem;
-import com.sammy.malum.registry.common.DamageSourceRegistry;
+import com.sammy.malum.common.item.curiosities.weapons.scythe.MalumScytheItem;
+import com.sammy.malum.registry.common.DamageTypeRegistry;
 import com.sammy.malum.registry.common.SoundRegistry;
 import com.sammy.malum.registry.common.entity.EntityRegistry;
 import com.sammy.malum.registry.common.item.EnchantmentRegistry;
 import com.sammy.malum.registry.common.item.ItemRegistry;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
@@ -28,7 +26,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.items.ItemHandlerHelper;
-import net.minecraftforge.network.NetworkHooks;
 import team.lodestar.lodestone.helpers.ItemHelper;
 
 import java.util.Random;
@@ -126,7 +123,7 @@ public class ScytheBoomerangEntity extends ThrowableItemProjectile {
                 if (magicDamage > 0) {
                     if (livingentity.isAlive()) {
                         livingentity.invulnerableTime = 0;
-                        livingentity.hurt(DamageSourceRegistry.create(level(), DamageSourceRegistry.VOODOO, scytheOwner), magicDamage);
+                        livingentity.hurt(DamageTypeRegistry.create(level(), DamageTypeRegistry.VOODOO, this, scytheOwner), magicDamage);
                     }
                 }
 
@@ -210,11 +207,6 @@ public class ScytheBoomerangEntity extends ThrowableItemProjectile {
         this.shoot(f, f1, f2, velocity, innacuracy);
         Vec3 vec3 = shooter.getDeltaMovement();
         this.setDeltaMovement(this.getDeltaMovement().add(vec3.x, 0, vec3.z));
-    }
-
-    @Override
-    public Packet<ClientGamePacketListener> getAddEntityPacket() {
-        return NetworkHooks.getEntitySpawningPacket(this);
     }
 
     @Override

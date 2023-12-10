@@ -2,7 +2,6 @@ package com.sammy.malum.common.capability;
 
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.packets.SyncMalumPlayerCapabilityDataPacket;
-import com.sammy.malum.core.handlers.SoulHarvestHandler;
 import com.sammy.malum.core.handlers.SoulWardHandler;
 import com.sammy.malum.registry.common.PacketRegistry;
 import net.minecraft.nbt.CompoundTag;
@@ -28,7 +27,6 @@ public class MalumPlayerDataCapability implements LodestoneCapability {
     });
 
     public SoulWardHandler soulWardHandler = new SoulWardHandler();
-    public SoulHarvestHandler soulHarvestHandler = new SoulHarvestHandler();
 
     public boolean obtainedEncyclopedia;
 
@@ -73,7 +71,6 @@ public class MalumPlayerDataCapability implements LodestoneCapability {
         CompoundTag tag = new CompoundTag();
 
         tag.put("soulWardData", soulWardHandler.serializeNBT());
-        tag.put("soulHarvestData", soulHarvestHandler.serializeNBT());
 
         tag.putBoolean("obtainedEncyclopedia", obtainedEncyclopedia);
         return tag;
@@ -83,9 +80,6 @@ public class MalumPlayerDataCapability implements LodestoneCapability {
     public void deserializeNBT(CompoundTag tag) {
         if (tag.contains("soulWardData")) {
             soulWardHandler.deserializeNBT(tag.getCompound("soulWardData"));
-        }
-        if (tag.contains("soulHarvestData")) {
-            soulHarvestHandler.deserializeNBT(tag.getCompound("soulHarvestData"));
         }
 
         obtainedEncyclopedia = tag.getBoolean("obtainedEncyclopedia");
