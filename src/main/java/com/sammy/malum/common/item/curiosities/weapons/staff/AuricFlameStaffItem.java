@@ -31,7 +31,7 @@ public class AuricFlameStaffItem extends AbstractStaffItem {
     public static final ColorParticleData REVERSE_AURIC_COLOR_DATA = ColorParticleData.create(AURIC_BLUE, AURIC_YELLOW).setEasing(Easing.SINE_IN_OUT).setCoefficient(1.25f).build();
 
     public AuricFlameStaffItem(Tier tier, float magicDamage, Properties builderIn) {
-        super(tier, 40, magicDamage, builderIn);
+        super(tier, 20, magicDamage, builderIn);
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -71,7 +71,7 @@ public class AuricFlameStaffItem extends AbstractStaffItem {
         final float ceil = (float) Math.ceil(count / 2f);
         float spread = count > 0 ? ceil * 0.2f * (count % 2L == 0 ? 1 : -1) : 0f;
         float pitchOffset = 6f - (3f + ceil);
-        int spawnDelay = (int) (ceil * 2);
+        int spawnDelay = (int) (ceil * 4);
         float velocity = 2f;
         float magicDamage = (float) player.getAttributes().getValue(LodestoneAttributeRegistry.MAGIC_DAMAGE.get());
         Vec3 pos = getProjectileSpawnPos(player, hand, 0.5f, 0.5f);

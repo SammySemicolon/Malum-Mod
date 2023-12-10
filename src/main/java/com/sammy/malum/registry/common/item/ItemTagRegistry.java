@@ -10,6 +10,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 public class ItemTagRegistry {
     public static final TagKey<Item> SOUL_HUNTER_WEAPON = malumTag("soul_hunter_weapon");
     public static final TagKey<Item> SCYTHE = malumTag("scythe");
+    public static final TagKey<Item> STAFF = malumTag("staff");
     public static final TagKey<Item> RUNEWOOD_LOGS = malumTag("runewood_logs");
     public static final TagKey<Item> SOULWOOD_LOGS = malumTag("soulwood_logs");
     public static final TagKey<Item> SAPBALLS = malumTag("sapballs");

@@ -66,29 +66,25 @@ public class AuricFlameBoltEntity extends AbstractBoltProjectileEntity {
             Vec3 nearestPosition = nearest.position().add(0, nearest.getBbHeight() / 2, 0);
             Vec3 diff = nearestPosition.subtract(position());
             double speed = motion.length();
-            final double length = diff.length();
-            if (length < 2f) {
+            Vec3 nextPosition = position().add(getDeltaMovement());
+            if (nearest.distanceToSqr(nextPosition) > nearest.distanceToSqr(position())) {
                 return;
             }
-            Vec3 maybeTowards = nearestPosition.add(getDeltaMovement());
-            if (distanceToSqr(maybeTowards) < distanceToSqr(nearestPosition)) { //Homing should only happen if we're moving towards the target, which this checks relatively close enough
-                return;
-            }
-            Vec3 newmotion = diff.normalize().scale(speed);
+            Vec3 newMotion = diff.normalize().scale(speed);
             final double dot = motion.normalize().dot(diff.normalize());
             if (dot < 0.9f) {
                 return;
             }
-            if (newmotion.length() == 0) {
-                newmotion = newmotion.add(0.01, 0, 0);
+            if (newMotion.length() == 0) {
+                newMotion = newMotion.add(0.01, 0, 0);
             }
             float angleScalar = (float) ((dot - 0.9f) * 10f);
-            float distanceScalar = (float) (0.2f + 1f - Math.min(25f, length) / 25f);
+            float distanceScalar = (float) (0.2f + 1f - Math.min(25f, diff.length()) / 25f);
             float horizontalFactor = 0.4f * distanceScalar * angleScalar;
             float verticalFactor = 0.6f * distanceScalar * angleScalar;
-            final double x = Mth.lerp(horizontalFactor, motion.x, newmotion.x);
-            final double y = Mth.lerp(verticalFactor, motion.y, newmotion.y);
-            final double z = Mth.lerp(horizontalFactor, motion.z, newmotion.z);
+            final double x = Mth.lerp(horizontalFactor, motion.x, newMotion.x);
+            final double y = Mth.lerp(verticalFactor, motion.y, newMotion.y);
+            final double z = Mth.lerp(horizontalFactor, motion.z, newMotion.z);
             setDeltaMovement(new Vec3(x, y, z));
         }
     }

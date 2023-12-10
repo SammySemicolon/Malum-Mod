@@ -8,7 +8,7 @@ import com.sammy.malum.common.effect.CorruptedAerialAura;
 import com.sammy.malum.common.effect.GluttonyEffect;
 import com.sammy.malum.common.effect.InfernalAura;
 import com.sammy.malum.common.effect.WickedIntentEffect;
-import com.sammy.malum.common.enchantment.ReboundEnchantment;
+import com.sammy.malum.common.enchantment.*;
 import com.sammy.malum.common.entity.nitrate.EthericExplosion;
 import com.sammy.malum.common.item.cosmetic.curios.CurioTokenOfGratitude;
 import com.sammy.malum.common.item.curiosities.curios.alchemical.CurioAlchemicalRing;
@@ -30,9 +30,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
-import net.minecraftforge.event.AddReloadListenerEvent;
-import net.minecraftforge.event.AttachCapabilitiesEvent;
-import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.*;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.item.ItemExpireEvent;
 import net.minecraftforge.event.entity.living.*;
@@ -146,6 +144,11 @@ public class RuntimeEvents {
     @SubscribeEvent
     public static void onRightClickItem(PlayerInteractEvent.RightClickItem event) {
         ReboundEnchantment.onRightClickItem(event);
+    }
+
+    @SubscribeEvent
+    public static void addItemAttributes(ItemAttributeModifierEvent event) {
+        HauntedEnchantment.addMagicDamage(event);
     }
 
     @SubscribeEvent

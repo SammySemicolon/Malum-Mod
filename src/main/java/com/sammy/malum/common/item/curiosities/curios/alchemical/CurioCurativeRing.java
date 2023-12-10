@@ -19,10 +19,4 @@ public class CurioCurativeRing extends MalumCurioItem implements IMalumEventResp
     public void pickupSpirit(LivingEntity collector, ItemStack stack, double arcaneResonance) {
         collector.heal(collector.getMaxHealth() * 0.1f + (float) (arcaneResonance * 0.05f));
     }
-
-    @Override
-    public void addAttributeModifiers(Multimap<Attribute, AttributeModifier> map, SlotContext slotContext, ItemStack stack) {
-        addAttributeModifier(map, Attributes.MAX_HEALTH, uuid -> new AttributeModifier(uuid,
-                "Curio Max Health", 4f, AttributeModifier.Operation.ADDITION));
-    }
 }

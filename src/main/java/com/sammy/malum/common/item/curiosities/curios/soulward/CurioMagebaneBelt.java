@@ -26,11 +26,9 @@ public class CurioMagebaneBelt extends MalumCurioItem implements IMalumEventResp
     public void onSoulwardAbsorbDamage(LivingHurtEvent event, Player wardedPlayer, ItemStack stack, float soulwardLost, float damageAbsorbed) {
         DamageSource source = event.getSource();
         if (source.getEntity() != null) {
-            if (true) {
-                if (source.is(LodestoneDamageTypeTags.IS_MAGIC) && !source.is(DamageTypes.THORNS)) {
-                    SoulWardHandler handler = MalumPlayerDataCapability.getCapability(wardedPlayer).soulWardHandler;
-                    handler.soulWardProgress = 0;
-                }
+            if (source.is(LodestoneDamageTypeTags.IS_MAGIC) && !source.is(DamageTypes.THORNS)) {
+                SoulWardHandler handler = MalumPlayerDataCapability.getCapability(wardedPlayer).soulWardHandler;
+                handler.soulWardProgress = 0;
             }
         }
     }
