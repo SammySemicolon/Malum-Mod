@@ -1,10 +1,7 @@
 package com.sammy.malum.registry.common;
 
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.common.packets.ParticleEffectPacket;
-import com.sammy.malum.common.packets.SyncLivingCapabilityDataPacket;
-import com.sammy.malum.common.packets.SyncMalumPlayerCapabilityDataPacket;
-import com.sammy.malum.common.packets.VoidRejectionPacket;
+import com.sammy.malum.common.packets.*;
 import com.sammy.malum.common.packets.particle.SuccessfulSoulHarvestParticlePacket;
 import com.sammy.malum.common.packets.particle.curiosities.altar.AltarConsumeParticlePacket;
 import com.sammy.malum.common.packets.particle.curiosities.altar.AltarCraftParticlePacket;
@@ -35,6 +32,7 @@ public class PacketRegistry {
 
         //functionality
         VoidRejectionPacket.register(MALUM_CHANNEL, index++);
+        SyncStaffCooldownChangesPacket.register(MALUM_CHANNEL, index++);
 
         ParticleEffectPacket.register(MALUM_CHANNEL, index++);
 

@@ -1,6 +1,7 @@
 package com.sammy.malum.common.item.curiosities.weapons.staff;
 
 import com.google.common.collect.*;
+import com.sammy.malum.common.enchantment.*;
 import com.sammy.malum.common.entity.bolt.*;
 import com.sammy.malum.core.systems.item.*;
 import com.sammy.malum.registry.client.*;
@@ -55,6 +56,7 @@ public abstract class AbstractStaffItem extends ModCombatItem implements IMalumE
             Level level = player.level();
             spawnSweepParticles(player, ParticleRegistry.SCYTHE_CUT_ATTACK_PARTICLE.get());
             level.playSound(null, target.blockPosition(), SoundRegistry.STAFF_STRIKES.get(), attacker.getSoundSource(), 0.75f, Mth.nextFloat(level.random, 0.5F, 1F));
+            ReplenishingEnchantment.replenishStaffCooldown(attacker, stack);
         }
     }
 
