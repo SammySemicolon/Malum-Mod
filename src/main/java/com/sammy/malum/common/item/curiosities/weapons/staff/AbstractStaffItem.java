@@ -22,6 +22,7 @@ import net.minecraft.world.phys.*;
 import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.event.entity.living.*;
 import team.lodestar.lodestone.registry.common.*;
+import team.lodestar.lodestone.registry.common.tag.*;
 import team.lodestar.lodestone.systems.item.*;
 
 public abstract class AbstractStaffItem extends ModCombatItem implements IMalumEventResponderItem {
@@ -56,7 +57,9 @@ public abstract class AbstractStaffItem extends ModCombatItem implements IMalumE
             Level level = player.level();
             spawnSweepParticles(player, ParticleRegistry.SCYTHE_CUT_ATTACK_PARTICLE.get());
             level.playSound(null, target.blockPosition(), SoundRegistry.STAFF_STRIKES.get(), attacker.getSoundSource(), 0.75f, Mth.nextFloat(level.random, 0.5F, 1F));
-            ReplenishingEnchantment.replenishStaffCooldown(attacker, stack);
+            if (event.getSource().is(LodestoneDamageTypeTags.IS_MAGIC)) {
+                ReplenishingEnchantment.replenishStaffCooldown(attacker, stack);
+            }
         }
     }
 

@@ -441,8 +441,8 @@ public class MalumLang extends LanguageProvider {
 
         addEntryHeader("sacred_rite", "Sacred Rites", "Invigorating the soul");
         addRiteEntry("sacred_rite",
-                "A simple aura rite, while active it will slowly mend the wounds of nearby entities.\n Avoids hostiles.",
-                "Recovers one heart of damage every second.");
+                "A simple rite, while active it will slowly mend the wounds of nearby entities.\n Avoids hostiles.",
+                "Recovers one heart of damage every two seconds.");
         addRiteEntry("greater_sacred_rite",
                 "An advanced rite, while active nearby crops planted on soil are filled with vigor and will grow more quickly.",
                 "Periodically ages nearby crops. Coverage matches water coverage.");
@@ -457,11 +457,15 @@ public class MalumLang extends LanguageProvider {
                          - Chickens lay eggs more frequently""");
         addRiteEntry("corrupt_greater_sacred_rite",
                 "An advanced rite, while active... nearby animals are made... " + italic("vigorous") + ", as if I had fed them myself.",
-                "Affected animals are fed until there are more than twenty.");
+                "Affected animals are fed until there are more than twenty.\n - This limit applies separately for each type of animal within the range of the rite");
 
         addEntryHeader("wicked_rite", "Wicked Rites", "Maligning the soul");
-        addPage("wicked_rite", "Nearby hostile beings are slowly brought to within an inch of death.");
-        addPage("greater_wicked_rite", "By twisting the power of malice like a knife, nearby beings on the brink of death are dealt a fatal blow to the body and soul.");
+        addRiteEntry("wicked_rite",
+                "A simple rite, while active it will slowly bring Nearby hostile beings to within an inch of death.",
+                "Deals one heart of damage every two seconds.\n - Cannot kill");
+        addRiteEntry("greater_wicked_rite",
+                "An advanced rite, while active nearby beings on the brink of death are dealt a fatal blow to the body and soul.",
+                "Affected entities are dealt a fatal blow, dropping items and spirits on death\n - Avoids entities with more than two and a half hearts remaining");
 
         addEntryHeader("corrupt_wicked_rite", "Corrupting the Wicked Rites", "Endangering the soul");
         addPage("corrupt_wicked_rite", "Rather than harm, this rite enhances nearby hostile beings, granting protection, force, and speed. Rather useless, but might have niche applications.");
