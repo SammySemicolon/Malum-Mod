@@ -58,7 +58,7 @@ public class AuricFlameStaffItem extends AbstractStaffItem {
 
     @Override
     public int getCooldownDuration(Level level, LivingEntity livingEntity) {
-        return 80;
+        return 160;
     }
 
     @Override

@@ -5,6 +5,7 @@ import com.sammy.malum.common.entity.bolt.*;
 import com.sammy.malum.core.systems.item.*;
 import com.sammy.malum.registry.client.*;
 import com.sammy.malum.registry.common.*;
+import com.sammy.malum.registry.common.item.*;
 import net.minecraft.core.particles.*;
 import net.minecraft.server.level.*;
 import net.minecraft.sounds.*;
@@ -51,8 +52,9 @@ public abstract class AbstractStaffItem extends ModCombatItem implements IMalumE
     @Override
     public void hurtEvent(LivingHurtEvent event, LivingEntity attacker, LivingEntity target, ItemStack stack) {
         if (attacker instanceof Player player && !(event.getSource().getDirectEntity() instanceof AbstractBoltProjectileEntity)) {
+            Level level = player.level();
             spawnSweepParticles(player, ParticleRegistry.SCYTHE_CUT_ATTACK_PARTICLE.get());
-            attacker.level().playSound(null, target.blockPosition(), SoundRegistry.STAFF_STRIKES.get(), attacker.getSoundSource(), 0.75f, Mth.nextFloat(attacker.level().random, 0.5F, 1F));
+            level.playSound(null, target.blockPosition(), SoundRegistry.STAFF_STRIKES.get(), attacker.getSoundSource(), 0.75f, Mth.nextFloat(level.random, 0.5F, 1F));
         }
     }
 

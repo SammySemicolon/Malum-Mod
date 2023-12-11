@@ -16,8 +16,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Tier;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.item.enchantment.*;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import team.lodestar.lodestone.helpers.CurioHelper;
 import team.lodestar.lodestone.registry.common.tag.*;
@@ -75,5 +74,13 @@ public class MalumScytheItem extends ModCombatItem implements IMalumEventRespond
             stack = scytheBoomerang.getItem();
         }
         return stack.getItem() instanceof MalumScytheItem ? stack : ItemStack.EMPTY;
+    }
+
+    @Override
+    public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
+        if (enchantment.equals(Enchantments.SWEEPING_EDGE)) {
+            return true;
+        }
+        return super.canApplyAtEnchantingTable(stack, enchantment);
     }
 }

@@ -1,9 +1,7 @@
 package com.sammy.malum.registry.common.item;
 
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.common.enchantment.HauntedEnchantment;
-import com.sammy.malum.common.enchantment.ReboundEnchantment;
-import com.sammy.malum.common.enchantment.SpiritPlunderEnchantment;
+import com.sammy.malum.common.enchantment.*;
 import com.sammy.malum.config.CommonConfig;
 import net.minecraft.world.item.TieredItem;
 import net.minecraft.world.item.enchantment.Enchantment;
@@ -24,5 +22,6 @@ public class EnchantmentRegistry {
     public static final RegistryObject<Enchantment> REBOUND = ENCHANTMENTS.register("rebound", ReboundEnchantment::new);
     public static final RegistryObject<Enchantment> HAUNTED = ENCHANTMENTS.register("haunted", HauntedEnchantment::new);
     public static final RegistryObject<Enchantment> SPIRIT_PLUNDER = ENCHANTMENTS.register("spirit_plunder", SpiritPlunderEnchantment::new);
+    public static final RegistryObject<Enchantment> REPLENISHING = ENCHANTMENTS.register("replenishing", ReplenishingEnchantment::new);
 
 }

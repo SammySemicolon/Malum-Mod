@@ -48,7 +48,7 @@ public class HexStaffItem extends AbstractStaffItem {
 
     @Override
     public int getCooldownDuration(Level level, LivingEntity livingEntity) {
-        return 40;
+        return 80;
     }
 
     @Override
