@@ -16,10 +16,15 @@ import net.minecraftforge.event.entity.living.*;
 import team.lodestar.lodestone.registry.common.tag.*;
 import top.theillusivec4.curios.api.*;
 
-public class CurioLimitlessBelt extends MalumCurioItem implements IMalumEventResponderItem {
+public class CurioLimitlessBelt extends MalumCurioItem implements IMalumEventResponderItem, IVoidItem {
 
     public CurioLimitlessBelt(Properties builder) {
         super(builder, MalumTrinketType.VOID);
+    }
+
+    @Override
+    public boolean isFoil(ItemStack pStack) {
+        return true;
     }
 
     @Override
