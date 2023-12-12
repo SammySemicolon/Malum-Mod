@@ -18,6 +18,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.*;
 import net.minecraftforge.network.PacketDistributor;
 import team.lodestar.lodestone.helpers.block.BlockEntityHelper;
 import team.lodestar.lodestone.helpers.block.BlockStateHelper;
@@ -60,10 +61,11 @@ public class TotemBaseBlockEntity extends LodestoneBlockEntity {
                 progress++;
                 if (progress >= rite.getRiteTickRate(corrupted)) {
                     if (direction == null) {
-                        BlockPos polePos = worldPosition.above(height);
-                        if (level.getBlockEntity(polePos) instanceof TotemPoleBlockEntity pole) {
-                            direction = pole.direction;
+                        final BlockState state = level.getBlockState(worldPosition.above(height));
+                        if (state.getBlock() instanceof TotemPoleBlock) {
+                            direction = state.getValue(BlockStateProperties.HORIZONTAL_FACING);
                         }
+                        return;
                     }
                     rite.executeRite(this);
                     progress = 0;
