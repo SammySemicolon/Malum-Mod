@@ -25,10 +25,10 @@ import java.awt.*;
 
 public class AuricFlameStaffItem extends AbstractStaffItem {
 
-    public static final Color AURIC_YELLOW = new Color(243, 218, 75);
-    public static final Color AURIC_BLUE = new Color(75, 243, 218);
-    public static final ColorParticleData AURIC_COLOR_DATA = ColorParticleData.create(AURIC_YELLOW, AURIC_BLUE).setEasing(Easing.SINE_IN_OUT).setCoefficient(1.25f).build();
-    public static final ColorParticleData REVERSE_AURIC_COLOR_DATA = ColorParticleData.create(AURIC_BLUE, AURIC_YELLOW).setEasing(Easing.SINE_IN_OUT).setCoefficient(1.25f).build();
+    public static final Color AURIC_YELLOW = new Color(239, 215, 75);
+    public static final Color AURIC_BLUE = new Color(236, 54, 163);
+    public static final ColorParticleData AURIC_COLOR_DATA = ColorParticleData.create(AURIC_YELLOW, AURIC_BLUE).setEasing(Easing.SINE_IN_OUT).setCoefficient(0.9f).build();
+    public static final ColorParticleData REVERSE_AURIC_COLOR_DATA = ColorParticleData.create(AURIC_BLUE, AURIC_YELLOW).setEasing(Easing.SINE_IN_OUT).setCoefficient(0.9f).build();
 
     public AuricFlameStaffItem(Tier tier, float magicDamage, Properties builderIn) {
         super(tier, 20, magicDamage, builderIn);
