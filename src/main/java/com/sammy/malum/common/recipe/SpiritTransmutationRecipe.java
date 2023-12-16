@@ -51,12 +51,21 @@ public class SpiritTransmutationRecipe extends ILodestoneRecipe {
         return id;
     }
 
+
+    public boolean doesInputMatch(ItemStack input) {
+        return ingredient.test(input);
+    }
+
+    public boolean doesOutputMatch(ItemStack output) {
+        return output.getItem().equals(this.output.getItem());
+    }
+
     public static SpiritTransmutationRecipe getRecipe(Level level, Item item) {
         return getRecipe(level, item.getDefaultInstance());
     }
 
     public static SpiritTransmutationRecipe getRecipe(Level level, ItemStack item) {
-        return getRecipe(level, r -> r.ingredient.test(item));
+        return getRecipe(level, r -> r.doesInputMatch(item));
     }
 
     public static SpiritTransmutationRecipe getRecipe(Level level, Predicate<SpiritTransmutationRecipe> predicate) {

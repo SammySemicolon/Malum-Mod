@@ -540,11 +540,10 @@ public class ItemRegistry {
     public static final RegistryObject<Item> ANOMALOUS_DESIGN = register("anomalous_design", VOID_PROPERTIES(), Item::new);
     public static final RegistryObject<Item> COMPLETE_DESIGN = register("complete_design", VOID_PROPERTIES(), SimpleFoiledItem::new);
     public static final RegistryObject<Item> FUSED_CONSCIOUSNESS = register("fused_consciousness", VOID_PROPERTIES(), (p) -> new FusedConsciousnessItem(p.rarity(RARE)));
-    public static final RegistryObject<Item> COMPLEX_NEBULOUS = register("complex_nebulous", VOID_PROPERTIES(), SimpleFoiledItem::new);
-    public static final RegistryObject<Item> AURIC_EMBERS = register("auric_embers", VOID_PROPERTIES(), SimpleFoiledItem::new);
+    public static final RegistryObject<Item> AURIC_EMBERS = register("auric_embers", VOID_PROPERTIES(), Item::new);
 
-    public static final RegistryObject<Item> SOUL_STAINED_STEEL_STAFF = register("soul_stained_steel_staff", VOID_GEAR_PROPERTIES(), (p) -> new HexStaffItem(SOUL_STAINED_STEEL, 4, p));
-    public static final RegistryObject<Item> STAFF_OF_THE_AURIC_FLAME = register("staff_of_the_auric_flame", VOID_GEAR_PROPERTIES(), (p) -> new AuricFlameStaffItem(SOUL_STAINED_STEEL, 6, p));
+    public static final RegistryObject<Item> SOUL_STAINED_STEEL_STAFF = register("soul_stained_steel_staff", VOID_GEAR_PROPERTIES(), (p) -> new HexStaffItem(HEX_STAFF, 4, p));
+    public static final RegistryObject<Item> STAFF_OF_THE_AURIC_FLAME = register("staff_of_the_auric_flame", VOID_GEAR_PROPERTIES(), (p) -> new AuricFlameStaffItem(AURIC_STAFF, 6, p));
 
     public static final RegistryObject<Item> BELT_OF_THE_LIMITLESS = register("belt_of_the_limitless", VOID_GEAR_PROPERTIES(), CurioLimitlessBelt::new);
 

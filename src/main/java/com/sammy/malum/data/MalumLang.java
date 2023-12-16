@@ -139,6 +139,7 @@ public class MalumLang extends LanguageProvider {
         addRite(SpiritRiteRegistry.ARCANE_RITE, "Undirected Rite", "Unchained Rite");
 
         addRite(SpiritRiteRegistry.ELDRITCH_SACRED_RITE, "Rite of Growth", "Rite of Lust");
+        addRite(SpiritRiteRegistry.ELDRITCH_WICKED_RITE, "Rite of Exorcism", "Rite of Culling");
 
         addSimpleEntryHeader("introduction", "Introduction", "On the nature of souls");
         addPages("introduction",
@@ -431,13 +432,16 @@ public class MalumLang extends LanguageProvider {
         addPages("arcane_rite.description",
                 "Raw arcana provides the basis for all rites. Without power, nothing would be accomplished. This naturally makes one wonder what effect raw arcana would have as the focus of a rite. The answer is a complex and dangerous one.",
                 "It requires far more to focus than other rites, taking the entire five runes to activate. It's as though I am pushing on some threshold, and need to break through. And in breaking through... momentum is conserved.",
-                "And once altered, the wood's color changes, along with its magical disposition. What I dub Soulwood bears scars from the violent method of its creation. Those scars warp magic, altering its fundamental nature. Any spirit rite performed with a Soulwood totem will produce a vastly different effect.",
-                "And now that I can obtain Soulwood, I can make totem bases out of it directly as well, bypassing the need to transmute Runewood totems.");
+                "Once complete, the rite brings about erratic change to the totem; what I dub Soulwood bears scars from the violent method of its creation. Those scars warp magic, altering its fundamental nature. Any spirit rite performed with a Soulwood totem will produce a vastly different effect.",
+                "A simple application of the unchained rite allows me to convert nearly anything made of Runewood to it's weird and messed up sibling, Soulwood. Simply placing any runewood block atop blighted gunk within the range of the active rite will cause it to be converted.");
+        addHeadline("arcane_rite.soulwood", "Soulwood Transmutation");
 
-        addPage("arcane_rite",
-                "The rite - if you could call something so chaotic that - corrupts and burns through the totem, altering its very base nature, and transmuting the world around it into some indeterminate blighted powder.");
-        addPage("corrupt_arcane_rite",
-                "Now already scarred, the power bleeds from the totem, corrupting and warping the nearby area. Any nearby block placed atop that blighted substance will be altered, given a new form.");
+        addRiteEntry("arcane_rite",
+                "The rite - if you could call something so chaotic that - corrupts and burns through the totem, altering its very base nature, and transmuting the world around it into some indeterminate blighted substance.",
+                "Converts the totem structure into one made up of Soulwood and alters the nearby terrain into blighted substance.\n Soulwood totems produce different rite effects.");
+        addRiteEntry("corrupt_arcane_rite",
+                "Now already scarred, the power bleeds from the soulwood totem, corrupting and warping the nearby area. Any nearby block placed atop that blighted substance will be altered.",
+                "Transmutes nearby blocks placed atop blighted gunk.");
 
         addEntryHeader("sacred_rite", "Sacred Rites", "Invigorating the soul");
         addRiteEntry("sacred_rite",
@@ -462,7 +466,7 @@ public class MalumLang extends LanguageProvider {
         addEntryHeader("wicked_rite", "Wicked Rites", "Maligning the soul");
         addRiteEntry("wicked_rite",
                 "A simple rite, while active it will slowly bring Nearby hostile beings to within an inch of death.",
-                "Deals one heart of damage every two seconds.\n - Cannot kill");
+                "Deals one heart of damage every two seconds.\n Cannot kill");
         addRiteEntry("greater_wicked_rite",
                 "An advanced rite, while active nearby beings on the brink of death are dealt a fatal blow to the body and soul.",
                 "Affected entities are dealt a fatal blow, dropping items and spirits on death\n - Avoids entities with more than two and a half hearts remaining");

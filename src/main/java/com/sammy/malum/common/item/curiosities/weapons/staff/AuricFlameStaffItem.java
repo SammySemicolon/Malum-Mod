@@ -2,8 +2,6 @@ package com.sammy.malum.common.item.curiosities.weapons.staff;
 
 import com.sammy.malum.common.entity.bolt.*;
 import com.sammy.malum.registry.client.*;
-import com.sammy.malum.registry.common.*;
-import net.minecraft.sounds.*;
 import net.minecraft.util.*;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.*;
@@ -14,7 +12,6 @@ import net.minecraftforge.api.distmarker.*;
 import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.registry.common.*;
 import team.lodestar.lodestone.systems.easing.*;
-import team.lodestar.lodestone.systems.particle.*;
 import team.lodestar.lodestone.systems.particle.builder.*;
 import team.lodestar.lodestone.systems.particle.data.*;
 import team.lodestar.lodestone.systems.particle.data.color.*;
@@ -26,12 +23,17 @@ import java.awt.*;
 public class AuricFlameStaffItem extends AbstractStaffItem {
 
     public static final Color AURIC_YELLOW = new Color(239, 215, 75);
-    public static final Color AURIC_BLUE = new Color(236, 54, 163);
-    public static final ColorParticleData AURIC_COLOR_DATA = ColorParticleData.create(AURIC_YELLOW, AURIC_BLUE).setEasing(Easing.SINE_IN_OUT).setCoefficient(0.9f).build();
-    public static final ColorParticleData REVERSE_AURIC_COLOR_DATA = ColorParticleData.create(AURIC_BLUE, AURIC_YELLOW).setEasing(Easing.SINE_IN_OUT).setCoefficient(0.9f).build();
+    public static final Color AURIC_PURPLE = new Color(236, 54, 163);
+    public static final ColorParticleData AURIC_COLOR_DATA = ColorParticleData.create(AURIC_YELLOW, AURIC_PURPLE).setEasing(Easing.SINE_IN_OUT).setCoefficient(0.9f).build();
+    public static final ColorParticleData REVERSE_AURIC_COLOR_DATA = ColorParticleData.create(AURIC_PURPLE, AURIC_YELLOW).setEasing(Easing.SINE_IN_OUT).setCoefficient(0.9f).build();
 
     public AuricFlameStaffItem(Tier tier, float magicDamage, Properties builderIn) {
         super(tier, 20, magicDamage, builderIn);
+    }
+
+    @Override
+    public boolean isValidRepairItem(ItemStack pToRepair, ItemStack pRepair) {
+        return super.isValidRepairItem(pToRepair, pRepair);
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -43,7 +45,7 @@ public class AuricFlameStaffItem extends AbstractStaffItem {
                 .setTransparencyData(GenericParticleData.create(0.5f * pct, 0f).setEasing(Easing.SINE_IN_OUT, Easing.SINE_IN).build())
                 .setScaleData(GenericParticleData.create(0.35f * pct, 0).setEasing(Easing.SINE_IN_OUT).build())
                 .setSpinData(spinData)
-                .setColorData(pLevel.getGameTime() % 2L == 0 ? AURIC_COLOR_DATA : REVERSE_AURIC_COLOR_DATA)
+                .setColorData(AURIC_COLOR_DATA)
                 .setLifetime(5)
                 .setDirection(pLivingEntity.getLookAngle().normalize())
                 .setMotion(pLivingEntity.getLookAngle().normalize().scale(0.05f))

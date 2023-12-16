@@ -35,10 +35,10 @@ public class MalumScytheItem extends ModCombatItem implements IMalumEventRespond
         if (attacker instanceof Player player) {
             SoundEvent sound;
             if (canSweep) {
-                spawnSweepParticles(player, ParticleRegistry.SCYTHE_SWEEP_ATTACK_PARTICLE.get());
+                spawnSweepParticles(player, ParticleRegistry.SCYTHE_SWEEP_PARTICLE.get());
                 sound = SoundEvents.PLAYER_ATTACK_SWEEP;
             } else {
-                spawnSweepParticles(player, ParticleRegistry.SCYTHE_CUT_ATTACK_PARTICLE.get());
+                spawnSweepParticles(player, ParticleRegistry.SCYTHE_CUT_PARTICLE.get());
                 sound = SoundRegistry.SCYTHE_CUT.get();
             }
             attacker.level().playSound(null, target.getX(), target.getY(), target.getZ(), sound, attacker.getSoundSource(), 1, 1);

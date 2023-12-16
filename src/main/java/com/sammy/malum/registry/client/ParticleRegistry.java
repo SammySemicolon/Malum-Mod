@@ -33,8 +33,9 @@ public class ParticleRegistry {
     public static RegistryObject<LodestoneDirectionalParticleType> HEXAGON = PARTICLES.register("hexagon", LodestoneDirectionalParticleType::new);
     public static RegistryObject<LodestoneDirectionalParticleType> SAW = PARTICLES.register("saw", LodestoneDirectionalParticleType::new);
 
-    public static RegistryObject<SimpleParticleType> SCYTHE_CUT_ATTACK_PARTICLE = PARTICLES.register("scythe_cut_attack", () -> new SimpleParticleType(true));
-    public static RegistryObject<SimpleParticleType> SCYTHE_SWEEP_ATTACK_PARTICLE = PARTICLES.register("scythe_sweep_attack", () -> new SimpleParticleType(true));
+    public static RegistryObject<SimpleParticleType> SCYTHE_CUT_PARTICLE = PARTICLES.register("scythe_cut", () -> new SimpleParticleType(true));
+    public static RegistryObject<SimpleParticleType> SCYTHE_SWEEP_PARTICLE = PARTICLES.register("scythe_sweep", () -> new SimpleParticleType(true));
+    public static RegistryObject<SimpleParticleType> STAFF_SLAM_PARTICLE = PARTICLES.register("staff_slam", () -> new SimpleParticleType(true));
 
     public static void registerParticleFactory(RegisterParticleProvidersEvent event) {
         Minecraft.getInstance().particleEngine.register(SPIRIT_FLAME_PARTICLE.get(), SpiritFlameParticleType.Factory::new);
@@ -52,7 +53,8 @@ public class ParticleRegistry {
         Minecraft.getInstance().particleEngine.register(HEXAGON.get(), LodestoneDirectionalParticleType.Factory::new);
         Minecraft.getInstance().particleEngine.register(SAW.get(), LodestoneDirectionalParticleType.Factory::new);
 
-        Minecraft.getInstance().particleEngine.register(SCYTHE_CUT_ATTACK_PARTICLE.get(), ScytheAttackParticle.Factory::new);
-        Minecraft.getInstance().particleEngine.register(SCYTHE_SWEEP_ATTACK_PARTICLE.get(), ScytheAttackParticle.Factory::new);
+        Minecraft.getInstance().particleEngine.register(SCYTHE_CUT_PARTICLE.get(), ScytheAttackParticle.Factory::new);
+        Minecraft.getInstance().particleEngine.register(SCYTHE_SWEEP_PARTICLE.get(), ScytheAttackParticle.Factory::new);
+        Minecraft.getInstance().particleEngine.register(STAFF_SLAM_PARTICLE.get(), ScytheAttackParticle.Factory::new);
     }
 }

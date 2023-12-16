@@ -643,6 +643,7 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
                 .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.ARCANE_RITE))
                 .addPage(new TextPage("arcane_rite.description.3"))
                 .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.ARCANE_RITE, "corrupt_arcane_rite"))
+                .addPage(SpiritTransmutationRecipePage.fromInput("arcane_rite.soulwood", RUNEWOOD_SAPLING.get()))
                 .addPage(new TextPage("arcane_rite.description.4"))
                 .addPage(SpiritInfusionPage.fromOutput(SOULWOOD_TOTEM_BASE.get()))
         );
@@ -669,9 +670,9 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
                 "transmutation", SOUL_SAND, 0, 13).setSoulwood()
                 .addPage(new HeadlineTextPage("transmutation", "transmutation.intro.1"))
                 .addPage(new TextPage("transmutation.intro.2"))
-                .addPage(new SpiritTransmutationPage("transmutation.stone", STONE))
-                .addPage(new SpiritTransmutationPage("transmutation.deepslate", DEEPSLATE))
-                .addPage(new SpiritTransmutationPage("transmutation.smooth_basalt", SMOOTH_BASALT))
+                .addPage(new SpiritTransmutationRecipeTreePage("transmutation.stone", STONE))
+                .addPage(new SpiritTransmutationRecipeTreePage("transmutation.deepslate", DEEPSLATE))
+                .addPage(new SpiritTransmutationRecipeTreePage("transmutation.smooth_basalt", SMOOTH_BASALT))
         );
 
 //        ENTRIES.add(new BookEntry(

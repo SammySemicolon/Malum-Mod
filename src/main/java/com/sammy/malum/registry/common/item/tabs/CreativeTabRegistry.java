@@ -21,6 +21,12 @@ public class CreativeTabRegistry {
                     .icon(() -> ItemRegistry.SPIRIT_ALTAR.get().getDefaultInstance()).build()
     );
 
+    public static final RegistryObject<CreativeModeTab> VOID = CREATIVE_MODE_TABS.register(MalumMod.MALUM + ".void",
+            () -> CreativeModeTab.builder()
+                    .title(Component.translatable("itemGroup." + MalumMod.MALUM + "_void_chronicles"))
+                    .icon(() -> ItemRegistry.STRANGE_NUCLEUS.get().getDefaultInstance()).build()
+    );
+
     public static final RegistryObject<CreativeModeTab> BUILDING = CREATIVE_MODE_TABS.register(MalumMod.MALUM + ".building",
             () -> CreativeModeTab.builder()
                     .title(Component.translatable("itemGroup." + MalumMod.MALUM + "_arcane_construct"))
@@ -37,12 +43,6 @@ public class CreativeTabRegistry {
             () -> CreativeModeTab.builder()
                     .title(Component.translatable("itemGroup." + MalumMod.MALUM + "_metallurgic_magics"))
                     .icon(() -> ItemRegistry.ALCHEMICAL_IMPETUS.get().getDefaultInstance()).build()
-    );
-
-    public static final RegistryObject<CreativeModeTab> VOID = CREATIVE_MODE_TABS.register(MalumMod.MALUM + ".void",
-            () -> CreativeModeTab.builder()
-                    .title(Component.translatable("itemGroup." + MalumMod.MALUM + "_void_chronicles"))
-                    .icon(() -> ItemRegistry.STRANGE_NUCLEUS.get().getDefaultInstance()).build()
     );
 
     public static final RegistryObject<CreativeModeTab> COSMETIC = CREATIVE_MODE_TABS.register(MalumMod.MALUM + ".cosmetic",

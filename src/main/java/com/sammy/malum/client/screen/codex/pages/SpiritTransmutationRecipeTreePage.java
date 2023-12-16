@@ -1,6 +1,5 @@
 package com.sammy.malum.client.screen.codex.pages;
 
-import com.mojang.blaze3d.vertex.*;
 import com.sammy.malum.*;
 import com.sammy.malum.client.screen.codex.*;
 import com.sammy.malum.common.recipe.*;
@@ -28,14 +27,14 @@ import java.util.*;
 
 import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.*;
 
-public class SpiritTransmutationPage extends BookPage {
+public class SpiritTransmutationRecipeTreePage extends BookPage {
 
     private static final ScreenParticleHolder TRANSMUTATION_PARTICLES = new ScreenParticleHolder();
 
     private final String headlineTranslationKey;
     private final List<WrappedIngredient> itemTree = new ArrayList<>();
 
-    public SpiritTransmutationPage(String headlineTranslationKey, Item start) {
+    public SpiritTransmutationRecipeTreePage(String headlineTranslationKey, Item start) {
         super(MalumMod.malumPath("textures/gui/book/pages/spirit_transmutation_page.png"));
         this.headlineTranslationKey = headlineTranslationKey;
         if (DatagenModLoader.isRunningDataGen()) {

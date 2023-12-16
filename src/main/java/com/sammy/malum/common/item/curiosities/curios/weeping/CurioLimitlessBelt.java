@@ -1,4 +1,4 @@
-package com.sammy.malum.common.item.curiosities.curios.soulward;
+package com.sammy.malum.common.item.curiosities.curios.weeping;
 
 import com.google.common.collect.*;
 import com.sammy.malum.common.capability.*;
@@ -20,11 +20,6 @@ public class CurioLimitlessBelt extends MalumCurioItem implements IMalumEventRes
 
     public CurioLimitlessBelt(Properties builder) {
         super(builder, MalumTrinketType.VOID);
-    }
-
-    @Override
-    public boolean isFoil(ItemStack pStack) {
-        return true;
     }
 
     @Override

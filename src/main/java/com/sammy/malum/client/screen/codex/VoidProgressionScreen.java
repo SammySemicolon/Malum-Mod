@@ -171,7 +171,7 @@ public class VoidProgressionScreen extends AbstractProgressionCodexScreen {
                 .setObjectSupplier(ImportantEntryObject::new)
         );
         VOID_ENTRIES.add(new BookEntry(
-                "void.belt_of_the_limitless", BARRIER, -2, 8)
+                "void.belt_of_the_limitless", BELT_OF_THE_LIMITLESS.get(), -2, 8)
         );
         VOID_ENTRIES.add(new BookEntry(
                 "void.something5", BARRIER, 2, 8)
