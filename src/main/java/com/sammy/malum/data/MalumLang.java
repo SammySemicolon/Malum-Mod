@@ -140,6 +140,10 @@ public class MalumLang extends LanguageProvider {
 
         addRite(SpiritRiteRegistry.ELDRITCH_SACRED_RITE, "Rite of Growth", "Rite of Lust");
         addRite(SpiritRiteRegistry.ELDRITCH_WICKED_RITE, "Rite of Exorcism", "Rite of Culling");
+        addRite(SpiritRiteRegistry.ELDRITCH_EARTHEN_RITE, "Rite of ", "Rite of ");
+        addRite(SpiritRiteRegistry.ELDRITCH_INFERNAL_RITE, "Rite of ", "Rite of ");
+        addRite(SpiritRiteRegistry.ELDRITCH_AERIAL_RITE, "Rite of Gravity", "Rite of Unwinding");
+        addRite(SpiritRiteRegistry.ELDRITCH_AQUEOUS_RITE, "Rite of ", "Rite of ");
 
         addSimpleEntryHeader("introduction", "Introduction", "On the nature of souls");
         addPages("introduction",
@@ -438,7 +442,7 @@ public class MalumLang extends LanguageProvider {
 
         addRiteEntry("arcane_rite",
                 "The rite - if you could call something so chaotic that - corrupts and burns through the totem, altering its very base nature, and transmuting the world around it into some indeterminate blighted substance.",
-                "Converts the totem structure into one made up of Soulwood and alters the nearby terrain into blighted substance.\n Soulwood totems produce different rite effects.");
+                "Converts the totem structure into one made up of Soulwood and alters the nearby terrain into blighted substance.\n- Soulwood totems produce different rite effects.");
         addRiteEntry("corrupt_arcane_rite",
                 "Now already scarred, the power bleeds from the soulwood totem, corrupting and warping the nearby area. Any nearby block placed atop that blighted substance will be altered.",
                 "Transmutes nearby blocks placed atop blighted gunk.");
@@ -461,27 +465,38 @@ public class MalumLang extends LanguageProvider {
                          - Chickens lay eggs more frequently""");
         addRiteEntry("corrupt_greater_sacred_rite",
                 "An advanced rite, while active... nearby animals are made... " + italic("vigorous") + ", as if I had fed them myself.",
-                "Affected animals are fed until there are more than twenty.\n - This limit applies separately for each type of animal within the range of the rite");
+                "Affected animals are fed until there are more than twenty.\n - This limit applies separately for each type of animal within the range of the rite.");
 
         addEntryHeader("wicked_rite", "Wicked Rites", "Maligning the soul");
         addRiteEntry("wicked_rite",
-                "A simple rite, while active it will slowly bring Nearby hostile beings to within an inch of death.",
-                "Deals one heart of damage every two seconds.\n Cannot kill");
+                "A simple rite, while active it will slowly bring nearby hostile beings to within an inch of death.",
+                "Deals one heart of non-lethal damage every two seconds.");
         addRiteEntry("greater_wicked_rite",
                 "An advanced rite, while active nearby beings on the brink of death are dealt a fatal blow to the body and soul.",
-                "Affected entities are dealt a fatal blow, dropping items and spirits on death\n - Avoids entities with more than two and a half hearts remaining");
+                "Affected entities are dealt a fatal blow, dropping items and spirits on death.\n - Avoids entities with more than two and a half hearts remaining.");
 
         addEntryHeader("corrupt_wicked_rite", "Corrupting the Wicked Rites", "Endangering the soul");
-        addPage("corrupt_wicked_rite", "Rather than harm, this rite enhances nearby hostile beings, granting protection, force, and speed. Rather useless, but might have niche applications.");
-        addPage("corrupt_greater_wicked_rite", "This rite is rather cruel, but necessary. It culls my herds, completely annihilating animals who would otherwise overcrowd.");
+        addRiteEntry("corrupt_wicked_rite",
+                "Rather than harm, this rite enhances nearby hostile beings, granting protection, force, and speed. Rather useless, but might have niche applications.",
+                "Grants all nearby hostiles resistance, strength, and speed.");
+        addRiteEntry("corrupt_greater_wicked_rite",
+                "An advanced rite, while active it will cull herds of nearby overcrowded animals.",
+                "While there are more than twenty animals within the range of the rite, the excess is removed.\n - This limit applies separately for each type of animal within the range of the rite.");
 
         addEntryHeader("aerial_rite", "Aerial Rites", "Uplifting the soul");
-        addPage("aerial_rite", "A simple aura rite, nearby friendly beings will find their movements sped up.");
-        addPage("greater_aerial_rite", "By twisting the power of the air, blocks before the totem will be made to fall as though they were sand. Nothing Silk Touch cannot grab will be affected, though.");
+        addRiteEntry("aerial_rite", "A simple aura rite, while active nearby friendly beings will find their movements sped up.",
+                "Applies the Zephyr's Courage effect, increasing movement speed by two fifths.");
+        addRiteEntry("greater_aerial_rite",
+                "An advanced rite, by twisting the power of the air, blocks before the totem will be made to fall as though they were sand. Nothing Silk Touch cannot grab will be affected, though.",
+                "");
 
         addEntryHeader("corrupt_aerial_rite", "Corrupting the Aerial Rites", "Scattering the soul");
-        addPage("corrupt_aerial_rite", "A simple aura rite, nearby friendly beings will have their connection to the earth disrupted, lowering their gravity.");
-        addPage("corrupt_greater_aerial_rite", "Slowly eases the stress of time on the mind, offsetting the effects of insomnia for those around it.");
+        addRiteEntry("corrupt_aerial_rite",
+                "A simple aura rite, while active nearby friendly beings will have their connection to the earth disrupted, lowering their gravity and increasing jump height.",
+                "Applies the Aether's Charm effect, decreasing gravity by three fifths while also providing a substantial benefit to jump height.");
+        addRiteEntry("corrupt_greater_aerial_rite",
+                "An advanced rite, while active it will slowly ease the stress of time on the mind, offsetting the effects of insomnia for those around it.",
+                "Passively reduces the insomnia value of nearby players.\n - Assuming phantoms are just barely able to spawn, it will take a single totem two and two fifths of a minute to fully cleanse insomnia.");
 
         addEntryHeader("earthen_rite", "Earthen Rites", "Grounding the soul");
         addPage("earthen_rite", "A simple aura rite, nearby friendly beings will find their bodies are tougher and more resistant to damage.");

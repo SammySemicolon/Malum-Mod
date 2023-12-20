@@ -24,6 +24,9 @@ public class SparkParticleEffects {
         return spiritMotionSparks(level, pos, spiritType.createMainColorData(1.25f).build(), spiritType.createBloomColorData().build());
     }
 
+    public static ParticleEffectSpawner<SparkParticleBuilder> spiritMotionSparks(Level level, Vec3 pos, ColorParticleData colorData) {
+        return spiritMotionSparks(level, pos, colorData, colorData);
+    }
     public static ParticleEffectSpawner<SparkParticleBuilder> spiritMotionSparks(Level level, Vec3 pos, ColorParticleData colorData, ColorParticleData bloomColorData) {
         RandomSource rand = level.getRandom();
         final SpinParticleData spinData = SpinParticleData.createRandomDirection(rand, nextFloat(rand, 0.05f, 0.1f)).randomSpinOffset(rand).build();

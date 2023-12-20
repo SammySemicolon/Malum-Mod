@@ -1,4 +1,4 @@
-package com.sammy.malum.client.renderer.entity;
+package com.sammy.malum.client.renderer.entity.bolt;
 
 import com.sammy.malum.common.entity.bolt.*;
 import com.sammy.malum.common.item.curiosities.weapons.staff.*;

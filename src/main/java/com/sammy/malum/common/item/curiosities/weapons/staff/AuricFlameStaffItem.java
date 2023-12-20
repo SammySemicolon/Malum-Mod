@@ -31,11 +31,6 @@ public class AuricFlameStaffItem extends AbstractStaffItem {
         super(tier, 20, magicDamage, builderIn);
     }
 
-    @Override
-    public boolean isValidRepairItem(ItemStack pToRepair, ItemStack pRepair) {
-        return super.isValidRepairItem(pToRepair, pRepair);
-    }
-
     @OnlyIn(Dist.CLIENT)
     @Override
     public void spawnChargeParticles(Level pLevel, LivingEntity pLivingEntity, Vec3 pos, ItemStack pStack, float pct) {
@@ -51,7 +46,6 @@ public class AuricFlameStaffItem extends AbstractStaffItem {
                 .setMotion(pLivingEntity.getLookAngle().normalize().scale(0.05f))
                 .enableNoClip()
                 .enableForcedSpawn()
-                .disableCull()
                 .setLifeDelay(2)
                 .spawn(pLevel, pos.x, pos.y, pos.z)
                 .setRenderType(LodestoneWorldParticleRenderType.LUMITRANSPARENT)

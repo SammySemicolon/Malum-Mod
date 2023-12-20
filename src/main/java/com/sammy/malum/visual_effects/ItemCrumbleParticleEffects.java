@@ -32,11 +32,8 @@ public class ItemCrumbleParticleEffects {
     }
 
     public static ParticleEffectSpawner<ItemCrumbParticleBuilder> spawnGlowingItemCrumbs(Level level, Vec3 pos, ItemStack stack, MalumSpiritType spiritType) {
-
         var rand = level.getRandom();
-
         final SpinParticleData spinData = SpinParticleData.createRandomDirection(rand, 0, nextFloat(rand, 0.5f, 0.75f), 0).setCoefficient(0.75f).randomSpinOffset(rand).build();
-
         final Consumer<LodestoneWorldParticleActor> slowDown = p -> p.setParticleMotion(p.getParticleSpeed().scale(0.925f));
         int lifetime = RandomHelper.randomBetween(rand, 30, 40);
         final ItemCrumbParticleBuilder worldParticleBuilder = makeCrumbles(rand, stack, spinData, lifetime, slowDown);

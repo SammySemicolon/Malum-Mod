@@ -64,7 +64,6 @@ public class AuricBoltImpactParticleEffect extends ParticleEffectType {
                     var lightSpecs = spiritLightSpecs(level, spawnPosition, colorParticleData, bloomParticleData);
                     lightSpecs.getBuilder()
                             .multiplyLifetime(lifetimeMultiplier)
-                            .disableCull()
                             .enableForcedSpawn()
                             .modifyData(WorldParticleBuilder::getScaleData, d -> d.multiplyValue(1.25f))
                             .setMotion(direction);
@@ -77,7 +76,6 @@ public class AuricBoltImpactParticleEffect extends ParticleEffectType {
                     var sparks = SparkParticleEffects.spiritMotionSparks(level, spawnPosition, colorParticleData, bloomParticleData);
                     sparks.getBuilder()
                             .multiplyLifetime(lifetimeMultiplier)
-                            .disableCull()
                             .enableForcedSpawn()
                             .setMotion(direction.scale(1.5f))
                             .modifyData(SparkParticleBuilder::getScaleData, d -> d.multiplyValue(1.25f))

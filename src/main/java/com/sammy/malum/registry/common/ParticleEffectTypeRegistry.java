@@ -7,6 +7,7 @@ import com.sammy.malum.visual_effects.networked.blight.BlightingMistParticleEffe
 import com.sammy.malum.visual_effects.networked.generic.DrippingSmokeParticleEffect;
 import com.sammy.malum.visual_effects.networked.generic.HexingSmokeParticleEffect;
 import com.sammy.malum.visual_effects.networked.generic.RisingSparklesParticleEffect;
+import com.sammy.malum.visual_effects.networked.nitrate.*;
 import com.sammy.malum.visual_effects.networked.staff.*;
 import com.sammy.malum.visual_effects.networked.weeping_well.WeepingWellRadianceParticleEffect;
 import com.sammy.malum.visual_effects.networked.weeping_well.WeepingWellReactionParticleEffect;
@@ -35,6 +36,9 @@ public class ParticleEffectTypeRegistry {
     //Wand
     public static final ParticleEffectType HEX_BOLT_IMPACT = new HexBoltImpactParticleEffect("hex_bolt_impact");
     public static final ParticleEffectType AURIC_BOLT_IMPACT = new AuricBoltImpactParticleEffect("auric_bolt_impact");
+
+    //Nitrate
+    public static final ParticleEffectType ETHERIC_NITRATE_IMPACT = new EthericNitrateImpactParticleEffect("etheric_nitrate_impact");
 
     //Void vfx
     public static final ParticleEffectType WEEPING_WELL_REACTS = new WeepingWellReactionParticleEffect("weeping_well_reacts");

@@ -24,6 +24,7 @@ public class ParticleRegistry {
     public static RegistryObject<LodestoneParticleType> LIGHT_SPEC_SMALL = PARTICLES.register("light_spec_small", LodestoneParticleType::new);
     public static RegistryObject<LodestoneParticleType> LIGHT_SPEC_LARGE = PARTICLES.register("light_spec_large", LodestoneParticleType::new);
     public static RegistryObject<LodestoneParticleType> STAR = PARTICLES.register("star", LodestoneParticleType::new);
+    public static RegistryObject<LodestoneParticleType> STRANGE_SMOKE = PARTICLES.register("strange_smoke", LodestoneParticleType::new);
 
     public static RegistryObject<LodestoneSparkParticleType> ROUND_SPARK = PARTICLES.register("round_spark", LodestoneSparkParticleType::new);
     public static RegistryObject<LodestoneSparkParticleType> SLASH = PARTICLES.register("slash", LodestoneSparkParticleType::new);
@@ -43,6 +44,7 @@ public class ParticleRegistry {
         Minecraft.getInstance().particleEngine.register(WEIRD_SQUIGGLE.get(), LodestoneParticleType.Factory::new);
         Minecraft.getInstance().particleEngine.register(LIGHT_SPEC_SMALL.get(), LodestoneParticleType.Factory::new);
         Minecraft.getInstance().particleEngine.register(LIGHT_SPEC_LARGE.get(), LodestoneParticleType.Factory::new);
+        Minecraft.getInstance().particleEngine.register(STRANGE_SMOKE.get(), LodestoneParticleType.Factory::new);
         Minecraft.getInstance().particleEngine.register(STAR.get(), LodestoneParticleType.Factory::new);
 
         Minecraft.getInstance().particleEngine.register(ROUND_SPARK.get(), LodestoneSparkParticleType.Factory::new);

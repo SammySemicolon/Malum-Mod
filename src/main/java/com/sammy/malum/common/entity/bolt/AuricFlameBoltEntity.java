@@ -101,7 +101,7 @@ public class AuricFlameBoltEntity extends AbstractBoltProjectileEntity {
     }
 
     @Override
-    public ParticleEffectType getOnHitVisualEffect() {
+    public ParticleEffectType getImpactParticleEffect() {
         return ParticleEffectTypeRegistry.AURIC_BOLT_IMPACT;
     }
 
@@ -113,10 +113,7 @@ public class AuricFlameBoltEntity extends AbstractBoltProjectileEntity {
     @OnlyIn(Dist.CLIENT)
     @Override
     public void spawnParticles() {
-        float scalar = age > getMaxAge() ? 1f - (age - getMaxAge() + 10) / 10f : 1f;
-        if (age < 5) {
-            scalar = age / 5f;
-        }
+        float scalar = getVisualEffectScalar();
         Vec3 norm = getDeltaMovement().normalize().scale(0.05f);
         var lightSpecs = SpiritLightSpecs.spiritLightSpecs(level(), position(), AuricFlameStaffItem.AURIC_COLOR_DATA, AuricFlameStaffItem.REVERSE_AURIC_COLOR_DATA);
         lightSpecs.getBuilder().multiplyLifetime(1.25f).setMotion(norm);
@@ -132,7 +129,6 @@ public class AuricFlameBoltEntity extends AbstractBoltProjectileEntity {
                 .setMotion(norm)
                 .enableNoClip()
                 .enableForcedSpawn()
-                .disableCull()
                 .setSpritePicker(SimpleParticleOptions.ParticleSpritePicker.FIRST_INDEX)
                 .addTickActor(behavior)
                 .spawn(level(), position().x, position().y, position().z)

@@ -6,7 +6,6 @@ import com.sammy.malum.visual_effects.networked.data.*;
 import com.sammy.malum.visual_effects.networked.staff.*;
 import net.minecraft.nbt.*;
 import net.minecraft.network.syncher.*;
-import net.minecraft.sounds.*;
 import net.minecraft.util.*;
 import net.minecraft.world.damagesource.*;
 import net.minecraft.world.entity.*;
@@ -24,9 +23,9 @@ public abstract class AbstractBoltProjectileEntity extends ThrowableItemProjecti
     protected static final EntityDataAccessor<Boolean> DATA_FADING_AWAY = SynchedEntityData.defineId(AbstractBoltProjectileEntity.class, EntityDataSerializers.BOOLEAN);
     protected static final EntityDataAccessor<Integer> DATA_SPAWN_DELAY = SynchedEntityData.defineId(AbstractBoltProjectileEntity.class, EntityDataSerializers.INT);
 
+    public final TrailPointBuilder trailPointBuilder = TrailPointBuilder.create(12);
     public final TrailPointBuilder spinningTrailPointBuilder = TrailPointBuilder.create(20);
     public float spinOffset = (float) (random.nextFloat() * Math.PI * 2);
-    public final TrailPointBuilder trailPointBuilder = TrailPointBuilder.create(12);
     protected float magicDamage;
     public int age;
     public int spawnDelay;
@@ -54,7 +53,7 @@ public abstract class AbstractBoltProjectileEntity extends ThrowableItemProjecti
 
     public abstract int getMaxAge();
 
-    public abstract ParticleEffectType getOnHitVisualEffect();
+    public abstract ParticleEffectType getImpactParticleEffect();
 
     @Override
     protected void defineSynchedData() {
@@ -76,6 +75,7 @@ public abstract class AbstractBoltProjectileEntity extends ThrowableItemProjecti
         }
         super.onSyncedDataUpdated(pKey);
     }
+
     @Override
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
@@ -108,7 +108,7 @@ public abstract class AbstractBoltProjectileEntity extends ThrowableItemProjecti
             return;
         }
         if (!level().isClientSide) {
-            getOnHitVisualEffect().createPositionedEffect(level(), new PositionEffectData(position().add(getDeltaMovement().scale(0.25f))), new ColorEffectData(SpiritTypeRegistry.WICKED_SPIRIT), HexBoltImpactParticleEffect.createData(getDeltaMovement().reverse().normalize()));
+            getImpactParticleEffect().createPositionedEffect(level(), new PositionEffectData(position().add(getDeltaMovement().scale(0.25f))), new ColorEffectData(SpiritTypeRegistry.WICKED_SPIRIT), HexBoltImpactParticleEffect.createData(getDeltaMovement().reverse().normalize()));
             playSound(SoundRegistry.STAFF_STRIKES.get(), 0.5f, Mth.nextFloat(random, 0.9F, 1.5F));
         }
         getEntityData().set(DATA_FADING_AWAY, true);
@@ -142,7 +142,7 @@ public abstract class AbstractBoltProjectileEntity extends ThrowableItemProjecti
                     livingentity.setSecondsOnFire(i * 4);
                 }
                 getEntityData().set(DATA_FADING_AWAY, true);
-                getOnHitVisualEffect().createPositionedEffect(level(), new PositionEffectData(position().add(getDeltaMovement().scale(0.5f))), new ColorEffectData(SpiritTypeRegistry.WICKED_SPIRIT), HexBoltImpactParticleEffect.createData(getDeltaMovement().reverse().normalize()));
+                getImpactParticleEffect().createPositionedEffect(level(), new PositionEffectData(position().add(getDeltaMovement().scale(0.5f))), new ColorEffectData(SpiritTypeRegistry.WICKED_SPIRIT), HexBoltImpactParticleEffect.createData(getDeltaMovement().reverse().normalize()));
                 playSound(SoundRegistry.STAFF_STRIKES.get(), 0.75f, Mth.nextFloat(random, 1f, 1.4f));
                 setDeltaMovement(getDeltaMovement().scale(0.05f));
             }
@@ -169,21 +169,16 @@ public abstract class AbstractBoltProjectileEntity extends ThrowableItemProjecti
         for (int i = 0; i < 2; i++) {
             float progress = i * 0.5f;
             Vec3 position = getPosition(progress);
-            spinningTrailPointBuilder.addTrailPoint(position.add(Math.cos(spinOffset + (age + progress) / 2f) * offsetScale, 0, Math.sin(spinOffset + (age + progress) / 2f) * offsetScale));
             trailPointBuilder.addTrailPoint(position);
+            spinningTrailPointBuilder.addTrailPoint(position.add(Math.cos(spinOffset + (age + progress) / 2f) * offsetScale, 0, Math.sin(spinOffset + (age + progress) / 2f) * offsetScale));
         }
         for (int i = 0; i < ((fadingAway || age > getMaxAge() - 20) ? 2 : 1); i++) {
-            spinningTrailPointBuilder.tickTrailPoints();
             trailPointBuilder.tickTrailPoints();
+            spinningTrailPointBuilder.tickTrailPoints();
         }
         age++;
         if (age >= getMaxAge()) {
-            remove(RemovalReason.DISCARDED);
-        }
-        if (this.xRotO == 0.0F && this.yRotO == 0.0F) {
-            setYRot((float) (Mth.atan2(motion.x, motion.z) * (double) (180F / (float) Math.PI)));
-            yRotO = getYRot();
-            xRotO = getXRot();
+            discard();
         }
         if (level().isClientSide && !fadingAway) {
             spawnParticles();
@@ -195,6 +190,19 @@ public abstract class AbstractBoltProjectileEntity extends ThrowableItemProjecti
         float f1 = -Mth.sin((rotationPitch + pitchOffset) * ((float) Math.PI / 180F));
         float f2 = Mth.cos(rotationYaw * ((float) Math.PI / 180F)) * Mth.cos(rotationPitch * ((float) Math.PI / 180F));
         this.shoot(f, f1, f2, velocity, innacuracy);
+    }
+
+    public float getVisualEffectScalar() {
+        float effectScalar = fadingAway ? 1 - (age - getMaxAge() + 10) / 10f : 1;
+        if (age < 5) {
+            effectScalar = age / 5f;
+        }
+        return effectScalar;
+    }
+
+    @Override
+    public boolean isInWater() {
+        return false;
     }
 
     @Override

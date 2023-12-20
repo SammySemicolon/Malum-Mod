@@ -35,7 +35,7 @@ public class SpiritTransmutationRecipeTreePage extends BookPage {
     private final List<WrappedIngredient> itemTree = new ArrayList<>();
 
     public SpiritTransmutationRecipeTreePage(String headlineTranslationKey, Item start) {
-        super(MalumMod.malumPath("textures/gui/book/pages/spirit_transmutation_page.png"));
+        super(MalumMod.malumPath("textures/gui/book/pages/transmutation_tree_page.png"));
         this.headlineTranslationKey = headlineTranslationKey;
         if (DatagenModLoader.isRunningDataGen()) {
             return;

@@ -39,7 +39,7 @@ public class HexBoltEntity extends AbstractBoltProjectileEntity {
     }
 
     @Override
-    public ParticleEffectType getOnHitVisualEffect() {
+    public ParticleEffectType getImpactParticleEffect() {
         return ParticleEffectTypeRegistry.HEX_BOLT_IMPACT;
     }
 
@@ -51,10 +51,7 @@ public class HexBoltEntity extends AbstractBoltProjectileEntity {
     @OnlyIn(Dist.CLIENT)
     @Override
     public void spawnParticles() {
-        float scalar = age > getMaxAge() ? 1f - (age - getMaxAge() + 10) / 10f : 1f;
-        if (age < 5) {
-            scalar = age / 5f;
-        }
+        float scalar = getVisualEffectScalar();
         Vec3 norm = getDeltaMovement().normalize().scale(0.05f);
         var lightSpecs = SpiritLightSpecs.spiritLightSpecs(level(), position(), SpiritTypeRegistry.WICKED_SPIRIT);
         lightSpecs.getBuilder().multiplyLifetime(1.25f).setMotion(norm);
@@ -71,7 +68,6 @@ public class HexBoltEntity extends AbstractBoltProjectileEntity {
                 .setDirection(getDeltaMovement().normalize())
                 .enableNoClip()
                 .enableForcedSpawn()
-                .disableCull()
                 .addTickActor(behavior)
                 .spawn(level(), position().x, position().y, position().z)
                 .setRenderType(LodestoneWorldParticleRenderType.LUMITRANSPARENT)

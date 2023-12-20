@@ -39,7 +39,6 @@ public class HexStaffItem extends AbstractStaffItem {
                 .setMotion(pLivingEntity.getLookAngle().normalize().scale(0.05f))
                 .enableNoClip()
                 .enableForcedSpawn()
-                .disableCull()
                 .setLifeDelay(2)
                 .spawn(pLevel, pos.x, pos.y, pos.z)
                 .setRenderType(LodestoneWorldParticleRenderType.LUMITRANSPARENT)

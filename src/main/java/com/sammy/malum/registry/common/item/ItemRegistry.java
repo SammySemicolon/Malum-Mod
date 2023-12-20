@@ -109,14 +109,14 @@ public class ItemRegistry {
     public static Item.Properties HIDDEN_PROPERTIES() {
         return new Item.Properties().stacksTo(1);
     }
+
     public static <T extends Item> RegistryObject<T> register(String name, Item.Properties properties, Function<Item.Properties, T> function) {
         if (properties instanceof LodestoneItemProperties lodestoneItemProperties) {
             TAB_SORTING.computeIfAbsent(lodestoneItemProperties.tab, (key) -> new ArrayList<>()).add(MalumMod.malumPath(name));
         }
         return ITEMS.register(name, () -> function.apply(properties));
     }
-
-
+    
     public static final RegistryObject<Item> ENCYCLOPEDIA_ARCANA = register("encyclopedia_arcana", GEAR_PROPERTIES().rarity(UNCOMMON), EncyclopediaArcanaItem::new);
 
     //region spirits

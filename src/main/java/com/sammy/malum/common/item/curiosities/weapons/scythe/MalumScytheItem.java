@@ -62,8 +62,8 @@ public class MalumScytheItem extends ModCombatItem implements IMalumEventRespond
     public void spawnSweepParticles(Player player, SimpleParticleType type) {
         double d0 = (-Mth.sin(player.getYRot() * ((float) Math.PI / 180F)));
         double d1 = Mth.cos(player.getYRot() * ((float) Math.PI / 180F));
-        if (player.level() instanceof ServerLevel) {
-            ((ServerLevel) player.level()).sendParticles(type, player.getX() + d0, player.getY(0.5D), player.getZ() + d1, 0, d0, 0.0D, d1, 0.0D);
+        if (player.level() instanceof ServerLevel serverLevel) {
+            serverLevel.sendParticles(type, player.getX() + d0, player.getY(0.5D), player.getZ() + d1, 0, d0, 0.0D, d1, 0.0D);
         }
     }
 

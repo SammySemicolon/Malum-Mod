@@ -2,6 +2,8 @@ package com.sammy.malum.registry.common.entity;
 
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.client.renderer.entity.*;
+import com.sammy.malum.client.renderer.entity.bolt.*;
+import com.sammy.malum.client.renderer.entity.nitrate.*;
 import com.sammy.malum.common.entity.bolt.*;
 import com.sammy.malum.common.entity.boomerang.ScytheBoomerangEntity;
 import com.sammy.malum.common.entity.nitrate.EthericNitrateEntity;
