@@ -1,7 +1,5 @@
 package com.sammy.malum.common.entity.nitrate;
 
-import com.sammy.malum.common.item.curiosities.weapons.staff.*;
-import com.sammy.malum.common.packets.particle.curiosities.nitrate.EthericNitrateParticlePacket;
 import com.sammy.malum.registry.client.*;
 import com.sammy.malum.registry.common.*;
 import com.sammy.malum.registry.common.entity.EntityRegistry;

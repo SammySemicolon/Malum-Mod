@@ -2,13 +2,8 @@ package com.sammy.malum.registry.common;
 
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.packets.*;
-import com.sammy.malum.common.packets.particle.SuccessfulSoulHarvestParticlePacket;
-import com.sammy.malum.common.packets.particle.curiosities.altar.AltarConsumeParticlePacket;
-import com.sammy.malum.common.packets.particle.curiosities.altar.AltarCraftParticlePacket;
 import com.sammy.malum.common.packets.particle.curiosities.blight.BlightMistParticlePacket;
 import com.sammy.malum.common.packets.particle.curiosities.blight.BlightTransformItemParticlePacket;
-import com.sammy.malum.common.packets.particle.curiosities.nitrate.EthericNitrateParticlePacket;
-import com.sammy.malum.common.packets.particle.curiosities.nitrate.VividNitrateBounceParticlePacket;
 import com.sammy.malum.common.packets.particle.curiosities.rite.*;
 import com.sammy.malum.common.packets.particle.curiosities.rite.generic.BlockSparkleParticlePacket;
 import com.sammy.malum.common.packets.particle.curiosities.rite.generic.MajorEntityEffectParticlePacket;
@@ -36,14 +31,7 @@ public class PacketRegistry {
 
         ParticleEffectPacket.register(MALUM_CHANNEL, index++);
 
-        //vfx
-        AltarCraftParticlePacket.register(MALUM_CHANNEL, index++);
-        AltarConsumeParticlePacket.register(MALUM_CHANNEL, index++);
-
         MajorEntityEffectParticlePacket.register(MALUM_CHANNEL, index++);
-        EthericNitrateParticlePacket.register(MALUM_CHANNEL, index++);
-        VividNitrateBounceParticlePacket.register(MALUM_CHANNEL, index++);
-        SuccessfulSoulHarvestParticlePacket.register(MALUM_CHANNEL, index++);
 
         TotemPoleActivationEffectPacket.register(MALUM_CHANNEL, index++);
         SacredMistRiteEffectPacket.register(MALUM_CHANNEL, index++);

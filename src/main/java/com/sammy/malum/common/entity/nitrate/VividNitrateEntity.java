@@ -1,7 +1,5 @@
 package com.sammy.malum.common.entity.nitrate;
 
-import com.sammy.malum.common.item.curiosities.weapons.staff.*;
-import com.sammy.malum.common.packets.particle.curiosities.nitrate.VividNitrateBounceParticlePacket;
 import com.sammy.malum.registry.client.*;
 import com.sammy.malum.registry.common.*;
 import com.sammy.malum.registry.common.entity.EntityRegistry;
@@ -103,9 +101,6 @@ public class VividNitrateEntity extends AbstractNitrateEntity {
         }
         y = Math.min(y, 1f);
         setDeltaMovement(x, y, z);
-        if (level() instanceof ServerLevel && false) {
-            MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level().getChunkAt(blockPosition())), new VividNitrateBounceParticlePacket(COLOR_FUNCTION.apply(new ColorFunctionData(level(), 0f)), getX(), getY(), getZ()));
-        }
     }
 
 

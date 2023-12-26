@@ -495,8 +495,8 @@ public class MalumLang extends LanguageProvider {
                 "A simple aura rite, while active nearby friendly beings will have their connection to the earth disrupted, lowering their gravity and increasing jump height.",
                 "Applies the Aether's Charm effect, decreasing gravity by three fifths while also providing a substantial benefit to jump height.");
         addRiteEntry("corrupt_greater_aerial_rite",
-                "An advanced rite, while active it will slowly ease the stress of time on the mind, offsetting the effects of insomnia for those around it.",
-                "Passively reduces the insomnia value of nearby players.\n - Assuming phantoms are just barely able to spawn, it will take a single totem two and two fifths of a minute to fully cleanse insomnia.");
+                "An advanced rite, while active it will slowly ease the stress of time on the mind, offsetting the effects of insomnia for those around it over time.",
+                "Passively reduces the insomnia value of nearby players.\n - Assuming phantoms are just starting to appear, it will take a single totem executing the rite two and two fifths of a minute to fully cleanse insomnia.\n - Naturally, the totem will take longer to fully cleanse insomnia if the player has already been suffering from it for some time.");
 
         addEntryHeader("earthen_rite", "Earthen Rites", "Grounding the soul");
         addPage("earthen_rite", "A simple aura rite, nearby friendly beings will find their bodies are tougher and more resistant to damage.");

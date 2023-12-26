@@ -2,6 +2,7 @@ package com.sammy.malum.visual_effects.networked.nitrate;
 
 import com.sammy.malum.common.entity.nitrate.*;
 import com.sammy.malum.core.systems.spirit.*;
+import com.sammy.malum.registry.client.*;
 import com.sammy.malum.visual_effects.*;
 import com.sammy.malum.visual_effects.networked.*;
 import com.sammy.malum.visual_effects.networked.data.*;
@@ -17,6 +18,7 @@ import team.lodestar.lodestone.systems.particle.builder.*;
 import team.lodestar.lodestone.systems.particle.data.*;
 import team.lodestar.lodestone.systems.particle.data.color.*;
 import team.lodestar.lodestone.systems.particle.data.spin.*;
+import team.lodestar.lodestone.systems.particle.render_types.*;
 
 import java.awt.*;
 import java.util.function.*;
@@ -58,9 +60,9 @@ public class EthericNitrateImpactParticleEffect extends ParticleEffectType {
                     }
                     p.setParticleMotion(velocity.x, (velocity.y-gravityStrength)*0.98f, velocity.z);
                 };
-
+                boolean star = random.nextFloat() < 0.2f;
                 if (random.nextFloat() < 0.8f) {
-                    var lightSpecs = spiritLightSpecs(level, spawnPosition, colorParticleData);
+                    var lightSpecs = spiritLightSpecs(level, spawnPosition, colorParticleData, star ? ParticleRegistry.STAR : ParticleRegistry.LIGHT_SPEC_SMALL);
                     lightSpecs.getBuilder()
                             .multiplyLifetime(lifetimeMultiplier)
                             .enableForcedSpawn()
@@ -70,11 +72,11 @@ public class EthericNitrateImpactParticleEffect extends ParticleEffectType {
                     lightSpecs.getBloomBuilder()
                             .multiplyLifetime(lifetimeMultiplier)
                             .addTickActor(slowDown)
-                            .modifyData(WorldParticleBuilder::getScaleData, d -> d.multiplyValue(2f))
+                            .modifyData(WorldParticleBuilder::getScaleData, d -> d.multiplyValue(star ? 3f : 2f))
                             .setMotion(motion);
                     lightSpecs.spawnParticles();
                 }
-                if (random.nextFloat() < 0.8f) {
+                if (!star && random.nextFloat() < 0.8f) {
                     float scalar = RandomHelper.randomBetween(random, 0.8f, 1.1f);
                     var sparks = SparkParticleEffects.spiritMotionSparks(level, spawnPosition, colorParticleData);
                     sparks.getBuilder()

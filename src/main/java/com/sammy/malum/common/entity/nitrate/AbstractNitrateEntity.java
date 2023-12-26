@@ -150,7 +150,7 @@ public abstract class AbstractNitrateEntity extends ThrowableProjectile {
         if (age > MAX_AGE) {
             discard();
         }
-        if (level().isClientSide && !fadingAway){
+        if (level().isClientSide && !fadingAway && age > 1){
             spawnParticles();
         }
     }

@@ -53,6 +53,17 @@ public class AuricFlameBoltEntity extends AbstractBoltProjectileEntity {
     }
 
     @Override
+    protected void onHitEntity(EntityHitResult result) {
+        if (fadingAway || spawnDelay > 0) {
+            return;
+        }
+        if (result.getEntity() instanceof LivingEntity livingentity) {
+            livingentity.setSecondsOnFire(4);
+        }
+        super.onHitEntity(result);
+    }
+
+    @Override
     public void tick() {
         Vec3 motion = getDeltaMovement();
         super.tick();

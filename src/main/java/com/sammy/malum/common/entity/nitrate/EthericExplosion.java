@@ -4,6 +4,7 @@ import com.sammy.malum.registry.common.DamageTypeRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.*;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.ExplosionDamageCalculator;
 import net.minecraft.world.level.Level;
@@ -28,7 +29,7 @@ public class EthericExplosion extends Explosion {
 
     public static void processExplosion(ExplosionEvent.Detonate event) {
         if (event.getExplosion() instanceof EthericExplosion) {
-            event.getAffectedEntities().removeIf(e -> e instanceof AbstractNitrateEntity);
+            event.getAffectedEntities().removeIf(e -> e instanceof AbstractNitrateEntity || e instanceof Player player && player.isCreative());
         }
     }
 
