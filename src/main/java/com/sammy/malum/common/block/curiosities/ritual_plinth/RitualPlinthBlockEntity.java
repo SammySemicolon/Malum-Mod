@@ -69,15 +69,16 @@ public class RitualPlinthBlockEntity extends LodestoneBlockEntity {
     @Override
     public void tick() {
         super.tick();
+        if (level.isClientSide) {
+            RitualPlinthParticleEffects.passiveRitualPlinthParticles(this);
+        }
     }
 
-//    public Vec3 getItemPos() {
-//        final BlockPos blockPos = getBlockPos();
-//        final Vec3 offset = getCentralItemOffset();
-//        return new Vec3(blockPos.getX() + offset.x, blockPos.getY() + offset.y, blockPos.getZ() + offset.z);
-//    }
-//
-//    public Vec3 getCentralItemOffset() {
-//        return ALTAR_ITEM_OFFSET;
-//    }
+    public Vec3 getParticlePositionPosition(Direction direction) {
+        final BlockPos blockPos = getBlockPos();
+        float x = blockPos.getX() + 0.5f + direction.getStepX()*0.7f;
+        float y = blockPos.getY() + 0.85f;
+        float z = blockPos.getZ() + 0.5f + direction.getStepZ()*0.7f;
+        return new Vec3(x, y, z);
+    }
 }
