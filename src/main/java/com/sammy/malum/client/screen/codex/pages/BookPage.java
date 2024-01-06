@@ -14,6 +14,7 @@ public class BookPage {
     public final ResourceLocation background;
     protected BookEntry parentEntry;
 
+
     public BookPage(ResourceLocation background) {
         this.background = background;
     }
@@ -33,16 +34,20 @@ public class BookPage {
 
     }
 
+    public ResourceLocation getBackground() {
+        return background;
+    }
+
     public void renderBackgroundLeft(PoseStack poseStack) {
         int guiLeft = guiLeft();
         int guiTop = guiTop();
-        renderTexture(background, poseStack, guiLeft, guiTop, 1, 1, entryScreen.bookWidth - 147, entryScreen.bookHeight, 512, 512);
+        renderTexture(getBackground(), poseStack, guiLeft, guiTop, 1, 1, entryScreen.bookWidth - 147, entryScreen.bookHeight, 512, 512);
     }
 
     public void renderBackgroundRight(PoseStack poseStack) {
         int guiLeft = guiLeft();
         int guiTop = guiTop();
-        renderTexture(background, poseStack, guiLeft + 147, guiTop, 148, 1, entryScreen.bookWidth - 147, entryScreen.bookHeight, 512, 512);
+        renderTexture(getBackground(), poseStack, guiLeft + 147, guiTop, 148, 1, entryScreen.bookWidth - 147, entryScreen.bookHeight, 512, 512);
     }
 
     public int guiLeft() {

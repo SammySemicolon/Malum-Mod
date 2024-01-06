@@ -40,14 +40,14 @@ public class ReapingDataReloadListener extends SimpleJsonResourceReloadListener 
                 continue;
             }
             if (REAPING_DATA.containsKey(resourceLocation)) {
-                MalumMod.LOGGER.info("entity with registry name: " + name + " already has reaping data associated with it. Overwriting.");
+                MalumMod.LOGGER.info("Entity with registry name: " + name + " already has reaping data associated with it. Overwriting.");
             }
             JsonArray drops = object.getAsJsonArray("drops");
             List<MalumReapingDropsData> dropsList = new ArrayList<>();
             for (JsonElement drop : drops) {
                 JsonObject dropObject = drop.getAsJsonObject();
                 if (!dropObject.has("ingredient")) {
-                    MalumMod.LOGGER.info("entity with registry name: " + name + " lacks a reaping ingredient. Skipping drops entry.");
+                    MalumMod.LOGGER.info("Entity with registry name: " + name + " lacks a reaping ingredient. Skipping drops entry.");
                     continue;
                 }
                 Ingredient dropIngredient = Ingredient.fromJson(dropObject.getAsJsonObject("ingredient"));

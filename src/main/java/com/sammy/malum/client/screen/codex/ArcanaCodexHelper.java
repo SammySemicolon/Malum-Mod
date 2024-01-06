@@ -3,6 +3,7 @@ package com.sammy.malum.client.screen.codex;
 import com.mojang.blaze3d.systems.*;
 import com.mojang.blaze3d.vertex.*;
 import com.sammy.malum.core.systems.rites.*;
+import com.sammy.malum.core.systems.ritual.*;
 import com.sammy.malum.core.systems.spirit.*;
 import net.minecraft.*;
 import net.minecraft.client.*;
@@ -36,6 +37,10 @@ public class ArcanaCodexHelper {
 
     public enum BookTheme {
         DEFAULT, EASY_READING
+    }
+
+    public static void renderRitualIcon(MalumRitualType rite, PoseStack stack, boolean corrupted, float glowAlpha, int x, int y) {
+        renderRiteIcon(rite.getIcon(), rite.spirit, stack, corrupted, glowAlpha, x, y, 0);
     }
 
     public static void renderRiteIcon(MalumRiteType rite, PoseStack stack, boolean corrupted, float glowAlpha, int x, int y) {

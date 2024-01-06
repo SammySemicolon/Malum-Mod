@@ -188,7 +188,7 @@ public class MalumSpiritFocusingRecipes implements IConditionBuilder {
         ConditionalRecipe.builder().addCondition(new NotCondition(new TagEmptyCondition(nugget.location()))).addRecipe(
                         new SpiritFocusingRecipeBuilder(duration, 2, Ingredient.of(impetus.get()), node.get(), 3)
                                 .addSpirit(EARTHEN_SPIRIT, 2)
-                                .addSpirit(INFERNAL_SPIRIT, 1)
+                                .addSpirit(INFERNAL_SPIRIT, 4)
                                 ::build
                 )
                 .generateAdvancement()

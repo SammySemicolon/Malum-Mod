@@ -1,0 +1,25 @@
+{
+  "ritual_identifier": "malum:manabound_enhancement",
+  "input": {
+    "count": 16,
+    "item": "malum:corrupted_resonance"
+  },
+  "extra_items": [
+    {
+      "count": 8,
+      "item": "malum:astral_weave"
+    },
+    {
+      "count": 4,
+      "item": "minecraft:nether_wart"
+    },
+    {
+      "count": 4,
+      "item": "minecraft:glowstone_dust"
+    },
+    {
+      "count": 2,
+      "item": "malum:soul_stained_steel_ingot"
+    }
+  ]
+}

@@ -4,8 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.sammy.malum.client.screen.codex.objects.*;
 import com.sammy.malum.client.screen.codex.pages.*;
 import com.sammy.malum.common.events.SetupMalumCodexEntriesEvent;
-import com.sammy.malum.registry.common.SoundRegistry;
-import com.sammy.malum.registry.common.SpiritRiteRegistry;
+import com.sammy.malum.registry.common.*;
 import com.sammy.malum.registry.common.item.ItemRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -15,6 +14,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.*;
 import org.lwjgl.opengl.GL11;
 import team.lodestar.lodestone.handlers.screenparticle.ScreenParticleHandler;
 
@@ -330,28 +330,32 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
                 "focus_metals", IRON_NODE.get(), 8, 7)
                 .addPage(new HeadlineTextItemPage("focus_metals", "focus_metals.1", IRON_NODE.get()))
                 .addPage(new TextPage("focus_metals.2"))
-                .addPage(SpiritInfusionPage.fromOutput(IRON_IMPETUS.get()))
-                .addPage(SpiritCruciblePage.fromOutput(IRON_NODE.get()))
-                .addPage(SpiritInfusionPage.fromOutput(GOLD_IMPETUS.get()))
-                .addPage(SpiritCruciblePage.fromOutput(GOLD_NODE.get()))
-                .addPage(SpiritInfusionPage.fromOutput(COPPER_IMPETUS.get()))
-                .addPage(SpiritCruciblePage.fromOutput(COPPER_NODE.get()))
-                .addPage(SpiritInfusionPage.fromOutput(LEAD_IMPETUS.get()))
-                .addPage(SpiritCruciblePage.fromOutput(LEAD_NODE.get()))
-                .addPage(SpiritInfusionPage.fromOutput(SILVER_IMPETUS.get()))
-                .addPage(SpiritCruciblePage.fromOutput(SILVER_NODE.get()))
-                .addPage(SpiritInfusionPage.fromOutput(ALUMINUM_IMPETUS.get()))
-                .addPage(SpiritCruciblePage.fromOutput(ALUMINUM_NODE.get()))
-                .addPage(SpiritInfusionPage.fromOutput(NICKEL_IMPETUS.get()))
-                .addPage(SpiritCruciblePage.fromOutput(NICKEL_NODE.get()))
-                .addPage(SpiritInfusionPage.fromOutput(URANIUM_IMPETUS.get()))
-                .addPage(SpiritCruciblePage.fromOutput(URANIUM_NODE.get()))
-                .addPage(SpiritInfusionPage.fromOutput(OSMIUM_IMPETUS.get()))
-                .addPage(SpiritCruciblePage.fromOutput(OSMIUM_NODE.get()))
-                .addPage(SpiritInfusionPage.fromOutput(ZINC_IMPETUS.get()))
-                .addPage(SpiritCruciblePage.fromOutput(ZINC_NODE.get()))
-                .addPage(SpiritInfusionPage.fromOutput(TIN_IMPETUS.get()))
-                .addPage(SpiritCruciblePage.fromOutput(TIN_NODE.get()))
+                .addPage(new CyclingPage(
+                        SpiritInfusionPage.fromOutput(IRON_IMPETUS.get()),
+                        SpiritInfusionPage.fromOutput(GOLD_IMPETUS.get()),
+                        SpiritInfusionPage.fromOutput(COPPER_IMPETUS.get()),
+                        SpiritInfusionPage.fromOutput(LEAD_IMPETUS.get()),
+                        SpiritInfusionPage.fromOutput(SILVER_IMPETUS.get()),
+                        SpiritInfusionPage.fromOutput(ALUMINUM_IMPETUS.get()),
+                        SpiritInfusionPage.fromOutput(NICKEL_IMPETUS.get()),
+                        SpiritInfusionPage.fromOutput(URANIUM_IMPETUS.get()),
+                        SpiritInfusionPage.fromOutput(OSMIUM_IMPETUS.get()),
+                        SpiritInfusionPage.fromOutput(ZINC_IMPETUS.get()),
+                        SpiritInfusionPage.fromOutput(TIN_IMPETUS.get())
+                ))
+                .addPage(new CyclingPage(
+                        SpiritCruciblePage.fromOutput(IRON_NODE.get()),
+                        SpiritCruciblePage.fromOutput(GOLD_NODE.get()),
+                        SpiritCruciblePage.fromOutput(COPPER_NODE.get()),
+                        SpiritCruciblePage.fromOutput(LEAD_NODE.get()),
+                        SpiritCruciblePage.fromOutput(SILVER_NODE.get()),
+                        SpiritCruciblePage.fromOutput(ALUMINUM_NODE.get()),
+                        SpiritCruciblePage.fromOutput(NICKEL_NODE.get()),
+                        SpiritCruciblePage.fromOutput(URANIUM_NODE.get()),
+                        SpiritCruciblePage.fromOutput(OSMIUM_NODE.get()),
+                        SpiritCruciblePage.fromOutput(ZINC_NODE.get()),
+                        SpiritCruciblePage.fromOutput(TIN_NODE.get())
+                ))
         );
 
         ENTRIES.add(new BookEntry(
@@ -395,12 +399,20 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
                 .addPage(new HeadlineTextItemPage("spirit_metals.soulstained_steel", "spirit_metals.soulstained_steel.1", SOUL_STAINED_STEEL_INGOT.get()))
                 .addPage(new TextPage("spirit_metals.soulstained_steel.2"))
                 .addPage(SpiritInfusionPage.fromOutput(SOUL_STAINED_STEEL_INGOT.get()))
-                .addPage(CraftingBookPage.toolPage(SOUL_STAINED_STEEL_PICKAXE.get(), SOUL_STAINED_STEEL_INGOT.get()))
-                .addPage(CraftingBookPage.toolPage(SOUL_STAINED_STEEL_AXE.get(), SOUL_STAINED_STEEL_INGOT.get()))
-                .addPage(CraftingBookPage.toolPage(SOUL_STAINED_STEEL_HOE.get(), SOUL_STAINED_STEEL_INGOT.get()))
-                .addPage(CraftingBookPage.toolPage(SOUL_STAINED_STEEL_SHOVEL.get(), SOUL_STAINED_STEEL_INGOT.get()))
-                .addPage(CraftingBookPage.toolPage(SOUL_STAINED_STEEL_SWORD.get(), SOUL_STAINED_STEEL_INGOT.get()))
-                .addModCompatPage(new CraftingBookPage(SOUL_STAINED_STEEL_KNIFE.get(), EMPTY, EMPTY, EMPTY, EMPTY, SOUL_STAINED_STEEL_INGOT.get(), EMPTY, STICK), "farmersdelight")
+                .addPage(new CyclingPage(
+                        CraftingBookPage.toolPage(SOUL_STAINED_STEEL_PICKAXE.get(), SOUL_STAINED_STEEL_INGOT.get()),
+                        CraftingBookPage.toolPage(SOUL_STAINED_STEEL_AXE.get(), SOUL_STAINED_STEEL_INGOT.get()),
+                        CraftingBookPage.toolPage(SOUL_STAINED_STEEL_HOE.get(), SOUL_STAINED_STEEL_INGOT.get()),
+                        CraftingBookPage.toolPage(SOUL_STAINED_STEEL_SHOVEL.get(), SOUL_STAINED_STEEL_INGOT.get()),
+                        CraftingBookPage.toolPage(SOUL_STAINED_STEEL_SWORD.get(), SOUL_STAINED_STEEL_INGOT.get()),
+                        new CraftingBookPage(SOUL_STAINED_STEEL_KNIFE.get(), EMPTY, EMPTY, EMPTY, EMPTY, SOUL_STAINED_STEEL_INGOT.get(), EMPTY, STICK) {
+                            @Override
+                            public boolean isValid() {
+                                return ModList.get().isLoaded("farmersdelight");
+                            }
+                        }
+                ))
+                //TODO: the above is a temporary bandaid, implement a proper thing for this once book page/entry refactor happens
                 .addPage(new HeadlineTextItemPage("spirit_metals.hallowed_gold", "spirit_metals.hallowed_gold.1", HALLOWED_GOLD_INGOT.get()))
                 .addPage(new TextPage("spirit_metals.hallowed_gold.2"))
                 .addPage(SpiritInfusionPage.fromOutput(HALLOWED_GOLD_INGOT.get()))
@@ -419,10 +431,12 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
                 .addPage(new HeadlineTextPage("soulstained_armor", "soulstained_armor.1"))
                 .addPage(new TextPage("soulstained_armor.2"))
                 .addPage(new TextPage("soulstained_armor.3"))
-                .addPage(SpiritInfusionPage.fromOutput(SOUL_STAINED_STEEL_HELMET.get()))
-                .addPage(SpiritInfusionPage.fromOutput(SOUL_STAINED_STEEL_CHESTPLATE.get()))
-                .addPage(SpiritInfusionPage.fromOutput(SOUL_STAINED_STEEL_LEGGINGS.get()))
-                .addPage(SpiritInfusionPage.fromOutput(SOUL_STAINED_STEEL_BOOTS.get()))
+                .addPage(new CyclingPage(
+                        SpiritInfusionPage.fromOutput(SOUL_STAINED_STEEL_HELMET.get()),
+                        SpiritInfusionPage.fromOutput(SOUL_STAINED_STEEL_CHESTPLATE.get()),
+                        SpiritInfusionPage.fromOutput(SOUL_STAINED_STEEL_LEGGINGS.get()),
+                        SpiritInfusionPage.fromOutput(SOUL_STAINED_STEEL_BOOTS.get())
+                ))
         );
 
 //        ENTRIES.add(new BookEntry(
@@ -675,40 +689,69 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
                 .addPage(new SpiritTransmutationRecipeTreePage("transmutation.smooth_basalt", SMOOTH_BASALT))
         );
 
+        ENTRIES.add(new BookEntry(
+                "rituals", RITUAL_PLINTH.get(), 0, 17).setSoulwood()
+        );
+
+        ENTRIES.add(new BookEntry(
+                "ritual_of_grotesque_expulsion", 0, 19).setSoulwood()
+                .setObjectSupplier(RitualEntryObject::new)
+                .addPage(new SpiritRitualTextPage(RitualRegistry.RITUAL_OF_GROTESQUE_EXPULSION, "grotesque_expulsion_ritual"))
+        );
+
+        ENTRIES.add(new BookEntry(
+                "ritual_of_idle_mending", 0, 15).setSoulwood()
+                .setObjectSupplier(RitualEntryObject::new)
+                .addPage(new SpiritRitualTextPage(RitualRegistry.RITUAL_OF_IDLE_MENDING, "idle_mending_ritual"))
+        );
+
+        ENTRIES.add(new BookEntry(
+                "ritual_of_manabound_enhancement", BARRIER, -2, 17).setSoulwood()
+                .setObjectSupplier(RitualEntryObject::new)
+                .addPage(new SpiritRitualTextPage(RitualRegistry.RITUAL_OF_MANABOUND_ENHANCEMENT, "manabound_enhancement_ritual"))
+        );
+
+        ENTRIES.add(new BookEntry(
+                "ritual_of_wexing_transmission", BARRIER, 2, 17).setSoulwood()
+        );
+
+        ENTRIES.add(new BookEntry(
+                "ritual_of_aerial_something", BARRIER, 1, 18).setSoulwood()
+        );
+
+        ENTRIES.add(new BookEntry(
+                "ritual_of_aqueous_something", BARRIER, -1, 16).setSoulwood()
+        );
+
+        ENTRIES.add(new BookEntry(
+                "ritual_of_stygian_greed", BARRIER, -1, 18).setSoulwood()
+        );
+
+        ENTRIES.add(new BookEntry(
+                "ritual_of_earthen_something", BARRIER, 1, 16).setSoulwood()
+        );
+
+
 //        ENTRIES.add(new BookEntry(
-//                "cursed_grit", CURSED_GRIT.get(), -2, 14).setSoulwood()
-//                .addPage(new HeadlineTextPage("cursed_grit", "cursed_grit.1"))
-//                .addPage(SpiritInfusionPage.fromOutput(CURSED_GRIT.get()))
+//                "corrupted_resonance", CORRUPTED_RESONANCE.get(), 0, 15).setSoulwood()
+//                .addPage(new HeadlineTextPage("corrupted_resonance", "corrupted_resonance.1"))
+//                .addPage(SpiritInfusionPage.fromOutput(CORRUPTED_RESONANCE.get()))
 //        );
 //
 //        ENTRIES.add(new BookEntry(
-//                "etheric_nitrate", ETHERIC_NITRATE.get(), -3, 15).setSoulwood()
-//                .addPage(new HeadlineTextPage("etheric_nitrate", "etheric_nitrate.1"))
-//                .addPage(SpiritInfusionPage.fromOutput(ETHERIC_NITRATE.get()))
-//                .addPage(new HeadlineTextPage("etheric_nitrate.vivid_nitrate", "etheric_nitrate.vivid_nitrate.1"))
-//                .addPage(SpiritInfusionPage.fromOutput(VIVID_NITRATE.get()))
+//                "magebane_belt", BELT_OF_THE_MAGEBANE.get(), -1, 16).setSoulwood()
+//                .addPage(new HeadlineTextPage("magebane_belt", "magebane_belt.1"))
+//                .addPage(new TextPage("magebane_belt.2"))
+//                .addPage(SpiritInfusionPage.fromOutput(BELT_OF_THE_MAGEBANE.get()))
 //        );
-
-        ENTRIES.add(new BookEntry(
-                "corrupted_resonance", CORRUPTED_RESONANCE.get(), 0, 15).setSoulwood()
-                .addPage(new HeadlineTextPage("corrupted_resonance", "corrupted_resonance.1"))
-                .addPage(SpiritInfusionPage.fromOutput(CORRUPTED_RESONANCE.get()))
-        );
-
-        ENTRIES.add(new BookEntry(
-                "magebane_belt", BELT_OF_THE_MAGEBANE.get(), -1, 16).setSoulwood()
-                .addPage(new HeadlineTextPage("magebane_belt", "magebane_belt.1"))
-                .addPage(new TextPage("magebane_belt.2"))
-                .addPage(SpiritInfusionPage.fromOutput(BELT_OF_THE_MAGEBANE.get()))
-        );
-
-        ENTRIES.add(new BookEntry(
-                "tyrving", TYRVING.get(), 1, 16).setSoulwood()
-                .addPage(new HeadlineTextPage("tyrving", "tyrving.1"))
-                .addPage(SpiritInfusionPage.fromOutput(TYRVING.get()))
-                .addPage(new TextPage("tyrving.2"))
-                .addPage(SpiritRepairPage.fromInput(TYRVING.get()))
-        );
+//
+//        ENTRIES.add(new BookEntry(
+//                "tyrving", TYRVING.get(), 1, 16).setSoulwood()
+//                .addPage(new HeadlineTextPage("tyrving", "tyrving.1"))
+//                .addPage(SpiritInfusionPage.fromOutput(TYRVING.get()))
+//                .addPage(new TextPage("tyrving.2"))
+//                .addPage(SpiritRepairPage.fromInput(TYRVING.get()))
+//        );
 
         ENTRIES.add(new BookEntry(
                 "the_device", THE_DEVICE.get(), 0, -10)

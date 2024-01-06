@@ -1,0 +1,25 @@
+{
+  "ritual_identifier": "malum:grotesque_expulsion",
+  "input": {
+    "count": 8,
+    "item": "malum:rotting_essence"
+  },
+  "extra_items": [
+    {
+      "count": 4,
+      "item": "minecraft:rotten_flesh"
+    },
+    {
+      "count": 4,
+      "item": "malum:grim_talc"
+    },
+    {
+      "count": 2,
+      "item": "minecraft:bone"
+    },
+    {
+      "count": 1,
+      "item": "minecraft:wither_rose"
+    }
+  ]
+}

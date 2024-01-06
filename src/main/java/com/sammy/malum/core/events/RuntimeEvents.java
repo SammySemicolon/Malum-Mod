@@ -17,8 +17,7 @@ import com.sammy.malum.common.item.curiosities.curios.prospector.CurioProspector
 import com.sammy.malum.common.item.curiosities.curios.rotten.CurioVoraciousRing;
 import com.sammy.malum.compability.create.CreateCompat;
 import com.sammy.malum.core.handlers.*;
-import com.sammy.malum.core.listeners.ReapingDataReloadListener;
-import com.sammy.malum.core.listeners.SpiritDataReloadListener;
+import com.sammy.malum.core.listeners.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.Entity;
@@ -139,6 +138,7 @@ public class RuntimeEvents {
     public static void registerListeners(AddReloadListenerEvent event) {
         SpiritDataReloadListener.register(event);
         ReapingDataReloadListener.register(event);
+        RitualRecipeReloadListener.register(event);
     }
 
     @SubscribeEvent
