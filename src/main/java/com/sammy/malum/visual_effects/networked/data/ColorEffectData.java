@@ -114,6 +114,11 @@ public class ColorEffectData {
     }
 
     @Nullable
+    public MalumSpiritType getSpiritType() {
+        return getSpiritType(getDefaultColorRecord());
+    }
+
+    @Nullable
     public MalumSpiritType getSpiritType(ColorRecord colorRecord) {
         return colorRecord.spiritType;
     }

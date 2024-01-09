@@ -35,11 +35,11 @@ public class HexStaffItem extends AbstractStaffItem {
                 .setScaleData(GenericParticleData.create(0.3f * pct, 0).setEasing(Easing.SINE_IN_OUT).build())
                 .setColorData(SpiritTypeRegistry.WICKED_SPIRIT.createMainColorData().build())
                 .setLifetime(5)
+                .setLifeDelay(2)
                 .setDirection(pLivingEntity.getLookAngle().normalize())
                 .setMotion(pLivingEntity.getLookAngle().normalize().scale(0.05f))
                 .enableNoClip()
                 .enableForcedSpawn()
-                .setLifeDelay(2)
                 .spawn(pLevel, pos.x, pos.y, pos.z)
                 .setRenderType(LodestoneWorldParticleRenderType.LUMITRANSPARENT)
                 .spawn(pLevel, pos.x, pos.y, pos.z);

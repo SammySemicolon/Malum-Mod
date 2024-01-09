@@ -3,8 +3,14 @@ package com.sammy.malum.client.screen.codex.objects;
 import com.sammy.malum.client.screen.codex.AbstractProgressionCodexScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.resources.*;
+import net.minecraft.world.item.*;
+
+import static com.sammy.malum.MalumMod.malumPath;
 
 public class BookObject {
+
+    public static final ResourceLocation WIDGET_FADE_TEXTURE = malumPath("textures/gui/book/widget_fade.png");
 
     public final AbstractProgressionCodexScreen screen;
     public final int posX;

@@ -2,12 +2,15 @@ package com.sammy.malum.common.block.curiosities.spirit_crucible.catalyzer;
 
 import com.sammy.malum.common.block.*;
 import com.sammy.malum.common.block.curiosities.spirit_crucible.*;
+import com.sammy.malum.common.item.catalyzer_augment.*;
 import com.sammy.malum.common.item.spirit.*;
 import com.sammy.malum.core.systems.spirit.*;
+import com.sammy.malum.registry.common.*;
 import com.sammy.malum.registry.common.block.*;
 import com.sammy.malum.visual_effects.*;
 import net.minecraft.core.*;
 import net.minecraft.nbt.*;
+import net.minecraft.sounds.*;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
@@ -39,6 +42,8 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity impleme
             new float[]{0.25f, 0.5f, 0.75f, 1f, 1.5f, 2.25f, 3.5f, 8f});
 
     public LodestoneBlockEntityInventory inventory;
+    public LodestoneBlockEntityInventory augmentInventory;
+
     public int burnTicks;
     public HashMap<MalumSpiritType, Integer> intensity;
     protected ICatalyzerAccelerationTarget target;
@@ -52,6 +57,24 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity impleme
                 BlockHelper.updateAndNotifyState(level, worldPosition);
             }
         };
+        augmentInventory = new MalumBlockEntityInventory(1, 1, t -> t.getItem() instanceof AbstractAugmentItem abstractAugmentItem && !abstractAugmentItem.isForCrucible()) {
+            @Override
+            public void onContentsChanged(int slot) {
+                super.onContentsChanged(slot);
+                needsSync = true;
+                BlockHelper.updateAndNotifyState(level, worldPosition);
+            }
+
+            @Override
+            public SoundEvent getInsertSound(ItemStack stack) {
+                return SoundRegistry.APPLY_AUGMENT.get();
+            }
+
+            @Override
+            public SoundEvent getExtractSound(ItemStack stack) {
+                return SoundRegistry.REMOVE_AUGMENT.get();
+            }
+        };
     }
 
     public SpiritCatalyzerCoreBlockEntity(BlockPos pos, BlockState state) {
@@ -60,39 +83,50 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity impleme
 
     @Override
     protected void saveAdditional(CompoundTag compound) {
-        inventory.save(compound);
         if (burnTicks != 0) {
             compound.putInt("burnTicks", burnTicks);
         }
+
+        inventory.save(compound);
+        augmentInventory.save(compound, "augmentInventory");
         super.saveAdditional(compound);
     }
 
     @Override
     public void load(CompoundTag compound) {
-        inventory.load(compound);
         burnTicks = compound.getInt("burnTicks");
+
+        inventory.load(compound);
+        augmentInventory.load(compound, "augmentInventory");
         super.load(compound);
     }
 
+
     @Override
-    public boolean canStartAccelerating() {
-        if (burnTicks > 0) {
-            return true;
+    public InteractionResult onUse(Player player, InteractionHand hand) {
+        if (hand.equals(InteractionHand.MAIN_HAND)) {
+            final ItemStack heldStack = player.getItemInHand(hand);
+            final boolean augmentOnly = heldStack.getItem() instanceof AbstractAugmentItem augment && !augment.isForCrucible();
+            if (augmentOnly || (heldStack.isEmpty() && inventory.isEmpty())) {
+                ItemStack stack = augmentInventory.interact(player.level(), player, hand);
+                if (!stack.isEmpty()) {
+                    return InteractionResult.SUCCESS;
+                }
+            }
+            if (!augmentOnly) {
+                inventory.interact(player.level(), player, hand);
+            }
+            if (heldStack.isEmpty()) {
+                return InteractionResult.SUCCESS;
+            }
         }
-        return ForgeHooks.getBurnTime(inventory.getStackInSlot(0), RecipeType.SMELTING) > 0;
+        return super.onUse(player, hand);
     }
 
     @Override
-    public boolean canContinueAccelerating() {
-        if (burnTicks == 0) {
-            ItemStack stack = inventory.getStackInSlot(0);
-            if (!stack.isEmpty()) {
-                burnTicks = ForgeHooks.getBurnTime(inventory.getStackInSlot(0), RecipeType.SMELTING) / 2;
-                stack.shrink(1);
-                BlockHelper.updateAndNotifyState(level, worldPosition);
-            }
-        }
-        return burnTicks != 0;
+    public void onBreak(@Nullable Player player) {
+        inventory.dumpItems(level, BlockHelper.fromBlockPos(worldPosition).add(0.5f, 0.5f, 0.5f));
+        super.onBreak(player);
     }
 
     @Override
@@ -125,6 +159,28 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity impleme
         }
     }
 
+
+    @Override
+    public boolean canStartAccelerating() {
+        if (burnTicks > 0) {
+            return true;
+        }
+        return ForgeHooks.getBurnTime(inventory.getStackInSlot(0), RecipeType.SMELTING) > 0;
+    }
+
+    @Override
+    public boolean canContinueAccelerating() {
+        if (burnTicks == 0) {
+            ItemStack stack = inventory.getStackInSlot(0);
+            if (!stack.isEmpty()) {
+                burnTicks = ForgeHooks.getBurnTime(inventory.getStackInSlot(0), RecipeType.SMELTING) / 2;
+                stack.shrink(1);
+                BlockHelper.updateAndNotifyState(level, worldPosition);
+            }
+        }
+        return burnTicks != 0;
+    }
+
     @Override
     public CrucibleAcceleratorType getAcceleratorType() {
         return CATALYZER;
@@ -146,18 +202,6 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity impleme
         if (burnTicks > 0) {
             SpiritCrucibleParticleEffects.spiritCatalyzerParticles(this, target, spiritType);
         }
-    }
-
-    @Override
-    public InteractionResult onUse(Player player, InteractionHand hand) {
-        inventory.interact(player.level(), player, hand);
-        return InteractionResult.SUCCESS;
-    }
-
-    @Override
-    public void onBreak(@Nullable Player player) {
-        inventory.dumpItems(level, BlockHelper.fromBlockPos(worldPosition).add(0.5f, 0.5f, 0.5f));
-        super.onBreak(player);
     }
 
     public Vec3 getItemOffset() {

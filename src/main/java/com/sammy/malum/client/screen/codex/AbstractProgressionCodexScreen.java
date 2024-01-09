@@ -1,16 +1,22 @@
 package com.sammy.malum.client.screen.codex;
 
-import com.sammy.malum.client.screen.codex.objects.BookObject;
+import com.sammy.malum.client.screen.codex.objects.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.*;
 import org.lwjgl.opengl.GL11;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import static com.sammy.malum.MalumMod.malumPath;
+
 public abstract class AbstractProgressionCodexScreen extends AbstractMalumScreen {
+
+    public static final ResourceLocation FRAME_TEXTURE = malumPath("textures/gui/book/frame.png");
+    public static final ResourceLocation FRAME_FADE_TEXTURE = malumPath("textures/gui/book/frame_fade.png");
 
     public float xOffset;
     public float yOffset;
@@ -54,7 +60,11 @@ public abstract class AbstractProgressionCodexScreen extends AbstractMalumScreen
         int width = 40;
         int height = 48;
         for (BookEntry entry : getEntries()) {
-            bookObjects.add(entry.objectSupplier.getBookObject(this, entry, coreX + entry.xOffset * width, coreY - entry.yOffset * height));
+            final EntryObject bookObject = entry.widgetSupplier.getBookObject(this, entry, coreX + entry.xOffset * width, coreY - entry.yOffset * height);
+            if (entry.widgetConfig != null) {
+                entry.widgetConfig.accept(bookObject);
+            }
+            bookObjects.add(bookObject);
         }
         faceObject(bookObjects.get(0));
     }

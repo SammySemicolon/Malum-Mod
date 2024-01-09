@@ -2,6 +2,7 @@ package com.sammy.malum.common.block.curiosities.spirit_crucible;
 
 import com.sammy.malum.common.block.*;
 import com.sammy.malum.common.block.storage.*;
+import com.sammy.malum.common.item.catalyzer_augment.*;
 import com.sammy.malum.common.item.impetus.*;
 import com.sammy.malum.common.item.spirit.*;
 import com.sammy.malum.common.recipe.*;
@@ -52,6 +53,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
 
     public LodestoneBlockEntityInventory inventory;
     public LodestoneBlockEntityInventory spiritInventory;
+    public LodestoneBlockEntityInventory augmentInventory;
     public SpiritFocusingRecipe recipe;
 
     public float spiritAmount;
@@ -64,7 +66,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
 
     public CrucibleAccelerationData acceleratorData;
 
-    private final LazyOptional<IItemHandler> combinedInventory = LazyOptional.of(() -> new CombinedInvWrapper(inventory, spiritInventory));
+    private final LazyOptional<IItemHandler> combinedInventory = LazyOptional.of(() -> new CombinedInvWrapper(inventory, spiritInventory, augmentInventory));
 
     public SpiritCrucibleCoreBlockEntity(BlockEntityType<? extends SpiritCrucibleCoreBlockEntity> type, MultiBlockStructure structure, BlockPos pos, BlockState state) {
         super(type, structure, pos, state);
@@ -100,6 +102,24 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
                 return true;
             }
         };
+        augmentInventory = new MalumBlockEntityInventory(4, 1, t -> t.getItem() instanceof AbstractAugmentItem abstractAugmentItem && abstractAugmentItem.isForCrucible()) {
+            @Override
+            public void onContentsChanged(int slot) {
+                super.onContentsChanged(slot);
+                needsSync = true;
+                BlockHelper.updateAndNotifyState(level, worldPosition);
+            }
+
+            @Override
+            public SoundEvent getInsertSound(ItemStack stack) {
+                return SoundRegistry.APPLY_AUGMENT.get();
+            }
+
+            @Override
+            public SoundEvent getExtractSound(ItemStack stack) {
+                return SoundRegistry.REMOVE_AUGMENT.get();
+            }
+        };
     }
 
     public SpiritCrucibleCoreBlockEntity(BlockPos pos, BlockState state) {
@@ -123,6 +143,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
 
         inventory.save(compound);
         spiritInventory.save(compound, "spiritInventory");
+        augmentInventory.save(compound, "augmentInventory");
     }
 
     @Override
@@ -134,26 +155,35 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
 
         inventory.load(compound);
         spiritInventory.load(compound, "spiritInventory");
+        augmentInventory.load(compound, "augmentInventory");
 
         super.load(compound);
     }
 
     @Override
     public InteractionResult onUse(Player player, InteractionHand hand) {
-        if (level.isClientSide) {
-            return InteractionResult.CONSUME;
-        }
         if (hand.equals(InteractionHand.MAIN_HAND)) {
-            ItemStack heldStack = player.getMainHandItem();
-            recalibrateAccelerators(level, worldPosition);
-            ItemStack spiritStack = spiritInventory.interact(level, player, hand);
-            if (!spiritStack.isEmpty()) {
-                return InteractionResult.SUCCESS;
+            if (!level.isClientSide) {
+                recalibrateAccelerators(level, worldPosition);
             }
-            if (!(heldStack.getItem() instanceof SpiritShardItem)) {
-                ItemStack stack = inventory.interact(level, player, hand);
+            ItemStack heldStack = player.getMainHandItem();
+            ItemStack spiritStack = spiritInventory.interact(level, player, hand);
+            final boolean augmentOnly = heldStack.getItem() instanceof AbstractAugmentItem augment && augment.isForCrucible();
+            if (augmentOnly || (heldStack.isEmpty() && inventory.isEmpty() && spiritInventory.isEmpty())) {
+                ItemStack stack = augmentInventory.interact(player.level(), player, hand);
                 if (!stack.isEmpty()) {
                     return InteractionResult.SUCCESS;
+                }
+            }
+            if (!augmentOnly) {
+                if (!spiritStack.isEmpty()) {
+                    return InteractionResult.SUCCESS;
+                }
+                if (!(heldStack.getItem() instanceof SpiritShardItem)) {
+                    ItemStack stack = inventory.interact(level, player, hand);
+                    if (!stack.isEmpty()) {
+                        return InteractionResult.SUCCESS;
+                    }
                 }
             }
             if (heldStack.isEmpty()) {
@@ -333,9 +363,15 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
     }
 
     public Vec3 getSpiritItemOffset(int slot, float partialTicks) {
-        float distance = 0.75f + (float) Math.sin((spiritSpin % 6.2831f + partialTicks) / 20f) * 0.025f;
+        float distance = 0.75f + (float) Math.sin(((spiritSpin + partialTicks) % 6.28f) / 20f) * 0.025f;
         float height = 1.75f;
         return DataHelper.rotatingRadialOffset(new Vec3(0.5f, height, 0.5f), distance, slot, spiritAmount, (long) (spiritSpin + partialTicks), 360);
+    }
+
+    public Vec3 getAugmentItemOffset(int slot, float partialTicks) {
+        float distance = 0.65f + (float) Math.sin(((spiritSpin + partialTicks) % 6.28f) / 20f) * 0.025f;
+        float height = 2.5f;
+        return DataHelper.rotatingRadialOffset(new Vec3(0.5f, height, 0.5f), distance, slot, augmentInventory.nonEmptyItemAmount, (long) (spiritSpin + partialTicks), 240);
     }
 
     @Nonnull

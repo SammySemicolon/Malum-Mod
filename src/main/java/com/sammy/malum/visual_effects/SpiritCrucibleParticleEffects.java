@@ -45,7 +45,7 @@ public class SpiritCrucibleParticleEffects {
         if (recipe != null) {
             var lightSpecs = spiritLightSpecs(level, itemPos, activeSpiritType, ParticleRegistry.STAR);
             lightSpecs.getBuilder()
-                    .setSpinData(SpinParticleData.create(0).setSpinOffset((level.getGameTime() * 0.05f) % 6.28f).setEasing(Easing.CUBIC_IN, Easing.EXPO_IN).build())
+                    .setSpinData(SpinParticleData.create(0).setSpinOffset((level.getGameTime() * 0.05f) % 6.28f).build())
                     .modifyData(WorldParticleBuilder::getScaleData, d -> d.multiplyValue(2f))
                     .modifyData(WorldParticleBuilder::getTransparencyData, d -> d.multiplyValue(0.25f));
             lightSpecs.getBloomBuilder()

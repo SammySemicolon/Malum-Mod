@@ -120,6 +120,10 @@ public class ArcanaCodexHelper {
         RenderSystem.disableBlend();
     }
 
+    public static void renderTexture(ResourceLocation texture, PoseStack poseStack, int x, int y, float u, float v, int width, int height) {
+        renderTexture(texture, poseStack, x, y, u, v, width, height, width, height);
+    }
+
     public static void renderTexture(ResourceLocation texture, PoseStack poseStack, int x, int y, float u, float v, int width, int height, int textureWidth, int textureHeight) {
         renderTexture(texture, poseStack, VFX_BUILDER, x, y, u, v, width, height, textureWidth, textureHeight);
     }
@@ -129,6 +133,10 @@ public class ArcanaCodexHelper {
                 .setShaderTexture(texture)
                 .setUVWithWidth(u, v, width, height, textureWidth, textureHeight)
                 .draw(poseStack);
+    }
+
+    public static void renderTransparentTexture(ResourceLocation texture, PoseStack poseStack, int x, int y, float u, float v, int width, int height) {
+        renderTransparentTexture(texture, poseStack, x, y, u, v, width, height, width, height);
     }
 
     public static void renderTransparentTexture(ResourceLocation texture, PoseStack poseStack, int x, int y, float u, float v, int width, int height, int textureWidth, int textureHeight) {

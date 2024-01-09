@@ -14,6 +14,17 @@
   "pedestal_spirit_inserted": { "sounds":["malum:block_interaction/pedestal_spirit_insert1","malum:block_interaction/pedestal_spirit_insert2","malum:block_interaction/pedestal_spirit_insert3"], "subtitle": "malum.subtitle.pedestal_spirit_inserted" },
   "pedestal_spirit_picked_up": { "sounds":["malum:block_interaction/pedestal_spirit_remove1","malum:block_interaction/pedestal_spirit_remove2","malum:block_interaction/pedestal_spirit_remove3"], "subtitle": "malum.subtitle.pedestal_spirit_picked_up" },
 
+  "cloth_trinket_equipped": { "sounds":["malum:equip_sounds/cloth/equip_cloth1", "malum:equip_sounds/cloth/equip_cloth2", "malum:equip_sounds/cloth/equip_cloth3"], "subtitle": "malum.subtitle.ornate_trinket_equipped" },
+  "ornate_trinket_equipped": { "sounds":["malum:equip_sounds/ornate/equip_ornate1", "malum:equip_sounds/ornate/equip_ornate2", "malum:equip_sounds/ornate/equip_ornate3"], "subtitle": "malum.subtitle.ornate_trinket_equipped" },
+  "gilded_trinket_equipped": { "sounds":["malum:equip_sounds/gilded/equip_gilded1", "malum:equip_sounds/gilded/equip_gilded2", "malum:equip_sounds/gilded/equip_gilded3"], "subtitle": "malum.subtitle.gilded_trinket_equipped" },
+  "alchemical_trinket_equipped": { "sounds":["malum:equip_sounds/alchemical/equip_alchemical1", "malum:equip_sounds/alchemical/equip_alchemical2", "malum:equip_sounds/alchemical/equip_alchemical3"], "subtitle": "malum.subtitle.alchemical_trinket_equipped" },
+  "rotten_trinket_equipped": { "sounds":["malum:equip_sounds/rotten/equip_rotten1", "malum:equip_sounds/rotten/equip_rotten2", "malum:equip_sounds/rotten/equip_rotten3"], "subtitle": "malum.subtitle.rotten_trinket_equipped" },
+  "metallic_trinket_equipped": { "sounds":["malum:equip_sounds/metallic/equip_metallic1", "malum:equip_sounds/metallic/equip_metallic2", "malum:equip_sounds/metallic/equip_metallic3"], "subtitle": "malum.subtitle.metallic_trinket_equipped" },
+  "void_trinket_equipped": { "sounds":["malum:equip_sounds/void/equip_void1", "malum:equip_sounds/void/equip_void2", "malum:equip_sounds/void/equip_void3"], "subtitle": "malum.subtitle.void_trinket_equipped" },
+
+  "augment_applied": { "sounds":["malum:curiosities/apply_augment1","malum:curiosities/apply_augment2"], "subtitle": "malum.subtitle.apply_augment" },
+  "augment_removed": { "sounds":["malum:curiosities/remove_augment1","malum:curiosities/remove_augment2"], "subtitle": "malum.subtitle.remove_augment" },
+
   "arcane_whispers": { "sounds":["malum:curiosities/spirit/spirit_idle1","malum:curiosities/spirit/spirit_idle2","malum:curiosities/spirit/spirit_idle3","malum:curiosities/spirit/spirit_idle4"], "subtitle": "malum.subtitle.arcane_whispers" },
   "spirit_picked_up": { "sounds":["malum:curiosities/spirit/spirit_pickup1","malum:curiosities/spirit/spirit_pickup2","malum:curiosities/spirit/spirit_pickup3","malum:curiosities/spirit/spirit_pickup4"], "subtitle": "malum.subtitle.spirit_picked_up" },
   "a_soul_shatters": { "sounds":["malum:curiosities/soul_shatter1","malum:curiosities/soul_shatter2","malum:curiosities/soul_shatter3"], "subtitle": "malum.subtitle.a_soul_shatters" },
@@ -27,14 +38,6 @@
   "staff_strikes": { "sounds":["malum:curiosities/staff/hit1","malum:curiosities/staff/hit2","malum:curiosities/staff/hit3","malum:curiosities/staff/hit4"], "subtitle": "malum.subtitle.staff_strikes" },
 
   "auric_flame_motif": { "sounds":["malum:curiosities/staff/auric_flame_motif1","malum:curiosities/staff/auric_flame_motif2","malum:curiosities/staff/auric_flame_motif3"]},
-
-  "cloth_trinket_equipped": { "sounds":["malum:equip_sounds/cloth/equip_cloth1", "malum:equip_sounds/cloth/equip_cloth2", "malum:equip_sounds/cloth/equip_cloth3"], "subtitle": "malum.subtitle.ornate_trinket_equipped" },
-  "ornate_trinket_equipped": { "sounds":["malum:equip_sounds/ornate/equip_ornate1", "malum:equip_sounds/ornate/equip_ornate2", "malum:equip_sounds/ornate/equip_ornate3"], "subtitle": "malum.subtitle.ornate_trinket_equipped" },
-  "gilded_trinket_equipped": { "sounds":["malum:equip_sounds/gilded/equip_gilded1", "malum:equip_sounds/gilded/equip_gilded2", "malum:equip_sounds/gilded/equip_gilded3"], "subtitle": "malum.subtitle.gilded_trinket_equipped" },
-  "alchemical_trinket_equipped": { "sounds":["malum:equip_sounds/alchemical/equip_alchemical1", "malum:equip_sounds/alchemical/equip_alchemical2", "malum:equip_sounds/alchemical/equip_alchemical3"], "subtitle": "malum.subtitle.alchemical_trinket_equipped" },
-  "rotten_trinket_equipped": { "sounds":["malum:equip_sounds/rotten/equip_rotten1", "malum:equip_sounds/rotten/equip_rotten2", "malum:equip_sounds/rotten/equip_rotten3"], "subtitle": "malum.subtitle.rotten_trinket_equipped" },
-  "metallic_trinket_equipped": { "sounds":["malum:equip_sounds/metallic/equip_metallic1", "malum:equip_sounds/metallic/equip_metallic2", "malum:equip_sounds/metallic/equip_metallic3"], "subtitle": "malum.subtitle.metallic_trinket_equipped" },
-  "void_trinket_equipped": { "sounds":["malum:equip_sounds/void/equip_void1", "malum:equip_sounds/void/equip_void2", "malum:equip_sounds/void/equip_void3"], "subtitle": "malum.subtitle.void_trinket_equipped" },
 
   "the_unknown_weeps": { "sounds":["malum:weeping_well/uncanny_valley0","malum:weeping_well/uncanny_valley1"], "subtitle": "malum.subtitle.the_unknown_weeps" },
   "the_void_heart_beats": { "sounds":["malum:weeping_well/void_heartbeat"], "subtitle": "malum.subtitle.the_void_heart_beats" },

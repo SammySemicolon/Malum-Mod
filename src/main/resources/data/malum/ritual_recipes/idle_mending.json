@@ -1,17 +1,29 @@
 {
   "ritual_identifier": "malum:idle_mending",
   "input": {
-    "count": 2,
-    "item": "minecraft:nether_star"
+    "count": 8,
+    "item": "malum:living_flesh"
   },
   "extra_items": [
     {
-      "count": 1,
-      "item": "minecraft:ghast_tear"
+      "count": 4,
+      "item": "minecraft:iron_ingot"
+    },
+    {
+      "count": 4,
+      "item": "minecraft:gold_ingot"
+    },
+    {
+      "count": 4,
+      "item": "minecraft:copper_ingot"
     },
     {
       "count": 2,
-      "item": "minecraft:golden_carrot"
+      "item": "minecraft:glistering_melon_slice"
+    },
+    {
+      "count": 1,
+      "item": "minecraft:ghast_tear"
     }
   ]
 }

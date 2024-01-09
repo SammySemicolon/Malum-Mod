@@ -1,17 +1,17 @@
 {
   "ritual_identifier": "malum:manabound_enhancement",
   "input": {
-    "count": 16,
-    "item": "malum:corrupted_resonance"
+    "count": 8,
+    "item": "malum:soul_stained_steel_plating"
   },
   "extra_items": [
     {
-      "count": 8,
-      "item": "malum:astral_weave"
+      "count": 4,
+      "item": "minecraft:iron_ingot"
     },
     {
       "count": 4,
-      "item": "minecraft:nether_wart"
+      "item": "malum:soul_stained_steel_ingot"
     },
     {
       "count": 4,
@@ -19,7 +19,11 @@
     },
     {
       "count": 2,
-      "item": "malum:soul_stained_steel_ingot"
+      "item": "malum:arcane_charcoal"
+    },
+    {
+      "count": 1,
+      "item": "minecraft:iron_chestplate"
     }
   ]
 }

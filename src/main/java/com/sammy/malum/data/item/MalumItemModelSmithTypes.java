@@ -1,6 +1,8 @@
 package com.sammy.malum.data.item;
 
 import com.sammy.malum.common.item.cosmetic.skins.ArmorSkin;
+import com.sammy.malum.common.item.spirit.*;
+import com.sammy.malum.core.systems.ritual.*;
 import com.sammy.malum.registry.common.item.ArmorSkinRegistry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -26,12 +28,24 @@ public class MalumItemModelSmithTypes {
         provider.createGenericModel(item, GENERATED, provider.getItemTexture(alteredName));
     });
 
-    public static ItemModelSmith SPIRIT_ITEM = new ItemModelSmith((item, provider) -> {
-        provider.createGenericModel(item, GENERATED, provider.modLoc("item/spirit_shard"));
+    public static ItemModelSmith RITUAL_SHARD_ITEM = new ItemModelSmith((item, provider) -> {
+        String base = "ritual_shard";
+        provider.createGenericModel(item, GENERATED, provider.modLoc("item/" + base + "_faded"));
+        for (MalumRitualTier ritualTier : MalumRitualTier.TIERS) {
+            if (ritualTier.equals(MalumRitualTier.FADED)) {
+                continue;
+            }
+            String path = ritualTier.identifier.getPath();
+            ResourceLocation itemTexturePath = provider.modLoc("item/" + base + "_" + path);
+            provider.getBuilder(ForgeRegistries.ITEMS.getKey(item).getPath()).override()
+                    .predicate(new ResourceLocation(RitualShardItem.RITUAL_TYPE), ritualTier.potency)
+                    .model(provider.withExistingParent(provider.getItemName(item) + "_" + path, GENERATED).texture("layer0", itemTexturePath))
+                    .end();
+        }
     });
 
-    public static ItemModelSmith SPIRIT_OPTIC_ITEM = new ItemModelSmith((item, provider) -> {
-        provider.withExistingParent(provider.getItemName(item), HANDHELD).texture("layer0", provider.modLoc("item/tuned_optic")).texture("layer1", provider.modLoc("item/tuned_optic_glow"));
+    public static ItemModelSmith SPIRIT_ITEM = new ItemModelSmith((item, provider) -> {
+        provider.createGenericModel(item, GENERATED, provider.modLoc("item/spirit_shard"));
     });
 
     public static ItemModelSmith GENERATED_OVERLAY_ITEM = new ItemModelSmith((item, provider) -> {

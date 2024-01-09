@@ -1,15 +1,17 @@
 package com.sammy.malum.core.systems.ritual;
 
-import com.sammy.malum.*;
 import com.sammy.malum.common.block.curiosities.ritual_plinth.*;
-import com.sammy.malum.common.block.curiosities.totem.*;
-import com.sammy.malum.core.systems.rites.*;
+import com.sammy.malum.common.item.spirit.*;
 import com.sammy.malum.core.systems.spirit.*;
 import net.minecraft.*;
+import net.minecraft.nbt.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.resources.*;
+import net.minecraft.world.item.*;
+import team.lodestar.lodestone.helpers.*;
 
 import java.util.*;
+import java.util.function.*;
 
 public abstract class MalumRitualType {
 
@@ -23,6 +25,7 @@ public abstract class MalumRitualType {
     }
 
     public abstract void triggerRitualEffect(RitualPlinthBlockEntity ritualPlinth);
+
     public void setRecipeData(MalumRitualRecipeData recipeData) {
         this.recipeData = recipeData;
     }
@@ -32,23 +35,43 @@ public abstract class MalumRitualType {
     }
 
     public String translationIdentifier() {
-        return "malum.gui.ritual." + identifier;
+        return identifier.getNamespace() + ".gui.ritual." + identifier.getPath();
     }
 
     public ResourceLocation getIcon() {
         return new ResourceLocation(identifier.getNamespace(), "textures/vfx/ritual/" + identifier.getPath() + ".png");
     }
 
-    public List<Component> makeDetailedDescriptor() {
+    public CompoundTag createShardNBT(MalumRitualTier tier) {
+        CompoundTag compoundTag = new CompoundTag();
+        compoundTag.putString(RitualShardItem.RITUAL_TYPE, identifier.toString());
+        compoundTag.putInt(RitualShardItem.STORED_SPIRITS, tier.spiritThreshold);
+        return compoundTag;
+    }
+
+    public List<Component> makeRitualShardDescriptor(MalumRitualTier ritualTier) {
+        List<Component> tooltip = new ArrayList<>();
+        var spiritStyleModifier = spirit.getItemRarity().getStyleModifier();
+        tooltip.add(makeDescriptorComponent("malum.gui.ritual.type", translationIdentifier(), spiritStyleModifier));
+        tooltip.add(makeDescriptorComponent("malum.gui.ritual.tier", ritualTier.translationIdentifier(), spiritStyleModifier));
+        return tooltip;
+    }
+
+    public List<Component> makeCodexDetailedDescriptor() {
         List<Component> tooltip = new ArrayList<>();
         var spiritStyleModifier = spirit.getItemRarity().getStyleModifier();
         tooltip.add(Component.translatable(translationIdentifier()).withStyle(spiritStyleModifier));
-        tooltip.add(makeDescriptorComponent("malum.gui.ritual.effect", "malum.gui.book.entry.page.text." + identifier + ".hover"));
+        tooltip.add(makeDescriptorComponent("malum.gui.effect", "malum.gui.book.entry.page.text." + identifier + ".hover"));
         return tooltip;
     }
 
     public final Component makeDescriptorComponent(String translationKey1, String translationKey2) {
         return Component.translatable(translationKey1).withStyle(ChatFormatting.GOLD)
                 .append(Component.translatable(translationKey2).withStyle(ChatFormatting.YELLOW));
+    }
+
+    public final Component makeDescriptorComponent(String translationKey1, String translationKey2, UnaryOperator<Style> style) {
+        return Component.translatable(translationKey1).withStyle(ChatFormatting.GOLD)
+                .append(Component.translatable(translationKey2).withStyle(style));
     }
 }

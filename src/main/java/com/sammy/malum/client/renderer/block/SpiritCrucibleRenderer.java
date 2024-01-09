@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.*;
 import com.mojang.math.*;
 import com.sammy.malum.client.renderer.entity.*;
 import com.sammy.malum.common.block.curiosities.spirit_crucible.*;
+import com.sammy.malum.common.item.catalyzer_augment.*;
 import com.sammy.malum.common.item.spirit.*;
 import net.minecraft.client.*;
 import net.minecraft.client.renderer.*;
@@ -14,6 +15,9 @@ import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
 import org.joml.*;
 import team.lodestar.lodestone.systems.blockentity.*;
+
+import java.lang.*;
+import java.lang.Math;
 
 import static net.minecraft.client.renderer.texture.OverlayTexture.*;
 
@@ -52,6 +56,27 @@ public class SpiritCrucibleRenderer implements BlockEntityRenderer<SpiritCrucibl
             poseStack.scale(0.45f, 0.45f, 0.45f);
             itemRenderer.renderStatic(stack, ItemDisplayContext.FIXED, combinedLightIn, NO_OVERLAY, poseStack, bufferIn, level, 0);
             poseStack.popPose();
+        }
+        final LodestoneBlockEntityInventory augmentInventory = blockEntityIn.augmentInventory;
+
+        int augmentsRendered = 0;
+        if (!augmentInventory.isEmpty()) {
+            float total = augmentInventory.nonEmptyItemAmount;
+            float time = 240;
+            for (int i = 0; i < augmentInventory.slotCount; i++) {
+                ItemStack item = augmentInventory.getStackInSlot(i);
+                if (item.getItem() instanceof AbstractAugmentItem) {
+                    double angle = augmentsRendered / total * (Math.PI * 2);
+                    angle -= (((long) (blockEntityIn.spiritSpin + partialTicks) % time) / time) * (Math.PI * 2);
+                    poseStack.pushPose();
+                    Vector3f offset = blockEntityIn.getAugmentItemOffset(augmentsRendered++, partialTicks).toVector3f();
+                    poseStack.translate(offset.x(), offset.y(), offset.z());
+                    poseStack.mulPose(Axis.YP.rotation((float) angle-(1.57f)));
+                    poseStack.scale(0.5f, 0.5f, 0.5f);
+                    itemRenderer.renderStatic(item, ItemDisplayContext.FIXED, combinedLightIn, NO_OVERLAY, poseStack, bufferIn, level, 0);
+                    poseStack.popPose();
+                }
+            }
         }
     }
 }

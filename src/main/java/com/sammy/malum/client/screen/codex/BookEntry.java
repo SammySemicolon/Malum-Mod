@@ -1,34 +1,22 @@
 package com.sammy.malum.client.screen.codex;
 
-import com.sammy.malum.client.screen.codex.objects.EntryObject;
+import com.sammy.malum.client.screen.codex.objects.*;
 import com.sammy.malum.client.screen.codex.pages.BookPage;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.fml.ModList;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.*;
 
 public class BookEntry {
-    public final ItemStack iconStack;
     public final String identifier;
     public final int xOffset;
     public final int yOffset;
     public List<BookPage> pages = new ArrayList<>();
-    public EntryObjectSupplier objectSupplier = EntryObject::new;
-
-    public boolean isSoulwood;
-    public boolean isDark;
+    public WidgetSupplier widgetSupplier = EntryObject::new;
+    public Consumer<EntryObject> widgetConfig;
 
     public BookEntry(String identifier, int xOffset, int yOffset) {
-        this.iconStack = null;
-        this.identifier = identifier;
-        this.xOffset = xOffset;
-        this.yOffset = yOffset;
-    }
-
-    public BookEntry(String identifier, Item item, int xOffset, int yOffset) {
-        this.iconStack = item.getDefaultInstance();
         this.identifier = identifier;
         this.xOffset = xOffset;
         this.yOffset = yOffset;
@@ -40,16 +28,6 @@ public class BookEntry {
 
     public String descriptionTranslationKey() {
         return "malum.gui.book.entry." + identifier + ".description";
-    }
-
-    public BookEntry setSoulwood() {
-        isSoulwood = true;
-        return this;
-    }
-
-    public BookEntry setDark() {
-        isDark = true;
-        return this;
     }
 
     public BookEntry addPage(BookPage page) {
@@ -66,12 +44,21 @@ public class BookEntry {
         return this;
     }
 
-    public BookEntry setObjectSupplier(EntryObjectSupplier objectSupplier) {
-        this.objectSupplier = objectSupplier;
+    public BookEntry setWidgetInfo(WidgetSupplier widgetSupplier, Consumer<EntryObject> widgetConfig) {
+        return setWidgetSupplier(widgetSupplier).setWidgetConfig(widgetConfig);
+    }
+
+    public BookEntry setWidgetSupplier(WidgetSupplier widgetSupplier) {
+        this.widgetSupplier = widgetSupplier;
         return this;
     }
 
-    public interface EntryObjectSupplier {
+    public BookEntry setWidgetConfig(Consumer<EntryObject> widgetConfig) {
+        this.widgetConfig = widgetConfig;
+        return this;
+    }
+
+    public interface WidgetSupplier {
         EntryObject getBookObject(AbstractProgressionCodexScreen screen, BookEntry entry, int x, int y);
     }
 }

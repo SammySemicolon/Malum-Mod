@@ -47,6 +47,16 @@ public class SpiritCatalyzerRenderer implements BlockEntityRenderer<SpiritCataly
             itemRenderer.renderStatic(stack, ItemDisplayContext.FIXED, combinedLightIn, NO_OVERLAY, poseStack, bufferIn, level, 0);
             poseStack.popPose();
         }
+        stack = blockEntityIn.augmentInventory.getStackInSlot(0);
+        if (!stack.isEmpty()) {
+            poseStack.pushPose();
+            Vec3 offset = blockEntityIn.getItemOffset();
+            poseStack.translate(offset.x, offset.y+0.75f, offset.z);
+            poseStack.mulPose(Axis.YP.rotationDegrees(((-level.getGameTime() % 360) + partialTicks) * 3));
+            poseStack.scale(0.45f, 0.45f, 0.45f);
+            itemRenderer.renderStatic(stack, ItemDisplayContext.FIXED, combinedLightIn, NO_OVERLAY, poseStack, bufferIn, level, 0);
+            poseStack.popPose();
+        }
         if (blockEntityIn.getTarget() != null && blockEntityIn.intensity != null) {
             poseStack.pushPose();
             final BlockPos blockPos = blockEntityIn.getBlockPos();

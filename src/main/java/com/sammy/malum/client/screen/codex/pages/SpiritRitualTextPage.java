@@ -2,7 +2,6 @@ package com.sammy.malum.client.screen.codex.pages;
 
 import com.sammy.malum.*;
 import com.sammy.malum.client.screen.codex.*;
-import com.sammy.malum.core.systems.rites.*;
 import com.sammy.malum.core.systems.ritual.*;
 import net.minecraft.client.*;
 import net.minecraft.client.gui.*;
@@ -39,7 +38,7 @@ public class SpiritRitualTextPage extends BookPage {
         final int riteIconY = guiTop + 44;
         renderRitualIcon(ritualType, guiGraphics.pose(), false, 0.35f, riteIconX, riteIconY);
         if (screen.isHovering(mouseX, mouseY, riteIconX, riteIconY, 16, 16)) {
-            screen.renderLate(()->guiGraphics.renderComponentTooltip(Minecraft.getInstance().font, ritualType.makeDetailedDescriptor(), mouseX, mouseY));
+            screen.renderLate(()->guiGraphics.renderComponentTooltip(Minecraft.getInstance().font, ritualType.makeCodexDetailedDescriptor(), mouseX, mouseY));
         }
     }
 
@@ -54,7 +53,7 @@ public class SpiritRitualTextPage extends BookPage {
         final int riteIconY = guiTop + 44;
         renderRitualIcon(ritualType, guiGraphics.pose(), false, 0.35f, riteIconX, riteIconY);
         if (screen.isHovering(mouseX, mouseY, riteIconX, riteIconY, 16, 16)) {
-            screen.renderLate(()->guiGraphics.renderComponentTooltip(Minecraft.getInstance().font, ritualType.makeDetailedDescriptor(), mouseX, mouseY));
+            screen.renderLate(()->guiGraphics.renderComponentTooltip(Minecraft.getInstance().font, ritualType.makeCodexDetailedDescriptor(), mouseX, mouseY));
         }
     }
 }

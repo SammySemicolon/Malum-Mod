@@ -2,16 +2,16 @@
   "type": "malum:spirit_infusion",
   "extra_items": [
     {
-      "count": 2,
-      "item": "malum:hex_ash"
-    },
-    {
-      "count": 1,
-      "item": "minecraft:ghast_tear"
+      "count": 4,
+      "item": "malum:living_flesh"
     },
     {
       "count": 4,
       "item": "malum:alchemical_calx"
+    },
+    {
+      "count": 1,
+      "item": "minecraft:ghast_tear"
     }
   ],
   "input": {

@@ -29,6 +29,11 @@ public class MalumSpiritInfusionRecipes {
                 .addSpirit(ARCANE_SPIRIT, 1)
                 .build(consumer);
 
+        new SpiritInfusionRecipeBuilder(Items.ROTTEN_FLESH, 4, ItemRegistry.LIVING_FLESH.get(), 2)
+                .addSpirit(SACRED_SPIRIT, 2)
+                .addSpirit(WICKED_SPIRIT, 2)
+                .build(consumer);
+
         new SpiritInfusionRecipeBuilder(Items.CLAY_BALL, 4, ItemRegistry.ALCHEMICAL_CALX.get(), 4)
                 .addSpirit(ARCANE_SPIRIT, 2)
                 .addSpirit(EARTHEN_SPIRIT, 2)
@@ -115,44 +120,36 @@ public class MalumSpiritInfusionRecipes {
                 .build(consumer);
 
         new SpiritInfusionRecipeBuilder(Items.IRON_HELMET, 1, ItemRegistry.SOUL_STAINED_STEEL_HELMET.get(), 1)
-                .addExtraItem(ItemRegistry.SOUL_STAINED_STEEL_INGOT.get(), 4)
-                .addExtraItem(ItemRegistry.HEX_ASH.get(), 1)
-                .addExtraItem(ItemRegistry.PROCESSED_SOULSTONE.get(), 2)
+                .addExtraItem(ItemRegistry.SOUL_STAINED_STEEL_PLATING.get(), 6)
+                .addExtraItem(ItemRegistry.PROCESSED_SOULSTONE.get(), 4)
                 .addExtraItem(ItemRegistry.TWISTED_ROCK.get(), 8)
-                .addExtraItem(Ingredient.of(Tags.Items.GEMS_DIAMOND), 1)
                 .addSpirit(EARTHEN_SPIRIT, 8)
                 .addSpirit(WICKED_SPIRIT, 4)
                 .addSpirit(ARCANE_SPIRIT, 2)
                 .build(consumer);
 
         new SpiritInfusionRecipeBuilder(Items.IRON_CHESTPLATE, 1, ItemRegistry.SOUL_STAINED_STEEL_CHESTPLATE.get(), 1)
-                .addExtraItem(ItemRegistry.SOUL_STAINED_STEEL_INGOT.get(), 4)
-                .addExtraItem(ItemRegistry.HEX_ASH.get(), 1)
-                .addExtraItem(ItemRegistry.PROCESSED_SOULSTONE.get(), 2)
+                .addExtraItem(ItemRegistry.SOUL_STAINED_STEEL_PLATING.get(), 6)
+                .addExtraItem(ItemRegistry.PROCESSED_SOULSTONE.get(), 4)
                 .addExtraItem(ItemRegistry.TWISTED_ROCK.get(), 8)
-                .addExtraItem(Ingredient.of(Tags.Items.GEMS_DIAMOND), 1)
                 .addSpirit(EARTHEN_SPIRIT, 8)
                 .addSpirit(WICKED_SPIRIT, 4)
                 .addSpirit(ARCANE_SPIRIT, 2)
                 .build(consumer);
 
         new SpiritInfusionRecipeBuilder(Items.IRON_LEGGINGS, 1, ItemRegistry.SOUL_STAINED_STEEL_LEGGINGS.get(), 1)
-                .addExtraItem(ItemRegistry.SOUL_STAINED_STEEL_INGOT.get(), 4)
-                .addExtraItem(ItemRegistry.HEX_ASH.get(), 1)
-                .addExtraItem(ItemRegistry.PROCESSED_SOULSTONE.get(), 2)
+                .addExtraItem(ItemRegistry.SOUL_STAINED_STEEL_PLATING.get(), 6)
+                .addExtraItem(ItemRegistry.PROCESSED_SOULSTONE.get(), 4)
                 .addExtraItem(ItemRegistry.TWISTED_ROCK.get(), 8)
-                .addExtraItem(Ingredient.of(Tags.Items.GEMS_DIAMOND), 1)
                 .addSpirit(EARTHEN_SPIRIT, 8)
                 .addSpirit(WICKED_SPIRIT, 4)
                 .addSpirit(ARCANE_SPIRIT, 2)
                 .build(consumer);
 
         new SpiritInfusionRecipeBuilder(Items.IRON_BOOTS, 1, ItemRegistry.SOUL_STAINED_STEEL_BOOTS.get(), 1)
-                .addExtraItem(ItemRegistry.SOUL_STAINED_STEEL_INGOT.get(), 4)
-                .addExtraItem(ItemRegistry.HEX_ASH.get(), 1)
-                .addExtraItem(ItemRegistry.PROCESSED_SOULSTONE.get(), 2)
+                .addExtraItem(ItemRegistry.SOUL_STAINED_STEEL_PLATING.get(), 6)
+                .addExtraItem(ItemRegistry.PROCESSED_SOULSTONE.get(), 4)
                 .addExtraItem(ItemRegistry.TWISTED_ROCK.get(), 8)
-                .addExtraItem(Ingredient.of(Tags.Items.GEMS_DIAMOND), 1)
                 .addSpirit(EARTHEN_SPIRIT, 8)
                 .addSpirit(WICKED_SPIRIT, 4)
                 .addSpirit(ARCANE_SPIRIT, 2)
@@ -213,9 +210,9 @@ public class MalumSpiritInfusionRecipes {
                 .build(consumer);
 
         new SpiritInfusionRecipeBuilder(ItemRegistry.GILDED_RING.get(), 1, ItemRegistry.RING_OF_CURATIVE_TALENT.get(), 1)
-                .addExtraItem(ItemRegistry.HEX_ASH.get(), 2)
-                .addExtraItem(Items.GHAST_TEAR, 1)
+                .addExtraItem(ItemRegistry.LIVING_FLESH.get(), 4)
                 .addExtraItem(ItemRegistry.ALCHEMICAL_CALX.get(), 4)
+                .addExtraItem(Items.GHAST_TEAR, 1)
                 .addSpirit(SACRED_SPIRIT, 16)
                 .addSpirit(ARCANE_SPIRIT, 16)
                 .build(consumer);

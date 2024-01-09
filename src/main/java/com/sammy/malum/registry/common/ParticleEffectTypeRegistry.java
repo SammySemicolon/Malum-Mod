@@ -8,6 +8,7 @@ import com.sammy.malum.visual_effects.networked.generic.DrippingSmokeParticleEff
 import com.sammy.malum.visual_effects.networked.generic.HexingSmokeParticleEffect;
 import com.sammy.malum.visual_effects.networked.generic.RisingSparklesParticleEffect;
 import com.sammy.malum.visual_effects.networked.nitrate.*;
+import com.sammy.malum.visual_effects.networked.plinth.*;
 import com.sammy.malum.visual_effects.networked.staff.*;
 import com.sammy.malum.visual_effects.networked.weeping_well.WeepingWellRadianceParticleEffect;
 import com.sammy.malum.visual_effects.networked.weeping_well.WeepingWellReactionParticleEffect;
@@ -32,6 +33,12 @@ public class ParticleEffectTypeRegistry {
     //Functional vfx
     public static final ParticleEffectType SPIRIT_ALTAR_CRAFTS = new SpiritAltarCraftParticleEffect("spirit_altar_crafts");
     public static final ParticleEffectType SPIRIT_ALTAR_EATS_ITEM = new SpiritAltarEatItemParticleEffect("spirit_altar_eats_item");
+
+    public static final ParticleEffectType RITUAL_PLINTH_EATS_ITEM = new RitualPlinthAbsorbItemParticleEffect("ritual_plinth_eats_item");
+    public static final ParticleEffectType RITUAL_PLINTH_EATS_SPIRIT = new RitualPlinthAbsorbItemParticleEffect("ritual_plinth_eats_item");
+    public static final ParticleEffectType RITUAL_PLINTH_BEGINS_CHARGING = new RitualPlinthBeginChargingParticleEffect("ritual_plinth_begins_charging");
+    public static final ParticleEffectType RITUAL_PLINTH_CHANGES_TIER = new RitualPlinthChangeTierParticleEffect("ritual_plinth_changes_tier");
+    public static final ParticleEffectType RITUAL_PLINTH_FAILURE = new RitualPlinthFailureParticleEffect("ritual_plinth_failure");
 
     //Wand
     public static final ParticleEffectType HEX_BOLT_IMPACT = new HexBoltImpactParticleEffect("hex_bolt_impact");

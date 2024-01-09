@@ -20,6 +20,10 @@
     {
       "count": 1,
       "item": "minecraft:wither_rose"
+    },
+    {
+      "count": 1,
+      "item": "minecraft:wither_skeleton_skull"
     }
   ]
 }

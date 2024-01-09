@@ -33,11 +33,11 @@ public class RitualRecipeReloadListener extends SimpleJsonResourceReloadListener
             JsonObject object = objectIn.get(location).getAsJsonObject();
             String name = object.getAsJsonPrimitive("ritual_identifier").getAsString();
             ResourceLocation resourceLocation = new ResourceLocation(name);
-            if (!RitualRegistry.RITUALS.containsKey(resourceLocation)) {
+            MalumRitualType ritualType = RitualRegistry.get(resourceLocation);
+            if (ritualType == null) {
                 MalumMod.LOGGER.info("Ritual with registry name: " + name + " does not exist");
                 continue;
             }
-            MalumRitualType ritualType = RitualRegistry.RITUALS.get(resourceLocation);
             if (ritualType.getRecipeData() != null) {
                 MalumMod.LOGGER.info("Ritual with registry name: " + name + " already has a recipe. Overwriting");
             }
