@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "malum:item/wexing_engine"
+    "layer0": "malum:item/shielding_apparatus"
   }
 }

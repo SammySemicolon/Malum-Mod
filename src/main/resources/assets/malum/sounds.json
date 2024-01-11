@@ -22,8 +22,11 @@
   "metallic_trinket_equipped": { "sounds":["malum:equip_sounds/metallic/equip_metallic1", "malum:equip_sounds/metallic/equip_metallic2", "malum:equip_sounds/metallic/equip_metallic3"], "subtitle": "malum.subtitle.metallic_trinket_equipped" },
   "void_trinket_equipped": { "sounds":["malum:equip_sounds/void/equip_void1", "malum:equip_sounds/void/equip_void2", "malum:equip_sounds/void/equip_void3"], "subtitle": "malum.subtitle.void_trinket_equipped" },
 
-  "augment_applied": { "sounds":["malum:curiosities/apply_augment1","malum:curiosities/apply_augment2"], "subtitle": "malum.subtitle.apply_augment" },
-  "augment_removed": { "sounds":["malum:curiosities/remove_augment1","malum:curiosities/remove_augment2"], "subtitle": "malum.subtitle.remove_augment" },
+  "tuning_fork_tinkers": { "sounds":["malum:curiosities/augments/tuning_fork_tinker1","malum:curiosities/augments/tuning_fork_tinker2"], "subtitle": "malum.subtitle.tuning_fork_tinkers" },
+  "augment_applied": { "sounds":["malum:curiosities/augments/apply_augment1","malum:curiosities/augments/apply_augment2"], "subtitle": "malum.subtitle.augment_applied" },
+  "augment_removed": { "sounds":["malum:curiosities/augments/remove_augment1","malum:curiosities/augments/remove_augment2"], "subtitle": "malum.subtitle.augment_removed" },
+  "warping_engine_reverberates": { "sounds":["malum:curiosities/augments/warping_engine_reverberates1", "malum:curiosities/augments/warping_engine_reverberates2", "malum:curiosities/augments/warping_engine_reverberates3", "malum:curiosities/augments/warping_engine_reverberates4"], "subtitle": "malum.subtitle.warping_engine_reverberates" },
+  "shielding_apparatus_shields": { "sounds":["malum:curiosities/augments/shielding_apparatus_shields1", "malum:curiosities/augments/shielding_apparatus_shields2"], "subtitle": "malum.subtitle.shielding_apparatus_shields" },
 
   "arcane_whispers": { "sounds":["malum:curiosities/spirit/spirit_idle1","malum:curiosities/spirit/spirit_idle2","malum:curiosities/spirit/spirit_idle3","malum:curiosities/spirit/spirit_idle4"], "subtitle": "malum.subtitle.arcane_whispers" },
   "spirit_picked_up": { "sounds":["malum:curiosities/spirit/spirit_pickup1","malum:curiosities/spirit/spirit_pickup2","malum:curiosities/spirit/spirit_pickup3","malum:curiosities/spirit/spirit_pickup4"], "subtitle": "malum.subtitle.spirit_picked_up" },

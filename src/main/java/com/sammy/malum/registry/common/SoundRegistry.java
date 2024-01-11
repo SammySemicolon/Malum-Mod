@@ -41,8 +41,11 @@ public class SoundRegistry {
     public static final RegistryObject<SoundEvent> METALLIC_TRINKET_EQUIP = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("metallic_trinket_equipped")));
     public static final RegistryObject<SoundEvent> VOID_TRINKET_EQUIP = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("void_trinket_equipped")));
 
+    public static final RegistryObject<SoundEvent> TUNING_FORK_TINKERS = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("tuning_fork_tinkers")));
     public static final RegistryObject<SoundEvent> APPLY_AUGMENT = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("augment_applied")));
     public static final RegistryObject<SoundEvent> REMOVE_AUGMENT = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("augment_removed")));
+    public static final RegistryObject<SoundEvent> WARPING_ENGINE_REVERBERATES = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("warping_engine_reverberates")));
+    public static final RegistryObject<SoundEvent> SHIELDING_APPARATUS_SHIELDS = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("shielding_apparatus_shields")));
 
     public static final RegistryObject<SoundEvent> ARCANE_WHISPERS = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("arcane_whispers")));
     public static final RegistryObject<SoundEvent> SPIRIT_PICKUP = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("spirit_picked_up")));

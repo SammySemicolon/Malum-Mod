@@ -2,6 +2,7 @@ package com.sammy.malum.data;
 
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.client.screen.codex.ArcanaProgressionScreen;
+import com.sammy.malum.common.block.curiosities.spirit_crucible.*;
 import com.sammy.malum.common.block.ether.EtherWallTorchBlock;
 import com.sammy.malum.common.item.spirit.SpiritJarItem;
 import com.sammy.malum.core.systems.item.ISoulContainerItem;
@@ -116,6 +117,15 @@ public class MalumLang extends LanguageProvider {
         });
 
         spirits.forEach(s -> add(s.getSpiritDescription(), DataHelper.toTitleCase(s.identifier + "_spirit", "_")));
+
+        for (CrucibleTuning.CrucibleTuningType value : CrucibleTuning.CrucibleTuningType.values()) {
+            if (value.equals(CrucibleTuning.CrucibleTuningType.NONE)) {
+                continue;
+            }
+            final String translation = value.translation();
+            String name = DataHelper.toTitleCase(value.toString().toLowerCase(Locale.ROOT), "_");
+            add(translation, name);
+        }
 
         add("malum.gui.rite.type", "Type: ");
         add("malum.gui.rite.coverage", "Coverage: ");
@@ -349,6 +359,41 @@ public class MalumLang extends LanguageProvider {
                 "The Spirit Crucible allows the transmutation of matter. I have been able to use it to break down an impetus, and it stands to reason I could use it to restore one. By using spirit crystals in the Crucible instead of Brilliance in an anvil, I can do more than that - I can restore nearly anything.",
                 "Every metal and make of tool or armor requires its own set of spirits to repair, and its own repair material. For an Impetus, the repair material " + italic("is") + " the spirits instead. The repair material must be placed on a Twisted Tablet facing the Crucible. Once the spirits coalesce, the item will be repaired somewhat.",
                 "It appears that materials in tune with spirit arcana, such as Soulstained Steel or Hallowed Gold, are more efficient in this process. They will be repaired more than their mundane counterparts would for the same cost.");
+
+        addSimpleEntryHeader("crucible_augmentation", "Crucible Augmentation", "Tuned Design");
+        addPages("crucible_augmentation",
+                "The Crucible is a machine of great potential, and through the system I dubbed augmentation, that potential can be brought to even greater heights. Augmentation revolves around augments, simple items made from alchemical calx.",
+                "Each augment provides a unique effect that can be activated by slotting it in either the spirit catalyzer, or up to four in the spirit crucible itself. Using more than one instance of the same augment type works just fine.",
+                "In order to help with augmentation, I have designed a tool known as the Tuning Fork. While held, I will be able to see all the unique attributes of the crucible and it's augments. On top of that, by using the Tuning Fork on the crucible I may choose an attribute to improve, at the cost of other attributes lessening in potency.");
+
+        addSimpleEntryHeader("mending_diffuser", "Mending Diffuser", "Cracked no more");
+        addPages("mending_diffuser",
+                "An unexpected yet brilliant application of Living Flesh, the Mending Diffuser will, upon the crucible completing a focusing cycle, potentially repair any impetus by a small amount. It cannot however mend an already cracked impetus.");
+
+        addSimpleEntryHeader("shielding_apparatus", "Shielding Apparatus", "Alchemical protection");
+        addPages("shielding_apparatus",
+                "By utilizing the protective properties of Soul Stained Steel the Shielding Apparatus provides a chance for the damage imposed upon the impetus to be " + italic("completely") + " absorbed, while also slightly stabilizing the focusing process. It does however reduce focusing speed.");
+
+        addSimpleEntryHeader("warping_engine", "Warping Engine", "Unstable contraption");
+        addPages("warping_engine",
+                "I have created something cursed. This machine named the Warping Engine is a rather hard to explain piece of engineering, but in short, each time the crucible finishes a focusing cycle the engine has a chance to nearly instantly bring about the completion of the next cycle.",
+                "This strange effect takes quite a toll on the stability and fuel requirements of the focusing process, however, it appears that repeatedly chained activations of the Warping Engine " + italic("drastically") + " improve stability.");
+
+        addSimpleEntryHeader("prismatic_focus_lens", "Prismatic Focus Lens", "Stabilising");
+        addPages("prismatic_focus_lens",
+                "A rather useful solution to instability problems; The Prismatic Focus Lens significantly reduces instability of the spirit focusing process. It is important to note, stability prevents any " + italic("additional") + " damage the impetus would be taking, rather than negating it all together.");
+
+        addSimpleEntryHeader("accelerating_inlay", "Accelerating Inlay", "Doubling down");
+        addPages("accelerating_inlay",
+                "A simple but effective implement, the Accelerating Inlay provides a substantial bonus to the focusing speed of the crucible without any drawbacks.");
+
+        addSimpleEntryHeader("blazing_diode", "Blazing Diode", "Fiery efficiency");
+        addPages("blazing_diode",
+                "The Blazing Diode is a solution to the problem of fuel management, the infernal arcana imbued into the curio lessens the fuel requirement of any catalyzer powering the crucible, while also slightly hastening the focusing process.");
+
+        addSimpleEntryHeader("intricate_assembly", "Intricate Assembly", "Plentiful production");
+        addPages("intricate_assembly",
+                "The Intricate Assembly is quite a powerful augment. At the cost of an increased dependency on fuel, as well as a reduced focusing speed, it enables the crucible to potentially produce double the usual amount of items during each focusing cycle.");
 
         addEntryHeader("spirit_metals", "Spirit Metals", "Arcana refined");
         addHeadline("spirit_metals.soulstained_steel", "Soulstained Steel");

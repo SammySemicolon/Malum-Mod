@@ -1,0 +1,34 @@
+{
+  "type": "malum:spirit_infusion",
+  "extra_items": [
+    {
+      "count": 4,
+      "item": "malum:astral_weave"
+    },
+    {
+      "count": 1,
+      "tag": "forge:gems/diamond"
+    },
+    {
+      "count": 2,
+      "item": "malum:processed_soulstone"
+    }
+  ],
+  "input": {
+    "count": 4,
+    "item": "malum:alchemical_calx"
+  },
+  "output": {
+    "item": "malum:accelerating_inlay"
+  },
+  "spirits": [
+    {
+      "type": "aerial",
+      "count": 16
+    },
+    {
+      "type": "arcane",
+      "count": 4
+    }
+  ]
+}

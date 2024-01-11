@@ -8,7 +8,7 @@ public class MendingDiffuserItem extends AbstractAugmentItem{
     }
 
     @Override
-    public boolean isForCrucible() {
-        return true;
+    public float getRestorationChance() {
+        return 0.08f;
     }
 }

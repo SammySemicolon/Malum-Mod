@@ -6,4 +6,9 @@ public class PrismaticFocusLensItem extends AbstractAugmentItem{
     public PrismaticFocusLensItem(Properties pProperties) {
         super(pProperties, SpiritTypeRegistry.AQUEOUS_SPIRIT);
     }
+
+    @Override
+    public float getDamageChanceIncrease() {
+        return -0.08f;
+    }
 }

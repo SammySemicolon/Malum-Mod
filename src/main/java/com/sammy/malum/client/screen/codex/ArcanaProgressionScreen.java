@@ -414,6 +414,72 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
         );
 
         ENTRIES.add(new BookEntry(
+                "crucible_augmentation", 10, 8)
+                .setWidgetConfig(w -> w.setIcon(TUNING_FORK))
+                .addPage(new HeadlineTextPage("crucible_augmentation", "crucible_augmentation.1"))
+                .addPage(new TextPage("crucible_augmentation.2"))
+                .addPage(new TextPage("crucible_augmentation.3"))
+                .addPage(SpiritInfusionPage.fromOutput(TUNING_FORK.get()))
+        );
+
+        ENTRIES.add(new BookEntry(
+                "mending_diffuser", 11, 7)
+                .setWidgetConfig(w -> w.setIcon(MENDING_DIFFUSER))
+                .addPage(new HeadlineTextPage("mending_diffuser", "mending_diffuser.1"))
+                .addPage(SpiritInfusionPage.fromOutput(MENDING_DIFFUSER.get()))
+        );
+
+        ENTRIES.add(new BookEntry(
+                "complex_logistics", 12, 7)
+                .setWidgetConfig(w -> w.setIcon(BARRIER))
+                .addPage(new HeadlineTextPage("complex_logistics", "complex_logistics.1"))
+                .addPage(SpiritInfusionPage.fromOutput(MENDING_DIFFUSER.get()))
+        );
+
+        ENTRIES.add(new BookEntry(
+                "accelerating_inlay", 13, 8)
+                .setWidgetConfig(w -> w.setIcon(ACCELERATING_INLAY))
+                .addPage(new HeadlineTextPage("accelerating_inlay", "accelerating_inlay.1"))
+                .addPage(SpiritInfusionPage.fromOutput(ACCELERATING_INLAY.get()))
+        );
+
+        ENTRIES.add(new BookEntry(
+                "blazing_diode", 12, 8)
+                .setWidgetConfig(w -> w.setIcon(BLAZING_DIODE))
+                .addPage(new HeadlineTextPage("blazing_diode", "blazing_diode.1"))
+                .addPage(SpiritInfusionPage.fromOutput(BLAZING_DIODE.get()))
+        );
+
+        ENTRIES.add(new BookEntry(
+                "prismatic_focus_lens", 12, 9)
+                .setWidgetConfig(w -> w.setIcon(PRISMATIC_FOCUS_LENS))
+                .addPage(new HeadlineTextPage("prismatic_focus_lens", "prismatic_focus_lens.1"))
+                .addPage(SpiritInfusionPage.fromOutput(PRISMATIC_FOCUS_LENS.get()))
+        );
+
+        ENTRIES.add(new BookEntry(
+                "intricate_assembly", 13, 9)
+                .setWidgetConfig(w -> w.setIcon(INTRICATE_ASSEMBLY))
+                .addPage(new HeadlineTextPage("intricate_assembly", "intricate_assembly.1"))
+                .addPage(SpiritInfusionPage.fromOutput(INTRICATE_ASSEMBLY.get()))
+        );
+
+        ENTRIES.add(new BookEntry(
+                "shielding_apparatus", 13, 10)
+                .setWidgetConfig(w -> w.setIcon(SHIELDING_APPARATUS))
+                .addPage(new HeadlineTextPage("shielding_apparatus", "shielding_apparatus.1"))
+                .addPage(SpiritInfusionPage.fromOutput(SHIELDING_APPARATUS.get()))
+        );
+
+        ENTRIES.add(new BookEntry(
+                "warping_engine", 14, 10)
+                .setWidgetConfig(w -> w.setIcon(WARPING_ENGINE))
+                .addPage(new HeadlineTextPage("warping_engine", "warping_engine.1"))
+                .addPage(new TextPage("warping_engine.2"))
+                .addPage(SpiritInfusionPage.fromOutput(WARPING_ENGINE.get()))
+        );
+
+        ENTRIES.add(new BookEntry(
                 "spirit_metals", -3, 6)
                 .setWidgetConfig(w -> w.setIcon(SOUL_STAINED_STEEL_INGOT))
                 .addPage(new HeadlineTextItemPage("spirit_metals.soulstained_steel", "spirit_metals.soulstained_steel.1", SOUL_STAINED_STEEL_INGOT.get()))

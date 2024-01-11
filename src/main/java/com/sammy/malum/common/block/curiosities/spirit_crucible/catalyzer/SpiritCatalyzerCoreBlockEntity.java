@@ -33,18 +33,14 @@ import java.util.function.*;
 public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity implements ICrucibleAccelerator {
 
     private static final Vec3 CATALYZER_ITEM_OFFSET = new Vec3(0.5f, 2f, 0.5f);
+    private static final Vec3 CATALYZER_AUGMENT_OFFSET = new Vec3(0.5f, 2.75f, 0.5f);
 
     public static final Supplier<HorizontalDirectionStructure> STRUCTURE = () -> (HorizontalDirectionStructure.of(new MultiBlockStructure.StructurePiece(0, 1, 0, BlockRegistry.SPIRIT_CATALYZER_COMPONENT.get().defaultBlockState())));
-
-    public static final CrucibleAcceleratorType CATALYZER = new ArrayCrucibleAcceleratorType("catalyzer",
-            new float[]{0.2f, 0.25f, 0.3f, 0.4f, 0.45f, 0.5f, 0.6f, 0.8f},
-            new int[]{1, 1, 1, 2, 2, 3, 3, 5},
-            new float[]{0.25f, 0.5f, 0.75f, 1f, 1.5f, 2.25f, 3.5f, 8f});
 
     public LodestoneBlockEntityInventory inventory;
     public LodestoneBlockEntityInventory augmentInventory;
 
-    public int burnTicks;
+    public float burnTicks;
     public HashMap<MalumSpiritType, Integer> intensity;
     protected ICatalyzerAccelerationTarget target;
 
@@ -57,7 +53,7 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity impleme
                 BlockHelper.updateAndNotifyState(level, worldPosition);
             }
         };
-        augmentInventory = new MalumBlockEntityInventory(1, 1, t -> t.getItem() instanceof AbstractAugmentItem abstractAugmentItem && !abstractAugmentItem.isForCrucible()) {
+        augmentInventory = new MalumBlockEntityInventory(1, 1, t -> t.getItem() instanceof AbstractAugmentItem) {
             @Override
             public void onContentsChanged(int slot) {
                 super.onContentsChanged(slot);
@@ -84,7 +80,7 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity impleme
     @Override
     protected void saveAdditional(CompoundTag compound) {
         if (burnTicks != 0) {
-            compound.putInt("burnTicks", burnTicks);
+            compound.putFloat("burnTicks", burnTicks);
         }
 
         inventory.save(compound);
@@ -94,7 +90,7 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity impleme
 
     @Override
     public void load(CompoundTag compound) {
-        burnTicks = compound.getInt("burnTicks");
+        burnTicks = compound.getFloat("burnTicks");
 
         inventory.load(compound);
         augmentInventory.load(compound, "augmentInventory");
@@ -106,7 +102,7 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity impleme
     public InteractionResult onUse(Player player, InteractionHand hand) {
         if (hand.equals(InteractionHand.MAIN_HAND)) {
             final ItemStack heldStack = player.getItemInHand(hand);
-            final boolean augmentOnly = heldStack.getItem() instanceof AbstractAugmentItem augment && !augment.isForCrucible();
+            final boolean augmentOnly = heldStack.getItem() instanceof AbstractAugmentItem;
             if (augmentOnly || (heldStack.isEmpty() && inventory.isEmpty())) {
                 ItemStack stack = augmentInventory.interact(player.level(), player, hand);
                 if (!stack.isEmpty()) {
@@ -125,7 +121,8 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity impleme
 
     @Override
     public void onBreak(@Nullable Player player) {
-        inventory.dumpItems(level, BlockHelper.fromBlockPos(worldPosition).add(0.5f, 0.5f, 0.5f));
+        inventory.dumpItems(level, worldPosition);
+        augmentInventory.dumpItems(level, worldPosition);
         super.onBreak(player);
     }
 
@@ -133,7 +130,10 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity impleme
     public void tick() {
         if (target != null && target.canBeAccelerated()) {
             if (burnTicks > 0) {
-                burnTicks--;
+                float ratio = target.getAccelerationData().fuelUsageRate;
+                if (ratio > 0) {
+                    burnTicks -= ratio;
+                }
             }
         }
         if (level.isClientSide) {
@@ -156,9 +156,17 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity impleme
                     intensity.put(spiritType, Math.max(0,intensity.get(spiritType) - 1));
                 }
             }
+            SpiritCrucibleParticleEffects.passiveSpiritCatalyzerParticles(this);
         }
     }
 
+    @OnlyIn(Dist.CLIENT)
+    @Override
+    public void addParticles(ICatalyzerAccelerationTarget target, MalumSpiritType spiritType) {
+        if (burnTicks > 0) {
+            SpiritCrucibleParticleEffects.activeSpiritCatalyzerParticles(this, target, spiritType);
+        }
+    }
 
     @Override
     public boolean canStartAccelerating() {
@@ -170,10 +178,13 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity impleme
 
     @Override
     public boolean canContinueAccelerating() {
-        if (burnTicks == 0) {
+        if (isRemoved()) {
+            return false;
+        }
+        if (burnTicks <= 0) {
             ItemStack stack = inventory.getStackInSlot(0);
             if (!stack.isEmpty()) {
-                burnTicks = ForgeHooks.getBurnTime(inventory.getStackInSlot(0), RecipeType.SMELTING) / 2;
+                burnTicks = ForgeHooks.getBurnTime(inventory.getStackInSlot(0), RecipeType.SMELTING) / 2f;
                 stack.shrink(1);
                 BlockHelper.updateAndNotifyState(level, worldPosition);
             }
@@ -183,7 +194,12 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity impleme
 
     @Override
     public CrucibleAcceleratorType getAcceleratorType() {
-        return CATALYZER;
+        return CatalyzerAcceleratorType.CATALYZER;
+    }
+
+    @Override
+    public ItemStack getAugment() {
+        return augmentInventory.getStackInSlot(0);
     }
 
     @Override
@@ -196,16 +212,12 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity impleme
         this.target = target;
     }
 
-    @OnlyIn(Dist.CLIENT)
-    @Override
-    public void addParticles(ICatalyzerAccelerationTarget target, MalumSpiritType spiritType) {
-        if (burnTicks > 0) {
-            SpiritCrucibleParticleEffects.spiritCatalyzerParticles(this, target, spiritType);
-        }
-    }
-
     public Vec3 getItemOffset() {
         return CATALYZER_ITEM_OFFSET;
+    }
+
+    public Vec3 getAugmentOffset() {
+        return CATALYZER_AUGMENT_OFFSET;
     }
 
     @Nonnull

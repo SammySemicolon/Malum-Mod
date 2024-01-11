@@ -1,5 +1,6 @@
 package com.sammy.malum.core.events;
 
+import com.sammy.malum.client.renderer.block.*;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RenderGuiOverlayEvent;
 import net.minecraftforge.event.TickEvent;
@@ -16,5 +17,10 @@ public class ClientRuntimeEvents {
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public static void lateRenderTick(TickEvent.RenderTickEvent event) {
+    }
+
+    @SubscribeEvent
+    public static void clientTickEvent(TickEvent.ClientTickEvent event) {
+        SpiritCrucibleRenderer.checkForTuningFork(event);
     }
 }

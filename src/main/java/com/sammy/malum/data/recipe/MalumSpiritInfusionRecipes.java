@@ -4,9 +4,7 @@ import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.item.impetus.ImpetusItem;
 import com.sammy.malum.data.recipe.builder.SpiritInfusionRecipeBuilder;
 import com.sammy.malum.registry.common.item.ItemRegistry;
-import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.FinishedRecipe;
-import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
@@ -328,6 +326,65 @@ public class MalumSpiritInfusionRecipes {
                 .addSpirit(EARTHEN_SPIRIT, 4)
                 .addExtraItem(ItemRegistry.PROCESSED_SOULSTONE.get(), 3)
                 .addExtraItem(ItemRegistry.HEX_ASH.get(), 1)
+                .build(consumer);
+
+        new SpiritInfusionRecipeBuilder(Ingredient.of(Tags.Items.INGOTS_IRON), 2, ItemRegistry.TUNING_FORK.get(), 1)
+                .addSpirit(ARCANE_SPIRIT, 8)
+                .addSpirit(AQUEOUS_SPIRIT, 8)
+                .addExtraItem(ItemRegistry.RUNEWOOD_PLANKS.get(), 2)
+                .addExtraItem(ItemRegistry.PROCESSED_SOULSTONE.get(), 1)
+                .build(consumer);
+
+        new SpiritInfusionRecipeBuilder(ItemRegistry.ALCHEMICAL_CALX.get(), 4, ItemRegistry.MENDING_DIFFUSER.get(), 1)
+                .addSpirit(SACRED_SPIRIT, 16)
+                .addSpirit(ARCANE_SPIRIT, 4)
+                .addExtraItem(ItemRegistry.LIVING_FLESH.get(), 4)
+                .addExtraItem(ItemRegistry.PROCESSED_SOULSTONE.get(), 2)
+                .build(consumer);
+
+        new SpiritInfusionRecipeBuilder(ItemRegistry.ALCHEMICAL_CALX.get(), 4, ItemRegistry.SHIELDING_APPARATUS.get(), 1)
+                .addSpirit(ARCANE_SPIRIT, 16)
+                .addExtraItem(ItemRegistry.SOUL_STAINED_STEEL_PLATING.get(), 4)
+                .addExtraItem(ItemRegistry.PROCESSED_SOULSTONE.get(), 2)
+                .build(consumer);
+
+        new SpiritInfusionRecipeBuilder(ItemRegistry.ALCHEMICAL_CALX.get(), 4, ItemRegistry.WARPING_ENGINE.get(), 1)
+                .addSpirit(ELDRITCH_SPIRIT, 4)
+                .addSpirit(ARCANE_SPIRIT, 4)
+                .addExtraItem(ItemRegistry.HEX_ASH.get(), 8)
+                .addExtraItem(ItemRegistry.PROCESSED_SOULSTONE.get(), 2)
+                .build(consumer);
+
+        new SpiritInfusionRecipeBuilder(ItemRegistry.ALCHEMICAL_CALX.get(), 4, ItemRegistry.ACCELERATING_INLAY.get(), 1)
+                .addSpirit(AERIAL_SPIRIT, 16)
+                .addSpirit(ARCANE_SPIRIT, 4)
+                .addExtraItem(ItemRegistry.ASTRAL_WEAVE.get(), 4)
+                .addExtraItem(Ingredient.of(Tags.Items.GEMS_DIAMOND), 1)
+                .addExtraItem(ItemRegistry.PROCESSED_SOULSTONE.get(), 2)
+                .build(consumer);
+
+        new SpiritInfusionRecipeBuilder(ItemRegistry.ALCHEMICAL_CALX.get(), 4, ItemRegistry.PRISMATIC_FOCUS_LENS.get(), 1)
+                .addSpirit(AQUEOUS_SPIRIT, 16)
+                .addSpirit(ARCANE_SPIRIT, 4)
+                .addExtraItem(Ingredient.of(Tags.Items.GEMS_PRISMARINE), 4)
+                .addExtraItem(ItemRegistry.SPECTRAL_LENS.get(), 1)
+                .addExtraItem(ItemRegistry.PROCESSED_SOULSTONE.get(), 2)
+                .build(consumer);
+
+        new SpiritInfusionRecipeBuilder(ItemRegistry.ALCHEMICAL_CALX.get(), 4, ItemRegistry.BLAZING_DIODE.get(), 1)
+                .addSpirit(INFERNAL_SPIRIT, 16)
+                .addSpirit(ARCANE_SPIRIT, 4)
+                .addExtraItem(ItemRegistry.BLAZING_QUARTZ.get(), 4)
+                .addExtraItem(Items.BLAZE_POWDER, 1)
+                .addExtraItem(ItemRegistry.PROCESSED_SOULSTONE.get(), 2)
+                .build(consumer);
+
+        new SpiritInfusionRecipeBuilder(ItemRegistry.ALCHEMICAL_CALX.get(), 4, ItemRegistry.INTRICATE_ASSEMBLY.get(), 1)
+                .addSpirit(EARTHEN_SPIRIT, 16)
+                .addSpirit(ARCANE_SPIRIT, 4)
+                .addExtraItem(ItemRegistry.CHUNK_OF_BRILLIANCE.get(), 4)
+                .addExtraItem(Ingredient.of(Tags.Items.GEMS_EMERALD), 1)
+                .addExtraItem(ItemRegistry.PROCESSED_SOULSTONE.get(), 2)
                 .build(consumer);
 
         new SpiritInfusionRecipeBuilder(ItemRegistry.TWISTED_ROCK_ITEM_PEDESTAL.get(), 2, ItemRegistry.SPIRIT_CATALYZER.get(), 2)
