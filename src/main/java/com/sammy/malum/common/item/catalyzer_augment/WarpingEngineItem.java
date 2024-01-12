@@ -9,7 +9,7 @@ public class WarpingEngineItem extends AbstractAugmentItem{
 
     @Override
     public float getInstantCompletionChance() {
-        return 0.07f;
+        return 0.06f;
     }
 
     @Override

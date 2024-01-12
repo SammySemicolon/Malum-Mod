@@ -377,7 +377,7 @@ public class MalumLang extends LanguageProvider {
         addSimpleEntryHeader("warping_engine", "Warping Engine", "Unstable contraption");
         addPages("warping_engine",
                 "I have created something cursed. This machine named the Warping Engine is a rather hard to explain piece of engineering, but in short, each time the crucible finishes a focusing cycle the engine has a chance to nearly instantly bring about the completion of the next cycle.",
-                "This strange effect takes quite a toll on the stability and fuel requirements of the focusing process, however, it appears that repeatedly chained activations of the Warping Engine " + italic("drastically") + " improve stability.");
+                "Furthermore, chained activations of the warping engine provide a stacking benefit to " + italic("all") + "other attributes. Unfortunately, this complex behavior takes quite a toll on the stability and fuel requirements of the focusing process.");
 
         addSimpleEntryHeader("prismatic_focus_lens", "Prismatic Focus Lens", "Stabilising");
         addPages("prismatic_focus_lens",

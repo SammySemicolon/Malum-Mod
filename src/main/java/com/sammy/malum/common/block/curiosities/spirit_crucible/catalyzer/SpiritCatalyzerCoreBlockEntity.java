@@ -130,7 +130,8 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity impleme
     public void tick() {
         if (target != null && target.canBeAccelerated()) {
             if (burnTicks > 0) {
-                float ratio = target.getAccelerationData().fuelUsageRate;
+                CrucibleAccelerationData data = target.getAccelerationData();
+                float ratio = data.fuelUsageRate.getValue(data);
                 if (ratio > 0) {
                     burnTicks -= ratio;
                 }

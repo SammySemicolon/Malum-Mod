@@ -245,7 +245,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
                 }
             }
         }
-        float speed = acceleratorData.processingSpeed;
+        float speed = acceleratorData.processingSpeed.getValue(acceleratorData);
         if (level instanceof ServerLevel) {
             if (recipe != null) {
                 boolean needsRecalibration = !acceleratorData.accelerators.stream().allMatch(ICrucibleAccelerator::canContinueAccelerating);
@@ -273,17 +273,18 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
         ItemStack outputStack = recipe.output.copy();
         Vec3 itemPos = getItemPos();
         final RandomSource random = level.random;
-        float bonusYieldChance = acceleratorData.bonusYieldChance;
-        float instantCompletionChance = acceleratorData.chainFocusingChance;
-        float completeDamageNegationChance = acceleratorData.damageAbsorptionChance;
-        float restorationChance = acceleratorData.restorationChance;
+        float processingSpeed = acceleratorData.processingSpeed.getValue(acceleratorData);
+        float damageChance = acceleratorData.damageChance.getValue(acceleratorData);
+        float bonusYieldChance = acceleratorData.bonusYieldChance.getValue(acceleratorData);
+        float instantCompletionChance = acceleratorData.chainFocusingChance.getValue(acceleratorData);
+        float completeDamageNegationChance = acceleratorData.damageAbsorptionChance.getValue(acceleratorData);
+        float restorationChance = acceleratorData.restorationChance.getValue(acceleratorData);
         if (random.nextFloat() < restorationChance) {
             stack.setDamageValue(Math.max(stack.getDamageValue()-recipe.durabilityCost*2, 0));
         }
         if (completeDamageNegationChance == 0 || random.nextFloat() < completeDamageNegationChance) {
             if (recipe.durabilityCost != 0 && stack.isDamageableItem()) {
                 int durabilityCost = recipe.durabilityCost;
-                float damageChance = acceleratorData.damageChance - wexingEngineInfluence * 0.15f;
                 if (damageChance > 0 && random.nextFloat() < damageChance) {
                     durabilityCost *= 2;
                 }
@@ -314,11 +315,11 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
             level.addFreshEntity(new ItemEntity(level, itemPos.x, itemPos.y, itemPos.z, outputStack.copy()));
         }
         final boolean instantCompletion = instantCompletionChance > 0 && random.nextFloat() < instantCompletionChance;
-        progress = instantCompletion ? recipe.time - 10 * acceleratorData.processingSpeed : 0;
+        progress = instantCompletion ? recipe.time - 10 * processingSpeed : 0;
         if (instantCompletion) {
             level.playSound(null, worldPosition, SoundRegistry.WARPING_ENGINE_REVERBERATES.get(), SoundSource.BLOCKS, 1.5f, 1f + random.nextFloat() * 0.25f);
         }
-        wexingEngineInfluence = instantCompletion ? wexingEngineInfluence + 1 : 0;
+        acceleratorData.globalAttributeModifier = instantCompletion ? acceleratorData.globalAttributeModifier + 0.2f : 0;
         recipe = SpiritFocusingRecipe.getRecipe(level, stack, spiritInventory.nonEmptyItemStacks);
         level.playSound(null, worldPosition, SoundRegistry.CRUCIBLE_CRAFT.get(), SoundSource.BLOCKS, 1, 0.75f + random.nextFloat() * 0.5f);
         BlockHelper.updateAndNotifyState(level, worldPosition);

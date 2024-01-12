@@ -18,14 +18,16 @@ public class CrucibleAccelerationData {
     public final List<BlockPos> positions = new ArrayList<>();
     public final List<ICrucibleAccelerator> accelerators = new ArrayList<>();
 
-    public final float processingSpeed;
-    public final float damageChance;
+    public final TunedValue processingSpeed;
+    public final TunedValue damageChance;
 
-    public final float bonusYieldChance;
-    public final float fuelUsageRate;
-    public final float chainFocusingChance;
-    public final float damageAbsorptionChance;
-    public final float restorationChance;
+    public final TunedValue bonusYieldChance;
+    public final TunedValue fuelUsageRate;
+    public final TunedValue chainFocusingChance;
+    public final TunedValue damageAbsorptionChance;
+    public final TunedValue restorationChance;
+
+    public float globalAttributeModifier;
 
     public static CrucibleAccelerationData createData(ICatalyzerAccelerationTarget target, int lookupRange, Level level, BlockPos pos) {
         Collection<ICrucibleAccelerator> nearbyAccelerators = BlockHelper.getBlockEntities(ICrucibleAccelerator.class, level, pos, lookupRange);
@@ -46,33 +48,42 @@ public class CrucibleAccelerationData {
                 }
             }
         }
-        return new CrucibleAccelerationData(target, typeCount, validAccelerators);
+        final CrucibleAccelerationData data = new CrucibleAccelerationData(target, typeCount, validAccelerators);
+        data.globalAttributeModifier = target.getAccelerationData() != null ? target.getAccelerationData().globalAttributeModifier : 0;
+        return data;
     }
 
     public CrucibleAccelerationData(ICatalyzerAccelerationTarget target, Map<ICrucibleAccelerator.CrucibleAcceleratorType, Integer> typeCount, Collection<ICrucibleAccelerator> accelerators) {
         final List<AbstractAugmentItem> augments = Stream.concat(accelerators.stream().map(ICrucibleAccelerator::getAugmentType), target.getAugmentTypes().stream()).filter(Optional::isPresent).map(Optional::get).toList();
-        CrucibleTuning tuning = new CrucibleTuning(target.getTuningType());
-        this.processingSpeed = (1 + typeCount.entrySet().stream().map((entry) -> entry.getKey().getAcceleration(entry.getValue())).reduce(Float::sum).orElse(0f)
-                + augments.stream().map(AbstractAugmentItem::getSpeedIncrease).reduce(Float::sum).orElse(0f)) * tuning.speedIncreaseMultiplier.getMultiplier();
-        this.damageChance = Mth.clamp((typeCount.entrySet().stream().map((entry) -> entry.getKey().getExtraDamageRollChance(entry.getValue())).reduce(Float::sum).orElse(0f)
-                + augments.stream().map(AbstractAugmentItem::getDamageChanceIncrease).reduce(Float::sum).orElse(0f)) * tuning.damageChanceMultiplier.getMultiplier(), 0, 0.99f);
+        CrucibleTuning tuning = new CrucibleTuning(target);
+        this.processingSpeed = tuning.processingSpeedMultiplier.createTunedValue(
+                (1 + typeCount.entrySet().stream().map((entry) -> entry.getKey().getAcceleration(entry.getValue())).reduce(Float::sum).orElse(0f)
+                + augments.stream().map(AbstractAugmentItem::getSpeedIncrease).reduce(Float::sum).orElse(0f)) * tuning.processingSpeedMultiplier.getMultiplier());
+        this.damageChance = tuning.damageChanceMultiplier.createTunedValue(
+                Mth.clamp((typeCount.entrySet().stream().map((entry) -> entry.getKey().getExtraDamageRollChance(entry.getValue())).reduce(Float::sum).orElse(0f)
+                + augments.stream().map(AbstractAugmentItem::getDamageChanceIncrease).reduce(Float::sum).orElse(0f)) * tuning.damageChanceMultiplier.getMultiplier(), 0, 0.99f));
 
-        this.bonusYieldChance = augments.stream().map(AbstractAugmentItem::getBonusYieldChanceIncrease).reduce(Float::sum).orElse(0f) * tuning.bonusYieldChanceMultiplier.getMultiplier();
-        this.fuelUsageRate = (1 + augments.stream().map(AbstractAugmentItem::getFuelUsageRateIncrease).reduce(Float::sum).orElse(0f)) * tuning.fuelEfficiencyIncreaseMultiplier.getMultiplier();
-        this.chainFocusingChance = augments.stream().map(AbstractAugmentItem::getInstantCompletionChance).reduce(Float::sum).orElse(0f) * tuning.chainFocusingChanceMultiplier.getMultiplier();
-        this.damageAbsorptionChance = augments.stream().map(AbstractAugmentItem::getCompleteDamageNegationChance).reduce(Float::sum).orElse(0f) * tuning.damageAbsorptionChanceMultiplier.getMultiplier();
-        this.restorationChance = augments.stream().map(AbstractAugmentItem::getRestorationChance).reduce(Float::sum).orElse(0f) * tuning.restorationChanceMultiplier.getMultiplier();
+        this.bonusYieldChance = tuning.bonusYieldChanceMultiplier.createTunedValue(
+                augments.stream().map(AbstractAugmentItem::getBonusYieldChanceIncrease).reduce(Float::sum).orElse(0f) * tuning.bonusYieldChanceMultiplier.getMultiplier());
+        this.fuelUsageRate = tuning.fuelUsageRate.createTunedValue(
+                1 + augments.stream().map(AbstractAugmentItem::getFuelUsageRateIncrease).reduce(Float::sum).orElse(0f) * tuning.fuelUsageRate.getMultiplier());
+        this.chainFocusingChance = tuning.chainFocusingChanceMultiplier.createTunedValue(
+                augments.stream().map(AbstractAugmentItem::getInstantCompletionChance).reduce(Float::sum).orElse(0f) * tuning.chainFocusingChanceMultiplier.getMultiplier());
+        this.damageAbsorptionChance = tuning.damageAbsorptionChanceMultiplier.createTunedValue(
+                augments.stream().map(AbstractAugmentItem::getCompleteDamageNegationChance).reduce(Float::sum).orElse(0f) * tuning.damageAbsorptionChanceMultiplier.getMultiplier());
+        this.restorationChance = tuning.restorationChanceMultiplier.createTunedValue(
+                augments.stream().map(AbstractAugmentItem::getRestorationChance).reduce(Float::sum).orElse(0f) * tuning.restorationChanceMultiplier.getMultiplier());
         accelerators.forEach(this::addAccelerator);
     }
 
     public CrucibleAccelerationData() {
-        this.processingSpeed = 1;
-        this.damageChance = 0;
-        this.bonusYieldChance = 0;
-        this.fuelUsageRate = 1;
-        this.chainFocusingChance = 0;
-        this.damageAbsorptionChance = 0;
-        this.restorationChance = 0;
+        this.processingSpeed = new DefaultedTunedValue(1);
+        this.damageChance = new DefaultedTunedValue(0);
+        this.bonusYieldChance = new DefaultedTunedValue(0);
+        this.fuelUsageRate = new DefaultedTunedValue(1);
+        this.chainFocusingChance = new DefaultedTunedValue(0);
+        this.damageAbsorptionChance = new DefaultedTunedValue(0);
+        this.restorationChance = new DefaultedTunedValue(0);
     }
 
     private void addAccelerator(ICrucibleAccelerator crucibleAccelerator) {
@@ -89,6 +100,7 @@ public class CrucibleAccelerationData {
                 BlockHelper.saveBlockPos(acceleratorTag, position, "accelerator_" + i + "_");
             }
         }
+        acceleratorTag.putFloat("globalAttributeModifier", globalAttributeModifier);
         compound.put("acceleratorData", acceleratorTag);
     }
 
@@ -110,10 +122,39 @@ public class CrucibleAccelerationData {
                     BlockHelper.updateState(level, pos);
                 }
             }
-            return new CrucibleAccelerationData(target, typeCount, accelerators);
+            final CrucibleAccelerationData data = new CrucibleAccelerationData(target, typeCount, accelerators);
+            data.globalAttributeModifier = acceleratorTag.getFloat("globalAttributeModifier");
+            return data;
         }
         else {
             return DEFAULT;
+        }
+    }
+
+    public static class TunedValue {
+        public final CrucibleTuning.TuningModifier tuning;
+        protected final float baseValue;
+
+        public TunedValue(CrucibleTuning.TuningModifier tuning, float baseValue) {
+            this.tuning = tuning;
+            this.baseValue = baseValue;
+        }
+
+        public float getValue(CrucibleAccelerationData accelerationData) {
+            if (tuning.tuningType.equals(CrucibleTuning.CrucibleTuningType.CHAIN_FOCUSING_CHANCE)) {
+                return baseValue;
+            }
+            return baseValue * tuning.getMultiplierScalar(accelerationData.globalAttributeModifier);
+        }
+    }
+    public static class DefaultedTunedValue extends TunedValue {
+        public DefaultedTunedValue(float baseValue) {
+            super(null, baseValue);
+        }
+
+        @Override
+        public float getValue(CrucibleAccelerationData accelerationData) {
+            return baseValue;
         }
     }
 }

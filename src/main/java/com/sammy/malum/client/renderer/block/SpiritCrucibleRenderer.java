@@ -124,7 +124,7 @@ public class SpiritCrucibleRenderer implements BlockEntityRenderer<SpiritCrucibl
             poseStack.mulPose(Axis.YP.rotationDegrees(180f));
             for (int i = 0; i < validValues.size(); i++) {
                 CrucibleTuning.CrucibleTuningType tuningType = validValues.get(i);
-                String dataPrint = tuningType.statDisplayFunction.apply(blockEntityIn);
+                String dataPrint = tuningType.statDisplayFunction.apply(blockEntityIn.getAccelerationData());
                 boolean important = tuningType.equals(blockEntityIn.tuningType);
                 MutableComponent dataText = Component.literal(" <" + dataPrint + ">");
                 MutableComponent text = Component.translatable(tuningType.translation());
