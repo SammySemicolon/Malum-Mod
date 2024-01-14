@@ -430,10 +430,10 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
         );
 
         ENTRIES.add(new BookEntry(
-                "complex_logistics", 12, 7)
-                .setWidgetConfig(w -> w.setIcon(BARRIER))
-                .addPage(new HeadlineTextPage("complex_logistics", "complex_logistics.1"))
-                .addPage(SpiritInfusionPage.fromOutput(MENDING_DIFFUSER.get()))
+                "impurity_stabilizer", 12, 7)
+                .setWidgetConfig(w -> w.setIcon(IMPURITY_STABILIZER))
+                .addPage(new HeadlineTextPage("impurity_stabilizer", "impurity_stabilizer.1"))
+                .addPage(SpiritInfusionPage.fromOutput(IMPURITY_STABILIZER.get()))
         );
 
         ENTRIES.add(new BookEntry(

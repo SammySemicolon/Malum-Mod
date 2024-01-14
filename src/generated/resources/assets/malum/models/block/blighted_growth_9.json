@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "malum:block/blight/blighted_growth_9"
+  }
+}

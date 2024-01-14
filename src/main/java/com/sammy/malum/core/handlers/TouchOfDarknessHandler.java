@@ -40,6 +40,9 @@ public class TouchOfDarknessHandler {
     public static final UUID GRAVITY_MODIFIER_UUID = UUID.fromString("d0aea6b5-f6c5-479d-b70c-455e46a62184");
     public static final float MAX_AFFLICTION = 100f;
 
+    public boolean isNearWeepingWell;
+    public int weepingWellInfluence;
+
     public int expectedAffliction;
     public int afflictionDuration;
     public float currentAffliction;
@@ -49,6 +52,9 @@ public class TouchOfDarknessHandler {
 
     public CompoundTag serializeNBT() {
         CompoundTag tag = new CompoundTag();
+        tag.putBoolean("isNearWeepingWell", isNearWeepingWell);
+        tag.putInt("weepingWellInfluence", weepingWellInfluence);
+
         tag.putInt("expectedAffliction", expectedAffliction);
         tag.putInt("afflictionDuration", afflictionDuration);
         tag.putFloat("currentAffliction", currentAffliction);
@@ -59,6 +65,9 @@ public class TouchOfDarknessHandler {
     }
 
     public void deserializeNBT(CompoundTag tag) {
+        isNearWeepingWell = tag.getBoolean("isNearWeepingWell");
+        weepingWellInfluence = tag.getInt("weepingWellInfluence");
+
         expectedAffliction = tag.getInt("expectedAffliction");
         afflictionDuration = tag.getInt("afflictionDuration");
         currentAffliction = tag.getFloat("currentAffliction");
@@ -84,6 +93,16 @@ public class TouchOfDarknessHandler {
         LivingEntity livingEntity = event.getEntity();
         Level level = livingEntity.level();
         TouchOfDarknessHandler handler = MalumLivingEntityDataCapability.getCapability(livingEntity).touchOfDarknessHandler;
+
+        if (livingEntity instanceof Player player) {
+            if (level.getGameTime() % 20L == 0) {
+                final Optional<VoidConduitBlockEntity> voidConduitBlockEntity = checkForWeepingWell(player);
+                handler.isNearWeepingWell = voidConduitBlockEntity.isPresent();
+            }
+            if (handler.isNearWeepingWell) {
+                handler.weepingWellInfluence++;
+            }
+        }
         Block block = level.getBlockState(livingEntity.blockPosition()).getBlock();
         boolean isInTheGoop = block instanceof PrimordialSoupBlock || block instanceof VoidConduitBlock;
         if (!isInTheGoop) {

@@ -22,10 +22,5 @@ public class RecipeSerializerRegistry {
     public static final RegistryObject<RecipeSerializer<SpiritFocusingRecipe>> FOCUSING_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register(SpiritFocusingRecipe.NAME, SpiritFocusingRecipe.Serializer::new);
     public static final RegistryObject<RecipeSerializer<SpiritRepairRecipe>> REPAIR_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register(SpiritRepairRecipe.NAME, SpiritRepairRecipe.Serializer::new);
     public static final RegistryObject<RecipeSerializer<SpiritTransmutationRecipe>> SPIRIT_TRANSMUTATION_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register(SpiritTransmutationRecipe.NAME, SpiritTransmutationRecipe.Serializer::new);
-/*
-    public static <T extends Recipe<?>> RecipeType<T> registerType(final String pIdentifier, RecipeType<T> recipeType) {
-        return Registry.register(Registry.RECIPE_TYPE, new ResourceLocation(pIdentifier), recipeType);
-    }
 
- */
 }

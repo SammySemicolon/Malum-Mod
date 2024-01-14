@@ -239,7 +239,9 @@ public class BlockRegistry {
 
     //region soulwood
     public static final RegistryObject<Block> SOULWOOD_GROWTH = BLOCKS.register("soulwood_growth", () -> new SoulwoodGrowthBlock(MalumBlockProperties.BLIGHTED_PLANTS().setCutoutRenderType().randomTicks(), FeatureRegistry.SOULWOOD_TREE));
-    public static final RegistryObject<Block> SOULWOOD_LEAVES = BLOCKS.register("soulwood_leaves", () -> new MalumLeavesBlock(MalumBlockProperties.SOULWOOD_LEAVES().setCutoutRenderType(), new Color(152, 6, 45), new Color(224, 30, 214)));
+    public static final RegistryObject<Block> SOULWOOD_LEAVES = BLOCKS.register("soulwood_leaves", () -> new MalumLeavesBlock(MalumBlockProperties.SOULWOOD_LEAVES().setCutoutRenderType(), new Color(187, 13, 59), new Color(255, 61, 243)));
+    public static final RegistryObject<Block> MYSTIC_SOULWOOD_LEAVES = BLOCKS.register("mystic_soulwood_leaves", () -> new MalumLeavesBlock(MalumBlockProperties.SOULWOOD_LEAVES().setCutoutRenderType(), new Color(213, 8, 63), new Color(255, 61, 243)));
+    public static final RegistryObject<Block> HANGING_MYSTIC_SOULWOOD_LEAVES = BLOCKS.register("hanging_mystic_soulwood_leaves", () -> new MalumHangingLeavesBlock(MalumBlockProperties.SOULWOOD_LEAVES().setCutoutRenderType(), new Color(213, 8, 63), new Color(255, 61, 243)));
 
     public static final RegistryObject<Block> STRIPPED_SOULWOOD_LOG = BLOCKS.register("stripped_soulwood_log", () -> new RotatedPillarBlock(MalumBlockProperties.SOULWOOD().addTags(LOGS, STRIPPED_LOGS, SOULWOOD_LOGS)));
     public static final RegistryObject<Block> SOULWOOD_LOG = BLOCKS.register("soulwood_log", () -> new SoulwoodLogBlock(MalumBlockProperties.SOULWOOD().addTags(LOGS, SOULWOOD_LOGS), STRIPPED_SOULWOOD_LOG, true));
@@ -288,8 +290,8 @@ public class BlockRegistry {
     //region blight
     public static final RegistryObject<Block> BLIGHTED_EARTH = BLOCKS.register("blighted_earth", () -> new BlightedSoilBlock(MalumBlockProperties.BLIGHT()));
     public static final RegistryObject<Block> BLIGHTED_SOIL = BLOCKS.register("blighted_soil", () -> new BlightedSoilBlock(MalumBlockProperties.BLIGHT()));
-    public static final RegistryObject<Block> BLIGHTED_WEED = BLOCKS.register("blighted_weed", () -> new BlightedGrassBlock(MalumBlockProperties.BLIGHTED_PLANTS().setCutoutRenderType()));
-    public static final RegistryObject<Block> BLIGHTED_TUMOR = BLOCKS.register("blighted_tumor", () -> new BlightedGrassBlock(MalumBlockProperties.BLIGHTED_PLANTS().setCutoutRenderType()));
+    public static final RegistryObject<Block> BLIGHTED_GROWTH = BLOCKS.register("blighted_growth", () -> new BlightedGrowthBlock(MalumBlockProperties.BLIGHTED_PLANTS().setCutoutRenderType()));
+    public static final RegistryObject<Block> CLINGING_BLIGHT = BLOCKS.register("clinging_blight", () -> new ClingingBlightBlock(MalumBlockProperties.BLIGHTED_PLANTS().setCutoutRenderType()));
     public static final RegistryObject<Block> BLIGHTED_SOULWOOD = BLOCKS.register("blighted_soulwood", () -> new BlightedSoulwoodBlock(MalumBlockProperties.SOULWOOD()));
     //endregion
 
@@ -376,7 +378,7 @@ public class BlockRegistry {
                 int green = (int) Mth.lerp(i / max, malumLeavesBlock.minColor.getGreen(), malumLeavesBlock.maxColor.getGreen());
                 int blue = (int) Mth.lerp(i / max, malumLeavesBlock.minColor.getBlue(), malumLeavesBlock.maxColor.getBlue());
                 return red << 16 | green << 8 | blue;
-            }, RUNEWOOD_LEAVES.get(), SOULWOOD_LEAVES.get());
+            }, RUNEWOOD_LEAVES.get(), SOULWOOD_LEAVES.get(), MYSTIC_SOULWOOD_LEAVES.get(), HANGING_MYSTIC_SOULWOOD_LEAVES.get());
         }
     }
 }

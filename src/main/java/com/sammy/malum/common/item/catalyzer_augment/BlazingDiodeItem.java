@@ -10,7 +10,7 @@ public class BlazingDiodeItem extends AbstractAugmentItem{
 
     @Override
     public float getFuelUsageRateIncrease() {
-        return -0.1f;
+        return -0.15f;
     }
 
     @Override

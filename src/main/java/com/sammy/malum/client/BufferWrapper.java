@@ -8,6 +8,7 @@ import java.util.function.*;
 
 public class BufferWrapper implements MultiBufferSource {
 
+    //TODO: move this to lodestone
     public final Function<RenderStateShard.EmptyTextureStateShard, RenderType> provider;
     public final MultiBufferSource buffer;
 

@@ -9,7 +9,7 @@ public class IntricateAssemblyItem extends AbstractAugmentItem{
 
     @Override
     public float getBonusYieldChanceIncrease() {
-        return 0.08f;
+        return 0.10f;
     }
 
     @Override

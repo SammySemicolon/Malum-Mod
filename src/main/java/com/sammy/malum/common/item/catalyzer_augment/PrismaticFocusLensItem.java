@@ -9,6 +9,6 @@ public class PrismaticFocusLensItem extends AbstractAugmentItem{
 
     @Override
     public float getDamageChanceIncrease() {
-        return -0.08f;
+        return -0.15f;
     }
 }

@@ -2,6 +2,7 @@ package com.sammy.malum.common.worldgen;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+import com.sammy.malum.common.block.blight.*;
 import com.sammy.malum.common.block.nature.MalumLeavesBlock;
 import com.sammy.malum.common.block.nature.MalumSaplingBlock;
 import com.sammy.malum.registry.common.block.BlockRegistry;
@@ -167,7 +168,7 @@ public class RunewoodTreeFeature extends Feature<NoneFeatureConfiguration> {
             return false;
         }
         BlockState state = level.getBlockState(pos);
-        return state.getBlock() instanceof MalumSaplingBlock || level.isEmptyBlock(pos) || state.canBeReplaced();
+        return state.getBlock() instanceof MalumSaplingBlock || state.getBlock() instanceof BlightedGrowthBlock || level.isEmptyBlock(pos) || state.canBeReplaced();
     }
 
     public static void updateLeaves(LevelAccessor pLevel, Set<BlockPos> logPositions) {

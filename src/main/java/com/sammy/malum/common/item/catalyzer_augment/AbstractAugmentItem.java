@@ -41,6 +41,10 @@ public class AbstractAugmentItem extends Item {
         return 0f;
     }
 
+    public float getWeakestAttributeMultiplier() {
+        return 0f;
+    }
+
     public static Optional<AbstractAugmentItem> getAugmentType(ItemStack stack) {
         return stack.getItem() instanceof AbstractAugmentItem augmentItem ? Optional.of(augmentItem) : Optional.empty();
     }

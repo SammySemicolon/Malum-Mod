@@ -134,7 +134,8 @@ public class MalumBlockStates extends LodestoneBlockStateProvider {
 
         BlockStateSmithTypes.LOG_BLOCK.act(data, SOULWOOD_BEAM, SOULWOOD_LOG, STRIPPED_SOULWOOD_LOG, EXPOSED_SOULWOOD_LOG, REVEALED_SOULWOOD_LOG);
         BlockStateSmithTypes.WOOD_BLOCK.act(data, SOULWOOD, STRIPPED_SOULWOOD);
-        BlockStateSmithTypes.LEAVES_BLOCK.act(data, SOULWOOD_LEAVES);
+        BlockStateSmithTypes.LEAVES_BLOCK.act(data, SOULWOOD_LEAVES, MYSTIC_SOULWOOD_LEAVES);
+        BlockStateSmithTypes.CUSTOM_MODEL.act(data, ItemModelSmithTypes.BLOCK_MODEL_ITEM, this::simpleBlock, this::hangingLeavesModel, HANGING_MYSTIC_SOULWOOD_LEAVES);
 
         BlockStateSmithTypes.CROSS_MODEL_BLOCK.act(data, SOULWOOD_GROWTH);
         BlockStateSmithTypes.BUTTON_BLOCK.act(data, SOULWOOD_BUTTON);
@@ -166,8 +167,8 @@ public class MalumBlockStates extends LodestoneBlockStateProvider {
 
         setTexturePath("blight/");
         MalumBlockStateSmithTypes.BLIGHTED_BLOCK.act(data, BLIGHTED_SOIL);
-        MalumBlockStateSmithTypes.BLIGHTED_TUMOR.act(data, BLIGHTED_TUMOR);
-        BlockStateSmithTypes.CROSS_MODEL_BLOCK.act(data, BLIGHTED_WEED);
+        MalumBlockStateSmithTypes.BLIGHTED_GROWTH.act(data, BLIGHTED_GROWTH);
+        MalumBlockStateSmithTypes.CLINGING_BLIGHT.act(data, CLINGING_BLIGHT);
         BlockStateSmithTypes.CUSTOM_MODEL.act(data, ItemModelSmithTypes.BLOCK_MODEL_ITEM, this::simpleBlock, this::blightedEarthModel, BLIGHTED_EARTH);
         BlockStateSmithTypes.CUSTOM_MODEL.act(data, ItemModelSmithTypes.BLOCK_MODEL_ITEM, this::simpleBlock, this::blightedSoulwoodModel, BLIGHTED_SOULWOOD);
 
@@ -297,6 +298,12 @@ public class MalumBlockStates extends LodestoneBlockStateProvider {
         ResourceLocation planks = getBlockTexture(woodName + "_planks");
         ResourceLocation panel = getBlockTexture(woodName + "_panel");
         return models().withExistingParent(name, malumPath("block/templates/template_totem_base")).texture("side", side).texture("top", top).texture("planks", planks).texture("panel", panel);
+    }
+
+    public ModelFile hangingLeavesModel(Block block) {
+        String name = getBlockName(block);
+        ResourceLocation texture = getBlockTexture(name);
+        return models().withExistingParent(name, malumPath("block/templates/template_hanging_leaves")).texture("hanging_leaves", texture).texture("particle", texture);
     }
 
     public ModelFile blightedSoulwoodModel(Block block) {

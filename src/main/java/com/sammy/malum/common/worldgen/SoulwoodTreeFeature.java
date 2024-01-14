@@ -1,6 +1,8 @@
 package com.sammy.malum.common.worldgen;
 
 import com.google.common.collect.ImmutableList;
+import com.mojang.datafixers.util.*;
+import com.sammy.malum.common.block.blight.*;
 import com.sammy.malum.common.block.nature.MalumLeavesBlock;
 import com.sammy.malum.registry.common.block.BlockRegistry;
 import com.sammy.malum.registry.common.block.BlockTagRegistry;
@@ -14,6 +16,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.*;
 import net.minecraft.world.level.levelgen.LegacyRandomSource;
 import net.minecraft.world.level.levelgen.WorldgenRandom;
 import net.minecraft.world.level.levelgen.feature.Feature;
@@ -25,10 +28,8 @@ import team.lodestar.lodestone.helpers.BlockHelper;
 import team.lodestar.lodestone.systems.worldgen.LodestoneBlockFiller;
 import team.lodestar.lodestone.systems.worldgen.LodestoneBlockFiller.BlockStateEntry;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import java.lang.reflect.*;
+import java.util.*;
 
 import static com.sammy.malum.common.worldgen.RunewoodTreeFeature.canPlace;
 import static com.sammy.malum.common.worldgen.RunewoodTreeFeature.updateLeaves;
@@ -70,8 +71,11 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
         if (level.isEmptyBlock(pos.below()) || !BlockRegistry.SOULWOOD_GROWTH.get().defaultBlockState().canSurvive(level, pos)) {
             return false;
         }
+        List<Pair<Direction, BlockPos>> validSoulstoneSpikePositions = new ArrayList<>();
+
         BlockState defaultLog = BlockRegistry.SOULWOOD_LOG.get().defaultBlockState();
         BlockState blightedLog = BlockRegistry.BLIGHTED_SOULWOOD.get().defaultBlockState();
+        BlockState clingingBlight = BlockRegistry.CLINGING_BLIGHT.get().defaultBlockState();
 
         LodestoneBlockFiller treeFiller = new LodestoneBlockFiller(false);
         LodestoneBlockFiller blightFiller = new LodestoneBlockFiller(false);
@@ -92,16 +96,22 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
                     BlockPos trunkPos = twistedPos.above(i);
                     if (canPlace(level, trunkPos)) {
                         treeFiller.getEntries().put(trunkPos, new BlockStateEntry(defaultLog));
+                        for (Direction direction : directions) {
+                            validSoulstoneSpikePositions.add(Pair.of(direction.getOpposite(), trunkPos.relative(direction)));
+                        }
                         twistCooldown--;
                     } else {
                         return false;
                     }
-                    twistedPos = twistedPos.relative(directions[twistDirection]);
+                    final Direction direction = directions[twistDirection % 4];
+
+                    final BlockState state = clingingBlight
+                            .setValue(ClingingBlightBlock.BLIGHT_TYPE, ClingingBlightBlock.BlightType.ROOTED_BLIGHT)
+                            .setValue(BlockStateProperties.HORIZONTAL_FACING, direction);
+                    blightFiller.getEntries().put(trunkPos.above(), new BlockStateEntry(state));
+                    twistedPos = twistedPos.relative(direction);
                     if (rand.nextFloat() < 0.85f) {
                         twistDirection++;
-                        if (twistDirection == 4) {
-                            twistDirection = 0;
-                        }
                     }
                     twists--;
                 }
@@ -109,6 +119,11 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
             BlockPos trunkPos = twistedPos.above(i);
             if (canPlace(level, trunkPos)) {
                 treeFiller.getEntries().put(trunkPos, new BlockStateEntry(i == 0 ? blightedLog : defaultLog));
+                if (i != 0 && i < trunkHeight-3) {
+                    for (Direction direction : directions) {
+                        validSoulstoneSpikePositions.add(Pair.of(direction.getOpposite(), trunkPos.relative(direction)));
+                    }
+                }
                 twistCooldown--;
             } else {
                 return false;
@@ -132,9 +147,14 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
                     return false;
                 }
             }
-            boolean success = downwardsTrunk(level, treeFiller, pos.relative(direction));
+            boolean success = downwardsTrunk(level, treeFiller, blightFiller, direction, pos.relative(direction));
             if (success) {
                 treeFiller.replace(blightedPos, e -> new BlockStateEntry(defaultLog));
+            } else if (blightedPos != null) {
+                final BlockState state = clingingBlight
+                        .setValue(ClingingBlightBlock.BLIGHT_TYPE, ClingingBlightBlock.BlightType.ROOTED_BLIGHT)
+                        .setValue(BlockStateProperties.HORIZONTAL_FACING, direction.getOpposite());
+                blightFiller.getEntries().put(blightedPos.relative(direction), new BlockStateEntry(state));
             }
         }
         for (Direction direction : directions) //tree top placement
@@ -160,6 +180,16 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
                 }
                 if (canPlace(level, branchConnectionPos)) {
                     treeFiller.getEntries().put(branchConnectionPos, new BlockStateEntry(defaultLog.setValue(RotatedPillarBlock.AXIS, direction.getAxis())));
+
+                    final boolean start = i == 1;
+                    BlockState state = clingingBlight
+                            .setValue(ClingingBlightBlock.BLIGHT_TYPE, start ? ClingingBlightBlock.BlightType.HANGING_BLIGHT : ClingingBlightBlock.BlightType.HANGING_ROOTS)
+                            .setValue(BlockStateProperties.HORIZONTAL_FACING, direction.getOpposite());
+                    blightFiller.getEntries().put(branchConnectionPos.below(), new BlockStateEntry(state));
+                    if (start) {
+                        state = state.setValue(ClingingBlightBlock.BLIGHT_TYPE, ClingingBlightBlock.BlightType.HANGING_BLIGHT_CONNECTION);
+                        blightFiller.getEntries().put(branchConnectionPos.below(2), new BlockStateEntry(state));
+                    }
                     twistCooldown--;
                 } else {
                     return false;
@@ -186,6 +216,20 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
         for (BlockPos blockPos : sapBlockPositions.subList(0, sapBlockCount)) {
             treeFiller.replace(blockPos, e -> e.getState().getBlock().equals(BlockRegistry.BLIGHTED_SOULWOOD.get()) ? e : new BlockStateEntry(BlockHelper.getBlockStateWithExistingProperties(e.getState(), BlockRegistry.EXPOSED_SOULWOOD_LOG.get().defaultBlockState())));
         }
+        int spikeCount = 6;
+        Collections.shuffle(validSoulstoneSpikePositions);
+        for (Pair<Direction, BlockPos> entry : validSoulstoneSpikePositions) {
+            final BlockPos entryPos = entry.getSecond();
+            if (!blightFiller.getEntries().containsKey(entryPos)) {
+                final BlockState state = clingingBlight
+                        .setValue(ClingingBlightBlock.BLIGHT_TYPE, ClingingBlightBlock.BlightType.SOULWOOD_SPIKE)
+                        .setValue(BlockStateProperties.HORIZONTAL_FACING, entry.getFirst());
+                blightFiller.getEntries().put(entryPos, new BlockStateEntry(state));
+                if (spikeCount-- == 0) {
+                    break;
+                }
+            }
+        }
 
         blightFiller.fill(level);
         treeFiller.fill(level);
@@ -194,7 +238,7 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
         return true;
     }
 
-    public static boolean downwardsTrunk(WorldGenLevel level, LodestoneBlockFiller filler, BlockPos pos) {
+    public static boolean downwardsTrunk(WorldGenLevel level, LodestoneBlockFiller filler, LodestoneBlockFiller blightFiller, Direction direction, BlockPos pos) {
         BlockState defaultLog = BlockRegistry.SOULWOOD_LOG.get().defaultBlockState();
         BlockState blightedLog = BlockRegistry.BLIGHTED_SOULWOOD.get().defaultBlockState();
         int i = 0;
@@ -204,6 +248,12 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
             if (canPlace(level, trunkPos)) {
                 boolean blighted = !canPlace(level, trunkPos.below());
                 filler.getEntries().put(trunkPos, new BlockStateEntry(blighted ? blightedLog : defaultLog));
+                if (blighted) {
+                    final BlockState state = BlockRegistry.CLINGING_BLIGHT.get().defaultBlockState()
+                            .setValue(ClingingBlightBlock.BLIGHT_TYPE, ClingingBlightBlock.BlightType.ROOTED_BLIGHT)
+                            .setValue(BlockStateProperties.HORIZONTAL_FACING, direction.getOpposite());
+                    blightFiller.getEntries().put(trunkPos.relative(direction), new BlockStateEntry(state));
+                }
             } else {
                 break;
             }
@@ -220,21 +270,34 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
         makeLeafSlice(filler, rand, pos.above(1), 2, 1);
         makeLeafSlice(filler, rand, pos.above(2), 3, 2);
         makeLeafSlice(filler, rand, pos.above(3), 3, 3);
-        makeLeafSlice(filler, rand, pos.above(3), 3, 3 - rand.nextInt(1));
-        makeLeafSlice(filler, rand, pos.above(4), 3, 3 - rand.nextInt(1));
-        makeLeafSlice(filler, rand, pos.above(5), 2, 3 + rand.nextInt(1));
+        makeLeafSlice(filler, rand, pos.above(4), 3, 3);
+        makeLeafSlice(filler, rand, pos.above(5), 2, 3);
         makeLeafSlice(filler, rand, pos.above(6), 1, 4);
     }
 
     public static void makeLeafSlice(LodestoneBlockFiller filler, RandomSource rand, BlockPos pos, int leavesSize, int leavesColor) {
         for (int x = -leavesSize; x <= leavesSize; x++) {
+            int offsetColor = leavesColor + Mth.nextInt(rand, leavesColor == 0 ? 0 : -1, leavesColor == 4 ? 0 : 1);
             for (int z = -leavesSize; z <= leavesSize; z++) {
                 if (Math.abs(x) == leavesSize && Math.abs(z) == leavesSize) {
                     continue;
                 }
                 BlockPos leavesPos = new BlockPos(pos).offset(x, 0, z);
-                int offsetColor = leavesColor + Mth.nextInt(rand, leavesColor == 0 ? 0 : -1, leavesColor == 4 ? 0 : 1);
-                filler.getEntries().put(leavesPos, new BlockStateEntry(BlockRegistry.SOULWOOD_LEAVES.get().defaultBlockState().setValue(MalumLeavesBlock.COLOR, offsetColor)));
+                if (!filler.getEntries().containsKey(leavesPos)) {
+                    filler.getEntries().put(leavesPos, new BlockStateEntry(BlockRegistry.SOULWOOD_LEAVES.get().defaultBlockState().setValue(MalumLeavesBlock.COLOR, offsetColor)));
+                }
+                if (!filler.getEntries().containsKey(leavesPos.below())) {
+                    if (rand.nextFloat() < (0.2f+leavesSize*0.2f)) {
+                        int spawnHeight = 1 - rand.nextInt(3);
+                        int length = leavesSize-2+rand.nextInt(3);
+                        for (int i = spawnHeight; i <= length; i++) {
+                            final int gradient = Mth.clamp(offsetColor+1-i, 0, 4);
+                            BlockPos vinePos = leavesPos.below(i);
+                            BlockState state = (i == length ? BlockRegistry.HANGING_MYSTIC_SOULWOOD_LEAVES : BlockRegistry.MYSTIC_SOULWOOD_LEAVES).get().defaultBlockState().setValue(MalumLeavesBlock.COLOR, gradient);
+                            filler.getEntries().put(vinePos, new BlockStateEntry(state));
+                        }
+                    }
+                }
             }
         }
     }
@@ -287,7 +350,10 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
                             break;
                         }
                         if ((plantState.canBeReplaced() || plantState.is(REPLACEABLE) || plantState.is(FLOWERS))) {
-                            filler.getEntries().put(blockPos.immutable(), new BlockStateEntry(Blocks.AIR.defaultBlockState()));
+                            final BlockPos immutable = blockPos.immutable();
+                            if (!filler.getEntries().containsKey(blockPos)) {
+                                filler.getEntries().put(immutable, new BlockStateEntry(Blocks.AIR.defaultBlockState()));
+                            }
                             blockPos.move(Direction.DOWN);
                         } else {
                             break;
@@ -295,14 +361,13 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
                     }
                     while (true);
 
-                    BlockPos immutable = blockPos.immutable();
-                    if (level.getBlockState(immutable).is(MOSS_REPLACEABLE)) {
-                        filler.getEntries().put(immutable, new BlockStateEntry(BlockRegistry.BLIGHTED_SOIL.get().defaultBlockState()));
-                        if (level.getBlockState(immutable.below()).is(DIRT)) {
-                            filler.getEntries().put(immutable.below(), new BlockStateEntry(BlockRegistry.BLIGHTED_EARTH.get().defaultBlockState()));
+                    if (level.getBlockState(blockPos).is(MOSS_REPLACEABLE)) {
+                        filler.getEntries().put(blockPos.immutable(), new BlockStateEntry(BlockRegistry.BLIGHTED_SOIL.get().defaultBlockState()));
+                        if (level.getBlockState(blockPos.move(0, -1, 0)).is(DIRT)) {
+                            filler.getEntries().put(blockPos.immutable(), new BlockStateEntry(BlockRegistry.BLIGHTED_EARTH.get().defaultBlockState()));
                         }
-                        if (level.getRandom().nextFloat() < 0.25f) {
-                            BlockPos plantPos = immutable.above();
+                        if (level.getRandom().nextFloat() < 0.75f) {
+                            BlockPos plantPos = blockPos.offset(0, 2, 0);
                             BlockState blockState = level.getBlockState(plantPos);
                             if (naturalNoiseValue > 2.5f) {
                                 if (lastSaplingPos == null || lastSaplingPos.distanceToSqr(plantPos.getX(), plantPos.getY(), plantPos.getZ()) > 5) {
@@ -315,8 +380,10 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
                                     }
                                 }
                             }
-                            if ((blockState.isAir() || blockState.canBeReplaced()) && !blockState.is(BlockTagRegistry.BLIGHTED_PLANTS)) {
-                                filler.getEntries().put(plantPos, new BlockStateEntry((level.getRandom().nextFloat() < 0.2f ? BlockRegistry.BLIGHTED_TUMOR : BlockRegistry.BLIGHTED_WEED).get().defaultBlockState()));
+                            if (!filler.getEntries().containsKey(plantPos)) {
+                                if ((blockState.isAir() || blockState.canBeReplaced()) && !blockState.is(BlockTagRegistry.BLIGHTED_PLANTS)) {
+                                    filler.getEntries().put(plantPos, new BlockStateEntry((BlockRegistry.BLIGHTED_GROWTH).get().defaultBlockState()));
+                                }
                             }
                         }
                     }

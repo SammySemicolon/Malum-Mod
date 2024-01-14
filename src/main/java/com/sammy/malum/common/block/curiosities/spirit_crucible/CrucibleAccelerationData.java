@@ -3,7 +3,6 @@ package com.sammy.malum.common.block.curiosities.spirit_crucible;
 import com.sammy.malum.common.item.catalyzer_augment.*;
 import net.minecraft.core.*;
 import net.minecraft.nbt.*;
-import net.minecraft.util.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.entity.*;
 import team.lodestar.lodestone.helpers.*;
@@ -18,7 +17,7 @@ public class CrucibleAccelerationData {
     public final List<BlockPos> positions = new ArrayList<>();
     public final List<ICrucibleAccelerator> accelerators = new ArrayList<>();
 
-    public final TunedValue processingSpeed;
+    public final TunedValue focusingSpeed;
     public final TunedValue damageChance;
 
     public final TunedValue bonusYieldChance;
@@ -56,28 +55,32 @@ public class CrucibleAccelerationData {
     public CrucibleAccelerationData(ICatalyzerAccelerationTarget target, Map<ICrucibleAccelerator.CrucibleAcceleratorType, Integer> typeCount, Collection<ICrucibleAccelerator> accelerators) {
         final List<AbstractAugmentItem> augments = Stream.concat(accelerators.stream().map(ICrucibleAccelerator::getAugmentType), target.getAugmentTypes().stream()).filter(Optional::isPresent).map(Optional::get).toList();
         CrucibleTuning tuning = new CrucibleTuning(target);
-        this.processingSpeed = tuning.processingSpeedMultiplier.createTunedValue(
-                (1 + typeCount.entrySet().stream().map((entry) -> entry.getKey().getAcceleration(entry.getValue())).reduce(Float::sum).orElse(0f)
-                + augments.stream().map(AbstractAugmentItem::getSpeedIncrease).reduce(Float::sum).orElse(0f)) * tuning.processingSpeedMultiplier.getMultiplier());
+        this.focusingSpeed = tuning.focusingSpeedMultiplier.createTunedValue(
+                typeCount.entrySet().stream().map((entry) -> entry.getKey().getAcceleration(entry.getValue())).reduce(Float::sum).orElse(0f)
+                        + augments.stream().map(AbstractAugmentItem::getSpeedIncrease).reduce(Float::sum).orElse(0f));
         this.damageChance = tuning.damageChanceMultiplier.createTunedValue(
-                Mth.clamp((typeCount.entrySet().stream().map((entry) -> entry.getKey().getExtraDamageRollChance(entry.getValue())).reduce(Float::sum).orElse(0f)
-                + augments.stream().map(AbstractAugmentItem::getDamageChanceIncrease).reduce(Float::sum).orElse(0f)) * tuning.damageChanceMultiplier.getMultiplier(), 0, 0.99f));
+                typeCount.entrySet().stream().map((entry) -> entry.getKey().getExtraDamageRollChance(entry.getValue())).reduce(Float::sum).orElse(0f)
+                        + augments.stream().map(AbstractAugmentItem::getDamageChanceIncrease).reduce(Float::sum).orElse(0f));
 
         this.bonusYieldChance = tuning.bonusYieldChanceMultiplier.createTunedValue(
-                augments.stream().map(AbstractAugmentItem::getBonusYieldChanceIncrease).reduce(Float::sum).orElse(0f) * tuning.bonusYieldChanceMultiplier.getMultiplier());
+                augments.stream().map(AbstractAugmentItem::getBonusYieldChanceIncrease).reduce(Float::sum).orElse(0f));
         this.fuelUsageRate = tuning.fuelUsageRate.createTunedValue(
-                1 + augments.stream().map(AbstractAugmentItem::getFuelUsageRateIncrease).reduce(Float::sum).orElse(0f) * tuning.fuelUsageRate.getMultiplier());
+                augments.stream().map(AbstractAugmentItem::getFuelUsageRateIncrease).reduce(Float::sum).orElse(0f));
         this.chainFocusingChance = tuning.chainFocusingChanceMultiplier.createTunedValue(
-                augments.stream().map(AbstractAugmentItem::getInstantCompletionChance).reduce(Float::sum).orElse(0f) * tuning.chainFocusingChanceMultiplier.getMultiplier());
+                augments.stream().map(AbstractAugmentItem::getInstantCompletionChance).reduce(Float::sum).orElse(0f));
         this.damageAbsorptionChance = tuning.damageAbsorptionChanceMultiplier.createTunedValue(
-                augments.stream().map(AbstractAugmentItem::getCompleteDamageNegationChance).reduce(Float::sum).orElse(0f) * tuning.damageAbsorptionChanceMultiplier.getMultiplier());
+                augments.stream().map(AbstractAugmentItem::getCompleteDamageNegationChance).reduce(Float::sum).orElse(0f));
         this.restorationChance = tuning.restorationChanceMultiplier.createTunedValue(
-                augments.stream().map(AbstractAugmentItem::getRestorationChance).reduce(Float::sum).orElse(0f) * tuning.restorationChanceMultiplier.getMultiplier());
+                augments.stream().map(AbstractAugmentItem::getRestorationChance).reduce(Float::sum).orElse(0f));
+
+        final List<CrucibleTuning.CrucibleTuningType> validTuningTypes = CrucibleTuning.CrucibleTuningType.getValidValues(this);
+        TunedValue weakestValue = figureOutWeakestValue(target.getAccelerationData(), Stream.of(focusingSpeed, bonusYieldChance, chainFocusingChance, damageAbsorptionChance, restorationChance).filter(t -> validTuningTypes.contains(t.tuning.tuningType)).collect(Collectors.toList()));
+        weakestValue.setMultiplier(augments.stream().map(AbstractAugmentItem::getWeakestAttributeMultiplier).reduce(Float::sum).orElse(0f));
         accelerators.forEach(this::addAccelerator);
     }
 
     public CrucibleAccelerationData() {
-        this.processingSpeed = new DefaultedTunedValue(1);
+        this.focusingSpeed = new DefaultedTunedValue(1);
         this.damageChance = new DefaultedTunedValue(0);
         this.bonusYieldChance = new DefaultedTunedValue(0);
         this.fuelUsageRate = new DefaultedTunedValue(1);
@@ -133,28 +136,48 @@ public class CrucibleAccelerationData {
 
     public static class TunedValue {
         public final CrucibleTuning.TuningModifier tuning;
-        protected final float baseValue;
+        private final float baseValue;
+        private float multiplier = 0f;
 
         public TunedValue(CrucibleTuning.TuningModifier tuning, float baseValue) {
             this.tuning = tuning;
-            this.baseValue = baseValue;
+            this.baseValue = (tuning.getBaseValue()+baseValue) * tuning.getMultiplier();
+        }
+
+        protected TunedValue setMultiplier(float multiplier) {
+            this.multiplier = multiplier;
+            return this;
         }
 
         public float getValue(CrucibleAccelerationData accelerationData) {
+            float modifier = accelerationData.globalAttributeModifier;
             if (tuning.tuningType.equals(CrucibleTuning.CrucibleTuningType.CHAIN_FOCUSING_CHANCE)) {
-                return baseValue;
+                modifier *= -1;
             }
-            return baseValue * tuning.getMultiplierScalar(accelerationData.globalAttributeModifier);
+            return getBaseValue() * tuning.getMultiplierScalar(modifier + multiplier);
         }
+
+        protected float getBaseValue() {
+            return baseValue;
+        }
+
     }
     public static class DefaultedTunedValue extends TunedValue {
         public DefaultedTunedValue(float baseValue) {
-            super(null, baseValue);
+            super(CrucibleTuning.TuningModifier.DEFAULT, baseValue);
         }
 
         @Override
         public float getValue(CrucibleAccelerationData accelerationData) {
-            return baseValue;
+            return getBaseValue();
         }
+    }
+
+    public static TunedValue figureOutWeakestValue(CrucibleAccelerationData data, List<TunedValue> tunedValues) {
+        return tunedValues.stream().min((t1, t2) -> {
+            float difference1 = t1.tuning.getDifference(data, t1);
+            float difference2 = t2.tuning.getDifference(data, t2);
+            return Float.compare(difference1, difference2);
+        }).orElse(null);
     }
 }

@@ -100,6 +100,9 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity impleme
 
     @Override
     public InteractionResult onUse(Player player, InteractionHand hand) {
+        if (level.isClientSide) {
+            return InteractionResult.CONSUME;
+        }
         if (hand.equals(InteractionHand.MAIN_HAND)) {
             final ItemStack heldStack = player.getItemInHand(hand);
             final boolean augmentOnly = heldStack.getItem() instanceof AbstractAugmentItem;
@@ -121,8 +124,10 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity impleme
 
     @Override
     public void onBreak(@Nullable Player player) {
-        inventory.dumpItems(level, worldPosition);
-        augmentInventory.dumpItems(level, worldPosition);
+        if (!level.isClientSide) {
+            inventory.dumpItems(level, worldPosition);
+            augmentInventory.dumpItems(level, worldPosition);
+        }
         super.onBreak(player);
     }
 
@@ -187,6 +192,7 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity impleme
             if (!stack.isEmpty()) {
                 burnTicks = ForgeHooks.getBurnTime(inventory.getStackInSlot(0), RecipeType.SMELTING) / 2f;
                 stack.shrink(1);
+                inventory.updateData();
                 BlockHelper.updateAndNotifyState(level, worldPosition);
             }
         }

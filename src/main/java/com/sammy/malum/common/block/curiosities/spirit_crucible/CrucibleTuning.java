@@ -8,9 +8,9 @@ public class CrucibleTuning {
     public final CrucibleTuningType buffedStat;
     public final Map<CrucibleTuningType, ? extends TuningModifier> values = new HashMap<>();
 
-    public final TuningModifier processingSpeedMultiplier;
+    public final BaseOneTuningModifier focusingSpeedMultiplier;
     public final InverseTuningModifier fuelUsageRate;
-    public final InverseTuningModifier damageChanceMultiplier;
+    public final BaseZeroInverseTuningModifier damageChanceMultiplier;
     public final TuningModifier bonusYieldChanceMultiplier;
     public final TuningModifier chainFocusingChanceMultiplier;
     public final TuningModifier damageAbsorptionChanceMultiplier;
@@ -18,9 +18,9 @@ public class CrucibleTuning {
 
     public CrucibleTuning(ICatalyzerAccelerationTarget target) {
         this.buffedStat = target.getTuningType();
-        this.processingSpeedMultiplier = new TuningModifier(CrucibleTuningType.PROCESSING_SPEED, target);
+        this.focusingSpeedMultiplier = new BaseOneTuningModifier(CrucibleTuningType.FOCUSING_SPEED, target);
         this.fuelUsageRate = new InverseTuningModifier(CrucibleTuningType.FUEL_USAGE_RATE, target);
-        this.damageChanceMultiplier = new InverseTuningModifier(CrucibleTuningType.INSTABILITY, target);
+        this.damageChanceMultiplier = new BaseZeroInverseTuningModifier(CrucibleTuningType.INSTABILITY, target);
         this.bonusYieldChanceMultiplier = new TuningModifier(CrucibleTuningType.FORTUNE_CHANCE, target);
         this.chainFocusingChanceMultiplier = new TuningModifier(CrucibleTuningType.CHAIN_FOCUSING_CHANCE, target);
         this.damageAbsorptionChanceMultiplier = new TuningModifier(CrucibleTuningType.SHIELDING_CHANCE, target);
@@ -28,8 +28,8 @@ public class CrucibleTuning {
     }
 
     public enum CrucibleTuningType {
-        NONE(null, null),
-        PROCESSING_SPEED(d -> d.processingSpeed),
+        NONE(),
+        FOCUSING_SPEED(d -> d.focusingSpeed),
         FUEL_USAGE_RATE(d -> d.fuelUsageRate),
         INSTABILITY(d -> d.damageChance),
         FORTUNE_CHANCE(d -> d.bonusYieldChance),
@@ -37,13 +37,20 @@ public class CrucibleTuning {
         SHIELDING_CHANCE(d -> d.damageAbsorptionChance),
         RESTORATION_CHANCE(d -> d.restorationChance);
 
+        public final Function<CrucibleAccelerationData, CrucibleAccelerationData.TunedValue> valueGetter;
         public final Predicate<CrucibleAccelerationData> isValueValid;
         public final Function<CrucibleAccelerationData, String> statDisplayFunction;
 
-        CrucibleTuningType(Function<CrucibleAccelerationData, CrucibleAccelerationData.TunedValue> valueGetter) {
-            this(d -> valueGetter.apply(d).getValue(d) > 0, d -> String.format("%.2f", valueGetter.apply(d).getValue(d)));
+        CrucibleTuningType() {
+            this(null, null, null);
         }
-        CrucibleTuningType(Predicate<CrucibleAccelerationData> isValueValid, Function<CrucibleAccelerationData, String> statDisplayFunction) {
+
+        CrucibleTuningType(Function<CrucibleAccelerationData, CrucibleAccelerationData.TunedValue> valueGetter) {
+            this(valueGetter, d -> valueGetter.apply(d).getValue(d) > 0, d -> String.format("%.2f", valueGetter.apply(d).getValue(d)));
+        }
+
+        CrucibleTuningType(Function<CrucibleAccelerationData, CrucibleAccelerationData.TunedValue> valueGetter, Predicate<CrucibleAccelerationData> isValueValid, Function<CrucibleAccelerationData, String> statDisplayFunction) {
+            this.valueGetter = valueGetter;
             this.isValueValid = isValueValid;
             this.statDisplayFunction = statDisplayFunction;
         }
@@ -86,6 +93,8 @@ public class CrucibleTuning {
     }
 
     public static class TuningModifier {
+
+        public static TuningModifier DEFAULT = new TuningModifier(CrucibleTuningType.NONE, AppliedTuningType.NONE);
         public final CrucibleTuningType tuningType;
         public final AppliedTuningType appliedTuningType;
 
@@ -107,9 +116,17 @@ public class CrucibleTuning {
             float value = getDefaultMultiplier();
             switch (appliedTuningType) {
                 case BUFF -> value = getPositiveMultiplier();
-                case DEBUFF -> value =  getNegativeMultiplier();
+                case DEBUFF -> value = getNegativeMultiplier();
             }
             return value;
+        }
+
+        public float getBaseValue() {
+            return 0f;
+        }
+
+        public float getDifference(CrucibleAccelerationData data, CrucibleAccelerationData.TunedValue tunedValue) {
+            return tunedValue.getValue(data);
         }
 
         protected float getMultiplierScalar(float attributeMultiplier) {
@@ -129,7 +146,26 @@ public class CrucibleTuning {
         }
     }
 
-    public static class InverseTuningModifier extends TuningModifier {
+    public static class BaseOneTuningModifier extends TuningModifier {
+        public BaseOneTuningModifier(CrucibleTuningType tuningType, AppliedTuningType appliedTuningType) {
+            super(tuningType, appliedTuningType);
+        }
+
+        public BaseOneTuningModifier(CrucibleTuningType tuningType, ICatalyzerAccelerationTarget target) {
+            super(tuningType, target);
+        }
+
+        @Override
+        public float getBaseValue() {
+            return 1f;
+        }
+        @Override
+        public float getDifference(CrucibleAccelerationData data, CrucibleAccelerationData.TunedValue tunedValue) {
+            return tunedValue.getValue(data) - getBaseValue();
+        }
+    }
+
+    public static class InverseTuningModifier extends BaseOneTuningModifier {
         public InverseTuningModifier(CrucibleTuningType tuningType, AppliedTuningType appliedTuningType) {
             super(tuningType, appliedTuningType);
         }
@@ -138,6 +174,10 @@ public class CrucibleTuning {
             super(tuningType, target);
         }
 
+        @Override
+        public float getDifference(CrucibleAccelerationData data, CrucibleAccelerationData.TunedValue tunedValue) {
+            return getBaseValue() - tunedValue.getValue(data);
+        }
         @Override
         protected float getMultiplierScalar(float attributeMultiplier) {
             return 1-attributeMultiplier;
@@ -151,6 +191,21 @@ public class CrucibleTuning {
         @Override
         float getNegativeMultiplier() {
             return 1.1f;
+        }
+    }
+
+    public static class BaseZeroInverseTuningModifier extends InverseTuningModifier {
+        public BaseZeroInverseTuningModifier(CrucibleTuningType tuningType, AppliedTuningType appliedTuningType) {
+            super(tuningType, appliedTuningType);
+        }
+
+        public BaseZeroInverseTuningModifier(CrucibleTuningType tuningType, ICatalyzerAccelerationTarget target) {
+            super(tuningType, target);
+        }
+
+        @Override
+        public float getBaseValue() {
+            return 0f;
         }
     }
 }

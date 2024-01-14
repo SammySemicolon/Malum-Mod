@@ -1,7 +1,7 @@
 {
   "values": [
-    "malum:soulwood_growth",
-    "malum:blighted_weed",
-    "malum:blighted_tumor"
+    "malum:blighted_growth",
+    "malum:clinging_blight",
+    "malum:soulwood_growth"
   ]
 }

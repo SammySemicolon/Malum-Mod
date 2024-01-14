@@ -65,7 +65,6 @@ public class MalumBlockLootTables extends LootTableProvider {
     private static final Set<Item> EXPLOSION_RESISTANT = Stream.of(Blocks.DRAGON_EGG, Blocks.BEACON, Blocks.CONDUIT, Blocks.SKELETON_SKULL, Blocks.WITHER_SKELETON_SKULL, Blocks.PLAYER_HEAD, Blocks.ZOMBIE_HEAD, Blocks.CREEPER_HEAD, Blocks.DRAGON_HEAD, Blocks.SHULKER_BOX, Blocks.BLACK_SHULKER_BOX, Blocks.BLUE_SHULKER_BOX, Blocks.BROWN_SHULKER_BOX, Blocks.CYAN_SHULKER_BOX, Blocks.GRAY_SHULKER_BOX, Blocks.GREEN_SHULKER_BOX, Blocks.LIGHT_BLUE_SHULKER_BOX, Blocks.LIGHT_GRAY_SHULKER_BOX, Blocks.LIME_SHULKER_BOX, Blocks.MAGENTA_SHULKER_BOX, Blocks.ORANGE_SHULKER_BOX, Blocks.PINK_SHULKER_BOX, Blocks.PURPLE_SHULKER_BOX, Blocks.RED_SHULKER_BOX, Blocks.WHITE_SHULKER_BOX, Blocks.YELLOW_SHULKER_BOX).map(ItemLike::asItem).collect(ImmutableSet.toImmutableSet());
     private static final float[] MAGIC_SAPLING_DROP_CHANCE = new float[]{0.015F, 0.0225F, 0.033333336F, 0.05F};
 
-
     private final List<Pair<Supplier<Consumer<BiConsumer<ResourceLocation, LootTable.Builder>>>, LootContextParamSet>> tables = new ArrayList<>();
 
     public MalumBlockLootTables(PackOutput pOutput) {
@@ -97,8 +96,7 @@ public class MalumBlockLootTables extends LootTableProvider {
             add(take(blocks, BlockRegistry.BLIGHTED_SOULWOOD).get(), createSingleItemTableWithSilkTouch(BlockRegistry.BLIGHTED_SOULWOOD.get(), ItemRegistry.SOULWOOD_LOG.get()));
             add(take(blocks, BlockRegistry.BLIGHTED_SOIL).get(), createBlightedDrop(BlockRegistry.BLIGHTED_SOIL.get(), 4));
             add(take(blocks, BlockRegistry.BLIGHTED_EARTH).get(), createBlightedDrop(BlockRegistry.BLIGHTED_EARTH.get(), 4).withPool(LootPool.lootPool().add(applyExplosionDecay(BlockRegistry.BLIGHTED_EARTH.get(), LootItem.lootTableItem(Blocks.DIRT)))));
-            add(take(blocks, BlockRegistry.BLIGHTED_TUMOR).get(), createBlightedPlantDrop(BlockRegistry.BLIGHTED_TUMOR.get(), 2));
-            add(take(blocks, BlockRegistry.BLIGHTED_WEED).get(), createBlightedPlantDrop(BlockRegistry.BLIGHTED_WEED.get(), 1));
+            add(take(blocks, BlockRegistry.BLIGHTED_GROWTH).get(), createBlightedPlantDrop(BlockRegistry.BLIGHTED_GROWTH.get(), 1));
 
             add(take(blocks, BlockRegistry.BRILLIANT_STONE).get(), createOreDrop(BlockRegistry.BRILLIANT_STONE.get(), ItemRegistry.CLUSTER_OF_BRILLIANCE.get()));
             add(take(blocks, BlockRegistry.BRILLIANT_DEEPSLATE).get(), createOreDrop(BlockRegistry.BRILLIANT_DEEPSLATE.get(), ItemRegistry.CLUSTER_OF_BRILLIANCE.get()));

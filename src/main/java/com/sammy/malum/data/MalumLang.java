@@ -370,6 +370,10 @@ public class MalumLang extends LanguageProvider {
         addPages("mending_diffuser",
                 "An unexpected yet brilliant application of Living Flesh, the Mending Diffuser will, upon the crucible completing a focusing cycle, potentially repair any impetus by a small amount. It cannot however mend an already cracked impetus.");
 
+        addSimpleEntryHeader("impurity_stabilizer", "Impurity Stabilizer", "Potency from weakness");
+        addPages("impurity_stabilizer",
+                "The wicked spirit is, in most applications, drawn to the weak, seeking to cull. The Impurity Stabilizer takes advantage of that property, providing a powerful percentage bonus to the weakest crucible attribute, excluding fuel usage rate and instability, which receive a small improvement overall instead.");
+
         addSimpleEntryHeader("shielding_apparatus", "Shielding Apparatus", "Alchemical protection");
         addPages("shielding_apparatus",
                 "By utilizing the protective properties of Soul Stained Steel the Shielding Apparatus provides a chance for the damage imposed upon the impetus to be " + italic("completely") + " absorbed, while also slightly stabilizing the focusing process. It does however reduce focusing speed.");

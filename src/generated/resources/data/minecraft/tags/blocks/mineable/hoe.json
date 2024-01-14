@@ -1,11 +1,13 @@
 {
   "values": [
     "malum:block_of_astral_weave",
+    "malum:mystic_soulwood_leaves",
     "malum:mass_of_blighted_gunk",
     "malum:blighted_earth",
     "malum:soulwood_leaves",
     "malum:blighted_soil",
     "malum:runewood_leaves",
+    "malum:hanging_mystic_soulwood_leaves",
     "malum:block_of_hex_ash"
   ]
 }

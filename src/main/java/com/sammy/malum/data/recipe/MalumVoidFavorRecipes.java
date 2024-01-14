@@ -11,6 +11,7 @@ import java.util.function.Consumer;
 public class MalumVoidFavorRecipes {
 
     protected static void buildRecipes(Consumer<FinishedRecipe> consumer) {
+
         new VoidFavorRecipeBuilder(Ingredient.of(Tags.Items.RAW_MATERIALS), ItemRegistry.RAW_SOULSTONE.get(), 1)
                 .build(consumer);
 
@@ -25,7 +26,7 @@ public class MalumVoidFavorRecipes {
                 .build(consumer);
         new VoidFavorRecipeBuilder(Ingredient.of(Tags.Items.ENDER_PEARLS), ItemRegistry.STRANGE_NUCLEUS.get(), 1)
                 .build(consumer);
-        new VoidFavorRecipeBuilder(Ingredient.of(ItemRegistry.CLUSTER_OF_BRILLIANCE.get()), ItemRegistry.MNEMONIC_FRAGMENT.get(), 1)
+        new VoidFavorRecipeBuilder(Ingredient.of(ItemRegistry.CHUNK_OF_BRILLIANCE.get()), ItemRegistry.MNEMONIC_FRAGMENT.get(), 1)
                 .build(consumer);
 
         new VoidFavorRecipeBuilder(Ingredient.of(ItemRegistry.THE_DEVICE.get()), ItemRegistry.THE_VESSEL.get(), 1)

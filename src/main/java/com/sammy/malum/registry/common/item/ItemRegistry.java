@@ -297,10 +297,8 @@ public class ItemRegistry {
     //region blight
     public static final RegistryObject<Item> BLIGHTED_EARTH = register("blighted_earth", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BLIGHTED_EARTH.get(), p));
     public static final RegistryObject<Item> BLIGHTED_SOIL = register("blighted_soil", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BLIGHTED_SOIL.get(), p));
-    public static final RegistryObject<Item> BLIGHTED_WEED = register("blighted_weed", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BLIGHTED_WEED.get(), p));
-    public static final RegistryObject<Item> BLIGHTED_TUMOR = register("blighted_tumor", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BLIGHTED_TUMOR.get(), p));
     public static final RegistryObject<Item> BLIGHTED_SOULWOOD = register("blighted_soulwood", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BLIGHTED_SOULWOOD.get(), p));
-    public static final RegistryObject<Item> BLIGHTED_GUNK = register("blighted_gunk", NATURE_PROPERTIES(), Item::new);
+    public static final RegistryObject<Item> BLIGHTED_GUNK = register("blighted_gunk", NATURE_PROPERTIES(), (p) -> new BlightedGunkItem(BlockRegistry.BLIGHTED_GROWTH.get(), BlockRegistry.CLINGING_BLIGHT.get(), p));
     //endregion
 
     //region soulwood
@@ -310,6 +308,8 @@ public class ItemRegistry {
     public static final RegistryObject<Item> UNHOLY_CARAMEL = register("unholy_caramel", NATURE_PROPERTIES(), (p) -> new HolyCaramelItem(FarmersDelightCompat.LOADED ? NATURE_PROPERTIES().food((new FoodProperties.Builder()).nutrition(4).saturationMod(0.15F).effect(() -> new MobEffectInstance(MobEffects.DAMAGE_BOOST, 100, 0), 1).build()) : HIDDEN_PROPERTIES()));
 
     public static final RegistryObject<Item> SOULWOOD_LEAVES = register("soulwood_leaves", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.SOULWOOD_LEAVES.get(), p));
+    public static final RegistryObject<Item> MYSTIC_SOULWOOD_LEAVES = register("mystic_soulwood_leaves", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.MYSTIC_SOULWOOD_LEAVES.get(), p));
+    public static final RegistryObject<Item> HANGING_MYSTIC_SOULWOOD_LEAVES = register("hanging_mystic_soulwood_leaves", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.HANGING_MYSTIC_SOULWOOD_LEAVES.get(), p));
     public static final RegistryObject<Item> SOULWOOD_GROWTH = register("soulwood_growth", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.SOULWOOD_GROWTH.get(), p));
 
     public static final RegistryObject<Item> SOULWOOD_LOG = register("soulwood_log", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.SOULWOOD_LOG.get(), p));
@@ -435,6 +435,7 @@ public class ItemRegistry {
     public static final RegistryObject<Item> BLOCK_OF_SOUL_STAINED_STEEL = register("block_of_soul_stained_steel", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BLOCK_OF_SOUL_STAINED_STEEL.get(), p));
 
     public static final RegistryObject<Item> MENDING_DIFFUSER = register("mending_diffuser", DEFAULT_PROPERTIES(), MendingDiffuserItem::new);
+    public static final RegistryObject<Item> IMPURITY_STABILIZER = register("impurity_stabilizer", DEFAULT_PROPERTIES(), ImpurityStabilizer::new);
     public static final RegistryObject<Item> SHIELDING_APPARATUS = register("shielding_apparatus", DEFAULT_PROPERTIES(), ShieldingApparatusItem::new);
     public static final RegistryObject<Item> WARPING_ENGINE = register("warping_engine", DEFAULT_PROPERTIES(), WarpingEngineItem::new);
     public static final RegistryObject<Item> ACCELERATING_INLAY = register("accelerating_inlay", DEFAULT_PROPERTIES(), AcceleratingInlayItem::new);

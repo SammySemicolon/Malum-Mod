@@ -1,0 +1,9 @@
+{
+  "parent": "malum:block/templates/template_creeping_blight_wall",
+  "textures": {
+    "big": "malum:block/blight/rooted_blight",
+    "bracing": "malum:block/blight/rooted_blight_bracing",
+    "particle": "malum:block/blight/rooted_blight",
+    "small": "malum:block/blight/rooted_blight_small"
+  }
+}

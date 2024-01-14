@@ -1,18 +1,28 @@
 package com.sammy.malum.visual_effects;
 
+import com.sammy.malum.client.renderer.block.*;
+import com.sammy.malum.common.capability.*;
+import com.sammy.malum.core.handlers.*;
+import com.sammy.malum.core.systems.item.*;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.*;
 import net.minecraft.util.Mth;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.*;
+import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.registry.common.particle.*;
 import team.lodestar.lodestone.systems.easing.Easing;
+import team.lodestar.lodestone.systems.particle.*;
 import team.lodestar.lodestone.systems.particle.builder.ScreenParticleBuilder;
 import team.lodestar.lodestone.systems.particle.data.GenericParticleData;
 import team.lodestar.lodestone.systems.particle.data.color.ColorParticleData;
 import team.lodestar.lodestone.systems.particle.data.spin.SpinParticleData;
 import team.lodestar.lodestone.systems.particle.render_types.LodestoneScreenParticleRenderType;
-import team.lodestar.lodestone.systems.particle.screen.ScreenParticleHolder;
+import team.lodestar.lodestone.systems.particle.screen.*;
 
 import java.awt.*;
+import java.util.function.*;
 
 import static net.minecraft.util.Mth.nextFloat;
 
@@ -51,8 +61,7 @@ public class ScreenParticleEffects {
         Color endColor = new Color((int) (111 * colorMultiplier), (int) (31 * colorMultiplier), (int) (121 * colorMultiplier));
         float gameTime = level.getGameTime() + partialTick;
         var rand = Minecraft.getInstance().level.getRandom();
-        boolean spinDirection = level.random.nextBoolean();
-        SpinParticleData spinParticleData = SpinParticleData.create(0, spinDirection ? 1 : -2).setSpinOffset(0.025f * gameTime % 6.28f).setEasing(Easing.EXPO_IN_OUT).build();
+        SpinParticleData spinParticleData = SpinParticleData.createRandomDirection(rand, 0, level.random.nextBoolean() ? 1 : -2).setSpinOffset(0.025f * gameTime % 6.28f).setEasing(Easing.EXPO_IN_OUT).build();
         ScreenParticleBuilder.create(LodestoneScreenParticleRegistry.STAR, target)
                 .setScaleData(GenericParticleData.create(1.2f * intensity + rand.nextFloat() * 0.1f * intensity, 0).setEasing(Easing.SINE_IN_OUT, Easing.BOUNCE_IN_OUT).build())
                 .setTransparencyData(GenericParticleData.create(0.1f, 0.5f, 0f).setEasing(Easing.SINE_IN_OUT).build())
@@ -79,5 +88,63 @@ public class ScreenParticleEffects {
                 .setScaleData(GenericParticleData.create(0.8f + rand.nextFloat() * 0.4f, 0f).build())
                 .setRandomMotion(0.01f, 0.01f)
                 .spawnOnStack(0, 0);
+    }
+
+    public static class VoidTransmutableParticleEffect implements IVoidItem {
+
+        public static VoidTransmutableParticleEffect INSTANCE = new VoidTransmutableParticleEffect();
+        private boolean isNearWell;
+
+        @Override
+        public float getVoidParticleIntensity() {
+            return 1.2f;
+        }
+
+        @Override
+        public void spawnEarlyParticles(ScreenParticleHolder target, Level level, float partialTick, ItemStack stack, float x, float y) {
+            final LocalPlayer player = Minecraft.getInstance().player;
+            final TouchOfDarknessHandler handler = MalumLivingEntityDataCapability.getCapability(player).touchOfDarknessHandler;
+            isNearWell = handler.isNearWeepingWell;
+            if (!isNearWell) {
+                return;
+            }
+            IVoidItem.super.spawnEarlyParticles(target, level, partialTick, stack, x, y);
+        }
+
+        @Override
+        public void spawnLateParticles(ScreenParticleHolder target, Level level, float partialTick, ItemStack stack, float x, float y) {
+            if (!isNearWell) {
+                return;
+            }
+            var rand = level.getRandom();
+            float distance = 7.5f;
+            for (int i = 0; i < 2; i++) {
+                float time = (((i == 1 ? 3.14f : 0) + ((level.getGameTime() + partialTick) * 0.1f)) % 6.28f);
+                float scalar = 0.6f;
+                double xOffset = Math.sin(time) * distance;
+                double yOffset = Math.cos(time) * distance;
+                float gravityStrength = RandomHelper.randomBetween(rand, 0.025f, 0.05f);
+                final Consumer<GenericScreenParticle> slowDown = p -> {
+                    p.xMotion *= 0.96f;
+                    p.yMotion = (p.yMotion + gravityStrength) * 0.96f;
+                };
+                float colorMultiplier = Mth.nextFloat(level.random, 0.7f, 1f);
+                Color color = new Color((int) (255 * colorMultiplier), (int) (51 * colorMultiplier), (int) (195 * colorMultiplier));
+                Color endColor = new Color((int) (56 * colorMultiplier), (int) (32 * colorMultiplier), (int) (77 * colorMultiplier));
+                float gameTime = level.getGameTime() + partialTick;
+                SpinParticleData spinParticleData = SpinParticleData.createRandomDirection(rand, level.random.nextBoolean() ? 1 : -2).setSpinOffset(0.025f * gameTime % 6.28f).build();
+                ScreenParticleBuilder.create(LodestoneScreenParticleRegistry.WISP, target)
+                        .setScaleData(GenericParticleData.create(0.1f*scalar, RandomHelper.randomBetween(rand, 0.2f, 0.3f)*scalar, 0).setEasing(Easing.SINE_IN_OUT).setEasing(Easing.EXPO_OUT).build())
+                        .setTransparencyData(GenericParticleData.create(0f, 0.25f, 0f).setEasing(Easing.SINE_IN_OUT).build())
+                        .setColorData(ColorParticleData.create(color, endColor.darker()).setCoefficient(1.25f).build())
+                        .setSpinData(spinParticleData)
+                        .setLifetime(40)
+                        .setDiscardFunction(SimpleParticleOptions.ParticleDiscardFunctionType.ENDING_CURVE_INVISIBLE)
+                        .spawnOnStack(xOffset, yOffset)
+                        .setRenderType(LodestoneScreenParticleRenderType.LUMITRANSPARENT)
+                        .setScaleData(GenericParticleData.create(0.25f*scalar, RandomHelper.randomBetween(rand, 0.3f, 0.4f)*scalar, 0).setEasing(Easing.SINE_IN_OUT).setEasing(Easing.EXPO_OUT).build())
+                        .repeatOnStack(xOffset, yOffset, 2);
+            }
+        }
     }
 }
