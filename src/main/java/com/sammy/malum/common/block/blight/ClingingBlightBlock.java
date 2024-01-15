@@ -14,7 +14,27 @@ import java.util.*;
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.*;
 
 public class ClingingBlightBlock extends Block {
-    protected static final VoxelShape SHAPE = Block.box(2.0D, 2.0D, 2.0D, 14.0D, 14.0D, 14.0D);
+    protected static final VoxelShape SHAPE_GROUNDED_ROOTS_X = Block.box(0.0D, 0.0D, 2.0D, 16.0D, 6.0D, 14.0D);
+    protected static final VoxelShape SHAPE_GROUNDED_ROOTS_Z = Block.box(2.0D, 0.0D, 0.0D, 14.0D, 6.0D, 16.0D);
+
+    protected static final VoxelShape SHAPE_ROOTED_EAST = Block.box(4.0D, 0.0D, 2.0D, 16.0D, 12.0D, 14.0D);
+    protected static final VoxelShape SHAPE_ROOTED_WEST = Block.box(0.0D, 0.0D, 2.0D, 12.0D, 12.0D, 14.0D);
+    protected static final VoxelShape SHAPE_ROOTED_SOUTH = Block.box(2.0D, 0.0D, 4.0D, 14.0D, 12.0D, 16.0D);
+    protected static final VoxelShape SHAPE_ROOTED_NORTH = Block.box(2.0D, 0.0D, 0.0D, 14.0D, 12.0D, 12.0D);
+
+    protected static final VoxelShape SHAPE_BRACED_EAST = Block.box(4.0D, 0.0D, 4.0D, 16.0D, 16.0D, 12.0D);
+    protected static final VoxelShape SHAPE_BRACED_WEST = Block.box(0.0D, 0.0D, 4.0D, 8.0D, 16.0D, 12.0D);
+    protected static final VoxelShape SHAPE_BRACED_SOUTH = Block.box(4.0D, 0.0D, 4.0D, 12.0D, 16.0D, 16.0D);
+    protected static final VoxelShape SHAPE_BRACED_NORTH = Block.box(4.0D, 0.0D, 0.0D, 12.0D, 16.0D, 8.0D);
+
+    protected static final VoxelShape SHAPE_HANGING_EAST = Block.box(4.0D, 0.0D, 2.0D, 16.0D, 16.0D, 14.0D);
+    protected static final VoxelShape SHAPE_HANGING_WEST = Block.box(0.0D, 0.0D, 2.0D, 12.0D, 16.0D, 14.0D);
+    protected static final VoxelShape SHAPE_HANGING_SOUTH = Block.box(2.0D, 0.0D, 4.0D, 14.0D, 16.0D, 16.0D);
+    protected static final VoxelShape SHAPE_HANGING_NORTH = Block.box(2.0D, 0.0D, 0.0D, 14.0D, 16.0D, 12.0D);
+
+    protected static final VoxelShape SHAPE_HANGING_ROOTS_X = Block.box(0.0D, 12.0D, 2.0D, 16.0D, 16.0D, 14.0D);
+    protected static final VoxelShape SHAPE_HANGING_ROOTS_Z = Block.box(2.0D, 12.0D, 0.0D, 14.0D, 16.0D, 16.0D);
+
 
     public static final EnumProperty<BlightType> BLIGHT_TYPE = EnumProperty.create("blight_type", BlightType.class);
 
@@ -88,17 +108,45 @@ public class ClingingBlightBlock extends Block {
     }
 
     @Override
+    public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
+        VoxelShape[] shapeArray;
+        switch (pState.getValue(BLIGHT_TYPE)) {
+            case GROUNDED_ROOTS -> shapeArray = new VoxelShape[]{SHAPE_GROUNDED_ROOTS_X, SHAPE_GROUNDED_ROOTS_X, SHAPE_GROUNDED_ROOTS_Z, SHAPE_GROUNDED_ROOTS_Z};
+            case ROOTED_BLIGHT -> shapeArray = new VoxelShape[]{SHAPE_ROOTED_EAST, SHAPE_ROOTED_WEST, SHAPE_ROOTED_SOUTH, SHAPE_ROOTED_NORTH};
+            case SOULWOOD_SPIKE, HANGING_BLIGHT_CONNECTION -> shapeArray = new VoxelShape[]{SHAPE_BRACED_EAST, SHAPE_BRACED_WEST, SHAPE_BRACED_SOUTH, SHAPE_BRACED_NORTH};
+            case HANGING_BLIGHT -> shapeArray = new VoxelShape[]{SHAPE_HANGING_EAST, SHAPE_HANGING_WEST, SHAPE_HANGING_SOUTH, SHAPE_HANGING_NORTH};
+            case HANGING_ROOTS -> shapeArray = new VoxelShape[]{SHAPE_HANGING_ROOTS_X, SHAPE_HANGING_ROOTS_X, SHAPE_HANGING_ROOTS_Z, SHAPE_HANGING_ROOTS_Z};
+            default -> throw new IllegalStateException("Unexpected value: " + pState.getValue(BLIGHT_TYPE));
+        }
+        switch (pState.getValue(HORIZONTAL_FACING)) {
+            case EAST -> {
+                return shapeArray[0];
+            }
+            case WEST -> {
+                return shapeArray[1];
+            }
+            case SOUTH -> {
+                return shapeArray[2];
+            }
+            case NORTH -> {
+                return shapeArray[3];
+            }
+        }
+        return super.getShape(pState, pLevel, pPos, pContext);
+    }
+
+    @Override
     public VoxelShape getBlockSupportShape(BlockState pState, BlockGetter pReader, BlockPos pPos) {
         return Shapes.empty();
     }
 
     public enum BlightType implements StringRepresentable {
-        HANGING_BLIGHT,
-        HANGING_BLIGHT_CONNECTION,
-        ROOTED_BLIGHT,
         GROUNDED_ROOTS,
-        HANGING_ROOTS,
-        SOULWOOD_SPIKE;
+        ROOTED_BLIGHT,
+        SOULWOOD_SPIKE,
+        HANGING_BLIGHT_CONNECTION,
+        HANGING_BLIGHT,
+        HANGING_ROOTS;
 
         final String name = name().toLowerCase(Locale.ROOT);
 

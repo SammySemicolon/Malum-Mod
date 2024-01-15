@@ -8,7 +8,7 @@ import com.sammy.malum.common.block.nature.MalumSaplingBlock;
 import com.sammy.malum.registry.common.block.BlockRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.util.RandomSource;
+import net.minecraft.util.*;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.RotatedPillarBlock;
@@ -31,20 +31,26 @@ public class RunewoodTreeFeature extends Feature<NoneFeatureConfiguration> {
         super(NoneFeatureConfiguration.CODEC);
     }
 
-    private static final int minimumSapBlockCount = 2;
-    private static final int extraSapBlockCount = 1;
+    private static int getSapBlockCount(RandomSource random) {
+        return Mth.nextInt(random, 2, 3);
+    }
 
-    private static final int minimumTrunkHeight = 7;
-    private static final int extraTrunkHeight = 3;
-    private static final int minimumSideTrunkHeight = 0;
-    private static final int extraSideTrunkHeight = 2;
+    private static int getTrunkHeight(RandomSource random) {
+        return Mth.nextInt(random, 7, 10);
+    }
+    private static int getSideTrunkHeight(RandomSource random) {
+        return Mth.nextInt(random, 0, 2);
+    }
 
-    private static final int minimumDownwardsBranchOffset = 2;
-    private static final int extraDownwardsBranchOffset = 2;
-    private static final int minimumBranchCoreOffset = 2;
-    private static final int branchCoreOffsetExtra = 1;
-    private static final int minimumBranchHeight = 3;
-    private static final int branchHeightExtra = 2;
+    private static int getDownwardsBranchOffset(RandomSource random) {
+        return Mth.nextInt(random, 2, 4);
+    }
+    private static int getBranchEndOffset(RandomSource random) {
+        return Mth.nextInt(random, 2, 3);
+    }
+    private static int getBranchHeight(RandomSource random) {
+        return Mth.nextInt(random, 3, 5);
+    }
 
     @Override
     public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> context) {
@@ -59,7 +65,8 @@ public class RunewoodTreeFeature extends Feature<NoneFeatureConfiguration> {
         LodestoneBlockFiller treeFiller = new LodestoneBlockFiller(false);
         LodestoneBlockFiller leavesFiller = new LodestoneBlockFiller(true);
 
-        int trunkHeight = minimumTrunkHeight + rand.nextInt(extraTrunkHeight + 1);
+        int trunkHeight = getTrunkHeight(rand);
+        int sapBlockCount = getSapBlockCount(rand);
         BlockPos trunkTop = pos.above(trunkHeight);
         Direction[] directions = new Direction[]{Direction.NORTH, Direction.SOUTH, Direction.WEST, Direction.EAST};
 
@@ -73,10 +80,10 @@ public class RunewoodTreeFeature extends Feature<NoneFeatureConfiguration> {
             }
         }
 
-        makeLeafBlob(leavesFiller, rand, trunkTop);
+        makeLeafBlob(leavesFiller, trunkTop);
         for (Direction direction : directions) //side trunk placement
         {
-            int sideTrunkHeight = minimumSideTrunkHeight + rand.nextInt(extraSideTrunkHeight + 1);
+            int sideTrunkHeight = getSideTrunkHeight(rand);
             for (int i = 0; i < sideTrunkHeight; i++) {
                 BlockPos sideTrunkPos = pos.relative(direction).above(i);
                 if (canPlace(level, sideTrunkPos)) {
@@ -89,10 +96,10 @@ public class RunewoodTreeFeature extends Feature<NoneFeatureConfiguration> {
         }
         for (Direction direction : directions) //tree top placement
         {
-            int branchCoreOffset = minimumDownwardsBranchOffset + rand.nextInt(extraDownwardsBranchOffset + 1);
-            int branchOffset = minimumBranchCoreOffset + rand.nextInt(branchCoreOffsetExtra + 1);
-            BlockPos branchStartPos = trunkTop.below(branchCoreOffset).relative(direction, branchOffset);
-            for (int i = 0; i < branchOffset; i++) //branch connection placement
+            int downwardsBranchOffset = getDownwardsBranchOffset(rand);
+            int branchEndOffset = getBranchEndOffset(rand);
+            BlockPos branchStartPos = trunkTop.below(downwardsBranchOffset).relative(direction, branchEndOffset);
+            for (int i = 0; i < branchEndOffset; i++) //branch connection placement
             {
                 BlockPos branchConnectionPos = branchStartPos.relative(direction.getOpposite(), i);
                 if (canPlace(level, branchConnectionPos)) {
@@ -101,7 +108,7 @@ public class RunewoodTreeFeature extends Feature<NoneFeatureConfiguration> {
                     return false;
                 }
             }
-            int branchHeight = minimumBranchHeight + rand.nextInt(branchHeightExtra + 1);
+            int branchHeight = getBranchHeight(rand);
             for (int i = 0; i < branchHeight; i++) //branch placement
             {
                 BlockPos branchPos = branchStartPos.above(i);
@@ -111,9 +118,8 @@ public class RunewoodTreeFeature extends Feature<NoneFeatureConfiguration> {
                     return false;
                 }
             }
-            makeLeafBlob(leavesFiller, rand, branchStartPos.above(1));
+            makeLeafBlob(leavesFiller, branchStartPos.above(1));
         }
-        int sapBlockCount = minimumSapBlockCount + rand.nextInt(extraSapBlockCount + 1);
         ArrayList<BlockPos> sapBlockPositions = new ArrayList<>(treeFiller.getEntries().keySet());
         Collections.shuffle(sapBlockPositions);
         for (BlockPos blockPos : sapBlockPositions.subList(0, sapBlockCount)) {
@@ -143,22 +149,35 @@ public class RunewoodTreeFeature extends Feature<NoneFeatureConfiguration> {
         while (true);
     }
 
-    public static void makeLeafBlob(LodestoneBlockFiller filler, RandomSource rand, BlockPos pos) {
-        makeLeafSlice(filler, pos, 1, 0);
-        makeLeafSlice(filler, pos.above(1), 2, 1);
-        makeLeafSlice(filler, pos.above(2), 2, 2);
-        makeLeafSlice(filler, pos.above(3), 2, 3);
-        makeLeafSlice(filler, pos.above(4), 1, 4);
+    public static void makeLeafBlob(LodestoneBlockFiller filler, BlockPos pos) {
+        final BlockPos.MutableBlockPos mutable = pos.mutable();
+        int[] leafSizes = new int[]{1, 2, 2, 2, 1};
+        int[] leafColors = new int[]{0, 1, 2, 3, 4};
+        mutable.move(Direction.DOWN, 1);
+        for (int i = 0; i < 2; i++) {
+            int size = leafSizes[i];
+            int color = leafColors[i];
+            final BlockState state = BlockRegistry.HANGING_RUNEWOOD_LEAVES.get().defaultBlockState().setValue(MalumLeavesBlock.COLOR, color);
+            makeLeafSlice(filler, mutable, size, state);
+            mutable.move(Direction.UP);
+        }
+        mutable.move(Direction.DOWN, 1);
+        for (int i = 0; i < 5; i++) {
+            int size = leafSizes[i];
+            int color = leafColors[i];
+            final BlockState state = BlockRegistry.RUNEWOOD_LEAVES.get().defaultBlockState().setValue(MalumLeavesBlock.COLOR, color);
+            makeLeafSlice(filler, mutable, size, state);
+            mutable.move(Direction.UP);
+        }
     }
 
-    public static void makeLeafSlice(LodestoneBlockFiller filler, BlockPos pos, int leavesSize, int leavesColor) {
+    public static void makeLeafSlice(LodestoneBlockFiller filler, BlockPos.MutableBlockPos pos, int leavesSize, BlockState state) {
         for (int x = -leavesSize; x <= leavesSize; x++) {
             for (int z = -leavesSize; z <= leavesSize; z++) {
                 if (Math.abs(x) == leavesSize && Math.abs(z) == leavesSize) {
                     continue;
                 }
-                BlockPos leavesPos = new BlockPos(pos).offset(x, 0, z);
-                filler.getEntries().put(leavesPos, new BlockStateEntry(BlockRegistry.RUNEWOOD_LEAVES.get().defaultBlockState().setValue(MalumLeavesBlock.COLOR, leavesColor)));
+                filler.getEntries().put(pos.offset(x, 0, z), new BlockStateEntry(state));
             }
         }
     }
@@ -184,9 +203,9 @@ public class RunewoodTreeFeature extends Feature<NoneFeatureConfiguration> {
                 mutable.setWithOffset(pos, direction);
                 if (!logPositions.contains(mutable)) {
                     BlockState blockstate = pLevel.getBlockState(mutable);
-                    if (blockstate.hasProperty(BlockStateProperties.DISTANCE)) {
+                    if (blockstate.hasProperty(MalumLeavesBlock.DISTANCE)) {
                         list.get(0).add(mutable.immutable());
-                        pLevel.setBlock(mutable, blockstate.setValue(BlockStateProperties.DISTANCE, 1), 19);
+                        pLevel.setBlock(mutable, blockstate.setValue(MalumLeavesBlock.DISTANCE, 1), 19);
                     }
                 }
             }
@@ -201,10 +220,10 @@ public class RunewoodTreeFeature extends Feature<NoneFeatureConfiguration> {
                     mutable.setWithOffset(pos, direction1);
                     if (!set.contains(mutable) && !set1.contains(mutable)) {
                         BlockState blockstate1 = pLevel.getBlockState(mutable);
-                        if (blockstate1.hasProperty(BlockStateProperties.DISTANCE)) {
-                            int k = blockstate1.getValue(BlockStateProperties.DISTANCE);
+                        if (blockstate1.hasProperty(MalumLeavesBlock.DISTANCE)) {
+                            int k = blockstate1.getValue(MalumLeavesBlock.DISTANCE);
                             if (k > l + 1) {
-                                BlockState blockstate2 = blockstate1.setValue(BlockStateProperties.DISTANCE, l + 1);
+                                BlockState blockstate2 = blockstate1.setValue(MalumLeavesBlock.DISTANCE, l + 1);
                                 pLevel.setBlock(mutable, blockstate2, 19);
                                 set1.add(mutable.immutable());
                             }

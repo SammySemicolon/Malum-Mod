@@ -372,7 +372,7 @@ public class MalumLang extends LanguageProvider {
 
         addSimpleEntryHeader("impurity_stabilizer", "Impurity Stabilizer", "Potency from weakness");
         addPages("impurity_stabilizer",
-                "The wicked spirit is, in most applications, drawn to the weak, seeking to cull. The Impurity Stabilizer takes advantage of that property, providing a powerful percentage bonus to the weakest crucible attribute, excluding fuel usage rate and instability, which receive a small improvement overall instead.");
+                "The wicked spirit is, in most applications, drawn to the weak, seeking to cull. The Impurity Stabilizer utilizes that property, providing a powerful percentage bonus to the weakest crucible attribute, excluding fuel usage rate and instability, which receive a small improvement overall instead.");
 
         addSimpleEntryHeader("shielding_apparatus", "Shielding Apparatus", "Alchemical protection");
         addPages("shielding_apparatus",

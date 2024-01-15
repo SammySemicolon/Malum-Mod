@@ -111,6 +111,7 @@ public class MalumBlockStates extends LodestoneBlockStateProvider {
         BlockStateSmithTypes.LOG_BLOCK.act(data, RUNEWOOD_BEAM, RUNEWOOD_LOG, STRIPPED_RUNEWOOD_LOG, EXPOSED_RUNEWOOD_LOG, REVEALED_RUNEWOOD_LOG);
         BlockStateSmithTypes.WOOD_BLOCK.act(data, RUNEWOOD, STRIPPED_RUNEWOOD);
         BlockStateSmithTypes.LEAVES_BLOCK.act(data, RUNEWOOD_LEAVES);
+        MalumBlockStateSmithTypes.HANGING_RUNEWOOD_LEAVES.act(data, HANGING_RUNEWOOD_LEAVES);
 
         BlockStateSmithTypes.CROSS_MODEL_BLOCK.act(data, RUNEWOOD_SAPLING);
         BlockStateSmithTypes.BUTTON_BLOCK.act(data, RUNEWOOD_BUTTON);

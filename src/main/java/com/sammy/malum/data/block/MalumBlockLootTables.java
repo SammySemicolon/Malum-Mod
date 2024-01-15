@@ -90,8 +90,8 @@ public class MalumBlockLootTables extends LootTableProvider {
 
             takeAll(blocks, b -> b.get().properties instanceof LodestoneBlockProperties && ((LodestoneBlockProperties) b.get().properties).getDatagenData().hasInheritedLootTable);
 
-            add(take(blocks, BlockRegistry.RUNEWOOD_LEAVES).get(), (b) -> createLeavesDrops(b, BlockRegistry.RUNEWOOD_SAPLING.get(), MAGIC_SAPLING_DROP_CHANCE));
-            add(take(blocks, BlockRegistry.SOULWOOD_LEAVES).get(), (b) -> createLeavesDrops(b, BlockRegistry.SOULWOOD_GROWTH.get(), MAGIC_SAPLING_DROP_CHANCE));
+            takeAll(blocks, BlockRegistry.RUNEWOOD_LEAVES, BlockRegistry.HANGING_RUNEWOOD_LEAVES).forEach((b) -> add(b.get(), createLeavesDrops(b.get(), BlockRegistry.RUNEWOOD_SAPLING.get(), MAGIC_SAPLING_DROP_CHANCE)));
+            takeAll(blocks, BlockRegistry.SOULWOOD_LEAVES, BlockRegistry.MYSTIC_SOULWOOD_LEAVES, BlockRegistry.HANGING_MYSTIC_SOULWOOD_LEAVES).forEach((b) -> add(b.get(), createLeavesDrops(b.get(), BlockRegistry.SOULWOOD_GROWTH.get(), MAGIC_SAPLING_DROP_CHANCE)));
 
             add(take(blocks, BlockRegistry.BLIGHTED_SOULWOOD).get(), createSingleItemTableWithSilkTouch(BlockRegistry.BLIGHTED_SOULWOOD.get(), ItemRegistry.SOULWOOD_LOG.get()));
             add(take(blocks, BlockRegistry.BLIGHTED_SOIL).get(), createBlightedDrop(BlockRegistry.BLIGHTED_SOIL.get(), 4));

@@ -35,6 +35,7 @@ import net.minecraftforge.fml.common.*;
 import net.minecraftforge.registries.*;
 import team.lodestar.lodestone.systems.block.*;
 import team.lodestar.lodestone.systems.block.sign.*;
+import team.lodestar.lodestone.systems.easing.*;
 
 import java.awt.*;
 
@@ -191,7 +192,8 @@ public class BlockRegistry {
 
     //region runewood
     public static final RegistryObject<Block> RUNEWOOD_SAPLING = BLOCKS.register("runewood_sapling", () -> new MalumSaplingBlock(MalumBlockProperties.RUNEWOOD_SAPLING().setCutoutRenderType().randomTicks(), FeatureRegistry.RUNEWOOD_TREE));
-    public static final RegistryObject<Block> RUNEWOOD_LEAVES = BLOCKS.register("runewood_leaves", () -> new MalumLeavesBlock(MalumBlockProperties.RUNEWOOD_LEAVES().setCutoutRenderType(), new Color(175, 65, 48), new Color(251, 193, 76)));
+    public static final RegistryObject<Block> RUNEWOOD_LEAVES = BLOCKS.register("runewood_leaves", () -> new MalumLeavesBlock(MalumBlockProperties.RUNEWOOD_LEAVES().setCutoutRenderType(), new Color(217, 110, 23), new Color(251, 193, 76)));
+    public static final RegistryObject<Block> HANGING_RUNEWOOD_LEAVES = BLOCKS.register("hanging_runewood_leaves", () -> new MalumHangingLeavesBlock(MalumBlockProperties.RUNEWOOD_LEAVES().setCutoutRenderType().noOcclusion().noCollission(), new Color(217, 110, 23), new Color(251, 193, 76)));
 
     public static final RegistryObject<Block> STRIPPED_RUNEWOOD_LOG = BLOCKS.register("stripped_runewood_log", () -> new RotatedPillarBlock(MalumBlockProperties.RUNEWOOD().addTags(LOGS, STRIPPED_LOGS, RUNEWOOD_LOGS)));
     public static final RegistryObject<Block> RUNEWOOD_LOG = BLOCKS.register("runewood_log", () -> new MalumLogBLock(MalumBlockProperties.RUNEWOOD().addTags(LOGS, RUNEWOOD_LOGS), STRIPPED_RUNEWOOD_LOG, false));
@@ -239,9 +241,9 @@ public class BlockRegistry {
 
     //region soulwood
     public static final RegistryObject<Block> SOULWOOD_GROWTH = BLOCKS.register("soulwood_growth", () -> new SoulwoodGrowthBlock(MalumBlockProperties.BLIGHTED_PLANTS().setCutoutRenderType().randomTicks(), FeatureRegistry.SOULWOOD_TREE));
-    public static final RegistryObject<Block> SOULWOOD_LEAVES = BLOCKS.register("soulwood_leaves", () -> new MalumLeavesBlock(MalumBlockProperties.SOULWOOD_LEAVES().setCutoutRenderType(), new Color(187, 13, 59), new Color(255, 61, 243)));
+    public static final RegistryObject<Block> SOULWOOD_LEAVES = BLOCKS.register("soulwood_leaves", () -> new MalumLeavesBlock(MalumBlockProperties.SOULWOOD_LEAVES().setCutoutRenderType(), new Color(213, 8, 63), new Color(255, 61, 243)));
     public static final RegistryObject<Block> MYSTIC_SOULWOOD_LEAVES = BLOCKS.register("mystic_soulwood_leaves", () -> new MalumLeavesBlock(MalumBlockProperties.SOULWOOD_LEAVES().setCutoutRenderType(), new Color(213, 8, 63), new Color(255, 61, 243)));
-    public static final RegistryObject<Block> HANGING_MYSTIC_SOULWOOD_LEAVES = BLOCKS.register("hanging_mystic_soulwood_leaves", () -> new MalumHangingLeavesBlock(MalumBlockProperties.SOULWOOD_LEAVES().setCutoutRenderType(), new Color(213, 8, 63), new Color(255, 61, 243)));
+    public static final RegistryObject<Block> HANGING_MYSTIC_SOULWOOD_LEAVES = BLOCKS.register("hanging_mystic_soulwood_leaves", () -> new MalumHangingLeavesBlock(MalumBlockProperties.SOULWOOD_LEAVES().setCutoutRenderType().noOcclusion().noCollission(), new Color(213, 8, 63), new Color(255, 61, 243)));
 
     public static final RegistryObject<Block> STRIPPED_SOULWOOD_LOG = BLOCKS.register("stripped_soulwood_log", () -> new RotatedPillarBlock(MalumBlockProperties.SOULWOOD().addTags(LOGS, STRIPPED_LOGS, SOULWOOD_LOGS)));
     public static final RegistryObject<Block> SOULWOOD_LOG = BLOCKS.register("soulwood_log", () -> new SoulwoodLogBlock(MalumBlockProperties.SOULWOOD().addTags(LOGS, SOULWOOD_LOGS), STRIPPED_SOULWOOD_LOG, true));
@@ -371,14 +373,29 @@ public class BlockRegistry {
                 return -1;
             }, ETHER.get(), IRIDESCENT_ETHER.get());
             blockColors.register((s, l, p, c) -> {
-                float i = s.getValue(MalumLeavesBlock.COLOR);
-                float max = MalumLeavesBlock.COLOR.getPossibleValues().size();
+                float colorMax = MalumLeavesBlock.COLOR.getPossibleValues().size();
+                float color = s.getValue(MalumLeavesBlock.COLOR);
+                float pct = (colorMax - (color / colorMax));
+                float value = Easing.SINE_IN_OUT.ease(pct, 0, 1, 1);
                 MalumLeavesBlock malumLeavesBlock = (MalumLeavesBlock) s.getBlock();
-                int red = (int) Mth.lerp(i / max, malumLeavesBlock.minColor.getRed(), malumLeavesBlock.maxColor.getRed());
-                int green = (int) Mth.lerp(i / max, malumLeavesBlock.minColor.getGreen(), malumLeavesBlock.maxColor.getGreen());
-                int blue = (int) Mth.lerp(i / max, malumLeavesBlock.minColor.getBlue(), malumLeavesBlock.maxColor.getBlue());
+                int red = (int) Mth.lerp(value, malumLeavesBlock.minColor.getRed(), malumLeavesBlock.maxColor.getRed());
+                int green = (int) Mth.lerp(value, malumLeavesBlock.minColor.getGreen(), malumLeavesBlock.maxColor.getGreen());
+                int blue = (int) Mth.lerp(value, malumLeavesBlock.minColor.getBlue(), malumLeavesBlock.maxColor.getBlue());
                 return red << 16 | green << 8 | blue;
-            }, RUNEWOOD_LEAVES.get(), SOULWOOD_LEAVES.get(), MYSTIC_SOULWOOD_LEAVES.get(), HANGING_MYSTIC_SOULWOOD_LEAVES.get());
+            }, RUNEWOOD_LEAVES.get(), HANGING_RUNEWOOD_LEAVES.get());
+            blockColors.register((s, l, p, c) -> {
+                float distanceMax = MalumLeavesBlock.DISTANCE.getPossibleValues().size();
+                float distance = s.getValue(MalumLeavesBlock.DISTANCE);
+                float colorMax = MalumLeavesBlock.COLOR.getPossibleValues().size();
+                float color = s.getValue(MalumLeavesBlock.COLOR);
+                float pct = Math.max((distanceMax - distance) / distanceMax, color / colorMax);
+                float value = Easing.SINE_IN_OUT.ease(pct, 0, 1, 1);
+                MalumLeavesBlock malumLeavesBlock = (MalumLeavesBlock) s.getBlock();
+                int red = (int) Mth.lerp(value, malumLeavesBlock.minColor.getRed(), malumLeavesBlock.maxColor.getRed());
+                int green = (int) Mth.lerp(value, malumLeavesBlock.minColor.getGreen(), malumLeavesBlock.maxColor.getGreen());
+                int blue = (int) Mth.lerp(value, malumLeavesBlock.minColor.getBlue(), malumLeavesBlock.maxColor.getBlue());
+                return red << 16 | green << 8 | blue;
+            }, SOULWOOD_LEAVES.get(), MYSTIC_SOULWOOD_LEAVES.get(), HANGING_MYSTIC_SOULWOOD_LEAVES.get());
         }
     }
 }

@@ -45,6 +45,26 @@ public class MalumBlockStateSmithTypes {
         provider.getVariantBuilder(block).forAllStates(s -> ConfiguredModel.builder().modelFile(s.getValue(PrimordialSoupBlock.TOP) ? topModel : model).build());
     });
 
+    public static BlockStateSmith<Block> HANGING_RUNEWOOD_LEAVES = new BlockStateSmith<>(Block.class, ItemModelSmithTypes.AFFIXED_MODEL.apply("_0"), (block, provider) -> {
+        String name = provider.getBlockName(block);
+        Function<Integer, ModelFile> modelProvider = (i) ->
+                provider.models().withExistingParent(name+"_"+i, malumPath("block/templates/template_hanging_leaves")).texture("hanging_leaves", provider.getBlockTexture(name + "_" + i)).texture("particle", provider.getBlockTexture(name + "_" + i));
+
+        ConfiguredModel.Builder<VariantBlockStateBuilder> builder = provider.getVariantBuilder(block).partialState().modelForState();
+
+        for (int i = 0; i < 3; i++) {
+            final ModelFile model = modelProvider.apply(i);
+            builder = builder.modelFile(model)
+                    .nextModel().modelFile(model).rotationY(90)
+                    .nextModel().modelFile(model).rotationY(180)
+                    .nextModel().modelFile(model).rotationY(270);
+            if (i != 2) {
+                builder = builder.nextModel();
+            }
+        }
+        builder.addModel();
+    });
+
     public static BlockStateSmith<ClingingBlightBlock> CLINGING_BLIGHT = new BlockStateSmith<>(ClingingBlightBlock.class, ItemModelSmithTypes.GENERATED_ITEM, (block, provider) -> {
         String name = provider.getBlockName(block);
         ResourceLocation creeping = malumPath("block/templates/template_creeping_blight");
@@ -82,7 +102,6 @@ public class MalumBlockStateSmithTypes {
                 .nextModel().modelFile(soil0).rotationY(90)
                 .nextModel().modelFile(soil0).rotationY(180)
                 .nextModel().modelFile(soil0).rotationY(270)
-
                 .nextModel().modelFile(soil1)
                 .nextModel().modelFile(soil1).rotationY(90)
                 .nextModel().modelFile(soil1).rotationY(180)
@@ -94,10 +113,12 @@ public class MalumBlockStateSmithTypes {
         String name = provider.getBlockName(block);
         Function<Integer, ModelFile> tumorFunction = (i) -> provider.models().withExistingParent(name + "_" + i, new ResourceLocation("block/cross")).texture("cross", malumPath("block/" + name + "_" + i));
 
-        ConfiguredModel.Builder<VariantBlockStateBuilder> builder = provider.getVariantBuilder(block).partialState().modelForState()
-                .modelFile(tumorFunction.apply(0));
-        for (int i = 1; i <= 9; i++) {
-            builder = builder.nextModel().modelFile(tumorFunction.apply(i));
+        ConfiguredModel.Builder<VariantBlockStateBuilder> builder = provider.getVariantBuilder(block).partialState().modelForState();
+        for (int i = 0; i < 10; i++) {
+            builder = builder.modelFile(tumorFunction.apply(i));
+            if (i != 9) {
+                builder = builder.nextModel();
+            }
         }
         builder.addModel();
     });
