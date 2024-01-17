@@ -66,6 +66,16 @@ public class SoundRegistry {
     public static final RegistryObject<SoundEvent> ALTAR_CONSUME = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("spirit_altar_absorbs_item")));
     public static final RegistryObject<SoundEvent> ALTAR_SPEED_UP = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("spirit_altar_speeds_up")));
 
+    public static final RegistryObject<SoundEvent> RITUAL_BEGINS = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("ritual_begins")));
+    public static final RegistryObject<SoundEvent> RITUAL_ABSORBS_ITEM = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("ritual_absorbs_item")));
+    public static final RegistryObject<SoundEvent> RITUAL_FORMS = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("ritual_forms")));
+    public static final RegistryObject<SoundEvent> RITUAL_ABSORBS_SPIRIT = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("ritual_absorbs_spirit")));
+    public static final RegistryObject<SoundEvent> RITUAL_EVOLVES = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("ritual_evolves")));
+    public static final RegistryObject<SoundEvent> RITUAL_COMPLETE = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("ritual_complete")));
+    public static final RegistryObject<SoundEvent> RITUAL_BEGINNING_AMBIENCE = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("ritual_beginning_ambience")));
+    public static final RegistryObject<SoundEvent> RITUAL_EVOLUTION_AMBIENCE = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("ritual_evolution_ambience")));
+    public static final RegistryObject<SoundEvent> COMPLETED_RITUAL_AMBIENCE = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("completed_ritual_ambience")));
+
     public static final RegistryObject<SoundEvent> TOTEM_CHARGE = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("totem_charges")));
     public static final RegistryObject<SoundEvent> TOTEM_ACTIVATED = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("spirit_rite_activated")));
     public static final RegistryObject<SoundEvent> TOTEM_CANCELLED = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("spirit_rite_cancelled")));
