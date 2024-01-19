@@ -64,7 +64,7 @@ public class RitualPlinthBlockEntity extends LodestoneBlockEntity {
     public RitualPlinthBlockEntity(BlockPos pos, BlockState state) {
         super(BlockEntityRegistry.RITUAL_PLINTH.get(), pos, state);
 
-        inventory = new MalumBlockEntityInventory(1, 64, t -> !(t.getItem() instanceof SpiritShardItem)) {
+        inventory = new MalumBlockEntityInventory(1, 64, t -> (ritualType != null && ritualType.isItemStackValid(this, t)) || (ritualType == null && !(t.getItem() instanceof SpiritShardItem))) {
             @Override
             public void onContentsChanged(int slot) {
                 super.onContentsChanged(slot);
@@ -129,7 +129,13 @@ public class RitualPlinthBlockEntity extends LodestoneBlockEntity {
 
     @Override
     public InteractionResult onUse(Player player, InteractionHand hand) {
-        if (ritualType == null && inventory.getStackInSlot(0).isEmpty() && extrasInventory.isEmpty()) {
+        if (ritualType != null) {
+            InteractionResult interactionResult = ritualType.onUsePlinth(this, player, hand);
+            if (!interactionResult.equals(InteractionResult.PASS)) {
+                return interactionResult;
+            }
+        }
+        else if (inventory.getStackInSlot(0).isEmpty() && extrasInventory.isEmpty()) {
             ItemStack stack = player.getItemInHand(hand);
             if (stack.getItem() instanceof RitualShardItem) {
                 if (!level.isClientSide) {
@@ -217,7 +223,7 @@ public class RitualPlinthBlockEntity extends LodestoneBlockEntity {
         if (level.isClientSide) {
             final ItemStack stack = inventory.getStackInSlot(0);
             if (!stack.isEmpty()) {
-                boolean isItemValid = ritualRecipe != null && ritualRecipe.input.matches(stack);
+                boolean isItemValid = ritualType != null ? ritualType.isItemStackValid(this, stack) : ritualRecipe != null && ritualRecipe.input.matches(stack);
                 if (isItemValid) {
                     RitualPlinthParticleEffects.holdingPrimeItemPlinthParticles(this);
                 }

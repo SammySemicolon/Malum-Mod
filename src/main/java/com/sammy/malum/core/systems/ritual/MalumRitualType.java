@@ -7,6 +7,9 @@ import net.minecraft.*;
 import net.minecraft.nbt.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.resources.*;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import team.lodestar.lodestone.helpers.*;
 
@@ -14,7 +17,6 @@ import java.util.*;
 import java.util.function.*;
 
 public abstract class MalumRitualType {
-
     public final MalumSpiritType spirit;
     public final ResourceLocation identifier;
     protected MalumRitualRecipeData recipeData;
@@ -22,6 +24,14 @@ public abstract class MalumRitualType {
     public MalumRitualType(ResourceLocation identifier, MalumSpiritType spirit) {
         this.identifier = identifier;
         this.spirit = spirit;
+    }
+
+
+    public InteractionResult onUsePlinth(RitualPlinthBlockEntity ritualPlinth, Player player, InteractionHand hand) {
+        return InteractionResult.PASS;
+    }
+    public boolean isItemStackValid(RitualPlinthBlockEntity ritualPlinth, ItemStack stack) {
+        return false;
     }
 
     public abstract void triggerRitualEffect(RitualPlinthBlockEntity ritualPlinth);
