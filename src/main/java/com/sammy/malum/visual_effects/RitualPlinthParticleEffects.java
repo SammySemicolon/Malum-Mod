@@ -385,6 +385,18 @@ public class RitualPlinthParticleEffects {
         }
     }
 
+    public static void eatSpiritParticles(RitualPlinthBlockEntity plinth, Vec3 targetPos, ColorEffectData colorData, ItemStack stack) {
+        MalumSpiritType spiritType = colorData.getSpiritType();
+        Level level = plinth.getLevel();
+        long gameTime = level.getGameTime();
+        var random = level.random;
+        Vec3 plinthItemPos = plinth.getItemPos();
+        for (int i = 0; i < 2; i++) {
+            SpiritLightSpecs.coolLookingShinyThing(level, targetPos, spiritType);
+            SpiritLightSpecs.coolLookingShinyThing(level, plinthItemPos, spiritType);
+        }
+    }
+
     public static void holdingPrimeItemPlinthParticles(RitualPlinthBlockEntity plinth) {
         Level level = plinth.getLevel();
         MalumSpiritType spiritType = plinth.ritualType != null ? plinth.ritualType.spirit : plinth.ritualRecipe.ritualType.spirit;

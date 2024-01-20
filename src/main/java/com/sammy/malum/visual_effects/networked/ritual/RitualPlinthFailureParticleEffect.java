@@ -1,4 +1,4 @@
-package com.sammy.malum.visual_effects.networked.plinth;
+package com.sammy.malum.visual_effects.networked.ritual;
 
 import com.sammy.malum.common.block.curiosities.ritual_plinth.*;
 import com.sammy.malum.visual_effects.*;
@@ -7,9 +7,9 @@ import net.minecraftforge.api.distmarker.*;
 
 import java.util.function.*;
 
-public class RitualPlinthChangeTierParticleEffect extends ParticleEffectType {
+public class RitualPlinthFailureParticleEffect extends ParticleEffectType {
 
-    public RitualPlinthChangeTierParticleEffect(String id) {
+    public RitualPlinthFailureParticleEffect(String id) {
         super(id);
     }
 
@@ -20,7 +20,7 @@ public class RitualPlinthChangeTierParticleEffect extends ParticleEffectType {
             if (!(level.getBlockEntity(positionData.getAsBlockPos()) instanceof RitualPlinthBlockEntity ritualPlinth)) {
                 return;
             }
-            RitualPlinthParticleEffects.incrementRitualTierParticles(ritualPlinth, colorData);
+            RitualPlinthParticleEffects.failRitualParticles(ritualPlinth, colorData);
         };
     }
 }

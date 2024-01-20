@@ -1,17 +1,13 @@
-package com.sammy.malum.visual_effects.networked.plinth;
+package com.sammy.malum.visual_effects.networked.ritual;
 
 import com.sammy.malum.common.block.curiosities.ritual_plinth.*;
-import com.sammy.malum.common.block.curiosities.spirit_altar.*;
-import com.sammy.malum.common.block.storage.*;
 import com.sammy.malum.visual_effects.*;
 import com.sammy.malum.visual_effects.networked.*;
 import com.sammy.malum.visual_effects.networked.data.*;
-import net.minecraft.core.*;
 import net.minecraft.nbt.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.phys.*;
 import net.minecraftforge.api.distmarker.*;
-import team.lodestar.lodestone.helpers.*;
 
 import java.util.function.*;
 
