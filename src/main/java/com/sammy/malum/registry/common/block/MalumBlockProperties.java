@@ -56,6 +56,14 @@ public class MalumBlockProperties {
                 .needsHoe().addTag(BlockTags.LEAVES);
     }
 
+    public static LodestoneBlockProperties RUNIC_SAP() {
+        return new LodestoneBlockProperties()
+                .addTag(Tags.Blocks.STORAGE_BLOCKS)
+                .friction(0.8F)
+                .sound(SoundType.SLIME_BLOCK)
+                .noOcclusion();
+    }
+
     public static LodestoneBlockProperties SOULWOOD() {
         return new LodestoneBlockProperties()
                 .sound(SoundRegistry.SOULWOOD)
@@ -83,6 +91,14 @@ public class MalumBlockProperties {
                 .isSuffocating(Blocks::never)
                 .isViewBlocking(Blocks::never)
                 .sound(SoundRegistry.SOULWOOD_LEAVES);
+    }
+
+    public static LodestoneBlockProperties CURSED_SAP() {
+        return new LodestoneBlockProperties()
+                .addTag(Tags.Blocks.STORAGE_BLOCKS)
+                .friction(0.8F)
+                .sound(SoundRegistry.CURSED_SAP)
+                .noOcclusion();
     }
 
     public static LodestoneBlockProperties BLIGHT() {
@@ -231,13 +247,6 @@ public class MalumBlockProperties {
         return new LodestoneBlockProperties()
                 .strength(0.5f, 64f)
                 .sound(SoundRegistry.HALLOWED_GOLD)
-                .noOcclusion();
-    }
-
-    public static LodestoneBlockProperties SOUL_VIAL() {
-        return new LodestoneBlockProperties()
-                .strength(0.75f, 64f)
-                .sound(SoundRegistry.SOUL_STAINED_STEEL)
                 .noOcclusion();
     }
 

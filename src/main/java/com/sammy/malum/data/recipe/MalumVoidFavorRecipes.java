@@ -1,8 +1,10 @@
 package com.sammy.malum.data.recipe;
 
+import com.sammy.malum.*;
 import com.sammy.malum.data.recipe.builder.VoidFavorRecipeBuilder;
 import com.sammy.malum.registry.common.item.ItemRegistry;
 import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.common.Tags;
 
@@ -20,13 +22,15 @@ public class MalumVoidFavorRecipes {
         new VoidFavorRecipeBuilder(Ingredient.of(ItemRegistry.COMPLETE_DESIGN.get()), ItemRegistry.FUSED_CONSCIOUSNESS.get(), 1)
                 .build(consumer);
 
-        new VoidFavorRecipeBuilder(Ingredient.of(ItemRegistry.PROCESSED_SOULSTONE.get()), ItemRegistry.NULL_SLATE.get(), 1)
+        new VoidFavorRecipeBuilder(ItemRegistry.PROCESSED_SOULSTONE.get(), ItemRegistry.NULL_SLATE.get(), 1)
                 .build(consumer);
-        new VoidFavorRecipeBuilder(Ingredient.of(ItemRegistry.HEX_ASH.get()), ItemRegistry.VOID_SALTS.get(), 1)
+        new VoidFavorRecipeBuilder(ItemRegistry.HEX_ASH.get(), ItemRegistry.VOID_SALTS.get(), 1)
                 .build(consumer);
-        new VoidFavorRecipeBuilder(Ingredient.of(Tags.Items.ENDER_PEARLS), ItemRegistry.STRANGE_NUCLEUS.get(), 1)
+        new VoidFavorRecipeBuilder(ItemRegistry.CHUNK_OF_BRILLIANCE.get(), ItemRegistry.MNEMONIC_FRAGMENT.get(), 1)
                 .build(consumer);
-        new VoidFavorRecipeBuilder(Ingredient.of(ItemRegistry.CHUNK_OF_BRILLIANCE.get()), ItemRegistry.MNEMONIC_FRAGMENT.get(), 1)
+        new VoidFavorRecipeBuilder(ItemRegistry.CLUSTER_OF_BRILLIANCE.get(), ItemRegistry.MNEMONIC_FRAGMENT.get(), 2)
+                .build(consumer, MalumMod.malumPath("mnemonic_fragment_from_cluster"));
+        new VoidFavorRecipeBuilder(Items.BLAZE_POWDER, ItemRegistry.AURIC_EMBERS.get(), 1)
                 .build(consumer);
 
         new VoidFavorRecipeBuilder(Ingredient.of(ItemRegistry.THE_DEVICE.get()), ItemRegistry.THE_VESSEL.get(), 1)

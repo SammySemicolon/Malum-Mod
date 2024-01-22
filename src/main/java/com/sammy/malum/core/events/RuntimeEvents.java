@@ -15,7 +15,6 @@ import com.sammy.malum.common.item.curiosities.curios.alchemical.CurioAlchemical
 import com.sammy.malum.common.item.curiosities.curios.misc.CurioHarmonyNecklace;
 import com.sammy.malum.common.item.curiosities.curios.prospector.CurioProspectorBelt;
 import com.sammy.malum.common.item.curiosities.curios.rotten.CurioVoraciousRing;
-import com.sammy.malum.compability.create.CreateCompat;
 import com.sammy.malum.core.handlers.*;
 import com.sammy.malum.core.listeners.*;
 import net.minecraft.core.BlockPos;
@@ -173,9 +172,6 @@ public class RuntimeEvents {
 
     @SubscribeEvent
     public static void onHurt(LivingHurtEvent event) {
-        if (CreateCompat.LOADED) {
-            CreateCompat.LoadedOnly.convertCaramelToMagicDamage(event);
-        }
         MalumAttributeEventHandler.processAttributes(event);
         SoulDataHandler.exposeSoul(event);
     }

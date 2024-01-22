@@ -2,11 +2,7 @@
   "type": "malum:spirit_infusion",
   "extra_items": [
     {
-      "count": 4,
-      "item": "malum:chunk_of_brilliance"
-    },
-    {
-      "count": 1,
+      "count": 2,
       "tag": "forge:gems/emerald"
     },
     {

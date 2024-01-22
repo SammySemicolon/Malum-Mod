@@ -71,7 +71,7 @@ public class SoundRegistry {
     public static final RegistryObject<SoundEvent> RITUAL_FORMS = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("ritual_forms")));
     public static final RegistryObject<SoundEvent> RITUAL_ABSORBS_SPIRIT = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("ritual_absorbs_spirit")));
     public static final RegistryObject<SoundEvent> RITUAL_EVOLVES = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("ritual_evolves")));
-    public static final RegistryObject<SoundEvent> RITUAL_COMPLETE = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("ritual_complete")));
+    public static final RegistryObject<SoundEvent> RITUAL_COMPLETED = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("ritual_completed")));
     public static final RegistryObject<SoundEvent> RITUAL_BEGINNING_AMBIENCE = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("ritual_beginning_ambience")));
     public static final RegistryObject<SoundEvent> RITUAL_EVOLUTION_AMBIENCE = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("ritual_evolution_ambience")));
     public static final RegistryObject<SoundEvent> COMPLETED_RITUAL_AMBIENCE = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("completed_ritual_ambience")));
@@ -201,6 +201,7 @@ public class SoundRegistry {
     public static final SoundType BLIGHTED_EARTH = new BlightedSoundType(1.0F, 1.0F, () -> SoundEvents.NYLIUM_BREAK, () -> SoundEvents.NYLIUM_STEP, () -> SoundEvents.NYLIUM_PLACE, () -> SoundEvents.NYLIUM_HIT, () -> SoundEvents.NYLIUM_FALL);
     public static final SoundType SOULWOOD = new BlightedSoundType(1.0F, 1.0F, () -> SoundEvents.WOOD_BREAK, () -> SoundEvents.WOOD_STEP, () -> SoundEvents.WOOD_PLACE, () -> SoundEvents.WOOD_HIT, () -> SoundEvents.WOOD_FALL);
     public static final SoundType SOULWOOD_LEAVES = new BlightedSoundType(1.0F, 0.9F, SOULWOOD_LEAVES_BREAK, SOULWOOD_LEAVES_STEP, SOULWOOD_LEAVES_PLACE, SOULWOOD_LEAVES_HIT, () -> SoundEvents.AZALEA_LEAVES_FALL);
+    public static final SoundType CURSED_SAP = new BlightedSoundType(1.0F, 0.9F, () -> SoundEvents.SLIME_BLOCK_BREAK, () -> SoundEvents.SLIME_BLOCK_STEP, () -> SoundEvents.SLIME_BLOCK_PLACE, () -> SoundEvents.SLIME_BLOCK_HIT, () -> SoundEvents.SLIME_BLOCK_FALL);
 
     public static final SoundType ETHER = new ForgeSoundType(1.0F, 1.0F, ETHER_BREAK, () -> SoundEvents.WOOL_STEP, ETHER_PLACE, () -> SoundEvents.ANCIENT_DEBRIS_HIT, () -> SoundEvents.WOOL_FALL);
 

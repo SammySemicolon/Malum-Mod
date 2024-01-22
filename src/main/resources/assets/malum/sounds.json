@@ -63,7 +63,7 @@
   "spirit_altar_absorbs_item": { "sounds":["malum:altar/altar_consume1", "malum:altar/altar_consume2"], "subtitle": "malum.subtitle.spirit_altar_absorbs_item" },
   "alteration_plinth_alters": { "sounds":["malum:plinth/alter1","malum:plinth/alter2","malum:plinth/alter3"], "subtitle": "malum.subtitle.alteration_plinth_alters" },
 
-  "ritual_begins": { "sounds":["malum:ritual/ritual_start"], "subtitle": "malum.subtitle.ritual_start" },
+  "ritual_begins": { "sounds":["malum:ritual/ritual_start"], "subtitle": "malum.subtitle.ritual_begins" },
   "ritual_absorbs_item": { "sounds":["malum:ritual/ritual_absorb_item1", "malum:ritual/ritual_absorb_item2", "malum:ritual/ritual_absorb_item3"], "subtitle": "malum.subtitle.ritual_absorbs_item" },
   "ritual_forms": { "sounds":["malum:ritual/ritual_stage2"], "subtitle": "malum.subtitle.ritual_forms" },
   "ritual_absorbs_spirit": { "sounds":["malum:ritual/ritual_absorb_spirit1", "malum:ritual/ritual_absorb_spirit2", "malum:ritual/ritual_absorb_spirit3", "malum:ritual/ritual_absorb_spirit4"], "subtitle": "malum.subtitle.ritual_absorbs_spirit" },
@@ -73,7 +73,6 @@
   "ritual_beginning_ambience": { "sounds":["malum:ritual/ritual_loop1"], "subtitle": "malum.subtitle.ritual_beginning_ambience" },
   "ritual_evolution_ambience": { "sounds":["malum:ritual/ritual_loop2"], "subtitle": "malum.subtitle.ritual_evolution_ambience" },
   "completed_ritual_ambience": { "sounds":["malum:ritual/ritual_loop3"], "subtitle": "malum.subtitle.completed_ritual_ambience" },
-
 
   "spirit_crucible_completes_focusing": { "sounds":["malum:crucible/crucible_craft1", "malum:crucible/crucible_craft2", "malum:crucible/crucible_craft3"], "subtitle": "malum.subtitle.spirit_crucible_completes_focusing" },
   "spirit_crucible_focuses": { "sounds":["malum:crucible/crucible_loop"], "subtitle": "malum.subtitle.spirit_crucible_focuses" },

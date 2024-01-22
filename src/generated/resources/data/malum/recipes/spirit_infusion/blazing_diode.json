@@ -2,12 +2,8 @@
   "type": "malum:spirit_infusion",
   "extra_items": [
     {
-      "count": 4,
+      "count": 2,
       "item": "malum:blazing_quartz"
-    },
-    {
-      "count": 1,
-      "item": "minecraft:blaze_powder"
     },
     {
       "count": 2,

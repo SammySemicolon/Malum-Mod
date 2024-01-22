@@ -175,22 +175,16 @@ public class MalumVanillaRecipes implements IConditionBuilder {
         shaped(RecipeCategory.MISC, Items.SKELETON_SKULL).define('#', ItemRegistry.GRIM_TALC.get()).define('&', Tags.Items.BONES).pattern("&&&").pattern("&#&").pattern("&&&").unlockedBy("has_grim_talc", has(ItemRegistry.GRIM_TALC.get())).save(consumer, malumPath("skeleton_skull_from_grim_talc"));
         shaped(RecipeCategory.MISC, Items.ZOMBIE_HEAD).define('#', ItemRegistry.GRIM_TALC.get()).define('&', Items.ROTTEN_FLESH).pattern("&&&").pattern("&#&").pattern("&&&").unlockedBy("has_grim_talc", has(ItemRegistry.GRIM_TALC.get())).save(consumer, malumPath("zombie_head_from_grim_talc"));
 
-        shaped(RecipeCategory.MISC, Items.TORCH, 6).define('#', ItemRegistry.BLAZING_QUARTZ.get()).define('&', Items.STICK).pattern("#").pattern("&").unlockedBy("has_blazing_quartz", has(ItemRegistry.BLAZING_QUARTZ.get())).save(consumer, malumPath("blazing_torch"));
+        shaped(RecipeCategory.MISC, Items.TORCH, 6).define('#', ItemRegistry.BLAZING_QUARTZ.get()).define('&', Items.STICK).pattern("#").pattern("&").unlockedBy("has_blazing_quartz", has(ItemRegistry.BLAZING_QUARTZ.get())).save(consumer);
 
         //SAP & ARCANE CHARCOAL
         smelting(Ingredient.of(ItemTagRegistry.RUNEWOOD_LOGS), RecipeCategory.MISC, ItemRegistry.ARCANE_CHARCOAL.get(), 0.25f, 200).unlockedBy("has_runewood_planks", has(ItemTagRegistry.RUNEWOOD_LOGS)).save(consumer, malumPath("arcane_charcoal_from_runewood"));
-        shapeless(RecipeCategory.MISC, ItemRegistry.HOLY_SAPBALL.get(), 3).requires(ItemRegistry.HOLY_SAP.get()).requires(Items.SLIME_BALL).unlockedBy("has_holy_sap", has(ItemRegistry.HOLY_SAP.get())).save(consumer);
-        smelting(Ingredient.of(ItemRegistry.HOLY_SAP.get()), RecipeCategory.MISC, ItemRegistry.HOLY_SYRUP.get(), 0.1f, 200).unlockedBy("has_holy_sap", has(ItemRegistry.HOLY_SAP.get())).save(consumer, malumPath("holy_sap_from_smelting"));
-        smoking(Ingredient.of(ItemRegistry.HOLY_SAP.get()), RecipeCategory.MISC, ItemRegistry.HOLY_SYRUP.get(), 0.1f, 100).unlockedBy("has_holy_sap", has(ItemRegistry.HOLY_SAP.get())).save(consumer, malumPath("holy_sap_from_smoking"));
+        shapeless(RecipeCategory.MISC, ItemRegistry.RUNIC_SAPBALL.get()).requires(ItemRegistry.RUNIC_SAP.get(), 2).unlockedBy("has_runic_sap", has(ItemRegistry.RUNIC_SAP.get())).save(consumer);
+        shapeless(RecipeCategory.MISC, ItemRegistry.RUNIC_SAP_BLOCK.get(), 8).requires(ItemRegistry.RUNIC_SAP.get(), 4).unlockedBy("has_runic_sap", has(ItemRegistry.RUNIC_SAP.get())).save(consumer);
 
         smelting(Ingredient.of(ItemTagRegistry.SOULWOOD_LOGS), RecipeCategory.MISC, ItemRegistry.ARCANE_CHARCOAL.get(), 0.25f, 200).unlockedBy("has_soulwood_planks", has(ItemTagRegistry.SOULWOOD_LOGS)).save(consumer, malumPath("arcane_charcoal_from_soulwood"));
-        shapeless(RecipeCategory.MISC, ItemRegistry.UNHOLY_SAPBALL.get(), 3).requires(ItemRegistry.UNHOLY_SAP.get()).requires(Items.SLIME_BALL).unlockedBy("has_unholy_sap", has(ItemRegistry.UNHOLY_SAP.get())).save(consumer);
-        smelting(Ingredient.of(ItemRegistry.UNHOLY_SAP.get()), RecipeCategory.MISC, ItemRegistry.UNHOLY_SYRUP.get(), 0.1f, 200).unlockedBy("has_unholy_sap", has(ItemRegistry.UNHOLY_SAP.get())).save(consumer, malumPath("unholy_sap_from_smelting"));
-        smoking(Ingredient.of(ItemRegistry.UNHOLY_SAP.get()), RecipeCategory.MISC, ItemRegistry.UNHOLY_SYRUP.get(), 0.1f, 100).unlockedBy("has_unholy_sap", has(ItemRegistry.UNHOLY_SAP.get())).save(consumer, malumPath("unholy_sap_from_smoking"));
-
-        shapeless(RecipeCategory.MISC, Items.MAGMA_CREAM).requires(Items.BLAZE_POWDER).requires(ItemTagRegistry.SAPBALLS).unlockedBy("has_sapball", has(ItemTagRegistry.SAPBALLS)).save(consumer, malumPath("magma_cream_from_sapballs"));
-        shaped(RecipeCategory.MISC, Blocks.STICKY_PISTON).define('P', Blocks.PISTON).define('S', ItemTagRegistry.SAPBALLS).pattern("S").pattern("P").unlockedBy("has_sapball", has(ItemTagRegistry.SAPBALLS)).save(consumer, malumPath("sticky_piston_from_sapballs"));
-        shaped(RecipeCategory.MISC, Items.LEAD, 2).define('~', Tags.Items.STRING).define('O', ItemTagRegistry.SAPBALLS).pattern("~~ ").pattern("~O ").pattern("  ~").unlockedBy("has_sapball", has(ItemTagRegistry.SAPBALLS)).save(consumer, malumPath("lead_from_sapballs"));
+        shapeless(RecipeCategory.MISC, ItemRegistry.CURSED_SAPBALL.get()).requires(ItemRegistry.CURSED_SAP.get(), 2).unlockedBy("has_cursed_sap", has(ItemRegistry.CURSED_SAP.get())).save(consumer);
+        shapeless(RecipeCategory.MISC, ItemRegistry.CURSED_SAP_BLOCK.get(), 8).requires(ItemRegistry.CURSED_SAP.get(), 4).unlockedBy("has_cursed_sap", has(ItemRegistry.CURSED_SAP.get())).save(consumer);
 
         //RUNEWOOD BLOCKS
         shapelessPlanks(consumer, ItemRegistry.RUNEWOOD_PLANKS.get(), ItemTagRegistry.RUNEWOOD_LOGS);

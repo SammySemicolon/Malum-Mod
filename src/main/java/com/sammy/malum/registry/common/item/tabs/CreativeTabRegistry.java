@@ -55,7 +55,7 @@ public class CreativeTabRegistry {
                     .title(Component.translatable("itemGroup." + MalumMod.MALUM + "_void_chronicles"))
                     .withTabsBefore(METALLURGY.getId())
                     .withTabsAfter(MalumMod.malumPath("ritual_shards"))
-                    .icon(() -> ItemRegistry.STRANGE_NUCLEUS.get().getDefaultInstance()).build()
+                    .icon(() -> ANOMALOUS_DESIGN.get().getDefaultInstance()).build()
     );
 
     public static final RegistryObject<CreativeModeTab> RITUAL_SHARDS = CREATIVE_MODE_TABS.register("malum_ritual_shards",

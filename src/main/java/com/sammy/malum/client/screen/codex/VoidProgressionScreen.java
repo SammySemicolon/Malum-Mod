@@ -123,20 +123,20 @@ public class VoidProgressionScreen extends AbstractProgressionCodexScreen {
         );
 
         VOID_ENTRIES.add(new BookEntry(
-                "void.void_salts", 2, 2)
+                "void.null_slate", -2, 2)
+                .setWidgetConfig(w -> w.setIcon(NULL_SLATE).setStyle(BookWidgetStyle.SOULWOOD))
+        );
+        VOID_ENTRIES.add(new BookEntry(
+                "void.void_salts", -1, 3)
                 .setWidgetConfig(w -> w.setIcon(VOID_SALTS).setStyle(BookWidgetStyle.SOULWOOD))
         );
         VOID_ENTRIES.add(new BookEntry(
-                "void.strange_nucleus", 1, 3)
-                .setWidgetConfig(w -> w.setIcon(STRANGE_NUCLEUS).setStyle(BookWidgetStyle.SOULWOOD))
-        );
-        VOID_ENTRIES.add(new BookEntry(
-                "void.mnemotic_fragment", -1, 3)
+                "void.mnemotic_fragment", 1, 3)
                 .setWidgetConfig(w -> w.setIcon(MNEMONIC_FRAGMENT).setStyle(BookWidgetStyle.SOULWOOD))
         );
         VOID_ENTRIES.add(new BookEntry(
-                "void.null_slate", -2, 2)
-                .setWidgetConfig(w -> w.setIcon(NULL_SLATE).setStyle(BookWidgetStyle.SOULWOOD))
+                "void.auric_embers", 2, 2)
+                .setWidgetConfig(w -> w.setIcon(AURIC_EMBERS).setStyle(BookWidgetStyle.SOULWOOD))
         );
 
         VOID_ENTRIES.add(new BookEntry(

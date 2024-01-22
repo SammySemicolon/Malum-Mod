@@ -2,12 +2,8 @@
   "type": "malum:spirit_infusion",
   "extra_items": [
     {
-      "count": 4,
+      "count": 2,
       "item": "malum:astral_weave"
-    },
-    {
-      "count": 1,
-      "tag": "forge:gems/diamond"
     },
     {
       "count": 2,

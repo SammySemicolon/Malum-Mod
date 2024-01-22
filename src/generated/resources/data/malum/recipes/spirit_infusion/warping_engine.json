@@ -2,8 +2,8 @@
   "type": "malum:spirit_infusion",
   "extra_items": [
     {
-      "count": 8,
-      "item": "malum:hex_ash"
+      "count": 2,
+      "item": "malum:warp_flux"
     },
     {
       "count": 2,

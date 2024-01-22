@@ -200,13 +200,15 @@ public class MalumLang extends LanguageProvider {
 
         addSimpleEntryHeader("runewood", "Runewood", "Arcane oak");
         addPages("runewood",
-                "Runewood is a strange mix of magic and nature, and a fairly common one at that. While pretty, I am more interested in practicality. Runewood is soaked in magic, and as such, can serve as the basis for the arcane.");
+                "Runewood is a strange mix of magic and nature, and a fairly common one at that. While pretty, I am more interested in practicality. Runewood is soaked in magic, and as such, can serve as the basis for the arcane.",
+                "The tree is predominantly found within large open plains, however it can also be found in forests. The tree can be best identified by it's leaves, proudly displaying an orange-yellow palette.");
         addHeadline("runewood.arcane_charcoal", "Arcane Charcoal");
         addPages("runewood.arcane_charcoal",
                 "Runewood's charcoal, as magic-infused as it is, burns with an arcane fervor for longer than regular charcoal. This makes it rather useful for fueling any smelting I need to do.");
-        addHeadline("runewood.holy_sap", "Holy Sap");
-        addPages("runewood.holy_sap",
-                "In addition, Runewood trees tend to have a buildup of sticky sap on the sides of their logs. When this happens, if you strip off the bark, you'll be able to bottle the sap and make it into slime, or heat and drink it for a strong regenerative effect.");
+        addHeadline("runewood.runic_sap", "Runic Sap");
+        addPages("runewood.runic_sap",
+                "Runewood trees tend to have a buildup of sticky sap on the sides of their logs. When this happens, if you strip off the bark, you'll be able to bottle the sap, which makes for a rejuvenating drink.",
+                "The sap can also be used to create sapballs, able to be used interchangeably with slimeballs for most recipes. Runic sap can also be turned into a block form, which is rather sticky.");
 
         addSimpleEntryHeader("blazing_quartz", "Blazing Quartz", "Ignition");
         addPages("blazing_quartz",
@@ -239,7 +241,7 @@ public class MalumLang extends LanguageProvider {
         addPages("esoteric_reaping",
                 "When a being dies, its soul disperses. This is basic theory, and well proven by this point. It's been proposed that sometimes, that power leaks into the body of the creature as it dies, to explain the existence of reagents they drop. That hadn't been proven yet.",
                 "But now, with my scythe, I have proved it beyond doubt. When a soul is shattered, even if only for a brief moment, the energy collides with what's left of it's vessel. This phenomena appears to create a strong reaction, a change of sorts.",
-                "I have discovered four reagents born through this process, which I will detail further in this entry. In summary, the flesh of zombies can curdle to Rotting Essence; the bones of skeletons can crystallize to Grim Talc; the magic of witches can form Alchemical Calx; and the wings of phantoms can spin to Astral Weave.");
+                "I have discovered four reagents born through this process, which I will detail further in this entry. In summary, the flesh of zombies can curdle to Rotting Essence; the bones of skeletons can crystallize to Grim Talc; the wings of phantoms can spin to Astral Weave; and the magic of endermen can converge into Warp Flux;");
         addHeadline("esoteric_reaping.rotting_essence", "Rotting Essence");
         addPages("esoteric_reaping.rotting_essence",
                 "When exposed to this magic, the flesh of the undead can curdle into Rotting Essence, a toxic and foul substance that smells like death itself.");
@@ -249,6 +251,9 @@ public class MalumLang extends LanguageProvider {
         addHeadline("esoteric_reaping.astral_weave", "Astral Weave");
         addPages("esoteric_reaping.astral_weave",
                 "The membrane of a phantom will spin into Astral Weave with this magic, a mystic cloth with strange arcane properties.");
+        addHeadline("esoteric_reaping.warp_flux", "Warp Flux");
+        addPages("esoteric_reaping.warp_flux",
+                "The magic that envelops the enderman coalesces into warp flux, a strange essence that seems to distort space.");
 
         addSimpleEntryHeader("spirit_infusion", "Spirit Infusion", "Creation of wonders");
         addPages("spirit_infusion",
@@ -352,7 +357,7 @@ public class MalumLang extends LanguageProvider {
         addPages("crucible_acceleration",
                 "The Spirit Crucible is, unfortunately, a rather slow device. It takes time for it to coalesce the power of the arcana into the central item. This isn't without reason. Most matter simply can't take a faster stream, and you risk damaging the catalyst by overloading it.",
                 "However, by heating the catalyst through mystic means, you can lessen this rejection and speed up the coalescence at once. That is what the Spirit Catalyzer is for. Unfortunately, this is not perfect, and instability often causes the catalyst to be damaged more than strictly necessary.",
-                "Each fueled Catalyzer nearby to a Crucible will amplify the speed of focusing exponentially, up to a maximum of eight. The risk of instability proportionally rises with each one, resulting in your impetus potentially receiving more damage than necessary.");
+                "Each fueled Catalyzer nearby to a Crucible will amplify the speed of the focusing process, up to a maximum of eight. Unfortunately, the risk of instability proportionally rises with each one, resulting in your impetus potentially receiving more damage than necessary.");
 
         addSimpleEntryHeader("arcane_restoration", "Arcane Restoration", "Mystic repair");
         addPages("arcane_restoration",
@@ -381,7 +386,7 @@ public class MalumLang extends LanguageProvider {
         addSimpleEntryHeader("warping_engine", "Warping Engine", "Unstable contraption");
         addPages("warping_engine",
                 "I have created something cursed. This machine named the Warping Engine is a rather hard to explain piece of engineering, but in short, each time the crucible finishes a focusing cycle the engine has a chance to nearly instantly bring about the completion of the next cycle.",
-                "Furthermore, chained activations of the warping engine provide a stacking benefit to " + italic("all") + "other attributes. Unfortunately, this complex behavior takes quite a toll on the stability and fuel requirements of the focusing process.");
+                "Furthermore, chained activations of the warping engine provide a stacking benefit to " + italic("all") + " other attributes. Unfortunately, this complex behavior takes quite a toll on the stability and fuel requirements of the focusing process.");
 
         addSimpleEntryHeader("prismatic_focus_lens", "Prismatic Focus Lens", "Stabilising");
         addPages("prismatic_focus_lens",
@@ -635,18 +640,18 @@ public class MalumLang extends LanguageProvider {
                 "Much like blight, the sapling accepts both spirit arcana and common fertilizers such as bonemeal. The end result is roughly the same across both options.");
         addHeadline("soulwood.color", "Soulwood Study: Color");
         addPages("soulwood.color",
-                "The most obvious differences with the tree itself are shape and leaf color. Soulwood is more spindly than Runewood, and its leaves are a sickly purple hue instead of a rich orange-yellow. It can still be used for many of the same things, though.");
+                "The most obvious differences with the tree itself are shape and leaf color. Soulwood is more spindly than Runewood, and its leaves are a sickly purple-red hue instead of a rich orange-yellow. It can still be used for many of the same things, though.");
         addHeadline("soulwood.blight", "Soulwood Study: Blight");
         addPages("soulwood.blight",
                 "Another obvious difference is in its effect on the surroundings - namely, the fact that it echoes the Undirected Rite with the energies of its growth, transmuting the world around it into blight. I ought to create a safely contained area if I wish to grow these trees.");
         addHeadline("soulwood.sap", "Soulwood Study: Sap");
         addPages("soulwood.sap",
-                "The sticky lifeblood of the tree also seems to well up much more often in a tree than in Runewood. The sap's effects are corrupted as well; rather than restoring my vigor, Unholy Syrup enhances it, increasing my attack strength.");
+                "The sticky lifeblood of the tree also seems to well up much more often in a tree than in Runewood. The sap's effects are corrupted as well; rather than restoring my vigor, Unholy Syrup enhances it, increasing my attack strength and providing damage resistance.");
 
         addSimpleEntryHeader("transmutation", "Transmutation", "Volatile Reactions");
         addPages("transmutation.intro",
                 "The unchained rite is used to change the nature of the mundane, and upon further study, this doesn't appear to be limited to just Souldwood. After countless hours spent trying to discover all the secrets the Rite holds, I've come to document just three transmutation trees of sorts.",
-                "An Unchained Transmutation revolves around using the chaotic ritual to change matter, depending on which material we start with, the Rite will shift any given block forward in the tree, turning it into blight at the very end of it. There doesn't appear to be any reason for ");
+                "An Unchained Transmutation revolves around using the chaotic ritual to change matter, depending on which material we start with, the Rite will shift any given block forward in the tree, turning it into blight at the very end of it. There doesn't appear to be any reason for these patterns.");
         addHeadline("transmutation.stone", "Transmutation: Basic");
         addHeadline("transmutation.deepslate", "Transmutation: Endothermic");
         addHeadline("transmutation.smooth_basalt", "Transmutation: Exothermic");
@@ -658,9 +663,9 @@ public class MalumLang extends LanguageProvider {
         addPages("tyrving", "The Tyrving is a rather esoteric blade. It's strange design makes it appear as a weak weapon not suited for combat. However, it's hex ash lining and twisted rock form cause it to deal extra magic damage to the soul, the greater the soul the more benefit.",
                 "The weapon can also be repaired using arcane restoration quite efficiently.");
 
-        addSimpleEntryHeader("magebane_belt", "Magebane Belt", "Newfound Ruin");
-        addPages("magebane_belt", "The Magebane Belt is one of my more devious inventions, and dead simple too. Normally, after being struck by any attack, soul ward will not recover until a long moment after. That moment of downtime has proven itself detrimental far too frequently. But that ends now.",
-                "The belt will absorb loose arcane essence of any instance of magical damage that strikes its bearer, and convert that repurposed energy into an immediate recovery of my arcane barrier.");
+        addSimpleEntryHeader("belt_of_the_magebane", "Belt of the Magebane", "Newfound Ruin");
+        addPages("belt_of_the_magebane", "The Belt of the Magebane is one of my more devious inventions, and dead simple too. Normally, after being struck by any attack, soul ward will not recover until a long moment after. That moment of downtime has proven itself detrimental far too frequently. But that ends now.",
+                "While worn, the belt provides a substantial bonus to soul ward recovery rate, while also improving capacity slightly. Furthermore, the belt will absorb loose arcane essence of any instance of magical damage that strikes its bearer, and convert that repurposed energy into an immediate recovery of my arcane barrier.");
 
         addSimpleEntryHeader("the_device", "The Device.", "microwave to recharge");
         addPage("the_device", "even works while bended");

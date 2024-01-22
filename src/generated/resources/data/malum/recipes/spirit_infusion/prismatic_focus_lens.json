@@ -2,12 +2,8 @@
   "type": "malum:spirit_infusion",
   "extra_items": [
     {
-      "count": 4,
+      "count": 2,
       "tag": "forge:gems/prismarine"
-    },
-    {
-      "count": 1,
-      "item": "malum:spectral_lens"
     },
     {
       "count": 2,

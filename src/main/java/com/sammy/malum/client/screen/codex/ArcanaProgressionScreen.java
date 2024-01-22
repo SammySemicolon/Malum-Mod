@@ -148,12 +148,14 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
                 "runewood", 1, 2)
                 .setWidgetConfig(w -> w.setIcon(RUNEWOOD_SAPLING))
                 .addPage(new HeadlineTextItemPage("runewood", "runewood.1", RUNEWOOD_SAPLING.get()))
+                .addPage(new TextPage("runewood.2"))
                 .addPage(new HeadlineTextItemPage("runewood.arcane_charcoal", "runewood.arcane_charcoal.1", ARCANE_CHARCOAL.get()))
                 .addPage(new SmeltingBookPage(RUNEWOOD_LOG.get(), ARCANE_CHARCOAL.get()))
                 .addPage(CraftingBookPage.fullPage(BLOCK_OF_ARCANE_CHARCOAL.get(), ARCANE_CHARCOAL.get()))
-                .addPage(new HeadlineTextPage("runewood.holy_sap", "runewood.holy_sap.1"))
-                .addPage(new SmeltingBookPage(HOLY_SAP.get(), HOLY_SYRUP.get()))
-                .addPage(new CraftingBookPage(new ItemStack(HOLY_SAPBALL.get(), 3), Items.SLIME_BALL, HOLY_SAP.get()))
+                .addPage(new HeadlineTextPage("runewood.runic_sap", "runewood.runic_sap.1"))
+                .addPage(new TextPage("runewood.runic_sap.2"))
+                .addPage(new CraftingBookPage(new ItemStack(RUNIC_SAPBALL.get()), RUNIC_SAP.get(), RUNIC_SAP.get()))
+                .addPage(new CraftingBookPage(new ItemStack(RUNIC_SAP_BLOCK.get(), 8), RUNIC_SAP.get(), RUNIC_SAP.get(), EMPTY, RUNIC_SAP.get(), RUNIC_SAP.get()))
         );
 
         ENTRIES.add(new BookEntry(
@@ -235,6 +237,7 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
                 .addPage(new HeadlineTextItemPage("esoteric_reaping.rotting_essence", "esoteric_reaping.rotting_essence.1", ROTTING_ESSENCE.get()))
                 .addPage(new HeadlineTextItemPage("esoteric_reaping.grim_talc", "esoteric_reaping.grim_talc.1", GRIM_TALC.get()))
                 .addPage(new HeadlineTextItemPage("esoteric_reaping.astral_weave", "esoteric_reaping.astral_weave.1", ASTRAL_WEAVE.get()))
+                .addPage(new HeadlineTextItemPage("esoteric_reaping.warp_flux", "esoteric_reaping.warp_flux.1", WARP_FLUX.get()))
         );
 
         ENTRIES.add(new BookEntry(
@@ -858,30 +861,22 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
                 .setWidgetConfig(w -> w.setStyle(BookWidgetStyle.DARK_TOTEMIC_SOULWOOD))
         );
 
+        ENTRIES.add(new BookEntry(
+                "belt_of_the_magebane", -2, 14)
+                .setWidgetConfig(w -> w.setStyle(BookWidgetStyle.SOULWOOD).setIcon(BELT_OF_THE_MAGEBANE))
+                .addPage(new HeadlineTextPage("belt_of_the_magebane", "belt_of_the_magebane.1"))
+                .addPage(new TextPage("belt_of_the_magebane.2"))
+                .addPage(SpiritInfusionPage.fromOutput(BELT_OF_THE_MAGEBANE.get()))
+        );
 
-//        ENTRIES.add(new BookEntry(
-//                "corrupted_resonance", CORRUPTED_RESONANCE.get(), 0, 15)
-//                .setWidgetConfig(w -> w.setStyle(BookWidgetStyle.DARK_SOULWOOD))
-//                .addPage(new HeadlineTextPage("corrupted_resonance", "corrupted_resonance.1"))
-//                .addPage(SpiritInfusionPage.fromOutput(CORRUPTED_RESONANCE.get()))
-//        );
-//
-//        ENTRIES.add(new BookEntry(
-//                "magebane_belt", BELT_OF_THE_MAGEBANE.get(), -1, 16)
-//                .setWidgetConfig(w -> w.setStyle(BookWidgetStyle.DARK_SOULWOOD))
-//                .addPage(new HeadlineTextPage("magebane_belt", "magebane_belt.1"))
-//                .addPage(new TextPage("magebane_belt.2"))
-//                .addPage(SpiritInfusionPage.fromOutput(BELT_OF_THE_MAGEBANE.get()))
-//        );
-//
-//        ENTRIES.add(new BookEntry(
-//                "tyrving", TYRVING.get(), 1, 16)
-//                .setWidgetConfig(w -> w.setStyle(BookWidgetStyle.DARK_SOULWOOD))
-//                .addPage(new HeadlineTextPage("tyrving", "tyrving.1"))
-//                .addPage(SpiritInfusionPage.fromOutput(TYRVING.get()))
-//                .addPage(new TextPage("tyrving.2"))
-//                .addPage(SpiritRepairPage.fromInput(TYRVING.get()))
-//        );
+        ENTRIES.add(new BookEntry(
+                "tyrving", 2, 14)
+                .setWidgetConfig(w -> w.setStyle(BookWidgetStyle.SOULWOOD).setIcon(TYRVING))
+                .addPage(new HeadlineTextPage("tyrving", "tyrving.1"))
+                .addPage(SpiritInfusionPage.fromOutput(TYRVING.get()))
+                .addPage(new TextPage("tyrving.2"))
+                .addPage(SpiritRepairPage.fromInput(TYRVING.get()))
+        );
 
         ENTRIES.add(new BookEntry(
                 "the_device", 0, -10)

@@ -1,7 +1,5 @@
 package com.sammy.malum;
 
-import com.mojang.blaze3d.systems.*;
-import com.sammy.malum.compability.create.CreateCompat;
 import com.sammy.malum.compability.farmersdelight.FarmersDelightCompat;
 import com.sammy.malum.config.ClientConfig;
 import com.sammy.malum.config.CommonConfig;
@@ -63,7 +61,6 @@ public class MalumMod {
 
         //TetraCompat.init();
         FarmersDelightCompat.init();
-        CreateCompat.init();
 
         modBus.addListener(CreativeTabRegistry::populateItemGroups);
     }

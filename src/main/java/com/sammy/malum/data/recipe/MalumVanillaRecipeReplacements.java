@@ -32,6 +32,7 @@ public class MalumVanillaRecipeReplacements extends VanillaRecipeProvider {
     @Override
     protected void buildRecipes(Consumer<FinishedRecipe> pWriter) {
         replace(Items.QUARTZ, Tags.Items.GEMS_QUARTZ);
+        replace(Items.SLIME_BALL, Tags.Items.SLIMEBALLS);
 
         super.buildRecipes(vanilla -> {
             FinishedRecipe modified = enhance(vanilla);

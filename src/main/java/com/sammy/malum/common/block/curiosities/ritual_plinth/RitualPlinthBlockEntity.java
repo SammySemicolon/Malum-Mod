@@ -144,7 +144,7 @@ public class RitualPlinthBlockEntity extends LodestoneBlockEntity {
                     setupComplete = true;
                     ParticleEffectTypeRegistry.RITUAL_PLINTH_BEGINS_CHARGING.createPositionedEffect(level, new PositionEffectData(worldPosition), new ColorEffectData(ritualType.spirit));
                     level.playSound(null, getBlockPos(), SoundRegistry.RITUAL_BEGINS.get(), SoundSource.BLOCKS, 1, 0.9f + level.random.nextFloat() * 0.2f);
-                    level.playSound(null, worldPosition, SoundRegistry.RITUAL_COMPLETE.get(), SoundSource.BLOCKS, 1, 0.9f + level.random.nextFloat() * 0.2f);
+                    level.playSound(null, getBlockPos(), SoundRegistry.RITUAL_COMPLETED.get(), SoundSource.BLOCKS, 1, 0.9f + level.random.nextFloat() * 0.2f);
                     player.setItemInHand(hand, ItemStack.EMPTY);
                     BlockHelper.updateAndNotifyState(level, worldPosition);
                 }
@@ -170,9 +170,9 @@ public class RitualPlinthBlockEntity extends LodestoneBlockEntity {
                 soundEvent = SoundRegistry.COMPLETED_RITUAL_AMBIENCE;
                 stopCondition = p -> false;
             }
-            else if (ritualType != null && spiritAmount == 0) {
+            else if (ritualType != null) {
                 soundEvent = SoundRegistry.RITUAL_EVOLUTION_AMBIENCE;
-                stopCondition = p -> p.activeDuration == 0 || p.ritualType == null;
+                stopCondition = p -> p.setupComplete || p.ritualType == null;
             }
             else if (wasLackingRecipe && ritualRecipe != null) {
                 soundEvent = SoundRegistry.RITUAL_BEGINNING_AMBIENCE;
@@ -340,15 +340,15 @@ public class RitualPlinthBlockEntity extends LodestoneBlockEntity {
     }
 
     public void completeCharging() {
-        setupComplete = true;
         ritualTier = MalumRitualTier.figureOutTier(this);
-        if (ritualTier == null) {
+        setupComplete = ritualTier != null;
+        if (!setupComplete) {
             final MalumSpiritType spirit = ritualType.spirit;
             ritualType = null;
             spiritAmount = 0;
             ParticleEffectTypeRegistry.RITUAL_PLINTH_FAILURE.createPositionedEffect(level, new PositionEffectData(worldPosition), new ColorEffectData(spirit));
         }
-        level.playSound(null, worldPosition, SoundRegistry.RITUAL_COMPLETE.get(), SoundSource.BLOCKS, 1, 0.9f + level.random.nextFloat() * 0.2f);
+        level.playSound(null, getBlockPos(), SoundRegistry.RITUAL_COMPLETED.get(), SoundSource.BLOCKS, 1, 0.9f + level.random.nextFloat() * 0.2f);
         BlockHelper.updateAndNotifyState(level, worldPosition);
     }
 

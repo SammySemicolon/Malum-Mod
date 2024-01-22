@@ -59,7 +59,6 @@ import java.util.stream.*;
 
 import static com.sammy.malum.MalumMod.*;
 import static com.sammy.malum.registry.common.item.ItemTiers.ItemTierEnum.*;
-import static net.minecraft.world.item.Items.*;
 import static net.minecraft.world.item.Rarity.*;
 
 @SuppressWarnings("unused")
@@ -243,10 +242,9 @@ public class ItemRegistry {
     //endregion twisted rock
 
     //region runewood
-    public static final RegistryObject<Item> HOLY_SAP = register("holy_sap", NATURE_PROPERTIES().craftRemainder(GLASS_BOTTLE), Item::new);
-    public static final RegistryObject<Item> HOLY_SAPBALL = register("holy_sapball", NATURE_PROPERTIES(), Item::new);
-    public static final RegistryObject<Item> HOLY_SYRUP = register("holy_syrup", NATURE_PROPERTIES(), (p) -> new HolySyrupItem(NATURE_PROPERTIES().craftRemainder(GLASS_BOTTLE).food((new FoodProperties.Builder()).nutrition(6).saturationMod(0.1F).effect(() -> new MobEffectInstance(MobEffects.REGENERATION, 200, 0), 1).build())));
-    public static final RegistryObject<Item> HOLY_CARAMEL = register("holy_caramel", NATURE_PROPERTIES(), (p) -> new HolyCaramelItem(FarmersDelightCompat.LOADED ? NATURE_PROPERTIES().food((new FoodProperties.Builder()).nutrition(4).saturationMod(0.15F).effect(() -> new MobEffectInstance(MobEffects.REGENERATION, 100, 0), 1).build()) : HIDDEN_PROPERTIES()));
+    public static final RegistryObject<Item> RUNIC_SAP = register("runic_sap", NATURE_PROPERTIES(), (p) -> new DrinkableSapItem(NATURE_PROPERTIES().food(FoodPropertyRegistry.RUNIC_SAP)));
+    public static final RegistryObject<Item> RUNIC_SAPBALL = register("runic_sapball", NATURE_PROPERTIES(), Item::new);
+    public static final RegistryObject<Item> RUNIC_SAP_BLOCK = register("runic_sap_block", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.RUNIC_SAP_BLOCK.get(), p));
 
     public static final RegistryObject<Item> RUNEWOOD_LEAVES = register("runewood_leaves", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.RUNEWOOD_LEAVES.get(), p));
     public static final RegistryObject<Item> HANGING_RUNEWOOD_LEAVES = register("hanging_runewood_leaves", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.HANGING_RUNEWOOD_LEAVES.get(), p));
@@ -298,21 +296,20 @@ public class ItemRegistry {
     //region blight
     public static final RegistryObject<Item> BLIGHTED_EARTH = register("blighted_earth", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BLIGHTED_EARTH.get(), p));
     public static final RegistryObject<Item> BLIGHTED_SOIL = register("blighted_soil", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BLIGHTED_SOIL.get(), p));
-    public static final RegistryObject<Item> BLIGHTED_SOULWOOD = register("blighted_soulwood", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BLIGHTED_SOULWOOD.get(), p));
     public static final RegistryObject<Item> BLIGHTED_GUNK = register("blighted_gunk", NATURE_PROPERTIES(), (p) -> new BlightedGunkItem(BlockRegistry.BLIGHTED_GROWTH.get(), BlockRegistry.CLINGING_BLIGHT.get(), p));
     //endregion
 
     //region soulwood
-    public static final RegistryObject<Item> UNHOLY_SAP = register("unholy_sap", NATURE_PROPERTIES(), (p) -> new Item(NATURE_PROPERTIES().craftRemainder(GLASS_BOTTLE)));
-    public static final RegistryObject<Item> UNHOLY_SAPBALL = register("unholy_sapball", NATURE_PROPERTIES(), Item::new);
-    public static final RegistryObject<Item> UNHOLY_SYRUP = register("unholy_syrup", NATURE_PROPERTIES(), (p) -> new UnholySyrupItem(NATURE_PROPERTIES().craftRemainder(GLASS_BOTTLE).food((new FoodProperties.Builder()).nutrition(6).saturationMod(0.1F).effect(() -> new MobEffectInstance(MobEffects.DAMAGE_BOOST, 200, 0), 1).build())));
-    public static final RegistryObject<Item> UNHOLY_CARAMEL = register("unholy_caramel", NATURE_PROPERTIES(), (p) -> new HolyCaramelItem(FarmersDelightCompat.LOADED ? NATURE_PROPERTIES().food((new FoodProperties.Builder()).nutrition(4).saturationMod(0.15F).effect(() -> new MobEffectInstance(MobEffects.DAMAGE_BOOST, 100, 0), 1).build()) : HIDDEN_PROPERTIES()));
+    public static final RegistryObject<Item> CURSED_SAP = register("cursed_sap", NATURE_PROPERTIES(), (p) -> new DrinkableSapItem(NATURE_PROPERTIES().food(FoodPropertyRegistry.CURSED_SAP)));
+    public static final RegistryObject<Item> CURSED_SAPBALL = register("cursed_sapball", NATURE_PROPERTIES(), Item::new);
+    public static final RegistryObject<Item> CURSED_SAP_BLOCK = register("cursed_sap_block", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.CURSED_SAP_BLOCK.get(), p));
 
     public static final RegistryObject<Item> SOULWOOD_LEAVES = register("soulwood_leaves", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.SOULWOOD_LEAVES.get(), p));
     public static final RegistryObject<Item> MYSTIC_SOULWOOD_LEAVES = register("mystic_soulwood_leaves", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.MYSTIC_SOULWOOD_LEAVES.get(), p));
     public static final RegistryObject<Item> HANGING_MYSTIC_SOULWOOD_LEAVES = register("hanging_mystic_soulwood_leaves", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.HANGING_MYSTIC_SOULWOOD_LEAVES.get(), p));
     public static final RegistryObject<Item> SOULWOOD_GROWTH = register("soulwood_growth", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.SOULWOOD_GROWTH.get(), p));
 
+    public static final RegistryObject<Item> BLIGHTED_SOULWOOD = register("blighted_soulwood", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BLIGHTED_SOULWOOD.get(), p));
     public static final RegistryObject<Item> SOULWOOD_LOG = register("soulwood_log", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.SOULWOOD_LOG.get(), p));
     public static final RegistryObject<Item> STRIPPED_SOULWOOD_LOG = register("stripped_soulwood_log", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.STRIPPED_SOULWOOD_LOG.get(), p));
     public static final RegistryObject<Item> SOULWOOD = register("soulwood", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.SOULWOOD.get(), p));
@@ -404,6 +401,7 @@ public class ItemRegistry {
     public static final RegistryObject<Item> ROTTING_ESSENCE = register("rotting_essence", DEFAULT_PROPERTIES(), (p) -> new Item(p.food((new FoodProperties.Builder()).nutrition(6).saturationMod(0.2F).effect(() -> new MobEffectInstance(MobEffects.HUNGER, 600, 1), 0.95f).build())));
     public static final RegistryObject<Item> GRIM_TALC = register("grim_talc", DEFAULT_PROPERTIES(), Item::new);
     public static final RegistryObject<Item> ASTRAL_WEAVE = register("astral_weave", DEFAULT_PROPERTIES(), Item::new);
+    public static final RegistryObject<Item> WARP_FLUX = register("warp_flux", DEFAULT_PROPERTIES(), Item::new);
     public static final RegistryObject<Item> CTHONIC_GOLD = register("cthonic_gold", DEFAULT_PROPERTIES().rarity(UNCOMMON), Item::new);
     public static final RegistryObject<Item> HEX_ASH = register("hex_ash", DEFAULT_PROPERTIES(), Item::new);
     public static final RegistryObject<Item> ALCHEMICAL_CALX = register("alchemical_calx", DEFAULT_PROPERTIES(), Item::new);
@@ -417,7 +415,6 @@ public class ItemRegistry {
     public static final RegistryObject<Item> BLOCK_OF_ALCHEMICAL_CALX = register("block_of_alchemical_calx", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BLOCK_OF_ALCHEMICAL_CALX.get(), p));
     public static final RegistryObject<Item> MASS_OF_BLIGHTED_GUNK = register("mass_of_blighted_gunk", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.MASS_OF_BLIGHTED_GUNK.get(), p));
     public static final RegistryObject<Item> BLOCK_OF_CURSED_GRIT = register("block_of_cursed_grit", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BLOCK_OF_CURSED_GRIT.get(), p));
-    public static final RegistryObject<Item> BLOCK_OF_VOID_SALTS = register("block_of_void_salts", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BLOCK_OF_VOID_SALTS.get(), HIDDEN_PROPERTIES()));
 
     public static final RegistryObject<Item> LIVING_FLESH = register("living_flesh", DEFAULT_PROPERTIES(), Item::new);
     public static final RegistryObject<Item> SPIRIT_FABRIC = register("spirit_fabric", DEFAULT_PROPERTIES(), Item::new);
@@ -434,6 +431,18 @@ public class ItemRegistry {
     public static final RegistryObject<Item> SOUL_STAINED_STEEL_PLATING = register("soul_stained_steel_plating", DEFAULT_PROPERTIES(), Item::new);
     public static final RegistryObject<Item> SOUL_STAINED_STEEL_NUGGET = register("soul_stained_steel_nugget", DEFAULT_PROPERTIES(), Item::new);
     public static final RegistryObject<Item> BLOCK_OF_SOUL_STAINED_STEEL = register("block_of_soul_stained_steel", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BLOCK_OF_SOUL_STAINED_STEEL.get(), p));
+
+    //region ether
+    public static final RegistryObject<Item> ETHER = register("ether", DEFAULT_PROPERTIES(), (p) -> new EtherItem(BlockRegistry.ETHER.get(), p, false));
+    public static final RegistryObject<Item> ETHER_TORCH = register("ether_torch", DEFAULT_PROPERTIES(), (p) -> new EtherTorchItem(BlockRegistry.ETHER_TORCH.get(), BlockRegistry.WALL_ETHER_TORCH.get(), p, false));
+    public static final RegistryObject<Item> TAINTED_ETHER_BRAZIER = register("tainted_ether_brazier", DEFAULT_PROPERTIES(), (p) -> new EtherBrazierItem(BlockRegistry.TAINTED_ETHER_BRAZIER.get(), p, false));
+    public static final RegistryObject<Item> TWISTED_ETHER_BRAZIER = register("twisted_ether_brazier", DEFAULT_PROPERTIES(), (p) -> new EtherBrazierItem(BlockRegistry.TWISTED_ETHER_BRAZIER.get(), p, false));
+
+    public static final RegistryObject<Item> IRIDESCENT_ETHER = register("iridescent_ether", DEFAULT_PROPERTIES(), (p) -> new EtherItem(BlockRegistry.IRIDESCENT_ETHER.get(), p, true));
+    public static final RegistryObject<Item> IRIDESCENT_ETHER_TORCH = register("iridescent_ether_torch", DEFAULT_PROPERTIES(), (p) -> new EtherTorchItem(BlockRegistry.IRIDESCENT_ETHER_TORCH.get(), BlockRegistry.IRIDESCENT_WALL_ETHER_TORCH.get(), p, true));
+    public static final RegistryObject<Item> TAINTED_IRIDESCENT_ETHER_BRAZIER = register("tainted_iridescent_ether_brazier", DEFAULT_PROPERTIES(), (p) -> new EtherBrazierItem(BlockRegistry.TAINTED_IRIDESCENT_ETHER_BRAZIER.get(), p, true));
+    public static final RegistryObject<Item> TWISTED_IRIDESCENT_ETHER_BRAZIER = register("twisted_iridescent_ether_brazier", DEFAULT_PROPERTIES(), (p) -> new EtherBrazierItem(BlockRegistry.TWISTED_IRIDESCENT_ETHER_BRAZIER.get(), p, true));
+    //endregion
 
     public static final RegistryObject<Item> MENDING_DIFFUSER = register("mending_diffuser", DEFAULT_PROPERTIES(), MendingDiffuserItem::new);
     public static final RegistryObject<Item> IMPURITY_STABILIZER = register("impurity_stabilizer", DEFAULT_PROPERTIES(), ImpurityStabilizer::new);
@@ -482,18 +491,6 @@ public class ItemRegistry {
 
     public static final RegistryObject<CrackedImpetusItem> CRACKED_ALCHEMICAL_IMPETUS = register("cracked_alchemical_impetus", METALLURGIC_PROPERTIES(), CrackedImpetusItem::new);
     public static final RegistryObject<ImpetusItem> ALCHEMICAL_IMPETUS = register("alchemical_impetus", METALLURGIC_PROPERTIES().durability(800), (p) -> new ImpetusItem(p).setCrackedVariant(CRACKED_ALCHEMICAL_IMPETUS));
-    //endregion
-
-    //region ether
-    public static final RegistryObject<Item> ETHER = register("ether", DEFAULT_PROPERTIES(), (p) -> new EtherItem(BlockRegistry.ETHER.get(), p, false));
-    public static final RegistryObject<Item> ETHER_TORCH = register("ether_torch", DEFAULT_PROPERTIES(), (p) -> new EtherTorchItem(BlockRegistry.ETHER_TORCH.get(), BlockRegistry.WALL_ETHER_TORCH.get(), p, false));
-    public static final RegistryObject<Item> TAINTED_ETHER_BRAZIER = register("tainted_ether_brazier", DEFAULT_PROPERTIES(), (p) -> new EtherBrazierItem(BlockRegistry.TAINTED_ETHER_BRAZIER.get(), p, false));
-    public static final RegistryObject<Item> TWISTED_ETHER_BRAZIER = register("twisted_ether_brazier", DEFAULT_PROPERTIES(), (p) -> new EtherBrazierItem(BlockRegistry.TWISTED_ETHER_BRAZIER.get(), p, false));
-
-    public static final RegistryObject<Item> IRIDESCENT_ETHER = register("iridescent_ether", DEFAULT_PROPERTIES(), (p) -> new EtherItem(BlockRegistry.IRIDESCENT_ETHER.get(), p, true));
-    public static final RegistryObject<Item> IRIDESCENT_ETHER_TORCH = register("iridescent_ether_torch", DEFAULT_PROPERTIES(), (p) -> new EtherTorchItem(BlockRegistry.IRIDESCENT_ETHER_TORCH.get(), BlockRegistry.IRIDESCENT_WALL_ETHER_TORCH.get(), p, true));
-    public static final RegistryObject<Item> TAINTED_IRIDESCENT_ETHER_BRAZIER = register("tainted_iridescent_ether_brazier", DEFAULT_PROPERTIES(), (p) -> new EtherBrazierItem(BlockRegistry.TAINTED_IRIDESCENT_ETHER_BRAZIER.get(), p, true));
-    public static final RegistryObject<Item> TWISTED_IRIDESCENT_ETHER_BRAZIER = register("twisted_iridescent_ether_brazier", DEFAULT_PROPERTIES(), (p) -> new EtherBrazierItem(BlockRegistry.TWISTED_IRIDESCENT_ETHER_BRAZIER.get(), p, true));
     //endregion
 
     //region contents
@@ -548,14 +545,18 @@ public class ItemRegistry {
     //endregion
 
     //region chronicles of the void
-    public static final RegistryObject<Item> VOID_SALTS = register("void_salts", VOID_PROPERTIES(), Item::new);
     public static final RegistryObject<Item> NULL_SLATE = register("null_slate", VOID_PROPERTIES(), Item::new);
-    public static final RegistryObject<Item> STRANGE_NUCLEUS = register("strange_nucleus", VOID_PROPERTIES(), Item::new);
+    public static final RegistryObject<Item> VOID_SALTS = register("void_salts", VOID_PROPERTIES(), Item::new);
     public static final RegistryObject<Item> MNEMONIC_FRAGMENT = register("mnemonic_fragment", VOID_PROPERTIES(), Item::new);
+    public static final RegistryObject<Item> AURIC_EMBERS = register("auric_embers", VOID_PROPERTIES(), Item::new);
+
+    public static final RegistryObject<Item> BLOCK_OF_NULL_SLATE = register("block_of_null_slate", VOID_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BLOCK_OF_NULL_SLATE.get(), p));
+    public static final RegistryObject<Item> BLOCK_OF_VOID_SALTS = register("block_of_void_salts", VOID_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BLOCK_OF_VOID_SALTS.get(), p));
+    public static final RegistryObject<Item> BLOCK_OF_MNEMONIC_FRAGMENT = register("block_of_mnemonic_fragment", VOID_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BLOCK_OF_MNEMONIC_FRAGMENT.get(), p));
+
     public static final RegistryObject<Item> ANOMALOUS_DESIGN = register("anomalous_design", VOID_PROPERTIES(), Item::new);
     public static final RegistryObject<Item> COMPLETE_DESIGN = register("complete_design", VOID_PROPERTIES(), SimpleFoiledItem::new);
     public static final RegistryObject<Item> FUSED_CONSCIOUSNESS = register("fused_consciousness", VOID_PROPERTIES(), (p) -> new FusedConsciousnessItem(p.rarity(RARE)));
-    public static final RegistryObject<Item> AURIC_EMBERS = register("auric_embers", VOID_PROPERTIES(), Item::new);
 
     public static final RegistryObject<Item> SOUL_STAINED_STEEL_STAFF = register("soul_stained_steel_staff", VOID_GEAR_PROPERTIES(), (p) -> new HexStaffItem(HEX_STAFF, 4, p));
     public static final RegistryObject<Item> STAFF_OF_THE_AURIC_FLAME = register("staff_of_the_auric_flame", VOID_GEAR_PROPERTIES(), (p) -> new AuricFlameStaffItem(AURIC_STAFF, 6, p));
