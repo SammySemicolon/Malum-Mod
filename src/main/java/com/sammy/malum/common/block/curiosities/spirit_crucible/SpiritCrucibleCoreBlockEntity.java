@@ -1,7 +1,8 @@
 package com.sammy.malum.common.block.curiosities.spirit_crucible;
 
 import com.sammy.malum.common.block.*;
-import com.sammy.malum.common.item.catalyzer_augment.*;
+import com.sammy.malum.common.item.augment.*;
+import com.sammy.malum.common.item.augment.core.*;
 import com.sammy.malum.common.item.impetus.*;
 import com.sammy.malum.common.item.spirit.*;
 import com.sammy.malum.common.recipe.*;
@@ -45,6 +46,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
     public LodestoneBlockEntityInventory inventory;
     public LodestoneBlockEntityInventory spiritInventory;
     public LodestoneBlockEntityInventory augmentInventory;
+    public LodestoneBlockEntityInventory coreAugmentInventory;
     public SpiritFocusingRecipe recipe;
 
     public float spiritAmount;
@@ -52,14 +54,11 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
 
     public float progress;
 
-    public int wexingEngineInfluence;
-    public int mendingDiffuserCounter;
-
     public int queuedCracks;
     public int crackTimer;
 
     public CrucibleAccelerationData acceleratorData = CrucibleAccelerationData.DEFAULT;
-    public CrucibleTuning.CrucibleTuningType tuningType = CrucibleTuning.CrucibleTuningType.NONE;
+    public CrucibleTuning.CrucibleAttributeType tuningType = CrucibleTuning.CrucibleAttributeType.NONE;
 
     private final LazyOptional<IItemHandler> combinedInventory = LazyOptional.of(() -> new CombinedInvWrapper(inventory, spiritInventory));
 
@@ -97,22 +96,20 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
                 return true;
             }
         };
-        augmentInventory = new MalumBlockEntityInventory(4, 1, t -> t.getItem() instanceof AbstractAugmentItem) {
+        augmentInventory = new AugmentBlockEntityInventory(4, 1) {
             @Override
             public void onContentsChanged(int slot) {
                 super.onContentsChanged(slot);
                 needsSync = true;
                 BlockHelper.updateAndNotifyState(level, worldPosition);
             }
-
+        };
+        coreAugmentInventory = new AugmentBlockEntityInventory(1, 1, t -> t.getItem() instanceof CoreAugmentItem) {
             @Override
-            public SoundEvent getInsertSound(ItemStack stack) {
-                return SoundRegistry.APPLY_AUGMENT.get();
-            }
-
-            @Override
-            public SoundEvent getExtractSound(ItemStack stack) {
-                return SoundRegistry.REMOVE_AUGMENT.get();
+            public void onContentsChanged(int slot) {
+                super.onContentsChanged(slot);
+                needsSync = true;
+                BlockHelper.updateAndNotifyState(level, worldPosition);
             }
         };
     }
@@ -132,20 +129,13 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
         if (queuedCracks != 0) {
             compound.putInt("queuedCracks", queuedCracks);
         }
-        if (wexingEngineInfluence != 0) {
-            compound.putInt("wexingEngineInfluence", wexingEngineInfluence);
-        }
-        if (mendingDiffuserCounter != 0) {
-            compound.putInt("mendingDiffuserCounter", mendingDiffuserCounter);
-        }
 
         compound.putInt("tuningType", tuningType.ordinal());
         acceleratorData.save(compound);
-
-
         inventory.save(compound);
         spiritInventory.save(compound, "spiritInventory");
         augmentInventory.save(compound, "augmentInventory");
+        coreAugmentInventory.save(compound, "coreAugmentInventory");
     }
 
     @Override
@@ -153,15 +143,14 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
         spiritAmount = compound.getFloat("spiritAmount");
         progress = compound.getFloat("progress");
         queuedCracks = compound.getInt("queuedCracks");
-        wexingEngineInfluence = compound.getInt("wexingEngineInfluence");
-        mendingDiffuserCounter = compound.getInt("mendingDiffuserCounter");
 
-        tuningType = CrucibleTuning.CrucibleTuningType.values()[Mth.clamp(compound.getInt("tuningType"), 0, CrucibleTuning.CrucibleTuningType.values().length-1)];
+        tuningType = CrucibleTuning.CrucibleAttributeType.values()[Mth.clamp(compound.getInt("tuningType"), 0, CrucibleTuning.CrucibleAttributeType.values().length-1)];
         acceleratorData = CrucibleAccelerationData.load(level, this, compound);
 
         inventory.load(compound);
         spiritInventory.load(compound, "spiritInventory");
         augmentInventory.load(compound, "augmentInventory");
+        coreAugmentInventory.load(compound, "coreAugmentInventory");
 
         super.load(compound);
     }
@@ -183,7 +172,12 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
             }
             final boolean augmentOnly = heldStack.getItem() instanceof AbstractAugmentItem;
             if (augmentOnly || (heldStack.isEmpty() && inventory.isEmpty() && spiritInventory.isEmpty())) {
-                ItemStack stack = augmentInventory.interact(player.level(), player, hand);
+                ItemStack stack = coreAugmentInventory.interact(player.level(), player, hand);
+                if (!stack.isEmpty()) {
+                    recalibrateAccelerators(level, worldPosition);
+                    return InteractionResult.SUCCESS;
+                }
+                stack = augmentInventory.interact(player.level(), player, hand);
                 if (!stack.isEmpty()) {
                     recalibrateAccelerators(level, worldPosition);
                     return InteractionResult.SUCCESS;
@@ -259,7 +253,6 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
                 }
             } else {
                 progress = 0;
-                wexingEngineInfluence = 0;
             }
         }
         else {
@@ -336,6 +329,11 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
     }
 
     @Override
+    public ItemStack getCoreAugment() {
+        return coreAugmentInventory.getStackInSlot(0);
+    }
+
+    @Override
     public boolean canBeAccelerated() {
         return !isRemoved() && recipe != null;
     }
@@ -351,13 +349,8 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
     }
 
     @Override
-    public CrucibleTuning.CrucibleTuningType getTuningType() {
+    public CrucibleTuning.CrucibleAttributeType getTuningType() {
         return tuningType;
-    }
-
-    @Override
-    public float getWexingEngineInfluence() {
-        return wexingEngineInfluence;
     }
 
     @Override

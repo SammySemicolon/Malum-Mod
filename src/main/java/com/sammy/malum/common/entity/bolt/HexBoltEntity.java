@@ -51,9 +51,11 @@ public class HexBoltEntity extends AbstractBoltProjectileEntity {
     @OnlyIn(Dist.CLIENT)
     @Override
     public void spawnParticles() {
+        Level level = level();
+        Vec3 position = position();
         float scalar = getVisualEffectScalar();
         Vec3 norm = getDeltaMovement().normalize().scale(0.05f);
-        var lightSpecs = SpiritLightSpecs.spiritLightSpecs(level(), position(), SpiritTypeRegistry.WICKED_SPIRIT);
+        var lightSpecs = SpiritLightSpecs.spiritLightSpecs(level, position, SpiritTypeRegistry.WICKED_SPIRIT);
         lightSpecs.getBuilder().multiplyLifetime(1.25f).setMotion(norm);
         lightSpecs.getBloomBuilder().multiplyLifetime(1.25f).setMotion(norm);
         lightSpecs.spawnParticles();
@@ -69,8 +71,8 @@ public class HexBoltEntity extends AbstractBoltProjectileEntity {
                 .enableNoClip()
                 .enableForcedSpawn()
                 .addTickActor(behavior)
-                .spawn(level(), position().x, position().y, position().z)
+                .spawn(level, position.x, position.y, position.z)
                 .setRenderType(LodestoneWorldParticleRenderType.LUMITRANSPARENT)
-                .spawn(level(), position().x, position().y, position().z);
+                .spawn(level, position.x, position.y, position.z);
     }
 }

@@ -20,7 +20,7 @@ import java.util.List;
 import static com.sammy.malum.MalumMod.*;
 import static team.lodestar.lodestone.handlers.RenderHandler.*;
 
-public class AbstractBoltEntityRenderer<T extends AbstractBoltProjectileEntity> extends EntityRenderer<T> {
+public abstract class AbstractBoltEntityRenderer<T extends AbstractBoltProjectileEntity> extends EntityRenderer<T> {
     public final Color primaryColor;
     public final Color secondaryColor;
     public AbstractBoltEntityRenderer(EntityRendererProvider.Context context, Color primaryColor, Color secondaryColor) {
@@ -44,10 +44,10 @@ public class AbstractBoltEntityRenderer<T extends AbstractBoltProjectileEntity> 
         List<TrailPoint> trailPoints = entity.trailPointBuilder.getTrailPoints();
         poseStack.pushPose();
         VertexConsumer lightBuffer = DELAYED_RENDER.getBuffer(TRAIL_TYPE);
+        float x = (float) Mth.lerp(partialTicks, entity.xOld, entity.getX());
+        float y = (float) Mth.lerp(partialTicks, entity.yOld, entity.getY());
+        float z = (float) Mth.lerp(partialTicks, entity.zOld, entity.getZ());
         if (spinningTrailPoints.size() > 3) {
-            float x = (float) Mth.lerp(partialTicks, entity.xOld, entity.getX());
-            float y = (float) Mth.lerp(partialTicks, entity.yOld, entity.getY());
-            float z = (float) Mth.lerp(partialTicks, entity.zOld, entity.getZ());
             poseStack.translate(-x, -y, -z);
             VFXBuilders.WorldVFXBuilder builder = VFXBuilders.createWorld().setPosColorTexLightmapDefaultFormat();
             for (int i = 0; i < 2; i++) {
@@ -61,9 +61,6 @@ public class AbstractBoltEntityRenderer<T extends AbstractBoltProjectileEntity> 
             poseStack.translate(x, y, z);
         }
         if (trailPoints.size() > 3) {
-            float x = (float) Mth.lerp(partialTicks, entity.xOld, entity.getX());
-            float y = (float) Mth.lerp(partialTicks, entity.yOld, entity.getY());
-            float z = (float) Mth.lerp(partialTicks, entity.zOld, entity.getZ());
             poseStack.translate(-x, -y, -z);
             VFXBuilders.WorldVFXBuilder builder = VFXBuilders.createWorld().setPosColorTexLightmapDefaultFormat();
             for (int i = 0; i < 2; i++) {

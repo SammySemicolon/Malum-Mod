@@ -482,6 +482,24 @@ public class MalumSpiritInfusionRecipes {
                 .addSpirit(INFERNAL_SPIRIT, 4)
                 .build(consumer);
 
+        new SpiritInfusionRecipeBuilder(ItemRegistry.SOULWOOD_PLANKS.get(), 2, ItemRegistry.SOUL_STAINED_STEEL_STAFF.get(), 1)
+                .addExtraItem(ItemRegistry.MNEMONIC_FRAGMENT.get(), 8)
+                .addExtraItem(ItemRegistry.SOUL_STAINED_STEEL_INGOT.get(), 4)
+                .addSpirit(WICKED_SPIRIT, 32)
+                .addSpirit(AERIAL_SPIRIT, 16)
+                .addSpirit(AQUEOUS_SPIRIT, 16)
+                .addSpirit(ELDRITCH_SPIRIT, 8)
+                .build(consumer);
+
+        new SpiritInfusionRecipeBuilder(ItemRegistry.RING_OF_ESOTERIC_SPOILS.get(), 1, ItemRegistry.RING_OF_THE_PLENTIFUL.get(), 1)
+                .addExtraItem(ItemRegistry.NULL_SLATE.get(), 8)
+                .addExtraItem(ItemRegistry.MNEMONIC_FRAGMENT.get(), 8)
+                .addSpirit(WICKED_SPIRIT, 32)
+                .addSpirit(ARCANE_SPIRIT, 16)
+                .addSpirit(AQUEOUS_SPIRIT, 16)
+                .addSpirit(ELDRITCH_SPIRIT, 8)
+                .build(consumer);
+
         new SpiritInfusionRecipeBuilder(ItemRegistry.RING_OF_CURATIVE_TALENT.get(), 1, ItemRegistry.RING_OF_GROWING_FLESH.get(), 1)
                 .addExtraItem(ItemRegistry.VOID_SALTS.get(), 16)
                 .addExtraItem(ItemRegistry.NULL_SLATE.get(), 8)
@@ -491,6 +509,35 @@ public class MalumSpiritInfusionRecipes {
                 .addSpirit(ELDRITCH_SPIRIT, 16)
                 .build(consumer);
 
+        new SpiritInfusionRecipeBuilder(ItemRegistry.BELT_OF_THE_MAGEBANE.get(), 1, ItemRegistry.BELT_OF_THE_LIMITLESS.get(), 1)
+                .addExtraItem(ItemRegistry.FUSED_CONSCIOUSNESS.get(), 1)
+                .addExtraItem(ItemRegistry.VOID_SALTS.get(), 16)
+                .addExtraItem(ItemRegistry.NULL_SLATE.get(), 8)
+                .addExtraItem(ItemRegistry.MNEMONIC_FRAGMENT.get(), 4)
+                .addSpirit(WICKED_SPIRIT, 32)
+                .addSpirit(ARCANE_SPIRIT, 32)
+                .addSpirit(ELDRITCH_SPIRIT, 16)
+                .build(consumer);
+
+        new SpiritInfusionRecipeBuilder(ItemRegistry.ALCHEMICAL_CALX.get(), 4, ItemRegistry.STELLAR_MECHANISM.get(), 1)
+                .addExtraItem(ItemRegistry.FUSED_CONSCIOUSNESS.get(), 1)
+                .addExtraItem(ItemRegistry.NULL_SLATE.get(), 2)
+                .addSpirit(AERIAL_SPIRIT, 4)
+                .addSpirit(AQUEOUS_SPIRIT, 4)
+                .addSpirit(EARTHEN_SPIRIT, 4)
+                .addSpirit(INFERNAL_SPIRIT, 4)
+                .addSpirit(ELDRITCH_SPIRIT, 4)
+                .build(consumer);
+
+        new SpiritInfusionRecipeBuilder(ItemRegistry.SOUL_STAINED_STEEL_STAFF.get(), 1, ItemRegistry.STAFF_OF_THE_AURIC_FLAME.get(), 1)
+                .addExtraItem(ItemRegistry.FUSED_CONSCIOUSNESS.get(), 1)
+                .addExtraItem(ItemRegistry.AURIC_EMBERS.get(), 8)
+                .addExtraItem(ItemRegistry.VOID_SALTS.get(), 8)
+                .addSpirit(WICKED_SPIRIT, 32)
+                .addSpirit(ARCANE_SPIRIT, 16)
+                .addSpirit(INFERNAL_SPIRIT, 16)
+                .addSpirit(ELDRITCH_SPIRIT, 16)
+                .build(consumer);
 
         metalImpetusRecipe(consumer, ItemRegistry.IRON_IMPETUS, Items.IRON_INGOT);
         metalImpetusRecipe(consumer, ItemRegistry.COPPER_IMPETUS, Items.COPPER_INGOT);

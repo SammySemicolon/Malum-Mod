@@ -1,6 +1,6 @@
 package com.sammy.malum.common.block.curiosities.spirit_crucible;
 
-import com.sammy.malum.common.item.catalyzer_augment.*;
+import com.sammy.malum.common.item.augment.*;
 import com.sammy.malum.core.systems.spirit.*;
 import net.minecraft.resources.*;
 import net.minecraft.world.item.*;

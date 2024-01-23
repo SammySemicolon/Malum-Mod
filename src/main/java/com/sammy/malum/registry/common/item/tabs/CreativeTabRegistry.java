@@ -45,23 +45,14 @@ public class CreativeTabRegistry {
             () -> CreativeModeTab.builder()
                     .title(Component.translatable("itemGroup." + MalumMod.MALUM + "_metallurgic_magics"))
                     .withTabsBefore(BUILDING.getId())
-                    .withTabsBefore(NATURE.getId())
-                    .withTabsAfter(MalumMod.malumPath("void"))
-                    .icon(() -> ItemRegistry.ALCHEMICAL_IMPETUS.get().getDefaultInstance()).build()
-    );
-
-    public static final RegistryObject<CreativeModeTab> VOID = CREATIVE_MODE_TABS.register("malum_void",
-            () -> CreativeModeTab.builder()
-                    .title(Component.translatable("itemGroup." + MalumMod.MALUM + "_void_chronicles"))
-                    .withTabsBefore(METALLURGY.getId())
                     .withTabsAfter(MalumMod.malumPath("ritual_shards"))
-                    .icon(() -> ANOMALOUS_DESIGN.get().getDefaultInstance()).build()
+                    .icon(() -> ItemRegistry.ALCHEMICAL_IMPETUS.get().getDefaultInstance()).build()
     );
 
     public static final RegistryObject<CreativeModeTab> RITUAL_SHARDS = CREATIVE_MODE_TABS.register("malum_ritual_shards",
             () -> CreativeModeTab.builder()
                     .title(Component.translatable("itemGroup." + MalumMod.MALUM + "_ritual_shards"))
-                    .withTabsBefore(VOID.getId())
+                    .withTabsBefore(METALLURGY.getId())
                     .withTabsAfter(MalumMod.malumPath("cosmetic"))
                     .displayItems((p, o) -> {
                         for (MalumRitualType ritualType : RitualRegistry.RITUALS) {

@@ -1,0 +1,38 @@
+{
+  "type": "malum:spirit_infusion",
+  "extra_items": [
+    {
+      "count": 8,
+      "item": "malum:mnemonic_fragment"
+    },
+    {
+      "count": 4,
+      "item": "malum:soul_stained_steel_ingot"
+    }
+  ],
+  "input": {
+    "count": 2,
+    "item": "malum:soulwood_planks"
+  },
+  "output": {
+    "item": "malum:soul_stained_steel_staff"
+  },
+  "spirits": [
+    {
+      "type": "wicked",
+      "count": 32
+    },
+    {
+      "type": "aerial",
+      "count": 16
+    },
+    {
+      "type": "aqueous",
+      "count": 16
+    },
+    {
+      "type": "eldritch",
+      "count": 8
+    }
+  ]
+}

@@ -118,8 +118,8 @@ public class MalumLang extends LanguageProvider {
 
         spirits.forEach(s -> add(s.getSpiritDescription(), DataHelper.toTitleCase(s.identifier + "_spirit", "_")));
 
-        for (CrucibleTuning.CrucibleTuningType value : CrucibleTuning.CrucibleTuningType.values()) {
-            if (value.equals(CrucibleTuning.CrucibleTuningType.NONE)) {
+        for (CrucibleTuning.CrucibleAttributeType value : CrucibleTuning.CrucibleAttributeType.values()) {
+            if (value.equals(CrucibleTuning.CrucibleAttributeType.NONE)) {
                 continue;
             }
             final String translation = value.translation();

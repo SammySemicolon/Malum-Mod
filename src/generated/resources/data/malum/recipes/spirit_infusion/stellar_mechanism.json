@@ -1,0 +1,42 @@
+{
+  "type": "malum:spirit_infusion",
+  "extra_items": [
+    {
+      "count": 1,
+      "item": "malum:fused_consciousness"
+    },
+    {
+      "count": 2,
+      "item": "malum:null_slate"
+    }
+  ],
+  "input": {
+    "count": 4,
+    "item": "malum:alchemical_calx"
+  },
+  "output": {
+    "item": "malum:stellar_mechanism"
+  },
+  "spirits": [
+    {
+      "type": "aerial",
+      "count": 4
+    },
+    {
+      "type": "aqueous",
+      "count": 4
+    },
+    {
+      "type": "earthen",
+      "count": 4
+    },
+    {
+      "type": "infernal",
+      "count": 4
+    },
+    {
+      "type": "eldritch",
+      "count": 4
+    }
+  ]
+}

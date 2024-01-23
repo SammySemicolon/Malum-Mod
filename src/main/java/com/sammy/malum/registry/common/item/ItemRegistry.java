@@ -6,7 +6,8 @@ import com.sammy.malum.common.block.curiosities.spirit_crucible.*;
 import com.sammy.malum.common.block.curiosities.spirit_crucible.catalyzer.*;
 import com.sammy.malum.common.block.nature.*;
 import com.sammy.malum.common.item.*;
-import com.sammy.malum.common.item.catalyzer_augment.*;
+import com.sammy.malum.common.item.augment.*;
+import com.sammy.malum.common.item.augment.core.*;
 import com.sammy.malum.common.item.cosmetic.curios.*;
 import com.sammy.malum.common.item.cosmetic.skins.*;
 import com.sammy.malum.common.item.cosmetic.weaves.*;
@@ -100,12 +101,6 @@ public class ItemRegistry {
     }
     public static Item.Properties COSMETIC_PROPERTIES() {
         return new LodestoneItemProperties(CreativeTabRegistry.COSMETIC);
-    }
-    public static Item.Properties VOID_PROPERTIES() {
-        return new LodestoneItemProperties(CreativeTabRegistry.VOID);
-    }
-    public static Item.Properties VOID_GEAR_PROPERTIES() {
-        return VOID_PROPERTIES().stacksTo(1);
     }
     public static Item.Properties HIDDEN_PROPERTIES() {
         return new Item.Properties().stacksTo(1);
@@ -406,6 +401,10 @@ public class ItemRegistry {
     public static final RegistryObject<Item> HEX_ASH = register("hex_ash", DEFAULT_PROPERTIES(), Item::new);
     public static final RegistryObject<Item> ALCHEMICAL_CALX = register("alchemical_calx", DEFAULT_PROPERTIES(), Item::new);
     public static final RegistryObject<Item> CURSED_GRIT = register("cursed_grit", DEFAULT_PROPERTIES(), Item::new);
+    public static final RegistryObject<Item> NULL_SLATE = register("null_slate", DEFAULT_PROPERTIES(), Item::new);
+    public static final RegistryObject<Item> VOID_SALTS = register("void_salts", DEFAULT_PROPERTIES(), Item::new);
+    public static final RegistryObject<Item> MNEMONIC_FRAGMENT = register("mnemonic_fragment", DEFAULT_PROPERTIES(), Item::new);
+    public static final RegistryObject<Item> AURIC_EMBERS = register("auric_embers", DEFAULT_PROPERTIES(), Item::new);
 
     public static final RegistryObject<Item> BLOCK_OF_ROTTING_ESSENCE = register("block_of_rotting_essence", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BLOCK_OF_ROTTING_ESSENCE.get(), p));
     public static final RegistryObject<Item> BLOCK_OF_GRIM_TALC = register("block_of_grim_talc", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BLOCK_OF_GRIM_TALC.get(), p));
@@ -415,6 +414,9 @@ public class ItemRegistry {
     public static final RegistryObject<Item> BLOCK_OF_ALCHEMICAL_CALX = register("block_of_alchemical_calx", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BLOCK_OF_ALCHEMICAL_CALX.get(), p));
     public static final RegistryObject<Item> MASS_OF_BLIGHTED_GUNK = register("mass_of_blighted_gunk", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.MASS_OF_BLIGHTED_GUNK.get(), p));
     public static final RegistryObject<Item> BLOCK_OF_CURSED_GRIT = register("block_of_cursed_grit", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BLOCK_OF_CURSED_GRIT.get(), p));
+    public static final RegistryObject<Item> BLOCK_OF_NULL_SLATE = register("block_of_null_slate", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BLOCK_OF_NULL_SLATE.get(), p));
+    public static final RegistryObject<Item> BLOCK_OF_VOID_SALTS = register("block_of_void_salts", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BLOCK_OF_VOID_SALTS.get(), p));
+    public static final RegistryObject<Item> BLOCK_OF_MNEMONIC_FRAGMENT = register("block_of_mnemonic_fragment", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BLOCK_OF_MNEMONIC_FRAGMENT.get(), p));
 
     public static final RegistryObject<Item> LIVING_FLESH = register("living_flesh", DEFAULT_PROPERTIES(), Item::new);
     public static final RegistryObject<Item> SPIRIT_FABRIC = register("spirit_fabric", DEFAULT_PROPERTIES(), Item::new);
@@ -422,6 +424,9 @@ public class ItemRegistry {
     public static final RegistryObject<Item> SPECTRAL_OPTIC = register("spectral_optic", DEFAULT_PROPERTIES(), Item::new);
     public static final RegistryObject<Item> POPPET = register("poppet", DEFAULT_PROPERTIES(), Item::new);
     public static final RegistryObject<Item> CORRUPTED_RESONANCE = register("corrupted_resonance", DEFAULT_PROPERTIES(), Item::new);
+    public static final RegistryObject<Item> ANOMALOUS_DESIGN = register("anomalous_design", DEFAULT_PROPERTIES(), Item::new);
+    public static final RegistryObject<Item> COMPLETE_DESIGN = register("complete_design", DEFAULT_PROPERTIES(), SimpleFoiledItem::new);
+    public static final RegistryObject<Item> FUSED_CONSCIOUSNESS = register("fused_consciousness", DEFAULT_PROPERTIES(), (p) -> new FusedConsciousnessItem(p.rarity(RARE)));
 
     public static final RegistryObject<Item> HALLOWED_GOLD_INGOT = register("hallowed_gold_ingot", DEFAULT_PROPERTIES(), Item::new);
     public static final RegistryObject<Item> HALLOWED_GOLD_NUGGET = register("hallowed_gold_nugget", DEFAULT_PROPERTIES(), Item::new);
@@ -452,6 +457,7 @@ public class ItemRegistry {
     public static final RegistryObject<Item> PRISMATIC_FOCUS_LENS = register("prismatic_focus_lens", DEFAULT_PROPERTIES(), PrismaticFocusLensItem::new);
     public static final RegistryObject<Item> BLAZING_DIODE = register("blazing_diode", DEFAULT_PROPERTIES(), BlazingDiodeItem::new);
     public static final RegistryObject<Item> INTRICATE_ASSEMBLY = register("intricate_assembly", DEFAULT_PROPERTIES(), IntricateAssemblyItem::new);
+    public static final RegistryObject<Item> STELLAR_MECHANISM = register("stellar_mechanism", DEFAULT_PROPERTIES(), StellarMechanismItem::new);
 
     public static final RegistryObject<Item> TUNING_FORK = register("tuning_fork", GEAR_PROPERTIES(), Item::new);
 
@@ -516,7 +522,10 @@ public class ItemRegistry {
     public static final RegistryObject<Item> SOUL_HUNTER_BOOTS = register("soul_hunter_boots", GEAR_PROPERTIES(), (p) -> new SoulHunterArmorItem(ArmorItem.Type.BOOTS, p));
 
     public static final RegistryObject<Item> TYRVING = register("tyrving", GEAR_PROPERTIES(), (p) -> new TyrvingItem(ItemTiers.ItemTierEnum.TYRVING, 0, -0.3f, p));
-    
+
+    public static final RegistryObject<Item> SOUL_STAINED_STEEL_STAFF = register("soul_stained_steel_staff", GEAR_PROPERTIES(), (p) -> new HexStaffItem(HEX_STAFF, 4, p));
+    public static final RegistryObject<Item> STAFF_OF_THE_AURIC_FLAME = register("staff_of_the_auric_flame", GEAR_PROPERTIES(), (p) -> new AuricFlameStaffItem(AURIC_STAFF, 6, p));
+
     public static final RegistryObject<Item> ETHERIC_NITRATE = register("etheric_nitrate", DEFAULT_PROPERTIES(), EthericNitrateItem::new);
     public static final RegistryObject<Item> VIVID_NITRATE = register("vivid_nitrate", DEFAULT_PROPERTIES(), VividNitrateItem::new);
 
@@ -542,32 +551,13 @@ public class ItemRegistry {
     public static final RegistryObject<Item> BELT_OF_THE_STARVED = register("belt_of_the_starved", GEAR_PROPERTIES(), CurioStarvedBelt::new);
     public static final RegistryObject<Item> BELT_OF_THE_PROSPECTOR = register("belt_of_the_prospector", GEAR_PROPERTIES(), CurioProspectorBelt::new);
     public static final RegistryObject<Item> BELT_OF_THE_MAGEBANE = register("belt_of_the_magebane", GEAR_PROPERTIES(), CurioMagebaneBelt::new);
-    //endregion
 
-    //region chronicles of the void
-    public static final RegistryObject<Item> NULL_SLATE = register("null_slate", VOID_PROPERTIES(), Item::new);
-    public static final RegistryObject<Item> VOID_SALTS = register("void_salts", VOID_PROPERTIES(), Item::new);
-    public static final RegistryObject<Item> MNEMONIC_FRAGMENT = register("mnemonic_fragment", VOID_PROPERTIES(), Item::new);
-    public static final RegistryObject<Item> AURIC_EMBERS = register("auric_embers", VOID_PROPERTIES(), Item::new);
-
-    public static final RegistryObject<Item> BLOCK_OF_NULL_SLATE = register("block_of_null_slate", VOID_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BLOCK_OF_NULL_SLATE.get(), p));
-    public static final RegistryObject<Item> BLOCK_OF_VOID_SALTS = register("block_of_void_salts", VOID_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BLOCK_OF_VOID_SALTS.get(), p));
-    public static final RegistryObject<Item> BLOCK_OF_MNEMONIC_FRAGMENT = register("block_of_mnemonic_fragment", VOID_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BLOCK_OF_MNEMONIC_FRAGMENT.get(), p));
-
-    public static final RegistryObject<Item> ANOMALOUS_DESIGN = register("anomalous_design", VOID_PROPERTIES(), Item::new);
-    public static final RegistryObject<Item> COMPLETE_DESIGN = register("complete_design", VOID_PROPERTIES(), SimpleFoiledItem::new);
-    public static final RegistryObject<Item> FUSED_CONSCIOUSNESS = register("fused_consciousness", VOID_PROPERTIES(), (p) -> new FusedConsciousnessItem(p.rarity(RARE)));
-
-    public static final RegistryObject<Item> SOUL_STAINED_STEEL_STAFF = register("soul_stained_steel_staff", VOID_GEAR_PROPERTIES(), (p) -> new HexStaffItem(HEX_STAFF, 4, p));
-    public static final RegistryObject<Item> STAFF_OF_THE_AURIC_FLAME = register("staff_of_the_auric_flame", VOID_GEAR_PROPERTIES(), (p) -> new AuricFlameStaffItem(AURIC_STAFF, 6, p));
-
-    public static final RegistryObject<Item> BELT_OF_THE_LIMITLESS = register("belt_of_the_limitless", VOID_GEAR_PROPERTIES(), CurioLimitlessBelt::new);
-
-    public static final RegistryObject<Item> RING_OF_GROWING_FLESH = register("ring_of_growing_flesh", VOID_GEAR_PROPERTIES(), CurioGrowingFleshRing::new);
-    public static final RegistryObject<Item> RING_OF_GRUESOME_SATIATION = register("ring_of_gruesome_satiation", VOID_GEAR_PROPERTIES(), CurioGruesomeSatiationRing::new);
-
-    public static final RegistryObject<Item> NECKLACE_OF_THE_HIDDEN_BLADE = register("necklace_of_the_hidden_blade", VOID_GEAR_PROPERTIES(), CurioHiddenBladeNecklace::new);
-    public static final RegistryObject<Item> NECKLACE_OF_THE_WATCHER = register("necklace_of_the_watcher", VOID_GEAR_PROPERTIES(), CurioWatcherNecklace::new);
+    public static final RegistryObject<Item> RING_OF_THE_PLENTIFUL = register("ring_of_the_plentiful", GEAR_PROPERTIES(), CurioPlentifulRing::new);
+    public static final RegistryObject<Item> RING_OF_GROWING_FLESH = register("ring_of_growing_flesh", GEAR_PROPERTIES(), CurioGrowingFleshRing::new);
+    public static final RegistryObject<Item> RING_OF_GRUESOME_SATIATION = register("ring_of_gruesome_satiation", GEAR_PROPERTIES(), CurioGruesomeSatiationRing::new);
+    public static final RegistryObject<Item> NECKLACE_OF_THE_HIDDEN_BLADE = register("necklace_of_the_hidden_blade", GEAR_PROPERTIES(), CurioHiddenBladeNecklace::new);
+    public static final RegistryObject<Item> NECKLACE_OF_THE_WATCHER = register("necklace_of_the_watcher", GEAR_PROPERTIES(), CurioWatcherNecklace::new);
+    public static final RegistryObject<Item> BELT_OF_THE_LIMITLESS = register("belt_of_the_limitless", GEAR_PROPERTIES(), CurioLimitlessBelt::new);
     //endregion
 
     //region cosmetics

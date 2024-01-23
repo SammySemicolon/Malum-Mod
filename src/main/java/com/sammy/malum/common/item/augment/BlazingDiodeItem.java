@@ -1,6 +1,5 @@
-package com.sammy.malum.common.item.catalyzer_augment;
+package com.sammy.malum.common.item.augment;
 
-import com.sammy.malum.core.systems.spirit.*;
 import com.sammy.malum.registry.common.*;
 
 public class BlazingDiodeItem extends AbstractAugmentItem{

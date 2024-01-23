@@ -1,4 +1,4 @@
-package com.sammy.malum.common.item.catalyzer_augment;
+package com.sammy.malum.common.item.augment;
 
 import com.sammy.malum.core.systems.spirit.*;
 import net.minecraft.world.item.*;
@@ -42,6 +42,10 @@ public class AbstractAugmentItem extends Item {
     }
 
     public float getWeakestAttributeMultiplier() {
+        return 0f;
+    }
+
+    public float getTuningStrengthIncrease() {
         return 0f;
     }
 

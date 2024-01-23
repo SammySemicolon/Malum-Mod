@@ -124,9 +124,11 @@ public class AuricFlameBoltEntity extends AbstractBoltProjectileEntity {
     @OnlyIn(Dist.CLIENT)
     @Override
     public void spawnParticles() {
+        Level level = level();
+        Vec3 position = position();
         float scalar = getVisualEffectScalar();
         Vec3 norm = getDeltaMovement().normalize().scale(0.05f);
-        var lightSpecs = SpiritLightSpecs.spiritLightSpecs(level(), position(), AuricFlameStaffItem.AURIC_COLOR_DATA, AuricFlameStaffItem.REVERSE_AURIC_COLOR_DATA);
+        var lightSpecs = SpiritLightSpecs.spiritLightSpecs(level, position, AuricFlameStaffItem.AURIC_COLOR_DATA, AuricFlameStaffItem.REVERSE_AURIC_COLOR_DATA);
         lightSpecs.getBuilder().multiplyLifetime(1.25f).setMotion(norm);
         lightSpecs.getBloomBuilder().multiplyLifetime(1.25f).setMotion(norm);
         lightSpecs.spawnParticles();
@@ -135,15 +137,15 @@ public class AuricFlameBoltEntity extends AbstractBoltProjectileEntity {
                 .setTransparencyData(GenericParticleData.create(0.5f * scalar, 0.2f * scalar, 0f).setEasing(Easing.SINE_IN_OUT, Easing.SINE_IN).build())
                 .setScaleData(GenericParticleData.create(0.5f * scalar).build())
                 .setLengthData(GenericParticleData.create(2.4f * Math.min(1f, scalar*2), 0.2f * Math.min(1f, scalar*2)).setEasing(Easing.CUBIC_IN).build())
-                .setColorData(level().getGameTime() % 6L == 0 ? AuricFlameStaffItem.REVERSE_AURIC_COLOR_DATA : AuricFlameStaffItem.AURIC_COLOR_DATA)
+                .setColorData(level.getGameTime() % 6L == 0 ? AuricFlameStaffItem.REVERSE_AURIC_COLOR_DATA : AuricFlameStaffItem.AURIC_COLOR_DATA)
                 .setLifetime(Math.min(6 + age * 3, 30))
                 .setMotion(norm)
                 .enableNoClip()
                 .enableForcedSpawn()
                 .setSpritePicker(SimpleParticleOptions.ParticleSpritePicker.FIRST_INDEX)
                 .addTickActor(behavior)
-                .spawn(level(), position().x, position().y, position().z)
+                .spawn(level, position.x, position.y, position.z)
                 .setRenderType(LodestoneWorldParticleRenderType.LUMITRANSPARENT)
-                .spawn(level(), position().x, position().y, position().z);
+                .spawn(level, position.x, position.y, position.z);
     }
 }

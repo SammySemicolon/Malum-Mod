@@ -131,12 +131,12 @@ public class VoidProgressionScreen extends AbstractProgressionCodexScreen {
                 .setWidgetConfig(w -> w.setIcon(VOID_SALTS).setStyle(BookWidgetStyle.SOULWOOD))
         );
         VOID_ENTRIES.add(new BookEntry(
-                "void.mnemotic_fragment", 1, 3)
-                .setWidgetConfig(w -> w.setIcon(MNEMONIC_FRAGMENT).setStyle(BookWidgetStyle.SOULWOOD))
+                "void.auric_embers", 1, 3)
+                .setWidgetConfig(w -> w.setIcon(AURIC_EMBERS).setStyle(BookWidgetStyle.SOULWOOD))
         );
         VOID_ENTRIES.add(new BookEntry(
-                "void.auric_embers", 2, 2)
-                .setWidgetConfig(w -> w.setIcon(AURIC_EMBERS).setStyle(BookWidgetStyle.SOULWOOD))
+                "void.mnemotic_fragment", 2, 2)
+                .setWidgetConfig(w -> w.setIcon(MNEMONIC_FRAGMENT).setStyle(BookWidgetStyle.SOULWOOD))
         );
 
         VOID_ENTRIES.add(new BookEntry(
@@ -175,7 +175,7 @@ public class VoidProgressionScreen extends AbstractProgressionCodexScreen {
 
 
         VOID_ENTRIES.add(new BookEntry(
-                "void.anomalous_snare", 0, 6)
+                "void.anomalous_design", 0, 6)
                 .setWidgetConfig(w -> w.setIcon(ANOMALOUS_DESIGN).setStyle(BookWidgetStyle.SOULWOOD))
         );
         VOID_ENTRIES.add(new BookEntry(
@@ -187,15 +187,11 @@ public class VoidProgressionScreen extends AbstractProgressionCodexScreen {
                 .setWidgetConfig(w -> w.setIcon(BELT_OF_THE_LIMITLESS).setStyle(BookWidgetStyle.SOULWOOD))
         );
         VOID_ENTRIES.add(new BookEntry(
-                "void.something5", 2, 8)
-                .setWidgetConfig(w -> w.setIcon(BARRIER).setStyle(BookWidgetStyle.SOULWOOD))
+                "void.stellar_mechanism", 2, 8)
+                .setWidgetConfig(w -> w.setIcon(STELLAR_MECHANISM).setStyle(BookWidgetStyle.SOULWOOD))
         );
         VOID_ENTRIES.add(new BookEntry(
-                "void.miracle_apparatus", 0, 9)
-                .setWidgetConfig(w -> w.setIcon(BARRIER).setStyle(BookWidgetStyle.SOULWOOD))
-        );
-        VOID_ENTRIES.add(new BookEntry(
-                "void.staff_of_the_auric_flame", 1, 10)
+                "void.staff_of_the_auric_flame", 0, 9)
                 .setWidgetConfig(w -> w.setIcon(STAFF_OF_THE_AURIC_FLAME).setStyle(BookWidgetStyle.SOULWOOD))
         );
     }

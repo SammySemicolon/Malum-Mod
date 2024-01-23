@@ -1,14 +1,11 @@
 package com.sammy.malum.common.block.curiosities.spirit_crucible;
 
-import com.sammy.malum.common.item.catalyzer_augment.*;
+import com.sammy.malum.common.item.augment.*;
 import com.sammy.malum.core.systems.spirit.*;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.*;
-import team.lodestar.lodestone.helpers.BlockHelper;
 
 import java.util.*;
 import java.util.stream.*;
@@ -20,11 +17,14 @@ public interface ICatalyzerAccelerationTarget {
     Vec3 getAccelerationPoint();
 
     default List<Optional<AbstractAugmentItem>> getAugmentTypes() {
-        final List<ItemStack> augments = getAugments();
-        return augments.isEmpty() ? Collections.emptyList() : getAugments().stream().map(AbstractAugmentItem::getAugmentType).collect(Collectors.toList());
+        List<ItemStack> augments = getAugments();
+        final ItemStack coreAugment = getCoreAugment();
+        return (coreAugment.isEmpty() && augments.isEmpty()) ? Collections.emptyList() : Stream.concat(augments.stream(), Stream.<ItemStack>builder().add(coreAugment).build()).map(AbstractAugmentItem::getAugmentType).collect(Collectors.toList());
     }
 
     List<ItemStack> getAugments();
+
+    ItemStack getCoreAugment();
 
     boolean canBeAccelerated();
 
@@ -32,9 +32,7 @@ public interface ICatalyzerAccelerationTarget {
 
     void setAccelerationData(CrucibleAccelerationData data);
 
-    CrucibleTuning.CrucibleTuningType getTuningType();
-
-    float getWexingEngineInfluence();
+    CrucibleTuning.CrucibleAttributeType getTuningType();
 
     default int getLookupRange() {
         return 4;

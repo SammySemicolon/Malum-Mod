@@ -2,7 +2,7 @@ package com.sammy.malum.common.block.curiosities.spirit_crucible.catalyzer;
 
 import com.sammy.malum.common.block.*;
 import com.sammy.malum.common.block.curiosities.spirit_crucible.*;
-import com.sammy.malum.common.item.catalyzer_augment.*;
+import com.sammy.malum.common.item.augment.*;
 import com.sammy.malum.common.item.spirit.*;
 import com.sammy.malum.core.systems.spirit.*;
 import com.sammy.malum.registry.common.*;
@@ -53,22 +53,12 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity impleme
                 BlockHelper.updateAndNotifyState(level, worldPosition);
             }
         };
-        augmentInventory = new MalumBlockEntityInventory(1, 1, t -> t.getItem() instanceof AbstractAugmentItem) {
+        augmentInventory = new AugmentBlockEntityInventory(1, 1) {
             @Override
             public void onContentsChanged(int slot) {
                 super.onContentsChanged(slot);
                 needsSync = true;
                 BlockHelper.updateAndNotifyState(level, worldPosition);
-            }
-
-            @Override
-            public SoundEvent getInsertSound(ItemStack stack) {
-                return SoundRegistry.APPLY_AUGMENT.get();
-            }
-
-            @Override
-            public SoundEvent getExtractSound(ItemStack stack) {
-                return SoundRegistry.REMOVE_AUGMENT.get();
             }
         };
     }

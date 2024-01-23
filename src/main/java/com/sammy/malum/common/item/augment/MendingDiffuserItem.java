@@ -1,4 +1,4 @@
-package com.sammy.malum.common.item.catalyzer_augment;
+package com.sammy.malum.common.item.augment;
 
 import com.sammy.malum.registry.common.*;
 

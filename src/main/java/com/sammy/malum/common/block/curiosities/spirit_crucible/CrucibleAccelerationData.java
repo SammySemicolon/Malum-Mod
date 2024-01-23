@@ -1,6 +1,6 @@
 package com.sammy.malum.common.block.curiosities.spirit_crucible;
 
-import com.sammy.malum.common.item.catalyzer_augment.*;
+import com.sammy.malum.common.item.augment.*;
 import net.minecraft.core.*;
 import net.minecraft.nbt.*;
 import net.minecraft.world.level.*;
@@ -54,7 +54,7 @@ public class CrucibleAccelerationData {
 
     public CrucibleAccelerationData(ICatalyzerAccelerationTarget target, Map<ICrucibleAccelerator.CrucibleAcceleratorType, Integer> typeCount, Collection<ICrucibleAccelerator> accelerators) {
         final List<AbstractAugmentItem> augments = Stream.concat(accelerators.stream().map(ICrucibleAccelerator::getAugmentType), target.getAugmentTypes().stream()).filter(Optional::isPresent).map(Optional::get).toList();
-        CrucibleTuning tuning = new CrucibleTuning(target);
+        CrucibleTuning tuning = new CrucibleTuning(target, 1f + augments.stream().map(AbstractAugmentItem::getTuningStrengthIncrease).reduce(Float::sum).orElse(0f));
         this.focusingSpeed = tuning.focusingSpeedMultiplier.createTunedValue(
                 typeCount.entrySet().stream().map((entry) -> entry.getKey().getAcceleration(entry.getValue())).reduce(Float::sum).orElse(0f)
                         + augments.stream().map(AbstractAugmentItem::getSpeedIncrease).reduce(Float::sum).orElse(0f));
@@ -73,8 +73,8 @@ public class CrucibleAccelerationData {
         this.restorationChance = tuning.restorationChanceMultiplier.createTunedValue(
                 augments.stream().map(AbstractAugmentItem::getRestorationChance).reduce(Float::sum).orElse(0f));
 
-        final List<CrucibleTuning.CrucibleTuningType> validTuningTypes = CrucibleTuning.CrucibleTuningType.getValidValues(this);
-        TunedValue weakestValue = figureOutWeakestValue(target.getAccelerationData(), Stream.of(focusingSpeed, bonusYieldChance, chainFocusingChance, damageAbsorptionChance, restorationChance).filter(t -> validTuningTypes.contains(t.tuning.tuningType)).collect(Collectors.toList()));
+        final List<CrucibleTuning.CrucibleAttributeType> validTuningTypes = CrucibleTuning.CrucibleAttributeType.getValidValues(this);
+        TunedValue weakestValue = figureOutWeakestValue(target.getAccelerationData(), Stream.of(focusingSpeed, bonusYieldChance, chainFocusingChance, damageAbsorptionChance, restorationChance).filter(t -> validTuningTypes.contains(t.tuning.attributeType)).collect(Collectors.toList()));
         weakestValue.setMultiplier(augments.stream().map(AbstractAugmentItem::getWeakestAttributeMultiplier).reduce(Float::sum).orElse(0f));
         accelerators.forEach(this::addAccelerator);
     }
@@ -136,29 +136,24 @@ public class CrucibleAccelerationData {
 
     public static class TunedValue {
         public final CrucibleTuning.TuningModifier tuning;
-        private final float baseValue;
+        protected final float value;
         private float multiplier = 0f;
 
-        public TunedValue(CrucibleTuning.TuningModifier tuning, float baseValue) {
+        public TunedValue(CrucibleTuning.TuningModifier tuning, float bonus) {
             this.tuning = tuning;
-            this.baseValue = (tuning.getBaseValue()+baseValue) * tuning.getMultiplier();
+            this.value = (tuning.baseValue + bonus) * (1 + tuning.getTuningMultiplier());
         }
 
-        protected TunedValue setMultiplier(float multiplier) {
+        protected void setMultiplier(float multiplier) {
             this.multiplier = multiplier;
-            return this;
         }
 
         public float getValue(CrucibleAccelerationData accelerationData) {
             float modifier = accelerationData.globalAttributeModifier;
-            if (tuning.tuningType.equals(CrucibleTuning.CrucibleTuningType.CHAIN_FOCUSING_CHANCE)) {
+            if (tuning.attributeType.equals(CrucibleTuning.CrucibleAttributeType.CHAIN_FOCUSING_CHANCE)) {
                 modifier *= -1;
             }
-            return getBaseValue() * tuning.getMultiplierScalar(modifier + multiplier);
-        }
-
-        protected float getBaseValue() {
-            return baseValue;
+            return value * tuning.getMultiplierScalar(modifier + multiplier);
         }
 
     }
@@ -169,14 +164,17 @@ public class CrucibleAccelerationData {
 
         @Override
         public float getValue(CrucibleAccelerationData accelerationData) {
-            return getBaseValue();
+            return value;
         }
     }
 
     public static TunedValue figureOutWeakestValue(CrucibleAccelerationData data, List<TunedValue> tunedValues) {
+        if (tunedValues.size() == 1) {
+            return tunedValues.get(0);
+        }
         return tunedValues.stream().min((t1, t2) -> {
-            float difference1 = t1.tuning.getDifference(data, t1);
-            float difference2 = t2.tuning.getDifference(data, t2);
+            float difference1 = t1.tuning.getRelativeValue(data, t1);
+            float difference2 = t2.tuning.getRelativeValue(data, t2);
             return Float.compare(difference1, difference2);
         }).orElse(null);
     }
