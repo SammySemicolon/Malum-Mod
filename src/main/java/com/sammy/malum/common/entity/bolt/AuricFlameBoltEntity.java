@@ -7,22 +7,18 @@ import com.sammy.malum.registry.common.entity.*;
 import com.sammy.malum.registry.common.item.*;
 import com.sammy.malum.visual_effects.*;
 import com.sammy.malum.visual_effects.networked.*;
-import net.minecraft.network.chat.*;
 import net.minecraft.sounds.*;
 import net.minecraft.util.*;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.player.*;
 import net.minecraft.world.entity.projectile.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
 import net.minecraftforge.api.distmarker.*;
-import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.systems.easing.*;
 import team.lodestar.lodestone.systems.particle.*;
 import team.lodestar.lodestone.systems.particle.builder.*;
 import team.lodestar.lodestone.systems.particle.data.*;
-import team.lodestar.lodestone.systems.particle.data.spin.*;
 import team.lodestar.lodestone.systems.particle.render_types.*;
 
 import java.util.*;
@@ -83,19 +79,17 @@ public class AuricFlameBoltEntity extends AbstractBoltProjectileEntity {
             }
             Vec3 newMotion = diff.normalize().scale(speed);
             final double dot = motion.normalize().dot(diff.normalize());
-            if (dot < 0.9f) {
+            if (dot < 0.8f) {
                 return;
             }
             if (newMotion.length() == 0) {
                 newMotion = newMotion.add(0.01, 0, 0);
             }
-            float angleScalar = (float) ((dot - 0.9f) * 10f);
-            float distanceScalar = (float) (0.2f + 1f - Math.min(25f, diff.length()) / 25f);
-            float horizontalFactor = 0.4f * distanceScalar * angleScalar;
-            float verticalFactor = 0.6f * distanceScalar * angleScalar;
-            final double x = Mth.lerp(horizontalFactor, motion.x, newMotion.x);
-            final double y = Mth.lerp(verticalFactor, motion.y, newMotion.y);
-            final double z = Mth.lerp(horizontalFactor, motion.z, newMotion.z);
+            float angleScalar = (float) ((dot - 0.8f) * 5f);
+            float factor = 0.15f * angleScalar;
+            final double x = Mth.lerp(factor, motion.x, newMotion.x);
+            final double y = Mth.lerp(factor, motion.y, newMotion.y);
+            final double z = Mth.lerp(factor, motion.z, newMotion.z);
             setDeltaMovement(new Vec3(x, y, z));
         }
     }
@@ -133,12 +127,12 @@ public class AuricFlameBoltEntity extends AbstractBoltProjectileEntity {
         lightSpecs.getBloomBuilder().multiplyLifetime(1.25f).setMotion(norm);
         lightSpecs.spawnParticles();
         final Consumer<LodestoneWorldParticleActor> behavior = p -> p.setParticleMotion(p.getParticleSpeed().scale(0.98f));
-        SparkParticleBuilder.create(ParticleRegistry.SLASH)
+        SparkParticleBuilder.create(ParticleRegistry.BOLT)
                 .setTransparencyData(GenericParticleData.create(0.5f * scalar, 0.2f * scalar, 0f).setEasing(Easing.SINE_IN_OUT, Easing.SINE_IN).build())
-                .setScaleData(GenericParticleData.create(0.5f * scalar).build())
+                .setScaleData(GenericParticleData.create(0.75f * scalar, 0.1f * scalar).setEasing(Easing.QUAD_OUT).build())
                 .setLengthData(GenericParticleData.create(2.4f * Math.min(1f, scalar*2), 0.2f * Math.min(1f, scalar*2)).setEasing(Easing.CUBIC_IN).build())
                 .setColorData(level.getGameTime() % 6L == 0 ? AuricFlameStaffItem.REVERSE_AURIC_COLOR_DATA : AuricFlameStaffItem.AURIC_COLOR_DATA)
-                .setLifetime(Math.min(6 + age * 3, 30))
+                .setLifetime(Math.min(6 + age * 3, 45))
                 .setMotion(norm)
                 .enableNoClip()
                 .enableForcedSpawn()

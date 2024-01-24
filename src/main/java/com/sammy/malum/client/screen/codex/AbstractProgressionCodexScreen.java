@@ -66,7 +66,7 @@ public abstract class AbstractProgressionCodexScreen extends AbstractMalumScreen
             }
             bookObjects.add(bookObject);
         }
-        faceObject(bookObjects.get(0));
+        faceObject(bookObjects.get(1));
     }
 
     public abstract void openScreen(boolean ignoreNextMouseClick);

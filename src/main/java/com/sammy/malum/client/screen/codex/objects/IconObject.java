@@ -14,15 +14,22 @@ import static com.sammy.malum.client.screen.codex.ArcanaProgressionScreen.FRAME_
 
 public class IconObject extends EntryObject {
     public final ResourceLocation textureLocation;
+    public final int textureWidth;
+    public final int textureHeight;
 
-    public IconObject(AbstractProgressionCodexScreen screen, BookEntry entry, ResourceLocation textureLocation, int posX, int posY) {
+    public IconObject(AbstractProgressionCodexScreen screen, BookEntry entry, int posX, int posY, ResourceLocation textureLocation) {
+        this(screen, entry, posX, posY, textureLocation, 16, 16);
+    }
+    public IconObject(AbstractProgressionCodexScreen screen, BookEntry entry, int posX, int posY, ResourceLocation textureLocation, int textureWidth, int textureHeight) {
         super(screen, entry, posX, posY);
         this.textureLocation = textureLocation;
+        this.textureWidth = textureWidth;
+        this.textureHeight = textureHeight;
     }
 
     @Override
     public void render(Minecraft minecraft, GuiGraphics guiGraphics, float xOffset, float yOffset, int mouseX, int mouseY, float partialTicks) {
         super.render(minecraft, guiGraphics, xOffset, yOffset, mouseX, mouseY, partialTicks);
-        renderWavyIcon(textureLocation, guiGraphics.pose(), offsetPosX(xOffset) + 8, offsetPosY(yOffset) + 8);
+        renderWavyIcon(textureLocation, guiGraphics.pose(), offsetPosX(xOffset) + 8 - (style.textureWidth()-32)/4, offsetPosY(yOffset) + 8 - (style.textureHeight()-32)/4, 0, textureWidth, textureHeight);
     }
 }

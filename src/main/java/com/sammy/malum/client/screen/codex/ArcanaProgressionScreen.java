@@ -121,10 +121,21 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
         screen.playSweetenedSound(SoundRegistry.ARCANA_CODEX_OPEN, 1.25f);
     }
 
+    public static void openCodexViaTransition() {
+        getScreenInstance().openScreen(false);
+        screen.faceObject(screen.bookObjects.get(0));
+        screen.playSound(SoundRegistry.ARCANA_TRANSITION_NORMAL, 1.25f, 1f);
+    }
+
     public static void setupEntries() {
         ENTRIES.clear();
         Item EMPTY = ItemStack.EMPTY.getItem();
 
+        ENTRIES.add(new BookEntry(
+                "chronicles_of_the_void", 0, -1)
+                .setWidgetSupplier((s, e, x, y) -> new ScreenOpenerObject(s, e, x, y, VoidProgressionScreen::openCodexViaTransition, malumPath("textures/gui/book/icons/void_button.png"), 20, 20))
+                .setWidgetConfig(w -> w.setStyle(BookWidgetStyle.DARK_GRAND_RUNEWOOD))
+        );
         ENTRIES.add(new BookEntry(
                 "introduction", 0, 0)
                 .setWidgetConfig(w -> w.setIcon(ENCYCLOPEDIA_ARCANA).setStyle(BookWidgetStyle.GILDED_RUNEWOOD))
@@ -137,7 +148,7 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
 
         ENTRIES.add(new BookEntry(
                 "spirit_crystals", 0, 1)
-                .setWidgetSupplier((s, e, x, y) -> new IconObject(s, e, malumPath("textures/gui/book/icons/soul_shard.png"), x, y))
+                .setWidgetSupplier((s, e, x, y) -> new IconObject(s, e, x, y, malumPath("textures/gui/book/icons/soul_shard.png")))
                 .setWidgetConfig(w -> w.setStyle(BookWidgetStyle.DARK_SMALL_RUNEWOOD))
                 .addPage(new HeadlineTextPage("spirit_crystals", "spirit_crystals.1"))
                 .addPage(new TextPage("spirit_crystals.2"))

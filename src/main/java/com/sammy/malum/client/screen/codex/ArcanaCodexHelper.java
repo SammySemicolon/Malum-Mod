@@ -90,6 +90,9 @@ public class ArcanaCodexHelper {
     }
 
     public static void renderWavyIcon(ResourceLocation location, PoseStack stack, int x, int y, int z) {
+        renderWavyIcon(location, stack, x, y, 0, 16, 16);
+    }
+    public static void renderWavyIcon(ResourceLocation location, PoseStack stack, int x, int y, int z, int textureWidth, int textureHeight) {
         ExtendedShaderInstance shaderInstance = (ExtendedShaderInstance) LodestoneShaderRegistry.DISTORTED_TEXTURE.getInstance().get();
         shaderInstance.safeGetUniform("YFrequency").set(10f);
         shaderInstance.safeGetUniform("XFrequency").set(12f);
@@ -108,12 +111,12 @@ public class ArcanaCodexHelper {
         RenderSystem.enableBlend();
         RenderSystem.disableDepthTest();
         RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE);
-        renderTexture(location, stack, builder, x, y, 0, 0, 16, 16, 16, 16);
+        renderTexture(location, stack, builder, x, y, 0, 0, textureWidth, textureHeight);
         builder.setAlpha(0.1f);
-        renderTexture(location, stack, builder, x - 1, y, 0, 0, 16, 16, 16, 16);
-        renderTexture(location, stack, builder, x + 1, y, 0, 0, 16, 16, 16, 16);
-        renderTexture(location, stack, builder, x, y - 1, 0, 0, 16, 16, 16, 16);
-        renderTexture(location, stack, builder, x, y + 1, 0, 0, 16, 16, 16, 16);
+        renderTexture(location, stack, builder, x - 1, y, 0, 0, textureWidth, textureHeight);
+        renderTexture(location, stack, builder, x + 1, y, 0, 0, textureWidth, textureHeight);
+        renderTexture(location, stack, builder, x, y - 1, 0, 0, textureWidth, textureHeight);
+        renderTexture(location, stack, builder, x, y + 1, 0, 0, textureWidth, textureHeight);
         shaderInstance.setUniformDefaults();
         RenderSystem.enableDepthTest();
         RenderSystem.defaultBlendFunc();
@@ -126,6 +129,10 @@ public class ArcanaCodexHelper {
 
     public static void renderTexture(ResourceLocation texture, PoseStack poseStack, int x, int y, float u, float v, int width, int height, int textureWidth, int textureHeight) {
         renderTexture(texture, poseStack, VFX_BUILDER, x, y, u, v, width, height, textureWidth, textureHeight);
+    }
+
+    public static void renderTexture(ResourceLocation texture, PoseStack poseStack, VFXBuilders.ScreenVFXBuilder builder, int x, int y, float u, float v, int width, int height) {
+        renderTexture(texture, poseStack, builder, x, y, u, v, width, height, width, height);
     }
 
     public static void renderTexture(ResourceLocation texture, PoseStack poseStack, VFXBuilders.ScreenVFXBuilder builder, int x, int y, float u, float v, int width, int height, int textureWidth, int textureHeight) {

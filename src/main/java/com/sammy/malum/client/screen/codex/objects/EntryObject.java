@@ -32,13 +32,12 @@ public class EntryObject extends BookObject {
 
     @Override
     public void render(Minecraft minecraft, GuiGraphics guiGraphics, float xOffset, float yOffset, int mouseX, int mouseY, float partialTicks) {
-        int posX = offsetPosX(xOffset);
-        int posY = offsetPosY(yOffset);
+        int posX = offsetPosX(xOffset) - (style.textureWidth()-32)/2;
+        int posY = offsetPosY(yOffset) - (style.textureHeight()-32)/2;
         final PoseStack poseStack = guiGraphics.pose();
-        final int offset = getFrameOffset();
         renderTransparentTexture(WIDGET_FADE_TEXTURE, poseStack, posX - 13, posY - 13, 0, 0, 58, 58);
-        renderTexture(style.frameTexture(), poseStack, posX - offset, posY - offset, 0, 0, width, height);
-        renderTexture(style.fillingTexture(), poseStack, posX - offset, posY - offset, 0, 0, width, height);
+        renderTexture(style.frameTexture(), poseStack, posX, posY, 0, 0, style.textureWidth(), style.textureHeight());
+        renderTexture(style.fillingTexture(), poseStack, posX, posY, 0, 0, style.textureWidth(), style.textureHeight());
         if (iconStack != null) {
             guiGraphics.renderItem(iconStack, posX + 8, posY + 8);
         }

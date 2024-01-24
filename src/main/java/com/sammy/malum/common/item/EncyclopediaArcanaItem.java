@@ -17,13 +17,8 @@ public class EncyclopediaArcanaItem extends Item {
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
-        boolean isNearWeepingWell = TouchOfDarknessHandler.checkForWeepingWell(player).isPresent();
         if (level.isClientSide) {
-            if (isNearWeepingWell) {
-                VoidProgressionScreen.openCodexViaItem();
-            } else {
-                ArcanaProgressionScreen.openCodexViaItem();
-            }
+            ArcanaProgressionScreen.openCodexViaItem();
             player.swing(hand);
             return InteractionResultHolder.success(player.getItemInHand(hand));
         }

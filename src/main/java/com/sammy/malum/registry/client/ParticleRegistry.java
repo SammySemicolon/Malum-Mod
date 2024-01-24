@@ -27,7 +27,7 @@ public class ParticleRegistry {
     public static RegistryObject<LodestoneParticleType> STRANGE_SMOKE = PARTICLES.register("strange_smoke", LodestoneParticleType::new);
 
     public static RegistryObject<LodestoneSparkParticleType> ROUND_SPARK = PARTICLES.register("round_spark", LodestoneSparkParticleType::new);
-    public static RegistryObject<LodestoneSparkParticleType> SLASH = PARTICLES.register("slash", LodestoneSparkParticleType::new);
+    public static RegistryObject<LodestoneSparkParticleType> BOLT = PARTICLES.register("bolt", LodestoneSparkParticleType::new);
 
     public static RegistryObject<LodestoneDirectionalParticleType> RITUAL_CIRCLE = PARTICLES.register("ritual_circle", LodestoneDirectionalParticleType::new);
     public static RegistryObject<LodestoneDirectionalParticleType> RITUAL_CIRCLE_WISP = PARTICLES.register("ritual_circle_wisp", LodestoneDirectionalParticleType::new);
@@ -51,7 +51,7 @@ public class ParticleRegistry {
         Minecraft.getInstance().particleEngine.register(STAR.get(), LodestoneParticleType.Factory::new);
 
         Minecraft.getInstance().particleEngine.register(ROUND_SPARK.get(), LodestoneSparkParticleType.Factory::new);
-        Minecraft.getInstance().particleEngine.register(SLASH.get(), LodestoneSparkParticleType.Factory::new);
+        Minecraft.getInstance().particleEngine.register(BOLT.get(), LodestoneSparkParticleType.Factory::new);
 
         Minecraft.getInstance().particleEngine.register(RITUAL_CIRCLE.get(), LodestoneDirectionalParticleType.Factory::new);
         Minecraft.getInstance().particleEngine.register(RITUAL_CIRCLE_WISP.get(), LodestoneDirectionalParticleType.Factory::new);

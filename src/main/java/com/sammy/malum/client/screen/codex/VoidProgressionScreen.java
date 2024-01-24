@@ -1,6 +1,7 @@
 package com.sammy.malum.client.screen.codex;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.sammy.malum.client.screen.codex.objects.*;
 import com.sammy.malum.common.events.SetupMalumCodexEntriesEvent;
 import com.sammy.malum.registry.common.SoundRegistry;
 import net.minecraft.client.Minecraft;
@@ -55,7 +56,7 @@ public class VoidProgressionScreen extends AbstractProgressionCodexScreen {
         GL11.glDisable(GL_SCISSOR_TEST);
 
         renderTransparentTexture(FRAME_FADE_TEXTURE, poseStack, guiLeft, guiTop, 0, 0, bookWidth, bookHeight);
-        renderTexture(FRAME_TEXTURE, poseStack, guiLeft, guiTop, 1, 1, bookWidth, bookHeight);
+        renderTexture(FRAME_TEXTURE, poseStack, guiLeft, guiTop, 0, 0, bookWidth, bookHeight);
         lateEntryRender(guiGraphics, mouseX, mouseY, partialTicks);
     }
 
@@ -105,93 +106,101 @@ public class VoidProgressionScreen extends AbstractProgressionCodexScreen {
 
     public static void openCodexViaItem() {
         getScreenInstance().openScreen(true);
-        setupEntries();
         screen.playSweetenedSound(SoundRegistry.ARCANA_CODEX_OPEN, 1.25f);
-        screen.setupObjects();
+    }
+
+    public static void openCodexViaTransition() {
+        getScreenInstance().openScreen(false);
+        screen.faceObject(screen.bookObjects.get(0));
+        screen.playSound(SoundRegistry.ARCANA_TRANSITION_EVIL, 1.25f, 1f);
     }
 
     public static void setupEntries() {
         VOID_ENTRIES.clear();
         VOID_ENTRIES.add(new BookEntry(
-                "void.introduction", 0, -1)
+                "research_of_the_rejected", 0, -9)
+                .setWidgetSupplier((s, e, x, y) -> new ScreenOpenerObject(s, e, x, y, ArcanaProgressionScreen::openCodexViaTransition, malumPath("textures/gui/book/icons/arcana_button.png"), 20, 20))
+                .setWidgetConfig(w -> w.setStyle(BookWidgetStyle.DARK_GRAND_SOULWOOD))
+        );
+        VOID_ENTRIES.add(new BookEntry(
+                "void.introduction", 0, -8)
                 .setWidgetConfig(w -> w.setIcon(ENCYCLOPEDIA_ARCANA).setStyle(BookWidgetStyle.GILDED_SOULWOOD))
         );
 
         VOID_ENTRIES.add(new BookEntry(
-                "void.weeping_well", 0, 1)
+                "void.weeping_well", 0, -6)
                 .setWidgetConfig(w -> w.setIcon(BLIGHTED_EARTH).setStyle(BookWidgetStyle.SOULWOOD))
         );
 
         VOID_ENTRIES.add(new BookEntry(
-                "void.null_slate", -2, 2)
+                "void.null_slate", -2, -5)
                 .setWidgetConfig(w -> w.setIcon(NULL_SLATE).setStyle(BookWidgetStyle.SOULWOOD))
         );
         VOID_ENTRIES.add(new BookEntry(
-                "void.void_salts", -1, 3)
+                "void.void_salts", -1, -4)
                 .setWidgetConfig(w -> w.setIcon(VOID_SALTS).setStyle(BookWidgetStyle.SOULWOOD))
         );
         VOID_ENTRIES.add(new BookEntry(
-                "void.auric_embers", 1, 3)
+                "void.auric_embers", 1, -4)
                 .setWidgetConfig(w -> w.setIcon(AURIC_EMBERS).setStyle(BookWidgetStyle.SOULWOOD))
         );
         VOID_ENTRIES.add(new BookEntry(
-                "void.mnemotic_fragment", 2, 2)
+                "void.mnemotic_fragment", 2, -5)
                 .setWidgetConfig(w -> w.setIcon(MNEMONIC_FRAGMENT).setStyle(BookWidgetStyle.SOULWOOD))
         );
 
         VOID_ENTRIES.add(new BookEntry(
-                "void.ring_of_growing_flesh", -3, 4)
+                "void.ring_of_growing_flesh", -3, -3)
                 .setWidgetConfig(w -> w.setIcon(RING_OF_GROWING_FLESH).setStyle(BookWidgetStyle.SOULWOOD))
         );
         VOID_ENTRIES.add(new BookEntry(
-                "void.ring_of_gruesome_satiation", -4, 5)
+                "void.ring_of_gruesome_satiation", -4, -2)
                 .setWidgetConfig(w -> w.setIcon(RING_OF_GRUESOME_SATIATION).setStyle(BookWidgetStyle.SOULWOOD))
         );
         VOID_ENTRIES.add(new BookEntry(
-                "void.necklace_of_the_watcher", -2, 5)
+                "void.necklace_of_the_watcher", -2, -2)
                 .setWidgetConfig(w -> w.setIcon(NECKLACE_OF_THE_WATCHER).setStyle(BookWidgetStyle.SOULWOOD))
         );
         VOID_ENTRIES.add(new BookEntry(
-                "void.necklace_of_the_hidden_blade", -3, 6)
+                "void.necklace_of_the_hidden_blade", -3, -1)
                 .setWidgetConfig(w -> w.setIcon(NECKLACE_OF_THE_HIDDEN_BLADE).setStyle(BookWidgetStyle.SOULWOOD))
         );
 
         VOID_ENTRIES.add(new BookEntry(
-                "void.soul_stained_steel_staff", 3, 4)
+                "void.soul_stained_steel_staff", 3, -3)
                 .setWidgetConfig(w -> w.setIcon(SOUL_STAINED_STEEL_STAFF).setStyle(BookWidgetStyle.SOULWOOD))
         );
         VOID_ENTRIES.add(new BookEntry(
-                "void.something2", 4, 5)
+                "void.something2", 4, -2)
                 .setWidgetConfig(w -> w.setIcon(BARRIER).setStyle(BookWidgetStyle.SOULWOOD))
         );
         VOID_ENTRIES.add(new BookEntry(
-                "void.something3", 2, 5)
+                "void.something3", 2, -2)
                 .setWidgetConfig(w -> w.setIcon(BARRIER).setStyle(BookWidgetStyle.SOULWOOD))
         );
         VOID_ENTRIES.add(new BookEntry(
-                "void.something4", 3, 6)
+                "void.something4", 3, -1)
                 .setWidgetConfig(w -> w.setIcon(BARRIER).setStyle(BookWidgetStyle.SOULWOOD))
         );
 
-
         VOID_ENTRIES.add(new BookEntry(
-                "void.anomalous_design", 0, 6)
+                "void.anomalous_design", 0, -1)
                 .setWidgetConfig(w -> w.setIcon(ANOMALOUS_DESIGN).setStyle(BookWidgetStyle.SOULWOOD))
         );
         VOID_ENTRIES.add(new BookEntry(
-                "void.fused_consciousness", 0, 7)
+                "void.fused_consciousness", 0, 0)
                 .setWidgetConfig(w -> w.setIcon(FUSED_CONSCIOUSNESS).setStyle(BookWidgetStyle.GILDED_SOULWOOD))
         );
         VOID_ENTRIES.add(new BookEntry(
-                "void.belt_of_the_limitless", -2, 8)
+                "void.belt_of_the_limitless", -2, 1)
                 .setWidgetConfig(w -> w.setIcon(BELT_OF_THE_LIMITLESS).setStyle(BookWidgetStyle.SOULWOOD))
         );
         VOID_ENTRIES.add(new BookEntry(
-                "void.stellar_mechanism", 2, 8)
+                "void.stellar_mechanism", 2, 1)
                 .setWidgetConfig(w -> w.setIcon(STELLAR_MECHANISM).setStyle(BookWidgetStyle.SOULWOOD))
         );
         VOID_ENTRIES.add(new BookEntry(
-                "void.staff_of_the_auric_flame", 0, 9)
+                "void.staff_of_the_auric_flame", 0, 2)
                 .setWidgetConfig(w -> w.setIcon(STAFF_OF_THE_AURIC_FLAME).setStyle(BookWidgetStyle.SOULWOOD))
         );
     }
