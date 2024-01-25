@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_blighted_gunk": {
+    "has_mnemonic_fragment": {
       "conditions": {
         "items": [
           {
             "items": [
-              "malum:blighted_gunk"
+              "malum:mnemonic_fragment"
             ]
           }
         ]
@@ -15,20 +15,20 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "malum:bligh"
+        "recipe": "malum:mnemonic_fragment_from_block"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_blighted_gunk",
+      "has_mnemonic_fragment",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "malum:bligh"
+      "malum:mnemonic_fragment_from_block"
     ]
   },
   "sends_telemetry_event": false

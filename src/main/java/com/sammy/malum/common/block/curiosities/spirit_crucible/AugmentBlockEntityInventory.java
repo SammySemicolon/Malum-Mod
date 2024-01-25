@@ -11,7 +11,7 @@ import java.util.function.*;
 
 public class AugmentBlockEntityInventory extends MalumBlockEntityInventory {
     public AugmentBlockEntityInventory(int slotCount, int allowedItemSize) {
-        this(slotCount, allowedItemSize, t -> t.getItem() instanceof AbstractAugmentItem augmentItem && !(augmentItem instanceof CoreAugmentItem));
+        this(slotCount, allowedItemSize, t -> t.getItem() instanceof AbstractAugmentItem augmentItem && !(augmentItem instanceof AbstractCoreAugmentItem));
     }
     public AugmentBlockEntityInventory(int slotCount, int allowedItemSize, Predicate<ItemStack> inputPredicate) {
         super(slotCount, allowedItemSize, inputPredicate);

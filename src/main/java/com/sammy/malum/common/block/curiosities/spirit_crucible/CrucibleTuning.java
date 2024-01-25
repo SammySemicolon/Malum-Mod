@@ -80,7 +80,7 @@ public class CrucibleTuning {
         }
 
         public String translation() {
-            return "malum.gui.crucible.tuning." + toString().toLowerCase(Locale.ROOT);
+            return "malum.gui.crucible.attribute." + toString().toLowerCase(Locale.ROOT);
         }
     }
 

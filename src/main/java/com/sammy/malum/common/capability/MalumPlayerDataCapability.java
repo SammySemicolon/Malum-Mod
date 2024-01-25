@@ -2,7 +2,7 @@ package com.sammy.malum.common.capability;
 
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.packets.SyncMalumPlayerCapabilityDataPacket;
-import com.sammy.malum.core.handlers.SoulWardHandler;
+import com.sammy.malum.core.handlers.*;
 import com.sammy.malum.registry.common.PacketRegistry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
@@ -27,6 +27,7 @@ public class MalumPlayerDataCapability implements LodestoneCapability {
     });
 
     public SoulWardHandler soulWardHandler = new SoulWardHandler();
+    public ReserveStaffChargeHandler reserveStaffChargeHandler = new ReserveStaffChargeHandler();
 
     public boolean obtainedEncyclopedia;
 
@@ -71,6 +72,7 @@ public class MalumPlayerDataCapability implements LodestoneCapability {
         CompoundTag tag = new CompoundTag();
 
         tag.put("soulWardData", soulWardHandler.serializeNBT());
+        tag.put("staffChargeData", reserveStaffChargeHandler.serializeNBT());
 
         tag.putBoolean("obtainedEncyclopedia", obtainedEncyclopedia);
         return tag;
@@ -80,6 +82,9 @@ public class MalumPlayerDataCapability implements LodestoneCapability {
     public void deserializeNBT(CompoundTag tag) {
         if (tag.contains("soulWardData")) {
             soulWardHandler.deserializeNBT(tag.getCompound("soulWardData"));
+        }
+        if (tag.contains("staffChargeData")) {
+            reserveStaffChargeHandler.deserializeNBT(tag.getCompound("staffChargeData"));
         }
 
         obtainedEncyclopedia = tag.getBoolean("obtainedEncyclopedia");

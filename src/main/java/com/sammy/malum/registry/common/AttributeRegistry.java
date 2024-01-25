@@ -23,6 +23,8 @@ public class AttributeRegistry {
     public static final RegistryObject<Attribute> SOUL_WARD_RECOVERY_SPEED = registerAttribute(ATTRIBUTES, MALUM, "soul_ward_recovery_speed", (id) -> new RangedAttribute(id, 0D, 0.0D, 2048.0D).setSyncable(true));
     public static final RegistryObject<Attribute> SOUL_WARD_CAP = registerAttribute(ATTRIBUTES, MALUM, "soul_ward_capacity", (id) -> new RangedAttribute(id, 0D, 0.0D, 2048.0D).setSyncable(true));
 
+    public static final RegistryObject<Attribute> RESERVE_STAFF_CHARGES = registerAttribute(ATTRIBUTES, MALUM, "reserve_staff_charges", (id) -> new RangedAttribute(id, 0D, 0.0D, 2048.0D).setSyncable(true));
+
 
     @SubscribeEvent
     public static void modifyEntityAttributes(EntityAttributeModificationEvent event) {
@@ -35,6 +37,7 @@ public class AttributeRegistry {
             event.add(e, SOUL_WARD_STRENGTH.get());
             event.add(e, SOUL_WARD_RECOVERY_SPEED.get());
             event.add(e, SOUL_WARD_CAP.get());
+            event.add(e, RESERVE_STAFF_CHARGES.get());
         });
     }
 }

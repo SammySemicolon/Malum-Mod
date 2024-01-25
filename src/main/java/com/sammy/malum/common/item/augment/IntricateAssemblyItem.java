@@ -8,13 +8,13 @@ public class IntricateAssemblyItem extends AbstractAugmentItem{
     }
 
     @Override
-    public float getBonusYieldChanceIncrease() {
+    public float getFortuneChance() {
         return 0.10f;
     }
 
     @Override
     public float getFuelUsageRateIncrease() {
-        return 0.16f;
+        return 0.15f;
     }
 
     @Override

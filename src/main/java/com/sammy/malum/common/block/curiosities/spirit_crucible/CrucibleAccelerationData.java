@@ -60,16 +60,16 @@ public class CrucibleAccelerationData {
                         + augments.stream().map(AbstractAugmentItem::getSpeedIncrease).reduce(Float::sum).orElse(0f));
         this.damageChance = tuning.damageChanceMultiplier.createTunedValue(
                 typeCount.entrySet().stream().map((entry) -> entry.getKey().getExtraDamageRollChance(entry.getValue())).reduce(Float::sum).orElse(0f)
-                        + augments.stream().map(AbstractAugmentItem::getDamageChanceIncrease).reduce(Float::sum).orElse(0f));
+                        + augments.stream().map(AbstractAugmentItem::getInstabilityIncrease).reduce(Float::sum).orElse(0f));
 
         this.bonusYieldChance = tuning.bonusYieldChanceMultiplier.createTunedValue(
-                augments.stream().map(AbstractAugmentItem::getBonusYieldChanceIncrease).reduce(Float::sum).orElse(0f));
+                augments.stream().map(AbstractAugmentItem::getFortuneChance).reduce(Float::sum).orElse(0f));
         this.fuelUsageRate = tuning.fuelUsageRate.createTunedValue(
                 augments.stream().map(AbstractAugmentItem::getFuelUsageRateIncrease).reduce(Float::sum).orElse(0f));
         this.chainFocusingChance = tuning.chainFocusingChanceMultiplier.createTunedValue(
-                augments.stream().map(AbstractAugmentItem::getInstantCompletionChance).reduce(Float::sum).orElse(0f));
+                augments.stream().map(AbstractAugmentItem::getChainFocusingChance).reduce(Float::sum).orElse(0f));
         this.damageAbsorptionChance = tuning.damageAbsorptionChanceMultiplier.createTunedValue(
-                augments.stream().map(AbstractAugmentItem::getCompleteDamageNegationChance).reduce(Float::sum).orElse(0f));
+                augments.stream().map(AbstractAugmentItem::getShieldingChance).reduce(Float::sum).orElse(0f));
         this.restorationChance = tuning.restorationChanceMultiplier.createTunedValue(
                 augments.stream().map(AbstractAugmentItem::getRestorationChance).reduce(Float::sum).orElse(0f));
 

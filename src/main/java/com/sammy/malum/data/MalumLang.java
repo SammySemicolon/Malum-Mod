@@ -126,6 +126,14 @@ public class MalumLang extends LanguageProvider {
             String name = DataHelper.toTitleCase(value.toString().toLowerCase(Locale.ROOT), "_");
             add(translation, name);
         }
+        add("malum.gui.crucible.attribute.weakest_boost", "Weakest Boost");
+        add("malum.gui.crucible.attribute.tuning_potency", "Tuning Potency");
+
+        add("malum.gui.augment.slot", "Slot: ");
+        add("malum.gui.augment.installed", "When installed: ");
+        add("malum.gui.augment.type.augment", "Augment");
+        add("malum.gui.augment.type.core_augment", "Core Augment");
+
 
         add("malum.gui.rite.type", "Type: ");
         add("malum.gui.rite.coverage", "Coverage: ");
@@ -167,6 +175,9 @@ public class MalumLang extends LanguageProvider {
         }
 
         add("malum.gui.effect", "Effect: ");
+
+        addSimpleEntryHeader("chronicles_of_the_void", "Chronicles of the Void", "Otherworldly alterations");
+        addSimpleEntryHeader("research_of_the_rejected", "Research of the Rejected", "A thaumaturge's escalation");
 
         addSimpleEntryHeader("introduction", "Introduction", "On the nature of souls");
         addPages("introduction",

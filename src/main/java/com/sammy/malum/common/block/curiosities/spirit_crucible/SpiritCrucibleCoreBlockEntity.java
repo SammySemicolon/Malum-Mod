@@ -104,7 +104,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
                 BlockHelper.updateAndNotifyState(level, worldPosition);
             }
         };
-        coreAugmentInventory = new AugmentBlockEntityInventory(1, 1, t -> t.getItem() instanceof CoreAugmentItem) {
+        coreAugmentInventory = new AugmentBlockEntityInventory(1, 1, t -> t.getItem() instanceof AbstractCoreAugmentItem) {
             @Override
             public void onContentsChanged(int slot) {
                 super.onContentsChanged(slot);
@@ -167,20 +167,25 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
                 recalibrateAccelerators(level, worldPosition);
                 level.playSound(null, worldPosition, SoundRegistry.TUNING_FORK_TINKERS.get(), SoundSource.BLOCKS, 1.25f+level.random.nextFloat()*0.5f, 0.75f+level.random.nextFloat()*0.5f);
                 BlockHelper.updateAndNotifyState(level, worldPosition);
-                float f=  0;
                 return InteractionResult.SUCCESS;
             }
             final boolean augmentOnly = heldStack.getItem() instanceof AbstractAugmentItem;
-            if (augmentOnly || (heldStack.isEmpty() && inventory.isEmpty() && spiritInventory.isEmpty())) {
-                ItemStack stack = coreAugmentInventory.interact(player.level(), player, hand);
-                if (!stack.isEmpty()) {
-                    recalibrateAccelerators(level, worldPosition);
-                    return InteractionResult.SUCCESS;
+            final boolean isEmpty = heldStack.isEmpty();
+            if (augmentOnly || (isEmpty && inventory.isEmpty() && spiritInventory.isEmpty())) {
+                final boolean isCoreAugment = heldStack.getItem() instanceof AbstractCoreAugmentItem;
+                if ((augmentOnly && !isCoreAugment) || isEmpty) {
+                    ItemStack stack = augmentInventory.interact(player.level(), player, hand);
+                    if (!stack.isEmpty()) {
+                        recalibrateAccelerators(level, worldPosition);
+                        return InteractionResult.SUCCESS;
+                    }
                 }
-                stack = augmentInventory.interact(player.level(), player, hand);
-                if (!stack.isEmpty()) {
-                    recalibrateAccelerators(level, worldPosition);
-                    return InteractionResult.SUCCESS;
+                if ((augmentOnly && isCoreAugment) || isEmpty) {
+                    ItemStack stack = coreAugmentInventory.interact(player.level(), player, hand);
+                    if (!stack.isEmpty()) {
+                        recalibrateAccelerators(level, worldPosition);
+                        return InteractionResult.SUCCESS;
+                    }
                 }
             }
             recalibrateAccelerators(level, worldPosition);
@@ -196,7 +201,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
                     }
                 }
             }
-            if (heldStack.isEmpty()) {
+            if (isEmpty) {
                 return InteractionResult.SUCCESS;
             } else {
                 return InteractionResult.FAIL;

@@ -11,6 +11,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
 public class EncyclopediaArcanaItem extends Item {
+
+    public static boolean shouldOpenVoidCodex;
+
     public EncyclopediaArcanaItem(Properties properties) {
         super(properties);
     }
@@ -18,7 +21,12 @@ public class EncyclopediaArcanaItem extends Item {
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         if (level.isClientSide) {
-            ArcanaProgressionScreen.openCodexViaItem();
+            if (shouldOpenVoidCodex) {
+                VoidProgressionScreen.openCodexViaItem();
+            }
+            else {
+                ArcanaProgressionScreen.openCodexViaItem();
+            }
             player.swing(hand);
             return InteractionResultHolder.success(player.getItemInHand(hand));
         }

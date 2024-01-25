@@ -130,6 +130,7 @@ public class RuntimeEvents {
 
     @SubscribeEvent
     public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
+        ReserveStaffChargeHandler.recoverStaffCharges(event);
         SoulWardHandler.recoverSoulWard(event);
     }
 

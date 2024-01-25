@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.sammy.malum.client.screen.codex.objects.*;
 import com.sammy.malum.client.screen.codex.pages.*;
 import com.sammy.malum.common.events.SetupMalumCodexEntriesEvent;
+import com.sammy.malum.common.item.*;
 import com.sammy.malum.registry.common.*;
 import com.sammy.malum.registry.common.item.ItemRegistry;
 import net.minecraft.client.Minecraft;
@@ -125,6 +126,7 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
         getScreenInstance().openScreen(false);
         screen.faceObject(screen.bookObjects.get(0));
         screen.playSound(SoundRegistry.ARCANA_TRANSITION_NORMAL, 1.25f, 1f);
+        EncyclopediaArcanaItem.shouldOpenVoidCodex = false;
     }
 
     public static void setupEntries() {

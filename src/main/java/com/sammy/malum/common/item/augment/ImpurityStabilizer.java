@@ -18,7 +18,7 @@ public class ImpurityStabilizer extends AbstractAugmentItem{
     }
 
     @Override
-    public float getDamageChanceIncrease() {
+    public float getInstabilityIncrease() {
         return -0.02f;
     }
 }

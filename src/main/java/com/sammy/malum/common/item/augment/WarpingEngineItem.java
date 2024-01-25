@@ -8,12 +8,12 @@ public class WarpingEngineItem extends AbstractAugmentItem{
     }
 
     @Override
-    public float getInstantCompletionChance() {
+    public float getChainFocusingChance() {
         return 0.06f;
     }
 
     @Override
-    public float getDamageChanceIncrease() {
+    public float getInstabilityIncrease() {
         return 0.02f;
     }
 
