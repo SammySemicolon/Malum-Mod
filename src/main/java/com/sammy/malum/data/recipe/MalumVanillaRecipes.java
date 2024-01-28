@@ -125,8 +125,6 @@ public class MalumVanillaRecipes implements IConditionBuilder {
         blastingWithCount(Ingredient.of(ItemRegistry.SOULSTONE_ORE.get()), RecipeCategory.MISC, ItemRegistry.PROCESSED_SOULSTONE.get(), 2, 0.25f, 100).unlockedBy("has_soulstone", has(ItemRegistry.RAW_SOULSTONE.get())).save(consumer, malumPath("soulstone_from_blasting"));
         smeltingWithCount(Ingredient.of(ItemRegistry.DEEPSLATE_SOULSTONE_ORE.get()), RecipeCategory.MISC, ItemRegistry.PROCESSED_SOULSTONE.get(), 2, 0.25f, 200).unlockedBy("has_soulstone", has(ItemRegistry.RAW_SOULSTONE.get())).save(consumer, malumPath("soulstone_from_deepslate_smelting"));
         blastingWithCount(Ingredient.of(ItemRegistry.DEEPSLATE_SOULSTONE_ORE.get()), RecipeCategory.MISC, ItemRegistry.PROCESSED_SOULSTONE.get(), 2, 0.25f, 100).unlockedBy("has_soulstone", has(ItemRegistry.RAW_SOULSTONE.get())).save(consumer, malumPath("soulstone_from_deepslate_blasting"));
-        smelting(Ingredient.of(ItemRegistry.BLOCK_OF_CTHONIC_GOLD.get()), RecipeCategory.MISC, ItemRegistry.CTHONIC_GOLD.get(), 2.0f, 200).unlockedBy("has_cthonic_gold", has(ItemRegistry.CTHONIC_GOLD.get())).save(consumer, malumPath("cthonic_gold_from_smelting"));
-        blasting(Ingredient.of(ItemRegistry.BLOCK_OF_CTHONIC_GOLD.get()), RecipeCategory.MISC, ItemRegistry.CTHONIC_GOLD.get(), 2.0f, 100).unlockedBy("has_cthonic_gold", has(ItemRegistry.CTHONIC_GOLD.get())).save(consumer, malumPath("cthonic_gold_from_blasting"));
 
         smeltingWithCount(Ingredient.of(ItemRegistry.CLUSTER_OF_BRILLIANCE.get()), RecipeCategory.MISC, ItemRegistry.CHUNK_OF_BRILLIANCE.get(), 2, 1, 200).unlockedBy("has_brilliance", has(ItemRegistry.CLUSTER_OF_BRILLIANCE.get())).save(consumer, malumPath("brilliance_from_raw_smelting"));
         blastingWithCount(Ingredient.of(ItemRegistry.CLUSTER_OF_BRILLIANCE.get()), RecipeCategory.MISC, ItemRegistry.CHUNK_OF_BRILLIANCE.get(), 2, 1, 100).unlockedBy("has_brilliance", has(ItemRegistry.CLUSTER_OF_BRILLIANCE.get())).save(consumer, malumPath("brilliance_from_raw_blasting"));
@@ -150,6 +148,12 @@ public class MalumVanillaRecipes implements IConditionBuilder {
         shapeless(RecipeCategory.MISC, ItemRegistry.CLUSTER_OF_BRILLIANCE.get(), 9).requires(ItemRegistry.BLOCK_OF_BRILLIANCE.get()).unlockedBy("has_brilliance", has(ItemRegistry.CLUSTER_OF_BRILLIANCE.get())).save(consumer, malumPath("brilliance_from_block"));
         shaped(RecipeCategory.MISC, ItemRegistry.BLOCK_OF_SOULSTONE.get()).define('#', ItemRegistry.PROCESSED_SOULSTONE.get()).pattern("###").pattern("###").pattern("###").unlockedBy("has_soulstone", has(ItemRegistry.RAW_SOULSTONE.get())).save(consumer, malumPath("block_of_soulstone"));
         shapeless(RecipeCategory.MISC, ItemRegistry.PROCESSED_SOULSTONE.get(), 9).requires(ItemRegistry.BLOCK_OF_SOULSTONE.get()).unlockedBy("has_soulstone", has(ItemRegistry.RAW_SOULSTONE.get())).save(consumer, malumPath("soulstone_from_block"));
+
+        shaped(RecipeCategory.MISC, ItemRegistry.BLOCK_OF_CTHONIC_GOLD.get()).define('#', ItemRegistry.CTHONIC_GOLD.get()).pattern("###").pattern("###").pattern("###").unlockedBy("has_cthonic_gold", has(ItemRegistry.CTHONIC_GOLD.get())).save(consumer, malumPath("block_of_cthonic_gold"));
+        shapeless(RecipeCategory.MISC, ItemRegistry.CTHONIC_GOLD.get(), 9).requires(ItemRegistry.BLOCK_OF_CTHONIC_GOLD.get()).unlockedBy("has_cthonic_gold", has(ItemRegistry.CTHONIC_GOLD.get())).save(consumer, malumPath("cthonic_gold_from_block"));
+
+        shapeless(RecipeCategory.MISC, ItemRegistry.CTHONIC_GOLD.get()).requires(ItemRegistry.CTHONIC_GOLD_FRAGMENT.get(), 8).unlockedBy("has_cthonic_gold", has(ItemRegistry.CTHONIC_GOLD.get())).save(consumer, malumPath("cthonic_gold_from_fragment"));
+        shapeless(RecipeCategory.MISC, ItemRegistry.CTHONIC_GOLD_FRAGMENT.get(), 8).requires(ItemRegistry.CTHONIC_GOLD.get()).unlockedBy("has_cthonic_gold", has(ItemRegistry.CTHONIC_GOLD.get())).save(consumer, malumPath("cthonic_gold_fragment"));
 
         //COMPACT BLOCKS
         shaped(RecipeCategory.MISC, ItemRegistry.BLOCK_OF_ROTTING_ESSENCE.get()).define('#', ItemRegistry.ROTTING_ESSENCE.get()).pattern("###").pattern("###").pattern("###").unlockedBy("has_rotting_essence", has(ItemRegistry.ROTTING_ESSENCE.get())).save(consumer, malumPath("block_of_rotting_essence"));

@@ -54,8 +54,8 @@ public class ConfiguredFeatureRegistry {
             OreConfiguration.target(DEEPSLATE_ORE_REPLACEABLES, BlockRegistry.DEEPSLATE_QUARTZ_ORE.get().defaultBlockState()));
 
     public static final List<OreConfiguration.TargetBlockState> CTHONIC_GOLD_TARGET_LIST = List.of(
-            OreConfiguration.target(DEEPSLATE_ORE_REPLACEABLES, Blocks.DEEPSLATE_GOLD_ORE.defaultBlockState()),
-            OreConfiguration.target(new BlockMatchTest(Blocks.DEEPSLATE_GOLD_ORE), BlockRegistry.CTHONIC_GOLD_ORE.get().defaultBlockState()));
+            OreConfiguration.target(DEEPSLATE_ORE_REPLACEABLES, BlockRegistry.CTHONIC_GOLD_ORE.get().defaultBlockState()),
+            OreConfiguration.target(DEEPSLATE_ORE_REPLACEABLES, Blocks.DEEPSLATE_GOLD_ORE.defaultBlockState()));
 
     public static final List<OreConfiguration.TargetBlockState> BLAZING_QUARTZ_TARGET_LIST = List.of(
             OreConfiguration.target(new TagMatchTest(BlockTags.BASE_STONE_NETHER), BlockRegistry.BLAZING_QUARTZ_ORE.get().defaultBlockState()));
@@ -65,7 +65,7 @@ public class ConfiguredFeatureRegistry {
         context.register(ConfiguredFeatureRegistry.CONFIGURED_SOULSTONE_ORE, addOreConfig(SOULSTONE_TARGET_LIST, 8));
         context.register(ConfiguredFeatureRegistry.CONFIGURED_BRILLIANT_ORE, addOreConfig(BRILLIANT_TARGET_LIST, 4));
         context.register(ConfiguredFeatureRegistry.CONFIGURED_NATURAL_QUARTZ_ORE, addOreConfig(NATURAL_QUARTZ_TARGET_LIST, 5));
-        context.register(ConfiguredFeatureRegistry.CONFIGURED_CTHONIC_GOLD_ORE_FEATURE, addOreConfig(FeatureRegistry.CTHONIC_GOLD_ORE.get(), CTHONIC_GOLD_TARGET_LIST, 16));
+        context.register(ConfiguredFeatureRegistry.CONFIGURED_CTHONIC_GOLD_ORE_FEATURE, addOreConfig(FeatureRegistry.CTHONIC_GOLD_ORE.get(), CTHONIC_GOLD_TARGET_LIST, 8));
         context.register(ConfiguredFeatureRegistry.CONFIGURED_BLAZING_QUARTZ_ORE, addOreConfig(BLAZING_QUARTZ_TARGET_LIST, 14));
 
         context.register(ConfiguredFeatureRegistry.CONFIGURED_RUNEWOOD_TREE, addTreeConfig(FeatureRegistry.RUNEWOOD_TREE.get()));

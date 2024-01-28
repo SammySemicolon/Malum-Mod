@@ -2,11 +2,11 @@
   "type": "malum:cthonic_gold_ore",
   "config": {
     "discard_chance_on_air_exposure": 0.0,
-    "size": 16,
+    "size": 8,
     "targets": [
       {
         "state": {
-          "Name": "minecraft:deepslate_gold_ore"
+          "Name": "malum:cthonic_gold_ore"
         },
         "target": {
           "predicate_type": "minecraft:tag_match",
@@ -15,11 +15,11 @@
       },
       {
         "state": {
-          "Name": "malum:cthonic_gold_ore"
+          "Name": "minecraft:deepslate_gold_ore"
         },
         "target": {
-          "block": "minecraft:deepslate_gold_ore",
-          "predicate_type": "minecraft:block_match"
+          "predicate_type": "minecraft:tag_match",
+          "tag": "minecraft:deepslate_ore_replaceables"
         }
       }
     ]

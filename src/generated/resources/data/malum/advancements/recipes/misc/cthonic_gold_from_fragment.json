@@ -15,7 +15,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "malum:cthonic_gold_from_blasting"
+        "recipe": "malum:cthonic_gold_from_fragment"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -28,7 +28,7 @@
   ],
   "rewards": {
     "recipes": [
-      "malum:cthonic_gold_from_blasting"
+      "malum:cthonic_gold_from_fragment"
     ]
   },
   "sends_telemetry_event": false

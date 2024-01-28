@@ -161,6 +161,24 @@ public class MalumBlockProperties {
                 .sound(SoundRegistry.CTHONIC_GOLD);
     }
 
+    public static LodestoneBlockProperties CTHONIC_GOLD_CLUSTER() {
+        return new LodestoneBlockProperties()
+                .needsPickaxe()
+                .requiresCorrectToolForDrops()
+                .strength(4f, 9999f)
+                .sound(SoundRegistry.CTHONIC_GOLD);
+    }
+
+    public static LodestoneBlockProperties CTHONIC_GOLD_BLOCK() {
+        return new LodestoneBlockProperties()
+                .addTag(Tags.Blocks.STORAGE_BLOCKS)
+                .addTag(BlockTags.BEACON_BASE_BLOCKS)
+                .needsPickaxe()
+                .requiresCorrectToolForDrops()
+                .strength(10f, 9999f)
+                .sound(SoundRegistry.CTHONIC_GOLD);
+    }
+
     public static LodestoneBlockProperties NATURAL_QUARTZ_CLUSTER() {
         return new LodestoneBlockProperties()
                 .needsPickaxe()
