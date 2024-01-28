@@ -17,6 +17,9 @@ public class MalumBlockProperties {
                 .sound(SoundRegistry.TAINTED_ROCK)
                 .strength(1.25F, 9.0F);
     }
+    public static LodestoneBlockProperties TAINTED_ROCK_BRICKS() {
+        return TAINTED_ROCK().sound(SoundRegistry.TAINTED_ROCK_BRICKS);
+    }
 
     public static LodestoneBlockProperties TWISTED_ROCK() {
         return new LodestoneBlockProperties()
@@ -25,6 +28,9 @@ public class MalumBlockProperties {
                 .requiresCorrectToolForDrops()
                 .sound(SoundRegistry.TWISTED_ROCK)
                 .strength(1.25F, 9.0F);
+    }
+    public static LodestoneBlockProperties TWISTED_ROCK_BRICKS() {
+        return TWISTED_ROCK().sound(SoundRegistry.TWISTED_ROCK_BRICKS);
     }
 
     public static LodestoneBlockProperties RUNEWOOD() {
@@ -151,7 +157,7 @@ public class MalumBlockProperties {
                 .addTag(Tags.Blocks.ORES)
                 .needsPickaxe()
                 .requiresCorrectToolForDrops()
-                .strength(25f, 9999f)
+                .strength(10f, 9999f)
                 .sound(SoundRegistry.CTHONIC_GOLD);
     }
 

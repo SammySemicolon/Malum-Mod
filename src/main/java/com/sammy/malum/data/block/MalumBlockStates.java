@@ -154,17 +154,18 @@ public class MalumBlockStates extends LodestoneBlockStateProvider {
         BlockStateSmithTypes.CUSTOM_MODEL.act(data, this::directionalBlock, this::woodenItemStandModel, SOULWOOD_ITEM_STAND);
 
         setTexturePath("ores/");
-        BlockStateSmithTypes.FULL_BLOCK.act(data, BLOCK_OF_CTHONIC_GOLD, NATURAL_QUARTZ_ORE, DEEPSLATE_QUARTZ_ORE, SOULSTONE_ORE, DEEPSLATE_SOULSTONE_ORE);
+        BlockStateSmithTypes.FULL_BLOCK.act(data, CTHONIC_GOLD_ORE, NATURAL_QUARTZ_ORE, DEEPSLATE_QUARTZ_ORE, SOULSTONE_ORE, DEEPSLATE_SOULSTONE_ORE);
         BlockStateSmithTypes.CUSTOM_MODEL.act(data, this::simpleBlock, this::layeredBlockModel, BLAZING_QUARTZ_ORE, BRILLIANT_STONE, BRILLIANT_DEEPSLATE);
         BlockStateSmithTypes.CUSTOM_MODEL.act(data, ItemModelSmithTypes.GENERATED_ITEM, this::directionalBlock, fromFunction(models()::cross), NATURAL_QUARTZ_CLUSTER);
+        BlockStateSmithTypes.CUSTOM_MODEL.act(data, ItemModelSmithTypes.BLOCK_TEXTURE_ITEM, this::directionalBlock, fromFunction(models()::cross), CTHONIC_GOLD_CLUSTER);
 
         setTexturePath("storage_blocks/");
         BlockStateSmithTypes.FULL_BLOCK.act(data,
                 BLOCK_OF_SOUL_STAINED_STEEL, BLOCK_OF_ROTTING_ESSENCE, BLOCK_OF_GRIM_TALC, BLOCK_OF_ALCHEMICAL_CALX,
-                BLOCK_OF_RAW_SOULSTONE, BLOCK_OF_SOULSTONE, BLOCK_OF_ARCANE_CHARCOAL, BLOCK_OF_HALLOWED_GOLD,
-                BLOCK_OF_ASTRAL_WEAVE, BLOCK_OF_HEX_ASH, MASS_OF_BLIGHTED_GUNK, BLOCK_OF_CURSED_GRIT,
-                RUNIC_SAP_BLOCK, CURSED_SAP_BLOCK, BLOCK_OF_BLAZING_QUARTZ, BLOCK_OF_BRILLIANCE,
-                BLOCK_OF_NULL_SLATE, BLOCK_OF_VOID_SALTS, BLOCK_OF_MNEMONIC_FRAGMENT);
+                BLOCK_OF_RAW_SOULSTONE, BLOCK_OF_SOULSTONE, BLOCK_OF_CTHONIC_GOLD, BLOCK_OF_ARCANE_CHARCOAL,
+                BLOCK_OF_HALLOWED_GOLD, BLOCK_OF_ASTRAL_WEAVE, BLOCK_OF_HEX_ASH, MASS_OF_BLIGHTED_GUNK,
+                BLOCK_OF_CURSED_GRIT, RUNIC_SAP_BLOCK, CURSED_SAP_BLOCK, BLOCK_OF_BLAZING_QUARTZ,
+                BLOCK_OF_BRILLIANCE, BLOCK_OF_NULL_SLATE, BLOCK_OF_VOID_SALTS, BLOCK_OF_MNEMONIC_FRAGMENT);
 
         setTexturePath("blight/");
         MalumBlockStateSmithTypes.BLIGHTED_BLOCK.act(data, BLIGHTED_SOIL);

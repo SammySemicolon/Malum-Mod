@@ -8,13 +8,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.*;
 
-public class BookEntry {
+public class BookEntry<T extends AbstractProgressionCodexScreen> {
     public final String identifier;
     public final int xOffset;
     public final int yOffset;
     public List<BookPage> pages = new ArrayList<>();
-    public WidgetSupplier widgetSupplier = EntryObject::new;
-    public Consumer<EntryObject> widgetConfig;
+    public WidgetSupplier<T> widgetSupplier = EntryObject::new;
+    public Consumer<EntryObject<T>> widgetConfig;
 
     public BookEntry(String identifier, int xOffset, int yOffset) {
         this.identifier = identifier;
@@ -30,35 +30,28 @@ public class BookEntry {
         return "malum.gui.book.entry." + identifier + ".description";
     }
 
-    public BookEntry addPage(BookPage page) {
+    public BookEntry<T> addPage(BookPage page) {
         if (page.isValid()) {
             pages.add(page.setParentEntry(this));
         }
         return this;
     }
 
-    public BookEntry addModCompatPage(BookPage page, String modId) {
-        if (ModList.get().isLoaded(modId)) {
-            addPage(page);
-        }
-        return this;
-    }
-
-    public BookEntry setWidgetInfo(WidgetSupplier widgetSupplier, Consumer<EntryObject> widgetConfig) {
+    public BookEntry<T> setWidgetInfo(WidgetSupplier<T> widgetSupplier, Consumer<EntryObject<T>> widgetConfig) {
         return setWidgetSupplier(widgetSupplier).setWidgetConfig(widgetConfig);
     }
 
-    public BookEntry setWidgetSupplier(WidgetSupplier widgetSupplier) {
+    public BookEntry<T> setWidgetSupplier(WidgetSupplier<T> widgetSupplier) {
         this.widgetSupplier = widgetSupplier;
         return this;
     }
 
-    public BookEntry setWidgetConfig(Consumer<EntryObject> widgetConfig) {
+    public BookEntry<T> setWidgetConfig(Consumer<EntryObject<T>> widgetConfig) {
         this.widgetConfig = widgetConfig;
         return this;
     }
 
-    public interface WidgetSupplier {
-        EntryObject getBookObject(AbstractProgressionCodexScreen screen, BookEntry entry, int x, int y);
+    public interface WidgetSupplier<T extends AbstractProgressionCodexScreen> {
+        EntryObject<T> getBookObject(T screen, BookEntry<T> entry, int x, int y);
     }
 }

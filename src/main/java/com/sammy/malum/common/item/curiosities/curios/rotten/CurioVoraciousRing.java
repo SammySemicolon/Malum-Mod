@@ -44,18 +44,17 @@ public class CurioVoraciousRing extends MalumCurioItem {
             ItemStack stack = event.getResultStack();
             if (CurioHelper.hasCurioEquipped(player, ItemRegistry.RING_OF_DESPERATE_VORACITY.get())) {
                 if (stack.is(GROSS_FOODS)) {
-                    double arcaneResonance = player.getAttribute(AttributeRegistry.ARCANE_RESONANCE.get()).getValue();
                     Level level = player.level();
                     MobEffectInstance gluttony = player.getEffect(MobEffectRegistry.GLUTTONY.get());
                     MobEffectInstance hunger = player.getEffect(MobEffects.HUNGER);
                     if (gluttony != null) {
-                        EntityHelper.extendEffect(gluttony, player, 300, 600 + (int) (arcaneResonance * 600));
+                        EntityHelper.extendEffect(gluttony, player, 300, 600);
+                        level.playSound(null, player.blockPosition(), SoundRegistry.HUNGRY_BELT_FEEDS.get(), SoundSource.PLAYERS, 0.75f, RandomHelper.randomBetween(level.random, 0.8f, 1.2f));
                     }
                     if (hunger != null) {
                         EntityHelper.shortenEffect(hunger, player, 150);
                     }
                     player.getFoodData().eat(1, 1f);
-                    level.playSound(null, player.blockPosition(), SoundRegistry.HUNGRY_BELT_FEEDS.get(), SoundSource.PLAYERS, 1.7f, RandomHelper.randomBetween(level.random, 0.8f, 1.2f));
                 }
             }
         }

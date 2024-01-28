@@ -5,8 +5,10 @@
     "malum:block_of_cthonic_gold",
     "malum:brilliant_stone",
     "malum:natural_quartz_ore",
+    "malum:cthonic_gold_ore",
     "malum:brilliant_deepslate",
     "malum:deepslate_quartz_ore",
+    "malum:cthonic_gold_cluster",
     "malum:deepslate_soulstone_ore"
   ]
 }

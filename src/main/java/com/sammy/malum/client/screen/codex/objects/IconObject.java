@@ -12,15 +12,15 @@ import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.*;
 import static com.sammy.malum.client.screen.codex.ArcanaProgressionScreen.FRAME_FADE_TEXTURE;
 import static com.sammy.malum.client.screen.codex.ArcanaProgressionScreen.FRAME_TEXTURE;
 
-public class IconObject extends EntryObject {
+public class IconObject<T extends AbstractProgressionCodexScreen> extends EntryObject<T> {
     public final ResourceLocation textureLocation;
     public final int textureWidth;
     public final int textureHeight;
 
-    public IconObject(AbstractProgressionCodexScreen screen, BookEntry entry, int posX, int posY, ResourceLocation textureLocation) {
+    public IconObject(T screen, BookEntry<T> entry, int posX, int posY, ResourceLocation textureLocation) {
         this(screen, entry, posX, posY, textureLocation, 16, 16);
     }
-    public IconObject(AbstractProgressionCodexScreen screen, BookEntry entry, int posX, int posY, ResourceLocation textureLocation, int textureWidth, int textureHeight) {
+    public IconObject(T screen, BookEntry<T> entry, int posX, int posY, ResourceLocation textureLocation, int textureWidth, int textureHeight) {
         super(screen, entry, posX, posY);
         this.textureLocation = textureLocation;
         this.textureWidth = textureWidth;

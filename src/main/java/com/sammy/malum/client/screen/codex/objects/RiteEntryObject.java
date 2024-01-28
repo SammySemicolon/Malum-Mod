@@ -14,10 +14,10 @@ import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.*;
 import static com.sammy.malum.client.screen.codex.ArcanaProgressionScreen.FRAME_FADE_TEXTURE;
 import static com.sammy.malum.client.screen.codex.ArcanaProgressionScreen.FRAME_TEXTURE;
 
-public class RiteEntryObject extends EntryObject {
+public class RiteEntryObject<T extends AbstractProgressionCodexScreen> extends EntryObject<T> {
     public final MalumRiteType riteType;
 
-    public RiteEntryObject(AbstractProgressionCodexScreen screen, BookEntry entry, int posX, int posY) {
+    public RiteEntryObject(T screen, BookEntry<T> entry, int posX, int posY) {
         super(screen, entry, posX, posY);
         Optional<SpiritRiteTextPage> page = entry.pages.stream().filter(p -> p instanceof SpiritRiteTextPage).map(p -> ((SpiritRiteTextPage) p)).findAny();
         if (page.isPresent()) {

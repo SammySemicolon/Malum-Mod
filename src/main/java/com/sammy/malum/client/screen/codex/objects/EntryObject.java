@@ -14,15 +14,21 @@ import java.util.function.*;
 import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.renderTexture;
 import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.renderTransparentTexture;
 
-public class EntryObject extends BookObject {
+public class EntryObject<T extends AbstractProgressionCodexScreen> extends BookObject<T> {
 
-    public final BookEntry entry;
+    public final BookEntry<T> entry;
     public BookWidgetStyle style = BookWidgetStyle.RUNEWOOD;
+    public Predicate<T> isValid = t -> true;
     public ItemStack iconStack;
 
-    public EntryObject(AbstractProgressionCodexScreen screen, BookEntry entry, int posX, int posY) {
+    public EntryObject(T screen, BookEntry<T> entry, int posX, int posY) {
         super(screen, posX, posY, 32, 32);
         this.entry = entry;
+    }
+
+    @Override
+    public boolean isValid() {
+        return isValid.test(screen);
     }
 
     @Override
@@ -53,21 +59,22 @@ public class EntryObject extends BookObject {
         }
     }
 
-    public EntryObject setIcon(Supplier<? extends Item> item) {
+    public EntryObject<T> setIcon(Supplier<? extends Item> item) {
         return setIcon(item.get());
     }
 
-    public EntryObject setIcon(Item item) {
+    public EntryObject<T> setIcon(Item item) {
         iconStack = item.getDefaultInstance();
         return this;
     }
 
-    public EntryObject setStyle(BookWidgetStyle style) {
+    public EntryObject<T> setStyle(BookWidgetStyle style) {
         this.style = style;
         return this;
     }
 
-    public int getFrameOffset() {
-        return 0;
+    public EntryObject<T> setValidityChecker(Predicate<T> isValid) {
+        this.isValid = isValid;
+        return this;
     }
 }

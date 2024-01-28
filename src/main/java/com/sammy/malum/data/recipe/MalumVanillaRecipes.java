@@ -181,7 +181,7 @@ public class MalumVanillaRecipes implements IConditionBuilder {
         shaped(RecipeCategory.MISC, Items.SKELETON_SKULL).define('#', ItemRegistry.GRIM_TALC.get()).define('&', Tags.Items.BONES).pattern("&&&").pattern("&#&").pattern("&&&").unlockedBy("has_grim_talc", has(ItemRegistry.GRIM_TALC.get())).save(consumer, malumPath("skeleton_skull_from_grim_talc"));
         shaped(RecipeCategory.MISC, Items.ZOMBIE_HEAD).define('#', ItemRegistry.GRIM_TALC.get()).define('&', Items.ROTTEN_FLESH).pattern("&&&").pattern("&#&").pattern("&&&").unlockedBy("has_grim_talc", has(ItemRegistry.GRIM_TALC.get())).save(consumer, malumPath("zombie_head_from_grim_talc"));
 
-        shaped(RecipeCategory.MISC, Items.TORCH, 6).define('#', ItemRegistry.BLAZING_QUARTZ.get()).define('&', Items.STICK).pattern("#").pattern("&").unlockedBy("has_blazing_quartz", has(ItemRegistry.BLAZING_QUARTZ.get())).save(consumer);
+        shaped(RecipeCategory.MISC, Items.TORCH, 6).define('#', ItemRegistry.BLAZING_QUARTZ.get()).define('&', Items.STICK).pattern("#").pattern("&").unlockedBy("has_blazing_quartz", has(ItemRegistry.BLAZING_QUARTZ.get())).save(consumer, malumPath("torch_from_blazing_quartz"));
 
         //SAP & ARCANE CHARCOAL
         smelting(Ingredient.of(ItemTagRegistry.RUNEWOOD_LOGS), RecipeCategory.MISC, ItemRegistry.ARCANE_CHARCOAL.get(), 0.25f, 200).unlockedBy("has_runewood_planks", has(ItemTagRegistry.RUNEWOOD_LOGS)).save(consumer, malumPath("arcane_charcoal_from_runewood"));

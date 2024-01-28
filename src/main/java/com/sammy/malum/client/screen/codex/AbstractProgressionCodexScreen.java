@@ -24,7 +24,7 @@ public abstract class AbstractProgressionCodexScreen extends AbstractMalumScreen
     public float cachedYOffset;
     public boolean ignoreNextMouseInput;
 
-    public final List<BookObject> bookObjects = new ArrayList<>();
+    public final List<BookObject<?>> bookObjects = new ArrayList<>();
 
     public final int bookWidth;
     public final int bookHeight;
@@ -96,8 +96,8 @@ public abstract class AbstractProgressionCodexScreen extends AbstractMalumScreen
         if (xOffset != cachedXOffset || yOffset != cachedYOffset) {
             return super.mouseReleased(mouseX, mouseY, button);
         }
-        for (BookObject object : bookObjects) {
-            if (object.isHovering(this, xOffset, yOffset, mouseX, mouseY)) {
+        for (BookObject<?> object : bookObjects) {
+            if (object.isValid() && object.isHovering(this, xOffset, yOffset, mouseX, mouseY)) {
                 object.click(xOffset, yOffset, mouseX, mouseY);
                 break;
             }
@@ -113,7 +113,7 @@ public abstract class AbstractProgressionCodexScreen extends AbstractMalumScreen
         return ArcanaCodexHelper.isHovering(mouseX, mouseY, posX, posY, width, height);
     }
 
-    public void faceObject(BookObject object) {
+    public void faceObject(BookObject<?> object) {
         this.width = minecraft.getWindow().getGuiScaledWidth();
         this.height = minecraft.getWindow().getGuiScaledHeight();
         xOffset = -object.posX + getGuiLeft() + bookInsideWidth;
@@ -122,18 +122,22 @@ public abstract class AbstractProgressionCodexScreen extends AbstractMalumScreen
 
     public void renderEntries(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
         for (int i = bookObjects.size() - 1; i >= 0; i--) {
-            BookObject object = bookObjects.get(i);
-            boolean isHovering = object.isHovering(this, xOffset, yOffset, mouseX, mouseY);
-            object.isHovering = isHovering;
-            object.hover = isHovering ? Math.min(object.hover + 1, object.hoverCap()) : Math.max(object.hover - 1, 0);
-            object.render(minecraft, guiGraphics, xOffset, yOffset, mouseX, mouseY, partialTicks);
+            BookObject<?> object = bookObjects.get(i);
+            if (object.isValid()) {
+                boolean isHovering = object.isHovering(this, xOffset, yOffset, mouseX, mouseY);
+                object.isHovering = isHovering;
+                object.hover = isHovering ? Math.min(object.hover + 1, object.hoverCap()) : Math.max(object.hover - 1, 0);
+                object.render(minecraft, guiGraphics, xOffset, yOffset, mouseX, mouseY, partialTicks);
+            }
         }
     }
 
     public void lateEntryRender(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
         for (int i = bookObjects.size() - 1; i >= 0; i--) {
-            BookObject object = bookObjects.get(i);
-            object.lateRender(minecraft, guiGraphics, xOffset, yOffset, mouseX, mouseY, partialTicks);
+            BookObject<?> object = bookObjects.get(i);
+            if (object.isValid()) {
+                object.lateRender(minecraft, guiGraphics, xOffset, yOffset, mouseX, mouseY, partialTicks);
+            }
         }
     }
 

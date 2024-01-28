@@ -90,6 +90,36 @@ public class ScreenParticleEffects {
                 .spawnOnStack(0, 0);
     }
 
+    public static void spawnVoidEncyclopediaArcanaScreenParticles(ScreenParticleHolder target, Level level, float partialTick) {
+        var rand = level.getRandom();
+        float distance = 7.5f;
+        for (int i = 0; i < 4; i++) {
+            float time = (((level.getGameTime() + partialTick) * 0.05f + i * (6.28f / 4)) % 6.28f);
+            float scalar = 0.6f;
+            if (time > 1.57f && time < 4.71f) {
+                scalar *= Easing.QUAD_IN.ease(Math.abs(3.14f - time) / 1.57f, 0, 1, 1);
+            }
+            double xOffset = Math.sin(time) * distance;
+            double yOffset = Math.cos(time) * distance * 0.5f;
+            float colorMultiplier = Mth.nextFloat(level.random, 0.7f, 1f);
+            Color color = new Color((int) (255 * colorMultiplier), (int) (51 * colorMultiplier), (int) (195 * colorMultiplier));
+            Color endColor = new Color((int) (56 * colorMultiplier), (int) (32 * colorMultiplier), (int) (77 * colorMultiplier));
+            float gameTime = level.getGameTime() + partialTick;
+            SpinParticleData spinParticleData = SpinParticleData.createRandomDirection(rand, level.random.nextBoolean() ? 1 : -2).setSpinOffset(0.025f * gameTime % 6.28f).build();
+            ScreenParticleBuilder.create(LodestoneScreenParticleRegistry.WISP, target)
+                    .setScaleData(GenericParticleData.create(0.1f*scalar, RandomHelper.randomBetween(rand, 0.2f, 0.3f) * scalar, 0).setEasing(Easing.SINE_IN_OUT).setEasing(Easing.EXPO_OUT).build())
+                    .setTransparencyData(GenericParticleData.create(0f, 0.25f, 0f).setEasing(Easing.SINE_IN_OUT).build())
+                    .setColorData(ColorParticleData.create(color, endColor.darker()).setCoefficient(1.25f).build())
+                    .setSpinData(spinParticleData)
+                    .setLifetime(40)
+                    .setDiscardFunction(SimpleParticleOptions.ParticleDiscardFunctionType.ENDING_CURVE_INVISIBLE)
+                    .spawnOnStack(xOffset, yOffset)
+                    .setRenderType(LodestoneScreenParticleRenderType.LUMITRANSPARENT)
+                    .setScaleData(GenericParticleData.create(0.25f * scalar, RandomHelper.randomBetween(rand, 0.3f, 0.4f) * scalar, 0).setEasing(Easing.SINE_IN_OUT).setEasing(Easing.EXPO_OUT).build())
+                    .repeatOnStack(xOffset, yOffset, 2);
+        }
+    }
+
     public static class VoidTransmutableParticleEffect implements IVoidItem {
 
         public static VoidTransmutableParticleEffect INSTANCE = new VoidTransmutableParticleEffect();
@@ -123,11 +153,6 @@ public class ScreenParticleEffects {
                 float scalar = 0.6f;
                 double xOffset = Math.sin(time) * distance;
                 double yOffset = Math.cos(time) * distance;
-                float gravityStrength = RandomHelper.randomBetween(rand, 0.025f, 0.05f);
-                final Consumer<GenericScreenParticle> slowDown = p -> {
-                    p.xMotion *= 0.96f;
-                    p.yMotion = (p.yMotion + gravityStrength) * 0.96f;
-                };
                 float colorMultiplier = Mth.nextFloat(level.random, 0.7f, 1f);
                 Color color = new Color((int) (255 * colorMultiplier), (int) (51 * colorMultiplier), (int) (195 * colorMultiplier));
                 Color endColor = new Color((int) (56 * colorMultiplier), (int) (32 * colorMultiplier), (int) (77 * colorMultiplier));

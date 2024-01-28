@@ -1,7 +1,6 @@
 package com.sammy.malum.data;
 
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.client.screen.codex.ArcanaProgressionScreen;
 import com.sammy.malum.common.block.curiosities.spirit_crucible.*;
 import com.sammy.malum.common.block.ether.EtherWallTorchBlock;
 import com.sammy.malum.common.item.spirit.SpiritJarItem;
@@ -46,7 +45,6 @@ public class MalumLang extends LanguageProvider {
 
     @Override
     protected void addTranslations() {
-        ArcanaProgressionScreen.setupEntries();
         Set<RegistryObject<Block>> blocks = new HashSet<>(BLOCKS.getEntries());
         Set<RegistryObject<Item>> items = new HashSet<>(ITEMS.getEntries());
         Set<RegistryObject<SoundEvent>> sounds = new HashSet<>(SOUNDS.getEntries());
@@ -178,6 +176,65 @@ public class MalumLang extends LanguageProvider {
 
         addSimpleEntryHeader("chronicles_of_the_void", "Chronicles of the Void", "Otherworldly alterations");
         addSimpleEntryHeader("research_of_the_rejected", "Research of the Rejected", "A thaumaturge's escalation");
+
+        addSimpleEntryHeader("void.introduction", "Introduction", "Secrets uncovered");
+        addPages("void.introduction",
+                "Hey Hey, this is the B-Side progression screen known as Chronicles of the Void. It's currently lacking proper translation entries but I've tried my best to explain everything in one way or another. Very, out of character, for the malum book.",
+                "When the mod actually releases, the button you used to get to this screen will have a cool animation, and also will only be available after the player throws the encyclopedia arcana into the weeping well; netting them an advancement that's required for the button to be present.");
+
+        addSimpleEntryHeader("void.weeping_well", "Weeping Well", "Ominous presence");
+        addPages("void.weeping_well",
+                "The infamous hole. You can locate it by using /locate structure malum:weeping_well. It's the starting point for ur progression in chronicles of the void.");
+
+        addSimpleEntryHeader("void.null_slate", "Null Slate", "Original form");
+        addPages("void.null_slate",
+                "Soulstone when thrown into the weeping well nets you null slate, a material suspected to be the true form of soulstone. Pretend that this description is a lot more cryptic and imagine there being some cool page on the right.");
+
+        addSimpleEntryHeader("void.void_salts", "Void Salts", "Necrotic powder");
+        addPages("void.void_salts",
+                "Hex ash when thrown into the weeping well nets you void salts, a weird and seemingly alive powder. Pretend that this description is a lot more cryptic and imagine there being some cool page on the right.");
+
+        addSimpleEntryHeader("void.auric_embers", "Auric Embers", "Potent flames");
+        addPages("void.auric_embers",
+                "Blaze Powder when thrown into the weeping well nets you Auric Embers, a demonic essence of fire. Pretend that this description is a lot more cryptic and imagine there being some cool page on the right.");
+
+        addSimpleEntryHeader("void.mnemonic_fragment", "Mnemonic Fragment", "Memories solidified");
+        addPages("void.mnemonic_fragment",
+                "Brilliance Clusters or Chunks when thrown into the weeping well nets you Mnemonic Fragments, a material full of memories turned into matter. Pretend that this description is a lot more cryptic and imagine there being some cool page on the right.");
+
+        addSimpleEntryHeader("void.soul_stained_steel_staff", "Soulstained Staff", "Spell-casting");
+        addPages("void.soul_stained_steel_staff",
+                "Staves are hybrid melee and ranged weapons. They swing faster than scythes but deal less physical damage. The simplest one is the Soulstained Steel Staff.",
+                "What makes staves special is the right click functionality, the right click function lets you shoot long range projectiles. This ranged attack has a relatively short cooldown, and requires a one second charge-up window before being fired.",
+                "The Soulstained Steel Staff in particular allows the user to lob a burst of 3 gravity affected hex bolts, each dealing 100% of the staff's magical damage output.");
+        addHeadline("void.ring_of_the_plentiful", "Ring of the Plentiful");
+        addPages("void.ring_of_the_plentiful",
+                "This ring will stockpile up to 3 reserve staff charges, which when present are consumed to avoid placing a cooldown on the staff's ranged functionality. Each staff charge takes 15 seconds to recover, and currently there's no indication for it.");
+
+        addSimpleEntryHeader("void.ring_of_growing_flesh", "Ring of Growing Flesh", "Cancerous growths");
+        addPages("void.ring_of_growing_flesh",
+                "The ring will give you a stacking max health buff every time you collect spirits, at full potency doubling your max health. The buff lasts quite a long time.");
+
+        addSimpleEntryHeader("void.anomalous_design", "Anomalous Design", "Unknown origins");
+        addPages("void.anomalous_design",
+                "Weird cult like symbol made by throwing an iron block into the weeping well. Lore wise the idea is that like, the entity behind the weeping well instructs you to actually create this thing and just, feed it the spirits and stuff. ");
+
+        addSimpleEntryHeader("void.fused_consciousness", "Fused Consciousness", "Magic and mind");
+        addPages("void.fused_consciousness",
+                "Cool arguably expensive material obtained by throwing the complete design into the weeping well. ");
+
+        addSimpleEntryHeader("void.belt_of_the_limitless", "Belt of the Limitless", "Imaginary strength");
+        addPages("void.belt_of_the_limitless",
+                "powerful belt item thing. Doubles ur soulward and also makes it absorb physical damage as well as magical damage.");
+
+        addSimpleEntryHeader("void.staff_of_the_auric_flame", "Staff of the Auric Flame", "Seeking flames");
+        addPages("void.staff_of_the_auric_flame",
+                "staff upgrade! Longer cooldown, shoots 5 homing fire bolts, deals more magic damage. Also sets things on fire but not with the melee attack which will be changed I'm just lazy.");
+
+        addSimpleEntryHeader("void.stellar_mechanism", "Stellar Mechanism", "Finer tuning");
+        addPages("void.stellar_mechanism",
+                "powerful crucible augment. Doubles the strength of the bonus applied by the tuning fork, without affecting the negative side of things. It's a core augment, which means it can only be slotted in the crucible itself, and is stored in a separate inventory than the one used for regular augments.");
+
 
         addSimpleEntryHeader("introduction", "Introduction", "On the nature of souls");
         addPages("introduction",

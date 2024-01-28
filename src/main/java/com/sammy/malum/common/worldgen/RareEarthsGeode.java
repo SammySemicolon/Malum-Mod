@@ -174,7 +174,7 @@ public class RareEarthsGeode extends Feature<GeodeConfiguration> {
         if (!potentialRareEarthPositions.isEmpty()) {
             BlockPos rareEarthPos = potentialRareEarthPositions.get(randomsource.nextInt(potentialRareEarthPositions.size()));
             if (worldgenlevel.getBlockState(rareEarthPos).getBlock().equals(Blocks.DEEPSLATE_GOLD_ORE)) {
-                worldgenlevel.setBlock(rareEarthPos, BlockRegistry.BLOCK_OF_CTHONIC_GOLD.get().defaultBlockState(), 2);
+                safeSetBlock(worldgenlevel, rareEarthPos, BlockRegistry.CTHONIC_GOLD_ORE.get().defaultBlockState(), predicate);
             }
         }
         return true;

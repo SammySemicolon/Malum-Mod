@@ -146,6 +146,11 @@ public class SoundRegistry {
     public static final RegistryObject<SoundEvent> ARCANE_ROCK_STEP = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("arcane_rock_step")));
     public static final RegistryObject<SoundEvent> ARCANE_ROCK_HIT = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("arcane_rock_hit")));
 
+    public static final RegistryObject<SoundEvent> ARCANE_ROCK_BRICKS_BREAK = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("arcane_rock_bricks_break")));
+    public static final RegistryObject<SoundEvent> ARCANE_ROCK_BRICKS_PLACE = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("arcane_rock_bricks_place")));
+    public static final RegistryObject<SoundEvent> ARCANE_ROCK_BRICKS_STEP = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("arcane_rock_bricks_step")));
+    public static final RegistryObject<SoundEvent> ARCANE_ROCK_BRICKS_HIT = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("arcane_rock_bricks_hit")));
+
     public static final RegistryObject<SoundEvent> HALLOWED_GOLD_BREAK = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("hallowed_gold_break")));
     public static final RegistryObject<SoundEvent> HALLOWED_GOLD_HIT = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("hallowed_gold_hit")));
     public static final RegistryObject<SoundEvent> HALLOWED_GOLD_PLACE = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("hallowed_gold_place")));
@@ -193,7 +198,9 @@ public class SoundRegistry {
     public static final SoundType SOUL_STAINED_STEEL = new ForgeSoundType(1.0F, 1.0F, SOUL_STAINED_STEEL_BREAK, SOUL_STAINED_STEEL_STEP, SOUL_STAINED_STEEL_PLACE, SOUL_STAINED_STEEL_HIT, () -> SoundEvents.METAL_FALL);
 
     public static final SoundType TAINTED_ROCK = new ForgeSoundType(1.0F, 1.1F, ARCANE_ROCK_BREAK, ARCANE_ROCK_STEP, ARCANE_ROCK_PLACE, ARCANE_ROCK_HIT, () -> SoundEvents.BASALT_FALL);
+    public static final SoundType TAINTED_ROCK_BRICKS = new ForgeSoundType(1.0F, 1.1F, ARCANE_ROCK_BRICKS_BREAK, ARCANE_ROCK_BRICKS_STEP, ARCANE_ROCK_BRICKS_PLACE, ARCANE_ROCK_BRICKS_HIT, () -> SoundEvents.BASALT_FALL);
     public static final SoundType TWISTED_ROCK = new ForgeSoundType(1.0F, 0.85F, ARCANE_ROCK_BREAK, ARCANE_ROCK_STEP, ARCANE_ROCK_PLACE, ARCANE_ROCK_HIT, () -> SoundEvents.BASALT_FALL);
+    public static final SoundType TWISTED_ROCK_BRICKS = new ForgeSoundType(1.0F, 0.85F, ARCANE_ROCK_BRICKS_BREAK, ARCANE_ROCK_BRICKS_STEP, ARCANE_ROCK_BRICKS_PLACE, ARCANE_ROCK_BRICKS_HIT, () -> SoundEvents.BASALT_FALL);
 
     public static final SoundType RUNEWOOD_LEAVES = new ForgeSoundType(1.0F, 1.1F, RUNEWOOD_LEAVES_BREAK, RUNEWOOD_LEAVES_STEP, RUNEWOOD_LEAVES_PLACE, RUNEWOOD_LEAVES_HIT, () -> SoundEvents.AZALEA_LEAVES_FALL);
 

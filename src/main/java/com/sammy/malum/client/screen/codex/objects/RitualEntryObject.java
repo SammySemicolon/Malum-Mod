@@ -11,10 +11,10 @@ import java.util.*;
 import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.*;
 import static com.sammy.malum.client.screen.codex.ArcanaProgressionScreen.*;
 
-public class RitualEntryObject extends EntryObject {
+public class RitualEntryObject<T extends AbstractProgressionCodexScreen> extends EntryObject<T> {
     public final MalumRitualType ritualType;
 
-    public RitualEntryObject(AbstractProgressionCodexScreen screen, BookEntry entry, int posX, int posY) {
+    public RitualEntryObject(T screen, BookEntry<T> entry, int posX, int posY) {
         super(screen, entry, posX, posY);
         Optional<SpiritRitualTextPage> page = entry.pages.stream().filter(p -> p instanceof SpiritRitualTextPage).map(p -> ((SpiritRitualTextPage) p)).findAny();
         if (page.isPresent()) {

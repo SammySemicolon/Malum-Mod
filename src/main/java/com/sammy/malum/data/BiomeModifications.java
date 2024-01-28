@@ -38,6 +38,11 @@ public class BiomeModifications {
                         getPlacedHolderSet(context, PlacedFeatureRegistry.ORE_NATURAL_QUARTZ),
                         BiomeTagRegistry.HAS_QUARTZ, GenerationStep.Decoration.UNDERGROUND_ORES));
 
+        register(context, "cthonic_gold_ore", () ->
+                addFeatureModifier(context,
+                        getPlacedHolderSet(context, PlacedFeatureRegistry.ORE_CTHONIC_GOLD),
+                        BiomeTagRegistry.HAS_CTHONIC, GenerationStep.Decoration.UNDERGROUND_ORES));
+
         register(context, "blazing_quartz_ore", () ->
                 addFeatureModifier(context,
                         getPlacedHolderSet(context, PlacedFeatureRegistry.ORE_BLAZING_QUARTZ),
@@ -62,11 +67,6 @@ public class BiomeModifications {
                 addFeatureModifier(context,
                         getPlacedHolderSet(context, PlacedFeatureRegistry.DEEPSLATE_QUARTZ_GEODE_FEATURE),
                         BiomeTagRegistry.HAS_QUARTZ, GenerationStep.Decoration.UNDERGROUND_DECORATION));
-
-        register(context, "rare_earth_geode", () ->
-                addFeatureModifier(context,
-                        getPlacedHolderSet(context, PlacedFeatureRegistry.CTHONIC_GOLD_GEODE_FEATURE),
-                        BiomeTagRegistry.HAS_CTHONIC, GenerationStep.Decoration.UNDERGROUND_DECORATION));
 
 
     }

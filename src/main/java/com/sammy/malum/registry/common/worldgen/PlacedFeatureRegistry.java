@@ -19,6 +19,7 @@ public class PlacedFeatureRegistry {
     public static final ResourceKey<PlacedFeature> ORE_SOULSTONE = registerKey("ore_soulstone");
     public static final ResourceKey<PlacedFeature> ORE_BRILLIANT = registerKey("ore_brilliant");
     public static final ResourceKey<PlacedFeature> ORE_NATURAL_QUARTZ = registerKey("ore_natural_quartz");
+    public static final ResourceKey<PlacedFeature> ORE_CTHONIC_GOLD = registerKey("cthonic_gold_ore");
     public static final ResourceKey<PlacedFeature> ORE_BLAZING_QUARTZ = registerKey("blazing_quartz_ore");
 
     public static final ResourceKey<PlacedFeature> RUNEWOOD_TREE = ResourceKey.create(Registries.PLACED_FEATURE, MalumMod.malumPath("runewood_tree"));
@@ -37,6 +38,7 @@ public class PlacedFeatureRegistry {
         context.register(ORE_SOULSTONE, addOreFeature(features.getOrThrow(ConfiguredFeatureRegistry.CONFIGURED_SOULSTONE_ORE), -64, 100, 3));
         context.register(ORE_BRILLIANT, addOreFeature(features.getOrThrow(ConfiguredFeatureRegistry.CONFIGURED_BRILLIANT_ORE), -64, 40, 3));
         context.register(ORE_NATURAL_QUARTZ, addOreFeature(features.getOrThrow(ConfiguredFeatureRegistry.CONFIGURED_NATURAL_QUARTZ_ORE), -64, 10, 2));
+        context.register(ORE_CTHONIC_GOLD, addOreFeature(features.getOrThrow(ConfiguredFeatureRegistry.CONFIGURED_CTHONIC_GOLD_ORE_FEATURE), -64, 40, 2));
         context.register(ORE_BLAZING_QUARTZ, addOreFeature(features.getOrThrow(ConfiguredFeatureRegistry.CONFIGURED_BLAZING_QUARTZ_ORE), -16, 112, 16));
 
         context.register(RUNEWOOD_TREE,
@@ -82,18 +84,6 @@ public class PlacedFeatureRegistry {
                                         HeightRangePlacement.uniform(
                                                 VerticalAnchor.aboveBottom(6),
                                                 VerticalAnchor.absolute(-10)),
-                                        BiomeFilter.biome())
-                                .build()
-                ));
-
-        context.register(CTHONIC_GOLD_GEODE_FEATURE,
-                new PlacedFeature(features.getOrThrow(ConfiguredFeatureRegistry.CONFIGURED_CTHONIC_GOLD_GEODE_FEATURE),
-                        ImmutableList.<PlacementModifier>builder().add(
-                                        RarityFilter.onAverageOnceEvery(16),
-                                        InSquarePlacement.spread(),
-                                        HeightRangePlacement.uniform(
-                                                VerticalAnchor.aboveBottom(6),
-                                                VerticalAnchor.aboveBottom(40)),
                                         BiomeFilter.biome())
                                 .build()
                 ));

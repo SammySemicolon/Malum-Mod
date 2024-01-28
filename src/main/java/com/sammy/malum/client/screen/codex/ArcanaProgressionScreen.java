@@ -39,6 +39,8 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
 
     public static final List<BookEntry> ENTRIES = new ArrayList<>();
 
+    public boolean isVoidTouched;
+
     protected ArcanaProgressionScreen() {
         super(1024, 2560);
         minecraft = Minecraft.getInstance();
@@ -106,7 +108,6 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
     @Override
     public void openScreen(boolean ignoreNextMouseClick) {
         Minecraft.getInstance().setScreen(this);
-        ScreenParticleHandler.clearParticles();
         this.ignoreNextMouseInput = ignoreNextMouseClick;
     }
 
@@ -117,8 +118,10 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
         return screen;
     }
 
-    public static void openCodexViaItem() {
-        getScreenInstance().openScreen(true);
+    public static void openCodexViaItem(boolean isVoidTouched) {
+        final ArcanaProgressionScreen screenInstance = getScreenInstance();
+        screenInstance.openScreen(true);
+        screenInstance.isVoidTouched = isVoidTouched;
         screen.playSweetenedSound(SoundRegistry.ARCANA_CODEX_OPEN, 1.25f);
     }
 
@@ -133,12 +136,13 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
         ENTRIES.clear();
         Item EMPTY = ItemStack.EMPTY.getItem();
 
-        ENTRIES.add(new BookEntry(
+        ENTRIES.add(new BookEntry<ArcanaProgressionScreen>(
                 "chronicles_of_the_void", 0, -1)
-                .setWidgetSupplier((s, e, x, y) -> new ScreenOpenerObject(s, e, x, y, VoidProgressionScreen::openCodexViaTransition, malumPath("textures/gui/book/icons/void_button.png"), 20, 20))
-                .setWidgetConfig(w -> w.setStyle(BookWidgetStyle.DARK_GRAND_RUNEWOOD))
+                .setWidgetSupplier((s, e, x, y) -> new ScreenOpenerObject<>(s, e, x, y, VoidProgressionScreen::openCodexViaTransition, malumPath("textures/gui/book/icons/void_button.png"), 20, 20))
+                .setWidgetConfig(w -> w.setStyle(BookWidgetStyle.DARK_GRAND_RUNEWOOD).setValidityChecker(p -> p.isVoidTouched))
         );
-        ENTRIES.add(new BookEntry(
+
+        ENTRIES.add(new BookEntry<>(
                 "introduction", 0, 0)
                 .setWidgetConfig(w -> w.setIcon(ENCYCLOPEDIA_ARCANA).setStyle(BookWidgetStyle.GILDED_RUNEWOOD))
                 .addPage(new HeadlineTextPage("introduction", "introduction.1"))
@@ -148,16 +152,16 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
                 .addPage(new TextPage("introduction.5"))
         );
 
-        ENTRIES.add(new BookEntry(
+        ENTRIES.add(new BookEntry<>(
                 "spirit_crystals", 0, 1)
-                .setWidgetSupplier((s, e, x, y) -> new IconObject(s, e, x, y, malumPath("textures/gui/book/icons/soul_shard.png")))
+                .setWidgetSupplier((s, e, x, y) -> new IconObject<>(s, e, x, y, malumPath("textures/gui/book/icons/soul_shard.png")))
                 .setWidgetConfig(w -> w.setStyle(BookWidgetStyle.DARK_SMALL_RUNEWOOD))
                 .addPage(new HeadlineTextPage("spirit_crystals", "spirit_crystals.1"))
                 .addPage(new TextPage("spirit_crystals.2"))
                 .addPage(new TextPage("spirit_crystals.3"))
         );
 
-        ENTRIES.add(new BookEntry(
+        ENTRIES.add(new BookEntry<>(
                 "runewood", 1, 2)
                 .setWidgetConfig(w -> w.setIcon(RUNEWOOD_SAPLING))
                 .addPage(new HeadlineTextItemPage("runewood", "runewood.1", RUNEWOOD_SAPLING.get()))
@@ -171,20 +175,20 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
                 .addPage(new CraftingBookPage(new ItemStack(RUNIC_SAP_BLOCK.get(), 8), RUNIC_SAP.get(), RUNIC_SAP.get(), EMPTY, RUNIC_SAP.get(), RUNIC_SAP.get()))
         );
 
-        ENTRIES.add(new BookEntry(
+        ENTRIES.add(new BookEntry<>(
                 "natural_quartz", 3, 1)
                 .setWidgetConfig(w -> w.setIcon(NATURAL_QUARTZ).setStyle(BookWidgetStyle.SMALL_RUNEWOOD))
                 .addPage(new HeadlineTextItemPage("natural_quartz", "natural_quartz.1", NATURAL_QUARTZ.get()))
         );
 
-        ENTRIES.add(new BookEntry(
+        ENTRIES.add(new BookEntry<>(
                 "blazing_quartz", 4, 2)
                 .setWidgetConfig(w -> w.setIcon(BLAZING_QUARTZ).setStyle(BookWidgetStyle.SMALL_RUNEWOOD))
                 .addPage(new HeadlineTextItemPage("blazing_quartz", "blazing_quartz.1", BLAZING_QUARTZ.get()))
                 .addPage(CraftingBookPage.fullPage(BLOCK_OF_BLAZING_QUARTZ.get(), BLAZING_QUARTZ.get()))
         );
 
-        ENTRIES.add(new BookEntry(
+        ENTRIES.add(new BookEntry<>(
                 "brilliance", -3, 1)
                 .setWidgetConfig(w -> w.setIcon(CLUSTER_OF_BRILLIANCE).setStyle(BookWidgetStyle.SMALL_RUNEWOOD))
                 .addPage(new HeadlineTextItemPage("brilliance", "brilliance.1", CLUSTER_OF_BRILLIANCE.get()))
@@ -193,7 +197,7 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
                 .addPage(new SmeltingBookPage(new ItemStack(CLUSTER_OF_BRILLIANCE.get()), new ItemStack(CHUNK_OF_BRILLIANCE.get(), 2)))
         );
 
-        ENTRIES.add(new BookEntry(
+        ENTRIES.add(new BookEntry<>(
                 "cthonic_gold", -4, 2)
                 .setWidgetConfig(w -> w.setIcon(CTHONIC_GOLD).setStyle(BookWidgetStyle.SMALL_RUNEWOOD))
                 .addPage(new HeadlineTextItemPage("cthonic_gold", "cthonic_gold.1", CTHONIC_GOLD.get()))
@@ -202,7 +206,7 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
                 .addPage(new TextPage("cthonic_gold.4"))
         );
 
-        ENTRIES.add(new BookEntry(
+        ENTRIES.add(new BookEntry<>(
                 "soulstone", -1, 2)
                 .setWidgetConfig(w -> w.setIcon(PROCESSED_SOULSTONE))
                 .addPage(new HeadlineTextItemPage("soulstone", "soulstone.1", PROCESSED_SOULSTONE.get()))
@@ -212,7 +216,7 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
                 .addPage(CraftingBookPage.fullPage(BLOCK_OF_RAW_SOULSTONE.get(), RAW_SOULSTONE.get()))
         );
 
-        ENTRIES.add(new BookEntry(
+        ENTRIES.add(new BookEntry<>(
                 "scythes", 0, 3)
                 .setWidgetConfig(w -> w.setIcon(CRUDE_SCYTHE))
                 .addPage(new HeadlineTextPage("scythes", "scythes.1"))
@@ -224,7 +228,7 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
                 .addPage(new HeadlineTextPage("scythes.enchanting.rebound", "scythes.enchanting.rebound.1"))
         );
 
-        ENTRIES.add(new BookEntry(
+        ENTRIES.add(new BookEntry<>(
                 "spirit_infusion", 0, 5)
                 .setWidgetConfig(w -> w.setIcon(SPIRIT_ALTAR).setStyle(BookWidgetStyle.GILDED_RUNEWOOD))
                 .addPage(new HeadlineTextPage("spirit_infusion", "spirit_infusion.1"))
@@ -241,7 +245,7 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
                 .addPage(SpiritInfusionPage.fromOutput(ALCHEMICAL_CALX.get()))
         );
 
-        ENTRIES.add(new BookEntry(
+        ENTRIES.add(new BookEntry<>(
                 "esoteric_reaping", 0, 6)
                 .setWidgetConfig(w -> w.setIcon(ROTTING_ESSENCE))
                 .addPage(new HeadlineTextPage("esoteric_reaping", "esoteric_reaping.1"))
@@ -253,7 +257,7 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
                 .addPage(new HeadlineTextItemPage("esoteric_reaping.warp_flux", "esoteric_reaping.warp_flux.1", WARP_FLUX.get()))
         );
 
-        ENTRIES.add(new BookEntry(
+        ENTRIES.add(new BookEntry<>(
                 "primary_arcana", -2, 4)
                 .setWidgetConfig(w -> w.setIcon(SACRED_SPIRIT))
                 .addPage(new HeadlineTextItemPage("primary_arcana.sacred", "primary_arcana.sacred.1", SACRED_SPIRIT.get()))
@@ -265,7 +269,7 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
                 .addPage(new TextPage("primary_arcana.arcane.3"))
         );
 
-        ENTRIES.add(new BookEntry(
+        ENTRIES.add(new BookEntry<>(
                 "elemental_arcana", 2, 4)
                 .setWidgetConfig(w -> w.setIcon(EARTHEN_SPIRIT))
                 .addPage(new HeadlineTextItemPage("elemental_arcana.aerial", "elemental_arcana.aerial.1", AERIAL_SPIRIT.get()))
@@ -278,14 +282,14 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
                 .addPage(new TextPage("elemental_arcana.aqueous.2"))
         );
 
-        ENTRIES.add(new BookEntry(
+        ENTRIES.add(new BookEntry<>(
                 "eldritch_arcana", 0, 7)
                 .setWidgetConfig(w -> w.setIcon(ELDRITCH_SPIRIT))
                 .addPage(new HeadlineTextItemPage("eldritch_arcana", "eldritch_arcana.1", ELDRITCH_SPIRIT.get()))
                 .addPage(new TextPage("eldritch_arcana.2"))
         );
 
-        ENTRIES.add(new BookEntry(
+        ENTRIES.add(new BookEntry<>(
                 "spirit_stones", 3, 6)
                 .setWidgetConfig(w -> w.setIcon(TAINTED_ROCK))
                 .addPage(new HeadlineTextPage("spirit_stones.tainted_rock", "spirit_stones.tainted_rock.1"))
@@ -298,7 +302,7 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
                 .addPage(CraftingBookPage.itemStandPage(TWISTED_ROCK_ITEM_STAND.get(), TWISTED_ROCK.get(), TWISTED_ROCK_SLAB.get()))
         );
 
-        ENTRIES.add(new BookEntry(
+        ENTRIES.add(new BookEntry<>(
                 "ether", 5, 6)
                 .setWidgetConfig(w -> w.setIcon(ETHER))
                 .addPage(new HeadlineTextPage("ether", "ether.1"))
@@ -315,7 +319,7 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
                 .addPage(new CraftingBookPage(TWISTED_IRIDESCENT_ETHER_BRAZIER.get(), EMPTY, EMPTY, EMPTY, TWISTED_ROCK.get(), IRIDESCENT_ETHER.get(), TWISTED_ROCK.get(), STICK, TWISTED_ROCK.get(), STICK))
         );
 
-        ENTRIES.add(new BookEntry(
+        ENTRIES.add(new BookEntry<>(
                 "spirit_fabric", 4, 5)
                 .setWidgetConfig(w -> w.setIcon(SPIRIT_FABRIC))
                 .addPage(new HeadlineTextPage("spirit_fabric", "spirit_fabric.1"))
@@ -324,7 +328,7 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
                 .addPage(new CraftingBookPage(SPIRIT_POUCH.get(), EMPTY, STRING, EMPTY, SPIRIT_FABRIC.get(), SOUL_SAND, SPIRIT_FABRIC.get(), EMPTY, SPIRIT_FABRIC.get(), EMPTY))
         );
 
-        ENTRIES.add(new BookEntry(
+        ENTRIES.add(new BookEntry<>(
                 "soulhunter_gear", 4, 7)
                 .setWidgetConfig(w -> w.setIcon(SOUL_HUNTER_CLOAK))
                 .addPage(new HeadlineTextPage("soulhunter_gear", "soulhunter_gear.1"))
@@ -334,12 +338,12 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
                 .addPage(SpiritInfusionPage.fromOutput(SOUL_HUNTER_BOOTS.get()))
         );
 
-//        ENTRIES.add(new BookEntry(
+//        ENTRIES.add(new BookEntry<>(
 //                "soul_something", 3, 8)
 //                .setWidgetSupplier((e, x, y) -> new IconObject(e, malumPath("textures/gui/book/icons/soul_blade.png"), x, y))
 //        );
 
-        ENTRIES.add(new BookEntry(
+        ENTRIES.add(new BookEntry<>(
                 "spirit_focusing", 7, 6)
                 .setWidgetConfig(w -> w.setIcon(SPIRIT_CRUCIBLE))
                 .addPage(new HeadlineTextItemPage("spirit_focusing", "spirit_focusing.1", SPIRIT_CRUCIBLE.get()))
@@ -348,7 +352,7 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
                 .addPage(SpiritInfusionPage.fromOutput(ALCHEMICAL_IMPETUS.get()))
         );
 
-        ENTRIES.add(new BookEntry(
+        ENTRIES.add(new BookEntry<>(
                 "focus_ashes", 6, 5)
                 .setWidgetConfig(w -> w.setIcon(GUNPOWDER))
                 .addPage(new HeadlineTextPage("focus_ashes", "focus_ashes.1"))
@@ -357,7 +361,7 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
                 .addPage(SpiritCruciblePage.fromOutput(REDSTONE))
         );
 
-        ENTRIES.add(new BookEntry(
+        ENTRIES.add(new BookEntry<>(
                 "focus_metals", 8, 7)
                 .setWidgetConfig(w -> w.setIcon(IRON_NODE))
                 .addPage(new HeadlineTextItemPage("focus_metals", "focus_metals.1", IRON_NODE.get()))
@@ -390,7 +394,7 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
                 ))
         );
 
-        ENTRIES.add(new BookEntry(
+        ENTRIES.add(new BookEntry<>(
                 "focus_crystals", 9, 5)
                 .setWidgetConfig(w -> w.setIcon(QUARTZ))
                 .addPage(new HeadlineTextPage("focus_crystals", "focus_crystals.1"))
@@ -400,7 +404,7 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
                 .addPage(SpiritCruciblePage.fromOutput(PRISMARINE))
         );
 
-        ENTRIES.add(new BookEntry(
+        ENTRIES.add(new BookEntry<>(
                 "crucible_acceleration", 7, 4)
                 .setWidgetConfig(w -> w.setIcon(SPIRIT_CATALYZER))
                 .addPage(new HeadlineTextPage("crucible_acceleration", "crucible_acceleration.1"))
@@ -409,7 +413,7 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
                 .addPage(SpiritInfusionPage.fromOutput(SPIRIT_CATALYZER.get()))
         );
 
-        ENTRIES.add(new BookEntry(
+        ENTRIES.add(new BookEntry<>(
                 "arcane_restoration", 7, 8)
                 .setWidgetConfig(w -> w.setIcon(TWISTED_TABLET))
                 .addPage(new HeadlineTextPage("arcane_restoration", "arcane_restoration.1"))
@@ -429,7 +433,7 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
                 .addPage(SpiritRepairPage.fromInput(SOUL_HUNTER_BOOTS.get()))
         );
 
-        ENTRIES.add(new BookEntry(
+        ENTRIES.add(new BookEntry<>(
                 "crucible_augmentation", 10, 8)
                 .setWidgetConfig(w -> w.setIcon(TUNING_FORK))
                 .addPage(new HeadlineTextPage("crucible_augmentation", "crucible_augmentation.1"))
@@ -438,56 +442,56 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
                 .addPage(SpiritInfusionPage.fromOutput(TUNING_FORK.get()))
         );
 
-        ENTRIES.add(new BookEntry(
+        ENTRIES.add(new BookEntry<>(
                 "mending_diffuser", 11, 7)
                 .setWidgetConfig(w -> w.setIcon(MENDING_DIFFUSER))
                 .addPage(new HeadlineTextPage("mending_diffuser", "mending_diffuser.1"))
                 .addPage(SpiritInfusionPage.fromOutput(MENDING_DIFFUSER.get()))
         );
 
-        ENTRIES.add(new BookEntry(
+        ENTRIES.add(new BookEntry<>(
                 "impurity_stabilizer", 12, 7)
                 .setWidgetConfig(w -> w.setIcon(IMPURITY_STABILIZER))
                 .addPage(new HeadlineTextPage("impurity_stabilizer", "impurity_stabilizer.1"))
                 .addPage(SpiritInfusionPage.fromOutput(IMPURITY_STABILIZER.get()))
         );
 
-        ENTRIES.add(new BookEntry(
+        ENTRIES.add(new BookEntry<>(
                 "accelerating_inlay", 13, 8)
                 .setWidgetConfig(w -> w.setIcon(ACCELERATING_INLAY))
                 .addPage(new HeadlineTextPage("accelerating_inlay", "accelerating_inlay.1"))
                 .addPage(SpiritInfusionPage.fromOutput(ACCELERATING_INLAY.get()))
         );
 
-        ENTRIES.add(new BookEntry(
+        ENTRIES.add(new BookEntry<>(
                 "blazing_diode", 12, 8)
                 .setWidgetConfig(w -> w.setIcon(BLAZING_DIODE))
                 .addPage(new HeadlineTextPage("blazing_diode", "blazing_diode.1"))
                 .addPage(SpiritInfusionPage.fromOutput(BLAZING_DIODE.get()))
         );
 
-        ENTRIES.add(new BookEntry(
+        ENTRIES.add(new BookEntry<>(
                 "prismatic_focus_lens", 12, 9)
                 .setWidgetConfig(w -> w.setIcon(PRISMATIC_FOCUS_LENS))
                 .addPage(new HeadlineTextPage("prismatic_focus_lens", "prismatic_focus_lens.1"))
                 .addPage(SpiritInfusionPage.fromOutput(PRISMATIC_FOCUS_LENS.get()))
         );
 
-        ENTRIES.add(new BookEntry(
+        ENTRIES.add(new BookEntry<>(
                 "intricate_assembly", 13, 9)
                 .setWidgetConfig(w -> w.setIcon(INTRICATE_ASSEMBLY))
                 .addPage(new HeadlineTextPage("intricate_assembly", "intricate_assembly.1"))
                 .addPage(SpiritInfusionPage.fromOutput(INTRICATE_ASSEMBLY.get()))
         );
 
-        ENTRIES.add(new BookEntry(
+        ENTRIES.add(new BookEntry<>(
                 "shielding_apparatus", 13, 10)
                 .setWidgetConfig(w -> w.setIcon(SHIELDING_APPARATUS))
                 .addPage(new HeadlineTextPage("shielding_apparatus", "shielding_apparatus.1"))
                 .addPage(SpiritInfusionPage.fromOutput(SHIELDING_APPARATUS.get()))
         );
 
-        ENTRIES.add(new BookEntry(
+        ENTRIES.add(new BookEntry<>(
                 "warping_engine", 14, 10)
                 .setWidgetConfig(w -> w.setIcon(WARPING_ENGINE))
                 .addPage(new HeadlineTextPage("warping_engine", "warping_engine.1"))
@@ -495,7 +499,7 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
                 .addPage(SpiritInfusionPage.fromOutput(WARPING_ENGINE.get()))
         );
 
-        ENTRIES.add(new BookEntry(
+        ENTRIES.add(new BookEntry<>(
                 "spirit_metals", -3, 6)
                 .setWidgetConfig(w -> w.setIcon(SOUL_STAINED_STEEL_INGOT))
                 .addPage(new HeadlineTextItemPage("spirit_metals.soulstained_steel", "spirit_metals.soulstained_steel.1", SOUL_STAINED_STEEL_INGOT.get()))
@@ -522,14 +526,14 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
                 .addPage(new CraftingBookPage(SPIRIT_JAR.get(), GLASS_PANE, HALLOWED_GOLD_INGOT.get(), GLASS_PANE, GLASS_PANE, EMPTY, GLASS_PANE, GLASS_PANE, GLASS_PANE, GLASS_PANE))
         );
 
-        ENTRIES.add(new BookEntry(
+        ENTRIES.add(new BookEntry<>(
                 "soulstained_scythe", -4, 5)
                 .setWidgetConfig(w -> w.setIcon(SOUL_STAINED_STEEL_SCYTHE))
                 .addPage(new HeadlineTextPage("soulstained_scythe", "soulstained_scythe.1"))
                 .addPage(SpiritInfusionPage.fromOutput(SOUL_STAINED_STEEL_SCYTHE.get()))
         );
 
-        ENTRIES.add(new BookEntry(
+        ENTRIES.add(new BookEntry<>(
                 "soulstained_armor", -4, 7)
                 .setWidgetConfig(w -> w.setIcon(SOUL_STAINED_STEEL_HELMET))
                 .addPage(new HeadlineTextPage("soulstained_armor", "soulstained_armor.1"))
@@ -544,12 +548,12 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
                 .addPage(new CraftingBookPage(new ItemStack(SOUL_STAINED_STEEL_PLATING.get(), 2), EMPTY, SOUL_STAINED_STEEL_NUGGET.get(), EMPTY, SOUL_STAINED_STEEL_NUGGET.get(), SOUL_STAINED_STEEL_INGOT.get(), SOUL_STAINED_STEEL_NUGGET.get(), EMPTY, SOUL_STAINED_STEEL_NUGGET.get(), EMPTY))
         );
 
-//        ENTRIES.add(new BookEntry(
+//        ENTRIES.add(new BookEntry<>(
 //                "soul_ward", -3, 8)
 //                .setWidgetSupplier((e, x, y) -> new IconObject(e, malumPath("textures/gui/book/icons/soul_ward.png"), x, y))
 //        );
 
-        ENTRIES.add(new BookEntry(
+        ENTRIES.add(new BookEntry<>(
                 "spirit_trinkets", -5, 6)
                 .setWidgetConfig(w -> w.setIcon(ORNATE_RING))
                 .addPage(new HeadlineTextPage("spirit_trinkets", "spirit_trinkets.1"))
@@ -560,7 +564,7 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
                 .addPage(new CraftingBookPage(ORNATE_NECKLACE.get(), EMPTY, STRING, EMPTY, STRING, EMPTY, STRING, EMPTY, SOUL_STAINED_STEEL_INGOT.get(), EMPTY))
         );
 
-        ENTRIES.add(new BookEntry(
+        ENTRIES.add(new BookEntry<>(
                 "reactive_trinkets", -7, 6)
                 .setWidgetConfig(w -> w.setIcon(RING_OF_CURATIVE_TALENT))
                 .addPage(new HeadlineTextPage("reactive_trinkets.ring_of_curative_talent", "reactive_trinkets.ring_of_curative_talent.1"))
@@ -572,14 +576,14 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
                 .addPage(SpiritInfusionPage.fromOutput(RING_OF_ARCANE_PROWESS.get()))
         );
 
-        ENTRIES.add(new BookEntry(
+        ENTRIES.add(new BookEntry<>(
                 "ring_of_esoteric_spoils", -9, 5)
                 .setWidgetConfig(w -> w.setIcon(RING_OF_ESOTERIC_SPOILS))
                 .addPage(new HeadlineTextPage("ring_of_esoteric_spoils", "ring_of_esoteric_spoils.1"))
                 .addPage(SpiritInfusionPage.fromOutput(RING_OF_ESOTERIC_SPOILS.get()))
         );
 
-        ENTRIES.add(new BookEntry(
+        ENTRIES.add(new BookEntry<>(
                 "belt_of_the_starved",-8, 7)
                 .setWidgetConfig(w -> w.setIcon(BELT_OF_THE_STARVED))
                 .addPage(new HeadlineTextPage("belt_of_the_starved", "belt_of_the_starved.1"))
@@ -589,14 +593,14 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
                 .addPage(SpiritInfusionPage.fromOutput(RING_OF_DESPERATE_VORACITY.get()))
         );
 
-        ENTRIES.add(new BookEntry(
+        ENTRIES.add(new BookEntry<>(
                 "necklace_of_the_narrow_edge", -7, 8)
                 .setWidgetConfig(w -> w.setIcon(NECKLACE_OF_THE_NARROW_EDGE))
                 .addPage(new HeadlineTextPage("necklace_of_the_narrow_edge", "necklace_of_the_narrow_edge.1"))
                 .addPage(SpiritInfusionPage.fromOutput(NECKLACE_OF_THE_NARROW_EDGE.get()))
         );
 
-        ENTRIES.add(new BookEntry(
+        ENTRIES.add(new BookEntry<>(
                 "belt_of_the_prospector", -6, 5)
                 .setWidgetConfig(w -> w.setIcon(BELT_OF_THE_PROSPECTOR))
                 .addPage(new HeadlineTextPage("belt_of_the_prospector", "belt_of_the_prospector.1"))
@@ -605,7 +609,7 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
                 .addPage(SpiritInfusionPage.fromOutput(RING_OF_THE_HOARDER.get()))
         );
 
-        ENTRIES.add(new BookEntry(
+        ENTRIES.add(new BookEntry<>(
                 "necklace_of_blissful_harmony", -7, 4)
                 .setWidgetConfig(w -> w.setIcon(NECKLACE_OF_BLISSFUL_HARMONY))
                 .addPage(new HeadlineTextPage("necklace_of_blissful_harmony", "necklace_of_blissful_harmony.1"))
@@ -613,28 +617,28 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
                 .addPage(new TextPage("necklace_of_blissful_harmony.2"))
         );
 
-        ENTRIES.add(new BookEntry(
+        ENTRIES.add(new BookEntry<>(
                 "necklace_of_the_mystic_mirror", 6, 12)
                 .setWidgetConfig(w -> w.setIcon(NECKLACE_OF_THE_MYSTIC_MIRROR))
                 .addPage(new HeadlineTextPage("necklace_of_the_mystic_mirror", "necklace_of_the_mystic_mirror.1"))
                 .addPage(SpiritInfusionPage.fromOutput(NECKLACE_OF_THE_MYSTIC_MIRROR.get()))
         );
 
-        ENTRIES.add(new BookEntry(
+        ENTRIES.add(new BookEntry<>(
                 "mirror_magic", 6, 10)
                 .setWidgetConfig(w -> w.setIcon(SPECTRAL_LENS).setStyle(BookWidgetStyle.GILDED_RUNEWOOD))
                 .addPage(new HeadlineTextPage("mirror_magic", "mirror_magic.1"))
                 .addPage(SpiritInfusionPage.fromOutput(SPECTRAL_LENS.get()))
         );
 
-        ENTRIES.add(new BookEntry(
+        ENTRIES.add(new BookEntry<>(
                 "voodoo_magic", -6, 10)
                 .setWidgetConfig(w -> w.setIcon(POPPET).setStyle(BookWidgetStyle.GILDED_RUNEWOOD))
                 .addPage(new HeadlineTextPage("voodoo_magic", "voodoo_magic.1"))
                 .addPage(SpiritInfusionPage.fromOutput(POPPET.get()))
         );
 
-        ENTRIES.add(new BookEntry(
+        ENTRIES.add(new BookEntry<>(
                 "altar_acceleration", -1, 8)
                 .setWidgetConfig(w -> w.setIcon(RUNEWOOD_OBELISK))
                 .addPage(new HeadlineTextPage("altar_acceleration.runewood_obelisk", "altar_acceleration.runewood_obelisk.1"))
@@ -643,7 +647,7 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
                 .addPage(SpiritInfusionPage.fromOutput(BRILLIANT_OBELISK.get()))
         );
 
-        ENTRIES.add(new BookEntry(
+        ENTRIES.add(new BookEntry<>(
                 "totem_magic", 0, 9)
                 .setWidgetConfig(w -> w.setIcon(RUNEWOOD_TOTEM_BASE).setStyle(BookWidgetStyle.GILDED_RUNEWOOD))
                 .addPage(new HeadlineTextItemPage("totem_magic", "totem_magic.1", RUNEWOOD_TOTEM_BASE.get()))
@@ -654,7 +658,7 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
                 .addPage(SpiritInfusionPage.fromOutput(RUNEWOOD_TOTEM_BASE.get()))
         );
 
-        ENTRIES.add(new BookEntry(
+        ENTRIES.add(new BookEntry<ArcanaProgressionScreen>(
                 "sacred_rite", -2, 10)
                 .setWidgetSupplier(RiteEntryObject::new)
                 .setWidgetConfig(w -> w.setStyle(BookWidgetStyle.DARK_TOTEMIC_RUNEWOOD))
@@ -664,7 +668,7 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
                 .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.ELDRITCH_SACRED_RITE))
         );
 
-        ENTRIES.add(new BookEntry(
+        ENTRIES.add(new BookEntry<>(
                 "corrupt_sacred_rite", -3, 10)
                 .setWidgetSupplier(RiteEntryObject::new)
                 .setWidgetConfig(w -> w.setStyle(BookWidgetStyle.DARK_TOTEMIC_SOULWOOD))
@@ -674,7 +678,7 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
                 .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.ELDRITCH_SACRED_RITE))
         );
 
-        ENTRIES.add(new BookEntry(
+        ENTRIES.add(new BookEntry<>(
                 "infernal_rite", -3, 11)
                 .setWidgetSupplier(RiteEntryObject::new)
                 .setWidgetConfig(w -> w.setStyle(BookWidgetStyle.DARK_TOTEMIC_RUNEWOOD))
@@ -684,7 +688,7 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
                 .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.ELDRITCH_INFERNAL_RITE))
         );
 
-        ENTRIES.add(new BookEntry(
+        ENTRIES.add(new BookEntry<>(
                 "corrupt_infernal_rite", -4, 11)
                 .setWidgetConfig(w -> w.setStyle(BookWidgetStyle.DARK_TOTEMIC_SOULWOOD))
                 .setWidgetSupplier(RiteEntryObject::new)
@@ -694,7 +698,7 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
                 .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.ELDRITCH_INFERNAL_RITE))
         );
 
-        ENTRIES.add(new BookEntry(
+        ENTRIES.add(new BookEntry<>(
                 "earthen_rite", -3, 12)
                 .setWidgetSupplier(RiteEntryObject::new)
                 .setWidgetConfig(w -> w.setStyle(BookWidgetStyle.DARK_TOTEMIC_RUNEWOOD))
@@ -704,7 +708,7 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
                 .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.ELDRITCH_EARTHEN_RITE))
         );
 
-        ENTRIES.add(new BookEntry(
+        ENTRIES.add(new BookEntry<>(
                 "corrupt_earthen_rite", -4, 12)
                 .setWidgetConfig(w -> w.setStyle(BookWidgetStyle.DARK_TOTEMIC_SOULWOOD))
                 .setWidgetSupplier(RiteEntryObject::new)
@@ -714,7 +718,7 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
                 .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.ELDRITCH_EARTHEN_RITE))
         );
 
-        ENTRIES.add(new BookEntry(
+        ENTRIES.add(new BookEntry<>(
                 "wicked_rite", 2, 10)
                 .setWidgetSupplier(RiteEntryObject::new)
                 .setWidgetConfig(w -> w.setStyle(BookWidgetStyle.DARK_TOTEMIC_RUNEWOOD))
@@ -724,7 +728,7 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
                 .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.ELDRITCH_WICKED_RITE))
         );
 
-        ENTRIES.add(new BookEntry(
+        ENTRIES.add(new BookEntry<>(
                 "corrupt_wicked_rite", 3, 10)
                 .setWidgetConfig(w -> w.setStyle(BookWidgetStyle.DARK_TOTEMIC_SOULWOOD))
                 .setWidgetSupplier(RiteEntryObject::new)
@@ -734,7 +738,7 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
                 .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.ELDRITCH_WICKED_RITE))
         );
 
-        ENTRIES.add(new BookEntry(
+        ENTRIES.add(new BookEntry<>(
                 "aerial_rite", 3, 11)
                 .setWidgetSupplier(RiteEntryObject::new)
                 .setWidgetConfig(w -> w.setStyle(BookWidgetStyle.DARK_TOTEMIC_RUNEWOOD))
@@ -744,7 +748,7 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
                 .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.ELDRITCH_AERIAL_RITE))
         );
 
-        ENTRIES.add(new BookEntry(
+        ENTRIES.add(new BookEntry<>(
                 "corrupt_aerial_rite", 4, 11)
                 .setWidgetConfig(w -> w.setStyle(BookWidgetStyle.DARK_TOTEMIC_SOULWOOD))
                 .setWidgetSupplier(RiteEntryObject::new)
@@ -754,7 +758,7 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
                 .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.ELDRITCH_AERIAL_RITE))
         );
 
-        ENTRIES.add(new BookEntry(
+        ENTRIES.add(new BookEntry<>(
                 "aqueous_rite", 3, 12)
                 .setWidgetSupplier(RiteEntryObject::new)
                 .setWidgetConfig(w -> w.setStyle(BookWidgetStyle.DARK_TOTEMIC_RUNEWOOD))
@@ -764,7 +768,7 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
                 .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.ELDRITCH_AQUEOUS_RITE))
         );
 
-        ENTRIES.add(new BookEntry(
+        ENTRIES.add(new BookEntry<>(
                 "corrupt_aqueous_rite", 4, 12)
                 .setWidgetConfig(w -> w.setStyle(BookWidgetStyle.DARK_TOTEMIC_SOULWOOD))
                 .setWidgetSupplier(RiteEntryObject::new)
@@ -774,7 +778,7 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
                 .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.ELDRITCH_AQUEOUS_RITE))
         );
 
-        ENTRIES.add(new BookEntry(
+        ENTRIES.add(new BookEntry<>(
                 "arcane_rite", 0, 11)
                 .setWidgetSupplier(RiteEntryObject::new)
                 .setWidgetConfig(w -> w.setStyle(BookWidgetStyle.DARK_TOTEMIC_RUNEWOOD))
@@ -789,7 +793,7 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
                 .addPage(SpiritInfusionPage.fromOutput(SOULWOOD_TOTEM_BASE.get()))
         );
 
-        ENTRIES.add(new BookEntry(
+        ENTRIES.add(new BookEntry<>(
                 "blight", -1, 12)
                 .setWidgetConfig(w -> w.setIcon(BLIGHTED_GUNK).setStyle(BookWidgetStyle.SMALL_SOULWOOD))
                 .addPage(new HeadlineTextPage("blight.intro", "blight.intro.1"))
@@ -798,7 +802,7 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
                 .addPage(new HeadlineTextPage("blight.arcane_rite", "blight.arcane_rite.1"))
         );
 
-        ENTRIES.add(new BookEntry(
+        ENTRIES.add(new BookEntry<>(
                 "soulwood", 1, 12)
                 .setWidgetConfig(w -> w.setIcon(SOULWOOD_GROWTH).setStyle(BookWidgetStyle.SMALL_SOULWOOD))
                 .addPage(new HeadlineTextPage("soulwood.intro", "soulwood.intro.1"))
@@ -807,7 +811,7 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
                 .addPage(new HeadlineTextPage("soulwood.blight", "soulwood.blight.1"))
                 .addPage(new HeadlineTextPage("soulwood.sap", "soulwood.sap.1"))
         );
-        ENTRIES.add(new BookEntry(
+        ENTRIES.add(new BookEntry<>(
                 "transmutation", 0, 13)
                 .setWidgetConfig(w -> w.setIcon(SOUL_SAND).setStyle(BookWidgetStyle.SMALL_SOULWOOD))
                 .addPage(new HeadlineTextPage("transmutation", "transmutation.intro.1"))
@@ -817,64 +821,64 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
                 .addPage(new SpiritTransmutationRecipeTreePage("transmutation.smooth_basalt", SMOOTH_BASALT))
         );
 
-        ENTRIES.add(new BookEntry(
+        ENTRIES.add(new BookEntry<>(
                 "rituals", 0, 17)
                 .setWidgetConfig(w -> w.setIcon(RITUAL_PLINTH).setStyle(BookWidgetStyle.GILDED_SOULWOOD))
         );
 
-        ENTRIES.add(new BookEntry(
+        ENTRIES.add(new BookEntry<>(
                 "ritual_of_grotesque_expulsion", 0, 19)
                 .setWidgetConfig(w -> w.setStyle(BookWidgetStyle.DARK_TOTEMIC_SOULWOOD))
                 .setWidgetSupplier(RitualEntryObject::new)
                 .addPage(new SpiritRitualTextPage(RitualRegistry.RITUAL_OF_GROTESQUE_EXPULSION, "grotesque_expulsion_ritual"))
         );
 
-        ENTRIES.add(new BookEntry(
+        ENTRIES.add(new BookEntry<>(
                 "ritual_of_idle_mending", 0, 15)
                 .setWidgetConfig(w -> w.setStyle(BookWidgetStyle.DARK_TOTEMIC_SOULWOOD))
                 .setWidgetSupplier(RitualEntryObject::new)
                 .addPage(new SpiritRitualTextPage(RitualRegistry.RITUAL_OF_IDLE_MENDING, "idle_mending_ritual"))
         );
 
-        ENTRIES.add(new BookEntry(
+        ENTRIES.add(new BookEntry<>(
                 "ritual_of_manabound_enhancement", -2, 17)
                 .setWidgetConfig(w -> w.setStyle(BookWidgetStyle.DARK_TOTEMIC_SOULWOOD))
                 .setWidgetSupplier(RitualEntryObject::new)
                 .addPage(new SpiritRitualTextPage(RitualRegistry.RITUAL_OF_MANABOUND_ENHANCEMENT, "manabound_enhancement_ritual"))
         );
 
-        ENTRIES.add(new BookEntry(
+        ENTRIES.add(new BookEntry<>(
                 "ritual_of_hexing_transmission", 2, 17)
                 .setWidgetConfig(w -> w.setStyle(BookWidgetStyle.DARK_TOTEMIC_SOULWOOD))
                 .setWidgetSupplier(RitualEntryObject::new)
                 .addPage(new SpiritRitualTextPage(RitualRegistry.RITUAL_OF_HEXING_TRANSMISSION, "hexing_transmission_ritual"))
         );
 
-        ENTRIES.add(new BookEntry(
+        ENTRIES.add(new BookEntry<>(
                 "ritual_of_warped_time", 1, 18)
                 .setWidgetConfig(w -> w.setStyle(BookWidgetStyle.DARK_TOTEMIC_SOULWOOD))
                 .setWidgetSupplier(RitualEntryObject::new)
                 .addPage(new SpiritRitualTextPage(RitualRegistry.RITUAL_OF_WARPED_TIME, "warped_time_ritual"))
         );
 
-        ENTRIES.add(new BookEntry(
+        ENTRIES.add(new BookEntry<>(
                 "ritual_of_aqueous_something", -1, 16)
                 .setWidgetConfig(w -> w.setStyle(BookWidgetStyle.DARK_TOTEMIC_SOULWOOD))
         );
 
-        ENTRIES.add(new BookEntry(
+        ENTRIES.add(new BookEntry<>(
                 "ritual_of_cthonic_conversion", -1, 18)
                 .setWidgetConfig(w -> w.setStyle(BookWidgetStyle.DARK_TOTEMIC_SOULWOOD))
                 .setWidgetSupplier(RitualEntryObject::new)
                 .addPage(new SpiritRitualTextPage(RitualRegistry.RITUAL_OF_CTHONIC_CONVERSION, "cthonic_conversion_ritual"))
         );
 
-        ENTRIES.add(new BookEntry(
+        ENTRIES.add(new BookEntry<>(
                 "ritual_of_earthen_something", 1, 16)
                 .setWidgetConfig(w -> w.setStyle(BookWidgetStyle.DARK_TOTEMIC_SOULWOOD))
         );
 
-        ENTRIES.add(new BookEntry(
+        ENTRIES.add(new BookEntry<>(
                 "belt_of_the_magebane", -2, 14)
                 .setWidgetConfig(w -> w.setStyle(BookWidgetStyle.SOULWOOD).setIcon(BELT_OF_THE_MAGEBANE))
                 .addPage(new HeadlineTextPage("belt_of_the_magebane", "belt_of_the_magebane.1"))
@@ -882,7 +886,7 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
                 .addPage(SpiritInfusionPage.fromOutput(BELT_OF_THE_MAGEBANE.get()))
         );
 
-        ENTRIES.add(new BookEntry(
+        ENTRIES.add(new BookEntry<>(
                 "tyrving", 2, 14)
                 .setWidgetConfig(w -> w.setStyle(BookWidgetStyle.SOULWOOD).setIcon(TYRVING))
                 .addPage(new HeadlineTextPage("tyrving", "tyrving.1"))
@@ -891,7 +895,7 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
                 .addPage(SpiritRepairPage.fromInput(TYRVING.get()))
         );
 
-        ENTRIES.add(new BookEntry(
+        ENTRIES.add(new BookEntry<>(
                 "the_device", 0, -10)
                 .setWidgetSupplier(VanishingEntryObject::new)
                 .setWidgetConfig(w -> w.setIcon(THE_DEVICE))

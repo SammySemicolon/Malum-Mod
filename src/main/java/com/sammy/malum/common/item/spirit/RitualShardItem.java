@@ -61,15 +61,15 @@ public class RitualShardItem extends Item implements ItemParticleSupplier {
             ScreenParticleEffects.spawnSpiritShardScreenParticles(target, type.getPrimaryColor(), type.getSecondaryColor());
             if (ritualTier.isGreaterThan(MalumRitualTier.DIM)) {
                 float distance = 2f + ritualTier.potency;
+                float scalar = 0.4f + 0.15f * ritualTier.potency;
+                var rand = Minecraft.getInstance().level.getRandom();
                 for (int i = 0; i < 2; i++) {
                     float time = (((i == 1 ? 3.14f : 0) + ((level.getGameTime() + partialTick) * 0.05f)) % 6.28f);
-                    float scalar = 0.4f + 0.15f * ritualTier.potency;
                     if (time > 1.57f && time < 4.71f) {
                         scalar *= Easing.QUAD_IN.ease(Math.abs(3.14f - time) / 1.57f, 0, 1, 1);
                     }
                     double xOffset = Math.sin(time) * distance;
-                    double yOffset = Math.cos(time) * distance/2f;
-                    var rand = Minecraft.getInstance().level.getRandom();
+                    double yOffset = Math.cos(time) * distance * 0.5f;
                     ScreenParticleBuilder.create(LodestoneScreenParticleRegistry.WISP, target)
                             .setTransparencyData(GenericParticleData.create(0.2f, 0f).setEasing(Easing.SINE_IN_OUT).build())
                             .setSpinData(SpinParticleData.create(RandomHelper.randomBetween(rand, 0.2f, 0.4f)).setEasing(Easing.EXPO_OUT).build())

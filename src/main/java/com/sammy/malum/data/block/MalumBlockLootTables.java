@@ -106,7 +106,7 @@ public class MalumBlockLootTables extends LootTableProvider {
             add(take(blocks, BlockRegistry.NATURAL_QUARTZ_ORE).get(), createOreDrop(BlockRegistry.NATURAL_QUARTZ_ORE.get(), ItemRegistry.NATURAL_QUARTZ.get()));
             add(take(blocks, BlockRegistry.DEEPSLATE_QUARTZ_ORE).get(), createOreDrop(BlockRegistry.DEEPSLATE_QUARTZ_ORE.get(), ItemRegistry.NATURAL_QUARTZ.get()));
 
-            add(take(blocks, BlockRegistry.BLOCK_OF_CTHONIC_GOLD).get(), createSingleItemTableWithSilkTouch(BlockRegistry.BLOCK_OF_CTHONIC_GOLD.get(), ItemRegistry.CTHONIC_GOLD.get()));
+            add(take(blocks, BlockRegistry.CTHONIC_GOLD_ORE).get(), createSingleItemTableWithSilkTouch(BlockRegistry.CTHONIC_GOLD_ORE.get(), ItemRegistry.CTHONIC_GOLD.get()));
 
             takeAll(blocks, b -> b.get() instanceof SaplingBlock).forEach(b -> add(b.get(), createSingleItemTable(b.get().asItem())));
             takeAll(blocks, b -> b.get() instanceof DoublePlantBlock).forEach(b -> add(b.get(), createSingleItemTableWithSilkTouchOrShears(b.get(), b.get().asItem())));
