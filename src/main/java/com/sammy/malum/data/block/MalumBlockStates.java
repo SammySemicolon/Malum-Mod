@@ -192,7 +192,9 @@ public class MalumBlockStates extends LodestoneBlockStateProvider {
                 TWISTED_TABLET);
 
         BlockStateSmithTypes.CUSTOM_MODEL.act(data, ItemModelSmithTypes.UNIQUE_ITEM_MODEL, this::simpleBlock, this::predefinedModel,
-                RUNEWOOD_OBELISK, RUNEWOOD_OBELISK_COMPONENT, BRILLIANT_OBELISK, BRILLIANT_OBELISK_COMPONENT, SPIRIT_CRUCIBLE, SPIRIT_CRUCIBLE_COMPONENT);
+                RUNEWOOD_OBELISK, RUNEWOOD_OBELISK_COMPONENT, BRILLIANT_OBELISK, BRILLIANT_OBELISK_COMPONENT, SPIRIT_CRUCIBLE, SPIRIT_CRUCIBLE_COMPONENT, REPAIR_PYLON);
+
+        MalumBlockStateSmithTypes.REPAIR_PYLON_COMPONENT.act(data, REPAIR_PYLON_COMPONENT);
 
         BlockStateSmithTypes.CUSTOM_MODEL.act(data, ItemModelSmithTypes.UNIQUE_ITEM_MODEL, this::horizontalBlock, this::predefinedModel,
                 SPIRIT_CATALYZER, SPIRIT_CATALYZER_COMPONENT);

@@ -1,35 +1,25 @@
 package com.sammy.malum.client.screen.codex;
 
-import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.*;
 import com.sammy.malum.client.screen.codex.objects.*;
 import com.sammy.malum.client.screen.codex.pages.*;
-import com.sammy.malum.common.events.SetupMalumCodexEntriesEvent;
+import com.sammy.malum.common.events.*;
 import com.sammy.malum.common.item.*;
 import com.sammy.malum.registry.common.*;
-import com.sammy.malum.registry.common.item.ItemRegistry;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import com.sammy.malum.registry.common.item.*;
+import net.minecraft.client.*;
 import net.minecraft.resources.*;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraftforge.common.MinecraftForge;
+import net.minecraft.sounds.*;
+import net.minecraft.world.item.*;
+import net.minecraftforge.common.*;
 import net.minecraftforge.fml.*;
-import org.lwjgl.opengl.GL11;
-import team.lodestar.lodestone.handlers.screenparticle.ScreenParticleHandler;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.function.Supplier;
+import java.util.*;
+import java.util.function.*;
 
-import static com.sammy.malum.MalumMod.malumPath;
-import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.renderTexture;
-import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.renderTransparentTexture;
+import static com.sammy.malum.MalumMod.*;
 import static com.sammy.malum.registry.common.item.ItemRegistry.*;
 import static net.minecraft.world.item.Items.*;
-import static org.lwjgl.opengl.GL11C.GL_SCISSOR_TEST;
 
 public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
 
@@ -50,43 +40,8 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
     }
 
     @Override
-    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
-        renderBackground(guiGraphics);
-        super.render(guiGraphics, mouseX, mouseY, partialTicks);
-        int guiLeft = (width - bookWidth) / 2;
-        int guiTop = (height - bookHeight) / 2;
-        PoseStack poseStack = guiGraphics.pose();
-
-        renderBackground(poseStack, 0.1f, 0.4f);
-        GL11.glEnable(GL_SCISSOR_TEST);
-        cut();
-
-        renderEntries(guiGraphics, mouseX, mouseY, partialTicks);
-        GL11.glDisable(GL_SCISSOR_TEST);
-
-        renderTransparentTexture(FRAME_FADE_TEXTURE, poseStack, guiLeft, guiTop, 0, 0, bookWidth, bookHeight);
-        renderTexture(FRAME_TEXTURE, poseStack, guiLeft, guiTop, 0, 0, bookWidth, bookHeight);
-        lateEntryRender(guiGraphics, mouseX, mouseY, partialTicks);
-    }
-
-    public void renderBackground(PoseStack poseStack, float xModifier, float yModifier) {
-        int insideLeft = getInsideLeft();
-        int insideTop = getInsideTop();
-        float uOffset = (bookInsideWidth / 4f - xOffset * xModifier);
-        float vOffset = (backgroundImageHeight - bookInsideHeight - yOffset * yModifier);
-        if (uOffset <= 0) {
-            uOffset = 0;
-        }
-        if (uOffset > bookInsideWidth / 2f) {
-            uOffset = bookInsideWidth / 2f;
-        }
-        if (vOffset <= backgroundImageHeight / 2f) {
-            vOffset = backgroundImageHeight / 2f;
-        }
-        if (vOffset > backgroundImageHeight - bookInsideHeight) {
-            vOffset = backgroundImageHeight - bookInsideHeight;
-        }
-        renderTexture(BACKGROUND_TEXTURE, poseStack, insideLeft, insideTop, uOffset, vOffset, bookInsideWidth, bookInsideHeight, backgroundImageWidth / 2, backgroundImageHeight / 2);
+    public void renderBackground(PoseStack poseStack) {
+        renderBackground(poseStack, BACKGROUND_TEXTURE, 0.1f, 0.4f);
     }
 
     @Override
@@ -97,18 +52,6 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
     @Override
     public Supplier<SoundEvent> getSweetenerSound() {
         return SoundRegistry.ARCANA_SWEETENER_NORMAL;
-    }
-
-    @Override
-    public void onClose() {
-        super.onClose();
-        playSweetenedSound(SoundRegistry.ARCANA_CODEX_CLOSE, 0.75f);
-    }
-
-    @Override
-    public void openScreen(boolean ignoreNextMouseClick) {
-        Minecraft.getInstance().setScreen(this);
-        this.ignoreNextMouseInput = ignoreNextMouseClick;
     }
 
     public static ArcanaProgressionScreen getScreenInstance() {

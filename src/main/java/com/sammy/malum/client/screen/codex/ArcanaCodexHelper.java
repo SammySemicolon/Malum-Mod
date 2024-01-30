@@ -5,6 +5,7 @@ import com.mojang.blaze3d.vertex.*;
 import com.sammy.malum.core.systems.rites.*;
 import com.sammy.malum.core.systems.ritual.*;
 import com.sammy.malum.core.systems.spirit.*;
+import com.sammy.malum.registry.client.*;
 import net.minecraft.*;
 import net.minecraft.client.*;
 import net.minecraft.client.gui.*;
@@ -24,6 +25,8 @@ import team.lodestar.lodestone.systems.recipe.*;
 import team.lodestar.lodestone.systems.rendering.*;
 import team.lodestar.lodestone.systems.rendering.shader.*;
 
+import java.lang.*;
+import java.lang.Math;
 import java.util.*;
 import java.util.function.*;
 import java.util.stream.*;
@@ -38,6 +41,45 @@ public class ArcanaCodexHelper {
     public enum BookTheme {
         DEFAULT, EASY_READING
     }
+
+    public static <T extends AbstractProgressionCodexScreen> void renderTransitionFade(T screen, PoseStack stack) {
+        final float pct = screen.transitionTimer / 80f;
+        float overlayAlpha = Easing.SINE_IN_OUT.ease(pct, 0, 1, 1);
+        float effectStrength = Easing.QUAD_OUT.ease(pct, 0, 1, 1);
+        float effectAlpha = Math.min(1, effectStrength * 1);
+        float zoom = 0.5f + Math.min(0.35f, effectStrength);
+        float intensity = 1f + (effectStrength > 0.5f ? (effectStrength - 0.5f) * 2.5f : 0);
+
+        RenderSystem.enableBlend();
+        RenderSystem.enableDepthTest();
+        RenderSystem.disableCull();
+        VFXBuilders.ScreenVFXBuilder builder = VFXBuilders.createScreen().setPositionWithWidth(screen.getInsideLeft(), screen.getInsideTop(), screen.bookInsideWidth, screen.bookInsideHeight)
+                .setColor(0, 0, 0)
+                .setAlpha(overlayAlpha)
+                .setZLevel(200)
+                .setPosColorDefaultFormat()
+                .setShader(GameRenderer::getPositionColorShader)
+                .draw(stack);
+
+        ExtendedShaderInstance shaderInstance = (ExtendedShaderInstance) ShaderRegistry.TOUCH_OF_DARKNESS.getInstance().get();
+        shaderInstance.safeGetUniform("Speed").set(1000f);
+        Consumer<Float> setZoom = f -> shaderInstance.safeGetUniform("Zoom").set(f);
+        Consumer<Float> setIntensity = f -> shaderInstance.safeGetUniform("Intensity").set(f);
+        builder.setPosColorTexDefaultFormat().setAlpha(effectAlpha).setShader(ShaderRegistry.TOUCH_OF_DARKNESS.getInstance());
+
+        setZoom.accept(zoom);
+        setIntensity.accept(intensity);
+        builder.draw(stack);
+
+        setZoom.accept(zoom * 1.25f + 0.15f);
+        setIntensity.accept(intensity * 0.8f + 0.5f);
+        builder.draw(stack);
+
+        shaderInstance.setUniformDefaults();
+        RenderSystem.disableDepthTest();
+        RenderSystem.disableBlend();
+    }
+
 
     public static void renderRitualIcon(MalumRitualType rite, PoseStack stack, boolean corrupted, float glowAlpha, int x, int y) {
         renderRiteIcon(rite.getIcon(), rite.spirit, stack, corrupted, glowAlpha, x, y, 0);
@@ -67,8 +109,6 @@ public class ArcanaCodexHelper {
                 .setZLevel(z)
                 .setShader(() -> shaderInstance);
 
-        RenderSystem.enableBlend();
-        RenderSystem.disableDepthTest();
         RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE);
         renderTexture(texture, stack, builder, x, y, 0, 0, 16, 16, 16, 16);
         builder.setAlpha(glowAlpha);
@@ -80,9 +120,7 @@ public class ArcanaCodexHelper {
         }
         renderTexture(texture, stack, builder, x, y + 1, 0, 0, 16, 16, 16, 16);
         shaderInstance.setUniformDefaults();
-        RenderSystem.enableDepthTest();
         RenderSystem.defaultBlendFunc();
-        RenderSystem.disableBlend();
     }
 
     public static void renderWavyIcon(ResourceLocation location, PoseStack stack, int x, int y) {
@@ -108,8 +146,6 @@ public class ArcanaCodexHelper {
                 .setZLevel(z)
                 .setShader(() -> shaderInstance);
 
-        RenderSystem.enableBlend();
-        RenderSystem.disableDepthTest();
         RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE);
         renderTexture(location, stack, builder, x, y, 0, 0, textureWidth, textureHeight);
         builder.setAlpha(0.1f);
@@ -118,42 +154,45 @@ public class ArcanaCodexHelper {
         renderTexture(location, stack, builder, x, y - 1, 0, 0, textureWidth, textureHeight);
         renderTexture(location, stack, builder, x, y + 1, 0, 0, textureWidth, textureHeight);
         shaderInstance.setUniformDefaults();
-        RenderSystem.enableDepthTest();
         RenderSystem.defaultBlendFunc();
-        RenderSystem.disableBlend();
     }
 
     public static void renderTexture(ResourceLocation texture, PoseStack poseStack, int x, int y, float u, float v, int width, int height) {
         renderTexture(texture, poseStack, x, y, u, v, width, height, width, height);
     }
 
+    public static void renderTexture(ResourceLocation texture, PoseStack poseStack, int x, int y, int z, float u, float v, int width, int height) {
+        renderTexture(texture, poseStack, x, y, z, u, v, width, height, width, height);
+    }
+
     public static void renderTexture(ResourceLocation texture, PoseStack poseStack, int x, int y, float u, float v, int width, int height, int textureWidth, int textureHeight) {
-        renderTexture(texture, poseStack, VFX_BUILDER, x, y, u, v, width, height, textureWidth, textureHeight);
+        renderTexture(texture, poseStack, VFX_BUILDER, x, y,0, u, v, width, height, textureWidth, textureHeight);
+    }
+
+    public static void renderTexture(ResourceLocation texture, PoseStack poseStack, int x, int y, int z, float u, float v, int width, int height, int textureWidth, int textureHeight) {
+        renderTexture(texture, poseStack, VFX_BUILDER, x, y, z, u, v, width, height, textureWidth, textureHeight);
     }
 
     public static void renderTexture(ResourceLocation texture, PoseStack poseStack, VFXBuilders.ScreenVFXBuilder builder, int x, int y, float u, float v, int width, int height) {
-        renderTexture(texture, poseStack, builder, x, y, u, v, width, height, width, height);
+        renderTexture(texture, poseStack, builder, x, y, 0, u, v, width, height, width, height);
+    }
+
+    public static void renderTexture(ResourceLocation texture, PoseStack poseStack, VFXBuilders.ScreenVFXBuilder builder, int x, int y, int z, float u, float v, int width, int height) {
+        renderTexture(texture, poseStack, builder, x, y, z, u, v, width, height, width, height);
     }
 
     public static void renderTexture(ResourceLocation texture, PoseStack poseStack, VFXBuilders.ScreenVFXBuilder builder, int x, int y, float u, float v, int width, int height, int textureWidth, int textureHeight) {
+        renderTexture(texture, poseStack, builder, x, y, 0, u, v, width, height, textureWidth, textureHeight);
+    }
+
+    public static void renderTexture(ResourceLocation texture, PoseStack poseStack, VFXBuilders.ScreenVFXBuilder builder, int x, int y, int z, float u, float v, int width, int height, int textureWidth, int textureHeight) {
+        RenderSystem.enableBlend();
+        RenderSystem.enableDepthTest();
         builder.setPositionWithWidth(x, y, width, height)
+                .setZLevel(z)
                 .setShaderTexture(texture)
                 .setUVWithWidth(u, v, width, height, textureWidth, textureHeight)
                 .draw(poseStack);
-    }
-
-    public static void renderTransparentTexture(ResourceLocation texture, PoseStack poseStack, int x, int y, float u, float v, int width, int height) {
-        renderTransparentTexture(texture, poseStack, x, y, u, v, width, height, width, height);
-    }
-
-    public static void renderTransparentTexture(ResourceLocation texture, PoseStack poseStack, int x, int y, float u, float v, int width, int height, int textureWidth, int textureHeight) {
-        renderTransparentTexture(texture, poseStack, VFX_BUILDER, x, y, u, v, width, height, textureWidth, textureHeight);
-    }
-
-    public static void renderTransparentTexture(ResourceLocation texture, PoseStack poseStack, VFXBuilders.ScreenVFXBuilder builder, int x, int y, float u, float v, int width, int height, int textureWidth, int textureHeight) {
-        RenderSystem.enableBlend();
-        RenderSystem.enableDepthTest();
-        renderTexture(texture, poseStack, builder, x, y, u, v, width, height, textureWidth, textureHeight);
         RenderSystem.disableDepthTest();
         RenderSystem.disableBlend();
     }

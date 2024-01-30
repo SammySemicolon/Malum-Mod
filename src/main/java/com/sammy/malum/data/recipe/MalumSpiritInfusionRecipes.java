@@ -283,7 +283,7 @@ public class MalumSpiritInfusionRecipes {
                 .addExtraItem(ItemRegistry.ROTTING_ESSENCE.get(), 2)
                 .addExtraItem(ItemRegistry.PROCESSED_SOULSTONE.get(), 4)
                 .addSpirit(WICKED_SPIRIT, 32)
-                .addSpirit(AQUEOUS_SPIRIT, 8)
+                .addSpirit(AQUEOUS_SPIRIT, 16)
                 .addSpirit(ARCANE_SPIRIT, 8)
                 .build(consumer);
 
@@ -337,55 +337,55 @@ public class MalumSpiritInfusionRecipes {
                 .build(consumer);
 
         new SpiritInfusionRecipeBuilder(ItemRegistry.ALCHEMICAL_CALX.get(), 4, ItemRegistry.MENDING_DIFFUSER.get(), 1)
-                .addSpirit(SACRED_SPIRIT, 16)
+                .addSpirit(SACRED_SPIRIT, 8)
                 .addSpirit(ARCANE_SPIRIT, 4)
                 .addExtraItem(ItemRegistry.LIVING_FLESH.get(), 2)
                 .addExtraItem(ItemRegistry.PROCESSED_SOULSTONE.get(), 2)
                 .build(consumer);
 
         new SpiritInfusionRecipeBuilder(ItemRegistry.ALCHEMICAL_CALX.get(), 4, ItemRegistry.IMPURITY_STABILIZER.get(), 1)
-                .addSpirit(WICKED_SPIRIT, 16)
+                .addSpirit(WICKED_SPIRIT, 8)
                 .addSpirit(ARCANE_SPIRIT, 4)
                 .addExtraItem(ItemRegistry.HEX_ASH.get(), 2)
                 .addExtraItem(ItemRegistry.PROCESSED_SOULSTONE.get(), 2)
                 .build(consumer);
 
         new SpiritInfusionRecipeBuilder(ItemRegistry.ALCHEMICAL_CALX.get(), 4, ItemRegistry.SHIELDING_APPARATUS.get(), 1)
-                .addSpirit(ARCANE_SPIRIT, 16)
+                .addSpirit(ARCANE_SPIRIT, 8)
                 .addExtraItem(ItemRegistry.SOUL_STAINED_STEEL_PLATING.get(), 2)
                 .addExtraItem(ItemRegistry.PROCESSED_SOULSTONE.get(), 2)
                 .build(consumer);
 
         new SpiritInfusionRecipeBuilder(ItemRegistry.ALCHEMICAL_CALX.get(), 4, ItemRegistry.WARPING_ENGINE.get(), 1)
-                .addSpirit(ELDRITCH_SPIRIT, 4)
+                .addSpirit(ELDRITCH_SPIRIT, 2)
                 .addSpirit(ARCANE_SPIRIT, 4)
                 .addExtraItem(ItemRegistry.WARP_FLUX.get(), 2)
                 .addExtraItem(ItemRegistry.PROCESSED_SOULSTONE.get(), 2)
                 .build(consumer);
 
         new SpiritInfusionRecipeBuilder(ItemRegistry.ALCHEMICAL_CALX.get(), 4, ItemRegistry.ACCELERATING_INLAY.get(), 1)
-                .addSpirit(AERIAL_SPIRIT, 16)
+                .addSpirit(AERIAL_SPIRIT, 8)
                 .addSpirit(ARCANE_SPIRIT, 4)
                 .addExtraItem(ItemRegistry.ASTRAL_WEAVE.get(), 2)
                 .addExtraItem(ItemRegistry.PROCESSED_SOULSTONE.get(), 2)
                 .build(consumer);
 
         new SpiritInfusionRecipeBuilder(ItemRegistry.ALCHEMICAL_CALX.get(), 4, ItemRegistry.PRISMATIC_FOCUS_LENS.get(), 1)
-                .addSpirit(AQUEOUS_SPIRIT, 16)
+                .addSpirit(AQUEOUS_SPIRIT, 8)
                 .addSpirit(ARCANE_SPIRIT, 4)
                 .addExtraItem(Ingredient.of(Tags.Items.GEMS_PRISMARINE), 2)
                 .addExtraItem(ItemRegistry.PROCESSED_SOULSTONE.get(), 2)
                 .build(consumer);
 
         new SpiritInfusionRecipeBuilder(ItemRegistry.ALCHEMICAL_CALX.get(), 4, ItemRegistry.BLAZING_DIODE.get(), 1)
-                .addSpirit(INFERNAL_SPIRIT, 16)
+                .addSpirit(INFERNAL_SPIRIT, 8)
                 .addSpirit(ARCANE_SPIRIT, 4)
                 .addExtraItem(ItemRegistry.BLAZING_QUARTZ.get(), 2)
                 .addExtraItem(ItemRegistry.PROCESSED_SOULSTONE.get(), 2)
                 .build(consumer);
 
         new SpiritInfusionRecipeBuilder(ItemRegistry.ALCHEMICAL_CALX.get(), 4, ItemRegistry.INTRICATE_ASSEMBLY.get(), 1)
-                .addSpirit(EARTHEN_SPIRIT, 16)
+                .addSpirit(EARTHEN_SPIRIT, 8)
                 .addSpirit(ARCANE_SPIRIT, 4)
                 .addExtraItem(Ingredient.of(Tags.Items.GEMS_EMERALD), 2)
                 .addExtraItem(ItemRegistry.PROCESSED_SOULSTONE.get(), 2)
@@ -482,7 +482,7 @@ public class MalumSpiritInfusionRecipes {
                 .addSpirit(INFERNAL_SPIRIT, 4)
                 .build(consumer);
 
-        new SpiritInfusionRecipeBuilder(ItemRegistry.SOULWOOD_PLANKS.get(), 2, ItemRegistry.SOUL_STAINED_STEEL_STAFF.get(), 1)
+        new SpiritInfusionRecipeBuilder(ItemRegistry.SOULWOOD_PLANKS.get(), 2, ItemRegistry.MNEMONIC_HEX_STAFF.get(), 1)
                 .addExtraItem(ItemRegistry.MNEMONIC_FRAGMENT.get(), 8)
                 .addExtraItem(ItemRegistry.SOUL_STAINED_STEEL_INGOT.get(), 4)
                 .addSpirit(WICKED_SPIRIT, 32)
@@ -529,7 +529,7 @@ public class MalumSpiritInfusionRecipes {
                 .addSpirit(ELDRITCH_SPIRIT, 4)
                 .build(consumer);
 
-        new SpiritInfusionRecipeBuilder(ItemRegistry.SOUL_STAINED_STEEL_STAFF.get(), 1, ItemRegistry.STAFF_OF_THE_AURIC_FLAME.get(), 1)
+        new SpiritInfusionRecipeBuilder(ItemRegistry.MNEMONIC_HEX_STAFF.get(), 1, ItemRegistry.STAFF_OF_THE_AURIC_FLAME.get(), 1)
                 .addExtraItem(ItemRegistry.FUSED_CONSCIOUSNESS.get(), 1)
                 .addExtraItem(ItemRegistry.AURIC_EMBERS.get(), 8)
                 .addExtraItem(ItemRegistry.VOID_SALTS.get(), 8)

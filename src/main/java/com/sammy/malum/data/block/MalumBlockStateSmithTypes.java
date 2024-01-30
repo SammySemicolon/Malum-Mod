@@ -1,6 +1,7 @@
 package com.sammy.malum.data.block;
 
 import com.sammy.malum.common.block.blight.*;
+import com.sammy.malum.common.block.curiosities.repair_pylon.*;
 import com.sammy.malum.common.block.curiosities.totem.TotemPoleBlock;
 import com.sammy.malum.common.block.curiosities.weeping_well.PrimordialSoupBlock;
 import com.sammy.malum.common.block.ether.EtherBrazierBlock;
@@ -36,6 +37,12 @@ public class MalumBlockStateSmithTypes {
                     .texture("front", front);
             return ConfiguredModel.builder().modelFile(pole).rotationY(((int) s.getValue(BlockStateProperties.HORIZONTAL_FACING).toYRot() + 180) % 360).build();
         });
+    });
+
+    public static BlockStateSmith<RepairPylonComponentBlock> REPAIR_PYLON_COMPONENT = new BlockStateSmith<>(RepairPylonComponentBlock.class, ItemModelSmithTypes.NO_MODEL, (block, provider) -> {
+        ModelFile model = provider.models().getExistingFile(malumPath("block/repair_pylon_component_middle"));
+        ModelFile topModel = provider.models().getExistingFile(malumPath("block/repair_pylon_component_top"));
+        provider.getVariantBuilder(block).forAllStates(s -> ConfiguredModel.builder().modelFile(s.getValue(RepairPylonComponentBlock.TOP) ? topModel : model).build());
     });
 
     public static BlockStateSmith<PrimordialSoupBlock> PRIMORDIAL_SOUP = new BlockStateSmith<>(PrimordialSoupBlock.class, ItemModelSmithTypes.NO_MODEL, (block, provider) -> {

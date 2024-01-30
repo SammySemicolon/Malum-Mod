@@ -1,6 +1,7 @@
 package com.sammy.malum.client.screen.codex.objects;
 
 import com.sammy.malum.client.screen.codex.*;
+import net.minecraft.client.*;
 import net.minecraft.resources.*;
 
 public class ScreenOpenerObject<T extends AbstractProgressionCodexScreen> extends IconObject<T> {
@@ -18,5 +19,8 @@ public class ScreenOpenerObject<T extends AbstractProgressionCodexScreen> extend
     @Override
     public void click(float xOffset, float yOffset, double mouseX, double mouseY) {
         screenOpener.run();
+        if (Minecraft.getInstance().screen instanceof AbstractProgressionCodexScreen screen) {
+            screen.transitionTimer = 80;
+        }
     }
 }

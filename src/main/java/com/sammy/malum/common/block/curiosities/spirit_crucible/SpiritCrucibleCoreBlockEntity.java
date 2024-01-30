@@ -309,8 +309,11 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
 
         spiritInventory.updateData();
         level.addFreshEntity(new ItemEntity(level, itemPos.x, itemPos.y, itemPos.z, outputStack));
-        if (random.nextFloat() < bonusYieldChance) {
-            level.addFreshEntity(new ItemEntity(level, itemPos.x, itemPos.y, itemPos.z, outputStack.copy()));
+        while (bonusYieldChance > 0) {
+            if (bonusYieldChance >= 1 || random.nextFloat() < bonusYieldChance) {
+                level.addFreshEntity(new ItemEntity(level, itemPos.x, itemPos.y, itemPos.z, outputStack.copy()));
+            }
+            bonusYieldChance-=1;
         }
         final boolean instantCompletion = instantCompletionChance > 0 && random.nextFloat() < instantCompletionChance;
         progress = instantCompletion ? recipe.time - 10 * processingSpeed : 0;

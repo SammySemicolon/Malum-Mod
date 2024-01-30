@@ -45,7 +45,7 @@ public class HexBoltEntity extends AbstractBoltProjectileEntity {
 
     @Override
     protected Item getDefaultItem() {
-        return ItemRegistry.SOUL_STAINED_STEEL_STAFF.get();
+        return ItemRegistry.MNEMONIC_HEX_STAFF.get();
     }
 
     @OnlyIn(Dist.CLIENT)

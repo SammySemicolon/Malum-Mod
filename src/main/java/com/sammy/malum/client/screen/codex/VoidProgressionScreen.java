@@ -1,30 +1,22 @@
 package com.sammy.malum.client.screen.codex;
 
-import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.*;
 import com.sammy.malum.client.screen.codex.objects.*;
 import com.sammy.malum.client.screen.codex.pages.*;
-import com.sammy.malum.common.events.SetupMalumCodexEntriesEvent;
+import com.sammy.malum.common.events.*;
 import com.sammy.malum.common.item.*;
-import com.sammy.malum.registry.common.SoundRegistry;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import com.sammy.malum.registry.common.*;
+import net.minecraft.client.*;
 import net.minecraft.resources.*;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraftforge.common.MinecraftForge;
-import org.lwjgl.opengl.GL11;
-import team.lodestar.lodestone.handlers.screenparticle.ScreenParticleHandler;
+import net.minecraft.sounds.*;
+import net.minecraftforge.common.*;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.function.Supplier;
+import java.util.*;
+import java.util.function.*;
 
-import static com.sammy.malum.MalumMod.malumPath;
-import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.renderTexture;
-import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.renderTransparentTexture;
+import static com.sammy.malum.MalumMod.*;
 import static com.sammy.malum.registry.common.item.ItemRegistry.*;
-import static net.minecraft.world.item.Items.BARRIER;
-import static org.lwjgl.opengl.GL11C.GL_SCISSOR_TEST;
+import static net.minecraft.world.item.Items.*;
 
 public class VoidProgressionScreen extends AbstractProgressionCodexScreen {
 
@@ -43,43 +35,8 @@ public class VoidProgressionScreen extends AbstractProgressionCodexScreen {
     }
 
     @Override
-    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
-        renderBackground(guiGraphics);
-        super.render(guiGraphics, mouseX, mouseY, partialTicks);
-        int guiLeft = (width - bookWidth) / 2;
-        int guiTop = (height - bookHeight) / 2;
-        PoseStack poseStack = guiGraphics.pose();
-
-        renderBackground(poseStack, 0.2f, 0.2f);
-        GL11.glEnable(GL_SCISSOR_TEST);
-        cut();
-
-        renderEntries(guiGraphics, mouseX, mouseY, partialTicks);
-        GL11.glDisable(GL_SCISSOR_TEST);
-
-        renderTransparentTexture(FRAME_FADE_TEXTURE, poseStack, guiLeft, guiTop, 0, 0, bookWidth, bookHeight);
-        renderTexture(FRAME_TEXTURE, poseStack, guiLeft, guiTop, 0, 0, bookWidth, bookHeight);
-        lateEntryRender(guiGraphics, mouseX, mouseY, partialTicks);
-    }
-
-    public void renderBackground(PoseStack poseStack, float xModifier, float yModifier) {
-        int insideLeft = getInsideLeft();
-        int insideTop = getInsideTop();
-        float uOffset = (bookInsideWidth / 4f - xOffset * xModifier);
-        float vOffset = (backgroundImageHeight - bookInsideHeight - yOffset * yModifier);
-        if (uOffset <= 0) {
-            uOffset = 0;
-        }
-        if (uOffset > bookInsideWidth / 2f) {
-            uOffset = bookInsideWidth / 2f;
-        }
-        if (vOffset <= backgroundImageHeight / 2f) {
-            vOffset = backgroundImageHeight / 2f;
-        }
-        if (vOffset > backgroundImageHeight - bookInsideHeight) {
-            vOffset = backgroundImageHeight - bookInsideHeight;
-        }
-        renderTexture(BACKGROUND_TEXTURE, poseStack, insideLeft, insideTop, uOffset, vOffset, bookInsideWidth, bookInsideHeight, backgroundImageWidth / 2, backgroundImageHeight / 2);
+    public void renderBackground(PoseStack poseStack) {
+        renderBackground(poseStack, BACKGROUND_TEXTURE, 0.2f, 0.2f);
     }
 
     @Override
@@ -90,18 +47,6 @@ public class VoidProgressionScreen extends AbstractProgressionCodexScreen {
     @Override
     public Supplier<SoundEvent> getSweetenerSound() {
         return SoundRegistry.ARCANA_SWEETENER_EVIL;
-    }
-
-    @Override
-    public void onClose() {
-        super.onClose();
-        playSweetenedSound(SoundRegistry.ARCANA_CODEX_CLOSE, 0.75f);
-    }
-
-    @Override
-    public void openScreen(boolean ignoreNextMouseClick) {
-        Minecraft.getInstance().setScreen(this);
-        this.ignoreNextMouseInput = ignoreNextMouseClick;
     }
 
     public static VoidProgressionScreen getScreenInstance() {
@@ -185,11 +130,11 @@ public class VoidProgressionScreen extends AbstractProgressionCodexScreen {
 
         VOID_ENTRIES.add(new BookEntry<>(
                 "void.soul_stained_steel_staff", 3, 5)
-                .setWidgetConfig(w -> w.setIcon(SOUL_STAINED_STEEL_STAFF).setStyle(BookWidgetStyle.SOULWOOD))
+                .setWidgetConfig(w -> w.setIcon(MNEMONIC_HEX_STAFF).setStyle(BookWidgetStyle.SOULWOOD))
                 .addPage(new HeadlineTextPage("void.soul_stained_steel_staff", "void.soul_stained_steel_staff.1"))
                 .addPage(new TextPage("void.soul_stained_steel_staff.2"))
                 .addPage(new TextPage("void.soul_stained_steel_staff.3"))
-                .addPage(SpiritInfusionPage.fromOutput(SOUL_STAINED_STEEL_STAFF.get()))
+                .addPage(SpiritInfusionPage.fromOutput(MNEMONIC_HEX_STAFF.get()))
                 .addPage(new HeadlineTextPage("void.ring_of_the_plentiful", "void.ring_of_the_plentiful.1"))
                 .addPage(SpiritInfusionPage.fromOutput(RING_OF_THE_PLENTIFUL.get()))
         );

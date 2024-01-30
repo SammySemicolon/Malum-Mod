@@ -12,7 +12,6 @@ import java.util.*;
 import java.util.function.*;
 
 import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.renderTexture;
-import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.renderTransparentTexture;
 
 public class EntryObject<T extends AbstractProgressionCodexScreen> extends BookObject<T> {
 
@@ -41,7 +40,7 @@ public class EntryObject<T extends AbstractProgressionCodexScreen> extends BookO
         int posX = offsetPosX(xOffset) - (style.textureWidth()-32)/2;
         int posY = offsetPosY(yOffset) - (style.textureHeight()-32)/2;
         final PoseStack poseStack = guiGraphics.pose();
-        renderTransparentTexture(WIDGET_FADE_TEXTURE, poseStack, posX - 13, posY - 13, 0, 0, 58, 58);
+        renderTexture(WIDGET_FADE_TEXTURE, poseStack, posX - 13, posY - 13, 0, 0, 58, 58);
         renderTexture(style.frameTexture(), poseStack, posX, posY, 0, 0, style.textureWidth(), style.textureHeight());
         renderTexture(style.fillingTexture(), poseStack, posX, posY, 0, 0, style.textureWidth(), style.textureHeight());
         if (iconStack != null) {
