@@ -10,7 +10,7 @@ import com.sammy.malum.data.item.MalumItemModelSmithTypes;
 import com.sammy.malum.registry.common.SpiritTypeRegistry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.*;
 import net.minecraftforge.client.model.generators.*;
 import team.lodestar.lodestone.systems.datagen.ItemModelSmithTypes;
 import team.lodestar.lodestone.systems.datagen.statesmith.BlockStateSmith;
@@ -128,6 +128,28 @@ public class MalumBlockStateSmithTypes {
             }
         }
         builder.addModel();
+    });
+
+    public static BlockStateSmith<Block> CALCIFIED_BLIGHT = new BlockStateSmith<>(Block.class, ItemModelSmithTypes.GENERATED_ITEM, (block, provider) -> {
+        String name = provider.getBlockName(block);
+        Function<Integer, ModelFile> modelFunction = (s) -> provider.models().withExistingParent(name + "_" + s, new ResourceLocation("block/cross")).texture("cross", malumPath("block/" + name + "_" + s));
+        provider.getVariantBuilder(block).forAllStates(s -> {
+            int value = s.getValue(CalcifiedBlightBlock.STAGE);
+            return ConfiguredModel.builder().modelFile(modelFunction.apply(value)).build();
+        });
+    });
+
+    public static BlockStateSmith<Block> TALL_CALCIFIED_BLIGHT = new BlockStateSmith<>(Block.class, ItemModelSmithTypes.NO_MODEL, (block, provider) -> {
+        String name = provider.getBlockName(block);
+        Function<String, ModelFile> modelFunction = (s) -> provider.models().withExistingParent(name + "_" + s, new ResourceLocation("block/cross")).texture("cross", malumPath("block/" + name + "_" + s));
+        provider.getVariantBuilder(block).forAllStates(s -> {
+            int value = s.getValue(CalcifiedBlightBlock.STAGE);
+            String prefix = "";
+            if (s.hasProperty(TallCalcifiedBlightBlock.HALF) && s.getValue(TallCalcifiedBlightBlock.HALF).equals(DoubleBlockHalf.UPPER)) {
+                prefix = "top_";
+            }
+            return ConfiguredModel.builder().modelFile(modelFunction.apply(prefix + value)).build();
+        });
     });
 
     public static BlockStateSmith<EtherBrazierBlock> BRAZIER_BLOCK = new BlockStateSmith<>(EtherBrazierBlock.class, MalumItemModelSmithTypes.ETHER_BRAZIER_ITEM, (block, provider) -> {

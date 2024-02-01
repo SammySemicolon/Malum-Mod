@@ -112,8 +112,8 @@ public class JEIHandler implements IModPlugin {
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registry) {
         registry.addRecipeCatalyst(new ItemStack(ItemRegistry.SPIRIT_ALTAR.get()), SPIRIT_INFUSION);
-        registry.addRecipeCatalyst(new ItemStack(ItemRegistry.SPIRIT_CRUCIBLE.get()), FOCUSING, SPIRIT_REPAIR);
-        registry.addRecipeCatalyst(new ItemStack(ItemRegistry.TWISTED_TABLET.get()), SPIRIT_REPAIR);
+        registry.addRecipeCatalyst(new ItemStack(ItemRegistry.SPIRIT_CRUCIBLE.get()), FOCUSING);
+        registry.addRecipeCatalyst(new ItemStack(ItemRegistry.REPAIR_PYLON.get()), SPIRIT_REPAIR);
         registry.addRecipeCatalyst(new ItemStack(ItemRegistry.RUNEWOOD_TOTEM_BASE.get()), RITES);
         registry.addRecipeCatalyst(new ItemStack(ItemRegistry.SOULWOOD_TOTEM_BASE.get()), TRANSMUTATION);
     }

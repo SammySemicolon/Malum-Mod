@@ -6,12 +6,10 @@ import com.sammy.malum.registry.common.entity.EntityRegistry;
 import com.sammy.malum.visual_effects.*;
 import com.sammy.malum.visual_effects.networked.*;
 import com.sammy.malum.visual_effects.networked.data.*;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.*;
-import net.minecraftforge.network.PacketDistributor;
 import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.systems.easing.Easing;
 import team.lodestar.lodestone.systems.particle.*;
@@ -24,13 +22,11 @@ import team.lodestar.lodestone.systems.particle.render_types.LodestoneWorldParti
 import java.awt.*;
 import java.util.function.*;
 
-import static com.sammy.malum.registry.common.PacketRegistry.MALUM_CHANNEL;
-
 public class EthericNitrateEntity extends AbstractNitrateEntity {
 
-    public static final Color FIRST_COLOR = new Color(239, 215, 75);
-    public static final Color SECOND_COLOR = new Color(236, 54, 163);
-    public static final ColorParticleData ETHERIC_COLOR_DATA = ColorParticleData.create(FIRST_COLOR, SECOND_COLOR).setEasing(Easing.SINE_IN_OUT).setCoefficient(0.9f).build();
+    public static final Color AURIC_YELLOW = new Color(239, 215, 75);
+    public static final Color AURIC_PURPLE = new Color(236, 54, 163);
+    public static final ColorParticleData AURIC_COLOR_DATA = ColorParticleData.create(AURIC_YELLOW, AURIC_PURPLE).setEasing(Easing.SINE_IN_OUT).setCoefficient(0.9f).build();
 
     public EthericNitrateEntity(Level level) {
         super(EntityRegistry.ETHERIC_NITRATE.get(), level);
@@ -57,7 +53,7 @@ public class EthericNitrateEntity extends AbstractNitrateEntity {
 
     @Override
     public ColorEffectData getImpactParticleEffectColor() {
-        return new ColorEffectData(FIRST_COLOR, SECOND_COLOR);
+        return new ColorEffectData(AURIC_YELLOW, AURIC_PURPLE);
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -68,11 +64,11 @@ public class EthericNitrateEntity extends AbstractNitrateEntity {
             scalar = age / 5f;
         }
         Vec3 norm = getDeltaMovement().normalize().scale(0.05f);
-        var lightSpecs = SpiritLightSpecs.spiritLightSpecs(level(), position(), ETHERIC_COLOR_DATA);
+        var lightSpecs = SpiritLightSpecs.spiritLightSpecs(level(), position(), AURIC_COLOR_DATA);
         lightSpecs.getBuilder().multiplyLifetime(1.5f).setMotion(norm);
         lightSpecs.getBloomBuilder().multiplyLifetime(1.5f).setMotion(norm);
         lightSpecs.spawnParticles();
-        Color startingSmokeColor = age < 3 ? AbstractNitrateEntity.SECOND_SMOKE_COLOR : FIRST_COLOR;
+        Color startingSmokeColor = age < 3 ? AbstractNitrateEntity.SECOND_SMOKE_COLOR : AURIC_YELLOW;
         for (int i = 0; i < 3; i++) {
             int lifetime = (int) (RandomHelper.randomBetween(random, 60, 80) * (1 - i / 3f));
             final SpinParticleData spinData = SpinParticleData.createRandomDirection(random, 0, RandomHelper.randomBetween(random, 0f, 0.4f), 0).randomSpinOffset(random).build();

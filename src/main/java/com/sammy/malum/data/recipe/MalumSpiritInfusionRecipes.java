@@ -391,20 +391,21 @@ public class MalumSpiritInfusionRecipes {
                 .addExtraItem(ItemRegistry.PROCESSED_SOULSTONE.get(), 2)
                 .build(consumer);
 
-        new SpiritInfusionRecipeBuilder(ItemRegistry.TWISTED_ROCK_ITEM_PEDESTAL.get(), 2, ItemRegistry.SPIRIT_CATALYZER.get(), 2)
-                .addSpirit(INFERNAL_SPIRIT, 16)
-                .addSpirit(AERIAL_SPIRIT, 16)
-                .addSpirit(ELDRITCH_SPIRIT, 2)
+        new SpiritInfusionRecipeBuilder(ItemRegistry.TWISTED_ROCK_ITEM_PEDESTAL.get(), 1, ItemRegistry.SPIRIT_CATALYZER.get(), 1)
+                .addSpirit(INFERNAL_SPIRIT, 8)
+                .addSpirit(AERIAL_SPIRIT, 8)
+                .addExtraItem(ItemRegistry.TAINTED_ROCK.get(), 4)
                 .addExtraItem(ItemRegistry.ETHER.get(), 1)
-                .addExtraItem(ItemRegistry.TAINTED_ROCK.get(), 8)
-                .addExtraItem(ItemRegistry.TWISTED_ROCK.get(), 8)
+                .addExtraItem(ItemRegistry.TWISTED_ROCK.get(), 4)
                 .build(consumer);
 
-        new SpiritInfusionRecipeBuilder(ItemRegistry.TAINTED_ROCK_ITEM_STAND.get(), 1, ItemRegistry.TWISTED_TABLET.get(), 1)
-                .addSpirit(AERIAL_SPIRIT, 8)
-                .addSpirit(EARTHEN_SPIRIT, 8)
-                .addExtraItem(ItemRegistry.TAINTED_ROCK.get(), 4)
-                .addExtraItem(ItemRegistry.TWISTED_ROCK.get(), 4)
+        new SpiritInfusionRecipeBuilder(ItemRegistry.TAINTED_ROCK_ITEM_PEDESTAL.get(), 1, ItemRegistry.REPAIR_PYLON.get(), 1)
+                .addSpirit(SACRED_SPIRIT, 16)
+                .addSpirit(AERIAL_SPIRIT, 16)
+                .addSpirit(AQUEOUS_SPIRIT, 16)
+                .addSpirit(INFERNAL_SPIRIT, 16)
+                .addExtraItem(ItemRegistry.TAINTED_ROCK.get(), 8)
+                .addExtraItem(ItemRegistry.TWISTED_ROCK.get(), 8)
                 .build(consumer);
 
         new SpiritInfusionRecipeBuilder(Ingredient.of(ItemTags.COALS), 4, ItemRegistry.ARCANE_CHARCOAL.get(), 4)

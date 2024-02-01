@@ -389,7 +389,6 @@ public class ItemRegistry {
     public static final RegistryObject<Item> BRILLIANT_OBELISK = register("brilliant_obelisk", DEFAULT_PROPERTIES(), (p) -> new MultiBlockItem(BlockRegistry.BRILLIANT_OBELISK.get(), p, BrilliantObeliskBlockEntity.STRUCTURE));
     public static final RegistryObject<Item> SPIRIT_CRUCIBLE = register("spirit_crucible", DEFAULT_PROPERTIES(), (p) -> new MultiBlockItem(BlockRegistry.SPIRIT_CRUCIBLE.get(), p, SpiritCrucibleCoreBlockEntity.STRUCTURE));
     public static final RegistryObject<Item> SPIRIT_CATALYZER = register("spirit_catalyzer", DEFAULT_PROPERTIES(), (p) -> new MultiBlockItem(BlockRegistry.SPIRIT_CATALYZER.get(), p, SpiritCatalyzerCoreBlockEntity.STRUCTURE));
-    public static final RegistryObject<Item> TWISTED_TABLET = register("twisted_tablet", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.TWISTED_TABLET.get(), p));
     public static final RegistryObject<Item> REPAIR_PYLON = register("repair_pylon", DEFAULT_PROPERTIES(), (p) -> new MultiBlockItem(BlockRegistry.REPAIR_PYLON.get(), p, RepairPylonCoreBlockEntity.STRUCTURE));
     public static final RegistryObject<Item> RUNEWOOD_TOTEM_BASE = register("runewood_totem_base", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.RUNEWOOD_TOTEM_BASE.get(), p));
     public static final RegistryObject<Item> SOULWOOD_TOTEM_BASE = register("soulwood_totem_base", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.SOULWOOD_TOTEM_BASE.get(), p));
@@ -405,6 +404,7 @@ public class ItemRegistry {
     public static final RegistryObject<Item> CTHONIC_GOLD = register("cthonic_gold", DEFAULT_PROPERTIES().rarity(UNCOMMON), Item::new);
     public static final RegistryObject<Item> HEX_ASH = register("hex_ash", DEFAULT_PROPERTIES(), Item::new);
     public static final RegistryObject<Item> ALCHEMICAL_CALX = register("alchemical_calx", DEFAULT_PROPERTIES(), Item::new);
+    public static final RegistryObject<Item> CALCIFIED_BLIGHT = register("calcified_blight", DEFAULT_PROPERTIES(), (p) -> new ItemNameBlockItem(BlockRegistry.CALCIFIED_BLIGHT.get(), p));
     public static final RegistryObject<Item> CURSED_GRIT = register("cursed_grit", DEFAULT_PROPERTIES(), Item::new);
     public static final RegistryObject<Item> NULL_SLATE = register("null_slate", DEFAULT_PROPERTIES(), Item::new);
     public static final RegistryObject<Item> VOID_SALTS = register("void_salts", DEFAULT_PROPERTIES(), Item::new);

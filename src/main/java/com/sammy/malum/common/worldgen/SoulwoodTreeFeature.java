@@ -1,41 +1,31 @@
 package com.sammy.malum.common.worldgen;
 
-import com.google.common.collect.ImmutableList;
+import com.google.common.collect.*;
 import com.mojang.datafixers.util.*;
 import com.sammy.malum.common.block.blight.*;
-import com.sammy.malum.common.block.nature.MalumLeavesBlock;
-import com.sammy.malum.registry.common.block.BlockRegistry;
-import com.sammy.malum.registry.common.block.BlockTagRegistry;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.util.Mth;
-import net.minecraft.util.RandomSource;
+import com.sammy.malum.common.block.nature.*;
+import com.sammy.malum.registry.common.block.*;
+import net.minecraft.core.*;
+import net.minecraft.util.*;
 import net.minecraft.world.level.*;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.RotatedPillarBlock;
-import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.level.block.state.properties.*;
-import net.minecraft.world.level.levelgen.LegacyRandomSource;
-import net.minecraft.world.level.levelgen.WorldgenRandom;
-import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
-import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
-import net.minecraft.world.level.levelgen.synth.PerlinSimplexNoise;
+import net.minecraft.world.level.levelgen.*;
+import net.minecraft.world.level.levelgen.feature.*;
+import net.minecraft.world.level.levelgen.feature.configurations.*;
+import net.minecraft.world.level.levelgen.synth.*;
 import net.minecraft.world.phys.*;
 import org.joml.*;
 import team.lodestar.lodestone.helpers.*;
-import team.lodestar.lodestone.systems.worldgen.LodestoneBlockFiller;
-import team.lodestar.lodestone.systems.worldgen.LodestoneBlockFiller.BlockStateEntry;
+import team.lodestar.lodestone.systems.worldgen.*;
+import team.lodestar.lodestone.systems.worldgen.LodestoneBlockFiller.*;
 
-import java.lang.*;
 import java.lang.Math;
 import java.util.*;
-import java.util.function.*;
 
 import static com.sammy.malum.common.block.blight.ClingingBlightBlock.BlightType.*;
-import static com.sammy.malum.common.worldgen.RunewoodTreeFeature.canPlace;
-import static com.sammy.malum.common.worldgen.RunewoodTreeFeature.updateLeaves;
+import static com.sammy.malum.common.worldgen.RunewoodTreeFeature.*;
 import static net.minecraft.tags.BlockTags.*;
 
 public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
@@ -233,7 +223,7 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
             }
             makeLeafBlob(leavesFiller, hangingLeavesFiller, hangingLeavesCoverage, rand, branchEndPos.above(1));
         }
-        generateBlight(level, blightFiller, pos.below(), 6);
+        generateBlight(level, blightFiller, pos.below(), 8);
 
         ArrayList<BlockPos> sapBlockPositions = new ArrayList<>(treeFiller.getEntries().keySet());
         Collections.shuffle(sapBlockPositions);

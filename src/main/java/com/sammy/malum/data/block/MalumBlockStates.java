@@ -173,6 +173,10 @@ public class MalumBlockStates extends LodestoneBlockStateProvider {
         BlockStateSmithTypes.CUSTOM_MODEL.act(data, ItemModelSmithTypes.BLOCK_MODEL_ITEM, this::simpleBlock, this::blightedEarthModel, BLIGHTED_EARTH);
         BlockStateSmithTypes.CUSTOM_MODEL.act(data, ItemModelSmithTypes.BLOCK_MODEL_ITEM, this::simpleBlock, this::blightedSoulwoodModel, BLIGHTED_SOULWOOD);
 
+        setTexturePath("blight/calcified/");
+        MalumBlockStateSmithTypes.CALCIFIED_BLIGHT.act(data, CALCIFIED_BLIGHT);
+        MalumBlockStateSmithTypes.TALL_CALCIFIED_BLIGHT.act(data, TALL_CALCIFIED_BLIGHT);
+
         setTexturePath("");
         BlockStateSmithTypes.CUSTOM_MODEL.act(data, ItemModelSmithTypes.GENERATED_ITEM, this::simpleBlock, this::etherModel, ETHER);
         BlockStateSmithTypes.CUSTOM_MODEL.act(data, MalumItemModelSmithTypes.GENERATED_OVERLAY_ITEM, (b, m) -> getVariantBuilder(b).forAllStates(s -> ConfiguredModel.builder().modelFile(m).build()), this::etherTorchModel, ETHER_TORCH);
@@ -187,9 +191,6 @@ public class MalumBlockStates extends LodestoneBlockStateProvider {
 
         BlockStateSmithTypes.CUSTOM_MODEL.act(data, ItemModelSmithTypes.BLOCK_MODEL_ITEM, this::horizontalBlock, this::predefinedModel,
                 WEAVERS_WORKBENCH);
-
-        BlockStateSmithTypes.CUSTOM_MODEL.act(data, ItemModelSmithTypes.BLOCK_MODEL_ITEM, this::directionalBlock, this::predefinedModel,
-                TWISTED_TABLET);
 
         BlockStateSmithTypes.CUSTOM_MODEL.act(data, ItemModelSmithTypes.UNIQUE_ITEM_MODEL, this::simpleBlock, this::predefinedModel,
                 RUNEWOOD_OBELISK, RUNEWOOD_OBELISK_COMPONENT, BRILLIANT_OBELISK, BRILLIANT_OBELISK_COMPONENT, SPIRIT_CRUCIBLE, SPIRIT_CRUCIBLE_COMPONENT, REPAIR_PYLON);

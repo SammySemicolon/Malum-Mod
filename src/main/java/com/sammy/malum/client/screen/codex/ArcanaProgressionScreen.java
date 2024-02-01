@@ -360,10 +360,10 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
 
         ENTRIES.add(new BookEntry<>(
                 "arcane_restoration", 7, 8)
-                .setWidgetConfig(w -> w.setIcon(TWISTED_TABLET))
+                .setWidgetConfig(w -> w.setIcon(REPAIR_PYLON))
                 .addPage(new HeadlineTextPage("arcane_restoration", "arcane_restoration.1"))
                 .addPage(new TextPage("arcane_restoration.2"))
-                .addPage(SpiritInfusionPage.fromOutput(TWISTED_TABLET.get()))
+                .addPage(SpiritInfusionPage.fromOutput(REPAIR_PYLON.get()))
                 .addPage(SpiritRepairPage.fromInput(CRACKED_ALCHEMICAL_IMPETUS.get()))
                 .addPage(SpiritRepairPage.fromInput(CRACKED_COPPER_IMPETUS.get()))
                 .addPage(SpiritRepairPage.fromInput(WOODEN_PICKAXE))

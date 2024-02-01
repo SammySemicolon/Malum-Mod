@@ -8,7 +8,6 @@ import com.sammy.malum.common.block.curiosities.ritual_plinth.*;
 import com.sammy.malum.common.block.curiosities.spirit_altar.*;
 import com.sammy.malum.common.block.curiosities.spirit_crucible.*;
 import com.sammy.malum.common.block.curiosities.spirit_crucible.catalyzer.*;
-import com.sammy.malum.common.block.curiosities.tablet.*;
 import com.sammy.malum.common.block.curiosities.totem.*;
 import com.sammy.malum.common.block.curiosities.weavers_workbench.*;
 import com.sammy.malum.common.block.curiosities.weeping_well.*;
@@ -42,7 +41,6 @@ public class BlockEntityRegistry {
     public static final RegistryObject<BlockEntityType<SpiritCrucibleCoreBlockEntity>> SPIRIT_CRUCIBLE = BLOCK_ENTITY_TYPES.register("spirit_crucible", () -> BlockEntityType.Builder.of(SpiritCrucibleCoreBlockEntity::new, BlockRegistry.SPIRIT_CRUCIBLE.get()).build(null));
     public static final RegistryObject<BlockEntityType<SpiritCatalyzerCoreBlockEntity>> SPIRIT_CATALYZER = BLOCK_ENTITY_TYPES.register("spirit_catalyzer", () -> BlockEntityType.Builder.of(SpiritCatalyzerCoreBlockEntity::new, BlockRegistry.SPIRIT_CATALYZER.get()).build(null));
     public static final RegistryObject<BlockEntityType<RepairPylonCoreBlockEntity>> REPAIR_PYLON = BLOCK_ENTITY_TYPES.register("repair_pylon", () -> BlockEntityType.Builder.of(RepairPylonCoreBlockEntity::new, BlockRegistry.REPAIR_PYLON.get()).build(null));
-    public static final RegistryObject<BlockEntityType<TwistedTabletBlockEntity>> TWISTED_TABLET = BLOCK_ENTITY_TYPES.register("twisted_tablet", () -> BlockEntityType.Builder.of(TwistedTabletBlockEntity::new, BlockRegistry.TWISTED_TABLET.get()).build(null));
     public static final RegistryObject<BlockEntityType<RunewoodObeliskBlockEntity>> RUNEWOOD_OBELISK = BLOCK_ENTITY_TYPES.register("runewood_obelisk", () -> BlockEntityType.Builder.of(RunewoodObeliskBlockEntity::new, BlockRegistry.RUNEWOOD_OBELISK.get()).build(null));
     public static final RegistryObject<BlockEntityType<BrilliantObeliskBlockEntity>> BRILLIANT_OBELISK = BLOCK_ENTITY_TYPES.register("brilliant_obelisk", () -> BlockEntityType.Builder.of(BrilliantObeliskBlockEntity::new, BlockRegistry.BRILLIANT_OBELISK.get()).build(null));
 
@@ -86,7 +84,6 @@ public class BlockEntityRegistry {
             event.registerBlockEntityRenderer(SPIRIT_ALTAR.get(), SpiritAltarRenderer::new);
             event.registerBlockEntityRenderer(SPIRIT_CRUCIBLE.get(), SpiritCrucibleRenderer::new);
             event.registerBlockEntityRenderer(SPIRIT_CATALYZER.get(), SpiritCatalyzerRenderer::new);
-            event.registerBlockEntityRenderer(TWISTED_TABLET.get(), MalumItemHolderRenderer::new);
             event.registerBlockEntityRenderer(TOTEM_POLE.get(), TotemPoleRenderer::new);
             event.registerBlockEntityRenderer(RITUAL_PLINTH.get(), RitualPlinthRenderer::new);
             event.registerBlockEntityRenderer(ITEM_STAND.get(), MalumItemHolderRenderer::new);

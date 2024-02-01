@@ -122,16 +122,17 @@ public class AuricFlameBoltEntity extends AbstractBoltProjectileEntity {
         Vec3 position = position();
         float scalar = getVisualEffectScalar();
         Vec3 norm = getDeltaMovement().normalize().scale(0.05f);
-        var lightSpecs = SpiritLightSpecs.spiritLightSpecs(level, position, AuricFlameStaffItem.AURIC_COLOR_DATA, AuricFlameStaffItem.REVERSE_AURIC_COLOR_DATA);
+        var lightSpecs = SpiritLightSpecs.spiritLightSpecs(level, position, AuricFlameStaffItem.AURIC_COLOR_DATA);
         lightSpecs.getBuilder().multiplyLifetime(1.25f).setMotion(norm);
         lightSpecs.getBloomBuilder().multiplyLifetime(1.25f).setMotion(norm);
         lightSpecs.spawnParticles();
         final Consumer<LodestoneWorldParticleActor> behavior = p -> p.setParticleMotion(p.getParticleSpeed().scale(0.98f));
+        final float min = Math.min(1f, 2 * scalar);
         SparkParticleBuilder.create(ParticleRegistry.BOLT)
                 .setTransparencyData(GenericParticleData.create(0.5f * scalar, 0.2f * scalar, 0f).setEasing(Easing.SINE_IN_OUT, Easing.SINE_IN).build())
-                .setScaleData(GenericParticleData.create(0.75f * scalar, 0.1f * scalar).setEasing(Easing.QUAD_OUT).build())
-                .setLengthData(GenericParticleData.create(2.4f * Math.min(1f, scalar*2), 0.2f * Math.min(1f, scalar*2)).setEasing(Easing.CUBIC_IN).build())
-                .setColorData(level.getGameTime() % 6L == 0 ? AuricFlameStaffItem.REVERSE_AURIC_COLOR_DATA : AuricFlameStaffItem.AURIC_COLOR_DATA)
+                .setScaleData(GenericParticleData.create(0.6f * scalar, 0.1f * min).setEasing(Easing.QUAD_OUT).build())
+                .setLengthData(GenericParticleData.create(2f * min, 0.2f * min).setEasing(Easing.CUBIC_IN).build())
+                .setColorData(AuricFlameStaffItem.AURIC_COLOR_DATA)
                 .setLifetime(Math.min(6 + age * 3, 45))
                 .setMotion(norm)
                 .enableNoClip()

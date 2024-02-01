@@ -77,15 +77,6 @@ public class MalumBlockProperties {
                 .needsAxe();
     }
 
-    public static LodestoneBlockProperties BLIGHTED_PLANTS() {
-        return new LodestoneBlockProperties()
-                .addTag(BlockTagRegistry.BLIGHTED_PLANTS)
-                .noCollission()
-                .noOcclusion()
-                .sound(SoundRegistry.BLIGHTED_FOLIAGE)
-                .instabreak();
-    }
-
     public static LodestoneBlockProperties SOULWOOD_LEAVES() {
         return new LodestoneBlockProperties()
                 .addTag(BlockTags.LEAVES)
@@ -114,6 +105,25 @@ public class MalumBlockProperties {
                 .needsHoe()
                 .sound(SoundRegistry.BLIGHTED_EARTH)
                 .strength(0.7f);
+    }
+
+    public static LodestoneBlockProperties BLIGHTED_PLANTS() {
+        return new LodestoneBlockProperties()
+                .addTag(BlockTagRegistry.BLIGHTED_PLANTS)
+                .noCollission()
+                .noOcclusion()
+                .sound(SoundRegistry.BLIGHTED_FOLIAGE)
+                .instabreak();
+    }
+
+
+    public static LodestoneBlockProperties CALCIFIED_BLIGHT() {
+        return new LodestoneBlockProperties()
+                .addTag(BlockTagRegistry.BLIGHTED_PLANTS)
+                .noCollission()
+                .noOcclusion()
+                .sound(SoundRegistry.CALCIFIED_BLIGHT)
+                .instabreak();
     }
 
     public static LodestoneBlockProperties BRILLIANCE_ORE(boolean isDeepslate) {

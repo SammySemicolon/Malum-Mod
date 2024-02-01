@@ -1,6 +1,7 @@
 package com.sammy.malum.common.item.curiosities.weapons.staff;
 
 import com.sammy.malum.common.entity.bolt.*;
+import com.sammy.malum.common.entity.nitrate.*;
 import com.sammy.malum.registry.client.*;
 import net.minecraft.util.*;
 import net.minecraft.world.*;
@@ -18,14 +19,9 @@ import team.lodestar.lodestone.systems.particle.data.color.*;
 import team.lodestar.lodestone.systems.particle.data.spin.*;
 import team.lodestar.lodestone.systems.particle.render_types.*;
 
-import java.awt.*;
-
 public class AuricFlameStaffItem extends AbstractStaffItem {
 
-    public static final Color AURIC_YELLOW = new Color(239, 215, 75);
-    public static final Color AURIC_PURPLE = new Color(236, 54, 163);
-    public static final ColorParticleData AURIC_COLOR_DATA = ColorParticleData.create(AURIC_YELLOW, AURIC_PURPLE).setEasing(Easing.SINE_IN_OUT).setCoefficient(0.9f).build();
-    public static final ColorParticleData REVERSE_AURIC_COLOR_DATA = ColorParticleData.create(AURIC_PURPLE, AURIC_YELLOW).setEasing(Easing.SINE_IN_OUT).setCoefficient(0.9f).build();
+    public static final ColorParticleData AURIC_COLOR_DATA = EthericNitrateEntity.AURIC_COLOR_DATA;
 
     public AuricFlameStaffItem(Tier tier, float magicDamage, Properties builderIn) {
         super(tier, 20, magicDamage, builderIn);

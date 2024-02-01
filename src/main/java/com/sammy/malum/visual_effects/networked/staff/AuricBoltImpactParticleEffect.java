@@ -1,10 +1,8 @@
 package com.sammy.malum.visual_effects.networked.staff;
 
 import com.sammy.malum.common.item.curiosities.weapons.staff.*;
-import com.sammy.malum.core.systems.spirit.*;
 import com.sammy.malum.visual_effects.*;
 import com.sammy.malum.visual_effects.networked.*;
-import com.sammy.malum.visual_effects.networked.data.*;
 import net.minecraft.nbt.*;
 import net.minecraft.util.*;
 import net.minecraft.world.phys.*;
@@ -31,7 +29,6 @@ public class AuricBoltImpactParticleEffect extends ParticleEffectType {
                 return;
             }
             ColorParticleData colorParticleData = AuricFlameStaffItem.AURIC_COLOR_DATA;
-            ColorParticleData bloomParticleData = AuricFlameStaffItem.REVERSE_AURIC_COLOR_DATA;
             final CompoundTag directionData = nbtData.compoundTag.getCompound("direction");
             double dirX = directionData.getDouble("x");
             double dirY = directionData.getDouble("y");
@@ -61,7 +58,7 @@ public class AuricBoltImpactParticleEffect extends ParticleEffectType {
                 direction = direction.reverse();
                 float lifetimeMultiplier = 0.7f;
                 if (random.nextFloat() < 0.8f) {
-                    var lightSpecs = spiritLightSpecs(level, spawnPosition, colorParticleData, bloomParticleData);
+                    var lightSpecs = spiritLightSpecs(level, spawnPosition, colorParticleData);
                     lightSpecs.getBuilder()
                             .multiplyLifetime(lifetimeMultiplier)
                             .enableForcedSpawn()
@@ -73,7 +70,7 @@ public class AuricBoltImpactParticleEffect extends ParticleEffectType {
                     lightSpecs.spawnParticles();
                 }
                 if (random.nextFloat() < 0.8f) {
-                    var sparks = SparkParticleEffects.spiritMotionSparks(level, spawnPosition, colorParticleData, bloomParticleData);
+                    var sparks = SparkParticleEffects.spiritMotionSparks(level, spawnPosition, colorParticleData);
                     sparks.getBuilder()
                             .multiplyLifetime(lifetimeMultiplier)
                             .enableForcedSpawn()

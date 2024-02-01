@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "malum:block/blight/calcified/tall_calcified_blight_top_2"
+  }
+}

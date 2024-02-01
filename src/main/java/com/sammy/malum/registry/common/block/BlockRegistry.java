@@ -8,7 +8,6 @@ import com.sammy.malum.common.block.curiosities.ritual_plinth.*;
 import com.sammy.malum.common.block.curiosities.spirit_altar.*;
 import com.sammy.malum.common.block.curiosities.spirit_crucible.*;
 import com.sammy.malum.common.block.curiosities.spirit_crucible.catalyzer.*;
-import com.sammy.malum.common.block.curiosities.tablet.*;
 import com.sammy.malum.common.block.curiosities.totem.*;
 import com.sammy.malum.common.block.curiosities.weavers_workbench.*;
 import com.sammy.malum.common.block.curiosities.weeping_well.*;
@@ -59,8 +58,6 @@ public class BlockRegistry {
     public static final RegistryObject<Block> RITUAL_PLINTH = BLOCKS.register("ritual_plinth", () -> new RitualPlinthBlock<>(MalumBlockProperties.SOULWOOD().setCutoutRenderType().noOcclusion()).setBlockEntity(BlockEntityRegistry.RITUAL_PLINTH));
 
     public static final RegistryObject<Block> WEAVERS_WORKBENCH = BLOCKS.register("weavers_workbench", () -> new WeaversWorkbenchBlock<>(MalumBlockProperties.RUNEWOOD().setCutoutRenderType().noOcclusion()).setBlockEntity(BlockEntityRegistry.WEAVERS_WORKBENCH));
-
-    public static final RegistryObject<Block> TWISTED_TABLET = BLOCKS.register("twisted_tablet", () -> new TwistedTabletBlock<>(MalumBlockProperties.TAINTED_ROCK().setCutoutRenderType().noOcclusion()).setBlockEntity(BlockEntityRegistry.TWISTED_TABLET));
 
     public static final RegistryObject<Block> RUNEWOOD_OBELISK = BLOCKS.register("runewood_obelisk", () -> new RunewoodObeliskCoreBlock(MalumBlockProperties.RUNEWOOD().setCutoutRenderType().noOcclusion()));
     public static final RegistryObject<Block> RUNEWOOD_OBELISK_COMPONENT = BLOCKS.register("runewood_obelisk_component", () -> new ObeliskComponentBlock(MalumBlockProperties.RUNEWOOD().setCutoutRenderType().lootFrom(RUNEWOOD_OBELISK).noOcclusion(), ItemRegistry.RUNEWOOD_OBELISK));
@@ -296,12 +293,15 @@ public class BlockRegistry {
     //region blight
     public static final RegistryObject<Block> BLIGHTED_EARTH = BLOCKS.register("blighted_earth", () -> new BlightedSoilBlock(MalumBlockProperties.BLIGHT()));
     public static final RegistryObject<Block> BLIGHTED_SOIL = BLOCKS.register("blighted_soil", () -> new BlightedSoilBlock(MalumBlockProperties.BLIGHT()));
-    public static final RegistryObject<Block> BLIGHTED_GROWTH = BLOCKS.register("blighted_growth", () -> new BlightedGrowthBlock(MalumBlockProperties.BLIGHTED_PLANTS().setCutoutRenderType()));
-    public static final RegistryObject<Block> CLINGING_BLIGHT = BLOCKS.register("clinging_blight", () -> new ClingingBlightBlock(MalumBlockProperties.BLIGHTED_PLANTS().setCutoutRenderType()));
+    public static final RegistryObject<Block> BLIGHTED_GROWTH = BLOCKS.register("blighted_growth", () -> new BlightedGrowthBlock(MalumBlockProperties.BLIGHTED_PLANTS().replaceable().setCutoutRenderType()));
+    public static final RegistryObject<Block> CLINGING_BLIGHT = BLOCKS.register("clinging_blight", () -> new ClingingBlightBlock(MalumBlockProperties.BLIGHTED_PLANTS().replaceable().setCutoutRenderType()));
     public static final RegistryObject<Block> BLIGHTED_SOULWOOD = BLOCKS.register("blighted_soulwood", () -> new BlightedSoulwoodBlock(MalumBlockProperties.SOULWOOD()));
+
+    public static final RegistryObject<Block> CALCIFIED_BLIGHT = BLOCKS.register("calcified_blight", () -> new CalcifiedBlightBlock(MalumBlockProperties.CALCIFIED_BLIGHT().setCutoutRenderType()));
+    public static final RegistryObject<Block> TALL_CALCIFIED_BLIGHT = BLOCKS.register("tall_calcified_blight", () -> new TallCalcifiedBlightBlock(MalumBlockProperties.CALCIFIED_BLIGHT().setCutoutRenderType()));
     //endregion
 
-    //region empowered blocks
+    //region motes
     public static final RegistryObject<SpiritMoteBlock> MOTE_OF_SACRED_ARCANA = BLOCKS.register("mote_of_sacred_arcana", () -> new SpiritMoteBlock(MalumBlockProperties.MANA_MOTE_BLOCK(), SpiritTypeRegistry.SACRED_SPIRIT).setBlockEntity(BlockEntityRegistry.MOTE_OF_MANA));
     public static final RegistryObject<SpiritMoteBlock> MOTE_OF_WICKED_ARCANA = BLOCKS.register("mote_of_wicked_arcana", () -> new SpiritMoteBlock(MalumBlockProperties.MANA_MOTE_BLOCK(), SpiritTypeRegistry.WICKED_SPIRIT).setBlockEntity(BlockEntityRegistry.MOTE_OF_MANA));
     public static final RegistryObject<SpiritMoteBlock> MOTE_OF_RAW_ARCANA = BLOCKS.register("mote_of_raw_arcana", () -> new SpiritMoteBlock(MalumBlockProperties.MANA_MOTE_BLOCK(), SpiritTypeRegistry.ARCANE_SPIRIT).setBlockEntity(BlockEntityRegistry.MOTE_OF_MANA));

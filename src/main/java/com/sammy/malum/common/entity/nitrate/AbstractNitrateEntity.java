@@ -1,10 +1,7 @@
 package com.sammy.malum.common.entity.nitrate;
 
-import com.sammy.malum.common.entity.bolt.*;
-import com.sammy.malum.registry.common.*;
 import com.sammy.malum.visual_effects.networked.*;
 import com.sammy.malum.visual_effects.networked.data.*;
-import com.sammy.malum.visual_effects.networked.staff.*;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.*;
 import net.minecraft.util.Mth;
@@ -15,12 +12,9 @@ import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.*;
 import net.minecraftforge.api.distmarker.*;
-import team.lodestar.lodestone.helpers.EntityHelper;
 import team.lodestar.lodestone.systems.rendering.trail.*;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public abstract class AbstractNitrateEntity extends ThrowableProjectile {
     protected static final EntityDataAccessor<Boolean> DATA_FADING_AWAY = SynchedEntityData.defineId(AbstractNitrateEntity.class, EntityDataSerializers.BOOLEAN);
@@ -102,7 +96,7 @@ public abstract class AbstractNitrateEntity extends ThrowableProjectile {
         if (fadingAway) {
             return;
         }
-        EthericExplosion.explode(level(), this, getX(), getY(0.0625D), getZ(), getExplosionRadius(), Explosion.BlockInteraction.DESTROY);
+        NitrateExplosion.explode(level(), this, getX(), getY(0.0625D), getZ(), getExplosionRadius(), Explosion.BlockInteraction.DESTROY);
         onExplode();
         if (!level().isClientSide) {
             getImpactParticleEffect().createPositionedEffect(level(), new PositionEffectData(position()), getImpactParticleEffectColor());

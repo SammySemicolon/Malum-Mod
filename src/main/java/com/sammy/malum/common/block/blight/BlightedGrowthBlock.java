@@ -1,14 +1,16 @@
 package com.sammy.malum.common.block.blight;
 
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.BlockGetter;
+import net.minecraft.core.*;
+import net.minecraft.server.level.*;
+import net.minecraft.util.*;
+import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.phys.shapes.*;
 
-import static com.sammy.malum.registry.common.block.BlockTagRegistry.BLIGHTED_BLOCKS;
+import static com.sammy.malum.registry.common.block.BlockTagRegistry.*;
 
-public class BlightedGrowthBlock extends TallGrassBlock {
+public class BlightedGrowthBlock extends BushBlock implements BonemealableBlock, net.minecraftforge.common.IForgeShearable {
     protected static final VoxelShape SHAPE = Block.box(2.0D, 0.0D, 2.0D, 14.0D, 8.0D, 14.0D);
     public BlightedGrowthBlock(Properties p_57318_) {
         super(p_57318_);
@@ -25,5 +27,27 @@ public class BlightedGrowthBlock extends TallGrassBlock {
             return true;
         }
         return super.mayPlaceOn(pState, pLevel, pPos);
+    }
+
+    @Override
+    public boolean isValidBonemealTarget(LevelReader pLevel, BlockPos pPos, BlockState pState, boolean pIsClient) {
+        return true;
+    }
+
+    @Override
+    public boolean isBonemealSuccess(Level pLevel, RandomSource pRandom, BlockPos pPos, BlockState pState) {
+        final BlockPos below = pPos.below();
+        final BlockState state = pLevel.getBlockState(below);
+        final Block block = state.getBlock();
+        return block instanceof BlightedSoilBlock blightedSoilBlock && blightedSoilBlock.isBonemealSuccess(pLevel, pRandom, below, state);
+    }
+
+    @Override
+    public void performBonemeal(ServerLevel pLevel, RandomSource pRandom, BlockPos pPos, BlockState pState) {
+        final BlockPos below = pPos.below();
+        final BlockState state = pLevel.getBlockState(below);
+        if (state.getBlock() instanceof BlightedSoilBlock blightedSoilBlock) {
+            blightedSoilBlock.performBonemeal(pLevel, pRandom, below, state);
+        }
     }
 }

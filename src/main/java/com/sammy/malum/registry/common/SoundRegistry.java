@@ -141,6 +141,9 @@ public class SoundRegistry {
     public static final RegistryObject<SoundEvent> QUARTZ_CLUSTER_BLOCK_STEP = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("quartz_cluster_block_step")));
     public static final RegistryObject<SoundEvent> QUARTZ_CLUSTER_BLOCK_HIT = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("quartz_cluster_block_hit")));
 
+    public static final RegistryObject<SoundEvent> CTHONIC_GOLD_BREAK = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("cthonic_gold_break")));
+    public static final RegistryObject<SoundEvent> CTHONIC_GOLD_PLACE = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("cthonic_gold_place")));
+
     public static final RegistryObject<SoundEvent> ARCANE_ROCK_BREAK = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("arcane_rock_break")));
     public static final RegistryObject<SoundEvent> ARCANE_ROCK_PLACE = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("arcane_rock_place")));
     public static final RegistryObject<SoundEvent> ARCANE_ROCK_STEP = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("arcane_rock_step")));
@@ -171,8 +174,10 @@ public class SoundRegistry {
     public static final RegistryObject<SoundEvent> SOULWOOD_LEAVES_PLACE = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("soulwood_leaves_place")));
     public static final RegistryObject<SoundEvent> SOULWOOD_LEAVES_STEP = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("soulwood_leaves_step")));
 
-    public static final RegistryObject<SoundEvent> CTHONIC_GOLD_BREAK = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("cthonic_gold_break")));
-    public static final RegistryObject<SoundEvent> CTHONIC_GOLD_PLACE = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("cthonic_gold_place")));
+    public static final RegistryObject<SoundEvent> CALCIFIED_BLIGHT_BREAK = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("calcified_blight_break")));
+    public static final RegistryObject<SoundEvent> CALCIFIED_BLIGHT_PLACE = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("calcified_blight_place")));
+    public static final RegistryObject<SoundEvent> CALCIFIED_BLIGHT_STEP = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("calcified_blight_step")));
+    public static final RegistryObject<SoundEvent> CALCIFIED_BLIGHT_HIT = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("calcified_blight_hit")));
 
     public static final RegistryObject<SoundEvent> MAJOR_BLIGHT_MOTIF = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("blight_reacts")));
     public static final RegistryObject<SoundEvent> MINOR_BLIGHT_MOTIF = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("blight_reacts_faintly")));
@@ -209,6 +214,8 @@ public class SoundRegistry {
     public static final SoundType SOULWOOD = new BlightedSoundType(1.0F, 1.0F, () -> SoundEvents.WOOD_BREAK, () -> SoundEvents.WOOD_STEP, () -> SoundEvents.WOOD_PLACE, () -> SoundEvents.WOOD_HIT, () -> SoundEvents.WOOD_FALL);
     public static final SoundType SOULWOOD_LEAVES = new BlightedSoundType(1.0F, 0.9F, SOULWOOD_LEAVES_BREAK, SOULWOOD_LEAVES_STEP, SOULWOOD_LEAVES_PLACE, SOULWOOD_LEAVES_HIT, () -> SoundEvents.AZALEA_LEAVES_FALL);
     public static final SoundType CURSED_SAP = new BlightedSoundType(1.0F, 0.9F, () -> SoundEvents.SLIME_BLOCK_BREAK, () -> SoundEvents.SLIME_BLOCK_STEP, () -> SoundEvents.SLIME_BLOCK_PLACE, () -> SoundEvents.SLIME_BLOCK_HIT, () -> SoundEvents.SLIME_BLOCK_FALL);
+
+    public static final SoundType CALCIFIED_BLIGHT = new ForgeSoundType(1.0F, 1.5F, CALCIFIED_BLIGHT_BREAK, CALCIFIED_BLIGHT_STEP, CALCIFIED_BLIGHT_PLACE, CALCIFIED_BLIGHT_HIT, () -> SoundEvents.BONE_BLOCK_FALL);
 
     public static final SoundType ETHER = new ForgeSoundType(1.0F, 1.0F, ETHER_BREAK, () -> SoundEvents.WOOL_STEP, ETHER_PLACE, () -> SoundEvents.ANCIENT_DEBRIS_HIT, () -> SoundEvents.WOOL_FALL);
 
