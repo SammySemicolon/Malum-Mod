@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/handheld",
   "textures": {
-    "layer0": "malum:item/soul_stained_steel_staff"
+    "layer0": "malum:item/mnemonic_hex_staff"
   }
 }

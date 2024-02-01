@@ -68,6 +68,8 @@ public abstract class AbstractBoltProjectileEntity extends ThrowableItemProjecti
             fadingAway = entityData.get(DATA_FADING_AWAY);
             if (fadingAway) {
                 age = getMaxAge() - 10;
+                setDeltaMovement(getDeltaMovement().scale(0.05f));
+
             }
         }
         if (DATA_SPAWN_DELAY.equals(pKey)) {
@@ -107,18 +109,21 @@ public abstract class AbstractBoltProjectileEntity extends ThrowableItemProjecti
         if (fadingAway || spawnDelay > 0) {
             return;
         }
+
         if (!level().isClientSide) {
             getImpactParticleEffect().createPositionedEffect(level(), new PositionEffectData(position().add(getDeltaMovement().scale(0.25f))), new ColorEffectData(SpiritTypeRegistry.WICKED_SPIRIT), HexBoltImpactParticleEffect.createData(getDeltaMovement().reverse().normalize()));
             playSound(SoundRegistry.STAFF_STRIKES.get(), 0.5f, Mth.nextFloat(random, 0.9F, 1.5F));
+            getEntityData().set(DATA_FADING_AWAY, true);
+            Vec3 vec3 = pResult.getLocation().subtract(position());
+            Vec3 vec31 = vec3.normalize().scale(0.5f);
+            this.setPosRaw(getX() - vec31.x, getY() - vec31.y, getZ() - vec31.z);
         }
-        getEntityData().set(DATA_FADING_AWAY, true);
-        setDeltaMovement(getDeltaMovement().scale(0.05f));
         super.onHitBlock(pResult);
     }
 
     @Override
     protected boolean canHitEntity(Entity pTarget) {
-        return !pTarget.equals(getOwner());
+        return !pTarget.equals(getOwner()) && !(pTarget instanceof AbstractBoltProjectileEntity);
     }
 
     @Override

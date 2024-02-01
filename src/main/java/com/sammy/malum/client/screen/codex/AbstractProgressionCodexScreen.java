@@ -7,6 +7,7 @@ import net.minecraft.client.*;
 import net.minecraft.client.gui.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.resources.*;
+import net.minecraft.util.*;
 import org.lwjgl.opengl.*;
 
 import java.util.*;
@@ -27,6 +28,7 @@ public abstract class AbstractProgressionCodexScreen extends AbstractMalumScreen
     public float cachedYOffset;
     public boolean ignoreNextMouseInput;
     public int transitionTimer;
+    public int timesTransitioned;
 
     public final List<BookObject<?>> bookObjects = new ArrayList<>();
 
@@ -238,5 +240,9 @@ public abstract class AbstractProgressionCodexScreen extends AbstractMalumScreen
 
     public int getGuiTop() {
         return (height - bookHeight) / 2;
+    }
+
+    public int getTransitionDuration() {
+        return 80 - Mth.clamp(timesTransitioned-2, 0, 4) * 10;
     }
 }

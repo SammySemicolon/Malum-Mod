@@ -16,7 +16,7 @@
   ],
   "input": {
     "count": 1,
-    "item": "malum:soul_stained_steel_staff"
+    "item": "malum:mnemonic_hex_staff"
   },
   "output": {
     "item": "malum:staff_of_the_auric_flame"

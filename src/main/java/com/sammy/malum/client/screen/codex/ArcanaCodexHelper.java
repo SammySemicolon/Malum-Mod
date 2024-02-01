@@ -43,7 +43,7 @@ public class ArcanaCodexHelper {
     }
 
     public static <T extends AbstractProgressionCodexScreen> void renderTransitionFade(T screen, PoseStack stack) {
-        final float pct = screen.transitionTimer / 80f;
+        final float pct = screen.transitionTimer / (float)screen.getTransitionDuration();
         float overlayAlpha = Easing.SINE_IN_OUT.ease(pct, 0, 1, 1);
         float effectStrength = Easing.QUAD_OUT.ease(pct, 0, 1, 1);
         float effectAlpha = Math.min(1, effectStrength * 1);

@@ -59,7 +59,7 @@ public class HexStaffItem extends AbstractStaffItem {
     public void fireProjectile(LivingEntity player, ItemStack stack, Level level, InteractionHand hand, float chargePercentage, int count) {
         float pitchOffset = 3f + count;
         int spawnDelay = count * 3;
-        float velocity = 2.5f + 0.5f * count;
+        float velocity = 2f + 0.5f * count;
         float magicDamage = (float) player.getAttributes().getValue(LodestoneAttributeRegistry.MAGIC_DAMAGE.get());
         Vec3 pos = getProjectileSpawnPos(player, hand, 0.5f, 0.5f);
         HexBoltEntity entity = new HexBoltEntity(level, pos.x, pos.y, pos.z);

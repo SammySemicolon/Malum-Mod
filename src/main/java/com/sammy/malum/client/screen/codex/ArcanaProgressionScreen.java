@@ -72,6 +72,8 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
         getScreenInstance().openScreen(false);
         screen.faceObject(screen.bookObjects.get(0));
         screen.playSound(SoundRegistry.ARCANA_TRANSITION_NORMAL, 1.25f, 1f);
+        screen.timesTransitioned++;
+        screen.transitionTimer = screen.getTransitionDuration();
         EncyclopediaArcanaItem.shouldOpenVoidCodex = false;
     }
 
