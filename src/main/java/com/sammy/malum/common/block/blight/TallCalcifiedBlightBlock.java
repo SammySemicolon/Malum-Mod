@@ -66,4 +66,6 @@ public class TallCalcifiedBlightBlock extends DoublePlantBlock {
         }
         return super.mayPlaceOn(pState, pLevel, pPos);
     }
+
+
 }
