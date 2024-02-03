@@ -3,6 +3,7 @@ package com.sammy.malum.data.item;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.item.cosmetic.weaves.AbstractWeaveItem;
 import com.sammy.malum.common.item.cosmetic.weaves.PrideweaveItem;
+import com.sammy.malum.common.item.curiosities.weapons.*;
 import com.sammy.malum.common.item.curiosities.weapons.scythe.MalumScytheItem;
 import com.sammy.malum.common.item.curiosities.weapons.staff.*;
 import com.sammy.malum.common.item.impetus.CrackedImpetusItem;
@@ -40,6 +41,7 @@ public class MalumItemModels extends LodestoneItemModelProvider {
 
         items.removeIf(i -> i.get() instanceof BlockItem);
         items.removeIf(i -> i.get() instanceof MalumScytheItem);
+        items.removeIf(i -> i.get() instanceof WeightOfWorldsItem);
 
         AbstractItemModelSmith.ItemModelSmithData data = new AbstractItemModelSmith.ItemModelSmithData(this, items::remove);
 

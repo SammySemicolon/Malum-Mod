@@ -2,7 +2,6 @@ package com.sammy.malum.client;
 
 import com.mojang.blaze3d.vertex.*;
 import net.minecraft.client.renderer.*;
-import team.lodestar.lodestone.systems.rendering.rendeertype.*;
 
 import java.util.function.*;
 

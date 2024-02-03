@@ -37,13 +37,8 @@ public class SoulStainedSteelArmorItem extends MalumArmorItem {
         return builder;
     }
 
-    @Override
-    public String getTextureLocation() {
-        return "malum:textures/armor/";
-    }
-
     public String getTexture() {
-        return "soul_stained_steel_reforged";
+        return "malignant_stronghold";
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -58,7 +53,7 @@ public class SoulStainedSteelArmorItem extends MalumArmorItem {
                 float netHeadYaw = f1 - f;
                 float netHeadPitch = Mth.lerp(pticks, entity.xRotO, entity.getXRot());
                 ArmorSkin skin = ArmorSkin.getAppliedItemSkin(itemStack);
-                LodestoneArmorModel model = ModelRegistry.SOUL_STAINED_ARMOR;
+                LodestoneArmorModel model = ModelRegistry.MALIGNANT_LEAD_ARMOR;
                 if (skin != null) {
                     model = ArmorSkinRenderingData.RENDERING_DATA.apply(skin).getModel(entity);
                 }

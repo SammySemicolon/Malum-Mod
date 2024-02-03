@@ -110,6 +110,11 @@ public class VoidProgressionScreen extends AbstractProgressionCodexScreen {
                 .setWidgetConfig(w -> w.setIcon(MNEMONIC_FRAGMENT).setStyle(BookWidgetStyle.SOULWOOD))
                 .addPage(new HeadlineTextItemPage("void.mnemonic_fragment", "void.mnemonic_fragment.1", MNEMONIC_FRAGMENT.get()))
         );
+        VOID_ENTRIES.add(new BookEntry<>(
+                "void.malignant_lead", 3, 3)
+                .setWidgetConfig(w -> w.setIcon(MALIGNANT_LEAD).setStyle(BookWidgetStyle.SOULWOOD))
+                .addPage(new HeadlineTextItemPage("void.malignant_lead", "void.malignant_lead.1", MALIGNANT_LEAD.get()))
+        );
 
         VOID_ENTRIES.add(new BookEntry<>(
                 "void.ring_of_growing_flesh", -3, 5)
@@ -141,8 +146,8 @@ public class VoidProgressionScreen extends AbstractProgressionCodexScreen {
                 .addPage(SpiritInfusionPage.fromOutput(RING_OF_THE_PLENTIFUL.get()))
         );
         VOID_ENTRIES.add(new BookEntry<>(
-                "void.something2", 4, 6)
-                .setWidgetConfig(w -> w.setIcon(BARRIER).setStyle(BookWidgetStyle.SOULWOOD))
+                "void.weight_of_worlds", 4, 6)
+                .setWidgetConfig(w -> w.setIcon(WEIGHT_OF_WORLDS).setStyle(BookWidgetStyle.SOULWOOD))
         );
         VOID_ENTRIES.add(new BookEntry<>(
                 "void.something3", 2, 6)

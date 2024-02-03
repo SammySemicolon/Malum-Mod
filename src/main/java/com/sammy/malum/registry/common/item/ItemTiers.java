@@ -9,9 +9,10 @@ import java.util.function.Supplier;
 public class ItemTiers {
     public enum ItemTierEnum implements Tier {
         SOUL_STAINED_STEEL(1250, 7.5f, 2.5f, 3, 16, ItemRegistry.SOUL_STAINED_STEEL_INGOT),
+        MALIGNANT_LEAD(2500, 8f, 4f, 3, 24, ItemRegistry.MALIGNANT_LEAD),
         TYRVING(850, 8f, 1f, 3, 12, ItemRegistry.TWISTED_ROCK),
         HEX_STAFF(1250, 8f, 2.5f, 3, 16, ItemRegistry.MNEMONIC_FRAGMENT),
-        AURIC_STAFF(1250, 8f, 2.5f, 3, 16, ItemRegistry.AURIC_EMBERS);
+        AURIC_STAFF(2500, 8f, 2.5f, 3, 16, ItemRegistry.AURIC_EMBERS);
         private final int maxUses;
         private final float efficiency;
         private final float attackDamage;

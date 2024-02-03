@@ -419,23 +419,24 @@ public class MalumSpiritInfusionRecipes {
                 .addSpirit(ARCANE_SPIRIT, 2)
                 .build(consumer);
 
-        new SpiritInfusionRecipeBuilder(Items.TNT, 1, ItemRegistry.ETHERIC_NITRATE.get(), 4)
+        new SpiritInfusionRecipeBuilder(ItemRegistry.ETHER.get(), 1, ItemRegistry.ETHERIC_NITRATE.get(), 4)
                 .addSpirit(INFERNAL_SPIRIT, 8)
+                .addSpirit(AERIAL_SPIRIT, 8)
                 .addSpirit(ARCANE_SPIRIT, 8)
-                .addExtraItem(ItemRegistry.ETHER.get(), 1)
+                .addExtraItem(Items.TNT, 1)
                 .addExtraItem(Ingredient.of(Tags.Items.GUNPOWDER), 4)
-                .addExtraItem(ItemRegistry.CURSED_GRIT.get(), 2)
+                .addExtraItem(Items.BLAZE_POWDER, 2)
                 .build(consumer);
 
-        new SpiritInfusionRecipeBuilder(ItemRegistry.ETHERIC_NITRATE.get(), 8, ItemRegistry.VIVID_NITRATE.get(), 8)
-                .addSpirit(AERIAL_SPIRIT, 8)
-                .addSpirit(AQUEOUS_SPIRIT, 8)
-                .addSpirit(INFERNAL_SPIRIT, 8)
-                .addSpirit(EARTHEN_SPIRIT, 8)
-                .addSpirit(ELDRITCH_SPIRIT, 2)
-                .addExtraItem(ItemRegistry.CURSED_GRIT.get(), 4)
+        new SpiritInfusionRecipeBuilder(ItemRegistry.ETHERIC_NITRATE.get(), 4, ItemRegistry.VIVID_NITRATE.get(), 4)
+                .addSpirit(AERIAL_SPIRIT, 4)
+                .addSpirit(AQUEOUS_SPIRIT, 4)
+                .addSpirit(INFERNAL_SPIRIT, 4)
+                .addSpirit(EARTHEN_SPIRIT, 4)
+                .addSpirit(ELDRITCH_SPIRIT, 1)
                 .addExtraItem(Ingredient.of(Tags.Items.GUNPOWDER), 4)
                 .addExtraItem(Ingredient.of(Tags.Items.GEMS_PRISMARINE), 2)
+                .addExtraItem(ItemRegistry.ARCANE_CHARCOAL.get(), 2)
                 .build(consumer);
 
         new SpiritInfusionRecipeBuilder(ItemRegistry.RAW_SOULSTONE.get(), 16, ItemRegistry.CORRUPTED_RESONANCE.get(), 1)

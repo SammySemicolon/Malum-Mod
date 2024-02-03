@@ -37,7 +37,7 @@
                   ]
                 }
               ],
-              "name": "minecraft:air"
+              "name": "malum:calcified_blight"
             },
             {
               "type": "minecraft:item",
@@ -46,7 +46,7 @@
                   "condition": "minecraft:survives_explosion"
                 }
               ],
-              "name": "minecraft:air"
+              "name": "malum:calcified_blight"
             }
           ]
         }
