@@ -11,14 +11,16 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.placement.*;
+import team.lodestar.lodestone.systems.worldgen.*;
 
-import java.util.List;
+import java.util.*;
 
 public class PlacedFeatureRegistry {
 
     public static final ResourceKey<PlacedFeature> ORE_SOULSTONE = registerKey("ore_soulstone");
     public static final ResourceKey<PlacedFeature> ORE_BRILLIANT = registerKey("ore_brilliant");
     public static final ResourceKey<PlacedFeature> ORE_NATURAL_QUARTZ = registerKey("ore_natural_quartz");
+    public static final ResourceKey<PlacedFeature> ORE_CTHONIC_GOLD = registerKey("cthonic_gold_ore");
     public static final ResourceKey<PlacedFeature> ORE_BLAZING_QUARTZ = registerKey("blazing_quartz_ore");
 
     public static final ResourceKey<PlacedFeature> RUNEWOOD_TREE = ResourceKey.create(Registries.PLACED_FEATURE, MalumMod.malumPath("runewood_tree"));
@@ -26,7 +28,6 @@ public class PlacedFeatureRegistry {
 
     public static final ResourceKey<PlacedFeature> QUARTZ_GEODE_FEATURE = registerKey("quartz_geode");
     public static final ResourceKey<PlacedFeature> DEEPSLATE_QUARTZ_GEODE_FEATURE = registerKey("deepslate_quartz_geode");
-    public static final ResourceKey<PlacedFeature> CTHONIC_GOLD_GEODE_FEATURE = registerKey("rare_earth_geode");
 
     public static ResourceKey<PlacedFeature> registerKey(String name) {
         return ResourceKey.create(Registries.PLACED_FEATURE, MalumMod.malumPath(name));
@@ -38,12 +39,13 @@ public class PlacedFeatureRegistry {
         context.register(ORE_BRILLIANT, addOreFeature(features.getOrThrow(ConfiguredFeatureRegistry.CONFIGURED_BRILLIANT_ORE), -64, 40, 3));
         context.register(ORE_NATURAL_QUARTZ, addOreFeature(features.getOrThrow(ConfiguredFeatureRegistry.CONFIGURED_NATURAL_QUARTZ_ORE), -64, 10, 2));
         context.register(ORE_BLAZING_QUARTZ, addOreFeature(features.getOrThrow(ConfiguredFeatureRegistry.CONFIGURED_BLAZING_QUARTZ_ORE), -16, 112, 16));
+        context.register(ORE_CTHONIC_GOLD, addOreFeature(features.getOrThrow(ConfiguredFeatureRegistry.CONFIGURED_CTHONIC_GOLD_ORE_FEATURE), -48, -0, 1, RarityFilter.onAverageOnceEvery(4)));
 
         context.register(RUNEWOOD_TREE,
                 new PlacedFeature(features.getOrThrow(ConfiguredFeatureRegistry.CONFIGURED_RUNEWOOD_TREE),
                         ImmutableList.<PlacementModifier>builder().add(
                                 PlacementUtils.HEIGHTMAP,
-                                RarityFilter.onAverageOnceEvery(10),
+                                RarityFilter.onAverageOnceEvery(5),
                                 InSquarePlacement.spread(),
                                 CountPlacement.of(3)
                         ).build()
@@ -54,7 +56,7 @@ public class PlacedFeatureRegistry {
                 new PlacedFeature(features.getOrThrow(ConfiguredFeatureRegistry.CONFIGURED_RUNEWOOD_TREE),
                         ImmutableList.<PlacementModifier>builder().add(
                                 PlacementUtils.HEIGHTMAP,
-                                RarityFilter.onAverageOnceEvery(5),
+                                RarityFilter.onAverageOnceEvery(10),
                                 InSquarePlacement.spread(),
                                 CountPlacement.of(3)
                         ).build()
@@ -85,27 +87,25 @@ public class PlacedFeatureRegistry {
                                         BiomeFilter.biome())
                                 .build()
                 ));
-
-        context.register(CTHONIC_GOLD_GEODE_FEATURE,
-                new PlacedFeature(features.getOrThrow(ConfiguredFeatureRegistry.CONFIGURED_CTHONIC_GOLD_GEODE_FEATURE),
-                        ImmutableList.<PlacementModifier>builder().add(
-                                        RarityFilter.onAverageOnceEvery(16),
-                                        InSquarePlacement.spread(),
-                                        HeightRangePlacement.uniform(
-                                                VerticalAnchor.aboveBottom(6),
-                                                VerticalAnchor.aboveBottom(40)),
-                                        BiomeFilter.biome())
-                                .build()
-                ));
     }
 
+
+    private static PlacedFeature addOreFeature(Holder<ConfiguredFeature<?, ?>> configureFeature, int minHeight, int maxHeight, int count, PlacementModifier... extraModifiers) {
+        final List<PlacementModifier> modifiers = ImmutableList.<PlacementModifier>builder().add(
+                        HeightRangePlacement.triangle(VerticalAnchor.absolute(minHeight), VerticalAnchor.absolute(maxHeight)),
+                        CountPlacement.of(count),
+                        InSquarePlacement.spread(),
+                        BiomeFilter.biome())
+                .add(extraModifiers)
+                .build();
+        return new PlacedFeature(configureFeature, modifiers);
+    }
 
     private static PlacedFeature addOreFeature(Holder<ConfiguredFeature<?, ?>> configureFeature, int minHeight, int maxHeight, int count) {
         return new PlacedFeature(configureFeature, List.of(
                 HeightRangePlacement.triangle(VerticalAnchor.absolute(minHeight), VerticalAnchor.absolute(maxHeight)),
                 CountPlacement.of(count),
                 InSquarePlacement.spread(),
-                BiomeFilter.biome())
-        );
+                BiomeFilter.biome()));
     }
 }

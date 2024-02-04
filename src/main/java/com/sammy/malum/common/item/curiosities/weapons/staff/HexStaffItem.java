@@ -35,12 +35,11 @@ public class HexStaffItem extends AbstractStaffItem {
                 .setScaleData(GenericParticleData.create(0.3f * pct, 0).setEasing(Easing.SINE_IN_OUT).build())
                 .setColorData(SpiritTypeRegistry.WICKED_SPIRIT.createMainColorData().build())
                 .setLifetime(5)
+                .setLifeDelay(2)
                 .setDirection(pLivingEntity.getLookAngle().normalize())
                 .setMotion(pLivingEntity.getLookAngle().normalize().scale(0.05f))
                 .enableNoClip()
                 .enableForcedSpawn()
-                .disableCull()
-                .setLifeDelay(2)
                 .spawn(pLevel, pos.x, pos.y, pos.z)
                 .setRenderType(LodestoneWorldParticleRenderType.LUMITRANSPARENT)
                 .spawn(pLevel, pos.x, pos.y, pos.z);
@@ -48,7 +47,7 @@ public class HexStaffItem extends AbstractStaffItem {
 
     @Override
     public int getCooldownDuration(Level level, LivingEntity livingEntity) {
-        return 40;
+        return 80;
     }
 
     @Override
@@ -60,7 +59,7 @@ public class HexStaffItem extends AbstractStaffItem {
     public void fireProjectile(LivingEntity player, ItemStack stack, Level level, InteractionHand hand, float chargePercentage, int count) {
         float pitchOffset = 3f + count;
         int spawnDelay = count * 3;
-        float velocity = 2.5f + 0.5f * count;
+        float velocity = 2f + 0.5f * count;
         float magicDamage = (float) player.getAttributes().getValue(LodestoneAttributeRegistry.MAGIC_DAMAGE.get());
         Vec3 pos = getProjectileSpawnPos(player, hand, 0.5f, 0.5f);
         HexBoltEntity entity = new HexBoltEntity(level, pos.x, pos.y, pos.z);

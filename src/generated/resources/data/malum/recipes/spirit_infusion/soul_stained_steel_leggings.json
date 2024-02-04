@@ -2,24 +2,16 @@
   "type": "malum:spirit_infusion",
   "extra_items": [
     {
+      "count": 6,
+      "item": "malum:soul_stained_steel_plating"
+    },
+    {
       "count": 4,
-      "item": "malum:soul_stained_steel_ingot"
-    },
-    {
-      "count": 1,
-      "item": "malum:hex_ash"
-    },
-    {
-      "count": 2,
       "item": "malum:processed_soulstone"
     },
     {
       "count": 8,
       "item": "malum:twisted_rock"
-    },
-    {
-      "count": 1,
-      "tag": "forge:gems/diamond"
     }
   ],
   "input": {
@@ -32,15 +24,15 @@
   "spirits": [
     {
       "type": "earthen",
-      "count": 8
+      "count": 16
     },
     {
       "type": "wicked",
-      "count": 4
+      "count": 8
     },
     {
       "type": "arcane",
-      "count": 2
+      "count": 8
     }
   ]
 }

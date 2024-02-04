@@ -3,7 +3,7 @@
   "extra_items": [
     {
       "count": 1,
-      "item": "malum:ether"
+      "item": "minecraft:tnt"
     },
     {
       "count": 4,
@@ -11,12 +11,12 @@
     },
     {
       "count": 2,
-      "item": "malum:cursed_grit"
+      "item": "minecraft:blaze_powder"
     }
   ],
   "input": {
     "count": 1,
-    "item": "minecraft:tnt"
+    "item": "malum:ether"
   },
   "output": {
     "count": 4,
@@ -25,6 +25,10 @@
   "spirits": [
     {
       "type": "infernal",
+      "count": 8
+    },
+    {
+      "type": "aerial",
       "count": 8
     },
     {

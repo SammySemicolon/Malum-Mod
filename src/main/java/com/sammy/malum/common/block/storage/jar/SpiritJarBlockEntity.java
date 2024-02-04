@@ -238,13 +238,17 @@ public class SpiritJarBlockEntity extends LodestoneBlockEntity {
     public void tick() {
         if (level.isClientSide) {
             if (type != null) {
-                double time = (level.getGameTime() * 0.05f) % 6.2831f;
-                double x = getBlockPos().getX() + 0.5f;
-                double y = getBlockPos().getY() + 0.5f + (float) Math.sin(time) * 0.2f;
-                double z = getBlockPos().getZ() + 0.5f;
-                SpiritLightSpecs.rotatingLightSpecs(level, new Vec3(x, y, z), type, 0.4f, 3);
+                SpiritLightSpecs.rotatingLightSpecs(level, getItemPos(), type, 0.4f, 3);
             }
         }
+    }
+
+    public Vec3 getItemPos() {
+        double time = (level.getGameTime() * 0.05f) % 6.28f;
+        double x = getBlockPos().getX() + 0.5f;
+        double y = getBlockPos().getY() + 0.5f + (float) Math.sin(time) * 0.2f;
+        double z = getBlockPos().getZ() + 0.5f;
+        return new Vec3(x, y, z);
     }
 
     @OnlyIn(value = Dist.CLIENT)

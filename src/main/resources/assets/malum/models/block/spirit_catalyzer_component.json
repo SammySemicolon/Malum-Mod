@@ -4,7 +4,7 @@
 	"texture_size": [32, 32],
 	"textures": {
 		"catalyzer": "malum:block/spirit_catalyzer",
-		"particle": "malum:block/arcane_rock/tainted/tainted_rock"
+		"particle": "malum:block/arcane_rock/tainted/tainted_rock_column_cap_top"
 	},
 	"elements": [
 		{
@@ -22,7 +22,7 @@
 			"faces": {
 				"east": {"uv": [4, 0, 5, 3.5], "texture": "#catalyzer"},
 				"south": {"uv": [0, 0, 4, 3.5], "texture": "#catalyzer"},
-				"west": {"uv": [4, 0, 5, 3.5], "texture": "#catalyzer"}
+				"west": {"uv": [5, 0, 4, 3.5], "texture": "#catalyzer"}
 			}
 		},
 		{
@@ -47,8 +47,8 @@
 			"from": [-1, 5, 3],
 			"to": [4, 10, 13],
 			"faces": {
-				"north": {"uv": [13, 5.5, 15.5, 8], "texture": "#catalyzer"},
-				"south": {"uv": [15.5, 5.5, 13, 8], "texture": "#catalyzer"},
+				"north": {"uv": [13, 6.5, 15.5, 9], "texture": "#catalyzer"},
+				"south": {"uv": [15.5, 6.5, 13, 9], "texture": "#catalyzer"},
 				"west": {"uv": [10.5, 11, 13, 16], "rotation": 90, "texture": "#catalyzer"},
 				"up": {"uv": [13, 16, 15.5, 11], "texture": "#catalyzer"},
 				"down": {"uv": [10.5, 11, 8, 16], "texture": "#catalyzer"}
@@ -58,9 +58,9 @@
 			"from": [12, 5, 3],
 			"to": [17, 10, 13],
 			"faces": {
-				"north": {"uv": [15.5, 5.5, 13, 8], "texture": "#catalyzer"},
+				"north": {"uv": [15.5, 6.5, 13, 9], "texture": "#catalyzer"},
 				"east": {"uv": [10.5, 11, 13, 16], "rotation": 90, "texture": "#catalyzer"},
-				"south": {"uv": [13, 5.5, 15.5, 8], "texture": "#catalyzer"},
+				"south": {"uv": [13, 6.5, 15.5, 9], "texture": "#catalyzer"},
 				"up": {"uv": [15.5, 11, 13, 16], "texture": "#catalyzer"},
 				"down": {"uv": [8, 16, 10.5, 11], "texture": "#catalyzer"}
 			}

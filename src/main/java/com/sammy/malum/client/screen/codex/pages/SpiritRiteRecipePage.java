@@ -29,10 +29,16 @@ public class SpiritRiteRecipePage extends BookPage {
     private static final ScreenParticleHolder RITE_PARTICLES = new ScreenParticleHolder();
 
     private final MalumRiteType riteType;
+    private final boolean corrupted;
 
     public SpiritRiteRecipePage(MalumRiteType riteType) {
+        this(riteType, false);
+    }
+
+    public SpiritRiteRecipePage(MalumRiteType riteType, boolean corrupted) {
         super(MalumMod.malumPath("textures/gui/book/pages/spirit_rite_recipe_page.png"));
         this.riteType = riteType;
+        this.corrupted = corrupted;
     }
 
     @Override
@@ -59,6 +65,10 @@ public class SpiritRiteRecipePage extends BookPage {
         renderRite(guiGraphics, screen, guiLeft + 209, guiTop + 123, mouseX, mouseY, riteType.spirits);
     }
 
+    public boolean isCorrupted() {
+        return parentEntry.identifier.contains("corrupt");
+    }
+
     public void renderRite(GuiGraphics guiGraphics, EntryScreen screen, int left, int top, int mouseX, int mouseY, List<MalumSpiritType> spirits) {
         var rand = screen.getMinecraft().level.random;
         PoseStack poseStack = guiGraphics.pose();
@@ -67,7 +77,7 @@ public class SpiritRiteRecipePage extends BookPage {
             MalumSpiritType spiritType = spirits.get(i);
             ResourceLocation spiritTexture = spiritType.getTotemGlowTexture();
             ItemStack stack = spirits.get(i).spiritShard.get().getDefaultInstance();
-            renderRiteIcon(spiritTexture, spiritType, poseStack, parentEntry.isSoulwood, 0.25f, left, y);
+            renderRiteIcon(spiritTexture, spiritType, poseStack, isCorrupted(), 0.25f, left, y);
             if (screen.isHovering(mouseX, mouseY, left, y, 16, 16)) {
                 guiGraphics.renderComponentTooltip(Minecraft.getInstance().font, Screen.getTooltipFromItem(Minecraft.getInstance(), stack), mouseX, mouseY);
             }

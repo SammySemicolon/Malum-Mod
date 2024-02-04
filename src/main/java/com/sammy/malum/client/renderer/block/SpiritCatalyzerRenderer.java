@@ -3,6 +3,7 @@ package com.sammy.malum.client.renderer.block;
 import com.mojang.blaze3d.vertex.*;
 import com.mojang.math.*;
 import com.sammy.malum.*;
+import com.sammy.malum.client.renderer.entity.*;
 import com.sammy.malum.common.block.curiosities.spirit_crucible.catalyzer.*;
 import com.sammy.malum.core.systems.spirit.*;
 import net.minecraft.client.*;
@@ -47,13 +48,28 @@ public class SpiritCatalyzerRenderer implements BlockEntityRenderer<SpiritCataly
             itemRenderer.renderStatic(stack, ItemDisplayContext.FIXED, combinedLightIn, NO_OVERLAY, poseStack, bufferIn, level, 0);
             poseStack.popPose();
         }
+        stack = blockEntityIn.augmentInventory.getStackInSlot(0);
+        if (!stack.isEmpty()) {
+            poseStack.pushPose();
+            Vec3 offset = blockEntityIn.getAugmentOffset();
+            poseStack.translate(offset.x, offset.y, offset.z);
+            poseStack.mulPose(Axis.YP.rotationDegrees(((-level.getGameTime() % 360) - partialTicks) * 3));
+            poseStack.scale(0.45f, 0.45f, 0.45f);
+            itemRenderer.renderStatic(stack, ItemDisplayContext.FIXED, combinedLightIn, NO_OVERLAY, poseStack, bufferIn, level, 0);
+            poseStack.popPose();
+        }
         if (blockEntityIn.getTarget() != null && blockEntityIn.intensity != null) {
             poseStack.pushPose();
             final BlockPos blockPos = blockEntityIn.getBlockPos();
-            poseStack.translate(-blockPos.getX(), -blockPos.getY(), -blockPos.getZ());
+            Vec3 offset = blockEntityIn.getItemOffset();
             for (Map.Entry<MalumSpiritType, Integer> entry : blockEntityIn.intensity.entrySet()) {
                 if (entry.getValue() > 0) {
-                    renderBeam(blockEntityIn, poseStack, entry.getKey(), entry.getValue());
+                    final MalumSpiritType spirit = entry.getKey();
+                    poseStack.translate(-blockPos.getX(), -blockPos.getY(), -blockPos.getZ());
+                    renderBeam(blockEntityIn, poseStack, spirit, entry.getValue());
+                    poseStack.translate(blockPos.getX()+offset.x, blockPos.getY()+offset.y, blockPos.getZ()+offset.z);
+                    FloatingItemEntityRenderer.renderSpiritGlimmer(poseStack, spirit, partialTicks);
+                    poseStack.translate(-offset.x, -offset.y, -offset.z);
                 }
             }
             poseStack.popPose();

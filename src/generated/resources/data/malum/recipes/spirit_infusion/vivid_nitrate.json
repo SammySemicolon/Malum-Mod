@@ -3,45 +3,44 @@
   "extra_items": [
     {
       "count": 4,
-      "item": "malum:cursed_grit"
-    },
-    {
-      "count": 4,
       "tag": "forge:gunpowder"
     },
     {
       "count": 2,
       "tag": "forge:gems/prismarine"
+    },
+    {
+      "count": 2,
+      "item": "malum:arcane_charcoal"
     }
   ],
   "input": {
-    "count": 8,
+    "count": 4,
     "item": "malum:etheric_nitrate"
   },
   "output": {
-    "count": 8,
+    "count": 4,
     "item": "malum:vivid_nitrate"
   },
   "spirits": [
     {
       "type": "aerial",
-      "count": 8
+      "count": 4
     },
     {
       "type": "aqueous",
-      "count": 8
+      "count": 4
     },
     {
       "type": "infernal",
-      "count": 8
+      "count": 4
     },
     {
       "type": "earthen",
-      "count": 8
+      "count": 4
     },
     {
-      "type": "eldritch",
-      "count": 2
+      "type": "eldritch"
     }
   ]
 }

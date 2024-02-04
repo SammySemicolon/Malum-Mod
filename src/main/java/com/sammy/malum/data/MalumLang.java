@@ -1,16 +1,14 @@
 package com.sammy.malum.data;
 
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.client.screen.codex.ArcanaProgressionScreen;
+import com.sammy.malum.common.block.curiosities.spirit_crucible.*;
 import com.sammy.malum.common.block.ether.EtherWallTorchBlock;
 import com.sammy.malum.common.item.spirit.SpiritJarItem;
 import com.sammy.malum.core.systems.item.ISoulContainerItem;
 import com.sammy.malum.core.systems.rites.*;
+import com.sammy.malum.core.systems.ritual.*;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
-import com.sammy.malum.registry.common.DamageTypeRegistry;
-import com.sammy.malum.registry.common.MobEffectRegistry;
-import com.sammy.malum.registry.common.SpiritRiteRegistry;
-import com.sammy.malum.registry.common.SpiritTypeRegistry;
+import com.sammy.malum.registry.common.*;
 import com.sammy.malum.registry.common.block.BlockRegistry;
 import net.minecraft.data.PackOutput;
 import net.minecraft.sounds.SoundEvent;
@@ -47,7 +45,6 @@ public class MalumLang extends LanguageProvider {
 
     @Override
     protected void addTranslations() {
-        ArcanaProgressionScreen.setupEntries();
         Set<RegistryObject<Block>> blocks = new HashSet<>(BLOCKS.getEntries());
         Set<RegistryObject<Item>> items = new HashSet<>(ITEMS.getEntries());
         Set<RegistryObject<SoundEvent>> sounds = new HashSet<>(SOUNDS.getEntries());
@@ -119,9 +116,25 @@ public class MalumLang extends LanguageProvider {
 
         spirits.forEach(s -> add(s.getSpiritDescription(), DataHelper.toTitleCase(s.identifier + "_spirit", "_")));
 
+        for (CrucibleTuning.CrucibleAttributeType value : CrucibleTuning.CrucibleAttributeType.values()) {
+            if (value.equals(CrucibleTuning.CrucibleAttributeType.NONE)) {
+                continue;
+            }
+            final String translation = value.translation();
+            String name = DataHelper.toTitleCase(value.toString().toLowerCase(Locale.ROOT), "_");
+            add(translation, name);
+        }
+        add("malum.gui.crucible.attribute.weakest_boost", "Weakest Boost");
+        add("malum.gui.crucible.attribute.tuning_potency", "Tuning Potency");
+
+        add("malum.gui.augment.slot", "Slot: ");
+        add("malum.gui.augment.installed", "When installed: ");
+        add("malum.gui.augment.type.augment", "Augment");
+        add("malum.gui.augment.type.core_augment", "Core Augment");
+
+
         add("malum.gui.rite.type", "Type: ");
         add("malum.gui.rite.coverage", "Coverage: ");
-        add("malum.gui.rite.effect", "Effect: ");
 
         addRiteEffectCategory(MalumRiteEffect.MalumRiteEffectCategory.AURA);
         addRiteEffectCategory(MalumRiteEffect.MalumRiteEffectCategory.LIVING_ENTITY_EFFECT);
@@ -139,6 +152,89 @@ public class MalumLang extends LanguageProvider {
         addRite(SpiritRiteRegistry.ARCANE_RITE, "Undirected Rite", "Unchained Rite");
 
         addRite(SpiritRiteRegistry.ELDRITCH_SACRED_RITE, "Rite of Growth", "Rite of Lust");
+        addRite(SpiritRiteRegistry.ELDRITCH_WICKED_RITE, "Rite of Exorcism", "Rite of Culling");
+        addRite(SpiritRiteRegistry.ELDRITCH_EARTHEN_RITE, "Rite of Destruction", "Rite of Shaping");
+        addRite(SpiritRiteRegistry.ELDRITCH_INFERNAL_RITE, "Rite of Smelting", "Rite of Quickening");
+        addRite(SpiritRiteRegistry.ELDRITCH_AERIAL_RITE, "Rite of Gravity", "Rite of Unwinding");
+        addRite(SpiritRiteRegistry.ELDRITCH_AQUEOUS_RITE, "Rite of Sapping", "Rite of Drowning");
+
+        add("malum.gui.ritual.type", "Ritual Type: ");
+        add("malum.gui.ritual.tier", "Ritual Tier: ");
+
+        for (MalumRitualType ritualType : RitualRegistry.RITUALS) {
+            final String id = ritualType.identifier.getPath();
+            String name = DataHelper.toTitleCase(id, "_");
+            add("malum.gui.ritual." + id, name);
+        }
+        for (MalumRitualTier ritualTier : MalumRitualTier.TIERS) {
+            final String id = ritualTier.identifier.getPath();
+            String name = DataHelper.toTitleCase(id, "_");
+            add("malum.gui.ritual.tier." + id, name);
+        }
+
+        add("malum.gui.effect", "Effect: ");
+
+        addSimpleEntryHeader("chronicles_of_the_void", "Chronicles of the Void", "Otherworldly alterations");
+        addSimpleEntryHeader("research_of_the_rejected", "Research of the Rejected", "A thaumaturge's escalation");
+
+        addSimpleEntryHeader("void.introduction", "Introduction", "Secrets uncovered");
+        addPages("void.introduction",
+                "Hey Hey, this is the B-Side progression screen known as Chronicles of the Void. It's currently lacking proper translation entries but I've tried my best to explain everything in one way or another. Very, out of character, for the malum book.",
+                "When the mod actually releases, the button you used to get to this screen will have a cool animation, and also will only be available after the player throws the encyclopedia arcana into the weeping well; netting them an advancement that's required for the button to be present.");
+
+        addSimpleEntryHeader("void.weeping_well", "Weeping Well", "Ominous presence");
+        addPages("void.weeping_well",
+                "The infamous hole. You can locate it by using /locate structure malum:weeping_well. It's the starting point for ur progression in chronicles of the void.");
+
+        addSimpleEntryHeader("void.null_slate", "Null Slate", "Original form");
+        addPages("void.null_slate",
+                "Soulstone when thrown into the weeping well nets you null slate, a material suspected to be the true form of soulstone. Pretend that this description is a lot more cryptic and imagine there being some cool page on the right.");
+
+        addSimpleEntryHeader("void.void_salts", "Void Salts", "Necrotic powder");
+        addPages("void.void_salts",
+                "Hex ash when thrown into the weeping well nets you void salts, a weird and seemingly alive powder. Pretend that this description is a lot more cryptic and imagine there being some cool page on the right.");
+
+        addSimpleEntryHeader("void.auric_embers", "Auric Embers", "Potent flames");
+        addPages("void.auric_embers",
+                "Blaze Powder when thrown into the weeping well nets you Auric Embers, a demonic essence of fire. Pretend that this description is a lot more cryptic and imagine there being some cool page on the right.");
+
+        addSimpleEntryHeader("void.mnemonic_fragment", "Mnemonic Fragment", "Memories solidified");
+        addPages("void.mnemonic_fragment",
+                "Brilliance Clusters or Chunks when thrown into the weeping well nets you Mnemonic Fragments, a material full of memories turned into matter. Pretend that this description is a lot more cryptic and imagine there being some cool page on the right.");
+
+        addSimpleEntryHeader("void.soul_stained_steel_staff", "Soulstained Staff", "Spell-casting");
+        addPages("void.soul_stained_steel_staff",
+                "Staves are hybrid melee and ranged weapons. They swing faster than scythes but deal less physical damage. The simplest one is the Soulstained Steel Staff.",
+                "What makes staves special is the right click functionality, the right click function lets you shoot long range projectiles. This ranged attack has a relatively short cooldown, and requires a one second charge-up window before being fired.",
+                "The Soulstained Steel Staff in particular allows the user to lob a burst of 3 gravity affected hex bolts, each dealing 100% of the staff's magical damage output.");
+        addHeadline("void.ring_of_the_plentiful", "Ring of the Plentiful");
+        addPages("void.ring_of_the_plentiful",
+                "This ring will stockpile up to 3 reserve staff charges, which when present are consumed to avoid placing a cooldown on the staff's ranged functionality. Each staff charge takes 15 seconds to recover, and currently there's no indication for it.");
+
+        addSimpleEntryHeader("void.ring_of_growing_flesh", "Ring of Growing Flesh", "Cancerous growths");
+        addPages("void.ring_of_growing_flesh",
+                "The ring will give you a stacking max health buff every time you collect spirits, at full potency doubling your max health. The buff lasts quite a long time.");
+
+        addSimpleEntryHeader("void.anomalous_design", "Anomalous Design", "Unknown origins");
+        addPages("void.anomalous_design",
+                "Weird cult like symbol made by throwing an iron block into the weeping well. Lore wise the idea is that like, the entity behind the weeping well instructs you to actually create this thing and just, feed it the spirits and stuff. ");
+
+        addSimpleEntryHeader("void.fused_consciousness", "Fused Consciousness", "Magic and mind");
+        addPages("void.fused_consciousness",
+                "Cool arguably expensive material obtained by throwing the complete design into the weeping well. ");
+
+        addSimpleEntryHeader("void.belt_of_the_limitless", "Belt of the Limitless", "Imaginary strength");
+        addPages("void.belt_of_the_limitless",
+                "powerful belt item thing. Doubles ur soulward and also makes it absorb physical damage as well as magical damage.");
+
+        addSimpleEntryHeader("void.staff_of_the_auric_flame", "Staff of the Auric Flame", "Seeking flames");
+        addPages("void.staff_of_the_auric_flame",
+                "staff upgrade! Longer cooldown, shoots 5 homing fire bolts, deals more magic damage. Also sets things on fire but not with the melee attack which will be changed I'm just lazy.");
+
+        addSimpleEntryHeader("void.stellar_mechanism", "Stellar Mechanism", "Finer tuning");
+        addPages("void.stellar_mechanism",
+                "powerful crucible augment. Doubles the strength of the bonus applied by the tuning fork, without affecting the negative side of things. It's a core augment, which means it can only be slotted in the crucible itself, and is stored in a separate inventory than the one used for regular augments.");
+
 
         addSimpleEntryHeader("introduction", "Introduction", "On the nature of souls");
         addPages("introduction",
@@ -172,13 +268,15 @@ public class MalumLang extends LanguageProvider {
 
         addSimpleEntryHeader("runewood", "Runewood", "Arcane oak");
         addPages("runewood",
-                "Runewood is a strange mix of magic and nature, and a fairly common one at that. While pretty, I am more interested in practicality. Runewood is soaked in magic, and as such, can serve as the basis for the arcane.");
+                "Runewood is a strange mix of magic and nature, and a fairly common one at that. While pretty, I am more interested in practicality. Runewood is soaked in magic, and as such, can serve as the basis for the arcane.",
+                "The tree is predominantly found within large open plains, however it can also be found in forests. The tree can be best identified by it's leaves, proudly displaying an orange-yellow palette.");
         addHeadline("runewood.arcane_charcoal", "Arcane Charcoal");
         addPages("runewood.arcane_charcoal",
                 "Runewood's charcoal, as magic-infused as it is, burns with an arcane fervor for longer than regular charcoal. This makes it rather useful for fueling any smelting I need to do.");
-        addHeadline("runewood.holy_sap", "Holy Sap");
-        addPages("runewood.holy_sap",
-                "In addition, Runewood trees tend to have a buildup of sticky sap on the sides of their logs. When this happens, if you strip off the bark, you'll be able to bottle the sap and make it into slime, or heat and drink it for a strong regenerative effect.");
+        addHeadline("runewood.runic_sap", "Runic Sap");
+        addPages("runewood.runic_sap",
+                "Runewood trees tend to have a buildup of sticky sap on the sides of their logs. When this happens, if you strip off the bark, you'll be able to bottle the sap, which makes for a rejuvenating drink.",
+                "The sap can also be used to create sapballs, able to be used interchangeably with slimeballs for most recipes. Runic sap can also be turned into a block form, which is rather sticky.");
 
         addSimpleEntryHeader("blazing_quartz", "Blazing Quartz", "Ignition");
         addPages("blazing_quartz",
@@ -211,7 +309,7 @@ public class MalumLang extends LanguageProvider {
         addPages("esoteric_reaping",
                 "When a being dies, its soul disperses. This is basic theory, and well proven by this point. It's been proposed that sometimes, that power leaks into the body of the creature as it dies, to explain the existence of reagents they drop. That hadn't been proven yet.",
                 "But now, with my scythe, I have proved it beyond doubt. When a soul is shattered, even if only for a brief moment, the energy collides with what's left of it's vessel. This phenomena appears to create a strong reaction, a change of sorts.",
-                "I have discovered four reagents born through this process, which I will detail further in this entry. In summary, the flesh of zombies can curdle to Rotting Essence; the bones of skeletons can crystallize to Grim Talc; the magic of witches can form Alchemical Calx; and the wings of phantoms can spin to Astral Weave.");
+                "I have discovered four reagents born through this process, which I will detail further in this entry. In summary, the flesh of zombies can curdle to Rotting Essence; the bones of skeletons can crystallize to Grim Talc; the wings of phantoms can spin to Astral Weave; and the magic of endermen can converge into Warp Flux;");
         addHeadline("esoteric_reaping.rotting_essence", "Rotting Essence");
         addPages("esoteric_reaping.rotting_essence",
                 "When exposed to this magic, the flesh of the undead can curdle into Rotting Essence, a toxic and foul substance that smells like death itself.");
@@ -221,9 +319,9 @@ public class MalumLang extends LanguageProvider {
         addHeadline("esoteric_reaping.astral_weave", "Astral Weave");
         addPages("esoteric_reaping.astral_weave",
                 "The membrane of a phantom will spin into Astral Weave with this magic, a mystic cloth with strange arcane properties.");
-        addHeadline("esoteric_reaping.calx", "Alchemical Calx");
-        addPages("esoteric_reaping.calx",
-                "Witches carry alchemical reagents with them already, and, while this magic doesn't infuse their body, it transmutes those reagents into something else, forming Alchemical Calx.");
+        addHeadline("esoteric_reaping.warp_flux", "Warp Flux");
+        addPages("esoteric_reaping.warp_flux",
+                "The magic that envelops the enderman coalesces into warp flux, a strange essence that seems to distort space.");
 
         addSimpleEntryHeader("spirit_infusion", "Spirit Infusion", "Creation of wonders");
         addPages("spirit_infusion",
@@ -233,6 +331,12 @@ public class MalumLang extends LanguageProvider {
         addHeadline("spirit_infusion.hex_ash", "Hex Ash");
         addPages("spirit_infusion.hex_ash",
                 "My first product with this process is a powder I call Hex Ash, after its color. It is a simple and useful grit, with the niter and sulfur mostly transmuted by the raw arcana, leaving a mixture of reagent and carbon.");
+        addHeadline("spirit_infusion.living_flesh", "Living Flesh");
+        addPages("spirit_infusion.living_flesh",
+                "Next, for the sake of understanding how spirit arcana interacts with living substance, I have created... " + italic("something") + " which is now known as Living Flesh. It is a disgusting meaty chunk completely unfit for human consumption. Who knows if I'll end up finding a proper use for it.");
+        addHeadline("spirit_infusion.alchemical_calx", "Alchemical Calx");
+        addPages("spirit_infusion.alchemical_calx",
+                "Lastly, I have created an experimental substrate I named Alchemical Calx. It's got an initially strong tallow-like texture, but when met with a lesser amount of force it turns extremely malleable. It's bound to prove an useful ingredient.");
 
         addEntryHeader("primary_arcana", "Primary Arcana", "The components of magic");
         addHeadline("primary_arcana.sacred", "Sacred Spirit");
@@ -321,13 +425,52 @@ public class MalumLang extends LanguageProvider {
         addPages("crucible_acceleration",
                 "The Spirit Crucible is, unfortunately, a rather slow device. It takes time for it to coalesce the power of the arcana into the central item. This isn't without reason. Most matter simply can't take a faster stream, and you risk damaging the catalyst by overloading it.",
                 "However, by heating the catalyst through mystic means, you can lessen this rejection and speed up the coalescence at once. That is what the Spirit Catalyzer is for. Unfortunately, this is not perfect, and instability often causes the catalyst to be damaged more than strictly necessary.",
-                "Each fueled Catalyzer nearby to a Crucible will amplify the speed of focusing exponentially, up to a maximum of eight. The risk of instability proportionally rises with each one, resulting in your impetus potentially receiving more damage than necessary.");
+                "Each fueled Catalyzer nearby to a Crucible will amplify the speed of the focusing process, up to a maximum of eight. Unfortunately, the risk of instability proportionally rises with each one, resulting in your impetus potentially receiving more damage than necessary.");
 
         addSimpleEntryHeader("arcane_restoration", "Arcane Restoration", "Mystic repair");
         addPages("arcane_restoration",
                 "The Spirit Crucible allows the transmutation of matter. I have been able to use it to break down an impetus, and it stands to reason I could use it to restore one. By using spirit crystals in the Crucible instead of Brilliance in an anvil, I can do more than that - I can restore nearly anything.",
                 "Every metal and make of tool or armor requires its own set of spirits to repair, and its own repair material. For an Impetus, the repair material " + italic("is") + " the spirits instead. The repair material must be placed on a Twisted Tablet facing the Crucible. Once the spirits coalesce, the item will be repaired somewhat.",
                 "It appears that materials in tune with spirit arcana, such as Soulstained Steel or Hallowed Gold, are more efficient in this process. They will be repaired more than their mundane counterparts would for the same cost.");
+
+        addSimpleEntryHeader("crucible_augmentation", "Crucible Augmentation", "Tuned Design");
+        addPages("crucible_augmentation",
+                "The Crucible is a machine of great potential, and through the system I dubbed augmentation, that potential can be brought to even greater heights. Augmentation revolves around augments, simple items made from alchemical calx.",
+                "Each augment provides a unique effect that can be activated by slotting it in either the spirit catalyzer, or up to four in the spirit crucible itself. Using more than one instance of the same augment type works just fine.",
+                "In order to help with augmentation, I have designed a tool known as the Tuning Fork. While held, I will be able to see all the unique attributes of the crucible and it's augments. On top of that, by using the Tuning Fork on the crucible I may choose an attribute to improve, at the cost of other attributes lessening in potency.");
+
+        addSimpleEntryHeader("mending_diffuser", "Mending Diffuser", "Cracked no more");
+        addPages("mending_diffuser",
+                "An unexpected yet brilliant application of Living Flesh, the Mending Diffuser will, upon the crucible completing a focusing cycle, potentially repair any impetus by a small amount. It cannot however mend an already cracked impetus.");
+
+        addSimpleEntryHeader("impurity_stabilizer", "Impurity Stabilizer", "Potency from weakness");
+        addPages("impurity_stabilizer",
+                "The wicked spirit is, in most applications, drawn to the weak, seeking to cull. The Impurity Stabilizer utilizes that property, providing a powerful percentage bonus to the weakest crucible attribute, excluding fuel usage rate and instability, which receive a small improvement overall instead.");
+
+        addSimpleEntryHeader("shielding_apparatus", "Shielding Apparatus", "Alchemical protection");
+        addPages("shielding_apparatus",
+                "By utilizing the protective properties of Soul Stained Steel the Shielding Apparatus provides a chance for the damage imposed upon the impetus to be " + italic("completely") + " absorbed, while also slightly stabilizing the focusing process. It does however reduce focusing speed.");
+
+        addSimpleEntryHeader("warping_engine", "Warping Engine", "Unstable contraption");
+        addPages("warping_engine",
+                "I have created something cursed. This machine named the Warping Engine is a rather hard to explain piece of engineering, but in short, each time the crucible finishes a focusing cycle the engine has a chance to nearly instantly bring about the completion of the next cycle.",
+                "Furthermore, chained activations of the warping engine provide a stacking benefit to " + italic("all") + " other attributes. Unfortunately, this complex behavior takes quite a toll on the stability and fuel requirements of the focusing process.");
+
+        addSimpleEntryHeader("prismatic_focus_lens", "Prismatic Focus Lens", "Stabilising");
+        addPages("prismatic_focus_lens",
+                "A rather useful solution to instability problems; The Prismatic Focus Lens significantly reduces instability of the spirit focusing process. It is important to note, stability prevents any " + italic("additional") + " damage the impetus would be taking, rather than negating it all together.");
+
+        addSimpleEntryHeader("accelerating_inlay", "Accelerating Inlay", "Doubling down");
+        addPages("accelerating_inlay",
+                "A simple but effective implement, the Accelerating Inlay provides a substantial bonus to the focusing speed of the crucible without any drawbacks.");
+
+        addSimpleEntryHeader("blazing_diode", "Blazing Diode", "Fiery efficiency");
+        addPages("blazing_diode",
+                "The Blazing Diode is a solution to the problem of fuel management, the infernal arcana imbued into the curio lessens the fuel requirement of any catalyzer powering the crucible, while also slightly hastening the focusing process.");
+
+        addSimpleEntryHeader("intricate_assembly", "Intricate Assembly", "Plentiful production");
+        addPages("intricate_assembly",
+                "The Intricate Assembly is quite a powerful augment. At the cost of an increased dependency on fuel, as well as a reduced focusing speed, it enables the crucible to potentially produce double the usual amount of items during each focusing cycle.");
 
         addEntryHeader("spirit_metals", "Spirit Metals", "Arcana refined");
         addHeadline("spirit_metals.soulstained_steel", "Soulstained Steel");
@@ -377,10 +520,10 @@ public class MalumLang extends LanguageProvider {
         addSimpleEntryHeader("belt_of_the_starved", "Belt of the Starved", "Channeling voracity");
         addPages("belt_of_the_starved",
                 "The arcana I collect occasionally have scraps of wishes and desires woven in. Often, given the base nature of what I reap, this comes in the form of hunger, lust, or petty grudges. All of these impurities can be harnessed, and beyond that, I can infuse this power into my magic.",
-                "Doing this carries the perhaps predictable effect that my own hunger amplifies, draining quicker in the process. And... by eating things which revile me, things which are rotten, this powerful effect is extended beyond it's natural duration. The magic proficiency this grants is immense, but... I must say, the means are rather distasteful.");
+                "Doing this carries the perhaps predictable effect that my own hunger amplifies, draining quicker in the process. The magic proficiency this grants is immense, but... I must say, the means are rather distasteful.");
         addHeadline("belt_of_the_starved.ring_of_desperate_voracity", "Ring of Desperate Voracity");
         addPages("belt_of_the_starved.ring_of_desperate_voracity",
-                "To combat the toxic nature of these foods, I have created a ring to alleviate some of these effects. This ring makes rotten foods just a little bit more bearable, allowing me to amass more hunger and saturation from this unusual diet.");
+                "This ring makes rotten foods just a little bit more bearable, allowing me to amass more hunger and saturation from such an unusual diet. Normally, such a diet would be ill-advised, however, a secondary function of the ring allows it to extend the duration of the gluttony status effect that the belt of the starved grants.");
 
         addSimpleEntryHeader("belt_of_the_prospector", "Belt of the Prospector", "Treasures of the earth");
         addPages("belt_of_the_prospector",
@@ -414,7 +557,7 @@ public class MalumLang extends LanguageProvider {
         addEntryHeader("altar_acceleration", "Altar Acceleration", "Obelisks");
         addHeadline("altar_acceleration.runewood_obelisk", "Runewood Obelisk");
         addPages("altar_acceleration.runewood_obelisk",
-                "Spirit Infusion, as essential as it is, has grown to be tedious. Even producing a stack of simple Hex Ash takes several minutes. Using a Hallowed Spirit Resonator, I have found a way to accelerate it. By placing up to four hallowed obelisks nearby the altar I may increase the processing speed by 25% with each obelisk.");
+                "Spirit Infusion, as essential as it is, has grown to be tedious. Even producing a stack of simple Hex Ash takes several minutes. Using Hallowed Gold, I have found a way to accelerate it. By placing up to four hallowed obelisks nearby the altar I may increase the processing speed by one fourth with each obelisk.");
         addHeadline("altar_acceleration.brilliant_obelisk", "Brilliant Obelisk");
         addPages("altar_acceleration.brilliant_obelisk",
                 "While not useful for Infusion, per-se, the design of the obelisk can be used in another way as well. By socketing Brilliance instead of a Resonator, the obelisk will harmonize with the Brilliance of enchanting, causing it to provide as much force of enchanting as five bookshelves do.");
@@ -431,18 +574,21 @@ public class MalumLang extends LanguageProvider {
         addPages("arcane_rite.description",
                 "Raw arcana provides the basis for all rites. Without power, nothing would be accomplished. This naturally makes one wonder what effect raw arcana would have as the focus of a rite. The answer is a complex and dangerous one.",
                 "It requires far more to focus than other rites, taking the entire five runes to activate. It's as though I am pushing on some threshold, and need to break through. And in breaking through... momentum is conserved.",
-                "And once altered, the wood's color changes, along with its magical disposition. What I dub Soulwood bears scars from the violent method of its creation. Those scars warp magic, altering its fundamental nature. Any spirit rite performed with a Soulwood totem will produce a vastly different effect.",
-                "And now that I can obtain Soulwood, I can make totem bases out of it directly as well, bypassing the need to transmute Runewood totems.");
+                "Once complete, the rite brings about erratic change to the totem; what I dub Soulwood bears scars from the violent method of its creation. Those scars warp magic, altering its fundamental nature. Any spirit rite performed with a Soulwood totem will produce a vastly different effect.",
+                "A simple application of the unchained rite allows me to convert nearly anything made of Runewood to it's weird and messed up sibling, Soulwood. Simply placing any runewood block atop blighted gunk within the range of the active rite will cause it to be converted.");
+        addHeadline("arcane_rite.soulwood", "Soulwood Transmutation");
 
-        addPage("arcane_rite",
-                "The rite - if you could call something so chaotic that - corrupts and burns through the totem, altering its very base nature, and transmuting the world around it into some indeterminate blighted powder.");
-        addPage("corrupt_arcane_rite",
-                "Now already scarred, the power bleeds from the totem, corrupting and warping the nearby area. Any nearby block placed atop that blighted substance will be altered, given a new form.");
+        addRiteEntry("arcane_rite",
+                "The rite - if you could call something so chaotic that - corrupts and burns through the totem, altering its very base nature, and transmuting the world around it into some indeterminate blighted substance.",
+                "Converts the totem structure into one made up of Soulwood and alters the nearby terrain into blighted substance.\n- Soulwood totems produce different rite effects.");
+        addRiteEntry("corrupt_arcane_rite",
+                "Now already scarred, the power bleeds from the soulwood totem, corrupting and warping the nearby area. Any nearby block placed atop that blighted substance will be altered.",
+                "Transmutes nearby blocks placed atop blighted gunk.");
 
         addEntryHeader("sacred_rite", "Sacred Rites", "Invigorating the soul");
         addRiteEntry("sacred_rite",
-                "A simple aura rite, while active it will slowly mend the wounds of nearby entities.\n Avoids hostiles.",
-                "Recovers one heart of damage every second.");
+                "A simple rite, while active it will slowly mend the wounds of nearby entities.\n Avoids hostiles.",
+                "Recovers one heart of damage every two seconds.");
         addRiteEntry("greater_sacred_rite",
                 "An advanced rite, while active nearby crops planted on soil are filled with vigor and will grow more quickly.",
                 "Periodically ages nearby crops. Coverage matches water coverage.");
@@ -457,47 +603,86 @@ public class MalumLang extends LanguageProvider {
                          - Chickens lay eggs more frequently""");
         addRiteEntry("corrupt_greater_sacred_rite",
                 "An advanced rite, while active... nearby animals are made... " + italic("vigorous") + ", as if I had fed them myself.",
-                "Affected animals are fed until there are more than twenty.");
+                "Affected animals are fed until there are more than twenty.\n - This limit applies separately for each type of animal within the range of the rite.");
 
         addEntryHeader("wicked_rite", "Wicked Rites", "Maligning the soul");
-        addPage("wicked_rite", "Nearby hostile beings are slowly brought to within an inch of death.");
-        addPage("greater_wicked_rite", "By twisting the power of malice like a knife, nearby beings on the brink of death are dealt a fatal blow to the body and soul.");
+        addRiteEntry("wicked_rite",
+                "A simple rite, while active it will slowly bring nearby hostile beings to within an inch of death.",
+                "Deals one heart of non-lethal damage every two seconds.");
+        addRiteEntry("greater_wicked_rite",
+                "An advanced rite, while active nearby beings on the brink of death are dealt a fatal blow to the body and soul.",
+                "Affected entities are dealt a fatal blow, dropping items and spirits on death.\n - Avoids entities with more than two and a half hearts remaining.");
 
         addEntryHeader("corrupt_wicked_rite", "Corrupting the Wicked Rites", "Endangering the soul");
-        addPage("corrupt_wicked_rite", "Rather than harm, this rite enhances nearby hostile beings, granting protection, force, and speed. Rather useless, but might have niche applications.");
-        addPage("corrupt_greater_wicked_rite", "This rite is rather cruel, but necessary. It culls my herds, completely annihilating animals who would otherwise overcrowd.");
+        addRiteEntry("corrupt_wicked_rite",
+                "Rather than harm, this rite enhances nearby hostile beings, granting protection, force, and speed. Rather useless, but might have niche applications.",
+                "Grants all nearby hostiles resistance, strength, and speed.");
+        addRiteEntry("corrupt_greater_wicked_rite",
+                "An advanced rite, while active it will cull herds of nearby overcrowded animals.",
+                "While there are more than twenty animals within the range of the rite, the excess is removed.\n - This limit applies separately for each type of animal within the range of the rite.");
 
         addEntryHeader("aerial_rite", "Aerial Rites", "Uplifting the soul");
-        addPage("aerial_rite", "A simple aura rite, nearby friendly beings will find their movements sped up.");
-        addPage("greater_aerial_rite", "By twisting the power of the air, blocks before the totem will be made to fall as though they were sand. Nothing Silk Touch cannot grab will be affected, though.");
+        addRiteEntry("aerial_rite", "A simple aura rite, while active nearby friendly beings will find their movements sped up.",
+                "Applies the Zephyr's Courage effect, increasing movement speed by two fifths.");
+        addRiteEntry("greater_aerial_rite",
+                "An advanced rite, by twisting the power of the air, blocks before the totem will be made to fall as though they were sand. Nothing Silk Touch cannot grab will be affected, though.",
+                "Causes targeted blocks to fall downwards if there is nothing underneath them.");
 
         addEntryHeader("corrupt_aerial_rite", "Corrupting the Aerial Rites", "Scattering the soul");
-        addPage("corrupt_aerial_rite", "A simple aura rite, nearby friendly beings will have their connection to the earth disrupted, lowering their gravity.");
-        addPage("corrupt_greater_aerial_rite", "Slowly eases the stress of time on the mind, offsetting the effects of insomnia for those around it.");
+        addRiteEntry("corrupt_aerial_rite",
+                "A simple aura rite, while active nearby friendly beings will have their connection to the earth disrupted, lowering their gravity and increasing jump height.",
+                "Applies the Aether's Charm effect, decreasing gravity by three fifths while also providing a substantial benefit to jump height.");
+        addRiteEntry("corrupt_greater_aerial_rite",
+                "An advanced rite, while active it will slowly ease the stress of time on the mind, offsetting the effects of insomnia for those around it over time.",
+                "Passively reduces the insomnia value of nearby players.\n - Assuming phantoms are just starting to appear, it will take a single totem executing the rite two and two fifths of a minute to fully cleanse insomnia.\n - Naturally, the totem will take longer to fully cleanse insomnia if the player has already been suffering from it for some time.");
 
         addEntryHeader("earthen_rite", "Earthen Rites", "Grounding the soul");
-        addPage("earthen_rite", "A simple aura rite, nearby friendly beings will find their bodies are tougher and more resistant to damage.");
-        addPage("greater_earthen_rite", "By twisting the power of the earth, you can cause blocks before the totem base to be broken.");
+        addRiteEntry("earthen_rite",
+                "A simple aura rite, while active nearby friendly beings will find their bodies are tougher and more resistant to damage.",
+                "Applies the Gaian Bulwark effect, increasing armor by four and armor toughness by two.");
+        addRiteEntry("greater_earthen_rite",
+                "An advanced rite, while active it will cause blocks before the totem base to be broken.",
+                "Breaks targeted blocks. Unbreakable blocks behave as to be expected.");
 
         addEntryHeader("corrupt_earthen_rite", "Corrupting the Earthen Rites", "Honing the soul");
-        addPage("corrupt_earthen_rite", "A simple aura rite, nearby friendly beings will find their attacks deal more damage.");
-        addPage("corrupt_greater_earthen_rite", "The earth coalesces, and like lava meeting water, cobblestone is created before the totem base.");
+        addRiteEntry("corrupt_earthen_rite",
+                "A simple aura rite, while active nearby friendly beings will find their attacks deal more damage.",
+                "Applies the Earthen Might effect, increasing damage dealt by two hearts.");
+        addRiteEntry("corrupt_greater_earthen_rite",
+                "An advanced rite, while active the earth coalesces, and like lava meeting water, cobblestone is created before the totem base.",
+                "Creates cobblestone in place of empty space.");
 
         addEntryHeader("infernal_rite", "Infernal Rites", "Igniting the soul");
-        addPage("infernal_rite", "A simple aura rite, nearby friendly beings will find that their motions are infused with fiery vigor, letting them swing weapons and tools faster.");
-        addPage("greater_infernal_rite", "By twisting the power of fire, you can cause blocks before the totem base to be smelted.");
+        addRiteEntry("infernal_rite",
+                "A simple aura rite, while active nearby friendly beings will find that their motions are infused with fiery vigor, letting them swing weapons and tools faster.",
+                "Applies the Miner's Rage effect, increasing attack rate and dig speed by two fifths.");
+        addRiteEntry("greater_infernal_rite",
+                "An advanced rite, while active it will cause blocks before the totem base to be smelted.",
+                "Smelts targeted blocks that can be smelted into other blocks.");
 
         addEntryHeader("corrupt_infernal_rite", "Corrupting the Infernal Rites", "Extinguishing the soul");
-        addPage("corrupt_infernal_rite", "A simple aura rite, nearby friendly beings and close fires will have the heat sucked out of them, extinguishing them and healing those who were burned.");
-        addPage("corrupt_greater_infernal_rite", "Instead of generating heat, this rite compresses it, causing furnaces to operate more quickly.");
+        addRiteEntry("corrupt_infernal_rite",
+                "A simple aura rite, while active nearby friendly beings and close fires will have the heat sucked out of them, extinguishing them and healing those who were burned.",
+                "Extinguishes nearby flames, be it affecting the world or an entity.\n - Extinguished entities receive the Ifrit's Embrace effect, recovering two hearts a second.");
+        addRiteEntry("corrupt_greater_infernal_rite",
+                "An advanced rite, instead of generating heat, this rite compresses it, causing nearby furnaces to operate more quickly.",
+                "Speeds up nearby furnaces by one fourth.\n - Fuel consumption rate is unaffected, meaning the rite also improves fuel efficiency.");
 
         addEntryHeader("aqueous_rite", "Aqueous Rites", "Molding the soul");
-        addPage("aqueous_rite", "A simple aura rite, nearby friendly beings will find that their reach is extended, letting them more easily interact with the world.");
-        addPage("greater_aqueous_rite", "By twisting the power of the water, you can squeeze more fluids from the air, vastly increasing the drip speed of dripstone.");
+        addRiteEntry("aqueous_rite",
+                "A simple aura rite, while active nearby friendly beings will find that their reach is extended, letting them more easily interact with the world.",
+                "Applies the Poseidon's Grasp effect, increasing block reach by two units of space and increasing item pickup range significantly.");
+        addRiteEntry("greater_aqueous_rite",
+                "An advanced rite, while active, it will vastly increasing the drip speed of dripstone, causing more fluid to be produced.",
+                "Speeds up dripstone fluid production, works on both lava and water.\n - Only the tip of hanging dripstone needs to be within range for the effect to trigger.");
 
         addEntryHeader("corrupt_aqueous_rite", "Corrupting the Aqueous Rites", "Deforming the soul");
-        addPage("corrupt_aqueous_rite", "A simple aura rite, nearby friendly beings will find themselves better at fishing.");
-        addPage("corrupt_greater_aqueous_rite", "Zombies near this rite will find themselves choking on their own breath, drowning even on land.");
+        addRiteEntry("corrupt_aqueous_rite",
+                "A simple aura rite, while active nearby friendly beings will find themselves better at fishing.",
+                "Applies the Angler's Lure effect, providing benefits to fishing skills equal to Lure I and Luck of the Sea I.\n - The effects stack with any enchantment already present on a fishing rod.");
+        addRiteEntry("corrupt_greater_aqueous_rite",
+                "An advanced rite, while active zombies near this rite will find themselves choking on their own breath, drowning even on land.",
+                "Converts nearby zombies to drowned.");
 
         addEntryHeader("blight", "A Study on Blight", "What, why, and how");
         addHeadline("blight.intro", "Blight Study: Preface");
@@ -523,18 +708,18 @@ public class MalumLang extends LanguageProvider {
                 "Much like blight, the sapling accepts both spirit arcana and common fertilizers such as bonemeal. The end result is roughly the same across both options.");
         addHeadline("soulwood.color", "Soulwood Study: Color");
         addPages("soulwood.color",
-                "The most obvious differences with the tree itself are shape and leaf color. Soulwood is more spindly than Runewood, and its leaves are a sickly purple hue instead of a rich orange-yellow. It can still be used for many of the same things, though.");
+                "The most obvious differences with the tree itself are shape and leaf color. Soulwood is more spindly than Runewood, and its leaves are a sickly purple-red hue instead of a rich orange-yellow. It can still be used for many of the same things, though.");
         addHeadline("soulwood.blight", "Soulwood Study: Blight");
         addPages("soulwood.blight",
                 "Another obvious difference is in its effect on the surroundings - namely, the fact that it echoes the Undirected Rite with the energies of its growth, transmuting the world around it into blight. I ought to create a safely contained area if I wish to grow these trees.");
         addHeadline("soulwood.sap", "Soulwood Study: Sap");
         addPages("soulwood.sap",
-                "The sticky lifeblood of the tree also seems to well up much more often in a tree than in Runewood. The sap's effects are corrupted as well; rather than restoring my vigor, Unholy Syrup enhances it, increasing my attack strength.");
+                "The sticky lifeblood of the tree also seems to well up much more often in a tree than in Runewood. The sap's effects are corrupted as well; rather than restoring my vigor, Unholy Syrup enhances it, increasing my attack strength and providing damage resistance.");
 
         addSimpleEntryHeader("transmutation", "Transmutation", "Volatile Reactions");
         addPages("transmutation.intro",
                 "The unchained rite is used to change the nature of the mundane, and upon further study, this doesn't appear to be limited to just Souldwood. After countless hours spent trying to discover all the secrets the Rite holds, I've come to document just three transmutation trees of sorts.",
-                "An Unchained Transmutation revolves around using the chaotic ritual to change matter, depending on which material we start with, the Rite will shift any given block forward in the tree, turning it into blight at the very end of it. There doesn't appear to be any reason for ");
+                "An Unchained Transmutation revolves around using the chaotic ritual to change matter, depending on which material we start with, the Rite will shift any given block forward in the tree, turning it into blight at the very end of it. There doesn't appear to be any reason for these patterns.");
         addHeadline("transmutation.stone", "Transmutation: Basic");
         addHeadline("transmutation.deepslate", "Transmutation: Endothermic");
         addHeadline("transmutation.smooth_basalt", "Transmutation: Exothermic");
@@ -546,9 +731,9 @@ public class MalumLang extends LanguageProvider {
         addPages("tyrving", "The Tyrving is a rather esoteric blade. It's strange design makes it appear as a weak weapon not suited for combat. However, it's hex ash lining and twisted rock form cause it to deal extra magic damage to the soul, the greater the soul the more benefit.",
                 "The weapon can also be repaired using arcane restoration quite efficiently.");
 
-        addSimpleEntryHeader("magebane_belt", "Magebane Belt", "Newfound Ruin");
-        addPages("magebane_belt", "The Magebane Belt is one of my more devious inventions, and dead simple too. Normally, after being struck by any attack, soul ward will not recover until a long moment after. That moment of downtime has proven itself detrimental far too frequently. But that ends now.",
-                "The belt will absorb loose arcane essence of any instance of magical damage that strikes its bearer, and convert that repurposed energy into an immediate recovery of my arcane barrier.");
+        addSimpleEntryHeader("belt_of_the_magebane", "Belt of the Magebane", "Newfound Ruin");
+        addPages("belt_of_the_magebane", "The Belt of the Magebane is one of my more devious inventions, and dead simple too. Normally, after being struck by any attack, soul ward will not recover until a long moment after. That moment of downtime has proven itself detrimental far too frequently. But that ends now.",
+                "While worn, the belt provides a substantial bonus to soul ward recovery rate, while also improving capacity slightly. Furthermore, the belt will absorb loose arcane essence of any instance of magical damage that strikes its bearer, and convert that repurposed energy into an immediate recovery of my arcane barrier.");
 
         addSimpleEntryHeader("the_device", "The Device.", "microwave to recharge");
         addPage("the_device", "even works while bended");
@@ -576,16 +761,17 @@ public class MalumLang extends LanguageProvider {
         add("itemGroup.malum_natural_wonders", "Malum: Born from Arcana");
         add("itemGroup.malum_metallurgic_magics", "Malum: Metallurgic Magics");
         add("itemGroup.malum_void_chronicles", "Malum: Chronicles of the Void");
+        add("itemGroup.malum_ritual_shards", "Malum: Ritual Shards");
         add("itemGroup.malum_cosmetics", "Malum: Self Expression");
 
         add("enchantment.malum.haunted.desc", "Deals extra magic damage.");
         add("enchantment.malum.rebound.desc", "Allows the item to be thrown much like a boomerang, cooldown decreases with tier.");
         add("enchantment.malum.spirit_plunder.desc", "Increases the amount of spirits created when shattering a soul.");
 
-        add("death.attack." + DamageTypeRegistry.VOODOO_IDENTIFIER, "%s's soul shattered");
-        add("death.attack." + DamageTypeRegistry.VOODOO_IDENTIFIER + ".player", "%s's soul was shattered by %s");
-        add("death.attack." + DamageTypeRegistry.SCYTHE_SWEEP_IDENTIFIER, "%s was sliced in twain");
-        add("death.attack." + DamageTypeRegistry.SCYTHE_SWEEP_IDENTIFIER + ".player", "%s was sliced in twain by %s");
+        add("death.attack." + DamageTypeRegistry.VOODOO_IDENTIFIER, "%s had their soul shattered");
+        add("death.attack." + DamageTypeRegistry.VOODOO_IDENTIFIER + ".player", "%s had their soul shattered by %s");
+        add("death.attack." + DamageTypeRegistry.SCYTHE_SWEEP_IDENTIFIER, "%s was sliced in half");
+        add("death.attack." + DamageTypeRegistry.SCYTHE_SWEEP_IDENTIFIER + ".player", "%s was sliced in half by %s");
 
         addEffectDescription(MobEffectRegistry.GAIAN_BULWARK, "You are protected by an earthen bulwark, increasing your armor.");
         addEffectDescription(MobEffectRegistry.EARTHEN_MIGHT, "Your fists and tools are reinforced with earth, increasing your overall damage.");

@@ -95,10 +95,13 @@ public class FloatingItemEntityRenderer extends EntityRenderer<FloatingItemEntit
     }
 
     public static void renderSpiritGlimmer(PoseStack poseStack, MalumSpiritType spiritType, float partialTicks) {
+        renderSpiritGlimmer(poseStack, spiritType.getPrimaryColor(), spiritType.getSecondaryColor(), partialTicks);
+    }
+    public static void renderSpiritGlimmer(PoseStack poseStack, Color primaryColor, Color secondaryColor, float partialTicks) {
         Level level = Minecraft.getInstance().level;
         VertexConsumer bloom = DELAYED_RENDER.getBuffer(LodestoneRenderTypeRegistry.ADDITIVE_TEXTURE.applyAndCache(lodestonePath("textures/particle/twinkle.png")));
         VertexConsumer star = DELAYED_RENDER.getBuffer(LodestoneRenderTypeRegistry.ADDITIVE_TEXTURE.applyAndCache(malumPath("textures/particle/star.png")));
-        VFXBuilders.WorldVFXBuilder builder = VFXBuilders.createWorld().setPosColorTexLightmapDefaultFormat().setColor(spiritType.getPrimaryColor());
+        VFXBuilders.WorldVFXBuilder builder = VFXBuilders.createWorld().setPosColorTexLightmapDefaultFormat().setColor(primaryColor);
         float gameTime = level.getGameTime() + partialTicks;
         float sine = (float) Math.abs(((Math.sin((gameTime / 80f) % 360)) * 0.075f));
         float bounce = EasingHelper.weightedEasingLerp(Easing.BOUNCE_IN_OUT, (gameTime % 20) / 20f, 0.025f, 0.05f, 0.025f);
@@ -109,7 +112,7 @@ public class FloatingItemEntityRenderer extends EntityRenderer<FloatingItemEntit
         poseStack.mulPose(Axis.YP.rotationDegrees(180f));
         builder.setAlpha(0.6f).renderQuad(star, poseStack, scale * 1.2f);
         builder.setAlpha(0.8f).renderQuad(bloom, poseStack, scale * 0.8f);
-        builder.setAlpha(0.2f).setColor(spiritType.getSecondaryColor()).renderQuad(bloom, poseStack, scale * 1.2f);
+        builder.setAlpha(0.2f).setColor(secondaryColor).renderQuad(bloom, poseStack, scale * 1.2f);
         poseStack.popPose();
     }
 

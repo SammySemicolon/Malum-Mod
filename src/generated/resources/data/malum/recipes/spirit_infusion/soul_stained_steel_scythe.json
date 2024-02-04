@@ -24,15 +24,15 @@
   "spirits": [
     {
       "type": "earthen",
-      "count": 8
+      "count": 16
     },
     {
       "type": "wicked",
-      "count": 4
+      "count": 8
     },
     {
       "type": "arcane",
-      "count": 2
+      "count": 8
     }
   ]
 }

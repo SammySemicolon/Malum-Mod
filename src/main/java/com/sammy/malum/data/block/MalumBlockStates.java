@@ -111,6 +111,7 @@ public class MalumBlockStates extends LodestoneBlockStateProvider {
         BlockStateSmithTypes.LOG_BLOCK.act(data, RUNEWOOD_BEAM, RUNEWOOD_LOG, STRIPPED_RUNEWOOD_LOG, EXPOSED_RUNEWOOD_LOG, REVEALED_RUNEWOOD_LOG);
         BlockStateSmithTypes.WOOD_BLOCK.act(data, RUNEWOOD, STRIPPED_RUNEWOOD);
         BlockStateSmithTypes.LEAVES_BLOCK.act(data, RUNEWOOD_LEAVES);
+        MalumBlockStateSmithTypes.HANGING_RUNEWOOD_LEAVES.act(data, HANGING_RUNEWOOD_LEAVES);
 
         BlockStateSmithTypes.CROSS_MODEL_BLOCK.act(data, RUNEWOOD_SAPLING);
         BlockStateSmithTypes.BUTTON_BLOCK.act(data, RUNEWOOD_BUTTON);
@@ -134,7 +135,8 @@ public class MalumBlockStates extends LodestoneBlockStateProvider {
 
         BlockStateSmithTypes.LOG_BLOCK.act(data, SOULWOOD_BEAM, SOULWOOD_LOG, STRIPPED_SOULWOOD_LOG, EXPOSED_SOULWOOD_LOG, REVEALED_SOULWOOD_LOG);
         BlockStateSmithTypes.WOOD_BLOCK.act(data, SOULWOOD, STRIPPED_SOULWOOD);
-        BlockStateSmithTypes.LEAVES_BLOCK.act(data, SOULWOOD_LEAVES);
+        BlockStateSmithTypes.LEAVES_BLOCK.act(data, SOULWOOD_LEAVES, MYSTIC_SOULWOOD_LEAVES);
+        BlockStateSmithTypes.CUSTOM_MODEL.act(data, ItemModelSmithTypes.BLOCK_MODEL_ITEM, this::simpleBlock, this::hangingLeavesModel, HANGING_MYSTIC_SOULWOOD_LEAVES);
 
         BlockStateSmithTypes.CROSS_MODEL_BLOCK.act(data, SOULWOOD_GROWTH);
         BlockStateSmithTypes.BUTTON_BLOCK.act(data, SOULWOOD_BUTTON);
@@ -152,24 +154,28 @@ public class MalumBlockStates extends LodestoneBlockStateProvider {
         BlockStateSmithTypes.CUSTOM_MODEL.act(data, this::directionalBlock, this::woodenItemStandModel, SOULWOOD_ITEM_STAND);
 
         setTexturePath("ores/");
-        BlockStateSmithTypes.FULL_BLOCK.act(data, BLOCK_OF_CTHONIC_GOLD, NATURAL_QUARTZ_ORE, DEEPSLATE_QUARTZ_ORE, SOULSTONE_ORE, DEEPSLATE_SOULSTONE_ORE);
+        BlockStateSmithTypes.FULL_BLOCK.act(data, CTHONIC_GOLD_ORE, NATURAL_QUARTZ_ORE, DEEPSLATE_QUARTZ_ORE, SOULSTONE_ORE, DEEPSLATE_SOULSTONE_ORE);
         BlockStateSmithTypes.CUSTOM_MODEL.act(data, this::simpleBlock, this::layeredBlockModel, BLAZING_QUARTZ_ORE, BRILLIANT_STONE, BRILLIANT_DEEPSLATE);
-        BlockStateSmithTypes.CUSTOM_MODEL.act(data, ItemModelSmithTypes.GENERATED_ITEM, this::directionalBlock, fromFunction(models()::cross), NATURAL_QUARTZ_CLUSTER);
+        BlockStateSmithTypes.CUSTOM_MODEL.act(data, ItemModelSmithTypes.GENERATED_ITEM, this::directionalBlock, fromFunction(models()::cross), NATURAL_QUARTZ_CLUSTER, CTHONIC_GOLD_CLUSTER);
 
         setTexturePath("storage_blocks/");
         BlockStateSmithTypes.FULL_BLOCK.act(data,
-                BLOCK_OF_ARCANE_CHARCOAL, BLOCK_OF_BLAZING_QUARTZ, BLOCK_OF_BRILLIANCE,
-                BLOCK_OF_RAW_SOULSTONE, BLOCK_OF_SOULSTONE, BLOCK_OF_HALLOWED_GOLD,
-                BLOCK_OF_SOUL_STAINED_STEEL, BLOCK_OF_ROTTING_ESSENCE, BLOCK_OF_GRIM_TALC,
-                BLOCK_OF_ALCHEMICAL_CALX, BLOCK_OF_ASTRAL_WEAVE, BLOCK_OF_HEX_ASH,
-                MASS_OF_BLIGHTED_GUNK, BLOCK_OF_CURSED_GRIT, BLOCK_OF_VOID_SALTS);
+                BLOCK_OF_SOUL_STAINED_STEEL, BLOCK_OF_ROTTING_ESSENCE, BLOCK_OF_GRIM_TALC, BLOCK_OF_ALCHEMICAL_CALX,
+                BLOCK_OF_RAW_SOULSTONE, BLOCK_OF_SOULSTONE, BLOCK_OF_CTHONIC_GOLD, BLOCK_OF_ARCANE_CHARCOAL,
+                BLOCK_OF_HALLOWED_GOLD, BLOCK_OF_ASTRAL_WEAVE, BLOCK_OF_HEX_ASH, MASS_OF_BLIGHTED_GUNK,
+                BLOCK_OF_CURSED_GRIT, RUNIC_SAP_BLOCK, CURSED_SAP_BLOCK, BLOCK_OF_BLAZING_QUARTZ,
+                BLOCK_OF_BRILLIANCE, BLOCK_OF_NULL_SLATE, BLOCK_OF_VOID_SALTS, BLOCK_OF_MNEMONIC_FRAGMENT);
 
         setTexturePath("blight/");
         MalumBlockStateSmithTypes.BLIGHTED_BLOCK.act(data, BLIGHTED_SOIL);
-        MalumBlockStateSmithTypes.BLIGHTED_TUMOR.act(data, BLIGHTED_TUMOR);
-        BlockStateSmithTypes.CROSS_MODEL_BLOCK.act(data, BLIGHTED_WEED);
+        MalumBlockStateSmithTypes.BLIGHTED_GROWTH.act(data, BLIGHTED_GROWTH);
+        MalumBlockStateSmithTypes.CLINGING_BLIGHT.act(data, CLINGING_BLIGHT);
         BlockStateSmithTypes.CUSTOM_MODEL.act(data, ItemModelSmithTypes.BLOCK_MODEL_ITEM, this::simpleBlock, this::blightedEarthModel, BLIGHTED_EARTH);
         BlockStateSmithTypes.CUSTOM_MODEL.act(data, ItemModelSmithTypes.BLOCK_MODEL_ITEM, this::simpleBlock, this::blightedSoulwoodModel, BLIGHTED_SOULWOOD);
+
+        setTexturePath("blight/calcified/");
+        MalumBlockStateSmithTypes.CALCIFIED_BLIGHT.act(data, CALCIFIED_BLIGHT);
+        MalumBlockStateSmithTypes.TALL_CALCIFIED_BLIGHT.act(data, TALL_CALCIFIED_BLIGHT);
 
         setTexturePath("");
         BlockStateSmithTypes.CUSTOM_MODEL.act(data, ItemModelSmithTypes.GENERATED_ITEM, this::simpleBlock, this::etherModel, ETHER);
@@ -181,16 +187,15 @@ public class MalumBlockStates extends LodestoneBlockStateProvider {
         BlockStateSmithTypes.CUSTOM_MODEL.act(data, MalumItemModelSmithTypes.GENERATED_OVERLAY_ITEM, this::simpleBlock, this::etherModel, IRIDESCENT_ETHER);
 
         BlockStateSmithTypes.CUSTOM_MODEL.act(data, ItemModelSmithTypes.BLOCK_MODEL_ITEM, this::simpleBlock, this::predefinedModel,
-                SPIRIT_ALTAR, SPIRIT_JAR);
+                SPIRIT_ALTAR, SPIRIT_JAR, RITUAL_PLINTH);
 
         BlockStateSmithTypes.CUSTOM_MODEL.act(data, ItemModelSmithTypes.BLOCK_MODEL_ITEM, this::horizontalBlock, this::predefinedModel,
                 WEAVERS_WORKBENCH);
 
-        BlockStateSmithTypes.CUSTOM_MODEL.act(data, ItemModelSmithTypes.BLOCK_MODEL_ITEM, this::directionalBlock, this::predefinedModel,
-                TWISTED_TABLET);
-
         BlockStateSmithTypes.CUSTOM_MODEL.act(data, ItemModelSmithTypes.UNIQUE_ITEM_MODEL, this::simpleBlock, this::predefinedModel,
-                RUNEWOOD_OBELISK, RUNEWOOD_OBELISK_COMPONENT, BRILLIANT_OBELISK, BRILLIANT_OBELISK_COMPONENT, SPIRIT_CRUCIBLE, SPIRIT_CRUCIBLE_COMPONENT);
+                RUNEWOOD_OBELISK, RUNEWOOD_OBELISK_COMPONENT, BRILLIANT_OBELISK, BRILLIANT_OBELISK_COMPONENT, SPIRIT_CRUCIBLE, SPIRIT_CRUCIBLE_COMPONENT, REPAIR_PYLON);
+
+        MalumBlockStateSmithTypes.REPAIR_PYLON_COMPONENT.act(data, REPAIR_PYLON_COMPONENT);
 
         BlockStateSmithTypes.CUSTOM_MODEL.act(data, ItemModelSmithTypes.UNIQUE_ITEM_MODEL, this::horizontalBlock, this::predefinedModel,
                 SPIRIT_CATALYZER, SPIRIT_CATALYZER_COMPONENT);
@@ -297,6 +302,12 @@ public class MalumBlockStates extends LodestoneBlockStateProvider {
         ResourceLocation planks = getBlockTexture(woodName + "_planks");
         ResourceLocation panel = getBlockTexture(woodName + "_panel");
         return models().withExistingParent(name, malumPath("block/templates/template_totem_base")).texture("side", side).texture("top", top).texture("planks", planks).texture("panel", panel);
+    }
+
+    public ModelFile hangingLeavesModel(Block block) {
+        String name = getBlockName(block);
+        ResourceLocation texture = getBlockTexture(name);
+        return models().withExistingParent(name, malumPath("block/templates/template_hanging_leaves")).texture("hanging_leaves", texture).texture("particle", texture);
     }
 
     public ModelFile blightedSoulwoodModel(Block block) {

@@ -1,15 +1,16 @@
 package com.sammy.malum.common.block.curiosities.spirit_crucible;
 
 import com.sammy.malum.common.block.*;
-import com.sammy.malum.common.block.storage.*;
+import com.sammy.malum.common.item.augment.*;
+import com.sammy.malum.common.item.augment.core.*;
 import com.sammy.malum.common.item.impetus.*;
 import com.sammy.malum.common.item.spirit.*;
-import com.sammy.malum.common.packets.particle.curiosities.altar.*;
 import com.sammy.malum.common.recipe.*;
 import com.sammy.malum.core.systems.recipe.*;
 import com.sammy.malum.core.systems.spirit.*;
 import com.sammy.malum.registry.common.*;
 import com.sammy.malum.registry.common.block.*;
+import com.sammy.malum.registry.common.item.*;
 import com.sammy.malum.visual_effects.*;
 import net.minecraft.core.*;
 import net.minecraft.nbt.*;
@@ -27,24 +28,15 @@ import net.minecraftforge.common.capabilities.*;
 import net.minecraftforge.common.util.*;
 import net.minecraftforge.items.*;
 import net.minecraftforge.items.wrapper.*;
-import net.minecraftforge.network.*;
 import org.jetbrains.annotations.*;
 import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.systems.blockentity.*;
-import team.lodestar.lodestone.systems.easing.*;
 import team.lodestar.lodestone.systems.multiblock.*;
-import team.lodestar.lodestone.systems.particle.*;
-import team.lodestar.lodestone.systems.particle.builder.*;
-import team.lodestar.lodestone.systems.particle.data.*;
-import team.lodestar.lodestone.systems.particle.data.color.*;
-import team.lodestar.lodestone.systems.particle.data.spin.*;
 
 import javax.annotation.Nullable;
 import javax.annotation.*;
+import java.util.*;
 import java.util.function.*;
-import java.util.stream.*;
-
-import static com.sammy.malum.registry.common.PacketRegistry.*;
 
 public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implements ICatalyzerAccelerationTarget {
 
@@ -53,6 +45,8 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
 
     public LodestoneBlockEntityInventory inventory;
     public LodestoneBlockEntityInventory spiritInventory;
+    public LodestoneBlockEntityInventory augmentInventory;
+    public LodestoneBlockEntityInventory coreAugmentInventory;
     public SpiritFocusingRecipe recipe;
 
     public float spiritAmount;
@@ -63,7 +57,8 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
     public int queuedCracks;
     public int crackTimer;
 
-    public CrucibleAccelerationData acceleratorData;
+    public CrucibleAccelerationData acceleratorData = CrucibleAccelerationData.DEFAULT;
+    public CrucibleTuning.CrucibleAttributeType tuningType = CrucibleTuning.CrucibleAttributeType.NONE;
 
     private final LazyOptional<IItemHandler> combinedInventory = LazyOptional.of(() -> new CombinedInvWrapper(inventory, spiritInventory));
 
@@ -101,6 +96,22 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
                 return true;
             }
         };
+        augmentInventory = new AugmentBlockEntityInventory(4, 1) {
+            @Override
+            public void onContentsChanged(int slot) {
+                super.onContentsChanged(slot);
+                needsSync = true;
+                BlockHelper.updateAndNotifyState(level, worldPosition);
+            }
+        };
+        coreAugmentInventory = new AugmentBlockEntityInventory(1, 1, t -> t.getItem() instanceof AbstractCoreAugmentItem) {
+            @Override
+            public void onContentsChanged(int slot) {
+                super.onContentsChanged(slot);
+                needsSync = true;
+                BlockHelper.updateAndNotifyState(level, worldPosition);
+            }
+        };
     }
 
     public SpiritCrucibleCoreBlockEntity(BlockPos pos, BlockState state) {
@@ -118,12 +129,13 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
         if (queuedCracks != 0) {
             compound.putInt("queuedCracks", queuedCracks);
         }
-        if (acceleratorData != null) {
-            acceleratorData.save(compound);
-        }
 
+        compound.putInt("tuningType", tuningType.ordinal());
+        acceleratorData.save(compound);
         inventory.save(compound);
         spiritInventory.save(compound, "spiritInventory");
+        augmentInventory.save(compound, "augmentInventory");
+        coreAugmentInventory.save(compound, "coreAugmentInventory");
     }
 
     @Override
@@ -131,10 +143,14 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
         spiritAmount = compound.getFloat("spiritAmount");
         progress = compound.getFloat("progress");
         queuedCracks = compound.getInt("queuedCracks");
+
+        tuningType = CrucibleTuning.CrucibleAttributeType.values()[Mth.clamp(compound.getInt("tuningType"), 0, CrucibleTuning.CrucibleAttributeType.values().length-1)];
         acceleratorData = CrucibleAccelerationData.load(level, this, compound);
 
         inventory.load(compound);
         spiritInventory.load(compound, "spiritInventory");
+        augmentInventory.load(compound, "augmentInventory");
+        coreAugmentInventory.load(compound, "coreAugmentInventory");
 
         super.load(compound);
     }
@@ -146,18 +162,46 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
         }
         if (hand.equals(InteractionHand.MAIN_HAND)) {
             ItemStack heldStack = player.getMainHandItem();
-            recalibrateAccelerators(level, worldPosition);
-            ItemStack spiritStack = spiritInventory.interact(level, player, hand);
-            if (!spiritStack.isEmpty()) {
+            if (heldStack.getItem().equals(ItemRegistry.TUNING_FORK.get())) {
+                tuningType = tuningType.next(tuningType, this);
+                recalibrateAccelerators(level, worldPosition);
+                level.playSound(null, worldPosition, SoundRegistry.TUNING_FORK_TINKERS.get(), SoundSource.BLOCKS, 1.25f+level.random.nextFloat()*0.5f, 0.75f+level.random.nextFloat()*0.5f);
+                BlockHelper.updateAndNotifyState(level, worldPosition);
                 return InteractionResult.SUCCESS;
             }
-            if (!(heldStack.getItem() instanceof SpiritShardItem)) {
-                ItemStack stack = inventory.interact(level, player, hand);
-                if (!stack.isEmpty()) {
-                    return InteractionResult.SUCCESS;
+            final boolean augmentOnly = heldStack.getItem() instanceof AbstractAugmentItem;
+            final boolean isEmpty = heldStack.isEmpty();
+            if (augmentOnly || (isEmpty && inventory.isEmpty() && spiritInventory.isEmpty())) {
+                final boolean isCoreAugment = heldStack.getItem() instanceof AbstractCoreAugmentItem;
+                if ((augmentOnly && !isCoreAugment) || isEmpty) {
+                    ItemStack stack = augmentInventory.interact(player.level(), player, hand);
+                    if (!stack.isEmpty()) {
+                        recalibrateAccelerators(level, worldPosition);
+                        return InteractionResult.SUCCESS;
+                    }
+                }
+                if ((augmentOnly && isCoreAugment) || isEmpty) {
+                    ItemStack stack = coreAugmentInventory.interact(player.level(), player, hand);
+                    if (!stack.isEmpty()) {
+                        recalibrateAccelerators(level, worldPosition);
+                        return InteractionResult.SUCCESS;
+                    }
                 }
             }
-            if (heldStack.isEmpty()) {
+            recalibrateAccelerators(level, worldPosition);
+            if (!augmentOnly) {
+                ItemStack spiritStack = spiritInventory.interact(level, player, hand);
+                if (!spiritStack.isEmpty()) {
+                    return InteractionResult.SUCCESS;
+                }
+                if (!(heldStack.getItem() instanceof SpiritShardItem)) {
+                    ItemStack stack = inventory.interact(level, player, hand);
+                    if (!stack.isEmpty()) {
+                        return InteractionResult.SUCCESS;
+                    }
+                }
+            }
+            if (isEmpty) {
                 return InteractionResult.SUCCESS;
             } else {
                 return InteractionResult.FAIL;
@@ -170,6 +214,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
     public void onBreak(@Nullable Player player) {
         inventory.dumpItems(level, worldPosition);
         spiritInventory.dumpItems(level, worldPosition);
+        augmentInventory.dumpItems(level, worldPosition);
         super.onBreak(player);
     }
 
@@ -187,7 +232,10 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
         spiritAmount = Math.max(1, Mth.lerp(0.1f, spiritAmount, spiritInventory.nonEmptyItemAmount));
         if (queuedCracks > 0) {
             crackTimer++;
-            if (crackTimer % 7 == 0) {
+            if (crackTimer % 5 == 0) {
+                if (crackTimer >= 15) {
+                    crackTimer = 0;
+                }
                 float pitch = 0.95f + (crackTimer - 8) * 0.015f + level.random.nextFloat() * 0.05f;
                 level.playSound(null, worldPosition, SoundRegistry.IMPETUS_CRACK.get(), SoundSource.BLOCKS, 0.7f, pitch);
                 queuedCracks--;
@@ -196,53 +244,21 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
                 }
             }
         }
-        float speed = acceleratorData == null ? 0 : acceleratorData.speedIncrease;
+        float speed = acceleratorData.focusingSpeed.getValue(acceleratorData);
         if (level instanceof ServerLevel) {
-            if (level.getBlockEntity(worldPosition.above(2)) instanceof MalumItemHolderBlockEntity itemHolderBlockEntity) {
-                ItemStack repairStack = itemHolderBlockEntity.inventory.getStackInSlot(0);
-                if (!repairStack.isEmpty()) {
-                    final ItemStack repairedStack = inventory.getStackInSlot(0);
-                    SpiritRepairRecipe repairRecipe = SpiritRepairRecipe.getRecipe(level, repairedStack, repairStack, spiritInventory.nonEmptyItemStacks);
-                    if (repairRecipe != null) {
-                        if (repairedStack.isDamaged()) {
-                            float repaired = repairedStack.getMaxDamage() * repairRecipe.durabilityPercentage;
-                            int newDurability = (int) Math.min(0, repairedStack.getDamageValue() - repaired);
-                            repairedStack.setDamageValue(newDurability);
-                        }
-                        if (repairedStack.getItem() instanceof CrackedImpetusItem crackedImpetusItem) {
-                            inventory.setStackInSlot(0, new ItemStack(crackedImpetusItem.impetus));
-                        }
-                        repairStack.shrink(repairRecipe.repairMaterial.count);
-                        for (SpiritWithCount spirit : repairRecipe.spirits) {
-                            for (int i = 0; i < spiritInventory.slotCount; i++) {
-                                ItemStack spiritStack = spiritInventory.getStackInSlot(i);
-                                if (spirit.matches(spiritStack)) {
-                                    spiritStack.shrink(spirit.count);
-                                    break;
-                                }
-                            }
-                        }
-                        BlockHelper.updateAndNotifyState(level, worldPosition);
-                        BlockHelper.updateAndNotifyState(level, worldPosition.above(2));
-                    }
-                }
-            }
             if (recipe != null) {
-                if (acceleratorData != null) {
-                    boolean needsRecalibration = !acceleratorData.accelerators.stream().allMatch(ICrucibleAccelerator::canContinueAccelerating);
-                    if (needsRecalibration) {
-                        recalibrateAccelerators(level, worldPosition);
-                        BlockHelper.updateAndNotifyState(level, worldPosition);
-                    }
+                boolean needsRecalibration = !acceleratorData.accelerators.stream().allMatch(ICrucibleAccelerator::canContinueAccelerating);
+                if (needsRecalibration) {
+                    recalibrateAccelerators(level, worldPosition);
+                    BlockHelper.updateAndNotifyState(level, worldPosition);
                 }
-                progress += 1 + speed;
+                progress += speed;
                 if (progress >= recipe.time) {
                     craft();
                 }
             } else {
                 progress = 0;
             }
-
         }
         else {
             spiritSpin += 1 + speed * 0.1f;
@@ -254,26 +270,32 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
         ItemStack stack = inventory.getStackInSlot(0);
         ItemStack outputStack = recipe.output.copy();
         Vec3 itemPos = getItemPos();
-        if (recipe.durabilityCost != 0 && stack.isDamageableItem()) {
-            boolean hasAcceleration = acceleratorData != null;
-            int durabilityCost = recipe.durabilityCost;
-            float damageChance = hasAcceleration ? acceleratorData.damageChance : 0;
-            int maximumDamageInstances = hasAcceleration ? acceleratorData.maximumDamageInstances : 0;
-            while (true) {
-                if (level.random.nextFloat() < damageChance) {
-                    durabilityCost++;
-                    damageChance *= damageChance;
-                    if (durabilityCost < maximumDamageInstances) {
-                        continue;
-                    }
+        final RandomSource random = level.random;
+        float processingSpeed = acceleratorData.focusingSpeed.getValue(acceleratorData);
+        float damageChance = acceleratorData.damageChance.getValue(acceleratorData);
+        float bonusYieldChance = acceleratorData.bonusYieldChance.getValue(acceleratorData);
+        float instantCompletionChance = acceleratorData.chainFocusingChance.getValue(acceleratorData);
+        float completeDamageNegationChance = acceleratorData.damageAbsorptionChance.getValue(acceleratorData);
+        float restorationChance = acceleratorData.restorationChance.getValue(acceleratorData);
+        if (random.nextFloat() < restorationChance) {
+            stack.setDamageValue(Math.max(stack.getDamageValue()-recipe.durabilityCost*4, 0));
+        }
+        if (completeDamageNegationChance == 0 || random.nextFloat() < completeDamageNegationChance) {
+            if (recipe.durabilityCost != 0 && stack.isDamageableItem()) {
+                int durabilityCost = recipe.durabilityCost;
+                if (damageChance > 0 && random.nextFloat() < damageChance) {
+                    durabilityCost *= 2;
                 }
-                break;
+
+                queuedCracks += durabilityCost;
+                boolean success = stack.hurt(durabilityCost, random, null);
+                if (success && stack.getItem() instanceof ImpetusItem impetusItem) {
+                    inventory.setStackInSlot(0, impetusItem.getCrackedVariant().getDefaultInstance());
+                }
             }
-            queuedCracks = durabilityCost;
-            boolean success = stack.hurt(durabilityCost, level.random, null);
-            if (success && stack.getItem() instanceof ImpetusItem impetusItem) {
-                inventory.setStackInSlot(0, impetusItem.getCrackedVariant().getDefaultInstance());
-            }
+        }
+        else {
+            level.playSound(null, worldPosition, SoundRegistry.SHIELDING_APPARATUS_SHIELDS.get(), SoundSource.BLOCKS, 0.5f, 0.25f + random.nextFloat() * 0.25f);
         }
         for (SpiritWithCount spirit : recipe.spirits) {
             for (int i = 0; i < spiritInventory.slotCount; i++) {
@@ -284,13 +306,23 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
                 }
             }
         }
+
         spiritInventory.updateData();
         level.addFreshEntity(new ItemEntity(level, itemPos.x, itemPos.y, itemPos.z, outputStack));
-        MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new AltarCraftParticlePacket(recipe.spirits.stream().map(s -> s.type.identifier).collect(Collectors.toList()), itemPos));
+        while (bonusYieldChance > 0) {
+            if (bonusYieldChance >= 1 || random.nextFloat() < bonusYieldChance) {
+                level.addFreshEntity(new ItemEntity(level, itemPos.x, itemPos.y, itemPos.z, outputStack.copy()));
+            }
+            bonusYieldChance-=1;
+        }
+        final boolean instantCompletion = instantCompletionChance > 0 && random.nextFloat() < instantCompletionChance;
+        progress = instantCompletion ? recipe.time - 10 * processingSpeed : 0;
+        if (instantCompletion) {
+            level.playSound(null, worldPosition, SoundRegistry.WARPING_ENGINE_REVERBERATES.get(), SoundSource.BLOCKS, 1.5f, 1f + random.nextFloat() * 0.25f);
+        }
+        acceleratorData.globalAttributeModifier = instantCompletion ? acceleratorData.globalAttributeModifier + 0.2f : 0;
         recipe = SpiritFocusingRecipe.getRecipe(level, stack, spiritInventory.nonEmptyItemStacks);
-        level.playSound(null, worldPosition, SoundRegistry.CRUCIBLE_CRAFT.get(), SoundSource.BLOCKS, 1, 0.75f + level.random.nextFloat() * 0.5f);
-        progress = 0;
-        recalibrateAccelerators(level, worldPosition);
+        level.playSound(null, worldPosition, SoundRegistry.CRUCIBLE_CRAFT.get(), SoundSource.BLOCKS, 1, 0.75f + random.nextFloat() * 0.5f);
         BlockHelper.updateAndNotifyState(level, worldPosition);
     }
 
@@ -300,13 +332,33 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
     }
 
     @Override
+    public List<ItemStack> getAugments() {
+        return augmentInventory.nonEmptyItemStacks;
+    }
+
+    @Override
+    public ItemStack getCoreAugment() {
+        return coreAugmentInventory.getStackInSlot(0);
+    }
+
+    @Override
     public boolean canBeAccelerated() {
         return !isRemoved() && recipe != null;
     }
 
     @Override
+    public CrucibleAccelerationData getAccelerationData() {
+        return acceleratorData;
+    }
+
+    @Override
     public void setAccelerationData(CrucibleAccelerationData data) {
         this.acceleratorData = data;
+    }
+
+    @Override
+    public CrucibleTuning.CrucibleAttributeType getTuningType() {
+        return tuningType;
     }
 
     @Override
@@ -335,9 +387,15 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
     }
 
     public Vec3 getSpiritItemOffset(int slot, float partialTicks) {
-        float distance = 0.75f + (float) Math.sin((spiritSpin % 6.2831f + partialTicks) / 20f) * 0.025f;
-        float height = 1.75f;
+        float distance = 0.75f + (float) Math.sin(((spiritSpin + partialTicks) % 6.28f) / 20f) * 0.025f;
+        float height = 1.8f;
         return DataHelper.rotatingRadialOffset(new Vec3(0.5f, height, 0.5f), distance, slot, spiritAmount, (long) (spiritSpin + partialTicks), 360);
+    }
+
+    public Vec3 getAugmentItemOffset(int slot, float partialTicks) {
+        float distance = 0.6f + (float) Math.sin(((spiritSpin + partialTicks) % 6.28f) / 20f) * 0.025f;
+        float height = 1.6f;
+        return DataHelper.rotatingRadialOffset(new Vec3(0.5f, height, 0.5f), distance, slot, augmentInventory.slotCount, (long) (spiritSpin + partialTicks), 240);
     }
 
     @Nonnull

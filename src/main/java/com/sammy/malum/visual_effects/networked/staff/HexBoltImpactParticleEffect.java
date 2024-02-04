@@ -53,7 +53,7 @@ public class HexBoltImpactParticleEffect extends ParticleEffectType {
             double posZ = positionData.posZ;
             Vec3 pos = new Vec3(posX, posY, posZ);
 
-            MalumSpiritType spiritType = colorData.getSpiritType(colorData.getDefaultColorRecord());
+            MalumSpiritType spiritType = colorData.getSpiritType();
             for (int i = 0; i < 32; i++) {
                 float spread = RandomHelper.randomBetween(random, 0.1f, 0.5f);
                 float speed = RandomHelper.randomBetween(random, 0.3f, 0.4f);
@@ -71,7 +71,6 @@ public class HexBoltImpactParticleEffect extends ParticleEffectType {
                     var lightSpecs = spiritLightSpecs(level, spawnPosition, spiritType);
                     lightSpecs.getBuilder()
                             .multiplyLifetime(lifetimeMultiplier)
-                            .disableCull()
                             .enableForcedSpawn()
                             .modifyData(WorldParticleBuilder::getScaleData, d -> d.multiplyValue(1.75f))
                             .setMotion(direction);
@@ -84,7 +83,6 @@ public class HexBoltImpactParticleEffect extends ParticleEffectType {
                     var sparks = SparkParticleEffects.spiritMotionSparks(level, spawnPosition, spiritType);
                     sparks.getBuilder()
                             .multiplyLifetime(lifetimeMultiplier)
-                            .disableCull()
                             .enableForcedSpawn()
                             .setMotion(direction.scale(1.5f))
                             .modifyData(SparkParticleBuilder::getScaleData, d -> d.multiplyValue(1.75f))

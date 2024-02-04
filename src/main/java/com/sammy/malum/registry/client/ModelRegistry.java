@@ -26,6 +26,8 @@ public class ModelRegistry {
     public static SoulStainedSteelArmorModel SOUL_STAINED_ARMOR;
     public static AncientSoulStainedSteelArmorModel ANCIENT_SOUL_STAINED_STEEL_ARMOR;
 
+    public static MalignantLeadArmorModel MALIGNANT_LEAD_ARMOR;
+
     public static GenericSlimArmorModel GENERIC_SLIM_ARMOR;
     public static GenericArmorModel GENERIC_ARMOR;
 
@@ -47,6 +49,7 @@ public class ModelRegistry {
     public static void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
         event.registerLayerDefinition(SoulHunterArmorModel.LAYER, SoulHunterArmorModel::createBodyLayer);
         event.registerLayerDefinition(SoulStainedSteelArmorModel.LAYER, SoulStainedSteelArmorModel::createBodyLayer);
+        event.registerLayerDefinition(MalignantLeadArmorModel.LAYER, MalignantLeadArmorModel::createBodyLayer);
         event.registerLayerDefinition(GenericSlimArmorModel.LAYER, GenericSlimArmorModel::createBodyLayer);
         event.registerLayerDefinition(GenericArmorModel.LAYER, GenericArmorModel::createBodyLayer);
 
@@ -72,6 +75,7 @@ public class ModelRegistry {
     public static void registerLayers(EntityRenderersEvent.AddLayers event) {
         SOUL_HUNTER_ARMOR = new SoulHunterArmorModel(event.getEntityModels().bakeLayer(SoulHunterArmorModel.LAYER));
         SOUL_STAINED_ARMOR = new SoulStainedSteelArmorModel(event.getEntityModels().bakeLayer(SoulStainedSteelArmorModel.LAYER));
+        MALIGNANT_LEAD_ARMOR = new MalignantLeadArmorModel(event.getEntityModels().bakeLayer(MalignantLeadArmorModel.LAYER));
         GENERIC_SLIM_ARMOR = new GenericSlimArmorModel(event.getEntityModels().bakeLayer(GenericSlimArmorModel.LAYER));
         GENERIC_ARMOR = new GenericArmorModel(event.getEntityModels().bakeLayer(GenericArmorModel.LAYER));
 

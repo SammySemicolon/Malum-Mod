@@ -1,16 +1,22 @@
 package com.sammy.malum.common.entity.nitrate;
 
-import com.sammy.malum.common.packets.particle.curiosities.nitrate.VividNitrateBounceParticlePacket;
+import com.sammy.malum.registry.client.*;
+import com.sammy.malum.registry.common.*;
 import com.sammy.malum.registry.common.entity.EntityRegistry;
+import com.sammy.malum.visual_effects.*;
+import com.sammy.malum.visual_effects.networked.*;
+import com.sammy.malum.visual_effects.networked.data.*;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.network.PacketDistributor;
-import team.lodestar.lodestone.helpers.ColorHelper;
+import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.registry.common.particle.*;
 import team.lodestar.lodestone.systems.easing.Easing;
+import team.lodestar.lodestone.systems.particle.*;
 import team.lodestar.lodestone.systems.particle.builder.WorldParticleBuilder;
 import team.lodestar.lodestone.systems.particle.data.GenericParticleData;
 import team.lodestar.lodestone.systems.particle.data.color.ColorParticleData;
@@ -21,12 +27,18 @@ import team.lodestar.lodestone.systems.particle.render_types.LodestoneWorldParti
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Function;
+import java.util.function.*;
 
 import static com.sammy.malum.registry.common.PacketRegistry.MALUM_CHANNEL;
 import static net.minecraft.util.Mth.nextFloat;
 
 public class VividNitrateEntity extends AbstractNitrateEntity {
+
+    public record ColorFunctionData(Level level, float duration, float offset, float partialTicks) {
+        public ColorFunctionData(Level level, float offset) {
+            this(level, 12f, offset, 0);
+        }
+    }
 
     public static final List<Color> COLORS = new ArrayList<>(List.of(
             new Color(231, 58, 73),
@@ -47,13 +59,8 @@ public class VividNitrateEntity extends AbstractNitrateEntity {
         return ColorHelper.multicolorLerp(Easing.SINE_IN, lerp, VividNitrateEntity.COLORS);
     };
 
-
     public VividNitrateEntity(Level level) {
         super(EntityRegistry.VIVID_NITRATE.get(), level);
-    }
-
-    public VividNitrateEntity(double x, double y, double z, Level level) {
-        super(EntityRegistry.VIVID_NITRATE.get(), x, y, z, level);
     }
 
     public VividNitrateEntity(LivingEntity owner, Level level) {
@@ -66,8 +73,18 @@ public class VividNitrateEntity extends AbstractNitrateEntity {
     }
 
     @Override
-    public int getPierce() {
+    public int getMaxPierce() {
         return 20;
+    }
+
+    @Override
+    public ParticleEffectType getImpactParticleEffect() {
+        return ParticleEffectTypeRegistry.ETHERIC_NITRATE_IMPACT;
+    }
+
+    @Override
+    public ColorEffectData getImpactParticleEffectColor() {
+        return new ColorEffectData(COLOR_FUNCTION.apply(new ColorFunctionData(level(), 0.125f)));
     }
 
     @Override
@@ -84,61 +101,41 @@ public class VividNitrateEntity extends AbstractNitrateEntity {
         }
         y = Math.min(y, 1f);
         setDeltaMovement(x, y, z);
-        if (level() instanceof ServerLevel) {
-            MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level().getChunkAt(blockPosition())), new VividNitrateBounceParticlePacket(COLOR_FUNCTION.apply(new ColorFunctionData(level(), 0f)), getX(), getY(), getZ()));
-        }
     }
 
+
+    @OnlyIn(Dist.CLIENT)
     @Override
     public void spawnParticles() {
-        if (level().isClientSide) {
-            ClientOnly.spawnParticles(this);
+        float scalar = age > MAX_AGE - 10 ? 1f - (age - MAX_AGE + 10) / 10f : 1f;
+        if (age < 5) {
+            scalar = age / 5f;
         }
-    }
-
-    public record ColorFunctionData(Level level, float duration, float offset, float partialTicks) {
-        public ColorFunctionData(Level level, float offset) {
-            this(level, 12f, offset, 0);
-        }
-    }
-
-
-    public static class ClientOnly {
-        public static void spawnParticles(VividNitrateEntity vividNitrateEntity) {
-            double ox = vividNitrateEntity.xOld, oy = vividNitrateEntity.yOld + vividNitrateEntity.getYOffset(0) + 0.25f, oz = vividNitrateEntity.zOld;
-            double x = vividNitrateEntity.getX(), y = vividNitrateEntity.getY() + vividNitrateEntity.getYOffset(0) + 0.25f, z = vividNitrateEntity.getZ();
-            Vec3 motion = vividNitrateEntity.getDeltaMovement();
-            Vec3 norm = motion.normalize().scale(0.1f);
-            float extraAlpha = (float) motion.length();
-            float cycles = 3;
-            Color firstColor = COLOR_FUNCTION.apply(new ColorFunctionData(vividNitrateEntity.level(), 0f)).brighter();
-            Color secondColor = COLOR_FUNCTION.apply(new ColorFunctionData(vividNitrateEntity.level(), 0.125f)).darker();
-            var rand = vividNitrateEntity.level().getRandom();
-            for (int i = 0; i < cycles; i++) {
-                float pDelta = i / cycles;
-                double lerpX = Mth.lerp(pDelta, ox, x) - motion.x / 4f;
-                double lerpY = Mth.lerp(pDelta, oy, y) - motion.y / 4f;
-                double lerpZ = Mth.lerp(pDelta, oz, z) - motion.z / 4f;
-                float alphaMultiplier = (0.30f + extraAlpha) * Math.min(1, vividNitrateEntity.windUp * 2);
-//                SpiritLightSpecs.spiritLightSpecs(vividNitrateEntity.level, new Vec3(lerpX, lerpY, lerpZ), firstColor, secondColor, b -> b.setMotion(norm));
-
-                final ColorParticleDataBuilder colorDataBuilder = ColorParticleData.create(secondColor, SECOND_SMOKE_COLOR)
-                        .setEasing(Easing.QUINTIC_OUT)
-                        .setCoefficient(1.75f);
-                WorldParticleBuilder.create(LodestoneParticleRegistry.SMOKE_PARTICLE)
-                        .setTransparencyData(GenericParticleData.create(Math.min(1, 0.25f * alphaMultiplier), 0f).setEasing(Easing.SINE_IN, Easing.SINE_OUT).build())
-                        .setLifetime(65 + rand.nextInt(15))
-                        .setSpinData(SpinParticleData.create(nextFloat(rand, -0.1f, 0.1f)).setSpinOffset(rand.nextFloat() * 6.28f).build())
-                        .setScaleData(GenericParticleData.create(0.2f + rand.nextFloat() * 0.05f, 0.3f, 0f).build())
-                        .setColorData(colorDataBuilder.build())
-                        .setRandomOffset(0.02f)
-                        .enableNoClip()
-                        .setRandomMotion(0.01f, 0.01f)
-                        .setRenderType(LodestoneWorldParticleRenderType.LUMITRANSPARENT)
-                        .spawn(vividNitrateEntity.level(), lerpX, lerpY, lerpZ)
-                        .setColorData(colorDataBuilder.setCoefficient(2.75f).build())
-                        .spawn(vividNitrateEntity.level(), lerpX, lerpY, lerpZ);
-            }
+        Color color = COLOR_FUNCTION.apply(new ColorFunctionData(level(), 0));
+        Vec3 norm = getDeltaMovement().normalize().scale(0.05f);
+        var lightSpecs = SpiritLightSpecs.spiritLightSpecs(level(), position(), ColorParticleData.create(color, color).setEasing(Easing.SINE_IN_OUT).setCoefficient(0.9f).build());
+        lightSpecs.getBuilder().multiplyLifetime(1.5f).setMotion(norm);
+        lightSpecs.getBloomBuilder().multiplyLifetime(1.5f).setMotion(norm);
+        lightSpecs.spawnParticles();
+        Color smokeColor = AbstractNitrateEntity.SECOND_SMOKE_COLOR;
+        for (int i = 0; i < 3; i++) {
+            color = age < 3 ? smokeColor : COLOR_FUNCTION.apply(new ColorFunctionData(level(), i*0.25f));
+            int lifetime = (int) (RandomHelper.randomBetween(random, 60, 80) * (1 - i / 3f));
+            final SpinParticleData spinData = SpinParticleData.createRandomDirection(random, 0, RandomHelper.randomBetween(random, 0f, 0.4f), 0).randomSpinOffset(random).build();
+            final Consumer<LodestoneWorldParticleActor> behavior = p -> p.setParticleMotion(p.getParticleSpeed().scale(0.98f));
+            WorldParticleBuilder.create(ParticleRegistry.STRANGE_SMOKE)
+                    .setTransparencyData(GenericParticleData.create(0.7f * scalar, 0.9f * scalar, 0f).setEasing(Easing.SINE_IN_OUT, Easing.SINE_IN).build())
+                    .setSpinData(spinData)
+                    .setScaleData(GenericParticleData.create(0.2f * scalar, 0.4f * scalar, 0.6f * scalar).setEasing(Easing.QUINTIC_OUT, Easing.SINE_IN).build())
+                    .setColorData(ColorParticleData.create(color, smokeColor).setEasing(Easing.QUAD_OUT).setCoefficient(1.1f).build())
+                    .setLifetime(Math.min(6 + age * 3, lifetime))
+                    .setLifeDelay(1)
+                    .enableNoClip()
+                    .enableForcedSpawn()
+                    .setSpritePicker(SimpleParticleOptions.ParticleSpritePicker.WITH_AGE)
+                    .addTickActor(behavior)
+                    .setRenderType(LodestoneWorldParticleRenderType.LUMITRANSPARENT)
+                    .spawn(level(), position().x, position().y, position().z);
         }
     }
 }

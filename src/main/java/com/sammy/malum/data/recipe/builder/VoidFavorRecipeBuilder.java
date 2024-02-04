@@ -4,6 +4,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.registry.common.recipe.RecipeSerializerRegistry;
+import net.minecraft.core.registries.*;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -59,9 +60,13 @@ public class VoidFavorRecipeBuilder {
         @Override
         public void serializeRecipeData(JsonObject json) {
             JsonElement inputObject = input.toJson();
-            JsonElement outputObject = Ingredient.of(output).toJson();
+            JsonObject outputObject = new JsonObject();
+            outputObject.addProperty("item", BuiltInRegistries.ITEM.getKey(output.getItem()).toString());
             if (output.getCount() != 1) {
                 outputObject.getAsJsonObject().addProperty("count", output.getCount());
+            }
+            if (output.hasTag()) {
+                outputObject.getAsJsonObject().addProperty("nbt", output.getTag().toString());
             }
             json.add("input", inputObject);
             json.add("output", outputObject);

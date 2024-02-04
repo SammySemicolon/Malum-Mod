@@ -24,17 +24,22 @@ public class ParticleRegistry {
     public static RegistryObject<LodestoneParticleType> LIGHT_SPEC_SMALL = PARTICLES.register("light_spec_small", LodestoneParticleType::new);
     public static RegistryObject<LodestoneParticleType> LIGHT_SPEC_LARGE = PARTICLES.register("light_spec_large", LodestoneParticleType::new);
     public static RegistryObject<LodestoneParticleType> STAR = PARTICLES.register("star", LodestoneParticleType::new);
+    public static RegistryObject<LodestoneParticleType> STRANGE_SMOKE = PARTICLES.register("strange_smoke", LodestoneParticleType::new);
 
     public static RegistryObject<LodestoneSparkParticleType> ROUND_SPARK = PARTICLES.register("round_spark", LodestoneSparkParticleType::new);
-    public static RegistryObject<LodestoneSparkParticleType> SLASH = PARTICLES.register("slash", LodestoneSparkParticleType::new);
+    public static RegistryObject<LodestoneSparkParticleType> BOLT = PARTICLES.register("bolt", LodestoneSparkParticleType::new);
 
-    public static RegistryObject<LodestoneDirectionalParticleType> SQUARE = PARTICLES.register("square", LodestoneDirectionalParticleType::new);
-    public static RegistryObject<LodestoneDirectionalParticleType> CIRCLE = PARTICLES.register("circle", LodestoneDirectionalParticleType::new);
+    public static RegistryObject<LodestoneDirectionalParticleType> RITUAL_CIRCLE = PARTICLES.register("ritual_circle", LodestoneDirectionalParticleType::new);
+    public static RegistryObject<LodestoneDirectionalParticleType> RITUAL_CIRCLE_WISP = PARTICLES.register("ritual_circle_wisp", LodestoneDirectionalParticleType::new);
+    public static RegistryObject<LodestoneDirectionalParticleType> SHARP_SPARK = PARTICLES.register("sharp_spark", LodestoneDirectionalParticleType::new);
     public static RegistryObject<LodestoneDirectionalParticleType> HEXAGON = PARTICLES.register("hexagon", LodestoneDirectionalParticleType::new);
+    public static RegistryObject<LodestoneDirectionalParticleType> CIRCLE = PARTICLES.register("circle", LodestoneDirectionalParticleType::new);
+    public static RegistryObject<LodestoneDirectionalParticleType> SQUARE = PARTICLES.register("square", LodestoneDirectionalParticleType::new);
     public static RegistryObject<LodestoneDirectionalParticleType> SAW = PARTICLES.register("saw", LodestoneDirectionalParticleType::new);
 
-    public static RegistryObject<SimpleParticleType> SCYTHE_CUT_ATTACK_PARTICLE = PARTICLES.register("scythe_cut_attack", () -> new SimpleParticleType(true));
-    public static RegistryObject<SimpleParticleType> SCYTHE_SWEEP_ATTACK_PARTICLE = PARTICLES.register("scythe_sweep_attack", () -> new SimpleParticleType(true));
+    public static RegistryObject<SimpleParticleType> SCYTHE_CUT_PARTICLE = PARTICLES.register("scythe_cut", () -> new SimpleParticleType(true));
+    public static RegistryObject<SimpleParticleType> SCYTHE_SWEEP_PARTICLE = PARTICLES.register("scythe_sweep", () -> new SimpleParticleType(true));
+    public static RegistryObject<SimpleParticleType> STAFF_SLAM_PARTICLE = PARTICLES.register("staff_slam", () -> new SimpleParticleType(true));
 
     public static void registerParticleFactory(RegisterParticleProvidersEvent event) {
         Minecraft.getInstance().particleEngine.register(SPIRIT_FLAME_PARTICLE.get(), SpiritFlameParticleType.Factory::new);
@@ -42,17 +47,22 @@ public class ParticleRegistry {
         Minecraft.getInstance().particleEngine.register(WEIRD_SQUIGGLE.get(), LodestoneParticleType.Factory::new);
         Minecraft.getInstance().particleEngine.register(LIGHT_SPEC_SMALL.get(), LodestoneParticleType.Factory::new);
         Minecraft.getInstance().particleEngine.register(LIGHT_SPEC_LARGE.get(), LodestoneParticleType.Factory::new);
+        Minecraft.getInstance().particleEngine.register(STRANGE_SMOKE.get(), LodestoneParticleType.Factory::new);
         Minecraft.getInstance().particleEngine.register(STAR.get(), LodestoneParticleType.Factory::new);
 
         Minecraft.getInstance().particleEngine.register(ROUND_SPARK.get(), LodestoneSparkParticleType.Factory::new);
-        Minecraft.getInstance().particleEngine.register(SLASH.get(), LodestoneSparkParticleType.Factory::new);
+        Minecraft.getInstance().particleEngine.register(BOLT.get(), LodestoneSparkParticleType.Factory::new);
 
-        Minecraft.getInstance().particleEngine.register(SQUARE.get(), LodestoneDirectionalParticleType.Factory::new);
-        Minecraft.getInstance().particleEngine.register(CIRCLE.get(), LodestoneDirectionalParticleType.Factory::new);
+        Minecraft.getInstance().particleEngine.register(RITUAL_CIRCLE.get(), LodestoneDirectionalParticleType.Factory::new);
+        Minecraft.getInstance().particleEngine.register(RITUAL_CIRCLE_WISP.get(), LodestoneDirectionalParticleType.Factory::new);
+        Minecraft.getInstance().particleEngine.register(SHARP_SPARK.get(), LodestoneDirectionalParticleType.Factory::new);
         Minecraft.getInstance().particleEngine.register(HEXAGON.get(), LodestoneDirectionalParticleType.Factory::new);
+        Minecraft.getInstance().particleEngine.register(CIRCLE.get(), LodestoneDirectionalParticleType.Factory::new);
+        Minecraft.getInstance().particleEngine.register(SQUARE.get(), LodestoneDirectionalParticleType.Factory::new);
         Minecraft.getInstance().particleEngine.register(SAW.get(), LodestoneDirectionalParticleType.Factory::new);
 
-        Minecraft.getInstance().particleEngine.register(SCYTHE_CUT_ATTACK_PARTICLE.get(), ScytheAttackParticle.Factory::new);
-        Minecraft.getInstance().particleEngine.register(SCYTHE_SWEEP_ATTACK_PARTICLE.get(), ScytheAttackParticle.Factory::new);
+        Minecraft.getInstance().particleEngine.register(SCYTHE_CUT_PARTICLE.get(), ScytheAttackParticle.Factory::new);
+        Minecraft.getInstance().particleEngine.register(SCYTHE_SWEEP_PARTICLE.get(), ScytheAttackParticle.Factory::new);
+        Minecraft.getInstance().particleEngine.register(STAFF_SLAM_PARTICLE.get(), ScytheAttackParticle.Factory::new);
     }
 }

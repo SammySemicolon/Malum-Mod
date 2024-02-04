@@ -13,8 +13,7 @@ import java.util.function.Supplier;
 public class ArmorTiers {
     public enum ArmorTierEnum implements ArmorMaterial {
         SPIRIT_HUNTER("malum:spirit_hunter", 16, new int[]{1, 3, 4, 2}, 15, () -> SoundEvents.ARMOR_EQUIP_LEATHER, ItemRegistry.SPIRIT_FABRIC, 0),
-        SOUL_STAINED_STEEL("malum:soul_stained_steel", 22, new int[]{2, 6, 7, 3}, 11, () -> SoundEvents.ARMOR_EQUIP_IRON, ItemRegistry.SOUL_STAINED_STEEL_INGOT, 2),
-        SOUL_STAINED_STRONGHOLD("malum:soul_stained_stronghold", 36, new int[]{4, 7, 9, 5}, 13, () -> SoundEvents.ARMOR_EQUIP_IRON, ItemRegistry.SOUL_STAINED_STEEL_INGOT, 5);
+        SOUL_STAINED_STEEL("malum:soul_stained_steel", 22, new int[]{2, 6, 7, 3}, 11, () -> SoundEvents.ARMOR_EQUIP_IRON, ItemRegistry.SOUL_STAINED_STEEL_PLATING, 2);
         private final String name;
         private final int durabilityMultiplier;
         private final int[] damageReduction;
@@ -75,9 +74,6 @@ public class ArmorTiers {
 
         @Override
         public float getKnockbackResistance() {
-            if (this.equals(SOUL_STAINED_STRONGHOLD)) {
-                return 0.1f;
-            }
             return 0;
         }
     }

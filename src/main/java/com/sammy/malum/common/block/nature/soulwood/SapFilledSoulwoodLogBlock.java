@@ -20,6 +20,5 @@ public class SapFilledSoulwoodLogBlock extends SapFilledLogBlock {
     @Override
     public void collectSap(Level level, BlockPos pos, Player player) {
         level.playSound(null, pos, SoundRegistry.MAJOR_BLIGHT_MOTIF.get(), SoundSource.BLOCKS, 1, 1);
-        super.collectSap(level, pos, player);
     }
 }

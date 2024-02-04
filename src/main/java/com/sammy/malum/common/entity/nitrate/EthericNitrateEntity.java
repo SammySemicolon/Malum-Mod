@@ -1,54 +1,39 @@
 package com.sammy.malum.common.entity.nitrate;
 
-import com.sammy.malum.common.packets.particle.curiosities.nitrate.EthericNitrateParticlePacket;
+import com.sammy.malum.registry.client.*;
+import com.sammy.malum.registry.common.*;
 import com.sammy.malum.registry.common.entity.EntityRegistry;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.Mth;
+import com.sammy.malum.visual_effects.*;
+import com.sammy.malum.visual_effects.networked.*;
+import com.sammy.malum.visual_effects.networked.data.*;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.network.PacketDistributor;
-import team.lodestar.lodestone.registry.common.particle.*;
+import net.minecraftforge.api.distmarker.*;
+import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.systems.easing.Easing;
-import team.lodestar.lodestone.systems.particle.builder.WorldParticleBuilder;
+import team.lodestar.lodestone.systems.particle.*;
+import team.lodestar.lodestone.systems.particle.builder.*;
 import team.lodestar.lodestone.systems.particle.data.GenericParticleData;
 import team.lodestar.lodestone.systems.particle.data.color.ColorParticleData;
-import team.lodestar.lodestone.systems.particle.data.color.ColorParticleDataBuilder;
 import team.lodestar.lodestone.systems.particle.data.spin.SpinParticleData;
 import team.lodestar.lodestone.systems.particle.render_types.LodestoneWorldParticleRenderType;
 
 import java.awt.*;
-
-import static com.sammy.malum.registry.common.PacketRegistry.MALUM_CHANNEL;
-import static net.minecraft.util.Mth.nextFloat;
+import java.util.function.*;
 
 public class EthericNitrateEntity extends AbstractNitrateEntity {
 
-    public static final Color FIRST_COLOR = new Color(243, 185, 44);
-    public static final Color SECOND_COLOR = new Color(194, 35, 137);
+    public static final Color AURIC_YELLOW = new Color(239, 215, 75);
+    public static final Color AURIC_PURPLE = new Color(236, 54, 163);
+    public static final ColorParticleData AURIC_COLOR_DATA = ColorParticleData.create(AURIC_YELLOW, AURIC_PURPLE).setEasing(Easing.SINE_IN_OUT).setCoefficient(0.9f).build();
 
     public EthericNitrateEntity(Level level) {
         super(EntityRegistry.ETHERIC_NITRATE.get(), level);
     }
 
-    public EthericNitrateEntity(double x, double y, double z, Level level) {
-        super(EntityRegistry.ETHERIC_NITRATE.get(), x, y, z, level);
-    }
-
     public EthericNitrateEntity(LivingEntity owner, Level level) {
         super(EntityRegistry.ETHERIC_NITRATE.get(), owner, level);
-    }
-
-    @Override
-    public void onExplode() {
-        if (level() instanceof ServerLevel) {
-            MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level().getChunkAt(blockPosition())), new EthericNitrateParticlePacket(getX(), getY(), getZ()));
-        }
-    }
-
-    @Override
-    public int getPierce() {
-        return 3;
     }
 
     @Override
@@ -57,48 +42,50 @@ public class EthericNitrateEntity extends AbstractNitrateEntity {
     }
 
     @Override
-    public void spawnParticles() {
-        if (level().isClientSide) {
-            ClientOnly.spawnParticles(this);
-        }
+    public int getMaxPierce() {
+        return 3;
     }
 
-    public static class ClientOnly {
-        public static void spawnParticles(EthericNitrateEntity ethericNitrateEntity) {
-            double ox = ethericNitrateEntity.xOld, oy = ethericNitrateEntity.yOld + ethericNitrateEntity.getYOffset(0) + 0.25f, oz = ethericNitrateEntity.zOld;
-            double x = ethericNitrateEntity.getX(), y = ethericNitrateEntity.getY() + ethericNitrateEntity.getYOffset(0) + 0.25f, z = ethericNitrateEntity.getZ();
-            Vec3 motion = ethericNitrateEntity.getDeltaMovement();
-            Vec3 norm = motion.normalize().scale(0.1f);
-            float extraAlpha = (float) motion.length();
-            float cycles = 3;
-            Color firstColor = FIRST_COLOR.brighter();
-            var rand = ethericNitrateEntity.level().getRandom();
-            for (int i = 0; i < cycles; i++) {
-                float pDelta = i / cycles;
-                double lerpX = Mth.lerp(pDelta, ox, x) - motion.x / 4f;
-                double lerpY = Mth.lerp(pDelta, oy, y) - motion.y / 4f;
-                double lerpZ = Mth.lerp(pDelta, oz, z) - motion.z / 4f;
-                float alphaMultiplier = (0.35f + extraAlpha) * Math.min(1, ethericNitrateEntity.windUp * 2);
-                //SpiritLightSpecs.spiritLightSpecs(ethericNitrateEntity.level, new Vec3(lerpX, lerpY, lerpZ), firstColor, SECOND_COLOR, b -> b.setMotion(norm));
+    @Override
+    public ParticleEffectType getImpactParticleEffect() {
+        return ParticleEffectTypeRegistry.ETHERIC_NITRATE_IMPACT;
+    }
 
-                final ColorParticleDataBuilder colorDataBuilder = ColorParticleData.create(SECOND_COLOR, SECOND_SMOKE_COLOR)
-                        .setEasing(Easing.QUINTIC_OUT)
-                        .setCoefficient(1.25f);
-                WorldParticleBuilder.create(LodestoneParticleRegistry.SMOKE_PARTICLE)
-                        .setTransparencyData(GenericParticleData.create(Math.min(1, 0.25f * alphaMultiplier), 0f).setEasing(Easing.SINE_IN, Easing.SINE_OUT).build())
-                        .setLifetime(65 + rand.nextInt(15))
-                        .setSpinData(SpinParticleData.create(nextFloat(rand, -0.1f, 0.1f)).setSpinOffset(rand.nextFloat() * 6.28f).build())
-                        .setScaleData(GenericParticleData.create(0.2f + rand.nextFloat() * 0.05f, 0.3f, 0f).build())
-                        .setColorData(colorDataBuilder.build())
-                        .setRandomOffset(0.02f)
-                        .enableNoClip()
-                        .addMotion(norm.x, norm.y, norm.z)
-                        .setRandomMotion(0.01f, 0.01f)
-                        .setRenderType(LodestoneWorldParticleRenderType.LUMITRANSPARENT)
-                        .spawn(ethericNitrateEntity.level(), lerpX, lerpY, lerpZ)
-                        .setColorData(colorDataBuilder.setCoefficient(2f).build())
-                        .spawn(ethericNitrateEntity.level(), lerpX, lerpY, lerpZ);
-            }
+    @Override
+    public ColorEffectData getImpactParticleEffectColor() {
+        return new ColorEffectData(AURIC_YELLOW, AURIC_PURPLE);
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    @Override
+    public void spawnParticles() {
+        float scalar = age > MAX_AGE - 10 ? 1f - (age - MAX_AGE + 10) / 10f : 1f;
+        if (age < 5) {
+            scalar = age / 5f;
+        }
+        Vec3 norm = getDeltaMovement().normalize().scale(0.05f);
+        var lightSpecs = SpiritLightSpecs.spiritLightSpecs(level(), position(), AURIC_COLOR_DATA);
+        lightSpecs.getBuilder().multiplyLifetime(1.5f).setMotion(norm);
+        lightSpecs.getBloomBuilder().multiplyLifetime(1.5f).setMotion(norm);
+        lightSpecs.spawnParticles();
+        Color startingSmokeColor = age < 3 ? AbstractNitrateEntity.SECOND_SMOKE_COLOR : AURIC_YELLOW;
+        for (int i = 0; i < 3; i++) {
+            int lifetime = (int) (RandomHelper.randomBetween(random, 60, 80) * (1 - i / 3f));
+            final SpinParticleData spinData = SpinParticleData.createRandomDirection(random, 0, RandomHelper.randomBetween(random, 0f, 0.4f), 0).randomSpinOffset(random).build();
+            final Consumer<LodestoneWorldParticleActor> behavior = p -> p.setParticleMotion(p.getParticleSpeed().scale(0.98f));
+            WorldParticleBuilder.create(ParticleRegistry.STRANGE_SMOKE)
+                    .setTransparencyData(GenericParticleData.create(0.7f * scalar, 0.9f * scalar, 0f).setEasing(Easing.SINE_IN_OUT, Easing.SINE_IN).build())
+                    .setSpinData(spinData)
+                    .setScaleData(GenericParticleData.create(0.2f * scalar, 0.4f * scalar, 0.6f * scalar).setEasing(Easing.QUINTIC_OUT, Easing.SINE_IN).build())
+                    .setColorData(ColorParticleData.create(startingSmokeColor, AbstractNitrateEntity.SECOND_SMOKE_COLOR).setEasing(Easing.QUINTIC_OUT).build())
+                    .setLifetime(Math.min(6 + age * 3, lifetime))
+                    .setLifeDelay(1)
+                    .enableNoClip()
+                    .enableForcedSpawn()
+                    .setSpritePicker(SimpleParticleOptions.ParticleSpritePicker.WITH_AGE)
+                    .addTickActor(behavior)
+                    .setRenderType(LodestoneWorldParticleRenderType.LUMITRANSPARENT)
+                    .spawn(level(), position().x, position().y, position().z);
         }
     }
 }

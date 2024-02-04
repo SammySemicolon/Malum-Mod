@@ -105,7 +105,7 @@ public class SpiritAltarParticleEffects {
         }
         for (int i = 0; i < 16; i++) {
             MalumSpiritType cyclingSpiritType = colorData.getCyclingColorRecord().spiritType();
-            Vec3 velocity = altarTargetPos.subtract(holderTargetPos).normalize().scale(RandomHelper.randomBetween(random, 0.01f, 0.02f));
+            Vec3 velocity = altarTargetPos.subtract(holderTargetPos).normalize().scale(0.025f);
             int finalI = i;
             Vec3 offsetPosition = DataHelper.rotatingRadialOffset(holderTargetPos, 0.5f, i, 16, gameTime, 160);
             final Consumer<LodestoneWorldParticleActor> behavior = p -> {
@@ -125,25 +125,9 @@ public class SpiritAltarParticleEffects {
             lightSpecs.spawnParticles();
 
             var crumbles = ItemCrumbleParticleEffects.spawnItemCrumbs(level, holderTargetPos, stack);
-            crumbles.getBuilder().multiplyLifetime(1 + i / 16f).addTickActor(behavior);
+            crumbles.getBuilder().setLifeDelay(i).addTickActor(behavior);
             crumbles.spawnParticles();
-            crumbles.getBuilder().setRandomOffset(0.2f);
-            crumbles.spawnParticles();
-        }
-        Vec3 velocity = altarTargetPos.subtract(holderTargetPos).normalize().scale(RandomHelper.randomBetween(random, 0.01f, 0.02f));
-        for (int i = 0; i < 16; i++) {
-            int finalI = i;
-            final Consumer<LodestoneWorldParticleActor> behavior = p -> {
-                if (level.getGameTime() > gameTime + finalI && level.getGameTime() < gameTime + (finalI + 6)) {
-                    p.setParticleMotion(p.getParticleSpeed().add(velocity));
-                }
-            };
-            var crumbles = ItemCrumbleParticleEffects.spawnItemCrumbs(level, holderTargetPos, stack);
-            crumbles.getBuilder().addTickActor(behavior);
-            if (i % 2 == 0) {
-                crumbles.spawnParticles();
-            }
-            crumbles.getBuilder().setRandomOffset(0.15f);
+            crumbles.getBuilder().setRandomOffset(0.2f).getScaleData();
             crumbles.spawnParticles();
         }
     }

@@ -1,10 +1,13 @@
 package com.sammy.malum.common.item.curiosities.weapons.staff;
 
 import com.google.common.collect.*;
+import com.sammy.malum.common.capability.*;
+import com.sammy.malum.common.enchantment.*;
 import com.sammy.malum.common.entity.bolt.*;
 import com.sammy.malum.core.systems.item.*;
 import com.sammy.malum.registry.client.*;
 import com.sammy.malum.registry.common.*;
+import com.sammy.malum.registry.common.item.*;
 import net.minecraft.core.particles.*;
 import net.minecraft.server.level.*;
 import net.minecraft.sounds.*;
@@ -20,6 +23,7 @@ import net.minecraft.world.phys.*;
 import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.event.entity.living.*;
 import team.lodestar.lodestone.registry.common.*;
+import team.lodestar.lodestone.registry.common.tag.*;
 import team.lodestar.lodestone.systems.item.*;
 
 public abstract class AbstractStaffItem extends ModCombatItem implements IMalumEventResponderItem {
@@ -51,8 +55,12 @@ public abstract class AbstractStaffItem extends ModCombatItem implements IMalumE
     @Override
     public void hurtEvent(LivingHurtEvent event, LivingEntity attacker, LivingEntity target, ItemStack stack) {
         if (attacker instanceof Player player && !(event.getSource().getDirectEntity() instanceof AbstractBoltProjectileEntity)) {
-            spawnSweepParticles(player, ParticleRegistry.SCYTHE_CUT_ATTACK_PARTICLE.get());
-            attacker.level().playSound(null, target.blockPosition(), SoundRegistry.STAFF_STRIKES.get(), attacker.getSoundSource(), 0.75f, Mth.nextFloat(attacker.level().random, 0.5F, 1F));
+            Level level = player.level();
+            spawnSweepParticles(player, ParticleRegistry.STAFF_SLAM_PARTICLE.get());
+            level.playSound(null, target.blockPosition(), SoundRegistry.STAFF_STRIKES.get(), attacker.getSoundSource(), 0.75f, Mth.nextFloat(level.random, 0.5F, 1F));
+            if (event.getSource().is(LodestoneDamageTypeTags.IS_MAGIC)) {
+                ReplenishingEnchantment.replenishStaffCooldown(attacker, stack);
+            }
         }
     }
 
@@ -72,7 +80,13 @@ public abstract class AbstractStaffItem extends ModCombatItem implements IMalumE
                         pStack.hurtAndBreak(1, player, (p_220009_1_) -> {
                             p_220009_1_.broadcastBreakEvent(hand);
                         });
-                        player.getCooldowns().addCooldown(this, getCooldownDuration(pLevel, pLivingEntity));
+                        final MalumPlayerDataCapability capability = MalumPlayerDataCapability.getCapability(player);
+                        if (capability.reserveStaffChargeHandler.chargeCount > 0) {
+                            capability.reserveStaffChargeHandler.chargeCount--;
+                        }
+                        else {
+                            player.getCooldowns().addCooldown(this, getCooldownDuration(pLevel, pLivingEntity));
+                        }
                     }
                     player.swing(hand, true);
                 }
@@ -140,6 +154,7 @@ public abstract class AbstractStaffItem extends ModCombatItem implements IMalumE
 
     public Vec3 getProjectileSpawnPos(LivingEntity player, InteractionHand hand, float distance, float spread) {
         int angle = hand == InteractionHand.MAIN_HAND ? 225 : 90;
-        return player.position().add(player.getLookAngle().scale(distance)).add(spread * Math.sin(Math.toRadians(angle - player.yHeadRot)), player.getBbHeight() * 0.9f, spread * Math.cos(Math.toRadians(angle - player.yHeadRot)));
+        double radians = Math.toRadians(angle - player.yHeadRot);
+        return player.position().add(player.getLookAngle().scale(distance)).add(spread * Math.sin(radians), player.getBbHeight() * 0.9f, spread * Math.cos(radians));
     }
 }

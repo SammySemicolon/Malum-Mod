@@ -16,8 +16,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Tier;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.item.enchantment.*;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import team.lodestar.lodestone.helpers.CurioHelper;
 import team.lodestar.lodestone.registry.common.tag.*;
@@ -36,10 +35,10 @@ public class MalumScytheItem extends ModCombatItem implements IMalumEventRespond
         if (attacker instanceof Player player) {
             SoundEvent sound;
             if (canSweep) {
-                spawnSweepParticles(player, ParticleRegistry.SCYTHE_SWEEP_ATTACK_PARTICLE.get());
+                spawnSweepParticles(player, ParticleRegistry.SCYTHE_SWEEP_PARTICLE.get());
                 sound = SoundEvents.PLAYER_ATTACK_SWEEP;
             } else {
-                spawnSweepParticles(player, ParticleRegistry.SCYTHE_CUT_ATTACK_PARTICLE.get());
+                spawnSweepParticles(player, ParticleRegistry.SCYTHE_CUT_PARTICLE.get());
                 sound = SoundRegistry.SCYTHE_CUT.get();
             }
             attacker.level().playSound(null, target.getX(), target.getY(), target.getZ(), sound, attacker.getSoundSource(), 1, 1);
@@ -63,8 +62,8 @@ public class MalumScytheItem extends ModCombatItem implements IMalumEventRespond
     public void spawnSweepParticles(Player player, SimpleParticleType type) {
         double d0 = (-Mth.sin(player.getYRot() * ((float) Math.PI / 180F)));
         double d1 = Mth.cos(player.getYRot() * ((float) Math.PI / 180F));
-        if (player.level() instanceof ServerLevel) {
-            ((ServerLevel) player.level()).sendParticles(type, player.getX() + d0, player.getY(0.5D), player.getZ() + d1, 0, d0, 0.0D, d1, 0.0D);
+        if (player.level() instanceof ServerLevel serverLevel) {
+            serverLevel.sendParticles(type, player.getX() + d0, player.getY(0.5D), player.getZ() + d1, 0, d0, 0.0D, d1, 0.0D);
         }
     }
 
@@ -75,5 +74,13 @@ public class MalumScytheItem extends ModCombatItem implements IMalumEventRespond
             stack = scytheBoomerang.getItem();
         }
         return stack.getItem() instanceof MalumScytheItem ? stack : ItemStack.EMPTY;
+    }
+
+    @Override
+    public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
+        if (enchantment.equals(Enchantments.SWEEPING_EDGE)) {
+            return true;
+        }
+        return super.canApplyAtEnchantingTable(stack, enchantment);
     }
 }

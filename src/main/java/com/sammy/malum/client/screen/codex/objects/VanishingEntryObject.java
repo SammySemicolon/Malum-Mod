@@ -8,8 +8,8 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Player;
 
 
-public class VanishingEntryObject extends EntryObject {
-    public VanishingEntryObject(AbstractProgressionCodexScreen screen, BookEntry entry, int posX, int posY) {
+public class VanishingEntryObject<T extends AbstractProgressionCodexScreen> extends EntryObject<T> {
+    public VanishingEntryObject(T screen, BookEntry<T> entry, int posX, int posY) {
         super(screen, entry, posX, posY);
     }
 

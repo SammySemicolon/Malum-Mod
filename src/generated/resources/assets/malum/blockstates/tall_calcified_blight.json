@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "half=lower,stage=0": {
+      "model": "malum:block/tall_calcified_blight_0"
+    },
+    "half=lower,stage=1": {
+      "model": "malum:block/tall_calcified_blight_1"
+    },
+    "half=lower,stage=2": {
+      "model": "malum:block/tall_calcified_blight_2"
+    },
+    "half=lower,stage=3": {
+      "model": "malum:block/tall_calcified_blight_3"
+    },
+    "half=upper,stage=0": {
+      "model": "malum:block/tall_calcified_blight_top_0"
+    },
+    "half=upper,stage=1": {
+      "model": "malum:block/tall_calcified_blight_top_1"
+    },
+    "half=upper,stage=2": {
+      "model": "malum:block/tall_calcified_blight_top_2"
+    },
+    "half=upper,stage=3": {
+      "model": "malum:block/tall_calcified_blight_top_3"
+    }
+  }
+}

@@ -17,6 +17,9 @@ public class MalumBlockProperties {
                 .sound(SoundRegistry.TAINTED_ROCK)
                 .strength(1.25F, 9.0F);
     }
+    public static LodestoneBlockProperties TAINTED_ROCK_BRICKS() {
+        return TAINTED_ROCK().sound(SoundRegistry.TAINTED_ROCK_BRICKS);
+    }
 
     public static LodestoneBlockProperties TWISTED_ROCK() {
         return new LodestoneBlockProperties()
@@ -25,6 +28,9 @@ public class MalumBlockProperties {
                 .requiresCorrectToolForDrops()
                 .sound(SoundRegistry.TWISTED_ROCK)
                 .strength(1.25F, 9.0F);
+    }
+    public static LodestoneBlockProperties TWISTED_ROCK_BRICKS() {
+        return TWISTED_ROCK().sound(SoundRegistry.TWISTED_ROCK_BRICKS);
     }
 
     public static LodestoneBlockProperties RUNEWOOD() {
@@ -56,20 +62,19 @@ public class MalumBlockProperties {
                 .needsHoe().addTag(BlockTags.LEAVES);
     }
 
+    public static LodestoneBlockProperties RUNIC_SAP() {
+        return new LodestoneBlockProperties()
+                .addTag(Tags.Blocks.STORAGE_BLOCKS)
+                .friction(0.8F)
+                .sound(SoundType.SLIME_BLOCK)
+                .noOcclusion();
+    }
+
     public static LodestoneBlockProperties SOULWOOD() {
         return new LodestoneBlockProperties()
                 .sound(SoundRegistry.SOULWOOD)
                 .strength(1.75F, 4.0F)
                 .needsAxe();
-    }
-
-    public static LodestoneBlockProperties BLIGHTED_PLANTS() {
-        return new LodestoneBlockProperties()
-                .addTag(BlockTagRegistry.BLIGHTED_PLANTS)
-                .noCollission()
-                .noOcclusion()
-                .sound(SoundRegistry.BLIGHTED_FOLIAGE)
-                .instabreak();
     }
 
     public static LodestoneBlockProperties SOULWOOD_LEAVES() {
@@ -85,6 +90,14 @@ public class MalumBlockProperties {
                 .sound(SoundRegistry.SOULWOOD_LEAVES);
     }
 
+    public static LodestoneBlockProperties CURSED_SAP() {
+        return new LodestoneBlockProperties()
+                .addTag(Tags.Blocks.STORAGE_BLOCKS)
+                .friction(0.8F)
+                .sound(SoundRegistry.CURSED_SAP)
+                .noOcclusion();
+    }
+
     public static LodestoneBlockProperties BLIGHT() {
         return new LodestoneBlockProperties()
                 .addTag(BlockTagRegistry.BLIGHTED_BLOCKS)
@@ -92,6 +105,25 @@ public class MalumBlockProperties {
                 .needsHoe()
                 .sound(SoundRegistry.BLIGHTED_EARTH)
                 .strength(0.7f);
+    }
+
+    public static LodestoneBlockProperties BLIGHTED_PLANTS() {
+        return new LodestoneBlockProperties()
+                .addTag(BlockTagRegistry.BLIGHTED_PLANTS)
+                .noCollission()
+                .noOcclusion()
+                .sound(SoundRegistry.BLIGHTED_FOLIAGE)
+                .instabreak();
+    }
+
+
+    public static LodestoneBlockProperties CALCIFIED_BLIGHT() {
+        return new LodestoneBlockProperties()
+                .addTag(BlockTagRegistry.BLIGHTED_PLANTS)
+                .noCollission()
+                .noOcclusion()
+                .sound(SoundRegistry.CALCIFIED_BLIGHT)
+                .instabreak();
     }
 
     public static LodestoneBlockProperties BRILLIANCE_ORE(boolean isDeepslate) {
@@ -135,7 +167,25 @@ public class MalumBlockProperties {
                 .addTag(Tags.Blocks.ORES)
                 .needsPickaxe()
                 .requiresCorrectToolForDrops()
-                .strength(25f, 9999f)
+                .strength(10f, 9999f)
+                .sound(SoundRegistry.CTHONIC_GOLD);
+    }
+
+    public static LodestoneBlockProperties CTHONIC_GOLD_CLUSTER() {
+        return new LodestoneBlockProperties()
+                .needsPickaxe()
+                .requiresCorrectToolForDrops()
+                .strength(4f, 9999f)
+                .sound(SoundRegistry.CTHONIC_GOLD);
+    }
+
+    public static LodestoneBlockProperties CTHONIC_GOLD_BLOCK() {
+        return new LodestoneBlockProperties()
+                .addTag(Tags.Blocks.STORAGE_BLOCKS)
+                .addTag(BlockTags.BEACON_BASE_BLOCKS)
+                .needsPickaxe()
+                .requiresCorrectToolForDrops()
+                .strength(10f, 9999f)
                 .sound(SoundRegistry.CTHONIC_GOLD);
     }
 
@@ -231,13 +281,6 @@ public class MalumBlockProperties {
         return new LodestoneBlockProperties()
                 .strength(0.5f, 64f)
                 .sound(SoundRegistry.HALLOWED_GOLD)
-                .noOcclusion();
-    }
-
-    public static LodestoneBlockProperties SOUL_VIAL() {
-        return new LodestoneBlockProperties()
-                .strength(0.75f, 64f)
-                .sound(SoundRegistry.SOUL_STAINED_STEEL)
                 .noOcclusion();
     }
 

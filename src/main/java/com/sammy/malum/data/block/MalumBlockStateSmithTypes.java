@@ -1,5 +1,7 @@
 package com.sammy.malum.data.block;
 
+import com.sammy.malum.common.block.blight.*;
+import com.sammy.malum.common.block.curiosities.repair_pylon.*;
 import com.sammy.malum.common.block.curiosities.totem.TotemPoleBlock;
 import com.sammy.malum.common.block.curiosities.weeping_well.PrimordialSoupBlock;
 import com.sammy.malum.common.block.ether.EtherBrazierBlock;
@@ -7,10 +9,9 @@ import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import com.sammy.malum.data.item.MalumItemModelSmithTypes;
 import com.sammy.malum.registry.common.SpiritTypeRegistry;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraftforge.client.model.generators.ConfiguredModel;
-import net.minecraftforge.client.model.generators.ModelFile;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.properties.*;
+import net.minecraftforge.client.model.generators.*;
 import team.lodestar.lodestone.systems.datagen.ItemModelSmithTypes;
 import team.lodestar.lodestone.systems.datagen.statesmith.BlockStateSmith;
 
@@ -37,11 +38,64 @@ public class MalumBlockStateSmithTypes {
             return ConfiguredModel.builder().modelFile(pole).rotationY(((int) s.getValue(BlockStateProperties.HORIZONTAL_FACING).toYRot() + 180) % 360).build();
         });
     });
+
+    public static BlockStateSmith<RepairPylonComponentBlock> REPAIR_PYLON_COMPONENT = new BlockStateSmith<>(RepairPylonComponentBlock.class, ItemModelSmithTypes.NO_MODEL, (block, provider) -> {
+        ModelFile model = provider.models().getExistingFile(malumPath("block/repair_pylon_component_middle"));
+        ModelFile topModel = provider.models().getExistingFile(malumPath("block/repair_pylon_component_top"));
+        provider.getVariantBuilder(block).forAllStates(s -> ConfiguredModel.builder().modelFile(s.getValue(RepairPylonComponentBlock.TOP) ? topModel : model).build());
+    });
+
     public static BlockStateSmith<PrimordialSoupBlock> PRIMORDIAL_SOUP = new BlockStateSmith<>(PrimordialSoupBlock.class, ItemModelSmithTypes.NO_MODEL, (block, provider) -> {
         String name = provider.getBlockName(block);
         ModelFile model = provider.models().withExistingParent(name, new ResourceLocation("block/powder_snow")).texture("texture", malumPath("block/weeping_well/" + name));
         ModelFile topModel = provider.models().getExistingFile(malumPath("block/" + name + "_top"));
         provider.getVariantBuilder(block).forAllStates(s -> ConfiguredModel.builder().modelFile(s.getValue(PrimordialSoupBlock.TOP) ? topModel : model).build());
+    });
+
+    public static BlockStateSmith<Block> HANGING_RUNEWOOD_LEAVES = new BlockStateSmith<>(Block.class, ItemModelSmithTypes.AFFIXED_MODEL.apply("_0"), (block, provider) -> {
+        String name = provider.getBlockName(block);
+        Function<Integer, ModelFile> modelProvider = (i) ->
+                provider.models().withExistingParent(name+"_"+i, malumPath("block/templates/template_hanging_leaves")).texture("hanging_leaves", provider.getBlockTexture(name + "_" + i)).texture("particle", provider.getBlockTexture(name + "_" + i));
+
+        ConfiguredModel.Builder<VariantBlockStateBuilder> builder = provider.getVariantBuilder(block).partialState().modelForState();
+
+        for (int i = 0; i < 3; i++) {
+            final ModelFile model = modelProvider.apply(i);
+            builder = builder.modelFile(model)
+                    .nextModel().modelFile(model).rotationY(90)
+                    .nextModel().modelFile(model).rotationY(180)
+                    .nextModel().modelFile(model).rotationY(270);
+            if (i != 2) {
+                builder = builder.nextModel();
+            }
+        }
+        builder.addModel();
+    });
+
+    public static BlockStateSmith<ClingingBlightBlock> CLINGING_BLIGHT = new BlockStateSmith<>(ClingingBlightBlock.class, ItemModelSmithTypes.GENERATED_ITEM, (block, provider) -> {
+        String name = provider.getBlockName(block);
+        ResourceLocation creeping = malumPath("block/templates/template_creeping_blight");
+        ResourceLocation creepingWall = malumPath("block/templates/template_creeping_blight_wall");
+        ResourceLocation creepingCeiling = malumPath("block/templates/template_creeping_blight_ceiling");
+        provider.getVariantBuilder(block).forAllStates(s -> {
+            final ClingingBlightBlock.BlightType value = s.getValue(ClingingBlightBlock.BLIGHT_TYPE);
+            final String valueName = value.getSerializedName();
+            ResourceLocation parent = creepingWall;
+            if (value.equals(ClingingBlightBlock.BlightType.HANGING_ROOTS) || value.equals(ClingingBlightBlock.BlightType.GROUNDED_ROOTS) || value.equals(ClingingBlightBlock.BlightType.HANGING_BLIGHT_CONNECTION)) {
+                parent = creeping;
+            }
+            if (value.equals(ClingingBlightBlock.BlightType.HANGING_BLIGHT)) {
+                parent = creepingCeiling;
+            }
+            ResourceLocation texture = provider.getBlockTexture(valueName);
+            ResourceLocation smallTexture = provider.getBlockTexture(valueName +"_small");
+            ModelBuilder model = provider.models().withExistingParent(name+"_"+ valueName, parent).texture("big", texture).texture("small", smallTexture).texture("particle", texture);
+            if (!parent.equals(creeping)) {
+                ResourceLocation bracingTexture = provider.getBlockTexture(valueName +"_bracing");
+                model.texture("bracing", bracingTexture);
+            }
+            return ConfiguredModel.builder().modelFile(model).rotationY(((int) s.getValue(BlockStateProperties.HORIZONTAL_FACING).toYRot() + 180) % 360).build();
+        });
     });
 
     public static BlockStateSmith<Block> BLIGHTED_BLOCK = new BlockStateSmith<>(Block.class, (block, provider) -> {
@@ -55,7 +109,6 @@ public class MalumBlockStateSmithTypes {
                 .nextModel().modelFile(soil0).rotationY(90)
                 .nextModel().modelFile(soil0).rotationY(180)
                 .nextModel().modelFile(soil0).rotationY(270)
-
                 .nextModel().modelFile(soil1)
                 .nextModel().modelFile(soil1).rotationY(90)
                 .nextModel().modelFile(soil1).rotationY(180)
@@ -63,16 +116,40 @@ public class MalumBlockStateSmithTypes {
                 .addModel();
     });
 
-    public static BlockStateSmith<Block> BLIGHTED_TUMOR = new BlockStateSmith<>(Block.class, ItemModelSmithTypes.AFFIXED_MODEL.apply("_0"), (block, provider) -> {
+    public static BlockStateSmith<Block> BLIGHTED_GROWTH = new BlockStateSmith<>(Block.class, ItemModelSmithTypes.NO_MODEL, (block, provider) -> {
         String name = provider.getBlockName(block);
         Function<Integer, ModelFile> tumorFunction = (i) -> provider.models().withExistingParent(name + "_" + i, new ResourceLocation("block/cross")).texture("cross", malumPath("block/" + name + "_" + i));
 
-        provider.getVariantBuilder(block).partialState().modelForState()
-                .modelFile(tumorFunction.apply(0))
-                .nextModel().modelFile(tumorFunction.apply(1))
-                .nextModel().modelFile(tumorFunction.apply(2))
-                .nextModel().modelFile(tumorFunction.apply(3))
-                .addModel();
+        ConfiguredModel.Builder<VariantBlockStateBuilder> builder = provider.getVariantBuilder(block).partialState().modelForState();
+        for (int i = 0; i < 10; i++) {
+            builder = builder.modelFile(tumorFunction.apply(i));
+            if (i != 9) {
+                builder = builder.nextModel();
+            }
+        }
+        builder.addModel();
+    });
+
+    public static BlockStateSmith<Block> CALCIFIED_BLIGHT = new BlockStateSmith<>(Block.class, ItemModelSmithTypes.GENERATED_ITEM, (block, provider) -> {
+        String name = provider.getBlockName(block);
+        Function<Integer, ModelFile> modelFunction = (s) -> provider.models().withExistingParent(name + "_" + s, new ResourceLocation("block/cross")).texture("cross", malumPath("block/" + name + "_" + s));
+        provider.getVariantBuilder(block).forAllStates(s -> {
+            int value = s.getValue(CalcifiedBlightBlock.STAGE);
+            return ConfiguredModel.builder().modelFile(modelFunction.apply(value)).build();
+        });
+    });
+
+    public static BlockStateSmith<Block> TALL_CALCIFIED_BLIGHT = new BlockStateSmith<>(Block.class, ItemModelSmithTypes.NO_MODEL, (block, provider) -> {
+        String name = provider.getBlockName(block);
+        Function<String, ModelFile> modelFunction = (s) -> provider.models().withExistingParent(name + "_" + s, new ResourceLocation("block/cross")).texture("cross", malumPath("block/" + name + "_" + s));
+        provider.getVariantBuilder(block).forAllStates(s -> {
+            int value = s.getValue(CalcifiedBlightBlock.STAGE);
+            String prefix = "";
+            if (s.hasProperty(TallCalcifiedBlightBlock.HALF) && s.getValue(TallCalcifiedBlightBlock.HALF).equals(DoubleBlockHalf.UPPER)) {
+                prefix = "top_";
+            }
+            return ConfiguredModel.builder().modelFile(modelFunction.apply(prefix + value)).build();
+        });
     });
 
     public static BlockStateSmith<EtherBrazierBlock> BRAZIER_BLOCK = new BlockStateSmith<>(EtherBrazierBlock.class, MalumItemModelSmithTypes.ETHER_BRAZIER_ITEM, (block, provider) -> {

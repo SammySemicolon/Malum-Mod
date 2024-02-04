@@ -3,10 +3,16 @@ package com.sammy.malum.client.screen.codex.objects;
 import com.sammy.malum.client.screen.codex.AbstractProgressionCodexScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.resources.*;
+import net.minecraft.world.item.*;
 
-public class BookObject {
+import static com.sammy.malum.MalumMod.malumPath;
 
-    public final AbstractProgressionCodexScreen screen;
+public class BookObject<T extends AbstractProgressionCodexScreen> {
+
+    public static final ResourceLocation WIDGET_FADE_TEXTURE = malumPath("textures/gui/book/widget_fade.png");
+
+    public final T screen;
     public final int posX;
     public final int posY;
     public final int width;
@@ -14,7 +20,7 @@ public class BookObject {
     public boolean isHovering;
     public float hover;
 
-    public BookObject(AbstractProgressionCodexScreen screen, int posX, int posY, int width, int height) {
+    public BookObject(T screen, int posX, int posY, int width, int height) {
         this.screen = screen;
         this.posX = posX;
         this.posY = posY;
@@ -24,6 +30,10 @@ public class BookObject {
 
     public int hoverCap() {
         return 20;
+    }
+
+    public boolean isValid() {
+        return true;
     }
 
     public void render(Minecraft minecraft, GuiGraphics guiGraphics, float xOffset, float yOffset, int mouseX, int mouseY, float partialTicks) {

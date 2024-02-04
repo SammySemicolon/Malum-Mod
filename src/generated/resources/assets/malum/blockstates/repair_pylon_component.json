@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "top=false": {
+      "model": "malum:block/repair_pylon_component_middle"
+    },
+    "top=true": {
+      "model": "malum:block/repair_pylon_component_top"
+    }
+  }
+}

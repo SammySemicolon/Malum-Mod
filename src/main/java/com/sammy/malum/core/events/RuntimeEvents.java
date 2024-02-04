@@ -1,47 +1,34 @@
 package com.sammy.malum.core.events;
 
-import com.sammy.malum.common.block.storage.jar.SpiritJarBlock;
-import com.sammy.malum.common.capability.MalumItemDataCapability;
-import com.sammy.malum.common.capability.MalumLivingEntityDataCapability;
-import com.sammy.malum.common.capability.MalumPlayerDataCapability;
-import com.sammy.malum.common.effect.CorruptedAerialAura;
-import com.sammy.malum.common.effect.GluttonyEffect;
-import com.sammy.malum.common.effect.InfernalAura;
-import com.sammy.malum.common.effect.WickedIntentEffect;
-import com.sammy.malum.common.enchantment.ReboundEnchantment;
-import com.sammy.malum.common.entity.nitrate.EthericExplosion;
-import com.sammy.malum.common.item.cosmetic.curios.CurioTokenOfGratitude;
-import com.sammy.malum.common.item.curiosities.curios.alchemical.CurioAlchemicalRing;
-import com.sammy.malum.common.item.curiosities.curios.misc.CurioHarmonyNecklace;
-import com.sammy.malum.common.item.curiosities.curios.prospector.CurioProspectorBelt;
-import com.sammy.malum.common.item.curiosities.curios.rotten.CurioVoraciousRing;
-import com.sammy.malum.compability.create.CreateCompat;
+import com.sammy.malum.common.block.storage.jar.*;
+import com.sammy.malum.common.capability.*;
+import com.sammy.malum.common.effect.*;
+import com.sammy.malum.common.enchantment.*;
+import com.sammy.malum.common.entity.nitrate.*;
+import com.sammy.malum.common.item.cosmetic.curios.*;
+import com.sammy.malum.common.item.curiosities.curios.alchemical.*;
+import com.sammy.malum.common.item.curiosities.curios.misc.*;
+import com.sammy.malum.common.item.curiosities.curios.prospector.*;
+import com.sammy.malum.common.item.curiosities.curios.rotten.*;
+import com.sammy.malum.common.item.curiosities.curios.weeping.*;
 import com.sammy.malum.core.handlers.*;
-import com.sammy.malum.core.listeners.ReapingDataReloadListener;
-import com.sammy.malum.core.listeners.SpiritDataReloadListener;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.level.ClipContext;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.HitResult;
-import net.minecraftforge.event.AddReloadListenerEvent;
-import net.minecraftforge.event.AttachCapabilitiesEvent;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.event.entity.EntityJoinLevelEvent;
-import net.minecraftforge.event.entity.item.ItemExpireEvent;
+import com.sammy.malum.core.listeners.*;
+import net.minecraft.core.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.*;
+import net.minecraft.world.phys.*;
+import net.minecraftforge.event.*;
+import net.minecraftforge.event.entity.*;
+import net.minecraftforge.event.entity.item.*;
 import net.minecraftforge.event.entity.living.*;
-import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.event.level.ExplosionEvent;
-import net.minecraftforge.eventbus.api.EventPriority;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.event.entity.player.*;
+import net.minecraftforge.event.level.*;
+import net.minecraftforge.eventbus.api.*;
+import net.minecraftforge.fml.common.*;
 
 @Mod.EventBusSubscriber
 public class RuntimeEvents {
@@ -134,6 +121,7 @@ public class RuntimeEvents {
 
     @SubscribeEvent
     public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
+        ReserveStaffChargeHandler.recoverStaffCharges(event);
         SoulWardHandler.recoverSoulWard(event);
     }
 
@@ -141,11 +129,17 @@ public class RuntimeEvents {
     public static void registerListeners(AddReloadListenerEvent event) {
         SpiritDataReloadListener.register(event);
         ReapingDataReloadListener.register(event);
+        RitualRecipeReloadListener.register(event);
     }
 
     @SubscribeEvent
     public static void onRightClickItem(PlayerInteractEvent.RightClickItem event) {
         ReboundEnchantment.onRightClickItem(event);
+    }
+
+    @SubscribeEvent
+    public static void addItemAttributes(ItemAttributeModifierEvent event) {
+        HauntedEnchantment.addMagicDamage(event);
     }
 
     @SubscribeEvent
@@ -165,14 +159,12 @@ public class RuntimeEvents {
 
     @SubscribeEvent
     public static void onFinishUsingItem(LivingEntityUseItemEvent.Finish event) {
+        CurioGruesomeSatiationRing.finishEating(event);
         CurioVoraciousRing.finishEating(event);
     }
 
     @SubscribeEvent
     public static void onHurt(LivingHurtEvent event) {
-        if (CreateCompat.LOADED) {
-            CreateCompat.LoadedOnly.convertCaramelToMagicDamage(event);
-        }
         MalumAttributeEventHandler.processAttributes(event);
         SoulDataHandler.exposeSoul(event);
     }
@@ -206,7 +198,7 @@ public class RuntimeEvents {
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public static void onExplosionDetonate(ExplosionEvent.Detonate event) {
         CurioProspectorBelt.processExplosion(event);
-        EthericExplosion.processExplosion(event);
+        NitrateExplosion.processExplosion(event);
     }
 }
 

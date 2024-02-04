@@ -1,24 +1,36 @@
 package com.sammy.malum.client.screen.codex;
 
-import com.sammy.malum.client.screen.codex.objects.BookObject;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.network.chat.Component;
-import org.lwjgl.opengl.GL11;
+import com.mojang.blaze3d.vertex.*;
+import com.sammy.malum.client.screen.codex.objects.*;
+import com.sammy.malum.registry.common.*;
+import net.minecraft.client.*;
+import net.minecraft.client.gui.*;
+import net.minecraft.network.chat.*;
+import net.minecraft.resources.*;
+import net.minecraft.util.*;
+import org.lwjgl.opengl.*;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
+import static com.sammy.malum.MalumMod.*;
+import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.*;
+import static org.lwjgl.opengl.GL11C.*;
+
+@SuppressWarnings({"rawtypes", "unchecked"})
 public abstract class AbstractProgressionCodexScreen extends AbstractMalumScreen {
+
+    public static final ResourceLocation FRAME_TEXTURE = malumPath("textures/gui/book/frame.png");
+    public static final ResourceLocation FRAME_FADE_TEXTURE = malumPath("textures/gui/book/frame_fade.png");
 
     public float xOffset;
     public float yOffset;
     public float cachedXOffset;
     public float cachedYOffset;
     public boolean ignoreNextMouseInput;
+    public int transitionTimer;
+    public int timesTransitioned;
 
-    public final List<BookObject> bookObjects = new ArrayList<>();
+    public final List<BookObject<?>> bookObjects = new ArrayList<>();
 
     public final int bookWidth;
     public final int bookHeight;
@@ -33,7 +45,7 @@ public abstract class AbstractProgressionCodexScreen extends AbstractMalumScreen
     }
 
     protected AbstractProgressionCodexScreen(int bookWidth, int bookHeight, int bookInsideWidth, int bookInsideHeight, int backgroundImageWidth, int backgroundImageHeight) {
-        super(Component.translatable("malum.gui.book.title"));
+        super(Component.empty());
         this.bookWidth = bookWidth;
         this.bookHeight = bookHeight;
         this.bookInsideWidth = bookInsideWidth;
@@ -43,25 +55,47 @@ public abstract class AbstractProgressionCodexScreen extends AbstractMalumScreen
         minecraft = Minecraft.getInstance();
     }
 
-    public void setupObjects() {
-        bookObjects.clear();
-        this.width = minecraft.getWindow().getGuiScaledWidth();
-        this.height = minecraft.getWindow().getGuiScaledHeight();
-        int guiLeft = getGuiLeft();
-        int guiTop = getGuiTop();
-        int coreX = guiLeft + bookInsideWidth;
-        int coreY = guiTop + bookInsideHeight;
-        int width = 40;
-        int height = 48;
-        for (BookEntry entry : getEntries()) {
-            bookObjects.add(entry.objectSupplier.getBookObject(this, entry, coreX + entry.xOffset * width, coreY - entry.yOffset * height));
-        }
-        faceObject(bookObjects.get(0));
-    }
-
-    public abstract void openScreen(boolean ignoreNextMouseClick);
+    public abstract void renderBackground(PoseStack poseStack);
 
     public abstract Collection<BookEntry> getEntries();
+
+    @Override
+    public void onClose() {
+        super.onClose();
+        playSweetenedSound(SoundRegistry.ARCANA_CODEX_CLOSE, 0.75f);
+    }
+
+    @Override
+    public void tick() {
+        if (transitionTimer > 0) {
+            transitionTimer--;
+        }
+
+        super.tick();
+    }
+
+    @Override
+    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
+        renderBackground(guiGraphics);
+        super.render(guiGraphics, mouseX, mouseY, partialTicks);
+        int guiLeft = (width - bookWidth) / 2;
+        int guiTop = (height - bookHeight) / 2;
+        PoseStack poseStack = guiGraphics.pose();
+
+        renderBackground(poseStack);
+        GL11.glEnable(GL_SCISSOR_TEST);
+        cut();
+
+        renderEntries(guiGraphics, mouseX, mouseY, partialTicks);
+        GL11.glDisable(GL_SCISSOR_TEST);
+
+        renderTexture(FRAME_FADE_TEXTURE, poseStack, guiLeft, guiTop, 0, 0, bookWidth, bookHeight);
+        if (transitionTimer > 0) {
+            ArcanaCodexHelper.renderTransitionFade(this, poseStack);
+        }
+        renderTexture(FRAME_TEXTURE, poseStack, guiLeft, guiTop, 400, 0, 0, bookWidth, bookHeight);
+        lateEntryRender(guiGraphics, mouseX, mouseY, partialTicks);
+    }
 
     @Override
     public boolean mouseDragged(double mouseX, double mouseY, int button, double dragX, double dragY) {
@@ -86,8 +120,8 @@ public abstract class AbstractProgressionCodexScreen extends AbstractMalumScreen
         if (xOffset != cachedXOffset || yOffset != cachedYOffset) {
             return super.mouseReleased(mouseX, mouseY, button);
         }
-        for (BookObject object : bookObjects) {
-            if (object.isHovering(this, xOffset, yOffset, mouseX, mouseY)) {
+        for (BookObject<?> object : bookObjects) {
+            if (object.isValid() && object.isHovering(this, xOffset, yOffset, mouseX, mouseY)) {
                 object.click(xOffset, yOffset, mouseX, mouseY);
                 break;
             }
@@ -103,27 +137,76 @@ public abstract class AbstractProgressionCodexScreen extends AbstractMalumScreen
         return ArcanaCodexHelper.isHovering(mouseX, mouseY, posX, posY, width, height);
     }
 
-    public void faceObject(BookObject object) {
+    public void openScreen(boolean ignoreNextMouseClick) {
+        Minecraft.getInstance().setScreen(this);
+        this.ignoreNextMouseInput = ignoreNextMouseClick;
+    }
+
+    public void setupObjects() {
+        bookObjects.clear();
+        this.width = minecraft.getWindow().getGuiScaledWidth();
+        this.height = minecraft.getWindow().getGuiScaledHeight();
+        int guiLeft = getGuiLeft();
+        int guiTop = getGuiTop();
+        int coreX = guiLeft + bookInsideWidth;
+        int coreY = guiTop + bookInsideHeight;
+        int width = 40;
+        int height = 48;
+        for (BookEntry entry : getEntries()) {
+            final EntryObject bookObject = entry.widgetSupplier.getBookObject(this, entry, coreX + entry.xOffset * width, coreY - entry.yOffset * height);
+            if (entry.widgetConfig != null) {
+                entry.widgetConfig.accept(bookObject);
+            }
+            bookObjects.add(bookObject);
+        }
+        faceObject(bookObjects.get(1));
+    }
+
+    public void faceObject(BookObject<?> object) {
         this.width = minecraft.getWindow().getGuiScaledWidth();
         this.height = minecraft.getWindow().getGuiScaledHeight();
         xOffset = -object.posX + getGuiLeft() + bookInsideWidth;
         yOffset = -object.posY + getGuiTop() + bookInsideHeight;
     }
 
+    public void renderBackground(PoseStack poseStack, ResourceLocation texture, float xModifier, float yModifier) {
+        int insideLeft = getInsideLeft();
+        int insideTop = getInsideTop();
+        float uOffset = (bookInsideWidth / 4f - xOffset * xModifier);
+        float vOffset = (backgroundImageHeight - bookInsideHeight - yOffset * yModifier);
+        if (uOffset <= 0) {
+            uOffset = 0;
+        }
+        if (uOffset > bookInsideWidth / 2f) {
+            uOffset = bookInsideWidth / 2f;
+        }
+        if (vOffset <= backgroundImageHeight / 2f) {
+            vOffset = backgroundImageHeight / 2f;
+        }
+        if (vOffset > backgroundImageHeight - bookInsideHeight) {
+            vOffset = backgroundImageHeight - bookInsideHeight;
+        }
+        renderTexture(texture, poseStack, insideLeft, insideTop, uOffset, vOffset, bookInsideWidth, bookInsideHeight, backgroundImageWidth / 2, backgroundImageHeight / 2);
+    }
+
     public void renderEntries(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
         for (int i = bookObjects.size() - 1; i >= 0; i--) {
-            BookObject object = bookObjects.get(i);
-            boolean isHovering = object.isHovering(this, xOffset, yOffset, mouseX, mouseY);
-            object.isHovering = isHovering;
-            object.hover = isHovering ? Math.min(object.hover + 1, object.hoverCap()) : Math.max(object.hover - 1, 0);
-            object.render(minecraft, guiGraphics, xOffset, yOffset, mouseX, mouseY, partialTicks);
+            BookObject<?> object = bookObjects.get(i);
+            if (object.isValid()) {
+                boolean isHovering = object.isHovering(this, xOffset, yOffset, mouseX, mouseY);
+                object.isHovering = isHovering;
+                object.hover = isHovering ? Math.min(object.hover + 1, object.hoverCap()) : Math.max(object.hover - 1, 0);
+                object.render(minecraft, guiGraphics, xOffset, yOffset, mouseX, mouseY, partialTicks);
+            }
         }
     }
 
     public void lateEntryRender(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
         for (int i = bookObjects.size() - 1; i >= 0; i--) {
-            BookObject object = bookObjects.get(i);
-            object.lateRender(minecraft, guiGraphics, xOffset, yOffset, mouseX, mouseY, partialTicks);
+            BookObject<?> object = bookObjects.get(i);
+            if (object.isValid()) {
+                object.lateRender(minecraft, guiGraphics, xOffset, yOffset, mouseX, mouseY, partialTicks);
+            }
         }
     }
 
@@ -157,5 +240,9 @@ public abstract class AbstractProgressionCodexScreen extends AbstractMalumScreen
 
     public int getGuiTop() {
         return (height - bookHeight) / 2;
+    }
+
+    public int getTransitionDuration() {
+        return 80 - Mth.clamp(timesTransitioned-2, 0, 4) * 10;
     }
 }

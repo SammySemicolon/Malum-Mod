@@ -36,7 +36,7 @@ public abstract class MalumRiteType {
         if (!riteCategory.equals(MalumRiteEffect.MalumRiteEffectCategory.ONE_TIME_EFFECT)) {
             tooltip.add(makeDescriptorComponent("malum.gui.rite.coverage", riteEffect.getRiteCoverageDescriptor()));
         }
-        tooltip.add(makeDescriptorComponent("malum.gui.rite.effect", "malum.gui.book.entry.page.text." + (corrupted ? "corrupt_" : "") + identifier + ".hover"));
+        tooltip.add(makeDescriptorComponent("malum.gui.effect", "malum.gui.book.entry.page.text." + (corrupted ? "corrupt_" : "") + identifier + ".hover"));
         return tooltip;
     }
 

@@ -1,7 +1,7 @@
 package com.sammy.malum.core.handlers;
 
 public class MissingMappingHandler {
-/*TODO this shit ass
+/*
     public static void correctMissingItemMappings(RegistryEvent.MissingMappings<Item> event) {
         for (RegistryEvent.MissingMappings.Mapping<Item> mapping : event.getAllMappings()) {
             if (mapping.key.equals(MalumMod.malumPath("brilliance_cluster"))) {

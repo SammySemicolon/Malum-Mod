@@ -1,26 +1,33 @@
 package com.sammy.malum.client.screen.codex.objects;
 
-import com.sammy.malum.client.screen.codex.AbstractProgressionCodexScreen;
-import com.sammy.malum.client.screen.codex.BookEntry;
-import com.sammy.malum.client.screen.codex.EntryScreen;
+import com.mojang.blaze3d.vertex.*;
+import com.sammy.malum.client.screen.codex.*;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.*;
 
-import java.util.Arrays;
+import java.util.*;
+import java.util.function.*;
 
 import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.renderTexture;
-import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.renderTransparentTexture;
-import static com.sammy.malum.client.screen.codex.ArcanaProgressionScreen.FADE_TEXTURE;
-import static com.sammy.malum.client.screen.codex.ArcanaProgressionScreen.FRAME_TEXTURE;
 
-public class EntryObject extends BookObject {
-    public final BookEntry entry;
+public class EntryObject<T extends AbstractProgressionCodexScreen> extends BookObject<T> {
 
-    public EntryObject(AbstractProgressionCodexScreen screen, BookEntry entry, int posX, int posY) {
+    public final BookEntry<T> entry;
+    public BookWidgetStyle style = BookWidgetStyle.RUNEWOOD;
+    public Predicate<T> isValid = t -> true;
+    public ItemStack iconStack;
+
+    public EntryObject(T screen, BookEntry<T> entry, int posX, int posY) {
         super(screen, posX, posY, 32, 32);
         this.entry = entry;
+    }
+
+    @Override
+    public boolean isValid() {
+        return isValid.test(screen);
     }
 
     @Override
@@ -30,32 +37,43 @@ public class EntryObject extends BookObject {
 
     @Override
     public void render(Minecraft minecraft, GuiGraphics guiGraphics, float xOffset, float yOffset, int mouseX, int mouseY, float partialTicks) {
-        int posX = offsetPosX(xOffset);
-        int posY = offsetPosY(yOffset);
-        renderTransparentTexture(FADE_TEXTURE, guiGraphics.pose(), posX - 13, posY - 13, 1, 252, 58, 58, 512, 512);
-        renderTexture(FRAME_TEXTURE, guiGraphics.pose(), posX, posY, 1, getFrameTextureV(), width, height, 512, 512);
-        renderTexture(FRAME_TEXTURE, guiGraphics.pose(), posX, posY, 100, getBackgroundTextureV(), width, height, 512, 512);
-        guiGraphics.renderItem(entry.iconStack, posX + 8, posY + 8);
+        int posX = offsetPosX(xOffset) - (style.textureWidth()-32)/2;
+        int posY = offsetPosY(yOffset) - (style.textureHeight()-32)/2;
+        final PoseStack poseStack = guiGraphics.pose();
+        renderTexture(WIDGET_FADE_TEXTURE, poseStack, posX - 13, posY - 13, 0, 0, 58, 58);
+        renderTexture(style.frameTexture(), poseStack, posX, posY, 0, 0, style.textureWidth(), style.textureHeight());
+        renderTexture(style.fillingTexture(), poseStack, posX, posY, 0, 0, style.textureWidth(), style.textureHeight());
+        if (iconStack != null) {
+            guiGraphics.renderItem(iconStack, posX + 8, posY + 8);
+        }
     }
 
     @Override
     public void lateRender(Minecraft minecraft, GuiGraphics guiGraphics, float xOffset, float yOffset, int mouseX, int mouseY, float partialTicks) {
         if (isHovering) {
-            guiGraphics.renderComponentTooltip(
-                    minecraft.font,
-                    Arrays.asList(Component.translatable(entry.translationKey()), Component.translatable(entry.descriptionTranslationKey()).withStyle(ChatFormatting.GRAY)),
-                    mouseX,
-                    mouseY
-            );
-            // screen.renderComponentTooltip(guiGraphics, Arrays.asList(Component.translatable(entry.translationKey()), Component.translatable(entry.descriptionTranslationKey()).withStyle(ChatFormatting.GRAY)), mouseX, mouseY, minecraft.font);
+            final List<Component> list = Arrays.asList(
+                    Component.translatable(entry.translationKey()),
+                    Component.translatable(entry.descriptionTranslationKey()).withStyle(ChatFormatting.GRAY));
+            guiGraphics.renderComponentTooltip(minecraft.font, list, mouseX, mouseY);
         }
     }
 
-    public int getFrameTextureV() {
-        return entry.isSoulwood ? 285 : 252;
+    public EntryObject<T> setIcon(Supplier<? extends Item> item) {
+        return setIcon(item.get());
     }
 
-    public int getBackgroundTextureV() {
-        return entry.isDark ? 285 : 252;
+    public EntryObject<T> setIcon(Item item) {
+        iconStack = item.getDefaultInstance();
+        return this;
+    }
+
+    public EntryObject<T> setStyle(BookWidgetStyle style) {
+        this.style = style;
+        return this;
+    }
+
+    public EntryObject<T> setValidityChecker(Predicate<T> isValid) {
+        this.isValid = isValid;
+        return this;
     }
 }

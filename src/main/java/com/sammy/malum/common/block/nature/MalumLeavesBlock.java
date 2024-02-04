@@ -21,6 +21,7 @@ import java.awt.*;
 import static com.sammy.malum.MalumMod.RANDOM;
 
 public class MalumLeavesBlock extends LeavesBlock implements IForgeBlock {
+
     public static final IntegerProperty COLOR = IntegerProperty.create("color", 0, 4);
     public final Color maxColor;
     public final Color minColor;
@@ -37,6 +38,7 @@ public class MalumLeavesBlock extends LeavesBlock implements IForgeBlock {
         builder.add(DISTANCE, PERSISTENT, COLOR, WATERLOGGED);
     }
 
+    @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
         return super.getStateForPlacement(context).setValue(COLOR, 0);
     }

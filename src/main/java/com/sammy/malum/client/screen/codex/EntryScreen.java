@@ -17,27 +17,27 @@ import java.util.function.*;
 
 import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.*;
 
-public class EntryScreen extends AbstractMalumScreen {
+public class EntryScreen<T extends AbstractProgressionCodexScreen> extends AbstractMalumScreen {
 
-    public static EntryScreen entryScreen;
+    public static EntryScreen<?> entryScreen;
 
     public static final ResourceLocation BOOK_TEXTURE = MalumMod.malumPath("textures/gui/book/entry.png");
 
     public final int bookWidth = 292;
     public final int bookHeight = 190;
-    public final EntryObject openObject;
+    public final EntryObject<T> openObject;
 
     public List<Runnable> lateRendering = new ArrayList<>();
     public int grouping;
 
-    public EntryScreen(EntryObject openObject) {
-        super(Component.translatable("malum.gui.entry.title"));
+    public EntryScreen(EntryObject<T> openObject) {
+        super(Component.empty());
         this.openObject = openObject;
     }
 
     @Override
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
-        BookEntry openEntry = openObject.entry;
+        BookEntry<T> openEntry = openObject.entry;
         renderBackground(guiGraphics);
         super.render(guiGraphics, mouseX, mouseY, partialTicks);
         PoseStack poseStack = guiGraphics.pose();

@@ -18,8 +18,7 @@ import net.minecraft.world.level.levelgen.feature.configurations.GeodeConfigurat
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
-import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
-import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
+import net.minecraft.world.level.levelgen.structure.templatesystem.*;
 
 import java.util.List;
 
@@ -30,11 +29,11 @@ public class ConfiguredFeatureRegistry {
     public static final ResourceKey<ConfiguredFeature<?, ?>> CONFIGURED_BRILLIANT_ORE = ResourceKey.create(Registries.CONFIGURED_FEATURE, MalumMod.malumPath("brilliant_ore"));
     public static final ResourceKey<ConfiguredFeature<?, ?>> CONFIGURED_NATURAL_QUARTZ_ORE = ResourceKey.create(Registries.CONFIGURED_FEATURE, MalumMod.malumPath("natural_quartz_ore"));
     public static final ResourceKey<ConfiguredFeature<?, ?>> CONFIGURED_BLAZING_QUARTZ_ORE = ResourceKey.create(Registries.CONFIGURED_FEATURE, MalumMod.malumPath("blazing_quartz_ore"));
+    public static final ResourceKey<ConfiguredFeature<?, ?>> CONFIGURED_CTHONIC_GOLD_ORE_FEATURE = ResourceKey.create(Registries.CONFIGURED_FEATURE, MalumMod.malumPath("cthonic_gold_ore"));
 
     public static final ResourceKey<ConfiguredFeature<?, ?>> CONFIGURED_RUNEWOOD_TREE = ResourceKey.create(Registries.CONFIGURED_FEATURE, MalumMod.malumPath("runewood_tree"));
     public static final ResourceKey<ConfiguredFeature<?, ?>> CONFIGURED_SOULWOOD_TREE = ResourceKey.create(Registries.CONFIGURED_FEATURE, MalumMod.malumPath("soulwood_tree"));
 
-    public static final ResourceKey<ConfiguredFeature<?, ?>> CONFIGURED_CTHONIC_GOLD_GEODE_FEATURE = ResourceKey.create(Registries.CONFIGURED_FEATURE, MalumMod.malumPath("cthonic_gold_geode"));
     public static final ResourceKey<ConfiguredFeature<?, ?>> CONFIGURED_QUARTZ_GEODE_FEATURE = ResourceKey.create(Registries.CONFIGURED_FEATURE, MalumMod.malumPath("quartz_geode"));
     public static final ResourceKey<ConfiguredFeature<?, ?>> CONFIGURED_DEEPSLATE_QUARTZ_GEODE_FEATURE = ResourceKey.create(Registries.CONFIGURED_FEATURE, MalumMod.malumPath("deepslate_quartz_geode"));
 
@@ -54,6 +53,10 @@ public class ConfiguredFeatureRegistry {
             OreConfiguration.target(STONE_ORE_REPLACEABLES, BlockRegistry.NATURAL_QUARTZ_ORE.get().defaultBlockState()),
             OreConfiguration.target(DEEPSLATE_ORE_REPLACEABLES, BlockRegistry.DEEPSLATE_QUARTZ_ORE.get().defaultBlockState()));
 
+    public static final List<OreConfiguration.TargetBlockState> CTHONIC_GOLD_TARGET_LIST = List.of(
+            OreConfiguration.target(DEEPSLATE_ORE_REPLACEABLES, BlockRegistry.CTHONIC_GOLD_ORE.get().defaultBlockState()),
+            OreConfiguration.target(DEEPSLATE_ORE_REPLACEABLES, Blocks.DEEPSLATE_GOLD_ORE.defaultBlockState()));
+
     public static final List<OreConfiguration.TargetBlockState> BLAZING_QUARTZ_TARGET_LIST = List.of(
             OreConfiguration.target(new TagMatchTest(BlockTags.BASE_STONE_NETHER), BlockRegistry.BLAZING_QUARTZ_ORE.get().defaultBlockState()));
 
@@ -62,6 +65,7 @@ public class ConfiguredFeatureRegistry {
         context.register(ConfiguredFeatureRegistry.CONFIGURED_SOULSTONE_ORE, addOreConfig(SOULSTONE_TARGET_LIST, 8));
         context.register(ConfiguredFeatureRegistry.CONFIGURED_BRILLIANT_ORE, addOreConfig(BRILLIANT_TARGET_LIST, 4));
         context.register(ConfiguredFeatureRegistry.CONFIGURED_NATURAL_QUARTZ_ORE, addOreConfig(NATURAL_QUARTZ_TARGET_LIST, 5));
+        context.register(ConfiguredFeatureRegistry.CONFIGURED_CTHONIC_GOLD_ORE_FEATURE, addOreConfig(FeatureRegistry.CTHONIC_GOLD_ORE.get(), CTHONIC_GOLD_TARGET_LIST, 8));
         context.register(ConfiguredFeatureRegistry.CONFIGURED_BLAZING_QUARTZ_ORE, addOreConfig(BLAZING_QUARTZ_TARGET_LIST, 14));
 
         context.register(ConfiguredFeatureRegistry.CONFIGURED_RUNEWOOD_TREE, addTreeConfig(FeatureRegistry.RUNEWOOD_TREE.get()));
@@ -112,31 +116,6 @@ public class ConfiguredFeatureRegistry {
                 0.1D,
                 1)
         ));
-
-        context.register(ConfiguredFeatureRegistry.CONFIGURED_CTHONIC_GOLD_GEODE_FEATURE, new ConfiguredFeature<>(FeatureRegistry.CTHONIC_GOLD_GEODE.get(), new GeodeConfiguration(
-                new GeodeBlockSettings(
-                        BlockStateProvider.simple(Blocks.DEEPSLATE_GOLD_ORE),
-                        BlockStateProvider.simple(Blocks.DEEPSLATE_GOLD_ORE),
-                        BlockStateProvider.simple(Blocks.DEEPSLATE_GOLD_ORE),
-                        BlockStateProvider.simple(Blocks.CALCITE),
-                        BlockStateProvider.simple(Blocks.SMOOTH_BASALT),
-                        List.of(Blocks.DEEPSLATE_GOLD_ORE.defaultBlockState()),
-                        BlockTags.FEATURES_CANNOT_REPLACE, BlockTags.GEODE_INVALID_BLOCKS),
-                new GeodeLayerSettings(0.4D, 0.8D, 1.4D, 2D),
-                new GeodeCrackSettings(1f, 3.0D, 3),
-                0.85D,
-                0.2D,
-                true,
-                UniformInt.of(3, 5),
-                UniformInt.of(2, 3),
-                UniformInt.of(0, 1),
-                -16,
-                16,
-                0.1D,
-                1)
-        ));
-
-
     }
 
     private static ConfiguredFeature<?, ?> addTreeConfig(Feature<NoneFeatureConfiguration> feature) {
@@ -145,5 +124,8 @@ public class ConfiguredFeatureRegistry {
 
     private static ConfiguredFeature<?, ?> addOreConfig(List<OreConfiguration.TargetBlockState> targetList, int veinSize) {
         return new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(targetList, veinSize));
+    }
+    private static ConfiguredFeature<?, ?> addOreConfig(Feature<OreConfiguration> feature, List<OreConfiguration.TargetBlockState> targetList, int veinSize) {
+        return new ConfiguredFeature<>(feature, new OreConfiguration(targetList, veinSize));
     }
 }

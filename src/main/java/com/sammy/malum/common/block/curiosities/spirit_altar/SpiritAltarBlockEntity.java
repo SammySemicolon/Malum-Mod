@@ -75,7 +75,7 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
                 BlockHelper.updateAndNotifyState(level, worldPosition);
             }
         };
-        extrasInventory = new MalumBlockEntityInventory(8, 1) {
+        extrasInventory = new MalumBlockEntityInventory(8, 64) {
             @Override
             public void onContentsChanged(int slot) {
                 super.onContentsChanged(slot);

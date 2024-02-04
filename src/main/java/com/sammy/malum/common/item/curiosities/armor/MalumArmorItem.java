@@ -35,4 +35,8 @@ public class MalumArmorItem extends LodestoneArmorItem {
         }
         return super.getArmorTexture(stack, entity, slot, type);
     }
+    @Override
+    public String getTextureLocation() {
+        return "malum:textures/armor/";
+    }
 }

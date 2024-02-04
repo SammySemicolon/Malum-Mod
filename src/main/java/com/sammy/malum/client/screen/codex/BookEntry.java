@@ -1,34 +1,22 @@
 package com.sammy.malum.client.screen.codex;
 
-import com.sammy.malum.client.screen.codex.objects.EntryObject;
+import com.sammy.malum.client.screen.codex.objects.*;
 import com.sammy.malum.client.screen.codex.pages.BookPage;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.fml.ModList;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.*;
 
-public class BookEntry {
-    public final ItemStack iconStack;
+public class BookEntry<T extends AbstractProgressionCodexScreen> {
     public final String identifier;
     public final int xOffset;
     public final int yOffset;
     public List<BookPage> pages = new ArrayList<>();
-    public EntryObjectSupplier objectSupplier = EntryObject::new;
-
-    public boolean isSoulwood;
-    public boolean isDark;
+    public WidgetSupplier<T> widgetSupplier = EntryObject::new;
+    public Consumer<EntryObject<T>> widgetConfig;
 
     public BookEntry(String identifier, int xOffset, int yOffset) {
-        this.iconStack = null;
-        this.identifier = identifier;
-        this.xOffset = xOffset;
-        this.yOffset = yOffset;
-    }
-
-    public BookEntry(String identifier, Item item, int xOffset, int yOffset) {
-        this.iconStack = item.getDefaultInstance();
         this.identifier = identifier;
         this.xOffset = xOffset;
         this.yOffset = yOffset;
@@ -42,36 +30,28 @@ public class BookEntry {
         return "malum.gui.book.entry." + identifier + ".description";
     }
 
-    public BookEntry setSoulwood() {
-        isSoulwood = true;
-        return this;
-    }
-
-    public BookEntry setDark() {
-        isDark = true;
-        return this;
-    }
-
-    public BookEntry addPage(BookPage page) {
+    public BookEntry<T> addPage(BookPage page) {
         if (page.isValid()) {
             pages.add(page.setParentEntry(this));
         }
         return this;
     }
 
-    public BookEntry addModCompatPage(BookPage page, String modId) {
-        if (ModList.get().isLoaded(modId)) {
-            addPage(page);
-        }
+    public BookEntry<T> setWidgetInfo(WidgetSupplier<T> widgetSupplier, Consumer<EntryObject<T>> widgetConfig) {
+        return setWidgetSupplier(widgetSupplier).setWidgetConfig(widgetConfig);
+    }
+
+    public BookEntry<T> setWidgetSupplier(WidgetSupplier<T> widgetSupplier) {
+        this.widgetSupplier = widgetSupplier;
         return this;
     }
 
-    public BookEntry setObjectSupplier(EntryObjectSupplier objectSupplier) {
-        this.objectSupplier = objectSupplier;
+    public BookEntry<T> setWidgetConfig(Consumer<EntryObject<T>> widgetConfig) {
+        this.widgetConfig = widgetConfig;
         return this;
     }
 
-    public interface EntryObjectSupplier {
-        EntryObject getBookObject(AbstractProgressionCodexScreen screen, BookEntry entry, int x, int y);
+    public interface WidgetSupplier<T extends AbstractProgressionCodexScreen> {
+        EntryObject<T> getBookObject(T screen, BookEntry<T> entry, int x, int y);
     }
 }

@@ -11,15 +11,11 @@
     },
     {
       "count": 4,
-      "item": "malum:hex_ash"
-    },
-    {
-      "count": 4,
       "tag": "forge:obsidian"
     },
     {
-      "count": 1,
-      "item": "malum:corrupted_resonance"
+      "count": 4,
+      "item": "malum:hex_ash"
     }
   ],
   "input": {
@@ -32,11 +28,15 @@
   "spirits": [
     {
       "type": "wicked",
-      "count": 24
+      "count": 32
+    },
+    {
+      "type": "arcane",
+      "count": 16
     },
     {
       "type": "eldritch",
-      "count": 6
+      "count": 8
     }
   ]
 }

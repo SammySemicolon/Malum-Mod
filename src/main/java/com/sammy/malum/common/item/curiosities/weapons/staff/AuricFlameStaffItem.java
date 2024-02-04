@@ -1,9 +1,8 @@
 package com.sammy.malum.common.item.curiosities.weapons.staff;
 
 import com.sammy.malum.common.entity.bolt.*;
+import com.sammy.malum.common.entity.nitrate.*;
 import com.sammy.malum.registry.client.*;
-import com.sammy.malum.registry.common.*;
-import net.minecraft.sounds.*;
 import net.minecraft.util.*;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.*;
@@ -14,24 +13,18 @@ import net.minecraftforge.api.distmarker.*;
 import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.registry.common.*;
 import team.lodestar.lodestone.systems.easing.*;
-import team.lodestar.lodestone.systems.particle.*;
 import team.lodestar.lodestone.systems.particle.builder.*;
 import team.lodestar.lodestone.systems.particle.data.*;
 import team.lodestar.lodestone.systems.particle.data.color.*;
 import team.lodestar.lodestone.systems.particle.data.spin.*;
 import team.lodestar.lodestone.systems.particle.render_types.*;
 
-import java.awt.*;
-
 public class AuricFlameStaffItem extends AbstractStaffItem {
 
-    public static final Color AURIC_YELLOW = new Color(243, 218, 75);
-    public static final Color AURIC_BLUE = new Color(75, 243, 218);
-    public static final ColorParticleData AURIC_COLOR_DATA = ColorParticleData.create(AURIC_YELLOW, AURIC_BLUE).setEasing(Easing.SINE_IN_OUT).setCoefficient(1.25f).build();
-    public static final ColorParticleData REVERSE_AURIC_COLOR_DATA = ColorParticleData.create(AURIC_BLUE, AURIC_YELLOW).setEasing(Easing.SINE_IN_OUT).setCoefficient(1.25f).build();
+    public static final ColorParticleData AURIC_COLOR_DATA = EthericNitrateEntity.AURIC_COLOR_DATA;
 
     public AuricFlameStaffItem(Tier tier, float magicDamage, Properties builderIn) {
-        super(tier, 40, magicDamage, builderIn);
+        super(tier, 20, magicDamage, builderIn);
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -43,13 +36,12 @@ public class AuricFlameStaffItem extends AbstractStaffItem {
                 .setTransparencyData(GenericParticleData.create(0.5f * pct, 0f).setEasing(Easing.SINE_IN_OUT, Easing.SINE_IN).build())
                 .setScaleData(GenericParticleData.create(0.35f * pct, 0).setEasing(Easing.SINE_IN_OUT).build())
                 .setSpinData(spinData)
-                .setColorData(pLevel.getGameTime() % 2L == 0 ? AURIC_COLOR_DATA : REVERSE_AURIC_COLOR_DATA)
+                .setColorData(AURIC_COLOR_DATA)
                 .setLifetime(5)
                 .setDirection(pLivingEntity.getLookAngle().normalize())
                 .setMotion(pLivingEntity.getLookAngle().normalize().scale(0.05f))
                 .enableNoClip()
                 .enableForcedSpawn()
-                .disableCull()
                 .setLifeDelay(2)
                 .spawn(pLevel, pos.x, pos.y, pos.z)
                 .setRenderType(LodestoneWorldParticleRenderType.LUMITRANSPARENT)
@@ -58,7 +50,7 @@ public class AuricFlameStaffItem extends AbstractStaffItem {
 
     @Override
     public int getCooldownDuration(Level level, LivingEntity livingEntity) {
-        return 80;
+        return 160;
     }
 
     @Override
@@ -69,9 +61,9 @@ public class AuricFlameStaffItem extends AbstractStaffItem {
     @Override
     public void fireProjectile(LivingEntity player, ItemStack stack, Level level, InteractionHand hand, float chargePercentage, int count) {
         final float ceil = (float) Math.ceil(count / 2f);
-        float spread = count > 0 ? ceil * 0.2f * (count % 2L == 0 ? 1 : -1) : 0f;
+        float spread = count > 0 ? ceil * 0.075f * (count % 2L == 0 ? 1 : -1) : 0f;
         float pitchOffset = 6f - (3f + ceil);
-        int spawnDelay = (int) (ceil * 2);
+        int spawnDelay = count * 3;
         float velocity = 2f;
         float magicDamage = (float) player.getAttributes().getValue(LodestoneAttributeRegistry.MAGIC_DAMAGE.get());
         Vec3 pos = getProjectileSpawnPos(player, hand, 0.5f, 0.5f);
