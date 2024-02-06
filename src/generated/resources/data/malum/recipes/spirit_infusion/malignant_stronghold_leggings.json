@@ -1,0 +1,34 @@
+{
+  "type": "malum:spirit_infusion",
+  "extra_items": [
+    {
+      "count": 3,
+      "item": "malum:malignant_alloy_plating"
+    },
+    {
+      "count": 8,
+      "item": "malum:mnemonic_fragment"
+    }
+  ],
+  "input": {
+    "count": 1,
+    "item": "minecraft:iron_leggings"
+  },
+  "output": {
+    "item": "malum:malignant_stronghold_leggings"
+  },
+  "spirits": [
+    {
+      "type": "earthen",
+      "count": 32
+    },
+    {
+      "type": "wicked",
+      "count": 32
+    },
+    {
+      "type": "eldritch",
+      "count": 16
+    }
+  ]
+}

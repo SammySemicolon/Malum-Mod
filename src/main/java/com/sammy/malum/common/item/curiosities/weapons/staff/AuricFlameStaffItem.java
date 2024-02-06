@@ -3,6 +3,7 @@ package com.sammy.malum.common.item.curiosities.weapons.staff;
 import com.sammy.malum.common.entity.bolt.*;
 import com.sammy.malum.common.entity.nitrate.*;
 import com.sammy.malum.registry.client.*;
+import com.sammy.malum.registry.common.*;
 import net.minecraft.util.*;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.*;
@@ -10,6 +11,7 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
 import net.minecraftforge.api.distmarker.*;
+import net.minecraftforge.event.entity.living.*;
 import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.registry.common.*;
 import team.lodestar.lodestone.systems.easing.*;
@@ -27,25 +29,13 @@ public class AuricFlameStaffItem extends AbstractStaffItem {
         super(tier, 20, magicDamage, builderIn);
     }
 
-    @OnlyIn(Dist.CLIENT)
     @Override
-    public void spawnChargeParticles(Level pLevel, LivingEntity pLivingEntity, Vec3 pos, ItemStack pStack, float pct) {
-        RandomSource random = pLevel.random;
-        final SpinParticleData spinData = SpinParticleData.createRandomDirection(random, 0.25f, 0.5f).setSpinOffset(RandomHelper.randomBetween(random, 0f, 6.28f)).build();
-        DirectionalParticleBuilder.create(ParticleRegistry.HEXAGON)
-                .setTransparencyData(GenericParticleData.create(0.5f * pct, 0f).setEasing(Easing.SINE_IN_OUT, Easing.SINE_IN).build())
-                .setScaleData(GenericParticleData.create(0.35f * pct, 0).setEasing(Easing.SINE_IN_OUT).build())
-                .setSpinData(spinData)
-                .setColorData(AURIC_COLOR_DATA)
-                .setLifetime(5)
-                .setDirection(pLivingEntity.getLookAngle().normalize())
-                .setMotion(pLivingEntity.getLookAngle().normalize().scale(0.05f))
-                .enableNoClip()
-                .enableForcedSpawn()
-                .setLifeDelay(2)
-                .spawn(pLevel, pos.x, pos.y, pos.z)
-                .setRenderType(LodestoneWorldParticleRenderType.LUMITRANSPARENT)
-                .spawn(pLevel, pos.x, pos.y, pos.z);;
+    public void hurtEvent(LivingHurtEvent event, LivingEntity attacker, LivingEntity target, ItemStack stack) {
+        if (!(event.getSource().getDirectEntity() instanceof AbstractBoltProjectileEntity)) {
+            target.setSecondsOnFire(4);
+            attacker.level().playSound(null, target.getX(), target.getY(), target.getZ(), SoundRegistry.AURIC_FLAME_MOTIF.get(), attacker.getSoundSource(), 1, 1.25f);
+        }
+        super.hurtEvent(event, attacker, target, stack);
     }
 
     @Override
@@ -78,5 +68,26 @@ public class AuricFlameStaffItem extends AbstractStaffItem {
         Vec3 left = new Vec3(-Math.cos(yaw), 0, Math.sin(yaw));
         entity.setDeltaMovement(entity.getDeltaMovement().add(left.scale(spread)));
         level.addFreshEntity(entity);
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    @Override
+    public void spawnChargeParticles(Level pLevel, LivingEntity pLivingEntity, Vec3 pos, ItemStack pStack, float pct) {
+        RandomSource random = pLevel.random;
+        final SpinParticleData spinData = SpinParticleData.createRandomDirection(random, 0.25f, 0.5f).setSpinOffset(RandomHelper.randomBetween(random, 0f, 6.28f)).build();
+        DirectionalParticleBuilder.create(ParticleRegistry.HEXAGON)
+                .setTransparencyData(GenericParticleData.create(0.5f * pct, 0f).setEasing(Easing.SINE_IN_OUT, Easing.SINE_IN).build())
+                .setScaleData(GenericParticleData.create(0.35f * pct, 0).setEasing(Easing.SINE_IN_OUT).build())
+                .setSpinData(spinData)
+                .setColorData(AURIC_COLOR_DATA)
+                .setLifetime(5)
+                .setDirection(pLivingEntity.getLookAngle().normalize())
+                .setMotion(pLivingEntity.getLookAngle().normalize().scale(0.05f))
+                .enableNoClip()
+                .enableForcedSpawn()
+                .setLifeDelay(2)
+                .spawn(pLevel, pos.x, pos.y, pos.z)
+                .setRenderType(LodestoneWorldParticleRenderType.LUMITRANSPARENT)
+                .spawn(pLevel, pos.x, pos.y, pos.z);;
     }
 }

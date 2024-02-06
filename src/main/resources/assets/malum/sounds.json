@@ -33,6 +33,7 @@
   "a_soul_shatters": { "sounds":["malum:curiosities/soul_shatter1","malum:curiosities/soul_shatter2","malum:curiosities/soul_shatter3"], "subtitle": "malum.subtitle.a_soul_shatters" },
 
   "scythe_cuts": { "sounds":["malum:curiosities/scythe/cut1","malum:curiosities/scythe/cut2","malum:curiosities/scythe/cut3"], "subtitle": "malum.subtitle.scythe_cuts" },
+  "weight_of_worlds_slashes": { "sounds":["malum:curiosities/scythe/cut1","malum:curiosities/scythe/cut2","malum:curiosities/scythe/cut3"], "subtitle": "malum.subtitle.weight_of_worlds_slashes" },
 
   "staff_fires": { "sounds":["malum:curiosities/staff/fire1","malum:curiosities/staff/fire2"], "subtitle": "malum.subtitle.staff_fires" },
   "staff_powers_up": { "sounds":["malum:curiosities/staff/charge1","malum:curiosities/staff/charge2"], "subtitle": "malum.subtitle.staff_powers_up" },
@@ -41,6 +42,7 @@
   "staff_strikes": { "sounds":["malum:curiosities/staff/hit1","malum:curiosities/staff/hit2","malum:curiosities/staff/hit3","malum:curiosities/staff/hit4"], "subtitle": "malum.subtitle.staff_strikes" },
 
   "auric_flame_motif": { "sounds":["malum:curiosities/staff/auric_flame_motif1","malum:curiosities/staff/auric_flame_motif2","malum:curiosities/staff/auric_flame_motif3"]},
+  "draining_motif": { "sounds":["malum:curiosities/staff/draining_motif1","malum:curiosities/staff/draining_motif2","malum:curiosities/staff/draining_motif3"]},
 
   "the_unknown_weeps": { "sounds":["malum:weeping_well/uncanny_valley0","malum:weeping_well/uncanny_valley1"], "subtitle": "malum.subtitle.the_unknown_weeps" },
   "the_void_heart_beats": { "sounds":["malum:weeping_well/void_heartbeat"], "subtitle": "malum.subtitle.the_void_heart_beats" },
@@ -80,6 +82,7 @@
   "hungry_belt_feeds": { "sounds":["malum:curiosities/starved_belt/nom1", "malum:curiosities/starved_belt/nom2", "malum:curiosities/starved_belt/nom3", "malum:curiosities/starved_belt/nom4"], "subtitle": "malum.subtitle.hungry_belt_feeds" },
   "flesh_ring_absorbs": { "sounds":["malum:curiosities/cancer_ring/grow1", "malum:curiosities/cancer_ring/grow2", "malum:curiosities/cancer_ring/grow3"], "subtitle": "malum.subtitle.flesh_ring_absorbs" },
   "hidden_blade_strikes": { "sounds":["malum:curiosities/hidden_blade/strike1", "malum:curiosities/hidden_blade/strike2", "malum:curiosities/hidden_blade/strike3"], "subtitle": "malum.subtitle.hidden_blade_strikes" },
+  "malignant_metal_resonates": { "sounds":["malum:curiosities/hidden_blade/strike1", "malum:curiosities/hidden_blade/strike2", "malum:curiosities/hidden_blade/strike3"], "subtitle": "malum.subtitle.malignant_metal_resonates" },
   "nitrate_thrown": { "sounds":["minecraft:random/bow"], "subtitle": "malum.subtitle.nitrate_thrown" },
   "spirit_mote_created": { "sounds":["malum:curiosities/spirit_mote/created1", "malum:curiosities/spirit_mote/created2", "malum:curiosities/spirit_mote/created3"], "subtitle": "malum.subtitle.spirit_mote_created" },
 

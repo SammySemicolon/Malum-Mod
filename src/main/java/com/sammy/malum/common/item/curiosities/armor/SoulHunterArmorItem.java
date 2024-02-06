@@ -37,11 +37,6 @@ public class SoulHunterArmorItem extends MalumArmorItem {
         return builder;
     }
 
-    @Override
-    public String getTextureLocation() {
-        return "malum:textures/armor/";
-    }
-
     public String getTexture() {
         return "spirit_hunter_reforged";
     }

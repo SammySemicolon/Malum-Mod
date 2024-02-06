@@ -256,6 +256,16 @@ public class MalumBlockProperties {
                 .sound(SoundRegistry.ARCANE_CHARCOAL_BLOCK);
     }
 
+    public static LodestoneBlockProperties SOUL_STAINED_STEEL_BLOCK() {
+        return new LodestoneBlockProperties()
+                .addTag(Tags.Blocks.STORAGE_BLOCKS)
+                .addTag(BlockTags.BEACON_BASE_BLOCKS)
+                .requiresCorrectToolForDrops()
+                .needsPickaxe()
+                .sound(SoundRegistry.SOUL_STAINED_STEEL)
+                .strength(5f, 64.0f);
+    }
+
     public static LodestoneBlockProperties HALLOWED_GOLD() {
         return new LodestoneBlockProperties()
                 .addTag(Tags.Blocks.STORAGE_BLOCKS)
@@ -267,14 +277,14 @@ public class MalumBlockProperties {
                 .strength(2F, 16.0F);
     }
 
-    public static LodestoneBlockProperties SOUL_STAINED_STEEL_BLOCK() {
+    public static LodestoneBlockProperties MALIGNANT_ALLOY_BLOCK() {
         return new LodestoneBlockProperties()
                 .addTag(Tags.Blocks.STORAGE_BLOCKS)
                 .addTag(BlockTags.BEACON_BASE_BLOCKS)
                 .requiresCorrectToolForDrops()
                 .needsPickaxe()
-                .sound(SoundRegistry.SOUL_STAINED_STEEL)
-                .strength(5f, 64.0f);
+                .sound(SoundRegistry.MALIGNANT_ALLOY)
+                .strength(10f, 9999f);
     }
 
     public static LodestoneBlockProperties SPIRIT_JAR() {

@@ -31,8 +31,16 @@ public abstract class AbstractBoltEntityRenderer<T extends AbstractBoltProjectil
         this.shadowStrength = 0;
     }
 
-    private static final ResourceLocation LIGHT_TRAIL = malumPath("textures/vfx/concentrated_trail.png");
-    private static final RenderType TRAIL_TYPE = LodestoneRenderTypeRegistry.ADDITIVE_TEXTURE_TRIANGLE.applyAndCache(LIGHT_TRAIL);
+    protected static final ResourceLocation LIGHT_TRAIL = malumPath("textures/vfx/concentrated_trail.png");
+    private static final RenderType TRAIL_TYPE = LodestoneRenderTypeRegistry.ADDITIVE_TEXTURE_TRIANGLE.apply(LIGHT_TRAIL);
+
+    public RenderType getTrailRenderType() {
+        return TRAIL_TYPE;
+    }
+
+    public float getAlphaMultiplier() {
+        return 1f;
+    }
 
     @Override
     public void render(T entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int packedLightIn) {
@@ -43,7 +51,7 @@ public abstract class AbstractBoltEntityRenderer<T extends AbstractBoltProjectil
         List<TrailPoint> spinningTrailPoints = entity.spinningTrailPointBuilder.getTrailPoints();
         List<TrailPoint> trailPoints = entity.trailPointBuilder.getTrailPoints();
         poseStack.pushPose();
-        VertexConsumer lightBuffer = DELAYED_RENDER.getBuffer(TRAIL_TYPE);
+        VertexConsumer lightBuffer = DELAYED_RENDER.getBuffer(getTrailRenderType());
         float x = (float) Mth.lerp(partialTicks, entity.xOld, entity.getX());
         float y = (float) Mth.lerp(partialTicks, entity.yOld, entity.getY());
         float z = (float) Mth.lerp(partialTicks, entity.zOld, entity.getZ());
@@ -52,7 +60,7 @@ public abstract class AbstractBoltEntityRenderer<T extends AbstractBoltProjectil
             VFXBuilders.WorldVFXBuilder builder = VFXBuilders.createWorld().setPosColorTexLightmapDefaultFormat();
             for (int i = 0; i < 2; i++) {
                 float size = (0.2f + i * 0.2f) * effectScalar;
-                float alpha = (0.7f - i * 0.35f) * effectScalar;
+                float alpha = Mth.clamp((0.7f - i * 0.35f) * effectScalar * getAlphaMultiplier(), 0, 1);
                 builder.setAlpha(alpha)
                         .renderTrail(lightBuffer, poseStack, spinningTrailPoints, f -> size, f -> builder.setAlpha(alpha * f).setColor(ColorHelper.colorLerp(Easing.SINE_IN, f * 2f, secondaryColor, primaryColor)))
                         .renderTrail(lightBuffer, poseStack, spinningTrailPoints, f -> 1.5f * size, f -> builder.setAlpha(alpha * f / 2f).setColor(ColorHelper.colorLerp(Easing.SINE_IN, f * 1.5f, secondaryColor, primaryColor)))
@@ -65,7 +73,7 @@ public abstract class AbstractBoltEntityRenderer<T extends AbstractBoltProjectil
             VFXBuilders.WorldVFXBuilder builder = VFXBuilders.createWorld().setPosColorTexLightmapDefaultFormat();
             for (int i = 0; i < 2; i++) {
                 float size = (0.3f + i * 0.3f) * effectScalar;
-                float alpha = (0.7f - i * 0.35f) * effectScalar;
+                float alpha = Mth.clamp((0.7f - i * 0.35f) * effectScalar * getAlphaMultiplier(), 0, 1);
                 builder.setAlpha(alpha)
                         .renderTrail(lightBuffer, poseStack, trailPoints, f -> size, f -> builder.setAlpha(alpha * f).setColor(ColorHelper.colorLerp(Easing.SINE_IN, f * 2f, secondaryColor, primaryColor)))
                         .renderTrail(lightBuffer, poseStack, trailPoints, f -> 1.5f * size, f -> builder.setAlpha(alpha * f / 2f).setColor(ColorHelper.colorLerp(Easing.SINE_IN, f * 1.5f, secondaryColor, primaryColor)))

@@ -4,7 +4,7 @@ import com.sammy.malum.common.block.curiosities.weeping_well.*;
 import com.sammy.malum.registry.client.*;
 import com.sammy.malum.visual_effects.networked.data.*;
 import net.minecraft.core.*;
-import net.minecraft.util.RandomSource;
+import net.minecraft.util.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.phys.*;
@@ -20,10 +20,9 @@ import team.lodestar.lodestone.systems.particle.data.spin.*;
 import team.lodestar.lodestone.systems.particle.render_types.*;
 
 import java.awt.*;
-import java.util.*;
 import java.util.function.*;
 
-import static com.sammy.malum.visual_effects.SpiritLightSpecs.spiritLightSpecs;
+import static com.sammy.malum.visual_effects.SpiritLightSpecs.*;
 
 public class WeepingWellParticleEffects {
 

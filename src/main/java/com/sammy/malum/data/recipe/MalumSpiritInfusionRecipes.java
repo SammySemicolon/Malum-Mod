@@ -484,6 +484,60 @@ public class MalumSpiritInfusionRecipes {
                 .addSpirit(INFERNAL_SPIRIT, 4)
                 .build(consumer);
 
+        new SpiritInfusionRecipeBuilder(Ingredient.of(Tags.Items.INGOTS_IRON), 4, ItemRegistry.MALIGNANT_ALLOY_INGOT.get(), 1)
+                .addExtraItem(ItemRegistry.MALIGNANT_LEAD.get(), 2)
+                .addExtraItem(Items.NETHERITE_SCRAP, 3)
+                .addSpirit(EARTHEN_SPIRIT, 16)
+                .addSpirit(ELDRITCH_SPIRIT, 4)
+                .build(consumer);
+
+        new SpiritInfusionRecipeBuilder(ItemRegistry.MNEMONIC_HEX_STAFF.get(), 1, ItemRegistry.MALIGNANT_SCEPTER.get(), 1)
+                .addExtraItem(ItemRegistry.MALIGNANT_ALLOY_INGOT.get(), 2)
+                .addExtraItem(ItemRegistry.VOID_SALTS.get(), 8)
+                .addSpirit(AQUEOUS_SPIRIT, 32)
+                .addSpirit(WICKED_SPIRIT, 32)
+                .addSpirit(ELDRITCH_SPIRIT, 16)
+                .build(consumer);
+
+        new SpiritInfusionRecipeBuilder(Items.IRON_AXE, 1, ItemRegistry.WEIGHT_OF_WORLDS.get(), 1)
+                .addExtraItem(ItemRegistry.MALIGNANT_ALLOY_INGOT.get(), 2)
+                .addSpirit(EARTHEN_SPIRIT, 32)
+                .addSpirit(WICKED_SPIRIT, 32)
+                .addSpirit(ELDRITCH_SPIRIT, 16)
+                .build(consumer);
+
+        new SpiritInfusionRecipeBuilder(Items.IRON_HELMET, 1, ItemRegistry.MALIGNANT_STRONGHOLD_HELMET.get(), 1)
+                .addExtraItem(ItemRegistry.MALIGNANT_ALLOY_PLATING.get(), 3)
+                .addExtraItem(ItemRegistry.MNEMONIC_FRAGMENT.get(), 8)
+                .addSpirit(EARTHEN_SPIRIT, 32)
+                .addSpirit(WICKED_SPIRIT, 32)
+                .addSpirit(ELDRITCH_SPIRIT, 16)
+                .build(consumer);
+
+        new SpiritInfusionRecipeBuilder(Items.IRON_CHESTPLATE, 1, ItemRegistry.MALIGNANT_STRONGHOLD_CHESTPLATE.get(), 1)
+                .addExtraItem(ItemRegistry.MALIGNANT_ALLOY_PLATING.get(), 3)
+                .addExtraItem(ItemRegistry.MNEMONIC_FRAGMENT.get(), 8)
+                .addSpirit(EARTHEN_SPIRIT, 32)
+                .addSpirit(WICKED_SPIRIT, 32)
+                .addSpirit(ELDRITCH_SPIRIT, 16)
+                .build(consumer);
+
+        new SpiritInfusionRecipeBuilder(Items.IRON_LEGGINGS, 1, ItemRegistry.MALIGNANT_STRONGHOLD_LEGGINGS.get(), 1)
+                .addExtraItem(ItemRegistry.MALIGNANT_ALLOY_PLATING.get(), 3)
+                .addExtraItem(ItemRegistry.MNEMONIC_FRAGMENT.get(), 8)
+                .addSpirit(EARTHEN_SPIRIT, 32)
+                .addSpirit(WICKED_SPIRIT, 32)
+                .addSpirit(ELDRITCH_SPIRIT, 16)
+                .build(consumer);
+
+        new SpiritInfusionRecipeBuilder(Items.IRON_BOOTS, 1, ItemRegistry.MALIGNANT_STRONGHOLD_BOOTS.get(), 1)
+                .addExtraItem(ItemRegistry.MALIGNANT_ALLOY_PLATING.get(), 3)
+                .addExtraItem(ItemRegistry.MNEMONIC_FRAGMENT.get(), 8)
+                .addSpirit(EARTHEN_SPIRIT, 32)
+                .addSpirit(WICKED_SPIRIT, 32)
+                .addSpirit(ELDRITCH_SPIRIT, 16)
+                .build(consumer);
+
         new SpiritInfusionRecipeBuilder(ItemRegistry.SOULWOOD_PLANKS.get(), 2, ItemRegistry.MNEMONIC_HEX_STAFF.get(), 1)
                 .addExtraItem(ItemRegistry.MNEMONIC_FRAGMENT.get(), 8)
                 .addExtraItem(ItemRegistry.SOUL_STAINED_STEEL_INGOT.get(), 4)

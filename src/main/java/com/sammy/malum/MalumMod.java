@@ -68,4 +68,6 @@ public class MalumMod {
     public static ResourceLocation malumPath(String path) {
         return new ResourceLocation(MALUM, path);
     }
+
+
 }

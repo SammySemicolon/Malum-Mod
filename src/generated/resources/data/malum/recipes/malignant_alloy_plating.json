@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "X": {
+      "item": "malum:malignant_alloy_ingot"
+    },
+    "Y": {
+      "item": "malum:malignant_alloy_nugget"
+    }
+  },
+  "pattern": [
+    " Y ",
+    "YXY",
+    " Y "
+  ],
+  "result": {
+    "count": 2,
+    "item": "malum:malignant_alloy_plating"
+  },
+  "show_notification": true
+}

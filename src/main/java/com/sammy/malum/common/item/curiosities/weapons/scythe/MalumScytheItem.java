@@ -59,7 +59,7 @@ public class MalumScytheItem extends ModCombatItem implements IMalumEventRespond
         });
     }
 
-    public void spawnSweepParticles(Player player, SimpleParticleType type) {
+    public static void spawnSweepParticles(Player player, SimpleParticleType type) {
         double d0 = (-Mth.sin(player.getYRot() * ((float) Math.PI / 180F)));
         double d1 = Mth.cos(player.getYRot() * ((float) Math.PI / 180F));
         if (player.level() instanceof ServerLevel serverLevel) {

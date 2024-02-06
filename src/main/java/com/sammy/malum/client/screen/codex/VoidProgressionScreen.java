@@ -93,27 +93,35 @@ public class VoidProgressionScreen extends AbstractProgressionCodexScreen {
         VOID_ENTRIES.add(new BookEntry<>(
                 "void.null_slate", -2, 3)
                 .setWidgetConfig(w -> w.setIcon(NULL_SLATE).setStyle(BookWidgetStyle.SOULWOOD))
-                .addPage(new HeadlineTextItemPage("void.null_slate", "void.null_slate.1", NULL_SLATE.get()))
+                .addPage(VoidTransmutationPage.fromOutput("void.null_slate", NULL_SLATE.get()))
+                .addPage(new TextPage("void.null_slate.1"))
         );
         VOID_ENTRIES.add(new BookEntry<>(
                 "void.void_salts", -1, 4)
                 .setWidgetConfig(w -> w.setIcon(VOID_SALTS).setStyle(BookWidgetStyle.SOULWOOD))
-                .addPage(new HeadlineTextItemPage("void.void_salts", "void.void_salts.1", VOID_SALTS.get()))
+                .addPage(VoidTransmutationPage.fromOutput("void.void_salts", VOID_SALTS.get()))
+                .addPage(new TextPage("void.void_salts.1"))
         );
         VOID_ENTRIES.add(new BookEntry<>(
                 "void.auric_embers", 1, 4)
                 .setWidgetConfig(w -> w.setIcon(AURIC_EMBERS).setStyle(BookWidgetStyle.SOULWOOD))
-                .addPage(new HeadlineTextItemPage("void.auric_embers", "void.auric_embers.1", AURIC_EMBERS.get()))
+                .addPage(VoidTransmutationPage.fromOutput("void.auric_embers", AURIC_EMBERS.get()))
+                .addPage(new TextPage("void.auric_embers.1"))
         );
         VOID_ENTRIES.add(new BookEntry<>(
                 "void.mnemonic_fragment", 2, 3)
                 .setWidgetConfig(w -> w.setIcon(MNEMONIC_FRAGMENT).setStyle(BookWidgetStyle.SOULWOOD))
-                .addPage(new HeadlineTextItemPage("void.mnemonic_fragment", "void.mnemonic_fragment.1", MNEMONIC_FRAGMENT.get()))
+                .addPage(new CyclingPage(
+                        VoidTransmutationPage.fromInput("void.mnemonic_fragment", CLUSTER_OF_BRILLIANCE.get()),
+                        VoidTransmutationPage.fromInput("void.mnemonic_fragment", CHUNK_OF_BRILLIANCE.get())
+                ))
+                .addPage(new TextPage("void.mnemonic_fragment.1"))
         );
         VOID_ENTRIES.add(new BookEntry<>(
-                "void.malignant_lead", 3, 3)
+                "void.malignant_lead", 6, 4)
                 .setWidgetConfig(w -> w.setIcon(MALIGNANT_LEAD).setStyle(BookWidgetStyle.SOULWOOD))
-                .addPage(new HeadlineTextItemPage("void.malignant_lead", "void.malignant_lead.1", MALIGNANT_LEAD.get()))
+                .addPage(VoidTransmutationPage.fromOutput("void.malignant_lead", MALIGNANT_LEAD.get()))
+                .addPage(new TextPage("void.malignant_lead.1"))
         );
 
         VOID_ENTRIES.add(new BookEntry<>(
@@ -146,8 +154,8 @@ public class VoidProgressionScreen extends AbstractProgressionCodexScreen {
                 .addPage(SpiritInfusionPage.fromOutput(RING_OF_THE_PLENTIFUL.get()))
         );
         VOID_ENTRIES.add(new BookEntry<>(
-                "void.weight_of_worlds", 4, 6)
-                .setWidgetConfig(w -> w.setIcon(WEIGHT_OF_WORLDS).setStyle(BookWidgetStyle.SOULWOOD))
+                "void.something2", 4, 6)
+                .setWidgetConfig(w -> w.setIcon(BARRIER).setStyle(BookWidgetStyle.SOULWOOD))
         );
         VOID_ENTRIES.add(new BookEntry<>(
                 "void.something3", 2, 6)
@@ -157,6 +165,28 @@ public class VoidProgressionScreen extends AbstractProgressionCodexScreen {
                 "void.something4", 3, 7)
                 .setWidgetConfig(w -> w.setIcon(BARRIER).setStyle(BookWidgetStyle.SOULWOOD))
         );
+
+        VOID_ENTRIES.add(new BookEntry<>(
+                "void.malignant_alloy", 6, 7)
+                .setWidgetConfig(w -> w.setIcon(MALIGNANT_ALLOY_INGOT).setStyle(BookWidgetStyle.SOULWOOD))
+        );
+
+        VOID_ENTRIES.add(new BookEntry<>(
+                "void.malignant_scepter", 5, 8)
+                .setWidgetConfig(w -> w.setIcon(MALIGNANT_SCEPTER).setStyle(BookWidgetStyle.SOULWOOD))
+        );
+
+        VOID_ENTRIES.add(new BookEntry<>(
+                "void.weight_of_worlds", 7, 8)
+                .setWidgetConfig(w -> w.setIcon(WEIGHT_OF_WORLDS).setStyle(BookWidgetStyle.SOULWOOD))
+        );
+
+        VOID_ENTRIES.add(new BookEntry<>(
+                "void.malignant_stronghold_armor", 6, 9)
+                .setWidgetConfig(w -> w.setIcon(MALIGNANT_STRONGHOLD_HELMET).setStyle(BookWidgetStyle.SOULWOOD))
+        );
+
+
 
         VOID_ENTRIES.add(new BookEntry<>(
                 "void.anomalous_design", 0, 7)

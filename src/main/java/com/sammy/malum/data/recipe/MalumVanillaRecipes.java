@@ -1,41 +1,32 @@
 package com.sammy.malum.data.recipe;
 
-import com.sammy.malum.MalumMod;
-import com.sammy.malum.common.item.impetus.ImpetusItem;
-import com.sammy.malum.data.recipe.builder.vanilla.TheDeviceRecipeBuilder;
-import com.sammy.malum.registry.common.item.ItemRegistry;
-import com.sammy.malum.registry.common.item.ItemTagRegistry;
+import com.sammy.malum.*;
+import com.sammy.malum.common.item.impetus.*;
+import com.sammy.malum.data.recipe.builder.vanilla.*;
+import com.sammy.malum.registry.common.item.*;
 import net.minecraft.advancements.critereon.*;
-import net.minecraft.data.recipes.FinishedRecipe;
-import net.minecraft.data.recipes.RecipeCategory;
-import net.minecraft.tags.ItemTags;
-import net.minecraft.tags.TagKey;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.level.ItemLike;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraftforge.common.Tags;
-import net.minecraftforge.common.crafting.ConditionalRecipe;
+import net.minecraft.data.recipes.*;
+import net.minecraft.tags.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.*;
+import net.minecraftforge.common.*;
+import net.minecraftforge.common.crafting.*;
 import net.minecraftforge.common.crafting.conditions.*;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
-import team.lodestar.lodestone.data.builder.NBTCarryRecipeBuilder;
-import team.lodestar.lodestone.systems.recipe.IngredientWithCount;
+import net.minecraftforge.registries.*;
+import team.lodestar.lodestone.data.builder.*;
+import team.lodestar.lodestone.systems.recipe.*;
 
-import java.util.function.Consumer;
-import java.util.function.Supplier;
+import java.util.function.*;
 
-import static com.sammy.malum.MalumMod.malumPath;
-import static com.sammy.malum.data.recipe.builder.vanilla.MetalNodeCookingRecipeBuilder.blastingWithTag;
-import static com.sammy.malum.data.recipe.builder.vanilla.MetalNodeCookingRecipeBuilder.smeltingWithTag;
-import static com.sammy.malum.data.recipe.builder.vanilla.StackedMalumCookingRecipeBuilder.blastingWithCount;
-import static com.sammy.malum.data.recipe.builder.vanilla.StackedMalumCookingRecipeBuilder.smeltingWithCount;
-import static net.minecraft.data.recipes.ShapedRecipeBuilder.shaped;
-import static net.minecraft.data.recipes.ShapelessRecipeBuilder.shapeless;
+import static com.sammy.malum.MalumMod.*;
+import static com.sammy.malum.data.recipe.builder.vanilla.MetalNodeCookingRecipeBuilder.*;
+import static com.sammy.malum.data.recipe.builder.vanilla.StackedMalumCookingRecipeBuilder.*;
+import static net.minecraft.data.recipes.ShapedRecipeBuilder.*;
+import static net.minecraft.data.recipes.ShapelessRecipeBuilder.*;
 import static net.minecraft.data.recipes.SimpleCookingRecipeBuilder.*;
-import static net.minecraft.data.recipes.SingleItemRecipeBuilder.stonecutting;
+import static net.minecraft.data.recipes.SingleItemRecipeBuilder.*;
 import static team.lodestar.lodestone.registry.common.tag.LodestoneItemTags.*;
 
 public class MalumVanillaRecipes implements IConditionBuilder {
@@ -64,6 +55,14 @@ public class MalumVanillaRecipes implements IConditionBuilder {
         shaped(RecipeCategory.MISC, ItemRegistry.HALLOWED_GOLD_INGOT.get()).define('#', ItemRegistry.HALLOWED_GOLD_NUGGET.get()).pattern("###").pattern("###").pattern("###").unlockedBy("has_hallowed_gold", has(ItemRegistry.HALLOWED_GOLD_INGOT.get())).save(consumer, malumPath("hallowed_gold_from_nuggets"));
         shapeless(RecipeCategory.MISC, ItemRegistry.HALLOWED_GOLD_NUGGET.get(), 9).requires(ItemRegistry.HALLOWED_GOLD_INGOT.get()).unlockedBy("has_hallowed_gold", has(ItemRegistry.HALLOWED_GOLD_INGOT.get())).save(consumer);
         shapeless(RecipeCategory.MISC, ItemRegistry.HALLOWED_GOLD_INGOT.get(), 9).requires(ItemRegistry.BLOCK_OF_HALLOWED_GOLD.get()).unlockedBy("has_hallowed_gold", has(ItemRegistry.HALLOWED_GOLD_INGOT.get())).save(consumer, malumPath("hallowed_gold_from_block"));
+
+
+        shaped(RecipeCategory.MISC, ItemRegistry.BLOCK_OF_MALIGNANT_ALLOY.get()).define('#', ItemRegistry.MALIGNANT_ALLOY_INGOT.get()).pattern("###").pattern("###").pattern("###").unlockedBy("has_malignant_alloy", has(ItemRegistry.MALIGNANT_ALLOY_INGOT.get())).save(consumer);
+        shaped(RecipeCategory.MISC, ItemRegistry.MALIGNANT_ALLOY_INGOT.get()).define('#', ItemRegistry.MALIGNANT_ALLOY_NUGGET.get()).pattern("###").pattern("###").pattern("###").unlockedBy("has_malignant_alloy", has(ItemRegistry.MALIGNANT_ALLOY_INGOT.get())).save(consumer, malumPath("malignant_alloy_from_nuggets"));
+        shapeless(RecipeCategory.MISC, ItemRegistry.MALIGNANT_ALLOY_NUGGET.get(), 9).requires(ItemRegistry.MALIGNANT_ALLOY_INGOT.get()).unlockedBy("has_malignant_alloy", has(ItemRegistry.MALIGNANT_ALLOY_INGOT.get())).save(consumer);
+        shapeless(RecipeCategory.MISC, ItemRegistry.MALIGNANT_ALLOY_INGOT.get(), 9).requires(ItemRegistry.BLOCK_OF_MALIGNANT_ALLOY.get()).unlockedBy("has_malignant_alloy", has(ItemRegistry.MALIGNANT_ALLOY_INGOT.get())).save(consumer, malumPath("malignant_alloy_from_block"));
+        shaped(RecipeCategory.MISC, ItemRegistry.MALIGNANT_ALLOY_PLATING.get(), 2).define('X', ItemRegistry.MALIGNANT_ALLOY_INGOT.get()).define('Y', ItemRegistry.MALIGNANT_ALLOY_NUGGET.get()).pattern(" Y ").pattern("YXY").pattern(" Y ").unlockedBy("has_malignant_alloy", has(ItemRegistry.MALIGNANT_ALLOY_INGOT.get())).save(consumer);
+
 
         //NODES
         smeltingWithCount(Ingredient.of(ItemRegistry.IRON_NODE.get()), RecipeCategory.MISC, Items.IRON_NUGGET, 6, 0.25f, 200).unlockedBy("has_impetus", has(ItemRegistry.IRON_IMPETUS.get())).save(consumer, malumPath("iron_from_node_smelting"));

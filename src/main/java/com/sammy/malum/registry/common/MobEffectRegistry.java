@@ -37,6 +37,9 @@ public class MobEffectRegistry {
     public static final RegistryObject<MobEffect> GLUTTONY = attachAlchemicalProficiency(EFFECTS.register("gluttony", GluttonyEffect::new), 0.5f);
     public static final RegistryObject<MobEffect> CANCEROUS_GROWTH = EFFECTS.register("cancerous_growth", GrowingFleshEffect::new);
     public static final RegistryObject<MobEffect> WICKED_INTENT = attachAlchemicalProficiency(EFFECTS.register("wicked_intent", WickedIntentEffect::new), 0.2f);
+    public static final RegistryObject<MobEffect> SILENCED = EFFECTS.register("silenced", SilencedEffect::new);
+    public static final RegistryObject<MobEffect> DEACONS_FORTUNE = EFFECTS.register("deacons_fortune", DeaconsFortuneEffect::new);
+
     public static final RegistryObject<MobEffect> REJECTED = EFFECTS.register("rejected", RejectedEffect::new);
 
     public static RegistryObject<MobEffect> attachAlchemicalProficiency(RegistryObject<MobEffect> effect, float proficiency) {

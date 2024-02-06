@@ -4,12 +4,10 @@ import com.google.common.collect.*;
 import com.sammy.malum.common.capability.*;
 import com.sammy.malum.common.enchantment.*;
 import com.sammy.malum.common.entity.bolt.*;
+import com.sammy.malum.common.item.curiosities.weapons.scythe.*;
 import com.sammy.malum.core.systems.item.*;
 import com.sammy.malum.registry.client.*;
 import com.sammy.malum.registry.common.*;
-import com.sammy.malum.registry.common.item.*;
-import net.minecraft.core.particles.*;
-import net.minecraft.server.level.*;
 import net.minecraft.sounds.*;
 import net.minecraft.stats.*;
 import net.minecraft.util.*;
@@ -56,7 +54,7 @@ public abstract class AbstractStaffItem extends ModCombatItem implements IMalumE
     public void hurtEvent(LivingHurtEvent event, LivingEntity attacker, LivingEntity target, ItemStack stack) {
         if (attacker instanceof Player player && !(event.getSource().getDirectEntity() instanceof AbstractBoltProjectileEntity)) {
             Level level = player.level();
-            spawnSweepParticles(player, ParticleRegistry.STAFF_SLAM_PARTICLE.get());
+            MalumScytheItem.spawnSweepParticles(player, ParticleRegistry.STAFF_SLAM_PARTICLE.get());
             level.playSound(null, target.blockPosition(), SoundRegistry.STAFF_STRIKES.get(), attacker.getSoundSource(), 0.75f, Mth.nextFloat(level.random, 0.5F, 1F));
             if (event.getSource().is(LodestoneDamageTypeTags.IS_MAGIC)) {
                 ReplenishingEnchantment.replenishStaffCooldown(attacker, stack);
@@ -77,7 +75,7 @@ public abstract class AbstractStaffItem extends ModCombatItem implements IMalumE
                 if (pLivingEntity instanceof Player player) {
                     player.awardStat(Stats.ITEM_USED.get(this));
                     if (!player.getAbilities().instabuild) {
-                        pStack.hurtAndBreak(1, player, (p_220009_1_) -> {
+                        pStack.hurtAndBreak(2, player, (p_220009_1_) -> {
                             p_220009_1_.broadcastBreakEvent(hand);
                         });
                         final MalumPlayerDataCapability capability = MalumPlayerDataCapability.getCapability(player);
@@ -142,14 +140,6 @@ public abstract class AbstractStaffItem extends ModCombatItem implements IMalumE
     @Override
     public UseAnim getUseAnimation(ItemStack pStack) {
         return UseAnim.BOW;
-    }
-
-    public void spawnSweepParticles(Player player, SimpleParticleType type) {
-        double d0 = (-Mth.sin(player.getYRot() * ((float) Math.PI / 180F)));
-        double d1 = Mth.cos(player.getYRot() * ((float) Math.PI / 180F));
-        if (player.level() instanceof ServerLevel serverLevel) {
-            serverLevel.sendParticles(type, player.getX() + d0, player.getY(0.5D), player.getZ() + d1, 0, d0, 0.0D, d1, 0.0D);
-        }
     }
 
     public Vec3 getProjectileSpawnPos(LivingEntity player, InteractionHand hand, float distance, float spread) {

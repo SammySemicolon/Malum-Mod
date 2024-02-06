@@ -55,6 +55,10 @@ public abstract class AbstractBoltProjectileEntity extends ThrowableItemProjecti
 
     public abstract ParticleEffectType getImpactParticleEffect();
 
+    public void onDealDamage(LivingEntity target) {
+
+    }
+
     @Override
     protected void defineSynchedData() {
         this.getEntityData().define(DATA_FADING_AWAY, false);
@@ -140,6 +144,7 @@ public abstract class AbstractBoltProjectileEntity extends ThrowableItemProjecti
             DamageSource source = DamageTypeRegistry.create(level(), DamageTypeRegistry.VOODOO, this, staffOwner);
             boolean success = target.hurt(source, magicDamage);
             if (success && target instanceof LivingEntity livingentity) {
+                onDealDamage(livingentity);
                 ItemStack staff = getItem();
                 ItemHelper.applyEnchantments(staffOwner, livingentity, staff);
                 int i = staff.getEnchantmentLevel(Enchantments.FIRE_ASPECT);
