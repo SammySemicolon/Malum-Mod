@@ -21,7 +21,7 @@ import team.lodestar.lodestone.systems.particle.render_types.*;
 public class HexStaffItem extends AbstractStaffItem {
 
     public HexStaffItem(Tier tier, float magicDamage, Properties builderIn) {
-        super(tier, 20, magicDamage, builderIn);
+        super(tier, 15, magicDamage, builderIn);
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -59,7 +59,7 @@ public class HexStaffItem extends AbstractStaffItem {
     public void fireProjectile(LivingEntity player, ItemStack stack, Level level, InteractionHand hand, float chargePercentage, int count) {
         float pitchOffset = 3f + count;
         int spawnDelay = count * 3;
-        float velocity = 2f + 0.5f * count;
+        float velocity = 3f + 0.5f * count;
         float magicDamage = (float) player.getAttributes().getValue(LodestoneAttributeRegistry.MAGIC_DAMAGE.get());
         Vec3 pos = getProjectileSpawnPos(player, hand, 0.5f, 0.5f);
         HexBoltEntity entity = new HexBoltEntity(level, pos.x, pos.y, pos.z);

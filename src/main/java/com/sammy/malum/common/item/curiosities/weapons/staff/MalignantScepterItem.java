@@ -13,7 +13,6 @@ import net.minecraft.world.phys.*;
 import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.event.entity.living.*;
 import team.lodestar.lodestone.helpers.*;
-import team.lodestar.lodestone.registry.common.*;
 import team.lodestar.lodestone.systems.easing.*;
 import team.lodestar.lodestone.systems.particle.builder.*;
 import team.lodestar.lodestone.systems.particle.data.*;
@@ -26,12 +25,12 @@ import java.awt.*;
 public class MalignantScepterItem extends AbstractStaffItem {
 
 
-    public static final Color MALIGNANT_PURPLE = new Color(97, 19, 88);
-    public static final Color MALIGNANT_BLACK = new Color(26, 14, 22);
+    public static final Color MALIGNANT_PURPLE = new Color(68, 11, 61);
+    public static final Color MALIGNANT_BLACK = new Color(12, 4, 11);
     public static final ColorParticleData MALIGNANT_COLOR_DATA = ColorParticleData.create(MALIGNANT_PURPLE, MALIGNANT_BLACK).setEasing(Easing.BOUNCE_IN_OUT).setCoefficient(1.2f).build();
 
     public MalignantScepterItem(Tier tier, float magicDamage, Properties builderIn) {
-        super(tier, 15, magicDamage, builderIn);
+        super(tier, 10, magicDamage, builderIn);
     }
 
     @Override
@@ -64,7 +63,7 @@ public class MalignantScepterItem extends AbstractStaffItem {
     public void fireProjectile(LivingEntity player, ItemStack stack, Level level, InteractionHand hand, float chargePercentage, int count) {
         int spawnDelay = count * 5;
         float velocity = 4f;
-        float magicDamage = (float) player.getAttributes().getValue(LodestoneAttributeRegistry.MAGIC_DAMAGE.get()) / 2f;
+        float magicDamage = 1.2f;
         Vec3 pos = getProjectileSpawnPos(player, hand, 0.5f, 0.5f);
         for (int i = 0; i < 8; i++) {
             float xSpread = RandomHelper.randomBetween(level.random, -0.25f, 0.25f);

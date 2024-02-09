@@ -69,6 +69,14 @@ public abstract class AbstractStaffItem extends ModCombatItem implements IMalumE
         if (projectileCount > 0) {
             InteractionHand hand = pLivingEntity.getUsedItemHand();
             if (!pLevel.isClientSide) {
+
+                float magicDamage = (float) pLivingEntity.getAttributes().getValue(LodestoneAttributeRegistry.MAGIC_DAMAGE.get());
+                if (magicDamage == 0) {
+                    float pitch = Mth.nextFloat(pLevel.random, 0.5f, 0.8f);
+                    pLevel.playSound(null, pLivingEntity.blockPosition(), SoundRegistry.STAFF_SIZZLES.get(), SoundSource.PLAYERS, 0.5f, pitch);
+                    pLivingEntity.swing(hand, true);
+                    return;
+                }
                 for (int i = 0; i < projectileCount; i++) {
                     fireProjectile(pLivingEntity, pStack, pLevel, hand, chargePercentage, i);
                 }

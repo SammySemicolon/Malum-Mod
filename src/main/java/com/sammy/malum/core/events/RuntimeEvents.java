@@ -6,6 +6,7 @@ import com.sammy.malum.common.effect.*;
 import com.sammy.malum.common.enchantment.*;
 import com.sammy.malum.common.entity.nitrate.*;
 import com.sammy.malum.common.item.cosmetic.curios.*;
+import com.sammy.malum.common.item.curiosities.armor.*;
 import com.sammy.malum.common.item.curiosities.curios.alchemical.*;
 import com.sammy.malum.common.item.curiosities.curios.misc.*;
 import com.sammy.malum.common.item.curiosities.curios.prospector.*;
@@ -135,6 +136,11 @@ public class RuntimeEvents {
     @SubscribeEvent
     public static void onRightClickItem(PlayerInteractEvent.RightClickItem event) {
         ReboundEnchantment.onRightClickItem(event);
+    }
+
+    @SubscribeEvent
+    public static void onSwapEquipment(LivingEquipmentChangeEvent event) {
+        MalignantStrongholdArmorItem.onSwapEquipment(event);
     }
 
     @SubscribeEvent

@@ -11,7 +11,8 @@
   ],
   "client": [
     "ElytraLayerMixin",
-    "ForgeIngameGuiMixin"
+    "ForgeIngameGuiMixin",
+    "LocalPlayerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

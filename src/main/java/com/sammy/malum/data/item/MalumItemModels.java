@@ -3,6 +3,7 @@ package com.sammy.malum.data.item;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.item.cosmetic.weaves.AbstractWeaveItem;
 import com.sammy.malum.common.item.cosmetic.weaves.PrideweaveItem;
+import com.sammy.malum.common.item.curiosities.runes.*;
 import com.sammy.malum.common.item.curiosities.weapons.*;
 import com.sammy.malum.common.item.curiosities.weapons.scythe.MalumScytheItem;
 import com.sammy.malum.common.item.curiosities.weapons.staff.*;
@@ -49,6 +50,9 @@ public class MalumItemModels extends LodestoneItemModelProvider {
         ItemModelSmithTypes.GENERATED_ITEM.act(data, items.stream().filter(i -> i.get() instanceof PrideweaveItem).collect(Collectors.toList()));
         setTexturePath("cosmetic/weaves/");
         ItemModelSmithTypes.GENERATED_ITEM.act(data, items.stream().filter(i -> i.get() instanceof AbstractWeaveItem).collect(Collectors.toList()));
+
+        setTexturePath("runes/");
+        MalumItemModelSmithTypes.GENERATED_OVERLAY_ITEM.act(data, items.stream().filter(i -> i.get() instanceof MalumRuneCurioItem).collect(Collectors.toList()));
 
         setTexturePath("impetus/");
         MalumItemModelSmithTypes.IMPETUS_ITEM.act(data, items.stream().filter(i -> i.get() instanceof ImpetusItem || i.get() instanceof CrackedImpetusItem).collect(Collectors.toList()));

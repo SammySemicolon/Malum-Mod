@@ -28,6 +28,6 @@ side = "BOTH"
 [[dependencies.malum]]
 modId = "curios"
 mandatory = true
-versionRange = "[5.2.0,)"
+versionRange = "[5.7.0,)"
 ordering = "NONE"
 side = "BOTH"

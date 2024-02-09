@@ -51,13 +51,13 @@ public class SpiritTypeRegistry {
             .setItemColor(c -> ColorHelper.brighter(c.primaryColor, 1))
             .build());
 
-    public static MalumSpiritType INFERNAL_SPIRIT = create(MalumSpiritType.create("infernal", ItemRegistry.INFERNAL_SPIRIT, BlockRegistry.MOTE_OF_INFERNAL_ARCANA)
-            .setColorData(new Color(250, 154, 31), new Color(210, 39, 150), 0.9f, Easing.SINE_IN_OUT)
+    public static MalumSpiritType EARTHEN_SPIRIT = create(MalumSpiritType.create("earthen", ItemRegistry.EARTHEN_SPIRIT, BlockRegistry.MOTE_OF_EARTHEN_ARCANA)
+            .setColorData(new Color(72, 238, 25), new Color(208, 26, 65), 0.9f, Easing.SINE_IN)
             .setItemColor(c -> ColorHelper.brighter(c.primaryColor, 1))
             .build());
 
-    public static MalumSpiritType EARTHEN_SPIRIT = create(MalumSpiritType.create("earthen", ItemRegistry.EARTHEN_SPIRIT, BlockRegistry.MOTE_OF_EARTHEN_ARCANA)
-            .setColorData(new Color(72, 238, 25), new Color(208, 26, 65), 0.9f, Easing.SINE_IN)
+    public static MalumSpiritType INFERNAL_SPIRIT = create(MalumSpiritType.create("infernal", ItemRegistry.INFERNAL_SPIRIT, BlockRegistry.MOTE_OF_INFERNAL_ARCANA)
+            .setColorData(new Color(250, 154, 31), new Color(210, 39, 150), 0.9f, Easing.SINE_IN_OUT)
             .setItemColor(c -> ColorHelper.brighter(c.primaryColor, 1))
             .build());
 

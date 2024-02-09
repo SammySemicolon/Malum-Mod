@@ -172,6 +172,21 @@ public class MalumLang extends LanguageProvider {
             add("malum.gui.ritual.tier." + id, name);
         }
 
+        add("curios.identifier.rune", "Armor Rune");
+        add("curios.modifiers.rune", "When equipped:");
+        add("malum.gui.rune.plus", "+");
+
+        add("malum.gui.rune.effect.idle_restoration", "Passive Healing");
+        add("malum.gui.rune.effect.sacrificial_empowerment", "Scythe Damage on Kill");
+        add("malum.gui.rune.effect.volatile_distortion", "Vorpal Damage Output");
+        add("malum.gui.rune.effect.heretic", "Silences Attackers");
+        add("malum.gui.rune.effect.twinned_duration", "Doubled Positive Effect Durations");
+        add("malum.gui.rune.effect.aliment_cleansing", "Cleanses Negative Effects; Heals when Cleansed");
+        add("malum.gui.rune.effect.reactive_shielding", "Damage Resistance when Struck");
+        add("malum.gui.rune.effect.dexterity", "");
+        add("malum.gui.rune.effect.unnatural_stamina", "Sprinting Always Available");
+        add("malum.gui.rune.effect.infernal_purging", "Damage against Burning Enemies");
+
         add("malum.gui.effect", "Effect: ");
 
         addSimpleEntryHeader("chronicles_of_the_void", "Chronicles of the Void", "Otherworldly alterations");

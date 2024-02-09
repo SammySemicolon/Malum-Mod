@@ -1,5 +1,4 @@
 {
-  "replace": "false",
   "values": [
     "malum:ornate_necklace",
     "malum:necklace_of_the_mystic_mirror",
@@ -7,5 +6,6 @@
     "malum:necklace_of_the_narrow_edge",
     "malum:necklace_of_blissful_harmony",
     "malum:necklace_of_the_hidden_blade",
-    "malum:necklace_of_the_watcher"]
+    "malum:necklace_of_the_watcher"
+  ]
 }

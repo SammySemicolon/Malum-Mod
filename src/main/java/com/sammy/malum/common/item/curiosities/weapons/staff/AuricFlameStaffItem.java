@@ -55,7 +55,7 @@ public class AuricFlameStaffItem extends AbstractStaffItem {
         float pitchOffset = 6f - (3f + ceil);
         int spawnDelay = count * 3;
         float velocity = 2f;
-        float magicDamage = (float) player.getAttributes().getValue(LodestoneAttributeRegistry.MAGIC_DAMAGE.get());
+        float magicDamage = (float) player.getAttributes().getValue(LodestoneAttributeRegistry.MAGIC_DAMAGE.get()) - 2;
         Vec3 pos = getProjectileSpawnPos(player, hand, 0.5f, 0.5f);
         AuricFlameBoltEntity entity = new AuricFlameBoltEntity(level, pos.x, pos.y, pos.z);
         entity.setData(player, magicDamage, spawnDelay);

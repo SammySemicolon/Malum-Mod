@@ -7,31 +7,39 @@ package com.sammy.malum.client.model;
 import com.google.common.collect.*;
 import com.mojang.blaze3d.vertex.*;
 import com.sammy.malum.*;
+import com.sammy.malum.common.item.curiosities.runes.*;
+import com.sammy.malum.core.systems.spirit.*;
 import com.sammy.malum.registry.client.*;
 import net.minecraft.client.*;
 import net.minecraft.client.model.*;
 import net.minecraft.client.model.geom.*;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.resources.*;
+import net.minecraft.util.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.phys.*;
 import team.lodestar.lodestone.handlers.*;
 import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.registry.client.*;
+import team.lodestar.lodestone.systems.easing.*;
 import team.lodestar.lodestone.systems.model.*;
 
+import java.awt.*;
 import java.util.*;
+import java.util.List;
+import java.util.stream.*;
 
 public class MalignantLeadArmorModel extends LodestoneArmorModel {
-    public static ModelLayerLocation LAYER = new ModelLayerLocation(MalumMod.malumPath("malignant_lead_armor"), "main");
-
-
+    public static final ModelLayerLocation LAYER = new ModelLayerLocation(MalumMod.malumPath("malignant_lead_armor"), "main");
+    public static final ResourceLocation GLOW_TEXTURE = MalumMod.malumPath("textures/armor/malignant_stronghold_glow.png");
     private final ModelPart right_arm_glow;
     private final ModelPart left_arm_glow;
     private final ModelPart right_boot_glow;
     private final ModelPart left_boot_glow;
     private final ModelPart helmet_glow;
     private final ModelPart torso_glow;
+
+    private final List<MalumSpiritType> activeGlows = new ArrayList<>();
 
     public MalignantLeadArmorModel(ModelPart root) {
         super(root);
@@ -53,30 +61,82 @@ public class MalignantLeadArmorModel extends LodestoneArmorModel {
         }
     }
 
-    private final ResourceLocation texture = MalumMod.malumPath("textures/armor/malignant_stronghold.png");
+    public void updateGlow(List<MalumRuneCurioItem> runes) {
+        activeGlows.clear();
+        activeGlows.addAll(runes.stream().map(r -> r.spiritType).toList());
+    }
+
+    public static Color colorLerp(Easing easing, float pct, float[] hsv1, float[] hsv2) {
+        pct = Mth.clamp(pct, 0, 1);
+        float ease = easing.ease(pct, 0, 1, 1);
+        float h = Mth.rotLerp(ease, 360f * hsv1[0], 360f * hsv2[0]) / 360f;
+        float s = Mth.lerp(ease, hsv1[1], hsv2[1]);
+        float v = Mth.lerp(ease, hsv1[2], hsv2[2]);
+        int packed = Color.HSBtoRGB(h, s, v);
+        float r = FastColor.ARGB32.red(packed) / 255.0f;
+        float g = FastColor.ARGB32.green(packed) / 255.0f;
+        float b = FastColor.ARGB32.blue(packed) / 255.0f;
+        return new Color(r, g, b);
+    }
+
+    public static Color multicolorLerp(Easing easing, float pct, List<Color> colors) {
+        pct = Mth.clamp(pct, 0, 1);
+        int colorCount = colors.size() - 1;
+        float lerp = easing.ease(pct, 0, 1, 1);
+        float colorIndex = colorCount * lerp;
+        int index = (int) Mth.clamp(colorIndex, 0, colorCount);
+        Color color = colors.get(index);
+        Color nextColor = index == colorCount ? color : colors.get(index + 1);
+        float[] hsv1 = new float[3];
+        float[] hsv2 = new float[3];
+        Color.RGBtoHSB(Math.min(255, color.getRed()), Math.min(255, color.getGreen()), Math.min(255, color.getBlue()), hsv1);
+        Color.RGBtoHSB(Math.min(255, nextColor.getRed()), Math.min(255, nextColor.getGreen()), Math.min(255, nextColor.getBlue()), hsv2);
+        return colorLerp(easing, colorIndex - (int) (colorIndex), hsv1, hsv2);
+    }
+
 
     @Override
     public void renderToBuffer(PoseStack pPoseStack, VertexConsumer pBuffer, int pPackedLight, int pPackedOverlay, float pRed, float pGreen, float pBlue, float pAlpha) {
         super.renderToBuffer(pPoseStack, pBuffer, pPackedLight, pPackedOverlay, pRed, pGreen, pBlue, pAlpha);
-        if (!this.young) {
+        if (!this.young && !activeGlows.isEmpty()) {
             final List<ModelPart> glowingParts = getGlowingParts();
             if (glowingParts.isEmpty()) {
                 return;
             }
             pPoseStack.pushPose();
-            final VertexConsumer transparent = RenderHandler.DELAYED_RENDER.getBuffer(LodestoneRenderTypeRegistry.TRANSPARENT_TEXTURE.applyAndCache(texture));
-            for (ModelPart glowingPart : glowingParts) {
-                glowingPart.render(pPoseStack, transparent, pPackedLight, pPackedOverlay, pRed, pGreen, pBlue, 0.5f);
-            }
-            final VertexConsumer additive = RenderHandler.DELAYED_RENDER.getBuffer(RenderTypeRegistry.MALIGNANT_GLOW.applyAndCache(texture));
+
             float gameTime = Minecraft.getInstance().level.getGameTime() + Minecraft.getInstance().getPartialTick();
+            Color primaryColor = activeGlows.get(0).getPrimaryColor();
+            Color secondaryColor = activeGlows.get(0).getSecondaryColor();
+            float colorCoefficient = activeGlows.get(0).getColorCoefficient();
+            if (activeGlows.size() > 1) {
+                activeGlows.add(activeGlows.get(0));
+                final float loopTime = 400 * activeGlows.size();
+                final float pct = (gameTime % loopTime) / loopTime;
+                final float relative = pct * activeGlows.size();
+                primaryColor = multicolorLerp(Easing.LINEAR, pct, activeGlows.stream().map(MalumSpiritType::getPrimaryColor).collect(Collectors.toList()));
+                secondaryColor = multicolorLerp(Easing.LINEAR, pct, activeGlows.stream().map(MalumSpiritType::getSecondaryColor).collect(Collectors.toList()));
+                colorCoefficient = activeGlows.size() == 1 ?
+                        activeGlows.get(0).getColorCoefficient() :
+                        Mth.lerp(relative % activeGlows.size(),
+                                activeGlows.get((int)relative).getColorCoefficient(),
+                                activeGlows.get(Math.min((int)relative+1, activeGlows.size()-1)).getColorCoefficient());
+            }
+
+            final VertexConsumer transparent = RenderHandler.DELAYED_RENDER.getBuffer(LodestoneRenderTypeRegistry.TRANSPARENT_TEXTURE.applyAndCache(GLOW_TEXTURE));
+            final VertexConsumer additive = RenderHandler.DELAYED_RENDER.getBuffer(RenderTypeRegistry.MALIGNANT_GLOW.applyAndCache(GLOW_TEXTURE));
+            float distance = 0.06f;
+            float alpha = 0.25f;
             int time = 320;
-            float distance = 0.08f;
-            float alpha = 0.2f;
+            for (ModelPart glowingPart : glowingParts) {
+                glowingPart.render(pPoseStack, transparent, pPackedLight, pPackedOverlay, primaryColor.getRed()/255f, primaryColor.getGreen()/255f, primaryColor.getBlue()/255f, 0.6f);
+            }
             for (int i = 0; i < 8; i++) {
                 double angle = i / 4f * (Math.PI * 2);
                 angle += ((gameTime % time) / time) * (Math.PI * 2);
                 for (ModelPart glowingPart : glowingParts) {
+                    final double sin = Math.sin(angle);
+                    Color color = ColorHelper.colorLerp(Easing.SINE_IN, Math.min(1, i/2f/colorCoefficient), secondaryColor, primaryColor);
                     float yaw = glowingPart.yRot;
                     float pitch = -glowingPart.xRot;
                     if (glowingPart.equals(helmet_glow)) {
@@ -87,9 +147,9 @@ public class MalignantLeadArmorModel extends LodestoneArmorModel {
                         Vec3 direction = new Vec3(Math.cos(yaw) * Math.cos(pitch), Math.sin(yaw) * Math.cos(pitch), Math.sin(pitch));
                         forward = forward.cross(direction).add(0, 1, 0);
                     }
-                    Vec3 offset = forward.xRot(pitch).normalize().scale(distance * Math.sin(angle));
+                    Vec3 offset = forward.xRot(pitch).normalize().scale(distance * sin);
                     pPoseStack.translate(offset.x, offset.y, offset.z);
-                    glowingPart.render(pPoseStack, additive, RenderHelper.FULL_BRIGHT, pPackedOverlay, pRed, pGreen, pBlue, alpha);
+                    glowingPart.render(pPoseStack, additive, RenderHelper.FULL_BRIGHT, pPackedOverlay, color.getRed()/255f, color.getGreen()/255f, color.getBlue()/255f, alpha);
                     pPoseStack.translate(-offset.x, -offset.y, -offset.z);
                 }
                 if (i == 3) {
