@@ -183,9 +183,10 @@ public class MalumLang extends LanguageProvider {
         add("malum.gui.rune.effect.twinned_duration", "Doubled Positive Effect Durations");
         add("malum.gui.rune.effect.aliment_cleansing", "Cleanses Negative Effects; Heals when Cleansed");
         add("malum.gui.rune.effect.reactive_shielding", "Damage Resistance when Struck");
-        add("malum.gui.rune.effect.dexterity", "");
+        add("malum.gui.rune.effect.dexterity", "Higher Speed at Low Health");
         add("malum.gui.rune.effect.unnatural_stamina", "Sprinting Always Available");
-        add("malum.gui.rune.effect.infernal_purging", "Damage against Burning Enemies");
+        add("malum.gui.rune.effect.haste", "Increased mining speed");
+        add("malum.gui.rune.effect.igneous_solace", "Damage Resistance while Burning");
 
         add("malum.gui.effect", "Effect: ");
 

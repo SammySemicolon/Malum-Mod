@@ -111,7 +111,7 @@ public class MalignantLeadArmorModel extends LodestoneArmorModel {
             float colorCoefficient = activeGlows.get(0).getColorCoefficient();
             if (activeGlows.size() > 1) {
                 activeGlows.add(activeGlows.get(0));
-                final float loopTime = 400 * activeGlows.size();
+                final float loopTime = 100 * activeGlows.size();
                 final float pct = (gameTime % loopTime) / loopTime;
                 final float relative = pct * activeGlows.size();
                 primaryColor = multicolorLerp(Easing.LINEAR, pct, activeGlows.stream().map(MalumSpiritType::getPrimaryColor).collect(Collectors.toList()));

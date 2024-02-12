@@ -13,10 +13,11 @@ import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.item.*;
 import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.client.extensions.common.*;
+import net.minecraftforge.common.util.*;
 import net.minecraftforge.event.entity.living.*;
-import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.systems.model.*;
 import top.theillusivec4.curios.api.*;
+import top.theillusivec4.curios.api.type.capability.*;
 
 import java.util.*;
 import java.util.function.*;
@@ -46,7 +47,7 @@ public class MalignantStrongholdArmorItem extends MalumArmorItem {
         }
         if (pieces == 4) {
             CuriosApi.getCuriosInventory(entity).ifPresent(inventory -> {
-                inventory.addTransientSlotModifier("rune", RUNE_SLOT_UUID, "malignant_armor_rune", 3, AttributeModifier.Operation.ADDITION);
+                inventory.addTransientSlotModifier("rune", RUNE_SLOT_UUID, "malignant_armor_rune", 4, AttributeModifier.Operation.ADDITION);
             });
         }
         else {
@@ -74,8 +75,16 @@ public class MalignantStrongholdArmorItem extends MalumArmorItem {
                     model = ArmorSkinRenderingData.RENDERING_DATA.apply(skin).getModel(entity);
                 }
                 if (model instanceof MalignantLeadArmorModel malignantLeadArmorModel) {
-                    final List<MalumRuneCurioItem> equippedRunes = CurioHelper.getEquippedCurios(entity, s -> s.getItem() instanceof MalumRuneCurioItem).stream().map(s -> (MalumRuneCurioItem)s.getItem()).collect(Collectors.toList());
-                    malignantLeadArmorModel.updateGlow(equippedRunes);
+                    final LazyOptional<ICuriosItemHandler> curiosInventory = CuriosApi.getCuriosInventory(entity);
+                    if (curiosInventory.isPresent()) {
+                        final List<MalumRuneCurioItem> equippedRunes = curiosInventory
+                                .map(i -> i.findCurios(s -> s.getItem() instanceof MalumRuneCurioItem))
+                                .map(l -> l.stream()
+                                        .filter(c -> c.slotContext().visible())
+                                        .map(c -> (MalumRuneCurioItem) c.stack().getItem()).collect(Collectors.toList()))
+                                .orElse(Collections.emptyList());
+                        malignantLeadArmorModel.updateGlow(equippedRunes);
+                    }
                 }
                 model.slot = armorSlot;
                 model.copyFromDefault(_default);

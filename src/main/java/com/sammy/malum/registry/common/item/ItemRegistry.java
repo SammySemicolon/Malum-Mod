@@ -554,7 +554,7 @@ public class ItemRegistry {
     public static final RegistryObject<Item> MALIGNANT_STRONGHOLD_LEGGINGS = register("malignant_stronghold_leggings", GEAR_PROPERTIES(), (p) -> new MalignantStrongholdArmorItem(ArmorItem.Type.LEGGINGS, p));
     public static final RegistryObject<Item> MALIGNANT_STRONGHOLD_BOOTS = register("malignant_stronghold_boots", GEAR_PROPERTIES(), (p) -> new MalignantStrongholdArmorItem(ArmorItem.Type.BOOTS, p));
 
-    public static final RegistryObject<Item> WEIGHT_OF_WORLDS = register("weight_of_worlds", GEAR_PROPERTIES(), (p) -> new WeightOfWorldsItem(ItemTiers.ItemTierEnum.MALIGNANT_ALLOY, 1, -0.1f, p));
+    public static final RegistryObject<Item> WEIGHT_OF_WORLDS = register("weight_of_worlds", GEAR_PROPERTIES(), (p) -> new WeightOfWorldsItem(ItemTiers.ItemTierEnum.MALIGNANT_ALLOY, -1, -0.1f, p));
     public static final RegistryObject<Item> MALIGNANT_SCEPTER = register("malignant_scepter", GEAR_PROPERTIES(), (p) -> new MalignantScepterItem(MALIGNANT_ALLOY, 5, p));
 
     public static final RegistryObject<Item> MNEMONIC_HEX_STAFF = register("mnemonic_hex_staff", GEAR_PROPERTIES(), (p) -> new HexStaffItem(HEX_STAFF, 5, p));
@@ -567,7 +567,7 @@ public class ItemRegistry {
     public static final RegistryObject<Item> RUNE_OF_DEXTERITY = register("rune_of_dexterity", GEAR_PROPERTIES(), RuneDexterityItem::new);
     public static final RegistryObject<Item> RUNE_OF_ALIMENT_CLEANSING = register("rune_of_aliment_cleansing", GEAR_PROPERTIES(), RuneAlimentCleansingItem::new);
     public static final RegistryObject<Item> RUNE_OF_REACTIVE_SHIELDING = register("rune_of_reactive_shielding", GEAR_PROPERTIES(), RuneReactiveShieldingItem::new);
-    public static final RegistryObject<Item> RUNE_OF_FIREBORNE_PROTECTION = register("rune_of_fireborne_protection", GEAR_PROPERTIES(), RuneFireborneProtection::new);
+    public static final RegistryObject<Item> RUNE_OF_HASTE = register("rune_of_haste", GEAR_PROPERTIES(), RuneHasteItem::new);
 
     public static final RegistryObject<Item> RUNE_OF_BOLSTERING = register("rune_of_bolstering", GEAR_PROPERTIES(), RuneBolsteringItem::new);
     public static final RegistryObject<Item> RUNE_OF_SACRIFICIAL_EMPOWERMENT = register("rune_of_sacrificial_empowerment", GEAR_PROPERTIES(), RuneSacrificialEmpowermentItem::new);
@@ -576,7 +576,7 @@ public class ItemRegistry {
     public static final RegistryObject<Item> RUNE_OF_UNNATURAL_STAMINA = register("rune_of_unnatural_stamina", GEAR_PROPERTIES(), RuneUnnaturalStaminaItem::new);
     public static final RegistryObject<Item> RUNE_OF_TWINNED_DURATION = register("rune_of_twinned_duration", GEAR_PROPERTIES(), RuneTwinnedDurationItem::new);
     public static final RegistryObject<Item> RUNE_OF_TOUGHNESS = register("rune_of_toughness", GEAR_PROPERTIES(), RuneToughnessItem::new);
-    public static final RegistryObject<Item> RUNE_OF_INFERNAL_PURGING = register("rune_of_infernal_purging", GEAR_PROPERTIES(), RuneInfernalPurgingItem::new);
+    public static final RegistryObject<Item> RUNE_OF_IGNEOUS_SOLACE = register("rune_of_igneous_solace", GEAR_PROPERTIES(), RuneIgneousSolaceItem::new);
 
     public static final RegistryObject<Item> SPIRIT_POUCH = register("spirit_pouch", GEAR_PROPERTIES(), SpiritPouchItem::new);
     public static final RegistryObject<Item> ETHERIC_NITRATE = register("etheric_nitrate", DEFAULT_PROPERTIES(), EthericNitrateItem::new);

@@ -25,7 +25,8 @@ public class MalumCuriosThings extends top.theillusivec4.curios.api.CuriosDataPr
                 .size(1)
                 .addCosmetic(true);
         createSlot("rune")
-                .size(0);
+                .size(0)
+                .renderToggle(true);
 
         createEntities("malum_entities")
                 .addPlayer()

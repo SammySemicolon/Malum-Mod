@@ -29,8 +29,8 @@ public class ScreenParticleEffects {
     public static void spawnRuneParticles(ScreenParticleHolder target, MalumSpiritType spiritType) {
         var rand = Minecraft.getInstance().level.getRandom();
         ScreenParticleBuilder.create(LodestoneScreenParticleRegistry.SPARKLE, target)
-                .setTransparencyData(GenericParticleData.create(0.04f, 0f).setEasing(Easing.SINE_IN_OUT).build())
-                .setScaleData(GenericParticleData.create(0.8f + rand.nextFloat() * 0.1f, 0).setEasing(Easing.SINE_IN_OUT, Easing.BOUNCE_IN_OUT).build())
+                .setTransparencyData(GenericParticleData.create(0.03f, 0f).setEasing(Easing.SINE_IN_OUT).build())
+                .setScaleData(GenericParticleData.create(0.6f + rand.nextFloat() * 0.1f, 0).setEasing(Easing.SINE_IN_OUT, Easing.BOUNCE_IN_OUT).build())
                 .setColorData(spiritType.createMainColorData().build())
                 .setLifetime(10 + rand.nextInt(10))
                 .setRandomOffset(0.05f)
@@ -38,9 +38,9 @@ public class ScreenParticleEffects {
                 .spawnOnStack(1, -2);
 
         ScreenParticleBuilder.create(LodestoneScreenParticleRegistry.WISP, target)
-                .setTransparencyData(GenericParticleData.create(0.02f, 0f).setEasing(Easing.SINE_IN_OUT).build())
+                .setTransparencyData(GenericParticleData.create(0.015f, 0f).setEasing(Easing.SINE_IN_OUT).build())
                 .setSpinData(SpinParticleData.create(nextFloat(rand, 0.2f, 0.4f)).setEasing(Easing.EXPO_OUT).build())
-                .setScaleData(GenericParticleData.create(0.6f + rand.nextFloat() * 0.4f, 0).setEasing(Easing.EXPO_OUT).build())
+                .setScaleData(GenericParticleData.create(0.4f + rand.nextFloat() * 0.4f, 0).setEasing(Easing.EXPO_OUT).build())
                 .setColorData(spiritType.createMainColorData().build())
                 .setLifetime(20 + rand.nextInt(8))
                 .setRandomOffset(0.1f)

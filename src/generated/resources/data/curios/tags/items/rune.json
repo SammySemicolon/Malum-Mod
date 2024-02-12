@@ -7,7 +7,7 @@
     "malum:rune_of_dexterity",
     "malum:rune_of_aliment_cleansing",
     "malum:rune_of_reactive_shielding",
-    "malum:rune_of_fireborne_protection",
+    "malum:rune_of_haste",
     "malum:rune_of_bolstering",
     "malum:rune_of_sacrificial_empowerment",
     "malum:rune_of_spell_mastery",
@@ -15,6 +15,6 @@
     "malum:rune_of_unnatural_stamina",
     "malum:rune_of_twinned_duration",
     "malum:rune_of_toughness",
-    "malum:rune_of_infernal_purging"
+    "malum:rune_of_igneous_solace"
   ]
 }
