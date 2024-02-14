@@ -1,10 +1,10 @@
 package com.sammy.malum.data.recipe;
 
+import com.sammy.malum.data.recipe.infusion.*;
 import net.minecraft.data.*;
 import net.minecraft.data.recipes.*;
 import net.minecraft.data.recipes.packs.*;
 
-import java.util.*;
 import java.util.function.*;
 
 public class MalumRecipes extends VanillaRecipeProvider {
@@ -24,7 +24,14 @@ public class MalumRecipes extends VanillaRecipeProvider {
         vanillaRecipeReplacements.buildRecipes(consumer);
         MalumVanillaRecipes.buildRecipes(consumer);
         MalumVoidFavorRecipes.buildRecipes(consumer);
-        MalumSpiritInfusionRecipes.buildRecipes(consumer);
+
+        ArtificeSpiritInfusionRecipes.buildRecipes(consumer);
+        CurioSpiritInfusionRecipes.buildRecipes(consumer);
+        GearSpiritInfusionRecipes.buildRecipes(consumer);
+        MaterialSpiritInfusionRecipes.buildRecipes(consumer);
+        RuneSpiritInfusionRecipes.buildRecipes(consumer);
+        TotemicSpiritInfusionRecipes.buildRecipes(consumer);
+
         MalumSpiritTransmutationRecipes.buildRecipes(consumer);
         MalumSpiritFocusingRecipes.buildRecipes(consumer);
     }

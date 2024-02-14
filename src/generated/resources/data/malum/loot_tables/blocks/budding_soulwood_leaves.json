@@ -37,7 +37,7 @@
                   ]
                 }
               ],
-              "name": "malum:mystic_soulwood_leaves"
+              "name": "malum:budding_soulwood_leaves"
             },
             {
               "type": "minecraft:item",
@@ -132,5 +132,5 @@
       "rolls": 1.0
     }
   ],
-  "random_sequence": "malum:blocks/mystic_soulwood_leaves"
+  "random_sequence": "malum:blocks/budding_soulwood_leaves"
 }

@@ -316,8 +316,8 @@ public class ItemRegistry {
     public static final RegistryObject<Item> CURSED_SAP_BLOCK = register("cursed_sap_block", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.CURSED_SAP_BLOCK.get(), p));
 
     public static final RegistryObject<Item> SOULWOOD_LEAVES = register("soulwood_leaves", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.SOULWOOD_LEAVES.get(), p));
-    public static final RegistryObject<Item> MYSTIC_SOULWOOD_LEAVES = register("mystic_soulwood_leaves", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.MYSTIC_SOULWOOD_LEAVES.get(), p));
-    public static final RegistryObject<Item> HANGING_MYSTIC_SOULWOOD_LEAVES = register("hanging_mystic_soulwood_leaves", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.HANGING_MYSTIC_SOULWOOD_LEAVES.get(), p));
+    public static final RegistryObject<Item> BUDDING_SOULWOOD_LEAVES = register("budding_soulwood_leaves", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BUDDING_SOULWOOD_LEAVES.get(), p));
+    public static final RegistryObject<Item> HANGING_SOULWOOD_LEAVES = register("hanging_soulwood_leaves", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.HANGING_SOULWOOD_LEAVES.get(), p));
     public static final RegistryObject<Item> SOULWOOD_GROWTH = register("soulwood_growth", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.SOULWOOD_GROWTH.get(), p));
 
     public static final RegistryObject<Item> BLIGHTED_SOULWOOD = register("blighted_soulwood", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BLIGHTED_SOULWOOD.get(), p));
@@ -445,6 +445,8 @@ public class ItemRegistry {
     public static final RegistryObject<Item> SPECTRAL_LENS = register("spectral_lens", DEFAULT_PROPERTIES(), Item::new);
     public static final RegistryObject<Item> SPECTRAL_OPTIC = register("spectral_optic", DEFAULT_PROPERTIES(), Item::new);
     public static final RegistryObject<Item> POPPET = register("poppet", DEFAULT_PROPERTIES(), Item::new);
+    public static final RegistryObject<Item> TAINTED_SLATE = register("tainted_slate", DEFAULT_PROPERTIES(), Item::new);
+    public static final RegistryObject<Item> ALTERED_SLATE = register("altered_slate", DEFAULT_PROPERTIES(), Item::new);
     public static final RegistryObject<Item> CORRUPTED_RESONANCE = register("corrupted_resonance", DEFAULT_PROPERTIES(), Item::new);
     public static final RegistryObject<Item> ANOMALOUS_DESIGN = register("anomalous_design", DEFAULT_PROPERTIES(), Item::new);
     public static final RegistryObject<Item> COMPLETE_DESIGN = register("complete_design", DEFAULT_PROPERTIES(), SimpleFoiledItem::new);
@@ -657,7 +659,10 @@ public class ItemRegistry {
         @SubscribeEvent
         public static void registerCompost(FMLCommonSetupEvent event) {
             registerCompostable(RUNEWOOD_LEAVES, 0.3f);
+            registerCompostable(HANGING_RUNEWOOD_LEAVES, 0.3f);
             registerCompostable(SOULWOOD_LEAVES, 0.3f);
+            registerCompostable(BUDDING_SOULWOOD_LEAVES, 0.3f);
+            registerCompostable(HANGING_SOULWOOD_LEAVES, 0.3f);
             registerCompostable(RUNEWOOD_SAPLING, 0.3f);
             registerCompostable(SOULWOOD_GROWTH, 0.3f);
         }

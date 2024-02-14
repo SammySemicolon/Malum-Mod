@@ -1,4 +1,4 @@
-package com.sammy.malum.common.effect;
+package com.sammy.malum.common.effect.aura;
 
 import com.sammy.malum.registry.common.SpiritTypeRegistry;
 import net.minecraft.world.effect.MobEffect;

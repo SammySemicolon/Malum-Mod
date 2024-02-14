@@ -2,6 +2,7 @@ package com.sammy.malum.registry.common;
 
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.effect.*;
+import com.sammy.malum.common.effect.aura.*;
 import com.sammy.malum.registry.common.item.ItemRegistry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
@@ -33,6 +34,9 @@ public class MobEffectRegistry {
 
     public static final RegistryObject<MobEffect> POSEIDONS_GRASP = EFFECTS.register("poseidons_grasp", AqueousAura::new);
     public static final RegistryObject<MobEffect> ANGLERS_LURE = EFFECTS.register("anglers_lure", CorruptedAqueousAura::new);
+
+    public static final RegistryObject<MobEffect> REACTIVE_SHIELDING = EFFECTS.register("reactive_shielding", ReactiveShieldingEffect::new);
+    public static final RegistryObject<MobEffect> SACRIFICIAL_EMPOWERMENT = EFFECTS.register("sacrificial_empowerment", SacrificialEmpowermentEffect::new);
 
     public static final RegistryObject<MobEffect> GLUTTONY = attachAlchemicalProficiency(EFFECTS.register("gluttony", GluttonyEffect::new), 0.5f);
     public static final RegistryObject<MobEffect> CANCEROUS_GROWTH = EFFECTS.register("cancerous_growth", GrowingFleshEffect::new);

@@ -1,0 +1,17 @@
+{
+  "type": "malum:spirit_infusion",
+  "extra_items": [],
+  "input": {
+    "count": 1,
+    "item": "malum:tainted_slate"
+  },
+  "output": {
+    "item": "malum:rune_of_volatile_distortion"
+  },
+  "spirits": [
+    {
+      "type": "eldritch",
+      "count": 8
+    }
+  ]
+}

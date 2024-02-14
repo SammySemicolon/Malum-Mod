@@ -1,0 +1,22 @@
+{
+  "type": "malum:spirit_infusion",
+  "extra_items": [
+    {
+      "count": 4,
+      "item": "malum:null_slate"
+    }
+  ],
+  "input": {
+    "count": 1,
+    "item": "malum:tainted_slate"
+  },
+  "output": {
+    "item": "malum:altered_slate"
+  },
+  "spirits": [
+    {
+      "type": "eldritch",
+      "count": 8
+    }
+  ]
+}

@@ -26,7 +26,7 @@ public class SilencedEffect extends MobEffect {
     @Override
     public void applyEffectTick(LivingEntity pLivingEntity, int pAmplifier) {
         TouchOfDarknessHandler handler = MalumLivingEntityDataCapability.getCapability(pLivingEntity).touchOfDarknessHandler;
-        handler.afflict(10);
+        handler.afflict(20);
     }
 
     @Override

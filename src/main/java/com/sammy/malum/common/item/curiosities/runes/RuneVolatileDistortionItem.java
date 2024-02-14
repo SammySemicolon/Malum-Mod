@@ -15,7 +15,6 @@ public class RuneVolatileDistortionItem extends MalumRuneCurioItem implements IE
         super(builder, SpiritTypeRegistry.ELDRITCH_SPIRIT);
     }
 
-
     @Override
     public void hurtEvent(LivingHurtEvent event, LivingEntity attacker, LivingEntity target, ItemStack stack) {
         final RandomSource random = attacker.getRandom();

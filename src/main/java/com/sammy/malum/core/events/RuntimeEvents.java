@@ -3,6 +3,7 @@ package com.sammy.malum.core.events;
 import com.sammy.malum.common.block.storage.jar.*;
 import com.sammy.malum.common.capability.*;
 import com.sammy.malum.common.effect.*;
+import com.sammy.malum.common.effect.aura.*;
 import com.sammy.malum.common.enchantment.*;
 import com.sammy.malum.common.entity.nitrate.*;
 import com.sammy.malum.common.item.cosmetic.curios.*;
@@ -12,6 +13,8 @@ import com.sammy.malum.common.item.curiosities.curios.misc.*;
 import com.sammy.malum.common.item.curiosities.curios.prospector.*;
 import com.sammy.malum.common.item.curiosities.curios.rotten.*;
 import com.sammy.malum.common.item.curiosities.curios.weeping.*;
+import com.sammy.malum.common.item.curiosities.runes.*;
+import com.sammy.malum.common.item.curiosities.runes.corrupted.*;
 import com.sammy.malum.core.handlers.*;
 import com.sammy.malum.core.listeners.*;
 import net.minecraft.core.*;
@@ -156,6 +159,12 @@ public class RuntimeEvents {
     @SubscribeEvent
     public static void onPotionApplied(MobEffectEvent.Added event) {
         CurioAlchemicalRing.onPotionApplied(event);
+        RuneTwinnedDurationItem.onPotionApplied(event);
+        RuneAlimentCleansingItem.onPotionApplied(event);
+    }
+    @SubscribeEvent
+    public static void onPotionExpired(MobEffectEvent.Expired event) {
+        RuneAlimentCleansingItem.onPotionExpired(event);
     }
 
     @SubscribeEvent

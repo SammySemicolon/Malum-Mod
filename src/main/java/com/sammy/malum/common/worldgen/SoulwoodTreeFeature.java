@@ -93,7 +93,7 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
                     if (blightFiller.getEntries().containsKey(pos) || blightFiller.getEntries().containsKey(pos.above())) {
                         return;
                     }
-                    if (state.getBlock().equals(BlockRegistry.MYSTIC_SOULWOOD_LEAVES.get()) && level.getBlockState(pos).getBlock() instanceof MalumLeavesBlock) {
+                    if (state.getBlock().equals(BlockRegistry.BUDDING_SOULWOOD_LEAVES.get()) && level.getBlockState(pos).getBlock() instanceof MalumLeavesBlock) {
                         entry.place(level, pos);
                     } else if (!isCareful() || entry.canPlace(level, pos)) {
                         entry.place(level, pos);
@@ -320,7 +320,7 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
                                 final int gradient = Mth.clamp(leavesColor + 1 + i, 0, 4);
                                 BlockPos vinePos = hangingLeavesPos.move(Direction.DOWN).immutable();
                                 final boolean hanging = i == length;
-                                BlockState state = (hanging ? BlockRegistry.HANGING_MYSTIC_SOULWOOD_LEAVES : BlockRegistry.MYSTIC_SOULWOOD_LEAVES).get().defaultBlockState().setValue(MalumLeavesBlock.COLOR, gradient);
+                                BlockState state = (hanging ? BlockRegistry.HANGING_SOULWOOD_LEAVES : BlockRegistry.BUDDING_SOULWOOD_LEAVES).get().defaultBlockState().setValue(MalumLeavesBlock.COLOR, gradient);
                                 hangingLeavesFiller.getEntries().put(vinePos, new BlockStateEntry(state));
                                 if (hanging) {
                                     hangingLeavesCoverage.add(column);

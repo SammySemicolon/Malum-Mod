@@ -1,0 +1,17 @@
+{
+  "type": "malum:spirit_infusion",
+  "extra_items": [],
+  "input": {
+    "count": 1,
+    "item": "malum:altered_slate"
+  },
+  "output": {
+    "item": "malum:rune_of_unnatural_stamina"
+  },
+  "spirits": [
+    {
+      "type": "aerial",
+      "count": 32
+    }
+  ]
+}
