@@ -4,7 +4,7 @@ import com.mojang.blaze3d.vertex.*;
 import com.sammy.malum.client.screen.codex.objects.*;
 import com.sammy.malum.client.screen.codex.pages.*;
 import com.sammy.malum.common.events.*;
-import com.sammy.malum.common.item.*;
+import com.sammy.malum.common.item.codex.*;
 import com.sammy.malum.registry.common.*;
 import net.minecraft.client.*;
 import net.minecraft.resources.*;
@@ -67,7 +67,7 @@ public class VoidProgressionScreen extends AbstractProgressionCodexScreen {
         screen.playSound(SoundRegistry.ARCANA_TRANSITION_EVIL, 1.25f, 1f);
         screen.timesTransitioned++;
         screen.transitionTimer = screen.getTransitionDuration();
-        EncyclopediaArcanaItem.shouldOpenVoidCodex = true;
+        EncyclopediaEsotericaItem.shouldOpenVoidCodex = true;
     }
 
     public static void setupEntries() {
@@ -79,7 +79,7 @@ public class VoidProgressionScreen extends AbstractProgressionCodexScreen {
         );
         VOID_ENTRIES.add(new BookEntry<>(
                 "void.introduction", 0, 1)
-                .setWidgetConfig(w -> w.setIcon(ENCYCLOPEDIA_ARCANA).setStyle(BookWidgetStyle.GILDED_SOULWOOD))
+                .setWidgetConfig(w -> w.setIcon(ENCYCLOPEDIA_ESOTERICA).setStyle(BookWidgetStyle.GILDED_SOULWOOD))
                 .addPage(new TextPage("void.introduction.1"))
                 .addPage(new TextPage("void.introduction.2"))
         );

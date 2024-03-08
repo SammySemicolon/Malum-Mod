@@ -4,7 +4,7 @@ import com.mojang.blaze3d.vertex.*;
 import com.sammy.malum.client.screen.codex.objects.*;
 import com.sammy.malum.client.screen.codex.pages.*;
 import com.sammy.malum.common.events.*;
-import com.sammy.malum.common.item.*;
+import com.sammy.malum.common.item.codex.*;
 import com.sammy.malum.registry.common.*;
 import com.sammy.malum.registry.common.item.*;
 import net.minecraft.client.*;
@@ -74,7 +74,7 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
         screen.playSound(SoundRegistry.ARCANA_TRANSITION_NORMAL, 1.25f, 1f);
         screen.timesTransitioned++;
         screen.transitionTimer = screen.getTransitionDuration();
-        EncyclopediaArcanaItem.shouldOpenVoidCodex = false;
+        EncyclopediaEsotericaItem.shouldOpenVoidCodex = false;
     }
 
     public static void setupEntries() {

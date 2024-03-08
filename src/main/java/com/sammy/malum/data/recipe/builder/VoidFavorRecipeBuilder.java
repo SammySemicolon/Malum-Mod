@@ -35,7 +35,11 @@ public class VoidFavorRecipeBuilder {
     }
 
     public VoidFavorRecipeBuilder(ItemLike input, ItemLike output, int outputCount) {
-        this(Ingredient.of(input), new ItemStack(output, outputCount));
+        this(input, new ItemStack(output, outputCount));
+    }
+
+    public VoidFavorRecipeBuilder(ItemLike input, ItemLike output) {
+        this(input, new ItemStack(output));
     }
 
     public void build(Consumer<FinishedRecipe> consumerIn, String recipeName) {

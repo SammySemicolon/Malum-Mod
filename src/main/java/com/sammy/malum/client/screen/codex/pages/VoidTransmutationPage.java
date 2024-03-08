@@ -51,8 +51,7 @@ public class VoidTransmutationPage extends BookPage {
         int guiTop = guiTop();
         Component component = Component.translatable(headlineTranslationKey());
         renderText(guiGraphics, component, guiLeft + 75 - minecraft.font.width(component.getString()) / 2, guiTop + 10);
-        renderItem(screen, guiGraphics, recipe.input, guiLeft + 67, guiTop + 44, mouseX, mouseY);
-        renderItem(screen, guiGraphics, recipe.output, guiLeft + 67, guiTop + 110, mouseX, mouseY);
+        renderItem(screen, guiGraphics, recipe.output, guiLeft + 67, guiTop + 44, mouseX, mouseY);
     }
 
     @Override
@@ -61,7 +60,6 @@ public class VoidTransmutationPage extends BookPage {
         int guiTop = guiTop();
         Component component = Component.translatable(headlineTranslationKey());
         renderText(guiGraphics, component, guiLeft + 75 - minecraft.font.width(component.getString()) / 2, guiTop + 10);
-        renderItem(screen, guiGraphics, recipe.input, guiLeft + 209, guiTop + 44, mouseX, mouseY);
-        renderItem(screen, guiGraphics, recipe.output, guiLeft + 209, guiTop + 110, mouseX, mouseY);
+        renderItem(screen, guiGraphics, recipe.output, guiLeft + 209, guiTop + 44, mouseX, mouseY);
     }
 }

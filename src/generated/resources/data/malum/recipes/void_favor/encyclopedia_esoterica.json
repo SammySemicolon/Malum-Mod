@@ -4,7 +4,6 @@
     "item": "malum:encyclopedia_arcana"
   },
   "output": {
-    "item": "malum:encyclopedia_arcana",
-    "nbt": "{\"malum:void_touched\":1b}"
+    "item": "malum:encyclopedia_esoterica"
   }
 }

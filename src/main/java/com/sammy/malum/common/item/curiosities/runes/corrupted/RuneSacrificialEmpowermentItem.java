@@ -21,9 +21,10 @@ public class RuneSacrificialEmpowermentItem extends MalumRuneCurioItem implement
         MobEffect sacrificialEmpowerment = MobEffectRegistry.SACRIFICIAL_EMPOWERMENT.get();
         MobEffectInstance effect = attacker.getEffect(sacrificialEmpowerment);
         if (effect == null) {
-            attacker.addEffect(new MobEffectInstance(sacrificialEmpowerment, 300, 0, true, true, true));
+            attacker.addEffect(new MobEffectInstance(sacrificialEmpowerment, 200, 0, true, true, true));
         } else {
             EntityHelper.amplifyEffect(effect, attacker, 1, 3);
+            EntityHelper.extendEffect(effect, attacker, 100, 200);
         }
     }
 

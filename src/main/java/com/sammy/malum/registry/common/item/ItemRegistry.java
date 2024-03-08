@@ -10,6 +10,7 @@ import com.sammy.malum.common.block.nature.*;
 import com.sammy.malum.common.item.*;
 import com.sammy.malum.common.item.augment.*;
 import com.sammy.malum.common.item.augment.core.*;
+import com.sammy.malum.common.item.codex.*;
 import com.sammy.malum.common.item.cosmetic.curios.*;
 import com.sammy.malum.common.item.cosmetic.skins.*;
 import com.sammy.malum.common.item.cosmetic.weaves.*;
@@ -26,6 +27,7 @@ import com.sammy.malum.common.item.curiosities.curios.weeping.*;
 import com.sammy.malum.common.item.curiosities.nitrate.*;
 import com.sammy.malum.common.item.curiosities.runes.*;
 import com.sammy.malum.common.item.curiosities.runes.corrupted.*;
+import com.sammy.malum.common.item.curiosities.tools.*;
 import com.sammy.malum.common.item.curiosities.weapons.*;
 import com.sammy.malum.common.item.curiosities.weapons.scythe.*;
 import com.sammy.malum.common.item.curiosities.weapons.staff.*;
@@ -130,6 +132,7 @@ public class ItemRegistry {
     }
 
     public static final RegistryObject<Item> ENCYCLOPEDIA_ARCANA = register("encyclopedia_arcana", GEAR_PROPERTIES().rarity(UNCOMMON), EncyclopediaArcanaItem::new);
+    public static final RegistryObject<Item> ENCYCLOPEDIA_ESOTERICA = register("encyclopedia_esoterica", HIDDEN_PROPERTIES().rarity(EPIC), EncyclopediaEsotericaItem::new);
 
     public static final RegistryObject<RitualShardItem> RITUAL_SHARD = register("ritual_shard", HIDDEN_PROPERTIES(), RitualShardItem::new);
 
@@ -529,6 +532,10 @@ public class ItemRegistry {
     //endregion
 
     //region contents
+    public static final RegistryObject<Item> TOTEMIC_STAFF = register("totemic_staff", GEAR_PROPERTIES(), (p) -> new TotemicStaffItem(p));
+    public static final RegistryObject<Item> LAMPLIGHTERS_STAFF = register("lamplighters_staff", GEAR_PROPERTIES(), (p) -> new LamplighterStaffItem(p));
+
+
     public static final RegistryObject<Item> CRUDE_SCYTHE = register("crude_scythe", GEAR_PROPERTIES(), (p) -> new MalumScytheItem(Tiers.IRON, 0, 0.1f, p.durability(500)));
     public static final RegistryObject<Item> SOUL_STAINED_STEEL_SCYTHE = register("soul_stained_steel_scythe", GEAR_PROPERTIES(), (p) -> new MagicScytheItem(SOUL_STAINED_STEEL, -2.5f, 0.1f, 4, p));
 

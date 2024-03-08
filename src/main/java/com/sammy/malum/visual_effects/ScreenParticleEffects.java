@@ -117,11 +117,11 @@ public class ScreenParticleEffects {
                 .spawnOnStack(0, 0);
     }
 
-    public static void spawnVoidEncyclopediaArcanaScreenParticles(ScreenParticleHolder target, Level level, float partialTick) {
+    public static void spawnEncyclopediaEsotericaScreenParticles(ScreenParticleHolder target, Level level, float partialTick) {
         var rand = level.getRandom();
         float distance = 7.5f;
-        for (int i = 0; i < 4; i++) {
-            float time = (((level.getGameTime() + partialTick) * 0.05f + i * (6.28f / 4)) % 6.28f);
+        for (int i = 0; i < 2; i++) {
+            float time = (((level.getGameTime() + partialTick) * 0.05f + i * (6.28f / 2)) % 6.28f);
             float scalar = 0.6f;
             if (time > 1.57f && time < 4.71f) {
                 scalar *= Easing.QUAD_IN.ease(Math.abs(3.14f - time) / 1.57f, 0, 1, 1);
@@ -134,11 +134,11 @@ public class ScreenParticleEffects {
             float gameTime = level.getGameTime() + partialTick;
             SpinParticleData spinParticleData = SpinParticleData.createRandomDirection(rand, level.random.nextBoolean() ? 1 : -2).setSpinOffset(0.025f * gameTime % 6.28f).build();
             ScreenParticleBuilder.create(LodestoneScreenParticleRegistry.WISP, target)
-                    .setScaleData(GenericParticleData.create(0.1f*scalar, RandomHelper.randomBetween(rand, 0.2f, 0.3f) * scalar, 0).setEasing(Easing.SINE_IN_OUT).setEasing(Easing.EXPO_OUT).build())
+                    .setScaleData(GenericParticleData.create(0, 0.1f*scalar, 0).setEasing(Easing.SINE_IN_OUT).setEasing(Easing.EXPO_OUT).build())
                     .setTransparencyData(GenericParticleData.create(0f, 0.25f, 0f).setEasing(Easing.SINE_IN_OUT).build())
                     .setColorData(ColorParticleData.create(color, endColor.darker()).setCoefficient(1.25f).build())
                     .setSpinData(spinParticleData)
-                    .setLifetime(40)
+                    .setLifetime(60)
                     .setDiscardFunction(SimpleParticleOptions.ParticleDiscardFunctionType.ENDING_CURVE_INVISIBLE)
                     .spawnOnStack(xOffset, yOffset)
                     .setRenderType(LodestoneScreenParticleRenderType.LUMITRANSPARENT)
