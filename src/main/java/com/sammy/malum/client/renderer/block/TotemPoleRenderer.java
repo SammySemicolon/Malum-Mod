@@ -29,7 +29,7 @@ public class TotemPoleRenderer implements BlockEntityRenderer<TotemPoleBlockEnti
         if (blockEntityIn.type == null) {
             return;
         }
-        renderQuad(blockEntityIn.type.getTotemGlowTexture(), blockEntityIn.type.getPrimaryColor(), blockEntityIn.currentColor / 20f, direction, poseStack);
+        renderQuad(blockEntityIn.type.getTotemGlowTexture(), blockEntityIn.type.getPrimaryColor(), blockEntityIn.chargeProgress / 20f, direction, poseStack);
     }
 
     public void renderQuad(ResourceLocation resourceLocation, Color color, float alpha, Direction direction, PoseStack poseStack) {

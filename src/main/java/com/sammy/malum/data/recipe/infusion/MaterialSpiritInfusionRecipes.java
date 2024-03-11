@@ -110,6 +110,7 @@ public class MaterialSpiritInfusionRecipes {
 
         new SpiritInfusionRecipeBuilder(Ingredient.of(Tags.Items.INGOTS_IRON), 4, ItemRegistry.MALIGNANT_ALLOY_INGOT.get(), 1)
                 .addExtraItem(ItemRegistry.MALIGNANT_LEAD.get(), 2)
+                .addExtraItem(ItemRegistry.NULL_SLATE.get(), 8)
                 .addExtraItem(Items.NETHERITE_SCRAP, 3)
                 .addSpirit(EARTHEN_SPIRIT, 16)
                 .addSpirit(ELDRITCH_SPIRIT, 4)

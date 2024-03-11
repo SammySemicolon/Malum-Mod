@@ -92,22 +92,22 @@ public class CraftingBookPage extends BookPage {
         return new CraftingBookPage(scythe, metal, metal, reagent, empty, stick, metal, stick, empty, empty);
     }
 
-    public static CraftingBookPage resonatorPage(Item resonator, Item gem, Item metal, Item reagent) {
-        return resonatorPage(resonator.getDefaultInstance(), gem.getDefaultInstance(), metal.getDefaultInstance(), reagent.getDefaultInstance());
+    public static CraftingBookPage broochPage(Item brooch, Item ingot, Item block) {
+        return broochPage(brooch.getDefaultInstance(), Items.LEATHER.getDefaultInstance(), ingot.getDefaultInstance(), block.getDefaultInstance());
     }
 
-    public static CraftingBookPage resonatorPage(ItemStack resonator, ItemStack gem, ItemStack metal, ItemStack reagent) {
+    public static CraftingBookPage broochPage(ItemStack brooch, ItemStack material, ItemStack ingot, ItemStack block) {
         ItemStack empty = Items.AIR.getDefaultInstance();
-        return new CraftingBookPage(resonator, empty, reagent, empty, metal, gem, metal, empty, reagent, empty);
+        return new CraftingBookPage(brooch, empty, material, empty, material, ingot, material, empty, block, empty);
     }
 
-    public static CraftingBookPage ringPage(Item ring, Item material, Item reagent) {
-        return ringPage(ring.getDefaultInstance(), material.getDefaultInstance(), reagent.getDefaultInstance());
+    public static CraftingBookPage ringPage(Item ring, Item reagent) {
+        return ringPage(ring.getDefaultInstance(), Items.LEATHER.getDefaultInstance(), reagent.getDefaultInstance());
     }
 
     public static CraftingBookPage ringPage(ItemStack ring, ItemStack material, ItemStack reagent) {
         ItemStack empty = Items.AIR.getDefaultInstance();
-        return new CraftingBookPage(ring, empty, material, reagent, material, empty, material, empty, material, empty);
+        return new CraftingBookPage(ring, reagent, material, empty, material, empty, material, empty, material, empty);
     }
 
     public static CraftingBookPage itemPedestalPage(Item pedestal, Item fullBlock, Item slab) {

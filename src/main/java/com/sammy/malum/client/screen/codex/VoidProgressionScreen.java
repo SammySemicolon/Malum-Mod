@@ -93,35 +93,32 @@ public class VoidProgressionScreen extends AbstractProgressionCodexScreen {
         VOID_ENTRIES.add(new BookEntry<>(
                 "void.null_slate", -2, 3)
                 .setWidgetConfig(w -> w.setIcon(NULL_SLATE).setStyle(BookWidgetStyle.SOULWOOD))
-                .addPage(VoidTransmutationPage.fromOutput("void.null_slate", NULL_SLATE.get()))
-                .addPage(new TextPage("void.null_slate.1"))
+                .addPage(new VoidTransmutationPage("void.null_slate", "void.null_slate.1", NULL_SLATE.get()))
+                .addPage(new TextPage("void.null_slate.2"))
         );
         VOID_ENTRIES.add(new BookEntry<>(
                 "void.void_salts", -1, 4)
                 .setWidgetConfig(w -> w.setIcon(VOID_SALTS).setStyle(BookWidgetStyle.SOULWOOD))
-                .addPage(VoidTransmutationPage.fromOutput("void.void_salts", VOID_SALTS.get()))
-                .addPage(new TextPage("void.void_salts.1"))
+                .addPage(new VoidTransmutationPage("void.void_salts","void.void_salts.1", VOID_SALTS.get()))
+                .addPage(new TextPage("void.void_salts.2"))
         );
         VOID_ENTRIES.add(new BookEntry<>(
                 "void.auric_embers", 1, 4)
                 .setWidgetConfig(w -> w.setIcon(AURIC_EMBERS).setStyle(BookWidgetStyle.SOULWOOD))
-                .addPage(VoidTransmutationPage.fromOutput("void.auric_embers", AURIC_EMBERS.get()))
-                .addPage(new TextPage("void.auric_embers.1"))
+                .addPage(new VoidTransmutationPage("void.auric_embers","void.auric_embers.1", AURIC_EMBERS.get()))
+                .addPage(new TextPage("void.auric_embers.2"))
         );
         VOID_ENTRIES.add(new BookEntry<>(
                 "void.mnemonic_fragment", 2, 3)
                 .setWidgetConfig(w -> w.setIcon(MNEMONIC_FRAGMENT).setStyle(BookWidgetStyle.SOULWOOD))
-                .addPage(new CyclingPage(
-                        VoidTransmutationPage.fromInput("void.mnemonic_fragment", CLUSTER_OF_BRILLIANCE.get()),
-                        VoidTransmutationPage.fromInput("void.mnemonic_fragment", CHUNK_OF_BRILLIANCE.get())
-                ))
-                .addPage(new TextPage("void.mnemonic_fragment.1"))
+                .addPage(new VoidTransmutationPage("void.mnemonic_fragment","void.mnemonic_fragment.1", MNEMONIC_FRAGMENT.get()))
+                .addPage(new TextPage("void.mnemonic_fragment.2"))
         );
         VOID_ENTRIES.add(new BookEntry<>(
                 "void.malignant_lead", 6, 4)
                 .setWidgetConfig(w -> w.setIcon(MALIGNANT_LEAD).setStyle(BookWidgetStyle.SOULWOOD))
-                .addPage(VoidTransmutationPage.fromOutput("void.malignant_lead", MALIGNANT_LEAD.get()))
-                .addPage(new TextPage("void.malignant_lead.1"))
+                .addPage(new VoidTransmutationPage("void.malignant_lead", "void.malignant_lead.1", MALIGNANT_LEAD.get()))
+                .addPage(new TextPage("void.malignant_lead.2"))
         );
 
         VOID_ENTRIES.add(new BookEntry<>(

@@ -191,7 +191,7 @@ public class MalumBlockStates extends LodestoneBlockStateProvider {
                 SPIRIT_ALTAR, SPIRIT_JAR, RITUAL_PLINTH);
 
         BlockStateSmithTypes.CUSTOM_MODEL.act(data, ItemModelSmithTypes.BLOCK_MODEL_ITEM, this::horizontalBlock, this::predefinedModel,
-                WEAVERS_WORKBENCH);
+                WEAVERS_WORKBENCH, RUNIC_WORKBENCH);
 
         BlockStateSmithTypes.CUSTOM_MODEL.act(data, ItemModelSmithTypes.UNIQUE_ITEM_MODEL, this::simpleBlock, this::predefinedModel,
                 RUNEWOOD_OBELISK, RUNEWOOD_OBELISK_COMPONENT, BRILLIANT_OBELISK, BRILLIANT_OBELISK_COMPONENT, SPIRIT_CRUCIBLE, SPIRIT_CRUCIBLE_COMPONENT, REPAIR_PYLON);

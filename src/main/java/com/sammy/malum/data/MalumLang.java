@@ -172,8 +172,15 @@ public class MalumLang extends LanguageProvider {
             add("malum.gui.ritual.tier." + id, name);
         }
 
-        add("curios.identifier.rune", "Armor Rune");
+
+        add("curios.identifier.brooch", "Brooch");
+        add("curios.slot.brooch", "Brooch");
+        add("curios.modifiers.brooch", "When worn:");
+
+        add("curios.identifier.rune", "Rune");
+        add("curios.slot.rune", "Rune");
         add("curios.modifiers.rune", "When equipped:");
+
         add("malum.gui.rune.plus", "+");
 
         add("malum.gui.rune.effect.idle_restoration", "Passive Healing");

@@ -1,6 +1,6 @@
 package com.sammy.malum.visual_effects;
 
-import com.sammy.malum.common.block.curiosities.obelisk.RunewoodObeliskBlockEntity;
+import com.sammy.malum.common.block.curiosities.obelisk.runewood.RunewoodObeliskBlockEntity;
 import com.sammy.malum.common.block.curiosities.spirit_altar.IAltarAccelerator;
 import com.sammy.malum.common.block.curiosities.spirit_altar.SpiritAltarBlockEntity;
 import com.sammy.malum.common.block.storage.MalumItemHolderBlockEntity;

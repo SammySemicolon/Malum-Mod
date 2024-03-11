@@ -20,11 +20,11 @@
   "spirits": [
     {
       "type": "aerial",
-      "count": 8
+      "count": 16
     },
     {
       "type": "sacred",
-      "count": 4
+      "count": 8
     }
   ]
 }

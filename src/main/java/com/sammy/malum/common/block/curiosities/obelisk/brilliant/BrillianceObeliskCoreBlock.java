@@ -1,5 +1,6 @@
-package com.sammy.malum.common.block.curiosities.obelisk;
+package com.sammy.malum.common.block.curiosities.obelisk.brilliant;
 
+import com.sammy.malum.common.block.curiosities.obelisk.*;
 import com.sammy.malum.registry.common.block.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.LevelReader;

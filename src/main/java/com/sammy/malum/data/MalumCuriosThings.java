@@ -15,6 +15,9 @@ public class MalumCuriosThings extends top.theillusivec4.curios.api.CuriosDataPr
 
     @Override
     public void generate(HolderLookup.Provider registries, ExistingFileHelper fileHelper) {
+        createSlot("brooch")
+                .size(1)
+                .addCosmetic(true);
         createSlot("ring")
                 .size(2)
                 .addCosmetic(true);
@@ -30,6 +33,6 @@ public class MalumCuriosThings extends top.theillusivec4.curios.api.CuriosDataPr
 
         createEntities("malum_entities")
                 .addPlayer()
-                .addSlots("ring", "necklace", "belt", "rune");
+                .addSlots("brooch", "ring", "necklace", "belt", "rune");
     }
 }

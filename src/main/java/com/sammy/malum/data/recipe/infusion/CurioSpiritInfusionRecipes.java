@@ -14,6 +14,14 @@ import static com.sammy.malum.registry.common.SpiritTypeRegistry.*;
 public class CurioSpiritInfusionRecipes {
 
     public static void buildRecipes(Consumer<FinishedRecipe> consumer) {
+
+        new SpiritInfusionRecipeBuilder(ItemRegistry.RUNIC_BROOCH.get(), 1, ItemRegistry.GLASS_BROOCH.get(), 1)
+                .addExtraItem(Ingredient.of(Tags.Items.GEMS_DIAMOND), 8)
+                .addExtraItem(ItemRegistry.ASTRAL_WEAVE.get(), 4)
+                .addSpirit(AQUEOUS_SPIRIT, 32)
+                .build(consumer);
+
+
         new SpiritInfusionRecipeBuilder(ItemRegistry.ORNATE_RING.get(), 1, ItemRegistry.RING_OF_ESOTERIC_SPOILS.get(), 1)
                 .addExtraItem(ItemRegistry.PROCESSED_SOULSTONE.get(), 8)
                 .addSpirit(WICKED_SPIRIT, 8)

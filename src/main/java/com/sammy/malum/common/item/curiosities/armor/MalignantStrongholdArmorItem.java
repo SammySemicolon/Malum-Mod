@@ -1,5 +1,6 @@
 package com.sammy.malum.common.item.curiosities.armor;
 
+import com.google.common.collect.*;
 import com.sammy.malum.client.cosmetic.*;
 import com.sammy.malum.client.model.*;
 import com.sammy.malum.common.item.cosmetic.skins.*;
@@ -14,7 +15,6 @@ import net.minecraft.world.item.*;
 import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.client.extensions.common.*;
 import net.minecraftforge.common.util.*;
-import net.minecraftforge.event.entity.living.*;
 import team.lodestar.lodestone.systems.model.*;
 import top.theillusivec4.curios.api.*;
 import top.theillusivec4.curios.api.type.capability.*;
@@ -27,36 +27,21 @@ import static com.sammy.malum.registry.common.item.ArmorTiers.ArmorTierEnum.*;
 
 public class MalignantStrongholdArmorItem extends MalumArmorItem {
 
-    public static final UUID RUNE_SLOT_UUID = UUID.fromString("eb4167cc-c77c-47e3-8695-ebb644e37fbc");
-
     public MalignantStrongholdArmorItem(Type slot, Properties builder) {
         super(MALIGNANT_ALLOY, slot, builder);
+    }
+
+    @Override
+    public Multimap<Attribute, AttributeModifier> createExtraAttributes(Type type) {
+        Multimap<Attribute, AttributeModifier> attributes = ArrayListMultimap.create();
+        UUID uuid = ARMOR_MODIFIER_UUID_PER_TYPE.get(type);
+        CuriosApi.addSlotModifier(attributes, "rune", uuid, 1, AttributeModifier.Operation.ADDITION);
+        return attributes;
     }
 
     public String getTexture() {
         return "malignant_stronghold";
     }
-
-    public static void onSwapEquipment(LivingEquipmentChangeEvent event) {
-        final LivingEntity entity = event.getEntity();
-        int pieces = 0;
-        for (ItemStack armorSlot : entity.getArmorSlots()) {
-            if (armorSlot.getItem() instanceof MalignantStrongholdArmorItem) {
-                pieces++;
-            }
-        }
-        if (pieces == 4) {
-            CuriosApi.getCuriosInventory(entity).ifPresent(inventory -> {
-                inventory.addTransientSlotModifier("rune", RUNE_SLOT_UUID, "malignant_armor_rune", 4, AttributeModifier.Operation.ADDITION);
-            });
-        }
-        else {
-            CuriosApi.getCuriosInventory(entity).ifPresent(inventory -> {
-                inventory.removeSlotModifier("rune", RUNE_SLOT_UUID);
-            });
-        }
-    }
-
 
     @OnlyIn(Dist.CLIENT)
     @Override

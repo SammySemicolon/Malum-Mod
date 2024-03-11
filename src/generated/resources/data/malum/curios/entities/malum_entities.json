@@ -3,6 +3,7 @@
     "minecraft:player"
   ],
   "slots": [
+    "brooch",
     "ring",
     "belt",
     "necklace",

@@ -1,6 +1,6 @@
 package com.sammy.malum.common.item.curiosities.armor;
 
-import com.google.common.collect.ImmutableMultimap;
+import com.google.common.collect.*;
 import com.sammy.malum.client.cosmetic.ArmorSkinRenderingData;
 import com.sammy.malum.common.item.cosmetic.skins.ArmorSkin;
 import com.sammy.malum.registry.client.ModelRegistry;
@@ -30,11 +30,11 @@ public class SoulHunterArmorItem extends MalumArmorItem {
     }
 
     @Override
-    public ImmutableMultimap.Builder<Attribute, AttributeModifier> createExtraAttributes(ArmorItem.Type slot) {
-        ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = new ImmutableMultimap.Builder<>();
-        UUID uuid = ARMOR_MODIFIER_UUID_PER_TYPE.get(slot);
-        builder.put(LodestoneAttributeRegistry.MAGIC_PROFICIENCY.get(), new AttributeModifier(uuid, "Magic Proficiency", 2f, AttributeModifier.Operation.ADDITION));
-        return builder;
+    public Multimap<Attribute, AttributeModifier> createExtraAttributes(Type type) {
+        Multimap<Attribute, AttributeModifier> attributes = ArrayListMultimap.create();
+        UUID uuid = ARMOR_MODIFIER_UUID_PER_TYPE.get(type);
+        attributes.put(LodestoneAttributeRegistry.MAGIC_PROFICIENCY.get(), new AttributeModifier(uuid, "Magic Proficiency", 2f, AttributeModifier.Operation.ADDITION));
+        return attributes;
     }
 
     public String getTexture() {

@@ -93,22 +93,31 @@ public class MalumItemTags extends ItemTagsProvider {
 
         tag(NUGGETS_COPPER).add(COPPER_NUGGET.get());
 
-        ITEMS.getEntries().stream().filter(i -> i.get() instanceof MalumCurioItem).forEach(i -> {
-            final Item item = i.get();
-            final ResourceLocation id = i.getId();
-            if (id.getPath().contains("_ring") || id.getPath().contains("ring_")) {
-                tag(RING).add(item);
+        for (RegistryObject<Item> i : ITEMS.getEntries()) {
+            if (i.get() instanceof MalumCurioItem) {
+                final Item item = i.get();
+                final ResourceLocation id = i.getId();
+                if (id.getPath().contains("_ring") || id.getPath().contains("ring_")) {
+                    tag(RING).add(item);
+                    continue;
+                }
+                if (id.getPath().contains("_necklace") || id.getPath().contains("necklace_")) {
+                    tag(NECKLACE).add(item);
+                    continue;
+                }
+                if (id.getPath().contains("_belt") || id.getPath().contains("belt_")) {
+                    tag(BELT).add(item);
+                    continue;
+                }
+                if (id.getPath().contains("_rune") || id.getPath().contains("rune_")) {
+                    tag(RUNE).add(item);
+                    continue;
+                }
+                if (id.getPath().contains("_brooch") || id.getPath().contains("brooch_")) {
+                    tag(BROOCH).add(item);
+                }
             }
-            if (id.getPath().contains("_necklace") || id.getPath().contains("necklace_")) {
-                tag(NECKLACE).add(item);
-            }
-            if (id.getPath().contains("_belt") || id.getPath().contains("belt_")) {
-                tag(BELT).add(item);
-            }
-            if (id.getPath().contains("_rune") || id.getPath().contains("rune_")) {
-                tag(RUNE).add(item);
-            }
-        });
+        }
         tag(CHARM).add(TOPHAT.get(), TOKEN_OF_GRATITUDE.get());
     }
 }

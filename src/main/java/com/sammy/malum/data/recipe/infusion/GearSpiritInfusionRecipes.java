@@ -51,9 +51,10 @@ public class GearSpiritInfusionRecipes {
                 .addSpirit(ELDRITCH_SPIRIT, 16)
                 .build(consumer);
 
-        new SpiritInfusionRecipeBuilder(ItemRegistry.SOULWOOD_PLANKS.get(), 2, ItemRegistry.MNEMONIC_HEX_STAFF.get(), 1)
+        new SpiritInfusionRecipeBuilder(ItemRegistry.TOTEMIC_STAFF.get(), 1, ItemRegistry.MNEMONIC_HEX_STAFF.get(), 1)
                 .addExtraItem(ItemRegistry.MNEMONIC_FRAGMENT.get(), 8)
                 .addExtraItem(ItemRegistry.SOUL_STAINED_STEEL_INGOT.get(), 4)
+                .addExtraItem(ItemRegistry.SOULWOOD_PLANKS.get(), 2)
                 .addSpirit(WICKED_SPIRIT, 32)
                 .addSpirit(AERIAL_SPIRIT, 16)
                 .addSpirit(AQUEOUS_SPIRIT, 16)

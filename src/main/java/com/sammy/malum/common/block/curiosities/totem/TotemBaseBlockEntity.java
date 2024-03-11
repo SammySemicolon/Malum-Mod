@@ -12,7 +12,6 @@ import net.minecraft.nbt.*;
 import net.minecraft.sounds.*;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.player.*;
-import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraftforge.network.*;
@@ -95,7 +94,7 @@ public class TotemBaseBlockEntity extends LodestoneBlockEntity {
         if (!level.isClientSide) {
             poles.forEach(p -> {
                 if (level.getBlockEntity(p) instanceof TotemPoleBlockEntity pole) {
-                    pole.riteEnding();
+                    pole.disable();
                 }
             });
             if (height > 1) {
@@ -191,11 +190,11 @@ public class TotemBaseBlockEntity extends LodestoneBlockEntity {
         if (poles.isEmpty()) {
             this.direction = direction;
         }
-        if (pole.corrupted == corrupted && direction.equals(this.direction)) {
+        if (pole.isSoulwood == corrupted && direction.equals(this.direction)) {
             if (pole.type != null) {
                 spirits.add(pole.type);
                 poles.add(pole.getBlockPos());
-                filters.addAll(pole.getFilters().stream().map(BlockEntity::getBlockPos).collect(Collectors.toList()));
+                filters.addAll(pole.getFilters().stream().map(BlockEntity::getBlockPos).toList());
                 cachedFilterInstances.addAll(pole.getFilters());
                 pole.riteStarting(this, height);
             }
@@ -207,7 +206,7 @@ public class TotemBaseBlockEntity extends LodestoneBlockEntity {
         MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new SpiritRiteActivationEffectPacket(spirits.stream().map(s -> s.identifier).collect(Collectors.toCollection(ArrayList::new)), worldPosition.above()));
         poles.forEach(p -> {
             if (level.getBlockEntity(p) instanceof TotemPoleBlockEntity pole) {
-                pole.riteComplete();
+                pole.enable();
             }
         });
         progress = 0;
@@ -254,7 +253,7 @@ public class TotemBaseBlockEntity extends LodestoneBlockEntity {
     public void resetRite() {
         poles.forEach(p -> {
             if (level.getBlockEntity(p) instanceof TotemPoleBlockEntity pole) {
-                pole.riteEnding();
+                pole.disable();
             }
         });
         resetValues();

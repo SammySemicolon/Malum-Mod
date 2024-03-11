@@ -32,10 +32,10 @@ public class TotemCreatedBlightEvent extends ActiveBlightEvent {
             if (level.getBlockEntity(totemPos) instanceof TotemPoleBlockEntity totemPoleTile) {
                 MalumSpiritType type = totemPoleTile.type;
                 BlockState state = BlockHelper.setBlockStateWithExistingProperties(level, totemPos, SOULWOOD_TOTEM_POLE.get().defaultBlockState(), 3);
-                TotemPoleBlockEntity newTileEntity = new TotemPoleBlockEntity(totemPos, state);
-                newTileEntity.setLevel(level);
-                newTileEntity.create(type);
-                level.setBlockEntity(newTileEntity);
+                TotemPoleBlockEntity newTotemPole = new TotemPoleBlockEntity(totemPos, state);
+                newTotemPole.setLevel(level);
+                newTotemPole.setSpirit(type);
+                level.setBlockEntity(newTotemPole);
                 level.setBlockAndUpdate(totemPos, state);
                 level.levelEvent(null, 2001, totemPos, Block.getId(state));
                 level.playSound(null, sourcePos, SoundRegistry.MINOR_BLIGHT_MOTIF.get(), SoundSource.BLOCKS, 1f, 1.8f);
