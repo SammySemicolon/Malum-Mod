@@ -14,6 +14,7 @@ public class RecipeTypeRegistry {
 
     public static final RegistryObject<RecipeType<FavorOfTheVoidRecipe>> VOID_FAVOR = RECIPE_TYPES.register(FavorOfTheVoidRecipe.NAME, () -> registerRecipeType(FavorOfTheVoidRecipe.NAME));
     public static final RegistryObject<RecipeType<SpiritInfusionRecipe>> SPIRIT_INFUSION = RECIPE_TYPES.register(SpiritInfusionRecipe.NAME, () -> registerRecipeType(SpiritInfusionRecipe.NAME));
+    public static final RegistryObject<RecipeType<RunicWorkbenchRecipe>> RUNEWORKING = RECIPE_TYPES.register(RunicWorkbenchRecipe.NAME, () -> registerRecipeType(RunicWorkbenchRecipe.NAME));
     public static final RegistryObject<RecipeType<SpiritFocusingRecipe>> SPIRIT_FOCUSING = RECIPE_TYPES.register(SpiritFocusingRecipe.NAME, () -> registerRecipeType(SpiritFocusingRecipe.NAME));
     public static final RegistryObject<RecipeType<SpiritTransmutationRecipe>> SPIRIT_TRANSMUTATION = RECIPE_TYPES.register(SpiritTransmutationRecipe.NAME, () -> registerRecipeType(SpiritTransmutationRecipe.NAME));
     public static final RegistryObject<RecipeType<SpiritRepairRecipe>> SPIRIT_REPAIR = RECIPE_TYPES.register(SpiritRepairRecipe.NAME, () -> registerRecipeType(SpiritRepairRecipe.NAME));

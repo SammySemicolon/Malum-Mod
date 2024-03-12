@@ -21,6 +21,11 @@ public class CurioSpiritInfusionRecipes {
                 .addSpirit(AQUEOUS_SPIRIT, 32)
                 .build(consumer);
 
+        new SpiritInfusionRecipeBuilder(ItemRegistry.SACRIFICIAL_BROOCH.get(), 1, ItemRegistry.RAVENOUS_BROOCH.get(), 1)
+                .addExtraItem(ItemRegistry.ROTTING_ESSENCE.get(), 8)
+                .addExtraItem(ItemRegistry.GRIM_TALC.get(), 4)
+                .addSpirit(WICKED_SPIRIT, 32)
+                .build(consumer);
 
         new SpiritInfusionRecipeBuilder(ItemRegistry.ORNATE_RING.get(), 1, ItemRegistry.RING_OF_ESOTERIC_SPOILS.get(), 1)
                 .addExtraItem(ItemRegistry.PROCESSED_SOULSTONE.get(), 8)
@@ -96,23 +101,23 @@ public class CurioSpiritInfusionRecipes {
                 .build(consumer);
 
         new SpiritInfusionRecipeBuilder(ItemRegistry.ORNATE_RING.get(), 1, ItemRegistry.RING_OF_DESPERATE_VORACITY.get(), 1)
-                .addExtraItem(Items.BONE, 2)
-                .addExtraItem(ItemRegistry.GRIM_TALC.get(), 2)
-                .addExtraItem(Items.ROTTEN_FLESH, 8)
-                .addExtraItem(ItemRegistry.HEX_ASH.get(), 2)
-                .addSpirit(WICKED_SPIRIT, 16)
-                .addSpirit(SACRED_SPIRIT, 8)
-                .addSpirit(ARCANE_SPIRIT, 8)
+                .addExtraItem(Items.BONE, 4)
+                .addExtraItem(ItemRegistry.GRIM_TALC.get(), 4)
+                .addExtraItem(Items.ROTTEN_FLESH, 16)
+                .addExtraItem(ItemRegistry.HEX_ASH.get(), 4)
+                .addSpirit(WICKED_SPIRIT, 32)
+                .addSpirit(SACRED_SPIRIT, 16)
+                .addSpirit(ARCANE_SPIRIT, 16)
                 .build(consumer);
 
         new SpiritInfusionRecipeBuilder(ItemRegistry.GILDED_BELT.get(), 1, ItemRegistry.BELT_OF_THE_STARVED.get(), 1)
-                .addExtraItem(Items.BONE, 2)
-                .addExtraItem(ItemRegistry.GRIM_TALC.get(), 4)
-                .addExtraItem(ItemRegistry.ROTTING_ESSENCE.get(), 2)
+                .addExtraItem(Items.BONE, 4)
+                .addExtraItem(ItemRegistry.GRIM_TALC.get(), 8)
+                .addExtraItem(ItemRegistry.ROTTING_ESSENCE.get(), 4)
                 .addExtraItem(ItemRegistry.PROCESSED_SOULSTONE.get(), 4)
                 .addSpirit(WICKED_SPIRIT, 32)
                 .addSpirit(AQUEOUS_SPIRIT, 16)
-                .addSpirit(ARCANE_SPIRIT, 8)
+                .addSpirit(ARCANE_SPIRIT, 16)
                 .build(consumer);
 
         new SpiritInfusionRecipeBuilder(ItemRegistry.GILDED_RING.get(), 1, ItemRegistry.RING_OF_THE_HOARDER.get(), 1)
@@ -120,9 +125,9 @@ public class CurioSpiritInfusionRecipes {
                 .addExtraItem(ItemRegistry.WARP_FLUX.get(), 4)
                 .addExtraItem(Ingredient.of(Tags.Items.INGOTS_IRON), 4)
                 .addExtraItem(Items.GUNPOWDER, 8)
-                .addSpirit(EARTHEN_SPIRIT, 16)
-                .addSpirit(SACRED_SPIRIT, 8)
-                .addSpirit(ARCANE_SPIRIT, 8)
+                .addSpirit(EARTHEN_SPIRIT, 32)
+                .addSpirit(SACRED_SPIRIT, 16)
+                .addSpirit(ARCANE_SPIRIT, 16)
                 .build(consumer);
 
         new SpiritInfusionRecipeBuilder(ItemRegistry.GILDED_BELT.get(), 1, ItemRegistry.BELT_OF_THE_PROSPECTOR.get(), 1)

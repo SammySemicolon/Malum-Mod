@@ -1,82 +1,55 @@
 package com.sammy.malum.common.item.curiosities.curios;
 
-import com.google.common.collect.HashMultimap;
-import com.google.common.collect.Multimap;
-import com.sammy.malum.registry.common.SoundRegistry;
-import net.minecraft.Util;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.entity.ai.attributes.Attribute;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraft.world.item.enchantment.Enchantments;
-import top.theillusivec4.curios.api.SlotContext;
-import top.theillusivec4.curios.api.type.capability.ICurioItem;
+import net.minecraft.*;
+import net.minecraft.network.chat.*;
+import net.minecraft.world.item.*;
+import top.theillusivec4.curios.api.*;
+import top.theillusivec4.curios.api.type.*;
+import top.theillusivec4.curios.api.type.capability.*;
 
-import java.util.Map;
-import java.util.UUID;
-import java.util.function.Function;
-import java.util.function.Supplier;
+import java.util.*;
+import java.util.function.*;
 
-public class MalumCurioItem extends Item implements ICurioItem {
+public class MalumCurioItem extends AbstractMalumCurioItem implements ICurioItem {
 
-    public enum MalumTrinketType {
-        CLOTH(SoundRegistry.CLOTH_TRINKET_EQUIP),
-        ORNATE(SoundRegistry.ORNATE_TRINKET_EQUIP),
-        GILDED(SoundRegistry.GILDED_TRINKET_EQUIP),
-        ALCHEMICAL(SoundRegistry.ALCHEMICAL_TRINKET_EQUIP),
-        ROTTEN(SoundRegistry.ROTTEN_TRINKET_EQUIP),
-        METALLIC(SoundRegistry.METALLIC_TRINKET_EQUIP),
-        RUNE(SoundRegistry.ORNATE_TRINKET_EQUIP),
-        VOID(SoundRegistry.VOID_TRINKET_EQUIP);
-        final Supplier<SoundEvent> sound;
-
-        MalumTrinketType(Supplier<SoundEvent> sound) {
-            this.sound = sound;
-        }
-    }
-
-    private final Function<Attribute, UUID> uuids = Util.memoize(a -> UUID.randomUUID());
-    public final MalumTrinketType type;
+    private final List<AttributeLikeTooltipEntry> extraTooltipLines = new ArrayList<>();
 
     public MalumCurioItem(Properties properties, MalumTrinketType type) {
-        super(properties);
-        this.type = type;
+        super(properties, type);
+        addExtraTooltipLines(extraTooltipLines::add);
     }
 
-    public void addAttributeModifiers(Multimap<Attribute, AttributeModifier> map, SlotContext slotContext, ItemStack stack) {
-    }
+    public void addExtraTooltipLines(Consumer<AttributeLikeTooltipEntry> consumer) {
 
-    @Override
-    public final Multimap<Attribute, AttributeModifier> getAttributeModifiers(SlotContext slotContext, UUID uuid, ItemStack stack) {
-        Multimap<Attribute, AttributeModifier> map = HashMultimap.create();
-        addAttributeModifiers(map, slotContext, stack);
-        return map;
     }
 
     @Override
-    public void onEquipFromUse(SlotContext slotContext, ItemStack stack) {
-        slotContext.entity().level().playSound(null, slotContext.entity().blockPosition(), type.sound.get(), SoundSource.PLAYERS, 1.0f, 1.0f);
-    }
+    public List<Component> getAttributesTooltip(List<Component> tooltips, ItemStack stack) {
+        final List<Component> attributesTooltip = super.getAttributesTooltip(tooltips, stack);
 
-    @Override
-    public boolean isBookEnchantable(ItemStack stack, ItemStack book) {
-        Map<Enchantment, Integer> list = EnchantmentHelper.getEnchantments(book);
-        if (list.size() == 1 && list.containsKey(Enchantments.BINDING_CURSE)) {
-            return true;
+        if (!extraTooltipLines.isEmpty()) {
+            if (attributesTooltip.isEmpty()) {
+                attributesTooltip.add(Component.empty());
+                final Map<String, ISlotType> itemStackSlots = CuriosApi.getItemStackSlots(stack);
+
+                itemStackSlots.keySet().stream().findFirst().ifPresent(s -> {
+                    attributesTooltip.add(Component.translatable("curios.modifiers." + s)
+                            .withStyle(ChatFormatting.GOLD));
+                });
+            }
+            for (AttributeLikeTooltipEntry attributeLike : extraTooltipLines) {
+                attributesTooltip.add(Component.translatable(attributeLike.key).withStyle(attributeLike.formatting));
+            }
         }
-        return super.isBookEnchantable(stack, book);
+        return attributesTooltip;
     }
 
-    @Override
-    public boolean canEquipFromUse(SlotContext slotContext, ItemStack stack) {
-        return true;
+    public static AttributeLikeTooltipEntry positiveEffect(String key) {
+        return new AttributeLikeTooltipEntry(key, ChatFormatting.BLUE);
     }
-
-    public void addAttributeModifier(Multimap<Attribute, AttributeModifier> map, Attribute attribute, Function<UUID, AttributeModifier> attributeModifier) {
-        map.put(attribute, attributeModifier.apply(uuids.apply(attribute)));
+    public static AttributeLikeTooltipEntry negativeEffect(String key) {
+        return new AttributeLikeTooltipEntry(key, ChatFormatting.RED);
+    }
+    public record AttributeLikeTooltipEntry(String key, ChatFormatting formatting) {
     }
 }

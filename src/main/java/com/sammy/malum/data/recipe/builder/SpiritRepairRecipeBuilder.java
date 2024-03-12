@@ -37,7 +37,6 @@ public class SpiritRepairRecipeBuilder {
 
     public SpiritRepairRecipeBuilder(String itemIdRegex, float durabilityPercentage, Ingredient repairMaterial, int repairMaterialCount) {
         this(itemIdRegex, "", durabilityPercentage, new IngredientWithCount(repairMaterial, repairMaterialCount));
-
     }
 
     public SpiritRepairRecipeBuilder(float durabilityPercentage, Ingredient repairMaterial, int repairMaterialCount) {

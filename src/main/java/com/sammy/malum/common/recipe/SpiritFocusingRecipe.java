@@ -1,93 +1,34 @@
 package com.sammy.malum.common.recipe;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.sammy.malum.core.systems.recipe.SpiritWithCount;
-import com.sammy.malum.registry.common.recipe.RecipeSerializerRegistry;
-import com.sammy.malum.registry.common.recipe.RecipeTypeRegistry;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.level.Level;
-import net.minecraftforge.common.crafting.CraftingHelper;
-import team.lodestar.lodestone.systems.recipe.ILodestoneRecipe;
+import com.google.gson.*;
+import com.sammy.malum.core.systems.recipe.*;
+import com.sammy.malum.registry.common.recipe.*;
+import net.minecraft.network.*;
+import net.minecraft.resources.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.level.*;
+import net.minecraftforge.common.crafting.*;
 
-import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Predicate;
+import javax.annotation.*;
+import java.util.*;
+import java.util.function.*;
 
-public class SpiritFocusingRecipe extends ILodestoneRecipe {
+public class SpiritFocusingRecipe extends AbstractSpiritListMalumRecipe {
     public static final String NAME = "spirit_focusing";
-
-    private final ResourceLocation id;
 
     public final int time;
     public final int durabilityCost;
 
     public final Ingredient input;
     public final ItemStack output;
-    public final List<SpiritWithCount> spirits;
 
     public SpiritFocusingRecipe(ResourceLocation id, int time, int durabilityCost, Ingredient input, ItemStack output, List<SpiritWithCount> spirits) {
-        this.id = id;
+        super(id, RecipeSerializerRegistry.FOCUSING_RECIPE_SERIALIZER.get(), RecipeTypeRegistry.SPIRIT_FOCUSING.get(), spirits);
         this.time = time;
         this.durabilityCost = durabilityCost;
         this.input = input;
         this.output = output;
-        this.spirits = spirits;
-    }
-
-    @Override
-    public RecipeSerializer<?> getSerializer() {
-        return RecipeSerializerRegistry.FOCUSING_RECIPE_SERIALIZER.get();
-    }
-
-    @Override
-    public RecipeType<?> getType() {
-        return RecipeTypeRegistry.SPIRIT_FOCUSING.get();
-    }
-
-    @Override
-    public ResourceLocation getId() {
-        return id;
-    }
-
-    public List<ItemStack> getSortedSpirits(List<ItemStack> stacks) {
-        List<ItemStack> sortedStacks = new ArrayList<>();
-        for (SpiritWithCount item : spirits) {
-            for (ItemStack stack : stacks) {
-                if (item.matches(stack)) {
-                    sortedStacks.add(stack);
-                    break;
-                }
-            }
-        }
-        return sortedStacks;
-    }
-
-    public boolean doSpiritsMatch(List<ItemStack> spirits) {
-        if (this.spirits.size() == 0) {
-            return true;
-        }
-        if (this.spirits.size() != spirits.size()) {
-            return false;
-        }
-        List<ItemStack> sortedStacks = getSortedSpirits(spirits);
-        if (sortedStacks.size() < this.spirits.size()) {
-            return false;
-        }
-        for (int i = 0; i < this.spirits.size(); i++) {
-            SpiritWithCount item = this.spirits.get(i);
-            ItemStack stack = sortedStacks.get(i);
-            if (!item.matches(stack)) {
-                return false;
-            }
-        }
-        return true;
     }
 
     public boolean doesInputMatch(ItemStack input) {
@@ -103,17 +44,11 @@ public class SpiritFocusingRecipe extends ILodestoneRecipe {
     }
 
     public static SpiritFocusingRecipe getRecipe(Level level, Predicate<SpiritFocusingRecipe> predicate) {
-        List<SpiritFocusingRecipe> recipes = getRecipes(level);
-        for (SpiritFocusingRecipe recipe : recipes) {
-            if (predicate.test(recipe)) {
-                return recipe;
-            }
-        }
-        return null;
+        return getRecipe(level, RecipeTypeRegistry.SPIRIT_FOCUSING.get(), predicate);
     }
 
     public static List<SpiritFocusingRecipe> getRecipes(Level level) {
-        return level.getRecipeManager().getAllRecipesFor(RecipeTypeRegistry.SPIRIT_FOCUSING.get());
+        return getRecipes(level, RecipeTypeRegistry.SPIRIT_FOCUSING.get());
     }
 
     public static class Serializer implements RecipeSerializer<SpiritFocusingRecipe> {

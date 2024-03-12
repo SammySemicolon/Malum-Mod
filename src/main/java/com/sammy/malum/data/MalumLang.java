@@ -4,7 +4,6 @@ import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.block.curiosities.spirit_crucible.*;
 import com.sammy.malum.common.block.ether.EtherWallTorchBlock;
 import com.sammy.malum.common.item.spirit.SpiritJarItem;
-import com.sammy.malum.core.systems.item.ISoulContainerItem;
 import com.sammy.malum.core.systems.rites.*;
 import com.sammy.malum.core.systems.ritual.*;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
@@ -66,7 +65,7 @@ public class MalumLang extends LanguageProvider {
             name = makeProper(DataHelper.toTitleCase(correctBlockItemName(name), "_"));
             add(b.get().getDescriptionId(), name);
         });
-        DataHelper.getAll(items, i -> i.get() instanceof ISoulContainerItem || i.get() instanceof SpiritJarItem).forEach(i -> {
+        DataHelper.getAll(items, i -> i.get() instanceof SpiritJarItem).forEach(i -> {
             String name = i.get().getDescriptionId().replaceFirst("item\\.malum\\.", "").replaceFirst("block\\.malum\\.", "");
             String filled = "filled_" + name;
             add("item.malum." + filled, makeProper(DataHelper.toTitleCase(filled, "_")));
@@ -174,28 +173,43 @@ public class MalumLang extends LanguageProvider {
 
 
         add("curios.identifier.brooch", "Brooch");
-        add("curios.slot.brooch", "Brooch");
         add("curios.modifiers.brooch", "When worn:");
 
         add("curios.identifier.rune", "Rune");
-        add("curios.slot.rune", "Rune");
         add("curios.modifiers.rune", "When equipped:");
 
-        add("malum.gui.rune.plus", "+");
+        add("malum.gui.rune.effect.idle_restoration", "+Provides Passive Healing");
+        add("malum.gui.rune.effect.sacrificial_empowerment", "+Grants Scythe Damage on Kill");
+        add("malum.gui.rune.effect.volatile_distortion", "+Enables Vorpal Damage Output");
+        add("malum.gui.rune.effect.heretic", "+Silences Attackers");
+        add("malum.gui.rune.effect.twinned_duration", "+Doubles Positive Effect Durations");
+        add("malum.gui.rune.effect.aliment_cleansing", "+Cleanses Negative Effects; Heals when Cleansed");
+        add("malum.gui.rune.effect.reactive_shielding", "+Grants Damage Resistance when Struck");
+        add("malum.gui.rune.effect.dexterity", "+Provides Higher Speed at Low Health");
+        add("malum.gui.rune.effect.unnatural_stamina", "+Sprinting Always Available");
+        add("malum.gui.rune.effect.haste", "+Increases mining speed");
+        add("malum.gui.rune.effect.igneous_solace", "+Provides Damage Resistance while Burning");
 
-        add("malum.gui.rune.effect.idle_restoration", "Passive Healing");
-        add("malum.gui.rune.effect.sacrificial_empowerment", "Scythe Damage on Kill");
-        add("malum.gui.rune.effect.volatile_distortion", "Vorpal Damage Output");
-        add("malum.gui.rune.effect.heretic", "Silences Attackers");
-        add("malum.gui.rune.effect.twinned_duration", "Doubled Positive Effect Durations");
-        add("malum.gui.rune.effect.aliment_cleansing", "Cleanses Negative Effects; Heals when Cleansed");
-        add("malum.gui.rune.effect.reactive_shielding", "Damage Resistance when Struck");
-        add("malum.gui.rune.effect.dexterity", "Higher Speed at Low Health");
-        add("malum.gui.rune.effect.unnatural_stamina", "Sprinting Always Available");
-        add("malum.gui.rune.effect.haste", "Increased mining speed");
-        add("malum.gui.rune.effect.igneous_solace", "Damage Resistance while Burning");
+        add("malum.gui.curio.effect.ravenous_brooch", "-Actively Drains Hunger");
+        add("malum.gui.curio.effect.ring_of_curative_talent", "+Spirit Collection Replenishes Health");
+        add("malum.gui.curio.effect.ring_of_arcane_prowess", "+Spirit Collection Generates Experience Points");
+        add("malum.gui.curio.effect.ring_of_alchemical_mastery", "+Spirit Collection Aids Potion Durations");
+        add("malum.gui.curio.effect.ring_of_desperate_voracity", "+Rotten Foods are Tastier\n+Eating Rotten Foods Extends Gluttony");
+        add("malum.gui.curio.effect.ring_of_the_hoarder", "+Blown Up Blocks Are Teleported To Your Location");
+        add("malum.gui.curio.effect.ring_of_the_demolitionist", "+Improves Explosions");
+        add("malum.gui.curio.effect.necklace_of_tidal_affinity", "+Conduit Power Provides Numerous Benefits");
+        add("malum.gui.curio.effect.necklace_of_the_narrow_edge", "-Disables Scythe Sweeping");
+        add("malum.gui.curio.effect.necklace_of_blissful_harmony", "+Reduces Enemy Aggression");
+        add("malum.gui.curio.effect.belt_of_the_starved", "+Spirit Collection Generates Gluttony\n -Gluttony Exchanges Hunger for Magic Proficiency");
+        add("malum.gui.curio.effect.belt_of_the_prospector", "+Explosions are Enchanted with Fortune III\n+Protects Valuable Items from Explosions");
+        add("malum.gui.curio.effect.belt_of_the_magebane", "+Magic Damage no Longer Impedes Soul Ward Recovery");
+        add("malum.gui.curio.effect.ring_of_growing_flesh", "+Spirit Collection Grants Extra Hearts");
+        add("malum.gui.curio.effect.ring_of_gruesome_satiation", "+Eating Rotten Foods Generates Gluttony");
+        add("malum.gui.curio.effect.necklace_of_the_hidden_blade", "+Enables a Powerful Scythe Counter Attack When Struck");
+        add("malum.gui.curio.effect.necklace_of_the_watcher", "+Striking Full Health Targets Triggers Spirit Collection Effects");
+        add("malum.gui.curio.effect.belt_of_the_limitless", "+Soul Ward Absorbs Physical Damage Equally to Magic Damage");
 
-        add("malum.gui.effect", "Effect: ");
+        add("malum.gui.rite_effect", "Effect: ");
 
         addSimpleEntryHeader("chronicles_of_the_void", "Chronicles of the Void", "Otherworldly alterations");
         addSimpleEntryHeader("research_of_the_rejected", "Research of the Rejected", "A thaumaturge's escalation");

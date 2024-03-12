@@ -28,15 +28,15 @@
   "spirits": [
     {
       "type": "earthen",
-      "count": 16
+      "count": 32
     },
     {
       "type": "sacred",
-      "count": 8
+      "count": 16
     },
     {
       "type": "arcane",
-      "count": 8
+      "count": 16
     }
   ]
 }

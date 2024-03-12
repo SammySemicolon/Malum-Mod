@@ -4,7 +4,7 @@ import com.google.common.collect.*;
 import com.sammy.malum.client.cosmetic.*;
 import com.sammy.malum.client.model.*;
 import com.sammy.malum.common.item.cosmetic.skins.*;
-import com.sammy.malum.common.item.curiosities.runes.*;
+import com.sammy.malum.common.item.curiosities.curios.runes.*;
 import com.sammy.malum.registry.client.*;
 import net.minecraft.client.*;
 import net.minecraft.client.model.*;
@@ -59,7 +59,7 @@ public class MalignantStrongholdArmorItem extends MalumArmorItem {
                 if (skin != null) {
                     model = ArmorSkinRenderingData.RENDERING_DATA.apply(skin).getModel(entity);
                 }
-                if (model instanceof MalignantLeadArmorModel malignantLeadArmorModel) {
+                if (model instanceof MalignantStrongholdArmorModel malignantStrongholdArmorModel) {
                     final LazyOptional<ICuriosItemHandler> curiosInventory = CuriosApi.getCuriosInventory(entity);
                     if (curiosInventory.isPresent()) {
                         final List<MalumRuneCurioItem> equippedRunes = curiosInventory
@@ -68,7 +68,7 @@ public class MalignantStrongholdArmorItem extends MalumArmorItem {
                                         .filter(c -> c.slotContext().visible())
                                         .map(c -> (MalumRuneCurioItem) c.stack().getItem()).collect(Collectors.toList()))
                                 .orElse(Collections.emptyList());
-                        malignantLeadArmorModel.updateGlow(equippedRunes);
+                        malignantStrongholdArmorModel.updateGlow(equippedRunes);
                     }
                 }
                 model.slot = armorSlot;

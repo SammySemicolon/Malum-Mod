@@ -23,7 +23,6 @@ public class MalumRecipes extends VanillaRecipeProvider {
     protected void buildRecipes(Consumer<FinishedRecipe> consumer) {
         vanillaRecipeReplacements.buildRecipes(consumer);
         MalumVanillaRecipes.buildRecipes(consumer);
-        MalumVoidFavorRecipes.buildRecipes(consumer);
 
         ArtificeSpiritInfusionRecipes.buildRecipes(consumer);
         CurioSpiritInfusionRecipes.buildRecipes(consumer);
@@ -33,7 +32,9 @@ public class MalumRecipes extends VanillaRecipeProvider {
         TotemicSpiritInfusionRecipes.buildRecipes(consumer);
         MiscSpiritInfusionRecipes.buildRecipes(consumer);
 
-        MalumSpiritTransmutationRecipes.buildRecipes(consumer);
+        MalumRuneworkingRecipes.buildRecipes(consumer);
         MalumSpiritFocusingRecipes.buildRecipes(consumer);
+        MalumSpiritTransmutationRecipes.buildRecipes(consumer);
+        MalumVoidFavorRecipes.buildRecipes(consumer);
     }
 }

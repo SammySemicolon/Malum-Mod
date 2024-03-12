@@ -2,19 +2,19 @@
   "type": "malum:spirit_infusion",
   "extra_items": [
     {
-      "count": 2,
+      "count": 4,
       "item": "minecraft:bone"
     },
     {
-      "count": 2,
+      "count": 4,
       "item": "malum:grim_talc"
     },
     {
-      "count": 8,
+      "count": 16,
       "item": "minecraft:rotten_flesh"
     },
     {
-      "count": 2,
+      "count": 4,
       "item": "malum:hex_ash"
     }
   ],
@@ -28,15 +28,15 @@
   "spirits": [
     {
       "type": "wicked",
-      "count": 16
+      "count": 32
     },
     {
       "type": "sacred",
-      "count": 8
+      "count": 16
     },
     {
       "type": "arcane",
-      "count": 8
+      "count": 16
     }
   ]
 }

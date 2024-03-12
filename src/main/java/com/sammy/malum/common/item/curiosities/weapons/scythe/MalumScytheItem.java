@@ -1,7 +1,7 @@
 package com.sammy.malum.common.item.curiosities.weapons.scythe;
 
 import com.sammy.malum.common.entity.boomerang.ScytheBoomerangEntity;
-import com.sammy.malum.core.systems.item.IMalumEventResponderItem;
+import com.sammy.malum.common.item.IMalumEventResponderItem;
 import com.sammy.malum.registry.client.ParticleRegistry;
 import com.sammy.malum.registry.common.DamageTypeRegistry;
 import com.sammy.malum.registry.common.SoundRegistry;
