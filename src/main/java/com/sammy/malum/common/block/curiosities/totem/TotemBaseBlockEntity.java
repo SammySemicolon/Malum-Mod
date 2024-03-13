@@ -110,16 +110,19 @@ public class TotemBaseBlockEntity extends LodestoneBlockEntity {
         if (active && rite == null) {
             return InteractionResult.FAIL;
         }
-        if (!level.isClientSide) {
-            if (active) {
-                endRite();
-            } else {
-                startRite();
+        if (!level.getBlockState(getBlockPos().above()).isAir()) {
+            if (!level.isClientSide) {
+                if (active) {
+                    endRite();
+                } else {
+                    startRite();
+                }
+                BlockHelper.updateState(level, worldPosition);
             }
-            BlockHelper.updateState(level, worldPosition);
+            player.swing(InteractionHand.MAIN_HAND, true);
+            return InteractionResult.SUCCESS;
         }
-        player.swing(InteractionHand.MAIN_HAND, true);
-        return InteractionResult.SUCCESS;
+        return InteractionResult.PASS;
     }
 
     @Override

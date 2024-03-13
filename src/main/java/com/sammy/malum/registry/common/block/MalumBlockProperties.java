@@ -36,7 +36,7 @@ public class MalumBlockProperties {
     public static LodestoneBlockProperties RUNEWOOD() {
         return new LodestoneBlockProperties()
                 .needsAxe()
-                .sound(SoundType.WOOD)
+                .sound(SoundRegistry.RUNEWOOD)
                 .strength(1.75F, 4.0F);
     }
 

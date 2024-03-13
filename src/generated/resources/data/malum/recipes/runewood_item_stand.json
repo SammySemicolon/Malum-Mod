@@ -3,10 +3,10 @@
   "category": "misc",
   "key": {
     "X": {
-      "item": "malum:runewood_planks"
+      "tag": "malum:runewood_planks"
     },
     "Y": {
-      "item": "malum:runewood_planks_slab"
+      "tag": "malum:runewood_slabs"
     }
   },
   "pattern": [

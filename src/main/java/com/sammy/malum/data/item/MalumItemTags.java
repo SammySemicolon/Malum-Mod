@@ -19,6 +19,7 @@ import org.jetbrains.annotations.*;
 
 import java.util.concurrent.*;
 
+import static com.sammy.malum.registry.common.item.ItemRegistry.RUNEWOOD_PLANKS;
 import static com.sammy.malum.registry.common.item.ItemRegistry.*;
 import static com.sammy.malum.registry.common.item.ItemTagRegistry.*;
 import static team.lodestar.lodestone.registry.common.tag.LodestoneItemTags.*;
@@ -73,9 +74,13 @@ public class MalumItemTags extends ItemTagsProvider {
         });
         tag(PROSPECTORS_TREASURE).addTags(Tags.Items.ORES, Tags.Items.STORAGE_BLOCKS, Tags.Items.INGOTS, Tags.Items.NUGGETS, Tags.Items.GEMS, Tags.Items.RAW_MATERIALS, ItemTags.COALS, METAL_NODES);
         tag(PROSPECTORS_TREASURE).addOptional(new ResourceLocation("tetra", "geode"));
-        
+
         tag(RUNEWOOD_LOGS).add(RUNEWOOD_LOG.get(), STRIPPED_RUNEWOOD_LOG.get(), RUNEWOOD.get(), STRIPPED_RUNEWOOD.get(), EXPOSED_RUNEWOOD_LOG.get(), REVEALED_RUNEWOOD_LOG.get());
         tag(SOULWOOD_LOGS).add(SOULWOOD_LOG.get(), STRIPPED_SOULWOOD_LOG.get(), SOULWOOD.get(), STRIPPED_SOULWOOD.get(), EXPOSED_SOULWOOD_LOG.get(), REVEALED_SOULWOOD_LOG.get(), BLIGHTED_SOULWOOD.get());
+
+        tag(ItemTagRegistry.RUNEWOOD_PLANKS).add(RUNEWOOD_PLANKS.get(), RUSTIC_RUNEWOOD_PLANKS.get(), VERTICAL_RUNEWOOD_PLANKS.get(), VERTICAL_RUSTIC_RUNEWOOD_PLANKS.get(), RUNEWOOD_TILES.get(), RUSTIC_RUNEWOOD_TILES.get());
+        tag(ItemTagRegistry.SOULWOOD_PLANKS);
+//        tag(ItemTagRegistry.SOULWOOD_PLANKS).add(SOULWOOD_PLANKS.get(), RUSTIC_SOULWOOD_PLANKS.get(), VERTICAL_SOULWOOD_PLANKS.get(), VERTICAL_RUSTIC_SOULWOOD_PLANKS.get(), SOULWOOD_TILES.get(), RUSTIC_SOULWOOD_TILES.get());
 
         tag(SCYTHE).add(CRUDE_SCYTHE.get(), SOUL_STAINED_STEEL_SCYTHE.get(), CREATIVE_SCYTHE.get());
         tag(STAFF).add(MNEMONIC_HEX_STAFF.get(), STAFF_OF_THE_AURIC_FLAME.get(), MALIGNANT_SCEPTER.get());

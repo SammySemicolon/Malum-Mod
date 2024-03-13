@@ -3,10 +3,12 @@
     "malum:runewood_tiles_stairs",
     "malum:soulwood_tiles_stairs",
     "malum:runewood_planks_stairs",
+    "malum:vertical_rustic_runewood_planks_stairs",
     "malum:vertical_runewood_planks_stairs",
+    "malum:rustic_runewood_planks_stairs",
+    "malum:rustic_runewood_tiles_stairs",
     "malum:soulwood_panel_stairs",
     "malum:vertical_soulwood_planks_stairs",
-    "malum:runewood_panel_stairs",
     "malum:soulwood_planks_stairs"
   ]
 }

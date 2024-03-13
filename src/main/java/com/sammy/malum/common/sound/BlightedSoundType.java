@@ -23,27 +23,27 @@ public class BlightedSoundType extends ExtendedSoundType {
 
     @Override
     public void onPlayBreakSound(Level level, BlockPos pos) {
-        level.playLocalSound(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, SoundRegistry.MINOR_BLIGHT_MOTIF.get(), SoundSource.BLOCKS, (getVolume() + 1.0F) / 4.0F, getPitch() * 1.9F, false);
+        level.playLocalSound(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, SoundRegistry.MINOR_BLIGHT_MOTIF.get(), SoundSource.BLOCKS, (getVolume() + 1.0F) * 0.15f, getPitch() * 1.9F, false);
     }
 
     @Override
     public void onPlayStepSound(Level level, BlockPos pos, BlockState state, SoundSource category) {
-        level.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundRegistry.MINOR_BLIGHT_MOTIF.get(), category, getVolume() * 0.15F, getPitch() * 1.6F);
+        level.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundRegistry.MINOR_BLIGHT_MOTIF.get(), category, getVolume() * 0.1F, getPitch() * 1.6F);
     }
 
     @Override
     public void onPlayPlaceSound(Level level, BlockPos pos, Player player) {
-        level.playSound(player, pos, SoundRegistry.MINOR_BLIGHT_MOTIF.get(), SoundSource.BLOCKS, (getVolume() + 1.0F) / 2.0F, getPitch() * 1.8F);
+        level.playSound(player, pos, SoundRegistry.MINOR_BLIGHT_MOTIF.get(), SoundSource.BLOCKS, (getVolume() + 1.0F) * 0.25f, getPitch() * 1.8F);
     }
 
     @Override
     @OnlyIn(value = Dist.CLIENT)
     public void onPlayHitSound(BlockPos pos) {
-        Minecraft.getInstance().getSoundManager().play(new SimpleSoundInstance(SoundRegistry.MINOR_BLIGHT_MOTIF.get(), SoundSource.BLOCKS, (getVolume() + 1.0F) / 8.0F, getPitch() * 2F, MalumMod.RANDOM, pos));
+        Minecraft.getInstance().getSoundManager().play(new SimpleSoundInstance(SoundRegistry.MINOR_BLIGHT_MOTIF.get(), SoundSource.BLOCKS, (getVolume() + 1.0F) * 0.1f, getPitch() * 2F, MalumMod.RANDOM, pos));
     }
 
     @Override
     public void onPlayFallSound(Level level, BlockPos pos, SoundSource category) {
-        level.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundRegistry.MAJOR_BLIGHT_MOTIF.get(), category, getVolume() * 0.5F, getPitch() * 1.7F);
+        level.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundRegistry.MAJOR_BLIGHT_MOTIF.get(), category, getVolume() * 0.25f, getPitch() * 1.7F);
     }
 }

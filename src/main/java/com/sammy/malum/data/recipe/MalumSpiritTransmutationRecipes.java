@@ -1,16 +1,13 @@
 package com.sammy.malum.data.recipe;
 
-import com.mojang.datafixers.util.Pair;
-import com.sammy.malum.data.recipe.builder.SpiritTransmutationRecipeBuilder;
-import net.minecraft.data.PackOutput;
-import net.minecraft.data.recipes.FinishedRecipe;
-import net.minecraft.data.recipes.RecipeProvider;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraftforge.registries.RegistryObject;
+import com.mojang.datafixers.util.*;
+import com.sammy.malum.data.recipe.builder.*;
+import net.minecraft.data.recipes.*;
+import net.minecraft.world.level.block.*;
+import net.minecraftforge.registries.*;
 
-import java.util.List;
-import java.util.function.Consumer;
+import java.util.*;
+import java.util.function.*;
 
 import static com.sammy.malum.registry.common.block.BlockRegistry.*;
 
@@ -33,8 +30,6 @@ public class MalumSpiritTransmutationRecipes {
             new Pair<>(VERTICAL_RUNEWOOD_PLANKS_SLAB, VERTICAL_SOULWOOD_PLANKS_SLAB),
             new Pair<>(VERTICAL_RUNEWOOD_PLANKS_STAIRS, VERTICAL_SOULWOOD_PLANKS_STAIRS),
             new Pair<>(RUNEWOOD_PANEL, SOULWOOD_PANEL),
-            new Pair<>(RUNEWOOD_PANEL_SLAB, SOULWOOD_PANEL_SLAB),
-            new Pair<>(RUNEWOOD_PANEL_STAIRS, SOULWOOD_PANEL_STAIRS),
             new Pair<>(RUNEWOOD_TILES, SOULWOOD_TILES),
             new Pair<>(RUNEWOOD_TILES_SLAB, SOULWOOD_TILES_SLAB),
             new Pair<>(RUNEWOOD_TILES_STAIRS, SOULWOOD_TILES_STAIRS),

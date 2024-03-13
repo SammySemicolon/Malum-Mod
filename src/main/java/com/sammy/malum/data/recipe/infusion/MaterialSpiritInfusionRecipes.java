@@ -115,5 +115,20 @@ public class MaterialSpiritInfusionRecipes {
                 .addSpirit(EARTHEN_SPIRIT, 16)
                 .addSpirit(ELDRITCH_SPIRIT, 4)
                 .build(consumer);
+
+        new SpiritInfusionRecipeBuilder(ItemRegistry.TAINTED_ROCK.get(), 4, ItemRegistry.TAINTED_ROCK_TABLET.get(), 1)
+                .addExtraItem(ItemRegistry.PROCESSED_SOULSTONE.get(), 8)
+                .addSpirit(AERIAL_SPIRIT, 8)
+                .addSpirit(AQUEOUS_SPIRIT, 8)
+                .addSpirit(EARTHEN_SPIRIT, 8)
+                .addSpirit(INFERNAL_SPIRIT, 8)
+                .addSpirit(ELDRITCH_SPIRIT, 2)
+                .build(consumer);
+
+        new SpiritInfusionRecipeBuilder(ItemRegistry.TAINTED_ROCK_TABLET.get(), 4, ItemRegistry.VOID_TABLET.get(), 1)
+                .addExtraItem(ItemRegistry.NULL_SLATE.get(), 8)
+                .addExtraItem(ItemRegistry.VOID_SALTS.get(), 8)
+                .addSpirit(ELDRITCH_SPIRIT, 4)
+                .build(consumer);
     }
 }

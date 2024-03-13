@@ -1,13 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_runewood_planks": {
+    "has_input": {
       "conditions": {
         "items": [
           {
-            "items": [
-              "malum:runewood_planks"
-            ]
+            "tag": "malum:runewood_planks"
           }
         ]
       },
@@ -22,7 +20,7 @@
   },
   "requirements": [
     [
-      "has_runewood_planks",
+      "has_input",
       "has_the_recipe"
     ]
   ],

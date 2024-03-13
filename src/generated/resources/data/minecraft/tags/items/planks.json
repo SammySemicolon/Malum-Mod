@@ -1,9 +1,11 @@
 {
   "values": [
+    "malum:rustic_runewood_planks",
     "malum:vertical_soulwood_planks",
     "malum:vertical_runewood_planks",
     "malum:cut_soulwood_planks",
     "malum:cut_runewood_planks",
+    "malum:vertical_rustic_runewood_planks",
     "malum:runewood_planks",
     "malum:soulwood_planks"
   ]

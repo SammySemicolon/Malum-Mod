@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "malum:runewood_trapdoor"
-            ]
+            "tag": "malum:runewood_planks"
           }
         ]
       },
