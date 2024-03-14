@@ -3,7 +3,7 @@
   "category": "misc",
   "key": {
     "#": {
-      "item": "malum:runewood_tiles"
+      "item": "malum:vertical_runewood_planks"
     }
   },
   "pattern": [
@@ -13,7 +13,7 @@
   ],
   "result": {
     "count": 4,
-    "item": "malum:vertical_runewood_planks"
+    "item": "malum:runewood_tiles"
   },
   "show_notification": true
 }

@@ -208,6 +208,15 @@ public class BlockRegistry {
     public static final RegistryObject<Block> REVEALED_RUNEWOOD_LOG = BLOCKS.register("revealed_runewood_log", () -> new SapFilledLogBlock(MalumBlockProperties.RUNEWOOD().addTags(LOGS, RUNEWOOD_LOGS), STRIPPED_RUNEWOOD_LOG, ItemRegistry.RUNIC_SAP, SpiritTypeRegistry.INFERNAL_SPIRIT.getPrimaryColor()));
     public static final RegistryObject<Block> EXPOSED_RUNEWOOD_LOG = BLOCKS.register("exposed_runewood_log", () -> new LodestoneLogBlock(MalumBlockProperties.RUNEWOOD().addTags(LOGS, STRIPPED_LOGS, RUNEWOOD_LOGS), REVEALED_RUNEWOOD_LOG));
 
+    public static final RegistryObject<Block> RUNEWOOD_BOARDS = BLOCKS.register("runewood_boards", () -> new Block(MalumBlockProperties.RUNEWOOD().addTags(PLANKS)));
+    public static final RegistryObject<Block> RUNEWOOD_BOARDS_SLAB = BLOCKS.register("runewood_boards_slab", () -> new SlabBlock(MalumBlockProperties.RUNEWOOD().addTags(SLABS, WOODEN_SLABS)));
+    public static final RegistryObject<Block> RUNEWOOD_BOARDS_STAIRS = BLOCKS.register("runewood_boards_stairs", () -> new StairBlock(() -> RUNEWOOD_BOARDS.get().defaultBlockState(), MalumBlockProperties.RUNEWOOD().addTags(STAIRS, WOODEN_STAIRS)));
+
+    public static final RegistryObject<Block> VERTICAL_RUNEWOOD_BOARDS = BLOCKS.register("vertical_runewood_boards", () -> new Block(MalumBlockProperties.RUNEWOOD().addTags(PLANKS)));
+    public static final RegistryObject<Block> VERTICAL_RUNEWOOD_BOARDS_SLAB = BLOCKS.register("vertical_runewood_boards_slab", () -> new SlabBlock(MalumBlockProperties.RUNEWOOD().addTags(SLABS, WOODEN_SLABS)));
+    public static final RegistryObject<Block> VERTICAL_RUNEWOOD_BOARDS_STAIRS = BLOCKS.register("vertical_runewood_boards_stairs", () -> new StairBlock(() -> VERTICAL_RUNEWOOD_BOARDS.get().defaultBlockState(), MalumBlockProperties.RUNEWOOD().addTags(STAIRS, WOODEN_STAIRS)));
+
+
     public static final RegistryObject<Block> RUNEWOOD_PLANKS = BLOCKS.register("runewood_planks", () -> new Block(MalumBlockProperties.RUNEWOOD().addTags(PLANKS)));
     public static final RegistryObject<Block> RUNEWOOD_PLANKS_SLAB = BLOCKS.register("runewood_planks_slab", () -> new SlabBlock(MalumBlockProperties.RUNEWOOD().addTags(SLABS, WOODEN_SLABS)));
     public static final RegistryObject<Block> RUNEWOOD_PLANKS_STAIRS = BLOCKS.register("runewood_planks_stairs", () -> new StairBlock(() -> RUNEWOOD_PLANKS.get().defaultBlockState(), MalumBlockProperties.RUNEWOOD().addTags(STAIRS, WOODEN_STAIRS)));

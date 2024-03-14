@@ -12,11 +12,13 @@ public class ItemTagRegistry {
     public static final TagKey<Item> SCYTHE = malumTag("scythe");
     public static final TagKey<Item> STAFF = malumTag("staff");
 
+    public static final TagKey<Item> RUNEWOOD_WITH_BARK = malumTag("runewood_with_bark");
     public static final TagKey<Item> RUNEWOOD_LOGS = malumTag("runewood_logs");
     public static final TagKey<Item> RUNEWOOD_PLANKS = malumTag("runewood_planks");
     public static final TagKey<Item> RUNEWOOD_SLABS = malumTag("runewood_slabs");
     public static final TagKey<Item> RUNEWOOD_STAIRS = malumTag("runewood_stairs");
 
+    public static final TagKey<Item> SOULWOOD_WITH_BARK = malumTag("soulwood_with_bark");
     public static final TagKey<Item> SOULWOOD_LOGS = malumTag("soulwood_logs");
     public static final TagKey<Item> SOULWOOD_PLANKS = malumTag("soulwood_planks");
     public static final TagKey<Item> SOULWOOD_SLABS = malumTag("soulwood_slabs");

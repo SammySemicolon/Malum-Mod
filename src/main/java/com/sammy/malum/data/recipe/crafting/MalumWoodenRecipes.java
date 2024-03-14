@@ -23,6 +23,9 @@ public class MalumWoodenRecipes implements IConditionBuilder {
                 ItemRegistry.RUNEWOOD_LOG.get(), ItemRegistry.RUNEWOOD.get(),
                 ItemRegistry.STRIPPED_RUNEWOOD_LOG.get(), ItemRegistry.STRIPPED_RUNEWOOD.get(),
                 ItemRegistry.REVEALED_RUNEWOOD_LOG.get(), ItemRegistry.EXPOSED_RUNEWOOD_LOG.get(),
+                ItemRegistry.RUNEWOOD_BOARDS.get(), ItemRegistry.VERTICAL_RUNEWOOD_BOARDS.get(),
+                ItemRegistry.RUNEWOOD_BOARDS_SLAB.get(), ItemRegistry.VERTICAL_RUNEWOOD_BOARDS_SLAB.get(),
+                ItemRegistry.RUNEWOOD_BOARDS_STAIRS.get(), ItemRegistry.VERTICAL_RUNEWOOD_BOARDS_STAIRS.get(),
                 ItemRegistry.RUNEWOOD_PLANKS.get(), ItemRegistry.VERTICAL_RUNEWOOD_PLANKS.get(), ItemRegistry.RUNEWOOD_TILES.get(),
                 ItemRegistry.RUSTIC_RUNEWOOD_PLANKS.get(), ItemRegistry.VERTICAL_RUSTIC_RUNEWOOD_PLANKS.get(), ItemRegistry.RUSTIC_RUNEWOOD_TILES.get(),
                 ItemRegistry.RUNEWOOD_PLANKS_SLAB.get(), ItemRegistry.VERTICAL_RUNEWOOD_PLANKS_SLAB.get(), ItemRegistry.RUNEWOOD_TILES_SLAB.get(),
@@ -36,12 +39,22 @@ public class MalumWoodenRecipes implements IConditionBuilder {
                 ItemRegistry.RUNEWOOD_DOOR.get(),
                 ItemRegistry.RUNEWOOD_SIGN.get(), ItemRegistry.RUNEWOOD_SIGN.get(),
                 ItemRegistry.RUNEWOOD_ITEM_STAND.get(), ItemRegistry.RUNEWOOD_ITEM_PEDESTAL.get(),
-                ItemTagRegistry.RUNEWOOD_LOGS, ItemTagRegistry.RUNEWOOD_PLANKS, ItemTagRegistry.RUNEWOOD_SLABS,
+                ItemTagRegistry.RUNEWOOD_LOGS, ItemTagRegistry.RUNEWOOD_WITH_BARK, ItemTagRegistry.RUNEWOOD_PLANKS, ItemTagRegistry.RUNEWOOD_SLABS,
                 ItemRegistry.RUNEWOOD_BOAT.get()
         ));
     }
     protected static void buildRecipes(Consumer<FinishedRecipe> consumer, MalumDatagenWoodSet woodSet) {
         shapelessPlanks(consumer, woodSet.planks, woodSet.logTag);
+
+        shapelessPanel(consumer, woodSet.boards, woodSet.logWithBarkTag);
+
+        shapedSlab(consumer, woodSet.boardsSlab, woodSet.boards);
+        shapedStairs(consumer, woodSet.boardsStairs, woodSet.boards);
+        shapedSlab(consumer, woodSet.verticalBoardsSlab, woodSet.verticalBoards);
+        shapedStairs(consumer, woodSet.verticalBoardsStairs, woodSet.verticalBoards);
+
+        planksExchange(consumer, woodSet.boards, woodSet.verticalBoards, woodSet.prefix + "_vertical_boards_exchange");
+        planksExchange(consumer, woodSet.verticalBoards, woodSet.boards, woodSet.prefix + "_boards_exchange");
 
         shapedSlab(consumer, woodSet.planksSlab, woodSet.planks);
         shapedStairs(consumer, woodSet.planksStairs, woodSet.planks);
@@ -82,15 +95,8 @@ public class MalumWoodenRecipes implements IConditionBuilder {
 
         shapedBoat(consumer, woodSet.boat, woodSet.planksTag);
 
+        shapelessPanel(consumer, woodSet.panel, woodSet.planksTag);
 
-
-
-        shaped(RecipeCategory.MISC, woodSet.panel, 5)
-                .define('#', woodSet.planksTag)
-                .pattern(" # ")
-                .pattern("###")
-                .pattern(" # ")
-                .unlockedBy("has_input", has(woodSet.planksTag)).save(consumer);
         shaped(RecipeCategory.MISC, woodSet.cutPlanks, 2)
                 .define('X', woodSet.panel)
                 .define('Y', woodSet.planksTag)
@@ -147,6 +153,15 @@ public class MalumWoodenRecipes implements IConditionBuilder {
                 .group("planks")
                 .unlockedBy("has_logs", has(input))
                 .save(recipeConsumer);
+    }
+
+    private static void shapelessPanel(Consumer<FinishedRecipe> recipeConsumer, ItemLike output, TagKey<Item> input) {
+        shaped(RecipeCategory.MISC, output, 5)
+                .define('#', input)
+                .pattern(" # ")
+                .pattern("###")
+                .pattern(" # ")
+                .unlockedBy("has_input", has(input)).save(recipeConsumer);
     }
 
     private static void shapelessWood(Consumer<FinishedRecipe> recipeConsumer, ItemLike stripped, ItemLike input) {
@@ -259,6 +274,10 @@ public class MalumWoodenRecipes implements IConditionBuilder {
 
             Item sapFilledLog, Item strippedSapFilledLog,
 
+            Item boards, Item verticalBoards,
+            Item boardsSlab, Item verticalBoardsSlab,
+            Item boardsStairs, Item verticalBoardsStairs,
+
             Item planks, Item verticalPlanks, Item tiles,
             Item rusticPlanks, Item verticalRusticPlanks, Item rusticTiles,
             Item planksSlab, Item verticalPlanksSlab, Item tilesSlab,
@@ -280,7 +299,7 @@ public class MalumWoodenRecipes implements IConditionBuilder {
 
             Item itemStand, Item itemPedestal,
 
-            TagKey<Item> logTag, TagKey<Item> planksTag, TagKey<Item> slabTag,
+            TagKey<Item> logTag, TagKey<Item> logWithBarkTag, TagKey<Item> planksTag, TagKey<Item> slabTag,
 
             Item boat
     ) {

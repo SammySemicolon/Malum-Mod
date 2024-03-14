@@ -20,6 +20,7 @@ public class RuneWorkingEntries {
                 .addPage(new TextPage("runeworking.2"))
                 .addPage(new TextPage("runeworking.3"))
                 .addPage(SpiritInfusionPage.fromOutput(RUNIC_WORKBENCH.get()))
+                .addPage(SpiritInfusionPage.fromOutput(TAINTED_ROCK_TABLET.get()))
         );
 
         entries.add(new BookEntry<>(
@@ -54,56 +55,56 @@ public class RuneWorkingEntries {
                 "rune_of_idle_restoration", -12, 7)
                 .setWidgetConfig(w -> w.setIcon(RUNE_OF_IDLE_RESTORATION))
                 .addPage(new HeadlineTextPage("rune_of_idle_restoration", "rune_of_idle_restoration.1"))
-                .addPage(SpiritInfusionPage.fromOutput(RUNE_OF_IDLE_RESTORATION.get()))
+                .addPage(RunicWorkbenchPage.fromOutput(RUNE_OF_IDLE_RESTORATION.get()))
         );
 
         entries.add(new BookEntry<>(
                 "rune_of_culling", -13, 7)
                 .setWidgetConfig(w -> w.setIcon(RUNE_OF_CULLING))
                 .addPage(new HeadlineTextPage("rune_of_culling", "rune_of_culling.1"))
-                .addPage(SpiritInfusionPage.fromOutput(RUNE_OF_CULLING.get()))
+                .addPage(RunicWorkbenchPage.fromOutput(RUNE_OF_CULLING.get()))
         );
 
         entries.add(new BookEntry<>(
                 "rune_of_dexterity", -14, 8)
                 .setWidgetConfig(w -> w.setIcon(RUNE_OF_DEXTERITY))
                 .addPage(new HeadlineTextPage("rune_of_dexterity", "rune_of_dexterity.1"))
-                .addPage(SpiritInfusionPage.fromOutput(RUNE_OF_DEXTERITY.get()))
+                .addPage(RunicWorkbenchPage.fromOutput(RUNE_OF_DEXTERITY.get()))
         );
 
         entries.add(new BookEntry<>(
                 "rune_of_haste", -13, 8)
                 .setWidgetConfig(w -> w.setIcon(RUNE_OF_HASTE))
                 .addPage(new HeadlineTextPage("rune_of_haste", "rune_of_haste.1"))
-                .addPage(SpiritInfusionPage.fromOutput(RUNE_OF_HASTE.get()))
+                .addPage(RunicWorkbenchPage.fromOutput(RUNE_OF_HASTE.get()))
         );
 
         entries.add(new BookEntry<>(
                 "rune_of_aliment_cleansing", -13, 9)
                 .setWidgetConfig(w -> w.setIcon(RUNE_OF_ALIMENT_CLEANSING))
                 .addPage(new HeadlineTextPage("rune_of_aliment_cleansing", "rune_of_aliment_cleansing.1"))
-                .addPage(SpiritInfusionPage.fromOutput(RUNE_OF_ALIMENT_CLEANSING.get()))
+                .addPage(RunicWorkbenchPage.fromOutput(RUNE_OF_ALIMENT_CLEANSING.get()))
         );
 
         entries.add(new BookEntry<>(
                 "rune_of_reactive_shielding", -14, 9)
                 .setWidgetConfig(w -> w.setIcon(RUNE_OF_REACTIVE_SHIELDING))
                 .addPage(new HeadlineTextPage("rune_of_reactive_shielding", "rune_of_reactive_shielding.1"))
-                .addPage(SpiritInfusionPage.fromOutput(RUNE_OF_REACTIVE_SHIELDING.get()))
+                .addPage(RunicWorkbenchPage.fromOutput(RUNE_OF_REACTIVE_SHIELDING.get()))
         );
 
         entries.add(new BookEntry<>(
                 "rune_of_reinforcement", -14, 10)
                 .setWidgetConfig(w -> w.setIcon(RUNE_OF_REINFORCEMENT))
                 .addPage(new HeadlineTextPage("rune_of_reinforcement", "rune_of_reinforcement.1"))
-                .addPage(SpiritInfusionPage.fromOutput(RUNE_OF_REINFORCEMENT.get()))
+                .addPage(RunicWorkbenchPage.fromOutput(RUNE_OF_REINFORCEMENT.get()))
         );
 
         entries.add(new BookEntry<>(
                 "rune_of_volatile_distortion", -15, 10)
                 .setWidgetConfig(w -> w.setIcon(RUNE_OF_VOLATILE_DISTORTION))
                 .addPage(new HeadlineTextPage("rune_of_volatile_distortion", "rune_of_volatile_distortion.1"))
-                .addPage(SpiritInfusionPage.fromOutput(RUNE_OF_VOLATILE_DISTORTION.get()))
+                .addPage(RunicWorkbenchPage.fromOutput(RUNE_OF_VOLATILE_DISTORTION.get()))
         );
     }
 
