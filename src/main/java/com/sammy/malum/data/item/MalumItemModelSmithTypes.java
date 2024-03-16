@@ -30,13 +30,13 @@ public class MalumItemModelSmithTypes {
 
     public static ItemModelSmith RITUAL_SHARD_ITEM = new ItemModelSmith((item, provider) -> {
         String base = "ritual_shard";
-        provider.createGenericModel(item, GENERATED, provider.modLoc("item/" + base + "_faded"));
+        provider.createGenericModel(item, GENERATED, provider.getItemTexture(base + "_faded"));
         for (MalumRitualTier ritualTier : MalumRitualTier.TIERS) {
             if (ritualTier.equals(MalumRitualTier.FADED)) {
                 continue;
             }
             String path = ritualTier.identifier.getPath();
-            ResourceLocation itemTexturePath = provider.modLoc("item/" + base + "_" + path);
+            ResourceLocation itemTexturePath = provider.getItemTexture(base + "_" + path);
             provider.getBuilder(ForgeRegistries.ITEMS.getKey(item).getPath()).override()
                     .predicate(new ResourceLocation(RitualShardItem.RITUAL_TYPE), ritualTier.potency)
                     .model(provider.withExistingParent(provider.getItemName(item) + "_" + path, GENERATED).texture("layer0", itemTexturePath))
@@ -45,17 +45,17 @@ public class MalumItemModelSmithTypes {
     });
 
     public static ItemModelSmith SPIRIT_ITEM = new ItemModelSmith((item, provider) -> {
-        provider.createGenericModel(item, GENERATED, provider.modLoc("item/spirit_shard"));
+        provider.createGenericModel(item, GENERATED, provider.getItemTexture("spirit_shard"));
     });
 
     public static ItemModelSmith GENERATED_OVERLAY_ITEM = new ItemModelSmith((item, provider) -> {
         String name = provider.getItemName(item);
-        provider.withExistingParent(name, GENERATED).texture("layer0", provider.modLoc("item/" + name)).texture("layer1", provider.modLoc("item/" + name + "_overlay"));
+        provider.withExistingParent(name, GENERATED).texture("layer0", provider.getItemTexture(name)).texture("layer1", provider.getItemTexture(name + "_overlay"));
     });
 
     public static ItemModelSmith HANDHELD_OVERLAY_ITEM = new ItemModelSmith((item, provider) -> {
         String name = provider.getItemName(item);
-        provider.withExistingParent(name, HANDHELD).texture("layer0", provider.modLoc("item/" + name)).texture("layer1", provider.modLoc("item/" + name + "_overlay"));
+        provider.withExistingParent(name, HANDHELD).texture("layer0", provider.getItemTexture(name)).texture("layer1", provider.getItemTexture(name + "_overlay"));
     });
 
     public static ItemModelSmith ETHER_BRAZIER_ITEM = new ItemModelSmith((item, provider) -> {
@@ -63,7 +63,7 @@ public class MalumItemModelSmithTypes {
         String rockType = name.split("_")[0];
         String brazierName = rockType + "_ether_brazier";
         String overlayName = name.replace(rockType + "_", "");
-        provider.withExistingParent(name, GENERATED).texture("layer0", provider.modLoc("item/" + brazierName)).texture("layer1", provider.modLoc("item/" + overlayName + "_overlay"));
+        provider.withExistingParent(name, GENERATED).texture("layer0", provider.getItemTexture(brazierName)).texture("layer1", provider.getItemTexture(overlayName + "_overlay"));
     });
 
     public static ItemModelSmith IRIDESCENT_ETHER_BRAZIER_ITEM = new ItemModelSmith((item, provider) -> {
@@ -71,12 +71,12 @@ public class MalumItemModelSmithTypes {
         String rockType = name.split("_")[0];
         String brazierName = rockType + "_ether_brazier";
         String overlayName = name.replace(rockType + "_", "");
-        provider.withExistingParent(name, GENERATED).texture("layer0", provider.modLoc("item/" + brazierName)).texture("layer1", provider.modLoc("item/" + overlayName)).texture("layer2", provider.modLoc("item/" + overlayName + "_overlay"));
+        provider.withExistingParent(name, GENERATED).texture("layer0", provider.getItemTexture(brazierName)).texture("layer1", provider.getItemTexture(overlayName)).texture("layer2", provider.getItemTexture(overlayName + "_overlay"));
     });
 
     public static ItemModelSmith IRIDESCENT_ETHER_TORCH_ITEM = new ItemModelSmith((item, provider) -> {
         String name = provider.getItemName(item);
-        provider.withExistingParent(name, HANDHELD).texture("layer0", provider.modLoc("item/ether_torch")).texture("layer1", provider.modLoc("item/" + name)).texture("layer2", provider.modLoc("item/" + name + "_overlay"));
+        provider.withExistingParent(name, HANDHELD).texture("layer0", provider.getItemTexture("ether_torch")).texture("layer1", provider.getItemTexture(name)).texture("layer2", provider.getItemTexture(name + "_overlay"));
     });
 
 

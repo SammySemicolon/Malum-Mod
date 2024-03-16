@@ -2,15 +2,15 @@
   "type": "malum:spirit_infusion",
   "extra_items": [
     {
-      "count": 2,
+      "count": 4,
       "item": "minecraft:bone"
     },
     {
-      "count": 4,
+      "count": 8,
       "item": "malum:grim_talc"
     },
     {
-      "count": 2,
+      "count": 4,
       "item": "malum:rotting_essence"
     },
     {
@@ -36,7 +36,7 @@
     },
     {
       "type": "arcane",
-      "count": 8
+      "count": 16
     }
   ]
 }

@@ -1,0 +1,34 @@
+{
+  "type": "malum:spirit_infusion",
+  "extra_items": [
+    {
+      "count": 2,
+      "item": "malum:malignant_alloy_ingot"
+    },
+    {
+      "count": 8,
+      "item": "malum:void_salts"
+    }
+  ],
+  "input": {
+    "count": 1,
+    "item": "malum:mnemonic_hex_staff"
+  },
+  "output": {
+    "item": "malum:malignant_scepter"
+  },
+  "spirits": [
+    {
+      "type": "aqueous",
+      "count": 32
+    },
+    {
+      "type": "wicked",
+      "count": 32
+    },
+    {
+      "type": "eldritch",
+      "count": 16
+    }
+  ]
+}

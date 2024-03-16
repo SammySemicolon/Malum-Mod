@@ -3,6 +3,7 @@ package com.sammy.malum.common.item.curiosities.weapons.staff;
 import com.sammy.malum.common.entity.bolt.*;
 import com.sammy.malum.common.entity.nitrate.*;
 import com.sammy.malum.registry.client.*;
+import com.sammy.malum.registry.common.*;
 import net.minecraft.util.*;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.*;
@@ -10,6 +11,7 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
 import net.minecraftforge.api.distmarker.*;
+import net.minecraftforge.event.entity.living.*;
 import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.registry.common.*;
 import team.lodestar.lodestone.systems.easing.*;
@@ -25,6 +27,47 @@ public class AuricFlameStaffItem extends AbstractStaffItem {
 
     public AuricFlameStaffItem(Tier tier, float magicDamage, Properties builderIn) {
         super(tier, 20, magicDamage, builderIn);
+    }
+
+    @Override
+    public void hurtEvent(LivingHurtEvent event, LivingEntity attacker, LivingEntity target, ItemStack stack) {
+        if (!(event.getSource().getDirectEntity() instanceof AbstractBoltProjectileEntity)) {
+            target.setSecondsOnFire(4);
+            attacker.level().playSound(null, target.getX(), target.getY(), target.getZ(), SoundRegistry.AURIC_FLAME_MOTIF.get(), attacker.getSoundSource(), 1, 1.25f);
+        }
+        super.hurtEvent(event, attacker, target, stack);
+    }
+
+    @Override
+    public int getCooldownDuration(Level level, LivingEntity livingEntity) {
+        return 160;
+    }
+
+    @Override
+    public int getProjectileCount(Level level, LivingEntity livingEntity, float pct) {
+        return pct == 1f ? 5 : 0;
+    }
+
+    @Override
+    public void fireProjectile(LivingEntity player, ItemStack stack, Level level, InteractionHand hand, float chargePercentage, int count) {
+        final float ceil = (float) Math.ceil(count / 2f);
+        float spread = count > 0 ? ceil * 0.075f * (count % 2L == 0 ? 1 : -1) : 0f;
+        float pitchOffset = 6f - (3f + ceil);
+        int spawnDelay = count * 3;
+        float velocity = 2f;
+        float magicDamage = (float) player.getAttributes().getValue(LodestoneAttributeRegistry.MAGIC_DAMAGE.get()) - 2;
+        Vec3 pos = getProjectileSpawnPos(player, hand, 0.5f, 0.5f);
+        AuricFlameBoltEntity entity = new AuricFlameBoltEntity(level, pos.x, pos.y, pos.z);
+        entity.setData(player, magicDamage, spawnDelay);
+        entity.setItem(stack);
+
+        entity.shootFromRotation(player, player.getXRot(), player.getYRot(), -pitchOffset, velocity, 0f);
+        Vec3 projectileDirection = entity.getDeltaMovement();
+        float yRot = ((float) (Mth.atan2(projectileDirection.x, projectileDirection.z) * (double) (180F / (float) Math.PI)));
+        float yaw = (float) Math.toRadians(yRot);
+        Vec3 left = new Vec3(-Math.cos(yaw), 0, Math.sin(yaw));
+        entity.setDeltaMovement(entity.getDeltaMovement().add(left.scale(spread)));
+        level.addFreshEntity(entity);
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -46,37 +89,5 @@ public class AuricFlameStaffItem extends AbstractStaffItem {
                 .spawn(pLevel, pos.x, pos.y, pos.z)
                 .setRenderType(LodestoneWorldParticleRenderType.LUMITRANSPARENT)
                 .spawn(pLevel, pos.x, pos.y, pos.z);;
-    }
-
-    @Override
-    public int getCooldownDuration(Level level, LivingEntity livingEntity) {
-        return 160;
-    }
-
-    @Override
-    public int getProjectileCount(Level level, LivingEntity livingEntity, float pct) {
-        return pct == 1f ? 5 : 0;
-    }
-
-    @Override
-    public void fireProjectile(LivingEntity player, ItemStack stack, Level level, InteractionHand hand, float chargePercentage, int count) {
-        final float ceil = (float) Math.ceil(count / 2f);
-        float spread = count > 0 ? ceil * 0.075f * (count % 2L == 0 ? 1 : -1) : 0f;
-        float pitchOffset = 6f - (3f + ceil);
-        int spawnDelay = count * 3;
-        float velocity = 2f;
-        float magicDamage = (float) player.getAttributes().getValue(LodestoneAttributeRegistry.MAGIC_DAMAGE.get());
-        Vec3 pos = getProjectileSpawnPos(player, hand, 0.5f, 0.5f);
-        AuricFlameBoltEntity entity = new AuricFlameBoltEntity(level, pos.x, pos.y, pos.z);
-        entity.setData(player, magicDamage, spawnDelay);
-        entity.setItem(stack);
-
-        entity.shootFromRotation(player, player.getXRot(), player.getYRot(), -pitchOffset, velocity, 0f);
-        Vec3 projectileDirection = entity.getDeltaMovement();
-        float yRot = ((float) (Mth.atan2(projectileDirection.x, projectileDirection.z) * (double) (180F / (float) Math.PI)));
-        float yaw = (float) Math.toRadians(yRot);
-        Vec3 left = new Vec3(-Math.cos(yaw), 0, Math.sin(yaw));
-        entity.setDeltaMovement(entity.getDeltaMovement().add(left.scale(spread)));
-        level.addFreshEntity(entity);
     }
 }

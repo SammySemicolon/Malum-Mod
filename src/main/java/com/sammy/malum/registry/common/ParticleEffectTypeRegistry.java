@@ -42,6 +42,7 @@ public class ParticleEffectTypeRegistry {
 
     //Wand
     public static final ParticleEffectType HEX_BOLT_IMPACT = new HexBoltImpactParticleEffect("hex_bolt_impact");
+    public static final ParticleEffectType DRAINING_BOLT_IMPACT = new DrainingBoltImpactParticleEffect("draining_bolt_impact");
     public static final ParticleEffectType AURIC_BOLT_IMPACT = new AuricBoltImpactParticleEffect("auric_bolt_impact");
 
     //Nitrate

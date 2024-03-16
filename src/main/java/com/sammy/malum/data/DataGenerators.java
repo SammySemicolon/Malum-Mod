@@ -44,5 +44,8 @@ public class DataGenerators {
 
         generator.addProvider(event.includeServer(), new RegistryDataGenerator(output, provider));
         generator.addProvider(event.includeClient(), new MalumLang(output));
+
+        generator.addProvider(event.includeServer(), new MalumCuriosThings(output, helper, provider));
+
     }
 }

@@ -5,7 +5,6 @@ import com.sammy.malum.common.capability.MalumPlayerDataCapability;
 import com.sammy.malum.config.CommonConfig;
 import com.sammy.malum.core.helper.SpiritHelper;
 import com.sammy.malum.core.listeners.ReapingDataReloadListener;
-import com.sammy.malum.core.systems.reaping.MalumReapingDropsData;
 import com.sammy.malum.registry.common.item.ItemRegistry;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
@@ -45,11 +44,11 @@ public class EsotericReapingHandler {
                 });
             }
         }
-        List<MalumReapingDropsData> data = ReapingDataReloadListener.REAPING_DATA.get(ForgeRegistries.ENTITY_TYPES.getKey(target.getType()));
+        List<ReapingDataReloadListener.MalumReapingDropsData> data = ReapingDataReloadListener.REAPING_DATA.get(ForgeRegistries.ENTITY_TYPES.getKey(target.getType()));
         if (data != null) {
             SoulDataHandler soulData = MalumLivingEntityDataCapability.getCapability(target).soulData;
             if (soulData.exposedSoulDuration > 0) {
-                for (MalumReapingDropsData dropData : data) {
+                for (ReapingDataReloadListener.MalumReapingDropsData dropData : data) {
                     Level level = target.level();
                     var random = level.random;
                     if (random.nextFloat() < dropData.chance) {

@@ -9,7 +9,7 @@
       "item": "malum:hex_ash"
     },
     "Z": {
-      "tag": "forge:ingots/gold"
+      "item": "malum:hallowed_gold_ingot"
     }
   },
   "pattern": [

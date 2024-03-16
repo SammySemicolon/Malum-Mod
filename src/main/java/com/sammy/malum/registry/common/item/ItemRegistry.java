@@ -1,37 +1,45 @@
 package com.sammy.malum.registry.common.item;
 
 import com.sammy.malum.*;
-import com.sammy.malum.common.block.curiosities.obelisk.*;
+import com.sammy.malum.client.renderer.curio.*;
+import com.sammy.malum.common.block.curiosities.obelisk.brilliant.*;
+import com.sammy.malum.common.block.curiosities.obelisk.runewood.*;
 import com.sammy.malum.common.block.curiosities.repair_pylon.*;
 import com.sammy.malum.common.block.curiosities.spirit_crucible.*;
 import com.sammy.malum.common.block.curiosities.spirit_crucible.catalyzer.*;
 import com.sammy.malum.common.block.nature.*;
-import com.sammy.malum.common.item.*;
 import com.sammy.malum.common.item.augment.*;
 import com.sammy.malum.common.item.augment.core.*;
+import com.sammy.malum.common.item.codex.*;
 import com.sammy.malum.common.item.cosmetic.curios.*;
 import com.sammy.malum.common.item.cosmetic.skins.*;
 import com.sammy.malum.common.item.cosmetic.weaves.*;
 import com.sammy.malum.common.item.curiosities.*;
 import com.sammy.malum.common.item.curiosities.armor.*;
 import com.sammy.malum.common.item.curiosities.curios.*;
-import com.sammy.malum.common.item.curiosities.curios.alchemical.*;
-import com.sammy.malum.common.item.curiosities.curios.misc.*;
-import com.sammy.malum.common.item.curiosities.curios.prospector.*;
-import com.sammy.malum.common.item.curiosities.curios.rotten.*;
-import com.sammy.malum.common.item.curiosities.curios.soulward.*;
-import com.sammy.malum.common.item.curiosities.curios.spirit.*;
-import com.sammy.malum.common.item.curiosities.curios.weeping.*;
+import com.sammy.malum.common.item.curiosities.curios.brooches.*;
+import com.sammy.malum.common.item.curiosities.curios.runes.*;
+import com.sammy.malum.common.item.curiosities.curios.runes.corrupted.*;
+import com.sammy.malum.common.item.curiosities.curios.sets.alchemical.*;
+import com.sammy.malum.common.item.curiosities.curios.sets.misc.*;
+import com.sammy.malum.common.item.curiosities.curios.sets.prospector.*;
+import com.sammy.malum.common.item.curiosities.curios.sets.rotten.*;
+import com.sammy.malum.common.item.curiosities.curios.sets.soulward.*;
+import com.sammy.malum.common.item.curiosities.curios.sets.spirit.*;
+import com.sammy.malum.common.item.curiosities.curios.sets.weeping.*;
 import com.sammy.malum.common.item.curiosities.nitrate.*;
+import com.sammy.malum.common.item.curiosities.tools.*;
 import com.sammy.malum.common.item.curiosities.weapons.*;
 import com.sammy.malum.common.item.curiosities.weapons.scythe.*;
 import com.sammy.malum.common.item.curiosities.weapons.staff.*;
 import com.sammy.malum.common.item.ether.*;
 import com.sammy.malum.common.item.food.*;
 import com.sammy.malum.common.item.impetus.*;
+import com.sammy.malum.common.item.misc.*;
 import com.sammy.malum.common.item.spirit.*;
 import com.sammy.malum.compability.farmersdelight.*;
 import com.sammy.malum.core.systems.ritual.*;
+import com.sammy.malum.core.systems.spirit.*;
 import com.sammy.malum.registry.common.*;
 import com.sammy.malum.registry.common.block.*;
 import com.sammy.malum.registry.common.entity.*;
@@ -54,7 +62,10 @@ import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.systems.item.*;
 import team.lodestar.lodestone.systems.item.tools.magic.*;
 import team.lodestar.lodestone.systems.multiblock.*;
+import top.theillusivec4.curios.api.client.*;
 
+import java.awt.*;
+import java.util.List;
 import java.util.*;
 import java.util.function.*;
 import java.util.stream.*;
@@ -71,10 +82,11 @@ public class ItemRegistry {
 
     public static class LodestoneItemProperties extends Item.Properties {
         public final ResourceKey<CreativeModeTab> tab;
-        
+
         public LodestoneItemProperties(RegistryObject<CreativeModeTab> registryObject) {
             this(registryObject.getKey());
         }
+
         public LodestoneItemProperties(ResourceKey<CreativeModeTab> tab) {
             this.tab = tab;
         }
@@ -85,24 +97,31 @@ public class ItemRegistry {
     public static Item.Properties DEFAULT_PROPERTIES() {
         return new LodestoneItemProperties(CreativeTabRegistry.CONTENT);
     }
+
     public static Item.Properties GEAR_PROPERTIES() {
         return DEFAULT_PROPERTIES().stacksTo(1);
     }
+
     public static Item.Properties BUILDING_PROPERTIES() {
         return new LodestoneItemProperties(CreativeTabRegistry.BUILDING);
     }
+
     public static Item.Properties NATURE_PROPERTIES() {
         return new LodestoneItemProperties(CreativeTabRegistry.NATURE);
     }
+
     public static Item.Properties METALLURGIC_NODE_PROPERTIES() {
         return new LodestoneItemProperties(CreativeTabRegistry.METALLURGY);
     }
+
     public static Item.Properties METALLURGIC_PROPERTIES() {
         return METALLURGIC_NODE_PROPERTIES().stacksTo(1);
     }
+
     public static Item.Properties COSMETIC_PROPERTIES() {
         return new LodestoneItemProperties(CreativeTabRegistry.COSMETIC);
     }
+
     public static Item.Properties HIDDEN_PROPERTIES() {
         return new Item.Properties().stacksTo(1);
     }
@@ -113,8 +132,9 @@ public class ItemRegistry {
         }
         return ITEMS.register(name, () -> function.apply(properties));
     }
-    
+
     public static final RegistryObject<Item> ENCYCLOPEDIA_ARCANA = register("encyclopedia_arcana", GEAR_PROPERTIES().rarity(UNCOMMON), EncyclopediaArcanaItem::new);
+    public static final RegistryObject<Item> ENCYCLOPEDIA_ESOTERICA = register("encyclopedia_esoterica", HIDDEN_PROPERTIES().rarity(EPIC), EncyclopediaEsotericaItem::new);
 
     public static final RegistryObject<RitualShardItem> RITUAL_SHARD = register("ritual_shard", HIDDEN_PROPERTIES(), RitualShardItem::new);
 
@@ -123,10 +143,10 @@ public class ItemRegistry {
     public static final RegistryObject<SpiritShardItem> WICKED_SPIRIT = register("wicked_spirit", DEFAULT_PROPERTIES(), (p) -> new SpiritShardItem(p, SpiritTypeRegistry.WICKED_SPIRIT));
     public static final RegistryObject<SpiritShardItem> ARCANE_SPIRIT = register("arcane_spirit", DEFAULT_PROPERTIES(), (p) -> new SpiritShardItem(p, SpiritTypeRegistry.ARCANE_SPIRIT));
     public static final RegistryObject<SpiritShardItem> ELDRITCH_SPIRIT = register("eldritch_spirit", DEFAULT_PROPERTIES(), (p) -> new SpiritShardItem(p, SpiritTypeRegistry.ELDRITCH_SPIRIT));
-    public static final RegistryObject<SpiritShardItem> AQUEOUS_SPIRIT = register("aqueous_spirit", DEFAULT_PROPERTIES(), (p) -> new SpiritShardItem(p, SpiritTypeRegistry.AQUEOUS_SPIRIT));
     public static final RegistryObject<SpiritShardItem> AERIAL_SPIRIT = register("aerial_spirit", DEFAULT_PROPERTIES(), (p) -> new SpiritShardItem(p, SpiritTypeRegistry.AERIAL_SPIRIT));
-    public static final RegistryObject<SpiritShardItem> INFERNAL_SPIRIT = register("infernal_spirit", DEFAULT_PROPERTIES(), (p) -> new SpiritShardItem(p, SpiritTypeRegistry.INFERNAL_SPIRIT));
+    public static final RegistryObject<SpiritShardItem> AQUEOUS_SPIRIT = register("aqueous_spirit", DEFAULT_PROPERTIES(), (p) -> new SpiritShardItem(p, SpiritTypeRegistry.AQUEOUS_SPIRIT));
     public static final RegistryObject<SpiritShardItem> EARTHEN_SPIRIT = register("earthen_spirit", DEFAULT_PROPERTIES(), (p) -> new SpiritShardItem(p, SpiritTypeRegistry.EARTHEN_SPIRIT));
+    public static final RegistryObject<SpiritShardItem> INFERNAL_SPIRIT = register("infernal_spirit", DEFAULT_PROPERTIES(), (p) -> new SpiritShardItem(p, SpiritTypeRegistry.INFERNAL_SPIRIT));
     //endregion
 
     //region random stuff
@@ -254,20 +274,35 @@ public class ItemRegistry {
     public static final RegistryObject<Item> EXPOSED_RUNEWOOD_LOG = register("exposed_runewood_log", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.EXPOSED_RUNEWOOD_LOG.get(), p));
     public static final RegistryObject<Item> REVEALED_RUNEWOOD_LOG = register("revealed_runewood_log", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.REVEALED_RUNEWOOD_LOG.get(), p));
 
+    public static final RegistryObject<Item> RUNEWOOD_BOARDS = register("runewood_boards", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.RUNEWOOD_BOARDS.get(), p));
+    public static final RegistryObject<Item> VERTICAL_RUNEWOOD_BOARDS = register("vertical_runewood_boards", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.VERTICAL_RUNEWOOD_BOARDS.get(), p));
+
     public static final RegistryObject<Item> RUNEWOOD_PLANKS = register("runewood_planks", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.RUNEWOOD_PLANKS.get(), p));
     public static final RegistryObject<Item> VERTICAL_RUNEWOOD_PLANKS = register("vertical_runewood_planks", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.VERTICAL_RUNEWOOD_PLANKS.get(), p));
-    public static final RegistryObject<Item> RUNEWOOD_PANEL = register("runewood_panel", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.RUNEWOOD_PANEL.get(), p));
     public static final RegistryObject<Item> RUNEWOOD_TILES = register("runewood_tiles", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.RUNEWOOD_TILES.get(), p));
+    public static final RegistryObject<Item> RUSTIC_RUNEWOOD_PLANKS = register("rustic_runewood_planks", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.RUSTIC_RUNEWOOD_PLANKS.get(), p));
+    public static final RegistryObject<Item> VERTICAL_RUSTIC_RUNEWOOD_PLANKS = register("vertical_rustic_runewood_planks", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.VERTICAL_RUSTIC_RUNEWOOD_PLANKS.get(), p));
+    public static final RegistryObject<Item> RUSTIC_RUNEWOOD_TILES = register("rustic_runewood_tiles", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.RUSTIC_RUNEWOOD_TILES.get(), p));
 
+    public static final RegistryObject<Item> RUNEWOOD_PANEL = register("runewood_panel", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.RUNEWOOD_PANEL.get(), p));
+
+    public static final RegistryObject<Item> RUNEWOOD_BOARDS_SLAB = register("runewood_boards_slab", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.RUNEWOOD_BOARDS_SLAB.get(), p));
+    public static final RegistryObject<Item> VERTICAL_RUNEWOOD_BOARDS_SLAB = register("vertical_runewood_boards_slab", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.VERTICAL_RUNEWOOD_BOARDS_SLAB.get(), p));
     public static final RegistryObject<Item> RUNEWOOD_PLANKS_SLAB = register("runewood_planks_slab", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.RUNEWOOD_PLANKS_SLAB.get(), p));
     public static final RegistryObject<Item> VERTICAL_RUNEWOOD_PLANKS_SLAB = register("vertical_runewood_planks_slab", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.VERTICAL_RUNEWOOD_PLANKS_SLAB.get(), p));
-    public static final RegistryObject<Item> RUNEWOOD_PANEL_SLAB = register("runewood_panel_slab", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.RUNEWOOD_PANEL_SLAB.get(), p));
     public static final RegistryObject<Item> RUNEWOOD_TILES_SLAB = register("runewood_tiles_slab", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.RUNEWOOD_TILES_SLAB.get(), p));
+    public static final RegistryObject<Item> RUSTIC_RUNEWOOD_PLANKS_SLAB = register("rustic_runewood_planks_slab", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.RUSTIC_RUNEWOOD_PLANKS_SLAB.get(), p));
+    public static final RegistryObject<Item> VERTICAL_RUSTIC_RUNEWOOD_PLANKS_SLAB = register("vertical_rustic_runewood_planks_slab", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.VERTICAL_RUSTIC_RUNEWOOD_PLANKS_SLAB.get(), p));
+    public static final RegistryObject<Item> RUSTIC_RUNEWOOD_TILES_SLAB = register("rustic_runewood_tiles_slab", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.RUSTIC_RUNEWOOD_TILES_SLAB.get(), p));
 
+    public static final RegistryObject<Item> RUNEWOOD_BOARDS_STAIRS = register("runewood_boards_stairs", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.RUNEWOOD_BOARDS_STAIRS.get(), p));
+    public static final RegistryObject<Item> VERTICAL_RUNEWOOD_BOARDS_STAIRS = register("vertical_runewood_boards_stairs", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.VERTICAL_RUNEWOOD_BOARDS_STAIRS.get(), p));
     public static final RegistryObject<Item> RUNEWOOD_PLANKS_STAIRS = register("runewood_planks_stairs", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.RUNEWOOD_PLANKS_STAIRS.get(), p));
     public static final RegistryObject<Item> VERTICAL_RUNEWOOD_PLANKS_STAIRS = register("vertical_runewood_planks_stairs", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.VERTICAL_RUNEWOOD_PLANKS_STAIRS.get(), p));
-    public static final RegistryObject<Item> RUNEWOOD_PANEL_STAIRS = register("runewood_panel_stairs", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.RUNEWOOD_PANEL_STAIRS.get(), p));
     public static final RegistryObject<Item> RUNEWOOD_TILES_STAIRS = register("runewood_tiles_stairs", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.RUNEWOOD_TILES_STAIRS.get(), p));
+    public static final RegistryObject<Item> RUSTIC_RUNEWOOD_PLANKS_STAIRS = register("rustic_runewood_planks_stairs", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.RUSTIC_RUNEWOOD_PLANKS_STAIRS.get(), p));
+    public static final RegistryObject<Item> VERTICAL_RUSTIC_RUNEWOOD_PLANKS_STAIRS = register("vertical_rustic_runewood_planks_stairs", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.VERTICAL_RUSTIC_RUNEWOOD_PLANKS_STAIRS.get(), p));
+    public static final RegistryObject<Item> RUSTIC_RUNEWOOD_TILES_STAIRS = register("rustic_runewood_tiles_stairs", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.RUSTIC_RUNEWOOD_TILES_STAIRS.get(), p));
 
     public static final RegistryObject<Item> CUT_RUNEWOOD_PLANKS = register("cut_runewood_planks", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.CUT_RUNEWOOD_PLANKS.get(), p));
     public static final RegistryObject<Item> RUNEWOOD_BEAM = register("runewood_beam", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.RUNEWOOD_BEAM.get(), p));
@@ -276,11 +311,11 @@ public class ItemRegistry {
     public static final RegistryObject<Item> RUNEWOOD_TRAPDOOR = register("runewood_trapdoor", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.RUNEWOOD_TRAPDOOR.get(), p));
     public static final RegistryObject<Item> SOLID_RUNEWOOD_TRAPDOOR = register("solid_runewood_trapdoor", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.SOLID_RUNEWOOD_TRAPDOOR.get(), p));
 
-    public static final RegistryObject<Item> RUNEWOOD_PLANKS_BUTTON = register("runewood_planks_button", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.RUNEWOOD_BUTTON.get(), p));
-    public static final RegistryObject<Item> RUNEWOOD_PLANKS_PRESSURE_PLATE = register("runewood_planks_pressure_plate", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.RUNEWOOD_PRESSURE_PLATE.get(), p));
+    public static final RegistryObject<Item> RUNEWOOD_BUTTON = register("runewood_planks_button", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.RUNEWOOD_BUTTON.get(), p));
+    public static final RegistryObject<Item> RUNEWOOD_PRESSURE_PLATE = register("runewood_planks_pressure_plate", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.RUNEWOOD_PRESSURE_PLATE.get(), p));
 
-    public static final RegistryObject<Item> RUNEWOOD_PLANKS_FENCE = register("runewood_planks_fence", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.RUNEWOOD_FENCE.get(), p));
-    public static final RegistryObject<Item> RUNEWOOD_PLANKS_FENCE_GATE = register("runewood_planks_fence_gate", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.RUNEWOOD_FENCE_GATE.get(), p));
+    public static final RegistryObject<Item> RUNEWOOD_FENCE = register("runewood_planks_fence", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.RUNEWOOD_FENCE.get(), p));
+    public static final RegistryObject<Item> RUNEWOOD_FENCE_GATE = register("runewood_planks_fence_gate", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.RUNEWOOD_FENCE_GATE.get(), p));
 
     public static final RegistryObject<Item> RUNEWOOD_ITEM_STAND = register("runewood_item_stand", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.RUNEWOOD_ITEM_STAND.get(), p));
     public static final RegistryObject<Item> RUNEWOOD_ITEM_PEDESTAL = register("runewood_item_pedestal", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.RUNEWOOD_ITEM_PEDESTAL.get(), p));
@@ -301,8 +336,8 @@ public class ItemRegistry {
     public static final RegistryObject<Item> CURSED_SAP_BLOCK = register("cursed_sap_block", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.CURSED_SAP_BLOCK.get(), p));
 
     public static final RegistryObject<Item> SOULWOOD_LEAVES = register("soulwood_leaves", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.SOULWOOD_LEAVES.get(), p));
-    public static final RegistryObject<Item> MYSTIC_SOULWOOD_LEAVES = register("mystic_soulwood_leaves", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.MYSTIC_SOULWOOD_LEAVES.get(), p));
-    public static final RegistryObject<Item> HANGING_MYSTIC_SOULWOOD_LEAVES = register("hanging_mystic_soulwood_leaves", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.HANGING_MYSTIC_SOULWOOD_LEAVES.get(), p));
+    public static final RegistryObject<Item> BUDDING_SOULWOOD_LEAVES = register("budding_soulwood_leaves", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BUDDING_SOULWOOD_LEAVES.get(), p));
+    public static final RegistryObject<Item> HANGING_SOULWOOD_LEAVES = register("hanging_soulwood_leaves", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.HANGING_SOULWOOD_LEAVES.get(), p));
     public static final RegistryObject<Item> SOULWOOD_GROWTH = register("soulwood_growth", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.SOULWOOD_GROWTH.get(), p));
 
     public static final RegistryObject<Item> BLIGHTED_SOULWOOD = register("blighted_soulwood", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BLIGHTED_SOULWOOD.get(), p));
@@ -379,11 +414,15 @@ public class ItemRegistry {
     public static final RegistryObject<Item> NATURAL_QUARTZ = register("natural_quartz", DEFAULT_PROPERTIES(), (p) -> new ItemNameBlockItem(BlockRegistry.NATURAL_QUARTZ_CLUSTER.get(), p));
 
     public static final RegistryObject<Item> CTHONIC_GOLD_ORE = register("cthonic_gold_ore", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.CTHONIC_GOLD_ORE.get(), p));
+    public static final RegistryObject<Item> CTHONIC_GOLD_FRAGMENT = register("cthonic_gold_fragment", DEFAULT_PROPERTIES(), (p) -> new ItemNameBlockItem(BlockRegistry.CTHONIC_GOLD_CLUSTER.get(), p));
+    public static final RegistryObject<Item> CTHONIC_GOLD = register("cthonic_gold", DEFAULT_PROPERTIES().rarity(UNCOMMON), Item::new);
+    public static final RegistryObject<Item> BLOCK_OF_CTHONIC_GOLD = register("block_of_cthonic_gold", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BLOCK_OF_CTHONIC_GOLD.get(), p));
+
     //endregion
 
     //region crafting blocks
     public static final RegistryObject<Item> SPIRIT_ALTAR = register("spirit_altar", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.SPIRIT_ALTAR.get(), p));
-    public static final RegistryObject<Item> WEAVERS_WORKBENCH = register("weavers_workbench", COSMETIC_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.WEAVERS_WORKBENCH.get(), COSMETIC_PROPERTIES()));
+    public static final RegistryObject<Item> RUNIC_WORKBENCH = register("runic_workbench", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.RUNIC_WORKBENCH.get(), p));
     public static final RegistryObject<Item> SPIRIT_JAR = register("spirit_jar", DEFAULT_PROPERTIES(), (p) -> new SpiritJarItem(BlockRegistry.SPIRIT_JAR.get(), p));
     public static final RegistryObject<Item> RUNEWOOD_OBELISK = register("runewood_obelisk", DEFAULT_PROPERTIES(), (p) -> new MultiBlockItem(BlockRegistry.RUNEWOOD_OBELISK.get(), p, RunewoodObeliskBlockEntity.STRUCTURE));
     public static final RegistryObject<Item> BRILLIANT_OBELISK = register("brilliant_obelisk", DEFAULT_PROPERTIES(), (p) -> new MultiBlockItem(BlockRegistry.BRILLIANT_OBELISK.get(), p, BrilliantObeliskBlockEntity.STRUCTURE));
@@ -393,6 +432,8 @@ public class ItemRegistry {
     public static final RegistryObject<Item> RUNEWOOD_TOTEM_BASE = register("runewood_totem_base", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.RUNEWOOD_TOTEM_BASE.get(), p));
     public static final RegistryObject<Item> SOULWOOD_TOTEM_BASE = register("soulwood_totem_base", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.SOULWOOD_TOTEM_BASE.get(), p));
     public static final RegistryObject<Item> RITUAL_PLINTH = register("ritual_plinth", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.RITUAL_PLINTH.get(), p));
+
+    public static final RegistryObject<Item> WEAVERS_WORKBENCH = register("weavers_workbench", COSMETIC_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.WEAVERS_WORKBENCH.get(), p));
     //endregion
 
     //region materials
@@ -400,8 +441,6 @@ public class ItemRegistry {
     public static final RegistryObject<Item> GRIM_TALC = register("grim_talc", DEFAULT_PROPERTIES(), Item::new);
     public static final RegistryObject<Item> ASTRAL_WEAVE = register("astral_weave", DEFAULT_PROPERTIES(), Item::new);
     public static final RegistryObject<Item> WARP_FLUX = register("warp_flux", DEFAULT_PROPERTIES(), Item::new);
-    public static final RegistryObject<Item> CTHONIC_GOLD_FRAGMENT = register("cthonic_gold_fragment", DEFAULT_PROPERTIES(), (p) -> new ItemNameBlockItem(BlockRegistry.CTHONIC_GOLD_CLUSTER.get(), p));
-    public static final RegistryObject<Item> CTHONIC_GOLD = register("cthonic_gold", DEFAULT_PROPERTIES().rarity(UNCOMMON), Item::new);
     public static final RegistryObject<Item> HEX_ASH = register("hex_ash", DEFAULT_PROPERTIES(), Item::new);
     public static final RegistryObject<Item> ALCHEMICAL_CALX = register("alchemical_calx", DEFAULT_PROPERTIES(), Item::new);
     public static final RegistryObject<Item> CALCIFIED_BLIGHT = register("calcified_blight", DEFAULT_PROPERTIES(), (p) -> new CalcifiedBlightItem(BlockRegistry.CALCIFIED_BLIGHT.get(), p));
@@ -415,7 +454,6 @@ public class ItemRegistry {
     public static final RegistryObject<Item> BLOCK_OF_ROTTING_ESSENCE = register("block_of_rotting_essence", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BLOCK_OF_ROTTING_ESSENCE.get(), p));
     public static final RegistryObject<Item> BLOCK_OF_GRIM_TALC = register("block_of_grim_talc", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BLOCK_OF_GRIM_TALC.get(), p));
     public static final RegistryObject<Item> BLOCK_OF_ASTRAL_WEAVE = register("block_of_astral_weave", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BLOCK_OF_ASTRAL_WEAVE.get(), p));
-    public static final RegistryObject<Item> BLOCK_OF_CTHONIC_GOLD = register("block_of_cthonic_gold", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BLOCK_OF_CTHONIC_GOLD.get(), p));
     public static final RegistryObject<Item> BLOCK_OF_HEX_ASH = register("block_of_hex_ash", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BLOCK_OF_HEX_ASH.get(), p));
     public static final RegistryObject<Item> BLOCK_OF_ALCHEMICAL_CALX = register("block_of_alchemical_calx", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BLOCK_OF_ALCHEMICAL_CALX.get(), p));
     public static final RegistryObject<Item> MASS_OF_BLIGHTED_GUNK = register("mass_of_blighted_gunk", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.MASS_OF_BLIGHTED_GUNK.get(), p));
@@ -429,19 +467,26 @@ public class ItemRegistry {
     public static final RegistryObject<Item> SPECTRAL_LENS = register("spectral_lens", DEFAULT_PROPERTIES(), Item::new);
     public static final RegistryObject<Item> SPECTRAL_OPTIC = register("spectral_optic", DEFAULT_PROPERTIES(), Item::new);
     public static final RegistryObject<Item> POPPET = register("poppet", DEFAULT_PROPERTIES(), Item::new);
+    public static final RegistryObject<Item> TAINTED_ROCK_TABLET = register("tainted_rock_tablet", DEFAULT_PROPERTIES(), Item::new);
+    public static final RegistryObject<Item> VOID_TABLET = register("void_tablet", DEFAULT_PROPERTIES(), Item::new);
     public static final RegistryObject<Item> CORRUPTED_RESONANCE = register("corrupted_resonance", DEFAULT_PROPERTIES(), Item::new);
     public static final RegistryObject<Item> ANOMALOUS_DESIGN = register("anomalous_design", DEFAULT_PROPERTIES(), Item::new);
     public static final RegistryObject<Item> COMPLETE_DESIGN = register("complete_design", DEFAULT_PROPERTIES(), SimpleFoiledItem::new);
     public static final RegistryObject<Item> FUSED_CONSCIOUSNESS = register("fused_consciousness", DEFAULT_PROPERTIES(), (p) -> new FusedConsciousnessItem(p.rarity(RARE)));
 
-    public static final RegistryObject<Item> HALLOWED_GOLD_INGOT = register("hallowed_gold_ingot", DEFAULT_PROPERTIES(), Item::new);
-    public static final RegistryObject<Item> HALLOWED_GOLD_NUGGET = register("hallowed_gold_nugget", DEFAULT_PROPERTIES(), Item::new);
-    public static final RegistryObject<Item> BLOCK_OF_HALLOWED_GOLD = register("block_of_hallowed_gold", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BLOCK_OF_HALLOWED_GOLD.get(), p));
-
     public static final RegistryObject<Item> SOUL_STAINED_STEEL_INGOT = register("soul_stained_steel_ingot", DEFAULT_PROPERTIES(), Item::new);
     public static final RegistryObject<Item> SOUL_STAINED_STEEL_PLATING = register("soul_stained_steel_plating", DEFAULT_PROPERTIES(), Item::new);
     public static final RegistryObject<Item> SOUL_STAINED_STEEL_NUGGET = register("soul_stained_steel_nugget", DEFAULT_PROPERTIES(), Item::new);
     public static final RegistryObject<Item> BLOCK_OF_SOUL_STAINED_STEEL = register("block_of_soul_stained_steel", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BLOCK_OF_SOUL_STAINED_STEEL.get(), p));
+
+    public static final RegistryObject<Item> HALLOWED_GOLD_INGOT = register("hallowed_gold_ingot", DEFAULT_PROPERTIES(), Item::new);
+    public static final RegistryObject<Item> HALLOWED_GOLD_NUGGET = register("hallowed_gold_nugget", DEFAULT_PROPERTIES(), Item::new);
+    public static final RegistryObject<Item> BLOCK_OF_HALLOWED_GOLD = register("block_of_hallowed_gold", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BLOCK_OF_HALLOWED_GOLD.get(), p));
+
+    public static final RegistryObject<Item> MALIGNANT_ALLOY_INGOT = register("malignant_alloy_ingot", DEFAULT_PROPERTIES(), Item::new);
+    public static final RegistryObject<Item> MALIGNANT_ALLOY_PLATING = register("malignant_alloy_plating", DEFAULT_PROPERTIES(), Item::new);
+    public static final RegistryObject<Item> MALIGNANT_ALLOY_NUGGET = register("malignant_alloy_nugget", DEFAULT_PROPERTIES(), Item::new);
+    public static final RegistryObject<Item> BLOCK_OF_MALIGNANT_ALLOY = register("block_of_malignant_alloy", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BLOCK_OF_MALIGNANT_ALLOY.get(), p));
 
     //region ether
     public static final RegistryObject<Item> ETHER = register("ether", DEFAULT_PROPERTIES(), (p) -> new EtherItem(BlockRegistry.ETHER.get(), p, false));
@@ -506,6 +551,12 @@ public class ItemRegistry {
     //endregion
 
     //region contents
+    public static final RegistryObject<Item> TOTEMIC_STAFF = register("totemic_staff", GEAR_PROPERTIES(), TotemicStaffItem::new);
+
+    public static final RegistryObject<Item> SPIRIT_POUCH = register("spirit_pouch", GEAR_PROPERTIES(), SpiritPouchItem::new);
+    public static final RegistryObject<Item> ETHERIC_NITRATE = register("etheric_nitrate", DEFAULT_PROPERTIES(), EthericNitrateItem::new);
+    public static final RegistryObject<Item> VIVID_NITRATE = register("vivid_nitrate", DEFAULT_PROPERTIES(), VividNitrateItem::new);
+
     public static final RegistryObject<Item> CRUDE_SCYTHE = register("crude_scythe", GEAR_PROPERTIES(), (p) -> new MalumScytheItem(Tiers.IRON, 0, 0.1f, p.durability(500)));
     public static final RegistryObject<Item> SOUL_STAINED_STEEL_SCYTHE = register("soul_stained_steel_scythe", GEAR_PROPERTIES(), (p) -> new MagicScytheItem(SOUL_STAINED_STEEL, -2.5f, 0.1f, 4, p));
 
@@ -527,21 +578,46 @@ public class ItemRegistry {
     public static final RegistryObject<Item> SOUL_HUNTER_BOOTS = register("soul_hunter_boots", GEAR_PROPERTIES(), (p) -> new SoulHunterArmorItem(ArmorItem.Type.BOOTS, p));
 
     public static final RegistryObject<Item> TYRVING = register("tyrving", GEAR_PROPERTIES(), (p) -> new TyrvingItem(ItemTiers.ItemTierEnum.TYRVING, 0, -0.3f, p));
-    public static final RegistryObject<Item> WEIGHT_OF_WORLDS = register("weight_of_worlds", GEAR_PROPERTIES(), (p) -> new WeightOfWorldsItem(ItemTiers.ItemTierEnum.MALIGNANT_LEAD, 1, -0.1f, p));
 
-    public static final RegistryObject<Item> MNEMONIC_HEX_STAFF = register("mnemonic_hex_staff", GEAR_PROPERTIES(), (p) -> new HexStaffItem(HEX_STAFF, 4, p));
-    public static final RegistryObject<Item> STAFF_OF_THE_AURIC_FLAME = register("staff_of_the_auric_flame", GEAR_PROPERTIES(), (p) -> new AuricFlameStaffItem(AURIC_STAFF, 6, p));
+    public static final RegistryObject<Item> MALIGNANT_STRONGHOLD_HELMET = register("malignant_stronghold_helmet", GEAR_PROPERTIES(), (p) -> new MalignantStrongholdArmorItem(ArmorItem.Type.HELMET, p));
+    public static final RegistryObject<Item> MALIGNANT_STRONGHOLD_CHESTPLATE = register("malignant_stronghold_chestplate", GEAR_PROPERTIES(), (p) -> new MalignantStrongholdArmorItem(ArmorItem.Type.CHESTPLATE, p));
+    public static final RegistryObject<Item> MALIGNANT_STRONGHOLD_LEGGINGS = register("malignant_stronghold_leggings", GEAR_PROPERTIES(), (p) -> new MalignantStrongholdArmorItem(ArmorItem.Type.LEGGINGS, p));
+    public static final RegistryObject<Item> MALIGNANT_STRONGHOLD_BOOTS = register("malignant_stronghold_boots", GEAR_PROPERTIES(), (p) -> new MalignantStrongholdArmorItem(ArmorItem.Type.BOOTS, p));
 
-    public static final RegistryObject<Item> SPIRIT_POUCH = register("spirit_pouch", GEAR_PROPERTIES(), SpiritPouchItem::new);
-    public static final RegistryObject<Item> ETHERIC_NITRATE = register("etheric_nitrate", DEFAULT_PROPERTIES(), EthericNitrateItem::new);
-    public static final RegistryObject<Item> VIVID_NITRATE = register("vivid_nitrate", DEFAULT_PROPERTIES(), VividNitrateItem::new);
+    public static final RegistryObject<Item> WEIGHT_OF_WORLDS = register("weight_of_worlds", GEAR_PROPERTIES(), (p) -> new WeightOfWorldsItem(ItemTiers.ItemTierEnum.MALIGNANT_ALLOY, -1, -0.1f, p));
+    public static final RegistryObject<Item> MALIGNANT_SCEPTER = register("malignant_scepter", GEAR_PROPERTIES(), (p) -> new MalignantScepterItem(MALIGNANT_ALLOY, 5, p));
+
+    public static final RegistryObject<Item> MNEMONIC_HEX_STAFF = register("mnemonic_hex_staff", GEAR_PROPERTIES(), (p) -> new HexStaffItem(HEX_STAFF, 5, p));
+    public static final RegistryObject<Item> STAFF_OF_THE_AURIC_FLAME = register("staff_of_the_auric_flame", GEAR_PROPERTIES(), (p) -> new AuricFlameStaffItem(AURIC_STAFF, 7, p));
+
+    public static final RegistryObject<Item> RUNE_OF_IDLE_RESTORATION = register("rune_of_idle_restoration", GEAR_PROPERTIES(), RuneIdleRestorationItem::new);
+    public static final RegistryObject<Item> RUNE_OF_CULLING = register("rune_of_culling", GEAR_PROPERTIES(), RuneCullingItem::new);
+    public static final RegistryObject<Item> RUNE_OF_REINFORCEMENT = register("rune_of_reinforcement", GEAR_PROPERTIES(), RuneReinforcementItem::new);
+    public static final RegistryObject<Item> RUNE_OF_VOLATILE_DISTORTION = register("rune_of_volatile_distortion", GEAR_PROPERTIES(), RuneVolatileDistortionItem::new);
+    public static final RegistryObject<Item> RUNE_OF_DEXTERITY = register("rune_of_dexterity", GEAR_PROPERTIES(), RuneDexterityItem::new);
+    public static final RegistryObject<Item> RUNE_OF_ALIMENT_CLEANSING = register("rune_of_aliment_cleansing", GEAR_PROPERTIES(), RuneAlimentCleansingItem::new);
+    public static final RegistryObject<Item> RUNE_OF_REACTIVE_SHIELDING = register("rune_of_reactive_shielding", GEAR_PROPERTIES(), RuneReactiveShieldingItem::new);
+    public static final RegistryObject<Item> RUNE_OF_HASTE = register("rune_of_haste", GEAR_PROPERTIES(), RuneHasteItem::new);
+
+    public static final RegistryObject<Item> RUNE_OF_BOLSTERING = register("rune_of_bolstering", GEAR_PROPERTIES(), RuneBolsteringItem::new);
+    public static final RegistryObject<Item> RUNE_OF_SACRIFICIAL_EMPOWERMENT = register("rune_of_sacrificial_empowerment", GEAR_PROPERTIES(), RuneSacrificialEmpowermentItem::new);
+    public static final RegistryObject<Item> RUNE_OF_SPELL_MASTERY = register("rune_of_spell_mastery", GEAR_PROPERTIES(), RuneSpellMasteryItem::new);
+    public static final RegistryObject<Item> RUNE_OF_THE_HERETIC = register("rune_of_the_heretic", GEAR_PROPERTIES(), RuneHereticItem::new);
+    public static final RegistryObject<Item> RUNE_OF_UNNATURAL_STAMINA = register("rune_of_unnatural_stamina", GEAR_PROPERTIES(), RuneUnnaturalStaminaItem::new);
+    public static final RegistryObject<Item> RUNE_OF_TWINNED_DURATION = register("rune_of_twinned_duration", GEAR_PROPERTIES(), RuneTwinnedDurationItem::new);
+    public static final RegistryObject<Item> RUNE_OF_TOUGHNESS = register("rune_of_toughness", GEAR_PROPERTIES(), RuneToughnessItem::new);
+    public static final RegistryObject<Item> RUNE_OF_IGNEOUS_SOLACE = register("rune_of_igneous_solace", GEAR_PROPERTIES(), RuneIgneousSolaceItem::new);
 
     public static final RegistryObject<Item> GILDED_RING = register("gilded_ring", GEAR_PROPERTIES(), CurioGildedRing::new);
     public static final RegistryObject<Item> GILDED_BELT = register("gilded_belt", GEAR_PROPERTIES(), CurioGildedBelt::new);
     public static final RegistryObject<Item> ORNATE_RING = register("ornate_ring", GEAR_PROPERTIES(), CurioOrnateRing::new);
     public static final RegistryObject<Item> ORNATE_NECKLACE = register("ornate_necklace", GEAR_PROPERTIES(), CurioOrnateNecklace::new);
 
-    public static final RegistryObject<Item> RING_OF_REINFORCEMENT = register("ring_of_reinforcement", GEAR_PROPERTIES(), CurioReinforcementRing::new);
+    public static final RegistryObject<Item> RUNIC_BROOCH = register("runic_brooch", GEAR_PROPERTIES(), CurioRunicBrooch::new);
+    public static final RegistryObject<Item> SACRIFICIAL_BROOCH = register("sacrificial_brooch", GEAR_PROPERTIES(), CurioSacrificialBrooch::new);
+    public static final RegistryObject<Item> GLASS_BROOCH = register("glass_brooch", GEAR_PROPERTIES(), CurioGlassBrooch::new);
+    public static final RegistryObject<Item> RAVENOUS_BROOCH = register("ravenous_brooch", GEAR_PROPERTIES(), CurioRavenousBrooch::new);
+
     public static final RegistryObject<Item> RING_OF_ESOTERIC_SPOILS = register("ring_of_esoteric_spoils", GEAR_PROPERTIES(), CurioArcaneSpoilRing::new);
     public static final RegistryObject<Item> RING_OF_CURATIVE_TALENT = register("ring_of_curative_talent", GEAR_PROPERTIES(), CurioCurativeRing::new);
     public static final RegistryObject<Item> RING_OF_ARCANE_PROWESS = register("ring_of_arcane_prowess", GEAR_PROPERTIES(), CurioRingOfProwess::new);
@@ -611,7 +687,10 @@ public class ItemRegistry {
         @SubscribeEvent
         public static void registerCompost(FMLCommonSetupEvent event) {
             registerCompostable(RUNEWOOD_LEAVES, 0.3f);
+            registerCompostable(HANGING_RUNEWOOD_LEAVES, 0.3f);
             registerCompostable(SOULWOOD_LEAVES, 0.3f);
+            registerCompostable(BUDDING_SOULWOOD_LEAVES, 0.3f);
+            registerCompostable(HANGING_SOULWOOD_LEAVES, 0.3f);
             registerCompostable(RUNEWOOD_SAPLING, 0.3f);
             registerCompostable(SOULWOOD_GROWTH, 0.3f);
         }
@@ -624,6 +703,12 @@ public class ItemRegistry {
 
     @Mod.EventBusSubscriber(modid = MalumMod.MALUM, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
     public static class ClientOnly {
+
+        @SubscribeEvent
+        public static void registerCurioRenderers(FMLClientSetupEvent event) {
+            CuriosRendererRegistry.register(ItemRegistry.TOKEN_OF_GRATITUDE.get(), TokenOfGratitudeRenderer::new);
+            CuriosRendererRegistry.register(ItemRegistry.TOPHAT.get(), TopHatCurioRenderer::new);
+        }
 
         @SubscribeEvent(priority = EventPriority.LOWEST)
         public static void addItemProperties(FMLClientSetupEvent event) {
@@ -691,6 +776,19 @@ public class ItemRegistry {
 
             DataHelper.takeAll(items, i -> i.get() instanceof SpiritShardItem).forEach(item ->
                     itemColors.register((s, c) -> ColorHelper.getColor(((SpiritShardItem) item.get()).type.getItemColor()), item.get()));
+
+            DataHelper.takeAll(items, i -> i.get() instanceof MalumRuneCurioItem).forEach(item ->
+                    itemColors.register((s, c) -> {
+                        if (c == 0) {
+                            return -1;
+                        }
+                        final MalumSpiritType spiritType = ((MalumRuneCurioItem) item.get()).spiritType;
+                        Color color = spiritType.getItemColor();
+                        if (spiritType.equals(SpiritTypeRegistry.WICKED_SPIRIT) || spiritType.equals(SpiritTypeRegistry.ELDRITCH_SPIRIT)) {
+                            color = color.brighter();
+                        }
+                        return ColorHelper.getColor(color);
+                    }, item.get()));
             itemColors.register((s, c) -> RitualShardItem.getRitualType(s) == null ? -1 : ColorHelper.getColor(RitualShardItem.getRitualType(s).spirit.getItemColor()), RITUAL_SHARD.get());
         }
     }

@@ -78,6 +78,10 @@ public class MalumSpiritType {
         return itemColor;
     }
 
+    public float getColorCoefficient() {
+        return mainColorCoefficient;
+    }
+
     public ColorParticleDataBuilder createMainColorData() {
         return createMainColorData(1f);
     }

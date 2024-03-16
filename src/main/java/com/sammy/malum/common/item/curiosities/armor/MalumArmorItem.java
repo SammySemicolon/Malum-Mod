@@ -1,19 +1,15 @@
 package com.sammy.malum.common.item.curiosities.armor;
 
-import com.sammy.malum.client.cosmetic.ArmorSkinRenderingData;
-import com.sammy.malum.common.item.cosmetic.skins.ArmorSkin;
+import com.sammy.malum.client.cosmetic.*;
+import com.sammy.malum.common.item.cosmetic.skins.*;
 import net.minecraft.*;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.ArmorMaterial;
-import net.minecraft.world.item.ItemStack;
-import team.lodestar.lodestone.systems.item.LodestoneArmorItem;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.item.*;
+import team.lodestar.lodestone.systems.item.*;
 
 import java.util.*;
 
-public class MalumArmorItem extends LodestoneArmorItem {
+public abstract class MalumArmorItem extends LodestoneArmorItem {
 
     //TODO: access transformer for the vanilla one in ArmorItem is being fucking stupid, just putting this here as a temporary measure
     protected static final EnumMap<ArmorItem.Type, UUID> ARMOR_MODIFIER_UUID_PER_TYPE = Util.make(new EnumMap<>(ArmorItem.Type.class), (p_266744_) -> {

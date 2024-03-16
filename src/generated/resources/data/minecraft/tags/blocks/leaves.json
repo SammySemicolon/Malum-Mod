@@ -1,11 +1,11 @@
 {
   "values": [
-    "malum:mystic_soulwood_leaves",
+    "malum:hanging_soulwood_leaves",
     "malum:soulwood_leaves",
     "malum:hanging_runewood_leaves",
     "malum:hanging_runewood_leaves",
+    "malum:budding_soulwood_leaves",
     "malum:runewood_leaves",
-    "malum:runewood_leaves",
-    "malum:hanging_mystic_soulwood_leaves"
+    "malum:runewood_leaves"
   ]
 }

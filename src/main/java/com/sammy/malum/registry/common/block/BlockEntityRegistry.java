@@ -2,9 +2,11 @@ package com.sammy.malum.registry.common.block;
 
 import com.sammy.malum.*;
 import com.sammy.malum.client.renderer.block.*;
-import com.sammy.malum.common.block.curiosities.obelisk.*;
+import com.sammy.malum.common.block.curiosities.obelisk.brilliant.*;
+import com.sammy.malum.common.block.curiosities.obelisk.runewood.*;
 import com.sammy.malum.common.block.curiosities.repair_pylon.*;
 import com.sammy.malum.common.block.curiosities.ritual_plinth.*;
+import com.sammy.malum.common.block.curiosities.runic_workbench.*;
 import com.sammy.malum.common.block.curiosities.spirit_altar.*;
 import com.sammy.malum.common.block.curiosities.spirit_crucible.*;
 import com.sammy.malum.common.block.curiosities.spirit_crucible.catalyzer.*;
@@ -37,6 +39,7 @@ public class BlockEntityRegistry {
     public static final RegistryObject<BlockEntityType<RitualPlinthBlockEntity>> RITUAL_PLINTH = BLOCK_ENTITY_TYPES.register("ritual_plinth", () -> BlockEntityType.Builder.of(RitualPlinthBlockEntity::new, BlockRegistry.RITUAL_PLINTH.get()).build(null));
 
     public static final RegistryObject<BlockEntityType<WeaversWorkbenchBlockEntity>> WEAVERS_WORKBENCH = BLOCK_ENTITY_TYPES.register("weavers_workbench", () -> BlockEntityType.Builder.of(WeaversWorkbenchBlockEntity::new, BlockRegistry.WEAVERS_WORKBENCH.get()).build(null));
+    public static final RegistryObject<BlockEntityType<RunicWorkbenchBlockEntity>> RUNIC_WORKBENCH = BLOCK_ENTITY_TYPES.register("runic_workbench", () -> BlockEntityType.Builder.of(RunicWorkbenchBlockEntity::new, BlockRegistry.RUNIC_WORKBENCH.get()).build(null));
 
     public static final RegistryObject<BlockEntityType<SpiritCrucibleCoreBlockEntity>> SPIRIT_CRUCIBLE = BLOCK_ENTITY_TYPES.register("spirit_crucible", () -> BlockEntityType.Builder.of(SpiritCrucibleCoreBlockEntity::new, BlockRegistry.SPIRIT_CRUCIBLE.get()).build(null));
     public static final RegistryObject<BlockEntityType<SpiritCatalyzerCoreBlockEntity>> SPIRIT_CATALYZER = BLOCK_ENTITY_TYPES.register("spirit_catalyzer", () -> BlockEntityType.Builder.of(SpiritCatalyzerCoreBlockEntity::new, BlockRegistry.SPIRIT_CATALYZER.get()).build(null));
@@ -82,6 +85,7 @@ public class BlockEntityRegistry {
         public static void registerRenderer(EntityRenderersEvent.RegisterRenderers event) {
             event.registerBlockEntityRenderer(VOID_CONDUIT.get(), VoidConduitRenderer::new);
             event.registerBlockEntityRenderer(SPIRIT_ALTAR.get(), SpiritAltarRenderer::new);
+            event.registerBlockEntityRenderer(RUNIC_WORKBENCH.get(), MalumItemHolderRenderer::new);
             event.registerBlockEntityRenderer(SPIRIT_CRUCIBLE.get(), SpiritCrucibleRenderer::new);
             event.registerBlockEntityRenderer(SPIRIT_CATALYZER.get(), SpiritCatalyzerRenderer::new);
             event.registerBlockEntityRenderer(TOTEM_POLE.get(), TotemPoleRenderer::new);

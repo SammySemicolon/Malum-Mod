@@ -1,6 +1,6 @@
 package com.sammy.malum.common.item.curiosities.armor;
 
-import com.google.common.collect.ImmutableMultimap;
+import com.google.common.collect.*;
 import com.sammy.malum.client.cosmetic.ArmorSkinRenderingData;
 import com.sammy.malum.common.item.cosmetic.skins.ArmorSkin;
 import com.sammy.malum.registry.client.ModelRegistry;
@@ -30,15 +30,15 @@ public class SoulStainedSteelArmorItem extends MalumArmorItem {
     }
 
     @Override
-    public ImmutableMultimap.Builder<Attribute, AttributeModifier> createExtraAttributes(ArmorItem.Type slot) {
-        ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = new ImmutableMultimap.Builder<>();
-        UUID uuid = ARMOR_MODIFIER_UUID_PER_TYPE.get(slot);
-        builder.put(AttributeRegistry.SOUL_WARD_CAP.get(), new AttributeModifier(uuid, "Soul Ward Cap", 3f, AttributeModifier.Operation.ADDITION));
-        return builder;
+    public Multimap<Attribute, AttributeModifier> createExtraAttributes(Type type) {
+        Multimap<Attribute, AttributeModifier> attributes = ArrayListMultimap.create();
+        UUID uuid = ARMOR_MODIFIER_UUID_PER_TYPE.get(type);
+        attributes.put(AttributeRegistry.SOUL_WARD_CAP.get(), new AttributeModifier(uuid, "Soul Ward Cap", 3f, AttributeModifier.Operation.ADDITION));
+        return attributes;
     }
 
     public String getTexture() {
-        return "malignant_stronghold";
+        return "soul_stained_steel_reforged";
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -53,7 +53,7 @@ public class SoulStainedSteelArmorItem extends MalumArmorItem {
                 float netHeadYaw = f1 - f;
                 float netHeadPitch = Mth.lerp(pticks, entity.xRotO, entity.getXRot());
                 ArmorSkin skin = ArmorSkin.getAppliedItemSkin(itemStack);
-                LodestoneArmorModel model = ModelRegistry.MALIGNANT_LEAD_ARMOR;
+                LodestoneArmorModel model = ModelRegistry.SOUL_STAINED_ARMOR;
                 if (skin != null) {
                     model = ArmorSkinRenderingData.RENDERING_DATA.apply(skin).getModel(entity);
                 }

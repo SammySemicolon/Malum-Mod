@@ -2,12 +2,12 @@ package com.sammy.malum.common.block.curiosities.totem;
 
 import com.google.common.collect.Sets;
 import com.sammy.malum.common.block.storage.stand.ItemStandBlockEntity;
+import com.sammy.malum.common.item.curiosities.tools.*;
 import com.sammy.malum.common.packets.particle.curiosities.rite.generic.TotemPoleActivationEffectPacket;
 import com.sammy.malum.core.helper.SpiritHelper;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import com.sammy.malum.registry.common.SoundRegistry;
 import com.sammy.malum.registry.common.block.BlockEntityRegistry;
-import com.sammy.malum.registry.common.item.ItemRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -44,19 +44,26 @@ import static com.sammy.malum.registry.common.PacketRegistry.MALUM_CHANNEL;
 
 public class TotemPoleBlockEntity extends LodestoneBlockEntity {
 
+    public enum TotemPoleState {
+        INACTIVE,
+        VISUAL_ONLY,
+        CHARGING,
+        ACTIVE
+    }
+
     public MalumSpiritType type;
-    public boolean haunted;
-    public int desiredColor;
-    public int currentColor;
-    public int baseLevel;
+    public TotemPoleState totemPoleState = TotemPoleState.INACTIVE;
     public TotemBaseBlockEntity totemBase;
-    public boolean corrupted;
-    public Block logBlock;
-    public Direction direction;
+    public int totemBaseYLevel;
+    public int chargeProgress;
+
+    public final boolean isSoulwood;
+    public final Block logBlock;
+    public final Direction direction;
 
     public TotemPoleBlockEntity(BlockEntityType<? extends TotemPoleBlockEntity> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
-        this.corrupted = ((TotemPoleBlock<?>) state.getBlock()).corrupted;
+        this.isSoulwood = ((TotemPoleBlock<?>) state.getBlock()).isSoulwood;
         this.logBlock = ((TotemPoleBlock<?>) state.getBlock()).logBlock.get();
         this.direction = state.getValue(BlockStateProperties.HORIZONTAL_FACING);
     }
@@ -68,50 +75,31 @@ public class TotemPoleBlockEntity extends LodestoneBlockEntity {
     @Override
     public InteractionResult onUse(Player player, InteractionHand hand) {
         ItemStack held = player.getItemInHand(hand);
-        if (held.getItem().equals(ItemRegistry.HEX_ASH.get()) && !haunted) {
+        if (held.getItem() instanceof TotemicStaffItem && !totemPoleState.equals(TotemPoleState.ACTIVE) && !totemPoleState.equals(TotemPoleState.CHARGING)) {
             if (level.isClientSide) {
                 return InteractionResult.SUCCESS;
             }
-            if (!player.isCreative()) {
-                held.shrink(1);
-            }
-            haunted = true;
-            desiredColor = 20;
+            totemPoleState = totemPoleState.equals(TotemPoleState.INACTIVE) ? TotemPoleState.VISUAL_ONLY : TotemPoleState.INACTIVE;
             MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new TotemPoleActivationEffectPacket(type.getPrimaryColor(), worldPosition));
             level.playSound(null, worldPosition, SoundRegistry.TOTEM_ENGRAVE.get(), SoundSource.BLOCKS, 1, Mth.nextFloat(level.random, 0.9f, 1.1f));
-            level.playSound(null, worldPosition, SoundEvents.AXE_STRIP, SoundSource.BLOCKS, 1, 1);
-            if (corrupted) {
+            if (isSoulwood) {
                 level.playSound(null, worldPosition, SoundRegistry.MAJOR_BLIGHT_MOTIF.get(), SoundSource.BLOCKS, 1, 1);
             }
             BlockHelper.updateState(level, worldPosition);
             return InteractionResult.SUCCESS;
         }
-        if (held.canPerformAction(ToolActions.AXE_STRIP)) {
-            if (haunted) {
-                if (level.isClientSide) {
-                    return InteractionResult.SUCCESS;
-                }
-                desiredColor = 0;
-                haunted = false;
-                MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new TotemPoleActivationEffectPacket(type.getPrimaryColor(), worldPosition));
-                level.playSound(null, worldPosition, SoundEvents.AXE_STRIP, SoundSource.BLOCKS, 1, 1);
-                if (corrupted) {
-                    level.playSound(null, worldPosition, SoundRegistry.MAJOR_BLIGHT_MOTIF.get(), SoundSource.BLOCKS, 1, 1);
-                }
-                BlockHelper.updateState(level, worldPosition);
+        else if (held.canPerformAction(ToolActions.AXE_STRIP)) {
+            if (level.isClientSide) {
                 return InteractionResult.SUCCESS;
             }
             if (type != null) {
-                if (level.isClientSide) {
-                    return InteractionResult.SUCCESS;
-                }
                 level.setBlockAndUpdate(worldPosition, logBlock.defaultBlockState());
                 MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new TotemPoleActivationEffectPacket(type.getPrimaryColor(), worldPosition));
                 level.playSound(null, worldPosition, SoundEvents.AXE_STRIP, SoundSource.BLOCKS, 1, 1);
-                if (corrupted) {
+                if (isSoulwood) {
                     level.playSound(null, worldPosition, SoundRegistry.MAJOR_BLIGHT_MOTIF.get(), SoundSource.BLOCKS, 1, 1);
                 }
-                onBreak(null);
+                onBreak(player);
                 return InteractionResult.SUCCESS;
             }
         }
@@ -123,16 +111,15 @@ public class TotemPoleBlockEntity extends LodestoneBlockEntity {
         if (type != null) {
             compound.putString("type", type.identifier);
         }
-        if (desiredColor != 0) {
-            compound.putInt("desiredColor", desiredColor);
+        if (!totemPoleState.equals(TotemPoleState.INACTIVE)) {
+            compound.putInt("totemPoleState", totemPoleState.ordinal());
         }
-        if (currentColor != 0) {
-            compound.putInt("currentColor", currentColor);
+        if (chargeProgress != 0) {
+            compound.putInt("chargeProgress", chargeProgress);
         }
-        if (baseLevel != 0) {
-            compound.putInt("baseLevel", baseLevel);
+        if (totemBaseYLevel != 0) {
+            compound.putInt("totemBaseYLevel", totemBaseYLevel);
         }
-        compound.putBoolean("corrupted", corrupted);
         super.saveAdditional(compound);
     }
 
@@ -141,17 +128,16 @@ public class TotemPoleBlockEntity extends LodestoneBlockEntity {
         if (compound.contains("type")) {
             type = SpiritHelper.getSpiritType(compound.getString("type"));
         }
-        desiredColor = compound.getInt("desiredColor");
-        currentColor = compound.getInt("currentColor");
-        baseLevel = compound.getInt("baseLevel");
-        corrupted = compound.getBoolean("corrupted");
+        totemPoleState = compound.contains("totemPoleState") ? TotemPoleState.values()[compound.getInt("totemPoleState")] : TotemPoleState.INACTIVE;
+        chargeProgress = compound.getInt("chargeProgress");
+        totemBaseYLevel = compound.getInt("totemBaseYLevel");
         super.load(compound);
     }
 
     @Override
     public void init() {
         super.init();
-        if (level.getBlockEntity(new BlockPos(getBlockPos().getX(), baseLevel, getBlockPos().getZ())) instanceof TotemBaseBlockEntity totemBaseBlockEntity) {
+        if (level.getBlockEntity(new BlockPos(getBlockPos().getX(), totemBaseYLevel, getBlockPos().getZ())) instanceof TotemBaseBlockEntity totemBaseBlockEntity) {
             totemBase = totemBaseBlockEntity;
         }
     }
@@ -159,14 +145,15 @@ public class TotemPoleBlockEntity extends LodestoneBlockEntity {
     @Override
     public void tick() {
         super.tick();
-        if (currentColor > desiredColor) {
-            currentColor--;
-        }
-        if (currentColor < desiredColor) {
-            currentColor++;
+
+        if (totemPoleState.equals(TotemPoleState.INACTIVE)) {
+            chargeProgress = chargeProgress > 0 ? chargeProgress - 1 : 0;
+        } else {
+            int cap = totemPoleState.equals(TotemPoleState.CHARGING) ? 10 : 20;
+            chargeProgress = chargeProgress < cap ? chargeProgress + 1 : cap;
         }
         if (level.isClientSide) {
-            if (type != null && desiredColor != 0) {
+            if (type != null && !totemPoleState.equals(TotemPoleState.INACTIVE)) {
                 passiveParticles();
                 if (totemBase != null && totemBase.rite != null) {
                     getFilters().forEach(this::filterParticles);
@@ -186,33 +173,31 @@ public class TotemPoleBlockEntity extends LodestoneBlockEntity {
         return standBlockEntities;
     }
 
-    public void create(MalumSpiritType type) {
+    public void setSpirit(MalumSpiritType type) {
         level.playSound(null, worldPosition, SoundRegistry.TOTEM_ENGRAVE.get(), SoundSource.BLOCKS, 1, Mth.nextFloat(level.random, 0.9f, 1.1f));
         level.playSound(null, worldPosition, SoundEvents.AXE_STRIP, SoundSource.BLOCKS, 1, Mth.nextFloat(level.random, 0.9f, 1.1f));
         MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new TotemPoleActivationEffectPacket(type.getPrimaryColor(), worldPosition));
         this.type = type;
-        this.currentColor = 10;
+        this.chargeProgress = 10;
         BlockHelper.updateState(level, worldPosition);
     }
 
     public void riteStarting(TotemBaseBlockEntity totemBase, int height) {
         level.playSound(null, worldPosition, SoundRegistry.TOTEM_CHARGE.get(), SoundSource.BLOCKS, 1, 0.9f + 0.2f * height);
         MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new TotemPoleActivationEffectPacket(type.getPrimaryColor(), worldPosition));
-        this.desiredColor = 10;
-        this.baseLevel = worldPosition.getY() - height;
+        this.totemBaseYLevel = worldPosition.getY() - height;
         this.totemBase = totemBase;
-        this.haunted = false;
+        this.totemPoleState = TotemPoleState.CHARGING;
         BlockHelper.updateState(level, worldPosition);
     }
 
-    public void riteComplete() {
-        this.desiredColor = 20;
+    public void enable() {
+        this.totemPoleState = TotemPoleState.ACTIVE;
         BlockHelper.updateState(level, worldPosition);
     }
 
-    public void riteEnding() {
-        this.desiredColor = 0;
-        this.haunted = false;
+    public void disable() {
+        this.totemPoleState = TotemPoleState.INACTIVE;
         BlockHelper.updateState(level, worldPosition);
     }
 
@@ -221,7 +206,7 @@ public class TotemPoleBlockEntity extends LodestoneBlockEntity {
         if (level.isClientSide) {
             return;
         }
-        BlockPos basePos = new BlockPos(worldPosition.getX(), baseLevel, worldPosition.getZ());
+        BlockPos basePos = new BlockPos(worldPosition.getX(), totemBaseYLevel, worldPosition.getZ());
         if (level.getBlockEntity(basePos) instanceof TotemBaseBlockEntity base) {
             if (base.active) {
                 base.endRite();

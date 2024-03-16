@@ -1,41 +1,32 @@
 package com.sammy.malum.data.recipe;
 
-import com.sammy.malum.MalumMod;
-import com.sammy.malum.common.item.impetus.ImpetusItem;
-import com.sammy.malum.data.recipe.builder.vanilla.TheDeviceRecipeBuilder;
-import com.sammy.malum.registry.common.item.ItemRegistry;
-import com.sammy.malum.registry.common.item.ItemTagRegistry;
+import com.sammy.malum.*;
+import com.sammy.malum.common.item.impetus.*;
+import com.sammy.malum.data.recipe.builder.vanilla.*;
+import com.sammy.malum.registry.common.item.*;
 import net.minecraft.advancements.critereon.*;
-import net.minecraft.data.recipes.FinishedRecipe;
-import net.minecraft.data.recipes.RecipeCategory;
-import net.minecraft.tags.ItemTags;
-import net.minecraft.tags.TagKey;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.level.ItemLike;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraftforge.common.Tags;
-import net.minecraftforge.common.crafting.ConditionalRecipe;
+import net.minecraft.data.recipes.*;
+import net.minecraft.tags.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.*;
+import net.minecraftforge.common.*;
+import net.minecraftforge.common.crafting.*;
 import net.minecraftforge.common.crafting.conditions.*;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
-import team.lodestar.lodestone.data.builder.NBTCarryRecipeBuilder;
-import team.lodestar.lodestone.systems.recipe.IngredientWithCount;
+import net.minecraftforge.registries.*;
+import team.lodestar.lodestone.data.builder.*;
+import team.lodestar.lodestone.systems.recipe.*;
 
-import java.util.function.Consumer;
-import java.util.function.Supplier;
+import java.util.function.*;
 
-import static com.sammy.malum.MalumMod.malumPath;
-import static com.sammy.malum.data.recipe.builder.vanilla.MetalNodeCookingRecipeBuilder.blastingWithTag;
-import static com.sammy.malum.data.recipe.builder.vanilla.MetalNodeCookingRecipeBuilder.smeltingWithTag;
-import static com.sammy.malum.data.recipe.builder.vanilla.StackedMalumCookingRecipeBuilder.blastingWithCount;
-import static com.sammy.malum.data.recipe.builder.vanilla.StackedMalumCookingRecipeBuilder.smeltingWithCount;
-import static net.minecraft.data.recipes.ShapedRecipeBuilder.shaped;
-import static net.minecraft.data.recipes.ShapelessRecipeBuilder.shapeless;
+import static com.sammy.malum.MalumMod.*;
+import static com.sammy.malum.data.recipe.builder.vanilla.MetalNodeCookingRecipeBuilder.*;
+import static com.sammy.malum.data.recipe.builder.vanilla.StackedMalumCookingRecipeBuilder.*;
+import static net.minecraft.data.recipes.ShapedRecipeBuilder.*;
+import static net.minecraft.data.recipes.ShapelessRecipeBuilder.*;
 import static net.minecraft.data.recipes.SimpleCookingRecipeBuilder.*;
-import static net.minecraft.data.recipes.SingleItemRecipeBuilder.stonecutting;
+import static net.minecraft.data.recipes.SingleItemRecipeBuilder.*;
 import static team.lodestar.lodestone.registry.common.tag.LodestoneItemTags.*;
 
 public class MalumVanillaRecipes implements IConditionBuilder {
@@ -47,7 +38,7 @@ public class MalumVanillaRecipes implements IConditionBuilder {
         shaped(RecipeCategory.MISC, ItemRegistry.SPIRIT_ALTAR.get()).define('Z', Tags.Items.INGOTS_GOLD).define('Y', ItemRegistry.PROCESSED_SOULSTONE.get()).define('X', ItemRegistry.RUNEWOOD_PLANKS.get()).pattern(" Y ").pattern("ZXZ").pattern("XXX").unlockedBy("has_soulstone", has(ItemRegistry.RAW_SOULSTONE.get())).save(consumer);
         shaped(RecipeCategory.MISC, ItemRegistry.SPIRIT_JAR.get()).define('Z', ItemRegistry.HALLOWED_GOLD_INGOT.get()).define('Y', Tags.Items.GLASS_PANES).pattern("YZY").pattern("Y Y").pattern("YYY").unlockedBy("has_hallowed_gold", has(ItemRegistry.HALLOWED_GOLD_INGOT.get())).save(consumer);
         shaped(RecipeCategory.MISC, ItemRegistry.SPIRIT_POUCH.get()).define('X', Tags.Items.STRING).define('Y', ItemRegistry.SPIRIT_FABRIC.get()).define('Z', ItemTags.SOUL_FIRE_BASE_BLOCKS).pattern(" X ").pattern("YZY").pattern(" Y ").unlockedBy("has_spirit_fabric", has(ItemRegistry.SPIRIT_FABRIC.get())).save(consumer);
-        shaped(RecipeCategory.MISC, ItemRegistry.WEAVERS_WORKBENCH.get()).define('Z', Tags.Items.INGOTS_GOLD).define('Y', ItemRegistry.HEX_ASH.get()).define('X', ItemRegistry.RUNEWOOD_PLANKS.get()).pattern("XYX").pattern("XZX").unlockedBy("has_hex_ash", has(ItemRegistry.HEX_ASH.get())).save(consumer);
+        shaped(RecipeCategory.MISC, ItemRegistry.WEAVERS_WORKBENCH.get()).define('Z', ItemRegistry.HALLOWED_GOLD_INGOT.get()).define('Y', ItemRegistry.HEX_ASH.get()).define('X', ItemRegistry.RUNEWOOD_PLANKS.get()).pattern("XYX").pattern("XZX").unlockedBy("has_hex_ash", has(ItemRegistry.HEX_ASH.get())).save(consumer);
 
         //CRAFTING COMPONENTS
         shaped(RecipeCategory.MISC, ItemRegistry.SPECTRAL_LENS.get()).define('X', ItemRegistry.HEX_ASH.get()).define('Y', Tags.Items.GLASS_PANES).pattern(" X ").pattern("XYX").pattern(" X ").unlockedBy("has_hex_ash", has(ItemRegistry.HEX_ASH.get())).save(consumer);
@@ -64,6 +55,14 @@ public class MalumVanillaRecipes implements IConditionBuilder {
         shaped(RecipeCategory.MISC, ItemRegistry.HALLOWED_GOLD_INGOT.get()).define('#', ItemRegistry.HALLOWED_GOLD_NUGGET.get()).pattern("###").pattern("###").pattern("###").unlockedBy("has_hallowed_gold", has(ItemRegistry.HALLOWED_GOLD_INGOT.get())).save(consumer, malumPath("hallowed_gold_from_nuggets"));
         shapeless(RecipeCategory.MISC, ItemRegistry.HALLOWED_GOLD_NUGGET.get(), 9).requires(ItemRegistry.HALLOWED_GOLD_INGOT.get()).unlockedBy("has_hallowed_gold", has(ItemRegistry.HALLOWED_GOLD_INGOT.get())).save(consumer);
         shapeless(RecipeCategory.MISC, ItemRegistry.HALLOWED_GOLD_INGOT.get(), 9).requires(ItemRegistry.BLOCK_OF_HALLOWED_GOLD.get()).unlockedBy("has_hallowed_gold", has(ItemRegistry.HALLOWED_GOLD_INGOT.get())).save(consumer, malumPath("hallowed_gold_from_block"));
+
+
+        shaped(RecipeCategory.MISC, ItemRegistry.BLOCK_OF_MALIGNANT_ALLOY.get()).define('#', ItemRegistry.MALIGNANT_ALLOY_INGOT.get()).pattern("###").pattern("###").pattern("###").unlockedBy("has_malignant_alloy", has(ItemRegistry.MALIGNANT_ALLOY_INGOT.get())).save(consumer);
+        shaped(RecipeCategory.MISC, ItemRegistry.MALIGNANT_ALLOY_INGOT.get()).define('#', ItemRegistry.MALIGNANT_ALLOY_NUGGET.get()).pattern("###").pattern("###").pattern("###").unlockedBy("has_malignant_alloy", has(ItemRegistry.MALIGNANT_ALLOY_INGOT.get())).save(consumer, malumPath("malignant_alloy_from_nuggets"));
+        shapeless(RecipeCategory.MISC, ItemRegistry.MALIGNANT_ALLOY_NUGGET.get(), 9).requires(ItemRegistry.MALIGNANT_ALLOY_INGOT.get()).unlockedBy("has_malignant_alloy", has(ItemRegistry.MALIGNANT_ALLOY_INGOT.get())).save(consumer);
+        shapeless(RecipeCategory.MISC, ItemRegistry.MALIGNANT_ALLOY_INGOT.get(), 9).requires(ItemRegistry.BLOCK_OF_MALIGNANT_ALLOY.get()).unlockedBy("has_malignant_alloy", has(ItemRegistry.MALIGNANT_ALLOY_INGOT.get())).save(consumer, malumPath("malignant_alloy_from_block"));
+        shaped(RecipeCategory.MISC, ItemRegistry.MALIGNANT_ALLOY_PLATING.get(), 2).define('X', ItemRegistry.MALIGNANT_ALLOY_INGOT.get()).define('Y', ItemRegistry.MALIGNANT_ALLOY_NUGGET.get()).pattern(" Y ").pattern("YXY").pattern(" Y ").unlockedBy("has_malignant_alloy", has(ItemRegistry.MALIGNANT_ALLOY_INGOT.get())).save(consumer);
+
 
         //NODES
         smeltingWithCount(Ingredient.of(ItemRegistry.IRON_NODE.get()), RecipeCategory.MISC, Items.IRON_NUGGET, 6, 0.25f, 200).unlockedBy("has_impetus", has(ItemRegistry.IRON_IMPETUS.get())).save(consumer, malumPath("iron_from_node_smelting"));
@@ -92,9 +91,12 @@ public class MalumVanillaRecipes implements IConditionBuilder {
 
         //TRINKETS
         shaped(RecipeCategory.MISC, ItemRegistry.GILDED_BELT.get()).define('#', ItemRegistry.HALLOWED_GOLD_INGOT.get()).define('X', Tags.Items.LEATHER).define('Y', ItemRegistry.PROCESSED_SOULSTONE.get()).pattern("XXX").pattern("#Y#").pattern(" # ").unlockedBy("has_hallowed_gold", has(ItemRegistry.HALLOWED_GOLD_INGOT.get())).save(consumer);
-        shaped(RecipeCategory.MISC, ItemRegistry.GILDED_RING.get()).define('#', ItemRegistry.HALLOWED_GOLD_INGOT.get()).define('X', Tags.Items.LEATHER).pattern(" X#").pattern("X X").pattern(" X ").unlockedBy("has_hallowed_gold", has(ItemRegistry.HALLOWED_GOLD_INGOT.get())).save(consumer);
+        shaped(RecipeCategory.MISC, ItemRegistry.GILDED_RING.get()).define('#', ItemRegistry.HALLOWED_GOLD_INGOT.get()).define('X', Tags.Items.LEATHER).pattern("#X ").pattern("X X").pattern(" X ").unlockedBy("has_hallowed_gold", has(ItemRegistry.HALLOWED_GOLD_INGOT.get())).save(consumer);
         shaped(RecipeCategory.MISC, ItemRegistry.ORNATE_NECKLACE.get()).define('#', ItemRegistry.SOUL_STAINED_STEEL_INGOT.get()).define('X', Tags.Items.STRING).pattern(" X ").pattern("X X").pattern(" # ").unlockedBy("has_soul_stained_steel", has(ItemRegistry.SOUL_STAINED_STEEL_INGOT.get())).save(consumer);
-        shaped(RecipeCategory.MISC, ItemRegistry.ORNATE_RING.get()).define('#', ItemRegistry.SOUL_STAINED_STEEL_INGOT.get()).define('X', Tags.Items.LEATHER).pattern(" X#").pattern("X X").pattern(" X ").unlockedBy("has_soul_stained_steel", has(ItemRegistry.SOUL_STAINED_STEEL_INGOT.get())).save(consumer);
+        shaped(RecipeCategory.MISC, ItemRegistry.ORNATE_RING.get()).define('#', ItemRegistry.SOUL_STAINED_STEEL_INGOT.get()).define('X', Tags.Items.LEATHER).pattern("#X ").pattern("X X").pattern(" X ").unlockedBy("has_soul_stained_steel", has(ItemRegistry.SOUL_STAINED_STEEL_INGOT.get())).save(consumer);
+
+        shaped(RecipeCategory.MISC, ItemRegistry.RUNIC_BROOCH.get()).define('X', ItemRegistry.HALLOWED_GOLD_INGOT.get()).define('Y', ItemRegistry.BLOCK_OF_HALLOWED_GOLD.get()).define('Z', Tags.Items.LEATHER).pattern(" Z ").pattern("ZXZ").pattern(" Y ").unlockedBy("has_hallowed_gold", has(ItemRegistry.HALLOWED_GOLD_INGOT.get())).save(consumer);
+        shaped(RecipeCategory.MISC, ItemRegistry.SACRIFICIAL_BROOCH.get()).define('X', ItemRegistry.SOUL_STAINED_STEEL_INGOT.get()).define('Y', ItemRegistry.BLOCK_OF_SOUL_STAINED_STEEL.get()).define('Z', Tags.Items.LEATHER).pattern(" Z ").pattern("ZXZ").pattern(" Y ").unlockedBy("has_soul_stained_steel", has(ItemRegistry.SOUL_STAINED_STEEL_INGOT.get())).save(consumer);
 
         //FRAGMENTS
         shapeless(RecipeCategory.MISC, ItemRegistry.COAL_FRAGMENT.get(), 8).requires(Items.COAL).unlockedBy("has_coal", has(Items.COAL)).save(consumer, malumPath("coal_fragment"));
@@ -195,41 +197,6 @@ public class MalumVanillaRecipes implements IConditionBuilder {
         smelting(Ingredient.of(ItemTagRegistry.SOULWOOD_LOGS), RecipeCategory.MISC, ItemRegistry.ARCANE_CHARCOAL.get(), 0.25f, 200).unlockedBy("has_soulwood_planks", has(ItemTagRegistry.SOULWOOD_LOGS)).save(consumer, malumPath("arcane_charcoal_from_soulwood"));
         shapeless(RecipeCategory.MISC, ItemRegistry.CURSED_SAPBALL.get()).requires(ItemRegistry.CURSED_SAP.get(), 2).unlockedBy("has_cursed_sap", has(ItemRegistry.CURSED_SAP.get())).save(consumer);
         shapeless(RecipeCategory.MISC, ItemRegistry.CURSED_SAP_BLOCK.get(), 8).requires(ItemRegistry.CURSED_SAP.get(), 4).unlockedBy("has_cursed_sap", has(ItemRegistry.CURSED_SAP.get())).save(consumer);
-
-        //RUNEWOOD BLOCKS
-        shapelessPlanks(consumer, ItemRegistry.RUNEWOOD_PLANKS.get(), ItemTagRegistry.RUNEWOOD_LOGS);
-        shapelessWood(consumer, ItemRegistry.RUNEWOOD.get(), ItemRegistry.RUNEWOOD_LOG.get());
-        shapelessWood(consumer, ItemRegistry.STRIPPED_RUNEWOOD.get(), ItemRegistry.STRIPPED_RUNEWOOD_LOG.get());
-        shapelessButton(consumer, ItemRegistry.RUNEWOOD_PLANKS_BUTTON.get(), ItemRegistry.RUNEWOOD_PLANKS.get());
-        shapedDoor(consumer, ItemRegistry.RUNEWOOD_DOOR.get(), ItemRegistry.RUNEWOOD_PLANKS.get());
-        shapedFence(consumer, ItemRegistry.RUNEWOOD_PLANKS_FENCE.get(), ItemRegistry.RUNEWOOD_PLANKS.get());
-        shapedFenceGate(consumer, ItemRegistry.RUNEWOOD_PLANKS_FENCE_GATE.get(), ItemRegistry.RUNEWOOD_PLANKS.get());
-        shapedPressurePlate(consumer, ItemRegistry.RUNEWOOD_PLANKS_PRESSURE_PLATE.get(), ItemRegistry.RUNEWOOD_PLANKS.get());
-        shapedSlab(consumer, ItemRegistry.RUNEWOOD_PLANKS_SLAB.get(), ItemRegistry.RUNEWOOD_PLANKS.get());
-        shapedStairs(consumer, ItemRegistry.RUNEWOOD_PLANKS_STAIRS.get(), ItemRegistry.RUNEWOOD_PLANKS.get());
-        shapedTrapdoor(consumer, ItemRegistry.RUNEWOOD_TRAPDOOR.get(), ItemRegistry.RUNEWOOD_PLANKS.get());
-        shapelessSolidTrapdoor(consumer, ItemRegistry.SOLID_RUNEWOOD_TRAPDOOR.get(), ItemRegistry.RUNEWOOD_TRAPDOOR.get());
-        shapelessSolidTrapdoor(consumer, ItemRegistry.RUNEWOOD_TRAPDOOR.get(), ItemRegistry.SOLID_RUNEWOOD_TRAPDOOR.get(), "runewood_trapdoor_from_solid");
-        shapedSign(consumer, ItemRegistry.RUNEWOOD_SIGN.get(), ItemRegistry.RUNEWOOD_PLANKS.get());
-        shaped(RecipeCategory.MISC, ItemRegistry.RUNEWOOD_BOAT.get()).define('#', ItemRegistry.RUNEWOOD_PLANKS.get()).pattern("# #").pattern("###").unlockedBy("has_runewood_planks", has(ItemRegistry.RUNEWOOD_PLANKS.get())).save(consumer);
-
-        shaped(RecipeCategory.MISC, ItemRegistry.VERTICAL_RUNEWOOD_PLANKS.get(), 3).define('#', ItemRegistry.RUNEWOOD_PLANKS.get()).pattern("#").pattern("#").pattern("#").unlockedBy("has_runewood_planks", has(ItemRegistry.RUNEWOOD_PLANKS.get())).save(consumer);
-        shapedSlab(consumer, ItemRegistry.VERTICAL_RUNEWOOD_PLANKS_SLAB.get(), ItemRegistry.VERTICAL_RUNEWOOD_PLANKS.get());
-        shapedStairs(consumer, ItemRegistry.VERTICAL_RUNEWOOD_PLANKS_STAIRS.get(), ItemRegistry.VERTICAL_RUNEWOOD_PLANKS.get());
-
-        shaped(RecipeCategory.MISC, ItemRegistry.RUNEWOOD_PANEL.get(), 4).define('#', ItemRegistry.RUNEWOOD_PLANKS.get()).pattern(" # ").pattern("# #").pattern(" # ").unlockedBy("has_runewood_planks", has(ItemRegistry.RUNEWOOD_PLANKS.get())).save(consumer);
-        shapedSlab(consumer, ItemRegistry.RUNEWOOD_PANEL_SLAB.get(), ItemRegistry.RUNEWOOD_PANEL.get());
-        shapedStairs(consumer, ItemRegistry.RUNEWOOD_PANEL_STAIRS.get(), ItemRegistry.RUNEWOOD_PANEL.get());
-
-        shaped(RecipeCategory.MISC, ItemRegistry.RUNEWOOD_TILES.get(), 4).define('#', ItemRegistry.RUNEWOOD_PANEL.get()).pattern(" # ").pattern("# #").pattern(" # ").unlockedBy("has_runewood_planks", has(ItemRegistry.RUNEWOOD_PLANKS.get())).save(consumer);
-        shapedSlab(consumer, ItemRegistry.RUNEWOOD_TILES_SLAB.get(), ItemRegistry.RUNEWOOD_TILES.get());
-        shapedStairs(consumer, ItemRegistry.RUNEWOOD_TILES_STAIRS.get(), ItemRegistry.RUNEWOOD_TILES.get());
-
-        shaped(RecipeCategory.MISC, ItemRegistry.CUT_RUNEWOOD_PLANKS.get(), 2).define('#', ItemRegistry.RUNEWOOD_PANEL.get()).define('X', ItemRegistry.RUNEWOOD_PLANKS.get()).pattern("#").pattern("X").unlockedBy("has_runewood_planks", has(ItemRegistry.RUNEWOOD_PLANKS.get())).save(consumer);
-        shaped(RecipeCategory.MISC, ItemRegistry.RUNEWOOD_BEAM.get(), 3).define('#', ItemRegistry.VERTICAL_RUNEWOOD_PLANKS.get()).pattern("#").pattern("#").pattern("#").unlockedBy("has_runewood_planks", has(ItemRegistry.RUNEWOOD_PLANKS.get())).save(consumer);
-
-        shaped(RecipeCategory.MISC, ItemRegistry.RUNEWOOD_ITEM_STAND.get(), 2).define('X', ItemRegistry.RUNEWOOD_PLANKS.get()).define('Y', ItemRegistry.RUNEWOOD_PLANKS_SLAB.get()).pattern("YYY").pattern("XXX").unlockedBy("has_runewood_planks", has(ItemRegistry.RUNEWOOD_PLANKS.get())).save(consumer);
-        shaped(RecipeCategory.MISC, ItemRegistry.RUNEWOOD_ITEM_PEDESTAL.get()).define('X', ItemRegistry.RUNEWOOD_PLANKS.get()).define('Y', ItemRegistry.RUNEWOOD_PLANKS_SLAB.get()).pattern("YYY").pattern(" X ").pattern("YYY").unlockedBy("has_runewood_planks", has(ItemRegistry.RUNEWOOD_PLANKS.get())).save(consumer);
 
         //SOULWOOD BLOCKS
         shapelessPlanks(consumer, ItemRegistry.SOULWOOD_PLANKS.get(), ItemTagRegistry.SOULWOOD_LOGS);
@@ -593,19 +560,19 @@ public class MalumVanillaRecipes implements IConditionBuilder {
         return new EnterBlockTrigger.TriggerInstance(ContextAwarePredicate.ANY, pBlock, StatePropertiesPredicate.ANY);
     }
 
-    protected static InventoryChangeTrigger.TriggerInstance has(MinMaxBounds.Ints pCount, ItemLike pItem) {
+    public static InventoryChangeTrigger.TriggerInstance has(MinMaxBounds.Ints pCount, ItemLike pItem) {
         return inventoryTrigger(ItemPredicate.Builder.item().of(pItem).withCount(pCount).build());
     }
 
-    protected static InventoryChangeTrigger.TriggerInstance has(ItemLike pItemLike) {
+    public static InventoryChangeTrigger.TriggerInstance has(ItemLike pItemLike) {
         return inventoryTrigger(ItemPredicate.Builder.item().of(pItemLike).build());
     }
 
-    protected static InventoryChangeTrigger.TriggerInstance has(TagKey<Item> pTag) {
+    public static InventoryChangeTrigger.TriggerInstance has(TagKey<Item> pTag) {
         return inventoryTrigger(ItemPredicate.Builder.item().of(pTag).build());
     }
 
-    protected static InventoryChangeTrigger.TriggerInstance inventoryTrigger(ItemPredicate... pPredicates) {
+    public static InventoryChangeTrigger.TriggerInstance inventoryTrigger(ItemPredicate... pPredicates) {
         return new InventoryChangeTrigger.TriggerInstance(ContextAwarePredicate.ANY, MinMaxBounds.Ints.ANY, MinMaxBounds.Ints.ANY, MinMaxBounds.Ints.ANY, pPredicates);
     }
 }

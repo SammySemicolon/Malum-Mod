@@ -1,7 +1,6 @@
 package com.sammy.malum.data.recipe;
 
 import com.sammy.malum.*;
-import com.sammy.malum.common.item.*;
 import com.sammy.malum.data.recipe.builder.*;
 import com.sammy.malum.registry.common.item.*;
 import net.minecraft.data.recipes.*;
@@ -14,9 +13,7 @@ import java.util.function.*;
 public class MalumVoidFavorRecipes {
 
     protected static void buildRecipes(Consumer<FinishedRecipe> consumer) {
-        final ItemStack voidEncyclopedia = new ItemStack(ItemRegistry.ENCYCLOPEDIA_ARCANA.get());
-        voidEncyclopedia.getOrCreateTag().putBoolean(EncyclopediaArcanaItem.VOID_TAG, true);
-        new VoidFavorRecipeBuilder(Ingredient.of(ItemRegistry.ENCYCLOPEDIA_ARCANA.get()), voidEncyclopedia)
+        new VoidFavorRecipeBuilder(Ingredient.of(ItemRegistry.ENCYCLOPEDIA_ARCANA.get()), ItemRegistry.ENCYCLOPEDIA_ESOTERICA.get(), 1)
                 .build(consumer);
 
         new VoidFavorRecipeBuilder(Ingredient.of(Tags.Items.RAW_MATERIALS), ItemRegistry.RAW_SOULSTONE.get(), 1)

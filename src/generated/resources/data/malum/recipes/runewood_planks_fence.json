@@ -6,7 +6,7 @@
       "tag": "forge:rods/wooden"
     },
     "W": {
-      "item": "malum:runewood_planks"
+      "tag": "malum:runewood_planks"
     }
   },
   "pattern": [

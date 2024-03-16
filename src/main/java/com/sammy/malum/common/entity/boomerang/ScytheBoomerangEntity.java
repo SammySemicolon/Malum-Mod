@@ -120,7 +120,7 @@ public class ScytheBoomerangEntity extends ThrowableItemProjectile {
                     livingentity.setSecondsOnFire(i * 4);
                 }
                 if (magicDamage > 0) {
-                    if (livingentity.isAlive()) {
+                    if (!livingentity.isDeadOrDying()) {
                         livingentity.invulnerableTime = 0;
                         livingentity.hurt(DamageTypeRegistry.create(level(), DamageTypeRegistry.VOODOO, this, scytheOwner), magicDamage);
                     }

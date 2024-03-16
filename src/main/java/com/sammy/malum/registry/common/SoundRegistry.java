@@ -52,6 +52,7 @@ public class SoundRegistry {
     public static final RegistryObject<SoundEvent> SOUL_SHATTER = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("a_soul_shatters")));
 
     public static final RegistryObject<SoundEvent> SCYTHE_CUT = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("scythe_cuts")));
+    public static final RegistryObject<SoundEvent> WEIGHT_OF_WORLDS_SLASH = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("weight_of_worlds_slashes")));
 
     public static final RegistryObject<SoundEvent> STAFF_FIRES = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("staff_fires")));
     public static final RegistryObject<SoundEvent> STAFF_POWERS_UP = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("staff_powers_up")));
@@ -60,11 +61,14 @@ public class SoundRegistry {
     public static final RegistryObject<SoundEvent> STAFF_STRIKES = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("staff_strikes")));
 
     public static final RegistryObject<SoundEvent> AURIC_FLAME_MOTIF = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("auric_flame_motif")));
+    public static final RegistryObject<SoundEvent> DRAINING_MOTIF = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("draining_motif")));
 
     public static final RegistryObject<SoundEvent> ALTAR_CRAFT = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("spirit_altar_completes_infusion")));
     public static final RegistryObject<SoundEvent> ALTAR_LOOP = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("spirit_altar_infuses")));
     public static final RegistryObject<SoundEvent> ALTAR_CONSUME = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("spirit_altar_absorbs_item")));
     public static final RegistryObject<SoundEvent> ALTAR_SPEED_UP = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("spirit_altar_speeds_up")));
+
+    public static final RegistryObject<SoundEvent> RUNIC_WORKBENCH_CRAFT = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("runic_workbench_crafts")));
 
     public static final RegistryObject<SoundEvent> RITUAL_BEGINS = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("ritual_begins")));
     public static final RegistryObject<SoundEvent> RITUAL_ABSORBS_ITEM = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("ritual_absorbs_item")));
@@ -98,6 +102,7 @@ public class SoundRegistry {
 
     public static final RegistryObject<SoundEvent> VOID_SLASH = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("void_slash_swooshes")));
     public static final RegistryObject<SoundEvent> HIDDEN_BLADE_STRIKES = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("hidden_blade_strikes")));
+    public static final RegistryObject<SoundEvent> MALIGNANT_METAL_RESONATES = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("malignant_metal_resonates")));
     public static final RegistryObject<SoundEvent> HUNGRY_BELT_FEEDS = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("hungry_belt_feeds")));
     public static final RegistryObject<SoundEvent> FLESH_RING_ABSORBS = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("flesh_ring_absorbs")));
     public static final RegistryObject<SoundEvent> NITRATE_THROWN = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("nitrate_thrown")));
@@ -143,6 +148,27 @@ public class SoundRegistry {
 
     public static final RegistryObject<SoundEvent> CTHONIC_GOLD_BREAK = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("cthonic_gold_break")));
     public static final RegistryObject<SoundEvent> CTHONIC_GOLD_PLACE = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("cthonic_gold_place")));
+
+    public static final RegistryObject<SoundEvent> RUNEWOOD_BREAK = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("runewood_break")));
+    public static final RegistryObject<SoundEvent> RUNEWOOD_PLACE = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("runewood_place")));
+    public static final RegistryObject<SoundEvent> RUNEWOOD_STEP = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("runewood_step")));
+    public static final RegistryObject<SoundEvent> RUNEWOOD_HIT = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("runewood_hit")));
+
+    public static final RegistryObject<SoundEvent> RUNEWOOD_HANGING_SIGN_BREAK = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("runewood_hanging_sign_break")));
+    public static final RegistryObject<SoundEvent> RUNEWOOD_HANGING_SIGN_PLACE = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("runewood_hanging_sign_place")));
+    public static final RegistryObject<SoundEvent> RUNEWOOD_HANGING_SIGN_STEP = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("runewood_hanging_sign_step")));
+    public static final RegistryObject<SoundEvent> RUNEWOOD_HANGING_SIGN_HIT = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("runewood_hanging_sign_hit")));
+
+    public static final RegistryObject<SoundEvent> RUNEWOOD_BUTTON_CLICK_OFF = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("runewood_button_click_off")));
+    public static final RegistryObject<SoundEvent> RUNEWOOD_BUTTON_CLICK_ON = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("runewood_button_click_on")));
+    public static final RegistryObject<SoundEvent> RUNEWOOD_PRESSURE_PLATE_CLICK_OFF = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("runewood_pressure_plate_click_off")));
+    public static final RegistryObject<SoundEvent> RUNEWOOD_PRESSURE_PLATE_CLICK_ON = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("runewood_pressure_plate_click_on")));
+    public static final RegistryObject<SoundEvent> RUNEWOOD_FENCE_GATE_CLOSE = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("runewood_fence_gate_close")));
+    public static final RegistryObject<SoundEvent> RUNEWOOD_FENCE_GATE_OPEN = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("runewood_fence_gate_open")));
+    public static final RegistryObject<SoundEvent> RUNEWOOD_DOOR_CLOSE = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("runewood_door_close")));
+    public static final RegistryObject<SoundEvent> RUNEWOOD_DOOR_OPEN = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("runewood_door_open")));
+    public static final RegistryObject<SoundEvent> RUNEWOOD_TRAPDOOR_CLOSE = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("runewood_trapdoor_close")));
+    public static final RegistryObject<SoundEvent> RUNEWOOD_TRAPDOOR_OPEN = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("runewood_trapdoor_open")));
 
     public static final RegistryObject<SoundEvent> ARCANE_ROCK_BREAK = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("arcane_rock_break")));
     public static final RegistryObject<SoundEvent> ARCANE_ROCK_PLACE = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("arcane_rock_place")));
@@ -201,18 +227,25 @@ public class SoundRegistry {
     public static final SoundType QUARTZ_CLUSTER = new QuartzClusterSoundType(0.3F, 1.5f, QUARTZ_CLUSTER_BLOCK_BREAK, QUARTZ_CLUSTER_BLOCK_STEP, QUARTZ_CLUSTER_BLOCK_PLACE, QUARTZ_CLUSTER_BLOCK_HIT, () -> SoundEvents.AMETHYST_CLUSTER_FALL);
     public static final SoundType HALLOWED_GOLD = new ForgeSoundType(1.0F, 1.0F, HALLOWED_GOLD_BREAK, HALLOWED_GOLD_STEP, HALLOWED_GOLD_PLACE, HALLOWED_GOLD_HIT, () -> SoundEvents.METAL_FALL);
     public static final SoundType SOUL_STAINED_STEEL = new ForgeSoundType(1.0F, 1.0F, SOUL_STAINED_STEEL_BREAK, SOUL_STAINED_STEEL_STEP, SOUL_STAINED_STEEL_PLACE, SOUL_STAINED_STEEL_HIT, () -> SoundEvents.METAL_FALL);
+    public static final SoundType MALIGNANT_ALLOY = new RareEarthSoundType(1.0F, 1.0F, SOUL_STAINED_STEEL_BREAK, SOUL_STAINED_STEEL_STEP, SOUL_STAINED_STEEL_PLACE, SOUL_STAINED_STEEL_HIT, () -> SoundEvents.METAL_FALL);
 
     public static final SoundType TAINTED_ROCK = new ForgeSoundType(1.0F, 1.1F, ARCANE_ROCK_BREAK, ARCANE_ROCK_STEP, ARCANE_ROCK_PLACE, ARCANE_ROCK_HIT, () -> SoundEvents.BASALT_FALL);
     public static final SoundType TAINTED_ROCK_BRICKS = new ForgeSoundType(1.0F, 1.1F, ARCANE_ROCK_BRICKS_BREAK, ARCANE_ROCK_BRICKS_STEP, ARCANE_ROCK_BRICKS_PLACE, ARCANE_ROCK_BRICKS_HIT, () -> SoundEvents.BASALT_FALL);
     public static final SoundType TWISTED_ROCK = new ForgeSoundType(1.0F, 0.85F, ARCANE_ROCK_BREAK, ARCANE_ROCK_STEP, ARCANE_ROCK_PLACE, ARCANE_ROCK_HIT, () -> SoundEvents.BASALT_FALL);
     public static final SoundType TWISTED_ROCK_BRICKS = new ForgeSoundType(1.0F, 0.85F, ARCANE_ROCK_BRICKS_BREAK, ARCANE_ROCK_BRICKS_STEP, ARCANE_ROCK_BRICKS_PLACE, ARCANE_ROCK_BRICKS_HIT, () -> SoundEvents.BASALT_FALL);
 
+    public static final SoundType RUNEWOOD = new ForgeSoundType(1.0F, 1.3F, RUNEWOOD_BREAK, RUNEWOOD_STEP, RUNEWOOD_PLACE, RUNEWOOD_HIT, () -> SoundEvents.CHERRY_WOOD_FALL);
+    public static final SoundType RUNEWOOD_HANGING_SIGN = new ForgeSoundType(1.0F, 1.3F, RUNEWOOD_HANGING_SIGN_BREAK, RUNEWOOD_HANGING_SIGN_STEP, RUNEWOOD_HANGING_SIGN_PLACE, RUNEWOOD_HANGING_SIGN_HIT, () -> SoundEvents.CHERRY_WOOD_FALL);
     public static final SoundType RUNEWOOD_LEAVES = new ForgeSoundType(1.0F, 1.1F, RUNEWOOD_LEAVES_BREAK, RUNEWOOD_LEAVES_STEP, RUNEWOOD_LEAVES_PLACE, RUNEWOOD_LEAVES_HIT, () -> SoundEvents.AZALEA_LEAVES_FALL);
+
+    public static final SoundType SOULWOOD = new BlightedSoundType(1.0F, 1.1f, RUNEWOOD_BREAK, RUNEWOOD_STEP, RUNEWOOD_PLACE, RUNEWOOD_HIT, () -> SoundEvents.CHERRY_WOOD_FALL);
+    public static final SoundType SOULWOOD_HANGING_SIGN = new ForgeSoundType(1.0F, 1.1f, RUNEWOOD_HANGING_SIGN_BREAK, RUNEWOOD_HANGING_SIGN_STEP, RUNEWOOD_HANGING_SIGN_PLACE, RUNEWOOD_HANGING_SIGN_HIT, () -> SoundEvents.CHERRY_WOOD_FALL);
+    public static final SoundType SOULWOOD_LEAVES = new BlightedSoundType(1.0F, 0.9F, SOULWOOD_LEAVES_BREAK, SOULWOOD_LEAVES_STEP, SOULWOOD_LEAVES_PLACE, SOULWOOD_LEAVES_HIT, () -> SoundEvents.AZALEA_LEAVES_FALL);
+
+
 
     public static final SoundType BLIGHTED_FOLIAGE = new BlightedSoundType(1.0F, 1.0F, () -> SoundEvents.NETHER_WART_BREAK, () -> SoundEvents.STONE_STEP, () -> SoundEvents.NETHER_WART_PLANTED, () -> SoundEvents.STONE_HIT, () -> SoundEvents.STONE_FALL);
     public static final SoundType BLIGHTED_EARTH = new BlightedSoundType(1.0F, 1.0F, () -> SoundEvents.NYLIUM_BREAK, () -> SoundEvents.NYLIUM_STEP, () -> SoundEvents.NYLIUM_PLACE, () -> SoundEvents.NYLIUM_HIT, () -> SoundEvents.NYLIUM_FALL);
-    public static final SoundType SOULWOOD = new BlightedSoundType(1.0F, 1.0F, () -> SoundEvents.WOOD_BREAK, () -> SoundEvents.WOOD_STEP, () -> SoundEvents.WOOD_PLACE, () -> SoundEvents.WOOD_HIT, () -> SoundEvents.WOOD_FALL);
-    public static final SoundType SOULWOOD_LEAVES = new BlightedSoundType(1.0F, 0.9F, SOULWOOD_LEAVES_BREAK, SOULWOOD_LEAVES_STEP, SOULWOOD_LEAVES_PLACE, SOULWOOD_LEAVES_HIT, () -> SoundEvents.AZALEA_LEAVES_FALL);
     public static final SoundType CURSED_SAP = new BlightedSoundType(1.0F, 0.9F, () -> SoundEvents.SLIME_BLOCK_BREAK, () -> SoundEvents.SLIME_BLOCK_STEP, () -> SoundEvents.SLIME_BLOCK_PLACE, () -> SoundEvents.SLIME_BLOCK_HIT, () -> SoundEvents.SLIME_BLOCK_FALL);
 
     public static final SoundType CALCIFIED_BLIGHT = new ForgeSoundType(1.0F, 1.25F, CALCIFIED_BLIGHT_BREAK, CALCIFIED_BLIGHT_STEP, CALCIFIED_BLIGHT_PLACE, CALCIFIED_BLIGHT_HIT, () -> SoundEvents.BONE_BLOCK_FALL);

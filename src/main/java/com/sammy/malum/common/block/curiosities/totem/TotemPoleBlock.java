@@ -22,12 +22,12 @@ import static net.minecraft.world.level.block.state.properties.BlockStatePropert
 public class TotemPoleBlock<T extends TotemPoleBlockEntity> extends LodestoneEntityBlock<T> {
 
     public final Supplier<? extends Block> logBlock;
-    public final boolean corrupted;
+    public final boolean isSoulwood;
 
-    public TotemPoleBlock(Properties properties, Supplier<? extends Block> logBlock, boolean corrupted) {
+    public TotemPoleBlock(Properties properties, Supplier<? extends Block> logBlock, boolean isSoulwood) {
         super(properties.lootFrom(logBlock));
         this.logBlock = logBlock;
-        this.corrupted = corrupted;
+        this.isSoulwood = isSoulwood;
         this.registerDefaultState(this.stateDefinition.any().setValue(HORIZONTAL_FACING, Direction.NORTH));
     }
 

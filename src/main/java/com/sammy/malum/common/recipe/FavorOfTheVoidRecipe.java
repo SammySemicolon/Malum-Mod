@@ -1,50 +1,29 @@
 package com.sammy.malum.common.recipe;
 
-import com.google.gson.JsonObject;
-import com.sammy.malum.registry.common.recipe.RecipeSerializerRegistry;
-import com.sammy.malum.registry.common.recipe.RecipeTypeRegistry;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.level.Level;
-import net.minecraftforge.common.crafting.CraftingHelper;
-import team.lodestar.lodestone.systems.recipe.ILodestoneRecipe;
+import com.google.gson.*;
+import com.sammy.malum.registry.common.recipe.*;
+import net.minecraft.network.*;
+import net.minecraft.resources.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.level.*;
+import net.minecraftforge.common.crafting.*;
 
-import javax.annotation.Nullable;
-import java.util.List;
-import java.util.function.Predicate;
+import javax.annotation.*;
+import java.util.*;
+import java.util.function.*;
 
-public class FavorOfTheVoidRecipe extends ILodestoneRecipe {
+public class FavorOfTheVoidRecipe extends AbstractMalumRecipe {
     public static final String NAME = "favor_of_the_void";
-
-    private final ResourceLocation id;
 
     public final Ingredient input;
 
     public final ItemStack output;
 
     public FavorOfTheVoidRecipe(ResourceLocation id, Ingredient input, ItemStack output) {
-        this.id = id;
+        super(id, RecipeSerializerRegistry.VOID_FAVOR_RECIPE_SERIALIZER.get(), RecipeTypeRegistry.VOID_FAVOR.get());
         this.input = input;
         this.output = output;
-    }
-
-    @Override
-    public RecipeSerializer<?> getSerializer() {
-        return RecipeSerializerRegistry.VOID_FAVOR_RECIPE_SERIALIZER.get();
-    }
-
-    @Override
-    public RecipeType<?> getType() {
-        return RecipeTypeRegistry.VOID_FAVOR.get();
-    }
-
-    @Override
-    public ResourceLocation getId() {
-        return id;
     }
 
     public boolean doesInputMatch(ItemStack input) {
@@ -60,17 +39,11 @@ public class FavorOfTheVoidRecipe extends ILodestoneRecipe {
     }
 
     public static FavorOfTheVoidRecipe getRecipe(Level level, Predicate<FavorOfTheVoidRecipe> predicate) {
-        List<FavorOfTheVoidRecipe> recipes = getRecipes(level);
-        for (FavorOfTheVoidRecipe recipe : recipes) {
-            if (predicate.test(recipe)) {
-                return recipe;
-            }
-        }
-        return null;
+        return getRecipe(level, RecipeTypeRegistry.VOID_FAVOR.get(), predicate);
     }
 
     public static List<FavorOfTheVoidRecipe> getRecipes(Level level) {
-        return level.getRecipeManager().getAllRecipesFor(RecipeTypeRegistry.VOID_FAVOR.get());
+        return getRecipes(level, RecipeTypeRegistry.VOID_FAVOR.get());
     }
 
     public static class Serializer implements RecipeSerializer<FavorOfTheVoidRecipe> {

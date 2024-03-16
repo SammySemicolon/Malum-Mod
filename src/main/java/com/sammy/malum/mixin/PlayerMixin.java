@@ -1,6 +1,6 @@
 package com.sammy.malum.mixin;
 
-import com.sammy.malum.common.effect.AqueousAura;
+import com.sammy.malum.common.effect.aura.AqueousAura;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.AABB;
 import org.spongepowered.asm.mixin.Mixin;

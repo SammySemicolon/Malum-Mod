@@ -2,7 +2,7 @@ package com.sammy.malum.common.item.curiosities.weapons;
 
 import com.sammy.malum.common.packets.particle.curiosities.rite.generic.MajorEntityEffectParticlePacket;
 import com.sammy.malum.core.helper.SpiritHelper;
-import com.sammy.malum.core.systems.item.IMalumEventResponderItem;
+import com.sammy.malum.common.item.IMalumEventResponderItem;
 import com.sammy.malum.registry.common.DamageTypeRegistry;
 import com.sammy.malum.registry.common.SoundRegistry;
 import com.sammy.malum.registry.common.SpiritTypeRegistry;

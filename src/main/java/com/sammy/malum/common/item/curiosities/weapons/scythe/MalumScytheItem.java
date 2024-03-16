@@ -1,7 +1,7 @@
 package com.sammy.malum.common.item.curiosities.weapons.scythe;
 
 import com.sammy.malum.common.entity.boomerang.ScytheBoomerangEntity;
-import com.sammy.malum.core.systems.item.IMalumEventResponderItem;
+import com.sammy.malum.common.item.IMalumEventResponderItem;
 import com.sammy.malum.registry.client.ParticleRegistry;
 import com.sammy.malum.registry.common.DamageTypeRegistry;
 import com.sammy.malum.registry.common.SoundRegistry;
@@ -59,7 +59,7 @@ public class MalumScytheItem extends ModCombatItem implements IMalumEventRespond
         });
     }
 
-    public void spawnSweepParticles(Player player, SimpleParticleType type) {
+    public static void spawnSweepParticles(Player player, SimpleParticleType type) {
         double d0 = (-Mth.sin(player.getYRot() * ((float) Math.PI / 180F)));
         double d1 = Mth.cos(player.getYRot() * ((float) Math.PI / 180F));
         if (player.level() instanceof ServerLevel serverLevel) {

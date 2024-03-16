@@ -1,0 +1,34 @@
+{
+  "type": "malum:spirit_infusion",
+  "extra_items": [
+    {
+      "count": 2,
+      "item": "malum:malignant_lead"
+    },
+    {
+      "count": 8,
+      "item": "malum:null_slate"
+    },
+    {
+      "count": 3,
+      "item": "minecraft:netherite_scrap"
+    }
+  ],
+  "input": {
+    "count": 4,
+    "tag": "forge:ingots/iron"
+  },
+  "output": {
+    "item": "malum:malignant_alloy_ingot"
+  },
+  "spirits": [
+    {
+      "type": "earthen",
+      "count": 16
+    },
+    {
+      "type": "eldritch",
+      "count": 4
+    }
+  ]
+}

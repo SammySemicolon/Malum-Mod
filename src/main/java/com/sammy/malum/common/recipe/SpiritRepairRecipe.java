@@ -1,34 +1,23 @@
 package com.sammy.malum.common.recipe;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.sammy.malum.core.systems.recipe.SpiritWithCount;
-import com.sammy.malum.registry.common.recipe.RecipeSerializerRegistry;
-import com.sammy.malum.registry.common.recipe.RecipeTypeRegistry;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.level.Level;
-import net.minecraftforge.registries.ForgeRegistries;
-import team.lodestar.lodestone.systems.recipe.ILodestoneRecipe;
-import team.lodestar.lodestone.systems.recipe.IngredientWithCount;
+import com.google.gson.*;
+import com.sammy.malum.core.systems.recipe.*;
+import com.sammy.malum.registry.common.recipe.*;
+import net.minecraft.network.*;
+import net.minecraft.resources.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.level.*;
+import net.minecraftforge.registries.*;
+import team.lodestar.lodestone.systems.recipe.*;
 
-import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
+import javax.annotation.*;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
 
-public class SpiritRepairRecipe extends ILodestoneRecipe {
+public class SpiritRepairRecipe extends AbstractMalumRecipe {
     public static final String NAME = "spirit_repair";
-
-    private final ResourceLocation id;
 
     public final float durabilityPercentage;
     public final List<Item> inputs;
@@ -36,26 +25,11 @@ public class SpiritRepairRecipe extends ILodestoneRecipe {
     public final List<SpiritWithCount> spirits;
 
     public SpiritRepairRecipe(ResourceLocation id, float durabilityPercentage, List<Item> inputs, IngredientWithCount repairMaterial, List<SpiritWithCount> spirits) {
-        this.id = id;
+        super(id, RecipeSerializerRegistry.REPAIR_RECIPE_SERIALIZER.get(), RecipeTypeRegistry.SPIRIT_REPAIR.get());
         this.durabilityPercentage = durabilityPercentage;
         this.repairMaterial = repairMaterial;
         this.inputs = inputs;
         this.spirits = spirits;
-    }
-
-    @Override
-    public RecipeSerializer<?> getSerializer() {
-        return RecipeSerializerRegistry.REPAIR_RECIPE_SERIALIZER.get();
-    }
-
-    @Override
-    public RecipeType<?> getType() {
-        return RecipeTypeRegistry.SPIRIT_REPAIR.get();
-    }
-
-    @Override
-    public ResourceLocation getId() {
-        return id;
     }
 
     public List<ItemStack> getSortedSpirits(List<ItemStack> stacks) {
@@ -108,17 +82,11 @@ public class SpiritRepairRecipe extends ILodestoneRecipe {
     }
 
     public static SpiritRepairRecipe getRecipe(Level level, Predicate<SpiritRepairRecipe> predicate) {
-        List<SpiritRepairRecipe> recipes = getRecipes(level);
-        for (SpiritRepairRecipe recipe : recipes) {
-            if (predicate.test(recipe)) {
-                return recipe;
-            }
-        }
-        return null;
+        return getRecipe(level, RecipeTypeRegistry.SPIRIT_REPAIR.get(), predicate);
     }
 
     public static List<SpiritRepairRecipe> getRecipes(Level level) {
-        return level.getRecipeManager().getAllRecipesFor(RecipeTypeRegistry.SPIRIT_REPAIR.get());
+        return getRecipes(level, RecipeTypeRegistry.SPIRIT_REPAIR.get());
     }
 
     public static ItemStack getRepairRecipeOutput(ItemStack input) {

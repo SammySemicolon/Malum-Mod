@@ -97,7 +97,7 @@ public class AuricFlameBoltEntity extends AbstractBoltProjectileEntity {
     @Override
     public void playSound(SoundEvent pSound, float pVolume, float pPitch) {
         super.playSound(pSound, pVolume, pPitch);
-        super.playSound(SoundRegistry.AURIC_FLAME_MOTIF.get(), pVolume+0.2f, pPitch+0.6f);
+        super.playSound(SoundRegistry.AURIC_FLAME_MOTIF.get(), pVolume+0.1f, pPitch+0.6f);
     }
 
     @Override

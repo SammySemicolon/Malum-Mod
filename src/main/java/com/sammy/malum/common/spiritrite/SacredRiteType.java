@@ -71,7 +71,7 @@ public class SacredRiteType extends MalumRiteType {
         m.put(Sheep.class, new NourishmentRiteActor<>(Sheep.class) {
             @Override
             public void act(TotemBaseBlockEntity totemBaseBlockEntity, Sheep sheep) {
-                if (sheep.getRandom().nextInt(sheep.isBaby() ? 5 : 25) == 0) {
+                if (sheep.getRandom().nextFloat() < 0.6f) {
                     BlockPos blockpos = sheep.blockPosition();
                     final Level level = sheep.level();
                     if (IS_TALL_GRASS.test(level.getBlockState(blockpos)) || level.getBlockState(blockpos.below()).is(Blocks.GRASS_BLOCK)) {

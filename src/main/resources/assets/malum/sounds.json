@@ -33,6 +33,7 @@
   "a_soul_shatters": { "sounds":["malum:curiosities/soul_shatter1","malum:curiosities/soul_shatter2","malum:curiosities/soul_shatter3"], "subtitle": "malum.subtitle.a_soul_shatters" },
 
   "scythe_cuts": { "sounds":["malum:curiosities/scythe/cut1","malum:curiosities/scythe/cut2","malum:curiosities/scythe/cut3"], "subtitle": "malum.subtitle.scythe_cuts" },
+  "weight_of_worlds_slashes": { "sounds":["malum:curiosities/scythe/cut1","malum:curiosities/scythe/cut2","malum:curiosities/scythe/cut3"], "subtitle": "malum.subtitle.weight_of_worlds_slashes" },
 
   "staff_fires": { "sounds":["malum:curiosities/staff/fire1","malum:curiosities/staff/fire2"], "subtitle": "malum.subtitle.staff_fires" },
   "staff_powers_up": { "sounds":["malum:curiosities/staff/charge1","malum:curiosities/staff/charge2"], "subtitle": "malum.subtitle.staff_powers_up" },
@@ -41,6 +42,7 @@
   "staff_strikes": { "sounds":["malum:curiosities/staff/hit1","malum:curiosities/staff/hit2","malum:curiosities/staff/hit3","malum:curiosities/staff/hit4"], "subtitle": "malum.subtitle.staff_strikes" },
 
   "auric_flame_motif": { "sounds":["malum:curiosities/staff/auric_flame_motif1","malum:curiosities/staff/auric_flame_motif2","malum:curiosities/staff/auric_flame_motif3"]},
+  "draining_motif": { "sounds":["malum:curiosities/staff/draining_motif1","malum:curiosities/staff/draining_motif2","malum:curiosities/staff/draining_motif3"]},
 
   "the_unknown_weeps": { "sounds":["malum:weeping_well/uncanny_valley0","malum:weeping_well/uncanny_valley1"], "subtitle": "malum.subtitle.the_unknown_weeps" },
   "the_void_heart_beats": { "sounds":["malum:weeping_well/void_heartbeat"], "subtitle": "malum.subtitle.the_void_heart_beats" },
@@ -59,6 +61,8 @@
   "spirit_altar_speeds_up": { "sounds":["malum:altar/altar_speedup1","malum:altar/altar_speedup2"], "subtitle": "malum.subtitle.spirit_altar_speeds_up" },
   "spirit_altar_absorbs_item": { "sounds":["malum:altar/altar_consume1", "malum:altar/altar_consume2"], "subtitle": "malum.subtitle.spirit_altar_absorbs_item" },
   "alteration_plinth_alters": { "sounds":["malum:plinth/alter1","malum:plinth/alter2","malum:plinth/alter3"], "subtitle": "malum.subtitle.alteration_plinth_alters" },
+
+  "runic_workbench_crafts": { "sounds":["malum:runic_workbench/craft1","malum:runic_workbench/craft2"], "subtitle": "malum.subtitle.runic_workbench_crafts" },
 
   "ritual_begins": { "sounds":["malum:ritual/ritual_start"], "subtitle": "malum.subtitle.ritual_begins" },
   "ritual_absorbs_item": { "sounds":["malum:ritual/ritual_absorb_item1", "malum:ritual/ritual_absorb_item2", "malum:ritual/ritual_absorb_item3"], "subtitle": "malum.subtitle.ritual_absorbs_item" },
@@ -80,6 +84,7 @@
   "hungry_belt_feeds": { "sounds":["malum:curiosities/starved_belt/nom1", "malum:curiosities/starved_belt/nom2", "malum:curiosities/starved_belt/nom3", "malum:curiosities/starved_belt/nom4"], "subtitle": "malum.subtitle.hungry_belt_feeds" },
   "flesh_ring_absorbs": { "sounds":["malum:curiosities/cancer_ring/grow1", "malum:curiosities/cancer_ring/grow2", "malum:curiosities/cancer_ring/grow3"], "subtitle": "malum.subtitle.flesh_ring_absorbs" },
   "hidden_blade_strikes": { "sounds":["malum:curiosities/hidden_blade/strike1", "malum:curiosities/hidden_blade/strike2", "malum:curiosities/hidden_blade/strike3"], "subtitle": "malum.subtitle.hidden_blade_strikes" },
+  "malignant_metal_resonates": { "sounds":["malum:curiosities/hidden_blade/strike1", "malum:curiosities/hidden_blade/strike2", "malum:curiosities/hidden_blade/strike3"], "subtitle": "malum.subtitle.malignant_metal_resonates" },
   "nitrate_thrown": { "sounds":["minecraft:random/bow"], "subtitle": "malum.subtitle.nitrate_thrown" },
   "spirit_mote_created": { "sounds":["malum:curiosities/spirit_mote/created1", "malum:curiosities/spirit_mote/created2", "malum:curiosities/spirit_mote/created3"], "subtitle": "malum.subtitle.spirit_mote_created" },
 
@@ -90,6 +95,28 @@
 
   "the_deep_beckons": { "sounds":["malum:suspicious_sound"], "subtitle": "malum.subtitle.the_deep_beckons" },
   "the_heavens_sing": { "sounds":["malum:heavenly_organs"], "subtitle": "malum.subtitle.the_heavens_sing" },
+
+  "runewood_break": { "sounds":["malum:blocks/runewood/break1","malum:blocks/runewood/break2","malum:blocks/runewood/break3","malum:blocks/runewood/break4","malum:blocks/runewood/break5","malum:blocks/runewood/break6"], "subtitle": "malum.subtitle.runewood_break" },
+  "runewood_step": { "sounds":["malum:blocks/runewood/hit1","malum:blocks/runewood/hit2","malum:blocks/runewood/hit3","malum:blocks/runewood/hit4","malum:blocks/runewood/hit5","malum:blocks/runewood/hit6"], "subtitle": "malum.subtitle.runewood_step" },
+  "runewood_place": { "sounds":["malum:blocks/runewood/break1","malum:blocks/runewood/break2","malum:blocks/runewood/break3","malum:blocks/runewood/break4","malum:blocks/runewood/break5","malum:blocks/runewood/break6"], "subtitle": "malum.subtitle.runewood_place" },
+  "runewood_hit": { "sounds":["malum:blocks/runewood/hit1","malum:blocks/runewood/hit2","malum:blocks/runewood/hit3","malum:blocks/runewood/hit4","malum:blocks/runewood/hit5","malum:blocks/runewood/hit6"], "subtitle": "malum.subtitle.runewood_hit" },
+
+  "runewood_hanging_sign_break": { "sounds":["malum:blocks/runewood/hanging_sign/break1","malum:blocks/runewood/hanging_sign/break2","malum:blocks/runewood/hanging_sign/break3","malum:blocks/runewood/hanging_sign/break4"], "subtitle": "malum.subtitle.runewood_hanging_sign_break" },
+  "runewood_hanging_sign_step": { "sounds":["malum:blocks/runewood/hanging_sign/hit1","malum:blocks/runewood/hanging_sign/hit2","malum:blocks/runewood/hanging_sign/hit3","malum:blocks/runewood/hanging_sign/hit4"], "subtitle": "malum.subtitle.runewood_hanging_sign_step" },
+  "runewood_hanging_sign_place": { "sounds":["malum:blocks/runewood/hanging_sign/break1","malum:blocks/runewood/hanging_sign/break2","malum:blocks/runewood/hanging_sign/break3","malum:blocks/runewood/hanging_sign/break4"], "subtitle": "malum.subtitle.runewood_hanging_sign_place" },
+  "runewood_hanging_sign_hit": { "sounds":["malum:blocks/runewood/hanging_sign/hit1","malum:blocks/runewood/hanging_sign/hit2","malum:blocks/runewood/hanging_sign/hit3","malum:blocks/runewood/hanging_sign/hit4"], "subtitle": "malum.subtitle.runewood_hanging_sign_hit" },
+
+  "runewood_button_click_off": { "sounds":["malum:blocks/runewood/button/runewood_button"], "subtitle": "malum.subtitle.runewood_button_click_off" },
+  "runewood_button_click_on": { "sounds":["malum:blocks/runewood/button/runewood_button"], "subtitle": "malum.subtitle.runewood_button_click_on" },
+  "runewood_pressure_plate_click_off": { "sounds":["malum:blocks/runewood/button/runewood_button"], "subtitle": "malum.subtitle.runewood_pressure_plate_click_off" },
+  "runewood_pressure_plate_click_on": { "sounds":["malum:blocks/runewood/button/runewood_button"], "subtitle": "malum.subtitle.runewood_pressure_plate_click_on" },
+  "runewood_fence_gate_close": { "sounds":["malum:blocks/runewood/fence_gate/toggle1", "malum:blocks/runewood/fence_gate/toggle2", "malum:blocks/runewood/fence_gate/toggle3"], "subtitle": "malum.subtitle.runewood_fence_gate_close" },
+  "runewood_fence_gate_open": { "sounds":["malum:blocks/runewood/fence_gate/toggle1", "malum:blocks/runewood/fence_gate/toggle2", "malum:blocks/runewood/fence_gate/toggle3"], "subtitle": "malum.subtitle.runewood_fence_gate_open" },
+  "runewood_door_close": { "sounds":["malum:blocks/runewood/door/toggle1", "malum:blocks/runewood/door/toggle2", "malum:blocks/runewood/door/toggle3"], "subtitle": "malum.subtitle.runewood_door_close" },
+  "runewood_door_open": { "sounds":["malum:blocks/runewood/door/toggle1", "malum:blocks/runewood/door/toggle2", "malum:blocks/runewood/door/toggle3"], "subtitle": "malum.subtitle.runewood_door_open" },
+  "runewood_trapdoor_close": { "sounds":["malum:blocks/runewood/trapdoor/toggle1", "malum:blocks/runewood/trapdoor/toggle2", "malum:blocks/runewood/trapdoor/toggle3"], "subtitle": "malum.subtitle.runewood_trapdoor_close" },
+  "runewood_trapdoor_open": { "sounds":["malum:blocks/runewood/trapdoor/toggle1", "malum:blocks/runewood/trapdoor/toggle2", "malum:blocks/runewood/trapdoor/toggle3"], "subtitle": "malum.subtitle.runewood_trapdoor_open" },
+
 
   "arcane_rock_break": { "sounds":["malum:blocks/arcane_rock/break1","malum:blocks/arcane_rock/break2","malum:blocks/arcane_rock/break3","malum:blocks/arcane_rock/break4","malum:blocks/arcane_rock/break5","malum:blocks/arcane_rock/break6"], "subtitle": "malum.subtitle.arcane_rock_break" },
   "arcane_rock_step": { "sounds":["malum:blocks/arcane_rock/hit1","malum:blocks/arcane_rock/hit2","malum:blocks/arcane_rock/hit3","malum:blocks/arcane_rock/hit4","malum:blocks/arcane_rock/hit5","malum:blocks/arcane_rock/hit6", "block/basalt/step1","block/basalt/step2","block/basalt/step3","block/basalt/step4","block/basalt/step5","block/basalt/step6"], "subtitle": "malum.subtitle.arcane_rock_step" },

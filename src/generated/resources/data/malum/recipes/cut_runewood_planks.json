@@ -2,16 +2,16 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "#": {
+    "X": {
       "item": "malum:runewood_panel"
     },
-    "X": {
-      "item": "malum:runewood_planks"
+    "Y": {
+      "tag": "malum:runewood_planks"
     }
   },
   "pattern": [
-    "#",
-    "X"
+    "X",
+    "Y"
   ],
   "result": {
     "count": 2,

@@ -2,7 +2,6 @@ package com.sammy.malum.core.listeners;
 
 import com.google.gson.*;
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.core.systems.reaping.MalumReapingDropsData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
@@ -57,6 +56,21 @@ public class ReapingDataReloadListener extends SimpleJsonResourceReloadListener 
                 dropsList.add(new MalumReapingDropsData(dropIngredient, chance, min, max));
             }
             REAPING_DATA.put(resourceLocation, dropsList);
+        }
+    }
+
+    public static class MalumReapingDropsData {
+
+        public final Ingredient drop;
+        public final float chance;
+        public final int min;
+        public final int max;
+
+        public MalumReapingDropsData(Ingredient drop, float chance, int min, int max) {
+            this.drop = drop;
+            this.chance = chance;
+            this.min = min;
+            this.max = max;
         }
     }
 }

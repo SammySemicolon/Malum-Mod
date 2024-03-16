@@ -3,8 +3,11 @@ package com.sammy.malum.registry.common.block;
 import com.sammy.malum.*;
 import com.sammy.malum.common.block.blight.*;
 import com.sammy.malum.common.block.curiosities.obelisk.*;
+import com.sammy.malum.common.block.curiosities.obelisk.brilliant.*;
+import com.sammy.malum.common.block.curiosities.obelisk.runewood.*;
 import com.sammy.malum.common.block.curiosities.repair_pylon.*;
 import com.sammy.malum.common.block.curiosities.ritual_plinth.*;
+import com.sammy.malum.common.block.curiosities.runic_workbench.*;
 import com.sammy.malum.common.block.curiosities.spirit_altar.*;
 import com.sammy.malum.common.block.curiosities.spirit_crucible.*;
 import com.sammy.malum.common.block.curiosities.spirit_crucible.catalyzer.*;
@@ -58,6 +61,7 @@ public class BlockRegistry {
     public static final RegistryObject<Block> RITUAL_PLINTH = BLOCKS.register("ritual_plinth", () -> new RitualPlinthBlock<>(MalumBlockProperties.SOULWOOD().setCutoutRenderType().noOcclusion()).setBlockEntity(BlockEntityRegistry.RITUAL_PLINTH));
 
     public static final RegistryObject<Block> WEAVERS_WORKBENCH = BLOCKS.register("weavers_workbench", () -> new WeaversWorkbenchBlock<>(MalumBlockProperties.RUNEWOOD().setCutoutRenderType().noOcclusion()).setBlockEntity(BlockEntityRegistry.WEAVERS_WORKBENCH));
+    public static final RegistryObject<Block> RUNIC_WORKBENCH = BLOCKS.register("runic_workbench", () -> new RunicWorkbenchBlock<>(MalumBlockProperties.RUNEWOOD().setCutoutRenderType().noOcclusion()).setBlockEntity(BlockEntityRegistry.RUNIC_WORKBENCH));
 
     public static final RegistryObject<Block> RUNEWOOD_OBELISK = BLOCKS.register("runewood_obelisk", () -> new RunewoodObeliskCoreBlock(MalumBlockProperties.RUNEWOOD().setCutoutRenderType().noOcclusion()));
     public static final RegistryObject<Block> RUNEWOOD_OBELISK_COMPONENT = BLOCKS.register("runewood_obelisk_component", () -> new ObeliskComponentBlock(MalumBlockProperties.RUNEWOOD().setCutoutRenderType().lootFrom(RUNEWOOD_OBELISK).noOcclusion(), ItemRegistry.RUNEWOOD_OBELISK));
@@ -204,22 +208,40 @@ public class BlockRegistry {
     public static final RegistryObject<Block> REVEALED_RUNEWOOD_LOG = BLOCKS.register("revealed_runewood_log", () -> new SapFilledLogBlock(MalumBlockProperties.RUNEWOOD().addTags(LOGS, RUNEWOOD_LOGS), STRIPPED_RUNEWOOD_LOG, ItemRegistry.RUNIC_SAP, SpiritTypeRegistry.INFERNAL_SPIRIT.getPrimaryColor()));
     public static final RegistryObject<Block> EXPOSED_RUNEWOOD_LOG = BLOCKS.register("exposed_runewood_log", () -> new LodestoneLogBlock(MalumBlockProperties.RUNEWOOD().addTags(LOGS, STRIPPED_LOGS, RUNEWOOD_LOGS), REVEALED_RUNEWOOD_LOG));
 
+    public static final RegistryObject<Block> RUNEWOOD_BOARDS = BLOCKS.register("runewood_boards", () -> new Block(MalumBlockProperties.RUNEWOOD().addTags(PLANKS)));
+    public static final RegistryObject<Block> RUNEWOOD_BOARDS_SLAB = BLOCKS.register("runewood_boards_slab", () -> new SlabBlock(MalumBlockProperties.RUNEWOOD().addTags(SLABS, WOODEN_SLABS)));
+    public static final RegistryObject<Block> RUNEWOOD_BOARDS_STAIRS = BLOCKS.register("runewood_boards_stairs", () -> new StairBlock(() -> RUNEWOOD_BOARDS.get().defaultBlockState(), MalumBlockProperties.RUNEWOOD().addTags(STAIRS, WOODEN_STAIRS)));
+
+    public static final RegistryObject<Block> VERTICAL_RUNEWOOD_BOARDS = BLOCKS.register("vertical_runewood_boards", () -> new Block(MalumBlockProperties.RUNEWOOD().addTags(PLANKS)));
+    public static final RegistryObject<Block> VERTICAL_RUNEWOOD_BOARDS_SLAB = BLOCKS.register("vertical_runewood_boards_slab", () -> new SlabBlock(MalumBlockProperties.RUNEWOOD().addTags(SLABS, WOODEN_SLABS)));
+    public static final RegistryObject<Block> VERTICAL_RUNEWOOD_BOARDS_STAIRS = BLOCKS.register("vertical_runewood_boards_stairs", () -> new StairBlock(() -> VERTICAL_RUNEWOOD_BOARDS.get().defaultBlockState(), MalumBlockProperties.RUNEWOOD().addTags(STAIRS, WOODEN_STAIRS)));
+
+
     public static final RegistryObject<Block> RUNEWOOD_PLANKS = BLOCKS.register("runewood_planks", () -> new Block(MalumBlockProperties.RUNEWOOD().addTags(PLANKS)));
     public static final RegistryObject<Block> RUNEWOOD_PLANKS_SLAB = BLOCKS.register("runewood_planks_slab", () -> new SlabBlock(MalumBlockProperties.RUNEWOOD().addTags(SLABS, WOODEN_SLABS)));
     public static final RegistryObject<Block> RUNEWOOD_PLANKS_STAIRS = BLOCKS.register("runewood_planks_stairs", () -> new StairBlock(() -> RUNEWOOD_PLANKS.get().defaultBlockState(), MalumBlockProperties.RUNEWOOD().addTags(STAIRS, WOODEN_STAIRS)));
+
+    public static final RegistryObject<Block> RUSTIC_RUNEWOOD_PLANKS = BLOCKS.register("rustic_runewood_planks", () -> new Block(MalumBlockProperties.RUNEWOOD().addTags(PLANKS)));
+    public static final RegistryObject<Block> RUSTIC_RUNEWOOD_PLANKS_SLAB = BLOCKS.register("rustic_runewood_planks_slab", () -> new SlabBlock(MalumBlockProperties.RUNEWOOD().addTags(SLABS, WOODEN_SLABS)));
+    public static final RegistryObject<Block> RUSTIC_RUNEWOOD_PLANKS_STAIRS = BLOCKS.register("rustic_runewood_planks_stairs", () -> new StairBlock(() -> RUSTIC_RUNEWOOD_PLANKS.get().defaultBlockState(), MalumBlockProperties.RUNEWOOD().addTags(STAIRS, WOODEN_STAIRS)));
 
     public static final RegistryObject<Block> VERTICAL_RUNEWOOD_PLANKS = BLOCKS.register("vertical_runewood_planks", () -> new Block(MalumBlockProperties.RUNEWOOD().addTags(PLANKS)));
     public static final RegistryObject<Block> VERTICAL_RUNEWOOD_PLANKS_SLAB = BLOCKS.register("vertical_runewood_planks_slab", () -> new SlabBlock(MalumBlockProperties.RUNEWOOD().addTags(SLABS, WOODEN_SLABS)));
     public static final RegistryObject<Block> VERTICAL_RUNEWOOD_PLANKS_STAIRS = BLOCKS.register("vertical_runewood_planks_stairs", () -> new StairBlock(() -> VERTICAL_RUNEWOOD_PLANKS.get().defaultBlockState(), MalumBlockProperties.RUNEWOOD().addTags(STAIRS, WOODEN_STAIRS)));
 
-    public static final RegistryObject<Block> RUNEWOOD_PANEL = BLOCKS.register("runewood_panel", () -> new Block(MalumBlockProperties.RUNEWOOD()));
-    public static final RegistryObject<Block> RUNEWOOD_PANEL_SLAB = BLOCKS.register("runewood_panel_slab", () -> new SlabBlock(MalumBlockProperties.RUNEWOOD().addTags(SLABS, WOODEN_SLABS)));
-    public static final RegistryObject<Block> RUNEWOOD_PANEL_STAIRS = BLOCKS.register("runewood_panel_stairs", () -> new StairBlock(() -> RUNEWOOD_PANEL.get().defaultBlockState(), MalumBlockProperties.RUNEWOOD().addTags(STAIRS, WOODEN_STAIRS)));
+    public static final RegistryObject<Block> VERTICAL_RUSTIC_RUNEWOOD_PLANKS = BLOCKS.register("vertical_rustic_runewood_planks", () -> new Block(MalumBlockProperties.RUNEWOOD().addTags(PLANKS)));
+    public static final RegistryObject<Block> VERTICAL_RUSTIC_RUNEWOOD_PLANKS_SLAB = BLOCKS.register("vertical_rustic_runewood_planks_slab", () -> new SlabBlock(MalumBlockProperties.RUNEWOOD().addTags(SLABS, WOODEN_SLABS)));
+    public static final RegistryObject<Block> VERTICAL_RUSTIC_RUNEWOOD_PLANKS_STAIRS = BLOCKS.register("vertical_rustic_runewood_planks_stairs", () -> new StairBlock(() -> VERTICAL_RUSTIC_RUNEWOOD_PLANKS.get().defaultBlockState(), MalumBlockProperties.RUNEWOOD().addTags(STAIRS, WOODEN_STAIRS)));
 
     public static final RegistryObject<Block> RUNEWOOD_TILES = BLOCKS.register("runewood_tiles", () -> new Block(MalumBlockProperties.RUNEWOOD()));
     public static final RegistryObject<Block> RUNEWOOD_TILES_SLAB = BLOCKS.register("runewood_tiles_slab", () -> new SlabBlock(MalumBlockProperties.RUNEWOOD().addTags(SLABS, WOODEN_SLABS)));
     public static final RegistryObject<Block> RUNEWOOD_TILES_STAIRS = BLOCKS.register("runewood_tiles_stairs", () -> new StairBlock(() -> RUNEWOOD_TILES.get().defaultBlockState(), MalumBlockProperties.RUNEWOOD().addTags(STAIRS, WOODEN_STAIRS)));
 
+    public static final RegistryObject<Block> RUSTIC_RUNEWOOD_TILES = BLOCKS.register("rustic_runewood_tiles", () -> new Block(MalumBlockProperties.RUNEWOOD()));
+    public static final RegistryObject<Block> RUSTIC_RUNEWOOD_TILES_SLAB = BLOCKS.register("rustic_runewood_tiles_slab", () -> new SlabBlock(MalumBlockProperties.RUNEWOOD().addTags(SLABS, WOODEN_SLABS)));
+    public static final RegistryObject<Block> RUSTIC_RUNEWOOD_TILES_STAIRS = BLOCKS.register("rustic_runewood_tiles_stairs", () -> new StairBlock(() -> RUSTIC_RUNEWOOD_TILES.get().defaultBlockState(), MalumBlockProperties.RUNEWOOD().addTags(STAIRS, WOODEN_STAIRS)));
+
+    public static final RegistryObject<Block> RUNEWOOD_PANEL = BLOCKS.register("runewood_panel", () -> new Block(MalumBlockProperties.RUNEWOOD()));
     public static final RegistryObject<Block> CUT_RUNEWOOD_PLANKS = BLOCKS.register("cut_runewood_planks", () -> new Block(MalumBlockProperties.RUNEWOOD().addTags(PLANKS)));
     public static final RegistryObject<Block> RUNEWOOD_BEAM = BLOCKS.register("runewood_beam", () -> new RotatedPillarBlock(MalumBlockProperties.RUNEWOOD()));
 
@@ -243,8 +265,8 @@ public class BlockRegistry {
     //region soulwood
     public static final RegistryObject<Block> SOULWOOD_GROWTH = BLOCKS.register("soulwood_growth", () -> new SoulwoodGrowthBlock(MalumBlockProperties.BLIGHTED_PLANTS().setCutoutRenderType().randomTicks(), FeatureRegistry.SOULWOOD_TREE));
     public static final RegistryObject<Block> SOULWOOD_LEAVES = BLOCKS.register("soulwood_leaves", () -> new MalumLeavesBlock(MalumBlockProperties.SOULWOOD_LEAVES().setCutoutRenderType(), new Color(213, 8, 63), new Color(255, 61, 243)));
-    public static final RegistryObject<Block> MYSTIC_SOULWOOD_LEAVES = BLOCKS.register("mystic_soulwood_leaves", () -> new MalumLeavesBlock(MalumBlockProperties.SOULWOOD_LEAVES().setCutoutRenderType(), new Color(213, 8, 63), new Color(255, 61, 243)));
-    public static final RegistryObject<Block> HANGING_MYSTIC_SOULWOOD_LEAVES = BLOCKS.register("hanging_mystic_soulwood_leaves", () -> new MalumHangingLeavesBlock(MalumBlockProperties.SOULWOOD_LEAVES().setCutoutRenderType().noOcclusion().noCollission(), new Color(213, 8, 63), new Color(255, 61, 243)));
+    public static final RegistryObject<Block> BUDDING_SOULWOOD_LEAVES = BLOCKS.register("budding_soulwood_leaves", () -> new MalumLeavesBlock(MalumBlockProperties.SOULWOOD_LEAVES().setCutoutRenderType(), new Color(213, 8, 63), new Color(255, 61, 243)));
+    public static final RegistryObject<Block> HANGING_SOULWOOD_LEAVES = BLOCKS.register("hanging_soulwood_leaves", () -> new MalumHangingLeavesBlock(MalumBlockProperties.SOULWOOD_LEAVES().setCutoutRenderType().noOcclusion().noCollission(), new Color(213, 8, 63), new Color(255, 61, 243)));
 
     public static final RegistryObject<Block> STRIPPED_SOULWOOD_LOG = BLOCKS.register("stripped_soulwood_log", () -> new RotatedPillarBlock(MalumBlockProperties.SOULWOOD().addTags(LOGS, STRIPPED_LOGS, SOULWOOD_LOGS)));
     public static final RegistryObject<Block> SOULWOOD_LOG = BLOCKS.register("soulwood_log", () -> new SoulwoodLogBlock(MalumBlockProperties.SOULWOOD().addTags(LOGS, SOULWOOD_LOGS), STRIPPED_SOULWOOD_LOG, true));
@@ -348,8 +370,9 @@ public class BlockRegistry {
     public static final RegistryObject<Block> BLOCK_OF_RAW_SOULSTONE = BLOCKS.register("block_of_raw_soulstone", () -> new Block(MalumBlockProperties.SOULSTONE_BLOCK()));
     public static final RegistryObject<Block> BLOCK_OF_SOULSTONE = BLOCKS.register("block_of_soulstone", () -> new SoulstoneBlock(MalumBlockProperties.SOULSTONE_BLOCK()));
 
-    public static final RegistryObject<Block> BLOCK_OF_HALLOWED_GOLD = BLOCKS.register("block_of_hallowed_gold", () -> new Block(MalumBlockProperties.HALLOWED_GOLD()));
     public static final RegistryObject<Block> BLOCK_OF_SOUL_STAINED_STEEL = BLOCKS.register("block_of_soul_stained_steel", () -> new Block(MalumBlockProperties.SOUL_STAINED_STEEL_BLOCK()));
+    public static final RegistryObject<Block> BLOCK_OF_HALLOWED_GOLD = BLOCKS.register("block_of_hallowed_gold", () -> new Block(MalumBlockProperties.HALLOWED_GOLD()));
+    public static final RegistryObject<Block> BLOCK_OF_MALIGNANT_ALLOY = BLOCKS.register("block_of_malignant_alloy", () -> new Block(MalumBlockProperties.MALIGNANT_ALLOY_BLOCK()));
 
     public static final RegistryObject<Block> BLOCK_OF_ROTTING_ESSENCE = BLOCKS.register("block_of_rotting_essence", () -> new Block(new LodestoneBlockProperties().needsPickaxe().addTags(STORAGE_BLOCKS).strength(1F, 6.0F).sound(SoundType.CORAL_BLOCK)));
     public static final RegistryObject<Block> BLOCK_OF_GRIM_TALC = BLOCKS.register("block_of_grim_talc", () -> new Block(LodestoneBlockProperties.copy(Blocks.BONE_BLOCK).needsPickaxe().addTags(STORAGE_BLOCKS)));
@@ -405,7 +428,7 @@ public class BlockRegistry {
                 int green = (int) Mth.lerp(value, malumLeavesBlock.minColor.getGreen(), malumLeavesBlock.maxColor.getGreen());
                 int blue = (int) Mth.lerp(value, malumLeavesBlock.minColor.getBlue(), malumLeavesBlock.maxColor.getBlue());
                 return red << 16 | green << 8 | blue;
-            }, SOULWOOD_LEAVES.get(), MYSTIC_SOULWOOD_LEAVES.get(), HANGING_MYSTIC_SOULWOOD_LEAVES.get());
+            }, SOULWOOD_LEAVES.get(), BUDDING_SOULWOOD_LEAVES.get(), HANGING_SOULWOOD_LEAVES.get());
         }
     }
 }

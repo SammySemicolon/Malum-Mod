@@ -1,32 +1,59 @@
 package com.sammy.malum.visual_effects;
 
-import com.sammy.malum.client.renderer.block.*;
 import com.sammy.malum.common.capability.*;
+import com.sammy.malum.common.item.*;
 import com.sammy.malum.core.handlers.*;
-import com.sammy.malum.core.systems.item.*;
-import net.minecraft.client.Minecraft;
+import com.sammy.malum.core.systems.spirit.*;
+import net.minecraft.client.*;
 import net.minecraft.client.player.*;
-import net.minecraft.util.Mth;
+import net.minecraft.util.*;
 import net.minecraft.world.item.*;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.*;
+import net.minecraft.world.level.*;
 import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.registry.common.particle.*;
-import team.lodestar.lodestone.systems.easing.Easing;
+import team.lodestar.lodestone.systems.easing.*;
 import team.lodestar.lodestone.systems.particle.*;
-import team.lodestar.lodestone.systems.particle.builder.ScreenParticleBuilder;
-import team.lodestar.lodestone.systems.particle.data.GenericParticleData;
-import team.lodestar.lodestone.systems.particle.data.color.ColorParticleData;
-import team.lodestar.lodestone.systems.particle.data.spin.SpinParticleData;
-import team.lodestar.lodestone.systems.particle.render_types.LodestoneScreenParticleRenderType;
+import team.lodestar.lodestone.systems.particle.builder.*;
+import team.lodestar.lodestone.systems.particle.data.*;
+import team.lodestar.lodestone.systems.particle.data.color.*;
+import team.lodestar.lodestone.systems.particle.data.spin.*;
+import team.lodestar.lodestone.systems.particle.render_types.*;
 import team.lodestar.lodestone.systems.particle.screen.*;
 
 import java.awt.*;
-import java.util.function.*;
 
-import static net.minecraft.util.Mth.nextFloat;
+import static net.minecraft.util.Mth.*;
 
 public class ScreenParticleEffects {
+
+    public static void spawnRuneParticles(ScreenParticleHolder target, MalumSpiritType spiritType) {
+        var rand = Minecraft.getInstance().level.getRandom();
+        ScreenParticleBuilder.create(LodestoneScreenParticleRegistry.SPARKLE, target)
+                .setTransparencyData(GenericParticleData.create(0.03f, 0f).setEasing(Easing.SINE_IN_OUT).build())
+                .setScaleData(GenericParticleData.create(0.5f + rand.nextFloat() * 0.1f, 0).setEasing(Easing.SINE_IN_OUT, Easing.BOUNCE_IN_OUT).build())
+                .setColorData(spiritType.createMainColorData().build())
+                .setLifetime(RandomHelper.randomBetween(rand, 20, 30))
+                .setRandomOffset(0.05f)
+                .setRandomMotion(0.05f, 0.05f)
+                .spawnOnStack(1, -2);
+
+        ScreenParticleBuilder.create(LodestoneScreenParticleRegistry.WISP, target)
+                .setTransparencyData(GenericParticleData.create(0.015f, 0f).setEasing(Easing.SINE_IN_OUT).build())
+                .setSpinData(SpinParticleData.create(nextFloat(rand, 0.2f, 0.4f)).setEasing(Easing.EXPO_OUT).build())
+                .setScaleData(GenericParticleData.create(0.3f + rand.nextFloat() * 0.3f, 0).setEasing(Easing.EXPO_OUT).build())
+                .setColorData(spiritType.createMainColorData().build())
+                .setLifetime(RandomHelper.randomBetween(rand, 20, 30))
+                .setRandomOffset(0.1f)
+                .setRandomMotion(0.4f, 0.4f)
+                .spawnOnStack(0, 0)
+                .setLifetime(RandomHelper.randomBetween(rand, 8, 12))
+                .setSpinData(SpinParticleData.create(nextFloat(rand, 0.05f, 0.1f)).build())
+                .setScaleData(GenericParticleData.create(0.6f + rand.nextFloat() * 0.3f, 0f).build())
+                .setRandomMotion(0.01f, 0.01f)
+                .spawnOnStack(1, -2);
+    }
+
+
     public static void spawnSpiritShardScreenParticles(ScreenParticleHolder target, Color color, Color endColor) {
         var rand = Minecraft.getInstance().level.getRandom();
         ScreenParticleBuilder.create(LodestoneScreenParticleRegistry.SPARKLE, target)
@@ -90,11 +117,11 @@ public class ScreenParticleEffects {
                 .spawnOnStack(0, 0);
     }
 
-    public static void spawnVoidEncyclopediaArcanaScreenParticles(ScreenParticleHolder target, Level level, float partialTick) {
+    public static void spawnEncyclopediaEsotericaScreenParticles(ScreenParticleHolder target, Level level, float partialTick) {
         var rand = level.getRandom();
         float distance = 7.5f;
-        for (int i = 0; i < 4; i++) {
-            float time = (((level.getGameTime() + partialTick) * 0.05f + i * (6.28f / 4)) % 6.28f);
+        for (int i = 0; i < 2; i++) {
+            float time = (((level.getGameTime() + partialTick) * 0.05f + i * (6.28f / 2)) % 6.28f);
             float scalar = 0.6f;
             if (time > 1.57f && time < 4.71f) {
                 scalar *= Easing.QUAD_IN.ease(Math.abs(3.14f - time) / 1.57f, 0, 1, 1);
@@ -107,11 +134,11 @@ public class ScreenParticleEffects {
             float gameTime = level.getGameTime() + partialTick;
             SpinParticleData spinParticleData = SpinParticleData.createRandomDirection(rand, level.random.nextBoolean() ? 1 : -2).setSpinOffset(0.025f * gameTime % 6.28f).build();
             ScreenParticleBuilder.create(LodestoneScreenParticleRegistry.WISP, target)
-                    .setScaleData(GenericParticleData.create(0.1f*scalar, RandomHelper.randomBetween(rand, 0.2f, 0.3f) * scalar, 0).setEasing(Easing.SINE_IN_OUT).setEasing(Easing.EXPO_OUT).build())
+                    .setScaleData(GenericParticleData.create(0, 0.1f*scalar, 0).setEasing(Easing.SINE_IN_OUT).setEasing(Easing.EXPO_OUT).build())
                     .setTransparencyData(GenericParticleData.create(0f, 0.25f, 0f).setEasing(Easing.SINE_IN_OUT).build())
                     .setColorData(ColorParticleData.create(color, endColor.darker()).setCoefficient(1.25f).build())
                     .setSpinData(spinParticleData)
-                    .setLifetime(40)
+                    .setLifetime(60)
                     .setDiscardFunction(SimpleParticleOptions.ParticleDiscardFunctionType.ENDING_CURVE_INVISIBLE)
                     .spawnOnStack(xOffset, yOffset)
                     .setRenderType(LodestoneScreenParticleRenderType.LUMITRANSPARENT)
