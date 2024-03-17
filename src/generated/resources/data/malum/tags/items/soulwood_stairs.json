@@ -1,3 +1,10 @@
 {
-  "values": []
+  "values": [
+    "malum:soulwood_planks_stairs",
+    "malum:rustic_soulwood_planks_stairs",
+    "malum:vertical_soulwood_planks_stairs",
+    "malum:vertical_rustic_soulwood_planks_stairs",
+    "malum:soulwood_tiles_stairs",
+    "malum:rustic_soulwood_tiles_stairs"
+  ]
 }

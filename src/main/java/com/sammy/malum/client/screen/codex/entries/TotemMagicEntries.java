@@ -28,6 +28,19 @@ public class TotemMagicEntries {
                 .addPage(SpiritInfusionPage.fromOutput(RUNEWOOD_TOTEM_BASE.get()))
         );
 
+        entries.add(new BookEntry<>(
+                "managing_totems", 0, 10)
+                .setWidgetConfig(w -> w.setIcon(TOTEMIC_STAFF).setStyle(BookWidgetStyle.SMALL_RUNEWOOD))
+                .addPage(new HeadlineTextItemPage("totemic_staff", "totemic_staff.1", TOTEMIC_STAFF.get()))
+                .addPage(new TextPage("totemic_staff.2"))
+                .addPage(new TextPage("totemic_staff.3"))
+                .addPage(new CraftingBookPage(TOTEMIC_STAFF.get(),
+                        EMPTY, EMPTY, RUNEWOOD_PLANKS.get(),
+                        EMPTY, STICK, EMPTY,
+                        STICK, EMPTY, EMPTY
+                ))
+        );
+
         entries.add(new BookEntry<ArcanaProgressionScreen>(
                 "sacred_rite", -2, 10)
                 .setWidgetSupplier(RiteEntryObject::new)

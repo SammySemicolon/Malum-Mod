@@ -57,10 +57,12 @@ public class ArtificeEntries {
                 "soulhunter_gear", 4, 7)
                 .setWidgetConfig(w -> w.setIcon(SOUL_HUNTER_CLOAK))
                 .addPage(new HeadlineTextPage("soulhunter_gear", "soulhunter_gear.1"))
-                .addPage(SpiritInfusionPage.fromOutput(SOUL_HUNTER_CLOAK.get()))
-                .addPage(SpiritInfusionPage.fromOutput(SOUL_HUNTER_ROBE.get()))
-                .addPage(SpiritInfusionPage.fromOutput(SOUL_HUNTER_LEGGINGS.get()))
-                .addPage(SpiritInfusionPage.fromOutput(SOUL_HUNTER_BOOTS.get()))
+                .addPage(new CyclingPage(
+                        SpiritInfusionPage.fromOutput(SOUL_HUNTER_CLOAK.get()),
+                        SpiritInfusionPage.fromOutput(SOUL_HUNTER_ROBE.get()),
+                        SpiritInfusionPage.fromOutput(SOUL_HUNTER_LEGGINGS.get()),
+                        SpiritInfusionPage.fromOutput(SOUL_HUNTER_BOOTS.get())
+                ))
         );
 
         entries.add(new BookEntry<>(

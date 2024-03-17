@@ -183,7 +183,7 @@ public class MalumLang extends LanguageProvider {
         add("malum.gui.rune.effect.volatile_distortion", "+Enables Vorpal Damage Output");
         add("malum.gui.rune.effect.heretic", "+Silences Attackers");
         add("malum.gui.rune.effect.twinned_duration", "+Doubles Positive Effect Durations");
-        add("malum.gui.rune.effect.aliment_cleansing", "+Cleanses Negative Effects; Heals when Cleansed");
+        add("malum.gui.rune.effect.aliment_cleansing", "+Shortens Negative Effects");
         add("malum.gui.rune.effect.reactive_shielding", "+Grants Damage Resistance when Struck");
         add("malum.gui.rune.effect.dexterity", "+Provides Higher Speed at Low Health");
         add("malum.gui.rune.effect.unnatural_stamina", "+Sprinting Always Available");
@@ -534,9 +534,6 @@ public class MalumLang extends LanguageProvider {
         addPages("spirit_trinkets",
                 "Many disciplines of magic, and even more mundane practices, allow the creation of useful trinkets. These are also referred to as baubles or curios by some. The metals I have alloyed have properties useful in their own rights, and can be used as the basis for even grander designs.",
                 "In their most basic form, Hallowed Gold trinkets protect the user as if they were wearing weak armor, and Soulstained Steel trinkets increase the toughness of the armor being worn.");
-        addHeadline("spirit_trinkets.guardian_ring", "Ring of the Guardian");
-        addPages("spirit_trinkets.guardian_ring",
-                "As a first attempt to create a trinket using these as a base, I have designed one that mimics Soulstained Armor's Soul Ward.");
 
         addEntryHeader("reactive_trinkets", "Reactive Trinkets", "Harnessing the harvest");
         addHeadline("reactive_trinkets.ring_of_curative_talent", "Ring of Curative Talent");
@@ -585,11 +582,74 @@ public class MalumLang extends LanguageProvider {
         addPages("necklace_of_the_narrow_edge",
                 "The sweep of the scythe is its main draw. The ability to cut my targets like so much wheat is invaluable. But that comes at the cost of damage to a single target. This necklace mystically focuses the edge of my attack, directing all of the power into one target for a strong damage boost.");
 
+        addEntryHeader("runeworking", "Runeworking", "Greater Accessorizing");
+        addHeadline("runeworking", "Runeworking");
+        addPages("runeworking",
+                "Every trinket I've made thus far has no doubt proven to be a welcome entry to my vast arsenal, however there is only so much space on my body for all of these accessories. As a means of further growing my strength, I've  begun research on a system I shall name Runeworking.",
+                "Runeworking is all about Brooches and Runes. The brooch is an accessory that enables the wearer to take advantage of effects imbued into the aforementioned Runes; primitive baubles with just one effect. Due to the simple and optimized design of runes, I can easily equip several runes at once assuming an appropriate brooch is present.",
+                "To begin, I will need to create a workstation that enables the creation of Runes; The Runic Workbench. Furthermore, I will need to craft a Runic Brooch an accessory that will allow me to take advantage of the effects Runes provide.");
+
+        addEntryHeader("runic_brooch", "Runic Brooch", "Slot Exchange");
+        addHeadline("runic_brooch", "Runic Brooch");
+        addPages("runic_brooch",
+                "As written before, in order to access the benefits Runes provide, creating the Runic Brooch is a necessary step. When worn, the brooch will grant me two Rune Slots at the cost of a singular Ring Slot.");
+
+        addEntryHeader("glass_brooch", "Glass Brooch", "Fragile Power");
+        addHeadline("glass_brooch", "Glass Brooch");
+        addPages("glass_brooch",
+                "The Runic Brooch works well... but in some cases having to give up the ability to wear two rings at once is just too much. To circumvent this problem, I've created the Glass Brooch. This alteration in design will instead take away a portion of my max health, as opposed to the original drawback.");
+
+        addEntryHeader("sacrificial_brooch", "Sacrificial Brooch", "A Change in Purpose");
+        addHeadline("sacrificial_brooch", "Sacrificial Brooch");
+        addPages("sacrificial_brooch",
+                "After some thinking, I decided I would attempt to create a brooch out of Soul Stained Steel. The resulting accessory known as the Sacrificial Brooch instead exchanges a Necklace Slot for an additional Belt Slot. It doesn't offer any Rune related benefits, but it might prove useful nonetheless.");
+
+        addEntryHeader("ravenous_brooch", "Ravenous Brooch", "An undying hunger");
+        addHeadline("ravenous_brooch", "Ravenous Brooch");
+        addPages("ravenous_brooch",
+                "Much like in the case of the Runic Brooch, I've designed an alternative which replaces the negative effect of it's predecessor with a much less daunting downside. While worn, the Ravenous Brooch will actively take away hunger as a means of allowing the user to equip an additional belt.");
+
+        addEntryHeader("rune_of_idle_restoration", "Rune of Idle Restoration", "");
+        addHeadline("rune_of_idle_restoration", "Rune of Idle Restoration");
+        addPages("rune_of_idle_restoration",
+                "While active, the Rune of Idle Restoration will passively restore the user's health at a rate of one half heart every two seconds.");
+        addEntryHeader("rune_of_culling", "Rune of Culling", "");
+        addHeadline("rune_of_culling", "Rune of Culling");
+        addPages("rune_of_culling",
+                "While active, the Rune of Culling will grant the user a bonus to Magic Proficiency, increasing their magic damage output by an additional two fifths.");
+        addEntryHeader("rune_of_haste", "Rune of Haste", "");
+        addHeadline("rune_of_haste", "Rune of Haste");
+        addPages("rune_of_haste",
+                "While active, the Rune of Haste will increase the user's mining speed by around one fourth.");
+        addEntryHeader("rune_of_dexterity", "Rune of Dexterity", "");
+        addHeadline("rune_of_dexterity", "Rune of Dexterity");
+        addPages("rune_of_dexterity",
+                "While active, the Rune of Haste will provide a substantial bonus to movement speed. This bonus approaches double it's usual potency as the user's health pool diminishes.");
+        addEntryHeader("rune_of_aliment_cleansing", "Rune of Aliment Cleansing", "");
+        addHeadline("rune_of_aliment_cleansing", "Rune of Aliment Cleansing");
+        addPages("rune_of_aliment_cleansing",
+                "While active, the Rune of Aliment Cleansing will cut the duration of any negative effect applied to the wearer by one third.");
+        addEntryHeader("rune_of_reactive_shielding", "Rune of Reactive Shielding", "Hardens in response to physical trauma");
+        addHeadline("rune_of_reactive_shielding", "Rune of Reactive Shielding");
+        addPages("rune_of_reactive_shielding",
+                "While active, the Rune of Reactive Shielding will occasionally increase the user's Armor and Armor Toughness by one tenth upon taking damage. The strength of this effect scales as the user receives more damage, reaching an increase of three tenths at full power.");
+        addEntryHeader("rune_of_reinforcement", "Rune of Reinforcement", "");
+        addHeadline("rune_of_reinforcement", "Rune of Reinforcement");
+        addPages("rune_of_reinforcement",
+                "While active, the Rune of Reinforcement will grant the user access to a small supply of Soul Ward Capacity, while also improving Soul Ward Strength.");
+        addEntryHeader("rune_of_volatile_distortion", "Rune of Volatile Distortion", "");
+        addHeadline("rune_of_volatile_distortion", "Rune of Volatile Distortion");
+        addPages("rune_of_volatile_distortion",
+                "While active, the Rune of Volatile Distortion will cause any strike dealt by the user to erratically scale in potency, ranging from a decrease of one tenth, to an increase of one fifth. Furthermore, the rune enables another slim chance of outright twinning the potency of any attack delivered by the user.");
+
         addSimpleEntryHeader("mirror_magic", "Mirror magic", "Magic Funnels");
         addPages("mirror_magic", "The future holds many secrets..");
 
         addSimpleEntryHeader("voodoo_magic", "Voodoo magic", "Forbidden arts");
         addPages("voodoo_magic", "The future holds many secrets..");
+
+        addSimpleEntryHeader("ritual_magic", "Ritual magic", "Grand Magics");
+        addPages("ritual_magic", "The future holds many secrets..");
 
         addEntryHeader("altar_acceleration", "Altar Acceleration", "Obelisks");
         addHeadline("altar_acceleration.runewood_obelisk", "Runewood Obelisk");
@@ -597,7 +657,7 @@ public class MalumLang extends LanguageProvider {
                 "Spirit Infusion, as essential as it is, has grown to be tedious. Even producing a stack of simple Hex Ash takes several minutes. Using Hallowed Gold, I have found a way to accelerate it. By placing up to four hallowed obelisks nearby the altar I may increase the processing speed by one fourth with each obelisk.");
         addHeadline("altar_acceleration.brilliant_obelisk", "Brilliant Obelisk");
         addPages("altar_acceleration.brilliant_obelisk",
-                "While not useful for Infusion, per-se, the design of the obelisk can be used in another way as well. By socketing Brilliance instead of a Resonator, the obelisk will harmonize with the Brilliance of enchanting, causing it to provide as much force of enchanting as five bookshelves do.");
+                "While not useful for Infusion, per-se, the design of the obelisk can be used in another way as well. By socketing Brilliance instead of Hallowed Gold, the obelisk will harmonize with the Brilliance of enchanting, causing it to provide as much force of enchanting as five bookshelves do.");
 
         addSimpleEntryHeader("totem_magic", "Totem Magic", "Arcana unleashed");
         addPages("totem_magic",

@@ -89,7 +89,12 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
         TinkeringEntries.setupEntries(ENTRIES);
         RuneWorkingEntries.setupEntries(ENTRIES);
         TotemMagicEntries.setupEntries(ENTRIES);
-        RitualEntries.setupEntries(ENTRIES);
+
+        ENTRIES.add(new BookEntry<>(
+                "rituals", 0, 17)
+                .setWidgetConfig(w -> w.setIcon(RITUAL_PLINTH).setStyle(BookWidgetStyle.GILDED_SOULWOOD))
+        );
+//        RitualEntries.setupEntries(ENTRIES);
 
         ENTRIES.add(new BookEntry<>(
                 "necklace_of_the_mystic_mirror", 6, 12)

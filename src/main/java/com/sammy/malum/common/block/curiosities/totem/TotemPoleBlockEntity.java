@@ -1,46 +1,42 @@
 package com.sammy.malum.common.block.curiosities.totem;
 
-import com.google.common.collect.Sets;
-import com.sammy.malum.common.block.storage.stand.ItemStandBlockEntity;
+import com.google.common.collect.*;
+import com.sammy.malum.common.block.storage.stand.*;
 import com.sammy.malum.common.item.curiosities.tools.*;
-import com.sammy.malum.common.packets.particle.curiosities.rite.generic.TotemPoleActivationEffectPacket;
-import com.sammy.malum.core.helper.SpiritHelper;
-import com.sammy.malum.core.systems.spirit.MalumSpiritType;
-import com.sammy.malum.registry.common.SoundRegistry;
-import com.sammy.malum.registry.common.block.BlockEntityRegistry;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.Mth;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.ToolActions;
-import net.minecraftforge.network.PacketDistributor;
-import team.lodestar.lodestone.helpers.BlockHelper;
+import com.sammy.malum.common.packets.particle.curiosities.rite.generic.*;
+import com.sammy.malum.core.helper.*;
+import com.sammy.malum.core.systems.spirit.*;
+import com.sammy.malum.registry.common.*;
+import com.sammy.malum.registry.common.block.*;
+import com.sammy.malum.visual_effects.*;
+import net.minecraft.core.*;
+import net.minecraft.nbt.*;
+import net.minecraft.sounds.*;
+import net.minecraft.util.*;
+import net.minecraft.world.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.entity.*;
+import net.minecraft.world.level.block.state.*;
+import net.minecraft.world.level.block.state.properties.*;
+import net.minecraft.world.phys.*;
+import net.minecraftforge.common.*;
+import net.minecraftforge.network.*;
+import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.registry.common.particle.*;
-import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntity;
-import team.lodestar.lodestone.systems.easing.Easing;
-import team.lodestar.lodestone.systems.particle.SimpleParticleOptions;
-import team.lodestar.lodestone.systems.particle.builder.WorldParticleBuilder;
-import team.lodestar.lodestone.systems.particle.data.GenericParticleData;
-import team.lodestar.lodestone.systems.particle.data.color.ColorParticleData;
-import team.lodestar.lodestone.systems.particle.data.spin.SpinParticleData;
+import team.lodestar.lodestone.systems.blockentity.*;
+import team.lodestar.lodestone.systems.easing.*;
+import team.lodestar.lodestone.systems.particle.*;
+import team.lodestar.lodestone.systems.particle.builder.*;
+import team.lodestar.lodestone.systems.particle.data.*;
+import team.lodestar.lodestone.systems.particle.data.color.*;
+import team.lodestar.lodestone.systems.particle.data.spin.*;
 
-import javax.annotation.Nullable;
-import java.awt.*;
-import java.util.Set;
+import javax.annotation.*;
+import java.util.*;
 
-import static com.sammy.malum.registry.common.PacketRegistry.MALUM_CHANNEL;
+import static com.sammy.malum.registry.common.PacketRegistry.*;
 
 public class TotemPoleBlockEntity extends LodestoneBlockEntity {
 
@@ -153,8 +149,8 @@ public class TotemPoleBlockEntity extends LodestoneBlockEntity {
             chargeProgress = chargeProgress < cap ? chargeProgress + 1 : cap;
         }
         if (level.isClientSide) {
-            if (type != null && !totemPoleState.equals(TotemPoleState.INACTIVE)) {
-                passiveParticles();
+            if (type != null && totemPoleState.equals(TotemPoleState.ACTIVE)) {
+                TotemParticleEffects.activeTotemPoleParticles(this);
                 if (totemBase != null && totemBase.rite != null) {
                     getFilters().forEach(this::filterParticles);
                 }
@@ -231,38 +227,6 @@ public class TotemPoleBlockEntity extends LodestoneBlockEntity {
                         .setDiscardFunction(SimpleParticleOptions.ParticleDiscardFunctionType.ENDING_CURVE_INVISIBLE)
                         .spawn(level, itemPos.x, itemPos.y, itemPos.z);
             }
-        }
-    }
-
-    public void passiveParticles() {
-        if (level.getGameTime() % 6L == 0) {
-            Color color = type.getPrimaryColor();
-            Color endColor = type.getSecondaryColor();
-            WorldParticleBuilder.create(LodestoneParticleRegistry.WISP_PARTICLE)
-                    .setTransparencyData(GenericParticleData.create(0, 0.06f, 0.12f).build())
-                    .setSpinData(SpinParticleData.create(0.2f).build())
-                    .setScaleData(GenericParticleData.create(0, 0.4f, 0).setEasing(Easing.LINEAR, Easing.CIRC_IN_OUT).build())
-                    .setColorData(ColorParticleData.create(color, endColor).setEasing(Easing.SINE_IN).setCoefficient(0.5f).build())
-                    .setLifetime(35)
-                    .addMotion(0, Mth.nextFloat(level.random, -0.03f, 0.03f), 0)
-                    .enableNoClip()
-                    .setRandomOffset(0.1f, 0.2f)
-                    .setRandomMotion(0.01f, 0.02f)
-                    .setDiscardFunction(SimpleParticleOptions.ParticleDiscardFunctionType.ENDING_CURVE_INVISIBLE)
-                    .surroundBlock(level, worldPosition, Direction.WEST, Direction.EAST, Direction.NORTH, Direction.SOUTH);
-
-            WorldParticleBuilder.create(LodestoneParticleRegistry.SMOKE_PARTICLE)
-                    .setTransparencyData(GenericParticleData.create(0, 0.06f, 0.03f).build())
-                    .setSpinData(SpinParticleData.create(0.1f).build())
-                    .setScaleData(GenericParticleData.create(0f, 0.55f, 0.3f).build())
-                    .setColorData(ColorParticleData.create(color, endColor).setCoefficient(0.5f).build())
-                    .setLifetime(60)
-                    .addMotion(0, Mth.nextFloat(level.random, -0.03f, 0.03f), 0)
-                    .setRandomOffset(0.1f, 0.2f)
-                    .enableNoClip()
-                    .setRandomMotion(0.01f, 0.02f)
-                    .setDiscardFunction(SimpleParticleOptions.ParticleDiscardFunctionType.ENDING_CURVE_INVISIBLE)
-                    .surroundBlock(level, worldPosition, Direction.WEST, Direction.EAST, Direction.NORTH, Direction.SOUTH);
         }
     }
 }

@@ -124,6 +124,19 @@ public class EntryScreen<T extends AbstractProgressionCodexScreen> extends Abstr
     }
 
     @Override
+    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+        if (minecraft.options.keyRight.matches(keyCode, scanCode)) {
+            nextPage();
+            return true;
+        }
+        else if (minecraft.options.keyLeft.matches(keyCode, scanCode)) {
+            previousPage(false);
+            return true;
+        }
+        return super.keyPressed(keyCode, scanCode, modifiers);
+    }
+
+    @Override
     public void onClose() {
         close(false);
     }

@@ -28,14 +28,8 @@ public class RuneAlimentCleansingItem extends MalumRuneCurioItem {
             MobEffect type = effect.getEffect();
             float multiplier = MobEffectRegistry.ALCHEMICAL_PROFICIENCY_MAP.getOrDefault(ForgeRegistries.MOB_EFFECTS.getKey(type), 1f);
             if (type.getCategory().equals(MobEffectCategory.HARMFUL)) {
-                EntityHelper.shortenEffect(effect, entity, (int) (effect.getDuration() * 0.5f * multiplier));
+                EntityHelper.shortenEffect(effect, entity, (int) (effect.getDuration() * 0.33f * multiplier));
             }
-        }
-    }
-    public static void onPotionExpired(MobEffectEvent.Expired event) {
-        LivingEntity entity = event.getEntity();
-        if (event.getEffectInstance().getEffect().getCategory().equals(MobEffectCategory.HARMFUL) && CurioHelper.hasCurioEquipped(entity, ItemRegistry.RUNE_OF_ALIMENT_CLEANSING.get())) {
-            entity.heal(Math.max(entity.getMaxHealth()/10f, 4));
         }
     }
 }

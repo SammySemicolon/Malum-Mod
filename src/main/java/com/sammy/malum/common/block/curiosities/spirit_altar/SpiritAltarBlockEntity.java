@@ -294,9 +294,9 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
             }
         }
         spiritInventory.updateData();
-        ParticleEffectTypeRegistry.SPIRIT_ALTAR_CRAFTS.createPositionedEffect(level, new PositionEffectData(worldPosition), ColorEffectData.fromRecipe(recipe.spirits));
         progress *= 0.75f;
         extrasInventory.clear();
+        ParticleEffectTypeRegistry.SPIRIT_ALTAR_CRAFTS.createPositionedEffect(level, new PositionEffectData(worldPosition), ColorEffectData.fromRecipe(recipe.spirits));
         level.playSound(null, worldPosition, SoundRegistry.ALTAR_CRAFT.get(), SoundSource.BLOCKS, 1, 0.9f + level.random.nextFloat() * 0.2f);
         level.addFreshEntity(new ItemEntity(level, itemPos.x, itemPos.y, itemPos.z, outputStack));
         init();

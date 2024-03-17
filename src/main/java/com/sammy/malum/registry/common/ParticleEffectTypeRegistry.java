@@ -4,6 +4,7 @@ import com.sammy.malum.visual_effects.networked.*;
 import com.sammy.malum.visual_effects.networked.altar.SpiritAltarCraftParticleEffect;
 import com.sammy.malum.visual_effects.networked.altar.SpiritAltarEatItemParticleEffect;
 import com.sammy.malum.visual_effects.networked.blight.BlightingMistParticleEffect;
+import com.sammy.malum.visual_effects.networked.crucible.*;
 import com.sammy.malum.visual_effects.networked.generic.DrippingSmokeParticleEffect;
 import com.sammy.malum.visual_effects.networked.generic.HexingSmokeParticleEffect;
 import com.sammy.malum.visual_effects.networked.generic.RisingSparklesParticleEffect;
@@ -33,6 +34,8 @@ public class ParticleEffectTypeRegistry {
     //Functional vfx
     public static final ParticleEffectType SPIRIT_ALTAR_CRAFTS = new SpiritAltarCraftParticleEffect("spirit_altar_crafts");
     public static final ParticleEffectType SPIRIT_ALTAR_EATS_ITEM = new SpiritAltarEatItemParticleEffect("spirit_altar_eats_item");
+
+    public static final ParticleEffectType SPIRIT_CRUCIBLE_CRAFTS = new SpiritCrucibleCraftParticleEffect("spirit_crucible_crafts");
 
     public static final ParticleEffectType RITUAL_PLINTH_EATS_ITEM = new RitualPlinthAbsorbItemParticleEffect("ritual_plinth_eats_item");
     public static final ParticleEffectType RITUAL_PLINTH_EATS_SPIRIT = new RitualPlinthAbsorbSpiritParticleEffect("ritual_plinth_eats_spirit");

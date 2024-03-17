@@ -2,16 +2,16 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "#": {
+    "X": {
       "item": "malum:soulwood_panel"
     },
-    "X": {
-      "item": "malum:soulwood_planks"
+    "Y": {
+      "tag": "malum:soulwood_planks"
     }
   },
   "pattern": [
-    "#",
-    "X"
+    "X",
+    "Y"
   ],
   "result": {
     "count": 2,

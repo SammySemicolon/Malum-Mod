@@ -7,6 +7,7 @@ import com.sammy.malum.common.item.spirit.*;
 import com.sammy.malum.common.recipe.*;
 import com.sammy.malum.core.systems.spirit.*;
 import com.sammy.malum.registry.client.*;
+import com.sammy.malum.visual_effects.networked.data.*;
 import net.minecraft.core.*;
 import net.minecraft.util.*;
 import net.minecraft.world.item.*;
@@ -173,6 +174,99 @@ public class SpiritCrucibleParticleEffects {
             }
         }
     }
+
+    public static void craftItemParticles(SpiritCrucibleCoreBlockEntity crucible, ColorEffectData colorData) {
+        MalumSpiritType activeSpiritType = crucible.getActiveSpiritType();
+        if (activeSpiritType == null) {
+            return;
+        }
+        Level level = crucible.getLevel();
+        var random = level.random;
+        BlockPos altarPos = crucible.getBlockPos();
+        Vec3 targetPos = crucible.getCentralItemOffset().add(altarPos.getX(), altarPos.getY(), altarPos.getZ());
+
+        for (int i = 0; i < 2; i++) {
+            SpiritLightSpecs.coolLookingShinyThing(level, targetPos, activeSpiritType);
+        }
+        for (int i = 0; i < 24; i++) {
+            int lifeDelay = i / 8;
+            MalumSpiritType cyclingSpiritType = colorData.getCyclingColorRecord().spiritType();
+            float xVelocity = RandomHelper.randomBetween(random, Easing.CUBIC_OUT, -0.075f, 0.075f);
+            float yVelocity = RandomHelper.randomBetween(random, 0.2f, 0.5f);
+            float zVelocity = RandomHelper.randomBetween(random, Easing.CUBIC_OUT, -0.075f, 0.075f);
+            float gravityStrength = RandomHelper.randomBetween(random, 0.75f, 1f);
+            if (random.nextFloat() < 0.85f) {
+                var sparkParticles = SparkParticleEffects.spiritMotionSparks(level, targetPos, cyclingSpiritType);
+                sparkParticles.getBuilder()
+                        .disableNoClip()
+                        .setLifeDelay(lifeDelay)
+                        .multiplyLifetime(2)
+                        .setGravityStrength(gravityStrength)
+                        .setMotion(xVelocity, yVelocity, zVelocity)
+                        .modifyData(SparkParticleBuilder::getScaleData, d -> d.multiplyValue(2f));
+                sparkParticles.getBloomBuilder()
+                        .disableNoClip()
+                        .setLifeDelay(lifeDelay)
+                        .multiplyLifetime(2)
+                        .setGravityStrength(gravityStrength)
+                        .setMotion(xVelocity, yVelocity, zVelocity)
+                        .modifyData(WorldParticleBuilder::getTransparencyData, d -> d.multiplyValue(1.25f));
+                sparkParticles.spawnParticles();
+            }
+            if (random.nextFloat() < 0.85f) {
+                xVelocity *= 1.25f;
+                yVelocity *= 0.75f;
+                zVelocity *= 1.25f;
+                var lightSpecs = SpiritLightSpecs.spiritLightSpecs(level, targetPos, cyclingSpiritType);
+                lightSpecs.getBuilder()
+                        .disableNoClip()
+                        .setLifeDelay(lifeDelay)
+                        .multiplyLifetime(4)
+                        .setGravityStrength(gravityStrength)
+                        .setMotion(xVelocity, yVelocity, zVelocity)
+                        .modifyData(WorldParticleBuilder::getScaleData, d -> d.multiplyValue(2.5f));
+                lightSpecs.getBloomBuilder()
+                        .disableNoClip()
+                        .setLifeDelay(lifeDelay)
+                        .multiplyLifetime(4)
+                        .setGravityStrength(gravityStrength)
+                        .setMotion(xVelocity, yVelocity, zVelocity)
+                        .modifyData(WorldParticleBuilder::getTransparencyData, d -> d.multiplyValue(1.25f));
+                lightSpecs.spawnParticles();
+            }
+        }
+
+        for (int i = 0; i < 8; i++) {
+            MalumSpiritType cyclingSpiritType = colorData.getCyclingColorRecord().spiritType();
+            float xVelocity = RandomHelper.randomBetween(random, Easing.CUBIC_OUT, -0.025f, 0.025f);
+            float yVelocity = RandomHelper.randomBetween(random, 0.015f, 0.035f);
+            float zVelocity = RandomHelper.randomBetween(random, Easing.CUBIC_OUT, -0.025f, 0.025f);
+            if (random.nextFloat() < 0.85f) {
+                var lightSpecs = SpiritLightSpecs.spiritLightSpecs(level, targetPos.subtract(0, 0.5f, 0), cyclingSpiritType, ParticleRegistry.STRANGE_SMOKE);
+                lightSpecs.getBuilder()
+                        .disableNoClip()
+                        .setLifeDelay(i)
+                        .multiplyLifetime(5)
+                        .setMotion(xVelocity, yVelocity, zVelocity)
+                        .setSpritePicker(SimpleParticleOptions.ParticleSpritePicker.WITH_AGE)
+                        .modifyColorData(c -> c.multiplyCoefficient(0.5f))
+                        .modifyData(WorldParticleBuilder::getScaleData, d -> d.multiplyValue(1.5f))
+                        .modifyData(WorldParticleBuilder::getTransparencyData, d -> d.multiplyValue(0.1f));
+                lightSpecs.getBloomBuilder()
+                        .disableNoClip()
+                        .setLifeDelay(i)
+                        .multiplyLifetime(5)
+                        .setMotion(xVelocity, yVelocity, zVelocity)
+                        .setSpritePicker(SimpleParticleOptions.ParticleSpritePicker.WITH_AGE)
+                        .modifyColorData(c -> c.multiplyCoefficient(0.5f))
+                        .modifyData(WorldParticleBuilder::getScaleData, d -> d.multiplyValue(2.5f))
+                        .modifyData(WorldParticleBuilder::getTransparencyData, d -> d.multiplyValue(0.25f));
+                lightSpecs.spawnParticles();
+            }
+        }
+    }
+
+
     public static void passiveSpiritCatalyzerParticles(SpiritCatalyzerCoreBlockEntity catalyzer) {
         Level level = catalyzer.getLevel();
         RandomSource random = level.random;

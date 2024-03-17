@@ -26,9 +26,13 @@ public class RuneReactiveShieldingItem extends MalumRuneCurioItem implements IEv
         MobEffect shielding = MobEffectRegistry.REACTIVE_SHIELDING.get();
         MobEffectInstance effect = attacked.getEffect(shielding);
         if (effect == null) {
-            attacked.addEffect(new MobEffectInstance(shielding, 100, 0, true, true, true));
+            if (attacked.level().random.nextFloat() < 0.5f) {
+                attacked.addEffect(new MobEffectInstance(shielding, 80, 0, true, true, true));
+            }
         } else {
-            EntityHelper.amplifyEffect(effect, attacked, 1, 3);
+            if (attacked.level().random.nextFloat() < 0.5f) {
+                EntityHelper.amplifyEffect(effect, attacked, 1, 3);
+            }
             EntityHelper.extendEffect(effect, attacked, 40, 100);
         }
     }

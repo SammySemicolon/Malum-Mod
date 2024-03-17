@@ -3,10 +3,10 @@
   "category": "misc",
   "key": {
     "X": {
-      "item": "malum:soulwood_planks"
+      "tag": "malum:soulwood_planks"
     },
     "Y": {
-      "item": "malum:soulwood_planks_slab"
+      "tag": "malum:soulwood_slabs"
     }
   },
   "pattern": [

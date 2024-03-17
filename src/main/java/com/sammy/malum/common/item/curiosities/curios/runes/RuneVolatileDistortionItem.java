@@ -23,7 +23,7 @@ public class RuneVolatileDistortionItem extends MalumRuneCurioItem implements IE
     @Override
     public void hurtEvent(LivingHurtEvent event, LivingEntity attacker, LivingEntity target, ItemStack stack) {
         final RandomSource random = attacker.getRandom();
-        float multiplier = Mth.nextFloat(random, 0.8f, 1.4f);
+        float multiplier = Mth.nextFloat(random, 0.9f, 1.2f);
         if (random.nextFloat() < 0.1f) {
             multiplier *= 2;
         }

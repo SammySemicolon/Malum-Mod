@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "malum:soulwood_trapdoor"
-            ]
+            "tag": "malum:soulwood_planks"
           }
         ]
       },

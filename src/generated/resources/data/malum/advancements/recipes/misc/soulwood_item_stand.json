@@ -1,13 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_soulwood_planks": {
+    "has_input": {
       "conditions": {
         "items": [
           {
-            "items": [
-              "malum:soulwood_planks"
-            ]
+            "tag": "malum:soulwood_planks"
           }
         ]
       },
@@ -22,7 +20,7 @@
   },
   "requirements": [
     [
-      "has_soulwood_planks",
+      "has_input",
       "has_the_recipe"
     ]
   ],

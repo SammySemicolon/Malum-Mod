@@ -1,38 +1,31 @@
 package com.sammy.malum.client.renderer.entity;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Axis;
-import com.sammy.malum.common.entity.FloatingItemEntity;
-import com.sammy.malum.core.systems.spirit.MalumSpiritType;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.entity.EntityRenderer;
-import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.entity.ItemRenderer;
-import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.client.renderer.texture.TextureAtlas;
-import net.minecraft.client.resources.model.BakedModel;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Mth;
-import net.minecraft.world.item.ItemDisplayContext;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.Vec3;
-import team.lodestar.lodestone.helpers.ColorHelper;
-import team.lodestar.lodestone.helpers.EasingHelper;
-import team.lodestar.lodestone.registry.client.LodestoneRenderTypeRegistry;
-import team.lodestar.lodestone.systems.easing.Easing;
-import team.lodestar.lodestone.systems.rendering.VFXBuilders;
-import team.lodestar.lodestone.systems.rendering.trail.TrailPoint;
+import com.mojang.blaze3d.vertex.*;
+import com.mojang.math.*;
+import com.sammy.malum.common.entity.*;
+import com.sammy.malum.core.systems.spirit.*;
+import net.minecraft.client.*;
+import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.entity.*;
+import net.minecraft.client.renderer.texture.*;
+import net.minecraft.client.resources.model.*;
+import net.minecraft.resources.*;
+import net.minecraft.util.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.phys.*;
+import team.lodestar.lodestone.helpers.*;
+import team.lodestar.lodestone.registry.client.*;
+import team.lodestar.lodestone.systems.easing.*;
+import team.lodestar.lodestone.systems.rendering.*;
+import team.lodestar.lodestone.systems.rendering.trail.*;
 
 import java.awt.*;
 import java.util.List;
 
-import static com.sammy.malum.MalumMod.malumPath;
-import static team.lodestar.lodestone.LodestoneLib.lodestonePath;
-import static team.lodestar.lodestone.handlers.RenderHandler.DELAYED_RENDER;
+import static com.sammy.malum.MalumMod.*;
+import static team.lodestar.lodestone.LodestoneLib.*;
+import static team.lodestar.lodestone.handlers.RenderHandler.*;
 
 public class FloatingItemEntityRenderer extends EntityRenderer<FloatingItemEntity> {
     public final ItemRenderer itemRenderer;
@@ -97,7 +90,13 @@ public class FloatingItemEntityRenderer extends EntityRenderer<FloatingItemEntit
     public static void renderSpiritGlimmer(PoseStack poseStack, MalumSpiritType spiritType, float partialTicks) {
         renderSpiritGlimmer(poseStack, spiritType.getPrimaryColor(), spiritType.getSecondaryColor(), partialTicks);
     }
+    public static void renderSpiritGlimmer(PoseStack poseStack, MalumSpiritType spiritType, float alphaMultiplier, float partialTicks) {
+        renderSpiritGlimmer(poseStack, spiritType.getPrimaryColor(), spiritType.getSecondaryColor(), alphaMultiplier, partialTicks);
+    }
     public static void renderSpiritGlimmer(PoseStack poseStack, Color primaryColor, Color secondaryColor, float partialTicks) {
+        renderSpiritGlimmer(poseStack, primaryColor, secondaryColor, 1f, partialTicks);
+    }
+    public static void renderSpiritGlimmer(PoseStack poseStack, Color primaryColor, Color secondaryColor, float alphaMultiplier, float partialTicks) {
         Level level = Minecraft.getInstance().level;
         VertexConsumer bloom = DELAYED_RENDER.getBuffer(LodestoneRenderTypeRegistry.ADDITIVE_TEXTURE.applyAndCache(lodestonePath("textures/particle/twinkle.png")));
         VertexConsumer star = DELAYED_RENDER.getBuffer(LodestoneRenderTypeRegistry.ADDITIVE_TEXTURE.applyAndCache(malumPath("textures/particle/star.png")));
@@ -110,9 +109,9 @@ public class FloatingItemEntityRenderer extends EntityRenderer<FloatingItemEntit
         poseStack.pushPose();
         poseStack.mulPose(Minecraft.getInstance().getEntityRenderDispatcher().cameraOrientation());
         poseStack.mulPose(Axis.YP.rotationDegrees(180f));
-        builder.setAlpha(0.6f).renderQuad(star, poseStack, scale * 1.2f);
-        builder.setAlpha(0.8f).renderQuad(bloom, poseStack, scale * 0.8f);
-        builder.setAlpha(0.2f).setColor(secondaryColor).renderQuad(bloom, poseStack, scale * 1.2f);
+        builder.setAlpha(0.6f * alphaMultiplier).renderQuad(star, poseStack, scale * 1.2f);
+        builder.setAlpha(0.8f * alphaMultiplier).renderQuad(bloom, poseStack, scale * 0.8f);
+        builder.setAlpha(0.2f * alphaMultiplier).setColor(secondaryColor).renderQuad(bloom, poseStack, scale * 1.2f);
         poseStack.popPose();
     }
 

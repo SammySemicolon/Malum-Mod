@@ -115,7 +115,7 @@ public class VoidProgressionScreen extends AbstractProgressionCodexScreen {
                 .addPage(new TextPage("void.mnemonic_fragment.2"))
         );
         VOID_ENTRIES.add(new BookEntry<>(
-                "void.malignant_lead", 6, 4)
+                "void.malignant_lead", 6, 5)
                 .setWidgetConfig(w -> w.setIcon(MALIGNANT_LEAD).setStyle(BookWidgetStyle.SOULWOOD))
                 .addPage(new VoidTransmutationPage("void.malignant_lead", "void.malignant_lead.1", MALIGNANT_LEAD.get()))
                 .addPage(new TextPage("void.malignant_lead.2"))

@@ -79,12 +79,12 @@ public class MoteOfManaRenderer implements BlockEntityRenderer<MoteOfManaBlockEn
     }
 
     public static void applyWobble(Vector3f[] offsets, float initialOffset, float strength) {
-        float value = initialOffset;
+        float offset = initialOffset;
         for (Vector3f vector3f : offsets) {
             double time = ((Minecraft.getInstance().level.getGameTime() / 40.0F) % Math.PI * 2);
-            float sine = Mth.sin((float) (time + (value * Math.PI * 2))) * strength;
+            float sine = Mth.sin((float) (time + (offset * Math.PI * 2))) * strength;
             vector3f.add(sine, -sine, sine);
-            value += 0.25f;
+            offset += 0.25f;
         }
     }
 }

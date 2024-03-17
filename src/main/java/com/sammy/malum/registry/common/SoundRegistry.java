@@ -169,6 +169,27 @@ public class SoundRegistry {
     public static final RegistryObject<SoundEvent> RUNEWOOD_DOOR_OPEN = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("runewood_door_open")));
     public static final RegistryObject<SoundEvent> RUNEWOOD_TRAPDOOR_CLOSE = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("runewood_trapdoor_close")));
     public static final RegistryObject<SoundEvent> RUNEWOOD_TRAPDOOR_OPEN = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("runewood_trapdoor_open")));
+    
+    public static final RegistryObject<SoundEvent> SOULWOOD_BREAK = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("soulwood_break")));
+    public static final RegistryObject<SoundEvent> SOULWOOD_PLACE = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("soulwood_place")));
+    public static final RegistryObject<SoundEvent> SOULWOOD_STEP = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("soulwood_step")));
+    public static final RegistryObject<SoundEvent> SOULWOOD_HIT = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("soulwood_hit")));
+
+    public static final RegistryObject<SoundEvent> SOULWOOD_HANGING_SIGN_BREAK = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("soulwood_hanging_sign_break")));
+    public static final RegistryObject<SoundEvent> SOULWOOD_HANGING_SIGN_PLACE = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("soulwood_hanging_sign_place")));
+    public static final RegistryObject<SoundEvent> SOULWOOD_HANGING_SIGN_STEP = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("soulwood_hanging_sign_step")));
+    public static final RegistryObject<SoundEvent> SOULWOOD_HANGING_SIGN_HIT = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("soulwood_hanging_sign_hit")));
+
+    public static final RegistryObject<SoundEvent> SOULWOOD_BUTTON_CLICK_OFF = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("soulwood_button_click_off")));
+    public static final RegistryObject<SoundEvent> SOULWOOD_BUTTON_CLICK_ON = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("soulwood_button_click_on")));
+    public static final RegistryObject<SoundEvent> SOULWOOD_PRESSURE_PLATE_CLICK_OFF = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("soulwood_pressure_plate_click_off")));
+    public static final RegistryObject<SoundEvent> SOULWOOD_PRESSURE_PLATE_CLICK_ON = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("soulwood_pressure_plate_click_on")));
+    public static final RegistryObject<SoundEvent> SOULWOOD_FENCE_GATE_CLOSE = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("soulwood_fence_gate_close")));
+    public static final RegistryObject<SoundEvent> SOULWOOD_FENCE_GATE_OPEN = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("soulwood_fence_gate_open")));
+    public static final RegistryObject<SoundEvent> SOULWOOD_DOOR_CLOSE = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("soulwood_door_close")));
+    public static final RegistryObject<SoundEvent> SOULWOOD_DOOR_OPEN = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("soulwood_door_open")));
+    public static final RegistryObject<SoundEvent> SOULWOOD_TRAPDOOR_CLOSE = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("soulwood_trapdoor_close")));
+    public static final RegistryObject<SoundEvent> SOULWOOD_TRAPDOOR_OPEN = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("soulwood_trapdoor_open")));
 
     public static final RegistryObject<SoundEvent> ARCANE_ROCK_BREAK = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("arcane_rock_break")));
     public static final RegistryObject<SoundEvent> ARCANE_ROCK_PLACE = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("arcane_rock_place")));
