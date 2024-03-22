@@ -232,11 +232,11 @@ public class BlockRegistry {
     public static final RegistryObject<Block> VERTICAL_RUSTIC_RUNEWOOD_PLANKS_SLAB = BLOCKS.register("vertical_rustic_runewood_planks_slab", () -> new SlabBlock(MalumBlockProperties.RUNEWOOD().addTags(SLABS, WOODEN_SLABS)));
     public static final RegistryObject<Block> VERTICAL_RUSTIC_RUNEWOOD_PLANKS_STAIRS = BLOCKS.register("vertical_rustic_runewood_planks_stairs", () -> new StairBlock(() -> VERTICAL_RUSTIC_RUNEWOOD_PLANKS.get().defaultBlockState(), MalumBlockProperties.RUNEWOOD().addTags(STAIRS, WOODEN_STAIRS)));
 
-    public static final RegistryObject<Block> RUNEWOOD_TILES = BLOCKS.register("runewood_tiles", () -> new Block(MalumBlockProperties.RUNEWOOD()));
+    public static final RegistryObject<Block> RUNEWOOD_TILES = BLOCKS.register("runewood_tiles", () -> new Block(MalumBlockProperties.RUNEWOOD().addTags(PLANKS)));
     public static final RegistryObject<Block> RUNEWOOD_TILES_SLAB = BLOCKS.register("runewood_tiles_slab", () -> new SlabBlock(MalumBlockProperties.RUNEWOOD().addTags(SLABS, WOODEN_SLABS)));
     public static final RegistryObject<Block> RUNEWOOD_TILES_STAIRS = BLOCKS.register("runewood_tiles_stairs", () -> new StairBlock(() -> RUNEWOOD_TILES.get().defaultBlockState(), MalumBlockProperties.RUNEWOOD().addTags(STAIRS, WOODEN_STAIRS)));
 
-    public static final RegistryObject<Block> RUSTIC_RUNEWOOD_TILES = BLOCKS.register("rustic_runewood_tiles", () -> new Block(MalumBlockProperties.RUNEWOOD()));
+    public static final RegistryObject<Block> RUSTIC_RUNEWOOD_TILES = BLOCKS.register("rustic_runewood_tiles", () -> new Block(MalumBlockProperties.RUNEWOOD().addTags(PLANKS)));
     public static final RegistryObject<Block> RUSTIC_RUNEWOOD_TILES_SLAB = BLOCKS.register("rustic_runewood_tiles_slab", () -> new SlabBlock(MalumBlockProperties.RUNEWOOD().addTags(SLABS, WOODEN_SLABS)));
     public static final RegistryObject<Block> RUSTIC_RUNEWOOD_TILES_STAIRS = BLOCKS.register("rustic_runewood_tiles_stairs", () -> new StairBlock(() -> RUSTIC_RUNEWOOD_TILES.get().defaultBlockState(), MalumBlockProperties.RUNEWOOD().addTags(STAIRS, WOODEN_STAIRS)));
 
@@ -299,11 +299,11 @@ public class BlockRegistry {
     public static final RegistryObject<Block> VERTICAL_RUSTIC_SOULWOOD_PLANKS_SLAB = BLOCKS.register("vertical_rustic_soulwood_planks_slab", () -> new SlabBlock(MalumBlockProperties.SOULWOOD().addTags(SLABS, WOODEN_SLABS)));
     public static final RegistryObject<Block> VERTICAL_RUSTIC_SOULWOOD_PLANKS_STAIRS = BLOCKS.register("vertical_rustic_soulwood_planks_stairs", () -> new StairBlock(() -> VERTICAL_RUSTIC_SOULWOOD_PLANKS.get().defaultBlockState(), MalumBlockProperties.SOULWOOD().addTags(STAIRS, WOODEN_STAIRS)));
 
-    public static final RegistryObject<Block> SOULWOOD_TILES = BLOCKS.register("soulwood_tiles", () -> new Block(MalumBlockProperties.SOULWOOD()));
+    public static final RegistryObject<Block> SOULWOOD_TILES = BLOCKS.register("soulwood_tiles", () -> new Block(MalumBlockProperties.SOULWOOD().addTags(PLANKS)));
     public static final RegistryObject<Block> SOULWOOD_TILES_SLAB = BLOCKS.register("soulwood_tiles_slab", () -> new SlabBlock(MalumBlockProperties.SOULWOOD().addTags(SLABS, WOODEN_SLABS)));
     public static final RegistryObject<Block> SOULWOOD_TILES_STAIRS = BLOCKS.register("soulwood_tiles_stairs", () -> new StairBlock(() -> SOULWOOD_TILES.get().defaultBlockState(), MalumBlockProperties.SOULWOOD().addTags(STAIRS, WOODEN_STAIRS)));
 
-    public static final RegistryObject<Block> RUSTIC_SOULWOOD_TILES = BLOCKS.register("rustic_soulwood_tiles", () -> new Block(MalumBlockProperties.SOULWOOD()));
+    public static final RegistryObject<Block> RUSTIC_SOULWOOD_TILES = BLOCKS.register("rustic_soulwood_tiles", () -> new Block(MalumBlockProperties.SOULWOOD().addTags(PLANKS)));
     public static final RegistryObject<Block> RUSTIC_SOULWOOD_TILES_SLAB = BLOCKS.register("rustic_soulwood_tiles_slab", () -> new SlabBlock(MalumBlockProperties.SOULWOOD().addTags(SLABS, WOODEN_SLABS)));
     public static final RegistryObject<Block> RUSTIC_SOULWOOD_TILES_STAIRS = BLOCKS.register("rustic_soulwood_tiles_stairs", () -> new StairBlock(() -> RUSTIC_SOULWOOD_TILES.get().defaultBlockState(), MalumBlockProperties.SOULWOOD().addTags(STAIRS, WOODEN_STAIRS)));
 
