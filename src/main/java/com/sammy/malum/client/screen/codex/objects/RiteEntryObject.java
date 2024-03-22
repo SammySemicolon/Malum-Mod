@@ -1,20 +1,16 @@
 package com.sammy.malum.client.screen.codex.objects;
 
-import com.sammy.malum.client.screen.codex.AbstractProgressionCodexScreen;
-import com.sammy.malum.client.screen.codex.BookEntry;
-import com.sammy.malum.client.screen.codex.EntryScreen;
-import com.sammy.malum.client.screen.codex.pages.SpiritRiteTextPage;
-import com.sammy.malum.core.systems.rites.MalumRiteType;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import com.sammy.malum.client.screen.codex.*;
+import com.sammy.malum.client.screen.codex.pages.text.*;
+import com.sammy.malum.client.screen.codex.screens.*;
+import com.sammy.malum.core.systems.rites.*;
+import net.minecraft.client.gui.*;
 
-import java.util.Optional;
+import java.util.*;
 
 import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.*;
-import static com.sammy.malum.client.screen.codex.ArcanaProgressionScreen.FRAME_FADE_TEXTURE;
-import static com.sammy.malum.client.screen.codex.ArcanaProgressionScreen.FRAME_TEXTURE;
 
-public class RiteEntryObject<T extends AbstractProgressionCodexScreen> extends EntryObject<T> {
+public class RiteEntryObject<T extends AbstractProgressionCodexScreen<T>> extends ProgressionEntryObject<T> {
     public final MalumRiteType riteType;
 
     public RiteEntryObject(T screen, BookEntry<T> entry, int posX, int posY) {
@@ -28,9 +24,9 @@ public class RiteEntryObject<T extends AbstractProgressionCodexScreen> extends E
     }
 
     @Override
-    public void render(Minecraft minecraft, GuiGraphics guiGraphics, float xOffset, float yOffset, int mouseX, int mouseY, float partialTicks) {
-        super.render(minecraft, guiGraphics, xOffset, yOffset, mouseX, mouseY, partialTicks);
-        renderRiteIcon(riteType, guiGraphics.pose(), isCorrupted(), 0.4f, offsetPosX(xOffset) + 8, offsetPosY(yOffset) + 8);
+    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
+        super.render(guiGraphics, mouseX, mouseY, partialTicks);
+        renderRiteIcon(riteType, guiGraphics.pose(), isCorrupted(), 0.4f, getOffsetXPosition() + 8, getOffsetYPosition() + 8);
     }
 
     public boolean isCorrupted() {

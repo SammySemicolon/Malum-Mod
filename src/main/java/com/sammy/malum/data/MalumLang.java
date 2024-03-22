@@ -200,7 +200,7 @@ public class MalumLang extends LanguageProvider {
         add("malum.gui.curio.effect.necklace_of_tidal_affinity", "+Conduit Power Provides Numerous Benefits");
         add("malum.gui.curio.effect.necklace_of_the_narrow_edge", "-Disables Scythe Sweeping");
         add("malum.gui.curio.effect.necklace_of_blissful_harmony", "+Reduces Enemy Aggression");
-        add("malum.gui.curio.effect.belt_of_the_starved", "+Spirit Collection Generates Gluttony\n -Gluttony Exchanges Hunger for Magic Proficiency");
+        add("malum.gui.curio.effect.belt_of_the_starved", "+Spirit Collection Generates Gluttony\n-Gluttony Exchanges Hunger for Magic Proficiency");
         add("malum.gui.curio.effect.belt_of_the_prospector", "+Explosions are Enchanted with Fortune III\n+Protects Valuable Items from Explosions");
         add("malum.gui.curio.effect.belt_of_the_magebane", "+Magic Damage no Longer Impedes Soul Ward Recovery");
         add("malum.gui.curio.effect.ring_of_growing_flesh", "+Spirit Collection Grants Extra Hearts");
@@ -216,12 +216,8 @@ public class MalumLang extends LanguageProvider {
 
         addSimpleEntryHeader("void.introduction", "Introduction", "Secrets uncovered");
         addPages("void.introduction",
-                "Hey Hey, this is the B-Side progression screen known as Chronicles of the Void. It's currently lacking proper translation entries but I've tried my best to explain everything in one way or another. Very, out of character, for the malum book.",
-                "When the mod actually releases, the button you used to get to this screen will have a cool animation, and also will only be available after the player throws the encyclopedia arcana into the weeping well; netting them an advancement that's required for the button to be present.");
-
-        addSimpleEntryHeader("void.weeping_well", "Weeping Well", "Ominous presence");
-        addPages("void.weeping_well",
-                "The infamous hole. You can locate it by using /locate structure malum:weeping_well. It's the starting point for ur progression in chronicles of the void.");
+                "\"The soul's existence creates the body, as the body's existence then informs the soul. One cannot exist without the other, but could a soul be diminished? Expanded? Bound to a new vessel, leaving a husk in its wake?\"",
+                "I appear to have stumbled onto an inexplicable new branch of magic, one that is built on the operation of souls. I have seen similar concepts written of, but none fit the mechanics I have now seen at play. My soul itself seems to... " + italic("stir") + " at these acts of magecraft, shying away, yet eagerly seeking more. If it has not been discovered, I do not think I could consider myself a magus were I to forgo this opportunity.");
 
         addSimpleEntryHeader("void.null_slate", "Null Slate", "Original form");
         addPages("void.null_slate",
@@ -241,9 +237,9 @@ public class MalumLang extends LanguageProvider {
 
         addSimpleEntryHeader("void.soul_stained_steel_staff", "Soulstained Staff", "Spell-casting");
         addPages("void.soul_stained_steel_staff",
-                "Staves are hybrid melee and ranged weapons. They swing faster than scythes but deal less physical damage. The simplest one is the Soulstained Steel Staff.",
+                "Staves are hybrid melee and ranged weapons. They swing faster than scythes but deal less physical damage. The simplest one is the Mnemonic Hex Staff.",
                 "What makes staves special is the right click functionality, the right click function lets you shoot long range projectiles. This ranged attack has a relatively short cooldown, and requires a one second charge-up window before being fired.",
-                "The Soulstained Steel Staff in particular allows the user to lob a burst of 3 gravity affected hex bolts, each dealing 100% of the staff's magical damage output.");
+                "The Mnemonic Hex Staff in particular allows the user to lob a burst of 3 gravity affected hex bolts, each dealing 100% of the staff's magical damage output.");
         addHeadline("void.ring_of_the_plentiful", "Ring of the Plentiful");
         addPages("void.ring_of_the_plentiful",
                 "This ring will stockpile up to 3 reserve staff charges, which when present are consumed to avoid placing a cooldown on the staff's ranged functionality. Each staff charge takes 15 seconds to recover, and currently there's no indication for it.");
@@ -298,7 +294,7 @@ public class MalumLang extends LanguageProvider {
 
         addSimpleEntryHeader("cthonic_gold", "Cthonic Gold", "Fused with the arcane");
         addPages("cthonic_gold",
-                "Cthonic Gold is a strange, yet very useful metal. The ore is found deep underground in the deepslate layer of the world, in a small nodule full of gold ore, as if forced together.",
+                "Cthonic Gold is a strange, yet very useful metal. The ore is found deep underground in the deepslate layer of the world, rooted deeply into existing veins of gold ore.",
                 "Physically, Cthonic Gold could be described as resembling pyrite, however it is much more dense than one would expect. Furthermore, the metal is filled to the brim with a mix of earthen and infernal arcana, though it doesn't appear to release any of it, ever.",
                 "This arcane link of sorts appears to be a deep rooted connection between what is physical, and what is not. The arcana found within the metal appears to have been forced to reside within it for so long that it became near inseparable.",
                 "I'm not sure what use this metal bears quite yet, but what I am certain of is that it'll prove itself useful to me in the future.");

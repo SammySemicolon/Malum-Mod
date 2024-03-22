@@ -2,6 +2,7 @@ package com.sammy.malum.client.screen.codex;
 
 import com.mojang.blaze3d.systems.*;
 import com.mojang.blaze3d.vertex.*;
+import com.sammy.malum.client.screen.codex.screens.*;
 import com.sammy.malum.core.systems.rites.*;
 import com.sammy.malum.core.systems.ritual.*;
 import com.sammy.malum.core.systems.spirit.*;
@@ -269,50 +270,46 @@ public class ArcanaCodexHelper {
     }
 
     public static void renderItemFrames(PoseStack poseStack, int slots, int left, int top, boolean vertical) {
+        final int startingOffset = 10 * (slots - 1);
         if (vertical) {
-            top -= 10 * (slots - 1);
+            top -= startingOffset;
         } else {
-            left -= 10 * (slots - 1);
+            left -= startingOffset;
         }
         //item slot
         for (int i = 0; i < slots; i++) {
             int offset = i * 20;
             int oLeft = left + (vertical ? 0 : offset);
             int oTop = top + (vertical ? offset : 0);
-            renderTexture(EntryScreen.BOOK_TEXTURE, poseStack, oLeft, oTop, 75, 192, 20, 20, 512, 512);
+            renderTexture(EntryScreen.ELEMENT_SOCKET, poseStack, oLeft, oTop, 18, 16, 20, 20, 38, 44);
 
             if (vertical) {
                 //bottom fade
-                if (slots > 1 && i != slots - 1) {
-                    renderTexture(EntryScreen.BOOK_TEXTURE, poseStack, left + 1, oTop + 19, 75, 213, 18, 2, 512, 512);
-                }
-                //bottommost fade
-                if (i == slots - 1) {
-                    renderTexture(EntryScreen.BOOK_TEXTURE, poseStack, oLeft + 1, oTop + 19, 75, 216, 18, 2, 512, 512);
-                }
+                int v = i == slots - 1 ? 40 : 37;
+                renderTexture(EntryScreen.ELEMENT_SOCKET, poseStack, oLeft + 1, oTop + 19, 16, v, 18, 2, 38, 44);
             } else {
                 //bottom fade
-                renderTexture(EntryScreen.BOOK_TEXTURE, poseStack, oLeft + 1, top + 19, 75, 216, 18, 2, 512, 512);
+                renderTexture(EntryScreen.ELEMENT_SOCKET, poseStack, oLeft + 1, top + 19, 16, 40, 18, 2, 38, 44);
                 if (slots > 1 && i != slots - 1) {
                     //side fade
-                    renderTexture(EntryScreen.BOOK_TEXTURE, poseStack, oLeft + 19, top, 96, 192, 2, 20, 512, 512);
+                    renderTexture(EntryScreen.ELEMENT_SOCKET, poseStack, oLeft + 19, top, 16, 16, 2, 20, 38, 44);
                 }
             }
         }
 
         //crown
-        int crownLeft = left + 5 + (vertical ? 0 : 10 * (slots - 1));
-        renderTexture(EntryScreen.BOOK_TEXTURE, poseStack, crownLeft, top - 5, 128, 192, 10, 6, 512, 512);
+        int crownLeft = left + 5 + (vertical ? 0 : startingOffset);
+        renderTexture(EntryScreen.ELEMENT_SOCKET, poseStack, crownLeft, top - 5, 28, 0, 10, 6, 38, 44);
 
-        //side-bars
+        //top bars
         if (vertical) {
-            renderTexture(EntryScreen.BOOK_TEXTURE, poseStack, left - 4, top - 4, 99, 200, 28, 7, 512, 512);
-            renderTexture(EntryScreen.BOOK_TEXTURE, poseStack, left - 4, top + 17 + 20 * (slots - 1), 99, 192, 28, 7, 512, 512);
+            renderTexture(EntryScreen.ELEMENT_SOCKET, poseStack, left - 4, top - 4, 0, 0, 28, 7, 38, 44);
+            renderTexture(EntryScreen.ELEMENT_SOCKET, poseStack, left - 4, top + 17 + 20 * (slots - 1), 0, 8, 28, 7, 38, 44);
         }
-        // top bars
+        //side-bars
         else {
-            renderTexture(EntryScreen.BOOK_TEXTURE, poseStack, left - 4, top - 4, 59, 192, 7, 28, 512, 512);
-            renderTexture(EntryScreen.BOOK_TEXTURE, poseStack, left + 17 + 20 * (slots - 1), top - 4, 67, 192, 7, 28, 512, 512);
+            renderTexture(EntryScreen.ELEMENT_SOCKET, poseStack, left - 4, top - 4, 0, 16, 7, 28, 38, 44);
+            renderTexture(EntryScreen.ELEMENT_SOCKET, poseStack, left + 17 + 20 * (slots - 1), top - 4, 8, 16, 7, 28, 38, 44);
         }
     }
 
@@ -454,7 +451,7 @@ public class ArcanaCodexHelper {
         return Mth.sin(offset + Minecraft.getInstance().player.level().getGameTime() / 40f) / 2f + 0.5f;
     }
 
-    public static boolean isHovering(double mouseX, double mouseY, int posX, int posY, int width, int height) {
+    public static boolean isHovering(double mouseX, double mouseY, float posX, float posY, int width, int height) {
         return mouseX > posX && mouseX < posX + width && mouseY > posY && mouseY < posY + height;
     }
 }

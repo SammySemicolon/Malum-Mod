@@ -6,13 +6,14 @@ import static com.sammy.malum.MalumMod.malumPath;
 
 public record BookWidgetStyle(ResourceLocation frameTexture, ResourceLocation fillingTexture, int textureWidth, int textureHeight) {
 
-
     public BookWidgetStyle(ResourceLocation frameTexture, ResourceLocation fillingTexture, int dimensions) {
         this(frameTexture, fillingTexture, dimensions, dimensions);
     }
+
     public BookWidgetStyle(ResourceLocation frameTexture, ResourceLocation fillingTexture) {
         this(frameTexture, fillingTexture, 32, 32);
     }
+
     private static final ResourceLocation RUNEWOOD_FRAME = texturePath("runewood_frame");
     private static final ResourceLocation GILDED_RUNEWOOD_FRAME = texturePath("runewood_frame_gilded");
     private static final ResourceLocation SMALL_RUNEWOOD_FRAME = texturePath("runewood_frame_small");

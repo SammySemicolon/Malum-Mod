@@ -1,51 +1,36 @@
 package com.sammy.malum.client.screen.codex.pages;
 
-import com.sammy.malum.*;
-import com.sammy.malum.client.screen.codex.*;
+import com.sammy.malum.client.screen.codex.screens.*;
 import net.minecraft.client.*;
 import net.minecraft.client.gui.*;
-import net.minecraft.network.chat.*;
 import net.minecraft.resources.*;
-import net.minecraft.world.item.*;
 
 import java.util.*;
 import java.util.stream.*;
 
-import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.*;
+public class CyclingPage<T extends AbstractProgressionCodexScreen<T>> extends BookPage<T> {
+    public final List<? extends BookPage<T>> pages;
 
-public class CyclingPage extends BookPage {
-    public final List<? extends BookPage> pages;
-
-    public CyclingPage(BookPage... pages) {
+    @SafeVarargs
+    public CyclingPage(BookPage<T>... pages) {
         this(List.of(pages));
     }
-    public CyclingPage(List<? extends BookPage> pages) {
+
+    public CyclingPage(List<? extends BookPage<T>> pages) {
         super(null);
         this.pages = pages.stream().filter(BookPage::isValid).collect(Collectors.toList());
     }
 
     @Override
-    public ResourceLocation getBackground() {
+    public ResourceLocation getBackground(boolean isRightSide) {
         int index = getIndex();
-        return pages.get(index).getBackground();
+        return pages.get(index).getBackground(isRightSide);
     }
 
     @Override
-    public void render(Minecraft minecraft, GuiGraphics guiGraphics, EntryScreen screen, int mouseX, int mouseY, float partialTicks, boolean isRepeat) {
+    public void render(EntryScreen<T> screen, GuiGraphics guiGraphics, int left, int top, int mouseX, int mouseY, float partialTicks, boolean isRepeat) {
         int index = getIndex();
-        pages.get(index).render(minecraft, guiGraphics, screen, mouseX, mouseY, partialTicks, isRepeat);
-    }
-
-    @Override
-    public void renderLeft(Minecraft minecraft, GuiGraphics guiGraphics, EntryScreen screen, int mouseX, int mouseY, float partialTicks) {
-        int index = getIndex();
-        pages.get(index).renderLeft(minecraft, guiGraphics, screen, mouseX, mouseY, partialTicks);
-    }
-
-    @Override
-    public void renderRight(Minecraft minecraft, GuiGraphics guiGraphics, EntryScreen screen, int mouseX, int mouseY, float partialTicks) {
-        int index = getIndex();
-        pages.get(index).renderRight(minecraft, guiGraphics, screen, mouseX, mouseY, partialTicks);
+        pages.get(index).render(screen, guiGraphics, left, top, mouseX, mouseY, partialTicks, isRepeat);
     }
 
     public int getIndex() {
