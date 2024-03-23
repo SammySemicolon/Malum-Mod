@@ -12,10 +12,10 @@
   ],
   "input": {
     "count": 1,
-    "item": "malum:sacrificial_brooch"
+    "item": "malum:elaborate_brooch"
   },
   "output": {
-    "item": "malum:ravenous_brooch"
+    "item": "malum:gluttonous_brooch"
   },
   "spirits": [
     {

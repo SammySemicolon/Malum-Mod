@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "malum:item/sacrificial_brooch"
+    "layer0": "malum:item/elaborate_brooch"
   }
 }

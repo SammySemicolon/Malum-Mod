@@ -2,10 +2,11 @@ package com.sammy.malum.common.item.curiosities.curios.sets.prospector;
 
 import com.sammy.malum.common.item.curiosities.curios.MalumCurioItem;
 import com.sammy.malum.registry.common.item.ItemRegistry;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.LivingEntity;
 import team.lodestar.lodestone.helpers.CurioHelper;
 
-import java.util.function.*;
+import java.util.function.Consumer;
 
 public class CurioDemolitionistRing extends MalumCurioItem {
 
@@ -14,8 +15,8 @@ public class CurioDemolitionistRing extends MalumCurioItem {
     }
 
     @Override
-    public void addExtraTooltipLines(Consumer<AttributeLikeTooltipEntry> consumer) {
-        consumer.accept(positiveEffect("malum.gui.curio.effect.ring_of_the_demolitionist"));
+    public void addExtraTooltipLines(Consumer<Component> consumer) {
+        consumer.accept(positiveEffect("bigger_explosions"));
     }
 
     public static float increaseExplosionRadius(LivingEntity source, float original) {

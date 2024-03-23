@@ -1,16 +1,20 @@
 package com.sammy.malum.common.item.curiosities.curios.sets.weeping;
 
-import com.sammy.malum.common.item.curiosities.curios.MalumCurioItem;
 import com.sammy.malum.common.item.IVoidItem;
-import com.sammy.malum.registry.common.*;
-import com.sammy.malum.registry.common.item.*;
-import net.minecraft.world.effect.*;
-import net.minecraft.world.entity.player.*;
-import net.minecraft.world.item.*;
-import net.minecraftforge.event.entity.living.*;
-import team.lodestar.lodestone.helpers.*;
+import com.sammy.malum.common.item.curiosities.curios.MalumCurioItem;
+import com.sammy.malum.registry.common.AttributeRegistry;
+import com.sammy.malum.registry.common.MobEffectRegistry;
+import com.sammy.malum.registry.common.item.ItemRegistry;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
+import team.lodestar.lodestone.helpers.CurioHelper;
+import team.lodestar.lodestone.helpers.EntityHelper;
 
-import java.util.function.*;
+import java.util.function.Consumer;
 
 import static com.sammy.malum.registry.common.item.ItemTagRegistry.GROSS_FOODS;
 
@@ -20,8 +24,8 @@ public class CurioGruesomeSatiationRing extends MalumCurioItem implements IVoidI
     }
 
     @Override
-    public void addExtraTooltipLines(Consumer<AttributeLikeTooltipEntry> consumer) {
-        consumer.accept(positiveEffect("malum.gui.curio.effect.ring_of_gruesome_satiation"));
+    public void addExtraTooltipLines(Consumer<Component> consumer) {
+        consumer.accept(positiveEffect("rotten_gluttony"));
     }
 
     public static void finishEating(LivingEntityUseItemEvent.Finish event) {

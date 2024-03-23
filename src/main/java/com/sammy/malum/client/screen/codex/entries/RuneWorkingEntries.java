@@ -29,10 +29,10 @@ public class RuneWorkingEntries {
                 .addPage(CraftingPage.broochPage(RUNIC_BROOCH.get(), HALLOWED_GOLD_INGOT.get(), BLOCK_OF_HALLOWED_GOLD.get()))
         );
 
-        screen.addEntry("sacrificial_brooch", -9, 10, b -> b
-                .setWidgetConfig(w -> w.setIcon(SACRIFICIAL_BROOCH))
-                .addPage(new HeadlineTextPage<>("sacrificial_brooch", "sacrificial_brooch.1"))
-                .addPage(CraftingPage.broochPage(SACRIFICIAL_BROOCH.get(), SOUL_STAINED_STEEL_INGOT.get(), BLOCK_OF_SOUL_STAINED_STEEL.get()))
+        screen.addEntry("elaborate_brooch", -9, 10, b -> b
+                .setWidgetConfig(w -> w.setIcon(ELABORATE_BROOCH))
+                .addPage(new HeadlineTextPage<>("elaborate_brooch", "elaborate_brooch.1"))
+                .addPage(CraftingPage.broochPage(ELABORATE_BROOCH.get(), SOUL_STAINED_STEEL_INGOT.get(), BLOCK_OF_SOUL_STAINED_STEEL.get()))
         );
 
         screen.addEntry("glass_brooch", -11, 10, b -> b
@@ -41,10 +41,10 @@ public class RuneWorkingEntries {
                 .addPage(SpiritInfusionPage.fromOutput(GLASS_BROOCH.get()))
         );
 
-        screen.addEntry("ravenous_brooch", -10, 11, b -> b
-                .setWidgetConfig(w -> w.setIcon(RAVENOUS_BROOCH))
-                .addPage(new HeadlineTextPage<>("ravenous_brooch", "ravenous_brooch.1"))
-                .addPage(SpiritInfusionPage.fromOutput(RAVENOUS_BROOCH.get()))
+        screen.addEntry("gluttonous_brooch", -10, 11, b -> b
+                .setWidgetConfig(w -> w.setIcon(GLUTTONOUS_BROOCH))
+                .addPage(new HeadlineTextPage<>("gluttonous_brooch", "gluttonous_brooch.1"))
+                .addPage(SpiritInfusionPage.fromOutput(GLUTTONOUS_BROOCH.get()))
         );
 
         screen.addEntry("rune_of_idle_restoration", -12, 7, b -> b

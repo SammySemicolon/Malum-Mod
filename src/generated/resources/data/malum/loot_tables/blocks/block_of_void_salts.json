@@ -11,7 +11,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:air"
+          "name": "malum:block_of_void_salts"
         }
       ],
       "rolls": 1.0

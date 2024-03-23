@@ -1,22 +1,29 @@
 package com.sammy.malum.common.item.curiosities.curios.sets.rotten;
 
-import com.google.common.collect.*;
-import com.sammy.malum.common.item.curiosities.curios.*;
-import com.sammy.malum.registry.common.*;
-import com.sammy.malum.registry.common.item.*;
-import net.minecraft.sounds.*;
-import net.minecraft.world.effect.*;
-import net.minecraft.world.entity.ai.attributes.*;
-import net.minecraft.world.entity.player.*;
-import net.minecraft.world.item.*;
-import net.minecraft.world.level.*;
-import net.minecraftforge.event.entity.living.*;
-import team.lodestar.lodestone.helpers.*;
-import top.theillusivec4.curios.api.*;
+import com.google.common.collect.Multimap;
+import com.sammy.malum.common.item.curiosities.curios.MalumCurioItem;
+import com.sammy.malum.registry.common.MobEffectRegistry;
+import com.sammy.malum.registry.common.SoundRegistry;
+import com.sammy.malum.registry.common.item.ItemRegistry;
+import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
+import team.lodestar.lodestone.helpers.CurioHelper;
+import team.lodestar.lodestone.helpers.EntityHelper;
+import team.lodestar.lodestone.helpers.RandomHelper;
+import top.theillusivec4.curios.api.SlotContext;
 
-import java.util.function.*;
+import java.util.function.Consumer;
 
-import static com.sammy.malum.registry.common.item.ItemTagRegistry.*;
+import static com.sammy.malum.registry.common.item.ItemTagRegistry.GROSS_FOODS;
 
 public class CurioVoraciousRing extends MalumCurioItem {
 
@@ -25,8 +32,8 @@ public class CurioVoraciousRing extends MalumCurioItem {
     }
 
     @Override
-    public void addExtraTooltipLines(Consumer<AttributeLikeTooltipEntry> consumer) {
-        consumer.accept(positiveEffect("malum.gui.curio.effect.ring_of_desperate_voracity"));
+    public void addExtraTooltipLines(Consumer<Component> consumer) {
+        consumer.accept(positiveEffect("eat_rotten"));
     }
 
     @Override

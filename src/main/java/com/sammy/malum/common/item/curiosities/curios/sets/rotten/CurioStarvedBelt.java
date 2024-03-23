@@ -1,10 +1,11 @@
 package com.sammy.malum.common.item.curiosities.curios.sets.rotten;
 
 import com.google.common.collect.Multimap;
-import com.sammy.malum.common.item.curiosities.curios.MalumCurioItem;
 import com.sammy.malum.common.item.IMalumEventResponderItem;
+import com.sammy.malum.common.item.curiosities.curios.MalumCurioItem;
 import com.sammy.malum.registry.common.MobEffectRegistry;
 import com.sammy.malum.registry.common.SoundRegistry;
+import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffect;
@@ -18,7 +19,7 @@ import net.minecraft.world.level.Level;
 import team.lodestar.lodestone.helpers.EntityHelper;
 import top.theillusivec4.curios.api.SlotContext;
 
-import java.util.function.*;
+import java.util.function.Consumer;
 
 public class CurioStarvedBelt extends MalumCurioItem implements IMalumEventResponderItem {
 
@@ -27,8 +28,9 @@ public class CurioStarvedBelt extends MalumCurioItem implements IMalumEventRespo
     }
 
     @Override
-    public void addExtraTooltipLines(Consumer<AttributeLikeTooltipEntry> consumer) {
-        consumer.accept(positiveEffect("malum.gui.curio.effect.belt_of_the_starved"));
+    public void addExtraTooltipLines(Consumer<Component> consumer) {
+        consumer.accept(positiveEffect("spirits_gluttony"));
+        consumer.accept(positiveEffect("gluttony_magic_proficiency"));
     }
 
     @Override

@@ -21,7 +21,7 @@ public class CurioSpiritInfusionRecipes {
                 .addSpirit(AQUEOUS_SPIRIT, 32)
                 .build(consumer);
 
-        new SpiritInfusionRecipeBuilder(ItemRegistry.SACRIFICIAL_BROOCH.get(), 1, ItemRegistry.RAVENOUS_BROOCH.get(), 1)
+        new SpiritInfusionRecipeBuilder(ItemRegistry.ELABORATE_BROOCH.get(), 1, ItemRegistry.GLUTTONOUS_BROOCH.get(), 1)
                 .addExtraItem(ItemRegistry.ROTTING_ESSENCE.get(), 8)
                 .addExtraItem(ItemRegistry.GRIM_TALC.get(), 4)
                 .addSpirit(WICKED_SPIRIT, 32)
