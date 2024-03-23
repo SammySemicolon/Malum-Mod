@@ -1,12 +1,13 @@
 package com.sammy.malum.common.item.curiosities.curios.runes;
 
-import com.sammy.malum.registry.common.*;
-import com.sammy.malum.registry.common.item.*;
-import net.minecraft.world.entity.player.*;
-import net.minecraftforge.event.entity.player.*;
-import team.lodestar.lodestone.helpers.*;
+import com.sammy.malum.registry.common.SpiritTypeRegistry;
+import com.sammy.malum.registry.common.item.ItemRegistry;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.player.Player;
+import net.minecraftforge.event.entity.player.PlayerEvent;
+import team.lodestar.lodestone.helpers.CurioHelper;
 
-import java.util.function.*;
+import java.util.function.Consumer;
 
 public class RuneHasteItem extends MalumRuneCurioItem {
 
@@ -15,8 +16,8 @@ public class RuneHasteItem extends MalumRuneCurioItem {
     }
 
     @Override
-    public void addExtraTooltipLines(Consumer<AttributeLikeTooltipEntry> consumer) {
-        consumer.accept(positiveEffect("malum.gui.rune.effect.haste"));
+    public void addExtraTooltipLines(Consumer<Component> consumer) {
+        consumer.accept(positiveEffect("haste"));
     }
 
     public static void increaseDigSpeed(PlayerEvent.BreakSpeed event) {

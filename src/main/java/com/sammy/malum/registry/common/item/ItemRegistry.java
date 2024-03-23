@@ -627,9 +627,9 @@ public class ItemRegistry {
     public static final RegistryObject<Item> ORNATE_NECKLACE = register("ornate_necklace", GEAR_PROPERTIES(), CurioOrnateNecklace::new);
 
     public static final RegistryObject<Item> RUNIC_BROOCH = register("runic_brooch", GEAR_PROPERTIES(), CurioRunicBrooch::new);
-    public static final RegistryObject<Item> SACRIFICIAL_BROOCH = register("sacrificial_brooch", GEAR_PROPERTIES(), CurioSacrificialBrooch::new);
+    public static final RegistryObject<Item> ELABORATE_BROOCH = register("elaborate_brooch", GEAR_PROPERTIES(), CurioElaborateBrooch::new);
     public static final RegistryObject<Item> GLASS_BROOCH = register("glass_brooch", GEAR_PROPERTIES(), CurioGlassBrooch::new);
-    public static final RegistryObject<Item> RAVENOUS_BROOCH = register("ravenous_brooch", GEAR_PROPERTIES(), CurioRavenousBrooch::new);
+    public static final RegistryObject<Item> GLUTTONOUS_BROOCH = register("gluttonous_brooch", GEAR_PROPERTIES(), CurioGluttonousBrooch::new);
 
     public static final RegistryObject<Item> RING_OF_ESOTERIC_SPOILS = register("ring_of_esoteric_spoils", GEAR_PROPERTIES(), CurioArcaneSpoilRing::new);
     public static final RegistryObject<Item> RING_OF_CURATIVE_TALENT = register("ring_of_curative_talent", GEAR_PROPERTIES(), CurioCurativeRing::new);

@@ -1,16 +1,17 @@
 package com.sammy.malum.common.item.curiosities.curios.sets.weeping;
 
-import com.sammy.malum.common.item.curiosities.curios.MalumCurioItem;
 import com.sammy.malum.common.item.IMalumEventResponderItem;
 import com.sammy.malum.common.item.IVoidItem;
+import com.sammy.malum.common.item.curiosities.curios.MalumCurioItem;
 import com.sammy.malum.registry.common.MobEffectRegistry;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 
-import java.util.function.*;
+import java.util.function.Consumer;
 
 public class CurioHiddenBladeNecklace extends MalumCurioItem implements IMalumEventResponderItem, IVoidItem {
     public CurioHiddenBladeNecklace(Properties builder) {
@@ -18,9 +19,9 @@ public class CurioHiddenBladeNecklace extends MalumCurioItem implements IMalumEv
     }
 
     @Override
-    public void addExtraTooltipLines(Consumer<AttributeLikeTooltipEntry> consumer) {
-        consumer.accept(positiveEffect("malum.gui.curio.effect.necklace_of_the_hidden_blade"));
-        consumer.accept(negativeEffect("malum.gui.curio.effect.necklace_of_the_narrow_edge"));
+    public void addExtraTooltipLines(Consumer<Component> consumer) {
+        consumer.accept(positiveEffect("scythe_counterattack"));
+        consumer.accept(negativeEffect("no_sweep"));
     }
 
     @Override

@@ -97,7 +97,7 @@ public class MalumVanillaRecipes implements IConditionBuilder {
         shaped(RecipeCategory.MISC, ItemRegistry.ORNATE_RING.get()).define('#', ItemRegistry.SOUL_STAINED_STEEL_INGOT.get()).define('X', Tags.Items.LEATHER).pattern("#X ").pattern("X X").pattern(" X ").unlockedBy("has_soul_stained_steel", has(ItemRegistry.SOUL_STAINED_STEEL_INGOT.get())).save(consumer);
 
         shaped(RecipeCategory.MISC, ItemRegistry.RUNIC_BROOCH.get()).define('X', ItemRegistry.HALLOWED_GOLD_INGOT.get()).define('Y', ItemRegistry.BLOCK_OF_HALLOWED_GOLD.get()).define('Z', Tags.Items.LEATHER).pattern(" Z ").pattern("ZXZ").pattern(" Y ").unlockedBy("has_hallowed_gold", has(ItemRegistry.HALLOWED_GOLD_INGOT.get())).save(consumer);
-        shaped(RecipeCategory.MISC, ItemRegistry.SACRIFICIAL_BROOCH.get()).define('X', ItemRegistry.SOUL_STAINED_STEEL_INGOT.get()).define('Y', ItemRegistry.BLOCK_OF_SOUL_STAINED_STEEL.get()).define('Z', Tags.Items.LEATHER).pattern(" Z ").pattern("ZXZ").pattern(" Y ").unlockedBy("has_soul_stained_steel", has(ItemRegistry.SOUL_STAINED_STEEL_INGOT.get())).save(consumer);
+        shaped(RecipeCategory.MISC, ItemRegistry.ELABORATE_BROOCH.get()).define('X', ItemRegistry.SOUL_STAINED_STEEL_INGOT.get()).define('Y', ItemRegistry.BLOCK_OF_SOUL_STAINED_STEEL.get()).define('Z', Tags.Items.LEATHER).pattern(" Z ").pattern("ZXZ").pattern(" Y ").unlockedBy("has_soul_stained_steel", has(ItemRegistry.SOUL_STAINED_STEEL_INGOT.get())).save(consumer);
 
         //FRAGMENTS
         shapeless(RecipeCategory.MISC, ItemRegistry.COAL_FRAGMENT.get(), 8).requires(Items.COAL).unlockedBy("has_coal", has(Items.COAL)).save(consumer, malumPath("coal_fragment"));

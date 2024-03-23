@@ -1,13 +1,17 @@
 package com.sammy.malum.common.item.curiosities.curios.runes;
 
-import com.google.common.collect.*;
-import com.sammy.malum.registry.common.*;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.attributes.*;
-import net.minecraft.world.item.*;
-import top.theillusivec4.curios.api.*;
+import com.google.common.collect.Multimap;
+import com.sammy.malum.registry.common.SpiritTypeRegistry;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.item.ItemStack;
+import top.theillusivec4.curios.api.SlotContext;
 
-import java.util.function.*;
+import java.util.function.Consumer;
 
 public class RuneDexterityItem extends MalumRuneCurioItem {
 
@@ -16,8 +20,8 @@ public class RuneDexterityItem extends MalumRuneCurioItem {
     }
 
     @Override
-    public void addExtraTooltipLines(Consumer<AttributeLikeTooltipEntry> consumer) {
-        consumer.accept(positiveEffect("malum.gui.rune.effect.dexterity"));
+    public void addExtraTooltipLines(Consumer<Component> consumer) {
+        consumer.accept(positiveEffect("low_health_speed"));
     }
 
     @Override

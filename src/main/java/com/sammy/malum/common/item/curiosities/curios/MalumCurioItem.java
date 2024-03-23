@@ -1,55 +1,53 @@
 package com.sammy.malum.common.item.curiosities.curios;
 
-import net.minecraft.*;
-import net.minecraft.network.chat.*;
-import net.minecraft.world.item.*;
-import top.theillusivec4.curios.api.*;
-import top.theillusivec4.curios.api.type.*;
-import top.theillusivec4.curios.api.type.capability.*;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.ItemStack;
+import top.theillusivec4.curios.api.CuriosApi;
+import top.theillusivec4.curios.api.type.ISlotType;
+import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
-import java.util.*;
-import java.util.function.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.function.Consumer;
 
 public class MalumCurioItem extends AbstractMalumCurioItem implements ICurioItem {
 
-    private final List<AttributeLikeTooltipEntry> extraTooltipLines = new ArrayList<>();
-
     public MalumCurioItem(Properties properties, MalumTrinketType type) {
         super(properties, type);
-        addExtraTooltipLines(extraTooltipLines::add);
     }
 
-    public void addExtraTooltipLines(Consumer<AttributeLikeTooltipEntry> consumer) {
+    public void addExtraTooltipLines(Consumer<Component> consumer) {
 
     }
 
     @Override
-    public List<Component> getAttributesTooltip(List<Component> tooltips, ItemStack stack) {
+    public List<Component> getAttributesTooltip(List<net.minecraft.network.chat.Component> tooltips, ItemStack stack) {
         final List<Component> attributesTooltip = super.getAttributesTooltip(tooltips, stack);
+
+        final List<Component> extraTooltipLines = new ArrayList<>();
+        addExtraTooltipLines(extraTooltipLines::add);
 
         if (!extraTooltipLines.isEmpty()) {
             if (attributesTooltip.isEmpty()) {
                 attributesTooltip.add(Component.empty());
                 final Map<String, ISlotType> itemStackSlots = CuriosApi.getItemStackSlots(stack);
 
-                itemStackSlots.keySet().stream().findFirst().ifPresent(s -> {
+                itemStackSlots.keySet().stream().findFirst().ifPresent(s ->
                     attributesTooltip.add(Component.translatable("curios.modifiers." + s)
-                            .withStyle(ChatFormatting.GOLD));
-                });
+                        .withStyle(ChatFormatting.GOLD)));
             }
-            for (AttributeLikeTooltipEntry attributeLike : extraTooltipLines) {
-                attributesTooltip.add(Component.translatable(attributeLike.key).withStyle(attributeLike.formatting));
-            }
+
+            attributesTooltip.addAll(extraTooltipLines);
         }
         return attributesTooltip;
     }
 
-    public static AttributeLikeTooltipEntry positiveEffect(String key) {
-        return new AttributeLikeTooltipEntry(key, ChatFormatting.BLUE);
+    public static Component positiveEffect(String name, Object... args) {
+        return Component.translatable("malum.gui.curio.positive", Component.translatable("malum.gui.curio.effect." + name, args)).withStyle(ChatFormatting.BLUE);
     }
-    public static AttributeLikeTooltipEntry negativeEffect(String key) {
-        return new AttributeLikeTooltipEntry(key, ChatFormatting.RED);
-    }
-    public record AttributeLikeTooltipEntry(String key, ChatFormatting formatting) {
+    public static Component negativeEffect(String name, Object... args) {
+        return Component.translatable("malum.gui.curio.negative", Component.translatable("malum.gui.curio.effect." + name, args)).withStyle(ChatFormatting.RED);
     }
 }

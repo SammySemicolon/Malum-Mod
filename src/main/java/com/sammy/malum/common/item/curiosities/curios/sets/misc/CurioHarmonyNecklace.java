@@ -5,12 +5,13 @@ import com.sammy.malum.core.helper.SpiritHelper;
 import com.sammy.malum.core.systems.spirit.MalumEntitySpiritData;
 import com.sammy.malum.registry.common.SpiritTypeRegistry;
 import com.sammy.malum.registry.common.item.ItemRegistry;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import team.lodestar.lodestone.helpers.CurioHelper;
 
-import java.util.function.*;
+import java.util.function.Consumer;
 
 public class CurioHarmonyNecklace extends MalumCurioItem {
     public CurioHarmonyNecklace(Properties builder) {
@@ -18,8 +19,8 @@ public class CurioHarmonyNecklace extends MalumCurioItem {
     }
 
     @Override
-    public void addExtraTooltipLines(Consumer<AttributeLikeTooltipEntry> consumer) {
-        consumer.accept(positiveEffect("malum.gui.curio.effect.necklace_of_blissful_harmony"));
+    public void addExtraTooltipLines(Consumer<Component> consumer) {
+        consumer.accept(positiveEffect("friendly_enemies"));
     }
 
     public static void preventDetection(LivingEvent.LivingVisibilityEvent event) {

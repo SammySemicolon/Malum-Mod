@@ -1,14 +1,17 @@
 package com.sammy.malum.common.item.curiosities.curios.runes;
 
-import com.sammy.malum.registry.common.*;
-import net.minecraft.world.effect.*;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.item.*;
-import net.minecraftforge.event.entity.living.*;
-import team.lodestar.lodestone.helpers.*;
-import team.lodestar.lodestone.systems.item.*;
+import com.sammy.malum.registry.common.MobEffectRegistry;
+import com.sammy.malum.registry.common.SpiritTypeRegistry;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import team.lodestar.lodestone.helpers.EntityHelper;
+import team.lodestar.lodestone.systems.item.IEventResponderItem;
 
-import java.util.function.*;
+import java.util.function.Consumer;
 
 public class RuneReactiveShieldingItem extends MalumRuneCurioItem implements IEventResponderItem {
 
@@ -17,8 +20,8 @@ public class RuneReactiveShieldingItem extends MalumRuneCurioItem implements IEv
     }
 
     @Override
-    public void addExtraTooltipLines(Consumer<AttributeLikeTooltipEntry> consumer) {
-        consumer.accept(positiveEffect("malum.gui.rune.effect.reactive_shielding"));
+    public void addExtraTooltipLines(Consumer<Component> consumer) {
+        consumer.accept(positiveEffect("attacked_resistance"));
     }
 
     @Override

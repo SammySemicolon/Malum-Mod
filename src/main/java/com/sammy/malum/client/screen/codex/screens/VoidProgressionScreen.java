@@ -73,7 +73,7 @@ public class VoidProgressionScreen extends AbstractProgressionCodexScreen<VoidPr
     }
 
     public void setupEntries() {
-        addEntry("research_of_the_rejected", 0, 0, b -> b
+        addEntry("chronicles_of_the_soul", 0, 0, b -> b
                 .setWidgetSupplier((s, e, x, y) -> new ScreenOpenerObject<>(s, e, x, y, ArcanaProgressionScreen::openCodexViaTransition, malumPath("textures/gui/book/icons/arcana_button.png"), 20, 20))
                 .setWidgetConfig(w -> w.setStyle(BookWidgetStyle.DARK_GRAND_SOULWOOD))
         );

@@ -3,12 +3,13 @@ package com.sammy.malum.common.item.curiosities.curios.sets.prospector;
 import com.sammy.malum.common.item.curiosities.curios.MalumCurioItem;
 import com.sammy.malum.registry.common.item.ItemRegistry;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import team.lodestar.lodestone.helpers.CurioHelper;
 
-import java.util.function.*;
+import java.util.function.Consumer;
 
 public class CurioHoarderRing extends MalumCurioItem {
 
@@ -17,8 +18,8 @@ public class CurioHoarderRing extends MalumCurioItem {
     }
 
     @Override
-    public void addExtraTooltipLines(Consumer<AttributeLikeTooltipEntry> consumer) {
-        consumer.accept(positiveEffect("malum.gui.curio.effect.ring_of_the_hoarder"));
+    public void addExtraTooltipLines(Consumer<Component> consumer) {
+        consumer.accept(positiveEffect("explosion_drops_collected"));
     }
 
     public static boolean hasHoarderRing(LivingEntity entity) {
