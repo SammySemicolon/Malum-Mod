@@ -3,6 +3,7 @@ package com.sammy.malum.common.item.curiosities.curios.sets.prospector;
 import com.sammy.malum.common.item.curiosities.curios.MalumCurioItem;
 import com.sammy.malum.registry.common.item.ItemRegistry;
 import com.sammy.malum.registry.common.item.ItemTagRegistry;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -15,7 +16,7 @@ import net.minecraftforge.event.level.ExplosionEvent;
 import team.lodestar.lodestone.helpers.CurioHelper;
 import top.theillusivec4.curios.api.CuriosApi;
 
-import java.util.function.*;
+import java.util.function.Consumer;
 
 public class CurioProspectorBelt extends MalumCurioItem {
 
@@ -24,8 +25,9 @@ public class CurioProspectorBelt extends MalumCurioItem {
     }
 
     @Override
-    public void addExtraTooltipLines(Consumer<AttributeLikeTooltipEntry> consumer) {
-        consumer.accept(positiveEffect("malum.gui.curio.effect.belt_of_the_prospector"));
+    public void addExtraTooltipLines(Consumer<Component> consumer) {
+        consumer.accept(positiveEffect("enchanted_explosions", Enchantments.BLOCK_FORTUNE.getFullname(3)));
+        consumer.accept(positiveEffect("explosions_spare_valuables"));
     }
 
     public static void processExplosion(ExplosionEvent.Detonate event) {

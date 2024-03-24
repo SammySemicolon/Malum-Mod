@@ -159,7 +159,7 @@ public class RitualPlinthBlockEntity extends LodestoneBlockEntity {
     public void init() {
         ItemStack stack = inventory.getStackInSlot(0);
         boolean wasLackingRecipe = ritualRecipe == null;
-        ritualRecipe = RitualRegistry.RITUALS.stream().map(MalumRitualType::getRecipeData).filter(recipeData -> recipeData.input.matches(stack)).findAny().orElse(null);
+        ritualRecipe = RitualRegistry.RITUALS.stream().map(MalumRitualType::getRecipeData).filter(recipeData -> recipeData != null && recipeData.input.matches(stack)).findAny().orElse(null);
         if (ritualType == null && wasLackingRecipe && ritualRecipe != null) {
             level.playSound(null, getBlockPos(), SoundRegistry.RITUAL_BEGINS.get(), SoundSource.BLOCKS, 1, 0.9f + level.random.nextFloat() * 0.2f);
         }

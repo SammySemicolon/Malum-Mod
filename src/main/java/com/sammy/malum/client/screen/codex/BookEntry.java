@@ -1,25 +1,27 @@
 package com.sammy.malum.client.screen.codex;
 
+import com.google.common.collect.*;
 import com.sammy.malum.client.screen.codex.objects.*;
-import com.sammy.malum.client.screen.codex.pages.BookPage;
-import net.minecraftforge.fml.ModList;
+import com.sammy.malum.client.screen.codex.pages.*;
+import com.sammy.malum.client.screen.codex.screens.*;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.function.*;
 
-public class BookEntry<T extends AbstractProgressionCodexScreen> {
+public class BookEntry<T extends AbstractProgressionCodexScreen<T>> {
     public final String identifier;
     public final int xOffset;
     public final int yOffset;
-    public List<BookPage> pages = new ArrayList<>();
-    public WidgetSupplier<T> widgetSupplier = EntryObject::new;
-    public Consumer<EntryObject<T>> widgetConfig;
+    public final ImmutableList<BookPage<T>> pages;
+    public final WidgetSupplier<T> widgetSupplier;
+    public final Consumer<ProgressionEntryObject<T>> widgetConfig;
 
-    public BookEntry(String identifier, int xOffset, int yOffset) {
+    public BookEntry(String identifier, int xOffset, int yOffset, ImmutableList<BookPage<T>> pages, WidgetSupplier<T> widgetSupplier, Consumer<ProgressionEntryObject<T>> widgetConfig) {
         this.identifier = identifier;
-        this.xOffset = xOffset;
-        this.yOffset = yOffset;
+        this.xOffset = xOffset * 40;
+        this.yOffset = yOffset * 40;
+        this.pages = pages;
+        this.widgetSupplier = widgetSupplier;
+        this.widgetConfig = widgetConfig;
     }
 
     public String translationKey() {
@@ -30,28 +32,11 @@ public class BookEntry<T extends AbstractProgressionCodexScreen> {
         return "malum.gui.book.entry." + identifier + ".description";
     }
 
-    public BookEntry<T> addPage(BookPage page) {
-        if (page.isValid()) {
-            pages.add(page.setParentEntry(this));
-        }
-        return this;
+    public static<T extends AbstractProgressionCodexScreen<T>> BookEntryBuilder<T> build(String identifier, int xOffset, int yOffset) {
+        return new BookEntryBuilder<>(identifier, xOffset, yOffset);
     }
 
-    public BookEntry<T> setWidgetInfo(WidgetSupplier<T> widgetSupplier, Consumer<EntryObject<T>> widgetConfig) {
-        return setWidgetSupplier(widgetSupplier).setWidgetConfig(widgetConfig);
-    }
-
-    public BookEntry<T> setWidgetSupplier(WidgetSupplier<T> widgetSupplier) {
-        this.widgetSupplier = widgetSupplier;
-        return this;
-    }
-
-    public BookEntry<T> setWidgetConfig(Consumer<EntryObject<T>> widgetConfig) {
-        this.widgetConfig = widgetConfig;
-        return this;
-    }
-
-    public interface WidgetSupplier<T extends AbstractProgressionCodexScreen> {
-        EntryObject<T> getBookObject(T screen, BookEntry<T> entry, int x, int y);
+    public interface WidgetSupplier<T extends AbstractProgressionCodexScreen<T>> {
+        ProgressionEntryObject<T> getBookObject(T screen, BookEntry<T> entry, int x, int y);
     }
 }

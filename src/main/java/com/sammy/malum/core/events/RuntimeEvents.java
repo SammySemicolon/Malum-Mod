@@ -119,6 +119,7 @@ public class RuntimeEvents {
     @SubscribeEvent
     public static void onPlayerBreakSpeed(PlayerEvent.BreakSpeed event) {
         InfernalAura.increaseDigSpeed(event);
+        RuneHasteItem.increaseDigSpeed(event);
     }
 
     @SubscribeEvent
@@ -160,7 +161,6 @@ public class RuntimeEvents {
     }
     @SubscribeEvent
     public static void onPotionExpired(MobEffectEvent.Expired event) {
-        RuneAlimentCleansingItem.onPotionExpired(event);
     }
 
     @SubscribeEvent

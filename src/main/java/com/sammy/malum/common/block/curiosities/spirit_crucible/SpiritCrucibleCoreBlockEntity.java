@@ -12,6 +12,7 @@ import com.sammy.malum.registry.common.*;
 import com.sammy.malum.registry.common.block.*;
 import com.sammy.malum.registry.common.item.*;
 import com.sammy.malum.visual_effects.*;
+import com.sammy.malum.visual_effects.networked.data.*;
 import net.minecraft.core.*;
 import net.minecraft.nbt.*;
 import net.minecraft.server.level.*;
@@ -308,6 +309,14 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
         }
 
         spiritInventory.updateData();
+        final boolean instantCompletion = instantCompletionChance > 0 && random.nextFloat() < instantCompletionChance;
+        progress = instantCompletion ? recipe.time - 10 * processingSpeed : 0;
+        if (instantCompletion) {
+            level.playSound(null, worldPosition, SoundRegistry.WARPING_ENGINE_REVERBERATES.get(), SoundSource.BLOCKS, 1.5f, 1f + random.nextFloat() * 0.25f);
+        }
+        acceleratorData.globalAttributeModifier = instantCompletion ? acceleratorData.globalAttributeModifier + 0.2f : 0;
+        ParticleEffectTypeRegistry.SPIRIT_CRUCIBLE_CRAFTS.createPositionedEffect(level, new PositionEffectData(worldPosition), ColorEffectData.fromRecipe(recipe.spirits));
+        level.playSound(null, worldPosition, SoundRegistry.CRUCIBLE_CRAFT.get(), SoundSource.BLOCKS, 1, 0.75f + random.nextFloat() * 0.5f);
         level.addFreshEntity(new ItemEntity(level, itemPos.x, itemPos.y, itemPos.z, outputStack));
         while (bonusYieldChance > 0) {
             if (bonusYieldChance >= 1 || random.nextFloat() < bonusYieldChance) {
@@ -315,14 +324,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
             }
             bonusYieldChance-=1;
         }
-        final boolean instantCompletion = instantCompletionChance > 0 && random.nextFloat() < instantCompletionChance;
-        progress = instantCompletion ? recipe.time - 10 * processingSpeed : 0;
-        if (instantCompletion) {
-            level.playSound(null, worldPosition, SoundRegistry.WARPING_ENGINE_REVERBERATES.get(), SoundSource.BLOCKS, 1.5f, 1f + random.nextFloat() * 0.25f);
-        }
-        acceleratorData.globalAttributeModifier = instantCompletion ? acceleratorData.globalAttributeModifier + 0.2f : 0;
         recipe = SpiritFocusingRecipe.getRecipe(level, stack, spiritInventory.nonEmptyItemStacks);
-        level.playSound(null, worldPosition, SoundRegistry.CRUCIBLE_CRAFT.get(), SoundSource.BLOCKS, 1, 0.75f + random.nextFloat() * 0.5f);
         BlockHelper.updateAndNotifyState(level, worldPosition);
     }
 

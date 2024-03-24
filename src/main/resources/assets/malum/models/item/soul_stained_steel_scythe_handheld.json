@@ -18,7 +18,7 @@
       "scale": [
         1.45,
         1.45,
-        1.45
+        0.85
       ]
     },
     "thirdperson_lefthand": {
@@ -35,7 +35,7 @@
       "scale": [
         1.45,
         1.45,
-        1.45
+        0.85
       ]
     },
     "firstperson_righthand": {
@@ -52,7 +52,7 @@
       "scale": [
         1.1,
         1.1,
-        1.1
+        0.68
       ]
     },
     "firstperson_lefthand": {
@@ -69,7 +69,7 @@
       "scale": [
         1.1,
         1.1,
-        1.1
+        0.68
       ]
     }
   }

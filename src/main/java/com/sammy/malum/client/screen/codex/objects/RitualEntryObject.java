@@ -1,17 +1,16 @@
 package com.sammy.malum.client.screen.codex.objects;
 
 import com.sammy.malum.client.screen.codex.*;
-import com.sammy.malum.client.screen.codex.pages.*;
+import com.sammy.malum.client.screen.codex.pages.text.*;
+import com.sammy.malum.client.screen.codex.screens.*;
 import com.sammy.malum.core.systems.ritual.*;
-import net.minecraft.client.*;
 import net.minecraft.client.gui.*;
 
 import java.util.*;
 
 import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.*;
-import static com.sammy.malum.client.screen.codex.ArcanaProgressionScreen.*;
 
-public class RitualEntryObject<T extends AbstractProgressionCodexScreen> extends EntryObject<T> {
+public class RitualEntryObject<T extends AbstractProgressionCodexScreen<T>> extends ProgressionEntryObject<T> {
     public final MalumRitualType ritualType;
 
     public RitualEntryObject(T screen, BookEntry<T> entry, int posX, int posY) {
@@ -25,8 +24,8 @@ public class RitualEntryObject<T extends AbstractProgressionCodexScreen> extends
     }
 
     @Override
-    public void render(Minecraft minecraft, GuiGraphics guiGraphics, float xOffset, float yOffset, int mouseX, int mouseY, float partialTicks) {
-        super.render(minecraft, guiGraphics, xOffset, yOffset, mouseX, mouseY, partialTicks);
-        renderRitualIcon(ritualType, guiGraphics.pose(), false, 0.35f, offsetPosX(xOffset) + 8, offsetPosY(yOffset) + 8);
+    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
+        super.render(guiGraphics, mouseX, mouseY, partialTicks);
+        renderRitualIcon(ritualType, guiGraphics.pose(), false, 0.35f, getOffsetXPosition() + 8, getOffsetYPosition() + 8);
     }
 }

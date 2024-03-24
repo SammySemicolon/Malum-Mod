@@ -1,13 +1,14 @@
 package com.sammy.malum.common.item.curiosities.curios.sets.alchemical;
 
-import com.sammy.malum.common.item.curiosities.curios.MalumCurioItem;
 import com.sammy.malum.common.item.IMalumEventResponderItem;
+import com.sammy.malum.common.item.curiosities.curios.MalumCurioItem;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
-import java.util.function.*;
+import java.util.function.Consumer;
 
 public class CurioRingOfProwess extends MalumCurioItem implements IMalumEventResponderItem {
     public CurioRingOfProwess(Properties builder) {
@@ -15,8 +16,8 @@ public class CurioRingOfProwess extends MalumCurioItem implements IMalumEventRes
     }
 
     @Override
-    public void addExtraTooltipLines(Consumer<AttributeLikeTooltipEntry> consumer) {
-        consumer.accept(positiveEffect("malum.gui.curio.effect.ring_of_arcane_prowess"));
+    public void addExtraTooltipLines(Consumer<Component> consumer) {
+        consumer.accept(positiveEffect("spirits_xp"));
     }
 
     @Override

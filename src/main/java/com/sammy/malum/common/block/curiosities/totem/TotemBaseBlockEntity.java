@@ -110,7 +110,7 @@ public class TotemBaseBlockEntity extends LodestoneBlockEntity {
         if (active && rite == null) {
             return InteractionResult.FAIL;
         }
-        if (!level.getBlockState(getBlockPos().above()).isAir()) {
+        if (level.getBlockEntity(worldPosition.above()) instanceof TotemPoleBlockEntity) {
             if (!level.isClientSide) {
                 if (active) {
                     endRite();

@@ -39,6 +39,7 @@ public class MalumVanillaRecipes implements IConditionBuilder {
         shaped(RecipeCategory.MISC, ItemRegistry.SPIRIT_JAR.get()).define('Z', ItemRegistry.HALLOWED_GOLD_INGOT.get()).define('Y', Tags.Items.GLASS_PANES).pattern("YZY").pattern("Y Y").pattern("YYY").unlockedBy("has_hallowed_gold", has(ItemRegistry.HALLOWED_GOLD_INGOT.get())).save(consumer);
         shaped(RecipeCategory.MISC, ItemRegistry.SPIRIT_POUCH.get()).define('X', Tags.Items.STRING).define('Y', ItemRegistry.SPIRIT_FABRIC.get()).define('Z', ItemTags.SOUL_FIRE_BASE_BLOCKS).pattern(" X ").pattern("YZY").pattern(" Y ").unlockedBy("has_spirit_fabric", has(ItemRegistry.SPIRIT_FABRIC.get())).save(consumer);
         shaped(RecipeCategory.MISC, ItemRegistry.WEAVERS_WORKBENCH.get()).define('Z', ItemRegistry.HALLOWED_GOLD_INGOT.get()).define('Y', ItemRegistry.HEX_ASH.get()).define('X', ItemRegistry.RUNEWOOD_PLANKS.get()).pattern("XYX").pattern("XZX").unlockedBy("has_hex_ash", has(ItemRegistry.HEX_ASH.get())).save(consumer);
+        shaped(RecipeCategory.MISC, ItemRegistry.TOTEMIC_STAFF.get()).define('X', Tags.Items.RODS_WOODEN).define('Y', ItemTagRegistry.RUNEWOOD_PLANKS).pattern("  Y").pattern(" X ").pattern("X  ").unlockedBy("has_runewood", has(ItemRegistry.RUNEWOOD_PLANKS.get())).save(consumer);
 
         //CRAFTING COMPONENTS
         shaped(RecipeCategory.MISC, ItemRegistry.SPECTRAL_LENS.get()).define('X', ItemRegistry.HEX_ASH.get()).define('Y', Tags.Items.GLASS_PANES).pattern(" X ").pattern("XYX").pattern(" X ").unlockedBy("has_hex_ash", has(ItemRegistry.HEX_ASH.get())).save(consumer);
@@ -96,7 +97,7 @@ public class MalumVanillaRecipes implements IConditionBuilder {
         shaped(RecipeCategory.MISC, ItemRegistry.ORNATE_RING.get()).define('#', ItemRegistry.SOUL_STAINED_STEEL_INGOT.get()).define('X', Tags.Items.LEATHER).pattern("#X ").pattern("X X").pattern(" X ").unlockedBy("has_soul_stained_steel", has(ItemRegistry.SOUL_STAINED_STEEL_INGOT.get())).save(consumer);
 
         shaped(RecipeCategory.MISC, ItemRegistry.RUNIC_BROOCH.get()).define('X', ItemRegistry.HALLOWED_GOLD_INGOT.get()).define('Y', ItemRegistry.BLOCK_OF_HALLOWED_GOLD.get()).define('Z', Tags.Items.LEATHER).pattern(" Z ").pattern("ZXZ").pattern(" Y ").unlockedBy("has_hallowed_gold", has(ItemRegistry.HALLOWED_GOLD_INGOT.get())).save(consumer);
-        shaped(RecipeCategory.MISC, ItemRegistry.SACRIFICIAL_BROOCH.get()).define('X', ItemRegistry.SOUL_STAINED_STEEL_INGOT.get()).define('Y', ItemRegistry.BLOCK_OF_SOUL_STAINED_STEEL.get()).define('Z', Tags.Items.LEATHER).pattern(" Z ").pattern("ZXZ").pattern(" Y ").unlockedBy("has_soul_stained_steel", has(ItemRegistry.SOUL_STAINED_STEEL_INGOT.get())).save(consumer);
+        shaped(RecipeCategory.MISC, ItemRegistry.ELABORATE_BROOCH.get()).define('X', ItemRegistry.SOUL_STAINED_STEEL_INGOT.get()).define('Y', ItemRegistry.BLOCK_OF_SOUL_STAINED_STEEL.get()).define('Z', Tags.Items.LEATHER).pattern(" Z ").pattern("ZXZ").pattern(" Y ").unlockedBy("has_soul_stained_steel", has(ItemRegistry.SOUL_STAINED_STEEL_INGOT.get())).save(consumer);
 
         //FRAGMENTS
         shapeless(RecipeCategory.MISC, ItemRegistry.COAL_FRAGMENT.get(), 8).requires(Items.COAL).unlockedBy("has_coal", has(Items.COAL)).save(consumer, malumPath("coal_fragment"));
@@ -197,41 +198,6 @@ public class MalumVanillaRecipes implements IConditionBuilder {
         smelting(Ingredient.of(ItemTagRegistry.SOULWOOD_LOGS), RecipeCategory.MISC, ItemRegistry.ARCANE_CHARCOAL.get(), 0.25f, 200).unlockedBy("has_soulwood_planks", has(ItemTagRegistry.SOULWOOD_LOGS)).save(consumer, malumPath("arcane_charcoal_from_soulwood"));
         shapeless(RecipeCategory.MISC, ItemRegistry.CURSED_SAPBALL.get()).requires(ItemRegistry.CURSED_SAP.get(), 2).unlockedBy("has_cursed_sap", has(ItemRegistry.CURSED_SAP.get())).save(consumer);
         shapeless(RecipeCategory.MISC, ItemRegistry.CURSED_SAP_BLOCK.get(), 8).requires(ItemRegistry.CURSED_SAP.get(), 4).unlockedBy("has_cursed_sap", has(ItemRegistry.CURSED_SAP.get())).save(consumer);
-
-        //SOULWOOD BLOCKS
-        shapelessPlanks(consumer, ItemRegistry.SOULWOOD_PLANKS.get(), ItemTagRegistry.SOULWOOD_LOGS);
-        shapelessWood(consumer, ItemRegistry.SOULWOOD.get(), ItemRegistry.SOULWOOD_LOG.get());
-        shapelessWood(consumer, ItemRegistry.STRIPPED_SOULWOOD.get(), ItemRegistry.STRIPPED_SOULWOOD_LOG.get());
-        shapelessButton(consumer, ItemRegistry.SOULWOOD_PLANKS_BUTTON.get(), ItemRegistry.SOULWOOD_PLANKS.get());
-        shapedDoor(consumer, ItemRegistry.SOULWOOD_DOOR.get(), ItemRegistry.SOULWOOD_PLANKS.get());
-        shapedFence(consumer, ItemRegistry.SOULWOOD_PLANKS_FENCE.get(), ItemRegistry.SOULWOOD_PLANKS.get());
-        shapedFenceGate(consumer, ItemRegistry.SOULWOOD_PLANKS_FENCE_GATE.get(), ItemRegistry.SOULWOOD_PLANKS.get());
-        shapedPressurePlate(consumer, ItemRegistry.SOULWOOD_PLANKS_PRESSURE_PLATE.get(), ItemRegistry.SOULWOOD_PLANKS.get());
-        shapedSlab(consumer, ItemRegistry.SOULWOOD_PLANKS_SLAB.get(), ItemRegistry.SOULWOOD_PLANKS.get());
-        shapedStairs(consumer, ItemRegistry.SOULWOOD_PLANKS_STAIRS.get(), ItemRegistry.SOULWOOD_PLANKS.get());
-        shapedTrapdoor(consumer, ItemRegistry.SOULWOOD_TRAPDOOR.get(), ItemRegistry.SOULWOOD_PLANKS.get());
-        shapelessSolidTrapdoor(consumer, ItemRegistry.SOLID_SOULWOOD_TRAPDOOR.get(), ItemRegistry.SOULWOOD_TRAPDOOR.get());
-        shapelessSolidTrapdoor(consumer, ItemRegistry.SOULWOOD_TRAPDOOR.get(), ItemRegistry.SOLID_SOULWOOD_TRAPDOOR.get(), "soulwood_trapdoor_from_solid");
-        shapedSign(consumer, ItemRegistry.SOULWOOD_SIGN.get(), ItemRegistry.SOULWOOD_PLANKS.get());
-        shaped(RecipeCategory.MISC, ItemRegistry.SOULWOOD_BOAT.get()).define('#', ItemRegistry.SOULWOOD_PLANKS.get()).pattern("# #").pattern("###").unlockedBy("has_soulwood_planks", has(ItemRegistry.SOULWOOD_PLANKS.get())).save(consumer);
-
-        shaped(RecipeCategory.MISC, ItemRegistry.VERTICAL_SOULWOOD_PLANKS.get(), 3).define('#', ItemRegistry.SOULWOOD_PLANKS.get()).pattern("#").pattern("#").pattern("#").unlockedBy("has_soulwood_planks", has(ItemRegistry.SOULWOOD_PLANKS.get())).save(consumer);
-        shapedSlab(consumer, ItemRegistry.VERTICAL_SOULWOOD_PLANKS_SLAB.get(), ItemRegistry.VERTICAL_SOULWOOD_PLANKS.get());
-        shapedStairs(consumer, ItemRegistry.VERTICAL_SOULWOOD_PLANKS_STAIRS.get(), ItemRegistry.VERTICAL_SOULWOOD_PLANKS.get());
-
-        shaped(RecipeCategory.MISC, ItemRegistry.SOULWOOD_PANEL.get(), 4).define('#', ItemRegistry.SOULWOOD_PLANKS.get()).pattern(" # ").pattern("# #").pattern(" # ").unlockedBy("has_soulwood_planks", has(ItemRegistry.SOULWOOD_PLANKS.get())).save(consumer);
-        shapedSlab(consumer, ItemRegistry.SOULWOOD_PANEL_SLAB.get(), ItemRegistry.SOULWOOD_PANEL.get());
-        shapedStairs(consumer, ItemRegistry.SOULWOOD_PANEL_STAIRS.get(), ItemRegistry.SOULWOOD_PANEL.get());
-
-        shaped(RecipeCategory.MISC, ItemRegistry.SOULWOOD_TILES.get(), 4).define('#', ItemRegistry.SOULWOOD_PANEL.get()).pattern(" # ").pattern("# #").pattern(" # ").unlockedBy("has_soulwood_planks", has(ItemRegistry.SOULWOOD_PLANKS.get())).save(consumer);
-        shapedSlab(consumer, ItemRegistry.SOULWOOD_TILES_SLAB.get(), ItemRegistry.SOULWOOD_TILES.get());
-        shapedStairs(consumer, ItemRegistry.SOULWOOD_TILES_STAIRS.get(), ItemRegistry.SOULWOOD_TILES.get());
-
-        shaped(RecipeCategory.MISC, ItemRegistry.CUT_SOULWOOD_PLANKS.get(), 2).define('#', ItemRegistry.SOULWOOD_PANEL.get()).define('X', ItemRegistry.SOULWOOD_PLANKS.get()).pattern("#").pattern("X").unlockedBy("has_soulwood_planks", has(ItemRegistry.SOULWOOD_PLANKS.get())).save(consumer);
-        shaped(RecipeCategory.MISC, ItemRegistry.SOULWOOD_BEAM.get(), 3).define('#', ItemRegistry.VERTICAL_SOULWOOD_PLANKS.get()).pattern("#").pattern("#").pattern("#").unlockedBy("has_soulwood_planks", has(ItemRegistry.SOULWOOD_PLANKS.get())).save(consumer);
-
-        shaped(RecipeCategory.MISC, ItemRegistry.SOULWOOD_ITEM_STAND.get(), 2).define('X', ItemRegistry.SOULWOOD_PLANKS.get()).define('Y', ItemRegistry.SOULWOOD_PLANKS_SLAB.get()).pattern("YYY").pattern("XXX").unlockedBy("has_soulwood_planks", has(ItemRegistry.SOULWOOD_PLANKS.get())).save(consumer);
-        shaped(RecipeCategory.MISC, ItemRegistry.SOULWOOD_ITEM_PEDESTAL.get()).define('X', ItemRegistry.SOULWOOD_PLANKS.get()).define('Y', ItemRegistry.SOULWOOD_PLANKS_SLAB.get()).pattern("YYY").pattern(" X ").pattern("YYY").unlockedBy("has_soulwood_planks", has(ItemRegistry.SOULWOOD_PLANKS.get())).save(consumer);
 
         //TAINTED ROCK
         shapedPressurePlate(consumer, ItemRegistry.TAINTED_ROCK_PRESSURE_PLATE.get(), ItemRegistry.TAINTED_ROCK.get());

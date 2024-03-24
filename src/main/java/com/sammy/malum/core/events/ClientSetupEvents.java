@@ -1,29 +1,16 @@
 package com.sammy.malum.core.events;
 
-import com.sammy.malum.core.handlers.SoulWardHandler;
-import com.sammy.malum.core.handlers.TouchOfDarknessHandler;
-import com.sammy.malum.registry.client.ParticleRegistry;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.entity.EntityRenderer;
-import net.minecraft.world.entity.EntityType;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.EntityRenderersEvent;
-import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
-import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
-import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-
-import java.util.Map;
+import com.sammy.malum.core.handlers.*;
+import com.sammy.malum.registry.client.*;
+import net.minecraftforge.api.distmarker.*;
+import net.minecraftforge.client.event.*;
+import net.minecraftforge.client.gui.overlay.*;
+import net.minecraftforge.eventbus.api.*;
+import net.minecraftforge.fml.common.*;
 
 @Mod.EventBusSubscriber(value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ClientSetupEvents {
-//    @SubscribeEvent
-//    public static void addRenderLayers(EntityRenderersEvent.AddLayers event) {
-//        for (Map.Entry<EntityType<?>, EntityRenderer<?>> entry : Minecraft.getInstance().getEntityRenderDispatcher().renderers.entrySet()) {
-//            EntityRenderer<?> render = entry.getValue();
-//        }
-//    }
+
 
     @SubscribeEvent
     public static void registerOverlays(RegisterGuiOverlaysEvent event) {

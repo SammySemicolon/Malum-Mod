@@ -1,6 +1,6 @@
 package com.sammy.malum.common.item.codex;
 
-import com.sammy.malum.client.screen.codex.*;
+import com.sammy.malum.client.screen.codex.screens.*;
 import com.sammy.malum.visual_effects.*;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.player.*;

@@ -2,7 +2,6 @@ package com.sammy.malum.client.renderer.block;
 
 import com.mojang.blaze3d.vertex.*;
 import com.mojang.math.*;
-import com.sammy.malum.*;
 import com.sammy.malum.client.renderer.entity.*;
 import com.sammy.malum.common.block.curiosities.spirit_crucible.catalyzer.*;
 import com.sammy.malum.core.systems.spirit.*;
@@ -68,7 +67,7 @@ public class SpiritCatalyzerRenderer implements BlockEntityRenderer<SpiritCataly
                     poseStack.translate(-blockPos.getX(), -blockPos.getY(), -blockPos.getZ());
                     renderBeam(blockEntityIn, poseStack, spirit, entry.getValue());
                     poseStack.translate(blockPos.getX()+offset.x, blockPos.getY()+offset.y, blockPos.getZ()+offset.z);
-                    FloatingItemEntityRenderer.renderSpiritGlimmer(poseStack, spirit, partialTicks);
+                    FloatingItemEntityRenderer.renderSpiritGlimmer(poseStack, spirit, entry.getValue() / 60f, partialTicks);
                     poseStack.translate(-offset.x, -offset.y, -offset.z);
                 }
             }

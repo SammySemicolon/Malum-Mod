@@ -118,10 +118,10 @@ public class ArtificeSpiritInfusionRecipes {
         new SpiritInfusionRecipeBuilder(ItemRegistry.ALCHEMICAL_CALX.get(), 4, ItemRegistry.STELLAR_MECHANISM.get(), 1)
                 .addExtraItem(ItemRegistry.FUSED_CONSCIOUSNESS.get(), 1)
                 .addExtraItem(ItemRegistry.NULL_SLATE.get(), 2)
-                .addSpirit(AERIAL_SPIRIT, 4)
-                .addSpirit(AQUEOUS_SPIRIT, 4)
-                .addSpirit(EARTHEN_SPIRIT, 4)
-                .addSpirit(INFERNAL_SPIRIT, 4)
+                .addSpirit(AERIAL_SPIRIT, 16)
+                .addSpirit(AQUEOUS_SPIRIT, 16)
+                .addSpirit(EARTHEN_SPIRIT, 16)
+                .addSpirit(INFERNAL_SPIRIT, 16)
                 .addSpirit(ELDRITCH_SPIRIT, 4)
                 .build(consumer);
 

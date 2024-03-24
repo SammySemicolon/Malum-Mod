@@ -1,9 +1,10 @@
 package com.sammy.malum.client.screen.codex.objects;
 
 import com.sammy.malum.client.screen.codex.*;
+import com.sammy.malum.client.screen.codex.screens.*;
 import net.minecraft.resources.*;
 
-public class ScreenOpenerObject<T extends AbstractProgressionCodexScreen> extends IconObject<T> {
+public class ScreenOpenerObject<T extends AbstractProgressionCodexScreen<T>> extends IconObject<T> {
     private final Runnable screenOpener;
     public ScreenOpenerObject(T screen, BookEntry<T> entry, int posX, int posY, Runnable screenOpener, ResourceLocation textureLocation) {
         super(screen, entry, posX, posY, textureLocation);
@@ -16,7 +17,7 @@ public class ScreenOpenerObject<T extends AbstractProgressionCodexScreen> extend
     }
 
     @Override
-    public void click(float xOffset, float yOffset, double mouseX, double mouseY) {
+    public void click(double mouseX, double mouseY) {
         screenOpener.run();
     }
 }

@@ -1,21 +1,23 @@
 package com.sammy.malum.client.renderer.block;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Axis;
-import com.sammy.malum.common.block.curiosities.totem.TotemPoleBlockEntity;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
-import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
-import net.minecraft.core.Direction;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import org.joml.Vector3f;
-import team.lodestar.lodestone.handlers.RenderHandler;
-import team.lodestar.lodestone.registry.client.LodestoneRenderTypeRegistry;
-import team.lodestar.lodestone.systems.rendering.VFXBuilders;
+import com.mojang.blaze3d.vertex.*;
+import com.mojang.math.*;
+import com.sammy.malum.common.block.curiosities.totem.*;
+import net.minecraft.client.*;
+import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.blockentity.*;
+import net.minecraft.core.*;
+import net.minecraft.util.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.state.properties.*;
+import org.joml.*;
+import team.lodestar.lodestone.handlers.*;
+import team.lodestar.lodestone.registry.client.*;
+import team.lodestar.lodestone.systems.easing.*;
+import team.lodestar.lodestone.systems.rendering.*;
 
 import java.awt.*;
+import java.lang.Math;
 
 
 public class TotemPoleRenderer implements BlockEntityRenderer<TotemPoleBlockEntity> {
@@ -29,22 +31,55 @@ public class TotemPoleRenderer implements BlockEntityRenderer<TotemPoleBlockEnti
         if (blockEntityIn.type == null) {
             return;
         }
-        renderQuad(blockEntityIn.type.getTotemGlowTexture(), blockEntityIn.type.getPrimaryColor(), blockEntityIn.chargeProgress / 20f, direction, poseStack);
-    }
 
-    public void renderQuad(ResourceLocation resourceLocation, Color color, float alpha, Direction direction, PoseStack poseStack) {
-        VertexConsumer consumer = RenderHandler.DELAYED_RENDER.getBuffer(LodestoneRenderTypeRegistry.ADDITIVE_TEXTURE.applyAndCache(resourceLocation));
-
-        Vector3f[] positions = new Vector3f[]{new Vector3f(0, 0, 2.01f), new Vector3f(2, 0, 2.01f), new Vector3f(2, 2, 2.01f), new Vector3f(0, 2, 2.01f)};
+        Level level = Minecraft.getInstance().level;
+        VertexConsumer consumer = RenderHandler.DELAYED_RENDER.getBuffer(LodestoneRenderTypeRegistry.ADDITIVE_TEXTURE.applyAndCache(blockEntityIn.type.getTotemGlowTexture()));
 
         poseStack.pushPose();
         poseStack.translate(0.5f, 0.5f, 0.5f);
         poseStack.mulPose(Axis.YN.rotationDegrees(direction.toYRot()));
         poseStack.translate(-0.5f, -0.5f, -0.5f);
-        VFXBuilders.createWorld()
-                .setPosColorTexLightmapDefaultFormat()
-                .setColor(color, alpha)
-                .renderQuad(consumer, poseStack, positions, 0.5f);
+
+        float pct = blockEntityIn.chargeProgress / 20f;
+        Color color = blockEntityIn.type.getPrimaryColor();
+        float alphaBonus = pct * 0.5f;
+        float alpha = pct * 0.2f + alphaBonus;
+        float ease = Easing.SINE_OUT.ease(pct, 0, 1, 1);
+        float distance = 0.2f - ease * 0.2f;
+        float wobbleStrength = 0.1f - ease * 0.075f;
+
+        Vector3f[] positions = new Vector3f[]{new Vector3f(-0.025f, -0.025f, 1.01f), new Vector3f(1.025f, -0.025f, 1.01f), new Vector3f(1.025f, 1.025f, 1.01f), new Vector3f(-0.025f, 1.025f, 1.01f)};
+
+        float gameTime = level.getGameTime() + partialTicks;
+        int time = 160;
+        for (int i = 0; i < 4; i++) {
+            applyWobble(positions, wobbleStrength);
+            double translation = 0;
+            if (distance > 0) {
+                boolean odd = i % 2 == 0;
+                double angle = i / 4f * (Math.PI * 2);
+                angle += ((gameTime % time) / time) * (Math.PI * 2);
+                double offset = (distance * Math.cos(angle));
+                translation = odd ? -offset : offset;
+            }
+            poseStack.translate(translation, 0, 0);
+            VFXBuilders.createWorld()
+                    .setPosColorTexLightmapDefaultFormat()
+                    .setColor(color, alpha)
+                    .renderQuad(consumer, poseStack, positions, 1f);
+            poseStack.translate(-translation, 0, 0);
+            alpha *= 1 - alphaBonus;
+        }
         poseStack.popPose();
+    }
+
+    public static void applyWobble(Vector3f[] offsets, float strength) {
+        float offset = 0;
+        for (Vector3f vector3f : offsets) {
+            double time = ((Minecraft.getInstance().level.getGameTime() / 40.0F) % Math.PI * 2);
+            float sine = Mth.sin((float) (time + (offset * Math.PI * 2))) * strength;
+            vector3f.add(sine, -sine, 0);
+            offset += 0.25f;
+        }
     }
 }

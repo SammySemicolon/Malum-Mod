@@ -1,21 +1,21 @@
 package com.sammy.malum.client.screen.codex.pages;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.sammy.malum.client.screen.codex.BookEntry;
-import com.sammy.malum.client.screen.codex.EntryScreen;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.resources.ResourceLocation;
+import com.sammy.malum.client.screen.codex.*;
+import com.sammy.malum.client.screen.codex.screens.*;
+import net.minecraft.client.*;
+import net.minecraft.client.gui.*;
+import net.minecraft.resources.*;
 
-import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.renderTexture;
-import static com.sammy.malum.client.screen.codex.EntryScreen.entryScreen;
+import javax.annotation.*;
 
-public class BookPage {
-    public final ResourceLocation background;
-    protected BookEntry parentEntry;
+import static com.sammy.malum.client.screen.codex.screens.EntryScreen.*;
 
+public abstract class BookPage<T extends AbstractProgressionCodexScreen<T>> {
+    @Nullable
+    protected final ResourceLocation background;
+    protected BookEntry<T> bookEntry;
 
-    public BookPage(ResourceLocation background) {
+    public BookPage(@Nullable ResourceLocation background) {
         this.background = background;
     }
 
@@ -23,43 +23,36 @@ public class BookPage {
         return true;
     }
 
-    public void render(Minecraft minecraft, GuiGraphics guiGraphics, EntryScreen screen, int mouseX, int mouseY, float partialTicks, boolean isRepeat) {
+
+    public void render(EntryScreen<T> screen, GuiGraphics guiGraphics, int left, int top, int mouseX, int mouseY, float partialTicks, boolean isRepeat) {
     }
 
-    public void renderLeft(Minecraft minecraft, GuiGraphics guiGraphics, EntryScreen screen, int mouseX, int mouseY, float partialTicks) {
+
+    public void render(Minecraft minecraft, GuiGraphics guiGraphics, EntryScreen<T> screen, int mouseX, int mouseY, float partialTicks, boolean isRepeat) {
+    }
+
+    public void renderLeft(Minecraft minecraft, GuiGraphics guiGraphics, EntryScreen<T> screen, int mouseX, int mouseY, float partialTicks) {
 
     }
 
-    public void renderRight(Minecraft minecraft, GuiGraphics guiGraphics, EntryScreen screen, int mouseX, int mouseY, float partialTicks) {
+    public void renderRight(Minecraft minecraft, GuiGraphics guiGraphics, EntryScreen<T> screen, int mouseX, int mouseY, float partialTicks) {
 
     }
 
-    public ResourceLocation getBackground() {
+    public ResourceLocation getBackground(boolean isRightSide) {
         return background;
     }
 
-    public void renderBackgroundLeft(PoseStack poseStack) {
-        int guiLeft = guiLeft();
-        int guiTop = guiTop();
-        renderTexture(getBackground(), poseStack, guiLeft, guiTop, 1, 1, entryScreen.bookWidth - 147, entryScreen.bookHeight, 512, 512);
-    }
-
-    public void renderBackgroundRight(PoseStack poseStack) {
-        int guiLeft = guiLeft();
-        int guiTop = guiTop();
-        renderTexture(getBackground(), poseStack, guiLeft + 147, guiTop, 148, 1, entryScreen.bookWidth - 147, entryScreen.bookHeight, 512, 512);
-    }
-
-    public int guiLeft() {
+    public int getGuiLeft() {
         return (entryScreen.width - entryScreen.bookWidth) / 2;
     }
 
-    public int guiTop() {
+    public int getGuiTop() {
         return (entryScreen.height - entryScreen.bookHeight) / 2;
     }
 
-    public BookPage setParentEntry(BookEntry parentEntry) {
-        this.parentEntry = parentEntry;
+    public BookPage<T> setBookEntry(BookEntry<T> bookEntry) {
+        this.bookEntry = bookEntry;
         return this;
     }
 }

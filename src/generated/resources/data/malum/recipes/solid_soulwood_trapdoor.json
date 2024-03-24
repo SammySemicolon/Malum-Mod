@@ -1,12 +1,18 @@
 {
-  "type": "minecraft:crafting_shapeless",
+  "type": "minecraft:crafting_shaped",
   "category": "misc",
-  "ingredients": [
-    {
-      "item": "malum:soulwood_trapdoor"
+  "key": {
+    "#": {
+      "tag": "malum:soulwood_planks"
     }
+  },
+  "pattern": [
+    "###",
+    "###"
   ],
   "result": {
+    "count": 2,
     "item": "malum:solid_soulwood_trapdoor"
-  }
+  },
+  "show_notification": true
 }

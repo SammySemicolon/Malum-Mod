@@ -152,7 +152,6 @@ public class GearSpiritInfusionRecipes {
                 .addExtraItem(ItemRegistry.SPIRIT_FABRIC.get(), 4)
                 .addExtraItem(ItemRegistry.PROCESSED_SOULSTONE.get(), 4)
                 .addExtraItem(Ingredient.of(Tags.Items.LEATHER), 2)
-                .addExtraItem(Ingredient.of(Tags.Items.FEATHERS), 2)
                 .addSpirit(AERIAL_SPIRIT, 8)
                 .addSpirit(EARTHEN_SPIRIT, 8)
                 .build(consumer);

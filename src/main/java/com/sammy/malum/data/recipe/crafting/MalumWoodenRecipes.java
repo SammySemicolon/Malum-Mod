@@ -39,14 +39,39 @@ public class MalumWoodenRecipes implements IConditionBuilder {
                 ItemRegistry.RUNEWOOD_DOOR.get(),
                 ItemRegistry.RUNEWOOD_SIGN.get(), ItemRegistry.RUNEWOOD_SIGN.get(),
                 ItemRegistry.RUNEWOOD_ITEM_STAND.get(), ItemRegistry.RUNEWOOD_ITEM_PEDESTAL.get(),
-                ItemTagRegistry.RUNEWOOD_LOGS, ItemTagRegistry.RUNEWOOD_WITH_BARK, ItemTagRegistry.RUNEWOOD_PLANKS, ItemTagRegistry.RUNEWOOD_SLABS,
+                ItemTagRegistry.RUNEWOOD_LOGS, ItemTagRegistry.RUNEWOOD_BOARD_INGREDIENT, ItemTagRegistry.RUNEWOOD_PLANKS, ItemTagRegistry.RUNEWOOD_SLABS,
                 ItemRegistry.RUNEWOOD_BOAT.get()
+        ));
+
+        buildRecipes(consumer, new MalumDatagenWoodSet(
+                "soulwood",
+                ItemRegistry.SOULWOOD_LOG.get(), ItemRegistry.SOULWOOD.get(),
+                ItemRegistry.STRIPPED_SOULWOOD_LOG.get(), ItemRegistry.STRIPPED_SOULWOOD.get(),
+                ItemRegistry.REVEALED_SOULWOOD_LOG.get(), ItemRegistry.EXPOSED_SOULWOOD_LOG.get(),
+                ItemRegistry.SOULWOOD_BOARDS.get(), ItemRegistry.VERTICAL_SOULWOOD_BOARDS.get(),
+                ItemRegistry.SOULWOOD_BOARDS_SLAB.get(), ItemRegistry.VERTICAL_SOULWOOD_BOARDS_SLAB.get(),
+                ItemRegistry.SOULWOOD_BOARDS_STAIRS.get(), ItemRegistry.VERTICAL_SOULWOOD_BOARDS_STAIRS.get(),
+                ItemRegistry.SOULWOOD_PLANKS.get(), ItemRegistry.VERTICAL_SOULWOOD_PLANKS.get(), ItemRegistry.SOULWOOD_TILES.get(),
+                ItemRegistry.RUSTIC_SOULWOOD_PLANKS.get(), ItemRegistry.VERTICAL_RUSTIC_SOULWOOD_PLANKS.get(), ItemRegistry.RUSTIC_SOULWOOD_TILES.get(),
+                ItemRegistry.SOULWOOD_PLANKS_SLAB.get(), ItemRegistry.VERTICAL_SOULWOOD_PLANKS_SLAB.get(), ItemRegistry.SOULWOOD_TILES_SLAB.get(),
+                ItemRegistry.RUSTIC_SOULWOOD_PLANKS_SLAB.get(), ItemRegistry.VERTICAL_RUSTIC_SOULWOOD_PLANKS_SLAB.get(), ItemRegistry.RUSTIC_SOULWOOD_TILES_SLAB.get(),
+                ItemRegistry.SOULWOOD_PLANKS_STAIRS.get(), ItemRegistry.VERTICAL_SOULWOOD_PLANKS_STAIRS.get(), ItemRegistry.SOULWOOD_TILES_STAIRS.get(),
+                ItemRegistry.RUSTIC_SOULWOOD_PLANKS_STAIRS.get(), ItemRegistry.VERTICAL_RUSTIC_SOULWOOD_PLANKS_STAIRS.get(), ItemRegistry.RUSTIC_SOULWOOD_TILES_STAIRS.get(),
+                ItemRegistry.SOULWOOD_PANEL.get(), ItemRegistry.CUT_SOULWOOD_PLANKS.get(), ItemRegistry.SOULWOOD_BEAM.get(),
+                ItemRegistry.SOULWOOD_BUTTON.get(), ItemRegistry.SOULWOOD_PRESSURE_PLATE.get(),
+                ItemRegistry.SOLID_SOULWOOD_TRAPDOOR.get(), ItemRegistry.SOULWOOD_TRAPDOOR.get(),
+                ItemRegistry.SOULWOOD_FENCE.get(), ItemRegistry.SOULWOOD_FENCE_GATE.get(),
+                ItemRegistry.SOULWOOD_DOOR.get(),
+                ItemRegistry.SOULWOOD_SIGN.get(), ItemRegistry.SOULWOOD_SIGN.get(),
+                ItemRegistry.SOULWOOD_ITEM_STAND.get(), ItemRegistry.SOULWOOD_ITEM_PEDESTAL.get(),
+                ItemTagRegistry.SOULWOOD_LOGS, ItemTagRegistry.SOULWOOD_BOARD_INGREDIENT, ItemTagRegistry.SOULWOOD_PLANKS, ItemTagRegistry.SOULWOOD_SLABS,
+                ItemRegistry.SOULWOOD_BOAT.get()
         ));
     }
     protected static void buildRecipes(Consumer<FinishedRecipe> consumer, MalumDatagenWoodSet woodSet) {
         shapelessPlanks(consumer, woodSet.planks, woodSet.logTag);
 
-        shapelessPanel(consumer, woodSet.boards, woodSet.logWithBarkTag);
+        shapedBoards(consumer, woodSet.boards, woodSet.logWithBarkTag);
 
         shapedSlab(consumer, woodSet.boardsSlab, woodSet.boards);
         shapedStairs(consumer, woodSet.boardsStairs, woodSet.boards);
@@ -95,7 +120,7 @@ public class MalumWoodenRecipes implements IConditionBuilder {
 
         shapedBoat(consumer, woodSet.boat, woodSet.planksTag);
 
-        shapelessPanel(consumer, woodSet.panel, woodSet.planksTag);
+        shapedPanel(consumer, woodSet.panel, woodSet.planksTag);
 
         shaped(RecipeCategory.MISC, woodSet.cutPlanks, 2)
                 .define('X', woodSet.panel)
@@ -118,7 +143,7 @@ public class MalumWoodenRecipes implements IConditionBuilder {
                 .pattern("XXX")
                 .unlockedBy("has_input", has(woodSet.planksTag))
                 .save(consumer);
-        shaped(RecipeCategory.MISC, ItemRegistry.RUNEWOOD_ITEM_PEDESTAL.get())
+        shaped(RecipeCategory.MISC, woodSet.itemPedestal)
                 .define('X', woodSet.planksTag)
                 .define('Y', woodSet.slabTag)
                 .pattern("YYY")
@@ -128,7 +153,6 @@ public class MalumWoodenRecipes implements IConditionBuilder {
                 .save(consumer);
 
     }
-
 
     private static void trapdoorExchange(Consumer<FinishedRecipe> recipeConsumer, ItemLike input, ItemLike output, String path) {
         shapeless(RecipeCategory.MISC, output)
@@ -155,7 +179,16 @@ public class MalumWoodenRecipes implements IConditionBuilder {
                 .save(recipeConsumer);
     }
 
-    private static void shapelessPanel(Consumer<FinishedRecipe> recipeConsumer, ItemLike output, TagKey<Item> input) {
+    private static void shapedBoards(Consumer<FinishedRecipe> recipeConsumer, ItemLike output, TagKey<Item> input) {
+        shaped(RecipeCategory.MISC, output, 16)
+                .define('#', input)
+                .pattern(" # ")
+                .pattern("# #")
+                .pattern(" # ")
+                .unlockedBy("has_input", has(input)).save(recipeConsumer);
+    }
+
+    private static void shapedPanel(Consumer<FinishedRecipe> recipeConsumer, ItemLike output, TagKey<Item> input) {
         shaped(RecipeCategory.MISC, output, 5)
                 .define('#', input)
                 .pattern(" # ")

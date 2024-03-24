@@ -1,20 +1,22 @@
 package com.sammy.malum.common.item.curiosities.curios.sets.soulward;
 
-import com.google.common.collect.*;
-import com.sammy.malum.common.capability.*;
-import com.sammy.malum.common.item.*;
-import com.sammy.malum.common.item.curiosities.curios.*;
-import com.sammy.malum.core.handlers.*;
-import com.sammy.malum.registry.common.*;
-import net.minecraft.world.damagesource.*;
-import net.minecraft.world.entity.ai.attributes.*;
-import net.minecraft.world.entity.player.*;
-import net.minecraft.world.item.*;
-import net.minecraftforge.event.entity.living.*;
-import team.lodestar.lodestone.registry.common.tag.*;
-import top.theillusivec4.curios.api.*;
+import com.google.common.collect.Multimap;
+import com.sammy.malum.common.capability.MalumPlayerDataCapability;
+import com.sammy.malum.common.item.IMalumEventResponderItem;
+import com.sammy.malum.common.item.curiosities.curios.MalumCurioItem;
+import com.sammy.malum.core.handlers.SoulWardHandler;
+import com.sammy.malum.registry.common.AttributeRegistry;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import team.lodestar.lodestone.registry.common.tag.LodestoneDamageTypeTags;
+import top.theillusivec4.curios.api.SlotContext;
 
-import java.util.function.*;
+import java.util.function.Consumer;
 
 public class CurioMagebaneBelt extends MalumCurioItem implements IMalumEventResponderItem {
 
@@ -23,8 +25,8 @@ public class CurioMagebaneBelt extends MalumCurioItem implements IMalumEventResp
     }
 
     @Override
-    public void addExtraTooltipLines(Consumer<AttributeLikeTooltipEntry> consumer) {
-        consumer.accept(positiveEffect("malum.gui.curio.effect.belt_of_the_magebane"));
+    public void addExtraTooltipLines(Consumer<Component> consumer) {
+        consumer.accept(positiveEffect("soul_ward_magic_resilience"));
     }
 
     @Override

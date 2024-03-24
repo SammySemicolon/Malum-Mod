@@ -285,6 +285,8 @@ public class ItemRegistry {
     public static final RegistryObject<Item> RUSTIC_RUNEWOOD_TILES = register("rustic_runewood_tiles", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.RUSTIC_RUNEWOOD_TILES.get(), p));
 
     public static final RegistryObject<Item> RUNEWOOD_PANEL = register("runewood_panel", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.RUNEWOOD_PANEL.get(), p));
+    public static final RegistryObject<Item> CUT_RUNEWOOD_PLANKS = register("cut_runewood_planks", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.CUT_RUNEWOOD_PLANKS.get(), p));
+    public static final RegistryObject<Item> RUNEWOOD_BEAM = register("runewood_beam", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.RUNEWOOD_BEAM.get(), p));
 
     public static final RegistryObject<Item> RUNEWOOD_BOARDS_SLAB = register("runewood_boards_slab", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.RUNEWOOD_BOARDS_SLAB.get(), p));
     public static final RegistryObject<Item> VERTICAL_RUNEWOOD_BOARDS_SLAB = register("vertical_runewood_boards_slab", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.VERTICAL_RUNEWOOD_BOARDS_SLAB.get(), p));
@@ -303,9 +305,6 @@ public class ItemRegistry {
     public static final RegistryObject<Item> RUSTIC_RUNEWOOD_PLANKS_STAIRS = register("rustic_runewood_planks_stairs", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.RUSTIC_RUNEWOOD_PLANKS_STAIRS.get(), p));
     public static final RegistryObject<Item> VERTICAL_RUSTIC_RUNEWOOD_PLANKS_STAIRS = register("vertical_rustic_runewood_planks_stairs", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.VERTICAL_RUSTIC_RUNEWOOD_PLANKS_STAIRS.get(), p));
     public static final RegistryObject<Item> RUSTIC_RUNEWOOD_TILES_STAIRS = register("rustic_runewood_tiles_stairs", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.RUSTIC_RUNEWOOD_TILES_STAIRS.get(), p));
-
-    public static final RegistryObject<Item> CUT_RUNEWOOD_PLANKS = register("cut_runewood_planks", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.CUT_RUNEWOOD_PLANKS.get(), p));
-    public static final RegistryObject<Item> RUNEWOOD_BEAM = register("runewood_beam", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.RUNEWOOD_BEAM.get(), p));
 
     public static final RegistryObject<Item> RUNEWOOD_DOOR = register("runewood_door", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.RUNEWOOD_DOOR.get(), p));
     public static final RegistryObject<Item> RUNEWOOD_TRAPDOOR = register("runewood_trapdoor", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.RUNEWOOD_TRAPDOOR.get(), p));
@@ -349,33 +348,47 @@ public class ItemRegistry {
     public static final RegistryObject<Item> EXPOSED_SOULWOOD_LOG = register("exposed_soulwood_log", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.EXPOSED_SOULWOOD_LOG.get(), p));
     public static final RegistryObject<Item> REVEALED_SOULWOOD_LOG = register("revealed_soulwood_log", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.REVEALED_SOULWOOD_LOG.get(), p));
 
+    public static final RegistryObject<Item> SOULWOOD_BOARDS = register("soulwood_boards", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.SOULWOOD_BOARDS.get(), p));
+    public static final RegistryObject<Item> VERTICAL_SOULWOOD_BOARDS = register("vertical_soulwood_boards", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.VERTICAL_SOULWOOD_BOARDS.get(), p));
+
     public static final RegistryObject<Item> SOULWOOD_PLANKS = register("soulwood_planks", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.SOULWOOD_PLANKS.get(), p));
     public static final RegistryObject<Item> VERTICAL_SOULWOOD_PLANKS = register("vertical_soulwood_planks", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.VERTICAL_SOULWOOD_PLANKS.get(), p));
-    public static final RegistryObject<Item> SOULWOOD_PANEL = register("soulwood_panel", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.SOULWOOD_PANEL.get(), p));
     public static final RegistryObject<Item> SOULWOOD_TILES = register("soulwood_tiles", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.SOULWOOD_TILES.get(), p));
+    public static final RegistryObject<Item> RUSTIC_SOULWOOD_PLANKS = register("rustic_soulwood_planks", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.RUSTIC_SOULWOOD_PLANKS.get(), p));
+    public static final RegistryObject<Item> VERTICAL_RUSTIC_SOULWOOD_PLANKS = register("vertical_rustic_soulwood_planks", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.VERTICAL_RUSTIC_SOULWOOD_PLANKS.get(), p));
+    public static final RegistryObject<Item> RUSTIC_SOULWOOD_TILES = register("rustic_soulwood_tiles", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.RUSTIC_SOULWOOD_TILES.get(), p));
 
-    public static final RegistryObject<Item> SOULWOOD_PLANKS_SLAB = register("soulwood_planks_slab", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.SOULWOOD_PLANKS_SLAB.get(), p));
-    public static final RegistryObject<Item> VERTICAL_SOULWOOD_PLANKS_SLAB = register("vertical_soulwood_planks_slab", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.VERTICAL_SOULWOOD_PLANKS_SLAB.get(), p));
-    public static final RegistryObject<Item> SOULWOOD_PANEL_SLAB = register("soulwood_panel_slab", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.SOULWOOD_PANEL_SLAB.get(), p));
-    public static final RegistryObject<Item> SOULWOOD_TILES_SLAB = register("soulwood_tiles_slab", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.SOULWOOD_TILES_SLAB.get(), p));
-
-    public static final RegistryObject<Item> SOULWOOD_PLANKS_STAIRS = register("soulwood_planks_stairs", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.SOULWOOD_PLANKS_STAIRS.get(), p));
-    public static final RegistryObject<Item> VERTICAL_SOULWOOD_PLANKS_STAIRS = register("vertical_soulwood_planks_stairs", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.VERTICAL_SOULWOOD_PLANKS_STAIRS.get(), p));
-    public static final RegistryObject<Item> SOULWOOD_PANEL_STAIRS = register("soulwood_panel_stairs", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.SOULWOOD_PANEL_STAIRS.get(), p));
-    public static final RegistryObject<Item> SOULWOOD_TILES_STAIRS = register("soulwood_tiles_stairs", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.SOULWOOD_TILES_STAIRS.get(), p));
-
+    public static final RegistryObject<Item> SOULWOOD_PANEL = register("soulwood_panel", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.SOULWOOD_PANEL.get(), p));
     public static final RegistryObject<Item> CUT_SOULWOOD_PLANKS = register("cut_soulwood_planks", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.CUT_SOULWOOD_PLANKS.get(), p));
     public static final RegistryObject<Item> SOULWOOD_BEAM = register("soulwood_beam", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.SOULWOOD_BEAM.get(), p));
+
+    public static final RegistryObject<Item> SOULWOOD_BOARDS_SLAB = register("soulwood_boards_slab", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.SOULWOOD_BOARDS_SLAB.get(), p));
+    public static final RegistryObject<Item> VERTICAL_SOULWOOD_BOARDS_SLAB = register("vertical_soulwood_boards_slab", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.VERTICAL_SOULWOOD_BOARDS_SLAB.get(), p));
+    public static final RegistryObject<Item> SOULWOOD_PLANKS_SLAB = register("soulwood_planks_slab", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.SOULWOOD_PLANKS_SLAB.get(), p));
+    public static final RegistryObject<Item> VERTICAL_SOULWOOD_PLANKS_SLAB = register("vertical_soulwood_planks_slab", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.VERTICAL_SOULWOOD_PLANKS_SLAB.get(), p));
+    public static final RegistryObject<Item> SOULWOOD_TILES_SLAB = register("soulwood_tiles_slab", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.SOULWOOD_TILES_SLAB.get(), p));
+    public static final RegistryObject<Item> RUSTIC_SOULWOOD_PLANKS_SLAB = register("rustic_soulwood_planks_slab", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.RUSTIC_SOULWOOD_PLANKS_SLAB.get(), p));
+    public static final RegistryObject<Item> VERTICAL_RUSTIC_SOULWOOD_PLANKS_SLAB = register("vertical_rustic_soulwood_planks_slab", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.VERTICAL_RUSTIC_SOULWOOD_PLANKS_SLAB.get(), p));
+    public static final RegistryObject<Item> RUSTIC_SOULWOOD_TILES_SLAB = register("rustic_soulwood_tiles_slab", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.RUSTIC_SOULWOOD_TILES_SLAB.get(), p));
+
+    public static final RegistryObject<Item> SOULWOOD_BOARDS_STAIRS = register("soulwood_boards_stairs", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.SOULWOOD_BOARDS_STAIRS.get(), p));
+    public static final RegistryObject<Item> VERTICAL_SOULWOOD_BOARDS_STAIRS = register("vertical_soulwood_boards_stairs", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.VERTICAL_SOULWOOD_BOARDS_STAIRS.get(), p));
+    public static final RegistryObject<Item> SOULWOOD_PLANKS_STAIRS = register("soulwood_planks_stairs", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.SOULWOOD_PLANKS_STAIRS.get(), p));
+    public static final RegistryObject<Item> VERTICAL_SOULWOOD_PLANKS_STAIRS = register("vertical_soulwood_planks_stairs", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.VERTICAL_SOULWOOD_PLANKS_STAIRS.get(), p));
+    public static final RegistryObject<Item> SOULWOOD_TILES_STAIRS = register("soulwood_tiles_stairs", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.SOULWOOD_TILES_STAIRS.get(), p));
+    public static final RegistryObject<Item> RUSTIC_SOULWOOD_PLANKS_STAIRS = register("rustic_soulwood_planks_stairs", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.RUSTIC_SOULWOOD_PLANKS_STAIRS.get(), p));
+    public static final RegistryObject<Item> VERTICAL_RUSTIC_SOULWOOD_PLANKS_STAIRS = register("vertical_rustic_soulwood_planks_stairs", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.VERTICAL_RUSTIC_SOULWOOD_PLANKS_STAIRS.get(), p));
+    public static final RegistryObject<Item> RUSTIC_SOULWOOD_TILES_STAIRS = register("rustic_soulwood_tiles_stairs", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.RUSTIC_SOULWOOD_TILES_STAIRS.get(), p));
 
     public static final RegistryObject<Item> SOULWOOD_DOOR = register("soulwood_door", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.SOULWOOD_DOOR.get(), p));
     public static final RegistryObject<Item> SOULWOOD_TRAPDOOR = register("soulwood_trapdoor", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.SOULWOOD_TRAPDOOR.get(), p));
     public static final RegistryObject<Item> SOLID_SOULWOOD_TRAPDOOR = register("solid_soulwood_trapdoor", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.SOLID_SOULWOOD_TRAPDOOR.get(), p));
 
-    public static final RegistryObject<Item> SOULWOOD_PLANKS_BUTTON = register("soulwood_planks_button", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.SOULWOOD_BUTTON.get(), p));
-    public static final RegistryObject<Item> SOULWOOD_PLANKS_PRESSURE_PLATE = register("soulwood_planks_pressure_plate", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.SOULWOOD_PRESSURE_PLATE.get(), p));
+    public static final RegistryObject<Item> SOULWOOD_BUTTON = register("soulwood_planks_button", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.SOULWOOD_BUTTON.get(), p));
+    public static final RegistryObject<Item> SOULWOOD_PRESSURE_PLATE = register("soulwood_planks_pressure_plate", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.SOULWOOD_PRESSURE_PLATE.get(), p));
 
-    public static final RegistryObject<Item> SOULWOOD_PLANKS_FENCE = register("soulwood_planks_fence", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.SOULWOOD_FENCE.get(), p));
-    public static final RegistryObject<Item> SOULWOOD_PLANKS_FENCE_GATE = register("soulwood_planks_fence_gate", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.SOULWOOD_FENCE_GATE.get(), p));
+    public static final RegistryObject<Item> SOULWOOD_FENCE = register("soulwood_planks_fence", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.SOULWOOD_FENCE.get(), p));
+    public static final RegistryObject<Item> SOULWOOD_FENCE_GATE = register("soulwood_planks_fence_gate", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.SOULWOOD_FENCE_GATE.get(), p));
 
     public static final RegistryObject<Item> SOULWOOD_ITEM_STAND = register("soulwood_item_stand", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.SOULWOOD_ITEM_STAND.get(), p));
     public static final RegistryObject<Item> SOULWOOD_ITEM_PEDESTAL = register("soulwood_item_pedestal", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.SOULWOOD_ITEM_PEDESTAL.get(), p));
@@ -614,9 +627,9 @@ public class ItemRegistry {
     public static final RegistryObject<Item> ORNATE_NECKLACE = register("ornate_necklace", GEAR_PROPERTIES(), CurioOrnateNecklace::new);
 
     public static final RegistryObject<Item> RUNIC_BROOCH = register("runic_brooch", GEAR_PROPERTIES(), CurioRunicBrooch::new);
-    public static final RegistryObject<Item> SACRIFICIAL_BROOCH = register("sacrificial_brooch", GEAR_PROPERTIES(), CurioSacrificialBrooch::new);
+    public static final RegistryObject<Item> ELABORATE_BROOCH = register("elaborate_brooch", GEAR_PROPERTIES(), CurioElaborateBrooch::new);
     public static final RegistryObject<Item> GLASS_BROOCH = register("glass_brooch", GEAR_PROPERTIES(), CurioGlassBrooch::new);
-    public static final RegistryObject<Item> RAVENOUS_BROOCH = register("ravenous_brooch", GEAR_PROPERTIES(), CurioRavenousBrooch::new);
+    public static final RegistryObject<Item> GLUTTONOUS_BROOCH = register("gluttonous_brooch", GEAR_PROPERTIES(), CurioGluttonousBrooch::new);
 
     public static final RegistryObject<Item> RING_OF_ESOTERIC_SPOILS = register("ring_of_esoteric_spoils", GEAR_PROPERTIES(), CurioArcaneSpoilRing::new);
     public static final RegistryObject<Item> RING_OF_CURATIVE_TALENT = register("ring_of_curative_talent", GEAR_PROPERTIES(), CurioCurativeRing::new);

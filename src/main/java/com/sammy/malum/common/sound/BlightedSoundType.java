@@ -39,7 +39,7 @@ public class BlightedSoundType extends ExtendedSoundType {
     @Override
     @OnlyIn(value = Dist.CLIENT)
     public void onPlayHitSound(BlockPos pos) {
-        Minecraft.getInstance().getSoundManager().play(new SimpleSoundInstance(SoundRegistry.MINOR_BLIGHT_MOTIF.get(), SoundSource.BLOCKS, (getVolume() + 1.0F) * 0.1f, getPitch() * 2F, MalumMod.RANDOM, pos));
+        Minecraft.getInstance().getSoundManager().play(new SimpleSoundInstance(SoundRegistry.MINOR_BLIGHT_MOTIF.get(), SoundSource.BLOCKS, (getVolume() + 1.0F) * 0.05f, getPitch() * 2F, MalumMod.RANDOM, pos));
     }
 
     @Override

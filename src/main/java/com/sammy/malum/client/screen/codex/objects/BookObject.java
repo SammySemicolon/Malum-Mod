@@ -1,14 +1,12 @@
 package com.sammy.malum.client.screen.codex.objects;
 
-import com.sammy.malum.client.screen.codex.AbstractProgressionCodexScreen;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import com.sammy.malum.client.screen.codex.screens.*;
+import net.minecraft.client.gui.*;
 import net.minecraft.resources.*;
-import net.minecraft.world.item.*;
 
-import static com.sammy.malum.MalumMod.malumPath;
+import static com.sammy.malum.MalumMod.*;
 
-public class BookObject<T extends AbstractProgressionCodexScreen> {
+public class BookObject<T extends AbstractMalumScreen> {
 
     public static final ResourceLocation WIDGET_FADE_TEXTURE = malumPath("textures/gui/book/widget_fade.png");
 
@@ -17,8 +15,10 @@ public class BookObject<T extends AbstractProgressionCodexScreen> {
     public final int posY;
     public final int width;
     public final int height;
-    public boolean isHovering;
-    public float hover;
+
+    public boolean isHoveredOver;
+    public float xOffset;
+    public float yOffset;
 
     public BookObject(T screen, int posX, int posY, int width, int height) {
         this.screen = screen;
@@ -28,23 +28,19 @@ public class BookObject<T extends AbstractProgressionCodexScreen> {
         this.height = height;
     }
 
-    public int hoverCap() {
-        return 20;
-    }
-
     public boolean isValid() {
         return true;
     }
 
-    public void render(Minecraft minecraft, GuiGraphics guiGraphics, float xOffset, float yOffset, int mouseX, int mouseY, float partialTicks) {
+    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
 
     }
 
-    public void lateRender(Minecraft minecraft, GuiGraphics guiGraphics, float xOffset, float yOffset, int mouseX, int mouseY, float partialTicks) {
+    public void renderLate(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
 
     }
 
-    public void click(float xOffset, float yOffset, double mouseX, double mouseY) {
+    public void click(double mouseX, double mouseY) {
 
     }
 
@@ -52,17 +48,15 @@ public class BookObject<T extends AbstractProgressionCodexScreen> {
 
     }
 
-    public boolean isHovering(AbstractProgressionCodexScreen screen, float xOffset, float yOffset, double mouseX, double mouseY) {
-        return screen.isHovering(mouseX, mouseY, offsetPosX(xOffset), offsetPosY(yOffset), width, height);
+    public boolean isHovering(T screen, float offsetX, float offsetY, double mouseX, double mouseY) {
+        return screen.isHovering(mouseX, mouseY, posX + offsetX, posY + offsetY, width, height);
     }
 
-    public int offsetPosX(float xOffset) {
-        int guiLeft = (width - screen.bookWidth) / 2;
-        return (int) (guiLeft + this.posX + xOffset);
+    public int getOffsetXPosition() {
+        return (int) (posX + xOffset);
     }
 
-    public int offsetPosY(float yOffset) {
-        int guiTop = (height - screen.bookHeight) / 2;
-        return (int) (guiTop + this.posY + yOffset);
+    public int getOffsetYPosition() {
+        return (int) (posY + yOffset);
     }
 }

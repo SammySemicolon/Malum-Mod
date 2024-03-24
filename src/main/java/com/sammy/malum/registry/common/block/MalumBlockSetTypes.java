@@ -14,7 +14,13 @@ public class MalumBlockSetTypes {
                     SoundRegistry.RUNEWOOD_PRESSURE_PLATE_CLICK_OFF.get(), SoundRegistry.RUNEWOOD_PRESSURE_PLATE_CLICK_ON.get(),
                     SoundRegistry.RUNEWOOD_BUTTON_CLICK_OFF.get(), SoundRegistry.RUNEWOOD_BUTTON_CLICK_ON.get()));
     public static final BlockSetType SOULWOOD = BlockSetType.register(
-            new BlockSetType("soulwood"));
+            new BlockSetType("soulwood", true,
+                    SoundRegistry.SOULWOOD,
+                    SoundRegistry.SOULWOOD_DOOR_CLOSE.get(), SoundRegistry.SOULWOOD_DOOR_OPEN.get(),
+                    SoundRegistry.SOULWOOD_TRAPDOOR_CLOSE.get(), SoundRegistry.SOULWOOD_TRAPDOOR_OPEN.get(),
+                    SoundRegistry.SOULWOOD_PRESSURE_PLATE_CLICK_OFF.get(), SoundRegistry.SOULWOOD_PRESSURE_PLATE_CLICK_ON.get(),
+                    SoundRegistry.SOULWOOD_BUTTON_CLICK_OFF.get(), SoundRegistry.SOULWOOD_BUTTON_CLICK_ON.get()));
+
     public static final BlockSetType TAINTED_ROCK = BlockSetType.register(
             new BlockSetType("tainted_rock", true, SoundType.STONE, SoundEvents.IRON_DOOR_CLOSE, SoundEvents.IRON_DOOR_OPEN, SoundEvents.IRON_TRAPDOOR_CLOSE, SoundEvents.IRON_TRAPDOOR_OPEN, SoundEvents.STONE_PRESSURE_PLATE_CLICK_OFF, SoundEvents.STONE_PRESSURE_PLATE_CLICK_ON, SoundEvents.STONE_BUTTON_CLICK_OFF, SoundEvents.STONE_BUTTON_CLICK_ON));
     public static final BlockSetType TWISTED_ROCK = BlockSetType.register(

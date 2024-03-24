@@ -1,11 +1,12 @@
 package com.sammy.malum.common.item.curiosities.curios.sets.alchemical;
 
-import com.sammy.malum.common.item.curiosities.curios.MalumCurioItem;
 import com.sammy.malum.common.item.IMalumEventResponderItem;
+import com.sammy.malum.common.item.curiosities.curios.MalumCurioItem;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 
-import java.util.function.*;
+import java.util.function.Consumer;
 
 public class CurioCurativeRing extends MalumCurioItem implements IMalumEventResponderItem {
     public CurioCurativeRing(Properties builder) {
@@ -13,8 +14,8 @@ public class CurioCurativeRing extends MalumCurioItem implements IMalumEventResp
     }
 
     @Override
-    public void addExtraTooltipLines(Consumer<AttributeLikeTooltipEntry> consumer) {
-        consumer.accept(positiveEffect("malum.gui.curio.effect.ring_of_curative_talent"));
+    public void addExtraTooltipLines(Consumer<Component> consumer) {
+        consumer.accept(positiveEffect("spirits_heal"));
     }
 
     @Override

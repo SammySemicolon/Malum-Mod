@@ -4,7 +4,7 @@
   "group": "sign",
   "key": {
     "#": {
-      "item": "malum:soulwood_planks"
+      "tag": "malum:soulwood_planks"
     },
     "X": {
       "tag": "forge:rods/wooden"

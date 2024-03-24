@@ -1,8 +1,9 @@
 package com.sammy.malum.common.item.curiosities.curios.sets.misc;
 
 import com.google.common.collect.Multimap;
-import com.sammy.malum.common.item.curiosities.curios.MalumCurioItem;
 import com.sammy.malum.common.item.IMalumEventResponderItem;
+import com.sammy.malum.common.item.curiosities.curios.MalumCurioItem;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -13,7 +14,7 @@ import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import top.theillusivec4.curios.api.SlotContext;
 
-import java.util.function.*;
+import java.util.function.Consumer;
 
 public class CurioWaterNecklace extends MalumCurioItem implements IMalumEventResponderItem {
     public CurioWaterNecklace(Properties builder) {
@@ -21,8 +22,8 @@ public class CurioWaterNecklace extends MalumCurioItem implements IMalumEventRes
     }
 
     @Override
-    public void addExtraTooltipLines(Consumer<AttributeLikeTooltipEntry> consumer) {
-        consumer.accept(positiveEffect("malum.gui.curio.effect.necklace_of_tidal_affinity"));
+    public void addExtraTooltipLines(Consumer<Component> consumer) {
+        consumer.accept(positiveEffect("better_conduit_power"));
     }
 
     @Override
