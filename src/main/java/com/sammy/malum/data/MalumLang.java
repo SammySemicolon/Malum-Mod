@@ -596,7 +596,7 @@ public class MalumLang extends LanguageProvider {
         addEntryHeader("runic_brooch", "Runic Brooch", "Power in the palms");
         addHeadline("runic_brooch", "Runic Brooch");
         addPages("runic_brooch",
-            "The simplest of brooches is the Runic Brooch. It represents the quest for power at price, and the bloodied palms with which one grasps a razored enlightenment. When worn, by symbolically removing one of my hands capacity to channel magic from a ring, it will grant me the opportunity to inscribe a rune in each palm.");
+            "The simplest of brooches is the Runic Brooch. It represents the quest for power at price, and the bloodied palms with which one grasps a razored enlightenment. When worn, by symbolically removing one of my hands' capacity to channel magic from a ring, it will grant me the opportunity to inscribe a rune in each palm.");
 
         addEntryHeader("glass_brooch", "Glass Brooch", "Fragile power");
         addHeadline("glass_brooch", "Glass Brooch");

@@ -71,11 +71,11 @@ public class ArcaneRiteType extends MalumRiteType {
                         LodestoneBlockEntityInventory inventoryForAltar = iMalumSpecialItemAccessPoint.getSuppliedInventory();
                         ItemStack stack = inventoryForAltar.getStackInSlot(0);
                         var recipe = SpiritTransmutationRecipe.getRecipe(level, stack);
-                        if (recipe != null) {
+                        if (recipe != null && !inventoryForAltar.extractItem(0, 1, true).isEmpty()) {
                             Vec3 itemPos = iMalumSpecialItemAccessPoint.getItemPos();
                             level.addFreshEntity(new ItemEntity(level, itemPos.x, itemPos.y, itemPos.z, recipe.output.copy()));
                             MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(p)), new BlightTransformItemParticlePacket(List.of(ARCANE_SPIRIT.identifier), itemPos));
-                            inventoryForAltar.getStackInSlot(0).shrink(1);
+                            inventoryForAltar.extractItem(0, 1, false);
                             BlockHelper.updateAndNotifyState(level, p);
                         }
                     }
