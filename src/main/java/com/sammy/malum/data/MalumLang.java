@@ -596,17 +596,17 @@ public class MalumLang extends LanguageProvider {
         addEntryHeader("runic_brooch", "Runic Brooch", "Power in the palms");
         addHeadline("runic_brooch", "Runic Brooch");
         addPages("runic_brooch",
-            "The simplest of brooches is the Runic Brooch. When worn, the Runic Brooch will, by stripping me of the option of a ring's power from my hand, grant me the opportunity to hold a rune in each palm.");
+            "The simplest of brooches is the Runic Brooch. It represents the quest for power at price, and the bloodied palms with which one grasps a razored enlightenment. When worn, by symbolically removing one of my hands' capacity to channel magic from a ring, it will grant me the opportunity to inscribe a rune in each palm.");
 
         addEntryHeader("glass_brooch", "Glass Brooch", "Fragile power");
         addHeadline("glass_brooch", "Glass Brooch");
         addPages("glass_brooch",
-            "The Runic Brooch works well, but my hands are not the only symbolic home of power. I can instead imbue them into my blood with the Glass Brooch, stripping a portion of my physical health away to imbue two runes within my chest.");
+            "The Runic Brooch works well, but my hands are not the only symbolic home of power. I can instead imbue them into my blood with the Glass Brooch, stripping a portion of my physical health away to inscribe two runes within my chest.");
 
         addEntryHeader("elaborate_brooch", "Elaborate Brooch", "A change in purpose");
         addHeadline("elaborate_brooch", "Elaborate Brooch");
         addPages("elaborate_brooch",
-            "Brooches symbolize a sacrifice, but that sacrifice can seem abstract, even comical, from the outside. A necklace is not so different from a belt in form, and by stripping away notions of " + italic("fashion") + ", I can wear a belt's power around my neck.");
+            "Brooches symbolize a sacrifice, but that sacrifice can seem abstract, even comical, from the outside. A necklace is not so different from a belt in form, and by stripping away notions of " + italic("fashion") + " and propriety, I can wear a belt's power around my neck.");
 
         addEntryHeader("gluttonous_brooch", "Gluttonous Brooch", "Endlessly unsated");
         addHeadline("gluttonous_brooch", "Gluttonous Brooch");

@@ -339,7 +339,7 @@ public class ArcanaCodexHelper {
 
                 String noFormatting = ChatFormatting.stripFormatting(line.toString());
 
-                if (chr == '\n' && !(noFormatting == null || noFormatting.isEmpty())) {
+                if (chr == '\n' && noFormatting != null) {
                     line = newLine(lines, italic, bold, strikethrough, underline, obfuscated, line);
                 }
             } else if (chr == '$') {
