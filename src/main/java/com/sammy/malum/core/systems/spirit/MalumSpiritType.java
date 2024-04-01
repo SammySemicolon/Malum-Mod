@@ -25,6 +25,8 @@ import java.util.function.Supplier;
 
 public class MalumSpiritType {
 
+    public static final int INVERT_COLOR = 0x4D000000; // M = chr 4D
+
     public static SpiritTypeBuilder create(String identifier, Supplier<SpiritShardItem> spiritShard, Supplier<SpiritMoteBlock> spiritMote) {
         return new SpiritTypeBuilder(identifier, spiritShard, spiritMote);
     }
@@ -101,6 +103,7 @@ public class MalumSpiritType {
     public Rarity getItemRarity() {
         if (itemRarity == null) {
             TextColor textColor = TextColor.fromRgb(ColorHelper.brighter(primaryColor, 1, 0.85f).getRGB());
+//            TextColor textColor = TextColor.fromRgb(INVERT_COLOR);
             itemRarity = Rarity.create("malum$" + identifier, (style) -> style.withColor(textColor));
         }
         return itemRarity;
