@@ -39,6 +39,7 @@ public class SoundRegistry {
     public static final RegistryObject<SoundEvent> ALCHEMICAL_TRINKET_EQUIP = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("alchemical_trinket_equipped")));
     public static final RegistryObject<SoundEvent> ROTTEN_TRINKET_EQUIP = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("rotten_trinket_equipped")));
     public static final RegistryObject<SoundEvent> METALLIC_TRINKET_EQUIP = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("metallic_trinket_equipped")));
+    public static final RegistryObject<SoundEvent> RUNE_TRINKET_EQUIP = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("rune_trinket_equipped")));
     public static final RegistryObject<SoundEvent> VOID_TRINKET_EQUIP = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("void_trinket_equipped")));
 
     public static final RegistryObject<SoundEvent> TUNING_FORK_TINKERS = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("tuning_fork_tinkers")));
