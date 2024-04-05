@@ -26,6 +26,11 @@ public abstract class BookPage<T extends AbstractProgressionCodexScreen<T>> {
 
     public void render(EntryScreen<T> screen, GuiGraphics guiGraphics, int left, int top, int mouseX, int mouseY, float partialTicks, boolean isRepeat) {
     }
+    public void renderLate(EntryScreen<T> screen, GuiGraphics guiGraphics, int left, int top, int mouseX, int mouseY, float partialTicks, boolean isRepeat) {
+    }
+
+    public void click(EntryScreen<T> screen, int left, int top, double mouseX, double mouseY, double relativeMouseX, double relativeMouseY) {
+    }
 
 
     public void render(Minecraft minecraft, GuiGraphics guiGraphics, EntryScreen<T> screen, int mouseX, int mouseY, float partialTicks, boolean isRepeat) {

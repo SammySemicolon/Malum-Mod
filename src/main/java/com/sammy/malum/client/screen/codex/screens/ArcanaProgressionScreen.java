@@ -12,11 +12,9 @@ import com.sammy.malum.common.item.codex.*;
 import com.sammy.malum.registry.common.*;
 import net.minecraft.client.*;
 import net.minecraft.resources.*;
-import net.minecraft.sounds.*;
 import net.minecraftforge.common.*;
 
 import java.util.*;
-import java.util.function.*;
 
 import static com.sammy.malum.MalumMod.*;
 import static com.sammy.malum.registry.common.item.ItemRegistry.*;
@@ -32,7 +30,7 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen<Arca
     public boolean isVoidTouched;
 
     protected ArcanaProgressionScreen() {
-        super(1024, 2560);
+        super(SoundRegistry.ARCANA_SWEETENER_NORMAL, 1024, 2560);
         minecraft = Minecraft.getInstance();
         setupEntries();
         MinecraftForge.EVENT_BUS.post(new SetupMalumCodexEntriesEvent());
@@ -55,7 +53,7 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen<Arca
 
     public static void openCodexViaTransition() {
         getScreenInstance().openScreen(false);
-        screen.faceObject(screen.bookObjectHandler.getBookObjects().get(0));
+        screen.faceObject(screen.bookObjectHandler.get(0));
         screen.playSound(SoundRegistry.ARCANA_TRANSITION_NORMAL, 1.25f, 1f);
         screen.timesTransitioned++;
         screen.transitionTimer = screen.getTransitionDuration();
@@ -64,7 +62,7 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen<Arca
 
     @Override
     public void renderBackground(PoseStack poseStack) {
-        renderBackground(poseStack, BACKGROUND_TEXTURE, 0.1f, 0.4f);
+        renderBackground(poseStack, BACKGROUND_TEXTURE, 0.2f, 0.4f);
     }
 
     @Override
@@ -72,14 +70,9 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen<Arca
         return ENTRIES;
     }
 
-    @Override
-    public Supplier<SoundEvent> getSweetenerSound() {
-        return SoundRegistry.ARCANA_SWEETENER_NORMAL;
-    }
-
     public void setupEntries() {
         addEntry("chronicles_of_the_void", 0, -1, b -> b
-                .setWidgetSupplier((s, e, x, y) -> new ScreenOpenerObject<>(s, e, x, y, VoidProgressionScreen::openCodexViaTransition, malumPath("textures/gui/book/icons/void_button.png"), 20, 20))
+                .setWidgetSupplier((e, x, y) -> new ScreenOpenerObject<>(e, x, y, VoidProgressionScreen::openCodexViaTransition, malumPath("textures/gui/book/icons/void_button.png"), 20, 20))
                 .setWidgetConfig(w -> w.setStyle(BookWidgetStyle.DARK_GRAND_RUNEWOOD).setValidityChecker(p -> p.isVoidTouched))
         );
 

@@ -21,23 +21,23 @@ public class ProgressionEntryObject<T extends AbstractProgressionCodexScreen<T>>
     public Predicate<T> isValid = t -> true;
     public ItemStack iconStack;
 
-    public ProgressionEntryObject(T screen, BookEntry<T> entry, int posX, int posY) {
-        super(screen, posX, posY, 32, 32);
+    public ProgressionEntryObject(BookEntry<T> entry, int posX, int posY) {
+        super(posX, posY, 32, 32);
         this.entry = entry;
     }
 
     @Override
-    public boolean isValid() {
+    public boolean isValid(T screen) {
         return isValid.test(screen);
     }
 
     @Override
-    public void click(double mouseX, double mouseY) {
-        EntryScreen.openScreen(this);
+    public void click(T screen, double mouseX, double mouseY) {
+        EntryScreen.openScreen(screen, this);
     }
 
     @Override
-    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
+    public void render(T screen, GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
         final PoseStack poseStack = guiGraphics.pose();
         int posX = getOffsetXPosition() - (style.textureWidth()-32)/2;
         int posY = getOffsetYPosition() - (style.textureHeight()-32)/2;
@@ -50,7 +50,7 @@ public class ProgressionEntryObject<T extends AbstractProgressionCodexScreen<T>>
     }
 
     @Override
-    public void renderLate(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
+    public void renderLate(T screen, GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
         if (isHoveredOver) {
             final List<Component> list = Arrays.asList(
                     Component.translatable(entry.translationKey()),

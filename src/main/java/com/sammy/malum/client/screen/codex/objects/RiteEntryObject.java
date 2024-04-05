@@ -13,8 +13,8 @@ import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.*;
 public class RiteEntryObject<T extends AbstractProgressionCodexScreen<T>> extends ProgressionEntryObject<T> {
     public final MalumRiteType riteType;
 
-    public RiteEntryObject(T screen, BookEntry<T> entry, int posX, int posY) {
-        super(screen, entry, posX, posY);
+    public RiteEntryObject(BookEntry<T> entry, int posX, int posY) {
+        super(entry, posX, posY);
         Optional<SpiritRiteTextPage> page = entry.pages.stream().filter(p -> p instanceof SpiritRiteTextPage).map(p -> ((SpiritRiteTextPage) p)).findAny();
         if (page.isPresent()) {
             this.riteType = page.get().riteType;
@@ -24,8 +24,8 @@ public class RiteEntryObject<T extends AbstractProgressionCodexScreen<T>> extend
     }
 
     @Override
-    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
-        super.render(guiGraphics, mouseX, mouseY, partialTicks);
+    public void render(T screen, GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
+        super.render(screen, guiGraphics, mouseX, mouseY, partialTicks);
         renderRiteIcon(riteType, guiGraphics.pose(), isCorrupted(), 0.4f, getOffsetXPosition() + 8, getOffsetYPosition() + 8);
     }
 
