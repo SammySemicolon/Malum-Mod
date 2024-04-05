@@ -22,7 +22,7 @@ public abstract class AbstractMalumCurioItem extends Item implements ICurioItem 
         ALCHEMICAL(SoundRegistry.ALCHEMICAL_TRINKET_EQUIP),
         ROTTEN(SoundRegistry.ROTTEN_TRINKET_EQUIP),
         METALLIC(SoundRegistry.METALLIC_TRINKET_EQUIP),
-        RUNE(SoundRegistry.ORNATE_TRINKET_EQUIP),
+        RUNE(SoundRegistry.RUNE_TRINKET_EQUIP),
         VOID(SoundRegistry.VOID_TRINKET_EQUIP);
         final Supplier<SoundEvent> sound;
 

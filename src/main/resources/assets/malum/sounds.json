@@ -20,6 +20,7 @@
   "alchemical_trinket_equipped": { "sounds":["malum:equip_sounds/alchemical/equip_alchemical1", "malum:equip_sounds/alchemical/equip_alchemical2", "malum:equip_sounds/alchemical/equip_alchemical3"], "subtitle": "malum.subtitle.alchemical_trinket_equipped" },
   "rotten_trinket_equipped": { "sounds":["malum:equip_sounds/rotten/equip_rotten1", "malum:equip_sounds/rotten/equip_rotten2", "malum:equip_sounds/rotten/equip_rotten3"], "subtitle": "malum.subtitle.rotten_trinket_equipped" },
   "metallic_trinket_equipped": { "sounds":["malum:equip_sounds/metallic/equip_metallic1", "malum:equip_sounds/metallic/equip_metallic2", "malum:equip_sounds/metallic/equip_metallic3"], "subtitle": "malum.subtitle.metallic_trinket_equipped" },
+  "rune_trinket_equipped": { "sounds":["malum:equip_sounds/rune/equip_rune1", "malum:equip_sounds/rune/equip_rune2", "malum:equip_sounds/rune/equip_rune3"], "subtitle": "malum.subtitle.rune_trinket_equipped" },
   "void_trinket_equipped": { "sounds":["malum:equip_sounds/void/equip_void1", "malum:equip_sounds/void/equip_void2", "malum:equip_sounds/void/equip_void3"], "subtitle": "malum.subtitle.void_trinket_equipped" },
 
   "tuning_fork_tinkers": { "sounds":["malum:curiosities/augments/tuning_fork_tinker1","malum:curiosities/augments/tuning_fork_tinker2"], "subtitle": "malum.subtitle.tuning_fork_tinkers" },

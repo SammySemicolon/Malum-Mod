@@ -162,7 +162,7 @@ public class TotemMagicEntries {
         );
 
         screen.addEntry("blight", -1, 12, b -> b
-                .setWidgetConfig(w -> w.setIcon(BLIGHTED_GUNK).setStyle(BookWidgetStyle.SMALL_SOULWOOD))
+                .setWidgetConfig(w -> w.setIcon(BLIGHTED_GUNK).setStyle(BookWidgetStyle.RESEARCH_SOULWOOD))
                 .addPage(new HeadlineTextPage<>("blight.intro", "blight.intro.1"))
                 .addPage(new HeadlineTextPage<>("blight.composition", "blight.composition.1"))
                 .addPage(new HeadlineTextPage<>("blight.spread", "blight.spread.1"))
@@ -170,7 +170,7 @@ public class TotemMagicEntries {
         );
 
         screen.addEntry("soulwood", 1, 12, b -> b
-                .setWidgetConfig(w -> w.setIcon(SOULWOOD_GROWTH).setStyle(BookWidgetStyle.SMALL_SOULWOOD))
+                .setWidgetConfig(w -> w.setIcon(SOULWOOD_GROWTH).setStyle(BookWidgetStyle.RESEARCH_SOULWOOD))
                 .addPage(new HeadlineTextPage<>("soulwood.intro", "soulwood.intro.1"))
                 .addPage(new HeadlineTextPage<>("soulwood.bonemeal", "soulwood.bonemeal.1"))
                 .addPage(new HeadlineTextPage<>("soulwood.color", "soulwood.color.1"))
@@ -178,7 +178,7 @@ public class TotemMagicEntries {
                 .addPage(new HeadlineTextPage<>("soulwood.sap", "soulwood.sap.1"))
         );
         screen.addEntry("transmutation", 0, 13, b -> b
-                .setWidgetConfig(w -> w.setIcon(SOUL_SAND).setStyle(BookWidgetStyle.SMALL_SOULWOOD))
+                .setWidgetConfig(w -> w.setIcon(SOUL_SAND).setStyle(BookWidgetStyle.SOULWOOD))
                 .addPage(new HeadlineTextPage<>("transmutation", "transmutation.intro.1"))
                 .addPage(new TextPage<>("transmutation.intro.2"))
                 .addPage(new SpiritTransmutationRecipeTreePage<>("transmutation.stone", STONE))

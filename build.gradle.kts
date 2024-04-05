@@ -112,6 +112,8 @@ sourceSets {
     }
 }
 
+jarJar.enable()
+
 repositories {
     flatDir {
         dirs("lib")
@@ -141,7 +143,16 @@ repositories {
         }
     }
 
+    maven {
+        name = "jitpack"
+        url = uri("https://jitpack.io")
+        content {
+            includeGroup("io.github")
+        }
+    }
+
 }
+
 
 dependencies {
     minecraft("net.minecraftforge:forge:${minecraftVersion}-${forgeVersion}")
@@ -149,6 +160,10 @@ dependencies {
     if (System.getProperty("idea.sync.active") != "true") {
         annotationProcessor("org.spongepowered:mixin:${mixinVersion}:processor")
     }
+
+    // MixinExtras
+    compileOnly(annotationProcessor("io.github.llamalad7:mixinextras-common:0.3.2")!!)
+    implementation("io.github.llamalad7:mixinextras-forge:0.3.2")
 
     // JEI Dependency
     compileOnly(fg.deobf("mezz.jei:jei-${minecraftVersion}-forge-api:${jeiVersion}"))
