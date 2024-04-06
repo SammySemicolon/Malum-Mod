@@ -10,7 +10,6 @@ public class BookObject<T extends AbstractMalumScreen> {
 
     public static final ResourceLocation WIDGET_FADE_TEXTURE = malumPath("textures/gui/book/widget_fade.png");
 
-    public final T screen;
     public final int posX;
     public final int posY;
     public final int width;
@@ -20,31 +19,30 @@ public class BookObject<T extends AbstractMalumScreen> {
     public float xOffset;
     public float yOffset;
 
-    public BookObject(T screen, int posX, int posY, int width, int height) {
-        this.screen = screen;
+    public BookObject(int posX, int posY, int width, int height) {
         this.posX = posX;
         this.posY = posY;
         this.width = width;
         this.height = height;
     }
 
-    public boolean isValid() {
+    public boolean isValid(T screen) {
         return true;
     }
 
-    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
+    public void render(T screen, GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
 
     }
 
-    public void renderLate(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
+    public void renderLate(T screen, GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
 
     }
 
-    public void click(double mouseX, double mouseY) {
+    public void click(T screen, double mouseX, double mouseY) {
 
     }
 
-    public void exit() {
+    public void exit(T screen) {
 
     }
 

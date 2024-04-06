@@ -15,13 +15,13 @@ public class ArrowObject<T extends AbstractProgressionCodexScreen<T>> extends Bo
 
     public final boolean flipped;
 
-    public ArrowObject(EntryScreen<T> screen, int posX, int posY, boolean flipped) {
-        super(screen, posX, posY, 36, 22);
+    public ArrowObject(int posX, int posY, boolean flipped) {
+        super(posX, posY, 36, 22);
         this.flipped = flipped;
     }
 
     @Override
-    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
+    public void render(EntryScreen<T> screen, GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
         final int arrowX = getOffsetXPosition();
         final int arrowY = getOffsetYPosition();
         ResourceLocation texture = isHoveredOver ? ARROWS_LIT_UP : ARROWS;
@@ -30,7 +30,7 @@ public class ArrowObject<T extends AbstractProgressionCodexScreen<T>> extends Bo
     }
 
     @Override
-    public void click(double mouseX, double mouseY) {
+    public void click(EntryScreen<T> screen, double mouseX, double mouseY) {
         if (flipped) {
             screen.nextPage();
         }
@@ -40,7 +40,7 @@ public class ArrowObject<T extends AbstractProgressionCodexScreen<T>> extends Bo
     }
 
     @Override
-    public boolean isValid() {
+    public boolean isValid(EntryScreen<T> screen) {
         return !flipped || (screen.hasNextPage());
     }
 }

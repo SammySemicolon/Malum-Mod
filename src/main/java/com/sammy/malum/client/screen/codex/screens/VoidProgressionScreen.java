@@ -3,6 +3,7 @@ package com.sammy.malum.client.screen.codex.screens;
 import com.mojang.blaze3d.vertex.*;
 import com.sammy.malum.client.screen.codex.*;
 import com.sammy.malum.client.screen.codex.objects.*;
+import com.sammy.malum.client.screen.codex.pages.*;
 import com.sammy.malum.client.screen.codex.pages.recipe.*;
 import com.sammy.malum.client.screen.codex.pages.text.*;
 import com.sammy.malum.common.events.*;
@@ -10,11 +11,9 @@ import com.sammy.malum.common.item.codex.*;
 import com.sammy.malum.registry.common.*;
 import net.minecraft.client.*;
 import net.minecraft.resources.*;
-import net.minecraft.sounds.*;
 import net.minecraftforge.common.*;
 
 import java.util.*;
-import java.util.function.*;
 
 import static com.sammy.malum.MalumMod.*;
 import static com.sammy.malum.registry.common.item.ItemRegistry.*;
@@ -29,7 +28,7 @@ public class VoidProgressionScreen extends AbstractProgressionCodexScreen<VoidPr
     public static final List<BookEntry<VoidProgressionScreen>> VOID_ENTRIES = new ArrayList<>();
 
     protected VoidProgressionScreen() {
-        super(1024, 768);
+        super(SoundRegistry.ARCANA_SWEETENER_EVIL, 1024, 768);
         minecraft = Minecraft.getInstance();
         setupEntries();
         MinecraftForge.EVENT_BUS.post(new SetupMalumCodexEntriesEvent());
@@ -46,11 +45,6 @@ public class VoidProgressionScreen extends AbstractProgressionCodexScreen<VoidPr
         return VOID_ENTRIES;
     }
 
-    @Override
-    public Supplier<SoundEvent> getSweetenerSound() {
-        return SoundRegistry.ARCANA_SWEETENER_EVIL;
-    }
-
     public static VoidProgressionScreen getScreenInstance() {
         if (screen == null) {
             screen = new VoidProgressionScreen();
@@ -65,7 +59,7 @@ public class VoidProgressionScreen extends AbstractProgressionCodexScreen<VoidPr
 
     public static void openCodexViaTransition() {
         getScreenInstance().openScreen(false);
-        screen.faceObject(screen.bookObjectHandler.getBookObjects().get(0));
+        screen.faceObject(screen.bookObjectHandler.get(0));
         screen.playSound(SoundRegistry.ARCANA_TRANSITION_EVIL, 1.25f, 1f);
         screen.timesTransitioned++;
         screen.transitionTimer = screen.getTransitionDuration();
@@ -74,7 +68,7 @@ public class VoidProgressionScreen extends AbstractProgressionCodexScreen<VoidPr
 
     public void setupEntries() {
         addEntry("chronicles_of_the_soul", 0, 0, b -> b
-                .setWidgetSupplier((s, e, x, y) -> new ScreenOpenerObject<>(s, e, x, y, ArcanaProgressionScreen::openCodexViaTransition, malumPath("textures/gui/book/icons/arcana_button.png"), 20, 20))
+                .setWidgetSupplier((e, x, y) -> new ScreenOpenerObject<>(e, x, y, ArcanaProgressionScreen::openCodexViaTransition, malumPath("textures/gui/book/icons/arcana_button.png"), 20, 20))
                 .setWidgetConfig(w -> w.setStyle(BookWidgetStyle.DARK_GRAND_SOULWOOD))
         );
         addEntry("void.introduction", 0, 1, b -> b
@@ -132,9 +126,9 @@ public class VoidProgressionScreen extends AbstractProgressionCodexScreen<VoidPr
         addEntry("void.soul_stained_steel_staff", 3, 5, b -> b
                 .setWidgetConfig(w -> w.setIcon(MNEMONIC_HEX_STAFF).setStyle(BookWidgetStyle.SOULWOOD))
                 .addPage(new HeadlineTextPage<>("void.soul_stained_steel_staff", "void.soul_stained_steel_staff.1"))
+                .addPage(SpiritInfusionPage.fromOutput(MNEMONIC_HEX_STAFF.get()))
                 .addPage(new TextPage<>("void.soul_stained_steel_staff.2"))
                 .addPage(new TextPage<>("void.soul_stained_steel_staff.3"))
-                .addPage(SpiritInfusionPage.fromOutput(MNEMONIC_HEX_STAFF.get()))
                 .addPage(new HeadlineTextPage<>("void.ring_of_the_plentiful", "void.ring_of_the_plentiful.1"))
                 .addPage(SpiritInfusionPage.fromOutput(RING_OF_THE_PLENTIFUL.get()))
         );
@@ -144,8 +138,48 @@ public class VoidProgressionScreen extends AbstractProgressionCodexScreen<VoidPr
         addEntry("void.something3", 2, 6, b -> b
                 .setWidgetConfig(w -> w.setIcon(BARRIER).setStyle(BookWidgetStyle.SOULWOOD))
         );
-        addEntry("void.something4", 3, 7, b -> b
-                .setWidgetConfig(w -> w.setIcon(BARRIER).setStyle(BookWidgetStyle.SOULWOOD))
+
+
+        //TODO: this format kinda smells :(
+        addEntry("void.runes", 3, 7, b -> b
+                .setWidgetConfig(w -> w.setIcon(RUNE_OF_THE_HERETIC).setStyle(BookWidgetStyle.SOULWOOD))
+                .addPage(new HeadlineTextPage<>("void.runes", "void.runes.1"))
+                .addPage(new EntrySelectorPage<>(List.of(
+                        new EntrySelectorPage.EntryChoice<>(RUNE_OF_BOLSTERING.get(),
+                                BookEntry.<VoidProgressionScreen>build("void.rune_of_bolstering")
+                                        .addPage(new HeadlineTextPage<>("void.rune_of_bolstering", "void.rune_of_bolstering.1"))
+                                        .addPage(RuneworkingPage.fromOutput(RUNE_OF_BOLSTERING.get()))),
+                        new EntrySelectorPage.EntryChoice<>(RUNE_OF_SACRIFICIAL_EMPOWERMENT.get(),
+                                BookEntry.<VoidProgressionScreen>build("void.rune_of_sacrificial_empowerment")
+                                        .addPage(new HeadlineTextPage<>("void.rune_of_sacrificial_empowerment", "void.rune_of_sacrificial_empowerment.1"))
+                                        .addPage(RuneworkingPage.fromOutput(RUNE_OF_SACRIFICIAL_EMPOWERMENT.get()))),
+                        new EntrySelectorPage.EntryChoice<>(RUNE_OF_SPELL_MASTERY.get(),
+                                BookEntry.<VoidProgressionScreen>build("void.rune_of_spell_mastery")
+                                        .addPage(new HeadlineTextPage<>("void.rune_of_spell_mastery", "void.rune_of_spell_mastery.1"))
+                                        .addPage(RuneworkingPage.fromOutput(RUNE_OF_SPELL_MASTERY.get()))),
+                        new EntrySelectorPage.EntryChoice<>(RUNE_OF_THE_HERETIC.get(),
+                                BookEntry.<VoidProgressionScreen>build("void.rune_of_the_heretic")
+                                        .addPage(new HeadlineTextPage<>("void.rune_of_the_heretic", "void.rune_of_the_heretic.1"))
+                                        .addPage(RuneworkingPage.fromOutput(RUNE_OF_THE_HERETIC.get()))),
+                        new EntrySelectorPage.EntryChoice<>(RUNE_OF_UNNATURAL_STAMINA.get(),
+                                BookEntry.<VoidProgressionScreen>build("void.rune_of_unnatural_stamina")
+                                        .addPage(new HeadlineTextPage<>("void.rune_of_unnatural_stamina", "void.rune_of_unnatural_stamina.1"))
+                                        .addPage(RuneworkingPage.fromOutput(RUNE_OF_UNNATURAL_STAMINA.get()))),
+                        new EntrySelectorPage.EntryChoice<>(RUNE_OF_TWINNED_DURATION.get(),
+                                BookEntry.<VoidProgressionScreen>build("void.rune_of_twinned_duration")
+                                        .addPage(new HeadlineTextPage<>("void.rune_of_twinned_duration", "void.rune_of_twinned_duration.1"))
+                                        .addPage(RuneworkingPage.fromOutput(RUNE_OF_TWINNED_DURATION.get()))),
+                        new EntrySelectorPage.EntryChoice<>(RUNE_OF_TOUGHNESS.get(),
+                                BookEntry.<VoidProgressionScreen>build("void.rune_of_toughness")
+                                        .addPage(new HeadlineTextPage<>("void.rune_of_toughness", "void.rune_of_toughness.1"))
+                                        .addPage(RuneworkingPage.fromOutput(RUNE_OF_TOUGHNESS.get()))),
+                        new EntrySelectorPage.EntryChoice<>(RUNE_OF_IGNEOUS_SOLACE.get(),
+                                BookEntry.<VoidProgressionScreen>build("void.rune_of_igneous_solace")
+                                        .addPage(new HeadlineTextPage<>("void.rune_of_igneous_solace", "void.rune_of_igneous_solace.1"))
+                                        .addPage(RuneworkingPage.fromOutput(RUNE_OF_IGNEOUS_SOLACE.get())))
+                )))
+
+
         );
 
         addEntry("void.malignant_alloy", 6, 7, b -> b

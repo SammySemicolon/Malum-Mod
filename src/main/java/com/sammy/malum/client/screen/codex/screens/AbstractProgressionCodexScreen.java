@@ -8,6 +8,7 @@ import net.minecraft.client.*;
 import net.minecraft.client.gui.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.resources.*;
+import net.minecraft.sounds.*;
 import net.minecraft.util.*;
 import org.lwjgl.opengl.*;
 
@@ -32,7 +33,7 @@ public abstract class AbstractProgressionCodexScreen<T extends AbstractProgressi
     public int transitionTimer;
     public int timesTransitioned;
 
-    public final EntryObjectHandler<T> bookObjectHandler = new EntryObjectHandler(this);
+    public final EntryObjectHandler<T> bookObjectHandler = new EntryObjectHandler();
 
     public final int bookWidth;
     public final int bookHeight;
@@ -42,12 +43,12 @@ public abstract class AbstractProgressionCodexScreen<T extends AbstractProgressi
     public final int backgroundImageWidth;
     public final int backgroundImageHeight;
 
-    protected AbstractProgressionCodexScreen(int backgroundImageWidth, int backgroundImageHeight) {
-        this(378, 250, 344, 218, backgroundImageWidth, backgroundImageHeight);
+    protected AbstractProgressionCodexScreen(Supplier<SoundEvent> sweetenerSound, int backgroundImageWidth, int backgroundImageHeight) {
+        this(sweetenerSound, 378, 250, 344, 218, backgroundImageWidth, backgroundImageHeight);
     }
 
-    protected AbstractProgressionCodexScreen(int bookWidth, int bookHeight, int bookInsideWidth, int bookInsideHeight, int backgroundImageWidth, int backgroundImageHeight) {
-        super(Component.empty());
+    protected AbstractProgressionCodexScreen(Supplier<SoundEvent> sweetenerSound, int bookWidth, int bookHeight, int bookInsideWidth, int bookInsideHeight, int backgroundImageWidth, int backgroundImageHeight) {
+        super(Component.empty(), sweetenerSound);
         this.bookWidth = bookWidth;
         this.bookHeight = bookHeight;
         this.bookInsideWidth = bookInsideWidth;
@@ -82,7 +83,7 @@ public abstract class AbstractProgressionCodexScreen<T extends AbstractProgressi
         GL11.glEnable(GL_SCISSOR_TEST);
         cut();
 
-        bookObjectHandler.renderObjects(guiGraphics, guiLeft+xOffset, guiTop+yOffset, mouseX, mouseY, partialTicks);
+        bookObjectHandler.renderObjects((T)this, guiGraphics, guiLeft+xOffset, guiTop+yOffset, mouseX, mouseY, partialTicks);
         GL11.glDisable(GL_SCISSOR_TEST);
 
         renderTexture(FRAME_FADE_TEXTURE, poseStack, guiLeft, guiTop, 0, 0, bookWidth, bookHeight);
@@ -90,7 +91,7 @@ public abstract class AbstractProgressionCodexScreen<T extends AbstractProgressi
             ArcanaCodexHelper.renderTransitionFade(this, poseStack);
         }
         renderTexture(FRAME_TEXTURE, poseStack, guiLeft, guiTop, 400, 0, 0, bookWidth, bookHeight);
-        bookObjectHandler.renderObjectsLate(guiGraphics, mouseX, mouseY, partialTicks);
+        bookObjectHandler.renderObjectsLate((T) this, guiGraphics, mouseX, mouseY, partialTicks);
     }
 
     @Override
@@ -102,7 +103,7 @@ public abstract class AbstractProgressionCodexScreen<T extends AbstractProgressi
         if (xOffset != cachedXOffset || yOffset != cachedYOffset) {
             return super.mouseReleased(mouseX, mouseY, button);
         }
-        bookObjectHandler.click(mouseX, mouseY);
+        bookObjectHandler.click((T) this, mouseX, mouseY);
         return super.mouseReleased(mouseX, mouseY, button);
     }
 
@@ -145,7 +146,7 @@ public abstract class AbstractProgressionCodexScreen<T extends AbstractProgressi
     public void setupObjects() {
         this.width = minecraft.getWindow().getGuiScaledWidth();
         this.height = minecraft.getWindow().getGuiScaledHeight();
-        bookObjectHandler.setupEntryObjects();
+        bookObjectHandler.setupEntryObjects((T)this);
     }
 
     public void faceObject(BookObject<?> object) {
@@ -155,15 +156,15 @@ public abstract class AbstractProgressionCodexScreen<T extends AbstractProgressi
         yOffset = -object.posY + bookInsideHeight/2f;
     }
 
-    public void openScreen(boolean ignoreNextMouseClick) {
+    public void openScreen(boolean silentMouseInput) {
         Minecraft.getInstance().setScreen(this);
-        this.ignoreNextMouseInput = ignoreNextMouseClick;
+        this.ignoreNextMouseInput = silentMouseInput;
     }
 
     public void renderBackground(PoseStack poseStack, ResourceLocation texture, float xModifier, float yModifier) {
         int insideLeft = getInsideLeft();
         int insideTop = getInsideTop();
-        float uOffset = (bookInsideWidth / 4f - xOffset * xModifier);
+        float uOffset = (bookInsideWidth / 8f - xOffset * xModifier);
         float vOffset = (backgroundImageHeight - bookInsideHeight - yOffset * yModifier);
         if (uOffset <= 0) {
             uOffset = 0;

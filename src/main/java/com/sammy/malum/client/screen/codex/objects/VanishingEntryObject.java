@@ -9,14 +9,14 @@ import net.minecraft.world.entity.player.Player;
 
 
 public class VanishingEntryObject<T extends AbstractProgressionCodexScreen<T>> extends ProgressionEntryObject<T> {
-    public VanishingEntryObject(T screen, BookEntry<T> entry, int posX, int posY) {
-        super(screen, entry, posX, posY);
+    public VanishingEntryObject(BookEntry<T> entry, int posX, int posY) {
+        super(entry, posX, posY);
     }
 
     @Override
-    public void exit() {
+    public void exit(T screen) {
         Player playerEntity = Minecraft.getInstance().player;
         playerEntity.playNotifySound(SoundRegistry.THE_DEEP_BECKONS.get(), SoundSource.PLAYERS, 1.0f, 1.0f);
-        screen.bookObjectHandler.getBookObjects().remove(this);
+        screen.bookObjectHandler.remove(this);
     }
 }

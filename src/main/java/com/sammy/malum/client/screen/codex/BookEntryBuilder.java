@@ -11,16 +11,25 @@ import java.util.function.*;
 public class BookEntryBuilder<T extends AbstractProgressionCodexScreen<T>> {
 
     protected final String identifier;
-    protected final int xOffset;
-    protected final int yOffset;
+    protected final boolean isVoid;
+
+    protected int xOffset;
+    protected int yOffset;
+
     protected List<BookPage<T>> pages = new ArrayList<>();
-    protected BookEntry.WidgetSupplier<T> widgetSupplier = ProgressionEntryObject::new;;
+    protected BookEntry.WidgetSupplier<T> widgetSupplier;
     protected Consumer<ProgressionEntryObject<T>> widgetConfig;
 
-    public BookEntryBuilder(String identifier, int xOffset, int yOffset) {
+    public BookEntryBuilder(String identifier) {
         this.identifier = identifier;
-        this.xOffset = xOffset;
-        this.yOffset = yOffset;
+        this.isVoid = identifier.startsWith("void.");
+    }
+
+    public BookEntryBuilder(String identifier, int xOffset, int yOffset) {
+        this(identifier);
+        this.xOffset = xOffset*40;
+        this.yOffset = yOffset*40;
+        this.widgetSupplier = ProgressionEntryObject::new;
     }
 
     public BookEntryBuilder<T> addPage(BookPage<T> page) {
@@ -42,7 +51,7 @@ public class BookEntryBuilder<T extends AbstractProgressionCodexScreen<T>> {
 
     public BookEntry<T> build() {
         final ImmutableList<BookPage<T>> bookPages = ImmutableList.copyOf(pages);
-        final BookEntry<T> bookEntry = new BookEntry<>(identifier, xOffset, yOffset, bookPages, widgetSupplier, widgetConfig);
+        final BookEntry<T> bookEntry = new BookEntry<>(identifier, isVoid, widgetSupplier != null ? new BookEntry.BookEntryWidgetPlacementData<>(xOffset, yOffset, widgetSupplier, widgetConfig) : null, bookPages);
         bookPages.forEach(p -> p.setBookEntry(bookEntry));
         return bookEntry;
     }

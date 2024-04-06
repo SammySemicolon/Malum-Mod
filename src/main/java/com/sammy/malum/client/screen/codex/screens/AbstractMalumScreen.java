@@ -10,15 +10,16 @@ import java.util.function.*;
 
 public abstract class AbstractMalumScreen extends Screen {
 
-    protected AbstractMalumScreen(Component pTitle) {
+    protected final Supplier<SoundEvent> sweetenerSound;
+
+    protected AbstractMalumScreen(Component pTitle, Supplier<SoundEvent> sweetenerSound) {
         super(pTitle);
+        this.sweetenerSound = sweetenerSound;
     }
 
     public boolean isHovering(double mouseX, double mouseY, float posX, float posY, int width, int height) {
         return ArcanaCodexHelper.isHovering(mouseX, mouseY, posX, posY, width, height);
     }
-
-    public abstract Supplier<SoundEvent> getSweetenerSound();
 
     @Override
     public boolean isPauseScreen() {
@@ -33,15 +34,18 @@ public abstract class AbstractMalumScreen extends Screen {
         }
         return super.keyPressed(keyCode, scanCode, modifiers);
     }
+    public void openScreen(boolean silentMouseInput) {
+        Minecraft.getInstance().setScreen(this);
+    }
 
     public void playPageFlipSound(Supplier<SoundEvent> soundEvent, float pitch) {
         playSound(soundEvent, 1f, Math.max(1, pitch * 0.8f));
-        playSound(getSweetenerSound(), 1f, pitch);
+        playSound(sweetenerSound, 1f, pitch);
     }
 
     public void playSweetenedSound(Supplier<SoundEvent> soundEvent, float sweetenerPitch) {
         playSound(soundEvent, 1f, 1);
-        playSound(getSweetenerSound(), 1f, sweetenerPitch);
+        playSound(sweetenerSound, 1f, sweetenerPitch);
     }
 
     public void playSound(Supplier<SoundEvent> soundEvent, float volume, float pitch) {

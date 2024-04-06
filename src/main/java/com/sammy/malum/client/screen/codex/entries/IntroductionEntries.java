@@ -29,7 +29,7 @@ public class IntroductionEntries {
         );
 
         screen.addEntry("spirit_crystals", 0, 1, b -> b
-                .setWidgetSupplier((s, e, x, y) -> new IconObject<>(s, e, x, y, malumPath("textures/gui/book/icons/soul_shard.png")))
+                .setWidgetSupplier((e, x, y) -> new IconObject<>(e, x, y, malumPath("textures/gui/book/icons/soul_shard.png")))
                 .setWidgetConfig(w -> w.setStyle(BookWidgetStyle.DARK_SMALL_RUNEWOOD))
                 .addPage(new HeadlineTextPage<>("spirit_crystals", "spirit_crystals.1"))
                 .addPage(new TextPage<>("spirit_crystals.2"))
