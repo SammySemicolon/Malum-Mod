@@ -102,8 +102,8 @@ public class MalumSpiritType {
 
     public Rarity getItemRarity() {
         if (itemRarity == null) {
-            TextColor textColor = TextColor.fromRgb(ColorHelper.brighter(primaryColor, 1, 0.85f).getRGB());
-//            TextColor textColor = TextColor.fromRgb(INVERT_COLOR);
+//            TextColor textColor = TextColor.fromRgb(ColorHelper.brighter(primaryColor, 1, 0.85f).getRGB());
+            TextColor textColor = TextColor.fromRgb(INVERT_COLOR);
             itemRarity = Rarity.create("malum$" + identifier, (style) -> style.withColor(textColor));
         }
         return itemRarity;

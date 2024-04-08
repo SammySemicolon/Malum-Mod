@@ -18,7 +18,7 @@ public class CurioNarrowNecklace extends MalumCurioItem {
 
     @Override
     public void addExtraTooltipLines(Consumer<Component> consumer) {
-        consumer.accept(negativeEffect("malum.gui.curio.effect.necklace_of_the_narrow_edge"));
+        consumer.accept(negativeEffect("no_sweep"));
     }
 
     @Override

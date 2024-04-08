@@ -23,7 +23,7 @@ public class CurioGluttonousBrooch extends MalumCurioItem {
 
     @Override
     public void addExtraTooltipLines(Consumer<Component> consumer) {
-        consumer.accept(negativeEffect("malum.gui.curio.effect.gluttonous_brooch"));
+        consumer.accept(negativeEffect("hunger_drain"));
     }
 
     @Override

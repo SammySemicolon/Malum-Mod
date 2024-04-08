@@ -200,7 +200,7 @@ public class MalumLang extends LanguageProvider {
         add("malum.gui.curio.effect.spirits_add_health", "Spirit Collection Grants Extra Hearts");
         add("malum.gui.curio.effect.hunger_drain", "Actively Drains Hunger");
         add("malum.gui.curio.effect.eat_rotten", "Rotten Foods are Tastier");
-        add("malum.gui.curio.effect.gluttony", "Eating Rotten Foods Extends Gluttony");
+        add("malum.gui.curio.effect.growing_gluttony", "Eating Rotten Foods Extends Gluttony");
         add("malum.gui.curio.effect.explosion_drops_collected", "Automatic Collection of Explosion Drops");
         add("malum.gui.curio.effect.bigger_explosions", "Improves Explosions");
         add("malum.gui.curio.effect.better_conduit_power", "Conduit Power Provides Numerous Benefits");
@@ -211,7 +211,6 @@ public class MalumLang extends LanguageProvider {
         add("malum.gui.curio.effect.scythe_counterattack", "Powerful Scythe Counterattack When Struck");
         add("malum.gui.curio.effect.full_health_fake_collection", "Striking Full Health Targets Triggers Spirit Collection Effects");
         add("malum.gui.curio.effect.soul_ward_physical_absorption", "Soul Ward Absorbs Physical Damage Equally to Magic Damage");
-
         add("malum.gui.curio.effect.spirits_gluttony", "Spirit Collection Generates Gluttony");
         add("malum.gui.curio.effect.gluttony_magic_proficiency", "Gluttony Exchanges Hunger for Magic Proficiency");
         add("malum.gui.curio.effect.enchanted_explosions", "Explosions are Enchanted with %s");
