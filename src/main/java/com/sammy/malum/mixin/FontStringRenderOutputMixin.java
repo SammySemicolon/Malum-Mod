@@ -4,6 +4,7 @@ import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.WrapWithCondition;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.llamalad7.mixinextras.sugar.Local;
 import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -47,6 +48,8 @@ public class FontStringRenderOutputMixin {
 	@Shadow
 	private int packedLightCoords;
 
+	@Shadow @Final private boolean dropShadow;
+	@Shadow @Final private float a;
 	@Unique
 	private List<BakedGlyph.Effect> malum$inverseEffects;
 
@@ -61,17 +64,32 @@ public class FontStringRenderOutputMixin {
 	}
 
 	@WrapOperation(method = "accept", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/font/glyphs/BakedGlyph;renderType(Lnet/minecraft/client/gui/Font$DisplayMode;)Lnet/minecraft/client/renderer/RenderType;"))
-	public RenderType useSubtractiveRenderingType(BakedGlyph instance, Font.DisplayMode displayMode, Operation<RenderType> original, @Share("subtractiveEnabled") LocalBooleanRef subtractiveEnabled) {
-		if (subtractiveEnabled.get()) {
+	public RenderType useSubtractiveRenderingType(BakedGlyph instance, Font.DisplayMode displayMode, Operation<RenderType> original, @Local(ordinal = 0) float alpha, @Share("subtractiveEnabled") LocalBooleanRef subtractiveEnabled) {
+		if (subtractiveEnabled.get() && alpha >= 0.5f) {
 			return ((SubtractiveTextGlyphRenderTypes) (Object) ((AccessorBakedGlyph) instance).malum$getRenderTypes()).malum$getSubtractiveType();
 		}
 
 		return original.call(instance, displayMode);
 	}
 
-	@WrapWithCondition(method = "accept", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/Font$StringRenderOutput;addEffect(Lnet/minecraft/client/gui/font/glyphs/BakedGlyph$Effect;)V"))
-	public boolean flagEffectAsSubtractive(Font.StringRenderOutput self, BakedGlyph.Effect effect, @Share("subtractiveEnabled") LocalBooleanRef subtractiveEnabled) {
+	@WrapOperation(method = "accept", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/Font;renderChar(Lnet/minecraft/client/gui/font/glyphs/BakedGlyph;ZZFFFLorg/joml/Matrix4f;Lcom/mojang/blaze3d/vertex/VertexConsumer;FFFFI)V"))
+	public void shouldRenderCharacter(Font self, BakedGlyph glyph, boolean bold, boolean italic, float boldOffset, float x, float y, Matrix4f matrix, VertexConsumer vertexConsumer, float red, float green, float blue, float alpha, int packedLight, Operation<Void> original, @Share("subtractiveEnabled") LocalBooleanRef subtractiveEnabled) {
 		if (subtractiveEnabled.get()) {
+			if (dropShadow) return;
+
+			if (alpha >= 0.5f) {
+				red = green = blue = alpha * 2 - 1;
+			} else {
+				red = green = blue = 0;
+			}
+		}
+
+		original.call(self, glyph, bold, italic, boldOffset, x, y, matrix, vertexConsumer, red, green, blue, alpha, packedLight);
+	}
+
+	@WrapWithCondition(method = "accept", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/Font$StringRenderOutput;addEffect(Lnet/minecraft/client/gui/font/glyphs/BakedGlyph$Effect;)V"))
+	public boolean flagEffectAsSubtractive(Font.StringRenderOutput self, BakedGlyph.Effect effect, @Local(ordinal = 0) float alpha, @Share("subtractiveEnabled") LocalBooleanRef subtractiveEnabled) {
+		if (subtractiveEnabled.get() && !dropShadow && alpha >= 0.5f) {
 			if (malum$inverseEffects == null)
 				malum$inverseEffects = Lists.newArrayList();
 			malum$inverseEffects.add(effect);
