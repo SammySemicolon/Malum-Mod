@@ -1,7 +1,7 @@
 package com.sammy.malum.core.systems.spirit;
 
 import com.google.gson.JsonSyntaxException;
-import com.sammy.malum.core.helper.SpiritHelper;
+import com.sammy.malum.core.handlers.*;
 import com.sammy.malum.core.systems.recipe.SpiritWithCount;
 import com.sammy.malum.registry.common.SpiritTypeRegistry;
 import net.minecraft.nbt.CompoundTag;
@@ -71,7 +71,7 @@ public class MalumEntitySpiritData {
         } catch (JsonSyntaxException ignored) {
             // NO-OP
         }
-        return new MalumEntitySpiritData(SpiritHelper.getSpiritType(type), data, spiritItem);
+        return new MalumEntitySpiritData(SpiritHarvestHandler.getSpiritType(type), data, spiritItem);
     }
 
 

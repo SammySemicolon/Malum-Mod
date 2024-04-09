@@ -3,7 +3,7 @@ package com.sammy.malum.client.renderer.item;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.sammy.malum.common.block.storage.jar.SpiritJarBlockEntity;
 import com.sammy.malum.common.item.spirit.SpiritJarItem;
-import com.sammy.malum.core.helper.SpiritHelper;
+import com.sammy.malum.core.handlers.*;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import com.sammy.malum.registry.common.block.BlockRegistry;
 import net.minecraft.client.model.geom.EntityModelSet;
@@ -29,7 +29,7 @@ public class SpiritJarItemRenderer extends BlockEntityWithoutLevelRenderer {
     public void renderByItem(ItemStack pStack, ItemDisplayContext pTransformType, PoseStack pPoseStack, MultiBufferSource pBuffer, int pPackedLight, int pPackedOverlay) {
         if (pStack.getItem() instanceof SpiritJarItem) {
             if (pStack.hasTag() && pStack.getTag().contains("spirit")) {
-                MalumSpiritType spirit = SpiritHelper.getSpiritType(pStack.getTag().getString("spirit"));
+                MalumSpiritType spirit = SpiritHarvestHandler.getSpiritType(pStack.getTag().getString("spirit"));
                 int count = pStack.getTag().getInt("count");
                 jar.type = spirit;
                 jar.count = count;

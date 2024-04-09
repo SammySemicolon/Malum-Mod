@@ -1,4 +1,4 @@
-package com.sammy.malum.common.worldgen;
+package com.sammy.malum.common.worldgen.ore;
 
 import com.mojang.serialization.*;
 import net.minecraft.core.*;

@@ -1,22 +1,19 @@
-package com.sammy.malum.common.worldgen;
+package com.sammy.malum.common.worldgen.ore;
 
-import com.mojang.serialization.*;
 import com.sammy.malum.registry.common.block.*;
 import net.minecraft.core.*;
 import net.minecraft.util.*;
 import net.minecraft.world.level.*;
-import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.level.block.state.properties.*;
 import net.minecraft.world.level.chunk.*;
-import net.minecraft.world.level.levelgen.feature.*;
 import net.minecraft.world.level.levelgen.feature.configurations.*;
 
 import java.util.*;
 
 public class CthonicGoldOreFeature extends LayeredOreFeature{
-    public CthonicGoldOreFeature(Codec<OreConfiguration> pCodec) {
-        super(pCodec);
+    public CthonicGoldOreFeature() {
+        super(OreConfiguration.CODEC);
     }
 
     @Override

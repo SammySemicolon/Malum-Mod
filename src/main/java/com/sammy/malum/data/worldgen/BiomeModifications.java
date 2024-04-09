@@ -1,4 +1,4 @@
-package com.sammy.malum.data;
+package com.sammy.malum.data.worldgen;
 
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.registry.common.worldgen.BiomeTagRegistry;
@@ -48,15 +48,25 @@ public class BiomeModifications {
                         getPlacedHolderSet(context, PlacedFeatureRegistry.ORE_BLAZING_QUARTZ),
                         BiomeTagRegistry.HAS_BLAZING_QUARTZ, GenerationStep.Decoration.UNDERGROUND_ORES));
 
-        register(context, "runwood_tree", () ->
+        register(context, "runewood_tree", () ->
                 addFeatureModifier(context,
                         getPlacedHolderSet(context, PlacedFeatureRegistry.RUNEWOOD_TREE),
                         BiomeTagRegistry.HAS_RUNEWOOD, GenerationStep.Decoration.VEGETAL_DECORATION));
 
-        register(context, "rare_runwood_tree", () ->
+        register(context, "rare_runewood_tree", () ->
                 addFeatureModifier(context,
                         getPlacedHolderSet(context, PlacedFeatureRegistry.RARE_RUNEWOOD_TREE),
                         BiomeTagRegistry.HAS_RARE_RUNEWOOD, GenerationStep.Decoration.VEGETAL_DECORATION));
+
+        register(context, "azure_runewood_tree", () ->
+                addFeatureModifier(context,
+                        getPlacedHolderSet(context, PlacedFeatureRegistry.AZURE_RUNEWOOD_TREE),
+                        BiomeTagRegistry.HAS_AZURE_RUNEWOOD, GenerationStep.Decoration.VEGETAL_DECORATION));
+
+        register(context, "rare_azure_runewood_tree", () ->
+                addFeatureModifier(context,
+                        getPlacedHolderSet(context, PlacedFeatureRegistry.RARE_AZURE_RUNEWOOD_TREE),
+                        BiomeTagRegistry.HAS_RARE_AZURE_RUNEWOOD, GenerationStep.Decoration.VEGETAL_DECORATION));
 
         register(context, "quartz_geode", () ->
                 addFeatureModifier(context,

@@ -2,7 +2,7 @@ package com.sammy.malum.common.block.curiosities.totem;
 
 import com.sammy.malum.common.block.storage.stand.*;
 import com.sammy.malum.common.packets.particle.curiosities.rite.*;
-import com.sammy.malum.core.helper.*;
+import com.sammy.malum.core.handlers.*;
 import com.sammy.malum.core.systems.rites.*;
 import com.sammy.malum.core.systems.spirit.*;
 import com.sammy.malum.registry.common.*;
@@ -166,7 +166,7 @@ public class TotemBaseBlockEntity extends LodestoneBlockEntity {
         int size = compound.getInt("spiritCount");
         spirits.clear();
         for (int i = 0; i < size; i++) {
-            spirits.add(SpiritHelper.getSpiritType(compound.getString("spirit_" + i)));
+            spirits.add(SpiritHarvestHandler.getSpiritType(compound.getString("spirit_" + i)));
         }
         active = compound.getBoolean("active");
         progress = compound.getInt("progress");

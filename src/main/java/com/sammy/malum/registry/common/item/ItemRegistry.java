@@ -266,6 +266,10 @@ public class ItemRegistry {
     public static final RegistryObject<Item> HANGING_RUNEWOOD_LEAVES = register("hanging_runewood_leaves", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.HANGING_RUNEWOOD_LEAVES.get(), p));
     public static final RegistryObject<Item> RUNEWOOD_SAPLING = register("runewood_sapling", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.RUNEWOOD_SAPLING.get(), p));
 
+    public static final RegistryObject<Item> AZURE_RUNEWOOD_LEAVES = register("azure_runewood_leaves", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.AZURE_RUNEWOOD_LEAVES.get(), p));
+    public static final RegistryObject<Item> HANGING_AZURE_RUNEWOOD_LEAVES = register("hanging_azure_runewood_leaves", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.HANGING_AZURE_RUNEWOOD_LEAVES.get(), p));
+    public static final RegistryObject<Item> AZURE_RUNEWOOD_SAPLING = register("azure_runewood_sapling", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.AZURE_RUNEWOOD_SAPLING.get(), p));
+
     public static final RegistryObject<Item> RUNEWOOD_LOG = register("runewood_log", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.RUNEWOOD_LOG.get(), p));
     public static final RegistryObject<Item> STRIPPED_RUNEWOOD_LOG = register("stripped_runewood_log", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.STRIPPED_RUNEWOOD_LOG.get(), p));
     public static final RegistryObject<Item> RUNEWOOD = register("runewood", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.RUNEWOOD.get(), p));
@@ -766,7 +770,7 @@ public class ItemRegistry {
 
             DataHelper.takeAll(items, i -> i.get() instanceof BlockItem && ((BlockItem) i.get()).getBlock() instanceof MalumLeavesBlock).forEach(item -> {
                 MalumLeavesBlock malumLeavesBlock = (MalumLeavesBlock) ((BlockItem) item.get()).getBlock();
-                itemColors.register((s, c) -> ColorHelper.getColor(malumLeavesBlock.minColor), item.get());
+                itemColors.register((s, c) -> ColorHelper.getColor(malumLeavesBlock.maxColor), item.get());
             });
             DataHelper.takeAll(items, i -> i.get() instanceof EtherTorchItem || i.get() instanceof EtherBrazierItem).forEach(i -> itemColors.register((s, c) -> {
                 AbstractEtherItem etherItem = (AbstractEtherItem) s.getItem();

@@ -1,30 +1,25 @@
 package com.sammy.malum.common.block.nature.soulwood;
 
-import com.sammy.malum.common.block.nature.MalumSaplingBlock;
-import com.sammy.malum.common.item.spirit.SpiritShardItem;
-import com.sammy.malum.registry.common.SoundRegistry;
-import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
-import net.minecraft.world.phys.BlockHitResult;
-import net.minecraftforge.registries.RegistryObject;
+import com.sammy.malum.common.block.nature.*;
+import com.sammy.malum.common.item.spirit.*;
+import com.sammy.malum.registry.common.*;
+import net.minecraft.core.*;
+import net.minecraft.server.level.*;
+import net.minecraft.sounds.*;
+import net.minecraft.util.*;
+import net.minecraft.world.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.grower.*;
+import net.minecraft.world.level.block.state.*;
+import net.minecraft.world.phys.*;
 
-import static com.sammy.malum.registry.common.block.BlockTagRegistry.BLIGHTED_BLOCKS;
+import static com.sammy.malum.registry.common.block.BlockTagRegistry.*;
 
 public class SoulwoodGrowthBlock extends MalumSaplingBlock {
-    public SoulwoodGrowthBlock(Properties properties, RegistryObject<? extends Feature<NoneFeatureConfiguration>> tree) {
-        super(properties, tree);
+    public SoulwoodGrowthBlock(AbstractTreeGrower treeGrower, Properties properties) {
+        super(treeGrower, properties);
     }
 
     @Override

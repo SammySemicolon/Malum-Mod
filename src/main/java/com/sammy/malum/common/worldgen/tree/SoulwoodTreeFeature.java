@@ -1,4 +1,4 @@
-package com.sammy.malum.common.worldgen;
+package com.sammy.malum.common.worldgen.tree;
 
 import com.google.common.collect.*;
 import com.mojang.datafixers.util.*;
@@ -25,7 +25,8 @@ import java.lang.Math;
 import java.util.*;
 
 import static com.sammy.malum.common.block.blight.ClingingBlightBlock.BlightType.*;
-import static com.sammy.malum.common.worldgen.RunewoodTreeFeature.*;
+import static com.sammy.malum.common.worldgen.WorldgenHelper.*;
+import static com.sammy.malum.common.worldgen.tree.RunewoodTreeFeature.*;
 import static net.minecraft.tags.BlockTags.*;
 
 public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
@@ -33,39 +34,37 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
         super(NoneFeatureConfiguration.CODEC);
     }
 
-
-    private static final Direction[] DIRECTIONS = new Direction[]{Direction.NORTH, Direction.WEST, Direction.SOUTH, Direction.EAST};
     private static final PerlinSimplexNoise BLIGHT_NOISE = new PerlinSimplexNoise(new WorldgenRandom(new LegacyRandomSource(1234L)), ImmutableList.of(0));
 
     private static BlockState makeClingingBlight(ClingingBlightBlock.BlightType blightType, Direction direction) {
         return BlockRegistry.CLINGING_BLIGHT.get().defaultBlockState().setValue(ClingingBlightBlock.BLIGHT_TYPE, blightType).setValue(BlockStateProperties.HORIZONTAL_FACING, direction);
     }
 
-    private static int getSapBlockCount(RandomSource random) {
+    private int getSapBlockCount(RandomSource random) {
         return Mth.nextInt(random, 5, 7);
     }
-    private static int getTrunkHeight(RandomSource random) {
+    private int getTrunkHeight(RandomSource random) {
         return Mth.nextInt(random, 12, 18);
     }
-    private static int getTwistCooldown(RandomSource random) {
+    private int getTwistCooldown(RandomSource random) {
         return Mth.nextInt(random, 3, 5);
     }
-    private static int getTrunkTwistAmount(RandomSource random) {
+    private int getTrunkTwistAmount(RandomSource random) {
         return Mth.nextInt(random, 2, 6);
     }
-    private static int getSideTrunkHeight(RandomSource random) {
+    private int getSideTrunkHeight(RandomSource random) {
         return Mth.nextInt(random, 1, 3);
     }
-    private static int getDownwardsBranchOffset(RandomSource random) {
+    private int getDownwardsBranchOffset(RandomSource random) {
         return Mth.nextInt(random, 2, 4);
     }
-    private static int getBranchEndOffset(RandomSource random) {
+    private int getBranchEndOffset(RandomSource random) {
         return Mth.nextInt(random, 3, 5);
     }
-    private static int getBranchTwistAmount(RandomSource random) {
+    private int getBranchTwistAmount(RandomSource random) {
         return Mth.nextInt(random, 0, 2);
     }
-    private static int getBranchHeight(RandomSource random) {
+    private int getBranchHeight(RandomSource random) {
         return Mth.nextInt(random, 5, 6);
     }
 
@@ -249,7 +248,7 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
         return true;
     }
 
-    public static boolean downwardsTrunk(WorldGenLevel level, LodestoneBlockFiller filler, LodestoneBlockFiller blightFiller, Direction direction, BlockPos pos) {
+    public boolean downwardsTrunk(WorldGenLevel level, LodestoneBlockFiller filler, LodestoneBlockFiller blightFiller, Direction direction, BlockPos pos) {
         BlockState defaultLog = BlockRegistry.SOULWOOD_LOG.get().defaultBlockState();
         BlockState blightedLog = BlockRegistry.BLIGHTED_SOULWOOD.get().defaultBlockState();
         int i = 0;

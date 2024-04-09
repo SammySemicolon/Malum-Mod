@@ -1,13 +1,12 @@
 package com.sammy.malum.registry.common.worldgen;
 
 import com.sammy.malum.common.worldgen.*;
-import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.configurations.*;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import com.sammy.malum.common.worldgen.ore.*;
+import com.sammy.malum.common.worldgen.tree.*;
+import net.minecraft.world.level.levelgen.feature.*;
+import net.minecraftforge.registries.*;
 
-import static com.sammy.malum.MalumMod.MALUM;
+import static com.sammy.malum.MalumMod.*;
 
 public class FeatureRegistry {
 
@@ -16,5 +15,5 @@ public class FeatureRegistry {
     public static final RegistryObject<WeepingWellFeature> WEEPING_WELL = FEATURE_TYPES.register("weeping_well", WeepingWellFeature::new);
     public static final RegistryObject<RunewoodTreeFeature> RUNEWOOD_TREE = FEATURE_TYPES.register("runewood_tree", RunewoodTreeFeature::new);
     public static final RegistryObject<SoulwoodTreeFeature> SOULWOOD_TREE = FEATURE_TYPES.register("soulwood_tree", SoulwoodTreeFeature::new);
-    public static final RegistryObject<LayeredOreFeature> CTHONIC_GOLD_ORE = FEATURE_TYPES.register("cthonic_gold_ore", () -> new CthonicGoldOreFeature(OreConfiguration.CODEC));
+    public static final RegistryObject<LayeredOreFeature> CTHONIC_GOLD_ORE = FEATURE_TYPES.register("cthonic_gold_ore", CthonicGoldOreFeature::new);
 }

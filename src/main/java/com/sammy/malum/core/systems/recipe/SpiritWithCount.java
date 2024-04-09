@@ -2,7 +2,7 @@ package com.sammy.malum.core.systems.recipe;
 
 import com.google.gson.JsonObject;
 import com.sammy.malum.common.item.spirit.SpiritShardItem;
-import com.sammy.malum.core.helper.SpiritHelper;
+import com.sammy.malum.core.handlers.*;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -27,7 +27,7 @@ public class SpiritWithCount implements IRecipeComponent {
     }
 
     public static SpiritWithCount deserialize(JsonObject inputObject) {
-        MalumSpiritType type = SpiritHelper.getSpiritType(inputObject.get("type").getAsString());
+        MalumSpiritType type = SpiritHarvestHandler.getSpiritType(inputObject.get("type").getAsString());
         int count = 1;
         if (inputObject.has("count")) {
             count = inputObject.get("count").getAsInt();
@@ -55,7 +55,7 @@ public class SpiritWithCount implements IRecipeComponent {
     }
 
     public static SpiritWithCount load(CompoundTag tag) {
-        MalumSpiritType type = SpiritHelper.getSpiritType(tag.getString("type"));
+        MalumSpiritType type = SpiritHarvestHandler.getSpiritType(tag.getString("type"));
         int count = tag.getInt("count");
         return new SpiritWithCount(type, count);
     }

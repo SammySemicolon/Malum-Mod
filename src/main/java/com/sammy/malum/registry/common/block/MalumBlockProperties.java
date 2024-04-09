@@ -1,11 +1,12 @@
 package com.sammy.malum.registry.common.block;
 
-import com.sammy.malum.registry.common.SoundRegistry;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.SoundType;
-import net.minecraftforge.common.Tags;
-import team.lodestar.lodestone.systems.block.LodestoneBlockProperties;
+import com.sammy.malum.registry.common.*;
+import net.minecraft.tags.*;
+import net.minecraft.world.level.block.*;
+import net.minecraftforge.common.*;
+import team.lodestar.lodestone.systems.block.*;
+
+import java.awt.*;
 
 public class MalumBlockProperties {
 
@@ -32,6 +33,11 @@ public class MalumBlockProperties {
     public static LodestoneBlockProperties TWISTED_ROCK_BRICKS() {
         return TWISTED_ROCK().sound(SoundRegistry.TWISTED_ROCK_BRICKS);
     }
+
+    public static final Color RUNEWOOD_LEAVES_YELLOW = new Color(251, 193, 76);
+    public static final Color RUNEWOOD_LEAVES_ORANGE = new Color(217, 110, 23);
+    public static final Color AZURE_RUNEWOOD_LEAVES_CYAN = new Color(176, 234, 255);
+    public static final Color AZURE_RUNEWOOD_LEAVES_BLUE = new Color(64, 95, 157);
 
     public static LodestoneBlockProperties RUNEWOOD() {
         return new LodestoneBlockProperties()

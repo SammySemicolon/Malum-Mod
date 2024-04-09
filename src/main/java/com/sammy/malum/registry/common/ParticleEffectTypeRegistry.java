@@ -11,6 +11,7 @@ import com.sammy.malum.visual_effects.networked.generic.RisingSparklesParticleEf
 import com.sammy.malum.visual_effects.networked.nitrate.*;
 import com.sammy.malum.visual_effects.networked.ritual.*;
 import com.sammy.malum.visual_effects.networked.staff.*;
+import com.sammy.malum.visual_effects.networked.totem.*;
 import com.sammy.malum.visual_effects.networked.weeping_well.WeepingWellRadianceParticleEffect;
 import com.sammy.malum.visual_effects.networked.weeping_well.WeepingWellReactionParticleEffect;
 
@@ -36,6 +37,8 @@ public class ParticleEffectTypeRegistry {
     public static final ParticleEffectType SPIRIT_ALTAR_EATS_ITEM = new SpiritAltarEatItemParticleEffect("spirit_altar_eats_item");
 
     public static final ParticleEffectType SPIRIT_CRUCIBLE_CRAFTS = new SpiritCrucibleCraftParticleEffect("spirit_crucible_crafts");
+
+    public static final ParticleEffectType TOTEM_POLE_ACTIVATED = new TotemPoleActivatedParticleEffect("totem_pole_activated");
 
     public static final ParticleEffectType RITUAL_PLINTH_EATS_ITEM = new RitualPlinthAbsorbItemParticleEffect("ritual_plinth_eats_item");
     public static final ParticleEffectType RITUAL_PLINTH_EATS_SPIRIT = new RitualPlinthAbsorbSpiritParticleEffect("ritual_plinth_eats_spirit");
