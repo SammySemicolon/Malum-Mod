@@ -1,0 +1,10 @@
+{
+  "type": "malum:runewood_tree",
+  "config": {
+    "hangingLeaves": "malum:hanging_azure_runewood_leaves",
+    "leaves": "malum:azure_runewood_leaves",
+    "log": "malum:runewood_log",
+    "sapFilledLog": "malum:exposed_runewood_log",
+    "sapling": "malum:runewood_sapling"
+  }
+}

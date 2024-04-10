@@ -34,6 +34,7 @@ public class CurioVoraciousRing extends MalumCurioItem {
     @Override
     public void addExtraTooltipLines(Consumer<Component> consumer) {
         consumer.accept(positiveEffect("eat_rotten"));
+        consumer.accept(positiveEffect("growing_gluttony"));
     }
 
     @Override

@@ -7,7 +7,6 @@ import com.sammy.malum.common.packets.particle.curiosities.blight.BlightTransfor
 import com.sammy.malum.common.packets.particle.curiosities.rite.*;
 import com.sammy.malum.common.packets.particle.curiosities.rite.generic.BlockSparkleParticlePacket;
 import com.sammy.malum.common.packets.particle.curiosities.rite.generic.MajorEntityEffectParticlePacket;
-import com.sammy.malum.common.packets.particle.curiosities.rite.generic.TotemPoleActivationEffectPacket;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -33,7 +32,6 @@ public class PacketRegistry {
 
         MajorEntityEffectParticlePacket.register(MALUM_CHANNEL, index++);
 
-        TotemPoleActivationEffectPacket.register(MALUM_CHANNEL, index++);
         SacredMistRiteEffectPacket.register(MALUM_CHANNEL, index++);
         BlockSparkleParticlePacket.register(MALUM_CHANNEL, index++);
         InfernalAccelerationRiteEffectPacket.register(MALUM_CHANNEL, index++);

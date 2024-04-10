@@ -2,19 +2,21 @@ package com.sammy.malum.registry.client;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.*;
-import net.minecraft.client.renderer.*;
+import net.minecraft.Util;
+import net.minecraft.client.renderer.RenderStateShard;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.ForgeRenderTypes;
 import org.lwjgl.opengl.GL14;
-import team.lodestar.lodestone.registry.client.*;
-import team.lodestar.lodestone.systems.rendering.*;
-import team.lodestar.lodestone.systems.rendering.rendeertype.*;
+import team.lodestar.lodestone.registry.client.LodestoneRenderTypeRegistry;
+import team.lodestar.lodestone.registry.client.LodestoneShaderRegistry;
+import team.lodestar.lodestone.systems.rendering.StateShards;
+import team.lodestar.lodestone.systems.rendering.rendeertype.RenderTypeProvider;
 
-import java.util.function.*;
+import java.util.function.Function;
 
-import static com.mojang.blaze3d.vertex.DefaultVertexFormat.*;
-import static com.mojang.blaze3d.vertex.VertexFormat.Mode.*;
+import static com.mojang.blaze3d.vertex.DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP;
+import static com.mojang.blaze3d.vertex.VertexFormat.Mode.QUADS;
 
 public class RenderTypeRegistry extends RenderStateShard {
 
@@ -25,26 +27,25 @@ public class RenderTypeRegistry extends RenderStateShard {
                     .setTransparencyState(StateShards.ADDITIVE_TRANSPARENCY)
                     .setTextureState(texture)));
 
-
     private static final RenderStateShard.TransparencyStateShard SUBTRACTIVE_TEXT_TRANSPARENCY = new RenderStateShard.TransparencyStateShard("malum:subtractive_text_transparency", () -> {
         RenderSystem.enableBlend();
-        RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
-        GL14.glBlendEquation(GL14.GL_FUNC_SUBTRACT);
+        RenderSystem.blendFunc(GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ONE);
+        RenderSystem.blendEquation(GL14.GL_FUNC_SUBTRACT);
     }, () -> {
-        GL14.glBlendEquation(GL14.GL_FUNC_ADD);
-        RenderSystem.disableBlend();
+        RenderSystem.blendEquation(GL14.GL_FUNC_ADD);
         RenderSystem.defaultBlendFunc();
+        RenderSystem.disableBlend();
     });
 
     public static final Function<ResourceLocation, RenderType> SUBTRACTIVE_TEXT = Util.memoize((texture) ->
         LodestoneRenderTypeRegistry.createGenericRenderType("malum:subtractive_text", POSITION_COLOR_TEX_LIGHTMAP, QUADS, LodestoneRenderTypeRegistry.builder()
-            .setShaderState(RENDERTYPE_TEXT_SHADER)
+            .setShaderState(RENDERTYPE_TEXT_SEE_THROUGH_SHADER)
             .setTransparencyState(SUBTRACTIVE_TEXT_TRANSPARENCY)
             .setTextureState(new TextureStateShard(texture, ForgeRenderTypes.enableTextTextureLinearFiltering, false))));
 
     public static final Function<ResourceLocation, RenderType> SUBTRACTIVE_INTENSE_TEXT = Util.memoize((texture) ->
         LodestoneRenderTypeRegistry.createGenericRenderType("malum:subtractive_intense_text", POSITION_COLOR_TEX_LIGHTMAP, QUADS, LodestoneRenderTypeRegistry.builder()
-            .setShaderState(RENDERTYPE_TEXT_INTENSITY_SHADER)
+            .setShaderState(RENDERTYPE_TEXT_INTENSITY_SEE_THROUGH_SHADER)
             .setTransparencyState(SUBTRACTIVE_TEXT_TRANSPARENCY)
             .setTextureState(new TextureStateShard(texture, ForgeRenderTypes.enableTextTextureLinearFiltering, false))));
 

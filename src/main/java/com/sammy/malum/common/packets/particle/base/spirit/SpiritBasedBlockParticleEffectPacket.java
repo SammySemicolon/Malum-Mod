@@ -1,7 +1,7 @@
 package com.sammy.malum.common.packets.particle.base.spirit;
 
 import com.sammy.malum.common.packets.particle.base.BlockBasedParticleEffectPacket;
-import com.sammy.malum.core.helper.SpiritHelper;
+import com.sammy.malum.core.handlers.*;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
@@ -32,7 +32,7 @@ public abstract class SpiritBasedBlockParticleEffectPacket extends BlockBasedPar
     @OnlyIn(Dist.CLIENT)
     public void execute(Supplier<NetworkEvent.Context> context) {
         for (String string : spirits) {
-            execute(context, SpiritHelper.getSpiritType(string));
+            execute(context, SpiritHarvestHandler.getSpiritType(string));
         }
     }
 

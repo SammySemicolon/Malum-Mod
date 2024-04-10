@@ -1,7 +1,7 @@
 package com.sammy.malum.common.item.curiosities.weapons;
 
 import com.sammy.malum.common.packets.particle.curiosities.rite.generic.MajorEntityEffectParticlePacket;
-import com.sammy.malum.core.helper.SpiritHelper;
+import com.sammy.malum.core.handlers.*;
 import com.sammy.malum.common.item.IMalumEventResponderItem;
 import com.sammy.malum.registry.common.DamageTypeRegistry;
 import com.sammy.malum.registry.common.SoundRegistry;
@@ -31,7 +31,7 @@ public class TyrvingItem extends LodestoneSwordItem implements IMalumEventRespon
             return;
         }
         if (attacker.level() instanceof ServerLevel) {
-            float spiritCount = SpiritHelper.getEntitySpiritCount(target) * 2f;
+            float spiritCount = SpiritHarvestHandler.getSpiritCount(target) * 2f;
             if (target instanceof Player) {
                 spiritCount = 4 * Math.max(1, (1 + target.getArmorValue() / 12f) * (1 + (1 - 1 / (float) target.getArmorValue())) / 12f);
             }

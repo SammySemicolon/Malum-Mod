@@ -2,7 +2,7 @@ package com.sammy.malum.core.listeners;
 
 import com.google.gson.*;
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.core.helper.SpiritHelper;
+import com.sammy.malum.core.handlers.*;
 import com.sammy.malum.core.systems.recipe.SpiritWithCount;
 import com.sammy.malum.core.systems.spirit.MalumEntitySpiritData;
 import com.sammy.malum.registry.common.SpiritTypeRegistry;
@@ -88,7 +88,7 @@ public class SpiritDataReloadListener extends SimpleJsonResourceReloadListener {
                 HAS_NO_DATA.add(resourceLocation);
             } else {
                 JsonArray array = object.getAsJsonArray("spirits");
-                SPIRIT_DATA.put(resourceLocation, new MalumEntitySpiritData(SpiritHelper.getSpiritType(primaryType), getSpiritData(array), getSpiritItem(object)));
+                SPIRIT_DATA.put(resourceLocation, new MalumEntitySpiritData(SpiritHarvestHandler.getSpiritType(primaryType), getSpiritData(array), getSpiritItem(object)));
                 HAS_NO_DATA.remove(resourceLocation);
             }
         }
@@ -100,7 +100,7 @@ public class SpiritDataReloadListener extends SimpleJsonResourceReloadListener {
             JsonObject spiritObject = spiritElement.getAsJsonObject();
             String spiritName = spiritObject.getAsJsonPrimitive("spirit").getAsString();
             int count = spiritObject.getAsJsonPrimitive("count").getAsInt();
-            spiritData.add(new SpiritWithCount(SpiritHelper.getSpiritType(spiritName), count));
+            spiritData.add(new SpiritWithCount(SpiritHarvestHandler.getSpiritType(spiritName), count));
         }
         return spiritData;
     }

@@ -7,6 +7,7 @@ import com.sammy.malum.data.block.MalumBlockTags;
 import com.sammy.malum.data.item.MalumItemModels;
 import com.sammy.malum.data.item.MalumItemTags;
 import com.sammy.malum.data.recipe.*;
+import com.sammy.malum.data.worldgen.*;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
@@ -42,7 +43,7 @@ public class DataGenerators {
         generator.addProvider(event.includeServer(), new MalumBiomeTags(output, provider, helper));
         generator.addProvider(event.includeServer(), new MalumDamageTypeTags(output, provider, helper));
 
-        generator.addProvider(event.includeServer(), new RegistryDataGenerator(output, provider));
+        generator.addProvider(event.includeServer(), new WorldgenRegistryDataGenerator(output, provider));
         generator.addProvider(event.includeClient(), new MalumLang(output));
 
         generator.addProvider(event.includeServer(), new MalumCuriosThings(output, helper, provider));

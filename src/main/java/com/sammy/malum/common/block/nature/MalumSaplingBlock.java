@@ -1,30 +1,16 @@
 package com.sammy.malum.common.block.nature;
 
-import com.sammy.malum.registry.common.block.BlockTagRegistry;
-import com.sammy.malum.registry.common.worldgen.*;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Holder;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.SaplingBlock;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
-import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
-import net.minecraftforge.event.ForgeEventFactory;
-import net.minecraftforge.eventbus.api.Event;
-import net.minecraftforge.registries.RegistryObject;
-
-import java.util.function.Supplier;
+import com.sammy.malum.registry.common.block.*;
+import net.minecraft.core.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.grower.*;
+import net.minecraft.world.level.block.state.*;
 
 public class MalumSaplingBlock extends SaplingBlock {
-    public final Supplier<? extends Feature<NoneFeatureConfiguration>> tree;
 
-    public MalumSaplingBlock(Properties properties, RegistryObject<? extends Feature<NoneFeatureConfiguration>> tree) {
-        super(null, properties);
-        this.tree = tree;
+    public MalumSaplingBlock(AbstractTreeGrower treeGrower, Properties properties) {
+        super(treeGrower, properties);
     }
 
     @Override
@@ -33,14 +19,5 @@ public class MalumSaplingBlock extends SaplingBlock {
             return true;
         }
         return super.canSurvive(pState, pLevel, pPos);
-    }
-
-    @Override
-    public void advanceTree(ServerLevel level, BlockPos pos, BlockState state, RandomSource rand) {
-        if (state.getValue(STAGE) == 0) {
-            level.setBlock(pos, state.cycle(STAGE), 4);
-        } else {
-            tree.get().place(NoneFeatureConfiguration.INSTANCE, level, level.getChunkSource().getGenerator(), rand, pos);
-        }
     }
 }

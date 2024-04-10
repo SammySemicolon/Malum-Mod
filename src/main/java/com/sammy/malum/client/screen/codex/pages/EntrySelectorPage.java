@@ -19,10 +19,11 @@ public class EntrySelectorPage<T extends AbstractProgressionCodexScreen<T>> exte
 
     public EntrySelectorPage(List<EntryChoice<T>> entries) {
         super(null);
+        boolean isWide = entries.size() > 4;
         for (int i = 0; i < entries.size(); i++) {
             var entry = entries.get(i);
-            int xOffset = i % 2 == 1 ? 88 : 24;
-            int yOffset = 12 + (i / 2) * 40;
+            int xOffset = isWide ? (i % 2 == 1 ? 88 : 24) : 66;
+            int yOffset = 12 + (isWide ? i / 2 : i) * 40;
             bookObjectHandler.add(new SelectableEntryObject<>(xOffset, yOffset, entry));
         }
     }

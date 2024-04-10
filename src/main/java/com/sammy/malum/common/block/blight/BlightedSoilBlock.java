@@ -2,7 +2,7 @@ package com.sammy.malum.common.block.blight;
 
 import com.sammy.malum.common.item.spirit.SpiritShardItem;
 import com.sammy.malum.common.worldevent.ActiveBlightEvent;
-import com.sammy.malum.common.worldgen.SoulwoodTreeFeature;
+import com.sammy.malum.common.worldgen.tree.SoulwoodTreeFeature;
 import com.sammy.malum.registry.common.SoundRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;

@@ -3,12 +3,12 @@ package com.sammy.malum.common.block.curiosities.totem;
 import com.google.common.collect.*;
 import com.sammy.malum.common.block.storage.stand.*;
 import com.sammy.malum.common.item.curiosities.tools.*;
-import com.sammy.malum.common.packets.particle.curiosities.rite.generic.*;
-import com.sammy.malum.core.helper.*;
+import com.sammy.malum.core.handlers.*;
 import com.sammy.malum.core.systems.spirit.*;
 import com.sammy.malum.registry.common.*;
 import com.sammy.malum.registry.common.block.*;
 import com.sammy.malum.visual_effects.*;
+import com.sammy.malum.visual_effects.networked.data.*;
 import net.minecraft.core.*;
 import net.minecraft.nbt.*;
 import net.minecraft.sounds.*;
@@ -20,23 +20,12 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.level.block.state.properties.*;
-import net.minecraft.world.phys.*;
 import net.minecraftforge.common.*;
-import net.minecraftforge.network.*;
 import team.lodestar.lodestone.helpers.*;
-import team.lodestar.lodestone.registry.common.particle.*;
 import team.lodestar.lodestone.systems.blockentity.*;
-import team.lodestar.lodestone.systems.easing.*;
-import team.lodestar.lodestone.systems.particle.*;
-import team.lodestar.lodestone.systems.particle.builder.*;
-import team.lodestar.lodestone.systems.particle.data.*;
-import team.lodestar.lodestone.systems.particle.data.color.*;
-import team.lodestar.lodestone.systems.particle.data.spin.*;
 
 import javax.annotation.*;
 import java.util.*;
-
-import static com.sammy.malum.registry.common.PacketRegistry.*;
 
 public class TotemPoleBlockEntity extends LodestoneBlockEntity {
 
@@ -71,18 +60,13 @@ public class TotemPoleBlockEntity extends LodestoneBlockEntity {
     @Override
     public InteractionResult onUse(Player player, InteractionHand hand) {
         ItemStack held = player.getItemInHand(hand);
+        boolean success = false;
         if (held.getItem() instanceof TotemicStaffItem && !totemPoleState.equals(TotemPoleState.ACTIVE) && !totemPoleState.equals(TotemPoleState.CHARGING)) {
             if (level.isClientSide) {
                 return InteractionResult.SUCCESS;
             }
             totemPoleState = totemPoleState.equals(TotemPoleState.INACTIVE) ? TotemPoleState.VISUAL_ONLY : TotemPoleState.INACTIVE;
-            MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new TotemPoleActivationEffectPacket(type.getPrimaryColor(), worldPosition));
-            level.playSound(null, worldPosition, SoundRegistry.TOTEM_ENGRAVE.get(), SoundSource.BLOCKS, 1, Mth.nextFloat(level.random, 0.9f, 1.1f));
-            if (isSoulwood) {
-                level.playSound(null, worldPosition, SoundRegistry.MAJOR_BLIGHT_MOTIF.get(), SoundSource.BLOCKS, 1, 1);
-            }
-            BlockHelper.updateState(level, worldPosition);
-            return InteractionResult.SUCCESS;
+            success = true;
         }
         else if (held.canPerformAction(ToolActions.AXE_STRIP)) {
             if (level.isClientSide) {
@@ -90,14 +74,18 @@ public class TotemPoleBlockEntity extends LodestoneBlockEntity {
             }
             if (type != null) {
                 level.setBlockAndUpdate(worldPosition, logBlock.defaultBlockState());
-                MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new TotemPoleActivationEffectPacket(type.getPrimaryColor(), worldPosition));
-                level.playSound(null, worldPosition, SoundEvents.AXE_STRIP, SoundSource.BLOCKS, 1, 1);
-                if (isSoulwood) {
-                    level.playSound(null, worldPosition, SoundRegistry.MAJOR_BLIGHT_MOTIF.get(), SoundSource.BLOCKS, 1, 1);
-                }
+                success = true;
                 onBreak(player);
-                return InteractionResult.SUCCESS;
             }
+        }
+        if (success) {
+            ParticleEffectTypeRegistry.TOTEM_POLE_ACTIVATED.createPositionedEffect(level, new PositionEffectData(worldPosition));
+            level.playSound(null, worldPosition, SoundRegistry.TOTEM_ENGRAVE.get(), SoundSource.BLOCKS, 1, Mth.nextFloat(level.random, 0.9f, 1.1f));
+            if (isSoulwood) {
+                level.playSound(null, worldPosition, SoundRegistry.MAJOR_BLIGHT_MOTIF.get(), SoundSource.BLOCKS, 1, 1);
+            }
+            BlockHelper.updateState(level, worldPosition);
+            return InteractionResult.SUCCESS;
         }
         return super.onUse(player, hand);
     }
@@ -122,7 +110,7 @@ public class TotemPoleBlockEntity extends LodestoneBlockEntity {
     @Override
     public void load(CompoundTag compound) {
         if (compound.contains("type")) {
-            type = SpiritHelper.getSpiritType(compound.getString("type"));
+            type = SpiritHarvestHandler.getSpiritType(compound.getString("type"));
         }
         totemPoleState = compound.contains("totemPoleState") ? TotemPoleState.values()[compound.getInt("totemPoleState")] : TotemPoleState.INACTIVE;
         chargeProgress = compound.getInt("chargeProgress");
@@ -141,7 +129,6 @@ public class TotemPoleBlockEntity extends LodestoneBlockEntity {
     @Override
     public void tick() {
         super.tick();
-
         if (totemPoleState.equals(TotemPoleState.INACTIVE)) {
             chargeProgress = chargeProgress > 0 ? chargeProgress - 1 : 0;
         } else {
@@ -151,9 +138,6 @@ public class TotemPoleBlockEntity extends LodestoneBlockEntity {
         if (level.isClientSide) {
             if (type != null && totemPoleState.equals(TotemPoleState.ACTIVE)) {
                 TotemParticleEffects.activeTotemPoleParticles(this);
-                if (totemBase != null && totemBase.rite != null) {
-                    getFilters().forEach(this::filterParticles);
-                }
             }
         }
     }
@@ -172,7 +156,7 @@ public class TotemPoleBlockEntity extends LodestoneBlockEntity {
     public void setSpirit(MalumSpiritType type) {
         level.playSound(null, worldPosition, SoundRegistry.TOTEM_ENGRAVE.get(), SoundSource.BLOCKS, 1, Mth.nextFloat(level.random, 0.9f, 1.1f));
         level.playSound(null, worldPosition, SoundEvents.AXE_STRIP, SoundSource.BLOCKS, 1, Mth.nextFloat(level.random, 0.9f, 1.1f));
-        MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new TotemPoleActivationEffectPacket(type.getPrimaryColor(), worldPosition));
+        ParticleEffectTypeRegistry.TOTEM_POLE_ACTIVATED.createPositionedEffect(level, new PositionEffectData(worldPosition));
         this.type = type;
         this.chargeProgress = 10;
         BlockHelper.updateState(level, worldPosition);
@@ -180,7 +164,7 @@ public class TotemPoleBlockEntity extends LodestoneBlockEntity {
 
     public void riteStarting(TotemBaseBlockEntity totemBase, int height) {
         level.playSound(null, worldPosition, SoundRegistry.TOTEM_CHARGE.get(), SoundSource.BLOCKS, 1, 0.9f + 0.2f * height);
-        MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new TotemPoleActivationEffectPacket(type.getPrimaryColor(), worldPosition));
+        ParticleEffectTypeRegistry.TOTEM_POLE_ACTIVATED.createPositionedEffect(level, new PositionEffectData(worldPosition));
         this.totemBaseYLevel = worldPosition.getY() - height;
         this.totemBase = totemBase;
         this.totemPoleState = TotemPoleState.CHARGING;
@@ -206,26 +190,6 @@ public class TotemPoleBlockEntity extends LodestoneBlockEntity {
         if (level.getBlockEntity(basePos) instanceof TotemBaseBlockEntity base) {
             if (base.active) {
                 base.endRite();
-            }
-        }
-    }
-
-    public void filterParticles(ItemStandBlockEntity itemStandBlockEntity) {
-        if (level.getGameTime() % 6L == 0) {
-            if (!itemStandBlockEntity.inventory.getStackInSlot(0).isEmpty()) {
-                Vec3 itemPos = itemStandBlockEntity.getItemPos();
-                WorldParticleBuilder.create(LodestoneParticleRegistry.STAR_PARTICLE)
-                        .setTransparencyData(GenericParticleData.create(0.04f, 0.1f, 0f).build())
-                        .setScaleData(GenericParticleData.create(0.5f, 1f + level.random.nextFloat() * 0.1f, 0).setEasing(Easing.QUINTIC_IN, Easing.CUBIC_IN_OUT).build())
-                        .setSpinData(SpinParticleData.create(0, 0.2f, 0).setSpinOffset((level.getGameTime() * 0.02f) % 360).setEasing(Easing.CUBIC_IN, Easing.EXPO_IN).build())
-                        .setColorData(ColorParticleData.create(type.getPrimaryColor(), type.getSecondaryColor()).setEasing(Easing.BOUNCE_IN_OUT).setCoefficient(0.5f).build())
-                        .setLifetime(25)
-                        .setRandomOffset(0.1)
-                        .setRandomMotion(0.02f)
-                        .setRandomMotion(0.0025f, 0.0025f)
-                        .enableNoClip()
-                        .setDiscardFunction(SimpleParticleOptions.ParticleDiscardFunctionType.ENDING_CURVE_INVISIBLE)
-                        .spawn(level, itemPos.x, itemPos.y, itemPos.z);
             }
         }
     }

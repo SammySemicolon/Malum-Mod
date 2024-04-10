@@ -3,7 +3,6 @@ package com.sammy.malum.core.handlers;
 import com.sammy.malum.common.capability.MalumLivingEntityDataCapability;
 import com.sammy.malum.common.capability.MalumPlayerDataCapability;
 import com.sammy.malum.config.CommonConfig;
-import com.sammy.malum.core.helper.SpiritHelper;
 import com.sammy.malum.core.listeners.ReapingDataReloadListener;
 import com.sammy.malum.registry.common.item.ItemRegistry;
 import net.minecraft.util.Mth;
@@ -39,7 +38,7 @@ public class EsotericReapingHandler {
                 MalumPlayerDataCapability.getCapabilityOptional(player).ifPresent(c -> {
                     if (!c.obtainedEncyclopedia && player.getRandom().nextFloat() < 0.2f) {
                         c.obtainedEncyclopedia = true;
-                        SpiritHelper.createSpiritEntities(List.of(ItemRegistry.ENCYCLOPEDIA_ARCANA.get().getDefaultInstance()), target, 1.25f, player);
+                        SpiritHarvestHandler.createSpirits(List.of(ItemRegistry.ENCYCLOPEDIA_ARCANA.get().getDefaultInstance()), target, 1.25f, player);
                     }
                 });
             }

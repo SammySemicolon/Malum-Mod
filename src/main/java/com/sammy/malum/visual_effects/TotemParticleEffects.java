@@ -24,7 +24,7 @@ public class TotemParticleEffects {
             for (int i = 0; i < 2; i++) {
                 float velocity = RandomHelper.randomBetween(random, 0.005f, 0.015f);
                 Vec3 offsetPosition = DataHelper.rotatingRadialOffset(totemPoleBlockEntity.getBlockPos().getCenter(), 0.9f, i, 2, gameTime, time);
-                offsetPosition = offsetPosition.add(0, (Math.cos(((gameTime+i*240) % time) / time) * 0.25f) - 0.25f, 0);
+                offsetPosition = offsetPosition.add(0, (Math.cos(((gameTime + i * 240) % time) / time) * 0.25f) - 0.25f, 0);
                 var lightSpecs = spiritLightSpecs(level, offsetPosition, spiritType);
                 lightSpecs.getBuilder()
                         .multiplyLifetime(4.5f)
@@ -38,6 +38,33 @@ public class TotemParticleEffects {
                         .modifyData(WorldParticleBuilder::getScaleData, d -> d.multiplyValue(RandomHelper.randomBetween(random, 0.5f, 1f)));
                 lightSpecs.spawnParticles();
             }
+        }
+    }
+
+    public static void activateTotemPoleParticles(TotemPoleBlockEntity totemPoleBlockEntity) {
+        MalumSpiritType spiritType = totemPoleBlockEntity.type;
+        Level level = totemPoleBlockEntity.getLevel();
+        long gameTime = level.getGameTime();
+        var random = level.random;
+        final float time = 16;
+        for (int i = 0; i < 16; i++) {
+            float velocity = RandomHelper.randomBetween(random, 0.005f, 0.015f);
+            Vec3 offsetPosition = DataHelper.rotatingRadialOffset(totemPoleBlockEntity.getBlockPos().getCenter(), 0.85f, i, 16, gameTime, time);
+            offsetPosition = offsetPosition.add(0, (Math.cos(((gameTime + i * 240) % time) / time) * 0.25f) - 0.25f, 0);
+            var lightSpecs = spiritLightSpecs(level, offsetPosition, spiritType);
+            lightSpecs.getBuilder()
+                    .multiplyLifetime(2.5f)
+                    .setMotion(0, velocity, 0)
+                    .setLifeDelay(i)
+                    .setTransparencyData(GenericParticleData.create(0.2f, 0.8f, 0f).build())
+                    .modifyData(WorldParticleBuilder::getScaleData, d -> d.multiplyValue(RandomHelper.randomBetween(random, 1f, 2f)));
+            lightSpecs.getBloomBuilder()
+                    .multiplyLifetime(1.5f)
+                    .setMotion(0, velocity, 0)
+                    .setLifeDelay(i)
+                    .setTransparencyData(GenericParticleData.create(0.05f, 0.35f, 0f).build())
+                    .modifyData(WorldParticleBuilder::getScaleData, d -> d.multiplyValue(RandomHelper.randomBetween(random, 0.5f, 1f)));
+            lightSpecs.spawnParticles();
         }
     }
 }
