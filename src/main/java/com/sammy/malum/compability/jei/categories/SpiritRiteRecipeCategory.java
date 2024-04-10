@@ -3,7 +3,7 @@ package com.sammy.malum.compability.jei.categories;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.client.screen.codex.ArcanaCodexHelper;
 import com.sammy.malum.compability.jei.JEIHandler;
-import com.sammy.malum.core.systems.rites.MalumRiteType;
+import com.sammy.malum.common.spiritrite.TotemicRiteType;
 import com.sammy.malum.registry.common.item.ItemRegistry;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
@@ -26,7 +26,7 @@ import javax.annotation.Nonnull;
 
 import static com.sammy.malum.MalumMod.malumPath;
 
-public class SpiritRiteRecipeCategory implements IRecipeCategory<MalumRiteType> {
+public class SpiritRiteRecipeCategory implements IRecipeCategory<TotemicRiteType> {
     public static final ResourceLocation UID = malumPath("spirit_rite");
     private final IDrawable background;
     private final IDrawable overlay;
@@ -41,14 +41,14 @@ public class SpiritRiteRecipeCategory implements IRecipeCategory<MalumRiteType> 
     }
 
     @Override
-    public void draw(MalumRiteType rite, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+    public void draw(TotemicRiteType rite, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
         overlay.draw(guiGraphics);
         String translated = I18n.get(rite.translationIdentifier(false));
         ArcanaCodexHelper.renderText(guiGraphics, Component.literal(translated), 71 - font.width(translated) / 2, 160);
     }
 
     @Override
-    public RecipeType<MalumRiteType> getRecipeType() {
+    public RecipeType<TotemicRiteType> getRecipeType() {
         return JEIHandler.RITES;
     }
 
@@ -71,7 +71,7 @@ public class SpiritRiteRecipeCategory implements IRecipeCategory<MalumRiteType> 
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder builder, MalumRiteType rite, IFocusGroup focuses) {
+    public void setRecipe(IRecipeLayoutBuilder builder, TotemicRiteType rite, IFocusGroup focuses) {
         for (int i = 0; i < rite.spirits.size(); i++) {
             builder.addSlot(RecipeIngredientRole.CATALYST, 63, 121 - 20 * i)
                     .addItemStack(rite.spirits.get(i).spiritShard.get().getDefaultInstance());

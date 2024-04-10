@@ -4,7 +4,7 @@ import com.mojang.blaze3d.vertex.*;
 import com.sammy.malum.*;
 import com.sammy.malum.client.screen.codex.pages.*;
 import com.sammy.malum.client.screen.codex.screens.*;
-import com.sammy.malum.core.systems.rites.*;
+import com.sammy.malum.common.spiritrite.*;
 import com.sammy.malum.core.systems.spirit.*;
 import net.minecraft.client.*;
 import net.minecraft.client.gui.*;
@@ -29,9 +29,9 @@ public class SpiritRiteRecipePage<T extends AbstractProgressionCodexScreen<T>> e
 
     private static final ScreenParticleHolder RITE_PARTICLES = new ScreenParticleHolder();
 
-    private final MalumRiteType riteType;
+    private final TotemicRiteType riteType;
 
-    public SpiritRiteRecipePage(MalumRiteType riteType) {
+    public SpiritRiteRecipePage(TotemicRiteType riteType) {
         super(MalumMod.malumPath("textures/gui/book/pages/spirit_rite_recipe_page.png"));
         this.riteType = riteType;
     }

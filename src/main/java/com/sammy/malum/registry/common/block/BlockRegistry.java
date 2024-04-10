@@ -439,7 +439,6 @@ public class BlockRegistry {
             }, RUNEWOOD_LEAVES.get(), HANGING_RUNEWOOD_LEAVES.get(), AZURE_RUNEWOOD_LEAVES.get(), HANGING_AZURE_RUNEWOOD_LEAVES.get());
 
 
-
             blockColors.register((s, l, p, c) -> {
                 float distanceMax = MalumLeavesBlock.DISTANCE.getPossibleValues().size();
                 float distance = s.getValue(MalumLeavesBlock.DISTANCE);

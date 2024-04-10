@@ -61,7 +61,7 @@ public class MalignantStrongholdArmorModel extends LodestoneArmorModel {
         }
     }
 
-    public void updateGlow(List<MalumRuneCurioItem> runes) {
+    public void updateGlow(List<AbstractRuneCurioItem> runes) {
         activeGlows.clear();
         activeGlows.addAll(runes.stream().map(r -> r.spiritType).toList());
     }

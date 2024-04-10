@@ -4,7 +4,7 @@ import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.block.curiosities.spirit_crucible.*;
 import com.sammy.malum.common.block.ether.EtherWallTorchBlock;
 import com.sammy.malum.common.item.spirit.SpiritJarItem;
-import com.sammy.malum.core.systems.rites.*;
+import com.sammy.malum.common.spiritrite.*;
 import com.sammy.malum.core.systems.ritual.*;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import com.sammy.malum.registry.common.*;
@@ -135,11 +135,11 @@ public class MalumLang extends LanguageProvider {
         add("malum.gui.rite.type", "Type: ");
         add("malum.gui.rite.coverage", "Coverage: ");
 
-        addRiteEffectCategory(MalumRiteEffect.MalumRiteEffectCategory.AURA);
-        addRiteEffectCategory(MalumRiteEffect.MalumRiteEffectCategory.LIVING_ENTITY_EFFECT);
-        addRiteEffectCategory(MalumRiteEffect.MalumRiteEffectCategory.DIRECTIONAL_BLOCK_EFFECT);
-        addRiteEffectCategory(MalumRiteEffect.MalumRiteEffectCategory.RADIAL_BLOCK_EFFECT);
-        addRiteEffectCategory(MalumRiteEffect.MalumRiteEffectCategory.ONE_TIME_EFFECT);
+        addRiteEffectCategory(TotemicRiteEffect.MalumRiteEffectCategory.AURA);
+        addRiteEffectCategory(TotemicRiteEffect.MalumRiteEffectCategory.LIVING_ENTITY_EFFECT);
+        addRiteEffectCategory(TotemicRiteEffect.MalumRiteEffectCategory.DIRECTIONAL_BLOCK_EFFECT);
+        addRiteEffectCategory(TotemicRiteEffect.MalumRiteEffectCategory.RADIAL_BLOCK_EFFECT);
+        addRiteEffectCategory(TotemicRiteEffect.MalumRiteEffectCategory.ONE_TIME_EFFECT);
 
         addRite(SpiritRiteRegistry.SACRED_RITE, "Rite of Healing", "Rite of Nourishment");
         addRite(SpiritRiteRegistry.WICKED_RITE, "Rite of Decay", "Rite of Empowerment");
@@ -934,12 +934,12 @@ public class MalumLang extends LanguageProvider {
         add("tetra.material." + identifier + ".prefix", name);
     }
 
-    public void addRite(MalumRiteType riteType, String basicName, String corruptName) {
+    public void addRite(TotemicRiteType riteType, String basicName, String corruptName) {
         add(riteType.translationIdentifier(false), basicName);
         add(riteType.translationIdentifier(true), corruptName);
     }
 
-    public void addRiteEffectCategory(MalumRiteEffect.MalumRiteEffectCategory category) {
+    public void addRiteEffectCategory(TotemicRiteEffect.MalumRiteEffectCategory category) {
         add(category.getTranslationKey(), DataHelper.toTitleCase(category.name().toLowerCase(), "_"));
     }
 

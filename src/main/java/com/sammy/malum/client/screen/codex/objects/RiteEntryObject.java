@@ -3,7 +3,7 @@ package com.sammy.malum.client.screen.codex.objects;
 import com.sammy.malum.client.screen.codex.*;
 import com.sammy.malum.client.screen.codex.pages.text.*;
 import com.sammy.malum.client.screen.codex.screens.*;
-import com.sammy.malum.core.systems.rites.*;
+import com.sammy.malum.common.spiritrite.*;
 import net.minecraft.client.gui.*;
 
 import java.util.*;
@@ -11,7 +11,7 @@ import java.util.*;
 import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.*;
 
 public class RiteEntryObject<T extends AbstractProgressionCodexScreen<T>> extends ProgressionEntryObject<T> {
-    public final MalumRiteType riteType;
+    public final TotemicRiteType riteType;
 
     public RiteEntryObject(BookEntry<T> entry, int posX, int posY) {
         super(entry, posX, posY);

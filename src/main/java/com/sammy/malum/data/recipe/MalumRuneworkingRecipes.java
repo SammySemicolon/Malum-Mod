@@ -73,7 +73,7 @@ public class MalumRuneworkingRecipes implements IConditionBuilder {
                 .setSecondaryInput(ItemRegistry.EARTHEN_SPIRIT.get(), 16)
                 .build(consumer, "rune_of_toughness");
 
-        new RunicWorkbenchRecipeBuilder(ItemRegistry.RUNE_OF_HASTE.get(), 1)
+        new RunicWorkbenchRecipeBuilder(ItemRegistry.RUNE_OF_FERVOR.get(), 1)
                 .setPrimaryInput(ItemRegistry.TAINTED_ROCK_TABLET.get(), 1)
                 .setSecondaryInput(ItemRegistry.INFERNAL_SPIRIT.get(), 16)
                 .build(consumer, "rune_of_haste");

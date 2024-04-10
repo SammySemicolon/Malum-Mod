@@ -66,9 +66,9 @@ public class RuneWorkingEntries {
         );
 
         screen.addEntry("rune_of_haste", -13, 8, b -> b
-                .setWidgetConfig(w -> w.setIcon(RUNE_OF_HASTE))
+                .setWidgetConfig(w -> w.setIcon(RUNE_OF_FERVOR))
                 .addPage(new HeadlineTextPage<>("rune_of_haste", "rune_of_haste.1"))
-                .addPage(RuneworkingPage.fromOutput(RUNE_OF_HASTE.get()))
+                .addPage(RuneworkingPage.fromOutput(RUNE_OF_FERVOR.get()))
         );
 
         screen.addEntry("rune_of_aliment_cleansing", -13, 9, b -> b

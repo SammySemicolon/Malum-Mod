@@ -1,6 +1,6 @@
 package com.sammy.malum.mixin;
 
-import com.sammy.malum.common.item.curiosities.curios.runes.corrupted.*;
+import com.sammy.malum.common.item.curiosities.curios.runes.madness.*;
 import net.minecraft.client.player.*;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.*;

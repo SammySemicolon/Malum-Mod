@@ -62,6 +62,7 @@ public class RunewoodTreeFeature extends Feature<RunewoodTreeConfiguration> {
 
         LodestoneBlockFiller treeFiller = new LodestoneBlockFiller(false);
         LodestoneBlockFiller leavesFiller = new LodestoneBlockFiller(true);
+        LodestoneBlockFiller hangingLeavesFiller = new LodestoneBlockFiller(true);
 
         int trunkHeight = getTrunkHeight(rand);
         int sapBlockCount = getSapBlockCount(rand);
@@ -77,7 +78,7 @@ public class RunewoodTreeFeature extends Feature<RunewoodTreeConfiguration> {
             }
         }
 
-        makeLeafBlob(leaves, hangingLeaves, leavesFiller, trunkTop);
+        makeLeafBlob(leaves, hangingLeaves, leavesFiller, hangingLeavesFiller, trunkTop);
         for (Direction direction : DIRECTIONS) //side trunk placement
         {
             int sideTrunkHeight = getSideTrunkHeight(rand);
@@ -115,7 +116,7 @@ public class RunewoodTreeFeature extends Feature<RunewoodTreeConfiguration> {
                     return false;
                 }
             }
-            makeLeafBlob(leaves, hangingLeaves, leavesFiller, branchStartPos.above(1));
+            makeLeafBlob(leaves, hangingLeaves, leavesFiller, hangingLeavesFiller, branchStartPos.above(1));
         }
         ArrayList<BlockPos> sapBlockPositions = new ArrayList<>(treeFiller.getEntries().keySet());
         Collections.shuffle(sapBlockPositions);
@@ -125,6 +126,7 @@ public class RunewoodTreeFeature extends Feature<RunewoodTreeConfiguration> {
 
         treeFiller.fill(level);
         leavesFiller.fill(level);
+        hangingLeavesFiller.fill(level);
         updateLeaves(level, treeFiller.getEntries().keySet());
         return true;
     }
@@ -146,7 +148,7 @@ public class RunewoodTreeFeature extends Feature<RunewoodTreeConfiguration> {
         while (true);
     }
 
-    public void makeLeafBlob(Block leaves, Block hangingLeaves, LodestoneBlockFiller filler, BlockPos pos) {
+    public void makeLeafBlob(Block leaves, Block hangingLeaves, LodestoneBlockFiller filler, LodestoneBlockFiller hangingLeavesFiller, BlockPos pos) {
         final BlockPos.MutableBlockPos mutable = pos.mutable();
         int[] leafSizes = new int[]{1, 2, 2, 2, 1};
         int[] leafColors = new int[]{0, 1, 2, 3, 4};
@@ -155,7 +157,7 @@ public class RunewoodTreeFeature extends Feature<RunewoodTreeConfiguration> {
             int size = leafSizes[i];
             int color = leafColors[i];
             final BlockState state = hangingLeaves.defaultBlockState().setValue(MalumLeavesBlock.COLOR, color);
-            makeLeafSlice(filler, mutable, size, state);
+            makeLeafSlice(hangingLeavesFiller, mutable, size, state);
             mutable.move(Direction.UP);
         }
         mutable.move(Direction.DOWN, 1);

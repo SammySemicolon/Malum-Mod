@@ -2,8 +2,8 @@ package com.sammy.malum.common.block.curiosities.totem;
 
 import com.sammy.malum.common.block.storage.stand.*;
 import com.sammy.malum.common.packets.particle.curiosities.rite.*;
+import com.sammy.malum.common.spiritrite.*;
 import com.sammy.malum.core.handlers.*;
-import com.sammy.malum.core.systems.rites.*;
 import com.sammy.malum.core.systems.spirit.*;
 import com.sammy.malum.registry.common.*;
 import com.sammy.malum.registry.common.block.*;
@@ -27,7 +27,7 @@ import static net.minecraft.world.level.block.state.properties.BlockStatePropert
 
 public class TotemBaseBlockEntity extends LodestoneBlockEntity {
 
-    public MalumRiteType rite;
+    public TotemicRiteType rite;
     public List<MalumSpiritType> spirits = new ArrayList<>();
     public Set<BlockPos> poles = new HashSet<>();
     public Set<TotemPoleBlockEntity> cachedTotemPoleInstances = new HashSet<>();
@@ -74,7 +74,7 @@ public class TotemBaseBlockEntity extends LodestoneBlockEntity {
                     if (level.getBlockEntity(polePos) instanceof TotemPoleBlockEntity pole) {
                         addPole(pole);
                     } else {
-                        MalumRiteType rite = SpiritRiteRegistry.getRite(spirits);
+                        TotemicRiteType rite = SpiritRiteRegistry.getRite(spirits);
                         if (rite == null) {
                             endRite();
                         } else {
@@ -204,7 +204,7 @@ public class TotemBaseBlockEntity extends LodestoneBlockEntity {
         }
     }
 
-    public void completeRite(MalumRiteType rite) {
+    public void completeRite(TotemicRiteType rite) {
         level.playSound(null, worldPosition, SoundRegistry.TOTEM_ACTIVATED.get(), SoundSource.BLOCKS, 1, 0.75f + height * 0.1f);
         MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new SpiritRiteActivationEffectPacket(spirits.stream().map(s -> s.identifier).collect(Collectors.toCollection(ArrayList::new)), worldPosition.above()));
         poles.forEach(p -> {
@@ -215,7 +215,7 @@ public class TotemBaseBlockEntity extends LodestoneBlockEntity {
         progress = 0;
         this.rite = rite;
         rite.executeRite(this);
-        if (rite.effect.category.equals(MalumRiteEffect.MalumRiteEffectCategory.ONE_TIME_EFFECT)) {
+        if (rite.effect.category.equals(TotemicRiteEffect.MalumRiteEffectCategory.ONE_TIME_EFFECT)) {
             return;
         }
         disableOtherRites();

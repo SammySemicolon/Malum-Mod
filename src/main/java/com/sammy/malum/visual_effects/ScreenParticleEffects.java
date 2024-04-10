@@ -35,7 +35,7 @@ public class ScreenParticleEffects {
                 .setLifetime(RandomHelper.randomBetween(rand, 20, 30))
                 .setRandomOffset(0.05f)
                 .setRandomMotion(0.05f, 0.05f)
-                .spawnOnStack(1, -2);
+                .spawnOnStack(0, -1);
 
         ScreenParticleBuilder.create(LodestoneScreenParticleRegistry.WISP, target)
                 .setTransparencyData(GenericParticleData.create(0.015f, 0f).setEasing(Easing.SINE_IN_OUT).build())
@@ -50,7 +50,7 @@ public class ScreenParticleEffects {
                 .setSpinData(SpinParticleData.create(nextFloat(rand, 0.05f, 0.1f)).build())
                 .setScaleData(GenericParticleData.create(0.6f + rand.nextFloat() * 0.3f, 0f).build())
                 .setRandomMotion(0.01f, 0.01f)
-                .spawnOnStack(1, -2);
+                .spawnOnStack(0, -1);
     }
 
 

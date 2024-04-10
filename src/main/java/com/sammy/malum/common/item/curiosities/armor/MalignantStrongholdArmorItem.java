@@ -62,11 +62,11 @@ public class MalignantStrongholdArmorItem extends MalumArmorItem {
                 if (model instanceof MalignantStrongholdArmorModel malignantStrongholdArmorModel) {
                     final LazyOptional<ICuriosItemHandler> curiosInventory = CuriosApi.getCuriosInventory(entity);
                     if (curiosInventory.isPresent()) {
-                        final List<MalumRuneCurioItem> equippedRunes = curiosInventory
-                                .map(i -> i.findCurios(s -> s.getItem() instanceof MalumRuneCurioItem))
+                        final List<AbstractRuneCurioItem> equippedRunes = curiosInventory
+                                .map(i -> i.findCurios(s -> s.getItem() instanceof AbstractRuneCurioItem))
                                 .map(l -> l.stream()
                                         .filter(c -> c.slotContext().visible())
-                                        .map(c -> (MalumRuneCurioItem) c.stack().getItem()).collect(Collectors.toList()))
+                                        .map(c -> (AbstractRuneCurioItem) c.stack().getItem()).collect(Collectors.toList()))
                                 .orElse(Collections.emptyList());
                         malignantStrongholdArmorModel.updateGlow(equippedRunes);
                     }
