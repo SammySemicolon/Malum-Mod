@@ -12,6 +12,7 @@ import com.sammy.malum.registry.common.*;
 import net.minecraft.client.*;
 import net.minecraft.resources.*;
 import net.minecraftforge.common.*;
+import net.minecraftforge.registries.*;
 
 import java.util.*;
 
@@ -139,47 +140,18 @@ public class VoidProgressionScreen extends AbstractProgressionCodexScreen<VoidPr
                 .setWidgetConfig(w -> w.setIcon(BARRIER).setStyle(BookWidgetStyle.SOULWOOD))
         );
 
-
-        //TODO: this format kinda smells :(
         addEntry("void.runes", 3, 7, b -> b
                 .setWidgetConfig(w -> w.setIcon(RUNE_OF_THE_HERETIC).setStyle(BookWidgetStyle.SOULWOOD))
                 .addPage(new HeadlineTextPage<>("void.runes", "void.runes.1"))
-                .addPage(new EntrySelectorPage<>(List.of(
-                        new EntrySelectorPage.EntryChoice<>(RUNE_OF_BOLSTERING.get(),
-                                BookEntry.<VoidProgressionScreen>build("void.rune_of_bolstering")
-                                        .addPage(new HeadlineTextPage<>("void.rune_of_bolstering", "void.rune_of_bolstering.1"))
-                                        .addPage(RuneworkingPage.fromOutput(RUNE_OF_BOLSTERING.get()))),
-                        new EntrySelectorPage.EntryChoice<>(RUNE_OF_SACRIFICIAL_EMPOWERMENT.get(),
-                                BookEntry.<VoidProgressionScreen>build("void.rune_of_sacrificial_empowerment")
-                                        .addPage(new HeadlineTextPage<>("void.rune_of_sacrificial_empowerment", "void.rune_of_sacrificial_empowerment.1"))
-                                        .addPage(RuneworkingPage.fromOutput(RUNE_OF_SACRIFICIAL_EMPOWERMENT.get()))),
-                        new EntrySelectorPage.EntryChoice<>(RUNE_OF_SPELL_MASTERY.get(),
-                                BookEntry.<VoidProgressionScreen>build("void.rune_of_spell_mastery")
-                                        .addPage(new HeadlineTextPage<>("void.rune_of_spell_mastery", "void.rune_of_spell_mastery.1"))
-                                        .addPage(RuneworkingPage.fromOutput(RUNE_OF_SPELL_MASTERY.get()))),
-                        new EntrySelectorPage.EntryChoice<>(RUNE_OF_THE_HERETIC.get(),
-                                BookEntry.<VoidProgressionScreen>build("void.rune_of_the_heretic")
-                                        .addPage(new HeadlineTextPage<>("void.rune_of_the_heretic", "void.rune_of_the_heretic.1"))
-                                        .addPage(RuneworkingPage.fromOutput(RUNE_OF_THE_HERETIC.get()))),
-                        new EntrySelectorPage.EntryChoice<>(RUNE_OF_UNNATURAL_STAMINA.get(),
-                                BookEntry.<VoidProgressionScreen>build("void.rune_of_unnatural_stamina")
-                                        .addPage(new HeadlineTextPage<>("void.rune_of_unnatural_stamina", "void.rune_of_unnatural_stamina.1"))
-                                        .addPage(RuneworkingPage.fromOutput(RUNE_OF_UNNATURAL_STAMINA.get()))),
-                        new EntrySelectorPage.EntryChoice<>(RUNE_OF_TWINNED_DURATION.get(),
-                                BookEntry.<VoidProgressionScreen>build("void.rune_of_twinned_duration")
-                                        .addPage(new HeadlineTextPage<>("void.rune_of_twinned_duration", "void.rune_of_twinned_duration.1"))
-                                        .addPage(RuneworkingPage.fromOutput(RUNE_OF_TWINNED_DURATION.get()))),
-                        new EntrySelectorPage.EntryChoice<>(RUNE_OF_TOUGHNESS.get(),
-                                BookEntry.<VoidProgressionScreen>build("void.rune_of_toughness")
-                                        .addPage(new HeadlineTextPage<>("void.rune_of_toughness", "void.rune_of_toughness.1"))
-                                        .addPage(RuneworkingPage.fromOutput(RUNE_OF_TOUGHNESS.get()))),
-                        new EntrySelectorPage.EntryChoice<>(RUNE_OF_IGNEOUS_SOLACE.get(),
-                                BookEntry.<VoidProgressionScreen>build("void.rune_of_igneous_solace")
-                                        .addPage(new HeadlineTextPage<>("void.rune_of_igneous_solace", "void.rune_of_igneous_solace.1"))
-                                        .addPage(RuneworkingPage.fromOutput(RUNE_OF_IGNEOUS_SOLACE.get())))
-                )))
-
-
+                .addPage(new EntrySelectorPage<>(item -> {
+                    final String translationKey = "void." + ForgeRegistries.ITEMS.getKey(item);
+                    return new EntrySelectorPage.EntryChoice<>(item,
+                            BookEntry.<VoidProgressionScreen>build(translationKey)
+                                    .addPage(new HeadlineTextPage<>(translationKey))
+                                    .addPage(RuneworkingPage.fromOutput(item)));
+                },
+                        RUNE_OF_BOLSTERING.get(), RUNE_OF_SACRIFICIAL_EMPOWERMENT.get(), RUNE_OF_SPELL_MASTERY.get(), RUNE_OF_THE_HERETIC.get(),
+                        RUNE_OF_UNNATURAL_STAMINA.get(), RUNE_OF_TWINNED_DURATION.get(), RUNE_OF_TOUGHNESS.get(), RUNE_OF_IGNEOUS_SOLACE.get()))
         );
 
         addEntry("void.malignant_alloy", 6, 7, b -> b

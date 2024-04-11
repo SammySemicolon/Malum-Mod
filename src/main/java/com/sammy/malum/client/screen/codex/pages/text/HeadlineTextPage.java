@@ -13,6 +13,9 @@ public class HeadlineTextPage<T extends AbstractProgressionCodexScreen<T>> exten
     private final String headlineTranslationKey;
     private final String translationKey;
 
+    public HeadlineTextPage(String translationKey) {
+        this(translationKey, translationKey +".1");
+    }
     public HeadlineTextPage(String headlineTranslationKey, String translationKey) {
         super(MalumMod.malumPath("textures/gui/book/pages/headline_page.png"));
         this.headlineTranslationKey = headlineTranslationKey;

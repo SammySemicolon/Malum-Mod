@@ -7,10 +7,21 @@ import net.minecraft.client.gui.*;
 import net.minecraft.world.item.*;
 
 import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
 
 public class EntrySelectorPage<T extends AbstractProgressionCodexScreen<T>> extends BookPage<T> {
 
     public final BookObjectHandler<EntryScreen<T>> bookObjectHandler = new BookObjectHandler<>();
+
+
+    public<K> EntrySelectorPage(Function<K, EntryChoice<T>> mapper, K... objects) {
+        this(mapper, List.of(objects));
+    }
+
+    public<K> EntrySelectorPage(Function<K, EntryChoice<T>> mapper, Collection<K> objects) {
+        this(objects.stream().map(mapper).collect(Collectors.toList()));
+    }
 
     @SafeVarargs
     public EntrySelectorPage(EntryChoice<T>... entries) {
