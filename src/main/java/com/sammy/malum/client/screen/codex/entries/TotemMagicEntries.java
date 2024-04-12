@@ -2,12 +2,14 @@ package com.sammy.malum.client.screen.codex.entries;
 
 import com.sammy.malum.client.screen.codex.*;
 import com.sammy.malum.client.screen.codex.objects.*;
+import com.sammy.malum.client.screen.codex.pages.*;
 import com.sammy.malum.client.screen.codex.pages.recipe.*;
 import com.sammy.malum.client.screen.codex.pages.recipe.vanilla.*;
 import com.sammy.malum.client.screen.codex.pages.text.*;
 import com.sammy.malum.client.screen.codex.screens.*;
 import com.sammy.malum.registry.common.*;
 import net.minecraft.world.item.*;
+import net.minecraftforge.registries.*;
 
 import static com.sammy.malum.registry.common.item.ItemRegistry.*;
 import static net.minecraft.world.item.Items.*;
@@ -37,6 +39,20 @@ public class TotemMagicEntries {
                         EMPTY, STICK, EMPTY,
                         STICK, EMPTY, EMPTY
                 ))
+        );
+
+        screen.addEntry("totemic_runes", -6, 9, b -> b
+                .setWidgetConfig(w -> w.setIcon(RUNE_OF_WARDING).setStyle(BookWidgetStyle.SOULWOOD))
+                .addPage(new HeadlineTextPage<>("totemic_runes", "void.runes.1"))
+                .addPage(new EntrySelectorPage<>(item -> {
+                    final String translationKey = ForgeRegistries.ITEMS.getKey(item).getPath();
+                    return new EntrySelectorPage.EntryChoice<>(item,
+                            BookEntry.<ArcanaProgressionScreen>build(translationKey)
+                                    .addPage(new HeadlineTextPage<>(translationKey))
+                                    .addPage(RuneworkingPage.fromOutput(item)));
+                },
+                        RUNE_OF_MOTION.get(), RUNE_OF_LOYALTY.get(), RUNE_OF_WARDING.get(), RUNE_OF_HASTE.get(),
+                        RUNE_OF_THE_AETHER.get(), RUNE_OF_THE_SEAS.get(), RUNE_OF_THE_CHALLENGER.get(), RUNE_OF_THE_EXTINGUISHER.get()))
         );
 
         screen.addEntry("sacred_rite", -2, 10, b -> b

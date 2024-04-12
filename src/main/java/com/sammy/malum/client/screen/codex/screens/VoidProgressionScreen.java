@@ -144,7 +144,7 @@ public class VoidProgressionScreen extends AbstractProgressionCodexScreen<VoidPr
                 .setWidgetConfig(w -> w.setIcon(RUNE_OF_THE_HERETIC).setStyle(BookWidgetStyle.SOULWOOD))
                 .addPage(new HeadlineTextPage<>("void.runes", "void.runes.1"))
                 .addPage(new EntrySelectorPage<>(item -> {
-                    final String translationKey = "void." + ForgeRegistries.ITEMS.getKey(item);
+                    final String translationKey = "void." + ForgeRegistries.ITEMS.getKey(item).getPath();
                     return new EntrySelectorPage.EntryChoice<>(item,
                             BookEntry.<VoidProgressionScreen>build(translationKey)
                                     .addPage(new HeadlineTextPage<>(translationKey))
