@@ -10,7 +10,7 @@ import javax.annotation.*;
 
 import static com.sammy.malum.client.screen.codex.screens.EntryScreen.*;
 
-public abstract class BookPage<T extends AbstractProgressionCodexScreen<T>> {
+public abstract class BookPage<T extends AbstractMalumScreen<T>> {
     @Nullable
     protected final ResourceLocation background;
     protected BookEntry<T> bookEntry;
@@ -24,23 +24,23 @@ public abstract class BookPage<T extends AbstractProgressionCodexScreen<T>> {
     }
 
 
-    public void render(EntryScreen<T> screen, GuiGraphics guiGraphics, int left, int top, int mouseX, int mouseY, float partialTicks, boolean isRepeat) {
+    public void render(T screen, GuiGraphics guiGraphics, int left, int top, int mouseX, int mouseY, float partialTicks, boolean isRepeat) {
     }
-    public void renderLate(EntryScreen<T> screen, GuiGraphics guiGraphics, int left, int top, int mouseX, int mouseY, float partialTicks, boolean isRepeat) {
-    }
-
-    public void click(EntryScreen<T> screen, int left, int top, double mouseX, double mouseY, double relativeMouseX, double relativeMouseY) {
+    public void renderLate(T screen, GuiGraphics guiGraphics, int left, int top, int mouseX, int mouseY, float partialTicks, boolean isRepeat) {
     }
 
-
-    public void render(Minecraft minecraft, GuiGraphics guiGraphics, EntryScreen<T> screen, int mouseX, int mouseY, float partialTicks, boolean isRepeat) {
+    public void click(T screen, int left, int top, double mouseX, double mouseY, double relativeMouseX, double relativeMouseY) {
     }
 
-    public void renderLeft(Minecraft minecraft, GuiGraphics guiGraphics, EntryScreen<T> screen, int mouseX, int mouseY, float partialTicks) {
+
+    public void render(Minecraft minecraft, GuiGraphics guiGraphics, T screen, int mouseX, int mouseY, float partialTicks, boolean isRepeat) {
+    }
+
+    public void renderLeft(Minecraft minecraft, GuiGraphics guiGraphics, T screen, int mouseX, int mouseY, float partialTicks) {
 
     }
 
-    public void renderRight(Minecraft minecraft, GuiGraphics guiGraphics, EntryScreen<T> screen, int mouseX, int mouseY, float partialTicks) {
+    public void renderRight(Minecraft minecraft, GuiGraphics guiGraphics, T screen, int mouseX, int mouseY, float partialTicks) {
 
     }
 

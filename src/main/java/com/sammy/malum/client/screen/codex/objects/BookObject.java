@@ -6,7 +6,7 @@ import net.minecraft.resources.*;
 
 import static com.sammy.malum.MalumMod.*;
 
-public class BookObject<T extends AbstractMalumScreen> {
+public class BookObject<T extends AbstractMalumScreen<T>> {
 
     public static final ResourceLocation WIDGET_FADE_TEXTURE = malumPath("textures/gui/book/widget_fade.png");
 

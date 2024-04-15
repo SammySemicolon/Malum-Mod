@@ -25,7 +25,6 @@ public class AttributeRegistry {
 
     public static final RegistryObject<Attribute> RESERVE_STAFF_CHARGES = registerAttribute(ATTRIBUTES, MALUM, "reserve_staff_charges", (id) -> new RangedAttribute(id, 0D, 0.0D, 2048.0D).setSyncable(true));
 
-
     @SubscribeEvent
     public static void modifyEntityAttributes(EntityAttributeModificationEvent event) {
         event.getTypes().forEach(e -> {

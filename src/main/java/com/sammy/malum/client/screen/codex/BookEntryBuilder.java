@@ -1,14 +1,12 @@
 package com.sammy.malum.client.screen.codex;
 
 import com.google.common.collect.*;
-import com.sammy.malum.client.screen.codex.objects.*;
 import com.sammy.malum.client.screen.codex.pages.*;
 import com.sammy.malum.client.screen.codex.screens.*;
 
 import java.util.*;
-import java.util.function.*;
 
-public class BookEntryBuilder<T extends AbstractProgressionCodexScreen<T>> {
+public class BookEntryBuilder<T extends AbstractMalumScreen<T>> {
 
     protected final String identifier;
     protected final boolean isVoid;
@@ -17,8 +15,7 @@ public class BookEntryBuilder<T extends AbstractProgressionCodexScreen<T>> {
     protected int yOffset;
 
     protected List<BookPage<T>> pages = new ArrayList<>();
-    protected BookEntry.WidgetSupplier<T> widgetSupplier;
-    protected Consumer<ProgressionEntryObject<T>> widgetConfig;
+    protected List<EntryReference<T>> references = new ArrayList<>();
 
     public BookEntryBuilder(String identifier) {
         this.identifier = identifier;
@@ -29,7 +26,6 @@ public class BookEntryBuilder<T extends AbstractProgressionCodexScreen<T>> {
         this(identifier);
         this.xOffset = xOffset*40;
         this.yOffset = yOffset*40;
-        this.widgetSupplier = ProgressionEntryObject::new;
     }
 
     public BookEntryBuilder<T> addPage(BookPage<T> page) {
@@ -38,20 +34,15 @@ public class BookEntryBuilder<T extends AbstractProgressionCodexScreen<T>> {
         }
         return this;
     }
-
-    public BookEntryBuilder<T> setWidgetSupplier(BookEntry.WidgetSupplier<T> widgetSupplier) {
-        this.widgetSupplier = widgetSupplier;
-        return this;
-    }
-
-    public BookEntryBuilder<T> setWidgetConfig(Consumer<ProgressionEntryObject<T>> widgetConfig) {
-        this.widgetConfig = widgetConfig;
+    public BookEntryBuilder<T> addReference(EntryReference<T> reference) {
+        references.add(reference);
         return this;
     }
 
     public BookEntry<T> build() {
-        final ImmutableList<BookPage<T>> bookPages = ImmutableList.copyOf(pages);
-        final BookEntry<T> bookEntry = new BookEntry<>(identifier, isVoid, widgetSupplier != null ? new BookEntry.BookEntryWidgetPlacementData<>(xOffset, yOffset, widgetSupplier, widgetConfig) : null, bookPages);
+        ImmutableList<BookPage<T>> bookPages = ImmutableList.copyOf(pages);
+        ImmutableList<EntryReference<T>> entryReferences = ImmutableList.copyOf(references);
+        BookEntry<T> bookEntry = new BookEntry<>(identifier, isVoid, bookPages, entryReferences);
         bookPages.forEach(p -> p.setBookEntry(bookEntry));
         return bookEntry;
     }

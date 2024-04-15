@@ -1,7 +1,7 @@
 package com.sammy.malum.client.screen.codex.entries;
 
 import com.sammy.malum.client.screen.codex.*;
-import com.sammy.malum.client.screen.codex.objects.*;
+import com.sammy.malum.client.screen.codex.objects.progression.*;
 import com.sammy.malum.client.screen.codex.pages.text.*;
 import com.sammy.malum.client.screen.codex.screens.*;
 import com.sammy.malum.registry.common.*;

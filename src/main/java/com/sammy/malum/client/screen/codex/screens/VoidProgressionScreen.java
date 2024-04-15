@@ -2,7 +2,7 @@ package com.sammy.malum.client.screen.codex.screens;
 
 import com.mojang.blaze3d.vertex.*;
 import com.sammy.malum.client.screen.codex.*;
-import com.sammy.malum.client.screen.codex.objects.*;
+import com.sammy.malum.client.screen.codex.objects.progression.*;
 import com.sammy.malum.client.screen.codex.pages.*;
 import com.sammy.malum.client.screen.codex.pages.recipe.*;
 import com.sammy.malum.client.screen.codex.pages.text.*;
@@ -145,7 +145,7 @@ public class VoidProgressionScreen extends AbstractProgressionCodexScreen<VoidPr
                 .addPage(new HeadlineTextPage<>("void.runes", "void.runes.1"))
                 .addPage(new EntrySelectorPage<>(item -> {
                     final String translationKey = "void." + ForgeRegistries.ITEMS.getKey(item).getPath();
-                    return new EntrySelectorPage.EntryChoice<>(item,
+                    return new EntryReference<>(item,
                             BookEntry.<VoidProgressionScreen>build(translationKey)
                                     .addPage(new HeadlineTextPage<>(translationKey))
                                     .addPage(RuneworkingPage.fromOutput(item)));

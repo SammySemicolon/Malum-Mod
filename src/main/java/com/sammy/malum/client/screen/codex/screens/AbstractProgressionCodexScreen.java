@@ -2,6 +2,7 @@ package com.sammy.malum.client.screen.codex.screens;
 
 import com.mojang.blaze3d.vertex.*;
 import com.sammy.malum.client.screen.codex.*;
+import com.sammy.malum.client.screen.codex.handklers.*;
 import com.sammy.malum.client.screen.codex.objects.*;
 import com.sammy.malum.registry.common.*;
 import net.minecraft.client.*;
@@ -19,8 +20,7 @@ import static com.sammy.malum.MalumMod.*;
 import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.*;
 import static org.lwjgl.opengl.GL11C.*;
 
-@SuppressWarnings({"rawtypes", "unchecked"})
-public abstract class AbstractProgressionCodexScreen<T extends AbstractProgressionCodexScreen<T>> extends AbstractMalumScreen {
+public abstract class AbstractProgressionCodexScreen<T extends AbstractProgressionCodexScreen<T>> extends AbstractMalumScreen<T> {
 
     public static final ResourceLocation FRAME_TEXTURE = malumPath("textures/gui/book/frame.png");
     public static final ResourceLocation FRAME_FADE_TEXTURE = malumPath("textures/gui/book/frame_fade.png");
@@ -33,7 +33,7 @@ public abstract class AbstractProgressionCodexScreen<T extends AbstractProgressi
     public int transitionTimer;
     public int timesTransitioned;
 
-    public final EntryObjectHandler<T> bookObjectHandler = new EntryObjectHandler();
+    public final EntryObjectHandler<T> bookObjectHandler = new EntryObjectHandler<T>();
 
     public final int bookWidth;
     public final int bookHeight;
@@ -65,8 +65,8 @@ public abstract class AbstractProgressionCodexScreen<T extends AbstractProgressi
     public void addEntry(String identifier, int xOffset, int yOffset) {
         addEntry(identifier, xOffset, yOffset, b -> {});
     }
-    public void addEntry(String identifier, int xOffset, int yOffset, Consumer<BookEntryBuilder<T>> consumer) {
-        final BookEntryBuilder<T> builder = BookEntry.build(identifier, xOffset, yOffset);
+    public void addEntry(String identifier, int xOffset, int yOffset, Consumer<PlacedBookEntryBuilder<T>> consumer) {
+        final PlacedBookEntryBuilder<T> builder = BookEntry.build(identifier, xOffset, yOffset);
         consumer.accept(builder);
         getEntries().add(builder.build());
     }

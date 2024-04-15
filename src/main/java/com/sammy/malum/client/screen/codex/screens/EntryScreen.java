@@ -1,9 +1,12 @@
 package com.sammy.malum.client.screen.codex.screens;
 
+import com.google.common.collect.*;
 import com.mojang.blaze3d.vertex.*;
 import com.sammy.malum.*;
 import com.sammy.malum.client.screen.codex.*;
+import com.sammy.malum.client.screen.codex.handklers.*;
 import com.sammy.malum.client.screen.codex.objects.*;
+import com.sammy.malum.client.screen.codex.objects.progression.*;
 import com.sammy.malum.client.screen.codex.pages.*;
 import com.sammy.malum.config.*;
 import com.sammy.malum.registry.common.*;
@@ -18,7 +21,7 @@ import java.util.function.*;
 
 import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.*;
 
-public class EntryScreen<T extends AbstractProgressionCodexScreen<T>> extends AbstractMalumScreen {
+public class EntryScreen<T extends AbstractMalumScreen<T>> extends AbstractMalumScreen<T> {
 
     public static EntryScreen<?> entryScreen;
 
@@ -30,7 +33,7 @@ public class EntryScreen<T extends AbstractProgressionCodexScreen<T>> extends Ab
     public final BookEntry<T> openEntry;
     protected final Consumer<Boolean> onClose;
 
-    public final BookObjectHandler<EntryScreen<T>> bookObjectHandler = new BookObjectHandler<>();
+    public final BookObjectHandler<T> bookObjectHandler = new BookObjectHandler<>();
 
     public List<Runnable> lateRendering = new ArrayList<>();
     public int grouping;
@@ -39,8 +42,22 @@ public class EntryScreen<T extends AbstractProgressionCodexScreen<T>> extends Ab
         super(Component.empty(), openEntry.isVoid ? SoundRegistry.ARCANA_SWEETENER_EVIL : SoundRegistry.ARCANA_SWEETENER_NORMAL);
         this.openEntry = openEntry;
         this.onClose = onClose;
-        bookObjectHandler.add(new ArrowObject<>(-21, 150, false));
-        bookObjectHandler.add(new ArrowObject<>(bookWidth - 15, 150, true));
+        final int left = -21;
+        final int right = bookWidth - 15;
+        bookObjectHandler.add(new ArrowObject<>(left, 150, false));
+        bookObjectHandler.add(new ArrowObject<>(right, 150, true));
+
+        final ImmutableList<EntryReference<T>> references = openEntry.references;
+        if (references != null) {
+            int counter = 1;
+            for (int i = 0; i < references.size(); i++) {
+                final EntryReference<T> entryReference = references.get(i);
+                if (entryReference.entry.isValid((T) this)) {
+                    bookObjectHandler.add(new LinkedEntryObject<>(right, counter * 30, true, entryReference));
+                    counter++;
+                }
+            }
+        }
     }
 
     @Override
@@ -67,7 +84,7 @@ public class EntryScreen<T extends AbstractProgressionCodexScreen<T>> extends Ab
                 }
             }
         }
-        bookObjectHandler.renderObjects(this, guiGraphics, guiLeft, guiTop, mouseX, mouseY, partialTicks);
+        bookObjectHandler.renderObjects((T)this, guiGraphics, guiLeft, guiTop, mouseX, mouseY, partialTicks);
         if (!openEntry.pages.isEmpty()) {
             int openPages = grouping * 2;
             for (int i = openPages; i < openPages + 2; i++) {
@@ -77,8 +94,8 @@ public class EntryScreen<T extends AbstractProgressionCodexScreen<T>> extends Ab
                     int pageLeft = guiLeft + (isRightSide ? 161 : 9);
                     int pageTop = guiTop + 8;
                     boolean isRepeat = i % 2 != 0 && page.getClass().equals(openEntry.pages.get(i - 1).getClass());
-                    page.render(this, guiGraphics, pageLeft, pageTop, mouseX, mouseY, partialTicks, isRepeat);
-                    lateRendering.add(() -> page.renderLate(this, guiGraphics, pageLeft, pageTop, mouseX, mouseY, partialTicks, isRepeat));
+                    page.render((T)this, guiGraphics, pageLeft, pageTop, mouseX, mouseY, partialTicks, isRepeat);
+                    lateRendering.add(() -> page.renderLate((T)this, guiGraphics, pageLeft, pageTop, mouseX, mouseY, partialTicks, isRepeat));
                 }
             }
             lateRendering.forEach(Runnable::run);
@@ -88,7 +105,7 @@ public class EntryScreen<T extends AbstractProgressionCodexScreen<T>> extends Ab
 
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
-        bookObjectHandler.click(this, mouseX, mouseY);
+        bookObjectHandler.click((T)this, mouseX, mouseY);
 
         int guiLeft = getGuiLeft();
         int guiTop = getGuiTop();
@@ -104,7 +121,7 @@ public class EntryScreen<T extends AbstractProgressionCodexScreen<T>> extends Ab
                     if (isHovering(mouseX, mouseY, pageLeft, pageTop, 142, 172)) {
                         double relativeX = Mth.clamp(mouseX - guiLeft, guiLeft, guiLeft + 142);
                         double relativeY = Mth.clamp(mouseY - guiTop, guiTop, guiTop + 172);
-                        page.click(this, pageLeft, pageTop, mouseX, mouseY, relativeX, relativeY);
+                        page.click((T)this, pageLeft, pageTop, mouseX, mouseY, relativeX, relativeY);
                     }
                 }
             }
@@ -175,11 +192,11 @@ public class EntryScreen<T extends AbstractProgressionCodexScreen<T>> extends Ab
         });
     }
 
-    public static<T extends AbstractProgressionCodexScreen<T>> void openScreen(AbstractMalumScreen screen, BookEntry<T> entry) {
+    public static<T extends AbstractMalumScreen<T>> void openScreen(AbstractMalumScreen<T> screen, BookEntry<T> entry) {
         openScreen(entry, screen::openScreen);
     }
 
-    public static void openScreen(BookEntry<?> bookEntry, Consumer<Boolean> onClose) {
+    public static<T extends AbstractMalumScreen<T>> void openScreen(BookEntry<T> bookEntry, Consumer<Boolean> onClose) {
         entryScreen = new EntryScreen<>(bookEntry, onClose);
         entryScreen.playSweetenedSound(SoundRegistry.ARCANA_ENTRY_OPEN, 1.15f);
         Minecraft.getInstance().setScreen(entryScreen);

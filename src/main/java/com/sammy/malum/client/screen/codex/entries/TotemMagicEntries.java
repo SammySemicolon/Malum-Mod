@@ -1,7 +1,7 @@
 package com.sammy.malum.client.screen.codex.entries;
 
 import com.sammy.malum.client.screen.codex.*;
-import com.sammy.malum.client.screen.codex.objects.*;
+import com.sammy.malum.client.screen.codex.objects.progression.*;
 import com.sammy.malum.client.screen.codex.pages.*;
 import com.sammy.malum.client.screen.codex.pages.recipe.*;
 import com.sammy.malum.client.screen.codex.pages.recipe.vanilla.*;
@@ -46,7 +46,7 @@ public class TotemMagicEntries {
                 .addPage(new HeadlineTextPage<>("totemic_runes", "void.runes.1"))
                 .addPage(new EntrySelectorPage<>(item -> {
                     final String translationKey = ForgeRegistries.ITEMS.getKey(item).getPath();
-                    return new EntrySelectorPage.EntryChoice<>(item,
+                    return new EntryReference<>(item,
                             BookEntry.<ArcanaProgressionScreen>build(translationKey)
                                     .addPage(new HeadlineTextPage<>(translationKey))
                                     .addPage(RuneworkingPage.fromOutput(item)));

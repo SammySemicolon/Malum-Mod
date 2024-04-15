@@ -1,10 +1,9 @@
 package com.sammy.malum.client.screen.codex.pages;
 
-import com.sammy.malum.client.screen.codex.*;
+import com.sammy.malum.client.screen.codex.handklers.*;
 import com.sammy.malum.client.screen.codex.objects.*;
 import com.sammy.malum.client.screen.codex.screens.*;
 import net.minecraft.client.gui.*;
-import net.minecraft.world.item.*;
 
 import java.util.*;
 import java.util.function.*;
@@ -14,21 +13,21 @@ public class EntrySelectorPage<T extends AbstractProgressionCodexScreen<T>> exte
 
     public final BookObjectHandler<EntryScreen<T>> bookObjectHandler = new BookObjectHandler<>();
 
-
-    public<K> EntrySelectorPage(Function<K, EntryChoice<T>> mapper, K... objects) {
+    @SafeVarargs
+    public <K> EntrySelectorPage(Function<K, EntryReference<T>> mapper, K... objects) {
         this(mapper, List.of(objects));
     }
 
-    public<K> EntrySelectorPage(Function<K, EntryChoice<T>> mapper, Collection<K> objects) {
+    public <K> EntrySelectorPage(Function<K, EntryReference<T>> mapper, Collection<K> objects) {
         this(objects.stream().map(mapper).collect(Collectors.toList()));
     }
 
     @SafeVarargs
-    public EntrySelectorPage(EntryChoice<T>... entries) {
+    public EntrySelectorPage(EntryReference<T>... entries) {
         this(List.of(entries));
     }
 
-    public EntrySelectorPage(List<EntryChoice<T>> entries) {
+    public EntrySelectorPage(List<EntryReference<T>> entries) {
         super(null);
         boolean isWide = entries.size() > 4;
         for (int i = 0; i < entries.size(); i++) {
@@ -54,13 +53,4 @@ public class EntrySelectorPage<T extends AbstractProgressionCodexScreen<T>> exte
         bookObjectHandler.click(screen, mouseX, mouseY);
     }
 
-    public record EntryChoice<T extends AbstractProgressionCodexScreen<T>>(ItemStack icon, BookEntry<T> entry) {
-        public EntryChoice(ItemStack icon, BookEntryBuilder<T> builder) {
-            this(icon, builder.build());
-        }
-
-        public EntryChoice(Item icon, BookEntryBuilder<T> builder) {
-            this(icon.getDefaultInstance(), builder.build());
-        }
-    }
 }

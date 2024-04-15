@@ -1,4 +1,4 @@
-package com.sammy.malum.client.screen.codex.objects;
+package com.sammy.malum.client.screen.codex.objects.progression;
 
 import com.sammy.malum.client.screen.codex.screens.AbstractProgressionCodexScreen;
 import com.sammy.malum.client.screen.codex.BookEntry;

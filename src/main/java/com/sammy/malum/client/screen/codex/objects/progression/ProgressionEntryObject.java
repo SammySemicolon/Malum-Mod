@@ -1,7 +1,8 @@
-package com.sammy.malum.client.screen.codex.objects;
+package com.sammy.malum.client.screen.codex.objects.progression;
 
 import com.mojang.blaze3d.vertex.*;
 import com.sammy.malum.client.screen.codex.*;
+import com.sammy.malum.client.screen.codex.objects.*;
 import com.sammy.malum.client.screen.codex.screens.*;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -39,8 +40,8 @@ public class ProgressionEntryObject<T extends AbstractProgressionCodexScreen<T>>
     @Override
     public void render(T screen, GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
         final PoseStack poseStack = guiGraphics.pose();
-        int posX = getOffsetXPosition() - (style.textureWidth()-32)/2;
-        int posY = getOffsetYPosition() - (style.textureHeight()-32)/2;
+        int posX = getOffsetXPosition() - (style.textureWidth() - 32) / 2;
+        int posY = getOffsetYPosition() - (style.textureHeight() - 32) / 2;
         renderTexture(WIDGET_FADE_TEXTURE, poseStack, posX - 13, posY - 13, 0, 0, 58, 58);
         renderTexture(style.frameTexture(), poseStack, posX, posY, 0, 0, style.textureWidth(), style.textureHeight());
         renderTexture(style.fillingTexture(), poseStack, posX, posY, 0, 0, style.textureWidth(), style.textureHeight());
