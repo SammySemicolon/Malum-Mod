@@ -21,7 +21,7 @@ import team.lodestar.lodestone.systems.particle.screen.*;
 
 import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.*;
 
-public class WeepingWellTextPage<T extends EntryScreen<T, ?>> extends BookPage<T> {
+public class WeepingWellTextPage extends BookPage {
 
     private static final ScreenParticleHolder ITEM_PARTICLES = new ScreenParticleHolder();
 
@@ -49,7 +49,7 @@ public class WeepingWellTextPage<T extends EntryScreen<T, ?>> extends BookPage<T
     }
 
     @Override
-    public void render(T screen, GuiGraphics guiGraphics, int left, int top, int mouseX, int mouseY, float partialTicks, boolean isRepeat) {
+    public void render(EntryScreen screen, GuiGraphics guiGraphics, int left, int top, int mouseX, int mouseY, float partialTicks, boolean isRepeat) {
         final ClientLevel level = Minecraft.getInstance().level;
         var rand = level.random;
         Component component = Component.translatable(headlineTranslationKey());

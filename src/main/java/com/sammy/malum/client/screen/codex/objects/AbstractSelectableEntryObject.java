@@ -10,19 +10,19 @@ import net.minecraft.network.chat.*;
 
 import java.util.*;
 
-public abstract class AbstractSelectableEntryObject<T extends EntryScreen<T, K>, K extends AbstractMalumScreen<K>> extends BookObject<T> {
+public abstract class AbstractSelectableEntryObject extends BookObject<EntryScreen> {
 
-    public final EntryReference<T, K> entryReference;
+    public final EntryReference entryReference;
 
-    public AbstractSelectableEntryObject(int posX, int posY, int width, int height, EntryReference<T, K> entryReference) {
+    public AbstractSelectableEntryObject(int posX, int posY, int width, int height, EntryReference entryReference) {
         super(posX, posY, width, height);
         this.entryReference = entryReference;
     }
 
     @Override
-    public void renderLate(T screen, GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
+    public void renderLate(EntryScreen screen, GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
         if (isHoveredOver) {
-            final BookEntry<T, K> entry = entryReference.entry;
+            final BookEntry entry = entryReference.entry;
             final List<Component> list = Arrays.asList(
                     Component.translatable(entry.translationKey()),
                     Component.translatable(entry.descriptionTranslationKey()).withStyle(ChatFormatting.GRAY));
@@ -31,7 +31,7 @@ public abstract class AbstractSelectableEntryObject<T extends EntryScreen<T, K>,
     }
 
     @Override
-    public void click(T screen, double mouseX, double mouseY) {
+    public void click(EntryScreen screen, double mouseX, double mouseY) {
         EntryScreen.openScreen(screen, entryReference.entry);
     }
 }

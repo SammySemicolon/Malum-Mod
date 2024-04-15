@@ -27,7 +27,7 @@ import java.util.*;
 
 import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.*;
 
-public class SpiritTransmutationRecipeTreePage<T extends EntryScreen<T, ?>> extends BookPage<T> {
+public class SpiritTransmutationRecipeTreePage extends BookPage {
 
     private static final ScreenParticleHolder TRANSMUTATION_PARTICLES = new ScreenParticleHolder();
 
@@ -62,7 +62,7 @@ public class SpiritTransmutationRecipeTreePage<T extends EntryScreen<T, ?>> exte
     }
 
     @Override
-    public void render(T screen, GuiGraphics guiGraphics, int left, int top, int mouseX, int mouseY, float partialTicks, boolean isRepeat) {
+    public void render(EntryScreen screen, GuiGraphics guiGraphics, int left, int top, int mouseX, int mouseY, float partialTicks, boolean isRepeat) {
         Component component = Component.translatable(headlineTranslationKey());
         renderText(guiGraphics, component, left + 70 - Minecraft.getInstance().font.width(component.getString()) / 2, top + 5);
         if (!isRepeat) {

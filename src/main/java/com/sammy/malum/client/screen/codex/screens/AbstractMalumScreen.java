@@ -8,7 +8,7 @@ import net.minecraft.sounds.*;
 
 import java.util.function.*;
 
-public abstract class AbstractMalumScreen<T extends Screen> extends Screen {
+public abstract class AbstractMalumScreen extends Screen {
 
     protected final Supplier<SoundEvent> sweetenerSound;
 

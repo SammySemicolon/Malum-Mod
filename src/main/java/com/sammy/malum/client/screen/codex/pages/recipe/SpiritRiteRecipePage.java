@@ -25,7 +25,7 @@ import java.util.*;
 
 import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.*;
 
-public class SpiritRiteRecipePage<T extends EntryScreen<T, ?>> extends BookPage<T> {
+public class SpiritRiteRecipePage extends BookPage {
 
     private static final ScreenParticleHolder RITE_PARTICLES = new ScreenParticleHolder();
 
@@ -37,7 +37,7 @@ public class SpiritRiteRecipePage<T extends EntryScreen<T, ?>> extends BookPage<
     }
 
     @Override
-    public void render(T screen, GuiGraphics guiGraphics, int left, int top, int mouseX, int mouseY, float partialTicks, boolean isRepeat) {
+    public void render(EntryScreen screen, GuiGraphics guiGraphics, int left, int top, int mouseX, int mouseY, float partialTicks, boolean isRepeat) {
         final List<MalumSpiritType> spirits = riteType.spirits;
         var rand = Minecraft.getInstance().level.random;
         PoseStack poseStack = guiGraphics.pose();

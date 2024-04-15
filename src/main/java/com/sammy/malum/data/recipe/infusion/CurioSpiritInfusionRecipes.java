@@ -77,14 +77,6 @@ public class CurioSpiritInfusionRecipes {
                 .addSpirit(ELDRITCH_SPIRIT, 2)
                 .build(consumer);
 
-        new SpiritInfusionRecipeBuilder(ItemRegistry.ORNATE_RING.get(), 1, ItemRegistry.RING_OF_THE_DEMOLITIONIST.get(), 1)
-                .addExtraItem(ItemRegistry.COPPER_NODE.get(), 6)
-                .addExtraItem(Items.GUNPOWDER, 4)
-                .addExtraItem(ItemRegistry.CURSED_GRIT.get(), 4)
-                .addSpirit(INFERNAL_SPIRIT, 32)
-                .addSpirit(ELDRITCH_SPIRIT, 4)
-                .build(consumer);
-
         new SpiritInfusionRecipeBuilder(ItemRegistry.ORNATE_NECKLACE.get(), 1, ItemRegistry.NECKLACE_OF_THE_NARROW_EDGE.get(), 1)
                 .addExtraItem(Ingredient.of(Tags.Items.STORAGE_BLOCKS_IRON), 1)
                 .addExtraItem(Ingredient.of(Tags.Items.INGOTS_IRON), 2)
@@ -121,13 +113,20 @@ public class CurioSpiritInfusionRecipes {
                 .build(consumer);
 
         new SpiritInfusionRecipeBuilder(ItemRegistry.GILDED_RING.get(), 1, ItemRegistry.RING_OF_THE_HOARDER.get(), 1)
-                .addExtraItem(Items.ENDER_PEARL, 2)
+                .addExtraItem(Ingredient.of(Tags.Items.INGOTS_IRON), 6)
                 .addExtraItem(ItemRegistry.WARP_FLUX.get(), 4)
-                .addExtraItem(Ingredient.of(Tags.Items.INGOTS_IRON), 4)
-                .addExtraItem(Items.GUNPOWDER, 8)
+                .addExtraItem(Items.ENDER_PEARL, 2)
                 .addSpirit(EARTHEN_SPIRIT, 32)
                 .addSpirit(SACRED_SPIRIT, 16)
                 .addSpirit(ARCANE_SPIRIT, 16)
+                .build(consumer);
+
+        new SpiritInfusionRecipeBuilder(ItemRegistry.ORNATE_RING.get(), 1, ItemRegistry.RING_OF_THE_DEMOLITIONIST.get(), 1)
+                .addExtraItem(Ingredient.of(Tags.Items.INGOTS_IRON), 6)
+                .addExtraItem(Items.GUNPOWDER, 4)
+                .addExtraItem(Items.BLAZE_POWDER, 2)
+                .addSpirit(INFERNAL_SPIRIT, 32)
+                .addSpirit(ELDRITCH_SPIRIT, 4)
                 .build(consumer);
 
         new SpiritInfusionRecipeBuilder(ItemRegistry.GILDED_BELT.get(), 1, ItemRegistry.BELT_OF_THE_PROSPECTOR.get(), 1)

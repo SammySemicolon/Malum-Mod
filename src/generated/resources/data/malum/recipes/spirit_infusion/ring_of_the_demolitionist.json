@@ -3,15 +3,15 @@
   "extra_items": [
     {
       "count": 6,
-      "item": "malum:copper_node"
+      "tag": "forge:ingots/iron"
     },
     {
       "count": 4,
       "item": "minecraft:gunpowder"
     },
     {
-      "count": 4,
-      "item": "malum:cursed_grit"
+      "count": 2,
+      "item": "minecraft:blaze_powder"
     }
   ],
   "input": {

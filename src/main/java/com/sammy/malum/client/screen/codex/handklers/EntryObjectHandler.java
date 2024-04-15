@@ -4,18 +4,18 @@ import com.sammy.malum.client.screen.codex.*;
 import com.sammy.malum.client.screen.codex.objects.progression.*;
 import com.sammy.malum.client.screen.codex.screens.*;
 
-public class EntryObjectHandler<T extends AbstractProgressionCodexScreen<T>> extends BookObjectHandler<T> {
+public class EntryObjectHandler extends BookObjectHandler<AbstractProgressionCodexScreen> {
     public EntryObjectHandler() {
         super();
     }
 
-    public void setupEntryObjects(T screen) {
+    public void setupEntryObjects(AbstractProgressionCodexScreen screen) {
         clear();
         int left = screen.getGuiLeft() + screen.bookInsideWidth;
         int top = screen.getGuiTop() + screen.bookInsideHeight;
-        for (PlacedBookEntry<?, T> entry : screen.getEntries()) {
-            final PlacedBookEntry.BookEntryWidgetPlacementData<T> data = entry.getWidgetData();
-            final ProgressionEntryObject<T> bookObject = data.widgetSupplier().getBookObject(entry, left + data.xOffset(), top - data.yOffset());
+        for (PlacedBookEntry entry : screen.getEntries()) {
+            final PlacedBookEntry.BookEntryWidgetPlacementData data = entry.getWidgetData();
+            final ProgressionEntryObject bookObject = data.widgetSupplier().getBookObject(entry, left + data.xOffset(), top - data.yOffset());
             var config = data.widgetConfig();
             if (config != null) {
                 config.accept(bookObject);

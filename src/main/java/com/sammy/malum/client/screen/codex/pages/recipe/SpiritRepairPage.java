@@ -2,14 +2,13 @@ package com.sammy.malum.client.screen.codex.pages.recipe;
 
 import com.sammy.malum.*;
 import com.sammy.malum.client.screen.codex.pages.*;
-import com.sammy.malum.client.screen.codex.screens.*;
 import com.sammy.malum.common.recipe.*;
 import net.minecraft.client.*;
 import net.minecraft.world.item.*;
 
 import java.util.function.*;
 
-public class SpiritRepairPage<T extends EntryScreen<T, ?>> extends BookPage<T> {
+public class SpiritRepairPage extends BookPage {
     private final SpiritRepairRecipe recipe;
 
     public SpiritRepairPage(Predicate<SpiritRepairRecipe> predicate) {
@@ -32,8 +31,8 @@ public class SpiritRepairPage<T extends EntryScreen<T, ?>> extends BookPage<T> {
         return recipe != null;
     }
 
-    public static <T extends EntryScreen<T, ?>> SpiritRepairPage<T> fromInput(Item inputItem) {
-        return new SpiritRepairPage<>(s -> s.doesInputMatch(inputItem.getDefaultInstance()));
+    public static SpiritRepairPage fromInput(Item inputItem) {
+        return new SpiritRepairPage(s -> s.doesInputMatch(inputItem.getDefaultInstance()));
     }
 
 //    @Override

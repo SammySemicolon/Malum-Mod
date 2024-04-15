@@ -15,30 +15,30 @@ import java.util.function.*;
 
 import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.renderTexture;
 
-public class ProgressionEntryObject<K extends AbstractProgressionCodexScreen<K>> extends BookObject<K> {
+public class ProgressionEntryObject extends BookObject<AbstractProgressionCodexScreen> {
 
-    public final BookEntry<?, K> entry;
+    public final BookEntry entry;
     public BookWidgetStyle style = BookWidgetStyle.RUNEWOOD;
-    public Predicate<K> isValid = t -> true;
+    public Predicate<AbstractProgressionCodexScreen> isValid = t -> true;
     public ItemStack iconStack;
 
-    public ProgressionEntryObject(BookEntry<?, K> entry, int posX, int posY) {
+    public ProgressionEntryObject(BookEntry entry, int posX, int posY) {
         super(posX, posY, 32, 32);
         this.entry = entry;
     }
 
     @Override
-    public boolean isValid(K screen) {
+    public boolean isValid(AbstractProgressionCodexScreen screen) {
         return isValid.test(screen);
     }
 
     @Override
-    public void click(K screen, double mouseX, double mouseY) {
+    public void click(AbstractProgressionCodexScreen screen, double mouseX, double mouseY) {
         EntryScreen.openScreen(screen, this);
     }
 
     @Override
-    public void render(K screen, GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
+    public void render(AbstractProgressionCodexScreen screen, GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
         final PoseStack poseStack = guiGraphics.pose();
         int posX = getOffsetXPosition() - (style.textureWidth() - 32) / 2;
         int posY = getOffsetYPosition() - (style.textureHeight() - 32) / 2;
@@ -51,7 +51,7 @@ public class ProgressionEntryObject<K extends AbstractProgressionCodexScreen<K>>
     }
 
     @Override
-    public void renderLate(K screen, GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
+    public void renderLate(AbstractProgressionCodexScreen screen, GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
         if (isHoveredOver) {
             final List<Component> list = Arrays.asList(
                     Component.translatable(entry.translationKey()),
@@ -60,21 +60,21 @@ public class ProgressionEntryObject<K extends AbstractProgressionCodexScreen<K>>
         }
     }
 
-    public ProgressionEntryObject<K> setIcon(Supplier<? extends Item> item) {
+    public ProgressionEntryObject setIcon(Supplier<? extends Item> item) {
         return setIcon(item.get());
     }
 
-    public ProgressionEntryObject<K> setIcon(Item item) {
+    public ProgressionEntryObject setIcon(Item item) {
         iconStack = item.getDefaultInstance();
         return this;
     }
 
-    public ProgressionEntryObject<K> setStyle(BookWidgetStyle style) {
+    public ProgressionEntryObject setStyle(BookWidgetStyle style) {
         this.style = style;
         return this;
     }
 
-    public ProgressionEntryObject<K> setValidityChecker(Predicate<K> isValid) {
+    public ProgressionEntryObject setValidityChecker(Predicate<AbstractProgressionCodexScreen> isValid) {
         this.isValid = isValid;
         return this;
     }

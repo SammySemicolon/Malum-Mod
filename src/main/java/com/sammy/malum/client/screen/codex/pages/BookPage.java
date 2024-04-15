@@ -10,10 +10,10 @@ import javax.annotation.*;
 
 import static com.sammy.malum.client.screen.codex.screens.EntryScreen.*;
 
-public abstract class BookPage<T extends EntryScreen<T, ?>> {
+public abstract class BookPage {
     @Nullable
     protected final ResourceLocation background;
-    protected BookEntry<T, ?> bookEntry;
+    protected BookEntry bookEntry;
 
     public BookPage(@Nullable ResourceLocation background) {
         this.background = background;
@@ -24,23 +24,23 @@ public abstract class BookPage<T extends EntryScreen<T, ?>> {
     }
 
 
-    public void render(T screen, GuiGraphics guiGraphics, int left, int top, int mouseX, int mouseY, float partialTicks, boolean isRepeat) {
+    public void render(EntryScreen screen, GuiGraphics guiGraphics, int left, int top, int mouseX, int mouseY, float partialTicks, boolean isRepeat) {
     }
-    public void renderLate(T screen, GuiGraphics guiGraphics, int left, int top, int mouseX, int mouseY, float partialTicks, boolean isRepeat) {
-    }
-
-    public void click(T screen, int left, int top, double mouseX, double mouseY, double relativeMouseX, double relativeMouseY) {
+    public void renderLate(EntryScreen screen, GuiGraphics guiGraphics, int left, int top, int mouseX, int mouseY, float partialTicks, boolean isRepeat) {
     }
 
-
-    public void render(Minecraft minecraft, GuiGraphics guiGraphics, T screen, int mouseX, int mouseY, float partialTicks, boolean isRepeat) {
+    public void click(EntryScreen screen, int left, int top, double mouseX, double mouseY, double relativeMouseX, double relativeMouseY) {
     }
 
-    public void renderLeft(Minecraft minecraft, GuiGraphics guiGraphics, T screen, int mouseX, int mouseY, float partialTicks) {
+
+    public void render(Minecraft minecraft, GuiGraphics guiGraphics, EntryScreen screen, int mouseX, int mouseY, float partialTicks, boolean isRepeat) {
+    }
+
+    public void renderLeft(Minecraft minecraft, GuiGraphics guiGraphics, EntryScreen screen, int mouseX, int mouseY, float partialTicks) {
 
     }
 
-    public void renderRight(Minecraft minecraft, GuiGraphics guiGraphics, T screen, int mouseX, int mouseY, float partialTicks) {
+    public void renderRight(Minecraft minecraft, GuiGraphics guiGraphics, EntryScreen screen, int mouseX, int mouseY, float partialTicks) {
 
     }
 
@@ -56,7 +56,7 @@ public abstract class BookPage<T extends EntryScreen<T, ?>> {
         return (entryScreen.height - entryScreen.bookHeight) / 2;
     }
 
-    public BookPage<T> setBookEntry(BookEntry<T, ?> bookEntry) {
+    public BookPage setBookEntry(BookEntry bookEntry) {
         this.bookEntry = bookEntry;
         return this;
     }
