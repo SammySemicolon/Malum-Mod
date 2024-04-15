@@ -191,7 +191,7 @@ public class MalumLang extends LanguageProvider {
         add("malum.gui.curio.effect.attacked_resistance", "Damage Resistance When Attacked");
         add("malum.gui.curio.effect.low_health_speed", "Speed at Low Health");
         add("malum.gui.curio.effect.always_sprint", "Sprinting Always Available");
-        add("malum.gui.curio.effect.haste", "Increased Mining Speed");
+        add("malum.gui.curio.effect.fervor", "Increased Mining Speed");
         add("malum.gui.curio.effect.burning_resistance", "Damage Resistance While Burning");
 
         add("malum.gui.curio.effect.spirits_heal", "Spirit Collection Replenishes Health");

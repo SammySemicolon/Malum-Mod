@@ -8,7 +8,7 @@ import net.minecraft.resources.*;
 
 import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.renderTexture;
 
-public class ArrowObject<T extends AbstractMalumScreen<T>> extends BookObject<T> {
+public class ArrowObject<T extends EntryScreen<T, K>, K extends AbstractMalumScreen<K>> extends BookObject<T> {
 
     public static final ResourceLocation ARROWS = MalumMod.malumPath("textures/gui/book/entry_elements/arrows.png");
     public static final ResourceLocation ARROWS_LIT_UP = MalumMod.malumPath("textures/gui/book/entry_elements/arrows_active.png");

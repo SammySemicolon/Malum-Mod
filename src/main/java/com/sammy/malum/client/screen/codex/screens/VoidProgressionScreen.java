@@ -26,7 +26,7 @@ public class VoidProgressionScreen extends AbstractProgressionCodexScreen<VoidPr
 
     public static VoidProgressionScreen screen;
 
-    public static final List<BookEntry<VoidProgressionScreen>> VOID_ENTRIES = new ArrayList<>();
+    public static final List<PlacedBookEntry<?, VoidProgressionScreen>> VOID_ENTRIES = new ArrayList<>();
 
     protected VoidProgressionScreen() {
         super(SoundRegistry.ARCANA_SWEETENER_EVIL, 1024, 768);
@@ -42,7 +42,7 @@ public class VoidProgressionScreen extends AbstractProgressionCodexScreen<VoidPr
     }
 
     @Override
-    public Collection<BookEntry<VoidProgressionScreen>> getEntries() {
+    public Collection<PlacedBookEntry<?, VoidProgressionScreen>> getEntries() {
         return VOID_ENTRIES;
     }
 
@@ -145,8 +145,8 @@ public class VoidProgressionScreen extends AbstractProgressionCodexScreen<VoidPr
                 .addPage(new HeadlineTextPage<>("void.runes", "void.runes.1"))
                 .addPage(new EntrySelectorPage<>(item -> {
                     final String translationKey = "void." + ForgeRegistries.ITEMS.getKey(item).getPath();
-                    return new EntryReference<>(item,
-                            BookEntry.<VoidProgressionScreen>build(translationKey)
+                    return new EntryReference(item,
+                            BookEntry.build(translationKey)
                                     .addPage(new HeadlineTextPage<>(translationKey))
                                     .addPage(RuneworkingPage.fromOutput(item)));
                 },

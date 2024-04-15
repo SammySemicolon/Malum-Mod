@@ -15,30 +15,30 @@ import java.util.function.*;
 
 import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.renderTexture;
 
-public class ProgressionEntryObject<T extends AbstractProgressionCodexScreen<T>> extends BookObject<T> {
+public class ProgressionEntryObject<K extends AbstractProgressionCodexScreen<K>> extends BookObject<K> {
 
-    public final BookEntry<T> entry;
+    public final BookEntry<?, K> entry;
     public BookWidgetStyle style = BookWidgetStyle.RUNEWOOD;
-    public Predicate<T> isValid = t -> true;
+    public Predicate<K> isValid = t -> true;
     public ItemStack iconStack;
 
-    public ProgressionEntryObject(BookEntry<T> entry, int posX, int posY) {
+    public ProgressionEntryObject(BookEntry<?, K> entry, int posX, int posY) {
         super(posX, posY, 32, 32);
         this.entry = entry;
     }
 
     @Override
-    public boolean isValid(T screen) {
+    public boolean isValid(K screen) {
         return isValid.test(screen);
     }
 
     @Override
-    public void click(T screen, double mouseX, double mouseY) {
+    public void click(K screen, double mouseX, double mouseY) {
         EntryScreen.openScreen(screen, this);
     }
 
     @Override
-    public void render(T screen, GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
+    public void render(K screen, GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
         final PoseStack poseStack = guiGraphics.pose();
         int posX = getOffsetXPosition() - (style.textureWidth() - 32) / 2;
         int posY = getOffsetYPosition() - (style.textureHeight() - 32) / 2;
@@ -51,7 +51,7 @@ public class ProgressionEntryObject<T extends AbstractProgressionCodexScreen<T>>
     }
 
     @Override
-    public void renderLate(T screen, GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
+    public void renderLate(K screen, GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
         if (isHoveredOver) {
             final List<Component> list = Arrays.asList(
                     Component.translatable(entry.translationKey()),
@@ -60,21 +60,21 @@ public class ProgressionEntryObject<T extends AbstractProgressionCodexScreen<T>>
         }
     }
 
-    public ProgressionEntryObject<T> setIcon(Supplier<? extends Item> item) {
+    public ProgressionEntryObject<K> setIcon(Supplier<? extends Item> item) {
         return setIcon(item.get());
     }
 
-    public ProgressionEntryObject<T> setIcon(Item item) {
+    public ProgressionEntryObject<K> setIcon(Item item) {
         iconStack = item.getDefaultInstance();
         return this;
     }
 
-    public ProgressionEntryObject<T> setStyle(BookWidgetStyle style) {
+    public ProgressionEntryObject<K> setStyle(BookWidgetStyle style) {
         this.style = style;
         return this;
     }
 
-    public ProgressionEntryObject<T> setValidityChecker(Predicate<T> isValid) {
+    public ProgressionEntryObject<K> setValidityChecker(Predicate<K> isValid) {
         this.isValid = isValid;
         return this;
     }

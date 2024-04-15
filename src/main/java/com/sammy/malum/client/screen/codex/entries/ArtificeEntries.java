@@ -12,6 +12,7 @@ import static net.minecraft.world.item.Items.*;
 
 public class ArtificeEntries {
 
+    @SuppressWarnings({"rawtypes", "unchecked"})
     public static void setupEntries(ArcanaProgressionScreen screen) {
         Item EMPTY = ItemStack.EMPTY.getItem();
 
@@ -54,7 +55,7 @@ public class ArtificeEntries {
         screen.addEntry("soulhunter_gear", 4, 7, b -> b
                 .setWidgetConfig(w -> w.setIcon(SOUL_HUNTER_CLOAK))
                 .addPage(new HeadlineTextPage<>("soulhunter_gear", "soulhunter_gear.1"))
-                .addPage(new CyclingPage<ArcanaProgressionScreen>(
+                .addPage(new CyclingPage(
                         SpiritInfusionPage.fromOutput(SOUL_HUNTER_CLOAK.get()),
                         SpiritInfusionPage.fromOutput(SOUL_HUNTER_ROBE.get()),
                         SpiritInfusionPage.fromOutput(SOUL_HUNTER_LEGGINGS.get()),
@@ -82,7 +83,7 @@ public class ArtificeEntries {
                 .setWidgetConfig(w -> w.setIcon(IRON_NODE))
                 .addPage(new HeadlineTextItemPage<>("focus_metals", "focus_metals.1", IRON_NODE.get()))
                 .addPage(new TextPage<>("focus_metals.2"))
-                .addPage(new CyclingPage<ArcanaProgressionScreen>(
+                .addPage(new CyclingPage(
                         SpiritInfusionPage.fromOutput(IRON_IMPETUS.get()),
                         SpiritInfusionPage.fromOutput(GOLD_IMPETUS.get()),
                         SpiritInfusionPage.fromOutput(COPPER_IMPETUS.get()),
@@ -95,7 +96,7 @@ public class ArtificeEntries {
                         SpiritInfusionPage.fromOutput(ZINC_IMPETUS.get()),
                         SpiritInfusionPage.fromOutput(TIN_IMPETUS.get())
                 ))
-                .addPage(new CyclingPage<ArcanaProgressionScreen>(
+                .addPage(new CyclingPage(
                         SpiritFocusingPage.fromOutput(IRON_NODE.get()),
                         SpiritFocusingPage.fromOutput(GOLD_NODE.get()),
                         SpiritFocusingPage.fromOutput(COPPER_NODE.get()),

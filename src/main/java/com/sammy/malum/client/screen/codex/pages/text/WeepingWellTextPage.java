@@ -21,7 +21,7 @@ import team.lodestar.lodestone.systems.particle.screen.*;
 
 import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.*;
 
-public class WeepingWellTextPage<T extends AbstractProgressionCodexScreen<T>> extends BookPage<T> {
+public class WeepingWellTextPage<T extends EntryScreen<T, ?>> extends BookPage<T> {
 
     private static final ScreenParticleHolder ITEM_PARTICLES = new ScreenParticleHolder();
 
@@ -49,7 +49,7 @@ public class WeepingWellTextPage<T extends AbstractProgressionCodexScreen<T>> ex
     }
 
     @Override
-    public void render(EntryScreen<T> screen, GuiGraphics guiGraphics, int left, int top, int mouseX, int mouseY, float partialTicks, boolean isRepeat) {
+    public void render(T screen, GuiGraphics guiGraphics, int left, int top, int mouseX, int mouseY, float partialTicks, boolean isRepeat) {
         final ClientLevel level = Minecraft.getInstance().level;
         var rand = level.random;
         Component component = Component.translatable(headlineTranslationKey());
@@ -73,7 +73,7 @@ public class WeepingWellTextPage<T extends AbstractProgressionCodexScreen<T>> ex
                 ScreenParticleBuilder.create(LodestoneScreenParticleRegistry.STAR, ITEM_PARTICLES)
                         .setTransparencyData(GenericParticleData.create(0.02f, 0.4f, 0f).build())
                         .setSpinData(SpinParticleData.create(0).setSpinOffset(spin).build())
-                        .setScaleData(GenericParticleData.create(0, scale*1.2f).build())
+                        .setScaleData(GenericParticleData.create(0, scale * 1.2f).build())
                         .setColorData(SpiritTypeRegistry.WICKED_SPIRIT.createMainColorData().setCoefficient(0.4f).build())
                         .setLifetime(lifetime)
                         .setDiscardFunction(SimpleParticleOptions.ParticleDiscardFunctionType.ENDING_CURVE_INVISIBLE)
@@ -82,7 +82,7 @@ public class WeepingWellTextPage<T extends AbstractProgressionCodexScreen<T>> ex
                 ScreenParticleBuilder.create(ScreenParticleRegistry.SAW, ITEM_PARTICLES)
                         .setTransparencyData(GenericParticleData.create(0.02f, 0.2f, 0f).build())
                         .setSpinData(SpinParticleData.create(0).setSpinOffset(spin).build())
-                        .setScaleData(GenericParticleData.create(0, scale*0.9f).build())
+                        .setScaleData(GenericParticleData.create(0, scale * 0.9f).build())
                         .setColorData(SpiritTypeRegistry.WICKED_SPIRIT.createMainColorData().setCoefficient(0.4f).build())
                         .setLifetime(lifetime)
                         .setDiscardFunction(SimpleParticleOptions.ParticleDiscardFunctionType.ENDING_CURVE_INVISIBLE)

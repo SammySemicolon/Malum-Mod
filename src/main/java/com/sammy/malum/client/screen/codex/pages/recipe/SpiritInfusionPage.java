@@ -13,7 +13,7 @@ import java.util.function.Predicate;
 
 import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.*;
 
-public class SpiritInfusionPage<T extends AbstractProgressionCodexScreen<T>> extends BookPage<T> {
+public class SpiritInfusionPage<T extends EntryScreen<T, ?>> extends BookPage<T> {
     private final SpiritInfusionRecipe recipe;
 
     public SpiritInfusionPage(Predicate<SpiritInfusionRecipe> predicate) {
@@ -26,11 +26,11 @@ public class SpiritInfusionPage<T extends AbstractProgressionCodexScreen<T>> ext
         this.recipe = recipe;
     }
 
-    public static<T extends AbstractProgressionCodexScreen<T>> SpiritInfusionPage<T> fromInput(Item inputItem) {
+    public static<T extends EntryScreen<T, ?>> SpiritInfusionPage<T> fromInput(Item inputItem) {
         return new SpiritInfusionPage<>(s -> s.doesInputMatch(inputItem.getDefaultInstance()));
     }
 
-    public static<T extends AbstractProgressionCodexScreen<T>> SpiritInfusionPage<T> fromOutput(Item outputItem) {
+    public static<T extends EntryScreen<T, ?>> SpiritInfusionPage<T> fromOutput(Item outputItem) {
         return new SpiritInfusionPage<>(s -> s.doesOutputMatch(outputItem.getDefaultInstance()));
     }
 
@@ -40,7 +40,7 @@ public class SpiritInfusionPage<T extends AbstractProgressionCodexScreen<T>> ext
     }
 
     @Override
-    public void render(EntryScreen<T> screen, GuiGraphics guiGraphics, int left, int top, int mouseX, int mouseY, float partialTicks, boolean isRepeat) {
+    public void render(T screen, GuiGraphics guiGraphics, int left, int top, int mouseX, int mouseY, float partialTicks, boolean isRepeat) {
         Runnable renderSpirits = renderBufferedComponents(screen, guiGraphics, recipe.spirits, left + 15, top + 59, mouseX, mouseY, true);
         if (!recipe.extraItems.isEmpty()) {
             renderComponents(screen, guiGraphics, recipe.extraItems, left + 107, top + 59, mouseX, mouseY, true);

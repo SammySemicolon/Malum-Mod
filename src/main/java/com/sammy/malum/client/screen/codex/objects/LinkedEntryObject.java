@@ -9,13 +9,13 @@ import net.minecraft.resources.*;
 
 import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.*;
 
-public class LinkedEntryObject<T extends AbstractMalumScreen<T>> extends AbstractSelectableEntryObject<T> {
+public class LinkedEntryObject<T extends EntryScreen<T, K>, K extends AbstractMalumScreen<K>> extends AbstractSelectableEntryObject<T, K> {
 
     public static final ResourceLocation LINK = MalumMod.malumPath("textures/gui/book/entry_elements/arrows.png");
 
     public final boolean flipped;
 
-    public LinkedEntryObject(int posX, int posY, boolean flipped, EntryReference<T> entryReference) {
+    public LinkedEntryObject(int posX, int posY, boolean flipped, EntryReference<T, K> entryReference) {
         super(posX, posY, 36, 22, entryReference);
         this.flipped = flipped;
     }

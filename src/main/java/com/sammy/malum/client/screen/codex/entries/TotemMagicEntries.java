@@ -15,7 +15,8 @@ import static com.sammy.malum.registry.common.item.ItemRegistry.*;
 import static net.minecraft.world.item.Items.*;
 
 public class TotemMagicEntries {
-    
+
+    @SuppressWarnings({"rawtypes", "unchecked"})
     public static void setupEntries(ArcanaProgressionScreen screen) {
         Item EMPTY = ItemStack.EMPTY.getItem();
 
@@ -46,8 +47,8 @@ public class TotemMagicEntries {
                 .addPage(new HeadlineTextPage<>("totemic_runes", "void.runes.1"))
                 .addPage(new EntrySelectorPage<>(item -> {
                     final String translationKey = ForgeRegistries.ITEMS.getKey(item).getPath();
-                    return new EntryReference<>(item,
-                            BookEntry.<ArcanaProgressionScreen>build(translationKey)
+                    return new EntryReference(item,
+                            BookEntry.build(translationKey)
                                     .addPage(new HeadlineTextPage<>(translationKey))
                                     .addPage(RuneworkingPage.fromOutput(item)));
                 },

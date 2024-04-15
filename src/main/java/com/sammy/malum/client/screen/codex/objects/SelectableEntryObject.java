@@ -9,11 +9,11 @@ import net.minecraft.resources.*;
 
 import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.*;
 
-public class SelectableEntryObject<T extends EntryScreen<?, T>> extends AbstractSelectableEntryObject<T> {
+public class SelectableEntryObject<T extends EntryScreen<T, K>, K extends AbstractMalumScreen<K>> extends AbstractSelectableEntryObject<T, K> {
 
     public static final ResourceLocation SOCKET = MalumMod.malumPath("textures/gui/book/entry_elements/entry_socket.png");
 
-    public SelectableEntryObject(int posX, int posY, EntryReference<T> entryReference) {
+    public SelectableEntryObject(int posX, int posY, EntryReference<T, K> entryReference) {
         super(posX, posY, 32, 32, entryReference);
     }
 

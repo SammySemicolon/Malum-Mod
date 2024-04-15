@@ -10,7 +10,7 @@ import net.minecraft.network.chat.*;
 
 import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.*;
 
-public class SpiritRiteTextPage<T extends AbstractProgressionCodexScreen<T>> extends BookPage<T> {
+public class SpiritRiteTextPage<T extends EntryScreen<T, ?>> extends BookPage<T> {
     public final TotemicRiteType riteType;
     private final String translationKey;
 
@@ -29,7 +29,7 @@ public class SpiritRiteTextPage<T extends AbstractProgressionCodexScreen<T>> ext
     }
 
     @Override
-    public void render(EntryScreen<T> screen, GuiGraphics guiGraphics, int left, int top, int mouseX, int mouseY, float partialTicks, boolean isRepeat) {
+    public void render(T screen, GuiGraphics guiGraphics, int left, int top, int mouseX, int mouseY, float partialTicks, boolean isRepeat) {
         Component component = Component.translatable(headlineTranslationKey());
         renderText(guiGraphics, component, left + 70 - Minecraft.getInstance().font.width(component.getString()) / 2, top + 5);
         renderWrappingText(guiGraphics, translationKey(), left + 6, top + 78, 130);

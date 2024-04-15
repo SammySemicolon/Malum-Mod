@@ -21,16 +21,17 @@ import java.util.function.*;
 
 import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.*;
 
-public class EntryScreen<T extends AbstractMalumScreen<T>> extends AbstractMalumScreen<T> {
+//first generic represents the screen itself, the second represents the screen that it was opened from
+public class EntryScreen<T extends EntryScreen<T, K>, K extends AbstractMalumScreen<K>> extends AbstractMalumScreen<T> {
 
-    public static EntryScreen<?> entryScreen;
+    public static EntryScreen<?, ?> entryScreen;
 
     public static final ResourceLocation BOOK_TEXTURE = MalumMod.malumPath("textures/gui/book/entry.png");
     public static final ResourceLocation ELEMENT_SOCKET = MalumMod.malumPath("textures/gui/book/entry_elements/element_socket.png");
 
     public final int bookWidth = 312;
     public final int bookHeight = 200;
-    public final BookEntry<T> openEntry;
+    public final BookEntry<T, K> openEntry;
     protected final Consumer<Boolean> onClose;
 
     public final BookObjectHandler<T> bookObjectHandler = new BookObjectHandler<>();
@@ -38,7 +39,7 @@ public class EntryScreen<T extends AbstractMalumScreen<T>> extends AbstractMalum
     public List<Runnable> lateRendering = new ArrayList<>();
     public int grouping;
 
-    public EntryScreen(BookEntry<T> openEntry, Consumer<Boolean> onClose) {
+    public EntryScreen(BookEntry<T, K> openEntry, Consumer<Boolean> onClose) {
         super(Component.empty(), openEntry.isVoid ? SoundRegistry.ARCANA_SWEETENER_EVIL : SoundRegistry.ARCANA_SWEETENER_NORMAL);
         this.openEntry = openEntry;
         this.onClose = onClose;
@@ -47,11 +48,11 @@ public class EntryScreen<T extends AbstractMalumScreen<T>> extends AbstractMalum
         bookObjectHandler.add(new ArrowObject<>(left, 150, false));
         bookObjectHandler.add(new ArrowObject<>(right, 150, true));
 
-        final ImmutableList<EntryReference<T>> references = openEntry.references;
+        final ImmutableList<EntryReference<T, K>> references = openEntry.references;
         if (references != null) {
             int counter = 1;
             for (int i = 0; i < references.size(); i++) {
-                final EntryReference<T> entryReference = references.get(i);
+                final EntryReference<T, K> entryReference = references.get(i);
                 if (entryReference.entry.isValid((T) this)) {
                     bookObjectHandler.add(new LinkedEntryObject<>(right, counter * 30, true, entryReference));
                     counter++;
@@ -185,18 +186,18 @@ public class EntryScreen<T extends AbstractMalumScreen<T>> extends AbstractMalum
         playSweetenedSound(SoundRegistry.ARCANA_ENTRY_CLOSE, 0.85f);
     }
 
-    public static<T extends AbstractProgressionCodexScreen<T>> void openScreen(T screen, ProgressionEntryObject<T> progressionEntryObject) {
+    public static<T extends EntryScreen<T, K>, K extends AbstractProgressionCodexScreen<K>> void openScreen(K screen, ProgressionEntryObject<K> progressionEntryObject) {
         openScreen(progressionEntryObject.entry, b -> {
             screen.openScreen(b);
             progressionEntryObject.exit(screen);
         });
     }
 
-    public static<T extends AbstractMalumScreen<T>> void openScreen(AbstractMalumScreen<T> screen, BookEntry<T> entry) {
+    public static<T extends EntryScreen<T, K>, K extends AbstractMalumScreen<K>> void openScreen(AbstractMalumScreen<T> screen, BookEntry<T, K> entry) {
         openScreen(entry, screen::openScreen);
     }
 
-    public static<T extends AbstractMalumScreen<T>> void openScreen(BookEntry<T> bookEntry, Consumer<Boolean> onClose) {
+    public static<T extends EntryScreen<T, K>, K extends AbstractMalumScreen<K>> void openScreen(BookEntry<T, K> bookEntry, Consumer<Boolean> onClose) {
         entryScreen = new EntryScreen<>(bookEntry, onClose);
         entryScreen.playSweetenedSound(SoundRegistry.ARCANA_ENTRY_OPEN, 1.15f);
         Minecraft.getInstance().setScreen(entryScreen);

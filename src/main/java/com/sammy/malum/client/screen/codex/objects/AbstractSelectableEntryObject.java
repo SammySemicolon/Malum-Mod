@@ -10,11 +10,11 @@ import net.minecraft.network.chat.*;
 
 import java.util.*;
 
-public abstract class AbstractSelectableEntryObject<T extends AbstractMalumScreen<T>> extends BookObject<T> {
+public abstract class AbstractSelectableEntryObject<T extends EntryScreen<T, K>, K extends AbstractMalumScreen<K>> extends BookObject<T> {
 
-    public final EntryReference<T> entryReference;
+    public final EntryReference<T, K> entryReference;
 
-    public AbstractSelectableEntryObject(int posX, int posY, int width, int height, EntryReference<T> entryReference) {
+    public AbstractSelectableEntryObject(int posX, int posY, int width, int height, EntryReference<T, K> entryReference) {
         super(posX, posY, width, height);
         this.entryReference = entryReference;
     }
@@ -22,7 +22,7 @@ public abstract class AbstractSelectableEntryObject<T extends AbstractMalumScree
     @Override
     public void renderLate(T screen, GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
         if (isHoveredOver) {
-            final BookEntry<T> entry = entryReference.entry;
+            final BookEntry<T, K> entry = entryReference.entry;
             final List<Component> list = Arrays.asList(
                     Component.translatable(entry.translationKey()),
                     Component.translatable(entry.descriptionTranslationKey()).withStyle(ChatFormatting.GRAY));

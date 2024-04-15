@@ -6,15 +6,15 @@ import com.sammy.malum.client.screen.codex.screens.*;
 
 import java.util.function.*;
 
-public class BookEntry<T extends AbstractMalumScreen<T>> {
+public class BookEntry<T extends EntryScreen<T, K>, K extends AbstractMalumScreen<K>> {
 
     public final String identifier;
     public final boolean isVoid;
     public final ImmutableList<BookPage<T>> pages;
-    public final ImmutableList<EntryReference<T>> references;
+    public final ImmutableList<EntryReference<T, K>> references;
     public Predicate<T> isValid = t -> true;
 
-    public BookEntry(String identifier, boolean isVoid, ImmutableList<BookPage<T>> pages, ImmutableList<EntryReference<T>> references) {
+    public BookEntry(String identifier, boolean isVoid, ImmutableList<BookPage<T>> pages, ImmutableList<EntryReference<T, K>> references) {
         this.identifier = identifier;
         this.isVoid = isVoid;
         this.pages = pages;
@@ -33,11 +33,11 @@ public class BookEntry<T extends AbstractMalumScreen<T>> {
         return isValid.test(screen);
     }
 
-    public static <T extends AbstractProgressionCodexScreen<T>> PlacedBookEntryBuilder<T> build(String identifier, int xOffset, int yOffset) {
+    public static <T extends EntryScreen<T, K>, K extends AbstractProgressionCodexScreen<K>> PlacedBookEntryBuilder<T, K> build(String identifier, int xOffset, int yOffset) {
         return new PlacedBookEntryBuilder<>(identifier, xOffset, yOffset);
     }
 
-    public static <T extends AbstractMalumScreen<T>> BookEntryBuilder<T> build(String identifier) {
+    public static <T extends EntryScreen<T, K>, K extends AbstractMalumScreen<K>> BookEntryBuilder<T, K> build(String identifier) {
         return new BookEntryBuilder<>(identifier);
     }
 }

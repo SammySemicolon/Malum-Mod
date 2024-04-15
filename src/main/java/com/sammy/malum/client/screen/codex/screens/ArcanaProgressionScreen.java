@@ -25,7 +25,7 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen<Arca
 
     public static ArcanaProgressionScreen screen;
 
-    public static final List<BookEntry<ArcanaProgressionScreen>> ENTRIES = new ArrayList<>();
+    public static final List<PlacedBookEntry<?, ArcanaProgressionScreen>> ENTRIES = new ArrayList<>();
 
     public boolean isVoidTouched;
 
@@ -66,7 +66,7 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen<Arca
     }
 
     @Override
-    public Collection<BookEntry<ArcanaProgressionScreen>> getEntries() {
+    public Collection<PlacedBookEntry<?, ArcanaProgressionScreen>> getEntries() {
         return ENTRIES;
     }
 

@@ -9,7 +9,7 @@ import net.minecraft.network.chat.Component;
 
 import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.*;
 
-public class HeadlineTextPage<T extends AbstractProgressionCodexScreen<T>> extends BookPage<T> {
+public class HeadlineTextPage<T extends EntryScreen<T, ?>> extends BookPage<T> {
     private final String headlineTranslationKey;
     private final String translationKey;
 
@@ -31,7 +31,7 @@ public class HeadlineTextPage<T extends AbstractProgressionCodexScreen<T>> exten
     }
 
     @Override
-    public void render(EntryScreen<T> screen, GuiGraphics guiGraphics, int left, int top, int mouseX, int mouseY, float partialTicks, boolean isRepeat) {
+    public void render(T screen, GuiGraphics guiGraphics, int left, int top, int mouseX, int mouseY, float partialTicks, boolean isRepeat) {
         Component component = Component.translatable(headlineTranslationKey());
         renderText(guiGraphics, component, left + 70 - Minecraft.getInstance().font.width(component.getString()) / 2, top + 5);
         renderWrappingText(guiGraphics, translationKey(), left + 6, top + 25, 130);

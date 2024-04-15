@@ -11,7 +11,7 @@ import java.util.*;
 
 import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.*;
 
-public class CraftingPage<T extends AbstractProgressionCodexScreen<T>> extends BookPage<T> {
+public class CraftingPage<T extends EntryScreen<T, ?>> extends BookPage<T> {
     private final ItemStack outputStack;
     private final List<ItemStack> inputStacks;
 
@@ -34,7 +34,7 @@ public class CraftingPage<T extends AbstractProgressionCodexScreen<T>> extends B
     }
 
     @Override
-    public void render(EntryScreen<T> screen, GuiGraphics guiGraphics, int left, int top, int mouseX, int mouseY, float partialTicks, boolean isRepeat) {
+    public void render(T screen, GuiGraphics guiGraphics, int left, int top, int mouseX, int mouseY, float partialTicks, boolean isRepeat) {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 int index = i * 3 + j;
@@ -52,65 +52,65 @@ public class CraftingPage<T extends AbstractProgressionCodexScreen<T>> extends B
         renderItem(screen, guiGraphics, outputStack, left + 63, top + 126, mouseX, mouseY);
     }
 
-    public static <T extends AbstractProgressionCodexScreen<T>> CraftingPage<T> fullPage(Item output, Item input) {
+    public static <T extends EntryScreen<T, ?>> CraftingPage<T> fullPage(Item output, Item input) {
         return fullPage(output.getDefaultInstance(), input.getDefaultInstance());
     }
 
-    public static <T extends AbstractProgressionCodexScreen<T>> CraftingPage<T> fullPage(ItemStack output, ItemStack input) {
+    public static <T extends EntryScreen<T, ?>> CraftingPage<T> fullPage(ItemStack output, ItemStack input) {
         return new CraftingPage<>(output, input, input, input, input, input, input, input, input, input);
     }
 
-    public static <T extends AbstractProgressionCodexScreen<T>> CraftingPage<T> scythePage(Item scythe, Item metal, Item reagent) {
+    public static <T extends EntryScreen<T, ?>> CraftingPage<T> scythePage(Item scythe, Item metal, Item reagent) {
         return scythePage(scythe.getDefaultInstance(), metal.getDefaultInstance(), reagent.getDefaultInstance());
     }
 
-    public static <T extends AbstractProgressionCodexScreen<T>> CraftingPage<T> scythePage(ItemStack scythe, ItemStack metal, ItemStack reagent) {
+    public static <T extends EntryScreen<T, ?>> CraftingPage<T> scythePage(ItemStack scythe, ItemStack metal, ItemStack reagent) {
         ItemStack stick = Items.STICK.getDefaultInstance();
         ItemStack empty = Items.AIR.getDefaultInstance();
         return new CraftingPage<>(scythe, metal, metal, reagent, empty, stick, metal, stick, empty, empty);
     }
 
-    public static <T extends AbstractProgressionCodexScreen<T>> CraftingPage<T> broochPage(Item brooch, Item ingot, Item block) {
+    public static <T extends EntryScreen<T, ?>> CraftingPage<T> broochPage(Item brooch, Item ingot, Item block) {
         return broochPage(brooch.getDefaultInstance(), Items.LEATHER.getDefaultInstance(), ingot.getDefaultInstance(), block.getDefaultInstance());
     }
 
-    public static <T extends AbstractProgressionCodexScreen<T>> CraftingPage<T> broochPage(ItemStack brooch, ItemStack material, ItemStack ingot, ItemStack block) {
+    public static <T extends EntryScreen<T, ?>> CraftingPage<T> broochPage(ItemStack brooch, ItemStack material, ItemStack ingot, ItemStack block) {
         ItemStack empty = Items.AIR.getDefaultInstance();
         return new CraftingPage<>(brooch, empty, material, empty, material, ingot, material, empty, block, empty);
     }
 
-    public static <T extends AbstractProgressionCodexScreen<T>> CraftingPage<T> ringPage(Item ring, Item reagent) {
+    public static <T extends EntryScreen<T, ?>> CraftingPage<T> ringPage(Item ring, Item reagent) {
         return ringPage(ring.getDefaultInstance(), Items.LEATHER.getDefaultInstance(), reagent.getDefaultInstance());
     }
 
-    public static <T extends AbstractProgressionCodexScreen<T>> CraftingPage<T> ringPage(ItemStack ring, ItemStack material, ItemStack reagent) {
+    public static <T extends EntryScreen<T, ?>> CraftingPage<T> ringPage(ItemStack ring, ItemStack material, ItemStack reagent) {
         ItemStack empty = Items.AIR.getDefaultInstance();
         return new CraftingPage<>(ring, reagent, material, empty, material, empty, material, empty, material, empty);
     }
 
-    public static <T extends AbstractProgressionCodexScreen<T>> CraftingPage<T> itemPedestalPage(Item pedestal, Item fullBlock, Item slab) {
+    public static <T extends EntryScreen<T, ?>> CraftingPage<T> itemPedestalPage(Item pedestal, Item fullBlock, Item slab) {
         return itemPedestalPage(pedestal.getDefaultInstance(), fullBlock.getDefaultInstance(), slab.getDefaultInstance());
     }
 
-    public static <T extends AbstractProgressionCodexScreen<T>> CraftingPage<T> itemPedestalPage(ItemStack pedestal, ItemStack fullBlock, ItemStack slab) {
+    public static <T extends EntryScreen<T, ?>> CraftingPage<T> itemPedestalPage(ItemStack pedestal, ItemStack fullBlock, ItemStack slab) {
         ItemStack empty = Items.AIR.getDefaultInstance();
         return new CraftingPage<>(pedestal, slab, slab, slab, empty, fullBlock, empty, slab, slab, slab);
     }
 
-    public static <T extends AbstractProgressionCodexScreen<T>> CraftingPage<T> itemStandPage(Item stand, Item fullBlock, Item slab) {
+    public static <T extends EntryScreen<T, ?>> CraftingPage<T> itemStandPage(Item stand, Item fullBlock, Item slab) {
         return itemStandPage(stand.getDefaultInstance(), fullBlock.getDefaultInstance(), slab.getDefaultInstance());
     }
 
-    public static <T extends AbstractProgressionCodexScreen<T>> CraftingPage<T> itemStandPage(ItemStack stand, ItemStack fullBlock, ItemStack slab) {
+    public static <T extends EntryScreen<T, ?>> CraftingPage<T> itemStandPage(ItemStack stand, ItemStack fullBlock, ItemStack slab) {
         ItemStack empty = Items.AIR.getDefaultInstance();
         return new CraftingPage<>(stand, empty, empty, empty, slab, slab, slab, fullBlock, fullBlock, fullBlock);
     }
 
-    public static <T extends AbstractProgressionCodexScreen<T>> CraftingPage<T> toolPage(Item tool, Item metal) {
+    public static <T extends EntryScreen<T, ?>> CraftingPage<T> toolPage(Item tool, Item metal) {
         return toolPage(tool.getDefaultInstance(), metal.getDefaultInstance());
     }
 
-    public static <T extends AbstractProgressionCodexScreen<T>> CraftingPage<T> toolPage(ItemStack tool, ItemStack metal) {
+    public static <T extends EntryScreen<T, ?>> CraftingPage<T> toolPage(ItemStack tool, ItemStack metal) {
         ItemStack stick = Items.STICK.getDefaultInstance();
         ItemStack empty = Items.AIR.getDefaultInstance();
         if (tool.getItem() instanceof SwordItem) {
@@ -131,11 +131,11 @@ public class CraftingPage<T extends AbstractProgressionCodexScreen<T>> extends B
         return null;
     }
 
-    public static <T extends AbstractProgressionCodexScreen<T>> CraftingPage<T> knifePage(Item tool, Item metal) {
+    public static <T extends EntryScreen<T, ?>> CraftingPage<T> knifePage(Item tool, Item metal) {
         return knifePage(tool.getDefaultInstance(), metal.getDefaultInstance());
     }
 
-    public static <T extends AbstractProgressionCodexScreen<T>> CraftingPage<T> knifePage(ItemStack tool, ItemStack metal) {
+    public static <T extends EntryScreen<T, ?>> CraftingPage<T> knifePage(ItemStack tool, ItemStack metal) {
         ItemStack stick = Items.STICK.getDefaultInstance();
         ItemStack empty = Items.AIR.getDefaultInstance();
         return new CraftingPage<>(tool, empty, empty, empty, empty, metal, empty, stick, empty) {

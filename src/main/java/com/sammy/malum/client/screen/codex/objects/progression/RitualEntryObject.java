@@ -13,7 +13,7 @@ import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.*;
 public class RitualEntryObject<T extends AbstractProgressionCodexScreen<T>> extends ProgressionEntryObject<T> {
     public final MalumRitualType ritualType;
 
-    public RitualEntryObject(BookEntry<T> entry, int posX, int posY) {
+    public RitualEntryObject(BookEntry<?, T> entry, int posX, int posY) {
         super(entry, posX, posY);
         Optional<SpiritRitualTextPage> page = entry.pages.stream().filter(p -> p instanceof SpiritRitualTextPage).map(p -> ((SpiritRitualTextPage) p)).findAny();
         if (page.isPresent()) {

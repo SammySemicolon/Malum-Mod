@@ -10,10 +10,10 @@ import javax.annotation.*;
 
 import static com.sammy.malum.client.screen.codex.screens.EntryScreen.*;
 
-public abstract class BookPage<T extends AbstractMalumScreen<T>> {
+public abstract class BookPage<T extends EntryScreen<T, ?>> {
     @Nullable
     protected final ResourceLocation background;
-    protected BookEntry<T> bookEntry;
+    protected BookEntry<T, ?> bookEntry;
 
     public BookPage(@Nullable ResourceLocation background) {
         this.background = background;
@@ -56,7 +56,7 @@ public abstract class BookPage<T extends AbstractMalumScreen<T>> {
         return (entryScreen.height - entryScreen.bookHeight) / 2;
     }
 
-    public BookPage<T> setBookEntry(BookEntry<T> bookEntry) {
+    public BookPage<T> setBookEntry(BookEntry<T, ?> bookEntry) {
         this.bookEntry = bookEntry;
         return this;
     }

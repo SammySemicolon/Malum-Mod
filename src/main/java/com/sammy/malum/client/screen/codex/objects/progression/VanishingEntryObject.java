@@ -9,7 +9,7 @@ import net.minecraft.world.entity.player.Player;
 
 
 public class VanishingEntryObject<T extends AbstractProgressionCodexScreen<T>> extends ProgressionEntryObject<T> {
-    public VanishingEntryObject(BookEntry<T> entry, int posX, int posY) {
+    public VanishingEntryObject(BookEntry<?, T> entry, int posX, int posY) {
         super(entry, posX, posY);
     }
 

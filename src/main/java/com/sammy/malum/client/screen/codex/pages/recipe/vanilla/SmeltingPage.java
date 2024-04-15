@@ -15,7 +15,7 @@ import java.util.Optional;
 
 import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.renderItem;
 
-public class SmeltingPage<T extends AbstractProgressionCodexScreen<T>> extends BookPage<T> {
+public class SmeltingPage<T extends EntryScreen<T, ?>> extends BookPage<T> {
     private final ItemStack inputStack;
     private final ItemStack outputStack;
 
@@ -30,7 +30,7 @@ public class SmeltingPage<T extends AbstractProgressionCodexScreen<T>> extends B
     }
 
     @Override
-    public void render(EntryScreen<T> screen, GuiGraphics guiGraphics, int left, int top, int mouseX, int mouseY, float partialTicks, boolean isRepeat) {
+    public void render(T screen, GuiGraphics guiGraphics, int left, int top, int mouseX, int mouseY, float partialTicks, boolean isRepeat) {
         renderItem(screen, guiGraphics, inputStack, left + 63, top + 59, mouseX, mouseY);
         renderItem(screen, guiGraphics, outputStack, left + 63, top + 126, mouseX, mouseY);
     }
@@ -40,7 +40,7 @@ public class SmeltingPage<T extends AbstractProgressionCodexScreen<T>> extends B
         return !inputStack.isEmpty() && !outputStack.isEmpty();
     }
 
-    public static<T extends AbstractProgressionCodexScreen<T>> SmeltingPage<T> fromInput(Item input) {
+    public static<T extends EntryScreen<T, ?>> SmeltingPage<T> fromInput(Item input) {
         if (Minecraft.getInstance() == null) {
             return new SmeltingPage<>(ItemStack.EMPTY, ItemStack.EMPTY);
         }

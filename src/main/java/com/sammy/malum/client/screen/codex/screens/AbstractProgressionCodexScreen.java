@@ -60,13 +60,13 @@ public abstract class AbstractProgressionCodexScreen<T extends AbstractProgressi
 
     public abstract void renderBackground(PoseStack poseStack);
 
-    public abstract Collection<BookEntry<T>> getEntries();
+    public abstract Collection<PlacedBookEntry<?, T>> getEntries();
 
     public void addEntry(String identifier, int xOffset, int yOffset) {
         addEntry(identifier, xOffset, yOffset, b -> {});
     }
-    public void addEntry(String identifier, int xOffset, int yOffset, Consumer<PlacedBookEntryBuilder<T>> consumer) {
-        final PlacedBookEntryBuilder<T> builder = BookEntry.build(identifier, xOffset, yOffset);
+    public void addEntry(String identifier, int xOffset, int yOffset, Consumer<PlacedBookEntryBuilder<?, T>> consumer) {
+        final PlacedBookEntryBuilder<?, T> builder = PlacedBookEntry.build(identifier, xOffset, yOffset);
         consumer.accept(builder);
         getEntries().add(builder.build());
     }

@@ -12,10 +12,10 @@ public class IconObject<T extends AbstractProgressionCodexScreen<T>> extends Pro
     public final int textureWidth;
     public final int textureHeight;
 
-    public IconObject(BookEntry<T> entry, int posX, int posY, ResourceLocation textureLocation) {
+    public IconObject(BookEntry<?, T> entry, int posX, int posY, ResourceLocation textureLocation) {
         this(entry, posX, posY, textureLocation, 16, 16);
     }
-    public IconObject(BookEntry<T> entry, int posX, int posY, ResourceLocation textureLocation, int textureWidth, int textureHeight) {
+    public IconObject(BookEntry<?, T> entry, int posX, int posY, ResourceLocation textureLocation, int textureWidth, int textureHeight) {
         super(entry, posX, posY);
         this.textureLocation = textureLocation;
         this.textureWidth = textureWidth;

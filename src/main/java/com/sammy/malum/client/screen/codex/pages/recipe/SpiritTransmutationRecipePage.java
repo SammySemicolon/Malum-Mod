@@ -16,7 +16,7 @@ import java.util.function.*;
 
 import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.*;
 
-public class SpiritTransmutationRecipePage<T extends AbstractProgressionCodexScreen<T>>  extends BookPage<T> {
+public class SpiritTransmutationRecipePage<T extends EntryScreen<T, ?>> extends BookPage<T> {
     private final String headlineTranslationKey;
     private final List<SpiritTransmutationRecipe> recipes;
 
@@ -50,11 +50,11 @@ public class SpiritTransmutationRecipePage<T extends AbstractProgressionCodexScr
         return "malum.gui.book.entry.page.headline." + headlineTranslationKey;
     }
 
-    public static<T extends AbstractProgressionCodexScreen<T>> SpiritTransmutationRecipePage<T> fromInput(String headlineTranslationKey, Item inputItem) {
+    public static<T extends EntryScreen<T, ?>> SpiritTransmutationRecipePage<T> fromInput(String headlineTranslationKey, Item inputItem) {
         return new SpiritTransmutationRecipePage<>(headlineTranslationKey, s -> s.doesInputMatch(inputItem.getDefaultInstance()));
     }
 
-    public static<T extends AbstractProgressionCodexScreen<T>> SpiritTransmutationRecipePage<T> fromOutput(String headlineTranslationKey, Item outputItem) {
+    public static<T extends EntryScreen<T, ?>> SpiritTransmutationRecipePage<T> fromOutput(String headlineTranslationKey, Item outputItem) {
         return new SpiritTransmutationRecipePage<>(headlineTranslationKey, s -> s.doesOutputMatch(outputItem.getDefaultInstance()));
     }
 
@@ -64,7 +64,7 @@ public class SpiritTransmutationRecipePage<T extends AbstractProgressionCodexScr
     }
 
     @Override
-    public void render(EntryScreen<T> screen, GuiGraphics guiGraphics, int left, int top, int mouseX, int mouseY, float partialTicks, boolean isRepeat) {
+    public void render(T screen, GuiGraphics guiGraphics, int left, int top, int mouseX, int mouseY, float partialTicks, boolean isRepeat) {
         Component component = Component.translatable(headlineTranslationKey());
         renderText(guiGraphics, component, left + 70 - Minecraft.getInstance().font.width(component.getString()) / 2, top + 5);
 

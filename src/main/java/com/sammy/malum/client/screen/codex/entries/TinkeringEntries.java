@@ -12,6 +12,7 @@ import static net.minecraft.world.item.Items.*;
 
 public class TinkeringEntries {
 
+    @SuppressWarnings({"rawtypes", "unchecked"})
     public static void setupEntries(ArcanaProgressionScreen screen) {
         Item EMPTY = ItemStack.EMPTY.getItem();
 
@@ -20,7 +21,7 @@ public class TinkeringEntries {
                 .addPage(new HeadlineTextItemPage<>("spirit_metals.soulstained_steel", "spirit_metals.soulstained_steel.1", SOUL_STAINED_STEEL_INGOT.get()))
                 .addPage(new TextPage<>("spirit_metals.soulstained_steel.2"))
                 .addPage(SpiritInfusionPage.fromOutput(SOUL_STAINED_STEEL_INGOT.get()))
-                .addPage(new CyclingPage<ArcanaProgressionScreen>(
+                .addPage(new CyclingPage(
                         CraftingPage.toolPage(SOUL_STAINED_STEEL_PICKAXE.get(), SOUL_STAINED_STEEL_INGOT.get()),
                         CraftingPage.toolPage(SOUL_STAINED_STEEL_AXE.get(), SOUL_STAINED_STEEL_INGOT.get()),
                         CraftingPage.toolPage(SOUL_STAINED_STEEL_HOE.get(), SOUL_STAINED_STEEL_INGOT.get()),
@@ -28,7 +29,6 @@ public class TinkeringEntries {
                         CraftingPage.toolPage(SOUL_STAINED_STEEL_SWORD.get(), SOUL_STAINED_STEEL_INGOT.get()),
                         CraftingPage.knifePage(SOUL_STAINED_STEEL_KNIFE.get(), SOUL_STAINED_STEEL_INGOT.get())
                 ))
-                //TODO: the above is a temporary bandaid, implement a proper thing for this once book page/entry refactor happens
                 .addPage(new HeadlineTextItemPage<>("spirit_metals.hallowed_gold", "spirit_metals.hallowed_gold.1", HALLOWED_GOLD_INGOT.get()))
                 .addPage(new TextPage<>("spirit_metals.hallowed_gold.2"))
                 .addPage(SpiritInfusionPage.fromOutput(HALLOWED_GOLD_INGOT.get()))
@@ -47,7 +47,7 @@ public class TinkeringEntries {
                 .addPage(new HeadlineTextPage<>("soulstained_armor", "soulstained_armor.1"))
                 .addPage(new TextPage<>("soulstained_armor.2"))
                 .addPage(new TextPage<>("soulstained_armor.3"))
-                .addPage(new CyclingPage<ArcanaProgressionScreen>(
+                .addPage(new CyclingPage(
                         SpiritInfusionPage.fromOutput(SOUL_STAINED_STEEL_HELMET.get()),
                         SpiritInfusionPage.fromOutput(SOUL_STAINED_STEEL_CHESTPLATE.get()),
                         SpiritInfusionPage.fromOutput(SOUL_STAINED_STEEL_LEGGINGS.get()),

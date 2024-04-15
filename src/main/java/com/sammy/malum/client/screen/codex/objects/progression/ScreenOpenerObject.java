@@ -6,12 +6,12 @@ import net.minecraft.resources.*;
 
 public class ScreenOpenerObject<T extends AbstractProgressionCodexScreen<T>> extends IconObject<T> {
     private final Runnable screenOpener;
-    public ScreenOpenerObject(BookEntry<T> entry, int posX, int posY, Runnable screenOpener, ResourceLocation textureLocation) {
+    public ScreenOpenerObject(BookEntry<?, T> entry, int posX, int posY, Runnable screenOpener, ResourceLocation textureLocation) {
         super(entry, posX, posY, textureLocation);
         this.screenOpener = screenOpener;
     }
 
-    public ScreenOpenerObject(BookEntry<T> entry, int posX, int posY, Runnable screenOpener, ResourceLocation textureLocation, int textureWidth, int textureHeight) {
+    public ScreenOpenerObject(BookEntry<?,T> entry, int posX, int posY, Runnable screenOpener, ResourceLocation textureLocation, int textureWidth, int textureHeight) {
         super(entry, posX, posY, textureLocation, textureWidth, textureHeight);
         this.screenOpener = screenOpener;
     }
