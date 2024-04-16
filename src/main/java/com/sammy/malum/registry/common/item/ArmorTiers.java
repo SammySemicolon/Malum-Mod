@@ -12,8 +12,8 @@ import java.util.function.Supplier;
 
 public class ArmorTiers {
     public enum ArmorTierEnum implements ArmorMaterial {
-        SPIRIT_HUNTER("malum:spirit_hunter", 18, new int[]{1, 3, 4, 2}, 16, () -> SoundEvents.ARMOR_EQUIP_LEATHER, ItemRegistry.SPIRIT_FABRIC, 0),
-        SOUL_STAINED_STEEL("malum:soul_stained_steel", 22, new int[]{2, 6, 7, 3}, 16, () -> SoundEvents.ARMOR_EQUIP_IRON, ItemRegistry.SOUL_STAINED_STEEL_PLATING, 2),
+        SPIRIT_HUNTER("malum:spirit_hunter", 16, new int[]{1, 3, 4, 2}, 16, () -> SoundEvents.ARMOR_EQUIP_LEATHER, ItemRegistry.SPIRIT_FABRIC, 0),
+        SOUL_STAINED_STEEL("malum:soul_stained_steel", 24, new int[]{2, 6, 7, 3}, 16, () -> SoundEvents.ARMOR_EQUIP_IRON, ItemRegistry.SOUL_STAINED_STEEL_PLATING, 2),
         MALIGNANT_ALLOY("malum:malignant_alloy", 32, new int[]{3, 6, 8, 3}, 24, () -> SoundEvents.ARMOR_EQUIP_NETHERITE, ItemRegistry.MALIGNANT_ALLOY_PLATING, 2, 0.1f);
         private static final int[] MAX_DAMAGE_ARRAY = new int[]{13, 15, 16, 11};
         private final String name;

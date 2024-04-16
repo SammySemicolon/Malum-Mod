@@ -42,7 +42,7 @@ public class CurioMagebaneBelt extends MalumCurioItem implements IMalumEventResp
 
     @Override
     public void addAttributeModifiers(Multimap<Attribute, AttributeModifier> map, SlotContext slotContext, ItemStack stack) {
-        addAttributeModifier(map, AttributeRegistry.SOUL_WARD_RECOVERY_SPEED.get(), uuid -> new AttributeModifier(uuid,
+        addAttributeModifier(map, AttributeRegistry.SOUL_WARD_RECOVERY_RATE.get(), uuid -> new AttributeModifier(uuid,
                 "Curio Soul Ward Recovery Speed", 3f, AttributeModifier.Operation.ADDITION));
         addAttributeModifier(map, AttributeRegistry.SOUL_WARD_CAP.get(), uuid -> new AttributeModifier(uuid,
                 "Curio Soul Ward Capacity", 6f, AttributeModifier.Operation.ADDITION));

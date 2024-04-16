@@ -624,10 +624,10 @@ public class MalumLang extends LanguageProvider {
         addHeadline("rune_of_aliment_cleansing", "Rune of Aliment Cleansing");
         addPages("rune_of_aliment_cleansing",
             "The Rune of Aliment Cleansing implores a body to catalyze and change substance, allowing it to burn through and process negative effects quicker than normal.");
-        addEntryHeader("rune_of_haste", "Rune of Haste", "The impulse to expend");
-        addHeadline("rune_of_haste", "Rune of Haste");
-        addPages("rune_of_haste",
-            "The Rune of Haste implores a mind to move with fervor, improving the user's mining speed by roughly a quarter.");
+        addEntryHeader("rune_of_fervor", "Rune of Fervor", "The impulse to expend");
+        addHeadline("rune_of_fervor", "Rune of Fervor");
+        addPages("rune_of_fervor",
+            "The Rune of Fervor implores a mind to move with haste, improving the user's mining speed by roughly a quarter.");
         addEntryHeader("rune_of_reactive_shielding", "Rune of Reactive Shielding", "The impulse to withstand");
         addHeadline("rune_of_reactive_shielding", "Rune of Reactive Shielding");
         addPages("rune_of_reactive_shielding",

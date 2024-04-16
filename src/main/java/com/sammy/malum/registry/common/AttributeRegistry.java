@@ -19,11 +19,12 @@ public class AttributeRegistry {
     public static final RegistryObject<Attribute> SPIRIT_SPOILS = registerAttribute(ATTRIBUTES, MALUM, "spirit_spoils", (id) -> new RangedAttribute(id, 0.0D, 0.0D, 2048.0D).setSyncable(true));
     public static final RegistryObject<Attribute> ARCANE_RESONANCE = registerAttribute(ATTRIBUTES, MALUM, "arcane_resonance", (id) -> new RangedAttribute(id, 0.0D, 0.0D, 2048.0D).setSyncable(true));
 
-    public static final RegistryObject<Attribute> SOUL_WARD_STRENGTH = registerAttribute(ATTRIBUTES, MALUM, "soul_ward_strength", (id) -> new RangedAttribute(id, 1D, 0.0D, 2048.0D).setSyncable(true));
-    public static final RegistryObject<Attribute> SOUL_WARD_RECOVERY_SPEED = registerAttribute(ATTRIBUTES, MALUM, "soul_ward_recovery_speed", (id) -> new RangedAttribute(id, 0D, 0.0D, 2048.0D).setSyncable(true));
+    public static final RegistryObject<Attribute> SOUL_WARD_STRENGTH = registerAttribute(ATTRIBUTES, MALUM, "soul_ward_strength", (id) -> new RangedAttribute(id, 0.0D, 0.0D, 2048.0D).setSyncable(true));
+    public static final RegistryObject<Attribute> SOUL_WARD_RECOVERY_RATE = registerAttribute(ATTRIBUTES, MALUM, "soul_ward_recovery_rate", (id) -> new RangedAttribute(id, 0D, 0.0D, 2048.0D).setSyncable(true));
     public static final RegistryObject<Attribute> SOUL_WARD_CAP = registerAttribute(ATTRIBUTES, MALUM, "soul_ward_capacity", (id) -> new RangedAttribute(id, 0D, 0.0D, 2048.0D).setSyncable(true));
 
     public static final RegistryObject<Attribute> RESERVE_STAFF_CHARGES = registerAttribute(ATTRIBUTES, MALUM, "reserve_staff_charges", (id) -> new RangedAttribute(id, 0D, 0.0D, 2048.0D).setSyncable(true));
+    public static final RegistryObject<Attribute> MALIGNANT_CONVERSION = registerAttribute(ATTRIBUTES, MALUM, "malignant_conversion", (id) -> new RangedAttribute(id, 0D, 0.0D, 1.0D).setSyncable(true));
 
     @SubscribeEvent
     public static void modifyEntityAttributes(EntityAttributeModificationEvent event) {
@@ -32,11 +33,11 @@ public class AttributeRegistry {
             event.add(e, SPIRIT_SPOILS.get());
             event.add(e, ARCANE_RESONANCE.get());
 
-            //TODO: figure out if this event runs for the Player entity, if not, the stuff below can be removed
             event.add(e, SOUL_WARD_STRENGTH.get());
-            event.add(e, SOUL_WARD_RECOVERY_SPEED.get());
+            event.add(e, SOUL_WARD_RECOVERY_RATE.get());
             event.add(e, SOUL_WARD_CAP.get());
             event.add(e, RESERVE_STAFF_CHARGES.get());
+            event.add(e, MALIGNANT_CONVERSION.get());
         });
     }
 }

@@ -2,8 +2,7 @@ package com.sammy.malum.common.capability;
 
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.packets.SyncLivingCapabilityDataPacket;
-import com.sammy.malum.core.handlers.SoulDataHandler;
-import com.sammy.malum.core.handlers.TouchOfDarknessHandler;
+import com.sammy.malum.core.handlers.*;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
@@ -34,6 +33,7 @@ public class MalumLivingEntityDataCapability implements LodestoneCapability {
     });
 
     public SoulDataHandler soulData = new SoulDataHandler();
+    public MalignantConversionHandler malignantConversionHandler = new MalignantConversionHandler();
     public TouchOfDarknessHandler touchOfDarknessHandler = new TouchOfDarknessHandler();
 
     public List<ItemStack> soulsToApplyToDrops;

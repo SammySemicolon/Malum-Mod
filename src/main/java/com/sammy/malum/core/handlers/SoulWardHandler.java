@@ -95,7 +95,7 @@ public class SoulWardHandler {
                     }
                     float result = amount * multiplier;
                     float absorbed = amount - result;
-                    double strength = player.getAttributeValue(AttributeRegistry.SOUL_WARD_STRENGTH.get());
+                    double strength = 1+player.getAttributeValue(AttributeRegistry.SOUL_WARD_STRENGTH.get());
                     float soulwardLost = (float) (soulWardHandler.soulWard - (absorbed / strength));
                     if (strength != 0) {
                         soulWardHandler.soulWard = Math.max(0, soulwardLost);
@@ -119,7 +119,7 @@ public class SoulWardHandler {
     }
 
     public static int getSoulWardCooldown(Player player) {
-        return getSoulWardCooldown(player.getAttributeValue(AttributeRegistry.SOUL_WARD_RECOVERY_SPEED.get()));
+        return getSoulWardCooldown(player.getAttributeValue(AttributeRegistry.SOUL_WARD_RECOVERY_RATE.get()));
     }
 
     public static int getSoulWardCooldown(double recoverySpeed) {

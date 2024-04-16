@@ -102,6 +102,7 @@ public class RuntimeEvents {
     @SubscribeEvent
     public static void onLivingTick(LivingEvent.LivingTickEvent event) {
         SoulDataHandler.manageSoul(event);
+        MalignantConversionHandler.checkForAttributeChanges(event);
         TouchOfDarknessHandler.entityTick(event);
     }
 

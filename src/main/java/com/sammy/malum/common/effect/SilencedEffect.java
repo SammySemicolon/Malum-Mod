@@ -18,7 +18,7 @@ public class SilencedEffect extends MobEffect {
 
         addAttributeModifier(AttributeRegistry.SOUL_WARD_STRENGTH.get(), "c804e494-0f03-49e3-b9e1-c382ddd98927", -0.1f, AttributeModifier.Operation.MULTIPLY_TOTAL);
         addAttributeModifier(AttributeRegistry.SOUL_WARD_CAP.get(), "e0e391f4-ca5c-4237-a261-fbcb85d2a491", -0.1f, AttributeModifier.Operation.MULTIPLY_TOTAL);
-        addAttributeModifier(AttributeRegistry.SOUL_WARD_RECOVERY_SPEED.get(), "c460be81-7c50-499d-b66f-ec7b78f917e4", -0.1f, AttributeModifier.Operation.MULTIPLY_TOTAL);
+        addAttributeModifier(AttributeRegistry.SOUL_WARD_RECOVERY_RATE.get(), "c460be81-7c50-499d-b66f-ec7b78f917e4", -0.1f, AttributeModifier.Operation.MULTIPLY_TOTAL);
 
         addAttributeModifier(AttributeRegistry.ARCANE_RESONANCE.get(), "3c0373c4-179d-4c38-b54b-442e69c1fb1c", -0.1f, AttributeModifier.Operation.MULTIPLY_TOTAL);
     }
