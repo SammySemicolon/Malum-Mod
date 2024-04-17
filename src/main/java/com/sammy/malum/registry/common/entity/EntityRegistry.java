@@ -50,11 +50,11 @@ public class EntityRegistry {
                     .build(MalumMod.malumPath("scythe_boomerang").toString()));
 
     public static final RegistryObject<EntityType<HexBoltEntity>> HEX_BOLT = ENTITY_TYPES.register("hex_bolt",
-            () -> EntityType.Builder.<HexBoltEntity>of((e, w) -> new HexBoltEntity(w), MobCategory.MISC).sized(1F, 1.2F).clientTrackingRange(10)
+            () -> EntityType.Builder.<HexBoltEntity>of((e, w) -> new HexBoltEntity(w), MobCategory.MISC).sized(1.25F, 1.25F).clientTrackingRange(10)
                     .build(MalumMod.malumPath("hex_bolt").toString()));
 
     public static final RegistryObject<EntityType<DrainingBoltEntity>> DRAINING_BOLT = ENTITY_TYPES.register("draining_bolt",
-            () -> EntityType.Builder.<DrainingBoltEntity>of((e, w) -> new DrainingBoltEntity(w), MobCategory.MISC).sized(1F, 1f).clientTrackingRange(10)
+            () -> EntityType.Builder.<DrainingBoltEntity>of((e, w) -> new DrainingBoltEntity(w), MobCategory.MISC).sized(1.5F, 1.5f).clientTrackingRange(10)
                     .build(MalumMod.malumPath("draining_bolt").toString()));
 
     public static final RegistryObject<EntityType<AuricFlameBoltEntity>> AURIC_FLAME_BOLT = ENTITY_TYPES.register("auric_flame_bolt",

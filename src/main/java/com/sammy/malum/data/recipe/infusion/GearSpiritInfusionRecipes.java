@@ -156,28 +156,28 @@ public class GearSpiritInfusionRecipes {
                 .addSpirit(EARTHEN_SPIRIT, 8)
                 .build(consumer);
 
-        new SpiritInfusionRecipeBuilder(Items.IRON_HELMET, 1, ItemRegistry.MALIGNANT_STRONGHOLD_HELMET.get(), 1)
+        new SpiritInfusionRecipeBuilder(ItemRegistry.SOUL_STAINED_STEEL_HELMET.get(), 1, ItemRegistry.MALIGNANT_STRONGHOLD_HELMET.get(), 1)
                 .addExtraItem(ItemRegistry.MALIGNANT_ALLOY_PLATING.get(), 3)
                 .addSpirit(EARTHEN_SPIRIT, 32)
                 .addSpirit(WICKED_SPIRIT, 32)
                 .addSpirit(ELDRITCH_SPIRIT, 16)
                 .build(consumer);
 
-        new SpiritInfusionRecipeBuilder(Items.IRON_CHESTPLATE, 1, ItemRegistry.MALIGNANT_STRONGHOLD_CHESTPLATE.get(), 1)
+        new SpiritInfusionRecipeBuilder(ItemRegistry.SOUL_STAINED_STEEL_CHESTPLATE.get(), 1, ItemRegistry.MALIGNANT_STRONGHOLD_CHESTPLATE.get(), 1)
                 .addExtraItem(ItemRegistry.MALIGNANT_ALLOY_PLATING.get(), 3)
                 .addSpirit(EARTHEN_SPIRIT, 32)
                 .addSpirit(WICKED_SPIRIT, 32)
                 .addSpirit(ELDRITCH_SPIRIT, 16)
                 .build(consumer);
 
-        new SpiritInfusionRecipeBuilder(Items.IRON_LEGGINGS, 1, ItemRegistry.MALIGNANT_STRONGHOLD_LEGGINGS.get(), 1)
+        new SpiritInfusionRecipeBuilder(ItemRegistry.SOUL_STAINED_STEEL_LEGGINGS.get(), 1, ItemRegistry.MALIGNANT_STRONGHOLD_LEGGINGS.get(), 1)
                 .addExtraItem(ItemRegistry.MALIGNANT_ALLOY_PLATING.get(), 3)
                 .addSpirit(EARTHEN_SPIRIT, 32)
                 .addSpirit(WICKED_SPIRIT, 32)
                 .addSpirit(ELDRITCH_SPIRIT, 16)
                 .build(consumer);
 
-        new SpiritInfusionRecipeBuilder(Items.IRON_BOOTS, 1, ItemRegistry.MALIGNANT_STRONGHOLD_BOOTS.get(), 1)
+        new SpiritInfusionRecipeBuilder(ItemRegistry.SOUL_STAINED_STEEL_BOOTS.get(), 1, ItemRegistry.MALIGNANT_STRONGHOLD_BOOTS.get(), 1)
                 .addExtraItem(ItemRegistry.MALIGNANT_ALLOY_PLATING.get(), 3)
                 .addSpirit(EARTHEN_SPIRIT, 32)
                 .addSpirit(WICKED_SPIRIT, 32)
