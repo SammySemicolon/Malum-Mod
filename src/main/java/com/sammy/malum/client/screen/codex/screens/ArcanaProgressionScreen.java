@@ -93,7 +93,7 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
                 .addPage(SpiritInfusionPage.fromOutput(NECKLACE_OF_THE_MYSTIC_MIRROR.get()))
         );
 
-        addEntry("mirror_magic", 6, 10, b -> b
+        addEntry("mirror_magic", 8, 13, b -> b
                 .setWidgetConfig(w -> w.setIcon(SPECTRAL_LENS).setStyle(BookWidgetStyle.GILDED_RUNEWOOD))
                 .addPage(new HeadlineTextPage("mirror_magic", "mirror_magic.1"))
                 .addPage(SpiritInfusionPage.fromOutput(SPECTRAL_LENS.get()))

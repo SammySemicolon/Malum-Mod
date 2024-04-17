@@ -51,7 +51,7 @@ public class MalignantScepterItem extends AbstractStaffItem {
 
     @Override
     public int getCooldownDuration(Level level, LivingEntity livingEntity) {
-        return 60;
+        return 80;
     }
 
     @Override

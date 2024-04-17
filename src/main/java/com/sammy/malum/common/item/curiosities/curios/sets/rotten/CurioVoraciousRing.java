@@ -1,29 +1,20 @@
 package com.sammy.malum.common.item.curiosities.curios.sets.rotten;
 
-import com.google.common.collect.Multimap;
-import com.sammy.malum.common.item.curiosities.curios.MalumCurioItem;
-import com.sammy.malum.registry.common.MobEffectRegistry;
-import com.sammy.malum.registry.common.SoundRegistry;
-import com.sammy.malum.registry.common.item.ItemRegistry;
-import net.minecraft.network.chat.Component;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.ai.attributes.Attribute;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
-import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
-import team.lodestar.lodestone.helpers.CurioHelper;
-import team.lodestar.lodestone.helpers.EntityHelper;
-import team.lodestar.lodestone.helpers.RandomHelper;
-import top.theillusivec4.curios.api.SlotContext;
+import com.sammy.malum.common.item.curiosities.curios.*;
+import com.sammy.malum.registry.common.*;
+import com.sammy.malum.registry.common.item.*;
+import net.minecraft.network.chat.*;
+import net.minecraft.sounds.*;
+import net.minecraft.world.effect.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.*;
+import net.minecraftforge.event.entity.living.*;
+import team.lodestar.lodestone.helpers.*;
 
-import java.util.function.Consumer;
+import java.util.function.*;
 
-import static com.sammy.malum.registry.common.item.ItemTagRegistry.GROSS_FOODS;
+import static com.sammy.malum.registry.common.item.ItemTagRegistry.*;
 
 public class CurioVoraciousRing extends MalumCurioItem {
 
@@ -35,14 +26,6 @@ public class CurioVoraciousRing extends MalumCurioItem {
     public void addExtraTooltipLines(Consumer<Component> consumer) {
         consumer.accept(positiveEffect("eat_rotten"));
         consumer.accept(positiveEffect("growing_gluttony"));
-    }
-
-    @Override
-    public void addAttributeModifiers(Multimap<Attribute, AttributeModifier> map, SlotContext slotContext, ItemStack stack) {
-        addAttributeModifier(map, Attributes.ARMOR_TOUGHNESS, uuid -> new AttributeModifier(uuid,
-                "Curio Armor Toughness", 1f, AttributeModifier.Operation.ADDITION));
-        addAttributeModifier(map, Attributes.ARMOR, uuid -> new AttributeModifier(uuid,
-                "Curio Armor", 1f, AttributeModifier.Operation.ADDITION));
     }
 
     public static void accelerateEating(LivingEntityUseItemEvent.Start event) {

@@ -3,6 +3,7 @@ package com.sammy.malum.common.item.curiosities.curios.sets.prospector;
 import com.sammy.malum.common.item.curiosities.curios.MalumCurioItem;
 import com.sammy.malum.registry.common.item.ItemRegistry;
 import com.sammy.malum.registry.common.item.ItemTagRegistry;
+import net.minecraft.*;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -26,7 +27,7 @@ public class CurioProspectorBelt extends MalumCurioItem {
 
     @Override
     public void addExtraTooltipLines(Consumer<Component> consumer) {
-        consumer.accept(positiveEffect("enchanted_explosions", Enchantments.BLOCK_FORTUNE.getFullname(3)));
+        consumer.accept(positiveEffect("enchanted_explosions", Enchantments.BLOCK_FORTUNE.getFullname(3).copy().withStyle(ChatFormatting.BLUE)));
         consumer.accept(positiveEffect("explosions_spare_valuables"));
     }
 

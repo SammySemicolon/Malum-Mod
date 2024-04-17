@@ -54,11 +54,11 @@ public class DrainingBoltImpactParticleEffect extends ParticleEffectType {
             double posZ = positionData.posZ;
             Vec3 pos = new Vec3(posX, posY, posZ);
 
-            for (int i = 0; i < 32; i++) {
+            for (int i = 0; i < 8; i++) {
                 float spread = RandomHelper.randomBetween(random, 0.1f, 0.5f);
                 float speed = RandomHelper.randomBetween(random, 0.3f, 0.4f);
                 float distance = RandomHelper.randomBetween(random, 3f, 6f);
-                float angle = i / 32f * (float) Math.PI * 2f;
+                float angle = i / 8f * (float) Math.PI * 2f;
 
                 Vec3 direction = projectileDirection
                         .add(left.scale(Math.sin(angle) * spread))

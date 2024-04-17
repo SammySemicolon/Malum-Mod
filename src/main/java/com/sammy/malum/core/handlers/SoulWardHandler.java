@@ -109,7 +109,7 @@ public class SoulWardHandler {
                         }
                     }
                     SoundEvent sound = soulWardHandler.soulWard == 0 ? SoundRegistry.SOUL_WARD_DEPLETE.get() : SoundRegistry.SOUL_WARD_HIT.get();
-                    player.level().playSound(null, player.blockPosition(), sound, SoundSource.PLAYERS, 1, Mth.nextFloat(player.getRandom(), 1f, 1.5f));
+                    player.level().playSound(null, player.blockPosition(), sound, player.getSoundSource(), 1, Mth.nextFloat(player.getRandom(), 1f, 1.5f));
                     event.setAmount(result);
 
                     MalumPlayerDataCapability.syncTrackingAndSelf(player);

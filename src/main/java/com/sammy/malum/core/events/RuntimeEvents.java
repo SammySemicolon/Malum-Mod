@@ -134,6 +134,7 @@ public class RuntimeEvents {
         SpiritDataReloadListener.register(event);
         ReapingDataReloadListener.register(event);
         RitualRecipeReloadListener.register(event);
+        MalignantConversionReloadListener.register(event);
     }
 
     @SubscribeEvent

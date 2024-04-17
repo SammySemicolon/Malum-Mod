@@ -43,5 +43,8 @@ public class MalumVoidFavorRecipes {
 
         new VoidFavorRecipeBuilder(Ingredient.of(ItemRegistry.THE_DEVICE.get()), ItemRegistry.THE_VESSEL.get(), 1)
                 .build(consumer);
+
+        new VoidFavorRecipeBuilder(Items.BLACK_WOOL, ItemRegistry.TOPHAT.get(), 1)
+                .build(consumer);
     }
 }

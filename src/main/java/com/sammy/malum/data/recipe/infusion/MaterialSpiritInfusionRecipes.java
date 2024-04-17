@@ -30,12 +30,6 @@ public class MaterialSpiritInfusionRecipes {
                 .addSpirit(AQUEOUS_SPIRIT, 2)
                 .build(consumer);
 
-        new SpiritInfusionRecipeBuilder(Items.GLOWSTONE_DUST, 4, ItemRegistry.CURSED_GRIT.get(), 4)
-                .addSpirit(INFERNAL_SPIRIT, 4)
-                .addSpirit(WICKED_SPIRIT, 2)
-                .addSpirit(ARCANE_SPIRIT, 2)
-                .build(consumer);
-
         new SpiritInfusionRecipeBuilder(Ingredient.of(ItemTags.COALS), 4, ItemRegistry.ARCANE_CHARCOAL.get(), 4)
                 .addSpirit(ARCANE_SPIRIT, 1)
                 .addSpirit(INFERNAL_SPIRIT, 2)
