@@ -1,19 +1,17 @@
 package com.sammy.malum.registry.common;
 
-import com.sammy.malum.MalumMod;
-import com.sammy.malum.core.systems.spirit.MalumSpiritType;
-import com.sammy.malum.core.systems.spirit.SpiritTypeProperty;
-import com.sammy.malum.registry.common.block.BlockRegistry;
-import com.sammy.malum.registry.common.item.ItemRegistry;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.fml.common.Mod;
-import team.lodestar.lodestone.helpers.ColorHelper;
-import team.lodestar.lodestone.systems.easing.Easing;
+import com.sammy.malum.*;
+import com.sammy.malum.core.systems.spirit.*;
+import com.sammy.malum.registry.common.block.*;
+import com.sammy.malum.registry.common.item.*;
+import net.minecraftforge.api.distmarker.*;
+import net.minecraftforge.fml.common.*;
+import team.lodestar.lodestone.helpers.*;
+import team.lodestar.lodestone.systems.easing.*;
 
 import java.awt.*;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @SuppressWarnings("unchecked")
 @Mod.EventBusSubscriber(modid = MalumMod.MALUM, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -62,6 +60,12 @@ public class SpiritTypeRegistry {
             .build());
 
     public static SpiritTypeProperty SPIRIT_TYPE_PROPERTY = new SpiritTypeProperty("spirit_type", SPIRITS.values());
+
+    //TODO: make this one not additive
+    public static MalumSpiritType UMBRAL_SPIRIT = create(MalumSpiritType.create("umbral", ItemRegistry.UMBRAL_SPIRIT, null)
+            .setColorData(new Color(19, 5, 24), new Color(7, 1, 1), 0.9f, Easing.SINE_IN_OUT)
+            .setItemColor(c -> c.primaryColor)
+            .build(UmbralSpiritType::new));
 
     public static MalumSpiritType create(MalumSpiritType spiritType) {
         SPIRITS.put(spiritType.identifier, spiritType);

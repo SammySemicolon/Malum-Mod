@@ -8,8 +8,8 @@ import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.item.*;
 import top.theillusivec4.curios.api.*;
 
-public class CurioPlentifulRing extends MalumCurioItem implements IVoidItem {
-    public CurioPlentifulRing(Properties builder) {
+public class CurioEndlessRing extends MalumCurioItem implements IVoidItem {
+    public CurioEndlessRing(Properties builder) {
         super(builder, MalumTrinketType.VOID);
     }
 

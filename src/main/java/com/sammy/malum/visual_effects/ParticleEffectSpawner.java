@@ -1,5 +1,6 @@
 package com.sammy.malum.visual_effects;
 
+import com.sammy.malum.core.systems.spirit.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
 import team.lodestar.lodestone.systems.particle.builder.*;
@@ -14,6 +15,9 @@ public class ParticleEffectSpawner<T extends AbstractWorldParticleBuilder<T, ?>>
 
     private final WorldParticleBuilder bloomBuilder;
     private final Consumer<WorldParticleBuilder> bloomSpawner;
+
+    @Nullable
+    private MalumSpiritType spiritType;
 
     public ParticleEffectSpawner(T builder, Consumer<T> particleSpawner, @Nullable WorldParticleBuilder bloomBuilder, @Nullable Consumer<WorldParticleBuilder> bloomSpawner) {
         this.builder = builder;
@@ -34,6 +38,11 @@ public class ParticleEffectSpawner<T extends AbstractWorldParticleBuilder<T, ?>>
         this(builder, particleSpawner, null, null);
     }
 
+    public ParticleEffectSpawner<T> setSpiritType(MalumSpiritType spiritType) {
+        this.spiritType = spiritType;
+        return this;
+    }
+
     public T getBuilder() {
         return builder;
     }
@@ -43,12 +52,21 @@ public class ParticleEffectSpawner<T extends AbstractWorldParticleBuilder<T, ?>>
     }
 
     public void spawnParticles() {
+        if (spiritType != null) {
+            builder.act(spiritType.applyWorldParticleChanges());
+        }
         particleSpawner.accept(builder);
         if (bloomSpawner != null) {
+            if (spiritType != null) {
+                bloomBuilder.act(spiritType.applyWorldParticleChanges());
+            }
             bloomSpawner.accept(bloomBuilder);
         }
     }
     public void spawnParticlesRaw() {
+        if (spiritType != null) {
+            builder.act(spiritType.applyWorldParticleChanges());
+        }
         particleSpawner.accept(builder);
     }
 }

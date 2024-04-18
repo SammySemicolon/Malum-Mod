@@ -148,7 +148,7 @@ public class CurioSpiritInfusionRecipes {
                 .addExtraItem(ItemRegistry.SOUL_STAINED_STEEL_PLATING.get(), 6)
                 .build(consumer);
 
-        new SpiritInfusionRecipeBuilder(ItemRegistry.RING_OF_ESOTERIC_SPOILS.get(), 1, ItemRegistry.RING_OF_THE_PLENTIFUL.get(), 1)
+        new SpiritInfusionRecipeBuilder(ItemRegistry.RING_OF_ESOTERIC_SPOILS.get(), 1, ItemRegistry.RING_OF_THE_ENDLESS_WELL.get(), 1)
                 .addExtraItem(ItemRegistry.NULL_SLATE.get(), 8)
                 .addExtraItem(ItemRegistry.MNEMONIC_FRAGMENT.get(), 8)
                 .addSpirit(WICKED_SPIRIT, 32)

@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "malum:item/corrupted_resonance"
+    "layer0": "malum:item/ring_of_the_endless_well"
   }
 }

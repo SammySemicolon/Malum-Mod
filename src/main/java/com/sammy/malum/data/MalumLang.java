@@ -221,59 +221,44 @@ public class MalumLang extends LanguageProvider {
         addSimpleEntryHeader("chronicles_of_the_void", "Chronicles of the Void", "A magecraft of madness");
         addSimpleEntryHeader("chronicles_of_the_soul", "Chronicles of the Soul", "A magecraft of miracles");
 
-        addSimpleEntryHeader("void.introduction", "Introduction", "Secrets uncovered");
-        addPages("void.introduction",
-            "\"The soul's existence creates the body, as the body's existence then informs the soul. One cannot exist without the other, but could a soul be diminished? Expanded? Bound to a new vessel, leaving a husk in its wake?\"",
-            "I appear to have stumbled onto an inexplicable new branch of magic, one that is built further on the operation of souls. Writings come close, but none fit the mechanics I have now seen at play. My soul itself seems to... " + italic("stir") + " at these acts of magecraft, shying away, yet eagerly seeking more. I do not think I could consider myself a magus were I to forgo this opportunity.");
+        addSimpleEntryHeader("void.the_weeping_well", "The Weeping Well", "Gate to the unknown");
+        addPages("void.the_weeping_well",
+                "I have discovered a... structure. One with implications beyond nearly anything I've found before, because the existence of this Weeping Well implies I am not the first to touch the arcana.",
+                        "The Well, which I name for its constant mournful tone, appears to be a small pool of... something. I am not entirely sure what, as though it doesn't appear to be liquid, it certainly doesn't physically interact like a solid does.",
+                        "The implication comes from the fact that the structure around it appears to be constructed of Tainted Rock, as if preventing the substance inside from spreading further. That said, the core of the structure itself is sturdier than the rock I have created, almost approaching Bedrock in toughness.",
+                        "In what was perhaps an ill-advised course of action, my first instinct was to throw a rock at it. It seemed stable enough, if it had been here for so long... and to my relief, nothing dangerous occurred. The rock shot out seconds later, with a belching sound and a spray of what appears to be a harmless concentration of the stuff in the Well.",
+                        "Certain items I had on me from the mining trip, such as a bit of Brilliance and a nodule of Cthonic Gold, tugged slightly against my pockets while I'm near the well. I wondered what that meant, and, if the stone was ejected out, surmised it made sense to try throwing them in too.",
+                        "When I did so, the materials had been transformed once ejected - interestingly, both the rock and these were ejected due south. Might there be other materials, other creations I could derive from this? And the fact that both materials that tugged were related to the arcana is fascinating.",
+                        "I am not a historian, so I am not the correct person to investigate the implications of the structure itself, beyond the fact that Tainted Rock, so far as I know, can only be created through Spirit Infusion. But this implies a civilization once touched the arcana and... tried to contain it? Feared it? Used it? Is this civilization related to the other structures buried within the earth? I do not know, but I hope to find out.");
 
-        addSimpleEntryHeader("void.null_slate", "Null Slate", "Original form");
-        addPages("void.null_slate",
-            "Soulstone when thrown into the weeping well nets you null slate, a material suspected to be the true form of soulstone. Pretend that this description is a lot more cryptic and imagine there being some cool page on the right.");
+        addSimpleEntryHeader("void.material_study_soulstone", "Material Study: Soulstone", "An old friend");
+        addPages("void.material_study_soulstone",
+                "Soulstone is, of course, nothing new. It is the basis of my craft. But, when most raw metals are passed through the Well, they become raw Soulstone instead. Does this imply that Soulstone itself is metallic? Perhaps. It would certainly explain the ease with which it attunes iron.",
+                "This also implies that Soulstone itself is, somehow, connected to whatever the Well is. Perhaps it is an ensouled area of reality, or a means of bestowing souls? Both are doubtful, but I cannot discard even doubtful theories just yet.");
 
-        addSimpleEntryHeader("void.void_salts", "Void Salts", "Necrotic powder");
-        addPages("void.void_salts",
-            "Hex ash when thrown into the weeping well nets you void salts, a weird and seemingly alive powder. Pretend that this description is a lot more cryptic and imagine there being some cool page on the right.");
+        addSimpleEntryHeader("void.material_study_mnemonic_fragment", "Material Study: Condensed Brilliance", "Not experience, but memory");
+        addPages("void.material_study_mnemonic_fragment",
+                "When passed through the Well, Brilliance becomes a substance I call Mnemosyne. These Mnemonic Fragments appear to be Brilliance in physical property, but with the contained power more condensed, more nuanced. Rather than containing simple experience, the sense I get from holding it is as though I am holding an entire memory, context and all.",
+                "Does this imply the Weeping Well is alive, and that this is its memory? Or is it somehow collecting the memory of the soul whose fading created the Brilliance in the first place, binding it into this more dense form? And why can I feel impressions while simply holding the stone?");
 
-        addSimpleEntryHeader("void.auric_embers", "Auric Embers", "Potent flames");
-        addPages("void.auric_embers",
-            "Blaze Powder when thrown into the weeping well nets you Auric Embers, a demonic essence of fire. Pretend that this description is a lot more cryptic and imagine there being some cool page on the right.");
+        addSimpleEntryHeader("void.material_study_null_slate", "Material Study: Refined Soulstone", "A blank slate, perhaps a precursor");
+        addPages("void.material_study_null_slate",
+                "When passed through the Well, Soulstone becomes a substance I call Null Slate. While physically it is similar to Soulstone, it appears to be utterly devoid of a soul... and yet it interacts with the arcane much as Soulstone does. Might this be what Soulstone is, before it gains a soul's energy?",
+                "I have not yet isolated the property that allows it to interact with souls, or been able to transfer it to something else, as I have done to make Soulstained Steel. My only theory is that somehow the complete absence of arcana, beyond even the trace amounts threading existence, has an arcane power of its own. But what power would that be?");
 
-        addSimpleEntryHeader("void.mnemonic_fragment", "Mnemonic Fragment", "Memories solidified");
-        addPages("void.mnemonic_fragment",
-            "Brilliance Clusters or Chunks when thrown into the weeping well nets you Mnemonic Fragments, a material full of memories turned into matter. Pretend that this description is a lot more cryptic and imagine there being some cool page on the right.");
+        addSimpleEntryHeader("void.material_study_void_salts", "Material Study: Purified Ash", "A clue to the nature of souls");
+        addPages("void.material_study_void_salts",
+            "When passed through the Well, Hex Ash is reduced to a substance I call Void Salt. This dark powder appears to be chemically similar to Hex Ash, but without the carbonization that gives the Ash its name. It appears to be comprised of an unknown and unstable metal, bonded to something caustic I cannot identify.",
+                "Physical properties aside, its magical properties are baffling. Carbon is the basis of life, and yet removing carbon makes this substance... almost seem to move? I haven't been able to verify that experimentally, but I could swear that the material is alive and shifting.");
 
-        addSimpleEntryHeader("void.soul_stained_steel_staff", "Soulstained Staff", "Spell-casting");
-        addPages("void.soul_stained_steel_staff",
-            "Staves are hybrid melee and ranged weapons. They swing faster than scythes but deal less physical damage. The simplest one is the Mnemonic Hex Staff.",
-            "What makes staves special is the right click functionality, the right click function lets you shoot long range projectiles. This ranged attack has a relatively short cooldown, and requires a one second charge-up window before being fired.",
-            "The Mnemonic Hex Staff in particular allows the user to lob a burst of 3 gravity affected hex bolts, each dealing 100% of the staff's magical damage output.");
-        addHeadline("void.ring_of_the_plentiful", "Ring of the Plentiful");
-        addPages("void.ring_of_the_plentiful",
-            "This ring will stockpile up to 3 reserve staff charges, which when present are consumed to avoid placing a cooldown on the staff's ranged functionality. Each staff charge takes 15 seconds to recover, and currently there's no indication for it.");
+        addSimpleEntryHeader("void.material_study_auric_embers", "Material Study: Blazing Exaltation", "The essence of progress");
+        addPages("void.material_study_auric_embers",
+            "When passed through the Well, Blaze Powder becomes a substance I call Auric Ember. A flame of gold, burning ethereally, and yet a physical object at the same time. It burns like charcoal, releasing its energy eagerly - though unlike most fuels, rather than actually fueling a flame, it seems to simply burn of its own accord.",
+                "While the creation of such a brilliant substance stands out among the other materials I have obtained from the Well, I find that it fits rather cleanly. The Well has tended to strip something away from each material I pass through it, be that impurities, a portion of the item's physical matter, or something more esoteric. Here, it appears to strip away anything besides the purity of fire, producing transformation incarnate.");
 
-        addSimpleEntryHeader("void.ring_of_growing_flesh", "Ring of Growing Flesh", "Cancerous growths");
-        addPages("void.ring_of_growing_flesh",
-            "The ring will give you a stacking max health buff every time you collect spirits, at full potency doubling your max health. The buff lasts quite a long time.");
 
-        addSimpleEntryHeader("void.anomalous_design", "Anomalous Design", "Unknown origins");
-        addPages("void.anomalous_design",
-            "Weird cult like symbol made by throwing an iron block into the weeping well. Lore wise the idea is that like, the entity behind the weeping well instructs you to actually create this thing and just, feed it the spirits and stuff. ");
 
-        addSimpleEntryHeader("void.fused_consciousness", "Fused Consciousness", "Magic and mind");
-        addPages("void.fused_consciousness",
-            "Cool arguably expensive material obtained by throwing the complete design into the weeping well. ");
 
-        addSimpleEntryHeader("void.belt_of_the_limitless", "Belt of the Limitless", "Imaginary strength");
-        addPages("void.belt_of_the_limitless",
-            "powerful belt item thing. Doubles ur soulward and also makes it absorb physical damage as well as magical damage.");
-
-        addSimpleEntryHeader("void.staff_of_the_auric_flame", "Staff of the Auric Flame", "Seeking flames");
-        addPages("void.staff_of_the_auric_flame",
-            "staff upgrade! Longer cooldown, shoots 5 homing fire bolts, deals more magic damage. Also sets things on fire but not with the melee attack which will be changed I'm just lazy.");
-
-        addSimpleEntryHeader("void.stellar_mechanism", "Stellar Mechanism", "Finer tuning");
-        addPages("void.stellar_mechanism",
-            "powerful crucible augment. Doubles the strength of the bonus applied by the tuning fork, without affecting the negative side of things. It's a core augment, which means it can only be slotted in the crucible itself, and is stored in a separate inventory than the one used for regular augments.");
 
 
         addSimpleEntryHeader("introduction", "Introduction", "On the nature of souls");

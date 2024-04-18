@@ -148,6 +148,7 @@ public class ItemRegistry {
     public static final RegistryObject<SpiritShardItem> AQUEOUS_SPIRIT = register("aqueous_spirit", DEFAULT_PROPERTIES(), (p) -> new SpiritShardItem(p, SpiritTypeRegistry.AQUEOUS_SPIRIT));
     public static final RegistryObject<SpiritShardItem> EARTHEN_SPIRIT = register("earthen_spirit", DEFAULT_PROPERTIES(), (p) -> new SpiritShardItem(p, SpiritTypeRegistry.EARTHEN_SPIRIT));
     public static final RegistryObject<SpiritShardItem> INFERNAL_SPIRIT = register("infernal_spirit", DEFAULT_PROPERTIES(), (p) -> new SpiritShardItem(p, SpiritTypeRegistry.INFERNAL_SPIRIT));
+    public static final RegistryObject<SpiritShardItem> UMBRAL_SPIRIT = register("umbral_spirit", HIDDEN_PROPERTIES(), (p) -> new UmbralSpiritShardItem(p, SpiritTypeRegistry.UMBRAL_SPIRIT));
     //endregion
 
     //region random stuff
@@ -487,7 +488,6 @@ public class ItemRegistry {
     public static final RegistryObject<Item> SOULWOOD_TABLET = register("soulwood_tablet", DEFAULT_PROPERTIES(), Item::new);
     public static final RegistryObject<Item> TAINTED_ROCK_TABLET = register("tainted_rock_tablet", DEFAULT_PROPERTIES(), Item::new);
     public static final RegistryObject<Item> VOID_TABLET = register("void_tablet", DEFAULT_PROPERTIES(), Item::new);
-    public static final RegistryObject<Item> CORRUPTED_RESONANCE = register("corrupted_resonance", DEFAULT_PROPERTIES(), Item::new);
     public static final RegistryObject<Item> ANOMALOUS_DESIGN = register("anomalous_design", DEFAULT_PROPERTIES(), Item::new);
     public static final RegistryObject<Item> COMPLETE_DESIGN = register("complete_design", DEFAULT_PROPERTIES(), SimpleFoiledItem::new);
     public static final RegistryObject<Item> FUSED_CONSCIOUSNESS = register("fused_consciousness", DEFAULT_PROPERTIES(), (p) -> new FusedConsciousnessItem(p.rarity(RARE)));
@@ -662,7 +662,7 @@ public class ItemRegistry {
     public static final RegistryObject<Item> BELT_OF_THE_PROSPECTOR = register("belt_of_the_prospector", GEAR_PROPERTIES(), CurioProspectorBelt::new);
     public static final RegistryObject<Item> BELT_OF_THE_MAGEBANE = register("belt_of_the_magebane", GEAR_PROPERTIES(), CurioMagebaneBelt::new);
 
-    public static final RegistryObject<Item> RING_OF_THE_PLENTIFUL = register("ring_of_the_plentiful", GEAR_PROPERTIES(), CurioPlentifulRing::new);
+    public static final RegistryObject<Item> RING_OF_THE_ENDLESS_WELL = register("ring_of_the_endless_well", GEAR_PROPERTIES(), CurioEndlessRing::new);
     public static final RegistryObject<Item> RING_OF_GROWING_FLESH = register("ring_of_growing_flesh", GEAR_PROPERTIES(), CurioGrowingFleshRing::new);
     public static final RegistryObject<Item> RING_OF_GRUESOME_SATIATION = register("ring_of_gruesome_satiation", GEAR_PROPERTIES(), CurioGruesomeSatiationRing::new);
     public static final RegistryObject<Item> NECKLACE_OF_THE_HIDDEN_BLADE = register("necklace_of_the_hidden_blade", GEAR_PROPERTIES(), CurioHiddenBladeNecklace::new);

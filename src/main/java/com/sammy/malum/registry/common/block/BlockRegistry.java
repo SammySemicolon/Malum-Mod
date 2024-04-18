@@ -351,9 +351,9 @@ public class BlockRegistry {
     public static final RegistryObject<SpiritMoteBlock> MOTE_OF_ELDRITCH_ARCANA = BLOCKS.register("mote_of_eldritch_arcana", () -> new SpiritMoteBlock(MalumBlockProperties.MANA_MOTE_BLOCK(), SpiritTypeRegistry.ELDRITCH_SPIRIT).setBlockEntity(BlockEntityRegistry.MOTE_OF_MANA));
     public static final RegistryObject<SpiritMoteBlock> MOTE_OF_AERIAL_ARCANA = BLOCKS.register("mote_of_aerial_arcana", () -> new SpiritMoteBlock(MalumBlockProperties.MANA_MOTE_BLOCK(), SpiritTypeRegistry.AERIAL_SPIRIT).setBlockEntity(BlockEntityRegistry.MOTE_OF_MANA));
     public static final RegistryObject<SpiritMoteBlock> MOTE_OF_AQUEOUS_ARCANA = BLOCKS.register("mote_of_aqueous_arcana", () -> new SpiritMoteBlock(MalumBlockProperties.MANA_MOTE_BLOCK(), SpiritTypeRegistry.AQUEOUS_SPIRIT).setBlockEntity(BlockEntityRegistry.MOTE_OF_MANA));
-    public static final RegistryObject<SpiritMoteBlock> MOTE_OF_INFERNAL_ARCANA = BLOCKS.register("mote_of_infernal_arcana", () -> new SpiritMoteBlock(MalumBlockProperties.MANA_MOTE_BLOCK(), SpiritTypeRegistry.INFERNAL_SPIRIT).setBlockEntity(BlockEntityRegistry.MOTE_OF_MANA));
     public static final RegistryObject<SpiritMoteBlock> MOTE_OF_EARTHEN_ARCANA = BLOCKS.register("mote_of_earthen_arcana", () -> new SpiritMoteBlock(MalumBlockProperties.MANA_MOTE_BLOCK(), SpiritTypeRegistry.EARTHEN_SPIRIT).setBlockEntity(BlockEntityRegistry.MOTE_OF_MANA));
-    //endregion
+    public static final RegistryObject<SpiritMoteBlock> MOTE_OF_INFERNAL_ARCANA = BLOCKS.register("mote_of_infernal_arcana", () -> new SpiritMoteBlock(MalumBlockProperties.MANA_MOTE_BLOCK(), SpiritTypeRegistry.INFERNAL_SPIRIT).setBlockEntity(BlockEntityRegistry.MOTE_OF_MANA));
+//endregion
 
     //region ether
     public static final RegistryObject<Block> ETHER = BLOCKS.register("ether", () -> new EtherBlock<>(MalumBlockProperties.ETHER().addTag(TRAY_HEAT_SOURCES).setCutoutRenderType()).setBlockEntity(BlockEntityRegistry.ETHER));

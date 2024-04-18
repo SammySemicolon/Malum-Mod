@@ -2,6 +2,7 @@ package com.sammy.malum.common.block.nature;
 
 import com.sammy.malum.common.block.curiosities.totem.TotemPoleBlockEntity;
 import com.sammy.malum.common.item.spirit.SpiritShardItem;
+import com.sammy.malum.registry.common.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
@@ -43,6 +44,9 @@ public class MalumLogBLock extends LodestoneLogBlock {
     }
 
     public boolean createTotemPole(Level level, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit, ItemStack stack, SpiritShardItem spirit) {
+        if (spirit.type.equals(SpiritTypeRegistry.UMBRAL_SPIRIT)) {
+            return false;
+        }
         level.setBlockAndUpdate(pos, spirit.type.getTotemPoleBlockState(isCorrupt, hit));
         if (level.getBlockEntity(pos) instanceof TotemPoleBlockEntity blockEntity) {
             blockEntity.setSpirit(spirit.type);

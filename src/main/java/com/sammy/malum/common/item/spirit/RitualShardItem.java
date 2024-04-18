@@ -9,7 +9,6 @@ import net.minecraft.network.chat.*;
 import net.minecraft.resources.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
-import net.minecraft.world.phys.*;
 import org.jetbrains.annotations.*;
 import team.lodestar.lodestone.handlers.screenparticle.ParticleEmitterHandler.*;
 import team.lodestar.lodestone.helpers.*;
@@ -17,13 +16,10 @@ import team.lodestar.lodestone.registry.common.particle.*;
 import team.lodestar.lodestone.systems.easing.*;
 import team.lodestar.lodestone.systems.particle.builder.*;
 import team.lodestar.lodestone.systems.particle.data.*;
-import team.lodestar.lodestone.systems.particle.data.color.*;
 import team.lodestar.lodestone.systems.particle.data.spin.*;
 import team.lodestar.lodestone.systems.particle.screen.*;
 
 import java.util.*;
-
-import static net.minecraft.util.Mth.nextFloat;
 
 public class RitualShardItem extends Item implements ItemParticleSupplier {
 
@@ -58,7 +54,7 @@ public class RitualShardItem extends Item implements ItemParticleSupplier {
         final MalumRitualTier ritualTier = getRitualTier(stack);
         if (ritualType != null && ritualTier != null) {
             MalumSpiritType type = ritualType.spirit;
-            ScreenParticleEffects.spawnSpiritShardScreenParticles(target, type.getPrimaryColor(), type.getSecondaryColor());
+            ScreenParticleEffects.spawnSpiritShardScreenParticles(target, type);
             if (ritualTier.isGreaterThan(MalumRitualTier.DIM)) {
                 float distance = 2f + ritualTier.potency;
                 var rand = Minecraft.getInstance().level.getRandom();
