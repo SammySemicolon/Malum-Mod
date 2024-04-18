@@ -87,12 +87,6 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
         );
 //        RitualEntries.setupEntries(ENTRIES);
 
-        addEntry("necklace_of_the_mystic_mirror", 6, 12, b -> b
-                .setWidgetConfig(w -> w.setIcon(NECKLACE_OF_THE_MYSTIC_MIRROR))
-                .addPage(new HeadlineTextPage("necklace_of_the_mystic_mirror", "necklace_of_the_mystic_mirror.1"))
-                .addPage(SpiritInfusionPage.fromOutput(NECKLACE_OF_THE_MYSTIC_MIRROR.get()))
-        );
-
         addEntry("mirror_magic", 8, 13, b -> b
                 .setWidgetConfig(w -> w.setIcon(SPECTRAL_LENS).setStyle(BookWidgetStyle.GILDED_RUNEWOOD))
                 .addPage(new HeadlineTextPage("mirror_magic", "mirror_magic.1"))

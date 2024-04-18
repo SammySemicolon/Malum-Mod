@@ -75,6 +75,10 @@ public class TinkeringEntries {
                 .addPage(new HeadlineTextPage("reactive_trinkets.ring_of_prowess", "reactive_trinkets.ring_of_prowess.1"))
                 .addPage(new TextPage("reactive_trinkets.ring_of_prowess.2"))
                 .addPage(SpiritInfusionPage.fromOutput(RING_OF_ARCANE_PROWESS.get()))
+                .addReference(new EntryReference(NECKLACE_OF_THE_MYSTIC_MIRROR.get(),
+                        BookEntry.build("necklace_of_the_mystic_mirror")
+                                .addPage(new HeadlineTextPage("necklace_of_the_mystic_mirror", "necklace_of_the_mystic_mirror.1"))
+                                .addPage(SpiritInfusionPage.fromOutput(NECKLACE_OF_THE_MYSTIC_MIRROR.get()))))
         );
 
         screen.addEntry("ring_of_esoteric_spoils", -9, 5, b -> b
