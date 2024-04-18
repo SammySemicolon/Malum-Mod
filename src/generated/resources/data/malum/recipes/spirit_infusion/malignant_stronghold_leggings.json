@@ -8,7 +8,7 @@
   ],
   "input": {
     "count": 1,
-    "item": "minecraft:iron_leggings"
+    "item": "malum:soul_stained_steel_leggings"
   },
   "output": {
     "item": "malum:malignant_stronghold_leggings"

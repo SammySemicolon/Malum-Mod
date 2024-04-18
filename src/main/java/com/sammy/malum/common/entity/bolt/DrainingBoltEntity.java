@@ -45,7 +45,7 @@ public class DrainingBoltEntity extends AbstractBoltProjectileEntity {
             target.addEffect(new MobEffectInstance(silenced, 300, 0, true, true, true));
         } else {
             EntityHelper.amplifyEffect(effect, target, 1, 9);
-            EntityHelper.extendEffect(effect, target, 60, 600);
+            EntityHelper.extendEffect(effect, target, 30, 600);
         }
     }
 

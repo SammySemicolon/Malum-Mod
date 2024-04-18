@@ -16,7 +16,7 @@ public class ArrowObject extends BookObject<EntryScreen> {
     public final boolean flipped;
 
     public ArrowObject(int posX, int posY, boolean flipped) {
-        super(posX, posY, 36, 22);
+        super(posX, posY, 36, 26);
         this.flipped = flipped;
     }
 
@@ -26,7 +26,7 @@ public class ArrowObject extends BookObject<EntryScreen> {
         final int arrowY = getOffsetYPosition();
         ResourceLocation texture = isHoveredOver ? ARROWS_LIT_UP : ARROWS;
         final PoseStack poseStack = guiGraphics.pose();
-        renderTexture(texture, poseStack, arrowX, arrowY, 0, flipped ? 22 : 0, 36, 22, 36, 44);
+        renderTexture(texture, poseStack, arrowX, arrowY, 0, flipped ? 26 : 0, width, height, 36, 52);
     }
 
     @Override

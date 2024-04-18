@@ -16,7 +16,7 @@ public class LinkedEntryObject extends AbstractSelectableEntryObject {
     public final boolean flipped;
 
     public LinkedEntryObject(int posX, int posY, boolean flipped, EntryReference entryReference) {
-        super(posX, posY, 36, 22, entryReference);
+        super(posX, posY, 36, 26, entryReference);
         this.flipped = flipped;
     }
 
@@ -25,7 +25,7 @@ public class LinkedEntryObject extends AbstractSelectableEntryObject {
         final int entryX = getOffsetXPosition();
         final int entryY = getOffsetYPosition();
         final PoseStack poseStack = guiGraphics.pose();
-        renderTexture(LINK, poseStack, entryX, entryY, 0, flipped ? 22 : 0, 36, 22, 36, 44);
-        guiGraphics.renderItem(entryReference.icon, entryX + 8, entryY + 3);
+        renderTexture(LINK, poseStack, entryX, entryY, 0, flipped ? 26 : 0, width, height, 36, 52);
+        guiGraphics.renderItem(entryReference.icon, entryX + 5, entryY + 5);
     }
 }

@@ -8,7 +8,7 @@
   ],
   "input": {
     "count": 1,
-    "item": "minecraft:iron_helmet"
+    "item": "malum:soul_stained_steel_helmet"
   },
   "output": {
     "item": "malum:malignant_stronghold_helmet"

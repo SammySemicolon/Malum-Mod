@@ -8,7 +8,7 @@
   ],
   "input": {
     "count": 1,
-    "item": "minecraft:iron_boots"
+    "item": "malum:soul_stained_steel_boots"
   },
   "output": {
     "item": "malum:malignant_stronghold_boots"

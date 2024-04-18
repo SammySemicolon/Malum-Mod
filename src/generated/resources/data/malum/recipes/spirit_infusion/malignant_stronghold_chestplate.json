@@ -8,7 +8,7 @@
   ],
   "input": {
     "count": 1,
-    "item": "minecraft:iron_chestplate"
+    "item": "malum:soul_stained_steel_chestplate"
   },
   "output": {
     "item": "malum:malignant_stronghold_chestplate"

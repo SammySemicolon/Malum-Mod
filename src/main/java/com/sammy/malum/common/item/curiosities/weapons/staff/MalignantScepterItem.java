@@ -63,11 +63,11 @@ public class MalignantScepterItem extends AbstractStaffItem {
     public void fireProjectile(LivingEntity player, ItemStack stack, Level level, InteractionHand hand, float chargePercentage, int count) {
         int spawnDelay = count * 5;
         float velocity = 4f;
-        float magicDamage = 1.2f;
+        float magicDamage = 2.4f;
         Vec3 pos = getProjectileSpawnPos(player, hand, 0.5f, 0.5f);
-        for (int i = 0; i < 8; i++) {
-            float xSpread = RandomHelper.randomBetween(level.random, -0.25f, 0.25f);
-            float ySpread = RandomHelper.randomBetween(level.random, -0.05f, 0.05f);
+        for (int i = 0; i < 4; i++) {
+            float xSpread = RandomHelper.randomBetween(level.random, -0.125f, 0.125f);
+            float ySpread = RandomHelper.randomBetween(level.random, -0.025f, 0.025f);
             DrainingBoltEntity entity = new DrainingBoltEntity(level, pos.x, pos.y, pos.z);
             if (i > 1) {
                 entity.setSilent(true);
