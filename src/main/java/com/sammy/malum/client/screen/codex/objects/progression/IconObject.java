@@ -29,4 +29,5 @@ public class IconObject extends ProgressionEntryObject {
         final int y = getOffsetYPosition() + 8 - (style.textureHeight() - 32) / 4;
         renderWavyIcon(textureLocation, guiGraphics.pose(), x, y, 0, textureWidth, textureHeight);
     }
+
 }

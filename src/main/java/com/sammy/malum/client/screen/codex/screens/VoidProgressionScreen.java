@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.*;
 import com.sammy.malum.client.screen.codex.*;
 import com.sammy.malum.client.screen.codex.objects.progression.*;
 import com.sammy.malum.client.screen.codex.pages.*;
+import com.sammy.malum.client.screen.codex.pages.recipe.*;
 import com.sammy.malum.client.screen.codex.pages.text.*;
 import com.sammy.malum.common.events.*;
 import com.sammy.malum.common.item.codex.*;
@@ -92,16 +93,16 @@ public class VoidProgressionScreen extends AbstractProgressionCodexScreen {
                 .addPage(new TextPage("void.material_study_null_slate.2"))
         );
 
-        addEntry("void.material_study_void_salts", -3, 4, b -> b
+        addEntry("void.material_study_mnemonic_fragment", -3, 4, b -> b
+                .setWidgetConfig(w -> w.setIcon(MNEMONIC_FRAGMENT).setStyle(BookWidgetStyle.SOULWOOD))
+                .addPage(new WeepingWellTextPage("void.material_study_mnemonic_fragment", "void.material_study_mnemonic_fragment.1", MNEMONIC_FRAGMENT.get()))
+                .addPage(new TextPage("void.material_study_mnemonic_fragment.2"))
+        );
+
+        addEntry("void.material_study_void_salts", 2, 3, b -> b
                 .setWidgetConfig(w -> w.setIcon(VOID_SALTS).setStyle(BookWidgetStyle.SOULWOOD))
                 .addPage(new WeepingWellTextPage("void.material_study_void_salts", "void.material_study_void_salts.1", VOID_SALTS.get()))
                 .addPage(new TextPage("void.material_study_void_salts.2"))
-        );
-
-        addEntry("void.material_study_mnemonic_fragment", 2, 3, b -> b
-                .setWidgetConfig(w -> w.setIcon(NULL_SLATE).setStyle(BookWidgetStyle.SOULWOOD))
-                .addPage(new WeepingWellTextPage("void.material_study_mnemonic_fragment", "void.material_study_mnemonic_fragment.1", NULL_SLATE.get()))
-                .addPage(new TextPage("void.material_study_mnemonic_fragment.2"))
         );
 
         addEntry("void.material_study_auric_embers", 3, 4, b -> b
@@ -132,11 +133,29 @@ public class VoidProgressionScreen extends AbstractProgressionCodexScreen {
         addEntry("void.staves_as_foci", 0, 9, b -> b
                 .setWidgetConfig(w -> w.setIcon(MNEMONIC_HEX_STAFF).setStyle(BookWidgetStyle.GILDED_SOULWOOD))
                 .addReference(new EntryReference(RING_OF_THE_ENDLESS_WELL, BookEntry.build("void.staves_as_foci.ring_of_the_endless_well")))
-
         );
 
 
-
+        addEntry("void.ring_of_growing_flesh", -3, 9, b -> b
+                .setWidgetConfig(w -> w.setIcon(RING_OF_GROWING_FLESH).setStyle(BookWidgetStyle.SOULWOOD))
+                .addPage(new HeadlineTextPage("void.ring_of_growing_flesh", "void.ring_of_growing_flesh.1"))
+                .addPage(SpiritInfusionPage.fromOutput(RING_OF_GROWING_FLESH.get()))
+        );
+        addEntry("void.ring_of_gruesome_satiation", -4, 10, b -> b
+                .setWidgetConfig(w -> w.setIcon(RING_OF_GRUESOME_SATIATION).setStyle(BookWidgetStyle.SOULWOOD))
+                .addPage(new HeadlineTextPage("void.ring_of_gruesome_satiation", "void.ring_of_gruesome_satiation.1"))
+                .addPage(SpiritInfusionPage.fromOutput(RING_OF_GRUESOME_SATIATION.get()))
+        );
+        addEntry("void.necklace_of_the_watcher", -3, 11, b -> b
+                .setWidgetConfig(w -> w.setIcon(NECKLACE_OF_THE_WATCHER).setStyle(BookWidgetStyle.SOULWOOD))
+                .addPage(new HeadlineTextPage("void.necklace_of_the_watcher", "void.necklace_of_the_watcher.1"))
+                .addPage(SpiritInfusionPage.fromOutput(NECKLACE_OF_THE_WATCHER.get()))
+        );
+        addEntry("void.necklace_of_the_hidden_blade", -4, 12, b -> b
+                .setWidgetConfig(w -> w.setIcon(NECKLACE_OF_THE_HIDDEN_BLADE).setStyle(BookWidgetStyle.SOULWOOD))
+                .addPage(new HeadlineTextPage("void.necklace_of_the_hidden_blade", "void.necklace_of_the_hidden_blade.1"))
+                .addPage(SpiritInfusionPage.fromOutput(NECKLACE_OF_THE_HIDDEN_BLADE.get()))
+        );
 
 //        addEntry("void.malignant_lead", 6, 4, b -> b
 //                .setWidgetConfig(w -> w.setIcon(MALIGNANT_LEAD).setStyle(BookWidgetStyle.SOULWOOD))
@@ -144,30 +163,8 @@ public class VoidProgressionScreen extends AbstractProgressionCodexScreen {
 //                .addPage(new TextPage("void.malignant_lead.2"))
 //        );
 //
-//        addEntry("void.ring_of_growing_flesh", -3, 4, b -> b
-//                .setWidgetConfig(w -> w.setIcon(RING_OF_GROWING_FLESH).setStyle(BookWidgetStyle.SOULWOOD))
-//                .addPage(new HeadlineTextPage("void.ring_of_growing_flesh", "void.ring_of_growing_flesh.1"))
-//                .addPage(SpiritInfusionPage.fromOutput(RING_OF_GROWING_FLESH.get()))
-//        );
-//        addEntry("void.ring_of_gruesome_satiation", -4, 5, b -> b
-//                .setWidgetConfig(w -> w.setIcon(RING_OF_GRUESOME_SATIATION).setStyle(BookWidgetStyle.SOULWOOD))
-//        );
-//        addEntry("void.necklace_of_the_watcher", -2, 5, b -> b
-//                .setWidgetConfig(w -> w.setIcon(NECKLACE_OF_THE_WATCHER).setStyle(BookWidgetStyle.SOULWOOD))
-//        );
-//        addEntry("void.necklace_of_the_hidden_blade", -3, 6, b -> b
-//                .setWidgetConfig(w -> w.setIcon(NECKLACE_OF_THE_HIDDEN_BLADE).setStyle(BookWidgetStyle.SOULWOOD))
-//        );
-//
-//        addEntry("void.soul_stained_steel_staff", 3, 4, b -> b
-//                .setWidgetConfig(w -> w.setIcon(MNEMONIC_HEX_STAFF).setStyle(BookWidgetStyle.SOULWOOD))
-//                .addPage(new HeadlineTextPage("void.soul_stained_steel_staff", "void.soul_stained_steel_staff.1"))
-//                .addPage(SpiritInfusionPage.fromOutput(MNEMONIC_HEX_STAFF.get()))
-//                .addPage(new TextPage("void.soul_stained_steel_staff.2"))
-//                .addPage(new TextPage("void.soul_stained_steel_staff.3"))
-//                .addPage(new HeadlineTextPage("void.ring_of_the_plentiful", "void.ring_of_the_plentiful.1"))
-//                .addPage(SpiritInfusionPage.fromOutput(RING_OF_THE_PLENTIFUL.get()))
-//        );
+
+
 //        addEntry("void.something2", 4, 5, b -> b
 //                .setWidgetConfig(w -> w.setIcon(BARRIER).setStyle(BookWidgetStyle.SOULWOOD))
 //        );
