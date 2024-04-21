@@ -3,11 +3,11 @@
   "extra_items": [
     {
       "count": 16,
-      "item": "malum:void_salts"
+      "item": "malum:null_slate"
     },
     {
       "count": 16,
-      "item": "malum:null_slate"
+      "item": "malum:void_salts"
     }
   ],
   "input": {

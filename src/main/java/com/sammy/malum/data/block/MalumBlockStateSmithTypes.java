@@ -156,8 +156,8 @@ public class MalumBlockStateSmithTypes {
         String name = provider.getBlockName(block);
         String textureName = name.replaceFirst("_iridescent", "");
         String particleName = textureName.replaceFirst("_ether_brazier", "") + "_rock";
-        ModelFile brazier = provider.models().withExistingParent(name, malumPath("block/templates/template_ether_brazier")).texture("brazier", malumPath("block/" + textureName)).texture("particle", malumPath("block/" + particleName));
-        ModelFile brazier_hanging = provider.models().withExistingParent(name + "_hanging", malumPath("block/templates/template_ether_brazier_hanging")).texture("brazier", malumPath("block/" + textureName)).texture("particle", malumPath("block/" + particleName));
+        ModelFile brazier = provider.models().withExistingParent(name, malumPath("block/templates/template_ether_brazier")).texture("brazier", provider.getBlockTexture(textureName)).texture("particle", provider.getBlockTexture(particleName));
+        ModelFile brazier_hanging = provider.models().withExistingParent(name + "_hanging", malumPath("block/templates/template_ether_brazier_hanging")).texture("brazier", provider.getBlockTexture(textureName)).texture("particle", provider.getBlockTexture(particleName));
 
         provider.getVariantBuilder(block)
                 .partialState().with(EtherBrazierBlock.HANGING, false).modelForState().modelFile(brazier).addModel()
@@ -169,8 +169,8 @@ public class MalumBlockStateSmithTypes {
         String name = provider.getBlockName(block);
         String textureName = name.replaceFirst("_iridescent", "");
         String particleName = textureName.replaceFirst("_ether_brazier", "") + "_rock";
-        ModelFile brazier = provider.models().withExistingParent(name, malumPath("block/templates/template_ether_brazier")).texture("brazier", malumPath("block/" + textureName)).texture("particle", malumPath("block/" + particleName));
-        ModelFile brazier_hanging = provider.models().withExistingParent(name + "_hanging", malumPath("block/templates/template_ether_brazier_hanging")).texture("brazier", malumPath("block/" + textureName)).texture("particle", malumPath("block/" + particleName));
+        ModelFile brazier = provider.models().withExistingParent(name, malumPath("block/templates/template_ether_brazier")).texture("brazier", provider.getBlockTexture(textureName)).texture("particle", provider.getBlockTexture(particleName));
+        ModelFile brazier_hanging = provider.models().withExistingParent(name + "_hanging", malumPath("block/templates/template_ether_brazier_hanging")).texture("brazier", provider.getBlockTexture(textureName)).texture("particle", provider.getBlockTexture(particleName));
 
         provider.getVariantBuilder(block)
                 .partialState().with(EtherBrazierBlock.HANGING, false).modelForState().modelFile(brazier).addModel()

@@ -11,11 +11,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "malum:block_of_malignant_alloy"
+          "name": "malum:block_of_malignant_pewter"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "malum:blocks/block_of_malignant_alloy"
+  "random_sequence": "malum:blocks/block_of_malignant_pewter"
 }

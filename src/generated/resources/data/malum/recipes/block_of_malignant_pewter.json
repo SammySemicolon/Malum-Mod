@@ -3,7 +3,7 @@
   "category": "misc",
   "key": {
     "#": {
-      "item": "malum:malignant_alloy_ingot"
+      "item": "malum:malignant_pewter_ingot"
     }
   },
   "pattern": [
@@ -12,7 +12,7 @@
     "###"
   ],
   "result": {
-    "item": "malum:block_of_malignant_alloy"
+    "item": "malum:block_of_malignant_pewter"
   },
   "show_notification": true
 }

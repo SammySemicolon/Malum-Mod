@@ -99,13 +99,25 @@ public class VoidProgressionScreen extends AbstractProgressionCodexScreen {
                 .addPage(new TextPage("void.material_study_mnemonic_fragment.2"))
         );
 
+        addEntry("void.material_study_foul_flesh", -4, 5, b -> b
+                .setWidgetConfig(w -> w.setIcon(FOUL_FLESH).setStyle(BookWidgetStyle.SOULWOOD))
+                .addPage(new WeepingWellTextPage("void.material_study_foul_flesh", "void.material_study_foul_flesh.1", FOUL_FLESH.get()))
+                .addPage(new TextPage("void.material_study_foul_flesh.2"))
+        );
+
         addEntry("void.material_study_void_salts", 2, 3, b -> b
                 .setWidgetConfig(w -> w.setIcon(VOID_SALTS).setStyle(BookWidgetStyle.SOULWOOD))
                 .addPage(new WeepingWellTextPage("void.material_study_void_salts", "void.material_study_void_salts.1", VOID_SALTS.get()))
                 .addPage(new TextPage("void.material_study_void_salts.2"))
         );
 
-        addEntry("void.material_study_auric_embers", 3, 4, b -> b
+        addEntry("void.material_study_malignant_lead", 3, 4, b -> b
+                .setWidgetConfig(w -> w.setIcon(MALIGNANT_LEAD).setStyle(BookWidgetStyle.SOULWOOD))
+                .addPage(new WeepingWellTextPage("void.material_study_malignant_lead", "void.material_study_malignant_lead.1", MALIGNANT_LEAD.get()))
+                .addPage(new TextPage("void.material_study_malignant_lead.2"))
+        );
+
+        addEntry("void.material_study_auric_embers", 4, 5, b -> b
                 .setWidgetConfig(w -> w.setIcon(AURIC_EMBERS).setStyle(BookWidgetStyle.SOULWOOD))
                 .addPage(new WeepingWellTextPage("void.material_study_auric_embers", "void.material_study_auric_embers.1", AURIC_EMBERS.get()))
                 .addPage(new TextPage("void.material_study_auric_embers.2"))
@@ -157,20 +169,22 @@ public class VoidProgressionScreen extends AbstractProgressionCodexScreen {
                 .addPage(SpiritInfusionPage.fromOutput(NECKLACE_OF_THE_HIDDEN_BLADE.get()))
         );
 
-//        addEntry("void.malignant_lead", 6, 4, b -> b
-//                .setWidgetConfig(w -> w.setIcon(MALIGNANT_LEAD).setStyle(BookWidgetStyle.SOULWOOD))
-//                .addPage(new WeepingWellTextPage("void.malignant_lead", "void.malignant_lead.1", MALIGNANT_LEAD.get()))
-//                .addPage(new TextPage("void.malignant_lead.2"))
-//        );
-//
+        addEntry("void.malignant_pewter", 3, 9, b -> b
+                .setWidgetConfig(w -> w.setIcon(MALIGNANT_PEWTER_INGOT).setStyle(BookWidgetStyle.SOULWOOD))
+        );
 
+        addEntry("void.erosion_scepter", 4, 10, b -> b
+                .setWidgetConfig(w -> w.setIcon(EROSION_SCEPTER).setStyle(BookWidgetStyle.SOULWOOD))
+        );
 
-//        addEntry("void.something2", 4, 5, b -> b
-//                .setWidgetConfig(w -> w.setIcon(BARRIER).setStyle(BookWidgetStyle.SOULWOOD))
-//        );
-//        addEntry("void.something3", 2, 5, b -> b
-//                .setWidgetConfig(w -> w.setIcon(BARRIER).setStyle(BookWidgetStyle.SOULWOOD))
-//        );
+        addEntry("void.weight_of_worlds", 3, 11, b -> b
+                .setWidgetConfig(w -> w.setIcon(WEIGHT_OF_WORLDS).setStyle(BookWidgetStyle.SOULWOOD))
+        );
+
+        addEntry("void.malignant_stronghold_armor", 4, 12, b -> b
+                .setWidgetConfig(w -> w.setIcon(MALIGNANT_STRONGHOLD_HELMET).setStyle(BookWidgetStyle.SOULWOOD))
+        );
+
 //
 //        addEntry("void.runes", 3, 6, b -> b
 //                .setWidgetConfig(w -> w.setIcon(RUNE_OF_THE_HERETIC).setStyle(BookWidgetStyle.SOULWOOD))

@@ -3,10 +3,10 @@
   "category": "misc",
   "key": {
     "X": {
-      "item": "malum:malignant_alloy_ingot"
+      "item": "malum:malignant_pewter_ingot"
     },
     "Y": {
-      "item": "malum:malignant_alloy_nugget"
+      "item": "malum:malignant_pewter_nugget"
     }
   },
   "pattern": [
@@ -16,7 +16,7 @@
   ],
   "result": {
     "count": 2,
-    "item": "malum:malignant_alloy_plating"
+    "item": "malum:malignant_pewter_plating"
   },
   "show_notification": true
 }

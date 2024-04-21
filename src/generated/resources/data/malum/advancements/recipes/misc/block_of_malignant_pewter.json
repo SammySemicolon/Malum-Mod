@@ -6,7 +6,7 @@
         "items": [
           {
             "items": [
-              "malum:malignant_alloy_ingot"
+              "malum:malignant_pewter_ingot"
             ]
           }
         ]
@@ -15,7 +15,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "malum:malignant_alloy_nugget"
+        "recipe": "malum:block_of_malignant_pewter"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -28,7 +28,7 @@
   ],
   "rewards": {
     "recipes": [
-      "malum:malignant_alloy_nugget"
+      "malum:block_of_malignant_pewter"
     ]
   },
   "sends_telemetry_event": false

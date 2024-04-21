@@ -156,7 +156,7 @@ public class EtherBlockEntity extends LodestoneBlockEntity {
                 scale = RandomHelper.randomBetween(random, 0.4f, 0.5f);
                 WorldParticleBuilder.create(LodestoneParticleRegistry.TWINKLE_PARTICLE)
                         .setScaleData(GenericParticleData.create(scale, 0f).build())
-                        .setTransparencyData(GenericParticleData.create(0.05f, 0.5f).build())
+                        .setTransparencyData(GenericParticleData.create(0.05f, 0.8f).build())
                         .setColorData(ColorParticleData.create(firstColor, secondColor).setEasing(Easing.SINE_IN).setCoefficient(0.5f).build())
                         .setSpinData(SpinParticleData.create(0, 0.4f).setEasing(Easing.QUARTIC_IN).build())
                         .setLifetime(lifeTime)

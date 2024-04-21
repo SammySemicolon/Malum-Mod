@@ -22,14 +22,14 @@ import team.lodestar.lodestone.systems.particle.render_types.*;
 
 import java.awt.*;
 
-public class MalignantScepterItem extends AbstractStaffItem {
+public class ErosionScepterItem extends AbstractStaffItem {
 
 
     public static final Color MALIGNANT_PURPLE = new Color(68, 11, 61);
     public static final Color MALIGNANT_BLACK = new Color(12, 4, 11);
     public static final ColorParticleData MALIGNANT_COLOR_DATA = ColorParticleData.create(MALIGNANT_PURPLE, MALIGNANT_BLACK).setEasing(Easing.BOUNCE_IN_OUT).setCoefficient(1.2f).build();
 
-    public MalignantScepterItem(Tier tier, float magicDamage, Properties builderIn) {
+    public ErosionScepterItem(Tier tier, float magicDamage, Properties builderIn) {
         super(tier, 10, magicDamage, builderIn);
     }
 

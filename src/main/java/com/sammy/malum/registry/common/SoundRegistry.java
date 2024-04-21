@@ -242,6 +242,7 @@ public class SoundRegistry {
     public static final SoundType NATURAL_QUARTZ = new QuartzSoundType(1.0F, 0.9f, () -> SoundEvents.STONE_BREAK, () -> SoundEvents.STONE_STEP, () -> SoundEvents.STONE_PLACE, () -> SoundEvents.STONE_HIT, () -> SoundEvents.STONE_FALL);
     public static final SoundType DEEPSLATE_QUARTZ = new QuartzSoundType(1.0F, 0.9f, () -> SoundEvents.DEEPSLATE_BREAK, () -> SoundEvents.DEEPSLATE_STEP, () -> SoundEvents.DEEPSLATE_PLACE, () -> SoundEvents.DEEPSLATE_HIT, () -> SoundEvents.DEEPSLATE_FALL);
     public static final SoundType CTHONIC_GOLD = new RareEarthSoundType(1.0F, 1.15f, SOULSTONE_BREAK, SOULSTONE_STEP, SOULSTONE_PLACE, DEEPSLATE_SOULSTONE_HIT, () -> SoundEvents.DEEPSLATE_FALL);
+    public static final SoundType MALIGNANT_LEAD = new RareEarthSoundType(1.0F, 0.7f, () -> SoundEvents.DEEPSLATE_BREAK, () -> SoundEvents.DEEPSLATE_STEP, () -> SoundEvents.DEEPSLATE_PLACE, () -> SoundEvents.DEEPSLATE_HIT, () -> SoundEvents.NETHER_ORE_FALL);
 
     public static final SoundType BRILLIANCE_BLOCK = new ForgeSoundType(1.0F, 1.4f, BRILLIANCE_BLOCK_BREAK, BRILLIANCE_BLOCK_STEP, BRILLIANCE_BLOCK_PLACE, BRILLIANCE_BLOCK_HIT, () -> SoundEvents.NETHER_GOLD_ORE_FALL);
     public static final SoundType BLAZING_QUARTZ_BLOCK = new ForgeSoundType(1.0F, 1.25f, BLAZING_QUARTZ_BLOCK_BREAK, BLAZING_QUARTZ_BLOCK_STEP, BLAZING_QUARTZ_BLOCK_PLACE, BLAZING_QUARTZ_BLOCK_HIT, () -> SoundEvents.NETHER_GOLD_ORE_FALL);
@@ -249,7 +250,7 @@ public class SoundRegistry {
     public static final SoundType QUARTZ_CLUSTER = new QuartzClusterSoundType(0.3F, 1.5f, QUARTZ_CLUSTER_BLOCK_BREAK, QUARTZ_CLUSTER_BLOCK_STEP, QUARTZ_CLUSTER_BLOCK_PLACE, QUARTZ_CLUSTER_BLOCK_HIT, () -> SoundEvents.AMETHYST_CLUSTER_FALL);
     public static final SoundType HALLOWED_GOLD = new ForgeSoundType(1.0F, 1.0F, HALLOWED_GOLD_BREAK, HALLOWED_GOLD_STEP, HALLOWED_GOLD_PLACE, HALLOWED_GOLD_HIT, () -> SoundEvents.METAL_FALL);
     public static final SoundType SOUL_STAINED_STEEL = new ForgeSoundType(1.0F, 1.0F, SOUL_STAINED_STEEL_BREAK, SOUL_STAINED_STEEL_STEP, SOUL_STAINED_STEEL_PLACE, SOUL_STAINED_STEEL_HIT, () -> SoundEvents.METAL_FALL);
-    public static final SoundType MALIGNANT_ALLOY = new RareEarthSoundType(1.0F, 1.0F, SOUL_STAINED_STEEL_BREAK, SOUL_STAINED_STEEL_STEP, SOUL_STAINED_STEEL_PLACE, SOUL_STAINED_STEEL_HIT, () -> SoundEvents.METAL_FALL);
+    public static final SoundType MALIGNANT_PEWTER = new RareEarthSoundType(1.0F, 0.7f, SOUL_STAINED_STEEL_BREAK, SOUL_STAINED_STEEL_STEP, SOUL_STAINED_STEEL_PLACE, SOUL_STAINED_STEEL_HIT, () -> SoundEvents.METAL_FALL);
 
     public static final SoundType TAINTED_ROCK = new ForgeSoundType(1.0F, 1.1F, ARCANE_ROCK_BREAK, ARCANE_ROCK_STEP, ARCANE_ROCK_PLACE, ARCANE_ROCK_HIT, () -> SoundEvents.BASALT_FALL);
     public static final SoundType TAINTED_ROCK_BRICKS = new ForgeSoundType(1.0F, 1.1F, ARCANE_ROCK_BRICKS_BREAK, ARCANE_ROCK_BRICKS_STEP, ARCANE_ROCK_BRICKS_PLACE, ARCANE_ROCK_BRICKS_HIT, () -> SoundEvents.BASALT_FALL);
@@ -260,8 +261,8 @@ public class SoundRegistry {
     public static final SoundType RUNEWOOD_HANGING_SIGN = new ForgeSoundType(1.0F, 1.3F, RUNEWOOD_HANGING_SIGN_BREAK, RUNEWOOD_HANGING_SIGN_STEP, RUNEWOOD_HANGING_SIGN_PLACE, RUNEWOOD_HANGING_SIGN_HIT, () -> SoundEvents.CHERRY_WOOD_FALL);
     public static final SoundType RUNEWOOD_LEAVES = new ForgeSoundType(1.0F, 1.1F, RUNEWOOD_LEAVES_BREAK, RUNEWOOD_LEAVES_STEP, RUNEWOOD_LEAVES_PLACE, RUNEWOOD_LEAVES_HIT, () -> SoundEvents.AZALEA_LEAVES_FALL);
 
-    public static final SoundType SOULWOOD = new BlightedSoundType(1.0F, 1.1f, RUNEWOOD_BREAK, RUNEWOOD_STEP, RUNEWOOD_PLACE, RUNEWOOD_HIT, () -> SoundEvents.CHERRY_WOOD_FALL);
-    public static final SoundType SOULWOOD_HANGING_SIGN = new ForgeSoundType(1.0F, 1.1f, RUNEWOOD_HANGING_SIGN_BREAK, RUNEWOOD_HANGING_SIGN_STEP, RUNEWOOD_HANGING_SIGN_PLACE, RUNEWOOD_HANGING_SIGN_HIT, () -> SoundEvents.CHERRY_WOOD_FALL);
+    public static final SoundType SOULWOOD = new BlightedSoundType(1.0F, 1.1f, SOULWOOD_BREAK, SOULWOOD_STEP, SOULWOOD_PLACE, SOULWOOD_HIT, () -> SoundEvents.CHERRY_WOOD_FALL);
+    public static final SoundType SOULWOOD_HANGING_SIGN = new ForgeSoundType(1.0F, 1.1f, SOULWOOD_HANGING_SIGN_BREAK, SOULWOOD_HANGING_SIGN_STEP, SOULWOOD_HANGING_SIGN_PLACE, SOULWOOD_HANGING_SIGN_HIT, () -> SoundEvents.CHERRY_WOOD_FALL);
     public static final SoundType SOULWOOD_LEAVES = new BlightedSoundType(1.0F, 0.9F, SOULWOOD_LEAVES_BREAK, SOULWOOD_LEAVES_STEP, SOULWOOD_LEAVES_PLACE, SOULWOOD_LEAVES_HIT, () -> SoundEvents.AZALEA_LEAVES_FALL);
 
 

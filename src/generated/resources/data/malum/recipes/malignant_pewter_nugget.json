@@ -3,11 +3,11 @@
   "category": "misc",
   "ingredients": [
     {
-      "item": "malum:malignant_alloy_ingot"
+      "item": "malum:malignant_pewter_ingot"
     }
   ],
   "result": {
     "count": 9,
-    "item": "malum:malignant_alloy_nugget"
+    "item": "malum:malignant_pewter_nugget"
   }
 }

@@ -283,13 +283,23 @@ public class MalumBlockProperties {
                 .strength(2F, 16.0F);
     }
 
-    public static LodestoneBlockProperties MALIGNANT_ALLOY_BLOCK() {
+    public static LodestoneBlockProperties MALIGNANT_LEAD_BLOCK() {
         return new LodestoneBlockProperties()
                 .addTag(Tags.Blocks.STORAGE_BLOCKS)
                 .addTag(BlockTags.BEACON_BASE_BLOCKS)
                 .requiresCorrectToolForDrops()
                 .needsPickaxe()
-                .sound(SoundRegistry.MALIGNANT_ALLOY)
+                .sound(SoundRegistry.MALIGNANT_LEAD)
+                .strength(10f, 9999f);
+    }
+
+    public static LodestoneBlockProperties MALIGNANT_PEWTER_BLOCK() {
+        return new LodestoneBlockProperties()
+                .addTag(Tags.Blocks.STORAGE_BLOCKS)
+                .addTag(BlockTags.BEACON_BASE_BLOCKS)
+                .requiresCorrectToolForDrops()
+                .needsPickaxe()
+                .sound(SoundRegistry.MALIGNANT_PEWTER)
                 .strength(10f, 9999f);
     }
 

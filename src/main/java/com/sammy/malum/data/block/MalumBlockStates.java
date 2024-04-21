@@ -1,26 +1,21 @@
 package com.sammy.malum.data.block;
 
-import com.sammy.malum.MalumMod;
-import com.sammy.malum.data.item.MalumItemModelSmithTypes;
-import net.minecraft.data.PackOutput;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.block.Block;
-import net.minecraftforge.client.model.generators.ConfiguredModel;
-import net.minecraftforge.client.model.generators.ModelFile;
-import net.minecraftforge.common.data.ExistingFileHelper;
-import team.lodestar.lodestone.systems.datagen.BlockStateSmithTypes;
-import team.lodestar.lodestone.systems.datagen.ItemModelSmithTypes;
-import team.lodestar.lodestone.systems.datagen.providers.LodestoneBlockStateProvider;
-import team.lodestar.lodestone.systems.datagen.providers.LodestoneItemModelProvider;
-import team.lodestar.lodestone.systems.datagen.statesmith.AbstractBlockStateSmith;
+import com.sammy.malum.*;
+import com.sammy.malum.data.item.*;
+import net.minecraft.data.*;
+import net.minecraft.resources.*;
+import net.minecraft.world.level.block.*;
+import net.minecraftforge.client.model.generators.*;
+import net.minecraftforge.common.data.*;
+import team.lodestar.lodestone.systems.datagen.*;
+import team.lodestar.lodestone.systems.datagen.providers.*;
+import team.lodestar.lodestone.systems.datagen.statesmith.*;
 
-import javax.annotation.Nonnull;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.function.Supplier;
+import javax.annotation.*;
+import java.util.*;
+import java.util.function.*;
 
-import static com.sammy.malum.MalumMod.MALUM;
-import static com.sammy.malum.MalumMod.malumPath;
+import static com.sammy.malum.MalumMod.*;
 import static com.sammy.malum.registry.common.block.BlockRegistry.*;
 
 public class MalumBlockStates extends LodestoneBlockStateProvider {
@@ -69,8 +64,10 @@ public class MalumBlockStates extends LodestoneBlockStateProvider {
         BlockStateSmithTypes.BUTTON_BLOCK.act(data, TAINTED_ROCK_BUTTON);
         BlockStateSmithTypes.PRESSURE_PLATE_BLOCK.act(data, TAINTED_ROCK_PRESSURE_PLATE);
 
+        itemModelProvider.setTexturePath("ether/");
         MalumBlockStateSmithTypes.BRAZIER_BLOCK.act(data, TAINTED_ETHER_BRAZIER);
         MalumBlockStateSmithTypes.IRIDESCENT_BRAZIER_BLOCK.act(data, TAINTED_IRIDESCENT_ETHER_BRAZIER);
+        itemModelProvider.setTexturePath("");
 
         setTexturePath("arcane_rock/twisted/");
         BlockStateSmithTypes.FULL_BLOCK.act(data,
@@ -100,8 +97,10 @@ public class MalumBlockStates extends LodestoneBlockStateProvider {
         BlockStateSmithTypes.BUTTON_BLOCK.act(data, TWISTED_ROCK_BUTTON);
         BlockStateSmithTypes.PRESSURE_PLATE_BLOCK.act(data, TWISTED_ROCK_PRESSURE_PLATE);
 
+        itemModelProvider.setTexturePath("ether/");
         MalumBlockStateSmithTypes.BRAZIER_BLOCK.act(data, TWISTED_ETHER_BRAZIER);
         MalumBlockStateSmithTypes.IRIDESCENT_BRAZIER_BLOCK.act(data, TWISTED_IRIDESCENT_ETHER_BRAZIER);
+        itemModelProvider.setTexturePath("");
 
         setTexturePath("runewood/");
         BlockStateSmithTypes.FULL_BLOCK.act(data,
@@ -180,12 +179,12 @@ public class MalumBlockStates extends LodestoneBlockStateProvider {
 
         setTexturePath("storage_blocks/");
         BlockStateSmithTypes.FULL_BLOCK.act(data,
-                BLOCK_OF_SOUL_STAINED_STEEL, BLOCK_OF_ROTTING_ESSENCE, BLOCK_OF_GRIM_TALC, BLOCK_OF_ALCHEMICAL_CALX,
-                BLOCK_OF_RAW_SOULSTONE, BLOCK_OF_SOULSTONE, BLOCK_OF_CTHONIC_GOLD, BLOCK_OF_ARCANE_CHARCOAL,
-                BLOCK_OF_HALLOWED_GOLD, BLOCK_OF_ASTRAL_WEAVE, BLOCK_OF_HEX_ASH, MASS_OF_BLIGHTED_GUNK,
-                RUNIC_SAP_BLOCK, CURSED_SAP_BLOCK, BLOCK_OF_BLAZING_QUARTZ,
-                BLOCK_OF_BRILLIANCE, BLOCK_OF_NULL_SLATE, BLOCK_OF_VOID_SALTS, BLOCK_OF_MNEMONIC_FRAGMENT,
-                BLOCK_OF_MALIGNANT_ALLOY);
+                BLOCK_OF_RAW_SOULSTONE, BLOCK_OF_SOULSTONE, BLOCK_OF_CTHONIC_GOLD, BLOCK_OF_BRILLIANCE,
+                BLOCK_OF_ROTTING_ESSENCE, BLOCK_OF_GRIM_TALC, BLOCK_OF_ASTRAL_WEAVE,
+                BLOCK_OF_HEX_ASH, BLOCK_OF_ALCHEMICAL_CALX, MASS_OF_BLIGHTED_GUNK,
+                BLOCK_OF_SOUL_STAINED_STEEL, BLOCK_OF_HALLOWED_GOLD, BLOCK_OF_MALIGNANT_PEWTER,
+                RUNIC_SAP_BLOCK, CURSED_SAP_BLOCK, BLOCK_OF_BLAZING_QUARTZ, BLOCK_OF_ARCANE_CHARCOAL,
+                BLOCK_OF_NULL_SLATE, BLOCK_OF_VOID_SALTS, BLOCK_OF_MNEMONIC_FRAGMENT, BLOCK_OF_MALIGNANT_LEAD);
 
         setTexturePath("blight/");
         MalumBlockStateSmithTypes.BLIGHTED_BLOCK.act(data, BLIGHTED_SOIL);
@@ -199,13 +198,15 @@ public class MalumBlockStates extends LodestoneBlockStateProvider {
         MalumBlockStateSmithTypes.TALL_CALCIFIED_BLIGHT.act(data, TALL_CALCIFIED_BLIGHT);
 
         setTexturePath("");
+        itemModelProvider.setTexturePath("ether/");
         BlockStateSmithTypes.CUSTOM_MODEL.act(data, ItemModelSmithTypes.GENERATED_ITEM, this::simpleBlock, this::etherModel, ETHER);
-        BlockStateSmithTypes.CUSTOM_MODEL.act(data, MalumItemModelSmithTypes.GENERATED_OVERLAY_ITEM, (b, m) -> getVariantBuilder(b).forAllStates(s -> ConfiguredModel.builder().modelFile(m).build()), this::etherTorchModel, ETHER_TORCH);
+        BlockStateSmithTypes.CUSTOM_MODEL.act(data, MalumItemModelSmithTypes.GENERATED_OVERLAY_ITEM, this::simpleBlock, this::etherTorchModel, ETHER_TORCH);
         BlockStateSmithTypes.CUSTOM_MODEL.act(data, ItemModelSmithTypes.NO_MODEL, (b, m) -> horizontalBlock(b, m, 90), this::wallEtherTorchModel, WALL_ETHER_TORCH);
-        BlockStateSmithTypes.CUSTOM_MODEL.act(data, MalumItemModelSmithTypes.IRIDESCENT_ETHER_TORCH_ITEM, (b, m) -> getVariantBuilder(b).forAllStates(s -> ConfiguredModel.builder().modelFile(m).build()), this::etherTorchModel, IRIDESCENT_ETHER_TORCH);
-        BlockStateSmithTypes.CUSTOM_MODEL.act(data, ItemModelSmithTypes.NO_MODEL, (b, m) -> horizontalBlock(b, m, 90), this::wallEtherTorchModel, IRIDESCENT_WALL_ETHER_TORCH);
-
         BlockStateSmithTypes.CUSTOM_MODEL.act(data, MalumItemModelSmithTypes.GENERATED_OVERLAY_ITEM, this::simpleBlock, this::etherModel, IRIDESCENT_ETHER);
+        BlockStateSmithTypes.CUSTOM_MODEL.act(data, MalumItemModelSmithTypes.IRIDESCENT_ETHER_TORCH_ITEM, this::simpleBlock, this::etherTorchModel, IRIDESCENT_ETHER_TORCH);
+        BlockStateSmithTypes.CUSTOM_MODEL.act(data, ItemModelSmithTypes.NO_MODEL, (b, m) -> horizontalBlock(b, m, 90), this::wallEtherTorchModel, IRIDESCENT_WALL_ETHER_TORCH);
+        itemModelProvider.setTexturePath("");
+
 
         BlockStateSmithTypes.CUSTOM_MODEL.act(data, ItemModelSmithTypes.BLOCK_MODEL_ITEM, this::simpleBlock, this::predefinedModel,
                 SPIRIT_ALTAR, SPIRIT_JAR, RITUAL_PLINTH);
@@ -304,7 +305,7 @@ public class MalumBlockStates extends LodestoneBlockStateProvider {
 
     public ModelFile etherModel(Block block) {
         String name = getBlockName(block);
-        return models().withExistingParent(name, new ResourceLocation("block/air")).texture("particle", malumPath("item/ether"));
+        return models().withExistingParent(name, new ResourceLocation("block/air")).texture("particle", itemModelProvider.getItemTexture("ether"));
     }
 
     public ModelFile etherTorchModel(Block block) {

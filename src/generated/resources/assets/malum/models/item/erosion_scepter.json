@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/handheld",
   "textures": {
-    "layer0": "malum:item/malignant_scepter"
+    "layer0": "malum:item/erosion_scepter"
   }
 }

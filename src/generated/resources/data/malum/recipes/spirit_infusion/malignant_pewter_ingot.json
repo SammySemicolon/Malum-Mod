@@ -19,7 +19,7 @@
     "tag": "forge:ingots/iron"
   },
   "output": {
-    "item": "malum:malignant_alloy_ingot"
+    "item": "malum:malignant_pewter_ingot"
   },
   "spirits": [
     {

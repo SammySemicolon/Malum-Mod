@@ -58,11 +58,11 @@ public class MalumVanillaRecipes implements IConditionBuilder {
         shapeless(RecipeCategory.MISC, ItemRegistry.HALLOWED_GOLD_INGOT.get(), 9).requires(ItemRegistry.BLOCK_OF_HALLOWED_GOLD.get()).unlockedBy("has_hallowed_gold", has(ItemRegistry.HALLOWED_GOLD_INGOT.get())).save(consumer, malumPath("hallowed_gold_from_block"));
 
 
-        shaped(RecipeCategory.MISC, ItemRegistry.BLOCK_OF_MALIGNANT_ALLOY.get()).define('#', ItemRegistry.MALIGNANT_ALLOY_INGOT.get()).pattern("###").pattern("###").pattern("###").unlockedBy("has_malignant_alloy", has(ItemRegistry.MALIGNANT_ALLOY_INGOT.get())).save(consumer);
-        shaped(RecipeCategory.MISC, ItemRegistry.MALIGNANT_ALLOY_INGOT.get()).define('#', ItemRegistry.MALIGNANT_ALLOY_NUGGET.get()).pattern("###").pattern("###").pattern("###").unlockedBy("has_malignant_alloy", has(ItemRegistry.MALIGNANT_ALLOY_INGOT.get())).save(consumer, malumPath("malignant_alloy_from_nuggets"));
-        shapeless(RecipeCategory.MISC, ItemRegistry.MALIGNANT_ALLOY_NUGGET.get(), 9).requires(ItemRegistry.MALIGNANT_ALLOY_INGOT.get()).unlockedBy("has_malignant_alloy", has(ItemRegistry.MALIGNANT_ALLOY_INGOT.get())).save(consumer);
-        shapeless(RecipeCategory.MISC, ItemRegistry.MALIGNANT_ALLOY_INGOT.get(), 9).requires(ItemRegistry.BLOCK_OF_MALIGNANT_ALLOY.get()).unlockedBy("has_malignant_alloy", has(ItemRegistry.MALIGNANT_ALLOY_INGOT.get())).save(consumer, malumPath("malignant_alloy_from_block"));
-        shaped(RecipeCategory.MISC, ItemRegistry.MALIGNANT_ALLOY_PLATING.get(), 2).define('X', ItemRegistry.MALIGNANT_ALLOY_INGOT.get()).define('Y', ItemRegistry.MALIGNANT_ALLOY_NUGGET.get()).pattern(" Y ").pattern("YXY").pattern(" Y ").unlockedBy("has_malignant_alloy", has(ItemRegistry.MALIGNANT_ALLOY_INGOT.get())).save(consumer);
+        shaped(RecipeCategory.MISC, ItemRegistry.BLOCK_OF_MALIGNANT_PEWTER.get()).define('#', ItemRegistry.MALIGNANT_PEWTER_INGOT.get()).pattern("###").pattern("###").pattern("###").unlockedBy("has_malignant_alloy", has(ItemRegistry.MALIGNANT_PEWTER_INGOT.get())).save(consumer);
+        shaped(RecipeCategory.MISC, ItemRegistry.MALIGNANT_PEWTER_INGOT.get()).define('#', ItemRegistry.MALIGNANT_PEWTER_NUGGET.get()).pattern("###").pattern("###").pattern("###").unlockedBy("has_malignant_alloy", has(ItemRegistry.MALIGNANT_PEWTER_INGOT.get())).save(consumer, malumPath("malignant_alloy_from_nuggets"));
+        shapeless(RecipeCategory.MISC, ItemRegistry.MALIGNANT_PEWTER_NUGGET.get(), 9).requires(ItemRegistry.MALIGNANT_PEWTER_INGOT.get()).unlockedBy("has_malignant_alloy", has(ItemRegistry.MALIGNANT_PEWTER_INGOT.get())).save(consumer);
+        shapeless(RecipeCategory.MISC, ItemRegistry.MALIGNANT_PEWTER_INGOT.get(), 9).requires(ItemRegistry.BLOCK_OF_MALIGNANT_PEWTER.get()).unlockedBy("has_malignant_alloy", has(ItemRegistry.MALIGNANT_PEWTER_INGOT.get())).save(consumer, malumPath("malignant_alloy_from_block"));
+        shaped(RecipeCategory.MISC, ItemRegistry.MALIGNANT_PEWTER_PLATING.get(), 2).define('X', ItemRegistry.MALIGNANT_PEWTER_INGOT.get()).define('Y', ItemRegistry.MALIGNANT_PEWTER_NUGGET.get()).pattern(" Y ").pattern("YXY").pattern(" Y ").unlockedBy("has_malignant_alloy", has(ItemRegistry.MALIGNANT_PEWTER_INGOT.get())).save(consumer);
 
 
         //NODES
