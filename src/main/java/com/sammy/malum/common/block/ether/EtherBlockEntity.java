@@ -1,31 +1,29 @@
 package com.sammy.malum.common.block.ether;
 
-import com.sammy.malum.common.item.ether.AbstractEtherItem;
-import com.sammy.malum.common.item.ether.EtherItem;
-import com.sammy.malum.registry.client.ParticleRegistry;
-import com.sammy.malum.registry.common.block.BlockEntityRegistry;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.WallTorchBlock;
-import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.HitResult;
-import team.lodestar.lodestone.helpers.BlockHelper;
-import team.lodestar.lodestone.helpers.ColorHelper;
+import com.sammy.malum.common.item.ether.*;
+import com.sammy.malum.registry.client.*;
+import com.sammy.malum.registry.common.block.*;
+import com.sammy.malum.visual_effects.*;
+import net.minecraft.core.*;
+import net.minecraft.nbt.*;
+import net.minecraft.util.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.entity.*;
+import net.minecraft.world.level.block.state.*;
+import net.minecraft.world.phys.*;
+import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.registry.common.particle.*;
-import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntity;
-import team.lodestar.lodestone.systems.easing.Easing;
-import team.lodestar.lodestone.systems.particle.SimpleParticleOptions;
-import team.lodestar.lodestone.systems.particle.builder.WorldParticleBuilder;
-import team.lodestar.lodestone.systems.particle.data.GenericParticleData;
-import team.lodestar.lodestone.systems.particle.data.color.ColorParticleData;
-import team.lodestar.lodestone.systems.particle.data.spin.SpinParticleData;
+import team.lodestar.lodestone.systems.blockentity.*;
+import team.lodestar.lodestone.systems.easing.*;
+import team.lodestar.lodestone.systems.particle.*;
+import team.lodestar.lodestone.systems.particle.builder.*;
+import team.lodestar.lodestone.systems.particle.data.*;
+import team.lodestar.lodestone.systems.particle.data.color.*;
+import team.lodestar.lodestone.systems.particle.data.spin.*;
 
 import java.awt.*;
 
@@ -107,78 +105,81 @@ public class EtherBlockEntity extends LodestoneBlockEntity {
             if (firstColor == null) {
                 return;
             }
+            final RandomSource random = level.random;
             Block block = getBlockState().getBlock();
             Color firstColor = ColorHelper.darker(this.firstColor, 1);
             Color secondColor = this.secondColor == null ? firstColor : ColorHelper.brighter(this.secondColor, 1);
-            double x = worldPosition.getX() + 0.5;
-            double y = worldPosition.getY() + 0.6;
-            double z = worldPosition.getZ() + 0.5;
-            int lifeTime = 14 + level.random.nextInt(4);
-            float scale = 0.17f + level.random.nextFloat() * 0.03f;
-            float velocity = 0.04f + level.random.nextFloat() * 0.02f;
+            double x = worldPosition.getX() + 0.5f;
+            double y = worldPosition.getY() + 0.5f;
+            double z = worldPosition.getZ() + 0.5f;
 
             if (block instanceof EtherWallTorchBlock) {
+                final float offset = 0.15f;
                 Direction direction = getBlockState().getValue(WallTorchBlock.FACING);
-                x += direction.getNormal().getX() * -0.15f;
+                x -= direction.getNormal().getX() * offset;
+                y += 0.4f;
+                z -= direction.getNormal().getZ() * offset;
+            } else if (block instanceof EtherTorchBlock) {
                 y += 0.3f;
-                z += direction.getNormal().getZ() * -0.15f;
-                lifeTime -= 6;
+            } else if (block instanceof EtherBrazierBlock) {
+                y -= 0.05f;
             }
-            if (block instanceof EtherTorchBlock) {
-                y += 0.2f;
-                lifeTime -= 4;
-            }
-            if (block instanceof EtherBrazierBlock) {
-                y -= 0.2f;
-                lifeTime -= 2;
-                scale *= 1.25f;
-            }
-            WorldParticleBuilder.create(LodestoneParticleRegistry.WISP_PARTICLE)
-                    .setScaleData(GenericParticleData.create(scale, 0).build())
-                    .setTransparencyData(GenericParticleData.create(0.75f, 0.25f).build())
-                    .setColorData(ColorParticleData.create(firstColor, secondColor).setCoefficient(1.4f).setEasing(Easing.BOUNCE_IN_OUT).build())
-                    .setSpinData(SpinParticleData.create(0.2f, 0.4f).setSpinOffset((level.getGameTime() * 0.2f) % 6.28f).setEasing(Easing.QUARTIC_IN).build())
-                    .setLifetime(lifeTime)
-                    .addMotion(0, velocity, 0)
-                    .enableNoClip()
-                    .spawn(level, x, y, z);
 
-            WorldParticleBuilder.create(LodestoneParticleRegistry.TWINKLE_PARTICLE)
-                    .setScaleData(GenericParticleData.create(scale * 2, scale * 0.1f).build())
-                    .setTransparencyData(GenericParticleData.create(0.25f, 0).build())
-                    .setColorData(ColorParticleData.create(firstColor, secondColor).setEasing(Easing.SINE_IN).setCoefficient(2.25f).build())
-                    .setSpinData(SpinParticleData.create(0, 2).setEasing(Easing.QUARTIC_IN).build())
-                    .setLifetime(lifeTime)
-                    .enableNoClip()
-                    .spawn(level, x, y, z);
+            final ColorParticleData colorData = ColorParticleData.create(firstColor, secondColor).setCoefficient(1.5f).setEasing(Easing.BOUNCE_IN_OUT).build();
+            if (level.getGameTime() % 8L == 0) {
+                int lifeTime = RandomHelper.randomBetween(random, 40, 60);
+                float scale = RandomHelper.randomBetween(random, 0.6f, 0.7f);
+                float velocity = RandomHelper.randomBetween(random, 0.02f, 0.03f);
+                var lightSpecs = SpiritLightSpecs.spiritLightSpecs(level, new Vec3(x, y, z), colorData);
+                lightSpecs.getBuilder()
+                        .setLifetime(lifeTime)
+                        .setScaleData(GenericParticleData.create(scale, 0).setEasing(Easing.SINE_IN_OUT).build())
+                        .setTransparencyData(GenericParticleData.create(0.2f, 0.4f, 0).build())
+                        .addMotion(0, velocity * 1.2f, 0);
+                lightSpecs.spawnParticlesRaw();
+            }
+
             if (level.getGameTime() % 2L == 0) {
-                y += 0.15f;
-                if (level.random.nextFloat() < 0.5f) {
-                    WorldParticleBuilder.create(ParticleRegistry.SPIRIT_FLAME_PARTICLE)
-                            .setScaleData(GenericParticleData.create(0.5f, 0.75f, 0).build())
-                            .setColorData(ColorParticleData.create(firstColor, secondColor).setEasing(Easing.CIRC_IN_OUT).setCoefficient(2.5f).build())
-                            .setTransparencyData(GenericParticleData.create(0.2f, 1f, 0).setEasing(Easing.SINE_IN, Easing.QUAD_IN).setCoefficient(3.5f).build())
-                            .setRandomOffset(0.15f, 0.2f)
-                            .addMotion(0, 0.0035f, 0)
-                            .setRandomMotion(0.001f, 0.005f)
-                            .addTickActor(p -> p.setParticleMotion(p.getParticleSpeed().scale(0.985f-level.random.nextFloat() * 0.04f)))
-                            .enableNoClip()
-                            .setDiscardFunction(SimpleParticleOptions.ParticleDiscardFunctionType.ENDING_CURVE_INVISIBLE)
-                            .spawn(level, x, y, z);
-                }
-                if (level.random.nextFloat() < 0.25f) {
-                    WorldParticleBuilder.create(ParticleRegistry.SPIRIT_FLAME_PARTICLE)
-                            .setScaleData(GenericParticleData.create(0.3f, 0.5f, 0).build())
-                            .setColorData(ColorParticleData.create(firstColor, secondColor).setEasing(Easing.CIRC_IN_OUT).setCoefficient(3.5f).build())
-                            .setTransparencyData(GenericParticleData.create(0.2f, 1f, 0).setEasing(Easing.SINE_IN, Easing.CIRC_IN_OUT).setCoefficient(3.5f).build())
-                            .setRandomOffset(0.1f, 0.225f)
-                            .addMotion(0, velocity / 2f, 0)
-                            .setRandomMotion(0, 0.015f)
-                            .addTickActor(p -> p.setParticleMotion(p.getParticleSpeed().scale(0.97f-level.random.nextFloat() * 0.025f)))
-                            .enableNoClip()
-                            .setDiscardFunction(SimpleParticleOptions.ParticleDiscardFunctionType.ENDING_CURVE_INVISIBLE)
-                            .spawn(level, x, y, z);
-                }
+                int lifeTime = RandomHelper.randomBetween(random, 10, 15);
+                float scale = RandomHelper.randomBetween(random, 0.15f, 0.2f);
+                float velocity = RandomHelper.randomBetween(random, 0.02f, 0.03f);
+                WorldParticleBuilder.create(LodestoneParticleRegistry.WISP_PARTICLE)
+                        .setScaleData(GenericParticleData.create(scale, 0).setEasing(Easing.SINE_IN).build())
+                        .setTransparencyData(GenericParticleData.create(0.3f, 0.6f, 0.1f).setEasing(Easing.QUAD_OUT).build())
+                        .setColorData(colorData)
+                        .setSpinData(SpinParticleData.create(0.2f, 0.4f).setSpinOffset((level.getGameTime() * 0.2f) % 6.28f).setEasing(Easing.QUARTIC_IN).build())
+                        .setLifetime(lifeTime)
+                        .addMotion(0, velocity * 1.5f, 0)
+                        .enableNoClip()
+                        .spawn(level, x, y, z);
+                lifeTime = 20;
+                scale = RandomHelper.randomBetween(random, 0.4f, 0.5f);
+                WorldParticleBuilder.create(LodestoneParticleRegistry.TWINKLE_PARTICLE)
+                        .setScaleData(GenericParticleData.create(scale, 0f).build())
+                        .setTransparencyData(GenericParticleData.create(0.05f, 0.8f).build())
+                        .setColorData(ColorParticleData.create(firstColor, secondColor).setEasing(Easing.SINE_IN).setCoefficient(0.5f).build())
+                        .setSpinData(SpinParticleData.create(0, 0.4f).setEasing(Easing.QUARTIC_IN).build())
+                        .setLifetime(lifeTime)
+                        .enableNoClip()
+                        .spawn(level, x, y, z);
+            }
+
+            if (level.getGameTime() % 4L == 0) {
+                final long gameTime = level.getGameTime();
+                float scale = RandomHelper.randomBetween(random, 0.6f, 0.75f);
+                float velocity = RandomHelper.randomBetween(random, 0f, 0.02f);
+                float angle = ((gameTime % 24) / 24f) * (float) Math.PI * 2f;
+                Vec3 offset = new Vec3(Math.sin(angle), 0, Math.cos(angle)).normalize();
+                Vec3 offsetPosition = new Vec3(x + offset.x * 0.075f, y-0.05f, z + offset.z * 0.075f);
+                WorldParticleBuilder.create(ParticleRegistry.SPIRIT_FLAME_PARTICLE)
+                        .setScaleData(GenericParticleData.create(scale * 0.75f, scale, 0).build())
+                        .setColorData(ColorParticleData.create(firstColor, secondColor).setEasing(Easing.CIRC_IN_OUT).setCoefficient(2.5f).build())
+                        .setTransparencyData(GenericParticleData.create(0f, 1f, 0).setEasing(Easing.SINE_IN, Easing.QUAD_IN).setCoefficient(3.5f).build())
+                        .addMotion(0, velocity, 0)
+                        .addTickActor(p -> p.setParticleMotion(p.getParticleSpeed().scale(1f - random.nextFloat() * 0f)))
+                        .enableNoClip()
+                        .setDiscardFunction(SimpleParticleOptions.ParticleDiscardFunctionType.ENDING_CURVE_INVISIBLE)
+                        .spawn(level, offsetPosition.x, offsetPosition.y, offsetPosition.z);
             }
         }
     }

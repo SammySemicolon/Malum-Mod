@@ -9,7 +9,7 @@ import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.sammy.malum.client.renderer.text.SubtractiveTextGlyphRenderTypes;
-import com.sammy.malum.core.systems.spirit.MalumSpiritType;
+import com.sammy.malum.core.systems.spirit.*;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.font.glyphs.BakedGlyph;
@@ -55,7 +55,7 @@ public class FontStringRenderOutputMixin {
 
 	@ModifyExpressionValue(method = "accept", at = @At(value = "INVOKE", target = "Lnet/minecraft/network/chat/Style;getColor()Lnet/minecraft/network/chat/TextColor;"))
 	public TextColor enableSubtractiveBlending(TextColor color, @Share("subtractiveEnabled") LocalBooleanRef subtractiveEnabled) {
-		if (color != null && color.getValue() == MalumSpiritType.INVERT_COLOR) {
+		if (color != null && color.getValue() == UmbralSpiritType.INVERT_COLOR) {
 			subtractiveEnabled.set(true);
 			return TextColor.fromLegacyFormat(ChatFormatting.WHITE);
 		}

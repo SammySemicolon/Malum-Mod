@@ -45,11 +45,11 @@ public class EtherTorchItem extends AbstractEtherItem {
                 .setSpinData(spinDataBuilder.build())
                 .setLifetime(7)
                 .setRandomOffset(0.05f)
-                .spawnOnStack(0, -1)
+                .spawnOnStack(0, -2)
                 .setScaleData(GenericParticleData.create((float) (0.75f - Math.sin(gameTime * 0.075f) * 0.125f), 0).build())
                 .setColorData(ColorParticleData.create(secondColor, firstColor).build())
                 .setSpinData(spinDataBuilder.setSpinOffset(0.785f - 0.01f * gameTime % 6.28f).build())
-                .spawnOnStack(0, -1);
+                .spawnOnStack(0, -2);
     }
 
     @Nullable

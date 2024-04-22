@@ -45,7 +45,7 @@ public class DrainingBoltEntity extends AbstractBoltProjectileEntity {
             target.addEffect(new MobEffectInstance(silenced, 300, 0, true, true, true));
         } else {
             EntityHelper.amplifyEffect(effect, target, 1, 9);
-            EntityHelper.extendEffect(effect, target, 60, 600);
+            EntityHelper.extendEffect(effect, target, 30, 600);
         }
     }
 
@@ -67,7 +67,7 @@ public class DrainingBoltEntity extends AbstractBoltProjectileEntity {
 
     @Override
     protected Item getDefaultItem() {
-        return ItemRegistry.MALIGNANT_SCEPTER.get();
+        return ItemRegistry.EROSION_SCEPTER.get();
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -77,7 +77,7 @@ public class DrainingBoltEntity extends AbstractBoltProjectileEntity {
         Vec3 position = position();
         float scalar = getVisualEffectScalar();
         Vec3 norm = getDeltaMovement().normalize().scale(0.05f);
-        var lightSpecs = SpiritLightSpecs.spiritLightSpecs(level, position, MalignantScepterItem.MALIGNANT_COLOR_DATA);
+        var lightSpecs = SpiritLightSpecs.spiritLightSpecs(level, position, ErosionScepterItem.MALIGNANT_COLOR_DATA);
         lightSpecs.getBuilder().multiplyLifetime(1.5f).setRenderType(LodestoneWorldParticleRenderType.LUMITRANSPARENT).setMotion(norm);
         lightSpecs.getBloomBuilder().multiplyLifetime(1.5f).setRenderType(LodestoneWorldParticleRenderType.LUMITRANSPARENT).setMotion(norm);
         lightSpecs.spawnParticles();
@@ -87,7 +87,7 @@ public class DrainingBoltEntity extends AbstractBoltProjectileEntity {
                 .setTransparencyData(GenericParticleData.create(0.4f * scalar, 0.2f * scalar, 0f).setEasing(Easing.SINE_IN_OUT, Easing.SINE_IN).build())
                 .setSpinData(spinData)
                 .setScaleData(GenericParticleData.create(0.3f * scalar, 0).setEasing(Easing.SINE_IN_OUT).build())
-                .setColorData(MalignantScepterItem.MALIGNANT_COLOR_DATA)
+                .setColorData(ErosionScepterItem.MALIGNANT_COLOR_DATA)
                 .setLifetime(Math.min(6 + age * 3, 24))
                 .setDirection(getDeltaMovement().normalize())
                 .enableNoClip()

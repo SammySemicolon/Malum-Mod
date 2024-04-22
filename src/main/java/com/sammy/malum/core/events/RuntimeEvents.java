@@ -7,8 +7,8 @@ import com.sammy.malum.common.effect.aura.*;
 import com.sammy.malum.common.enchantment.*;
 import com.sammy.malum.common.entity.nitrate.*;
 import com.sammy.malum.common.item.cosmetic.curios.*;
-import com.sammy.malum.common.item.curiosities.curios.runes.*;
-import com.sammy.malum.common.item.curiosities.curios.runes.corrupted.*;
+import com.sammy.malum.common.item.curiosities.curios.runes.madness.*;
+import com.sammy.malum.common.item.curiosities.curios.runes.miracle.*;
 import com.sammy.malum.common.item.curiosities.curios.sets.misc.*;
 import com.sammy.malum.common.item.curiosities.curios.sets.prospector.*;
 import com.sammy.malum.common.item.curiosities.curios.sets.rotten.*;
@@ -102,6 +102,7 @@ public class RuntimeEvents {
     @SubscribeEvent
     public static void onLivingTick(LivingEvent.LivingTickEvent event) {
         SoulDataHandler.manageSoul(event);
+        MalignantConversionHandler.checkForAttributeChanges(event);
         TouchOfDarknessHandler.entityTick(event);
     }
 
@@ -119,7 +120,7 @@ public class RuntimeEvents {
     @SubscribeEvent
     public static void onPlayerBreakSpeed(PlayerEvent.BreakSpeed event) {
         InfernalAura.increaseDigSpeed(event);
-        RuneHasteItem.increaseDigSpeed(event);
+        RuneFervorItem.increaseDigSpeed(event);
     }
 
     @SubscribeEvent
@@ -133,6 +134,7 @@ public class RuntimeEvents {
         SpiritDataReloadListener.register(event);
         ReapingDataReloadListener.register(event);
         RitualRecipeReloadListener.register(event);
+        MalignantConversionReloadListener.register(event);
     }
 
     @SubscribeEvent

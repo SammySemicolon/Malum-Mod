@@ -4,7 +4,7 @@ import com.mojang.blaze3d.vertex.*;
 import com.sammy.malum.*;
 import com.sammy.malum.client.screen.codex.pages.*;
 import com.sammy.malum.client.screen.codex.screens.*;
-import com.sammy.malum.core.systems.rites.*;
+import com.sammy.malum.common.spiritrite.*;
 import com.sammy.malum.core.systems.spirit.*;
 import net.minecraft.client.*;
 import net.minecraft.client.gui.*;
@@ -25,19 +25,19 @@ import java.util.*;
 
 import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.*;
 
-public class SpiritRiteRecipePage<T extends AbstractProgressionCodexScreen<T>> extends BookPage<T> {
+public class SpiritRiteRecipePage extends BookPage {
 
     private static final ScreenParticleHolder RITE_PARTICLES = new ScreenParticleHolder();
 
-    private final MalumRiteType riteType;
+    private final TotemicRiteType riteType;
 
-    public SpiritRiteRecipePage(MalumRiteType riteType) {
+    public SpiritRiteRecipePage(TotemicRiteType riteType) {
         super(MalumMod.malumPath("textures/gui/book/pages/spirit_rite_recipe_page.png"));
         this.riteType = riteType;
     }
 
     @Override
-    public void render(EntryScreen<T> screen, GuiGraphics guiGraphics, int left, int top, int mouseX, int mouseY, float partialTicks, boolean isRepeat) {
+    public void render(EntryScreen screen, GuiGraphics guiGraphics, int left, int top, int mouseX, int mouseY, float partialTicks, boolean isRepeat) {
         final List<MalumSpiritType> spirits = riteType.spirits;
         var rand = Minecraft.getInstance().level.random;
         PoseStack poseStack = guiGraphics.pose();

@@ -23,5 +23,6 @@ public class ClientSetupEvents {
     @SubscribeEvent
     public static void registerParticleFactory(RegisterParticleProvidersEvent event) {
         ParticleRegistry.registerParticleFactory(event);
+        ScreenParticleRegistry.registerParticleFactory(event);
     }
 }

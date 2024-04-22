@@ -45,7 +45,7 @@ public class MalumItemModels extends LodestoneItemModelProvider {
         ItemModelSmithTypes.GENERATED_ITEM.act(data, items.stream().filter(i -> i.get() instanceof AbstractWeaveItem).collect(Collectors.toList()));
 
         setTexturePath("runes/");
-        ItemModelSmithTypes.GENERATED_ITEM.act(data, items.stream().filter(i -> i.get() instanceof MalumRuneCurioItem).collect(Collectors.toList()));
+        ItemModelSmithTypes.GENERATED_ITEM.act(data, items.stream().filter(i -> i.get() instanceof AbstractRuneCurioItem).collect(Collectors.toList()));
 
         setTexturePath("impetus/");
         MalumItemModelSmithTypes.IMPETUS_ITEM.act(data, items.stream().filter(i -> i.get() instanceof ImpetusItem || i.get() instanceof CrackedImpetusItem).collect(Collectors.toList()));

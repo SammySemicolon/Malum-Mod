@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "malum:block/ores/blazing_quartz_cluster"
+  }
+}

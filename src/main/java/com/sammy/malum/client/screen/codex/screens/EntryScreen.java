@@ -1,9 +1,12 @@
 package com.sammy.malum.client.screen.codex.screens;
 
+import com.google.common.collect.*;
 import com.mojang.blaze3d.vertex.*;
 import com.sammy.malum.*;
 import com.sammy.malum.client.screen.codex.*;
+import com.sammy.malum.client.screen.codex.handklers.*;
 import com.sammy.malum.client.screen.codex.objects.*;
+import com.sammy.malum.client.screen.codex.objects.progression.*;
 import com.sammy.malum.client.screen.codex.pages.*;
 import com.sammy.malum.config.*;
 import com.sammy.malum.registry.common.*;
@@ -18,29 +21,44 @@ import java.util.function.*;
 
 import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.*;
 
-public class EntryScreen<T extends AbstractProgressionCodexScreen<T>> extends AbstractMalumScreen {
+//first generic represents the screen itself, the second represents the screen that it was opened from
+public class EntryScreen extends AbstractMalumScreen {
 
-    public static EntryScreen<?> entryScreen;
+    public static EntryScreen entryScreen;
 
     public static final ResourceLocation BOOK_TEXTURE = MalumMod.malumPath("textures/gui/book/entry.png");
     public static final ResourceLocation ELEMENT_SOCKET = MalumMod.malumPath("textures/gui/book/entry_elements/element_socket.png");
 
     public final int bookWidth = 312;
     public final int bookHeight = 200;
-    public final BookEntry<T> openEntry;
+    public final BookEntry openEntry;
     protected final Consumer<Boolean> onClose;
 
-    public final BookObjectHandler<EntryScreen<T>> bookObjectHandler = new BookObjectHandler<>();
+    public final BookObjectHandler<EntryScreen> bookObjectHandler = new BookObjectHandler<>();
 
     public List<Runnable> lateRendering = new ArrayList<>();
     public int grouping;
 
-    public EntryScreen(BookEntry<T> openEntry, Consumer<Boolean> onClose) {
+    public EntryScreen(BookEntry openEntry, Consumer<Boolean> onClose) {
         super(Component.empty(), openEntry.isVoid ? SoundRegistry.ARCANA_SWEETENER_EVIL : SoundRegistry.ARCANA_SWEETENER_NORMAL);
         this.openEntry = openEntry;
         this.onClose = onClose;
-        bookObjectHandler.add(new ArrowObject<>(-21, 150, false));
-        bookObjectHandler.add(new ArrowObject<>(bookWidth - 15, 150, true));
+        final int left = -21;
+        final int right = bookWidth - 15;
+        bookObjectHandler.add(new ArrowObject(left, 150, false));
+        bookObjectHandler.add(new ArrowObject(right, 150, true));
+
+        final ImmutableList<EntryReference> references = openEntry.references;
+        if (references != null) {
+            int counter = 0;
+            for (int i = 0; i < references.size(); i++) {
+                final EntryReference entryReference = references.get(i);
+                if (entryReference.entry.isValid(this)) {
+                    bookObjectHandler.add(new LinkedEntryObject(right, 15 + counter * 30, true, entryReference));
+                    counter++;
+                }
+            }
+        }
     }
 
     @Override
@@ -56,7 +74,7 @@ public class EntryScreen<T extends AbstractProgressionCodexScreen<T>> extends Ab
             int openPages = grouping * 2;
             for (int i = openPages; i < openPages + 2; i++) {
                 if (i < openEntry.pages.size()) {
-                    BookPage<T> page = openEntry.pages.get(i);
+                    BookPage page = openEntry.pages.get(i);
                     final boolean isRightSide = i % 2 == 1;
                     int pageLeft = guiLeft + (isRightSide ? 161 : 9);
                     int pageTop = guiTop + 8;
@@ -72,7 +90,7 @@ public class EntryScreen<T extends AbstractProgressionCodexScreen<T>> extends Ab
             int openPages = grouping * 2;
             for (int i = openPages; i < openPages + 2; i++) {
                 if (i < openEntry.pages.size()) {
-                    BookPage<T> page = openEntry.pages.get(i);
+                    BookPage page = openEntry.pages.get(i);
                     final boolean isRightSide = i % 2 == 1;
                     int pageLeft = guiLeft + (isRightSide ? 161 : 9);
                     int pageTop = guiTop + 8;
@@ -84,6 +102,7 @@ public class EntryScreen<T extends AbstractProgressionCodexScreen<T>> extends Ab
             lateRendering.forEach(Runnable::run);
             lateRendering.clear();
         }
+        bookObjectHandler.renderObjectsLate(this, guiGraphics, mouseX, mouseY, partialTicks);
     }
 
     @Override
@@ -97,7 +116,7 @@ public class EntryScreen<T extends AbstractProgressionCodexScreen<T>> extends Ab
             int openPages = grouping * 2;
             for (int i = openPages; i < openPages + 2; i++) {
                 if (i < openEntry.pages.size()) {
-                    BookPage<T> page = openEntry.pages.get(i);
+                    BookPage page = openEntry.pages.get(i);
                     final boolean isRightSide = i % 2 == 1;
                     int pageLeft = guiLeft + (isRightSide ? 161 : 9);
                     int pageTop = guiTop + 8;
@@ -168,19 +187,19 @@ public class EntryScreen<T extends AbstractProgressionCodexScreen<T>> extends Ab
         playSweetenedSound(SoundRegistry.ARCANA_ENTRY_CLOSE, 0.85f);
     }
 
-    public static<T extends AbstractProgressionCodexScreen<T>> void openScreen(T screen, ProgressionEntryObject<T> progressionEntryObject) {
+    public static<K extends AbstractProgressionCodexScreen> void openScreen(K screen, ProgressionEntryObject progressionEntryObject) {
         openScreen(progressionEntryObject.entry, b -> {
             screen.openScreen(b);
             progressionEntryObject.exit(screen);
         });
     }
 
-    public static<T extends AbstractProgressionCodexScreen<T>> void openScreen(AbstractMalumScreen screen, BookEntry<T> entry) {
+    public static void openScreen(AbstractMalumScreen screen, BookEntry entry) {
         openScreen(entry, screen::openScreen);
     }
 
-    public static void openScreen(BookEntry<?> bookEntry, Consumer<Boolean> onClose) {
-        entryScreen = new EntryScreen<>(bookEntry, onClose);
+    public static void openScreen(BookEntry bookEntry, Consumer<Boolean> onClose) {
+        entryScreen = new EntryScreen(bookEntry, onClose);
         entryScreen.playSweetenedSound(SoundRegistry.ARCANA_ENTRY_OPEN, 1.15f);
         Minecraft.getInstance().setScreen(entryScreen);
     }

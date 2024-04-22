@@ -12,7 +12,7 @@ import java.util.function.*;
 
 import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.*;
 
-public class RuneworkingPage<T extends AbstractProgressionCodexScreen<T>> extends BookPage<T> {
+public class RuneworkingPage extends BookPage {
     private final RunicWorkbenchRecipe recipe;
 
     public RuneworkingPage(Predicate<RunicWorkbenchRecipe> predicate) {
@@ -30,7 +30,7 @@ public class RuneworkingPage<T extends AbstractProgressionCodexScreen<T>> extend
     }
 
     @Override
-    public void render(EntryScreen<T> screen, GuiGraphics guiGraphics, int left, int top, int mouseX, int mouseY, float partialTicks, boolean isRepeat) {
+    public void render(EntryScreen screen, GuiGraphics guiGraphics, int left, int top, int mouseX, int mouseY, float partialTicks, boolean isRepeat) {
         renderComponent(screen, guiGraphics, recipe.primaryInput, left + 63, top + 59, mouseX, mouseY);
         renderComponent(screen, guiGraphics, recipe.secondaryInput, left + 63, top + 16, mouseX, mouseY);
         renderItem(screen, guiGraphics, recipe.output, left + 63, top + 126, mouseX, mouseY);
@@ -41,7 +41,7 @@ public class RuneworkingPage<T extends AbstractProgressionCodexScreen<T>> extend
         return recipe != null;
     }
 
-    public static <T extends AbstractProgressionCodexScreen<T>>RuneworkingPage<T> fromOutput(Item outputItem) {
-        return new RuneworkingPage<>(s -> s.doesOutputMatch(outputItem.getDefaultInstance()));
+    public static RuneworkingPage fromOutput(Item outputItem) {
+        return new RuneworkingPage(s -> s.doesOutputMatch(outputItem.getDefaultInstance()));
     }
 }

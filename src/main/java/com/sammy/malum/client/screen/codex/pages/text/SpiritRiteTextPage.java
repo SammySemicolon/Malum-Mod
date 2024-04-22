@@ -3,18 +3,18 @@ package com.sammy.malum.client.screen.codex.pages.text;
 import com.sammy.malum.*;
 import com.sammy.malum.client.screen.codex.pages.*;
 import com.sammy.malum.client.screen.codex.screens.*;
-import com.sammy.malum.core.systems.rites.*;
+import com.sammy.malum.common.spiritrite.*;
 import net.minecraft.client.*;
 import net.minecraft.client.gui.*;
 import net.minecraft.network.chat.*;
 
 import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.*;
 
-public class SpiritRiteTextPage<T extends AbstractProgressionCodexScreen<T>> extends BookPage<T> {
-    public final MalumRiteType riteType;
+public class SpiritRiteTextPage extends BookPage {
+    public final TotemicRiteType riteType;
     private final String translationKey;
 
-    public SpiritRiteTextPage(MalumRiteType riteType, String translationKey) {
+    public SpiritRiteTextPage(TotemicRiteType riteType, String translationKey) {
         super(MalumMod.malumPath("textures/gui/book/pages/spirit_rite_page.png"));
         this.riteType = riteType;
         this.translationKey = translationKey;
@@ -29,7 +29,7 @@ public class SpiritRiteTextPage<T extends AbstractProgressionCodexScreen<T>> ext
     }
 
     @Override
-    public void render(EntryScreen<T> screen, GuiGraphics guiGraphics, int left, int top, int mouseX, int mouseY, float partialTicks, boolean isRepeat) {
+    public void render(EntryScreen screen, GuiGraphics guiGraphics, int left, int top, int mouseX, int mouseY, float partialTicks, boolean isRepeat) {
         Component component = Component.translatable(headlineTranslationKey());
         renderText(guiGraphics, component, left + 70 - Minecraft.getInstance().font.width(component.getString()) / 2, top + 5);
         renderWrappingText(guiGraphics, translationKey(), left + 6, top + 78, 130);

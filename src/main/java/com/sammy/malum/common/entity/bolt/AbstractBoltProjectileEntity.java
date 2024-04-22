@@ -127,7 +127,7 @@ public abstract class AbstractBoltProjectileEntity extends ThrowableItemProjecti
 
     @Override
     protected boolean canHitEntity(Entity pTarget) {
-        return !pTarget.equals(getOwner()) && !(pTarget instanceof AbstractBoltProjectileEntity);
+        return super.canHitEntity(pTarget) && !pTarget.equals(getOwner()) && !(pTarget instanceof AbstractBoltProjectileEntity);
     }
 
     @Override

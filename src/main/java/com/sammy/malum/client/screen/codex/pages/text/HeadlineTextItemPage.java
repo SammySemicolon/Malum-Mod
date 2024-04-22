@@ -11,7 +11,7 @@ import net.minecraft.world.item.ItemStack;
 
 import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.*;
 
-public class HeadlineTextItemPage<T extends AbstractProgressionCodexScreen<T>> extends BookPage<T> {
+public class HeadlineTextItemPage extends BookPage {
     private final String headlineTranslationKey;
     private final String translationKey;
     private final ItemStack spiritStack;
@@ -36,7 +36,7 @@ public class HeadlineTextItemPage<T extends AbstractProgressionCodexScreen<T>> e
     }
 
     @Override
-    public void render(EntryScreen<T> screen, GuiGraphics guiGraphics, int left, int top, int mouseX, int mouseY, float partialTicks, boolean isRepeat) {
+    public void render(EntryScreen screen, GuiGraphics guiGraphics, int left, int top, int mouseX, int mouseY, float partialTicks, boolean isRepeat) {
         Component component = Component.translatable(headlineTranslationKey());
         renderText(guiGraphics, component, left + 70 - Minecraft.getInstance().font.width(component.getString()) / 2, top + 5);
         renderWrappingText(guiGraphics, translationKey(), left + 6, top + 75, 130);

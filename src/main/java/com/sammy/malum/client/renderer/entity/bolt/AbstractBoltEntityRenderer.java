@@ -7,6 +7,7 @@ import net.minecraft.client.renderer.entity.*;
 import net.minecraft.client.renderer.texture.*;
 import net.minecraft.resources.*;
 import net.minecraft.util.*;
+import net.minecraft.world.phys.*;
 import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.registry.client.*;
 import team.lodestar.lodestone.systems.easing.*;
@@ -52,11 +53,12 @@ public abstract class AbstractBoltEntityRenderer<T extends AbstractBoltProjectil
         List<TrailPoint> trailPoints = entity.trailPointBuilder.getTrailPoints();
         poseStack.pushPose();
         VertexConsumer lightBuffer = DELAYED_RENDER.getBuffer(getTrailRenderType());
-        float x = (float) Mth.lerp(partialTicks, entity.xOld, entity.getX());
-        float y = (float) Mth.lerp(partialTicks, entity.yOld, entity.getY());
-        float z = (float) Mth.lerp(partialTicks, entity.zOld, entity.getZ());
+        final Vec3 motionOffset = entity.getDeltaMovement().scale(0.5f);
+        float trailOffsetX = (float) (Mth.lerp(partialTicks, entity.xOld, entity.getX()) - motionOffset.x);
+        float trailOffsetY = (float) (Mth.lerp(partialTicks, entity.yOld, entity.getY()) - motionOffset.y);
+        float trailOffsetZ = (float) (Mth.lerp(partialTicks, entity.zOld, entity.getZ()) - motionOffset.z);
         if (spinningTrailPoints.size() > 3) {
-            poseStack.translate(-x, -y, -z);
+            poseStack.translate(-trailOffsetX, -trailOffsetY, -trailOffsetZ);
             VFXBuilders.WorldVFXBuilder builder = VFXBuilders.createWorld().setPosColorTexLightmapDefaultFormat();
             for (int i = 0; i < 2; i++) {
                 float size = (0.2f + i * 0.2f) * effectScalar;
@@ -66,10 +68,10 @@ public abstract class AbstractBoltEntityRenderer<T extends AbstractBoltProjectil
                         .renderTrail(lightBuffer, poseStack, spinningTrailPoints, f -> 1.5f * size, f -> builder.setAlpha(alpha * f / 2f).setColor(ColorHelper.colorLerp(Easing.SINE_IN, f * 1.5f, secondaryColor, primaryColor)))
                         .renderTrail(lightBuffer, poseStack, spinningTrailPoints, f -> size * 2.5f, f -> builder.setAlpha(alpha * f / 4f).setColor(ColorHelper.colorLerp(Easing.SINE_IN, f * 1.5f, secondaryColor, primaryColor)));
             }
-            poseStack.translate(x, y, z);
+            poseStack.translate(trailOffsetX, trailOffsetY, trailOffsetZ);
         }
         if (trailPoints.size() > 3) {
-            poseStack.translate(-x, -y, -z);
+            poseStack.translate(-trailOffsetX, -trailOffsetY, -trailOffsetZ);
             VFXBuilders.WorldVFXBuilder builder = VFXBuilders.createWorld().setPosColorTexLightmapDefaultFormat();
             for (int i = 0; i < 2; i++) {
                 float size = (0.3f + i * 0.3f) * effectScalar;
@@ -79,6 +81,7 @@ public abstract class AbstractBoltEntityRenderer<T extends AbstractBoltProjectil
                         .renderTrail(lightBuffer, poseStack, trailPoints, f -> 1.5f * size, f -> builder.setAlpha(alpha * f / 2f).setColor(ColorHelper.colorLerp(Easing.SINE_IN, f * 1.5f, secondaryColor, primaryColor)))
                         .renderTrail(lightBuffer, poseStack, trailPoints, f -> size * 2.5f, f -> builder.setAlpha(alpha * f / 4f).setColor(ColorHelper.colorLerp(Easing.SINE_IN, f * 1.5f, secondaryColor, primaryColor)));
             }
+            poseStack.translate(trailOffsetX, trailOffsetY, trailOffsetZ);
         }
 
         poseStack.popPose();

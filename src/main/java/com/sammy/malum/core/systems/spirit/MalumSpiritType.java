@@ -1,31 +1,29 @@
 package com.sammy.malum.core.systems.spirit;
 
-import com.sammy.malum.MalumMod;
-import com.sammy.malum.common.block.mana_mote.SpiritMoteBlock;
-import com.sammy.malum.common.item.spirit.SpiritShardItem;
-import com.sammy.malum.registry.common.SpiritTypeRegistry;
-import com.sammy.malum.registry.common.block.BlockRegistry;
-import net.minecraft.ChatFormatting;
+import com.sammy.malum.*;
+import com.sammy.malum.common.block.mana_mote.*;
+import com.sammy.malum.common.item.spirit.*;
+import com.sammy.malum.registry.common.*;
+import com.sammy.malum.registry.common.block.*;
+import net.minecraft.*;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.Style;
-import net.minecraft.network.chat.TextColor;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.Rarity;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.phys.BlockHitResult;
-import team.lodestar.lodestone.helpers.ColorHelper;
-import team.lodestar.lodestone.systems.easing.Easing;
-import team.lodestar.lodestone.systems.particle.data.color.ColorParticleData;
-import team.lodestar.lodestone.systems.particle.data.color.ColorParticleDataBuilder;
+import net.minecraft.network.chat.*;
+import net.minecraft.resources.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.*;
+import net.minecraft.world.level.block.state.properties.*;
+import net.minecraft.world.phys.*;
+import net.minecraftforge.api.distmarker.*;
+import team.lodestar.lodestone.helpers.*;
+import team.lodestar.lodestone.systems.easing.*;
+import team.lodestar.lodestone.systems.particle.builder.*;
+import team.lodestar.lodestone.systems.particle.data.color.*;
 
 import java.awt.*;
-import java.util.function.Supplier;
+import java.util.function.*;
 
 public class MalumSpiritType {
-
-    public static final int INVERT_COLOR = 0x4D000000; // M = chr 4D
 
     public static SpiritTypeBuilder create(String identifier, Supplier<SpiritShardItem> spiritShard, Supplier<SpiritMoteBlock> spiritMote) {
         return new SpiritTypeBuilder(identifier, spiritShard, spiritMote);
@@ -100,10 +98,14 @@ public class MalumSpiritType {
         return ColorParticleData.create(primaryBloomColor, secondaryBloomColor).setCoefficient(bloomColorCoefficient * coefficientMultiplier).setEasing(bloomColorEasing);
     }
 
+    public TextColor getTextColor(boolean isTooltip) {
+        Color color = isTooltip ? ColorHelper.darker(primaryColor, 1, 0.75f) : ColorHelper.brighter(primaryColor, 1, 0.85f);
+        return TextColor.fromRgb(color.getRGB());
+    }
+
     public Rarity getItemRarity() {
         if (itemRarity == null) {
-//            TextColor textColor = TextColor.fromRgb(ColorHelper.brighter(primaryColor, 1, 0.85f).getRGB());
-            TextColor textColor = TextColor.fromRgb(INVERT_COLOR);
+            TextColor textColor = getTextColor(false);
             itemRarity = Rarity.create("malum$" + identifier, (style) -> style.withColor(textColor));
         }
         return itemRarity;
@@ -111,7 +113,7 @@ public class MalumSpiritType {
 
     public Component getSpiritShardFlavourTextComponent() {
         if (spiritItemDescription == null) {
-            spiritItemDescription = Component.translatable(getSpiritFlavourText()).withStyle(ChatFormatting.ITALIC).withStyle(Style.EMPTY.withColor(ColorHelper.darker(primaryColor, 1, 0.75f).getRGB()));
+            spiritItemDescription = Component.translatable(getSpiritFlavourText()).withStyle(ChatFormatting.ITALIC).withStyle(Style.EMPTY.withColor(getTextColor(true)));
         }
         return spiritItemDescription;
     }
@@ -135,5 +137,11 @@ public class MalumSpiritType {
     public BlockState getTotemPoleBlockState(boolean isCorrupt, BlockHitResult hit) {
         Block base = isCorrupt ? BlockRegistry.SOULWOOD_TOTEM_POLE.get() : BlockRegistry.RUNEWOOD_TOTEM_POLE.get();
         return base.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, hit.getDirection()).setValue(SpiritTypeRegistry.SPIRIT_TYPE_PROPERTY, identifier);
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public <K extends AbstractWorldParticleBuilder<K, ?>> Consumer<K> applyWorldParticleChanges() {
+        return b -> {
+        };
     }
 }

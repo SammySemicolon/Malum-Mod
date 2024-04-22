@@ -75,9 +75,18 @@ public class SpiritTypeBuilder {
     }
 
     public MalumSpiritType build() {
-        return new MalumSpiritType(identifier, spiritShard, spiritMote,
+        return build(MalumSpiritType::new);
+    }
+    public<T extends MalumSpiritType> T  build(SpiritTypeSupplier<T> supplier) {
+        return supplier.makeType(identifier, spiritShard, spiritMote,
                 primaryColor, secondaryColor, mainColorCoefficient, mainColorEasing,
                 primaryBloomColor, secondaryBloomColor, bloomColorCoefficient, bloomColorEasing,
                 itemColor);
+    }
+    public interface SpiritTypeSupplier<T extends MalumSpiritType> {
+        T makeType(String identifier, Supplier<SpiritShardItem> spiritShard, Supplier<SpiritMoteBlock> spiritMote,
+                   Color primaryColor, Color secondaryColor, float mainColorCoefficient, Easing mainColorEasing,
+                   Color primaryBloomColor, Color secondaryBloomColor, float bloomColorCoefficient, Easing bloomColorEasing,
+                   Color itemColor);
     }
 }

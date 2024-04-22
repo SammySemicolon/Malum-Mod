@@ -78,7 +78,7 @@ public class SpiritLightSpecs {
     }
 
     public static ParticleEffectSpawner<WorldParticleBuilder> spiritLightSpecs(Level level, Vec3 pos, MalumSpiritType spiritType, Supplier<LodestoneParticleType> particle) {
-        return spiritLightSpecs(level, pos, spiritType.createMainColorData().build(), spiritType.createBloomColorData().build(), particle);
+        return spiritLightSpecs(level, pos, spiritType.createMainColorData().build(), spiritType.createBloomColorData().build(), particle).setSpiritType(spiritType);
     }
     public static ParticleEffectSpawner<WorldParticleBuilder> spiritLightSpecs(Level level, Vec3 pos, ColorParticleData colorData) {
         return spiritLightSpecs(level, pos, colorData, ParticleRegistry.LIGHT_SPEC_SMALL);

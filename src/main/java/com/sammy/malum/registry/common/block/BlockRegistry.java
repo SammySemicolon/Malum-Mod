@@ -351,8 +351,8 @@ public class BlockRegistry {
     public static final RegistryObject<SpiritMoteBlock> MOTE_OF_ELDRITCH_ARCANA = BLOCKS.register("mote_of_eldritch_arcana", () -> new SpiritMoteBlock(MalumBlockProperties.MANA_MOTE_BLOCK(), SpiritTypeRegistry.ELDRITCH_SPIRIT).setBlockEntity(BlockEntityRegistry.MOTE_OF_MANA));
     public static final RegistryObject<SpiritMoteBlock> MOTE_OF_AERIAL_ARCANA = BLOCKS.register("mote_of_aerial_arcana", () -> new SpiritMoteBlock(MalumBlockProperties.MANA_MOTE_BLOCK(), SpiritTypeRegistry.AERIAL_SPIRIT).setBlockEntity(BlockEntityRegistry.MOTE_OF_MANA));
     public static final RegistryObject<SpiritMoteBlock> MOTE_OF_AQUEOUS_ARCANA = BLOCKS.register("mote_of_aqueous_arcana", () -> new SpiritMoteBlock(MalumBlockProperties.MANA_MOTE_BLOCK(), SpiritTypeRegistry.AQUEOUS_SPIRIT).setBlockEntity(BlockEntityRegistry.MOTE_OF_MANA));
-    public static final RegistryObject<SpiritMoteBlock> MOTE_OF_INFERNAL_ARCANA = BLOCKS.register("mote_of_infernal_arcana", () -> new SpiritMoteBlock(MalumBlockProperties.MANA_MOTE_BLOCK(), SpiritTypeRegistry.INFERNAL_SPIRIT).setBlockEntity(BlockEntityRegistry.MOTE_OF_MANA));
     public static final RegistryObject<SpiritMoteBlock> MOTE_OF_EARTHEN_ARCANA = BLOCKS.register("mote_of_earthen_arcana", () -> new SpiritMoteBlock(MalumBlockProperties.MANA_MOTE_BLOCK(), SpiritTypeRegistry.EARTHEN_SPIRIT).setBlockEntity(BlockEntityRegistry.MOTE_OF_MANA));
+    public static final RegistryObject<SpiritMoteBlock> MOTE_OF_INFERNAL_ARCANA = BLOCKS.register("mote_of_infernal_arcana", () -> new SpiritMoteBlock(MalumBlockProperties.MANA_MOTE_BLOCK(), SpiritTypeRegistry.INFERNAL_SPIRIT).setBlockEntity(BlockEntityRegistry.MOTE_OF_MANA));
     //endregion
 
     //region ether
@@ -369,9 +369,19 @@ public class BlockRegistry {
     public static final RegistryObject<Block> TWISTED_IRIDESCENT_ETHER_BRAZIER = BLOCKS.register("twisted_iridescent_ether_brazier", () -> new EtherBrazierBlock<>(MalumBlockProperties.TWISTED_ROCK().addTag(TRAY_HEAT_SOURCES).setCutoutRenderType().lightLevel((b) -> 14).noOcclusion()).setBlockEntity(BlockEntityRegistry.ETHER));
     //endregion
 
+    public static final RegistryObject<Block> SOULSTONE_ORE = BLOCKS.register("soulstone_ore", () -> new DropExperienceBlock(MalumBlockProperties.SOULSTONE_ORE(false)));
+    public static final RegistryObject<Block> DEEPSLATE_SOULSTONE_ORE = BLOCKS.register("deepslate_soulstone_ore", () -> new DropExperienceBlock(MalumBlockProperties.SOULSTONE_ORE(true)));
+    public static final RegistryObject<Block> BLOCK_OF_RAW_SOULSTONE = BLOCKS.register("block_of_raw_soulstone", () -> new Block(MalumBlockProperties.SOULSTONE_BLOCK()));
+    public static final RegistryObject<Block> BLOCK_OF_SOULSTONE = BLOCKS.register("block_of_soulstone", () -> new SoulstoneBlock(MalumBlockProperties.SOULSTONE_BLOCK()));
+
+    public static final RegistryObject<Block> BRILLIANT_STONE = BLOCKS.register("brilliant_stone", () -> new DropExperienceBlock(MalumBlockProperties.BRILLIANCE_ORE(false).setCutoutRenderType(), UniformInt.of(14, 18)));
+    public static final RegistryObject<Block> BRILLIANT_DEEPSLATE = BLOCKS.register("brilliant_deepslate", () -> new DropExperienceBlock(MalumBlockProperties.BRILLIANCE_ORE(true).setCutoutRenderType(), UniformInt.of(16, 26)));
+    public static final RegistryObject<Block> BLOCK_OF_BRILLIANCE = BLOCKS.register("block_of_brilliance", () -> new Block(MalumBlockProperties.BRILLIANCE_BLOCK()));
+
     public static final RegistryObject<Block> BLOCK_OF_ARCANE_CHARCOAL = BLOCKS.register("block_of_arcane_charcoal", () -> new Block(MalumBlockProperties.ARCANE_CHARCOAL_BLOCK()));
 
     public static final RegistryObject<Block> BLAZING_QUARTZ_ORE = BLOCKS.register("blazing_quartz_ore", () -> new DropExperienceBlock(MalumBlockProperties.BLAZING_QUARTZ_ORE().setCutoutRenderType().lightLevel((b) -> 6), UniformInt.of(4, 7)));
+    public static final RegistryObject<Block> BLAZING_QUARTZ_CLUSTER = BLOCKS.register("blazing_quartz_cluster", () -> new AmethystClusterBlock(4, 3, MalumBlockProperties.BLAZING_QUARTZ_CLUSTER().setCutoutRenderType().lightLevel((b) -> 14)));
     public static final RegistryObject<Block> BLOCK_OF_BLAZING_QUARTZ = BLOCKS.register("block_of_blazing_quartz", () -> new Block(MalumBlockProperties.BLAZING_QUARTZ_BLOCK().lightLevel((b) -> 14)));
 
     public static final RegistryObject<Block> NATURAL_QUARTZ_ORE = BLOCKS.register("natural_quartz_ore", () -> new DropExperienceBlock(MalumBlockProperties.NATURAL_QUARTZ_ORE(false).setCutoutRenderType(), UniformInt.of(1, 4)));
@@ -382,29 +392,22 @@ public class BlockRegistry {
     public static final RegistryObject<Block> CTHONIC_GOLD_CLUSTER = BLOCKS.register("cthonic_gold_cluster", () -> new AmethystClusterBlock(4, 3, MalumBlockProperties.CTHONIC_GOLD_CLUSTER().setCutoutRenderType()));
     public static final RegistryObject<Block> BLOCK_OF_CTHONIC_GOLD = BLOCKS.register("block_of_cthonic_gold", () -> new Block(MalumBlockProperties.CTHONIC_GOLD_BLOCK()));
 
-    public static final RegistryObject<Block> BRILLIANT_STONE = BLOCKS.register("brilliant_stone", () -> new DropExperienceBlock(MalumBlockProperties.BRILLIANCE_ORE(false).setCutoutRenderType(), UniformInt.of(14, 18)));
-    public static final RegistryObject<Block> BRILLIANT_DEEPSLATE = BLOCKS.register("brilliant_deepslate", () -> new DropExperienceBlock(MalumBlockProperties.BRILLIANCE_ORE(true).setCutoutRenderType(), UniformInt.of(16, 26)));
-    public static final RegistryObject<Block> BLOCK_OF_BRILLIANCE = BLOCKS.register("block_of_brilliance", () -> new Block(MalumBlockProperties.BRILLIANCE_BLOCK()));
-
-    public static final RegistryObject<Block> SOULSTONE_ORE = BLOCKS.register("soulstone_ore", () -> new DropExperienceBlock(MalumBlockProperties.SOULSTONE_ORE(false)));
-    public static final RegistryObject<Block> DEEPSLATE_SOULSTONE_ORE = BLOCKS.register("deepslate_soulstone_ore", () -> new DropExperienceBlock(MalumBlockProperties.SOULSTONE_ORE(true)));
-    public static final RegistryObject<Block> BLOCK_OF_RAW_SOULSTONE = BLOCKS.register("block_of_raw_soulstone", () -> new Block(MalumBlockProperties.SOULSTONE_BLOCK()));
-    public static final RegistryObject<Block> BLOCK_OF_SOULSTONE = BLOCKS.register("block_of_soulstone", () -> new SoulstoneBlock(MalumBlockProperties.SOULSTONE_BLOCK()));
-
-    public static final RegistryObject<Block> BLOCK_OF_SOUL_STAINED_STEEL = BLOCKS.register("block_of_soul_stained_steel", () -> new Block(MalumBlockProperties.SOUL_STAINED_STEEL_BLOCK()));
-    public static final RegistryObject<Block> BLOCK_OF_HALLOWED_GOLD = BLOCKS.register("block_of_hallowed_gold", () -> new Block(MalumBlockProperties.HALLOWED_GOLD()));
-    public static final RegistryObject<Block> BLOCK_OF_MALIGNANT_ALLOY = BLOCKS.register("block_of_malignant_alloy", () -> new Block(MalumBlockProperties.MALIGNANT_ALLOY_BLOCK()));
-
     public static final RegistryObject<Block> BLOCK_OF_ROTTING_ESSENCE = BLOCKS.register("block_of_rotting_essence", () -> new Block(new LodestoneBlockProperties().needsPickaxe().addTags(STORAGE_BLOCKS).strength(1F, 6.0F).sound(SoundType.CORAL_BLOCK)));
-    public static final RegistryObject<Block> BLOCK_OF_GRIM_TALC = BLOCKS.register("block_of_grim_talc", () -> new Block(LodestoneBlockProperties.copy(Blocks.BONE_BLOCK).needsPickaxe().addTags(STORAGE_BLOCKS)));
+    public static final RegistryObject<Block> BLOCK_OF_GRIM_TALC = BLOCKS.register("block_of_grim_talc", () -> new RotatedPillarBlock(LodestoneBlockProperties.copy(Blocks.BONE_BLOCK).needsPickaxe().addTags(STORAGE_BLOCKS)));
     public static final RegistryObject<Block> BLOCK_OF_ALCHEMICAL_CALX = BLOCKS.register("block_of_alchemical_calx", () -> new Block(LodestoneBlockProperties.copy(Blocks.CALCITE).needsPickaxe().addTags(STORAGE_BLOCKS)));
     public static final RegistryObject<Block> BLOCK_OF_ASTRAL_WEAVE = BLOCKS.register("block_of_astral_weave", () -> new Block(LodestoneBlockProperties.copy(Blocks.LIGHT_BLUE_WOOL).needsPickaxe().needsHoe().addTags(STORAGE_BLOCKS)));
+//    public static final RegistryObject<Block> BLOCK_OF_WARP_FLUX = BLOCKS.register("block_of_warp_flux", () -> new Block(LodestoneBlockProperties.copy(Blocks.LIGHT_BLUE_WOOL).needsPickaxe().needsHoe().addTags(STORAGE_BLOCKS)));
     public static final RegistryObject<Block> BLOCK_OF_HEX_ASH = BLOCKS.register("block_of_hex_ash", () -> new Block(LodestoneBlockProperties.copy(Blocks.PURPLE_CONCRETE_POWDER).needsPickaxe().needsHoe().addTags(STORAGE_BLOCKS)));
     public static final RegistryObject<Block> MASS_OF_BLIGHTED_GUNK = BLOCKS.register("mass_of_blighted_gunk", () -> new Block(MalumBlockProperties.BLIGHT().needsPickaxe().addTags(STORAGE_BLOCKS)));
-    public static final RegistryObject<Block> BLOCK_OF_CURSED_GRIT = BLOCKS.register("block_of_cursed_grit", () -> new Block(LodestoneBlockProperties.copy(Blocks.RED_CONCRETE_POWDER).needsPickaxe().needsShovel().addTags(STORAGE_BLOCKS)));
     public static final RegistryObject<Block> BLOCK_OF_NULL_SLATE = BLOCKS.register("block_of_null_slate", () -> new Block(MalumBlockProperties.SOULSTONE_BLOCK()));
     public static final RegistryObject<Block> BLOCK_OF_VOID_SALTS = BLOCKS.register("block_of_void_salts", () -> new Block(LodestoneBlockProperties.copy(Blocks.BLACK_CONCRETE_POWDER).needsPickaxe().needsShovel().addTags(STORAGE_BLOCKS)));
     public static final RegistryObject<Block> BLOCK_OF_MNEMONIC_FRAGMENT = BLOCKS.register("block_of_mnemonic_fragment", () -> new Block(MalumBlockProperties.BRILLIANCE_BLOCK()));
+    public static final RegistryObject<Block> BLOCK_OF_MALIGNANT_LEAD = BLOCKS.register("block_of_malignant_lead", () -> new Block(MalumBlockProperties.MALIGNANT_LEAD_BLOCK()));
+
+    public static final RegistryObject<Block> BLOCK_OF_SOUL_STAINED_STEEL = BLOCKS.register("block_of_soul_stained_steel", () -> new Block(MalumBlockProperties.SOUL_STAINED_STEEL_BLOCK()));
+    public static final RegistryObject<Block> BLOCK_OF_HALLOWED_GOLD = BLOCKS.register("block_of_hallowed_gold", () -> new Block(MalumBlockProperties.HALLOWED_GOLD()));
+    public static final RegistryObject<Block> BLOCK_OF_MALIGNANT_PEWTER = BLOCKS.register("block_of_malignant_pewter", () -> new Block(MalumBlockProperties.MALIGNANT_PEWTER_BLOCK()));
+
     public static final RegistryObject<Block> RUNIC_SAP_BLOCK = BLOCKS.register("runic_sap_block", () -> new Block(MalumBlockProperties.RUNIC_SAP()));
     public static final RegistryObject<Block> CURSED_SAP_BLOCK = BLOCKS.register("cursed_sap_block", () -> new Block(MalumBlockProperties.CURSED_SAP()));
 
@@ -437,7 +440,6 @@ public class BlockRegistry {
                 int blue = (int) Mth.lerp(value, malumLeavesBlock.minColor.getBlue(), malumLeavesBlock.maxColor.getBlue());
                 return red << 16 | green << 8 | blue;
             }, RUNEWOOD_LEAVES.get(), HANGING_RUNEWOOD_LEAVES.get(), AZURE_RUNEWOOD_LEAVES.get(), HANGING_AZURE_RUNEWOOD_LEAVES.get());
-
 
 
             blockColors.register((s, l, p, c) -> {

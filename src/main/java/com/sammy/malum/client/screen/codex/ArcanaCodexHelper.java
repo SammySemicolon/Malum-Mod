@@ -3,7 +3,7 @@ package com.sammy.malum.client.screen.codex;
 import com.mojang.blaze3d.systems.*;
 import com.mojang.blaze3d.vertex.*;
 import com.sammy.malum.client.screen.codex.screens.*;
-import com.sammy.malum.core.systems.rites.*;
+import com.sammy.malum.common.spiritrite.*;
 import com.sammy.malum.core.systems.ritual.*;
 import com.sammy.malum.core.systems.spirit.*;
 import com.sammy.malum.registry.client.*;
@@ -19,14 +19,12 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.*;
 import org.joml.*;
 import org.lwjgl.opengl.*;
-
 import team.lodestar.lodestone.registry.client.*;
 import team.lodestar.lodestone.systems.easing.*;
 import team.lodestar.lodestone.systems.recipe.*;
 import team.lodestar.lodestone.systems.rendering.*;
 import team.lodestar.lodestone.systems.rendering.shader.*;
 
-import java.lang.*;
 import java.lang.Math;
 import java.util.*;
 import java.util.function.*;
@@ -86,8 +84,8 @@ public class ArcanaCodexHelper {
         renderRiteIcon(rite.getIcon(), rite.spirit, stack, corrupted, glowAlpha, x, y, 0);
     }
 
-    public static void renderRiteIcon(MalumRiteType rite, PoseStack stack, boolean corrupted, float glowAlpha, int x, int y) {
-        renderRiteIcon(rite.getIcon(), rite.getEffectSpirit(), stack, corrupted, glowAlpha, x, y, 0);
+    public static void renderRiteIcon(TotemicRiteType rite, PoseStack stack, boolean corrupted, float glowAlpha, int x, int y) {
+        renderRiteIcon(rite.getIcon(), rite.getIdentifyingSpirit(), stack, corrupted, glowAlpha, x, y, 0);
     }
 
     public static void renderRiteIcon(ResourceLocation texture, MalumSpiritType spiritType, PoseStack stack, boolean corrupted, float glowAlpha, int x, int y) {

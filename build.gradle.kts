@@ -175,14 +175,16 @@ dependencies {
     runtimeOnly(fg.deobf("top.theillusivec4.curios:curios-forge:${curiosVersion}"))
 
     implementation(fg.deobf("team.lodestar.lodestone:lodestone:${minecraftVersion}-${lodestoneVersion}"))
-//	implementation fg.deobf("curse.maven:mutil-351914:3941314")
-//	implementation fg.deobf("curse.maven:tetra-289712:4628304")
 
-    implementation(fg.deobf("curse.maven:farmers_delight-398521:4638874"))
-    implementation(fg.deobf("curse.maven:create-328085:4626108"))
+    compileOnly(fg.deobf("curse.maven:farmers_delight-398521:4638874"))
+
+//    implementation(fg.deobf("curse.maven:create-328085:4626108"))
     //implementation(fg.deobf("curse.maven:jeed-532286:4599236"))
+
     runtimeOnly(fg.deobf("curse.maven:world-stripper-250603:4578579"))
     runtimeOnly(fg.deobf("curse.maven:spark-361579:4587309"))
+    runtimeOnly(fg.deobf("curse.maven:attributefix-280510:4911084"))
+    runtimeOnly(fg.deobf("curse.maven:overloaded-armor-bar-314002:4631133"))
 }
 
 tasks.withType<ProcessResources> {

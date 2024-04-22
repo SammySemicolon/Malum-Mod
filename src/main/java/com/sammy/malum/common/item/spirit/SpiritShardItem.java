@@ -7,6 +7,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.api.distmarker.*;
 import org.jetbrains.annotations.Nullable;
 import team.lodestar.lodestone.handlers.screenparticle.ParticleEmitterHandler.ItemParticleSupplier;
 import team.lodestar.lodestone.systems.particle.screen.ScreenParticleHolder;
@@ -26,8 +27,9 @@ public class SpiritShardItem extends Item implements ItemParticleSupplier {
         pTooltip.add(type.getSpiritShardFlavourTextComponent());
     }
 
+    @OnlyIn(Dist.CLIENT)
     @Override
     public void spawnLateParticles(ScreenParticleHolder target, Level level, float partialTick, ItemStack stack, float x, float y) {
-        ScreenParticleEffects.spawnSpiritShardScreenParticles(target, type.getPrimaryColor(), type.getSecondaryColor());
+        ScreenParticleEffects.spawnSpiritShardScreenParticles(target, type);
     }
 }

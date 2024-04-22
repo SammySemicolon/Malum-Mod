@@ -1,7 +1,7 @@
 {
   "type": "malum:runeworking",
   "output": {
-    "item": "malum:rune_of_haste"
+    "item": "malum:rune_of_fervor"
   },
   "primaryInput": {
     "count": 1,

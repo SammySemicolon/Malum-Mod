@@ -1,31 +1,24 @@
 package com.sammy.malum.client.screen.codex;
 
 import com.google.common.collect.*;
-import com.sammy.malum.client.screen.codex.objects.*;
 import com.sammy.malum.client.screen.codex.pages.*;
 import com.sammy.malum.client.screen.codex.screens.*;
 
-import javax.annotation.*;
-import java.util.*;
 import java.util.function.*;
 
-public class BookEntry<T extends AbstractProgressionCodexScreen<T>> {
+public class BookEntry {
 
     public final String identifier;
     public final boolean isVoid;
-    @Nullable
-    private final BookEntryWidgetPlacementData<T> widgetData;
-    public final ImmutableList<BookPage<T>> pages;
+    public final ImmutableList<BookPage> pages;
+    public final ImmutableList<EntryReference> references;
+    public Predicate<EntryScreen> isValid = t -> true;
 
-    public BookEntry(String identifier, boolean isVoid, @Nullable BookEntryWidgetPlacementData<T> widgetData, ImmutableList<BookPage<T>> pages) {
+    public BookEntry(String identifier, boolean isVoid, ImmutableList<BookPage> pages, ImmutableList<EntryReference> references) {
         this.identifier = identifier;
         this.isVoid = isVoid;
-        this.widgetData = widgetData;
         this.pages = pages;
-    }
-
-    public Optional<BookEntryWidgetPlacementData<T>> getWidgetData() {
-        return Optional.ofNullable(widgetData);
+        this.references = references;
     }
 
     public String translationKey() {
@@ -36,17 +29,15 @@ public class BookEntry<T extends AbstractProgressionCodexScreen<T>> {
         return "malum.gui.book.entry." + identifier + ".description";
     }
 
-    public static<T extends AbstractProgressionCodexScreen<T>> BookEntryBuilder<T> build(String identifier, int xOffset, int yOffset) {
-        return new BookEntryBuilder<>(identifier, xOffset, yOffset);
-    }
-    public static<T extends AbstractProgressionCodexScreen<T>> BookEntryBuilder<T> build(String identifier) {
-        return new BookEntryBuilder<>(identifier);
+    public boolean isValid(EntryScreen screen) {
+        return isValid.test(screen);
     }
 
-    public interface WidgetSupplier<T extends AbstractProgressionCodexScreen<T>> {
-        ProgressionEntryObject<T> getBookObject(BookEntry<T> entry, int x, int y);
+    public static PlacedBookEntryBuilder build(String identifier, int xOffset, int yOffset) {
+        return new PlacedBookEntryBuilder(identifier, xOffset, yOffset);
     }
 
-    public record BookEntryWidgetPlacementData<T extends AbstractProgressionCodexScreen<T>>(int xOffset, int yOffset, WidgetSupplier<T> widgetSupplier, Consumer<ProgressionEntryObject<T>> widgetConfig) {
+    public static BookEntryBuilder build(String identifier) {
+        return new BookEntryBuilder(identifier);
     }
 }

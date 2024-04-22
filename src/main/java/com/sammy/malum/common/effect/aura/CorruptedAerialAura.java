@@ -22,7 +22,7 @@ public class CorruptedAerialAura extends MobEffect {
         LivingEntity entity = event.getEntity();
         MobEffectInstance effectInstance = entity.getEffect(MobEffectRegistry.AETHERS_CHARM.get());
         if (effectInstance != null) {
-            entity.setDeltaMovement(entity.getDeltaMovement().add(0, effectInstance.getAmplifier() * 0.15f, 0));
+            entity.setDeltaMovement(entity.getDeltaMovement().add(0, 0.1f + effectInstance.getAmplifier() * 0.05f, 0));
         }
     }
 

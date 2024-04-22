@@ -1,25 +1,17 @@
 package com.sammy.malum.common.item.curiosities.curios.sets.rotten;
 
-import com.google.common.collect.Multimap;
-import com.sammy.malum.common.item.IMalumEventResponderItem;
-import com.sammy.malum.common.item.curiosities.curios.MalumCurioItem;
-import com.sammy.malum.registry.common.MobEffectRegistry;
-import com.sammy.malum.registry.common.SoundRegistry;
-import net.minecraft.network.chat.Component;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.effect.MobEffect;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.Attribute;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
-import team.lodestar.lodestone.helpers.EntityHelper;
-import top.theillusivec4.curios.api.SlotContext;
+import com.sammy.malum.common.item.*;
+import com.sammy.malum.common.item.curiosities.curios.*;
+import com.sammy.malum.registry.common.*;
+import net.minecraft.network.chat.*;
+import net.minecraft.sounds.*;
+import net.minecraft.world.effect.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.*;
+import team.lodestar.lodestone.helpers.*;
 
-import java.util.function.Consumer;
+import java.util.function.*;
 
 public class CurioStarvedBelt extends MalumCurioItem implements IMalumEventResponderItem {
 
@@ -31,12 +23,6 @@ public class CurioStarvedBelt extends MalumCurioItem implements IMalumEventRespo
     public void addExtraTooltipLines(Consumer<Component> consumer) {
         consumer.accept(positiveEffect("spirits_gluttony"));
         consumer.accept(positiveEffect("gluttony_magic_proficiency"));
-    }
-
-    @Override
-    public void addAttributeModifiers(Multimap<Attribute, AttributeModifier> map, SlotContext slotContext, ItemStack stack) {
-        addAttributeModifier(map, Attributes.ARMOR, uuid -> new AttributeModifier(uuid,
-                "Curio Armor", 2f, AttributeModifier.Operation.ADDITION));
     }
 
     @Override

@@ -9,7 +9,7 @@ import com.sammy.malum.common.recipe.SpiritTransmutationRecipe;
 import com.sammy.malum.compability.farmersdelight.FarmersDelightCompat;
 import com.sammy.malum.compability.jei.categories.*;
 import com.sammy.malum.compability.jei.recipes.SpiritTransmutationWrapper;
-import com.sammy.malum.core.systems.rites.MalumRiteType;
+import com.sammy.malum.common.spiritrite.TotemicRiteType;
 import com.sammy.malum.registry.common.SpiritRiteRegistry;
 import com.sammy.malum.registry.common.item.ItemRegistry;
 import mezz.jei.api.IModPlugin;
@@ -46,7 +46,7 @@ public class JEIHandler implements IModPlugin {
     public static final RecipeType<SpiritInfusionRecipe> SPIRIT_INFUSION = new RecipeType<>(SpiritInfusionRecipeCategory.UID, SpiritInfusionRecipe.class);
     public static final RecipeType<SpiritTransmutationWrapper> TRANSMUTATION = new RecipeType<>(SpiritTransmutationRecipeCategory.UID, SpiritTransmutationWrapper.class);
     public static final RecipeType<SpiritFocusingRecipe> FOCUSING = new RecipeType<>(SpiritFocusingRecipeCategory.UID, SpiritFocusingRecipe.class);
-    public static final RecipeType<MalumRiteType> RITES = new RecipeType<>(SpiritRiteRecipeCategory.UID, MalumRiteType.class);
+    public static final RecipeType<TotemicRiteType> RITES = new RecipeType<>(SpiritRiteRecipeCategory.UID, TotemicRiteType.class);
     public static final RecipeType<SpiritRepairRecipe> SPIRIT_REPAIR = new RecipeType<>(SpiritRepairRecipeCategory.UID, SpiritRepairRecipe.class);
 
     public static void addItemsToJei(IRecipeLayoutBuilder iRecipeLayout, RecipeIngredientRole role, int left, int top, boolean vertical, List<? extends IRecipeComponent> components) {

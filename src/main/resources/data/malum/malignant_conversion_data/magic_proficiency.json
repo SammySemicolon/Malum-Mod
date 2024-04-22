@@ -1,0 +1,9 @@
+{
+  "source_attribute": "lodestone:magic_proficiency",
+  "target_attributes": [
+    {
+      "attribute": "minecraft:generic.armor",
+      "ratio": "1.0"
+    }
+  ]
+}

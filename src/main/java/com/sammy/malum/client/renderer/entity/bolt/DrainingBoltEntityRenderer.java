@@ -12,7 +12,7 @@ public class DrainingBoltEntityRenderer extends AbstractBoltEntityRenderer<Drain
     private static final RenderType TRAIL_TYPE = LodestoneRenderTypeRegistry.TRANSPARENT_TEXTURE_TRIANGLE.apply(LIGHT_TRAIL, ShaderUniformHandler.LUMITRANSPARENT);
 
     public DrainingBoltEntityRenderer(EntityRendererProvider.Context context) {
-        super(context, MalignantScepterItem.MALIGNANT_PURPLE, MalignantScepterItem.MALIGNANT_BLACK);
+        super(context, ErosionScepterItem.MALIGNANT_PURPLE, ErosionScepterItem.MALIGNANT_BLACK);
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.sammy.malum.client.screen.codex.screens;
 
 import com.mojang.blaze3d.vertex.*;
 import com.sammy.malum.client.screen.codex.*;
+import com.sammy.malum.client.screen.codex.handklers.*;
 import com.sammy.malum.client.screen.codex.objects.*;
 import com.sammy.malum.registry.common.*;
 import net.minecraft.client.*;
@@ -19,8 +20,7 @@ import static com.sammy.malum.MalumMod.*;
 import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.*;
 import static org.lwjgl.opengl.GL11C.*;
 
-@SuppressWarnings({"rawtypes", "unchecked"})
-public abstract class AbstractProgressionCodexScreen<T extends AbstractProgressionCodexScreen<T>> extends AbstractMalumScreen {
+public abstract class AbstractProgressionCodexScreen extends AbstractMalumScreen {
 
     public static final ResourceLocation FRAME_TEXTURE = malumPath("textures/gui/book/frame.png");
     public static final ResourceLocation FRAME_FADE_TEXTURE = malumPath("textures/gui/book/frame_fade.png");
@@ -32,8 +32,9 @@ public abstract class AbstractProgressionCodexScreen<T extends AbstractProgressi
     public boolean ignoreNextMouseInput;
     public int transitionTimer;
     public int timesTransitioned;
+    public boolean isVoidTouched;
 
-    public final EntryObjectHandler<T> bookObjectHandler = new EntryObjectHandler();
+    public final EntryObjectHandler bookObjectHandler = new EntryObjectHandler();
 
     public final int bookWidth;
     public final int bookHeight;
@@ -60,15 +61,21 @@ public abstract class AbstractProgressionCodexScreen<T extends AbstractProgressi
 
     public abstract void renderBackground(PoseStack poseStack);
 
-    public abstract Collection<BookEntry<T>> getEntries();
+    public abstract Collection<PlacedBookEntry> getEntries();
 
     public void addEntry(String identifier, int xOffset, int yOffset) {
-        addEntry(identifier, xOffset, yOffset, b -> {});
+        addEntry(identifier, xOffset, yOffset, b -> {
+        });
     }
-    public void addEntry(String identifier, int xOffset, int yOffset, Consumer<BookEntryBuilder<T>> consumer) {
-        final BookEntryBuilder<T> builder = BookEntry.build(identifier, xOffset, yOffset);
+
+    public void addEntry(String identifier, int xOffset, int yOffset, Consumer<PlacedBookEntryBuilder> consumer) {
+        final PlacedBookEntryBuilder builder = PlacedBookEntry.build(identifier, xOffset, yOffset);
         consumer.accept(builder);
         getEntries().add(builder.build());
+    }
+
+    public PlacedBookEntry getEntry(String identifier) {
+        return getEntries().stream().filter(p -> p.identifier.matches(identifier)).findFirst().orElseThrow(()-> new NullPointerException("Encyclopedia Arcana tried initiating a reference to the " + identifier + " entry, which doesn't exist"));
     }
 
     @Override
@@ -83,7 +90,7 @@ public abstract class AbstractProgressionCodexScreen<T extends AbstractProgressi
         GL11.glEnable(GL_SCISSOR_TEST);
         cut();
 
-        bookObjectHandler.renderObjects((T)this, guiGraphics, guiLeft+xOffset, guiTop+yOffset, mouseX, mouseY, partialTicks);
+        bookObjectHandler.renderObjects(this, guiGraphics, guiLeft + xOffset, guiTop + yOffset, mouseX, mouseY, partialTicks);
         GL11.glDisable(GL_SCISSOR_TEST);
 
         renderTexture(FRAME_FADE_TEXTURE, poseStack, guiLeft, guiTop, 0, 0, bookWidth, bookHeight);
@@ -91,7 +98,7 @@ public abstract class AbstractProgressionCodexScreen<T extends AbstractProgressi
             ArcanaCodexHelper.renderTransitionFade(this, poseStack);
         }
         renderTexture(FRAME_TEXTURE, poseStack, guiLeft, guiTop, 400, 0, 0, bookWidth, bookHeight);
-        bookObjectHandler.renderObjectsLate((T) this, guiGraphics, mouseX, mouseY, partialTicks);
+        bookObjectHandler.renderObjectsLate(this, guiGraphics, mouseX, mouseY, partialTicks);
     }
 
     @Override
@@ -103,7 +110,7 @@ public abstract class AbstractProgressionCodexScreen<T extends AbstractProgressi
         if (xOffset != cachedXOffset || yOffset != cachedYOffset) {
             return super.mouseReleased(mouseX, mouseY, button);
         }
-        bookObjectHandler.click((T) this, mouseX, mouseY);
+        bookObjectHandler.click(this, mouseX, mouseY);
         return super.mouseReleased(mouseX, mouseY, button);
     }
 
@@ -146,14 +153,14 @@ public abstract class AbstractProgressionCodexScreen<T extends AbstractProgressi
     public void setupObjects() {
         this.width = minecraft.getWindow().getGuiScaledWidth();
         this.height = minecraft.getWindow().getGuiScaledHeight();
-        bookObjectHandler.setupEntryObjects((T)this);
+        bookObjectHandler.setupEntryObjects(this);
     }
 
     public void faceObject(BookObject<?> object) {
         this.width = minecraft.getWindow().getGuiScaledWidth();
         this.height = minecraft.getWindow().getGuiScaledHeight();
-        xOffset = -object.posX + bookInsideWidth/2f;
-        yOffset = -object.posY + bookInsideHeight/2f;
+        xOffset = -object.posX + bookInsideWidth / 2f;
+        yOffset = -object.posY + bookInsideHeight / 2f;
     }
 
     public void openScreen(boolean silentMouseInput) {

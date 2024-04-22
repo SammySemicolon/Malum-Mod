@@ -1,4 +1,7 @@
 {
+  "remove": [
+    "#forge:is_snowy"
+  ],
   "values": [
     "#forge:is_plains",
     "#forge:is_mountain",
