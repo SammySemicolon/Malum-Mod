@@ -10,6 +10,7 @@
     "malum:block_of_void_salts",
     "malum:cursed_sap_block",
     "malum:block_of_soulstone",
+    "malum:block_of_living_flesh",
     "malum:block_of_malignant_pewter",
     "malum:block_of_null_slate",
     "malum:block_of_arcane_charcoal",
@@ -20,6 +21,7 @@
     "malum:runic_sap_block",
     "malum:block_of_hex_ash",
     "malum:block_of_raw_soulstone",
+    "malum:block_of_foul_flesh",
     "malum:block_of_brilliance"
   ]
 }
