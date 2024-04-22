@@ -19,7 +19,7 @@
   },
   "spirits": [
     {
-      "type": "aqueous",
+      "type": "wicked",
       "count": 32
     },
     {
@@ -27,7 +27,7 @@
       "count": 32
     },
     {
-      "type": "earthen",
+      "type": "aqueous",
       "count": 32
     },
     {

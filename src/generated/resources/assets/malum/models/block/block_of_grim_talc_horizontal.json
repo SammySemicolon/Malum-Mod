@@ -1,5 +1,5 @@
 {
-  "parent": "minecraft:block/cube_column",
+  "parent": "minecraft:block/cube_column_horizontal",
   "textures": {
     "end": "malum:block/storage_blocks/block_of_grim_talc_top",
     "side": "malum:block/storage_blocks/block_of_grim_talc"

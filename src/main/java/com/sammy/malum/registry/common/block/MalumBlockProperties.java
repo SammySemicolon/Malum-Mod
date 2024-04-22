@@ -168,6 +168,14 @@ public class MalumBlockProperties {
                 .sound(SoundRegistry.BLAZING_QUARTZ_ORE);
     }
 
+    public static LodestoneBlockProperties BLAZING_QUARTZ_CLUSTER() {
+        return new LodestoneBlockProperties()
+                .needsPickaxe()
+                .requiresCorrectToolForDrops()
+                .strength(1.5F)
+                .sound(SoundRegistry.BLAZING_QUARTZ_CLUSTER);
+    }
+
     public static LodestoneBlockProperties CTHONIC_GOLD_ORE() {
         return new LodestoneBlockProperties()
                 .addTag(Tags.Blocks.ORES)
