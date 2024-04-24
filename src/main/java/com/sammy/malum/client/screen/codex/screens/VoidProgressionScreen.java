@@ -5,12 +5,14 @@ import com.sammy.malum.client.screen.codex.*;
 import com.sammy.malum.client.screen.codex.objects.progression.*;
 import com.sammy.malum.client.screen.codex.pages.*;
 import com.sammy.malum.client.screen.codex.pages.recipe.*;
+import com.sammy.malum.client.screen.codex.pages.recipe.vanilla.*;
 import com.sammy.malum.client.screen.codex.pages.text.*;
 import com.sammy.malum.common.events.*;
 import com.sammy.malum.common.item.codex.*;
 import com.sammy.malum.registry.common.*;
 import net.minecraft.client.*;
 import net.minecraft.resources.*;
+import net.minecraft.world.item.*;
 import net.minecraftforge.common.*;
 
 import java.util.*;
@@ -66,6 +68,8 @@ public class VoidProgressionScreen extends AbstractProgressionCodexScreen {
     }
 
     public void setupEntries() {
+        Item EMPTY = ItemStack.EMPTY.getItem();
+
         addEntry("chronicles_of_the_soul", 0, 0, b -> b
                 .setWidgetSupplier((e, x, y) -> new ScreenOpenerObject(e, x, y, ArcanaProgressionScreen::openCodexViaTransition, malumPath("textures/gui/book/icons/arcana_button.png"), 20, 20))
                 .setWidgetConfig(w -> w.setStyle(BookWidgetStyle.DARK_GRAND_SOULWOOD))
@@ -125,37 +129,50 @@ public class VoidProgressionScreen extends AbstractProgressionCodexScreen {
 
         addEntry("void.black_crystal", 0, 5, b -> b
                 .setWidgetConfig(w -> w.setIcon(UMBRAL_SPIRIT).setStyle(BookWidgetStyle.GILDED_SOULWOOD))
-            .addPage(new WeepingWellTextPage("void.black_crystal", "void.black_crystal.1", UMBRAL_SPIRIT.get()))
-            .addPage(new TextPage("void.black_crystal.2"))
-            .addPage(new TextPage("void.black_crystal.3"))
-            .addPage(new TextPage("void.black_crystal.4"))
+                .addPage(new WeepingWellTextPage("void.black_crystal", "void.black_crystal.1", UMBRAL_SPIRIT.get()))
+                .addPage(new TextPage("void.black_crystal.2"))
+                .addPage(new TextPage("void.black_crystal.3"))
+                .addPage(new TextPage("void.black_crystal.4"))
         );
 
         addEntry("void.umbral_arcana", -1, 6, b -> b
                 .setWidgetConfig(w -> w.setStyle(BookWidgetStyle.DARK_SOULWOOD))
                 .setWidgetSupplier((e, x, y) -> new IconObject(e, x, y, malumPath("textures/gui/book/icons/umbral_shard.png")))
-            .addPage(new HeadlineTextPage("void.umbral_arcana", "void.umbral_arcana.1"))
-            .addPage(new TextPage("void.umbral_arcana.2"))
-            .addPage(new TextPage("void.umbral_arcana.3"))
-            .addPage(new TextPage("void.umbral_arcana.4"))
-            .addPage(new TextPage("void.umbral_arcana.5"))
+                .addPage(new HeadlineTextPage("void.umbral_arcana", "void.umbral_arcana.1"))
+                .addPage(new TextPage("void.umbral_arcana.2"))
+                .addPage(new TextPage("void.umbral_arcana.3"))
+                .addPage(new TextPage("void.umbral_arcana.4"))
+                .addPage(new TextPage("void.umbral_arcana.5"))
         );
 
         addEntry("void.inverse_and_hybrid_arcana", 0, 7, b -> b
                 .setWidgetConfig(w -> w.setStyle(BookWidgetStyle.DARK_SOULWOOD))
                 .setWidgetSupplier((e, x, y) -> new IconObject(e, x, y, malumPath("textures/gui/book/icons/umbral_shard.png")))
+                .addPage(new HeadlineTextPage("void.inverse_and_hybrid_arcana", "void.inverse_and_hybrid_arcana.1"))
+                .addPage(new TextPage("void.inverse_and_hybrid_arcana.2"))
+                .addPage(new TextPage("void.inverse_and_hybrid_arcana.3"))
         );
 
         addEntry("void.material_study_arcana", 1, 8, b -> b
                 .setWidgetConfig(w -> w.setStyle(BookWidgetStyle.DARK_SOULWOOD))
                 .setWidgetSupplier((e, x, y) -> new IconObject(e, x, y, malumPath("textures/gui/book/icons/umbral_shard.png")))
+                .addPage(new HeadlineTextPage("void.material_study_arcana", "void.material_study_arcana.1"))
+                .addPage(new TextPage("void.material_study_arcana.2"))
+                .addPage(new TextPage("void.material_study_arcana.3"))
         );
 
         addEntry("void.staves_as_foci", 0, 9, b -> b
                 .setWidgetConfig(w -> w.setIcon(MNEMONIC_HEX_STAFF).setStyle(BookWidgetStyle.GILDED_SOULWOOD))
-                .addReference(new EntryReference(RING_OF_THE_ENDLESS_WELL, BookEntry.build("void.staves_as_foci.ring_of_the_endless_well")))
+                .addPage(new HeadlineTextPage("void.staves_as_foci", "void.staves_as_foci.1"))
+                .addPage(new TextPage("void.staves_as_foci.2"))
+                .addPage(new TextPage("void.staves_as_foci.3"))
+                .addPage(SpiritInfusionPage.fromOutput(MNEMONIC_HEX_STAFF.get()))
+                .addReference(new EntryReference(RING_OF_THE_ENDLESS_WELL,
+                        BookEntry.build("void.staves_as_foci.ring_of_the_endless_well")
+                                .addPage(new HeadlineTextPage("void.staves_as_foci.ring_of_the_endless_well", "void.staves_as_foci.ring_of_the_endless_well.1"))
+                                .addPage(SpiritInfusionPage.fromOutput(RING_OF_THE_ENDLESS_WELL.get()))
+                ))
         );
-
 
         addEntry("void.ring_of_growing_flesh", -3, 9, b -> b
                 .setWidgetConfig(w -> w.setIcon(RING_OF_GROWING_FLESH).setStyle(BookWidgetStyle.SOULWOOD))
@@ -180,18 +197,40 @@ public class VoidProgressionScreen extends AbstractProgressionCodexScreen {
 
         addEntry("void.malignant_pewter", 3, 9, b -> b
                 .setWidgetConfig(w -> w.setIcon(MALIGNANT_PEWTER_INGOT).setStyle(BookWidgetStyle.SOULWOOD))
+                .addPage(new HeadlineTextPage("void.malignant_pewter", "void.malignant_pewter.1"))
+                .addPage(new TextPage("void.malignant_pewter.2"))
+                .addPage(new TextPage("void.malignant_pewter.3"))
+                .addPage(SpiritInfusionPage.fromOutput(MALIGNANT_PEWTER_INGOT.get()))
         );
 
         addEntry("void.erosion_scepter", 4, 10, b -> b
                 .setWidgetConfig(w -> w.setIcon(EROSION_SCEPTER).setStyle(BookWidgetStyle.SOULWOOD))
+                .addPage(new HeadlineTextPage("void.erosion_scepter", "void.erosion_scepter.1"))
+                .addPage(new TextPage("void.erosion_scepter.2"))
+                .addPage(new TextPage("void.erosion_scepter.3"))
+                .addPage(SpiritInfusionPage.fromOutput(EROSION_SCEPTER.get()))
         );
 
         addEntry("void.weight_of_worlds", 3, 11, b -> b
                 .setWidgetConfig(w -> w.setIcon(WEIGHT_OF_WORLDS).setStyle(BookWidgetStyle.SOULWOOD))
+                .addPage(new HeadlineTextPage("void.weight_of_worlds", "void.weight_of_worlds.1"))
+                .addPage(new TextPage("void.weight_of_worlds.2"))
+                .addPage(new TextPage("void.weight_of_worlds.3"))
+                .addPage(SpiritInfusionPage.fromOutput(WEIGHT_OF_WORLDS.get()))
         );
 
         addEntry("void.malignant_stronghold_armor", 4, 12, b -> b
                 .setWidgetConfig(w -> w.setIcon(MALIGNANT_STRONGHOLD_HELMET).setStyle(BookWidgetStyle.SOULWOOD))
+                .addPage(new HeadlineTextPage("void.malignant_stronghold_armor", "void.malignant_stronghold_armor.1"))
+                .addPage(new TextPage("void.malignant_stronghold_armor.2"))
+                .addPage(new TextPage("void.malignant_stronghold_armor.3"))
+                .addPage(new CyclingPage(
+                        SpiritInfusionPage.fromOutput(MALIGNANT_STRONGHOLD_HELMET.get()),
+                        SpiritInfusionPage.fromOutput(MALIGNANT_STRONGHOLD_CHESTPLATE.get()),
+                        SpiritInfusionPage.fromOutput(MALIGNANT_STRONGHOLD_LEGGINGS.get()),
+                        SpiritInfusionPage.fromOutput(MALIGNANT_STRONGHOLD_BOOTS.get())
+                ))
+                .addPage(new CraftingPage(new ItemStack(MALIGNANT_PEWTER_PLATING.get(), 2), EMPTY, MALIGNANT_PEWTER_NUGGET.get(), EMPTY, MALIGNANT_PEWTER_NUGGET.get(), MALIGNANT_PEWTER_INGOT.get(), MALIGNANT_PEWTER_NUGGET.get(), EMPTY, MALIGNANT_PEWTER_NUGGET.get(), EMPTY))
         );
 
 //
@@ -208,24 +247,7 @@ public class VoidProgressionScreen extends AbstractProgressionCodexScreen {
 //                        RUNE_OF_BOLSTERING.get(), RUNE_OF_SACRIFICIAL_EMPOWERMENT.get(), RUNE_OF_SPELL_MASTERY.get(), RUNE_OF_THE_HERETIC.get(),
 //                        RUNE_OF_UNNATURAL_STAMINA.get(), RUNE_OF_TWINNED_DURATION.get(), RUNE_OF_TOUGHNESS.get(), RUNE_OF_IGNEOUS_SOLACE.get()))
 //        );
-//
-//        addEntry("void.malignant_alloy", 6, 6, b -> b
-//                .setWidgetConfig(w -> w.setIcon(MALIGNANT_ALLOY_INGOT).setStyle(BookWidgetStyle.SOULWOOD))
-//        );
-//
-//        addEntry("void.malignant_scepter", 5, 7, b -> b
-//                .setWidgetConfig(w -> w.setIcon(MALIGNANT_SCEPTER).setStyle(BookWidgetStyle.SOULWOOD))
-//        );
-//
-//        addEntry("void.weight_of_worlds", 7, 7, b -> b
-//                .setWidgetConfig(w -> w.setIcon(WEIGHT_OF_WORLDS).setStyle(BookWidgetStyle.SOULWOOD))
-//        );
-//
-//        addEntry("void.malignant_stronghold_armor", 6, 8, b -> b
-//                .setWidgetConfig(w -> w.setIcon(MALIGNANT_STRONGHOLD_HELMET).setStyle(BookWidgetStyle.SOULWOOD))
-//        );
-//
-//
+
 //        addEntry("void.anomalous_design", 0, 7, b -> b
 //                .setWidgetConfig(w -> w.setIcon(ANOMALOUS_DESIGN).setStyle(BookWidgetStyle.SOULWOOD))
 //                .addPage(new HeadlineTextItemPage("void.anomalous_design", "void.anomalous_design.1", ANOMALOUS_DESIGN.get()))
