@@ -65,7 +65,19 @@ public class MalumBlockProperties {
                 .isSuffocating(Blocks::never)
                 .isViewBlocking(Blocks::never)
                 .sound(SoundRegistry.RUNEWOOD_LEAVES)
-                .needsHoe().addTag(BlockTags.LEAVES);
+                .needsHoe();
+    }
+
+    public static LodestoneBlockProperties HANGING_RUNEWOOD_LEAVES() {
+        return new LodestoneBlockProperties()
+                .strength(0.05F)
+                .randomTicks()
+                .noOcclusion()
+                .isValidSpawn(Blocks::ocelotOrParrot)
+                .isSuffocating(Blocks::never)
+                .isViewBlocking(Blocks::never)
+                .sound(SoundRegistry.RUNEWOOD_LEAVES)
+                .needsHoe();
     }
 
     public static LodestoneBlockProperties RUNIC_SAP() {
@@ -88,6 +100,18 @@ public class MalumBlockProperties {
                 .addTag(BlockTags.LEAVES)
                 .needsHoe()
                 .strength(0.2F)
+                .randomTicks()
+                .noOcclusion()
+                .isValidSpawn(Blocks::ocelotOrParrot)
+                .isSuffocating(Blocks::never)
+                .isViewBlocking(Blocks::never)
+                .sound(SoundRegistry.SOULWOOD_LEAVES);
+    }
+
+    public static LodestoneBlockProperties HANGING_SOULWOOD_LEAVES() {
+        return new LodestoneBlockProperties()
+                .needsHoe()
+                .strength(0.05F)
                 .randomTicks()
                 .noOcclusion()
                 .isValidSpawn(Blocks::ocelotOrParrot)
