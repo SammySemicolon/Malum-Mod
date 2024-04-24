@@ -143,8 +143,8 @@ public class MalumLang extends LanguageProvider {
 
         addRite(SpiritRiteRegistry.SACRED_RITE, "Rite of Healing", "Rite of Nourishment");
         addRite(SpiritRiteRegistry.WICKED_RITE, "Rite of Decay", "Rite of Empowerment");
-        addRite(SpiritRiteRegistry.EARTHEN_RITE, "Rite of Warding", "Rite of the Challenger");
-        addRite(SpiritRiteRegistry.INFERNAL_RITE, "Rite of Haste", "Rite of the Extinguisher");
+        addRite(SpiritRiteRegistry.EARTHEN_RITE, "Rite of Warding", "Rite of the Arena");
+        addRite(SpiritRiteRegistry.INFERNAL_RITE, "Rite of Haste", "Rite of the Hells");
         addRite(SpiritRiteRegistry.AERIAL_RITE, "Rite of Motion", "Rite of the Aether");
         addRite(SpiritRiteRegistry.AQUEOUS_RITE, "Rite of Loyalty", "Rite of the Seas");
 
@@ -282,7 +282,8 @@ public class MalumLang extends LanguageProvider {
             "And yet, despite being a void, it is power. Or perhaps the lack of power creates a pressure differential? I am not certain. Either way, it can be used. Infused, in theory, even, although that is hard to wrap my head around. It acts like matter, but is not. It is power, and the absence of it.",
             "My research into this arcana must continue. It has to. If anything holds the secrets of achieving the pinnacle of thaumaturgy, it is this paradoxical void. And I will grasp it with both hands.");
 
-        addSimpleEntryHeader("void.inverse_and_hybrid_arcana", "Inverse and Hybrid Arcana?", "Failed theories");
+        addEntryHeader("void.inverse_and_hybrid_arcana", "Inverse and Hybrid Arcana?", "Failed theories");
+        addHeadline("void.inverse_and_hybrid_arcana", "Theoretical Arcana");
         addPages("void.inverse_and_hybrid_arcana",
             "If Arcane and Eldritch had inverses, it stood to reason that there might be inverses for the other spirit crystals - an absolute absence of fire creating the inverse of Infernal, for example. Pulling the power of a spirit from a jar is one way to form a crystal, and in theory, recreating similar conditions could allow for a different type of crystal to form.",
                 "Through a combination of Soulwood rites and careful placement of crystals, I was able to create the theoretical environment for such a crystal for the six base Arcana... But nothing happened at all. It would be far more useful if I could determine how to create the same environment for Umbral, but as of yet I have not determined how to remove " + italic("all") + " arcana from an area.",
@@ -299,8 +300,8 @@ public class MalumLang extends LanguageProvider {
 
         addSimpleEntryHeader("void.staves_as_foci", "Staves as Foci", "Imitating the arcana");
         addPages("void.staves_as_foci",
-            "Consideration of the properties I observed in spirit crystals led me to wonder if the structure itself was important somehow. To test this, I constructed a Mnemnosyne replica - the condensed soul memory being the closest substance I could think of - of the Wicked Arcana, precise to a scale of hundreds of thousandths of a block. I did not expect it to explode in my face.",
-                "But explosions are useful, if harnessed. So I did it again, but this time, I gave the false crystal a structure to operate off of - a housing of Soulwood and Soulstained Steel to direct it outwards. The resulting staff acts akin to a rite in miniature when I focus on it, though the resulting effects are different.",
+            "Consideration of the properties I observed in spirit crystals led me to wonder if the structure itself was important somehow. To test this, I constructed a Mnemnosyne replica - the condensed soul memory being the closest substance I could think of - of the Wicked Arcana, precise to a scale of hundreds of thousandths of a block.",
+                "I did not expect it to explode in my face.\n\nBut explosions are useful, if harnessed. So I did it again, but this time, I gave the false crystal a structure to operate off of - a housing of Soulwood and Soulstained Steel to direct it outwards. The resulting staff acts akin to a rite in miniature when I focus on it, though the resulting effects are different.",
                 "When used in melee, staves are... adequate. I would tend to prefer a scythe, but I suppose this works well enough. They tend to focus more on magic damage than on physical damage, which admittedly can be helpful at times. But what makes them special is what happens if I " + italic("use") + " it.",
                 "This Mnemonic Hex Staff is named for its simple effect of launching balls of liquefied Wicked energy, like a witch's hex. It takes a moment to activate, and cannot be quite used consecutively, but each deals potent damage to anything they hit.",
                 "I have not found success in creating any other false Arcana this way, though that might be a matter of material. Mnemnosyne may simply resonate with Wicked through the death required to create Brilliance.");
@@ -308,7 +309,7 @@ public class MalumLang extends LanguageProvider {
         addSimpleEntryHeader("void.staves_as_foci.ring_of_the_endless_well", "Ring of the Endless Well", "Storing staff charges");
         addPages("void.staves_as_foci.ring_of_the_endless_well",
             "I have recreated the Arcane spirit in false form. A core of Mnemnosyne in Null Slate housing appears to neutralize the Wicked attunement of the Mnemnosyne, leaving raw arcana as the pattern it mimics. The false Arcane spirit appears to hold a charge, one very similar to the Wicked crystal in my staff.",
-                "I have fashioned a ring - the Endless Well - with these false crystals in housing. The ring appears to concentrate my focus, allowing me to avoid the time the staff takes to charge back up. The ring charges slower, as it is not a symbolic " + italic("focus") + " like my staff, but it can hold three attacks in reserve for faster use.");
+            "I have fashioned a ring - the Endless Well - with these false crystals in housing. The ring appears to concentrate my focus, allowing me to avoid the time the staff takes to charge back up. The ring charges slower, as it is not a symbolic " + italic("focus") + " like my staff, but it can hold three attacks in reserve for faster use.");
 
 //        addEntryHeader("void.material_study_arcana", "Material Study: the Arcana", "New depths to old wells");
 //        addHeadline("void.material_study_arcana", "Study: Spirit Crystal");
@@ -608,22 +609,25 @@ public class MalumLang extends LanguageProvider {
         addPages("belt_of_the_starved",
             "The arcana I collect occasionally have scraps of wishes and desires woven in. Often, given the base nature of what I reap, this comes in the form of hunger, lust, or petty grudges. All of these impurities can be harnessed, and beyond that, I can infuse this power into my magic.",
             "Doing this carries the perhaps predictable effect that my own hunger amplifies, draining quicker in the process. The magic proficiency this grants is immense, but... I must say, the means are rather distasteful.");
-        addHeadline("belt_of_the_starved.ring_of_desperate_voracity", "Ring of Desperate Voracity");
+        addSimpleEntryHeader("belt_of_the_starved.ring_of_desperate_voracity", "Ring of Desperate Voracity", "Widening the channel");
         addPages("belt_of_the_starved.ring_of_desperate_voracity",
-            "This ring makes rotten foods just a little bit more bearable, allowing me to amass more hunger and saturation from such an unusual diet. Normally, such a diet would be ill-advised, however, a secondary function of the ring allows it to extend the duration of the gluttony status effect that the belt of the starved grants.");
+            "This ring makes rotten foods just a little bit more bearable, allowing me to amass more hunger and saturation from such an unusual diet. Normally, such a diet would be ill-advised, however, a secondary function of the ring allows it to extend the duration of the Gluttony status effect that the Belt of the Starved grants.");
 
         addSimpleEntryHeader("belt_of_the_prospector", "Belt of the Prospector", "Treasures of the earth");
         addPages("belt_of_the_prospector",
             "To fuel my various magics and other goals I more often than not find myself needing various earthen treasures. This belt prevents explosions " + italic("directly") + " caused by me from harming valuable items on the ground, and causes those explosions to break blocks as though I were using a Fortune III tool.");
-        addHeadline("belt_of_the_prospector.ring_of_the_hoarder", "Ring of The Hoarder");
+        addSimpleEntryHeader("belt_of_the_prospector.ring_of_the_hoarder", "Ring of the Hoarder", "Directly into my veins");
         addPages("belt_of_the_prospector.ring_of_the_hoarder",
-            "While wearing this ring, any item created from the destruction caused by your explosions is directly teleported to your location.");
+            "Explosions are chaotic, and messy, inherently. This is hardly a problem, when I want to cause such rampant destruction to collect resources, but collecting the items is a burden. This ring entangles the explosion with my soul, causing the debris and loot to appear at my location.");
+        addSimpleEntryHeader("belt_of_the_prospector.ring_of_the_demolitionist", "Ring of the Demolitionist", bold("More dakka"));
+        addPages("belt_of_the_prospector.ring_of_the_demolitionist",
+            "If raw explosive power is not sufficient, you simply aren't using enough of it. This ring amplifies explosions, mitigating that issue.");
 
         addEntryHeader("necklace_of_blissful_harmony", "Necklace of Blissful Harmony", "No sign of morning coming");
         addHeadline("necklace_of_blissful_harmony", "The Blissful Harmony");
         addPages("necklace_of_blissful_harmony",
             "To focus on my magics I more often than not need peace and clarity. As such, I have devised a tool to redirect attention around me. While worn, this accessory will hide my presence from nearby adversaries, decreasing their likelihood of taking interest in me.",
-            "Upon further studies, it would appear that the effects of my newly forged trinket are " + italic("especially") + " potent when exerting their influence over any soul bearing wicked spirit.");
+            "Upon further studies, it would appear that the effects of my newly forged trinket are " + italic("especially") + " potent when exerting their influence over any soul bearing a Wicked spirit.");
 
         addEntryHeader("necklace_of_the_mystic_mirror", "Necklace of the Mystic Mirror", "As without, so within");
         addHeadline("necklace_of_the_mystic_mirror", "The Mystic Mirror");
@@ -662,38 +666,84 @@ public class MalumLang extends LanguageProvider {
         addPages("gluttonous_brooch",
             "Some sacrifices are mental, rather than physical. The Gluttonous Brooch strips away satiation, causing my body to crave food even when it should be full. In exchange for this, my loosened belly has the space to accommodate an additional belt.");
 
-        addEntryHeader("rune_of_idle_restoration", "Rune of Idle Restoration", "The impulse to mend");
-        addHeadline("rune_of_idle_restoration", "Rune of Idle Restoration");
+        addSimpleEntryHeader("rune_of_idle_restoration", "Rune of Idle Restoration", "The impulse to mend");
         addPages("rune_of_idle_restoration",
             "The Rune of Idle Restoration implores a body to restore itself, passively restoring the user's health at a rate of one half heart every two seconds.");
-        addEntryHeader("rune_of_culling", "Rune of Culling", "The impulse to break");
-        addHeadline("rune_of_culling", "Rune of Culling");
+        addSimpleEntryHeader("rune_of_culling", "Rune of Culling", "The impulse to break");
         addPages("rune_of_culling",
             "The Rune of Culling implores a mind to seek ruin, granting the user a bonus to Magic Proficiency which improves magic damage output by roughly two fifths.");
-        addEntryHeader("rune_of_aliment_cleansing", "Rune of Aliment Cleansing", "The impulse to process");
-        addHeadline("rune_of_aliment_cleansing", "Rune of Aliment Cleansing");
+        addSimpleEntryHeader("rune_of_aliment_cleansing", "Rune of Aliment Cleansing", "The impulse to process");
         addPages("rune_of_aliment_cleansing",
             "The Rune of Aliment Cleansing implores a body to catalyze and change substance, allowing it to burn through and process negative effects quicker than normal.");
-        addEntryHeader("rune_of_fervor", "Rune of Fervor", "The impulse to expend");
-        addHeadline("rune_of_fervor", "Rune of Fervor");
+        addSimpleEntryHeader("rune_of_fervor", "Rune of Fervor", "The impulse to expend");
         addPages("rune_of_fervor",
             "The Rune of Fervor implores a mind to move with haste, improving the user's mining speed by roughly a quarter.");
-        addEntryHeader("rune_of_reactive_shielding", "Rune of Reactive Shielding", "The impulse to withstand");
-        addHeadline("rune_of_reactive_shielding", "Rune of Reactive Shielding");
+        addSimpleEntryHeader("rune_of_reactive_shielding", "Rune of Reactive Shielding", "The impulse to withstand");
         addPages("rune_of_reactive_shielding",
             "The Rune of Reactive Shielding implores a body to stand fast, granting an increase to effective Armor and Armor Toughness by one tenth upon taking damage. The strength of this effect scales as the user receives more damage, reaching an increase of three tenths at full power.");
-        addEntryHeader("rune_of_dexterity", "Rune of Dexterity", "The impulse to flee");
-        addHeadline("rune_of_dexterity", "Rune of Dexterity");
+        addSimpleEntryHeader("rune_of_dexterity", "Rune of Dexterity", "The impulse to flee");
         addPages("rune_of_dexterity",
-            "The Rune of Haste implores a mind to move when cornered, boosting movement speed which can up to double as the user's health pool diminishes.");
-        addEntryHeader("rune_of_reinforcement", "Rune of Reinforcement", "The impulse to make");
-        addHeadline("rune_of_reinforcement", "Rune of Reinforcement");
+            "The Rune of Dexterity implores a mind to move when cornered, boosting movement speed which can up to double as the user's health pool diminishes.");
+        addSimpleEntryHeader("rune_of_reinforcement", "Rune of Reinforcement", "The impulse to make");
         addPages("rune_of_reinforcement",
             "The Rune of Reinforcement, rather than imploring the body, simply provides pressure to the Arcane quality of its existence, granting their Soul Ward capacity and strength.");
-        addEntryHeader("rune_of_volatile_distortion", "Rune of Volatile Distortion", "The impulse to putrefy");
-        addHeadline("rune_of_volatile_distortion", "Rune of Volatile Distortion");
+        addSimpleEntryHeader("rune_of_volatile_distortion", "Rune of Volatile Distortion", "The impulse to putrefy");
         addPages("rune_of_volatile_distortion",
             "The Rune of Volatile Distortion, rather than imploring the mind, corrupts its actions with random chance, making the user's attacks erratic in damage - anywhere from nine tenths as powerful to twelve tenths. Sometimes, this randomness aligns with weaknesses by chance, doubling the strength of the attack.");
+
+        addSimpleEntryHeader("void.rune_of_bolstering", "Rune of Bolstering", "To heal what is whole");
+        addPages("void.rune_of_bolstering",
+            "The Rune of Bolstering does not heal like its counterpart. Instead, it forces the body to heal past its limits, granting a small amount of extra health.");
+        addSimpleEntryHeader("void.rune_of_sacrificial_empowerment", "Rune of Sacrificial Empowerment", "To break what is broken");
+        addPages("void.rune_of_sacrificial_empowerment",
+            "The Rune of Sacrificial Empowerment grants strength in exchange for the lives taken by a scythe, causing your scythe to grow more potent with each kill for a time.");
+        addSimpleEntryHeader("void.rune_of_twinned_duration", "Rune of Twinned Duration", "To suspend what must process");
+        addPages("void.rune_of_twinned_duration",
+            "The Rune of Twinned Duration inhibits the body in breaking down substances, causing the body to hold on to positive effects for longer.");
+        addSimpleEntryHeader("void.rune_of_igneous_solace", "Rune of Igneous Solace", "To fuel what must burn");
+        addPages("void.rune_of_igneous_solace",
+            "The Rune of Igneous Solace toughens the user's skin when burning, giving them a partial resistance to damage. It does not, however, do anything about the flames.");
+        addSimpleEntryHeader("void.rune_of_toughness", "Rune of Toughness", "To bear what must break");
+        addPages("void.rune_of_toughness",
+            "The Rune of Toughness reinforces the user's armor, making any armor they already wear more effective and tough.");
+        addSimpleEntryHeader("void.rune_of_unnatural_stamina", "Rune of Unnatural Stamina", "To flee what must pursue");
+        addPages("void.rune_of_unnatural_stamina",
+            "The Rune of Unnatural Stamina gives its user the speed of hysteria, constantly able to move faster, and even being able to sprint if your hunger would normally prevent you from doing so.");
+        addSimpleEntryHeader("void.rune_of_spell_mastery", "Rune of Spell Mastery", "To make what destroys");
+        addPages("void.rune_of_spell_mastery",
+            "The Rune of Spell Mastery mirrors the false arcana, allowing me to hold two more staff charges in addition to improving the potency of my magic.");
+        addSimpleEntryHeader("void.rune_of_the_heretic", "Rune of the Heretic", "To destroy what makes");
+        addPages("void.rune_of_the_heretic",
+            "The Rune of the Heretic decries magic, Silencing foes much like the Erosion Scepter can. This weakens their spirit magic, and the effect can stack up to complete suppression.");
+
+        addSimpleEntryHeader("totemic_runes", "Totemic Runes", "Ritual as runecraft");
+        addPages("totemic_runes",
+            "Trinkets are not the only things that can be inscribed into Runes. I have managed to create runic tablets of Runewood and Soulwood, on which I can inscribe the patterns of what I refer to as \"aura rites\". The ritual's effect is more potent, but the rune doesn't need to stay in one place.");
+
+        addSimpleEntryHeader("rune_of_motion", "Rune of Motion", "Uplifting your impulses");
+        addPages("rune_of_motion",
+            "The Rune of Motion conveys the Rite of Motion, granting Zephyr's Courage to its wearer at a reduced potency, speeding them up.");
+        addSimpleEntryHeader("rune_of_loyalty", "Rune of Loyalty", "Molding your impulses");
+        addPages("rune_of_loyalty",
+            "The Rune of Loyalty conveys the Rite of Loyalty, granting Poseidon's Grasp to its wearer at a reduced potency, extending their reach.");
+        addSimpleEntryHeader("rune_of_warding", "Rune of Warding", "Grounding your impulses");
+        addPages("rune_of_warding",
+            "The Rune of Warding conveys the Rite of Warding, granting Gaia's Bulwark to its wearer at a reduced potency, effectively granting armor.");
+        addSimpleEntryHeader("rune_of_haste", "Rune of Haste", "Igniting your impulses");
+        addPages("rune_of_haste",
+            "The Rune of Haste conveys the Rite of Haste, granting Miner's Rage to its wearer at a reduced potency, speeding up their swings of weapons and tools.");
+        addSimpleEntryHeader("rune_of_the_aether", "Rune of the Aether", "Scattering your impulses");
+        addPages("rune_of_the_aether",
+            "The Rune of the Aether conveys the Rite of the Aether, granting Aether's Charm to its wearer at a reduced potency, lowering the influence of gravity on them.");
+        addSimpleEntryHeader("rune_of_the_seas", "Rune of the Seas", "Deforming your impulses");
+        addPages("rune_of_the_seas",
+            "The Rune of the Seas conveys the Rite of the Seas, granting Angler's Lure to its wearer at a reduced potency, increasing their skill with fishing.");
+        addSimpleEntryHeader("rune_of_the_arena", "Rune of the Arena", "Honing your impulses");
+        addPages("rune_of_the_arena",
+            "The Rune of the Arena conveys the Rite of the Arena, granting Earthen Might to its wearer at a reduced potency, causing their attacks to do more damage.");
+        addSimpleEntryHeader("rune_of_the_hells", "Rune of the Hells", "Extinguishing your impulses");
+        addPages("rune_of_the_hells",
+            "The Rune of the Hells conveys the Rite of the Hells, granting Ifrit's Courage to its wearer at a reduced potency when they are on fire, extinguishing and healing them.");
 
         addSimpleEntryHeader("mirror_magic", "Mirror magic", "Magic Funnels");
         addPages("mirror_magic", "The future holds many secrets..");
@@ -773,7 +823,7 @@ public class MalumLang extends LanguageProvider {
 
         addEntryHeader("aerial_rite", "Aerial Rites", "Uplifting the soul");
         addRiteEntry("aerial_rite", "A simple aura rite, while active nearby friendly beings will find their movements sped up.",
-            "Applies the Zephyr's Courage effect, increasing movement speed by two fifths.");
+            "Applies Zephyr's Courage, increasing movement speed by two fifths.");
         addRiteEntry("greater_aerial_rite",
             "An advanced rite, by twisting the power of the air, blocks before the totem will be made to fall as though they were sand. Nothing Silk Touch cannot grab will be affected, though.",
             "Causes targeted blocks to fall downwards if there is nothing underneath them.");
@@ -781,7 +831,7 @@ public class MalumLang extends LanguageProvider {
         addEntryHeader("corrupt_aerial_rite", "Corrupting the Aerial Rites", "Scattering the soul");
         addRiteEntry("corrupt_aerial_rite",
             "A simple aura rite, while active nearby friendly beings will have their connection to the earth disrupted, lowering their gravity and increasing jump height.",
-            "Applies the Aether's Charm effect, decreasing gravity by three fifths while also providing a substantial benefit to jump height.");
+            "Applies Aether's Charm, decreasing gravity by three fifths while also providing a substantial benefit to jump height.");
         addRiteEntry("corrupt_greater_aerial_rite",
             "An advanced rite, while active it will slowly ease the stress of time on the mind, offsetting the effects of insomnia for those around it over time.",
             "Passively reduces the insomnia value of nearby players.\n - Assuming phantoms are just starting to appear, it will take a single totem executing the rite two and two fifths of a minute to fully cleanse insomnia.\n - Naturally, the totem will take longer to fully cleanse insomnia if the player has already been suffering from it for some time.");
@@ -789,7 +839,7 @@ public class MalumLang extends LanguageProvider {
         addEntryHeader("earthen_rite", "Earthen Rites", "Grounding the soul");
         addRiteEntry("earthen_rite",
             "A simple aura rite, while active nearby friendly beings will find their bodies are tougher and more resistant to damage.",
-            "Applies the Gaian Bulwark effect, increasing armor by four and armor toughness by two.");
+            "Applies Gaia's Bulwark, increasing armor by four and armor toughness by two.");
         addRiteEntry("greater_earthen_rite",
             "An advanced rite, while active it will cause blocks before the totem base to be broken.",
             "Breaks targeted blocks. Unbreakable blocks behave as to be expected.");
@@ -797,7 +847,7 @@ public class MalumLang extends LanguageProvider {
         addEntryHeader("corrupt_earthen_rite", "Corrupting the Earthen Rites", "Honing the soul");
         addRiteEntry("corrupt_earthen_rite",
             "A simple aura rite, while active nearby friendly beings will find their attacks deal more damage.",
-            "Applies the Earthen Might effect, increasing damage dealt by two hearts.");
+            "Applies Earthen Might, increasing damage dealt by two hearts.");
         addRiteEntry("corrupt_greater_earthen_rite",
             "An advanced rite, while active the earth coalesces, and like lava meeting water, cobblestone is created before the totem base.",
             "Creates cobblestone in place of empty space.");
@@ -805,15 +855,15 @@ public class MalumLang extends LanguageProvider {
         addEntryHeader("infernal_rite", "Infernal Rites", "Igniting the soul");
         addRiteEntry("infernal_rite",
             "A simple aura rite, while active nearby friendly beings will find that their motions are infused with fiery vigor, letting them swing weapons and tools faster.",
-            "Applies the Miner's Rage effect, increasing attack rate and dig speed by two fifths.");
+            "Applies Miner's Rage, increasing attack rate and dig speed by two fifths.");
         addRiteEntry("greater_infernal_rite",
             "An advanced rite, while active it will cause blocks before the totem base to be smelted.",
             "Smelts targeted blocks that can be smelted into other blocks.");
 
         addEntryHeader("corrupt_infernal_rite", "Corrupting the Infernal Rites", "Extinguishing the soul");
         addRiteEntry("corrupt_infernal_rite",
-            "A simple aura rite, while active nearby friendly beings and close fires will have the heat sucked out of them, extinguishing them and healing those who were burned.",
-            "Extinguishes nearby flames, be it affecting the world or an entity.\n - Extinguished entities receive the Ifrit's Embrace effect, recovering two hearts a second.");
+            "A simple aura rite, while active nearby friendly beings and close fires will have the heat sucked out of them, extinguishing them and healing those who were burned, giving them the survivability of denizens of the nether.",
+            "Extinguishes nearby flames, be it affecting the world or an entity.\n - Extinguished entities receive Ifrit's Embrace, recovering two hearts while being extinguished.");
         addRiteEntry("corrupt_greater_infernal_rite",
             "An advanced rite, instead of generating heat, this rite compresses it, causing nearby furnaces to operate more quickly.",
             "Speeds up nearby furnaces by one fourth.\n - Fuel consumption rate is unaffected, meaning the rite also improves fuel efficiency.");
@@ -821,7 +871,7 @@ public class MalumLang extends LanguageProvider {
         addEntryHeader("aqueous_rite", "Aqueous Rites", "Molding the soul");
         addRiteEntry("aqueous_rite",
             "A simple aura rite, while active nearby friendly beings will find that their reach is extended, letting them more easily interact with the world.",
-            "Applies the Poseidon's Grasp effect, increasing block reach by two units of space and increasing item pickup range significantly.");
+            "Applies Poseidon's Grasp, increasing block reach by two units of space and increasing item pickup range significantly.");
         addRiteEntry("greater_aqueous_rite",
             "An advanced rite, while active, it will vastly increasing the drip speed of dripstone, causing more fluid to be produced.",
             "Speeds up dripstone fluid production, works on both lava and water.\n - Only the tip of hanging dripstone needs to be within range for the effect to trigger.");
@@ -829,7 +879,7 @@ public class MalumLang extends LanguageProvider {
         addEntryHeader("corrupt_aqueous_rite", "Corrupting the Aqueous Rites", "Deforming the soul");
         addRiteEntry("corrupt_aqueous_rite",
             "A simple aura rite, while active nearby friendly beings will find themselves better at fishing.",
-            "Applies the Angler's Lure effect, providing benefits to fishing skills equal to Lure I and Luck of the Sea I.\n - The effects stack with any enchantment already present on a fishing rod.");
+            "Applies Angler's Lure, providing benefits to fishing skills equal to Lure I and Luck of the Sea I.\n - The effects stack with any enchantment already present on a fishing rod.");
         addRiteEntry("corrupt_greater_aqueous_rite",
             "An advanced rite, while active zombies near this rite will find themselves choking on their own breath, drowning even on land.",
             "Converts nearby zombies to drowned.");
@@ -899,6 +949,7 @@ public class MalumLang extends LanguageProvider {
         add("malum.spirit.flavour.aqueous", "Malleable");
         add("malum.spirit.flavour.infernal", "Radiant");
         add("malum.spirit.flavour.earthen", "Steady");
+        add("malum.spirit.flavour.umbral", "Antithesis");
 
         add("malum.jei.spirit_infusion", "Spirit Infusion");
         add("malum.jei.spirit_focusing", "Spirit Focusing");
@@ -923,7 +974,7 @@ public class MalumLang extends LanguageProvider {
         add("death.attack." + DamageTypeRegistry.SCYTHE_SWEEP_IDENTIFIER, "%s was sliced in half");
         add("death.attack." + DamageTypeRegistry.SCYTHE_SWEEP_IDENTIFIER + ".player", "%s was sliced in half by %s");
 
-        addEffectDescription(MobEffectRegistry.GAIAN_BULWARK, "You are protected by an earthen bulwark, increasing your armor.");
+        addEffectDescription(MobEffectRegistry.GAIAS_BULWARK, "You are protected by an earthen bulwark, increasing your armor.");
         addEffectDescription(MobEffectRegistry.EARTHEN_MIGHT, "Your fists and tools are reinforced with earth, increasing your overall damage.");
         addEffectDescription(MobEffectRegistry.MINERS_RAGE, "Your tools are bolstered with radiance, increasing your mining and attack speed.");
         addEffectDescription(MobEffectRegistry.IFRITS_EMBRACE, "The warm embrace of fire coats your soul, mending your seared scars.");

@@ -311,10 +311,82 @@ public class ArcanaCodexHelper {
         }
     }
 
+    public static MutableComponent convertToComponent(String text) {
+        return convertToComponent(text, UnaryOperator.identity());
+    }
+
+    public static MutableComponent convertToComponent(String text, UnaryOperator<Style> styleModifier) {
+        text = Component.translatable(text).getString();
+
+        MutableComponent raw = Component.empty();
+
+        boolean italic = false;
+        boolean bold = false;
+        boolean strikethrough = false;
+        boolean underline = false;
+        boolean obfuscated = false;
+
+        StringBuilder line = new StringBuilder();
+        for (int i = 0; i < text.length(); i++) {
+            char chr = text.charAt(i);
+            if (chr == '$') {
+                if (i != text.length() - 1) {
+                    char peek = text.charAt(i + 1);
+                    switch (peek) {
+                        case 'i' -> {
+                            line = commitComponent(raw, italic, bold, strikethrough, underline, obfuscated, line, styleModifier);
+                            italic = true;
+                            i++;
+                        }
+                        case 'b' -> {
+                            line = commitComponent(raw, italic, bold, strikethrough, underline, obfuscated, line, styleModifier);
+                            bold = true;
+                            i++;
+                        }
+                        case 's' -> {
+                            line = commitComponent(raw, italic, bold, strikethrough, underline, obfuscated, line, styleModifier);
+                            strikethrough = true;
+                            i++;
+                        }
+                        case 'u' -> {
+                            line = commitComponent(raw, italic, bold, strikethrough, underline, obfuscated, line, styleModifier);
+                            underline = true;
+                            i++;
+                        }
+                        case 'k' -> {
+                            line = commitComponent(raw, italic, bold, strikethrough, underline, obfuscated, line, styleModifier);
+                            obfuscated = true;
+                            i++;
+                        }
+                        default -> line.append(chr);
+                    }
+                } else {
+                    line.append(chr);
+                }
+            } else if (chr == '/') {
+                if (i != text.length() - 1) {
+                    char peek = text.charAt(i + 1);
+                    if (peek == '$') {
+                        line = commitComponent(raw, italic, bold, strikethrough, underline, obfuscated, line, styleModifier);
+                        italic = bold = strikethrough = underline = obfuscated = false;
+                        i++;
+                    } else
+                        line.append(chr);
+                } else
+                    line.append(chr);
+            } else {
+                line.append(chr);
+            }
+        }
+        commitComponent(raw, italic, bold, strikethrough, underline, obfuscated, line, styleModifier);
+
+        return raw;
+    }
+
     public static void renderWrappingText(GuiGraphics guiGraphics, String text, int x, int y, int w) {
-        net.minecraft.client.gui.Font font = Minecraft.getInstance().font;
+        Font font = Minecraft.getInstance().font;
         text = Component.translatable(text).getString() + "\n";
-        java.util.List<String> lines = new ArrayList<>();
+        List<String> lines = new ArrayList<>();
 
         boolean italic = false;
         boolean bold = false;
@@ -394,6 +466,14 @@ public class ArcanaCodexHelper {
             String currentLine = lines.get(i);
             renderRawText(guiGraphics, currentLine, x, y + i * (font.lineHeight + 1), getTextGlow(i / 4f));
         }
+    }
+
+    private static StringBuilder commitComponent(MutableComponent component, boolean italic, boolean bold, boolean strikethrough, boolean underline, boolean obfuscated, StringBuilder line, UnaryOperator<Style> styleModifier) {
+        component.append(Component.literal(line.toString())
+            .withStyle((style) -> style.withItalic(italic).withBold(bold).withStrikethrough(strikethrough).withUnderlined(underline).withObfuscated(obfuscated))
+            .withStyle(styleModifier));
+        line = new StringBuilder();
+        return line;
     }
 
     private static StringBuilder newLine(List<String> lines, boolean italic, boolean bold, boolean strikethrough, boolean underline, boolean obfuscated, StringBuilder line) {

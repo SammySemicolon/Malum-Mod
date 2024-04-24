@@ -640,8 +640,8 @@ public class ItemRegistry {
     public static final RegistryObject<Item> RUNE_OF_HASTE = register("rune_of_haste", GEAR_PROPERTIES(), p -> new TotemicRuneCurioItem(p, SpiritRiteRegistry.INFERNAL_RITE, false));
     public static final RegistryObject<Item> RUNE_OF_THE_AETHER = register("rune_of_the_aether", GEAR_PROPERTIES(), p -> new TotemicRuneCurioItem(p, SpiritRiteRegistry.AERIAL_RITE, true));
     public static final RegistryObject<Item> RUNE_OF_THE_SEAS = register("rune_of_the_seas", GEAR_PROPERTIES(), p -> new TotemicRuneCurioItem(p, SpiritRiteRegistry.AQUEOUS_RITE, true));
-    public static final RegistryObject<Item> RUNE_OF_THE_CHALLENGER = register("rune_of_the_challenger", GEAR_PROPERTIES(), p -> new TotemicRuneCurioItem(p, SpiritRiteRegistry.EARTHEN_RITE, true));
-    public static final RegistryObject<Item> RUNE_OF_THE_EXTINGUISHER = register("rune_of_the_extinguisher", GEAR_PROPERTIES(), p -> new TotemicRuneCurioItem(p, SpiritRiteRegistry.INFERNAL_RITE, true));
+    public static final RegistryObject<Item> RUNE_OF_THE_ARENA = register("rune_of_the_arena", GEAR_PROPERTIES(), p -> new TotemicRuneCurioItem(p, SpiritRiteRegistry.EARTHEN_RITE, true));
+    public static final RegistryObject<Item> RUNE_OF_THE_HELLS = register("rune_of_the_hells", GEAR_PROPERTIES(), p -> new TotemicRuneCurioItem(p, SpiritRiteRegistry.INFERNAL_RITE, true, 10));
 
     public static final RegistryObject<Item> RUNE_OF_BOLSTERING = register("rune_of_bolstering", GEAR_PROPERTIES(), RuneBolsteringItem::new);
     public static final RegistryObject<Item> RUNE_OF_SACRIFICIAL_EMPOWERMENT = register("rune_of_sacrificial_empowerment", GEAR_PROPERTIES(), RuneSacrificialEmpowermentItem::new);

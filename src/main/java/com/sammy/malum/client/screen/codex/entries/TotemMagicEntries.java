@@ -52,7 +52,7 @@ public class TotemMagicEntries {
                                     .addPage(RuneworkingPage.fromOutput(item)));
                 },
                         RUNE_OF_MOTION.get(), RUNE_OF_LOYALTY.get(), RUNE_OF_WARDING.get(), RUNE_OF_HASTE.get(),
-                        RUNE_OF_THE_AETHER.get(), RUNE_OF_THE_SEAS.get(), RUNE_OF_THE_CHALLENGER.get(), RUNE_OF_THE_EXTINGUISHER.get()))
+                        RUNE_OF_THE_AETHER.get(), RUNE_OF_THE_SEAS.get(), RUNE_OF_THE_ARENA.get(), RUNE_OF_THE_HELLS.get()))
                 .addReference(new EntryReference(RUNIC_WORKBENCH.get(), screen.getEntry("runeworking")))
         );
 
