@@ -1,5 +1,6 @@
 package com.sammy.malum.client.screen.codex.entries;
 
+import com.sammy.malum.client.screen.codex.*;
 import com.sammy.malum.client.screen.codex.pages.*;
 import com.sammy.malum.client.screen.codex.pages.recipe.*;
 import com.sammy.malum.client.screen.codex.pages.recipe.vanilla.*;
@@ -25,6 +26,11 @@ public class ArtificeEntries {
                 .addPage(SpiritInfusionPage.fromOutput(TWISTED_ROCK.get()))
                 .addPage(CraftingPage.itemPedestalPage(TWISTED_ROCK_ITEM_PEDESTAL.get(), TWISTED_ROCK.get(), TWISTED_ROCK_SLAB.get()))
                 .addPage(CraftingPage.itemStandPage(TWISTED_ROCK_ITEM_STAND.get(), TWISTED_ROCK.get(), TWISTED_ROCK_SLAB.get()))
+                .addReference(new EntryReference(TAINTED_ROCK, BookEntry.build("spirit_stones.reexamination")
+                        .addPage(new HeadlineTextPage("spirit_stones.reexamination", "spirit_stones.reexamination.1"))
+                        .addPage(new TextPage("spirit_stones.reexamination.2"))
+                        .isReexamination()
+                ))
         );
 
         screen.addEntry("ether", 5, 6, b -> b

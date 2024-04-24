@@ -35,7 +35,7 @@ public class PlacedBookEntryBuilder extends BookEntryBuilder {
         ImmutableList<BookPage> bookPages = ImmutableList.copyOf(pages);
         ImmutableList<EntryReference> entryReferences = ImmutableList.copyOf(references);
         PlacedBookEntry.BookEntryWidgetPlacementData data = new PlacedBookEntry.BookEntryWidgetPlacementData(xOffset, yOffset, widgetSupplier, widgetConfig);
-        PlacedBookEntry bookEntry = new PlacedBookEntry(identifier, isVoid, data, bookPages, entryReferences);
+        PlacedBookEntry bookEntry = new PlacedBookEntry(identifier, isVoid, data, bookPages, entryReferences, validityChecker);
         bookPages.forEach(p -> p.setBookEntry(bookEntry));
         return bookEntry;
     }

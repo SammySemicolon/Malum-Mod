@@ -171,6 +171,7 @@ public class VoidProgressionScreen extends AbstractProgressionCodexScreen {
                         BookEntry.build("void.staves_as_foci.ring_of_the_endless_well")
                                 .addPage(new HeadlineTextPage("void.staves_as_foci.ring_of_the_endless_well", "void.staves_as_foci.ring_of_the_endless_well.1"))
                                 .addPage(SpiritInfusionPage.fromOutput(RING_OF_THE_ENDLESS_WELL.get()))
+                                .isReexamination()
                 ))
         );
 
@@ -233,7 +234,6 @@ public class VoidProgressionScreen extends AbstractProgressionCodexScreen {
                 .addPage(new CraftingPage(new ItemStack(MALIGNANT_PEWTER_PLATING.get(), 2), EMPTY, MALIGNANT_PEWTER_NUGGET.get(), EMPTY, MALIGNANT_PEWTER_NUGGET.get(), MALIGNANT_PEWTER_INGOT.get(), MALIGNANT_PEWTER_NUGGET.get(), EMPTY, MALIGNANT_PEWTER_NUGGET.get(), EMPTY))
         );
 
-//
 //        addEntry("void.runes", 3, 6, b -> b
 //                .setWidgetConfig(w -> w.setIcon(RUNE_OF_THE_HERETIC).setStyle(BookWidgetStyle.SOULWOOD))
 //                .addPage(new HeadlineTextPage("void.runes", "void.runes.1"))
