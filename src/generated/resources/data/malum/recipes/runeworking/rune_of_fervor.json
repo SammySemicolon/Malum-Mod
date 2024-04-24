@@ -1,14 +1,14 @@
 {
   "type": "malum:runeworking",
   "output": {
-    "item": "malum:rune_of_haste"
+    "item": "malum:rune_of_fervor"
   },
   "primaryInput": {
     "count": 1,
-    "item": "malum:runewood_tablet"
+    "item": "malum:tainted_rock_tablet"
   },
   "secondaryInput": {
-    "count": 32,
+    "count": 16,
     "item": "malum:infernal_spirit"
   }
 }

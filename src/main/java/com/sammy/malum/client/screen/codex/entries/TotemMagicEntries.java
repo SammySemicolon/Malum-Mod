@@ -43,7 +43,7 @@ public class TotemMagicEntries {
 
         screen.addEntry("totemic_runes", -4, 15, b -> b
                 .setWidgetConfig(w -> w.setIcon(RUNE_OF_WARDING).setStyle(BookWidgetStyle.SOULWOOD))
-                .addPage(new HeadlineTextPage("totemic_runes", "void.runes.1"))
+                .addPage(new HeadlineTextPage("totemic_runes", "totemic_runes.1"))
                 .addPage(new EntrySelectorPage(item -> {
                     final String translationKey = ForgeRegistries.ITEMS.getKey(item).getPath();
                     return new EntryReference(item,

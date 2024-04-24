@@ -95,36 +95,72 @@ public class VoidProgressionScreen extends AbstractProgressionCodexScreen {
                 .setWidgetConfig(w -> w.setIcon(NULL_SLATE).setStyle(BookWidgetStyle.SOULWOOD))
                 .addPage(new WeepingWellTextPage("void.material_study_null_slate", "void.material_study_null_slate.1", NULL_SLATE.get()))
                 .addPage(new TextPage("void.material_study_null_slate.2"))
+                .addReference(new EntryReference(NULL_SLATE,
+                        BookEntry.build("void.material_study_null_slate.reexamination")
+                                .addPage(new HeadlineTextPage("void.material_study_null_slate.reexamination", "void.material_study_null_slate.reexamination.1"))
+                                .addPage(new TextPage("void.material_study_null_slate.reexamination.2"))
+                                .isReexamination()
+                ))
         );
 
         addEntry("void.material_study_mnemonic_fragment", -3, 4, b -> b
                 .setWidgetConfig(w -> w.setIcon(MNEMONIC_FRAGMENT).setStyle(BookWidgetStyle.SOULWOOD))
                 .addPage(new WeepingWellTextPage("void.material_study_mnemonic_fragment", "void.material_study_mnemonic_fragment.1", MNEMONIC_FRAGMENT.get()))
                 .addPage(new TextPage("void.material_study_mnemonic_fragment.2"))
+                .addReference(new EntryReference(MNEMONIC_FRAGMENT,
+                        BookEntry.build("void.material_study_mnemonic_fragment.reexamination")
+                                .addPage(new HeadlineTextPage("void.material_study_mnemonic_fragment.reexamination", "void.material_study_mnemonic_fragment.reexamination.1"))
+                                .addPage(new TextPage("void.material_study_mnemonic_fragment.reexamination.2"))
+                                .isReexamination()
+                ))
         );
 
         addEntry("void.material_study_foul_flesh", -4, 5, b -> b
                 .setWidgetConfig(w -> w.setIcon(FOUL_FLESH).setStyle(BookWidgetStyle.SOULWOOD))
                 .addPage(new WeepingWellTextPage("void.material_study_foul_flesh", "void.material_study_foul_flesh.1", FOUL_FLESH.get()))
                 .addPage(new TextPage("void.material_study_foul_flesh.2"))
+                .addReference(new EntryReference(FOUL_FLESH,
+                        BookEntry.build("void.material_study_foul_flesh.reexamination")
+                                .addPage(new HeadlineTextPage("void.material_study_foul_flesh.reexamination", "void.material_study_foul_flesh.reexamination.1"))
+                                .addPage(new TextPage("void.material_study_auric_embers.reexamination.2"))
+                                .isReexamination()
+                ))
         );
 
         addEntry("void.material_study_void_salts", 2, 3, b -> b
                 .setWidgetConfig(w -> w.setIcon(VOID_SALTS).setStyle(BookWidgetStyle.SOULWOOD))
                 .addPage(new WeepingWellTextPage("void.material_study_void_salts", "void.material_study_void_salts.1", VOID_SALTS.get()))
                 .addPage(new TextPage("void.material_study_void_salts.2"))
+                .addReference(new EntryReference(VOID_SALTS,
+                        BookEntry.build("void.material_study_void_salts.reexamination")
+                                .addPage(new HeadlineTextPage("void.material_study_void_salts.reexamination", "void.material_study_void_salts.reexamination.1"))
+                                .addPage(new TextPage("void.material_study_void_salts.reexamination.2"))
+                                .isReexamination()
+                ))
         );
 
         addEntry("void.material_study_malignant_lead", 3, 4, b -> b
                 .setWidgetConfig(w -> w.setIcon(MALIGNANT_LEAD).setStyle(BookWidgetStyle.SOULWOOD))
                 .addPage(new WeepingWellTextPage("void.material_study_malignant_lead", "void.material_study_malignant_lead.1", MALIGNANT_LEAD.get()))
                 .addPage(new TextPage("void.material_study_malignant_lead.2"))
+                .addReference(new EntryReference(MALIGNANT_LEAD,
+                        BookEntry.build("void.material_study_malignant_lead.reexamination")
+                                .addPage(new HeadlineTextPage("void.material_study_malignant_lead.reexamination", "void.material_study_malignant_lead.reexamination.1"))
+                                .addPage(new TextPage("void.material_study_malignant_lead.reexamination.2"))
+                                .isReexamination()
+                ))
         );
 
         addEntry("void.material_study_auric_embers", 4, 5, b -> b
                 .setWidgetConfig(w -> w.setIcon(AURIC_EMBERS).setStyle(BookWidgetStyle.SOULWOOD))
                 .addPage(new WeepingWellTextPage("void.material_study_auric_embers", "void.material_study_auric_embers.1", AURIC_EMBERS.get()))
                 .addPage(new TextPage("void.material_study_auric_embers.2"))
+                .addReference(new EntryReference(AURIC_EMBERS,
+                        BookEntry.build("void.material_study_auric_embers.reexamination")
+                                .addPage(new HeadlineTextPage("void.material_study_auric_embers.reexamination", "void.material_study_auric_embers.reexamination.1"))
+                                .addPage(new TextPage("void.material_study_auric_embers.reexamination.2"))
+                                .isReexamination()
+                ))
         );
 
         addEntry("void.black_crystal", 0, 5, b -> b
@@ -171,7 +207,6 @@ public class VoidProgressionScreen extends AbstractProgressionCodexScreen {
                         BookEntry.build("void.staves_as_foci.ring_of_the_endless_well")
                                 .addPage(new HeadlineTextPage("void.staves_as_foci.ring_of_the_endless_well", "void.staves_as_foci.ring_of_the_endless_well.1"))
                                 .addPage(SpiritInfusionPage.fromOutput(RING_OF_THE_ENDLESS_WELL.get()))
-                                .isReexamination()
                 ))
         );
 

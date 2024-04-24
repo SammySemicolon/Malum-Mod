@@ -1,14 +1,14 @@
 {
   "type": "malum:runeworking",
   "output": {
-    "item": "malum:rune_of_haste"
+    "item": "malum:rune_of_the_aether"
   },
   "primaryInput": {
     "count": 1,
-    "item": "malum:runewood_tablet"
+    "item": "malum:soulwood_tablet"
   },
   "secondaryInput": {
     "count": 32,
-    "item": "malum:infernal_spirit"
+    "item": "malum:aerial_spirit"
   }
 }
