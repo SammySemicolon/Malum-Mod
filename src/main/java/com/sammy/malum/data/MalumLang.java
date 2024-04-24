@@ -310,20 +310,20 @@ public class MalumLang extends LanguageProvider {
             "I have recreated the Arcane spirit in false form. A core of Mnemnosyne in Null Slate housing appears to neutralize the Wicked attunement of the Mnemnosyne, leaving raw arcana as the pattern it mimics. The false Arcane spirit appears to hold a charge, one very similar to the Wicked crystal in my staff.",
                 "I have fashioned a ring - the Endless Well - with these false crystals in housing. The ring appears to concentrate my focus, allowing me to avoid the time the staff takes to charge back up. The ring charges slower, as it is not a symbolic " + italic("focus") + " like my staff, but it can hold three attacks in reserve for faster use.");
 
-        addEntryHeader("void.material_study_arcana", "Material Study: the Arcana", "New depths to old wells");
-        addHeadline("void.material_study_arcana", "Study: Spirit Crystal");
-        addPages("void.material_study_arcana",
-            "");
-
-        addEntryHeader("void.material_study_arcana", "Material Study: the Arcana", "New depths to old wells");
-        addHeadline("void.material_study_arcana", "Study: Spirit Crystal");
-        addPages("void.material_study_arcana",
-            "");
-
-        addEntryHeader("void.material_study_arcana", "Material Study: the Arcana", "New depths to old wells");
-        addHeadline("void.material_study_arcana", "Study: Spirit Crystal");
-        addPages("void.material_study_arcana",
-            "");
+//        addEntryHeader("void.material_study_arcana", "Material Study: the Arcana", "New depths to old wells");
+//        addHeadline("void.material_study_arcana", "Study: Spirit Crystal");
+//        addPages("void.material_study_arcana",
+//            "");
+//
+//        addEntryHeader("void.material_study_arcana", "Material Study: the Arcana", "New depths to old wells");
+//        addHeadline("void.material_study_arcana", "Study: Spirit Crystal");
+//        addPages("void.material_study_arcana",
+//            "");
+//
+//        addEntryHeader("void.material_study_arcana", "Material Study: the Arcana", "New depths to old wells");
+//        addHeadline("void.material_study_arcana", "Study: Spirit Crystal");
+//        addPages("void.material_study_arcana",
+//            "");
 
 
         addSimpleEntryHeader("introduction", "Introduction", "On the nature of souls");
