@@ -223,42 +223,107 @@ public class MalumLang extends LanguageProvider {
 
         addSimpleEntryHeader("void.the_weeping_well", "The Weeping Well", "Gate to the unknown");
         addPages("void.the_weeping_well",
-                "I have discovered a... structure. One with implications beyond nearly anything I've found before, because the existence of this Weeping Well implies I am not the first to touch the arcana.",
-                        "The Well, which I name for its constant mournful tone, appears to be a small pool of... something. I am not entirely sure what, as though it doesn't appear to be liquid, it certainly doesn't physically interact like a solid does.",
-                        "The implication comes from the fact that the structure around it appears to be constructed of Tainted Rock, as if preventing the substance inside from spreading further. That said, the core of the structure itself is sturdier than the rock I have created, almost approaching Bedrock in toughness.",
-                        "In what was perhaps an ill-advised course of action, my first instinct was to throw a rock at it. It seemed stable enough, if it had been here for so long... and to my relief, nothing dangerous occurred. The rock shot out seconds later, with a belching sound and a spray of what appears to be a harmless concentration of the stuff in the Well.",
-                        "Certain items I had on me from the mining trip, such as a bit of Brilliance and a nodule of Cthonic Gold, tugged slightly against my pockets while I'm near the well. I wondered what that meant, and, if the stone was ejected out, surmised it made sense to try throwing them in too.",
-                        "When I did so, the materials had been transformed once ejected - interestingly, both the rock and these were ejected due south. Might there be other materials, other creations I could derive from this? And the fact that both materials that tugged were related to the arcana is fascinating.",
-                        "I am not a historian, so I am not the correct person to investigate the implications of the structure itself, beyond the fact that Tainted Rock, so far as I know, can only be created through Spirit Infusion. But this implies a civilization once touched the arcana and... tried to contain it? Feared it? Used it? Is this civilization related to the other structures buried within the earth? I do not know, but I hope to find out.");
+            "I have discovered a... structure. One with implications beyond nearly anything I've found before, because the existence of this Weeping Well implies I am not the first to touch the arcana.",
+            "The Well, which I name for its constant mournful tone, appears to be a small pool of... something. I am not entirely sure what, as though it doesn't appear to be liquid, it certainly doesn't physically interact like a solid does.",
+            "The implication comes from the fact that the structure around it appears to be constructed of Tainted Rock, as if preventing the substance inside from spreading further. That said, the core of the structure itself is sturdier than the rock I have created, almost approaching Bedrock in toughness.",
+            "In what was perhaps an ill-advised course of action, my first instinct was to throw a rock at it. It seemed stable enough, if it had been here for so long... and to my relief, nothing dangerous occurred. The rock shot out seconds later, with a belching sound and a spray of what appears to be a harmless concentration of the stuff in the Well.",
+            "Certain items I had on me from the mining trip, such as a bit of Brilliance and a nodule of Cthonic Gold, tugged slightly against my pockets while I'm near the well. I wondered what that meant, and, if the stone was ejected out, surmised it made sense to try throwing them in too.",
+            "When I did so, the materials had been transformed once ejected - interestingly, both the rock and these were ejected due south. Might there be other materials, other creations I could derive from this? And the fact that both materials that tugged were related to the arcana is fascinating.",
+            "I am not a historian, so I will not investigate the cultural implications, beyond the fact that Tainted Rock, so far as I know, can only be created through Spirit Infusion. This implies a civilization once touched the arcana and... tried to contain it? Feared it? Used it? Is this civilization related to the other structures buried within the earth? I do not know, but I hope to find out.");
 
-        addSimpleEntryHeader("void.material_study_soulstone", "Material Study: Soulstone", "An old friend");
+        addEntryHeader("void.material_study_soulstone", "Material Study: Soulstone", "An old friend");
+        addHeadline("void.material_study_soulstone", "Study: Soulstone");
         addPages("void.material_study_soulstone",
-                "Soulstone is, of course, nothing new. It is the basis of my craft. But, when most raw metals are passed through the Well, they become raw Soulstone instead. Does this imply that Soulstone itself is metallic? Perhaps. It would certainly explain the ease with which it attunes iron.",
-                "This also implies that Soulstone itself is, somehow, connected to whatever the Well is. Perhaps it is an ensouled area of reality, or a means of bestowing souls? Both are doubtful, but I cannot discard even doubtful theories just yet.");
+            "Soulstone is, of course, nothing new. It is the basis of my craft. But, when most raw metals are passed through the Well, they become raw Soulstone instead.",
+            "Does this imply that Soulstone itself is metallic? Perhaps. It would certainly explain the ease with which it attunes iron. This also implies that Soulstone itself is, somehow, connected to whatever the Well is. Perhaps it is an ensouled area of reality, or a means of bestowing souls? Both are doubtful, but I cannot discard even doubtful theories just yet.");
 
-        addSimpleEntryHeader("void.material_study_mnemonic_fragment", "Material Study: Condensed Brilliance", "Not experience, but memory");
+        addEntryHeader("void.material_study_mnemonic_fragment", "Material Study: Condensed Brilliance", "Not experience, but memory");
+        addHeadline("void.material_study_mnemonic_fragment", "Study: Mnemosyne");
         addPages("void.material_study_mnemonic_fragment",
-                "When passed through the Well, Brilliance becomes a substance I call Mnemosyne. These Mnemonic Fragments appear to be Brilliance in physical property, but with the contained power more condensed, more nuanced. Rather than containing simple experience, the sense I get from holding it is as though I am holding an entire memory, context and all.",
-                "Does this imply the Weeping Well is alive, and that this is its memory? Or is it somehow collecting the memory of the soul whose fading created the Brilliance in the first place, binding it into this more dense form? And why can I feel impressions while simply holding the stone?");
+            "When passed through the Well, Brilliance becomes a substance I call Mnemosyne. These Mnemonic Fragments appear to be Brilliance in physical property, but with the contained power more condensed, more nuanced. Rather than containing simple experience, the sense I get from holding it is as though I am holding an entire memory, context and all.",
+            "Does this imply the Weeping Well is alive, and that this is its memory? Or is it somehow collecting the memory of the soul whose fading created the Brilliance in the first place, binding it into this more dense form? And why can I feel impressions while simply holding the stone?");
 
-        addSimpleEntryHeader("void.material_study_null_slate", "Material Study: Refined Soulstone", "A blank slate, perhaps a precursor");
+        addEntryHeader("void.material_study_null_slate", "Material Study: Refined Soulstone", "A blank slate, perhaps a precursor");
+        addHeadline("void.material_study_null_slate", "Study: Null Slate");
         addPages("void.material_study_null_slate",
-                "When passed through the Well, Soulstone becomes a substance I call Null Slate. While physically it is similar to Soulstone, it appears to be utterly devoid of a soul... and yet it interacts with the arcane much as Soulstone does. Might this be what Soulstone is, before it gains a soul's energy?",
-                "I have not yet isolated the property that allows it to interact with souls, or been able to transfer it to something else, as I have done to make Soulstained Steel. My only theory is that somehow the complete absence of arcana, beyond even the trace amounts threading existence, has an arcane power of its own. But what power would that be?");
+            "When passed through the Well, Soulstone becomes a substance I call Null Slate. While physically it is similar to Soulstone, it appears to be utterly devoid of a soul... and yet it interacts with the arcane much as Soulstone does.",
+            "Might this be what Soulstone is, before it gains a soul's energy? I cannot determine how it interacts with souls, nor have I been able to transfer that property, as I have done to make Soulstained Steel. My only theory is that somehow the complete absence of arcana, beyond even the trace amounts threading existence, has an arcane power of its own. But what power would that be?");
 
-        addSimpleEntryHeader("void.material_study_void_salts", "Material Study: Purified Ash", "A clue to the nature of souls");
+        addEntryHeader("void.material_study_void_salts", "Material Study: Purified Ash", "A clue to the nature of souls");
+        addHeadline("void.material_study_void_salts", "Study: Void Salts");
         addPages("void.material_study_void_salts",
-            "When passed through the Well, Hex Ash is reduced to a substance I call Void Salt. This dark powder appears to be chemically similar to Hex Ash, but without the carbonization that gives the Ash its name. It appears to be comprised of an unknown and unstable metal, bonded to something caustic I cannot identify.",
-                "Physical properties aside, its magical properties are baffling. Carbon is the basis of life, and yet removing carbon makes this substance... almost seem to move? I haven't been able to verify that experimentally, but I could swear that the material is alive and shifting.");
+            "When passed through the Well, Hex Ash is reduced to a substance I call Void Salt. This dark powder appears to be chemically similar to Hex Ash, but without the carbonization that gives the Ash its name.",
+            "It appears to be comprised of an unknown and unstable metal, bonded to something caustic I cannot identify. It is baffling beyond the physical, though. Carbon is the basis of life, and yet removing carbon makes this substance... almost seem to move? I haven't been able to verify that experimentally, but I could swear that the material is alive and shifting.");
 
-        addSimpleEntryHeader("void.material_study_auric_embers", "Material Study: Blazing Exaltation", "The essence of progress");
+        addEntryHeader("void.material_study_auric_embers", "Material Study: Blazing Exaltation", "The essence of progress");
+        addHeadline("void.material_study_auric_embers", "Study: Auric Ember");
         addPages("void.material_study_auric_embers",
-            "When passed through the Well, Blaze Powder becomes a substance I call Auric Ember. A flame of gold, burning ethereally, and yet a physical object at the same time. It burns like charcoal, releasing its energy eagerly - though unlike most fuels, rather than actually fueling a flame, it seems to simply burn of its own accord.",
-                "While the creation of such a brilliant substance stands out among the other materials I have obtained from the Well, I find that it fits rather cleanly. The Well has tended to strip something away from each material I pass through it, be that impurities, a portion of the item's physical matter, or something more esoteric. Here, it appears to strip away anything besides the purity of fire, producing transformation incarnate.");
+            "When passed through the Well, Blaze Powder becomes a substance I call Auric Ember. An ethereal flame of gold, yet a physical object at the same time. It burns like charcoal, yet its flame has no combustion.",
+            "While such a brilliant substance stands out among the other materials I have obtained from the Well, it fits the pattern cleanly. The Well has tended to strip something away from each material I pass through it, be that impurities, a portion of the item's physical matter, or something more esoteric. Here, it appears to strip away anything besides the purity of fire, producing transformation incarnate.");
 
+        addEntryHeader("void.material_study_malignant_lead", "Material Study: Putrefacted Gold", "The essence of progress");
+        addHeadline("void.material_study_malignant_lead", "Study: Malignant Lead");
+        addPages("void.material_study_malignant_lead",
+            "When passed through the Well, Cthonic Gold is warped into Malignant Lead. The name, simply, comes from the fact that much of the Arcana bonded to the gold resolves itself into Wicked, dragging the metal from the alchemist's apex to the lowest of materials.",
+            "There appears to be roughly half as much arcana bound to the metal as before. Was it stripped away by the Well, or transmuted into something I have not yet isolated and identified? Either could be true. This might be related to the arcane interactivity displayed by Null Slate...");
 
+        addSimpleEntryHeader("void.black_crystal", "A Black Crystal", "A mistake, or a boon?");
+        addPages("void.black_crystal",
+            "Well, I now know what happens when a living being, or at least, a sapient one, enters the Well.",
+            "I had grown too comfortable in my experiments, and tripped over one of the flasks of reagent I had left around... directly into the Well's black maw. As I'm writing this, clearly I survived... Though I'd rather not test that again.",
+            "I was spat out by what I now know is liquid, much like the items I have thrown in. Further tests with monsters and cattle showed they do " + italic("not") + " get rejected, simply seeming to vanish into the pool, and I see no reason to waste resources to test that exhaustively. Especially with my attention set on what came back out with me.",
+            "As if I had shattered a soul - and considering mine was the only one present, that is a concerning possibility, though all readings of myself I have taken are within tolerances - a black spirit crystal emerged from the Well alongside me, which I collected. Does this herald a ninth arcana? If so, what impulse does it represent? This will need more study.");
 
+        addSimpleEntryHeader("void.umbral_arcana", "Umbral Arcana", "Utter impossibility");
+        addPages("void.umbral_arcana",
+            "I do not understand this arcana. What is it? It isn't any of the eight I know, and barely seems like one at all... yet a spirit crystal it remains. It can be contained in jars like the others, shares many of the same properties... But there is one deep and fundamental difference.",
+            "This crystal " + italic("does not exist.") + " That is not to say that it cannot be obtained, or touched, or even seen. There is no matter there. This... " + italic("Umbral") + " arcana is a void. Would that make it the opposite of both Arcane and Eldritch? Both lack direction of impulse, and both are power. Ergo, Umbral arcana is the absence of power, where impulse is irrelevant.",
+            "It is possible there are two types of this arcana, I suppose. One to pair with the null impulse of the Arcane, and one to pair with the complete impulse of the Eldritch. If those types exist, it is functionally impossible to distinguish them. They " + italic("must") + " act the same. Without power, the impulse is meaningless.",
+            "And yet, despite being a void, it is power. Or perhaps the lack of power creates a pressure differential? I am not certain. Either way, it can be used. Infused, in theory, even, although that is hard to wrap my head around. It acts like matter, but is not. It is power, and the absence of it.",
+            "My research into this arcana must continue. It has to. If anything holds the secrets of achieving the pinnacle of thaumaturgy, it is this paradoxical void. And I will grasp it with both hands.");
 
+        addSimpleEntryHeader("void.inverse_and_hybrid_arcana", "Inverse and Hybrid Arcana?", "Failed theories");
+        addPages("void.inverse_and_hybrid_arcana",
+            "If Arcane and Eldritch had inverses, it stood to reason that there might be inverses for the other spirit crystals - an absolute absence of fire creating the inverse of Infernal, for example. Pulling the power of a spirit from a jar is one way to form a crystal, and in theory, recreating similar conditions could allow for a different type of crystal to form.",
+                "Through a combination of Soulwood rites and careful placement of crystals, I was able to create the theoretical environment for such a crystal for the six base Arcana... But nothing happened at all. It would be far more useful if I could determine how to create the same environment for Umbral, but as of yet I have not determined how to remove " + italic("all") + " arcana from an area.",
+                "Similarly, no amount of tuning an environment's contents with combinations of arcana was able to cause a crystal to form other than one of the base six. This implies that hybrid arcana don't exist, at least, not in the same way - that there are a finite number of states the arcana can be stable in. But the arcana can combine in other ways...");
+
+        addEntryHeader("void.material_study_arcana", "Material Study: the Arcana", "New depths to old wells");
+        addHeadline("void.material_study_arcana", "Study: Spirit Crystal");
+        addPages("void.material_study_arcana",
+                "I had not investigated deeper into the physical properties of the spirit crystals before now. This can be excused, as I was focused on their magical implications rather than their physical... but it isn't only the Umbral spirit that portrays strange properties. They all do.",
+                "First and foremost, the spirit crystals - assumedly also the Umbral spirit, though I only have one - are physically identical to others of their type to any degree I am able to discern. Not simply similar, but " + italic("precisely") + " the same, down to at least millionths of a block's scale. This raised the question, of course, of attempting to carve or break part of one.",
+                "Through testing - not quite " + italic("exhaustively,") + " as I have not tested Umbral - it appears that shape is the only one a crystal can exist in. Any removal or damage of even the smallest amount of the crystal is impossible, and the physical shape remains inviolable until enough force is applied to break it.",
+                "Even more interestingly, the spirit crystals, while physically not particularly strong, appear to be utterly chemically inert, and I tried a very extensive set of reactants. Do they even have matter, in the traditional sense? And if not, what does that mean for the Umbral crystal?",
+                "I am not sure of the precise implications of these physical properties, but given the strangeness of the Umbral crystal, there is clearly more to the more mundane aspect of the arcana than I knew.");
+
+        addSimpleEntryHeader("void.staves_as_foci", "Staves as Foci", "Imitating the arcana");
+        addPages("void.staves_as_foci",
+            "Consideration of the properties I observed in spirit crystals led me to wonder if the structure itself was important somehow. To test this, I constructed a Mnemnosyne replica - the condensed soul memory being the closest substance I could think of - of the Wicked Arcana, precise to a scale of hundreds of thousandths of a block. I did not expect it to explode in my face.",
+                "But explosions are useful, if harnessed. So I did it again, but this time, I gave the false crystal a structure to operate off of - a housing of Soulwood and Soulstained Steel to direct it outwards. The resulting staff acts akin to a rite in miniature when I focus on it, though the resulting effects are different.",
+                "When used in melee, staves are... adequate. I would tend to prefer a scythe, but I suppose this works well enough. They tend to focus more on magic damage than on physical damage, which admittedly can be helpful at times. But what makes them special is what happens if I " + italic("use") + " it.",
+                "This Mnemonic Hex Staff is named for its simple effect of launching balls of liquefied Wicked energy, like a witch's hex. It takes a moment to activate, and cannot be quite used consecutively, but each deals potent damage to anything they hit.",
+                "I have not found success in creating any other false Arcana this way, though that might be a matter of material. Mnemnosyne may simply resonate with Wicked through the death required to create Brilliance.");
+
+        addSimpleEntryHeader("void.staves_as_foci.ring_of_the_endless_well", "Ring of the Endless Well", "Storing staff charges");
+        addPages("void.staves_as_foci.ring_of_the_endless_well",
+            "I have recreated the Arcane spirit in false form. A core of Mnemnosyne in Null Slate housing appears to neutralize the Wicked attunement of the Mnemnosyne, leaving raw arcana as the pattern it mimics. The false Arcane spirit appears to hold a charge, one very similar to the Wicked crystal in my staff.",
+                "I have fashioned a ring - the Endless Well - with these false crystals in housing. The ring appears to concentrate my focus, allowing me to avoid the time the staff takes to charge back up. The ring charges slower, as it is not a symbolic " + italic("focus") + " like my staff, but it can hold three attacks in reserve for faster use.");
+
+        addEntryHeader("void.material_study_arcana", "Material Study: the Arcana", "New depths to old wells");
+        addHeadline("void.material_study_arcana", "Study: Spirit Crystal");
+        addPages("void.material_study_arcana",
+            "");
+
+        addEntryHeader("void.material_study_arcana", "Material Study: the Arcana", "New depths to old wells");
+        addHeadline("void.material_study_arcana", "Study: Spirit Crystal");
+        addPages("void.material_study_arcana",
+            "");
+
+        addEntryHeader("void.material_study_arcana", "Material Study: the Arcana", "New depths to old wells");
+        addHeadline("void.material_study_arcana", "Study: Spirit Crystal");
+        addPages("void.material_study_arcana",
+            "");
 
 
         addSimpleEntryHeader("introduction", "Introduction", "On the nature of souls");
@@ -772,7 +837,7 @@ public class MalumLang extends LanguageProvider {
         addEntryHeader("blight", "A Study on Blight", "What, why, and how");
         addHeadline("blight.intro", "Blight Study: Preface");
         addPages("blight.intro",
-            "Blight. " + italic("Something which spoils or damages.") + " What the Undirected Rite has created has many strange properties, and I intend to categorize them.\n" +
+            "Blight. " + italic("Something which spoils or damages.") + " What the Undirected Rite has created has many strange properties, and I intend to categorize them.",
                 "The naïve explanation is that it is simply another form of power that taints the world, but that isn't right. Blight isn't harmful, not inof itself. It's just... " + italic("gunk."));
         addHeadline("blight.composition", "Blight Study: Substance");
         addPages("blight.composition",

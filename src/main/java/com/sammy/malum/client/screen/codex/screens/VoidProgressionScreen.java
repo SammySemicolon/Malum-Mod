@@ -125,11 +125,20 @@ public class VoidProgressionScreen extends AbstractProgressionCodexScreen {
 
         addEntry("void.black_crystal", 0, 5, b -> b
                 .setWidgetConfig(w -> w.setIcon(UMBRAL_SPIRIT).setStyle(BookWidgetStyle.GILDED_SOULWOOD))
+            .addPage(new WeepingWellTextPage("void.black_crystal", "void.black_crystal.1", UMBRAL_SPIRIT.get()))
+            .addPage(new TextPage("void.black_crystal.2"))
+            .addPage(new TextPage("void.black_crystal.3"))
+            .addPage(new TextPage("void.black_crystal.4"))
         );
 
         addEntry("void.umbral_arcana", -1, 6, b -> b
                 .setWidgetConfig(w -> w.setStyle(BookWidgetStyle.DARK_SOULWOOD))
                 .setWidgetSupplier((e, x, y) -> new IconObject(e, x, y, malumPath("textures/gui/book/icons/umbral_shard.png")))
+            .addPage(new HeadlineTextPage("void.umbral_arcana", "void.umbral_arcana.1"))
+            .addPage(new TextPage("void.umbral_arcana.2"))
+            .addPage(new TextPage("void.umbral_arcana.3"))
+            .addPage(new TextPage("void.umbral_arcana.4"))
+            .addPage(new TextPage("void.umbral_arcana.5"))
         );
 
         addEntry("void.inverse_and_hybrid_arcana", 0, 7, b -> b
@@ -137,7 +146,7 @@ public class VoidProgressionScreen extends AbstractProgressionCodexScreen {
                 .setWidgetSupplier((e, x, y) -> new IconObject(e, x, y, malumPath("textures/gui/book/icons/umbral_shard.png")))
         );
 
-        addEntry("void.material_study_the_arcana", 1, 8, b -> b
+        addEntry("void.material_study_arcana", 1, 8, b -> b
                 .setWidgetConfig(w -> w.setStyle(BookWidgetStyle.DARK_SOULWOOD))
                 .setWidgetSupplier((e, x, y) -> new IconObject(e, x, y, malumPath("textures/gui/book/icons/umbral_shard.png")))
         );
