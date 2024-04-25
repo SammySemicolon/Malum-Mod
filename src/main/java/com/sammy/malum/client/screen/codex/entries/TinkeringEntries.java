@@ -35,10 +35,10 @@ public class TinkeringEntries {
                 .addPage(new HeadlineTextPage("spirit_metals.hallowed_gold.spirit_jar", "spirit_metals.hallowed_gold.spirit_jar.1"))
                 .addPage(new CraftingPage(SPIRIT_JAR.get(), GLASS_PANE, HALLOWED_GOLD_INGOT.get(), GLASS_PANE, GLASS_PANE, EMPTY, GLASS_PANE, GLASS_PANE, GLASS_PANE, GLASS_PANE))
 
-                .addReference(new EntryReference(SOUL_STAINED_STEEL_INGOT, BookEntry.build("spirit_metals.reexamination")
+                .addReference(new EntryReference(UMBRAL_SPIRIT, BookEntry.build("spirit_metals.reexamination")
                         .addPage(new HeadlineTextPage("spirit_metals.reexamination", "spirit_metals.reexamination.1"))
                         .addPage(new TextPage("spirit_metals.reexamination.2"))
-                        .isReexamination()
+                        .afterUmbralCrystal()
                 ))
         );
 

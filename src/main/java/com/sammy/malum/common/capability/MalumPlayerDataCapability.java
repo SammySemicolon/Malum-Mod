@@ -30,6 +30,7 @@ public class MalumPlayerDataCapability implements LodestoneCapability {
     public ReserveStaffChargeHandler reserveStaffChargeHandler = new ReserveStaffChargeHandler();
 
     public boolean obtainedEncyclopedia;
+    public boolean hasBeenRejected;
 
     public MalumPlayerDataCapability() {
     }
@@ -75,6 +76,7 @@ public class MalumPlayerDataCapability implements LodestoneCapability {
         tag.put("staffChargeData", reserveStaffChargeHandler.serializeNBT());
 
         tag.putBoolean("obtainedEncyclopedia", obtainedEncyclopedia);
+        tag.putBoolean("hasBeenRejected", hasBeenRejected);
         return tag;
     }
 
@@ -88,6 +90,7 @@ public class MalumPlayerDataCapability implements LodestoneCapability {
         }
 
         obtainedEncyclopedia = tag.getBoolean("obtainedEncyclopedia");
+        hasBeenRejected = tag.getBoolean("hasBeenRejected");
     }
 
     public static void syncSelf(ServerPlayer player) {

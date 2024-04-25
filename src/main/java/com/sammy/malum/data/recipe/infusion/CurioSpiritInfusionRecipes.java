@@ -157,9 +157,9 @@ public class CurioSpiritInfusionRecipes {
                 .addSpirit(ELDRITCH_SPIRIT, 8)
                 .build(consumer);
 
-        new SpiritInfusionRecipeBuilder(ItemRegistry.RING_OF_DESPERATE_VORACITY.get(), 1, ItemRegistry.RING_OF_GRUESOME_SATIATION.get(), 1)
+        new SpiritInfusionRecipeBuilder(ItemRegistry.RING_OF_DESPERATE_VORACITY.get(), 1, ItemRegistry.RING_OF_GRUESOME_CONCENTRATION.get(), 1)
                 .addExtraItem(ItemRegistry.NULL_SLATE.get(), 16)
-                .addExtraItem(ItemRegistry.FOUL_FLESH.get(), 8)
+                .addExtraItem(ItemRegistry.VOID_SALTS.get(), 8)
                 .addSpirit(SACRED_SPIRIT, 16)
                 .addSpirit(WICKED_SPIRIT, 16)
                 .addSpirit(ARCANE_SPIRIT, 16)
@@ -168,7 +168,7 @@ public class CurioSpiritInfusionRecipes {
 
         new SpiritInfusionRecipeBuilder(ItemRegistry.RING_OF_CURATIVE_TALENT.get(), 1, ItemRegistry.RING_OF_GROWING_FLESH.get(), 1)
                 .addExtraItem(ItemRegistry.NULL_SLATE.get(), 16)
-                .addExtraItem(ItemRegistry.FOUL_FLESH.get(), 8)
+                .addExtraItem(ItemRegistry.VOID_SALTS.get(), 8)
                 .addSpirit(SACRED_SPIRIT, 16)
                 .addSpirit(WICKED_SPIRIT, 16)
                 .addSpirit(ARCANE_SPIRIT, 16)
@@ -177,7 +177,7 @@ public class CurioSpiritInfusionRecipes {
 
         new SpiritInfusionRecipeBuilder(ItemRegistry.NECKLACE_OF_THE_NARROW_EDGE.get(), 1, ItemRegistry.NECKLACE_OF_THE_HIDDEN_BLADE.get(), 1)
                 .addExtraItem(ItemRegistry.NULL_SLATE.get(), 16)
-                .addExtraItem(ItemRegistry.VOID_SALTS.get(), 16)
+                .addExtraItem(ItemRegistry.MALIGNANT_LEAD.get(), 1)
                 .addSpirit(WICKED_SPIRIT, 32)
                 .addSpirit(ARCANE_SPIRIT, 32)
                 .addSpirit(EARTHEN_SPIRIT, 32)
@@ -186,7 +186,7 @@ public class CurioSpiritInfusionRecipes {
 
         new SpiritInfusionRecipeBuilder(ItemRegistry.NECKLACE_OF_THE_MYSTIC_MIRROR.get(), 1, ItemRegistry.NECKLACE_OF_THE_WATCHER.get(), 1)
                 .addExtraItem(ItemRegistry.NULL_SLATE.get(), 16)
-                .addExtraItem(ItemRegistry.VOID_SALTS.get(), 16)
+                .addExtraItem(ItemRegistry.MALIGNANT_LEAD.get(), 1)
                 .addSpirit(WICKED_SPIRIT, 32)
                 .addSpirit(ARCANE_SPIRIT, 32)
                 .addSpirit(AQUEOUS_SPIRIT, 32)

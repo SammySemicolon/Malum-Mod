@@ -48,8 +48,6 @@ public class TouchOfDarknessHandler {
     public int progressToRejection;
     public int rejection;
 
-    public boolean hasBeenRejected;
-
     public CompoundTag serializeNBT() {
         CompoundTag tag = new CompoundTag();
         tag.putBoolean("isNearWeepingWell", isNearWeepingWell);
@@ -61,8 +59,6 @@ public class TouchOfDarknessHandler {
 
         tag.putInt("progressToRejection", progressToRejection);
         tag.putInt("rejection", rejection);
-
-        tag.putBoolean("hasBeenRejected", hasBeenRejected);
         return tag;
     }
 
@@ -76,8 +72,6 @@ public class TouchOfDarknessHandler {
 
         progressToRejection = tag.getInt("progressToRejection");
         rejection = tag.getInt("rejection");
-
-        hasBeenRejected = tag.getBoolean("hasBeenRejected");
     }
 
     public static void handlePrimordialSoupContact(LivingEntity livingEntity) {
@@ -176,6 +170,9 @@ public class TouchOfDarknessHandler {
             livingEntity.remove(Entity.RemovalReason.DISCARDED);
             return;
         }
+
+        var playerDataCapability = MalumPlayerDataCapability.getCapability(player);
+
         final Level level = livingEntity.level();
         progressToRejection = 0;
         rejection = 40;
@@ -193,13 +190,13 @@ public class TouchOfDarknessHandler {
             if (!player.isCreative()) {
                 livingEntity.hurt(DamageTypeRegistry.create(level, DamageTypeRegistry.VOODOO), 4);
             }
-            if (!hasBeenRejected) {
+            if (!playerDataCapability.hasBeenRejected) {
                 SpiritHarvestHandler.spawnItemAsSpirit(ItemRegistry.UMBRAL_SPIRIT.get().getDefaultInstance(), player, player);
             }
             level.playSound(null, livingEntity.blockPosition(), SoundRegistry.VOID_REJECTION.get(), SoundSource.HOSTILE, 2f, Mth.nextFloat(livingEntity.getRandom(), 0.5f, 0.8f));
         }
 
-        hasBeenRejected = true;
+        playerDataCapability.hasBeenRejected = true;
         livingEntity.addEffect(new MobEffectInstance(MobEffectRegistry.REJECTED.get(), 400, 0));
     }
 

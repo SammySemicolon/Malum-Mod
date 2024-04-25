@@ -22,7 +22,7 @@ public final class EntryReference {
         this(icon, builder.build());
     }
 
-    public EntryReference(Supplier<Item> icon, BookEntry entry) {
+    public EntryReference(Supplier<? extends Item> icon, BookEntry entry) {
         this(icon.get(), entry);
     }
 
@@ -30,7 +30,7 @@ public final class EntryReference {
         this(icon, builder.build());
     }
 
-    public EntryReference(Supplier<Item> icon, BookEntryBuilder builder) {
+    public EntryReference(Supplier<? extends Item> icon, BookEntryBuilder builder) {
         this(icon.get(), builder);
     }
 }

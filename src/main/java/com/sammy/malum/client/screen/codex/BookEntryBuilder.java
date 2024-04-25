@@ -38,8 +38,8 @@ public class BookEntryBuilder {
         return this;
     }
 
-    public BookEntryBuilder isReexamination() {
-        this.validityChecker = BookEntry.IS_REEXAMINATION;
+    public BookEntryBuilder afterUmbralCrystal() {
+        this.validityChecker = BookEntry.AFTER_UMBRAL_CRYSTAL;
         return this;
     }
 

@@ -1,6 +1,6 @@
 package com.sammy.malum.common.block.the_device;
 
-import com.sammy.malum.common.capability.MalumLivingEntityDataCapability;
+import com.sammy.malum.common.capability.MalumPlayerDataCapability;
 import com.sammy.malum.registry.common.SoundRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -34,7 +34,7 @@ public class TheDevice extends Block {
             pPlayer.swing(pHand, true);
             playSound(pLevel, pPos);
             if (pPlayer.isCreative())
-                MalumLivingEntityDataCapability.getCapability(pPlayer).touchOfDarknessHandler.hasBeenRejected = false;
+                MalumPlayerDataCapability.getCapabilityOptional(pPlayer).ifPresent(it -> it.hasBeenRejected = false);
             return InteractionResult.SUCCESS;
         }
         return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);
