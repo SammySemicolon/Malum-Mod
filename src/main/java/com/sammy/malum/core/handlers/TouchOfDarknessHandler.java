@@ -8,6 +8,7 @@ import com.sammy.malum.common.capability.MalumLivingEntityDataCapability;
 import com.sammy.malum.common.packets.VoidRejectionPacket;
 import com.sammy.malum.registry.client.ShaderRegistry;
 import com.sammy.malum.registry.common.*;
+import com.sammy.malum.registry.common.item.ItemRegistry;
 import com.sammy.malum.visual_effects.networked.data.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -21,6 +22,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.phys.*;
@@ -50,6 +52,8 @@ public class TouchOfDarknessHandler {
     public int progressToRejection;
     public int rejection;
 
+    public boolean hasBeenRejected;
+
     public CompoundTag serializeNBT() {
         CompoundTag tag = new CompoundTag();
         tag.putBoolean("isNearWeepingWell", isNearWeepingWell);
@@ -61,6 +65,8 @@ public class TouchOfDarknessHandler {
 
         tag.putInt("progressToRejection", progressToRejection);
         tag.putInt("rejection", rejection);
+
+        tag.putBoolean("hasBeenRejected", hasBeenRejected);
         return tag;
     }
 
@@ -74,6 +80,8 @@ public class TouchOfDarknessHandler {
 
         progressToRejection = tag.getInt("progressToRejection");
         rejection = tag.getInt("rejection");
+
+        hasBeenRejected = tag.getBoolean("hasBeenRejected");
     }
 
     public static void handlePrimordialSoupContact(LivingEntity livingEntity) {
@@ -189,8 +197,13 @@ public class TouchOfDarknessHandler {
             if (!player.isCreative()) {
                 livingEntity.hurt(DamageTypeRegistry.create(level, DamageTypeRegistry.VOODOO), 4);
             }
+            if (!hasBeenRejected) {
+                SpiritHarvestHandler.createSpirits(List.of(new ItemStack(ItemRegistry.UMBRAL_SPIRIT.get())), player, 1f, player);
+            }
             level.playSound(null, livingEntity.blockPosition(), SoundRegistry.VOID_REJECTION.get(), SoundSource.HOSTILE, 2f, Mth.nextFloat(livingEntity.getRandom(), 0.5f, 0.8f));
         }
+
+        hasBeenRejected = true;
         livingEntity.addEffect(new MobEffectInstance(MobEffectRegistry.REJECTED.get(), 400, 0));
     }
 
