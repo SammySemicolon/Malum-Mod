@@ -1,17 +1,17 @@
 package com.sammy.malum.client.screen.codex;
 
-import com.google.common.collect.*;
-import com.sammy.malum.client.screen.codex.pages.*;
-import com.sammy.malum.client.screen.codex.screens.*;
-import com.sammy.malum.registry.common.item.*;
-import net.minecraft.client.*;
-import team.lodestar.lodestone.helpers.*;
+import com.google.common.collect.ImmutableList;
+import com.sammy.malum.client.screen.codex.pages.BookPage;
+import com.sammy.malum.client.screen.codex.pages.EntryReference;
+import com.sammy.malum.client.screen.codex.screens.EntryScreen;
+import com.sammy.malum.common.capability.MalumLivingEntityDataCapability;
+import net.minecraft.client.Minecraft;
 
-import java.util.function.*;
+import java.util.function.Predicate;
 
 public class BookEntry {
 
-    protected static final Predicate<EntryScreen> IS_REEXAMINATION = t -> CurioHelper.hasCurioEquipped(Minecraft.getInstance().player, ItemRegistry.ORNATE_NECKLACE.get());
+    protected static final Predicate<EntryScreen> IS_REEXAMINATION = t -> Minecraft.getInstance().player == null || MalumLivingEntityDataCapability.getCapability(Minecraft.getInstance().player).touchOfDarknessHandler.hasBeenRejected;
 
     public final String identifier;
     public final boolean isVoid;
