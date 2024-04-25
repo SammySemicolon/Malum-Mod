@@ -240,8 +240,8 @@ public class MalumLang extends LanguageProvider {
         addEntryHeader("void.material_study_mnemonic_fragment", "Material Study: Condensed Brilliance", "Not experience, but memory");
         addHeadline("void.material_study_mnemonic_fragment", "Study: Mnemosyne");
         addPages("void.material_study_mnemonic_fragment",
-            "When passed through the Well, Brilliance becomes a substance I call Mnemosyne. These Mnemonic Fragments appear to be Brilliance in physical property, but with the contained power more condensed, more nuanced. Rather than containing simple experience, the sense I get from holding it is as though I am holding an entire memory, context and all.",
-            "Does this imply the Weeping Well is alive, and that this is its memory? Or is it somehow collecting the memory of the soul whose fading created the Brilliance in the first place, binding it into this more dense form? And why can I feel impressions while simply holding the stone?");
+            "When passed through the Well, Brilliance becomes a substance I call Mnemosyne. These Mnemonic Fragments appear to be Brilliance in physical property, but with the contained power more condensed, more nuanced.",
+            "Rather than containing simple experience, the sense I get from holding it is as though I am holding an entire memory, context and all.\nDoes this imply the Weeping Well is alive, and that this is its memory? Or is it collecting the memory of the soul which created the Brilliance in the first place, binding it into this more dense form? And why can I feel impressions while simply holding the stone?");
 
         addEntryHeader("void.material_study_null_slate", "Material Study: Refined Soulstone", "A blank slate, perhaps a precursor");
         addHeadline("void.material_study_null_slate", "Study: Null Slate");
@@ -259,12 +259,12 @@ public class MalumLang extends LanguageProvider {
         addHeadline("void.material_study_auric_embers", "Study: Auric Ember");
         addPages("void.material_study_auric_embers",
             "When passed through the Well, Blaze Powder becomes a substance I call Auric Ember. An ethereal flame of gold, yet a physical object at the same time. It burns like charcoal, yet its flame has no combustion.",
-            "While such a brilliant substance stands out among the other materials I have obtained from the Well, it fits the pattern cleanly. The Well has tended to strip something away from each material I pass through it, be that impurities, a portion of the item's physical matter, or something more esoteric. Here, it appears to strip away anything besides the purity of fire, producing transformation incarnate.");
+            "While such a brilliant substance may stand out among the other materials I have obtained from the Well, it fits the pattern cleanly. The Well has stripped something away from each material I pass through it, be that impurities, a portion of matter, or something more esoteric. Here, it appears to strip away anything besides the purity of fire, producing transformation incarnate.");
 
         addEntryHeader("void.material_study_malignant_lead", "Material Study: Putrefacted Gold", "The essence of progress");
         addHeadline("void.material_study_malignant_lead", "Study: Malignant Lead");
         addPages("void.material_study_malignant_lead",
-            "When passed through the Well, Cthonic Gold is warped into Malignant Lead. The name, simply, comes from the fact that much of the Arcana bonded to the gold resolves itself into Wicked, dragging the metal from the alchemist's apex to the lowest of materials.",
+            "When passed through the Well, Cthonic Gold is warped into Malignant Lead. Much of the Arcana bonded to the gold resolves itself into Wicked, dragging the metal from the alchemist's apex to the lowest of materials.",
             "There appears to be roughly half as much arcana bound to the metal as before. Was it stripped away by the Well, or transmuted into something I have not yet isolated and identified? Either could be true. This might be related to the arcane interactivity displayed by Null Slate...");
 
         addSimpleEntryHeader("void.black_crystal", "A Black Crystal", "A mistake, or a boon?");
