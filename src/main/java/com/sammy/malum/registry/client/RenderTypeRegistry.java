@@ -41,6 +41,7 @@ public class RenderTypeRegistry extends RenderStateShard {
         LodestoneRenderTypeRegistry.createGenericRenderType("malum:subtractive_text", POSITION_COLOR_TEX_LIGHTMAP, QUADS, LodestoneRenderTypeRegistry.builder()
             .setShaderState(RENDERTYPE_TEXT_SEE_THROUGH_SHADER)
             .setTransparencyState(SUBTRACTIVE_TEXT_TRANSPARENCY)
+            .setWriteMaskState(COLOR_WRITE)
             .setLightmapState(LIGHTMAP)
             .setTextureState(new TextureStateShard(texture, ForgeRenderTypes.enableTextTextureLinearFiltering, false))));
 
@@ -48,6 +49,7 @@ public class RenderTypeRegistry extends RenderStateShard {
         LodestoneRenderTypeRegistry.createGenericRenderType("malum:subtractive_intense_text", POSITION_COLOR_TEX_LIGHTMAP, QUADS, LodestoneRenderTypeRegistry.builder()
             .setShaderState(RENDERTYPE_TEXT_INTENSITY_SEE_THROUGH_SHADER)
             .setTransparencyState(SUBTRACTIVE_TEXT_TRANSPARENCY)
+            .setWriteMaskState(COLOR_WRITE)
             .setLightmapState(LIGHTMAP)
             .setTextureState(new TextureStateShard(texture, ForgeRenderTypes.enableTextTextureLinearFiltering, false))));
 
