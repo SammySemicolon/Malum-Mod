@@ -1,41 +1,37 @@
 package com.sammy.malum.core.handlers;
 
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.Tesselator;
+import com.mojang.blaze3d.systems.*;
+import com.mojang.blaze3d.vertex.*;
 import com.sammy.malum.common.block.curiosities.weeping_well.*;
-import com.sammy.malum.common.capability.MalumLivingEntityDataCapability;
-import com.sammy.malum.common.packets.VoidRejectionPacket;
-import com.sammy.malum.registry.client.ShaderRegistry;
+import com.sammy.malum.common.capability.*;
+import com.sammy.malum.common.packets.*;
+import com.sammy.malum.registry.client.*;
 import com.sammy.malum.registry.common.*;
-import com.sammy.malum.registry.common.item.ItemRegistry;
+import com.sammy.malum.registry.common.item.*;
 import com.sammy.malum.visual_effects.networked.data.*;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.*;
+import net.minecraft.client.gui.*;
 import net.minecraft.core.*;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.Mth;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.AttributeInstance;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.nbt.*;
+import net.minecraft.sounds.*;
+import net.minecraft.util.*;
+import net.minecraft.world.effect.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.*;
+import net.minecraft.world.entity.player.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.phys.*;
-import net.minecraftforge.common.ForgeMod;
-import net.minecraftforge.event.entity.living.LivingEvent;
-import net.minecraftforge.network.PacketDistributor;
-import team.lodestar.lodestone.helpers.BlockHelper;
-import team.lodestar.lodestone.systems.easing.Easing;
-import team.lodestar.lodestone.systems.rendering.VFXBuilders;
-import team.lodestar.lodestone.systems.rendering.shader.ExtendedShaderInstance;
+import net.minecraftforge.common.*;
+import net.minecraftforge.event.entity.living.*;
+import net.minecraftforge.network.*;
+import team.lodestar.lodestone.helpers.*;
+import team.lodestar.lodestone.systems.easing.*;
+import team.lodestar.lodestone.systems.rendering.*;
+import team.lodestar.lodestone.systems.rendering.shader.*;
 
 import java.util.*;
-import java.util.function.Consumer;
+import java.util.function.*;
 
 public class TouchOfDarknessHandler {
 
@@ -198,7 +194,7 @@ public class TouchOfDarknessHandler {
                 livingEntity.hurt(DamageTypeRegistry.create(level, DamageTypeRegistry.VOODOO), 4);
             }
             if (!hasBeenRejected) {
-                SpiritHarvestHandler.createSpirits(List.of(new ItemStack(ItemRegistry.UMBRAL_SPIRIT.get())), player, 1f, player);
+                SpiritHarvestHandler.spawnItemAsSpirit(ItemRegistry.UMBRAL_SPIRIT.get().getDefaultInstance(), player, player);
             }
             level.playSound(null, livingEntity.blockPosition(), SoundRegistry.VOID_REJECTION.get(), SoundSource.HOSTILE, 2f, Mth.nextFloat(livingEntity.getRandom(), 0.5f, 0.8f));
         }

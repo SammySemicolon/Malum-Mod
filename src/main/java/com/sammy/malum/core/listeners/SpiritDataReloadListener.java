@@ -4,7 +4,7 @@ import com.google.gson.*;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.core.handlers.*;
 import com.sammy.malum.core.systems.recipe.SpiritWithCount;
-import com.sammy.malum.core.systems.spirit.MalumEntitySpiritData;
+import com.sammy.malum.core.systems.spirit.EntitySpiritDropData;
 import com.sammy.malum.registry.common.SpiritTypeRegistry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
@@ -17,34 +17,34 @@ import net.minecraftforge.registries.ForgeRegistries;
 import java.util.*;
 
 public class SpiritDataReloadListener extends SimpleJsonResourceReloadListener {
-    public static final Map<ResourceLocation, MalumEntitySpiritData> SPIRIT_DATA = new HashMap<>();
+    public static final Map<ResourceLocation, EntitySpiritDropData> SPIRIT_DATA = new HashMap<>();
     public static final Set<ResourceLocation> HAS_NO_DATA = new HashSet<>();
 
-    public static final MalumEntitySpiritData DEFAULT_MONSTER_SPIRIT_DATA = MalumEntitySpiritData
+    public static final EntitySpiritDropData DEFAULT_MONSTER_SPIRIT_DATA = EntitySpiritDropData
             .builder(SpiritTypeRegistry.WICKED_SPIRIT)
             .build();
-    public static final MalumEntitySpiritData DEFAULT_CREATURE_SPIRIT_DATA = MalumEntitySpiritData
+    public static final EntitySpiritDropData DEFAULT_CREATURE_SPIRIT_DATA = EntitySpiritDropData
             .builder(SpiritTypeRegistry.SACRED_SPIRIT)
             .build();
-    public static final MalumEntitySpiritData DEFAULT_AMBIENT_SPIRIT_DATA = MalumEntitySpiritData
+    public static final EntitySpiritDropData DEFAULT_AMBIENT_SPIRIT_DATA = EntitySpiritDropData
             .builder(SpiritTypeRegistry.AERIAL_SPIRIT)
             .build();
-    public static final MalumEntitySpiritData DEFAULT_WATER_CREATURE_SPIRIT_DATA = MalumEntitySpiritData
+    public static final EntitySpiritDropData DEFAULT_WATER_CREATURE_SPIRIT_DATA = EntitySpiritDropData
             .builder(SpiritTypeRegistry.AQUEOUS_SPIRIT)
             .withSpirit(SpiritTypeRegistry.SACRED_SPIRIT)
             .build();
-    public static final MalumEntitySpiritData DEFAULT_WATER_AMBIENT_SPIRIT_DATA = MalumEntitySpiritData
+    public static final EntitySpiritDropData DEFAULT_WATER_AMBIENT_SPIRIT_DATA = EntitySpiritDropData
             .builder(SpiritTypeRegistry.AQUEOUS_SPIRIT)
             .build();
-    public static final MalumEntitySpiritData DEFAULT_UNDERGROUND_WATER_CREATURE_SPIRIT_DATA = MalumEntitySpiritData
+    public static final EntitySpiritDropData DEFAULT_UNDERGROUND_WATER_CREATURE_SPIRIT_DATA = EntitySpiritDropData
             .builder(SpiritTypeRegistry.AQUEOUS_SPIRIT)
             .withSpirit(SpiritTypeRegistry.EARTHEN_SPIRIT)
             .build();
-    public static final MalumEntitySpiritData DEFAULT_AXOLOTL_SPIRIT_DATA = MalumEntitySpiritData // They're their own category
+    public static final EntitySpiritDropData DEFAULT_AXOLOTL_SPIRIT_DATA = EntitySpiritDropData // They're their own category
             .builder(SpiritTypeRegistry.AQUEOUS_SPIRIT, 2)
             .withSpirit(SpiritTypeRegistry.SACRED_SPIRIT)
             .build();
-    public static final MalumEntitySpiritData DEFAULT_BOSS_SPIRIT_DATA = MalumEntitySpiritData
+    public static final EntitySpiritDropData DEFAULT_BOSS_SPIRIT_DATA = EntitySpiritDropData
             .builder(SpiritTypeRegistry.ELDRITCH_SPIRIT, 2)
             .build();
 
@@ -88,7 +88,7 @@ public class SpiritDataReloadListener extends SimpleJsonResourceReloadListener {
                 HAS_NO_DATA.add(resourceLocation);
             } else {
                 JsonArray array = object.getAsJsonArray("spirits");
-                SPIRIT_DATA.put(resourceLocation, new MalumEntitySpiritData(SpiritHarvestHandler.getSpiritType(primaryType), getSpiritData(array), getSpiritItem(object)));
+                SPIRIT_DATA.put(resourceLocation, new EntitySpiritDropData(SpiritHarvestHandler.getSpiritType(primaryType), getSpiritData(array), getSpiritItem(object)));
                 HAS_NO_DATA.remove(resourceLocation);
             }
         }

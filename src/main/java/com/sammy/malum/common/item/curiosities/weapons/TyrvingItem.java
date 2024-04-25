@@ -1,24 +1,21 @@
 package com.sammy.malum.common.item.curiosities.weapons;
 
-import com.sammy.malum.common.packets.particle.curiosities.rite.generic.MajorEntityEffectParticlePacket;
+import com.sammy.malum.common.item.*;
+import com.sammy.malum.common.packets.particle.curiosities.rite.generic.*;
 import com.sammy.malum.core.handlers.*;
-import com.sammy.malum.common.item.IMalumEventResponderItem;
-import com.sammy.malum.registry.common.DamageTypeRegistry;
-import com.sammy.malum.registry.common.SoundRegistry;
-import com.sammy.malum.registry.common.SpiritTypeRegistry;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Tier;
-import net.minecraftforge.common.ToolActions;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.network.PacketDistributor;
+import com.sammy.malum.registry.common.*;
+import net.minecraft.sounds.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.*;
+import net.minecraftforge.common.*;
+import net.minecraftforge.event.entity.living.*;
+import net.minecraftforge.network.*;
 import team.lodestar.lodestone.registry.common.tag.*;
-import team.lodestar.lodestone.systems.item.tools.LodestoneSwordItem;
+import team.lodestar.lodestone.systems.item.tools.*;
 
-import static com.sammy.malum.registry.common.PacketRegistry.MALUM_CHANNEL;
+import static com.sammy.malum.registry.common.PacketRegistry.*;
 
 public class TyrvingItem extends LodestoneSwordItem implements IMalumEventResponderItem {
     public TyrvingItem(Tier material, int attackDamage, float attackSpeed, Properties properties) {
@@ -30,17 +27,18 @@ public class TyrvingItem extends LodestoneSwordItem implements IMalumEventRespon
         if (event.getSource().is(LodestoneDamageTypeTags.IS_MAGIC)) {
             return;
         }
-        if (attacker.level() instanceof ServerLevel) {
-            float spiritCount = SpiritHarvestHandler.getSpiritCount(target) * 2f;
+        final Level level = attacker.level();
+        if (!level.isClientSide) {
+            float damage = SpiritHarvestHandler.getSpiritData(target).map(d -> d.totalSpirits).orElse(0) * 2f;
             if (target instanceof Player) {
-                spiritCount = 4 * Math.max(1, (1 + target.getArmorValue() / 12f) * (1 + (1 - 1 / (float) target.getArmorValue())) / 12f);
+                damage = 4 * Math.max(1, (1 + target.getArmorValue() / 12f) * (1 + (1 - 1 / (float) target.getArmorValue())) / 12f);
             }
 
             if (target.isAlive()) {
                 target.invulnerableTime = 0;
-                target.hurt(DamageTypeRegistry.create(attacker.level(), DamageTypeRegistry.VOODOO, attacker), spiritCount);
+                target.hurt(DamageTypeRegistry.create(level, DamageTypeRegistry.VOODOO, attacker), damage);
             }
-            attacker.level().playSound(null, target.blockPosition(), SoundRegistry.VOID_SLASH.get(), SoundSource.PLAYERS, 1, 1f + target.level().random.nextFloat() * 0.25f);
+            level.playSound(null, target.blockPosition(), SoundRegistry.VOID_SLASH.get(), SoundSource.PLAYERS, 1, 1f + level.random.nextFloat() * 0.25f);
             MALUM_CHANNEL.send(PacketDistributor.TRACKING_ENTITY.with(() -> target), new MajorEntityEffectParticlePacket(SpiritTypeRegistry.ELDRITCH_SPIRIT.getPrimaryColor(), target.getX(), target.getY() + target.getBbHeight() / 2, target.getZ()));
         }
     }

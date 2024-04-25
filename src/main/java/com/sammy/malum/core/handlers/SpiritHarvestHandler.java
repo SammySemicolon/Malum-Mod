@@ -1,6 +1,5 @@
 package com.sammy.malum.core.handlers;
 
-import com.sammy.malum.*;
 import com.sammy.malum.common.capability.*;
 import com.sammy.malum.common.container.*;
 import com.sammy.malum.common.entity.spirit.*;
@@ -36,7 +35,6 @@ import javax.annotation.*;
 import java.util.*;
 import java.util.stream.*;
 
-import static net.minecraft.util.Mth.*;
 import static net.minecraft.world.entity.EquipmentSlot.*;
 
 public class SpiritHarvestHandler {
@@ -111,17 +109,17 @@ public class SpiritHarvestHandler {
             MalumItemDataCapability.getCapabilityOptional(entity).ifPresent((e) -> {
                 LivingEntity attacker = null;
                 if (e.attackerForSouls != null) {
-                    Entity candidate = level.getEntity(e.attackerForSouls);
-                    if (candidate instanceof LivingEntity living) {
+                    if (level.getEntity(e.attackerForSouls) instanceof LivingEntity living) {
                         attacker = living;
                     }
                 }
 
                 if (e.soulsToDrop != null) {
                     List<ItemStack> stacks = new ArrayList<>();
-                    for (int i = 0; i < entity.getItem().getCount(); i++)
+                    for (int i = 0; i < entity.getItem().getCount(); i++) {
                         e.soulsToDrop.stream().map(ItemStack::copy).forEach(stacks::add);
-                    spawnSpirits(stacks, e.totalSoulCount, level, entity.position(), attacker);
+                    }
+                    createSpiritEntities(level, stacks, entity.position(), e.totalSoulCount, attacker);
                 }
             });
         }
@@ -155,15 +153,12 @@ public class SpiritHarvestHandler {
         ItemHelper.giveItemToEntity(collector, stack);
     }
 
-    public static void spawnSpirits(LivingEntity target, LivingEntity attacker, ItemStack harvestStack) {
-        spawnSpirits(getDroppedSpirits(target, attacker, harvestStack), target, attacker);
+    public static void spawnSpirits(LivingEntity target) {
+        spawnSpirits(getSpiritDropsRaw(target), target, null);
     }
 
-    public static void spawnSpirits(LivingEntity target) {
-        List<ItemStack> spirits = getDroppedSpirits(target);
-        if (!spirits.isEmpty()) {
-            spawnSpirits(spirits, target, null);
-        }
+    public static void spawnSpirits(LivingEntity target, LivingEntity attacker, ItemStack harvestStack) {
+        spawnSpirits(getSpawnedSpirits(target, attacker, harvestStack), target, attacker);
     }
 
     public static void spawnSpirits(List<ItemStack> spirits, LivingEntity target, LivingEntity attacker) {
@@ -179,49 +174,60 @@ public class SpiritHarvestHandler {
                     }
                 });
             } else {
-                spawnSpirits(spirits, spirits.stream().mapToInt(ItemStack::getCount).sum(), target.level(), target.position().add(0, target.getEyeHeight() / 2f, 0), attacker);
+                spawnItemsAsSpirits(spirits, target, attacker);
             }
         });
     }
 
-    public static void spawnSpirits(Collection<ItemStack> spirits, float totalCount, Level level, Vec3 position, @Nullable LivingEntity attacker) {
+    public static void spawnItemAsSpirit(ItemStack spirit, LivingEntity target, LivingEntity attacker) {
+        spawnItemsAsSpirits(List.of(spirit), target, attacker);
+    }
+
+    public static void spawnItemsAsSpirits(Collection<ItemStack> spirits, LivingEntity target, LivingEntity attacker) {
+        createSpiritEntities(target.level(), spirits, target.position().add(0, target.getBbHeight() / 2f, 0), spirits.stream().mapToInt(ItemStack::getCount).sum(), attacker);
+    }
+
+    private static void createSpiritEntities(Level level, Collection<ItemStack> spirits, Vec3 position, float totalCount, @Nullable LivingEntity attacker) {
         if (attacker == null) {
             attacker = level.getNearestPlayer(position.x, position.y, position.z, 8, e -> true);
         }
-        float speed = (0.15f + 0.25f / (totalCount + 1));
+        final UUID attackerUUID = attacker == null ? null : attacker.getUUID();
+        float speed = 0.15f + 0.25f / (totalCount + 1);
         var random = level.random;
         for (ItemStack stack : spirits) {
-            int count = stack.getCount();
-            if (count == 0) {
+            if (stack.isEmpty()) {
                 continue;
             }
-            for (int j = 0; j < count; j++) {
-                if (CommonConfig.NO_FANCY_SPIRITS.getConfigValue()) {
+            boolean noFancySpirits = CommonConfig.NO_FANCY_SPIRITS.getConfigValue();
+            for (int j = 0; j < stack.getCount(); j++) {
+                if (noFancySpirits) {
                     ItemEntity itemEntity = new ItemEntity(level, position.x, position.y, position.z, stack);
                     itemEntity.setDefaultPickUpDelay();
-                    itemEntity.setDeltaMovement(Mth.nextFloat(random, -0.1F, 0.1F), Mth.nextFloat(random, 0.25f, 0.5f), Mth.nextFloat(random, -0.1F, 0.1F));
+                    itemEntity.setDeltaMovement(
+                            Mth.nextFloat(random, -0.1F, 0.1F),
+                            Mth.nextFloat(random, 0.25f, 0.5f),
+                            Mth.nextFloat(random, -0.1F, 0.1F));
                     level.addFreshEntity(itemEntity);
                     continue;
                 }
-                SpiritItemEntity entity = new SpiritItemEntity(level, attacker == null ? null : attacker.getUUID(), ItemHelper.copyWithNewCount(stack, 1),
+                SpiritItemEntity entity = new SpiritItemEntity(level, attackerUUID, ItemHelper.copyWithNewCount(stack, 1),
                         position.x,
                         position.y,
                         position.z,
-                        nextFloat(MalumMod.RANDOM, -speed, speed),
-                        nextFloat(MalumMod.RANDOM, 0.05f, 0.06f),
-                        nextFloat(MalumMod.RANDOM, -speed, speed));
+                        RandomHelper.randomBetween(random, -speed, speed),
+                        RandomHelper.randomBetween(random, 0.05f, 0.06f),
+                        RandomHelper.randomBetween(random, -speed, speed));
                 level.addFreshEntity(entity);
             }
         }
         level.playSound(null, position.x, position.y, position.z, SoundRegistry.SOUL_SHATTER.get(), SoundSource.PLAYERS, 1.0F, 0.7f + random.nextFloat() * 0.4f);
     }
 
-    public static List<ItemStack> getDroppedSpirits(LivingEntity entity, LivingEntity attacker, ItemStack harvestStack) {
-        return getSpiritData(entity).map(data -> getDroppedSpirits(data, attacker, harvestStack)).orElse(Collections.emptyList());
+    public static List<ItemStack> getSpawnedSpirits(LivingEntity entity, LivingEntity attacker, ItemStack harvestStack) {
+        return getSpiritData(entity).map(data -> applySpiritLootBonuses(getSpiritDropsRaw(data), attacker, harvestStack)).orElse(Collections.emptyList());
     }
 
-    public static List<ItemStack> getDroppedSpirits(MalumEntitySpiritData data, LivingEntity attacker, ItemStack harvestStack) {
-        List<ItemStack> spirits = getDroppedSpirits(data);
+    public static List<ItemStack> applySpiritLootBonuses(List<ItemStack> spirits, LivingEntity attacker, ItemStack weapon) {
         if (spirits.isEmpty()) {
             return spirits;
         }
@@ -229,10 +235,10 @@ public class SpiritHarvestHandler {
         if (attacker.getAttribute(AttributeRegistry.SPIRIT_SPOILS.get()) != null) {
             spiritBonus += attacker.getAttributeValue(AttributeRegistry.SPIRIT_SPOILS.get());
         }
-        if (!harvestStack.isEmpty()) {
-            final int spiritPlunder = harvestStack.getEnchantmentLevel(EnchantmentRegistry.SPIRIT_PLUNDER.get());
+        if (!weapon.isEmpty()) {
+            final int spiritPlunder = weapon.getEnchantmentLevel(EnchantmentRegistry.SPIRIT_PLUNDER.get());
             if (spiritPlunder > 0) {
-                harvestStack.hurtAndBreak(spiritPlunder, attacker, (e) -> e.broadcastBreakEvent(MAINHAND));
+                weapon.hurtAndBreak(spiritPlunder, attacker, (e) -> e.broadcastBreakEvent(MAINHAND));
             }
             spiritBonus += spiritPlunder;
         }
@@ -243,24 +249,20 @@ public class SpiritHarvestHandler {
         return spirits;
     }
 
-    public static List<ItemStack> getDroppedSpirits(LivingEntity entity) {
-        return getSpiritData(entity).map(SpiritHarvestHandler::getDroppedSpirits).orElse(Collections.emptyList());
+    public static List<ItemStack> getSpiritDropsRaw(LivingEntity entity) {
+        return getSpiritData(entity).map(SpiritHarvestHandler::getSpiritDropsRaw).orElse(Collections.emptyList());
     }
 
-    public static List<ItemStack> getDroppedSpirits(MalumEntitySpiritData data) {
+    public static List<ItemStack> getSpiritDropsRaw(EntitySpiritDropData data) {
         return data != null ? data.dataEntries.stream().map(SpiritWithCount::getStack).collect(Collectors.toList()) : (Collections.emptyList());
     }
 
-    public static int getSpiritCount(LivingEntity entity) {
-        return getSpiritData(entity).map(d -> d.totalSpirits).orElse(0);
-    }
-
-    public static Optional<MalumEntitySpiritData> getSpiritData(LivingEntity entity) {
+    public static Optional<EntitySpiritDropData> getSpiritData(LivingEntity entity) {
         ResourceLocation key = ForgeRegistries.ENTITY_TYPES.getKey(entity.getType());
         if (SpiritDataReloadListener.HAS_NO_DATA.contains(key))
             return Optional.empty();
 
-        MalumEntitySpiritData spiritData = SpiritDataReloadListener.SPIRIT_DATA.get(key);
+        EntitySpiritDropData spiritData = SpiritDataReloadListener.SPIRIT_DATA.get(key);
         if (spiritData != null)
             return Optional.of(spiritData);
 

@@ -148,6 +148,7 @@ public class ScreenParticleEffects {
 
         public static VoidTransmutableParticleEffect INSTANCE = new VoidTransmutableParticleEffect();
         private boolean isNearWell;
+        private boolean isItemReal;
 
         @Override
         public float getVoidParticleIntensity() {
@@ -162,12 +163,17 @@ public class ScreenParticleEffects {
             if (!isNearWell) {
                 return;
             }
-            IVoidItem.super.spawnEarlyParticles(target, level, partialTick, stack, x, y);
+            if (level.getGameTime() % 20L == 0) {
+                isItemReal = Minecraft.getInstance().player.getInventory().contains(stack);
+            }
+            if (isItemReal) {
+                IVoidItem.super.spawnEarlyParticles(target, level, partialTick, stack, x, y);
+            }
         }
 
         @Override
         public void spawnLateParticles(ScreenParticleHolder target, Level level, float partialTick, ItemStack stack, float x, float y) {
-            if (!isNearWell) {
+            if (!isNearWell || !isItemReal) {
                 return;
             }
             var rand = level.getRandom();

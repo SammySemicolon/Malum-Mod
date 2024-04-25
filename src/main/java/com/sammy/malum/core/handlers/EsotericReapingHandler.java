@@ -38,7 +38,7 @@ public class EsotericReapingHandler {
                 MalumPlayerDataCapability.getCapabilityOptional(player).ifPresent(c -> {
                     if (!c.obtainedEncyclopedia && player.getRandom().nextFloat() < 0.2f) {
                         c.obtainedEncyclopedia = true;
-                        SpiritHarvestHandler.createSpirits(List.of(ItemRegistry.ENCYCLOPEDIA_ARCANA.get().getDefaultInstance()), target, 1.25f, player);
+                        SpiritHarvestHandler.spawnItemAsSpirit(ItemRegistry.ENCYCLOPEDIA_ARCANA.get().getDefaultInstance(), target, player);
                     }
                 });
             }
