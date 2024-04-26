@@ -395,7 +395,7 @@ public class MalumLang extends LanguageProvider {
         addEntryHeader("void.necklace_of_the_hidden_blade", "Necklace of the Hidden Blade", "A knife at their backs");
         addHeadline("void.necklace_of_the_hidden_blade", "The Hidden Blade");
         addPages("void.necklace_of_the_hidden_blade",
-            "The Narrow Edge concentrates my scythe's edge, but the Hidden Blade goes further, inverting the edge and making it hunger. I lose the sweeping attack, yes, but as I am harmed, the blade drinks of my pain, intensifying its damage for a time.");
+            "The Narrow Edge concentrates my scythe's edge, but the Hidden Blade goes further, inverting the edge and making it hunger. I lose the sweeping attack, yes, but as I am harmed, the blade drinks of my pain, intensifying my next strike.");
 
 
 
