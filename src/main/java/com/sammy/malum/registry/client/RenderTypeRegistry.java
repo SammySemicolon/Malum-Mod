@@ -33,20 +33,24 @@ public class RenderTypeRegistry extends RenderStateShard {
         RenderSystem.blendEquation(GL14.GL_FUNC_SUBTRACT);
     }, () -> {
         RenderSystem.blendEquation(GL14.GL_FUNC_ADD);
-        RenderSystem.defaultBlendFunc();
         RenderSystem.disableBlend();
+        RenderSystem.defaultBlendFunc();
     });
 
     public static final Function<ResourceLocation, RenderType> SUBTRACTIVE_TEXT = Util.memoize((texture) ->
         LodestoneRenderTypeRegistry.createGenericRenderType("malum:subtractive_text", POSITION_COLOR_TEX_LIGHTMAP, QUADS, LodestoneRenderTypeRegistry.builder()
             .setShaderState(RENDERTYPE_TEXT_SEE_THROUGH_SHADER)
             .setTransparencyState(SUBTRACTIVE_TEXT_TRANSPARENCY)
+            .setWriteMaskState(COLOR_WRITE)
+            .setLightmapState(LIGHTMAP)
             .setTextureState(new TextureStateShard(texture, ForgeRenderTypes.enableTextTextureLinearFiltering, false))));
 
     public static final Function<ResourceLocation, RenderType> SUBTRACTIVE_INTENSE_TEXT = Util.memoize((texture) ->
         LodestoneRenderTypeRegistry.createGenericRenderType("malum:subtractive_intense_text", POSITION_COLOR_TEX_LIGHTMAP, QUADS, LodestoneRenderTypeRegistry.builder()
             .setShaderState(RENDERTYPE_TEXT_INTENSITY_SEE_THROUGH_SHADER)
             .setTransparencyState(SUBTRACTIVE_TEXT_TRANSPARENCY)
+            .setWriteMaskState(COLOR_WRITE)
+            .setLightmapState(LIGHTMAP)
             .setTextureState(new TextureStateShard(texture, ForgeRenderTypes.enableTextTextureLinearFiltering, false))));
 
     public static final RenderTypeProvider MALIGNANT_GLOW = new RenderTypeProvider((texture) -> LodestoneRenderTypeRegistry.createGenericRenderType("lodestone:malignant_glow", POSITION_COLOR_TEX_LIGHTMAP, QUADS, LodestoneRenderTypeRegistry.builder()

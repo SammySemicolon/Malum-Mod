@@ -13,7 +13,7 @@ public class EarthenRiteType extends TotemicRiteType {
 
     @Override
     public TotemicRiteEffect getNaturalRiteEffect() {
-        return new PotionRiteEffect(LivingEntity.class, MobEffectRegistry.GAIAN_BULWARK);
+        return new PotionRiteEffect(LivingEntity.class, MobEffectRegistry.GAIAS_BULWARK);
     }
 
     @Override

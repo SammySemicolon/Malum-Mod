@@ -11,6 +11,7 @@ import net.minecraft.world.phys.shapes.*;
 
 import java.util.*;
 
+import static com.sammy.malum.registry.common.block.BlockTagRegistry.BLIGHTED_BLOCKS;
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.*;
 
 public class ClingingBlightBlock extends Block {
@@ -50,6 +51,10 @@ public class ClingingBlightBlock extends Block {
     }
 
     @Override
+    public BlockState updateShape(BlockState pState, Direction pFacing, BlockState pFacingState, LevelAccessor pLevel, BlockPos pCurrentPos, BlockPos pFacingPos) {
+        return !pState.canSurvive(pLevel, pCurrentPos) ? Blocks.AIR.defaultBlockState() : super.updateShape(pState, pFacing, pFacingState, pLevel, pCurrentPos, pFacingPos);
+    }
+    @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
         final Direction direction = context.getClickedFace();
         BlockState state = this.defaultBlockState().setValue(HORIZONTAL_FACING, direction.getAxis().isHorizontal() ? direction.getOpposite() : context.getHorizontalDirection());
@@ -84,8 +89,17 @@ public class ClingingBlightBlock extends Block {
         final BlightType value = pState.getValue(BLIGHT_TYPE);
         Direction direction = pState.getValue(HORIZONTAL_FACING);
         if (value.equals(BlightType.ROOTED_BLIGHT) || value.equals(BlightType.GROUNDED_ROOTS)) {
-            if (!Block.canSupportCenter(pLevel, pPos.below(), Direction.UP)) {
+            final BlockPos below = pPos.below();
+            if (!pLevel.getBlockState(below).is(BLIGHTED_BLOCKS)) {
                 return false;
+            }
+            if (!Block.canSupportCenter(pLevel, below, Direction.UP)) {
+                return false;
+            }
+            if (value.equals(BlightType.ROOTED_BLIGHT)) {
+                if (!Block.canSupportCenter(pLevel, pPos.relative(direction), direction.getOpposite())) {
+                    return false;
+                }
             }
         }
 

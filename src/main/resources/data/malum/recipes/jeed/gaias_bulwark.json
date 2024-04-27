@@ -1,7 +1,7 @@
 {
   "type": "jeed:effect_provider",
   "effect":{
-    "id": "malum:gaian_bulwark"
+    "id": "malum:gaias_bulwark"
   },
   "providers": [
     {

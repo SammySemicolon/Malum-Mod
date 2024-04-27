@@ -54,8 +54,8 @@ public class ProgressionEntryObject extends BookObject<AbstractProgressionCodexS
     public void renderLate(AbstractProgressionCodexScreen screen, GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
         if (isHoveredOver) {
             final List<Component> list = Arrays.asList(
-                    Component.translatable(entry.translationKey()),
-                    Component.translatable(entry.descriptionTranslationKey()).withStyle(ChatFormatting.GRAY));
+                ArcanaCodexHelper.convertToComponent(entry.translationKey()),
+                ArcanaCodexHelper.convertToComponent(entry.descriptionTranslationKey(), (style) -> style.withColor(ChatFormatting.GRAY)));
             guiGraphics.renderComponentTooltip(Minecraft.getInstance().font, list, mouseX, mouseY);
         }
     }

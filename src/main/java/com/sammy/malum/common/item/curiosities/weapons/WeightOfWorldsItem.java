@@ -20,7 +20,7 @@ public class WeightOfWorldsItem extends LodestoneAxeItem implements IEventRespon
 
     @Override
     public void killEvent(LivingDeathEvent event, LivingEntity attacker, LivingEntity target, ItemStack stack) {
-        attacker.addEffect(new MobEffectInstance(MobEffectRegistry.DEACONS_FORTUNE.get(), 200));
+        attacker.addEffect(new MobEffectInstance(MobEffectRegistry.GRIM_CERTAINTY.get(), 200));
     }
 
     @Override
@@ -31,7 +31,7 @@ public class WeightOfWorldsItem extends LodestoneAxeItem implements IEventRespon
             }
             final Level level = attacker.level();
             level.playSound(null, target.getX(), target.getY(), target.getZ(), SoundRegistry.WEIGHT_OF_WORLDS_SLASH.get(), attacker.getSoundSource(), 1, 0.5f);
-            final MobEffect effect = MobEffectRegistry.DEACONS_FORTUNE.get();
+            final MobEffect effect = MobEffectRegistry.GRIM_CERTAINTY.get();
             if (attacker.hasEffect(effect) || level.random.nextFloat() < 0.25f) {
                 event.setAmount(event.getAmount()*2);
                 level.playSound(null, target.getX(), target.getY(), target.getZ(), SoundRegistry.MALIGNANT_METAL_RESONATES.get(), attacker.getSoundSource(), 2, 0.5f);

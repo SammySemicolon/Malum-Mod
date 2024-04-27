@@ -2,8 +2,10 @@ package com.sammy.malum.client.screen.codex;
 
 import com.google.common.collect.*;
 import com.sammy.malum.client.screen.codex.pages.*;
+import com.sammy.malum.client.screen.codex.screens.*;
 
 import java.util.*;
+import java.util.function.*;
 
 public class BookEntryBuilder {
 
@@ -12,6 +14,7 @@ public class BookEntryBuilder {
 
     protected List<BookPage> pages = new ArrayList<>();
     protected List<EntryReference> references = new ArrayList<>();
+    protected Predicate<EntryScreen> validityChecker = t -> true;
 
     public BookEntryBuilder(String identifier) {
         this.identifier = identifier;
@@ -24,15 +27,26 @@ public class BookEntryBuilder {
         }
         return this;
     }
+
     public BookEntryBuilder addReference(EntryReference reference) {
         references.add(reference);
+        return this;
+    }
+
+    public BookEntryBuilder setValidityChecker(Predicate<EntryScreen> validityChecker) {
+        this.validityChecker = validityChecker;
+        return this;
+    }
+
+    public BookEntryBuilder afterUmbralCrystal() {
+        this.validityChecker = BookEntry.AFTER_UMBRAL_CRYSTAL;
         return this;
     }
 
     public BookEntry build() {
         ImmutableList<BookPage> bookPages = ImmutableList.copyOf(pages);
         ImmutableList<EntryReference> entryReferences = ImmutableList.copyOf(references);
-        BookEntry bookEntry = new BookEntry(identifier, isVoid, bookPages, entryReferences);
+        BookEntry bookEntry = new BookEntry(identifier, isVoid, bookPages, entryReferences, validityChecker);
         bookPages.forEach(p -> p.setBookEntry(bookEntry));
         return bookEntry;
     }

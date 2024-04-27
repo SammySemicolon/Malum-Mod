@@ -143,8 +143,8 @@ public class MalumLang extends LanguageProvider {
 
         addRite(SpiritRiteRegistry.SACRED_RITE, "Rite of Healing", "Rite of Nourishment");
         addRite(SpiritRiteRegistry.WICKED_RITE, "Rite of Decay", "Rite of Empowerment");
-        addRite(SpiritRiteRegistry.EARTHEN_RITE, "Rite of Warding", "Rite of the Challenger");
-        addRite(SpiritRiteRegistry.INFERNAL_RITE, "Rite of Haste", "Rite of the Extinguisher");
+        addRite(SpiritRiteRegistry.EARTHEN_RITE, "Rite of Warding", "Rite of the Arena");
+        addRite(SpiritRiteRegistry.INFERNAL_RITE, "Rite of Haste", "Rite of the Hells");
         addRite(SpiritRiteRegistry.AERIAL_RITE, "Rite of Motion", "Rite of the Aether");
         addRite(SpiritRiteRegistry.AQUEOUS_RITE, "Rite of Loyalty", "Rite of the Seas");
 
@@ -207,12 +207,11 @@ public class MalumLang extends LanguageProvider {
         add("malum.gui.curio.effect.no_sweep", "Disables Scythe Sweeping");
         add("malum.gui.curio.effect.friendly_enemies", "Reduces Enemy Aggression");
         add("malum.gui.curio.effect.soul_ward_magic_resilience", "Soul Ward Magic Resilience");
-        add("malum.gui.curio.effect.rotten_gluttony", "Rotten Food Generates Gluttony");
+        add("malum.gui.curio.effect.rotten_gluttony", "Eating Rotten Food Generates Gluttony");
         add("malum.gui.curio.effect.scythe_counterattack", "Powerful Scythe Counterattack When Struck");
         add("malum.gui.curio.effect.full_health_fake_collection", "Striking Full Health Targets Triggers Spirit Collection Effects");
         add("malum.gui.curio.effect.soul_ward_physical_absorption", "Soul Ward Absorbs Physical Damage Equally to Magic Damage");
         add("malum.gui.curio.effect.spirits_gluttony", "Spirit Collection Generates Gluttony");
-        add("malum.gui.curio.effect.gluttony_magic_proficiency", "Gluttony Exchanges Hunger for Magic Proficiency");
         add("malum.gui.curio.effect.enchanted_explosions", "Explosions are Enchanted with %s");
         add("malum.gui.curio.effect.explosions_spare_valuables", "Protects Valuable Items from Explosions");
 
@@ -223,40 +222,180 @@ public class MalumLang extends LanguageProvider {
 
         addSimpleEntryHeader("void.the_weeping_well", "The Weeping Well", "Gate to the unknown");
         addPages("void.the_weeping_well",
-                "I have discovered a... structure. One with implications beyond nearly anything I've found before, because the existence of this Weeping Well implies I am not the first to touch the arcana.",
-                        "The Well, which I name for its constant mournful tone, appears to be a small pool of... something. I am not entirely sure what, as though it doesn't appear to be liquid, it certainly doesn't physically interact like a solid does.",
-                        "The implication comes from the fact that the structure around it appears to be constructed of Tainted Rock, as if preventing the substance inside from spreading further. That said, the core of the structure itself is sturdier than the rock I have created, almost approaching Bedrock in toughness.",
-                        "In what was perhaps an ill-advised course of action, my first instinct was to throw a rock at it. It seemed stable enough, if it had been here for so long... and to my relief, nothing dangerous occurred. The rock shot out seconds later, with a belching sound and a spray of what appears to be a harmless concentration of the stuff in the Well.",
-                        "Certain items I had on me from the mining trip, such as a bit of Brilliance and a nodule of Cthonic Gold, tugged slightly against my pockets while I'm near the well. I wondered what that meant, and, if the stone was ejected out, surmised it made sense to try throwing them in too.",
-                        "When I did so, the materials had been transformed once ejected - interestingly, both the rock and these were ejected due south. Might there be other materials, other creations I could derive from this? And the fact that both materials that tugged were related to the arcana is fascinating.",
-                        "I am not a historian, so I am not the correct person to investigate the implications of the structure itself, beyond the fact that Tainted Rock, so far as I know, can only be created through Spirit Infusion. But this implies a civilization once touched the arcana and... tried to contain it? Feared it? Used it? Is this civilization related to the other structures buried within the earth? I do not know, but I hope to find out.");
+            "I have discovered a... structure. One with implications beyond nearly anything I've found before, because the existence of this Weeping Well implies I am not the first to touch the arcana.",
+            "The Well, which I name for its constant mournful tone, appears to be a small pool of... something. I am not entirely sure what, as though it doesn't appear to be liquid, it certainly doesn't physically interact like a solid does.",
+            "The implication comes from the fact that the structure around it appears to be constructed of Tainted Rock, as if preventing the substance inside from spreading further. That said, the core of the structure itself is sturdier than the rock I have created, almost approaching Bedrock in toughness.",
+            "In what was perhaps an ill-advised course of action, my first instinct was to throw a rock at it. It seemed stable enough, if it had been here for so long... and to my relief, nothing dangerous occurred. The rock shot out seconds later, with a belching sound and a spray of what appears to be a harmless concentration of the stuff in the Well.",
+            "Certain items I had on me from the mining trip, such as a bit of Brilliance and a nodule of Cthonic Gold, tugged slightly against my pockets while I'm near the well. I wondered what that meant, and, if the stone was ejected out, surmised it made sense to try throwing them in too.",
+            "When I did so, the materials had been transformed once ejected - interestingly, both the rock and these were ejected due south. Might there be other materials, other creations I could derive from this? And the fact that both materials that tugged were related to the arcana is fascinating.",
+            "I am not a historian, so I will not investigate the cultural implications, beyond the fact that Tainted Rock, so far as I know, can only be created through Spirit Infusion. This implies a civilization once touched the arcana and... tried to contain it? Feared it? Used it? Is this civilization related to the other structures buried within the earth? I do not know, but I hope to find out.");
 
-        addSimpleEntryHeader("void.material_study_soulstone", "Material Study: Soulstone", "An old friend");
+        addEntryHeader("void.material_study_soulstone", "Material Study: Soulstone", "An old friend");
+        addHeadline("void.material_study_soulstone", "Study: Soulstone");
         addPages("void.material_study_soulstone",
-                "Soulstone is, of course, nothing new. It is the basis of my craft. But, when most raw metals are passed through the Well, they become raw Soulstone instead. Does this imply that Soulstone itself is metallic? Perhaps. It would certainly explain the ease with which it attunes iron.",
-                "This also implies that Soulstone itself is, somehow, connected to whatever the Well is. Perhaps it is an ensouled area of reality, or a means of bestowing souls? Both are doubtful, but I cannot discard even doubtful theories just yet.");
+            "Soulstone is, of course, nothing new. It is the basis of my craft. But, when most raw metals are passed through the Well, they become raw Soulstone instead.",
+            "Does this imply that Soulstone itself is metallic? Perhaps. It would certainly explain the ease with which it attunes iron. This also implies that Soulstone itself is, somehow, connected to whatever the Well is. Perhaps it is an ensouled area of reality, or a means of bestowing souls? Both are doubtful, but I cannot discard even doubtful theories just yet.");
 
-        addSimpleEntryHeader("void.material_study_mnemonic_fragment", "Material Study: Condensed Brilliance", "Not experience, but memory");
+        addEntryHeader("void.material_study_mnemonic_fragment", "Material Study: Condensed Brilliance", "Not experience, but memory");
+        addHeadline("void.material_study_mnemonic_fragment", "Study: Mnemosyne");
         addPages("void.material_study_mnemonic_fragment",
-                "When passed through the Well, Brilliance becomes a substance I call Mnemosyne. These Mnemonic Fragments appear to be Brilliance in physical property, but with the contained power more condensed, more nuanced. Rather than containing simple experience, the sense I get from holding it is as though I am holding an entire memory, context and all.",
-                "Does this imply the Weeping Well is alive, and that this is its memory? Or is it somehow collecting the memory of the soul whose fading created the Brilliance in the first place, binding it into this more dense form? And why can I feel impressions while simply holding the stone?");
+            "When passed through the Well, Brilliance becomes a substance I call Mnemosyne. These Mnemonic Fragments appear to be Brilliance in physical property, but with the contained power more condensed, more nuanced.",
+            "Rather than containing simple experience, the sense I get from holding it is as though I am holding an entire memory, context and all.\nDoes this imply the Weeping Well is alive, and that this is its memory? Or is it collecting the memory of the soul which created the Brilliance in the first place, binding it into this more dense form? And why can I feel impressions while simply holding the stone?");
 
-        addSimpleEntryHeader("void.material_study_null_slate", "Material Study: Refined Soulstone", "A blank slate, perhaps a precursor");
+        addSimpleEntryHeader("void.material_study_mnemonic_fragment.reexamination", "Reexamination: Mnemnosyne", "Patterns holding true");
+        addPages("void.material_study_mnemonic_fragment.reexamination",
+            "Mnemnosyne appears to have the same internal patterning as Brilliance, but on a much smaller and more detailed scale. Presumably this is what gives it its properties.");
+
+        addEntryHeader("void.material_study_null_slate", "Material Study: Refined Soulstone", "A blank slate, perhaps a precursor");
+        addHeadline("void.material_study_null_slate", "Study: Null Slate");
         addPages("void.material_study_null_slate",
-                "When passed through the Well, Soulstone becomes a substance I call Null Slate. While physically it is similar to Soulstone, it appears to be utterly devoid of a soul... and yet it interacts with the arcane much as Soulstone does. Might this be what Soulstone is, before it gains a soul's energy?",
-                "I have not yet isolated the property that allows it to interact with souls, or been able to transfer it to something else, as I have done to make Soulstained Steel. My only theory is that somehow the complete absence of arcana, beyond even the trace amounts threading existence, has an arcane power of its own. But what power would that be?");
+            "When passed through the Well, Soulstone becomes a substance I call Null Slate. While physically it is similar to Soulstone, it appears to be utterly devoid of a soul... and yet it interacts with the arcane much as Soulstone does.",
+            "Might this be what Soulstone is, before it gains a soul's energy? I cannot determine how it interacts with souls, nor have I been able to transfer that property, as I have done to make Soulstained Steel. My only theory is that somehow the complete absence of arcana, beyond even the trace amounts threading existence, has an arcane power of its own. But what power would that be?");
 
-        addSimpleEntryHeader("void.material_study_void_salts", "Material Study: Purified Ash", "A clue to the nature of souls");
+        addSimpleEntryHeader("void.material_study_null_slate.reexamination", "Reexamination: Null Slate", "Attuned to Umbral");
+        addPages("void.material_study_null_slate.reexamination",
+            "A complete absence of arcana creating an effect. It should be obvious what Null Slate truly is - Soulstone, but attuned to the Void instead of the arcane.",
+            "Perhaps still a precursor, or maybe they are related in other ways... The physical makeup is the same as Soulstone's. It follows that the differing properties are purely from the medium the stone interacts with.");
+
+        addEntryHeader("void.material_study_void_salts", "Material Study: Purified Ash", "A clue to the nature of souls");
+        addHeadline("void.material_study_void_salts", "Study: Void Salts");
         addPages("void.material_study_void_salts",
-            "When passed through the Well, Hex Ash is reduced to a substance I call Void Salt. This dark powder appears to be chemically similar to Hex Ash, but without the carbonization that gives the Ash its name. It appears to be comprised of an unknown and unstable metal, bonded to something caustic I cannot identify.",
-                "Physical properties aside, its magical properties are baffling. Carbon is the basis of life, and yet removing carbon makes this substance... almost seem to move? I haven't been able to verify that experimentally, but I could swear that the material is alive and shifting.");
+            "When passed through the Well, Hex Ash is reduced to a substance I call Void Salt. This dark powder appears to be chemically similar to Hex Ash, but without the carbonization that gives the Ash its name.",
+            "It appears to be comprised of an unknown and unstable metal, bonded to something caustic I cannot identify. It is baffling beyond the physical, though. Carbon is the basis of life, and yet removing carbon makes this substance... almost seem to move? I haven't been able to verify that experimentally, but I could swear that the material is alive and shifting.");
 
-        addSimpleEntryHeader("void.material_study_auric_embers", "Material Study: Blazing Exaltation", "The essence of progress");
+        addSimpleEntryHeader("void.material_study_void_salts.reexamination", "Reexamination: Void Salts", "Concerning");
+        addPages("void.material_study_void_salts.reexamination",
+            "The fact that " + italic("absence") + " is creating " + italic("presence") + " implies Umbral. Perhaps it " + italic("is") + " alive... but with life defined by deeper nothingness instead of the presence of matter. Might this indicate there is more complex life adapted to the Void?");
+
+        addEntryHeader("void.material_study_auric_embers", "Material Study: Blazing Exaltation", "The essence of progress");
+        addHeadline("void.material_study_auric_embers", "Study: Auric Ember");
         addPages("void.material_study_auric_embers",
-            "When passed through the Well, Blaze Powder becomes a substance I call Auric Ember. A flame of gold, burning ethereally, and yet a physical object at the same time. It burns like charcoal, releasing its energy eagerly - though unlike most fuels, rather than actually fueling a flame, it seems to simply burn of its own accord.",
-                "While the creation of such a brilliant substance stands out among the other materials I have obtained from the Well, I find that it fits rather cleanly. The Well has tended to strip something away from each material I pass through it, be that impurities, a portion of the item's physical matter, or something more esoteric. Here, it appears to strip away anything besides the purity of fire, producing transformation incarnate.");
+            "When passed through the Well, Blaze Powder becomes a substance I call Auric Ember. An ethereal flame of gold, yet a physical object at the same time. It burns like charcoal, yet its flame has no combustion.",
+            "While such a brilliant substance may stand out among the other materials I have obtained from the Well, it fits the pattern cleanly. The Well has stripped something away from each material I pass through it, be that impurities, a portion of matter, or something more esoteric. Here, it appears to strip away anything besides the purity of fire, producing transformation incarnate.");
 
+        addSimpleEntryHeader("void.material_study_auric_embers.reexamination", "Reexamination: Auric Ember", "Not stripping away, but inverting");
+        addPages("void.material_study_auric_embers.reexamination",
+            "The Well does not, as I previously thought, strip things away. It inverts them, replacing them with voidish counterparts. Auric Ember is perhaps the purest example of this - anything that is not the essence of progress is cast in void shadow, creating a material that is " + italic("more") + " than perfectly attuned to a purpose.");
 
+        addEntryHeader("void.material_study_malignant_lead", "Material Study: Putrefacted Gold", "Perfection cast to base");
+        addHeadline("void.material_study_malignant_lead", "Study: Malignant Lead");
+        addPages("void.material_study_malignant_lead",
+            "When passed through the Well, Cthonic Gold is warped into Malignant Lead. Much of the Arcana bonded to the gold resolves itself into Wicked, dragging the metal from the alchemist's apex to the lowest of materials.",
+            "There appears to be roughly half as much arcana bound to the metal as before. Was it stripped away by the Well, or transmuted into something I have not yet isolated and identified? Either could be true. This might be related to the arcane interactivity displayed by Null Slate...");
+
+        addEntryHeader("void.material_study_malignant_lead.reexamination", "Reexamination: Malignant Lead", "Wicked and Umbral");
+        addHeadline("void.material_study_malignant_lead.reexamination", "Reexamining Malignant Lead");
+        addPages("void.material_study_malignant_lead.reexamination",
+            "Malignant Lead is at the moment my only means of assessing the physical form of an Umbral Crystal - for what else could have caused it to lose precisely half of its arcane weight?",
+            "I have not had success in isolating the microcrystals like I have with Cthonic Gold or the Wicked crystals in the lead, but until I can obtain more, this is my best avenue to research Umbral's structure.");
+
+        addSimpleEntryHeader("spirit_metals.reexamination", "Reexamination: Spirit Metals", "A different principle");
+        addPages("spirit_metals.reexamination",
+            "The inherent structures of the arcana simply don't exist in spirit metals, and yet they interact with the arcane all the same. There might be something analogous, but if so, I hardly have instruments precise enough to measure it. Why is this is different from the raw stones I have investigated, with even Soulstained Steel differing in structure vastly from Soulstone?",
+            "This might explain why Cthonic Gold has arcana fused into its structure, unlike the spirit metals - they might be different phenomena, one a metal 'tuned' to the arcana, another physically alloyed with it. I wonder if I can tune other metals similarly...");
+
+        addSimpleEntryHeader("spirit_stones.reexamination", "Reexamination: Spirit Stones", "Tessellation of crystal structures");
+        addPages("spirit_stones.reexamination",
+            "It appears that the crystal structures of at least Wicked and Sacred crystals can be tessellated infinitely, as that is exactly what my deconstruction and analysis of samples of Twisted and Tainted Rocks has found them to be. Is it possible that other spirit stones - or rather, tessellations - might exist? Very likely.",
+            "But what would their properties be? Sacred and Wicked create stone which accept or reject magic... so might Aerial and Earthen create stone that either moves or locks magic in place? Redundant for both, with Hallowed Gold... Infernal might be used to accelerate while Aqueous mutates, though, which might be useful.",
+            "I don't think I have the proper context to identify what Arcane, Eldritch, and Umbral might create. I lack the full understanding of what they represent, as destructive testing isn't an option for Umbral as of yet. But, with the proximity of bedrock to the Void... might bedrock's indestructibility be a sign of the Umbral stone?");
+
+        addSimpleEntryHeader("cthonic_gold.reexamination", "Reexamination: Cthonic Gold", "A new principle in old material");
+        addPages("cthonic_gold.reexamination",
+            "I now know why I could not create Cthonic Gold - I did not understand the principles it was built on. Fusing crystal into matter is not something unique to this material. It may be possible to force crystals to form inside of objects to make similar 'natural' arcane alloys.",
+            "Either I need to find a way to phase the crystal through solid matter, or I need to find a way to cause a similar effect to the Spirit Jar's crystal formation in a medium other than air. Either one might allow me to make Cthonic Gold, and potentially much, much more.");
+
+        addEntryHeader("spirit_minerals.reexamination", "Reexamination: Soulstone and Brilliance", "More than just arcana");
+        addHeadline("spirit_minerals.reexamination", "Reexamining Spirit Minerals");
+        addPages("spirit_minerals.reexamination",
+            "I now know the arcana have physical properties with meaning. I can use these properties to create a staff, and likely for many more things. But Soulstone and Brilliance... as far as I can tell, for every other base material relevant to the arcana save Runewood I work with, there are either spirit crystals fused within or patterned in the structure.",
+            "The fact that Null Slate is physically identical to Soulstone implies a greater principle. I posit that Soulstone and Brilliance have similar fundamental resonances to the arcana, structures of inherent power at a precision far beyond what I can measure. This implies interaction with the arcane is simply... a quirk of an object's topology? I don't know how I would replicate it myself, but if I can...");
+
+        addSimpleEntryHeader("void.black_crystal", "A Black Crystal", "A mistake, or a boon?");
+        addPages("void.black_crystal",
+            "Well, I now know what happens when a living being, or at least, a sapient one, enters the Well.",
+            "I had grown too comfortable in my experiments, and tripped over one of the flasks of reagent I had left around... directly into the Well's black maw. As I'm writing this, clearly I survived... Though I'd rather not test that again.",
+            "I was spat out by what I now know is liquid, much like the items I have thrown in. Further tests with monsters and cattle showed they do " + italic("not") + " get rejected, simply seeming to vanish into the pool, and I see no reason to waste resources to test that exhaustively. Especially with my attention set on what came back out with me.",
+            "As if I had shattered a soul - and considering mine was the only one present, that is a concerning possibility, though all readings of myself I have taken are within tolerances - a black spirit crystal emerged from the Well alongside me, which I collected. Does this herald a ninth arcana? If so, what impulse does it represent? This will need more study.");
+
+        addSimpleEntryHeader("void.umbral_arcana", "Umbral Arcana", "Utter impossibility");
+        addPages("void.umbral_arcana",
+            "I do not understand this arcana. What is it? It isn't any of the eight I know, and barely seems like one at all... yet a spirit crystal it remains. It can be contained in jars like the others, shares many of the same properties... But there is one deep and fundamental difference.",
+            "This crystal " + italic("does not exist.") + " That is not to say that it cannot be obtained, or touched, or even seen. There is no matter there. This... " + italic("Umbral") + " arcana is a void. Would that make it the opposite of both Arcane and Eldritch? Both lack direction of impulse, and both are power. Ergo, Umbral arcana is the absence of power, where impulse is irrelevant.",
+            "It is possible there are two types of this arcana, I suppose. One to pair with the null impulse of the Arcane, and one to pair with the complete impulse of the Eldritch. If those types exist, it is functionally impossible to distinguish them. They " + italic("must") + " act the same. Without power, the impulse is meaningless.",
+            "And yet, despite being a void, it is power. Or perhaps the lack of power creates a pressure differential? I am not certain. Either way, it can be used. Infused, in theory, even, although that is hard to wrap my head around. It acts like matter, but is not. It is power, and the absence of it.",
+            "My research into this arcana must continue. It has to. If anything holds the secrets of achieving the pinnacle of thaumaturgy, it is this paradoxical void. And I will grasp it with both hands.");
+
+        addEntryHeader("void.inverse_and_hybrid_arcana", "Inverse and Hybrid Arcana?", "Failed theories");
+        addHeadline("void.inverse_and_hybrid_arcana", "Theoretical Arcana");
+        addPages("void.inverse_and_hybrid_arcana",
+            "If Arcane and Eldritch had inverses, it stood to reason that there might be inverses for the other spirit crystals - an absolute absence of fire creating the inverse of Infernal, for example. Pulling the power of a spirit from a jar is one way to form a crystal, and in theory, recreating similar conditions could allow for a different type of crystal to form.",
+            "Through a combination of Soulwood rites and careful placement of crystals, I was able to create the theoretical environment for such a crystal for the six base Arcana... But nothing happened at all. It would be far more useful if I could determine how to create the same environment for Umbral, but as of yet I have not determined how to remove " + italic("all") + " arcana from an area.",
+            "Similarly, no amount of tuning an environment's contents with combinations of arcana was able to cause a crystal to form other than one of the base six. This implies that hybrid arcana don't exist, at least, not in the same way - that there are a finite number of states the arcana can be stable in. But the arcana can combine in other ways...");
+
+        addEntryHeader("void.material_study_arcana", "Material Study: the Arcana", "New depths to old wells");
+        addHeadline("void.material_study_arcana", "Study: Spirit Crystal");
+        addPages("void.material_study_arcana",
+            "I had not investigated deeper into the physical properties of the spirit crystals before now. This can be excused, as I was focused on their magical implications rather than their physical... but it isn't only the Umbral spirit that portrays strange properties. They all do.",
+            "First and foremost, the spirit crystals - assumedly also the Umbral spirit, though I only have one - are physically identical to others of their type to any degree I am able to discern. Not simply similar, but " + italic("precisely") + " the same, down to at least millionths of a block's scale. This raised the question, of course, of attempting to carve or break part of one.",
+            "Through testing - not quite " + italic("exhaustively,") + " as I have not tested Umbral - it appears that shape is the only one a crystal can exist in. Any removal or damage of even the smallest amount of the crystal is impossible, and the physical shape remains inviolable until enough force is applied to break it.",
+            "Even more interestingly, the spirit crystals, while physically not particularly strong, appear to be utterly chemically inert, and I tried a very extensive set of reactants. Do they even have matter, in the traditional sense? And if not, what does that mean for the Umbral crystal?",
+            "I am not sure of the precise implications of these physical properties, but given the strangeness of the Umbral crystal, there is clearly more to the more mundane aspect of the arcana than I knew.");
+
+        addSimpleEntryHeader("void.staves_as_foci", "Staves as Foci", "Imitating the arcana");
+        addPages("void.staves_as_foci",
+            "Consideration of the properties I observed in spirit crystals led me to wonder if the structure itself was important somehow. To test this, I constructed a Mnemnosyne replica - the condensed soul memory being the closest substance I could think of - of the Wicked Arcana, precise to a scale of hundreds of thousandths of a block.",
+            "I did not expect it to explode in my face.\n\nBut explosions are useful, if harnessed. So I did it again, but this time, I gave the false crystal a structure to operate off of - a housing of Soulwood and Soulstained Steel to direct it outwards. The resulting staff acts akin to a rite in miniature when I focus on it, though the resulting effects are different.",
+            "When used in melee, staves are... adequate. I would tend to prefer a scythe, but I suppose this works well enough. They tend to focus more on magic damage than on physical damage, which admittedly can be helpful at times. But what makes them special is what happens if I " + italic("use") + " it.",
+            "This Mnemonic Hex Staff is named for its simple effect of launching balls of liquefied Wicked energy, like a witch's hex. It takes a moment to activate, and cannot be quite used consecutively, but each deals potent damage to anything they hit.",
+            "I have not found success in creating any other false Arcana this way, though that might be a matter of material. Mnemnosyne may simply resonate with Wicked through the death required to create Brilliance.");
+
+        addSimpleEntryHeader("void.staves_as_foci.ring_of_the_endless_well", "Ring of the Endless Well", "Storing staff charges");
+        addPages("void.staves_as_foci.ring_of_the_endless_well",
+            "I have recreated the Arcane spirit in false form. A core of Mnemnosyne in Null Slate housing appears to neutralize the Wicked attunement of the Mnemnosyne, leaving raw arcana as the pattern it mimics. The false Arcane spirit appears to hold a charge, one very similar to the Wicked crystal in my staff.",
+            "I have fashioned a ring - the Endless Well - with these false crystals in housing. The ring appears to concentrate my focus, allowing me to avoid the time the staff takes to charge back up. The ring charges slower, as it is not a symbolic " + italic("focus") + " like my staff, but it can hold three attacks in reserve for faster use.");
+
+        addSimpleEntryHeader("void.malignant_pewter", "Malignant Pewter", "Progress cast false");
+        addPages("void.malignant_pewter",
+            "Now that I have identified the composition of Malignant Lead, it is easier to plan usages for it. As one might expect from Umbral's strangeness, alloying it creates a metal with fascinating properties. As Cthonic Gold was brought low to make the Lead, this Pewter seeks to do to others. It seeks to erode, to unmake, to unwind man's advances.",
+            "While this property has its mundane uses - damaging armor more when used as a weapon, along with shattering souls - it has esoteric ones as well. Malignant Pewter isn't magically inert, nor an absorber of magic. Instead, it's as if magic cannot " + italic("form") + " within or around it; symbolically laying the pursuit of knowledge low.",
+            "The metal itself is quite tough and takes a keen edge, but wearing an antimagic material would have its issues... and its uses. I have plans for a set of armor fashioned of it, which should prove quite potent, to harness these.");
+
+        addEntryHeader("void.malignant_stronghold_armor", "Malignant Stronghold Armor", "The defense of the inevitable");
+        addHeadline("void.malignant_stronghold_armor", "The Malignant Stronghold");
+        addPages("void.malignant_stronghold_armor",
+            "Malignant Pewter rejects magic, and as such, wearing it might seem an odd choice for a mage. And yet, it is " + italic("because") + " I am a mage that the Stronghold Armor I have made is so potent. It stands as an inverse to the Soulstained Steel armor beneath the Pewter plating - my soul is unwarded, but I am certainly not.",
+            "In unraveling magic, energy still remains. Malignant Pewter merely makes disorderly, and so the magic fills the nearest vessel - the Soulstained Steel beneath. By suffusing the metal, it becomes harder, more resilient, strengthening your defense even as it blunts your magical capabilities.");
+
+        addSimpleEntryHeader("void.weight_of_worlds", "The Weight of Worlds", "Existential burdens externalized");
+        addPages("void.weight_of_worlds",
+            "Harnessing the reality-corroding properties of Malignant Pewter is easy. What fits the revocation of progress better than a crude weapon? An axe, which I named the Weight of Worlds in a fit of pique. It is slow, it is clumsy, it is physical... and it is " + italic("powerful") + " beyond measure.",
+            "Rarely, the Weight seems to lend its approval to my slaughter, doubling the force I strike with, with no seeming source. I believe slaughter is the key because of the resonance I feel when I take a life with it - that resonance seems to expend itself when I swing next, guaranteeing that doubling of force.");
+
+        addSimpleEntryHeader("void.erosion_scepter", "Erosion Scepter", "May mages fear my might");
+        addPages("void.erosion_scepter",
+            "A new false arcana has been created, using Malignant Pewter as a focus. In its corrosive reversal, the metal serves entropy - and so Eldritch answers its call. Like other uses of the metal, the resulting crystal in its Void Salt suspension seeks to unwind what humanity has wrought.",
+            "The Erosion Scepter, made using this false crystal, is a staff which fires bolts of a crawling, corruptive substance - almost like Blight or the Void Salt used in its creation. Each charge fires two volleys, each of four bolts. These bolts chew away at the souls of their victims, which, delightfully, appears to inhibit the use of magic for a time.",
+            "Each bolt applies another layer of this effect, reducing the effective magical might and soul force of the target by a tenth. Naturally, this can stack up to a complete seal on the target, and every application reinforces and lengthens the durations of the others.",
+            "Striking a foe with the staff will inflict the same decay twice on the victim's soul, making it useful as more than just a weapon of desperation in close quarters. Not all magics require a stable soul, but the pain of the degradation of self should help distract them nonetheless.");
+
+        addSimpleEntryHeader("void.ring_of_growing_flesh", "Ring of Growing Flesh", "Creeping and crawling");
+        addPages("void.ring_of_growing_flesh",
+            "I have overclocked the Ring of Curative Talent, creating a ring that does not simply heal, but overheal, granting additional health instead of regeneration whenever I collect a spirit crystal.");
+
+        addEntryHeader("void.ring_of_gruesome_concentration", "Ring of Gruesome Concentration", "Consume and incorporate");
+        addHeadline("void.ring_of_gruesome_concentration", "Gruesome Concentration");
+        addPages("void.ring_of_gruesome_concentration",
+            "Why would Gluttony be restricted to the collection of spirits? By eating foul food, I can make myself hungrier, and so cultivate and concentrate what remains, increasing my magical might even as I starve.");
+
+        addSimpleEntryHeader("void.necklace_of_the_watcher", "Necklace of the Watcher", "It looks back");
+        addPages("void.necklace_of_the_watcher",
+            "Souls emit energy when damaged, not merely when shattered. This necklace allows me to harness that energy, causing effects that normally only occur when I collect a spirit to also happen when I strike an enemy at full health.");
+
+        addEntryHeader("void.necklace_of_the_hidden_blade", "Necklace of the Hidden Blade", "A knife at their backs");
+        addHeadline("void.necklace_of_the_hidden_blade", "The Hidden Blade");
+        addPages("void.necklace_of_the_hidden_blade",
+            "The Narrow Edge concentrates my scythe's edge, but the Hidden Blade goes further, inverting the edge and making it hunger. I lose the sweeping attack, yes, but as I am harmed, the blade drinks of my pain, intensifying my next strike.");
 
 
 
@@ -400,8 +539,7 @@ public class MalumLang extends LanguageProvider {
         addHeadline("eldritch_arcana", "Eldritch Spirit");
         addPages("eldritch_arcana",
             "Eldritch arcana is a mystery to me. It has no impulse, none that I can understand, at least. And yet, it doesn't act like raw arcana. It changes, emboldens, enlightens... Raw arcana merely amplifies. This... this alters.",
-            "I am not sure I understand what impulse creates this arcana. I find it in very few beings, and those I find it in are those who already defy explanation. But if it must be the pair to raw arcana, then that would imply that it's the impulse of endings, the " + italic("last") + " principle of all things.\n\n" +
-                "I do not like that thought.");
+            "I am not sure I understand what impulse creates this arcana. I find it in very few beings, and those I find it in are those who already defy explanation. But if it must be the pair to raw arcana, then that would imply that it's the impulse of endings, the " + italic("last") + " principle of all things.\n\nI do not like that thought.");
 
         addEntryHeader("spirit_stones", "Spirit Stones", "Arcana suffused");
         addHeadline("spirit_stones.tainted_rock", "Tainted Rock");
@@ -543,22 +681,25 @@ public class MalumLang extends LanguageProvider {
         addPages("belt_of_the_starved",
             "The arcana I collect occasionally have scraps of wishes and desires woven in. Often, given the base nature of what I reap, this comes in the form of hunger, lust, or petty grudges. All of these impurities can be harnessed, and beyond that, I can infuse this power into my magic.",
             "Doing this carries the perhaps predictable effect that my own hunger amplifies, draining quicker in the process. The magic proficiency this grants is immense, but... I must say, the means are rather distasteful.");
-        addHeadline("belt_of_the_starved.ring_of_desperate_voracity", "Ring of Desperate Voracity");
+        addSimpleEntryHeader("belt_of_the_starved.ring_of_desperate_voracity", "Ring of Desperate Voracity", "Widening the channel");
         addPages("belt_of_the_starved.ring_of_desperate_voracity",
-            "This ring makes rotten foods just a little bit more bearable, allowing me to amass more hunger and saturation from such an unusual diet. Normally, such a diet would be ill-advised, however, a secondary function of the ring allows it to extend the duration of the gluttony status effect that the belt of the starved grants.");
+            "This ring makes rotten foods just a little bit more bearable, allowing me to amass more hunger and saturation from such an unusual diet. Normally, such a diet would be ill-advised, however, a secondary function of the ring allows it to extend the duration of the Gluttony status effect that the Belt of the Starved grants.");
 
         addSimpleEntryHeader("belt_of_the_prospector", "Belt of the Prospector", "Treasures of the earth");
         addPages("belt_of_the_prospector",
             "To fuel my various magics and other goals I more often than not find myself needing various earthen treasures. This belt prevents explosions " + italic("directly") + " caused by me from harming valuable items on the ground, and causes those explosions to break blocks as though I were using a Fortune III tool.");
-        addHeadline("belt_of_the_prospector.ring_of_the_hoarder", "Ring of The Hoarder");
+        addSimpleEntryHeader("belt_of_the_prospector.ring_of_the_hoarder", "Ring of the Hoarder", "Directly into my veins");
         addPages("belt_of_the_prospector.ring_of_the_hoarder",
-            "While wearing this ring, any item created from the destruction caused by your explosions is directly teleported to your location.");
+            "Explosions are chaotic, and messy, inherently. This is hardly a problem, when I want to cause such rampant destruction to collect resources, but collecting the items is a burden. This ring entangles the explosion with my soul, causing the debris and loot to appear at my location.");
+        addSimpleEntryHeader("belt_of_the_prospector.ring_of_the_demolitionist", "Ring of the Demolitionist", bold("More dakka"));
+        addPages("belt_of_the_prospector.ring_of_the_demolitionist",
+            "If raw explosive power is not sufficient, you simply aren't using enough of it. This ring amplifies explosions, mitigating that issue.");
 
         addEntryHeader("necklace_of_blissful_harmony", "Necklace of Blissful Harmony", "No sign of morning coming");
         addHeadline("necklace_of_blissful_harmony", "The Blissful Harmony");
         addPages("necklace_of_blissful_harmony",
             "To focus on my magics I more often than not need peace and clarity. As such, I have devised a tool to redirect attention around me. While worn, this accessory will hide my presence from nearby adversaries, decreasing their likelihood of taking interest in me.",
-            "Upon further studies, it would appear that the effects of my newly forged trinket are " + italic("especially") + " potent when exerting their influence over any soul bearing wicked spirit.");
+            "Upon further studies, it would appear that the effects of my newly forged trinket are " + italic("especially") + " potent when exerting their influence over any soul bearing a Wicked spirit.");
 
         addEntryHeader("necklace_of_the_mystic_mirror", "Necklace of the Mystic Mirror", "As without, so within");
         addHeadline("necklace_of_the_mystic_mirror", "The Mystic Mirror");
@@ -597,38 +738,91 @@ public class MalumLang extends LanguageProvider {
         addPages("gluttonous_brooch",
             "Some sacrifices are mental, rather than physical. The Gluttonous Brooch strips away satiation, causing my body to crave food even when it should be full. In exchange for this, my loosened belly has the space to accommodate an additional belt.");
 
-        addEntryHeader("rune_of_idle_restoration", "Rune of Idle Restoration", "The impulse to mend");
-        addHeadline("rune_of_idle_restoration", "Rune of Idle Restoration");
+        addSimpleEntryHeader("rune_of_idle_restoration", "Rune of Idle Restoration", "The impulse to mend");
         addPages("rune_of_idle_restoration",
             "The Rune of Idle Restoration implores a body to restore itself, passively restoring the user's health at a rate of one half heart every two seconds.");
-        addEntryHeader("rune_of_culling", "Rune of Culling", "The impulse to break");
-        addHeadline("rune_of_culling", "Rune of Culling");
+        addSimpleEntryHeader("rune_of_culling", "Rune of Culling", "The impulse to break");
         addPages("rune_of_culling",
             "The Rune of Culling implores a mind to seek ruin, granting the user a bonus to Magic Proficiency which improves magic damage output by roughly two fifths.");
-        addEntryHeader("rune_of_aliment_cleansing", "Rune of Aliment Cleansing", "The impulse to process");
-        addHeadline("rune_of_aliment_cleansing", "Rune of Aliment Cleansing");
+        addSimpleEntryHeader("rune_of_aliment_cleansing", "Rune of Aliment Cleansing", "The impulse to process");
         addPages("rune_of_aliment_cleansing",
             "The Rune of Aliment Cleansing implores a body to catalyze and change substance, allowing it to burn through and process negative effects quicker than normal.");
-        addEntryHeader("rune_of_fervor", "Rune of Fervor", "The impulse to expend");
-        addHeadline("rune_of_fervor", "Rune of Fervor");
+        addSimpleEntryHeader("rune_of_fervor", "Rune of Fervor", "The impulse to expend");
         addPages("rune_of_fervor",
             "The Rune of Fervor implores a mind to move with haste, improving the user's mining speed by roughly a quarter.");
-        addEntryHeader("rune_of_reactive_shielding", "Rune of Reactive Shielding", "The impulse to withstand");
-        addHeadline("rune_of_reactive_shielding", "Rune of Reactive Shielding");
+        addSimpleEntryHeader("rune_of_reactive_shielding", "Rune of Reactive Shielding", "The impulse to withstand");
         addPages("rune_of_reactive_shielding",
             "The Rune of Reactive Shielding implores a body to stand fast, granting an increase to effective Armor and Armor Toughness by one tenth upon taking damage. The strength of this effect scales as the user receives more damage, reaching an increase of three tenths at full power.");
-        addEntryHeader("rune_of_dexterity", "Rune of Dexterity", "The impulse to flee");
-        addHeadline("rune_of_dexterity", "Rune of Dexterity");
+        addSimpleEntryHeader("rune_of_dexterity", "Rune of Dexterity", "The impulse to flee");
         addPages("rune_of_dexterity",
-            "The Rune of Haste implores a mind to move when cornered, boosting movement speed which can up to double as the user's health pool diminishes.");
-        addEntryHeader("rune_of_reinforcement", "Rune of Reinforcement", "The impulse to make");
-        addHeadline("rune_of_reinforcement", "Rune of Reinforcement");
+            "The Rune of Dexterity implores a mind to move when cornered, boosting movement speed which can up to double as the user's health pool diminishes.");
+        addSimpleEntryHeader("rune_of_reinforcement", "Rune of Reinforcement", "The impulse to make");
         addPages("rune_of_reinforcement",
             "The Rune of Reinforcement, rather than imploring the body, simply provides pressure to the Arcane quality of its existence, granting their Soul Ward capacity and strength.");
-        addEntryHeader("rune_of_volatile_distortion", "Rune of Volatile Distortion", "The impulse to putrefy");
-        addHeadline("rune_of_volatile_distortion", "Rune of Volatile Distortion");
+        addSimpleEntryHeader("rune_of_volatile_distortion", "Rune of Volatile Distortion", "The impulse to putrefy");
         addPages("rune_of_volatile_distortion",
             "The Rune of Volatile Distortion, rather than imploring the mind, corrupts its actions with random chance, making the user's attacks erratic in damage - anywhere from nine tenths as powerful to twelve tenths. Sometimes, this randomness aligns with weaknesses by chance, doubling the strength of the attack.");
+
+        addSimpleEntryHeader("void.runes", "Voidish Runecraft", "An altered alphabet");
+        addPages("void.runes",
+            "By inscribing the runes on tablets of Null Slate, their effects run wild and warped, seeking Void instead of creation. Each seeks to tear itself apart, creating paradoxical and fascinating effects.",
+            "The effects of the runes vary drastically from their original counterparts; I have my notes on their functions in the attached entries.");
+
+        addSimpleEntryHeader("void.rune_of_bolstering", "Rune of Bolstering", "To heal what is whole");
+        addPages("void.rune_of_bolstering",
+            "The Rune of Bolstering does not heal like its counterpart. Instead, it forces the body to heal past its limits, granting a small amount of extra health.");
+        addEntryHeader("void.rune_of_sacrificial_empowerment", "Rune of Sacrificial Empowerment", "To break what is broken");
+        addHeadline("void.rune_of_sacrificial_empowerment", "Sacrificial Empowerment");
+        addPages("void.rune_of_sacrificial_empowerment",
+            "The Rune of Sacrificial Empowerment grants strength in exchange for the lives taken by a scythe, causing your weapon to grow more potent with each kill for a time.");
+        addSimpleEntryHeader("void.rune_of_twinned_duration", "Rune of Twinned Duration", "To suspend what must process");
+        addPages("void.rune_of_twinned_duration",
+            "The Rune of Twinned Duration inhibits the body in breaking down substances, causing the body to hold on to positive effects for longer.");
+        addSimpleEntryHeader("void.rune_of_igneous_solace", "Rune of Igneous Solace", "To fuel what must burn");
+        addPages("void.rune_of_igneous_solace",
+            "The Rune of Igneous Solace toughens the user's skin when burning, giving them a partial resistance to damage. It does not, however, do anything about the flames.");
+        addSimpleEntryHeader("void.rune_of_toughness", "Rune of Toughness", "To bear what must break");
+        addPages("void.rune_of_toughness",
+            "The Rune of Toughness reinforces the user's armor, making any armor they already wear more effective and tough.");
+        addSimpleEntryHeader("void.rune_of_unnatural_stamina", "Rune of Unnatural Stamina", "To flee what must pursue");
+        addPages("void.rune_of_unnatural_stamina",
+            "The Rune of Unnatural Stamina gives its user the speed of hysteria, constantly able to move faster, and even being able to sprint if your hunger would normally prevent you from doing so.");
+        addSimpleEntryHeader("void.rune_of_spell_mastery", "Rune of Spell Mastery", "To make what destroys");
+        addPages("void.rune_of_spell_mastery",
+            "The Rune of Spell Mastery mirrors the false arcana, allowing me to hold two more staff charges in addition to improving the potency of my magic.");
+        addSimpleEntryHeader("void.rune_of_the_heretic", "Rune of the Heretic", "To destroy what makes");
+        addPages("void.rune_of_the_heretic",
+            "The Rune of the Heretic decries magic, Silencing foes much like the Erosion Scepter can. This weakens their spirit magic, and the effect can stack up to complete suppression.");
+
+        addSimpleEntryHeader("totemic_runes", "Totemic Runes", "Ritual as runecraft");
+        addPages("totemic_runes",
+            "Trinkets are not the only things that can be inscribed into Runes. I have managed to create runic tablets of Runewood and Soulwood, on which I can inscribe the patterns of what I refer to as \"aura rites\". The ritual's effect is more potent, but the rune doesn't need to stay in one place.",
+            "These tablets are inscribed much the same as any other rune, though only the basic rites of the four elements are functional. These entries go into further detail on each.");
+
+        addSimpleEntryHeader("rune_of_motion", "Rune of Motion", "Uplifting your impulses");
+        addPages("rune_of_motion",
+            "The Rune of Motion conveys the Rite of Motion, granting Zephyr's Courage to its wearer at a reduced potency, speeding them up.");
+        addSimpleEntryHeader("rune_of_loyalty", "Rune of Loyalty", "Molding your impulses");
+        addPages("rune_of_loyalty",
+            "The Rune of Loyalty conveys the Rite of Loyalty, granting Poseidon's Grasp to its wearer at a reduced potency, extending their reach.");
+        addSimpleEntryHeader("rune_of_warding", "Rune of Warding", "Grounding your impulses");
+        addPages("rune_of_warding",
+            "The Rune of Warding conveys the Rite of Warding, granting Gaia's Bulwark to its wearer at a reduced potency, effectively granting armor.");
+        addSimpleEntryHeader("rune_of_haste", "Rune of Haste", "Igniting your impulses");
+        addPages("rune_of_haste",
+            "The Rune of Haste conveys the Rite of Haste, granting Miner's Rage to its wearer at a reduced potency, speeding up their swings of weapons and tools.");
+        addSimpleEntryHeader("rune_of_the_aether", "Rune of the Aether", "Scattering your impulses");
+        addPages("rune_of_the_aether",
+            "The Rune of the Aether conveys the Rite of the Aether, granting Aether's Charm to its wearer at a reduced potency, lowering the influence of gravity on them.");
+        addSimpleEntryHeader("rune_of_the_seas", "Rune of the Seas", "Deforming your impulses");
+        addPages("rune_of_the_seas",
+            "The Rune of the Seas conveys the Rite of the Seas, granting Angler's Lure to its wearer at a reduced potency, increasing their skill with fishing.");
+        addSimpleEntryHeader("rune_of_the_arena", "Rune of the Arena", "Honing your impulses");
+        addPages("rune_of_the_arena",
+            "The Rune of the Arena conveys the Rite of the Arena, granting Earthen Might to its wearer at a reduced potency, causing their attacks to do more damage.");
+        addSimpleEntryHeader("rune_of_the_hells", "Rune of the Hells", "Extinguishing your impulses");
+        addPages("rune_of_the_hells",
+            "The Rune of the Hells conveys the Rite of the Hells, granting Ifrit's Courage to its wearer at a reduced potency when they are on fire, extinguishing and healing them.");
 
         addSimpleEntryHeader("mirror_magic", "Mirror magic", "Magic Funnels");
         addPages("mirror_magic", "The future holds many secrets..");
@@ -708,7 +902,7 @@ public class MalumLang extends LanguageProvider {
 
         addEntryHeader("aerial_rite", "Aerial Rites", "Uplifting the soul");
         addRiteEntry("aerial_rite", "A simple aura rite, while active nearby friendly beings will find their movements sped up.",
-            "Applies the Zephyr's Courage effect, increasing movement speed by two fifths.");
+            "Applies Zephyr's Courage, increasing movement speed by two fifths.");
         addRiteEntry("greater_aerial_rite",
             "An advanced rite, by twisting the power of the air, blocks before the totem will be made to fall as though they were sand. Nothing Silk Touch cannot grab will be affected, though.",
             "Causes targeted blocks to fall downwards if there is nothing underneath them.");
@@ -716,7 +910,7 @@ public class MalumLang extends LanguageProvider {
         addEntryHeader("corrupt_aerial_rite", "Corrupting the Aerial Rites", "Scattering the soul");
         addRiteEntry("corrupt_aerial_rite",
             "A simple aura rite, while active nearby friendly beings will have their connection to the earth disrupted, lowering their gravity and increasing jump height.",
-            "Applies the Aether's Charm effect, decreasing gravity by three fifths while also providing a substantial benefit to jump height.");
+            "Applies Aether's Charm, decreasing gravity by three fifths while also providing a substantial benefit to jump height.");
         addRiteEntry("corrupt_greater_aerial_rite",
             "An advanced rite, while active it will slowly ease the stress of time on the mind, offsetting the effects of insomnia for those around it over time.",
             "Passively reduces the insomnia value of nearby players.\n - Assuming phantoms are just starting to appear, it will take a single totem executing the rite two and two fifths of a minute to fully cleanse insomnia.\n - Naturally, the totem will take longer to fully cleanse insomnia if the player has already been suffering from it for some time.");
@@ -724,7 +918,7 @@ public class MalumLang extends LanguageProvider {
         addEntryHeader("earthen_rite", "Earthen Rites", "Grounding the soul");
         addRiteEntry("earthen_rite",
             "A simple aura rite, while active nearby friendly beings will find their bodies are tougher and more resistant to damage.",
-            "Applies the Gaian Bulwark effect, increasing armor by four and armor toughness by two.");
+            "Applies Gaia's Bulwark, increasing armor by four and armor toughness by two.");
         addRiteEntry("greater_earthen_rite",
             "An advanced rite, while active it will cause blocks before the totem base to be broken.",
             "Breaks targeted blocks. Unbreakable blocks behave as to be expected.");
@@ -732,7 +926,7 @@ public class MalumLang extends LanguageProvider {
         addEntryHeader("corrupt_earthen_rite", "Corrupting the Earthen Rites", "Honing the soul");
         addRiteEntry("corrupt_earthen_rite",
             "A simple aura rite, while active nearby friendly beings will find their attacks deal more damage.",
-            "Applies the Earthen Might effect, increasing damage dealt by two hearts.");
+            "Applies Earthen Might, increasing damage dealt by two hearts.");
         addRiteEntry("corrupt_greater_earthen_rite",
             "An advanced rite, while active the earth coalesces, and like lava meeting water, cobblestone is created before the totem base.",
             "Creates cobblestone in place of empty space.");
@@ -740,15 +934,15 @@ public class MalumLang extends LanguageProvider {
         addEntryHeader("infernal_rite", "Infernal Rites", "Igniting the soul");
         addRiteEntry("infernal_rite",
             "A simple aura rite, while active nearby friendly beings will find that their motions are infused with fiery vigor, letting them swing weapons and tools faster.",
-            "Applies the Miner's Rage effect, increasing attack rate and dig speed by two fifths.");
+            "Applies Miner's Rage, increasing attack rate and dig speed by two fifths.");
         addRiteEntry("greater_infernal_rite",
             "An advanced rite, while active it will cause blocks before the totem base to be smelted.",
             "Smelts targeted blocks that can be smelted into other blocks.");
 
         addEntryHeader("corrupt_infernal_rite", "Corrupting the Infernal Rites", "Extinguishing the soul");
         addRiteEntry("corrupt_infernal_rite",
-            "A simple aura rite, while active nearby friendly beings and close fires will have the heat sucked out of them, extinguishing them and healing those who were burned.",
-            "Extinguishes nearby flames, be it affecting the world or an entity.\n - Extinguished entities receive the Ifrit's Embrace effect, recovering two hearts a second.");
+            "A simple aura rite, while active nearby friendly beings and close fires will have the heat sucked out of them, extinguishing them and healing those who were burned, giving them the survivability of denizens of the nether.",
+            "Extinguishes nearby flames, be it affecting the world or an entity.\n - Extinguished entities receive Ifrit's Embrace, recovering two hearts while being extinguished.");
         addRiteEntry("corrupt_greater_infernal_rite",
             "An advanced rite, instead of generating heat, this rite compresses it, causing nearby furnaces to operate more quickly.",
             "Speeds up nearby furnaces by one fourth.\n - Fuel consumption rate is unaffected, meaning the rite also improves fuel efficiency.");
@@ -756,7 +950,7 @@ public class MalumLang extends LanguageProvider {
         addEntryHeader("aqueous_rite", "Aqueous Rites", "Molding the soul");
         addRiteEntry("aqueous_rite",
             "A simple aura rite, while active nearby friendly beings will find that their reach is extended, letting them more easily interact with the world.",
-            "Applies the Poseidon's Grasp effect, increasing block reach by two units of space and increasing item pickup range significantly.");
+            "Applies Poseidon's Grasp, increasing block reach by two units of space and increasing item pickup range significantly.");
         addRiteEntry("greater_aqueous_rite",
             "An advanced rite, while active, it will vastly increasing the drip speed of dripstone, causing more fluid to be produced.",
             "Speeds up dripstone fluid production, works on both lava and water.\n - Only the tip of hanging dripstone needs to be within range for the effect to trigger.");
@@ -764,7 +958,7 @@ public class MalumLang extends LanguageProvider {
         addEntryHeader("corrupt_aqueous_rite", "Corrupting the Aqueous Rites", "Deforming the soul");
         addRiteEntry("corrupt_aqueous_rite",
             "A simple aura rite, while active nearby friendly beings will find themselves better at fishing.",
-            "Applies the Angler's Lure effect, providing benefits to fishing skills equal to Lure I and Luck of the Sea I.\n - The effects stack with any enchantment already present on a fishing rod.");
+            "Applies Angler's Lure, providing benefits to fishing skills equal to Lure I and Luck of the Sea I.\n - The effects stack with any enchantment already present on a fishing rod.");
         addRiteEntry("corrupt_greater_aqueous_rite",
             "An advanced rite, while active zombies near this rite will find themselves choking on their own breath, drowning even on land.",
             "Converts nearby zombies to drowned.");
@@ -772,8 +966,8 @@ public class MalumLang extends LanguageProvider {
         addEntryHeader("blight", "A Study on Blight", "What, why, and how");
         addHeadline("blight.intro", "Blight Study: Preface");
         addPages("blight.intro",
-            "Blight. " + italic("Something which spoils or damages.") + " What the Undirected Rite has created has many strange properties, and I intend to categorize them.\n" +
-                "The naïve explanation is that it is simply another form of power that taints the world, but that isn't right. Blight isn't harmful, not inof itself. It's just... " + italic("gunk."));
+            "Blight. " + italic("Something which spoils or damages.") + " What the Undirected Rite has created has many strange properties, and I intend to categorize them.",
+            "The naïve explanation is that it is simply another form of power that taints the world, but that isn't right. Blight isn't harmful, not inof itself. It's just... " + italic("gunk."));
         addHeadline("blight.composition", "Blight Study: Substance");
         addPages("blight.composition",
             "The Undirected Rite, as the name suggests, is random. It transmutes, but it has no pattern to transmute things to. So, instead, you get something random, bits of disparate matter all jumbled together into a foul-smelling powder. I wouldn't recommend eating it, or growing things on it, but it's otherwise harmless.");
@@ -834,6 +1028,7 @@ public class MalumLang extends LanguageProvider {
         add("malum.spirit.flavour.aqueous", "Malleable");
         add("malum.spirit.flavour.infernal", "Radiant");
         add("malum.spirit.flavour.earthen", "Steady");
+        add("malum.spirit.flavour.umbral", "Antithesis");
 
         add("malum.jei.spirit_infusion", "Spirit Infusion");
         add("malum.jei.spirit_focusing", "Spirit Focusing");
@@ -858,7 +1053,7 @@ public class MalumLang extends LanguageProvider {
         add("death.attack." + DamageTypeRegistry.SCYTHE_SWEEP_IDENTIFIER, "%s was sliced in half");
         add("death.attack." + DamageTypeRegistry.SCYTHE_SWEEP_IDENTIFIER + ".player", "%s was sliced in half by %s");
 
-        addEffectDescription(MobEffectRegistry.GAIAN_BULWARK, "You are protected by an earthen bulwark, increasing your armor.");
+        addEffectDescription(MobEffectRegistry.GAIAS_BULWARK, "You are protected by an earthen bulwark, increasing your armor.");
         addEffectDescription(MobEffectRegistry.EARTHEN_MIGHT, "Your fists and tools are reinforced with earth, increasing your overall damage.");
         addEffectDescription(MobEffectRegistry.MINERS_RAGE, "Your tools are bolstered with radiance, increasing your mining and attack speed.");
         addEffectDescription(MobEffectRegistry.IFRITS_EMBRACE, "The warm embrace of fire coats your soul, mending your seared scars.");

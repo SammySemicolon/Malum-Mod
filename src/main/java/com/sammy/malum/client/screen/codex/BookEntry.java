@@ -1,24 +1,30 @@
 package com.sammy.malum.client.screen.codex;
 
-import com.google.common.collect.*;
-import com.sammy.malum.client.screen.codex.pages.*;
-import com.sammy.malum.client.screen.codex.screens.*;
+import com.google.common.collect.ImmutableList;
+import com.sammy.malum.client.screen.codex.pages.BookPage;
+import com.sammy.malum.client.screen.codex.pages.EntryReference;
+import com.sammy.malum.client.screen.codex.screens.EntryScreen;
+import com.sammy.malum.common.capability.MalumPlayerDataCapability;
+import net.minecraft.client.Minecraft;
 
-import java.util.function.*;
+import java.util.function.Predicate;
 
 public class BookEntry {
+
+    protected static final Predicate<EntryScreen> AFTER_UMBRAL_CRYSTAL = t -> Minecraft.getInstance().player != null && MalumPlayerDataCapability.getCapability(Minecraft.getInstance().player).hasBeenRejected;
 
     public final String identifier;
     public final boolean isVoid;
     public final ImmutableList<BookPage> pages;
     public final ImmutableList<EntryReference> references;
-    public Predicate<EntryScreen> isValid = t -> true;
+    public final Predicate<EntryScreen> validityChecker;
 
-    public BookEntry(String identifier, boolean isVoid, ImmutableList<BookPage> pages, ImmutableList<EntryReference> references) {
+    public BookEntry(String identifier, boolean isVoid, ImmutableList<BookPage> pages, ImmutableList<EntryReference> references, Predicate<EntryScreen> validityChecker) {
         this.identifier = identifier;
         this.isVoid = isVoid;
         this.pages = pages;
         this.references = references;
+        this.validityChecker = validityChecker;
     }
 
     public String translationKey() {
@@ -30,7 +36,7 @@ public class BookEntry {
     }
 
     public boolean isValid(EntryScreen screen) {
-        return isValid.test(screen);
+        return validityChecker.test(screen);
     }
 
     public static PlacedBookEntryBuilder build(String identifier, int xOffset, int yOffset) {

@@ -18,8 +18,8 @@ import java.util.function.Consumer;
 
 import static com.sammy.malum.registry.common.item.ItemTagRegistry.GROSS_FOODS;
 
-public class CurioGruesomeSatiationRing extends MalumCurioItem implements IVoidItem {
-    public CurioGruesomeSatiationRing(Properties builder) {
+public class CurioGruesomeConcentrationRing extends MalumCurioItem implements IVoidItem {
+    public CurioGruesomeConcentrationRing(Properties builder) {
         super(builder, MalumTrinketType.VOID);
     }
 
@@ -31,7 +31,7 @@ public class CurioGruesomeSatiationRing extends MalumCurioItem implements IVoidI
     public static void finishEating(LivingEntityUseItemEvent.Finish event) {
         if (event.getEntity() instanceof Player player) {
             ItemStack stack = event.getResultStack();
-            if (CurioHelper.hasCurioEquipped(player, ItemRegistry.RING_OF_GRUESOME_SATIATION.get())) {
+            if (CurioHelper.hasCurioEquipped(player, ItemRegistry.RING_OF_GRUESOME_CONCENTRATION.get())) {
                 if (stack.is(GROSS_FOODS)) {
                     double arcaneResonance = player.getAttribute(AttributeRegistry.ARCANE_RESONANCE.get()).getValue();
                     MobEffect gluttony = MobEffectRegistry.GLUTTONY.get();

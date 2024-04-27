@@ -2,6 +2,7 @@ package com.sammy.malum.client.screen.codex.entries;
 
 import com.sammy.malum.client.screen.codex.*;
 import com.sammy.malum.client.screen.codex.objects.progression.*;
+import com.sammy.malum.client.screen.codex.pages.*;
 import com.sammy.malum.client.screen.codex.pages.recipe.*;
 import com.sammy.malum.client.screen.codex.pages.recipe.vanilla.*;
 import com.sammy.malum.client.screen.codex.pages.text.*;
@@ -18,6 +19,12 @@ public class IntroductionEntries {
 
     public static void setupEntries(ArcanaProgressionScreen screen) {
         Item EMPTY = ItemStack.EMPTY.getItem();
+
+        var soulstoneAndBrillianceReexamination = BookEntry.build("spirit_minerals.reexamination")
+                .addPage(new HeadlineTextPage("spirit_minerals.reexamination", "spirit_minerals.reexamination.1"))
+                .addPage(new TextPage("spirit_minerals.reexamination.2"))
+                .afterUmbralCrystal()
+                .build();
 
         screen.addEntry("introduction", 0, 0, b -> b
                 .setWidgetConfig(w -> w.setIcon(ENCYCLOPEDIA_ARCANA).setStyle(BookWidgetStyle.GILDED_RUNEWOOD))
@@ -66,6 +73,7 @@ public class IntroductionEntries {
                 .addPage(new TextPage("brilliance.2"))
                 .addPage(CraftingPage.fullPage(BLOCK_OF_BRILLIANCE.get(), CLUSTER_OF_BRILLIANCE.get()))
                 .addPage(new SmeltingPage(new ItemStack(CLUSTER_OF_BRILLIANCE.get()), new ItemStack(CHUNK_OF_BRILLIANCE.get(), 2)))
+                .addReference(new EntryReference(UMBRAL_SPIRIT, soulstoneAndBrillianceReexamination))
         );
 
         screen.addEntry("cthonic_gold", -4, 2, b -> b
@@ -74,6 +82,11 @@ public class IntroductionEntries {
                 .addPage(new TextPage("cthonic_gold.2"))
                 .addPage(new TextPage("cthonic_gold.3"))
                 .addPage(new TextPage("cthonic_gold.4"))
+                .addReference(new EntryReference(UMBRAL_SPIRIT, BookEntry.build("cthonic_gold.reexamination")
+                        .addPage(new HeadlineTextPage("cthonic_gold.reexamination", "cthonic_gold.reexamination.1"))
+                        .addPage(new TextPage("cthonic_gold.reexamination.2"))
+                        .afterUmbralCrystal()
+                ))
         );
 
         screen.addEntry("soulstone", -1, 2, b -> b
@@ -83,6 +96,7 @@ public class IntroductionEntries {
                 .addPage(new SmeltingPage(new ItemStack(RAW_SOULSTONE.get()), new ItemStack(PROCESSED_SOULSTONE.get(), 2)))
                 .addPage(CraftingPage.fullPage(BLOCK_OF_SOULSTONE.get(), PROCESSED_SOULSTONE.get()))
                 .addPage(CraftingPage.fullPage(BLOCK_OF_RAW_SOULSTONE.get(), RAW_SOULSTONE.get()))
+                .addReference(new EntryReference(UMBRAL_SPIRIT, soulstoneAndBrillianceReexamination))
         );
 
         screen.addEntry("scythes", 0, 3, b -> b
