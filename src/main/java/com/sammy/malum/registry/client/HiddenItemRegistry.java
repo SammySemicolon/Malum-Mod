@@ -27,6 +27,9 @@ public class HiddenItemRegistry {
 		// Convert to tag later?
 
 		List.of(
+			// Encyclopedia
+			ItemRegistry.ENCYCLOPEDIA_ESOTERICA,
+
 			// Base materials
 			ItemRegistry.BLOCK_OF_NULL_SLATE, ItemRegistry.NULL_SLATE,
 			ItemRegistry.BLOCK_OF_VOID_SALTS, ItemRegistry.VOID_SALTS,
@@ -52,6 +55,7 @@ public class HiddenItemRegistry {
 			ItemRegistry.WEIGHT_OF_WORLDS, ItemRegistry.EROSION_SCEPTER,
 
 			// Runes
+			ItemRegistry.VOID_TABLET,
 			ItemRegistry.RUNE_OF_BOLSTERING, ItemRegistry.RUNE_OF_SACRIFICIAL_EMPOWERMENT,
 			ItemRegistry.RUNE_OF_SPELL_MASTERY, ItemRegistry.RUNE_OF_THE_HERETIC,
 			ItemRegistry.RUNE_OF_UNNATURAL_STAMINA, ItemRegistry.RUNE_OF_TWINNED_DURATION,
