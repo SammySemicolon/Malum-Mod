@@ -52,6 +52,8 @@ public class HiddenRecipeSet<T> {
 			if (nowShown.containsAll(entry.requireAllToShow)) {
 				toUnhide.add(entry.recipe);
 				hiddenRecipes.remove(entry);
+			} else {
+				entry.requireAllToShow.removeAll(nowShown);
 			}
 		}
 
