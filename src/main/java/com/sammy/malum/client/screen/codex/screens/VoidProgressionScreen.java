@@ -1,6 +1,7 @@
 package com.sammy.malum.client.screen.codex.screens;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.sammy.malum.client.VoidRevelationHandler;
 import com.sammy.malum.client.screen.codex.BookEntry;
 import com.sammy.malum.client.screen.codex.BookWidgetStyle;
 import com.sammy.malum.client.screen.codex.PlacedBookEntry;
@@ -77,6 +78,7 @@ public class VoidProgressionScreen extends AbstractProgressionCodexScreen {
         screen.timesTransitioned++;
         screen.transitionTimer = screen.getTransitionDuration();
         EncyclopediaEsotericaItem.shouldOpenVoidCodex = true;
+        VoidRevelationHandler.seeTheRevelation();
     }
 
     public void setupEntries() {

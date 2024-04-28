@@ -41,6 +41,7 @@ import com.sammy.malum.common.item.spirit.*;
 import com.sammy.malum.compability.farmersdelight.*;
 import com.sammy.malum.core.systems.ritual.*;
 import com.sammy.malum.core.systems.spirit.*;
+import com.sammy.malum.registry.client.HiddenItemRegistry;
 import com.sammy.malum.registry.common.*;
 import com.sammy.malum.registry.common.block.*;
 import com.sammy.malum.registry.common.entity.*;
@@ -749,9 +750,11 @@ public class ItemRegistry {
     public static class ClientOnly {
 
         @SubscribeEvent
-        public static void registerCurioRenderers(FMLClientSetupEvent event) {
+        public static void registerExtras(FMLClientSetupEvent event) {
             CuriosRendererRegistry.register(ItemRegistry.TOKEN_OF_GRATITUDE.get(), TokenOfGratitudeRenderer::new);
             CuriosRendererRegistry.register(ItemRegistry.TOPHAT.get(), TopHatCurioRenderer::new);
+
+            HiddenItemRegistry.registerHiddenItems();
         }
 
         @SubscribeEvent(priority = EventPriority.LOWEST)
