@@ -15,7 +15,6 @@ import com.sammy.malum.registry.common.SpiritRiteRegistry;
 import com.sammy.malum.registry.common.item.ItemRegistry;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
-import mezz.jei.api.constants.RecipeTypes;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.helpers.IGuiHelper;
@@ -131,10 +130,6 @@ public class JEIHandler implements IModPlugin {
         IRecipeManager recipeRegistry = jeiRuntime.getRecipeManager();
         IIngredientManager ingredientManager = jeiRuntime.getIngredientManager();
         IFocusFactory focusFactory = jeiRuntime.getJeiHelpers().getFocusFactory();
-        recipeRegistry.hideRecipes(RecipeTypes.CRAFTING, recipeRegistry
-                .createRecipeLookup(RecipeTypes.CRAFTING)
-                .limitFocus(List.of(focusFactory.createFocus(RecipeIngredientRole.OUTPUT, VanillaTypes.ITEM_STACK, new ItemStack(ItemRegistry.THE_DEVICE.get()))))
-                .get().toList());
 
         callbacks.add(HiddenItemHandler.registerHiddenItemListener(() -> {
             var output = HiddenItemHandler.computeHiddenItems(lastHiddenItems);
