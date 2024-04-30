@@ -6,8 +6,8 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.Level;
 
 public class TheVessel extends TheDevice {
-    public TheVessel(Properties p_49795_) {
-        super(p_49795_);
+    public TheVessel(Properties properties) {
+        super(properties);
     }
 
     public void playSound(Level level, BlockPos pos) {

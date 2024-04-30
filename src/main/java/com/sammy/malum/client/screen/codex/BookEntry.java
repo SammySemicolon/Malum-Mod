@@ -4,14 +4,13 @@ import com.google.common.collect.ImmutableList;
 import com.sammy.malum.client.screen.codex.pages.BookPage;
 import com.sammy.malum.client.screen.codex.pages.EntryReference;
 import com.sammy.malum.client.screen.codex.screens.EntryScreen;
-import com.sammy.malum.common.capability.MalumPlayerDataCapability;
-import net.minecraft.client.Minecraft;
+import com.sammy.malum.registry.client.HiddenItemRegistry;
 
 import java.util.function.Predicate;
 
 public class BookEntry {
 
-    protected static final Predicate<EntryScreen> AFTER_UMBRAL_CRYSTAL = t -> Minecraft.getInstance().player != null && MalumPlayerDataCapability.getCapability(Minecraft.getInstance().player).hasBeenRejected;
+    protected static final Predicate<EntryScreen> AFTER_UMBRAL_CRYSTAL = t -> HiddenItemRegistry.hasBlackCrystal();
 
     public final String identifier;
     public final boolean isVoid;

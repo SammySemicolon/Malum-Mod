@@ -11,6 +11,8 @@ import net.minecraft.world.item.*;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.registries.*;
 
+import java.util.Objects;
+
 import static com.sammy.malum.registry.common.item.ItemRegistry.*;
 
 public class CreativeTabRegistry {
@@ -77,7 +79,9 @@ public class CreativeTabRegistry {
     public static void populateItemGroups(BuildCreativeModeTabContentsEvent event) {
         final ResourceKey<CreativeModeTab> tabKey = event.getTabKey();
         if (TAB_SORTING.containsKey(tabKey)) {
-            TAB_SORTING.get(tabKey).stream().map(ForgeRegistries.ITEMS::getValue).forEach(event::accept);
+            TAB_SORTING.get(tabKey).stream().map(ForgeRegistries.ITEMS::getValue)
+                .filter(Objects::nonNull)
+                .forEach(event::accept);
         }
     }
 }

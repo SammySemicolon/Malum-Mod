@@ -6,36 +6,34 @@ import com.sammy.malum.common.recipe.SpiritFocusingRecipe;
 import com.sammy.malum.common.recipe.SpiritInfusionRecipe;
 import com.sammy.malum.common.recipe.SpiritRepairRecipe;
 import com.sammy.malum.common.recipe.SpiritTransmutationRecipe;
+import com.sammy.malum.common.spiritrite.TotemicRiteType;
 import com.sammy.malum.compability.farmersdelight.FarmersDelightCompat;
 import com.sammy.malum.compability.jei.categories.*;
 import com.sammy.malum.compability.jei.recipes.SpiritTransmutationWrapper;
-import com.sammy.malum.common.spiritrite.TotemicRiteType;
+import com.sammy.malum.core.handlers.HiddenItemHandler;
 import com.sammy.malum.registry.common.SpiritRiteRegistry;
 import com.sammy.malum.registry.common.item.ItemRegistry;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
-import mezz.jei.api.constants.RecipeTypes;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.helpers.IGuiHelper;
-import mezz.jei.api.recipe.IFocusFactory;
-import mezz.jei.api.recipe.IRecipeManager;
-import mezz.jei.api.recipe.RecipeIngredientRole;
-import mezz.jei.api.recipe.RecipeType;
+import mezz.jei.api.recipe.*;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
+import mezz.jei.api.runtime.IIngredientManager;
 import mezz.jei.api.runtime.IJeiRuntime;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import org.apache.commons.compress.utils.Lists;
 import team.lodestar.lodestone.systems.recipe.IRecipeComponent;
 
 import javax.annotation.Nonnull;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -122,14 +120,65 @@ public class JEIHandler implements IModPlugin {
         registry.addRecipeCatalyst(new ItemStack(ItemRegistry.SOULWOOD_TOTEM_BASE.get()), TRANSMUTATION);
     }
 
+    private static final Map<RecipeType<?>, HiddenRecipeSet<?>> hiddenRecipeSets = new HashMap<>();
+    private static List<Item> lastHiddenItems = new ArrayList<>();
+    private static final List<UUID> callbacks = new ArrayList<>();
+    private static final Map<Item, Collection<ItemStack>> hiddenStacks = new HashMap<>();
+
     @Override
     public void onRuntimeAvailable(IJeiRuntime jeiRuntime) {
         IRecipeManager recipeRegistry = jeiRuntime.getRecipeManager();
+        IIngredientManager ingredientManager = jeiRuntime.getIngredientManager();
         IFocusFactory focusFactory = jeiRuntime.getJeiHelpers().getFocusFactory();
-        recipeRegistry.hideRecipes(RecipeTypes.CRAFTING, recipeRegistry
-                .createRecipeLookup(RecipeTypes.CRAFTING)
-                .limitFocus(List.of(focusFactory.createFocus(RecipeIngredientRole.OUTPUT, VanillaTypes.ITEM_STACK, new ItemStack(ItemRegistry.THE_DEVICE.get()))))
-                .get().toList());
+
+        callbacks.add(HiddenItemHandler.registerHiddenItemListener(() -> {
+            var output = HiddenItemHandler.computeHiddenItems(lastHiddenItems);
+            lastHiddenItems = output.toHide();
+
+            if (!output.toHide().isEmpty()) {
+                Collection<ItemStack> ingredients = ingredientManager.getAllIngredients(VanillaTypes.ITEM_STACK);
+                Set<ItemStack> hiding = new HashSet<>();
+
+                for (ItemStack stack : ingredients) {
+                    if (output.toHide().contains(stack.getItem())) {
+                        hiding.add(stack);
+                        hiddenStacks.computeIfAbsent(stack.getItem(), (it) -> new HashSet<>()).add(stack);
+                    }
+                }
+
+                ingredientManager.removeIngredientsAtRuntime(VanillaTypes.ITEM_STACK, hiding);
+            }
+
+            if (!output.toUnhide().isEmpty()) {
+                Set<ItemStack> unhiding = new HashSet<>();
+                for (Item item : output.toUnhide()) {
+                    if (hiddenStacks.containsKey(item)) {
+                        unhiding.addAll(hiddenStacks.get(item));
+                        hiddenStacks.remove(item);
+                    }
+                }
+                ingredientManager.addIngredientsAtRuntime(VanillaTypes.ITEM_STACK, unhiding);
+            }
+
+            IRecipeCategoriesLookup lookup = recipeRegistry.createRecipeCategoryLookup();
+            lookup.get().forEach(it -> {
+                HiddenRecipeSet<?> hiddenRecipes = hiddenRecipeSets.computeIfAbsent(it.getRecipeType(), HiddenRecipeSet::createSet);
+
+                if (!output.toUnhide().isEmpty())
+                    hiddenRecipes.unhideRecipesThatAreNowShown(recipeRegistry, output.toUnhide());
+                if (!output.toHide().isEmpty())
+                    hiddenRecipes.scanForHiddenRecipes(recipeRegistry, focusFactory, output.toHide());
+            });
+        }));
+    }
+
+    @Override
+    public void onRuntimeUnavailable() {
+        callbacks.forEach(HiddenItemHandler::removeListener);
+        callbacks.clear();
+        hiddenRecipeSets.clear();
+        lastHiddenItems.clear();
+        hiddenStacks.clear();
     }
 
     @Nonnull
