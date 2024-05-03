@@ -33,7 +33,7 @@ public class HexStaffItem extends AbstractStaffItem {
                 .setTransparencyData(GenericParticleData.create(0.6f * pct, 0f).setEasing(Easing.SINE_IN_OUT, Easing.SINE_IN).build())
                 .setSpinData(spinData)
                 .setScaleData(GenericParticleData.create(0.3f * pct, 0).setEasing(Easing.SINE_IN_OUT).build())
-                .setColorData(SpiritTypeRegistry.WICKED_SPIRIT.createMainColorData().build())
+                .setColorData(SpiritTypeRegistry.WICKED_SPIRIT.createColorData().build())
                 .setLifetime(5)
                 .setLifeDelay(2)
                 .setDirection(pLivingEntity.getLookAngle().normalize())

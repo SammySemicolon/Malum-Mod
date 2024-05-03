@@ -8,6 +8,7 @@ import net.minecraft.client.renderer.entity.*;
 import net.minecraft.client.renderer.texture.*;
 import net.minecraft.resources.*;
 import team.lodestar.lodestone.registry.client.*;
+import team.lodestar.lodestone.systems.rendering.VFXBuilders;
 
 import java.awt.*;
 
@@ -42,8 +43,9 @@ public abstract class AbstractBoltEntityRenderer<T extends AbstractBoltProjectil
         }
         float effectScalar = entity.getVisualEffectScalar();
         final float alphaScalar = effectScalar * getAlphaMultiplier();
-        RenderUtils.renderEntityTrail(entity, entity.trailPointBuilder, getTrailRenderType(), poseStack, primaryColor, secondaryColor, effectScalar, alphaScalar, partialTicks);
-        RenderUtils.renderEntityTrail(entity, entity.spinningTrailPointBuilder, getTrailRenderType(), poseStack, primaryColor, secondaryColor, effectScalar, alphaScalar, partialTicks);
+        VFXBuilders.WorldVFXBuilder builder = VFXBuilders.createWorld().setRenderType(getTrailRenderType());
+        RenderUtils.renderEntityTrail(poseStack, builder, entity.trailPointBuilder, entity, primaryColor, secondaryColor, effectScalar, alphaScalar, partialTicks);
+        RenderUtils.renderEntityTrail(poseStack, builder, entity.spinningTrailPointBuilder, entity, primaryColor, secondaryColor, effectScalar, alphaScalar, partialTicks);
         super.render(entity, entityYaw, partialTicks, poseStack, bufferIn, packedLightIn);
     }
 

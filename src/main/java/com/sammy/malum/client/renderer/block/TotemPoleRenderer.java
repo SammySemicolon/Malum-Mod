@@ -2,7 +2,9 @@ package com.sammy.malum.client.renderer.block;
 
 import com.mojang.blaze3d.vertex.*;
 import com.mojang.math.*;
+import com.sammy.malum.client.SpiritBasedWorldVFXBuilder;
 import com.sammy.malum.common.block.curiosities.totem.*;
+import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import net.minecraft.client.*;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.blockentity.*;
@@ -28,12 +30,13 @@ public class TotemPoleRenderer implements BlockEntityRenderer<TotemPoleBlockEnti
     @Override
     public void render(TotemPoleBlockEntity blockEntityIn, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int combinedLightIn, int combinedOverlayIn) {
         Direction direction = blockEntityIn.getBlockState().getValue(BlockStateProperties.HORIZONTAL_FACING);
-        if (blockEntityIn.type == null) {
+        MalumSpiritType spiritType = blockEntityIn.type;
+        if (spiritType == null) {
             return;
         }
 
         Level level = Minecraft.getInstance().level;
-        VertexConsumer consumer = RenderHandler.DELAYED_RENDER.getBuffer(LodestoneRenderTypeRegistry.ADDITIVE_TEXTURE.applyAndCache(blockEntityIn.type.getTotemGlowTexture()));
+        RenderType renderType = LodestoneRenderTypeRegistry.ADDITIVE_TEXTURE.applyAndCache(spiritType.getTotemGlowTexture());
 
         poseStack.pushPose();
         poseStack.translate(0.5f, 0.5f, 0.5f);
@@ -41,7 +44,7 @@ public class TotemPoleRenderer implements BlockEntityRenderer<TotemPoleBlockEnti
         poseStack.translate(-0.5f, -0.5f, -0.5f);
 
         float pct = blockEntityIn.chargeProgress / 20f;
-        Color color = blockEntityIn.type.getPrimaryColor();
+        Color color = spiritType.getPrimaryColor();
         float alphaBonus = pct * 0.5f;
         float alpha = pct * 0.2f + alphaBonus;
         float ease = Easing.SINE_OUT.ease(pct, 0, 1, 1);
@@ -63,10 +66,10 @@ public class TotemPoleRenderer implements BlockEntityRenderer<TotemPoleBlockEnti
                 translation = odd ? -offset : offset;
             }
             poseStack.translate(translation, 0, 0);
-            VFXBuilders.createWorld()
-                    .setPosColorTexLightmapDefaultFormat()
+            SpiritBasedWorldVFXBuilder.create(spiritType)
                     .setColor(color, alpha)
-                    .renderQuad(consumer, poseStack, positions, 1f);
+                    .setRenderType(renderType)
+                    .renderQuad(poseStack, positions, 1f);
             poseStack.translate(-translation, 0, 0);
             alpha *= 1 - alphaBonus;
         }

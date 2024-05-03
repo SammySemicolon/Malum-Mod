@@ -33,12 +33,11 @@ public class VoidConduitRenderer implements BlockEntityRenderer<VoidConduitBlock
         if (voidConduit.lingeringRadiance == 0) {
             float height = 0.75f;
             float width = 1.5f;
-            VertexConsumer textureConsumer = RenderHandler.DELAYED_RENDER.getBuffer(LodestoneRenderTypeRegistry.TRANSPARENT_TEXTURE.applyAndCache(VIGNETTE));
             Vector3f[] positions = new Vector3f[]{new Vector3f(-width, height, width), new Vector3f(width, height, width), new Vector3f(width, height, -width), new Vector3f(-width, height, -width)};
-            VFXBuilders.WorldVFXBuilder builder = VFXBuilders.createWorld().setPosColorTexLightmapDefaultFormat();
+            VFXBuilders.WorldVFXBuilder builder = VFXBuilders.createWorld();
             poseStack.pushPose();
             poseStack.translate(0.5f, 0.001f, 0.5f);
-            builder.renderQuad(textureConsumer, poseStack, positions, 1f);
+            builder.setRenderType(LodestoneRenderTypeRegistry.TRANSPARENT_TEXTURE.applyAndCache(VIGNETTE)).renderQuad(poseStack, positions, 1f);
             poseStack.popPose();
         }
     }

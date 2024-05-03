@@ -76,20 +76,13 @@ public class SpiritLightSpecs {
     public static ParticleEffectSpawner<WorldParticleBuilder> spiritLightSpecs(Level level, Vec3 pos, MalumSpiritType spiritType) {
         return spiritLightSpecs(level, pos, spiritType, ParticleRegistry.LIGHT_SPEC_SMALL);
     }
-
     public static ParticleEffectSpawner<WorldParticleBuilder> spiritLightSpecs(Level level, Vec3 pos, MalumSpiritType spiritType, Supplier<LodestoneParticleType> particle) {
-        return spiritLightSpecs(level, pos, spiritType.createMainColorData().build(), spiritType.createBloomColorData().build(), particle).setSpiritType(spiritType);
+        return spiritLightSpecs(level, pos, spiritType.createColorData().build(), particle).setSpiritType(spiritType);
     }
     public static ParticleEffectSpawner<WorldParticleBuilder> spiritLightSpecs(Level level, Vec3 pos, ColorParticleData colorData) {
         return spiritLightSpecs(level, pos, colorData, ParticleRegistry.LIGHT_SPEC_SMALL);
     }
     public static ParticleEffectSpawner<WorldParticleBuilder> spiritLightSpecs(Level level, Vec3 pos, ColorParticleData colorData, Supplier<LodestoneParticleType> particle) {
-        return spiritLightSpecs(level, pos, colorData, colorData, particle);
-    }
-    public static ParticleEffectSpawner<WorldParticleBuilder> spiritLightSpecs(Level level, Vec3 pos, ColorParticleData colorData, ColorParticleData bloomColorData) {
-        return spiritLightSpecs(level, pos, colorData, bloomColorData, ParticleRegistry.LIGHT_SPEC_SMALL);
-    }
-    public static ParticleEffectSpawner<WorldParticleBuilder> spiritLightSpecs(Level level, Vec3 pos, ColorParticleData colorData, ColorParticleData bloomColorData, Supplier<LodestoneParticleType> particle) {
         var rand = level.getRandom();
         final SpinParticleData spinData = SpinParticleData.createRandomDirection(rand, nextFloat(rand, 0.05f, 0.1f)).randomSpinOffset(rand).build();
         final Consumer<LodestoneWorldParticleActor> slowDown = p -> p.setParticleMotion(p.getParticleSpeed().scale(0.95f));
@@ -102,12 +95,12 @@ public class SpiritLightSpecs {
                 .setLifetime(lifetime)
                 .enableNoClip()
                 .addTickActor(slowDown);
-        final WorldParticleBuilder bloomParticleBuilder = SpiritLightSpecs.spiritBloom(level, bloomColorData, spinData, lifetime).addTickActor(slowDown);
+        final WorldParticleBuilder bloomParticleBuilder = SpiritLightSpecs.spiritBloom(level, colorData, spinData, lifetime).addTickActor(slowDown);
         return new ParticleEffectSpawner<>(level, pos, worldParticleBuilder, bloomParticleBuilder);
     }
 
     public static WorldParticleBuilder spiritBloom(Level level, MalumSpiritType spiritType, SpinParticleData spinData, int lifetime) {
-        return spiritBloom(level, spiritType.createBloomColorData().build(), spinData, lifetime);
+        return spiritBloom(level, spiritType.createColorData().build(), spinData, lifetime);
     }
     public static WorldParticleBuilder spiritBloom(Level level, ColorParticleData bloomColorData, SpinParticleData spinData, int lifetime) {
         var rand = level.random;

@@ -70,7 +70,7 @@ public class RitualShardItem extends Item implements ItemParticleSupplier {
                             .setTransparencyData(GenericParticleData.create(0.2f, 0f).setEasing(Easing.SINE_IN_OUT).build())
                             .setSpinData(SpinParticleData.create(RandomHelper.randomBetween(rand, 0.2f, 0.4f)).setEasing(Easing.EXPO_OUT).build())
                             .setScaleData(GenericParticleData.create(RandomHelper.randomBetween(rand, 0.2f, 0.3f)*scalar, 0).setEasing(Easing.EXPO_OUT).build())
-                            .setColorData(type.createMainColorData().build())
+                            .setColorData(type.createColorData().build())
                             .setLifetime(RandomHelper.randomBetween(rand, 80, 120))
                             .setRandomOffset(0.1f)
                             .spawnOnStack(xOffset, yOffset);
