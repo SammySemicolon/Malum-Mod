@@ -16,7 +16,6 @@ import net.minecraft.world.level.block.state.properties.*;
 import net.minecraft.world.phys.*;
 import net.minecraftforge.api.distmarker.*;
 import team.lodestar.lodestone.helpers.*;
-import team.lodestar.lodestone.systems.easing.*;
 import team.lodestar.lodestone.systems.particle.builder.*;
 import team.lodestar.lodestone.systems.particle.data.color.*;
 
@@ -25,81 +24,60 @@ import java.util.function.*;
 
 public class MalumSpiritType {
 
-    public static SpiritTypeBuilder create(String identifier, Supplier<SpiritShardItem> spiritShard, Supplier<SpiritMoteBlock> spiritMote) {
-        return new SpiritTypeBuilder(identifier, spiritShard, spiritMote);
+    public static SpiritTypeBuilder create(String identifier, SpiritVisualMotif visualMotif, Supplier<SpiritShardItem> spiritShard, Supplier<SpiritMoteBlock> spiritMote) {
+        return new SpiritTypeBuilder(identifier, visualMotif, spiritShard, spiritMote);
     }
 
     public final String identifier;
     public final Supplier<SpiritShardItem> spiritShard;
     public final Supplier<SpiritMoteBlock> spiritMote;
 
-    private final Color primaryColor;
-    private final Color secondaryColor;
-    private final float mainColorCoefficient;
-    private final Easing mainColorEasing;
-
-    private final Color primaryBloomColor;
-    private final Color secondaryBloomColor;
-    private final float bloomColorCoefficient;
-    private final Easing bloomColorEasing;
+    private final SpiritVisualMotif visualMotif;
 
     private final Color itemColor;
 
     protected Rarity itemRarity;
     protected Component spiritItemDescription;
 
-    public MalumSpiritType(String identifier, Supplier<SpiritShardItem> spiritShard, Supplier<SpiritMoteBlock> spiritMote,
-                           Color primaryColor, Color secondaryColor, float mainColorCoefficient, Easing mainColorEasing,
-                           Color primaryBloomColor, Color secondaryBloomColor, float bloomColorCoefficient, Easing bloomColorEasing,
+    public MalumSpiritType(String identifier, SpiritVisualMotif visualMotif, Supplier<SpiritShardItem> spiritShard, Supplier<SpiritMoteBlock> spiritMote,
                            Color itemColor) {
         this.identifier = identifier;
         this.spiritShard = spiritShard;
         this.spiritMote = spiritMote;
-        this.primaryColor = primaryColor;
-        this.secondaryColor = secondaryColor;
-        this.mainColorCoefficient = mainColorCoefficient;
-        this.mainColorEasing = mainColorEasing;
-        this.primaryBloomColor = primaryBloomColor;
-        this.secondaryBloomColor = secondaryBloomColor;
-        this.bloomColorCoefficient = bloomColorCoefficient;
-        this.bloomColorEasing = bloomColorEasing;
+        this.visualMotif = visualMotif;
         this.itemColor = itemColor;
     }
 
+    public float getAlphaMultiplier() {
+        return visualMotif.getAlphaMultiplier();
+    }
+
     public Color getPrimaryColor() {
-        return primaryColor;
+        return visualMotif.getPrimaryColor();
     }
 
     public Color getSecondaryColor() {
-        return secondaryColor;
+        return visualMotif.getSecondaryColor();
+    }
+
+    public float getColorCoefficient() {
+        return visualMotif.getColorCoefficient();
+    }
+
+    public ColorParticleDataBuilder createColorData() {
+        return createColorData(1f);
+    }
+
+    public ColorParticleDataBuilder createColorData(float coefficientMultiplier) {
+        return visualMotif.createColorData(coefficientMultiplier);
     }
 
     public Color getItemColor() {
         return itemColor;
     }
 
-    public float getColorCoefficient() {
-        return mainColorCoefficient;
-    }
-
-    public ColorParticleDataBuilder createMainColorData() {
-        return createMainColorData(1f);
-    }
-
-    public ColorParticleDataBuilder createMainColorData(float coefficientMultiplier) {
-        return ColorParticleData.create(primaryColor, secondaryColor).setCoefficient(mainColorCoefficient * coefficientMultiplier).setEasing(mainColorEasing);
-    }
-
-    public ColorParticleDataBuilder createBloomColorData() {
-        return createBloomColorData(1f);
-    }
-
-    public ColorParticleDataBuilder createBloomColorData(float coefficientMultiplier) {
-        return ColorParticleData.create(primaryBloomColor, secondaryBloomColor).setCoefficient(bloomColorCoefficient * coefficientMultiplier).setEasing(bloomColorEasing);
-    }
-
     public TextColor getTextColor(boolean isTooltip) {
-        Color color = isTooltip ? ColorHelper.darker(primaryColor, 1, 0.75f) : ColorHelper.brighter(primaryColor, 1, 0.85f);
+        Color color = isTooltip ? ColorHelper.darker(getPrimaryColor(), 1, 0.75f) : ColorHelper.brighter(getPrimaryColor(), 1, 0.85f);
         return TextColor.fromRgb(color.getRGB());
     }
 
@@ -123,7 +101,7 @@ public class MalumSpiritType {
     }
 
     public Component getSpiritJarCounterComponent(int count) {
-        return Component.literal(" " + count + " ").append(Component.translatable(getSpiritDescription())).withStyle(Style.EMPTY.withColor(primaryColor.getRGB()));
+        return Component.literal(" " + count + " ").append(Component.translatable(getSpiritDescription())).withStyle(Style.EMPTY.withColor(getPrimaryColor().getRGB()));
     }
 
     public String getSpiritDescription() {
@@ -141,7 +119,6 @@ public class MalumSpiritType {
 
     @OnlyIn(Dist.CLIENT)
     public <K extends AbstractWorldParticleBuilder<K, ?>> Consumer<K> applyWorldParticleChanges() {
-        return b -> {
-        };
+        return visualMotif::applyWorldParticleChanges;
     }
 }

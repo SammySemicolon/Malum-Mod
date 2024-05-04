@@ -141,7 +141,7 @@ public class SpiritCrucibleParticleEffects {
                     .setTransparencyData(GenericParticleData.create(0.6f, 0.4f, 0f).setEasing(Easing.SINE_IN_OUT, Easing.SINE_IN).build())
                     .setSpinData(spinData)
                     .setScaleData(GenericParticleData.create(0.15f, 0).setEasing(Easing.SINE_IN_OUT).build())
-                    .setColorData(spiritType.createMainColorData().build())
+                    .setColorData(spiritType.createColorData().build())
                     .setLifetime(60)
                     .setMotion(velocity)
                     .setDirection(velocity.normalize())

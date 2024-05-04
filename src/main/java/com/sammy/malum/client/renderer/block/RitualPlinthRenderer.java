@@ -50,22 +50,21 @@ public class RitualPlinthRenderer implements BlockEntityRenderer<RitualPlinthBlo
         final MalumRitualTier ritualTier = blockEntityIn.ritualTier;
         if (blockEntityIn.activeDuration > 0 && ritualType != null) {
             final boolean hasDecor = ritualTier != null && !MalumRitualTier.FADED.equals(ritualTier);
-            final MultiBufferSource.BufferSource delayedRender = RenderHandler.DELAYED_RENDER;
-            VertexConsumer silhouette = delayedRender.getBuffer(LodestoneRenderTypeRegistry.TRANSPARENT_TEXTURE.applyAndCache(SILHOUETTE));
-            VertexConsumer icon = delayedRender.getBuffer(LodestoneRenderTypeRegistry.ADDITIVE_TEXTURE.applyAndCache(ritualTier == null ? INCOMPLETE_RITUAL : ritualType.getIcon()));
-            VertexConsumer decorGlow = hasDecor ? delayedRender.getBuffer(LodestoneRenderTypeRegistry.ADDITIVE_TEXTURE.applyAndCache(ritualTier.getDecorTexture())) : null;
-            VertexConsumer decorSilhouette = hasDecor ? delayedRender.getBuffer(LodestoneRenderTypeRegistry.TRANSPARENT_TEXTURE.applyAndCache(ritualTier.getDecorTexture())) : null;
+            RenderType silhouette = (LodestoneRenderTypeRegistry.TRANSPARENT_TEXTURE.applyAndCache(SILHOUETTE));
+            RenderType icon = (LodestoneRenderTypeRegistry.ADDITIVE_TEXTURE.applyAndCache(ritualTier == null ? INCOMPLETE_RITUAL : ritualType.getIcon()));
+            RenderType decorGlow = hasDecor ? LodestoneRenderTypeRegistry.ADDITIVE_TEXTURE.applyAndCache(ritualTier.getDecorTexture()) : null;
+            RenderType decorSilhouette = hasDecor ? LodestoneRenderTypeRegistry.TRANSPARENT_TEXTURE.applyAndCache(ritualTier.getDecorTexture()) : null;
             MalumSpiritType spirit = ritualType.spirit;
             Vec3 offset = blockEntityIn.getRitualIconOffset(partialTicks);
             final float scalar = Math.min(blockEntityIn.activeDuration, 15) / 15f;
             float alpha = 0.9f * scalar;
             float scale = 0.25f * (1 + scalar);
             var worldVFXBuilder = VFXBuilders.createWorld()
-                    .setPosColorTexLightmapDefaultFormat()
+                    
                     .setColor(spirit.getPrimaryColor())
                     .setAlpha(alpha);
             var backgroundBuilder = VFXBuilders.createWorld()
-                    .setPosColorTexLightmapDefaultFormat()
+                    
                     .setColor(EthericNitrateEntity.SECOND_SMOKE_COLOR)
                     .setAlpha(0.4f * scalar);
 
@@ -73,9 +72,9 @@ public class RitualPlinthRenderer implements BlockEntityRenderer<RitualPlinthBlo
             poseStack.translate(offset.x, offset.y, offset.z);
             poseStack.mulPose(Minecraft.getInstance().getEntityRenderDispatcher().cameraOrientation());
             poseStack.mulPose(Axis.YP.rotationDegrees(180f));
-            worldVFXBuilder.renderQuad(icon, poseStack, scale);
+            worldVFXBuilder.setRenderType(icon).renderQuad(poseStack, scale);
             if (hasDecor) {
-                worldVFXBuilder.renderQuad(decorGlow, poseStack, scale*2.5f);
+                worldVFXBuilder.setRenderType(decorGlow).renderQuad(poseStack, scale*2.5f);
             }
             float gameTime = level.getGameTime()+partialTicks;
             int time = 160;
@@ -87,11 +86,11 @@ public class RitualPlinthRenderer implements BlockEntityRenderer<RitualPlinthBlo
                 double xOffset = (distance * Math.cos(angle));
                 double zOffset = (distance * Math.sin(angle));
                 poseStack.translate(xOffset, zOffset/2f, zOffset);
-                worldVFXBuilder.setAlpha(alpha*(i/8f)).renderQuad(icon, poseStack, scale);
-                backgroundBuilder.renderQuad(silhouette, poseStack, scale*(odd ? 0.8f : 1.2f));
+                worldVFXBuilder.setRenderType(icon).setAlpha(alpha*(i/8f)).renderQuad(poseStack, scale);
+                backgroundBuilder.setRenderType(silhouette).renderQuad(poseStack, scale*(odd ? 0.8f : 1.2f));
                 if (hasDecor) {
-                    worldVFXBuilder.renderQuad(decorGlow, poseStack, scale*2.5f);
-                    backgroundBuilder.renderQuad(decorSilhouette, poseStack, scale * (odd ? 2.1f : 2.7f));
+                    worldVFXBuilder.setRenderType(decorGlow).renderQuad(poseStack, scale*2.5f);
+                    backgroundBuilder.setRenderType(decorSilhouette).renderQuad(poseStack, scale * (odd ? 2.1f : 2.7f));
                 }
                 poseStack.translate(-xOffset, -zOffset/2f, -zOffset);
                 if (i == 4) {

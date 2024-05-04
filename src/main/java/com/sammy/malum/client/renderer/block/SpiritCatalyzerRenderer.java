@@ -2,6 +2,7 @@ package com.sammy.malum.client.renderer.block;
 
 import com.mojang.blaze3d.vertex.*;
 import com.mojang.math.*;
+import com.sammy.malum.client.SpiritBasedWorldVFXBuilder;
 import com.sammy.malum.client.renderer.entity.*;
 import com.sammy.malum.common.block.curiosities.spirit_crucible.catalyzer.*;
 import com.sammy.malum.core.systems.spirit.*;
@@ -76,7 +77,6 @@ public class SpiritCatalyzerRenderer implements BlockEntityRenderer<SpiritCataly
     }
 
     public void renderBeam(SpiritCatalyzerCoreBlockEntity catalyzer, PoseStack poseStack, MalumSpiritType spiritType, int intensity) {
-        VertexConsumer consumer = RenderHandler.DELAYED_RENDER.getBuffer(TRAIL_TYPE);
         BlockPos catalyzerPos = catalyzer.getBlockPos();
         Vec3 startPos = catalyzer.getItemOffset().add(catalyzerPos.getX(), catalyzerPos.getY(), catalyzerPos.getZ());
         Vec3 targetPos = catalyzer.getTarget().getAccelerationPoint();
@@ -84,10 +84,11 @@ public class SpiritCatalyzerRenderer implements BlockEntityRenderer<SpiritCataly
         float distance = 0.35f + Easing.SINE_OUT.ease(intensity / 60f, 0, 0.35f, 1);
         float alpha = intensity / 60f;
         Vec3 midPoint = startPos.add(difference.scale(distance));
-        VFXBuilders.createWorld()
-                .setPosColorTexLightmapDefaultFormat()
+        SpiritBasedWorldVFXBuilder.create(spiritType)
+                
                 .setColor(spiritType.getPrimaryColor())
+                .setRenderType(TRAIL_TYPE)
                 .setAlpha(alpha)
-                .renderBeam(consumer, poseStack.last().pose(), startPos, midPoint, 0.4f, b -> b.setColor(spiritType.getSecondaryColor()).setAlpha(0f));
+                .renderBeam(poseStack.last().pose(), startPos, midPoint, 0.4f, b -> b.setColor(spiritType.getSecondaryColor()).setAlpha(0f));
     }
 }

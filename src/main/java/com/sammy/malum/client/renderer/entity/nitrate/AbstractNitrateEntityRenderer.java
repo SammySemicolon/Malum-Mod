@@ -8,6 +8,7 @@ import net.minecraft.client.renderer.entity.*;
 import net.minecraft.client.renderer.texture.*;
 import net.minecraft.resources.*;
 import team.lodestar.lodestone.registry.client.*;
+import team.lodestar.lodestone.systems.rendering.VFXBuilders;
 
 import java.awt.*;
 import java.util.function.*;
@@ -37,10 +38,11 @@ public class AbstractNitrateEntityRenderer<T extends AbstractNitrateEntity> exte
     @Override
     public void render(T entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int packedLightIn) {
         float effectScalar = entity.getVisualEffectScalar();
-        RenderUtils.renderEntityTrail(entity, entity.trailPointBuilder, TRAIL_TYPE, poseStack, primaryColor, secondaryColor, effectScalar, partialTicks);
-        RenderUtils.renderEntityTrail(entity, entity.spinningTrailPointBuilder, TRAIL_TYPE, poseStack, primaryColor, secondaryColor, effectScalar, partialTicks);
+        VFXBuilders.WorldVFXBuilder builder = VFXBuilders.createWorld().setRenderType(TRAIL_TYPE);
+        RenderUtils.renderEntityTrail(poseStack, builder, entity.trailPointBuilder, entity, primaryColor, secondaryColor, effectScalar, partialTicks);
+        RenderUtils.renderEntityTrail(poseStack, builder, entity.spinningTrailPointBuilder, entity, primaryColor, secondaryColor, effectScalar, partialTicks);
         if (entity.age > 1 && !entity.fadingAway) {
-            poseStack.popPose();
+            poseStack.pushPose();
             float glimmerScale = 3f * Math.min(1f, (entity.age - 2) / 5f);
             poseStack.scale(glimmerScale, glimmerScale, glimmerScale);
             renderSpiritGlimmer(poseStack, primaryColor.apply(0f), secondaryColor.apply(0.125f), partialTicks);

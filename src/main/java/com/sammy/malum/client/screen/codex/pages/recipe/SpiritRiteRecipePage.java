@@ -70,7 +70,7 @@ public class SpiritRiteRecipePage extends BookPage {
                         .setTransparencyData(GenericParticleData.create(0.04f, 0.4f, 0f).setEasing(Easing.SINE_IN_OUT).build())
                         .setSpinData(SpinParticleData.create(spin).build())
                         .setScaleData(GenericParticleData.create(scale, 0).build())
-                        .setColorData(spiritType.createMainColorData().setCoefficient(0.25f).build())
+                        .setColorData(spiritType.createColorData().setCoefficient(0.25f).build())
                         .setLifetime(lifetime)
                         .setMotion(0, yMotion)
                         .spawn(x - xOffset, y)

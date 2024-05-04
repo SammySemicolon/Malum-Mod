@@ -21,7 +21,7 @@ import static net.minecraft.util.Mth.nextFloat;
 public class SparkParticleEffects {
 
     public static ParticleEffectSpawner<SparkParticleBuilder> spiritMotionSparks(Level level, Vec3 pos, MalumSpiritType spiritType) {
-        return spiritMotionSparks(level, pos, spiritType.createMainColorData(1.25f).build(), spiritType.createBloomColorData().build());
+        return spiritMotionSparks(level, pos, spiritType.createColorData(1.25f).build(), spiritType.createColorData().build());
     }
 
     public static ParticleEffectSpawner<SparkParticleBuilder> spiritMotionSparks(Level level, Vec3 pos, ColorParticleData colorData) {

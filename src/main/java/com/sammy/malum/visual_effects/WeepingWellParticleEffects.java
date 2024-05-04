@@ -183,7 +183,7 @@ public class WeepingWellParticleEffects {
     }
     public static ParticleEffectSpawner<WorldParticleBuilder> weepingWellSpecs(Level level, Vec3 pos, ColorParticleData colorData, LodestoneWorldParticleRenderType renderType) {
         var rand = level.random;
-        var lightSpecs = spiritLightSpecs(level, pos, colorData, colorData, ParticleRegistry.LIGHT_SPEC_SMALL);
+        var lightSpecs = spiritLightSpecs(level, pos, colorData, ParticleRegistry.LIGHT_SPEC_SMALL);
         lightSpecs.getBuilder().act(b -> b
                 .setRenderType(renderType)
                 .multiplyLifetime(6f)
