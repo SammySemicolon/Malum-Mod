@@ -106,6 +106,7 @@ public class BlockRegistry {
     public static final RegistryObject<Block> TAINTED_ROCK_COLUMN_CAP = BLOCKS.register("tainted_rock_column_cap", () -> new LodestoneDirectionalBlock(MalumBlockProperties.TAINTED_ROCK()));
 
     public static final RegistryObject<Block> CUT_TAINTED_ROCK = BLOCKS.register("cut_tainted_rock", () -> new Block(MalumBlockProperties.TAINTED_ROCK()));
+    public static final RegistryObject<Block> CHECKERED_TAINTED_ROCK = BLOCKS.register("checkered_tainted_rock", () -> new Block(MalumBlockProperties.TAINTED_ROCK()));
     public static final RegistryObject<Block> CHISELED_TAINTED_ROCK = BLOCKS.register("chiseled_tainted_rock", () -> new Block(MalumBlockProperties.TAINTED_ROCK()));
 
     public static final RegistryObject<Block> TAINTED_ROCK_SLAB = BLOCKS.register("tainted_rock_slab", () -> new SlabBlock(MalumBlockProperties.TAINTED_ROCK().addTags(SLABS)));
@@ -158,6 +159,7 @@ public class BlockRegistry {
     public static final RegistryObject<Block> TWISTED_ROCK_COLUMN_CAP = BLOCKS.register("twisted_rock_column_cap", () -> new LodestoneDirectionalBlock(MalumBlockProperties.TWISTED_ROCK()));
 
     public static final RegistryObject<Block> CUT_TWISTED_ROCK = BLOCKS.register("cut_twisted_rock", () -> new Block(MalumBlockProperties.TWISTED_ROCK()));
+    public static final RegistryObject<Block> CHECKERED_TWISTED_ROCK = BLOCKS.register("checkered_twisted_rock", () -> new Block(MalumBlockProperties.TWISTED_ROCK()));
     public static final RegistryObject<Block> CHISELED_TWISTED_ROCK = BLOCKS.register("chiseled_twisted_rock", () -> new Block(MalumBlockProperties.TWISTED_ROCK()));
 
     public static final RegistryObject<Block> TWISTED_ROCK_SLAB = BLOCKS.register("twisted_rock_slab", () -> new SlabBlock(MalumBlockProperties.TWISTED_ROCK().addTags(SLABS)));
