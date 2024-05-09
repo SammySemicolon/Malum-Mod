@@ -143,7 +143,7 @@ public class VoidProgressionScreen extends AbstractProgressionCodexScreen {
             .setWidgetConfig(w -> w.setIcon(VOID_SALTS).setStyle(BookWidgetStyle.SOULWOOD))
             .addPage(new WeepingWellTextPage("void.material_study_void_salts", "void.material_study_void_salts.1", VOID_SALTS.get()))
             .addPage(new TextPage("void.material_study_void_salts.2"))
-            .addReference(new EntryReference(VOID_SALTS,
+            .addReference(new EntryReference(UMBRAL_SPIRIT,
                 BookEntry.build("void.material_study_void_salts.reexamination")
                     .addPage(new HeadlineTextPage("void.material_study_void_salts.reexamination", "void.material_study_void_salts.reexamination.1"))
                     .afterUmbralCrystal()

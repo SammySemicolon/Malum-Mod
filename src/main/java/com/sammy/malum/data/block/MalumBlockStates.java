@@ -55,7 +55,7 @@ public class MalumBlockStates extends LodestoneBlockStateProvider {
                 TAINTED_ROCK_BRICKS_WALL, TAINTED_ROCK_TILES_WALL, SMALL_TAINTED_ROCK_BRICKS_WALL,
                 RUNIC_TAINTED_ROCK_BRICKS_WALL, RUNIC_TAINTED_ROCK_TILES_WALL, RUNIC_SMALL_TAINTED_ROCK_BRICKS_WALL);
 
-        BlockStateSmithTypes.CUSTOM_MODEL.act(data, this::simpleBlock, this::cutRockBlockModel, CUT_TAINTED_ROCK);
+        BlockStateSmithTypes.CUSTOM_MODEL.act(data, this::simpleBlock, this::cutRockBlockModel, CUT_TAINTED_ROCK, CHECKERED_TAINTED_ROCK);
         BlockStateSmithTypes.CUSTOM_MODEL.act(data, this::directionalBlock, this::columnCapModel, TAINTED_ROCK_COLUMN_CAP);
         BlockStateSmithTypes.CUSTOM_MODEL.act(data, this::simpleBlock, this::rockItemPedestalModel, TAINTED_ROCK_ITEM_PEDESTAL);
         BlockStateSmithTypes.CUSTOM_MODEL.act(data, this::directionalBlock, this::rockItemStandModel, TAINTED_ROCK_ITEM_STAND);
@@ -88,7 +88,7 @@ public class MalumBlockStates extends LodestoneBlockStateProvider {
                 TWISTED_ROCK_BRICKS_WALL, TWISTED_ROCK_TILES_WALL, SMALL_TWISTED_ROCK_BRICKS_WALL,
                 RUNIC_TWISTED_ROCK_BRICKS_WALL, RUNIC_TWISTED_ROCK_TILES_WALL, RUNIC_SMALL_TWISTED_ROCK_BRICKS_WALL);
 
-        BlockStateSmithTypes.CUSTOM_MODEL.act(data, this::simpleBlock, this::cutRockBlockModel, CUT_TWISTED_ROCK);
+        BlockStateSmithTypes.CUSTOM_MODEL.act(data, this::simpleBlock, this::cutRockBlockModel, CUT_TWISTED_ROCK, CHECKERED_TWISTED_ROCK);
         BlockStateSmithTypes.CUSTOM_MODEL.act(data, this::directionalBlock, this::columnCapModel, TWISTED_ROCK_COLUMN_CAP);
         BlockStateSmithTypes.CUSTOM_MODEL.act(data, this::simpleBlock, this::rockItemPedestalModel, TWISTED_ROCK_ITEM_PEDESTAL);
         BlockStateSmithTypes.CUSTOM_MODEL.act(data, this::directionalBlock, this::rockItemStandModel, TWISTED_ROCK_ITEM_STAND);
@@ -251,8 +251,10 @@ public class MalumBlockStates extends LodestoneBlockStateProvider {
 
     public ModelFile cutRockBlockModel(Block block) {
         String name = getBlockName(block);
-        ResourceLocation top = getBlockTexture(name.replace("cut_", "polished_"));
-        ResourceLocation bottom = getBlockTexture(name.replace("cut_", "smooth_"));
+        int index = name.indexOf("_");
+        String substring = name.substring(index + 1);
+        ResourceLocation top = getBlockTexture("polished_" + substring);
+        ResourceLocation bottom = getBlockTexture("smooth_" + substring);
         ResourceLocation side = getBlockTexture(name);
         return models().cubeBottomTop(name, side, bottom, top);
     }
