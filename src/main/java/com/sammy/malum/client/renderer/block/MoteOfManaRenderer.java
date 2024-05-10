@@ -25,22 +25,20 @@ public class MoteOfManaRenderer implements BlockEntityRenderer<MoteOfManaBlockEn
 
     @Override
     public void render(MoteOfManaBlockEntity blockEntityIn, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int combinedLightIn, int combinedOverlayIn) {
-        renderQuad(blockEntityIn, poseStack);
-    }
-
-    public void renderQuad(MoteOfManaBlockEntity blockEntityIn, PoseStack poseStack) {
         poseStack.pushPose();
-        poseStack.translate(0.5f, 0.5f, 0.5f);
         MalumSpiritType spiritType = ((SpiritMoteBlock) blockEntityIn.getBlockState().getBlock()).spiritType;
 
         var builder = SpiritBasedWorldVFXBuilder.create(spiritType)
                 .setRenderType(LodestoneRenderTypeRegistry.ADDITIVE_TEXTURE.applyAndCache(MOTE_OF_MANA_TEXTURE));
 
-        RenderUtils.CubeVertexData cubeVertexData = RenderUtils.makeCubePositions(1f);
-        cubeVertexData.applyWobble(0, 0.5f, 0.015f);
-        drawCube(poseStack, builder.setColor(spiritType.getPrimaryColor(), 0.86f), 1f, cubeVertexData);
-        drawCube(poseStack, builder.setColor(spiritType.getSecondaryColor(), 0.6f), -0.92f, cubeVertexData);
+        RenderUtils.CubeVertexData cubeVertexData = RenderUtils.makeCubePositions(1f)
+                .applyWobble(0, 0.5f, 0.015f);
+        RenderUtils.CubeVertexData inverse = RenderUtils.makeCubePositions(-1f)
+                .applyWobble(0, 0.5f, 0.015f);
+        drawCube(poseStack, builder.setColor(spiritType.getPrimaryColor(), 0.85f), 1f, cubeVertexData);
         drawCube(poseStack, builder.setColor(spiritType.getPrimaryColor(), 0.5f), 1.12f, cubeVertexData);
+
+        drawCube(poseStack, builder.setColor(spiritType.getSecondaryColor(), 0.6f), 0.92f, inverse);
         poseStack.popPose();
     }
 }

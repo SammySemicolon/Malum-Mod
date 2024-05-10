@@ -154,7 +154,7 @@ public class TotemBaseBlockEntity extends LodestoneBlockEntity {
             compound.putInt("height", height);
         }
         if (direction != null) {
-            compound.putString("direction", direction.name());
+            compound.putString("direction", direction.getName());
         }
         compound.putBoolean("corrupted", corrupted);
         super.saveAdditional(compound);
