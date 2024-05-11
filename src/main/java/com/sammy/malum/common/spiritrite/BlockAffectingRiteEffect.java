@@ -11,6 +11,9 @@ public abstract class BlockAffectingRiteEffect extends TotemicRiteEffect {
 
     @Override
     public BlockPos getRiteEffectCenter(TotemBaseBlockEntity totemBase) {
+        if (totemBase.direction == null) {
+            return totemBase.getBlockPos();
+        }
         return totemBase.getBlockPos().relative(totemBase.direction, getRiteEffectHorizontalRadius() + 1);
     }
 
