@@ -1,9 +1,0 @@
-{
-  "type": "malum:favor_of_the_void",
-  "input": {
-    "item": "malum:living_flesh"
-  },
-  "output": {
-    "item": "malum:foul_flesh"
-  }
-}

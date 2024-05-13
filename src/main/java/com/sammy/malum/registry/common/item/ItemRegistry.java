@@ -490,9 +490,6 @@ public class ItemRegistry {
     public static final RegistryObject<Item> BLOCK_OF_MNEMONIC_FRAGMENT = register("block_of_mnemonic_fragment", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BLOCK_OF_MNEMONIC_FRAGMENT.get(), p));
     public static final RegistryObject<Item> MNEMONIC_FRAGMENT = register("mnemonic_fragment", DEFAULT_PROPERTIES(), Item::new);
 
-    public static final RegistryObject<Item> BLOCK_OF_FOUL_FLESH = register("block_of_foul_flesh", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BLOCK_OF_FOUL_FLESH.get(), p));
-    public static final RegistryObject<Item> FOUL_FLESH = register("foul_flesh", DEFAULT_PROPERTIES(), Item::new);
-
     public static final RegistryObject<Item> AURIC_EMBERS = register("auric_embers", DEFAULT_PROPERTIES(), Item::new);
     public static final RegistryObject<Item> BLOCK_OF_MALIGNANT_LEAD = register("block_of_malignant_lead", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BLOCK_OF_MALIGNANT_LEAD.get(), p));
     public static final RegistryObject<Item> MALIGNANT_LEAD = register("malignant_lead", DEFAULT_PROPERTIES().rarity(RARE), Item::new);

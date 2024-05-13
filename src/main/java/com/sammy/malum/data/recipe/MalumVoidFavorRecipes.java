@@ -41,9 +41,6 @@ public class MalumVoidFavorRecipes {
         new VoidFavorRecipeBuilder(ItemRegistry.CTHONIC_GOLD.get(), ItemRegistry.MALIGNANT_LEAD.get(), 1)
                 .build(consumer);
 
-        new VoidFavorRecipeBuilder(ItemRegistry.LIVING_FLESH.get(), ItemRegistry.FOUL_FLESH.get(), 1)
-                .build(consumer);
-
         new VoidFavorRecipeBuilder(Ingredient.of(ItemRegistry.THE_DEVICE.get()), ItemRegistry.THE_VESSEL.get(), 1)
                 .build(consumer);
 
