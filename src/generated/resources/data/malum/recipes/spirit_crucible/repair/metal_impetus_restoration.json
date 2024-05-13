@@ -17,8 +17,17 @@
   "itemIdRegex": "none",
   "modIdRegex": "",
   "repairMaterial": {
-    "count": 8,
-    "item": "malum:infernal_spirit"
+    "count": 1,
+    "item": "malum:cthonic_gold"
   },
-  "spirits": []
+  "spirits": [
+    {
+      "type": "infernal",
+      "count": 8
+    },
+    {
+      "type": "earthen",
+      "count": 8
+    }
+  ]
 }

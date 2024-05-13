@@ -26,6 +26,7 @@ import static com.sammy.malum.client.RenderUtils.*;
 public class TotemBaseRenderer implements BlockEntityRenderer<TotemBaseBlockEntity> {
 
     public static final ResourceLocation AREA_COVERAGE_TEXTURE = MalumMod.malumPath("textures/vfx/area_coverage.png");
+    public static final ResourceLocation LARGE_AREA_COVERAGE_TEXTURE = MalumMod.malumPath("textures/vfx/area_coverage_large.png");
 
     private static float totemicStaffHeldTimer = 0;
     private static boolean isHoldingStaff;
@@ -68,7 +69,7 @@ public class TotemBaseRenderer implements BlockEntityRenderer<TotemBaseBlockEnti
 
             poseStack.pushPose();
             var builder = SpiritBasedWorldVFXBuilder.create(spiritType)
-                    .setRenderType(RenderTypeRegistry.ADDITIVE_DISTORTED_TEXTURE.applyWithModifierAndCache(AREA_COVERAGE_TEXTURE, b -> b.setCullState(LodestoneRenderTypeRegistry.NO_CULL)))
+                    .setRenderType(RenderTypeRegistry.ADDITIVE_DISTORTED_TEXTURE.applyWithModifierAndCache((riteEffect.category.equals(TotemicRiteEffect.MalumRiteEffectCategory.AURA) || riteEffect.category.equals(TotemicRiteEffect.MalumRiteEffectCategory.RADIAL_BLOCK_EFFECT)) ? LARGE_AREA_COVERAGE_TEXTURE : AREA_COVERAGE_TEXTURE, b -> b.setCullState(LodestoneRenderTypeRegistry.NO_CULL)))
                     .setColor(spiritType.getPrimaryColor(), 0.85f * scalar);
 
             poseStack.translate(offset.getX(), offset.getY(), offset.getZ());
