@@ -29,6 +29,10 @@ public class ItemTagRegistry {
     public static final TagKey<Item> PROSPECTORS_TREASURE = malumTag("prospectors_treasure");
     public static final TagKey<Item> METAL_NODES = malumTag("metal_nodes");
 
+    public static final TagKey<Item> HIDDEN_ALWAYS = malumTag("hidden_items/always");
+    public static final TagKey<Item> HIDDEN_UNTIL_VOID = malumTag("hidden_items/void");
+    public static final TagKey<Item> HIDDEN_UNTIL_BLACK_CRYSTAL = malumTag("hidden_items/black_crystal");
+
     public static final TagKey<Item> KNIVES_FD = modTag("farmersdelight:tools/knives");
     public static final TagKey<Item> KNIVES = forgeTag("tools/knives");
 

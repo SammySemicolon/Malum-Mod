@@ -2,7 +2,7 @@ package com.sammy.malum.client;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
-import com.sammy.malum.core.handlers.HiddenItemHandler;
+import com.sammy.malum.core.handlers.HiddenTagHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -53,7 +53,7 @@ public class VoidRevelationHandler {
 				// NO-OP
 			}
 
-			HiddenItemHandler.conditionsChanged();
+			HiddenTagHandler.conditionsChanged();
 		}
 	}
 
