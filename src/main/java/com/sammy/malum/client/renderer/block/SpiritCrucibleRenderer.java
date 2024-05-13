@@ -17,6 +17,7 @@ import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.blockentity.*;
 import net.minecraft.client.renderer.entity.*;
 import net.minecraft.network.chat.*;
+import net.minecraft.util.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
@@ -37,6 +38,7 @@ import static net.minecraft.client.renderer.texture.OverlayTexture.*;
 public class SpiritCrucibleRenderer implements BlockEntityRenderer<SpiritCrucibleCoreBlockEntity> {
 
     private static float tuningForkHeldTimer = 0;
+    private static boolean isHoldingFork;
 
     public SpiritCrucibleRenderer(BlockEntityRendererProvider.Context context) {
     }
@@ -52,8 +54,10 @@ public class SpiritCrucibleRenderer implements BlockEntityRenderer<SpiritCrucibl
                 if (tuningForkHeldTimer < 20) {
                     tuningForkHeldTimer++;
                 }
+                isHoldingFork = true;
             } else if (tuningForkHeldTimer > 0) {
                 tuningForkHeldTimer--;
+                isHoldingFork = false;
             }
         }
     }
@@ -110,9 +114,10 @@ public class SpiritCrucibleRenderer implements BlockEntityRenderer<SpiritCrucibl
                 }
             }
         }
-        if (tuningForkHeldTimer > 4) {
+        if (tuningForkHeldTimer > 5) {
             final Font font = Minecraft.getInstance().font;
-            float scalar = Easing.SINE_IN_OUT.ease(tuningForkHeldTimer/20f, 0, 1, 1);
+            float timer = Mth.clamp((tuningForkHeldTimer + (isHoldingFork ? 1 : -1) * partialTicks), 0, 20);
+            float scalar = Easing.SINE_IN_OUT.ease(timer/20f, 0, 1, 1);
             float scale = 0.016F - (1-scalar)*0.004f;
             final Font.DisplayMode display = Font.DisplayMode.NORMAL;
             MultiBufferSource textBuffer = new BufferWrapper(RenderTypeRegistry.ADDITIVE_TEXT, RenderHandler.DELAYED_RENDER);

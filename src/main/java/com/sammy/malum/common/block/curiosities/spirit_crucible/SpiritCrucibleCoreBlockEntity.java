@@ -15,7 +15,6 @@ import com.sammy.malum.visual_effects.*;
 import com.sammy.malum.visual_effects.networked.data.*;
 import net.minecraft.core.*;
 import net.minecraft.nbt.*;
-import net.minecraft.server.level.*;
 import net.minecraft.sounds.*;
 import net.minecraft.util.*;
 import net.minecraft.world.*;
@@ -246,7 +245,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
             }
         }
         float speed = acceleratorData.focusingSpeed.getValue(acceleratorData);
-        if (level instanceof ServerLevel) {
+        if (!level.isClientSide) {
             if (recipe != null) {
                 boolean needsRecalibration = !acceleratorData.accelerators.stream().allMatch(ICrucibleAccelerator::canContinueAccelerating);
                 if (needsRecalibration) {

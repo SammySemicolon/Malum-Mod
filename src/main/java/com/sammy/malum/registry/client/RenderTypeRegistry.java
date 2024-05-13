@@ -1,22 +1,19 @@
 package com.sammy.malum.registry.client;
 
-import com.mojang.blaze3d.platform.GlStateManager;
-import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.Util;
-import net.minecraft.client.renderer.RenderStateShard;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.client.ForgeRenderTypes;
-import org.lwjgl.opengl.GL14;
-import team.lodestar.lodestone.registry.client.LodestoneRenderTypeRegistry;
-import team.lodestar.lodestone.registry.client.LodestoneShaderRegistry;
-import team.lodestar.lodestone.systems.rendering.StateShards;
-import team.lodestar.lodestone.systems.rendering.rendeertype.RenderTypeProvider;
+import com.mojang.blaze3d.platform.*;
+import com.mojang.blaze3d.systems.*;
+import net.minecraft.*;
+import net.minecraft.client.renderer.*;
+import net.minecraftforge.client.*;
+import org.lwjgl.opengl.*;
+import team.lodestar.lodestone.registry.client.*;
+import team.lodestar.lodestone.systems.rendering.*;
+import team.lodestar.lodestone.systems.rendering.rendeertype.*;
 
-import java.util.function.Function;
+import java.util.function.*;
 
-import static com.mojang.blaze3d.vertex.DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP;
-import static com.mojang.blaze3d.vertex.VertexFormat.Mode.QUADS;
+import static com.mojang.blaze3d.vertex.DefaultVertexFormat.*;
+import static com.mojang.blaze3d.vertex.VertexFormat.Mode.*;
 
 public class RenderTypeRegistry extends RenderStateShard {
 
@@ -37,15 +34,23 @@ public class RenderTypeRegistry extends RenderStateShard {
         RenderSystem.defaultBlendFunc();
     });
 
-    public static final Function<ResourceLocation, RenderType> SUBTRACTIVE_TEXT = Util.memoize((texture) ->
-        LodestoneRenderTypeRegistry.createGenericRenderType("malum:subtractive_text", POSITION_COLOR_TEX_LIGHTMAP, QUADS, LodestoneRenderTypeRegistry.builder()
+    public static final RenderTypeProvider ADDITIVE_DISTORTED_TEXTURE = new RenderTypeProvider((texture) ->
+            LodestoneRenderTypeRegistry.createGenericRenderType(texture.getNamespace() + ":distorted_texture", POSITION_COLOR_TEX_LIGHTMAP, QUADS, LodestoneRenderTypeRegistry.builder()
+                    .setShaderState(ShaderRegistry.DISTORTION)
+                    .setTransparencyState(StateShards.ADDITIVE_TRANSPARENCY)
+                    .setLightmapState(LIGHTMAP)
+                    .setCullState(CULL)
+                    .setTextureState(texture)));
+
+    public static final RenderTypeProvider SUBTRACTIVE_TEXT = new RenderTypeProvider((texture) ->
+            LodestoneRenderTypeRegistry.createGenericRenderType("malum:subtractive_text", POSITION_COLOR_TEX_LIGHTMAP, QUADS, LodestoneRenderTypeRegistry.builder()
             .setShaderState(RENDERTYPE_TEXT_SEE_THROUGH_SHADER)
             .setTransparencyState(SUBTRACTIVE_TEXT_TRANSPARENCY)
             .setWriteMaskState(COLOR_WRITE)
             .setLightmapState(LIGHTMAP)
             .setTextureState(new TextureStateShard(texture, ForgeRenderTypes.enableTextTextureLinearFiltering, false))));
 
-    public static final Function<ResourceLocation, RenderType> SUBTRACTIVE_INTENSE_TEXT = Util.memoize((texture) ->
+    public static final RenderTypeProvider SUBTRACTIVE_INTENSE_TEXT = new RenderTypeProvider((texture) ->
         LodestoneRenderTypeRegistry.createGenericRenderType("malum:subtractive_intense_text", POSITION_COLOR_TEX_LIGHTMAP, QUADS, LodestoneRenderTypeRegistry.builder()
             .setShaderState(RENDERTYPE_TEXT_INTENSITY_SEE_THROUGH_SHADER)
             .setTransparencyState(SUBTRACTIVE_TEXT_TRANSPARENCY)

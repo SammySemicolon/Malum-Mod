@@ -7,7 +7,6 @@ import com.sammy.malum.common.spiritrite.*;
 import net.minecraft.core.*;
 import net.minecraft.server.level.*;
 import net.minecraft.world.entity.animal.*;
-import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraftforge.network.*;
@@ -39,14 +38,13 @@ public class EldritchSacredRiteType extends TotemicRiteType {
 
             @SuppressWarnings("ConstantConditions")
             @Override
-            public void doRiteEffect(TotemBaseBlockEntity totemBase) {
-                Level level = totemBase.getLevel();
+            public void doRiteEffect(TotemBaseBlockEntity totemBase, ServerLevel level) {
                 BlockPos pos = totemBase.getBlockPos();
                 getNearbyBlocks(totemBase, BonemealableBlock.class).forEach(p -> {
                     if (level.random.nextFloat() <= 0.06f) {
                         BlockState state = level.getBlockState(p);
                         for (int i = 0; i < 5 + level.random.nextInt(3); i++) {
-                            state.randomTick((ServerLevel) level, p, level.random);
+                            state.randomTick(level, p, level.random);
                         }
                         BlockPos particlePos = state.canOcclude() ? p : p.below();
                         MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(pos)), new SacredMistRiteEffectPacket(List.of(SACRED_SPIRIT.identifier), particlePos));
@@ -62,8 +60,7 @@ public class EldritchSacredRiteType extends TotemicRiteType {
 
             @SuppressWarnings("ConstantConditions")
             @Override
-            public void doRiteEffect(TotemBaseBlockEntity totemBase) {
-                Level level = totemBase.getLevel();
+            public void doRiteEffect(TotemBaseBlockEntity totemBase, ServerLevel level) {
                 Map<Class<? extends Animal>, List<Animal>> animalMap = getNearbyEntities(totemBase, Animal.class, e -> e.canFallInLove() && e.getAge() == 0).collect(Collectors.groupingBy(Animal::getClass));
 
                 for (List<Animal> animals : animalMap.values()) {

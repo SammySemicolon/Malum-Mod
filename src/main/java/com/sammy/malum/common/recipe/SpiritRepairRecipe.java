@@ -16,55 +16,20 @@ import java.util.*;
 import java.util.function.*;
 import java.util.stream.*;
 
-public class SpiritRepairRecipe extends AbstractMalumRecipe {
+public class SpiritRepairRecipe extends AbstractSpiritListMalumRecipe {
     public static final String NAME = "spirit_repair";
 
     public final float durabilityPercentage;
     public final List<Item> inputs;
     public final IngredientWithCount repairMaterial;
-    public final List<SpiritWithCount> spirits;
 
     public SpiritRepairRecipe(ResourceLocation id, float durabilityPercentage, List<Item> inputs, IngredientWithCount repairMaterial, List<SpiritWithCount> spirits) {
-        super(id, RecipeSerializerRegistry.REPAIR_RECIPE_SERIALIZER.get(), RecipeTypeRegistry.SPIRIT_REPAIR.get());
+        super(id, RecipeSerializerRegistry.REPAIR_RECIPE_SERIALIZER.get(), RecipeTypeRegistry.SPIRIT_REPAIR.get(), spirits);
         this.durabilityPercentage = durabilityPercentage;
         this.repairMaterial = repairMaterial;
         this.inputs = inputs;
-        this.spirits = spirits;
     }
 
-    public List<ItemStack> getSortedSpirits(List<ItemStack> stacks) {
-        List<ItemStack> sortedStacks = new ArrayList<>();
-        for (SpiritWithCount item : spirits) {
-            for (ItemStack stack : stacks) {
-                if (item.matches(stack)) {
-                    sortedStacks.add(stack);
-                    break;
-                }
-            }
-        }
-        return sortedStacks;
-    }
-
-    public boolean doSpiritsMatch(List<ItemStack> spirits) {
-        if (this.spirits.size() == 0) {
-            return true;
-        }
-        if (this.spirits.size() != spirits.size()) {
-            return false;
-        }
-        List<ItemStack> sortedStacks = getSortedSpirits(spirits);
-        if (sortedStacks.size() < this.spirits.size()) {
-            return false;
-        }
-        for (int i = 0; i < this.spirits.size(); i++) {
-            SpiritWithCount item = this.spirits.get(i);
-            ItemStack stack = sortedStacks.get(i);
-            if (!item.matches(stack)) {
-                return false;
-            }
-        }
-        return true;
-    }
 
     public boolean doesInputMatch(ItemStack input) {
         return this.inputs.stream().anyMatch(i -> i.equals(input.getItem()));

@@ -6,9 +6,9 @@ import com.sammy.malum.common.packets.particle.curiosities.rite.generic.*;
 import com.sammy.malum.common.spiritrite.*;
 import com.sammy.malum.registry.common.*;
 import com.sammy.malum.registry.common.block.*;
+import net.minecraft.server.level.*;
 import net.minecraft.sounds.*;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraftforge.network.*;
@@ -34,10 +34,8 @@ public class InfernalRiteType extends TotemicRiteType {
 
             @SuppressWarnings("ConstantConditions")
             @Override
-            public void doRiteEffect(TotemBaseBlockEntity totemBase) {
-                Level level = totemBase.getLevel();
-
-                super.doRiteEffect(totemBase);
+            public void doRiteEffect(TotemBaseBlockEntity totemBase, ServerLevel level) {
+                super.doRiteEffect(totemBase, level);
                 getNearbyBlocks(totemBase, BaseFireBlock.class).forEach(p -> {
                     BlockState state = totemBase.getLevel().getBlockState(p);
                     if (!state.is(BlockTagRegistry.ENDLESS_FLAME)) {

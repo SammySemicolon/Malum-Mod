@@ -1,35 +1,30 @@
 package com.sammy.malum.common.spiritrite.arcane;
 
-import com.sammy.malum.common.block.blight.BlightedSoilBlock;
-import com.sammy.malum.common.block.curiosities.totem.TotemBaseBlockEntity;
-import com.sammy.malum.common.block.storage.IMalumSpecialItemAccessPoint;
-import com.sammy.malum.common.packets.particle.curiosities.blight.BlightMistParticlePacket;
-import com.sammy.malum.common.packets.particle.curiosities.blight.BlightTransformItemParticlePacket;
-import com.sammy.malum.common.packets.particle.curiosities.rite.generic.BlockSparkleParticlePacket;
-import com.sammy.malum.common.recipe.SpiritTransmutationRecipe;
-import com.sammy.malum.common.worldevent.TotemCreatedBlightEvent;
-import com.sammy.malum.common.spiritrite.TotemicRiteEffect;
-import com.sammy.malum.common.spiritrite.TotemicRiteType;
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.EntityBlock;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.network.PacketDistributor;
-import team.lodestar.lodestone.handlers.WorldEventHandler;
-import team.lodestar.lodestone.helpers.BlockHelper;
-import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntityInventory;
+import com.sammy.malum.common.block.blight.*;
+import com.sammy.malum.common.block.curiosities.totem.*;
+import com.sammy.malum.common.block.storage.*;
+import com.sammy.malum.common.packets.particle.curiosities.blight.*;
+import com.sammy.malum.common.packets.particle.curiosities.rite.generic.*;
+import com.sammy.malum.common.recipe.*;
+import com.sammy.malum.common.spiritrite.*;
+import com.sammy.malum.common.worldevent.*;
+import net.minecraft.core.*;
+import net.minecraft.server.level.*;
+import net.minecraft.world.entity.item.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.entity.*;
+import net.minecraft.world.level.block.state.*;
+import net.minecraft.world.phys.*;
+import net.minecraftforge.network.*;
+import team.lodestar.lodestone.handlers.*;
+import team.lodestar.lodestone.helpers.*;
+import team.lodestar.lodestone.systems.blockentity.*;
 
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
-import static com.sammy.malum.registry.common.PacketRegistry.MALUM_CHANNEL;
-import static com.sammy.malum.registry.common.SpiritTypeRegistry.ARCANE_SPIRIT;
+import static com.sammy.malum.registry.common.PacketRegistry.*;
+import static com.sammy.malum.registry.common.SpiritTypeRegistry.*;
 
 public class ArcaneRiteType extends TotemicRiteType {
     public ArcaneRiteType() {
@@ -42,7 +37,7 @@ public class ArcaneRiteType extends TotemicRiteType {
 
             @SuppressWarnings("ConstantConditions")
             @Override
-            public void doRiteEffect(TotemBaseBlockEntity totemBase) {
+            public void doRiteEffect(TotemBaseBlockEntity totemBase, ServerLevel level) {
                 WorldEventHandler.addWorldEvent(totemBase.getLevel(), new TotemCreatedBlightEvent().setPosition(totemBase.getBlockPos()).setBlightData(2, 4, 4));
             }
         };
@@ -52,16 +47,9 @@ public class ArcaneRiteType extends TotemicRiteType {
     public TotemicRiteEffect getCorruptedEffect() {
         return new TotemicRiteEffect(TotemicRiteEffect.MalumRiteEffectCategory.RADIAL_BLOCK_EFFECT) {
 
-            @Override
-            public boolean canAffectBlock(TotemBaseBlockEntity totemBase, Set<Block> filters, BlockState state, BlockPos pos) {
-                pos = pos.above();
-                return super.canAffectBlock(totemBase, filters, totemBase.getLevel().getBlockState(pos), pos);
-            }
-
             @SuppressWarnings("ConstantConditions")
             @Override
-            public void doRiteEffect(TotemBaseBlockEntity totemBase) {
-                Level level = totemBase.getLevel();
+            public void doRiteEffect(TotemBaseBlockEntity totemBase, ServerLevel level) {
                 BlockPos pos = totemBase.getBlockPos();
                 List<BlockPos> nearbyBlocks = getNearbyBlocks(totemBase, BlightedSoilBlock.class).toList();
                 for (BlockPos p : nearbyBlocks) {
