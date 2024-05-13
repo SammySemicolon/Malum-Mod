@@ -1,23 +1,14 @@
 package com.sammy.malum.common.spiritrite.eldritch;
 
-import com.sammy.malum.common.block.curiosities.totem.TotemBaseBlockEntity;
-import com.sammy.malum.common.spiritrite.BlockAffectingRiteEffect;
-
-import com.sammy.malum.common.spiritrite.TotemicRiteEffect;
-import com.sammy.malum.common.spiritrite.TotemicRiteType;
-import com.sammy.malum.registry.common.ParticleEffectTypeRegistry;
-import com.sammy.malum.visual_effects.networked.data.ColorEffectData;
-import com.sammy.malum.visual_effects.networked.data.PositionEffectData;
-import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.entity.monster.Drowned;
-import net.minecraft.world.entity.monster.Zombie;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.PointedDripstoneBlock;
-import net.minecraft.world.level.block.state.BlockState;
-
-import java.util.Set;
+import com.sammy.malum.common.block.curiosities.totem.*;
+import com.sammy.malum.common.spiritrite.*;
+import com.sammy.malum.registry.common.*;
+import com.sammy.malum.visual_effects.networked.data.*;
+import net.minecraft.core.*;
+import net.minecraft.server.level.*;
+import net.minecraft.world.entity.monster.*;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.*;
 
 import static com.sammy.malum.registry.common.SpiritTypeRegistry.*;
 
@@ -31,12 +22,11 @@ public class EldritchAqueousRiteType extends TotemicRiteType {
         return new BlockAffectingRiteEffect() {
 
             @Override
-            public void doRiteEffect(TotemBaseBlockEntity totemBase) {
-                Level level = totemBase.getLevel();
+            public void doRiteEffect(TotemBaseBlockEntity totemBase, ServerLevel level) {
                 getNearbyBlocks(totemBase, PointedDripstoneBlock.class).forEach(p -> {
                     if (level.random.nextFloat() < 0.1f) {
                         for (int i = 0; i < 4 + level.random.nextInt(2); i++) {
-                            level.getBlockState(p).randomTick((ServerLevel) level, p, level.random);
+                            level.getBlockState(p).randomTick(level, p, level.random);
                         }
                         ParticleEffectTypeRegistry.DRIPPING_SMOKE.createPositionedEffect(level, new PositionEffectData(p), new ColorEffectData(AQUEOUS_SPIRIT.getPrimaryColor()));
                     }
@@ -44,13 +34,13 @@ public class EldritchAqueousRiteType extends TotemicRiteType {
             }
 
             @Override
-            public boolean canAffectBlock(TotemBaseBlockEntity totemBase, Set<Block> filters, BlockState state, BlockPos pos) {
-                return super.canAffectBlock(totemBase, filters, state, pos) && PointedDripstoneBlock.isStalactiteStartPos(state, totemBase.getLevel(), pos);
+            public boolean canAffectBlock(TotemBaseBlockEntity totemBase, BlockState state, BlockPos pos) {
+                return super.canAffectBlock(totemBase, state, pos) && PointedDripstoneBlock.isStalactiteStartPos(state, totemBase.getLevel(), pos);
             }
 
             @Override
             public int getRiteEffectVerticalRadius() {
-                return 5;
+                return 4;
             }
         };
     }
@@ -59,7 +49,7 @@ public class EldritchAqueousRiteType extends TotemicRiteType {
     public TotemicRiteEffect getCorruptedEffect() {
         return new TotemicRiteEffect(TotemicRiteEffect.MalumRiteEffectCategory.LIVING_ENTITY_EFFECT) {
             @Override
-            public void doRiteEffect(TotemBaseBlockEntity totemBase) {
+            public void doRiteEffect(TotemBaseBlockEntity totemBase, ServerLevel level) {
                 getNearbyEntities(totemBase, Zombie.class).filter(z -> !(z instanceof Drowned)).forEach(e -> {
                     if (!e.isUnderWaterConverting()) {
                         e.startUnderWaterConversion(100);

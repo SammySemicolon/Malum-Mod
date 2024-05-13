@@ -23,6 +23,7 @@ public class ClientRuntimeEvents {
     @SubscribeEvent
     public static void clientTickEvent(TickEvent.ClientTickEvent event) {
         SpiritCrucibleRenderer.checkForTuningFork(event);
+        TotemBaseRenderer.checkForTotemicStaff(event);
     }
 
     @SubscribeEvent

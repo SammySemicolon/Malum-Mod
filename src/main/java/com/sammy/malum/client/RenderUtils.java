@@ -55,6 +55,9 @@ public class RenderUtils {
     }
 
     public static void drawCube(PoseStack poseStack, VFXBuilders.WorldVFXBuilder builder, float scale, CubeVertexData cubeVertexData) {
+        drawCube(poseStack, builder, builder, scale, cubeVertexData);
+    }
+    public static void drawCube(PoseStack poseStack, VFXBuilders.WorldVFXBuilder builder, VFXBuilders.WorldVFXBuilder sideBuilder, float scale, CubeVertexData cubeVertexData) {
         Vector3f[] bottomVertices = cubeVertexData.bottomVertices;
         Vector3f[] topVertices = cubeVertexData.topVertices;
         Collection<Vector3f[]> offsetMap = cubeVertexData.offsetMap;
@@ -63,7 +66,7 @@ public class RenderUtils {
         poseStack.scale(scale, scale, scale);
         poseStack.translate(-0.5f, -0.5f, -0.5f);
         for (Vector3f[] offsets : offsetMap) {
-            drawSide(poseStack, builder, offsets);
+            drawSide(poseStack, sideBuilder, offsets);
         }
         drawSide(poseStack, builder, new Vector3f[]{bottomVertices[3], bottomVertices[2], bottomVertices[1], bottomVertices[0]});
         drawSide(poseStack, builder, topVertices);

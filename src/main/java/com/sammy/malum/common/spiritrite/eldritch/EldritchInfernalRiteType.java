@@ -1,26 +1,21 @@
 package com.sammy.malum.common.spiritrite.eldritch;
 
-import com.sammy.malum.common.block.curiosities.totem.TotemBaseBlockEntity;
-import com.sammy.malum.common.packets.particle.curiosities.rite.generic.BlockSparkleParticlePacket;
-import com.sammy.malum.common.spiritrite.BlockAffectingRiteEffect;
-import com.sammy.malum.common.spiritrite.TotemicRiteEffect;
-import com.sammy.malum.common.spiritrite.TotemicRiteType;
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.SimpleContainer;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.item.crafting.SmeltingRecipe;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.AbstractFurnaceBlock;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.network.PacketDistributor;
+import com.sammy.malum.common.block.curiosities.totem.*;
+import com.sammy.malum.common.packets.particle.curiosities.rite.generic.*;
+import com.sammy.malum.common.spiritrite.*;
+import net.minecraft.core.*;
+import net.minecraft.server.level.*;
+import net.minecraft.world.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.entity.*;
+import net.minecraft.world.level.block.state.*;
+import net.minecraftforge.network.*;
 
-import java.util.Optional;
+import java.util.*;
 
-import static com.sammy.malum.registry.common.PacketRegistry.MALUM_CHANNEL;
+import static com.sammy.malum.registry.common.PacketRegistry.*;
 import static com.sammy.malum.registry.common.SpiritTypeRegistry.*;
 
 public class EldritchInfernalRiteType extends TotemicRiteType {
@@ -33,8 +28,7 @@ public class EldritchInfernalRiteType extends TotemicRiteType {
         return new BlockAffectingRiteEffect() {
             @SuppressWarnings("ConstantConditions")
             @Override
-            public void doRiteEffect(TotemBaseBlockEntity totemBase) {
-                Level level = totemBase.getLevel();
+            public void doRiteEffect(TotemBaseBlockEntity totemBase, ServerLevel level) {
                 getBlocksAhead(totemBase).forEach(p -> {
                     BlockState state = level.getBlockState(p);
                     Optional<SmeltingRecipe> optional = level.getRecipeManager().getRecipeFor(RecipeType.SMELTING, new SimpleContainer(new ItemStack(state.getBlock().asItem(), 1)), level);
@@ -58,20 +52,14 @@ public class EldritchInfernalRiteType extends TotemicRiteType {
     public TotemicRiteEffect getCorruptedEffect() {
         return new TotemicRiteEffect(TotemicRiteEffect.MalumRiteEffectCategory.RADIAL_BLOCK_EFFECT) {
             @Override
-            public void doRiteEffect(TotemBaseBlockEntity totemBase) {
-                Level level = totemBase.getLevel();
-                getNearbyBlocks(totemBase, AbstractFurnaceBlock.class).map(b -> level.getBlockEntity(b)).filter(e -> e instanceof AbstractFurnaceBlockEntity).map(e -> (AbstractFurnaceBlockEntity) e).forEach(f -> {
+            public void doRiteEffect(TotemBaseBlockEntity totemBase, ServerLevel level) {
+                getNearbyBlocks(totemBase, AbstractFurnaceBlock.class).map(level::getBlockEntity).filter(e -> e instanceof AbstractFurnaceBlockEntity).map(e -> (AbstractFurnaceBlockEntity) e).forEach(f -> {
                     if (f.isLit()) {
                         BlockPos blockPos = f.getBlockPos();
                         //    MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level().getChunkAt(blockPos)), new InfernalAccelerationRiteEffectPacket(INFERNAL_SPIRIT.getPrimaryColor(), blockPos));
-                        f.cookingProgress = Math.min(f.cookingProgress + 5, f.cookingTotalTime - 1);
+                        f.cookingProgress = Math.min(f.cookingProgress + 20, f.cookingTotalTime - 1);
                     }
                 });
-            }
-
-            @Override
-            public int getRiteEffectTickRate() {
-                return super.getRiteEffectTickRate()/4;
             }
         };
     }

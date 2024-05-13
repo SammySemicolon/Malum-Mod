@@ -1,23 +1,15 @@
 package com.sammy.malum.common.spiritrite.eldritch;
 
-import com.sammy.malum.common.block.curiosities.totem.TotemBaseBlockEntity;
-import com.sammy.malum.common.packets.particle.curiosities.rite.generic.BlockSparkleParticlePacket;
-import com.sammy.malum.common.spiritrite.BlockAffectingRiteEffect;
-import com.sammy.malum.common.spiritrite.TotemicRiteEffect;
-import com.sammy.malum.common.spiritrite.TotemicRiteType;
-import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.InfestedBlock;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.network.PacketDistributor;
+import com.sammy.malum.common.block.curiosities.totem.*;
+import com.sammy.malum.common.packets.particle.curiosities.rite.generic.*;
+import com.sammy.malum.common.spiritrite.*;
+import net.minecraft.server.level.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.*;
+import net.minecraftforge.network.*;
 
-import java.util.Set;
-
-import static com.sammy.malum.registry.common.PacketRegistry.MALUM_CHANNEL;
+import static com.sammy.malum.registry.common.PacketRegistry.*;
 import static com.sammy.malum.registry.common.SpiritTypeRegistry.*;
 
 public class EldritchEarthenRiteType extends TotemicRiteType {
@@ -28,26 +20,18 @@ public class EldritchEarthenRiteType extends TotemicRiteType {
     @Override
     public TotemicRiteEffect getNaturalRiteEffect() {
         return new BlockAffectingRiteEffect() {
-            @SuppressWarnings("ConstantConditions")
             @Override
-            public void doRiteEffect(TotemBaseBlockEntity totemBase) {
-                Level level = totemBase.getLevel();
+            public void doRiteEffect(TotemBaseBlockEntity totemBase, ServerLevel level) {
                 getBlocksAhead(totemBase).forEach(p -> {
                     BlockState state = level.getBlockState(p);
                     boolean canBreak = !state.isAir() && state.getDestroySpeed(level, p) != -1;
                     if (canBreak) {
                         level.destroyBlock(p, true);
-                        if (state.getBlock() instanceof InfestedBlock infestedBlock && level instanceof ServerLevel serverLevel) {
-                            infestedBlock.spawnAfterBreak(state, serverLevel, p, ItemStack.EMPTY, true);
-                        }
+                        state.getBlock().spawnAfterBreak(state, level, p, ItemStack.EMPTY, true);
+
                         MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(p)), new BlockSparkleParticlePacket(EARTHEN_SPIRIT.getPrimaryColor(), p));
                     }
                 });
-            }
-
-            @Override
-            public boolean canAffectBlock(TotemBaseBlockEntity totemBase, Set<Block> filters, BlockState state, BlockPos pos) {
-                return super.canAffectBlock(totemBase, filters, state, pos) && !state.isAir();
             }
         };
     }
@@ -57,12 +41,11 @@ public class EldritchEarthenRiteType extends TotemicRiteType {
         return new BlockAffectingRiteEffect() {
             @SuppressWarnings("ConstantConditions")
             @Override
-            public void doRiteEffect(TotemBaseBlockEntity totemBase) {
-                Level level = totemBase.getLevel();
+            public void doRiteEffect(TotemBaseBlockEntity totemBase, ServerLevel level) {
                 getBlocksAhead(totemBase).forEach(p -> {
                     BlockState state = level.getBlockState(p);
-                    boolean canBreak = state.isAir() || state.canBeReplaced();
-                    if (canBreak) {
+                    boolean canPlace = state.isAir() || state.canBeReplaced();
+                    if (canPlace) {
                         BlockState cobblestone = Blocks.COBBLESTONE.defaultBlockState();
                         level.setBlockAndUpdate(p, cobblestone);
                         level.levelEvent(2001, p, Block.getId(cobblestone));

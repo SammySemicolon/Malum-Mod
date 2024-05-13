@@ -1,7 +1,5 @@
 package com.sammy.malum.common.block.curiosities.totem;
 
-import com.google.common.collect.*;
-import com.sammy.malum.common.block.storage.stand.*;
 import com.sammy.malum.common.item.curiosities.tools.*;
 import com.sammy.malum.core.handlers.*;
 import com.sammy.malum.core.systems.spirit.*;
@@ -25,7 +23,6 @@ import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.systems.blockentity.*;
 
 import javax.annotation.*;
-import java.util.*;
 
 public class TotemPoleBlockEntity extends LodestoneBlockEntity {
 
@@ -142,17 +139,6 @@ public class TotemPoleBlockEntity extends LodestoneBlockEntity {
         }
     }
 
-    public Set<ItemStandBlockEntity> getFilters() {
-        Set<ItemStandBlockEntity> standBlockEntities = Sets.newHashSet();
-        for (Direction value : Direction.values()) {
-            BlockEntity blockEntity = level.getBlockEntity(worldPosition.relative(value));
-            if (blockEntity instanceof ItemStandBlockEntity standBlockEntity) {
-                standBlockEntities.add(standBlockEntity);
-            }
-        }
-        return standBlockEntities;
-    }
-
     public void setSpirit(MalumSpiritType type) {
         level.playSound(null, worldPosition, SoundRegistry.TOTEM_ENGRAVE.get(), SoundSource.BLOCKS, 1, Mth.nextFloat(level.random, 0.9f, 1.1f));
         level.playSound(null, worldPosition, SoundEvents.AXE_STRIP, SoundSource.BLOCKS, 1, Mth.nextFloat(level.random, 0.9f, 1.1f));
@@ -171,13 +157,8 @@ public class TotemPoleBlockEntity extends LodestoneBlockEntity {
         BlockHelper.updateState(level, worldPosition);
     }
 
-    public void enable() {
-        this.totemPoleState = TotemPoleState.ACTIVE;
-        BlockHelper.updateState(level, worldPosition);
-    }
-
-    public void disable() {
-        this.totemPoleState = TotemPoleState.INACTIVE;
+    public void setState(TotemPoleState state) {
+        this.totemPoleState = state;
         BlockHelper.updateState(level, worldPosition);
     }
 
@@ -187,10 +168,8 @@ public class TotemPoleBlockEntity extends LodestoneBlockEntity {
             return;
         }
         BlockPos basePos = new BlockPos(worldPosition.getX(), totemBaseYLevel, worldPosition.getZ());
-        if (level.getBlockEntity(basePos) instanceof TotemBaseBlockEntity base) {
-            if (base.active) {
-                base.endRite();
-            }
+        if (level.getBlockEntity(basePos) instanceof TotemBaseBlockEntity base && base.isActiveOrAssembling()) {
+            base.onBreak(player);
         }
     }
 }

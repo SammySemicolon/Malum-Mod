@@ -5,6 +5,7 @@ import com.sammy.malum.common.packets.particle.curiosities.rite.generic.MajorEnt
 import com.sammy.malum.common.spiritrite.TotemicRiteEffect;
 import com.sammy.malum.common.spiritrite.TotemicRiteType;
 import com.sammy.malum.registry.common.DamageTypeRegistry;
+import net.minecraft.server.level.*;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
@@ -25,7 +26,7 @@ public class EldritchWickedRiteType extends TotemicRiteType {
     public TotemicRiteEffect getNaturalRiteEffect() {
         return new TotemicRiteEffect(TotemicRiteEffect.MalumRiteEffectCategory.LIVING_ENTITY_EFFECT) {
             @Override
-            public void doRiteEffect(TotemBaseBlockEntity totemBase) {
+            public void doRiteEffect(TotemBaseBlockEntity totemBase, ServerLevel level) {
                 getNearbyEntities(totemBase, LivingEntity.class, e -> !(e instanceof Player)).forEach(e -> {
                     if (e.getHealth() <= 2.5f && !e.isInvulnerableTo(DamageTypeRegistry.create(e.level(), DamageTypeRegistry.VOODOO))) {
                         MALUM_CHANNEL.send(PacketDistributor.TRACKING_ENTITY.with(() -> e), new MajorEntityEffectParticlePacket(getIdentifyingSpirit().getPrimaryColor(), e.getX(), e.getY() + e.getBbHeight() / 2f, e.getZ()));
@@ -40,7 +41,7 @@ public class EldritchWickedRiteType extends TotemicRiteType {
     public TotemicRiteEffect getCorruptedEffect() {
         return new TotemicRiteEffect(TotemicRiteEffect.MalumRiteEffectCategory.LIVING_ENTITY_EFFECT) {
             @Override
-            public void doRiteEffect(TotemBaseBlockEntity totemBase) {
+            public void doRiteEffect(TotemBaseBlockEntity totemBase, ServerLevel level) {
                 Map<Class<? extends Animal>, List<Animal>> animalMap = getNearbyEntities(totemBase, Animal.class, e -> e.getAge() > 0 && !e.isInvulnerableTo(DamageTypeRegistry.create(e.level(), DamageTypeRegistry.VOODOO))).collect(Collectors.groupingBy(Animal::getClass));
                 for (List<Animal> animals : animalMap.values()) {
                     if (animals.size() < 20) {

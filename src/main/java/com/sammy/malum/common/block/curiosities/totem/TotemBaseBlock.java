@@ -23,7 +23,7 @@ public class TotemBaseBlock<T extends TotemBaseBlockEntity> extends LodestoneEnt
     public int getAnalogOutputSignal(BlockState pState, Level pLevel, BlockPos pPos) {
         BlockEntity be = pLevel.getBlockEntity(pPos);
         if (be instanceof TotemBaseBlockEntity totem) {
-            return totem.active ? totem.spirits.size() : 0;
+            return totem.isActiveOrAssembling() ? totem.getTotemPoles().size() : 0;
         }
         return 0;
     }

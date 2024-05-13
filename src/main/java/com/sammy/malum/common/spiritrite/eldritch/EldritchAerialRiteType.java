@@ -1,37 +1,27 @@
 package com.sammy.malum.common.spiritrite.eldritch;
 
-import com.sammy.malum.common.block.curiosities.totem.TotemBaseBlockEntity;
-import com.sammy.malum.common.packets.particle.curiosities.rite.AerialBlockFallRiteEffectPacket;
-import com.sammy.malum.common.spiritrite.BlockAffectingRiteEffect;
-import com.sammy.malum.common.spiritrite.TotemicRiteEffect;
-import com.sammy.malum.common.spiritrite.TotemicRiteType;
-import com.sammy.malum.registry.common.ParticleEffectTypeRegistry;
-import com.sammy.malum.registry.common.SoundRegistry;
-import com.sammy.malum.registry.common.block.BlockTagRegistry;
-import com.sammy.malum.visual_effects.networked.data.ColorEffectData;
-import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.stats.ServerStatsCounter;
-import net.minecraft.stats.Stat;
-import net.minecraft.stats.Stats;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.world.entity.item.FallingBlockEntity;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.enchantment.Enchantments;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.FallingBlock;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.network.PacketDistributor;
+import com.sammy.malum.common.block.curiosities.totem.*;
+import com.sammy.malum.common.packets.particle.curiosities.rite.*;
+import com.sammy.malum.common.spiritrite.*;
+import com.sammy.malum.registry.common.*;
+import com.sammy.malum.registry.common.block.*;
+import com.sammy.malum.visual_effects.networked.data.*;
+import net.minecraft.core.*;
+import net.minecraft.resources.*;
+import net.minecraft.server.level.*;
+import net.minecraft.sounds.*;
+import net.minecraft.stats.*;
+import net.minecraft.tags.*;
+import net.minecraft.world.entity.item.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.item.enchantment.*;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.*;
+import net.minecraftforge.network.*;
 
-import java.util.List;
+import java.util.*;
 
-import static com.sammy.malum.registry.common.PacketRegistry.MALUM_CHANNEL;
+import static com.sammy.malum.registry.common.PacketRegistry.*;
 import static com.sammy.malum.registry.common.SpiritTypeRegistry.*;
 
 public class EldritchAerialRiteType extends TotemicRiteType {
@@ -43,22 +33,19 @@ public class EldritchAerialRiteType extends TotemicRiteType {
     public TotemicRiteEffect getNaturalRiteEffect() {
         return new BlockAffectingRiteEffect() {
             @Override
-            public void doRiteEffect(TotemBaseBlockEntity totemBase) {
-                Level level = totemBase.getLevel();
-                if (level instanceof ServerLevel serverLevel) {
-                    BlockPos pos = totemBase.getBlockPos();
-                    getBlocksAhead(totemBase).forEach(p -> {
-                        BlockState stateBelow = level.getBlockState(p.below());
-                        if (FallingBlock.isFree(stateBelow) || !stateBelow.canOcclude() || stateBelow.is(BlockTags.SLABS)) {
-                            BlockState state = level.getBlockState(p);
-                            if (!state.isAir() && level.getBlockEntity(p) == null && canSilkTouch(serverLevel, pos, state)) {
-                                FallingBlockEntity.fall(level, p, state);
-                                level.playSound(null, p, SoundRegistry.AERIAL_FALL.get(), SoundSource.BLOCKS, 0.5f, 2.6F + (level.random.nextFloat() - level.random.nextFloat()) * 0.8F);
-                                MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(pos)), new AerialBlockFallRiteEffectPacket(AERIAL_SPIRIT.getPrimaryColor(), p));
-                            }
+            public void doRiteEffect(TotemBaseBlockEntity totemBase, ServerLevel level) {
+                BlockPos pos = totemBase.getBlockPos();
+                getBlocksAhead(totemBase).forEach(p -> {
+                    BlockState stateBelow = level.getBlockState(p.below());
+                    if (FallingBlock.isFree(stateBelow) || !stateBelow.canOcclude() || stateBelow.is(BlockTags.SLABS)) {
+                        BlockState state = level.getBlockState(p);
+                        if (!state.isAir() && level.getBlockEntity(p) == null && canSilkTouch(level, pos, state)) {
+                            FallingBlockEntity.fall(level, p, state);
+                            level.playSound(null, p, SoundRegistry.AERIAL_FALL.get(), SoundSource.BLOCKS, 0.5f, 2.6F + (level.random.nextFloat() - level.random.nextFloat()) * 0.8F);
+                            MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(pos)), new AerialBlockFallRiteEffectPacket(AERIAL_SPIRIT.getPrimaryColor(), p));
                         }
-                    });
-                }
+                    }
+                });
             }
         };
     }
@@ -67,7 +54,7 @@ public class EldritchAerialRiteType extends TotemicRiteType {
     public TotemicRiteEffect getCorruptedEffect() {
         return new TotemicRiteEffect(TotemicRiteEffect.MalumRiteEffectCategory.LIVING_ENTITY_EFFECT) {
             @Override
-            public void doRiteEffect(TotemBaseBlockEntity totemBase) {
+            public void doRiteEffect(TotemBaseBlockEntity totemBase, ServerLevel level) {
                 getNearbyEntities(totemBase, ServerPlayer.class).forEach(p -> {
                     ServerStatsCounter stats = p.getStats();
                     Stat<ResourceLocation> sleepStat = Stats.CUSTOM.get(Stats.TIME_SINCE_REST);

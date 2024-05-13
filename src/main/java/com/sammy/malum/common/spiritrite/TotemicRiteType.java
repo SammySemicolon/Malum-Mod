@@ -1,15 +1,13 @@
 package com.sammy.malum.common.spiritrite;
 
-import com.sammy.malum.MalumMod;
-import com.sammy.malum.common.block.curiosities.totem.TotemBaseBlockEntity;
-import com.sammy.malum.core.systems.spirit.MalumSpiritType;
+import com.sammy.malum.*;
+import com.sammy.malum.common.block.curiosities.totem.*;
+import com.sammy.malum.core.systems.spirit.*;
 import net.minecraft.*;
-import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.chat.*;
+import net.minecraft.resources.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public abstract class TotemicRiteType {
 
@@ -65,6 +63,6 @@ public abstract class TotemicRiteType {
     }
 
     public void executeRite(TotemBaseBlockEntity totemBase) {
-        getRiteEffect(totemBase.corrupted).doRiteEffect(totemBase);
+        getRiteEffect(totemBase.isSoulwood).doRiteEffect(totemBase);
     }
 }
