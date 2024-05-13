@@ -125,6 +125,8 @@ public class MalumItemTags extends ItemTagsProvider {
 
         tag(HIDDEN_UNTIL_VOID)
             .addTag(HIDDEN_UNTIL_BLACK_CRYSTAL)
+            // The Well
+            .add(PRIMORDIAL_SOUP.get())
             // Encyclopedia
             .add(ENCYCLOPEDIA_ESOTERICA.get())
             // Materials
