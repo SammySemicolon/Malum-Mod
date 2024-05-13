@@ -48,6 +48,9 @@ public class TotemBaseBlockEntity extends LodestoneBlockEntity {
     private Direction direction;
     public int timer;
 
+    public TotemicRiteType cachedRadiusRite;
+    public int radiusVisibility;
+
     public TotemBaseBlockEntity(BlockEntityType<? extends TotemBaseBlockEntity> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
         this.isSoulwood = ((TotemBaseBlock<?>) state.getBlock()).corrupted;
@@ -66,8 +69,8 @@ public class TotemBaseBlockEntity extends LodestoneBlockEntity {
         if (direction != null) {
             compound.putString("direction", direction.getName());
         }
-        compound.putInt("timer", timer);
         compound.putInt("height", totemPolePositions.size());
+        compound.putInt("timer", timer);
         super.saveAdditional(compound);
     }
 
@@ -76,11 +79,11 @@ public class TotemBaseBlockEntity extends LodestoneBlockEntity {
         state = compound.contains("state") ? CODEC.byName(compound.getString("state")) : TotemRiteState.IDLE;
         activeRite = SpiritRiteRegistry.getRite(compound.getString("rite"));
         direction = Direction.byName(compound.getString("direction"));
-        timer = compound.getInt("timer");
         totemPolePositions.clear();
         for (int i = 1; i <= compound.getInt("height"); i++) {
             totemPolePositions.add(worldPosition.above(i));
         }
+        timer = compound.getInt("timer");
         super.load(compound);
     }
 
@@ -123,6 +126,20 @@ public class TotemBaseBlockEntity extends LodestoneBlockEntity {
                         }
                     }
                 }
+            }
+        }
+        else {
+
+            if (state.equals(TotemRiteState.IDLE) && radiusVisibility > 0) {
+                radiusVisibility--;
+                if (radiusVisibility == 0) {
+                    cachedRadiusRite = null;
+                }
+            } else if (state.equals(TotemRiteState.ACTIVE) && radiusVisibility < 40){
+                if (activeRite != null && cachedRadiusRite == null) {
+                    cachedRadiusRite = activeRite;
+                }
+                radiusVisibility++;
             }
         }
     }
@@ -241,7 +258,7 @@ public class TotemBaseBlockEntity extends LodestoneBlockEntity {
         if (direction == null) {
             final BlockState state = level.getBlockState(worldPosition.above());
             if (state.getBlock() instanceof TotemPoleBlock) {
-                direction = state.getValue(FACING);
+                direction = state.getValue(HORIZONTAL_FACING);
             }
         }
         return direction;

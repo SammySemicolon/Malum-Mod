@@ -55,13 +55,14 @@ public class TotemBaseRenderer implements BlockEntityRenderer<TotemBaseBlockEnti
     @Override
     public void render(TotemBaseBlockEntity blockEntityIn, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int combinedLightIn, int combinedOverlayIn) {
         if (totemicStaffHeldTimer > 0f) {
-            if (blockEntityIn.activeRite == null) {
+            if (blockEntityIn.cachedRadiusRite == null) {
                 return;
             }
-            float timer = Mth.clamp((totemicStaffHeldTimer + (isHoldingStaff ? 1 : -1) * partialTicks), 0, 20);
-            float scalar = Easing.SINE_IN_OUT.ease(timer / 20f, 0, 1, 1);
-            MalumSpiritType spiritType = blockEntityIn.activeRite.getIdentifyingSpirit();
-            TotemicRiteEffect riteEffect = blockEntityIn.activeRite.getRiteEffect(blockEntityIn.isSoulwood);
+            float staffTimer = Mth.clamp((totemicStaffHeldTimer + (isHoldingStaff ? 1 : -1) * partialTicks), 0, 20);
+            float totemTimer = Mth.clamp((blockEntityIn.radiusVisibility + (blockEntityIn.isActiveOrAssembling() ? 1 : -1) * partialTicks), 0, 40);
+            float scalar = Easing.SINE_IN_OUT.ease(staffTimer / 20f, 0, 1, 1) * Easing.SINE_IN_OUT.ease(totemTimer / 40f, 0, 1, 1);
+            MalumSpiritType spiritType = blockEntityIn.cachedRadiusRite.getIdentifyingSpirit();
+            TotemicRiteEffect riteEffect = blockEntityIn.cachedRadiusRite.getRiteEffect(blockEntityIn.isSoulwood);
             BlockPos riteEffectCenter = riteEffect.getRiteEffectCenter(blockEntityIn);
             BlockPos offset = riteEffectCenter.subtract(blockEntityIn.getBlockPos());
 
