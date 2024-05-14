@@ -41,7 +41,7 @@ import com.sammy.malum.common.item.spirit.*;
 import com.sammy.malum.compability.farmersdelight.*;
 import com.sammy.malum.core.systems.ritual.*;
 import com.sammy.malum.core.systems.spirit.*;
-import com.sammy.malum.registry.client.HiddenItemRegistry;
+import com.sammy.malum.registry.client.HiddenTagRegistry;
 import com.sammy.malum.registry.common.*;
 import com.sammy.malum.registry.common.block.*;
 import com.sammy.malum.registry.common.entity.*;
@@ -490,9 +490,6 @@ public class ItemRegistry {
     public static final RegistryObject<Item> BLOCK_OF_MNEMONIC_FRAGMENT = register("block_of_mnemonic_fragment", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BLOCK_OF_MNEMONIC_FRAGMENT.get(), p));
     public static final RegistryObject<Item> MNEMONIC_FRAGMENT = register("mnemonic_fragment", DEFAULT_PROPERTIES(), Item::new);
 
-    public static final RegistryObject<Item> BLOCK_OF_FOUL_FLESH = register("block_of_foul_flesh", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BLOCK_OF_FOUL_FLESH.get(), p));
-    public static final RegistryObject<Item> FOUL_FLESH = register("foul_flesh", DEFAULT_PROPERTIES(), Item::new);
-
     public static final RegistryObject<Item> AURIC_EMBERS = register("auric_embers", DEFAULT_PROPERTIES(), Item::new);
     public static final RegistryObject<Item> BLOCK_OF_MALIGNANT_LEAD = register("block_of_malignant_lead", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BLOCK_OF_MALIGNANT_LEAD.get(), p));
     public static final RegistryObject<Item> MALIGNANT_LEAD = register("malignant_lead", DEFAULT_PROPERTIES().rarity(RARE), Item::new);
@@ -767,7 +764,7 @@ public class ItemRegistry {
             CuriosRendererRegistry.register(ItemRegistry.TOKEN_OF_GRATITUDE.get(), TokenOfGratitudeRenderer::new);
             CuriosRendererRegistry.register(ItemRegistry.TOPHAT.get(), TopHatCurioRenderer::new);
 
-            HiddenItemRegistry.registerHiddenItems();
+            HiddenTagRegistry.registerHiddenTags();
         }
 
         @SubscribeEvent(priority = EventPriority.LOWEST)

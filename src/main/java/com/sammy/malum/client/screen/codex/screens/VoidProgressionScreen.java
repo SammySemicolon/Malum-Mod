@@ -89,7 +89,7 @@ public class VoidProgressionScreen extends AbstractProgressionCodexScreen {
             .setWidgetConfig(w -> w.setStyle(BookWidgetStyle.DARK_GRAND_SOULWOOD))
         );
         addEntry("void.the_weeping_well", 0, 1, b -> b
-            .setWidgetConfig(w -> w.setIcon(ENCYCLOPEDIA_ESOTERICA).setStyle(BookWidgetStyle.GILDED_SOULWOOD))
+            .setWidgetConfig(w -> w.setIcon(PRIMORDIAL_SOUP).setStyle(BookWidgetStyle.GILDED_SOULWOOD))
             .addPage(new HeadlineTextPage("void.the_weeping_well", "void.the_weeping_well.1"))
             .addPage(new TextPage("void.the_weeping_well.2"))
             .addPage(new TextPage("void.the_weeping_well.3"))
@@ -124,17 +124,6 @@ public class VoidProgressionScreen extends AbstractProgressionCodexScreen {
             .addReference(new EntryReference(UMBRAL_SPIRIT,
                 BookEntry.build("void.material_study_mnemonic_fragment.reexamination")
                     .addPage(new HeadlineTextPage("void.material_study_mnemonic_fragment.reexamination", "void.material_study_mnemonic_fragment.reexamination.1"))
-                    .afterUmbralCrystal()
-            ))
-        );
-
-        addEntry("void.material_study_foul_flesh", -4, 5, b -> b
-            .setWidgetConfig(w -> w.setIcon(FOUL_FLESH).setStyle(BookWidgetStyle.SOULWOOD))
-            .addPage(new WeepingWellTextPage("void.material_study_foul_flesh", "void.material_study_foul_flesh.1", FOUL_FLESH.get()))
-            .addPage(new TextPage("void.material_study_foul_flesh.2"))
-            .addReference(new EntryReference(FOUL_FLESH,
-                BookEntry.build("void.material_study_foul_flesh.reexamination")
-                    .addPage(new HeadlineTextPage("void.material_study_foul_flesh.reexamination", "void.material_study_foul_flesh.reexamination.1"))
                     .afterUmbralCrystal()
             ))
         );
