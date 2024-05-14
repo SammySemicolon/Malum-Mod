@@ -35,9 +35,17 @@ public class RenderTypeRegistry extends RenderStateShard {
     });
 
     public static final RenderTypeProvider ADDITIVE_DISTORTED_TEXTURE = new RenderTypeProvider((texture) ->
-            LodestoneRenderTypeRegistry.createGenericRenderType(texture.getNamespace() + ":distorted_texture", POSITION_COLOR_TEX_LIGHTMAP, QUADS, LodestoneRenderTypeRegistry.builder()
+            LodestoneRenderTypeRegistry.createGenericRenderType(texture.getNamespace() + ":additive_distorted_texture", POSITION_COLOR_TEX_LIGHTMAP, QUADS, LodestoneRenderTypeRegistry.builder()
                     .setShaderState(ShaderRegistry.DISTORTION)
                     .setTransparencyState(StateShards.ADDITIVE_TRANSPARENCY)
+                    .setLightmapState(LIGHTMAP)
+                    .setCullState(CULL)
+                    .setTextureState(texture)));
+
+    public static final RenderTypeProvider TRANSPARENT_DISTORTED_TEXTURE = new RenderTypeProvider((texture) ->
+            LodestoneRenderTypeRegistry.createGenericRenderType(texture.getNamespace() + ":transparent_distorted_texture", POSITION_COLOR_TEX_LIGHTMAP, QUADS, LodestoneRenderTypeRegistry.builder()
+                    .setShaderState(ShaderRegistry.DISTORTION)
+                    .setTransparencyState(StateShards.TRANSLUCENT_TRANSPARENCY)
                     .setLightmapState(LIGHTMAP)
                     .setCullState(CULL)
                     .setTextureState(texture)));

@@ -3,6 +3,7 @@ package com.sammy.malum.registry.common.block;
 import com.sammy.malum.registry.common.*;
 import net.minecraft.tags.*;
 import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.material.*;
 import net.minecraftforge.common.*;
 import team.lodestar.lodestone.systems.block.*;
 
@@ -352,6 +353,8 @@ public class MalumBlockProperties {
 
     public static LodestoneBlockProperties PRIMORDIAL_SOUP() {
         return new LodestoneBlockProperties()
+                .pushReaction(PushReaction.BLOCK)
+                .setCutoutRenderType()
                 .sound(SoundRegistry.BLIGHTED_EARTH)
                 .strength(-1.0F, 3600000.0F);
     }

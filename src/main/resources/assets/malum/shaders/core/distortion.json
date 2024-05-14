@@ -28,6 +28,9 @@
     { "name": "LumiTransparency", "type": "float", "count": 1, "values": [ 0.0 ] },
     { "name": "GameTime", "type": "float", "count": 1, "values": [ 0.0 ] },
     { "name": "Speed", "type": "float", "count": 1, "values": [ 200.0 ] },
-    { "name": "LumiTransparency", "type": "float", "count": 1, "values": [ 0.0 ] }
+    { "name": "Distortion", "type": "float", "count": 1, "values": [ 8.0 ] },
+    { "name": "Width", "type": "float", "count": 1, "values": [ 64.0 ] },
+    { "name": "Height", "type": "float", "count": 1, "values": [ 64.0 ] },
+    { "name": "UVEncasement", "type": "float", "count": 4, "values": [ 0.0, 1.0, 0.0, 1.0 ] }
   ]
 }

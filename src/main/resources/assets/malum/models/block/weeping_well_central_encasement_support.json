@@ -1,0 +1,24 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "block/block",
+	"texture_size": [64, 64],
+	"textures": {
+		"2": "malum:block/arcane_rock/tainted/tainted_rock_column_cap_top",
+		"particle": "malum:block/arcane_rock/tainted/tainted_rock_bricks",
+		"weeping_well": "malum:block/weeping_well/weeping_well"
+	},
+	"elements": [
+		{
+			"from": [0, 0, 0],
+			"to": [16, 16, 16],
+			"faces": {
+				"north": {"uv": [4, 8, 8, 12], "texture": "#weeping_well"},
+				"east": {"uv": [4, 8, 8, 12], "texture": "#weeping_well"},
+				"south": {"uv": [4, 8, 8, 12], "texture": "#weeping_well"},
+				"west": {"uv": [4, 8, 8, 12], "texture": "#weeping_well"},
+				"up": {"uv": [0, 16, 16, 0], "rotation": 180, "texture": "#2"},
+				"down": {"uv": [0, 0, 16, 16], "rotation": 180, "texture": "#2"}
+			}
+		}
+	]
+}

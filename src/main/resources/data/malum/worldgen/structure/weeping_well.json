@@ -5,9 +5,9 @@
   "max_distance_from_center": 10,
   "biomes": "#malum:has_structure/weeping_well_biomes",
   "step": "underground_structures",
-  "max_y": -10,
+  "max_y": -20,
   "min_y": -50,
-  "offset_in_ground": -4,
+  "offset_in_ground": -9,
   "use_expansion_hack": false,
   "spawn_overrides": {
     "monster": {

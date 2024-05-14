@@ -121,6 +121,7 @@ public class TouchOfDarknessHandler {
             handler.currentAffliction = Math.max(handler.currentAffliction - (handler.expectedAffliction == 0 ? 1.5f : 0.75f), handler.expectedAffliction);
         }
         //GRAVITY
+
         AttributeInstance gravity = livingEntity.getAttribute(ForgeMod.ENTITY_GRAVITY.get());
         if (gravity != null) {
             boolean hasModifier = gravity.getModifier(GRAVITY_MODIFIER_UUID) != null;
@@ -135,13 +136,15 @@ public class TouchOfDarknessHandler {
         }
         //REJECTION
         if (isInTheGoop) {
-            handler.progressToRejection++;
-            if (!level.isClientSide) {
-                if (livingEntity instanceof Player && level.getGameTime() % 6L == 0) {
-                    level.playSound(null, livingEntity.blockPosition(), SoundRegistry.SONG_OF_THE_VOID.get(), SoundSource.HOSTILE, 0.5f + handler.progressToRejection * 0.02f, 0.5f + handler.progressToRejection * 0.03f);
-                }
-                if (handler.rejection == 0 && handler.progressToRejection > 60) {
-                    handler.reject(livingEntity);
+            if (!(livingEntity instanceof Player player) || (!player.isCreative() && !player.isSpectator())) {
+                handler.progressToRejection++;
+                if (!level.isClientSide) {
+                    if (livingEntity instanceof Player && level.getGameTime() % 6L == 0) {
+                        level.playSound(null, livingEntity.blockPosition(), SoundRegistry.SONG_OF_THE_VOID.get(), SoundSource.HOSTILE, 0.5f + handler.progressToRejection * 0.02f, 0.5f + handler.progressToRejection * 0.03f);
+                    }
+                    if (handler.rejection == 0 && handler.progressToRejection > 60) {
+                        handler.reject(livingEntity);
+                    }
                 }
             }
         } else {

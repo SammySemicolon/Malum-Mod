@@ -123,8 +123,8 @@ public class MalignantStrongholdArmorModel extends LodestoneArmorModel {
                                 activeGlows.get(Math.min((int)relative+1, activeGlows.size()-1)).getColorCoefficient());
             }
 
-            final VertexConsumer transparent = RenderHandler.DELAYED_RENDER.getBuffer(LodestoneRenderTypeRegistry.TRANSPARENT_TEXTURE.applyAndCache(GLOW_TEXTURE));
-            final VertexConsumer additive = RenderHandler.DELAYED_RENDER.getBuffer(RenderTypeRegistry.MALIGNANT_GLOW.applyAndCache(GLOW_TEXTURE));
+            final VertexConsumer transparent = RenderHandler.DELAYED_RENDER.getTarget().getBuffer(LodestoneRenderTypeRegistry.TRANSPARENT_TEXTURE.applyAndCache(GLOW_TEXTURE));
+            final VertexConsumer additive = RenderHandler.DELAYED_RENDER.getTarget().getBuffer(RenderTypeRegistry.MALIGNANT_GLOW.applyAndCache(GLOW_TEXTURE));
             float distance = 0.06f;
             float alpha = 0.25f;
             int time = 320;
