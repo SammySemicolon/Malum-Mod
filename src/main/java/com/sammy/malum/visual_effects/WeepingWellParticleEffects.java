@@ -56,6 +56,7 @@ public class WeepingWellParticleEffects {
                         .disableNoClip()
                         .setGravityStrength(gravityStrength/2f)
                         .setMotion(xVelocity, yVelocity, zVelocity)
+                        .setRenderTarget(RenderHandler.LATE_DELAYED_RENDER)
                         .modifyData(SparkParticleBuilder::getTransparencyData, d -> d.multiplyValue(2f))
                         .modifyData(SparkParticleBuilder::getScaleData, d -> d.multiplyValue(1.5f));
                 sparkParticles.getBloomBuilder()
@@ -63,6 +64,7 @@ public class WeepingWellParticleEffects {
                         .disableNoClip()
                         .setGravityStrength(gravityStrength/2f)
                         .setMotion(xVelocity, yVelocity, zVelocity)
+                        .setRenderTarget(RenderHandler.LATE_DELAYED_RENDER)
                         .modifyData(WorldParticleBuilder::getTransparencyData, d -> d.multiplyValue(1.25f));
                 sparkParticles.spawnParticles();
             }
@@ -76,12 +78,14 @@ public class WeepingWellParticleEffects {
                         .disableNoClip()
                         .setGravityStrength(gravityStrength)
                         .setMotion(xVelocity, yVelocity, zVelocity)
+                        .setRenderTarget(RenderHandler.LATE_DELAYED_RENDER)
                         .modifyData(WorldParticleBuilder::getScaleData, d -> d.multiplyValue(2.5f));
                 lightSpecs.getBloomBuilder()
                         .addSpawnActor(spawnBehavior)
                         .disableNoClip()
                         .setGravityStrength(gravityStrength)
                         .setMotion(xVelocity, yVelocity, zVelocity)
+                        .setRenderTarget(RenderHandler.LATE_DELAYED_RENDER)
                         .modifyData(WorldParticleBuilder::getTransparencyData, d -> d.multiplyValue(1.25f));
                 lightSpecs.spawnParticles();
             }
@@ -99,6 +103,7 @@ public class WeepingWellParticleEffects {
                     .setRandomOffset(0.6f)
                     .enableNoClip()
                     .setRandomMotion(0.02f, 0.02f)
+                    .setRenderTarget(RenderHandler.LATE_DELAYED_RENDER)
                     .setDiscardFunction(SimpleParticleOptions.ParticleDiscardFunctionType.ENDING_CURVE_INVISIBLE)
                     .setRenderType(LodestoneWorldParticleRenderType.LUMITRANSPARENT)
                     .repeat(level, posX, posY+0.25f, posZ, 5);
@@ -146,7 +151,9 @@ public class WeepingWellParticleEffects {
                 for (int i = 0; i < 2; i++) {
                     var lightSpecs = weepingWellSpecs(level, offsetPosition);
                     lightSpecs.getBuilder().addTickActor(behavior);
+                    lightSpecs.getBuilder().setRenderTarget(RenderHandler.LATE_DELAYED_RENDER);
                     lightSpecs.getBloomBuilder().addTickActor(behavior);
+                    lightSpecs.getBloomBuilder().setRenderTarget(RenderHandler.LATE_DELAYED_RENDER);
                     lightSpecs.spawnParticles();
                 }
             }
@@ -214,6 +221,7 @@ public class WeepingWellParticleEffects {
                 .setMotion(motion)
                 .setDirection(motion.normalize())
                 .enableNoClip()
+                .setRenderTarget(RenderHandler.LATE_DELAYED_RENDER)
                 .setSpritePicker(SimpleParticleOptions.ParticleSpritePicker.RANDOM_SPRITE)
                 .addTickActor(behavior);
         Consumer<DirectionalParticleBuilder> squareSpawner = b -> b

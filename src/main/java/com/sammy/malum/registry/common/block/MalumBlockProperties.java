@@ -242,6 +242,27 @@ public class MalumBlockProperties {
                 .sound(SoundRegistry.ETHER)
                 .noCollission()
                 .instabreak()
+                .setCutoutRenderType()
+                .lightLevel((b) -> 14);
+    }
+    public static LodestoneBlockProperties ETHER_TORCH() {
+        return RUNEWOOD()
+                .addTag(BlockTagRegistry.TRAY_HEAT_SOURCES)
+                .noCollission()
+                .instabreak()
+                .setCutoutRenderType()
+                .lightLevel((b) -> 14);
+    }
+    public static LodestoneBlockProperties TAINTED_ETHER_BRAZIER() {
+        return TAINTED_ROCK()
+                .addTag(BlockTagRegistry.TRAY_HEAT_SOURCES)
+                .setCutoutRenderType()
+                .lightLevel((b) -> 14);
+    }
+    public static LodestoneBlockProperties TWISTED_ETHER_BRAZIER() {
+        return TWISTED_ROCK()
+                .addTag(BlockTagRegistry.TRAY_HEAT_SOURCES)
+                .setCutoutRenderType()
                 .lightLevel((b) -> 14);
     }
 

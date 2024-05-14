@@ -74,12 +74,13 @@ public class TotemBaseRenderer implements BlockEntityRenderer<TotemBaseBlockEnti
             if (height > 1) {
                 height = height * 2 + 1;
             }
-            float shaderWidth = width * 24;
-            float shaderHeight = height * 24;
-            float distortion = 10f + (width * height)/32f;
+            float shaderWidth = width * 32;
+            float shaderHeight = height * 32;
+            float distortion = 6f+height/2f;
+            float sideDistortion = 6f+width/2f;
             final LodestoneRenderType renderType = RenderTypeRegistry.ADDITIVE_DISTORTED_TEXTURE.applyWithModifierAndCache(AREA_COVERAGE_TEXTURE, b -> b.setCullState(LodestoneRenderTypeRegistry.NO_CULL));
             float index = shaderWidth + distortion;
-            float sideIndex = shaderWidth*shaderHeight + distortion;
+            float sideIndex = shaderWidth*shaderHeight + sideDistortion;
 
             var builder = SpiritBasedWorldVFXBuilder.create(spiritType)
                     .setRenderType(LodestoneRenderTypeRegistry.applyUniformChanges(LodestoneRenderTypeRegistry.copyAndStore(index, renderType), s -> {
@@ -92,7 +93,7 @@ public class TotemBaseRenderer implements BlockEntityRenderer<TotemBaseBlockEnti
             var sideBuilder = SpiritBasedWorldVFXBuilder.create(spiritType)
                     .setRenderType(LodestoneRenderTypeRegistry.applyUniformChanges(LodestoneRenderTypeRegistry.copyAndStore(sideIndex, renderType), s -> {
                         s.safeGetUniform("Speed").set(1500f);
-                        s.safeGetUniform("Distortion").set(distortion);
+                        s.safeGetUniform("Distortion").set(sideDistortion);
                         s.safeGetUniform("Width").set(shaderWidth);
                         s.safeGetUniform("Height").set(shaderHeight);
                     }))
