@@ -39,12 +39,7 @@ public class VoidConduitRenderer implements BlockEntityRenderer<VoidConduitBlock
             poseStack.pushPose();
             poseStack.translate(0.5f, 0.01f, 0.5f);
 
-            poseStack.pushPose();
-            for (int i = 0; i < 2; i++) {
-                builder.replaceBufferSource(RenderHandler.LATE_DELAYED_RENDER.getTarget()).setRenderType(LodestoneRenderTypeRegistry.TRANSPARENT_TEXTURE.applyAndCache(VIGNETTE)).renderQuad(poseStack, positions, 1f);
-                poseStack.translate(0f, 0.1f, 0f);
-            }
-            poseStack.popPose();
+            builder.replaceBufferSource(RenderHandler.LATE_DELAYED_RENDER.getTarget()).setRenderType(LodestoneRenderTypeRegistry.TRANSPARENT_TEXTURE.applyAndCache(VIGNETTE)).renderQuad(poseStack, positions, 1f);
             final long gameTime = voidConduit.getLevel().getGameTime();
             float uOffset = ((gameTime + partialTicks) % 4000) / 2000f;
             float vOffset = ((gameTime + 500f + partialTicks) % 8000) / 8000f;
@@ -61,8 +56,6 @@ public class VoidConduitRenderer implements BlockEntityRenderer<VoidConduitBlock
                     s.safeGetUniform("Height").set(48f);
                     s.safeGetUniform("UVEncasement").set(new Vector4f(-10, 20, -10, 20));
                 }));
-
-
                 builder.setUV(-uOffset, vOffset, 1 - uOffset, 1 + vOffset).renderQuad(poseStack, positions, 1f);
                 builder.setUV(uOffset, -vOffset, 1 + uOffset, 1 - vOffset).renderQuad(poseStack, positions, 1f);
                 alpha -= 0.0125f;

@@ -128,7 +128,7 @@ public class VoidProgressionScreen extends AbstractProgressionCodexScreen {
             ))
         );
 
-        addEntry("void.material_study_void_salts", 2, 3, b -> b
+        addEntry("void.material_study_void_salts", 0, 3, b -> b
             .setWidgetConfig(w -> w.setIcon(VOID_SALTS).setStyle(BookWidgetStyle.SOULWOOD))
             .addPage(new WeepingWellTextPage("void.material_study_void_salts", "void.material_study_void_salts.1", VOID_SALTS.get()))
             .addPage(new TextPage("void.material_study_void_salts.2"))
@@ -139,7 +139,7 @@ public class VoidProgressionScreen extends AbstractProgressionCodexScreen {
             ))
         );
 
-        addEntry("void.material_study_malignant_lead", 3, 4, b -> b
+        addEntry("void.material_study_malignant_lead", 2, 3, b -> b
             .setWidgetConfig(w -> w.setIcon(MALIGNANT_LEAD).setStyle(BookWidgetStyle.SOULWOOD))
             .addPage(new WeepingWellTextPage("void.material_study_malignant_lead", "void.material_study_malignant_lead.1", MALIGNANT_LEAD.get()))
             .addPage(new TextPage("void.material_study_malignant_lead.2"))
@@ -151,7 +151,7 @@ public class VoidProgressionScreen extends AbstractProgressionCodexScreen {
             ))
         );
 
-        addEntry("void.material_study_auric_embers", 4, 5, b -> b
+        addEntry("void.material_study_auric_embers", 3, 4, b -> b
             .setWidgetConfig(w -> w.setIcon(AURIC_EMBERS).setStyle(BookWidgetStyle.SOULWOOD))
             .addPage(new WeepingWellTextPage("void.material_study_auric_embers", "void.material_study_auric_embers.1", AURIC_EMBERS.get()))
             .addPage(new TextPage("void.material_study_auric_embers.2"))

@@ -126,7 +126,7 @@ public class WeepingWellParticleEffects {
             Color color = getWeepingWellSmokeColor(rand);
             ColorParticleData colorData = ColorParticleData.create(color, color.darker()).setCoefficient(0.5f).build();
             DirectionalParticleBuilder.create(ParticleRegistry.DIRECTIONAL_WISP)
-                    .setTransparencyData(GenericParticleData.create(0.8f, 0.6f, 0f).setEasing(Easing.SINE_IN, Easing.SINE_OUT).build())
+                    .setTransparencyData(GenericParticleData.create(0.6f, 0.4f, 0f).setEasing(Easing.SINE_IN, Easing.SINE_OUT).build())
                     .setSpinData(SpinParticleData.createRandomDirection(rand, 0.02f, 0.04f, 0).setEasing(Easing.SINE_IN, Easing.SINE_OUT).build())
                     .setScaleData(GenericParticleData.create(0f, 0.6f, 0.3f).setEasing(Easing.SINE_IN, Easing.SINE_OUT).build())
                     .setColorData(colorData)
