@@ -3,6 +3,7 @@ package com.sammy.malum.registry.common.block;
 import com.sammy.malum.registry.common.*;
 import net.minecraft.tags.*;
 import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.properties.*;
 import net.minecraft.world.level.material.*;
 import net.minecraftforge.common.*;
 import team.lodestar.lodestone.systems.block.*;
@@ -44,6 +45,7 @@ public class MalumBlockProperties {
         return new LodestoneBlockProperties()
                 .needsAxe()
                 .sound(SoundRegistry.RUNEWOOD)
+                .instrument(NoteBlockInstrument.BASS)
                 .strength(1.75F, 4.0F);
     }
 
@@ -93,6 +95,7 @@ public class MalumBlockProperties {
         return new LodestoneBlockProperties()
                 .sound(SoundRegistry.SOULWOOD)
                 .strength(1.75F, 4.0F)
+                .instrument(NoteBlockInstrument.BASS)
                 .needsAxe();
     }
 
@@ -367,8 +370,9 @@ public class MalumBlockProperties {
     public static LodestoneBlockProperties WEEPING_WELL() {
         return new LodestoneBlockProperties()
                 .needsPickaxe()
-                .sound(SoundRegistry.TAINTED_ROCK)
+                .sound(SoundRegistry.WEEPING_WELL_BRICKS)
                 .requiresCorrectToolForDrops()
+                .isRedstoneConductor(Blocks::never)
                 .strength(-1.0F, 3600000.0F);
     }
 

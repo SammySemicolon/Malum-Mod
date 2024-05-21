@@ -9,12 +9,12 @@ public class ShieldingApparatusItem extends AbstractAugmentItem{
 
     @Override
     public float getShieldingChance() {
-        return 0.06f;
+        return 0.08f;
     }
 
     @Override
     public float getInstabilityIncrease() {
-        return -0.01f;
+        return -0.02f;
     }
 
     @Override

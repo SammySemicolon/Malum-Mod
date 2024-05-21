@@ -8,24 +8,27 @@
   "type": "create:crushing",
   "ingredients": [
     {
-      "item": "malum:block_of_aurum"
+      "item": "malum:cthonic_gold_ore"
     }
   ],
   "results": [
     {
-      "item": "malum:cthonic_gold"
+      "item": "malum:cthonic_gold_fragment",
+      "count": 3
     },
     {
-      "item": "malum:cthonic_gold",
+      "item": "malum:cthonic_gold_fragment",
       "chance": 0.75
     },
     {
       "item": "create:experience_nugget",
+      "count": 4,
       "chance": 0.75
     },
     {
-      "item": "minecraft:cobbled_deepslate",
-      "chance": 0.125
+      "item": "create:experience_nugget",
+      "count": 2,
+      "chance": 0.75
     }
   ],
   "processingTime": 600

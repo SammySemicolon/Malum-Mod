@@ -59,9 +59,7 @@ public class EtherBlockEntity extends LodestoneBlockEntity {
 
     @Override
     protected void saveAdditional(CompoundTag compound) {
-        if (firstColor != null) {
-            compound.putInt("firstColor", firstColor.getRGB());
-        }
+        compound.putInt("firstColor", firstColor.getRGB());
         if (getBlockState().getBlock().asItem() instanceof AbstractEtherItem etherItem && etherItem.iridescent) {
             if (secondColor != null && secondColor.getRGB() != EtherItem.DEFAULT_SECOND_COLOR) {
                 compound.putInt("secondColor", secondColor.getRGB());

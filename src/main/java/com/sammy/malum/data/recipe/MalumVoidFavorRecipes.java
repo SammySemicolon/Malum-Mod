@@ -4,6 +4,7 @@ import com.sammy.malum.*;
 import com.sammy.malum.data.recipe.builder.*;
 import com.sammy.malum.registry.common.item.*;
 import net.minecraft.data.recipes.*;
+import net.minecraft.tags.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.*;
 import net.minecraftforge.common.*;
@@ -45,6 +46,9 @@ public class MalumVoidFavorRecipes {
                 .build(consumer);
 
         new VoidFavorRecipeBuilder(Items.BLACK_WOOL, ItemRegistry.TOPHAT.get(), 1)
+                .build(consumer);
+
+        new VoidFavorRecipeBuilder(Ingredient.of(ItemTags.MUSIC_DISCS), ItemRegistry.AESTHETICA.get(), 1)
                 .build(consumer);
     }
 }

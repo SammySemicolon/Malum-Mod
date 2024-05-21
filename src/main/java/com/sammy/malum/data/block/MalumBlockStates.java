@@ -224,7 +224,7 @@ public class MalumBlockStates extends LodestoneBlockStateProvider {
                 SPIRIT_CATALYZER, SPIRIT_CATALYZER_COMPONENT);
 
         BlockStateSmithTypes.CUSTOM_MODEL.act(data, ItemModelSmithTypes.BLOCK_MODEL_ITEM, this::simpleBlock, this::predefinedModel,
-                VOID_CONDUIT, WEEPING_WELL_BRICKS);
+                VOID_CONDUIT, VOID_DEPOT, WEEPING_WELL_BRICKS);
         BlockStateSmithTypes.CUSTOM_MODEL.act(data, ItemModelSmithTypes.BLOCK_MODEL_ITEM, this::horizontalBlock, this::predefinedModel,
                 WEEPING_WELL_ENCASEMENT, WEEPING_WELL_ENCASEMENT_MIRRORED, WEEPING_WELL_ENCASEMENT_CORNER, WEEPING_WELL_CENTRAL_ENCASEMENT, WEEPING_WELL_SIDE_PILLAR);
         BlockStateSmithTypes.CUSTOM_MODEL.act(data, ItemModelSmithTypes.BLOCK_MODEL_ITEM, this::directionalBlock, this::predefinedModel,

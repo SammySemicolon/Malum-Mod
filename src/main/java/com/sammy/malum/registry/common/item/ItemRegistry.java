@@ -685,6 +685,8 @@ public class ItemRegistry {
     public static final RegistryObject<Item> NECKLACE_OF_THE_HIDDEN_BLADE = register("necklace_of_the_hidden_blade", GEAR_PROPERTIES(), CurioHiddenBladeNecklace::new);
     public static final RegistryObject<Item> NECKLACE_OF_THE_WATCHER = register("necklace_of_the_watcher", GEAR_PROPERTIES(), CurioWatcherNecklace::new);
     public static final RegistryObject<Item> BELT_OF_THE_LIMITLESS = register("belt_of_the_limitless", GEAR_PROPERTIES(), CurioLimitlessBelt::new);
+
+    public static final RegistryObject<Item> AESTHETICA = register("music_disc_aesthetica", HIDDEN_PROPERTIES().rarity(RARE), AestheticaMusicDiscItem::new);
     //endregion
 
     //region cosmetics
@@ -726,6 +728,7 @@ public class ItemRegistry {
 
     public static final RegistryObject<Item> PRIMORDIAL_SOUP = register("primordial_soup", HIDDEN_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.PRIMORDIAL_SOUP.get(), p));
     public static final RegistryObject<Item> VOID_CONDUIT = register("void_conduit", HIDDEN_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.VOID_CONDUIT.get(), p));
+    public static final RegistryObject<Item> VOID_DEPOT = register("void_depot", HIDDEN_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.VOID_DEPOT.get(), p));
 
     public static final RegistryObject<Item> WEEPING_WELL_BRICKS = register("weeping_well_bricks", HIDDEN_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.WEEPING_WELL_BRICKS.get(), p));
     public static final RegistryObject<Item> WEEPING_WELL_ENCASEMENT = register("weeping_well_encasement", HIDDEN_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.WEEPING_WELL_ENCASEMENT.get(), p));

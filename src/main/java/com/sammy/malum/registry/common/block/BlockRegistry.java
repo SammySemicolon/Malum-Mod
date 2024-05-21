@@ -12,6 +12,7 @@ import com.sammy.malum.common.block.curiosities.spirit_altar.*;
 import com.sammy.malum.common.block.curiosities.spirit_crucible.*;
 import com.sammy.malum.common.block.curiosities.spirit_crucible.catalyzer.*;
 import com.sammy.malum.common.block.curiosities.totem.*;
+import com.sammy.malum.common.block.curiosities.void_depot.*;
 import com.sammy.malum.common.block.curiosities.weavers_workbench.*;
 import com.sammy.malum.common.block.curiosities.weeping_well.*;
 import com.sammy.malum.common.block.ether.*;
@@ -86,6 +87,8 @@ public class BlockRegistry {
 
     public static final RegistryObject<Block> VOID_CONDUIT = BLOCKS.register("void_conduit", () -> new VoidConduitBlock<>(MalumBlockProperties.PRIMORDIAL_SOUP()).setBlockEntity(BlockEntityRegistry.VOID_CONDUIT));
     public static final RegistryObject<Block> PRIMORDIAL_SOUP = BLOCKS.register("primordial_soup", () -> new PrimordialSoupBlock(MalumBlockProperties.PRIMORDIAL_SOUP()));
+
+    public static final RegistryObject<Block> VOID_DEPOT = BLOCKS.register("void_depot", () -> new VoidDepotBlock<>(MalumBlockProperties.WEEPING_WELL()).setBlockEntity(BlockEntityRegistry.VOID_DEPOT));
 
     public static final RegistryObject<Block> WEEPING_WELL_BRICKS = BLOCKS.register("weeping_well_bricks", () -> new Block(MalumBlockProperties.WEEPING_WELL()));
 

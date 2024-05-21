@@ -123,7 +123,7 @@ public class SpiritCrucibleRenderer implements BlockEntityRenderer<SpiritCrucibl
             MultiBufferSource textBuffer = new BufferWrapper(RenderTypeRegistry.ADDITIVE_TEXT, RenderHandler.DELAYED_RENDER.getTarget());
             final List<CrucibleTuning.CrucibleAttributeType> validValues = CrucibleTuning.CrucibleAttributeType.getValidValues(blockEntityIn.acceleratorData);
             poseStack.pushPose();
-            poseStack.translate(0.5f, 2f, 0.5f);
+            poseStack.translate(0.5f, 2f, 0.55f);
             poseStack.mulPose(Minecraft.getInstance().getEntityRenderDispatcher().cameraOrientation());
             poseStack.mulPose(Axis.YP.rotationDegrees(180f));
             for (int i = 0; i < validValues.size(); i++) {

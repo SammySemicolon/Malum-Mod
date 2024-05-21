@@ -19,9 +19,14 @@ public class RenderTypeRegistry extends RenderStateShard {
 
     //TODO: move this to lodestone
     public static final Function<RenderStateShard.EmptyTextureStateShard, RenderType> ADDITIVE_TEXT = Util.memoize((texture) ->
-            LodestoneRenderTypeRegistry.createGenericRenderType("malum:glowing_text", POSITION_COLOR_TEX_LIGHTMAP, QUADS, LodestoneRenderTypeRegistry.builder()
+            LodestoneRenderTypeRegistry.createGenericRenderType("malum:additive_text", POSITION_COLOR_TEX_LIGHTMAP, QUADS, LodestoneRenderTypeRegistry.builder()
                     .setShaderState(ShaderRegistry.ADDITIVE_TEXT.getShard())
                     .setTransparencyState(StateShards.ADDITIVE_TRANSPARENCY)
+                    .setTextureState(texture)));
+    public static final Function<RenderStateShard.EmptyTextureStateShard, RenderType> TRANSLUCENT_TEXT = Util.memoize((texture) ->
+            LodestoneRenderTypeRegistry.createGenericRenderType("malum:translucent_text", POSITION_COLOR_TEX_LIGHTMAP, QUADS, LodestoneRenderTypeRegistry.builder()
+                    .setShaderState(ShaderRegistry.ADDITIVE_TEXT.getShard())
+                    .setTransparencyState(StateShards.TRANSLUCENT_TRANSPARENCY)
                     .setTextureState(texture)));
 
     private static final RenderStateShard.TransparencyStateShard SUBTRACTIVE_TEXT_TRANSPARENCY = new RenderStateShard.TransparencyStateShard("malum:subtractive_text_transparency", () -> {
