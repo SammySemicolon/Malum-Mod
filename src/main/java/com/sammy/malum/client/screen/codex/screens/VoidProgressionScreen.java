@@ -31,6 +31,7 @@ import java.util.Collection;
 import java.util.List;
 
 import static com.sammy.malum.MalumMod.malumPath;
+import static com.sammy.malum.client.VoidRevelationHandler.RevelationType.VOID_READER;
 import static com.sammy.malum.registry.common.item.ItemRegistry.*;
 
 public class VoidProgressionScreen extends AbstractProgressionCodexScreen {
@@ -78,7 +79,7 @@ public class VoidProgressionScreen extends AbstractProgressionCodexScreen {
         screen.timesTransitioned++;
         screen.transitionTimer = screen.getTransitionDuration();
         EncyclopediaEsotericaItem.shouldOpenVoidCodex = true;
-        VoidRevelationHandler.seeTheRevelation();
+        VoidRevelationHandler.seeTheRevelation(VOID_READER);
     }
 
     public void setupEntries() {
