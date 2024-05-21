@@ -1,16 +1,18 @@
 package com.sammy.malum.client.screen.codex;
 
 import com.google.common.collect.ImmutableList;
+import com.sammy.malum.client.VoidRevelationHandler;
 import com.sammy.malum.client.screen.codex.pages.BookPage;
 import com.sammy.malum.client.screen.codex.pages.EntryReference;
 import com.sammy.malum.client.screen.codex.screens.EntryScreen;
-import com.sammy.malum.registry.client.HiddenTagRegistry;
 
 import java.util.function.Predicate;
 
+import static com.sammy.malum.client.VoidRevelationHandler.RevelationType.BLACK_CRYSTAL;
+
 public class BookEntry {
 
-    protected static final Predicate<EntryScreen> AFTER_UMBRAL_CRYSTAL = t -> HiddenTagRegistry.hasBlackCrystal();
+    protected static final Predicate<EntryScreen> AFTER_UMBRAL_CRYSTAL = t -> VoidRevelationHandler.hasSeenTheRevelation(BLACK_CRYSTAL);
 
     public final String identifier;
     public final boolean isVoid;
