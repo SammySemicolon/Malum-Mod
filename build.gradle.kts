@@ -30,6 +30,8 @@ val mixinVersion: String by extra
 val modJavaVersion: String by extra
 val lodestoneVersion: String by extra
 
+jarJar.enable()
+
 version = "$minecraftVersion-$modVersion"
 if (System.getenv("BUILD_NUMBER") != null) {
     version = "$minecraftVersion-$modVersion.${System.getenv("BUILD_NUMBER")}"
@@ -112,8 +114,6 @@ sourceSets {
     }
 }
 
-jarJar.enable()
-
 repositories {
     flatDir {
         dirs("lib")
@@ -153,7 +153,6 @@ repositories {
 
 }
 
-
 dependencies {
     minecraft("net.minecraftforge:forge:${minecraftVersion}-${forgeVersion}")
 
@@ -163,7 +162,9 @@ dependencies {
 
     // MixinExtras
     compileOnly(annotationProcessor("io.github.llamalad7:mixinextras-common:0.3.2")!!)
-    implementation("io.github.llamalad7:mixinextras-forge:0.3.2")
+    implementation(jarJar("io.github.llamalad7:mixinextras-forge:0.3.2")!!) {
+        jarJar.ranged(this, "[0.3.2,)")
+    }
 
     // JEI Dependency
     compileOnly(fg.deobf("mezz.jei:jei-${minecraftVersion}-forge-api:${jeiVersion}"))
@@ -232,6 +233,14 @@ tasks.withType<Jar> {
     finalizedBy("reobfJar")
 }
 
+tasks.jar.configure {
+    archiveClassifier.set("pure")
+}
+
+tasks.jarJar.configure {
+    archiveClassifier.set("")
+}
+
 //jar {
 ////    exclude 'com/sammy/malum/core/data/**'
 //	exclude 'com/sammy/malum/client/model/bbmodels/**'
@@ -244,6 +253,7 @@ publishing {
             artifactId = baseArchivesName
             from(components["java"])
             fg.component(this)
+            jarJar.component(this)
         }
     }
     repositories {
