@@ -120,8 +120,8 @@ public class TotemBaseBlockEntity extends LodestoneBlockEntity {
                                 }
                                 else {
                                     setState(TotemRiteState.ACTIVE);
+                                    deactivateOtherRites();
                                 }
-                                deactivateOtherRites();
                             }
                         }
                     }

@@ -15,6 +15,7 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.phys.*;
+import team.lodestar.lodestone.handlers.*;
 import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.registry.common.particle.*;
 import team.lodestar.lodestone.systems.blockentity.*;
@@ -58,9 +59,7 @@ public class EtherBlockEntity extends LodestoneBlockEntity {
 
     @Override
     protected void saveAdditional(CompoundTag compound) {
-        if (firstColor != null) {
-            compound.putInt("firstColor", firstColor.getRGB());
-        }
+        compound.putInt("firstColor", firstColor.getRGB());
         if (getBlockState().getBlock().asItem() instanceof AbstractEtherItem etherItem && etherItem.iridescent) {
             if (secondColor != null && secondColor.getRGB() != EtherItem.DEFAULT_SECOND_COLOR) {
                 compound.putInt("secondColor", secondColor.getRGB());
@@ -132,6 +131,7 @@ public class EtherBlockEntity extends LodestoneBlockEntity {
                 float velocity = RandomHelper.randomBetween(random, 0.02f, 0.03f);
                 var lightSpecs = SpiritLightSpecs.spiritLightSpecs(level, new Vec3(x, y, z), colorData);
                 lightSpecs.getBuilder()
+                        .setRenderTarget(RenderHandler.LATE_DELAYED_RENDER)
                         .setLifetime(lifeTime)
                         .setScaleData(GenericParticleData.create(scale, 0).setEasing(Easing.SINE_IN_OUT).build())
                         .setTransparencyData(GenericParticleData.create(0.2f, 0.4f, 0).build())
@@ -144,6 +144,7 @@ public class EtherBlockEntity extends LodestoneBlockEntity {
                 float scale = RandomHelper.randomBetween(random, 0.15f, 0.2f);
                 float velocity = RandomHelper.randomBetween(random, 0.02f, 0.03f);
                 WorldParticleBuilder.create(LodestoneParticleRegistry.WISP_PARTICLE)
+                        .setRenderTarget(RenderHandler.LATE_DELAYED_RENDER)
                         .setScaleData(GenericParticleData.create(scale, 0).setEasing(Easing.SINE_IN).build())
                         .setTransparencyData(GenericParticleData.create(0.3f, 0.6f, 0.1f).setEasing(Easing.QUAD_OUT).build())
                         .setColorData(colorData)
@@ -155,6 +156,7 @@ public class EtherBlockEntity extends LodestoneBlockEntity {
                 lifeTime = 20;
                 scale = RandomHelper.randomBetween(random, 0.4f, 0.5f);
                 WorldParticleBuilder.create(LodestoneParticleRegistry.TWINKLE_PARTICLE)
+                        .setRenderTarget(RenderHandler.LATE_DELAYED_RENDER)
                         .setScaleData(GenericParticleData.create(scale, 0f).build())
                         .setTransparencyData(GenericParticleData.create(0.05f, 0.8f).build())
                         .setColorData(ColorParticleData.create(firstColor, secondColor).setEasing(Easing.SINE_IN).setCoefficient(0.5f).build())
@@ -172,6 +174,7 @@ public class EtherBlockEntity extends LodestoneBlockEntity {
                 Vec3 offset = new Vec3(Math.sin(angle), 0, Math.cos(angle)).normalize();
                 Vec3 offsetPosition = new Vec3(x + offset.x * 0.075f, y-0.05f, z + offset.z * 0.075f);
                 WorldParticleBuilder.create(ParticleRegistry.SPIRIT_FLAME_PARTICLE)
+                        .setRenderTarget(RenderHandler.LATE_DELAYED_RENDER)
                         .setScaleData(GenericParticleData.create(scale * 0.75f, scale, 0).build())
                         .setColorData(ColorParticleData.create(firstColor, secondColor).setEasing(Easing.CIRC_IN_OUT).setCoefficient(2.5f).build())
                         .setTransparencyData(GenericParticleData.create(0f, 1f, 0).setEasing(Easing.SINE_IN, Easing.QUAD_IN).setCoefficient(3.5f).build())

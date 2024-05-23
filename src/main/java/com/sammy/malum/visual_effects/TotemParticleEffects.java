@@ -8,7 +8,7 @@ import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.systems.particle.builder.*;
 import team.lodestar.lodestone.systems.particle.data.*;
 
-import static com.sammy.malum.visual_effects.SpiritLightSpecs.spiritLightSpecs;
+import static com.sammy.malum.visual_effects.SpiritLightSpecs.*;
 
 public class TotemParticleEffects {
 

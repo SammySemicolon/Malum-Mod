@@ -1,37 +1,47 @@
 package com.sammy.malum.core.handlers;
 
-import com.mojang.blaze3d.systems.*;
-import com.mojang.blaze3d.vertex.*;
-import com.sammy.malum.common.block.curiosities.weeping_well.*;
-import com.sammy.malum.common.capability.*;
-import com.sammy.malum.common.packets.*;
-import com.sammy.malum.registry.client.*;
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.Tesselator;
+import com.sammy.malum.client.VoidRevelationHandler;
+import com.sammy.malum.common.block.curiosities.weeping_well.PrimordialSoupBlock;
+import com.sammy.malum.common.block.curiosities.weeping_well.VoidConduitBlock;
+import com.sammy.malum.common.block.curiosities.weeping_well.VoidConduitBlockEntity;
+import com.sammy.malum.common.capability.MalumLivingEntityDataCapability;
+import com.sammy.malum.common.capability.MalumPlayerDataCapability;
+import com.sammy.malum.common.packets.VoidRejectionPacket;
+import com.sammy.malum.registry.client.ShaderRegistry;
 import com.sammy.malum.registry.common.*;
-import com.sammy.malum.registry.common.item.*;
-import com.sammy.malum.visual_effects.networked.data.*;
-import net.minecraft.client.*;
-import net.minecraft.client.gui.*;
-import net.minecraft.core.*;
-import net.minecraft.nbt.*;
-import net.minecraft.sounds.*;
-import net.minecraft.util.*;
-import net.minecraft.world.effect.*;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.attributes.*;
-import net.minecraft.world.entity.player.*;
-import net.minecraft.world.level.*;
-import net.minecraft.world.level.block.*;
-import net.minecraft.world.phys.*;
-import net.minecraftforge.common.*;
-import net.minecraftforge.event.entity.living.*;
-import net.minecraftforge.network.*;
-import team.lodestar.lodestone.helpers.*;
-import team.lodestar.lodestone.systems.easing.*;
-import team.lodestar.lodestone.systems.rendering.*;
-import team.lodestar.lodestone.systems.rendering.shader.*;
+import com.sammy.malum.registry.common.item.ItemRegistry;
+import com.sammy.malum.visual_effects.networked.data.PositionEffectData;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.Mth;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.ForgeMod;
+import net.minecraftforge.event.entity.living.LivingEvent;
+import net.minecraftforge.network.PacketDistributor;
+import team.lodestar.lodestone.helpers.BlockHelper;
+import team.lodestar.lodestone.systems.easing.Easing;
+import team.lodestar.lodestone.systems.rendering.VFXBuilders;
+import team.lodestar.lodestone.systems.rendering.shader.ExtendedShaderInstance;
 
-import java.util.*;
-import java.util.function.*;
+import java.util.Optional;
+import java.util.UUID;
+import java.util.function.Consumer;
+
+import static com.sammy.malum.client.VoidRevelationHandler.RevelationType.BLACK_CRYSTAL;
 
 public class TouchOfDarknessHandler {
 
@@ -121,6 +131,7 @@ public class TouchOfDarknessHandler {
             handler.currentAffliction = Math.max(handler.currentAffliction - (handler.expectedAffliction == 0 ? 1.5f : 0.75f), handler.expectedAffliction);
         }
         //GRAVITY
+
         AttributeInstance gravity = livingEntity.getAttribute(ForgeMod.ENTITY_GRAVITY.get());
         if (gravity != null) {
             boolean hasModifier = gravity.getModifier(GRAVITY_MODIFIER_UUID) != null;
@@ -135,13 +146,15 @@ public class TouchOfDarknessHandler {
         }
         //REJECTION
         if (isInTheGoop) {
-            handler.progressToRejection++;
-            if (!level.isClientSide) {
-                if (livingEntity instanceof Player && level.getGameTime() % 6L == 0) {
-                    level.playSound(null, livingEntity.blockPosition(), SoundRegistry.SONG_OF_THE_VOID.get(), SoundSource.HOSTILE, 0.5f + handler.progressToRejection * 0.02f, 0.5f + handler.progressToRejection * 0.03f);
-                }
-                if (handler.rejection == 0 && handler.progressToRejection > 60) {
-                    handler.reject(livingEntity);
+            if (!(livingEntity instanceof Player player) || (!player.isCreative() && !player.isSpectator())) {
+                handler.progressToRejection++;
+                if (!level.isClientSide) {
+                    if (livingEntity instanceof Player && level.getGameTime() % 6L == 0) {
+                        level.playSound(null, livingEntity.blockPosition(), SoundRegistry.SONG_OF_THE_VOID.get(), SoundSource.HOSTILE, 0.5f + handler.progressToRejection * 0.02f, 0.5f + handler.progressToRejection * 0.03f);
+                    }
+                    if (handler.rejection == 0 && handler.progressToRejection > 60) {
+                        handler.reject(livingEntity);
+                    }
                 }
             }
         } else {
@@ -194,6 +207,8 @@ public class TouchOfDarknessHandler {
                 SpiritHarvestHandler.spawnItemAsSpirit(ItemRegistry.UMBRAL_SPIRIT.get().getDefaultInstance(), player, player);
             }
             level.playSound(null, livingEntity.blockPosition(), SoundRegistry.VOID_REJECTION.get(), SoundSource.HOSTILE, 2f, Mth.nextFloat(livingEntity.getRandom(), 0.5f, 0.8f));
+        } else {
+            VoidRevelationHandler.seeTheRevelation(BLACK_CRYSTAL);
         }
 
         playerDataCapability.hasBeenRejected = true;

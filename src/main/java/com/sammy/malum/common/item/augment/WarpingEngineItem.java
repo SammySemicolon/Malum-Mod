@@ -9,7 +9,7 @@ public class WarpingEngineItem extends AbstractAugmentItem{
 
     @Override
     public float getChainFocusingChance() {
-        return 0.06f;
+        return 0.1f;
     }
 
     @Override

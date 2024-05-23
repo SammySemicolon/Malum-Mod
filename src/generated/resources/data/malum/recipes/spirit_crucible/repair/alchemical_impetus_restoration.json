@@ -7,8 +7,17 @@
   "itemIdRegex": "none",
   "modIdRegex": "",
   "repairMaterial": {
-    "count": 8,
-    "item": "malum:arcane_spirit"
+    "count": 2,
+    "item": "malum:alchemical_calx"
   },
-  "spirits": []
+  "spirits": [
+    {
+      "type": "earthen",
+      "count": 4
+    },
+    {
+      "type": "arcane",
+      "count": 4
+    }
+  ]
 }

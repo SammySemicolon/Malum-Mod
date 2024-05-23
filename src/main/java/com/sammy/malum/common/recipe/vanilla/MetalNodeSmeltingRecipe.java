@@ -1,6 +1,7 @@
 package com.sammy.malum.common.recipe.vanilla;
 
 import com.sammy.malum.registry.common.recipe.RecipeSerializerRegistry;
+import net.minecraft.core.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CookingBookCategory;
@@ -13,6 +14,7 @@ public class MetalNodeSmeltingRecipe extends SmeltingRecipe implements INodeSmel
 
     public static final String NAME = "node_smelting";
     public final IngredientWithCount output;
+    public ItemStack cachedOutput;
 
     public MetalNodeSmeltingRecipe(ResourceLocation pId, String pGroup, Ingredient pIngredient, IngredientWithCount output, float pExperience, int pCookingTime) {
         super(pId, pGroup, CookingBookCategory.MISC, pIngredient, ItemStack.EMPTY, pExperience, pCookingTime);
@@ -32,5 +34,13 @@ public class MetalNodeSmeltingRecipe extends SmeltingRecipe implements INodeSmel
     @Override
     public IngredientWithCount getOutput() {
         return output;
+    }
+
+    @Override
+    public ItemStack getResultItem(RegistryAccess pRegistryAccess) {
+        if (cachedOutput == null) {
+            cachedOutput = output.getStack();
+        }
+        return cachedOutput;
     }
 }

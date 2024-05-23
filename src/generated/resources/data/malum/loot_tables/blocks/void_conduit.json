@@ -11,7 +11,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:air"
+          "name": "malum:void_conduit"
         }
       ],
       "rolls": 1.0

@@ -19,6 +19,7 @@ import net.minecraft.world.item.*;
 import net.minecraftforge.event.*;
 import team.lodestar.lodestone.registry.client.*;
 import team.lodestar.lodestone.systems.easing.*;
+import team.lodestar.lodestone.systems.rendering.*;
 
 import static com.sammy.malum.client.RenderUtils.*;
 
@@ -65,14 +66,6 @@ public class TotemBaseRenderer implements BlockEntityRenderer<TotemBaseBlockEnti
             TotemicRiteEffect riteEffect = blockEntityIn.cachedRadiusRite.getRiteEffect(blockEntityIn.isSoulwood);
             BlockPos riteEffectCenter = riteEffect.getRiteEffectCenter(blockEntityIn);
             BlockPos offset = riteEffectCenter.subtract(blockEntityIn.getBlockPos());
-
-            poseStack.pushPose();
-            var builder = SpiritBasedWorldVFXBuilder.create(spiritType)
-                    .setRenderType(RenderTypeRegistry.ADDITIVE_DISTORTED_TEXTURE.applyWithModifierAndCache(AREA_COVERAGE_TEXTURE, b -> b.setCullState(LodestoneRenderTypeRegistry.NO_CULL)))
-                    .setColor(spiritType.getPrimaryColor(), 0.85f * scalar);
-
-            poseStack.translate(offset.getX(), offset.getY(), offset.getZ());
-
             int width = riteEffect.getRiteEffectHorizontalRadius();
             if (width > 1) {
                 width = width * 2 + 1;
@@ -81,14 +74,45 @@ public class TotemBaseRenderer implements BlockEntityRenderer<TotemBaseBlockEnti
             if (height > 1) {
                 height = height * 2 + 1;
             }
+            float shaderWidth = width * 32;
+            float shaderHeight = height * 32;
+            float distortion = 6f+height/2f;
+            float sideDistortion = 6f+width/2f;
+            final LodestoneRenderType renderType = RenderTypeRegistry.ADDITIVE_DISTORTED_TEXTURE.applyWithModifierAndCache(AREA_COVERAGE_TEXTURE, b -> b.setCullState(LodestoneRenderTypeRegistry.NO_CULL));
+            float index = shaderWidth + distortion;
+            float sideIndex = shaderWidth*shaderHeight + sideDistortion;
+
+            var builder = SpiritBasedWorldVFXBuilder.create(spiritType)
+                    .setRenderType(LodestoneRenderTypeRegistry.applyUniformChanges(LodestoneRenderTypeRegistry.copyAndStore(index, renderType), s -> {
+                        s.safeGetUniform("Speed").set(1500f);
+                        s.safeGetUniform("Distortion").set(distortion);
+                        s.safeGetUniform("Width").set(shaderWidth);
+                        s.safeGetUniform("Height").set(shaderWidth);
+                    }))
+                    .setColor(spiritType.getPrimaryColor(), 0.7f * scalar);
+            var sideBuilder = SpiritBasedWorldVFXBuilder.create(spiritType)
+                    .setRenderType(LodestoneRenderTypeRegistry.applyUniformChanges(LodestoneRenderTypeRegistry.copyAndStore(sideIndex, renderType), s -> {
+                        s.safeGetUniform("Speed").set(1500f);
+                        s.safeGetUniform("Distortion").set(sideDistortion);
+                        s.safeGetUniform("Width").set(shaderWidth);
+                        s.safeGetUniform("Height").set(shaderHeight);
+                    }))
+                    .setColor(spiritType.getPrimaryColor(), 0.7f * scalar);
+
+
+            poseStack.pushPose();
+            poseStack.translate(offset.getX(), offset.getY(), offset.getZ());
+
+
             RenderUtils.CubeVertexData cubeVertexData = RenderUtils.makeCubePositions(width, height)
                     .applyWobble(0, 0.5f, 0.01f);
             RenderUtils.CubeVertexData inverse = RenderUtils.makeCubePositions(-width, -height)
                     .applyWobble(0, 0.5f, 0.01f);
 
-            drawCube(poseStack, builder, 1.05f, cubeVertexData);
-            builder.setColor(spiritType.getSecondaryColor(), 0.6f * scalar);
-            drawCube(poseStack, builder, 1.05f, inverse);
+            drawCube(poseStack, builder, sideBuilder, 1.05f, cubeVertexData);
+            builder.setUV(0, 1, 1, 0).setColor(spiritType.getSecondaryColor(), 0.6f * scalar);
+            sideBuilder.setUV(0, 1, 1, 0).setColor(spiritType.getSecondaryColor(), 0.6f * scalar);
+            drawCube(poseStack, builder, sideBuilder, 1.05f, inverse);
 
             poseStack.popPose();
         }

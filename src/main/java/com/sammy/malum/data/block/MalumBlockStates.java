@@ -184,7 +184,7 @@ public class MalumBlockStates extends LodestoneBlockStateProvider {
                 MASS_OF_BLIGHTED_GUNK, BLOCK_OF_SOUL_STAINED_STEEL, BLOCK_OF_HALLOWED_GOLD, BLOCK_OF_MALIGNANT_PEWTER,
                 BLOCK_OF_NULL_SLATE, BLOCK_OF_VOID_SALTS, BLOCK_OF_MNEMONIC_FRAGMENT, BLOCK_OF_MALIGNANT_LEAD,
                 RUNIC_SAP_BLOCK, CURSED_SAP_BLOCK, BLOCK_OF_BLAZING_QUARTZ, BLOCK_OF_ARCANE_CHARCOAL,
-                BLOCK_OF_LIVING_FLESH, BLOCK_OF_FOUL_FLESH);
+                BLOCK_OF_LIVING_FLESH);
         BlockStateSmithTypes.LOG_BLOCK.act(data, BLOCK_OF_GRIM_TALC);
 
         setTexturePath("blight/");
@@ -223,10 +223,12 @@ public class MalumBlockStates extends LodestoneBlockStateProvider {
         BlockStateSmithTypes.CUSTOM_MODEL.act(data, ItemModelSmithTypes.UNIQUE_ITEM_MODEL, this::horizontalBlock, this::predefinedModel,
                 SPIRIT_CATALYZER, SPIRIT_CATALYZER_COMPONENT);
 
-        BlockStateSmithTypes.CUSTOM_MODEL.act(data, ItemModelSmithTypes.NO_MODEL, this::simpleBlock, this::predefinedModel,
-                VOID_CONDUIT);
-        BlockStateSmithTypes.CUSTOM_MODEL.act(data, ItemModelSmithTypes.NO_MODEL, this::horizontalBlock, this::predefinedModel,
-                WEEPING_WELL_CORE, WEEPING_WELL_CORNER, WEEPING_WELL_SIDE);
+        BlockStateSmithTypes.CUSTOM_MODEL.act(data, ItemModelSmithTypes.BLOCK_MODEL_ITEM, this::simpleBlock, this::predefinedModel,
+                VOID_CONDUIT, VOID_DEPOT, WEEPING_WELL_BRICKS);
+        BlockStateSmithTypes.CUSTOM_MODEL.act(data, ItemModelSmithTypes.BLOCK_MODEL_ITEM, this::horizontalBlock, this::predefinedModel,
+                WEEPING_WELL_ENCASEMENT, WEEPING_WELL_ENCASEMENT_MIRRORED, WEEPING_WELL_ENCASEMENT_CORNER, WEEPING_WELL_CENTRAL_ENCASEMENT, WEEPING_WELL_SIDE_PILLAR);
+        BlockStateSmithTypes.CUSTOM_MODEL.act(data, ItemModelSmithTypes.BLOCK_MODEL_ITEM, this::directionalBlock, this::predefinedModel,
+                WEEPING_WELL_CENTRAL_PILLAR, WEEPING_WELL_CENTRAL_ENCASEMENT_SUPPORT);
         MalumBlockStateSmithTypes.PRIMORDIAL_SOUP.act(data, PRIMORDIAL_SOUP);
 
         BlockStateSmithTypes.FULL_BLOCK.act(data, THE_DEVICE, THE_VESSEL);

@@ -12,6 +12,10 @@ uniform vec4 FogColor;
 
 uniform float GameTime;
 uniform float Speed;
+uniform float Distortion;
+uniform float Width;
+uniform float Height;
+uniform vec4 UVEncasement;
 
 in float vertexDistance;
 in vec4 vertexColor;
@@ -37,10 +41,11 @@ float noise(vec2 x) {
 }
 
 float layeredNoise(vec2 uv) {
-    float time = Speed*GameTime - (2048. * floor(Speed*GameTime/2048.));
+    float time = Speed*GameTime;
+    time = time - (2048. * floor(time/2048.));
     //    Makes it sharp !!!
-    //    vec2 direction = normalize(vec2(sin(uv.y-time*0.25), cos(uv.x-time*0.25)));
-    vec2 direction = normalize(vec2(sin(time*0.25), cos(time*0.25)));
+//        vec2 direction = normalize(vec2(sin(uv.y-time*0.25), cos(uv.x-time*0.25)));
+    vec2 direction = normalize(vec2(sin(time*0.025), cos(time*0.025)));
     vec2 offset = 3.*normalize(vec2(time, time)*direction);
 
     vec2 positive = uv+offset;
@@ -69,8 +74,18 @@ vec4 applyFog(vec4 initialColor, float fogStart, float fogEnd, vec4 fogColor, fl
 
 void main() {
     vec2 uv = texCoord0;
-    float n = pattern(8.*uv);
-    vec4 noise = texture(Sampler0, uv+0.5*vec2(cos(n), cos(n))-0.5);
-    vec4 color = transformColor(noise, LumiTransparency);
+    vec2 uCap = vec2(UVEncasement.x, UVEncasement.y);
+    vec2 vCap = vec2(UVEncasement.z, UVEncasement.w);
+    uv.x = floor(uv.x* Width)/ Width;
+    uv.y = floor(uv.y* Height)/ Height;
+
+    uv.x = clamp(uv.x, uCap.x, uCap.y);
+    uv.y = clamp(uv.y, vCap.x, vCap.y);
+    float n = pattern(Distortion*uv);
+    float n2 = pattern(Distortion*uv + 0.01);
+    vec2 distortedUV = uv+vec2(cos(n), cos(n));
+    vec2 distortedUV2 = uv-vec2(cos(n2), cos(n2));
+    vec4 noise = texture(Sampler0, distortedUV)+texture(Sampler0, distortedUV2);
+    vec4 color = transformColor(vec4(noise.rgb/2., noise.a), LumiTransparency);
     fragColor = applyFog(color, FogStart, FogEnd, FogColor, vertexDistance);
 }

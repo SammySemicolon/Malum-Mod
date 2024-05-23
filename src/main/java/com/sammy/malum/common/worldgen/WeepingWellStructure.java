@@ -51,7 +51,7 @@ public class WeepingWellStructure extends Structure {
     protected Optional<GenerationStub> findGenerationPoint(GenerationContext pContext) {
         BlockPos blockPos = new BlockPos(pContext.chunkPos().getMinBlockX(), 0, pContext.chunkPos().getMinBlockZ());
         BlockPos validPos = new BlockPos(blockPos.getX(), getValidY(pContext.chunkGenerator().getBaseColumn(blockPos.getX(), blockPos.getZ(), pContext.heightAccessor(), pContext.randomState())), blockPos.getZ());
-        if (validPos.getY() != min - 1 && isSufficientlyFlat(pContext, validPos, 4)) {
+        if (validPos.getY() != min - 1 && isSufficientlyFlat(pContext, validPos, 8)) {
             return JigsawPlacement.addPieces(pContext, this.startPool, this.startJigsawName, this.size, validPos.below(-offsetInGround), false, Optional.empty(), this.maxDistanceFromCenter);
         }
         return Optional.empty();

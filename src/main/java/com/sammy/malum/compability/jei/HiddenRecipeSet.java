@@ -2,15 +2,21 @@ package com.sammy.malum.compability.jei;
 
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.recipe.*;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.registries.ForgeRegistries;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Stream;
 
 public class HiddenRecipeSet<T> {
 
 	private final RecipeType<T> recipeType;
-	private final Set<RecipeEntry<T>> hiddenRecipes = new HashSet<>();
+	private final Set<T> hiddenRecipes = new HashSet<>();
 
 	@SuppressWarnings({"unchecked", "rawtypes"})
 	public static HiddenRecipeSet<?> createSet(RecipeType<?> recipeType) {
@@ -21,47 +27,32 @@ public class HiddenRecipeSet<T> {
 		this.recipeType = recipeType;
 	}
 
-	public void recipeHidden(Set<Item> items, T recipe) {
-		hiddenRecipes.add(new RecipeEntry<>(items, recipe));
-	}
+	public void scanAndHideRecipes(IRecipeManager manager, IFocusFactory focusFactory, Collection<TagKey<Item>> nowHidden) {
+		var itemTags = ForgeRegistries.ITEMS.tags();
+		if (itemTags != null) {
+			List<IFocus<ItemStack>> foci = nowHidden.stream()
+				.flatMap(tag -> itemTags.getTag(tag).stream())
+				.distinct()
+				.flatMap(item -> {
+					ItemStack stack = new ItemStack(item);
+					IFocus<ItemStack> asIngredient = focusFactory.createFocus(RecipeIngredientRole.INPUT, VanillaTypes.ITEM_STACK, stack);
+					IFocus<ItemStack> asResult = focusFactory.createFocus(RecipeIngredientRole.OUTPUT, VanillaTypes.ITEM_STACK, stack);
+					IFocus<ItemStack> asCatalyst = focusFactory.createFocus(RecipeIngredientRole.CATALYST, VanillaTypes.ITEM_STACK, stack);
+					return Stream.of(asIngredient, asResult, asCatalyst);
+				}).toList();
 
-	public void scanForHiddenRecipes(IRecipeManager manager, IFocusFactory focusFactory, Collection<Item> nowHidden) {
-		Map<T, Set<Item>> disabledRecipes = new HashMap<>();
-		for (Item item : nowHidden) {
-			ItemStack stack = new ItemStack(item);
-			IFocus<ItemStack> asIngredient = focusFactory.createFocus(RecipeIngredientRole.INPUT, VanillaTypes.ITEM_STACK, stack);
-			IFocus<ItemStack> asResult = focusFactory.createFocus(RecipeIngredientRole.OUTPUT, VanillaTypes.ITEM_STACK, stack);
-			IFocus<ItemStack> asCatalyst = focusFactory.createFocus(RecipeIngredientRole.CATALYST, VanillaTypes.ITEM_STACK, stack);
 			manager.createRecipeLookup(recipeType)
-				.limitFocus(List.of(asIngredient, asResult, asCatalyst))
-				.get().forEach(it -> disabledRecipes.computeIfAbsent(it, ignored -> new HashSet<>()).add(item));
-		}
+				.limitFocus(foci)
+				.get()
+				.forEach(hiddenRecipes::add);
 
-		manager.hideRecipes(recipeType, disabledRecipes.keySet());
-
-		for (var entry : disabledRecipes.entrySet()) {
-			recipeHidden(entry.getValue(), entry.getKey());
+			manager.hideRecipes(recipeType, hiddenRecipes);
 		}
 	}
 
 
-	public void unhideRecipesThatAreNowShown(IRecipeManager manager, Collection<Item> nowShown) {
-		Set<T> toUnhide = new HashSet<>();
-		Set<RecipeEntry<T>> currentHiddenRecipes = new HashSet<>(hiddenRecipes);
-		for (var entry : currentHiddenRecipes) {
-			if (nowShown.containsAll(entry.requireAllToShow)) {
-				toUnhide.add(entry.recipe);
-				hiddenRecipes.remove(entry);
-			} else {
-				entry.requireAllToShow.removeAll(nowShown);
-			}
-		}
-
-		if (!toUnhide.isEmpty())
-			manager.unhideRecipes(recipeType, toUnhide);
-	}
-
-	private record RecipeEntry<T>(Set<Item> requireAllToShow, T recipe) {
-		// NO-OP
+	public void unhidePreviouslyHiddenRecipes(IRecipeManager manager) {
+		manager.unhideRecipes(recipeType, hiddenRecipes);
+		hiddenRecipes.clear();
 	}
 }
