@@ -1,7 +1,10 @@
 package com.sammy.malum.common.packets.particle.curiosities.rite;
 
 import com.sammy.malum.common.packets.particle.base.color.ColorBasedBlockParticleEffectPacket;
+import me.pepperbell.simplenetworking.SimpleChannel;
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.level.Level;
@@ -23,9 +26,12 @@ public class AerialBlockFallRiteEffectPacket extends ColorBasedBlockParticleEffe
         super(color, pos);
     }
 
-    @Environment(EnvType.CLIENT)
+    public AerialBlockFallRiteEffectPacket(FriendlyByteBuf buf) {
+        super(new Color(buf.readInt(), buf.readInt(), buf.readInt()), new BlockPos(buf.readInt(), buf.readInt(), buf.readInt()));
+    }
+
     @Override
-    public void execute(Supplier<NetworkEvent.Context> context) {
+    public void executeClient(Minecraft client, ClientPacketListener listener, PacketSender responseSender, SimpleChannel channel) {
         Level level = Minecraft.getInstance().level;
         var rand = level.random;
         for (int i = 0; i <= 3; i++) {
@@ -61,13 +67,5 @@ public class AerialBlockFallRiteEffectPacket extends ColorBasedBlockParticleEffe
                     .setRandomMotion(0.01f, 0.01f)
                     .repeatSurroundBlock(level, pos, 2);
         }
-    }
-
-    public static void register(SimpleChannel instance, int index) {
-        instance.registerMessage(index, AerialBlockFallRiteEffectPacket.class, AerialBlockFallRiteEffectPacket::encode, AerialBlockFallRiteEffectPacket::decode, AerialBlockFallRiteEffectPacket::handle);
-    }
-
-    public static AerialBlockFallRiteEffectPacket decode(FriendlyByteBuf buf) {
-        return decode(AerialBlockFallRiteEffectPacket::new, buf);
     }
 }

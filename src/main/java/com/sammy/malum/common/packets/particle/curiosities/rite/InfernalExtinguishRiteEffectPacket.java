@@ -1,7 +1,10 @@
 package com.sammy.malum.common.packets.particle.curiosities.rite;
 
 import com.sammy.malum.common.packets.particle.curiosities.rite.generic.BlockSparkleParticlePacket;
+import me.pepperbell.simplenetworking.SimpleChannel;
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.FriendlyByteBuf;
@@ -17,9 +20,12 @@ public class InfernalExtinguishRiteEffectPacket extends BlockSparkleParticlePack
         super(color, pos);
     }
 
-    @Environment(EnvType.CLIENT)
+    public InfernalExtinguishRiteEffectPacket(FriendlyByteBuf buf) {
+        super(buf);
+    }
+
     @Override
-    public void execute(Supplier<NetworkEvent.Context> context) {
+    public void executeClient(Minecraft client, ClientPacketListener listener, PacketSender responseSender, SimpleChannel channel) {
         Level level = Minecraft.getInstance().level;
         var rand = level.random;
 
@@ -29,14 +35,6 @@ public class InfernalExtinguishRiteEffectPacket extends BlockSparkleParticlePack
             double d2 = pos.getZ() + rand.nextFloat();
             level.addParticle(ParticleTypes.LARGE_SMOKE, d0, d1, d2, 0.0D, 0.0D, 0.0D);
         }
-        super.execute(context);
-    }
-
-    public static void register(SimpleChannel instance, int index) {
-        instance.registerMessage(index, InfernalExtinguishRiteEffectPacket.class, InfernalExtinguishRiteEffectPacket::encode, InfernalExtinguishRiteEffectPacket::decode, InfernalExtinguishRiteEffectPacket::handle);
-    }
-
-    public static InfernalExtinguishRiteEffectPacket decode(FriendlyByteBuf buf) {
-        return decode(InfernalExtinguishRiteEffectPacket::new, buf);
+        super.executeClient(client, listener, responseSender, channel);
     }
 }

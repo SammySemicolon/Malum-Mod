@@ -2,7 +2,10 @@ package com.sammy.malum.common.packets.particle.curiosities.rite;
 
 import com.sammy.malum.common.packets.particle.base.spirit.SpiritBasedBlockParticleEffectPacket;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
+import me.pepperbell.simplenetworking.SimpleChannel;
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.FriendlyByteBuf;
@@ -20,14 +23,19 @@ import java.awt.*;
 import java.util.List;
 import java.util.function.Supplier;
 
+import static com.sammy.malum.common.packets.particle.curiosities.rite.InfernalAccelerationRiteEffectPacket.readSpirits;
+
 public class SacredMistRiteEffectPacket extends SpiritBasedBlockParticleEffectPacket {
     public SacredMistRiteEffectPacket(List<String> spirits, BlockPos pos) {
         super(spirits, pos);
     }
 
-    @Environment(EnvType.CLIENT)
+    public SacredMistRiteEffectPacket(FriendlyByteBuf buf) {
+        super(readSpirits(buf), new BlockPos(buf.readInt(), buf.readInt(), buf.readInt()));
+    }
+
     @Override
-    public void execute(Supplier<NetworkEvent.Context> context, MalumSpiritType spiritType) {
+    protected void execute(Minecraft client, ClientPacketListener listener, PacketSender responseSender, SimpleChannel channel, MalumSpiritType spiritType) {
         Level level = Minecraft.getInstance().level;
         Color color = spiritType.getPrimaryColor();
         Color endColor = spiritType.getSecondaryColor();
@@ -54,12 +62,6 @@ public class SacredMistRiteEffectPacket extends SpiritBasedBlockParticleEffectPa
                 .repeatSurroundBlock(level, pos, 8, Direction.UP, Direction.DOWN);
     }
 
-    public static void register(SimpleChannel instance, int index) {
-        instance.registerMessage(index, SacredMistRiteEffectPacket.class, SacredMistRiteEffectPacket::encode, SacredMistRiteEffectPacket::decode, SacredMistRiteEffectPacket::handle);
-    }
 
-    public static SacredMistRiteEffectPacket decode(FriendlyByteBuf buf) {
-        return decode(SacredMistRiteEffectPacket::new, buf);
-    }
 
 }

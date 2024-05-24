@@ -2,7 +2,10 @@ package com.sammy.malum.common.packets.particle.curiosities.rite;
 
 import com.sammy.malum.common.packets.particle.base.spirit.SpiritBasedBlockParticleEffectPacket;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
+import me.pepperbell.simplenetworking.SimpleChannel;
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.FriendlyByteBuf;
@@ -20,6 +23,8 @@ import java.awt.*;
 import java.util.List;
 import java.util.function.Supplier;
 
+import static com.sammy.malum.common.packets.particle.curiosities.rite.InfernalAccelerationRiteEffectPacket.readSpirits;
+
 public class SpiritRiteActivationEffectPacket extends SpiritBasedBlockParticleEffectPacket {
 
     private int height = 0;
@@ -28,9 +33,12 @@ public class SpiritRiteActivationEffectPacket extends SpiritBasedBlockParticleEf
         super(spirits, pos);
     }
 
-    @Environment(EnvType.CLIENT)
+    public SpiritRiteActivationEffectPacket(FriendlyByteBuf buf) {
+        super(readSpirits(buf), new BlockPos(buf.readInt(), buf.readInt(), buf.readInt()));
+    }
+
     @Override
-    public void execute(Supplier<NetworkEvent.Context> context, MalumSpiritType spiritType) {
+    protected void execute(Minecraft client, ClientPacketListener listener, PacketSender responseSender, SimpleChannel channel, MalumSpiritType spiritType) {
         Level level = Minecraft.getInstance().level;
         Color color = spiritType.getPrimaryColor();
         WorldParticleBuilder.create(LodestoneParticleRegistry.WISP_PARTICLE)
@@ -55,13 +63,5 @@ public class SpiritRiteActivationEffectPacket extends SpiritBasedBlockParticleEf
                 .setRandomMotion(0.001f, 0.001f)
                 .repeatSurroundBlock(level, pos.above(height), 5, Direction.NORTH, Direction.SOUTH, Direction.EAST, Direction.WEST);
         height++;
-    }
-
-    public static void register(SimpleChannel instance, int index) {
-        instance.registerMessage(index, SpiritRiteActivationEffectPacket.class, SpiritRiteActivationEffectPacket::encode, SpiritRiteActivationEffectPacket::decode, SpiritRiteActivationEffectPacket::handle);
-    }
-
-    public static SpiritRiteActivationEffectPacket decode(FriendlyByteBuf buf) {
-        return decode(SpiritRiteActivationEffectPacket::new, buf);
     }
 }

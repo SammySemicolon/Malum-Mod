@@ -1,5 +1,5 @@
 package com.sammy.malum.common.packets;
-
+/*
 import com.sammy.malum.common.capability.MalumLivingEntityDataCapability;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
@@ -42,3 +42,5 @@ public class SyncLivingCapabilityDataPacket extends LodestoneClientPacket {
         return new SyncLivingCapabilityDataPacket(buf.readInt(), buf.readNbt());
     }
 }
+
+ */

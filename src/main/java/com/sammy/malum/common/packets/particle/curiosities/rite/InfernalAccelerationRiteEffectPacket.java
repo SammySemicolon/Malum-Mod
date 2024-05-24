@@ -2,7 +2,10 @@ package com.sammy.malum.common.packets.particle.curiosities.rite;
 
 import com.sammy.malum.common.packets.particle.base.spirit.SpiritBasedBlockParticleEffectPacket;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
+import me.pepperbell.simplenetworking.SimpleChannel;
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.level.Level;
@@ -17,6 +20,7 @@ import team.lodestar.lodestone.systems.particle.data.color.ColorParticleData;
 import team.lodestar.lodestone.systems.particle.data.spin.SpinParticleData;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
 
@@ -26,9 +30,21 @@ public class InfernalAccelerationRiteEffectPacket extends SpiritBasedBlockPartic
         super(spirits, pos);
     }
 
-    @Environment(EnvType.CLIENT)
+    public InfernalAccelerationRiteEffectPacket(FriendlyByteBuf buf) {
+        super(readSpirits(buf), new BlockPos(buf.readInt(), buf.readInt(), buf.readInt()));
+    }
+
+    protected static List<String> readSpirits(FriendlyByteBuf buf) {
+        int strings = buf.readInt();
+        List<String> spirits = new ArrayList<>();
+        for (int i = 0; i < strings; i++) {
+            spirits.add(buf.readUtf());
+        }
+        return spirits;
+    }
+
     @Override
-    public void execute(Supplier<NetworkEvent.Context> context, MalumSpiritType spiritType) {
+    protected void execute(Minecraft client, ClientPacketListener listener, PacketSender responseSender, SimpleChannel channel, MalumSpiritType spiritType) {
         Level level = Minecraft.getInstance().level;
         var rand = level.random;
         Color color = spiritType.getPrimaryColor();
@@ -48,13 +64,5 @@ public class InfernalAccelerationRiteEffectPacket extends SpiritBasedBlockPartic
                     .setDiscardFunction(SimpleParticleOptions.ParticleDiscardFunctionType.ENDING_CURVE_INVISIBLE)
                     .repeatSurroundBlock(level, pos, 1);
         }
-    }
-
-    public static void register(SimpleChannel instance, int index) {
-        instance.registerMessage(index, InfernalAccelerationRiteEffectPacket.class, InfernalAccelerationRiteEffectPacket::encode, InfernalAccelerationRiteEffectPacket::decode, InfernalAccelerationRiteEffectPacket::handle);
-    }
-
-    public static InfernalAccelerationRiteEffectPacket decode(FriendlyByteBuf buf) {
-        return decode(InfernalAccelerationRiteEffectPacket::new, buf);
     }
 }

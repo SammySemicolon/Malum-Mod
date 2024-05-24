@@ -5,8 +5,11 @@ import com.sammy.malum.visual_effects.networked.ParticleEffectType;
 import com.sammy.malum.visual_effects.networked.data.ColorEffectData;
 import com.sammy.malum.visual_effects.networked.data.NBTEffectData;
 import com.sammy.malum.visual_effects.networked.data.PositionEffectData;
+import me.pepperbell.simplenetworking.SimpleChannel;
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.network.FriendlyByteBuf;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -30,6 +33,14 @@ public class ParticleEffectPacket extends LodestoneClientPacket {
         this.nbtData = nbtData;
     }
 
+
+    public ParticleEffectPacket(FriendlyByteBuf buf) {
+        this.id = buf.readUtf();
+        this.positionData = new PositionEffectData(buf);
+        this.colorData = buf.readBoolean() ? new ColorEffectData(buf) : null;
+        this.nbtData = buf.readBoolean() ? new NBTEffectData(buf.readNbt()) : null;
+    }
+
     public void encode(FriendlyByteBuf buf) {
         buf.writeUtf(id);
         positionData.encode(buf);
@@ -45,8 +56,8 @@ public class ParticleEffectPacket extends LodestoneClientPacket {
         }
     }
 
-    @Environment(EnvType.CLIENT)
-    public void execute(Supplier<NetworkEvent.Context> context) {
+    @Override
+    public void executeClient(Minecraft client, ClientPacketListener listener, PacketSender responseSender, SimpleChannel channel) {
         Minecraft instance = Minecraft.getInstance();
         ClientLevel level = instance.level;
         ParticleEffectType particleEffectType = ParticleEffectTypeRegistry.EFFECT_TYPES.get(id);
@@ -57,11 +68,4 @@ public class ParticleEffectPacket extends LodestoneClientPacket {
         particleEffectActor.act(level, level.random, positionData, colorData, nbtData);
     }
 
-    public static void register(SimpleChannel instance, int index) {
-        instance.registerMessage(index, ParticleEffectPacket.class, ParticleEffectPacket::encode, ParticleEffectPacket::decode, ParticleEffectPacket::handle);
-    }
-
-    public static ParticleEffectPacket decode(FriendlyByteBuf buf) {
-        return new ParticleEffectPacket(buf.readUtf(), new PositionEffectData(buf), buf.readBoolean() ? new ColorEffectData(buf) : null, buf.readBoolean() ? new NBTEffectData(buf.readNbt()) : null);
-    }
 }

@@ -2,7 +2,10 @@ package com.sammy.malum.common.packets;
 
 import com.sammy.malum.common.enchantment.*;
 import com.sammy.malum.common.item.curiosities.weapons.staff.*;
+import me.pepperbell.simplenetworking.SimpleChannel;
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.client.*;
+import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.core.registries.*;
 import net.minecraft.network.*;
 import net.minecraft.world.item.*;
@@ -21,21 +24,18 @@ public class SyncStaffCooldownChangesPacket extends LodestoneClientPacket {
         this.enchantmentLevel = enchantmentLevel;
     }
 
+    public SyncStaffCooldownChangesPacket(FriendlyByteBuf buf) {
+        this.item = buf.readById(BuiltInRegistries.ITEM);
+        this.enchantmentLevel = buf.readInt();
+    }
+
     public void encode(FriendlyByteBuf buf) {
         buf.writeId(BuiltInRegistries.ITEM, item);
         buf.writeInt(enchantmentLevel);
     }
 
-    @Environment(EnvType.CLIENT)
-    public void execute(Supplier<NetworkEvent.Context> context) {
+    @Override
+    public void executeClient(Minecraft client, ClientPacketListener listener, PacketSender responseSender, SimpleChannel channel) {
         ReplenishingEnchantment.replenishStaffCooldown((AbstractStaffItem) item, Minecraft.getInstance().player, enchantmentLevel);
-    }
-
-    public static void register(SimpleChannel instance, int index) {
-        instance.registerMessage(index, SyncStaffCooldownChangesPacket.class, SyncStaffCooldownChangesPacket::encode, SyncStaffCooldownChangesPacket::decode, SyncStaffCooldownChangesPacket::handle);
-    }
-
-    public static SyncStaffCooldownChangesPacket decode(FriendlyByteBuf buf) {
-        return new SyncStaffCooldownChangesPacket(buf.readById(BuiltInRegistries.ITEM), buf.readInt());
     }
 }

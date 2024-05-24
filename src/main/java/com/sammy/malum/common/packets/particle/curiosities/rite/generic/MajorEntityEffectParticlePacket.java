@@ -1,7 +1,11 @@
 package com.sammy.malum.common.packets.particle.curiosities.rite.generic;
 
 import com.sammy.malum.common.packets.particle.base.color.ColorBasedParticleEffectPacket;
+import me.pepperbell.simplenetworking.SimpleChannel;
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientPacketListener;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.level.Level;
 import net.fabricmc.api.EnvType;
@@ -23,9 +27,12 @@ public class MajorEntityEffectParticlePacket extends ColorBasedParticleEffectPac
         super(color, posX, posY, posZ);
     }
 
-    @Environment(EnvType.CLIENT)
+    public MajorEntityEffectParticlePacket(FriendlyByteBuf buf) {
+        super(new Color(buf.readInt(), buf.readInt(), buf.readInt()), buf.readInt(), buf.readInt(), buf.readInt());
+    }
+
     @Override
-    public void execute(Supplier<NetworkEvent.Context> context) {
+    public void executeClient(Minecraft client, ClientPacketListener listener, PacketSender responseSender, SimpleChannel channel) {
         Level level = Minecraft.getInstance().level;
         var rand = level.random;
         for (int i = 0; i <= 3; i++) {
@@ -65,13 +72,5 @@ public class MajorEntityEffectParticlePacket extends ColorBasedParticleEffectPac
                 .setRandomMotion(0.015f, 0.015f)
                 .addTickActor(p -> p.setParticleMotion(p.getParticleSpeed().scale(0.92f)))
                 .repeat(level, posX, posY, posZ, 20);
-    }
-
-    public static void register(SimpleChannel instance, int index) {
-        instance.registerMessage(index, MajorEntityEffectParticlePacket.class, MajorEntityEffectParticlePacket::encode, MajorEntityEffectParticlePacket::decode, MajorEntityEffectParticlePacket::handle);
-    }
-
-    public static MajorEntityEffectParticlePacket decode(FriendlyByteBuf buf) {
-        return decode(MajorEntityEffectParticlePacket::new, buf);
     }
 }

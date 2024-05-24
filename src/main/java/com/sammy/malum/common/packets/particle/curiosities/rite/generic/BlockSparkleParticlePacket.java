@@ -1,7 +1,10 @@
 package com.sammy.malum.common.packets.particle.curiosities.rite.generic;
 
 import com.sammy.malum.common.packets.particle.base.color.ColorBasedBlockParticleEffectPacket;
+import me.pepperbell.simplenetworking.SimpleChannel;
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.level.Level;
@@ -25,9 +28,12 @@ public class BlockSparkleParticlePacket extends ColorBasedBlockParticleEffectPac
         super(color, pos);
     }
 
-    @Environment(EnvType.CLIENT)
+    public BlockSparkleParticlePacket(FriendlyByteBuf buf) {
+        super(new Color(buf.readInt(), buf.readInt(), buf.readInt()), new BlockPos(buf.readInt(), buf.readInt(), buf.readInt()));
+    }
+
     @Override
-    public void execute(Supplier<NetworkEvent.Context> context) {
+    public void executeClient(Minecraft client, ClientPacketListener listener, PacketSender responseSender, SimpleChannel channel) {
         Level level = Minecraft.getInstance().level;
         var rand = level.random;
         for (int i = 0; i < 5; i++) {
@@ -63,14 +69,5 @@ public class BlockSparkleParticlePacket extends ColorBasedBlockParticleEffectPac
                     .setDiscardFunction(SimpleParticleOptions.ParticleDiscardFunctionType.ENDING_CURVE_INVISIBLE)
                     .repeatSurroundBlock(level, pos, 1);
         }
-    }
-
-
-    public static void register(SimpleChannel instance, int index) {
-        instance.registerMessage(index, BlockSparkleParticlePacket.class, BlockSparkleParticlePacket::encode, BlockSparkleParticlePacket::decode, BlockSparkleParticlePacket::handle);
-    }
-
-    public static BlockSparkleParticlePacket decode(FriendlyByteBuf buf) {
-        return decode(BlockSparkleParticlePacket::new, buf);
     }
 }

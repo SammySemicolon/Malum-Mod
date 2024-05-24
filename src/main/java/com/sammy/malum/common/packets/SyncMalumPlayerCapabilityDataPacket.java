@@ -1,5 +1,5 @@
 package com.sammy.malum.common.packets;
-
+/*
 import com.sammy.malum.common.capability.MalumPlayerDataCapability;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
@@ -41,3 +41,5 @@ public class SyncMalumPlayerCapabilityDataPacket extends LodestoneClientPacket {
         return new SyncMalumPlayerCapabilityDataPacket(buf.readUUID(), buf.readNbt());
     }
 }
+
+ */
