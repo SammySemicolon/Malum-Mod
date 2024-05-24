@@ -2,8 +2,10 @@ package com.sammy.malum.common.item.curiosities.curios;
 
 import com.google.common.collect.Multimap;
 import dev.emi.trinkets.api.Trinket;
+import io.github.fabricators_of_create.porting_lib.entity.events.living.LivingHurtEvent;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.ItemStack;
@@ -29,6 +31,10 @@ public class MalumCurioItem extends AbstractMalumCurioItem implements Trinket {
     public void addAttributeModifier(Multimap<Attribute, AttributeModifier> map, Attribute attribute, Function<UUID, AttributeModifier> attributeModifier) {
         super.addAttributeModifier(map, attribute, attributeModifier);
     }
+
+    public void takeDamageEvent(LivingHurtEvent event, LivingEntity attacker, LivingEntity attacked, ItemStack stack){
+
+    };
 
     @Override
     public List<Component> getAttributesTooltip(List<net.minecraft.network.chat.Component> tooltips, ItemStack stack) {

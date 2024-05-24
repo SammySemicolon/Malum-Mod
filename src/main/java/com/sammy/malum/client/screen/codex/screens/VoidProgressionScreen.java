@@ -16,13 +16,13 @@ import com.sammy.malum.client.screen.codex.pages.recipe.vanilla.CraftingPage;
 import com.sammy.malum.client.screen.codex.pages.text.HeadlineTextPage;
 import com.sammy.malum.client.screen.codex.pages.text.TextPage;
 import com.sammy.malum.client.screen.codex.pages.text.WeepingWellTextPage;
+import com.sammy.malum.common.events.MalumCodexEvents;
 import com.sammy.malum.common.item.codex.EncyclopediaEsotericaItem;
 import com.sammy.malum.registry.common.SoundRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.common.MinecraftForge;
 
 
 import java.util.ArrayList;
@@ -45,7 +45,7 @@ public class VoidProgressionScreen extends AbstractProgressionCodexScreen {
         super(SoundRegistry.ARCANA_SWEETENER_EVIL, 1024, 768);
         minecraft = Minecraft.getInstance();
         setupEntries();
-        MinecraftForge.EVENT_BUS.post(new SetupMalumCodexEntriesEvent());
+        MalumCodexEvents.EVENT.invoker().onSetup(VOID_ENTRIES);
         setupObjects();
     }
 

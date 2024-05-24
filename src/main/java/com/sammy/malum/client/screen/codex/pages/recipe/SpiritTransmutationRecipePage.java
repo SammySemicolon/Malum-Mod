@@ -9,7 +9,6 @@ import net.minecraft.client.gui.*;
 import net.minecraft.client.multiplayer.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.world.item.*;
-import net.minecraftforge.data.loading.*;
 
 import java.util.*;
 import java.util.function.*;

@@ -7,7 +7,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
-import team.lodestar.lodestone.helpers.CurioHelper;
+import team.lodestar.lodestone.helpers.TrinketsHelper;
 
 import java.util.function.Consumer;
 
@@ -23,7 +23,7 @@ public class CurioHoarderRing extends MalumCurioItem {
     }
 
     public static boolean hasHoarderRing(LivingEntity entity) {
-        return entity != null && CurioHelper.hasCurioEquipped(entity, ItemRegistry.RING_OF_THE_HOARDER.get());
+        return entity != null && TrinketsHelper.hasCurioEquipped(entity, ItemRegistry.RING_OF_THE_HOARDER.get());
     }
 
     public static BlockPos getExplosionPos(boolean hasTheRing, BlockPos originalPos, LivingEntity entity, ItemStack droppedItem) {

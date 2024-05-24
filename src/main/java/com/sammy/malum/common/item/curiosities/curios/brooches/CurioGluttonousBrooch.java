@@ -2,13 +2,13 @@ package com.sammy.malum.common.item.curiosities.curios.brooches;
 
 import com.google.common.collect.Multimap;
 import com.sammy.malum.common.item.curiosities.curios.MalumCurioItem;
+import dev.emi.trinkets.api.SlotReference;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import top.theillusivec4.curios.api.CuriosApi;
-import top.theillusivec4.curios.api.SlotContext;
 
 import java.util.UUID;
 import java.util.function.Consumer;
@@ -27,15 +27,15 @@ public class CurioGluttonousBrooch extends MalumCurioItem {
     }
 
     @Override
-    public void addAttributeModifiers(Multimap<Attribute, AttributeModifier> map, SlotContext slotContext, ItemStack stack) {
+    public void addAttributeModifiers(Multimap<Attribute, AttributeModifier> map, SlotReference slotContext, ItemStack stack) {
         CuriosApi.addSlotModifier(map, "belt", GLUTTONOUS_BROOCH_BELT, 1, AttributeModifier.Operation.ADDITION);
     }
 
     @Override
-    public void curioTick(SlotContext slotContext, ItemStack stack) {
-        if (slotContext.entity() instanceof Player player) {
+    public void tick(ItemStack stack, SlotReference slot, LivingEntity entity) {
+        if (slot.inventory().getComponent().getEntity() instanceof Player player) {
             player.causeFoodExhaustion(0.005f);
         }
-        super.curioTick(slotContext, stack);
+        super.tick(stack, slot, entity);
     }
 }

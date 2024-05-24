@@ -2,27 +2,25 @@ package com.sammy.malum.common.item.cosmetic.curios;
 
 import com.sammy.malum.common.item.curiosities.curios.MalumCurioItem;
 import com.sammy.malum.registry.common.item.ItemRegistry;
+import dev.emi.trinkets.api.SlotReference;
+import dev.emi.trinkets.api.TrinketEnums;
+import io.github.fabricators_of_create.porting_lib.transfer.item.ItemHandlerHelper;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.event.entity.EntityJoinLevelEvent;
-import net.minecraftforge.items.ItemHandlerHelper;
 import org.jetbrains.annotations.NotNull;
-import team.lodestar.lodestone.helpers.CurioHelper;
 import team.lodestar.lodestone.systems.item.IEventResponderItem;
-import top.theillusivec4.curios.api.SlotContext;
-import top.theillusivec4.curios.api.type.capability.ICurio;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import static top.theillusivec4.curios.api.type.capability.ICurio.DropRule.ALWAYS_KEEP;
 
 public class CurioTokenOfGratitude extends MalumCurioItem implements IEventResponderItem {
     public static final List<UUID> GRADITUDE_CERTIFIED = new ArrayList<>();
@@ -53,8 +51,8 @@ public class CurioTokenOfGratitude extends MalumCurioItem implements IEventRespo
     }
 
     @Override
-    public void curioTick(SlotContext slotContext, ItemStack stack) {
-        if (slotContext.entity() instanceof Player player) {
+    public void tick(ItemStack stack, SlotReference slot, LivingEntity entity) {
+        if (entity instanceof Player player) {
             if (player.getUUID().equals(SAMMY) || player.getUUID().equals(LOFI) || player.getUUID().equals(CREECHURE) || player.getUUID().equals(SALT)) {
                 int interval = player.isCrouching() ? 10 : 4000;
                 if (player.level().getGameTime() % interval == 0) {
@@ -65,10 +63,9 @@ public class CurioTokenOfGratitude extends MalumCurioItem implements IEventRespo
         }
     }
 
-    @NotNull
     @Override
-    public ICurio.DropRule getDropRule(SlotContext slotContext, DamageSource source, int lootingLevel, boolean recentlyHit, ItemStack stack) {
-        return ALWAYS_KEEP;
+    public TrinketEnums.DropRule getDropRule(ItemStack stack, SlotReference slot, LivingEntity entity) {
+        return TrinketEnums.DropRule.KEEP;
     }
 
     public static boolean giveItem(Entity entity, Level level, boolean b) {

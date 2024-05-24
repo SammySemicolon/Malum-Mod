@@ -12,7 +12,6 @@ import net.minecraft.network.chat.*;
 import net.minecraft.util.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.*;
-import net.minecraftforge.data.loading.*;
 import team.lodestar.lodestone.handlers.screenparticle.*;
 import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.registry.common.particle.*;

@@ -6,6 +6,8 @@ import com.mojang.math.Axis;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.item.cosmetic.curios.CurioTokenOfGratitude;
 import com.sammy.malum.registry.client.ModelRegistry;
+import dev.emi.trinkets.api.SlotReference;
+import dev.emi.trinkets.api.client.TrinketRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.HumanoidModel;
@@ -24,12 +26,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 import team.lodestar.lodestone.helpers.RenderHelper;
 import team.lodestar.lodestone.registry.client.LodestoneRenderTypeRegistry;
-import top.theillusivec4.curios.api.SlotContext;
-import top.theillusivec4.curios.api.client.ICurioRenderer;
 
 import java.util.UUID;
 
-public class TokenOfGratitudeRenderer implements ICurioRenderer {
+public class TokenOfGratitudeRenderer implements TrinketRenderer {
 
     private static final ResourceLocation SAMMY = MalumMod.malumPath("textures/cosmetic/sammy_tail.png");
     private static final ResourceLocation OWL_PERSON_EYES = MalumMod.malumPath("textures/cosmetic/owl_person_eyes.png");
@@ -42,28 +42,28 @@ public class TokenOfGratitudeRenderer implements ICurioRenderer {
     private static final ResourceLocation TRANS_SCARF = MalumMod.malumPath("textures/cosmetic/trans_scarf.png");
 
     @Override
-    public <T extends LivingEntity, M extends EntityModel<T>> void render(ItemStack stack, SlotContext slotContext, PoseStack poseStack, RenderLayerParent<T, M> renderLayerParent, MultiBufferSource renderTypeBuffer, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-        if (slotContext.entity() instanceof AbstractClientPlayer playerEntity) {
+    public void render(ItemStack itemStack, SlotReference slotReference, EntityModel<? extends LivingEntity> entityModel, PoseStack poseStack, MultiBufferSource multiBufferSource, int light, LivingEntity livingEntity, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch) {
+        if (livingEntity instanceof AbstractClientPlayer playerEntity) {
             if (playerEntity.getUUID().equals(CurioTokenOfGratitude.SAMMY)) {
-                renderTail(stack, SAMMY, poseStack, playerEntity, renderTypeBuffer, light, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch);
+                renderTail(itemStack, SAMMY, poseStack, playerEntity, multiBufferSource, light, limbAngle, limbDistance, tickDelta, animationProgress, headYaw, headPitch);
             }
             if (playerEntity.getUUID().equals(CurioTokenOfGratitude.LOFI) || playerEntity.getUUID().equals(CurioTokenOfGratitude.CREECHURE)) {
-                renderTail(stack, LOFI, poseStack, playerEntity, renderTypeBuffer, light, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch);
+                renderTail(itemStack, LOFI, poseStack, playerEntity, multiBufferSource, light, limbAngle, limbDistance, tickDelta, animationProgress, headYaw, headPitch);
             }
             if (playerEntity.getUUID().equals(CurioTokenOfGratitude.OWL_PERSON)) {
-                renderGlowingEyes(playerEntity, LodestoneRenderTypeRegistry.TRANSPARENT_TEXTURE.applyAndCache(OWL_PERSON_EYES), poseStack, renderTypeBuffer, RenderHelper.FULL_BRIGHT);
+                renderGlowingEyes(playerEntity, LodestoneRenderTypeRegistry.TRANSPARENT_TEXTURE.applyAndCache(OWL_PERSON_EYES), poseStack, multiBufferSource, RenderHelper.FULL_BRIGHT);
             }
             if (playerEntity.getUUID().equals(CurioTokenOfGratitude.SNAKE_SCARF_FELLA)) {
-                renderScarf(playerEntity, SNAKE_FELLA_SCARF, poseStack, renderTypeBuffer, light);
+                renderScarf(playerEntity, SNAKE_FELLA_SCARF, poseStack, multiBufferSource, light);
             }
             if (playerEntity.getUUID().equals(CurioTokenOfGratitude.BOBBU)) {
-                renderScarf(playerEntity, BOBBU_SCARF, poseStack, renderTypeBuffer, light);
+                renderScarf(playerEntity, BOBBU_SCARF, poseStack, multiBufferSource, light);
             }
             if (playerEntity.getUUID().equals(CurioTokenOfGratitude.DELLY)) {
-                renderScarf(playerEntity, DELLY_NECKLACE, poseStack, renderTypeBuffer, light);
+                renderScarf(playerEntity, DELLY_NECKLACE, poseStack, multiBufferSource, light);
             }
             if (CurioTokenOfGratitude.TRANS_SCARFS.contains(playerEntity.getUUID())) {
-                renderScarf(playerEntity, TRANS_SCARF, poseStack, renderTypeBuffer, light);
+                renderScarf(playerEntity, TRANS_SCARF, poseStack, multiBufferSource, light);
             }
         }
     }
@@ -126,4 +126,6 @@ public class TokenOfGratitudeRenderer implements ICurioRenderer {
         ModelRegistry.SCARF.setupAnim(playerEntity, playerEntity.walkAnimation.position(), playerEntity.walkAnimation.speed(), playerEntity.tickCount + pticks, netHeadYaw, netHeadPitch);
         ModelRegistry.SCARF.renderToBuffer(poseStack, vertexconsumer, light, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
     }
+
+
 }

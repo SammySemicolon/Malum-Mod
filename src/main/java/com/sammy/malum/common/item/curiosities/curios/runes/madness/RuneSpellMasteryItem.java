@@ -3,10 +3,11 @@ package com.sammy.malum.common.item.curiosities.curios.runes.madness;
 import com.google.common.collect.*;
 import com.sammy.malum.common.item.curiosities.curios.runes.*;
 import com.sammy.malum.registry.common.*;
+import dev.emi.trinkets.api.SlotReference;
 import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.item.*;
 import team.lodestar.lodestone.registry.common.*;
-import top.theillusivec4.curios.api.*;
+
 
 public class RuneSpellMasteryItem extends AbstractRuneCurioItem {
 
@@ -15,7 +16,7 @@ public class RuneSpellMasteryItem extends AbstractRuneCurioItem {
     }
 
     @Override
-    public void addAttributeModifiers(Multimap<Attribute, AttributeModifier> map, SlotContext slotContext, ItemStack stack) {
+    public void addAttributeModifiers(Multimap<Attribute, AttributeModifier> map, SlotReference slotContext, ItemStack stack) {
         addAttributeModifier(map, LodestoneAttributeRegistry.MAGIC_PROFICIENCY.get(), uuid -> new AttributeModifier(uuid,
                 "Curio Magic Proficiency", 2f, AttributeModifier.Operation.ADDITION));
         addAttributeModifier(map, AttributeRegistry.RESERVE_STAFF_CHARGES.get(), uuid -> new AttributeModifier(uuid,

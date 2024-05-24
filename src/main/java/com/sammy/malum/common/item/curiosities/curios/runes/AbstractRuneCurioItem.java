@@ -3,6 +3,8 @@ package com.sammy.malum.common.item.curiosities.curios.runes;
 import com.sammy.malum.common.item.curiosities.curios.*;
 import com.sammy.malum.core.systems.spirit.*;
 import com.sammy.malum.visual_effects.*;
+import io.github.fabricators_of_create.porting_lib.entity.events.living.LivingHurtEvent;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.fabricmc.api.EnvType;

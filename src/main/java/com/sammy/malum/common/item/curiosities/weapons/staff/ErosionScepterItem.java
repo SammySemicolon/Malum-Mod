@@ -3,6 +3,7 @@ package com.sammy.malum.common.item.curiosities.weapons.staff;
 import com.sammy.malum.common.entity.bolt.*;
 import com.sammy.malum.registry.client.*;
 import com.sammy.malum.registry.common.*;
+import io.github.fabricators_of_create.porting_lib.entity.events.living.LivingHurtEvent;
 import net.minecraft.util.*;
 import net.minecraft.world.*;
 import net.minecraft.world.effect.*;

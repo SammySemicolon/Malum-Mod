@@ -4,6 +4,8 @@ import com.google.common.collect.Multimap;
 import com.sammy.malum.common.item.IMalumEventResponderItem;
 import com.sammy.malum.common.item.curiosities.curios.MalumCurioItem;
 import com.sammy.malum.registry.common.MobEffectRegistry;
+import dev.emi.trinkets.api.SlotReference;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
@@ -13,7 +15,6 @@ import net.minecraft.world.item.ItemStack;
 
 import team.lodestar.lodestone.helpers.EntityHelper;
 import team.lodestar.lodestone.registry.common.LodestoneAttributeRegistry;
-import top.theillusivec4.curios.api.SlotContext;
 
 import java.util.function.Consumer;
 
@@ -29,7 +30,7 @@ public class CurioAlchemicalRing extends MalumCurioItem implements IMalumEventRe
     }
 
     @Override
-    public void addAttributeModifiers(Multimap<Attribute, AttributeModifier> map, SlotContext slotContext, ItemStack stack) {
+    public void addAttributeModifiers(Multimap<Attribute, AttributeModifier> map, SlotReference slotContext, ItemStack stack) {
         addAttributeModifier(map, LodestoneAttributeRegistry.MAGIC_RESISTANCE.get(), uuid -> new AttributeModifier(uuid,
                 "Curio Magic Resistance", 1f, AttributeModifier.Operation.ADDITION));
     }
@@ -37,7 +38,7 @@ public class CurioAlchemicalRing extends MalumCurioItem implements IMalumEventRe
     @Override
     public void pickupSpirit(LivingEntity collector, ItemStack stack, double arcaneResonance) {
         collector.getActiveEffectsMap().forEach((e, i) -> {
-            float multiplier = MobEffectRegistry.ALCHEMICAL_PROFICIENCY_MAP.getOrDefault(ForgeRegistries.MOB_EFFECTS.getKey(e), 1f);
+            float multiplier = MobEffectRegistry.ALCHEMICAL_PROFICIENCY_MAP.getOrDefault(BuiltInRegistries.MOB_EFFECT.getKey(e), 1f);
             if (e.isBeneficial()) {
                 int base = 40 + (int) (arcaneResonance * 20);
                 EntityHelper.extendEffect(i, collector, (int) (base * multiplier), 1200);

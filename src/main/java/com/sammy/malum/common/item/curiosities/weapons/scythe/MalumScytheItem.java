@@ -6,6 +6,7 @@ import com.sammy.malum.registry.client.ParticleRegistry;
 import com.sammy.malum.registry.common.DamageTypeRegistry;
 import com.sammy.malum.registry.common.SoundRegistry;
 import com.sammy.malum.registry.common.item.ItemRegistry;
+import io.github.fabricators_of_create.porting_lib.entity.events.living.LivingHurtEvent;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -17,6 +18,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.enchantment.*;
+import team.lodestar.lodestone.helpers.TrinketsHelper;
 import team.lodestar.lodestone.registry.common.tag.*;
 import team.lodestar.lodestone.systems.item.ModCombatItem;
 
@@ -29,7 +31,7 @@ public class MalumScytheItem extends ModCombatItem implements IMalumEventRespond
     @Override
     public void hurtEvent(LivingHurtEvent event, LivingEntity attacker, LivingEntity target, ItemStack stack) {
         //TODO: convert this to a ToolAction, or something alike
-        boolean canSweep = !CurioHelper.hasCurioEquipped(attacker, ItemRegistry.NECKLACE_OF_THE_NARROW_EDGE.get()) && !CurioHelper.hasCurioEquipped(attacker, ItemRegistry.NECKLACE_OF_THE_HIDDEN_BLADE.get());
+        boolean canSweep = !TrinketsHelper.hasCurioEquipped(attacker, ItemRegistry.NECKLACE_OF_THE_NARROW_EDGE.get()) && !TrinketsHelper.hasCurioEquipped(attacker, ItemRegistry.NECKLACE_OF_THE_HIDDEN_BLADE.get());
         if (attacker instanceof Player player) {
             SoundEvent sound;
             if (canSweep) {

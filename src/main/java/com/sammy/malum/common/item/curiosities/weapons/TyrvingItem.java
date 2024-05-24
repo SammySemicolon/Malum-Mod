@@ -4,6 +4,9 @@ import com.sammy.malum.common.item.*;
 import com.sammy.malum.common.packets.particle.curiosities.rite.generic.*;
 import com.sammy.malum.core.handlers.*;
 import com.sammy.malum.registry.common.*;
+import io.github.fabricators_of_create.porting_lib.entity.events.living.LivingHurtEvent;
+import io.github.fabricators_of_create.porting_lib.tool.ToolAction;
+import io.github.fabricators_of_create.porting_lib.tool.ToolActions;
 import net.minecraft.sounds.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.*;
@@ -36,12 +39,14 @@ public class TyrvingItem extends LodestoneSwordItem implements IMalumEventRespon
                 target.hurt(DamageTypeRegistry.create(level, DamageTypeRegistry.VOODOO, attacker), damage);
             }
             level.playSound(null, target.blockPosition(), SoundRegistry.VOID_SLASH.get(), SoundSource.PLAYERS, 1, 1f + level.random.nextFloat() * 0.25f);
-            MALUM_CHANNEL.send(PacketDistributor.TRACKING_ENTITY.with(() -> target), new MajorEntityEffectParticlePacket(SpiritTypeRegistry.ELDRITCH_SPIRIT.getPrimaryColor(), target.getX(), target.getY() + target.getBbHeight() / 2, target.getZ()));
+            MALUM_CHANNEL.sendToClientsTracking(new MajorEntityEffectParticlePacket(SpiritTypeRegistry.ELDRITCH_SPIRIT.getPrimaryColor(), target.getX(), target.getY() + target.getBbHeight() / 2, target.getZ()), target);
         }
     }
 
+
+
     @Override
-    public boolean canPerformAction(ItemStack stack, net.minecraftforge.common.ToolAction toolAction) {
+    public boolean canPerformAction(ItemStack stack, ToolAction toolAction) {
         return toolAction.equals(ToolActions.SWORD_DIG);
     }
 }

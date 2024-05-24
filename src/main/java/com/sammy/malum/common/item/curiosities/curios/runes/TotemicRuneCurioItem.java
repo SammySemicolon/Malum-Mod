@@ -1,10 +1,11 @@
 package com.sammy.malum.common.item.curiosities.curios.runes;
 
 import com.sammy.malum.common.spiritrite.*;
+import dev.emi.trinkets.api.SlotReference;
 import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.item.*;
-import top.theillusivec4.curios.api.*;
+
 
 import java.util.function.*;
 
@@ -28,12 +29,13 @@ public class TotemicRuneCurioItem extends AbstractRuneCurioItem {
         entityPredicate = potionRiteEffect.getEntityPredicate();
     }
 
+
     @Override
-    public void curioTick(SlotContext slotContext, ItemStack stack) {
-        final LivingEntity livingEntity = slotContext.entity();
+    public void tick(ItemStack stack, SlotReference slot, LivingEntity entity) {
+        final LivingEntity livingEntity = slot.inventory().getComponent().getEntity();
         if (!livingEntity.level().isClientSide() && livingEntity.level().getGameTime() % interval == 0 && entityPredicate.test(livingEntity)) {
-           livingEntity.addEffect(new MobEffectInstance(mobEffectSupplier.get(), 200, 0, true, true));
+            livingEntity.addEffect(new MobEffectInstance(mobEffectSupplier.get(), 200, 0, true, true));
         }
-        super.curioTick(slotContext, stack);
+        super.tick(stack, slot, entity);
     }
 }

@@ -29,4 +29,5 @@ accessible field net/minecraft/world/item/ItemCooldowns cooldowns Ljava/util/Map
 accessible field net/minecraft/world/item/ItemCooldowns$CooldownInstance startTime I
 accessible field net/minecraft/world/item/ItemCooldowns$CooldownInstance endTime I
 accessible method io/github/fabricators_of_create/porting_lib/transfer/item/ItemStackHandler onContentsChanged (I)V
+accessible method net/minecraft/world/entity/ai/attributes/AttributeInstance setDirty ()V
 

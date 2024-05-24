@@ -3,6 +3,7 @@ package com.sammy.malum.common.item.curiosities.weapons;
 import com.sammy.malum.common.item.curiosities.weapons.scythe.*;
 import com.sammy.malum.registry.client.*;
 import com.sammy.malum.registry.common.*;
+import io.github.fabricators_of_create.porting_lib.entity.events.living.LivingHurtEvent;
 import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.*;

@@ -3,6 +3,7 @@ package com.sammy.malum.visual_effects;
 import com.sammy.malum.core.systems.spirit.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
+import org.jetbrains.annotations.Nullable;
 import team.lodestar.lodestone.systems.particle.builder.*;
 
 

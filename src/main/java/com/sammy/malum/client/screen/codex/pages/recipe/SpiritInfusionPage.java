@@ -7,7 +7,6 @@ import com.sammy.malum.common.recipe.SpiritInfusionRecipe;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.world.item.Item;
-import net.minecraftforge.data.loading.DatagenModLoader;
 
 import java.util.function.Predicate;
 
