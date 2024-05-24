@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "id": "malum",
+  "version": "${version}",
+
+  "name": "${mod_name}",
+  "description": "${mod_description}",
+  "authors": [
+    "${mod_authors}, MrSterner"
+  ],
+
+  "license": "${mod_license}",
+  "icon": "assets/lodestone/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.sammy.malum.MalumMod"
+    ],
+    "client": [
+      "com.sammy.malum.MalumMod"
+    ],
+    "cardinal-components-entity": [
+      "com.sammy.malum.MalumMod"
+    ],
+    "cardinal-components-world": [
+      "com.sammy.malum.MalumMod"
+    ],
+    "fabric-datagen": [
+      "com.sammy.malum.MalumMod"
+    ]
+  },
+  "mixins": [
+    "malum.mixins.json"
+  ],
+  "accessWidener": "malum.accesswidener",
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric-api": "*",
+    "minecraft": "~${minecraft_version}",
+    "java": ">=17"
+  },
+  "custom": {
+    "cardinal-components": [
+
+    ]
+  },
+  "suggests": {
+    "another-mod": "*"
+  }
+}

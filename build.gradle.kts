@@ -6,11 +6,10 @@ plugins {
 
 val port_lib_modules: String by extra
 
-jarJar.enable()
 
 version = "${property("minecraft_version")}-${property("mod_version")}"
 if (System.getenv("BUILD_NUMBER") != null) {
-    version = "$minecraftVersion-$modVersion.${System.getenv("BUILD_NUMBER")}"
+    version = "${property("minecraft_version")}-${property("mod_version")}.${System.getenv("BUILD_NUMBER")}"
 }
 
 loom {
@@ -54,7 +53,15 @@ repositories {
             includeGroup("io.github")
         }
     }
+    maven(url = "https://maven.ladysnake.org/releases")
+    maven("https://maven.terraformersmc.com/")
 
+    maven(url = "https://maven.parchmentmc.org")
+    maven("https://mvn.devos.one/snapshots/")
+    maven(url = "https://mvn.devos.one/releases/")
+    maven( "https://maven.jamieswhiteshirt.com/libs-release")
+    maven("https://maven.greenhouseteam.dev/releases/")
+    maven("https://raw.githubusercontent.com/Fuzss/modresources/main/maven/") // Forge Config API Port
 }
 
 dependencies {
@@ -81,15 +88,26 @@ dependencies {
 
     modImplementation("team.lodestar.lodestone:lodestone:${property("minecraft_version")}-${property("lodestone_version")}")
 
-    //compileOnly(fg.deobf("curse.maven:farmers_delight-398521:4638874"))
+    modApi("dev.onyxstudios.cardinal-components-api:cardinal-components-base:${property("cca_version")}")
+    modApi("dev.onyxstudios.cardinal-components-api:cardinal-components-entity:${property("cca_version")}")
+    modApi("dev.onyxstudios.cardinal-components-api:cardinal-components-world:${property("cca_version")}")
 
-    //runtimeOnly(fg.deobf("curse.maven:create-328085:4626108"))
-    //implementation(fg.deobf("curse.maven:jeed-532286:4599236"))
+    port_lib_modules.split(",").forEach { module ->
+        modApi(("io.github.fabricators_of_create.Porting-Lib:$module:${property("port_lib_version")}"))
+    }
 
-    //runtimeOnly(fg.deobf("curse.maven:world-stripper-250603:4578579"))
-    //runtimeOnly(fg.deobf("curse.maven:spark-361579:4587309"))
-    //runtimeOnly(fg.deobf("curse.maven:attributefix-280510:4911084"))
-    //runtimeOnly(fg.deobf("curse.maven:overloaded-armor-bar-314002:4631133"))
+    modApi("com.jamieswhiteshirt:reach-entity-attributes:${property("reach_entity_attributes_version")}")
+
+    modImplementation("vectorwing:FarmersDelight:${property("farmers_delight_version")}")
+    modRuntimeOnly("com.simibubi.create:create-fabric-1.20.1:0.5.1-f-build.1417+mc1.20.1")
+    modRuntimeOnly("fuzs.forgeconfigapiport:forgeconfigapiport-fabric:${property("forge_config_api_port_version")}")
+
+    implementation("curse.maven:jeed-532286:5186338")
+
+    runtimeOnly("curse.maven:world-stripper-250603:4578576")
+    runtimeOnly("curse.maven:spark-361579:4738953")
+    runtimeOnly("curse.maven:attributefix-280510:4911083")
+    runtimeOnly("curse.maven:overloaded-armor-bar-314002:5208706")
 }
 
 tasks {
@@ -121,30 +139,6 @@ java {
 //	exclude 'com/sammy/malum/client/model/bbmodels/**'
 //	exclude 'assets/malum/models/block/bbmodels/**'
 //}
-
-publishing {
-    publications {
-        register<MavenPublication>("mavenJava") {
-            artifactId = "${property("mod_id")}"
-            from(components["java"])
-            fg.component(this)
-            jarJar.component(this)
-        }
-    }
-    repositories {
-        maven {
-            url = uri("file://${System.getenv("local_maven")}")
-        }
-    }
-}
-
-idea {
-    module {
-        for (fileName in listOf("run", "out", "logs")) {
-            excludeDirs.add(file(fileName))
-        }
-    }
-}
 
 tasks.withType<JavaCompile> {
     options.encoding = "UTF-8"
