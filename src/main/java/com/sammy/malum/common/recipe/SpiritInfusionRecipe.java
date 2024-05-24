@@ -3,15 +3,15 @@ package com.sammy.malum.common.recipe;
 import com.google.gson.*;
 import com.sammy.malum.core.systems.recipe.*;
 import com.sammy.malum.registry.common.recipe.*;
+import io.github.fabricators_of_create.porting_lib.util.CraftingHelper;
 import net.minecraft.network.*;
 import net.minecraft.resources.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.*;
-import net.minecraftforge.common.crafting.*;
+import org.jetbrains.annotations.Nullable;
 import team.lodestar.lodestone.systems.recipe.*;
 
-import javax.annotation.*;
 import java.util.*;
 import java.util.function.*;
 

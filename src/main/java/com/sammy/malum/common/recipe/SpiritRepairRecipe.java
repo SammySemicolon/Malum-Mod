@@ -8,10 +8,8 @@ import net.minecraft.resources.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.*;
-import net.minecraftforge.registries.*;
 import team.lodestar.lodestone.systems.recipe.*;
 
-import javax.annotation.*;
 import java.util.*;
 import java.util.function.*;
 import java.util.stream.*;

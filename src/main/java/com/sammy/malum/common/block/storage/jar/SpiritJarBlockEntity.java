@@ -251,7 +251,7 @@ public class SpiritJarBlockEntity extends LodestoneBlockEntity {
         return new Vec3(x, y, z);
     }
 
-    @OnlyIn(value = Dist.CLIENT)
+    @Environment(EnvType.CLIENT)
     public void spawnUseParticles(Level level, BlockPos pos, MalumSpiritType type) {
         Color color = type.getPrimaryColor();
         WorldParticleBuilder.create(LodestoneParticleRegistry.WISP_PARTICLE)

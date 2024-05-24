@@ -10,12 +10,9 @@ import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.network.FriendlyByteBuf;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraftforge.network.NetworkEvent;
-import net.minecraftforge.network.simple.SimpleChannel;
+import org.jetbrains.annotations.Nullable;
 import team.lodestar.lodestone.systems.network.LodestoneClientPacket;
 
-import javax.annotation.Nullable;
-import java.util.function.Supplier;
 
 public class ParticleEffectPacket extends LodestoneClientPacket {
 

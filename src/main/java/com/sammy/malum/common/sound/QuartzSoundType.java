@@ -31,7 +31,7 @@ public class QuartzSoundType extends ExtendedSoundType {
     }
 
     @Override
-    @OnlyIn(value = Dist.CLIENT)
+    @Environment(EnvType.CLIENT)
     public void onPlayHitSound(BlockPos pos) {
         Minecraft.getInstance().getSoundManager().play(new SimpleSoundInstance(SoundRegistry.QUARTZ_CLUSTER_BLOCK_HIT.get(), SoundSource.BLOCKS, (getVolume() + 1.0F) / 12.0F, getPitch() * 1.65F, MalumMod.RANDOM, pos));
     }

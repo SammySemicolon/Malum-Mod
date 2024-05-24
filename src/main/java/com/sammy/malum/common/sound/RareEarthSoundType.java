@@ -31,7 +31,7 @@ public class RareEarthSoundType extends ExtendedSoundType {
     }
 
     @Override
-    @OnlyIn(value = Dist.CLIENT)
+    @Environment(EnvType.CLIENT)
     public void onPlayHitSound(BlockPos pos) {
         MultiPlayerGameMode gameMode = Minecraft.getInstance().gameMode;
         if (gameMode != null) {

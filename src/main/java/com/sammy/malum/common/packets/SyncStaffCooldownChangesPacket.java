@@ -8,8 +8,6 @@ import net.minecraft.network.*;
 import net.minecraft.world.item.*;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraftforge.network.*;
-import net.minecraftforge.network.simple.*;
 import team.lodestar.lodestone.systems.network.*;
 
 import java.util.function.*;
