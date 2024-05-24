@@ -4,15 +4,17 @@ import com.google.gson.JsonObject;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.registry.common.recipe.RecipeSerializerRegistry;
 import net.minecraft.advancements.Advancement;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.AbstractCookingRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraftforge.registries.ForgeRegistries;
+
+import org.jetbrains.annotations.Nullable;
 import team.lodestar.lodestone.systems.recipe.IngredientWithCount;
 
-import javax.annotation.Nullable;
+
 import java.util.function.Consumer;
 
 public class MetalNodeCookingRecipeBuilder {
@@ -56,7 +58,7 @@ public class MetalNodeCookingRecipeBuilder {
     }
 
     public void build(Consumer<FinishedRecipe> consumerIn) {
-        build(consumerIn, ForgeRegistries.ITEMS.getKey(result.getStack().getItem()).getPath());
+        build(consumerIn, BuiltInRegistries.ITEM.getKey(result.getStack().getItem()).getPath());
     }
 
     public void build(Consumer<FinishedRecipe> consumerIn, ResourceLocation id) {

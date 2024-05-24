@@ -11,9 +11,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
-import net.minecraftforge.registries.ForgeRegistries;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nullable;
 import java.util.function.Consumer;
 
 public class VoidFavorRecipeBuilder {
@@ -47,7 +46,7 @@ public class VoidFavorRecipeBuilder {
     }
 
     public void build(Consumer<FinishedRecipe> consumerIn) {
-        build(consumerIn, ForgeRegistries.ITEMS.getKey(output.getItem()).getPath());
+        build(consumerIn, BuiltInRegistries.ITEM.getKey(output.getItem()).getPath());
     }
 
     public void build(Consumer<FinishedRecipe> consumerIn, ResourceLocation id) {

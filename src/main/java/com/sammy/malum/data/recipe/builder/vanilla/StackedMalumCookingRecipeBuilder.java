@@ -6,6 +6,7 @@ import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.CriterionTriggerInstance;
 import net.minecraft.advancements.RequirementsStrategy;
 import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeBuilder;
 import net.minecraft.data.recipes.RecipeCategory;
@@ -15,9 +16,9 @@ import net.minecraft.world.item.crafting.AbstractCookingRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
-import net.minecraftforge.registries.ForgeRegistries;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nullable;
+
 import java.util.function.Consumer;
 
 public class StackedMalumCookingRecipeBuilder implements RecipeBuilder {
@@ -119,7 +120,7 @@ public class StackedMalumCookingRecipeBuilder implements RecipeBuilder {
             }
             pJson.add("ingredient", this.ingredient.toJson());
             JsonObject object = new JsonObject();
-            object.addProperty("item", ForgeRegistries.ITEMS.getKey(this.result).toString());
+            object.addProperty("item", BuiltInRegistries.ITEM.getKey(this.result).toString());
             object.addProperty("count", this.resultCount);
             pJson.add("result", object);
             pJson.addProperty("experience", this.experience);

@@ -5,7 +5,7 @@ import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
 import team.lodestar.lodestone.systems.particle.builder.*;
 
-import javax.annotation.*;
+
 import java.util.function.*;
 
 public class ParticleEffectSpawner<T extends AbstractWorldParticleBuilder<T, ?>> {

@@ -10,7 +10,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.registries.ForgeRegistries;
+
 import team.lodestar.lodestone.helpers.EntityHelper;
 import team.lodestar.lodestone.registry.common.LodestoneAttributeRegistry;
 import top.theillusivec4.curios.api.SlotContext;

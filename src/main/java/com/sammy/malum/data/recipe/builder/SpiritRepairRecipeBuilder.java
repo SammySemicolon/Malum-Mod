@@ -6,15 +6,15 @@ import com.sammy.malum.MalumMod;
 import com.sammy.malum.core.systems.recipe.SpiritWithCount;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import com.sammy.malum.registry.common.recipe.RecipeSerializerRegistry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraftforge.registries.ForgeRegistries;
+import org.jetbrains.annotations.Nullable;
 import team.lodestar.lodestone.systems.recipe.IngredientWithCount;
 
-import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
@@ -62,7 +62,7 @@ public class SpiritRepairRecipeBuilder {
     }
 
     public void build(Consumer<FinishedRecipe> consumerIn) {
-        build(consumerIn, ForgeRegistries.ITEMS.getKey(inputs.get(0)).getPath());
+        build(consumerIn, BuiltInRegistries.ITEM.getKey(inputs.get(0)).getPath());
     }
 
     public class Result implements FinishedRecipe {
@@ -76,7 +76,7 @@ public class SpiritRepairRecipeBuilder {
         public void serializeRecipeData(JsonObject json) {
             JsonArray inputsJson = new JsonArray();
             for (Item item : inputs) {
-                inputsJson.add(ForgeRegistries.ITEMS.getKey(item).toString());
+                inputsJson.add(BuiltInRegistries.ITEM.getKey(item).toString());
             }
             JsonArray spiritsJson = new JsonArray();
             for (SpiritWithCount spirit : spirits) {

@@ -9,10 +9,11 @@ import net.minecraft.resources.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.*;
-import net.minecraftforge.registries.*;
+
+import org.jetbrains.annotations.Nullable;
 import team.lodestar.lodestone.systems.recipe.*;
 
-import javax.annotation.*;
+
 import java.util.function.*;
 
 public class RunicWorkbenchRecipeBuilder {
@@ -60,7 +61,7 @@ public class RunicWorkbenchRecipeBuilder {
     }
 
     public void build(Consumer<FinishedRecipe> consumerIn) {
-        build(consumerIn, ForgeRegistries.ITEMS.getKey(output.getItem()).getPath());
+        build(consumerIn, BuiltInRegistries.ITEM.getKey(output.getItem()).getPath());
     }
 
     public void build(Consumer<FinishedRecipe> consumerIn, ResourceLocation id) {

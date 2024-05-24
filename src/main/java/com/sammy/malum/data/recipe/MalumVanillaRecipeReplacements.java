@@ -1,5 +1,7 @@
 package com.sammy.malum.data.recipe;
 
+import io.github.fabricators_of_create.porting_lib.tags.Tags;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
@@ -12,8 +14,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
-import net.minecraftforge.common.Tags;
-import net.minecraftforge.registries.ForgeRegistries;
 
 import java.lang.reflect.Field;
 import java.util.*;
@@ -42,7 +42,7 @@ public class MalumVanillaRecipeReplacements extends VanillaRecipeProvider {
     }
 
     private void exclude(ItemLike item) {
-        excludes.add(ForgeRegistries.ITEMS.getKey(item.asItem()));
+        excludes.add(BuiltInRegistries.ITEM.getKey(item.asItem()));
     }
 
     private void replace(ItemLike item, TagKey<Item> tag) {

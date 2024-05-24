@@ -3,8 +3,8 @@ package com.sammy.malum.core.systems.spirit;
 import com.sammy.malum.core.systems.recipe.*;
 import com.sammy.malum.registry.common.*;
 import net.minecraft.world.item.crafting.*;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.*;
 import java.util.*;
 
 public class EntitySpiritDropData {

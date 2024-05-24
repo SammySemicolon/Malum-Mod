@@ -4,13 +4,14 @@ import com.sammy.malum.*;
 import com.sammy.malum.common.item.impetus.*;
 import com.sammy.malum.data.recipe.builder.*;
 import com.sammy.malum.registry.common.item.*;
+import io.github.fabricators_of_create.porting_lib.data.ConditionalRecipe;
+import io.github.fabricators_of_create.porting_lib.util.RegistryObject;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.recipes.*;
 import net.minecraft.tags.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.*;
-import net.minecraftforge.common.crafting.*;
-import net.minecraftforge.common.crafting.conditions.*;
-import net.minecraftforge.registries.*;
+
 
 import java.util.function.*;
 
@@ -72,7 +73,7 @@ public class MalumSpiritFocusingRecipes implements IConditionBuilder {
         new SpiritFocusingRecipeBuilder(duration, 2, Ingredient.of(impetus.get()), node.get(), 3)
                 .addSpirit(EARTHEN_SPIRIT, 2)
                 .addSpirit(INFERNAL_SPIRIT, 4)
-                .build(consumer, MalumMod.malumPath("node_focusing_" + ForgeRegistries.ITEMS.getKey(node.get()).getPath().replace("_node", "")));
+                .build(consumer, MalumMod.malumPath("node_focusing_" + BuiltInRegistries.ITEM.getKey(node.get()).getPath().replace("_node", "")));
     }
 
     public static void addImpetusRecipes(Consumer<FinishedRecipe> consumer, int duration, RegistryObject<ImpetusItem> impetus, RegistryObject<Item> node, TagKey<Item> nugget) {

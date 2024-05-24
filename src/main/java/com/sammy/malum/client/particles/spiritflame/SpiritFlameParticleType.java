@@ -7,9 +7,9 @@ import net.minecraft.client.particle.ParticleEngine;
 import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.core.particles.ParticleType;
+import org.jetbrains.annotations.Nullable;
 import team.lodestar.lodestone.systems.particle.options.WorldParticleOptions;
 
-import javax.annotation.Nullable;
 
 public class SpiritFlameParticleType extends ParticleType<WorldParticleOptions> {
     public SpiritFlameParticleType() {

@@ -4,14 +4,14 @@ import com.sammy.malum.*;
 import com.sammy.malum.common.item.impetus.*;
 import com.sammy.malum.data.recipe.builder.*;
 import com.sammy.malum.registry.common.item.*;
+import io.github.fabricators_of_create.porting_lib.data.ConditionalRecipe;
+import io.github.fabricators_of_create.porting_lib.tags.Tags;
+import io.github.fabricators_of_create.porting_lib.util.RegistryObject;
 import net.minecraft.data.recipes.*;
 import net.minecraft.tags.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.*;
-import net.minecraftforge.common.*;
-import net.minecraftforge.common.crafting.*;
-import net.minecraftforge.common.crafting.conditions.*;
-import net.minecraftforge.registries.*;
+
 
 import java.util.function.*;
 

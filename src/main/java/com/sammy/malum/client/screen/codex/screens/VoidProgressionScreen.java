@@ -24,7 +24,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.registries.ForgeRegistries;
+
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -289,7 +289,7 @@ public class VoidProgressionScreen extends AbstractProgressionCodexScreen {
             .addPage(SpiritInfusionPage.fromOutput(VOID_TABLET.get()))
             .addPage(new TextPage("void.runes.2"))
             .addPage(new EntrySelectorPage(item -> {
-                final String translationKey = "void." + ForgeRegistries.ITEMS.getKey(item).getPath();
+                final String translationKey = "void." + BuiltInRegistries.ITEM.getKey(item).getPath();
                 return new EntryReference(item,
                     BookEntry.build(translationKey)
                         .addPage(new HeadlineTextPage(translationKey))

@@ -5,6 +5,7 @@ import com.sammy.malum.registry.common.ParticleEffectTypeRegistry;
 import com.sammy.malum.visual_effects.networked.data.ColorEffectData;
 import com.sammy.malum.visual_effects.networked.data.NBTEffectData;
 import com.sammy.malum.visual_effects.networked.data.PositionEffectData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
@@ -36,23 +37,19 @@ public abstract class ParticleEffectType {
     }
 
     public void createEntityEffect(Entity entity, ColorEffectData colorData, NBTEffectData nbtData) {
-        createEffect(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> entity), new PositionEffectData(entity), colorData, nbtData);
+        MALUM_CHANNEL.sendToClientsTrackingAndSelf(new ParticleEffectPacket(id, new PositionEffectData(entity), colorData, nbtData), entity);
     }
 
-    public void createPositionedEffect(Level level, PositionEffectData positionData) {
+    public void createPositionedEffect(ServerLevel level, PositionEffectData positionData) {
         createPositionedEffect(level, positionData, null);
     }
 
-    public void createPositionedEffect(Level level, PositionEffectData positionData, ColorEffectData colorData) {
+    public void createPositionedEffect(ServerLevel level, PositionEffectData positionData, ColorEffectData colorData) {
         createPositionedEffect(level, positionData, colorData, null);
     }
 
-    public void createPositionedEffect(Level level, PositionEffectData positionData, ColorEffectData colorData, NBTEffectData nbtData) {
-        createEffect(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(positionData.getAsBlockPos())), positionData, colorData, nbtData);
-    }
-
-    public void createEffect(PacketDistributor.PacketTarget target, PositionEffectData positionData, ColorEffectData colorData, NBTEffectData nbtData) {
-        MALUM_CHANNEL.send(target, new ParticleEffectPacket(id, positionData, colorData, nbtData));
+    public void createPositionedEffect(ServerLevel level, PositionEffectData positionData, ColorEffectData colorData, NBTEffectData nbtData) {
+        MALUM_CHANNEL.sendToClientsTracking(new ParticleEffectPacket(id, positionData, colorData, nbtData), level, level.getChunkAt(positionData.getAsBlockPos()).getPos());
     }
 
     public interface ParticleEffectActor {

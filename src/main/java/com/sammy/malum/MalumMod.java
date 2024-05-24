@@ -17,7 +17,9 @@ import com.sammy.malum.core.listeners.MalignantConversionReloadListener;
 import com.sammy.malum.core.listeners.ReapingDataReloadListener;
 import com.sammy.malum.core.listeners.RitualRecipeReloadListener;
 import com.sammy.malum.core.listeners.SpiritDataReloadListener;
+import com.sammy.malum.registry.client.ParticleEmitterRegistry;
 import com.sammy.malum.registry.common.AttributeRegistry;
+import com.sammy.malum.registry.common.MobEffectRegistry;
 import com.sammy.malum.registry.common.PacketRegistry;
 import com.sammy.malum.registry.common.item.ItemRegistry;
 import com.sammy.malum.registry.common.item.tabs.*;
@@ -102,6 +104,7 @@ public class MalumMod implements ModInitializer {
         CREATIVE_MODE_TABS.register();
 
         ItemRegistry.Common.registerCompost();
+        MobEffectRegistry.addPotionRecipes();
 
         FarmersDelightCompat.init();
 
@@ -111,6 +114,7 @@ public class MalumMod implements ModInitializer {
         LivingEntityEvents.CHECK_SPAWN.register(SoulDataHandler::markAsSpawnerSpawned);
         EntityEvents.ON_JOIN_WORLD.register(CurioTokenOfGratitude::giveItem);
         EntityEvents.ON_JOIN_WORLD.register(SoulDataHandler::updateAi);
+        EntityEvents.ON_JOIN_WORLD.register(ParticleEmitterRegistry::addParticleEmitters);
         MobEntitySetTargetCallback.EVENT.register(SoulDataHandler::preventTargeting);
         LivingEntityEvents.VISIBILITY.register(CurioHarmonyNecklace::preventDetection);
         LivingEntityUseItemEvents.LIVING_USE_ITEM_FINISH.register(CurioGruesomeConcentrationRing::finishEating);

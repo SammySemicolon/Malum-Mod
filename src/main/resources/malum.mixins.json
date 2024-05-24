@@ -16,6 +16,7 @@
     "ElytraLayerMixin",
     "FontStringRenderOutputMixin",
     "ForgeIngameGuiMixin",
+    "GameRenderMixin",
     "GlyphRenderTypesMixin",
     "GuiMixin",
     "LocalPlayerMixin"

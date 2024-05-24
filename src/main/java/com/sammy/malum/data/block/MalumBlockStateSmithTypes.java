@@ -8,10 +8,13 @@ import com.sammy.malum.common.block.ether.EtherBrazierBlock;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import com.sammy.malum.data.item.MalumItemModelSmithTypes;
 import com.sammy.malum.registry.common.SpiritTypeRegistry;
+import io.github.fabricators_of_create.porting_lib.models.generators.ConfiguredModel;
+import io.github.fabricators_of_create.porting_lib.models.generators.ModelBuilder;
+import io.github.fabricators_of_create.porting_lib.models.generators.ModelFile;
+import io.github.fabricators_of_create.porting_lib.models.generators.block.VariantBlockStateBuilder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.properties.*;
-import net.minecraftforge.client.model.generators.*;
 import team.lodestar.lodestone.systems.datagen.ItemModelSmithTypes;
 import team.lodestar.lodestone.systems.datagen.statesmith.BlockStateSmith;
 
@@ -45,14 +48,14 @@ public class MalumBlockStateSmithTypes {
         provider.getVariantBuilder(block).forAllStates(s -> ConfiguredModel.builder().modelFile(s.getValue(RepairPylonComponentBlock.TOP) ? topModel : model).build());
     });
 
-    public static BlockStateSmith<PrimordialSoupBlock> PRIMORDIAL_SOUP = new BlockStateSmith<>(PrimordialSoupBlock.class, ItemModelSmithTypes.AFFIXED_MODEL.apply("_top"), (block, provider) -> {
+    public static BlockStateSmith<PrimordialSoupBlock> PRIMORDIAL_SOUP = new BlockStateSmith<>(PrimordialSoupBlock.class, ItemModelSmithTypes.AFFIXED_BLOCK_MODEL.apply("_top"), (block, provider) -> {
         String name = provider.getBlockName(block);
         ModelFile model = provider.models().withExistingParent(name, new ResourceLocation("block/powder_snow")).texture("texture", malumPath("block/weeping_well/" + name));
         ModelFile topModel = provider.models().getExistingFile(malumPath("block/" + name + "_top"));
         provider.getVariantBuilder(block).forAllStates(s -> ConfiguredModel.builder().modelFile(s.getValue(PrimordialSoupBlock.TOP) ? topModel : model).build());
     });
 
-    public static BlockStateSmith<Block> HANGING_LEAVES = new BlockStateSmith<>(Block.class, ItemModelSmithTypes.AFFIXED_MODEL.apply("_0"), (block, provider) -> {
+    public static BlockStateSmith<Block> HANGING_LEAVES = new BlockStateSmith<>(Block.class, ItemModelSmithTypes.AFFIXED_BLOCK_MODEL.apply("_0"), (block, provider) -> {
         String name = provider.getBlockName(block);
         Function<Integer, ModelFile> modelProvider = (i) ->
                 provider.models().withExistingParent(name+"_"+i, malumPath("block/templates/template_hanging_leaves")).texture("hanging_leaves", provider.getBlockTexture(name + "_" + i)).texture("particle", provider.getBlockTexture(name + "_" + i));

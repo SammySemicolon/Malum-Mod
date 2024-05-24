@@ -47,8 +47,7 @@ public class MobEffectRegistry {
         return effect;
     }
 
-    @SubscribeEvent
-    public static void addPotionRecipes(FMLCommonSetupEvent event) {
+    public static void addPotionRecipes() {
         PotionBrewing.addMix(Potions.WATER, ItemRegistry.ROTTING_ESSENCE.get(), Potions.MUNDANE);
         PotionBrewing.addMix(Potions.AWKWARD, ItemRegistry.ROTTING_ESSENCE.get(), Potions.POISON);
         PotionBrewing.addMix(Potions.WATER, ItemRegistry.ASTRAL_WEAVE.get(), Potions.MUNDANE);

@@ -4,17 +4,18 @@ import com.sammy.malum.*;
 import com.sammy.malum.common.item.impetus.*;
 import com.sammy.malum.data.recipe.builder.vanilla.*;
 import com.sammy.malum.registry.common.item.*;
+import io.github.fabricators_of_create.porting_lib.data.ConditionalRecipe;
+import io.github.fabricators_of_create.porting_lib.tags.Tags;
+import io.github.fabricators_of_create.porting_lib.util.RegistryObject;
 import net.minecraft.advancements.critereon.*;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.recipes.*;
 import net.minecraft.tags.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
-import net.minecraftforge.common.*;
-import net.minecraftforge.common.crafting.*;
-import net.minecraftforge.common.crafting.conditions.*;
-import net.minecraftforge.registries.*;
+
 import team.lodestar.lodestone.data.builder.*;
 import team.lodestar.lodestone.systems.recipe.*;
 
@@ -443,7 +444,7 @@ public class MalumVanillaRecipes implements IConditionBuilder {
     }
 
     private static void nodeSmelting(Consumer<FinishedRecipe> recipeConsumer, RegistryObject<ImpetusItem> impetus, RegistryObject<Item> node, TagKey<Item> tag) {
-        String name = ForgeRegistries.ITEMS.getKey(node.get()).getPath().replaceFirst("_node", "");
+        String name = BuiltInRegistries.ITEM.getKey(node.get()).getPath().replaceFirst("_node", "");
 
         ConditionalRecipe.builder().addCondition(new NotCondition(new TagEmptyCondition(tag.location().toString()))).addRecipe(
                         smeltingWithTag(new IngredientWithCount(Ingredient.of(tag), 6), Ingredient.of(node.get()), 0.25f, 200)
@@ -459,11 +460,11 @@ public class MalumVanillaRecipes implements IConditionBuilder {
     }
 
     private static void etherBrazier(Consumer<FinishedRecipe> recipeConsumer, ItemLike output, ItemLike rock, ItemLike ether) {
-        NBTCarryRecipeBuilder.shapedRecipe(output, 2, Ingredient.of(ether)).key('#', rock).key('S', Ingredient.of(Tags.Items.RODS_WOODEN)).key('X', ether).patternLine("#X#").patternLine("S#S").addCriterion("has_ether", has(ItemRegistry.ETHER.get())).build(recipeConsumer, ForgeRegistries.ITEMS.getKey(output.asItem()).getPath());
+        NBTCarryRecipeBuilder.shapedRecipe(output, 2, Ingredient.of(ether)).key('#', rock).key('S', Ingredient.of(Tags.Items.RODS_WOODEN)).key('X', ether).patternLine("#X#").patternLine("S#S").addCriterion("has_ether", has(ItemRegistry.ETHER.get())).build(recipeConsumer, BuiltInRegistries.ITEM.getKey(output.asItem()).getPath());
     }
 
     private static void etherTorch(Consumer<FinishedRecipe> recipeConsumer, ItemLike output, ItemLike ether) {
-        NBTCarryRecipeBuilder.shapedRecipe(output, 4, Ingredient.of(ether)).key('#', Ingredient.of(Tags.Items.RODS_WOODEN)).key('X', ether).patternLine("X").patternLine("#").addCriterion("has_ether", has(ItemRegistry.ETHER.get())).build(recipeConsumer, ForgeRegistries.ITEMS.getKey(output.asItem()).getPath() + "_alternative");
+        NBTCarryRecipeBuilder.shapedRecipe(output, 4, Ingredient.of(ether)).key('#', Ingredient.of(Tags.Items.RODS_WOODEN)).key('X', ether).patternLine("X").patternLine("#").addCriterion("has_ether", has(ItemRegistry.ETHER.get())).build(recipeConsumer, BuiltInRegistries.ITEM.getKey(output.asItem()).getPath() + "_alternative");
     }
 
     private static void shapelessPlanks(Consumer<FinishedRecipe> recipeConsumer, ItemLike planks, TagKey<Item> input) {
@@ -515,7 +516,7 @@ public class MalumVanillaRecipes implements IConditionBuilder {
     }
 
     private static void shapedSign(Consumer<FinishedRecipe> recipeConsumer, ItemLike sign, ItemLike input) {
-        String s = ForgeRegistries.ITEMS.getKey(input.asItem()).getPath();
+        String s = BuiltInRegistries.ITEM.getKey(input.asItem()).getPath();
         shaped(RecipeCategory.MISC, sign, 3).group("sign").define('#', input).define('X', Tags.Items.RODS_WOODEN).pattern("###").pattern("###").pattern(" X ").unlockedBy("has_" + s, has(input)).save(recipeConsumer);
     }
 

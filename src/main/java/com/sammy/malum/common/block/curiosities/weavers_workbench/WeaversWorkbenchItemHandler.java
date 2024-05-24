@@ -1,6 +1,8 @@
 package com.sammy.malum.common.block.curiosities.weavers_workbench;
 
 import io.github.fabricators_of_create.porting_lib.transfer.item.ItemStackHandler;
+import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
+import net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
@@ -24,20 +26,5 @@ public class WeaversWorkbenchItemHandler extends ItemStackHandler {
                 this.entity.tryCraft();
             }
         }
-    }
-
-    @Override
-    public boolean isItemValid(int slot, @NotNull ItemStack stack) {
-        return true;
-    }
-
-    @NotNull
-    @Override
-    public ItemStack insertItem(int slot, @NotNull ItemStack stack, boolean simulate) {
-        if (slot >= this.getSlots() - this.outputs) {
-            return stack;
-        }
-        //todo: check if item allowed
-        return super.insertItem(slot, stack, simulate);
     }
 }

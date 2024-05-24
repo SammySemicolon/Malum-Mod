@@ -4,7 +4,9 @@ import com.sammy.malum.*;
 import com.sammy.malum.common.recipe.*;
 import net.minecraft.client.*;
 import net.minecraft.client.player.*;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.*;
+import net.minecraft.world.level.Level;
 import team.lodestar.lodestone.handlers.screenparticle.*;
 
 import java.util.*;
@@ -15,10 +17,9 @@ public class ParticleEmitterRegistry {
 
     public static boolean registeredVoidParticleEmitters = false;
 
-    @SubscribeEvent
-    public static void addParticleEmitters(EntityJoinLevelEvent event) {
+    public static boolean addParticleEmitters(Entity entity, Level level, boolean b) {
         if (!registeredVoidParticleEmitters) {
-            if (event.getEntity() instanceof AbstractClientPlayer player && player.equals(Minecraft.getInstance().player)) {
+            if (entity instanceof AbstractClientPlayer player && player.equals(Minecraft.getInstance().player)) {
                 final List<FavorOfTheVoidRecipe> recipes = FavorOfTheVoidRecipe.getRecipes(player.level());
                 for (FavorOfTheVoidRecipe recipe : recipes) {
                     for (ItemStack item : recipe.input.getItems()) {
@@ -28,5 +29,6 @@ public class ParticleEmitterRegistry {
                 registeredVoidParticleEmitters = true;
             }
         }
+        return b;
     }
 }

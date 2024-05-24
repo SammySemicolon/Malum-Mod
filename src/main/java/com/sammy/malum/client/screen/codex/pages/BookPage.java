@@ -6,7 +6,7 @@ import net.minecraft.client.*;
 import net.minecraft.client.gui.*;
 import net.minecraft.resources.*;
 
-import javax.annotation.*;
+
 
 import static com.sammy.malum.client.screen.codex.screens.EntryScreen.*;
 

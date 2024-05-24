@@ -3,7 +3,6 @@ package com.sammy.malum.data.recipe;
 import com.sammy.malum.data.recipe.builder.*;
 import com.sammy.malum.registry.common.item.*;
 import net.minecraft.data.recipes.*;
-import net.minecraftforge.common.crafting.conditions.*;
 
 import java.util.function.*;
 

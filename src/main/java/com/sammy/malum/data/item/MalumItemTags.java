@@ -14,7 +14,7 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.*;
 import net.minecraftforge.common.*;
 import net.minecraftforge.common.data.*;
-import net.minecraftforge.registries.*;
+
 import org.jetbrains.annotations.*;
 
 import java.util.concurrent.*;

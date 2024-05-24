@@ -27,7 +27,7 @@ public class HiddenRecipeSet<T> {
 	}
 
 	public void scanAndHideRecipes(IRecipeManager manager, IFocusFactory focusFactory, Collection<TagKey<Item>> nowHidden) {
-		var itemTags = ForgeRegistries.ITEMS.tags();
+		var itemTags = BuiltInRegistries.ITEM.tags();
 		if (itemTags != null) {
 			List<IFocus<ItemStack>> foci = nowHidden.stream()
 				.flatMap(tag -> itemTags.getTag(tag).stream())

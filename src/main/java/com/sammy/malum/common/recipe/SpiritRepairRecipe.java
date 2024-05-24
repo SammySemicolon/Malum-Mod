@@ -73,7 +73,7 @@ public class SpiritRepairRecipe extends AbstractSpiritListMalumRecipe {
         @Override
         public SpiritRepairRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
             if (REPAIRABLE == null) {
-                REPAIRABLE = ForgeRegistries.ITEMS.getEntries().stream().map(Map.Entry::getValue).filter(Item::canBeDepleted).collect(Collectors.toList());
+                REPAIRABLE = BuiltInRegistries.ITEM.getEntries().stream().map(Map.Entry::getValue).filter(Item::canBeDepleted).collect(Collectors.toList());
             }
             float durabilityPercentage = json.getAsJsonPrimitive("durabilityPercentage").getAsFloat();
             String itemIdRegex = json.get("itemIdRegex").getAsString();
@@ -81,15 +81,15 @@ public class SpiritRepairRecipe extends AbstractSpiritListMalumRecipe {
             JsonArray inputsArray = json.getAsJsonArray("inputs");
             List<Item> inputs = new ArrayList<>();
             for (JsonElement jsonElement : inputsArray) {
-                Item input = ForgeRegistries.ITEMS.getValue(new ResourceLocation(jsonElement.getAsString()));
+                Item input = BuiltInRegistries.ITEM.getValue(new ResourceLocation(jsonElement.getAsString()));
                 if (input == null) {
                     continue;
                 }
                 inputs.add(input);
             }
             for (Item item : REPAIRABLE) {
-                if (ForgeRegistries.ITEMS.getKey(item).getPath().matches(itemIdRegex)) {
-                    if (!modIdRegex.equals("") && !ForgeRegistries.ITEMS.getKey(item).getNamespace().matches(modIdRegex)) {
+                if (BuiltInRegistries.ITEM.getKey(item).getPath().matches(itemIdRegex)) {
+                    if (!modIdRegex.equals("") && !BuiltInRegistries.ITEM.getKey(item).getNamespace().matches(modIdRegex)) {
                         continue;
                     }
                     if (item instanceof IRepairOutputOverride repairOutputOverride && repairOutputOverride.ignoreDuringLookup()) {

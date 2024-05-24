@@ -1,12 +1,11 @@
 package com.sammy.malum.data.recipe.crafting;
 
 import com.sammy.malum.registry.common.item.*;
+import io.github.fabricators_of_create.porting_lib.tags.Tags;
 import net.minecraft.data.recipes.*;
 import net.minecraft.tags.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
-import net.minecraftforge.common.*;
-import net.minecraftforge.common.crafting.conditions.*;
 
 import java.util.function.*;
 

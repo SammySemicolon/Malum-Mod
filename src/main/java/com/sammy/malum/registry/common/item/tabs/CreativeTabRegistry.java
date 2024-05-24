@@ -6,6 +6,7 @@ import com.sammy.malum.registry.common.*;
 import com.sammy.malum.registry.common.item.ItemRegistry;
 import io.github.fabricators_of_create.porting_lib.util.LazyRegistrar;
 import io.github.fabricators_of_create.porting_lib.util.RegistryObject;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.*;
@@ -79,7 +80,7 @@ public class CreativeTabRegistry {
     public static void populateItemGroups(BuildCreativeModeTabContentsEvent event) {
         final ResourceKey<CreativeModeTab> tabKey = event.getTabKey();
         if (TAB_SORTING.containsKey(tabKey)) {
-            TAB_SORTING.get(tabKey).stream().map(ForgeRegistries.ITEMS::getValue)
+            TAB_SORTING.get(tabKey).stream().map(BuiltInRegistries.ITEM::getValue)
                 .filter(Objects::NotNull)
                 .forEach(event::accept);
         }

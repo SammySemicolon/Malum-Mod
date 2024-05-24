@@ -9,6 +9,9 @@ import com.sammy.malum.core.systems.ritual.*;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import com.sammy.malum.registry.common.*;
 import com.sammy.malum.registry.common.block.BlockRegistry;
+import io.github.fabricators_of_create.porting_lib.data.LanguageProvider;
+import io.github.fabricators_of_create.porting_lib.util.RegistryObject;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.effect.MobEffect;
@@ -21,9 +24,6 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.WallSignBlock;
 import net.minecraft.world.level.block.WallTorchBlock;
-import net.minecraftforge.common.data.LanguageProvider;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
 import team.lodestar.lodestone.helpers.DataHelper;
 
 import java.util.*;
@@ -102,17 +102,17 @@ public class MalumLang extends LanguageProvider {
                 }
             }
             String name = DataHelper.toTitleCase(alteredPath, "_");
-            add("effect.malum." + ForgeRegistries.MOB_EFFECTS.getKey(e.get()).getPath(), name);
+            add("effect.malum." + BuiltInRegistries.MOB_EFFECT.getKey(e.get()).getPath(), name);
         });
 
         attributes.forEach(a -> {
             String name = DataHelper.toTitleCase(a.getId().getPath(), "_");
-            add("attribute.name.malum." + ForgeRegistries.ATTRIBUTES.getKey(a.get()).getPath(), name);
+            add("attribute.name.malum." + BuiltInRegistries.ATTRIBUTE.getKey(a.get()).getPath(), name);
         });
 
         entities.forEach(e -> {
             String name = DataHelper.toTitleCase(e.getId().getPath(), "_");
-            add("entity.malum." + ForgeRegistries.ENTITY_TYPES.getKey(e.get()).getPath(), name);
+            add("entity.malum." + BuiltInRegistries.ENTITY_TYPE.getKey(e.get()).getPath(), name);
         });
 
         spirits.forEach(s -> add(s.getSpiritDescription(), DataHelper.toTitleCase(s.identifier + "_spirit", "_")));

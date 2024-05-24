@@ -3,6 +3,7 @@ package com.sammy.malum;
 import com.sammy.malum.client.renderer.block.SpiritCrucibleRenderer;
 import com.sammy.malum.client.renderer.block.TotemBaseRenderer;
 import com.sammy.malum.config.ClientConfig;
+import com.sammy.malum.registry.client.ModelRegistry;
 import com.sammy.malum.registry.client.ParticleRegistry;
 import com.sammy.malum.registry.client.ScreenParticleRegistry;
 import com.sammy.malum.registry.common.ContainerRegistry;
@@ -34,6 +35,7 @@ public class MalumModClient implements ClientModInitializer {
         ItemRegistry.ClientOnly.addItemProperties();
         ItemRegistry.ClientOnly.setItemColors();
         ContainerRegistry.bindContainerRenderers();
+        ModelRegistry.registerLayerDefinitions();
     }
 
     private void startTick(Minecraft minecraft) {

@@ -20,7 +20,7 @@ import net.minecraft.world.level.storage.loot.parameters.*;
 import net.minecraft.world.level.storage.loot.predicates.*;
 import net.minecraft.world.level.storage.loot.providers.nbt.*;
 import net.minecraft.world.level.storage.loot.providers.number.*;
-import net.minecraftforge.registries.*;
+
 import team.lodestar.lodestone.systems.block.*;
 
 import java.util.*;

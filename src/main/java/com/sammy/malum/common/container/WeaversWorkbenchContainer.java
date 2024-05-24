@@ -76,11 +76,11 @@ public class WeaversWorkbenchContainer extends AbstractContainerMenu {
         if (slot.hasItem()) {
             ItemStack itemstack1 = slot.getItem();
             itemstack = itemstack1.copy();
-            if (index < itemHandler.getSlots()) {
-                if (!this.moveItemStackTo(itemstack1, itemHandler.getSlots(), this.slots.size(), true)) {
+            if (index < itemHandler.getSlots().size()) {
+                if (!this.moveItemStackTo(itemstack1, itemHandler.getSlots().size(), this.slots.size(), true)) {
                     return ItemStack.EMPTY;
                 }
-            } else if (!this.moveItemStackTo(itemstack1, 0, itemHandler.getSlots(), false)) {
+            } else if (!this.moveItemStackTo(itemstack1, 0, itemHandler.getSlots().size(), false)) {
                 return ItemStack.EMPTY;
             }
 
@@ -102,8 +102,8 @@ public class WeaversWorkbenchContainer extends AbstractContainerMenu {
     }
 
     private static WeaversWorkbenchBlockEntity getTileEntity(final Inventory playerInventory, final FriendlyByteBuf data) {
-        Objects.requireNotNull(playerInventory, "playerInventory cannot be null");
-        Objects.requireNotNull(data, "data cannot be null");
+        Objects.requireNonNull(playerInventory, "playerInventory cannot be null");
+        Objects.requireNonNull(data, "data cannot be null");
         final BlockEntity tileAtPos = playerInventory.player.level().getBlockEntity(data.readBlockPos());
         if (tileAtPos instanceof WeaversWorkbenchBlockEntity weaversWorkbenchBlockEntity) {
             return weaversWorkbenchBlockEntity;
