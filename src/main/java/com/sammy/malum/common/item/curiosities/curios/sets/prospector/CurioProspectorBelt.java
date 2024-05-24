@@ -11,12 +11,16 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.Explosion;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraftforge.event.level.ExplosionEvent;
 import team.lodestar.lodestone.helpers.CurioHelper;
+import team.lodestar.lodestone.helpers.TrinketsHelper;
 import top.theillusivec4.curios.api.CuriosApi;
 
+import java.util.List;
 import java.util.function.Consumer;
 
 public class CurioProspectorBelt extends MalumCurioItem {
@@ -31,10 +35,10 @@ public class CurioProspectorBelt extends MalumCurioItem {
         consumer.accept(positiveEffect("explosions_spare_valuables"));
     }
 
-    public static void processExplosion(ExplosionEvent.Detonate event) {
-        LivingEntity exploder = event.getExplosion().getIndirectSourceEntity();
-        if (exploder != null && CurioHelper.hasCurioEquipped(exploder, ItemRegistry.BELT_OF_THE_PROSPECTOR.get())) {
-            event.getAffectedEntities().removeIf(e -> e instanceof ItemEntity itemEntity && itemEntity.getItem().is(ItemTagRegistry.PROSPECTORS_TREASURE));
+    public static void processExplosion(Level level, Explosion explosion, List<Entity> entities, double v) {
+        LivingEntity exploder = explosion.getIndirectSourceEntity();
+        if (exploder != null && TrinketsHelper.hasCurioEquipped(exploder, ItemRegistry.BELT_OF_THE_PROSPECTOR.get())) {
+            entities.removeIf(e -> e instanceof ItemEntity itemEntity && itemEntity.getItem().is(ItemTagRegistry.PROSPECTORS_TREASURE));
         }
     }
 
@@ -49,4 +53,6 @@ public class CurioProspectorBelt extends MalumCurioItem {
         }
         return builder;
     }
+
+
 }

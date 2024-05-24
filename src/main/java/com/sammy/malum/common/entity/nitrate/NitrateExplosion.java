@@ -1,6 +1,7 @@
 package com.sammy.malum.common.entity.nitrate;
 
 import com.sammy.malum.registry.common.DamageTypeRegistry;
+import io.github.fabricators_of_create.porting_lib.event.common.ExplosionEvents;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.*;
@@ -8,6 +9,8 @@ import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.ExplosionDamageCalculator;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 public class NitrateExplosion extends Explosion {
 
@@ -23,9 +26,9 @@ public class NitrateExplosion extends Explosion {
         return DamageTypeRegistry.create(getDirectSourceEntity().level(), DamageTypeRegistry.VOODOO);
     }
 
-    public static void processExplosion(ExplosionEvent.Detonate event) {
-        if (event.getExplosion() instanceof NitrateExplosion) {
-            event.getAffectedEntities().removeIf(e -> e instanceof AbstractNitrateEntity || e instanceof Player player && player.isCreative());
+    public static void processExplosion(Level level, Explosion explosion, List<Entity> entities, double v) {
+        if (explosion instanceof NitrateExplosion) {
+            entities.removeIf(e -> e instanceof AbstractNitrateEntity || e instanceof Player player && player.isCreative());
         }
     }
 
@@ -35,7 +38,7 @@ public class NitrateExplosion extends Explosion {
 
     public static NitrateExplosion explode(Level level, @Nullable Entity pExploder, @Nullable DamageSource pDamageSource, @Nullable ExplosionDamageCalculator pContext, double pX, double pY, double pZ, float pSize, boolean pCausesFire, Explosion.BlockInteraction pMode) {
         NitrateExplosion explosion = new NitrateExplosion(level, pExploder, pDamageSource, pContext, pX, pY, pZ, pSize, pCausesFire, pMode);
-        if (net.minecraftforge.event.ForgeEventFactory.onExplosionStart(level, explosion)) return explosion;
+        if (ExplosionEvents.START.invoker().onExplosionStart(level, explosion)) return explosion;
         if (!level.isClientSide) {
             explosion.explode();
         }

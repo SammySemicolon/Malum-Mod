@@ -6,6 +6,7 @@ import com.sammy.malum.registry.common.item.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.sounds.*;
 import net.minecraft.world.effect.*;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
@@ -35,10 +36,9 @@ public class CurioVoraciousRing extends MalumCurioItem {
             }
         }
     }
-    public static void finishEating(LivingEntityUseItemEvent.Finish event) {
-        if (event.getEntity() instanceof Player player) {
-            ItemStack stack = event.getResultStack();
-            if (CurioHelper.hasCurioEquipped(player, ItemRegistry.RING_OF_DESPERATE_VORACITY.get())) {
+    public static ItemStack finishEating(LivingEntity livingEntity, ItemStack itemStack, int i, ItemStack stack) {
+        if (livingEntity instanceof Player player) {
+            if (TrinketsHelper.hasCurioEquipped(player, ItemRegistry.RING_OF_DESPERATE_VORACITY.get())) {
                 if (stack.is(GROSS_FOODS)) {
                     Level level = player.level();
                     MobEffectInstance gluttony = player.getEffect(MobEffectRegistry.GLUTTONY.get());
@@ -54,5 +54,6 @@ public class CurioVoraciousRing extends MalumCurioItem {
                 }
             }
         }
+        return itemStack;
     }
 }

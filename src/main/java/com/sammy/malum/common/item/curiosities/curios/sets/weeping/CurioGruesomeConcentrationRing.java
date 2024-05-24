@@ -8,11 +8,13 @@ import com.sammy.malum.registry.common.item.ItemRegistry;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import team.lodestar.lodestone.helpers.CurioHelper;
 import team.lodestar.lodestone.helpers.EntityHelper;
+import team.lodestar.lodestone.helpers.TrinketsHelper;
 
 import java.util.function.Consumer;
 
@@ -28,10 +30,9 @@ public class CurioGruesomeConcentrationRing extends MalumCurioItem implements IV
         consumer.accept(positiveEffect("rotten_gluttony"));
     }
 
-    public static void finishEating(LivingEntityUseItemEvent.Finish event) {
-        if (event.getEntity() instanceof Player player) {
-            ItemStack stack = event.getResultStack();
-            if (CurioHelper.hasCurioEquipped(player, ItemRegistry.RING_OF_GRUESOME_CONCENTRATION.get())) {
+    public static ItemStack finishEating(LivingEntity livingEntity, ItemStack itemStack, int i, ItemStack stack) {
+        if (livingEntity instanceof Player player) {
+            if (TrinketsHelper.hasCurioEquipped(player, ItemRegistry.RING_OF_GRUESOME_CONCENTRATION.get())) {
                 if (stack.is(GROSS_FOODS)) {
                     double arcaneResonance = player.getAttribute(AttributeRegistry.ARCANE_RESONANCE.get()).getValue();
                     MobEffect gluttony = MobEffectRegistry.GLUTTONY.get();
@@ -45,5 +46,6 @@ public class CurioGruesomeConcentrationRing extends MalumCurioItem implements IV
                 }
             }
         }
+        return itemStack;
     }
 }

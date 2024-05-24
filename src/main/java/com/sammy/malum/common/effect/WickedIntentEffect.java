@@ -4,6 +4,7 @@ import com.sammy.malum.common.item.curiosities.weapons.scythe.MalumScytheItem;
 import com.sammy.malum.registry.common.AttributeRegistry;
 import com.sammy.malum.registry.common.MobEffectRegistry;
 import com.sammy.malum.registry.common.SoundRegistry;
+import io.github.fabricators_of_create.porting_lib.entity.events.living.LivingHurtEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
@@ -22,7 +23,7 @@ public class WickedIntentEffect extends MobEffect {
         addAttributeModifier(AttributeRegistry.SCYTHE_PROFICIENCY.get(), "0cd21cec-758c-456b-9955-06713e732303", 4f, AttributeModifier.Operation.ADDITION);
     }
 
-    public static void removeWickedIntent(LivingDamageEvent event) {
+    public static void removeWickedIntent(LivingHurtEvent event) {
         DamageSource source = event.getSource();
         if (source.is(LodestoneDamageTypeTags.IS_MAGIC) || (source.is(DamageTypes.THORNS))) {
             return;

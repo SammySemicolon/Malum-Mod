@@ -6,8 +6,10 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.items.ItemHandlerHelper;
 import org.jetbrains.annotations.NotNull;
@@ -69,8 +71,8 @@ public class CurioTokenOfGratitude extends MalumCurioItem implements IEventRespo
         return ALWAYS_KEEP;
     }
 
-    public static void giveItem(EntityJoinLevelEvent event) {
-        if (event.getEntity() instanceof Player playerEntity) {
+    public static boolean giveItem(Entity entity, Level level, boolean b) {
+        if (entity instanceof Player playerEntity) {
             if (!playerEntity.level().isClientSide) {
                 if (GRADITUDE_CERTIFIED.stream().anyMatch(u -> u.equals(playerEntity.getUUID()))) {
                     if (CurioHelper.findCosmeticCurio(s -> s.getItem().equals(ItemRegistry.TOKEN_OF_GRATITUDE.get()), playerEntity).isEmpty()) {
@@ -79,6 +81,7 @@ public class CurioTokenOfGratitude extends MalumCurioItem implements IEventRespo
                 }
             }
         }
+        return true;
     }
 
     public static UUID validateForGratitude(String uuid) {

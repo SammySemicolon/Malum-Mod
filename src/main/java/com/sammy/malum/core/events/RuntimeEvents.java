@@ -26,96 +26,21 @@ import net.minecraft.world.phys.*;
 
 public class RuntimeEvents {
 
-    @SubscribeEvent
-    public static void onAttachCapability(AttachCapabilitiesEvent<Entity> event) {
-        MalumPlayerDataCapability.attachPlayerCapability(event);
-        MalumLivingEntityDataCapability.attachEntityCapability(event);
-        MalumItemDataCapability.attachItemCapability(event);
-    }
 
-    @SubscribeEvent
-    public static void onEntityJoin(EntityJoinLevelEvent event) {
-        MalumPlayerDataCapability.playerJoin(event);
-        CurioTokenOfGratitude.giveItem(event);
-        SoulDataHandler.updateAi(event);
-        /*
-        if (TetraCompat.LOADED) {
-            TetraCompat.LoadedOnly.fireArrow(event);
-        }
-
-         */
-    }
-
-
-    @SubscribeEvent
-    public static void playerLeftClick(PlayerInteractEvent.LeftClickBlock event) {
-        BlockPos pos = event.getPos();
-        Level level = event.getLevel();
-        BlockState state = level.getBlockState(pos);
-        Block block = state.getBlock();
-        if (block instanceof SpiritJarBlock jarBlock) {
-            Player player = event.getEntity();
-            BlockHitResult target = Item.getPlayerPOVHitResult(level, player, ClipContext.Fluid.NONE);
-            if (target.getType() == HitResult.Type.BLOCK && target.getBlockPos().equals(pos) && target.getDirection().getAxis() == Direction.Axis.X) {
-                if (player.isCreative()) {
-                    event.setCanceled(jarBlock.handleAttack(level, pos, player));
-                }
-            }
-        }
-    }
-
-
-    @SubscribeEvent
-    public static void onEntityJoin(MobSpawnEvent.PositionCheck event) {
-        SoulDataHandler.markAsSpawnerSpawned(event);
-    }
 
     @SubscribeEvent
     public static void onEntityJump(LivingEvent.LivingJumpEvent event) {
         CorruptedAerialAura.onEntityJump(event);
     }
 
-    @SubscribeEvent
-    public static void onEntityFall(LivingFallEvent event) {
-        CorruptedAerialAura.onEntityFall(event);
-    }
 
-    @SubscribeEvent
-    public static void onLivingTarget(LivingChangeTargetEvent event) {
-        SoulDataHandler.preventTargeting(event);
-    }
 
-    @SubscribeEvent
-    public static void onLivingVisibility(LivingEvent.LivingVisibilityEvent event) {
-        CurioHarmonyNecklace.preventDetection(event);
-    }
 
-    @SubscribeEvent
-    public static void onLivingTick(LivingEvent.LivingTickEvent event) {
-
-    }
-
-    @SubscribeEvent
-    public static void onStartTracking(PlayerEvent.StartTracking event) {
-        MalumLivingEntityDataCapability.syncEntityCapability(event);
-        MalumPlayerDataCapability.syncPlayerCapability(event);
-    }
-
-    @SubscribeEvent
-    public static void onPlayerClone(PlayerEvent.Clone event) {
-        MalumPlayerDataCapability.playerClone(event);
-    }
 
     @SubscribeEvent
     public static void onPlayerBreakSpeed(PlayerEvent.BreakSpeed event) {
         InfernalAura.increaseDigSpeed(event);
         RuneFervorItem.increaseDigSpeed(event);
-    }
-
-    @SubscribeEvent
-    public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
-        ReserveStaffChargeHandler.recoverStaffCharges(event);
-        SoulWardHandler.recoverSoulWard(event);
     }
 
     @SubscribeEvent
@@ -150,9 +75,7 @@ public class RuntimeEvents {
         RuneTwinnedDurationItem.onPotionApplied(event);
         RuneAlimentCleansingItem.onPotionApplied(event);
     }
-    @SubscribeEvent
-    public static void onPotionExpired(MobEffectEvent.Expired event) {
-    }
+
 
     @SubscribeEvent
     public static void onStartUsingItem(LivingEntityUseItemEvent.Start event) {
@@ -160,47 +83,9 @@ public class RuntimeEvents {
     }
 
     @SubscribeEvent
-    public static void onFinishUsingItem(LivingEntityUseItemEvent.Finish event) {
-        CurioGruesomeConcentrationRing.finishEating(event);
-        CurioVoraciousRing.finishEating(event);
-    }
-
-    @SubscribeEvent
-    public static void onHurt(LivingHurtEvent event) {
-        MalumAttributeEventHandler.processAttributes(event);
-        SoulDataHandler.exposeSoul(event);
-    }
-
-    @SubscribeEvent(priority = EventPriority.LOWEST)
-    public static void onLateHurt(LivingHurtEvent event) {
-        SoulWardHandler.shieldPlayer(event);
-    }
-
-    @SubscribeEvent(priority = EventPriority.LOWEST)
-    public static void onLateDamage(LivingDamageEvent event) {
-        WickedIntentEffect.removeWickedIntent(event);
-    }
-
-    @SubscribeEvent
-    public static void onDeath(LivingDeathEvent event) {
-        EsotericReapingHandler.tryCreateReapingDrops(event);
-        SpiritHarvestHandler.shatterSoul(event);
-    }
-
-    @SubscribeEvent
-    public static void onDrops(LivingDropsEvent event) {
-        SpiritHarvestHandler.modifyDroppedItems(event);
-    }
-
-    @SubscribeEvent
     public static void onItemExpire(ItemExpireEvent event) {
         SpiritHarvestHandler.shatterItem(event);
     }
 
-    @SubscribeEvent(priority = EventPriority.HIGHEST)
-    public static void onExplosionDetonate(ExplosionEvent.Detonate event) {
-        CurioProspectorBelt.processExplosion(event);
-        NitrateExplosion.processExplosion(event);
-    }
 }
 

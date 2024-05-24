@@ -1,5 +1,15 @@
 package com.sammy.malum;
 
+import com.sammy.malum.common.block.storage.jar.SpiritJarBlock;
+import com.sammy.malum.common.effect.WickedIntentEffect;
+import com.sammy.malum.common.effect.aura.CorruptedAerialAura;
+import com.sammy.malum.common.enchantment.ReboundEnchantment;
+import com.sammy.malum.common.entity.nitrate.NitrateExplosion;
+import com.sammy.malum.common.item.cosmetic.curios.CurioTokenOfGratitude;
+import com.sammy.malum.common.item.curiosities.curios.sets.misc.CurioHarmonyNecklace;
+import com.sammy.malum.common.item.curiosities.curios.sets.prospector.CurioProspectorBelt;
+import com.sammy.malum.common.item.curiosities.curios.sets.rotten.CurioVoraciousRing;
+import com.sammy.malum.common.item.curiosities.curios.sets.weeping.CurioGruesomeConcentrationRing;
 import com.sammy.malum.compability.farmersdelight.*;
 import com.sammy.malum.config.*;
 import com.sammy.malum.core.handlers.*;
@@ -7,16 +17,27 @@ import com.sammy.malum.registry.common.PacketRegistry;
 import com.sammy.malum.registry.common.item.tabs.*;
 import io.github.fabricators_of_create.porting_lib.config.ConfigRegistry;
 import io.github.fabricators_of_create.porting_lib.config.ConfigType;
-import io.github.fabricators_of_create.porting_lib.entity.events.EntityEvents;
-import io.github.fabricators_of_create.porting_lib.entity.events.LivingDeathEvent;
-import io.github.fabricators_of_create.porting_lib.entity.events.LivingEntityEvents;
-import io.github.fabricators_of_create.porting_lib.entity.events.PlayerTickEvents;
+import io.github.fabricators_of_create.porting_lib.entity.events.*;
 import io.github.fabricators_of_create.porting_lib.entity.events.living.LivingHurtEvent;
+import io.github.fabricators_of_create.porting_lib.event.common.ExplosionEvents;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
+import net.fabricmc.fabric.api.event.player.UseItemCallback;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.resources.*;
 import net.minecraft.util.*;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.ClipContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
 import org.apache.logging.log4j.*;
+import team.lodestar.lodestone.events.LodestoneInteractionEvent;
 
 import static com.sammy.malum.registry.client.ParticleRegistry.*;
 import static com.sammy.malum.registry.common.AttributeRegistry.*;
@@ -70,18 +91,47 @@ public class MalumMod implements ModInitializer {
 
         FarmersDelightCompat.init();
 
-
+        LivingEntityEvents.JUMP.register(CorruptedAerialAura::onEntityJump);
+        LivingEntityEvents.FALL.register(CorruptedAerialAura::onEntityFall);
+        LivingEntityEvents.CHECK_SPAWN.register(SoulDataHandler::markAsSpawnerSpawned);
+        EntityEvents.ON_JOIN_WORLD.register(CurioTokenOfGratitude::giveItem);
+        EntityEvents.ON_JOIN_WORLD.register(SoulDataHandler::updateAi);
+        MobEntitySetTargetCallback.EVENT.register(SoulDataHandler::preventTargeting);
+        LivingEntityEvents.VISIBILITY.register(CurioHarmonyNecklace::preventDetection);
+        LivingEntityUseItemEvents.LIVING_USE_ITEM_FINISH.register(CurioGruesomeConcentrationRing::finishEating);
+        LivingEntityUseItemEvents.LIVING_USE_ITEM_FINISH.register(CurioVoraciousRing::finishEating);
+        LivingHurtEvent.HURT.register(MalumAttributeEventHandler::processAttributes);
+        LivingHurtEvent.HURT.register(SoulDataHandler::exposeSoul);
+        LivingHurtEvent.HURT.register(WickedIntentEffect::removeWickedIntent);
         LivingHurtEvent.HURT.register(SoulWardHandler::shieldPlayer);
         LivingEntityEvents.DROPS.register(SpiritHarvestHandler::modifyDroppedItems);
         PlayerTickEvents.START.register(SoulWardHandler::recoverSoulWard);
         PlayerTickEvents.START.register(ReserveStaffChargeHandler::recoverStaffCharges);
+        PlayerInteractionEvents.LEFT_CLICK_BLOCK.register(this::leftClickBlock);
         ServerLivingEntityEvents.ALLOW_DEATH.register(EsotericReapingHandler::tryCreateReapingDrops);
         ServerLivingEntityEvents.ALLOW_DEATH.register(SpiritHarvestHandler::shatterSoul);
         LivingEntityEvents.LivingTickEvent.TICK.register(MalignantConversionHandler::checkForAttributeChanges);
         LivingEntityEvents.LivingTickEvent.TICK.register(SoulDataHandler::manageSoul);
         LivingEntityEvents.LivingTickEvent.TICK.register(TouchOfDarknessHandler::entityTick);
-
+        ExplosionEvents.DETONATE.register(CurioProspectorBelt::processExplosion);
+        ExplosionEvents.DETONATE.register(NitrateExplosion::processExplosion);
 
         modBus.addListener(CreativeTabRegistry::populateItemGroups);
+    }
+
+    private void leftClickBlock(PlayerInteractionEvents.LeftClickBlock leftClickBlock) {
+        BlockPos pos = leftClickBlock.getPos();
+        Level level = leftClickBlock.getLevel();
+        BlockState state = level.getBlockState(pos);
+        Block block = state.getBlock();
+        if (block instanceof SpiritJarBlock jarBlock) {
+            Player player = leftClickBlock.getEntity();
+            BlockHitResult target = Item.getPlayerPOVHitResult(level, player, ClipContext.Fluid.NONE);
+            if (target.getType() == HitResult.Type.BLOCK && target.getBlockPos().equals(pos) && target.getDirection().getAxis() == Direction.Axis.X) {
+                if (player.isCreative()) {
+                    leftClickBlock.setCanceled(jarBlock.handleAttack(level, pos, player));
+                }
+            }
+        }
     }
 }

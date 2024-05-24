@@ -3,6 +3,7 @@ package com.sammy.malum.common.enchantment;
 import com.sammy.malum.common.entity.boomerang.ScytheBoomerangEntity;
 import com.sammy.malum.registry.common.AttributeRegistry;
 import com.sammy.malum.registry.common.item.EnchantmentRegistry;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -46,5 +47,4 @@ public class ReboundEnchantment extends Enchantment {
             player.awardStat(Stats.ITEM_USED.get(stack.getItem()));
         }
     }
-
 }

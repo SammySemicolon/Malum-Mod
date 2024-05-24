@@ -7,7 +7,6 @@ import com.sammy.malum.registry.common.item.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.*;
-import net.minecraftforge.event.entity.living.*;
 import team.lodestar.lodestone.helpers.*;
 
 import java.util.function.*;
@@ -22,16 +21,16 @@ public class CurioHarmonyNecklace extends MalumCurioItem {
         consumer.accept(positiveEffect("friendly_enemies"));
     }
 
-    public static void preventDetection(LivingEvent.LivingVisibilityEvent event) {
-        if (event.getLookingEntity() instanceof LivingEntity watcher) {
-            LivingEntity target = event.getEntity();
-            if (CurioHelper.hasCurioEquipped(target, ItemRegistry.NECKLACE_OF_BLISSFUL_HARMONY.get())) {
+    public static double preventDetection(LivingEntity target, Entity entity, double v) {
+        if (entity instanceof LivingEntity watcher) {
+            if (TrinketsHelper.hasCurioEquipped(target, ItemRegistry.NECKLACE_OF_BLISSFUL_HARMONY.get())) {
                 float visibilityModifier = SpiritHarvestHandler.getSpiritData(watcher).map(data -> 0.5f / (1 + data.dataEntries.stream().map(s -> s.type.equals(SpiritTypeRegistry.WICKED_SPIRIT) ? 1 : 0).count())).orElse(0.5f);
                 if (target.hasEffect(MobEffects.INVISIBILITY)) {
                     visibilityModifier *= 0.5f;
                 }
-                event.modifyVisibility(visibilityModifier);
+                return v * visibilityModifier;
             }
         }
+        return v;
     }
 }
