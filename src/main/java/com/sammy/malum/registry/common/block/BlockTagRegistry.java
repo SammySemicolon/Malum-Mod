@@ -2,6 +2,7 @@ package com.sammy.malum.registry.common.block;
 
 import com.sammy.malum.MalumMod;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
@@ -38,6 +39,6 @@ public class BlockTagRegistry {
     }
 
     private static TagKey<Block> forgeTag(String name) {
-        return BlockTags.create(new ResourceLocation("forge", name));
+        return TagKey.create(Registries.BLOCK, new ResourceLocation("forge", name));
     }
 }

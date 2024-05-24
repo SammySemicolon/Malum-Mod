@@ -17,7 +17,9 @@ import com.sammy.malum.core.listeners.MalignantConversionReloadListener;
 import com.sammy.malum.core.listeners.ReapingDataReloadListener;
 import com.sammy.malum.core.listeners.RitualRecipeReloadListener;
 import com.sammy.malum.core.listeners.SpiritDataReloadListener;
+import com.sammy.malum.registry.common.AttributeRegistry;
 import com.sammy.malum.registry.common.PacketRegistry;
+import com.sammy.malum.registry.common.item.ItemRegistry;
 import com.sammy.malum.registry.common.item.tabs.*;
 import io.github.fabricators_of_create.porting_lib.config.ConfigRegistry;
 import io.github.fabricators_of_create.porting_lib.config.ConfigType;
@@ -46,6 +48,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import org.apache.logging.log4j.*;
+import team.lodestar.lodestone.events.EntityAttributeModificationEvent;
 import team.lodestar.lodestone.events.LodestoneInteractionEvent;
 
 import static com.sammy.malum.registry.client.ParticleRegistry.*;
@@ -98,8 +101,11 @@ public class MalumMod implements ModInitializer {
         STRUCTURES.register();
         CREATIVE_MODE_TABS.register();
 
+        ItemRegistry.Common.registerCompost();
+
         FarmersDelightCompat.init();
 
+        EntityAttributeModificationEvent.ADD.register(AttributeRegistry::modifyEntityAttributes);
         LivingEntityEvents.JUMP.register(CorruptedAerialAura::onEntityJump);
         LivingEntityEvents.FALL.register(CorruptedAerialAura::onEntityFall);
         LivingEntityEvents.CHECK_SPAWN.register(SoulDataHandler::markAsSpawnerSpawned);
@@ -130,7 +136,7 @@ public class MalumMod implements ModInitializer {
         ResourceManagerHelper.get(PackType.SERVER_DATA).registerReloadListener(new MalignantConversionReloadListenerFabricImpl());
         ResourceManagerHelper.get(PackType.SERVER_DATA).registerReloadListener(new RitualRecipeReloadListenerFabricImpl());
 
-        modBus.addListener(CreativeTabRegistry::populateItemGroups);
+        //modBus.addListener(CreativeTabRegistry::populateItemGroups);
     }
 
     private void leftClickBlock(PlayerInteractionEvents.LeftClickBlock leftClickBlock) {

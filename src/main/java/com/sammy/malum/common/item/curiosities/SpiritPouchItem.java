@@ -2,24 +2,28 @@ package com.sammy.malum.common.item.curiosities;
 
 import com.sammy.malum.common.container.SpiritPouchContainer;
 import com.sammy.malum.common.item.spirit.SpiritShardItem;
+import com.sammy.malum.registry.common.ContainerRegistry;
+import net.fabricmc.fabric.mixin.screenhandler.NamedScreenHandlerFactoryMixin;
 import net.minecraft.core.Direction;
+import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.MenuProvider;
-import net.minecraft.world.SimpleMenuProvider;
+import net.minecraft.world.*;
 import net.minecraft.world.entity.SlotAccess;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ClickAction;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.Nullable;
 import team.lodestar.lodestone.systems.container.ItemInventory;
 
 import org.jetbrains.annotations.NotNull;
@@ -30,12 +34,6 @@ public class SpiritPouchItem extends Item {
 
     public SpiritPouchItem(Properties properties) {
         super(properties);
-    }
-
-    @Nullable
-    @Override
-    public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundTag nbt) {
-        return new InventoryCapability(stack);
     }
 
     @Override
@@ -102,26 +100,28 @@ public class SpiritPouchItem extends Item {
     public InteractionResultHolder<ItemStack> use(Level level, Player playerIn, InteractionHand handIn) {
         if (!level.isClientSide) {
             ItemStack stack = playerIn.getItemInHand(handIn);
-            MenuProvider container =
-                    new SimpleMenuProvider((w, p, pl) -> new SpiritPouchContainer(w, p, stack), stack.getHoverName());
-            NetworkHooks.openScreen((ServerPlayer) playerIn, container, b -> b.writeItem(stack));
+            MenuProvider container = new SimpleMenuProvider((w, p, pl) -> new SpiritPouchContainer(w, p, stack), stack.getHoverName());
+            playerIn.openMenu(new MenuProvider() {
+                @Override
+                public Component getDisplayName() {
+                    return Component.empty();
+                }
+
+                @Nullable
+                @Override
+                public AbstractContainerMenu createMenu(int syncId, Inventory inventory, Player player) {
+                    NonNullList<ItemStack> stacks = NonNullList.withSize(27, ItemStack.EMPTY);
+                    CompoundTag nbt = player.getItemInHand(handIn).getTag();
+                    ItemStack stack = player.getItemInHand(handIn);
+                    if (nbt != null) {
+                        ContainerHelper.loadAllItems(nbt, stacks);
+                    }
+                    return new SpiritPouchContainer(syncId, inventory, stack);
+                }
+            });
             playerIn.level().playSound(null, playerIn.getX(), playerIn.getY(), playerIn.getZ(), SoundEvents.ARMOR_EQUIP_LEATHER, SoundSource.PLAYERS, 1, 1);
         }
         return InteractionResultHolder.success(playerIn.getItemInHand(handIn));
-    }
-
-    private static class InventoryCapability implements ICapabilityProvider {
-        private final LazyOptional<IItemHandler> opt;
-
-        public InventoryCapability(ItemStack stack) {
-            opt = LazyOptional.of(() -> new InvWrapper(getInventory(stack)));
-        }
-
-        @NotNull
-        @Override
-        public <T> LazyOptional<T> getCapability(@NotNull Capability<T> capability, @Nullable Direction facing) {
-            return ForgeCapabilities.ITEM_HANDLER.orEmpty(capability, opt);
-        }
     }
 
     public static ItemInventory getInventory(ItemStack stack) {

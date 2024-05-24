@@ -48,6 +48,8 @@ import com.sammy.malum.registry.common.entity.*;
 import com.sammy.malum.registry.common.item.tabs.*;
 import io.github.fabricators_of_create.porting_lib.util.LazyRegistrar;
 import io.github.fabricators_of_create.porting_lib.util.RegistryObject;
+import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
+import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
 import net.minecraft.client.color.item.*;
 import net.minecraft.client.renderer.item.*;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -454,7 +456,7 @@ public class ItemRegistry {
 
     //region materials
     public static final RegistryObject<Item> BLOCK_OF_ROTTING_ESSENCE = register("block_of_rotting_essence", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BLOCK_OF_ROTTING_ESSENCE.get(), p));
-    public static final RegistryObject<Item> ROTTING_ESSENCE = register("rotting_essence", DEFAULT_PROPERTIES(), (p) -> new Item(p.food((new FoodProperties.Builder()).nutrition(6).saturationMod(0.2F).effect(() -> new MobEffectInstance(MobEffects.HUNGER, 600, 1), 0.95f).build())));
+    public static final RegistryObject<Item> ROTTING_ESSENCE = register("rotting_essence", DEFAULT_PROPERTIES(), (p) -> new Item(p.food((new FoodProperties.Builder()).nutrition(6).saturationMod(0.2F).effect(new MobEffectInstance(MobEffects.HUNGER, 600, 1), 0.95f).build())));
 
     public static final RegistryObject<Item> BLOCK_OF_GRIM_TALC = register("block_of_grim_talc", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BLOCK_OF_GRIM_TALC.get(), p));
     public static final RegistryObject<Item> GRIM_TALC = register("grim_talc", DEFAULT_PROPERTIES(), Item::new);
@@ -737,15 +739,14 @@ public class ItemRegistry {
     //endregion
 
     public static class Common {
-        @SubscribeEvent
-        public static void registerCompost(FMLCommonSetupEvent event) {
-            registerCompostable(RUNEWOOD_LEAVES, 0.3f);
-            registerCompostable(HANGING_RUNEWOOD_LEAVES, 0.3f);
-            registerCompostable(SOULWOOD_LEAVES, 0.3f);
-            registerCompostable(BUDDING_SOULWOOD_LEAVES, 0.3f);
-            registerCompostable(HANGING_SOULWOOD_LEAVES, 0.3f);
-            registerCompostable(RUNEWOOD_SAPLING, 0.3f);
-            registerCompostable(SOULWOOD_GROWTH, 0.3f);
+        public static void registerCompost() {
+            CompostingChanceRegistry.INSTANCE.add(RUNEWOOD_LEAVES.get(), 0.3f);
+            CompostingChanceRegistry.INSTANCE.add(HANGING_RUNEWOOD_LEAVES.get(), 0.3f);
+            CompostingChanceRegistry.INSTANCE.add(SOULWOOD_LEAVES.get(), 0.3f);
+            CompostingChanceRegistry.INSTANCE.add(BUDDING_SOULWOOD_LEAVES.get(), 0.3f);
+            CompostingChanceRegistry.INSTANCE.add(HANGING_SOULWOOD_LEAVES.get(), 0.3f);
+            CompostingChanceRegistry.INSTANCE.add(RUNEWOOD_SAPLING.get(), 0.3f);
+            CompostingChanceRegistry.INSTANCE.add(SOULWOOD_GROWTH.get(), 0.3f);
         }
 
         public static void registerCompostable(RegistryObject<Item> item, float chance) {
@@ -764,8 +765,7 @@ public class ItemRegistry {
             HiddenTagRegistry.registerHiddenTags();
         }
 
-        @SubscribeEvent(priority = EventPriority.LOWEST)
-        public static void addItemProperties(FMLClientSetupEvent event) {
+        public static void addItemProperties() {
             Set<LodestoneArmorItem> armors = ItemRegistry.ITEMS.getEntries().stream().filter(r -> r.get() instanceof LodestoneArmorItem).map(r -> (LodestoneArmorItem) r.get()).collect(Collectors.toSet());
             ItemPropertyFunction armorPropertyFunction = (stack, level, holder, holderID) -> {
                 if (!stack.hasTag()) {
@@ -800,16 +800,14 @@ public class ItemRegistry {
             });
         }
 
-        @SubscribeEvent
-        public static void setItemColors(RegisterColorHandlersEvent.Item event) {
-            ItemColors itemColors = event.getItemColors();
+        public static void setItemColors() {
             Set<RegistryObject<Item>> items = new HashSet<>(ITEMS.getEntries());
 
             DataHelper.takeAll(items, i -> i.get() instanceof BlockItem blockItem && blockItem.getBlock() instanceof MalumLeavesBlock).forEach(item -> {
                 MalumLeavesBlock malumLeavesBlock = (MalumLeavesBlock) ((BlockItem) item.get()).getBlock();
-                itemColors.register((s, c) -> ColorHelper.getColor(malumLeavesBlock.maxColor), item.get());
+                ColorProviderRegistry.ITEM.register((s, c) -> ColorHelper.getColor(malumLeavesBlock.maxColor), item.get());
             });
-            DataHelper.takeAll(items, i -> i.get() instanceof EtherTorchItem || i.get() instanceof EtherBrazierItem).forEach(i -> itemColors.register((s, c) -> {
+            DataHelper.takeAll(items, i -> i.get() instanceof EtherTorchItem || i.get() instanceof EtherBrazierItem).forEach(i -> ColorProviderRegistry.ITEM.register((s, c) -> {
                 AbstractEtherItem etherItem = (AbstractEtherItem) s.getItem();
                 switch (c) {
                     case 2 -> {
@@ -823,16 +821,16 @@ public class ItemRegistry {
                     }
                 }
             }, i.get()));
-            DataHelper.takeAll(items, i -> i.get() instanceof EtherItem).forEach(i -> itemColors.register((s, c) -> {
+            DataHelper.takeAll(items, i -> i.get() instanceof EtherItem).forEach(i -> ColorProviderRegistry.ITEM.register((s, c) -> {
                 AbstractEtherItem etherItem = (AbstractEtherItem) s.getItem();
                 return c == 0 ? etherItem.getFirstColor(s) : etherItem.getSecondColor(s);
             }, i.get()));
 
             DataHelper.takeAll(items, i -> i.get() instanceof SpiritShardItem).forEach(item ->
-                    itemColors.register((s, c) -> ColorHelper.getColor(((SpiritShardItem) item.get()).type.getItemColor()), item.get()));
+                    ColorProviderRegistry.ITEM.register((s, c) -> ColorHelper.getColor(((SpiritShardItem) item.get()).type.getItemColor()), item.get()));
 
             DataHelper.takeAll(items, i -> i.get() instanceof AbstractRuneCurioItem).forEach(item ->
-                    itemColors.register((s, c) -> {
+                    ColorProviderRegistry.ITEM.register((s, c) -> {
                         if (c == 0) {
                             return -1;
                         }
@@ -843,7 +841,7 @@ public class ItemRegistry {
                         }
                         return ColorHelper.getColor(color);
                     }, item.get()));
-            itemColors.register((s, c) -> RitualShardItem.getRitualType(s) == null ? -1 : ColorHelper.getColor(RitualShardItem.getRitualType(s).spirit.getItemColor()), RITUAL_SHARD.get());
+            ColorProviderRegistry.ITEM.register((s, c) -> RitualShardItem.getRitualType(s) == null ? -1 : ColorHelper.getColor(RitualShardItem.getRitualType(s).spirit.getItemColor()), RITUAL_SHARD.get());
         }
     }
 }

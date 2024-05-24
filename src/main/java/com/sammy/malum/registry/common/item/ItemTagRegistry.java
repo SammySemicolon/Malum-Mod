@@ -2,6 +2,7 @@ package com.sammy.malum.registry.common.item;
 
 import com.sammy.malum.MalumMod;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
@@ -56,6 +57,6 @@ public class ItemTagRegistry {
     }
 
     private static TagKey<Item> forgeTag(String name) {
-        return ItemTags.create(new ResourceLocation("forge", name));
+        return TagKey.create(Registries.ITEM, new ResourceLocation("forge", name));
     }
 }

@@ -21,6 +21,7 @@ import com.sammy.malum.common.block.storage.pedestal.*;
 import com.sammy.malum.common.block.storage.stand.*;
 import io.github.fabricators_of_create.porting_lib.util.LazyRegistrar;
 import io.github.fabricators_of_create.porting_lib.util.RegistryObject;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.*;
@@ -81,22 +82,22 @@ public class BlockEntityRegistry {
     }
 
     public static class ClientOnly {
-        @SubscribeEvent
-        public static void registerRenderer(EntityRenderersEvent.RegisterRenderers event) {
-            event.registerBlockEntityRenderer(VOID_CONDUIT.get(), VoidConduitRenderer::new);
-            event.registerBlockEntityRenderer(VOID_DEPOT.get(), VoidDepotRenderer::new);
-            event.registerBlockEntityRenderer(SPIRIT_ALTAR.get(), SpiritAltarRenderer::new);
-            event.registerBlockEntityRenderer(RUNIC_WORKBENCH.get(), MalumItemHolderRenderer::new);
-            event.registerBlockEntityRenderer(SPIRIT_CRUCIBLE.get(), SpiritCrucibleRenderer::new);
-            event.registerBlockEntityRenderer(SPIRIT_CATALYZER.get(), SpiritCatalyzerRenderer::new);
-            event.registerBlockEntityRenderer(REPAIR_PYLON.get(), RepairPylonRenderer::new);
-            event.registerBlockEntityRenderer(TOTEM_BASE.get(), TotemBaseRenderer::new);
-            event.registerBlockEntityRenderer(TOTEM_POLE.get(), TotemPoleRenderer::new);
-            event.registerBlockEntityRenderer(RITUAL_PLINTH.get(), RitualPlinthRenderer::new);
-            event.registerBlockEntityRenderer(ITEM_STAND.get(), MalumItemHolderRenderer::new);
-            event.registerBlockEntityRenderer(ITEM_PEDESTAL.get(), MalumItemHolderRenderer::new);
-            event.registerBlockEntityRenderer(SPIRIT_JAR.get(), SpiritJarRenderer::new);
-            event.registerBlockEntityRenderer(MOTE_OF_MANA.get(), MoteOfManaRenderer::new);
+        
+        public static void registerRenderer() {
+            BlockEntityRenderers.register(VOID_CONDUIT.get(), VoidConduitRenderer::new);
+            BlockEntityRenderers.register(VOID_DEPOT.get(), VoidDepotRenderer::new);
+            BlockEntityRenderers.register(SPIRIT_ALTAR.get(), SpiritAltarRenderer::new);
+            BlockEntityRenderers.register(RUNIC_WORKBENCH.get(), MalumItemHolderRenderer::new);
+            BlockEntityRenderers.register(SPIRIT_CRUCIBLE.get(), SpiritCrucibleRenderer::new);
+            BlockEntityRenderers.register(SPIRIT_CATALYZER.get(), SpiritCatalyzerRenderer::new);
+            BlockEntityRenderers.register(REPAIR_PYLON.get(), RepairPylonRenderer::new);
+            BlockEntityRenderers.register(TOTEM_BASE.get(), TotemBaseRenderer::new);
+            BlockEntityRenderers.register(TOTEM_POLE.get(), TotemPoleRenderer::new);
+            BlockEntityRenderers.register(RITUAL_PLINTH.get(), RitualPlinthRenderer::new);
+            BlockEntityRenderers.register(ITEM_STAND.get(), MalumItemHolderRenderer::new);
+            BlockEntityRenderers.register(ITEM_PEDESTAL.get(), MalumItemHolderRenderer::new);
+            BlockEntityRenderers.register(SPIRIT_JAR.get(), SpiritJarRenderer::new);
+            BlockEntityRenderers.register(MOTE_OF_MANA.get(), MoteOfManaRenderer::new);
         }
     }
 }

@@ -12,6 +12,7 @@ import com.sammy.malum.common.entity.spirit.SpiritItemEntity;
 import com.sammy.malum.registry.common.item.ItemRegistry;
 import io.github.fabricators_of_create.porting_lib.util.LazyRegistrar;
 import io.github.fabricators_of_create.porting_lib.util.RegistryObject;
+import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.EntityType;
@@ -58,19 +59,19 @@ public class EntityRegistry {
                     .build(MalumMod.malumPath("auric_flame_bolt").toString()));
 
     public static class ClientOnly {
-        @SubscribeEvent
-        public static void bindEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
-            EntityRenderers.register(EntityRegistry.RUNEWOOD_BOAT.get(), (manager) -> new MalumBoatRenderer(manager, "runewood", false));
-            EntityRenderers.register(EntityRegistry.SOULWOOD_BOAT.get(), (manager) -> new MalumBoatRenderer(manager, "soulwood", false));
-            EntityRenderers.register(EntityRegistry.NATURAL_SPIRIT.get(), FloatingItemEntityRenderer::new);
-            EntityRenderers.register(EntityRegistry.SCYTHE_BOOMERANG.get(), ScytheBoomerangEntityRenderer::new);
 
-            EntityRenderers.register(EntityRegistry.ETHERIC_NITRATE.get(), EthericNitrateEntityRenderer::new);
-            EntityRenderers.register(EntityRegistry.VIVID_NITRATE.get(), VividNitrateEntityRenderer::new);
+        public static void bindEntityRenderers() {
+            EntityRendererRegistry.register(EntityRegistry.RUNEWOOD_BOAT.get(), (manager) -> new MalumBoatRenderer(manager, "runewood", false));
+            EntityRendererRegistry.register(EntityRegistry.SOULWOOD_BOAT.get(), (manager) -> new MalumBoatRenderer(manager, "soulwood", false));
+            EntityRendererRegistry.register(EntityRegistry.NATURAL_SPIRIT.get(), FloatingItemEntityRenderer::new);
+            EntityRendererRegistry.register(EntityRegistry.SCYTHE_BOOMERANG.get(), ScytheBoomerangEntityRenderer::new);
 
-            EntityRenderers.register(EntityRegistry.HEX_BOLT.get(), HexBoltEntityRenderer::new);
-            EntityRenderers.register(EntityRegistry.DRAINING_BOLT.get(), DrainingBoltEntityRenderer::new);
-            EntityRenderers.register(EntityRegistry.AURIC_FLAME_BOLT.get(), AuricFlameBoltEntityRenderer::new);
+            EntityRendererRegistry.register(EntityRegistry.ETHERIC_NITRATE.get(), EthericNitrateEntityRenderer::new);
+            EntityRendererRegistry.register(EntityRegistry.VIVID_NITRATE.get(), VividNitrateEntityRenderer::new);
+
+            EntityRendererRegistry.register(EntityRegistry.HEX_BOLT.get(), HexBoltEntityRenderer::new);
+            EntityRendererRegistry.register(EntityRegistry.DRAINING_BOLT.get(), DrainingBoltEntityRenderer::new);
+            EntityRendererRegistry.register(EntityRegistry.AURIC_FLAME_BOLT.get(), AuricFlameBoltEntityRenderer::new);
         }
     }
 }

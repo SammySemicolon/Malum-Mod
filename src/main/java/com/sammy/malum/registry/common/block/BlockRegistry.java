@@ -28,6 +28,7 @@ import com.sammy.malum.registry.common.*;
 import com.sammy.malum.registry.common.item.*;
 import io.github.fabricators_of_create.porting_lib.util.LazyRegistrar;
 import io.github.fabricators_of_create.porting_lib.util.RegistryObject;
+import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.minecraft.client.color.block.*;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.util.*;
@@ -433,39 +434,38 @@ public class BlockRegistry {
 
     public static class ClientOnly {
 
-        @SubscribeEvent
-        public static void setBlockColors(RegisterColorHandlersEvent.Block event) {
-            BlockColors blockColors = event.getBlockColors();
-            blockColors.register((s, l, p, c) -> {
-                BlockEntity blockEntity = l.getBlockEntity(p);
+        public static void setBlockColors() {
+
+            ColorProviderRegistry.BLOCK.register((blockState, blockAndTintGetter, blockPos, i) -> {
+                BlockEntity blockEntity = blockAndTintGetter.getBlockEntity(blockPos);
                 if (blockEntity instanceof EtherBlockEntity etherBlockEntity) {
                     if (etherBlockEntity.firstColor != null) {
-                        return c == 0 ? etherBlockEntity.firstColor.getRGB() : -1;
+                        return i == 0 ? etherBlockEntity.firstColor.getRGB() : -1;
                     }
                 }
                 return -1;
             }, ETHER.get(), IRIDESCENT_ETHER.get());
-            blockColors.register((s, l, p, c) -> {
+
+            ColorProviderRegistry.BLOCK.register((blockState, blockAndTintGetter, blockPos, i) -> {
                 float colorMax = MalumLeavesBlock.COLOR.getPossibleValues().size();
-                float color = s.getValue(MalumLeavesBlock.COLOR);
+                float color = blockState.getValue(MalumLeavesBlock.COLOR);
                 float pct = (colorMax - (color / colorMax));
                 float value = Easing.SINE_IN_OUT.ease(pct, 0, 1, 1);
-                MalumLeavesBlock malumLeavesBlock = (MalumLeavesBlock) s.getBlock();
+                MalumLeavesBlock malumLeavesBlock = (MalumLeavesBlock) blockState.getBlock();
                 int red = (int) Mth.lerp(value, malumLeavesBlock.minColor.getRed(), malumLeavesBlock.maxColor.getRed());
                 int green = (int) Mth.lerp(value, malumLeavesBlock.minColor.getGreen(), malumLeavesBlock.maxColor.getGreen());
                 int blue = (int) Mth.lerp(value, malumLeavesBlock.minColor.getBlue(), malumLeavesBlock.maxColor.getBlue());
                 return red << 16 | green << 8 | blue;
             }, RUNEWOOD_LEAVES.get(), HANGING_RUNEWOOD_LEAVES.get(), AZURE_RUNEWOOD_LEAVES.get(), HANGING_AZURE_RUNEWOOD_LEAVES.get());
 
-
-            blockColors.register((s, l, p, c) -> {
+            ColorProviderRegistry.BLOCK.register((blockState, blockAndTintGetter, blockPos, i) -> {
                 float distanceMax = MalumLeavesBlock.DISTANCE.getPossibleValues().size();
-                float distance = s.getValue(MalumLeavesBlock.DISTANCE);
+                float distance = blockState.getValue(MalumLeavesBlock.DISTANCE);
                 float colorMax = MalumLeavesBlock.COLOR.getPossibleValues().size();
-                float color = s.getValue(MalumLeavesBlock.COLOR);
+                float color = blockState.getValue(MalumLeavesBlock.COLOR);
                 float pct = Math.max((distanceMax - distance) / distanceMax, color / colorMax);
                 float value = Easing.SINE_IN_OUT.ease(pct, 0, 1, 1);
-                MalumLeavesBlock malumLeavesBlock = (MalumLeavesBlock) s.getBlock();
+                MalumLeavesBlock malumLeavesBlock = (MalumLeavesBlock) blockState.getBlock();
                 int red = (int) Mth.lerp(value, malumLeavesBlock.minColor.getRed(), malumLeavesBlock.maxColor.getRed());
                 int green = (int) Mth.lerp(value, malumLeavesBlock.minColor.getGreen(), malumLeavesBlock.maxColor.getGreen());
                 int blue = (int) Mth.lerp(value, malumLeavesBlock.minColor.getBlue(), malumLeavesBlock.maxColor.getBlue());
