@@ -7,6 +7,7 @@ import com.sammy.malum.common.recipe.*;
 import com.sammy.malum.registry.common.*;
 import com.sammy.malum.registry.common.block.*;
 import net.minecraft.core.*;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.*;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.item.*;
@@ -50,13 +51,13 @@ public class RunicWorkbenchBlockEntity extends MalumItemHolderBlockEntity {
             RunicWorkbenchRecipe recipe = RunicWorkbenchRecipe.getRecipe(level, primaryInput, secondaryInput);
             if (recipe != null) {
                 Vec3 itemPos = getItemPos();
-                if (!level.isClientSide) {
+                if (level instanceof ServerLevel serverLevel) {
                     primaryInput.shrink(recipe.primaryInput.count);
                     secondaryInput.shrink(recipe.secondaryInput.count);
                     level.addFreshEntity(new ItemEntity(level, itemPos.x, itemPos.y, itemPos.z, recipe.output.copy()));
                     level.playSound(null, worldPosition, SoundRegistry.ALTERATION_PLINTH_ALTERS.get(), SoundSource.BLOCKS, 1, 0.9f + level.random.nextFloat() * 0.25f);
                     if (secondaryInput.getItem() instanceof SpiritShardItem spiritShardItem) {
-                        MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(getBlockPos())), new BlightTransformItemParticlePacket(List.of(spiritShardItem.type.identifier), itemPos));
+                        MALUM_CHANNEL.sendToClientsTracking(new BlightTransformItemParticlePacket(List.of(spiritShardItem.type.identifier), itemPos), serverLevel, level.getChunkAt(getBlockPos()).getPos());
                     }
                     BlockHelper.updateAndNotifyState(level, worldPosition);
                 }
