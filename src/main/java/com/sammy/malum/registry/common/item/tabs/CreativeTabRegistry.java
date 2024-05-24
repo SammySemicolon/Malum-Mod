@@ -6,6 +6,8 @@ import com.sammy.malum.registry.common.*;
 import com.sammy.malum.registry.common.item.ItemRegistry;
 import io.github.fabricators_of_create.porting_lib.util.LazyRegistrar;
 import io.github.fabricators_of_create.porting_lib.util.RegistryObject;
+import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
+import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
@@ -13,6 +15,7 @@ import net.minecraft.resources.*;
 import net.minecraft.world.item.*;
 
 import java.util.Objects;
+import java.util.Optional;
 
 import static com.sammy.malum.registry.common.item.ItemRegistry.*;
 
@@ -21,42 +24,32 @@ public class CreativeTabRegistry {
     public static final LazyRegistrar<CreativeModeTab> CREATIVE_MODE_TABS = LazyRegistrar.create(Registries.CREATIVE_MODE_TAB, MalumMod.MALUM);
 
     public static final RegistryObject<CreativeModeTab> CONTENT = CREATIVE_MODE_TABS.register("malum_content",
-            () -> CreativeModeTab.builder()
+            () -> FabricItemGroup.builder()
                     .title(Component.translatable("itemGroup." + MalumMod.MALUM + "_basis_of_magic"))
-                    .withTabsAfter(MalumMod.malumPath("nature"))
-                    .withTabsBefore(CreativeModeTabs.SPAWN_EGGS)
                     .icon(() -> ItemRegistry.SPIRIT_ALTAR.get().getDefaultInstance()).build()
     );
 
     public static final RegistryObject<CreativeModeTab> NATURE = CREATIVE_MODE_TABS.register("malum_nature",
-            () -> CreativeModeTab.builder()
+            () -> FabricItemGroup.builder()
                     .title(Component.translatable("itemGroup." + MalumMod.MALUM + "_natural_wonders"))
-                    .withTabsBefore(CONTENT.getId())
-                    .withTabsAfter(MalumMod.malumPath("building"))
                     .icon(() -> ItemRegistry.RUNEWOOD_SAPLING.get().getDefaultInstance()).build()
     );
 
     public static final RegistryObject<CreativeModeTab> BUILDING = CREATIVE_MODE_TABS.register("malum_building",
-            () -> CreativeModeTab.builder()
+            () -> FabricItemGroup.builder()
                     .title(Component.translatable("itemGroup." + MalumMod.MALUM + "_arcane_construct"))
-                    .withTabsBefore(NATURE.getId())
-                    .withTabsAfter(MalumMod.malumPath("metallurgy"))
                     .icon(() -> ItemRegistry.TAINTED_ROCK.get().getDefaultInstance()).build()
     );
 
     public static final RegistryObject<CreativeModeTab> METALLURGY = CREATIVE_MODE_TABS.register("malum_metallurgy",
-            () -> CreativeModeTab.builder()
+            () -> FabricItemGroup.builder()
                     .title(Component.translatable("itemGroup." + MalumMod.MALUM + "_metallurgic_magics"))
-                    .withTabsBefore(BUILDING.getId())
-                    .withTabsAfter(MalumMod.malumPath("ritual_shards"))
                     .icon(() -> ItemRegistry.ALCHEMICAL_IMPETUS.get().getDefaultInstance()).build()
     );
 
     public static final RegistryObject<CreativeModeTab> RITUAL_SHARDS = CREATIVE_MODE_TABS.register("malum_ritual_shards",
-            () -> CreativeModeTab.builder()
+            () -> FabricItemGroup.builder()
                     .title(Component.translatable("itemGroup." + MalumMod.MALUM + "_ritual_shards"))
-                    .withTabsBefore(METALLURGY.getId())
-                    .withTabsAfter(MalumMod.malumPath("cosmetic"))
                     .displayItems((p, o) -> {
                         for (MalumRitualType ritualType : RitualRegistry.RITUALS) {
                             for (MalumRitualTier ritualTier : MalumRitualTier.TIERS) {
@@ -70,19 +63,20 @@ public class CreativeTabRegistry {
     );
 
     public static final RegistryObject<CreativeModeTab> COSMETIC = CREATIVE_MODE_TABS.register("malum_cosmetic",
-            () -> CreativeModeTab.builder()
+            () -> FabricItemGroup.builder()
                     .title(Component.translatable("itemGroup." + MalumMod.MALUM + "_cosmetics"))
-                    .withTabsBefore(RITUAL_SHARDS.getId())
                     .icon(() -> ItemRegistry.WEAVERS_WORKBENCH.get().getDefaultInstance()).build()
     );
 
-    @SuppressWarnings("DataFlowIssue")
-    public static void populateItemGroups(BuildCreativeModeTabContentsEvent event) {
-        final ResourceKey<CreativeModeTab> tabKey = event.getTabKey();
-        if (TAB_SORTING.containsKey(tabKey)) {
-            TAB_SORTING.get(tabKey).stream().map(BuiltInRegistries.ITEM::getValue)
-                .filter(Objects::NotNull)
-                .forEach(event::accept);
-        }
+    public static void populateItemGroups() {
+        ItemGroupEvents.MODIFY_ENTRIES_ALL.register((group, entries) -> {
+            Optional<ResourceKey<CreativeModeTab>> opt = BuiltInRegistries.CREATIVE_MODE_TAB.getResourceKey(group);
+            if (opt.isPresent()) {
+                if (TAB_SORTING.containsKey(opt.get())) {
+                    TAB_SORTING.get(opt.get()).stream().map(BuiltInRegistries.ITEM::get)
+                            .forEach(entries::accept);
+                }
+            }
+        });
     }
 }

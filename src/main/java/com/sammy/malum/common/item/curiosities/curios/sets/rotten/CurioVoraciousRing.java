@@ -10,7 +10,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
-import net.minecraftforge.event.entity.living.*;
 import team.lodestar.lodestone.helpers.*;
 
 import java.util.function.*;
@@ -29,13 +28,6 @@ public class CurioVoraciousRing extends MalumCurioItem {
         consumer.accept(positiveEffect("growing_gluttony"));
     }
 
-    public static void accelerateEating(LivingEntityUseItemEvent.Start event) {
-        if (CurioHelper.hasCurioEquipped(event.getEntity(), ItemRegistry.RING_OF_DESPERATE_VORACITY.get())) {
-            if (event.getItem().is(GROSS_FOODS)) {
-                event.setDuration((int) (event.getDuration() * 0.5f));
-            }
-        }
-    }
     public static ItemStack finishEating(LivingEntity livingEntity, ItemStack itemStack, int i, ItemStack stack) {
         if (livingEntity instanceof Player player) {
             if (TrinketsHelper.hasCurioEquipped(player, ItemRegistry.RING_OF_DESPERATE_VORACITY.get())) {
@@ -55,5 +47,14 @@ public class CurioVoraciousRing extends MalumCurioItem {
             }
         }
         return itemStack;
+    }
+
+    public static int accelerateEating(LivingEntity livingEntity, ItemStack itemStack, int i) {
+        if (TrinketsHelper.hasCurioEquipped(livingEntity, ItemRegistry.RING_OF_DESPERATE_VORACITY.get())) {
+            if (itemStack.is(GROSS_FOODS)) {
+                return (int)(i * 0.5f);
+            }
+        }
+        return i;
     }
 }

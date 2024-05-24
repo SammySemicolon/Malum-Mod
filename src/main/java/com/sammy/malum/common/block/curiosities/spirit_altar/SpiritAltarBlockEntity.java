@@ -10,6 +10,8 @@ import com.sammy.malum.registry.common.block.*;
 import com.sammy.malum.visual_effects.*;
 import com.sammy.malum.visual_effects.networked.altar.*;
 import com.sammy.malum.visual_effects.networked.data.*;
+import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
+import net.fabricmc.fabric.api.transfer.v1.storage.StorageUtil;
 import net.minecraft.core.*;
 import net.minecraft.nbt.*;
 import net.minecraft.sounds.*;
@@ -51,9 +53,6 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
     public List<SpiritInfusionRecipe> possibleRecipes = new ArrayList<>();
     public SpiritInfusionRecipe recipe;
 
-    public LazyOptional<IItemHandler> internalInventory = LazyOptional.of(() -> new CombinedInvWrapper(inventory, extrasInventory, spiritInventory));
-    public LazyOptional<IItemHandler> exposedInventory = LazyOptional.of(() -> new CombinedInvWrapper(inventory, spiritInventory));
-
     public SpiritAltarBlockEntity(BlockEntityType<? extends SpiritAltarBlockEntity> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
     }
@@ -86,11 +85,11 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
             }
 
             @Override
-            public boolean isItemValid(int slot, @NotNull ItemStack stack) {
-                if (!(stack.getItem() instanceof SpiritShardItem spiritItem))
+            public boolean isItemValid(int slot, ItemVariant resource, int count) {
+                if (!(resource.getItem() instanceof SpiritShardItem spiritItem)) {
                     return false;
-
-                for (int i = 0; i < getSlots(); i++) {
+                }
+                for (int i = 0; i < getSlots().size(); i++) {
                     if (i != slot) {
                         ItemStack stackInSlot = getStackInSlot(i);
                         if (!stackInSlot.isEmpty() && stackInSlot.getItem() == spiritItem)
@@ -123,9 +122,9 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
             }
         }
 
-        inventory.save(compound);
-        spiritInventory.save(compound, "spiritInventory");
-        extrasInventory.save(compound, "extrasInventory");
+        inventory.serializeNBT();
+        compound.put("spiritInventory", spiritInventory.serializeNBT());
+        compound.put("extrasInventory", extrasInventory.serializeNBT());
     }
 
     @Override
@@ -145,9 +144,9 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
                 accelerators.add(accelerator);
             }
         }
-        inventory.load(compound);
-        spiritInventory.load(compound, "spiritInventory");
-        extrasInventory.load(compound, "extrasInventory");
+        inventory.deserializeNBT(compound);
+        spiritInventory.deserializeNBT(compound.getCompound("spiritInventory"));
+        extrasInventory.deserializeNBT(compound.getCompound("extrasInventory"));
         super.load(compound);
     }
 
@@ -168,7 +167,7 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
             ItemStack heldStack = player.getMainHandItem();
             recalibrateAccelerators();
             if (!(heldStack.getItem() instanceof SpiritShardItem)) {
-                ItemStack stack = inventory.interact(level, player, hand);
+                inventory.interact(level, player, hand);
                 if (!stack.isEmpty()) {
                     return InteractionResult.SUCCESS;
                 }

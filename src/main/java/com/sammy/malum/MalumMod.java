@@ -1,12 +1,15 @@
 package com.sammy.malum;
 
 import com.sammy.malum.common.block.storage.jar.SpiritJarBlock;
+import com.sammy.malum.common.effect.GluttonyEffect;
 import com.sammy.malum.common.effect.WickedIntentEffect;
 import com.sammy.malum.common.effect.aura.CorruptedAerialAura;
 import com.sammy.malum.common.effect.aura.InfernalAura;
 import com.sammy.malum.common.enchantment.ReboundEnchantment;
 import com.sammy.malum.common.entity.nitrate.NitrateExplosion;
 import com.sammy.malum.common.item.cosmetic.curios.CurioTokenOfGratitude;
+import com.sammy.malum.common.item.curiosities.curios.runes.madness.RuneTwinnedDurationItem;
+import com.sammy.malum.common.item.curiosities.curios.runes.miracle.RuneAlimentCleansingItem;
 import com.sammy.malum.common.item.curiosities.curios.runes.miracle.RuneFervorItem;
 import com.sammy.malum.common.item.curiosities.curios.sets.misc.CurioHarmonyNecklace;
 import com.sammy.malum.common.item.curiosities.curios.sets.prospector.CurioProspectorBelt;
@@ -55,6 +58,8 @@ import net.minecraft.world.phys.HitResult;
 import org.apache.logging.log4j.*;
 import team.lodestar.lodestone.events.EntityAttributeModificationEvent;
 import team.lodestar.lodestone.events.LodestoneInteractionEvent;
+import team.lodestar.lodestone.events.LodestoneItemEvent;
+import team.lodestar.lodestone.events.LodestoneMobEffectEvents;
 
 import static com.sammy.malum.registry.client.ParticleRegistry.*;
 import static com.sammy.malum.registry.common.AttributeRegistry.*;
@@ -139,6 +144,12 @@ public class MalumMod implements ModInitializer {
         LivingEntityEvents.LivingTickEvent.TICK.register(TouchOfDarknessHandler::entityTick);
         ExplosionEvents.DETONATE.register(CurioProspectorBelt::processExplosion);
         ExplosionEvents.DETONATE.register(NitrateExplosion::processExplosion);
+        LodestoneInteractionEvent.RIGHT_CLICK_ITEM.register(ReboundEnchantment::onRightClickItem);
+        LodestoneMobEffectEvents.APPLICABLE.register(GluttonyEffect::canApplyPotion);
+        LodestoneMobEffectEvents.ADDED.register(RuneTwinnedDurationItem::onPotionApplied);
+        LodestoneMobEffectEvents.ADDED.register(RuneAlimentCleansingItem::onPotionApplied);
+        LodestoneInteractionEvent.ON_ITEM_USE_START.register(CurioVoraciousRing::accelerateEating);
+        LodestoneItemEvent.EXPIRE.register(SpiritHarvestHandler::shatterItem);
 
         ResourceManagerHelper.get(PackType.SERVER_DATA).registerReloadListener(new SpiritDataReloadListenerFabricImpl());
         ResourceManagerHelper.get(PackType.SERVER_DATA).registerReloadListener(new ReapingDataReloadListenerFabricImpl());

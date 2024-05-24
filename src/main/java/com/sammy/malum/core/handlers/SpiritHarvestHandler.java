@@ -11,6 +11,7 @@ import com.sammy.malum.core.systems.recipe.*;
 import com.sammy.malum.core.systems.spirit.*;
 import com.sammy.malum.registry.common.*;
 import com.sammy.malum.registry.common.item.*;
+import net.minecraft.core.NonNullList;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.*;
 import net.minecraft.server.level.*;
@@ -23,6 +24,7 @@ import net.minecraft.world.entity.item.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
 import org.jetbrains.annotations.Nullable;
@@ -90,12 +92,8 @@ public class SpiritHarvestHandler {
         return b;
     }
 
-    public static void shatterItem(ItemExpireEvent event) {
-        if (event.isCanceled()) {
-            return;
-        }
 
-        ItemEntity entity = event.getEntity();
+    public static int shatterItem(ItemEntity entity, ItemStack itemStack) {
         if (entity.level() instanceof ServerLevel level) {
             MalumComponents.MALUM_ITEM_COMPONENT.maybeGet(entity).ifPresent((e) -> {
                 LivingEntity attacker = null;
@@ -114,6 +112,7 @@ public class SpiritHarvestHandler {
                 }
             });
         }
+        return -1;
     }
 
     public static void pickupSpirit(LivingEntity collector, ItemStack stack) {
@@ -124,7 +123,7 @@ public class SpiritHarvestHandler {
                     eventItem.pickupSpirit(collector, stack, instance != null ? instance.getValue() : 0);
                 }
             });
-            for (NotNullList<ItemStack> playerInventory : player.getInventory().compartments) {
+            for (NonNullList<ItemStack> playerInventory : player.getInventory().compartments) {
                 for (ItemStack item : playerInventory) {
                     if (item.getItem() instanceof SpiritPouchItem) {
                         ItemInventory inventory = SpiritPouchItem.getInventory(item);
@@ -227,7 +226,7 @@ public class SpiritHarvestHandler {
             spiritBonus += attacker.getAttributeValue(AttributeRegistry.SPIRIT_SPOILS.get());
         }
         if (!weapon.isEmpty()) {
-            final int spiritPlunder = weapon.getEnchantmentLevel(EnchantmentRegistry.SPIRIT_PLUNDER.get());
+            final int spiritPlunder = EnchantmentHelper.getItemEnchantmentLevel(EnchantmentRegistry.SPIRIT_PLUNDER.get(), weapon);
             if (spiritPlunder > 0) {
                 weapon.hurtAndBreak(spiritPlunder, attacker, (e) -> e.broadcastBreakEvent(MAINHAND));
             }
@@ -278,6 +277,5 @@ public class SpiritHarvestHandler {
     public static MalumSpiritType getSpiritType(String spirit) {
         return SpiritTypeRegistry.SPIRITS.getOrDefault(spirit, SpiritTypeRegistry.SACRED_SPIRIT);
     }
-
 
 }
