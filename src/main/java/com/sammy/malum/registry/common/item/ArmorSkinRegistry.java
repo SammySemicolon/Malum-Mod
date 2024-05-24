@@ -25,8 +25,7 @@ public class ArmorSkinRegistry {
         SKIN_DATAGEN_DATA = null;
     }
 
-    @SubscribeEvent
-    public static void registerItemSkins(FMLCommonSetupEvent event) {
+    public static void registerItemSkins() {
         registerPridewear("ace", ItemRegistry.ACE_PRIDEWEAVE.get());
         registerPridewear("agender", ItemRegistry.AGENDER_PRIDEWEAVE.get());
         registerPridewear("aro", ItemRegistry.ARO_PRIDEWEAVE.get());

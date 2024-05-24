@@ -7,6 +7,7 @@ import com.sammy.malum.common.effect.aura.CorruptedAerialAura;
 import com.sammy.malum.common.effect.aura.InfernalAura;
 import com.sammy.malum.common.enchantment.ReboundEnchantment;
 import com.sammy.malum.common.entity.nitrate.NitrateExplosion;
+import com.sammy.malum.common.item.augment.AbstractAugmentItem;
 import com.sammy.malum.common.item.cosmetic.curios.CurioTokenOfGratitude;
 import com.sammy.malum.common.item.curiosities.curios.runes.madness.RuneTwinnedDurationItem;
 import com.sammy.malum.common.item.curiosities.curios.runes.miracle.RuneAlimentCleansingItem;
@@ -26,6 +27,7 @@ import com.sammy.malum.registry.client.ParticleEmitterRegistry;
 import com.sammy.malum.registry.common.AttributeRegistry;
 import com.sammy.malum.registry.common.MobEffectRegistry;
 import com.sammy.malum.registry.common.PacketRegistry;
+import com.sammy.malum.registry.common.item.ArmorSkinRegistry;
 import com.sammy.malum.registry.common.item.ItemRegistry;
 import com.sammy.malum.registry.common.item.tabs.*;
 import io.github.fabricators_of_create.porting_lib.config.ConfigRegistry;
@@ -113,9 +115,11 @@ public class MalumMod implements ModInitializer {
 
         ItemRegistry.Common.registerCompost();
         MobEffectRegistry.addPotionRecipes();
+        ArmorSkinRegistry.registerItemSkins();
 
         FarmersDelightCompat.init();
 
+        LodestoneItemEvent.ON_ITEM_TOOLTIP.register(AbstractAugmentItem::addAugmentAttributeTooltip);
         PlayerEvents.BREAK_SPEED.register(InfernalAura::increaseDigSpeed);
         PlayerEvents.BREAK_SPEED.register(RuneFervorItem::increaseDigSpeed);
         EntityAttributeModificationEvent.ADD.register(AttributeRegistry::modifyEntityAttributes);

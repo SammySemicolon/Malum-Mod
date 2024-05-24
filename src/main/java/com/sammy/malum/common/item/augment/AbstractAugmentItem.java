@@ -4,6 +4,7 @@ import com.sammy.malum.common.block.curiosities.spirit_crucible.*;
 import com.sammy.malum.core.systems.spirit.*;
 import net.minecraft.*;
 import net.minecraft.network.chat.*;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import org.jetbrains.annotations.*;
@@ -65,10 +66,9 @@ public class AbstractAugmentItem extends Item {
         pTooltip.add(Component.translatable("malum.gui.augment.slot").withStyle(ChatFormatting.GOLD)
                 .append(Component.translatable("malum.gui.augment.type." + getAugmentTypeTranslator()).withStyle(ChatFormatting.YELLOW)));
     }
-
-    public static void addAugmentAttributeTooltip(ItemTooltipEvent event) {
-        if (event.getItemStack().getItem() instanceof AbstractAugmentItem augmentItem) {
-            List<Component> tooltip = event.getToolTip();
+    public static void addAugmentAttributeTooltip(ItemStack itemStack, Player player, List<Component> components, TooltipFlag tooltipFlag) {
+        if (itemStack.getItem() instanceof AbstractAugmentItem augmentItem) {
+            List<Component> tooltip = components;
             tooltip.add(Component.empty());
             tooltip.add(Component.translatable("malum.gui.augment.installed").withStyle(ChatFormatting.GOLD));
             addAugmentStatComponent(tooltip, "malum.gui.crucible.attribute.tuning_potency", augmentItem.getTuningStrengthIncrease());
@@ -117,4 +117,6 @@ public class AbstractAugmentItem extends Item {
                 style)
         );
     }
+
+
 }

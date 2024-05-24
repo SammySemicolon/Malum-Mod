@@ -757,6 +757,7 @@ public class ItemRegistry {
 
     public static class ClientOnly {
 
+        /*TODO
         @SubscribeEvent
         public static void registerExtras(FMLClientSetupEvent event) {
             CuriosRendererRegistry.register(ItemRegistry.TOKEN_OF_GRATITUDE.get(), TokenOfGratitudeRenderer::new);
@@ -765,9 +766,11 @@ public class ItemRegistry {
             HiddenTagRegistry.registerHiddenTags();
         }
 
+         */
+
         public static void addItemProperties() {
             Set<LodestoneArmorItem> armors = ItemRegistry.ITEMS.getEntries().stream().filter(r -> r.get() instanceof LodestoneArmorItem).map(r -> (LodestoneArmorItem) r.get()).collect(Collectors.toSet());
-            ItemPropertyFunction armorPropertyFunction = (stack, level, holder, holderID) -> {
+            ClampedItemPropertyFunction armorPropertyFunction = (stack, level, holder, holderID) -> {
                 if (!stack.hasTag()) {
                     return -1;
                 }
