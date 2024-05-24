@@ -13,8 +13,12 @@ import com.sammy.malum.registry.common.block.*;
 import com.sammy.malum.registry.common.item.*;
 import com.sammy.malum.visual_effects.*;
 import com.sammy.malum.visual_effects.networked.data.*;
+import io.github.fabricators_of_create.porting_lib.transfer.TransferUtil;
+import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
+import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.core.*;
 import net.minecraft.nbt.*;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.*;
 import net.minecraft.util.*;
 import net.minecraft.world.*;
@@ -54,8 +58,6 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
     public CrucibleAccelerationData acceleratorData = CrucibleAccelerationData.DEFAULT;
     public CrucibleTuning.CrucibleAttributeType tuningType = CrucibleTuning.CrucibleAttributeType.NONE;
 
-    private final LazyOptional<IItemHandler> combinedInventory = LazyOptional.of(() -> new CombinedInvWrapper(inventory, spiritInventory));
-
     public SpiritCrucibleCoreBlockEntity(BlockEntityType<? extends SpiritCrucibleCoreBlockEntity> type, MultiBlockStructure structure, BlockPos pos, BlockState state) {
         super(type, structure, pos, state);
         inventory = new MalumBlockEntityInventory(1, 1, t -> !(t.getItem() instanceof SpiritShardItem)) {
@@ -76,11 +78,11 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
             }
 
             @Override
-            public boolean isItemValid(int slot, @NotNull ItemStack stack) {
-                if (!(stack.getItem() instanceof SpiritShardItem spiritItem))
+            public boolean isItemValid(int slot, ItemVariant resource, int count) {
+                if (!(resource.getItem() instanceof SpiritShardItem spiritItem))
                     return false;
 
-                for (int i = 0; i < getSlots(); i++) {
+                for (int i = 0; i < getSlots().size(); i++) {
                     if (i != slot) {
                         ItemStack stackInSlot = getStackInSlot(i);
                         if (!stackInSlot.isEmpty() && stackInSlot.getItem() == spiritItem)
@@ -126,10 +128,10 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
 
         compound.putInt("tuningType", tuningType.ordinal());
         acceleratorData.save(compound);
-        inventory.save(compound);
-        spiritInventory.save(compound, "spiritInventory");
-        augmentInventory.save(compound, "augmentInventory");
-        coreAugmentInventory.save(compound, "coreAugmentInventory");
+        inventory.serializeNBT();
+        compound.put("spiritInventory", spiritInventory.serializeNBT());
+        compound.put("augmentInventory", augmentInventory.serializeNBT());
+        compound.put("coreAugmentInventory", coreAugmentInventory.serializeNBT());
     }
 
     @Override
@@ -141,10 +143,10 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
         tuningType = CrucibleTuning.CrucibleAttributeType.values()[Mth.clamp(compound.getInt("tuningType"), 0, CrucibleTuning.CrucibleAttributeType.values().length-1)];
         acceleratorData = CrucibleAccelerationData.load(level, this, compound);
 
-        inventory.load(compound);
-        spiritInventory.load(compound, "spiritInventory");
-        augmentInventory.load(compound, "augmentInventory");
-        coreAugmentInventory.load(compound, "coreAugmentInventory");
+        inventory.deserializeNBT(compound);
+        spiritInventory.deserializeNBT(compound.getCompound("spiritInventory"));
+        augmentInventory.deserializeNBT(compound.getCompound("augmentInventory"));
+        coreAugmentInventory.deserializeNBT(compound.getCompound("coreAugmentInventory"));
 
         super.load(compound);
     }
@@ -168,30 +170,54 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
             if (augmentOnly || (isEmpty && inventory.isEmpty() && spiritInventory.isEmpty())) {
                 final boolean isCoreAugment = heldStack.getItem() instanceof AbstractCoreAugmentItem;
                 if ((augmentOnly && !isCoreAugment) || isEmpty) {
-                    ItemStack stack = augmentInventory.interact(player.level(), player, hand);
-                    if (!stack.isEmpty()) {
-                        recalibrateAccelerators(level, worldPosition);
-                        return InteractionResult.SUCCESS;
+                    try (Transaction t = TransferUtil.getTransaction()){
+                        long inserted = augmentInventory.insert(ItemVariant.of(heldStack), 64, t);
+                        heldStack.shrink((int)inserted);
+                        setChanged();
+                        t.commit();
+
+                        if (inserted > 0) {
+                            recalibrateAccelerators(level, worldPosition);
+                            return InteractionResult.SUCCESS;
+                        }
                     }
                 }
                 if ((augmentOnly && isCoreAugment) || isEmpty) {
-                    ItemStack stack = coreAugmentInventory.interact(player.level(), player, hand);
-                    if (!stack.isEmpty()) {
-                        recalibrateAccelerators(level, worldPosition);
-                        return InteractionResult.SUCCESS;
+                    try (Transaction t = TransferUtil.getTransaction()){
+                        long inserted = coreAugmentInventory.insert(ItemVariant.of(heldStack), 64, t);
+                        heldStack.shrink((int)inserted);
+                        setChanged();
+                        t.commit();
+
+                        if (inserted > 0) {
+                            recalibrateAccelerators(level, worldPosition);
+                            return InteractionResult.SUCCESS;
+                        }
                     }
                 }
             }
             recalibrateAccelerators(level, worldPosition);
             if (!augmentOnly) {
-                ItemStack spiritStack = spiritInventory.interact(level, player, hand);
-                if (!spiritStack.isEmpty()) {
-                    return InteractionResult.SUCCESS;
+                try (Transaction t = TransferUtil.getTransaction()){
+                    long inserted = spiritInventory.insert(ItemVariant.of(heldStack), 64, t);
+                    heldStack.shrink((int)inserted);
+                    setChanged();
+                    t.commit();
+
+                    if (inserted > 0) {
+                        return InteractionResult.SUCCESS;
+                    }
                 }
                 if (!(heldStack.getItem() instanceof SpiritShardItem)) {
-                    ItemStack stack = inventory.interact(level, player, hand);
-                    if (!stack.isEmpty()) {
-                        return InteractionResult.SUCCESS;
+                    try (Transaction t = TransferUtil.getTransaction()){
+                        long inserted = inventory.insert(ItemVariant.of(heldStack), 64, t);
+                        heldStack.shrink((int)inserted);
+                        setChanged();
+                        t.commit();
+
+                        if (inserted > 0) {
+                            return InteractionResult.SUCCESS;
+                        }
                     }
                 }
             }
@@ -301,14 +327,16 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
             }
         }
 
-        spiritInventory.updateData();
+        spiritInventory.setChanged();
         final boolean instantCompletion = instantCompletionChance > 0 && random.nextFloat() < instantCompletionChance;
         progress = instantCompletion ? recipe.time - 10 * processingSpeed : 0;
         if (instantCompletion) {
             level.playSound(null, worldPosition, SoundRegistry.WARPING_ENGINE_REVERBERATES.get(), SoundSource.BLOCKS, 1.5f, 1f + random.nextFloat() * 0.25f);
         }
         acceleratorData.globalAttributeModifier = instantCompletion ? acceleratorData.globalAttributeModifier + 0.2f : 0;
-        ParticleEffectTypeRegistry.SPIRIT_CRUCIBLE_CRAFTS.createPositionedEffect(level, new PositionEffectData(worldPosition), ColorEffectData.fromRecipe(recipe.spirits));
+        if (level instanceof ServerLevel serverLevel) {
+            ParticleEffectTypeRegistry.SPIRIT_CRUCIBLE_CRAFTS.createPositionedEffect(serverLevel, new PositionEffectData(worldPosition), ColorEffectData.fromRecipe(recipe.spirits));
+        }
         level.playSound(null, worldPosition, SoundRegistry.CRUCIBLE_CRAFT.get(), SoundSource.BLOCKS, 1, 0.75f + random.nextFloat() * 0.5f);
         level.addFreshEntity(new ItemEntity(level, itemPos.x, itemPos.y, itemPos.z, outputStack));
         while (bonusYieldChance > 0) {
@@ -391,14 +419,5 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
         float distance = 0.6f + (float) Math.sin(((spiritSpin + partialTicks) % 6.28f) / 20f) * 0.025f;
         float height = 1.6f;
         return DataHelper.rotatingRadialOffset(new Vec3(0.5f, height, 0.5f), distance, slot, augmentInventory.slotCount, (long) (spiritSpin + partialTicks), 240);
-    }
-
-    @NotNull
-    @Override
-    public <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, Direction side) {
-        if (cap == ForgeCapabilities.ITEM_HANDLER) {
-            return combinedInventory.cast();
-        }
-        return super.getCapability(cap, side);
     }
 }

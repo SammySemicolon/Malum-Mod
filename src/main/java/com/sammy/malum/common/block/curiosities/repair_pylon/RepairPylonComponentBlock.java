@@ -2,6 +2,7 @@ package com.sammy.malum.common.block.curiosities.repair_pylon;
 
 import net.minecraft.core.*;
 import net.minecraft.world.entity.player.*;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
@@ -51,7 +52,7 @@ public class RepairPylonComponentBlock extends MultiblockComponentBlock {
     @Override
     public int getAnalogOutputSignal(BlockState pState, Level pLevel, BlockPos pPos) {
         if (pLevel.getBlockEntity(pPos) instanceof MultiBlockComponentEntity component) {
-            return ItemHandlerHelper.calcRedstoneFromInventory(component.getCapability(ForgeCapabilities.ITEM_HANDLER).orElse(new EmptyHandler()));
+            return AbstractContainerMenu.getRedstoneSignalFromBlockEntity(pLevel.getBlockEntity(pPos));
         }
         return 0;
     }

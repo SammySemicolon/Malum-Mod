@@ -6,6 +6,9 @@ import com.sammy.malum.common.item.spirit.*;
 import com.sammy.malum.common.recipe.*;
 import com.sammy.malum.core.systems.recipe.*;
 import com.sammy.malum.registry.common.block.*;
+import io.github.fabricators_of_create.porting_lib.transfer.TransferUtil;
+import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
+import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.core.*;
 import net.minecraft.nbt.*;
 import net.minecraft.util.*;
@@ -62,8 +65,6 @@ public class RepairPylonCoreBlockEntity extends MultiBlockCoreEntity {
     public float spiritAmount;
     public float spiritSpin;
 
-    private final LazyOptional<IItemHandler> combinedInventory = LazyOptional.of(() -> new CombinedInvWrapper(inventory, spiritInventory));
-
     public RepairPylonCoreBlockEntity(BlockEntityType<? extends RepairPylonCoreBlockEntity> type, MultiBlockStructure structure, BlockPos pos, BlockState state) {
         super(type, structure, pos, state);
         inventory = new MalumBlockEntityInventory(1, 64, t -> !(t.getItem() instanceof SpiritShardItem)) {
@@ -84,11 +85,11 @@ public class RepairPylonCoreBlockEntity extends MultiBlockCoreEntity {
             }
 
             @Override
-            public boolean isItemValid(int slot, @NotNull ItemStack stack) {
-                if (!(stack.getItem() instanceof SpiritShardItem spiritItem))
+            public boolean isItemValid(int slot, ItemVariant resource, int count) {
+                if (!(resource.getItem() instanceof SpiritShardItem spiritItem))
                     return false;
 
-                for (int i = 0; i < getSlots(); i++) {
+                for (int i = 0; i < getSlots().size(); i++) {
                     if (i != slot) {
                         ItemStack stackInSlot = getStackInSlot(i);
                         if (!stackInSlot.isEmpty() && stackInSlot.getItem() == spiritItem)
@@ -116,8 +117,8 @@ public class RepairPylonCoreBlockEntity extends MultiBlockCoreEntity {
         if (timer != 0) {
             compound.putFloat("timer", timer);
         }
-        inventory.save(compound);
-        spiritInventory.save(compound, "spiritInventory");
+        inventory.serializeNBT();
+        compound.put("spiritInventory", spiritInventory.serializeNBT());
     }
 
     @Override
@@ -126,8 +127,8 @@ public class RepairPylonCoreBlockEntity extends MultiBlockCoreEntity {
         spiritAmount = compound.getFloat("spiritAmount");
         repairablePosition = BlockHelper.loadBlockPos(compound.getCompound("targetedBlock"));
         timer = compound.getFloat("timer");
-        inventory.load(compound);
-        spiritInventory.load(compound, "spiritInventory");
+        inventory.deserializeNBT(compound);
+        spiritInventory.deserializeNBT(compound.getCompound("spiritInventory"));
 
         super.load(compound);
     }
@@ -140,14 +141,27 @@ public class RepairPylonCoreBlockEntity extends MultiBlockCoreEntity {
         if (hand.equals(InteractionHand.MAIN_HAND)) {
             ItemStack heldStack = player.getMainHandItem();
             final boolean isEmpty = heldStack.isEmpty();
-            ItemStack spiritStack = spiritInventory.interact(level, player, hand);
-            if (!spiritStack.isEmpty()) {
-                return InteractionResult.SUCCESS;
-            }
-            if (!(heldStack.getItem() instanceof SpiritShardItem)) {
-                ItemStack stack = inventory.interact(level, player, hand);
-                if (!stack.isEmpty()) {
+            try (Transaction t = TransferUtil.getTransaction()){
+                long inserted = spiritInventory.insert(ItemVariant.of(heldStack), 64, t);
+                heldStack.shrink((int)inserted);
+                setChanged();
+                t.commit();
+
+                if (inserted > 0) {
                     return InteractionResult.SUCCESS;
+                }
+            }
+
+            if (!(heldStack.getItem() instanceof SpiritShardItem)) {
+                try (Transaction t = TransferUtil.getTransaction()){
+                    long inserted = inventory.insert(ItemVariant.of(heldStack), 64, t);
+                    heldStack.shrink((int)inserted);
+                    setChanged();
+                    t.commit();
+
+                    if (inserted > 0) {
+                        return InteractionResult.SUCCESS;
+                    }
                 }
             }
             if (isEmpty) {
@@ -258,7 +272,7 @@ public class RepairPylonCoreBlockEntity extends MultiBlockCoreEntity {
                 }
             }
         }
-        spiritInventory.updateData();
+        spiritInventory.setChanged();
         setState(RepairPylonState.IDLE);
     }
 
@@ -282,14 +296,5 @@ public class RepairPylonCoreBlockEntity extends MultiBlockCoreEntity {
         float distance = 0.75f + (float) Math.sin(((spiritSpin + partialTicks) % 6.28f) / 20f) * 0.025f;
         float height = 2.75f;
         return DataHelper.rotatingRadialOffset(new Vec3(0.5f, height, 0.5f), distance, slot, spiritAmount, (long) (spiritSpin + partialTicks), 360);
-    }
-
-    @NotNull
-    @Override
-    public <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, Direction side) {
-        if (cap == ForgeCapabilities.ITEM_HANDLER) {
-            return combinedInventory.cast();
-        }
-        return super.getCapability(cap, side);
     }
 }

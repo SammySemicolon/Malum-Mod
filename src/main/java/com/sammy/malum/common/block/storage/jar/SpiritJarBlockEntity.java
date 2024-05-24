@@ -266,13 +266,4 @@ public class SpiritJarBlockEntity extends LodestoneBlockEntity {
                 .act(type.applyWorldParticleChanges())
                 .repeat(level, pos.getX() + 0.5f, pos.getY() + 0.5f + Math.sin(level.getGameTime() / 20f) * 0.2f, pos.getZ() + 0.5f, 10);
     }
-
-    @NotNull
-    @Override
-    public <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, Direction side) {
-        if (cap == ForgeCapabilities.ITEM_HANDLER) {
-            return inventory.cast();
-        }
-        return super.getCapability(cap, side);
-    }
 }

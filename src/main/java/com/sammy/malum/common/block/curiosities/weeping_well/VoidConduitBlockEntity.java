@@ -99,7 +99,7 @@ public class VoidConduitBlockEntity extends LodestoneBlockEntity {
                     }
                     progress = resultingProgress;
                     eatenItems.remove(eatenItems.size()-1);
-                    particleEffectType.createPositionedEffect(level, new PositionEffectData(worldPosition.getX()+0.5f, worldPosition.getY()+0.6f, worldPosition.getZ()+0.5f));
+                    particleEffectType.createPositionedEffect(serverLevel, new PositionEffectData(worldPosition.getX()+0.5f, worldPosition.getY()+0.6f, worldPosition.getZ()+0.5f));
                     BlockHelper.updateAndNotifyState(level, worldPosition);
                 }
                 if (eatenItems.isEmpty()) {

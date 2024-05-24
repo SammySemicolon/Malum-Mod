@@ -8,6 +8,7 @@ import com.sammy.malum.visual_effects.networked.data.ColorEffectData;
 import com.sammy.malum.visual_effects.networked.data.PositionEffectData;
 import io.github.fabricators_of_create.porting_lib.block.CustomSoundTypeBlock;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
@@ -47,8 +48,8 @@ public class SoulstoneBlock extends Block implements CustomSoundTypeBlock {
         if (!player.getAbilities().instabuild) {
             stack.shrink(2);
         }
-        if (!pLevel.isClientSide) {
-            ParticleEffectTypeRegistry.SPIRIT_MOTE_SPARKLES.createPositionedEffect(pLevel, new PositionEffectData(pPos), new ColorEffectData(spiritType));
+        if (pLevel instanceof ServerLevel serverLevel) {
+            ParticleEffectTypeRegistry.SPIRIT_MOTE_SPARKLES.createPositionedEffect(serverLevel, new PositionEffectData(pPos), new ColorEffectData(spiritType));
         }
         return InteractionResult.SUCCESS;
     }

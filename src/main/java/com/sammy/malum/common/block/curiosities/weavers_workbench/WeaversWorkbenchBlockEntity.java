@@ -6,6 +6,7 @@ import com.sammy.malum.registry.common.SoundRegistry;
 import com.sammy.malum.registry.common.block.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -30,7 +31,6 @@ import static com.sammy.malum.registry.common.SpiritTypeRegistry.ARCANE_SPIRIT;
 public class WeaversWorkbenchBlockEntity extends LodestoneBlockEntity {
 
     public final WeaversWorkbenchItemHandler itemHandler = new WeaversWorkbenchItemHandler(2, 1, this);
-    private final LazyOptional<IItemHandler> handler = LazyOptional.of(() -> itemHandler);
 
     public WeaversWorkbenchBlockEntity(BlockPos pos, BlockState state) {
         super(BlockEntityRegistry.WEAVERS_WORKBENCH.get(), pos, state);
@@ -45,19 +45,10 @@ public class WeaversWorkbenchBlockEntity extends LodestoneBlockEntity {
         return InteractionResult.SUCCESS;
     }
 
-    @NotNull
-    @Override
-    public <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap) {
-        if (cap == ForgeCapabilities.ITEM_HANDLER) {
-            return handler.cast();
-        }
-        return super.getCapability(cap);
-    }
-
     public void onCraft() {
         if (!level.isClientSide) {
             Vec3 itemPos = getItemPos();
-            MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(getBlockPos())), new BlightTransformItemParticlePacket(List.of(ARCANE_SPIRIT.identifier), itemPos));
+            MALUM_CHANNEL.sendToClientsTracking(new BlightTransformItemParticlePacket(List.of(ARCANE_SPIRIT.identifier), itemPos), (ServerLevel) level, level.getChunkAt(getBlockPos()).getPos());
             level.playSound(null, getBlockPos(), SoundRegistry.ALTERATION_PLINTH_ALTERS.get(), SoundSource.BLOCKS, 1, 0.9f + level.random.nextFloat() * 0.25f);
         }
         itemHandler.getStackInSlot(0).shrink(1);

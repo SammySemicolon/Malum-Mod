@@ -6,6 +6,7 @@ import com.sammy.malum.visual_effects.networked.data.*;
 import io.github.fabricators_of_create.porting_lib.transfer.item.ItemHandlerHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -45,7 +46,9 @@ public class SapFilledLogBlock extends RotatedPillarBlock {
                 itemstack.shrink(1);
                 level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.BOTTLE_FILL, SoundSource.NEUTRAL, 1.0F, 1.0F);
                 ItemHandlerHelper.giveItemToPlayer(player, new ItemStack(sap.get()));
-                ParticleEffectTypeRegistry.SAP_COLLECTED.createPositionedEffect(level, new PositionEffectData(pos), new ColorEffectData(sapColor), SapCollectionParticleEffect.createData(hit.getDirection()));
+                if (level instanceof ServerLevel serverLevel) {
+                    ParticleEffectTypeRegistry.SAP_COLLECTED.createPositionedEffect(serverLevel, new PositionEffectData(pos), new ColorEffectData(sapColor), SapCollectionParticleEffect.createData(hit.getDirection()));
+                }
                 if (level.random.nextBoolean()) {
                     BlockHelper.setBlockStateWithExistingProperties(level, pos, drained.get().defaultBlockState(), 3);
                 }

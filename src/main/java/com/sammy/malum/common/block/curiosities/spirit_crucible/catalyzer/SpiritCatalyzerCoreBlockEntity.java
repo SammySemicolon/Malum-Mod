@@ -8,6 +8,9 @@ import com.sammy.malum.core.systems.spirit.*;
 import com.sammy.malum.registry.common.*;
 import com.sammy.malum.registry.common.block.*;
 import com.sammy.malum.visual_effects.*;
+import io.github.fabricators_of_create.porting_lib.transfer.TransferUtil;
+import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
+import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.core.*;
 import net.minecraft.nbt.*;
 import net.minecraft.sounds.*;
@@ -71,8 +74,8 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity impleme
             compound.putFloat("burnTicks", burnTicks);
         }
 
-        inventory.save(compound);
-        augmentInventory.save(compound, "augmentInventory");
+        inventory.serializeNBT();
+        compound.put("augmentInventory", augmentInventory.serializeNBT());
         super.saveAdditional(compound);
     }
 
@@ -80,8 +83,8 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity impleme
     public void load(CompoundTag compound) {
         burnTicks = compound.getFloat("burnTicks");
 
-        inventory.load(compound);
-        augmentInventory.load(compound, "augmentInventory");
+        inventory.deserializeNBT(compound);
+        augmentInventory.deserializeNBT(compound.getCompound("augmentInventory"));
         super.load(compound);
     }
 
@@ -95,9 +98,15 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity impleme
             final ItemStack heldStack = player.getItemInHand(hand);
             final boolean augmentOnly = heldStack.getItem() instanceof AbstractAugmentItem;
             if (augmentOnly || (heldStack.isEmpty() && inventory.isEmpty())) {
-                ItemStack stack = augmentInventory.interact(player.level(), player, hand);
-                if (!stack.isEmpty()) {
-                    return InteractionResult.SUCCESS;
+                try (Transaction t = TransferUtil.getTransaction()){
+                    long inserted = augmentInventory.insert(ItemVariant.of(heldStack), 64, t);
+                    heldStack.shrink((int)inserted);
+                    setChanged();
+                    t.commit();
+
+                    if (inserted > 0) {
+                        return InteractionResult.SUCCESS;
+                    }
                 }
             }
             if (!augmentOnly) {
@@ -180,7 +189,7 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity impleme
             if (!stack.isEmpty()) {
                 burnTicks = ForgeHooks.getBurnTime(inventory.getStackInSlot(0), RecipeType.SMELTING) / 2f;
                 stack.shrink(1);
-                inventory.updateData();
+                inventory.setChanged();
                 BlockHelper.updateAndNotifyState(level, worldPosition);
             }
         }
@@ -213,14 +222,5 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity impleme
 
     public Vec3 getAugmentOffset() {
         return CATALYZER_AUGMENT_OFFSET;
-    }
-
-    @NotNull
-    @Override
-    public <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, Direction side) {
-        if (cap == ForgeCapabilities.ITEM_HANDLER) {
-            return inventory.inventoryOptional.cast();
-        }
-        return super.getCapability(cap, side);
     }
 }

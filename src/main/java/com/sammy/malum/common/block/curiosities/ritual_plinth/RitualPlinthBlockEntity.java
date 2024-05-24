@@ -246,8 +246,10 @@ public class RitualPlinthBlockEntity extends LodestoneBlockEntity {
                 IngredientWithCount requestedItem = ritualRecipe.extraItems.get(extras);
                 if (requestedItem.matches(providedStack)) {
                     level.playSound(null, provider.getAccessPointBlockPos(), SoundRegistry.RITUAL_ABSORBS_ITEM.get(), SoundSource.BLOCKS, 1, 0.9f + level.random.nextFloat() * 0.2f);
-                    ParticleEffectTypeRegistry.RITUAL_PLINTH_EATS_ITEM.createPositionedEffect(level, new PositionEffectData(worldPosition), new ColorEffectData(ritualRecipe.ritualType.spirit), RitualPlinthAbsorbItemParticleEffect.createData(provider.getItemPos(), providedStack));
-                    try (Transaction t = TransferUtil.getTransaction()){
+                    if (level instanceof ServerLevel serverLevel) {
+                        ParticleEffectTypeRegistry.RITUAL_PLINTH_EATS_ITEM.createPositionedEffect(serverLevel, new PositionEffectData(worldPosition), new ColorEffectData(ritualRecipe.ritualType.spirit), RitualPlinthAbsorbItemParticleEffect.createData(provider.getItemPos(), providedStack));
+                    }
+                   try (Transaction t = TransferUtil.getTransaction()){
                         long res = extrasInventory.insert(ItemVariant.of(providedStack.split(requestedItem.count)), 64, t);
                         t.commit();
                     }

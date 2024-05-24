@@ -9,6 +9,7 @@ import net.minecraft.core.*;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.*;
 import net.minecraft.resources.*;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.*;
 import net.minecraft.util.*;
 import net.minecraft.world.*;
@@ -242,7 +243,9 @@ public class VoidDepotBlockEntity extends LodestoneBlockEntity {
 
     public void onCompletion() {
         float pitch = Mth.nextFloat(level.getRandom(), 1.5f, 1.75f);
-        ParticleEffectTypeRegistry.WEEPING_WELL_REACTS.createPositionedEffect(level, new PositionEffectData(worldPosition.getX()+0.5f, worldPosition.getY()+0.9f, worldPosition.getZ()+0.5f));
+        if (level instanceof ServerLevel serverLevel) {
+            ParticleEffectTypeRegistry.WEEPING_WELL_REACTS.createPositionedEffect(serverLevel, new PositionEffectData(worldPosition.getX()+0.5f, worldPosition.getY()+0.9f, worldPosition.getZ()+0.5f));
+        }
         level.playSound(null, worldPosition, SoundRegistry.FLESH_RING_ABSORBS.get(), SoundSource.HOSTILE, 0.7f, pitch);
         level.playSound(null, worldPosition, SoundRegistry.VOID_TRANSMUTATION.get(), SoundSource.HOSTILE, 2f, pitch);
         if (repeatable) {
