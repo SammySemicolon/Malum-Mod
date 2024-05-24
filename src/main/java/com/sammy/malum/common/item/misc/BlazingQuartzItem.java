@@ -3,8 +3,8 @@ package com.sammy.malum.common.item.misc;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.block.*;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.*;
 
 public class BlazingQuartzItem extends ItemNameBlockItem {
     public final int fuel;

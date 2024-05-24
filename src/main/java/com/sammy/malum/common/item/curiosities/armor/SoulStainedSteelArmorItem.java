@@ -16,7 +16,6 @@ import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import team.lodestar.lodestone.systems.model.LodestoneArmorModel;
 
 import java.util.UUID;

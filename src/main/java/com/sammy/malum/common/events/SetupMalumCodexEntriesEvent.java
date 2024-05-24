@@ -1,6 +1,5 @@
 package com.sammy.malum.common.events;
 
-import net.minecraftforge.eventbus.api.Event;
 
 /**
  * Called when the book is opened for the first time per minecraft client instance, prior to setting up book objects.

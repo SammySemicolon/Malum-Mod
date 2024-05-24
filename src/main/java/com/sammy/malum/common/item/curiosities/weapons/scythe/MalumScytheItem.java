@@ -17,8 +17,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.enchantment.*;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import team.lodestar.lodestone.helpers.CurioHelper;
 import team.lodestar.lodestone.registry.common.tag.*;
 import team.lodestar.lodestone.systems.item.ModCombatItem;
 

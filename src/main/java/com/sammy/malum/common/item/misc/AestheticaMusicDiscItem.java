@@ -7,7 +7,7 @@ import net.minecraft.world.item.*;
 public class AestheticaMusicDiscItem extends RecordItem implements IVoidItem {
 
     public AestheticaMusicDiscItem(Properties builder) {
-        super(7, SoundRegistry.AESTHETICA, builder, 7920);
+        super(7, SoundRegistry.AESTHETICA.get(), builder, 7920);
     }
 
     @Override

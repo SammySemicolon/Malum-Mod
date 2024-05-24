@@ -3,20 +3,19 @@ package com.sammy.malum.registry.client;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.client.particles.cut.ScytheAttackParticle;
 import com.sammy.malum.client.particles.spiritflame.SpiritFlameParticleType;
+import io.github.fabricators_of_create.porting_lib.util.LazyRegistrar;
+import io.github.fabricators_of_create.porting_lib.util.RegistryObject;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.SimpleParticleType;
-import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import net.minecraft.core.registries.BuiltInRegistries;
 import team.lodestar.lodestone.systems.particle.type.LodestoneDirectionalParticleType;
 import team.lodestar.lodestone.systems.particle.type.LodestoneParticleType;
 import team.lodestar.lodestone.systems.particle.type.LodestoneSparkParticleType;
 
 @SuppressWarnings("unused")
 public class ParticleRegistry {
-    public static DeferredRegister<ParticleType<?>> PARTICLES = DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, MalumMod.MALUM);
+    public static LazyRegistrar<ParticleType<?>> PARTICLES = LazyRegistrar.create(BuiltInRegistries.PARTICLE_TYPE, MalumMod.MALUM);
 
     public static RegistryObject<SpiritFlameParticleType> SPIRIT_FLAME_PARTICLE = PARTICLES.register("spirit_flame", SpiritFlameParticleType::new);
 

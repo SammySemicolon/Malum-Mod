@@ -9,9 +9,6 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
-import net.minecraftforge.common.*;
-import net.minecraftforge.event.entity.living.*;
-import net.minecraftforge.network.*;
 import team.lodestar.lodestone.registry.common.tag.*;
 import team.lodestar.lodestone.systems.item.tools.*;
 

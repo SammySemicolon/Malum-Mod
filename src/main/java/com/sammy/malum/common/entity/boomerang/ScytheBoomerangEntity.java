@@ -6,6 +6,7 @@ import com.sammy.malum.registry.common.SoundRegistry;
 import com.sammy.malum.registry.common.entity.EntityRegistry;
 import com.sammy.malum.registry.common.item.EnchantmentRegistry;
 import com.sammy.malum.registry.common.item.ItemRegistry;
+import io.github.fabricators_of_create.porting_lib.transfer.item.ItemHandlerHelper;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvents;
@@ -25,7 +26,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.items.ItemHandlerHelper;
 import team.lodestar.lodestone.helpers.ItemHelper;
 
 import java.util.Random;

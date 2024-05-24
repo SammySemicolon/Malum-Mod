@@ -7,7 +7,6 @@ import net.minecraft.world.entity.player.*;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.ExplosionDamageCalculator;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.event.level.ExplosionEvent;
 import org.jetbrains.annotations.Nullable;
 
 public class NitrateExplosion extends Explosion {

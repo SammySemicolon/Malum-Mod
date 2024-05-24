@@ -6,7 +6,6 @@ import net.minecraft.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
-import net.minecraftforge.event.entity.player.*;
 import org.jetbrains.annotations.*;
 
 import java.util.*;

@@ -20,7 +20,6 @@ import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraftforge.event.entity.living.*;
 import team.lodestar.lodestone.registry.common.*;
 import team.lodestar.lodestone.registry.common.tag.*;
 import team.lodestar.lodestone.systems.item.*;
