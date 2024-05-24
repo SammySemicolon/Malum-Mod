@@ -6,8 +6,8 @@ import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.Ingredient;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import java.util.function.Supplier;
 
 public class ArmorTiers {
@@ -55,19 +55,19 @@ public class ArmorTiers {
             return enchantability;
         }
 
-        @Nonnull
+        @NotNull
         @Override
         public SoundEvent getEquipSound() {
             return equipSound.get();
         }
 
-        @Nonnull
+        @NotNull
         @Override
         public Ingredient getRepairIngredient() {
             return Ingredient.of(repairItem.get());
         }
 
-        @Nonnull
+        @NotNull
         @Override
         public String getName() {
             return name;

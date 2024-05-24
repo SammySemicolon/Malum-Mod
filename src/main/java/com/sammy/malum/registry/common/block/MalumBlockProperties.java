@@ -1,11 +1,11 @@
 package com.sammy.malum.registry.common.block;
 
 import com.sammy.malum.registry.common.*;
+import io.github.fabricators_of_create.porting_lib.tags.Tags;
 import net.minecraft.tags.*;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.properties.*;
 import net.minecraft.world.level.material.*;
-import net.minecraftforge.common.*;
 import team.lodestar.lodestone.systems.block.*;
 
 import java.awt.*;

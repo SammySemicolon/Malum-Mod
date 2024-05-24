@@ -26,17 +26,15 @@ import com.sammy.malum.common.block.the_device.*;
 import com.sammy.malum.common.worldgen.tree.grower.*;
 import com.sammy.malum.registry.common.*;
 import com.sammy.malum.registry.common.item.*;
+import io.github.fabricators_of_create.porting_lib.util.LazyRegistrar;
+import io.github.fabricators_of_create.porting_lib.util.RegistryObject;
 import net.minecraft.client.color.block.*;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.util.*;
 import net.minecraft.util.valueproviders.*;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.*;
 import net.minecraft.world.level.block.state.properties.*;
-import net.minecraftforge.api.distmarker.*;
-import net.minecraftforge.client.event.*;
-import net.minecraftforge.eventbus.api.*;
-import net.minecraftforge.fml.common.*;
-import net.minecraftforge.registries.*;
 import team.lodestar.lodestone.systems.block.*;
 import team.lodestar.lodestone.systems.block.sign.*;
 import team.lodestar.lodestone.systems.easing.*;
@@ -49,12 +47,11 @@ import static net.minecraft.tags.BlockTags.FENCES;
 import static net.minecraft.tags.BlockTags.FENCE_GATES;
 import static net.minecraft.tags.BlockTags.*;
 import static net.minecraft.world.level.block.PressurePlateBlock.Sensitivity.*;
-import static net.minecraftforge.common.Tags.Blocks.*;
 
 
 public class BlockRegistry {
 
-    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MALUM);
+    public static final LazyRegistrar<Block> BLOCKS = LazyRegistrar.create(BuiltInRegistries.BLOCK, MALUM);
 
     //region useful blocks
     public static final RegistryObject<Block> SPIRIT_ALTAR = BLOCKS.register("spirit_altar", () -> new SpiritAltarBlock<>(MalumBlockProperties.RUNEWOOD().setCutoutRenderType().noOcclusion()).setBlockEntity(BlockEntityRegistry.SPIRIT_ALTAR));
@@ -434,7 +431,6 @@ public class BlockRegistry {
     public static final RegistryObject<Block> THE_DEVICE = BLOCKS.register("the_device", () -> new TheDevice(MalumBlockProperties.TAINTED_ROCK()));
     public static final RegistryObject<Block> THE_VESSEL = BLOCKS.register("the_vessel", () -> new TheVessel(MalumBlockProperties.TWISTED_ROCK()));
 
-    @Mod.EventBusSubscriber(modid = MalumMod.MALUM, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
     public static class ClientOnly {
 
         @SubscribeEvent

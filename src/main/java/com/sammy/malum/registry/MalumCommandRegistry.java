@@ -4,12 +4,8 @@ import com.mojang.brigadier.*;
 import com.mojang.brigadier.tree.*;
 import com.sammy.malum.*;
 import net.minecraft.commands.*;
-import net.minecraftforge.event.*;
-import net.minecraftforge.eventbus.api.*;
-import net.minecraftforge.fml.common.*;
 
 
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class MalumCommandRegistry {
 
     @SubscribeEvent

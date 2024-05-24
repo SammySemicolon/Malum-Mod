@@ -4,12 +4,12 @@ import com.sammy.malum.MalumMod;
 import com.sammy.malum.core.systems.ritual.*;
 import com.sammy.malum.registry.common.*;
 import com.sammy.malum.registry.common.item.ItemRegistry;
+import io.github.fabricators_of_create.porting_lib.util.LazyRegistrar;
+import io.github.fabricators_of_create.porting_lib.util.RegistryObject;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.*;
 import net.minecraft.world.item.*;
-import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
-import net.minecraftforge.registries.*;
 
 import java.util.Objects;
 
@@ -17,7 +17,7 @@ import static com.sammy.malum.registry.common.item.ItemRegistry.*;
 
 public class CreativeTabRegistry {
 
-    public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MalumMod.MALUM);
+    public static final LazyRegistrar<CreativeModeTab> CREATIVE_MODE_TABS = LazyRegistrar.create(Registries.CREATIVE_MODE_TAB, MalumMod.MALUM);
 
     public static final RegistryObject<CreativeModeTab> CONTENT = CREATIVE_MODE_TABS.register("malum_content",
             () -> CreativeModeTab.builder()

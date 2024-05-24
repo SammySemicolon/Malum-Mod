@@ -10,17 +10,11 @@ import com.sammy.malum.common.item.cosmetic.skins.risk_of_rain.CommandoArmorSkin
 import com.sammy.malum.common.item.cosmetic.skins.risk_of_rain.ExecutionerArmorSkin;
 import com.sammy.malum.common.item.curiosities.armor.MalumArmorItem;
 import net.minecraft.world.item.Item;
-import net.minecraftforge.data.loading.DatagenModLoader;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-@Mod.EventBusSubscriber(modid = MalumMod.MALUM, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ArmorSkinRegistry {
 
     public static final Map<String, ArmorSkin> SKINS = new LinkedHashMap<>();

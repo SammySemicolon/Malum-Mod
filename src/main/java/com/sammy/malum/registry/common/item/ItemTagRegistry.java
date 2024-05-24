@@ -1,11 +1,11 @@
 package com.sammy.malum.registry.common.item;
 
 import com.sammy.malum.MalumMod;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
-import net.minecraftforge.registries.ForgeRegistries;
 
 public class ItemTagRegistry {
     public static final TagKey<Item> SOUL_HUNTER_WEAPON = malumTag("soul_hunter_weapon");
@@ -48,11 +48,11 @@ public class ItemTagRegistry {
 
 
     private static TagKey<Item> modTag(String path) {
-        return TagKey.create(ForgeRegistries.ITEMS.getRegistryKey(), new ResourceLocation(path));
+        return TagKey.create(BuiltInRegistries.ITEM.key(), new ResourceLocation(path));
     }
 
     private static TagKey<Item> malumTag(String path) {
-        return TagKey.create(ForgeRegistries.ITEMS.getRegistryKey(), MalumMod.malumPath(path));
+        return TagKey.create(BuiltInRegistries.ITEM.key(), MalumMod.malumPath(path));
     }
 
     private static TagKey<Item> forgeTag(String name) {
