@@ -14,7 +14,8 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
-import net.minecraftforge.api.distmarker.*;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.systems.rendering.trail.*;
 
@@ -48,7 +49,7 @@ public abstract class AbstractBoltProjectileEntity extends ThrowableItemProjecti
         }
     }
 
-    @OnlyIn(Dist.CLIENT)
+    @Environment(EnvType.CLIENT)
     public abstract void spawnParticles();
 
     public abstract int getMaxAge();

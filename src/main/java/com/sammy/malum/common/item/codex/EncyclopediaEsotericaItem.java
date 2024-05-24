@@ -6,7 +6,8 @@ import net.minecraft.world.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
-import net.minecraftforge.api.distmarker.*;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import team.lodestar.lodestone.handlers.screenparticle.*;
 import team.lodestar.lodestone.systems.particle.screen.*;
 
@@ -33,7 +34,7 @@ public class EncyclopediaEsotericaItem extends EncyclopediaArcanaItem implements
         return super.use(level, player, hand);
     }
 
-    @OnlyIn(Dist.CLIENT)
+    @Environment(EnvType.CLIENT)
     @Override
     public void spawnLateParticles(ScreenParticleHolder target, Level level, float partialTick, ItemStack stack, float x, float y) {
         ScreenParticleEffects.spawnEncyclopediaEsotericaScreenParticles(target, level, partialTick);

@@ -8,9 +8,8 @@ import com.sammy.malum.visual_effects.networked.data.PositionEffectData;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.network.PacketDistributor;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 
 import java.util.function.Supplier;
 
@@ -25,7 +24,7 @@ public abstract class ParticleEffectType {
         ParticleEffectTypeRegistry.EFFECT_TYPES.put(id, this);
     }
 
-    @OnlyIn(Dist.CLIENT)
+    @Environment(EnvType.CLIENT)
     public abstract Supplier<ParticleEffectActor> get();
 
     public void createEntityEffect(Entity entity) {

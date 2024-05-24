@@ -5,8 +5,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraftforge.network.NetworkEvent;
 import net.minecraftforge.network.simple.SimpleChannel;
 import team.lodestar.lodestone.systems.network.LodestoneClientPacket;
@@ -28,7 +28,7 @@ public class SyncMalumPlayerCapabilityDataPacket extends LodestoneClientPacket {
         buf.writeNbt(tag);
     }
 
-    @OnlyIn(Dist.CLIENT)
+    @Environment(EnvType.CLIENT)
     @Override
     public void execute(Supplier<NetworkEvent.Context> context) {
         Player player = Minecraft.getInstance().level.getPlayerByUUID(uuid);

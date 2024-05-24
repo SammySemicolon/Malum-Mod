@@ -7,7 +7,8 @@ import com.sammy.malum.visual_effects.networked.data.*;
 import net.minecraft.nbt.*;
 import net.minecraft.util.*;
 import net.minecraft.world.phys.*;
-import net.minecraftforge.api.distmarker.*;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.systems.particle.builder.*;
 
@@ -31,7 +32,7 @@ public class HexBoltImpactParticleEffect extends ParticleEffectType {
         return new NBTEffectData(tag);
     }
 
-    @OnlyIn(Dist.CLIENT)
+    @Environment(EnvType.CLIENT)
     @Override
     public Supplier<ParticleEffectActor> get() {
         return () -> (level, random, positionData, colorData, nbtData) -> {

@@ -14,7 +14,7 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import team.lodestar.lodestone.systems.container.ItemInventory;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 public class SpiritPouchContainer extends AbstractContainerMenu {
     private final Container inventory;
@@ -86,7 +86,7 @@ public class SpiritPouchContainer extends AbstractContainerMenu {
         return this.inventory.stillValid(playerIn);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public ItemStack quickMoveStack(Player playerIn, int index) {
         ItemStack itemstack = ItemStack.EMPTY;

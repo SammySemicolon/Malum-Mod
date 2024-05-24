@@ -7,8 +7,8 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraftforge.network.NetworkEvent;
 import net.minecraftforge.network.simple.SimpleChannel;
 import team.lodestar.lodestone.helpers.ColorHelper;
@@ -35,7 +35,7 @@ public class BlightTransformItemParticlePacket extends SpiritBasedParticleEffect
         super(spirits, posX, posY, posZ);
     }
 
-    @OnlyIn(Dist.CLIENT)
+    @Environment(EnvType.CLIENT)
     @Override
     public void execute(Supplier<NetworkEvent.Context> context) {
         super.execute(context);
@@ -87,7 +87,7 @@ public class BlightTransformItemParticlePacket extends SpiritBasedParticleEffect
         }
     }
 
-    @OnlyIn(Dist.CLIENT)
+    @Environment(EnvType.CLIENT)
     @Override
     public void execute(Supplier<NetworkEvent.Context> context, MalumSpiritType spiritType) {
         Level level = Minecraft.getInstance().level;

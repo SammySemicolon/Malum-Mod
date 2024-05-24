@@ -21,7 +21,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -59,13 +59,13 @@ public class SpiritRepairRecipeCategory implements IRecipeCategory<SpiritRepairR
         return Component.translatable("malum.jei." + UID.getPath());
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public IDrawable getBackground() {
         return background;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public IDrawable getIcon() {
         return icon;

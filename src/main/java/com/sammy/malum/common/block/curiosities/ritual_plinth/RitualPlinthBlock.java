@@ -5,10 +5,6 @@ import net.minecraft.core.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.entity.*;
 import net.minecraft.world.level.block.state.*;
-import net.minecraft.world.phys.shapes.*;
-import net.minecraftforge.common.capabilities.*;
-import net.minecraftforge.items.*;
-import net.minecraftforge.items.wrapper.*;
 import team.lodestar.lodestone.systems.block.*;
 
 public class RitualPlinthBlock<T extends RitualPlinthBlockEntity> extends WaterLoggedEntityBlock<T> {

@@ -133,7 +133,7 @@ public class SpiritHarvestHandler {
                     eventItem.pickupSpirit(collector, stack, instance != null ? instance.getValue() : 0);
                 }
             });
-            for (NonNullList<ItemStack> playerInventory : player.getInventory().compartments) {
+            for (NotNullList<ItemStack> playerInventory : player.getInventory().compartments) {
                 for (ItemStack item : playerInventory) {
                     if (item.getItem() instanceof SpiritPouchItem) {
                         ItemInventory inventory = SpiritPouchItem.getInventory(item);

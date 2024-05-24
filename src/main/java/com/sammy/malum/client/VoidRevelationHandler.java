@@ -9,8 +9,8 @@ import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
 import com.sammy.malum.core.handlers.HiddenTagHandler;
 import net.minecraft.client.Minecraft;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -26,7 +26,7 @@ public class VoidRevelationHandler {
 	private static boolean checkedFile = false;
 	private static RevelationType revelationState = RevelationType.NEOPHYTE;
 
-	@OnlyIn(Dist.CLIENT)
+	@Environment(EnvType.CLIENT)
 	private static Path getPath() {
 		return Minecraft.getInstance().gameDirectory.toPath().resolve("malum_extra.json");
 	}

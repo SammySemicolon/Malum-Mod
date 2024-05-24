@@ -29,7 +29,7 @@ import net.minecraftforge.items.wrapper.InvWrapper;
 import net.minecraftforge.network.NetworkHooks;
 import team.lodestar.lodestone.systems.container.ItemInventory;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 import javax.annotation.Nullable;
 import java.util.Iterator;
 import java.util.stream.Stream;
@@ -125,9 +125,9 @@ public class SpiritPouchItem extends Item {
             opt = LazyOptional.of(() -> new InvWrapper(getInventory(stack)));
         }
 
-        @Nonnull
+        @NotNull
         @Override
-        public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> capability, @Nullable Direction facing) {
+        public <T> LazyOptional<T> getCapability(@NotNull Capability<T> capability, @Nullable Direction facing) {
             return ForgeCapabilities.ITEM_HANDLER.orEmpty(capability, opt);
         }
     }

@@ -4,8 +4,8 @@ package com.sammy.malum.visual_effects.networked.generic;
 import com.sammy.malum.visual_effects.networked.ParticleEffectType;
 import com.sammy.malum.visual_effects.networked.data.ColorEffectData;
 import net.minecraft.util.Mth;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import team.lodestar.lodestone.helpers.ColorHelper;
 import team.lodestar.lodestone.registry.common.particle.*;
 import team.lodestar.lodestone.systems.easing.Easing;
@@ -28,7 +28,7 @@ public class HexingSmokeParticleEffect extends ParticleEffectType {
         this.intensity = intensity;
     }
 
-    @OnlyIn(Dist.CLIENT)
+    @Environment(EnvType.CLIENT)
     @Override
     public Supplier<ParticleEffectType.ParticleEffectActor> get() {
         return () -> (level, random, positionData, colorData, nbtData) -> {

@@ -9,7 +9,8 @@ import com.sammy.malum.visual_effects.networked.data.*;
 import net.minecraft.nbt.*;
 import net.minecraft.util.*;
 import net.minecraft.world.phys.*;
-import net.minecraftforge.api.distmarker.*;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.registry.common.particle.*;
 import team.lodestar.lodestone.systems.easing.*;
@@ -32,7 +33,7 @@ public class EthericNitrateImpactParticleEffect extends ParticleEffectType {
         super(id);
     }
 
-    @OnlyIn(Dist.CLIENT)
+    @Environment(EnvType.CLIENT)
     @Override
     public Supplier<ParticleEffectActor> get() {
         return () -> (level, random, positionData, colorData, nbtData) -> {

@@ -18,7 +18,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import org.joml.Quaternionf;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 public class WeaversWorkbenchContainerScreen extends AbstractContainerScreen<WeaversWorkbenchContainer> {
 
@@ -41,7 +41,7 @@ public class WeaversWorkbenchContainerScreen extends AbstractContainerScreen<Wea
     }
 
     @Override
-    public void render(@Nonnull GuiGraphics poseStack, int mouseX, int mouseY, float partialTicks) {
+    public void render(@NotNull GuiGraphics poseStack, int mouseX, int mouseY, float partialTicks) {
         this.renderBackground(poseStack);
         super.render(poseStack, mouseX, mouseY, partialTicks);
         this.renderTooltip(poseStack, mouseX, mouseY);

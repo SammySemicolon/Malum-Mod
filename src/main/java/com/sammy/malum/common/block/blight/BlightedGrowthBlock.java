@@ -1,5 +1,6 @@
 package com.sammy.malum.common.block.blight;
 
+import io.github.fabricators_of_create.porting_lib.extensions.extensions.IShearable;
 import net.minecraft.core.*;
 import net.minecraft.server.level.*;
 import net.minecraft.util.*;
@@ -10,7 +11,7 @@ import net.minecraft.world.phys.shapes.*;
 
 import static com.sammy.malum.registry.common.block.BlockTagRegistry.*;
 
-public class BlightedGrowthBlock extends BushBlock implements BonemealableBlock, net.minecraftforge.common.IForgeShearable {
+public class BlightedGrowthBlock extends BushBlock implements BonemealableBlock, IShearable {
     protected static final VoxelShape SHAPE = Block.box(2.0D, 0.0D, 2.0D, 14.0D, 8.0D, 14.0D);
     public BlightedGrowthBlock(Properties p_57318_) {
         super(p_57318_);
@@ -22,7 +23,7 @@ public class BlightedGrowthBlock extends BushBlock implements BonemealableBlock,
     }
 
     @Override
-    protected boolean mayPlaceOn(BlockState pState, BlockGetter pLevel, BlockPos pPos) {
+    public boolean mayPlaceOn(BlockState pState, BlockGetter pLevel, BlockPos pPos) {
         if (pState.is(BLIGHTED_BLOCKS)) {
             return true;
         }

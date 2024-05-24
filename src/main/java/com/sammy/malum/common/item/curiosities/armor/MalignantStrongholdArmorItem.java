@@ -11,7 +11,8 @@ import net.minecraft.util.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.item.*;
-import net.minecraftforge.api.distmarker.*;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraftforge.client.extensions.common.*;
 import team.lodestar.lodestone.systems.model.*;
 
@@ -38,7 +39,7 @@ public class MalignantStrongholdArmorItem extends MalumArmorItem {
         return "malignant_stronghold";
     }
 
-    @OnlyIn(Dist.CLIENT)
+    @Environment(EnvType.CLIENT)
     @Override
     public void initializeClient(Consumer<IClientItemExtensions> consumer) {
         consumer.accept(new IClientItemExtensions() {

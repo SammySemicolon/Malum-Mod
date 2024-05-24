@@ -30,9 +30,9 @@ import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import org.apache.commons.compress.utils.Lists;
+import org.jetbrains.annotations.NotNull;
 import team.lodestar.lodestone.systems.recipe.IRecipeComponent;
 
-import javax.annotation.Nonnull;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -74,7 +74,7 @@ public class JEIHandler implements IModPlugin {
     }
 
     @Override
-    public void registerRecipes(@Nonnull IRecipeRegistration registry) {
+    public void registerRecipes(@NotNull IRecipeRegistration registry) {
         ClientLevel level = Minecraft.getInstance().level;
         if (level != null) {
             registry.addRecipes(SPIRIT_INFUSION, SpiritInfusionRecipe.getRecipes(level));
@@ -170,7 +170,7 @@ public class JEIHandler implements IModPlugin {
         hiddenStacks.clear();
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public ResourceLocation getPluginUid() {
         return ID;

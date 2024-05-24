@@ -6,7 +6,8 @@ import net.minecraft.client.*;
 import net.minecraft.core.registries.*;
 import net.minecraft.network.*;
 import net.minecraft.world.item.*;
-import net.minecraftforge.api.distmarker.*;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraftforge.network.*;
 import net.minecraftforge.network.simple.*;
 import team.lodestar.lodestone.systems.network.*;
@@ -27,7 +28,7 @@ public class SyncStaffCooldownChangesPacket extends LodestoneClientPacket {
         buf.writeInt(enchantmentLevel);
     }
 
-    @OnlyIn(Dist.CLIENT)
+    @Environment(EnvType.CLIENT)
     public void execute(Supplier<NetworkEvent.Context> context) {
         ReplenishingEnchantment.replenishStaffCooldown((AbstractStaffItem) item, Minecraft.getInstance().player, enchantmentLevel);
     }

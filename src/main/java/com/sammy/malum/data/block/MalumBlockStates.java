@@ -24,7 +24,7 @@ public class MalumBlockStates extends LodestoneBlockStateProvider {
         super(output, MALUM, exFileHelper, itemModelProvider);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public String getName() {
         return "Malum BlockStates";

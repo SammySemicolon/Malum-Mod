@@ -6,6 +6,7 @@ import com.sammy.malum.registry.common.item.*;
 import com.sammy.malum.visual_effects.*;
 import com.sammy.malum.visual_effects.networked.data.*;
 import net.minecraft.core.*;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.*;
 import net.minecraft.resources.*;
 import net.minecraft.sounds.*;
@@ -14,7 +15,6 @@ import net.minecraft.world.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.state.*;
-import net.minecraftforge.registries.*;
 import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.systems.blockentity.*;
 
@@ -331,7 +331,7 @@ public class VoidDepotBlockEntity extends LodestoneBlockEntity {
         @Override
         public CompoundTag serialize() {
             CompoundTag compoundTag = new CompoundTag();
-            compoundTag.putString("itemType", ForgeRegistries.ITEMS.getKey(item).toString());
+            compoundTag.putString("itemType", BuiltInRegistries.ITEM.getKey(item).toString());
             compoundTag.putInt("amount", amount);
             compoundTag.putInt("deliveredAmount", deliveredAmount);
             return compoundTag;
@@ -340,7 +340,7 @@ public class VoidDepotBlockEntity extends LodestoneBlockEntity {
         public static ItemGoal deserialize(CompoundTag compoundTag) {
             return new ItemGoal(
                     compoundTag.getString("goalName"),
-                    ForgeRegistries.ITEMS.getValue(new ResourceLocation(compoundTag.getString("itemType"))),
+                    BuiltInRegistries.ITEM.get(new ResourceLocation(compoundTag.getString("itemType"))),
                     compoundTag.getInt("amount"),
                     compoundTag.getInt("deliveredAmount"));
         }

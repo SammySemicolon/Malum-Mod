@@ -2,13 +2,14 @@ package com.sammy.malum.visual_effects.networked;
 
 import com.sammy.malum.registry.client.*;
 import com.sammy.malum.visual_effects.networked.data.*;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.*;
 import net.minecraft.core.*;
 import net.minecraft.nbt.*;
 import net.minecraft.util.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.phys.*;
-import net.minecraftforge.api.distmarker.*;
 import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.helpers.block.*;
 import team.lodestar.lodestone.registry.common.particle.*;
@@ -37,7 +38,7 @@ public class SapCollectionParticleEffect extends ParticleEffectType {
     }
 
 
-    @OnlyIn(Dist.CLIENT)
+    @Environment(EnvType.CLIENT)
     @Override
     public Supplier<ParticleEffectActor> get() {
         return () -> (level, random, positionData, colorData, nbtData) -> {

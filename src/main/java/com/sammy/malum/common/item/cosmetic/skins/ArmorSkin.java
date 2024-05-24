@@ -4,8 +4,8 @@ import com.sammy.malum.client.cosmetic.ArmorSkinRenderingData;
 import com.sammy.malum.registry.common.item.ArmorSkinRegistry;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import team.lodestar.lodestone.systems.item.LodestoneArmorItem;
 
 import java.util.Map;
@@ -25,7 +25,7 @@ public abstract class ArmorSkin {
         this.index = ArmorSkinRegistry.SKINS.size();
     }
 
-    @OnlyIn(Dist.CLIENT)
+    @Environment(EnvType.CLIENT)
     public abstract ArmorSkinRenderingData getRenderingData();
 
     public static String getApplicableItemSkinTag(ItemStack target, ItemStack weave) {

@@ -5,7 +5,6 @@ import mezz.jei.api.recipe.*;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.Collection;
 import java.util.HashSet;

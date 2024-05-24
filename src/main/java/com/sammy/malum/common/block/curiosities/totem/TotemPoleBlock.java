@@ -45,10 +45,9 @@ public class TotemPoleBlock<T extends TotemPoleBlockEntity> extends LodestoneEnt
         return 0;
     }
 
-
     @Override
-    public ItemStack getCloneItemStack(BlockState state, HitResult target, BlockGetter world, BlockPos pos, Player player) {
-        return logBlock.get().getCloneItemStack(world, pos, state);
+    public ItemStack getCloneItemStack(BlockGetter level, BlockPos pos, BlockState state) {
+        return logBlock.get().getCloneItemStack(level, pos, state);
     }
 
     @Override

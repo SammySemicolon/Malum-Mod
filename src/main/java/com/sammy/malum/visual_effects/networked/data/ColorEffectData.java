@@ -5,8 +5,8 @@ import com.sammy.malum.core.handlers.*;
 import com.sammy.malum.core.systems.recipe.SpiritWithCount;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import net.minecraft.network.FriendlyByteBuf;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nullable;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -75,9 +75,9 @@ public class ColorEffectData {
             for (ColorRecord colorRecord : this.colorRecordList) {
                 buf.writeInt(colorRecord.primaryColor.getRGB());
                 buf.writeInt(colorRecord.secondaryColor.getRGB());
-                boolean nonNullSpirit = colorRecord.spiritType != null;
-                buf.writeBoolean(nonNullSpirit);
-                if (nonNullSpirit) {
+                boolean NotNullSpirit = colorRecord.spiritType != null;
+                buf.writeBoolean(NotNullSpirit);
+                if (NotNullSpirit) {
                     buf.writeUtf(colorRecord.spiritType.identifier);
                 }
             }

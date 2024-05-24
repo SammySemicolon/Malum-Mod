@@ -11,7 +11,8 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.api.distmarker.*;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraftforge.network.PacketDistributor;
 import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.registry.common.particle.*;
@@ -104,7 +105,7 @@ public class VividNitrateEntity extends AbstractNitrateEntity {
     }
 
 
-    @OnlyIn(Dist.CLIENT)
+    @Environment(EnvType.CLIENT)
     @Override
     public void spawnParticles() {
         float scalar = age > MAX_AGE - 10 ? 1f - (age - MAX_AGE + 10) / 10f : 1f;

@@ -78,6 +78,11 @@ public class EtherBlockEntity extends LodestoneBlockEntity {
     }
 
     @Override
+    public ItemStack onClone(BlockState state, BlockGetter level, BlockPos pos) {
+        return super.onClone(state, level, pos);
+    }
+
+    @Override
     public ItemStack onClone(BlockState state, HitResult target, BlockGetter level, BlockPos pos, Player player) {
         ItemStack stack = state.getBlock().asItem().getDefaultInstance();
         AbstractEtherItem etherItem = (AbstractEtherItem) stack.getItem();

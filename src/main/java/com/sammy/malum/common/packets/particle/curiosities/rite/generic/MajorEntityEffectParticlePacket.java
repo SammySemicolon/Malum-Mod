@@ -4,8 +4,8 @@ import com.sammy.malum.common.packets.particle.base.color.ColorBasedParticleEffe
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraftforge.network.NetworkEvent;
 import net.minecraftforge.network.simple.SimpleChannel;
 import team.lodestar.lodestone.helpers.ColorHelper;
@@ -25,7 +25,7 @@ public class MajorEntityEffectParticlePacket extends ColorBasedParticleEffectPac
         super(color, posX, posY, posZ);
     }
 
-    @OnlyIn(Dist.CLIENT)
+    @Environment(EnvType.CLIENT)
     @Override
     public void execute(Supplier<NetworkEvent.Context> context) {
         Level level = Minecraft.getInstance().level;

@@ -18,15 +18,13 @@ import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.block.entity.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.phys.*;
-import net.minecraftforge.api.distmarker.*;
-import net.minecraftforge.common.*;
-import net.minecraftforge.common.capabilities.*;
-import net.minecraftforge.common.util.*;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import org.jetbrains.annotations.Nullable;
 import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.systems.blockentity.*;
 import team.lodestar.lodestone.systems.multiblock.*;
 
-import javax.annotation.*;
 import java.util.*;
 import java.util.function.*;
 
@@ -156,7 +154,7 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity impleme
         }
     }
 
-    @OnlyIn(Dist.CLIENT)
+    @Environment(EnvType.CLIENT)
     @Override
     public void addParticles(ICatalyzerAccelerationTarget target, MalumSpiritType spiritType) {
         if (burnTicks > 0) {
@@ -217,9 +215,9 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity impleme
         return CATALYZER_AUGMENT_OFFSET;
     }
 
-    @Nonnull
+    @NotNull
     @Override
-    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, Direction side) {
+    public <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, Direction side) {
         if (cap == ForgeCapabilities.ITEM_HANDLER) {
             return inventory.inventoryOptional.cast();
         }

@@ -6,8 +6,8 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraftforge.network.NetworkEvent;
 import net.minecraftforge.network.simple.SimpleChannel;
 import team.lodestar.lodestone.systems.network.LodestoneClientPacket;
@@ -28,7 +28,7 @@ public class SyncLivingCapabilityDataPacket extends LodestoneClientPacket {
         buf.writeNbt(tag);
     }
 
-    @OnlyIn(Dist.CLIENT)
+    @Environment(EnvType.CLIENT)
     public void execute(Supplier<NetworkEvent.Context> context) {
         Entity entity = Minecraft.getInstance().level.getEntity(entityId);
         if (entity instanceof LivingEntity livingEntity) {

@@ -3,7 +3,8 @@ package com.sammy.malum.core.systems.spirit;
 import com.sammy.malum.common.block.mana_mote.*;
 import com.sammy.malum.common.item.spirit.*;
 import net.minecraft.network.chat.*;
-import net.minecraftforge.api.distmarker.*;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import team.lodestar.lodestone.systems.particle.builder.*;
 import team.lodestar.lodestone.systems.particle.render_types.*;
 
@@ -23,7 +24,7 @@ public class UmbralSpiritType extends MalumSpiritType {
         return TextColor.fromRgb(INVERT_COLOR);
     }
 
-    @OnlyIn(Dist.CLIENT)
+    @Environment(EnvType.CLIENT)
     @Override
     public <K extends AbstractWorldParticleBuilder<K, ?>> Consumer<K> applyWorldParticleChanges() {
         return b -> {

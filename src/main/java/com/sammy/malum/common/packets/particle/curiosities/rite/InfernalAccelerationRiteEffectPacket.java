@@ -6,8 +6,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraftforge.network.NetworkEvent;
 import net.minecraftforge.network.simple.SimpleChannel;
 import team.lodestar.lodestone.registry.common.particle.*;
@@ -28,7 +28,7 @@ public class InfernalAccelerationRiteEffectPacket extends SpiritBasedBlockPartic
         super(spirits, pos);
     }
 
-    @OnlyIn(Dist.CLIENT)
+    @Environment(EnvType.CLIENT)
     @Override
     public void execute(Supplier<NetworkEvent.Context> context, MalumSpiritType spiritType) {
         Level level = Minecraft.getInstance().level;

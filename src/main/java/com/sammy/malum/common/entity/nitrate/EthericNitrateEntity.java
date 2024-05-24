@@ -9,7 +9,8 @@ import com.sammy.malum.visual_effects.networked.data.*;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.api.distmarker.*;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.systems.easing.Easing;
 import team.lodestar.lodestone.systems.particle.*;
@@ -56,7 +57,7 @@ public class EthericNitrateEntity extends AbstractNitrateEntity {
         return new ColorEffectData(AURIC_YELLOW, AURIC_PURPLE);
     }
 
-    @OnlyIn(Dist.CLIENT)
+    @Environment(EnvType.CLIENT)
     @Override
     public void spawnParticles() {
         float scalar = age > MAX_AGE - 10 ? 1f - (age - MAX_AGE + 10) / 10f : 1f;

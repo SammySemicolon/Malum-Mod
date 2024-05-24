@@ -15,7 +15,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.items.SlotItemHandler;
 import team.lodestar.lodestone.systems.item.LodestoneArmorItem;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 import java.util.Objects;
 
 public class WeaversWorkbenchContainer extends AbstractContainerMenu {
@@ -68,7 +68,7 @@ public class WeaversWorkbenchContainer extends AbstractContainerMenu {
         }
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public ItemStack quickMoveStack(Player playerIn, int index) {
         ItemStack itemstack = ItemStack.EMPTY;
@@ -102,8 +102,8 @@ public class WeaversWorkbenchContainer extends AbstractContainerMenu {
     }
 
     private static WeaversWorkbenchBlockEntity getTileEntity(final Inventory playerInventory, final FriendlyByteBuf data) {
-        Objects.requireNonNull(playerInventory, "playerInventory cannot be null");
-        Objects.requireNonNull(data, "data cannot be null");
+        Objects.requireNotNull(playerInventory, "playerInventory cannot be null");
+        Objects.requireNotNull(data, "data cannot be null");
         final BlockEntity tileAtPos = playerInventory.player.level().getBlockEntity(data.readBlockPos());
         if (tileAtPos instanceof WeaversWorkbenchBlockEntity weaversWorkbenchBlockEntity) {
             return weaversWorkbenchBlockEntity;

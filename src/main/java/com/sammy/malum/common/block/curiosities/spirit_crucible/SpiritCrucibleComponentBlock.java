@@ -13,9 +13,6 @@ import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.items.ItemHandlerHelper;
-import net.minecraftforge.items.wrapper.EmptyHandler;
 import team.lodestar.lodestone.systems.multiblock.MultiBlockComponentEntity;
 import team.lodestar.lodestone.systems.multiblock.MultiblockComponentBlock;
 
@@ -28,7 +25,7 @@ public class SpiritCrucibleComponentBlock extends MultiblockComponentBlock {
     }
 
     @Override
-    public ItemStack getCloneItemStack(BlockState state, HitResult target, BlockGetter world, BlockPos pos, Player player) {
+    public ItemStack getCloneItemStack(BlockGetter level, BlockPos pos, BlockState state) {
         return ItemRegistry.SPIRIT_CRUCIBLE.get().getDefaultInstance();
     }
 

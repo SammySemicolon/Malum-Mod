@@ -8,8 +8,8 @@ import com.sammy.malum.visual_effects.networked.data.PositionEffectData;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraftforge.network.NetworkEvent;
 import net.minecraftforge.network.simple.SimpleChannel;
 import team.lodestar.lodestone.systems.network.LodestoneClientPacket;
@@ -36,19 +36,19 @@ public class ParticleEffectPacket extends LodestoneClientPacket {
     public void encode(FriendlyByteBuf buf) {
         buf.writeUtf(id);
         positionData.encode(buf);
-        boolean nonNullColorData = colorData != null;
-        buf.writeBoolean(nonNullColorData);
-        if (nonNullColorData) {
+        boolean NotNullColorData = colorData != null;
+        buf.writeBoolean(NotNullColorData);
+        if (NotNullColorData) {
             colorData.encode(buf);
         }
-        boolean nonNullCompoundTag = nbtData != null;
-        buf.writeBoolean(nonNullCompoundTag);
-        if (nonNullCompoundTag) {
+        boolean NotNullCompoundTag = nbtData != null;
+        buf.writeBoolean(NotNullCompoundTag);
+        if (NotNullCompoundTag) {
             buf.writeNbt(nbtData.compoundTag);
         }
     }
 
-    @OnlyIn(Dist.CLIENT)
+    @Environment(EnvType.CLIENT)
     public void execute(Supplier<NetworkEvent.Context> context) {
         Minecraft instance = Minecraft.getInstance();
         ClientLevel level = instance.level;

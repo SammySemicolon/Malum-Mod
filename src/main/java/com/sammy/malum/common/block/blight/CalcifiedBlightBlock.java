@@ -3,6 +3,7 @@ package com.sammy.malum.common.block.blight;
 import com.sammy.malum.registry.common.*;
 import com.sammy.malum.registry.common.block.*;
 import com.sammy.malum.registry.common.item.*;
+import io.github.fabricators_of_create.porting_lib.extensions.extensions.IShearable;
 import net.minecraft.core.*;
 import net.minecraft.sounds.*;
 import net.minecraft.world.*;
@@ -20,7 +21,7 @@ import java.util.stream.*;
 
 import static com.sammy.malum.registry.common.block.BlockTagRegistry.*;
 
-public class CalcifiedBlightBlock extends BushBlock implements net.minecraftforge.common.IForgeShearable {
+public class CalcifiedBlightBlock extends BushBlock implements IShearable {
 
     protected static final List<VoxelShape> SHAPES = IntStream.range(0, 4).boxed().map(i -> Block.box(2.0D, 0.0D, 2.0D, 14.0D, 6 + i * 2, 14.0D)).collect(Collectors.toList());
     public static final IntegerProperty STAGE = IntegerProperty.create("stage", 0, 3);
@@ -61,7 +62,7 @@ public class CalcifiedBlightBlock extends BushBlock implements net.minecraftforg
     }
 
     @Override
-    protected boolean mayPlaceOn(BlockState pState, BlockGetter pLevel, BlockPos pPos) {
+    public boolean mayPlaceOn(BlockState pState, BlockGetter pLevel, BlockPos pPos) {
         if (pState.is(BLIGHTED_BLOCKS)) {
             return true;
         }

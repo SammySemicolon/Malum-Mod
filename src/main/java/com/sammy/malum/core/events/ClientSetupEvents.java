@@ -2,7 +2,8 @@ package com.sammy.malum.core.events;
 
 import com.sammy.malum.core.handlers.*;
 import com.sammy.malum.registry.client.*;
-import net.minecraftforge.api.distmarker.*;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraftforge.client.event.*;
 import net.minecraftforge.client.gui.overlay.*;
 import net.minecraftforge.eventbus.api.*;

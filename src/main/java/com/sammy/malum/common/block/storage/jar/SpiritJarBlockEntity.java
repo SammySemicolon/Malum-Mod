@@ -18,8 +18,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
@@ -34,7 +34,7 @@ import team.lodestar.lodestone.systems.particle.data.GenericParticleData;
 import team.lodestar.lodestone.systems.particle.data.color.ColorParticleData;
 import team.lodestar.lodestone.systems.particle.data.spin.SpinParticleData;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 import java.awt.*;
 import java.util.UUID;
 
@@ -267,9 +267,9 @@ public class SpiritJarBlockEntity extends LodestoneBlockEntity {
                 .repeat(level, pos.getX() + 0.5f, pos.getY() + 0.5f + Math.sin(level.getGameTime() / 20f) * 0.2f, pos.getZ() + 0.5f, 10);
     }
 
-    @Nonnull
+    @NotNull
     @Override
-    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, Direction side) {
+    public <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, Direction side) {
         if (cap == ForgeCapabilities.ITEM_HANDLER) {
             return inventory.cast();
         }

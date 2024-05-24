@@ -14,7 +14,7 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
-import net.minecraftforge.common.util.NonNullLazy;
+import net.minecraftforge.common.util.NotNullLazy;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -55,7 +55,7 @@ public class SpiritJarItem extends BlockItem {
     @Override
     public void initializeClient(Consumer<IClientItemExtensions> consumer) {
         consumer.accept(new IClientItemExtensions() {
-            static final NonNullLazy<BlockEntityWithoutLevelRenderer> renderer = NonNullLazy.of(() -> new SpiritJarItemRenderer(Minecraft.getInstance().getBlockEntityRenderDispatcher(), Minecraft.getInstance().getEntityModels()));
+            static final NotNullLazy<BlockEntityWithoutLevelRenderer> renderer = NotNullLazy.of(() -> new SpiritJarItemRenderer(Minecraft.getInstance().getBlockEntityRenderDispatcher(), Minecraft.getInstance().getEntityModels()));
 
             @Override
             public BlockEntityWithoutLevelRenderer getCustomRenderer() {

@@ -5,8 +5,8 @@ import com.sammy.malum.core.handlers.*;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraftforge.network.NetworkEvent;
 
 import java.util.ArrayList;
@@ -29,14 +29,14 @@ public abstract class SpiritBasedBlockParticleEffectPacket extends BlockBasedPar
         super.encode(buf);
     }
 
-    @OnlyIn(Dist.CLIENT)
+    @Environment(EnvType.CLIENT)
     public void execute(Supplier<NetworkEvent.Context> context) {
         for (String string : spirits) {
             execute(context, SpiritHarvestHandler.getSpiritType(string));
         }
     }
 
-    @OnlyIn(Dist.CLIENT)
+    @Environment(EnvType.CLIENT)
     public abstract void execute(Supplier<NetworkEvent.Context> context, MalumSpiritType spiritType);
 
     public static <T extends SpiritBasedBlockParticleEffectPacket> T decode(PacketProvider<T> provider, FriendlyByteBuf buf) {

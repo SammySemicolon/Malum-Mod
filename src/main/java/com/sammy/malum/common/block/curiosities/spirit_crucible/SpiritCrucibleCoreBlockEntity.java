@@ -24,17 +24,11 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.entity.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.phys.*;
-import net.minecraftforge.common.capabilities.*;
-import net.minecraftforge.common.util.*;
-import net.minecraftforge.items.*;
-import net.minecraftforge.items.wrapper.*;
 import org.jetbrains.annotations.*;
 import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.systems.blockentity.*;
 import team.lodestar.lodestone.systems.multiblock.*;
 
-import javax.annotation.Nullable;
-import javax.annotation.*;
 import java.util.*;
 import java.util.function.*;
 
@@ -399,9 +393,9 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
         return DataHelper.rotatingRadialOffset(new Vec3(0.5f, height, 0.5f), distance, slot, augmentInventory.slotCount, (long) (spiritSpin + partialTicks), 240);
     }
 
-    @Nonnull
+    @NotNull
     @Override
-    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, Direction side) {
+    public <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, Direction side) {
         if (cap == ForgeCapabilities.ITEM_HANDLER) {
             return combinedInventory.cast();
         }

@@ -80,7 +80,7 @@ public class CreativeTabRegistry {
         final ResourceKey<CreativeModeTab> tabKey = event.getTabKey();
         if (TAB_SORTING.containsKey(tabKey)) {
             TAB_SORTING.get(tabKey).stream().map(ForgeRegistries.ITEMS::getValue)
-                .filter(Objects::nonNull)
+                .filter(Objects::NotNull)
                 .forEach(event::accept);
         }
     }

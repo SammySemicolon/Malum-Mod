@@ -5,8 +5,8 @@ import com.sammy.malum.visual_effects.networked.ParticleEffectType;
 import com.sammy.malum.visual_effects.networked.data.ColorEffectData;
 import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import team.lodestar.lodestone.registry.common.particle.*;
 import team.lodestar.lodestone.systems.easing.Easing;
 import team.lodestar.lodestone.systems.particle.LodestoneWorldParticleActor;
@@ -30,7 +30,7 @@ public class DrippingSmokeParticleEffect extends ParticleEffectType {
         this.intensity = intensity;
     }
 
-    @OnlyIn(Dist.CLIENT)
+    @Environment(EnvType.CLIENT)
     @Override
     public Supplier<ParticleEffectActor> get() {
         return () -> (level, random, positionData, colorData, nbtData) -> {
