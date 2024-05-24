@@ -1,12 +1,12 @@
 package com.sammy.malum.common.block.nature.soulwood;
 
 import com.sammy.malum.registry.common.SoundRegistry;
+import io.github.fabricators_of_create.porting_lib.tool.ToolAction;
+import io.github.fabricators_of_create.porting_lib.tool.ToolActions;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.ToolAction;
-import net.minecraftforge.common.ToolActions;
 import org.jetbrains.annotations.Nullable;
 import team.lodestar.lodestone.systems.block.LodestoneLogBlock;
 

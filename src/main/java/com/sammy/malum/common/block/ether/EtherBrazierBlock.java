@@ -16,8 +16,8 @@ import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nullable;
 
 public class EtherBrazierBlock<T extends EtherBlockEntity> extends EtherBlock<T> {
     public static final VoxelShape SHAPE = Block.box(4, 0, 4, 12, 8, 12);

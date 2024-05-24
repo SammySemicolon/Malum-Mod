@@ -4,6 +4,7 @@ import com.sammy.malum.common.block.curiosities.weavers_workbench.WeaversWorkben
 import com.sammy.malum.common.block.curiosities.weavers_workbench.WeaversWorkbenchItemHandler;
 import com.sammy.malum.common.item.cosmetic.weaves.AbstractWeaveItem;
 import com.sammy.malum.registry.common.ContainerRegistry;
+import io.github.fabricators_of_create.porting_lib.transfer.item.SlotItemHandler;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
@@ -12,7 +13,6 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.items.SlotItemHandler;
 import team.lodestar.lodestone.systems.item.LodestoneArmorItem;
 
 import org.jetbrains.annotations.NotNull;
