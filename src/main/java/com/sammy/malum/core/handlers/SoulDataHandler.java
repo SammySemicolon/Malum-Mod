@@ -3,6 +3,7 @@ package com.sammy.malum.core.handlers;
 import com.sammy.malum.common.components.MalumLivingEntityDataCapability;
 import com.sammy.malum.common.entity.boomerang.ScytheBoomerangEntity;
 import com.sammy.malum.registry.common.item.ItemTagRegistry;
+import io.github.fabricators_of_create.porting_lib.entity.events.LivingEntityEvents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
@@ -89,7 +90,7 @@ public class SoulDataHandler {
         }
     }
 
-    public static void manageSoul(LivingEvent.LivingTickEvent event) {
+    public static void manageSoul(LivingEntityEvents.LivingTickEvent event) {
         LivingEntity entity = event.getEntity();
         SoulDataHandler soulData = MalumLivingEntityDataCapability.getCapability(entity).soulData;
         if (soulData.exposedSoulDuration > 0) {
@@ -109,4 +110,6 @@ public class SoulDataHandler {
         }
         return stack;
     }
+
+
 }

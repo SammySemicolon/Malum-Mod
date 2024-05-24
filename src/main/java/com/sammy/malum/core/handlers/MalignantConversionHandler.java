@@ -4,11 +4,11 @@ import com.mojang.datafixers.util.*;
 import com.sammy.malum.common.components.*;
 import com.sammy.malum.core.listeners.*;
 import com.sammy.malum.registry.common.*;
+import io.github.fabricators_of_create.porting_lib.entity.events.LivingEntityEvents;
 import net.minecraft.network.chat.*;
 import net.minecraft.util.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.*;
-import net.minecraftforge.event.entity.living.*;
 
 import java.util.*;
 
@@ -20,10 +20,11 @@ public class MalignantConversionHandler {
     public final HashMap<Attribute, Double> cachedAttributeValues = new HashMap<>();
     public boolean skipConversionLogic;
 
-    public static void checkForAttributeChanges(LivingEvent.LivingTickEvent event) {
+
+    public static void checkForAttributeChanges(LivingEntityEvents.LivingTickEvent event) {
         final LivingEntity livingEntity = event.getEntity();
         if (!livingEntity.level().isClientSide) {
-            var handler = MalumLivingEntityDataCapability.getCapability(livingEntity).malignantConversionHandler;
+            var handler = MalumComponents.MALUM_LIVING_ENTITY_COMPONENT.get(livingEntity).malignantConversionHandler;
             final Attribute conversionAttribute = AttributeRegistry.MALIGNANT_CONVERSION.get();
             AttributeInstance conversionInstance = livingEntity.getAttribute(conversionAttribute);
             if (conversionInstance != null) {
@@ -67,7 +68,7 @@ public class MalignantConversionHandler {
 
         final AttributeInstance sourceInstance = livingEntity.getAttribute(sourceAttribute);
         if (sourceInstance != null) {
-            var handler = MalumLivingEntityDataCapability.getCapability(livingEntity).malignantConversionHandler;
+            var handler = MalumComponents.MALUM_LIVING_ENTITY_COMPONENT.get(livingEntity).malignantConversionHandler;
             final AttributeModifier originalModifier = sourceInstance.getModifier(MALIGNANT_CONVERSION_UUID);
             if (originalModifier != null) {
                 sourceInstance.removeModifier(originalModifier);
@@ -100,4 +101,6 @@ public class MalignantConversionHandler {
             }
         }
     }
+
+
 }

@@ -15,3 +15,4 @@ accessible method net/minecraft/world/level/block/PointedDripstoneBlock isStalac
 accessible method net/minecraft/world/level/block/entity/AbstractFurnaceBlockEntity isLit ()Z
 accessible field net/minecraft/world/level/block/entity/AbstractFurnaceBlockEntity cookingProgress I
 accessible field net/minecraft/world/level/block/entity/AbstractFurnaceBlockEntity cookingTotalTime I
+accessible field net/minecraft/world/entity/player/Inventory compartments Ljava/util/List;

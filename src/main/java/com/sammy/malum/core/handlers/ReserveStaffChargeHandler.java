@@ -5,7 +5,6 @@ import com.sammy.malum.registry.common.*;
 import net.minecraft.nbt.*;
 import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.player.*;
-import net.minecraftforge.event.*;
 
 public class ReserveStaffChargeHandler {
     public int chargeCount;
@@ -23,18 +22,17 @@ public class ReserveStaffChargeHandler {
         chargeProgress = tag.getFloat("chargeProgress");
     }
 
-    public static void recoverStaffCharges(TickEvent.PlayerTickEvent event) {
-        Player player = event.player;
+    public static void recoverStaffCharges(Player player) {
         if (!player.level().isClientSide) {
             AttributeInstance reserveStaffCharges = player.getAttribute(AttributeRegistry.RESERVE_STAFF_CHARGES.get());
             if (reserveStaffCharges != null) {
-                ReserveStaffChargeHandler chargeHandler = MalumPlayerDataCapability.getCapability(player).reserveStaffChargeHandler;
+                ReserveStaffChargeHandler chargeHandler = MalumComponents.MALUM_PLAYER_COMPONENT.get(player).reserveStaffChargeHandler;
                 if (chargeHandler.chargeCount < reserveStaffCharges.getValue()) {
                     chargeHandler.chargeProgress++;
                     if (chargeHandler.chargeProgress >= 600) {
                         chargeHandler.chargeProgress = 0;
                         chargeHandler.chargeCount++;
-                        MalumPlayerDataCapability.syncTrackingAndSelf(player);
+                        MalumComponents.MALUM_PLAYER_COMPONENT.sync(player);
                     }
                 }
             }

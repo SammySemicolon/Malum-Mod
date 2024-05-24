@@ -7,13 +7,13 @@ import com.sammy.malum.client.VoidRevelationHandler;
 import com.sammy.malum.common.block.curiosities.weeping_well.PrimordialSoupBlock;
 import com.sammy.malum.common.block.curiosities.weeping_well.VoidConduitBlock;
 import com.sammy.malum.common.block.curiosities.weeping_well.VoidConduitBlockEntity;
-import com.sammy.malum.common.components.MalumLivingEntityDataCapability;
-import com.sammy.malum.common.components.MalumPlayerDataCapability;
+import com.sammy.malum.common.components.MalumComponents;
 import com.sammy.malum.common.packets.VoidRejectionPacket;
 import com.sammy.malum.registry.client.ShaderRegistry;
 import com.sammy.malum.registry.common.*;
 import com.sammy.malum.registry.common.item.ItemRegistry;
 import com.sammy.malum.visual_effects.networked.data.PositionEffectData;
+import io.github.fabricators_of_create.porting_lib.entity.events.LivingEntityEvents;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.BlockPos;
@@ -29,8 +29,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.ForgeMod;
-import net.minecraftforge.event.entity.living.LivingEvent;
 
 import team.lodestar.lodestone.helpers.BlockHelper;
 import team.lodestar.lodestone.systems.easing.Easing;
@@ -85,7 +83,7 @@ public class TouchOfDarknessHandler {
     }
 
     public static void handlePrimordialSoupContact(LivingEntity livingEntity) {
-        TouchOfDarknessHandler touchOfDarknessHandler = MalumLivingEntityDataCapability.getCapability(livingEntity).touchOfDarknessHandler;
+        TouchOfDarknessHandler touchOfDarknessHandler = MalumComponents.MALUM_LIVING_ENTITY_COMPONENT.get(livingEntity).touchOfDarknessHandler;
         if (touchOfDarknessHandler.rejection > 0) {
             return;
         }
@@ -97,10 +95,10 @@ public class TouchOfDarknessHandler {
         return BlockHelper.getBlockEntitiesStream(VoidConduitBlockEntity.class, livingEntity.level(), livingEntity.blockPosition(), 8).findFirst();
     }
 
-    public static void entityTick(LivingEvent.LivingTickEvent event) {
+    public static void entityTick(LivingEntityEvents.LivingTickEvent event) {
         LivingEntity livingEntity = event.getEntity();
         Level level = livingEntity.level();
-        TouchOfDarknessHandler handler = MalumLivingEntityDataCapability.getCapability(livingEntity).touchOfDarknessHandler;
+        TouchOfDarknessHandler handler = MalumComponents.MALUM_LIVING_ENTITY_COMPONENT.get(livingEntity).touchOfDarknessHandler;
 
         if (livingEntity instanceof Player player) {
             if (level.getGameTime() % 20L == 0) {
@@ -184,13 +182,13 @@ public class TouchOfDarknessHandler {
             return;
         }
 
-        var playerDataCapability = MalumPlayerDataCapability.getCapability(player);
+        var playerDataCapability = MalumComponents.MALUM_PLAYER_COMPONENT.get(player);
 
         final Level level = livingEntity.level();
         progressToRejection = 0;
         rejection = 40;
         if (!level.isClientSide) {
-            PacketRegistry.MALUM_CHANNEL.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> livingEntity), new VoidRejectionPacket(livingEntity.getId()));
+            PacketRegistry.MALUM_CHANNEL.sendToClientsTrackingAndSelf(new VoidRejectionPacket(livingEntity.getId()), livingEntity);
             final Optional<VoidConduitBlockEntity> voidConduitBlockEntity = checkForWeepingWell(livingEntity);
             if (voidConduitBlockEntity.isPresent()) {
                 VoidConduitBlockEntity weepingWell = voidConduitBlockEntity.get();
@@ -225,7 +223,7 @@ public class TouchOfDarknessHandler {
     }
 
     public static double updateEntityGravity(LivingEntity livingEntity) {
-        TouchOfDarknessHandler handler = MalumLivingEntityDataCapability.getCapability(livingEntity).touchOfDarknessHandler;
+        TouchOfDarknessHandler handler = MalumComponents.MALUM_LIVING_ENTITY_COMPONENT.get(livingEntity).touchOfDarknessHandler;
         if (handler.progressToRejection > 0) {
             return -Math.min(60, handler.progressToRejection) / 60f;
         }
@@ -239,7 +237,7 @@ public class TouchOfDarknessHandler {
             Minecraft minecraft = Minecraft.getInstance();
             PoseStack poseStack = guiGraphics.pose();
             Player player = minecraft.player;
-            TouchOfDarknessHandler darknessHandler = MalumLivingEntityDataCapability.getCapability(player).touchOfDarknessHandler;
+            TouchOfDarknessHandler darknessHandler = MalumComponents.MALUM_LIVING_ENTITY_COMPONENT.get(player).touchOfDarknessHandler;
             if (darknessHandler.currentAffliction == 0f) {
                 return;
             }

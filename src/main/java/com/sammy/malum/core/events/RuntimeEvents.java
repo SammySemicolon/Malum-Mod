@@ -23,16 +23,7 @@ import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.phys.*;
-import net.minecraftforge.event.*;
-import net.minecraftforge.event.entity.*;
-import net.minecraftforge.event.entity.item.*;
-import net.minecraftforge.event.entity.living.*;
-import net.minecraftforge.event.entity.player.*;
-import net.minecraftforge.event.level.*;
-import net.minecraftforge.eventbus.api.*;
-import net.minecraftforge.fml.common.*;
 
-@Mod.EventBusSubscriber
 public class RuntimeEvents {
 
     @SubscribeEvent
@@ -101,9 +92,7 @@ public class RuntimeEvents {
 
     @SubscribeEvent
     public static void onLivingTick(LivingEvent.LivingTickEvent event) {
-        SoulDataHandler.manageSoul(event);
-        MalignantConversionHandler.checkForAttributeChanges(event);
-        TouchOfDarknessHandler.entityTick(event);
+
     }
 
     @SubscribeEvent

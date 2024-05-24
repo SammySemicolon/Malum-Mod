@@ -21,7 +21,6 @@ public class MalumModClient implements ClientModInitializer {
 
         ParticleRegistry.registerParticleFactory();
         ScreenParticleRegistry.registerParticleFactory();
-        HudRenderCallback.EVENT.register();
     }
 
     private void startTick(Minecraft minecraft) {

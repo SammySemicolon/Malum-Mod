@@ -2,15 +2,18 @@ package com.sammy.malum;
 
 import com.sammy.malum.compability.farmersdelight.*;
 import com.sammy.malum.config.*;
-import com.sammy.malum.core.handlers.SoulDataHandler;
-import com.sammy.malum.core.handlers.SoulWardHandler;
+import com.sammy.malum.core.handlers.*;
 import com.sammy.malum.registry.common.PacketRegistry;
 import com.sammy.malum.registry.common.item.tabs.*;
 import io.github.fabricators_of_create.porting_lib.config.ConfigRegistry;
 import io.github.fabricators_of_create.porting_lib.config.ConfigType;
+import io.github.fabricators_of_create.porting_lib.entity.events.EntityEvents;
+import io.github.fabricators_of_create.porting_lib.entity.events.LivingDeathEvent;
+import io.github.fabricators_of_create.porting_lib.entity.events.LivingEntityEvents;
 import io.github.fabricators_of_create.porting_lib.entity.events.PlayerTickEvents;
 import io.github.fabricators_of_create.porting_lib.entity.events.living.LivingHurtEvent;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.minecraft.resources.*;
 import net.minecraft.util.*;
 import org.apache.logging.log4j.*;
@@ -67,8 +70,17 @@ public class MalumMod implements ModInitializer {
 
         FarmersDelightCompat.init();
 
+
         LivingHurtEvent.HURT.register(SoulWardHandler::shieldPlayer);
+        LivingEntityEvents.DROPS.register(SpiritHarvestHandler::modifyDroppedItems);
         PlayerTickEvents.START.register(SoulWardHandler::recoverSoulWard);
+        PlayerTickEvents.START.register(ReserveStaffChargeHandler::recoverStaffCharges);
+        ServerLivingEntityEvents.ALLOW_DEATH.register(EsotericReapingHandler::tryCreateReapingDrops);
+        ServerLivingEntityEvents.ALLOW_DEATH.register(SpiritHarvestHandler::shatterSoul);
+        LivingEntityEvents.LivingTickEvent.TICK.register(MalignantConversionHandler::checkForAttributeChanges);
+        LivingEntityEvents.LivingTickEvent.TICK.register(SoulDataHandler::manageSoul);
+        LivingEntityEvents.LivingTickEvent.TICK.register(TouchOfDarknessHandler::entityTick);
+
 
         modBus.addListener(CreativeTabRegistry::populateItemGroups);
     }

@@ -1,11 +1,13 @@
 package com.sammy.malum.core.handlers;
 
-import com.sammy.malum.common.components.MalumLivingEntityDataCapability;
-import com.sammy.malum.common.components.MalumPlayerDataCapability;
+import com.sammy.malum.common.components.MalumComponents;
 import com.sammy.malum.config.CommonConfig;
 import com.sammy.malum.core.listeners.ReapingDataReloadListener;
 import com.sammy.malum.registry.common.item.ItemRegistry;
+import io.github.fabricators_of_create.porting_lib.entity.events.LivingDeathEvent;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.util.Mth;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobType;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -13,21 +15,16 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.event.entity.living.LivingDeathEvent;
-import net.minecraftforge.registries.ForgeRegistries;
 import team.lodestar.lodestone.helpers.ItemHelper;
 
 import java.util.List;
 
 public class EsotericReapingHandler {
 
-    public static void tryCreateReapingDrops(LivingDeathEvent event) {
-        if (event.isCanceled()) {
-            return;
-        }
-        LivingEntity target = event.getEntity();
+    public static boolean tryCreateReapingDrops(LivingEntity livingEntity, DamageSource damageSource, float v) {
+        LivingEntity target = livingEntity;
         LivingEntity attacker = null;
-        if (event.getSource().getEntity() instanceof LivingEntity directAttacker) {
+        if (damageSource.getEntity() instanceof LivingEntity directAttacker) {
             attacker = directAttacker;
         }
         if (attacker == null) {
@@ -35,7 +32,7 @@ public class EsotericReapingHandler {
         }
         if (CommonConfig.AWARD_CODEX_ON_KILL.getConfigValue()) {
             if (target.getMobType().equals(MobType.UNDEAD) && attacker instanceof Player player) {
-                MalumPlayerDataCapability.getCapabilityOptional(player).ifPresent(c -> {
+                MalumComponents.MALUM_PLAYER_COMPONENT.maybeGet(player).ifPresent(c -> {
                     if (!c.obtainedEncyclopedia && player.getRandom().nextFloat() < 0.2f) {
                         c.obtainedEncyclopedia = true;
                         SpiritHarvestHandler.spawnItemAsSpirit(ItemRegistry.ENCYCLOPEDIA_ARCANA.get().getDefaultInstance(), target, player);
@@ -43,9 +40,9 @@ public class EsotericReapingHandler {
                 });
             }
         }
-        List<ReapingDataReloadListener.MalumReapingDropsData> data = ReapingDataReloadListener.REAPING_DATA.get(ForgeRegistries.ENTITY_TYPES.getKey(target.getType()));
+        List<ReapingDataReloadListener.MalumReapingDropsData> data = ReapingDataReloadListener.REAPING_DATA.get(BuiltInRegistries.ENTITY_TYPE.getKey(target.getType()));
         if (data != null) {
-            SoulDataHandler soulData = MalumLivingEntityDataCapability.getCapability(target).soulData;
+            SoulDataHandler soulData = MalumComponents.MALUM_LIVING_ENTITY_COMPONENT.get(target).soulData;
             if (soulData.exposedSoulDuration > 0) {
                 for (ReapingDataReloadListener.MalumReapingDropsData dropData : data) {
                     Level level = target.level();
@@ -61,5 +58,6 @@ public class EsotericReapingHandler {
                 }
             }
         }
+        return true;
     }
 }
