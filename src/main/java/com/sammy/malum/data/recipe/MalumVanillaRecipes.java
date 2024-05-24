@@ -2,6 +2,8 @@ package com.sammy.malum.data.recipe;
 
 import com.sammy.malum.*;
 import com.sammy.malum.common.item.impetus.*;
+import com.sammy.malum.data.NotCondition;
+import com.sammy.malum.data.TagEmptyCondition;
 import com.sammy.malum.data.recipe.builder.vanilla.*;
 import com.sammy.malum.registry.common.item.*;
 import io.github.fabricators_of_create.porting_lib.data.ConditionalRecipe;

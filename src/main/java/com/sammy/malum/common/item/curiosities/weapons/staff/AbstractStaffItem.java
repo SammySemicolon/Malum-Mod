@@ -86,7 +86,7 @@ public abstract class AbstractStaffItem extends ModCombatItem implements IMalumE
                         pStack.hurtAndBreak(2, player, (p_220009_1_) -> {
                             p_220009_1_.broadcastBreakEvent(hand);
                         });
-                        final MalumPlayerDataCapability capability = MalumPlayerDataCapability.getCapability(player);
+                        final var capability = MalumComponents.MALUM_PLAYER_COMPONENT.get(player);
                         if (capability.reserveStaffChargeHandler.chargeCount > 0) {
                             capability.reserveStaffChargeHandler.chargeCount--;
                         }

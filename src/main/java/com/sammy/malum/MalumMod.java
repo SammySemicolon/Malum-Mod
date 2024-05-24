@@ -3,6 +3,7 @@ package com.sammy.malum;
 import com.sammy.malum.common.block.storage.jar.SpiritJarBlock;
 import com.sammy.malum.common.effect.WickedIntentEffect;
 import com.sammy.malum.common.effect.aura.CorruptedAerialAura;
+import com.sammy.malum.common.effect.aura.InfernalAura;
 import com.sammy.malum.common.enchantment.ReboundEnchantment;
 import com.sammy.malum.common.entity.nitrate.NitrateExplosion;
 import com.sammy.malum.common.item.cosmetic.curios.CurioTokenOfGratitude;
@@ -32,6 +33,7 @@ import io.github.fabricators_of_create.porting_lib.event.common.ExplosionEvents;
 import io.github.fabricators_of_create.porting_lib.util.FluidTextUtil;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
+import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.fabricmc.fabric.api.event.player.UseItemCallback;
 import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
@@ -108,6 +110,7 @@ public class MalumMod implements ModInitializer {
 
         FarmersDelightCompat.init();
 
+        PlayerEvents.BREAK_SPEED.register(InfernalAura::increaseDigSpeed);
         EntityAttributeModificationEvent.ADD.register(AttributeRegistry::modifyEntityAttributes);
         LivingEntityEvents.JUMP.register(CorruptedAerialAura::onEntityJump);
         LivingEntityEvents.FALL.register(CorruptedAerialAura::onEntityFall);
@@ -140,7 +143,7 @@ public class MalumMod implements ModInitializer {
         ResourceManagerHelper.get(PackType.SERVER_DATA).registerReloadListener(new MalignantConversionReloadListenerFabricImpl());
         ResourceManagerHelper.get(PackType.SERVER_DATA).registerReloadListener(new RitualRecipeReloadListenerFabricImpl());
 
-        //modBus.addListener(CreativeTabRegistry::populateItemGroups);
+        //TODO modBus.addListener(CreativeTabRegistry::populateItemGroups);
     }
 
     private void leftClickBlock(PlayerInteractionEvents.LeftClickBlock leftClickBlock) {

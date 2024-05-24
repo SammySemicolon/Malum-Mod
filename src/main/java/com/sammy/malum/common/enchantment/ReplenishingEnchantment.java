@@ -8,7 +8,6 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.*;
-import net.minecraftforge.event.entity.living.*;
 
 
 import java.util.*;
@@ -29,9 +28,9 @@ public class ReplenishingEnchantment extends Enchantment {
         if (attacker instanceof ServerPlayer player && stack.getItem() instanceof AbstractStaffItem staff) {
             ItemCooldowns cooldowns = player.getCooldowns();
             if (cooldowns.isOnCooldown(staff) && player.getAttackStrengthScale(0) > 0.8f) {
-                int level = stack.getEnchantmentLevel(EnchantmentRegistry.REPLENISHING.get());
+                int level = EnchantmentHelper.getItemEnchantmentLevel(EnchantmentRegistry.REPLENISHING.get(), stack);
                 replenishStaffCooldown(staff, player, level);
-                MALUM_CHANNEL.send(PacketDistributor.PLAYER.with(() -> player), new SyncStaffCooldownChangesPacket(staff, level));
+                MALUM_CHANNEL.sendToClient(new SyncStaffCooldownChangesPacket(staff, level), player);
             }
         }
     }

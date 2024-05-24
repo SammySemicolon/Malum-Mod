@@ -2,6 +2,7 @@ package com.sammy.malum.common.effect.aura;
 
 import com.sammy.malum.registry.common.MobEffectRegistry;
 import com.sammy.malum.registry.common.SpiritTypeRegistry;
+import io.github.fabricators_of_create.porting_lib.entity.events.PlayerEvents;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
@@ -20,7 +21,7 @@ public class InfernalAura extends MobEffect {
     public void applyEffectTick(LivingEntity entityLivingBaseIn, int amplifier) {
     }
 
-    public static void increaseDigSpeed(PlayerEvent.BreakSpeed event) {
+    public static void increaseDigSpeed(PlayerEvents.BreakSpeed event) {
         Player player = event.getEntity();
         if (player.hasEffect(MobEffectRegistry.MINERS_RAGE.get())) {
             event.setNewSpeed(event.getOriginalSpeed() * (1 + 0.2f * player.getEffect(MobEffectRegistry.MINERS_RAGE.get()).getAmplifier()));

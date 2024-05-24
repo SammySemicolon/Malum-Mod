@@ -9,9 +9,9 @@ import com.sammy.malum.common.item.curiosities.weapons.staff.*;
 import com.sammy.malum.common.item.impetus.*;
 import com.sammy.malum.common.item.spirit.*;
 import com.sammy.malum.registry.common.item.*;
+import io.github.fabricators_of_create.porting_lib.data.ExistingFileHelper;
 import net.minecraft.data.*;
 import net.minecraft.world.item.*;
-import net.minecraftforge.common.data.*;
 import team.lodestar.lodestone.systems.datagen.*;
 import team.lodestar.lodestone.systems.datagen.itemsmith.*;
 import team.lodestar.lodestone.systems.datagen.providers.*;
@@ -24,6 +24,7 @@ import java.util.stream.*;
 import static com.sammy.malum.registry.common.item.ItemRegistry.*;
 
 public class MalumItemModels extends LodestoneItemModelProvider {
+
     public MalumItemModels(PackOutput output, ExistingFileHelper existingFileHelper) {
         super(output, MalumMod.MALUM, existingFileHelper);
     }

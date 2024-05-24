@@ -7,12 +7,11 @@ import com.sammy.malum.client.screen.codex.objects.progression.*;
 import com.sammy.malum.client.screen.codex.pages.recipe.*;
 import com.sammy.malum.client.screen.codex.pages.recipe.vanilla.*;
 import com.sammy.malum.client.screen.codex.pages.text.*;
-import com.sammy.malum.common.events.*;
 import com.sammy.malum.common.item.codex.*;
+import com.sammy.malum.common.events.MalumCodexEvents;
 import com.sammy.malum.registry.common.*;
 import net.minecraft.client.*;
 import net.minecraft.resources.*;
-import net.minecraftforge.common.*;
 
 import java.util.*;
 
@@ -31,7 +30,7 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
         super(SoundRegistry.ARCANA_SWEETENER_NORMAL, 1024, 2560);
         minecraft = Minecraft.getInstance();
         setupEntries();
-        MinecraftForge.EVENT_BUS.post(new SetupMalumCodexEntriesEvent());
+        MalumCodexEvents.EVENT.invoker().onSetup(ENTRIES);
         setupObjects();
     }
 

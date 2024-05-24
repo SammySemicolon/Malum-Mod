@@ -3,6 +3,7 @@ package com.sammy.malum.data.worldgen;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.registry.common.worldgen.BiomeTagRegistry;
 import com.sammy.malum.registry.common.worldgen.PlacedFeatureRegistry;
+import net.fabricmc.fabric.api.biome.v1.BiomeModification;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
@@ -12,8 +13,6 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
-import net.minecraftforge.common.world.BiomeModifier;
-import net.minecraftforge.common.world.ForgeBiomeModifiers;
 
 
 import java.util.ArrayList;
@@ -22,7 +21,7 @@ import java.util.function.Supplier;
 
 @SuppressWarnings("unchecked")
 public class BiomeModifications {
-    public static void bootstrap(BootstapContext<BiomeModifier> context) {
+    public static void bootstrap(BootstapContext<BiomeModification> context) {
         register(context, "soulstone_ore", () ->
                 addFeatureModifier(context,
                         getPlacedHolderSet(context, PlacedFeatureRegistry.ORE_SOULSTONE),
@@ -89,7 +88,7 @@ public class BiomeModifications {
         return HolderSet.direct(holders);
     }
 
-    private static ForgeBiomeModifiers.AddFeaturesBiomeModifier addFeatureModifier(BootstapContext<BiomeModifier> context, HolderSet<PlacedFeature> placedSet, TagKey<Biome> biomeTag, GenerationStep.Decoration decoration) {
+    private static ForgeBiomeModifiers.AddFeaturesBiomeModifier addFeatureModifier(BootstapContext<BiomeModification> context, HolderSet<PlacedFeature> placedSet, TagKey<Biome> biomeTag, GenerationStep.Decoration decoration) {
         return new ForgeBiomeModifiers.AddFeaturesBiomeModifier(context.lookup(Registries.BIOME).getOrThrow(biomeTag), placedSet, decoration);
     }
 

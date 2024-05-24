@@ -5,16 +5,16 @@ import com.sammy.malum.common.item.curiosities.curios.*;
 import com.sammy.malum.common.item.impetus.*;
 import com.sammy.malum.registry.common.block.*;
 import com.sammy.malum.registry.common.item.*;
+import io.github.fabricators_of_create.porting_lib.tags.Tags;
+import io.github.fabricators_of_create.porting_lib.util.RegistryObject;
 import net.minecraft.core.*;
 import net.minecraft.data.*;
 import net.minecraft.data.tags.*;
 import net.minecraft.resources.*;
 import net.minecraft.tags.*;
 import net.minecraft.world.item.*;
-import net.minecraft.world.level.block.*;
-import net.minecraftforge.common.*;
-import net.minecraftforge.common.data.*;
 
+import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.*;
 
 import java.util.concurrent.*;
@@ -26,8 +26,8 @@ import static team.lodestar.lodestone.registry.common.tag.LodestoneItemTags.*;
 public class MalumItemTags extends ItemTagsProvider {
 
 
-    public MalumItemTags(PackOutput pOutput, CompletableFuture<HolderLookup.Provider> pLookupProvider, CompletableFuture<TagLookup<Block>> pBlockTags, @Nullable ExistingFileHelper existingFileHelper) {
-        super(pOutput, pLookupProvider, pBlockTags, MalumMod.MALUM, existingFileHelper);
+    public MalumItemTags(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, CompletableFuture<TagLookup<Block>> blockTags) {
+        super(output, lookupProvider, blockTags);
     }
 
     @Override

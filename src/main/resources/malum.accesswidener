@@ -23,4 +23,9 @@ accessible method net/minecraft/world/level/block/state/properties/BlockSetType 
 accessible class net/minecraft/data/recipes/ShapedRecipeBuilder$Result
 accessible method net/minecraft/data/recipes/ShapedRecipeBuilder$Result getId ()Lnet/minecraft/resources/ResourceLocation;
 accessible method net/minecraft/world/item/crafting/Ingredient$TagValue <init> (Lnet/minecraft/tags/TagKey;)V
+accessible field net/minecraft/world/item/ItemCooldowns tickCount I
+accessible class net/minecraft/world/item/ItemCooldowns$CooldownInstance
+accessible field net/minecraft/world/item/ItemCooldowns cooldowns Ljava/util/Map;
+accessible field net/minecraft/world/item/ItemCooldowns$CooldownInstance startTime I
+accessible field net/minecraft/world/item/ItemCooldowns$CooldownInstance endTime I
 
