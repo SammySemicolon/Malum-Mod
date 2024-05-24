@@ -2,6 +2,7 @@ package com.sammy.malum;
 
 import com.sammy.malum.compability.farmersdelight.*;
 import com.sammy.malum.config.*;
+import com.sammy.malum.registry.common.PacketRegistry;
 import com.sammy.malum.registry.common.item.tabs.*;
 import io.github.fabricators_of_create.porting_lib.config.ConfigRegistry;
 import io.github.fabricators_of_create.porting_lib.config.ConfigType;
@@ -41,6 +42,8 @@ public class MalumMod implements ModInitializer {
     public void onInitialize() {
 
         ConfigRegistry.registerConfig(MalumMod.MALUM, ConfigType.COMMON, CommonConfig.SPEC);
+
+        PacketRegistry.registerNetworkStuff();
 
         ENCHANTMENTS.register();
         BLOCKS.register();

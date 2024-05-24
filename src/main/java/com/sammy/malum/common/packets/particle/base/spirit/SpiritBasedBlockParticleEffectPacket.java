@@ -3,6 +3,10 @@ package com.sammy.malum.common.packets.particle.base.spirit;
 import com.sammy.malum.common.packets.particle.base.BlockBasedParticleEffectPacket;
 import com.sammy.malum.core.handlers.*;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
+import me.pepperbell.simplenetworking.SimpleChannel;
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.fabricmc.api.EnvType;
@@ -28,15 +32,16 @@ public abstract class SpiritBasedBlockParticleEffectPacket extends BlockBasedPar
         super.encode(buf);
     }
 
-    @Environment(EnvType.CLIENT)
-    public void execute(Supplier<NetworkEvent.Context> context) {
+    @Override
+    public void executeClient(Minecraft client, ClientPacketListener listener, PacketSender responseSender, SimpleChannel channel) {
+        super.executeClient(client, listener, responseSender, channel);
         for (String string : spirits) {
-            execute(context, SpiritHarvestHandler.getSpiritType(string));
+            execute(client, listener, responseSender, channel, SpiritHarvestHandler.getSpiritType(string));
         }
     }
 
     @Environment(EnvType.CLIENT)
-    public abstract void execute(Supplier<NetworkEvent.Context> context, MalumSpiritType spiritType);
+    protected abstract void execute(Minecraft client, ClientPacketListener listener, PacketSender responseSender, SimpleChannel channel, MalumSpiritType spiritType);
 
     public static <T extends SpiritBasedBlockParticleEffectPacket> T decode(PacketProvider<T> provider, FriendlyByteBuf buf) {
         int strings = buf.readInt();

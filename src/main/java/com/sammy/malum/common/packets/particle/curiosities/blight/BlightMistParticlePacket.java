@@ -1,7 +1,10 @@
 package com.sammy.malum.common.packets.particle.curiosities.blight;
 
 import com.sammy.malum.common.packets.particle.base.BlockBasedParticleEffectPacket;
+import me.pepperbell.simplenetworking.SimpleChannel;
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.FriendlyByteBuf;
@@ -25,9 +28,13 @@ public class BlightMistParticlePacket extends BlockBasedParticleEffectPacket {
         super(pos);
     }
 
+    public BlightMistParticlePacket(FriendlyByteBuf buf) {
+        super(new BlockPos(new BlockPos(buf.readInt(), buf.readInt(), buf.readInt())));
+    }
+
     @Environment(EnvType.CLIENT)
     @Override
-    public void execute(Supplier<NetworkEvent.Context> context) {
+    public void executeClient(Minecraft client, ClientPacketListener listener, PacketSender responseSender, SimpleChannel channel) {
         Level level = Minecraft.getInstance().level;
         for (int i = 0; i < 3; i++) {
             float multiplier = Mth.nextFloat(level.random, 0.4f, 1f);
@@ -70,13 +77,5 @@ public class BlightMistParticlePacket extends BlockBasedParticleEffectPacket {
                     .setRandomMotion(0.01f, 0.005f)
                     .repeatSurroundBlock(level, pos, 2, Direction.UP);
         }
-    }
-
-    public static void register(SimpleChannel instance, int index) {
-        instance.registerMessage(index, BlightMistParticlePacket.class, BlightMistParticlePacket::encode, BlightMistParticlePacket::decode, BlightMistParticlePacket::handle);
-    }
-
-    public static BlightMistParticlePacket decode(FriendlyByteBuf buf) {
-        return new BlightMistParticlePacket(new BlockPos(buf.readInt(), buf.readInt(), buf.readInt()));
     }
 }

@@ -7,37 +7,34 @@ import com.sammy.malum.common.packets.particle.curiosities.blight.BlightTransfor
 import com.sammy.malum.common.packets.particle.curiosities.rite.*;
 import com.sammy.malum.common.packets.particle.curiosities.rite.generic.BlockSparkleParticlePacket;
 import com.sammy.malum.common.packets.particle.curiosities.rite.generic.MajorEntityEffectParticlePacket;
+import me.pepperbell.simplenetworking.SimpleChannel;
 
 @SuppressWarnings("unused")
 public class PacketRegistry {
     public static final String PROTOCOL_VERSION = "1";
-    public static SimpleChannel MALUM_CHANNEL = NetworkRegistry.newSimpleChannel(MalumMod.malumPath("main"), () -> PacketRegistry.PROTOCOL_VERSION, PacketRegistry.PROTOCOL_VERSION::equals, PacketRegistry.PROTOCOL_VERSION::equals);
+    public static final SimpleChannel MALUM_CHANNEL = new SimpleChannel(MalumMod.malumPath("main"));
+
 
     @SuppressWarnings("UnusedAssignment")
-    @SubscribeEvent
-    public static void registerNetworkStuff(FMLCommonSetupEvent event) {
+    public static void registerNetworkStuff() {
         int index = 0;
 
         //functionality
-        VoidRejectionPacket.register(MALUM_CHANNEL, index++);
-        SyncStaffCooldownChangesPacket.register(MALUM_CHANNEL, index++);
+        MALUM_CHANNEL.registerS2CPacket(VoidRejectionPacket.class, index++);
+        MALUM_CHANNEL.registerS2CPacket(SyncStaffCooldownChangesPacket.class, index++);
+        MALUM_CHANNEL.registerS2CPacket(ParticleEffectPacket.class, index++);
+        MALUM_CHANNEL.registerS2CPacket(MajorEntityEffectParticlePacket.class, index++);
+        MALUM_CHANNEL.registerS2CPacket(SacredMistRiteEffectPacket.class, index++);
+        MALUM_CHANNEL.registerS2CPacket(BlockSparkleParticlePacket.class, index++);
+        MALUM_CHANNEL.registerS2CPacket(InfernalAccelerationRiteEffectPacket.class, index++);
+        MALUM_CHANNEL.registerS2CPacket(InfernalExtinguishRiteEffectPacket.class, index++);
+        MALUM_CHANNEL.registerS2CPacket(AerialBlockFallRiteEffectPacket.class, index++);
+        MALUM_CHANNEL.registerS2CPacket(SpiritRiteActivationEffectPacket.class, index++);
 
-        ParticleEffectPacket.register(MALUM_CHANNEL, index++);
+        //SyncMalumPlayerCapabilityDataPacket.register(MALUM_CHANNEL, index++); //TODO components sync themselves?
+        //SyncLivingCapabilityDataPacket.register(MALUM_CHANNEL, index++);
 
-        MajorEntityEffectParticlePacket.register(MALUM_CHANNEL, index++);
-
-        SacredMistRiteEffectPacket.register(MALUM_CHANNEL, index++);
-        BlockSparkleParticlePacket.register(MALUM_CHANNEL, index++);
-        InfernalAccelerationRiteEffectPacket.register(MALUM_CHANNEL, index++);
-        InfernalExtinguishRiteEffectPacket.register(MALUM_CHANNEL, index++);
-        AerialBlockFallRiteEffectPacket.register(MALUM_CHANNEL, index++);
-        SpiritRiteActivationEffectPacket.register(MALUM_CHANNEL, index++);
-
-        SyncMalumPlayerCapabilityDataPacket.register(MALUM_CHANNEL, index++);
-        SyncLivingCapabilityDataPacket.register(MALUM_CHANNEL, index++);
-
-        BlightMistParticlePacket.register(MALUM_CHANNEL, index++);
-        BlightTransformItemParticlePacket.register(MALUM_CHANNEL, index++);
-
+        MALUM_CHANNEL.registerS2CPacket(BlightMistParticlePacket.class, index++);
+        MALUM_CHANNEL.registerS2CPacket(BlightTransformItemParticlePacket.class, index++);
     }
 }
