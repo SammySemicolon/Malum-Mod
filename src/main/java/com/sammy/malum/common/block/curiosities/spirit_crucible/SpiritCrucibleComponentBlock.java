@@ -3,6 +3,7 @@ package com.sammy.malum.common.block.curiosities.spirit_crucible;
 import com.sammy.malum.registry.common.item.ItemRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -52,7 +53,7 @@ public class SpiritCrucibleComponentBlock extends MultiblockComponentBlock {
     @Override
     public int getAnalogOutputSignal(BlockState pState, Level pLevel, BlockPos pPos) {
         if (pLevel.getBlockEntity(pPos) instanceof MultiBlockComponentEntity component) {
-            return ItemHandlerHelper.calcRedstoneFromInventory(component.getCapability(ForgeCapabilities.ITEM_HANDLER).orElse(new EmptyHandler()));
+            return AbstractContainerMenu.getRedstoneSignalFromBlockEntity(pLevel.getBlockEntity(pPos));
         }
         return 0;
     }

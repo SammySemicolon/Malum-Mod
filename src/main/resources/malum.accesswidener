@@ -3,3 +3,4 @@ accessWidener v2 named
 accessible field net/minecraft/world/entity/ai/goal/EatBlockGoal IS_TALL_GRASS Ljava/util/function/Predicate;
 accessible class net/minecraft/client/gui/Font$StringRenderOutput
 accessible field net/minecraft/world/item/Item BASE_ATTACK_DAMAGE_UUID Ljava/util/UUID;
+accessible field net/minecraft/world/entity/item/ItemEntity age I

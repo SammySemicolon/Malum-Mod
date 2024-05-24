@@ -1,6 +1,7 @@
 package com.sammy.malum.common.block.storage.pedestal;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -10,9 +11,6 @@ import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.items.ItemHandlerHelper;
-import net.minecraftforge.items.wrapper.EmptyHandler;
 import team.lodestar.lodestone.systems.block.WaterLoggedEntityBlock;
 
 import java.util.stream.Stream;
@@ -37,7 +35,7 @@ public class ItemPedestalBlock<T extends ItemPedestalBlockEntity> extends WaterL
     public int getAnalogOutputSignal(BlockState pState, Level pLevel, BlockPos pPos) {
         BlockEntity be = pLevel.getBlockEntity(pPos);
         if (be instanceof ItemPedestalBlockEntity pedestal) {
-            return ItemHandlerHelper.calcRedstoneFromInventory(pedestal.getCapability(ForgeCapabilities.ITEM_HANDLER).orElse(new EmptyHandler()));
+            return AbstractContainerMenu.getRedstoneSignalFromBlockEntity(pLevel.getBlockEntity(pPos));
         }
         return 0;
     }

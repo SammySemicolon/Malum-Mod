@@ -1,8 +1,10 @@
 package com.sammy.malum.common.block.curiosities.spirit_altar;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.HopperBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.BooleanOp;
@@ -38,7 +40,7 @@ public class SpiritAltarBlock<T extends SpiritAltarBlockEntity> extends WaterLog
     public int getAnalogOutputSignal(BlockState pState, Level pLevel, BlockPos pPos) {
         BlockEntity be = pLevel.getBlockEntity(pPos);
         if (be instanceof SpiritAltarBlockEntity altar) {
-            return ItemHandlerHelper.calcRedstoneFromInventory(altar.getCapability(ForgeCapabilities.ITEM_HANDLER).orElse(new EmptyHandler()));
+            return AbstractContainerMenu.getRedstoneSignalFromBlockEntity(pLevel.getBlockEntity(pPos));
         }
         return 0;
     }

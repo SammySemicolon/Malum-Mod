@@ -3,13 +3,11 @@ package com.sammy.malum;
 import com.sammy.malum.compability.farmersdelight.*;
 import com.sammy.malum.config.*;
 import com.sammy.malum.registry.common.item.tabs.*;
+import io.github.fabricators_of_create.porting_lib.config.ConfigRegistry;
+import io.github.fabricators_of_create.porting_lib.config.ConfigType;
+import net.fabricmc.api.ModInitializer;
 import net.minecraft.resources.*;
 import net.minecraft.util.*;
-import net.minecraftforge.eventbus.api.*;
-import net.minecraftforge.fml.*;
-import net.minecraftforge.fml.common.*;
-import net.minecraftforge.fml.config.*;
-import net.minecraftforge.fml.javafmlmod.*;
 import org.apache.logging.log4j.*;
 
 import static com.sammy.malum.registry.client.ParticleRegistry.*;
@@ -29,43 +27,40 @@ import static com.sammy.malum.registry.common.worldgen.FeatureRegistry.*;
 import static com.sammy.malum.registry.common.worldgen.StructureRegistry.*;
 
 @SuppressWarnings("unused")
-@Mod(MalumMod.MALUM)
-public class MalumMod {
+public class MalumMod implements ModInitializer {
     public static final Logger LOGGER = LogManager.getLogger();
     public static final String MALUM = "malum";
     public static final RandomSource RANDOM = RandomSource.create();
-
-    public MalumMod() {
-        IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
-
-        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ClientConfig.SPEC);
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, CommonConfig.SPEC);
-
-        ENCHANTMENTS.register(modBus);
-        BLOCKS.register(modBus);
-        BLOCK_ENTITY_TYPES.register(modBus);
-        ITEMS.register(modBus);
-        ENTITY_TYPES.register(modBus);
-        EFFECTS.register(modBus);
-        PARTICLES.register(modBus);
-        SOUNDS.register(modBus);
-        CONTAINERS.register(modBus);
-        ATTRIBUTES.register(modBus);
-        RECIPE_TYPES.register(modBus);
-        RECIPE_SERIALIZERS.register(modBus);
-        FEATURE_TYPES.register(modBus);
-        STRUCTURES.register(modBus);
-        CREATIVE_MODE_TABS.register(modBus);
-
-        //TetraCompat.init();
-        FarmersDelightCompat.init();
-
-        modBus.addListener(CreativeTabRegistry::populateItemGroups);
-    }
 
     public static ResourceLocation malumPath(String path) {
         return new ResourceLocation(MALUM, path);
     }
 
 
+    @Override
+    public void onInitialize() {
+
+        ConfigRegistry.registerConfig(MalumMod.MALUM, ConfigType.COMMON, CommonConfig.SPEC);
+
+        ENCHANTMENTS.register();
+        BLOCKS.register();
+        BLOCK_ENTITY_TYPES.register();
+        ITEMS.register();
+        ENTITY_TYPES.register();
+        EFFECTS.register();
+        PARTICLES.register();
+        SOUNDS.register();
+        CONTAINERS.register();
+        ATTRIBUTES.register();
+        RECIPE_TYPES.register();
+        RECIPE_SERIALIZERS.register();
+        FEATURE_TYPES.register();
+        STRUCTURES.register();
+        CREATIVE_MODE_TABS.register();
+
+        FarmersDelightCompat.init();
+
+
+        modBus.addListener(CreativeTabRegistry::populateItemGroups);
+    }
 }

@@ -9,12 +9,7 @@ import net.minecraft.world.level.material.PushReaction;
 
 public class WeepingWellBlock extends HorizontalDirectionalBlock {
     public WeepingWellBlock(Properties pProperties) {
-        super(pProperties);
-    }
-
-    @Override
-    public PushReaction getPistonPushReaction(BlockState pState) {
-        return PushReaction.IGNORE;
+        super(pProperties.pushReaction(PushReaction.IGNORE));
     }
 
     public BlockState getStateForPlacement(BlockPlaceContext pContext) {

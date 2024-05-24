@@ -18,13 +18,13 @@
       "com.sammy.malum.MalumMod"
     ],
     "client": [
-      "com.sammy.malum.MalumMod"
+      "com.sammy.malum.MalumModClient"
     ],
     "cardinal-components-entity": [
-      "com.sammy.malum.MalumMod"
+      "com.sammy.malum.common.capability.MalumComponents"
     ],
     "cardinal-components-world": [
-      "com.sammy.malum.MalumMod"
+      "com.sammy.malum.common.capability.MalumComponents"
     ],
     "fabric-datagen": [
       "com.sammy.malum.MalumMod"

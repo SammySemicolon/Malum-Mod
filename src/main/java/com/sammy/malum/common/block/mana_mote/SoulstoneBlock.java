@@ -6,20 +6,23 @@ import com.sammy.malum.registry.common.ParticleEffectTypeRegistry;
 import com.sammy.malum.registry.common.SoundRegistry;
 import com.sammy.malum.visual_effects.networked.data.ColorEffectData;
 import com.sammy.malum.visual_effects.networked.data.PositionEffectData;
+import io.github.fabricators_of_create.porting_lib.block.CustomSoundTypeBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 
-public class SoulstoneBlock extends Block {
+public class SoulstoneBlock extends Block implements CustomSoundTypeBlock {
     public SoulstoneBlock(Properties pProperties) {
         super(pProperties);
     }
@@ -36,7 +39,7 @@ public class SoulstoneBlock extends Block {
             return super.use(pState, pLevel, pPos, player, pHand, pHit);
         }
         BlockState blockstate = spiritMoteBlock.defaultBlockState();
-        SoundType soundtype = blockstate.getSoundType(pLevel, pPos, player);
+        SoundType soundtype = getSoundType(blockstate, pLevel, pPos, player);
         pLevel.setBlock(pPos, blockstate, 3);
         pLevel.levelEvent(2001, pPos, Block.getId(pState));
         pLevel.levelEvent(2001, pPos, Block.getId(blockstate));
@@ -48,5 +51,10 @@ public class SoulstoneBlock extends Block {
             ParticleEffectTypeRegistry.SPIRIT_MOTE_SPARKLES.createPositionedEffect(pLevel, new PositionEffectData(pPos), new ColorEffectData(spiritType));
         }
         return InteractionResult.SUCCESS;
+    }
+
+    @Override
+    public SoundType getSoundType(BlockState state, LevelReader world, BlockPos pos, Entity entity) {
+        return this.getSoundType(this.defaultBlockState());
     }
 }

@@ -2,6 +2,7 @@ package com.sammy.malum.common.block.storage.stand;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -11,9 +12,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.items.ItemHandlerHelper;
-import net.minecraftforge.items.wrapper.EmptyHandler;
 import team.lodestar.lodestone.systems.block.WaterLoggedEntityBlock;
 
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.FACING;
@@ -41,7 +39,7 @@ public class ItemStandBlock<T extends ItemStandBlockEntity> extends WaterLoggedE
     public int getAnalogOutputSignal(BlockState pState, Level pLevel, BlockPos pPos) {
         BlockEntity be = pLevel.getBlockEntity(pPos);
         if (be instanceof ItemStandBlockEntity stand) {
-            return ItemHandlerHelper.calcRedstoneFromInventory(stand.getCapability(ForgeCapabilities.ITEM_HANDLER).orElse(new EmptyHandler()));
+            return AbstractContainerMenu.getRedstoneSignalFromBlockEntity(pLevel.getBlockEntity(pPos));
         }
         return 0;
     }

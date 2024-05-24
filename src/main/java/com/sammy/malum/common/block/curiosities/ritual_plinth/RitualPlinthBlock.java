@@ -2,6 +2,7 @@ package com.sammy.malum.common.block.curiosities.ritual_plinth;
 
 import com.sammy.malum.common.block.curiosities.spirit_altar.*;
 import net.minecraft.core.*;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.entity.*;
 import net.minecraft.world.level.block.state.*;
@@ -34,7 +35,7 @@ public class RitualPlinthBlock<T extends RitualPlinthBlockEntity> extends WaterL
     public int getAnalogOutputSignal(BlockState pState, Level pLevel, BlockPos pPos) {
         BlockEntity be = pLevel.getBlockEntity(pPos);
         if (be instanceof RitualPlinthBlockEntity altar) {
-            return ItemHandlerHelper.calcRedstoneFromInventory(altar.getCapability(ForgeCapabilities.ITEM_HANDLER).orElse(new EmptyHandler()));
+            return AbstractContainerMenu.getRedstoneSignalFromBlockEntity(pLevel.getBlockEntity(pPos));
         }
         return 0;
     }

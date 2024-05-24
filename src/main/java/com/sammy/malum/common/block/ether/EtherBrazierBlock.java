@@ -25,7 +25,7 @@ public class EtherBrazierBlock<T extends EtherBlockEntity> extends EtherBlock<T>
     public static final BooleanProperty HANGING = BlockStateProperties.HANGING;
 
     public EtherBrazierBlock(Properties properties) {
-        super(properties);
+        super(properties.pushReaction(PushReaction.DESTROY));
         this.registerDefaultState(this.stateDefinition.any().setValue(HANGING, false).setValue(WATERLOGGED, false).setValue(ROTATED, false));
 
     }
@@ -64,11 +64,6 @@ public class EtherBrazierBlock<T extends EtherBlockEntity> extends EtherBlock<T>
 
     protected static Direction getBlockConnected(BlockState state) {
         return state.getValue(HANGING) ? Direction.DOWN : Direction.UP;
-    }
-
-    @Override
-    public PushReaction getPistonPushReaction(BlockState state) {
-        return PushReaction.DESTROY;
     }
 
     @Override
