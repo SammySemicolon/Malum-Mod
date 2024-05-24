@@ -28,7 +28,7 @@ public class EldritchWickedRiteType extends TotemicRiteType {
             public void doRiteEffect(TotemBaseBlockEntity totemBase, ServerLevel level) {
                 getNearbyEntities(totemBase, LivingEntity.class, e -> !(e instanceof Player)).forEach(e -> {
                     if (e.getHealth() <= 2.5f && !e.isInvulnerableTo(DamageTypeRegistry.create(e.level(), DamageTypeRegistry.VOODOO))) {
-                        MALUM_CHANNEL.send(PacketDistributor.TRACKING_ENTITY.with(() -> e), new MajorEntityEffectParticlePacket(getIdentifyingSpirit().getPrimaryColor(), e.getX(), e.getY() + e.getBbHeight() / 2f, e.getZ()));
+                        MALUM_CHANNEL.sendToClientsTracking(new MajorEntityEffectParticlePacket(getIdentifyingSpirit().getPrimaryColor(), e.getX(), e.getY() + e.getBbHeight() / 2f, e.getZ()), e);
                         e.hurt(DamageTypeRegistry.create(e.level(), DamageTypeRegistry.VOODOO), 10f);
                     }
                 });
@@ -50,8 +50,8 @@ public class EldritchWickedRiteType extends TotemicRiteType {
                     animals.removeIf(Animal::isInLove);
                     for (Animal entity : animals) {
                         entity.hurt(DamageTypeRegistry.create(entity.level(), DamageTypeRegistry.VOODOO), entity.getMaxHealth());
-                        MALUM_CHANNEL.send(PacketDistributor.TRACKING_ENTITY.with(() -> entity), new MajorEntityEffectParticlePacket(WICKED_SPIRIT.getPrimaryColor(), entity.getX(), entity.getY() + entity.getBbHeight() / 2f, entity.getZ()));
-                        if (maxKills-- <= 0) {
+                        MALUM_CHANNEL.sendToClientsTracking(new MajorEntityEffectParticlePacket(WICKED_SPIRIT.getPrimaryColor(), entity.getX(), entity.getY() + entity.getBbHeight() / 2f, entity.getZ()), entity);
+                       if (maxKills-- <= 0) {
                             return;
                         }
                     }

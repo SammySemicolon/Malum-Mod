@@ -1,7 +1,7 @@
 package com.sammy.malum.common.item.curiosities.curios.sets.soulward;
 
 import com.google.common.collect.Multimap;
-import com.sammy.malum.common.capability.MalumPlayerDataCapability;
+import com.sammy.malum.common.components.MalumPlayerDataCapability;
 import com.sammy.malum.common.item.IMalumEventResponderItem;
 import com.sammy.malum.common.item.curiosities.curios.MalumCurioItem;
 import com.sammy.malum.core.handlers.SoulWardHandler;

@@ -42,7 +42,7 @@ public class EldritchAerialRiteType extends TotemicRiteType {
                         if (!state.isAir() && level.getBlockEntity(p) == null && canSilkTouch(level, pos, state)) {
                             FallingBlockEntity.fall(level, p, state);
                             level.playSound(null, p, SoundRegistry.AERIAL_FALL.get(), SoundSource.BLOCKS, 0.5f, 2.6F + (level.random.nextFloat() - level.random.nextFloat()) * 0.8F);
-                            MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(pos)), new AerialBlockFallRiteEffectPacket(AERIAL_SPIRIT.getPrimaryColor(), p));
+                            MALUM_CHANNEL.sendToClientsTracking(new AerialBlockFallRiteEffectPacket(AERIAL_SPIRIT.getPrimaryColor(), p), level, level.getChunkAt(pos).getPos());
                         }
                     }
                 });

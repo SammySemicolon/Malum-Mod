@@ -1,7 +1,7 @@
 package com.sammy.malum.core.handlers;
 
 import com.mojang.datafixers.util.*;
-import com.sammy.malum.common.capability.*;
+import com.sammy.malum.common.components.*;
 import com.sammy.malum.core.listeners.*;
 import com.sammy.malum.registry.common.*;
 import net.minecraft.network.chat.*;

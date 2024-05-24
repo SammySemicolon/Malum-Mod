@@ -21,10 +21,10 @@
       "com.sammy.malum.MalumModClient"
     ],
     "cardinal-components-entity": [
-      "com.sammy.malum.common.capability.MalumComponents"
+      "com.sammy.malum.common.components.MalumComponents"
     ],
     "cardinal-components-world": [
-      "com.sammy.malum.common.capability.MalumComponents"
+      "com.sammy.malum.common.components.MalumComponents"
     ],
     "fabric-datagen": [
       "com.sammy.malum.MalumMod"
@@ -42,7 +42,9 @@
   },
   "custom": {
     "cardinal-components": [
-
+      "malum:living_entity",
+      "malum:item",
+      "malum:player"
     ]
   },
   "suggests": {

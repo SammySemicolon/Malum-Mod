@@ -1,5 +1,5 @@
-package com.sammy.malum.common.capability;
-
+package com.sammy.malum.common.components;
+/*
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.packets.SyncMalumPlayerCapabilityDataPacket;
 import com.sammy.malum.core.handlers.*;
@@ -117,3 +117,5 @@ public class MalumPlayerDataCapability implements LodestoneCapability {
         return player.getCapability(CAPABILITY).orElse(new MalumPlayerDataCapability());
     }
 }
+
+ */

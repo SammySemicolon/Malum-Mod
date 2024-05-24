@@ -43,22 +43,20 @@ public class SpiritCrucibleRenderer implements BlockEntityRenderer<SpiritCrucibl
     public SpiritCrucibleRenderer(BlockEntityRendererProvider.Context context) {
     }
 
-    public static void checkForTuningFork(TickEvent.ClientTickEvent event) {
-        if (event.phase.equals(TickEvent.Phase.START)) {
-            final LocalPlayer player = Minecraft.getInstance().player;
-            if (player == null) {
-                return;
+    public static void checkForTuningFork(Minecraft minecraft) {
+        final LocalPlayer player = minecraft.player;
+        if (player == null) {
+            return;
+        }
+        final Item tuningFork = ItemRegistry.TUNING_FORK.get();
+        if ((player.getMainHandItem().getItem().equals(tuningFork) || player.getOffhandItem().getItem().equals(tuningFork))) {
+            if (tuningForkHeldTimer < 20) {
+                tuningForkHeldTimer++;
             }
-            final Item tuningFork = ItemRegistry.TUNING_FORK.get();
-            if ((player.getMainHandItem().getItem().equals(tuningFork) || player.getOffhandItem().getItem().equals(tuningFork))) {
-                if (tuningForkHeldTimer < 20) {
-                    tuningForkHeldTimer++;
-                }
-                isHoldingFork = true;
-            } else if (tuningForkHeldTimer > 0) {
-                tuningForkHeldTimer--;
-                isHoldingFork = false;
-            }
+            isHoldingFork = true;
+        } else if (tuningForkHeldTimer > 0) {
+            tuningForkHeldTimer--;
+            isHoldingFork = false;
         }
     }
 

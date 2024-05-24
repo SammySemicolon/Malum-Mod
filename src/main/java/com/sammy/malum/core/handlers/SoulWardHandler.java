@@ -1,13 +1,15 @@
 package com.sammy.malum.core.handlers;
 
+import com.mojang.blaze3d.platform.Window;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.common.capability.MalumPlayerDataCapability;
+import com.sammy.malum.common.components.MalumComponents;
 import com.sammy.malum.config.CommonConfig;
 import com.sammy.malum.common.item.IMalumEventResponderItem;
 import com.sammy.malum.registry.common.AttributeRegistry;
 import com.sammy.malum.registry.common.SoundRegistry;
+import io.github.fabricators_of_create.porting_lib.entity.events.living.LivingHurtEvent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.player.LocalPlayer;
@@ -20,15 +22,14 @@ import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.client.gui.overlay.ForgeGui;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import org.joml.Vector4f;
 import team.lodestar.lodestone.helpers.ItemHelper;
 import team.lodestar.lodestone.registry.client.*;
 import team.lodestar.lodestone.registry.common.tag.*;
 import team.lodestar.lodestone.systems.rendering.VFXBuilders;
 import team.lodestar.lodestone.systems.rendering.shader.ExtendedShaderInstance;
+
+import java.awt.*;
 
 
 public class SoulWardHandler {
@@ -47,10 +48,9 @@ public class SoulWardHandler {
         soulWardProgress = tag.getFloat("soulWardProgress");
     }
 
-    public static void recoverSoulWard(TickEvent.PlayerTickEvent event) {
-        Player player = event.player;
+    public static void recoverSoulWard(Player player) {
         if (!player.level().isClientSide) {
-            SoulWardHandler soulWardHandler = MalumPlayerDataCapability.getCapability(player).soulWardHandler;
+            SoulWardHandler soulWardHandler = MalumComponents.MALUM_PLAYER_COMPONENT.get(player).soulWardHandler;
             AttributeInstance soulWardCap = player.getAttribute(AttributeRegistry.SOUL_WARD_CAP.get());
             if (soulWardCap != null) {
                 if (soulWardHandler.soulWard < soulWardCap.getValue() && soulWardHandler.soulWardProgress <= 0) {
@@ -61,13 +61,13 @@ public class SoulWardHandler {
                         player.level().playSound(null, player.blockPosition(), sound, SoundSource.PLAYERS, 0.25f, pitch);
                     }
                     soulWardHandler.soulWardProgress = getSoulWardCooldown(player);
-                    MalumPlayerDataCapability.syncTrackingAndSelf(player);
+                    MalumComponents.MALUM_PLAYER_COMPONENT.sync(player);
                 } else {
                     soulWardHandler.soulWardProgress--;
                 }
                 if (soulWardHandler.soulWard > soulWardCap.getValue()) {
                     soulWardHandler.soulWard = (float) soulWardCap.getValue();
-                    MalumPlayerDataCapability.syncTrackingAndSelf(player);
+                    MalumComponents.MALUM_PLAYER_COMPONENT.sync(player);
                 }
             }
         }
@@ -79,7 +79,7 @@ public class SoulWardHandler {
         }
         if (event.getEntity() instanceof Player player) {
             if (!player.level().isClientSide) {
-                SoulWardHandler soulWardHandler = MalumPlayerDataCapability.getCapability(player).soulWardHandler;
+                SoulWardHandler soulWardHandler = MalumComponents.MALUM_PLAYER_COMPONENT.get(player).soulWardHandler;
                 soulWardHandler.soulWardProgress = getSoulWardCooldown(0) + getSoulWardCooldown(player);
                 if (soulWardHandler.soulWard > 0) {
                     DamageSource source = event.getSource();
@@ -112,7 +112,7 @@ public class SoulWardHandler {
                     player.level().playSound(null, player.blockPosition(), sound, player.getSoundSource(), 1, Mth.nextFloat(player.getRandom(), 1f, 1.5f));
                     event.setAmount(result);
 
-                    MalumPlayerDataCapability.syncTrackingAndSelf(player);
+                    MalumComponents.MALUM_PLAYER_COMPONENT.sync(player);
                 }
             }
         }
@@ -132,23 +132,24 @@ public class SoulWardHandler {
         return (int) (baseValue * (1 / exponent));
     }
 
+
+
     public static class ClientOnly {
-        public static void renderSoulWard(ForgeGui gui, GuiGraphics guiGraphics, int width, int height) {
+        public static void renderSoulWard(GuiGraphics guiGraphics, Window window) {
             Minecraft minecraft = Minecraft.getInstance();
             PoseStack poseStack = guiGraphics.pose();
-            if (!minecraft.options.hideGui && gui.shouldDrawSurvivalElements()) {
-                gui.setupOverlayRenderState(true, false);
+            if (!minecraft.options.hideGui) {
                 LocalPlayer player = minecraft.player;
                 if (!player.isCreative() && !player.isSpectator()) {
-                    SoulWardHandler soulWardHandler = MalumPlayerDataCapability.getCapability(player).soulWardHandler;
+                    SoulWardHandler soulWardHandler = MalumComponents.MALUM_PLAYER_COMPONENT.get(player).soulWardHandler;
                     final float soulWard = soulWardHandler.soulWard;
                     if (soulWard > 0) {
                         float absorb = Mth.ceil(player.getAbsorptionAmount());
                         float maxHealth = (float) player.getAttribute(Attributes.MAX_HEALTH).getValue();
                         float armor = (float) player.getAttribute(Attributes.ARMOR).getValue();
 
-                        int left = width / 2 - 91;
-                        int top = height - gui.leftHeight;
+                        int left = window.getGuiScaledWidth() / 2 - 91;
+                        int top = window.getGuiScaledHeight() - 59;
 
                         if (armor == 0) {
                             top += 4;

@@ -2,30 +2,9 @@ package com.sammy.malum.core.events;
 
 import com.sammy.malum.client.renderer.block.*;
 import com.sammy.malum.common.item.augment.*;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.minecraftforge.client.event.*;
-import net.minecraftforge.event.*;
-import net.minecraftforge.event.entity.player.*;
-import net.minecraftforge.eventbus.api.*;
-import net.minecraftforge.fml.common.*;
 
-@Mod.EventBusSubscriber(value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class ClientRuntimeEvents {
 
-    @SubscribeEvent
-    public static void renderOverlay(RenderGuiOverlayEvent.Post event) {
-    }
-
-    @SubscribeEvent(priority = EventPriority.LOWEST)
-    public static void lateRenderTick(TickEvent.RenderTickEvent event) {
-    }
-
-    @SubscribeEvent
-    public static void clientTickEvent(TickEvent.ClientTickEvent event) {
-        SpiritCrucibleRenderer.checkForTuningFork(event);
-        TotemBaseRenderer.checkForTotemicStaff(event);
-    }
 
     @SubscribeEvent
     public static void itemTooltipEvent(ItemTooltipEvent event) {

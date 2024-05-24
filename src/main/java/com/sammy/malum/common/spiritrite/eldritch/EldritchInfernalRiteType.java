@@ -40,7 +40,7 @@ public class EldritchInfernalRiteType extends TotemicRiteType {
                             BlockState newState = block.defaultBlockState();
                             level.setBlockAndUpdate(p, newState);
                             level.levelEvent(2001, p, Block.getId(newState));
-                            MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(p)), new BlockSparkleParticlePacket(INFERNAL_SPIRIT.getPrimaryColor(), p));
+                            MALUM_CHANNEL.sendToClientsTracking(new BlockSparkleParticlePacket(INFERNAL_SPIRIT.getPrimaryColor(), p), level, level.getChunkAt(p).getPos());
                         }
                     }
                 });

@@ -1,6 +1,6 @@
 package com.sammy.malum.core.handlers;
 
-import com.sammy.malum.common.capability.*;
+import com.sammy.malum.common.components.*;
 import com.sammy.malum.registry.common.*;
 import net.minecraft.nbt.*;
 import net.minecraft.world.entity.ai.attributes.*;

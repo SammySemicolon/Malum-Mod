@@ -1,6 +1,6 @@
 package com.sammy.malum.common.effect;
 
-import com.sammy.malum.common.capability.MalumLivingEntityDataCapability;
+import com.sammy.malum.common.components.MalumLivingEntityDataCapability;
 import com.sammy.malum.core.handlers.TouchOfDarknessHandler;
 import com.sammy.malum.registry.common.DamageTypeRegistry;
 import net.minecraft.world.effect.MobEffect;

@@ -1,8 +1,8 @@
 package com.sammy.malum.core.events;
 
-import com.sammy.malum.common.capability.MalumItemDataCapability;
-import com.sammy.malum.common.capability.MalumLivingEntityDataCapability;
-import com.sammy.malum.common.capability.MalumPlayerDataCapability;
+import com.sammy.malum.common.components.MalumItemDataCapability;
+import com.sammy.malum.common.components.MalumLivingEntityDataCapability;
+import com.sammy.malum.common.components.MalumPlayerDataCapability;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;

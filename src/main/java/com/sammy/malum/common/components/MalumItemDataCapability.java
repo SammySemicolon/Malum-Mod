@@ -1,5 +1,5 @@
-package com.sammy.malum.common.capability;
-
+package com.sammy.malum.common.components;
+/*
 import com.sammy.malum.MalumMod;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -89,3 +89,5 @@ public class MalumItemDataCapability implements LodestoneCapability {
         return entity.getCapability(CAPABILITY).orElse(new MalumItemDataCapability());
     }
 }
+
+ */

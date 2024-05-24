@@ -1,6 +1,6 @@
 package com.sammy.malum.visual_effects;
 
-import com.sammy.malum.common.capability.*;
+import com.sammy.malum.common.components.*;
 import com.sammy.malum.common.item.*;
 import com.sammy.malum.core.handlers.*;
 import com.sammy.malum.core.systems.spirit.*;

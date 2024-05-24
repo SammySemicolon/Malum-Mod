@@ -1,7 +1,7 @@
 package com.sammy.malum.core.handlers;
 
-import com.sammy.malum.common.capability.MalumLivingEntityDataCapability;
-import com.sammy.malum.common.capability.MalumPlayerDataCapability;
+import com.sammy.malum.common.components.MalumLivingEntityDataCapability;
+import com.sammy.malum.common.components.MalumPlayerDataCapability;
 import com.sammy.malum.config.CommonConfig;
 import com.sammy.malum.core.listeners.ReapingDataReloadListener;
 import com.sammy.malum.registry.common.item.ItemRegistry;

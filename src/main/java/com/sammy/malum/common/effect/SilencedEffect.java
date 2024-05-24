@@ -1,6 +1,6 @@
 package com.sammy.malum.common.effect;
 
-import com.sammy.malum.common.capability.*;
+import com.sammy.malum.common.components.*;
 import com.sammy.malum.core.handlers.*;
 import com.sammy.malum.registry.common.*;
 import net.minecraft.world.effect.*;

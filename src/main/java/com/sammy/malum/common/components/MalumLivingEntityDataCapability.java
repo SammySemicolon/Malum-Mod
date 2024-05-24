@@ -1,5 +1,5 @@
-package com.sammy.malum.common.capability;
-
+package com.sammy.malum.common.components;
+/*
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.packets.SyncLivingCapabilityDataPacket;
 import com.sammy.malum.core.handlers.*;
@@ -119,3 +119,5 @@ public class MalumLivingEntityDataCapability implements LodestoneCapability {
         return entity.getCapability(CAPABILITY).orElse(new MalumLivingEntityDataCapability());
     }
 }
+
+ */

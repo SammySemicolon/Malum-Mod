@@ -17,6 +17,7 @@
     "FontStringRenderOutputMixin",
     "ForgeIngameGuiMixin",
     "GlyphRenderTypesMixin",
+    "GuiMixin",
     "LocalPlayerMixin"
   ],
   "injectors": {

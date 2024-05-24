@@ -16,7 +16,6 @@ import net.minecraft.core.*;
 import net.minecraft.resources.*;
 import net.minecraft.util.*;
 import net.minecraft.world.item.*;
-import net.minecraftforge.event.*;
 import team.lodestar.lodestone.registry.client.*;
 import team.lodestar.lodestone.systems.easing.*;
 import team.lodestar.lodestone.systems.rendering.*;
@@ -34,22 +33,20 @@ public class TotemBaseRenderer implements BlockEntityRenderer<TotemBaseBlockEnti
     public TotemBaseRenderer(BlockEntityRendererProvider.Context context) {
     }
 
-    public static void checkForTotemicStaff(TickEvent.ClientTickEvent event) {
-        if (event.phase.equals(TickEvent.Phase.START)) {
-            final LocalPlayer player = Minecraft.getInstance().player;
-            if (player == null) {
-                return;
+    public static void checkForTotemicStaff(Minecraft minecraft) {
+        final LocalPlayer player = Minecraft.getInstance().player;
+        if (player == null) {
+            return;
+        }
+        final Item totemicStaff = ItemRegistry.TOTEMIC_STAFF.get();
+        if ((player.getMainHandItem().getItem().equals(totemicStaff) || player.getOffhandItem().getItem().equals(totemicStaff))) {
+            if (TotemBaseRenderer.totemicStaffHeldTimer < 20) {
+                TotemBaseRenderer.totemicStaffHeldTimer++;
             }
-            final Item totemicStaff = ItemRegistry.TOTEMIC_STAFF.get();
-            if ((player.getMainHandItem().getItem().equals(totemicStaff) || player.getOffhandItem().getItem().equals(totemicStaff))) {
-                if (TotemBaseRenderer.totemicStaffHeldTimer < 20) {
-                    TotemBaseRenderer.totemicStaffHeldTimer++;
-                }
-                isHoldingStaff = true;
-            } else if (TotemBaseRenderer.totemicStaffHeldTimer > 0) {
-                TotemBaseRenderer.totemicStaffHeldTimer--;
-                isHoldingStaff = false;
-            }
+            isHoldingStaff = true;
+        } else if (TotemBaseRenderer.totemicStaffHeldTimer > 0) {
+            TotemBaseRenderer.totemicStaffHeldTimer--;
+            isHoldingStaff = false;
         }
     }
 

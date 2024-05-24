@@ -1,7 +1,7 @@
 package com.sammy.malum.core.events;
 
 import com.sammy.malum.common.block.storage.jar.*;
-import com.sammy.malum.common.capability.*;
+import com.sammy.malum.common.components.*;
 import com.sammy.malum.common.effect.*;
 import com.sammy.malum.common.effect.aura.*;
 import com.sammy.malum.common.enchantment.*;

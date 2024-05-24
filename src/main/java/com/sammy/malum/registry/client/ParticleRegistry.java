@@ -42,7 +42,7 @@ public class ParticleRegistry {
     public static RegistryObject<SimpleParticleType> SCYTHE_SWEEP_PARTICLE = PARTICLES.register("scythe_sweep", () -> new SimpleParticleType(true));
     public static RegistryObject<SimpleParticleType> STAFF_SLAM_PARTICLE = PARTICLES.register("staff_slam", () -> new SimpleParticleType(true));
 
-    public static void registerParticleFactory(RegisterParticleProvidersEvent event) {
+    public static void registerParticleFactory() {
         Minecraft.getInstance().particleEngine.register(SPIRIT_FLAME_PARTICLE.get(), SpiritFlameParticleType.Factory::new);
 
         Minecraft.getInstance().particleEngine.register(WEIRD_SQUIGGLE.get(), LodestoneParticleType.Factory::new);

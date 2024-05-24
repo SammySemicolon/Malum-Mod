@@ -1,6 +1,6 @@
 package com.sammy.malum.core.handlers;
 
-import com.sammy.malum.common.capability.*;
+import com.sammy.malum.common.components.*;
 import com.sammy.malum.common.container.*;
 import com.sammy.malum.common.entity.spirit.*;
 import com.sammy.malum.common.item.*;
@@ -11,7 +11,6 @@ import com.sammy.malum.core.systems.recipe.*;
 import com.sammy.malum.core.systems.spirit.*;
 import com.sammy.malum.registry.common.*;
 import com.sammy.malum.registry.common.item.*;
-import net.minecraft.core.*;
 import net.minecraft.resources.*;
 import net.minecraft.server.level.*;
 import net.minecraft.sounds.*;
@@ -31,7 +30,6 @@ import net.minecraftforge.registries.*;
 import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.systems.container.*;
 
-import javax.annotation.*;
 import java.util.*;
 import java.util.stream.*;
 

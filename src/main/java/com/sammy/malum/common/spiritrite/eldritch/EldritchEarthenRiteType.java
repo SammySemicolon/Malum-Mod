@@ -1,6 +1,7 @@
 package com.sammy.malum.common.spiritrite.eldritch;
 
 import com.sammy.malum.common.block.curiosities.totem.*;
+import com.sammy.malum.common.packets.particle.curiosities.rite.AerialBlockFallRiteEffectPacket;
 import com.sammy.malum.common.packets.particle.curiosities.rite.generic.*;
 import com.sammy.malum.common.spiritrite.*;
 import net.minecraft.server.level.*;
@@ -28,8 +29,7 @@ public class EldritchEarthenRiteType extends TotemicRiteType {
                     if (canBreak) {
                         level.destroyBlock(p, true);
                         state.getBlock().spawnAfterBreak(state, level, p, ItemStack.EMPTY, true);
-
-                        MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(p)), new BlockSparkleParticlePacket(EARTHEN_SPIRIT.getPrimaryColor(), p));
+                        MALUM_CHANNEL.sendToClientsTracking(new BlockSparkleParticlePacket(EARTHEN_SPIRIT.getPrimaryColor(), p), level, level.getChunkAt(p).getPos());
                     }
                 });
             }
@@ -49,7 +49,7 @@ public class EldritchEarthenRiteType extends TotemicRiteType {
                         BlockState cobblestone = Blocks.COBBLESTONE.defaultBlockState();
                         level.setBlockAndUpdate(p, cobblestone);
                         level.levelEvent(2001, p, Block.getId(cobblestone));
-                        MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(p)), new BlockSparkleParticlePacket(EARTHEN_SPIRIT.getPrimaryColor(), p));
+                        MALUM_CHANNEL.sendToClientsTracking(new BlockSparkleParticlePacket(EARTHEN_SPIRIT.getPrimaryColor(), p), level, level.getChunkAt(p).getPos());
                     }
                 });
             }

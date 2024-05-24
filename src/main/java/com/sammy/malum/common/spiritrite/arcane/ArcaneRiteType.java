@@ -62,7 +62,7 @@ public class ArcaneRiteType extends TotemicRiteType {
                         if (recipe != null && !inventoryForAltar.extractItem(0, 1, true).isEmpty()) {
                             Vec3 itemPos = iMalumSpecialItemAccessPoint.getItemPos();
                             level.addFreshEntity(new ItemEntity(level, itemPos.x, itemPos.y, itemPos.z, recipe.output.copy()));
-                            MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(p)), new BlightTransformItemParticlePacket(List.of(ARCANE_SPIRIT.identifier), itemPos));
+                            MALUM_CHANNEL.sendToClientsTracking(new BlightTransformItemParticlePacket(List.of(ARCANE_SPIRIT.identifier), itemPos), level, level.getChunkAt(p).getPos());
                             inventoryForAltar.extractItem(0, 1, false);
                             BlockHelper.updateAndNotifyState(level, p);
                         }
@@ -76,8 +76,8 @@ public class ArcaneRiteType extends TotemicRiteType {
                             BlockEntity entity = level.getBlockEntity(posToTransmute);
                             BlockState newState = BlockHelper.setBlockStateWithExistingProperties(level, posToTransmute, block.defaultBlockState(), 3);
                             level.levelEvent(2001, posToTransmute, Block.getId(newState));
-                            MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(posToTransmute)), new BlockSparkleParticlePacket(ARCANE_SPIRIT.getPrimaryColor(), posToTransmute));
-                            MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(posToTransmute)), new BlightMistParticlePacket(posToTransmute)); //TODO: convert these 2 into a single packet, rlly don't feel like doing it rn
+                            MALUM_CHANNEL.sendToClientsTracking(new BlockSparkleParticlePacket(ARCANE_SPIRIT.getPrimaryColor(), posToTransmute), level, level.getChunkAt(p).getPos());
+                            MALUM_CHANNEL.sendToClientsTracking(new BlightMistParticlePacket(posToTransmute), level, level.getChunkAt(p).getPos());
                             if (block instanceof EntityBlock entityBlock) {
                                 if (entity != null) {
                                     BlockEntity newEntity = entityBlock.newBlockEntity(pos, newState);

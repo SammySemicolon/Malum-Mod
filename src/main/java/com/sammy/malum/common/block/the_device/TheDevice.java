@@ -1,6 +1,6 @@
 package com.sammy.malum.common.block.the_device;
 
-import com.sammy.malum.common.capability.MalumPlayerDataCapability;
+import com.sammy.malum.common.components.MalumPlayerDataCapability;
 import com.sammy.malum.registry.common.SoundRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;

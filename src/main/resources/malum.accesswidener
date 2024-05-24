@@ -4,3 +4,14 @@ accessible field net/minecraft/world/entity/ai/goal/EatBlockGoal IS_TALL_GRASS L
 accessible class net/minecraft/client/gui/Font$StringRenderOutput
 accessible field net/minecraft/world/item/Item BASE_ATTACK_DAMAGE_UUID Ljava/util/UUID;
 accessible field net/minecraft/world/entity/item/ItemEntity age I
+accessible field net/minecraft/world/entity/animal/Sheep eatBlockGoal Lnet/minecraft/world/entity/ai/goal/EatBlockGoal;
+accessible class net/minecraft/world/entity/animal/Bee$BeePollinateGoal
+accessible field net/minecraft/world/entity/animal/Bee beePollinateGoal Lnet/minecraft/world/entity/animal/Bee$BeePollinateGoal;
+accessible method net/minecraft/world/entity/animal/Bee$BeePollinateGoal canBeeUse ()Z
+accessible field net/minecraft/world/entity/animal/Bee$BeePollinateGoal successfulPollinatingTicks I
+accessible method net/minecraft/world/entity/animal/Bee$BeePollinateGoal tick ()V
+accessible method net/minecraft/world/entity/monster/Zombie startUnderWaterConversion (I)V
+accessible method net/minecraft/world/level/block/PointedDripstoneBlock isStalactiteStartPos (Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/LevelReader;Lnet/minecraft/core/BlockPos;)Z
+accessible method net/minecraft/world/level/block/entity/AbstractFurnaceBlockEntity isLit ()Z
+accessible field net/minecraft/world/level/block/entity/AbstractFurnaceBlockEntity cookingProgress I
+accessible field net/minecraft/world/level/block/entity/AbstractFurnaceBlockEntity cookingTotalTime I

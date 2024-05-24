@@ -1,6 +1,7 @@
 package com.sammy.malum.common.spiritrite.arcane;
 
 import com.sammy.malum.common.block.curiosities.totem.*;
+import com.sammy.malum.common.packets.particle.curiosities.blight.BlightMistParticlePacket;
 import com.sammy.malum.common.packets.particle.curiosities.rite.*;
 import com.sammy.malum.common.packets.particle.curiosities.rite.generic.*;
 import com.sammy.malum.common.spiritrite.*;
@@ -41,8 +42,8 @@ public class InfernalRiteType extends TotemicRiteType {
                     if (!state.is(BlockTagRegistry.ENDLESS_FLAME)) {
                         level.playSound(null, p, SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 1, 2.6F + (level.random.nextFloat() - level.random.nextFloat()) * 0.8F);
 
-                        MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(p)), new InfernalExtinguishRiteEffectPacket(INFERNAL_SPIRIT.getPrimaryColor(), p));
-                        MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(p)), new BlockSparkleParticlePacket(ARCANE_SPIRIT.getPrimaryColor(), p));
+                        MALUM_CHANNEL.sendToClientsTracking(new InfernalExtinguishRiteEffectPacket(INFERNAL_SPIRIT.getPrimaryColor(), p), level, level.getChunkAt(p).getPos());
+                        MALUM_CHANNEL.sendToClientsTracking(new BlockSparkleParticlePacket(ARCANE_SPIRIT.getPrimaryColor(), p), level, level.getChunkAt(p).getPos());
                         totemBase.getLevel().removeBlock(p, false);
                     }
                 });

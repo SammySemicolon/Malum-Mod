@@ -1,7 +1,7 @@
 package com.sammy.malum.common.item.curiosities.weapons.staff;
 
 import com.google.common.collect.*;
-import com.sammy.malum.common.capability.*;
+import com.sammy.malum.common.components.*;
 import com.sammy.malum.common.enchantment.*;
 import com.sammy.malum.common.entity.bolt.*;
 import com.sammy.malum.common.item.*;
