@@ -1,7 +1,6 @@
 package com.sammy.malum.registry.client;
 
 import com.sammy.malum.*;
-import net.minecraftforge.client.event.*;
 import team.lodestar.lodestone.systems.particle.options.*;
 import team.lodestar.lodestone.systems.particle.screen.*;
 import team.lodestar.lodestone.systems.particle.type.*;

@@ -1,6 +1,6 @@
 package com.sammy.malum.config;
 
-import net.minecraftforge.common.ForgeConfigSpec;
+import io.github.fabricators_of_create.porting_lib.config.ModConfigSpec;
 import org.apache.commons.lang3.tuple.Pair;
 import team.lodestar.lodestone.systems.config.LodestoneConfig;
 
@@ -38,15 +38,15 @@ public class CommonConfig extends LodestoneConfig {
             builder.comment("Base time in ticks it takes for one point of soul ward to recover.")
                     .define("soulWardRate", 100)));
 
-    public CommonConfig(ForgeConfigSpec.Builder builder) {
+    public CommonConfig(ModConfigSpec.Builder builder) {
         super(MALUM, "common", builder);
     }
 
     public static final CommonConfig INSTANCE;
-    public static final ForgeConfigSpec SPEC;
+    public static final ModConfigSpec SPEC;
 
     static {
-        final Pair<CommonConfig, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(CommonConfig::new);
+        final Pair<CommonConfig, ModConfigSpec> specPair = new ModConfigSpec.Builder().configure(CommonConfig::new);
         SPEC = specPair.getRight();
         INSTANCE = specPair.getLeft();
     }

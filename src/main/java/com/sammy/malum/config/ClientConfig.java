@@ -2,7 +2,7 @@ package com.sammy.malum.config;
 
 
 import com.sammy.malum.client.screen.codex.ArcanaCodexHelper;
-import net.minecraftforge.common.ForgeConfigSpec;
+import io.github.fabricators_of_create.porting_lib.config.ModConfigSpec;
 import org.apache.commons.lang3.tuple.Pair;
 import team.lodestar.lodestone.systems.config.LodestoneConfig;
 
@@ -18,15 +18,15 @@ public class ClientConfig extends LodestoneConfig {
             builder.comment("Should the scroll direction be reversed in the encyclopedia arcana entry screen? This simply affects how you move through pages in an entry.")
                     .define("scrollDirection", false)));
 
-    public ClientConfig(ForgeConfigSpec.Builder builder) {
+    public ClientConfig(ModConfigSpec.Builder builder) {
         super(MALUM, "client", builder);
     }
 
     public static final ClientConfig INSTANCE;
-    public static final ForgeConfigSpec SPEC;
+    public static final ModConfigSpec SPEC;
 
     static {
-        final Pair<ClientConfig, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(ClientConfig::new);
+        final Pair<ClientConfig, ModConfigSpec> specPair = new ModConfigSpec.Builder().configure(ClientConfig::new);
         SPEC = specPair.getRight();
         INSTANCE = specPair.getLeft();
     }
