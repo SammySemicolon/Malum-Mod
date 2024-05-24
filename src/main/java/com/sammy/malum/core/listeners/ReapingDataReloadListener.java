@@ -2,13 +2,12 @@ package com.sammy.malum.core.listeners;
 
 import com.google.gson.*;
 import com.sammy.malum.MalumMod;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraftforge.event.AddReloadListenerEvent;
-import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,10 +22,6 @@ public class ReapingDataReloadListener extends SimpleJsonResourceReloadListener 
         super(GSON, "reaping_data");
     }
 
-    public static void register(AddReloadListenerEvent event) {
-        event.addListener(new ReapingDataReloadListener());
-    }
-
     @Override
     protected void apply(Map<ResourceLocation, JsonElement> objectIn, ResourceManager resourceManagerIn, ProfilerFiller profilerIn) {
         REAPING_DATA.clear();
@@ -35,7 +30,7 @@ public class ReapingDataReloadListener extends SimpleJsonResourceReloadListener 
             JsonObject object = objectIn.get(location).getAsJsonObject();
             String name = object.getAsJsonPrimitive("registry_name").getAsString();
             ResourceLocation resourceLocation = new ResourceLocation(name);
-            if (!ForgeRegistries.ENTITY_TYPES.containsKey(resourceLocation)) {
+            if (!BuiltInRegistries.ENTITY_TYPE.containsKey(resourceLocation)) {
                 continue;
             }
             if (REAPING_DATA.containsKey(resourceLocation)) {

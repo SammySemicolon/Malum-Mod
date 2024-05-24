@@ -13,19 +13,28 @@ import com.sammy.malum.common.item.curiosities.curios.sets.weeping.CurioGruesome
 import com.sammy.malum.compability.farmersdelight.*;
 import com.sammy.malum.config.*;
 import com.sammy.malum.core.handlers.*;
+import com.sammy.malum.core.listeners.MalignantConversionReloadListener;
+import com.sammy.malum.core.listeners.ReapingDataReloadListener;
+import com.sammy.malum.core.listeners.RitualRecipeReloadListener;
+import com.sammy.malum.core.listeners.SpiritDataReloadListener;
 import com.sammy.malum.registry.common.PacketRegistry;
 import com.sammy.malum.registry.common.item.tabs.*;
 import io.github.fabricators_of_create.porting_lib.config.ConfigRegistry;
 import io.github.fabricators_of_create.porting_lib.config.ConfigType;
+import io.github.fabricators_of_create.porting_lib.data.ExistingFileHelper;
 import io.github.fabricators_of_create.porting_lib.entity.events.*;
 import io.github.fabricators_of_create.porting_lib.entity.events.living.LivingHurtEvent;
 import io.github.fabricators_of_create.porting_lib.event.common.ExplosionEvents;
+import io.github.fabricators_of_create.porting_lib.util.FluidTextUtil;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.fabricmc.fabric.api.event.player.UseItemCallback;
+import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
+import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.*;
+import net.minecraft.server.packs.PackType;
 import net.minecraft.util.*;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
@@ -116,6 +125,11 @@ public class MalumMod implements ModInitializer {
         ExplosionEvents.DETONATE.register(CurioProspectorBelt::processExplosion);
         ExplosionEvents.DETONATE.register(NitrateExplosion::processExplosion);
 
+        ResourceManagerHelper.get(PackType.SERVER_DATA).registerReloadListener(new SpiritDataReloadListenerFabricImpl());
+        ResourceManagerHelper.get(PackType.SERVER_DATA).registerReloadListener(new ReapingDataReloadListenerFabricImpl());
+        ResourceManagerHelper.get(PackType.SERVER_DATA).registerReloadListener(new MalignantConversionReloadListenerFabricImpl());
+        ResourceManagerHelper.get(PackType.SERVER_DATA).registerReloadListener(new RitualRecipeReloadListenerFabricImpl());
+
         modBus.addListener(CreativeTabRegistry::populateItemGroups);
     }
 
@@ -132,6 +146,38 @@ public class MalumMod implements ModInitializer {
                     leftClickBlock.setCanceled(jarBlock.handleAttack(level, pos, player));
                 }
             }
+        }
+    }
+
+    public static class SpiritDataReloadListenerFabricImpl extends SpiritDataReloadListener implements IdentifiableResourceReloadListener {
+
+        @Override
+        public ResourceLocation getFabricId() {
+            return malumPath("spirit_data");
+        }
+    }
+
+    public static class ReapingDataReloadListenerFabricImpl extends ReapingDataReloadListener implements IdentifiableResourceReloadListener {
+
+        @Override
+        public ResourceLocation getFabricId() {
+            return malumPath("reaping_data");
+        }
+    }
+
+    public static class MalignantConversionReloadListenerFabricImpl extends MalignantConversionReloadListener implements IdentifiableResourceReloadListener {
+
+        @Override
+        public ResourceLocation getFabricId() {
+            return malumPath("malignant_conversion_data");
+        }
+    }
+
+    public static class RitualRecipeReloadListenerFabricImpl extends RitualRecipeReloadListener implements IdentifiableResourceReloadListener {
+
+        @Override
+        public ResourceLocation getFabricId() {
+            return malumPath("ritual_recipes");
         }
     }
 }

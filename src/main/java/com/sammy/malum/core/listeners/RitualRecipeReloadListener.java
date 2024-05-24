@@ -7,7 +7,6 @@ import com.sammy.malum.registry.common.*;
 import net.minecraft.resources.*;
 import net.minecraft.server.packs.resources.*;
 import net.minecraft.util.profiling.*;
-import net.minecraftforge.event.*;
 import team.lodestar.lodestone.systems.recipe.*;
 
 import java.util.*;
@@ -17,10 +16,6 @@ public class RitualRecipeReloadListener extends SimpleJsonResourceReloadListener
 
     public RitualRecipeReloadListener() {
         super(GSON, "ritual_recipes");
-    }
-
-    public static void register(AddReloadListenerEvent event) {
-        event.addListener(new RitualRecipeReloadListener());
     }
 
     @Override

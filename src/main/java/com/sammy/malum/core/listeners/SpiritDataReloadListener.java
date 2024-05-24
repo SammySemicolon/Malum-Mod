@@ -6,13 +6,12 @@ import com.sammy.malum.core.handlers.*;
 import com.sammy.malum.core.systems.recipe.SpiritWithCount;
 import com.sammy.malum.core.systems.spirit.EntitySpiritDropData;
 import com.sammy.malum.registry.common.SpiritTypeRegistry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraftforge.event.AddReloadListenerEvent;
-import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.*;
 
@@ -54,9 +53,6 @@ public class SpiritDataReloadListener extends SimpleJsonResourceReloadListener {
         super(GSON, "spirit_data/entity");
     }
 
-    public static void register(AddReloadListenerEvent event) {
-        event.addListener(new SpiritDataReloadListener());
-    }
 
     @Override
     protected void apply(Map<ResourceLocation, JsonElement> objectIn, ResourceManager resourceManagerIn, ProfilerFiller profilerIn) {
@@ -66,7 +62,7 @@ public class SpiritDataReloadListener extends SimpleJsonResourceReloadListener {
             JsonObject object = entry.getAsJsonObject();
             String name = object.getAsJsonPrimitive("registry_name").getAsString();
             ResourceLocation resourceLocation = new ResourceLocation(name);
-            if (!ForgeRegistries.ENTITY_TYPES.containsKey(resourceLocation)) {
+            if (!BuiltInRegistries.ENTITY_TYPE.containsKey(resourceLocation)) {
                 continue;
             }
             if (!object.has("primary_type")) {

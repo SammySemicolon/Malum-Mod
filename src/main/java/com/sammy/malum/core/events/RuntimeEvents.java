@@ -27,16 +27,6 @@ import net.minecraft.world.phys.*;
 public class RuntimeEvents {
 
 
-
-    @SubscribeEvent
-    public static void onEntityJump(LivingEvent.LivingJumpEvent event) {
-        CorruptedAerialAura.onEntityJump(event);
-    }
-
-
-
-
-
     @SubscribeEvent
     public static void onPlayerBreakSpeed(PlayerEvent.BreakSpeed event) {
         InfernalAura.increaseDigSpeed(event);
