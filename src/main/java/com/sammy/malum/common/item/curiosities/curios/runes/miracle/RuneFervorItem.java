@@ -3,10 +3,10 @@ package com.sammy.malum.common.item.curiosities.curios.runes.miracle;
 import com.sammy.malum.common.item.curiosities.curios.runes.*;
 import com.sammy.malum.registry.common.SpiritTypeRegistry;
 import com.sammy.malum.registry.common.item.ItemRegistry;
+import io.github.fabricators_of_create.porting_lib.entity.events.PlayerEvents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.event.entity.player.PlayerEvent;
-import team.lodestar.lodestone.helpers.CurioHelper;
+import team.lodestar.lodestone.helpers.TrinketsHelper;
 
 import java.util.function.Consumer;
 
@@ -21,9 +21,9 @@ public class RuneFervorItem extends AbstractRuneCurioItem {
         consumer.accept(positiveEffect("fervor"));
     }
 
-    public static void increaseDigSpeed(PlayerEvent.BreakSpeed event) {
+    public static void increaseDigSpeed(PlayerEvents.BreakSpeed event) {
         Player player = event.getEntity();
-        if (CurioHelper.hasCurioEquipped(player, ItemRegistry.RUNE_OF_FERVOR.get())) {
+        if (TrinketsHelper.hasCurioEquipped(player, ItemRegistry.RUNE_OF_FERVOR.get())) {
             event.setNewSpeed(event.getOriginalSpeed() * 1.25f);
         }
     }

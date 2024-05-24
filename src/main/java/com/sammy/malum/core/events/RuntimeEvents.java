@@ -34,20 +34,8 @@ public class RuntimeEvents {
     }
 
     @SubscribeEvent
-    public static void registerListeners(AddReloadListenerEvent event) {
-        SpiritDataReloadListener.register(event);
-        ReapingDataReloadListener.register(event);
-        RitualRecipeReloadListener.register(event);
-        MalignantConversionReloadListener.register(event);
-    }
-
-    @SubscribeEvent
     public static void onRightClickItem(PlayerInteractEvent.RightClickItem event) {
         ReboundEnchantment.onRightClickItem(event);
-    }
-
-    @SubscribeEvent
-    public static void onSwapEquipment(LivingEquipmentChangeEvent event) {
     }
 
     @SubscribeEvent

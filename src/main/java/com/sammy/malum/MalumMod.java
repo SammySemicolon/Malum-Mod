@@ -7,6 +7,7 @@ import com.sammy.malum.common.effect.aura.InfernalAura;
 import com.sammy.malum.common.enchantment.ReboundEnchantment;
 import com.sammy.malum.common.entity.nitrate.NitrateExplosion;
 import com.sammy.malum.common.item.cosmetic.curios.CurioTokenOfGratitude;
+import com.sammy.malum.common.item.curiosities.curios.runes.miracle.RuneFervorItem;
 import com.sammy.malum.common.item.curiosities.curios.sets.misc.CurioHarmonyNecklace;
 import com.sammy.malum.common.item.curiosities.curios.sets.prospector.CurioProspectorBelt;
 import com.sammy.malum.common.item.curiosities.curios.sets.rotten.CurioVoraciousRing;
@@ -111,6 +112,7 @@ public class MalumMod implements ModInitializer {
         FarmersDelightCompat.init();
 
         PlayerEvents.BREAK_SPEED.register(InfernalAura::increaseDigSpeed);
+        PlayerEvents.BREAK_SPEED.register(RuneFervorItem::increaseDigSpeed);
         EntityAttributeModificationEvent.ADD.register(AttributeRegistry::modifyEntityAttributes);
         LivingEntityEvents.JUMP.register(CorruptedAerialAura::onEntityJump);
         LivingEntityEvents.FALL.register(CorruptedAerialAura::onEntityFall);
