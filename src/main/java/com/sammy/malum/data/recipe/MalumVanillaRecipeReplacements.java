@@ -28,7 +28,7 @@ public class MalumVanillaRecipeReplacements extends VanillaRecipeProvider {
     public MalumVanillaRecipeReplacements(PackOutput pOutput) {
         super(pOutput);
     }
-
+/*TODO
     @Override
     protected void buildRecipes(Consumer<FinishedRecipe> pWriter) {
         replace(Items.QUARTZ, Tags.Items.GEMS_QUARTZ);
@@ -40,6 +40,8 @@ public class MalumVanillaRecipeReplacements extends VanillaRecipeProvider {
                 pWriter.accept(modified);
         });
     }
+
+ */
 
     private void exclude(ItemLike item) {
         excludes.add(BuiltInRegistries.ITEM.getKey(item.asItem()));

@@ -37,6 +37,7 @@ public class SpiritJarBlock<T extends SpiritJarBlockEntity> extends WaterLoggedE
     public boolean handleAttack(Level pLevel, BlockPos pPos, Player pPlayer) {
         BlockEntity be = pLevel.getBlockEntity(pPos);
         if (be instanceof SpiritJarBlockEntity jar) {
+            /*TODO
             IItemHandler jarHandler = jar.getCapability(ForgeCapabilities.ITEM_HANDLER, Direction.DOWN).orElse(new EmptyHandler());
             ItemStack item = jarHandler.extractItem(0, pPlayer.isShiftKeyDown() ? 64 : 1, false);
             if (!item.isEmpty()) {
@@ -46,6 +47,8 @@ public class SpiritJarBlock<T extends SpiritJarBlockEntity> extends WaterLoggedE
                 }
                 return true;
             }
+
+             */
         }
         return false;
     }

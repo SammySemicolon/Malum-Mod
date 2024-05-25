@@ -19,6 +19,7 @@ import team.lodestar.lodestone.handlers.*;
 import team.lodestar.lodestone.registry.client.*;
 import team.lodestar.lodestone.systems.easing.*;
 import team.lodestar.lodestone.systems.rendering.*;
+import team.lodestar.lodestone.systems.rendering.rendeertype.RenderTypeToken;
 
 import java.util.*;
 
@@ -29,7 +30,7 @@ import static net.minecraft.client.renderer.texture.OverlayTexture.*;
 public class SpiritCatalyzerRenderer implements BlockEntityRenderer<SpiritCatalyzerCoreBlockEntity> {
 
     private static final ResourceLocation LIGHT_TRAIL = malumPath("textures/vfx/concentrated_trail.png");
-    private static final RenderType TRAIL_TYPE = LodestoneRenderTypeRegistry.ADDITIVE_TEXTURE.apply(LIGHT_TRAIL);
+    private static final RenderType TRAIL_TYPE = LodestoneRenderTypeRegistry.ADDITIVE_TEXTURE.apply(new RenderTypeToken("malum", LIGHT_TRAIL));
 
     public SpiritCatalyzerRenderer(BlockEntityRendererProvider.Context context) {
     }

@@ -1,6 +1,7 @@
 package com.sammy.malum.client.particles.spiritflame;
 
 import com.mojang.serialization.Codec;
+import net.fabricmc.fabric.impl.client.particle.FabricSpriteProviderImpl;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleEngine;
@@ -31,7 +32,7 @@ public class SpiritFlameParticleType extends ParticleType<WorldParticleOptions> 
         @Nullable
         @Override
         public Particle createParticle(WorldParticleOptions data, ClientLevel world, double x, double y, double z, double mx, double my, double mz) {
-            return new SpiritFlameParticle(world, data, (ParticleEngine.MutableSpriteSet) sprite, x, y, z, mx, my, mz);
+            return new SpiritFlameParticle(world, data, (FabricSpriteProviderImpl) sprite, x, y, z, mx, my, mz);
         }
     }
 }

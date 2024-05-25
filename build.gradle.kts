@@ -62,6 +62,7 @@ repositories {
     maven( "https://maven.jamieswhiteshirt.com/libs-release")
     maven("https://maven.greenhouseteam.dev/releases/")
     maven("https://raw.githubusercontent.com/Fuzss/modresources/main/maven/") // Forge Config API Port
+    maven("https://maven.shedaniel.me/")
 }
 
 dependencies {
@@ -76,7 +77,7 @@ dependencies {
     modImplementation("net.fabricmc.fabric-api:fabric-api:${property("fabric_api_version")}")
 
     modImplementation("com.github.Chocohead:Fabric-ASM:v2.3")
-
+    modImplementation("me.shedaniel.cloth:cloth-config-fabric:11.1.118")
     // JEI Dependency
     modCompileOnlyApi("mezz.jei:jei-${property("minecraft_version")}-common-api:${property("jei_version")}")
     modCompileOnlyApi("mezz.jei:jei-${property("minecraft_version")}-fabric-api:${property("jei_version")}")
@@ -88,29 +89,29 @@ dependencies {
 
     modImplementation("team.lodestar.lodestone:lodestone:${property("minecraft_version")}-${property("lodestone_version")}")
 
-    modApi("dev.onyxstudios.cardinal-components-api:cardinal-components-base:${property("cca_version")}")
-    modApi("dev.onyxstudios.cardinal-components-api:cardinal-components-entity:${property("cca_version")}")
-    modApi("dev.onyxstudios.cardinal-components-api:cardinal-components-world:${property("cca_version")}")
+    modImplementation("dev.onyxstudios.cardinal-components-api:cardinal-components-base:${property("cca_version")}")
+    modImplementation("dev.onyxstudios.cardinal-components-api:cardinal-components-entity:${property("cca_version")}")
+    modImplementation("dev.onyxstudios.cardinal-components-api:cardinal-components-world:${property("cca_version")}")
 
-    modApi("com.terraformersmc.terraform-api:terraform-wood-api-v1:${property("terraform_api_version")}")
-    include("com.terraformersmc.terraform-api:terraform-wood-api-v1:${property("terraform_api_version")}")
+    modImplementation("com.terraformersmc.terraform-api:terraform-wood-api-v1:${property("terraform_api_version")}")
+    //include("com.terraformersmc.terraform-api:terraform-wood-api-v1:${property("terraform_api_version")}")
 
     port_lib_modules.split(",").forEach { module ->
-        modApi(("io.github.fabricators_of_create.Porting-Lib:$module:${property("port_lib_version")}"))
+        modImplementation(("io.github.fabricators_of_create.Porting-Lib:$module:${property("port_lib_version")}"))
     }
 
-    modApi("com.jamieswhiteshirt:reach-entity-attributes:${property("reach_entity_attributes_version")}")
+    modImplementation("com.jamieswhiteshirt:reach-entity-attributes:${property("reach_entity_attributes_version")}")
 
     modImplementation("vectorwing:FarmersDelight:${property("farmers_delight_version")}")
     modRuntimeOnly("com.simibubi.create:create-fabric-1.20.1:0.5.1-f-build.1417+mc1.20.1")
     modRuntimeOnly("fuzs.forgeconfigapiport:forgeconfigapiport-fabric:${property("forge_config_api_port_version")}")
 
-    implementation("curse.maven:jeed-532286:5186338")
+    modImplementation("curse.maven:jeed-532286:5186338")
 
-    runtimeOnly("curse.maven:world-stripper-250603:4578576")
-    runtimeOnly("curse.maven:spark-361579:4738953")
-    runtimeOnly("curse.maven:attributefix-280510:4911083")
-    runtimeOnly("curse.maven:overloaded-armor-bar-314002:5208706")
+    modRuntimeOnly("curse.maven:world-stripper-250603:4578576")
+    modRuntimeOnly("curse.maven:spark-361579:4738953")
+    modRuntimeOnly("curse.maven:attributefix-280510:4911083")
+    modRuntimeOnly("curse.maven:overloaded-armor-bar-314002:5208706")
 }
 
 tasks {

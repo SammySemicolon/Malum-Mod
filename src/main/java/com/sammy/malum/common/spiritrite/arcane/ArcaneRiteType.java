@@ -59,6 +59,7 @@ public class ArcaneRiteType extends TotemicRiteType {
                         LodestoneBlockEntityInventory inventoryForAltar = iMalumSpecialItemAccessPoint.getSuppliedInventory();
                         ItemStack stack = inventoryForAltar.getStackInSlot(0);
                         var recipe = SpiritTransmutationRecipe.getRecipe(level, stack);
+                        /*TODO
                         if (recipe != null && !inventoryForAltar.extractItem(0, 1, true).isEmpty()) {
                             Vec3 itemPos = iMalumSpecialItemAccessPoint.getItemPos();
                             level.addFreshEntity(new ItemEntity(level, itemPos.x, itemPos.y, itemPos.z, recipe.output.copy()));
@@ -66,6 +67,8 @@ public class ArcaneRiteType extends TotemicRiteType {
                             inventoryForAltar.extractItem(0, 1, false);
                             BlockHelper.updateAndNotifyState(level, p);
                         }
+
+                         */
                     }
                     ItemStack stack = stateToTransmute.getBlock().asItem().getDefaultInstance();
                     var recipe = SpiritTransmutationRecipe.getRecipe(level, stack);
