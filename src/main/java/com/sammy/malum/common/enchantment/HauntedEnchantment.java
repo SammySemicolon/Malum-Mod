@@ -14,6 +14,7 @@ public class HauntedEnchantment extends Enchantment {
         super(Rarity.UNCOMMON, EnchantmentRegistry.SCYTHE_OR_STAFF, new EquipmentSlot[]{EquipmentSlot.MAINHAND, EquipmentSlot.OFFHAND});
     }
 
+    /*TODO
     public static void addMagicDamage(ItemAttributeModifierEvent event) {
         if (event.getSlotType().equals(EquipmentSlot.MAINHAND)) {
             ItemStack itemStack = event.getItemStack();
@@ -38,6 +39,8 @@ public class HauntedEnchantment extends Enchantment {
             }
         }
     }
+
+     */
 
     @Override
     public int getMaxLevel() {

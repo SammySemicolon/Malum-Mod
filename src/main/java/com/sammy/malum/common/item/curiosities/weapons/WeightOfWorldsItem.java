@@ -4,6 +4,7 @@ import com.sammy.malum.common.item.curiosities.weapons.scythe.*;
 import com.sammy.malum.registry.client.*;
 import com.sammy.malum.registry.common.*;
 import io.github.fabricators_of_create.porting_lib.entity.events.living.LivingHurtEvent;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.*;
@@ -17,14 +18,13 @@ public class WeightOfWorldsItem extends LodestoneAxeItem implements IEventRespon
         super(material, attackDamage, attackSpeed, properties);
     }
 
-
     @Override
-    public void killEvent(LivingDeathEvent event, LivingEntity attacker, LivingEntity target, ItemStack stack) {
-        attacker.addEffect(new MobEffectInstance(MobEffectRegistry.GRIM_CERTAINTY.get(), 200));
+    public void killEvent(LivingEntity finalAttacker, LivingEntity livingEntity, ItemStack s, DamageSource damageSource, float damageAmount) {
+        finalAttacker.addEffect(new MobEffectInstance(MobEffectRegistry.GRIM_CERTAINTY.get(), 200));
     }
 
     @Override
-    public void hurtEvent(LivingHurtEvent event, LivingEntity attacker, LivingEntity target, ItemStack stack) {
+    public void hurtEvent(LivingEntity attacker, LivingEntity target, ItemStack stack) {
         if (attacker != null) {
             if (attacker instanceof Player player) {
                 MalumScytheItem.spawnSweepParticles(player, ParticleRegistry.SCYTHE_CUT_PARTICLE.get());

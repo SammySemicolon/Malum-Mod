@@ -1,5 +1,6 @@
 package com.sammy.malum.asm;
 
+import com.chocohead.mm.api.ClassTinkerers;
 import net.fabricmc.loader.api.FabricLoader;
 
 public class MalumASM implements Runnable{
@@ -11,7 +12,7 @@ public class MalumASM implements Runnable{
 
     private static void extendEnums() {
         ClassTinkerers.enumBuilder(mapC("class_1886")) // EnchantmentCategory
-                .addEnumSubclass("TWILIGHTFOREST_BLOCK_AND_CHAIN", "twilightforest.asm.EnchantmentCategoryBlockAndChain")
+                .addEnumSubclass("SCYTHE", "com.sammy.malum.asm.EnchantmentCategoryScythe")
                 .build();
     }
 

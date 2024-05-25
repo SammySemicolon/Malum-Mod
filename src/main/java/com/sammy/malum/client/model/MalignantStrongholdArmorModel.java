@@ -105,7 +105,10 @@ public class MalignantStrongholdArmorModel extends LodestoneArmorModel {
             }
             pPoseStack.pushPose();
 
-            float gameTime = Minecraft.getInstance().level.getGameTime() + Minecraft.getInstance().getPartialTick();
+            Minecraft minecraft = Minecraft.getInstance();
+            var realPartialTick = minecraft.pause ? minecraft.pausePartialTick : minecraft.timer.partialTick;
+
+            float gameTime = Minecraft.getInstance().level.getGameTime() + realPartialTick;
             Color primaryColor = activeGlows.get(0).getPrimaryColor();
             Color secondaryColor = activeGlows.get(0).getSecondaryColor();
             float colorCoefficient = activeGlows.get(0).getColorCoefficient();

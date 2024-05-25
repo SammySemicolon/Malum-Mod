@@ -21,6 +21,7 @@ import java.util.function.Supplier;
 
 @SuppressWarnings("unchecked")
 public class BiomeModifications {
+    /*
     public static void bootstrap(BootstapContext<BiomeModification> context) {
         register(context, "soulstone_ore", () ->
                 addFeatureModifier(context,
@@ -95,4 +96,6 @@ public class BiomeModifications {
     private static void register(BootstapContext<BiomeModifier> context, String name, Supplier<? extends BiomeModifier> modifier) {
         context.register(ResourceKey.create(ForgeRegistries.Keys.BIOME_MODIFIERS, MalumMod.malumPath(name)), modifier.get());
     }
+
+     */
 }
