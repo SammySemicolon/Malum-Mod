@@ -6,6 +6,7 @@ import com.sammy.malum.registry.client.ParticleRegistry;
 import com.sammy.malum.registry.common.DamageTypeRegistry;
 import com.sammy.malum.registry.common.SoundRegistry;
 import com.sammy.malum.registry.common.item.ItemRegistry;
+import io.github.fabricators_of_create.porting_lib.enchant.CustomEnchantingBehaviorItem;
 import io.github.fabricators_of_create.porting_lib.entity.events.living.LivingHurtEvent;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.server.level.ServerLevel;
@@ -22,7 +23,7 @@ import team.lodestar.lodestone.helpers.TrinketsHelper;
 import team.lodestar.lodestone.registry.common.tag.*;
 import team.lodestar.lodestone.systems.item.ModCombatItem;
 
-public class MalumScytheItem extends ModCombatItem implements IMalumEventResponderItem {
+public class MalumScytheItem extends ModCombatItem implements IMalumEventResponderItem, CustomEnchantingBehaviorItem {
 
     public MalumScytheItem(Tier tier, float attackDamageIn, float attackSpeedIn, Properties builderIn) {
         super(tier, attackDamageIn + 3 + tier.getAttackDamageBonus(), attackSpeedIn - 3.2f, builderIn);
@@ -81,6 +82,6 @@ public class MalumScytheItem extends ModCombatItem implements IMalumEventRespond
         if (enchantment.equals(Enchantments.SWEEPING_EDGE)) {
             return true;
         }
-        return super.canApplyAtEnchantingTable(stack, enchantment);
+        return CustomEnchantingBehaviorItem.super.canApplyAtEnchantingTable(stack, enchantment);
     }
 }

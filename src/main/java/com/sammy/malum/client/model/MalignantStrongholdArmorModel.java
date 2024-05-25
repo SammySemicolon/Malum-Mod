@@ -23,6 +23,7 @@ import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.registry.client.*;
 import team.lodestar.lodestone.systems.easing.*;
 import team.lodestar.lodestone.systems.model.*;
+import team.lodestar.lodestone.systems.rendering.rendeertype.RenderTypeToken;
 
 import java.awt.*;
 import java.util.List;
@@ -31,6 +32,7 @@ import java.util.stream.*;
 
 public class MalignantStrongholdArmorModel extends LodestoneArmorModel {
     public static final ModelLayerLocation LAYER = new ModelLayerLocation(MalumMod.malumPath("malignant_lead_armor"), "main");
+    public static final RenderTypeToken GLOW_TEXTURE_TOKEN = new RenderTypeToken("malum", MalumMod.malumPath("textures/armor/malignant_stronghold_glow.png"));
     public static final ResourceLocation GLOW_TEXTURE = MalumMod.malumPath("textures/armor/malignant_stronghold_glow.png");
     private final ModelPart right_arm_glow;
     private final ModelPart left_arm_glow;
@@ -126,8 +128,8 @@ public class MalignantStrongholdArmorModel extends LodestoneArmorModel {
                                 activeGlows.get(Math.min((int)relative+1, activeGlows.size()-1)).getColorCoefficient());
             }
 
-            final VertexConsumer transparent = RenderHandler.DELAYED_RENDER.getTarget().getBuffer(LodestoneRenderTypeRegistry.TRANSPARENT_TEXTURE.applyAndCache(GLOW_TEXTURE));
-            final VertexConsumer additive = RenderHandler.DELAYED_RENDER.getTarget().getBuffer(RenderTypeRegistry.MALIGNANT_GLOW.applyAndCache(GLOW_TEXTURE));
+            final VertexConsumer transparent = RenderHandler.DELAYED_RENDER.getTarget().getBuffer(LodestoneRenderTypeRegistry.TRANSPARENT_TEXTURE.applyAndCache(GLOW_TEXTURE_TOKEN));
+            final VertexConsumer additive = RenderHandler.DELAYED_RENDER.getTarget().getBuffer(RenderTypeRegistry.MALIGNANT_GLOW.applyAndCache(GLOW_TEXTURE_TOKEN));
             float distance = 0.06f;
             float alpha = 0.25f;
             int time = 320;

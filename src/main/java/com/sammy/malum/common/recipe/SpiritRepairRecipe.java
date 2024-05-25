@@ -40,7 +40,7 @@ public class SpiritRepairRecipe extends AbstractSpiritListMalumRecipe {
     }
 
     public static SpiritRepairRecipe getRecipe(Level level, ItemStack stack, ItemStack repairStack, List<ItemStack> spirits) {
-        if (stack.isRepairable() && !stack.isDamaged()) {
+        if (stack.isDamageableItem() && !stack.isDamaged()) {
             return null;
         }
         return getRecipe(level, c -> c.doesInputMatch(stack) && c.doesRepairMatch(repairStack) && c.doSpiritsMatch(spirits));
@@ -55,7 +55,7 @@ public class SpiritRepairRecipe extends AbstractSpiritListMalumRecipe {
     }
 
     public static ItemStack getRepairRecipeOutput(ItemStack input) {
-        return input.getItem() instanceof IRepairOutputOverride ? new ItemStack(((IRepairOutputOverride) input.getItem()).overrideRepairResult(), input.getCount(), input.getTag()) : input;
+        return input.getItem() instanceof IRepairOutputOverride ? new ItemStack(((IRepairOutputOverride) input.getItem()).overrideRepairResult(), input.getCount(), Optional.ofNullable(input.getTag())) : input;
     }
 
     public interface IRepairOutputOverride {
@@ -75,7 +75,7 @@ public class SpiritRepairRecipe extends AbstractSpiritListMalumRecipe {
         @Override
         public SpiritRepairRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
             if (REPAIRABLE == null) {
-                REPAIRABLE = BuiltInRegistries.ITEM.getEntries().stream().map(Map.Entry::getValue).filter(Item::canBeDepleted).collect(Collectors.toList());
+                REPAIRABLE = BuiltInRegistries.ITEM.stream().filter(Item::canBeDepleted).collect(Collectors.toList());
             }
             float durabilityPercentage = json.getAsJsonPrimitive("durabilityPercentage").getAsFloat();
             String itemIdRegex = json.get("itemIdRegex").getAsString();
@@ -83,7 +83,7 @@ public class SpiritRepairRecipe extends AbstractSpiritListMalumRecipe {
             JsonArray inputsArray = json.getAsJsonArray("inputs");
             List<Item> inputs = new ArrayList<>();
             for (JsonElement jsonElement : inputsArray) {
-                Item input = BuiltInRegistries.ITEM.getValue(new ResourceLocation(jsonElement.getAsString()));
+                Item input = BuiltInRegistries.ITEM.get(new ResourceLocation(jsonElement.getAsString()));
                 if (input == null) {
                     continue;
                 }

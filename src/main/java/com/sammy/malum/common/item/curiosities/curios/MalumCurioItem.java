@@ -2,6 +2,7 @@ package com.sammy.malum.common.item.curiosities.curios;
 
 import com.google.common.collect.Multimap;
 import dev.emi.trinkets.api.Trinket;
+import dev.emi.trinkets.api.TrinketsApi;
 import io.github.fabricators_of_create.porting_lib.entity.events.living.LivingHurtEvent;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -9,6 +10,9 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +36,7 @@ public class MalumCurioItem extends AbstractMalumCurioItem implements Trinket {
         super.addAttributeModifier(map, attribute, attributeModifier);
     }
 
+    /*TODO
     @Override
     public List<Component> getAttributesTooltip(List<net.minecraft.network.chat.Component> tooltips, ItemStack stack) {
         final List<Component> attributesTooltip = super.getAttributesTooltip(tooltips, stack);
@@ -53,6 +58,8 @@ public class MalumCurioItem extends AbstractMalumCurioItem implements Trinket {
         }
         return attributesTooltip;
     }
+
+     */
 
     public static Component positiveEffect(String name, Object... args) {
         return Component.translatable("malum.gui.curio.positive", Component.translatable("malum.gui.curio.effect." + name, args)).withStyle(ChatFormatting.BLUE);

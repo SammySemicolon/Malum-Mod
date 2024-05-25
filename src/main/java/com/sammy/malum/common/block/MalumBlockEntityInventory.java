@@ -27,6 +27,7 @@ public class MalumBlockEntityInventory extends LodestoneBlockEntityInventory {
         super(slotCount, allowedItemSize);
     }
 
+    /*TODO
     @Override
     public void extractItem(Player playerEntity, ItemStack stack, int slot) {
         super.extractItem(playerEntity, stack, slot);
@@ -43,6 +44,8 @@ public class MalumBlockEntityInventory extends LodestoneBlockEntityInventory {
         }
         return result;
     }
+
+     */
 
     public SoundEvent getExtractSound(ItemStack stack) {
         return stack.getItem() instanceof SpiritShardItem ? SoundRegistry.PEDESTAL_SPIRIT_PICKUP.get() : SoundRegistry.PEDESTAL_ITEM_PICKUP.get();

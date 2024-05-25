@@ -81,7 +81,7 @@ public class SpiritHarvestHandler {
                                 e.totalSoulCount = spiritData.totalSpirits;
                             });
                             itemEntity.setNeverPickUp();
-                            itemEntity.age = itemEntity.lifespan - 20;
+                            itemEntity.age = 6000 - 20;//Magic number
                             itemEntity.setNoGravity(true);
                             itemEntity.setDeltaMovement(itemEntity.getDeltaMovement().multiply(1, 0.5, 1));
                         }

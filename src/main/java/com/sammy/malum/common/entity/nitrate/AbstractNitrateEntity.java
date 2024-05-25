@@ -4,6 +4,7 @@ import com.sammy.malum.visual_effects.networked.*;
 import com.sammy.malum.visual_effects.networked.data.*;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.*;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -100,7 +101,7 @@ public abstract class AbstractNitrateEntity extends ThrowableProjectile {
         NitrateExplosion.explode(level(), this, getX(), getY(0.0625D), getZ(), getExplosionRadius(), Explosion.BlockInteraction.DESTROY);
         onExplode();
         if (!level().isClientSide) {
-            getImpactParticleEffect().createPositionedEffect(level(), new PositionEffectData(position()), getImpactParticleEffectColor());
+            getImpactParticleEffect().createPositionedEffect((ServerLevel) level(), new PositionEffectData(position()), getImpactParticleEffectColor());
         }
         if (timesExploded++ >= getMaxPierce()) {
             getEntityData().set(DATA_FADING_AWAY, true);

@@ -158,7 +158,7 @@ public class ScreenParticleEffects {
         @Override
         public void spawnEarlyParticles(ScreenParticleHolder target, Level level, float partialTick, ItemStack stack, float x, float y) {
             final LocalPlayer player = Minecraft.getInstance().player;
-            final TouchOfDarknessHandler handler = MalumLivingEntityDataCapability.getCapability(player).touchOfDarknessHandler;
+            final TouchOfDarknessHandler handler = MalumComponents.MALUM_LIVING_ENTITY_COMPONENT.get(player).touchOfDarknessHandler;
             isNearWell = handler.isNearWeepingWell;
             if (!isNearWell) {
                 return;

@@ -1,13 +1,14 @@
 package com.sammy.malum.common.item.impetus;
 
 import com.sammy.malum.common.recipe.SpiritRepairRecipe;
+import io.github.fabricators_of_create.porting_lib.enchant.CustomEnchantingBehaviorItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 
 import java.util.function.Supplier;
 
-public class ImpetusItem extends Item implements SpiritRepairRecipe.IRepairOutputOverride {
+public class ImpetusItem extends Item implements SpiritRepairRecipe.IRepairOutputOverride, CustomEnchantingBehaviorItem {
     private Supplier<CrackedImpetusItem> cracked;
 
     public ImpetusItem(Properties properties) {

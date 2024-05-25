@@ -6,6 +6,7 @@ import com.sammy.malum.visual_effects.networked.data.*;
 import com.sammy.malum.visual_effects.networked.staff.*;
 import net.minecraft.nbt.*;
 import net.minecraft.network.syncher.*;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.*;
 import net.minecraft.world.damagesource.*;
 import net.minecraft.world.entity.*;
@@ -116,7 +117,7 @@ public abstract class AbstractBoltProjectileEntity extends ThrowableItemProjecti
         }
 
         if (!level().isClientSide) {
-            getImpactParticleEffect().createPositionedEffect(level(), new PositionEffectData(position().add(getDeltaMovement().scale(0.25f))), new ColorEffectData(SpiritTypeRegistry.WICKED_SPIRIT), HexBoltImpactParticleEffect.createData(getDeltaMovement().reverse().normalize()));
+            getImpactParticleEffect().createPositionedEffect((ServerLevel) level(), new PositionEffectData(position().add(getDeltaMovement().scale(0.25f))), new ColorEffectData(SpiritTypeRegistry.WICKED_SPIRIT), HexBoltImpactParticleEffect.createData(getDeltaMovement().reverse().normalize()));
             playSound(SoundRegistry.STAFF_STRIKES.get(), 0.5f, Mth.nextFloat(random, 0.9F, 1.5F));
             getEntityData().set(DATA_FADING_AWAY, true);
             Vec3 vec3 = pResult.getLocation().subtract(position());
@@ -148,12 +149,12 @@ public abstract class AbstractBoltProjectileEntity extends ThrowableItemProjecti
                 onDealDamage(livingentity);
                 ItemStack staff = getItem();
                 ItemHelper.applyEnchantments(staffOwner, livingentity, staff);
-                int i = staff.getEnchantmentLevel(Enchantments.FIRE_ASPECT);
+                int i = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.FIRE_ASPECT, staff);
                 if (i > 0) {
                     livingentity.setSecondsOnFire(i * 4);
                 }
                 getEntityData().set(DATA_FADING_AWAY, true);
-                getImpactParticleEffect().createPositionedEffect(level(), new PositionEffectData(position().add(getDeltaMovement().scale(0.5f))), new ColorEffectData(SpiritTypeRegistry.WICKED_SPIRIT), HexBoltImpactParticleEffect.createData(getDeltaMovement().reverse().normalize()));
+                getImpactParticleEffect().createPositionedEffect((ServerLevel) level(), new PositionEffectData(position().add(getDeltaMovement().scale(0.5f))), new ColorEffectData(SpiritTypeRegistry.WICKED_SPIRIT), HexBoltImpactParticleEffect.createData(getDeltaMovement().reverse().normalize()));
                 playSound(SoundRegistry.STAFF_STRIKES.get(), 0.75f, Mth.nextFloat(random, 1f, 1.4f));
                 setDeltaMovement(getDeltaMovement().scale(0.05f));
             }

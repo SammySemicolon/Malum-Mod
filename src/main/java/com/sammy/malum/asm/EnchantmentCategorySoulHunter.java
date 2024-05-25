@@ -4,9 +4,9 @@ import com.sammy.malum.common.item.curiosities.weapons.scythe.MalumScytheItem;
 import com.sammy.malum.registry.common.item.ItemTagRegistry;
 import net.minecraft.world.item.Item;
 
-public class EnchantmentCategoryScythe extends EnchantmentCategoryMixin{
+public class EnchantmentCategorySoulHunter extends EnchantmentCategoryMixin{
     @Override
     public boolean canEnchant(Item item) {
-        return item.getDefaultInstance().is(ItemTagRegistry.SCYTHE);
+        return item.getDefaultInstance().is(ItemTagRegistry.SOUL_HUNTER_WEAPON);
     }
 }

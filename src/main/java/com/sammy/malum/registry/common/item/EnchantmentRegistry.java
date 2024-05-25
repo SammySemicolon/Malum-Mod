@@ -13,11 +13,11 @@ import net.minecraft.world.item.enchantment.EnchantmentCategory;
 public class EnchantmentRegistry {
     public static final LazyRegistrar<Enchantment> ENCHANTMENTS = LazyRegistrar.create(BuiltInRegistries.ENCHANTMENT, MalumMod.MALUM);
 
-    public static final EnchantmentCategory SOUL_HUNTER_WEAPON = EnchantmentCategory.create(MalumMod.MALUM + ":soul_hunter_only", i -> i.getDefaultInstance().is(ItemTagRegistry.SOUL_HUNTER_WEAPON));
-    public static final EnchantmentCategory SCYTHE = EnchantmentCategory.create(MalumMod.MALUM + ":scythe_only", i -> i.getDefaultInstance().is(ItemTagRegistry.SCYTHE));
-    public static final EnchantmentCategory REBOUND_SCYTHE = EnchantmentCategory.create(MalumMod.MALUM + ":rebound_scythe_only", i -> i.getDefaultInstance().is(ItemTagRegistry.SCYTHE) || (CommonConfig.ULTIMATE_REBOUND.getConfigValue() && i instanceof TieredItem));
-    public static final EnchantmentCategory STAFF = EnchantmentCategory.create(MalumMod.MALUM + ":staff_only", i -> i.getDefaultInstance().is(ItemTagRegistry.STAFF));
-    public static final EnchantmentCategory SCYTHE_OR_STAFF = EnchantmentCategory.create(MalumMod.MALUM + ":scythe_or_staff", i -> i.getDefaultInstance().is(ItemTagRegistry.SCYTHE) || i.getDefaultInstance().is(ItemTagRegistry.STAFF));
+    //public static final EnchantmentCategory SOUL_HUNTER_WEAPON = EnchantmentCategory.create(MalumMod.MALUM + ":soul_hunter_only", i -> i.getDefaultInstance().is(ItemTagRegistry.SOUL_HUNTER_WEAPON));
+    //public static final EnchantmentCategory SCYTHE = EnchantmentCategory.create(MalumMod.MALUM + ":scythe_only", i -> i.getDefaultInstance().is(ItemTagRegistry.SCYTHE));
+    //public static final EnchantmentCategory REBOUND_SCYTHE = EnchantmentCategory.create(MalumMod.MALUM + ":rebound_scythe_only", i -> i.getDefaultInstance().is(ItemTagRegistry.SCYTHE) || (CommonConfig.ULTIMATE_REBOUND.getConfigValue() && i instanceof TieredItem));
+    //public static final EnchantmentCategory STAFF = EnchantmentCategory.create(MalumMod.MALUM + ":staff_only", i -> i.getDefaultInstance().is(ItemTagRegistry.STAFF));
+    //public static final EnchantmentCategory SCYTHE_OR_STAFF = EnchantmentCategory.create(MalumMod.MALUM + ":scythe_or_staff", i -> i.getDefaultInstance().is(ItemTagRegistry.SCYTHE) || i.getDefaultInstance().is(ItemTagRegistry.STAFF));
 
     public static final RegistryObject<Enchantment> REBOUND = ENCHANTMENTS.register("rebound", ReboundEnchantment::new);
     public static final RegistryObject<Enchantment> HAUNTED = ENCHANTMENTS.register("haunted", HauntedEnchantment::new);
