@@ -7,6 +7,7 @@ import com.sammy.malum.registry.common.*;
 import io.github.fabricators_of_create.porting_lib.entity.events.living.LivingHurtEvent;
 import io.github.fabricators_of_create.porting_lib.tool.ToolAction;
 import io.github.fabricators_of_create.porting_lib.tool.ToolActions;
+import io.github.fabricators_of_create.porting_lib.tool.extensions.ItemStackExtensions;
 import net.minecraft.sounds.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.*;
@@ -17,7 +18,7 @@ import team.lodestar.lodestone.systems.item.tools.*;
 
 import static com.sammy.malum.registry.common.PacketRegistry.*;
 
-public class TyrvingItem extends LodestoneSwordItem implements IMalumEventResponderItem {
+public class TyrvingItem extends LodestoneSwordItem implements IMalumEventResponderItem, ItemStackExtensions {
     public TyrvingItem(Tier material, int attackDamage, float attackSpeed, Properties properties) {
         super(material, attackDamage, attackSpeed, properties);
     }
@@ -43,10 +44,8 @@ public class TyrvingItem extends LodestoneSwordItem implements IMalumEventRespon
         }
     }
 
-
-
     @Override
-    public boolean canPerformAction(ItemStack stack, ToolAction toolAction) {
+    public boolean canPerformAction(ToolAction toolAction) {
         return toolAction.equals(ToolActions.SWORD_DIG);
     }
 }

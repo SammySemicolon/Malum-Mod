@@ -19,7 +19,7 @@ public class CurioRunicBrooch extends MalumCurioItem {
 
     @Override
     public void addAttributeModifiers(Multimap<Attribute, AttributeModifier> map, SlotReference slotContext, ItemStack stack) {
-        CuriosApi.addSlotModifier(map, "rune", RUNIC_BROOCH_RUNE, 2, AttributeModifier.Operation.ADDITION);
-        CuriosApi.addSlotModifier(map, "ring", RUNIC_BROOCH_RING, -1, AttributeModifier.Operation.ADDITION);
+        //TODO CuriosApi.addSlotModifier(map, "rune", RUNIC_BROOCH_RUNE, 2, AttributeModifier.Operation.ADDITION);
+        //TODO CuriosApi.addSlotModifier(map, "ring", RUNIC_BROOCH_RING, -1, AttributeModifier.Operation.ADDITION);
     }
 }

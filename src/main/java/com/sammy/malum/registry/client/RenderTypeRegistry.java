@@ -4,6 +4,7 @@ import com.mojang.blaze3d.platform.*;
 import com.mojang.blaze3d.systems.*;
 import net.minecraft.*;
 import net.minecraft.client.renderer.*;
+import net.minecraft.resources.ResourceLocation;
 import org.lwjgl.opengl.*;
 import team.lodestar.lodestone.registry.client.*;
 import team.lodestar.lodestone.systems.rendering.*;
@@ -39,20 +40,20 @@ public class RenderTypeRegistry extends RenderStateShard {
     });
 
     public static final RenderTypeProvider ADDITIVE_DISTORTED_TEXTURE = new RenderTypeProvider((texture) ->
-            LodestoneRenderTypeRegistry.createGenericRenderType(texture.getNamespace() + ":additive_distorted_texture", POSITION_COLOR_TEX_LIGHTMAP, QUADS, LodestoneRenderTypeRegistry.builder()
+            LodestoneRenderTypeRegistry.createGenericRenderType(texture.getIdentifier() + ":additive_distorted_texture", POSITION_COLOR_TEX_LIGHTMAP, QUADS, LodestoneRenderTypeRegistry.builder()
                     .setShaderState(ShaderRegistry.DISTORTION)
                     .setTransparencyState(StateShards.ADDITIVE_TRANSPARENCY)
                     .setLightmapState(LIGHTMAP)
                     .setCullState(CULL)
-                    .setTextureState(texture)));
+                    .setTextureState(new ResourceLocation(texture.getIdentifier()))));
 
     public static final RenderTypeProvider TRANSPARENT_DISTORTED_TEXTURE = new RenderTypeProvider((texture) ->
-            LodestoneRenderTypeRegistry.createGenericRenderType(texture.getNamespace() + ":transparent_distorted_texture", POSITION_COLOR_TEX_LIGHTMAP, QUADS, LodestoneRenderTypeRegistry.builder()
+            LodestoneRenderTypeRegistry.createGenericRenderType(texture.getIdentifier() + ":transparent_distorted_texture", POSITION_COLOR_TEX_LIGHTMAP, QUADS, LodestoneRenderTypeRegistry.builder()
                     .setShaderState(ShaderRegistry.DISTORTION)
                     .setTransparencyState(StateShards.TRANSLUCENT_TRANSPARENCY)
                     .setLightmapState(LIGHTMAP)
                     .setCullState(CULL)
-                    .setTextureState(texture)));
+                    .setTextureState(new ResourceLocation(texture.getIdentifier()))));
 
     public static final RenderTypeProvider SUBTRACTIVE_TEXT = new RenderTypeProvider((texture) ->
             LodestoneRenderTypeRegistry.createGenericRenderType("malum:subtractive_text", POSITION_COLOR_TEX_LIGHTMAP, QUADS, LodestoneRenderTypeRegistry.builder()
@@ -60,7 +61,7 @@ public class RenderTypeRegistry extends RenderStateShard {
             .setTransparencyState(SUBTRACTIVE_TEXT_TRANSPARENCY)
             .setWriteMaskState(COLOR_WRITE)
             .setLightmapState(LIGHTMAP)
-            .setTextureState(new TextureStateShard(texture, ForgeRenderTypes.enableTextTextureLinearFiltering, false))));
+            .setTextureState(new TextureStateShard(new ResourceLocation(texture.getIdentifier()), false, false))));
 
     public static final RenderTypeProvider SUBTRACTIVE_INTENSE_TEXT = new RenderTypeProvider((texture) ->
         LodestoneRenderTypeRegistry.createGenericRenderType("malum:subtractive_intense_text", POSITION_COLOR_TEX_LIGHTMAP, QUADS, LodestoneRenderTypeRegistry.builder()
@@ -68,12 +69,12 @@ public class RenderTypeRegistry extends RenderStateShard {
             .setTransparencyState(SUBTRACTIVE_TEXT_TRANSPARENCY)
             .setWriteMaskState(COLOR_WRITE)
             .setLightmapState(LIGHTMAP)
-            .setTextureState(new TextureStateShard(texture, ForgeRenderTypes.enableTextTextureLinearFiltering, false))));
+            .setTextureState(new TextureStateShard(new ResourceLocation(texture.getIdentifier()), false, false))));
 
     public static final RenderTypeProvider MALIGNANT_GLOW = new RenderTypeProvider((texture) -> LodestoneRenderTypeRegistry.createGenericRenderType("lodestone:malignant_glow", POSITION_COLOR_TEX_LIGHTMAP, QUADS, LodestoneRenderTypeRegistry.builder()
             .setShaderState(LodestoneShaderRegistry.LODESTONE_TEXTURE)
             .setTransparencyState(StateShards.ADDITIVE_TRANSPARENCY)
-            .setTextureState(texture)
+            .setTextureState(new ResourceLocation(texture.getIdentifier()))
             .setCullState(RenderStateShard.NO_CULL)));
 
     public RenderTypeRegistry(String pName, Runnable pSetupState, Runnable pClearState) {

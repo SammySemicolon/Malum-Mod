@@ -7,6 +7,7 @@ import com.sammy.malum.registry.common.item.*;
 import io.github.fabricators_of_create.porting_lib.data.ConditionalRecipe;
 import io.github.fabricators_of_create.porting_lib.tags.Tags;
 import io.github.fabricators_of_create.porting_lib.util.RegistryObject;
+import net.fabricmc.fabric.api.resource.conditions.v1.DefaultResourceConditions;
 import net.minecraft.data.recipes.*;
 import net.minecraft.tags.*;
 import net.minecraft.world.item.*;
@@ -139,7 +140,7 @@ public class ArtificeSpiritInfusionRecipes {
     }
 
     public static void metalImpetusRecipe(Consumer<FinishedRecipe> consumer, RegistryObject<ImpetusItem> output, TagKey<Item> ingot) {
-        ConditionalRecipe.builder().addCondition(new NotCondition(new TagEmptyCondition(ingot.location().toString()))).addRecipe(
+        ConditionalRecipe.builder().addCondition(DefaultResourceConditions.tagsPopulated(ingot)).addRecipe(
                         new SpiritInfusionRecipeBuilder(ItemRegistry.ALCHEMICAL_IMPETUS.get(), 1, output.get(), 1)
                                 .addSpirit(EARTHEN_SPIRIT, 8)
                                 .addSpirit(INFERNAL_SPIRIT, 8)

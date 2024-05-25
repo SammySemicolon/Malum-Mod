@@ -18,7 +18,7 @@ public class CurioGlassBrooch extends MalumCurioItem {
 
     @Override
     public void addAttributeModifiers(Multimap<Attribute, AttributeModifier> map, SlotReference slotContext, ItemStack stack) {
-        CuriosApi.addSlotModifier(map, "rune", GLASS_BROOCH_RUNE, 2, AttributeModifier.Operation.ADDITION);
+        //TODO CuriosApi.addSlotModifier(map, "rune", GLASS_BROOCH_RUNE, 2, AttributeModifier.Operation.ADDITION);
         addAttributeModifier(map, Attributes.MAX_HEALTH, uuid -> new AttributeModifier(uuid,
                 "Curio Max Health", -0.2f, AttributeModifier.Operation.MULTIPLY_TOTAL));
     }

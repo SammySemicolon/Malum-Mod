@@ -5,9 +5,11 @@ import com.sammy.malum.common.block.ether.*;
 import com.sammy.malum.common.block.storage.jar.*;
 import com.sammy.malum.registry.common.block.*;
 import com.sammy.malum.registry.common.item.*;
+import io.github.fabricators_of_create.porting_lib.util.RegistryObject;
 import net.minecraft.advancements.critereon.*;
 import net.minecraft.data.*;
 import net.minecraft.data.loot.*;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.flag.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.*;
@@ -52,13 +54,18 @@ public class MalumBlockLootTables extends LootTableProvider {
             super(Set.of(), FeatureFlags.REGISTRY.allFlags());
         }
 
-        @Override
+
         protected Iterable<Block> getKnownBlocks() {
             return BlockRegistry.BLOCKS.getEntries().stream().map(Supplier::get).collect(Collectors.toList());
         }
 
         @Override
-        protected void generate() {
+        public void generate() {
+
+        }
+
+        @Override
+        public void generate(BiConsumer<ResourceLocation, LootTable.Builder> biConsumer) {
             Set<RegistryObject<Block>> blocks = new HashSet<>(BLOCKS.getEntries());
 
             takeAll(blocks, b -> b.get().properties instanceof LodestoneBlockProperties && ((LodestoneBlockProperties) b.get().properties).getDatagenData().hasInheritedLootTable);

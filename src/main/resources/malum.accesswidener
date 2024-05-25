@@ -28,7 +28,8 @@ accessible class net/minecraft/world/item/ItemCooldowns$CooldownInstance
 accessible field net/minecraft/world/item/ItemCooldowns cooldowns Ljava/util/Map;
 accessible field net/minecraft/world/item/ItemCooldowns$CooldownInstance startTime I
 accessible field net/minecraft/world/item/ItemCooldowns$CooldownInstance endTime I
-accessible method io/github/fabricators_of_create/porting_lib/transfer/item/ItemStackHandler onContentsChanged (I)V
 accessible method net/minecraft/world/entity/ai/attributes/AttributeInstance setDirty ()V
 accessible method net/minecraft/world/level/block/state/properties/WoodType register (Lnet/minecraft/world/level/block/state/properties/WoodType;)Lnet/minecraft/world/level/block/state/properties/WoodType;
 accessible field net/minecraft/client/renderer/RenderType$CompositeRenderType state Lnet/minecraft/client/renderer/RenderType$CompositeState;
+accessible field net/minecraft/client/multiplayer/MultiPlayerGameMode destroyProgress F
+accessible method net/minecraft/world/item/ItemCooldowns$CooldownInstance <init> (II)V

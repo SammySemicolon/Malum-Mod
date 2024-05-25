@@ -13,11 +13,13 @@ import com.sammy.malum.registry.client.ShaderRegistry;
 import com.sammy.malum.registry.common.*;
 import com.sammy.malum.registry.common.item.ItemRegistry;
 import com.sammy.malum.visual_effects.networked.data.PositionEffectData;
+import io.github.fabricators_of_create.porting_lib.attributes.PortingLibAttributes;
 import io.github.fabricators_of_create.porting_lib.entity.events.LivingEntityEvents;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -130,7 +132,7 @@ public class TouchOfDarknessHandler {
         }
         //GRAVITY
 
-        AttributeInstance gravity = livingEntity.getAttribute(ForgeMod.ENTITY_GRAVITY.get());
+        AttributeInstance gravity = livingEntity.getAttribute(PortingLibAttributes.ENTITY_GRAVITY);
         if (gravity != null) {
             boolean hasModifier = gravity.getModifier(GRAVITY_MODIFIER_UUID) != null;
             if (handler.progressToRejection > 0) {
@@ -193,7 +195,7 @@ public class TouchOfDarknessHandler {
             if (voidConduitBlockEntity.isPresent()) {
                 VoidConduitBlockEntity weepingWell = voidConduitBlockEntity.get();
                 BlockPos worldPosition = weepingWell.getBlockPos();
-                ParticleEffectTypeRegistry.WEEPING_WELL_REACTS.createPositionedEffect(level, new PositionEffectData(worldPosition.getX()+0.5f, worldPosition.getY()+0.6f, worldPosition.getZ()+0.5f));
+                ParticleEffectTypeRegistry.WEEPING_WELL_REACTS.createPositionedEffect((ServerLevel) level, new PositionEffectData(worldPosition.getX()+0.5f, worldPosition.getY()+0.6f, worldPosition.getZ()+0.5f));
             }
             else {
                 ParticleEffectTypeRegistry.WEEPING_WELL_REACTS.createEntityEffect(livingEntity);

@@ -1,7 +1,12 @@
 package com.sammy.malum.compability.jei;
 
+import com.mojang.datafixers.util.Pair;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.recipe.*;
+import net.minecraft.core.HolderSet;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -27,7 +32,7 @@ public class HiddenRecipeSet<T> {
 	}
 
 	public void scanAndHideRecipes(IRecipeManager manager, IFocusFactory focusFactory, Collection<TagKey<Item>> nowHidden) {
-		var itemTags = BuiltInRegistries.ITEM.tags();
+        var itemTags = BuiltInRegistries.ITEM.getTagNames().toList();
 		if (itemTags != null) {
 			List<IFocus<ItemStack>> foci = nowHidden.stream()
 				.flatMap(tag -> itemTags.getTag(tag).stream())

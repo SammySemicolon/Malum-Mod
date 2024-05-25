@@ -1,5 +1,6 @@
 package com.sammy.malum.registry.common.item;
 
+import com.chocohead.mm.api.ClassTinkerers;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.enchantment.*;
 import com.sammy.malum.config.CommonConfig;
@@ -12,6 +13,13 @@ import net.minecraft.world.item.enchantment.EnchantmentCategory;
 
 public class EnchantmentRegistry {
     public static final LazyRegistrar<Enchantment> ENCHANTMENTS = LazyRegistrar.create(BuiltInRegistries.ENCHANTMENT, MalumMod.MALUM);
+
+
+    public static final EnchantmentCategory SOUL_HUNTER_WEAPON = ClassTinkerers.getEnum(EnchantmentCategory.class, "MALUM_SOUL_HUNTER_WEAPON");
+    public static final EnchantmentCategory SCYTHE = ClassTinkerers.getEnum(EnchantmentCategory.class, "MALUM_SCYTHE");
+    public static final EnchantmentCategory REBOUND_SCYTHE = ClassTinkerers.getEnum(EnchantmentCategory.class, "MALUM_REBOUND_SCYTHE");
+    public static final EnchantmentCategory STAFF = ClassTinkerers.getEnum(EnchantmentCategory.class, "MALUM_STAFF");
+    public static final EnchantmentCategory SCYTHE_OR_STAFF = ClassTinkerers.getEnum(EnchantmentCategory.class, "MALUM_SCYTHE_OR_STAFF");
 
     //public static final EnchantmentCategory SOUL_HUNTER_WEAPON = EnchantmentCategory.create(MalumMod.MALUM + ":soul_hunter_only", i -> i.getDefaultInstance().is(ItemTagRegistry.SOUL_HUNTER_WEAPON));
     //public static final EnchantmentCategory SCYTHE = EnchantmentCategory.create(MalumMod.MALUM + ":scythe_only", i -> i.getDefaultInstance().is(ItemTagRegistry.SCYTHE));

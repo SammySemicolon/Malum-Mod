@@ -12,11 +12,11 @@ public class MalumASM implements Runnable{
 
     private static void extendEnums() {
         ClassTinkerers.enumBuilder(mapC("class_1886")) // EnchantmentCategory
-                .addEnumSubclass("SOUL_HUNTER_WEAPON", "com.sammy.malum.asm.EnchantmentCategorySoulHunter")
-                .addEnumSubclass("SCYTHE", "com.sammy.malum.asm.EnchantmentCategoryScythe")
-                .addEnumSubclass("REBOUND_SCYTHE", "com.sammy.malum.asm.EnchantmentCategoryReboundScythe")
-                .addEnumSubclass("STAFF", "com.sammy.malum.asm.EnchantmentCategoryStaff")
-                .addEnumSubclass("SCYTHE_OR_STAFF", "com.sammy.malum.asm.EnchantmentCategoryScytheOrStaff")
+                .addEnumSubclass("MALUM_SOUL_HUNTER_WEAPON", "com.sammy.malum.asm.EnchantmentCategorySoulHunter")
+                .addEnumSubclass("MALUM_SCYTHE", "com.sammy.malum.asm.EnchantmentCategoryScythe")
+                .addEnumSubclass("MALUM_REBOUND_SCYTHE", "com.sammy.malum.asm.EnchantmentCategoryReboundScythe")
+                .addEnumSubclass("MALUM_STAFF", "com.sammy.malum.asm.EnchantmentCategoryStaff")
+                .addEnumSubclass("MALUM_SCYTHE_OR_STAFF", "com.sammy.malum.asm.EnchantmentCategoryScytheOrStaff")
                 .build();
     }
 

@@ -25,7 +25,7 @@ public class TotemPoleBlock<T extends TotemPoleBlockEntity> extends LodestoneEnt
     public final boolean isSoulwood;
 
     public TotemPoleBlock(Properties properties, Supplier<? extends Block> logBlock, boolean isSoulwood) {
-        super(properties.lootFrom(logBlock));
+        super(properties);
         this.logBlock = logBlock;
         this.isSoulwood = isSoulwood;
         this.registerDefaultState(this.stateDefinition.any().setValue(HORIZONTAL_FACING, Direction.NORTH));

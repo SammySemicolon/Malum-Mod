@@ -4,6 +4,7 @@ import com.google.common.collect.Multimap;
 import com.sammy.malum.common.item.IMalumEventResponderItem;
 import com.sammy.malum.common.item.curiosities.curios.MalumCurioItem;
 import dev.emi.trinkets.api.SlotReference;
+import io.github.fabricators_of_create.porting_lib.attributes.PortingLibAttributes;
 import io.github.fabricators_of_create.porting_lib.entity.events.living.LivingHurtEvent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.MobEffects;
@@ -27,7 +28,7 @@ public class CurioWaterNecklace extends MalumCurioItem implements IMalumEventRes
 
     @Override
     public void addAttributeModifiers(Multimap<Attribute, AttributeModifier> map, SlotReference slot, ItemStack stack) {
-        addAttributeModifier(map, ForgeMod.SWIM_SPEED.get(), uuid -> new AttributeModifier(uuid,
+        addAttributeModifier(map, PortingLibAttributes.SWIM_SPEED, uuid -> new AttributeModifier(uuid,
                 "Curio Swim Speed", 0.15f, AttributeModifier.Operation.ADDITION) {
             @Override
             public double getAmount() {
@@ -40,14 +41,14 @@ public class CurioWaterNecklace extends MalumCurioItem implements IMalumEventRes
                 return amount;
             }
         });
-        super.addAttributeModifiers(map, stack);
+        super.addAttributeModifiers(map, slot, stack);
     }
 
     @Override
     public void tick(ItemStack stack, SlotReference slot, LivingEntity entity) {
         LivingEntity livingEntity = entity;
         if (livingEntity.level().getGameTime() % 40L == 0 && livingEntity.isSwimming()) {
-            AttributeInstance attribute = livingEntity.getAttribute(ForgeMod.SWIM_SPEED.get());
+            AttributeInstance attribute = livingEntity.getAttribute(PortingLibAttributes.SWIM_SPEED);
             if (attribute != null) {
                 attribute.setDirty();
             }

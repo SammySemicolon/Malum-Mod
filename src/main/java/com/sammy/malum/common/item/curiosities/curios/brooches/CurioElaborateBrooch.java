@@ -19,7 +19,7 @@ public class CurioElaborateBrooch extends MalumCurioItem {
 
     @Override
     public void addAttributeModifiers(Multimap<Attribute, AttributeModifier> map, SlotReference slotContext, ItemStack stack) {
-        CuriosApi.addSlotModifier(map, "belt", ELABORATE_BROOCH_BELT, 1, AttributeModifier.Operation.ADDITION);
-        CuriosApi.addSlotModifier(map, "necklace", ELABORATE_BROOCH_NECKLACE, -1, AttributeModifier.Operation.ADDITION);
+        //TODO CuriosApi.addSlotModifier(map, "belt", ELABORATE_BROOCH_BELT, 1, AttributeModifier.Operation.ADDITION);
+        //TODO CuriosApi.addSlotModifier(map, "necklace", ELABORATE_BROOCH_NECKLACE, -1, AttributeModifier.Operation.ADDITION);
     }
 }

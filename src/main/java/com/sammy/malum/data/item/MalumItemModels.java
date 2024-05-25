@@ -31,7 +31,7 @@ public class MalumItemModels extends LodestoneItemModelProvider {
 
     @Override
     protected void registerModels() {
-        ArmorSkinRegistry.registerItemSkins(null);
+        ArmorSkinRegistry.registerItemSkins();
         Set<Supplier<? extends Item>> items = new HashSet<>(ITEMS.getEntries());
 
         items.removeIf(i -> i.get() instanceof BlockItem);

@@ -22,6 +22,7 @@ public class MalumRecipes extends VanillaRecipeProvider {
 
     @Override
     protected void buildRecipes(Consumer<FinishedRecipe> consumer) {
+        super.buildRecipes(consumer);
         vanillaRecipeReplacements.buildRecipes(consumer);
         MalumVanillaRecipes.buildRecipes(consumer);
         MalumWoodenRecipes.buildRecipes(consumer);

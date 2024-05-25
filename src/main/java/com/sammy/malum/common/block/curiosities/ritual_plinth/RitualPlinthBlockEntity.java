@@ -293,7 +293,7 @@ public class RitualPlinthBlockEntity extends LodestoneBlockEntity {
                     final int absorbedAmount = Math.min(stack.getCount(), ritualTier == null ? 4 : ritualTier.spiritThreshold/16);
                     increase += absorbedAmount;
                     stack.shrink(absorbedAmount);
-                    providerInventory.onContentsChanged(0);
+                    providerInventory.setChanged();
                     level.playSound(null, accessPointBlockPos, SoundRegistry.RITUAL_ABSORBS_SPIRIT.get(), SoundSource.BLOCKS, 1, 0.9f + level.random.nextFloat() * 0.2f);
                     if (level instanceof ServerLevel serverLevel) {
                         ParticleEffectTypeRegistry.RITUAL_PLINTH_EATS_SPIRIT.createPositionedEffect(serverLevel, new PositionEffectData(worldPosition), new ColorEffectData(spirit), RitualPlinthAbsorbItemParticleEffect.createData(altarProvider.getItemPos(), stack));
