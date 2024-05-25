@@ -2,13 +2,12 @@ package com.sammy.malum.data.recipe;
 
 import com.sammy.malum.*;
 import com.sammy.malum.common.item.impetus.*;
-import com.sammy.malum.data.NotCondition;
-import com.sammy.malum.data.TagEmptyCondition;
 import com.sammy.malum.data.recipe.builder.vanilla.*;
 import com.sammy.malum.registry.common.item.*;
 import io.github.fabricators_of_create.porting_lib.data.ConditionalRecipe;
 import io.github.fabricators_of_create.porting_lib.tags.Tags;
 import io.github.fabricators_of_create.porting_lib.util.RegistryObject;
+import net.fabricmc.fabric.api.resource.conditions.v1.DefaultResourceConditions;
 import net.minecraft.advancements.critereon.*;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.recipes.*;
@@ -32,7 +31,7 @@ import static net.minecraft.data.recipes.SimpleCookingRecipeBuilder.*;
 import static net.minecraft.data.recipes.SingleItemRecipeBuilder.*;
 import static team.lodestar.lodestone.registry.common.tag.LodestoneItemTags.*;
 
-public class MalumVanillaRecipes implements IConditionBuilder {
+public class MalumVanillaRecipes {
 
     protected static void buildRecipes(Consumer<FinishedRecipe> consumer) {
         //KEY ITEMS
@@ -448,13 +447,13 @@ public class MalumVanillaRecipes implements IConditionBuilder {
     private static void nodeSmelting(Consumer<FinishedRecipe> recipeConsumer, RegistryObject<ImpetusItem> impetus, RegistryObject<Item> node, TagKey<Item> tag) {
         String name = BuiltInRegistries.ITEM.getKey(node.get()).getPath().replaceFirst("_node", "");
 
-        ConditionalRecipe.builder().addCondition(new NotCondition(new TagEmptyCondition(tag.location().toString()))).addRecipe(
+        ConditionalRecipe.builder().addCondition(DefaultResourceConditions.tagsPopulated(tag)).addRecipe(
                         smeltingWithTag(new IngredientWithCount(Ingredient.of(tag), 6), Ingredient.of(node.get()), 0.25f, 200)
                                 ::build)
                 .generateAdvancement()
                 .build(recipeConsumer, MalumMod.malumPath(name + "_from_node_smelting"));
 
-        ConditionalRecipe.builder().addCondition(new NotCondition(new TagEmptyCondition(tag.location().toString()))).addRecipe(
+        ConditionalRecipe.builder().addCondition(DefaultResourceConditions.tagsPopulated(tag)).addRecipe(
                         blastingWithTag(new IngredientWithCount(Ingredient.of(tag), 6), Ingredient.of(node.get()), 0.25f, 100)
                                 ::build)
                 .generateAdvancement()

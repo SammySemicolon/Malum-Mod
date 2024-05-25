@@ -12,7 +12,7 @@ import java.util.function.*;
 
 import static com.sammy.malum.registry.common.SpiritTypeRegistry.*;
 
-public class MalumSpiritRepairRecipes implements IConditionBuilder {
+public class MalumSpiritRepairRecipes {
 
     protected static void buildRecipes(Consumer<FinishedRecipe> consumer) {
 

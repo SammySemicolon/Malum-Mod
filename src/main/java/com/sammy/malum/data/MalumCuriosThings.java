@@ -1,5 +1,5 @@
 package com.sammy.malum.data;
-
+/*
 import com.sammy.malum.*;
 import io.github.fabricators_of_create.porting_lib.data.ExistingFileHelper;
 import net.minecraft.core.*;
@@ -41,3 +41,5 @@ public class MalumCuriosThings extends top.theillusivec4.curios.api.CuriosDataPr
                 .addSlots("brooch", "ring", "necklace", "belt", "rune", "charm");
     }
 }
+
+ */

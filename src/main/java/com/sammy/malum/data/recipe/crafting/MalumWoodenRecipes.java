@@ -14,7 +14,7 @@ import static com.sammy.malum.data.recipe.MalumVanillaRecipes.*;
 import static net.minecraft.data.recipes.ShapedRecipeBuilder.*;
 import static net.minecraft.data.recipes.ShapelessRecipeBuilder.*;
 
-public class MalumWoodenRecipes implements IConditionBuilder {
+public class MalumWoodenRecipes {
 
     public static void buildRecipes(Consumer<FinishedRecipe> consumer) {
         buildRecipes(consumer, new MalumDatagenWoodSet(

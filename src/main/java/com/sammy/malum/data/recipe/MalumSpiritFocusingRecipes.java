@@ -6,6 +6,7 @@ import com.sammy.malum.data.recipe.builder.*;
 import com.sammy.malum.registry.common.item.*;
 import io.github.fabricators_of_create.porting_lib.data.ConditionalRecipe;
 import io.github.fabricators_of_create.porting_lib.util.RegistryObject;
+import net.fabricmc.fabric.api.resource.conditions.v1.DefaultResourceConditions;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.recipes.*;
 import net.minecraft.tags.*;
@@ -18,7 +19,7 @@ import java.util.function.*;
 import static com.sammy.malum.registry.common.SpiritTypeRegistry.*;
 import static team.lodestar.lodestone.registry.common.tag.LodestoneItemTags.*;
 
-public class MalumSpiritFocusingRecipes implements IConditionBuilder {
+public class MalumSpiritFocusingRecipes {
 
     protected static void buildRecipes(Consumer<FinishedRecipe> consumer) {
         int metalDuration = 900;
@@ -77,7 +78,7 @@ public class MalumSpiritFocusingRecipes implements IConditionBuilder {
     }
 
     public static void addImpetusRecipes(Consumer<FinishedRecipe> consumer, int duration, RegistryObject<ImpetusItem> impetus, RegistryObject<Item> node, TagKey<Item> nugget) {
-        ConditionalRecipe.builder().addCondition(new NotCondition(new TagEmptyCondition(nugget.location()))).addRecipe(
+        ConditionalRecipe.builder().addCondition(DefaultResourceConditions.tagsPopulated(nugget)).addRecipe(
                         new SpiritFocusingRecipeBuilder(duration, 2, Ingredient.of(impetus.get()), node.get(), 3)
                                 .addSpirit(EARTHEN_SPIRIT, 2)
                                 .addSpirit(INFERNAL_SPIRIT, 4)

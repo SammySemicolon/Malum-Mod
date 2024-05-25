@@ -6,7 +6,7 @@ import net.minecraft.data.recipes.*;
 
 import java.util.function.*;
 
-public class MalumRuneworkingRecipes implements IConditionBuilder {
+public class MalumRuneworkingRecipes {
 
     protected static void buildRecipes(Consumer<FinishedRecipe> consumer) {
         new RunicWorkbenchRecipeBuilder(ItemRegistry.RUNE_OF_IDLE_RESTORATION.get(), 1)

@@ -20,8 +20,8 @@ public class ArmorSkinRegistry {
     public static final Map<String, ArmorSkin> SKINS = new LinkedHashMap<>();
     public static Map<ArmorSkin, ArmorSkin.ArmorSkinDatagenData> SKIN_DATAGEN_DATA = new HashMap<>();
 
-    @SubscribeEvent
-    public static void wipeCache(InterModEnqueueEvent event) {
+
+    public static void wipeCache() {
         SKIN_DATAGEN_DATA = null;
     }
 
@@ -94,9 +94,8 @@ public class ArmorSkinRegistry {
     }
 
     public static void registerItemSkin(ArmorSkin skin, ArmorSkin.ArmorSkinDatagenData datagenData) {
-        if (DatagenModLoader.isRunningDataGen()) {
-            SKIN_DATAGEN_DATA.put(skin, datagenData);
-        }
+        SKIN_DATAGEN_DATA.put(skin, datagenData);
+
         registerItemSkin(skin.id, skin);
     }
 
