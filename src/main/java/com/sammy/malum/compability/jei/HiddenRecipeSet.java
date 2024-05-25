@@ -3,6 +3,8 @@ package com.sammy.malum.compability.jei;
 import com.mojang.datafixers.util.Pair;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.recipe.*;
+import mezz.jei.api.registration.IRecipeRegistration;
+import net.fabricmc.fabric.api.tag.convention.v1.TagUtil;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -11,10 +13,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Stream;
 
 public class HiddenRecipeSet<T> {
@@ -32,27 +31,25 @@ public class HiddenRecipeSet<T> {
 	}
 
 	public void scanAndHideRecipes(IRecipeManager manager, IFocusFactory focusFactory, Collection<TagKey<Item>> nowHidden) {
-        var itemTags = BuiltInRegistries.ITEM.getTagNames().toList();
-		if (itemTags != null) {
-			List<IFocus<ItemStack>> foci = nowHidden.stream()
-				.flatMap(tag -> itemTags.getTag(tag).stream())
-				.distinct()
-				.flatMap(item -> {
-					ItemStack stack = new ItemStack(item);
-					IFocus<ItemStack> asIngredient = focusFactory.createFocus(RecipeIngredientRole.INPUT, VanillaTypes.ITEM_STACK, stack);
-					IFocus<ItemStack> asResult = focusFactory.createFocus(RecipeIngredientRole.OUTPUT, VanillaTypes.ITEM_STACK, stack);
-					IFocus<ItemStack> asCatalyst = focusFactory.createFocus(RecipeIngredientRole.CATALYST, VanillaTypes.ITEM_STACK, stack);
-					return Stream.of(asIngredient, asResult, asCatalyst);
-				}).toList();
 
-			manager.createRecipeLookup(recipeType)
-				.limitFocus(foci)
-				.get()
-				.forEach(hiddenRecipes::add);
+        List<IFocus<ItemStack>> foci = nowHidden.stream()
+                .distinct()
+                .flatMap(tag -> BuiltInRegistries.ITEM.stream().filter(item -> item.getDefaultInstance().is(tag)))
+                .flatMap(v -> {
+                    ItemStack stack = new ItemStack(v);
+                    IFocus<ItemStack> asIngredient = focusFactory.createFocus(RecipeIngredientRole.INPUT, VanillaTypes.ITEM_STACK, stack);
+                    IFocus<ItemStack> asResult = focusFactory.createFocus(RecipeIngredientRole.OUTPUT, VanillaTypes.ITEM_STACK, stack);
+                    IFocus<ItemStack> asCatalyst = focusFactory.createFocus(RecipeIngredientRole.CATALYST, VanillaTypes.ITEM_STACK, stack);
+                    return Stream.of(asIngredient, asResult, asCatalyst);
+                }).toList();
 
-			manager.hideRecipes(recipeType, hiddenRecipes);
-		}
-	}
+        manager.createRecipeLookup(recipeType)
+            .limitFocus(foci)
+            .get()
+            .forEach(hiddenRecipes::add);
+
+        manager.hideRecipes(recipeType, hiddenRecipes);
+    }
 
 
 	public void unhidePreviouslyHiddenRecipes(IRecipeManager manager) {
