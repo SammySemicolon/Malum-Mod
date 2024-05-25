@@ -22,18 +22,16 @@ public class SpiritTransmutationRecipePage extends BookPage {
     public SpiritTransmutationRecipePage(String headlineTranslationKey, Predicate<SpiritTransmutationRecipe> predicate) {
         super(MalumMod.malumPath("textures/gui/book/pages/transmutation_recipe_page.png"));
         this.headlineTranslationKey = headlineTranslationKey;
-        this.recipes = DatagenModLoader.isRunningDataGen() ? null : new ArrayList<>();
-        if (!DatagenModLoader.isRunningDataGen()) {
-            final ClientLevel level = Minecraft.getInstance().level;
-            final SpiritTransmutationRecipe recipe = SpiritTransmutationRecipe.getRecipe(level, predicate);
-            if (recipe != null) {
-                recipes.add(recipe);
-            }
-            if (recipe.group != null) {
-                for (SpiritTransmutationRecipe otherRecipe : SpiritTransmutationRecipe.getRecipes(level)) {
-                    if (!recipe.equals(otherRecipe) && recipe.group.equals(otherRecipe.group)) {
-                        recipes.add(otherRecipe);
-                    }
+        this.recipes = new ArrayList<>();
+        final ClientLevel level = Minecraft.getInstance().level;
+        final SpiritTransmutationRecipe recipe = SpiritTransmutationRecipe.getRecipe(level, predicate);
+        if (recipe != null) {
+            recipes.add(recipe);
+        }
+        if (recipe.group != null) {
+            for (SpiritTransmutationRecipe otherRecipe : SpiritTransmutationRecipe.getRecipes(level)) {
+                if (!recipe.equals(otherRecipe) && recipe.group.equals(otherRecipe.group)) {
+                    recipes.add(otherRecipe);
                 }
             }
         }

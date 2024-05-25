@@ -8,6 +8,7 @@ import com.sammy.malum.client.screen.codex.pages.recipe.vanilla.*;
 import com.sammy.malum.client.screen.codex.pages.text.*;
 import com.sammy.malum.client.screen.codex.screens.*;
 import com.sammy.malum.registry.common.*;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.*;
 
 

@@ -17,7 +17,7 @@ public class SpiritInfusionPage extends BookPage {
 
     public SpiritInfusionPage(Predicate<SpiritInfusionRecipe> predicate) {
         super(MalumMod.malumPath("textures/gui/book/pages/spirit_infusion_page.png"));
-        this.recipe = DatagenModLoader.isRunningDataGen() ? null : SpiritInfusionRecipe.getRecipe(Minecraft.getInstance().level, predicate);
+        this.recipe = SpiritInfusionRecipe.getRecipe(Minecraft.getInstance().level, predicate);
     }
 
     public SpiritInfusionPage(SpiritInfusionRecipe recipe) {

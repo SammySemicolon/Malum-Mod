@@ -36,9 +36,7 @@ public class SpiritTransmutationRecipeTreePage extends BookPage {
     public SpiritTransmutationRecipeTreePage(String headlineTranslationKey, Item start) {
         super(MalumMod.malumPath("textures/gui/book/pages/transmutation_recipe_tree_page.png"));
         this.headlineTranslationKey = headlineTranslationKey;
-        if (DatagenModLoader.isRunningDataGen()) {
-            return;
-        }
+
         SpiritTransmutationRecipe recipe = SpiritTransmutationRecipe.getRecipe(Minecraft.getInstance().level, start);
         while (true) {
             if (recipe == null) {

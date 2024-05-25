@@ -33,3 +33,4 @@ accessible method net/minecraft/world/level/block/state/properties/WoodType regi
 accessible field net/minecraft/client/renderer/RenderType$CompositeRenderType state Lnet/minecraft/client/renderer/RenderType$CompositeState;
 accessible field net/minecraft/client/multiplayer/MultiPlayerGameMode destroyProgress F
 accessible method net/minecraft/world/item/ItemCooldowns$CooldownInstance <init> (II)V
+accessible method net/minecraft/data/recipes/packs/VanillaRecipeProvider buildRecipes (Ljava/util/function/Consumer;)V

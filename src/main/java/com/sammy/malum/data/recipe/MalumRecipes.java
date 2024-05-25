@@ -2,27 +2,28 @@ package com.sammy.malum.data.recipe;
 
 import com.sammy.malum.data.recipe.crafting.*;
 import com.sammy.malum.data.recipe.infusion.*;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.minecraft.data.*;
 import net.minecraft.data.recipes.*;
 import net.minecraft.data.recipes.packs.*;
 
 import java.util.function.*;
 
-public class MalumRecipes extends VanillaRecipeProvider {
+public class MalumRecipes extends FabricRecipeProvider {
 
     MalumVanillaRecipeReplacements vanillaRecipeReplacements;
 
     public PackOutput pOutput;
 
-    public MalumRecipes(PackOutput pOutput) {
+    public MalumRecipes(FabricDataOutput pOutput) {
         super(pOutput);
         this.pOutput = pOutput;
         this.vanillaRecipeReplacements = new MalumVanillaRecipeReplacements(pOutput);
     }
 
     @Override
-    protected void buildRecipes(Consumer<FinishedRecipe> consumer) {
-        super.buildRecipes(consumer);
+    public void buildRecipes(Consumer<FinishedRecipe> consumer) {
         vanillaRecipeReplacements.buildRecipes(consumer);
         MalumVanillaRecipes.buildRecipes(consumer);
         MalumWoodenRecipes.buildRecipes(consumer);
