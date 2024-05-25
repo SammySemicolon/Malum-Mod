@@ -16,6 +16,9 @@ loom {
     accessWidenerPath = file("src/main/resources/malum.accesswidener")
 }
 
+fabricApi {
+    configureDataGeneration()
+}
 
 repositories {
     flatDir {
