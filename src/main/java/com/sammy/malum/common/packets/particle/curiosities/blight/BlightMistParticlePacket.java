@@ -23,6 +23,7 @@ import team.lodestar.lodestone.systems.particle.render_types.LodestoneWorldParti
 import java.awt.*;
 import java.util.function.Supplier;
 
+
 public class BlightMistParticlePacket extends BlockBasedParticleEffectPacket {
     public BlightMistParticlePacket(BlockPos pos) {
         super(pos);
