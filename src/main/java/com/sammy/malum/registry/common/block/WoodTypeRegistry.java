@@ -15,12 +15,6 @@ public class WoodTypeRegistry {
             SoundRegistry.SOULWOOD_FENCE_GATE_CLOSE.get(), SoundRegistry.SOULWOOD_FENCE_GATE_OPEN.get()));
 
     public static class ClientOnly {
-        @SubscribeEvent
-        public static void addWoodTypes(FMLClientSetupEvent event) {
-            event.enqueueWork(() -> {
-                Sheets.addWoodType(RUNEWOOD);
-                Sheets.addWoodType(SOULWOOD);
-            });
-        }
+
     }
 }

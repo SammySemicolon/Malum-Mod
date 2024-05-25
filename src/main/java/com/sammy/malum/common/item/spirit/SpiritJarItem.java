@@ -49,16 +49,4 @@ public class SpiritJarItem extends BlockItem {
             pTooltip.add(spirit.getSpiritJarCounterComponent(count));
         }
     }
-
-    @Override
-    public void initializeClient(Consumer<IClientItemExtensions> consumer) {
-        consumer.accept(new IClientItemExtensions() {
-            static final NotNullLazy<BlockEntityWithoutLevelRenderer> renderer = NotNullLazy.of(() -> new SpiritJarItemRenderer(Minecraft.getInstance().getBlockEntityRenderDispatcher(), Minecraft.getInstance().getEntityModels()));
-
-            @Override
-            public BlockEntityWithoutLevelRenderer getCustomRenderer() {
-                return renderer.get();
-            }
-        });
-    }
 }

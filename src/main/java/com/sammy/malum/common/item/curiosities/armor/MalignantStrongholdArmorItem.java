@@ -37,40 +37,4 @@ public class MalignantStrongholdArmorItem extends MalumArmorItem {
     public String getTexture() {
         return "malignant_stronghold";
     }
-
-    @Environment(EnvType.CLIENT)
-    @Override
-    public void initializeClient(Consumer<IClientItemExtensions> consumer) {
-        consumer.accept(new IClientItemExtensions() {
-            @Override
-            public LodestoneArmorModel getHumanoidArmorModel(LivingEntity entity, ItemStack itemStack, EquipmentSlot armorSlot, HumanoidModel _default) {
-                float pticks = Minecraft.getInstance().getFrameTime();
-                float f = Mth.rotLerp(pticks, entity.yBodyRotO, entity.yBodyRot);
-                float f1 = Mth.rotLerp(pticks, entity.yHeadRotO, entity.yHeadRot);
-                float netHeadYaw = f1 - f;
-                float netHeadPitch = Mth.lerp(pticks, entity.xRotO, entity.getXRot());
-                ArmorSkin skin = ArmorSkin.getAppliedItemSkin(itemStack);
-                LodestoneArmorModel model = ModelRegistry.MALIGNANT_LEAD_ARMOR;
-                if (skin != null) {
-                    model = ArmorSkinRenderingData.RENDERING_DATA.apply(skin).getModel(entity);
-                }
-//                if (model instanceof MalignantStrongholdArmorModel malignantStrongholdArmorModel) {
-//                    final LazyOptional<ICuriosItemHandler> curiosInventory = CuriosApi.getCuriosInventory(entity);
-//                    if (curiosInventory.isPresent()) {
-//                        final List<AbstractRuneCurioItem> equippedRunes = curiosInventory
-//                                .map(i -> i.findCurios(s -> s.getItem() instanceof AbstractRuneCurioItem))
-//                                .map(l -> l.stream()
-//                                        .filter(c -> c.slotContext().visible())
-//                                        .map(c -> (AbstractRuneCurioItem) c.stack().getItem()).collect(Collectors.toList()))
-//                                .orElse(Collections.emptyList());
-//                        malignantStrongholdArmorModel.updateGlow(equippedRunes);
-//                    }
-//                }
-                model.slot = armorSlot;
-                model.copyFromDefault(_default);
-                model.setupAnim(entity, entity.walkAnimation.position(), entity.walkAnimation.speed(), entity.tickCount + pticks, netHeadYaw, netHeadPitch);
-                return model;
-            }
-        });
-    }
 }

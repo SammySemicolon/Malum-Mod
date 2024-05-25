@@ -6,35 +6,30 @@ import com.sammy.malum.common.item.spirit.SpiritJarItem;
 import com.sammy.malum.core.handlers.*;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import com.sammy.malum.registry.common.block.BlockRegistry;
-import net.minecraft.client.model.geom.EntityModelSet;
-import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
+import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 
-public class SpiritJarItemRenderer extends BlockEntityWithoutLevelRenderer {
+public class SpiritJarItemRenderer implements BuiltinItemRendererRegistry.DynamicItemRenderer {
 
     private final SpiritJarBlockEntity jar = new SpiritJarBlockEntity(BlockPos.ZERO, BlockRegistry.SPIRIT_JAR.get().defaultBlockState());
 
-    private final BlockEntityRenderDispatcher blockEntityRenderDispatcher;
+    public SpiritJarItemRenderer() {
 
-    public SpiritJarItemRenderer(BlockEntityRenderDispatcher pBlockEntityRenderDispatcher, EntityModelSet pEntityModelSet) {
-        super(pBlockEntityRenderDispatcher, pEntityModelSet);
-        this.blockEntityRenderDispatcher = pBlockEntityRenderDispatcher;
     }
 
     @Override
-    public void renderByItem(ItemStack pStack, ItemDisplayContext pTransformType, PoseStack pPoseStack, MultiBufferSource pBuffer, int pPackedLight, int pPackedOverlay) {
-        if (pStack.getItem() instanceof SpiritJarItem) {
-            if (pStack.hasTag() && pStack.getTag().contains("spirit")) {
-                MalumSpiritType spirit = SpiritHarvestHandler.getSpiritType(pStack.getTag().getString("spirit"));
-                int count = pStack.getTag().getInt("count");
+    public void render(ItemStack stack, ItemDisplayContext mode, PoseStack matrices, MultiBufferSource vertexConsumers, int light, int overlay) {
+        if (stack.getItem() instanceof SpiritJarItem) {
+            if (stack.hasTag() && stack.getTag().contains("spirit")) {
+                MalumSpiritType spirit = SpiritHarvestHandler.getSpiritType(stack.getTag().getString("spirit"));
+                int count = stack.getTag().getInt("count");
                 jar.type = spirit;
                 jar.count = count;
-
-                this.blockEntityRenderDispatcher.renderItem(jar, pPoseStack, pBuffer, pPackedLight, pPackedOverlay);
+                Minecraft.getInstance().getBlockEntityRenderDispatcher().renderItem(jar, matrices, vertexConsumers, light, overlay);
             }
         }
     }

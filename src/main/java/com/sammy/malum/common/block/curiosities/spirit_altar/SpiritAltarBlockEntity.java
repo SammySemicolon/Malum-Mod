@@ -271,7 +271,9 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
                 matches = requestedItem.matches(providedStack);
                 if (matches) {
                     level.playSound(null, provider.getAccessPointBlockPos(), SoundRegistry.ALTAR_CONSUME.get(), SoundSource.BLOCKS, 1, 0.9f + level.random.nextFloat() * 0.2f);
-                    ParticleEffectTypeRegistry.SPIRIT_ALTAR_EATS_ITEM.createPositionedEffect(level, new PositionEffectData(worldPosition), ColorEffectData.fromRecipe(recipe.spirits), SpiritAltarEatItemParticleEffect.createData(provider.getAccessPointBlockPos(), providedStack));
+                    if (level instanceof ServerLevel serverLevel) {
+                        ParticleEffectTypeRegistry.SPIRIT_ALTAR_EATS_ITEM.createPositionedEffect(serverLevel, new PositionEffectData(worldPosition), ColorEffectData.fromRecipe(recipe.spirits), SpiritAltarEatItemParticleEffect.createData(provider.getAccessPointBlockPos(), providedStack));
+                    }
                     try (Transaction t = TransferUtil.getTransaction()){
                         long inserted = extrasInventory.insert(ItemVariant.of(providedStack.split(requestedItem.count)), 64, t);
                         t.commit();

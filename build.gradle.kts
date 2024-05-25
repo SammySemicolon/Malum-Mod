@@ -92,6 +92,9 @@ dependencies {
     modApi("dev.onyxstudios.cardinal-components-api:cardinal-components-entity:${property("cca_version")}")
     modApi("dev.onyxstudios.cardinal-components-api:cardinal-components-world:${property("cca_version")}")
 
+    modApi("com.terraformersmc.terraform-api:terraform-wood-api-v1:${property("terraform_api_version")}")
+    include("com.terraformersmc.terraform-api:terraform-wood-api-v1:${property("terraform_api_version")}")
+
     port_lib_modules.split(",").forEach { module ->
         modApi(("io.github.fabricators_of_create.Porting-Lib:$module:${property("port_lib_version")}"))
     }

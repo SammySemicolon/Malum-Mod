@@ -13,6 +13,7 @@ import com.sammy.malum.client.model.cosmetic.risky.CommandoArmorModel;
 import com.sammy.malum.client.model.cosmetic.risky.ExecutionerArmorModel;
 import com.sammy.malum.client.model.cosmetic.ultrakill.UltrakillMachineArmorModel;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
+import net.minecraft.client.Minecraft;
 
 public class ModelRegistry {
 
@@ -67,29 +68,28 @@ public class ModelRegistry {
         EntityModelLayerRegistry.registerModelLayer(ScarfModel.LAYER, ScarfModel::createBodyLayer);
     }
 
-    @SubscribeEvent
-    public static void registerLayers(EntityRenderersEvent.AddLayers event) {
-        SOUL_HUNTER_ARMOR = new SoulHunterArmorModel(event.getEntityModels().bakeLayer(SoulHunterArmorModel.LAYER));
-        SOUL_STAINED_ARMOR = new SoulStainedSteelArmorModel(event.getEntityModels().bakeLayer(SoulStainedSteelArmorModel.LAYER));
-        MALIGNANT_LEAD_ARMOR = new MalignantStrongholdArmorModel(event.getEntityModels().bakeLayer(MalignantStrongholdArmorModel.LAYER));
-        GENERIC_SLIM_ARMOR = new GenericSlimArmorModel(event.getEntityModels().bakeLayer(GenericSlimArmorModel.LAYER));
-        GENERIC_ARMOR = new GenericArmorModel(event.getEntityModels().bakeLayer(GenericArmorModel.LAYER));
+    public static void registerLayers() {
+        SOUL_HUNTER_ARMOR = new SoulHunterArmorModel(Minecraft.getInstance().getEntityModels().bakeLayer(SoulHunterArmorModel.LAYER));
+        SOUL_STAINED_ARMOR = new SoulStainedSteelArmorModel(Minecraft.getInstance().getEntityModels().bakeLayer(SoulStainedSteelArmorModel.LAYER));
+        MALIGNANT_LEAD_ARMOR = new MalignantStrongholdArmorModel(Minecraft.getInstance().getEntityModels().bakeLayer(MalignantStrongholdArmorModel.LAYER));
+        GENERIC_SLIM_ARMOR = new GenericSlimArmorModel(Minecraft.getInstance().getEntityModels().bakeLayer(GenericSlimArmorModel.LAYER));
+        GENERIC_ARMOR = new GenericArmorModel(Minecraft.getInstance().getEntityModels().bakeLayer(GenericArmorModel.LAYER));
 
-        COMMANDO = new CommandoArmorModel(event.getEntityModels().bakeLayer(CommandoArmorModel.LAYER));
-        EXECUTIONER = new ExecutionerArmorModel(event.getEntityModels().bakeLayer(ExecutionerArmorModel.LAYER));
+        COMMANDO = new CommandoArmorModel(Minecraft.getInstance().getEntityModels().bakeLayer(CommandoArmorModel.LAYER));
+        EXECUTIONER = new ExecutionerArmorModel(Minecraft.getInstance().getEntityModels().bakeLayer(ExecutionerArmorModel.LAYER));
 
-        ULTRAKILL_MACHINE = new UltrakillMachineArmorModel(event.getEntityModels().bakeLayer(UltrakillMachineArmorModel.LAYER));
+        ULTRAKILL_MACHINE = new UltrakillMachineArmorModel(Minecraft.getInstance().getEntityModels().bakeLayer(UltrakillMachineArmorModel.LAYER));
 
-        ANCIENT_SOUL_HUNTER_ARMOR = new AncientSoulHunterArmorModel(event.getEntityModels().bakeLayer(AncientSoulHunterArmorModel.LAYER));
-        ANCIENT_SOUL_STAINED_STEEL_ARMOR = new AncientSoulStainedSteelArmorModel(event.getEntityModels().bakeLayer(AncientSoulStainedSteelArmorModel.LAYER));
+        ANCIENT_SOUL_HUNTER_ARMOR = new AncientSoulHunterArmorModel(Minecraft.getInstance().getEntityModels().bakeLayer(AncientSoulHunterArmorModel.LAYER));
+        ANCIENT_SOUL_STAINED_STEEL_ARMOR = new AncientSoulStainedSteelArmorModel(Minecraft.getInstance().getEntityModels().bakeLayer(AncientSoulStainedSteelArmorModel.LAYER));
 
-        PRIDEWEAR = new PridewearArmorModel(event.getEntityModels().bakeLayer(PridewearArmorModel.LAYER));
-        SLIM_PRIDEWEAR = new SlimPridewearArmorModel(event.getEntityModels().bakeLayer(SlimPridewearArmorModel.LAYER));
+        PRIDEWEAR = new PridewearArmorModel(Minecraft.getInstance().getEntityModels().bakeLayer(PridewearArmorModel.LAYER));
+        SLIM_PRIDEWEAR = new SlimPridewearArmorModel(Minecraft.getInstance().getEntityModels().bakeLayer(SlimPridewearArmorModel.LAYER));
 
-        TOP_HAT = new TopHatModel(event.getEntityModels().bakeLayer(TopHatModel.LAYER));
-        TAIL_MODEL = new TailModel(event.getEntityModels().bakeLayer(TailModel.LAYER));
+        TOP_HAT = new TopHatModel(Minecraft.getInstance().getEntityModels().bakeLayer(TopHatModel.LAYER));
+        TAIL_MODEL = new TailModel(Minecraft.getInstance().getEntityModels().bakeLayer(TailModel.LAYER));
 
-        HEAD_OVERLAY_MODEL = new HeadOverlayModel(event.getEntityModels().bakeLayer(HeadOverlayModel.LAYER));
-        SCARF = new ScarfModel(event.getEntityModels().bakeLayer(ScarfModel.LAYER));
+        HEAD_OVERLAY_MODEL = new HeadOverlayModel(Minecraft.getInstance().getEntityModels().bakeLayer(HeadOverlayModel.LAYER));
+        SCARF = new ScarfModel(Minecraft.getInstance().getEntityModels().bakeLayer(ScarfModel.LAYER));
     }
 }

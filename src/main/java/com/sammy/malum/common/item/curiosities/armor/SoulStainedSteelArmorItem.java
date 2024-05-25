@@ -39,28 +39,4 @@ public class SoulStainedSteelArmorItem extends MalumArmorItem {
     public String getTexture() {
         return "soul_stained_steel_reforged";
     }
-
-    @Environment(EnvType.CLIENT)
-    @Override
-    public void initializeClient(Consumer<IClientItemExtensions> consumer) {
-        consumer.accept(new IClientItemExtensions() {
-            @Override
-            public LodestoneArmorModel getHumanoidArmorModel(LivingEntity entity, ItemStack itemStack, EquipmentSlot armorSlot, HumanoidModel _default) {
-                float pticks = Minecraft.getInstance().getFrameTime();
-                float f = Mth.rotLerp(pticks, entity.yBodyRotO, entity.yBodyRot);
-                float f1 = Mth.rotLerp(pticks, entity.yHeadRotO, entity.yHeadRot);
-                float netHeadYaw = f1 - f;
-                float netHeadPitch = Mth.lerp(pticks, entity.xRotO, entity.getXRot());
-                ArmorSkin skin = ArmorSkin.getAppliedItemSkin(itemStack);
-                LodestoneArmorModel model = ModelRegistry.SOUL_STAINED_ARMOR;
-                if (skin != null) {
-                    model = ArmorSkinRenderingData.RENDERING_DATA.apply(skin).getModel(entity);
-                }
-                model.slot = armorSlot;
-                model.copyFromDefault(_default);
-                model.setupAnim(entity, entity.walkAnimation.position(), entity.walkAnimation.speed(), entity.tickCount + pticks, netHeadYaw, netHeadPitch);
-                return model;
-            }
-        });
-    }
 }

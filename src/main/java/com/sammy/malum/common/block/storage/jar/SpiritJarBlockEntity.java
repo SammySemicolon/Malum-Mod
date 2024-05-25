@@ -6,6 +6,10 @@ import com.sammy.malum.core.handlers.*;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import com.sammy.malum.registry.common.block.BlockEntityRegistry;
 import com.sammy.malum.visual_effects.SpiritLightSpecs;
+import io.github.fabricators_of_create.porting_lib.transfer.item.ItemStackHandler;
+import io.github.fabricators_of_create.porting_lib.util.LazyOptional;
+import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
+import net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -51,9 +55,9 @@ public class SpiritJarBlockEntity extends LodestoneBlockEntity {
     private long lastClickTime;
     private UUID lastClickUUID;
 
-    private final LazyOptional<IItemHandler> inventory = LazyOptional.of(() -> new IItemHandler() {
+    private final LazyOptional<ItemStackHandler> inventory = LazyOptional.of(() -> new ItemStackHandler() {
         @Override
-        public int getSlots() {
+        public int getSlotCount() {
             return 2;
         }
 
@@ -66,22 +70,21 @@ public class SpiritJarBlockEntity extends LodestoneBlockEntity {
                 return ItemStack.EMPTY;
         }
 
-        @NotNull
         @Override
-        public ItemStack insertItem(int slot, @NotNull ItemStack stack, boolean simulate) {
-            if (slot == 1 && stack.getItem() instanceof SpiritShardItem spiritItem && (type == null || spiritItem.type == type)) {
-                if (!simulate) {
-                    if (type == null)
-                        type = spiritItem.type;
-                    count += stack.getCount();
-                    if (!level.isClientSide) {
-                        BlockHelper.updateAndNotifyState(level, worldPosition);
-                    }
+        public long insertSlot(int slot, ItemVariant resource, long maxAmount, TransactionContext transaction) {
+            if (slot == 1 && resource.getItem() instanceof SpiritShardItem spiritItem && (type == null || spiritItem.type == type)) {
+                if (type == null)
+                    type = spiritItem.type;
+                count += resource.toStack().getCount();
+                if (!level.isClientSide) {
+                    BlockHelper.updateAndNotifyState(level, worldPosition);
                 }
-                return ItemStack.EMPTY;
             }
-            return stack;
+
+            return super.insertSlot(slot, resource, maxAmount, transaction);
         }
+
+        /*TODO
 
         @NotNull
         @Override
@@ -106,6 +109,8 @@ public class SpiritJarBlockEntity extends LodestoneBlockEntity {
             return new ItemStack(extractedType.spiritShard.get(), amountToExtract);
         }
 
+         */
+
         @Override
         public int getSlotLimit(int slot) {
             if (slot == 0)
@@ -114,8 +119,8 @@ public class SpiritJarBlockEntity extends LodestoneBlockEntity {
         }
 
         @Override
-        public boolean isItemValid(int slot, @NotNull ItemStack stack) {
-            return stack.getItem() instanceof SpiritShardItem spiritItem && spiritItem.type == type;
+        public boolean isItemValid(int slot, ItemVariant resource, int count) {
+            return resource.getItem() instanceof SpiritShardItem spiritItem && spiritItem.type == type;
         }
     });
 
