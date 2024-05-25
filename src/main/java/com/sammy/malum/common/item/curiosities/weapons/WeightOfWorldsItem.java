@@ -24,7 +24,7 @@ public class WeightOfWorldsItem extends LodestoneAxeItem implements IEventRespon
     }
 
     @Override
-    public void hurtEvent(LivingEntity attacker, LivingEntity target, ItemStack stack) {
+    public void hurtEvent(LivingHurtEvent event, LivingEntity attacker, LivingEntity target, ItemStack stack) {
         if (attacker != null) {
             if (attacker instanceof Player player) {
                 MalumScytheItem.spawnSweepParticles(player, ParticleRegistry.SCYTHE_CUT_PARTICLE.get());

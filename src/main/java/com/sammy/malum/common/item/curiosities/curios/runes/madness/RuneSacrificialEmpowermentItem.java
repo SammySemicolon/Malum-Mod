@@ -4,6 +4,7 @@ import com.sammy.malum.common.item.curiosities.curios.runes.AbstractRuneCurioIte
 import com.sammy.malum.registry.common.MobEffectRegistry;
 import com.sammy.malum.registry.common.SpiritTypeRegistry;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
@@ -25,14 +26,14 @@ public class RuneSacrificialEmpowermentItem extends AbstractRuneCurioItem implem
     }
 
     @Override
-    public void killEvent(LivingEntity attacker, LivingEntity target, ItemStack stack) {
+    public void killEvent(LivingEntity finalAttacker, LivingEntity livingEntity, ItemStack s, DamageSource damageSource, float damageAmount) {
         MobEffect sacrificialEmpowerment = MobEffectRegistry.SACRIFICIAL_EMPOWERMENT.get();
-        MobEffectInstance effect = attacker.getEffect(sacrificialEmpowerment);
+        MobEffectInstance effect = finalAttacker.getEffect(sacrificialEmpowerment);
         if (effect == null) {
-            attacker.addEffect(new MobEffectInstance(sacrificialEmpowerment, 200, 0, true, true, true));
+            finalAttacker.addEffect(new MobEffectInstance(sacrificialEmpowerment, 200, 0, true, true, true));
         } else {
-            EntityHelper.amplifyEffect(effect, attacker, 1, 3);
-            EntityHelper.extendEffect(effect, attacker, 50, 200);
+            EntityHelper.amplifyEffect(effect, finalAttacker, 1, 3);
+            EntityHelper.extendEffect(effect, finalAttacker, 50, 200);
         }
     }
 }

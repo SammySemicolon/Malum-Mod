@@ -32,10 +32,6 @@ public class MalumCurioItem extends AbstractMalumCurioItem implements Trinket {
         super.addAttributeModifier(map, attribute, attributeModifier);
     }
 
-    public void takeDamageEvent(LivingHurtEvent event, LivingEntity attacker, LivingEntity attacked, ItemStack stack){
-
-    };
-
     @Override
     public List<Component> getAttributesTooltip(List<net.minecraft.network.chat.Component> tooltips, ItemStack stack) {
         final List<Component> attributesTooltip = super.getAttributesTooltip(tooltips, stack);
