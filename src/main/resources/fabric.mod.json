@@ -28,6 +28,9 @@
     ],
     "fabric-datagen": [
       "com.sammy.malum.MalumMod"
+    ],
+    "mm:early_risers": [
+      "com.sammy.malum.asm.MalumASM"
     ]
   },
   "mixins": [
