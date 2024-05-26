@@ -3,12 +3,7 @@ package com.sammy.malum.common.item.curiosities;
 import com.sammy.malum.common.container.SpiritPouchContainer;
 import com.sammy.malum.common.item.spirit.SpiritShardItem;
 import com.sammy.malum.registry.common.ContainerRegistry;
-import io.github.fabricators_of_create.porting_lib.util.NetworkHooks;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
-import net.fabricmc.fabric.mixin.screenhandler.NamedScreenHandlerFactoryMixin;
-import net.minecraft.core.Direction;
-import net.minecraft.core.NonNullList;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -29,7 +24,6 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 import team.lodestar.lodestone.systems.container.ItemInventory;
 
-import org.jetbrains.annotations.NotNull;
 import java.util.Iterator;
 import java.util.stream.Stream;
 
@@ -103,13 +97,6 @@ public class SpiritPouchItem extends Item {
     public InteractionResultHolder<ItemStack> use(Level level, Player playerIn, InteractionHand handIn) {
         if (!level.isClientSide) {
             ItemStack stack = playerIn.getItemInHand(handIn);
-            //MenuProvider container = new SimpleMenuProvider((w, p, pl) -> new SpiritPouchContainer(w, p, stack), stack.getHoverName());
-            //NetworkHooks.openScreen((ServerPlayer) playerIn, container, b -> b.writeItem(stack));
-            NonNullList<ItemStack> stacks = NonNullList.withSize(27, ItemStack.EMPTY);
-            CompoundTag tag = stack.getTag();
-            if (tag != null) {
-                ContainerHelper.loadAllItems(tag, stacks);
-            }
             playerIn.openMenu(new ExtendedScreenHandlerFactory() {
                 @Override
                 public void writeScreenOpeningData(ServerPlayer player, FriendlyByteBuf buf) {
