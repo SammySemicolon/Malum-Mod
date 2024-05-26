@@ -168,6 +168,7 @@ public class MalumMod implements ModInitializer {
         ResourceManagerHelper.get(PackType.SERVER_DATA).registerReloadListener(new RitualRecipeReloadListenerFabricImpl());
 
         //TODO modBus.addListener(CreativeTabRegistry::populateItemGroups);
+        CreativeTabRegistry.populateItemGroups();
     }
 
     private void leftClickBlock(PlayerInteractionEvents.LeftClickBlock leftClickBlock) {

@@ -12,6 +12,15 @@ if (System.getenv("BUILD_NUMBER") != null) {
     version = "${property("minecraft_version")}-${property("mod_version")}.${System.getenv("BUILD_NUMBER")}"
 }
 
+sourceSets {
+    named("main") {
+        resources {
+            srcDir("src/generated/resources")
+        }
+    }
+}
+
+
 loom {
     accessWidenerPath = file("src/main/resources/malum.accesswidener")
     runs {
