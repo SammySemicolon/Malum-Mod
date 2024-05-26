@@ -25,20 +25,14 @@ public class SpiritPouchContainer extends AbstractContainerMenu {
     private final Container inventory;
     public final ItemStack pouch;
 
-    public SpiritPouchContainer(int windowId, Inventory playerInv, ItemStack backpack) {
-        this(ContainerRegistry.SPIRIT_POUCH.get(), windowId, playerInv, SpiritPouchItem.getInventory(backpack), backpack);
+    public SpiritPouchContainer(int i, Inventory playerInv, FriendlyByteBuf friendlyByteBuf) {
+        this(ContainerRegistry.SPIRIT_POUCH.get(), i, playerInv, friendlyByteBuf.readItem());
     }
 
-    public SpiritPouchContainer(int i, Inventory inventory, FriendlyByteBuf friendlyByteBuf) {
-        super(ContainerRegistry.SPIRIT_POUCH.get(), i);
-        this.inventory = inventory;
-        this.pouch = friendlyByteBuf.readItem();
-    }
-
-    public SpiritPouchContainer(MenuType<? extends SpiritPouchContainer> containerType, int windowId, Inventory playerInv, Container inventory, ItemStack pouch) {
+    public SpiritPouchContainer(MenuType<? extends SpiritPouchContainer> containerType, int windowId, Inventory playerInv, ItemStack pouch) {
         super(containerType, windowId);
         this.pouch = pouch;
-        this.inventory = inventory;
+        this.inventory = SpiritPouchItem.getInventory(pouch);
         inventory.startOpen(playerInv.player);
         for (int i = 0; i < inventory.getContainerSize() / 9f; ++i) {
             for (int j = 0; j < 9; ++j) {

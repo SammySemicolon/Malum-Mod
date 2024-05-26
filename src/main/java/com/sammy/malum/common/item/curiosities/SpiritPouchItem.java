@@ -105,6 +105,11 @@ public class SpiritPouchItem extends Item {
             ItemStack stack = playerIn.getItemInHand(handIn);
             //MenuProvider container = new SimpleMenuProvider((w, p, pl) -> new SpiritPouchContainer(w, p, stack), stack.getHoverName());
             //NetworkHooks.openScreen((ServerPlayer) playerIn, container, b -> b.writeItem(stack));
+            NonNullList<ItemStack> stacks = NonNullList.withSize(27, ItemStack.EMPTY);
+            CompoundTag tag = stack.getTag();
+            if (tag != null) {
+                ContainerHelper.loadAllItems(tag, stacks);
+            }
             playerIn.openMenu(new ExtendedScreenHandlerFactory() {
                 @Override
                 public void writeScreenOpeningData(ServerPlayer player, FriendlyByteBuf buf) {
@@ -119,12 +124,7 @@ public class SpiritPouchItem extends Item {
                 @Nullable
                 @Override
                 public AbstractContainerMenu createMenu(int i, Inventory inventory, Player player) {
-                    NonNullList<ItemStack> stacks = NonNullList.withSize(27, ItemStack.EMPTY);
-                    CompoundTag tag = stack.getTag();
-                    if (tag != null) {
-                        ContainerHelper.loadAllItems(tag, stacks);
-                    }
-                    return new SpiritPouchContainer(ContainerRegistry.SPIRIT_POUCH.get(), i, inventory, new SimpleContainer(stacks.toArray(ItemStack[]::new)), stack);
+                    return new SpiritPouchContainer(ContainerRegistry.SPIRIT_POUCH.get(), i, inventory, stack);
                 }
             });
             playerIn.level().playSound(null, playerIn.getX(), playerIn.getY(), playerIn.getZ(), SoundEvents.ARMOR_EQUIP_LEATHER, SoundSource.PLAYERS, 1, 1);
