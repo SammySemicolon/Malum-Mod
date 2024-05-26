@@ -38,7 +38,6 @@ public class MalumModClient implements ClientModInitializer {
 
         SpiritTypeRegistry.init();
         ParticleRegistry.registerParticleFactory();
-        ScreenParticleRegistry.registerParticleFactory();
         BlockEntityRegistry.ClientOnly.registerRenderer();
         BlockRegistry.ClientOnly.setBlockColors();
         EntityRegistry.ClientOnly.bindEntityRenderers();
@@ -46,7 +45,7 @@ public class MalumModClient implements ClientModInitializer {
         ItemRegistry.ClientOnly.setItemColors();
         ContainerRegistry.bindContainerRenderers();
         ModelRegistry.registerLayerDefinitions();
-        ModelRegistry.registerLayers();
+        //ModelRegistry.registerLayers();
 
         BuiltinItemRendererRegistry.INSTANCE.register(SPIRIT_JAR.get(), new SpiritJarItemRenderer());
 

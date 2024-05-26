@@ -57,6 +57,6 @@ public class ItemTagRegistry {
     }
 
     private static TagKey<Item> forgeTag(String name) {
-        return TagKey.create(Registries.ITEM, new ResourceLocation("forge", name));
+        return TagKey.create(Registries.ITEM, new ResourceLocation("c", name));
     }
 }

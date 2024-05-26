@@ -1,8 +1,0 @@
-{
-  "remove": [
-    "#forge:is_snowy"
-  ],
-  "values": [
-    "#minecraft:is_forest"
-  ]
-}

@@ -6,7 +6,6 @@ import net.minecraft.network.chat.*;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import team.lodestar.lodestone.systems.particle.builder.*;
-import team.lodestar.lodestone.systems.particle.render_types.*;
 
 import java.awt.*;
 import java.util.function.*;
@@ -27,8 +26,9 @@ public class UmbralSpiritType extends MalumSpiritType {
     @Environment(EnvType.CLIENT)
     @Override
     public <K extends AbstractWorldParticleBuilder<K, ?>> Consumer<K> applyWorldParticleChanges() {
+
         return b -> {
-            b.setRenderType(LodestoneWorldParticleRenderType.LUMITRANSPARENT);
+            //TODO server complainin' b.setRenderType(LodestoneWorldParticleRenderType.LUMITRANSPARENT);
             b.modifyData(b::getTransparencyData, d -> d.multiplyValue(4f));
             b.getScaleData().multiplyCoefficient(1.5f);
             b.getTransparencyData().multiplyCoefficient(1.5f);

@@ -17,19 +17,23 @@ import net.minecraft.world.item.ItemStack;
 import team.lodestar.lodestone.systems.model.LodestoneArmorModel;
 
 public class SoulStainedSteelArmorRenderer implements ArmorRenderer {
-
+    LodestoneArmorModel model;
     public SoulStainedSteelArmorRenderer() {
+
     }
 
     @Override
     public void render(PoseStack matrices, MultiBufferSource vertexConsumers, ItemStack stack, LivingEntity entity, EquipmentSlot slot, int light, HumanoidModel<LivingEntity> contextModel) {
+        if (model == null) {
+            model = new SoulStainedSteelArmorModel(Minecraft.getInstance().getEntityModels().bakeLayer(SoulHunterArmorModel.LAYER));
+        }
         float pticks = Minecraft.getInstance().getFrameTime();
         float f = Mth.rotLerp(pticks, entity.yBodyRotO, entity.yBodyRot);
         float f1 = Mth.rotLerp(pticks, entity.yHeadRotO, entity.yHeadRot);
         float netHeadYaw = f1 - f;
         float netHeadPitch = Mth.lerp(pticks, entity.xRotO, entity.getXRot());
         ArmorSkin skin = ArmorSkin.getAppliedItemSkin(stack);
-        LodestoneArmorModel model = new SoulStainedSteelArmorModel(Minecraft.getInstance().getEntityModels().bakeLayer(SoulHunterArmorModel.LAYER));
+
         if (skin != null) {
             model = ArmorSkinRenderingData.RENDERING_DATA.apply(skin).getModel(entity);
         }

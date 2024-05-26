@@ -17,13 +17,9 @@ import net.minecraft.client.Minecraft;
 
 public class ModelRegistry {
 
-    public static SoulHunterArmorModel SOUL_HUNTER_ARMOR;
     public static AncientSoulHunterArmorModel ANCIENT_SOUL_HUNTER_ARMOR;
 
-    public static SoulStainedSteelArmorModel SOUL_STAINED_ARMOR;
     public static AncientSoulStainedSteelArmorModel ANCIENT_SOUL_STAINED_STEEL_ARMOR;
-
-    public static MalignantStrongholdArmorModel MALIGNANT_LEAD_ARMOR;
 
     public static GenericSlimArmorModel GENERIC_SLIM_ARMOR;
     public static GenericArmorModel GENERIC_ARMOR;
@@ -69,9 +65,6 @@ public class ModelRegistry {
     }
 
     public static void registerLayers() {
-        SOUL_HUNTER_ARMOR = new SoulHunterArmorModel(Minecraft.getInstance().getEntityModels().bakeLayer(SoulHunterArmorModel.LAYER));
-        SOUL_STAINED_ARMOR = new SoulStainedSteelArmorModel(Minecraft.getInstance().getEntityModels().bakeLayer(SoulStainedSteelArmorModel.LAYER));
-        MALIGNANT_LEAD_ARMOR = new MalignantStrongholdArmorModel(Minecraft.getInstance().getEntityModels().bakeLayer(MalignantStrongholdArmorModel.LAYER));
         GENERIC_SLIM_ARMOR = new GenericSlimArmorModel(Minecraft.getInstance().getEntityModels().bakeLayer(GenericSlimArmorModel.LAYER));
         GENERIC_ARMOR = new GenericArmorModel(Minecraft.getInstance().getEntityModels().bakeLayer(GenericArmorModel.LAYER));
 

@@ -28,6 +28,10 @@
       "model": "malum:block/runewood_totem_pole_sacred",
       "y": 90
     },
+    "facing=east,spirit_type=umbral": {
+      "model": "malum:block/runewood_totem_pole_umbral",
+      "y": 90
+    },
     "facing=east,spirit_type=wicked": {
       "model": "malum:block/runewood_totem_pole_wicked",
       "y": 90
@@ -52,6 +56,9 @@
     },
     "facing=north,spirit_type=sacred": {
       "model": "malum:block/runewood_totem_pole_sacred"
+    },
+    "facing=north,spirit_type=umbral": {
+      "model": "malum:block/runewood_totem_pole_umbral"
     },
     "facing=north,spirit_type=wicked": {
       "model": "malum:block/runewood_totem_pole_wicked"
@@ -84,6 +91,10 @@
       "model": "malum:block/runewood_totem_pole_sacred",
       "y": 180
     },
+    "facing=south,spirit_type=umbral": {
+      "model": "malum:block/runewood_totem_pole_umbral",
+      "y": 180
+    },
     "facing=south,spirit_type=wicked": {
       "model": "malum:block/runewood_totem_pole_wicked",
       "y": 180
@@ -114,6 +125,10 @@
     },
     "facing=west,spirit_type=sacred": {
       "model": "malum:block/runewood_totem_pole_sacred",
+      "y": 270
+    },
+    "facing=west,spirit_type=umbral": {
+      "model": "malum:block/runewood_totem_pole_umbral",
       "y": 270
     },
     "facing=west,spirit_type=wicked": {

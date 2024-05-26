@@ -24,7 +24,7 @@ public class DataGenerators implements DataGeneratorEntrypoint {
 
         pack.addProvider((output, registriesFuture) -> new MalumBlockStates(output, helper, items));
         pack.addProvider((output, registriesFuture) -> new MalumBlockLootTables(output));
-        pack.addProvider((output, registriesFuture) -> new MalumItemTags(output, registriesFuture, blocks.contentsGetter()));
+        pack.addProvider((output, registriesFuture) -> new MalumItemTags(output, registriesFuture, blocks));
         pack.addProvider((output, registriesFuture) -> new MalumRecipes(output));
         pack.addProvider((output, registriesFuture) -> new MalumBiomeTags(output, registriesFuture, helper));
         pack.addProvider((output, registriesFuture) -> new MalumDamageTypeTags(output, registriesFuture, helper));

@@ -19,7 +19,8 @@
     "GameRenderMixin",
     "GlyphRenderTypesMixin",
     "GuiMixin",
-    "LocalPlayerMixin"
+    "LocalPlayerMixin",
+    "MinecraftMixin"
   ],
   "injectors": {
     "defaultRequire": 1

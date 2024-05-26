@@ -39,6 +39,6 @@ public class BlockTagRegistry {
     }
 
     private static TagKey<Block> forgeTag(String name) {
-        return TagKey.create(Registries.BLOCK, new ResourceLocation("forge", name));
+        return TagKey.create(Registries.BLOCK, new ResourceLocation("c", name));
     }
 }

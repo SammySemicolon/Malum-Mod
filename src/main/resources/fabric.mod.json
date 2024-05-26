@@ -27,7 +27,7 @@
       "com.sammy.malum.common.components.MalumComponents"
     ],
     "fabric-datagen": [
-      "com.sammy.malum.MalumMod"
+      "com.sammy.malum.data.DataGenerators"
     ],
     "mm:early_risers": [
       "com.sammy.malum.asm.MalumASM"

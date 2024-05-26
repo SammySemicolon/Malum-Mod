@@ -1,6 +1,5 @@
 package com.sammy.malum.registry.common;
 
-import com.sammy.malum.*;
 import com.sammy.malum.core.systems.spirit.*;
 import com.sammy.malum.registry.common.block.*;
 import com.sammy.malum.registry.common.item.*;
@@ -64,13 +63,16 @@ public class SpiritTypeRegistry {
             .setItemColor(c -> ColorHelper.brighter(c.getPrimaryColor(), 1))
             .build());
 
-    public static SpiritTypeProperty SPIRIT_TYPE_PROPERTY = new SpiritTypeProperty("spirit_type", SPIRITS.values());
 
     public static MalumSpiritType UMBRAL_SPIRIT = register(MalumSpiritType.create("umbral",
                     new UmbralSpiritMotif(new Color(19, 5, 24), new Color(7, 1, 1), 0.9f, Easing.SINE_IN_OUT),
                     ItemRegistry.UMBRAL_SPIRIT, null)
             .setItemColor(SpiritVisualMotif::getPrimaryColor)
             .build(UmbralSpiritType::new));
+
+
+
+    public static SpiritTypeProperty SPIRIT_TYPE_PROPERTY = new SpiritTypeProperty("spirit_type", SPIRITS.values());
 
     public static MalumSpiritType register(MalumSpiritType spiritType) {
         SPIRITS.put(spiritType.identifier, spiritType);

@@ -14,11 +14,24 @@ if (System.getenv("BUILD_NUMBER") != null) {
 
 loom {
     accessWidenerPath = file("src/main/resources/malum.accesswidener")
+    runs {
+        create("data") {
+            client()
+            name("Data Generation")
+            vmArg("-Dfabric-api.datagen")
+            vmArg("-Dfabric-api.datagen.output-dir=${file("src/generated/resources")}")
+            vmArg("-Dfabric-api.datagen.modid=malum")
+            //vmArg("-Dfabric-api.datagen.strict-validation")
+
+            property("porting_lib.datagen.existing_resources", file("src/main/resources").absolutePath)
+            property("malum.data.server", "false")
+
+            runDir("build/datagen")
+        }
+    }
 }
 
-fabricApi {
-    configureDataGeneration()
-}
+
 
 repositories {
     flatDir {
@@ -114,7 +127,7 @@ dependencies {
     modRuntimeOnly("curse.maven:world-stripper-250603:4578576")
     modRuntimeOnly("curse.maven:spark-361579:4738953")
     modRuntimeOnly("curse.maven:attributefix-280510:4911083")
-    modRuntimeOnly("curse.maven:overloaded-armor-bar-314002:5208706")
+    //modRuntimeOnly("curse.maven:overloaded-armor-bar-314002:5208706")
 }
 
 tasks {

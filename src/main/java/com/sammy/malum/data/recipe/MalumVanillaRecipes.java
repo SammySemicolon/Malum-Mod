@@ -20,6 +20,7 @@ import net.minecraft.world.level.block.*;
 import team.lodestar.lodestone.data.builder.*;
 import team.lodestar.lodestone.systems.recipe.*;
 
+import java.util.Arrays;
 import java.util.function.*;
 
 import static com.sammy.malum.MalumMod.*;
@@ -446,7 +447,7 @@ public class MalumVanillaRecipes {
 
     private static void nodeSmelting(Consumer<FinishedRecipe> recipeConsumer, RegistryObject<ImpetusItem> impetus, RegistryObject<Item> node, TagKey<Item> tag) {
         String name = BuiltInRegistries.ITEM.getKey(node.get()).getPath().replaceFirst("_node", "");
-
+        System.out.println(tag.location());
         ConditionalRecipe.builder().addCondition(DefaultResourceConditions.tagsPopulated(tag)).addRecipe(
                         smeltingWithTag(new IngredientWithCount(Ingredient.of(tag), 6), Ingredient.of(node.get()), 0.25f, 200)
                                 ::build)
