@@ -27,6 +27,7 @@ import com.sammy.malum.registry.client.ParticleEmitterRegistry;
 import com.sammy.malum.registry.common.AttributeRegistry;
 import com.sammy.malum.registry.common.MobEffectRegistry;
 import com.sammy.malum.registry.common.PacketRegistry;
+import com.sammy.malum.registry.common.SpiritTypeRegistry;
 import com.sammy.malum.registry.common.item.ArmorSkinRegistry;
 import com.sammy.malum.registry.common.item.ItemRegistry;
 import com.sammy.malum.registry.common.item.tabs.*;

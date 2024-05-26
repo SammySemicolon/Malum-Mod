@@ -27,7 +27,7 @@ public abstract class AbstractBoltEntityRenderer<T extends AbstractBoltProjectil
     }
 
     protected static final ResourceLocation LIGHT_TRAIL = malumPath("textures/vfx/concentrated_trail.png");
-    private static final RenderType TRAIL_TYPE = LodestoneRenderTypeRegistry.ADDITIVE_TEXTURE_TRIANGLE.apply(new RenderTypeToken("malum", LIGHT_TRAIL));
+    private static final RenderType TRAIL_TYPE = LodestoneRenderTypeRegistry.ADDITIVE_TEXTURE_TRIANGLE.apply(RenderTypeToken.createToken(LIGHT_TRAIL));
 
     public RenderType getTrailRenderType() {
         return TRAIL_TYPE;

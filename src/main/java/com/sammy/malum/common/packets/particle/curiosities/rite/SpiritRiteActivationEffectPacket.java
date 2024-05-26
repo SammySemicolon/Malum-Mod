@@ -37,6 +37,7 @@ public class SpiritRiteActivationEffectPacket extends SpiritBasedBlockParticleEf
         super(buf);
     }
 
+    @Environment(EnvType.CLIENT)
     @Override
     protected void execute(Minecraft client, ClientPacketListener listener, PacketSender responseSender, SimpleChannel channel, MalumSpiritType spiritType) {
         Level level = Minecraft.getInstance().level;

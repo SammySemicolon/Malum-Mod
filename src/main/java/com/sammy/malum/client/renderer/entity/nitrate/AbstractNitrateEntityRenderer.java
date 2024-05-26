@@ -34,7 +34,7 @@ public class AbstractNitrateEntityRenderer<T extends AbstractNitrateEntity> exte
     }
 
     private static final ResourceLocation LIGHT_TRAIL = malumPath("textures/vfx/concentrated_trail.png");
-    private static final RenderType TRAIL_TYPE = LodestoneRenderTypeRegistry.ADDITIVE_TEXTURE_TRIANGLE.applyAndCache(new RenderTypeToken("malum", LIGHT_TRAIL));
+    private static final RenderType TRAIL_TYPE = LodestoneRenderTypeRegistry.ADDITIVE_TEXTURE_TRIANGLE.applyAndCache(RenderTypeToken.createToken(LIGHT_TRAIL));
 
     @Override
     public void render(T entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int packedLightIn) {

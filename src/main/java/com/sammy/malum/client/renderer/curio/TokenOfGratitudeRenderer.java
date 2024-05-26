@@ -52,7 +52,7 @@ public class TokenOfGratitudeRenderer implements TrinketRenderer {
                 renderTail(itemStack, LOFI, poseStack, playerEntity, multiBufferSource, light, limbAngle, limbDistance, tickDelta, animationProgress, headYaw, headPitch);
             }
             if (playerEntity.getUUID().equals(CurioTokenOfGratitude.OWL_PERSON)) {
-                renderGlowingEyes(playerEntity, LodestoneRenderTypeRegistry.TRANSPARENT_TEXTURE.applyAndCache(new RenderTypeToken("malum", OWL_PERSON_EYES)), poseStack, multiBufferSource, RenderHelper.FULL_BRIGHT);
+                renderGlowingEyes(playerEntity, LodestoneRenderTypeRegistry.TRANSPARENT_TEXTURE.applyAndCache(RenderTypeToken.createToken(OWL_PERSON_EYES)), poseStack, multiBufferSource, RenderHelper.FULL_BRIGHT);
             }
             if (playerEntity.getUUID().equals(CurioTokenOfGratitude.SNAKE_SCARF_FELLA)) {
                 renderScarf(playerEntity, SNAKE_FELLA_SCARF, poseStack, multiBufferSource, light);

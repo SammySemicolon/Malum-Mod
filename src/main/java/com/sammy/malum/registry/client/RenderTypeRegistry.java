@@ -39,42 +39,42 @@ public class RenderTypeRegistry extends RenderStateShard {
         RenderSystem.defaultBlendFunc();
     });
 
-    public static final RenderTypeProvider ADDITIVE_DISTORTED_TEXTURE = new RenderTypeProvider((texture) ->
-            LodestoneRenderTypeRegistry.createGenericRenderType(texture.getIdentifier() + ":additive_distorted_texture", POSITION_COLOR_TEX_LIGHTMAP, QUADS, LodestoneRenderTypeRegistry.builder()
+    public static final RenderTypeProvider ADDITIVE_DISTORTED_TEXTURE = new RenderTypeProvider((token) ->
+            LodestoneRenderTypeRegistry.createGenericRenderType("additive_distorted_texture", POSITION_COLOR_TEX_LIGHTMAP, QUADS, LodestoneRenderTypeRegistry.builder()
                     .setShaderState(ShaderRegistry.DISTORTION)
                     .setTransparencyState(StateShards.ADDITIVE_TRANSPARENCY)
                     .setLightmapState(LIGHTMAP)
                     .setCullState(CULL)
-                    .setTextureState(new ResourceLocation(texture.getIdentifier()))));
+                    .setTextureState(token.get())));
 
-    public static final RenderTypeProvider TRANSPARENT_DISTORTED_TEXTURE = new RenderTypeProvider((texture) ->
-            LodestoneRenderTypeRegistry.createGenericRenderType(texture.getIdentifier() + ":transparent_distorted_texture", POSITION_COLOR_TEX_LIGHTMAP, QUADS, LodestoneRenderTypeRegistry.builder()
+    public static final RenderTypeProvider TRANSPARENT_DISTORTED_TEXTURE = new RenderTypeProvider((token) ->
+            LodestoneRenderTypeRegistry.createGenericRenderType("transparent_distorted_texture", POSITION_COLOR_TEX_LIGHTMAP, QUADS, LodestoneRenderTypeRegistry.builder()
                     .setShaderState(ShaderRegistry.DISTORTION)
                     .setTransparencyState(StateShards.TRANSLUCENT_TRANSPARENCY)
                     .setLightmapState(LIGHTMAP)
                     .setCullState(CULL)
-                    .setTextureState(new ResourceLocation(texture.getIdentifier()))));
+                    .setTextureState(token.get())));
 
-    public static final RenderTypeProvider SUBTRACTIVE_TEXT = new RenderTypeProvider((texture) ->
-            LodestoneRenderTypeRegistry.createGenericRenderType("malum:subtractive_text", POSITION_COLOR_TEX_LIGHTMAP, QUADS, LodestoneRenderTypeRegistry.builder()
+    public static final RenderTypeProvider SUBTRACTIVE_TEXT = new RenderTypeProvider((token) ->
+            LodestoneRenderTypeRegistry.createGenericRenderType("subtractive_text", POSITION_COLOR_TEX_LIGHTMAP, QUADS, LodestoneRenderTypeRegistry.builder()
             .setShaderState(RENDERTYPE_TEXT_SEE_THROUGH_SHADER)
             .setTransparencyState(SUBTRACTIVE_TEXT_TRANSPARENCY)
             .setWriteMaskState(COLOR_WRITE)
             .setLightmapState(LIGHTMAP)
-            .setTextureState(new TextureStateShard(new ResourceLocation(texture.getIdentifier()), false, false))));
+            .setTextureState(token.get())));
 
     public static final RenderTypeProvider SUBTRACTIVE_INTENSE_TEXT = new RenderTypeProvider((texture) ->
-        LodestoneRenderTypeRegistry.createGenericRenderType("malum:subtractive_intense_text", POSITION_COLOR_TEX_LIGHTMAP, QUADS, LodestoneRenderTypeRegistry.builder()
+        LodestoneRenderTypeRegistry.createGenericRenderType("subtractive_intense_text", POSITION_COLOR_TEX_LIGHTMAP, QUADS, LodestoneRenderTypeRegistry.builder()
             .setShaderState(RENDERTYPE_TEXT_INTENSITY_SEE_THROUGH_SHADER)
             .setTransparencyState(SUBTRACTIVE_TEXT_TRANSPARENCY)
             .setWriteMaskState(COLOR_WRITE)
             .setLightmapState(LIGHTMAP)
-            .setTextureState(new TextureStateShard(new ResourceLocation(texture.getIdentifier()), false, false))));
+            .setTextureState(texture.get())));
 
-    public static final RenderTypeProvider MALIGNANT_GLOW = new RenderTypeProvider((texture) -> LodestoneRenderTypeRegistry.createGenericRenderType("lodestone:malignant_glow", POSITION_COLOR_TEX_LIGHTMAP, QUADS, LodestoneRenderTypeRegistry.builder()
+    public static final RenderTypeProvider MALIGNANT_GLOW = new RenderTypeProvider((token) -> LodestoneRenderTypeRegistry.createGenericRenderType("lodestone:malignant_glow", POSITION_COLOR_TEX_LIGHTMAP, QUADS, LodestoneRenderTypeRegistry.builder()
             .setShaderState(LodestoneShaderRegistry.LODESTONE_TEXTURE)
             .setTransparencyState(StateShards.ADDITIVE_TRANSPARENCY)
-            .setTextureState(new ResourceLocation(texture.getIdentifier()))
+            .setTextureState(token.get())
             .setCullState(RenderStateShard.NO_CULL)));
 
     public RenderTypeRegistry(String pName, Runnable pSetupState, Runnable pClearState) {

@@ -30,7 +30,7 @@ public class MoteOfManaRenderer implements BlockEntityRenderer<MoteOfManaBlockEn
         MalumSpiritType spiritType = ((SpiritMoteBlock) blockEntityIn.getBlockState().getBlock()).spiritType;
 
         var builder = SpiritBasedWorldVFXBuilder.create(spiritType)
-                .setRenderType(LodestoneRenderTypeRegistry.ADDITIVE_TEXTURE.applyAndCache(new RenderTypeToken("malum", MOTE_OF_MANA_TEXTURE)));
+                .setRenderType(LodestoneRenderTypeRegistry.ADDITIVE_TEXTURE.applyAndCache(RenderTypeToken.createToken(MOTE_OF_MANA_TEXTURE)));
 
         RenderUtils.CubeVertexData cubeVertexData = RenderUtils.makeCubePositions(1f)
                 .applyWobble(0, 0.5f, 0.015f);

@@ -9,7 +9,7 @@ import team.lodestar.lodestone.systems.rendering.rendeertype.*;
 
 public class DrainingBoltEntityRenderer extends AbstractBoltEntityRenderer<DrainingBoltEntity> {
 
-    private static final RenderType TRAIL_TYPE = LodestoneRenderTypeRegistry.TRANSPARENT_TEXTURE_TRIANGLE.apply(new RenderTypeToken("malum", LIGHT_TRAIL), ShaderUniformHandler.LUMITRANSPARENT);
+    private static final RenderType TRAIL_TYPE = LodestoneRenderTypeRegistry.TRANSPARENT_TEXTURE_TRIANGLE.apply(RenderTypeToken.createToken(LIGHT_TRAIL), ShaderUniformHandler.LUMITRANSPARENT);
 
     public DrainingBoltEntityRenderer(EntityRendererProvider.Context context) {
         super(context, ErosionScepterItem.MALIGNANT_PURPLE, ErosionScepterItem.MALIGNANT_BLACK);

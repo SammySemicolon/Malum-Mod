@@ -37,10 +37,10 @@ public class FloatingItemEntityRenderer extends EntityRenderer<FloatingItemEntit
     }
 
     private static final ResourceLocation LIGHT_TRAIL = malumPath("textures/vfx/concentrated_trail.png");
-    private static final LodestoneRenderType TRAIL_TYPE = LodestoneRenderTypeRegistry.ADDITIVE_TEXTURE_TRIANGLE.apply(new RenderTypeToken("malum", LIGHT_TRAIL));
+    private static final LodestoneRenderType TRAIL_TYPE = LodestoneRenderTypeRegistry.ADDITIVE_TEXTURE_TRIANGLE.apply(RenderTypeToken.createToken(LIGHT_TRAIL));
 
-    private static final LodestoneRenderType GLIMMER_BLOOM = LodestoneRenderTypeRegistry.ADDITIVE_TEXTURE.applyAndCache(new RenderTypeToken("lodestone", lodestonePath("textures/particle/twinkle.png")));
-    private static final LodestoneRenderType GLIMMER_SHINE = LodestoneRenderTypeRegistry.ADDITIVE_TEXTURE.applyAndCache(new RenderTypeToken("malum", malumPath("textures/particle/star.png")));
+    private static final LodestoneRenderType GLIMMER_BLOOM = LodestoneRenderTypeRegistry.ADDITIVE_TEXTURE.applyAndCache(RenderTypeToken.createToken(lodestonePath("textures/particle/twinkle.png")));
+    private static final LodestoneRenderType GLIMMER_SHINE = LodestoneRenderTypeRegistry.ADDITIVE_TEXTURE.applyAndCache(RenderTypeToken.createToken(malumPath("textures/particle/star.png")));
 
     @Override
     public void render(FloatingItemEntity entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int packedLightIn) {

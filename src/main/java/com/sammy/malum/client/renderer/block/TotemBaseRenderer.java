@@ -76,7 +76,7 @@ public class TotemBaseRenderer implements BlockEntityRenderer<TotemBaseBlockEnti
             float shaderHeight = height * 32;
             float distortion = 6f+height/2f;
             float sideDistortion = 6f+width/2f;
-            final LodestoneRenderType renderType = RenderTypeRegistry.ADDITIVE_DISTORTED_TEXTURE.applyWithModifierAndCache(new RenderTypeToken("malum", AREA_COVERAGE_TEXTURE), b -> b.setCullState(LodestoneRenderTypeRegistry.NO_CULL));
+            final LodestoneRenderType renderType = RenderTypeRegistry.ADDITIVE_DISTORTED_TEXTURE.applyWithModifierAndCache(RenderTypeToken.createToken(AREA_COVERAGE_TEXTURE), b -> b.setCullState(LodestoneRenderTypeRegistry.NO_CULL));
             float index = shaderWidth + distortion;
             float sideIndex = shaderWidth*shaderHeight + sideDistortion;
 

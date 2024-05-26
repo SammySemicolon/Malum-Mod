@@ -51,10 +51,10 @@ public class RitualPlinthRenderer implements BlockEntityRenderer<RitualPlinthBlo
         final MalumRitualTier ritualTier = blockEntityIn.ritualTier;
         if (blockEntityIn.activeDuration > 0 && ritualType != null) {
             final boolean hasDecor = ritualTier != null && !MalumRitualTier.FADED.equals(ritualTier);
-            RenderType silhouette = (LodestoneRenderTypeRegistry.TRANSPARENT_TEXTURE.applyAndCache(new RenderTypeToken("malum", SILHOUETTE)));
-            RenderType icon = (LodestoneRenderTypeRegistry.ADDITIVE_TEXTURE.applyAndCache(ritualTier == null ? new RenderTypeToken("malum", INCOMPLETE_RITUAL) : new RenderTypeToken("malum", ritualType.getIcon())));
-            RenderType decorGlow = hasDecor ? LodestoneRenderTypeRegistry.ADDITIVE_TEXTURE.applyAndCache(new RenderTypeToken("malum", ritualTier.getDecorTexture())) : null;
-            RenderType decorSilhouette = hasDecor ? LodestoneRenderTypeRegistry.TRANSPARENT_TEXTURE.applyAndCache(new RenderTypeToken("malum", ritualTier.getDecorTexture())) : null;
+            RenderType silhouette = (LodestoneRenderTypeRegistry.TRANSPARENT_TEXTURE.applyAndCache(RenderTypeToken.createToken(SILHOUETTE)));
+            RenderType icon = (LodestoneRenderTypeRegistry.ADDITIVE_TEXTURE.applyAndCache(ritualTier == null ? RenderTypeToken.createToken(INCOMPLETE_RITUAL) : RenderTypeToken.createToken(ritualType.getIcon())));
+            RenderType decorGlow = hasDecor ? LodestoneRenderTypeRegistry.ADDITIVE_TEXTURE.applyAndCache(RenderTypeToken.createToken(ritualTier.getDecorTexture())) : null;
+            RenderType decorSilhouette = hasDecor ? LodestoneRenderTypeRegistry.TRANSPARENT_TEXTURE.applyAndCache(RenderTypeToken.createToken(ritualTier.getDecorTexture())) : null;
             MalumSpiritType spirit = ritualType.spirit;
             Vec3 offset = blockEntityIn.getRitualIconOffset(partialTicks);
             final float scalar = Math.min(blockEntityIn.activeDuration, 15) / 15f;
