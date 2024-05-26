@@ -1,13 +1,14 @@
 {
-  "type": "forge:conditional",
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "farmersdelight"
+      ]
+    }
+  ],
   "recipes": [
     {
-      "conditions": [
-        {
-          "modid": "farmersdelight",
-          "type": "forge:mod_loaded"
-        }
-      ],
       "recipe": {
         "type": "minecraft:crafting_shaped",
         "pattern": [

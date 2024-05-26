@@ -1,11 +1,10 @@
 {
-  "conditions": [
+  "fabric:load_conditions": [
     {
-      "value": {
-        "tag": "forge:ingots/nickel",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
+      "condition": "fabric:item_tags_populated",
+      "values": [
+        "c:ingots/nickel"
+      ]
     }
   ],
   "type": "malum:spirit_repair",
@@ -15,7 +14,7 @@
   "inputs": [
   ],
   "repairMaterial": {
-    "tag": "forge:ingots/nickel",
+    "tag": "c:ingots/nickel",
     "count": 2
   },
   "spirits": [

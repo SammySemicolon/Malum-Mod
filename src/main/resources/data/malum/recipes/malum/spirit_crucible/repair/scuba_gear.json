@@ -1,8 +1,10 @@
 {
-  "conditions": [
+  "fabric:load_conditions": [
     {
-      "type": "forge:mod_loaded",
-      "modid": "scuba_gear"
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "scuba_gear"
+      ]
     }
   ],
   "type": "malum:spirit_repair",

@@ -1,10 +1,12 @@
 {
   "advancements": [
     {
-      "conditions": [
+      "fabric:load_conditions": [
         {
-          "modid": "farmersdelight",
-          "type": "forge:mod_loaded"
+          "condition": "fabric:all_mods_loaded",
+          "values": [
+            "farmersdelight"
+          ]
         }
       ],
       "advancement": {

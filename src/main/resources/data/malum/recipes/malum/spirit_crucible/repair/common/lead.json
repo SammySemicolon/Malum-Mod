@@ -1,11 +1,10 @@
 {
-  "conditions": [
+  "fabric:load_conditions": [
     {
-      "value": {
-        "tag": "forge:ingots/lead",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
+      "condition": "fabric:item_tags_populated",
+      "values": [
+        "c:ingots/lead"
+      ]
     }
   ],
   "type": "malum:spirit_repair",
@@ -15,7 +14,7 @@
   "inputs": [
   ],
   "repairMaterial": {
-    "tag": "forge:ingots/lead",
+    "tag": "c:ingots/lead",
     "count": 2
   },
   "spirits": [
