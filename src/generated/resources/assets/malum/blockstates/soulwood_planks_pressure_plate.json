@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=false": {
+      "model": "malum:block/soulwood_planks_pressure_plate"
+    },
+    "powered=true": {
+      "model": "malum:block/soulwood_planks_pressure_plate_down"
+    }
+  }
+}

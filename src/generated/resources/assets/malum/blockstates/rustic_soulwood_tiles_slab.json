@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "malum:block/rustic_soulwood_tiles_slab"
+    },
+    "type=double": {
+      "model": "malum:block/rustic_soulwood_tiles"
+    },
+    "type=top": {
+      "model": "malum:block/rustic_soulwood_tiles_slab_top"
+    }
+  }
+}

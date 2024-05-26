@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "malum:block/soulwood/soulwood_planks",
+    "side": "malum:block/soulwood/soulwood_planks",
+    "top": "malum:block/soulwood/soulwood_planks"
+  }
+}

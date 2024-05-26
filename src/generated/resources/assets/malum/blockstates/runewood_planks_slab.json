@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "malum:block/runewood_planks_slab"
+    },
+    "type=double": {
+      "model": "malum:block/runewood_planks"
+    },
+    "type=top": {
+      "model": "malum:block/runewood_planks_slab_top"
+    }
+  }
+}

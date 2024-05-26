@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "bottom": "minecraft:block/dirt",
+    "side": "malum:block/blight/blighted_earth",
+    "top": "malum:block/blight/blighted_soil_0"
+  }
+}

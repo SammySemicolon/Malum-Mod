@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "malum:block/cursed_sap_block"
+    }
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "malum:block/soulwood/stripped_soulwood_log_top",
+    "side": "malum:block/soulwood/stripped_soulwood_log"
+  }
+}

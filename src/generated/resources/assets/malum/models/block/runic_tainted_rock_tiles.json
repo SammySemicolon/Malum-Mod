@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "malum:block/arcane_rock/tainted/runic_tainted_rock_tiles"
+  }
+}
