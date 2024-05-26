@@ -12,30 +12,42 @@ import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.EnumSet;
+import java.util.Map;
 import java.util.Set;
 import java.util.function.Supplier;
 
 public class MalumModelLoaderPlugin implements ModelLoadingPlugin {
-    public static ModelResourceLocation BASE_MODEL;
-    public static ResourceLocation REC_MODEL;
-    private static ModelResourceLocation GUI_MODEL;
+    private static final ModelResourceLocation CREATIVE_BASE_MODEL = createModel("creative_scythe");
+    private static final ModelResourceLocation CREATIVE_GUI_MODEL = createGuiModel("creative_scythe");
 
-    public MalumModelLoaderPlugin(String name) {
-        BASE_MODEL = new ModelResourceLocation(MalumMod.malumPath(name), "inventory");
-        REC_MODEL = MalumMod.malumPath("item/" + name);
-        GUI_MODEL = new ModelResourceLocation(MalumMod.malumPath(name + "_gui"), "inventory");
-    }
+    private static final ModelResourceLocation CRUDE_BASE_MODEL = createModel("crude_scythe");
+    private static final ModelResourceLocation CRUDE_GUI_MODEL = createGuiModel("crude_scythe");
+
+    private static final ModelResourceLocation SOUL_BASE_MODEL = createModel("soul_stained_steel_scythe");
+    private static final ModelResourceLocation SOUL_GUI_MODEL = createGuiModel("soul_stained_steel_scythe");
+
+    private static final ModelResourceLocation WORLD_BASE_MODEL = createModel("weight_of_worlds");
+    private static final ModelResourceLocation WORLD_GUI_MODEL = createGuiModel("weight_of_worlds");
+
+    private static final Map<ModelResourceLocation, ModelResourceLocation> modelPairs = Map.of(
+            CREATIVE_BASE_MODEL, CREATIVE_GUI_MODEL,
+            CRUDE_BASE_MODEL, CRUDE_GUI_MODEL,
+            SOUL_BASE_MODEL, SOUL_GUI_MODEL,
+            WORLD_BASE_MODEL, WORLD_GUI_MODEL
+    );
+
+    public MalumModelLoaderPlugin() {}
 
     @Override
     public void onInitializeModelLoader(Context pluginContext) {
-        pluginContext.addModels(GUI_MODEL); // Manually load the GUI model
+        modelPairs.values().forEach(pluginContext::addModels);
 
         pluginContext.modifyModelAfterBake().register((original, context) -> {
-            if (context.id().equals(BASE_MODEL) || context.id().equals(REC_MODEL)) {
-                BakedModel guiModel = context.baker().bake(GUI_MODEL, context.settings());
+            ModelResourceLocation guiModelLocation = modelPairs.get(context.id());
+            if (guiModelLocation != null) {
+                BakedModel guiModel = context.baker().bake(guiModelLocation, context.settings());
                 return new MalumBakedModel(original, guiModel);
             }
-
             return original;
         });
     }
@@ -65,19 +77,11 @@ public class MalumModelLoaderPlugin implements ModelLoadingPlugin {
         }
     }
 
-    /*
-    for (RegistryObject<Item> item : ItemRegistry.ITEMS.getEntries()) {
-            if (item.isPresent() && item.get() instanceof IBigItem) {
-                ResourceLocation scytheId = BuiltInRegistries.ITEM.getKey(item.get());
-                BigItemRenderer scytheItemRenderer = new BigItemRenderer(scytheId);
-                ResourceManagerHelper.get(PackType.CLIENT_RESOURCES).registerReloadListener(scytheItemRenderer);
-                BuiltinItemRendererRegistry.INSTANCE.register(item.get(), scytheItemRenderer);
-                ModelLoadingRegistry.INSTANCE.registerModelProvider((manager, out) -> {
-                    out.accept(new ModelResourceLocation(scytheId.withPath(scytheId.getPath() + "_gui"), "inventory"));
-                    out.accept(new ModelResourceLocation(scytheId.withPath(scytheId.getPath() + "_handheld"), "inventory"));
-                });
-            }
+    private static ModelResourceLocation createModel(String baseName) {
+        return new ModelResourceLocation(MalumMod.malumPath(baseName), "inventory");
+    }
 
-        }
-     */
+    private static ModelResourceLocation createGuiModel(String baseName) {
+        return new ModelResourceLocation(MalumMod.malumPath(baseName + "_gui"), "inventory");
+    }
 }

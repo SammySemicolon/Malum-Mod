@@ -8,6 +8,7 @@
     "ExplosionMixin",
     "FishingHookEntityMixin",
     "ItemStackMixin",
+    "LivingEntityMixin",
     "PlayerMixin"
   ],
   "client": [

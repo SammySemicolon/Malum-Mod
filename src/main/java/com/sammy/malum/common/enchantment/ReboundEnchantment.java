@@ -32,6 +32,8 @@ public class ReboundEnchantment extends Enchantment {
             if (!level.isClientSide) {
                 player.setItemInHand(interactionHand, ItemStack.EMPTY);
                 float baseDamage = (float) player.getAttributes().getValue(Attributes.ATTACK_DAMAGE);
+                player.getAttributes().getSyncableAttributes().stream().forEach(attributeInstance -> System.out.println(attributeInstance.getAttribute().getDescriptionId()));
+                System.out.println("Attributes: ");
                 float magicDamage = (float) player.getAttributes().getValue(LodestoneAttributeRegistry.MAGIC_DAMAGE.get());
 
                 int slot = interactionHand == InteractionHand.OFF_HAND ? player.getInventory().getContainerSize() - 1 : player.getInventory().selected;

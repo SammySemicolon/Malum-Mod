@@ -68,27 +68,7 @@ public class MalumModClient implements ClientModInitializer {
                 ItemRegistry.MALIGNANT_STRONGHOLD_BOOTS.get()
         );
 
-        ModelLoadingPlugin.register(new MalumModelLoaderPlugin("creative_scythe"));
-        ModelLoadingPlugin.register(new MalumModelLoaderPlugin("crude_scythe"));
-        ModelLoadingPlugin.register(new MalumModelLoaderPlugin("soul_stained_steel_scythe"));
-        ModelLoadingPlugin.register(new MalumModelLoaderPlugin("weight_of_worlds"));
-        /*
-        for (RegistryObject<Item> item : ItemRegistry.ITEMS.getEntries()) {
-            if (item.isPresent() && item.get() instanceof IBigItem) {
-                ResourceLocation scytheId = BuiltInRegistries.ITEM.getKey(item.get());
-                BigItemRenderer scytheItemRenderer = new BigItemRenderer(scytheId);
-                ResourceManagerHelper.get(PackType.CLIENT_RESOURCES).registerReloadListener(scytheItemRenderer);
-                BuiltinItemRendererRegistry.INSTANCE.register(item.get(), scytheItemRenderer);
-                ModelLoadingRegistry.INSTANCE.registerModelProvider((manager, out) -> {
-                    out.accept(new ModelResourceLocation(scytheId.withPath(scytheId.getPath() + "_gui"), "inventory"));
-                    out.accept(new ModelResourceLocation(scytheId.withPath(scytheId.getPath() + "_handheld"), "inventory"));
-                });
-            }
-
-        }
-
-         */
-
+        ModelLoadingPlugin.register(new MalumModelLoaderPlugin());
     }
 
     private void startTick(Minecraft minecraft) {
