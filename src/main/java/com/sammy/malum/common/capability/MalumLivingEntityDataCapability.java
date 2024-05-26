@@ -36,6 +36,8 @@ public class MalumLivingEntityDataCapability implements LodestoneCapability {
     public MalignantConversionHandler malignantConversionHandler = new MalignantConversionHandler();
     public TouchOfDarknessHandler touchOfDarknessHandler = new TouchOfDarknessHandler();
 
+    public int watcherNecklaceCooldown;
+
     public List<ItemStack> soulsToApplyToDrops;
     public UUID killerUUID;
 
@@ -68,6 +70,9 @@ public class MalumLivingEntityDataCapability implements LodestoneCapability {
         tag.put("soulData", soulData.serializeNBT());
         tag.put("darknessAfflictionData", touchOfDarknessHandler.serializeNBT());
 
+        if (watcherNecklaceCooldown > 0) {
+            tag.putInt("watcherNecklaceCooldown", watcherNecklaceCooldown);
+        }
         if (soulsToApplyToDrops != null) {
             ListTag souls = new ListTag();
             for (ItemStack soul : soulsToApplyToDrops) {
@@ -88,6 +93,12 @@ public class MalumLivingEntityDataCapability implements LodestoneCapability {
         }
         if (tag.contains("darknessAfflictionData")) {
             touchOfDarknessHandler.deserializeNBT(tag.getCompound("darknessAfflictionData"));
+        }
+        if (tag.contains("watcherNecklaceCooldown")) {
+            watcherNecklaceCooldown = tag.getInt("watcherNecklaceCooldown");
+        }
+        else {
+            watcherNecklaceCooldown = 0;
         }
 
         if (tag.contains("soulsToApplyToDrops", Tag.TAG_LIST)) {

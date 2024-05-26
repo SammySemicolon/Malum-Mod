@@ -1,34 +1,26 @@
 package com.sammy.malum.common.entity.boomerang;
 
-import com.sammy.malum.common.item.curiosities.weapons.scythe.MalumScytheItem;
-import com.sammy.malum.registry.common.DamageTypeRegistry;
-import com.sammy.malum.registry.common.SoundRegistry;
-import com.sammy.malum.registry.common.entity.EntityRegistry;
-import com.sammy.malum.registry.common.item.EnchantmentRegistry;
-import com.sammy.malum.registry.common.item.ItemRegistry;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.Mth;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraft.world.item.enchantment.Enchantments;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.EntityHitResult;
-import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.items.ItemHandlerHelper;
-import team.lodestar.lodestone.helpers.ItemHelper;
+import com.sammy.malum.common.item.curiosities.weapons.scythe.*;
+import com.sammy.malum.registry.common.*;
+import com.sammy.malum.registry.common.entity.*;
+import com.sammy.malum.registry.common.item.*;
+import net.minecraft.core.particles.*;
+import net.minecraft.nbt.*;
+import net.minecraft.sounds.*;
+import net.minecraft.util.*;
+import net.minecraft.world.damagesource.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.item.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.entity.projectile.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.item.enchantment.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.phys.*;
+import net.minecraftforge.items.*;
+import team.lodestar.lodestone.helpers.*;
 
-import java.util.Random;
+import java.util.*;
 
 public class ScytheBoomerangEntity extends ThrowableItemProjectile {
 
@@ -104,11 +96,8 @@ public class ScytheBoomerangEntity extends ThrowableItemProjectile {
 
     @Override
     protected void onHitEntity(EntityHitResult result) {
-        if (getOwner() instanceof LivingEntity scytheOwner) {
+        if (getOwner() instanceof LivingEntity scytheOwner && !level().isClientSide) {
             Entity target = result.getEntity();
-            if (level().isClientSide) {
-                return;
-            }
             DamageSource source = target.damageSources().mobProjectile(this, scytheOwner);
             boolean success = target.hurt(source, damage);
             if (success && target instanceof LivingEntity livingentity) {
@@ -138,32 +127,36 @@ public class ScytheBoomerangEntity extends ThrowableItemProjectile {
         super.tick();
         age++;
         ItemStack scythe = getItem();
-        if (level().isClientSide) {
+        final Level level = level();
+        if (level.isClientSide) {
             if (!isInWaterRainOrBubble()) {
-                if (EnchantmentHelper.getItemEnchantmentLevel(Enchantments.FIRE_ASPECT, getItem()) > 0) {
+                if (getItem().getEnchantmentLevel(Enchantments.FIRE_ASPECT) > 0) {
                     Vec3 vector = new Vec3(getRandomX(0.7), getRandomY(), getRandomZ(0.7));
                     if (scythe.getItem() instanceof MalumScytheItem) {
                         Random random = new Random();
                         float rotation = random.nextFloat();
                         vector = new Vec3(Math.cos(this.age) * 0.8f + this.getX(), getY(0.1), Math.sin(this.age) * 0.8f + this.getZ());
-                        level().addParticle(ParticleTypes.FLAME, Math.cos(this.age + rotation * 2 - 1) * 0.8f + this.getX(), vector.y, Math.sin(this.age + rotation * 2 - 1) * 0.8f + this.getZ(), 0, 0, 0);
-                        level().addParticle(ParticleTypes.FLAME, Math.cos(this.age + rotation * 2 - 1) * 0.8f + this.getX(), vector.y, Math.sin(this.age + rotation * 2 - 1) * 0.8f + this.getZ(), 0, 0, 0);
+                        level.addParticle(ParticleTypes.FLAME, Math.cos(this.age + rotation * 2 - 1) * 0.8f + this.getX(), vector.y, Math.sin(this.age + rotation * 2 - 1) * 0.8f + this.getZ(), 0, 0, 0);
+                        level.addParticle(ParticleTypes.FLAME, Math.cos(this.age + rotation * 2 - 1) * 0.8f + this.getX(), vector.y, Math.sin(this.age + rotation * 2 - 1) * 0.8f + this.getZ(), 0, 0, 0);
                     }
-                    level().addParticle(ParticleTypes.FLAME, vector.x, vector.y, vector.z, 0, 0, 0);
+                    level.addParticle(ParticleTypes.FLAME, vector.x, vector.y, vector.z, 0, 0, 0);
                 }
             }
         } else {
-            Entity entity = getOwner();
-            if (entity == null || !entity.isAlive()) {
-                ItemEntity itemEntity = new ItemEntity(level(), getX(), getY() + 0.5, getZ(), scythe);
-                itemEntity.setPickUpDelay(40);
-                level().addFreshEntity(itemEntity);
-                remove(RemovalReason.DISCARDED);
+            Entity owner = getOwner();
+            if (owner == null || !owner.isAlive() || !owner.level().equals(level()) || distanceTo(owner) > 1000f) {
+                if (age > 3600) {
+                    ItemEntity itemEntity = new ItemEntity(level, getX(), getY() + 0.5, getZ(), scythe);
+                    itemEntity.setPickUpDelay(40);
+                    level.addFreshEntity(itemEntity);
+                    remove(RemovalReason.DISCARDED);
+                }
+                setDeltaMovement(Vec3.ZERO);
                 return;
             }
-            if (entity instanceof LivingEntity scytheOwner) {
+            if (owner instanceof LivingEntity scytheOwner) {
                 if (age % 3 == 0) {
-                    level().playSound(null, blockPosition(), SoundEvents.PLAYER_ATTACK_SWEEP, SoundSource.PLAYERS, 0.75f, 1.25f);
+                    level.playSound(null, blockPosition(), SoundEvents.PLAYER_ATTACK_SWEEP, SoundSource.PLAYERS, 0.75f, 1.25f);
                 }
                 if (this.xRotO == 0.0F && this.yRotO == 0.0F) {
                     Vec3 motion = getDeltaMovement();

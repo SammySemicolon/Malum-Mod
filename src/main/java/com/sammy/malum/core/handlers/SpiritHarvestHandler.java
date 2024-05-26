@@ -130,7 +130,7 @@ public class SpiritHarvestHandler {
             AttributeInstance instance = player.getAttribute(AttributeRegistry.ARCANE_RESONANCE.get());
             ItemHelper.getEventResponders(collector).forEach(s -> {
                 if (s.getItem() instanceof IMalumEventResponderItem eventItem) {
-                    eventItem.pickupSpirit(collector, stack, instance != null ? instance.getValue() : 0);
+                    eventItem.pickupSpirit(collector, instance != null ? instance.getValue() : 0);
                 }
             });
             for (NonNullList<ItemStack> playerInventory : player.getInventory().compartments) {

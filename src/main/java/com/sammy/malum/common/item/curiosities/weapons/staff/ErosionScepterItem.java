@@ -13,6 +13,8 @@ import net.minecraft.world.phys.*;
 import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.event.entity.living.*;
 import team.lodestar.lodestone.helpers.*;
+import team.lodestar.lodestone.registry.common.*;
+import team.lodestar.lodestone.registry.common.tag.*;
 import team.lodestar.lodestone.systems.easing.*;
 import team.lodestar.lodestone.systems.particle.builder.*;
 import team.lodestar.lodestone.systems.particle.data.*;
@@ -24,7 +26,6 @@ import java.awt.*;
 
 public class ErosionScepterItem extends AbstractStaffItem {
 
-
     public static final Color MALIGNANT_PURPLE = new Color(68, 11, 61);
     public static final Color MALIGNANT_BLACK = new Color(12, 4, 11);
     public static final ColorParticleData MALIGNANT_COLOR_DATA = ColorParticleData.create(MALIGNANT_PURPLE, MALIGNANT_BLACK).setEasing(Easing.BOUNCE_IN_OUT).setCoefficient(1.2f).build();
@@ -35,7 +36,7 @@ public class ErosionScepterItem extends AbstractStaffItem {
 
     @Override
     public void hurtEvent(LivingHurtEvent event, LivingEntity attacker, LivingEntity target, ItemStack stack) {
-        if (!(event.getSource().getDirectEntity() instanceof AbstractBoltProjectileEntity)) {
+        if (!(event.getSource().getDirectEntity() instanceof AbstractBoltProjectileEntity) && !event.getSource().is(LodestoneDamageTypeTags.IS_MAGIC)) {
             MobEffect silenced = MobEffectRegistry.SILENCED.get();
             MobEffectInstance effect = target.getEffect(silenced);
             if (effect == null) {
@@ -62,8 +63,9 @@ public class ErosionScepterItem extends AbstractStaffItem {
     @Override
     public void fireProjectile(LivingEntity player, ItemStack stack, Level level, InteractionHand hand, float chargePercentage, int count) {
         int spawnDelay = count * 5;
+        float pitchOffset = count * 3f;
         float velocity = 4f;
-        float magicDamage = 2.4f;
+        float magicDamage = (float) player.getAttributes().getValue(LodestoneAttributeRegistry.MAGIC_DAMAGE.get()) * 0.3f;
         Vec3 pos = getProjectileSpawnPos(player, hand, 0.5f, 0.5f);
         for (int i = 0; i < 4; i++) {
             float xSpread = RandomHelper.randomBetween(level.random, -0.125f, 0.125f);
@@ -75,7 +77,7 @@ public class ErosionScepterItem extends AbstractStaffItem {
             entity.setData(player, magicDamage, spawnDelay);
             entity.setItem(stack);
 
-            entity.shootFromRotation(player, player.getXRot(), player.getYRot(), 0, velocity, 0F);
+            entity.shootFromRotation(player, player.getXRot(), player.getYRot(), -pitchOffset, velocity, 0F);
 
             Vec3 projectileDirection = entity.getDeltaMovement();
             float yRot = ((float) (Mth.atan2(projectileDirection.x, projectileDirection.z) * (double) (180F / (float) Math.PI)));

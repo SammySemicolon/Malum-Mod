@@ -7,7 +7,6 @@ import com.sammy.malum.client.renderer.entity.*;
 import com.sammy.malum.common.block.curiosities.spirit_crucible.*;
 import com.sammy.malum.common.item.augment.*;
 import com.sammy.malum.common.item.spirit.*;
-import com.sammy.malum.registry.client.*;
 import com.sammy.malum.registry.common.item.*;
 import net.minecraft.*;
 import net.minecraft.client.*;
@@ -25,10 +24,10 @@ import net.minecraftforge.event.*;
 import org.joml.*;
 import team.lodestar.lodestone.handlers.*;
 import team.lodestar.lodestone.helpers.*;
+import team.lodestar.lodestone.registry.client.*;
 import team.lodestar.lodestone.systems.blockentity.*;
 import team.lodestar.lodestone.systems.easing.*;
 
-import java.lang.*;
 import java.lang.Math;
 import java.util.*;
 
@@ -120,7 +119,7 @@ public class SpiritCrucibleRenderer implements BlockEntityRenderer<SpiritCrucibl
             float scalar = Easing.SINE_IN_OUT.ease(timer/20f, 0, 1, 1);
             float scale = 0.016F - (1-scalar)*0.004f;
             final Font.DisplayMode display = Font.DisplayMode.NORMAL;
-            MultiBufferSource textBuffer = new BufferWrapper(RenderTypeRegistry.ADDITIVE_TEXT, RenderHandler.DELAYED_RENDER.getTarget());
+            MultiBufferSource textBuffer = new BufferWrapper(LodestoneRenderTypeRegistry.ADDITIVE_TEXT, RenderHandler.DELAYED_RENDER.getTarget());
             final List<CrucibleTuning.CrucibleAttributeType> validValues = CrucibleTuning.CrucibleAttributeType.getValidValues(blockEntityIn.acceleratorData);
             poseStack.pushPose();
             poseStack.translate(0.5f, 2f, 0.55f);

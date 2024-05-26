@@ -3,17 +3,17 @@ package com.sammy.malum.client.renderer.entity.nitrate;
 import com.mojang.blaze3d.vertex.*;
 import com.sammy.malum.client.*;
 import com.sammy.malum.common.entity.nitrate.*;
+import com.sammy.malum.registry.client.*;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.entity.*;
 import net.minecraft.client.renderer.texture.*;
 import net.minecraft.resources.*;
 import team.lodestar.lodestone.registry.client.*;
-import team.lodestar.lodestone.systems.rendering.VFXBuilders;
+import team.lodestar.lodestone.systems.rendering.*;
 
 import java.awt.*;
 import java.util.function.*;
 
-import static com.sammy.malum.MalumMod.*;
 import static com.sammy.malum.client.renderer.entity.FloatingItemEntityRenderer.*;
 
 public class AbstractNitrateEntityRenderer<T extends AbstractNitrateEntity> extends EntityRenderer<T> {
@@ -32,8 +32,7 @@ public class AbstractNitrateEntityRenderer<T extends AbstractNitrateEntity> exte
         this(context, f -> primaryColor, f -> secondaryColor);
     }
 
-    private static final ResourceLocation LIGHT_TRAIL = malumPath("textures/vfx/concentrated_trail.png");
-    private static final RenderType TRAIL_TYPE = LodestoneRenderTypeRegistry.ADDITIVE_TEXTURE_TRIANGLE.applyAndCache(LIGHT_TRAIL);
+    private static final RenderType TRAIL_TYPE = LodestoneRenderTypeRegistry.ADDITIVE_TEXTURE_TRIANGLE.apply(MalumRenderTypeTokens.CONCENTRATED_TRAIL);
 
     @Override
     public void render(T entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int packedLightIn) {

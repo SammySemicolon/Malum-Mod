@@ -1,24 +1,21 @@
 package com.sammy.malum.client.renderer.block;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.sammy.malum.MalumMod;
-import com.sammy.malum.client.RenderUtils;
-import com.sammy.malum.client.SpiritBasedWorldVFXBuilder;
-import com.sammy.malum.common.block.mana_mote.MoteOfManaBlockEntity;
-import com.sammy.malum.common.block.mana_mote.SpiritMoteBlock;
-import com.sammy.malum.core.systems.spirit.MalumSpiritType;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
-import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
-import net.minecraft.resources.ResourceLocation;
-import team.lodestar.lodestone.registry.client.LodestoneRenderTypeRegistry;
+import com.mojang.blaze3d.vertex.*;
+import com.sammy.malum.*;
+import com.sammy.malum.client.*;
+import com.sammy.malum.common.block.mana_mote.*;
+import com.sammy.malum.core.systems.spirit.*;
+import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.blockentity.*;
+import team.lodestar.lodestone.registry.client.*;
+import team.lodestar.lodestone.systems.rendering.rendeertype.*;
 
-import static com.sammy.malum.client.RenderUtils.drawCube;
+import static com.sammy.malum.client.RenderUtils.*;
 
 
 public class MoteOfManaRenderer implements BlockEntityRenderer<MoteOfManaBlockEntity> {
 
-    public static final ResourceLocation MOTE_OF_MANA_TEXTURE = MalumMod.malumPath("textures/block/mote_of_mana.png");
+    public static final RenderTypeToken MOTE_OF_MANA = RenderTypeToken.createToken(MalumMod.malumPath("textures/block/mote_of_mana.png"));
 
     public MoteOfManaRenderer(BlockEntityRendererProvider.Context context) {
     }
@@ -29,7 +26,7 @@ public class MoteOfManaRenderer implements BlockEntityRenderer<MoteOfManaBlockEn
         MalumSpiritType spiritType = ((SpiritMoteBlock) blockEntityIn.getBlockState().getBlock()).spiritType;
 
         var builder = SpiritBasedWorldVFXBuilder.create(spiritType)
-                .setRenderType(LodestoneRenderTypeRegistry.ADDITIVE_TEXTURE.applyAndCache(MOTE_OF_MANA_TEXTURE));
+                .setRenderType(LodestoneRenderTypeRegistry.ADDITIVE_TEXTURE.applyAndCache(MOTE_OF_MANA));
 
         RenderUtils.CubeVertexData cubeVertexData = RenderUtils.makeCubePositions(1f)
                 .applyWobble(0, 0.5f, 0.015f);

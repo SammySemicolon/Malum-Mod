@@ -35,7 +35,7 @@ public class CurioAlchemicalRing extends MalumCurioItem implements IMalumEventRe
     }
 
     @Override
-    public void pickupSpirit(LivingEntity collector, ItemStack stack, double arcaneResonance) {
+    public void pickupSpirit(LivingEntity collector, double arcaneResonance) {
         collector.getActiveEffectsMap().forEach((e, i) -> {
             float multiplier = MobEffectRegistry.ALCHEMICAL_PROFICIENCY_MAP.getOrDefault(ForgeRegistries.MOB_EFFECTS.getKey(e), 1f);
             if (e.isBeneficial()) {

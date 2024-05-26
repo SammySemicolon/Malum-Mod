@@ -7,7 +7,7 @@ import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import team.lodestar.lodestone.systems.item.IEventResponderItem;
 
 public interface IMalumEventResponderItem extends IEventResponderItem {
-    default void pickupSpirit(LivingEntity collector, ItemStack stack, double arcaneResonance) {
+    default void pickupSpirit(LivingEntity collector, double arcaneResonance) {
 
     }
 
