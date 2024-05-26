@@ -24,8 +24,6 @@ import static net.minecraft.world.item.Item.BASE_ATTACK_DAMAGE_UUID;
 @Mixin(ItemStack.class)
 public abstract class ItemStackMixin {
 
-    @Shadow
-    public abstract Item getItem();
 
     @ModifyVariable(method = "getTooltipLines", at = @At("STORE"))
     private Multimap<Attribute, AttributeModifier> malum$getTooltip(Multimap<Attribute, AttributeModifier> map, @Nullable Player player, TooltipFlag flag) {
@@ -37,7 +35,8 @@ public abstract class ItemStackMixin {
                 double amount = modifier.getAmount();
 
                 if (modifier.getId() != null) {
-                    if (modifier.getId().equals(BASE_ATTACK_DAMAGE_UUID) && getItem() instanceof MalumScytheItem) {
+                    final Item item = ((ItemStack) ((Object) this)).getItem();
+                    if (modifier.getId().equals(BASE_ATTACK_DAMAGE_UUID) && item instanceof MalumScytheItem) {
                         AttributeInstance instance = player.getAttribute(AttributeRegistry.SCYTHE_PROFICIENCY.get());
                         if (instance != null && instance.getValue() > 0) {
                             amount += instance.getValue() * 0.5f;
