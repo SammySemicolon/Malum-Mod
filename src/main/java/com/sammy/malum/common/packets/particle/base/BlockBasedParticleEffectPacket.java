@@ -12,7 +12,7 @@ public abstract class BlockBasedParticleEffectPacket extends LodestoneClientPack
     }
 
     public BlockBasedParticleEffectPacket(FriendlyByteBuf buf) {
-        this.pos = new BlockPos(buf.readInt(), buf.readInt(), buf.readInt());
+        this.pos = buf.readBlockPos();
     }
 
     public void encode(FriendlyByteBuf buf) {

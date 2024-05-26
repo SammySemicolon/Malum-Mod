@@ -37,11 +37,11 @@ public class BlightTransformItemParticlePacket extends SpiritBasedParticleEffect
         super(spirits, posX, posY, posZ);
     }
 
-
     public BlightTransformItemParticlePacket(FriendlyByteBuf buf) {
-        super(readSpirits(buf), buf.readDouble(), buf.readDouble(), buf.readDouble());
+        super(buf);
     }
 
+    @Environment(EnvType.CLIENT)
     @Override
     protected void execute(Minecraft client, ClientPacketListener listener, PacketSender responseSender, SimpleChannel channel, MalumSpiritType spiritType) {
         Level level = Minecraft.getInstance().level;
@@ -82,6 +82,7 @@ public class BlightTransformItemParticlePacket extends SpiritBasedParticleEffect
         }
     }
 
+    @Environment(EnvType.CLIENT)
     @Override
     public void executeClient(Minecraft client, ClientPacketListener listener, PacketSender responseSender, SimpleChannel channel) {
         super.executeClient(client, listener, responseSender, channel);

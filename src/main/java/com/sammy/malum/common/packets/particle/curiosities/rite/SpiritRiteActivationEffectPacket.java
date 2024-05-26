@@ -34,7 +34,7 @@ public class SpiritRiteActivationEffectPacket extends SpiritBasedBlockParticleEf
     }
 
     public SpiritRiteActivationEffectPacket(FriendlyByteBuf buf) {
-        super(readSpirits(buf), new BlockPos(buf.readInt(), buf.readInt(), buf.readInt()));
+        super(buf);
     }
 
     @Override

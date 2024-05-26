@@ -56,10 +56,10 @@ public class ParticleEffectPacket extends LodestoneClientPacket {
         }
     }
 
+    @Environment(EnvType.CLIENT)
     @Override
     public void executeClient(Minecraft client, ClientPacketListener listener, PacketSender responseSender, SimpleChannel channel) {
-        Minecraft instance = Minecraft.getInstance();
-        ClientLevel level = instance.level;
+        ClientLevel level = client.level;
         ParticleEffectType particleEffectType = ParticleEffectTypeRegistry.EFFECT_TYPES.get(id);
         if (particleEffectType == null) {
             throw new RuntimeException("This shouldn't be happening.");

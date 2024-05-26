@@ -29,9 +29,10 @@ public class BlockSparkleParticlePacket extends ColorBasedBlockParticleEffectPac
     }
 
     public BlockSparkleParticlePacket(FriendlyByteBuf buf) {
-        super(new Color(buf.readInt(), buf.readInt(), buf.readInt()), new BlockPos(buf.readInt(), buf.readInt(), buf.readInt()));
+        super(buf);
     }
 
+    @Environment(EnvType.CLIENT)
     @Override
     public void executeClient(Minecraft client, ClientPacketListener listener, PacketSender responseSender, SimpleChannel channel) {
         Level level = Minecraft.getInstance().level;

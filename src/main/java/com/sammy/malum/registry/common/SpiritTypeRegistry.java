@@ -81,4 +81,7 @@ public class SpiritTypeRegistry {
         List<MalumSpiritType> types = SPIRITS.values().stream().toList();
         return types.indexOf(type);
     }
+
+    public static void init() {
+    }
 }

@@ -11,6 +11,7 @@ import com.sammy.malum.registry.client.ModelRegistry;
 import com.sammy.malum.registry.client.ParticleRegistry;
 import com.sammy.malum.registry.client.ScreenParticleRegistry;
 import com.sammy.malum.registry.common.ContainerRegistry;
+import com.sammy.malum.registry.common.SpiritTypeRegistry;
 import com.sammy.malum.registry.common.block.BlockEntityRegistry;
 import com.sammy.malum.registry.common.block.BlockRegistry;
 import com.sammy.malum.registry.common.entity.EntityRegistry;
@@ -35,6 +36,7 @@ public class MalumModClient implements ClientModInitializer {
 
         ClientTickEvents.START_CLIENT_TICK.register(this::startTick);
 
+        SpiritTypeRegistry.init();
         ParticleRegistry.registerParticleFactory();
         ScreenParticleRegistry.registerParticleFactory();
         BlockEntityRegistry.ClientOnly.registerRenderer();

@@ -13,6 +13,11 @@ public abstract class ColorBasedParticleEffectPacket extends PositionBasedPartic
         this.color = color;
     }
 
+    public ColorBasedParticleEffectPacket(FriendlyByteBuf buf) {
+        super(buf);
+        this.color = new Color(buf.readFloat(), buf.readFloat(), buf.readFloat());
+    }
+
     public void encode(FriendlyByteBuf buf) {
         buf.writeInt(color.getRed());
         buf.writeInt(color.getGreen());

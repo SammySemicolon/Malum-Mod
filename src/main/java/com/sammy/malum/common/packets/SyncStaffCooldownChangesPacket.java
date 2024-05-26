@@ -34,8 +34,9 @@ public class SyncStaffCooldownChangesPacket extends LodestoneClientPacket {
         buf.writeInt(enchantmentLevel);
     }
 
+    @Environment(EnvType.CLIENT)
     @Override
     public void executeClient(Minecraft client, ClientPacketListener listener, PacketSender responseSender, SimpleChannel channel) {
-        ReplenishingEnchantment.replenishStaffCooldown((AbstractStaffItem) item, Minecraft.getInstance().player, enchantmentLevel);
+        ReplenishingEnchantment.replenishStaffCooldown((AbstractStaffItem) item, client.player, enchantmentLevel);
     }
 }

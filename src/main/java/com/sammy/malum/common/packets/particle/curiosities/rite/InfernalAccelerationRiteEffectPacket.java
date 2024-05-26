@@ -31,7 +31,7 @@ public class InfernalAccelerationRiteEffectPacket extends SpiritBasedBlockPartic
     }
 
     public InfernalAccelerationRiteEffectPacket(FriendlyByteBuf buf) {
-        super(readSpirits(buf), new BlockPos(buf.readInt(), buf.readInt(), buf.readInt()));
+        super(buf);
     }
 
     protected static List<String> readSpirits(FriendlyByteBuf buf) {
@@ -43,6 +43,7 @@ public class InfernalAccelerationRiteEffectPacket extends SpiritBasedBlockPartic
         return spirits;
     }
 
+    @Environment(EnvType.CLIENT)
     @Override
     protected void execute(Minecraft client, ClientPacketListener listener, PacketSender responseSender, SimpleChannel channel, MalumSpiritType spiritType) {
         Level level = Minecraft.getInstance().level;

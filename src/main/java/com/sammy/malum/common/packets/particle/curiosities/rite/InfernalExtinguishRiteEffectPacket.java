@@ -24,6 +24,7 @@ public class InfernalExtinguishRiteEffectPacket extends BlockSparkleParticlePack
         super(buf);
     }
 
+    @Environment(EnvType.CLIENT)
     @Override
     public void executeClient(Minecraft client, ClientPacketListener listener, PacketSender responseSender, SimpleChannel channel) {
         Level level = Minecraft.getInstance().level;

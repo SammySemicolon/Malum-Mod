@@ -14,6 +14,12 @@ public abstract class PositionBasedParticleEffectPacket extends LodestoneClientP
         this.posZ = posZ;
     }
 
+    public PositionBasedParticleEffectPacket(FriendlyByteBuf buf) {
+        this.posX = buf.readDouble();
+        this.posY = buf.readDouble();
+        this.posZ = buf.readDouble();
+    }
+
     public void encode(FriendlyByteBuf buf) {
         buf.writeDouble(posX);
         buf.writeDouble(posY);

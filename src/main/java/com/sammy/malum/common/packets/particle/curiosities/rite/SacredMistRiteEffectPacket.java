@@ -34,9 +34,10 @@ public class SacredMistRiteEffectPacket extends SpiritBasedBlockParticleEffectPa
         super(readSpirits(buf), new BlockPos(buf.readInt(), buf.readInt(), buf.readInt()));
     }
 
+    @Environment(EnvType.CLIENT)
     @Override
     protected void execute(Minecraft client, ClientPacketListener listener, PacketSender responseSender, SimpleChannel channel, MalumSpiritType spiritType) {
-        Level level = Minecraft.getInstance().level;
+        Level level = client.level;
         Color color = spiritType.getPrimaryColor();
         Color endColor = spiritType.getSecondaryColor();
         WorldParticleBuilder.create(LodestoneParticleRegistry.SMOKE_PARTICLE)

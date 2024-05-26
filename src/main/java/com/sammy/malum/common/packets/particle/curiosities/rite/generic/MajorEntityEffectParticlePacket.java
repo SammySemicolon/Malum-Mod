@@ -28,12 +28,13 @@ public class MajorEntityEffectParticlePacket extends ColorBasedParticleEffectPac
     }
 
     public MajorEntityEffectParticlePacket(FriendlyByteBuf buf) {
-        super(new Color(buf.readInt(), buf.readInt(), buf.readInt()), buf.readInt(), buf.readInt(), buf.readInt());
+        super(buf);
     }
 
+    @Environment(EnvType.CLIENT)
     @Override
     public void executeClient(Minecraft client, ClientPacketListener listener, PacketSender responseSender, SimpleChannel channel) {
-        Level level = Minecraft.getInstance().level;
+        Level level = client.level;
         var rand = level.random;
         for (int i = 0; i <= 3; i++) {
             int spinDirection = (rand.nextBoolean() ? 1 : -1);

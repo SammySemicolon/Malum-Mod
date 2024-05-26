@@ -30,7 +30,7 @@ public class BlightMistParticlePacket extends BlockBasedParticleEffectPacket {
     }
 
     public BlightMistParticlePacket(FriendlyByteBuf buf) {
-        super(new BlockPos(new BlockPos(buf.readInt(), buf.readInt(), buf.readInt())));
+        super(buf);
     }
 
     @Environment(EnvType.CLIENT)

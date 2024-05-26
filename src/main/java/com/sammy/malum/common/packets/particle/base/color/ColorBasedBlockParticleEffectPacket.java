@@ -14,6 +14,11 @@ public abstract class ColorBasedBlockParticleEffectPacket extends BlockBasedPart
         this.color = color;
     }
 
+    public ColorBasedBlockParticleEffectPacket(FriendlyByteBuf buf) {
+        super(buf);
+        this.color = new Color(buf.readInt(), buf.readInt(), buf.readInt());
+    }
+
     public void encode(FriendlyByteBuf buf) {
         buf.writeInt(color.getRed());
         buf.writeInt(color.getGreen());

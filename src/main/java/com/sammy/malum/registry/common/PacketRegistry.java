@@ -7,7 +7,9 @@ import com.sammy.malum.common.packets.particle.curiosities.blight.BlightTransfor
 import com.sammy.malum.common.packets.particle.curiosities.rite.*;
 import com.sammy.malum.common.packets.particle.curiosities.rite.generic.BlockSparkleParticlePacket;
 import com.sammy.malum.common.packets.particle.curiosities.rite.generic.MajorEntityEffectParticlePacket;
+import io.github.fabricators_of_create.porting_lib.util.EnvExecutor;
 import me.pepperbell.simplenetworking.SimpleChannel;
+import net.fabricmc.api.EnvType;
 
 @SuppressWarnings("unused")
 public class PacketRegistry {
@@ -17,6 +19,8 @@ public class PacketRegistry {
 
     @SuppressWarnings("UnusedAssignment")
     public static void registerNetworkStuff() {
+        MALUM_CHANNEL.initServerListener();
+        EnvExecutor.runWhenOn(EnvType.CLIENT, () -> MALUM_CHANNEL::initClientListener);
         int index = 0;
 
         //functionality
