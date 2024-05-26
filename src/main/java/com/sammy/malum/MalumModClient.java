@@ -1,5 +1,6 @@
 package com.sammy.malum;
 
+import com.sammy.malum.client.MalumModelLoaderPlugin;
 import com.sammy.malum.client.renderer.armor.MalignantStrongholdArmorRenderer;
 import com.sammy.malum.client.renderer.armor.SoulHunterArmorRenderer;
 import com.sammy.malum.client.renderer.armor.SoulStainedSteelArmorRenderer;
@@ -9,7 +10,6 @@ import com.sammy.malum.client.renderer.item.SpiritJarItemRenderer;
 import com.sammy.malum.config.ClientConfig;
 import com.sammy.malum.registry.client.ModelRegistry;
 import com.sammy.malum.registry.client.ParticleRegistry;
-import com.sammy.malum.registry.client.ScreenParticleRegistry;
 import com.sammy.malum.registry.common.ContainerRegistry;
 import com.sammy.malum.registry.common.SpiritTypeRegistry;
 import com.sammy.malum.registry.common.block.BlockEntityRegistry;
@@ -20,12 +20,10 @@ import io.github.fabricators_of_create.porting_lib.config.ConfigRegistry;
 import io.github.fabricators_of_create.porting_lib.config.ConfigType;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin;
 import net.fabricmc.fabric.api.client.rendering.v1.ArmorRenderer;
 import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
-import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
-import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 
 import static com.sammy.malum.registry.common.item.ItemRegistry.SPIRIT_JAR;
 
@@ -70,10 +68,35 @@ public class MalumModClient implements ClientModInitializer {
                 ItemRegistry.MALIGNANT_STRONGHOLD_BOOTS.get()
         );
 
+        ModelLoadingPlugin.register(new MalumModelLoaderPlugin("creative_scythe"));
+        ModelLoadingPlugin.register(new MalumModelLoaderPlugin("crude_scythe"));
+        ModelLoadingPlugin.register(new MalumModelLoaderPlugin("soul_stained_steel_scythe"));
+        ModelLoadingPlugin.register(new MalumModelLoaderPlugin("weight_of_worlds"));
+        /*
+        for (RegistryObject<Item> item : ItemRegistry.ITEMS.getEntries()) {
+            if (item.isPresent() && item.get() instanceof IBigItem) {
+                ResourceLocation scytheId = BuiltInRegistries.ITEM.getKey(item.get());
+                BigItemRenderer scytheItemRenderer = new BigItemRenderer(scytheId);
+                ResourceManagerHelper.get(PackType.CLIENT_RESOURCES).registerReloadListener(scytheItemRenderer);
+                BuiltinItemRendererRegistry.INSTANCE.register(item.get(), scytheItemRenderer);
+                ModelLoadingRegistry.INSTANCE.registerModelProvider((manager, out) -> {
+                    out.accept(new ModelResourceLocation(scytheId.withPath(scytheId.getPath() + "_gui"), "inventory"));
+                    out.accept(new ModelResourceLocation(scytheId.withPath(scytheId.getPath() + "_handheld"), "inventory"));
+                });
+            }
+
+        }
+
+         */
+
     }
 
     private void startTick(Minecraft minecraft) {
         SpiritCrucibleRenderer.checkForTuningFork(minecraft);
         TotemBaseRenderer.checkForTotemicStaff(minecraft);
+    }
+
+    interface IBigItem{
+
     }
 }

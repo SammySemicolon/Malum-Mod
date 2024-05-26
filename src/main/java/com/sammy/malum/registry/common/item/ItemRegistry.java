@@ -48,6 +48,7 @@ import com.sammy.malum.registry.common.entity.*;
 import com.sammy.malum.registry.common.item.tabs.*;
 import io.github.fabricators_of_create.porting_lib.util.LazyRegistrar;
 import io.github.fabricators_of_create.porting_lib.util.RegistryObject;
+import it.unimi.dsi.fastutil.objects.ReferenceOpenHashSet;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
 import net.minecraft.client.color.item.*;
