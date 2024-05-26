@@ -19,7 +19,7 @@ import static com.sammy.malum.client.RenderUtils.drawCube;
 
 public class MoteOfManaRenderer implements BlockEntityRenderer<MoteOfManaBlockEntity> {
 
-    public static final ResourceLocation MOTE_OF_MANA_TEXTURE = MalumMod.malumPath("textures/block/mote_of_mana.png");
+    public static final RenderTypeToken MOTE_OF_MANA = RenderTypeToken.createToken(MalumMod.malumPath("textures/block/mote_of_mana.png"));
 
     public MoteOfManaRenderer(BlockEntityRendererProvider.Context context) {
     }
@@ -30,7 +30,7 @@ public class MoteOfManaRenderer implements BlockEntityRenderer<MoteOfManaBlockEn
         MalumSpiritType spiritType = ((SpiritMoteBlock) blockEntityIn.getBlockState().getBlock()).spiritType;
 
         var builder = SpiritBasedWorldVFXBuilder.create(spiritType)
-                .setRenderType(LodestoneRenderTypeRegistry.ADDITIVE_TEXTURE.applyAndCache(RenderTypeToken.createToken(MOTE_OF_MANA_TEXTURE)));
+                .setRenderType(LodestoneRenderTypeRegistry.ADDITIVE_TEXTURE.applyAndCache(MOTE_OF_MANA));
 
         RenderUtils.CubeVertexData cubeVertexData = RenderUtils.makeCubePositions(1f)
                 .applyWobble(0, 0.5f, 0.015f);

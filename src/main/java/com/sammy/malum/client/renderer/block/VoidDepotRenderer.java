@@ -14,7 +14,6 @@ import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.blockentity.*;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.*;
-import net.minecraft.resources.*;
 import net.minecraft.util.*;
 import org.joml.*;
 import team.lodestar.lodestone.handlers.*;
@@ -22,6 +21,7 @@ import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.registry.client.*;
 import team.lodestar.lodestone.systems.easing.*;
 import team.lodestar.lodestone.systems.rendering.*;
+import team.lodestar.lodestone.systems.rendering.rendeertype.*;
 import team.lodestar.lodestone.systems.rendering.rendeertype.RenderTypeToken;
 
 import java.awt.*;
@@ -32,8 +32,8 @@ import java.util.stream.*;
 
 public class VoidDepotRenderer implements BlockEntityRenderer<VoidDepotBlockEntity> {
 
-    public static final ResourceLocation VIGNETTE = MalumMod.malumPath("textures/block/weeping_well/primordial_soup_vignette.png");
-    public static final ResourceLocation NOISE_TEXTURE = MalumMod.malumPath("textures/vfx/void_noise.png");
+    public static final RenderTypeToken VIGNETTE = RenderTypeToken.createToken(MalumMod.malumPath("textures/block/weeping_well/primordial_soup_vignette.png"));
+    public static final RenderTypeToken NOISE_TEXTURE = RenderTypeToken.createToken(MalumMod.malumPath("textures/vfx/void_noise.png"));
 
     public VoidDepotRenderer(BlockEntityRendererProvider.Context context) {
     }
@@ -52,13 +52,13 @@ public class VoidDepotRenderer implements BlockEntityRenderer<VoidDepotBlockEnti
         poseStack.pushPose();
         poseStack.translate(0.5f, 0.01f, 0.5f);
 
-        builder.replaceBufferSource(RenderHandler.LATE_DELAYED_RENDER.getTarget()).setRenderType(LodestoneRenderTypeRegistry.TRANSPARENT_TEXTURE.applyAndCache(RenderTypeToken.createToken(VIGNETTE))).renderQuad(poseStack, positions, 1f);
+        builder.replaceBufferSource(RenderHandler.LATE_DELAYED_RENDER.getTarget()).setRenderType(LodestoneRenderTypeRegistry.TRANSPARENT_TEXTURE.applyAndCache(VIGNETTE)).renderQuad(poseStack, positions, 1f);
         final long gameTime = voidDepot.getLevel().getGameTime();
         float uOffset = ((gameTime + partialTicks) % 4000) / 2000f;
         float vOffset = ((gameTime + 500f + partialTicks) % 8000) / 8000f;
         float alpha = 0.05f;
 
-        final LodestoneRenderType renderType = RenderTypeRegistry.ADDITIVE_DISTORTED_TEXTURE.applyAndCache(RenderTypeToken.createToken(NOISE_TEXTURE));
+        final LodestoneRenderType renderType = RenderTypeRegistry.ADDITIVE_DISTORTED_TEXTURE.applyAndCache(NOISE_TEXTURE);
         builder.replaceBufferSource(RenderHandler.DELAYED_RENDER.getTarget());
         for (int i = 0; i < 2; i++) {
             builder.setAlpha(alpha);
@@ -89,8 +89,8 @@ public class VoidDepotRenderer implements BlockEntityRenderer<VoidDepotBlockEnti
             float scalar = Easing.SINE_IN_OUT.ease(timer/40f, 0, 1, 1);
             float scale = 0.016F - (1-scalar)*0.004f;
             final Font.DisplayMode display = Font.DisplayMode.NORMAL;
-            MultiBufferSource additiveBuffer = new BufferWrapper(RenderTypeRegistry.ADDITIVE_TEXT, RenderHandler.LATE_DELAYED_RENDER.getTarget());
-            MultiBufferSource translucentBuffer = new BufferWrapper(RenderTypeRegistry.TRANSLUCENT_TEXT, RenderHandler.DELAYED_RENDER.getTarget());
+            MultiBufferSource additiveBuffer = new BufferWrapper(LodestoneRenderTypeRegistry.ADDITIVE_TEXT, RenderHandler.LATE_DELAYED_RENDER.getTarget());
+            MultiBufferSource translucentBuffer = new BufferWrapper(LodestoneRenderTypeRegistry.TRANSPARENT_TEXT, RenderHandler.DELAYED_RENDER.getTarget());
 
             List<VoidDepotBlockEntity.VoidDepotGoal> goals = voidDepot.goals;
             List<MutableComponent> components = new ArrayList<>();

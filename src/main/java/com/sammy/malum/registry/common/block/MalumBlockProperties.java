@@ -54,6 +54,8 @@ public class MalumBlockProperties {
                 .addTag(BlockTags.SAPLINGS)
                 .noCollission()
                 .noOcclusion()
+                .setCutoutRenderType()
+                .randomTicks()
                 .sound(SoundType.GRASS)
                 .instabreak();
     }
@@ -67,6 +69,7 @@ public class MalumBlockProperties {
                 .isValidSpawn(Blocks::ocelotOrParrot)
                 .isSuffocating(Blocks::never)
                 .isViewBlocking(Blocks::never)
+                .setCutoutRenderType()
                 .sound(SoundRegistry.RUNEWOOD_LEAVES)
                 .needsHoe();
     }
@@ -79,6 +82,7 @@ public class MalumBlockProperties {
                 .isValidSpawn(Blocks::ocelotOrParrot)
                 .isSuffocating(Blocks::never)
                 .isViewBlocking(Blocks::never)
+                .setCutoutRenderType()
                 .sound(SoundRegistry.RUNEWOOD_LEAVES)
                 .needsHoe();
     }

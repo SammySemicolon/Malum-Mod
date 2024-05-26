@@ -23,6 +23,7 @@ import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.registry.client.*;
 import team.lodestar.lodestone.systems.easing.*;
 import team.lodestar.lodestone.systems.model.*;
+import team.lodestar.lodestone.systems.rendering.rendeertype.*;
 import team.lodestar.lodestone.systems.rendering.rendeertype.RenderTypeToken;
 
 import java.awt.*;
@@ -32,8 +33,7 @@ import java.util.stream.*;
 
 public class MalignantStrongholdArmorModel extends LodestoneArmorModel {
     public static final ModelLayerLocation LAYER = new ModelLayerLocation(MalumMod.malumPath("malignant_lead_armor"), "main");
-    public static final RenderTypeToken GLOW_TEXTURE_TOKEN = RenderTypeToken.createToken(MalumMod.malumPath("textures/armor/malignant_stronghold_glow.png"));
-    public static final ResourceLocation GLOW_TEXTURE = MalumMod.malumPath("textures/armor/malignant_stronghold_glow.png");
+    public static final RenderTypeToken GLOW_TEXTURE = RenderTypeToken.createToken(MalumMod.malumPath("textures/armor/malignant_stronghold_glow.png"));
     private final ModelPart right_arm_glow;
     private final ModelPart left_arm_glow;
     private final ModelPart right_boot_glow;

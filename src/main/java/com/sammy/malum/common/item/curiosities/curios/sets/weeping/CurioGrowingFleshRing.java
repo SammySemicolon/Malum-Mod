@@ -10,7 +10,6 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import team.lodestar.lodestone.helpers.EntityHelper;
 
@@ -27,7 +26,7 @@ public class CurioGrowingFleshRing extends MalumCurioItem implements IVoidItem, 
     }
 
     @Override
-    public void pickupSpirit(LivingEntity collector, ItemStack stack, double arcaneResonance) {
+    public void pickupSpirit(LivingEntity collector, double arcaneResonance) {
         MobEffect cancerousGrowth = MobEffectRegistry.CANCEROUS_GROWTH.get();
         MobEffectInstance effect = collector.getEffect(cancerousGrowth);
         if (effect == null) {

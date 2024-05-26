@@ -65,13 +65,15 @@ public class ClingingBlightBlock extends Block {
         } else {
             if (direction.equals(Direction.DOWN)) {
                 final BlockState aboveState = level.getBlockState(clickedPos.above());
-                if (aboveState.hasProperty(BLIGHT_TYPE) && aboveState.getValue(BLIGHT_TYPE).equals(BlightType.HANGING_BLIGHT)) {
-                    return state.setValue(BLIGHT_TYPE, BlightType.HANGING_BLIGHT_CONNECTION);
-                }
-                state = state.setValue(BLIGHT_TYPE, BlightType.HANGING_BLIGHT);
+                if (aboveState.hasProperty(BLIGHT_TYPE)) {
+                    if (aboveState.getValue(BLIGHT_TYPE).equals(BlightType.HANGING_BLIGHT)) {
+                        return state.setValue(BLIGHT_TYPE, BlightType.HANGING_BLIGHT_CONNECTION);
+                    }
+                    state = state.setValue(BLIGHT_TYPE, BlightType.HANGING_BLIGHT);
 
-                if (!state.canSurvive(level, clickedPos)) {
-                    return state.setValue(BLIGHT_TYPE, BlightType.HANGING_ROOTS);
+                    if (!state.canSurvive(level, clickedPos)) {
+                        return state.setValue(BLIGHT_TYPE, BlightType.HANGING_ROOTS);
+                    }
                 }
             }
             if (direction.getAxis().isHorizontal() || (direction.equals(Direction.UP))) {

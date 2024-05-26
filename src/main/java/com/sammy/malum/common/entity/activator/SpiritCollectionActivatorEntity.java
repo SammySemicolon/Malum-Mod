@@ -1,45 +1,38 @@
-package com.sammy.malum.common.entity.spirit;
+package com.sammy.malum.common.entity.activator;
 
-import com.sammy.malum.common.entity.FloatingItemEntity;
-import com.sammy.malum.common.item.spirit.SpiritShardItem;
-import com.sammy.malum.core.handlers.SpiritHarvestHandler;
-import com.sammy.malum.registry.common.SoundRegistry;
-import com.sammy.malum.registry.common.entity.EntityRegistry;
-import com.sammy.malum.visual_effects.SpiritLightSpecs;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.Mth;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.Vec3;
-import team.lodestar.lodestone.helpers.ItemHelper;
+import com.sammy.malum.common.entity.*;
+import com.sammy.malum.common.item.*;
+import com.sammy.malum.registry.common.*;
+import com.sammy.malum.registry.common.entity.*;
+import com.sammy.malum.visual_effects.*;
+import net.minecraft.nbt.*;
+import net.minecraft.server.level.*;
+import net.minecraft.sounds.*;
+import net.minecraft.util.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.phys.*;
+import team.lodestar.lodestone.helpers.*;
 
-import java.util.UUID;
+import java.util.*;
 
-public class SpiritItemEntity extends FloatingItemEntity {
+public class SpiritCollectionActivatorEntity extends FloatingEntity {
     public UUID ownerUUID;
     public LivingEntity owner;
-    public int soundCooldown = 20 + random.nextInt(100);
 
-
-    public SpiritItemEntity(Level level) {
-        super(EntityRegistry.NATURAL_SPIRIT.get(), level);
+    public SpiritCollectionActivatorEntity(Level level) {
+        super(EntityRegistry.SPIRIT_COLLECTION_ACTIVATOR.get(), level);
         maxAge = 4000;
     }
 
-    public SpiritItemEntity(Level level, UUID ownerUUID, ItemStack stack, double posX, double posY, double posZ, double velX, double velY, double velZ) {
+    public SpiritCollectionActivatorEntity(Level level, UUID ownerUUID, double posX, double posY, double posZ, double velX, double velY, double velZ) {
         this(level);
         setOwner(ownerUUID);
-        setItem(stack);
         setPos(posX, posY, posZ);
         setDeltaMovement(velX, velY, velZ);
         maxAge = 800;
-        if (stack.getItem() instanceof SpiritShardItem spiritShardItem) {
-            setSpirit(spiritShardItem.type);
-        }
     }
 
     @Override
@@ -70,12 +63,6 @@ public class SpiritItemEntity extends FloatingItemEntity {
 
     @Override
     public void move() {
-        if (soundCooldown-- == 0) {
-            if (random.nextFloat() < 0.4f) {
-                level().playSound(null, blockPosition(), SoundRegistry.ARCANE_WHISPERS.get(), SoundSource.NEUTRAL, 0.3f, Mth.nextFloat(random, 0.8f, 2f));
-            }
-            soundCooldown = random.nextInt(40) + 40;
-        }
         float friction = 0.94f;
         setDeltaMovement(getDeltaMovement().multiply(friction, friction, friction));
         if (owner == null || !owner.isAlive()) {
@@ -100,14 +87,14 @@ public class SpiritItemEntity extends FloatingItemEntity {
         setDeltaMovement(resultingMotion);
         if (distance < 0.4f) {
             if (isAlive()) {
-                ItemStack stack = getItem();
-                if (stack.getItem() instanceof SpiritShardItem) {
-                    SpiritHarvestHandler.pickupSpirit(owner, stack);
-                } else {
-                    ItemHelper.giveItemToEntity(owner, stack);
-                }
+                AttributeInstance instance = owner.getAttribute(AttributeRegistry.ARCANE_RESONANCE.get());
+                ItemHelper.getEventResponders(owner).forEach(s -> {
+                    if (s.getItem() instanceof IMalumEventResponderItem eventItem) {
+                        eventItem.pickupSpirit(owner, instance != null ? instance.getValue() : 0);
+                    }
+                });
                 if (random.nextFloat() < 0.6f) {
-                    level().playSound(null, blockPosition(), SoundRegistry.SPIRIT_PICKUP.get(), SoundSource.NEUTRAL, 0.3f, Mth.nextFloat(random, 1.1f, 2f));
+                    level().playSound(null, blockPosition(), SoundRegistry.SPIRIT_PICKUP.get(), SoundSource.NEUTRAL, 0.3f, Mth.nextFloat(random, 0.5f, 0.8f));
                 }
                 remove(RemovalReason.DISCARDED);
             }

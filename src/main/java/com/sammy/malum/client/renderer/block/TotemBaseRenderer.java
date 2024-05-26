@@ -13,7 +13,6 @@ import net.minecraft.client.player.*;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.blockentity.*;
 import net.minecraft.core.*;
-import net.minecraft.resources.*;
 import net.minecraft.util.*;
 import net.minecraft.world.item.*;
 import team.lodestar.lodestone.registry.client.*;
@@ -26,7 +25,7 @@ import static com.sammy.malum.client.RenderUtils.*;
 
 public class TotemBaseRenderer implements BlockEntityRenderer<TotemBaseBlockEntity> {
 
-    public static final ResourceLocation AREA_COVERAGE_TEXTURE = MalumMod.malumPath("textures/vfx/area_coverage.png");
+    public static final RenderTypeToken AREA_COVERAGE_TEXTURE = RenderTypeToken.createToken(MalumMod.malumPath("textures/vfx/area_coverage.png"));
 
     private static float totemicStaffHeldTimer = 0;
     private static boolean isHoldingStaff;
@@ -76,7 +75,7 @@ public class TotemBaseRenderer implements BlockEntityRenderer<TotemBaseBlockEnti
             float shaderHeight = height * 32;
             float distortion = 6f+height/2f;
             float sideDistortion = 6f+width/2f;
-            final LodestoneRenderType renderType = RenderTypeRegistry.ADDITIVE_DISTORTED_TEXTURE.applyWithModifierAndCache(RenderTypeToken.createToken(AREA_COVERAGE_TEXTURE), b -> b.setCullState(LodestoneRenderTypeRegistry.NO_CULL));
+            final LodestoneRenderType renderType = RenderTypeRegistry.ADDITIVE_DISTORTED_TEXTURE.applyWithModifierAndCache(AREA_COVERAGE_TEXTURE, b -> b.setCullState(LodestoneRenderTypeRegistry.NO_CULL));
             float index = shaderWidth + distortion;
             float sideIndex = shaderWidth*shaderHeight + sideDistortion;
 

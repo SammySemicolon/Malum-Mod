@@ -1,6 +1,5 @@
 {
-
-  "aesthetica": { "sounds":["malum:aesthetica","malum:aesthetica"], "subtitle": "malum.subtitle.aesthetica" },
+  "aesthetica": { "sounds":["malum:aesthetica"], "subtitle": "malum.subtitle.aesthetica" },
 
   "arcana_codex_opened": { "sounds":["malum:codex/book_open1", "malum:codex/book_open2", "malum:codex/book_open3", "malum:codex/book_open4"], "subtitle": "malum.subtitle.arcana_codex_opened" },
   "arcana_codex_closed": { "sounds":["malum:codex/book_close1", "malum:codex/book_close2", "malum:codex/book_close3", "malum:codex/book_close4"], "subtitle": "malum.subtitle.arcana_codex_closed" },

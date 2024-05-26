@@ -30,10 +30,13 @@ public abstract class AbstractStaffItem extends ModCombatItem implements IMalumE
     public final float chargeDuration;
     public final float magicDamage;
 
-    public AbstractStaffItem(Tier tier, int chargeDuration, float magicDamage, Properties builderIn) {
-        super(tier, 1,  -2.8f, builderIn);
+    public AbstractStaffItem(Tier tier, float attackSpeed, int chargeDuration, float magicDamage, Properties builderIn) {
+        super(tier, 1,  -2.8f+attackSpeed, builderIn);
         this.chargeDuration = chargeDuration;
         this.magicDamage = magicDamage;
+    }
+    public AbstractStaffItem(Tier tier, int chargeDuration, float magicDamage, Properties builderIn) {
+        this(tier, 0f, chargeDuration, magicDamage, builderIn);
     }
 
     @Environment(EnvType.CLIENT)

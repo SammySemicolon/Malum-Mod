@@ -11,7 +11,6 @@ import net.minecraft.client.*;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.blockentity.*;
 import net.minecraft.client.renderer.entity.*;
-import net.minecraft.resources.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
@@ -20,13 +19,14 @@ import team.lodestar.lodestone.systems.rendering.*;
 import team.lodestar.lodestone.systems.rendering.rendeertype.RenderTypeToken;
 
 import java.lang.*;
+import team.lodestar.lodestone.systems.rendering.rendeertype.*;
 
 import static net.minecraft.client.renderer.texture.OverlayTexture.*;
 
 public class RitualPlinthRenderer implements BlockEntityRenderer<RitualPlinthBlockEntity> {
 
-    public static final ResourceLocation INCOMPLETE_RITUAL = MalumMod.malumPath("textures/vfx/ritual/incomplete_ritual.png");
-    public static final ResourceLocation SILHOUETTE = MalumMod.malumPath("textures/vfx/ritual/silhouette.png");
+    public static final RenderTypeToken INCOMPLETE_RITUAL = RenderTypeToken.createToken(MalumMod.malumPath("textures/vfx/ritual/incomplete_ritual.png"));
+    public static final RenderTypeToken SILHOUETTE = RenderTypeToken.createToken(MalumMod.malumPath("textures/vfx/ritual/silhouette.png"));
 
     public RitualPlinthRenderer(BlockEntityRendererProvider.Context context) {
     }
@@ -49,10 +49,10 @@ public class RitualPlinthRenderer implements BlockEntityRenderer<RitualPlinthBlo
         final MalumRitualTier ritualTier = blockEntityIn.ritualTier;
         if (blockEntityIn.activeDuration > 0 && ritualType != null) {
             final boolean hasDecor = ritualTier != null && !MalumRitualTier.FADED.equals(ritualTier);
-            RenderType silhouette = (LodestoneRenderTypeRegistry.TRANSPARENT_TEXTURE.applyAndCache(RenderTypeToken.createToken(SILHOUETTE)));
-            RenderType icon = (LodestoneRenderTypeRegistry.ADDITIVE_TEXTURE.applyAndCache(ritualTier == null ? RenderTypeToken.createToken(INCOMPLETE_RITUAL) : RenderTypeToken.createToken(ritualType.getIcon())));
-            RenderType decorGlow = hasDecor ? LodestoneRenderTypeRegistry.ADDITIVE_TEXTURE.applyAndCache(RenderTypeToken.createToken(ritualTier.getDecorTexture())) : null;
-            RenderType decorSilhouette = hasDecor ? LodestoneRenderTypeRegistry.TRANSPARENT_TEXTURE.applyAndCache(RenderTypeToken.createToken(ritualTier.getDecorTexture())) : null;
+            RenderType silhouette = (LodestoneRenderTypeRegistry.TRANSPARENT_TEXTURE.applyAndCache(SILHOUETTE));
+            RenderType icon = (LodestoneRenderTypeRegistry.ADDITIVE_TEXTURE.applyAndCache(ritualTier == null ? INCOMPLETE_RITUAL : RenderTypeToken.createCachedToken(ritualType.getIcon())));
+            RenderType decorGlow = hasDecor ? LodestoneRenderTypeRegistry.ADDITIVE_TEXTURE.applyAndCache(RenderTypeToken.createCachedToken(ritualTier.getDecorTexture())) : null;
+            RenderType decorSilhouette = hasDecor ? LodestoneRenderTypeRegistry.TRANSPARENT_TEXTURE.applyAndCache(RenderTypeToken.createCachedToken(ritualTier.getDecorTexture())) : null;
             MalumSpiritType spirit = ritualType.spirit;
             Vec3 offset = blockEntityIn.getRitualIconOffset(partialTicks);
             final float scalar = Math.min(blockEntityIn.activeDuration, 15) / 15f;
