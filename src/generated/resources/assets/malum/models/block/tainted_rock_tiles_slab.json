@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab",
-  "textures": {
-    "bottom": "malum:block/arcane_rock/tainted/tainted_rock_tiles",
-    "side": "malum:block/arcane_rock/tainted/tainted_rock_tiles",
-    "top": "malum:block/arcane_rock/tainted/tainted_rock_tiles"
-  }
-}

@@ -24,7 +24,7 @@ public class MalumRecipes extends FabricRecipeProvider {
 
     @Override
     public void buildRecipes(Consumer<FinishedRecipe> consumer) {
-        vanillaRecipeReplacements.buildRecipes(consumer);
+        //todo vanillaRecipeReplacements.buildRecipes(consumer);
         MalumVanillaRecipes.buildRecipes(consumer);
         MalumWoodenRecipes.buildRecipes(consumer);
 

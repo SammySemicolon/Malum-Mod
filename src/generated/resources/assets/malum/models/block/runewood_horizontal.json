@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/cube_column_horizontal",
-  "textures": {
-    "end": "malum:block/runewood/runewood_log",
-    "side": "malum:block/runewood/runewood_log"
-  }
-}

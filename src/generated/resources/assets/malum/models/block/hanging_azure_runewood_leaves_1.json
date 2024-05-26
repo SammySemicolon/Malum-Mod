@@ -1,7 +1,0 @@
-{
-  "parent": "malum:block/templates/template_hanging_leaves",
-  "textures": {
-    "hanging_leaves": "malum:block/runewood/hanging_azure_runewood_leaves_1",
-    "particle": "malum:block/runewood/hanging_azure_runewood_leaves_1"
-  }
-}

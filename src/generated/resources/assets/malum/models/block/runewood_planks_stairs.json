@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/stairs",
-  "textures": {
-    "bottom": "malum:block/runewood/runewood_planks",
-    "side": "malum:block/runewood/runewood_planks",
-    "top": "malum:block/runewood/runewood_planks"
-  }
-}

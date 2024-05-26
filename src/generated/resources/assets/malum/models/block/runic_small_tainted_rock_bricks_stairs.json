@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/stairs",
-  "textures": {
-    "bottom": "malum:block/arcane_rock/tainted/runic_small_tainted_rock_bricks",
-    "side": "malum:block/arcane_rock/tainted/runic_small_tainted_rock_bricks",
-    "top": "malum:block/arcane_rock/tainted/runic_small_tainted_rock_bricks"
-  }
-}

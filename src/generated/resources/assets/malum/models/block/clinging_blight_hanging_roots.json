@@ -1,8 +1,0 @@
-{
-  "parent": "malum:block/templates/template_creeping_blight",
-  "textures": {
-    "big": "malum:block/blight/hanging_roots",
-    "particle": "malum:block/blight/hanging_roots",
-    "small": "malum:block/blight/hanging_roots_small"
-  }
-}

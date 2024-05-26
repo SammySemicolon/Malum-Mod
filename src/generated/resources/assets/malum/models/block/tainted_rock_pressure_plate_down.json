@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/pressure_plate_down",
-  "textures": {
-    "texture": "malum:block/arcane_rock/tainted/tainted_rock"
-  }
-}

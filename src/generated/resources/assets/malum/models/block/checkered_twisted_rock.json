@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/cube_bottom_top",
-  "textures": {
-    "bottom": "malum:block/arcane_rock/twisted/smooth_twisted_rock",
-    "side": "malum:block/arcane_rock/twisted/checkered_twisted_rock",
-    "top": "malum:block/arcane_rock/twisted/polished_twisted_rock"
-  }
-}

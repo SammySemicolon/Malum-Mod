@@ -1,8 +1,0 @@
-{
-  "parent": "malum:block/templates/template_totem_pole",
-  "textures": {
-    "front": "malum:block/soulwood/totem_poles/eldritch_soulwood_cutout",
-    "side": "malum:block/soulwood/soulwood_log",
-    "top": "malum:block/soulwood/soulwood_log_top"
-  }
-}

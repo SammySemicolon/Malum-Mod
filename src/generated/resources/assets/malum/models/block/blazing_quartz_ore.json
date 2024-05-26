@@ -1,8 +1,0 @@
-{
-  "parent": "malum:block/templates/template_glowing_block",
-  "textures": {
-    "all": "malum:block/ores/blazing_quartz_ore",
-    "glow": "malum:block/ores/blazing_quartz_ore_glow",
-    "particle": "malum:block/ores/blazing_quartz_ore"
-  }
-}
