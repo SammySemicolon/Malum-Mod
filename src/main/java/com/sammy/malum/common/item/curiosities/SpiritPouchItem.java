@@ -3,10 +3,13 @@ package com.sammy.malum.common.item.curiosities;
 import com.sammy.malum.common.container.SpiritPouchContainer;
 import com.sammy.malum.common.item.spirit.SpiritShardItem;
 import com.sammy.malum.registry.common.ContainerRegistry;
+import io.github.fabricators_of_create.porting_lib.util.NetworkHooks;
+import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.fabricmc.fabric.mixin.screenhandler.NamedScreenHandlerFactoryMixin;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -100,8 +103,14 @@ public class SpiritPouchItem extends Item {
     public InteractionResultHolder<ItemStack> use(Level level, Player playerIn, InteractionHand handIn) {
         if (!level.isClientSide) {
             ItemStack stack = playerIn.getItemInHand(handIn);
-            MenuProvider container = new SimpleMenuProvider((w, p, pl) -> new SpiritPouchContainer(w, p, stack), stack.getHoverName());
-            playerIn.openMenu(new MenuProvider() {
+            //MenuProvider container = new SimpleMenuProvider((w, p, pl) -> new SpiritPouchContainer(w, p, stack), stack.getHoverName());
+            //NetworkHooks.openScreen((ServerPlayer) playerIn, container, b -> b.writeItem(stack));
+            playerIn.openMenu(new ExtendedScreenHandlerFactory() {
+                @Override
+                public void writeScreenOpeningData(ServerPlayer player, FriendlyByteBuf buf) {
+                    buf.writeItem(stack);
+                }
+
                 @Override
                 public Component getDisplayName() {
                     return Component.empty();
@@ -109,14 +118,13 @@ public class SpiritPouchItem extends Item {
 
                 @Nullable
                 @Override
-                public AbstractContainerMenu createMenu(int syncId, Inventory inventory, Player player) {
+                public AbstractContainerMenu createMenu(int i, Inventory inventory, Player player) {
                     NonNullList<ItemStack> stacks = NonNullList.withSize(27, ItemStack.EMPTY);
-                    CompoundTag nbt = player.getItemInHand(handIn).getTag();
-                    ItemStack stack = player.getItemInHand(handIn);
-                    if (nbt != null) {
-                        ContainerHelper.loadAllItems(nbt, stacks);
+                    CompoundTag tag = stack.getTag();
+                    if (tag != null) {
+                        ContainerHelper.loadAllItems(tag, stacks);
                     }
-                    return new SpiritPouchContainer(syncId, inventory, stack);
+                    return new SpiritPouchContainer(ContainerRegistry.SPIRIT_POUCH.get(), i, inventory, new SimpleContainer(stacks.toArray(ItemStack[]::new)), stack);
                 }
             });
             playerIn.level().playSound(null, playerIn.getX(), playerIn.getY(), playerIn.getZ(), SoundEvents.ARMOR_EQUIP_LEATHER, SoundSource.PLAYERS, 1, 1);
@@ -125,11 +133,14 @@ public class SpiritPouchItem extends Item {
     }
 
     public static ItemInventory getInventory(ItemStack stack) {
-        return new ItemInventory(stack, 27) {
+
+        var inv = new ItemInventory(stack, 27) {
             @Override
             public boolean canPlaceItem(int pIndex, ItemStack pStack) {
                 return pStack.getItem() instanceof SpiritShardItem;
             }
         };
+
+        return inv;
     }
 }

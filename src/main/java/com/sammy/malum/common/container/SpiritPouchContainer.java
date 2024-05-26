@@ -3,10 +3,13 @@ package com.sammy.malum.common.container;
 import com.sammy.malum.common.item.curiosities.SpiritPouchItem;
 import com.sammy.malum.common.item.spirit.SpiritShardItem;
 import com.sammy.malum.registry.common.ContainerRegistry;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Container;
+import net.minecraft.world.ContainerHelper;
+import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -20,18 +23,21 @@ import org.jetbrains.annotations.NotNull;
 
 public class SpiritPouchContainer extends AbstractContainerMenu {
     private final Container inventory;
+    public final ItemStack pouch;
 
     public SpiritPouchContainer(int windowId, Inventory playerInv, ItemStack backpack) {
-        this(ContainerRegistry.SPIRIT_POUCH.get(), windowId, playerInv, SpiritPouchItem.getInventory(backpack));
+        this(ContainerRegistry.SPIRIT_POUCH.get(), windowId, playerInv, SpiritPouchItem.getInventory(backpack), backpack);
     }
 
     public SpiritPouchContainer(int i, Inventory inventory, FriendlyByteBuf friendlyByteBuf) {
         super(ContainerRegistry.SPIRIT_POUCH.get(), i);
         this.inventory = inventory;
+        this.pouch = friendlyByteBuf.readItem();
     }
 
-    public SpiritPouchContainer(MenuType<? extends SpiritPouchContainer> containerType, int windowId, Inventory playerInv, Container inventory) {
+    public SpiritPouchContainer(MenuType<? extends SpiritPouchContainer> containerType, int windowId, Inventory playerInv, Container inventory, ItemStack pouch) {
         super(containerType, windowId);
+        this.pouch = pouch;
         this.inventory = inventory;
         inventory.startOpen(playerInv.player);
         for (int i = 0; i < inventory.getContainerSize() / 9f; ++i) {
@@ -80,6 +86,12 @@ public class SpiritPouchContainer extends AbstractContainerMenu {
     @Override
     public void removed(Player playerIn) {
         playerIn.level().playSound(null, playerIn.blockPosition(), SoundEvents.ARMOR_EQUIP_LEATHER, SoundSource.PLAYERS, 1, 1);
+        CompoundTag nbt = pouch.getTag();
+        if (nbt == null) {
+            nbt = new CompoundTag();
+        }
+        ContainerHelper.saveAllItems(nbt, ((SimpleContainer) this.inventory).items);
+        pouch.setTag(nbt);
         super.removed(playerIn);
         this.inventory.stopOpen(playerIn);
     }
@@ -124,7 +136,4 @@ public class SpiritPouchContainer extends AbstractContainerMenu {
             inventory.setItem(i, newData.getItem(i));
         }
     }
-
-
-
 }
