@@ -29,6 +29,6 @@ public class ParticleEmitterRegistry {
                 registeredVoidParticleEmitters = true;
             }
         }
-        return b;
+        return true;
     }
 }

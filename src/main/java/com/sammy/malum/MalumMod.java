@@ -120,6 +120,7 @@ public class MalumMod implements ModInitializer {
 
         FarmersDelightCompat.init();
 
+
         LodestoneItemEvent.ON_ITEM_TOOLTIP.register(AbstractAugmentItem::addAugmentAttributeTooltip);
         PlayerEvents.BREAK_SPEED.register(InfernalAura::increaseDigSpeed);
         PlayerEvents.BREAK_SPEED.register(RuneFervorItem::increaseDigSpeed);
@@ -127,9 +128,12 @@ public class MalumMod implements ModInitializer {
         LivingEntityEvents.JUMP.register(CorruptedAerialAura::onEntityJump);
         LivingEntityEvents.FALL.register(CorruptedAerialAura::onEntityFall);
         LivingEntityEvents.CHECK_SPAWN.register(SoulDataHandler::markAsSpawnerSpawned);
+
         EntityEvents.ON_JOIN_WORLD.register(CurioTokenOfGratitude::giveItem);
         EntityEvents.ON_JOIN_WORLD.register(SoulDataHandler::updateAi);
         EntityEvents.ON_JOIN_WORLD.register(ParticleEmitterRegistry::addParticleEmitters);
+
+
         MobEntitySetTargetCallback.EVENT.register(SoulDataHandler::preventTargeting);
         LivingEntityEvents.VISIBILITY.register(CurioHarmonyNecklace::preventDetection);
         LivingEntityUseItemEvents.LIVING_USE_ITEM_FINISH.register(CurioGruesomeConcentrationRing::finishEating);
@@ -155,6 +159,8 @@ public class MalumMod implements ModInitializer {
         LodestoneMobEffectEvents.ADDED.register(RuneAlimentCleansingItem::onPotionApplied);
         LodestoneInteractionEvent.ON_ITEM_USE_START.register(CurioVoraciousRing::accelerateEating);
         LodestoneItemEvent.EXPIRE.register(SpiritHarvestHandler::shatterItem);
+
+
 
         ResourceManagerHelper.get(PackType.SERVER_DATA).registerReloadListener(new SpiritDataReloadListenerFabricImpl());
         ResourceManagerHelper.get(PackType.SERVER_DATA).registerReloadListener(new ReapingDataReloadListenerFabricImpl());

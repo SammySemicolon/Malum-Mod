@@ -62,7 +62,7 @@ public class SoulDataHandler {
                 }
             });
         }
-        return b;
+        return true;
     }
 
     public static void preventTargeting(LivingEntity targeting, LivingEntity target) {
