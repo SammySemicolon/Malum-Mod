@@ -6,22 +6,9 @@ import com.sammy.malum.registry.common.worldgen.PlacedFeatureRegistry;
 import net.fabricmc.fabric.api.biome.v1.BiomeModification;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
-import net.minecraft.core.Holder;
-import net.minecraft.core.HolderSet;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.tags.BiomeTags;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.levelgen.GenerationStep;
-import net.minecraft.world.level.levelgen.placement.PlacedFeature;
-import vectorwing.farmersdelight.common.world.modifier.AddFeaturesByFilterBiomeModifier;
-
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Supplier;
 
 @SuppressWarnings("unchecked")
 public class BiomeModifications {

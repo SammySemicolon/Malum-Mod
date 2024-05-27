@@ -23,9 +23,7 @@ import team.lodestar.lodestone.systems.particle.data.spin.SpinParticleData;
 import team.lodestar.lodestone.systems.particle.render_types.LodestoneWorldParticleRenderType;
 
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Supplier;
 
 public class BlightTransformItemParticlePacket extends SpiritBasedParticleEffectPacket {
 

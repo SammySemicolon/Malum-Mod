@@ -21,7 +21,6 @@ import team.lodestar.lodestone.systems.particle.data.spin.SpinParticleData;
 import team.lodestar.lodestone.systems.particle.render_types.LodestoneWorldParticleRenderType;
 
 import java.awt.*;
-import java.util.function.Supplier;
 
 
 public class BlightMistParticlePacket extends BlockBasedParticleEffectPacket {

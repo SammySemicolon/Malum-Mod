@@ -1,6 +1,5 @@
 package com.sammy.malum.registry.common.block;
 
-import com.sammy.malum.*;
 import com.sammy.malum.common.block.blight.*;
 import com.sammy.malum.common.block.curiosities.obelisk.*;
 import com.sammy.malum.common.block.curiosities.obelisk.brilliant.*;
@@ -29,7 +28,6 @@ import com.sammy.malum.registry.common.item.*;
 import io.github.fabricators_of_create.porting_lib.util.LazyRegistrar;
 import io.github.fabricators_of_create.porting_lib.util.RegistryObject;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
-import net.minecraft.client.color.block.*;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.util.*;
 import net.minecraft.util.valueproviders.*;
@@ -46,8 +44,6 @@ import static com.sammy.malum.MalumMod.*;
 import static com.sammy.malum.registry.common.block.BlockTagRegistry.*;
 import static io.github.fabricators_of_create.porting_lib.tags.Tags.Blocks.FENCE_GATES_WOODEN;
 import static io.github.fabricators_of_create.porting_lib.tags.Tags.Blocks.STORAGE_BLOCKS;
-import static net.minecraft.tags.BlockTags.FENCES;
-import static net.minecraft.tags.BlockTags.FENCE_GATES;
 import static net.minecraft.tags.BlockTags.*;
 import static net.minecraft.world.level.block.PressurePlateBlock.Sensitivity.*;
 

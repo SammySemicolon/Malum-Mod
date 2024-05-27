@@ -29,8 +29,6 @@ import team.lodestar.lodestone.registry.common.tag.*;
 import team.lodestar.lodestone.systems.rendering.VFXBuilders;
 import team.lodestar.lodestone.systems.rendering.shader.ExtendedShaderInstance;
 
-import java.awt.*;
-
 
 public class SoulWardHandler {
     public float soulWard;

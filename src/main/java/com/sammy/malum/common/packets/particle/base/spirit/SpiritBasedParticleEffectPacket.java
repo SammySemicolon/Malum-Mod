@@ -13,7 +13,6 @@ import net.fabricmc.api.Environment;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Supplier;
 
 public abstract class SpiritBasedParticleEffectPacket extends PositionBasedParticleEffectPacket {
     protected final List<String> spirits;

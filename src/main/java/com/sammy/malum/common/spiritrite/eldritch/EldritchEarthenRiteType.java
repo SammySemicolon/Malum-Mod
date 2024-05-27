@@ -1,7 +1,6 @@
 package com.sammy.malum.common.spiritrite.eldritch;
 
 import com.sammy.malum.common.block.curiosities.totem.*;
-import com.sammy.malum.common.packets.particle.curiosities.rite.AerialBlockFallRiteEffectPacket;
 import com.sammy.malum.common.packets.particle.curiosities.rite.generic.*;
 import com.sammy.malum.common.spiritrite.*;
 import net.minecraft.server.level.*;

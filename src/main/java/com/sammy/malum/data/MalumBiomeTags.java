@@ -1,6 +1,5 @@
 package com.sammy.malum.data;
 
-import com.sammy.malum.*;
 import com.sammy.malum.registry.common.worldgen.*;
 import io.github.fabricators_of_create.porting_lib.data.ExistingFileHelper;
 import io.github.fabricators_of_create.porting_lib.tags.Tags;
@@ -8,8 +7,6 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.core.*;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.*;
-import net.minecraft.data.tags.*;
 import net.minecraft.tags.*;
 import net.minecraft.world.level.biome.*;
 import org.jetbrains.annotations.*;

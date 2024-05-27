@@ -13,7 +13,6 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 
 import java.awt.*;
-import java.util.function.Supplier;
 
 public class InfernalExtinguishRiteEffectPacket extends BlockSparkleParticlePacket {
     public InfernalExtinguishRiteEffectPacket(Color color, BlockPos pos) {

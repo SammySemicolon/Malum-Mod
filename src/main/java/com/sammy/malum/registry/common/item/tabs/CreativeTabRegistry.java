@@ -14,7 +14,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.*;
 import net.minecraft.world.item.*;
 
-import java.util.Objects;
 import java.util.Optional;
 
 import static com.sammy.malum.registry.common.item.ItemRegistry.*;

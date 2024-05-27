@@ -11,10 +11,8 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
-import team.lodestar.lodestone.helpers.*;
 
 import java.util.*;
-import java.util.function.*;
 
 public abstract class MalumRitualType {
     public final MalumSpiritType spirit;

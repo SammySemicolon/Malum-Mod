@@ -1,6 +1,5 @@
 package com.sammy.malum.registry.client;
 
-import com.sammy.malum.*;
 import com.sammy.malum.common.recipe.*;
 import net.minecraft.client.*;
 import net.minecraft.client.player.*;

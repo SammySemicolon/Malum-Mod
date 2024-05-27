@@ -21,9 +21,6 @@ import team.lodestar.lodestone.systems.particle.data.spin.SpinParticleData;
 
 import java.awt.*;
 import java.util.List;
-import java.util.function.Supplier;
-
-import static com.sammy.malum.common.packets.particle.curiosities.rite.InfernalAccelerationRiteEffectPacket.readSpirits;
 
 public class SpiritRiteActivationEffectPacket extends SpiritBasedBlockParticleEffectPacket {
 

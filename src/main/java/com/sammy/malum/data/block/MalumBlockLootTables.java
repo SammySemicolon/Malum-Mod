@@ -9,10 +9,6 @@ import io.github.fabricators_of_create.porting_lib.util.RegistryObject;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 import net.minecraft.advancements.critereon.*;
-import net.minecraft.data.*;
-import net.minecraft.data.loot.*;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.flag.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.*;
 import net.minecraft.world.level.*;
@@ -20,7 +16,6 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.storage.loot.*;
 import net.minecraft.world.level.storage.loot.entries.*;
 import net.minecraft.world.level.storage.loot.functions.*;
-import net.minecraft.world.level.storage.loot.parameters.*;
 import net.minecraft.world.level.storage.loot.predicates.*;
 import net.minecraft.world.level.storage.loot.providers.nbt.*;
 import net.minecraft.world.level.storage.loot.providers.number.*;
@@ -28,7 +23,6 @@ import net.minecraft.world.level.storage.loot.providers.number.*;
 import team.lodestar.lodestone.systems.block.*;
 
 import java.util.*;
-import java.util.function.*;
 import java.util.stream.*;
 
 import static com.sammy.malum.registry.common.block.BlockRegistry.*;

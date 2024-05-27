@@ -17,7 +17,6 @@ import team.lodestar.lodestone.systems.particle.data.spin.*;
 import team.lodestar.lodestone.systems.particle.render_types.*;
 
 import java.awt.*;
-import java.util.*;
 import java.util.List;
 import java.util.function.*;
 

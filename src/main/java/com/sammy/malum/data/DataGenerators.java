@@ -1,6 +1,5 @@
 package com.sammy.malum.data;
 
-import com.sammy.malum.MalumMod;
 import com.sammy.malum.data.block.MalumBlockLootTables;
 import com.sammy.malum.data.block.MalumBlockStates;
 import com.sammy.malum.data.block.MalumBlockTags;
@@ -14,7 +13,6 @@ import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
-import org.apache.http.config.RegistryBuilder;
 
 public class DataGenerators implements DataGeneratorEntrypoint {
 

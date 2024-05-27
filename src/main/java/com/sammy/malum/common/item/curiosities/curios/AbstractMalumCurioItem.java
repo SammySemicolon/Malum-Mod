@@ -9,7 +9,6 @@ import net.minecraft.sounds.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.item.*;
-import net.minecraft.world.item.enchantment.*;
 import team.lodestar.lodestone.helpers.*;
 
 import java.util.*;

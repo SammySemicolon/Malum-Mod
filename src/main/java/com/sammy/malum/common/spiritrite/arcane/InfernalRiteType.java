@@ -1,7 +1,6 @@
 package com.sammy.malum.common.spiritrite.arcane;
 
 import com.sammy.malum.common.block.curiosities.totem.*;
-import com.sammy.malum.common.packets.particle.curiosities.blight.BlightMistParticlePacket;
 import com.sammy.malum.common.packets.particle.curiosities.rite.*;
 import com.sammy.malum.common.packets.particle.curiosities.rite.generic.*;
 import com.sammy.malum.common.spiritrite.*;

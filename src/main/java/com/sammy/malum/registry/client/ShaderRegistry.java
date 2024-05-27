@@ -4,9 +4,7 @@ import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.datafixers.util.Pair;
 import com.sammy.malum.MalumMod;
 import net.minecraft.client.renderer.ShaderInstance;
-import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.ResourceProvider;
-import team.lodestar.lodestone.registry.client.*;
 import team.lodestar.lodestone.systems.rendering.shader.ExtendedShaderInstance;
 import team.lodestar.lodestone.systems.rendering.shader.ShaderHolder;
 

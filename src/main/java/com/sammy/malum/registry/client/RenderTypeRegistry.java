@@ -4,7 +4,6 @@ import com.mojang.blaze3d.platform.*;
 import com.mojang.blaze3d.systems.*;
 import net.minecraft.*;
 import net.minecraft.client.renderer.*;
-import net.minecraft.resources.ResourceLocation;
 import org.lwjgl.opengl.*;
 import team.lodestar.lodestone.registry.client.*;
 import team.lodestar.lodestone.systems.rendering.*;

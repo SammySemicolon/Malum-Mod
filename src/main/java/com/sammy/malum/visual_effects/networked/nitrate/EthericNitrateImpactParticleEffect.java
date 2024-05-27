@@ -1,12 +1,8 @@
 package com.sammy.malum.visual_effects.networked.nitrate;
 
-import com.sammy.malum.common.entity.nitrate.*;
-import com.sammy.malum.core.systems.spirit.*;
 import com.sammy.malum.registry.client.*;
 import com.sammy.malum.visual_effects.*;
 import com.sammy.malum.visual_effects.networked.*;
-import com.sammy.malum.visual_effects.networked.data.*;
-import net.minecraft.nbt.*;
 import net.minecraft.util.*;
 import net.minecraft.world.phys.*;
 import net.fabricmc.api.EnvType;
@@ -19,7 +15,6 @@ import team.lodestar.lodestone.systems.particle.builder.*;
 import team.lodestar.lodestone.systems.particle.data.*;
 import team.lodestar.lodestone.systems.particle.data.color.*;
 import team.lodestar.lodestone.systems.particle.data.spin.*;
-import team.lodestar.lodestone.systems.particle.render_types.*;
 
 import java.awt.*;
 import java.util.function.*;

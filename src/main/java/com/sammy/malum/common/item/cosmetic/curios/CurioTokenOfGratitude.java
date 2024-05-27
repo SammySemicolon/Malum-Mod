@@ -1,20 +1,16 @@
 package com.sammy.malum.common.item.cosmetic.curios;
 
 import com.sammy.malum.common.item.curiosities.curios.MalumCurioItem;
-import com.sammy.malum.registry.common.item.ItemRegistry;
 import dev.emi.trinkets.api.SlotReference;
 import dev.emi.trinkets.api.TrinketEnums;
-import io.github.fabricators_of_create.porting_lib.transfer.item.ItemHandlerHelper;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import org.jetbrains.annotations.NotNull;
 import team.lodestar.lodestone.systems.item.IEventResponderItem;
 
 import java.util.ArrayList;

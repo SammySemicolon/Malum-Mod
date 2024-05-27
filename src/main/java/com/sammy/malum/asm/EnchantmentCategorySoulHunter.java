@@ -1,6 +1,5 @@
 package com.sammy.malum.asm;
 
-import com.sammy.malum.common.item.curiosities.weapons.scythe.MalumScytheItem;
 import com.sammy.malum.registry.common.item.ItemTagRegistry;
 import net.minecraft.world.item.Item;
 

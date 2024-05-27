@@ -1,6 +1,5 @@
 package com.sammy.malum.visual_effects.networked;
 
-import com.sammy.malum.registry.client.*;
 import com.sammy.malum.visual_effects.networked.data.*;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -8,17 +7,10 @@ import net.minecraft.client.*;
 import net.minecraft.core.*;
 import net.minecraft.nbt.*;
 import net.minecraft.util.*;
-import net.minecraft.world.item.*;
 import net.minecraft.world.phys.*;
 import team.lodestar.lodestone.helpers.*;
-import team.lodestar.lodestone.helpers.block.*;
-import team.lodestar.lodestone.registry.common.particle.*;
-import team.lodestar.lodestone.systems.easing.*;
 import team.lodestar.lodestone.systems.particle.*;
-import team.lodestar.lodestone.systems.particle.builder.*;
-import team.lodestar.lodestone.systems.particle.data.*;
 import team.lodestar.lodestone.systems.particle.data.color.*;
-import team.lodestar.lodestone.systems.particle.data.spin.*;
 
 import java.awt.*;
 import java.util.function.*;

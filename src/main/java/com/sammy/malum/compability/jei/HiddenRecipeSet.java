@@ -1,14 +1,8 @@
 package com.sammy.malum.compability.jei;
 
-import com.mojang.datafixers.util.Pair;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.recipe.*;
-import mezz.jei.api.registration.IRecipeRegistration;
-import net.fabricmc.fabric.api.tag.convention.v1.TagUtil;
-import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;

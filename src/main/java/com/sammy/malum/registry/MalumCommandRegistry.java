@@ -1,6 +1,5 @@
 package com.sammy.malum.registry;
 
-import com.mojang.brigadier.*;
 import com.mojang.brigadier.tree.*;
 import com.sammy.malum.*;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;

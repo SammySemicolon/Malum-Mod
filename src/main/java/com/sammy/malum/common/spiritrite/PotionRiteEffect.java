@@ -1,7 +1,6 @@
 package com.sammy.malum.common.spiritrite;
 
 import com.sammy.malum.common.block.curiosities.totem.TotemBaseBlockEntity;
-import com.sammy.malum.common.packets.particle.curiosities.rite.generic.BlockSparkleParticlePacket;
 import com.sammy.malum.common.packets.particle.curiosities.rite.generic.MajorEntityEffectParticlePacket;
 import net.minecraft.server.level.*;
 import net.minecraft.world.effect.*;
@@ -13,7 +12,6 @@ import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 import static com.sammy.malum.registry.common.PacketRegistry.MALUM_CHANNEL;
-import static com.sammy.malum.registry.common.SpiritTypeRegistry.INFERNAL_SPIRIT;
 
 public class PotionRiteEffect extends TotemicRiteEffect {
 

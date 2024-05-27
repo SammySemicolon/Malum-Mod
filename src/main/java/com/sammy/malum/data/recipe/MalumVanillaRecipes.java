@@ -20,7 +20,6 @@ import net.minecraft.world.level.block.*;
 import team.lodestar.lodestone.data.builder.*;
 import team.lodestar.lodestone.systems.recipe.*;
 
-import java.util.Arrays;
 import java.util.function.*;
 
 import static com.sammy.malum.MalumMod.*;

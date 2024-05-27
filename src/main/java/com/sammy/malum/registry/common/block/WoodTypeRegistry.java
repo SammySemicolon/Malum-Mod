@@ -1,8 +1,6 @@
 package com.sammy.malum.registry.common.block;
 
-import com.sammy.malum.*;
 import com.sammy.malum.registry.common.*;
-import net.minecraft.client.renderer.*;
 import net.minecraft.world.level.block.state.properties.*;
 
 public class WoodTypeRegistry {

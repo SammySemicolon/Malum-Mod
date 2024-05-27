@@ -5,7 +5,6 @@ import com.mojang.math.*;
 import com.sammy.malum.client.*;
 import com.sammy.malum.common.entity.*;
 import com.sammy.malum.core.systems.spirit.*;
-import com.sammy.malum.registry.common.SpiritTypeRegistry;
 import net.minecraft.client.*;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.entity.*;
@@ -19,7 +18,6 @@ import team.lodestar.lodestone.registry.client.*;
 import team.lodestar.lodestone.systems.easing.*;
 import team.lodestar.lodestone.systems.rendering.*;
 import team.lodestar.lodestone.systems.rendering.rendeertype.RenderTypeToken;
-import team.lodestar.lodestone.systems.rendering.rendeertype.ShaderUniformHandler;
 
 import java.awt.*;
 

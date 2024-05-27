@@ -1,6 +1,5 @@
 package com.sammy.malum.registry.client;
 
-import com.sammy.malum.MalumMod;
 import com.sammy.malum.client.model.*;
 import com.sammy.malum.client.model.cosmetic.GenericArmorModel;
 import com.sammy.malum.client.model.cosmetic.GenericSlimArmorModel;

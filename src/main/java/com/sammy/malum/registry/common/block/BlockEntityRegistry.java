@@ -1,6 +1,5 @@
 package com.sammy.malum.registry.common.block;
 
-import com.sammy.malum.*;
 import com.sammy.malum.client.renderer.block.*;
 import com.sammy.malum.common.block.curiosities.obelisk.brilliant.*;
 import com.sammy.malum.common.block.curiosities.obelisk.runewood.*;

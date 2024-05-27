@@ -1,6 +1,5 @@
 package com.sammy.malum.registry.common;
 
-import com.sammy.malum.MalumMod;
 import com.sammy.malum.client.screen.container.SpiritPouchContainerScreen;
 import com.sammy.malum.client.screen.container.WeaversWorkbenchContainerScreen;
 import com.sammy.malum.common.container.SpiritPouchContainer;
@@ -10,9 +9,6 @@ import io.github.fabricators_of_create.porting_lib.util.RegistryObject;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerType;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.inventory.MenuType;
 
 import static com.sammy.malum.MalumMod.MALUM;

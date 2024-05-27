@@ -1,6 +1,5 @@
 package com.sammy.malum.common.block.curiosities.ritual_plinth;
 
-import com.sammy.malum.common.block.curiosities.spirit_altar.*;
 import net.minecraft.core.*;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.*;

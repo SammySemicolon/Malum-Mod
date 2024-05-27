@@ -1,12 +1,10 @@
 package com.sammy.malum.data.recipe;
 
-import com.sammy.malum.data.recipe.crafting.*;
 import com.sammy.malum.data.recipe.infusion.*;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.minecraft.data.*;
 import net.minecraft.data.recipes.*;
-import net.minecraft.data.recipes.packs.*;
 
 import java.util.function.*;
 

@@ -13,8 +13,6 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import team.lodestar.lodestone.systems.network.*;
 
-import java.util.function.*;
-
 public class SyncStaffCooldownChangesPacket extends LodestoneClientPacket {
     private final Item item;
     private final int enchantmentLevel;

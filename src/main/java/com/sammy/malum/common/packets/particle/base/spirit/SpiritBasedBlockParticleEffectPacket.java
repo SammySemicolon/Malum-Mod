@@ -14,7 +14,6 @@ import net.fabricmc.api.Environment;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Supplier;
 
 import static com.sammy.malum.common.packets.particle.base.spirit.SpiritBasedParticleEffectPacket.readSpirits;
 

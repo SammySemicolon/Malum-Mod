@@ -19,7 +19,6 @@ import team.lodestar.lodestone.systems.particle.data.color.ColorParticleData;
 import team.lodestar.lodestone.systems.particle.data.spin.SpinParticleData;
 
 import java.awt.*;
-import java.util.function.Supplier;
 
 public class AerialBlockFallRiteEffectPacket extends ColorBasedBlockParticleEffectPacket {
     public AerialBlockFallRiteEffectPacket(Color color, BlockPos pos) {

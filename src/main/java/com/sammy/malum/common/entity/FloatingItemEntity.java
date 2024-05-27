@@ -1,6 +1,5 @@
 package com.sammy.malum.common.entity;
 
-import com.sammy.malum.common.item.spirit.SpiritShardItem;
 import com.sammy.malum.registry.common.item.ItemRegistry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;

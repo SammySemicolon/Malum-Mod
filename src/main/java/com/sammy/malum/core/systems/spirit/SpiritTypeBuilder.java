@@ -2,7 +2,6 @@ package com.sammy.malum.core.systems.spirit;
 
 import com.sammy.malum.common.block.mana_mote.SpiritMoteBlock;
 import com.sammy.malum.common.item.spirit.SpiritShardItem;
-import team.lodestar.lodestone.systems.easing.Easing;
 
 import java.awt.*;
 import java.util.function.Function;

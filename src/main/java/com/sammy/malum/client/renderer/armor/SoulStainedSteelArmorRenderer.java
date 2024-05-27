@@ -5,7 +5,6 @@ import com.sammy.malum.client.cosmetic.ArmorSkinRenderingData;
 import com.sammy.malum.client.model.SoulHunterArmorModel;
 import com.sammy.malum.client.model.SoulStainedSteelArmorModel;
 import com.sammy.malum.common.item.cosmetic.skins.ArmorSkin;
-import com.sammy.malum.registry.client.ModelRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.ArmorRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
