@@ -6,7 +6,6 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.RangedAttribute;
-import team.lodestar.lodestone.events.EntityAttributeModificationEvent;
 
 import static com.sammy.malum.MalumMod.MALUM;
 import static team.lodestar.lodestone.registry.common.LodestoneAttributeRegistry.registerAttribute;
@@ -24,16 +23,4 @@ public class AttributeRegistry {
 
     public static final RegistryObject<Attribute> RESERVE_STAFF_CHARGES = registerAttribute(ATTRIBUTES, MALUM, "reserve_staff_charges", (id) -> new RangedAttribute(id, 0D, 0.0D, 2048.0D).setSyncable(true));
     public static final RegistryObject<Attribute> MALIGNANT_CONVERSION = registerAttribute(ATTRIBUTES, MALUM, "malignant_conversion", (id) -> new RangedAttribute(id, 0D, 0.0D, 1.0D).setSyncable(true));
-
-    public static AttributeSupplier.Builder modifyEntityAttributes(AttributeSupplier.Builder builder) {
-        return builder
-                .add(SCYTHE_PROFICIENCY.get())
-                .add(SPIRIT_SPOILS.get())
-                .add(ARCANE_RESONANCE.get())
-                .add(SOUL_WARD_STRENGTH.get())
-                .add(SOUL_WARD_RECOVERY_RATE.get())
-                .add(SOUL_WARD_CAP.get())
-                .add(RESERVE_STAFF_CHARGES.get())
-                .add(MALIGNANT_CONVERSION.get());
-    }
 }

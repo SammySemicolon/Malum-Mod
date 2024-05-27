@@ -31,6 +31,7 @@ import com.sammy.malum.registry.common.SpiritTypeRegistry;
 import com.sammy.malum.registry.common.item.ArmorSkinRegistry;
 import com.sammy.malum.registry.common.item.ItemRegistry;
 import com.sammy.malum.registry.common.item.tabs.*;
+import com.sammy.malum.registry.common.worldgen.PlacedFeatureRegistry;
 import io.github.fabricators_of_create.porting_lib.config.ConfigRegistry;
 import io.github.fabricators_of_create.porting_lib.config.ConfigType;
 import io.github.fabricators_of_create.porting_lib.data.ExistingFileHelper;
@@ -39,15 +40,22 @@ import io.github.fabricators_of_create.porting_lib.entity.events.living.LivingHu
 import io.github.fabricators_of_create.porting_lib.event.common.ExplosionEvents;
 import io.github.fabricators_of_create.porting_lib.util.FluidTextUtil;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.biome.v1.BiomeModification;
+import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
+import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
+import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.fabricmc.fabric.api.event.player.UseItemCallback;
+import net.fabricmc.fabric.api.event.registry.DynamicRegistrySetupCallback;
 import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.*;
 import net.minecraft.server.packs.PackType;
+import net.minecraft.tags.BiomeTags;
 import net.minecraft.util.*;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
@@ -56,10 +64,10 @@ import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import org.apache.logging.log4j.*;
-import team.lodestar.lodestone.events.EntityAttributeModificationEvent;
 import team.lodestar.lodestone.events.LodestoneInteractionEvent;
 import team.lodestar.lodestone.events.LodestoneItemEvent;
 import team.lodestar.lodestone.events.LodestoneMobEffectEvents;
@@ -124,7 +132,6 @@ public class MalumMod implements ModInitializer {
         LodestoneItemEvent.ON_ITEM_TOOLTIP.register(AbstractAugmentItem::addAugmentAttributeTooltip);
         PlayerEvents.BREAK_SPEED.register(InfernalAura::increaseDigSpeed);
         PlayerEvents.BREAK_SPEED.register(RuneFervorItem::increaseDigSpeed);
-        EntityAttributeModificationEvent.ADD.register(AttributeRegistry::modifyEntityAttributes);
         LivingEntityEvents.JUMP.register(CorruptedAerialAura::onEntityJump);
         LivingEntityEvents.FALL.register(CorruptedAerialAura::onEntityFall);
         LivingEntityEvents.CHECK_SPAWN.register(SoulDataHandler::markAsSpawnerSpawned);
@@ -167,7 +174,17 @@ public class MalumMod implements ModInitializer {
         ResourceManagerHelper.get(PackType.SERVER_DATA).registerReloadListener(new MalignantConversionReloadListenerFabricImpl());
         ResourceManagerHelper.get(PackType.SERVER_DATA).registerReloadListener(new RitualRecipeReloadListenerFabricImpl());
 
-        //TODO modBus.addListener(CreativeTabRegistry::populateItemGroups);
+        DynamicRegistrySetupCallback.EVENT.register(registryView -> {
+            registryView.getOptional(Registries.CONFIGURED_FEATURE).ifPresent(configuredFeatures -> {
+                //MalumFeatureRegistry.init(registryView, configuredFeatures);
+            });
+        });
+
+        BiomeModification modifications = BiomeModifications.create(MalumMod.malumPath("worldgen"));
+        modifications.add(ModificationPhase.ADDITIONS, BiomeSelectors.tag(BiomeTags.IS_FOREST), (biomeSelectionContext, biomeModificationContext) -> {
+            biomeModificationContext.getGenerationSettings().addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, PlacedFeatureRegistry.RARE_RUNEWOOD_TREE);
+        });
+
         CreativeTabRegistry.populateItemGroups();
     }
 
