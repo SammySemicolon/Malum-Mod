@@ -4,6 +4,7 @@ import com.sammy.malum.common.block.*;
 import com.sammy.malum.common.block.storage.*;
 import com.sammy.malum.common.item.spirit.*;
 import com.sammy.malum.common.recipe.*;
+import com.sammy.malum.core.FabricUtil;
 import com.sammy.malum.core.systems.recipe.*;
 import com.sammy.malum.registry.common.*;
 import com.sammy.malum.registry.common.block.*;
@@ -12,8 +13,9 @@ import com.sammy.malum.visual_effects.networked.altar.*;
 import com.sammy.malum.visual_effects.networked.data.*;
 import io.github.fabricators_of_create.porting_lib.transfer.TransferUtil;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
-import net.fabricmc.fabric.api.transfer.v1.storage.StorageUtil;
+import net.fabricmc.fabric.api.transfer.v1.item.PlayerInventoryStorage;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
+import net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext;
 import net.minecraft.core.*;
 import net.minecraft.nbt.*;
 import net.minecraft.server.level.ServerLevel;
@@ -23,6 +25,7 @@ import net.minecraft.world.*;
 import net.minecraft.world.entity.item.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.phys.*;
@@ -161,6 +164,16 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
         extrasInventory.dumpItems(level, worldPosition);
     }
 
+    public static InteractionResultHolder<ItemStack> tryInsert(Level level, ItemStack stack, LodestoneBlockEntityInventory inventory, TransactionContext ctx) {
+
+        ItemStack container = stack.getRecipeRemainder();
+        if (!level.isClientSide) {
+            stack.shrink(1);
+        }
+
+        return InteractionResultHolder.success(container);
+    }
+
     @Override
     public InteractionResult onUse(Player player, InteractionHand hand) {
         if (level.isClientSide) {
@@ -170,23 +183,31 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
             ItemStack heldStack = player.getMainHandItem();
             recalibrateAccelerators();
             if (!(heldStack.getItem() instanceof SpiritShardItem)) {
-                try (Transaction t = TransferUtil.getTransaction()){
-                    long inserted = inventory.insert(ItemVariant.of(heldStack), 64, t);
-                    heldStack.shrink((int)inserted);
-                    setChanged();
-                    t.commit();
 
-                    if (inserted > 0) {
+                try (Transaction tx = TransferUtil.getTransaction()) {
+                    PlayerInventoryStorage.of(player).offerOrDrop(ItemVariant.of(inventory.getStackInSlot(0)), FabricUtil.extractSlot(inventory, 0, 1), tx);
+                    tx.commit();
+                }
+
+
+
+                try (Transaction t = TransferUtil.getTransaction()) {
+                    InteractionResultHolder<ItemStack> res = tryInsert(level, heldStack, inventory, t);
+                    t.commit();
+                    ItemStack leftover = res.getObject();
+                    if (!leftover.isEmpty()) {
                         return InteractionResult.SUCCESS;
                     }
                 }
             }
-            try (Transaction t = TransferUtil.getTransaction()){
-                long inserted = spiritInventory.insert(ItemVariant.of(heldStack), 64, t);
-                heldStack.shrink((int)inserted);
-                setChanged();
+
+            try (Transaction t = TransferUtil.getTransaction()) {
+                InteractionResultHolder<ItemStack> res = tryInsert(level, heldStack, spiritInventory, t);
                 t.commit();
+
             }
+
+
             if (heldStack.isEmpty()) {
                 return InteractionResult.SUCCESS;
             } else {
