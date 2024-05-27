@@ -1,0 +1,37 @@
+{
+  "type": "porting_lib:conditional",
+  "recipes": [
+    {
+      "fabric:load_conditions": [
+        {
+          "condition": "fabric:tags_populated",
+          "values": [
+            "c:nuggets/silver"
+          ]
+        }
+      ],
+      "recipe": {
+        "type": "malum:spirit_focusing",
+        "durabilityCost": 2,
+        "input": {
+          "item": "malum:silver_impetus"
+        },
+        "output": {
+          "count": 3,
+          "item": "malum:silver_node"
+        },
+        "spirits": [
+          {
+            "type": "earthen",
+            "count": 2
+          },
+          {
+            "type": "infernal",
+            "count": 4
+          }
+        ],
+        "time": 900
+      }
+    }
+  ]
+}

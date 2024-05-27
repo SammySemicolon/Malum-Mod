@@ -1,0 +1,14 @@
+{
+  "type": "malum:runeworking",
+  "output": {
+    "item": "malum:rune_of_warding"
+  },
+  "primaryInput": {
+    "count": 1,
+    "item": "malum:runewood_tablet"
+  },
+  "secondaryInput": {
+    "count": 32,
+    "item": "malum:earthen_spirit"
+  }
+}

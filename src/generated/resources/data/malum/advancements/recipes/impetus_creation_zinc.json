@@ -1,0 +1,14 @@
+{
+  "advancements": [
+    {
+      "fabric:load_conditions": [
+        {
+          "condition": "fabric:tags_populated",
+          "values": [
+            "c:ingots/zinc"
+          ]
+        }
+      ]
+    }
+  ]
+}

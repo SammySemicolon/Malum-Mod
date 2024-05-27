@@ -1,0 +1,10 @@
+{
+  "type": "malum:spirit_transmutation",
+  "group": "soulwood",
+  "input": {
+    "item": "malum:revealed_runewood_log"
+  },
+  "output": {
+    "item": "malum:revealed_soulwood_log"
+  }
+}

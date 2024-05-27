@@ -1,0 +1,10 @@
+{
+  "type": "malum:spirit_transmutation",
+  "group": "soulwood",
+  "input": {
+    "item": "malum:runewood_leaves"
+  },
+  "output": {
+    "item": "malum:soulwood_leaves"
+  }
+}

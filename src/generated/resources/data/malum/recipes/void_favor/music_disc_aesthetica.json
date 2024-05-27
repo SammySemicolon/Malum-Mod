@@ -1,0 +1,9 @@
+{
+  "type": "malum:favor_of_the_void",
+  "input": {
+    "tag": "minecraft:music_discs"
+  },
+  "output": {
+    "item": "malum:music_disc_aesthetica"
+  }
+}
