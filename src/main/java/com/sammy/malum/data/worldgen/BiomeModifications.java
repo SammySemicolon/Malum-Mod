@@ -21,6 +21,8 @@ import java.util.function.Supplier;
 
 @SuppressWarnings("unchecked")
 public class BiomeModifications {
+    public static void bootstrap(BootstapContext<Biome> biomeBootstapContext) {
+    }
     /*
     public static void bootstrap(BootstapContext<BiomeModification> context) {
         register(context, "soulstone_ore", () ->

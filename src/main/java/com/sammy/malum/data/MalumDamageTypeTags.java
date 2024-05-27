@@ -23,6 +23,6 @@ public class MalumDamageTypeTags extends FabricTagProvider<DamageType> {
 
     @Override
     protected void addTags(Provider pProvider) {
-        tag(LodestoneDamageTypeTags.IS_MAGIC).add(DamageTypeRegistry.VOODOO);
+        getOrCreateTagBuilder(LodestoneDamageTypeTags.IS_MAGIC).add(DamageTypeRegistry.VOODOO);
     }
 }

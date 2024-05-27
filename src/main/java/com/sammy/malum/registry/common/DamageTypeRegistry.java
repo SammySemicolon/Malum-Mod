@@ -2,7 +2,9 @@ package com.sammy.malum.registry.common;
 
 import com.sammy.malum.MalumMod;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.damagesource.DamageScaling;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.Entity;
@@ -28,5 +30,10 @@ public class DamageTypeRegistry {
 
     public static DamageSource create(Level world, ResourceKey<DamageType> key) {
         return create(world, key, null, null);
+    }
+
+    public static void bootstrap(BootstapContext<DamageType> context) {
+        context.register(VOODOO, new DamageType(VOODOO_IDENTIFIER, DamageScaling.WHEN_CAUSED_BY_LIVING_NON_PLAYER, 0));
+        context.register(SCYTHE_SWEEP, new DamageType(SCYTHE_SWEEP_IDENTIFIER, DamageScaling.WHEN_CAUSED_BY_LIVING_NON_PLAYER, 0));
     }
 }

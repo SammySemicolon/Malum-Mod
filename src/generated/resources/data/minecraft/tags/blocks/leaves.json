@@ -2,8 +2,8 @@
   "replace": false,
   "values": [
     "malum:runewood_leaves",
-    "malum:budding_soulwood_leaves",
     "malum:azure_runewood_leaves",
+    "malum:budding_soulwood_leaves",
     "malum:soulwood_leaves"
   ]
 }
