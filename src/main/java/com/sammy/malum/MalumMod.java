@@ -167,23 +167,10 @@ public class MalumMod implements ModInitializer {
         LodestoneInteractionEvent.ON_ITEM_USE_START.register(CurioVoraciousRing::accelerateEating);
         LodestoneItemEvent.EXPIRE.register(SpiritHarvestHandler::shatterItem);
 
-
-
         ResourceManagerHelper.get(PackType.SERVER_DATA).registerReloadListener(new SpiritDataReloadListenerFabricImpl());
         ResourceManagerHelper.get(PackType.SERVER_DATA).registerReloadListener(new ReapingDataReloadListenerFabricImpl());
         ResourceManagerHelper.get(PackType.SERVER_DATA).registerReloadListener(new MalignantConversionReloadListenerFabricImpl());
         ResourceManagerHelper.get(PackType.SERVER_DATA).registerReloadListener(new RitualRecipeReloadListenerFabricImpl());
-
-        DynamicRegistrySetupCallback.EVENT.register(registryView -> {
-            registryView.getOptional(Registries.CONFIGURED_FEATURE).ifPresent(configuredFeatures -> {
-                //MalumFeatureRegistry.init(registryView, configuredFeatures);
-            });
-        });
-
-        BiomeModification modifications = BiomeModifications.create(MalumMod.malumPath("worldgen"));
-        modifications.add(ModificationPhase.ADDITIONS, BiomeSelectors.tag(BiomeTags.IS_FOREST), (biomeSelectionContext, biomeModificationContext) -> {
-            biomeModificationContext.getGenerationSettings().addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, PlacedFeatureRegistry.RARE_RUNEWOOD_TREE);
-        });
 
         CreativeTabRegistry.populateItemGroups();
     }

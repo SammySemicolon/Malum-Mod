@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "#c:is_plains",
+    "#c:is_mountain",
+    "#minecraft:is_hill"
+  ]
+}

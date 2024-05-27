@@ -3,7 +3,7 @@
   "values": [
     "malum:blighted_soil",
     "malum:block_of_void_salts",
-    "malum:mass_of_blighted_gunk",
-    "malum:blighted_earth"
+    "malum:blighted_earth",
+    "malum:mass_of_blighted_gunk"
   ]
 }

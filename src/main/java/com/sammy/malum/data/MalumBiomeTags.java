@@ -25,6 +25,13 @@ public class MalumBiomeTags extends FabricTagProvider<Biome> {
     @Override
     protected void addTags(HolderLookup.Provider pProvider) {
         //super.addTags(pProvider);
+        getOrCreateTagBuilder(BiomeTags.IS_OVERWORLD);
+        getOrCreateTagBuilder(BiomeTags.IS_NETHER);
+        getOrCreateTagBuilder(Tags.Biomes.IS_PLAINS);
+        getOrCreateTagBuilder(BiomeTags.IS_FOREST);
+        getOrCreateTagBuilder(Tags.Biomes.IS_MOUNTAIN);
+        getOrCreateTagBuilder(BiomeTags.IS_HILL);
+
         getOrCreateTagBuilder(BiomeTagRegistry.HAS_SOULSTONE).addTag(BiomeTags.IS_OVERWORLD);
         getOrCreateTagBuilder(BiomeTagRegistry.HAS_BRILLIANT).addTag(BiomeTags.IS_OVERWORLD);
         getOrCreateTagBuilder(BiomeTagRegistry.HAS_BLAZING_QUARTZ).addTag(BiomeTags.IS_NETHER);
