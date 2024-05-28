@@ -60,7 +60,7 @@ public class RitualPlinthBlockEntity extends LodestoneBlockEntity {
     public RitualPlinthBlockEntity(BlockPos pos, BlockState state) {
         super(BlockEntityRegistry.RITUAL_PLINTH.get(), pos, state);
 
-        inventory = new MalumBlockEntityInventory(1, 64, t -> (ritualType != null && ritualType.isItemStackValid(this, t)) || (ritualType == null && !(t.getItem() instanceof SpiritShardItem))) {
+        inventory = new MalumBlockEntityInventory(this, 1, 64, t -> (ritualType != null && ritualType.isItemStackValid(this, t)) || (ritualType == null && !(t.getItem() instanceof SpiritShardItem))) {
             @Override
             public void onContentsChanged(int slot) {
                 super.onContentsChanged(slot);
@@ -68,7 +68,7 @@ public class RitualPlinthBlockEntity extends LodestoneBlockEntity {
                 BlockHelper.updateAndNotifyState(level, worldPosition);
             }
         };
-        extrasInventory = new MalumBlockEntityInventory(8, 64) {
+        extrasInventory = new MalumBlockEntityInventory(this, 8, 64) {
             @Override
             public void onContentsChanged(int slot) {
                 super.onContentsChanged(slot);
@@ -150,7 +150,7 @@ public class RitualPlinthBlockEntity extends LodestoneBlockEntity {
                 return InteractionResult.SUCCESS;
             }
         }
-        inventory.interact(player.level(), player, hand);
+        //TODO inventory.interact(player.level(), player, hand);
         return InteractionResult.SUCCESS;
     }
 

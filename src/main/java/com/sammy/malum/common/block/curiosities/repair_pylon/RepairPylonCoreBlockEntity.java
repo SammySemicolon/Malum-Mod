@@ -67,7 +67,7 @@ public class RepairPylonCoreBlockEntity extends MultiBlockCoreEntity {
 
     public RepairPylonCoreBlockEntity(BlockEntityType<? extends RepairPylonCoreBlockEntity> type, MultiBlockStructure structure, BlockPos pos, BlockState state) {
         super(type, structure, pos, state);
-        inventory = new MalumBlockEntityInventory(1, 64, t -> !(t.getItem() instanceof SpiritShardItem)) {
+        inventory = new MalumBlockEntityInventory(this, 1, 64, t -> !(t.getItem() instanceof SpiritShardItem)) {
             @Override
             public void onContentsChanged(int slot) {
                 super.onContentsChanged(slot);
@@ -75,7 +75,7 @@ public class RepairPylonCoreBlockEntity extends MultiBlockCoreEntity {
                 BlockHelper.updateAndNotifyState(level, worldPosition);
             }
         };
-        spiritInventory = new MalumBlockEntityInventory(4, 64) {
+        spiritInventory = new MalumBlockEntityInventory(this, 4, 64) {
             @Override
             public void onContentsChanged(int slot) {
                 super.onContentsChanged(slot);

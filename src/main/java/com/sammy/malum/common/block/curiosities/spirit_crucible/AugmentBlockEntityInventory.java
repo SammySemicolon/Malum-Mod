@@ -6,15 +6,16 @@ import com.sammy.malum.common.item.augment.core.*;
 import com.sammy.malum.registry.common.*;
 import net.minecraft.sounds.*;
 import net.minecraft.world.item.*;
+import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntity;
 
 import java.util.function.*;
 
 public class AugmentBlockEntityInventory extends MalumBlockEntityInventory {
-    public AugmentBlockEntityInventory(int slotCount, int allowedItemSize) {
-        this(slotCount, allowedItemSize, t -> t.getItem() instanceof AbstractAugmentItem augmentItem && !(augmentItem instanceof AbstractCoreAugmentItem));
+    public AugmentBlockEntityInventory(LodestoneBlockEntity be,int slotCount, int allowedItemSize) {
+        this(be, slotCount, allowedItemSize, t -> t.getItem() instanceof AbstractAugmentItem augmentItem && !(augmentItem instanceof AbstractCoreAugmentItem));
     }
-    public AugmentBlockEntityInventory(int slotCount, int allowedItemSize, Predicate<ItemStack> inputPredicate) {
-        super(slotCount, allowedItemSize, inputPredicate);
+    public AugmentBlockEntityInventory(LodestoneBlockEntity be, int slotCount, int allowedItemSize, Predicate<ItemStack> inputPredicate) {
+        super(be, slotCount, allowedItemSize, inputPredicate);
     }
 
     @Override

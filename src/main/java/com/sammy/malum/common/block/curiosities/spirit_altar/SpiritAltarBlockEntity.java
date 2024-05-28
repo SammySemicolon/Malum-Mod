@@ -22,8 +22,10 @@ import net.minecraft.world.*;
 import net.minecraft.world.entity.item.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.*;
 import net.minecraft.world.level.block.state.*;
+import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraft.world.phys.*;
 import org.jetbrains.annotations.*;
 import team.lodestar.lodestone.helpers.*;
@@ -62,7 +64,7 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
     public SpiritAltarBlockEntity(BlockPos pos, BlockState state) {
         super(BlockEntityRegistry.SPIRIT_ALTAR.get(), pos, state);
 
-        inventory = new MalumBlockEntityInventory(1, 64, t -> !(t.getItem() instanceof SpiritShardItem)) {
+        inventory = new MalumBlockEntityInventory(this, 1, 64, t -> !(t.getItem() instanceof SpiritShardItem)) {
             @Override
             public void onContentsChanged(int slot) {
                 super.onContentsChanged(slot);
@@ -70,20 +72,21 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
                 BlockHelper.updateAndNotifyState(level, worldPosition);
             }
         };
-        extrasInventory = new MalumBlockEntityInventory(8, 64) {
+        extrasInventory = new MalumBlockEntityInventory(this, 8, 64) {
             @Override
             public void onContentsChanged(int slot) {
                 super.onContentsChanged(slot);
                 BlockHelper.updateAndNotifyState(level, worldPosition);
             }
         };
-        spiritInventory = new MalumBlockEntityInventory(SpiritTypeRegistry.SPIRITS.size(), 64) {
+        spiritInventory = new MalumBlockEntityInventory(this, SpiritTypeRegistry.SPIRITS.size(), 64) {
             @Override
             public void onContentsChanged(int slot) {
                 super.onContentsChanged(slot);
                 needsSync = true;
                 spiritAmount = Math.max(1, Mth.lerp(0.15f, spiritAmount, nonEmptyItemAmount + 1));
                 BlockHelper.updateAndNotifyState(level, worldPosition);
+                SpiritAltarBlockEntity.this.setChanged();
             }
 
             @Override
@@ -162,30 +165,46 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
 
     @Override
     public InteractionResult onUse(Player player, InteractionHand hand) {
+        System.out.println(spiritInventory.getStackInSlot(0));
         if (level.isClientSide) {
             return InteractionResult.CONSUME;
         }
         if (hand.equals(InteractionHand.MAIN_HAND)) {
             ItemStack heldStack = player.getMainHandItem();
             recalibrateAccelerators();
-            if (!(heldStack.getItem() instanceof SpiritShardItem)) {
-                try (Transaction t = TransferUtil.getTransaction()){
-                    long inserted = inventory.insert(ItemVariant.of(heldStack), 64, t);
-                    heldStack.shrink((int)inserted);
-                    setChanged();
-                    t.commit();
+            if (!heldStack.isEmpty()) {
+                if (!(heldStack.getItem() instanceof SpiritShardItem)) {
+                    try (Transaction t = TransferUtil.getTransaction()){
 
-                    if (inserted > 0) {
-                        return InteractionResult.SUCCESS;
+                        long inserted = inventory.insert(ItemVariant.of(heldStack), heldStack.getCount(), t);
+                        heldStack.shrink((int)inserted);
+                        t.commit();
+
+                        if (inserted > 0) {
+                            inventory.setChanged();
+                            notifyUpdate();
+                            //return InteractionResult.SUCCESS;
+                        }
+                    }
+                } else {
+                    try (Transaction t = TransferUtil.getTransaction()){
+                        long inserted = spiritInventory.insert(ItemVariant.of(heldStack), heldStack.getCount(), t);
+                        heldStack.shrink((int)inserted);
+                        t.commit();
+
+                        if (inserted > 0) {
+                            spiritInventory.setChanged();
+                            notifyUpdate();
+                            //return InteractionResult.SUCCESS;
+                        }
                     }
                 }
+
             }
-            try (Transaction t = TransferUtil.getTransaction()){
-                long inserted = spiritInventory.insert(ItemVariant.of(heldStack), 64, t);
-                heldStack.shrink((int)inserted);
-                setChanged();
-                t.commit();
-            }
+            notifyUpdate();
+            spiritInventory.setChanged();
+
+
             if (heldStack.isEmpty()) {
                 return InteractionResult.SUCCESS;
             } else {

@@ -60,7 +60,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
 
     public SpiritCrucibleCoreBlockEntity(BlockEntityType<? extends SpiritCrucibleCoreBlockEntity> type, MultiBlockStructure structure, BlockPos pos, BlockState state) {
         super(type, structure, pos, state);
-        inventory = new MalumBlockEntityInventory(1, 1, t -> !(t.getItem() instanceof SpiritShardItem)) {
+        inventory = new MalumBlockEntityInventory(this, 1, 1, t -> !(t.getItem() instanceof SpiritShardItem)) {
             @Override
             public void onContentsChanged(int slot) {
                 super.onContentsChanged(slot);
@@ -68,7 +68,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
                 BlockHelper.updateAndNotifyState(level, worldPosition);
             }
         };
-        spiritInventory = new MalumBlockEntityInventory(4, 64) {
+        spiritInventory = new MalumBlockEntityInventory(this, 4, 64) {
             @Override
             public void onContentsChanged(int slot) {
                 super.onContentsChanged(slot);
@@ -92,7 +92,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
                 return true;
             }
         };
-        augmentInventory = new AugmentBlockEntityInventory(4, 1) {
+        augmentInventory = new AugmentBlockEntityInventory(this, 4, 1) {
             @Override
             public void onContentsChanged(int slot) {
                 super.onContentsChanged(slot);
@@ -100,7 +100,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
                 BlockHelper.updateAndNotifyState(level, worldPosition);
             }
         };
-        coreAugmentInventory = new AugmentBlockEntityInventory(1, 1, t -> t.getItem() instanceof AbstractCoreAugmentItem) {
+        coreAugmentInventory = new AugmentBlockEntityInventory(this, 1, 1, t -> t.getItem() instanceof AbstractCoreAugmentItem) {
             @Override
             public void onContentsChanged(int slot) {
                 super.onContentsChanged(slot);
