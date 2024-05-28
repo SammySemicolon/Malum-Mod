@@ -36,6 +36,8 @@ import team.lodestar.lodestone.systems.recipe.*;
 
 import java.util.*;
 
+import static team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntityInventory.convertToItemStacks;
+
 public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
 
     private static final Vec3 ALTAR_ITEM_OFFSET = new Vec3(0.5f, 1.25f, 0.5f);
@@ -68,9 +70,10 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
         inventory = new MalumBlockEntityInventory( 1, 64, t -> !(t.getItem() instanceof SpiritShardItem)) {
             @Override
             public void onContentsChanged(int slot) {
-                super.onContentsChanged(slot);
+                SpiritAltarBlockEntity.this.setChanged();
                 needsSync = true;
                 BlockHelper.updateAndNotifyState(level, worldPosition);
+                super.onContentsChanged(slot);
             }
         };
         extrasInventory = new MalumBlockEntityInventory(8, 64) {
@@ -83,12 +86,14 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
         spiritInventory = new MalumBlockEntityInventory(SpiritTypeRegistry.SPIRITS.size(), 64) {
             @Override
             public void onContentsChanged(int slot) {
+                super.onContentsChanged(slot);
+                notifyUpdate();
                 needsSync = true;
+                System.out.println("Before: " + nonEmptyItemAmount);
                 spiritAmount = Math.max(1, Mth.lerp(0.15f, spiritAmount, nonEmptyItemAmount + 1));
-                System.out.println("ApAm: " + spiritAmount);
+                System.out.println("After: " + nonEmptyItemAmount);
                 BlockHelper.updateAndNotifyState(level, worldPosition);
                 SpiritAltarBlockEntity.this.setChanged();
-                super.onContentsChanged(slot);
             }
 
             @Override
@@ -129,7 +134,7 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
             }
         }
 
-        inventory.serializeNBT();
+        compound.put("Inventory", inventory.serializeNBT());
         compound.put("spiritInventory", spiritInventory.serializeNBT());
         compound.put("extrasInventory", extrasInventory.serializeNBT());
     }
@@ -151,7 +156,7 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
                 accelerators.add(accelerator);
             }
         }
-        inventory.deserializeNBT(compound);
+        inventory.deserializeNBT(compound.getCompound("Inventory"));
         spiritInventory.deserializeNBT(compound.getCompound("spiritInventory"));
         extrasInventory.deserializeNBT(compound.getCompound("extrasInventory"));
         super.load(compound);
@@ -167,7 +172,6 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
 
     @Override
     public InteractionResult onUse(Player player, InteractionHand hand) {
-        System.out.println(spiritInventory.getStackInSlot(0));
         if (level.isClientSide) {
             return InteractionResult.CONSUME;
         }
@@ -203,8 +207,6 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
                 }
 
             }
-            notifyUpdate();
-            spiritInventory.setChanged();
 
 
             if (heldStack.isEmpty()) {
@@ -219,7 +221,7 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
     @Override
     public void init() {
         ItemStack stack = inventory.getStackInSlot(0);
-        var list = convertToItemStacks(spiritInventory.nonEmptyItemStacks);
+        var list = spiritInventory.nonEmptyItemStacks;
         possibleRecipes = new ArrayList<>(DataHelper.getAll(SpiritInfusionRecipe.getRecipes(level), r -> r.doesInputMatch(stack) && r.doSpiritsMatch(list)));
         recipe = SpiritInfusionRecipe.getRecipe(level, stack, list);
         if (level.isClientSide && !possibleRecipes.isEmpty() && !isCrafting) {
@@ -381,23 +383,26 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
     public Vec3 getSpiritItemOffset(int slot, float partialTicks) {
         float distance = 1 - getSpinUp(Easing.SINE_OUT) * 0.25f + (float) Math.sin((spiritSpin % 6.2831f + partialTicks) / 20f) * 0.025f;
         float height = 0.75f + getSpinUp(Easing.QUARTIC_OUT) * getSpinUp(Easing.BACK_OUT) * 0.5f;
-        return DataHelper.rotatingRadialOffset(new Vec3(0.5f, height, 0.5f), distance, slot, spiritAmount, (long) (spiritSpin + partialTicks), 360);
+        System.out.println("Slot: " + slot + " SpiritAmount: " + spiritAmount + " SpiritSpin: " + spiritSpin);
+        return rotatingRadialOffset(new Vec3(0.5f, height, 0.5f), distance, slot, spiritAmount, (long) (spiritSpin + partialTicks), 360);
     }
 
-    public static ArrayList<ItemStack> convertToItemStacks(ArrayList<SingleSlotStorage<ItemVariant>> nonEmptyItemStacks) {
-        ArrayList<ItemStack> itemStacks = new ArrayList<>();
-
-        for (SingleSlotStorage<ItemVariant> slot : nonEmptyItemStacks) {
-            // Get the ItemVariant from the slot
-            ItemVariant itemVariant = slot.getResource();
-
-            // Convert ItemVariant to ItemStack
-            ItemStack itemStack = itemVariant.toStack((int) slot.getAmount());
-
-            // Add the ItemStack to the new list
-            itemStacks.add(itemStack);
-        }
-
-        return itemStacks;
+    public static Vec3 rotatingRadialOffset(Vec3 pos, float distance, float current, float total, long gameTime, float time) {
+        return rotatingRadialOffset(pos, distance, distance, current, total, gameTime, time);
     }
+
+    public static Vec3 rotatingRadialOffset(Vec3 pos, float distanceX, float distanceZ, float current, float total, long gameTime, float time) {
+        double angle = current / total * (Math.PI * 2);
+        System.out.println("Angle: " + angle);
+        angle += ((gameTime % time) / time) * (Math.PI * 2);
+        double dx2 = (distanceX * Math.cos(angle));
+        double dz2 = (distanceZ * Math.sin(angle));
+
+        Vec3 vector2f = new Vec3(dx2, 0, dz2);
+        double x = vector2f.x * distanceX;
+        double z = vector2f.z * distanceZ;
+        return pos.add(x, 0, z);
+    }
+
+
 }

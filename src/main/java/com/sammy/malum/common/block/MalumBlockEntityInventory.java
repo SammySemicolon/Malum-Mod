@@ -11,15 +11,15 @@ import java.util.function.*;
 public class MalumBlockEntityInventory extends LodestoneBlockEntityInventory {
 
     public MalumBlockEntityInventory(int slotCount, int allowedItemSize, Predicate<ItemStack> inputPredicate, Predicate<ItemStack> outputPredicate) {
-        super(slotCount, allowedItemSize, inputPredicate, outputPredicate);
+        super(null, slotCount, allowedItemSize, inputPredicate, outputPredicate);
     }
 
     public MalumBlockEntityInventory(int slotCount, int allowedItemSize, Predicate<ItemStack> inputPredicate) {
-        super(slotCount, allowedItemSize, inputPredicate);
+        super(null,slotCount, allowedItemSize, inputPredicate);
     }
 
     public MalumBlockEntityInventory(int slotCount, int allowedItemSize) {
-        super(slotCount, allowedItemSize);
+        super(null,slotCount, allowedItemSize);
     }
 
     /*TODO

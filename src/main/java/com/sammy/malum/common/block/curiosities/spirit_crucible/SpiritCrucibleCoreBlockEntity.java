@@ -37,6 +37,8 @@ import team.lodestar.lodestone.systems.multiblock.*;
 import java.util.*;
 import java.util.function.*;
 
+import static team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntityInventory.convertToItemStacks;
+
 public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implements ICatalyzerAccelerationTarget {
 
     private static final Vec3 CRUCIBLE_ITEM_OFFSET = new Vec3(0.5f, 1.6f, 0.5f);
@@ -244,7 +246,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
         if (level.isClientSide && recipe == null) {
             CrucibleSoundInstance.playSound(this);
         }
-        recipe = SpiritFocusingRecipe.getRecipe(level, inventory.getStackInSlot(0), SpiritAltarBlockEntity.convertToItemStacks(spiritInventory.nonEmptyItemStacks));
+        recipe = SpiritFocusingRecipe.getRecipe(level, inventory.getStackInSlot(0), spiritInventory.nonEmptyItemStacks);
     }
 
     @Override
@@ -346,7 +348,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
             }
             bonusYieldChance-=1;
         }
-        recipe = SpiritFocusingRecipe.getRecipe(level, stack, SpiritAltarBlockEntity.convertToItemStacks(spiritInventory.nonEmptyItemStacks));
+        recipe = SpiritFocusingRecipe.getRecipe(level, stack, spiritInventory.nonEmptyItemStacks);
         BlockHelper.updateAndNotifyState(level, worldPosition);
     }
 
@@ -357,7 +359,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
 
     @Override
     public List<ItemStack> getAugments() {
-        return SpiritAltarBlockEntity.convertToItemStacks(augmentInventory.nonEmptyItemStacks);
+        return augmentInventory.nonEmptyItemStacks;
     }
 
     @Override

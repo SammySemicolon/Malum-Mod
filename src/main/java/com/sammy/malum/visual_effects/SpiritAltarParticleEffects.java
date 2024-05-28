@@ -64,6 +64,7 @@ public class SpiritAltarParticleEffects {
 
         int spiritsRendered = 0;
         for (int i = 0; i < spiritInventory.slotCount; i++) {
+            /*TODO just uncomment, for testing
             ItemStack item = spiritInventory.getStackInSlot(i);
             if (item.getItem() instanceof SpiritShardItem spiritSplinterItem) {
                 Vec3 offset = altar.getSpiritItemOffset(spiritsRendered++, 0);
@@ -87,6 +88,8 @@ public class SpiritAltarParticleEffects {
                     }
                 }
             }
+
+             */
         }
     }
 
