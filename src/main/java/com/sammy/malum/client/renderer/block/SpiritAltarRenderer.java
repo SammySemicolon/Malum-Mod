@@ -29,18 +29,18 @@ public class SpiritAltarRenderer implements BlockEntityRenderer<SpiritAltarBlock
         ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
         LodestoneBlockEntityInventory inventory = blockEntityIn.spiritInventory;
         int spiritsRendered = 0;
-        if (!inventory.isEmpty()) {
+        if (!inventory.getItem(0).isEmpty()) {
             for (int i = 0; i < inventory.slotCount; i++) {
                 ItemStack item = inventory.getStackInSlot(i);
                 if (item.getItem() instanceof SpiritShardItem shardItem) {
                     poseStack.pushPose();
                     Vector3f offset = blockEntityIn.getSpiritItemOffset(spiritsRendered++, partialTicks).toVector3f();
+                    System.out.println(spiritsRendered + " : " + i + " : " + offset);
                     poseStack.translate(offset.x(), offset.y(), offset.z());
                     FloatingItemEntityRenderer.renderSpiritGlimmer(poseStack, shardItem.type, partialTicks);
                     poseStack.mulPose(Axis.YP.rotationDegrees(((level.getGameTime() % 360) + partialTicks) * 3));
                     poseStack.scale(0.5f, 0.5f, 0.5f);
                     itemRenderer.renderStatic(item, ItemDisplayContext.FIXED, combinedLightIn, NO_OVERLAY, poseStack, bufferIn, level, 0);
-                    System.out.println(item.getItem());
                     poseStack.popPose();
                 }
             }

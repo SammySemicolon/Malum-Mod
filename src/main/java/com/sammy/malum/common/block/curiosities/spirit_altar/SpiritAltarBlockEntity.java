@@ -82,11 +82,12 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
         spiritInventory = new MalumBlockEntityInventory(this, SpiritTypeRegistry.SPIRITS.size(), 64) {
             @Override
             public void onContentsChanged(int slot) {
-                super.onContentsChanged(slot);
                 needsSync = true;
                 spiritAmount = Math.max(1, Mth.lerp(0.15f, spiritAmount, nonEmptyItemAmount + 1));
+                System.out.println("ApAm: " + spiritAmount);
                 BlockHelper.updateAndNotifyState(level, worldPosition);
                 SpiritAltarBlockEntity.this.setChanged();
+                super.onContentsChanged(slot);
             }
 
             @Override
@@ -183,7 +184,7 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
                         if (inserted > 0) {
                             inventory.setChanged();
                             notifyUpdate();
-                            //return InteractionResult.SUCCESS;
+                            return InteractionResult.SUCCESS;
                         }
                     }
                 } else {
@@ -195,7 +196,7 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
                         if (inserted > 0) {
                             spiritInventory.setChanged();
                             notifyUpdate();
-                            //return InteractionResult.SUCCESS;
+                            return InteractionResult.SUCCESS;
                         }
                     }
                 }
@@ -378,6 +379,25 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
     public Vec3 getSpiritItemOffset(int slot, float partialTicks) {
         float distance = 1 - getSpinUp(Easing.SINE_OUT) * 0.25f + (float) Math.sin((spiritSpin % 6.2831f + partialTicks) / 20f) * 0.025f;
         float height = 0.75f + getSpinUp(Easing.QUARTIC_OUT) * getSpinUp(Easing.BACK_OUT) * 0.5f;
-        return DataHelper.rotatingRadialOffset(new Vec3(0.5f, height, 0.5f), distance, slot, spiritAmount, (long) (spiritSpin + partialTicks), 360);
+        var v = rotatingRadialOffset(new Vec3(0.5f, height, 0.5f), distance, slot, spiritAmount, (long) (spiritSpin + partialTicks), 360);
+        //System.out.println("V: " + v + " Slot : " + slot + " Amouont : " + spiritAmount + " Spin: " + spiritSpin + " PT : " + partialTicks);
+        return v;
+    }
+
+    public static Vec3 rotatingRadialOffset(Vec3 pos, float distance, float current, float total, long gameTime, float time) {
+        return rotatingRadialOffset(pos, distance, distance, current, total, gameTime, time);
+    }
+
+    public static Vec3 rotatingRadialOffset(Vec3 pos, float distanceX, float distanceZ, float current, float total, long gameTime, float time) {
+        double angle = current / total * (Math.PI * 2);
+        //System.out.println("Current: " + current + " Angle: " +angle + " : Tot; " +total);
+        angle += ((gameTime % time) / time) * (Math.PI * 2);
+        double dx2 = (distanceX * Math.cos(angle));
+        double dz2 = (distanceZ * Math.sin(angle));
+
+        Vec3 vector2f = new Vec3(dx2, 0, dz2);
+        double x = vector2f.x * distanceX;
+        double z = vector2f.z * distanceZ;
+        return pos.add(x, 0, z);
     }
 }
