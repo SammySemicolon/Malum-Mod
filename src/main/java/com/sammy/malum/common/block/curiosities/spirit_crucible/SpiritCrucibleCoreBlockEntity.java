@@ -1,6 +1,7 @@
 package com.sammy.malum.common.block.curiosities.spirit_crucible;
 
 import com.sammy.malum.common.block.*;
+import com.sammy.malum.common.block.curiosities.spirit_altar.SpiritAltarBlockEntity;
 import com.sammy.malum.common.item.augment.*;
 import com.sammy.malum.common.item.augment.core.*;
 import com.sammy.malum.common.item.impetus.*;
@@ -60,7 +61,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
 
     public SpiritCrucibleCoreBlockEntity(BlockEntityType<? extends SpiritCrucibleCoreBlockEntity> type, MultiBlockStructure structure, BlockPos pos, BlockState state) {
         super(type, structure, pos, state);
-        inventory = new MalumBlockEntityInventory(this, 1, 1, t -> !(t.getItem() instanceof SpiritShardItem)) {
+        inventory = new MalumBlockEntityInventory( 1, 1, t -> !(t.getItem() instanceof SpiritShardItem)) {
             @Override
             public void onContentsChanged(int slot) {
                 super.onContentsChanged(slot);
@@ -68,7 +69,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
                 BlockHelper.updateAndNotifyState(level, worldPosition);
             }
         };
-        spiritInventory = new MalumBlockEntityInventory(this, 4, 64) {
+        spiritInventory = new MalumBlockEntityInventory( 4, 64) {
             @Override
             public void onContentsChanged(int slot) {
                 super.onContentsChanged(slot);
@@ -92,7 +93,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
                 return true;
             }
         };
-        augmentInventory = new AugmentBlockEntityInventory(this, 4, 1) {
+        augmentInventory = new AugmentBlockEntityInventory( 4, 1) {
             @Override
             public void onContentsChanged(int slot) {
                 super.onContentsChanged(slot);
@@ -100,7 +101,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
                 BlockHelper.updateAndNotifyState(level, worldPosition);
             }
         };
-        coreAugmentInventory = new AugmentBlockEntityInventory(this, 1, 1, t -> t.getItem() instanceof AbstractCoreAugmentItem) {
+        coreAugmentInventory = new AugmentBlockEntityInventory(1, 1, t -> t.getItem() instanceof AbstractCoreAugmentItem) {
             @Override
             public void onContentsChanged(int slot) {
                 super.onContentsChanged(slot);
@@ -243,7 +244,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
         if (level.isClientSide && recipe == null) {
             CrucibleSoundInstance.playSound(this);
         }
-        recipe = SpiritFocusingRecipe.getRecipe(level, inventory.getStackInSlot(0), spiritInventory.nonEmptyItemStacks);
+        recipe = SpiritFocusingRecipe.getRecipe(level, inventory.getStackInSlot(0), SpiritAltarBlockEntity.convertToItemStacks(spiritInventory.nonEmptyItemStacks));
     }
 
     @Override
@@ -345,7 +346,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
             }
             bonusYieldChance-=1;
         }
-        recipe = SpiritFocusingRecipe.getRecipe(level, stack, spiritInventory.nonEmptyItemStacks);
+        recipe = SpiritFocusingRecipe.getRecipe(level, stack, SpiritAltarBlockEntity.convertToItemStacks(spiritInventory.nonEmptyItemStacks));
         BlockHelper.updateAndNotifyState(level, worldPosition);
     }
 
@@ -356,7 +357,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
 
     @Override
     public List<ItemStack> getAugments() {
-        return augmentInventory.nonEmptyItemStacks;
+        return SpiritAltarBlockEntity.convertToItemStacks(augmentInventory.nonEmptyItemStacks);
     }
 
     @Override

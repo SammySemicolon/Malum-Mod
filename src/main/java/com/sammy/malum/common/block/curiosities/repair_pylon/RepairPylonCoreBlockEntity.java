@@ -1,6 +1,7 @@
 package com.sammy.malum.common.block.curiosities.repair_pylon;
 
 import com.sammy.malum.common.block.*;
+import com.sammy.malum.common.block.curiosities.spirit_altar.SpiritAltarBlockEntity;
 import com.sammy.malum.common.block.storage.*;
 import com.sammy.malum.common.item.spirit.*;
 import com.sammy.malum.common.recipe.*;
@@ -67,7 +68,7 @@ public class RepairPylonCoreBlockEntity extends MultiBlockCoreEntity {
 
     public RepairPylonCoreBlockEntity(BlockEntityType<? extends RepairPylonCoreBlockEntity> type, MultiBlockStructure structure, BlockPos pos, BlockState state) {
         super(type, structure, pos, state);
-        inventory = new MalumBlockEntityInventory(this, 1, 64, t -> !(t.getItem() instanceof SpiritShardItem)) {
+        inventory = new MalumBlockEntityInventory( 1, 64, t -> !(t.getItem() instanceof SpiritShardItem)) {
             @Override
             public void onContentsChanged(int slot) {
                 super.onContentsChanged(slot);
@@ -75,7 +76,7 @@ public class RepairPylonCoreBlockEntity extends MultiBlockCoreEntity {
                 BlockHelper.updateAndNotifyState(level, worldPosition);
             }
         };
-        spiritInventory = new MalumBlockEntityInventory(this, 4, 64) {
+        spiritInventory = new MalumBlockEntityInventory( 4, 64) {
             @Override
             public void onContentsChanged(int slot) {
                 super.onContentsChanged(slot);
@@ -186,7 +187,7 @@ public class RepairPylonCoreBlockEntity extends MultiBlockCoreEntity {
             return;
         }
         boolean wasNull = recipe == null;
-        recipe = SpiritRepairRecipe.getRecipe(level, c -> c.doesRepairMatch(inventory.getStackInSlot(0)) && c.doSpiritsMatch(spiritInventory.nonEmptyItemStacks));
+        recipe = SpiritRepairRecipe.getRecipe(level, c -> c.doesRepairMatch(inventory.getStackInSlot(0)) && c.doSpiritsMatch(SpiritAltarBlockEntity.convertToItemStacks(spiritInventory.nonEmptyItemStacks)));
         if (wasNull) {
             setState(RepairPylonState.SEARCHING);
         }
@@ -247,7 +248,7 @@ public class RepairPylonCoreBlockEntity extends MultiBlockCoreEntity {
         for (IMalumSpecialItemAccessPoint provider : altarProviders) {
             LodestoneBlockEntityInventory inventoryForAltar = provider.getSuppliedInventory();
             ItemStack providedStack = inventoryForAltar.getStackInSlot(0);
-            if (recipe.doesInputMatch(providedStack) && recipe.doesRepairMatch(inventory.getStackInSlot(0)) && recipe.doSpiritsMatch(spiritInventory.nonEmptyItemStacks)) {
+            if (recipe.doesInputMatch(providedStack) && recipe.doesRepairMatch(inventory.getStackInSlot(0)) && recipe.doSpiritsMatch(SpiritAltarBlockEntity.convertToItemStacks(spiritInventory.nonEmptyItemStacks))) {
                 repairablePosition = provider.getAccessPointBlockPos();
                 return true;
             }

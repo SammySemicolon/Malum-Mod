@@ -65,7 +65,7 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
     public SpiritAltarBlockEntity(BlockPos pos, BlockState state) {
         super(BlockEntityRegistry.SPIRIT_ALTAR.get(), pos, state);
 
-        inventory = new MalumBlockEntityInventory(this, 1, 64, t -> !(t.getItem() instanceof SpiritShardItem)) {
+        inventory = new MalumBlockEntityInventory( 1, 64, t -> !(t.getItem() instanceof SpiritShardItem)) {
             @Override
             public void onContentsChanged(int slot) {
                 super.onContentsChanged(slot);
@@ -73,14 +73,14 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
                 BlockHelper.updateAndNotifyState(level, worldPosition);
             }
         };
-        extrasInventory = new MalumBlockEntityInventory(this, 8, 64) {
+        extrasInventory = new MalumBlockEntityInventory(8, 64) {
             @Override
             public void onContentsChanged(int slot) {
                 super.onContentsChanged(slot);
                 BlockHelper.updateAndNotifyState(level, worldPosition);
             }
         };
-        spiritInventory = new MalumBlockEntityInventory(this, SpiritTypeRegistry.SPIRITS.size(), 64) {
+        spiritInventory = new MalumBlockEntityInventory(SpiritTypeRegistry.SPIRITS.size(), 64) {
             @Override
             public void onContentsChanged(int slot) {
                 needsSync = true;
@@ -384,7 +384,7 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
         return DataHelper.rotatingRadialOffset(new Vec3(0.5f, height, 0.5f), distance, slot, spiritAmount, (long) (spiritSpin + partialTicks), 360);
     }
 
-    public ArrayList<ItemStack> convertToItemStacks(ArrayList<SingleSlotStorage<ItemVariant>> nonEmptyItemStacks) {
+    public static ArrayList<ItemStack> convertToItemStacks(ArrayList<SingleSlotStorage<ItemVariant>> nonEmptyItemStacks) {
         ArrayList<ItemStack> itemStacks = new ArrayList<>();
 
         for (SingleSlotStorage<ItemVariant> slot : nonEmptyItemStacks) {

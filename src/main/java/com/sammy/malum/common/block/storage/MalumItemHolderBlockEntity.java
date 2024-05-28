@@ -15,7 +15,7 @@ public abstract class MalumItemHolderBlockEntity extends ItemHolderBlockEntity i
 
     public MalumItemHolderBlockEntity(BlockEntityType<? extends MalumItemHolderBlockEntity> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
-        inventory = new MalumBlockEntityInventory(this, 1, 64) {
+        inventory = new MalumBlockEntityInventory( 1, 64) {
             @Override
             public void onContentsChanged(int slot) {
                 super.onContentsChanged(slot);
