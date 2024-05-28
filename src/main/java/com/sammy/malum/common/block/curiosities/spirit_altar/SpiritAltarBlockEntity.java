@@ -12,6 +12,7 @@ import com.sammy.malum.visual_effects.networked.altar.*;
 import com.sammy.malum.visual_effects.networked.data.*;
 import io.github.fabricators_of_create.porting_lib.transfer.TransferUtil;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
+import net.fabricmc.fabric.api.transfer.v1.storage.base.SingleSlotStorage;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.core.*;
 import net.minecraft.nbt.*;
@@ -218,8 +219,9 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
     @Override
     public void init() {
         ItemStack stack = inventory.getStackInSlot(0);
-        possibleRecipes = new ArrayList<>(DataHelper.getAll(SpiritInfusionRecipe.getRecipes(level), r -> r.doesInputMatch(stack) && r.doSpiritsMatch(spiritInventory.nonEmptyItemStacks)));
-        recipe = SpiritInfusionRecipe.getRecipe(level, stack, spiritInventory.nonEmptyItemStacks);
+        var list = convertToItemStacks(spiritInventory.nonEmptyItemStacks);
+        possibleRecipes = new ArrayList<>(DataHelper.getAll(SpiritInfusionRecipe.getRecipes(level), r -> r.doesInputMatch(stack) && r.doSpiritsMatch(list)));
+        recipe = SpiritInfusionRecipe.getRecipe(level, stack, list);
         if (level.isClientSide && !possibleRecipes.isEmpty() && !isCrafting) {
             AltarSoundInstance.playSound(this);
         }
@@ -267,7 +269,7 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
         if (recipe.extraItems.isEmpty()) {
             return true;
         }
-        //TODO? extrasInventory.updateData();
+        extrasInventory.updateData();
         extrasInventory.setChanged();
         int extras = extrasInventory.nonEmptyItemAmount;
         if (extras < recipe.extraItems.size()) {
@@ -297,7 +299,7 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
                         long inserted = extrasInventory.insert(ItemVariant.of(providedStack.split(requestedItem.count)), 64, t);
                         t.commit();
                     }
-                    //TODO? inventoryForAltar.updateData();
+                    inventoryForAltar.updateData();
                     extrasInventory.setChanged();
                     BlockHelper.updateAndNotifyState(level, provider.getAccessPointBlockPos());
                     break;
@@ -316,7 +318,7 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
             outputStack.setTag(stack.getTag());
         }
         stack.shrink(recipe.input.count);
-        inventory.setChanged();
+        inventory.updateData();
         for (SpiritWithCount spirit : recipe.spirits) {
             for (int i = 0; i < spiritInventory.slotCount; i++) {
                 ItemStack spiritStack = spiritInventory.getStackInSlot(i);
@@ -326,7 +328,7 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
                 }
             }
         }
-        spiritInventory.setChanged();
+        spiritInventory.updateData();
         progress *= 0.75f;
         extrasInventory.clear();
         if (level instanceof ServerLevel serverLevel) {
@@ -379,25 +381,23 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
     public Vec3 getSpiritItemOffset(int slot, float partialTicks) {
         float distance = 1 - getSpinUp(Easing.SINE_OUT) * 0.25f + (float) Math.sin((spiritSpin % 6.2831f + partialTicks) / 20f) * 0.025f;
         float height = 0.75f + getSpinUp(Easing.QUARTIC_OUT) * getSpinUp(Easing.BACK_OUT) * 0.5f;
-        var v = rotatingRadialOffset(new Vec3(0.5f, height, 0.5f), distance, slot, spiritAmount, (long) (spiritSpin + partialTicks), 360);
-        //System.out.println("V: " + v + " Slot : " + slot + " Amouont : " + spiritAmount + " Spin: " + spiritSpin + " PT : " + partialTicks);
-        return v;
+        return DataHelper.rotatingRadialOffset(new Vec3(0.5f, height, 0.5f), distance, slot, spiritAmount, (long) (spiritSpin + partialTicks), 360);
     }
 
-    public static Vec3 rotatingRadialOffset(Vec3 pos, float distance, float current, float total, long gameTime, float time) {
-        return rotatingRadialOffset(pos, distance, distance, current, total, gameTime, time);
-    }
+    public ArrayList<ItemStack> convertToItemStacks(ArrayList<SingleSlotStorage<ItemVariant>> nonEmptyItemStacks) {
+        ArrayList<ItemStack> itemStacks = new ArrayList<>();
 
-    public static Vec3 rotatingRadialOffset(Vec3 pos, float distanceX, float distanceZ, float current, float total, long gameTime, float time) {
-        double angle = current / total * (Math.PI * 2);
-        //System.out.println("Current: " + current + " Angle: " +angle + " : Tot; " +total);
-        angle += ((gameTime % time) / time) * (Math.PI * 2);
-        double dx2 = (distanceX * Math.cos(angle));
-        double dz2 = (distanceZ * Math.sin(angle));
+        for (SingleSlotStorage<ItemVariant> slot : nonEmptyItemStacks) {
+            // Get the ItemVariant from the slot
+            ItemVariant itemVariant = slot.getResource();
 
-        Vec3 vector2f = new Vec3(dx2, 0, dz2);
-        double x = vector2f.x * distanceX;
-        double z = vector2f.z * distanceZ;
-        return pos.add(x, 0, z);
+            // Convert ItemVariant to ItemStack
+            ItemStack itemStack = itemVariant.toStack((int) slot.getAmount());
+
+            // Add the ItemStack to the new list
+            itemStacks.add(itemStack);
+        }
+
+        return itemStacks;
     }
 }
