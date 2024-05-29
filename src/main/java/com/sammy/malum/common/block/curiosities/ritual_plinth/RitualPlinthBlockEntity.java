@@ -151,7 +151,7 @@ public class RitualPlinthBlockEntity extends LodestoneBlockEntity {
                 return InteractionResult.SUCCESS;
             }
         }
-        SpiritAltarBlockEntity.interact(this, inventory, level, player, hand , stack -> true);
+        inventory.interact(this, level, player, hand , stack -> true);
 
         return InteractionResult.SUCCESS;
     }

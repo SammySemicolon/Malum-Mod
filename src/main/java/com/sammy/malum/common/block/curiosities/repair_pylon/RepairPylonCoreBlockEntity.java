@@ -140,8 +140,8 @@ public class RepairPylonCoreBlockEntity extends MultiBlockCoreEntity {
             return InteractionResult.CONSUME;
         }
         if (hand.equals(InteractionHand.MAIN_HAND)) {
-            if (!SpiritAltarBlockEntity.interact(this, spiritInventory, level, player, hand, stack -> stack.getItem() instanceof SpiritShardItem || stack.isEmpty())) {
-                SpiritAltarBlockEntity.interact(this, inventory, level, player, hand , stack -> true);
+            if (!spiritInventory.interact(this, level, player, hand, stack -> stack.getItem() instanceof SpiritShardItem || stack.isEmpty())) {
+                inventory.interact(this, level, player, hand , stack -> true);
             }
         }
         return super.onUse(player, hand);

@@ -1,10 +1,15 @@
 package com.sammy.malum.common.block.storage;
 
 import com.sammy.malum.common.block.*;
+import com.sammy.malum.common.block.curiosities.spirit_altar.SpiritAltarBlockEntity;
 import com.sammy.malum.common.item.spirit.*;
 import com.sammy.malum.core.systems.spirit.*;
 import com.sammy.malum.visual_effects.*;
 import net.minecraft.core.*;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.entity.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.phys.*;
@@ -18,10 +23,22 @@ public abstract class MalumItemHolderBlockEntity extends ItemHolderBlockEntity i
         inventory = new MalumBlockEntityInventory( 1, 64) {
             @Override
             public void onContentsChanged(int slot) {
-                super.onContentsChanged(slot);
+                MalumItemHolderBlockEntity.this.setChanged();
+                needsSync = true;
                 BlockHelper.updateAndNotifyState(level, worldPosition);
+                super.onContentsChanged(slot);
             }
         };
+    }
+
+    @Override
+    protected void saveAdditional(CompoundTag compound) {
+        compound.put("Inventory", inventory.serializeNBT());
+    }
+
+    @Override
+    public void load(CompoundTag compound) {
+        inventory.deserializeNBT(compound.getCompound("Inventory"));
     }
 
     @Override
