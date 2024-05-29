@@ -32,16 +32,6 @@ public abstract class MalumItemHolderBlockEntity extends ItemHolderBlockEntity i
     }
 
     @Override
-    protected void saveAdditional(CompoundTag compound) {
-        compound.put("Inventory", inventory.serializeNBT());
-    }
-
-    @Override
-    public void load(CompoundTag compound) {
-        inventory.deserializeNBT(compound.getCompound("Inventory"));
-    }
-
-    @Override
     public LodestoneBlockEntityInventory getSuppliedInventory() {
         return inventory;
     }

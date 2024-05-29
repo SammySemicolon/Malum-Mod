@@ -95,7 +95,7 @@ public class RitualPlinthBlockEntity extends LodestoneBlockEntity {
         if (ritualType != null) {
             compound.putString("ritualType", ritualType.identifier.toString());
         }
-        inventory.serializeNBT();
+        compound.put("Inventory", inventory.serializeNBT());
         compound.put("extrasInventory", extrasInventory.serializeNBT());
     }
 
@@ -108,7 +108,7 @@ public class RitualPlinthBlockEntity extends LodestoneBlockEntity {
         ritualType = RitualRegistry.get(new ResourceLocation(compound.getString("ritualType")));
         ritualTier = MalumRitualTier.figureOutTier(spiritAmount);
 
-        inventory.deserializeNBT(compound);
+        inventory.deserializeNBT(compound.getCompound("Inventory"));
         extrasInventory.deserializeNBT(compound.getCompound("extrasInventory"));
         super.load(compound);
     }

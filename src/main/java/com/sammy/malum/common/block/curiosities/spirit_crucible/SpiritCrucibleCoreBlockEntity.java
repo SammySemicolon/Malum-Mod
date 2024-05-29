@@ -131,7 +131,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
 
         compound.putInt("tuningType", tuningType.ordinal());
         acceleratorData.save(compound);
-        inventory.serializeNBT();
+        compound.put("Inventory", inventory.serializeNBT());
         compound.put("spiritInventory", spiritInventory.serializeNBT());
         compound.put("augmentInventory", augmentInventory.serializeNBT());
         compound.put("coreAugmentInventory", coreAugmentInventory.serializeNBT());
@@ -146,7 +146,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
         tuningType = CrucibleTuning.CrucibleAttributeType.values()[Mth.clamp(compound.getInt("tuningType"), 0, CrucibleTuning.CrucibleAttributeType.values().length-1)];
         acceleratorData = CrucibleAccelerationData.load(level, this, compound);
 
-        inventory.deserializeNBT(compound);
+        inventory.deserializeNBT(compound.getCompound("Inventory"));
         spiritInventory.deserializeNBT(compound.getCompound("spiritInventory"));
         augmentInventory.deserializeNBT(compound.getCompound("augmentInventory"));
         coreAugmentInventory.deserializeNBT(compound.getCompound("coreAugmentInventory"));

@@ -71,7 +71,7 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity impleme
             compound.putFloat("burnTicks", burnTicks);
         }
 
-        inventory.serializeNBT();
+        compound.put("Inventory", inventory.serializeNBT());
         compound.put("augmentInventory", augmentInventory.serializeNBT());
         super.saveAdditional(compound);
     }
@@ -80,7 +80,7 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity impleme
     public void load(CompoundTag compound) {
         burnTicks = compound.getFloat("burnTicks");
 
-        inventory.deserializeNBT(compound);
+        inventory.deserializeNBT(compound.getCompound("Inventory"));
         augmentInventory.deserializeNBT(compound.getCompound("augmentInventory"));
         super.load(compound);
     }

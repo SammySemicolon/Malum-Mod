@@ -3,7 +3,9 @@ package com.sammy.malum.common.block;
 import com.sammy.malum.common.item.spirit.*;
 import com.sammy.malum.registry.common.*;
 import net.minecraft.sounds.*;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
+import team.lodestar.lodestone.helpers.RandomHelper;
 import team.lodestar.lodestone.systems.blockentity.*;
 
 import java.util.function.*;
@@ -22,25 +24,23 @@ public class MalumBlockEntityInventory extends LodestoneBlockEntityInventory {
         super(null,slotCount, allowedItemSize);
     }
 
-    /*TODO
     @Override
-    public void extractItem(Player playerEntity, ItemStack stack, int slot) {
-        super.extractItem(playerEntity, stack, slot);
+    public ItemStack interactExtractInv(LodestoneBlockEntity be, Player player) {
+        ItemStack stack = super.interactExtractInv(be, player);
         SoundEvent soundEvent = getExtractSound(stack);
-        playerEntity.level().playSound(null, playerEntity.blockPosition(), soundEvent, SoundSource.BLOCKS, 0.7f, RandomHelper.randomBetween(playerEntity.level().random, 0.8f, 1.2f));
+        player.level().playSound(null, player.blockPosition(), soundEvent, SoundSource.BLOCKS, 0.7f, RandomHelper.randomBetween(player.level().random, 0.8f, 1.2f));
+        return stack;
     }
 
     @Override
-    public ItemStack insertItem(Player playerEntity, ItemStack stack) {
-        final ItemStack result = super.insertItem(playerEntity, stack);
-        if (!result.isEmpty()) {
+    public boolean interactInsertInv(LodestoneBlockEntity be, ItemStack stack) {
+        final boolean result = super.interactInsertInv(be, stack);
+        if (result) {
             SoundEvent soundEvent = getInsertSound(stack);
-            playerEntity.level().playSound(null, playerEntity.blockPosition(), soundEvent, SoundSource.BLOCKS, 0.7f, RandomHelper.randomBetween(playerEntity.level().random, 0.8f, 1.2f));
+            be.getLevel().playSound(null, be.getBlockPos(), soundEvent, SoundSource.BLOCKS, 0.7f, RandomHelper.randomBetween(be.getLevel().random, 0.8f, 1.2f));
         }
         return result;
     }
-
-     */
 
     public SoundEvent getExtractSound(ItemStack stack) {
         return stack.getItem() instanceof SpiritShardItem ? SoundRegistry.PEDESTAL_SPIRIT_PICKUP.get() : SoundRegistry.PEDESTAL_ITEM_PICKUP.get();

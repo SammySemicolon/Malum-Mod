@@ -118,7 +118,7 @@ public class RepairPylonCoreBlockEntity extends MultiBlockCoreEntity {
         if (timer != 0) {
             compound.putFloat("timer", timer);
         }
-        inventory.serializeNBT();
+        compound.put("Inventory", inventory.serializeNBT());
         compound.put("spiritInventory", spiritInventory.serializeNBT());
     }
 
@@ -128,7 +128,7 @@ public class RepairPylonCoreBlockEntity extends MultiBlockCoreEntity {
         spiritAmount = compound.getFloat("spiritAmount");
         repairablePosition = BlockHelper.loadBlockPos(compound.getCompound("targetedBlock"));
         timer = compound.getFloat("timer");
-        inventory.deserializeNBT(compound);
+        inventory.deserializeNBT(compound.getCompound("Inventory"));
         spiritInventory.deserializeNBT(compound.getCompound("spiritInventory"));
 
         super.load(compound);
