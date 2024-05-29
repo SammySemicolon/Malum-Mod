@@ -28,7 +28,7 @@ public class SoulStainedSteelArmorRenderer implements ArmorRenderer {
     @Override
     public void render(PoseStack matrices, MultiBufferSource vertexConsumers, ItemStack stack, LivingEntity entity, EquipmentSlot slot, int light, HumanoidModel<LivingEntity> contextModel) {
         if (armorModel == null) {
-            armorModel = new SoulStainedSteelArmorModel(Minecraft.getInstance().getEntityModels().bakeLayer(SoulHunterArmorModel.LAYER));
+            armorModel = new SoulStainedSteelArmorModel(Minecraft.getInstance().getEntityModels().bakeLayer(SoulStainedSteelArmorModel.LAYER));
         }
         float pticks = Minecraft.getInstance().getFrameTime();
         float f = Mth.rotLerp(pticks, entity.yBodyRotO, entity.yBodyRot);
@@ -46,10 +46,21 @@ public class SoulStainedSteelArmorRenderer implements ArmorRenderer {
             texture = MalumMod.malumPath("textures/armor/soul_stained_steel_reforged.png");
         }
 
-        contextModel.copyPropertiesTo(armorModel);
         armorModel.slot = slot;
         armorModel.copyFromDefault(contextModel);
         armorModel.setupAnim(entity, entity.walkAnimation.position(), entity.walkAnimation.speed(), entity.tickCount + pticks, netHeadYaw, netHeadPitch);
-
+        contextModel.copyPropertiesTo(armorModel);
+        armorModel.setAllVisible(false);
+        armorModel.head.visible = slot == EquipmentSlot.HEAD;
+        armorModel.body.visible = slot == EquipmentSlot.CHEST;
+        armorModel.leftArm.visible = slot == EquipmentSlot.CHEST;
+        armorModel.rightArm.visible = slot == EquipmentSlot.CHEST;
+        armorModel.leftLeg.visible = slot == EquipmentSlot.LEGS || slot == EquipmentSlot.FEET;
+        armorModel.rightLeg.visible = slot == EquipmentSlot.LEGS || slot == EquipmentSlot.FEET;
+        armorModel.leftFoot.visible = slot == EquipmentSlot.FEET;
+        armorModel.rightFoot.visible = slot == EquipmentSlot.FEET;
+        armorModel.leftLegging.visible = slot == EquipmentSlot.LEGS;
+        armorModel.rightLegging.visible = slot == EquipmentSlot.LEGS;
+        ArmorRenderer.renderPart(matrices, vertexConsumers, light, stack, armorModel, texture);
     }
 }

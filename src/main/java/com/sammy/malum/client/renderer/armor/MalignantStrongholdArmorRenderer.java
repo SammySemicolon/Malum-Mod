@@ -38,10 +38,6 @@ public class MalignantStrongholdArmorRenderer implements ArmorRenderer {
             armorModel = ArmorSkinRenderingData.RENDERING_DATA.apply(skin).getModel(entity);
         }
 
-        armorModel.slot = slot;
-        armorModel.copyFromDefault(contextModel);
-        armorModel.setupAnim(entity, entity.walkAnimation.position(), entity.walkAnimation.speed(), entity.tickCount + pticks, netHeadYaw, netHeadPitch);
-
         if (skin != null) {
             armorModel = ArmorSkinRenderingData.RENDERING_DATA.apply(skin).getModel(entity);
             texture = ArmorSkinRenderingData.RENDERING_DATA.apply(skin).getTexture(entity);
@@ -50,6 +46,24 @@ public class MalignantStrongholdArmorRenderer implements ArmorRenderer {
         if (texture == null) {
             texture = MalumMod.malumPath("textures/armor/malignant_stronghold.png");
         }
+
+        armorModel.slot = slot;
+        armorModel.copyFromDefault(contextModel);
+        armorModel.setupAnim(entity, entity.walkAnimation.position(), entity.walkAnimation.speed(), entity.tickCount + pticks, netHeadYaw, netHeadPitch);
+        contextModel.copyPropertiesTo(armorModel);
+        armorModel.setAllVisible(false);
+        armorModel.head.visible = slot == EquipmentSlot.HEAD;
+        armorModel.body.visible = slot == EquipmentSlot.CHEST;
+        armorModel.leftArm.visible = slot == EquipmentSlot.CHEST;
+        armorModel.rightArm.visible = slot == EquipmentSlot.CHEST;
+        armorModel.leftLeg.visible = slot == EquipmentSlot.LEGS || slot == EquipmentSlot.FEET;
+        armorModel.rightLeg.visible = slot == EquipmentSlot.LEGS || slot == EquipmentSlot.FEET;
+        armorModel.leftFoot.visible = slot == EquipmentSlot.FEET;
+        armorModel.rightFoot.visible = slot == EquipmentSlot.FEET;
+        armorModel.leggings.visible = slot == EquipmentSlot.LEGS;
+        armorModel.leftLegging.visible = slot == EquipmentSlot.LEGS;
+        armorModel.rightLegging.visible = slot == EquipmentSlot.LEGS;
+        ArmorRenderer.renderPart(matrices, vertexConsumers, light, stack, armorModel, texture);
 
     }
 }

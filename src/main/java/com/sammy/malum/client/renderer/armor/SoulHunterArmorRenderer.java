@@ -48,11 +48,28 @@ public class SoulHunterArmorRenderer implements ArmorRenderer {
             texture = MalumMod.malumPath("textures/armor/spirit_hunter_reforged.png");
         }
 
-        contextModel.copyPropertiesTo(armorModel);
+
         armorModel.slot = slot;
         armorModel.copyFromDefault(contextModel);
         armorModel.setupAnim(entity, entity.walkAnimation.position(), entity.walkAnimation.speed(), entity.tickCount + pticks, netHeadYaw, netHeadPitch);
+        contextModel.copyPropertiesTo(armorModel);
+        armorModel.setAllVisible(false);
+        armorModel.head.visible = slot == EquipmentSlot.HEAD;
+        armorModel.body.visible = slot == EquipmentSlot.CHEST;
+        armorModel.leftArm.visible = slot == EquipmentSlot.CHEST;
+        armorModel.rightArm.visible = slot == EquipmentSlot.CHEST;
+        armorModel.leftLeg.visible = slot == EquipmentSlot.LEGS || slot == EquipmentSlot.FEET;
+        armorModel.rightLeg.visible = slot == EquipmentSlot.LEGS || slot == EquipmentSlot.FEET;
+        armorModel.leftFoot.visible = slot == EquipmentSlot.FEET;
+        armorModel.rightFoot.visible = slot == EquipmentSlot.FEET;
+        armorModel.leftLegging.visible = slot == EquipmentSlot.LEGS;
+        armorModel.rightLegging.visible = slot == EquipmentSlot.LEGS;
+        armorModel.root.getChild("cape").visible = slot == EquipmentSlot.CHEST;
+        ArmorRenderer.renderPart(matrices, vertexConsumers, light, stack, armorModel, texture);
 
-       //TODO REDO ARMORS
+/*
+this.cape = root.getChild("cape");
+        this.lowered_hood = root.getChild("lowered_hood");
+ */
     }
 }
