@@ -138,7 +138,7 @@ public class ScytheBoomerangEntity extends ThrowableItemProjectile {
         final Level level = level();
         if (level.isClientSide) {
             if (!isInWaterRainOrBubble()) {
-                if (getItem().getEnchantmentLevel(Enchantments.FIRE_ASPECT) > 0) {
+                if (EnchantmentHelper.getItemEnchantmentLevel(Enchantments.FIRE_ASPECT, getItem()) > 0) {
                     Vec3 vector = new Vec3(getRandomX(0.7), getRandomY(), getRandomZ(0.7));
                     if (scythe.getItem() instanceof MalumScytheItem) {
                         Random random = new Random();

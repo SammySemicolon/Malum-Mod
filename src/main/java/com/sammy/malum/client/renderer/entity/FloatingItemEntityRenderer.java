@@ -5,6 +5,7 @@ import com.mojang.math.*;
 import com.sammy.malum.client.*;
 import com.sammy.malum.common.entity.*;
 import com.sammy.malum.core.systems.spirit.*;
+import com.sammy.malum.registry.client.MalumRenderTypeTokens;
 import net.minecraft.client.*;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.entity.*;

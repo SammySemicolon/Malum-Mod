@@ -1,16 +1,16 @@
 package com.sammy.malum.common.item.curiosities.curios.sets.weeping;
 
-import com.sammy.malum.common.capability.*;
+import com.sammy.malum.common.components.MalumComponents;
 import com.sammy.malum.common.entity.activator.*;
 import com.sammy.malum.common.item.*;
 import com.sammy.malum.common.item.curiosities.curios.*;
+import io.github.fabricators_of_create.porting_lib.entity.events.living.LivingHurtEvent;
 import net.minecraft.network.chat.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
-import net.minecraftforge.event.entity.living.*;
 import team.lodestar.lodestone.helpers.*;
 
 import java.util.function.*;
@@ -43,7 +43,7 @@ public class CurioWatcherNecklace extends MalumCurioItem implements IMalumEventR
                         RandomHelper.randomBetween(random, -speed, speed));
                 level.addFreshEntity(entity);
             }
-            MalumLivingEntityDataCapability.getCapabilityOptional(target).ifPresent(c -> {
+            MalumComponents.MALUM_LIVING_ENTITY_COMPONENT.maybeGet(target).ifPresent(c -> {
                 c.watcherNecklaceCooldown = 100;
             });
         }
