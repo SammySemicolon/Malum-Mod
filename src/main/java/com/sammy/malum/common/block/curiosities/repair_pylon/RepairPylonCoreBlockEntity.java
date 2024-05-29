@@ -140,35 +140,8 @@ public class RepairPylonCoreBlockEntity extends MultiBlockCoreEntity {
             return InteractionResult.CONSUME;
         }
         if (hand.equals(InteractionHand.MAIN_HAND)) {
-            ItemStack heldStack = player.getMainHandItem();
-            final boolean isEmpty = heldStack.isEmpty();
-            try (Transaction t = TransferUtil.getTransaction()){
-                long inserted = spiritInventory.insert(ItemVariant.of(heldStack), 64, t);
-                heldStack.shrink((int)inserted);
-                setChanged();
-                t.commit();
-
-                if (inserted > 0) {
-                    return InteractionResult.SUCCESS;
-                }
-            }
-
-            if (!(heldStack.getItem() instanceof SpiritShardItem)) {
-                try (Transaction t = TransferUtil.getTransaction()){
-                    long inserted = inventory.insert(ItemVariant.of(heldStack), 64, t);
-                    heldStack.shrink((int)inserted);
-                    setChanged();
-                    t.commit();
-
-                    if (inserted > 0) {
-                        return InteractionResult.SUCCESS;
-                    }
-                }
-            }
-            if (isEmpty) {
-                return InteractionResult.SUCCESS;
-            } else {
-                return InteractionResult.FAIL;
+            if (!SpiritAltarBlockEntity.interact(this, spiritInventory, level, player, hand, stack -> stack.getItem() instanceof SpiritShardItem || stack.isEmpty())) {
+                SpiritAltarBlockEntity.interact(this, inventory, level, player, hand , stack -> true);
             }
         }
         return super.onUse(player, hand);

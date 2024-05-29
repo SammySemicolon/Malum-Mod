@@ -1,6 +1,7 @@
 package com.sammy.malum.common.block.curiosities.ritual_plinth;
 
 import com.sammy.malum.common.block.*;
+import com.sammy.malum.common.block.curiosities.spirit_altar.SpiritAltarBlockEntity;
 import com.sammy.malum.common.block.storage.*;
 import com.sammy.malum.common.block.storage.jar.*;
 import com.sammy.malum.common.item.spirit.*;
@@ -150,7 +151,8 @@ public class RitualPlinthBlockEntity extends LodestoneBlockEntity {
                 return InteractionResult.SUCCESS;
             }
         }
-        //TODO inventory.interact(player.level(), player, hand);
+        SpiritAltarBlockEntity.interact(this, inventory, level, player, hand , stack -> true);
+
         return InteractionResult.SUCCESS;
     }
 

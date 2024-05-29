@@ -38,6 +38,7 @@ import team.lodestar.lodestone.systems.easing.*;
 import team.lodestar.lodestone.systems.recipe.*;
 
 import java.util.*;
+import java.util.function.Predicate;
 
 import static team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntityInventory.convertToItemStacks;
 
@@ -178,77 +179,12 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
         }
 
         if (hand.equals(InteractionHand.MAIN_HAND)) {
-            ItemStack heldStack = player.getMainHandItem();
             recalibrateAccelerators();
-            if (!heldStack.isEmpty()) {
-                if (!(heldStack.getItem() instanceof SpiritShardItem)) {
-                    try (Transaction t = TransferUtil.getTransaction()){
 
-                        long inserted = inventory.insert(ItemVariant.of(heldStack), heldStack.getCount(), t);
-                        heldStack.shrink((int)inserted);
-                        t.commit();
-
-                        if (inserted > 0) {
-                            inventory.setChanged();
-                            notifyUpdate();
-                            return InteractionResult.SUCCESS;
-                        }
-                    }
-                } else {
-                    try (Transaction t = TransferUtil.getTransaction()){
-                        long inserted = spiritInventory.insert(ItemVariant.of(heldStack), heldStack.getCount(), t);
-                        heldStack.shrink((int)inserted);
-                        t.commit();
-
-                        if (inserted > 0) {
-                            spiritInventory.setChanged();
-                            notifyUpdate();
-                            return InteractionResult.SUCCESS;
-                        }
-                    }
-                }
-
-            } else {
-                //Extract
-
-                if (!inventory.nonEmptyItemStacks.isEmpty()) {
-                    try (Transaction t = TransferUtil.getTransaction()){
-                        ItemStack takeOutStack = inventory.nonEmptyItemStacks.get(inventory.nonEmptyItemStacks.size() - 1);
-
-                        long extracted = inventory.extract(ItemVariant.of(takeOutStack), takeOutStack.getCount(), t);
-                        t.commit();
-                        if (extracted > 0) {
-                            ItemHandlerHelper.giveItemToPlayer(player, takeOutStack);
-                            inventory.setChanged();
-                            notifyUpdate();
-                            return InteractionResult.SUCCESS;
-                        }
-                    }
-                } else if (!spiritInventory.nonEmptyItemStacks.isEmpty()) {
-                    try (Transaction t = TransferUtil.getTransaction()){
-                        ItemStack takeOutStack = spiritInventory.nonEmptyItemStacks.get(spiritInventory.nonEmptyItemStacks.size() - 1);
-                        long extracted = spiritInventory.extract(ItemVariant.of(takeOutStack), takeOutStack.getCount(), t);
-                        t.commit();
-                        if (extracted > 0) {
-                            ItemHandlerHelper.giveItemToPlayer(player, takeOutStack);
-                            spiritInventory.setChanged();
-                            notifyUpdate();
-                            return InteractionResult.SUCCESS;
-                        }
-                    }
-                }
-
-
-
-
+            if (!interact(this, spiritInventory, level, player, hand, stack -> stack.getItem() instanceof SpiritShardItem || stack.isEmpty())) {
+                interact(this, inventory, level, player, hand , stack -> true);
             }
 
-
-            if (heldStack.isEmpty()) {
-                return InteractionResult.SUCCESS;
-            } else {
-                return InteractionResult.PASS;
-            }
         }
         return super.onUse(player, hand);
     }
@@ -439,81 +375,61 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
 
 
     //TODO Move to lodestone
-    public ItemStack interact(LodestoneBlockEntityInventory inventory, Level level, Player player, InteractionHand handIn) {
+    public static boolean interact(LodestoneBlockEntity be, LodestoneBlockEntityInventory inventory, Level level, Player player, InteractionHand handIn, Predicate<ItemStack> predicate) {
+
         if (!level.isClientSide) {
+            System.out.println("1");
+            boolean res = false;
             ItemStack held = player.getItemInHand(handIn);
-            player.swing(handIn, true);
-            int size = inventory.nonEmptyItemStacks.size() - 1;
-            if ((held.isEmpty() || inventory.firstEmptyItemIndex == -1) && size != -1) {
-                ItemStack takeOutStack = inventory.nonEmptyItemStacks.get(size);
-                if (takeOutStack.getItem().equals(held.getItem())) {
-                    return insertItem(inventory, player, held);
+            if (predicate.test(held)) {
+                System.out.println("2");
+                player.swing(handIn, true);
+
+                if (held.isEmpty()) {
+                    System.out.println("3");
+                    res = interactExtractInv(be, inventory, player);
+                } else {
+                    System.out.println("4");
+                    res = interactInsertInv(be, inventory, held);
                 }
-                ItemStack extractedStack = extractItem(inventory, level, held, player);
-                boolean success = !extractedStack.isEmpty();
-                if (success) {
-                    insertItem(inventory, player, held);
-                }
-                return extractedStack;
-            } else {
-                return insertItem(inventory, player, held);
+            }
+            System.out.println(res);
+            return res;
+        }
+        return false;
+    }
+
+    public static boolean interactInsertInv(LodestoneBlockEntity be, LodestoneBlockEntityInventory inventory, ItemStack stack){
+        try (Transaction t = TransferUtil.getTransaction()){
+
+            long inserted = inventory.insert(ItemVariant.of(stack), stack.getCount(), t);
+            stack.shrink((int)inserted);
+            t.commit();
+
+            if (inserted > 0) {
+                inventory.setChanged();
+                be.notifyUpdate();
+                return true;
             }
         }
-        return ItemStack.EMPTY;
+        return false;
     }
 
-    public ItemStack extractItem(LodestoneBlockEntityInventory inventory, Level level, ItemStack heldStack, Player player) {
-        if (!level.isClientSide) {
-            List<ItemStack> nonEmptyStacks = inventory.nonEmptyItemStacks;
-            if (nonEmptyStacks.isEmpty()) {
-                return heldStack;
-            }
-            ItemStack takeOutStack = nonEmptyStacks.get(nonEmptyStacks.size() - 1);
-            int slot = LodestoneBlockEntityInventory.convertToNonNullItemStacks(inventory.getSlots()).indexOf(takeOutStack);
-
-            try (Transaction t = TransferUtil.getTransaction()){
-                long extracted = inventory.extractSlot(slot, ItemVariant.of(takeOutStack), takeOutStack.getCount(), t);
-                if (extracted == 0) {
-                    return heldStack;
-                }
-
-
-            }
-
-            extractItem(inventory, player, takeOutStack, slot);
-            return takeOutStack;
-        }
-        return ItemStack.EMPTY;
-    }
-
-    public void extractItem(LodestoneBlockEntityInventory inventory, Player playerEntity, ItemStack stack, int slot) {
-        ItemHandlerHelper.giveItemToPlayer(playerEntity, stack);
-        inventory.setStackInSlot(slot, ItemStack.EMPTY);
-    }
-
-    public ItemStack insertItem(LodestoneBlockEntityInventory inventory, Player playerEntity, ItemStack stack) {
-        return insertItem(inventory, stack);
-    }
-
-    public ItemStack insertItem(LodestoneBlockEntityInventory inventory, ItemStack stack) {
-        if (!stack.isEmpty()) {
-            try (Transaction t = TransferUtil.getTransaction()){
-                long inserted = inventory.insert(ItemVariant.of(stack), stack.getCount(), t);
-                if (inserted == stack.getCount()) {
-                    t.commit();
-                    return ItemStack.EMPTY;
-                } else if (inserted < stack.getCount()) {
-                    int count = stack.getCount();
-                    if (count > inventory.allowedItemSize) {
-                        count = inventory.allowedItemSize;
-                    }
-                    ItemStack input = stack.split(count);
-                    t.commit();
-                    return input;
+    public static boolean interactExtractInv(LodestoneBlockEntity be, LodestoneBlockEntityInventory inventory, Player player){
+        if (!inventory.nonEmptyItemStacks.isEmpty()) {
+            try (Transaction t = TransferUtil.getTransaction()) {
+                ItemStack takeOutStack = inventory.nonEmptyItemStacks.get(inventory.nonEmptyItemStacks.size() - 1);
+                long extracted = inventory.extract(ItemVariant.of(takeOutStack), takeOutStack.getCount(), t);
+                t.commit();
+                if (extracted > 0) {
+                    ItemHandlerHelper.giveItemToPlayer(player, takeOutStack);
+                    inventory.setChanged();
+                    be.notifyUpdate();
+                    return true;
                 }
             }
         }
-        return ItemStack.EMPTY;
+        return false;
     }
 }
 
