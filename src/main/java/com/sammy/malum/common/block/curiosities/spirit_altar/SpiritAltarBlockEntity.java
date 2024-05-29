@@ -380,21 +380,19 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
         return ALTAR_ITEM_OFFSET;
     }
 
-    public Vec3 getSpiritItemOffset(int slot, float partialTicks) {
-        float distance = 1 - getSpinUp(Easing.SINE_OUT) * 0.25f + (float) Math.sin((spiritSpin % 6.2831f + partialTicks) / 20f) * 0.025f;
+    public Vec3 spiritOffset(int slot, float tickDelta) {
+        float distance = 1 - getSpinUp(Easing.SINE_OUT) * 0.25f + (float) Math.sin(spiritSpin / 20f) * 0.025f;
         float height = 0.75f + getSpinUp(Easing.QUARTIC_OUT) * getSpinUp(Easing.BACK_OUT) * 0.5f;
-        System.out.println("Slot: " + slot + " SpiritAmount: " + spiritAmount + " SpiritSpin: " + spiritSpin);
-        return rotatingRadialOffset(new Vec3(0.5f, height, 0.5f), distance, slot, spiritAmount, (long) (spiritSpin + partialTicks), 360);
+        return rotatedCirclePosition(new Vec3(0.5f, height, 0.5f), distance, slot, spiritAmount, (long) spiritSpin, 360, tickDelta);
     }
 
-    public static Vec3 rotatingRadialOffset(Vec3 pos, float distance, float current, float total, long gameTime, float time) {
-        return rotatingRadialOffset(pos, distance, distance, current, total, gameTime, time);
+    public static Vec3 rotatedCirclePosition(Vec3 pos, float distance, float current, float total, long gameTime, float time, float tickDelta) {
+        return rotatedCirclePosition(pos, distance, distance, current, total, gameTime, time, tickDelta);
     }
 
-    public static Vec3 rotatingRadialOffset(Vec3 pos, float distanceX, float distanceZ, float current, float total, long gameTime, float time) {
+    public static Vec3 rotatedCirclePosition(Vec3 pos, float distanceX, float distanceZ, float current, float total, long gameTime, float time, float tickDelta) {
         double angle = current / total * (Math.PI * 2);
-        System.out.println("Angle: " + angle);
-        angle += ((gameTime % time) / time) * (Math.PI * 2);
+        angle += (((gameTime % time) + tickDelta) / time) * (Math.PI * 2);
         double dx2 = (distanceX * Math.cos(angle));
         double dz2 = (distanceZ * Math.sin(angle));
 
