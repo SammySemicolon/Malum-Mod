@@ -1,0 +1,26 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:tags_populated",
+      "values": [
+        "c:ingots/silver"
+      ]
+    }
+  ],
+  "recipes": [
+    {
+      "recipe": {
+        "type": "malum:node_blasting",
+        "cookingtime": 100,
+        "experience": 0.25,
+        "ingredient": {
+          "item": "malum:silver_node"
+        },
+        "result": {
+          "count": 6,
+          "tag": "c:nuggets/silver"
+        }
+      }
+    }
+  ]
+}

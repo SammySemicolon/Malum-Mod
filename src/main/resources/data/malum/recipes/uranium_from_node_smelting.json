@@ -1,0 +1,26 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:tags_populated",
+      "values": [
+        "c:ingots/uranium"
+      ]
+    }
+  ],
+  "recipes": [
+    {
+      "recipe": {
+        "type": "malum:node_smelting",
+        "cookingtime": 200,
+        "experience": 0.25,
+        "ingredient": {
+          "item": "malum:uranium_node"
+        },
+        "result": {
+          "count": 6,
+          "tag": "c:nuggets/uranium"
+        }
+      }
+    }
+  ]
+}

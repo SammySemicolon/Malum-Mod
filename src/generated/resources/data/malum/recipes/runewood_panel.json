@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "tag": "malum:runewood_planks"
+    }
+  },
+  "pattern": [
+    " # ",
+    "###",
+    " # "
+  ],
+  "result": {
+    "count": 5,
+    "item": "malum:runewood_panel"
+  },
+  "show_notification": true
+}

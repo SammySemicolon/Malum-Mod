@@ -1,0 +1,22 @@
+{
+  "type": "lodestone:nbt_carry",
+  "key": {
+    "#": {
+      "tag": "c:wooden_rods"
+    },
+    "X": {
+      "item": "malum:iridescent_ether"
+    }
+  },
+  "nbtCarry": {
+    "item": "malum:iridescent_ether"
+  },
+  "pattern": [
+    "X",
+    "#"
+  ],
+  "result": {
+    "count": 4,
+    "item": "malum:iridescent_ether_torch"
+  }
+}

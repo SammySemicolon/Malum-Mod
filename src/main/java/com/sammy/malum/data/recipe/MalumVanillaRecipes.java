@@ -77,6 +77,7 @@ public class MalumVanillaRecipes {
         smeltingWithCount(Ingredient.of(ItemRegistry.COPPER_NODE.get()), RecipeCategory.MISC, ItemRegistry.COPPER_NUGGET.get(), 6, 0.25f, 200).unlockedBy("has_impetus", has(ItemRegistry.COPPER_IMPETUS.get())).save(consumer, malumPath("copper_from_node_smelting"));
         blastingWithCount(Ingredient.of(ItemRegistry.COPPER_NODE.get()), RecipeCategory.MISC, ItemRegistry.COPPER_NUGGET.get(), 6, 0.25f, 100).unlockedBy("has_impetus", has(ItemRegistry.COPPER_IMPETUS.get())).save(consumer, malumPath("copper_from_node_blasting"));
 
+        /*
         nodeSmelting(consumer, ItemRegistry.LEAD_IMPETUS, ItemRegistry.LEAD_NODE, NUGGETS_LEAD);
         nodeSmelting(consumer, ItemRegistry.SILVER_IMPETUS, ItemRegistry.SILVER_NODE, NUGGETS_SILVER);
         nodeSmelting(consumer, ItemRegistry.ALUMINUM_IMPETUS, ItemRegistry.ALUMINUM_NODE, NUGGETS_ALUMINUM);
@@ -85,6 +86,8 @@ public class MalumVanillaRecipes {
         nodeSmelting(consumer, ItemRegistry.OSMIUM_IMPETUS, ItemRegistry.OSMIUM_NODE, NUGGETS_OSMIUM);
         nodeSmelting(consumer, ItemRegistry.ZINC_IMPETUS, ItemRegistry.ZINC_NODE, NUGGETS_ZINC);
         nodeSmelting(consumer, ItemRegistry.TIN_IMPETUS, ItemRegistry.TIN_NODE, NUGGETS_TIN);
+
+         */
         //TOOLS
         shaped(RecipeCategory.MISC, ItemRegistry.SOUL_STAINED_STEEL_HOE.get()).define('#', Tags.Items.RODS_WOODEN).define('X', ItemRegistry.SOUL_STAINED_STEEL_INGOT.get()).pattern("XX").pattern(" #").pattern(" #").unlockedBy("has_soul_stained_steel", has(ItemRegistry.SOUL_STAINED_STEEL_INGOT.get())).save(consumer);
         shaped(RecipeCategory.MISC, ItemRegistry.SOUL_STAINED_STEEL_PICKAXE.get()).define('#', Tags.Items.RODS_WOODEN).define('X', ItemRegistry.SOUL_STAINED_STEEL_INGOT.get()).pattern("XXX").pattern(" # ").pattern(" # ").unlockedBy("has_soul_stained_steel", has(ItemRegistry.SOUL_STAINED_STEEL_INGOT.get())).save(consumer);
@@ -446,7 +449,7 @@ public class MalumVanillaRecipes {
 
     private static void nodeSmelting(Consumer<FinishedRecipe> recipeConsumer, RegistryObject<ImpetusItem> impetus, RegistryObject<Item> node, TagKey<Item> tag) {
         String name = BuiltInRegistries.ITEM.getKey(node.get()).getPath().replaceFirst("_node", "");
-        System.out.println(tag.location());
+
         ConditionalRecipe.builder().addCondition(DefaultResourceConditions.tagsPopulated(tag)).addRecipe(
                         smeltingWithTag(new IngredientWithCount(Ingredient.of(tag), 6), Ingredient.of(node.get()), 0.25f, 200)
                                 ::build)

@@ -1,0 +1,26 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:tags_populated",
+      "values": [
+        "c:ingots/zinc"
+      ]
+    }
+  ],
+  "recipes": [
+    {
+      "recipe": {
+        "type": "malum:node_blasting",
+        "cookingtime": 100,
+        "experience": 0.25,
+        "ingredient": {
+          "item": "malum:zinc_node"
+        },
+        "result": {
+          "count": 6,
+          "tag": "c:nuggets/zinc"
+        }
+      }
+    }
+  ]
+}

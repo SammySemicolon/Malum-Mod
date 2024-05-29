@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "malum:soul_stained_steel_ingot"
+    },
+    "X": {
+      "tag": "c:string"
+    }
+  },
+  "pattern": [
+    " X ",
+    "X X",
+    " # "
+  ],
+  "result": {
+    "item": "malum:ornate_necklace"
+  },
+  "show_notification": true
+}
