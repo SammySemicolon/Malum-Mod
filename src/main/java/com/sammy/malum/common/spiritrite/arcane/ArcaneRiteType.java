@@ -8,13 +8,17 @@ import com.sammy.malum.common.packets.particle.curiosities.rite.generic.*;
 import com.sammy.malum.common.recipe.*;
 import com.sammy.malum.common.spiritrite.*;
 import com.sammy.malum.common.worldevent.*;
+import io.github.fabricators_of_create.porting_lib.transfer.TransferUtil;
+import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.core.*;
 import net.minecraft.server.level.*;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.*;
 import net.minecraft.world.level.block.state.*;
 
+import net.minecraft.world.phys.Vec3;
 import team.lodestar.lodestone.handlers.*;
 import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.systems.blockentity.*;
@@ -57,16 +61,19 @@ public class ArcaneRiteType extends TotemicRiteType {
                         LodestoneBlockEntityInventory inventoryForAltar = iMalumSpecialItemAccessPoint.getSuppliedInventory();
                         ItemStack stack = inventoryForAltar.getStackInSlot(0);
                         var recipe = SpiritTransmutationRecipe.getRecipe(level, stack);
-                        /*TODO
-                        if (recipe != null && !inventoryForAltar.extractItem(0, 1, true).isEmpty()) {
-                            Vec3 itemPos = iMalumSpecialItemAccessPoint.getItemPos();
-                            level.addFreshEntity(new ItemEntity(level, itemPos.x, itemPos.y, itemPos.z, recipe.output.copy()));
-                            MALUM_CHANNEL.sendToClientsTracking(new BlightTransformItemParticlePacket(List.of(ARCANE_SPIRIT.identifier), itemPos), level, level.getChunkAt(p).getPos());
-                            inventoryForAltar.extractItem(0, 1, false);
-                            BlockHelper.updateAndNotifyState(level, p);
-                        }
 
-                         */
+                        if (recipe != null) {
+                            try(Transaction t = TransferUtil.getTransaction()){
+                                long extracted = inventoryForAltar.extractSlot(0, inventoryForAltar.getVariantInSlot(0), inventoryForAltar.getStackInSlot(0).getCount(), t);
+                                if (extracted > 0) {
+                                    Vec3 itemPos = iMalumSpecialItemAccessPoint.getItemPos();
+                                    level.addFreshEntity(new ItemEntity(level, itemPos.x, itemPos.y, itemPos.z, recipe.output.copy()));
+                                    MALUM_CHANNEL.sendToClientsTracking(new BlightTransformItemParticlePacket(List.of(ARCANE_SPIRIT.identifier), itemPos), level, level.getChunkAt(p).getPos());
+                                    t.commit();
+                                    BlockHelper.updateAndNotifyState(level, p);
+                                }
+                            }
+                        }
                     }
                     ItemStack stack = stateToTransmute.getBlock().asItem().getDefaultInstance();
                     var recipe = SpiritTransmutationRecipe.getRecipe(level, stack);

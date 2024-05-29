@@ -1,8 +1,10 @@
 package com.sammy.malum.common.item.cosmetic.curios;
 
 import com.sammy.malum.common.item.curiosities.curios.MalumCurioItem;
+import com.sammy.malum.registry.common.item.ItemRegistry;
 import dev.emi.trinkets.api.SlotReference;
 import dev.emi.trinkets.api.TrinketEnums;
+import io.github.fabricators_of_create.porting_lib.transfer.item.ItemHandlerHelper;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -11,6 +13,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import team.lodestar.lodestone.helpers.TrinketsHelper;
 import team.lodestar.lodestone.systems.item.IEventResponderItem;
 
 import java.util.ArrayList;
@@ -68,12 +71,9 @@ public class CurioTokenOfGratitude extends MalumCurioItem implements IEventRespo
         if (entity instanceof Player playerEntity) {
             if (!playerEntity.level().isClientSide) {
                 if (GRADITUDE_CERTIFIED.stream().anyMatch(u -> u.equals(playerEntity.getUUID()))) {
-                    /*TODO
-                    if (CurioHelper.findCosmeticCurio(s -> s.getItem().equals(ItemRegistry.TOKEN_OF_GRATITUDE.get()), playerEntity).isEmpty()) {
+                    if (TrinketsHelper.findCosmeticCurio(s -> s.getItem().equals(ItemRegistry.TOKEN_OF_GRATITUDE.get()), playerEntity).isEmpty()){
                         ItemHandlerHelper.giveItemToPlayer(playerEntity, ItemRegistry.TOKEN_OF_GRATITUDE.get().getDefaultInstance());
                     }
-
-                     */
                 }
             }
         }

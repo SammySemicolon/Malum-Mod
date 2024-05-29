@@ -11,7 +11,7 @@ import static team.lodestar.lodestone.registry.common.particle.LodestoneScreenPa
 public class ScreenParticleRegistry {
     public static final ScreenParticleType<ScreenParticleOptions> SAW = registerType(new LodestoneScreenParticleType());
 
-    public static void registerParticleFactory() {//TODO maybe use event?
+    public static void registerParticleFactory() {
         registerProvider(SAW, new LodestoneScreenParticleType.Factory(getSpriteSet(MalumMod.malumPath("saw"))));
     }
 }

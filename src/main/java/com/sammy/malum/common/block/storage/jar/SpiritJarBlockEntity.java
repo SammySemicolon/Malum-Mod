@@ -53,7 +53,7 @@ public class SpiritJarBlockEntity extends LodestoneBlockEntity {
     private long lastClickTime;
     private UUID lastClickUUID;
 
-    private final LazyOptional<ItemStackHandler> inventory = LazyOptional.of(() -> new ItemStackHandler() {
+    public final LazyOptional<ItemStackHandler> inventory = LazyOptional.of(() -> new ItemStackHandler() {
         @Override
         public int getSlotCount() {
             return 2;
@@ -82,32 +82,6 @@ public class SpiritJarBlockEntity extends LodestoneBlockEntity {
             return super.insertSlot(slot, resource, maxAmount, transaction);
         }
 
-        /*TODO
-
-        @NotNull
-        @Override
-        public ItemStack extractItem(int slot, int amount, boolean simulate) {
-            if (slot != 0 || count <= 0)
-                return ItemStack.EMPTY;
-            MalumSpiritType extractedType = type;
-            if (extractedType == null)
-                return ItemStack.EMPTY;
-
-            int amountToExtract = Math.min(count, amount);
-            if (!simulate) {
-                count -= amountToExtract;
-                if (count == 0) {
-                    type = null;
-                }
-                if (!level.isClientSide) {
-                    BlockHelper.updateAndNotifyState(level, worldPosition);
-                }
-            }
-
-            return new ItemStack(extractedType.spiritShard.get(), amountToExtract);
-        }
-
-         */
 
         @Override
         public int getSlotLimit(int slot) {
@@ -123,16 +97,36 @@ public class SpiritJarBlockEntity extends LodestoneBlockEntity {
     });
 
 
+    public ItemStack extractItem(int slot, int amount) {
+        if (slot != 0 || count <= 0)
+            return ItemStack.EMPTY;
+        MalumSpiritType extractedType = type;
+        if (extractedType == null)
+            return ItemStack.EMPTY;
+
+        int amountToExtract = Math.min(count, amount);
+        count -= amountToExtract;
+        if (count == 0) {
+            type = null;
+        }
+        if (!level.isClientSide) {
+            BlockHelper.updateAndNotifyState(level, worldPosition);
+        }
+
+        return new ItemStack(extractedType.spiritShard.get(), amountToExtract);
+    }
+
     @Override
     public InteractionResult onUse(Player player, InteractionHand hand) {
         if (getLevel() == null)
             return InteractionResult.PASS;
 
         int count;
-        if (getLevel().getGameTime() - lastClickTime < 10 && player.getUUID().equals(lastClickUUID))
+        if (getLevel().getGameTime() - lastClickTime < 10 && player.getUUID().equals(lastClickUUID)) {
             count = insertAllSpirits(player);
-        else
+        } else {
             count = insertHeldItem(player);
+        }
 
         lastClickTime = getLevel().getGameTime();
         lastClickUUID = player.getUUID();

@@ -34,6 +34,6 @@ public class RuneUnnaturalStaminaItem extends AbstractRuneCurioItem {
 
 
     public static boolean forceSprint(LivingEntity livingEntity) {
-        return TrinketsHelper.hasCurioEquipped(livingEntity, ItemRegistry.RUNE_OF_UNNATURAL_STAMINA.get());
+        return TrinketsHelper.hasTrinketEquipped(livingEntity, ItemRegistry.RUNE_OF_UNNATURAL_STAMINA.get());
     }
 }

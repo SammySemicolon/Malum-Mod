@@ -27,7 +27,7 @@ public class RuneTwinnedDurationItem extends AbstractRuneCurioItem {
     }
 
     public static boolean onPotionApplied(LivingEntity livingEntity, MobEffectInstance mobEffectInstance, MobEffectInstance mobEffectInstance1, Entity entity) {
-        if (mobEffectInstance == null && TrinketsHelper.hasCurioEquipped(livingEntity, ItemRegistry.RUNE_OF_TWINNED_DURATION.get())) {
+        if (mobEffectInstance == null && TrinketsHelper.hasTrinketEquipped(livingEntity, ItemRegistry.RUNE_OF_TWINNED_DURATION.get())) {
             MobEffectInstance effect = mobEffectInstance1;
             MobEffect type = effect.getEffect();
             float multiplier = MobEffectRegistry.ALCHEMICAL_PROFICIENCY_MAP.getOrDefault(BuiltInRegistries.MOB_EFFECT.getKey(type), 1f);

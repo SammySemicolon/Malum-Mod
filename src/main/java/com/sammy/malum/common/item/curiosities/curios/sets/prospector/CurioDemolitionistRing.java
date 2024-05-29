@@ -20,7 +20,7 @@ public class CurioDemolitionistRing extends MalumCurioItem {
     }
 
     public static float increaseExplosionRadius(LivingEntity source, float original) {
-        if (source != null && TrinketsHelper.hasCurioEquipped(source, ItemRegistry.RING_OF_THE_DEMOLITIONIST.get())) {
+        if (source != null && TrinketsHelper.hasTrinketEquipped(source, ItemRegistry.RING_OF_THE_DEMOLITIONIST.get())) {
             return original + 1;
         }
         return original;

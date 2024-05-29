@@ -23,7 +23,7 @@ public class RuneFervorItem extends AbstractRuneCurioItem {
 
     public static void increaseDigSpeed(PlayerEvents.BreakSpeed event) {
         Player player = event.getEntity();
-        if (TrinketsHelper.hasCurioEquipped(player, ItemRegistry.RUNE_OF_FERVOR.get())) {
+        if (TrinketsHelper.hasTrinketEquipped(player, ItemRegistry.RUNE_OF_FERVOR.get())) {
             event.setNewSpeed(event.getOriginalSpeed() * 1.25f);
         }
     }

@@ -19,11 +19,16 @@ import com.sammy.malum.registry.common.item.ItemRegistry;
 import io.github.fabricators_of_create.porting_lib.config.ConfigRegistry;
 import io.github.fabricators_of_create.porting_lib.config.ConfigType;
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin;
 import net.fabricmc.fabric.api.client.rendering.v1.ArmorRenderer;
+import net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 
 import static com.sammy.malum.registry.common.item.ItemRegistry.SPIRIT_JAR;
 
@@ -46,6 +51,7 @@ public class MalumModClient implements ClientModInitializer {
         //ModelRegistry.registerLayers();
 
         BuiltinItemRendererRegistry.INSTANCE.register(SPIRIT_JAR.get(), new SpiritJarItemRenderer());
+        BlockRenderLayerMap.INSTANCE.putBlock(BlockRegistry.SPIRIT_JAR.get(), RenderType.translucent());
 
         ArmorRenderer.register(new SoulHunterArmorRenderer(),
                 ItemRegistry.SOUL_HUNTER_CLOAK.get(),

@@ -30,7 +30,7 @@ public class CurioVoraciousRing extends MalumCurioItem {
 
     public static ItemStack finishEating(LivingEntity livingEntity, ItemStack itemStack, int i, ItemStack stack) {
         if (livingEntity instanceof Player player) {
-            if (TrinketsHelper.hasCurioEquipped(player, ItemRegistry.RING_OF_DESPERATE_VORACITY.get())) {
+            if (TrinketsHelper.hasTrinketEquipped(player, ItemRegistry.RING_OF_DESPERATE_VORACITY.get())) {
                 if (stack.is(GROSS_FOODS)) {
                     Level level = player.level();
                     MobEffectInstance gluttony = player.getEffect(MobEffectRegistry.GLUTTONY.get());
@@ -50,7 +50,7 @@ public class CurioVoraciousRing extends MalumCurioItem {
     }
 
     public static int accelerateEating(LivingEntity livingEntity, ItemStack itemStack, int i) {
-        if (TrinketsHelper.hasCurioEquipped(livingEntity, ItemRegistry.RING_OF_DESPERATE_VORACITY.get())) {
+        if (TrinketsHelper.hasTrinketEquipped(livingEntity, ItemRegistry.RING_OF_DESPERATE_VORACITY.get())) {
             if (itemStack.is(GROSS_FOODS)) {
                 return (int)(i * 0.5f);
             }

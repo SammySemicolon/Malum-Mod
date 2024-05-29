@@ -30,7 +30,7 @@ public class CurioGruesomeConcentrationRing extends MalumCurioItem implements IV
 
     public static ItemStack finishEating(LivingEntity livingEntity, ItemStack itemStack, int i, ItemStack stack) {
         if (livingEntity instanceof Player player) {
-            if (TrinketsHelper.hasCurioEquipped(player, ItemRegistry.RING_OF_GRUESOME_CONCENTRATION.get())) {
+            if (TrinketsHelper.hasTrinketEquipped(player, ItemRegistry.RING_OF_GRUESOME_CONCENTRATION.get())) {
                 if (stack.is(GROSS_FOODS)) {
                     double arcaneResonance = player.getAttribute(AttributeRegistry.ARCANE_RESONANCE.get()).getValue();
                     MobEffect gluttony = MobEffectRegistry.GLUTTONY.get();

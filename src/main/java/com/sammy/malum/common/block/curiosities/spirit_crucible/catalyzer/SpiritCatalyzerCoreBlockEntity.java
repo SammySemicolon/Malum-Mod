@@ -7,7 +7,10 @@ import com.sammy.malum.common.item.spirit.*;
 import com.sammy.malum.core.systems.spirit.*;
 import com.sammy.malum.registry.common.block.*;
 import com.sammy.malum.visual_effects.*;
+import com.terraformersmc.terraform.leaves.ComposterRecipes;
 import io.github.fabricators_of_create.porting_lib.transfer.TransferUtil;
+import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
+import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.core.*;
@@ -107,7 +110,7 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity impleme
                 }
             }
             if (!augmentOnly) {
-                //TODO inventory.interact(player.level(), player, hand);
+                inventory.interact(this, player.level(), player, hand, s -> true);
             }
             if (heldStack.isEmpty()) {
                 return InteractionResult.SUCCESS;
@@ -173,7 +176,7 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity impleme
         if (burnTicks > 0) {
             return true;
         }
-        return false; //TODO return ForgeHooks.getBurnTime(inventory.getStackInSlot(0), RecipeType.SMELTING) > 0;
+        return FuelRegistry.INSTANCE.get(inventory.getStackInSlot(0).getItem()) > 0;
     }
 
     @Override
@@ -184,7 +187,7 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity impleme
         if (burnTicks <= 0) {
             ItemStack stack = inventory.getStackInSlot(0);
             if (!stack.isEmpty()) {
-                //TODO burnTicks = ForgeHooks.getBurnTime(inventory.getStackInSlot(0), RecipeType.SMELTING) / 2f;
+                burnTicks = FuelRegistry.INSTANCE.get(inventory.getStackInSlot(0).getItem()) / 2f;
                 stack.shrink(1);
                 inventory.setChanged();
                 BlockHelper.updateAndNotifyState(level, worldPosition);

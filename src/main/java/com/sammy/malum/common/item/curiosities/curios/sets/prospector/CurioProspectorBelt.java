@@ -36,14 +36,14 @@ public class CurioProspectorBelt extends MalumCurioItem {
 
     public static void processExplosion(Level level, Explosion explosion, List<Entity> entities, double v) {
         LivingEntity exploder = explosion.getIndirectSourceEntity();
-        if (exploder != null && TrinketsHelper.hasCurioEquipped(exploder, ItemRegistry.BELT_OF_THE_PROSPECTOR.get())) {
+        if (exploder != null && TrinketsHelper.hasTrinketEquipped(exploder, ItemRegistry.BELT_OF_THE_PROSPECTOR.get())) {
             entities.removeIf(e -> e instanceof ItemEntity itemEntity && itemEntity.getItem().is(ItemTagRegistry.PROSPECTORS_TREASURE));
         }
     }
 
     public static LootParams.Builder applyFortune(Entity source, LootParams.Builder builder) {
         if (source instanceof LivingEntity livingEntity) {
-            if (TrinketsHelper.hasCurioEquipped(livingEntity, ItemRegistry.BELT_OF_THE_PROSPECTOR.get())) {
+            if (TrinketsHelper.hasTrinketEquipped(livingEntity, ItemRegistry.BELT_OF_THE_PROSPECTOR.get())) {
                 Optional<Integer> v = TrinketsHelper.getEquippedTrinkets(livingEntity).stream().map(h -> EnchantmentHelper.getItemEnchantmentLevel(Enchantments.BLOCK_FORTUNE, h.getB())).findFirst();
                 int fortuneBonus = 3 + v.orElse(0);
                 ItemStack diamondPickaxe = new ItemStack(Items.DIAMOND_PICKAXE);
