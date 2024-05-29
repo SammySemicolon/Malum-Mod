@@ -1,5 +1,6 @@
 package com.sammy.malum.data.recipe;
 
+import com.sammy.malum.data.recipe.crafting.MalumWoodenRecipes;
 import com.sammy.malum.data.recipe.infusion.*;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
@@ -23,8 +24,8 @@ public class MalumRecipes extends FabricRecipeProvider {
     @Override
     public void buildRecipes(Consumer<FinishedRecipe> consumer) {
         //todo vanillaRecipeReplacements.buildRecipes(consumer);
-        //MalumVanillaRecipes.buildRecipes(consumer);
-        //MalumWoodenRecipes.buildRecipes(consumer);
+        MalumVanillaRecipes.buildRecipes(consumer);
+        MalumWoodenRecipes.buildRecipes(consumer);
 
         ArtificeSpiritInfusionRecipes.buildRecipes(consumer);
         CurioSpiritInfusionRecipes.buildRecipes(consumer);

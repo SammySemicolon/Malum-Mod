@@ -34,9 +34,6 @@ public class MalignantStrongholdArmorRenderer implements ArmorRenderer {
         float netHeadYaw = f1 - f;
         float netHeadPitch = Mth.lerp(pticks, entity.xRotO, entity.getXRot());
         ArmorSkin skin = ArmorSkin.getAppliedItemSkin(stack);
-        if (skin != null) {
-            armorModel = ArmorSkinRenderingData.RENDERING_DATA.apply(skin).getModel(entity);
-        }
 
         if (skin != null) {
             armorModel = ArmorSkinRenderingData.RENDERING_DATA.apply(skin).getModel(entity);
@@ -64,6 +61,5 @@ public class MalignantStrongholdArmorRenderer implements ArmorRenderer {
         armorModel.leftLegging.visible = slot == EquipmentSlot.LEGS;
         armorModel.rightLegging.visible = slot == EquipmentSlot.LEGS;
         ArmorRenderer.renderPart(matrices, vertexConsumers, light, stack, armorModel, texture);
-
     }
 }

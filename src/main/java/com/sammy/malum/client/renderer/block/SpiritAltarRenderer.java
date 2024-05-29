@@ -47,7 +47,6 @@ public class SpiritAltarRenderer implements BlockEntityRenderer<SpiritAltarBlock
         }
 
         ItemStack stack = blockEntityIn.inventory.getStackInSlot(0);
-        //System.out.println(stack + " : " + blockEntityIn.inventory);
         if (!stack.isEmpty()) {
             poseStack.pushPose();
             Vec3 offset = blockEntityIn.getCentralItemOffset();

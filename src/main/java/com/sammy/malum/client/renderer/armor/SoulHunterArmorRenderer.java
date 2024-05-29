@@ -35,9 +35,6 @@ public class SoulHunterArmorRenderer implements ArmorRenderer {
         float netHeadYaw = f1 - f;
         float netHeadPitch = Mth.lerp(pticks, entity.xRotO, entity.getXRot());
         ArmorSkin skin = ArmorSkin.getAppliedItemSkin(stack);
-        if (skin != null) {
-            armorModel = ArmorSkinRenderingData.RENDERING_DATA.apply(skin).getModel(entity);
-        }
 
         if (skin != null) {
             armorModel = ArmorSkinRenderingData.RENDERING_DATA.apply(skin).getModel(entity);
@@ -47,7 +44,6 @@ public class SoulHunterArmorRenderer implements ArmorRenderer {
         if (texture == null) {
             texture = MalumMod.malumPath("textures/armor/spirit_hunter_reforged.png");
         }
-
 
         armorModel.slot = slot;
         armorModel.copyFromDefault(contextModel);
@@ -66,10 +62,5 @@ public class SoulHunterArmorRenderer implements ArmorRenderer {
         armorModel.rightLegging.visible = slot == EquipmentSlot.LEGS;
         armorModel.root.getChild("cape").visible = slot == EquipmentSlot.CHEST;
         ArmorRenderer.renderPart(matrices, vertexConsumers, light, stack, armorModel, texture);
-
-/*
-this.cape = root.getChild("cape");
-        this.lowered_hood = root.getChild("lowered_hood");
- */
     }
 }

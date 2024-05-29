@@ -14,6 +14,7 @@ import net.minecraft.tags.*;
 import net.minecraft.world.item.*;
 
 import org.jetbrains.annotations.*;
+import team.lodestar.lodestone.registry.common.tag.LodestoneItemTags;
 
 import java.util.concurrent.*;
 

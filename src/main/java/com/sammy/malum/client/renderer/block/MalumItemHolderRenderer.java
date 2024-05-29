@@ -27,7 +27,6 @@ public class MalumItemHolderRenderer implements BlockEntityRenderer<MalumItemHol
         ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
 
         LodestoneBlockEntityInventory inventory = blockEntityIn.inventory;
-        //System.out.println(inventory);
 
         if (!inventory.isEmpty()) {
             ItemStack stack = inventory.getStackInSlot(0);
