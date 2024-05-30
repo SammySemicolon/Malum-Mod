@@ -9,13 +9,13 @@ import com.sammy.malum.common.enchantment.ReboundEnchantment;
 import com.sammy.malum.common.entity.nitrate.NitrateExplosion;
 import com.sammy.malum.common.item.augment.AbstractAugmentItem;
 import com.sammy.malum.common.item.cosmetic.curios.CurioTokenOfGratitude;
-import com.sammy.malum.common.item.curiosities.curios.runes.madness.RuneTwinnedDurationItem;
-import com.sammy.malum.common.item.curiosities.curios.runes.miracle.RuneAlimentCleansingItem;
-import com.sammy.malum.common.item.curiosities.curios.runes.miracle.RuneFervorItem;
-import com.sammy.malum.common.item.curiosities.curios.sets.misc.CurioHarmonyNecklace;
-import com.sammy.malum.common.item.curiosities.curios.sets.prospector.CurioProspectorBelt;
-import com.sammy.malum.common.item.curiosities.curios.sets.rotten.CurioVoraciousRing;
-import com.sammy.malum.common.item.curiosities.curios.sets.weeping.CurioGruesomeConcentrationRing;
+import com.sammy.malum.common.item.curiosities.trinkets.runes.madness.RuneTwinnedDurationItem;
+import com.sammy.malum.common.item.curiosities.trinkets.runes.miracle.RuneAlimentCleansingItem;
+import com.sammy.malum.common.item.curiosities.trinkets.runes.miracle.RuneFervorItem;
+import com.sammy.malum.common.item.curiosities.trinkets.sets.misc.TrinketsHarmonyNecklace;
+import com.sammy.malum.common.item.curiosities.trinkets.sets.prospector.TrinketsProspectorBelt;
+import com.sammy.malum.common.item.curiosities.trinkets.sets.rotten.TrinketsVoraciousRing;
+import com.sammy.malum.common.item.curiosities.trinkets.sets.weeping.TrinketsGruesomeConcentrationRing;
 import com.sammy.malum.compability.farmersdelight.FarmersDelightCompat;
 import com.sammy.malum.config.CommonConfig;
 import com.sammy.malum.core.handlers.*;
@@ -127,9 +127,9 @@ public class MalumMod implements ModInitializer {
 
 
         MobEntitySetTargetCallback.EVENT.register(SoulDataHandler::preventTargeting);
-        LivingEntityEvents.VISIBILITY.register(CurioHarmonyNecklace::preventDetection);
-        LivingEntityUseItemEvents.LIVING_USE_ITEM_FINISH.register(CurioGruesomeConcentrationRing::finishEating);
-        LivingEntityUseItemEvents.LIVING_USE_ITEM_FINISH.register(CurioVoraciousRing::finishEating);
+        LivingEntityEvents.VISIBILITY.register(TrinketsHarmonyNecklace::preventDetection);
+        LivingEntityUseItemEvents.LIVING_USE_ITEM_FINISH.register(TrinketsGruesomeConcentrationRing::finishEating);
+        LivingEntityUseItemEvents.LIVING_USE_ITEM_FINISH.register(TrinketsVoraciousRing::finishEating);
         LivingHurtEvent.HURT.register(MalumAttributeEventHandler::processAttributes);
         LivingHurtEvent.HURT.register(SoulDataHandler::exposeSoul);
         LivingHurtEvent.HURT.register(WickedIntentEffect::removeWickedIntent);
@@ -143,13 +143,13 @@ public class MalumMod implements ModInitializer {
         LivingEntityEvents.LivingTickEvent.TICK.register(MalignantConversionHandler::checkForAttributeChanges);
         LivingEntityEvents.LivingTickEvent.TICK.register(SoulDataHandler::manageSoul);
         LivingEntityEvents.LivingTickEvent.TICK.register(TouchOfDarknessHandler::entityTick);
-        ExplosionEvents.DETONATE.register(CurioProspectorBelt::processExplosion);
+        ExplosionEvents.DETONATE.register(TrinketsProspectorBelt::processExplosion);
         ExplosionEvents.DETONATE.register(NitrateExplosion::processExplosion);
         LodestoneInteractionEvent.RIGHT_CLICK_ITEM.register(ReboundEnchantment::onRightClickItem);
         LodestoneMobEffectEvents.APPLICABLE.register(GluttonyEffect::canApplyPotion);
         LodestoneMobEffectEvents.ADDED.register(RuneTwinnedDurationItem::onPotionApplied);
         LodestoneMobEffectEvents.ADDED.register(RuneAlimentCleansingItem::onPotionApplied);
-        LodestoneInteractionEvent.ON_ITEM_USE_START.register(CurioVoraciousRing::accelerateEating);
+        LodestoneInteractionEvent.ON_ITEM_USE_START.register(TrinketsVoraciousRing::accelerateEating);
         LodestoneItemEvent.EXPIRE.register(SpiritHarvestHandler::shatterItem);
 
         ResourceManagerHelper.get(PackType.SERVER_DATA).registerReloadListener(new SpiritDataReloadListenerFabricImpl());

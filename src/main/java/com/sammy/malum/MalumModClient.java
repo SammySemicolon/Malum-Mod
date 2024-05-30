@@ -62,7 +62,17 @@ public class MalumModClient implements ClientModInitializer {
         });
 
         BuiltinItemRendererRegistry.INSTANCE.register(SPIRIT_JAR.get(), new SpiritJarItemRenderer());
-        BlockRenderLayerMap.INSTANCE.putBlock(BlockRegistry.SPIRIT_JAR.get(), RenderType.translucent());
+        BlockRenderLayerMap.INSTANCE.putBlocks(RenderType.translucent(),
+                BlockRegistry.SPIRIT_JAR.get(),
+                BlockRegistry.ETHER_TORCH.get(),
+                BlockRegistry.IRIDESCENT_ETHER_TORCH.get(),
+                BlockRegistry.IRIDESCENT_WALL_ETHER_TORCH.get(),
+                BlockRegistry.WALL_ETHER_TORCH.get(),
+                BlockRegistry.TAINTED_ETHER_BRAZIER.get(),
+                BlockRegistry.TAINTED_IRIDESCENT_ETHER_BRAZIER.get(),
+                BlockRegistry.TWISTED_ETHER_BRAZIER.get(),
+                BlockRegistry.TWISTED_IRIDESCENT_ETHER_BRAZIER.get()
+        );
 
         ArmorRenderer.register(new SoulHunterArmorRenderer(),
                 ItemRegistry.SOUL_HUNTER_CLOAK.get(),

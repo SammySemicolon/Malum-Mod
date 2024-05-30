@@ -1,6 +1,6 @@
 package com.sammy.malum.data.item;
 
-import com.sammy.malum.common.item.curiosities.curios.MalumCurioItem;
+import com.sammy.malum.common.item.curiosities.trinkets.MalumTinketsItem;
 import com.sammy.malum.common.item.impetus.NodeItem;
 import com.sammy.malum.registry.common.block.BlockTagRegistry;
 import com.sammy.malum.registry.common.item.ItemRegistry;
@@ -162,7 +162,7 @@ public class MalumItemTags extends FabricTagProvider.ItemTagProvider {
 
 
         for (RegistryObject<Item> i : ITEMS.getEntries()) {
-            if (i.get() instanceof MalumCurioItem) {
+            if (i.get() instanceof MalumTinketsItem) {
                 final Item item = i.get();
                 final ResourceLocation id = i.getId();
                 if (id.getPath().contains("_ring") || id.getPath().contains("ring_")) {

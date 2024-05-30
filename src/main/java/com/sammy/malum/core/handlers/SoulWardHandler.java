@@ -51,6 +51,7 @@ public class SoulWardHandler {
         if (!player.level().isClientSide) {
             SoulWardHandler soulWardHandler = MalumComponents.MALUM_PLAYER_COMPONENT.get(player).soulWardHandler;
             AttributeInstance soulWardCap = player.getAttribute(AttributeRegistry.SOUL_WARD_CAP.get());
+            System.out.println(soulWardCap.getValue());
             if (soulWardCap != null) {
                 if (soulWardHandler.soulWard < soulWardCap.getValue() && soulWardHandler.soulWardProgress <= 0) {
                     soulWardHandler.soulWard++;

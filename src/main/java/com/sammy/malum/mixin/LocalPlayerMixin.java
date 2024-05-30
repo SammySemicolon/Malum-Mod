@@ -1,6 +1,6 @@
 package com.sammy.malum.mixin;
 
-import com.sammy.malum.common.item.curiosities.curios.runes.madness.RuneUnnaturalStaminaItem;
+import com.sammy.malum.common.item.curiosities.trinkets.runes.madness.RuneUnnaturalStaminaItem;
 import net.minecraft.client.player.LocalPlayer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

@@ -1,6 +1,6 @@
 package com.sammy.malum.common.item.cosmetic.curios;
 
-import com.sammy.malum.common.item.curiosities.curios.MalumCurioItem;
+import com.sammy.malum.common.item.curiosities.trinkets.MalumTinketsItem;
 import com.sammy.malum.registry.common.item.ItemRegistry;
 import dev.emi.trinkets.api.SlotReference;
 import dev.emi.trinkets.api.TrinketEnums;
@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.UUID;
 
 
-public class CurioTokenOfGratitude extends MalumCurioItem implements IEventResponderItem {
+public class CurioTokenOfGratitude extends MalumTinketsItem implements IEventResponderItem {
     public static final List<UUID> GRADITUDE_CERTIFIED = new ArrayList<>();
     public static final List<UUID> TRANS_SCARFS = new ArrayList<>();
     public static final UUID SAMMY = validateForGratitude("0ca54301-6170-4c44-b3e0-b8afa6b81ed2");

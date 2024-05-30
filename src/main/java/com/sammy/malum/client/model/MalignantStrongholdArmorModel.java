@@ -8,7 +8,7 @@ import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.common.item.curiosities.curios.runes.AbstractRuneCurioItem;
+import com.sammy.malum.common.item.curiosities.trinkets.runes.AbstractRuneTrinketsItem;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import com.sammy.malum.registry.client.RenderTypeRegistry;
 import net.minecraft.client.Minecraft;
@@ -66,7 +66,7 @@ public class MalignantStrongholdArmorModel extends LodestoneArmorModel {
         }
     }
 
-    public void updateGlow(List<AbstractRuneCurioItem> runes) {
+    public void updateGlow(List<AbstractRuneTrinketsItem> runes) {
         activeGlows.clear();
         activeGlows.addAll(runes.stream().map(r -> r.spiritType).toList());
     }
