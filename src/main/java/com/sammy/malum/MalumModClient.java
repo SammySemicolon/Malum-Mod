@@ -25,14 +25,20 @@ import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin;
 import net.fabricmc.fabric.api.client.rendering.v1.ArmorRenderer;
 import net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
+import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
+import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 
 import static com.sammy.malum.registry.common.item.ItemRegistry.SPIRIT_JAR;
 
 public class MalumModClient implements ClientModInitializer {
+
     @Override
     public void onInitializeClient() {
         ConfigRegistry.registerConfig(MalumMod.MALUM, ConfigType.CLIENT, ClientConfig.SPEC);
@@ -48,7 +54,6 @@ public class MalumModClient implements ClientModInitializer {
         ItemRegistry.ClientOnly.setItemColors();
         ContainerRegistry.bindContainerRenderers();
         ModelRegistry.registerLayerDefinitions();
-        //ModelRegistry.registerLayers();
 
         BuiltinItemRendererRegistry.INSTANCE.register(SPIRIT_JAR.get(), new SpiritJarItemRenderer());
         BlockRenderLayerMap.INSTANCE.putBlock(BlockRegistry.SPIRIT_JAR.get(), RenderType.translucent());
@@ -75,6 +80,16 @@ public class MalumModClient implements ClientModInitializer {
         );
 
         ModelLoadingPlugin.register(new MalumModelLoaderPlugin());
+
+
+        FabricLoader.getInstance().getModContainer(MalumMod.MALUM).ifPresent(container ->
+                ResourceManagerHelper.registerBuiltinResourcePack(
+                        MalumMod.malumPath("chibi_sprites"),
+                        container,
+                        Component.translatable("chibi_sprites"),
+                        ResourcePackActivationType.NORMAL
+                )
+        );
     }
 
     private void startTick(Minecraft minecraft) {
