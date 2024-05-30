@@ -2,11 +2,18 @@ package com.sammy.malum.common.item.curiosities.curios;
 
 import com.google.common.collect.Multimap;
 import dev.emi.trinkets.api.Trinket;
+import dev.emi.trinkets.api.TrinketsApi;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -26,30 +33,25 @@ public class MalumCurioItem extends AbstractMalumCurioItem implements Trinket {
         super.addAttributeModifier(map, attribute, attributeModifier);
     }
 
-    /*TODO
     @Override
-    public List<Component> getAttributesTooltip(List<net.minecraft.network.chat.Component> tooltips, ItemStack stack) {
-        final List<Component> attributesTooltip = super.getAttributesTooltip(tooltips, stack);
-
+    public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltipComponents, TooltipFlag isAdvanced) {
         final List<Component> extraTooltipLines = new ArrayList<>();
         addExtraTooltipLines(extraTooltipLines::add);
-
         if (!extraTooltipLines.isEmpty()) {
-            if (attributesTooltip.isEmpty()) {
-                attributesTooltip.add(Component.empty());
-                final Map<String, ISlotType> itemStackSlots = CuriosApi.getItemStackSlots(stack);
-
-                itemStackSlots.keySet().stream().findFirst().ifPresent(s ->
-                    attributesTooltip.add(Component.translatable("curios.modifiers." + s)
-                        .withStyle(ChatFormatting.GOLD)));
+            if (tooltipComponents.isEmpty()) {
+                tooltipComponents.add(Component.empty());
+            }
+            if (level != null) {
+                var trinket = TrinketsApi.getPlayerSlots(level);
+                trinket.keySet().stream().findFirst().ifPresent(s -> {
+                    tooltipComponents.add(Component.translatable("curios.modifiers." + s).withStyle(ChatFormatting.GOLD));
+                });
             }
 
-            attributesTooltip.addAll(extraTooltipLines);
         }
-        return attributesTooltip;
-    }
 
-     */
+        super.appendHoverText(stack, level, tooltipComponents, isAdvanced);
+    }
 
     public static Component positiveEffect(String name, Object... args) {
         return Component.translatable("malum.gui.curio.positive", Component.translatable("malum.gui.curio.effect." + name, args)).withStyle(ChatFormatting.BLUE);

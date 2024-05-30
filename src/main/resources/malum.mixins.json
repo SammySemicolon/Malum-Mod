@@ -7,7 +7,6 @@
     "EnderEyeItemMixin",
     "ExplosionMixin",
     "FishingHookEntityMixin",
-    "ItemMixin",
     "ItemStackMixin",
     "LivingEntityMixin",
     "PlayerMixin",
