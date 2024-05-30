@@ -5,12 +5,13 @@ import com.sammy.malum.common.packets.particle.curiosities.rite.generic.MajorEnt
 import com.sammy.malum.common.spiritrite.TotemicRiteEffect;
 import com.sammy.malum.common.spiritrite.TotemicRiteType;
 import com.sammy.malum.registry.common.DamageTypeRegistry;
-import net.minecraft.server.level.*;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
 
-import java.util.*;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import static com.sammy.malum.registry.common.PacketRegistry.MALUM_CHANNEL;
@@ -51,7 +52,7 @@ public class EldritchWickedRiteType extends TotemicRiteType {
                     for (Animal entity : animals) {
                         entity.hurt(DamageTypeRegistry.create(entity.level(), DamageTypeRegistry.VOODOO), entity.getMaxHealth());
                         MALUM_CHANNEL.sendToClientsTracking(new MajorEntityEffectParticlePacket(WICKED_SPIRIT.getPrimaryColor(), entity.getX(), entity.getY() + entity.getBbHeight() / 2f, entity.getZ()), entity);
-                       if (maxKills-- <= 0) {
+                        if (maxKills-- <= 0) {
                             return;
                         }
                     }

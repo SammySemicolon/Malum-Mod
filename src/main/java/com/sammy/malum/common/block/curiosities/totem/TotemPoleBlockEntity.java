@@ -1,28 +1,32 @@
 package com.sammy.malum.common.block.curiosities.totem;
 
-import com.sammy.malum.common.item.curiosities.tools.*;
-import com.sammy.malum.core.handlers.*;
-import com.sammy.malum.core.systems.spirit.*;
-import com.sammy.malum.registry.common.*;
-import com.sammy.malum.registry.common.block.*;
-import com.sammy.malum.visual_effects.*;
-import com.sammy.malum.visual_effects.networked.data.*;
+import com.sammy.malum.common.item.curiosities.tools.TotemicStaffItem;
+import com.sammy.malum.core.handlers.SpiritHarvestHandler;
+import com.sammy.malum.core.systems.spirit.MalumSpiritType;
+import com.sammy.malum.registry.common.ParticleEffectTypeRegistry;
+import com.sammy.malum.registry.common.SoundRegistry;
+import com.sammy.malum.registry.common.block.BlockEntityRegistry;
+import com.sammy.malum.visual_effects.TotemParticleEffects;
+import com.sammy.malum.visual_effects.networked.data.PositionEffectData;
 import io.github.fabricators_of_create.porting_lib.tool.ToolActions;
-import net.minecraft.core.*;
-import net.minecraft.nbt.*;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.*;
-import net.minecraft.util.*;
-import net.minecraft.world.*;
-import net.minecraft.world.entity.player.*;
-import net.minecraft.world.item.*;
-import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.entity.*;
-import net.minecraft.world.level.block.state.*;
-import net.minecraft.world.level.block.state.properties.*;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.Mth;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import org.jetbrains.annotations.Nullable;
-import team.lodestar.lodestone.helpers.*;
-import team.lodestar.lodestone.systems.blockentity.*;
+import team.lodestar.lodestone.helpers.BlockHelper;
+import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntity;
 
 
 public class TotemPoleBlockEntity extends LodestoneBlockEntity {
@@ -65,8 +69,7 @@ public class TotemPoleBlockEntity extends LodestoneBlockEntity {
             }
             totemPoleState = totemPoleState.equals(TotemPoleState.INACTIVE) ? TotemPoleState.VISUAL_ONLY : TotemPoleState.INACTIVE;
             success = true;
-        }
-        else if (held.canPerformAction(ToolActions.AXE_STRIP)) {
+        } else if (held.canPerformAction(ToolActions.AXE_STRIP)) {
             if (level.isClientSide) {
                 return InteractionResult.SUCCESS;
             }

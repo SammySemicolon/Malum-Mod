@@ -1,32 +1,35 @@
 package com.sammy.malum.common.spiritrite.arcane;
 
-import com.sammy.malum.common.block.blight.*;
-import com.sammy.malum.common.block.curiosities.totem.*;
-import com.sammy.malum.common.block.storage.*;
-import com.sammy.malum.common.packets.particle.curiosities.blight.*;
-import com.sammy.malum.common.packets.particle.curiosities.rite.generic.*;
-import com.sammy.malum.common.recipe.*;
-import com.sammy.malum.common.spiritrite.*;
-import com.sammy.malum.common.worldevent.*;
+import com.sammy.malum.common.block.blight.BlightedSoilBlock;
+import com.sammy.malum.common.block.curiosities.totem.TotemBaseBlockEntity;
+import com.sammy.malum.common.block.storage.IMalumSpecialItemAccessPoint;
+import com.sammy.malum.common.packets.particle.curiosities.blight.BlightMistParticlePacket;
+import com.sammy.malum.common.packets.particle.curiosities.blight.BlightTransformItemParticlePacket;
+import com.sammy.malum.common.packets.particle.curiosities.rite.generic.BlockSparkleParticlePacket;
+import com.sammy.malum.common.recipe.SpiritTransmutationRecipe;
+import com.sammy.malum.common.spiritrite.TotemicRiteEffect;
+import com.sammy.malum.common.spiritrite.TotemicRiteType;
+import com.sammy.malum.common.worldevent.TotemCreatedBlightEvent;
 import io.github.fabricators_of_create.porting_lib.transfer.TransferUtil;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
-import net.minecraft.core.*;
-import net.minecraft.server.level.*;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.item.*;
-import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.entity.*;
-import net.minecraft.world.level.block.state.*;
-
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import team.lodestar.lodestone.handlers.*;
-import team.lodestar.lodestone.helpers.*;
-import team.lodestar.lodestone.systems.blockentity.*;
+import team.lodestar.lodestone.handlers.WorldEventHandler;
+import team.lodestar.lodestone.helpers.BlockHelper;
+import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntityInventory;
 
-import java.util.*;
+import java.util.List;
 
-import static com.sammy.malum.registry.common.PacketRegistry.*;
-import static com.sammy.malum.registry.common.SpiritTypeRegistry.*;
+import static com.sammy.malum.registry.common.PacketRegistry.MALUM_CHANNEL;
+import static com.sammy.malum.registry.common.SpiritTypeRegistry.ARCANE_SPIRIT;
 
 public class ArcaneRiteType extends TotemicRiteType {
     public ArcaneRiteType() {
@@ -63,7 +66,7 @@ public class ArcaneRiteType extends TotemicRiteType {
                         var recipe = SpiritTransmutationRecipe.getRecipe(level, stack);
 
                         if (recipe != null) {
-                            try(Transaction t = TransferUtil.getTransaction()){
+                            try (Transaction t = TransferUtil.getTransaction()) {
                                 long extracted = inventoryForAltar.extractSlot(0, inventoryForAltar.getVariantInSlot(0), inventoryForAltar.getStackInSlot(0).getCount(), t);
                                 if (extracted > 0) {
                                     Vec3 itemPos = iMalumSpecialItemAccessPoint.getItemPos();

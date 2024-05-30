@@ -1,29 +1,33 @@
 package com.sammy.malum.common.entity.bolt;
 
-import com.sammy.malum.common.item.curiosities.weapons.staff.*;
-import com.sammy.malum.registry.client.*;
-import com.sammy.malum.registry.common.*;
-import com.sammy.malum.registry.common.entity.*;
-import com.sammy.malum.registry.common.item.*;
-import com.sammy.malum.visual_effects.*;
-import com.sammy.malum.visual_effects.networked.*;
-import net.minecraft.sounds.*;
-import net.minecraft.util.*;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.projectile.*;
-import net.minecraft.world.item.*;
-import net.minecraft.world.level.*;
-import net.minecraft.world.phys.*;
+import com.sammy.malum.common.item.curiosities.weapons.staff.AuricFlameStaffItem;
+import com.sammy.malum.registry.client.ParticleRegistry;
+import com.sammy.malum.registry.common.ParticleEffectTypeRegistry;
+import com.sammy.malum.registry.common.SoundRegistry;
+import com.sammy.malum.registry.common.entity.EntityRegistry;
+import com.sammy.malum.registry.common.item.ItemRegistry;
+import com.sammy.malum.visual_effects.SpiritLightSpecs;
+import com.sammy.malum.visual_effects.networked.ParticleEffectType;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import team.lodestar.lodestone.systems.easing.*;
-import team.lodestar.lodestone.systems.particle.*;
-import team.lodestar.lodestone.systems.particle.builder.*;
-import team.lodestar.lodestone.systems.particle.data.*;
-import team.lodestar.lodestone.systems.particle.render_types.*;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.util.Mth;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.projectile.ProjectileUtil;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.*;
+import team.lodestar.lodestone.systems.easing.Easing;
+import team.lodestar.lodestone.systems.particle.LodestoneWorldParticleActor;
+import team.lodestar.lodestone.systems.particle.SimpleParticleOptions;
+import team.lodestar.lodestone.systems.particle.builder.SparkParticleBuilder;
+import team.lodestar.lodestone.systems.particle.data.GenericParticleData;
+import team.lodestar.lodestone.systems.particle.render_types.LodestoneWorldParticleRenderType;
 
-import java.util.*;
-import java.util.function.*;
+import java.util.Comparator;
+import java.util.List;
+import java.util.function.Consumer;
 
 public class AuricFlameBoltEntity extends AbstractBoltProjectileEntity {
 
@@ -98,7 +102,7 @@ public class AuricFlameBoltEntity extends AbstractBoltProjectileEntity {
     @Override
     public void playSound(SoundEvent pSound, float pVolume, float pPitch) {
         super.playSound(pSound, pVolume, pPitch);
-        super.playSound(SoundRegistry.AURIC_FLAME_MOTIF.get(), pVolume+0.1f, pPitch+0.6f);
+        super.playSound(SoundRegistry.AURIC_FLAME_MOTIF.get(), pVolume + 0.1f, pPitch + 0.6f);
     }
 
     @Override

@@ -1,6 +1,6 @@
 package com.sammy.malum.common.block.curiosities.spirit_crucible.catalyzer;
 
-import com.sammy.malum.common.block.curiosities.spirit_crucible.*;
+import com.sammy.malum.common.block.curiosities.spirit_crucible.ICrucibleAccelerator;
 
 import static com.sammy.malum.MalumMod.malumPath;
 

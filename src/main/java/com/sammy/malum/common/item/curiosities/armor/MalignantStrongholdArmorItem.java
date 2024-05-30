@@ -1,12 +1,14 @@
 package com.sammy.malum.common.item.curiosities.armor;
 
-import com.google.common.collect.*;
-import com.sammy.malum.registry.common.*;
-import net.minecraft.world.entity.ai.attributes.*;
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Multimap;
+import com.sammy.malum.registry.common.AttributeRegistry;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 
-import java.util.*;
+import java.util.UUID;
 
-import static com.sammy.malum.registry.common.item.ArmorTiers.ArmorTierEnum.*;
+import static com.sammy.malum.registry.common.item.ArmorTiers.ArmorTierEnum.MALIGNANT_ALLOY;
 
 public class MalignantStrongholdArmorItem extends MalumArmorItem {
 

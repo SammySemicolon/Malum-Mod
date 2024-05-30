@@ -1,7 +1,7 @@
 package com.sammy.malum.common.item.curiosities.curios.runes.miracle;
 
 import com.google.common.collect.Multimap;
-import com.sammy.malum.common.item.curiosities.curios.runes.*;
+import com.sammy.malum.common.item.curiosities.curios.runes.AbstractRuneCurioItem;
 import com.sammy.malum.registry.common.SpiritTypeRegistry;
 import dev.emi.trinkets.api.SlotReference;
 import net.minecraft.network.chat.Component;

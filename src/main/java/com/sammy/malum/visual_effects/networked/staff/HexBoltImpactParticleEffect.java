@@ -1,18 +1,19 @@
 package com.sammy.malum.visual_effects.networked.staff;
 
-import com.sammy.malum.core.systems.spirit.*;
-import com.sammy.malum.visual_effects.*;
-import com.sammy.malum.visual_effects.networked.*;
-import com.sammy.malum.visual_effects.networked.data.*;
-import net.minecraft.nbt.*;
-import net.minecraft.util.*;
-import net.minecraft.world.phys.*;
+import com.sammy.malum.core.systems.spirit.MalumSpiritType;
+import com.sammy.malum.visual_effects.SparkParticleEffects;
+import com.sammy.malum.visual_effects.networked.ParticleEffectType;
+import com.sammy.malum.visual_effects.networked.data.NBTEffectData;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import team.lodestar.lodestone.helpers.*;
-import team.lodestar.lodestone.systems.particle.builder.*;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.util.Mth;
+import net.minecraft.world.phys.Vec3;
+import team.lodestar.lodestone.helpers.RandomHelper;
+import team.lodestar.lodestone.systems.particle.builder.SparkParticleBuilder;
+import team.lodestar.lodestone.systems.particle.builder.WorldParticleBuilder;
 
-import java.util.function.*;
+import java.util.function.Supplier;
 
 import static com.sammy.malum.visual_effects.SpiritLightSpecs.spiritLightSpecs;
 

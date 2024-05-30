@@ -1,8 +1,9 @@
 package com.sammy.malum.common.block.nature;
 
-import com.sammy.malum.registry.common.*;
-import com.sammy.malum.visual_effects.networked.*;
-import com.sammy.malum.visual_effects.networked.data.*;
+import com.sammy.malum.registry.common.ParticleEffectTypeRegistry;
+import com.sammy.malum.visual_effects.networked.SapCollectionParticleEffect;
+import com.sammy.malum.visual_effects.networked.data.ColorEffectData;
+import com.sammy.malum.visual_effects.networked.data.PositionEffectData;
 import io.github.fabricators_of_create.porting_lib.transfer.item.ItemHandlerHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;

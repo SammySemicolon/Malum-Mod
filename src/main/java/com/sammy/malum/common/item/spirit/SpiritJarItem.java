@@ -1,6 +1,6 @@
 package com.sammy.malum.common.item.spirit;
 
-import com.sammy.malum.core.handlers.*;
+import com.sammy.malum.core.handlers.SpiritHarvestHandler;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;

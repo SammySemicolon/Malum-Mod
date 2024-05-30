@@ -1,12 +1,12 @@
 package com.sammy.malum.client.screen.codex.pages;
 
-import com.sammy.malum.client.screen.codex.screens.*;
-import net.minecraft.client.*;
-import net.minecraft.client.gui.*;
-import net.minecraft.resources.*;
+import com.sammy.malum.client.screen.codex.screens.EntryScreen;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.resources.ResourceLocation;
 
-import java.util.*;
-import java.util.stream.*;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class CyclingPage extends BookPage {
     public final List<? extends BookPage> pages;

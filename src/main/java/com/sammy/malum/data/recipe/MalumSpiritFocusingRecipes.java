@@ -1,20 +1,20 @@
 package com.sammy.malum.data.recipe;
 
-import com.sammy.malum.*;
-import com.sammy.malum.common.item.impetus.*;
-import com.sammy.malum.data.recipe.builder.*;
-import com.sammy.malum.registry.common.item.*;
+import com.sammy.malum.MalumMod;
+import com.sammy.malum.common.item.impetus.ImpetusItem;
+import com.sammy.malum.data.recipe.builder.SpiritFocusingRecipeBuilder;
+import com.sammy.malum.registry.common.item.ItemRegistry;
 import io.github.fabricators_of_create.porting_lib.data.ConditionalRecipe;
 import io.github.fabricators_of_create.porting_lib.util.RegistryObject;
 import net.fabricmc.fabric.api.resource.conditions.v1.DefaultResourceConditions;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.data.recipes.*;
-import net.minecraft.tags.*;
-import net.minecraft.world.item.*;
-import net.minecraft.world.item.crafting.*;
+import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 
-
-import java.util.function.*;
+import java.util.function.Consumer;
 
 import static com.sammy.malum.registry.common.SpiritTypeRegistry.*;
 import static team.lodestar.lodestone.registry.common.tag.LodestoneItemTags.*;

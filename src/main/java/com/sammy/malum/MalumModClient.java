@@ -103,7 +103,7 @@ public class MalumModClient implements ClientModInitializer {
         TotemBaseRenderer.checkForTotemicStaff(minecraft);
     }
 
-    interface IBigItem{
+    interface IBigItem {
 
     }
 }

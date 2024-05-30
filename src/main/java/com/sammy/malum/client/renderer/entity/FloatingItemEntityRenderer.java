@@ -1,29 +1,35 @@
 package com.sammy.malum.client.renderer.entity;
 
-import com.mojang.blaze3d.vertex.*;
-import com.mojang.math.*;
-import com.sammy.malum.client.*;
-import com.sammy.malum.common.entity.*;
-import com.sammy.malum.core.systems.spirit.*;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Axis;
+import com.sammy.malum.client.RenderUtils;
+import com.sammy.malum.client.SpiritBasedWorldVFXBuilder;
+import com.sammy.malum.common.entity.FloatingItemEntity;
+import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import com.sammy.malum.registry.client.MalumRenderTypeTokens;
-import net.minecraft.client.*;
-import net.minecraft.client.renderer.*;
-import net.minecraft.client.renderer.entity.*;
-import net.minecraft.client.renderer.texture.*;
-import net.minecraft.client.resources.model.*;
-import net.minecraft.resources.*;
-import net.minecraft.world.item.*;
-import net.minecraft.world.level.*;
-import team.lodestar.lodestone.helpers.*;
-import team.lodestar.lodestone.registry.client.*;
-import team.lodestar.lodestone.systems.easing.*;
-import team.lodestar.lodestone.systems.rendering.*;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.entity.EntityRenderer;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.ItemRenderer;
+import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.client.renderer.texture.TextureAtlas;
+import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemDisplayContext;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import team.lodestar.lodestone.helpers.EasingHelper;
+import team.lodestar.lodestone.registry.client.LodestoneRenderTypeRegistry;
+import team.lodestar.lodestone.systems.easing.Easing;
+import team.lodestar.lodestone.systems.rendering.LodestoneRenderType;
+import team.lodestar.lodestone.systems.rendering.VFXBuilders;
 import team.lodestar.lodestone.systems.rendering.rendeertype.RenderTypeToken;
 
 import java.awt.*;
 
-import static com.sammy.malum.MalumMod.*;
-import static team.lodestar.lodestone.LodestoneLib.*;
+import static com.sammy.malum.MalumMod.malumPath;
+import static team.lodestar.lodestone.LodestoneLib.lodestonePath;
 
 public class FloatingItemEntityRenderer extends EntityRenderer<FloatingItemEntity> {
     public final ItemRenderer itemRenderer;

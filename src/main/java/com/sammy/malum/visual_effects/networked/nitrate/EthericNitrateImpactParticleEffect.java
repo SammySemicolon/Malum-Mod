@@ -54,7 +54,7 @@ public class EthericNitrateImpactParticleEffect extends ParticleEffectType {
                     if (velocity.equals(Vec3.ZERO)) {
                         velocity = p.getParticleSpeed();
                     }
-                    p.setParticleMotion(velocity.x, (velocity.y-gravityStrength)*0.98f, velocity.z);
+                    p.setParticleMotion(velocity.x, (velocity.y - gravityStrength) * 0.98f, velocity.z);
                 };
                 boolean star = random.nextFloat() < 0.2f;
                 if (random.nextFloat() < 0.8f) {
@@ -80,8 +80,8 @@ public class EthericNitrateImpactParticleEffect extends ParticleEffectType {
                             .enableForcedSpawn()
                             .addTickActor(slowDown)
                             .setMotion(motion)
-                            .setScaleData(GenericParticleData.create(0.4f*scalar, 0.2f*scalar, 0f).setEasing(Easing.SINE_IN, Easing.QUAD_IN).build())
-                            .setLengthData(GenericParticleData.create(2f*scalar, 0.5f*scalar, 0f).setEasing(Easing.QUARTIC_OUT, Easing.SINE_IN_OUT).build());
+                            .setScaleData(GenericParticleData.create(0.4f * scalar, 0.2f * scalar, 0f).setEasing(Easing.SINE_IN, Easing.QUAD_IN).build())
+                            .setLengthData(GenericParticleData.create(2f * scalar, 0.5f * scalar, 0f).setEasing(Easing.QUARTIC_OUT, Easing.SINE_IN_OUT).build());
                     sparks.getBloomBuilder()
                             .multiplyLifetime(lifetimeMultiplier)
                             .addTickActor(slowDown)

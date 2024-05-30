@@ -1,15 +1,18 @@
 package com.sammy.malum.common.item.augment;
 
-import com.sammy.malum.common.block.curiosities.spirit_crucible.*;
-import com.sammy.malum.core.systems.spirit.*;
-import net.minecraft.*;
-import net.minecraft.network.chat.*;
+import com.sammy.malum.common.block.curiosities.spirit_crucible.CrucibleTuning;
+import com.sammy.malum.core.systems.spirit.MalumSpiritType;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.*;
-import net.minecraft.world.level.*;
-import org.jetbrains.annotations.*;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.Nullable;
 
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
 
 import static net.minecraft.world.item.ItemStack.ATTRIBUTE_MODIFIER_FORMAT;
 
@@ -66,6 +69,7 @@ public class AbstractAugmentItem extends Item {
         pTooltip.add(Component.translatable("malum.gui.augment.slot").withStyle(ChatFormatting.GOLD)
                 .append(Component.translatable("malum.gui.augment.type." + getAugmentTypeTranslator()).withStyle(ChatFormatting.YELLOW)));
     }
+
     public static void addAugmentAttributeTooltip(ItemStack itemStack, Player player, List<Component> components, TooltipFlag tooltipFlag) {
         if (itemStack.getItem() instanceof AbstractAugmentItem augmentItem) {
             List<Component> tooltip = components;

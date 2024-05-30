@@ -1,8 +1,8 @@
 package com.sammy.malum.registry.client;
 
-import team.lodestar.lodestone.systems.rendering.rendeertype.*;
+import team.lodestar.lodestone.systems.rendering.rendeertype.RenderTypeToken;
 
-import static com.sammy.malum.MalumMod.*;
+import static com.sammy.malum.MalumMod.malumPath;
 
 public class MalumRenderTypeTokens {
 

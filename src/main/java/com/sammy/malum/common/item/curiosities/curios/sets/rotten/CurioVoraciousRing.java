@@ -1,20 +1,24 @@
 package com.sammy.malum.common.item.curiosities.curios.sets.rotten;
 
-import com.sammy.malum.common.item.curiosities.curios.*;
-import com.sammy.malum.registry.common.*;
-import com.sammy.malum.registry.common.item.*;
-import net.minecraft.network.chat.*;
-import net.minecraft.sounds.*;
-import net.minecraft.world.effect.*;
+import com.sammy.malum.common.item.curiosities.curios.MalumCurioItem;
+import com.sammy.malum.registry.common.MobEffectRegistry;
+import com.sammy.malum.registry.common.SoundRegistry;
+import com.sammy.malum.registry.common.item.ItemRegistry;
+import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.*;
-import net.minecraft.world.item.*;
-import net.minecraft.world.level.*;
-import team.lodestar.lodestone.helpers.*;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import team.lodestar.lodestone.helpers.EntityHelper;
+import team.lodestar.lodestone.helpers.RandomHelper;
+import team.lodestar.lodestone.helpers.TrinketsHelper;
 
-import java.util.function.*;
+import java.util.function.Consumer;
 
-import static com.sammy.malum.registry.common.item.ItemTagRegistry.*;
+import static com.sammy.malum.registry.common.item.ItemTagRegistry.GROSS_FOODS;
 
 public class CurioVoraciousRing extends MalumCurioItem {
 
@@ -52,7 +56,7 @@ public class CurioVoraciousRing extends MalumCurioItem {
     public static int accelerateEating(LivingEntity livingEntity, ItemStack itemStack, int i) {
         if (TrinketsHelper.hasTrinketEquipped(livingEntity, ItemRegistry.RING_OF_DESPERATE_VORACITY.get())) {
             if (itemStack.is(GROSS_FOODS)) {
-                return (int)(i * 0.5f);
+                return (int) (i * 0.5f);
             }
         }
         return i;

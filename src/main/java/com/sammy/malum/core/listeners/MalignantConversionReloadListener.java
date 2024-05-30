@@ -1,14 +1,18 @@
 package com.sammy.malum.core.listeners;
 
 import com.google.gson.*;
-import com.mojang.datafixers.util.*;
+import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.*;
-import net.minecraft.server.packs.resources.*;
-import net.minecraft.util.profiling.*;
-import net.minecraft.world.entity.ai.attributes.*;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
+import net.minecraft.util.profiling.ProfilerFiller;
+import net.minecraft.world.entity.ai.attributes.Attribute;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class MalignantConversionReloadListener extends SimpleJsonResourceReloadListener {
     public static Map<ResourceLocation, MalignantConversionData> CONVERSION_DATA = new HashMap<>();

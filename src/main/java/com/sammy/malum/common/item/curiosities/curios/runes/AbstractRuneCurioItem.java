@@ -1,14 +1,14 @@
 package com.sammy.malum.common.item.curiosities.curios.runes;
 
-import com.sammy.malum.common.item.curiosities.curios.*;
-import com.sammy.malum.core.systems.spirit.*;
-import com.sammy.malum.visual_effects.*;
-import net.minecraft.world.item.*;
-import net.minecraft.world.level.*;
+import com.sammy.malum.common.item.curiosities.curios.MalumCurioItem;
+import com.sammy.malum.core.systems.spirit.MalumSpiritType;
+import com.sammy.malum.visual_effects.ScreenParticleEffects;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import team.lodestar.lodestone.handlers.screenparticle.*;
-import team.lodestar.lodestone.systems.particle.screen.*;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import team.lodestar.lodestone.handlers.screenparticle.ParticleEmitterHandler;
+import team.lodestar.lodestone.systems.particle.screen.ScreenParticleHolder;
 
 public abstract class AbstractRuneCurioItem extends MalumCurioItem implements ParticleEmitterHandler.ItemParticleSupplier {
 

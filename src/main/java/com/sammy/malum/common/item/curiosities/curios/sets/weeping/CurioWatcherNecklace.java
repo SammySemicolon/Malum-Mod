@@ -1,19 +1,19 @@
 package com.sammy.malum.common.item.curiosities.curios.sets.weeping;
 
 import com.sammy.malum.common.components.MalumComponents;
-import com.sammy.malum.common.entity.activator.*;
-import com.sammy.malum.common.item.*;
-import com.sammy.malum.common.item.curiosities.curios.*;
+import com.sammy.malum.common.entity.activator.SpiritCollectionActivatorEntity;
+import com.sammy.malum.common.item.IMalumEventResponderItem;
+import com.sammy.malum.common.item.curiosities.curios.MalumCurioItem;
 import io.github.fabricators_of_create.porting_lib.entity.events.living.LivingHurtEvent;
-import net.minecraft.network.chat.*;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.player.*;
-import net.minecraft.world.item.*;
-import net.minecraft.world.level.*;
-import net.minecraft.world.phys.*;
-import team.lodestar.lodestone.helpers.*;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
+import team.lodestar.lodestone.helpers.RandomHelper;
 
-import java.util.function.*;
+import java.util.function.Consumer;
 
 public class CurioWatcherNecklace extends MalumCurioItem implements IMalumEventResponderItem {
     public CurioWatcherNecklace(Properties builder) {

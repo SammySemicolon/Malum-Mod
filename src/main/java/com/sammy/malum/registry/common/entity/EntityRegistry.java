@@ -1,11 +1,18 @@
 package com.sammy.malum.registry.common.entity;
 
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.client.renderer.entity.*;
-import com.sammy.malum.client.renderer.entity.bolt.*;
-import com.sammy.malum.client.renderer.entity.nitrate.*;
-import com.sammy.malum.common.entity.activator.*;
-import com.sammy.malum.common.entity.bolt.*;
+import com.sammy.malum.client.renderer.entity.FloatingItemEntityRenderer;
+import com.sammy.malum.client.renderer.entity.MalumBoatRenderer;
+import com.sammy.malum.client.renderer.entity.ScytheBoomerangEntityRenderer;
+import com.sammy.malum.client.renderer.entity.bolt.AuricFlameBoltEntityRenderer;
+import com.sammy.malum.client.renderer.entity.bolt.DrainingBoltEntityRenderer;
+import com.sammy.malum.client.renderer.entity.bolt.HexBoltEntityRenderer;
+import com.sammy.malum.client.renderer.entity.nitrate.EthericNitrateEntityRenderer;
+import com.sammy.malum.client.renderer.entity.nitrate.VividNitrateEntityRenderer;
+import com.sammy.malum.common.entity.activator.SpiritCollectionActivatorEntity;
+import com.sammy.malum.common.entity.bolt.AuricFlameBoltEntity;
+import com.sammy.malum.common.entity.bolt.DrainingBoltEntity;
+import com.sammy.malum.common.entity.bolt.HexBoltEntity;
 import com.sammy.malum.common.entity.boomerang.ScytheBoomerangEntity;
 import com.sammy.malum.common.entity.nitrate.EthericNitrateEntity;
 import com.sammy.malum.common.entity.nitrate.VividNitrateEntity;

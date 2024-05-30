@@ -1,12 +1,14 @@
 package com.sammy.malum.common.item.curiosities.curios.brooches;
 
-import com.google.common.collect.*;
-import com.sammy.malum.common.item.curiosities.curios.*;
+import com.google.common.collect.Multimap;
+import com.sammy.malum.common.item.curiosities.curios.MalumCurioItem;
 import dev.emi.trinkets.api.SlotReference;
-import net.minecraft.world.entity.ai.attributes.*;
-import net.minecraft.world.item.*;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.item.ItemStack;
 
-import java.util.*;
+import java.util.UUID;
 
 public class CurioGlassBrooch extends MalumCurioItem {
 

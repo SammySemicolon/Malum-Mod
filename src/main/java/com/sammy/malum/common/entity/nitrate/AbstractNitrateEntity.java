@@ -1,9 +1,14 @@
 package com.sammy.malum.common.entity.nitrate;
 
-import com.sammy.malum.visual_effects.networked.*;
-import com.sammy.malum.visual_effects.networked.data.*;
+import com.sammy.malum.visual_effects.networked.ParticleEffectType;
+import com.sammy.malum.visual_effects.networked.data.ColorEffectData;
+import com.sammy.malum.visual_effects.networked.data.PositionEffectData;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.syncher.*;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EntityType;
@@ -11,10 +16,10 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.ThrowableProjectile;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.*;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import team.lodestar.lodestone.systems.rendering.trail.*;
+import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.Vec3;
+import team.lodestar.lodestone.systems.rendering.trail.TrailPoint;
+import team.lodestar.lodestone.systems.rendering.trail.TrailPointBuilder;
 
 import java.awt.*;
 
@@ -115,25 +120,25 @@ public abstract class AbstractNitrateEntity extends ThrowableProjectile {
         super.tick();
         Vec3 motion = getDeltaMovement();
         if (!fadingAway) {
-            setDeltaMovement(motion.x * 0.99f, (motion.y-0.015f)*0.99f, motion.z * 0.99f);
+            setDeltaMovement(motion.x * 0.99f, (motion.y - 0.015f) * 0.99f, motion.z * 0.99f);
         }
         float radialOffsetScale = fadingAway ? 0f : 0.15f;
-        float randomOffsetScale = age > 5 ? Math.min((age-5) * 0.02f, 0.2f) : 0;
+        float randomOffsetScale = age > 5 ? Math.min((age - 5) * 0.02f, 0.2f) : 0;
         for (int i = 0; i < 2; i++) {
             float progress = i * 0.5f;
             Vec3 position = getPosition(progress);
             final Vec3 randomizedPosition = position.add(random.nextFloat() * randomOffsetScale, random.nextFloat() * randomOffsetScale, random.nextFloat() * randomOffsetScale);
             trailPointBuilder.addTrailPoint(
                     new TrailPoint(position, i) {
-                @Override
-                public Vec3 getPosition() {
-                    return new Vec3(
-                            Mth.lerp(getTimeActive()/MAIN_TRAIL_LENGTH, position.x, randomizedPosition.x),
-                            Mth.lerp(getTimeActive()/MAIN_TRAIL_LENGTH, position.y, randomizedPosition.y),
-                            Mth.lerp(getTimeActive()/MAIN_TRAIL_LENGTH, position.z, randomizedPosition.z)
-                    );
-                }
-            });
+                        @Override
+                        public Vec3 getPosition() {
+                            return new Vec3(
+                                    Mth.lerp(getTimeActive() / MAIN_TRAIL_LENGTH, position.x, randomizedPosition.x),
+                                    Mth.lerp(getTimeActive() / MAIN_TRAIL_LENGTH, position.y, randomizedPosition.y),
+                                    Mth.lerp(getTimeActive() / MAIN_TRAIL_LENGTH, position.z, randomizedPosition.z)
+                            );
+                        }
+                    });
             spinningTrailPointBuilder.addTrailPoint(
                     new TrailPoint(
                             position.add(Math.cos(spinOffset + (age + progress) / 2f) * radialOffsetScale, 0, Math.sin(spinOffset + (age + progress) / 2f) * radialOffsetScale), i));
@@ -146,7 +151,7 @@ public abstract class AbstractNitrateEntity extends ThrowableProjectile {
         if (age > MAX_AGE) {
             discard();
         }
-        if (level().isClientSide && !fadingAway && age > 1){
+        if (level().isClientSide && !fadingAway && age > 1) {
             spawnParticles();
         }
     }

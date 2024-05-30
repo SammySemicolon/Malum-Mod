@@ -1,10 +1,10 @@
 package com.sammy.malum.client.screen.codex.handklers;
 
-import com.sammy.malum.client.screen.codex.objects.*;
-import com.sammy.malum.client.screen.codex.screens.*;
-import net.minecraft.client.gui.*;
+import com.sammy.malum.client.screen.codex.objects.BookObject;
+import com.sammy.malum.client.screen.codex.screens.AbstractMalumScreen;
+import net.minecraft.client.gui.GuiGraphics;
 
-import java.util.*;
+import java.util.ArrayList;
 
 public class BookObjectHandler<T extends AbstractMalumScreen> extends ArrayList<BookObject<T>> {
 

@@ -1,31 +1,33 @@
 package com.sammy.malum.common.block.curiosities.repair_pylon;
 
-import com.sammy.malum.common.block.*;
-import com.sammy.malum.common.block.curiosities.spirit_altar.SpiritAltarBlockEntity;
-import com.sammy.malum.common.block.storage.*;
-import com.sammy.malum.common.item.spirit.*;
-import com.sammy.malum.common.recipe.*;
-import com.sammy.malum.core.systems.recipe.*;
-import com.sammy.malum.registry.common.block.*;
-import io.github.fabricators_of_create.porting_lib.transfer.TransferUtil;
+import com.sammy.malum.common.block.MalumBlockEntityInventory;
+import com.sammy.malum.common.block.storage.IMalumSpecialItemAccessPoint;
+import com.sammy.malum.common.item.spirit.SpiritShardItem;
+import com.sammy.malum.common.recipe.SpiritRepairRecipe;
+import com.sammy.malum.core.systems.recipe.SpiritWithCount;
+import com.sammy.malum.registry.common.block.BlockEntityRegistry;
+import com.sammy.malum.registry.common.block.BlockRegistry;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
-import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
-import net.minecraft.core.*;
-import net.minecraft.nbt.*;
-import net.minecraft.util.*;
-import net.minecraft.world.*;
-import net.minecraft.world.entity.player.*;
-import net.minecraft.world.item.*;
-import net.minecraft.world.level.block.entity.*;
-import net.minecraft.world.level.block.state.*;
-import net.minecraft.world.phys.*;
-import org.jetbrains.annotations.*;
-import team.lodestar.lodestone.helpers.*;
-import team.lodestar.lodestone.systems.blockentity.*;
-import team.lodestar.lodestone.systems.multiblock.*;
+import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.util.Mth;
+import net.minecraft.util.StringRepresentable;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.Nullable;
+import team.lodestar.lodestone.helpers.BlockHelper;
+import team.lodestar.lodestone.helpers.DataHelper;
+import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntityInventory;
+import team.lodestar.lodestone.systems.multiblock.MultiBlockCoreEntity;
+import team.lodestar.lodestone.systems.multiblock.MultiBlockStructure;
 
-import java.util.*;
-import java.util.function.*;
+import java.util.Collection;
+import java.util.function.Supplier;
 
 public class RepairPylonCoreBlockEntity extends MultiBlockCoreEntity {
 
@@ -38,7 +40,8 @@ public class RepairPylonCoreBlockEntity extends MultiBlockCoreEntity {
             new MultiBlockStructure.StructurePiece(0, 2, 0, BlockRegistry.REPAIR_PYLON_COMPONENT.get().defaultBlockState().setValue(RepairPylonComponentBlock.TOP, true))));
 
     public static final StringRepresentable.EnumCodec<RepairPylonState> CODEC = StringRepresentable.fromEnum(RepairPylonState::values);
-    public enum RepairPylonState implements StringRepresentable{
+
+    public enum RepairPylonState implements StringRepresentable {
         IDLE("idle"),
         SEARCHING("searching"),
         ACTIVE("active"),
@@ -68,7 +71,7 @@ public class RepairPylonCoreBlockEntity extends MultiBlockCoreEntity {
 
     public RepairPylonCoreBlockEntity(BlockEntityType<? extends RepairPylonCoreBlockEntity> type, MultiBlockStructure structure, BlockPos pos, BlockState state) {
         super(type, structure, pos, state);
-        inventory = new MalumBlockEntityInventory( 1, 64, t -> !(t.getItem() instanceof SpiritShardItem)) {
+        inventory = new MalumBlockEntityInventory(1, 64, t -> !(t.getItem() instanceof SpiritShardItem)) {
             @Override
             public void onContentsChanged(int slot) {
                 super.onContentsChanged(slot);
@@ -76,7 +79,7 @@ public class RepairPylonCoreBlockEntity extends MultiBlockCoreEntity {
                 BlockHelper.updateAndNotifyState(level, worldPosition);
             }
         };
-        spiritInventory = new MalumBlockEntityInventory( 4, 64) {
+        spiritInventory = new MalumBlockEntityInventory(4, 64) {
             @Override
             public void onContentsChanged(int slot) {
                 super.onContentsChanged(slot);
@@ -141,7 +144,7 @@ public class RepairPylonCoreBlockEntity extends MultiBlockCoreEntity {
         }
         if (hand.equals(InteractionHand.MAIN_HAND)) {
             if (!spiritInventory.interact(this, level, player, hand, stack -> stack.getItem() instanceof SpiritShardItem || stack.isEmpty())) {
-                inventory.interact(this, level, player, hand , stack -> true);
+                inventory.interact(this, level, player, hand, stack -> true);
             }
         }
         return super.onUse(player, hand);
@@ -173,8 +176,7 @@ public class RepairPylonCoreBlockEntity extends MultiBlockCoreEntity {
         spiritAmount = Math.max(1, Mth.lerp(0.1f, spiritAmount, spiritInventory.nonEmptyItemAmount));
         if (level.isClientSide) {
             spiritSpin++;
-        }
-        else {
+        } else {
             switch (state) {
                 case SEARCHING -> {
                     timer++;
@@ -186,8 +188,7 @@ public class RepairPylonCoreBlockEntity extends MultiBlockCoreEntity {
                         boolean success = tryRepair();
                         if (success) {
                             setState(RepairPylonState.ACTIVE);
-                        }
-                        else {
+                        } else {
                             timer = 0;
                         }
                     }
@@ -259,7 +260,7 @@ public class RepairPylonCoreBlockEntity extends MultiBlockCoreEntity {
     public Vec3 getItemPos() {
         final BlockPos blockPos = getBlockPos();
         final Vec3 offset = getCentralItemOffset();
-        return new Vec3(blockPos.getX()+offset.x, blockPos.getY()+offset.y, blockPos.getZ()+offset.z);
+        return new Vec3(blockPos.getX() + offset.x, blockPos.getY() + offset.y, blockPos.getZ() + offset.z);
     }
 
     public Vec3 getCentralItemOffset() {

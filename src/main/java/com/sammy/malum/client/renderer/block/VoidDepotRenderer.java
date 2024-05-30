@@ -1,33 +1,38 @@
 package com.sammy.malum.client.renderer.block;
 
-import com.mojang.blaze3d.vertex.*;
-import com.mojang.math.*;
-import com.sammy.malum.*;
-import com.sammy.malum.client.*;
-import com.sammy.malum.common.block.curiosities.void_depot.*;
-import com.sammy.malum.registry.client.*;
-import com.sammy.malum.registry.common.*;
-import net.minecraft.*;
-import net.minecraft.client.*;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Axis;
+import com.sammy.malum.MalumMod;
+import com.sammy.malum.client.BufferWrapper;
+import com.sammy.malum.common.block.curiosities.void_depot.VoidDepotBlockEntity;
+import com.sammy.malum.registry.client.RenderTypeRegistry;
+import com.sammy.malum.registry.common.SpiritTypeRegistry;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.renderer.*;
-import net.minecraft.client.renderer.blockentity.*;
+import net.minecraft.client.renderer.LightTexture;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.*;
-import net.minecraft.util.*;
-import org.joml.*;
-import team.lodestar.lodestone.handlers.*;
-import team.lodestar.lodestone.helpers.*;
-import team.lodestar.lodestone.registry.client.*;
-import team.lodestar.lodestone.systems.easing.*;
-import team.lodestar.lodestone.systems.rendering.*;
-import team.lodestar.lodestone.systems.rendering.rendeertype.*;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.TextColor;
+import net.minecraft.util.Mth;
+import org.joml.Matrix4f;
+import org.joml.Vector3f;
+import org.joml.Vector4f;
+import team.lodestar.lodestone.handlers.RenderHandler;
+import team.lodestar.lodestone.helpers.ColorHelper;
+import team.lodestar.lodestone.registry.client.LodestoneRenderTypeRegistry;
+import team.lodestar.lodestone.systems.easing.Easing;
+import team.lodestar.lodestone.systems.rendering.LodestoneRenderType;
+import team.lodestar.lodestone.systems.rendering.VFXBuilders;
 import team.lodestar.lodestone.systems.rendering.rendeertype.RenderTypeToken;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.*;
-import java.util.stream.*;
+import java.util.stream.Collectors;
 
 
 public class VoidDepotRenderer implements BlockEntityRenderer<VoidDepotBlockEntity> {
@@ -86,8 +91,8 @@ public class VoidDepotRenderer implements BlockEntityRenderer<VoidDepotBlockEnti
         if (voidDepot.textVisibility > 12) {
             final Font font = Minecraft.getInstance().font;
             float timer = Mth.clamp((voidDepot.textVisibility + (voidDepot.nearTimer > 0 ? 1 : -1) * partialTicks), 0, 40);
-            float scalar = Easing.SINE_IN_OUT.ease(timer/40f, 0, 1, 1);
-            float scale = 0.016F - (1-scalar)*0.004f;
+            float scalar = Easing.SINE_IN_OUT.ease(timer / 40f, 0, 1, 1);
+            float scale = 0.016F - (1 - scalar) * 0.004f;
             final Font.DisplayMode display = Font.DisplayMode.NORMAL;
             MultiBufferSource additiveBuffer = new BufferWrapper(LodestoneRenderTypeRegistry.ADDITIVE_TEXT, RenderHandler.LATE_DELAYED_RENDER.getTarget());
             MultiBufferSource translucentBuffer = new BufferWrapper(LodestoneRenderTypeRegistry.TRANSPARENT_TEXT, RenderHandler.DELAYED_RENDER.getTarget());
@@ -124,20 +129,20 @@ public class VoidDepotRenderer implements BlockEntityRenderer<VoidDepotBlockEnti
                     float offset = isAdditive ? 0.4f : 0.8f;
                     float f = (-font.width(text) / 2f);
                     float xPos = 0 + f;
-                    int color = ColorHelper.getColor(1, 1, 1, (isAdditive ? 0.3f : 0.9f)*scalar);
+                    int color = ColorHelper.getColor(1, 1, 1, (isAdditive ? 0.3f : 0.9f) * scalar);
                     font.drawInBatch(text, xPos, 0, color, false, pose, bufferToUse, display, 0, LightTexture.FULL_BRIGHT);
 
-                    color = ColorHelper.getColor(1, 1, 1, (isAdditive ? 0.15f : 0.7f)*scalar);
+                    color = ColorHelper.getColor(1, 1, 1, (isAdditive ? 0.15f : 0.7f) * scalar);
                     font.drawInBatch(text, xPos - offset, 0, color, false, pose, bufferToUse, display, 0, LightTexture.FULL_BRIGHT);
                     font.drawInBatch(text, xPos - offset, 0, color, false, pose, bufferToUse, display, 0, LightTexture.FULL_BRIGHT);
                     font.drawInBatch(text, xPos, offset, color, false, pose, bufferToUse, display, 0, LightTexture.FULL_BRIGHT);
                     font.drawInBatch(text, xPos, -offset, color, false, pose, bufferToUse, display, 0, LightTexture.FULL_BRIGHT);
 
-                    color = ColorHelper.getColor(1, 1, 1, (isAdditive ? 0.1f : 0.5f)*scalar);
-                    font.drawInBatch(text, xPos - 2*offset, 0, color, false, pose, bufferToUse, display, 0, LightTexture.FULL_BRIGHT);
-                    font.drawInBatch(outlineText, xPos + 2*offset, 0, color, false, pose, bufferToUse, display, 0, LightTexture.FULL_BRIGHT);
-                    font.drawInBatch(outlineText, xPos, 2*offset, color, false, pose, bufferToUse, display, 0, LightTexture.FULL_BRIGHT);
-                    font.drawInBatch(text, xPos, -2*offset, color, false, pose, bufferToUse, display, 0, LightTexture.FULL_BRIGHT);
+                    color = ColorHelper.getColor(1, 1, 1, (isAdditive ? 0.1f : 0.5f) * scalar);
+                    font.drawInBatch(text, xPos - 2 * offset, 0, color, false, pose, bufferToUse, display, 0, LightTexture.FULL_BRIGHT);
+                    font.drawInBatch(outlineText, xPos + 2 * offset, 0, color, false, pose, bufferToUse, display, 0, LightTexture.FULL_BRIGHT);
+                    font.drawInBatch(outlineText, xPos, 2 * offset, color, false, pose, bufferToUse, display, 0, LightTexture.FULL_BRIGHT);
+                    font.drawInBatch(text, xPos, -2 * offset, color, false, pose, bufferToUse, display, 0, LightTexture.FULL_BRIGHT);
 
                     font.drawInBatch(outlineText, xPos - offset, -offset, color, false, pose, bufferToUse, display, 0, LightTexture.FULL_BRIGHT);
                     font.drawInBatch(text, xPos - offset, offset, color, false, pose, bufferToUse, display, 0, LightTexture.FULL_BRIGHT);

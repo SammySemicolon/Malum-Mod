@@ -1,12 +1,11 @@
 package com.sammy.malum.client.renderer.entity.nitrate;
 
-import com.sammy.malum.client.renderer.entity.nitrate.*;
 import com.sammy.malum.common.entity.nitrate.VividNitrateEntity;
-import net.minecraft.client.*;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 
 import java.awt.*;
-import java.util.function.*;
+import java.util.function.Function;
 
 public class VividNitrateEntityRenderer extends AbstractNitrateEntityRenderer<VividNitrateEntity> {
 

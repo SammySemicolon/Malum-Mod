@@ -1,20 +1,19 @@
 package com.sammy.malum.data.recipe.builder;
 
-import com.google.gson.*;
-import com.sammy.malum.*;
-import com.sammy.malum.registry.common.recipe.*;
-import net.minecraft.core.registries.*;
-import net.minecraft.data.recipes.*;
-import net.minecraft.resources.*;
-import net.minecraft.world.item.*;
-import net.minecraft.world.item.crafting.*;
-import net.minecraft.world.level.*;
-
+import com.google.gson.JsonObject;
+import com.sammy.malum.MalumMod;
+import com.sammy.malum.registry.common.recipe.RecipeSerializerRegistry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.level.ItemLike;
 import org.jetbrains.annotations.Nullable;
-import team.lodestar.lodestone.systems.recipe.*;
+import team.lodestar.lodestone.systems.recipe.IngredientWithCount;
 
-
-import java.util.function.*;
+import java.util.function.Consumer;
 
 public class RunicWorkbenchRecipeBuilder {
     private IngredientWithCount primaryInput;

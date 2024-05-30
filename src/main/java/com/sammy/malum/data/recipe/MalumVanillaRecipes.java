@@ -1,35 +1,43 @@
 package com.sammy.malum.data.recipe;
 
-import com.sammy.malum.*;
-import com.sammy.malum.common.item.impetus.*;
-import com.sammy.malum.data.recipe.builder.vanilla.*;
-import com.sammy.malum.registry.common.item.*;
+import com.sammy.malum.MalumMod;
+import com.sammy.malum.common.item.impetus.ImpetusItem;
+import com.sammy.malum.data.recipe.builder.vanilla.TheDeviceRecipeBuilder;
+import com.sammy.malum.registry.common.item.ItemRegistry;
+import com.sammy.malum.registry.common.item.ItemTagRegistry;
 import io.github.fabricators_of_create.porting_lib.data.ConditionalRecipe;
 import io.github.fabricators_of_create.porting_lib.tags.Tags;
 import io.github.fabricators_of_create.porting_lib.util.RegistryObject;
 import net.fabricmc.fabric.api.resource.conditions.v1.DefaultResourceConditions;
 import net.minecraft.advancements.critereon.*;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.data.recipes.*;
-import net.minecraft.tags.*;
-import net.minecraft.world.item.*;
-import net.minecraft.world.item.crafting.*;
-import net.minecraft.world.level.*;
-import net.minecraft.world.level.block.*;
+import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.RecipeCategory;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.Block;
+import team.lodestar.lodestone.data.builder.NBTCarryRecipeBuilder;
+import team.lodestar.lodestone.systems.recipe.IngredientWithCount;
 
-import team.lodestar.lodestone.data.builder.*;
-import team.lodestar.lodestone.systems.recipe.*;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 
-import java.util.function.*;
-
-import static com.sammy.malum.MalumMod.*;
-import static com.sammy.malum.data.recipe.builder.vanilla.MetalNodeCookingRecipeBuilder.*;
-import static com.sammy.malum.data.recipe.builder.vanilla.StackedMalumCookingRecipeBuilder.*;
-import static net.minecraft.data.recipes.ShapedRecipeBuilder.*;
-import static net.minecraft.data.recipes.ShapelessRecipeBuilder.*;
-import static net.minecraft.data.recipes.SimpleCookingRecipeBuilder.*;
-import static net.minecraft.data.recipes.SingleItemRecipeBuilder.*;
-import static team.lodestar.lodestone.registry.common.tag.LodestoneItemTags.*;
+import static com.sammy.malum.MalumMod.malumPath;
+import static com.sammy.malum.data.recipe.builder.vanilla.MetalNodeCookingRecipeBuilder.blastingWithTag;
+import static com.sammy.malum.data.recipe.builder.vanilla.MetalNodeCookingRecipeBuilder.smeltingWithTag;
+import static com.sammy.malum.data.recipe.builder.vanilla.StackedMalumCookingRecipeBuilder.blastingWithCount;
+import static com.sammy.malum.data.recipe.builder.vanilla.StackedMalumCookingRecipeBuilder.smeltingWithCount;
+import static net.minecraft.data.recipes.ShapedRecipeBuilder.shaped;
+import static net.minecraft.data.recipes.ShapelessRecipeBuilder.shapeless;
+import static net.minecraft.data.recipes.SimpleCookingRecipeBuilder.blasting;
+import static net.minecraft.data.recipes.SimpleCookingRecipeBuilder.smelting;
+import static net.minecraft.data.recipes.SingleItemRecipeBuilder.stonecutting;
+import static team.lodestar.lodestone.registry.common.tag.LodestoneItemTags.INGOTS_COPPER;
+import static team.lodestar.lodestone.registry.common.tag.LodestoneItemTags.NUGGETS_COPPER;
 
 public class MalumVanillaRecipes {
 

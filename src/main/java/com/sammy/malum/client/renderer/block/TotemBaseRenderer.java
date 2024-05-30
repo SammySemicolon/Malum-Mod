@@ -1,26 +1,28 @@
 package com.sammy.malum.client.renderer.block;
 
-import com.mojang.blaze3d.vertex.*;
-import com.sammy.malum.*;
-import com.sammy.malum.client.*;
-import com.sammy.malum.common.block.curiosities.totem.*;
-import com.sammy.malum.common.spiritrite.*;
-import com.sammy.malum.core.systems.spirit.*;
-import com.sammy.malum.registry.client.*;
-import com.sammy.malum.registry.common.item.*;
-import net.minecraft.client.*;
-import net.minecraft.client.player.*;
-import net.minecraft.client.renderer.*;
-import net.minecraft.client.renderer.blockentity.*;
-import net.minecraft.core.*;
-import net.minecraft.util.*;
-import net.minecraft.world.item.*;
-import team.lodestar.lodestone.registry.client.*;
-import team.lodestar.lodestone.systems.easing.*;
-import team.lodestar.lodestone.systems.rendering.*;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.sammy.malum.MalumMod;
+import com.sammy.malum.client.RenderUtils;
+import com.sammy.malum.client.SpiritBasedWorldVFXBuilder;
+import com.sammy.malum.common.block.curiosities.totem.TotemBaseBlockEntity;
+import com.sammy.malum.common.spiritrite.TotemicRiteEffect;
+import com.sammy.malum.core.systems.spirit.MalumSpiritType;
+import com.sammy.malum.registry.client.RenderTypeRegistry;
+import com.sammy.malum.registry.common.item.ItemRegistry;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.core.BlockPos;
+import net.minecraft.util.Mth;
+import net.minecraft.world.item.Item;
+import team.lodestar.lodestone.registry.client.LodestoneRenderTypeRegistry;
+import team.lodestar.lodestone.systems.easing.Easing;
+import team.lodestar.lodestone.systems.rendering.LodestoneRenderType;
 import team.lodestar.lodestone.systems.rendering.rendeertype.RenderTypeToken;
 
-import static com.sammy.malum.client.RenderUtils.*;
+import static com.sammy.malum.client.RenderUtils.drawCube;
 
 
 public class TotemBaseRenderer implements BlockEntityRenderer<TotemBaseBlockEntity> {
@@ -73,11 +75,11 @@ public class TotemBaseRenderer implements BlockEntityRenderer<TotemBaseBlockEnti
             }
             float shaderWidth = width * 32;
             float shaderHeight = height * 32;
-            float distortion = 6f+height/2f;
-            float sideDistortion = 6f+width/2f;
+            float distortion = 6f + height / 2f;
+            float sideDistortion = 6f + width / 2f;
             final LodestoneRenderType renderType = RenderTypeRegistry.ADDITIVE_DISTORTED_TEXTURE.applyWithModifierAndCache(AREA_COVERAGE_TEXTURE, b -> b.setCullState(LodestoneRenderTypeRegistry.NO_CULL));
             float index = shaderWidth + distortion;
-            float sideIndex = shaderWidth*shaderHeight + sideDistortion;
+            float sideIndex = shaderWidth * shaderHeight + sideDistortion;
 
             var builder = SpiritBasedWorldVFXBuilder.create(spiritType)
                     .setRenderType(LodestoneRenderTypeRegistry.applyUniformChanges(LodestoneRenderTypeRegistry.copyAndStore(index, renderType), s -> {

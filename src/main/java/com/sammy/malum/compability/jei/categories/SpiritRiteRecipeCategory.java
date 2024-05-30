@@ -2,8 +2,8 @@ package com.sammy.malum.compability.jei.categories;
 
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.client.screen.codex.ArcanaCodexHelper;
-import com.sammy.malum.compability.jei.JEIHandler;
 import com.sammy.malum.common.spiritrite.TotemicRiteType;
+import com.sammy.malum.compability.jei.JEIHandler;
 import com.sammy.malum.registry.common.item.ItemRegistry;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
@@ -21,7 +21,6 @@ import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-
 import org.jetbrains.annotations.NotNull;
 
 import static com.sammy.malum.MalumMod.malumPath;

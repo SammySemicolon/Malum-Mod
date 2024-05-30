@@ -1,36 +1,42 @@
 package com.sammy.malum.client.renderer.block;
 
-import com.mojang.blaze3d.vertex.*;
-import com.mojang.math.*;
-import com.sammy.malum.client.*;
-import com.sammy.malum.client.renderer.entity.*;
-import com.sammy.malum.common.block.curiosities.spirit_crucible.*;
-import com.sammy.malum.common.item.augment.*;
-import com.sammy.malum.common.item.spirit.*;
-import com.sammy.malum.registry.common.item.*;
-import net.minecraft.*;
-import net.minecraft.client.*;
-import net.minecraft.client.gui.*;
-import net.minecraft.client.player.*;
-import net.minecraft.client.renderer.*;
-import net.minecraft.client.renderer.blockentity.*;
-import net.minecraft.client.renderer.entity.*;
-import net.minecraft.network.chat.*;
-import net.minecraft.util.*;
-import net.minecraft.world.item.*;
-import net.minecraft.world.level.*;
-import net.minecraft.world.phys.*;
-import org.joml.*;
-import team.lodestar.lodestone.handlers.*;
-import team.lodestar.lodestone.helpers.*;
-import team.lodestar.lodestone.registry.client.*;
-import team.lodestar.lodestone.systems.blockentity.*;
-import team.lodestar.lodestone.systems.easing.*;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Axis;
+import com.sammy.malum.client.BufferWrapper;
+import com.sammy.malum.client.renderer.entity.FloatingItemEntityRenderer;
+import com.sammy.malum.common.block.curiosities.spirit_crucible.CrucibleTuning;
+import com.sammy.malum.common.block.curiosities.spirit_crucible.SpiritCrucibleCoreBlockEntity;
+import com.sammy.malum.common.item.augment.AbstractAugmentItem;
+import com.sammy.malum.common.item.spirit.SpiritShardItem;
+import com.sammy.malum.registry.common.item.ItemRegistry;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.client.renderer.LightTexture;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.client.renderer.entity.ItemRenderer;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.util.Mth;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemDisplayContext;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
+import org.joml.Matrix4f;
+import org.joml.Vector3f;
+import team.lodestar.lodestone.handlers.RenderHandler;
+import team.lodestar.lodestone.helpers.ColorHelper;
+import team.lodestar.lodestone.registry.client.LodestoneRenderTypeRegistry;
+import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntityInventory;
+import team.lodestar.lodestone.systems.easing.Easing;
 
-import java.lang.Math;
-import java.util.*;
+import java.util.List;
 
-import static net.minecraft.client.renderer.texture.OverlayTexture.*;
+import static net.minecraft.client.renderer.texture.OverlayTexture.NO_OVERLAY;
 
 
 public class SpiritCrucibleRenderer implements BlockEntityRenderer<SpiritCrucibleCoreBlockEntity> {
@@ -113,8 +119,8 @@ public class SpiritCrucibleRenderer implements BlockEntityRenderer<SpiritCrucibl
         if (tuningForkHeldTimer > 5) {
             final Font font = Minecraft.getInstance().font;
             float timer = Mth.clamp((tuningForkHeldTimer + (isHoldingFork ? 1 : -1) * partialTicks), 0, 20);
-            float scalar = Easing.SINE_IN_OUT.ease(timer/20f, 0, 1, 1);
-            float scale = 0.016F - (1-scalar)*0.004f;
+            float scalar = Easing.SINE_IN_OUT.ease(timer / 20f, 0, 1, 1);
+            float scale = 0.016F - (1 - scalar) * 0.004f;
             final Font.DisplayMode display = Font.DisplayMode.NORMAL;
             MultiBufferSource textBuffer = new BufferWrapper(LodestoneRenderTypeRegistry.ADDITIVE_TEXT, RenderHandler.DELAYED_RENDER.getTarget());
             final List<CrucibleTuning.CrucibleAttributeType> validValues = CrucibleTuning.CrucibleAttributeType.getValidValues(blockEntityIn.acceleratorData);
@@ -144,16 +150,16 @@ public class SpiritCrucibleRenderer implements BlockEntityRenderer<SpiritCrucibl
                 Matrix4f pose = poseStack.last().pose();
                 float f = (-font.width(text) / 2f);
                 float xPos = 0 + f;
-                int color = ColorHelper.getColor(1, 1, 1, 0.38f*scalar);
+                int color = ColorHelper.getColor(1, 1, 1, 0.38f * scalar);
                 font.drawInBatch(text, xPos, 0, color, false, pose, textBuffer, display, 0, LightTexture.FULL_BRIGHT);
 
-                color = ColorHelper.getColor(1, 1, 1, 0.18f*scalar);
+                color = ColorHelper.getColor(1, 1, 1, 0.18f * scalar);
                 font.drawInBatch(text, xPos - 0.5f, 0, color, false, pose, textBuffer, display, 0, LightTexture.FULL_BRIGHT);
                 font.drawInBatch(text, xPos - 0.5f, 0, color, false, pose, textBuffer, display, 0, LightTexture.FULL_BRIGHT);
                 font.drawInBatch(text, xPos, 0.5f, color, false, pose, textBuffer, display, 0, LightTexture.FULL_BRIGHT);
                 font.drawInBatch(text, xPos, -0.5f, color, false, pose, textBuffer, display, 0, LightTexture.FULL_BRIGHT);
 
-                color = ColorHelper.getColor(1, 1, 1, 0.12f*scalar);
+                color = ColorHelper.getColor(1, 1, 1, 0.12f * scalar);
                 font.drawInBatch(text, xPos - 1, 0, color, false, pose, textBuffer, display, 0, LightTexture.FULL_BRIGHT);
                 font.drawInBatch(outlineText, xPos + 1, 0, color, false, pose, textBuffer, display, 0, LightTexture.FULL_BRIGHT);
                 font.drawInBatch(outlineText, xPos, 1, color, false, pose, textBuffer, display, 0, LightTexture.FULL_BRIGHT);

@@ -4,10 +4,10 @@ import com.sammy.malum.client.cosmetic.ArmorSkinRenderingData;
 import com.sammy.malum.client.cosmetic.PrideArmorSkinRenderingData;
 import com.sammy.malum.client.model.cosmetic.pride.PridewearArmorModel;
 import com.sammy.malum.client.model.cosmetic.pride.SlimPridewearArmorModel;
-import net.minecraft.client.Minecraft;
-import net.minecraft.world.item.Item;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.Minecraft;
+import net.minecraft.world.item.Item;
 import team.lodestar.lodestone.systems.item.LodestoneArmorItem;
 
 public class PrideArmorSkin extends ArmorSkin {

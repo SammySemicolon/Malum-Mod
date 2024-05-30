@@ -13,7 +13,7 @@
   "durabilityPercentage": 0.5,
   "inputs": [
     "undergarden:slingshot"
-	],
+  ],
   "repairMaterial": {
     "item": "undergarden:twistytwig",
     "count": 1

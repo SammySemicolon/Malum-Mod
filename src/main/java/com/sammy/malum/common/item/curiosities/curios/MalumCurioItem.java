@@ -54,6 +54,7 @@ public class MalumCurioItem extends AbstractMalumCurioItem implements Trinket {
     public static Component positiveEffect(String name, Object... args) {
         return Component.translatable("malum.gui.curio.positive", Component.translatable("malum.gui.curio.effect." + name, args)).withStyle(ChatFormatting.BLUE);
     }
+
     public static Component negativeEffect(String name, Object... args) {
         return Component.translatable("malum.gui.curio.negative", Component.translatable("malum.gui.curio.effect." + name, args)).withStyle(ChatFormatting.RED);
     }

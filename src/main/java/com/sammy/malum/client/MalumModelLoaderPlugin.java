@@ -35,7 +35,8 @@ public class MalumModelLoaderPlugin implements ModelLoadingPlugin {
             WORLD_BASE_MODEL, WORLD_GUI_MODEL
     );
 
-    public MalumModelLoaderPlugin() {}
+    public MalumModelLoaderPlugin() {
+    }
 
     @Override
     public void onInitializeModelLoader(Context pluginContext) {

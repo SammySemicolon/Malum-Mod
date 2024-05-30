@@ -1,37 +1,45 @@
 package com.sammy.malum.client.screen.codex;
 
-import com.mojang.blaze3d.systems.*;
-import com.mojang.blaze3d.vertex.*;
-import com.sammy.malum.client.screen.codex.screens.*;
-import com.sammy.malum.common.spiritrite.*;
-import com.sammy.malum.core.systems.ritual.*;
-import com.sammy.malum.core.systems.spirit.*;
-import com.sammy.malum.registry.client.*;
-import net.minecraft.*;
-import net.minecraft.client.*;
-import net.minecraft.client.gui.*;
-import net.minecraft.client.gui.screens.*;
-import net.minecraft.client.renderer.*;
-import net.minecraft.network.chat.*;
-import net.minecraft.resources.*;
-import net.minecraft.util.*;
-import net.minecraft.world.item.*;
-import net.minecraft.world.item.crafting.*;
-import org.joml.*;
-import org.lwjgl.opengl.*;
-import team.lodestar.lodestone.registry.client.*;
-import team.lodestar.lodestone.systems.easing.*;
-import team.lodestar.lodestone.systems.recipe.*;
-import team.lodestar.lodestone.systems.rendering.*;
-import team.lodestar.lodestone.systems.rendering.shader.*;
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.sammy.malum.client.screen.codex.screens.AbstractMalumScreen;
+import com.sammy.malum.client.screen.codex.screens.AbstractProgressionCodexScreen;
+import com.sammy.malum.client.screen.codex.screens.EntryScreen;
+import com.sammy.malum.common.spiritrite.TotemicRiteType;
+import com.sammy.malum.core.systems.ritual.MalumRitualType;
+import com.sammy.malum.core.systems.spirit.MalumSpiritType;
+import com.sammy.malum.registry.client.ShaderRegistry;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.client.renderer.ShaderInstance;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.Style;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import org.joml.Vector4f;
+import org.lwjgl.opengl.GL11;
+import team.lodestar.lodestone.registry.client.LodestoneShaderRegistry;
+import team.lodestar.lodestone.systems.easing.Easing;
+import team.lodestar.lodestone.systems.recipe.IRecipeComponent;
+import team.lodestar.lodestone.systems.rendering.VFXBuilders;
+import team.lodestar.lodestone.systems.rendering.shader.ExtendedShaderInstance;
 
-import java.lang.Math;
-import java.util.*;
-import java.util.function.*;
-import java.util.stream.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
+import java.util.function.UnaryOperator;
+import java.util.stream.Collectors;
 
-import static com.sammy.malum.config.ClientConfig.*;
-import static net.minecraft.util.FastColor.ARGB32.*;
+import static com.sammy.malum.config.ClientConfig.BOOK_THEME;
+import static net.minecraft.util.FastColor.ARGB32.color;
 
 public class ArcanaCodexHelper {
 
@@ -42,7 +50,7 @@ public class ArcanaCodexHelper {
     }
 
     public static <T extends AbstractProgressionCodexScreen> void renderTransitionFade(T screen, PoseStack stack) {
-        final float pct = screen.transitionTimer / (float)screen.getTransitionDuration();
+        final float pct = screen.transitionTimer / (float) screen.getTransitionDuration();
         float overlayAlpha = Easing.SINE_IN_OUT.ease(pct, 0, 1, 1);
         float effectStrength = Easing.QUAD_OUT.ease(pct, 0, 1, 1);
         float effectAlpha = Math.min(1, effectStrength * 1);
@@ -129,6 +137,7 @@ public class ArcanaCodexHelper {
     public static void renderWavyIcon(ResourceLocation location, PoseStack stack, int x, int y, int z) {
         renderWavyIcon(location, stack, x, y, 0, 16, 16);
     }
+
     public static void renderWavyIcon(ResourceLocation location, PoseStack stack, int x, int y, int z, int textureWidth, int textureHeight) {
         ExtendedShaderInstance shaderInstance = (ExtendedShaderInstance) LodestoneShaderRegistry.DISTORTED_TEXTURE.getInstance().get();
         shaderInstance.safeGetUniform("YFrequency").set(10f);
@@ -165,7 +174,7 @@ public class ArcanaCodexHelper {
     }
 
     public static void renderTexture(ResourceLocation texture, PoseStack poseStack, int x, int y, float u, float v, int width, int height, int textureWidth, int textureHeight) {
-        renderTexture(texture, poseStack, VFX_BUILDER, x, y,0, u, v, width, height, textureWidth, textureHeight);
+        renderTexture(texture, poseStack, VFX_BUILDER, x, y, 0, u, v, width, height, textureWidth, textureHeight);
     }
 
     public static void renderTexture(ResourceLocation texture, PoseStack poseStack, int x, int y, int z, float u, float v, int width, int height, int textureWidth, int textureHeight) {
@@ -470,8 +479,8 @@ public class ArcanaCodexHelper {
 
     private static StringBuilder commitComponent(MutableComponent component, boolean italic, boolean bold, boolean strikethrough, boolean underline, boolean obfuscated, StringBuilder line, UnaryOperator<Style> styleModifier) {
         component.append(Component.literal(line.toString())
-            .withStyle((style) -> style.withItalic(italic).withBold(bold).withStrikethrough(strikethrough).withUnderlined(underline).withObfuscated(obfuscated))
-            .withStyle(styleModifier));
+                .withStyle((style) -> style.withItalic(italic).withBold(bold).withStrikethrough(strikethrough).withUnderlined(underline).withObfuscated(obfuscated))
+                .withStyle(styleModifier));
         line = new StringBuilder();
         return line;
     }

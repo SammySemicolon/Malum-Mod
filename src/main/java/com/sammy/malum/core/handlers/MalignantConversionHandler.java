@@ -1,16 +1,21 @@
 package com.sammy.malum.core.handlers;
 
-import com.mojang.datafixers.util.*;
-import com.sammy.malum.common.components.*;
-import com.sammy.malum.core.listeners.*;
-import com.sammy.malum.registry.common.*;
+import com.mojang.datafixers.util.Pair;
+import com.sammy.malum.common.components.MalumComponents;
+import com.sammy.malum.core.listeners.MalignantConversionReloadListener;
+import com.sammy.malum.registry.common.AttributeRegistry;
 import io.github.fabricators_of_create.porting_lib.entity.events.LivingEntityEvents;
-import net.minecraft.network.chat.*;
-import net.minecraft.util.*;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.attributes.*;
+import net.minecraft.network.chat.Component;
+import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.UUID;
 
 public class MalignantConversionHandler {
 
@@ -62,6 +67,7 @@ public class MalignantConversionHandler {
     private static void convertAttribute(LivingEntity livingEntity, Attribute sourceAttribute, List<Pair<Attribute, Double>> targetAttributes) {
         convertAttribute(livingEntity, sourceAttribute, targetAttributes, false);
     }
+
     private static void convertAttribute(LivingEntity livingEntity, Attribute sourceAttribute, List<Pair<Attribute, Double>> targetAttributes, boolean skipCacheComparison) {
         var attributes = livingEntity.getAttributes();
         double malignantConversion = attributes.getValue(AttributeRegistry.MALIGNANT_CONVERSION.get());

@@ -1,13 +1,14 @@
 package com.sammy.malum.common.effect;
 
-import com.sammy.malum.common.components.*;
-import com.sammy.malum.core.handlers.*;
-import com.sammy.malum.registry.common.*;
-import net.minecraft.world.effect.*;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.attributes.*;
-import team.lodestar.lodestone.helpers.*;
-import team.lodestar.lodestone.registry.common.*;
+import com.sammy.malum.common.components.MalumComponents;
+import com.sammy.malum.core.handlers.TouchOfDarknessHandler;
+import com.sammy.malum.registry.common.AttributeRegistry;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import team.lodestar.lodestone.helpers.ColorHelper;
+import team.lodestar.lodestone.registry.common.LodestoneAttributeRegistry;
 
 public class SilencedEffect extends MobEffect {
     public SilencedEffect() {

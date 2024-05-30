@@ -1,27 +1,30 @@
 package com.sammy.malum.client.renderer.block;
 
-import com.mojang.blaze3d.vertex.*;
-import com.mojang.math.*;
-import com.sammy.malum.client.*;
-import com.sammy.malum.client.renderer.entity.*;
-import com.sammy.malum.common.block.curiosities.spirit_crucible.catalyzer.*;
-import com.sammy.malum.core.systems.spirit.*;
-import com.sammy.malum.registry.client.*;
-import net.minecraft.client.*;
-import net.minecraft.client.renderer.*;
-import net.minecraft.client.renderer.blockentity.*;
-import net.minecraft.client.renderer.entity.*;
-import net.minecraft.core.*;
-import net.minecraft.world.item.*;
-import net.minecraft.world.level.*;
-import net.minecraft.world.phys.*;
-import team.lodestar.lodestone.registry.client.*;
-import team.lodestar.lodestone.systems.easing.*;
-import team.lodestar.lodestone.systems.rendering.rendeertype.*;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Axis;
+import com.sammy.malum.client.SpiritBasedWorldVFXBuilder;
+import com.sammy.malum.client.renderer.entity.FloatingItemEntityRenderer;
+import com.sammy.malum.common.block.curiosities.spirit_crucible.catalyzer.SpiritCatalyzerCoreBlockEntity;
+import com.sammy.malum.core.systems.spirit.MalumSpiritType;
+import com.sammy.malum.registry.client.MalumRenderTypeTokens;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.client.renderer.entity.ItemRenderer;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.item.ItemDisplayContext;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
+import team.lodestar.lodestone.registry.client.LodestoneRenderTypeRegistry;
+import team.lodestar.lodestone.systems.easing.Easing;
+import team.lodestar.lodestone.systems.rendering.rendeertype.RenderTypeToken;
 
-import java.util.*;
+import java.util.Map;
 
-import static net.minecraft.client.renderer.texture.OverlayTexture.*;
+import static net.minecraft.client.renderer.texture.OverlayTexture.NO_OVERLAY;
 
 
 public class SpiritCatalyzerRenderer implements BlockEntityRenderer<SpiritCatalyzerCoreBlockEntity> {
@@ -65,7 +68,7 @@ public class SpiritCatalyzerRenderer implements BlockEntityRenderer<SpiritCataly
                     final MalumSpiritType spirit = entry.getKey();
                     poseStack.translate(-blockPos.getX(), -blockPos.getY(), -blockPos.getZ());
                     renderBeam(blockEntityIn, poseStack, spirit, entry.getValue());
-                    poseStack.translate(blockPos.getX()+offset.x, blockPos.getY()+offset.y, blockPos.getZ()+offset.z);
+                    poseStack.translate(blockPos.getX() + offset.x, blockPos.getY() + offset.y, blockPos.getZ() + offset.z);
                     FloatingItemEntityRenderer.renderSpiritGlimmer(poseStack, spirit, entry.getValue() / 60f, partialTicks);
                     poseStack.translate(-offset.x, -offset.y, -offset.z);
                 }
@@ -83,7 +86,7 @@ public class SpiritCatalyzerRenderer implements BlockEntityRenderer<SpiritCataly
         float alpha = intensity / 60f;
         Vec3 midPoint = startPos.add(difference.scale(distance));
         SpiritBasedWorldVFXBuilder.create(spiritType)
-                
+
                 .setColor(spiritType.getPrimaryColor())
                 .setRenderType(TRAIL_TYPE)
                 .setAlpha(alpha)

@@ -1,7 +1,5 @@
 package com.sammy.malum.client.cosmetic;
 
-import com.sammy.malum.common.entity.EntityModelLoader;
-import com.sammy.malum.registry.client.ModelRegistry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import team.lodestar.lodestone.systems.model.LodestoneArmorModel;

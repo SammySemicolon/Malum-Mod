@@ -37,8 +37,7 @@ public class CurioGruesomeConcentrationRing extends MalumCurioItem implements IV
                     MobEffectInstance effect = player.getEffect(MobEffectRegistry.GLUTTONY.get());
                     if (effect != null) {
                         EntityHelper.amplifyEffect(effect, player, 2, 9);
-                    }
-                    else {
+                    } else {
                         player.addEffect(new MobEffectInstance(gluttony, 600 + (int) (arcaneResonance * 600), 1, true, true, true));
                     }
                 }

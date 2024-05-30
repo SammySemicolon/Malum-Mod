@@ -1,17 +1,18 @@
 package com.sammy.malum.data;
 
-import com.sammy.malum.registry.common.worldgen.*;
+import com.sammy.malum.registry.common.worldgen.BiomeTagRegistry;
 import io.github.fabricators_of_create.porting_lib.data.ExistingFileHelper;
 import io.github.fabricators_of_create.porting_lib.tags.Tags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
-import net.minecraft.core.*;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.tags.*;
-import net.minecraft.world.level.biome.*;
-import org.jetbrains.annotations.*;
+import net.minecraft.tags.BiomeTags;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.Biomes;
+import org.jetbrains.annotations.Nullable;
 
-import java.util.concurrent.*;
+import java.util.concurrent.CompletableFuture;
 
 public class MalumBiomeTags extends FabricTagProvider<Biome> {
 

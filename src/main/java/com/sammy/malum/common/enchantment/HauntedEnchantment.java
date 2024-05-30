@@ -1,8 +1,8 @@
 package com.sammy.malum.common.enchantment;
 
-import com.sammy.malum.registry.common.item.*;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.item.enchantment.*;
+import com.sammy.malum.registry.common.item.EnchantmentRegistry;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.enchantment.Enchantment;
 
 public class HauntedEnchantment extends Enchantment {
     public HauntedEnchantment() {

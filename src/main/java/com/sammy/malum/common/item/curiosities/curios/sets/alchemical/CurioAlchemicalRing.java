@@ -12,7 +12,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.ItemStack;
-
 import team.lodestar.lodestone.helpers.EntityHelper;
 import team.lodestar.lodestone.registry.common.LodestoneAttributeRegistry;
 

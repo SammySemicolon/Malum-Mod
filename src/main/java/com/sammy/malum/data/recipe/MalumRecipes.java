@@ -4,10 +4,10 @@ import com.sammy.malum.data.recipe.crafting.MalumWoodenRecipes;
 import com.sammy.malum.data.recipe.infusion.*;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
-import net.minecraft.data.*;
-import net.minecraft.data.recipes.*;
+import net.minecraft.data.PackOutput;
+import net.minecraft.data.recipes.FinishedRecipe;
 
-import java.util.function.*;
+import java.util.function.Consumer;
 
 public class MalumRecipes extends FabricRecipeProvider {
 

@@ -1,13 +1,14 @@
 package com.sammy.malum.client.screen.codex.pages;
 
-import com.sammy.malum.client.screen.codex.handklers.*;
-import com.sammy.malum.client.screen.codex.objects.*;
-import com.sammy.malum.client.screen.codex.screens.*;
-import net.minecraft.client.gui.*;
+import com.sammy.malum.client.screen.codex.handklers.BookObjectHandler;
+import com.sammy.malum.client.screen.codex.objects.SelectableEntryObject;
+import com.sammy.malum.client.screen.codex.screens.EntryScreen;
+import net.minecraft.client.gui.GuiGraphics;
 
-import java.util.*;
-import java.util.function.*;
-import java.util.stream.*;
+import java.util.Collection;
+import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class EntrySelectorPage extends BookPage {
 

@@ -1,7 +1,7 @@
 package com.sammy.malum.common.item.curiosities.nitrate;
 
-import com.sammy.malum.common.entity.nitrate.*;
-import net.minecraft.world.item.*;
+import com.sammy.malum.common.entity.nitrate.VividNitrateEntity;
+import net.minecraft.world.item.ItemStack;
 
 public class VividNitrateItem extends AbstractNitrateItem {
 

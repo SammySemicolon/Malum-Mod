@@ -1,23 +1,26 @@
 package com.sammy.malum.client.renderer.entity.bolt;
 
-import com.mojang.blaze3d.vertex.*;
-import com.sammy.malum.client.*;
-import com.sammy.malum.common.entity.bolt.*;
-import net.minecraft.client.renderer.*;
-import net.minecraft.client.renderer.entity.*;
-import net.minecraft.client.renderer.texture.*;
-import net.minecraft.resources.*;
-import team.lodestar.lodestone.registry.client.*;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.sammy.malum.client.RenderUtils;
+import com.sammy.malum.common.entity.bolt.AbstractBoltProjectileEntity;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.entity.EntityRenderer;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.texture.TextureAtlas;
+import net.minecraft.resources.ResourceLocation;
+import team.lodestar.lodestone.registry.client.LodestoneRenderTypeRegistry;
 import team.lodestar.lodestone.systems.rendering.VFXBuilders;
 import team.lodestar.lodestone.systems.rendering.rendeertype.RenderTypeToken;
 
 import java.awt.*;
 
-import static com.sammy.malum.MalumMod.*;
+import static com.sammy.malum.MalumMod.malumPath;
 
 public abstract class AbstractBoltEntityRenderer<T extends AbstractBoltProjectileEntity> extends EntityRenderer<T> {
     public final Color primaryColor;
     public final Color secondaryColor;
+
     public AbstractBoltEntityRenderer(EntityRendererProvider.Context context, Color primaryColor, Color secondaryColor) {
         super(context);
         this.primaryColor = primaryColor;

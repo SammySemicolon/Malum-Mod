@@ -1,32 +1,41 @@
 package com.sammy.malum.data.block;
 
-import com.google.common.collect.*;
-import com.sammy.malum.common.block.ether.*;
-import com.sammy.malum.common.block.storage.jar.*;
-import com.sammy.malum.registry.common.block.*;
-import com.sammy.malum.registry.common.item.*;
+import com.google.common.collect.ImmutableSet;
+import com.sammy.malum.common.block.ether.EtherBlock;
+import com.sammy.malum.common.block.storage.jar.SpiritJarBlock;
+import com.sammy.malum.registry.common.block.BlockRegistry;
+import com.sammy.malum.registry.common.item.ItemRegistry;
 import io.github.fabricators_of_create.porting_lib.util.RegistryObject;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
-import net.minecraft.advancements.critereon.*;
-import net.minecraft.world.item.*;
-import net.minecraft.world.item.enchantment.*;
-import net.minecraft.world.level.*;
+import net.minecraft.advancements.critereon.EnchantmentPredicate;
+import net.minecraft.advancements.critereon.ItemPredicate;
+import net.minecraft.advancements.critereon.MinMaxBounds;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.storage.loot.*;
-import net.minecraft.world.level.storage.loot.entries.*;
-import net.minecraft.world.level.storage.loot.functions.*;
-import net.minecraft.world.level.storage.loot.predicates.*;
-import net.minecraft.world.level.storage.loot.providers.nbt.*;
-import net.minecraft.world.level.storage.loot.providers.number.*;
+import net.minecraft.world.level.storage.loot.LootPool;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.functions.CopyNameFunction;
+import net.minecraft.world.level.storage.loot.functions.CopyNbtFunction;
+import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
+import net.minecraft.world.level.storage.loot.predicates.MatchTool;
+import net.minecraft.world.level.storage.loot.providers.nbt.ContextNbtProvider;
+import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
+import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
+import team.lodestar.lodestone.systems.block.LodestoneBlockProperties;
 
-import team.lodestar.lodestone.systems.block.*;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Stream;
 
-import java.util.*;
-import java.util.stream.*;
-
-import static com.sammy.malum.registry.common.block.BlockRegistry.*;
-import static team.lodestar.lodestone.helpers.DataHelper.*;
+import static com.sammy.malum.registry.common.block.BlockRegistry.BLOCKS;
+import static team.lodestar.lodestone.helpers.DataHelper.take;
+import static team.lodestar.lodestone.helpers.DataHelper.takeAll;
 
 public class MalumBlockLootTables extends FabricBlockLootTableProvider {
 

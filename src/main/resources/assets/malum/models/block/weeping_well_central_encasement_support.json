@@ -1,24 +1,91 @@
 {
-	"credit": "Made with Blockbench",
-	"parent": "block/block",
-	"texture_size": [64, 64],
-	"textures": {
-		"2": "malum:block/arcane_rock/tainted/tainted_rock_column_cap_top",
-		"weeping_well": "malum:block/weeping_well/weeping_well",
-		"particle": "malum:block/arcane_rock/tainted/tainted_rock_bricks"
-	},
-	"elements": [
-		{
-			"from": [0, 0, 0],
-			"to": [16, 16, 16],
-			"faces": {
-				"north": {"uv": [4, 8, 8, 12], "texture": "#weeping_well", "cullface": "north"},
-				"east": {"uv": [4, 8, 8, 12], "texture": "#weeping_well", "cullface": "east"},
-				"south": {"uv": [4, 8, 8, 12], "texture": "#weeping_well", "cullface": "south"},
-				"west": {"uv": [4, 8, 8, 12], "texture": "#weeping_well", "cullface": "west"},
-				"up": {"uv": [0, 16, 16, 0], "rotation": 180, "texture": "#2", "cullface": "up"},
-				"down": {"uv": [0, 0, 16, 16], "rotation": 180, "texture": "#2", "cullface": "down"}
-			}
-		}
-	]
+  "credit": "Made with Blockbench",
+  "parent": "block/block",
+  "texture_size": [
+    64,
+    64
+  ],
+  "textures": {
+    "2": "malum:block/arcane_rock/tainted/tainted_rock_column_cap_top",
+    "weeping_well": "malum:block/weeping_well/weeping_well",
+    "particle": "malum:block/arcane_rock/tainted/tainted_rock_bricks"
+  },
+  "elements": [
+    {
+      "from": [
+        0,
+        0,
+        0
+      ],
+      "to": [
+        16,
+        16,
+        16
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            4,
+            8,
+            8,
+            12
+          ],
+          "texture": "#weeping_well",
+          "cullface": "north"
+        },
+        "east": {
+          "uv": [
+            4,
+            8,
+            8,
+            12
+          ],
+          "texture": "#weeping_well",
+          "cullface": "east"
+        },
+        "south": {
+          "uv": [
+            4,
+            8,
+            8,
+            12
+          ],
+          "texture": "#weeping_well",
+          "cullface": "south"
+        },
+        "west": {
+          "uv": [
+            4,
+            8,
+            8,
+            12
+          ],
+          "texture": "#weeping_well",
+          "cullface": "west"
+        },
+        "up": {
+          "uv": [
+            0,
+            16,
+            16,
+            0
+          ],
+          "rotation": 180,
+          "texture": "#2",
+          "cullface": "up"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "rotation": 180,
+          "texture": "#2",
+          "cullface": "down"
+        }
+      }
+    }
+  ]
 }

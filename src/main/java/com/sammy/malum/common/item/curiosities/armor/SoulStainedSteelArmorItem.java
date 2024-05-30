@@ -1,6 +1,7 @@
 package com.sammy.malum.common.item.curiosities.armor;
 
-import com.google.common.collect.*;
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Multimap;
 import com.sammy.malum.registry.common.AttributeRegistry;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;

@@ -6,7 +6,6 @@ import com.sammy.malum.common.effect.WickedIntentEffect;
 import com.sammy.malum.common.effect.aura.CorruptedAerialAura;
 import com.sammy.malum.common.effect.aura.InfernalAura;
 import com.sammy.malum.common.enchantment.ReboundEnchantment;
-import com.sammy.malum.common.entity.EntityModelLoader;
 import com.sammy.malum.common.entity.nitrate.NitrateExplosion;
 import com.sammy.malum.common.item.augment.AbstractAugmentItem;
 import com.sammy.malum.common.item.cosmetic.curios.CurioTokenOfGratitude;
@@ -17,8 +16,8 @@ import com.sammy.malum.common.item.curiosities.curios.sets.misc.CurioHarmonyNeck
 import com.sammy.malum.common.item.curiosities.curios.sets.prospector.CurioProspectorBelt;
 import com.sammy.malum.common.item.curiosities.curios.sets.rotten.CurioVoraciousRing;
 import com.sammy.malum.common.item.curiosities.curios.sets.weeping.CurioGruesomeConcentrationRing;
-import com.sammy.malum.compability.farmersdelight.*;
-import com.sammy.malum.config.*;
+import com.sammy.malum.compability.farmersdelight.FarmersDelightCompat;
+import com.sammy.malum.config.CommonConfig;
 import com.sammy.malum.core.handlers.*;
 import com.sammy.malum.core.listeners.MalignantConversionReloadListener;
 import com.sammy.malum.core.listeners.ReapingDataReloadListener;
@@ -29,7 +28,7 @@ import com.sammy.malum.registry.common.MobEffectRegistry;
 import com.sammy.malum.registry.common.PacketRegistry;
 import com.sammy.malum.registry.common.item.ArmorSkinRegistry;
 import com.sammy.malum.registry.common.item.ItemRegistry;
-import com.sammy.malum.registry.common.item.tabs.*;
+import com.sammy.malum.registry.common.item.tabs.CreativeTabRegistry;
 import io.github.fabricators_of_create.porting_lib.config.ConfigRegistry;
 import io.github.fabricators_of_create.porting_lib.config.ConfigType;
 import io.github.fabricators_of_create.porting_lib.entity.events.*;
@@ -41,9 +40,9 @@ import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.resources.*;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
-import net.minecraft.util.*;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ClipContext;
@@ -52,26 +51,27 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
-import org.apache.logging.log4j.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import team.lodestar.lodestone.events.LodestoneInteractionEvent;
 import team.lodestar.lodestone.events.LodestoneItemEvent;
 import team.lodestar.lodestone.events.LodestoneMobEffectEvents;
 
-import static com.sammy.malum.registry.client.ParticleRegistry.*;
-import static com.sammy.malum.registry.common.AttributeRegistry.*;
-import static com.sammy.malum.registry.common.ContainerRegistry.*;
-import static com.sammy.malum.registry.common.MobEffectRegistry.*;
-import static com.sammy.malum.registry.common.SoundRegistry.*;
-import static com.sammy.malum.registry.common.block.BlockEntityRegistry.*;
-import static com.sammy.malum.registry.common.block.BlockRegistry.*;
-import static com.sammy.malum.registry.common.entity.EntityRegistry.*;
-import static com.sammy.malum.registry.common.item.EnchantmentRegistry.*;
-import static com.sammy.malum.registry.common.item.ItemRegistry.*;
-import static com.sammy.malum.registry.common.item.tabs.CreativeTabRegistry.*;
-import static com.sammy.malum.registry.common.recipe.RecipeSerializerRegistry.*;
-import static com.sammy.malum.registry.common.recipe.RecipeTypeRegistry.*;
-import static com.sammy.malum.registry.common.worldgen.FeatureRegistry.*;
-import static com.sammy.malum.registry.common.worldgen.StructureRegistry.*;
+import static com.sammy.malum.registry.client.ParticleRegistry.PARTICLES;
+import static com.sammy.malum.registry.common.AttributeRegistry.ATTRIBUTES;
+import static com.sammy.malum.registry.common.ContainerRegistry.CONTAINERS;
+import static com.sammy.malum.registry.common.MobEffectRegistry.EFFECTS;
+import static com.sammy.malum.registry.common.SoundRegistry.SOUNDS;
+import static com.sammy.malum.registry.common.block.BlockEntityRegistry.BLOCK_ENTITY_TYPES;
+import static com.sammy.malum.registry.common.block.BlockRegistry.BLOCKS;
+import static com.sammy.malum.registry.common.entity.EntityRegistry.ENTITY_TYPES;
+import static com.sammy.malum.registry.common.item.EnchantmentRegistry.ENCHANTMENTS;
+import static com.sammy.malum.registry.common.item.ItemRegistry.ITEMS;
+import static com.sammy.malum.registry.common.item.tabs.CreativeTabRegistry.CREATIVE_MODE_TABS;
+import static com.sammy.malum.registry.common.recipe.RecipeSerializerRegistry.RECIPE_SERIALIZERS;
+import static com.sammy.malum.registry.common.recipe.RecipeTypeRegistry.RECIPE_TYPES;
+import static com.sammy.malum.registry.common.worldgen.FeatureRegistry.FEATURE_TYPES;
+import static com.sammy.malum.registry.common.worldgen.StructureRegistry.STRUCTURES;
 
 @SuppressWarnings("unused")
 public class MalumMod implements ModInitializer {
@@ -112,7 +112,6 @@ public class MalumMod implements ModInitializer {
         ArmorSkinRegistry.registerItemSkins();
 
         FarmersDelightCompat.init();
-
 
 
         LodestoneItemEvent.ON_ITEM_TOOLTIP.register(AbstractAugmentItem::addAugmentAttributeTooltip);

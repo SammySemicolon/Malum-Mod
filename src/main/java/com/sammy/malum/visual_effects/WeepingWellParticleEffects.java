@@ -56,7 +56,7 @@ public class WeepingWellParticleEffects {
                 sparkParticles.getBuilder()
                         .addSpawnActor(spawnBehavior)
                         .disableNoClip()
-                        .setGravityStrength(gravityStrength/2f)
+                        .setGravityStrength(gravityStrength / 2f)
                         .setMotion(xVelocity, yVelocity, zVelocity)
                         .setRenderTarget(RenderHandler.LATE_DELAYED_RENDER)
                         .modifyData(SparkParticleBuilder::getTransparencyData, d -> d.multiplyValue(2f))
@@ -64,7 +64,7 @@ public class WeepingWellParticleEffects {
                 sparkParticles.getBloomBuilder()
                         .addSpawnActor(spawnBehavior)
                         .disableNoClip()
-                        .setGravityStrength(gravityStrength/2f)
+                        .setGravityStrength(gravityStrength / 2f)
                         .setMotion(xVelocity, yVelocity, zVelocity)
                         .setRenderTarget(RenderHandler.LATE_DELAYED_RENDER)
                         .modifyData(WorldParticleBuilder::getTransparencyData, d -> d.multiplyValue(1.25f));
@@ -95,11 +95,11 @@ public class WeepingWellParticleEffects {
         int spinOffset = rand.nextInt(360);
         for (int i = 0; i < 4; i++) {
             int spinDirection = (rand.nextBoolean() ? 1 : -1);
-            float scaleMultiplier = (float) (1+Math.pow(rand.nextFloat(), 2));
+            float scaleMultiplier = (float) (1 + Math.pow(rand.nextFloat(), 2));
             WorldParticleBuilder.create(LodestoneParticleRegistry.SPARKLE_PARTICLE)
                     .setTransparencyData(GenericParticleData.create(0.7f, 0.5f, 0).setEasing(Easing.SINE_IN, Easing.CIRC_IN).build())
                     .setSpinData(SpinParticleData.create((0.125f + rand.nextFloat() * 0.075f) * spinDirection).setSpinOffset(spinOffset).build())
-                    .setScaleData(GenericParticleData.create(2.4f*scaleMultiplier, 0.8f, 0).setEasing(Easing.QUAD_IN, Easing.SINE_IN).build())
+                    .setScaleData(GenericParticleData.create(2.4f * scaleMultiplier, 0.8f, 0).setEasing(Easing.QUAD_IN, Easing.SINE_IN).build())
                     .setColorData(colorData)
                     .setLifetime(25)
                     .setRandomOffset(0.6f)
@@ -108,10 +108,10 @@ public class WeepingWellParticleEffects {
                     .setRenderTarget(RenderHandler.LATE_DELAYED_RENDER)
                     .setDiscardFunction(SimpleParticleOptions.ParticleDiscardFunctionType.ENDING_CURVE_INVISIBLE)
                     .setRenderType(LodestoneWorldParticleRenderType.LUMITRANSPARENT)
-                    .repeat(level, posX, posY+0.25f, posZ, 5);
+                    .repeat(level, posX, posY + 0.25f, posZ, 5);
         }
         for (int i = 0; i < 8; i++) {
-            int finalI = 4+i/2;
+            int finalI = 4 + i / 2;
             var squares = weepingWellSquare(level, pos, colorData);
             squares.getBuilder().multiplyLifetime(0.5f).addSpawnActor(p -> p.tickParticle(finalI));
             squares.spawnParticles();
@@ -142,7 +142,7 @@ public class WeepingWellParticleEffects {
                     .surroundVoxelShape(level, blockPos, WELL_SHAPE, 12);
             if (rand.nextFloat() < 0.75f) {
                 int rotation = rand.nextInt(16);
-                Vec3 offsetPosition = DataHelper.rotatingRadialOffset(new Vec3(blockPos.getX()+0.5f, blockPos.getY()+0.75f, blockPos.getZ()+0.5f), 1.1f, rotation, 16, level.getGameTime(), 640);
+                Vec3 offsetPosition = DataHelper.rotatingRadialOffset(new Vec3(blockPos.getX() + 0.5f, blockPos.getY() + 0.75f, blockPos.getZ() + 0.5f), 1.1f, rotation, 16, level.getGameTime(), 640);
                 final float acceleration = RandomHelper.randomBetween(rand, 0.002f, 0.02f);
                 final long gameTime = level.getGameTime();
                 final Consumer<LodestoneWorldParticleActor> behavior = p -> {
@@ -186,7 +186,7 @@ public class WeepingWellParticleEffects {
                     .surroundVoxelShape(level, blockPos, DEPOT_SHAPE, 4);
             if (rand.nextFloat() < 0.2f) {
                 int rotation = rand.nextInt(16);
-                Vec3 offsetPosition = DataHelper.rotatingRadialOffset(new Vec3(blockPos.getX()+0.5f, blockPos.getY()+0.75f, blockPos.getZ()+0.5f), 0.5f, rotation, 16, level.getGameTime(), 640);
+                Vec3 offsetPosition = DataHelper.rotatingRadialOffset(new Vec3(blockPos.getX() + 0.5f, blockPos.getY() + 0.75f, blockPos.getZ() + 0.5f), 0.5f, rotation, 16, level.getGameTime(), 640);
                 final float acceleration = RandomHelper.randomBetween(rand, 0.002f, 0.02f);
                 final long gameTime = level.getGameTime();
                 final Consumer<LodestoneWorldParticleActor> behavior = p -> {
@@ -213,6 +213,7 @@ public class WeepingWellParticleEffects {
         ColorParticleData colorData = ColorParticleData.create(color, color.darker()).setCoefficient(0.5f).build();
         return weepingWellSparks(level, pos, colorData, LodestoneWorldParticleRenderType.LUMITRANSPARENT);
     }
+
     public static ParticleEffectSpawner<SparkParticleBuilder> weepingWellSparks(Level level, Vec3 pos, ColorParticleData colorData, LodestoneWorldParticleRenderType renderType) {
         RandomSource rand = level.random;
         var lightSpecs = SparkParticleEffects.spiritMotionSparks(level, pos, colorData, colorData);
@@ -237,6 +238,7 @@ public class WeepingWellParticleEffects {
         ColorParticleData colorData = ColorParticleData.create(color, color.darker()).setCoefficient(0.5f).build();
         return weepingWellSpecs(level, pos, colorData, LodestoneWorldParticleRenderType.LUMITRANSPARENT);
     }
+
     public static ParticleEffectSpawner<WorldParticleBuilder> weepingWellSpecs(Level level, Vec3 pos, ColorParticleData colorData, LodestoneWorldParticleRenderType renderType) {
         var rand = level.random;
         var lightSpecs = spiritLightSpecs(level, pos, colorData, ParticleRegistry.LIGHT_SPEC_SMALL);
@@ -253,6 +255,7 @@ public class WeepingWellParticleEffects {
                 .modifyData(b::getScaleData, d -> d.multiplyValue(RandomHelper.randomBetween(rand, 1f, 1.25f))));
         return lightSpecs;
     }
+
     public static ParticleEffectSpawner<DirectionalParticleBuilder> weepingWellSquare(Level level, Vec3 pos, ColorParticleData colorData) {
         RandomSource rand = level.random;
         final GenericParticleData scaleData = GenericParticleData.create(0.1f, RandomHelper.randomBetween(rand, 1.7f, 1.8f), 0.5f).setEasing(Easing.SINE_OUT, Easing.SINE_IN).setCoefficient(RandomHelper.randomBetween(rand, 1f, 1.25f)).build();

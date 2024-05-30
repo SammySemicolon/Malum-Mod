@@ -1,14 +1,16 @@
 package com.sammy.malum.common.block;
 
-import com.sammy.malum.common.item.spirit.*;
-import com.sammy.malum.registry.common.*;
-import net.minecraft.sounds.*;
+import com.sammy.malum.common.item.spirit.SpiritShardItem;
+import com.sammy.malum.registry.common.SoundRegistry;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.ItemStack;
 import team.lodestar.lodestone.helpers.RandomHelper;
-import team.lodestar.lodestone.systems.blockentity.*;
+import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntity;
+import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntityInventory;
 
-import java.util.function.*;
+import java.util.function.Predicate;
 
 public class MalumBlockEntityInventory extends LodestoneBlockEntityInventory {
 
@@ -17,11 +19,11 @@ public class MalumBlockEntityInventory extends LodestoneBlockEntityInventory {
     }
 
     public MalumBlockEntityInventory(int slotCount, int allowedItemSize, Predicate<ItemStack> inputPredicate) {
-        super(null,slotCount, allowedItemSize, inputPredicate);
+        super(null, slotCount, allowedItemSize, inputPredicate);
     }
 
     public MalumBlockEntityInventory(int slotCount, int allowedItemSize) {
-        super(null,slotCount, allowedItemSize);
+        super(null, slotCount, allowedItemSize);
     }
 
     @Override
@@ -45,6 +47,7 @@ public class MalumBlockEntityInventory extends LodestoneBlockEntityInventory {
     public SoundEvent getExtractSound(ItemStack stack) {
         return stack.getItem() instanceof SpiritShardItem ? SoundRegistry.PEDESTAL_SPIRIT_PICKUP.get() : SoundRegistry.PEDESTAL_ITEM_PICKUP.get();
     }
+
     public SoundEvent getInsertSound(ItemStack stack) {
         return stack.getItem() instanceof SpiritShardItem ? SoundRegistry.PEDESTAL_SPIRIT_INSERT.get() : SoundRegistry.PEDESTAL_ITEM_INSERT.get();
     }

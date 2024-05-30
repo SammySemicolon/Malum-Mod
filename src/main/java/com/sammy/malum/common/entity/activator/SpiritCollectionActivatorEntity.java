@@ -1,22 +1,23 @@
 package com.sammy.malum.common.entity.activator;
 
-import com.sammy.malum.common.entity.*;
-import com.sammy.malum.common.item.*;
-import com.sammy.malum.registry.common.*;
-import com.sammy.malum.registry.common.entity.*;
-import com.sammy.malum.visual_effects.*;
-import net.minecraft.nbt.*;
-import net.minecraft.server.level.*;
-import net.minecraft.sounds.*;
-import net.minecraft.util.*;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.attributes.*;
-import net.minecraft.world.entity.player.*;
-import net.minecraft.world.level.*;
-import net.minecraft.world.phys.*;
-import team.lodestar.lodestone.helpers.*;
+import com.sammy.malum.common.entity.FloatingEntity;
+import com.sammy.malum.common.item.IMalumEventResponderItem;
+import com.sammy.malum.registry.common.AttributeRegistry;
+import com.sammy.malum.registry.common.SoundRegistry;
+import com.sammy.malum.registry.common.entity.EntityRegistry;
+import com.sammy.malum.visual_effects.SpiritLightSpecs;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.Mth;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
+import team.lodestar.lodestone.helpers.ItemHelper;
 
-import java.util.*;
+import java.util.UUID;
 
 public class SpiritCollectionActivatorEntity extends FloatingEntity {
     public UUID ownerUUID;

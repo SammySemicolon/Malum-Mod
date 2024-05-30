@@ -1,17 +1,21 @@
 package com.sammy.malum.registry.common;
 
-import com.sammy.malum.visual_effects.networked.*;
+import com.sammy.malum.visual_effects.networked.ParticleEffectType;
+import com.sammy.malum.visual_effects.networked.SapCollectionParticleEffect;
+import com.sammy.malum.visual_effects.networked.SpiritMoteCreationParticleEffect;
 import com.sammy.malum.visual_effects.networked.altar.SpiritAltarCraftParticleEffect;
 import com.sammy.malum.visual_effects.networked.altar.SpiritAltarEatItemParticleEffect;
 import com.sammy.malum.visual_effects.networked.blight.BlightingMistParticleEffect;
-import com.sammy.malum.visual_effects.networked.crucible.*;
+import com.sammy.malum.visual_effects.networked.crucible.SpiritCrucibleCraftParticleEffect;
 import com.sammy.malum.visual_effects.networked.generic.DrippingSmokeParticleEffect;
 import com.sammy.malum.visual_effects.networked.generic.HexingSmokeParticleEffect;
 import com.sammy.malum.visual_effects.networked.generic.RisingSparklesParticleEffect;
-import com.sammy.malum.visual_effects.networked.nitrate.*;
+import com.sammy.malum.visual_effects.networked.nitrate.EthericNitrateImpactParticleEffect;
 import com.sammy.malum.visual_effects.networked.ritual.*;
-import com.sammy.malum.visual_effects.networked.staff.*;
-import com.sammy.malum.visual_effects.networked.totem.*;
+import com.sammy.malum.visual_effects.networked.staff.AuricBoltImpactParticleEffect;
+import com.sammy.malum.visual_effects.networked.staff.DrainingBoltImpactParticleEffect;
+import com.sammy.malum.visual_effects.networked.staff.HexBoltImpactParticleEffect;
+import com.sammy.malum.visual_effects.networked.totem.TotemPoleActivatedParticleEffect;
 import com.sammy.malum.visual_effects.networked.weeping_well.WeepingWellRadianceParticleEffect;
 import com.sammy.malum.visual_effects.networked.weeping_well.WeepingWellReactionParticleEffect;
 

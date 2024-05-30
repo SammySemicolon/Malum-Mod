@@ -2,7 +2,10 @@ package com.sammy.malum.registry.common.item;
 
 import com.chocohead.mm.api.ClassTinkerers;
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.common.enchantment.*;
+import com.sammy.malum.common.enchantment.HauntedEnchantment;
+import com.sammy.malum.common.enchantment.ReboundEnchantment;
+import com.sammy.malum.common.enchantment.ReplenishingEnchantment;
+import com.sammy.malum.common.enchantment.SpiritPlunderEnchantment;
 import io.github.fabricators_of_create.porting_lib.util.LazyRegistrar;
 import io.github.fabricators_of_create.porting_lib.util.RegistryObject;
 import net.minecraft.core.registries.BuiltInRegistries;

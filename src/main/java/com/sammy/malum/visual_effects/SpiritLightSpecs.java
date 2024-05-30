@@ -76,12 +76,15 @@ public class SpiritLightSpecs {
     public static ParticleEffectSpawner<WorldParticleBuilder> spiritLightSpecs(Level level, Vec3 pos, MalumSpiritType spiritType) {
         return spiritLightSpecs(level, pos, spiritType, ParticleRegistry.LIGHT_SPEC_SMALL);
     }
+
     public static ParticleEffectSpawner<WorldParticleBuilder> spiritLightSpecs(Level level, Vec3 pos, MalumSpiritType spiritType, Supplier<LodestoneParticleType> particle) {
         return spiritLightSpecs(level, pos, spiritType.createColorData().build(), particle).setSpiritType(spiritType);
     }
+
     public static ParticleEffectSpawner<WorldParticleBuilder> spiritLightSpecs(Level level, Vec3 pos, ColorParticleData colorData) {
         return spiritLightSpecs(level, pos, colorData, ParticleRegistry.LIGHT_SPEC_SMALL);
     }
+
     public static ParticleEffectSpawner<WorldParticleBuilder> spiritLightSpecs(Level level, Vec3 pos, ColorParticleData colorData, Supplier<LodestoneParticleType> particle) {
         var rand = level.getRandom();
         final SpinParticleData spinData = SpinParticleData.createRandomDirection(rand, nextFloat(rand, 0.05f, 0.1f)).randomSpinOffset(rand).build();
@@ -102,6 +105,7 @@ public class SpiritLightSpecs {
     public static WorldParticleBuilder spiritBloom(Level level, MalumSpiritType spiritType, SpinParticleData spinData, int lifetime) {
         return spiritBloom(level, spiritType.createColorData().build(), spinData, lifetime);
     }
+
     public static WorldParticleBuilder spiritBloom(Level level, ColorParticleData bloomColorData, SpinParticleData spinData, int lifetime) {
         var rand = level.random;
         return WorldParticleBuilder.create(LodestoneParticleRegistry.WISP_PARTICLE)

@@ -1,6 +1,6 @@
 package com.sammy.malum.common.item.curiosities.curios.runes.miracle;
 
-import com.sammy.malum.common.item.curiosities.curios.runes.*;
+import com.sammy.malum.common.item.curiosities.curios.runes.AbstractRuneCurioItem;
 import com.sammy.malum.registry.common.SpiritTypeRegistry;
 import com.sammy.malum.registry.common.item.ItemRegistry;
 import io.github.fabricators_of_create.porting_lib.entity.events.PlayerEvents;

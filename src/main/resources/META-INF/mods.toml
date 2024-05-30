@@ -1,24 +1,24 @@
-modLoader="javafml"
-loaderVersion="${loaderVersionRange}"
-license="${modLicense}"
+modLoader = "javafml"
+loaderVersion = "${loaderVersionRange}"
+license = "${modLicense}"
 [[mods]]
-modId="malum"
-version="${modVersion}"
-displayName="${modName}"
-authors="${modAuthors}"
-description='''${modDescription}'''
+modId = "malum"
+version = "${modVersion}"
+displayName = "${modName}"
+authors = "${modAuthors}"
+description = '''${modDescription}'''
 [[dependencies.malum]]
-modId="forge"
-mandatory=true
-versionRange="${forgeVersionRange}"
-ordering="NONE"
-side="BOTH"
+modId = "forge"
+mandatory = true
+versionRange = "${forgeVersionRange}"
+ordering = "NONE"
+side = "BOTH"
 [[dependencies.malum]]
-modId="minecraft"
-mandatory=true
-versionRange="${minecraftVersionRange}"
-ordering="NONE"
-side="BOTH"
+modId = "minecraft"
+mandatory = true
+versionRange = "${minecraftVersionRange}"
+ordering = "NONE"
+side = "BOTH"
 [[dependencies.malum]]
 modId = "lodestone"
 mandatory = true

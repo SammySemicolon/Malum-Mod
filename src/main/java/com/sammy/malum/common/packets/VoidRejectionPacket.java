@@ -2,14 +2,14 @@ package com.sammy.malum.common.packets;
 
 import com.sammy.malum.common.components.MalumComponents;
 import me.pepperbell.simplenetworking.SimpleChannel;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import team.lodestar.lodestone.systems.network.LodestoneClientPacket;
 
 public class VoidRejectionPacket extends LodestoneClientPacket {

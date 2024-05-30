@@ -2,16 +2,13 @@
   "schemaVersion": 1,
   "id": "malum",
   "version": "${version}",
-
   "name": "${mod_name}",
   "description": "${mod_description}",
   "authors": [
     "${mod_authors}, MrSterner"
   ],
-
   "license": "${mod_license}",
   "icon": "assets/lodestone/icon.png",
-
   "environment": "*",
   "entrypoints": {
     "main": [

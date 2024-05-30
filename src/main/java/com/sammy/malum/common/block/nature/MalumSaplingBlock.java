@@ -1,11 +1,11 @@
 package com.sammy.malum.common.block.nature;
 
-import com.sammy.malum.registry.common.block.*;
-import net.minecraft.core.*;
-import net.minecraft.world.level.*;
-import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.grower.*;
-import net.minecraft.world.level.block.state.*;
+import com.sammy.malum.registry.common.block.BlockTagRegistry;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.SaplingBlock;
+import net.minecraft.world.level.block.grower.AbstractTreeGrower;
+import net.minecraft.world.level.block.state.BlockState;
 
 public class MalumSaplingBlock extends SaplingBlock {
 

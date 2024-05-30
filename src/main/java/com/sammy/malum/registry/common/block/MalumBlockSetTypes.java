@@ -1,7 +1,7 @@
 package com.sammy.malum.registry.common.block;
 
-import com.sammy.malum.registry.common.*;
-import net.minecraft.world.level.block.state.properties.*;
+import com.sammy.malum.registry.common.SoundRegistry;
+import net.minecraft.world.level.block.state.properties.BlockSetType;
 
 public class MalumBlockSetTypes {
     public static final BlockSetType RUNEWOOD = BlockSetType.register(

@@ -1,29 +1,33 @@
 package com.sammy.malum.common.entity.bolt;
 
-import com.sammy.malum.common.item.curiosities.weapons.staff.*;
-import com.sammy.malum.registry.client.*;
-import com.sammy.malum.registry.common.*;
-import com.sammy.malum.registry.common.entity.*;
-import com.sammy.malum.registry.common.item.*;
-import com.sammy.malum.visual_effects.*;
-import com.sammy.malum.visual_effects.networked.*;
-import net.minecraft.sounds.*;
-import net.minecraft.world.effect.*;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.item.*;
-import net.minecraft.world.level.*;
-import net.minecraft.world.phys.*;
+import com.sammy.malum.common.item.curiosities.weapons.staff.ErosionScepterItem;
+import com.sammy.malum.registry.client.ParticleRegistry;
+import com.sammy.malum.registry.common.MobEffectRegistry;
+import com.sammy.malum.registry.common.ParticleEffectTypeRegistry;
+import com.sammy.malum.registry.common.SoundRegistry;
+import com.sammy.malum.registry.common.entity.EntityRegistry;
+import com.sammy.malum.registry.common.item.ItemRegistry;
+import com.sammy.malum.visual_effects.SpiritLightSpecs;
+import com.sammy.malum.visual_effects.networked.ParticleEffectType;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import team.lodestar.lodestone.helpers.*;
-import team.lodestar.lodestone.systems.easing.*;
-import team.lodestar.lodestone.systems.particle.*;
-import team.lodestar.lodestone.systems.particle.builder.*;
-import team.lodestar.lodestone.systems.particle.data.*;
-import team.lodestar.lodestone.systems.particle.data.spin.*;
-import team.lodestar.lodestone.systems.particle.render_types.*;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
+import team.lodestar.lodestone.helpers.EntityHelper;
+import team.lodestar.lodestone.helpers.RandomHelper;
+import team.lodestar.lodestone.systems.easing.Easing;
+import team.lodestar.lodestone.systems.particle.LodestoneWorldParticleActor;
+import team.lodestar.lodestone.systems.particle.builder.DirectionalParticleBuilder;
+import team.lodestar.lodestone.systems.particle.data.GenericParticleData;
+import team.lodestar.lodestone.systems.particle.data.spin.SpinParticleData;
+import team.lodestar.lodestone.systems.particle.render_types.LodestoneWorldParticleRenderType;
 
-import java.util.function.*;
+import java.util.function.Consumer;
 
 public class DrainingBoltEntity extends AbstractBoltProjectileEntity {
 
@@ -52,8 +56,8 @@ public class DrainingBoltEntity extends AbstractBoltProjectileEntity {
 
     @Override
     public void playSound(SoundEvent pSound, float pVolume, float pPitch) {
-        super.playSound(pSound, pVolume, pPitch-0.2f);
-        super.playSound(SoundRegistry.DRAINING_MOTIF.get(), pVolume, pPitch-0.1f);
+        super.playSound(pSound, pVolume, pPitch - 0.2f);
+        super.playSound(SoundRegistry.DRAINING_MOTIF.get(), pVolume, pPitch - 0.1f);
     }
 
     @Override

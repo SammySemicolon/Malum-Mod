@@ -1,25 +1,28 @@
 package com.sammy.malum.client.screen.codex.screens;
 
-import com.google.common.collect.*;
-import com.mojang.blaze3d.vertex.*;
-import com.sammy.malum.*;
-import com.sammy.malum.client.screen.codex.*;
-import com.sammy.malum.client.screen.codex.handklers.*;
-import com.sammy.malum.client.screen.codex.objects.*;
-import com.sammy.malum.client.screen.codex.objects.progression.*;
-import com.sammy.malum.client.screen.codex.pages.*;
-import com.sammy.malum.config.*;
-import com.sammy.malum.registry.common.*;
-import net.minecraft.client.*;
-import net.minecraft.client.gui.*;
-import net.minecraft.network.chat.*;
-import net.minecraft.resources.*;
-import net.minecraft.util.*;
+import com.google.common.collect.ImmutableList;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.sammy.malum.MalumMod;
+import com.sammy.malum.client.screen.codex.BookEntry;
+import com.sammy.malum.client.screen.codex.handklers.BookObjectHandler;
+import com.sammy.malum.client.screen.codex.objects.ArrowObject;
+import com.sammy.malum.client.screen.codex.objects.LinkedEntryObject;
+import com.sammy.malum.client.screen.codex.objects.progression.ProgressionEntryObject;
+import com.sammy.malum.client.screen.codex.pages.BookPage;
+import com.sammy.malum.client.screen.codex.pages.EntryReference;
+import com.sammy.malum.config.ClientConfig;
+import com.sammy.malum.registry.common.SoundRegistry;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 
-import java.util.*;
-import java.util.function.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Consumer;
 
-import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.*;
+import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.renderTexture;
 
 //first generic represents the screen itself, the second represents the screen that it was opened from
 public class EntryScreen extends AbstractMalumScreen {
@@ -187,7 +190,7 @@ public class EntryScreen extends AbstractMalumScreen {
         playSweetenedSound(SoundRegistry.ARCANA_ENTRY_CLOSE, 0.85f);
     }
 
-    public static<K extends AbstractProgressionCodexScreen> void openScreen(K screen, ProgressionEntryObject progressionEntryObject) {
+    public static <K extends AbstractProgressionCodexScreen> void openScreen(K screen, ProgressionEntryObject progressionEntryObject) {
         openScreen(progressionEntryObject.entry, b -> {
             screen.openScreen(b);
             progressionEntryObject.exit(screen);

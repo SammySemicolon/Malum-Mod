@@ -1,13 +1,14 @@
 package com.sammy.malum.client.screen.codex.entries;
 
-import com.sammy.malum.client.screen.codex.*;
-import com.sammy.malum.client.screen.codex.objects.progression.*;
-import com.sammy.malum.client.screen.codex.pages.text.*;
-import com.sammy.malum.client.screen.codex.screens.*;
-import com.sammy.malum.registry.common.*;
-import net.minecraft.world.item.*;
+import com.sammy.malum.client.screen.codex.BookWidgetStyle;
+import com.sammy.malum.client.screen.codex.objects.progression.RitualEntryObject;
+import com.sammy.malum.client.screen.codex.pages.text.SpiritRitualTextPage;
+import com.sammy.malum.client.screen.codex.screens.ArcanaProgressionScreen;
+import com.sammy.malum.registry.common.RitualRegistry;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 
-import static com.sammy.malum.registry.common.item.ItemRegistry.*;
+import static com.sammy.malum.registry.common.item.ItemRegistry.RITUAL_PLINTH;
 
 public class RitualEntries {
 

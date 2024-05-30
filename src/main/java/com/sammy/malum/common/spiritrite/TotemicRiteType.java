@@ -1,13 +1,15 @@
 package com.sammy.malum.common.spiritrite;
 
-import com.sammy.malum.*;
-import com.sammy.malum.common.block.curiosities.totem.*;
-import com.sammy.malum.core.systems.spirit.*;
-import net.minecraft.*;
-import net.minecraft.network.chat.*;
-import net.minecraft.resources.*;
+import com.sammy.malum.MalumMod;
+import com.sammy.malum.common.block.curiosities.totem.TotemBaseBlockEntity;
+import com.sammy.malum.core.systems.spirit.MalumSpiritType;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public abstract class TotemicRiteType {
 

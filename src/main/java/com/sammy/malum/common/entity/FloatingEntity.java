@@ -21,7 +21,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import team.lodestar.lodestone.systems.easing.Easing;
-import team.lodestar.lodestone.systems.rendering.trail.*;
+import team.lodestar.lodestone.systems.rendering.trail.TrailPointBuilder;
 
 public abstract class FloatingEntity extends Entity {
 
@@ -47,6 +47,7 @@ public abstract class FloatingEntity extends Entity {
     public void setSpirit(MalumSpiritType spiritType) {
         setSpirit(spiritType.identifier);
     }
+
     public void setSpirit(String spiritIdentifier) {
         this.getEntityData().set(DATA_SPIRIT, spiritIdentifier);
     }

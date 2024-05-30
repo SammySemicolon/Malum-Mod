@@ -1,12 +1,14 @@
 package com.sammy.malum.client.screen.codex;
 
-import net.minecraft.resources.*;
+import net.minecraft.resources.ResourceLocation;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.sammy.malum.MalumMod.malumPath;
 
-public record BookWidgetStyle(ResourceLocation frameTexture, ResourceLocation fillingTexture, int textureWidth, int textureHeight) {
+public record BookWidgetStyle(ResourceLocation frameTexture, ResourceLocation fillingTexture, int textureWidth,
+                              int textureHeight) {
 
     public enum WidgetDesignType {
         DEFAULT("default"),
@@ -22,9 +24,11 @@ public record BookWidgetStyle(ResourceLocation frameTexture, ResourceLocation fi
         WidgetDesignType(String id) {
             this(id, 32);
         }
+
         WidgetDesignType(String id, int dimensions) {
             this(id, dimensions, dimensions);
         }
+
         WidgetDesignType(String id, int textureWidth, int textureHeight) {
             this.id = id;
             this.textureWidth = textureWidth;
@@ -83,6 +87,7 @@ public record BookWidgetStyle(ResourceLocation frameTexture, ResourceLocation fi
             return map.get(type);
         }
     }
+
     public static ResourceLocation texturePath(String name) {
         return malumPath("textures/gui/book/widgets/" + name + ".png");
     }

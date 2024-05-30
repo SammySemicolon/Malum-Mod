@@ -10,26 +10,26 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import team.lodestar.lodestone.systems.rendering.rendeertype.*;
+import team.lodestar.lodestone.systems.rendering.rendeertype.RenderTypeToken;
 
 @Mixin(GlyphRenderTypes.class)
 public class GlyphRenderTypesMixin implements SubtractiveTextGlyphRenderTypes {
 
-	@Unique
-	private RenderType malum$subtractive;
+    @Unique
+    private RenderType malum$subtractive;
 
-	@Inject(method = "createForIntensityTexture", at = @At("RETURN"))
-	private static void setSubtractiveLayerForIntensity(ResourceLocation pId, CallbackInfoReturnable<GlyphRenderTypes> cir) {
-		((GlyphRenderTypesMixin) (Object) cir.getReturnValue()).malum$subtractive = RenderTypeRegistry.SUBTRACTIVE_INTENSE_TEXT.applyAndCache(RenderTypeToken.createCachedToken(pId));
-	}
+    @Inject(method = "createForIntensityTexture", at = @At("RETURN"))
+    private static void setSubtractiveLayerForIntensity(ResourceLocation pId, CallbackInfoReturnable<GlyphRenderTypes> cir) {
+        ((GlyphRenderTypesMixin) (Object) cir.getReturnValue()).malum$subtractive = RenderTypeRegistry.SUBTRACTIVE_INTENSE_TEXT.applyAndCache(RenderTypeToken.createCachedToken(pId));
+    }
 
-	@Inject(method = "createForColorTexture", at = @At("RETURN"))
-	private static void setSubtractiveLayerForColor(ResourceLocation pId, CallbackInfoReturnable<GlyphRenderTypes> cir) {
-		((GlyphRenderTypesMixin) (Object) cir.getReturnValue()).malum$subtractive = RenderTypeRegistry.SUBTRACTIVE_TEXT.applyAndCache(RenderTypeToken.createCachedToken(pId));
-	}
+    @Inject(method = "createForColorTexture", at = @At("RETURN"))
+    private static void setSubtractiveLayerForColor(ResourceLocation pId, CallbackInfoReturnable<GlyphRenderTypes> cir) {
+        ((GlyphRenderTypesMixin) (Object) cir.getReturnValue()).malum$subtractive = RenderTypeRegistry.SUBTRACTIVE_TEXT.applyAndCache(RenderTypeToken.createCachedToken(pId));
+    }
 
-	@Override
-	public RenderType malum$getSubtractiveType() {
-		return malum$subtractive;
-	}
+    @Override
+    public RenderType malum$getSubtractiveType() {
+        return malum$subtractive;
+    }
 }

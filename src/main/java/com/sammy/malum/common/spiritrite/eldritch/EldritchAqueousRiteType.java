@@ -1,14 +1,18 @@
 package com.sammy.malum.common.spiritrite.eldritch;
 
-import com.sammy.malum.common.block.curiosities.totem.*;
-import com.sammy.malum.common.spiritrite.*;
-import com.sammy.malum.registry.common.*;
-import com.sammy.malum.visual_effects.networked.data.*;
-import net.minecraft.core.*;
-import net.minecraft.server.level.*;
-import net.minecraft.world.entity.monster.*;
-import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.state.*;
+import com.sammy.malum.common.block.curiosities.totem.TotemBaseBlockEntity;
+import com.sammy.malum.common.spiritrite.BlockAffectingRiteEffect;
+import com.sammy.malum.common.spiritrite.TotemicRiteEffect;
+import com.sammy.malum.common.spiritrite.TotemicRiteType;
+import com.sammy.malum.registry.common.ParticleEffectTypeRegistry;
+import com.sammy.malum.visual_effects.networked.data.ColorEffectData;
+import com.sammy.malum.visual_effects.networked.data.PositionEffectData;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.monster.Drowned;
+import net.minecraft.world.entity.monster.Zombie;
+import net.minecraft.world.level.block.PointedDripstoneBlock;
+import net.minecraft.world.level.block.state.BlockState;
 
 import static com.sammy.malum.registry.common.SpiritTypeRegistry.*;
 

@@ -31,7 +31,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.phys.Vec3;
-
 import team.lodestar.lodestone.helpers.BlockHelper;
 import team.lodestar.lodestone.systems.easing.Easing;
 import team.lodestar.lodestone.systems.rendering.VFXBuilders;
@@ -195,9 +194,8 @@ public class TouchOfDarknessHandler {
             if (voidConduitBlockEntity.isPresent()) {
                 VoidConduitBlockEntity weepingWell = voidConduitBlockEntity.get();
                 BlockPos worldPosition = weepingWell.getBlockPos();
-                ParticleEffectTypeRegistry.WEEPING_WELL_REACTS.createPositionedEffect((ServerLevel) level, new PositionEffectData(worldPosition.getX()+0.5f, worldPosition.getY()+0.6f, worldPosition.getZ()+0.5f));
-            }
-            else {
+                ParticleEffectTypeRegistry.WEEPING_WELL_REACTS.createPositionedEffect((ServerLevel) level, new PositionEffectData(worldPosition.getX() + 0.5f, worldPosition.getY() + 0.6f, worldPosition.getZ() + 0.5f));
+            } else {
                 ParticleEffectTypeRegistry.WEEPING_WELL_REACTS.createEntityEffect(livingEntity);
             }
             if (!player.isCreative()) {

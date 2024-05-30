@@ -7,7 +7,8 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.world.level.block.Block;
 import team.lodestar.lodestone.systems.datagen.providers.LodestoneBlockTagsProvider;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 

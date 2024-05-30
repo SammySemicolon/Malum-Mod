@@ -1,24 +1,27 @@
 package com.sammy.malum.client.screen.codex.screens;
 
-import com.mojang.blaze3d.vertex.*;
-import com.sammy.malum.client.screen.codex.*;
-import com.sammy.malum.client.screen.codex.handklers.*;
-import com.sammy.malum.client.screen.codex.objects.*;
-import com.sammy.malum.registry.common.*;
-import net.minecraft.client.*;
-import net.minecraft.client.gui.*;
-import net.minecraft.network.chat.*;
-import net.minecraft.resources.*;
-import net.minecraft.sounds.*;
-import net.minecraft.util.*;
-import org.lwjgl.opengl.*;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.sammy.malum.client.screen.codex.ArcanaCodexHelper;
+import com.sammy.malum.client.screen.codex.PlacedBookEntry;
+import com.sammy.malum.client.screen.codex.PlacedBookEntryBuilder;
+import com.sammy.malum.client.screen.codex.handklers.EntryObjectHandler;
+import com.sammy.malum.client.screen.codex.objects.BookObject;
+import com.sammy.malum.registry.common.SoundRegistry;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.util.Mth;
+import org.lwjgl.opengl.GL11;
 
-import java.util.*;
-import java.util.function.*;
+import java.util.Collection;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 
-import static com.sammy.malum.MalumMod.*;
-import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.*;
-import static org.lwjgl.opengl.GL11C.*;
+import static com.sammy.malum.MalumMod.malumPath;
+import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.renderTexture;
+import static org.lwjgl.opengl.GL11C.GL_SCISSOR_TEST;
 
 public abstract class AbstractProgressionCodexScreen extends AbstractMalumScreen {
 
@@ -75,7 +78,7 @@ public abstract class AbstractProgressionCodexScreen extends AbstractMalumScreen
     }
 
     public PlacedBookEntry getEntry(String identifier) {
-        return getEntries().stream().filter(p -> p.identifier.matches(identifier)).findFirst().orElseThrow(()-> new NullPointerException("Encyclopedia Arcana tried initiating a reference to the " + identifier + " entry, which doesn't exist"));
+        return getEntries().stream().filter(p -> p.identifier.matches(identifier)).findFirst().orElseThrow(() -> new NullPointerException("Encyclopedia Arcana tried initiating a reference to the " + identifier + " entry, which doesn't exist"));
     }
 
     @Override

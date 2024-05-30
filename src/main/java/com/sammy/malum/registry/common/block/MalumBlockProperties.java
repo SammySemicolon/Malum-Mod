@@ -1,12 +1,13 @@
 package com.sammy.malum.registry.common.block;
 
-import com.sammy.malum.registry.common.*;
+import com.sammy.malum.registry.common.SoundRegistry;
 import io.github.fabricators_of_create.porting_lib.tags.Tags;
-import net.minecraft.tags.*;
-import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.state.properties.*;
-import net.minecraft.world.level.material.*;
-import team.lodestar.lodestone.systems.block.*;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
+import net.minecraft.world.level.material.PushReaction;
+import team.lodestar.lodestone.systems.block.LodestoneBlockProperties;
 
 import java.awt.*;
 
@@ -20,6 +21,7 @@ public class MalumBlockProperties {
                 .sound(SoundRegistry.TAINTED_ROCK)
                 .strength(1.25F, 9.0F);
     }
+
     public static LodestoneBlockProperties TAINTED_ROCK_BRICKS() {
         return TAINTED_ROCK().sound(SoundRegistry.TAINTED_ROCK_BRICKS);
     }
@@ -32,6 +34,7 @@ public class MalumBlockProperties {
                 .sound(SoundRegistry.TWISTED_ROCK)
                 .strength(1.25F, 9.0F);
     }
+
     public static LodestoneBlockProperties TWISTED_ROCK_BRICKS() {
         return TWISTED_ROCK().sound(SoundRegistry.TWISTED_ROCK_BRICKS);
     }
@@ -252,6 +255,7 @@ public class MalumBlockProperties {
                 .setCutoutRenderType()
                 .lightLevel((b) -> 14);
     }
+
     public static LodestoneBlockProperties ETHER_TORCH() {
         return RUNEWOOD()
                 .addTag(BlockTagRegistry.TRAY_HEAT_SOURCES)
@@ -260,12 +264,14 @@ public class MalumBlockProperties {
                 .setCutoutRenderType()
                 .lightLevel((b) -> 14);
     }
+
     public static LodestoneBlockProperties TAINTED_ETHER_BRAZIER() {
         return TAINTED_ROCK()
                 .addTag(BlockTagRegistry.TRAY_HEAT_SOURCES)
                 .setCutoutRenderType()
                 .lightLevel((b) -> 14);
     }
+
     public static LodestoneBlockProperties TWISTED_ETHER_BRAZIER() {
         return TWISTED_ROCK()
                 .addTag(BlockTagRegistry.TRAY_HEAT_SOURCES)

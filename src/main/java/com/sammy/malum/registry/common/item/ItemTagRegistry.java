@@ -46,7 +46,6 @@ public class ItemTagRegistry {
     public static final TagKey<Item> RUNE = modTag("curios:rune");
 
 
-
     private static TagKey<Item> modTag(String path) {
         return TagKey.create(BuiltInRegistries.ITEM.key(), new ResourceLocation(path));
     }

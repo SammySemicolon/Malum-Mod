@@ -1,9 +1,7 @@
 package com.sammy.malum.common.block.curiosities.weavers_workbench;
 
-import com.sammy.malum.common.container.SpiritPouchContainer;
 import com.sammy.malum.common.container.WeaversWorkbenchContainer;
 import com.sammy.malum.common.packets.particle.curiosities.blight.BlightTransformItemParticlePacket;
-import com.sammy.malum.registry.common.ContainerRegistry;
 import com.sammy.malum.registry.common.SoundRegistry;
 import com.sammy.malum.registry.common.block.BlockEntityRegistry;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
@@ -16,8 +14,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.MenuProvider;
-import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;

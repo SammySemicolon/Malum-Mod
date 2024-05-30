@@ -1,27 +1,28 @@
 package com.sammy.malum.client.renderer.block;
 
-import com.mojang.blaze3d.vertex.*;
-import com.mojang.math.*;
-import com.sammy.malum.*;
-import com.sammy.malum.common.block.curiosities.ritual_plinth.*;
-import com.sammy.malum.common.entity.nitrate.*;
-import com.sammy.malum.core.systems.ritual.*;
-import com.sammy.malum.core.systems.spirit.*;
-import net.minecraft.client.*;
-import net.minecraft.client.renderer.*;
-import net.minecraft.client.renderer.blockentity.*;
-import net.minecraft.client.renderer.entity.*;
-import net.minecraft.world.item.*;
-import net.minecraft.world.level.*;
-import net.minecraft.world.phys.*;
-import team.lodestar.lodestone.registry.client.*;
-import team.lodestar.lodestone.systems.rendering.*;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Axis;
+import com.sammy.malum.MalumMod;
+import com.sammy.malum.common.block.curiosities.ritual_plinth.RitualPlinthBlockEntity;
+import com.sammy.malum.common.entity.nitrate.EthericNitrateEntity;
+import com.sammy.malum.core.systems.ritual.MalumRitualTier;
+import com.sammy.malum.core.systems.ritual.MalumRitualType;
+import com.sammy.malum.core.systems.spirit.MalumSpiritType;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.client.renderer.entity.ItemRenderer;
+import net.minecraft.world.item.ItemDisplayContext;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
+import team.lodestar.lodestone.registry.client.LodestoneRenderTypeRegistry;
+import team.lodestar.lodestone.systems.rendering.VFXBuilders;
 import team.lodestar.lodestone.systems.rendering.rendeertype.RenderTypeToken;
 
-import java.lang.*;
-import team.lodestar.lodestone.systems.rendering.rendeertype.*;
-
-import static net.minecraft.client.renderer.texture.OverlayTexture.*;
+import static net.minecraft.client.renderer.texture.OverlayTexture.NO_OVERLAY;
 
 public class RitualPlinthRenderer implements BlockEntityRenderer<RitualPlinthBlockEntity> {
 
@@ -59,11 +60,11 @@ public class RitualPlinthRenderer implements BlockEntityRenderer<RitualPlinthBlo
             float alpha = 0.9f * scalar;
             float scale = 0.25f * (1 + scalar);
             var worldVFXBuilder = VFXBuilders.createWorld()
-                    
+
                     .setColor(spirit.getPrimaryColor())
                     .setAlpha(alpha);
             var backgroundBuilder = VFXBuilders.createWorld()
-                    
+
                     .setColor(EthericNitrateEntity.SECOND_SMOKE_COLOR)
                     .setAlpha(0.4f * scalar);
 
@@ -73,9 +74,9 @@ public class RitualPlinthRenderer implements BlockEntityRenderer<RitualPlinthBlo
             poseStack.mulPose(Axis.YP.rotationDegrees(180f));
             worldVFXBuilder.setRenderType(icon).renderQuad(poseStack, scale);
             if (hasDecor) {
-                worldVFXBuilder.setRenderType(decorGlow).renderQuad(poseStack, scale*2.5f);
+                worldVFXBuilder.setRenderType(decorGlow).renderQuad(poseStack, scale * 2.5f);
             }
-            float gameTime = level.getGameTime()+partialTicks;
+            float gameTime = level.getGameTime() + partialTicks;
             int time = 160;
             float distance = 0.01f;
             for (int i = 0; i < 8; i++) {
@@ -84,19 +85,19 @@ public class RitualPlinthRenderer implements BlockEntityRenderer<RitualPlinthBlo
                 angle += ((gameTime % time) / time) * (Math.PI * 2);
                 double xOffset = (distance * Math.cos(angle));
                 double zOffset = (distance * Math.sin(angle));
-                poseStack.translate(xOffset, zOffset/2f, zOffset);
-                worldVFXBuilder.setRenderType(icon).setAlpha(alpha*(i/8f)).renderQuad(poseStack, scale);
-                backgroundBuilder.setRenderType(silhouette).renderQuad(poseStack, scale*(odd ? 0.8f : 1.2f));
+                poseStack.translate(xOffset, zOffset / 2f, zOffset);
+                worldVFXBuilder.setRenderType(icon).setAlpha(alpha * (i / 8f)).renderQuad(poseStack, scale);
+                backgroundBuilder.setRenderType(silhouette).renderQuad(poseStack, scale * (odd ? 0.8f : 1.2f));
                 if (hasDecor) {
-                    worldVFXBuilder.setRenderType(decorGlow).renderQuad(poseStack, scale*2.5f);
+                    worldVFXBuilder.setRenderType(decorGlow).renderQuad(poseStack, scale * 2.5f);
                     backgroundBuilder.setRenderType(decorSilhouette).renderQuad(poseStack, scale * (odd ? 2.1f : 2.7f));
                 }
-                poseStack.translate(-xOffset, -zOffset/2f, -zOffset);
+                poseStack.translate(-xOffset, -zOffset / 2f, -zOffset);
                 if (i == 4) {
                     worldVFXBuilder.setColor(spirit.getSecondaryColor());
                     alpha *= 0.5f;
                 }
-                distance+=0.0125f;
+                distance += 0.0125f;
             }
             poseStack.popPose();
         }

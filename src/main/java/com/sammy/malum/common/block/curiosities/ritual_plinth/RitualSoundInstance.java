@@ -41,8 +41,7 @@ public class RitualSoundInstance extends LodestoneBlockEntitySoundInstance<Ritua
                 ACTIVE_SOUNDS.put(blockPos, ritualSound);
                 Minecraft.getInstance().getSoundManager().queueTickingSound(ritualSound);
             }
-        }
-        else {
+        } else {
             ACTIVE_SOUNDS.put(blockPos, ritualSound);
             Minecraft.getInstance().getSoundManager().queueTickingSound(ritualSound);
         }

@@ -37,7 +37,7 @@ public class SpiritTypeBuilder {
         return build((identifier1, spiritShard1, spiritMote1, visualMotif, itemColor1) -> new MalumSpiritType(identifier1, visualMotif, spiritShard1, spiritMote1, itemColor1));
     }
 
-    public<T extends MalumSpiritType> T  build(SpiritTypeSupplier<T> supplier) {
+    public <T extends MalumSpiritType> T build(SpiritTypeSupplier<T> supplier) {
         return supplier.makeType(identifier, spiritShard, spiritMote, spiritVisualMotif, itemColor);
     }
 

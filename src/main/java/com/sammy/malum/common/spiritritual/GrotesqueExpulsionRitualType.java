@@ -1,9 +1,9 @@
 package com.sammy.malum.common.spiritritual;
 
-import com.sammy.malum.*;
-import com.sammy.malum.common.block.curiosities.ritual_plinth.*;
-import com.sammy.malum.core.systems.ritual.*;
-import com.sammy.malum.registry.common.*;
+import com.sammy.malum.MalumMod;
+import com.sammy.malum.common.block.curiosities.ritual_plinth.RitualPlinthBlockEntity;
+import com.sammy.malum.core.systems.ritual.MalumRitualType;
+import com.sammy.malum.registry.common.SpiritTypeRegistry;
 
 public class GrotesqueExpulsionRitualType extends MalumRitualType {
     public GrotesqueExpulsionRitualType() {

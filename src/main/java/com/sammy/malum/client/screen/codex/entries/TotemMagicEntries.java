@@ -1,16 +1,22 @@
 package com.sammy.malum.client.screen.codex.entries;
 
-import com.sammy.malum.client.screen.codex.*;
-import com.sammy.malum.client.screen.codex.objects.progression.*;
-import com.sammy.malum.client.screen.codex.pages.*;
+import com.sammy.malum.client.screen.codex.BookEntry;
+import com.sammy.malum.client.screen.codex.BookWidgetStyle;
+import com.sammy.malum.client.screen.codex.objects.progression.RiteEntryObject;
+import com.sammy.malum.client.screen.codex.pages.CyclingPage;
+import com.sammy.malum.client.screen.codex.pages.EntryReference;
+import com.sammy.malum.client.screen.codex.pages.EntrySelectorPage;
 import com.sammy.malum.client.screen.codex.pages.recipe.*;
-import com.sammy.malum.client.screen.codex.pages.recipe.vanilla.*;
-import com.sammy.malum.client.screen.codex.pages.text.*;
-import com.sammy.malum.client.screen.codex.screens.*;
-import com.sammy.malum.registry.common.*;
+import com.sammy.malum.client.screen.codex.pages.recipe.vanilla.CraftingPage;
+import com.sammy.malum.client.screen.codex.pages.text.HeadlineTextItemPage;
+import com.sammy.malum.client.screen.codex.pages.text.HeadlineTextPage;
+import com.sammy.malum.client.screen.codex.pages.text.SpiritRiteTextPage;
+import com.sammy.malum.client.screen.codex.pages.text.TextPage;
+import com.sammy.malum.client.screen.codex.screens.ArcanaProgressionScreen;
+import com.sammy.malum.registry.common.SpiritRiteRegistry;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.world.item.*;
-
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 
 import static com.sammy.malum.registry.common.item.ItemRegistry.*;
 import static net.minecraft.world.item.Items.*;
@@ -45,11 +51,11 @@ public class TotemMagicEntries {
         screen.addEntry("totemic_runes", -4, 15, b -> b
                 .setWidgetConfig(w -> w.setIcon(RUNE_OF_THE_ARENA).setStyle(BookWidgetStyle.SOULWOOD))
                 .addPage(new HeadlineTextPage("totemic_runes", "totemic_runes.1"))
-            .addPage(new CyclingPage(
-                SpiritInfusionPage.fromOutput(RUNEWOOD_TABLET.get()),
-                SpiritInfusionPage.fromOutput(SOULWOOD_TABLET.get())
-            ))
-            .addPage(new TextPage("totemic_runes.2"))
+                .addPage(new CyclingPage(
+                        SpiritInfusionPage.fromOutput(RUNEWOOD_TABLET.get()),
+                        SpiritInfusionPage.fromOutput(SOULWOOD_TABLET.get())
+                ))
+                .addPage(new TextPage("totemic_runes.2"))
                 .addPage(new EntrySelectorPage(item -> {
                     final String translationKey = BuiltInRegistries.ITEM.getKey(item).getPath();
                     return new EntryReference(item,

@@ -1,16 +1,19 @@
 package com.sammy.malum.common.item.curiosities.curios.sets.rotten;
 
-import com.sammy.malum.common.item.*;
-import com.sammy.malum.common.item.curiosities.curios.*;
-import com.sammy.malum.registry.common.*;
-import net.minecraft.network.chat.*;
-import net.minecraft.sounds.*;
-import net.minecraft.world.effect.*;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.level.*;
-import team.lodestar.lodestone.helpers.*;
+import com.sammy.malum.common.item.IMalumEventResponderItem;
+import com.sammy.malum.common.item.curiosities.curios.MalumCurioItem;
+import com.sammy.malum.registry.common.MobEffectRegistry;
+import com.sammy.malum.registry.common.SoundRegistry;
+import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.Level;
+import team.lodestar.lodestone.helpers.EntityHelper;
 
-import java.util.function.*;
+import java.util.function.Consumer;
 
 public class CurioStarvedBelt extends MalumCurioItem implements IMalumEventResponderItem {
 

@@ -1,22 +1,25 @@
 package com.sammy.malum.common.item.curiosities.weapons;
 
-import com.sammy.malum.common.item.*;
-import com.sammy.malum.common.packets.particle.curiosities.rite.generic.*;
-import com.sammy.malum.core.handlers.*;
-import com.sammy.malum.registry.common.*;
+import com.sammy.malum.common.item.IMalumEventResponderItem;
+import com.sammy.malum.common.packets.particle.curiosities.rite.generic.MajorEntityEffectParticlePacket;
+import com.sammy.malum.core.handlers.SpiritHarvestHandler;
+import com.sammy.malum.registry.common.DamageTypeRegistry;
+import com.sammy.malum.registry.common.SoundRegistry;
+import com.sammy.malum.registry.common.SpiritTypeRegistry;
 import io.github.fabricators_of_create.porting_lib.entity.events.living.LivingHurtEvent;
 import io.github.fabricators_of_create.porting_lib.tool.ToolAction;
 import io.github.fabricators_of_create.porting_lib.tool.ToolActions;
 import io.github.fabricators_of_create.porting_lib.tool.extensions.ItemStackExtensions;
-import net.minecraft.sounds.*;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.player.*;
-import net.minecraft.world.item.*;
-import net.minecraft.world.level.*;
-import team.lodestar.lodestone.registry.common.tag.*;
-import team.lodestar.lodestone.systems.item.tools.*;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Tier;
+import net.minecraft.world.level.Level;
+import team.lodestar.lodestone.registry.common.tag.LodestoneDamageTypeTags;
+import team.lodestar.lodestone.systems.item.tools.LodestoneSwordItem;
 
-import static com.sammy.malum.registry.common.PacketRegistry.*;
+import static com.sammy.malum.registry.common.PacketRegistry.MALUM_CHANNEL;
 
 public class TyrvingItem extends LodestoneSwordItem implements IMalumEventResponderItem, ItemStackExtensions {
     public TyrvingItem(Tier material, int attackDamage, float attackSpeed, Properties properties) {

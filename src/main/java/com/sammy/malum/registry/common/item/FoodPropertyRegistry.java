@@ -1,7 +1,8 @@
 package com.sammy.malum.registry.common.item;
 
-import net.minecraft.world.effect.*;
-import net.minecraft.world.food.*;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.food.FoodProperties;
 
 public class FoodPropertyRegistry {
 

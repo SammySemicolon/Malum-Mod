@@ -7,7 +7,7 @@ import com.sammy.malum.registry.common.ParticleEffectTypeRegistry;
 import com.sammy.malum.visual_effects.networked.data.ColorEffectData;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.*;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.EatBlockGoal;
 import net.minecraft.world.entity.animal.Animal;
@@ -15,7 +15,7 @@ import net.minecraft.world.entity.animal.Bee;
 import net.minecraft.world.entity.animal.Chicken;
 import net.minecraft.world.entity.animal.Sheep;
 import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.level.*;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 
 import java.util.HashMap;

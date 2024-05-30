@@ -1,10 +1,10 @@
 package com.sammy.malum.common.worldgen.tree.grower;
 
-import com.sammy.malum.registry.common.worldgen.*;
-import net.minecraft.resources.*;
-import net.minecraft.util.*;
-import net.minecraft.world.level.block.grower.*;
-import net.minecraft.world.level.levelgen.feature.*;
+import com.sammy.malum.registry.common.worldgen.ConfiguredFeatureRegistry;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.block.grower.AbstractTreeGrower;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 
 public class AzureRunewoodTreeGrower extends AbstractTreeGrower {
 

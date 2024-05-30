@@ -1,13 +1,18 @@
 package com.sammy.malum.common.item.curiosities.armor;
 
-import com.sammy.malum.client.cosmetic.*;
-import com.sammy.malum.common.item.cosmetic.skins.*;
-import net.minecraft.*;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.item.*;
-import team.lodestar.lodestone.systems.item.*;
+import com.sammy.malum.client.cosmetic.ArmorSkinRenderingData;
+import com.sammy.malum.common.item.cosmetic.skins.ArmorSkin;
+import net.minecraft.Util;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.ArmorMaterial;
+import net.minecraft.world.item.ItemStack;
+import team.lodestar.lodestone.systems.item.LodestoneArmorItem;
 
-import java.util.*;
+import java.util.EnumMap;
+import java.util.UUID;
 
 public abstract class MalumArmorItem extends LodestoneArmorItem {
 
@@ -31,6 +36,7 @@ public abstract class MalumArmorItem extends LodestoneArmorItem {
         }
         return super.getArmorTexture(stack, entity, slot, type);
     }
+
     @Override
     public String getTextureLocation() {
         return "malum:textures/armor/";

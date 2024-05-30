@@ -1,22 +1,25 @@
 package com.sammy.malum.data.block;
 
-import com.sammy.malum.*;
-import com.sammy.malum.data.item.*;
+import com.sammy.malum.MalumMod;
+import com.sammy.malum.data.item.MalumItemModelSmithTypes;
 import io.github.fabricators_of_create.porting_lib.data.ExistingFileHelper;
 import io.github.fabricators_of_create.porting_lib.models.generators.ModelFile;
-import net.minecraft.data.*;
-import net.minecraft.resources.*;
-import net.minecraft.world.level.block.*;
+import net.minecraft.data.PackOutput;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.NotNull;
-import team.lodestar.lodestone.systems.datagen.*;
-import team.lodestar.lodestone.systems.datagen.providers.*;
-import team.lodestar.lodestone.systems.datagen.statesmith.*;
+import team.lodestar.lodestone.systems.datagen.BlockStateSmithTypes;
+import team.lodestar.lodestone.systems.datagen.ItemModelSmithTypes;
+import team.lodestar.lodestone.systems.datagen.providers.LodestoneBlockStateProvider;
+import team.lodestar.lodestone.systems.datagen.providers.LodestoneItemModelProvider;
+import team.lodestar.lodestone.systems.datagen.statesmith.AbstractBlockStateSmith;
 
+import java.util.HashSet;
+import java.util.Set;
+import java.util.function.Supplier;
 
-import java.util.*;
-import java.util.function.*;
-
-import static com.sammy.malum.MalumMod.*;
+import static com.sammy.malum.MalumMod.MALUM;
+import static com.sammy.malum.MalumMod.malumPath;
 import static com.sammy.malum.registry.common.block.BlockRegistry.*;
 
 public class MalumBlockStates extends LodestoneBlockStateProvider {

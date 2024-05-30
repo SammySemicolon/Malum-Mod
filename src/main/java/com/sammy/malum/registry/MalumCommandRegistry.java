@@ -1,9 +1,12 @@
 package com.sammy.malum.registry;
 
-import com.mojang.brigadier.tree.*;
-import com.sammy.malum.*;
+import com.mojang.brigadier.tree.LiteralCommandNode;
+import com.sammy.malum.ActivateEndPortalFrameCommand;
+import com.sammy.malum.ActivateNearestEndPortalFrameCommand;
+import com.sammy.malum.MalumMod;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
-import net.minecraft.commands.*;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.commands.Commands;
 
 
 public class MalumCommandRegistry {

@@ -1,10 +1,12 @@
 package com.sammy.malum.data;
 
-import com.sammy.malum.common.block.curiosities.spirit_crucible.*;
+import com.sammy.malum.common.block.curiosities.spirit_crucible.CrucibleTuning;
 import com.sammy.malum.common.block.ether.EtherWallTorchBlock;
 import com.sammy.malum.common.item.spirit.SpiritJarItem;
-import com.sammy.malum.common.spiritrite.*;
-import com.sammy.malum.core.systems.ritual.*;
+import com.sammy.malum.common.spiritrite.TotemicRiteEffect;
+import com.sammy.malum.common.spiritrite.TotemicRiteType;
+import com.sammy.malum.core.systems.ritual.MalumRitualTier;
+import com.sammy.malum.core.systems.ritual.MalumRitualType;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import com.sammy.malum.registry.common.*;
 import com.sammy.malum.registry.common.block.BlockRegistry;
@@ -34,7 +36,7 @@ import static com.sammy.malum.registry.common.SoundRegistry.SOUNDS;
 import static com.sammy.malum.registry.common.block.BlockRegistry.BLOCKS;
 import static com.sammy.malum.registry.common.entity.EntityRegistry.ENTITY_TYPES;
 import static com.sammy.malum.registry.common.item.EnchantmentRegistry.ENCHANTMENTS;
-import static com.sammy.malum.registry.common.item.ItemRegistry.*;
+import static com.sammy.malum.registry.common.item.ItemRegistry.ITEMS;
 
 public class MalumLang extends FabricLanguageProvider {
     public MalumLang(FabricDataOutput gen) {
@@ -42,7 +44,6 @@ public class MalumLang extends FabricLanguageProvider {
     }
 
 
-    
     @Override
     public void generateTranslations(TranslationBuilder builder) {
         Set<RegistryObject<Block>> blocks = new HashSet<>(BLOCKS.getEntries());
@@ -1054,27 +1055,26 @@ public class MalumLang extends FabricLanguageProvider {
         builder.add("death.attack." + DamageTypeRegistry.SCYTHE_SWEEP_IDENTIFIER, "%s was sliced in half");
         builder.add("death.attack." + DamageTypeRegistry.SCYTHE_SWEEP_IDENTIFIER + ".player", "%s was sliced in half by %s");
 
-        addEffectDescription(builder,MobEffectRegistry.GAIAS_BULWARK, "You are protected by an earthen bulwark, increasing your armor.");
-        addEffectDescription(builder,MobEffectRegistry.EARTHEN_MIGHT, "Your fists and tools are reinforced with earth, increasing your overall damage.");
-        addEffectDescription(builder,MobEffectRegistry.MINERS_RAGE, "Your tools are bolstered with radiance, increasing your mining and attack speed.");
-        addEffectDescription(builder,MobEffectRegistry.IFRITS_EMBRACE, "The warm embrace of fire coats your soul, mending your seared scars.");
-        addEffectDescription(builder,MobEffectRegistry.ZEPHYRS_COURAGE, "The zephyr propels you forward, increasing your movement speed.");
-        addEffectDescription(builder,MobEffectRegistry.AETHERS_CHARM, "The heavens call for you, increasing jump height and decreasing gravity.");
-        addEffectDescription(builder,MobEffectRegistry.POSEIDONS_GRASP, "You reach out for further power, increasing your reach and item pickup distance.");
-        addEffectDescription(builder,MobEffectRegistry.ANGLERS_LURE, "Let any fish who meets my gaze learn the true meaning of fear; for I am the harbinger of death. The bane of creatures sub-aqueous, my rod is true and unwavering as I cast into the aquatic abyss. A man, scorned by this uncaring Earth, finds solace in the sea. My only friend, the worm upon my hook. Wriggling, writhing, struggling to surmount the mortal pointlessness that permeates this barren world. I am alone. I am empty. And yet, I fish.");
-        addEffectDescription(builder,MobEffectRegistry.GLUTTONY, "You feed on the vulnerable, increasing scythe proficiency and gradually restoring lost hunger.");
+        addEffectDescription(builder, MobEffectRegistry.GAIAS_BULWARK, "You are protected by an earthen bulwark, increasing your armor.");
+        addEffectDescription(builder, MobEffectRegistry.EARTHEN_MIGHT, "Your fists and tools are reinforced with earth, increasing your overall damage.");
+        addEffectDescription(builder, MobEffectRegistry.MINERS_RAGE, "Your tools are bolstered with radiance, increasing your mining and attack speed.");
+        addEffectDescription(builder, MobEffectRegistry.IFRITS_EMBRACE, "The warm embrace of fire coats your soul, mending your seared scars.");
+        addEffectDescription(builder, MobEffectRegistry.ZEPHYRS_COURAGE, "The zephyr propels you forward, increasing your movement speed.");
+        addEffectDescription(builder, MobEffectRegistry.AETHERS_CHARM, "The heavens call for you, increasing jump height and decreasing gravity.");
+        addEffectDescription(builder, MobEffectRegistry.POSEIDONS_GRASP, "You reach out for further power, increasing your reach and item pickup distance.");
+        addEffectDescription(builder, MobEffectRegistry.ANGLERS_LURE, "Let any fish who meets my gaze learn the true meaning of fear; for I am the harbinger of death. The bane of creatures sub-aqueous, my rod is true and unwavering as I cast into the aquatic abyss. A man, scorned by this uncaring Earth, finds solace in the sea. My only friend, the worm upon my hook. Wriggling, writhing, struggling to surmount the mortal pointlessness that permeates this barren world. I am alone. I am empty. And yet, I fish.");
+        addEffectDescription(builder, MobEffectRegistry.GLUTTONY, "You feed on the vulnerable, increasing scythe proficiency and gradually restoring lost hunger.");
 
-        addTetraMaterial(builder,"soul_stained_steel", "Soulstained Steel");
-        addTetraMaterial(builder,"hallowed_gold", "Hallowed Gold");
-        addTetraMaterial(builder,"runewood", "Runewood");
-        addTetraMaterial(builder,"soulwood", "Soulwood");
-        addTetraMaterial(builder,"tainted_rock", "Tainted Rock");
-        addTetraMaterial(builder,"twisted_rock", "Twisted Rock");
-        addTetraMaterial(builder,"spirit_fabric", "Spirit Fabric");
+        addTetraMaterial(builder, "soul_stained_steel", "Soulstained Steel");
+        addTetraMaterial(builder, "hallowed_gold", "Hallowed Gold");
+        addTetraMaterial(builder, "runewood", "Runewood");
+        addTetraMaterial(builder, "soulwood", "Soulwood");
+        addTetraMaterial(builder, "tainted_rock", "Tainted Rock");
+        addTetraMaterial(builder, "twisted_rock", "Twisted Rock");
+        addTetraMaterial(builder, "spirit_fabric", "Spirit Fabric");
 
-        addTetraImprovement(builder,"malum.soul_strike", "Soul Strike", "Allows your item to shatter souls.");
+        addTetraImprovement(builder, "malum.soul_strike", "Soul Strike", "Allows your item to shatter souls.");
     }
-
 
 
     @Override
@@ -1153,7 +1153,7 @@ public class MalumLang extends FabricLanguageProvider {
     public void addPages(TranslationBuilder builder, String identifier, String... pages) {
         int i = 1;
         for (String s : pages) {
-            addPage(builder,identifier + "." + i++, s);
+            addPage(builder, identifier + "." + i++, s);
         }
     }
 

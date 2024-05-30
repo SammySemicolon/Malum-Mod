@@ -1,14 +1,14 @@
 package com.sammy.malum.client.screen.codex.objects.progression;
 
-import com.sammy.malum.client.screen.codex.*;
-import com.sammy.malum.client.screen.codex.pages.text.*;
-import com.sammy.malum.client.screen.codex.screens.*;
-import com.sammy.malum.common.spiritrite.*;
-import net.minecraft.client.gui.*;
+import com.sammy.malum.client.screen.codex.BookEntry;
+import com.sammy.malum.client.screen.codex.pages.text.SpiritRiteTextPage;
+import com.sammy.malum.client.screen.codex.screens.AbstractProgressionCodexScreen;
+import com.sammy.malum.common.spiritrite.TotemicRiteType;
+import net.minecraft.client.gui.GuiGraphics;
 
-import java.util.*;
+import java.util.Optional;
 
-import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.*;
+import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.renderRiteIcon;
 
 public class RiteEntryObject extends ProgressionEntryObject {
     public final TotemicRiteType riteType;

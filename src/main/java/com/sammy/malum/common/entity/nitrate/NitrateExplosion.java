@@ -4,7 +4,7 @@ import com.sammy.malum.registry.common.DamageTypeRegistry;
 import io.github.fabricators_of_create.porting_lib.event.common.ExplosionEvents;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.player.*;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.ExplosionDamageCalculator;
 import net.minecraft.world.level.Level;

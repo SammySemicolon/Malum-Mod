@@ -1,12 +1,13 @@
 package com.sammy.malum.common.recipe;
 
-import net.minecraft.resources.*;
-import net.minecraft.world.item.crafting.*;
-import net.minecraft.world.level.*;
-import team.lodestar.lodestone.systems.recipe.*;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.Level;
+import team.lodestar.lodestone.systems.recipe.ILodestoneRecipe;
 
-import java.util.*;
-import java.util.function.*;
+import java.util.List;
+import java.util.function.Predicate;
 
 public abstract class AbstractMalumRecipe extends ILodestoneRecipe {
     private final ResourceLocation id;

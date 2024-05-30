@@ -3,7 +3,7 @@ package com.sammy.malum.registry.common.worldgen;
 import com.sammy.malum.MalumMod;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.level.levelgen.placement.*;
+import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 
 public class PlacedFeatureRegistry {
 

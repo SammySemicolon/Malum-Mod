@@ -1,10 +1,13 @@
 package com.sammy.malum.common.spiritrite.arcane;
 
-import com.sammy.malum.common.spiritrite.*;
-import com.sammy.malum.registry.common.*;
-import net.minecraft.world.entity.*;
+import com.sammy.malum.common.spiritrite.PotionRiteEffect;
+import com.sammy.malum.common.spiritrite.TotemicRiteEffect;
+import com.sammy.malum.common.spiritrite.TotemicRiteType;
+import com.sammy.malum.registry.common.MobEffectRegistry;
+import net.minecraft.world.entity.LivingEntity;
 
-import static com.sammy.malum.registry.common.SpiritTypeRegistry.*;
+import static com.sammy.malum.registry.common.SpiritTypeRegistry.AERIAL_SPIRIT;
+import static com.sammy.malum.registry.common.SpiritTypeRegistry.ARCANE_SPIRIT;
 
 public class AerialRiteType extends TotemicRiteType {
     public AerialRiteType() {

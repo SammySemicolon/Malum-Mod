@@ -1,15 +1,16 @@
 package com.sammy.malum.common.item.curiosities.curios.sets.misc;
 
-import com.sammy.malum.common.item.curiosities.curios.*;
-import com.sammy.malum.core.handlers.*;
-import com.sammy.malum.registry.common.*;
-import com.sammy.malum.registry.common.item.*;
-import net.minecraft.network.chat.*;
-import net.minecraft.world.effect.*;
-import net.minecraft.world.entity.*;
-import team.lodestar.lodestone.helpers.*;
+import com.sammy.malum.common.item.curiosities.curios.MalumCurioItem;
+import com.sammy.malum.core.handlers.SpiritHarvestHandler;
+import com.sammy.malum.registry.common.SpiritTypeRegistry;
+import com.sammy.malum.registry.common.item.ItemRegistry;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import team.lodestar.lodestone.helpers.TrinketsHelper;
 
-import java.util.function.*;
+import java.util.function.Consumer;
 
 public class CurioHarmonyNecklace extends MalumCurioItem {
     public CurioHarmonyNecklace(Properties builder) {

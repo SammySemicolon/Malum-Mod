@@ -1,25 +1,29 @@
 package com.sammy.malum.common.item.spirit;
 
-import com.sammy.malum.core.systems.ritual.*;
-import com.sammy.malum.core.systems.spirit.*;
-import com.sammy.malum.registry.common.*;
-import com.sammy.malum.visual_effects.*;
-import net.minecraft.client.*;
-import net.minecraft.network.chat.*;
-import net.minecraft.resources.*;
-import net.minecraft.world.item.*;
-import net.minecraft.world.level.*;
-import org.jetbrains.annotations.*;
-import team.lodestar.lodestone.handlers.screenparticle.ParticleEmitterHandler.*;
-import team.lodestar.lodestone.helpers.*;
-import team.lodestar.lodestone.registry.common.particle.*;
-import team.lodestar.lodestone.systems.easing.*;
-import team.lodestar.lodestone.systems.particle.builder.*;
-import team.lodestar.lodestone.systems.particle.data.*;
-import team.lodestar.lodestone.systems.particle.data.spin.*;
-import team.lodestar.lodestone.systems.particle.screen.*;
+import com.sammy.malum.core.systems.ritual.MalumRitualTier;
+import com.sammy.malum.core.systems.ritual.MalumRitualType;
+import com.sammy.malum.core.systems.spirit.MalumSpiritType;
+import com.sammy.malum.registry.common.RitualRegistry;
+import com.sammy.malum.visual_effects.ScreenParticleEffects;
+import net.minecraft.client.Minecraft;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.Nullable;
+import team.lodestar.lodestone.handlers.screenparticle.ParticleEmitterHandler.ItemParticleSupplier;
+import team.lodestar.lodestone.helpers.RandomHelper;
+import team.lodestar.lodestone.registry.common.particle.LodestoneScreenParticleRegistry;
+import team.lodestar.lodestone.systems.easing.Easing;
+import team.lodestar.lodestone.systems.particle.builder.ScreenParticleBuilder;
+import team.lodestar.lodestone.systems.particle.data.GenericParticleData;
+import team.lodestar.lodestone.systems.particle.data.spin.SpinParticleData;
+import team.lodestar.lodestone.systems.particle.screen.ScreenParticleHolder;
 
-import java.util.*;
+import java.util.List;
 
 public class RitualShardItem extends Item implements ItemParticleSupplier {
 
@@ -69,7 +73,7 @@ public class RitualShardItem extends Item implements ItemParticleSupplier {
                     ScreenParticleBuilder.create(LodestoneScreenParticleRegistry.WISP, target)
                             .setTransparencyData(GenericParticleData.create(0.2f, 0f).setEasing(Easing.SINE_IN_OUT).build())
                             .setSpinData(SpinParticleData.create(RandomHelper.randomBetween(rand, 0.2f, 0.4f)).setEasing(Easing.EXPO_OUT).build())
-                            .setScaleData(GenericParticleData.create(RandomHelper.randomBetween(rand, 0.2f, 0.3f)*scalar, 0).setEasing(Easing.EXPO_OUT).build())
+                            .setScaleData(GenericParticleData.create(RandomHelper.randomBetween(rand, 0.2f, 0.3f) * scalar, 0).setEasing(Easing.EXPO_OUT).build())
                             .setColorData(type.createColorData().build())
                             .setLifetime(RandomHelper.randomBetween(rand, 80, 120))
                             .setRandomOffset(0.1f)

@@ -1,11 +1,12 @@
 package com.sammy.malum.core.systems.spirit;
 
-import com.sammy.malum.core.systems.recipe.*;
-import com.sammy.malum.registry.common.*;
-import net.minecraft.world.item.crafting.*;
+import com.sammy.malum.core.systems.recipe.SpiritWithCount;
+import com.sammy.malum.registry.common.SpiritTypeRegistry;
+import net.minecraft.world.item.crafting.Ingredient;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class EntitySpiritDropData {
     public static final String SOUL_DATA = "soul_data";

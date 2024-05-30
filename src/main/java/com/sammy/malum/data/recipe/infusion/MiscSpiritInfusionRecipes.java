@@ -1,10 +1,10 @@
 package com.sammy.malum.data.recipe.infusion;
 
-import com.sammy.malum.data.recipe.builder.*;
-import com.sammy.malum.registry.common.item.*;
-import net.minecraft.data.recipes.*;
+import com.sammy.malum.data.recipe.builder.SpiritInfusionRecipeBuilder;
+import com.sammy.malum.registry.common.item.ItemRegistry;
+import net.minecraft.data.recipes.FinishedRecipe;
 
-import java.util.function.*;
+import java.util.function.Consumer;
 
 import static com.sammy.malum.registry.common.SpiritTypeRegistry.*;
 

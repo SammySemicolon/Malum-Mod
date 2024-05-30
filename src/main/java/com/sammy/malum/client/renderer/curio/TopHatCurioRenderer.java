@@ -4,8 +4,6 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.client.model.TopHatModel;
-import com.sammy.malum.common.entity.EntityModelLoader;
-import com.sammy.malum.registry.client.ModelRegistry;
 import dev.emi.trinkets.api.SlotReference;
 import dev.emi.trinkets.api.client.TrinketRenderer;
 import net.minecraft.client.Minecraft;

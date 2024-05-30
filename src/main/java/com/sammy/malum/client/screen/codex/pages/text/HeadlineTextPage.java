@@ -1,21 +1,23 @@
 package com.sammy.malum.client.screen.codex.pages.text;
 
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.client.screen.codex.pages.*;
-import com.sammy.malum.client.screen.codex.screens.*;
+import com.sammy.malum.client.screen.codex.pages.BookPage;
+import com.sammy.malum.client.screen.codex.screens.EntryScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 
-import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.*;
+import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.renderText;
+import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.renderWrappingText;
 
 public class HeadlineTextPage extends BookPage {
     private final String headlineTranslationKey;
     private final String translationKey;
 
     public HeadlineTextPage(String translationKey) {
-        this(translationKey, translationKey +".1");
+        this(translationKey, translationKey + ".1");
     }
+
     public HeadlineTextPage(String headlineTranslationKey, String translationKey) {
         super(MalumMod.malumPath("textures/gui/book/pages/headline_page.png"));
         this.headlineTranslationKey = headlineTranslationKey;

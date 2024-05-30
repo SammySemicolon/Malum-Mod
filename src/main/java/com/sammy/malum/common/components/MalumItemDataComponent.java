@@ -13,7 +13,7 @@ import java.util.UUID;
 
 public class MalumItemDataComponent implements AutoSyncedComponent {
 
-    private ItemEntity itemEntity;
+    private final ItemEntity itemEntity;
     public List<ItemStack> soulsToDrop;
     public UUID attackerForSouls;
     public float totalSoulCount;

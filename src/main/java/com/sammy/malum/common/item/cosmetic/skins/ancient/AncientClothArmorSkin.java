@@ -3,14 +3,12 @@ package com.sammy.malum.common.item.cosmetic.skins.ancient;
 import com.sammy.malum.client.cosmetic.ArmorSkinRenderingData;
 import com.sammy.malum.client.cosmetic.SimpleArmorSkinRenderingData;
 import com.sammy.malum.client.model.cosmetic.ancient.AncientSoulHunterArmorModel;
-import com.sammy.malum.common.entity.EntityModelLoader;
 import com.sammy.malum.common.item.cosmetic.skins.ArmorSkin;
 import com.sammy.malum.common.item.curiosities.armor.SoulHunterArmorItem;
-import com.sammy.malum.registry.client.ModelRegistry;
-import net.minecraft.client.Minecraft;
-import net.minecraft.world.item.Item;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.Minecraft;
+import net.minecraft.world.item.Item;
 
 import static com.sammy.malum.MalumMod.malumPath;
 

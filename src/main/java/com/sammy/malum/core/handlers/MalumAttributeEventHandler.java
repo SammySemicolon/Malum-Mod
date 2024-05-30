@@ -8,7 +8,7 @@ import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.item.ItemStack;
-import team.lodestar.lodestone.registry.common.tag.*;
+import team.lodestar.lodestone.registry.common.tag.LodestoneDamageTypeTags;
 
 public class MalumAttributeEventHandler {
     public static void processAttributes(LivingHurtEvent event) {

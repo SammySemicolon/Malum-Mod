@@ -63,5 +63,4 @@ public class SacredMistRiteEffectPacket extends SpiritBasedBlockParticleEffectPa
     }
 
 
-
 }

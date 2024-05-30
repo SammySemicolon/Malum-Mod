@@ -1,8 +1,8 @@
 package com.sammy.malum.common.item.curiosities.curios.sets.spirit;
 
 import com.google.common.collect.Multimap;
-import com.sammy.malum.common.item.curiosities.curios.MalumCurioItem;
 import com.sammy.malum.common.item.IMalumEventResponderItem;
+import com.sammy.malum.common.item.curiosities.curios.MalumCurioItem;
 import com.sammy.malum.registry.common.AttributeRegistry;
 import dev.emi.trinkets.api.SlotReference;
 import net.minecraft.world.entity.ai.attributes.Attribute;

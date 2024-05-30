@@ -1,10 +1,11 @@
 package com.sammy.malum.registry.common;
 
 import com.sammy.malum.common.spiritritual.*;
-import com.sammy.malum.core.systems.ritual.*;
-import net.minecraft.resources.*;
+import com.sammy.malum.core.systems.ritual.MalumRitualType;
+import net.minecraft.resources.ResourceLocation;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class RitualRegistry {
     public static List<MalumRitualType> RITUALS = new ArrayList<>();

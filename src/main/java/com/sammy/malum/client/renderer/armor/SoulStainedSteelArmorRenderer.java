@@ -3,7 +3,6 @@ package com.sammy.malum.client.renderer.armor;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.client.cosmetic.ArmorSkinRenderingData;
-import com.sammy.malum.client.model.SoulHunterArmorModel;
 import com.sammy.malum.client.model.SoulStainedSteelArmorModel;
 import com.sammy.malum.common.item.cosmetic.skins.ArmorSkin;
 import net.fabricmc.fabric.api.client.rendering.v1.ArmorRenderer;

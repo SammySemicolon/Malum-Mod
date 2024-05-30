@@ -1,9 +1,11 @@
 package com.sammy.malum.client.screen.codex.pages;
 
-import com.sammy.malum.client.screen.codex.*;
-import net.minecraft.world.item.*;
+import com.sammy.malum.client.screen.codex.BookEntry;
+import com.sammy.malum.client.screen.codex.BookEntryBuilder;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 
-import java.util.function.*;
+import java.util.function.Supplier;
 
 public final class EntryReference {
     public final ItemStack icon;

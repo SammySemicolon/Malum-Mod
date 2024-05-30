@@ -1,15 +1,17 @@
 package com.sammy.malum.common.item.codex;
 
-import com.sammy.malum.client.screen.codex.screens.*;
-import com.sammy.malum.visual_effects.*;
-import net.minecraft.world.*;
-import net.minecraft.world.entity.player.*;
-import net.minecraft.world.item.*;
-import net.minecraft.world.level.*;
+import com.sammy.malum.client.screen.codex.screens.ArcanaProgressionScreen;
+import com.sammy.malum.client.screen.codex.screens.VoidProgressionScreen;
+import com.sammy.malum.visual_effects.ScreenParticleEffects;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import team.lodestar.lodestone.handlers.screenparticle.*;
-import team.lodestar.lodestone.systems.particle.screen.*;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import team.lodestar.lodestone.handlers.screenparticle.ParticleEmitterHandler;
+import team.lodestar.lodestone.systems.particle.screen.ScreenParticleHolder;
 
 public class EncyclopediaEsotericaItem extends EncyclopediaArcanaItem implements ParticleEmitterHandler.ItemParticleSupplier {
 

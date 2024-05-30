@@ -1,40 +1,47 @@
 package com.sammy.malum.core.handlers;
 
-import com.sammy.malum.common.components.*;
-import com.sammy.malum.common.container.*;
-import com.sammy.malum.common.entity.spirit.*;
-import com.sammy.malum.common.item.*;
-import com.sammy.malum.common.item.curiosities.*;
-import com.sammy.malum.config.*;
-import com.sammy.malum.core.listeners.*;
-import com.sammy.malum.core.systems.recipe.*;
-import com.sammy.malum.core.systems.spirit.*;
-import com.sammy.malum.registry.common.*;
-import com.sammy.malum.registry.common.item.*;
+import com.sammy.malum.common.components.MalumComponents;
+import com.sammy.malum.common.components.MalumLivingEntityDataComponent;
+import com.sammy.malum.common.container.SpiritPouchContainer;
+import com.sammy.malum.common.entity.spirit.SpiritItemEntity;
+import com.sammy.malum.common.item.IMalumEventResponderItem;
+import com.sammy.malum.common.item.curiosities.SpiritPouchItem;
+import com.sammy.malum.config.CommonConfig;
+import com.sammy.malum.core.listeners.SpiritDataReloadListener;
+import com.sammy.malum.core.systems.recipe.SpiritWithCount;
+import com.sammy.malum.core.systems.spirit.EntitySpiritDropData;
+import com.sammy.malum.core.systems.spirit.MalumSpiritType;
+import com.sammy.malum.registry.common.AttributeRegistry;
+import com.sammy.malum.registry.common.DamageTypeRegistry;
+import com.sammy.malum.registry.common.SoundRegistry;
+import com.sammy.malum.registry.common.SpiritTypeRegistry;
+import com.sammy.malum.registry.common.item.EnchantmentRegistry;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.*;
-import net.minecraft.server.level.*;
-import net.minecraft.sounds.*;
-import net.minecraft.util.*;
-import net.minecraft.world.damagesource.*;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.attributes.*;
-import net.minecraft.world.entity.item.*;
-import net.minecraft.world.entity.player.*;
-import net.minecraft.world.item.*;
-import net.minecraft.world.item.crafting.*;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.Mth;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraft.world.level.*;
-import net.minecraft.world.phys.*;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
-import team.lodestar.lodestone.helpers.*;
-import team.lodestar.lodestone.systems.container.*;
+import team.lodestar.lodestone.helpers.ItemHelper;
+import team.lodestar.lodestone.helpers.RandomHelper;
+import team.lodestar.lodestone.systems.container.ItemInventory;
 
 import java.util.*;
-import java.util.stream.*;
+import java.util.stream.Collectors;
 
-import static net.minecraft.world.entity.EquipmentSlot.*;
+import static net.minecraft.world.entity.EquipmentSlot.MAINHAND;
 
 public class SpiritHarvestHandler {
 
@@ -267,7 +274,8 @@ public class SpiritHarvestHandler {
             case CREATURE -> Optional.of(SpiritDataReloadListener.DEFAULT_CREATURE_SPIRIT_DATA);
             case AMBIENT -> Optional.of(SpiritDataReloadListener.DEFAULT_AMBIENT_SPIRIT_DATA);
             case AXOLOTLS -> Optional.of(SpiritDataReloadListener.DEFAULT_AXOLOTL_SPIRIT_DATA);
-            case UNDERGROUND_WATER_CREATURE -> Optional.of(SpiritDataReloadListener.DEFAULT_UNDERGROUND_WATER_CREATURE_SPIRIT_DATA);
+            case UNDERGROUND_WATER_CREATURE ->
+                    Optional.of(SpiritDataReloadListener.DEFAULT_UNDERGROUND_WATER_CREATURE_SPIRIT_DATA);
             case WATER_CREATURE -> Optional.of(SpiritDataReloadListener.DEFAULT_WATER_CREATURE_SPIRIT_DATA);
             case WATER_AMBIENT -> Optional.of(SpiritDataReloadListener.DEFAULT_WATER_AMBIENT_SPIRIT_DATA);
             default -> Optional.empty();

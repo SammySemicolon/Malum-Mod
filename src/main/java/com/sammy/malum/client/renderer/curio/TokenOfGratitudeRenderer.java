@@ -7,9 +7,7 @@ import com.sammy.malum.MalumMod;
 import com.sammy.malum.client.model.HeadOverlayModel;
 import com.sammy.malum.client.model.TailModel;
 import com.sammy.malum.client.model.cosmetic.ScarfModel;
-import com.sammy.malum.common.entity.EntityModelLoader;
 import com.sammy.malum.common.item.cosmetic.curios.CurioTokenOfGratitude;
-import com.sammy.malum.registry.client.ModelRegistry;
 import dev.emi.trinkets.api.SlotReference;
 import dev.emi.trinkets.api.client.TrinketRenderer;
 import net.minecraft.client.Minecraft;
@@ -94,7 +92,7 @@ public class TokenOfGratitudeRenderer implements TrinketRenderer {
     public static void renderGlowingEyes(AbstractClientPlayer playerEntity, PlayerModel entityModel, RenderType renderType, PoseStack poseStack, MultiBufferSource renderTypeBuffer, int light) {
         VertexConsumer vertexconsumer = renderTypeBuffer.getBuffer(renderType);
         TrinketRenderer.followBodyRotations(playerEntity, entityModel);
-        if (HEAD_OVERLAY_MODEL == null){
+        if (HEAD_OVERLAY_MODEL == null) {
             HEAD_OVERLAY_MODEL = new HeadOverlayModel(Minecraft.getInstance().getEntityModels().bakeLayer(HeadOverlayModel.LAYER));
         }
         //TODO Done? ICurioRenderer.followHeadRotations(playerEntity, ModelRegistry.HEAD_OVERLAY_MODEL.overlay);

@@ -1,21 +1,22 @@
 package com.sammy.malum.client;
 
-import com.mojang.blaze3d.vertex.*;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
-import net.minecraft.util.*;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.phys.*;
+import net.minecraft.util.Mth;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.phys.Vec3;
 import org.joml.Vector3f;
-import team.lodestar.lodestone.helpers.*;
-import team.lodestar.lodestone.systems.easing.*;
-import team.lodestar.lodestone.systems.rendering.*;
-import team.lodestar.lodestone.systems.rendering.trail.*;
+import team.lodestar.lodestone.helpers.ColorHelper;
+import team.lodestar.lodestone.systems.easing.Easing;
+import team.lodestar.lodestone.systems.rendering.VFXBuilders;
+import team.lodestar.lodestone.systems.rendering.trail.TrailPoint;
+import team.lodestar.lodestone.systems.rendering.trail.TrailPointBuilder;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.function.*;
+import java.util.function.Function;
 
 public class RenderUtils {
 
@@ -29,7 +30,7 @@ public class RenderUtils {
     }
 
     public static void renderEntityTrail(PoseStack poseStack, VFXBuilders.WorldVFXBuilder builder, TrailPointBuilder trailPointBuilder, Entity entity, Color primaryColor, Color secondaryColor, float scaleScalar, float alphaScalar, float partialTicks) {
-        renderEntityTrail(poseStack, builder, trailPointBuilder, entity, t-> primaryColor, t-> secondaryColor, scaleScalar, alphaScalar, partialTicks);
+        renderEntityTrail(poseStack, builder, trailPointBuilder, entity, t -> primaryColor, t -> secondaryColor, scaleScalar, alphaScalar, partialTicks);
     }
 
     public static void renderEntityTrail(PoseStack poseStack, VFXBuilders.WorldVFXBuilder builder, TrailPointBuilder trailPointBuilder, Entity entity, Function<Float, Color> primaryColor, Function<Float, Color> secondaryColor, float scaleScalar, float alphaScalar, float partialTicks) {
@@ -57,6 +58,7 @@ public class RenderUtils {
     public static void drawCube(PoseStack poseStack, VFXBuilders.WorldVFXBuilder builder, float scale, CubeVertexData cubeVertexData) {
         drawCube(poseStack, builder, builder, scale, cubeVertexData);
     }
+
     public static void drawCube(PoseStack poseStack, VFXBuilders.WorldVFXBuilder builder, VFXBuilders.WorldVFXBuilder sideBuilder, float scale, CubeVertexData cubeVertexData) {
         Vector3f[] bottomVertices = cubeVertexData.bottomVertices;
         Vector3f[] topVertices = cubeVertexData.topVertices;
@@ -80,11 +82,12 @@ public class RenderUtils {
     public static CubeVertexData makeCubePositions(float scale) {
         return makeCubePositions(scale, scale);
     }
+
     public static CubeVertexData makeCubePositions(float xScale, float yScale) {
-        float xStart = -(xScale/2f)+0.5f;
-        float xEnd = xScale/2f+0.5f;
-        float yStart = -(yScale/2f)+0.5f;
-        float yEnd = yScale/2f+0.5f;
+        float xStart = -(xScale / 2f) + 0.5f;
+        float xEnd = xScale / 2f + 0.5f;
+        float yStart = -(yScale / 2f) + 0.5f;
+        float yEnd = yScale / 2f + 0.5f;
         Vector3f[] bottomVertices = new Vector3f[]{new Vector3f(xStart, yStart, xStart), new Vector3f(xStart, yStart, xEnd), new Vector3f(xEnd, yStart, xEnd), new Vector3f(xEnd, yStart, xStart)};
         Vector3f[] topVertices = new Vector3f[]{new Vector3f(xStart, yEnd, xStart), new Vector3f(xStart, yEnd, xEnd), new Vector3f(xEnd, yEnd, xEnd), new Vector3f(xEnd, yEnd, xStart)};
         Collection<Vector3f[]> offsetMap = new ArrayList<>();

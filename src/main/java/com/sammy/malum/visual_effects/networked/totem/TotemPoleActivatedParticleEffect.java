@@ -1,12 +1,12 @@
 package com.sammy.malum.visual_effects.networked.totem;
 
-import com.sammy.malum.common.block.curiosities.totem.*;
-import com.sammy.malum.visual_effects.*;
-import com.sammy.malum.visual_effects.networked.*;
+import com.sammy.malum.common.block.curiosities.totem.TotemPoleBlockEntity;
+import com.sammy.malum.visual_effects.TotemParticleEffects;
+import com.sammy.malum.visual_effects.networked.ParticleEffectType;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 
-import java.util.function.*;
+import java.util.function.Supplier;
 
 public class TotemPoleActivatedParticleEffect extends ParticleEffectType {
 

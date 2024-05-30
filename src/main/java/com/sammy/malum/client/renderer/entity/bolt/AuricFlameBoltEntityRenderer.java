@@ -1,8 +1,8 @@
 package com.sammy.malum.client.renderer.entity.bolt;
 
-import com.sammy.malum.common.entity.bolt.*;
-import com.sammy.malum.common.entity.nitrate.*;
-import net.minecraft.client.renderer.entity.*;
+import com.sammy.malum.common.entity.bolt.AuricFlameBoltEntity;
+import com.sammy.malum.common.entity.nitrate.EthericNitrateEntity;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
 
 public class AuricFlameBoltEntityRenderer extends AbstractBoltEntityRenderer<AuricFlameBoltEntity> {
     public AuricFlameBoltEntityRenderer(EntityRendererProvider.Context context) {

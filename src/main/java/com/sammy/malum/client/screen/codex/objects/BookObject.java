@@ -1,10 +1,10 @@
 package com.sammy.malum.client.screen.codex.objects;
 
-import com.sammy.malum.client.screen.codex.screens.*;
-import net.minecraft.client.gui.*;
-import net.minecraft.resources.*;
+import com.sammy.malum.client.screen.codex.screens.AbstractMalumScreen;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.resources.ResourceLocation;
 
-import static com.sammy.malum.MalumMod.*;
+import static com.sammy.malum.MalumMod.malumPath;
 
 public class BookObject<T extends AbstractMalumScreen> {
 

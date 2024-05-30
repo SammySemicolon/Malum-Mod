@@ -28,6 +28,7 @@ public class ArmorTiers {
         ArmorTierEnum(String name, int durabilityMultiplier, int[] damageReduction, int enchantability, Supplier<SoundEvent> equipSound, Supplier<Item> repairItem, float toughness) {
             this(name, durabilityMultiplier, damageReduction, enchantability, equipSound, repairItem, toughness, 0);
         }
+
         ArmorTierEnum(String name, int durabilityMultiplier, int[] damageReduction, int enchantability, Supplier<SoundEvent> equipSound, Supplier<Item> repairItem, float toughness, float knockbackResistance) {
             this.name = name;
             this.durabilityMultiplier = durabilityMultiplier;

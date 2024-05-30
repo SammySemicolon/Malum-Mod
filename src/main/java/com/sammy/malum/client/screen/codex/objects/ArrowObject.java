@@ -1,10 +1,10 @@
 package com.sammy.malum.client.screen.codex.objects;
 
-import com.mojang.blaze3d.vertex.*;
-import com.sammy.malum.*;
-import com.sammy.malum.client.screen.codex.screens.*;
-import net.minecraft.client.gui.*;
-import net.minecraft.resources.*;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.sammy.malum.MalumMod;
+import com.sammy.malum.client.screen.codex.screens.EntryScreen;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.resources.ResourceLocation;
 
 import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.renderTexture;
 
@@ -33,8 +33,7 @@ public class ArrowObject extends BookObject<EntryScreen> {
     public void click(EntryScreen screen, double mouseX, double mouseY) {
         if (flipped) {
             screen.nextPage();
-        }
-        else {
+        } else {
             screen.previousPage(true);
         }
     }

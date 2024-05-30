@@ -1,12 +1,13 @@
 package com.sammy.malum.common.item.curiosities.curios.runes.miracle;
 
-import com.google.common.collect.*;
-import com.sammy.malum.common.item.curiosities.curios.runes.*;
-import com.sammy.malum.registry.common.*;
+import com.google.common.collect.Multimap;
+import com.sammy.malum.common.item.curiosities.curios.runes.AbstractRuneCurioItem;
+import com.sammy.malum.registry.common.SpiritTypeRegistry;
 import dev.emi.trinkets.api.SlotReference;
-import net.minecraft.world.entity.ai.attributes.*;
-import net.minecraft.world.item.*;
-import team.lodestar.lodestone.registry.common.*;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.item.ItemStack;
+import team.lodestar.lodestone.registry.common.LodestoneAttributeRegistry;
 
 public class RuneCullingItem extends AbstractRuneCurioItem {
 

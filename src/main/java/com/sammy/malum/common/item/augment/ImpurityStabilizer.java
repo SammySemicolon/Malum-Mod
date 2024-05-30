@@ -1,8 +1,8 @@
 package com.sammy.malum.common.item.augment;
 
-import com.sammy.malum.registry.common.*;
+import com.sammy.malum.registry.common.SpiritTypeRegistry;
 
-public class ImpurityStabilizer extends AbstractAugmentItem{
+public class ImpurityStabilizer extends AbstractAugmentItem {
     public ImpurityStabilizer(Properties pProperties) {
         super(pProperties, SpiritTypeRegistry.WICKED_SPIRIT);
     }

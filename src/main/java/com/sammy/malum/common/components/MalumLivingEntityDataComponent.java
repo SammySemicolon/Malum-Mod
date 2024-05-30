@@ -17,7 +17,7 @@ import java.util.UUID;
 public class MalumLivingEntityDataComponent implements AutoSyncedComponent {
 
     public int watcherNecklaceCooldown;
-    private LivingEntity livingEntity;
+    private final LivingEntity livingEntity;
     public SoulDataHandler soulData = new SoulDataHandler();
     public MalignantConversionHandler malignantConversionHandler = new MalignantConversionHandler();
     public TouchOfDarknessHandler touchOfDarknessHandler = new TouchOfDarknessHandler();
@@ -40,8 +40,7 @@ public class MalumLivingEntityDataComponent implements AutoSyncedComponent {
 
         if (tag.contains("watcherNecklaceCooldown")) {
             watcherNecklaceCooldown = tag.getInt("watcherNecklaceCooldown");
-        }
-        else {
+        } else {
             watcherNecklaceCooldown = 0;
         }
 

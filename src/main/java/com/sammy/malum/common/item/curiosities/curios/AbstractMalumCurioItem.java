@@ -1,18 +1,23 @@
 package com.sammy.malum.common.item.curiosities.curios;
 
-import com.google.common.collect.*;
-import com.sammy.malum.registry.common.*;
+import com.google.common.collect.LinkedHashMultimap;
+import com.google.common.collect.Multimap;
+import com.sammy.malum.registry.common.SoundRegistry;
 import dev.emi.trinkets.api.SlotReference;
 import dev.emi.trinkets.api.Trinket;
-import net.minecraft.*;
-import net.minecraft.sounds.*;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.attributes.*;
-import net.minecraft.world.item.*;
-import team.lodestar.lodestone.helpers.*;
+import net.minecraft.Util;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import team.lodestar.lodestone.helpers.RandomHelper;
 
-import java.util.*;
-import java.util.function.*;
+import java.util.UUID;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 public abstract class AbstractMalumCurioItem extends Item implements Trinket {
 

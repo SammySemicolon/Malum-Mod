@@ -1,10 +1,11 @@
 package com.sammy.malum.common.item.misc;
 
-import com.sammy.malum.registry.common.block.*;
-import net.minecraft.world.item.*;
-import net.minecraft.world.level.block.*;
+import com.sammy.malum.registry.common.block.BlockRegistry;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemNameBlockItem;
+import net.minecraft.world.level.block.Block;
 
-import java.util.*;
+import java.util.Map;
 
 public class CalcifiedBlightItem extends ItemNameBlockItem {
     public CalcifiedBlightItem(Block pBlock, Properties pProperties) {

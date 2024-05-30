@@ -1,15 +1,17 @@
 package com.sammy.malum.common.spiritrite.eldritch;
 
-import com.sammy.malum.common.block.curiosities.totem.*;
-import com.sammy.malum.common.packets.particle.curiosities.rite.generic.*;
-import com.sammy.malum.common.spiritrite.*;
-import net.minecraft.server.level.*;
-import net.minecraft.world.item.*;
-import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.state.*;
+import com.sammy.malum.common.block.curiosities.totem.TotemBaseBlockEntity;
+import com.sammy.malum.common.packets.particle.curiosities.rite.generic.BlockSparkleParticlePacket;
+import com.sammy.malum.common.spiritrite.BlockAffectingRiteEffect;
+import com.sammy.malum.common.spiritrite.TotemicRiteEffect;
+import com.sammy.malum.common.spiritrite.TotemicRiteType;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 
-
-import static com.sammy.malum.registry.common.PacketRegistry.*;
+import static com.sammy.malum.registry.common.PacketRegistry.MALUM_CHANNEL;
 import static com.sammy.malum.registry.common.SpiritTypeRegistry.*;
 
 public class EldritchEarthenRiteType extends TotemicRiteType {

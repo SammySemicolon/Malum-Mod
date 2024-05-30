@@ -32,7 +32,7 @@ public class CurioGrowingFleshRing extends MalumCurioItem implements IVoidItem, 
         if (effect == null) {
             collector.addEffect(new MobEffectInstance(cancerousGrowth, 1200, 0, true, true, true));
         } else {
-            EntityHelper.extendEffect(effect, collector, (int) (1200+arcaneResonance*600), 144000);
+            EntityHelper.extendEffect(effect, collector, (int) (1200 + arcaneResonance * 600), 144000);
             EntityHelper.amplifyEffect(effect, collector, 1, 19);
         }
         Level level = collector.level();

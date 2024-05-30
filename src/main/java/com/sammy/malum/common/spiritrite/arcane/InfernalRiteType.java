@@ -1,22 +1,26 @@
 package com.sammy.malum.common.spiritrite.arcane;
 
-import com.sammy.malum.common.block.curiosities.totem.*;
-import com.sammy.malum.common.packets.particle.curiosities.rite.*;
-import com.sammy.malum.common.packets.particle.curiosities.rite.generic.*;
-import com.sammy.malum.common.spiritrite.*;
-import com.sammy.malum.registry.common.*;
-import com.sammy.malum.registry.common.block.*;
-import net.minecraft.server.level.*;
-import net.minecraft.sounds.*;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.state.*;
+import com.sammy.malum.common.block.curiosities.totem.TotemBaseBlockEntity;
+import com.sammy.malum.common.packets.particle.curiosities.rite.InfernalExtinguishRiteEffectPacket;
+import com.sammy.malum.common.packets.particle.curiosities.rite.generic.BlockSparkleParticlePacket;
+import com.sammy.malum.common.spiritrite.PotionRiteEffect;
+import com.sammy.malum.common.spiritrite.TotemicRiteEffect;
+import com.sammy.malum.common.spiritrite.TotemicRiteType;
+import com.sammy.malum.registry.common.MobEffectRegistry;
+import com.sammy.malum.registry.common.block.BlockTagRegistry;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.block.BaseFireBlock;
+import net.minecraft.world.level.block.state.BlockState;
 
+import java.util.function.Predicate;
 
-import java.util.function.*;
-
-import static com.sammy.malum.registry.common.PacketRegistry.*;
-import static com.sammy.malum.registry.common.SpiritTypeRegistry.*;
+import static com.sammy.malum.registry.common.PacketRegistry.MALUM_CHANNEL;
+import static com.sammy.malum.registry.common.SpiritTypeRegistry.ARCANE_SPIRIT;
+import static com.sammy.malum.registry.common.SpiritTypeRegistry.INFERNAL_SPIRIT;
 
 public class InfernalRiteType extends TotemicRiteType {
     public InfernalRiteType() {

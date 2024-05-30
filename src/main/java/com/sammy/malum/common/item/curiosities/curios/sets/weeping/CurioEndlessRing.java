@@ -1,12 +1,13 @@
 package com.sammy.malum.common.item.curiosities.curios.sets.weeping;
 
-import com.google.common.collect.*;
-import com.sammy.malum.common.item.*;
-import com.sammy.malum.common.item.curiosities.curios.*;
-import com.sammy.malum.registry.common.*;
+import com.google.common.collect.Multimap;
+import com.sammy.malum.common.item.IVoidItem;
+import com.sammy.malum.common.item.curiosities.curios.MalumCurioItem;
+import com.sammy.malum.registry.common.AttributeRegistry;
 import dev.emi.trinkets.api.SlotReference;
-import net.minecraft.world.entity.ai.attributes.*;
-import net.minecraft.world.item.*;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.item.ItemStack;
 
 public class CurioEndlessRing extends MalumCurioItem implements IVoidItem {
     public CurioEndlessRing(Properties builder) {

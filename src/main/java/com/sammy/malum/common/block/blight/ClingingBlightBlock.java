@@ -1,18 +1,26 @@
 package com.sammy.malum.common.block.blight;
 
-import net.minecraft.core.*;
-import net.minecraft.util.*;
-import net.minecraft.world.item.context.*;
-import net.minecraft.world.level.*;
-import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.state.*;
-import net.minecraft.world.level.block.state.properties.*;
-import net.minecraft.world.phys.shapes.*;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.util.StringRepresentable;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
-import java.util.*;
+import java.util.Locale;
 
 import static com.sammy.malum.registry.common.block.BlockTagRegistry.BLIGHTED_BLOCKS;
-import static net.minecraft.world.level.block.state.properties.BlockStateProperties.*;
+import static net.minecraft.world.level.block.state.properties.BlockStateProperties.HORIZONTAL_FACING;
 
 public class ClingingBlightBlock extends Block {
     protected static final VoxelShape SHAPE_GROUNDED_ROOTS_X = Block.box(0.0D, 0.0D, 2.0D, 16.0D, 6.0D, 14.0D);
@@ -54,6 +62,7 @@ public class ClingingBlightBlock extends Block {
     public BlockState updateShape(BlockState pState, Direction pFacing, BlockState pFacingState, LevelAccessor pLevel, BlockPos pCurrentPos, BlockPos pFacingPos) {
         return !pState.canSurvive(pLevel, pCurrentPos) ? Blocks.AIR.defaultBlockState() : super.updateShape(pState, pFacing, pFacingState, pLevel, pCurrentPos, pFacingPos);
     }
+
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
         final Direction direction = context.getClickedFace();
@@ -127,11 +136,16 @@ public class ClingingBlightBlock extends Block {
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
         VoxelShape[] shapeArray;
         switch (pState.getValue(BLIGHT_TYPE)) {
-            case GROUNDED_ROOTS -> shapeArray = new VoxelShape[]{SHAPE_GROUNDED_ROOTS_X, SHAPE_GROUNDED_ROOTS_X, SHAPE_GROUNDED_ROOTS_Z, SHAPE_GROUNDED_ROOTS_Z};
-            case ROOTED_BLIGHT -> shapeArray = new VoxelShape[]{SHAPE_ROOTED_EAST, SHAPE_ROOTED_WEST, SHAPE_ROOTED_SOUTH, SHAPE_ROOTED_NORTH};
-            case SOULWOOD_SPIKE, HANGING_BLIGHT_CONNECTION -> shapeArray = new VoxelShape[]{SHAPE_BRACED_EAST, SHAPE_BRACED_WEST, SHAPE_BRACED_SOUTH, SHAPE_BRACED_NORTH};
-            case HANGING_BLIGHT -> shapeArray = new VoxelShape[]{SHAPE_HANGING_EAST, SHAPE_HANGING_WEST, SHAPE_HANGING_SOUTH, SHAPE_HANGING_NORTH};
-            case HANGING_ROOTS -> shapeArray = new VoxelShape[]{SHAPE_HANGING_ROOTS_X, SHAPE_HANGING_ROOTS_X, SHAPE_HANGING_ROOTS_Z, SHAPE_HANGING_ROOTS_Z};
+            case GROUNDED_ROOTS ->
+                    shapeArray = new VoxelShape[]{SHAPE_GROUNDED_ROOTS_X, SHAPE_GROUNDED_ROOTS_X, SHAPE_GROUNDED_ROOTS_Z, SHAPE_GROUNDED_ROOTS_Z};
+            case ROOTED_BLIGHT ->
+                    shapeArray = new VoxelShape[]{SHAPE_ROOTED_EAST, SHAPE_ROOTED_WEST, SHAPE_ROOTED_SOUTH, SHAPE_ROOTED_NORTH};
+            case SOULWOOD_SPIKE, HANGING_BLIGHT_CONNECTION ->
+                    shapeArray = new VoxelShape[]{SHAPE_BRACED_EAST, SHAPE_BRACED_WEST, SHAPE_BRACED_SOUTH, SHAPE_BRACED_NORTH};
+            case HANGING_BLIGHT ->
+                    shapeArray = new VoxelShape[]{SHAPE_HANGING_EAST, SHAPE_HANGING_WEST, SHAPE_HANGING_SOUTH, SHAPE_HANGING_NORTH};
+            case HANGING_ROOTS ->
+                    shapeArray = new VoxelShape[]{SHAPE_HANGING_ROOTS_X, SHAPE_HANGING_ROOTS_X, SHAPE_HANGING_ROOTS_Z, SHAPE_HANGING_ROOTS_Z};
             default -> throw new IllegalStateException("Unexpected value: " + pState.getValue(BLIGHT_TYPE));
         }
         switch (pState.getValue(HORIZONTAL_FACING)) {
