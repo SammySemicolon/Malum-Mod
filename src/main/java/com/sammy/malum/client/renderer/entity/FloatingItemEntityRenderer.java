@@ -62,6 +62,7 @@ public class FloatingItemEntityRenderer extends EntityRenderer<FloatingItemEntit
         float scale = model.getTransforms().getTransform(ItemDisplayContext.GROUND).scale.y();
         float rotation = entity.getRotation(partialTicks);
 
+
         poseStack.pushPose();
         poseStack.translate(0.0D, (yOffset + 0.25F * scale), 0.0D);
         poseStack.mulPose(Axis.YP.rotation(rotation));
