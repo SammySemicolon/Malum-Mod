@@ -1,5 +1,6 @@
 package com.sammy.malum.data.recipe;
 
+import io.github.fabricators_of_create.porting_lib.tags.Tags;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.FinishedRecipe;
@@ -10,11 +11,13 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 
 import java.lang.reflect.Field;
 import java.util.*;
+import java.util.function.Consumer;
 
 
 public class MalumVanillaRecipeReplacements extends VanillaRecipeProvider {
@@ -25,9 +28,9 @@ public class MalumVanillaRecipeReplacements extends VanillaRecipeProvider {
     public MalumVanillaRecipeReplacements(PackOutput pOutput) {
         super(pOutput);
     }
-/*TODO
+
     @Override
-    protected void buildRecipes(Consumer<FinishedRecipe> pWriter) {
+    public void buildRecipes(Consumer<FinishedRecipe> pWriter) {
         replace(Items.QUARTZ, Tags.Items.GEMS_QUARTZ);
         replace(Items.SLIME_BALL, Tags.Items.SLIMEBALLS);
 
@@ -38,7 +41,7 @@ public class MalumVanillaRecipeReplacements extends VanillaRecipeProvider {
         });
     }
 
- */
+
 
     private void exclude(ItemLike item) {
         excludes.add(BuiltInRegistries.ITEM.getKey(item.asItem()));
@@ -88,7 +91,7 @@ public class MalumVanillaRecipeReplacements extends VanillaRecipeProvider {
 
         boolean modified = false;
         List<Ingredient.Value> items = new ArrayList<>();
-        Ingredient.Value[] vanillaItems = getField(Ingredient.class, vanilla, 2); //This will probably crash between versions, if null fix index
+        Ingredient.Value[] vanillaItems = getField(Ingredient.class, vanilla, 1); //This will probably crash between versions, if null fix index
         for (Ingredient.Value entry : vanillaItems) {
             if (entry instanceof Ingredient.ItemValue) {
                 ItemStack stack = entry.getItems().stream().findFirst().orElse(ItemStack.EMPTY);

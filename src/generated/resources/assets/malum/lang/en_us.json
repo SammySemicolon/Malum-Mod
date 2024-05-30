@@ -325,6 +325,7 @@
   "entity.malum.etheric_nitrate": "Etheric Nitrate",
   "entity.malum.hex_bolt": "Hex Bolt",
   "entity.malum.natural_spirit": "Natural Spirit",
+  "entity.malum.pneuma_void": "Pneuma Void",
   "entity.malum.runewood_boat": "Runewood Boat",
   "entity.malum.scythe_boomerang": "Scythe Boomerang",
   "entity.malum.soulwood_boat": "Soulwood Boat",
@@ -1614,6 +1615,5 @@
   "tetra.material.tainted_rock": "Tainted Rock",
   "tetra.material.tainted_rock.prefix": "Tainted Rock",
   "tetra.material.twisted_rock": "Twisted Rock",
-  "tetra.material.twisted_rock.prefix": "Twisted Rock",
-  "chibi_sprites": "Chibi Sprites"
+  "tetra.material.twisted_rock.prefix": "Twisted Rock"
 }
