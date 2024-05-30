@@ -28,6 +28,9 @@
     ],
     "mm:early_risers": [
       "com.sammy.malum.asm.MalumASM"
+    ],
+    "jei_mod_plugin": [
+      "com.sammy.malum.compability.jei.JEIHandler"
     ]
   },
   "mixins": [

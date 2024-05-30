@@ -43,8 +43,6 @@ public class WeaversWorkbenchBlockEntity extends LodestoneBlockEntity {
     public InteractionResult onUse(Player player, InteractionHand hand) {
         if (player instanceof ServerPlayer serverPlayer) {
             var be = this;
-            //MenuProvider container = new SimpleMenuProvider((w, p, pl) -> new WeaversWorkbenchContainer(w, p, this), WeaversWorkbenchContainer.component);
-            //TODO NetworkHooks.openScreen(serverPlayer, container, buf -> buf.writeBlockPos(this.getBlockPos()));
             serverPlayer.openMenu(new ExtendedScreenHandlerFactory() {
                 @Override
                 public void writeScreenOpeningData(ServerPlayer player, FriendlyByteBuf buf) {
