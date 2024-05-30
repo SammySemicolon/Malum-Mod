@@ -1038,6 +1038,12 @@ public class MalumLang extends FabricLanguageProvider {
         builder.add("malum.jei.spirit_rite", "Spirit Rites");
         builder.add("malum.jei.spirit_transmutation", "The Unchained Rite");
 
+        builder.add("emi.category.malum.spirit_focusing", "Spirit Focusing");
+        builder.add("emi.category.malum.spirit_infusion", "Spirit Infusion");
+        builder.add("emi.category.malum.spirit_repair", "Spirit Repair");
+        builder.add("emi.category.malum.spirit_rite", "Spirit Rites");
+        builder.add("emi.category.malum.spirit_transmutation", "The Unchained Rite");
+
         builder.add("itemGroup.malum_basis_of_magic", "Malum: Basis of Magic");
         builder.add("itemGroup.malum_arcane_construct", "Malum: Arcane Construct");
         builder.add("itemGroup.malum_natural_wonders", "Malum: Born from Arcana");

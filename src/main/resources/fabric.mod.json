@@ -31,6 +31,9 @@
     ],
     "jei_mod_plugin": [
       "com.sammy.malum.compability.jei.JEIHandler"
+    ],
+    "emi": [
+      "com.sammy.malum.compability.emi.EMIHandler"
     ]
   },
   "mixins": [
