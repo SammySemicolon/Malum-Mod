@@ -6,6 +6,7 @@ import com.sammy.malum.common.effect.WickedIntentEffect;
 import com.sammy.malum.common.effect.aura.CorruptedAerialAura;
 import com.sammy.malum.common.effect.aura.InfernalAura;
 import com.sammy.malum.common.enchantment.ReboundEnchantment;
+import com.sammy.malum.common.entity.EntityModelLoader;
 import com.sammy.malum.common.entity.nitrate.NitrateExplosion;
 import com.sammy.malum.common.item.augment.AbstractAugmentItem;
 import com.sammy.malum.common.item.cosmetic.curios.CurioTokenOfGratitude;
@@ -111,6 +112,7 @@ public class MalumMod implements ModInitializer {
         ArmorSkinRegistry.registerItemSkins();
 
         FarmersDelightCompat.init();
+
 
 
         LodestoneItemEvent.ON_ITEM_TOOLTIP.register(AbstractAugmentItem::addAugmentAttributeTooltip);

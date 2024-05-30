@@ -16,26 +16,7 @@ import net.minecraft.client.Minecraft;
 
 public class ModelRegistry {
 
-    public static AncientSoulHunterArmorModel ANCIENT_SOUL_HUNTER_ARMOR;
 
-    public static AncientSoulStainedSteelArmorModel ANCIENT_SOUL_STAINED_STEEL_ARMOR;
-
-    public static GenericSlimArmorModel GENERIC_SLIM_ARMOR;
-    public static GenericArmorModel GENERIC_ARMOR;
-
-    public static CommandoArmorModel COMMANDO;
-    public static ExecutionerArmorModel EXECUTIONER;
-
-    public static UltrakillMachineArmorModel ULTRAKILL_MACHINE;
-
-    public static PridewearArmorModel PRIDEWEAR;
-    public static SlimPridewearArmorModel SLIM_PRIDEWEAR;
-
-    public static TopHatModel TOP_HAT;
-    public static TailModel TAIL_MODEL;
-
-    public static HeadOverlayModel HEAD_OVERLAY_MODEL;
-    public static ScarfModel SCARF;
 
     public static void registerLayerDefinitions() {
 
@@ -64,24 +45,6 @@ public class ModelRegistry {
     }
 
     public static void registerLayers() {
-        GENERIC_SLIM_ARMOR = new GenericSlimArmorModel(Minecraft.getInstance().getEntityModels().bakeLayer(GenericSlimArmorModel.LAYER));
-        GENERIC_ARMOR = new GenericArmorModel(Minecraft.getInstance().getEntityModels().bakeLayer(GenericArmorModel.LAYER));
 
-        COMMANDO = new CommandoArmorModel(Minecraft.getInstance().getEntityModels().bakeLayer(CommandoArmorModel.LAYER));
-        EXECUTIONER = new ExecutionerArmorModel(Minecraft.getInstance().getEntityModels().bakeLayer(ExecutionerArmorModel.LAYER));
-
-        ULTRAKILL_MACHINE = new UltrakillMachineArmorModel(Minecraft.getInstance().getEntityModels().bakeLayer(UltrakillMachineArmorModel.LAYER));
-
-        ANCIENT_SOUL_HUNTER_ARMOR = new AncientSoulHunterArmorModel(Minecraft.getInstance().getEntityModels().bakeLayer(AncientSoulHunterArmorModel.LAYER));
-        ANCIENT_SOUL_STAINED_STEEL_ARMOR = new AncientSoulStainedSteelArmorModel(Minecraft.getInstance().getEntityModels().bakeLayer(AncientSoulStainedSteelArmorModel.LAYER));
-
-        PRIDEWEAR = new PridewearArmorModel(Minecraft.getInstance().getEntityModels().bakeLayer(PridewearArmorModel.LAYER));
-        SLIM_PRIDEWEAR = new SlimPridewearArmorModel(Minecraft.getInstance().getEntityModels().bakeLayer(SlimPridewearArmorModel.LAYER));
-
-        TOP_HAT = new TopHatModel(Minecraft.getInstance().getEntityModels().bakeLayer(TopHatModel.LAYER));
-        TAIL_MODEL = new TailModel(Minecraft.getInstance().getEntityModels().bakeLayer(TailModel.LAYER));
-
-        HEAD_OVERLAY_MODEL = new HeadOverlayModel(Minecraft.getInstance().getEntityModels().bakeLayer(HeadOverlayModel.LAYER));
-        SCARF = new ScarfModel(Minecraft.getInstance().getEntityModels().bakeLayer(ScarfModel.LAYER));
     }
 }

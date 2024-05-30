@@ -4,6 +4,10 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import com.sammy.malum.MalumMod;
+import com.sammy.malum.client.model.HeadOverlayModel;
+import com.sammy.malum.client.model.TailModel;
+import com.sammy.malum.client.model.cosmetic.ScarfModel;
+import com.sammy.malum.common.entity.EntityModelLoader;
 import com.sammy.malum.common.item.cosmetic.curios.CurioTokenOfGratitude;
 import com.sammy.malum.registry.client.ModelRegistry;
 import dev.emi.trinkets.api.SlotReference;
@@ -42,9 +46,20 @@ public class TokenOfGratitudeRenderer implements TrinketRenderer {
 
     private static final ResourceLocation TRANS_SCARF = MalumMod.malumPath("textures/cosmetic/trans_scarf.png");
 
+    public static TailModel TAIL_MODEL;
+    public static ScarfModel SCARF;
+    public static HeadOverlayModel HEAD_OVERLAY_MODEL;
+
     @Override
     public void render(ItemStack itemStack, SlotReference slotReference, EntityModel<? extends LivingEntity> entityModel, PoseStack poseStack, MultiBufferSource multiBufferSource, int light, LivingEntity livingEntity, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch) {
         if (livingEntity instanceof AbstractClientPlayer playerEntity) {
+            if (TAIL_MODEL == null) {
+                TAIL_MODEL = new TailModel(Minecraft.getInstance().getEntityModels().bakeLayer(TailModel.LAYER));
+            }
+            if (SCARF == null) {
+                SCARF = new ScarfModel(Minecraft.getInstance().getEntityModels().bakeLayer(ScarfModel.LAYER));
+            }
+
             if (playerEntity.getUUID().equals(CurioTokenOfGratitude.SAMMY) && entityModel instanceof PlayerModel playerModel) {
                 renderTail(playerModel, itemStack, SAMMY, poseStack, playerEntity, multiBufferSource, light, limbAngle, limbDistance, tickDelta, animationProgress, headYaw, headPitch);
             }
@@ -79,8 +94,11 @@ public class TokenOfGratitudeRenderer implements TrinketRenderer {
     public static void renderGlowingEyes(AbstractClientPlayer playerEntity, PlayerModel entityModel, RenderType renderType, PoseStack poseStack, MultiBufferSource renderTypeBuffer, int light) {
         VertexConsumer vertexconsumer = renderTypeBuffer.getBuffer(renderType);
         TrinketRenderer.followBodyRotations(playerEntity, entityModel);
+        if (HEAD_OVERLAY_MODEL == null){
+            HEAD_OVERLAY_MODEL = new HeadOverlayModel(Minecraft.getInstance().getEntityModels().bakeLayer(HeadOverlayModel.LAYER));
+        }
         //TODO Done? ICurioRenderer.followHeadRotations(playerEntity, ModelRegistry.HEAD_OVERLAY_MODEL.overlay);
-        ModelRegistry.HEAD_OVERLAY_MODEL.renderToBuffer(poseStack, vertexconsumer, light, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
+        HEAD_OVERLAY_MODEL.renderToBuffer(poseStack, vertexconsumer, light, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
     }
 
 
@@ -103,12 +121,12 @@ public class TokenOfGratitudeRenderer implements TrinketRenderer {
         double ambientYRotation = Math.cos(playerEntity.level().getGameTime() / 24f) * -ambientFactor;
         poseStack.mulPose(Axis.YP.rotationDegrees((float) ambientYRotation));
         VertexConsumer vertexconsumer = ItemRenderer.getArmorFoilBuffer(renderTypeBuffer, RenderType.armorCutoutNoCull(texture), false, stack.hasFoil());
-        ModelRegistry.TAIL_MODEL.setupAnim(playerEntity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
-        ModelRegistry.TAIL_MODEL.prepareMobModel(playerEntity, limbSwing, limbSwingAmount, partialTicks);
+        TAIL_MODEL.setupAnim(playerEntity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
+        TAIL_MODEL.prepareMobModel(playerEntity, limbSwing, limbSwingAmount, partialTicks);
         TrinketRenderer.followBodyRotations(playerEntity, playerModel);
         //TODO DONE? ICurioRenderer.translateIfSneaking(poseStack, playerEntity);
         //TODO ICurioRenderer.rotateIfSneaking(poseStack, playerEntity);
-        ModelRegistry.TAIL_MODEL.renderToBuffer(poseStack, vertexconsumer, light, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
+        TAIL_MODEL.renderToBuffer(poseStack, vertexconsumer, light, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
         poseStack.popPose();
     }
 
@@ -123,11 +141,11 @@ public class TokenOfGratitudeRenderer implements TrinketRenderer {
         if (render instanceof LivingEntityRenderer livingEntityRenderer) {
             EntityModel<AbstractClientPlayer> model = livingEntityRenderer.getModel();
             if (model instanceof HumanoidModel humanoidModel) {
-                ModelRegistry.SCARF.copyFromDefault(humanoidModel);
+                SCARF.copyFromDefault(humanoidModel);
             }
         }
-        ModelRegistry.SCARF.setupAnim(playerEntity, playerEntity.walkAnimation.position(), playerEntity.walkAnimation.speed(), playerEntity.tickCount + pticks, netHeadYaw, netHeadPitch);
-        ModelRegistry.SCARF.renderToBuffer(poseStack, vertexconsumer, light, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
+        SCARF.setupAnim(playerEntity, playerEntity.walkAnimation.position(), playerEntity.walkAnimation.speed(), playerEntity.tickCount + pticks, netHeadYaw, netHeadPitch);
+        SCARF.renderToBuffer(poseStack, vertexconsumer, light, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
     }
 
 

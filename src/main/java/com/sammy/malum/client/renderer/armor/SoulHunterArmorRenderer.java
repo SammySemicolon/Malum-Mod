@@ -60,7 +60,7 @@ public class SoulHunterArmorRenderer implements ArmorRenderer {
         armorModel.rightFoot.visible = slot == EquipmentSlot.FEET;
         armorModel.leftLegging.visible = slot == EquipmentSlot.LEGS;
         armorModel.rightLegging.visible = slot == EquipmentSlot.LEGS;
-        armorModel.root.getChild("cape").visible = slot == EquipmentSlot.CHEST;
+        //armorModel.root.getChild("cape").visible = slot == EquipmentSlot.CHEST;
         ArmorRenderer.renderPart(matrices, vertexConsumers, light, stack, armorModel, texture);
     }
 }

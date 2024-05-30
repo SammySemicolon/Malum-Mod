@@ -20,6 +20,7 @@ import io.github.fabricators_of_create.porting_lib.config.ConfigRegistry;
 import io.github.fabricators_of_create.porting_lib.config.ConfigType;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin;
 import net.fabricmc.fabric.api.client.rendering.v1.ArmorRenderer;
@@ -53,7 +54,12 @@ public class MalumModClient implements ClientModInitializer {
         ItemRegistry.ClientOnly.addItemProperties();
         ItemRegistry.ClientOnly.setItemColors();
         ContainerRegistry.bindContainerRenderers();
-        ModelRegistry.registerLayerDefinitions();
+
+
+        ClientLifecycleEvents.CLIENT_STARTED.register(client -> {
+            ModelRegistry.registerLayerDefinitions();
+            ModelRegistry.registerLayers();
+        });
 
         BuiltinItemRendererRegistry.INSTANCE.register(SPIRIT_JAR.get(), new SpiritJarItemRenderer());
         BlockRenderLayerMap.INSTANCE.putBlock(BlockRegistry.SPIRIT_JAR.get(), RenderType.translucent());

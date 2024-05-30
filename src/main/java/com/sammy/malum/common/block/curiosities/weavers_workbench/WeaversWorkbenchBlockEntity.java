@@ -52,7 +52,7 @@ public class WeaversWorkbenchBlockEntity extends LodestoneBlockEntity {
             serverPlayer.openMenu(new ExtendedScreenHandlerFactory() {
                 @Override
                 public void writeScreenOpeningData(ServerPlayer player, FriendlyByteBuf buf) {
-
+                    buf.writeBlockPos(getBlockPos());
                 }
 
                 @Override
