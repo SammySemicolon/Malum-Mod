@@ -31,6 +31,10 @@ public class MalumTinketsItem extends AbstractMalumTrinketsItem {
             if (tooltipComponents.isEmpty()) {
                 tooltipComponents.add(Component.empty());
             }
+
+            Trinket trinket = TrinketsApi.getTrinket(stack.getItem());
+
+
             if (level != null) {
                 var trinket = TrinketsApi.getPlayerSlots(level);
                 trinket.keySet().stream().findFirst().ifPresent(s -> {
