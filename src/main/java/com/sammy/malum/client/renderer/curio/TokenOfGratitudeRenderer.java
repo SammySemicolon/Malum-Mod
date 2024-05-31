@@ -93,11 +93,11 @@ public class TokenOfGratitudeRenderer implements TrinketRenderer {
         VertexConsumer vertexconsumer = renderTypeBuffer.getBuffer(renderType);
 
         TrinketRenderer.translateToFace(poseStack, (PlayerModel<AbstractClientPlayer>) entityModel, playerEntity, headYaw, headPitch);
-
+        poseStack.translate(0,0.2,0.3f);
         if (HEAD_OVERLAY_MODEL == null) {
             HEAD_OVERLAY_MODEL = new HeadOverlayModel(Minecraft.getInstance().getEntityModels().bakeLayer(HeadOverlayModel.LAYER));
         }
-        //TODO Done? ICurioRenderer.followHeadRotations(playerEntity, ModelRegistry.HEAD_OVERLAY_MODEL.overlay);
+
         HEAD_OVERLAY_MODEL.renderToBuffer(poseStack, vertexconsumer, light, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
     }
 
@@ -124,8 +124,6 @@ public class TokenOfGratitudeRenderer implements TrinketRenderer {
         TAIL_MODEL.setupAnim(playerEntity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
         TAIL_MODEL.prepareMobModel(playerEntity, limbSwing, limbSwingAmount, partialTicks);
         TrinketRenderer.followBodyRotations(playerEntity, playerModel);
-        //TODO DONE? ICurioRenderer.translateIfSneaking(poseStack, playerEntity);
-        //TODO ICurioRenderer.rotateIfSneaking(poseStack, playerEntity);
         TAIL_MODEL.renderToBuffer(poseStack, vertexconsumer, light, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
         poseStack.popPose();
     }

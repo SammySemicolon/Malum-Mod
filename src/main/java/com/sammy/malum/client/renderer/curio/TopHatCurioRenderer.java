@@ -36,9 +36,8 @@ public class TopHatCurioRenderer implements TrinketRenderer {
         VertexConsumer vertexconsumer = renderTypeBuffer.getBuffer(renderType);
         if (livingEntity instanceof AbstractClientPlayer player) {
             TrinketRenderer.translateToFace(poseStack, (PlayerModel<AbstractClientPlayer>) entityModel, player, headYaw, headPitch);
+            poseStack.translate(0,0.2,0.3f);
         }
-
-        //TODO DONE? ICurioRenderer.followHeadRotations(livingEntity, ModelRegistry.TOP_HAT.topHat);
         TOP_HAT.renderToBuffer(poseStack, vertexconsumer, light, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
     }
 }
