@@ -9,11 +9,14 @@ import dev.emi.trinkets.api.client.TrinketRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.client.model.PlayerModel;
+import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
 public class TopHatCurioRenderer implements TrinketRenderer {
@@ -22,16 +25,19 @@ public class TopHatCurioRenderer implements TrinketRenderer {
 
     @Override
     public void render(ItemStack itemStack, SlotReference slotReference, EntityModel<? extends LivingEntity> entityModel, PoseStack poseStack, MultiBufferSource multiBufferSource, int light, LivingEntity livingEntity, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch) {
-        renderTopHat(livingEntity, entityModel, RenderType.entityTranslucent(HAT), poseStack, multiBufferSource, light);
+        renderTopHat(livingEntity, entityModel, RenderType.entityTranslucent(HAT), poseStack, multiBufferSource, light, headYaw, headPitch);
     }
 
-    public static void renderTopHat(LivingEntity livingEntity, EntityModel<? extends LivingEntity> entityModel, RenderType renderType, PoseStack poseStack, MultiBufferSource renderTypeBuffer, int light) {
+    public static void renderTopHat(LivingEntity livingEntity, EntityModel<? extends LivingEntity> entityModel, RenderType renderType, PoseStack poseStack, MultiBufferSource renderTypeBuffer, int light, float headYaw, float headPitch) {
 
         if (TOP_HAT == null) {
             TOP_HAT = new TopHatModel(Minecraft.getInstance().getEntityModels().bakeLayer(TopHatModel.LAYER));
         }
         VertexConsumer vertexconsumer = renderTypeBuffer.getBuffer(renderType);
-        TrinketRenderer.followBodyRotations(livingEntity, (HumanoidModel<LivingEntity>) entityModel);
+        if (livingEntity instanceof AbstractClientPlayer player) {
+            TrinketRenderer.translateToFace(poseStack, (PlayerModel<AbstractClientPlayer>) entityModel, player, headYaw, headPitch);
+        }
+
         //TODO DONE? ICurioRenderer.followHeadRotations(livingEntity, ModelRegistry.TOP_HAT.topHat);
         TOP_HAT.renderToBuffer(poseStack, vertexconsumer, light, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
     }

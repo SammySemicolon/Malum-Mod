@@ -65,7 +65,7 @@ public class TokenOfGratitudeRenderer implements TrinketRenderer {
                 renderTail(playerModel, itemStack, LOFI, poseStack, playerEntity, multiBufferSource, light, limbAngle, limbDistance, tickDelta, animationProgress, headYaw, headPitch);
             }
             if (playerEntity.getUUID().equals(CurioTokenOfGratitude.OWL_PERSON) && entityModel instanceof PlayerModel playerModel) {
-                renderGlowingEyes(playerEntity, playerModel, LodestoneRenderTypeRegistry.TRANSPARENT_TEXTURE.applyAndCache(RenderTypeToken.createCachedToken(OWL_PERSON_EYES)), poseStack, multiBufferSource, RenderHelper.FULL_BRIGHT);
+                renderGlowingEyes(playerEntity, playerModel, LodestoneRenderTypeRegistry.TRANSPARENT_TEXTURE.applyAndCache(RenderTypeToken.createCachedToken(OWL_PERSON_EYES)), poseStack, multiBufferSource, RenderHelper.FULL_BRIGHT, headYaw, headPitch);
             }
             if (playerEntity.getUUID().equals(CurioTokenOfGratitude.SNAKE_SCARF_FELLA)) {
                 renderScarf(playerEntity, SNAKE_FELLA_SCARF, poseStack, multiBufferSource, light);
@@ -89,9 +89,11 @@ public class TokenOfGratitudeRenderer implements TrinketRenderer {
         return original;
     }
 
-    public static void renderGlowingEyes(AbstractClientPlayer playerEntity, PlayerModel entityModel, RenderType renderType, PoseStack poseStack, MultiBufferSource renderTypeBuffer, int light) {
+    public static void renderGlowingEyes(AbstractClientPlayer playerEntity, PlayerModel entityModel, RenderType renderType, PoseStack poseStack, MultiBufferSource renderTypeBuffer, int light, float headYaw, float headPitch) {
         VertexConsumer vertexconsumer = renderTypeBuffer.getBuffer(renderType);
-        TrinketRenderer.followBodyRotations(playerEntity, entityModel);
+
+        TrinketRenderer.translateToFace(poseStack, (PlayerModel<AbstractClientPlayer>) entityModel, playerEntity, headYaw, headPitch);
+
         if (HEAD_OVERLAY_MODEL == null) {
             HEAD_OVERLAY_MODEL = new HeadOverlayModel(Minecraft.getInstance().getEntityModels().bakeLayer(HeadOverlayModel.LAYER));
         }

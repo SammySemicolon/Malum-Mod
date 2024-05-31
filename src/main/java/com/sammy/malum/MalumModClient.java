@@ -6,6 +6,8 @@ import com.sammy.malum.client.renderer.armor.SoulHunterArmorRenderer;
 import com.sammy.malum.client.renderer.armor.SoulStainedSteelArmorRenderer;
 import com.sammy.malum.client.renderer.block.SpiritCrucibleRenderer;
 import com.sammy.malum.client.renderer.block.TotemBaseRenderer;
+import com.sammy.malum.client.renderer.curio.TokenOfGratitudeRenderer;
+import com.sammy.malum.client.renderer.curio.TopHatCurioRenderer;
 import com.sammy.malum.client.renderer.item.SpiritJarItemRenderer;
 import com.sammy.malum.config.ClientConfig;
 import com.sammy.malum.registry.client.ModelRegistry;
@@ -16,6 +18,7 @@ import com.sammy.malum.registry.common.block.BlockEntityRegistry;
 import com.sammy.malum.registry.common.block.BlockRegistry;
 import com.sammy.malum.registry.common.entity.EntityRegistry;
 import com.sammy.malum.registry.common.item.ItemRegistry;
+import dev.emi.trinkets.api.client.TrinketRendererRegistry;
 import io.github.fabricators_of_create.porting_lib.config.ConfigRegistry;
 import io.github.fabricators_of_create.porting_lib.config.ConfigType;
 import net.fabricmc.api.ClientModInitializer;
@@ -54,7 +57,9 @@ public class MalumModClient implements ClientModInitializer {
         ItemRegistry.ClientOnly.addItemProperties();
         ItemRegistry.ClientOnly.setItemColors();
         ContainerRegistry.bindContainerRenderers();
-
+//CuriosRendererRegistry.register(ItemRegistry.TOPHAT.get(), TopHatCurioRenderer::new);
+        TrinketRendererRegistry.registerRenderer(ItemRegistry.TOPHAT.get(), new TopHatCurioRenderer());
+        TrinketRendererRegistry.registerRenderer(ItemRegistry.TOKEN_OF_GRATITUDE.get(), new TokenOfGratitudeRenderer());
 
         ClientLifecycleEvents.CLIENT_STARTED.register(client -> {
             ModelRegistry.registerLayerDefinitions();
