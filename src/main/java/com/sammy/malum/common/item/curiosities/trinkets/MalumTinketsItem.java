@@ -1,5 +1,7 @@
 package com.sammy.malum.common.item.curiosities.trinkets;
 
+import dev.emi.trinkets.api.SlotGroup;
+import dev.emi.trinkets.api.SlotType;
 import dev.emi.trinkets.api.Trinket;
 import dev.emi.trinkets.api.TrinketsApi;
 import net.minecraft.ChatFormatting;
@@ -9,8 +11,7 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.function.Consumer;
 
 public class MalumTinketsItem extends AbstractMalumTrinketsItem {
@@ -25,24 +26,20 @@ public class MalumTinketsItem extends AbstractMalumTrinketsItem {
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltipComponents, TooltipFlag isAdvanced) {
-        final List<Component> extraTooltipLines = new ArrayList<>();
-        addExtraTooltipLines(extraTooltipLines::add);
-        if (!extraTooltipLines.isEmpty()) {
-            if (tooltipComponents.isEmpty()) {
-                tooltipComponents.add(Component.empty());
+
+        tooltipComponents.add(Component.empty());
+
+        if (level != null) {
+            Map<String, SlotGroup> trinket = TrinketsApi.getPlayerSlots(level);
+            var t = trinket.entrySet().stream().findFirst();
+
+            if (t.isPresent()) {
+                Optional<Map.Entry<String, SlotType>> s = t.get().getValue().getSlots().entrySet().stream().findFirst();
+                s.ifPresent(stringSlotTypeEntry -> tooltipComponents.add(Component.translatable("curios.modifiers." + stringSlotTypeEntry.getValue().getName()).withStyle(ChatFormatting.GOLD)));
             }
-
-            Trinket trinket = TrinketsApi.getTrinket(stack.getItem());
-
-
-            if (level != null) {
-                var trinket = TrinketsApi.getPlayerSlots(level);
-                trinket.keySet().stream().findFirst().ifPresent(s -> {
-                    tooltipComponents.add(Component.translatable("curios.modifiers." + s).withStyle(ChatFormatting.GOLD));
-                });
-            }
-
         }
+
+        addExtraTooltipLines(tooltipComponents::add);
 
         super.appendHoverText(stack, level, tooltipComponents, isAdvanced);
     }
