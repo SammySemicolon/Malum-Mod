@@ -2,7 +2,7 @@
   "replace": false,
   "values": [
     "malum:mass_of_blighted_gunk",
-    "malum:blighted_earth",
-    "malum:blighted_soil"
+    "malum:blighted_soil",
+    "malum:blighted_earth"
   ]
 }

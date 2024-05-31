@@ -27,28 +27,28 @@ public class MalumTinketsItem extends AbstractMalumTrinketsItem {
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltipComponents, TooltipFlag isAdvanced) {
 
-        tooltipComponents.add(Component.empty());
-
         if (level != null) {
+            tooltipComponents.add(Component.empty());
             Map<String, SlotGroup> trinket = TrinketsApi.getPlayerSlots(level);
             var t = trinket.entrySet().stream().findFirst();
 
             if (t.isPresent()) {
                 Optional<Map.Entry<String, SlotType>> s = t.get().getValue().getSlots().entrySet().stream().findFirst();
-                s.ifPresent(stringSlotTypeEntry -> tooltipComponents.add(Component.translatable("curios.modifiers." + stringSlotTypeEntry.getValue().getName()).withStyle(ChatFormatting.GOLD)));
+                s.ifPresent(stringSlotTypeEntry -> tooltipComponents.add(Component.translatable("trinkets.modifiers." + stringSlotTypeEntry.getValue().getName()).withStyle(ChatFormatting.GOLD)));
             }
+
+            addExtraTooltipLines(tooltipComponents::add);
         }
 
-        addExtraTooltipLines(tooltipComponents::add);
 
         super.appendHoverText(stack, level, tooltipComponents, isAdvanced);
     }
 
     public static Component positiveEffect(String name, Object... args) {
-        return Component.translatable("malum.gui.curio.positive", Component.translatable("malum.gui.curio.effect." + name, args)).withStyle(ChatFormatting.BLUE);
+        return Component.translatable("malum.gui.trinket.positive", Component.translatable("malum.gui.trinket.effect." + name, args)).withStyle(ChatFormatting.BLUE);
     }
 
     public static Component negativeEffect(String name, Object... args) {
-        return Component.translatable("malum.gui.curio.negative", Component.translatable("malum.gui.curio.effect." + name, args)).withStyle(ChatFormatting.RED);
+        return Component.translatable("malum.gui.trinket.negative", Component.translatable("malum.gui.trinket.effect." + name, args)).withStyle(ChatFormatting.RED);
     }
 }
