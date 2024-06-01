@@ -10,6 +10,7 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import team.lodestar.lodestone.systems.rendering.rendeertype.*;
 
 @Mixin(GlyphRenderTypes.class)
 public class GlyphRenderTypesMixin implements SubtractiveTextGlyphRenderTypes {
@@ -19,12 +20,12 @@ public class GlyphRenderTypesMixin implements SubtractiveTextGlyphRenderTypes {
 
 	@Inject(method = "createForIntensityTexture", at = @At("RETURN"))
 	private static void setSubtractiveLayerForIntensity(ResourceLocation pId, CallbackInfoReturnable<GlyphRenderTypes> cir) {
-		((GlyphRenderTypesMixin) (Object) cir.getReturnValue()).malum$subtractive = RenderTypeRegistry.SUBTRACTIVE_INTENSE_TEXT.applyAndCache(pId);
+		((GlyphRenderTypesMixin) (Object) cir.getReturnValue()).malum$subtractive = RenderTypeRegistry.SUBTRACTIVE_INTENSE_TEXT.applyAndCache(RenderTypeToken.createCachedToken(pId));
 	}
 
 	@Inject(method = "createForColorTexture", at = @At("RETURN"))
 	private static void setSubtractiveLayerForColor(ResourceLocation pId, CallbackInfoReturnable<GlyphRenderTypes> cir) {
-		((GlyphRenderTypesMixin) (Object) cir.getReturnValue()).malum$subtractive = RenderTypeRegistry.SUBTRACTIVE_TEXT.applyAndCache(pId);
+		((GlyphRenderTypesMixin) (Object) cir.getReturnValue()).malum$subtractive = RenderTypeRegistry.SUBTRACTIVE_TEXT.applyAndCache(RenderTypeToken.createCachedToken(pId));
 	}
 
 	@Override

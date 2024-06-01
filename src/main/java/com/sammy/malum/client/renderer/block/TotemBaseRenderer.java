@@ -13,20 +13,20 @@ import net.minecraft.client.player.*;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.blockentity.*;
 import net.minecraft.core.*;
-import net.minecraft.resources.*;
 import net.minecraft.util.*;
 import net.minecraft.world.item.*;
 import net.minecraftforge.event.*;
 import team.lodestar.lodestone.registry.client.*;
 import team.lodestar.lodestone.systems.easing.*;
 import team.lodestar.lodestone.systems.rendering.*;
+import team.lodestar.lodestone.systems.rendering.rendeertype.*;
 
 import static com.sammy.malum.client.RenderUtils.*;
 
 
 public class TotemBaseRenderer implements BlockEntityRenderer<TotemBaseBlockEntity> {
 
-    public static final ResourceLocation AREA_COVERAGE_TEXTURE = MalumMod.malumPath("textures/vfx/area_coverage.png");
+    public static final RenderTypeToken AREA_COVERAGE_TEXTURE = RenderTypeToken.createToken(MalumMod.malumPath("textures/vfx/area_coverage.png"));
 
     private static float totemicStaffHeldTimer = 0;
     private static boolean isHoldingStaff;

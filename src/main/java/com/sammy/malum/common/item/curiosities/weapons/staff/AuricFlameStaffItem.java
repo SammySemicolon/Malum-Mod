@@ -26,7 +26,7 @@ public class AuricFlameStaffItem extends AbstractStaffItem {
     public static final ColorParticleData AURIC_COLOR_DATA = EthericNitrateEntity.AURIC_COLOR_DATA;
 
     public AuricFlameStaffItem(Tier tier, float magicDamage, Properties builderIn) {
-        super(tier, 20, magicDamage, builderIn);
+        super(tier, -0.2f, 30, magicDamage, builderIn);
     }
 
     @Override

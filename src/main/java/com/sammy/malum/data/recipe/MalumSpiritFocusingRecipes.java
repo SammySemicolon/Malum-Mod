@@ -71,7 +71,7 @@ public class MalumSpiritFocusingRecipes implements IConditionBuilder {
     public static void addImpetusRecipes(Consumer<FinishedRecipe> consumer, int duration, RegistryObject<ImpetusItem> impetus, RegistryObject<Item> node) {
         new SpiritFocusingRecipeBuilder(duration, 2, Ingredient.of(impetus.get()), node.get(), 3)
                 .addSpirit(EARTHEN_SPIRIT, 2)
-                .addSpirit(INFERNAL_SPIRIT, 4)
+                .addSpirit(INFERNAL_SPIRIT, 2)
                 .build(consumer, MalumMod.malumPath("node_focusing_" + ForgeRegistries.ITEMS.getKey(node.get()).getPath().replace("_node", "")));
     }
 
@@ -79,7 +79,7 @@ public class MalumSpiritFocusingRecipes implements IConditionBuilder {
         ConditionalRecipe.builder().addCondition(new NotCondition(new TagEmptyCondition(nugget.location()))).addRecipe(
                         new SpiritFocusingRecipeBuilder(duration, 2, Ingredient.of(impetus.get()), node.get(), 3)
                                 .addSpirit(EARTHEN_SPIRIT, 2)
-                                .addSpirit(INFERNAL_SPIRIT, 4)
+                                .addSpirit(INFERNAL_SPIRIT, 2)
                                 ::build
                 )
                 .generateAdvancement()

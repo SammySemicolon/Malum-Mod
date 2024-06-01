@@ -2,7 +2,6 @@ package com.sammy.malum.registry.client;
 
 import com.sammy.malum.*;
 import com.sammy.malum.common.recipe.*;
-import net.minecraft.client.*;
 import net.minecraft.client.player.*;
 import net.minecraft.world.item.*;
 import net.minecraftforge.api.distmarker.*;
@@ -23,14 +22,16 @@ public class ParticleEmitterRegistry {
     @SubscribeEvent
     public static void addParticleEmitters(EntityJoinLevelEvent event) {
         if (!registeredVoidParticleEmitters) {
-            if (event.getEntity() instanceof AbstractClientPlayer player && player.equals(Minecraft.getInstance().player)) {
+            if (event.getEntity() instanceof AbstractClientPlayer player) {
                 final List<FavorOfTheVoidRecipe> recipes = FavorOfTheVoidRecipe.getRecipes(player.level());
-                for (FavorOfTheVoidRecipe recipe : recipes) {
-                    for (ItemStack item : recipe.input.getItems()) {
-                        ParticleEmitterHandler.registerItemParticleEmitter(item.getItem(), INSTANCE);
+                if (!recipes.isEmpty()) {
+                    for (FavorOfTheVoidRecipe recipe : recipes) {
+                        for (ItemStack item : recipe.input.getItems()) {
+                            ParticleEmitterHandler.registerItemParticleEmitter(item.getItem(), INSTANCE);
+                        }
                     }
+                    registeredVoidParticleEmitters = true;
                 }
-                registeredVoidParticleEmitters = true;
             }
         }
     }

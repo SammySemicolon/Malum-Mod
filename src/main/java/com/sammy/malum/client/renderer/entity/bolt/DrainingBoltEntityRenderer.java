@@ -7,9 +7,11 @@ import net.minecraft.client.renderer.entity.*;
 import team.lodestar.lodestone.registry.client.*;
 import team.lodestar.lodestone.systems.rendering.rendeertype.*;
 
+import static com.sammy.malum.MalumMod.malumPath;
+
 public class DrainingBoltEntityRenderer extends AbstractBoltEntityRenderer<DrainingBoltEntity> {
 
-    private static final RenderType TRAIL_TYPE = LodestoneRenderTypeRegistry.TRANSPARENT_TEXTURE_TRIANGLE.apply(LIGHT_TRAIL, ShaderUniformHandler.LUMITRANSPARENT);
+    private static final RenderType TRAIL_TYPE = LodestoneRenderTypeRegistry.TRANSPARENT_TEXTURE_TRIANGLE.apply(RenderTypeToken.createCachedToken(malumPath("textures/vfx/concentrated_trail.png")), ShaderUniformHandler.LUMITRANSPARENT);
 
     public DrainingBoltEntityRenderer(EntityRendererProvider.Context context) {
         super(context, ErosionScepterItem.MALIGNANT_PURPLE, ErosionScepterItem.MALIGNANT_BLACK);

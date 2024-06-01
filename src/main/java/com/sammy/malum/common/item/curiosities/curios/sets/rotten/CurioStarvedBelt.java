@@ -7,7 +7,6 @@ import net.minecraft.network.chat.*;
 import net.minecraft.sounds.*;
 import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import team.lodestar.lodestone.helpers.*;
 
@@ -25,7 +24,7 @@ public class CurioStarvedBelt extends MalumCurioItem implements IMalumEventRespo
     }
 
     @Override
-    public void pickupSpirit(LivingEntity collector, ItemStack stack, double arcaneResonance) {
+    public void pickupSpirit(LivingEntity collector, double arcaneResonance) {
         MobEffect gluttony = MobEffectRegistry.GLUTTONY.get();
         MobEffectInstance effect = collector.getEffect(gluttony);
         if (effect == null) {

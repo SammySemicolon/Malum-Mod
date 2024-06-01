@@ -5,7 +5,6 @@ import com.sammy.malum.common.item.curiosities.curios.MalumCurioItem;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
 import java.util.function.Consumer;
@@ -21,7 +20,7 @@ public class CurioRingOfProwess extends MalumCurioItem implements IMalumEventRes
     }
 
     @Override
-    public void pickupSpirit(LivingEntity collector, ItemStack stack, double arcaneResonance) {
+    public void pickupSpirit(LivingEntity collector, double arcaneResonance) {
         Level level = collector.level();
         int floored = (int) Math.floor(arcaneResonance);
         int i = 1 + level.random.nextInt(1 + floored) + level.random.nextInt(2 + floored);
