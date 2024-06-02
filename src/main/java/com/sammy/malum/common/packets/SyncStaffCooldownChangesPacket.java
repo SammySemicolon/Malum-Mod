@@ -1,19 +1,17 @@
 package com.sammy.malum.common.packets;
 
-import com.sammy.malum.common.enchantment.*;
-import com.sammy.malum.common.item.curiosities.weapons.staff.*;
+import com.sammy.malum.common.enchantment.ReplenishingEnchantment;
+import com.sammy.malum.common.item.curiosities.weapons.staff.AbstractStaffItem;
 import me.pepperbell.simplenetworking.SimpleChannel;
-import net.fabricmc.fabric.api.networking.v1.PacketSender;
-import net.minecraft.client.*;
-import net.minecraft.client.multiplayer.ClientPacketListener;
-import net.minecraft.core.registries.*;
-import net.minecraft.network.*;
-import net.minecraft.world.item.*;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import team.lodestar.lodestone.systems.network.*;
-
-import java.util.function.*;
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientPacketListener;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.item.Item;
+import team.lodestar.lodestone.systems.network.LodestoneClientPacket;
 
 public class SyncStaffCooldownChangesPacket extends LodestoneClientPacket {
     private final Item item;

@@ -66,7 +66,7 @@ public class SpiritAltarParticleEffects {
         for (int i = 0; i < spiritInventory.slotCount; i++) {
             ItemStack item = spiritInventory.getStackInSlot(i);
             if (item.getItem() instanceof SpiritShardItem spiritSplinterItem) {
-                Vec3 offset = altar.getSpiritItemOffset(spiritsRendered++, 0);
+                Vec3 offset = altar.spiritOffset(spiritsRendered++, 0);
                 activeSpiritType = spiritSplinterItem.type;
                 BlockPos blockPos = altar.getBlockPos();
                 Vec3 spiritPosition = new Vec3(blockPos.getX() + offset.x, blockPos.getY() + offset.y, blockPos.getZ() + offset.z);

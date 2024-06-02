@@ -48,11 +48,11 @@ public class RitualPlinthParticleEffects {
         int spinOffset = random.nextInt(360);
         for (int i = 0; i < 4; i++) {
             int spinDirection = (random.nextBoolean() ? 1 : -1);
-            float scaleMultiplier = (float) (1+Math.pow(random.nextFloat(), 2));
+            float scaleMultiplier = (float) (1 + Math.pow(random.nextFloat(), 2));
             WorldParticleBuilder.create(LodestoneParticleRegistry.SPARKLE_PARTICLE)
                     .setTransparencyData(GenericParticleData.create(0.4f, 0.5f, 0).setEasing(Easing.SINE_IN, Easing.CIRC_IN).build())
                     .setSpinData(SpinParticleData.create((0.125f + random.nextFloat() * 0.075f) * spinDirection).setSpinOffset(spinOffset).build())
-                    .setScaleData(GenericParticleData.create(1.2f*scaleMultiplier, 0.4f, 0).setEasing(Easing.QUAD_IN, Easing.SINE_IN).build())
+                    .setScaleData(GenericParticleData.create(1.2f * scaleMultiplier, 0.4f, 0).setEasing(Easing.QUAD_IN, Easing.SINE_IN).build())
                     .setColorData(spiritType.createColorData().build())
                     .setLifetime(40)
                     .setRandomOffset(0.6f)
@@ -76,7 +76,7 @@ public class RitualPlinthParticleEffects {
                 if (velocity.equals(Vec3.ZERO)) {
                     velocity = p.getParticleSpeed();
                 }
-                p.setParticleMotion(velocity.x, (velocity.y-gravityStrength)*0.98f, velocity.z);
+                p.setParticleMotion(velocity.x, (velocity.y - gravityStrength) * 0.98f, velocity.z);
             };
             boolean star = random.nextFloat() < 0.2f;
             if (random.nextFloat() < 0.8f) {
@@ -102,8 +102,8 @@ public class RitualPlinthParticleEffects {
                         .enableForcedSpawn()
                         .addTickActor(slowDown)
                         .setMotion(motion)
-                        .setScaleData(GenericParticleData.create(0.4f*scalar, 0.2f*scalar, 0f).setEasing(Easing.SINE_IN, Easing.QUAD_IN).build())
-                        .setLengthData(GenericParticleData.create(2f*scalar, 0.5f*scalar, 0f).setEasing(Easing.QUARTIC_OUT, Easing.SINE_IN_OUT).build());
+                        .setScaleData(GenericParticleData.create(0.4f * scalar, 0.2f * scalar, 0f).setEasing(Easing.SINE_IN, Easing.QUAD_IN).build())
+                        .setLengthData(GenericParticleData.create(2f * scalar, 0.5f * scalar, 0f).setEasing(Easing.QUARTIC_OUT, Easing.SINE_IN_OUT).build());
                 sparks.getBloomBuilder()
                         .multiplyLifetime(lifetimeMultiplier)
                         .addTickActor(slowDown)
@@ -136,11 +136,11 @@ public class RitualPlinthParticleEffects {
         int spinOffset = random.nextInt(360);
         for (int i = 0; i < 4; i++) {
             int spinDirection = (random.nextBoolean() ? 1 : -1);
-            float scaleMultiplier = (float) (1+Math.pow(random.nextFloat(), 2));
+            float scaleMultiplier = (float) (1 + Math.pow(random.nextFloat(), 2));
             WorldParticleBuilder.create(LodestoneParticleRegistry.SPARKLE_PARTICLE)
                     .setTransparencyData(GenericParticleData.create(0.4f, 0.5f, 0).setEasing(Easing.SINE_IN, Easing.CIRC_IN).build())
                     .setSpinData(SpinParticleData.create((0.125f + random.nextFloat() * 0.075f) * spinDirection).setSpinOffset(spinOffset).build())
-                    .setScaleData(GenericParticleData.create(1.2f*scaleMultiplier, 0.4f, 0).setEasing(Easing.QUAD_IN, Easing.SINE_IN).build())
+                    .setScaleData(GenericParticleData.create(1.2f * scaleMultiplier, 0.4f, 0).setEasing(Easing.QUAD_IN, Easing.SINE_IN).build())
                     .setColorData(spiritType.createColorData().build())
                     .setLifetime(40)
                     .setRandomOffset(0.6f)
@@ -157,7 +157,7 @@ public class RitualPlinthParticleEffects {
             double y = random.nextFloat() * (random.nextBoolean() ? 1 : -1);
             double z = Math.cos(angle);
             Vec3 offset = new Vec3(x, y, z).normalize();
-            Vec3 particlePosition  = ritualIconPos.add(offset.scale(distance));
+            Vec3 particlePosition = ritualIconPos.add(offset.scale(distance));
             Vec3 particleMotion = offset.scale(-speed);
             float gravityStrength = 0f;
             final GenericParticleData transparencyData = GenericParticleData.create(0.1f, 0.9f, 0f).setEasing(Easing.SINE_IN_OUT, Easing.SINE_IN).build();
@@ -242,13 +242,13 @@ public class RitualPlinthParticleEffects {
             int finalI = i;
             Vec3 particlePosition = DataHelper.rotatingRadialOffset(plinthItemPos, 0.75f, i, 64, gameTime, 160);
             Consumer<WorldParticleBuilder> behavior = b -> b.addTickActor(p -> {
-                if (level.getGameTime() < gameTime + (finalI + 2)/2f) {
-                    p.setParticleMotion(0, 0.03f*(finalI/128f), 0);
+                if (level.getGameTime() < gameTime + (finalI + 2) / 2f) {
+                    p.setParticleMotion(0, 0.03f * (finalI / 128f), 0);
                 }
             });
             Consumer<DirectionalParticleBuilder> behaviorSpark = b -> b.addTickActor(p -> {
-                if (level.getGameTime() < gameTime + (finalI + 2)/2f) {
-                    p.setParticleMotion(0, 0.03f*(finalI/128f), 0);
+                if (level.getGameTime() < gameTime + (finalI + 2) / 2f) {
+                    p.setParticleMotion(0, 0.03f * (finalI / 128f), 0);
                 }
                 p.setParticleMotion(p.getParticleSpeed().scale(0.95f));
             });
@@ -258,7 +258,7 @@ public class RitualPlinthParticleEffects {
                     .setSpinData(SpinParticleData.createRandomDirection(random, nextFloat(random, 0.025f, 0.05f)).randomSpinOffset(random).build())
                     .setScaleData(GenericParticleData.create(0.3f, 0).setEasing(Easing.SINE_IN_OUT).build())
                     .setColorData(spiritType.createColorData().build().multiplyCoefficient(1.5f))
-                    .setLifetime(160+finalI*8)
+                    .setLifetime(160 + finalI * 8)
                     .setMotion(new Vec3(0, 0.005f, 0))
                     .setDirection(plinthItemPos.subtract(particlePosition).normalize())
                     .enableNoClip()
@@ -273,13 +273,13 @@ public class RitualPlinthParticleEffects {
                     .modifyData(b::getScaleData, d -> d.multiplyValue(2f).multiplyCoefficient(0.9f))
                     .modifyData(b::getTransparencyData, d -> d.multiplyCoefficient(0.9f))
                     .multiplyLifetime(5f)
-                    .setLifetime(b.getParticleOptions().lifetimeSupplier.get() + finalI*4));
+                    .setLifetime(b.getParticleOptions().lifetimeSupplier.get() + finalI * 4));
             lightSpecs.getBloomBuilder().act(b -> b
                     .act(behavior)
                     .modifyColorData(d -> d.multiplyCoefficient(0.35f))
                     .modifyData(b::getScaleData, d -> d.multiplyValue(1.6f).multiplyCoefficient(0.9f))
                     .modifyData(b::getTransparencyData, d -> d.multiplyCoefficient(0.9f))
-                    .setLifetime(b.getParticleOptions().lifetimeSupplier.get() + finalI*4));
+                    .setLifetime(b.getParticleOptions().lifetimeSupplier.get() + finalI * 4));
             lightSpecs.spawnParticles();
         }
         for (int i = 0; i < 48; i++) {
@@ -368,7 +368,7 @@ public class RitualPlinthParticleEffects {
         }
         for (int i = 0; i < 16; i++) {
             for (int j = 0; j < 4; j++) {
-                final Vec3 particlePosition = DataHelper.rotatingRadialOffset(targetPos, 0.5f, j, 4, level.getGameTime()+i*4, 160);
+                final Vec3 particlePosition = DataHelper.rotatingRadialOffset(targetPos, 0.5f, j, 4, level.getGameTime() + i * 4, 160);
                 DirectionalParticleBuilder.create(ParticleRegistry.SHARP_SPARK)
                         .setTransparencyData(GenericParticleData.create(0f, 0.6f, 0f).setEasing(Easing.SINE_IN_OUT, Easing.SINE_IN).build())
                         .setSpinData(SpinParticleData.createRandomDirection(random, nextFloat(random, 0.05f, 0.1f)).randomSpinOffset(random).build())
@@ -418,7 +418,7 @@ public class RitualPlinthParticleEffects {
                         .enableNoClip()
                         .setDiscardFunction(SimpleParticleOptions.ParticleDiscardFunctionType.ENDING_CURVE_INVISIBLE)
                         .act(spiritType.applyWorldParticleChanges())
-                        .spawn(level, particlePosition.x, particlePosition.y-0.125f, particlePosition.z);
+                        .spawn(level, particlePosition.x, particlePosition.y - 0.125f, particlePosition.z);
             }
         }
     }

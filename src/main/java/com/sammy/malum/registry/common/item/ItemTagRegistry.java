@@ -4,7 +4,6 @@ import com.sammy.malum.MalumMod;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 
@@ -45,7 +44,6 @@ public class ItemTagRegistry {
     public static final TagKey<Item> NECKLACE = modTag("curios:necklace");
     public static final TagKey<Item> RING = modTag("curios:ring");
     public static final TagKey<Item> RUNE = modTag("curios:rune");
-
 
 
     private static TagKey<Item> modTag(String path) {

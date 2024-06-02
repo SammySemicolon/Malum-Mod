@@ -1,23 +1,24 @@
 package com.sammy.malum.client.screen.codex.pages.text;
 
-import com.sammy.malum.*;
-import com.sammy.malum.client.screen.codex.pages.*;
-import com.sammy.malum.client.screen.codex.screens.*;
-import com.sammy.malum.registry.client.*;
-import com.sammy.malum.registry.common.*;
-import net.minecraft.client.*;
-import net.minecraft.client.gui.*;
-import net.minecraft.client.multiplayer.*;
-import net.minecraft.network.chat.*;
-import net.minecraft.world.item.*;
-import team.lodestar.lodestone.handlers.screenparticle.*;
-import team.lodestar.lodestone.registry.common.particle.*;
-import team.lodestar.lodestone.systems.particle.*;
-import team.lodestar.lodestone.systems.particle.builder.*;
-import team.lodestar.lodestone.systems.particle.data.*;
-import team.lodestar.lodestone.systems.particle.data.spin.*;
-import team.lodestar.lodestone.systems.particle.render_types.*;
-import team.lodestar.lodestone.systems.particle.screen.*;
+import com.sammy.malum.MalumMod;
+import com.sammy.malum.client.screen.codex.pages.BookPage;
+import com.sammy.malum.client.screen.codex.screens.EntryScreen;
+import com.sammy.malum.registry.client.ScreenParticleRegistry;
+import com.sammy.malum.registry.common.SpiritTypeRegistry;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import team.lodestar.lodestone.handlers.screenparticle.ScreenParticleHandler;
+import team.lodestar.lodestone.registry.common.particle.LodestoneScreenParticleRegistry;
+import team.lodestar.lodestone.systems.particle.SimpleParticleOptions;
+import team.lodestar.lodestone.systems.particle.builder.ScreenParticleBuilder;
+import team.lodestar.lodestone.systems.particle.data.GenericParticleData;
+import team.lodestar.lodestone.systems.particle.data.spin.SpinParticleData;
+import team.lodestar.lodestone.systems.particle.render_types.LodestoneScreenParticleRenderType;
+import team.lodestar.lodestone.systems.particle.screen.ScreenParticleHolder;
 
 import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.*;
 

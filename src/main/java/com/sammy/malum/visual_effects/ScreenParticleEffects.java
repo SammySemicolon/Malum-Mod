@@ -131,7 +131,7 @@ public class ScreenParticleEffects {
             float gameTime = level.getGameTime() + partialTick;
             SpinParticleData spinParticleData = SpinParticleData.createRandomDirection(rand, level.random.nextBoolean() ? 1 : -2).setSpinOffset(0.025f * gameTime % 6.28f).build();
             ScreenParticleBuilder.create(LodestoneScreenParticleRegistry.WISP, target)
-                    .setScaleData(GenericParticleData.create(0, 0.1f*scalar, 0).setEasing(Easing.SINE_IN_OUT).setEasing(Easing.EXPO_OUT).build())
+                    .setScaleData(GenericParticleData.create(0, 0.1f * scalar, 0).setEasing(Easing.SINE_IN_OUT).setEasing(Easing.EXPO_OUT).build())
                     .setTransparencyData(GenericParticleData.create(0f, 0.25f, 0f).setEasing(Easing.SINE_IN_OUT).build())
                     .setColorData(ColorParticleData.create(color, endColor.darker()).setCoefficient(1.25f).build())
                     .setSpinData(spinParticleData)
@@ -189,7 +189,7 @@ public class ScreenParticleEffects {
                 float gameTime = level.getGameTime() + partialTick;
                 SpinParticleData spinParticleData = SpinParticleData.createRandomDirection(rand, level.random.nextBoolean() ? 1 : -2).setSpinOffset(0.025f * gameTime % 6.28f).build();
                 ScreenParticleBuilder.create(LodestoneScreenParticleRegistry.WISP, target)
-                        .setScaleData(GenericParticleData.create(0.1f*scalar, RandomHelper.randomBetween(rand, 0.2f, 0.3f)*scalar, 0).setEasing(Easing.SINE_IN_OUT).setEasing(Easing.EXPO_OUT).build())
+                        .setScaleData(GenericParticleData.create(0.1f * scalar, RandomHelper.randomBetween(rand, 0.2f, 0.3f) * scalar, 0).setEasing(Easing.SINE_IN_OUT).setEasing(Easing.EXPO_OUT).build())
                         .setTransparencyData(GenericParticleData.create(0f, 0.25f, 0f).setEasing(Easing.SINE_IN_OUT).build())
                         .setColorData(ColorParticleData.create(color, endColor.darker()).setCoefficient(1.25f).build())
                         .setSpinData(spinParticleData)
@@ -197,7 +197,7 @@ public class ScreenParticleEffects {
                         .setDiscardFunction(SimpleParticleOptions.ParticleDiscardFunctionType.ENDING_CURVE_INVISIBLE)
                         .spawnOnStack(xOffset, yOffset)
                         .setRenderType(LodestoneScreenParticleRenderType.LUMITRANSPARENT)
-                        .setScaleData(GenericParticleData.create(0.25f*scalar, RandomHelper.randomBetween(rand, 0.3f, 0.4f)*scalar, 0).setEasing(Easing.SINE_IN_OUT).setEasing(Easing.EXPO_OUT).build())
+                        .setScaleData(GenericParticleData.create(0.25f * scalar, RandomHelper.randomBetween(rand, 0.3f, 0.4f) * scalar, 0).setEasing(Easing.SINE_IN_OUT).setEasing(Easing.EXPO_OUT).build())
                         .repeatOnStack(xOffset, yOffset, 2);
             }
         }

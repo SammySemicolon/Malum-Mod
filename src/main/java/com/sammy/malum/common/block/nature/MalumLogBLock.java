@@ -2,7 +2,7 @@ package com.sammy.malum.common.block.nature;
 
 import com.sammy.malum.common.block.curiosities.totem.TotemPoleBlockEntity;
 import com.sammy.malum.common.item.spirit.SpiritShardItem;
-import com.sammy.malum.registry.common.*;
+import com.sammy.malum.registry.common.SpiritTypeRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;

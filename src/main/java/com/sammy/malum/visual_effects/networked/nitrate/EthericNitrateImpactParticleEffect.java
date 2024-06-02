@@ -1,12 +1,8 @@
 package com.sammy.malum.visual_effects.networked.nitrate;
 
-import com.sammy.malum.common.entity.nitrate.*;
-import com.sammy.malum.core.systems.spirit.*;
 import com.sammy.malum.registry.client.*;
 import com.sammy.malum.visual_effects.*;
 import com.sammy.malum.visual_effects.networked.*;
-import com.sammy.malum.visual_effects.networked.data.*;
-import net.minecraft.nbt.*;
 import net.minecraft.util.*;
 import net.minecraft.world.phys.*;
 import net.fabricmc.api.EnvType;
@@ -19,7 +15,6 @@ import team.lodestar.lodestone.systems.particle.builder.*;
 import team.lodestar.lodestone.systems.particle.data.*;
 import team.lodestar.lodestone.systems.particle.data.color.*;
 import team.lodestar.lodestone.systems.particle.data.spin.*;
-import team.lodestar.lodestone.systems.particle.render_types.*;
 
 import java.awt.*;
 import java.util.function.*;
@@ -59,7 +54,7 @@ public class EthericNitrateImpactParticleEffect extends ParticleEffectType {
                     if (velocity.equals(Vec3.ZERO)) {
                         velocity = p.getParticleSpeed();
                     }
-                    p.setParticleMotion(velocity.x, (velocity.y-gravityStrength)*0.98f, velocity.z);
+                    p.setParticleMotion(velocity.x, (velocity.y - gravityStrength) * 0.98f, velocity.z);
                 };
                 boolean star = random.nextFloat() < 0.2f;
                 if (random.nextFloat() < 0.8f) {
@@ -85,8 +80,8 @@ public class EthericNitrateImpactParticleEffect extends ParticleEffectType {
                             .enableForcedSpawn()
                             .addTickActor(slowDown)
                             .setMotion(motion)
-                            .setScaleData(GenericParticleData.create(0.4f*scalar, 0.2f*scalar, 0f).setEasing(Easing.SINE_IN, Easing.QUAD_IN).build())
-                            .setLengthData(GenericParticleData.create(2f*scalar, 0.5f*scalar, 0f).setEasing(Easing.QUARTIC_OUT, Easing.SINE_IN_OUT).build());
+                            .setScaleData(GenericParticleData.create(0.4f * scalar, 0.2f * scalar, 0f).setEasing(Easing.SINE_IN, Easing.QUAD_IN).build())
+                            .setLengthData(GenericParticleData.create(2f * scalar, 0.5f * scalar, 0f).setEasing(Easing.QUARTIC_OUT, Easing.SINE_IN_OUT).build());
                     sparks.getBloomBuilder()
                             .multiplyLifetime(lifetimeMultiplier)
                             .addTickActor(slowDown)

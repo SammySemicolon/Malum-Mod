@@ -1,6 +1,6 @@
 package com.sammy.malum.common.block.curiosities.obelisk.brilliant;
 
-import com.sammy.malum.common.block.curiosities.obelisk.*;
+import com.sammy.malum.common.block.curiosities.obelisk.ObeliskCoreBlockEntity;
 import com.sammy.malum.registry.common.block.BlockEntityRegistry;
 import com.sammy.malum.registry.common.block.BlockRegistry;
 import net.minecraft.core.BlockPos;

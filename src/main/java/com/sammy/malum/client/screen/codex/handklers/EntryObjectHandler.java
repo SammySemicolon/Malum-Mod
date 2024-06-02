@@ -1,8 +1,8 @@
 package com.sammy.malum.client.screen.codex.handklers;
 
-import com.sammy.malum.client.screen.codex.*;
-import com.sammy.malum.client.screen.codex.objects.progression.*;
-import com.sammy.malum.client.screen.codex.screens.*;
+import com.sammy.malum.client.screen.codex.PlacedBookEntry;
+import com.sammy.malum.client.screen.codex.objects.progression.ProgressionEntryObject;
+import com.sammy.malum.client.screen.codex.screens.AbstractProgressionCodexScreen;
 
 public class EntryObjectHandler extends BookObjectHandler<AbstractProgressionCodexScreen> {
     public EntryObjectHandler() {

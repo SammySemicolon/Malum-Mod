@@ -1,0 +1,25 @@
+{
+  "type": "lodestone:nbt_carry",
+  "key": {
+    "#": {
+      "item": "malum:twisted_rock"
+    },
+    "S": {
+      "tag": "c:wooden_rods"
+    },
+    "X": {
+      "item": "malum:ether"
+    }
+  },
+  "nbtCarry": {
+    "item": "malum:ether"
+  },
+  "pattern": [
+    "#X#",
+    "S#S"
+  ],
+  "result": {
+    "count": 2,
+    "item": "malum:twisted_ether_brazier"
+  }
+}

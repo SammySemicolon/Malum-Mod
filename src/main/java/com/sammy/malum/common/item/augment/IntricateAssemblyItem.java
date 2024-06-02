@@ -1,8 +1,8 @@
 package com.sammy.malum.common.item.augment;
 
-import com.sammy.malum.registry.common.*;
+import com.sammy.malum.registry.common.SpiritTypeRegistry;
 
-public class IntricateAssemblyItem extends AbstractAugmentItem{
+public class IntricateAssemblyItem extends AbstractAugmentItem {
     public IntricateAssemblyItem(Properties pProperties) {
         super(pProperties, SpiritTypeRegistry.EARTHEN_SPIRIT);
     }

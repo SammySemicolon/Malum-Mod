@@ -1,55 +1,70 @@
 package com.sammy.malum.registry.common.block;
 
-import com.sammy.malum.*;
 import com.sammy.malum.common.block.blight.*;
-import com.sammy.malum.common.block.curiosities.obelisk.*;
-import com.sammy.malum.common.block.curiosities.obelisk.brilliant.*;
-import com.sammy.malum.common.block.curiosities.obelisk.runewood.*;
-import com.sammy.malum.common.block.curiosities.repair_pylon.*;
-import com.sammy.malum.common.block.curiosities.ritual_plinth.*;
-import com.sammy.malum.common.block.curiosities.runic_workbench.*;
-import com.sammy.malum.common.block.curiosities.spirit_altar.*;
-import com.sammy.malum.common.block.curiosities.spirit_crucible.*;
-import com.sammy.malum.common.block.curiosities.spirit_crucible.catalyzer.*;
-import com.sammy.malum.common.block.curiosities.totem.*;
-import com.sammy.malum.common.block.curiosities.void_depot.*;
-import com.sammy.malum.common.block.curiosities.weavers_workbench.*;
-import com.sammy.malum.common.block.curiosities.weeping_well.*;
+import com.sammy.malum.common.block.curiosities.obelisk.ObeliskComponentBlock;
+import com.sammy.malum.common.block.curiosities.obelisk.brilliant.BrillianceObeliskCoreBlock;
+import com.sammy.malum.common.block.curiosities.obelisk.runewood.RunewoodObeliskCoreBlock;
+import com.sammy.malum.common.block.curiosities.repair_pylon.RepairPylonComponentBlock;
+import com.sammy.malum.common.block.curiosities.repair_pylon.RepairPylonCoreBlock;
+import com.sammy.malum.common.block.curiosities.ritual_plinth.RitualPlinthBlock;
+import com.sammy.malum.common.block.curiosities.runic_workbench.RunicWorkbenchBlock;
+import com.sammy.malum.common.block.curiosities.spirit_altar.SpiritAltarBlock;
+import com.sammy.malum.common.block.curiosities.spirit_crucible.SpiritCrucibleComponentBlock;
+import com.sammy.malum.common.block.curiosities.spirit_crucible.SpiritCrucibleCoreBlock;
+import com.sammy.malum.common.block.curiosities.spirit_crucible.catalyzer.SpiritCatalyzerComponentBlock;
+import com.sammy.malum.common.block.curiosities.spirit_crucible.catalyzer.SpiritCatalyzerCoreBlock;
+import com.sammy.malum.common.block.curiosities.totem.TotemBaseBlock;
+import com.sammy.malum.common.block.curiosities.totem.TotemPoleBlock;
+import com.sammy.malum.common.block.curiosities.void_depot.VoidDepotBlock;
+import com.sammy.malum.common.block.curiosities.weavers_workbench.WeaversWorkbenchBlock;
+import com.sammy.malum.common.block.curiosities.weeping_well.PrimordialSoupBlock;
+import com.sammy.malum.common.block.curiosities.weeping_well.VoidConduitBlock;
+import com.sammy.malum.common.block.curiosities.weeping_well.WeepingWellBlock;
+import com.sammy.malum.common.block.curiosities.weeping_well.WeepingWellPillarBlock;
 import com.sammy.malum.common.block.ether.*;
-import com.sammy.malum.common.block.mana_mote.*;
+import com.sammy.malum.common.block.mana_mote.SoulstoneBlock;
+import com.sammy.malum.common.block.mana_mote.SpiritMoteBlock;
 import com.sammy.malum.common.block.nature.*;
-import com.sammy.malum.common.block.nature.soulwood.*;
-import com.sammy.malum.common.block.storage.jar.*;
-import com.sammy.malum.common.block.storage.pedestal.*;
-import com.sammy.malum.common.block.storage.stand.*;
-import com.sammy.malum.common.block.the_device.*;
-import com.sammy.malum.common.worldgen.tree.grower.*;
-import com.sammy.malum.registry.common.*;
-import com.sammy.malum.registry.common.item.*;
+import com.sammy.malum.common.block.nature.soulwood.SapFilledSoulwoodLogBlock;
+import com.sammy.malum.common.block.nature.soulwood.SoulwoodBlock;
+import com.sammy.malum.common.block.nature.soulwood.SoulwoodGrowthBlock;
+import com.sammy.malum.common.block.nature.soulwood.SoulwoodLogBlock;
+import com.sammy.malum.common.block.storage.jar.SpiritJarBlock;
+import com.sammy.malum.common.block.storage.pedestal.ItemPedestalBlock;
+import com.sammy.malum.common.block.storage.pedestal.WoodItemPedestalBlock;
+import com.sammy.malum.common.block.storage.stand.ItemStandBlock;
+import com.sammy.malum.common.block.the_device.TheDevice;
+import com.sammy.malum.common.block.the_device.TheVessel;
+import com.sammy.malum.common.worldgen.tree.grower.AzureRunewoodTreeGrower;
+import com.sammy.malum.common.worldgen.tree.grower.RunewoodTreeGrower;
+import com.sammy.malum.common.worldgen.tree.grower.SoulwoodTreeGrower;
+import com.sammy.malum.registry.common.SpiritTypeRegistry;
+import com.sammy.malum.registry.common.item.ItemRegistry;
 import io.github.fabricators_of_create.porting_lib.util.LazyRegistrar;
 import io.github.fabricators_of_create.porting_lib.util.RegistryObject;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
-import net.minecraft.client.color.block.*;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.util.*;
-import net.minecraft.util.valueproviders.*;
+import net.minecraft.util.Mth;
+import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.entity.*;
-import net.minecraft.world.level.block.state.properties.*;
-import team.lodestar.lodestone.systems.block.*;
-import team.lodestar.lodestone.systems.block.sign.*;
-import team.lodestar.lodestone.systems.easing.*;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.properties.BlockSetType;
+import team.lodestar.lodestone.systems.block.LodestoneBlockProperties;
+import team.lodestar.lodestone.systems.block.LodestoneDirectionalBlock;
+import team.lodestar.lodestone.systems.block.LodestoneLogBlock;
+import team.lodestar.lodestone.systems.block.sign.LodestoneStandingSignBlock;
+import team.lodestar.lodestone.systems.block.sign.LodestoneWallSignBlock;
+import team.lodestar.lodestone.systems.easing.Easing;
 
 import java.awt.*;
 
-import static com.sammy.malum.MalumMod.*;
+import static com.sammy.malum.MalumMod.MALUM;
 import static com.sammy.malum.registry.common.block.BlockTagRegistry.*;
 import static io.github.fabricators_of_create.porting_lib.tags.Tags.Blocks.FENCE_GATES_WOODEN;
 import static io.github.fabricators_of_create.porting_lib.tags.Tags.Blocks.STORAGE_BLOCKS;
-import static net.minecraft.tags.BlockTags.FENCES;
-import static net.minecraft.tags.BlockTags.FENCE_GATES;
 import static net.minecraft.tags.BlockTags.*;
-import static net.minecraft.world.level.block.PressurePlateBlock.Sensitivity.*;
+import static net.minecraft.world.level.block.PressurePlateBlock.Sensitivity.EVERYTHING;
+import static net.minecraft.world.level.block.PressurePlateBlock.Sensitivity.MOBS;
 
 
 public class BlockRegistry {
@@ -215,12 +230,12 @@ public class BlockRegistry {
     //endregion
 
     //region runewood
-    public static final RegistryObject<Block> RUNEWOOD_SAPLING = BLOCKS.register("runewood_sapling", () -> new MalumSaplingBlock(new RunewoodTreeGrower(), MalumBlockProperties.RUNEWOOD_SAPLING().setCutoutRenderType().randomTicks()));
-    public static final RegistryObject<Block> RUNEWOOD_LEAVES = BLOCKS.register("runewood_leaves", () -> new MalumLeavesBlock(MalumBlockProperties.RUNEWOOD_LEAVES().setCutoutRenderType(), MalumBlockProperties.RUNEWOOD_LEAVES_ORANGE, MalumBlockProperties.RUNEWOOD_LEAVES_YELLOW));
+    public static final RegistryObject<Block> RUNEWOOD_SAPLING = BLOCKS.register("runewood_sapling", () -> new MalumSaplingBlock(new RunewoodTreeGrower(), MalumBlockProperties.RUNEWOOD_SAPLING()));
+    public static final RegistryObject<Block> RUNEWOOD_LEAVES = BLOCKS.register("runewood_leaves", () -> new MalumLeavesBlock(MalumBlockProperties.RUNEWOOD_LEAVES(), MalumBlockProperties.RUNEWOOD_LEAVES_ORANGE, MalumBlockProperties.RUNEWOOD_LEAVES_YELLOW));
     public static final RegistryObject<Block> HANGING_RUNEWOOD_LEAVES = BLOCKS.register("hanging_runewood_leaves", () -> new MalumHangingLeavesBlock(MalumBlockProperties.HANGING_RUNEWOOD_LEAVES().setCutoutRenderType().noOcclusion().noCollission(), MalumBlockProperties.RUNEWOOD_LEAVES_ORANGE, MalumBlockProperties.RUNEWOOD_LEAVES_YELLOW));
 
-    public static final RegistryObject<Block> AZURE_RUNEWOOD_SAPLING = BLOCKS.register("azure_runewood_sapling", () -> new MalumSaplingBlock(new AzureRunewoodTreeGrower(), MalumBlockProperties.RUNEWOOD_SAPLING().setCutoutRenderType().randomTicks()));
-    public static final RegistryObject<Block> AZURE_RUNEWOOD_LEAVES = BLOCKS.register("azure_runewood_leaves", () -> new MalumLeavesBlock(MalumBlockProperties.RUNEWOOD_LEAVES().setCutoutRenderType(), MalumBlockProperties.AZURE_RUNEWOOD_LEAVES_BLUE, MalumBlockProperties.AZURE_RUNEWOOD_LEAVES_CYAN));
+    public static final RegistryObject<Block> AZURE_RUNEWOOD_SAPLING = BLOCKS.register("azure_runewood_sapling", () -> new MalumSaplingBlock(new AzureRunewoodTreeGrower(), MalumBlockProperties.RUNEWOOD_SAPLING()));
+    public static final RegistryObject<Block> AZURE_RUNEWOOD_LEAVES = BLOCKS.register("azure_runewood_leaves", () -> new MalumLeavesBlock(MalumBlockProperties.RUNEWOOD_LEAVES(), MalumBlockProperties.AZURE_RUNEWOOD_LEAVES_BLUE, MalumBlockProperties.AZURE_RUNEWOOD_LEAVES_CYAN));
     public static final RegistryObject<Block> HANGING_AZURE_RUNEWOOD_LEAVES = BLOCKS.register("hanging_azure_runewood_leaves", () -> new MalumHangingLeavesBlock(MalumBlockProperties.HANGING_RUNEWOOD_LEAVES().setCutoutRenderType().noOcclusion().noCollission(), MalumBlockProperties.AZURE_RUNEWOOD_LEAVES_BLUE, MalumBlockProperties.AZURE_RUNEWOOD_LEAVES_CYAN));
 
 
@@ -414,7 +429,7 @@ public class BlockRegistry {
     public static final RegistryObject<Block> BLOCK_OF_ROTTING_ESSENCE = BLOCKS.register("block_of_rotting_essence", () -> new Block(new LodestoneBlockProperties().needsPickaxe().addTags(STORAGE_BLOCKS).strength(1F, 6.0F).sound(SoundType.CORAL_BLOCK)));
     public static final RegistryObject<Block> BLOCK_OF_GRIM_TALC = BLOCKS.register("block_of_grim_talc", () -> new RotatedPillarBlock(LodestoneBlockProperties.copy(Blocks.BONE_BLOCK).needsPickaxe().addTags(STORAGE_BLOCKS)));
     public static final RegistryObject<Block> BLOCK_OF_ASTRAL_WEAVE = BLOCKS.register("block_of_astral_weave", () -> new Block(LodestoneBlockProperties.copy(Blocks.LIGHT_BLUE_WOOL).needsPickaxe().needsHoe().addTags(STORAGE_BLOCKS)));
-//    public static final RegistryObject<Block> BLOCK_OF_WARP_FLUX = BLOCKS.register("block_of_warp_flux", () -> new Block(LodestoneBlockProperties.copy(Blocks.LIGHT_BLUE_WOOL).needsPickaxe().needsHoe().addTags(STORAGE_BLOCKS)));
+    //    public static final RegistryObject<Block> BLOCK_OF_WARP_FLUX = BLOCKS.register("block_of_warp_flux", () -> new Block(LodestoneBlockProperties.copy(Blocks.LIGHT_BLUE_WOOL).needsPickaxe().needsHoe().addTags(STORAGE_BLOCKS)));
     public static final RegistryObject<Block> BLOCK_OF_HEX_ASH = BLOCKS.register("block_of_hex_ash", () -> new Block(LodestoneBlockProperties.copy(Blocks.PURPLE_CONCRETE_POWDER).needsPickaxe().needsHoe().addTags(STORAGE_BLOCKS)));
     public static final RegistryObject<Block> BLOCK_OF_LIVING_FLESH = BLOCKS.register("block_of_living_flesh", () -> new Block(new LodestoneBlockProperties().needsPickaxe().addTags(STORAGE_BLOCKS).strength(1F, 6.0F).sound(SoundType.CORAL_BLOCK)));
     public static final RegistryObject<Block> BLOCK_OF_ALCHEMICAL_CALX = BLOCKS.register("block_of_alchemical_calx", () -> new Block(LodestoneBlockProperties.copy(Blocks.CALCITE).needsPickaxe().addTags(STORAGE_BLOCKS)));

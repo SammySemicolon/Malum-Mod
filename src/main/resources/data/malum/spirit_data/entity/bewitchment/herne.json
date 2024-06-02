@@ -1,0 +1,14 @@
+{
+  "registry_name": "bewitchment:herne",
+  "primary_type": "infernal",
+  "spirits": [
+    {
+      "spirit": "infernal",
+      "count": 4
+    },
+    {
+      "spirit": "wicked",
+      "count": 2
+    }
+  ]
+}

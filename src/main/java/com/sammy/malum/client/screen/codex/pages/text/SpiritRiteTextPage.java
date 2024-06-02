@@ -1,12 +1,12 @@
 package com.sammy.malum.client.screen.codex.pages.text;
 
-import com.sammy.malum.*;
-import com.sammy.malum.client.screen.codex.pages.*;
-import com.sammy.malum.client.screen.codex.screens.*;
-import com.sammy.malum.common.spiritrite.*;
-import net.minecraft.client.*;
-import net.minecraft.client.gui.*;
-import net.minecraft.network.chat.*;
+import com.sammy.malum.MalumMod;
+import com.sammy.malum.client.screen.codex.pages.BookPage;
+import com.sammy.malum.client.screen.codex.screens.EntryScreen;
+import com.sammy.malum.common.spiritrite.TotemicRiteType;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.network.chat.Component;
 
 import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.*;
 
@@ -38,7 +38,7 @@ public class SpiritRiteTextPage extends BookPage {
         final int riteIconY = top + 38;
         renderRiteIcon(riteType, guiGraphics.pose(), isCorrupted(), 0.4f, riteIconX, riteIconY);
         if (screen.isHovering(mouseX, mouseY, riteIconX, riteIconY, 16, 16)) {
-            screen.renderLate(()->guiGraphics.renderComponentTooltip(Minecraft.getInstance().font, riteType.makeDetailedDescriptor(isCorrupted()), mouseX, mouseY));
+            screen.renderLate(() -> guiGraphics.renderComponentTooltip(Minecraft.getInstance().font, riteType.makeDetailedDescriptor(isCorrupted()), mouseX, mouseY));
         }
     }
 

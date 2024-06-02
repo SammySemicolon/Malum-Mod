@@ -5,8 +5,8 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.components.MalumComponents;
-import com.sammy.malum.config.CommonConfig;
 import com.sammy.malum.common.item.IMalumEventResponderItem;
+import com.sammy.malum.config.CommonConfig;
 import com.sammy.malum.registry.common.AttributeRegistry;
 import com.sammy.malum.registry.common.SoundRegistry;
 import io.github.fabricators_of_create.porting_lib.entity.events.living.LivingHurtEvent;
@@ -15,7 +15,8 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.sounds.*;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
@@ -24,12 +25,10 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import org.joml.Vector4f;
 import team.lodestar.lodestone.helpers.ItemHelper;
-import team.lodestar.lodestone.registry.client.*;
-import team.lodestar.lodestone.registry.common.tag.*;
+import team.lodestar.lodestone.registry.client.LodestoneShaderRegistry;
+import team.lodestar.lodestone.registry.common.tag.LodestoneDamageTypeTags;
 import team.lodestar.lodestone.systems.rendering.VFXBuilders;
 import team.lodestar.lodestone.systems.rendering.shader.ExtendedShaderInstance;
-
-import java.awt.*;
 
 
 public class SoulWardHandler {
@@ -95,7 +94,7 @@ public class SoulWardHandler {
                     }
                     float result = amount * multiplier;
                     float absorbed = amount - result;
-                    double strength = 1+player.getAttributeValue(AttributeRegistry.SOUL_WARD_STRENGTH.get());
+                    double strength = 1 + player.getAttributeValue(AttributeRegistry.SOUL_WARD_STRENGTH.get());
                     float soulwardLost = (float) (soulWardHandler.soulWard - (absorbed / strength));
                     if (strength != 0) {
                         soulWardHandler.soulWard = Math.max(0, soulwardLost);
@@ -131,7 +130,6 @@ public class SoulWardHandler {
         double exponent = 1 + (Math.pow(recoverySpeed * 0.25f + 1, 1 - n) - 1) / (1 - n);
         return (int) (baseValue * (1 / exponent));
     }
-
 
 
     public static class ClientOnly {

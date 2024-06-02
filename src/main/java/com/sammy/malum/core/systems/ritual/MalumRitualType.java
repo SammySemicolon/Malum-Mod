@@ -1,20 +1,19 @@
 package com.sammy.malum.core.systems.ritual;
 
-import com.sammy.malum.common.block.curiosities.ritual_plinth.*;
-import com.sammy.malum.common.item.spirit.*;
-import com.sammy.malum.core.systems.spirit.*;
-import net.minecraft.*;
-import net.minecraft.nbt.*;
-import net.minecraft.network.chat.*;
-import net.minecraft.resources.*;
+import com.sammy.malum.common.block.curiosities.ritual_plinth.RitualPlinthBlockEntity;
+import com.sammy.malum.common.item.spirit.RitualShardItem;
+import com.sammy.malum.core.systems.spirit.MalumSpiritType;
+import net.minecraft.ChatFormatting;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.*;
-import team.lodestar.lodestone.helpers.*;
+import net.minecraft.world.item.ItemStack;
 
-import java.util.*;
-import java.util.function.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class MalumRitualType {
     public final MalumSpiritType spirit;
@@ -30,6 +29,7 @@ public abstract class MalumRitualType {
     public InteractionResult onUsePlinth(RitualPlinthBlockEntity ritualPlinth, Player player, InteractionHand hand) {
         return InteractionResult.PASS;
     }
+
     public boolean isItemStackValid(RitualPlinthBlockEntity ritualPlinth, ItemStack stack) {
         return false;
     }

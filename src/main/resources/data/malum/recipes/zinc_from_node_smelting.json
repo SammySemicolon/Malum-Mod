@@ -1,0 +1,35 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:tags_populated",
+      "values": [
+        "c:ingots/zinc"
+      ]
+    }
+  ],
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "forge:not",
+          "value": {
+            "type": "forge:tag_empty",
+            "tag": "forge:nuggets/zinc"
+          }
+        }
+      ],
+      "recipe": {
+        "type": "malum:node_smelting",
+        "cookingtime": 200,
+        "experience": 0.25,
+        "ingredient": {
+          "item": "malum:zinc_node"
+        },
+        "result": {
+          "count": 6,
+          "tag": "c:nuggets/zinc"
+        }
+      }
+    }
+  ]
+}

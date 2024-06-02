@@ -1,11 +1,11 @@
 package com.sammy.malum.common.block.curiosities.spirit_crucible;
 
-import com.sammy.malum.common.item.augment.*;
-import com.sammy.malum.core.systems.spirit.*;
-import net.minecraft.resources.*;
-import net.minecraft.world.item.*;
+import com.sammy.malum.common.item.augment.AbstractAugmentItem;
+import com.sammy.malum.core.systems.spirit.MalumSpiritType;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
 
-import java.util.*;
+import java.util.Optional;
 
 public interface ICrucibleAccelerator {
     CrucibleAcceleratorType getAcceleratorType();

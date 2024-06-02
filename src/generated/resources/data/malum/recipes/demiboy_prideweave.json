@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "malum:esoteric_spool"
+    },
+    {
+      "item": "minecraft:raw_iron"
+    }
+  ],
+  "result": {
+    "item": "malum:demiboy_prideweave"
+  }
+}

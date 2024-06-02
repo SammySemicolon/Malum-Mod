@@ -4,20 +4,23 @@ import com.sammy.malum.common.container.WeaversWorkbenchContainer;
 import com.sammy.malum.common.packets.particle.curiosities.blight.BlightTransformItemParticlePacket;
 import com.sammy.malum.registry.common.SoundRegistry;
 import com.sammy.malum.registry.common.block.BlockEntityRegistry;
+import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.MenuProvider;
-import net.minecraft.world.SimpleMenuProvider;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import team.lodestar.lodestone.helpers.BlockHelper;
 import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntity;
 
@@ -39,8 +42,24 @@ public class WeaversWorkbenchBlockEntity extends LodestoneBlockEntity {
     @Override
     public InteractionResult onUse(Player player, InteractionHand hand) {
         if (player instanceof ServerPlayer serverPlayer) {
-            MenuProvider container = new SimpleMenuProvider((w, p, pl) -> new WeaversWorkbenchContainer(w, p, this), WeaversWorkbenchContainer.component);
-            //TODO NetworkHooks.openScreen(serverPlayer, container, buf -> buf.writeBlockPos(this.getBlockPos()));
+            var be = this;
+            serverPlayer.openMenu(new ExtendedScreenHandlerFactory() {
+                @Override
+                public void writeScreenOpeningData(ServerPlayer player, FriendlyByteBuf buf) {
+                    buf.writeBlockPos(getBlockPos());
+                }
+
+                @Override
+                public Component getDisplayName() {
+                    return WeaversWorkbenchContainer.component;
+                }
+
+                @Nullable
+                @Override
+                public AbstractContainerMenu createMenu(int i, Inventory inventory, Player player) {
+                    return new WeaversWorkbenchContainer(i, inventory, be);
+                }
+            });
         }
         return InteractionResult.SUCCESS;
     }

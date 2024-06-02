@@ -1,0 +1,14 @@
+{
+  "registry_name": "bewitchment:snake",
+  "primary_type": "earthen",
+  "spirits": [
+    {
+      "spirit": "sacred",
+      "count": 1
+    },
+    {
+      "spirit": "earthen",
+      "count": 1
+    }
+  ]
+}

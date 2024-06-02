@@ -1,7 +1,9 @@
 package com.sammy.malum.registry.common;
 
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.common.packets.*;
+import com.sammy.malum.common.packets.ParticleEffectPacket;
+import com.sammy.malum.common.packets.SyncStaffCooldownChangesPacket;
+import com.sammy.malum.common.packets.VoidRejectionPacket;
 import com.sammy.malum.common.packets.particle.curiosities.blight.BlightMistParticlePacket;
 import com.sammy.malum.common.packets.particle.curiosities.blight.BlightTransformItemParticlePacket;
 import com.sammy.malum.common.packets.particle.curiosities.rite.*;

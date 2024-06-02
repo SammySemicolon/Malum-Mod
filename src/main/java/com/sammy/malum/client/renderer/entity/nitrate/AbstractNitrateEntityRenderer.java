@@ -1,21 +1,22 @@
 package com.sammy.malum.client.renderer.entity.nitrate;
 
-import com.mojang.blaze3d.vertex.*;
-import com.sammy.malum.client.*;
-import com.sammy.malum.common.entity.nitrate.*;
-import net.minecraft.client.renderer.*;
-import net.minecraft.client.renderer.entity.*;
-import net.minecraft.client.renderer.texture.*;
-import net.minecraft.resources.*;
-import team.lodestar.lodestone.registry.client.*;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.sammy.malum.client.RenderUtils;
+import com.sammy.malum.common.entity.nitrate.AbstractNitrateEntity;
+import com.sammy.malum.registry.client.MalumRenderTypeTokens;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.entity.EntityRenderer;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.texture.TextureAtlas;
+import net.minecraft.resources.ResourceLocation;
+import team.lodestar.lodestone.registry.client.LodestoneRenderTypeRegistry;
 import team.lodestar.lodestone.systems.rendering.VFXBuilders;
-import team.lodestar.lodestone.systems.rendering.rendeertype.RenderTypeToken;
 
 import java.awt.*;
-import java.util.function.*;
+import java.util.function.Function;
 
-import static com.sammy.malum.MalumMod.*;
-import static com.sammy.malum.client.renderer.entity.FloatingItemEntityRenderer.*;
+import static com.sammy.malum.client.renderer.entity.FloatingItemEntityRenderer.renderSpiritGlimmer;
 
 public class AbstractNitrateEntityRenderer<T extends AbstractNitrateEntity> extends EntityRenderer<T> {
     public final Function<Float, Color> primaryColor;
@@ -33,8 +34,7 @@ public class AbstractNitrateEntityRenderer<T extends AbstractNitrateEntity> exte
         this(context, f -> primaryColor, f -> secondaryColor);
     }
 
-    private static final ResourceLocation LIGHT_TRAIL = malumPath("textures/vfx/concentrated_trail.png");
-    private static final RenderType TRAIL_TYPE = LodestoneRenderTypeRegistry.ADDITIVE_TEXTURE_TRIANGLE.applyAndCache(RenderTypeToken.createToken(LIGHT_TRAIL));
+    private static final RenderType TRAIL_TYPE = LodestoneRenderTypeRegistry.ADDITIVE_TEXTURE_TRIANGLE.apply(MalumRenderTypeTokens.CONCENTRATED_TRAIL);
 
     @Override
     public void render(T entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int packedLightIn) {

@@ -1,19 +1,20 @@
 package com.sammy.malum.common.sound;
 
-import com.sammy.malum.*;
-import com.sammy.malum.registry.common.*;
-import net.minecraft.client.*;
-import net.minecraft.client.multiplayer.*;
-import net.minecraft.client.resources.sounds.*;
-import net.minecraft.core.*;
-import net.minecraft.sounds.*;
-import net.minecraft.world.entity.player.*;
-import net.minecraft.world.level.*;
+import com.sammy.malum.MalumMod;
+import com.sammy.malum.registry.common.SoundRegistry;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import team.lodestar.lodestone.systems.sound.*;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.MultiPlayerGameMode;
+import net.minecraft.client.resources.sounds.SimpleSoundInstance;
+import net.minecraft.core.BlockPos;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import team.lodestar.lodestone.systems.sound.ExtendedSoundType;
 
-import java.util.function.*;
+import java.util.function.Supplier;
 
 public class RareEarthSoundType extends ExtendedSoundType {
     public RareEarthSoundType(float volumeIn, float pitchIn, Supplier<SoundEvent> breakSoundIn, Supplier<SoundEvent> stepSoundIn, Supplier<SoundEvent> placeSoundIn, Supplier<SoundEvent> hitSoundIn, Supplier<SoundEvent> fallSoundIn) {

@@ -1,14 +1,14 @@
 package com.sammy.malum.client.screen.codex.objects.progression;
 
-import com.sammy.malum.client.screen.codex.*;
-import com.sammy.malum.client.screen.codex.pages.text.*;
-import com.sammy.malum.client.screen.codex.screens.*;
-import com.sammy.malum.core.systems.ritual.*;
-import net.minecraft.client.gui.*;
+import com.sammy.malum.client.screen.codex.BookEntry;
+import com.sammy.malum.client.screen.codex.pages.text.SpiritRitualTextPage;
+import com.sammy.malum.client.screen.codex.screens.AbstractProgressionCodexScreen;
+import com.sammy.malum.core.systems.ritual.MalumRitualType;
+import net.minecraft.client.gui.GuiGraphics;
 
-import java.util.*;
+import java.util.Optional;
 
-import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.*;
+import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.renderRitualIcon;
 
 public class RitualEntryObject extends ProgressionEntryObject {
     public final MalumRitualType ritualType;

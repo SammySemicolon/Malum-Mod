@@ -1,12 +1,11 @@
 package com.sammy.malum.data.item;
 
 import com.sammy.malum.common.item.cosmetic.skins.ArmorSkin;
-import com.sammy.malum.common.item.spirit.*;
-import com.sammy.malum.core.systems.ritual.*;
+import com.sammy.malum.common.item.spirit.RitualShardItem;
+import com.sammy.malum.core.systems.ritual.MalumRitualTier;
 import com.sammy.malum.registry.common.item.ArmorSkinRegistry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
-
 import team.lodestar.lodestone.helpers.DataHelper;
 import team.lodestar.lodestone.systems.datagen.itemsmith.ItemModelSmith;
 import team.lodestar.lodestone.systems.item.LodestoneArmorItem;

@@ -2,16 +2,17 @@ package com.sammy.malum.common.block.storage.jar;
 
 import com.sammy.malum.common.item.curiosities.SpiritPouchItem;
 import com.sammy.malum.common.item.spirit.SpiritShardItem;
-import com.sammy.malum.core.handlers.*;
+import com.sammy.malum.core.handlers.SpiritHarvestHandler;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import com.sammy.malum.registry.common.block.BlockEntityRegistry;
 import com.sammy.malum.visual_effects.SpiritLightSpecs;
 import io.github.fabricators_of_create.porting_lib.transfer.item.ItemStackHandler;
 import io.github.fabricators_of_create.porting_lib.util.LazyOptional;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -22,11 +23,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import org.jetbrains.annotations.NotNull;
 import team.lodestar.lodestone.helpers.BlockHelper;
-import team.lodestar.lodestone.registry.common.particle.*;
+import team.lodestar.lodestone.registry.common.particle.LodestoneParticleRegistry;
 import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntity;
 import team.lodestar.lodestone.systems.container.ItemInventory;
 import team.lodestar.lodestone.systems.particle.builder.WorldParticleBuilder;
@@ -34,7 +33,6 @@ import team.lodestar.lodestone.systems.particle.data.GenericParticleData;
 import team.lodestar.lodestone.systems.particle.data.color.ColorParticleData;
 import team.lodestar.lodestone.systems.particle.data.spin.SpinParticleData;
 
-import org.jetbrains.annotations.NotNull;
 import java.awt.*;
 import java.util.UUID;
 
@@ -55,7 +53,7 @@ public class SpiritJarBlockEntity extends LodestoneBlockEntity {
     private long lastClickTime;
     private UUID lastClickUUID;
 
-    private final LazyOptional<ItemStackHandler> inventory = LazyOptional.of(() -> new ItemStackHandler() {
+    public final LazyOptional<ItemStackHandler> inventory = LazyOptional.of(() -> new ItemStackHandler() {
         @Override
         public int getSlotCount() {
             return 2;
@@ -84,32 +82,6 @@ public class SpiritJarBlockEntity extends LodestoneBlockEntity {
             return super.insertSlot(slot, resource, maxAmount, transaction);
         }
 
-        /*TODO
-
-        @NotNull
-        @Override
-        public ItemStack extractItem(int slot, int amount, boolean simulate) {
-            if (slot != 0 || count <= 0)
-                return ItemStack.EMPTY;
-            MalumSpiritType extractedType = type;
-            if (extractedType == null)
-                return ItemStack.EMPTY;
-
-            int amountToExtract = Math.min(count, amount);
-            if (!simulate) {
-                count -= amountToExtract;
-                if (count == 0) {
-                    type = null;
-                }
-                if (!level.isClientSide) {
-                    BlockHelper.updateAndNotifyState(level, worldPosition);
-                }
-            }
-
-            return new ItemStack(extractedType.spiritShard.get(), amountToExtract);
-        }
-
-         */
 
         @Override
         public int getSlotLimit(int slot) {
@@ -125,16 +97,36 @@ public class SpiritJarBlockEntity extends LodestoneBlockEntity {
     });
 
 
+    public ItemStack extractItem(int slot, int amount) {
+        if (slot != 0 || count <= 0)
+            return ItemStack.EMPTY;
+        MalumSpiritType extractedType = type;
+        if (extractedType == null)
+            return ItemStack.EMPTY;
+
+        int amountToExtract = Math.min(count, amount);
+        count -= amountToExtract;
+        if (count == 0) {
+            type = null;
+        }
+        if (!level.isClientSide) {
+            BlockHelper.updateAndNotifyState(level, worldPosition);
+        }
+
+        return new ItemStack(extractedType.spiritShard.get(), amountToExtract);
+    }
+
     @Override
     public InteractionResult onUse(Player player, InteractionHand hand) {
         if (getLevel() == null)
             return InteractionResult.PASS;
 
         int count;
-        if (getLevel().getGameTime() - lastClickTime < 10 && player.getUUID().equals(lastClickUUID))
+        if (getLevel().getGameTime() - lastClickTime < 10 && player.getUUID().equals(lastClickUUID)) {
             count = insertAllSpirits(player);
-        else
+        } else {
             count = insertHeldItem(player);
+        }
 
         lastClickTime = getLevel().getGameTime();
         lastClickUUID = player.getUUID();

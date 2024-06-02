@@ -8,7 +8,6 @@ import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
@@ -32,8 +31,6 @@ public class ReboundEnchantment extends Enchantment {
             if (!level.isClientSide) {
                 player.setItemInHand(interactionHand, ItemStack.EMPTY);
                 float baseDamage = (float) player.getAttributes().getValue(Attributes.ATTACK_DAMAGE);
-                player.getAttributes().getSyncableAttributes().stream().forEach(attributeInstance -> System.out.println(attributeInstance.getAttribute().getDescriptionId()));
-                System.out.println("Attributes: ");
                 float magicDamage = (float) player.getAttributes().getValue(LodestoneAttributeRegistry.MAGIC_DAMAGE.get());
 
                 int slot = interactionHand == InteractionHand.OFF_HAND ? player.getInventory().getContainerSize() - 1 : player.getInventory().selected;

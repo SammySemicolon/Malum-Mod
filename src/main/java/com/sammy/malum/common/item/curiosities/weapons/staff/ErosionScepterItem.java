@@ -1,30 +1,37 @@
 package com.sammy.malum.common.item.curiosities.weapons.staff;
 
-import com.sammy.malum.common.entity.bolt.*;
-import com.sammy.malum.registry.client.*;
-import com.sammy.malum.registry.common.*;
+import com.sammy.malum.common.entity.bolt.AbstractBoltProjectileEntity;
+import com.sammy.malum.common.entity.bolt.DrainingBoltEntity;
+import com.sammy.malum.registry.client.ParticleRegistry;
+import com.sammy.malum.registry.common.MobEffectRegistry;
+import com.sammy.malum.registry.common.SoundRegistry;
 import io.github.fabricators_of_create.porting_lib.entity.events.living.LivingHurtEvent;
-import net.minecraft.util.*;
-import net.minecraft.world.*;
-import net.minecraft.world.effect.*;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.item.*;
-import net.minecraft.world.level.*;
-import net.minecraft.world.phys.*;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import team.lodestar.lodestone.helpers.*;
-import team.lodestar.lodestone.systems.easing.*;
-import team.lodestar.lodestone.systems.particle.builder.*;
-import team.lodestar.lodestone.systems.particle.data.*;
-import team.lodestar.lodestone.systems.particle.data.color.*;
-import team.lodestar.lodestone.systems.particle.data.spin.*;
-import team.lodestar.lodestone.systems.particle.render_types.*;
+import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Tier;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
+import team.lodestar.lodestone.helpers.EntityHelper;
+import team.lodestar.lodestone.helpers.RandomHelper;
+import team.lodestar.lodestone.registry.common.LodestoneAttributeRegistry;
+import team.lodestar.lodestone.registry.common.tag.LodestoneDamageTypeTags;
+import team.lodestar.lodestone.systems.easing.Easing;
+import team.lodestar.lodestone.systems.particle.builder.DirectionalParticleBuilder;
+import team.lodestar.lodestone.systems.particle.data.GenericParticleData;
+import team.lodestar.lodestone.systems.particle.data.color.ColorParticleData;
+import team.lodestar.lodestone.systems.particle.data.spin.SpinParticleData;
+import team.lodestar.lodestone.systems.particle.render_types.LodestoneWorldParticleRenderType;
 
 import java.awt.*;
 
 public class ErosionScepterItem extends AbstractStaffItem {
-
 
     public static final Color MALIGNANT_PURPLE = new Color(68, 11, 61);
     public static final Color MALIGNANT_BLACK = new Color(12, 4, 11);
@@ -36,7 +43,7 @@ public class ErosionScepterItem extends AbstractStaffItem {
 
     @Override
     public void hurtEvent(LivingHurtEvent event, LivingEntity attacker, LivingEntity target, ItemStack stack) {
-        if (!(event.getSource().getDirectEntity() instanceof AbstractBoltProjectileEntity)) {
+        if (!(event.getSource().getDirectEntity() instanceof AbstractBoltProjectileEntity) && !event.getSource().is(LodestoneDamageTypeTags.IS_MAGIC)) {
             MobEffect silenced = MobEffectRegistry.SILENCED.get();
             MobEffectInstance effect = target.getEffect(silenced);
             if (effect == null) {
@@ -63,8 +70,9 @@ public class ErosionScepterItem extends AbstractStaffItem {
     @Override
     public void fireProjectile(LivingEntity player, ItemStack stack, Level level, InteractionHand hand, float chargePercentage, int count) {
         int spawnDelay = count * 5;
+        float pitchOffset = count * 3f;
         float velocity = 4f;
-        float magicDamage = 2.4f;
+        float magicDamage = (float) player.getAttributes().getValue(LodestoneAttributeRegistry.MAGIC_DAMAGE.get()) * 0.3f;
         Vec3 pos = getProjectileSpawnPos(player, hand, 0.5f, 0.5f);
         for (int i = 0; i < 4; i++) {
             float xSpread = RandomHelper.randomBetween(level.random, -0.125f, 0.125f);
@@ -76,7 +84,7 @@ public class ErosionScepterItem extends AbstractStaffItem {
             entity.setData(player, magicDamage, spawnDelay);
             entity.setItem(stack);
 
-            entity.shootFromRotation(player, player.getXRot(), player.getYRot(), 0, velocity, 0F);
+            entity.shootFromRotation(player, player.getXRot(), player.getYRot(), -pitchOffset, velocity, 0F);
 
             Vec3 projectileDirection = entity.getDeltaMovement();
             float yRot = ((float) (Mth.atan2(projectileDirection.x, projectileDirection.z) * (double) (180F / (float) Math.PI)));

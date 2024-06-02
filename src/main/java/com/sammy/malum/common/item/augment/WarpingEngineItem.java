@@ -1,8 +1,8 @@
 package com.sammy.malum.common.item.augment;
 
-import com.sammy.malum.registry.common.*;
+import com.sammy.malum.registry.common.SpiritTypeRegistry;
 
-public class WarpingEngineItem extends AbstractAugmentItem{
+public class WarpingEngineItem extends AbstractAugmentItem {
     public WarpingEngineItem(Properties pProperties) {
         super(pProperties, SpiritTypeRegistry.ELDRITCH_SPIRIT);
     }

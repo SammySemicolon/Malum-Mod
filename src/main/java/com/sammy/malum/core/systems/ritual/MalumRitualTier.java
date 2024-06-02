@@ -1,9 +1,10 @@
 package com.sammy.malum.core.systems.ritual;
 
-import com.sammy.malum.common.block.curiosities.ritual_plinth.*;
-import net.minecraft.resources.*;
+import com.sammy.malum.common.block.curiosities.ritual_plinth.RitualPlinthBlockEntity;
+import net.minecraft.resources.ResourceLocation;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.sammy.malum.MalumMod.malumPath;
 
@@ -51,6 +52,6 @@ public class MalumRitualTier {
 
     public static MalumRitualTier figureOutTier(int spiritAmount) {
         final List<MalumRitualTier> collect = TIERS.stream().filter(t -> (spiritAmount) >= t.spiritThreshold).toList();
-        return collect.isEmpty() ? null : collect.get(collect.size()-1);
+        return collect.isEmpty() ? null : collect.get(collect.size() - 1);
     }
 }

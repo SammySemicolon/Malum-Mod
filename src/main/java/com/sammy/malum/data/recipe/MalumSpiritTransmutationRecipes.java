@@ -1,14 +1,14 @@
 package com.sammy.malum.data.recipe;
 
-import com.mojang.datafixers.util.*;
-import com.sammy.malum.data.recipe.builder.*;
+import com.mojang.datafixers.util.Pair;
+import com.sammy.malum.data.recipe.builder.SpiritTransmutationRecipeBuilder;
 import io.github.fabricators_of_create.porting_lib.util.RegistryObject;
-import net.minecraft.data.recipes.*;
-import net.minecraft.world.level.block.*;
+import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 
-
-import java.util.*;
-import java.util.function.*;
+import java.util.List;
+import java.util.function.Consumer;
 
 import static com.sammy.malum.registry.common.block.BlockRegistry.*;
 

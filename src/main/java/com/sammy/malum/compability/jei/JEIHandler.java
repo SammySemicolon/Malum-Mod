@@ -19,7 +19,10 @@ import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.helpers.IJeiHelpers;
-import mezz.jei.api.recipe.*;
+import mezz.jei.api.recipe.IFocusFactory;
+import mezz.jei.api.recipe.IRecipeManager;
+import mezz.jei.api.recipe.RecipeIngredientRole;
+import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
@@ -95,16 +98,16 @@ public class JEIHandler implements IModPlugin {
                     .map(SpiritTransmutationWrapper::new)
                     .collect(Collectors.toList()));
             registry.addRecipes(TRANSMUTATION, leftovers.stream()
-                .filter(it -> !it.output.isEmpty() && !it.ingredient.isEmpty())
-                .map(List::of)
+                    .filter(it -> !it.output.isEmpty() && !it.ingredient.isEmpty())
+                    .map(List::of)
                     .map(SpiritTransmutationWrapper::new)
                     .collect(Collectors.toList()));
 
             registry.addRecipes(FOCUSING, SpiritFocusingRecipe.getRecipes(level).stream()
-                .filter(it -> !it.output.isEmpty()).collect(Collectors.toList()));
+                    .filter(it -> !it.output.isEmpty()).collect(Collectors.toList()));
             registry.addRecipes(RITES, SpiritRiteRegistry.RITES);
             registry.addRecipes(SPIRIT_REPAIR, SpiritRepairRecipe.getRecipes(level).stream()
-                .filter(it -> !it.inputs.isEmpty()).collect(Collectors.toList()));
+                    .filter(it -> !it.inputs.isEmpty()).collect(Collectors.toList()));
             if (FarmersDelightCompat.LOADED) {
                 FarmersDelightCompat.LoadedOnly.addInfo(registry);
             }

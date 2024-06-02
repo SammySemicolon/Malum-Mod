@@ -3,7 +3,7 @@ package com.sammy.malum.client.renderer.item;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.sammy.malum.common.block.storage.jar.SpiritJarBlockEntity;
 import com.sammy.malum.common.item.spirit.SpiritJarItem;
-import com.sammy.malum.core.handlers.*;
+import com.sammy.malum.core.handlers.SpiritHarvestHandler;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import com.sammy.malum.registry.common.block.BlockRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;

@@ -38,11 +38,11 @@ public class SpiritInfusionRecipeCategory implements IRecipeCategory<SpiritInfus
     @Override
     public void draw(SpiritInfusionRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
         overlay.draw(guiGraphics);
-        int spiritOffset = recipe.spirits.size() > 5 ? (recipe.spirits.size()-5)*10 : 0;
-        ArcanaCodexHelper.renderItemFrames(guiGraphics.pose(), recipe.spirits.size(), 19, 48+spiritOffset, true);
+        int spiritOffset = recipe.spirits.size() > 5 ? (recipe.spirits.size() - 5) * 10 : 0;
+        ArcanaCodexHelper.renderItemFrames(guiGraphics.pose(), recipe.spirits.size(), 19, 48 + spiritOffset, true);
         if (!recipe.extraItems.isEmpty()) {
-            int itemOffset = recipe.extraItems.size() > 5 ? (recipe.extraItems.size()-5)*10 : 0;
-            ArcanaCodexHelper.renderItemFrames(guiGraphics.pose(), recipe.extraItems.size(), 103, 48+itemOffset, true);
+            int itemOffset = recipe.extraItems.size() > 5 ? (recipe.extraItems.size() - 5) * 10 : 0;
+            ArcanaCodexHelper.renderItemFrames(guiGraphics.pose(), recipe.extraItems.size(), 103, 48 + itemOffset, true);
         }
     }
 
@@ -71,10 +71,10 @@ public class SpiritInfusionRecipeCategory implements IRecipeCategory<SpiritInfus
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, SpiritInfusionRecipe recipe, IFocusGroup focuses) {
-        int spiritOffset = recipe.spirits.size() > 5 ? (recipe.spirits.size()-5)*10 : 0;
-        int itemOffset = recipe.extraItems.size() > 5 ? (recipe.extraItems.size()-5)*10 : 0;
-        JEIHandler.addItemsToJei(builder, RecipeIngredientRole.INPUT, 20, 49+spiritOffset, true, recipe.spirits);
-        JEIHandler.addItemsToJei(builder, RecipeIngredientRole.INPUT, 104, 49+itemOffset, true, recipe.extraItems);
+        int spiritOffset = recipe.spirits.size() > 5 ? (recipe.spirits.size() - 5) * 10 : 0;
+        int itemOffset = recipe.extraItems.size() > 5 ? (recipe.extraItems.size() - 5) * 10 : 0;
+        JEIHandler.addItemsToJei(builder, RecipeIngredientRole.INPUT, 20, 49 + spiritOffset, true, recipe.spirits);
+        JEIHandler.addItemsToJei(builder, RecipeIngredientRole.INPUT, 104, 49 + itemOffset, true, recipe.extraItems);
 
         builder.addSlot(RecipeIngredientRole.INPUT, 63, 57)
                 .addItemStacks(recipe.input.getStacks());

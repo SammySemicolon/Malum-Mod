@@ -1,20 +1,27 @@
 package com.sammy.malum.common.recipe;
 
-import com.google.gson.*;
-import com.sammy.malum.core.systems.recipe.*;
-import com.sammy.malum.registry.common.recipe.*;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.sammy.malum.core.systems.recipe.SpiritWithCount;
+import com.sammy.malum.registry.common.recipe.RecipeSerializerRegistry;
+import com.sammy.malum.registry.common.recipe.RecipeTypeRegistry;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.network.*;
-import net.minecraft.resources.*;
-import net.minecraft.world.item.*;
-import net.minecraft.world.item.crafting.*;
-import net.minecraft.world.level.*;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
-import team.lodestar.lodestone.systems.recipe.*;
+import team.lodestar.lodestone.systems.recipe.IngredientWithCount;
 
-import java.util.*;
-import java.util.function.*;
-import java.util.stream.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class SpiritRepairRecipe extends AbstractSpiritListMalumRecipe {
     public static final String NAME = "spirit_repair";

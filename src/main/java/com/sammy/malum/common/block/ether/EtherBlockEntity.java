@@ -1,30 +1,34 @@
 package com.sammy.malum.common.block.ether;
 
-import com.sammy.malum.common.item.ether.*;
-import com.sammy.malum.registry.client.*;
-import com.sammy.malum.registry.common.block.*;
-import com.sammy.malum.visual_effects.*;
-import net.minecraft.core.*;
-import net.minecraft.nbt.*;
-import net.minecraft.util.*;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.player.*;
-import net.minecraft.world.item.*;
-import net.minecraft.world.level.*;
-import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.entity.*;
-import net.minecraft.world.level.block.state.*;
-import net.minecraft.world.phys.*;
-import team.lodestar.lodestone.handlers.*;
-import team.lodestar.lodestone.helpers.*;
-import team.lodestar.lodestone.registry.common.particle.*;
-import team.lodestar.lodestone.systems.blockentity.*;
-import team.lodestar.lodestone.systems.easing.*;
-import team.lodestar.lodestone.systems.particle.*;
-import team.lodestar.lodestone.systems.particle.builder.*;
-import team.lodestar.lodestone.systems.particle.data.*;
-import team.lodestar.lodestone.systems.particle.data.color.*;
-import team.lodestar.lodestone.systems.particle.data.spin.*;
+import com.sammy.malum.common.item.ether.AbstractEtherItem;
+import com.sammy.malum.common.item.ether.EtherItem;
+import com.sammy.malum.registry.client.ParticleRegistry;
+import com.sammy.malum.registry.common.block.BlockEntityRegistry;
+import com.sammy.malum.visual_effects.SpiritLightSpecs;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.WallTorchBlock;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
+import team.lodestar.lodestone.handlers.RenderHandler;
+import team.lodestar.lodestone.helpers.BlockHelper;
+import team.lodestar.lodestone.helpers.ColorHelper;
+import team.lodestar.lodestone.helpers.RandomHelper;
+import team.lodestar.lodestone.registry.common.particle.LodestoneParticleRegistry;
+import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntity;
+import team.lodestar.lodestone.systems.easing.Easing;
+import team.lodestar.lodestone.systems.particle.SimpleParticleOptions;
+import team.lodestar.lodestone.systems.particle.builder.WorldParticleBuilder;
+import team.lodestar.lodestone.systems.particle.data.GenericParticleData;
+import team.lodestar.lodestone.systems.particle.data.color.ColorParticleData;
+import team.lodestar.lodestone.systems.particle.data.spin.SpinParticleData;
 
 import java.awt.*;
 
@@ -172,7 +176,7 @@ public class EtherBlockEntity extends LodestoneBlockEntity {
                 float velocity = RandomHelper.randomBetween(random, 0f, 0.02f);
                 float angle = ((gameTime % 24) / 24f) * (float) Math.PI * 2f;
                 Vec3 offset = new Vec3(Math.sin(angle), 0, Math.cos(angle)).normalize();
-                Vec3 offsetPosition = new Vec3(x + offset.x * 0.075f, y-0.05f, z + offset.z * 0.075f);
+                Vec3 offsetPosition = new Vec3(x + offset.x * 0.075f, y - 0.05f, z + offset.z * 0.075f);
                 WorldParticleBuilder.create(ParticleRegistry.SPIRIT_FLAME_PARTICLE)
                         .setRenderTarget(RenderHandler.LATE_DELAYED_RENDER)
                         .setScaleData(GenericParticleData.create(scale * 0.75f, scale, 0).build())

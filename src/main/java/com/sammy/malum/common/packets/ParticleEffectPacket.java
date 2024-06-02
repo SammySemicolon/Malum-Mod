@@ -6,13 +6,13 @@ import com.sammy.malum.visual_effects.networked.data.ColorEffectData;
 import com.sammy.malum.visual_effects.networked.data.NBTEffectData;
 import com.sammy.malum.visual_effects.networked.data.PositionEffectData;
 import me.pepperbell.simplenetworking.SimpleChannel;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.network.FriendlyByteBuf;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import org.jetbrains.annotations.Nullable;
 import team.lodestar.lodestone.systems.network.LodestoneClientPacket;
 

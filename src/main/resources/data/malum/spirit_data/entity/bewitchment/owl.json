@@ -1,0 +1,14 @@
+{
+  "registry_name": "bewitchment:owl",
+  "primary_type": "aerial",
+  "spirits": [
+    {
+      "spirit": "sacred",
+      "count": 1
+    },
+    {
+      "spirit": "aerial",
+      "count": 2
+    }
+  ]
+}

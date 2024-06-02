@@ -1,16 +1,19 @@
 package com.sammy.malum.common.enchantment;
 
-import com.sammy.malum.common.item.curiosities.weapons.staff.*;
-import com.sammy.malum.common.packets.*;
-import com.sammy.malum.registry.common.item.*;
-import net.minecraft.server.level.*;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.player.*;
-import net.minecraft.world.item.*;
-import net.minecraft.world.item.enchantment.*;
+import com.sammy.malum.common.item.curiosities.weapons.staff.AbstractStaffItem;
+import com.sammy.malum.common.packets.SyncStaffCooldownChangesPacket;
+import com.sammy.malum.registry.common.item.EnchantmentRegistry;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemCooldowns;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 
-
-import java.util.*;
+import java.util.Map;
 
 import static com.sammy.malum.registry.common.PacketRegistry.MALUM_CHANNEL;
 
@@ -38,11 +41,11 @@ public class ReplenishingEnchantment extends Enchantment {
     public static void replenishStaffCooldown(AbstractStaffItem staff, Player player, int pLevel) {
         ItemCooldowns cooldowns = player.getCooldowns();
         int ratio = (int) (staff.getCooldownDuration(player.level(), player) * (0.25f * pLevel));
-        cooldowns.tickCount+=ratio;
+        cooldowns.tickCount += ratio;
         for (Map.Entry<Item, ItemCooldowns.CooldownInstance> itemCooldownInstanceEntry : cooldowns.cooldowns.entrySet()) {
             if (itemCooldownInstanceEntry.getKey().equals(staff)) continue;
             ItemCooldowns.CooldownInstance value = itemCooldownInstanceEntry.getValue();
-            ItemCooldowns.CooldownInstance cooldownInstance = new ItemCooldowns.CooldownInstance(value.startTime+ratio, value.endTime+ratio);
+            ItemCooldowns.CooldownInstance cooldownInstance = new ItemCooldowns.CooldownInstance(value.startTime + ratio, value.endTime + ratio);
             cooldowns.cooldowns.put(itemCooldownInstanceEntry.getKey(), cooldownInstance);
         }
     }

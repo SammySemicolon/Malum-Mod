@@ -3,7 +3,7 @@ package com.sammy.malum.visual_effects.networked.data;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.phys.*;
+import net.minecraft.world.phys.Vec3;
 
 public class PositionEffectData {
 
@@ -22,6 +22,7 @@ public class PositionEffectData {
     public PositionEffectData(Entity entity) {
         this(entity.getX(), entity.getY() + entity.getBbHeight() / 2f, entity.getZ());
     }
+
     public PositionEffectData(Vec3 pos) {
         this(pos.x, pos.y, pos.z);
     }

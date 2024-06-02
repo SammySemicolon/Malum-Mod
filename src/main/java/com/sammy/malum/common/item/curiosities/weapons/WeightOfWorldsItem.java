@@ -1,17 +1,20 @@
 package com.sammy.malum.common.item.curiosities.weapons;
 
-import com.sammy.malum.common.item.curiosities.weapons.scythe.*;
-import com.sammy.malum.registry.client.*;
-import com.sammy.malum.registry.common.*;
+import com.sammy.malum.common.item.curiosities.weapons.scythe.MalumScytheItem;
+import com.sammy.malum.registry.client.ParticleRegistry;
+import com.sammy.malum.registry.common.MobEffectRegistry;
+import com.sammy.malum.registry.common.SoundRegistry;
 import io.github.fabricators_of_create.porting_lib.entity.events.living.LivingHurtEvent;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.effect.*;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.player.*;
-import net.minecraft.world.item.*;
-import net.minecraft.world.level.*;
-import team.lodestar.lodestone.systems.item.*;
-import team.lodestar.lodestone.systems.item.tools.*;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Tier;
+import net.minecraft.world.level.Level;
+import team.lodestar.lodestone.systems.item.IEventResponderItem;
+import team.lodestar.lodestone.systems.item.tools.LodestoneAxeItem;
 
 public class WeightOfWorldsItem extends LodestoneAxeItem implements IEventResponderItem {
     public WeightOfWorldsItem(Tier material, int attackDamage, float attackSpeed, Properties properties) {
@@ -33,7 +36,7 @@ public class WeightOfWorldsItem extends LodestoneAxeItem implements IEventRespon
             level.playSound(null, target.getX(), target.getY(), target.getZ(), SoundRegistry.WEIGHT_OF_WORLDS_SLASH.get(), attacker.getSoundSource(), 1, 0.5f);
             final MobEffect effect = MobEffectRegistry.GRIM_CERTAINTY.get();
             if (attacker.hasEffect(effect) || level.random.nextFloat() < 0.25f) {
-                event.setAmount(event.getAmount()*2);
+                event.setAmount(event.getAmount() * 2);
                 level.playSound(null, target.getX(), target.getY(), target.getZ(), SoundRegistry.MALIGNANT_METAL_RESONATES.get(), attacker.getSoundSource(), 2, 0.5f);
                 level.playSound(null, target.getX(), target.getY(), target.getZ(), SoundRegistry.MALIGNANT_METAL_RESONATES.get(), attacker.getSoundSource(), 2, 1.5f);
                 level.playSound(null, target.getX(), target.getY(), target.getZ(), SoundRegistry.DRAINING_MOTIF.get(), attacker.getSoundSource(), 2, 0.5f);

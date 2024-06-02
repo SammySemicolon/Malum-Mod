@@ -1,17 +1,24 @@
 package com.sammy.malum.common.worldgen.ore;
 
-import com.sammy.malum.registry.common.block.*;
-import net.minecraft.core.*;
-import net.minecraft.util.*;
-import net.minecraft.world.level.*;
-import net.minecraft.world.level.block.state.*;
-import net.minecraft.world.level.block.state.properties.*;
-import net.minecraft.world.level.chunk.*;
-import net.minecraft.world.level.levelgen.feature.configurations.*;
+import com.sammy.malum.registry.common.block.BlockRegistry;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.SectionPos;
+import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.chunk.BulkSectionAccess;
+import net.minecraft.world.level.chunk.LevelChunkSection;
+import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.BitSet;
+import java.util.Collections;
+import java.util.List;
 
-public class CthonicGoldOreFeature extends LayeredOreFeature{
+public class CthonicGoldOreFeature extends LayeredOreFeature {
     public CthonicGoldOreFeature() {
         super(OreConfiguration.CODEC);
     }
@@ -100,8 +107,7 @@ public class CthonicGoldOreFeature extends LayeredOreFeature{
                                                                 if (isCthonicGold) {
                                                                     cthonicGoldPlacements.add(
                                                                             () -> section.setBlockState(x, y, z, oreconfiguration$targetblockstate.state, false));
-                                                                }
-                                                                else {
+                                                                } else {
                                                                     section.setBlockState(x, y, z, oreconfiguration$targetblockstate.state, false);
                                                                 }
                                                                 for (Direction direction : Direction.values()) {

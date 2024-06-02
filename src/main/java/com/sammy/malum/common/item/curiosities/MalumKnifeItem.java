@@ -1,10 +1,12 @@
 package com.sammy.malum.common.item.curiosities;
 
-import com.google.common.collect.*;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.attributes.*;
-import net.minecraft.world.item.*;
-import vectorwing.farmersdelight.common.item.*;
+import com.google.common.collect.ImmutableMultimap;
+import com.google.common.collect.Multimap;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.item.Tier;
+import vectorwing.farmersdelight.common.item.KnifeItem;
 
 public class MalumKnifeItem extends KnifeItem {
     private Multimap<Attribute, AttributeModifier> attributes;

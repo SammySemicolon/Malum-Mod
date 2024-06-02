@@ -1,20 +1,21 @@
 package com.sammy.malum.data;
 
-import com.sammy.malum.MalumMod;
 import com.sammy.malum.data.block.MalumBlockLootTables;
 import com.sammy.malum.data.block.MalumBlockStates;
 import com.sammy.malum.data.block.MalumBlockTags;
 import com.sammy.malum.data.item.MalumItemModels;
 import com.sammy.malum.data.item.MalumItemTags;
-import com.sammy.malum.data.recipe.*;
-import com.sammy.malum.data.worldgen.*;
+import com.sammy.malum.data.recipe.MalumRecipes;
+import com.sammy.malum.data.worldgen.BiomeModifications;
+import com.sammy.malum.data.worldgen.ConfiguredFeatures;
+import com.sammy.malum.data.worldgen.PlacedFeatures;
+import com.sammy.malum.data.worldgen.WorldgenRegistryDataGenerator;
 import com.sammy.malum.registry.common.DamageTypeRegistry;
 import io.github.fabricators_of_create.porting_lib.data.ExistingFileHelper;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
-import org.apache.http.config.RegistryBuilder;
 
 public class DataGenerators implements DataGeneratorEntrypoint {
 

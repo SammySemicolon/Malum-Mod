@@ -1,14 +1,17 @@
 package com.sammy.malum.common.block.curiosities.spirit_crucible;
 
-import com.sammy.malum.common.item.augment.*;
-import com.sammy.malum.core.systems.spirit.*;
+import com.sammy.malum.common.item.augment.AbstractAugmentItem;
+import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.*;
+import net.minecraft.world.phys.Vec3;
 
-import java.util.*;
-import java.util.stream.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public interface ICatalyzerAccelerationTarget {
 

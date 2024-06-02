@@ -8,7 +8,7 @@ import net.minecraft.world.entity.player.Player;
 
 public class MalumPlayerDataComponent implements AutoSyncedComponent {
 
-    private Player player;
+    private final Player player;
     public SoulWardHandler soulWardHandler = new SoulWardHandler();
     public ReserveStaffChargeHandler reserveStaffChargeHandler = new ReserveStaffChargeHandler();
 

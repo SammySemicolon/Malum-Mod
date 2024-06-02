@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "malum:hallowed_gold_ingot"
+    },
+    "X": {
+      "tag": "c:leather"
+    }
+  },
+  "pattern": [
+    "#X ",
+    "X X",
+    " X "
+  ],
+  "result": {
+    "item": "malum:gilded_ring"
+  },
+  "show_notification": true
+}

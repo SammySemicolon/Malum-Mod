@@ -1,77 +1,114 @@
 package com.sammy.malum.registry.common.item;
 
-import com.sammy.malum.*;
-import com.sammy.malum.client.renderer.curio.*;
-import com.sammy.malum.common.block.curiosities.obelisk.brilliant.*;
-import com.sammy.malum.common.block.curiosities.obelisk.runewood.*;
-import com.sammy.malum.common.block.curiosities.repair_pylon.*;
-import com.sammy.malum.common.block.curiosities.spirit_crucible.*;
-import com.sammy.malum.common.block.curiosities.spirit_crucible.catalyzer.*;
-import com.sammy.malum.common.block.nature.*;
+import com.sammy.malum.MalumMod;
+import com.sammy.malum.common.block.curiosities.obelisk.brilliant.BrilliantObeliskBlockEntity;
+import com.sammy.malum.common.block.curiosities.obelisk.runewood.RunewoodObeliskBlockEntity;
+import com.sammy.malum.common.block.curiosities.repair_pylon.RepairPylonCoreBlockEntity;
+import com.sammy.malum.common.block.curiosities.spirit_crucible.SpiritCrucibleCoreBlockEntity;
+import com.sammy.malum.common.block.curiosities.spirit_crucible.catalyzer.SpiritCatalyzerCoreBlockEntity;
+import com.sammy.malum.common.block.nature.MalumLeavesBlock;
 import com.sammy.malum.common.item.augment.*;
-import com.sammy.malum.common.item.augment.core.*;
-import com.sammy.malum.common.item.codex.*;
-import com.sammy.malum.common.item.cosmetic.curios.*;
-import com.sammy.malum.common.item.cosmetic.skins.*;
-import com.sammy.malum.common.item.cosmetic.weaves.*;
-import com.sammy.malum.common.item.curiosities.*;
-import com.sammy.malum.common.item.curiosities.armor.*;
-import com.sammy.malum.common.item.curiosities.curios.*;
-import com.sammy.malum.common.item.curiosities.curios.brooches.*;
-import com.sammy.malum.common.item.curiosities.curios.runes.*;
-import com.sammy.malum.common.item.curiosities.curios.runes.madness.*;
-import com.sammy.malum.common.item.curiosities.curios.runes.miracle.*;
-import com.sammy.malum.common.item.curiosities.curios.sets.alchemical.*;
-import com.sammy.malum.common.item.curiosities.curios.sets.misc.*;
-import com.sammy.malum.common.item.curiosities.curios.sets.prospector.*;
-import com.sammy.malum.common.item.curiosities.curios.sets.rotten.*;
-import com.sammy.malum.common.item.curiosities.curios.sets.soulward.*;
-import com.sammy.malum.common.item.curiosities.curios.sets.spirit.*;
-import com.sammy.malum.common.item.curiosities.curios.sets.weeping.*;
-import com.sammy.malum.common.item.curiosities.nitrate.*;
-import com.sammy.malum.common.item.curiosities.tools.*;
-import com.sammy.malum.common.item.curiosities.weapons.*;
-import com.sammy.malum.common.item.curiosities.weapons.scythe.*;
-import com.sammy.malum.common.item.curiosities.weapons.staff.*;
-import com.sammy.malum.common.item.ether.*;
-import com.sammy.malum.common.item.food.*;
-import com.sammy.malum.common.item.impetus.*;
+import com.sammy.malum.common.item.augment.core.StellarMechanismItem;
+import com.sammy.malum.common.item.codex.EncyclopediaArcanaItem;
+import com.sammy.malum.common.item.codex.EncyclopediaEsotericaItem;
+import com.sammy.malum.common.item.cosmetic.curios.CurioTokenOfGratitude;
+import com.sammy.malum.common.item.cosmetic.curios.CurioTopHat;
+import com.sammy.malum.common.item.cosmetic.skins.ArmorSkin;
+import com.sammy.malum.common.item.cosmetic.weaves.GenericWeaveItem;
+import com.sammy.malum.common.item.cosmetic.weaves.PrideweaveItem;
+import com.sammy.malum.common.item.curiosities.SpiritPouchItem;
+import com.sammy.malum.common.item.curiosities.armor.MalignantStrongholdArmorItem;
+import com.sammy.malum.common.item.curiosities.armor.SoulHunterArmorItem;
+import com.sammy.malum.common.item.curiosities.armor.SoulStainedSteelArmorItem;
+import com.sammy.malum.common.item.curiosities.trinkets.TrinketsGildedBelt;
+import com.sammy.malum.common.item.curiosities.trinkets.TrinketsGildedRing;
+import com.sammy.malum.common.item.curiosities.trinkets.TrinketsOrnateNecklace;
+import com.sammy.malum.common.item.curiosities.trinkets.TrinketsOrnateRing;
+import com.sammy.malum.common.item.curiosities.trinkets.brooches.CurioElaborateBrooch;
+import com.sammy.malum.common.item.curiosities.trinkets.brooches.CurioGlassBrooch;
+import com.sammy.malum.common.item.curiosities.trinkets.brooches.CurioGluttonousBrooch;
+import com.sammy.malum.common.item.curiosities.trinkets.brooches.CurioRunicBrooch;
+import com.sammy.malum.common.item.curiosities.trinkets.runes.AbstractRuneTrinketsItem;
+import com.sammy.malum.common.item.curiosities.trinkets.runes.TotemicRuneTrinketsItem;
+import com.sammy.malum.common.item.curiosities.trinkets.runes.madness.*;
+import com.sammy.malum.common.item.curiosities.trinkets.runes.miracle.*;
+import com.sammy.malum.common.item.curiosities.trinkets.sets.alchemical.TrinketsAlchemicalRing;
+import com.sammy.malum.common.item.curiosities.trinkets.sets.alchemical.TrinketsCurativeRing;
+import com.sammy.malum.common.item.curiosities.trinkets.sets.alchemical.TrinketsRingOfProwess;
+import com.sammy.malum.common.item.curiosities.trinkets.sets.misc.TrinketsHarmonyNecklace;
+import com.sammy.malum.common.item.curiosities.trinkets.sets.misc.TrinketsNarrowNecklace;
+import com.sammy.malum.common.item.curiosities.trinkets.sets.misc.TrinketsWaterNecklace;
+import com.sammy.malum.common.item.curiosities.trinkets.sets.prospector.TrinketsDemolitionistRing;
+import com.sammy.malum.common.item.curiosities.trinkets.sets.prospector.TrinketsHoarderRing;
+import com.sammy.malum.common.item.curiosities.trinkets.sets.prospector.TrinketsProspectorBelt;
+import com.sammy.malum.common.item.curiosities.trinkets.sets.rotten.TrinketsStarvedBelt;
+import com.sammy.malum.common.item.curiosities.trinkets.sets.rotten.TrinketsVoraciousRing;
+import com.sammy.malum.common.item.curiosities.trinkets.sets.soulward.TrinketsMagebaneBelt;
+import com.sammy.malum.common.item.curiosities.trinkets.sets.spirit.TrinketsArcaneSpoilRing;
+import com.sammy.malum.common.item.curiosities.trinkets.sets.spirit.TrinketsMirrorNecklace;
+import com.sammy.malum.common.item.curiosities.trinkets.sets.weeping.*;
+import com.sammy.malum.common.item.curiosities.nitrate.EthericNitrateItem;
+import com.sammy.malum.common.item.curiosities.nitrate.VividNitrateItem;
+import com.sammy.malum.common.item.curiosities.tools.TotemicStaffItem;
+import com.sammy.malum.common.item.curiosities.weapons.TyrvingItem;
+import com.sammy.malum.common.item.curiosities.weapons.WeightOfWorldsItem;
+import com.sammy.malum.common.item.curiosities.weapons.scythe.MagicScytheItem;
+import com.sammy.malum.common.item.curiosities.weapons.scythe.MalumScytheItem;
+import com.sammy.malum.common.item.curiosities.weapons.staff.AuricFlameStaffItem;
+import com.sammy.malum.common.item.curiosities.weapons.staff.ErosionScepterItem;
+import com.sammy.malum.common.item.curiosities.weapons.staff.HexStaffItem;
+import com.sammy.malum.common.item.ether.AbstractEtherItem;
+import com.sammy.malum.common.item.ether.EtherBrazierItem;
+import com.sammy.malum.common.item.ether.EtherItem;
+import com.sammy.malum.common.item.ether.EtherTorchItem;
+import com.sammy.malum.common.item.food.DrinkableSapItem;
+import com.sammy.malum.common.item.impetus.CrackedImpetusItem;
+import com.sammy.malum.common.item.impetus.ImpetusItem;
+import com.sammy.malum.common.item.impetus.NodeItem;
 import com.sammy.malum.common.item.misc.*;
-import com.sammy.malum.common.item.spirit.*;
-import com.sammy.malum.compability.farmersdelight.*;
-import com.sammy.malum.core.systems.ritual.*;
-import com.sammy.malum.core.systems.spirit.*;
-import com.sammy.malum.registry.client.HiddenTagRegistry;
-import com.sammy.malum.registry.common.*;
-import com.sammy.malum.registry.common.block.*;
-import com.sammy.malum.registry.common.entity.*;
-import com.sammy.malum.registry.common.item.tabs.*;
+import com.sammy.malum.common.item.spirit.RitualShardItem;
+import com.sammy.malum.common.item.spirit.SpiritJarItem;
+import com.sammy.malum.common.item.spirit.SpiritShardItem;
+import com.sammy.malum.common.item.spirit.UmbralSpiritShardItem;
+import com.sammy.malum.compability.farmersdelight.FarmersDelightCompat;
+import com.sammy.malum.core.systems.ritual.MalumRitualTier;
+import com.sammy.malum.core.systems.spirit.MalumSpiritType;
+import com.sammy.malum.registry.common.SpiritRiteRegistry;
+import com.sammy.malum.registry.common.SpiritTypeRegistry;
+import com.sammy.malum.registry.common.block.BlockRegistry;
+import com.sammy.malum.registry.common.entity.EntityRegistry;
+import com.sammy.malum.registry.common.item.tabs.CreativeTabRegistry;
 import io.github.fabricators_of_create.porting_lib.util.LazyRegistrar;
 import io.github.fabricators_of_create.porting_lib.util.RegistryObject;
-import it.unimi.dsi.fastutil.objects.ReferenceOpenHashSet;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
-import net.minecraft.client.color.item.*;
-import net.minecraft.client.renderer.item.*;
+import net.minecraft.client.renderer.item.ClampedItemPropertyFunction;
+import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.nbt.*;
-import net.minecraft.resources.*;
-import net.minecraft.world.effect.*;
-import net.minecraft.world.food.*;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
-import net.minecraft.world.level.block.*;
-import team.lodestar.lodestone.helpers.*;
-import team.lodestar.lodestone.systems.item.*;
+import net.minecraft.world.level.block.ComposterBlock;
+import team.lodestar.lodestone.helpers.ColorHelper;
+import team.lodestar.lodestone.helpers.DataHelper;
+import team.lodestar.lodestone.systems.item.LodestoneArmorItem;
+import team.lodestar.lodestone.systems.item.LodestoneBoatItem;
+import team.lodestar.lodestone.systems.item.LodestoneFuelBlockItem;
+import team.lodestar.lodestone.systems.item.LodestoneFuelItem;
 import team.lodestar.lodestone.systems.item.tools.magic.*;
-import team.lodestar.lodestone.systems.multiblock.*;
+import team.lodestar.lodestone.systems.multiblock.MultiBlockItem;
 
 import java.awt.*;
 import java.util.List;
 import java.util.*;
-import java.util.function.*;
-import java.util.stream.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
-import static com.sammy.malum.MalumMod.*;
+import static com.sammy.malum.MalumMod.MALUM;
 import static com.sammy.malum.registry.common.item.ItemTiers.ItemTierEnum.*;
 import static net.minecraft.world.item.Rarity.*;
 
@@ -465,7 +502,7 @@ public class ItemRegistry {
     public static final RegistryObject<Item> BLOCK_OF_ASTRAL_WEAVE = register("block_of_astral_weave", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BLOCK_OF_ASTRAL_WEAVE.get(), p));
     public static final RegistryObject<Item> ASTRAL_WEAVE = register("astral_weave", DEFAULT_PROPERTIES(), Item::new);
 
-//    public static final RegistryObject<Item> BLOCK_OF_WARP_FLUX = register("block_of_warp_flux", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BLOCK_OF_WARP_FLUX.get(), p));
+    //    public static final RegistryObject<Item> BLOCK_OF_WARP_FLUX = register("block_of_warp_flux", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BLOCK_OF_WARP_FLUX.get(), p));
     public static final RegistryObject<Item> WARP_FLUX = register("warp_flux", DEFAULT_PROPERTIES(), Item::new);
 
     public static final RegistryObject<Item> BLOCK_OF_HEX_ASH = register("block_of_hex_ash", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BLOCK_OF_HEX_ASH.get(), p));
@@ -477,7 +514,7 @@ public class ItemRegistry {
     public static final RegistryObject<Item> BLOCK_OF_ALCHEMICAL_CALX = register("block_of_alchemical_calx", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BLOCK_OF_ALCHEMICAL_CALX.get(), p));
     public static final RegistryObject<Item> ALCHEMICAL_CALX = register("alchemical_calx", DEFAULT_PROPERTIES(), Item::new);
 
-//    public static final RegistryObject<Item> BLOCK_OF_CALCIFIED_BLIGHT = register("block_of_calcified_blight", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BLOCK_OF_CALCIFIED_BLIGHT.get(), p));
+    //    public static final RegistryObject<Item> BLOCK_OF_CALCIFIED_BLIGHT = register("block_of_calcified_blight", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BLOCK_OF_CALCIFIED_BLIGHT.get(), p));
     public static final RegistryObject<Item> CALCIFIED_BLIGHT = register("calcified_blight", DEFAULT_PROPERTIES(), (p) -> new CalcifiedBlightItem(BlockRegistry.CALCIFIED_BLIGHT.get(), p));
 
     public static final RegistryObject<Item> BLOCK_OF_NULL_SLATE = register("block_of_null_slate", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BLOCK_OF_NULL_SLATE.get(), p));
@@ -633,14 +670,14 @@ public class ItemRegistry {
     public static final RegistryObject<Item> RUNE_OF_REACTIVE_SHIELDING = register("rune_of_reactive_shielding", GEAR_PROPERTIES(), RuneReactiveShieldingItem::new);
     public static final RegistryObject<Item> RUNE_OF_FERVOR = register("rune_of_fervor", GEAR_PROPERTIES(), RuneFervorItem::new);
 
-    public static final RegistryObject<Item> RUNE_OF_MOTION = register("rune_of_motion", GEAR_PROPERTIES(), p -> new TotemicRuneCurioItem(p, SpiritRiteRegistry.AERIAL_RITE, false));
-    public static final RegistryObject<Item> RUNE_OF_LOYALTY = register("rune_of_loyalty", GEAR_PROPERTIES(), p -> new TotemicRuneCurioItem(p, SpiritRiteRegistry.AQUEOUS_RITE, false));
-    public static final RegistryObject<Item> RUNE_OF_WARDING = register("rune_of_warding", GEAR_PROPERTIES(), p -> new TotemicRuneCurioItem(p, SpiritRiteRegistry.EARTHEN_RITE, false));
-    public static final RegistryObject<Item> RUNE_OF_HASTE = register("rune_of_haste", GEAR_PROPERTIES(), p -> new TotemicRuneCurioItem(p, SpiritRiteRegistry.INFERNAL_RITE, false));
-    public static final RegistryObject<Item> RUNE_OF_THE_AETHER = register("rune_of_the_aether", GEAR_PROPERTIES(), p -> new TotemicRuneCurioItem(p, SpiritRiteRegistry.AERIAL_RITE, true));
-    public static final RegistryObject<Item> RUNE_OF_THE_SEAS = register("rune_of_the_seas", GEAR_PROPERTIES(), p -> new TotemicRuneCurioItem(p, SpiritRiteRegistry.AQUEOUS_RITE, true));
-    public static final RegistryObject<Item> RUNE_OF_THE_ARENA = register("rune_of_the_arena", GEAR_PROPERTIES(), p -> new TotemicRuneCurioItem(p, SpiritRiteRegistry.EARTHEN_RITE, true));
-    public static final RegistryObject<Item> RUNE_OF_THE_HELLS = register("rune_of_the_hells", GEAR_PROPERTIES(), p -> new TotemicRuneCurioItem(p, SpiritRiteRegistry.INFERNAL_RITE, true, 10));
+    public static final RegistryObject<Item> RUNE_OF_MOTION = register("rune_of_motion", GEAR_PROPERTIES(), p -> new TotemicRuneTrinketsItem(p, SpiritRiteRegistry.AERIAL_RITE, false));
+    public static final RegistryObject<Item> RUNE_OF_LOYALTY = register("rune_of_loyalty", GEAR_PROPERTIES(), p -> new TotemicRuneTrinketsItem(p, SpiritRiteRegistry.AQUEOUS_RITE, false));
+    public static final RegistryObject<Item> RUNE_OF_WARDING = register("rune_of_warding", GEAR_PROPERTIES(), p -> new TotemicRuneTrinketsItem(p, SpiritRiteRegistry.EARTHEN_RITE, false));
+    public static final RegistryObject<Item> RUNE_OF_HASTE = register("rune_of_haste", GEAR_PROPERTIES(), p -> new TotemicRuneTrinketsItem(p, SpiritRiteRegistry.INFERNAL_RITE, false));
+    public static final RegistryObject<Item> RUNE_OF_THE_AETHER = register("rune_of_the_aether", GEAR_PROPERTIES(), p -> new TotemicRuneTrinketsItem(p, SpiritRiteRegistry.AERIAL_RITE, true));
+    public static final RegistryObject<Item> RUNE_OF_THE_SEAS = register("rune_of_the_seas", GEAR_PROPERTIES(), p -> new TotemicRuneTrinketsItem(p, SpiritRiteRegistry.AQUEOUS_RITE, true));
+    public static final RegistryObject<Item> RUNE_OF_THE_ARENA = register("rune_of_the_arena", GEAR_PROPERTIES(), p -> new TotemicRuneTrinketsItem(p, SpiritRiteRegistry.EARTHEN_RITE, true));
+    public static final RegistryObject<Item> RUNE_OF_THE_HELLS = register("rune_of_the_hells", GEAR_PROPERTIES(), p -> new TotemicRuneTrinketsItem(p, SpiritRiteRegistry.INFERNAL_RITE, true, 10));
 
     public static final RegistryObject<Item> RUNE_OF_BOLSTERING = register("rune_of_bolstering", GEAR_PROPERTIES(), RuneBolsteringItem::new);
     public static final RegistryObject<Item> RUNE_OF_SACRIFICIAL_EMPOWERMENT = register("rune_of_sacrificial_empowerment", GEAR_PROPERTIES(), RuneSacrificialEmpowermentItem::new);
@@ -651,39 +688,39 @@ public class ItemRegistry {
     public static final RegistryObject<Item> RUNE_OF_TOUGHNESS = register("rune_of_toughness", GEAR_PROPERTIES(), RuneToughnessItem::new);
     public static final RegistryObject<Item> RUNE_OF_IGNEOUS_SOLACE = register("rune_of_igneous_solace", GEAR_PROPERTIES(), RuneIgneousSolaceItem::new);
 
-    public static final RegistryObject<Item> GILDED_RING = register("gilded_ring", GEAR_PROPERTIES(), CurioGildedRing::new);
-    public static final RegistryObject<Item> GILDED_BELT = register("gilded_belt", GEAR_PROPERTIES(), CurioGildedBelt::new);
-    public static final RegistryObject<Item> ORNATE_RING = register("ornate_ring", GEAR_PROPERTIES(), CurioOrnateRing::new);
-    public static final RegistryObject<Item> ORNATE_NECKLACE = register("ornate_necklace", GEAR_PROPERTIES(), CurioOrnateNecklace::new);
+    public static final RegistryObject<Item> GILDED_RING = register("gilded_ring", GEAR_PROPERTIES(), TrinketsGildedRing::new);
+    public static final RegistryObject<Item> GILDED_BELT = register("gilded_belt", GEAR_PROPERTIES(), TrinketsGildedBelt::new);
+    public static final RegistryObject<Item> ORNATE_RING = register("ornate_ring", GEAR_PROPERTIES(), TrinketsOrnateRing::new);
+    public static final RegistryObject<Item> ORNATE_NECKLACE = register("ornate_necklace", GEAR_PROPERTIES(), TrinketsOrnateNecklace::new);
 
     public static final RegistryObject<Item> RUNIC_BROOCH = register("runic_brooch", GEAR_PROPERTIES(), CurioRunicBrooch::new);
     public static final RegistryObject<Item> ELABORATE_BROOCH = register("elaborate_brooch", GEAR_PROPERTIES(), CurioElaborateBrooch::new);
     public static final RegistryObject<Item> GLASS_BROOCH = register("glass_brooch", GEAR_PROPERTIES(), CurioGlassBrooch::new);
     public static final RegistryObject<Item> GLUTTONOUS_BROOCH = register("gluttonous_brooch", GEAR_PROPERTIES(), CurioGluttonousBrooch::new);
 
-    public static final RegistryObject<Item> RING_OF_ESOTERIC_SPOILS = register("ring_of_esoteric_spoils", GEAR_PROPERTIES(), CurioArcaneSpoilRing::new);
-    public static final RegistryObject<Item> RING_OF_CURATIVE_TALENT = register("ring_of_curative_talent", GEAR_PROPERTIES(), CurioCurativeRing::new);
-    public static final RegistryObject<Item> RING_OF_ARCANE_PROWESS = register("ring_of_arcane_prowess", GEAR_PROPERTIES(), CurioRingOfProwess::new);
-    public static final RegistryObject<Item> RING_OF_ALCHEMICAL_MASTERY = register("ring_of_alchemical_mastery", GEAR_PROPERTIES(), CurioAlchemicalRing::new);
-    public static final RegistryObject<Item> RING_OF_DESPERATE_VORACITY = register("ring_of_desperate_voracity", GEAR_PROPERTIES(), CurioVoraciousRing::new);
-    public static final RegistryObject<Item> RING_OF_THE_HOARDER = register("ring_of_the_hoarder", GEAR_PROPERTIES(), CurioHoarderRing::new);
-    public static final RegistryObject<Item> RING_OF_THE_DEMOLITIONIST = register("ring_of_the_demolitionist", GEAR_PROPERTIES(), CurioDemolitionistRing::new);
+    public static final RegistryObject<Item> RING_OF_ESOTERIC_SPOILS = register("ring_of_esoteric_spoils", GEAR_PROPERTIES(), TrinketsArcaneSpoilRing::new);
+    public static final RegistryObject<Item> RING_OF_CURATIVE_TALENT = register("ring_of_curative_talent", GEAR_PROPERTIES(), TrinketsCurativeRing::new);
+    public static final RegistryObject<Item> RING_OF_ARCANE_PROWESS = register("ring_of_arcane_prowess", GEAR_PROPERTIES(), TrinketsRingOfProwess::new);
+    public static final RegistryObject<Item> RING_OF_ALCHEMICAL_MASTERY = register("ring_of_alchemical_mastery", GEAR_PROPERTIES(), TrinketsAlchemicalRing::new);
+    public static final RegistryObject<Item> RING_OF_DESPERATE_VORACITY = register("ring_of_desperate_voracity", GEAR_PROPERTIES(), TrinketsVoraciousRing::new);
+    public static final RegistryObject<Item> RING_OF_THE_HOARDER = register("ring_of_the_hoarder", GEAR_PROPERTIES(), TrinketsHoarderRing::new);
+    public static final RegistryObject<Item> RING_OF_THE_DEMOLITIONIST = register("ring_of_the_demolitionist", GEAR_PROPERTIES(), TrinketsDemolitionistRing::new);
 
-    public static final RegistryObject<Item> NECKLACE_OF_THE_MYSTIC_MIRROR = register("necklace_of_the_mystic_mirror", GEAR_PROPERTIES(), CurioMirrorNecklace::new);
-    public static final RegistryObject<Item> NECKLACE_OF_TIDAL_AFFINITY = register("necklace_of_tidal_affinity", GEAR_PROPERTIES(), CurioWaterNecklace::new);
-    public static final RegistryObject<Item> NECKLACE_OF_THE_NARROW_EDGE = register("necklace_of_the_narrow_edge", GEAR_PROPERTIES(), CurioNarrowNecklace::new);
-    public static final RegistryObject<Item> NECKLACE_OF_BLISSFUL_HARMONY = register("necklace_of_blissful_harmony", GEAR_PROPERTIES(), CurioHarmonyNecklace::new);
+    public static final RegistryObject<Item> NECKLACE_OF_THE_MYSTIC_MIRROR = register("necklace_of_the_mystic_mirror", GEAR_PROPERTIES(), TrinketsMirrorNecklace::new);
+    public static final RegistryObject<Item> NECKLACE_OF_TIDAL_AFFINITY = register("necklace_of_tidal_affinity", GEAR_PROPERTIES(), TrinketsWaterNecklace::new);
+    public static final RegistryObject<Item> NECKLACE_OF_THE_NARROW_EDGE = register("necklace_of_the_narrow_edge", GEAR_PROPERTIES(), TrinketsNarrowNecklace::new);
+    public static final RegistryObject<Item> NECKLACE_OF_BLISSFUL_HARMONY = register("necklace_of_blissful_harmony", GEAR_PROPERTIES(), TrinketsHarmonyNecklace::new);
 
-    public static final RegistryObject<Item> BELT_OF_THE_STARVED = register("belt_of_the_starved", GEAR_PROPERTIES(), CurioStarvedBelt::new);
-    public static final RegistryObject<Item> BELT_OF_THE_PROSPECTOR = register("belt_of_the_prospector", GEAR_PROPERTIES(), CurioProspectorBelt::new);
-    public static final RegistryObject<Item> BELT_OF_THE_MAGEBANE = register("belt_of_the_magebane", GEAR_PROPERTIES(), CurioMagebaneBelt::new);
+    public static final RegistryObject<Item> BELT_OF_THE_STARVED = register("belt_of_the_starved", GEAR_PROPERTIES(), TrinketsStarvedBelt::new);
+    public static final RegistryObject<Item> BELT_OF_THE_PROSPECTOR = register("belt_of_the_prospector", GEAR_PROPERTIES(), TrinketsProspectorBelt::new);
+    public static final RegistryObject<Item> BELT_OF_THE_MAGEBANE = register("belt_of_the_magebane", GEAR_PROPERTIES(), TrinketsMagebaneBelt::new);
 
-    public static final RegistryObject<Item> RING_OF_THE_ENDLESS_WELL = register("ring_of_the_endless_well", GEAR_PROPERTIES(), CurioEndlessRing::new);
-    public static final RegistryObject<Item> RING_OF_GROWING_FLESH = register("ring_of_growing_flesh", GEAR_PROPERTIES(), CurioGrowingFleshRing::new);
-    public static final RegistryObject<Item> RING_OF_GRUESOME_CONCENTRATION = register("ring_of_gruesome_concentration", GEAR_PROPERTIES(), CurioGruesomeConcentrationRing::new);
-    public static final RegistryObject<Item> NECKLACE_OF_THE_HIDDEN_BLADE = register("necklace_of_the_hidden_blade", GEAR_PROPERTIES(), CurioHiddenBladeNecklace::new);
-    public static final RegistryObject<Item> NECKLACE_OF_THE_WATCHER = register("necklace_of_the_watcher", GEAR_PROPERTIES(), CurioWatcherNecklace::new);
-    public static final RegistryObject<Item> BELT_OF_THE_LIMITLESS = register("belt_of_the_limitless", GEAR_PROPERTIES(), CurioLimitlessBelt::new);
+    public static final RegistryObject<Item> RING_OF_THE_ENDLESS_WELL = register("ring_of_the_endless_well", GEAR_PROPERTIES(), TrinketsEndlessRing::new);
+    public static final RegistryObject<Item> RING_OF_GROWING_FLESH = register("ring_of_growing_flesh", GEAR_PROPERTIES(), TrinketsGrowingFleshRing::new);
+    public static final RegistryObject<Item> RING_OF_GRUESOME_CONCENTRATION = register("ring_of_gruesome_concentration", GEAR_PROPERTIES(), TrinketsGruesomeConcentrationRing::new);
+    public static final RegistryObject<Item> NECKLACE_OF_THE_HIDDEN_BLADE = register("necklace_of_the_hidden_blade", GEAR_PROPERTIES(), TrinketsHiddenBladeNecklace::new);
+    public static final RegistryObject<Item> NECKLACE_OF_THE_WATCHER = register("necklace_of_the_watcher", GEAR_PROPERTIES(), TrinketsWatcherNecklace::new);
+    public static final RegistryObject<Item> BELT_OF_THE_LIMITLESS = register("belt_of_the_limitless", GEAR_PROPERTIES(), TrinketsLimitlessBelt::new);
 
     public static final RegistryObject<Item> AESTHETICA = register("music_disc_aesthetica", HIDDEN_PROPERTIES().rarity(RARE), AestheticaMusicDiscItem::new);
     //endregion
@@ -833,12 +870,12 @@ public class ItemRegistry {
             DataHelper.takeAll(items, i -> i.get() instanceof SpiritShardItem).forEach(item ->
                     ColorProviderRegistry.ITEM.register((s, c) -> ColorHelper.getColor(((SpiritShardItem) item.get()).type.getItemColor()), item.get()));
 
-            DataHelper.takeAll(items, i -> i.get() instanceof AbstractRuneCurioItem).forEach(item ->
+            DataHelper.takeAll(items, i -> i.get() instanceof AbstractRuneTrinketsItem).forEach(item ->
                     ColorProviderRegistry.ITEM.register((s, c) -> {
                         if (c == 0) {
                             return -1;
                         }
-                        final MalumSpiritType spiritType = ((AbstractRuneCurioItem) item.get()).spiritType;
+                        final MalumSpiritType spiritType = ((AbstractRuneTrinketsItem) item.get()).spiritType;
                         Color color = spiritType.getItemColor();
                         if (spiritType.equals(SpiritTypeRegistry.WICKED_SPIRIT) || spiritType.equals(SpiritTypeRegistry.ELDRITCH_SPIRIT)) {
                             color = color.brighter();

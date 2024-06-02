@@ -1,8 +1,8 @@
 package com.sammy.malum.client.screen.codex.pages.recipe;
 
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.client.screen.codex.screens.*;
-import com.sammy.malum.client.screen.codex.pages.*;
+import com.sammy.malum.client.screen.codex.pages.BookPage;
+import com.sammy.malum.client.screen.codex.screens.EntryScreen;
 import com.sammy.malum.common.recipe.SpiritFocusingRecipe;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -10,7 +10,8 @@ import net.minecraft.world.item.Item;
 
 import java.util.function.Predicate;
 
-import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.*;
+import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.renderComponents;
+import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.renderItem;
 
 public class SpiritFocusingPage extends BookPage {
     private final SpiritFocusingRecipe recipe;

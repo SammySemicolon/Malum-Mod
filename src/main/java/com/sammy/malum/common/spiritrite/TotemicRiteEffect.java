@@ -1,17 +1,17 @@
 package com.sammy.malum.common.spiritrite;
 
-import com.sammy.malum.common.block.curiosities.totem.*;
-import com.sammy.malum.registry.common.block.*;
-import net.minecraft.core.*;
-import net.minecraft.server.level.*;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.level.block.state.*;
-import net.minecraft.world.phys.*;
-import team.lodestar.lodestone.helpers.*;
+import com.sammy.malum.common.block.curiosities.totem.TotemBaseBlockEntity;
+import com.sammy.malum.registry.common.block.BlockTagRegistry;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
+import team.lodestar.lodestone.helpers.BlockHelper;
 
-import java.util.*;
-import java.util.function.*;
-import java.util.stream.*;
+import java.util.Locale;
+import java.util.function.Predicate;
+import java.util.stream.Stream;
 
 @SuppressWarnings("ConstantConditions")
 public abstract class TotemicRiteEffect {
@@ -30,6 +30,7 @@ public abstract class TotemicRiteEffect {
         MalumRiteEffectCategory(int tickRate, int range) {
             this(tickRate, range, range);
         }
+
         MalumRiteEffectCategory(int tickRate, int effectWidth, int effectHeight) {
             this.tickRate = tickRate;
             this.effectWidth = effectWidth;

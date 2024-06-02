@@ -104,11 +104,8 @@ public class ScytheBoomerangEntity extends ThrowableItemProjectile {
 
     @Override
     protected void onHitEntity(EntityHitResult result) {
-        if (getOwner() instanceof LivingEntity scytheOwner) {
+        if (getOwner() instanceof LivingEntity scytheOwner && !level().isClientSide) {
             Entity target = result.getEntity();
-            if (level().isClientSide) {
-                return;
-            }
             DamageSource source = target.damageSources().mobProjectile(this, scytheOwner);
             boolean success = target.hurt(source, damage);
             if (success && target instanceof LivingEntity livingentity) {
@@ -138,7 +135,8 @@ public class ScytheBoomerangEntity extends ThrowableItemProjectile {
         super.tick();
         age++;
         ItemStack scythe = getItem();
-        if (level().isClientSide) {
+        final Level level = level();
+        if (level.isClientSide) {
             if (!isInWaterRainOrBubble()) {
                 if (EnchantmentHelper.getItemEnchantmentLevel(Enchantments.FIRE_ASPECT, getItem()) > 0) {
                     Vec3 vector = new Vec3(getRandomX(0.7), getRandomY(), getRandomZ(0.7));
@@ -146,24 +144,27 @@ public class ScytheBoomerangEntity extends ThrowableItemProjectile {
                         Random random = new Random();
                         float rotation = random.nextFloat();
                         vector = new Vec3(Math.cos(this.age) * 0.8f + this.getX(), getY(0.1), Math.sin(this.age) * 0.8f + this.getZ());
-                        level().addParticle(ParticleTypes.FLAME, Math.cos(this.age + rotation * 2 - 1) * 0.8f + this.getX(), vector.y, Math.sin(this.age + rotation * 2 - 1) * 0.8f + this.getZ(), 0, 0, 0);
-                        level().addParticle(ParticleTypes.FLAME, Math.cos(this.age + rotation * 2 - 1) * 0.8f + this.getX(), vector.y, Math.sin(this.age + rotation * 2 - 1) * 0.8f + this.getZ(), 0, 0, 0);
+                        level.addParticle(ParticleTypes.FLAME, Math.cos(this.age + rotation * 2 - 1) * 0.8f + this.getX(), vector.y, Math.sin(this.age + rotation * 2 - 1) * 0.8f + this.getZ(), 0, 0, 0);
+                        level.addParticle(ParticleTypes.FLAME, Math.cos(this.age + rotation * 2 - 1) * 0.8f + this.getX(), vector.y, Math.sin(this.age + rotation * 2 - 1) * 0.8f + this.getZ(), 0, 0, 0);
                     }
-                    level().addParticle(ParticleTypes.FLAME, vector.x, vector.y, vector.z, 0, 0, 0);
+                    level.addParticle(ParticleTypes.FLAME, vector.x, vector.y, vector.z, 0, 0, 0);
                 }
             }
         } else {
-            Entity entity = getOwner();
-            if (entity == null || !entity.isAlive()) {
-                ItemEntity itemEntity = new ItemEntity(level(), getX(), getY() + 0.5, getZ(), scythe);
-                itemEntity.setPickUpDelay(40);
-                level().addFreshEntity(itemEntity);
-                remove(RemovalReason.DISCARDED);
+            Entity owner = getOwner();
+            if (owner == null || !owner.isAlive() || !owner.level().equals(level()) || distanceTo(owner) > 1000f) {
+                if (age > 3600) {
+                    ItemEntity itemEntity = new ItemEntity(level, getX(), getY() + 0.5, getZ(), scythe);
+                    itemEntity.setPickUpDelay(40);
+                    level.addFreshEntity(itemEntity);
+                    remove(RemovalReason.DISCARDED);
+                }
+                setDeltaMovement(Vec3.ZERO);
                 return;
             }
-            if (entity instanceof LivingEntity scytheOwner) {
+            if (owner instanceof LivingEntity scytheOwner) {
                 if (age % 3 == 0) {
-                    level().playSound(null, blockPosition(), SoundEvents.PLAYER_ATTACK_SWEEP, SoundSource.PLAYERS, 0.75f, 1.25f);
+                    level.playSound(null, blockPosition(), SoundEvents.PLAYER_ATTACK_SWEEP, SoundSource.PLAYERS, 0.75f, 1.25f);
                 }
                 if (this.xRotO == 0.0F && this.yRotO == 0.0F) {
                     Vec3 motion = getDeltaMovement();

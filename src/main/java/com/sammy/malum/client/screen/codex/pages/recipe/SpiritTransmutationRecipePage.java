@@ -1,19 +1,21 @@
 package com.sammy.malum.client.screen.codex.pages.recipe;
 
-import com.sammy.malum.*;
-import com.sammy.malum.client.screen.codex.pages.*;
-import com.sammy.malum.client.screen.codex.screens.*;
-import com.sammy.malum.common.recipe.*;
-import net.minecraft.client.*;
-import net.minecraft.client.gui.*;
-import net.minecraft.client.multiplayer.*;
-import net.minecraft.network.chat.*;
-import net.minecraft.world.item.*;
+import com.sammy.malum.MalumMod;
+import com.sammy.malum.client.screen.codex.pages.BookPage;
+import com.sammy.malum.client.screen.codex.screens.EntryScreen;
+import com.sammy.malum.common.recipe.SpiritTransmutationRecipe;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.Item;
 
-import java.util.*;
-import java.util.function.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Predicate;
 
-import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.*;
+import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.renderItem;
+import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.renderText;
 
 public class SpiritTransmutationRecipePage extends BookPage {
     private final String headlineTranslationKey;

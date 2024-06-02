@@ -1,14 +1,15 @@
 package com.sammy.malum.core.systems.spirit;
 
-import com.sammy.malum.common.block.mana_mote.*;
-import com.sammy.malum.common.item.spirit.*;
-import net.minecraft.network.chat.*;
+import com.sammy.malum.common.block.mana_mote.SpiritMoteBlock;
+import com.sammy.malum.common.item.spirit.SpiritShardItem;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import team.lodestar.lodestone.systems.particle.builder.*;
+import net.minecraft.network.chat.TextColor;
+import team.lodestar.lodestone.systems.particle.builder.AbstractWorldParticleBuilder;
 
 import java.awt.*;
-import java.util.function.*;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 public class UmbralSpiritType extends MalumSpiritType {
 

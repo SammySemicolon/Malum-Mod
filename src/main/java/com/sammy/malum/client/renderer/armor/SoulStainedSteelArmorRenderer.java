@@ -1,15 +1,15 @@
 package com.sammy.malum.client.renderer.armor;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.sammy.malum.MalumMod;
 import com.sammy.malum.client.cosmetic.ArmorSkinRenderingData;
-import com.sammy.malum.client.model.SoulHunterArmorModel;
 import com.sammy.malum.client.model.SoulStainedSteelArmorModel;
 import com.sammy.malum.common.item.cosmetic.skins.ArmorSkin;
-import com.sammy.malum.registry.client.ModelRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.ArmorRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -17,15 +17,17 @@ import net.minecraft.world.item.ItemStack;
 import team.lodestar.lodestone.systems.model.LodestoneArmorModel;
 
 public class SoulStainedSteelArmorRenderer implements ArmorRenderer {
-    LodestoneArmorModel model;
+    LodestoneArmorModel armorModel;
+    private ResourceLocation texture;
+
     public SoulStainedSteelArmorRenderer() {
 
     }
 
     @Override
     public void render(PoseStack matrices, MultiBufferSource vertexConsumers, ItemStack stack, LivingEntity entity, EquipmentSlot slot, int light, HumanoidModel<LivingEntity> contextModel) {
-        if (model == null) {
-            model = new SoulStainedSteelArmorModel(Minecraft.getInstance().getEntityModels().bakeLayer(SoulHunterArmorModel.LAYER));
+        if (armorModel == null) {
+            armorModel = new SoulStainedSteelArmorModel(Minecraft.getInstance().getEntityModels().bakeLayer(SoulStainedSteelArmorModel.LAYER));
         }
         float pticks = Minecraft.getInstance().getFrameTime();
         float f = Mth.rotLerp(pticks, entity.yBodyRotO, entity.yBodyRot);
@@ -35,10 +37,29 @@ public class SoulStainedSteelArmorRenderer implements ArmorRenderer {
         ArmorSkin skin = ArmorSkin.getAppliedItemSkin(stack);
 
         if (skin != null) {
-            model = ArmorSkinRenderingData.RENDERING_DATA.apply(skin).getModel(entity);
+            armorModel = ArmorSkinRenderingData.RENDERING_DATA.apply(skin).getModel(entity);
+            texture = ArmorSkinRenderingData.RENDERING_DATA.apply(skin).getTexture(entity);
         }
-        model.slot = slot;
-        model.copyFromDefault(contextModel);
-        model.setupAnim(entity, entity.walkAnimation.position(), entity.walkAnimation.speed(), entity.tickCount + pticks, netHeadYaw, netHeadPitch);
+
+        if (texture == null) {
+            texture = MalumMod.malumPath("textures/armor/soul_stained_steel_reforged.png");
+        }
+
+        armorModel.slot = slot;
+        armorModel.copyFromDefault(contextModel);
+        armorModel.setupAnim(entity, entity.walkAnimation.position(), entity.walkAnimation.speed(), entity.tickCount + pticks, netHeadYaw, netHeadPitch);
+        contextModel.copyPropertiesTo(armorModel);
+        armorModel.setAllVisible(false);
+        armorModel.head.visible = slot == EquipmentSlot.HEAD;
+        armorModel.body.visible = slot == EquipmentSlot.CHEST;
+        armorModel.leftArm.visible = slot == EquipmentSlot.CHEST;
+        armorModel.rightArm.visible = slot == EquipmentSlot.CHEST;
+        armorModel.leftLeg.visible = slot == EquipmentSlot.LEGS || slot == EquipmentSlot.FEET;
+        armorModel.rightLeg.visible = slot == EquipmentSlot.LEGS || slot == EquipmentSlot.FEET;
+        armorModel.leftFoot.visible = slot == EquipmentSlot.FEET;
+        armorModel.rightFoot.visible = slot == EquipmentSlot.FEET;
+        armorModel.leftLegging.visible = slot == EquipmentSlot.LEGS;
+        armorModel.rightLegging.visible = slot == EquipmentSlot.LEGS;
+        ArmorRenderer.renderPart(matrices, vertexConsumers, light, stack, armorModel, texture);
     }
 }

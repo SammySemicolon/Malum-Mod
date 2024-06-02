@@ -1,14 +1,15 @@
 package com.sammy.malum.registry.common;
 
 import com.sammy.malum.core.systems.spirit.*;
-import com.sammy.malum.registry.common.block.*;
-import com.sammy.malum.registry.common.item.*;
-import team.lodestar.lodestone.helpers.*;
-import team.lodestar.lodestone.systems.easing.*;
+import com.sammy.malum.registry.common.block.BlockRegistry;
+import com.sammy.malum.registry.common.item.ItemRegistry;
+import team.lodestar.lodestone.helpers.ColorHelper;
+import team.lodestar.lodestone.systems.easing.Easing;
 
 import java.awt.*;
+import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.*;
+import java.util.Map;
 
 @SuppressWarnings("unchecked")
 public class SpiritTypeRegistry {
@@ -69,7 +70,6 @@ public class SpiritTypeRegistry {
                     ItemRegistry.UMBRAL_SPIRIT, null)
             .setItemColor(SpiritVisualMotif::getPrimaryColor)
             .build(UmbralSpiritType::new));
-
 
 
     public static SpiritTypeProperty SPIRIT_TYPE_PROPERTY = new SpiritTypeProperty("spirit_type", SPIRITS.values());

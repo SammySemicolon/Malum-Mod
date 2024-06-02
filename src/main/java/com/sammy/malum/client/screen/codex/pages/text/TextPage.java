@@ -1,10 +1,10 @@
 package com.sammy.malum.client.screen.codex.pages.text;
 
-import com.sammy.malum.client.screen.codex.pages.*;
-import com.sammy.malum.client.screen.codex.screens.*;
-import net.minecraft.client.gui.*;
+import com.sammy.malum.client.screen.codex.pages.BookPage;
+import com.sammy.malum.client.screen.codex.screens.EntryScreen;
+import net.minecraft.client.gui.GuiGraphics;
 
-import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.*;
+import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.renderWrappingText;
 
 public class TextPage extends BookPage {
     public final String translationKey;

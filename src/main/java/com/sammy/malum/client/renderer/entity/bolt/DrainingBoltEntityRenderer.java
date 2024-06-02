@@ -1,15 +1,18 @@
 package com.sammy.malum.client.renderer.entity.bolt;
 
-import com.sammy.malum.common.entity.bolt.*;
-import com.sammy.malum.common.item.curiosities.weapons.staff.*;
-import net.minecraft.client.renderer.*;
-import net.minecraft.client.renderer.entity.*;
-import team.lodestar.lodestone.registry.client.*;
-import team.lodestar.lodestone.systems.rendering.rendeertype.*;
+import com.sammy.malum.common.entity.bolt.DrainingBoltEntity;
+import com.sammy.malum.common.item.curiosities.weapons.staff.ErosionScepterItem;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import team.lodestar.lodestone.registry.client.LodestoneRenderTypeRegistry;
+import team.lodestar.lodestone.systems.rendering.rendeertype.RenderTypeToken;
+import team.lodestar.lodestone.systems.rendering.rendeertype.ShaderUniformHandler;
+
+import static com.sammy.malum.MalumMod.malumPath;
 
 public class DrainingBoltEntityRenderer extends AbstractBoltEntityRenderer<DrainingBoltEntity> {
 
-    private static final RenderType TRAIL_TYPE = LodestoneRenderTypeRegistry.TRANSPARENT_TEXTURE_TRIANGLE.apply(RenderTypeToken.createToken(LIGHT_TRAIL), ShaderUniformHandler.LUMITRANSPARENT);
+    private static final RenderType TRAIL_TYPE = LodestoneRenderTypeRegistry.TRANSPARENT_TEXTURE_TRIANGLE.apply(RenderTypeToken.createCachedToken(malumPath("textures/vfx/concentrated_trail.png")), ShaderUniformHandler.LUMITRANSPARENT);
 
     public DrainingBoltEntityRenderer(EntityRendererProvider.Context context) {
         super(context, ErosionScepterItem.MALIGNANT_PURPLE, ErosionScepterItem.MALIGNANT_BLACK);

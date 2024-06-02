@@ -1,8 +1,8 @@
 package com.sammy.malum.common.item.augment;
 
-import com.sammy.malum.registry.common.*;
+import com.sammy.malum.registry.common.SpiritTypeRegistry;
 
-public class ShieldingApparatusItem extends AbstractAugmentItem{
+public class ShieldingApparatusItem extends AbstractAugmentItem {
     public ShieldingApparatusItem(Properties pProperties) {
         super(pProperties, SpiritTypeRegistry.ARCANE_SPIRIT);
     }

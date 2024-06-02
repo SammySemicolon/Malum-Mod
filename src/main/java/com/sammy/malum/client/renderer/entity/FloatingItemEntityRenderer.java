@@ -1,30 +1,35 @@
 package com.sammy.malum.client.renderer.entity;
 
-import com.mojang.blaze3d.vertex.*;
-import com.mojang.math.*;
-import com.sammy.malum.client.*;
-import com.sammy.malum.common.entity.*;
-import com.sammy.malum.core.systems.spirit.*;
-import com.sammy.malum.registry.common.SpiritTypeRegistry;
-import net.minecraft.client.*;
-import net.minecraft.client.renderer.*;
-import net.minecraft.client.renderer.entity.*;
-import net.minecraft.client.renderer.texture.*;
-import net.minecraft.client.resources.model.*;
-import net.minecraft.resources.*;
-import net.minecraft.world.item.*;
-import net.minecraft.world.level.*;
-import team.lodestar.lodestone.helpers.*;
-import team.lodestar.lodestone.registry.client.*;
-import team.lodestar.lodestone.systems.easing.*;
-import team.lodestar.lodestone.systems.rendering.*;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Axis;
+import com.sammy.malum.client.RenderUtils;
+import com.sammy.malum.client.SpiritBasedWorldVFXBuilder;
+import com.sammy.malum.common.entity.FloatingItemEntity;
+import com.sammy.malum.core.systems.spirit.MalumSpiritType;
+import com.sammy.malum.registry.client.MalumRenderTypeTokens;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.entity.EntityRenderer;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.ItemRenderer;
+import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.client.renderer.texture.TextureAtlas;
+import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemDisplayContext;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import team.lodestar.lodestone.helpers.EasingHelper;
+import team.lodestar.lodestone.registry.client.LodestoneRenderTypeRegistry;
+import team.lodestar.lodestone.systems.easing.Easing;
+import team.lodestar.lodestone.systems.rendering.LodestoneRenderType;
+import team.lodestar.lodestone.systems.rendering.VFXBuilders;
 import team.lodestar.lodestone.systems.rendering.rendeertype.RenderTypeToken;
-import team.lodestar.lodestone.systems.rendering.rendeertype.ShaderUniformHandler;
 
 import java.awt.*;
 
-import static com.sammy.malum.MalumMod.*;
-import static team.lodestar.lodestone.LodestoneLib.*;
+import static com.sammy.malum.MalumMod.malumPath;
+import static team.lodestar.lodestone.LodestoneLib.lodestonePath;
 
 public class FloatingItemEntityRenderer extends EntityRenderer<FloatingItemEntity> {
     public final ItemRenderer itemRenderer;
@@ -36,11 +41,10 @@ public class FloatingItemEntityRenderer extends EntityRenderer<FloatingItemEntit
         this.shadowStrength = 0;
     }
 
-    private static final ResourceLocation LIGHT_TRAIL = malumPath("textures/vfx/concentrated_trail.png");
-    private static final LodestoneRenderType TRAIL_TYPE = LodestoneRenderTypeRegistry.ADDITIVE_TEXTURE_TRIANGLE.apply(RenderTypeToken.createToken(LIGHT_TRAIL));
+    private static final LodestoneRenderType TRAIL_TYPE = LodestoneRenderTypeRegistry.ADDITIVE_TEXTURE_TRIANGLE.apply(MalumRenderTypeTokens.CONCENTRATED_TRAIL);
 
-    private static final LodestoneRenderType GLIMMER_BLOOM = LodestoneRenderTypeRegistry.ADDITIVE_TEXTURE.applyAndCache(RenderTypeToken.createToken(lodestonePath("textures/particle/twinkle.png")));
-    private static final LodestoneRenderType GLIMMER_SHINE = LodestoneRenderTypeRegistry.ADDITIVE_TEXTURE.applyAndCache(RenderTypeToken.createToken(malumPath("textures/particle/star.png")));
+    private static final LodestoneRenderType GLIMMER_BLOOM = LodestoneRenderTypeRegistry.ADDITIVE_TEXTURE.apply(RenderTypeToken.createToken(lodestonePath("textures/particle/twinkle.png")));
+    private static final LodestoneRenderType GLIMMER_SHINE = LodestoneRenderTypeRegistry.ADDITIVE_TEXTURE.apply(RenderTypeToken.createToken(malumPath("textures/particle/star.png")));
 
     @Override
     public void render(FloatingItemEntity entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int packedLightIn) {
@@ -57,6 +61,7 @@ public class FloatingItemEntityRenderer extends EntityRenderer<FloatingItemEntit
         float yOffset = entity.getYOffset(partialTicks);
         float scale = model.getTransforms().getTransform(ItemDisplayContext.GROUND).scale.y();
         float rotation = entity.getRotation(partialTicks);
+
 
         poseStack.pushPose();
         poseStack.translate(0.0D, (yOffset + 0.25F * scale), 0.0D);

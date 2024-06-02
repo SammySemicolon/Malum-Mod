@@ -1,12 +1,12 @@
 package com.sammy.malum.client.screen.codex.pages.recipe;
 
-import com.sammy.malum.*;
-import com.sammy.malum.client.screen.codex.pages.*;
-import com.sammy.malum.common.recipe.*;
-import net.minecraft.client.*;
-import net.minecraft.world.item.*;
+import com.sammy.malum.MalumMod;
+import com.sammy.malum.client.screen.codex.pages.BookPage;
+import com.sammy.malum.common.recipe.SpiritRepairRecipe;
+import net.minecraft.client.Minecraft;
+import net.minecraft.world.item.Item;
 
-import java.util.function.*;
+import java.util.function.Predicate;
 
 public class SpiritRepairPage extends BookPage {
     private final SpiritRepairRecipe recipe;

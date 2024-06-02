@@ -2,16 +2,13 @@
   "schemaVersion": 1,
   "id": "malum",
   "version": "${version}",
-
   "name": "${mod_name}",
   "description": "${mod_description}",
   "authors": [
     "${mod_authors}, MrSterner"
   ],
-
   "license": "${mod_license}",
   "icon": "assets/lodestone/icon.png",
-
   "environment": "*",
   "entrypoints": {
     "main": [
@@ -31,6 +28,12 @@
     ],
     "mm:early_risers": [
       "com.sammy.malum.asm.MalumASM"
+    ],
+    "jei_mod_plugin": [
+      "com.sammy.malum.compability.jei.JEIHandler"
+    ],
+    "emi": [
+      "com.sammy.malum.compability.emi.EMIHandler"
     ]
   },
   "mixins": [

@@ -1,8 +1,8 @@
 package com.sammy.malum.registry.common;
 
+import com.sammy.malum.common.spiritrite.TotemicRiteType;
 import com.sammy.malum.common.spiritrite.arcane.*;
 import com.sammy.malum.common.spiritrite.eldritch.*;
-import com.sammy.malum.common.spiritrite.TotemicRiteType;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 
 import java.util.ArrayList;

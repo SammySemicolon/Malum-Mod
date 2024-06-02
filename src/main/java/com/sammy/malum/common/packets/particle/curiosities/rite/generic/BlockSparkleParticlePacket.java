@@ -2,16 +2,16 @@ package com.sammy.malum.common.packets.particle.curiosities.rite.generic;
 
 import com.sammy.malum.common.packets.particle.base.color.ColorBasedBlockParticleEffectPacket;
 import me.pepperbell.simplenetworking.SimpleChannel;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.level.Level;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import team.lodestar.lodestone.helpers.ColorHelper;
-import team.lodestar.lodestone.registry.common.particle.*;
+import team.lodestar.lodestone.registry.common.particle.LodestoneParticleRegistry;
 import team.lodestar.lodestone.systems.easing.Easing;
 import team.lodestar.lodestone.systems.particle.SimpleParticleOptions;
 import team.lodestar.lodestone.systems.particle.builder.WorldParticleBuilder;
@@ -20,7 +20,6 @@ import team.lodestar.lodestone.systems.particle.data.color.ColorParticleData;
 import team.lodestar.lodestone.systems.particle.data.spin.SpinParticleData;
 
 import java.awt.*;
-import java.util.function.Supplier;
 
 public class BlockSparkleParticlePacket extends ColorBasedBlockParticleEffectPacket {
 

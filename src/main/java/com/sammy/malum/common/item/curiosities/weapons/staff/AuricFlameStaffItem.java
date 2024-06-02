@@ -1,33 +1,36 @@
 package com.sammy.malum.common.item.curiosities.weapons.staff;
 
-import com.sammy.malum.common.entity.bolt.*;
-import com.sammy.malum.common.entity.nitrate.*;
-import com.sammy.malum.registry.client.*;
-import com.sammy.malum.registry.common.*;
+import com.sammy.malum.common.entity.bolt.AbstractBoltProjectileEntity;
+import com.sammy.malum.common.entity.bolt.AuricFlameBoltEntity;
+import com.sammy.malum.common.entity.nitrate.EthericNitrateEntity;
+import com.sammy.malum.registry.client.ParticleRegistry;
+import com.sammy.malum.registry.common.SoundRegistry;
 import io.github.fabricators_of_create.porting_lib.entity.events.living.LivingHurtEvent;
-import net.minecraft.util.*;
-import net.minecraft.world.*;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.item.*;
-import net.minecraft.world.level.*;
-import net.minecraft.world.phys.*;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import team.lodestar.lodestone.helpers.*;
-import team.lodestar.lodestone.registry.common.*;
-import team.lodestar.lodestone.systems.easing.*;
-import team.lodestar.lodestone.systems.particle.builder.*;
-import team.lodestar.lodestone.systems.particle.data.*;
-import team.lodestar.lodestone.systems.particle.data.color.*;
-import team.lodestar.lodestone.systems.particle.data.spin.*;
-import team.lodestar.lodestone.systems.particle.render_types.*;
+import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Tier;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
+import team.lodestar.lodestone.helpers.RandomHelper;
+import team.lodestar.lodestone.registry.common.LodestoneAttributeRegistry;
+import team.lodestar.lodestone.systems.easing.Easing;
+import team.lodestar.lodestone.systems.particle.builder.DirectionalParticleBuilder;
+import team.lodestar.lodestone.systems.particle.data.GenericParticleData;
+import team.lodestar.lodestone.systems.particle.data.color.ColorParticleData;
+import team.lodestar.lodestone.systems.particle.data.spin.SpinParticleData;
+import team.lodestar.lodestone.systems.particle.render_types.LodestoneWorldParticleRenderType;
 
 public class AuricFlameStaffItem extends AbstractStaffItem {
 
     public static final ColorParticleData AURIC_COLOR_DATA = EthericNitrateEntity.AURIC_COLOR_DATA;
 
     public AuricFlameStaffItem(Tier tier, float magicDamage, Properties builderIn) {
-        super(tier, 20, magicDamage, builderIn);
+        super(tier, -0.2f, 30, magicDamage, builderIn);
     }
 
     @Override
@@ -89,6 +92,6 @@ public class AuricFlameStaffItem extends AbstractStaffItem {
                 .setLifeDelay(2)
                 .spawn(pLevel, pos.x, pos.y, pos.z)
                 .setRenderType(LodestoneWorldParticleRenderType.LUMITRANSPARENT)
-                .spawn(pLevel, pos.x, pos.y, pos.z);;
+                .spawn(pLevel, pos.x, pos.y, pos.z);
     }
 }

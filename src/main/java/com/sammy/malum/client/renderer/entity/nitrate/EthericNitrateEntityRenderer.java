@@ -1,6 +1,6 @@
 package com.sammy.malum.client.renderer.entity.nitrate;
 
-import com.sammy.malum.common.entity.nitrate.*;
+import com.sammy.malum.common.entity.nitrate.EthericNitrateEntity;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 
 public class EthericNitrateEntityRenderer extends AbstractNitrateEntityRenderer<EthericNitrateEntity> {

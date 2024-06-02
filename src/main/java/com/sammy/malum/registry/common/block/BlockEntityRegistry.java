@@ -1,34 +1,43 @@
 package com.sammy.malum.registry.common.block;
 
-import com.sammy.malum.*;
 import com.sammy.malum.client.renderer.block.*;
-import com.sammy.malum.common.block.curiosities.obelisk.brilliant.*;
-import com.sammy.malum.common.block.curiosities.obelisk.runewood.*;
-import com.sammy.malum.common.block.curiosities.repair_pylon.*;
-import com.sammy.malum.common.block.curiosities.ritual_plinth.*;
-import com.sammy.malum.common.block.curiosities.runic_workbench.*;
-import com.sammy.malum.common.block.curiosities.spirit_altar.*;
-import com.sammy.malum.common.block.curiosities.spirit_crucible.*;
-import com.sammy.malum.common.block.curiosities.spirit_crucible.catalyzer.*;
-import com.sammy.malum.common.block.curiosities.totem.*;
-import com.sammy.malum.common.block.curiosities.void_depot.*;
-import com.sammy.malum.common.block.curiosities.weavers_workbench.*;
-import com.sammy.malum.common.block.curiosities.weeping_well.*;
-import com.sammy.malum.common.block.ether.*;
-import com.sammy.malum.common.block.mana_mote.*;
-import com.sammy.malum.common.block.storage.jar.*;
-import com.sammy.malum.common.block.storage.pedestal.*;
-import com.sammy.malum.common.block.storage.stand.*;
+import com.sammy.malum.common.block.curiosities.obelisk.brilliant.BrilliantObeliskBlockEntity;
+import com.sammy.malum.common.block.curiosities.obelisk.runewood.RunewoodObeliskBlockEntity;
+import com.sammy.malum.common.block.curiosities.repair_pylon.RepairPylonCoreBlockEntity;
+import com.sammy.malum.common.block.curiosities.ritual_plinth.RitualPlinthBlockEntity;
+import com.sammy.malum.common.block.curiosities.runic_workbench.RunicWorkbenchBlockEntity;
+import com.sammy.malum.common.block.curiosities.spirit_altar.SpiritAltarBlockEntity;
+import com.sammy.malum.common.block.curiosities.spirit_crucible.SpiritCrucibleCoreBlockEntity;
+import com.sammy.malum.common.block.curiosities.spirit_crucible.catalyzer.SpiritCatalyzerCoreBlockEntity;
+import com.sammy.malum.common.block.curiosities.totem.TotemBaseBlock;
+import com.sammy.malum.common.block.curiosities.totem.TotemBaseBlockEntity;
+import com.sammy.malum.common.block.curiosities.totem.TotemPoleBlock;
+import com.sammy.malum.common.block.curiosities.totem.TotemPoleBlockEntity;
+import com.sammy.malum.common.block.curiosities.void_depot.VoidDepotBlockEntity;
+import com.sammy.malum.common.block.curiosities.weavers_workbench.WeaversWorkbenchBlockEntity;
+import com.sammy.malum.common.block.curiosities.weeping_well.VoidConduitBlockEntity;
+import com.sammy.malum.common.block.ether.EtherBlock;
+import com.sammy.malum.common.block.ether.EtherBlockEntity;
+import com.sammy.malum.common.block.mana_mote.MoteOfManaBlockEntity;
+import com.sammy.malum.common.block.mana_mote.SpiritMoteBlock;
+import com.sammy.malum.common.block.storage.jar.SpiritJarBlockEntity;
+import com.sammy.malum.common.block.storage.pedestal.ItemPedestalBlock;
+import com.sammy.malum.common.block.storage.pedestal.ItemPedestalBlockEntity;
+import com.sammy.malum.common.block.storage.stand.ItemStandBlock;
+import com.sammy.malum.common.block.storage.stand.ItemStandBlockEntity;
 import io.github.fabricators_of_create.porting_lib.util.LazyRegistrar;
 import io.github.fabricators_of_create.porting_lib.util.RegistryObject;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.entity.*;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
 
-import static com.sammy.malum.MalumMod.*;
+import static com.sammy.malum.MalumMod.MALUM;
 
 public class BlockEntityRegistry {
     public static final LazyRegistrar<BlockEntityType<?>> BLOCK_ENTITY_TYPES = LazyRegistrar.create(BuiltInRegistries.BLOCK_ENTITY_TYPE, MALUM);
@@ -82,7 +91,7 @@ public class BlockEntityRegistry {
     }
 
     public static class ClientOnly {
-        
+
         public static void registerRenderer() {
             BlockEntityRenderers.register(VOID_CONDUIT.get(), VoidConduitRenderer::new);
             BlockEntityRenderers.register(VOID_DEPOT.get(), VoidDepotRenderer::new);

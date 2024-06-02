@@ -1,18 +1,20 @@
 package com.sammy.malum.common.block.curiosities.obelisk.runewood;
 
-import com.sammy.malum.common.block.curiosities.obelisk.*;
-import com.sammy.malum.common.block.curiosities.spirit_altar.*;
-import com.sammy.malum.core.systems.spirit.*;
-import com.sammy.malum.registry.common.block.*;
-import com.sammy.malum.visual_effects.*;
-import net.minecraft.core.*;
-import net.minecraft.world.level.block.state.*;
-import net.minecraft.world.phys.*;
+import com.sammy.malum.common.block.curiosities.obelisk.ObeliskCoreBlockEntity;
+import com.sammy.malum.common.block.curiosities.spirit_altar.IAltarAccelerator;
+import com.sammy.malum.common.block.curiosities.spirit_altar.SpiritAltarBlockEntity;
+import com.sammy.malum.core.systems.spirit.MalumSpiritType;
+import com.sammy.malum.registry.common.block.BlockEntityRegistry;
+import com.sammy.malum.registry.common.block.BlockRegistry;
+import com.sammy.malum.visual_effects.SpiritAltarParticleEffects;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import team.lodestar.lodestone.systems.multiblock.*;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
+import team.lodestar.lodestone.systems.multiblock.MultiBlockStructure;
 
-import java.util.function.*;
+import java.util.function.Supplier;
 
 public class RunewoodObeliskBlockEntity extends ObeliskCoreBlockEntity implements IAltarAccelerator {
     private static final Vec3 OBELISK_PARTICLE_OFFSET = new Vec3(0.5f, 2f, 0.5f);

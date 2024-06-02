@@ -18,9 +18,11 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Tier;
-import net.minecraft.world.item.enchantment.*;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.Enchantments;
 import team.lodestar.lodestone.helpers.TrinketsHelper;
-import team.lodestar.lodestone.registry.common.tag.*;
+import team.lodestar.lodestone.registry.common.tag.LodestoneDamageTypeTags;
 import team.lodestar.lodestone.systems.item.ModCombatItem;
 
 public class MalumScytheItem extends ModCombatItem implements IMalumEventResponderItem, CustomEnchantingBehaviorItem {
@@ -32,7 +34,7 @@ public class MalumScytheItem extends ModCombatItem implements IMalumEventRespond
     @Override
     public void hurtEvent(LivingHurtEvent event, LivingEntity attacker, LivingEntity target, ItemStack stack) {
         //TODO: convert this to a ToolAction, or something alike
-        boolean canSweep = !TrinketsHelper.hasCurioEquipped(attacker, ItemRegistry.NECKLACE_OF_THE_NARROW_EDGE.get()) && !TrinketsHelper.hasCurioEquipped(attacker, ItemRegistry.NECKLACE_OF_THE_HIDDEN_BLADE.get());
+        boolean canSweep = !TrinketsHelper.hasTrinketEquipped(attacker, ItemRegistry.NECKLACE_OF_THE_NARROW_EDGE.get()) && !TrinketsHelper.hasTrinketEquipped(attacker, ItemRegistry.NECKLACE_OF_THE_HIDDEN_BLADE.get());
         if (attacker instanceof Player player) {
             SoundEvent sound;
             if (canSweep) {

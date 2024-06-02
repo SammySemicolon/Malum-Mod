@@ -1,11 +1,8 @@
 package com.sammy.malum.common.block.curiosities.ritual_plinth;
 
-import com.sammy.malum.common.block.curiosities.spirit_altar.SpiritAltarBlockEntity;
-import com.sammy.malum.registry.common.SoundRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import team.lodestar.lodestone.systems.sound.LodestoneBlockEntitySoundInstance;
 
 import java.util.HashMap;
@@ -44,8 +41,7 @@ public class RitualSoundInstance extends LodestoneBlockEntitySoundInstance<Ritua
                 ACTIVE_SOUNDS.put(blockPos, ritualSound);
                 Minecraft.getInstance().getSoundManager().queueTickingSound(ritualSound);
             }
-        }
-        else {
+        } else {
             ACTIVE_SOUNDS.put(blockPos, ritualSound);
             Minecraft.getInstance().getSoundManager().queueTickingSound(ritualSound);
         }

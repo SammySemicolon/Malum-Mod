@@ -1,6 +1,5 @@
 package com.sammy.malum.registry.common.item;
 
-import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.item.cosmetic.skins.ArmorSkin;
 import com.sammy.malum.common.item.cosmetic.skins.PrideArmorSkin;
 import com.sammy.malum.common.item.cosmetic.skins.UltrakillArmorSkin;

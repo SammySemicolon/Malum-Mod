@@ -1,29 +1,28 @@
 package com.sammy.malum.client.screen.codex.pages.recipe;
 
-import com.mojang.blaze3d.vertex.*;
-import com.sammy.malum.*;
-import com.sammy.malum.client.screen.codex.pages.*;
-import com.sammy.malum.client.screen.codex.screens.*;
-import com.sammy.malum.common.spiritrite.*;
-import com.sammy.malum.core.systems.spirit.*;
-import net.minecraft.client.*;
-import net.minecraft.client.gui.*;
-import net.minecraft.client.gui.screens.*;
-import net.minecraft.resources.*;
-import net.minecraft.world.item.*;
-import team.lodestar.lodestone.handlers.screenparticle.*;
-import team.lodestar.lodestone.helpers.*;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.sammy.malum.MalumMod;
+import com.sammy.malum.client.screen.codex.pages.BookPage;
+import com.sammy.malum.client.screen.codex.screens.EntryScreen;
+import com.sammy.malum.common.spiritrite.TotemicRiteType;
+import com.sammy.malum.core.systems.spirit.MalumSpiritType;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import team.lodestar.lodestone.handlers.screenparticle.ScreenParticleHandler;
+import team.lodestar.lodestone.helpers.RandomHelper;
+import team.lodestar.lodestone.registry.common.particle.LodestoneScreenParticleRegistry;
+import team.lodestar.lodestone.systems.easing.Easing;
+import team.lodestar.lodestone.systems.particle.builder.ScreenParticleBuilder;
+import team.lodestar.lodestone.systems.particle.data.GenericParticleData;
+import team.lodestar.lodestone.systems.particle.data.spin.SpinParticleData;
+import team.lodestar.lodestone.systems.particle.screen.ScreenParticleHolder;
 
-import team.lodestar.lodestone.registry.common.particle.*;
-import team.lodestar.lodestone.systems.easing.*;
-import team.lodestar.lodestone.systems.particle.builder.*;
-import team.lodestar.lodestone.systems.particle.data.*;
-import team.lodestar.lodestone.systems.particle.data.spin.*;
-import team.lodestar.lodestone.systems.particle.screen.*;
+import java.util.List;
 
-import java.util.*;
-
-import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.*;
+import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.renderRiteIcon;
 
 public class SpiritRiteRecipePage extends BookPage {
 
@@ -78,6 +77,7 @@ public class SpiritRiteRecipePage extends BookPage {
             }
         }
     }
+
     public boolean isCorrupted() {
         return bookEntry.identifier.contains("corrupt");
     }

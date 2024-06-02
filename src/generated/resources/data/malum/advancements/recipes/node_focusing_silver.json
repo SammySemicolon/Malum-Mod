@@ -1,6 +1,11 @@
 {
   "advancements": [
     {
+      "advancement": {
+        "criteria": {},
+        "requirements": [],
+        "sends_telemetry_event": true
+      },
       "fabric:load_conditions": [
         {
           "condition": "fabric:tags_populated",

@@ -4,7 +4,6 @@ import com.sammy.malum.common.components.MalumComponents;
 import com.sammy.malum.config.CommonConfig;
 import com.sammy.malum.core.listeners.ReapingDataReloadListener;
 import com.sammy.malum.registry.common.item.ItemRegistry;
-import io.github.fabricators_of_create.porting_lib.entity.events.LivingDeathEvent;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;

@@ -1,18 +1,23 @@
 package com.sammy.malum.common.block.curiosities.repair_pylon;
 
-import net.minecraft.core.*;
-import net.minecraft.world.entity.player.*;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.item.*;
-import net.minecraft.world.level.*;
-import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.state.*;
-import net.minecraft.world.level.block.state.properties.*;
-import net.minecraft.world.phys.*;
-import net.minecraft.world.phys.shapes.*;
-import team.lodestar.lodestone.systems.multiblock.*;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.phys.shapes.BooleanOp;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
+import team.lodestar.lodestone.systems.multiblock.MultiBlockComponentEntity;
+import team.lodestar.lodestone.systems.multiblock.MultiblockComponentBlock;
 
-import java.util.function.*;
+import java.util.function.Supplier;
 
 public class RepairPylonComponentBlock extends MultiblockComponentBlock {
 
@@ -57,7 +62,7 @@ public class RepairPylonComponentBlock extends MultiblockComponentBlock {
         return 0;
     }
 
-    public static VoxelShape makeTopShape(){
+    public static VoxelShape makeTopShape() {
         VoxelShape shape = Shapes.empty();
         shape = Shapes.join(shape, Shapes.box(-0.0625, -0.125, -0.0625, 0.3125, 0.4375, 0.3125), BooleanOp.OR);
         shape = Shapes.join(shape, Shapes.box(-0.0625, -0.125, 0.6875, 0.3125, 0.4375, 1.0625), BooleanOp.OR);
@@ -67,7 +72,7 @@ public class RepairPylonComponentBlock extends MultiblockComponentBlock {
 
         return shape;
     }
-    
+
     public static VoxelShape makeMiddleShape() {
         VoxelShape shape = Shapes.empty();
         shape = Shapes.join(shape, Shapes.box(0, 0, 0, 0.375, 0.25, 0.375), BooleanOp.OR);

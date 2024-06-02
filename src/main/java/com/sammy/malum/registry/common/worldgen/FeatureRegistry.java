@@ -1,13 +1,15 @@
 package com.sammy.malum.registry.common.worldgen;
 
-import com.sammy.malum.common.worldgen.ore.*;
-import com.sammy.malum.common.worldgen.tree.*;
+import com.sammy.malum.common.worldgen.ore.CthonicGoldOreFeature;
+import com.sammy.malum.common.worldgen.ore.LayeredOreFeature;
+import com.sammy.malum.common.worldgen.tree.RunewoodTreeFeature;
+import com.sammy.malum.common.worldgen.tree.SoulwoodTreeFeature;
 import io.github.fabricators_of_create.porting_lib.util.LazyRegistrar;
 import io.github.fabricators_of_create.porting_lib.util.RegistryObject;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.world.level.levelgen.feature.*;
+import net.minecraft.world.level.levelgen.feature.Feature;
 
-import static com.sammy.malum.MalumMod.*;
+import static com.sammy.malum.MalumMod.MALUM;
 
 public class FeatureRegistry {
 

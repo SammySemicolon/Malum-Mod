@@ -1,6 +1,6 @@
 {
   "type": "jeed:effect_provider",
-  "effect":{
+  "effect": {
     "id": "malum:earthen_might"
   },
   "providers": [

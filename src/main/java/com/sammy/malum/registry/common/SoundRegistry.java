@@ -170,7 +170,7 @@ public class SoundRegistry {
     public static final RegistryObject<SoundEvent> RUNEWOOD_DOOR_OPEN = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("runewood_door_open")));
     public static final RegistryObject<SoundEvent> RUNEWOOD_TRAPDOOR_CLOSE = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("runewood_trapdoor_close")));
     public static final RegistryObject<SoundEvent> RUNEWOOD_TRAPDOOR_OPEN = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("runewood_trapdoor_open")));
-    
+
     public static final RegistryObject<SoundEvent> SOULWOOD_BREAK = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("soulwood_break")));
     public static final RegistryObject<SoundEvent> SOULWOOD_PLACE = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("soulwood_place")));
     public static final RegistryObject<SoundEvent> SOULWOOD_STEP = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("soulwood_step")));

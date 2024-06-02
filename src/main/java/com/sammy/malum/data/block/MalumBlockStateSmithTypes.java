@@ -1,7 +1,9 @@
 package com.sammy.malum.data.block;
 
-import com.sammy.malum.common.block.blight.*;
-import com.sammy.malum.common.block.curiosities.repair_pylon.*;
+import com.sammy.malum.common.block.blight.CalcifiedBlightBlock;
+import com.sammy.malum.common.block.blight.ClingingBlightBlock;
+import com.sammy.malum.common.block.blight.TallCalcifiedBlightBlock;
+import com.sammy.malum.common.block.curiosities.repair_pylon.RepairPylonComponentBlock;
 import com.sammy.malum.common.block.curiosities.totem.TotemPoleBlock;
 import com.sammy.malum.common.block.curiosities.weeping_well.PrimordialSoupBlock;
 import com.sammy.malum.common.block.ether.EtherBrazierBlock;
@@ -13,8 +15,9 @@ import io.github.fabricators_of_create.porting_lib.models.generators.ModelBuilde
 import io.github.fabricators_of_create.porting_lib.models.generators.ModelFile;
 import io.github.fabricators_of_create.porting_lib.models.generators.block.VariantBlockStateBuilder;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.state.properties.*;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import team.lodestar.lodestone.systems.datagen.ItemModelSmithTypes;
 import team.lodestar.lodestone.systems.datagen.statesmith.BlockStateSmith;
 
@@ -55,10 +58,10 @@ public class MalumBlockStateSmithTypes {
         provider.getVariantBuilder(block).forAllStates(s -> ConfiguredModel.builder().modelFile(s.getValue(PrimordialSoupBlock.TOP) ? topModel : model).build());
     });
 
-    public static BlockStateSmith<Block> HANGING_LEAVES = new BlockStateSmith<>(Block.class, ItemModelSmithTypes.AFFIXED_BLOCK_MODEL.apply("_0"), (block, provider) -> {
+    public static BlockStateSmith<Block> HANGING_LEAVES = new BlockStateSmith<>(Block.class, ItemModelSmithTypes.AFFIXED_BLOCK_TEXTURE_MODEL.apply("_0"), (block, provider) -> {
         String name = provider.getBlockName(block);
         Function<Integer, ModelFile> modelProvider = (i) ->
-                provider.models().withExistingParent(name+"_"+i, malumPath("block/templates/template_hanging_leaves")).texture("hanging_leaves", provider.getBlockTexture(name + "_" + i)).texture("particle", provider.getBlockTexture(name + "_" + i));
+                provider.models().withExistingParent(name + "_" + i, malumPath("block/templates/template_hanging_leaves")).texture("hanging_leaves", provider.getBlockTexture(name + "_" + i)).texture("particle", provider.getBlockTexture(name + "_" + i));
 
         ConfiguredModel.Builder<VariantBlockStateBuilder> builder = provider.getVariantBuilder(block).partialState().modelForState();
 
@@ -91,10 +94,10 @@ public class MalumBlockStateSmithTypes {
                 parent = creepingCeiling;
             }
             ResourceLocation texture = provider.getBlockTexture(valueName);
-            ResourceLocation smallTexture = provider.getBlockTexture(valueName +"_small");
-            ModelBuilder model = provider.models().withExistingParent(name+"_"+ valueName, parent).texture("big", texture).texture("small", smallTexture).texture("particle", texture);
+            ResourceLocation smallTexture = provider.getBlockTexture(valueName + "_small");
+            ModelBuilder model = provider.models().withExistingParent(name + "_" + valueName, parent).texture("big", texture).texture("small", smallTexture).texture("particle", texture);
             if (!parent.equals(creeping)) {
-                ResourceLocation bracingTexture = provider.getBlockTexture(valueName +"_bracing");
+                ResourceLocation bracingTexture = provider.getBlockTexture(valueName + "_bracing");
                 model.texture("bracing", bracingTexture);
             }
             return ConfiguredModel.builder().modelFile(model).rotationY(((int) s.getValue(BlockStateProperties.HORIZONTAL_FACING).toYRot() + 180) % 360).build();

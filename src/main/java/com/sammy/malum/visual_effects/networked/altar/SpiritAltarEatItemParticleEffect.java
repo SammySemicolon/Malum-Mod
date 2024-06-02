@@ -5,10 +5,10 @@ import com.sammy.malum.common.block.storage.MalumItemHolderBlockEntity;
 import com.sammy.malum.visual_effects.SpiritAltarParticleEffects;
 import com.sammy.malum.visual_effects.networked.ParticleEffectType;
 import com.sammy.malum.visual_effects.networked.data.NBTEffectData;
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.item.ItemStack;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.item.ItemStack;
 import team.lodestar.lodestone.helpers.BlockHelper;
 
 import java.util.function.Supplier;

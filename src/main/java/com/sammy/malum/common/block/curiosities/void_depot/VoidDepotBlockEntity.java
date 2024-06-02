@@ -1,26 +1,34 @@
 package com.sammy.malum.common.block.curiosities.void_depot;
 
-import com.sammy.malum.registry.common.*;
-import com.sammy.malum.registry.common.block.*;
-import com.sammy.malum.registry.common.item.*;
-import com.sammy.malum.visual_effects.*;
-import com.sammy.malum.visual_effects.networked.data.*;
-import net.minecraft.core.*;
+import com.sammy.malum.registry.common.ParticleEffectTypeRegistry;
+import com.sammy.malum.registry.common.SoundRegistry;
+import com.sammy.malum.registry.common.block.BlockEntityRegistry;
+import com.sammy.malum.registry.common.item.ItemRegistry;
+import com.sammy.malum.visual_effects.WeepingWellParticleEffects;
+import com.sammy.malum.visual_effects.networked.data.PositionEffectData;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.nbt.*;
-import net.minecraft.resources.*;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.*;
-import net.minecraft.util.*;
-import net.minecraft.world.*;
-import net.minecraft.world.entity.player.*;
-import net.minecraft.world.item.*;
-import net.minecraft.world.level.block.state.*;
-import team.lodestar.lodestone.helpers.*;
-import team.lodestar.lodestone.systems.blockentity.*;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
+import net.minecraft.util.StringRepresentable;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.state.BlockState;
+import team.lodestar.lodestone.helpers.BlockHelper;
+import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntity;
 
-import java.util.*;
-import java.util.function.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+import java.util.function.Function;
 
 public class VoidDepotBlockEntity extends LodestoneBlockEntity {
 
@@ -45,7 +53,7 @@ public class VoidDepotBlockEntity extends LodestoneBlockEntity {
         if (!textToDisplay.isEmpty()) {
             for (int i = 0; i < textToDisplay.size(); i++) {
                 String text = textToDisplay.get(i);
-                textTag.putString("line_"+i, text);
+                textTag.putString("line_" + i, text);
             }
         }
         compound.put("textDisplay", textTag);
@@ -147,10 +155,10 @@ public class VoidDepotBlockEntity extends LodestoneBlockEntity {
                 List<VoidDepotGoal> newGoals = new ArrayList<>();
                 for (VoidDepotGoal goal : goals) {
                     if (goal instanceof ItemGoal itemGoal) {
-                        newGoals.add(new ItemGoal(itemGoal.index, itemGoal.item, itemGoal.amount*2, itemGoal.deliveredAmount));
+                        newGoals.add(new ItemGoal(itemGoal.index, itemGoal.item, itemGoal.amount * 2, itemGoal.deliveredAmount));
                     }
                     if (goal instanceof ExperienceGoal experienceGoal) {
-                        newGoals.add(new ExperienceGoal(experienceGoal.index, experienceGoal.amount*2, experienceGoal.deliveredAmount));
+                        newGoals.add(new ExperienceGoal(experienceGoal.index, experienceGoal.amount * 2, experienceGoal.deliveredAmount));
                     }
                 }
                 this.goals.clear();
@@ -234,8 +242,7 @@ public class VoidDepotBlockEntity extends LodestoneBlockEntity {
             nearTimer--;
             if (nearTimer > 0 && textVisibility < 40) {
                 textVisibility++;
-            }
-            else if (textVisibility > 0){
+            } else if (textVisibility > 0) {
                 textVisibility--;
             }
         }
@@ -244,7 +251,7 @@ public class VoidDepotBlockEntity extends LodestoneBlockEntity {
     public void onCompletion() {
         float pitch = Mth.nextFloat(level.getRandom(), 1.5f, 1.75f);
         if (level instanceof ServerLevel serverLevel) {
-            ParticleEffectTypeRegistry.WEEPING_WELL_REACTS.createPositionedEffect(serverLevel, new PositionEffectData(worldPosition.getX()+0.5f, worldPosition.getY()+0.9f, worldPosition.getZ()+0.5f));
+            ParticleEffectTypeRegistry.WEEPING_WELL_REACTS.createPositionedEffect(serverLevel, new PositionEffectData(worldPosition.getX() + 0.5f, worldPosition.getY() + 0.9f, worldPosition.getZ() + 0.5f));
         }
         level.playSound(null, worldPosition, SoundRegistry.FLESH_RING_ABSORBS.get(), SoundSource.HOSTILE, 0.7f, pitch);
         level.playSound(null, worldPosition, SoundRegistry.VOID_TRANSMUTATION.get(), SoundSource.HOSTILE, 2f, pitch);
@@ -257,6 +264,7 @@ public class VoidDepotBlockEntity extends LodestoneBlockEntity {
     }
 
     public static final StringRepresentable.EnumCodec<VoidDepotGoal.VoidDepotGoalType> CODEC = StringRepresentable.fromEnum(VoidDepotGoal.VoidDepotGoalType::values);
+
     public static abstract class VoidDepotGoal {
 
         public enum VoidDepotGoalType implements StringRepresentable {
@@ -310,6 +318,7 @@ public class VoidDepotBlockEntity extends LodestoneBlockEntity {
             return compoundTag;
         }
     }
+
     public static class ExperienceGoal extends VoidDepotGoal {
 
         public ExperienceGoal(String index, int amount, int deliveredAmount) {
@@ -323,6 +332,7 @@ public class VoidDepotBlockEntity extends LodestoneBlockEntity {
                     compoundTag.getInt("deliveredAmount"));
         }
     }
+
     public static class ItemGoal extends VoidDepotGoal {
         public final Item item;
 

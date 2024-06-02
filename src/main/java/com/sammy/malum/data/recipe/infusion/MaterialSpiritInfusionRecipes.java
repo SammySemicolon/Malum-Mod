@@ -1,14 +1,14 @@
 package com.sammy.malum.data.recipe.infusion;
 
-import com.sammy.malum.data.recipe.builder.*;
-import com.sammy.malum.registry.common.item.*;
+import com.sammy.malum.data.recipe.builder.SpiritInfusionRecipeBuilder;
+import com.sammy.malum.registry.common.item.ItemRegistry;
 import io.github.fabricators_of_create.porting_lib.tags.Tags;
-import net.minecraft.data.recipes.*;
-import net.minecraft.tags.*;
-import net.minecraft.world.item.*;
-import net.minecraft.world.item.crafting.*;
+import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 
-import java.util.function.*;
+import java.util.function.Consumer;
 
 import static com.sammy.malum.registry.common.SpiritTypeRegistry.*;
 
@@ -103,7 +103,7 @@ public class MaterialSpiritInfusionRecipes {
                 .build(consumer);
 
         new SpiritInfusionRecipeBuilder(Ingredient.of(Tags.Items.INGOTS_IRON), 4, ItemRegistry.MALIGNANT_PEWTER_INGOT.get(), 1)
-                .addExtraItem(ItemRegistry.MALIGNANT_LEAD.get(), 2)
+                .addExtraItem(ItemRegistry.MALIGNANT_LEAD.get(), 1)
                 .addExtraItem(ItemRegistry.NULL_SLATE.get(), 8)
                 .addExtraItem(Items.NETHERITE_SCRAP, 3)
                 .addSpirit(EARTHEN_SPIRIT, 16)

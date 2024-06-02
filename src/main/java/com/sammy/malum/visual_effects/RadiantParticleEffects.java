@@ -17,7 +17,6 @@ import team.lodestar.lodestone.systems.particle.data.spin.*;
 import team.lodestar.lodestone.systems.particle.render_types.*;
 
 import java.awt.*;
-import java.util.*;
 import java.util.List;
 import java.util.function.*;
 
@@ -46,14 +45,14 @@ public class RadiantParticleEffects {
                 sparkParticles.getBuilder()
                         .addSpawnActor(spawnBehavior)
                         .disableNoClip()
-                        .setGravityStrength(gravityStrength/2f)
+                        .setGravityStrength(gravityStrength / 2f)
                         .setMotion(xVelocity, yVelocity, zVelocity)
                         .modifyData(SparkParticleBuilder::getTransparencyData, d -> d.multiplyValue(2f))
                         .modifyData(SparkParticleBuilder::getScaleData, d -> d.multiplyValue(1.5f));
                 sparkParticles.getBloomBuilder()
                         .addSpawnActor(spawnBehavior)
                         .disableNoClip()
-                        .setGravityStrength(gravityStrength/2f)
+                        .setGravityStrength(gravityStrength / 2f)
                         .setMotion(xVelocity, yVelocity, zVelocity)
                         .modifyData(WorldParticleBuilder::getTransparencyData, d -> d.multiplyValue(1.25f));
                 sparkParticles.spawnParticles();
@@ -90,17 +89,17 @@ public class RadiantParticleEffects {
                     .setScaleData(GenericParticleData.create(3f, 5f, 0.6f).setEasing(Easing.QUARTIC_OUT, Easing.SINE_IN).build())
                     .setColorData(colorData)
                     .setLifeDelay(lifeDelay)
-                    .setLifetime(25+lifeDelay)
+                    .setLifetime(25 + lifeDelay)
                     .setRandomOffset(0.6f)
                     .enableNoClip()
                     .setRandomMotion(0.02f, 0.02f)
                     .setDiscardFunction(SimpleParticleOptions.ParticleDiscardFunctionType.ENDING_CURVE_INVISIBLE)
-                    .repeat(level, posX, posY+0.25f, posZ, 5);
+                    .repeat(level, posX, posY + 0.25f, posZ, 5);
 
         }
         for (int i = 0; i < 27; i++) {
-            int finalI = 4+i;
-            Color color = RADIANT_COLORS.get(((int) (level.getGameTime()-27+i) % 27) / 9);
+            int finalI = 4 + i;
+            Color color = RADIANT_COLORS.get(((int) (level.getGameTime() - 27 + i) % 27) / 9);
             final ColorParticleData colorData = ColorParticleData.create(color.brighter(), color).setCoefficient(0.5f).build();
             var squares = WeepingWellParticleEffects.weepingWellSquare(level, pos, colorData);
             squares.getBuilder().addSpawnActor(p -> p.tickParticle(finalI));
@@ -115,7 +114,7 @@ public class RadiantParticleEffects {
         final BlockPos blockPos = voidConduit.getBlockPos();
         final ColorParticleData colorData = ColorParticleData.create(color.brighter(), color).setCoefficient(0.5f).build();
         if (level.getGameTime() % 3L == 0) {
-            WeepingWellParticleEffects.weepingWellSquare(level, new Vec3(blockPos.getX()+0.5f, blockPos.getY()+0.75f, blockPos.getZ()+0.5f), colorData).spawnParticles();
+            WeepingWellParticleEffects.weepingWellSquare(level, new Vec3(blockPos.getX() + 0.5f, blockPos.getY() + 0.75f, blockPos.getZ() + 0.5f), colorData).spawnParticles();
         }
 
         final float acceleration = RandomHelper.randomBetween(rand, 0.002f, 0.02f);

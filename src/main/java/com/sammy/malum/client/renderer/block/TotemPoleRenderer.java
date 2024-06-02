@@ -1,26 +1,25 @@
 package com.sammy.malum.client.renderer.block;
 
-import com.mojang.blaze3d.vertex.*;
-import com.mojang.math.*;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Axis;
 import com.sammy.malum.client.SpiritBasedWorldVFXBuilder;
-import com.sammy.malum.common.block.curiosities.totem.*;
+import com.sammy.malum.common.block.curiosities.totem.TotemPoleBlockEntity;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
-import net.minecraft.client.*;
-import net.minecraft.client.renderer.*;
-import net.minecraft.client.renderer.blockentity.*;
-import net.minecraft.core.*;
-import net.minecraft.util.*;
-import net.minecraft.world.level.*;
-import net.minecraft.world.level.block.state.properties.*;
-import org.joml.*;
-import team.lodestar.lodestone.handlers.*;
-import team.lodestar.lodestone.registry.client.*;
-import team.lodestar.lodestone.systems.easing.*;
-import team.lodestar.lodestone.systems.rendering.*;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.core.Direction;
+import net.minecraft.util.Mth;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import org.joml.Vector3f;
+import team.lodestar.lodestone.registry.client.LodestoneRenderTypeRegistry;
+import team.lodestar.lodestone.systems.easing.Easing;
 import team.lodestar.lodestone.systems.rendering.rendeertype.RenderTypeToken;
 
 import java.awt.*;
-import java.lang.Math;
 
 
 public class TotemPoleRenderer implements BlockEntityRenderer<TotemPoleBlockEntity> {
@@ -37,7 +36,7 @@ public class TotemPoleRenderer implements BlockEntityRenderer<TotemPoleBlockEnti
         }
 
         Level level = Minecraft.getInstance().level;
-        RenderType renderType = LodestoneRenderTypeRegistry.ADDITIVE_TEXTURE.applyAndCache(RenderTypeToken.createToken(spiritType.getTotemGlowTexture()));
+        RenderType renderType = LodestoneRenderTypeRegistry.ADDITIVE_TEXTURE.applyAndCache(RenderTypeToken.createCachedToken(spiritType.getTotemGlowTexture()));
 
         poseStack.pushPose();
         poseStack.translate(0.5f, 0.5f, 0.5f);

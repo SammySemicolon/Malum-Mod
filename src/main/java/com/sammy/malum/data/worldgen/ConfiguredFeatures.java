@@ -1,19 +1,27 @@
 package com.sammy.malum.data.worldgen;
 
-import com.sammy.malum.common.worldgen.tree.*;
-import com.sammy.malum.registry.common.block.*;
-import com.sammy.malum.registry.common.worldgen.*;
-import net.minecraft.data.worldgen.*;
-import net.minecraft.tags.*;
-import net.minecraft.util.valueproviders.*;
-import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.levelgen.*;
-import net.minecraft.world.level.levelgen.feature.*;
-import net.minecraft.world.level.levelgen.feature.configurations.*;
-import net.minecraft.world.level.levelgen.feature.stateproviders.*;
-import net.minecraft.world.level.levelgen.structure.templatesystem.*;
+import com.sammy.malum.common.worldgen.tree.RunewoodTreeConfiguration;
+import com.sammy.malum.registry.common.block.BlockRegistry;
+import com.sammy.malum.registry.common.worldgen.ConfiguredFeatureRegistry;
+import com.sammy.malum.registry.common.worldgen.FeatureRegistry;
+import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.util.valueproviders.UniformInt;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.levelgen.GeodeBlockSettings;
+import net.minecraft.world.level.levelgen.GeodeCrackSettings;
+import net.minecraft.world.level.levelgen.GeodeLayerSettings;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.GeodeConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
+import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
+import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
+import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
 
-import java.util.*;
+import java.util.List;
 
 public class ConfiguredFeatures {
 

@@ -9,7 +9,8 @@
     "FishingHookEntityMixin",
     "ItemStackMixin",
     "LivingEntityMixin",
-    "PlayerMixin"
+    "PlayerMixin",
+    "SimpleCookingSerializerMixin"
   ],
   "client": [
     "AccessorBakedGlyph",

@@ -6,6 +6,8 @@ import com.sammy.malum.client.renderer.armor.SoulHunterArmorRenderer;
 import com.sammy.malum.client.renderer.armor.SoulStainedSteelArmorRenderer;
 import com.sammy.malum.client.renderer.block.SpiritCrucibleRenderer;
 import com.sammy.malum.client.renderer.block.TotemBaseRenderer;
+import com.sammy.malum.client.renderer.curio.TokenOfGratitudeRenderer;
+import com.sammy.malum.client.renderer.curio.TopHatCurioRenderer;
 import com.sammy.malum.client.renderer.item.SpiritJarItemRenderer;
 import com.sammy.malum.config.ClientConfig;
 import com.sammy.malum.registry.client.ModelRegistry;
@@ -16,18 +18,31 @@ import com.sammy.malum.registry.common.block.BlockEntityRegistry;
 import com.sammy.malum.registry.common.block.BlockRegistry;
 import com.sammy.malum.registry.common.entity.EntityRegistry;
 import com.sammy.malum.registry.common.item.ItemRegistry;
+import dev.emi.trinkets.api.client.TrinketRendererRegistry;
 import io.github.fabricators_of_create.porting_lib.config.ConfigRegistry;
 import io.github.fabricators_of_create.porting_lib.config.ConfigType;
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin;
 import net.fabricmc.fabric.api.client.rendering.v1.ArmorRenderer;
+import net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
+import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
+import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 
 import static com.sammy.malum.registry.common.item.ItemRegistry.SPIRIT_JAR;
 
 public class MalumModClient implements ClientModInitializer {
+
     @Override
     public void onInitializeClient() {
         ConfigRegistry.registerConfig(MalumMod.MALUM, ConfigType.CLIENT, ClientConfig.SPEC);
@@ -42,10 +57,27 @@ public class MalumModClient implements ClientModInitializer {
         ItemRegistry.ClientOnly.addItemProperties();
         ItemRegistry.ClientOnly.setItemColors();
         ContainerRegistry.bindContainerRenderers();
-        ModelRegistry.registerLayerDefinitions();
-        //ModelRegistry.registerLayers();
+//CuriosRendererRegistry.register(ItemRegistry.TOPHAT.get(), TopHatCurioRenderer::new);
+        TrinketRendererRegistry.registerRenderer(ItemRegistry.TOPHAT.get(), new TopHatCurioRenderer());
+        TrinketRendererRegistry.registerRenderer(ItemRegistry.TOKEN_OF_GRATITUDE.get(), new TokenOfGratitudeRenderer());
+
+        ClientLifecycleEvents.CLIENT_STARTED.register(client -> {
+            ModelRegistry.registerLayerDefinitions();
+            ModelRegistry.registerLayers();
+        });
 
         BuiltinItemRendererRegistry.INSTANCE.register(SPIRIT_JAR.get(), new SpiritJarItemRenderer());
+        BlockRenderLayerMap.INSTANCE.putBlocks(RenderType.translucent(),
+                BlockRegistry.SPIRIT_JAR.get(),
+                BlockRegistry.ETHER_TORCH.get(),
+                BlockRegistry.IRIDESCENT_ETHER_TORCH.get(),
+                BlockRegistry.IRIDESCENT_WALL_ETHER_TORCH.get(),
+                BlockRegistry.WALL_ETHER_TORCH.get(),
+                BlockRegistry.TAINTED_ETHER_BRAZIER.get(),
+                BlockRegistry.TAINTED_IRIDESCENT_ETHER_BRAZIER.get(),
+                BlockRegistry.TWISTED_ETHER_BRAZIER.get(),
+                BlockRegistry.TWISTED_IRIDESCENT_ETHER_BRAZIER.get()
+        );
 
         ArmorRenderer.register(new SoulHunterArmorRenderer(),
                 ItemRegistry.SOUL_HUNTER_CLOAK.get(),
@@ -69,6 +101,16 @@ public class MalumModClient implements ClientModInitializer {
         );
 
         ModelLoadingPlugin.register(new MalumModelLoaderPlugin());
+
+
+        FabricLoader.getInstance().getModContainer(MalumMod.MALUM).ifPresent(container ->
+                ResourceManagerHelper.registerBuiltinResourcePack(
+                        MalumMod.malumPath("chibi_sprites"),
+                        container,
+                        Component.translatable("chibi_sprites"),
+                        ResourcePackActivationType.NORMAL
+                )
+        );
     }
 
     private void startTick(Minecraft minecraft) {
@@ -76,7 +118,7 @@ public class MalumModClient implements ClientModInitializer {
         TotemBaseRenderer.checkForTotemicStaff(minecraft);
     }
 
-    interface IBigItem{
+    interface IBigItem {
 
     }
 }

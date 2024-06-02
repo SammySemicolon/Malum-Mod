@@ -2,6 +2,8 @@ package com.sammy.malum.common.sound;
 
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.registry.common.SoundRegistry;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.core.BlockPos;
@@ -10,8 +12,6 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import team.lodestar.lodestone.systems.sound.ExtendedSoundType;
 
 import java.util.function.Supplier;

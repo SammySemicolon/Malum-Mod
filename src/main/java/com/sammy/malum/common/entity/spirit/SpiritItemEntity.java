@@ -59,11 +59,6 @@ public class SpiritItemEntity extends FloatingItemEntity {
     }
 
     @Override
-    public boolean fireImmune() {
-        return true;
-    }
-
-    @Override
     public void spawnParticles(double x, double y, double z) {
         Vec3 motion = getDeltaMovement();
         Vec3 norm = motion.normalize().scale(0.05f);
@@ -121,17 +116,8 @@ public class SpiritItemEntity extends FloatingItemEntity {
 
     public void setOwner(UUID ownerUUID) {
         this.ownerUUID = ownerUUID;
-        updateOwner();
-    }
-
-    public void updateOwner() {
-        if (!level().isClientSide) {
-            owner = (LivingEntity) ((ServerLevel) level()).getEntity(ownerUUID);
+        if (level() instanceof ServerLevel serverLevel) {
+            owner = (LivingEntity) serverLevel.getEntity(ownerUUID);
         }
-    }
-
-    @Override
-    public boolean alwaysAccepts() {
-        return super.alwaysAccepts();
     }
 }

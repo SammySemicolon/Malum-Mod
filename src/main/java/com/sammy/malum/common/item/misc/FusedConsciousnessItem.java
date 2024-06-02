@@ -1,6 +1,6 @@
 package com.sammy.malum.common.item.misc;
 
-import com.sammy.malum.common.item.*;
+import com.sammy.malum.common.item.IVoidItem;
 import net.minecraft.world.item.SimpleFoiledItem;
 
 public class FusedConsciousnessItem extends SimpleFoiledItem implements IVoidItem {

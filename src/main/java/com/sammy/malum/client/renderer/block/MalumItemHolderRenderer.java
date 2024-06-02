@@ -12,6 +12,7 @@ import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntityInventory;
 
 import static net.minecraft.client.renderer.texture.OverlayTexture.NO_OVERLAY;
 
@@ -24,8 +25,11 @@ public class MalumItemHolderRenderer implements BlockEntityRenderer<MalumItemHol
     public void render(MalumItemHolderBlockEntity blockEntityIn, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int combinedLightIn, int combinedOverlayIn) {
         Level level = Minecraft.getInstance().level;
         ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
-        ItemStack stack = blockEntityIn.inventory.getStackInSlot(0);
-        if (!stack.isEmpty()) {
+
+        LodestoneBlockEntityInventory inventory = blockEntityIn.inventory;
+
+        if (!inventory.isEmpty()) {
+            ItemStack stack = inventory.getStackInSlot(0);
             poseStack.pushPose();
             Vec3 itemOffset = blockEntityIn.getItemOffset(partialTicks);
             poseStack.translate(itemOffset.x(), itemOffset.y(), itemOffset.z());

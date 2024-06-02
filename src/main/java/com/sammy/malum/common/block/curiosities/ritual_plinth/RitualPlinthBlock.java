@@ -1,12 +1,11 @@
 package com.sammy.malum.common.block.curiosities.ritual_plinth;
 
-import com.sammy.malum.common.block.curiosities.spirit_altar.*;
-import net.minecraft.core.*;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.level.*;
-import net.minecraft.world.level.block.entity.*;
-import net.minecraft.world.level.block.state.*;
-import team.lodestar.lodestone.systems.block.*;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import team.lodestar.lodestone.systems.block.WaterLoggedEntityBlock;
 
 public class RitualPlinthBlock<T extends RitualPlinthBlockEntity> extends WaterLoggedEntityBlock<T> {
 //    public static final VoxelShape SHAPE = makeShape();

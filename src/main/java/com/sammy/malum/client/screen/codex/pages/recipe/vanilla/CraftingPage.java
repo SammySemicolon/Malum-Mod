@@ -1,15 +1,16 @@
 package com.sammy.malum.client.screen.codex.pages.recipe.vanilla;
 
-import com.sammy.malum.*;
-import com.sammy.malum.client.screen.codex.pages.*;
-import com.sammy.malum.client.screen.codex.screens.*;
+import com.sammy.malum.MalumMod;
+import com.sammy.malum.client.screen.codex.pages.BookPage;
+import com.sammy.malum.client.screen.codex.screens.EntryScreen;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.client.gui.*;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.world.item.*;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
 
-import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.*;
+import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.renderItem;
 
 public class CraftingPage extends BookPage {
     private final ItemStack outputStack;

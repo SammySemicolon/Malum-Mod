@@ -1,11 +1,12 @@
 package com.sammy.malum.client.screen.codex.objects.progression;
 
-import com.sammy.malum.client.screen.codex.*;
-import com.sammy.malum.client.screen.codex.screens.*;
-import net.minecraft.resources.*;
+import com.sammy.malum.client.screen.codex.BookEntry;
+import com.sammy.malum.client.screen.codex.screens.AbstractProgressionCodexScreen;
+import net.minecraft.resources.ResourceLocation;
 
 public class ScreenOpenerObject extends IconObject {
     private final Runnable screenOpener;
+
     public ScreenOpenerObject(BookEntry entry, int posX, int posY, Runnable screenOpener, ResourceLocation textureLocation) {
         super(entry, posX, posY, textureLocation);
         this.screenOpener = screenOpener;

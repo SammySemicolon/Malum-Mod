@@ -1,36 +1,33 @@
 package com.sammy.malum.common.entity.nitrate;
 
-import com.sammy.malum.registry.client.*;
-import com.sammy.malum.registry.common.*;
+import com.sammy.malum.registry.client.ParticleRegistry;
+import com.sammy.malum.registry.common.ParticleEffectTypeRegistry;
 import com.sammy.malum.registry.common.entity.EntityRegistry;
-import com.sammy.malum.visual_effects.*;
-import com.sammy.malum.visual_effects.networked.*;
-import com.sammy.malum.visual_effects.networked.data.*;
-import net.minecraft.server.level.ServerLevel;
+import com.sammy.malum.visual_effects.SpiritLightSpecs;
+import com.sammy.malum.visual_effects.networked.ParticleEffectType;
+import com.sammy.malum.visual_effects.networked.data.ColorEffectData;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import team.lodestar.lodestone.helpers.*;
-import team.lodestar.lodestone.registry.common.particle.*;
+import team.lodestar.lodestone.helpers.ColorHelper;
+import team.lodestar.lodestone.helpers.RandomHelper;
 import team.lodestar.lodestone.systems.easing.Easing;
-import team.lodestar.lodestone.systems.particle.*;
+import team.lodestar.lodestone.systems.particle.LodestoneWorldParticleActor;
+import team.lodestar.lodestone.systems.particle.SimpleParticleOptions;
 import team.lodestar.lodestone.systems.particle.builder.WorldParticleBuilder;
 import team.lodestar.lodestone.systems.particle.data.GenericParticleData;
 import team.lodestar.lodestone.systems.particle.data.color.ColorParticleData;
-import team.lodestar.lodestone.systems.particle.data.color.ColorParticleDataBuilder;
 import team.lodestar.lodestone.systems.particle.data.spin.SpinParticleData;
 import team.lodestar.lodestone.systems.particle.render_types.LodestoneWorldParticleRenderType;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.*;
-
-import static com.sammy.malum.registry.common.PacketRegistry.MALUM_CHANNEL;
-import static net.minecraft.util.Mth.nextFloat;
+import java.util.function.Consumer;
+import java.util.function.Function;
 
 public class VividNitrateEntity extends AbstractNitrateEntity {
 
@@ -119,7 +116,7 @@ public class VividNitrateEntity extends AbstractNitrateEntity {
         lightSpecs.spawnParticles();
         Color smokeColor = AbstractNitrateEntity.SECOND_SMOKE_COLOR;
         for (int i = 0; i < 3; i++) {
-            color = age < 3 ? smokeColor : COLOR_FUNCTION.apply(new ColorFunctionData(level(), i*0.25f));
+            color = age < 3 ? smokeColor : COLOR_FUNCTION.apply(new ColorFunctionData(level(), i * 0.25f));
             int lifetime = (int) (RandomHelper.randomBetween(random, 60, 80) * (1 - i / 3f));
             final SpinParticleData spinData = SpinParticleData.createRandomDirection(random, 0, RandomHelper.randomBetween(random, 0f, 0.4f), 0).randomSpinOffset(random).build();
             final Consumer<LodestoneWorldParticleActor> behavior = p -> p.setParticleMotion(p.getParticleSpeed().scale(0.98f));

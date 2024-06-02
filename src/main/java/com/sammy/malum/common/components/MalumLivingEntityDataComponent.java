@@ -16,7 +16,8 @@ import java.util.UUID;
 
 public class MalumLivingEntityDataComponent implements AutoSyncedComponent {
 
-    private LivingEntity livingEntity;
+    public int watcherNecklaceCooldown;
+    private final LivingEntity livingEntity;
     public SoulDataHandler soulData = new SoulDataHandler();
     public MalignantConversionHandler malignantConversionHandler = new MalignantConversionHandler();
     public TouchOfDarknessHandler touchOfDarknessHandler = new TouchOfDarknessHandler();
@@ -35,6 +36,12 @@ public class MalumLivingEntityDataComponent implements AutoSyncedComponent {
         }
         if (tag.contains("darknessAfflictionData")) {
             touchOfDarknessHandler.deserializeNBT(tag.getCompound("darknessAfflictionData"));
+        }
+
+        if (tag.contains("watcherNecklaceCooldown")) {
+            watcherNecklaceCooldown = tag.getInt("watcherNecklaceCooldown");
+        } else {
+            watcherNecklaceCooldown = 0;
         }
 
         if (tag.contains("soulsToApplyToDrops", Tag.TAG_LIST)) {
@@ -58,6 +65,10 @@ public class MalumLivingEntityDataComponent implements AutoSyncedComponent {
     public void writeToNbt(CompoundTag tag) {
         tag.put("soulData", soulData.serializeNBT());
         tag.put("darknessAfflictionData", touchOfDarknessHandler.serializeNBT());
+
+        if (watcherNecklaceCooldown > 0) {
+            tag.putInt("watcherNecklaceCooldown", watcherNecklaceCooldown);
+        }
 
         if (soulsToApplyToDrops != null) {
             ListTag souls = new ListTag();

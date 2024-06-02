@@ -3,7 +3,6 @@ package com.sammy.malum.common.block.storage.jar;
 import com.sammy.malum.registry.common.SpiritTypeRegistry;
 import io.github.fabricators_of_create.porting_lib.transfer.item.ItemHandlerHelper;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
@@ -37,9 +36,8 @@ public class SpiritJarBlock<T extends SpiritJarBlockEntity> extends WaterLoggedE
     public boolean handleAttack(Level pLevel, BlockPos pPos, Player pPlayer) {
         BlockEntity be = pLevel.getBlockEntity(pPos);
         if (be instanceof SpiritJarBlockEntity jar) {
-            /*TODO
-            IItemHandler jarHandler = jar.getCapability(ForgeCapabilities.ITEM_HANDLER, Direction.DOWN).orElse(new EmptyHandler());
-            ItemStack item = jarHandler.extractItem(0, pPlayer.isShiftKeyDown() ? 64 : 1, false);
+
+            ItemStack item = jar.extractItem(0, pPlayer.isShiftKeyDown() ? 64 : 1);
             if (!item.isEmpty()) {
                 ItemHandlerHelper.giveItemToPlayer(pPlayer, item, pPlayer.getInventory().selected);
                 if (!pLevel.isClientSide) {
@@ -48,7 +46,6 @@ public class SpiritJarBlock<T extends SpiritJarBlockEntity> extends WaterLoggedE
                 return true;
             }
 
-             */
         }
         return false;
     }

@@ -1,11 +1,12 @@
 package com.sammy.malum.mixin;
 
-import net.minecraft.world.*;
-import net.minecraft.world.item.*;
-import net.minecraft.world.item.context.*;
-import org.spongepowered.asm.mixin.*;
-import org.spongepowered.asm.mixin.injection.*;
-import org.spongepowered.asm.mixin.injection.callback.*;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.item.EnderEyeItem;
+import net.minecraft.world.item.context.UseOnContext;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 //TODO: THIS IS TEMPORARY, ONLY FOR THE SERVER
 @Mixin(EnderEyeItem.class)

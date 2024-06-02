@@ -1,14 +1,15 @@
 package com.sammy.malum.common.block.curiosities.spirit_crucible;
 
-import com.sammy.malum.common.item.augment.*;
-import net.minecraft.core.*;
-import net.minecraft.nbt.*;
-import net.minecraft.world.level.*;
-import net.minecraft.world.level.block.entity.*;
-import team.lodestar.lodestone.helpers.*;
+import com.sammy.malum.common.item.augment.AbstractAugmentItem;
+import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import team.lodestar.lodestone.helpers.BlockHelper;
 
 import java.util.*;
-import java.util.stream.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class CrucibleAccelerationData {
 
@@ -128,8 +129,7 @@ public class CrucibleAccelerationData {
             final CrucibleAccelerationData data = new CrucibleAccelerationData(target, typeCount, accelerators);
             data.globalAttributeModifier = acceleratorTag.getFloat("globalAttributeModifier");
             return data;
-        }
-        else {
+        } else {
             return DEFAULT;
         }
     }
@@ -157,6 +157,7 @@ public class CrucibleAccelerationData {
         }
 
     }
+
     public static class DefaultedTunedValue extends TunedValue {
         public DefaultedTunedValue(float baseValue) {
             super(CrucibleTuning.TuningModifier.DEFAULT, baseValue);

@@ -16,6 +16,7 @@ public class AqueousAura extends MobEffect {
     public AqueousAura() {
         super(MobEffectCategory.BENEFICIAL, ColorHelper.getColor(SpiritTypeRegistry.AQUEOUS_SPIRIT.getPrimaryColor()));
         addAttributeModifier(PortingLibAttributes.ENTITY_REACH, "738bd9e4-23d8-46b0-b8ba-45a2016eec74", 1f, AttributeModifier.Operation.ADDITION);
+        addAttributeModifier(PortingLibAttributes.BLOCK_REACH, "f77c6a97-0d4e-42f8-8443-2acad091729b", 1f, AttributeModifier.Operation.ADDITION);
     }
 
     public static AABB growBoundingBox(Player player, AABB original) {
@@ -25,7 +26,6 @@ public class AqueousAura extends MobEffect {
         }
         return original;
     }
-
 
     @Override
     public void applyEffectTick(LivingEntity entityLivingBaseIn, int amplifier) {

@@ -1,10 +1,10 @@
 package com.sammy.malum.core.handlers;
 
-import com.sammy.malum.common.components.*;
-import com.sammy.malum.registry.common.*;
-import net.minecraft.nbt.*;
-import net.minecraft.world.entity.ai.attributes.*;
-import net.minecraft.world.entity.player.*;
+import com.sammy.malum.common.components.MalumComponents;
+import com.sammy.malum.registry.common.AttributeRegistry;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.player.Player;
 
 public class ReserveStaffChargeHandler {
     public int chargeCount;

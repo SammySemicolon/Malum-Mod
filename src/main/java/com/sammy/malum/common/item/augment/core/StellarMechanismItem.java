@@ -1,6 +1,6 @@
 package com.sammy.malum.common.item.augment.core;
 
-import com.sammy.malum.registry.common.*;
+import com.sammy.malum.registry.common.SpiritTypeRegistry;
 
 public class StellarMechanismItem extends AbstractCoreAugmentItem {
     public StellarMechanismItem(Properties pProperties) {

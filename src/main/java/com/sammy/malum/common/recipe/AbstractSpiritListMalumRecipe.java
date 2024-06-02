@@ -1,13 +1,15 @@
 package com.sammy.malum.common.recipe;
 
-import com.sammy.malum.core.systems.recipe.*;
-import net.minecraft.resources.*;
-import net.minecraft.world.item.*;
-import net.minecraft.world.item.crafting.*;
+import com.sammy.malum.core.systems.recipe.SpiritWithCount;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
-public abstract class AbstractSpiritListMalumRecipe extends AbstractMalumRecipe{
+public abstract class AbstractSpiritListMalumRecipe extends AbstractMalumRecipe {
 
     public final List<SpiritWithCount> spirits;
 

@@ -1,6 +1,5 @@
 package com.sammy.malum.common.components;
 
-import dev.onyxstudios.cca.api.v3.component.Component;
 import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -14,7 +13,7 @@ import java.util.UUID;
 
 public class MalumItemDataComponent implements AutoSyncedComponent {
 
-    private ItemEntity itemEntity;
+    private final ItemEntity itemEntity;
     public List<ItemStack> soulsToDrop;
     public UUID attackerForSouls;
     public float totalSoulCount;

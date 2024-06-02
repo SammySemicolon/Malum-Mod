@@ -14,14 +14,110 @@
   "samplers": [
   ],
   "uniforms": [
-    { "name": "GameTime", "type": "float", "count": 1, "values": [ 0.0 ] },
-    { "name": "ModelViewMat", "type": "matrix4x4", "count": 16, "values": [ 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0 ] },
-    { "name": "ProjMat", "type": "matrix4x4", "count": 16, "values": [ 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0 ] },
-    { "name": "ColorModulator", "type": "float", "count": 4, "values": [ 1.0, 1.0, 1.0, 1.0 ] },
-    { "name": "Speed", "type": "float", "count": 1, "values": [ 2000 ] },
-    { "name": "Zoom", "type": "float", "count": 1, "values": [ 0.95 ] },
-    { "name": "Distortion", "type": "float", "count": 1, "values": [ 4.0 ] },
-    { "name": "Intensity", "type": "float", "count": 1, "values": [ 1.0 ] },
-    { "name": "Wibble", "type": "float", "count": 1, "values": [ 3.0 ] }
+    {
+      "name": "GameTime",
+      "type": "float",
+      "count": 1,
+      "values": [
+        0.0
+      ]
+    },
+    {
+      "name": "ModelViewMat",
+      "type": "matrix4x4",
+      "count": 16,
+      "values": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "name": "ProjMat",
+      "type": "matrix4x4",
+      "count": 16,
+      "values": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "name": "ColorModulator",
+      "type": "float",
+      "count": 4,
+      "values": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "Speed",
+      "type": "float",
+      "count": 1,
+      "values": [
+        2000
+      ]
+    },
+    {
+      "name": "Zoom",
+      "type": "float",
+      "count": 1,
+      "values": [
+        0.95
+      ]
+    },
+    {
+      "name": "Distortion",
+      "type": "float",
+      "count": 1,
+      "values": [
+        4.0
+      ]
+    },
+    {
+      "name": "Intensity",
+      "type": "float",
+      "count": 1,
+      "values": [
+        1.0
+      ]
+    },
+    {
+      "name": "Wibble",
+      "type": "float",
+      "count": 1,
+      "values": [
+        3.0
+      ]
+    }
   ]
 }

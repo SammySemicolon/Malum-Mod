@@ -1,8 +1,8 @@
 package com.sammy.malum.client.screen.codex.pages.recipe;
 
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.client.screen.codex.screens.*;
-import com.sammy.malum.client.screen.codex.pages.*;
+import com.sammy.malum.client.screen.codex.pages.BookPage;
+import com.sammy.malum.client.screen.codex.screens.EntryScreen;
 import com.sammy.malum.common.recipe.SpiritInfusionRecipe;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;

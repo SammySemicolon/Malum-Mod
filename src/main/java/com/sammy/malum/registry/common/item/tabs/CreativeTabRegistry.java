@@ -1,8 +1,9 @@
 package com.sammy.malum.registry.common.item.tabs;
 
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.core.systems.ritual.*;
-import com.sammy.malum.registry.common.*;
+import com.sammy.malum.core.systems.ritual.MalumRitualTier;
+import com.sammy.malum.core.systems.ritual.MalumRitualType;
+import com.sammy.malum.registry.common.RitualRegistry;
 import com.sammy.malum.registry.common.item.ItemRegistry;
 import io.github.fabricators_of_create.porting_lib.util.LazyRegistrar;
 import io.github.fabricators_of_create.porting_lib.util.RegistryObject;
@@ -11,10 +12,10 @@ import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.*;
-import net.minecraft.world.item.*;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
 
-import java.util.Objects;
 import java.util.Optional;
 
 import static com.sammy.malum.registry.common.item.ItemRegistry.*;

@@ -1,14 +1,13 @@
 package com.sammy.malum.client.screen.codex.pages;
 
-import com.sammy.malum.client.screen.codex.*;
-import com.sammy.malum.client.screen.codex.screens.*;
-import net.minecraft.client.*;
-import net.minecraft.client.gui.*;
-import net.minecraft.resources.*;
+import com.sammy.malum.client.screen.codex.BookEntry;
+import com.sammy.malum.client.screen.codex.screens.EntryScreen;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.Nullable;
 
-
-import static com.sammy.malum.client.screen.codex.screens.EntryScreen.*;
+import static com.sammy.malum.client.screen.codex.screens.EntryScreen.entryScreen;
 
 public abstract class BookPage {
     @Nullable
@@ -26,6 +25,7 @@ public abstract class BookPage {
 
     public void render(EntryScreen screen, GuiGraphics guiGraphics, int left, int top, int mouseX, int mouseY, float partialTicks, boolean isRepeat) {
     }
+
     public void renderLate(EntryScreen screen, GuiGraphics guiGraphics, int left, int top, int mouseX, int mouseY, float partialTicks, boolean isRepeat) {
     }
 

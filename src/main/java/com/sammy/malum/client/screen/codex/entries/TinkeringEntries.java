@@ -1,12 +1,18 @@
 package com.sammy.malum.client.screen.codex.entries;
 
-import com.sammy.malum.client.screen.codex.*;
-import com.sammy.malum.client.screen.codex.pages.*;
-import com.sammy.malum.client.screen.codex.pages.recipe.*;
-import com.sammy.malum.client.screen.codex.pages.recipe.vanilla.*;
-import com.sammy.malum.client.screen.codex.pages.text.*;
-import com.sammy.malum.client.screen.codex.screens.*;
-import net.minecraft.world.item.*;
+import com.sammy.malum.client.screen.codex.BookEntry;
+import com.sammy.malum.client.screen.codex.BookWidgetStyle;
+import com.sammy.malum.client.screen.codex.pages.CyclingPage;
+import com.sammy.malum.client.screen.codex.pages.EntryReference;
+import com.sammy.malum.client.screen.codex.pages.recipe.SpiritInfusionPage;
+import com.sammy.malum.client.screen.codex.pages.recipe.SpiritRepairPage;
+import com.sammy.malum.client.screen.codex.pages.recipe.vanilla.CraftingPage;
+import com.sammy.malum.client.screen.codex.pages.text.HeadlineTextItemPage;
+import com.sammy.malum.client.screen.codex.pages.text.HeadlineTextPage;
+import com.sammy.malum.client.screen.codex.pages.text.TextPage;
+import com.sammy.malum.client.screen.codex.screens.ArcanaProgressionScreen;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 
 import static com.sammy.malum.registry.common.item.ItemRegistry.*;
 import static net.minecraft.world.item.Items.*;
@@ -93,7 +99,7 @@ public class TinkeringEntries {
                 .addPage(SpiritInfusionPage.fromOutput(RING_OF_ESOTERIC_SPOILS.get()))
         );
 
-        screen.addEntry("belt_of_the_starved",-8, 7, b -> b
+        screen.addEntry("belt_of_the_starved", -8, 7, b -> b
                 .setWidgetConfig(w -> w.setIcon(BELT_OF_THE_STARVED))
                 .addPage(new HeadlineTextPage("belt_of_the_starved", "belt_of_the_starved.1"))
                 .addPage(SpiritInfusionPage.fromOutput(BELT_OF_THE_STARVED.get()))

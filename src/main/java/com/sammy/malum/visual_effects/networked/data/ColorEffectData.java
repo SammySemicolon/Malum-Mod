@@ -1,7 +1,7 @@
 package com.sammy.malum.visual_effects.networked.data;
 
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.core.handlers.*;
+import com.sammy.malum.core.handlers.SpiritHarvestHandler;
 import com.sammy.malum.core.systems.recipe.SpiritWithCount;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import net.minecraft.network.FriendlyByteBuf;

@@ -1,19 +1,17 @@
 package com.sammy.malum.common.spiritrite;
 
 import com.sammy.malum.common.block.curiosities.totem.TotemBaseBlockEntity;
-import com.sammy.malum.common.packets.particle.curiosities.rite.generic.BlockSparkleParticlePacket;
 import com.sammy.malum.common.packets.particle.curiosities.rite.generic.MajorEntityEffectParticlePacket;
-import net.minecraft.server.level.*;
-import net.minecraft.world.effect.*;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.Monster;
-
 
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 import static com.sammy.malum.registry.common.PacketRegistry.MALUM_CHANNEL;
-import static com.sammy.malum.registry.common.SpiritTypeRegistry.INFERNAL_SPIRIT;
 
 public class PotionRiteEffect extends TotemicRiteEffect {
 
@@ -31,7 +29,7 @@ public class PotionRiteEffect extends TotemicRiteEffect {
         getNearbyEntities(totemBase, targetClass).filter(getEntityPredicate()).forEach(e -> {
             MobEffectInstance instance = new MobEffectInstance(mobEffectSupplier.get(), 400, 1, true, true);
             if (!e.hasEffect(instance.getEffect())) {
-                MALUM_CHANNEL.sendToClientsTrackingAndSelf(new MajorEntityEffectParticlePacket(totemBase.activeRite.getIdentifyingSpirit().getPrimaryColor(), e.getX(), e.getY()+ e.getBbHeight() / 2f, e.getZ()), e);
+                MALUM_CHANNEL.sendToClientsTrackingAndSelf(new MajorEntityEffectParticlePacket(totemBase.activeRite.getIdentifyingSpirit().getPrimaryColor(), e.getX(), e.getY() + e.getBbHeight() / 2f, e.getZ()), e);
             }
             e.addEffect(instance);
         });

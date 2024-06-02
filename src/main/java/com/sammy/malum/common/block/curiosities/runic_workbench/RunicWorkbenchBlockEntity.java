@@ -1,26 +1,27 @@
 package com.sammy.malum.common.block.curiosities.runic_workbench;
 
-import com.sammy.malum.common.block.storage.*;
-import com.sammy.malum.common.item.spirit.*;
-import com.sammy.malum.common.packets.particle.curiosities.blight.*;
-import com.sammy.malum.common.recipe.*;
-import com.sammy.malum.registry.common.*;
-import com.sammy.malum.registry.common.block.*;
-import net.minecraft.core.*;
+import com.sammy.malum.common.block.storage.MalumItemHolderBlockEntity;
+import com.sammy.malum.common.item.spirit.SpiritShardItem;
+import com.sammy.malum.common.packets.particle.curiosities.blight.BlightTransformItemParticlePacket;
+import com.sammy.malum.common.recipe.RunicWorkbenchRecipe;
+import com.sammy.malum.registry.common.SoundRegistry;
+import com.sammy.malum.registry.common.block.BlockEntityRegistry;
+import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.*;
-import net.minecraft.world.*;
-import net.minecraft.world.entity.item.*;
-import net.minecraft.world.entity.player.*;
-import net.minecraft.world.item.*;
-import net.minecraft.world.level.block.entity.*;
-import net.minecraft.world.level.block.state.*;
-import net.minecraft.world.phys.*;
-import team.lodestar.lodestone.helpers.*;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
+import team.lodestar.lodestone.helpers.BlockHelper;
 
-import java.util.*;
+import java.util.List;
 
-import static com.sammy.malum.registry.common.PacketRegistry.*;
+import static com.sammy.malum.registry.common.PacketRegistry.MALUM_CHANNEL;
 
 public class RunicWorkbenchBlockEntity extends MalumItemHolderBlockEntity {
 

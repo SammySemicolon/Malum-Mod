@@ -1,20 +1,19 @@
 package com.sammy.malum.data;
 
-import com.sammy.malum.MalumMod;
-import com.sammy.malum.common.block.curiosities.spirit_crucible.*;
+import com.sammy.malum.common.block.curiosities.spirit_crucible.CrucibleTuning;
 import com.sammy.malum.common.block.ether.EtherWallTorchBlock;
 import com.sammy.malum.common.item.spirit.SpiritJarItem;
-import com.sammy.malum.common.spiritrite.*;
-import com.sammy.malum.core.systems.ritual.*;
+import com.sammy.malum.common.spiritrite.TotemicRiteEffect;
+import com.sammy.malum.common.spiritrite.TotemicRiteType;
+import com.sammy.malum.core.systems.ritual.MalumRitualTier;
+import com.sammy.malum.core.systems.ritual.MalumRitualType;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import com.sammy.malum.registry.common.*;
 import com.sammy.malum.registry.common.block.BlockRegistry;
-import io.github.fabricators_of_create.porting_lib.data.LanguageProvider;
 import io.github.fabricators_of_create.porting_lib.util.RegistryObject;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.data.PackOutput;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.EntityType;
@@ -37,7 +36,7 @@ import static com.sammy.malum.registry.common.SoundRegistry.SOUNDS;
 import static com.sammy.malum.registry.common.block.BlockRegistry.BLOCKS;
 import static com.sammy.malum.registry.common.entity.EntityRegistry.ENTITY_TYPES;
 import static com.sammy.malum.registry.common.item.EnchantmentRegistry.ENCHANTMENTS;
-import static com.sammy.malum.registry.common.item.ItemRegistry.*;
+import static com.sammy.malum.registry.common.item.ItemRegistry.ITEMS;
 
 public class MalumLang extends FabricLanguageProvider {
     public MalumLang(FabricDataOutput gen) {
@@ -45,7 +44,6 @@ public class MalumLang extends FabricLanguageProvider {
     }
 
 
-    
     @Override
     public void generateTranslations(TranslationBuilder builder) {
         Set<RegistryObject<Block>> blocks = new HashSet<>(BLOCKS.getEntries());
@@ -178,48 +176,48 @@ public class MalumLang extends FabricLanguageProvider {
         }
 
 
-        builder.add("curios.identifier.brooch", "Brooch");
-        builder.add("curios.modifiers.brooch", "When worn:");
+        builder.add("trinkets.identifier.brooch", "Brooch");
+        builder.add("trinkets.modifiers.brooch", "When worn:");
 
-        builder.add("curios.identifier.rune", "Rune");
-        builder.add("curios.modifiers.rune", "When equipped:");
+        builder.add("trinkets.identifier.rune", "Rune");
+        builder.add("trinkets.modifiers.rune", "When equipped:");
 
-        builder.add("malum.gui.curio.positive", "+%s");
-        builder.add("malum.gui.curio.negative", "-%s");
+        builder.add("malum.gui.trinket.positive", "+%s");
+        builder.add("malum.gui.trinket.negative", "-%s");
 
-        builder.add("malum.gui.curio.effect.passive_healing", "Passive Healing");
-        builder.add("malum.gui.curio.effect.scythe_chain", "Scythe Kill Chaining");
-        builder.add("malum.gui.curio.effect.erratic_damage", "Erratic Damage Output");
-        builder.add("malum.gui.curio.effect.crits", "Critical Strikes");
-        builder.add("malum.gui.curio.effect.silence", "Silences Attackers");
-        builder.add("malum.gui.curio.effect.extend_positive_effect", "Extends Positive Effects");
-        builder.add("malum.gui.curio.effect.shorten_negative_effect", "Shortens Negative Effects");
-        builder.add("malum.gui.curio.effect.attacked_resistance", "Damage Resistance When Attacked");
-        builder.add("malum.gui.curio.effect.low_health_speed", "Speed at Low Health");
-        builder.add("malum.gui.curio.effect.always_sprint", "Sprinting Always Available");
-        builder.add("malum.gui.curio.effect.fervor", "Increased Mining Speed");
-        builder.add("malum.gui.curio.effect.burning_resistance", "Damage Resistance While Burning");
+        builder.add("malum.gui.trinket.effect.passive_healing", "Passive Healing");
+        builder.add("malum.gui.trinket.effect.scythe_chain", "Scythe Kill Chaining");
+        builder.add("malum.gui.trinket.effect.erratic_damage", "Erratic Damage Output");
+        builder.add("malum.gui.trinket.effect.crits", "Critical Strikes");
+        builder.add("malum.gui.trinket.effect.silence", "Silences Attackers");
+        builder.add("malum.gui.trinket.effect.extend_positive_effect", "Extends Positive Effects");
+        builder.add("malum.gui.trinket.effect.shorten_negative_effect", "Shortens Negative Effects");
+        builder.add("malum.gui.trinket.effect.attacked_resistance", "Damage Resistance When Attacked");
+        builder.add("malum.gui.trinket.effect.low_health_speed", "Speed at Low Health");
+        builder.add("malum.gui.trinket.effect.always_sprint", "Sprinting Always Available");
+        builder.add("malum.gui.trinket.effect.fervor", "Increased Mining Speed");
+        builder.add("malum.gui.trinket.effect.burning_resistance", "Damage Resistance While Burning");
 
-        builder.add("malum.gui.curio.effect.spirits_heal", "Spirit Collection Replenishes Health");
-        builder.add("malum.gui.curio.effect.spirits_xp", "Spirit Collection Generates Experience Points");
-        builder.add("malum.gui.curio.effect.spirits_extend_effect", "Spirit Collection Aids Potion Durations");
-        builder.add("malum.gui.curio.effect.spirits_add_health", "Spirit Collection Grants Extra Hearts");
-        builder.add("malum.gui.curio.effect.hunger_drain", "Actively Drains Hunger");
-        builder.add("malum.gui.curio.effect.eat_rotten", "Rotten Foods are Tastier");
-        builder.add("malum.gui.curio.effect.growing_gluttony", "Eating Rotten Foods Extends Gluttony");
-        builder.add("malum.gui.curio.effect.explosion_drops_collected", "Automatic Collection of Explosion Drops");
-        builder.add("malum.gui.curio.effect.bigger_explosions", "Improves Explosions");
-        builder.add("malum.gui.curio.effect.better_conduit_power", "Conduit Power Provides Numerous Benefits");
-        builder.add("malum.gui.curio.effect.no_sweep", "Disables Scythe Sweeping");
-        builder.add("malum.gui.curio.effect.friendly_enemies", "Reduces Enemy Aggression");
-        builder.add("malum.gui.curio.effect.soul_ward_magic_resilience", "Soul Ward Magic Resilience");
-        builder.add("malum.gui.curio.effect.rotten_gluttony", "Eating Rotten Food Generates Gluttony");
-        builder.add("malum.gui.curio.effect.scythe_counterattack", "Powerful Scythe Counterattack When Struck");
-        builder.add("malum.gui.curio.effect.full_health_fake_collection", "Striking Full Health Targets Triggers Spirit Collection Effects");
-        builder.add("malum.gui.curio.effect.soul_ward_physical_absorption", "Soul Ward Absorbs Physical Damage Equally to Magic Damage");
-        builder.add("malum.gui.curio.effect.spirits_gluttony", "Spirit Collection Generates Gluttony");
-        builder.add("malum.gui.curio.effect.enchanted_explosions", "Explosions are Enchanted with %s");
-        builder.add("malum.gui.curio.effect.explosions_spare_valuables", "Protects Valuable Items from Explosions");
+        builder.add("malum.gui.trinket.effect.spirits_heal", "Spirit Collection Replenishes Health");
+        builder.add("malum.gui.trinket.effect.spirits_xp", "Spirit Collection Generates Experience Points");
+        builder.add("malum.gui.trinket.effect.spirits_extend_effect", "Spirit Collection Aids Potion Durations");
+        builder.add("malum.gui.trinket.effect.spirits_add_health", "Spirit Collection Grants Extra Hearts");
+        builder.add("malum.gui.trinket.effect.hunger_drain", "Actively Drains Hunger");
+        builder.add("malum.gui.trinket.effect.eat_rotten", "Rotten Foods are Tastier");
+        builder.add("malum.gui.trinket.effect.growing_gluttony", "Eating Rotten Foods Extends Gluttony");
+        builder.add("malum.gui.trinket.effect.explosion_drops_collected", "Automatic Collection of Explosion Drops");
+        builder.add("malum.gui.trinket.effect.bigger_explosions", "Improves Explosions");
+        builder.add("malum.gui.trinket.effect.better_conduit_power", "Conduit Power Provides Numerous Benefits");
+        builder.add("malum.gui.trinket.effect.no_sweep", "Disables Scythe Sweeping");
+        builder.add("malum.gui.trinket.effect.friendly_enemies", "Reduces Enemy Aggression");
+        builder.add("malum.gui.trinket.effect.soul_ward_magic_resilience", "Soul Ward Magic Resilience");
+        builder.add("malum.gui.trinket.effect.rotten_gluttony", "Eating Rotten Food Generates Gluttony");
+        builder.add("malum.gui.trinket.effect.scythe_counterattack", "Powerful Scythe Counterattack When Struck");
+        builder.add("malum.gui.trinket.effect.full_health_fake_collection", "Striking Full Health Targets Triggers Spirit Collection Effects");
+        builder.add("malum.gui.trinket.effect.soul_ward_physical_absorption", "Soul Ward Absorbs Physical Damage Equally to Magic Damage");
+        builder.add("malum.gui.trinket.effect.spirits_gluttony", "Spirit Collection Generates Gluttony");
+        builder.add("malum.gui.trinket.effect.enchanted_explosions", "Explosions are Enchanted with %s");
+        builder.add("malum.gui.trinket.effect.explosions_spare_valuables", "Protects Valuable Items from Explosions");
 
         builder.add("malum.gui.rite_effect", "Effect: ");
 
@@ -662,7 +660,7 @@ public class MalumLang extends FabricLanguageProvider {
 
         addSimpleEntryHeader(builder, "spirit_trinkets", "Spirit Trinkets", "Accessorizing");
         addPages(builder, "spirit_trinkets",
-                "Many disciplines of magic, and even more mundane practices, allow the creation of useful trinkets. These are also referred to as baubles or curios by some. The metals I have alloyed have properties useful in their own rights, and can be used as the basis for even grander designs.",
+                "Many disciplines of magic, and even more mundane practices, allow the creation of useful trinkets. These are also referred to as baubles or trinkets by some. The metals I have alloyed have properties useful in their own rights, and can be used as the basis for even grander designs.",
                 "In their most basic form, Hallowed Gold trinkets protect the user as if they were wearing weak armor, and Soulstained Steel trinkets increase the toughness of the armor being worn.");
 
         addEntryHeader(builder, "reactive_trinkets", "Reactive Trinkets", "Harnessing the harvest");
@@ -1040,6 +1038,12 @@ public class MalumLang extends FabricLanguageProvider {
         builder.add("malum.jei.spirit_rite", "Spirit Rites");
         builder.add("malum.jei.spirit_transmutation", "The Unchained Rite");
 
+        builder.add("emi.category.malum.spirit_focusing", "Spirit Focusing");
+        builder.add("emi.category.malum.spirit_infusion", "Spirit Infusion");
+        builder.add("emi.category.malum.spirit_repair", "Spirit Repair");
+        builder.add("emi.category.malum.spirit_rite", "Spirit Rites");
+        builder.add("emi.category.malum.spirit_transmutation", "The Unchained Rite");
+
         builder.add("itemGroup.malum_basis_of_magic", "Malum: Basis of Magic");
         builder.add("itemGroup.malum_arcane_construct", "Malum: Arcane Construct");
         builder.add("itemGroup.malum_natural_wonders", "Malum: Born from Arcana");
@@ -1057,27 +1061,26 @@ public class MalumLang extends FabricLanguageProvider {
         builder.add("death.attack." + DamageTypeRegistry.SCYTHE_SWEEP_IDENTIFIER, "%s was sliced in half");
         builder.add("death.attack." + DamageTypeRegistry.SCYTHE_SWEEP_IDENTIFIER + ".player", "%s was sliced in half by %s");
 
-        addEffectDescription(builder,MobEffectRegistry.GAIAS_BULWARK, "You are protected by an earthen bulwark, increasing your armor.");
-        addEffectDescription(builder,MobEffectRegistry.EARTHEN_MIGHT, "Your fists and tools are reinforced with earth, increasing your overall damage.");
-        addEffectDescription(builder,MobEffectRegistry.MINERS_RAGE, "Your tools are bolstered with radiance, increasing your mining and attack speed.");
-        addEffectDescription(builder,MobEffectRegistry.IFRITS_EMBRACE, "The warm embrace of fire coats your soul, mending your seared scars.");
-        addEffectDescription(builder,MobEffectRegistry.ZEPHYRS_COURAGE, "The zephyr propels you forward, increasing your movement speed.");
-        addEffectDescription(builder,MobEffectRegistry.AETHERS_CHARM, "The heavens call for you, increasing jump height and decreasing gravity.");
-        addEffectDescription(builder,MobEffectRegistry.POSEIDONS_GRASP, "You reach out for further power, increasing your reach and item pickup distance.");
-        addEffectDescription(builder,MobEffectRegistry.ANGLERS_LURE, "Let any fish who meets my gaze learn the true meaning of fear; for I am the harbinger of death. The bane of creatures sub-aqueous, my rod is true and unwavering as I cast into the aquatic abyss. A man, scorned by this uncaring Earth, finds solace in the sea. My only friend, the worm upon my hook. Wriggling, writhing, struggling to surmount the mortal pointlessness that permeates this barren world. I am alone. I am empty. And yet, I fish.");
-        addEffectDescription(builder,MobEffectRegistry.GLUTTONY, "You feed on the vulnerable, increasing scythe proficiency and gradually restoring lost hunger.");
+        addEffectDescription(builder, MobEffectRegistry.GAIAS_BULWARK, "You are protected by an earthen bulwark, increasing your armor.");
+        addEffectDescription(builder, MobEffectRegistry.EARTHEN_MIGHT, "Your fists and tools are reinforced with earth, increasing your overall damage.");
+        addEffectDescription(builder, MobEffectRegistry.MINERS_RAGE, "Your tools are bolstered with radiance, increasing your mining and attack speed.");
+        addEffectDescription(builder, MobEffectRegistry.IFRITS_EMBRACE, "The warm embrace of fire coats your soul, mending your seared scars.");
+        addEffectDescription(builder, MobEffectRegistry.ZEPHYRS_COURAGE, "The zephyr propels you forward, increasing your movement speed.");
+        addEffectDescription(builder, MobEffectRegistry.AETHERS_CHARM, "The heavens call for you, increasing jump height and decreasing gravity.");
+        addEffectDescription(builder, MobEffectRegistry.POSEIDONS_GRASP, "You reach out for further power, increasing your reach and item pickup distance.");
+        addEffectDescription(builder, MobEffectRegistry.ANGLERS_LURE, "Let any fish who meets my gaze learn the true meaning of fear; for I am the harbinger of death. The bane of creatures sub-aqueous, my rod is true and unwavering as I cast into the aquatic abyss. A man, scorned by this uncaring Earth, finds solace in the sea. My only friend, the worm upon my hook. Wriggling, writhing, struggling to surmount the mortal pointlessness that permeates this barren world. I am alone. I am empty. And yet, I fish.");
+        addEffectDescription(builder, MobEffectRegistry.GLUTTONY, "You feed on the vulnerable, increasing scythe proficiency and gradually restoring lost hunger.");
 
-        addTetraMaterial(builder,"soul_stained_steel", "Soulstained Steel");
-        addTetraMaterial(builder,"hallowed_gold", "Hallowed Gold");
-        addTetraMaterial(builder,"runewood", "Runewood");
-        addTetraMaterial(builder,"soulwood", "Soulwood");
-        addTetraMaterial(builder,"tainted_rock", "Tainted Rock");
-        addTetraMaterial(builder,"twisted_rock", "Twisted Rock");
-        addTetraMaterial(builder,"spirit_fabric", "Spirit Fabric");
+        addTetraMaterial(builder, "soul_stained_steel", "Soulstained Steel");
+        addTetraMaterial(builder, "hallowed_gold", "Hallowed Gold");
+        addTetraMaterial(builder, "runewood", "Runewood");
+        addTetraMaterial(builder, "soulwood", "Soulwood");
+        addTetraMaterial(builder, "tainted_rock", "Tainted Rock");
+        addTetraMaterial(builder, "twisted_rock", "Twisted Rock");
+        addTetraMaterial(builder, "spirit_fabric", "Spirit Fabric");
 
-        addTetraImprovement(builder,"malum.soul_strike", "Soul Strike", "Allows your item to shatter souls.");
+        addTetraImprovement(builder, "malum.soul_strike", "Soul Strike", "Allows your item to shatter souls.");
     }
-
 
 
     @Override
@@ -1156,7 +1159,7 @@ public class MalumLang extends FabricLanguageProvider {
     public void addPages(TranslationBuilder builder, String identifier, String... pages) {
         int i = 1;
         for (String s : pages) {
-            addPage(builder,identifier + "." + i++, s);
+            addPage(builder, identifier + "." + i++, s);
         }
     }
 

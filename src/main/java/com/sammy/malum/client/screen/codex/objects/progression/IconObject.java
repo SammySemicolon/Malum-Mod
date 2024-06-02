@@ -1,11 +1,11 @@
 package com.sammy.malum.client.screen.codex.objects.progression;
 
-import com.sammy.malum.client.screen.codex.*;
-import com.sammy.malum.client.screen.codex.screens.*;
-import net.minecraft.client.gui.*;
-import net.minecraft.resources.*;
+import com.sammy.malum.client.screen.codex.BookEntry;
+import com.sammy.malum.client.screen.codex.screens.AbstractProgressionCodexScreen;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.resources.ResourceLocation;
 
-import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.*;
+import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.renderWavyIcon;
 
 public class IconObject extends ProgressionEntryObject {
     public final ResourceLocation textureLocation;
@@ -15,6 +15,7 @@ public class IconObject extends ProgressionEntryObject {
     public IconObject(BookEntry entry, int posX, int posY, ResourceLocation textureLocation) {
         this(entry, posX, posY, textureLocation, 16, 16);
     }
+
     public IconObject(BookEntry entry, int posX, int posY, ResourceLocation textureLocation, int textureWidth, int textureHeight) {
         super(entry, posX, posY);
         this.textureLocation = textureLocation;

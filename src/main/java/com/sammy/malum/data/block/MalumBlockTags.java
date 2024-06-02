@@ -1,20 +1,15 @@
 package com.sammy.malum.data.block;
 
-import com.sammy.malum.MalumMod;
 import com.sammy.malum.registry.common.block.BlockTagRegistry;
-import io.github.fabricators_of_create.porting_lib.data.ExistingFileHelper;
 import io.github.fabricators_of_create.porting_lib.util.RegistryObject;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.data.PackOutput;
 import net.minecraft.world.level.block.Block;
-import org.jetbrains.annotations.Nullable;
 import team.lodestar.lodestone.systems.datagen.providers.LodestoneBlockTagsProvider;
 
-import org.jetbrains.annotations.NotNull;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.concurrent.CompletableFuture;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import static com.sammy.malum.registry.common.block.BlockRegistry.BLOCKS;

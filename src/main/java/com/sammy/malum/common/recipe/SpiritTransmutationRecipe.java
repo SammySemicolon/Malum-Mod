@@ -1,17 +1,20 @@
 package com.sammy.malum.common.recipe;
 
-import com.google.gson.*;
-import com.sammy.malum.registry.common.recipe.*;
+import com.google.gson.JsonObject;
+import com.sammy.malum.registry.common.recipe.RecipeSerializerRegistry;
+import com.sammy.malum.registry.common.recipe.RecipeTypeRegistry;
 import io.github.fabricators_of_create.porting_lib.util.CraftingHelper;
-import net.minecraft.network.*;
-import net.minecraft.resources.*;
-import net.minecraft.world.item.*;
-import net.minecraft.world.item.crafting.*;
-import net.minecraft.world.level.*;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.*;
-import java.util.function.*;
+import java.util.List;
+import java.util.function.Predicate;
 
 public class SpiritTransmutationRecipe extends AbstractMalumRecipe {
     public static final String NAME = "spirit_transmutation";

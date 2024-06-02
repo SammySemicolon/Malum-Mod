@@ -1,8 +1,8 @@
 package com.sammy.malum.common.item.augment;
 
-import com.sammy.malum.registry.common.*;
+import com.sammy.malum.registry.common.SpiritTypeRegistry;
 
-public class BlazingDiodeItem extends AbstractAugmentItem{
+public class BlazingDiodeItem extends AbstractAugmentItem {
     public BlazingDiodeItem(Properties pProperties) {
         super(pProperties, SpiritTypeRegistry.INFERNAL_SPIRIT);
     }

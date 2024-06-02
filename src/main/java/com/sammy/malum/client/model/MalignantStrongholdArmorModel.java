@@ -4,36 +4,39 @@ package com.sammy.malum.client.model;
 // Paste this class into your mod and generate all required imports
 
 
-import com.google.common.collect.*;
-import com.mojang.blaze3d.vertex.*;
-import com.sammy.malum.*;
-import com.sammy.malum.common.item.curiosities.curios.runes.*;
-import com.sammy.malum.core.systems.spirit.*;
-import com.sammy.malum.registry.client.*;
-import net.minecraft.client.*;
-import net.minecraft.client.model.*;
-import net.minecraft.client.model.geom.*;
+import com.google.common.collect.ImmutableList;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.sammy.malum.MalumMod;
+import com.sammy.malum.common.item.curiosities.trinkets.runes.AbstractRuneTrinketsItem;
+import com.sammy.malum.core.systems.spirit.MalumSpiritType;
+import com.sammy.malum.registry.client.RenderTypeRegistry;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.client.model.geom.ModelLayerLocation;
+import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.resources.*;
-import net.minecraft.util.*;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.phys.*;
-import team.lodestar.lodestone.handlers.*;
-import team.lodestar.lodestone.helpers.*;
-import team.lodestar.lodestone.registry.client.*;
-import team.lodestar.lodestone.systems.easing.*;
-import team.lodestar.lodestone.systems.model.*;
+import net.minecraft.util.FastColor;
+import net.minecraft.util.Mth;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.phys.Vec3;
+import team.lodestar.lodestone.handlers.RenderHandler;
+import team.lodestar.lodestone.helpers.ColorHelper;
+import team.lodestar.lodestone.helpers.RenderHelper;
+import team.lodestar.lodestone.registry.client.LodestoneRenderTypeRegistry;
+import team.lodestar.lodestone.systems.easing.Easing;
+import team.lodestar.lodestone.systems.model.LodestoneArmorModel;
 import team.lodestar.lodestone.systems.rendering.rendeertype.RenderTypeToken;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.*;
-import java.util.stream.*;
+import java.util.stream.Collectors;
 
 public class MalignantStrongholdArmorModel extends LodestoneArmorModel {
     public static final ModelLayerLocation LAYER = new ModelLayerLocation(MalumMod.malumPath("malignant_lead_armor"), "main");
-    public static final RenderTypeToken GLOW_TEXTURE_TOKEN = RenderTypeToken.createToken(MalumMod.malumPath("textures/armor/malignant_stronghold_glow.png"));
-    public static final ResourceLocation GLOW_TEXTURE = MalumMod.malumPath("textures/armor/malignant_stronghold_glow.png");
+    public static final RenderTypeToken GLOW_TEXTURE = RenderTypeToken.createToken(MalumMod.malumPath("textures/armor/malignant_stronghold_glow.png"));
     private final ModelPart right_arm_glow;
     private final ModelPart left_arm_glow;
     private final ModelPart right_boot_glow;
@@ -63,7 +66,7 @@ public class MalignantStrongholdArmorModel extends LodestoneArmorModel {
         }
     }
 
-    public void updateGlow(List<AbstractRuneCurioItem> runes) {
+    public void updateGlow(List<AbstractRuneTrinketsItem> runes) {
         activeGlows.clear();
         activeGlows.addAll(runes.stream().map(r -> r.spiritType).toList());
     }
@@ -124,24 +127,24 @@ public class MalignantStrongholdArmorModel extends LodestoneArmorModel {
                 colorCoefficient = activeGlows.size() == 1 ?
                         activeGlows.get(0).getColorCoefficient() :
                         Mth.lerp(relative % activeGlows.size(),
-                                activeGlows.get((int)relative).getColorCoefficient(),
-                                activeGlows.get(Math.min((int)relative+1, activeGlows.size()-1)).getColorCoefficient());
+                                activeGlows.get((int) relative).getColorCoefficient(),
+                                activeGlows.get(Math.min((int) relative + 1, activeGlows.size() - 1)).getColorCoefficient());
             }
 
-            final VertexConsumer transparent = RenderHandler.DELAYED_RENDER.getTarget().getBuffer(LodestoneRenderTypeRegistry.TRANSPARENT_TEXTURE.applyAndCache(GLOW_TEXTURE_TOKEN));
-            final VertexConsumer additive = RenderHandler.DELAYED_RENDER.getTarget().getBuffer(RenderTypeRegistry.MALIGNANT_GLOW.applyAndCache(GLOW_TEXTURE_TOKEN));
+            final VertexConsumer transparent = RenderHandler.DELAYED_RENDER.getTarget().getBuffer(LodestoneRenderTypeRegistry.TRANSPARENT_TEXTURE.applyAndCache(GLOW_TEXTURE));
+            final VertexConsumer additive = RenderHandler.DELAYED_RENDER.getTarget().getBuffer(RenderTypeRegistry.MALIGNANT_GLOW.applyAndCache(GLOW_TEXTURE));
             float distance = 0.06f;
             float alpha = 0.25f;
             int time = 320;
             for (ModelPart glowingPart : glowingParts) {
-                glowingPart.render(pPoseStack, transparent, pPackedLight, pPackedOverlay, primaryColor.getRed()/255f, primaryColor.getGreen()/255f, primaryColor.getBlue()/255f, 0.6f);
+                glowingPart.render(pPoseStack, transparent, pPackedLight, pPackedOverlay, primaryColor.getRed() / 255f, primaryColor.getGreen() / 255f, primaryColor.getBlue() / 255f, 0.6f);
             }
             for (int i = 0; i < 8; i++) {
                 double angle = i / 4f * (Math.PI * 2);
                 angle += ((gameTime % time) / time) * (Math.PI * 2);
                 for (ModelPart glowingPart : glowingParts) {
                     final double sin = Math.sin(angle);
-                    Color color = ColorHelper.colorLerp(Easing.SINE_IN, Math.min(1, i/2f/colorCoefficient), secondaryColor, primaryColor);
+                    Color color = ColorHelper.colorLerp(Easing.SINE_IN, Math.min(1, i / 2f / colorCoefficient), secondaryColor, primaryColor);
                     float yaw = glowingPart.yRot;
                     float pitch = -glowingPart.xRot;
                     if (glowingPart.equals(helmet_glow)) {
@@ -154,7 +157,7 @@ public class MalignantStrongholdArmorModel extends LodestoneArmorModel {
                     }
                     Vec3 offset = forward.xRot(pitch).normalize().scale(distance * sin);
                     pPoseStack.translate(offset.x, offset.y, offset.z);
-                    glowingPart.render(pPoseStack, additive, RenderHelper.FULL_BRIGHT, pPackedOverlay, color.getRed()/255f, color.getGreen()/255f, color.getBlue()/255f, alpha);
+                    glowingPart.render(pPoseStack, additive, RenderHelper.FULL_BRIGHT, pPackedOverlay, color.getRed() / 255f, color.getGreen() / 255f, color.getBlue() / 255f, alpha);
                     pPoseStack.translate(-offset.x, -offset.y, -offset.z);
                 }
                 if (i == 3) {

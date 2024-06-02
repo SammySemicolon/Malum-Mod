@@ -28,9 +28,9 @@ public class MalumVanillaRecipeReplacements extends VanillaRecipeProvider {
     public MalumVanillaRecipeReplacements(PackOutput pOutput) {
         super(pOutput);
     }
-/*TODO
+
     @Override
-    protected void buildRecipes(Consumer<FinishedRecipe> pWriter) {
+    public void buildRecipes(Consumer<FinishedRecipe> pWriter) {
         replace(Items.QUARTZ, Tags.Items.GEMS_QUARTZ);
         replace(Items.SLIME_BALL, Tags.Items.SLIMEBALLS);
 
@@ -41,7 +41,7 @@ public class MalumVanillaRecipeReplacements extends VanillaRecipeProvider {
         });
     }
 
- */
+
 
     private void exclude(ItemLike item) {
         excludes.add(BuiltInRegistries.ITEM.getKey(item.asItem()));
@@ -91,7 +91,7 @@ public class MalumVanillaRecipeReplacements extends VanillaRecipeProvider {
 
         boolean modified = false;
         List<Ingredient.Value> items = new ArrayList<>();
-        Ingredient.Value[] vanillaItems = getField(Ingredient.class, vanilla, 2); //This will probably crash between versions, if null fix index
+        Ingredient.Value[] vanillaItems = getField(Ingredient.class, vanilla, 1); //This will probably crash between versions, if null fix index
         for (Ingredient.Value entry : vanillaItems) {
             if (entry instanceof Ingredient.ItemValue) {
                 ItemStack stack = entry.getItems().stream().findFirst().orElse(ItemStack.EMPTY);

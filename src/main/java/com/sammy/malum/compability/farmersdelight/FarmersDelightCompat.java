@@ -1,6 +1,6 @@
 package com.sammy.malum.compability.farmersdelight;
 
-import com.sammy.malum.common.item.curiosities.*;
+import com.sammy.malum.common.item.curiosities.MagicKnifeItem;
 import com.sammy.malum.registry.common.item.ItemRegistry;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.registration.IRecipeRegistration;

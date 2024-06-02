@@ -1,25 +1,32 @@
 package com.sammy.malum.data.item;
 
-import com.sammy.malum.*;
-import com.sammy.malum.common.item.cosmetic.weaves.*;
-import com.sammy.malum.common.item.curiosities.curios.runes.*;
-import com.sammy.malum.common.item.curiosities.weapons.*;
-import com.sammy.malum.common.item.curiosities.weapons.scythe.*;
-import com.sammy.malum.common.item.curiosities.weapons.staff.*;
-import com.sammy.malum.common.item.impetus.*;
-import com.sammy.malum.common.item.spirit.*;
-import com.sammy.malum.registry.common.item.*;
+import com.sammy.malum.MalumMod;
+import com.sammy.malum.common.item.cosmetic.weaves.AbstractWeaveItem;
+import com.sammy.malum.common.item.cosmetic.weaves.PrideweaveItem;
+import com.sammy.malum.common.item.curiosities.trinkets.runes.AbstractRuneTrinketsItem;
+import com.sammy.malum.common.item.curiosities.weapons.WeightOfWorldsItem;
+import com.sammy.malum.common.item.curiosities.weapons.scythe.MalumScytheItem;
+import com.sammy.malum.common.item.curiosities.weapons.staff.AbstractStaffItem;
+import com.sammy.malum.common.item.impetus.CrackedImpetusItem;
+import com.sammy.malum.common.item.impetus.ImpetusItem;
+import com.sammy.malum.common.item.impetus.NodeItem;
+import com.sammy.malum.common.item.spirit.SpiritShardItem;
+import com.sammy.malum.registry.common.item.ArmorSkinRegistry;
 import io.github.fabricators_of_create.porting_lib.data.ExistingFileHelper;
-import net.minecraft.data.*;
-import net.minecraft.world.item.*;
-import team.lodestar.lodestone.systems.datagen.*;
-import team.lodestar.lodestone.systems.datagen.itemsmith.*;
-import team.lodestar.lodestone.systems.datagen.providers.*;
-import team.lodestar.lodestone.systems.item.*;
+import net.minecraft.data.PackOutput;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.DiggerItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.SwordItem;
+import team.lodestar.lodestone.systems.datagen.ItemModelSmithTypes;
+import team.lodestar.lodestone.systems.datagen.itemsmith.AbstractItemModelSmith;
+import team.lodestar.lodestone.systems.datagen.providers.LodestoneItemModelProvider;
+import team.lodestar.lodestone.systems.item.ModCombatItem;
 
-import java.util.*;
-import java.util.function.*;
-import java.util.stream.*;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 import static com.sammy.malum.registry.common.item.ItemRegistry.*;
 
@@ -46,7 +53,7 @@ public class MalumItemModels extends LodestoneItemModelProvider {
         ItemModelSmithTypes.GENERATED_ITEM.act(data, items.stream().filter(i -> i.get() instanceof AbstractWeaveItem).collect(Collectors.toList()));
 
         setTexturePath("runes/");
-        ItemModelSmithTypes.GENERATED_ITEM.act(data, items.stream().filter(i -> i.get() instanceof AbstractRuneCurioItem).collect(Collectors.toList()));
+        ItemModelSmithTypes.GENERATED_ITEM.act(data, items.stream().filter(i -> i.get() instanceof AbstractRuneTrinketsItem).collect(Collectors.toList()));
 
         setTexturePath("impetus/");
         MalumItemModelSmithTypes.IMPETUS_ITEM.act(data, items.stream().filter(i -> i.get() instanceof ImpetusItem || i.get() instanceof CrackedImpetusItem).collect(Collectors.toList()));

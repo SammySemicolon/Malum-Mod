@@ -1,24 +1,30 @@
 package com.sammy.malum.common.block.curiosities.totem;
 
-import com.sammy.malum.common.spiritrite.*;
-import com.sammy.malum.core.systems.spirit.*;
-import com.sammy.malum.registry.common.*;
-import com.sammy.malum.registry.common.block.*;
-import net.minecraft.core.*;
-import net.minecraft.nbt.*;
-import net.minecraft.sounds.*;
-import net.minecraft.util.*;
-import net.minecraft.world.*;
-import net.minecraft.world.entity.player.*;
-import net.minecraft.world.level.block.entity.*;
-import net.minecraft.world.level.block.state.*;
+import com.sammy.malum.common.spiritrite.TotemicRiteEffect;
+import com.sammy.malum.common.spiritrite.TotemicRiteType;
+import com.sammy.malum.core.systems.spirit.MalumSpiritType;
+import com.sammy.malum.registry.common.SoundRegistry;
+import com.sammy.malum.registry.common.SpiritRiteRegistry;
+import com.sammy.malum.registry.common.block.BlockEntityRegistry;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.StringRepresentable;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
-import team.lodestar.lodestone.helpers.*;
-import team.lodestar.lodestone.systems.blockentity.*;
+import team.lodestar.lodestone.helpers.BlockHelper;
+import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntity;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
-import static net.minecraft.world.level.block.state.properties.BlockStateProperties.*;
+import static net.minecraft.world.level.block.state.properties.BlockStateProperties.HORIZONTAL_FACING;
 
 public class TotemBaseBlockEntity extends LodestoneBlockEntity {
 
@@ -117,8 +123,7 @@ public class TotemBaseBlockEntity extends LodestoneBlockEntity {
                                 rite.executeRite(this);
                                 if (rite.getRiteEffect(isSoulwood).category.equals(TotemicRiteEffect.MalumRiteEffectCategory.ONE_TIME_EFFECT)) {
                                     setState(TotemRiteState.IDLE);
-                                }
-                                else {
+                                } else {
                                     setState(TotemRiteState.ACTIVE);
                                     deactivateOtherRites();
                                 }
@@ -127,15 +132,14 @@ public class TotemBaseBlockEntity extends LodestoneBlockEntity {
                     }
                 }
             }
-        }
-        else {
+        } else {
 
             if (state.equals(TotemRiteState.IDLE) && radiusVisibility > 0) {
                 radiusVisibility--;
                 if (radiusVisibility == 0) {
                     cachedRadiusRite = null;
                 }
-            } else if (state.equals(TotemRiteState.ACTIVE) && radiusVisibility < 40){
+            } else if (state.equals(TotemRiteState.ACTIVE) && radiusVisibility < 40) {
                 if (activeRite != null && cachedRadiusRite == null) {
                     cachedRadiusRite = activeRite;
                 }

@@ -1,45 +1,54 @@
 package com.sammy.malum.common.item.curiosities.weapons.staff;
 
-import com.google.common.collect.*;
-import com.sammy.malum.common.components.*;
-import com.sammy.malum.common.enchantment.*;
-import com.sammy.malum.common.entity.bolt.*;
-import com.sammy.malum.common.item.*;
-import com.sammy.malum.common.item.curiosities.weapons.scythe.*;
-import com.sammy.malum.registry.client.*;
-import com.sammy.malum.registry.common.*;
+import com.google.common.collect.ImmutableMultimap;
+import com.sammy.malum.common.components.MalumComponents;
+import com.sammy.malum.common.enchantment.ReplenishingEnchantment;
+import com.sammy.malum.common.entity.bolt.AbstractBoltProjectileEntity;
+import com.sammy.malum.common.item.IMalumEventResponderItem;
+import com.sammy.malum.common.item.curiosities.weapons.scythe.MalumScytheItem;
+import com.sammy.malum.registry.client.ParticleRegistry;
+import com.sammy.malum.registry.common.SoundRegistry;
 import io.github.fabricators_of_create.porting_lib.entity.events.living.LivingHurtEvent;
-import net.minecraft.sounds.*;
-import net.minecraft.stats.*;
-import net.minecraft.util.*;
-import net.minecraft.world.*;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.attributes.*;
-import net.minecraft.world.entity.player.*;
-import net.minecraft.world.item.*;
-import net.minecraft.world.level.*;
-import net.minecraft.world.phys.*;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import team.lodestar.lodestone.registry.common.*;
-import team.lodestar.lodestone.registry.common.tag.*;
-import team.lodestar.lodestone.systems.item.*;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.stats.Stats;
+import net.minecraft.util.Mth;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Tier;
+import net.minecraft.world.item.UseAnim;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
+import team.lodestar.lodestone.registry.common.LodestoneAttributeRegistry;
+import team.lodestar.lodestone.registry.common.tag.LodestoneDamageTypeTags;
+import team.lodestar.lodestone.systems.item.ModCombatItem;
 
 public abstract class AbstractStaffItem extends ModCombatItem implements IMalumEventResponderItem {
 
     public final float chargeDuration;
     public final float magicDamage;
 
-    public AbstractStaffItem(Tier tier, int chargeDuration, float magicDamage, Properties builderIn) {
-        super(tier, 1,  -2.8f, builderIn);
+    public AbstractStaffItem(Tier tier, float attackSpeed, int chargeDuration, float magicDamage, Properties builderIn) {
+        super(tier, 1, -2.8f + attackSpeed, builderIn);
         this.chargeDuration = chargeDuration;
         this.magicDamage = magicDamage;
+    }
+
+    public AbstractStaffItem(Tier tier, int chargeDuration, float magicDamage, Properties builderIn) {
+        this(tier, 0f, chargeDuration, magicDamage, builderIn);
     }
 
     @Environment(EnvType.CLIENT)
     public abstract void spawnChargeParticles(Level pLevel, LivingEntity pLivingEntity, Vec3 pos, ItemStack pStack, float chargePercentage);
 
     public abstract int getCooldownDuration(Level level, LivingEntity livingEntity);
+
     public abstract int getProjectileCount(Level level, LivingEntity livingEntity, float chargePercentage);
 
     public abstract void fireProjectile(LivingEntity player, ItemStack stack, Level level, InteractionHand hand, float chargePercentage, int count);
@@ -90,16 +99,14 @@ public abstract class AbstractStaffItem extends ModCombatItem implements IMalumE
                         final var capability = MalumComponents.MALUM_PLAYER_COMPONENT.get(player);
                         if (capability.reserveStaffChargeHandler.chargeCount > 0) {
                             capability.reserveStaffChargeHandler.chargeCount--;
-                        }
-                        else {
+                        } else {
                             player.getCooldowns().addCooldown(this, getCooldownDuration(pLevel, pLivingEntity));
                         }
                     }
                     player.swing(hand, true);
                 }
             }
-        }
-        else {
+        } else {
             float pitch = Mth.nextFloat(pLevel.random, 0.5f, 0.8f);
             pLevel.playSound(null, pLivingEntity.blockPosition(), SoundRegistry.STAFF_SIZZLES.get(), SoundSource.PLAYERS, 0.5f, pitch);
         }
@@ -118,12 +125,10 @@ public abstract class AbstractStaffItem extends ModCombatItem implements IMalumE
         if (pRemainingUseDuration == useDuration - chargeDuration) {
             float pitch = Mth.nextFloat(pLevel.random, 1.2f, 1.6f);
             pLevel.playSound(null, pLivingEntity.blockPosition(), SoundRegistry.STAFF_CHARGED.get(), SoundSource.PLAYERS, 1.25f, pitch);
-        }
-        else if (pRemainingUseDuration > useDuration - chargeDuration && pRemainingUseDuration % 5 == 0) {
+        } else if (pRemainingUseDuration > useDuration - chargeDuration && pRemainingUseDuration % 5 == 0) {
             float pitch = 0.25f + chargePercentage + Mth.nextFloat(pLevel.random, 0.2f, 0.6f);
             pLevel.playSound(null, pLivingEntity.blockPosition(), SoundRegistry.STAFF_POWERS_UP.get(), SoundSource.PLAYERS, 0.75f, pitch);
-        }
-        else if (pRemainingUseDuration % 5 == 0) {
+        } else if (pRemainingUseDuration % 5 == 0) {
             float pitch = Mth.nextFloat(pLevel.random, 0.2f, 0.6f);
             pLevel.playSound(null, pLivingEntity.blockPosition(), SoundRegistry.STAFF_POWERS_UP.get(), SoundSource.PLAYERS, 0.5f, pitch);
         }

@@ -1,36 +1,33 @@
 package com.sammy.malum.compability.jei;
 
-import com.mojang.datafixers.util.Pair;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.recipe.*;
-import mezz.jei.api.registration.IRecipeRegistration;
-import net.fabricmc.fabric.api.tag.convention.v1.TagUtil;
-import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Stream;
 
 public class HiddenRecipeSet<T> {
 
-	private final RecipeType<T> recipeType;
-	private final Set<T> hiddenRecipes = new HashSet<>();
+    private final RecipeType<T> recipeType;
+    private final Set<T> hiddenRecipes = new HashSet<>();
 
-	@SuppressWarnings({"unchecked", "rawtypes"})
-	public static HiddenRecipeSet<?> createSet(RecipeType<?> recipeType) {
-		return new HiddenRecipeSet(recipeType);
-	}
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static HiddenRecipeSet<?> createSet(RecipeType<?> recipeType) {
+        return new HiddenRecipeSet(recipeType);
+    }
 
-	public HiddenRecipeSet(RecipeType<T> recipeType) {
-		this.recipeType = recipeType;
-	}
+    public HiddenRecipeSet(RecipeType<T> recipeType) {
+        this.recipeType = recipeType;
+    }
 
-	public void scanAndHideRecipes(IRecipeManager manager, IFocusFactory focusFactory, Collection<TagKey<Item>> nowHidden) {
+    public void scanAndHideRecipes(IRecipeManager manager, IFocusFactory focusFactory, Collection<TagKey<Item>> nowHidden) {
 
         List<IFocus<ItemStack>> foci = nowHidden.stream()
                 .distinct()
@@ -44,16 +41,16 @@ public class HiddenRecipeSet<T> {
                 }).toList();
 
         manager.createRecipeLookup(recipeType)
-            .limitFocus(foci)
-            .get()
-            .forEach(hiddenRecipes::add);
+                .limitFocus(foci)
+                .get()
+                .forEach(hiddenRecipes::add);
 
         manager.hideRecipes(recipeType, hiddenRecipes);
     }
 
 
-	public void unhidePreviouslyHiddenRecipes(IRecipeManager manager) {
-		manager.unhideRecipes(recipeType, hiddenRecipes);
-		hiddenRecipes.clear();
-	}
+    public void unhidePreviouslyHiddenRecipes(IRecipeManager manager) {
+        manager.unhideRecipes(recipeType, hiddenRecipes);
+        hiddenRecipes.clear();
+    }
 }

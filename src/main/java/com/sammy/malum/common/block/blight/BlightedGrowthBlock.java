@@ -1,18 +1,24 @@
 package com.sammy.malum.common.block.blight;
 
 import io.github.fabricators_of_create.porting_lib.extensions.extensions.IShearable;
-import net.minecraft.core.*;
-import net.minecraft.server.level.*;
-import net.minecraft.util.*;
-import net.minecraft.world.level.*;
-import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.state.*;
-import net.minecraft.world.phys.shapes.*;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.BonemealableBlock;
+import net.minecraft.world.level.block.BushBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
-import static com.sammy.malum.registry.common.block.BlockTagRegistry.*;
+import static com.sammy.malum.registry.common.block.BlockTagRegistry.BLIGHTED_BLOCKS;
 
 public class BlightedGrowthBlock extends BushBlock implements BonemealableBlock, IShearable {
     protected static final VoxelShape SHAPE = Block.box(2.0D, 0.0D, 2.0D, 14.0D, 8.0D, 14.0D);
+
     public BlightedGrowthBlock(Properties p_57318_) {
         super(p_57318_);
     }

@@ -1,21 +1,25 @@
 package com.sammy.malum.client.screen.codex.screens;
 
-import com.mojang.blaze3d.vertex.*;
-import com.sammy.malum.client.screen.codex.*;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.sammy.malum.client.screen.codex.BookWidgetStyle;
+import com.sammy.malum.client.screen.codex.PlacedBookEntry;
 import com.sammy.malum.client.screen.codex.entries.*;
-import com.sammy.malum.client.screen.codex.objects.progression.*;
-import com.sammy.malum.client.screen.codex.pages.recipe.*;
-import com.sammy.malum.client.screen.codex.pages.recipe.vanilla.*;
-import com.sammy.malum.client.screen.codex.pages.text.*;
-import com.sammy.malum.common.item.codex.*;
+import com.sammy.malum.client.screen.codex.objects.progression.ScreenOpenerObject;
+import com.sammy.malum.client.screen.codex.objects.progression.VanishingEntryObject;
+import com.sammy.malum.client.screen.codex.pages.recipe.SpiritInfusionPage;
+import com.sammy.malum.client.screen.codex.pages.recipe.vanilla.CraftingPage;
+import com.sammy.malum.client.screen.codex.pages.text.HeadlineTextPage;
 import com.sammy.malum.common.events.MalumCodexEvents;
-import com.sammy.malum.registry.common.*;
-import net.minecraft.client.*;
-import net.minecraft.resources.*;
+import com.sammy.malum.common.item.codex.EncyclopediaEsotericaItem;
+import com.sammy.malum.registry.common.SoundRegistry;
+import net.minecraft.client.Minecraft;
+import net.minecraft.resources.ResourceLocation;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
-import static com.sammy.malum.MalumMod.*;
+import static com.sammy.malum.MalumMod.malumPath;
 import static com.sammy.malum.registry.common.item.ItemRegistry.*;
 
 public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {

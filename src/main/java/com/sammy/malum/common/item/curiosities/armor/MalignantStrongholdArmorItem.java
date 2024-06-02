@@ -1,24 +1,14 @@
 package com.sammy.malum.common.item.curiosities.armor;
 
-import com.google.common.collect.*;
-import com.sammy.malum.client.cosmetic.*;
-import com.sammy.malum.common.item.cosmetic.skins.*;
-import com.sammy.malum.registry.client.*;
-import com.sammy.malum.registry.common.*;
-import net.minecraft.client.*;
-import net.minecraft.client.model.*;
-import net.minecraft.util.*;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.attributes.*;
-import net.minecraft.world.item.*;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import team.lodestar.lodestone.systems.model.*;
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Multimap;
+import com.sammy.malum.registry.common.AttributeRegistry;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 
-import java.util.*;
-import java.util.function.*;
+import java.util.UUID;
 
-import static com.sammy.malum.registry.common.item.ArmorTiers.ArmorTierEnum.*;
+import static com.sammy.malum.registry.common.item.ArmorTiers.ArmorTierEnum.MALIGNANT_ALLOY;
 
 public class MalignantStrongholdArmorItem extends MalumArmorItem {
 

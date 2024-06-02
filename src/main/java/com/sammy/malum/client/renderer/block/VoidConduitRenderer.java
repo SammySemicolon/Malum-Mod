@@ -1,25 +1,27 @@
 package com.sammy.malum.client.renderer.block;
 
-import com.mojang.blaze3d.vertex.*;
-import com.mojang.math.*;
-import com.sammy.malum.*;
-import com.sammy.malum.common.block.curiosities.weeping_well.*;
-import com.sammy.malum.registry.client.*;
-import com.sammy.malum.registry.common.*;
-import net.minecraft.client.renderer.*;
-import net.minecraft.client.renderer.blockentity.*;
-import net.minecraft.resources.*;
-import org.joml.*;
-import team.lodestar.lodestone.handlers.*;
-import team.lodestar.lodestone.registry.client.*;
-import team.lodestar.lodestone.systems.rendering.*;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Axis;
+import com.sammy.malum.MalumMod;
+import com.sammy.malum.common.block.curiosities.weeping_well.VoidConduitBlockEntity;
+import com.sammy.malum.registry.client.RenderTypeRegistry;
+import com.sammy.malum.registry.common.SpiritTypeRegistry;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import org.joml.Vector3f;
+import org.joml.Vector4f;
+import team.lodestar.lodestone.handlers.RenderHandler;
+import team.lodestar.lodestone.registry.client.LodestoneRenderTypeRegistry;
+import team.lodestar.lodestone.systems.rendering.LodestoneRenderType;
+import team.lodestar.lodestone.systems.rendering.VFXBuilders;
 import team.lodestar.lodestone.systems.rendering.rendeertype.RenderTypeToken;
 
 
 public class VoidConduitRenderer implements BlockEntityRenderer<VoidConduitBlockEntity> {
 
-    public static final ResourceLocation VIGNETTE = MalumMod.malumPath("textures/block/weeping_well/primordial_soup_vignette.png");
-    public static final ResourceLocation NOISE_TEXTURE = MalumMod.malumPath("textures/vfx/void_noise.png");
+    public static final RenderTypeToken VIGNETTE = RenderTypeToken.createToken(MalumMod.malumPath("textures/block/weeping_well/primordial_soup_vignette.png"));
+    public static final RenderTypeToken NOISE_TEXTURE = RenderTypeToken.createToken(MalumMod.malumPath("textures/vfx/void_noise.png"));
 
     public VoidConduitRenderer(BlockEntityRendererProvider.Context context) {
     }
@@ -40,13 +42,13 @@ public class VoidConduitRenderer implements BlockEntityRenderer<VoidConduitBlock
             poseStack.pushPose();
             poseStack.translate(0.5f, 0.01f, 0.5f);
 
-            builder.replaceBufferSource(RenderHandler.LATE_DELAYED_RENDER.getTarget()).setRenderType(LodestoneRenderTypeRegistry.TRANSPARENT_TEXTURE.applyAndCache(RenderTypeToken.createToken(VIGNETTE))).renderQuad(poseStack, positions, 1f);
+            builder.replaceBufferSource(RenderHandler.LATE_DELAYED_RENDER.getTarget()).setRenderType(LodestoneRenderTypeRegistry.TRANSPARENT_TEXTURE.applyAndCache(VIGNETTE)).renderQuad(poseStack, positions, 1f);
             final long gameTime = voidConduit.getLevel().getGameTime();
             float uOffset = ((gameTime + partialTicks) % 4000) / 2000f;
             float vOffset = ((gameTime + 500f + partialTicks) % 8000) / 8000f;
             float alpha = 0.05f;
 
-            final LodestoneRenderType renderType = RenderTypeRegistry.ADDITIVE_DISTORTED_TEXTURE.applyAndCache(RenderTypeToken.createToken(NOISE_TEXTURE));
+            final LodestoneRenderType renderType = RenderTypeRegistry.ADDITIVE_DISTORTED_TEXTURE.applyAndCache(NOISE_TEXTURE);
             builder.replaceBufferSource(RenderHandler.DELAYED_RENDER.getTarget());
             for (int i = 0; i < 3; i++) {
                 builder.setAlpha(alpha);

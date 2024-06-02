@@ -1,9 +1,9 @@
 package com.sammy.malum.registry.client;
 
-import com.sammy.malum.*;
-import team.lodestar.lodestone.systems.particle.options.*;
-import team.lodestar.lodestone.systems.particle.screen.*;
-import team.lodestar.lodestone.systems.particle.type.*;
+import com.sammy.malum.MalumMod;
+import team.lodestar.lodestone.systems.particle.options.ScreenParticleOptions;
+import team.lodestar.lodestone.systems.particle.screen.ScreenParticleType;
+import team.lodestar.lodestone.systems.particle.type.LodestoneScreenParticleType;
 
 import static team.lodestar.lodestone.registry.common.particle.LodestoneScreenParticleRegistry.*;
 
@@ -11,7 +11,7 @@ import static team.lodestar.lodestone.registry.common.particle.LodestoneScreenPa
 public class ScreenParticleRegistry {
     public static final ScreenParticleType<ScreenParticleOptions> SAW = registerType(new LodestoneScreenParticleType());
 
-    public static void registerParticleFactory() {//TODO maybe use event?
+    public static void registerParticleFactory() {
         registerProvider(SAW, new LodestoneScreenParticleType.Factory(getSpriteSet(MalumMod.malumPath("saw"))));
     }
 }

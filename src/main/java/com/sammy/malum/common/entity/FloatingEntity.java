@@ -4,8 +4,6 @@ import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import com.sammy.malum.registry.common.SpiritTypeRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -23,7 +21,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import team.lodestar.lodestone.systems.easing.Easing;
-import team.lodestar.lodestone.systems.rendering.trail.*;
+import team.lodestar.lodestone.systems.rendering.trail.TrailPointBuilder;
 
 public abstract class FloatingEntity extends Entity {
 
@@ -49,12 +47,18 @@ public abstract class FloatingEntity extends Entity {
     public void setSpirit(MalumSpiritType spiritType) {
         setSpirit(spiritType.identifier);
     }
+
     public void setSpirit(String spiritIdentifier) {
         this.getEntityData().set(DATA_SPIRIT, spiritIdentifier);
     }
 
     @Override
     public boolean isNoGravity() {
+        return true;
+    }
+
+    @Override
+    public boolean fireImmune() {
         return true;
     }
 

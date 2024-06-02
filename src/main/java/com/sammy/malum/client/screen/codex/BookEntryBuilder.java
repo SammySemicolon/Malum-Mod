@@ -1,11 +1,13 @@
 package com.sammy.malum.client.screen.codex;
 
-import com.google.common.collect.*;
-import com.sammy.malum.client.screen.codex.pages.*;
-import com.sammy.malum.client.screen.codex.screens.*;
+import com.google.common.collect.ImmutableList;
+import com.sammy.malum.client.screen.codex.pages.BookPage;
+import com.sammy.malum.client.screen.codex.pages.EntryReference;
+import com.sammy.malum.client.screen.codex.screens.EntryScreen;
 
-import java.util.*;
-import java.util.function.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Predicate;
 
 public class BookEntryBuilder {
 

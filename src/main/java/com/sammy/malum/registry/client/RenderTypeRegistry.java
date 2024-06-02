@@ -1,33 +1,20 @@
 package com.sammy.malum.registry.client;
 
-import com.mojang.blaze3d.platform.*;
-import com.mojang.blaze3d.systems.*;
-import net.minecraft.*;
-import net.minecraft.client.renderer.*;
-import net.minecraft.resources.ResourceLocation;
-import org.lwjgl.opengl.*;
-import team.lodestar.lodestone.registry.client.*;
-import team.lodestar.lodestone.systems.rendering.*;
-import team.lodestar.lodestone.systems.rendering.rendeertype.*;
+import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
+import net.minecraft.client.renderer.RenderStateShard;
+import org.lwjgl.opengl.GL14;
+import team.lodestar.lodestone.registry.client.LodestoneRenderTypeRegistry;
+import team.lodestar.lodestone.registry.client.LodestoneShaderRegistry;
+import team.lodestar.lodestone.systems.rendering.StateShards;
+import team.lodestar.lodestone.systems.rendering.rendeertype.RenderTypeProvider;
 
-import java.util.function.*;
-
-import static com.mojang.blaze3d.vertex.DefaultVertexFormat.*;
-import static com.mojang.blaze3d.vertex.VertexFormat.Mode.*;
+import static com.mojang.blaze3d.vertex.DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP;
+import static com.mojang.blaze3d.vertex.VertexFormat.Mode.QUADS;
 
 public class RenderTypeRegistry extends RenderStateShard {
 
     //TODO: move this to lodestone
-    public static final Function<RenderStateShard.EmptyTextureStateShard, RenderType> ADDITIVE_TEXT = Util.memoize((texture) ->
-            LodestoneRenderTypeRegistry.createGenericRenderType("malum:additive_text", POSITION_COLOR_TEX_LIGHTMAP, QUADS, LodestoneRenderTypeRegistry.builder()
-                    .setShaderState(ShaderRegistry.ADDITIVE_TEXT.getShard())
-                    .setTransparencyState(StateShards.ADDITIVE_TRANSPARENCY)
-                    .setTextureState(texture)));
-    public static final Function<RenderStateShard.EmptyTextureStateShard, RenderType> TRANSLUCENT_TEXT = Util.memoize((texture) ->
-            LodestoneRenderTypeRegistry.createGenericRenderType("malum:translucent_text", POSITION_COLOR_TEX_LIGHTMAP, QUADS, LodestoneRenderTypeRegistry.builder()
-                    .setShaderState(ShaderRegistry.ADDITIVE_TEXT.getShard())
-                    .setTransparencyState(StateShards.TRANSLUCENT_TRANSPARENCY)
-                    .setTextureState(texture)));
 
     private static final RenderStateShard.TransparencyStateShard SUBTRACTIVE_TEXT_TRANSPARENCY = new RenderStateShard.TransparencyStateShard("malum:subtractive_text_transparency", () -> {
         RenderSystem.enableBlend();
@@ -57,21 +44,21 @@ public class RenderTypeRegistry extends RenderStateShard {
 
     public static final RenderTypeProvider SUBTRACTIVE_TEXT = new RenderTypeProvider((token) ->
             LodestoneRenderTypeRegistry.createGenericRenderType("subtractive_text", POSITION_COLOR_TEX_LIGHTMAP, QUADS, LodestoneRenderTypeRegistry.builder()
-            .setShaderState(RENDERTYPE_TEXT_SEE_THROUGH_SHADER)
-            .setTransparencyState(SUBTRACTIVE_TEXT_TRANSPARENCY)
-            .setWriteMaskState(COLOR_WRITE)
-            .setLightmapState(LIGHTMAP)
-            .setTextureState(token.get())));
+                    .setShaderState(RENDERTYPE_TEXT_SEE_THROUGH_SHADER)
+                    .setTransparencyState(SUBTRACTIVE_TEXT_TRANSPARENCY)
+                    .setWriteMaskState(COLOR_WRITE)
+                    .setLightmapState(LIGHTMAP)
+                    .setTextureState(token.get())));
 
-    public static final RenderTypeProvider SUBTRACTIVE_INTENSE_TEXT = new RenderTypeProvider((texture) ->
-        LodestoneRenderTypeRegistry.createGenericRenderType("subtractive_intense_text", POSITION_COLOR_TEX_LIGHTMAP, QUADS, LodestoneRenderTypeRegistry.builder()
-            .setShaderState(RENDERTYPE_TEXT_INTENSITY_SEE_THROUGH_SHADER)
-            .setTransparencyState(SUBTRACTIVE_TEXT_TRANSPARENCY)
-            .setWriteMaskState(COLOR_WRITE)
-            .setLightmapState(LIGHTMAP)
-            .setTextureState(texture.get())));
+    public static final RenderTypeProvider SUBTRACTIVE_INTENSE_TEXT = new RenderTypeProvider((token) ->
+            LodestoneRenderTypeRegistry.createGenericRenderType("subtractive_intense_text", POSITION_COLOR_TEX_LIGHTMAP, QUADS, LodestoneRenderTypeRegistry.builder()
+                    .setShaderState(RENDERTYPE_TEXT_INTENSITY_SEE_THROUGH_SHADER)
+                    .setTransparencyState(SUBTRACTIVE_TEXT_TRANSPARENCY)
+                    .setWriteMaskState(COLOR_WRITE)
+                    .setLightmapState(LIGHTMAP)
+                    .setTextureState(token.get())));
 
-    public static final RenderTypeProvider MALIGNANT_GLOW = new RenderTypeProvider((token) -> LodestoneRenderTypeRegistry.createGenericRenderType("lodestone:malignant_glow", POSITION_COLOR_TEX_LIGHTMAP, QUADS, LodestoneRenderTypeRegistry.builder()
+    public static final RenderTypeProvider MALIGNANT_GLOW = new RenderTypeProvider((token) -> LodestoneRenderTypeRegistry.createGenericRenderType("malignant_glow", POSITION_COLOR_TEX_LIGHTMAP, QUADS, LodestoneRenderTypeRegistry.builder()
             .setShaderState(LodestoneShaderRegistry.LODESTONE_TEXTURE)
             .setTransparencyState(StateShards.ADDITIVE_TRANSPARENCY)
             .setTextureState(token.get())

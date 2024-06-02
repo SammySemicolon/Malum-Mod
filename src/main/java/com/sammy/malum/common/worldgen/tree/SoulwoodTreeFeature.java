@@ -1,32 +1,42 @@
 package com.sammy.malum.common.worldgen.tree;
 
-import com.google.common.collect.*;
-import com.mojang.datafixers.util.*;
-import com.sammy.malum.common.block.blight.*;
-import com.sammy.malum.common.block.nature.*;
-import com.sammy.malum.registry.common.block.*;
-import net.minecraft.core.*;
-import net.minecraft.util.*;
-import net.minecraft.world.level.*;
-import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.state.*;
-import net.minecraft.world.level.block.state.properties.*;
-import net.minecraft.world.level.levelgen.*;
-import net.minecraft.world.level.levelgen.feature.*;
-import net.minecraft.world.level.levelgen.feature.configurations.*;
-import net.minecraft.world.level.levelgen.synth.*;
-import net.minecraft.world.phys.*;
-import org.joml.*;
-import team.lodestar.lodestone.helpers.*;
-import team.lodestar.lodestone.systems.worldgen.*;
-import team.lodestar.lodestone.systems.worldgen.LodestoneBlockFiller.*;
+import com.google.common.collect.ImmutableList;
+import com.mojang.datafixers.util.Pair;
+import com.sammy.malum.common.block.blight.ClingingBlightBlock;
+import com.sammy.malum.common.block.nature.MalumLeavesBlock;
+import com.sammy.malum.registry.common.block.BlockRegistry;
+import com.sammy.malum.registry.common.block.BlockTagRegistry;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.RotatedPillarBlock;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.levelgen.LegacyRandomSource;
+import net.minecraft.world.level.levelgen.WorldgenRandom;
+import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
+import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
+import net.minecraft.world.level.levelgen.synth.PerlinSimplexNoise;
+import net.minecraft.world.phys.Vec3;
+import org.joml.Vector2i;
+import team.lodestar.lodestone.helpers.BlockHelper;
+import team.lodestar.lodestone.helpers.RandomHelper;
+import team.lodestar.lodestone.systems.worldgen.LodestoneBlockFiller;
+import team.lodestar.lodestone.systems.worldgen.LodestoneBlockFiller.BlockStateEntry;
 
-import java.lang.Math;
 import java.util.*;
 
 import static com.sammy.malum.common.block.blight.ClingingBlightBlock.BlightType.*;
-import static com.sammy.malum.common.worldgen.WorldgenHelper.*;
-import static com.sammy.malum.common.worldgen.tree.RunewoodTreeFeature.*;
+import static com.sammy.malum.common.worldgen.WorldgenHelper.DIRECTIONS;
+import static com.sammy.malum.common.worldgen.WorldgenHelper.updateLeaves;
+import static com.sammy.malum.common.worldgen.tree.RunewoodTreeFeature.canPlace;
 import static net.minecraft.tags.BlockTags.*;
 
 public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
@@ -43,27 +53,35 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
     private int getSapBlockCount(RandomSource random) {
         return Mth.nextInt(random, 5, 7);
     }
+
     private int getTrunkHeight(RandomSource random) {
         return Mth.nextInt(random, 12, 18);
     }
+
     private int getTwistCooldown(RandomSource random) {
         return Mth.nextInt(random, 3, 5);
     }
+
     private int getTrunkTwistAmount(RandomSource random) {
         return Mth.nextInt(random, 2, 6);
     }
+
     private int getSideTrunkHeight(RandomSource random) {
         return Mth.nextInt(random, 1, 3);
     }
+
     private int getDownwardsBranchOffset(RandomSource random) {
         return Mth.nextInt(random, 2, 4);
     }
+
     private int getBranchEndOffset(RandomSource random) {
         return Mth.nextInt(random, 3, 5);
     }
+
     private int getBranchTwistAmount(RandomSource random) {
         return Mth.nextInt(random, 0, 2);
     }
+
     private int getBranchHeight(RandomSource random) {
         return Mth.nextInt(random, 5, 6);
     }
@@ -109,7 +127,7 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
         int twistAmount = getTrunkTwistAmount(rand);
         int lowestPossibleBranch = 5;
         BlockPos twistedPos = pos;
-        for (int i = 0; i <= trunkHeight+3; i++) //trunk placement
+        for (int i = 0; i <= trunkHeight + 3; i++) //trunk placement
         {
             if (i < trunkHeight - lowestPossibleBranch) {
                 if (twistCooldown == 0 && twistAmount != 0) {
@@ -136,7 +154,7 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
             BlockPos trunkPos = twistedPos.above(i);
             if (canPlace(level, trunkPos)) {
                 treeFiller.getEntries().put(trunkPos, new BlockStateEntry(i == 0 ? blightedLog : defaultLog));
-                if (i != 0 && i < trunkHeight-3) {
+                if (i != 0 && i < trunkHeight - 3) {
                     for (Direction direction : DIRECTIONS) {
                         validSoulstoneSpikePositions.add(Pair.of(direction.getOpposite(), trunkPos.relative(direction)));
                     }
@@ -308,7 +326,7 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
                         if (rand.nextFloat() < (0.4f + leavesSize * 0.2f)) {
                             int length = leavesSize - 2 + RandomHelper.randomBetween(rand, 0, leavesSize);
                             if (length < 2) {
-                                length-=2;
+                                length -= 2;
                             }
                             if (length < 2) {
                                 continue;
@@ -327,8 +345,7 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
                             }
                         }
                     }
-                }
-                else {
+                } else {
                     filler.getEntries().put(leavesPos, new BlockStateEntry(BlockRegistry.SOULWOOD_LEAVES.get().defaultBlockState().setValue(MalumLeavesBlock.COLOR, offsetColor)));
                 }
             }

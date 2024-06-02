@@ -1,16 +1,18 @@
 package com.sammy.malum.data.worldgen;
 
-import com.google.common.collect.*;
-import com.sammy.malum.registry.common.worldgen.*;
-import net.minecraft.core.*;
-import net.minecraft.core.registries.*;
-import net.minecraft.data.worldgen.*;
-import net.minecraft.data.worldgen.placement.*;
-import net.minecraft.world.level.levelgen.*;
-import net.minecraft.world.level.levelgen.feature.*;
+import com.google.common.collect.ImmutableList;
+import com.sammy.malum.registry.common.worldgen.ConfiguredFeatureRegistry;
+import com.sammy.malum.registry.common.worldgen.PlacedFeatureRegistry;
+import net.minecraft.core.Holder;
+import net.minecraft.core.HolderGetter;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.placement.PlacementUtils;
+import net.minecraft.world.level.levelgen.VerticalAnchor;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.placement.*;
 
-import java.util.*;
+import java.util.List;
 
 public class PlacedFeatures {
     public static void bootstrap(BootstapContext<PlacedFeature> context) {

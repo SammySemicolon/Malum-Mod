@@ -1,14 +1,13 @@
 package com.sammy.malum.common.spiritrite.arcane;
 
 import com.sammy.malum.common.block.curiosities.totem.TotemBaseBlockEntity;
-
 import com.sammy.malum.common.spiritrite.TotemicRiteEffect;
 import com.sammy.malum.common.spiritrite.TotemicRiteType;
 import com.sammy.malum.registry.common.DamageTypeRegistry;
 import com.sammy.malum.registry.common.ParticleEffectTypeRegistry;
 import com.sammy.malum.visual_effects.networked.data.ColorEffectData;
-import net.minecraft.server.level.*;
-import net.minecraft.world.damagesource.*;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;

@@ -1,11 +1,12 @@
 package com.sammy.malum.client.cosmetic;
 
-import com.sammy.malum.registry.client.ModelRegistry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import team.lodestar.lodestone.systems.model.LodestoneArmorModel;
 
 import static com.sammy.malum.MalumMod.malumPath;
+import static com.sammy.malum.common.item.cosmetic.skins.PrideArmorSkin.PRIDEWEAR;
+import static com.sammy.malum.common.item.cosmetic.skins.PrideArmorSkin.SLIM_PRIDEWEAR;
 
 public class PrideArmorSkinRenderingData extends ArmorSkinRenderingData {
 
@@ -24,6 +25,6 @@ public class PrideArmorSkinRenderingData extends ArmorSkinRenderingData {
 
     @Override
     public LodestoneArmorModel getModel(LivingEntity livingEntity, boolean slim) {
-        return slim ? ModelRegistry.SLIM_PRIDEWEAR : ModelRegistry.PRIDEWEAR;
+        return slim ? SLIM_PRIDEWEAR : PRIDEWEAR;
     }
 }

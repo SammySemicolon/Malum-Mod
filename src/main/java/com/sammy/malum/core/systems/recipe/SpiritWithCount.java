@@ -2,7 +2,7 @@ package com.sammy.malum.core.systems.recipe;
 
 import com.google.gson.JsonObject;
 import com.sammy.malum.common.item.spirit.SpiritShardItem;
-import com.sammy.malum.core.handlers.*;
+import com.sammy.malum.core.handlers.SpiritHarvestHandler;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;

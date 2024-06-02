@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "sign",
+  "key": {
+    "#": {
+      "tag": "malum:runewood_planks"
+    },
+    "X": {
+      "tag": "c:wooden_rods"
+    }
+  },
+  "pattern": [
+    "###",
+    "###",
+    " X "
+  ],
+  "result": {
+    "count": 3,
+    "item": "malum:runewood_sign"
+  },
+  "show_notification": true
+}

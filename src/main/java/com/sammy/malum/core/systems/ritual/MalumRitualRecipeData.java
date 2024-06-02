@@ -1,8 +1,8 @@
 package com.sammy.malum.core.systems.ritual;
 
-import team.lodestar.lodestone.systems.recipe.*;
+import team.lodestar.lodestone.systems.recipe.IngredientWithCount;
 
-import java.util.*;
+import java.util.List;
 
 public class MalumRitualRecipeData {
 

@@ -13,9 +13,9 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import org.jetbrains.annotations.NotNull;
 import team.lodestar.lodestone.systems.item.LodestoneArmorItem;
 
-import org.jetbrains.annotations.NotNull;
 import java.util.Objects;
 
 public class WeaversWorkbenchContainer extends AbstractContainerMenu {

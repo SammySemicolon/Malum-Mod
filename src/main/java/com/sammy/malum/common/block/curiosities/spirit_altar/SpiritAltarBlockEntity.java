@@ -1,39 +1,42 @@
 package com.sammy.malum.common.block.curiosities.spirit_altar;
 
-import com.sammy.malum.common.block.*;
-import com.sammy.malum.common.block.storage.*;
-import com.sammy.malum.common.item.spirit.*;
-import com.sammy.malum.common.recipe.*;
-import com.sammy.malum.core.FabricUtil;
-import com.sammy.malum.core.systems.recipe.*;
-import com.sammy.malum.registry.common.*;
-import com.sammy.malum.registry.common.block.*;
-import com.sammy.malum.visual_effects.*;
-import com.sammy.malum.visual_effects.networked.altar.*;
-import com.sammy.malum.visual_effects.networked.data.*;
+import com.sammy.malum.common.block.MalumBlockEntityInventory;
+import com.sammy.malum.common.block.storage.IMalumSpecialItemAccessPoint;
+import com.sammy.malum.common.item.spirit.SpiritShardItem;
+import com.sammy.malum.common.recipe.SpiritInfusionRecipe;
+import com.sammy.malum.core.systems.recipe.SpiritWithCount;
+import com.sammy.malum.registry.common.ParticleEffectTypeRegistry;
+import com.sammy.malum.registry.common.SoundRegistry;
+import com.sammy.malum.registry.common.SpiritTypeRegistry;
+import com.sammy.malum.registry.common.block.BlockEntityRegistry;
+import com.sammy.malum.visual_effects.SpiritAltarParticleEffects;
+import com.sammy.malum.visual_effects.networked.altar.SpiritAltarEatItemParticleEffect;
+import com.sammy.malum.visual_effects.networked.data.ColorEffectData;
+import com.sammy.malum.visual_effects.networked.data.PositionEffectData;
 import io.github.fabricators_of_create.porting_lib.transfer.TransferUtil;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
-import net.fabricmc.fabric.api.transfer.v1.item.PlayerInventoryStorage;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
-import net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext;
-import net.minecraft.core.*;
-import net.minecraft.nbt.*;
+import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.*;
-import net.minecraft.util.*;
-import net.minecraft.world.*;
-import net.minecraft.world.entity.item.*;
-import net.minecraft.world.entity.player.*;
-import net.minecraft.world.item.*;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.*;
-import net.minecraft.world.level.block.state.*;
-import net.minecraft.world.phys.*;
-import org.jetbrains.annotations.*;
-import team.lodestar.lodestone.helpers.*;
-import team.lodestar.lodestone.systems.blockentity.*;
-import team.lodestar.lodestone.systems.easing.*;
-import team.lodestar.lodestone.systems.recipe.*;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.Mth;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.Nullable;
+import team.lodestar.lodestone.helpers.BlockHelper;
+import team.lodestar.lodestone.helpers.DataHelper;
+import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntity;
+import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntityInventory;
+import team.lodestar.lodestone.systems.easing.Easing;
+import team.lodestar.lodestone.systems.recipe.IngredientWithCount;
 
 import java.util.*;
 
@@ -69,9 +72,10 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
         inventory = new MalumBlockEntityInventory(1, 64, t -> !(t.getItem() instanceof SpiritShardItem)) {
             @Override
             public void onContentsChanged(int slot) {
-                super.onContentsChanged(slot);
+                SpiritAltarBlockEntity.this.setChanged();
                 needsSync = true;
                 BlockHelper.updateAndNotifyState(level, worldPosition);
+                super.onContentsChanged(slot);
             }
         };
         extrasInventory = new MalumBlockEntityInventory(8, 64) {
@@ -85,9 +89,11 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
             @Override
             public void onContentsChanged(int slot) {
                 super.onContentsChanged(slot);
+                notifyUpdate();
                 needsSync = true;
                 spiritAmount = Math.max(1, Mth.lerp(0.15f, spiritAmount, nonEmptyItemAmount + 1));
                 BlockHelper.updateAndNotifyState(level, worldPosition);
+                SpiritAltarBlockEntity.this.setChanged();
             }
 
             @Override
@@ -128,7 +134,7 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
             }
         }
 
-        inventory.serializeNBT();
+        compound.put("Inventory", inventory.serializeNBT());
         compound.put("spiritInventory", spiritInventory.serializeNBT());
         compound.put("extrasInventory", extrasInventory.serializeNBT());
     }
@@ -150,7 +156,7 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
                 accelerators.add(accelerator);
             }
         }
-        inventory.deserializeNBT(compound);
+        inventory.deserializeNBT(compound.getCompound("Inventory"));
         spiritInventory.deserializeNBT(compound.getCompound("spiritInventory"));
         extrasInventory.deserializeNBT(compound.getCompound("extrasInventory"));
         super.load(compound);
@@ -164,55 +170,19 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
         extrasInventory.dumpItems(level, worldPosition);
     }
 
-    public static InteractionResultHolder<ItemStack> tryInsert(Level level, ItemStack stack, LodestoneBlockEntityInventory inventory, TransactionContext ctx) {
-
-        ItemStack container = stack.getRecipeRemainder();
-        if (!level.isClientSide) {
-            stack.shrink(1);
-        }
-
-        return InteractionResultHolder.success(container);
-    }
-
     @Override
     public InteractionResult onUse(Player player, InteractionHand hand) {
         if (level.isClientSide) {
             return InteractionResult.CONSUME;
         }
+
         if (hand.equals(InteractionHand.MAIN_HAND)) {
-            ItemStack heldStack = player.getMainHandItem();
             recalibrateAccelerators();
-            if (!(heldStack.getItem() instanceof SpiritShardItem)) {
 
-                try (Transaction tx = TransferUtil.getTransaction()) {
-                    PlayerInventoryStorage.of(player).offerOrDrop(ItemVariant.of(inventory.getStackInSlot(0)), FabricUtil.extractSlot(inventory, 0, 1), tx);
-                    tx.commit();
-                }
-
-
-
-                try (Transaction t = TransferUtil.getTransaction()) {
-                    InteractionResultHolder<ItemStack> res = tryInsert(level, heldStack, inventory, t);
-                    t.commit();
-                    ItemStack leftover = res.getObject();
-                    if (!leftover.isEmpty()) {
-                        return InteractionResult.SUCCESS;
-                    }
-                }
+            if (!spiritInventory.interact(this, level, player, hand, stack -> stack.getItem() instanceof SpiritShardItem || stack.isEmpty())) {
+                inventory.interact(this, level, player, hand, stack -> true);
             }
 
-            try (Transaction t = TransferUtil.getTransaction()) {
-                InteractionResultHolder<ItemStack> res = tryInsert(level, heldStack, spiritInventory, t);
-                t.commit();
-
-            }
-
-
-            if (heldStack.isEmpty()) {
-                return InteractionResult.SUCCESS;
-            } else {
-                return InteractionResult.PASS;
-            }
         }
         return super.onUse(player, hand);
     }
@@ -220,8 +190,9 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
     @Override
     public void init() {
         ItemStack stack = inventory.getStackInSlot(0);
-        possibleRecipes = new ArrayList<>(DataHelper.getAll(SpiritInfusionRecipe.getRecipes(level), r -> r.doesInputMatch(stack) && r.doSpiritsMatch(spiritInventory.nonEmptyItemStacks)));
-        recipe = SpiritInfusionRecipe.getRecipe(level, stack, spiritInventory.nonEmptyItemStacks);
+        var list = spiritInventory.nonEmptyItemStacks;
+        possibleRecipes = new ArrayList<>(DataHelper.getAll(SpiritInfusionRecipe.getRecipes(level), r -> r.doesInputMatch(stack) && r.doSpiritsMatch(list)));
+        recipe = SpiritInfusionRecipe.getRecipe(level, stack, list);
         if (level.isClientSide && !possibleRecipes.isEmpty() && !isCrafting) {
             AltarSoundInstance.playSound(this);
         }
@@ -269,7 +240,7 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
         if (recipe.extraItems.isEmpty()) {
             return true;
         }
-        //TODO? extrasInventory.updateData();
+        extrasInventory.updateData();
         extrasInventory.setChanged();
         int extras = extrasInventory.nonEmptyItemAmount;
         if (extras < recipe.extraItems.size()) {
@@ -295,11 +266,11 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
                     if (level instanceof ServerLevel serverLevel) {
                         ParticleEffectTypeRegistry.SPIRIT_ALTAR_EATS_ITEM.createPositionedEffect(serverLevel, new PositionEffectData(worldPosition), ColorEffectData.fromRecipe(recipe.spirits), SpiritAltarEatItemParticleEffect.createData(provider.getAccessPointBlockPos(), providedStack));
                     }
-                    try (Transaction t = TransferUtil.getTransaction()){
+                    try (Transaction t = TransferUtil.getTransaction()) {
                         long inserted = extrasInventory.insert(ItemVariant.of(providedStack.split(requestedItem.count)), 64, t);
                         t.commit();
                     }
-                    //TODO? inventoryForAltar.updateData();
+                    inventoryForAltar.updateData();
                     extrasInventory.setChanged();
                     BlockHelper.updateAndNotifyState(level, provider.getAccessPointBlockPos());
                     break;
@@ -318,7 +289,7 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
             outputStack.setTag(stack.getTag());
         }
         stack.shrink(recipe.input.count);
-        inventory.setChanged();
+        inventory.updateData();
         for (SpiritWithCount spirit : recipe.spirits) {
             for (int i = 0; i < spiritInventory.slotCount; i++) {
                 ItemStack spiritStack = spiritInventory.getStackInSlot(i);
@@ -328,7 +299,7 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
                 }
             }
         }
-        spiritInventory.setChanged();
+        spiritInventory.updateData();
         progress *= 0.75f;
         extrasInventory.clear();
         if (level instanceof ServerLevel serverLevel) {
@@ -378,9 +349,26 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
         return ALTAR_ITEM_OFFSET;
     }
 
-    public Vec3 getSpiritItemOffset(int slot, float partialTicks) {
-        float distance = 1 - getSpinUp(Easing.SINE_OUT) * 0.25f + (float) Math.sin((spiritSpin % 6.2831f + partialTicks) / 20f) * 0.025f;
+    public Vec3 spiritOffset(int slot, float tickDelta) {
+        float distance = 1 - getSpinUp(Easing.SINE_OUT) * 0.25f + (float) Math.sin(spiritSpin / 20f) * 0.025f;
         float height = 0.75f + getSpinUp(Easing.QUARTIC_OUT) * getSpinUp(Easing.BACK_OUT) * 0.5f;
-        return DataHelper.rotatingRadialOffset(new Vec3(0.5f, height, 0.5f), distance, slot, spiritAmount, (long) (spiritSpin + partialTicks), 360);
+        return rotatedCirclePosition(new Vec3(0.5f, height, 0.5f), distance, slot, spiritAmount, (long) spiritSpin, 360, tickDelta);
+    }
+
+    public static Vec3 rotatedCirclePosition(Vec3 pos, float distance, float current, float total, long gameTime, float time, float tickDelta) {
+        return rotatedCirclePosition(pos, distance, distance, current, total, gameTime, time, tickDelta);
+    }
+
+    public static Vec3 rotatedCirclePosition(Vec3 pos, float distanceX, float distanceZ, float current, float total, long gameTime, float time, float tickDelta) {
+        double angle = current / total * (Math.PI * 2);
+        angle += (((gameTime % time) + tickDelta) / time) * (Math.PI * 2);
+        double dx2 = (distanceX * Math.cos(angle));
+        double dz2 = (distanceZ * Math.sin(angle));
+
+        Vec3 vector2f = new Vec3(dx2, 0, dz2);
+        double x = vector2f.x * distanceX;
+        double z = vector2f.z * distanceZ;
+        return pos.add(x, 0, z);
     }
 }
+

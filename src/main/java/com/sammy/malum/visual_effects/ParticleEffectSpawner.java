@@ -64,6 +64,7 @@ public class ParticleEffectSpawner<T extends AbstractWorldParticleBuilder<T, ?>>
             bloomSpawner.accept(bloomBuilder);
         }
     }
+
     public void spawnParticlesRaw() {
         if (spiritType != null) {
             builder.act(spiritType.applyWorldParticleChanges());

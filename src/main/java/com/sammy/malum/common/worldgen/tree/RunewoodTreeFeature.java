@@ -1,20 +1,27 @@
 package com.sammy.malum.common.worldgen.tree;
 
-import com.sammy.malum.common.block.blight.*;
-import com.sammy.malum.common.block.nature.*;
-import net.minecraft.core.*;
-import net.minecraft.util.*;
-import net.minecraft.world.level.*;
-import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.state.*;
-import net.minecraft.world.level.levelgen.feature.*;
-import team.lodestar.lodestone.helpers.*;
-import team.lodestar.lodestone.systems.worldgen.*;
-import team.lodestar.lodestone.systems.worldgen.LodestoneBlockFiller.*;
+import com.sammy.malum.common.block.blight.BlightedGrowthBlock;
+import com.sammy.malum.common.block.nature.MalumLeavesBlock;
+import com.sammy.malum.common.block.nature.MalumSaplingBlock;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.RotatedPillarBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
+import team.lodestar.lodestone.helpers.BlockHelper;
+import team.lodestar.lodestone.systems.worldgen.LodestoneBlockFiller;
+import team.lodestar.lodestone.systems.worldgen.LodestoneBlockFiller.BlockStateEntry;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
 
-import static com.sammy.malum.common.worldgen.WorldgenHelper.*;
+import static com.sammy.malum.common.worldgen.WorldgenHelper.DIRECTIONS;
+import static com.sammy.malum.common.worldgen.WorldgenHelper.updateLeaves;
 
 public class RunewoodTreeFeature extends Feature<RunewoodTreeConfiguration> {
 
@@ -29,6 +36,7 @@ public class RunewoodTreeFeature extends Feature<RunewoodTreeConfiguration> {
     private int getTrunkHeight(RandomSource random) {
         return Mth.nextInt(random, 7, 10);
     }
+
     private int getSideTrunkHeight(RandomSource random) {
         return Mth.nextInt(random, 0, 2);
     }
@@ -36,9 +44,11 @@ public class RunewoodTreeFeature extends Feature<RunewoodTreeConfiguration> {
     private int getDownwardsBranchOffset(RandomSource random) {
         return Mth.nextInt(random, 2, 4);
     }
+
     private int getBranchEndOffset(RandomSource random) {
         return Mth.nextInt(random, 2, 3);
     }
+
     private int getBranchHeight(RandomSource random) {
         return Mth.nextInt(random, 3, 5);
     }

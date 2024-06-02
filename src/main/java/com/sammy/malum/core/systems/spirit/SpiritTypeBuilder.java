@@ -2,7 +2,6 @@ package com.sammy.malum.core.systems.spirit;
 
 import com.sammy.malum.common.block.mana_mote.SpiritMoteBlock;
 import com.sammy.malum.common.item.spirit.SpiritShardItem;
-import team.lodestar.lodestone.systems.easing.Easing;
 
 import java.awt.*;
 import java.util.function.Function;
@@ -38,7 +37,7 @@ public class SpiritTypeBuilder {
         return build((identifier1, spiritShard1, spiritMote1, visualMotif, itemColor1) -> new MalumSpiritType(identifier1, visualMotif, spiritShard1, spiritMote1, itemColor1));
     }
 
-    public<T extends MalumSpiritType> T  build(SpiritTypeSupplier<T> supplier) {
+    public <T extends MalumSpiritType> T build(SpiritTypeSupplier<T> supplier) {
         return supplier.makeType(identifier, spiritShard, spiritMote, spiritVisualMotif, itemColor);
     }
 

@@ -1,15 +1,15 @@
 package com.sammy.malum.common.block.curiosities.repair_pylon;
 
-import net.minecraft.core.*;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.item.context.*;
-import net.minecraft.world.level.*;
-import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.state.*;
-import net.minecraft.world.phys.shapes.*;
-import team.lodestar.lodestone.systems.block.*;
-
-import static net.minecraft.world.level.block.state.properties.BlockStateProperties.*;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.shapes.BooleanOp;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
+import team.lodestar.lodestone.systems.block.WaterLoggedEntityBlock;
 
 public class RepairPylonCoreBlock<T extends RepairPylonCoreBlockEntity> extends WaterLoggedEntityBlock<T> {
 
@@ -37,7 +37,7 @@ public class RepairPylonCoreBlock<T extends RepairPylonCoreBlockEntity> extends 
         return 0;
     }
 
-    public static VoxelShape makeShape(){
+    public static VoxelShape makeShape() {
         VoxelShape shape = Shapes.empty();
         shape = Shapes.join(shape, Shapes.box(0.625, 0.625, 0.625, 1, 1, 1), BooleanOp.OR);
         shape = Shapes.join(shape, Shapes.box(0.625, 0, 0.625, 1.125, 0.625, 1.125), BooleanOp.OR);
