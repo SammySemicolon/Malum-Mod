@@ -51,6 +51,8 @@ public class MalumSpiritType {
         this.itemColor = itemColor;
     }
 
+
+
     public float getAlphaMultiplier() {
         return visualMotif.getAlphaMultiplier();
     }
@@ -86,9 +88,7 @@ public class MalumSpiritType {
 
     public Rarity getItemRarity() {
         if (itemRarity == null) {
-            TextColor textColor = getTextColor(false);
-            System.out.println("TYPE: " + this.identifier + " : " + textColor.getValue());
-            itemRarity = Rarity.EPIC;//TODO Rarity.create("malum$" + identifier, (style) -> style.withColor(textColor));
+            itemRarity = Rarity.UNCOMMON;
         }
         return itemRarity;
     }
