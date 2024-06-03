@@ -22,7 +22,7 @@ public class CurioRunicBrooch extends MalumTinketsItem {
 
     @Override
     public void addAttributeModifiers(Multimap<Attribute, AttributeModifier> map, SlotReference slotContext, ItemStack stack, LivingEntity entity) {
-        SlotAttributes.addSlotModifier(map, "rune", RUNIC_BROOCH_RUNE, 2, AttributeModifier.Operation.ADDITION);
-        SlotAttributes.addSlotModifier(map, "ring", RUNIC_BROOCH_RING, -1, AttributeModifier.Operation.ADDITION);
+        SlotAttributes.addSlotModifier(map, "legs/rune", RUNIC_BROOCH_RUNE, 2, AttributeModifier.Operation.ADDITION);
+        SlotAttributes.addSlotModifier(map, "hand/ring", RUNIC_BROOCH_RING, -1, AttributeModifier.Operation.ADDITION);
     }
 }
