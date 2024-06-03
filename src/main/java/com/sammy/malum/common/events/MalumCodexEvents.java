@@ -15,8 +15,19 @@ public interface MalumCodexEvents {
         }
     });
 
+    Event<SetupVoid> VOID_EVENT = createArrayBacked(SetupVoid.class, listeners -> (entries) -> {
+        for (SetupVoid listener : listeners) {
+            listener.onSetup(entries);
+        }
+    });
+
     @FunctionalInterface
     interface Setup {
+        void onSetup(List<PlacedBookEntry> bookEntry);
+    }
+
+    @FunctionalInterface
+    interface SetupVoid {
         void onSetup(List<PlacedBookEntry> bookEntry);
     }
 }
