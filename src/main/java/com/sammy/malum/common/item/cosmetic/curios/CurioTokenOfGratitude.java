@@ -25,6 +25,7 @@ public class CurioTokenOfGratitude extends MalumTinketsItem implements IEventRes
     public static final List<UUID> GRADITUDE_CERTIFIED = new ArrayList<>();
     public static final List<UUID> TRANS_SCARFS = new ArrayList<>();
     public static final UUID SAMMY = validateForGratitude("0ca54301-6170-4c44-b3e0-b8afa6b81ed2");
+    public static final UUID MRSTERNER = validateForGratitude("f7c8dd92-e3f0-422c-9f8c-91489818ec82");
     public static final UUID OWL_PERSON = validateForGratitude("309b2cf6-caa1-4c9a-912d-7b4be827dc8c");
     public static final UUID SNAKE_SCARF_FELLA = validateForGratitude("07f1452b-7408-47b3-be2b-e6e08869e891");
     public static final UUID BOBBU = validateForGratitude("3ab4b4b3-dceb-4ff9-a901-fa6edd746070");

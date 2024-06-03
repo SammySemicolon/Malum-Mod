@@ -58,13 +58,16 @@ public class TokenOfGratitudeRenderer implements TrinketRenderer {
                 SCARF = new ScarfModel(Minecraft.getInstance().getEntityModels().bakeLayer(ScarfModel.LAYER));
             }
 
-            if (playerEntity.getUUID().equals(CurioTokenOfGratitude.SAMMY) && entityModel instanceof PlayerModel playerModel) {
+            if (playerEntity.getUUID().equals(CurioTokenOfGratitude.SAMMY) && entityModel instanceof PlayerModel<? extends LivingEntity> playerModel) {
                 renderTail(playerModel, itemStack, SAMMY, poseStack, playerEntity, multiBufferSource, light, limbAngle, limbDistance, tickDelta, animationProgress, headYaw, headPitch);
             }
-            if ((playerEntity.getUUID().equals(CurioTokenOfGratitude.LOFI) || playerEntity.getUUID().equals(CurioTokenOfGratitude.CREECHURE)) && entityModel instanceof PlayerModel playerModel) {
+            if (playerEntity.getUUID().equals(CurioTokenOfGratitude.MRSTERNER) && entityModel instanceof PlayerModel<? extends LivingEntity> playerModel) {
+                renderSterner(playerModel, itemStack, poseStack, playerEntity, multiBufferSource, light, limbAngle, limbDistance, tickDelta, animationProgress, headYaw, headPitch);
+            }
+            if ((playerEntity.getUUID().equals(CurioTokenOfGratitude.LOFI) || playerEntity.getUUID().equals(CurioTokenOfGratitude.CREECHURE)) && entityModel instanceof PlayerModel<? extends LivingEntity> playerModel) {
                 renderTail(playerModel, itemStack, LOFI, poseStack, playerEntity, multiBufferSource, light, limbAngle, limbDistance, tickDelta, animationProgress, headYaw, headPitch);
             }
-            if (playerEntity.getUUID().equals(CurioTokenOfGratitude.OWL_PERSON) && entityModel instanceof PlayerModel playerModel) {
+            if (playerEntity.getUUID().equals(CurioTokenOfGratitude.OWL_PERSON) && entityModel instanceof PlayerModel<? extends LivingEntity> playerModel) {
                 renderGlowingEyes(playerEntity, playerModel, LodestoneRenderTypeRegistry.TRANSPARENT_TEXTURE.applyAndCache(RenderTypeToken.createCachedToken(OWL_PERSON_EYES)), poseStack, multiBufferSource, RenderHelper.FULL_BRIGHT, headYaw, headPitch);
             }
             if (playerEntity.getUUID().equals(CurioTokenOfGratitude.SNAKE_SCARF_FELLA)) {
@@ -81,6 +84,7 @@ public class TokenOfGratitudeRenderer implements TrinketRenderer {
             }
         }
     }
+
 
     public static ResourceLocation getElytraTexture(UUID uuid, ResourceLocation original) {
         if (uuid.equals(CurioTokenOfGratitude.OWL_PERSON)) {
@@ -147,4 +151,7 @@ public class TokenOfGratitudeRenderer implements TrinketRenderer {
     }
 
 
+    private void renderSterner(PlayerModel playerModel, ItemStack itemStack, PoseStack poseStack, AbstractClientPlayer playerEntity, MultiBufferSource multiBufferSource, int light, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch) {
+
+    }
 }
