@@ -15,7 +15,6 @@ public class WorldgenRegistryDataGenerator extends DatapackBuiltinEntriesProvide
     private static final RegistrySetBuilder BUILDER = new RegistrySetBuilder()
             .add(Registries.CONFIGURED_FEATURE, ConfiguredFeatures::bootstrap)
             .add(Registries.PLACED_FEATURE, PlacedFeatures::bootstrap);
-    //TODO.add(Registries., BiomeModifications::bootstrap);
 
     public WorldgenRegistryDataGenerator(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
         super(output, registries, BUILDER, Set.of("minecraft", MalumMod.MALUM));

@@ -24,6 +24,7 @@ import com.sammy.malum.core.listeners.ReapingDataReloadListener;
 import com.sammy.malum.core.listeners.RitualRecipeReloadListener;
 import com.sammy.malum.core.listeners.SpiritDataReloadListener;
 import com.sammy.malum.data.worldgen.BiomeModifications;
+import com.sammy.malum.registry.MalumCommandRegistry;
 import com.sammy.malum.registry.client.ParticleEmitterRegistry;
 import com.sammy.malum.registry.common.MobEffectRegistry;
 import com.sammy.malum.registry.common.PacketRegistry;
@@ -112,6 +113,7 @@ public class MalumMod implements ModInitializer {
         ItemRegistry.Common.registerCompost();
         MobEffectRegistry.addPotionRecipes();
         ArmorSkinRegistry.registerItemSkins();
+        MalumCommandRegistry.registerCommands();
 
         FarmersDelightCompat.init();
 

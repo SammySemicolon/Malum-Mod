@@ -73,6 +73,7 @@ import com.sammy.malum.common.item.spirit.UmbralSpiritShardItem;
 import com.sammy.malum.compability.farmersdelight.FarmersDelightCompat;
 import com.sammy.malum.core.systems.ritual.MalumRitualTier;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
+import com.sammy.malum.registry.client.HiddenTagRegistry;
 import com.sammy.malum.registry.common.SpiritRiteRegistry;
 import com.sammy.malum.registry.common.SpiritTypeRegistry;
 import com.sammy.malum.registry.common.block.BlockRegistry;
@@ -794,17 +795,6 @@ public class ItemRegistry {
 
 
     public static class ClientOnly {
-
-        /*TODO
-        @SubscribeEvent
-        public static void registerExtras(FMLClientSetupEvent event) {
-            CuriosRendererRegistry.register(ItemRegistry.TOKEN_OF_GRATITUDE.get(), TokenOfGratitudeRenderer::new);
-            CuriosRendererRegistry.register(ItemRegistry.TOPHAT.get(), TopHatCurioRenderer::new);
-
-            HiddenTagRegistry.registerHiddenTags();
-        }
-
-         */
 
         public static void addItemProperties() {
             Set<LodestoneArmorItem> armors = ItemRegistry.ITEMS.getEntries().stream().filter(r -> r.get() instanceof LodestoneArmorItem).map(r -> (LodestoneArmorItem) r.get()).collect(Collectors.toSet());

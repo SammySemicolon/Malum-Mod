@@ -3,6 +3,8 @@ package com.sammy.malum.common.item.curiosities.trinkets.brooches;
 import com.google.common.collect.Multimap;
 import com.sammy.malum.common.item.curiosities.trinkets.MalumTinketsItem;
 import dev.emi.trinkets.api.SlotReference;
+import dev.emi.trinkets.api.Trinket;
+import dev.emi.trinkets.api.TrinketsApi;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.ItemStack;

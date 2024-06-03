@@ -35,8 +35,6 @@ public class DataGenerators implements DataGeneratorEntrypoint {
         pack.addProvider((output, registriesFuture) -> new MalumDamageTypeTags(output, registriesFuture, helper));
         pack.addProvider((output, registriesFuture) -> new WorldgenRegistryDataGenerator(output, registriesFuture));
         pack.addProvider((output, registriesFuture) -> new MalumLang(output));
-        //TODO ? pack.addProvider((output, registriesFuture) -> new MalumCuriosThings(output, helper, registriesFuture));
-
     }
 
     @Override

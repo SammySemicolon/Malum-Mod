@@ -10,6 +10,7 @@ import com.sammy.malum.client.renderer.curio.TokenOfGratitudeRenderer;
 import com.sammy.malum.client.renderer.curio.TopHatCurioRenderer;
 import com.sammy.malum.client.renderer.item.SpiritJarItemRenderer;
 import com.sammy.malum.config.ClientConfig;
+import com.sammy.malum.registry.client.HiddenTagRegistry;
 import com.sammy.malum.registry.client.ModelRegistry;
 import com.sammy.malum.registry.client.ParticleRegistry;
 import com.sammy.malum.registry.common.ContainerRegistry;
@@ -57,7 +58,7 @@ public class MalumModClient implements ClientModInitializer {
         ItemRegistry.ClientOnly.addItemProperties();
         ItemRegistry.ClientOnly.setItemColors();
         ContainerRegistry.bindContainerRenderers();
-//CuriosRendererRegistry.register(ItemRegistry.TOPHAT.get(), TopHatCurioRenderer::new);
+
         TrinketRendererRegistry.registerRenderer(ItemRegistry.TOPHAT.get(), new TopHatCurioRenderer());
         TrinketRendererRegistry.registerRenderer(ItemRegistry.TOKEN_OF_GRATITUDE.get(), new TokenOfGratitudeRenderer());
 
@@ -76,12 +77,16 @@ public class MalumModClient implements ClientModInitializer {
                 BlockRegistry.TAINTED_ETHER_BRAZIER.get(),
                 BlockRegistry.TAINTED_IRIDESCENT_ETHER_BRAZIER.get(),
                 BlockRegistry.TWISTED_ETHER_BRAZIER.get(),
-                BlockRegistry.TWISTED_IRIDESCENT_ETHER_BRAZIER.get(),
-                BlockRegistry.NATURAL_QUARTZ_CLUSTER.get(),
-                BlockRegistry.BRILLIANT_STONE.get(),
-                BlockRegistry.BRILLIANT_DEEPSLATE.get(),
+                BlockRegistry.TWISTED_IRIDESCENT_ETHER_BRAZIER.get()
+        );
+
+        BlockRenderLayerMap.INSTANCE.putBlocks(RenderType.cutout(),
                 BlockRegistry.CTHONIC_GOLD_CLUSTER.get(),
-                BlockRegistry.BLAZING_QUARTZ_CLUSTER.get()
+                BlockRegistry.BLAZING_QUARTZ_CLUSTER.get(),
+                BlockRegistry.NATURAL_QUARTZ_CLUSTER.get(),
+                BlockRegistry.BLAZING_QUARTZ_ORE.get(),
+                BlockRegistry.BRILLIANT_STONE.get(),
+                BlockRegistry.BRILLIANT_DEEPSLATE.get()
         );
 
         ArmorRenderer.register(new SoulHunterArmorRenderer(),
@@ -116,6 +121,8 @@ public class MalumModClient implements ClientModInitializer {
                         ResourcePackActivationType.NORMAL
                 )
         );
+
+        HiddenTagRegistry.registerHiddenTags();
     }
 
     private void startTick(Minecraft minecraft) {
