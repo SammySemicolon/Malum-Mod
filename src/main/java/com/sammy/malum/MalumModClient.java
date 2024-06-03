@@ -76,7 +76,12 @@ public class MalumModClient implements ClientModInitializer {
                 BlockRegistry.TAINTED_ETHER_BRAZIER.get(),
                 BlockRegistry.TAINTED_IRIDESCENT_ETHER_BRAZIER.get(),
                 BlockRegistry.TWISTED_ETHER_BRAZIER.get(),
-                BlockRegistry.TWISTED_IRIDESCENT_ETHER_BRAZIER.get()
+                BlockRegistry.TWISTED_IRIDESCENT_ETHER_BRAZIER.get(),
+                BlockRegistry.NATURAL_QUARTZ_CLUSTER.get(),
+                BlockRegistry.BRILLIANT_STONE.get(),
+                BlockRegistry.BRILLIANT_DEEPSLATE.get(),
+                BlockRegistry.CTHONIC_GOLD_CLUSTER.get(),
+                BlockRegistry.BLAZING_QUARTZ_CLUSTER.get()
         );
 
         ArmorRenderer.register(new SoulHunterArmorRenderer(),
