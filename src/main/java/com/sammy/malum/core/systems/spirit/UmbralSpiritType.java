@@ -2,11 +2,11 @@ package com.sammy.malum.core.systems.spirit;
 
 import com.sammy.malum.common.block.mana_mote.SpiritMoteBlock;
 import com.sammy.malum.common.item.spirit.SpiritShardItem;
+import io.github.fabricators_of_create.porting_lib.util.EnvExecutor;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.network.chat.TextColor;
 import team.lodestar.lodestone.systems.particle.builder.AbstractWorldParticleBuilder;
-import team.lodestar.lodestone.systems.particle.render_types.LodestoneWorldParticleRenderType;
 
 import java.awt.*;
 import java.util.function.Consumer;
@@ -25,16 +25,20 @@ public class UmbralSpiritType extends MalumSpiritType {
         return TextColor.fromRgb(INVERT_COLOR);
     }
 
-    @Environment(EnvType.CLIENT)
+
     @Override
+    @Environment(EnvType.CLIENT)
     public <K extends AbstractWorldParticleBuilder<K, ?>> Consumer<K> applyWorldParticleChanges() {
 
-        return b -> {
-            b.setRenderType(LodestoneWorldParticleRenderType.LUMITRANSPARENT);
+        return EnvExecutor.unsafeRunForDist(() -> () -> b -> {
+            //TODO, this gets run on server? stupid envtype
+            //b.setRenderType(team.lodestar.lodestone.systems.particle.render_types.LodestoneWorldParticleRenderType.LUMITRANSPARENT);
             b.modifyData(b::getTransparencyData, d -> d.multiplyValue(4f));
             b.getScaleData().multiplyCoefficient(1.5f);
             b.getTransparencyData().multiplyCoefficient(1.5f);
             b.multiplyLifetime(2.5f);
-        };
+        }, () -> () -> {
+            throw new IllegalStateException("Cannot run on a server");
+        });
     }
 }

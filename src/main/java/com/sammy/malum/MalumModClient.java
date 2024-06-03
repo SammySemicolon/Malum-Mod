@@ -12,6 +12,7 @@ import com.sammy.malum.client.renderer.item.SpiritJarItemRenderer;
 import com.sammy.malum.config.ClientConfig;
 import com.sammy.malum.registry.client.HiddenTagRegistry;
 import com.sammy.malum.registry.client.ModelRegistry;
+import com.sammy.malum.registry.client.ParticleEmitterRegistry;
 import com.sammy.malum.registry.client.ParticleRegistry;
 import com.sammy.malum.registry.common.ContainerRegistry;
 import com.sammy.malum.registry.common.SpiritTypeRegistry;
@@ -22,6 +23,7 @@ import com.sammy.malum.registry.common.item.ItemRegistry;
 import dev.emi.trinkets.api.client.TrinketRendererRegistry;
 import io.github.fabricators_of_create.porting_lib.config.ConfigRegistry;
 import io.github.fabricators_of_create.porting_lib.config.ConfigType;
+import io.github.fabricators_of_create.porting_lib.entity.events.EntityEvents;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
@@ -58,6 +60,8 @@ public class MalumModClient implements ClientModInitializer {
         ItemRegistry.ClientOnly.addItemProperties();
         ItemRegistry.ClientOnly.setItemColors();
         ContainerRegistry.bindContainerRenderers();
+
+        EntityEvents.ON_JOIN_WORLD.register(ParticleEmitterRegistry::addParticleEmitters);
 
         TrinketRendererRegistry.registerRenderer(ItemRegistry.TOPHAT.get(), new TopHatCurioRenderer());
         TrinketRendererRegistry.registerRenderer(ItemRegistry.TOKEN_OF_GRATITUDE.get(), new TokenOfGratitudeRenderer());

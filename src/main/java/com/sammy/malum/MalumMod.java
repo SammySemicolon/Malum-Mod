@@ -127,7 +127,6 @@ public class MalumMod implements ModInitializer {
 
         EntityEvents.ON_JOIN_WORLD.register(CurioTokenOfGratitude::giveItem);
         EntityEvents.ON_JOIN_WORLD.register(SoulDataHandler::updateAi);
-        EntityEvents.ON_JOIN_WORLD.register(ParticleEmitterRegistry::addParticleEmitters);
 
 
         MobEntitySetTargetCallback.EVENT.register(SoulDataHandler::preventTargeting);

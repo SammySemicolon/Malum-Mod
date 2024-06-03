@@ -24,7 +24,9 @@ public class RitualPlinthAbsorbSpiritParticleEffect extends ParticleEffectType {
                 return;
             }
             final CompoundTag compoundTag = nbtData.compoundTag.getCompound("targetPosition");
-            RitualPlinthParticleEffects.eatSpiritParticles(ritualPlinth, new Vec3(compoundTag.getDouble("x"), compoundTag.getDouble("y"), compoundTag.getDouble("z")), colorData, nbtData.getStack());
+            if (level.isClientSide) {
+                RitualPlinthParticleEffects.eatSpiritParticles(ritualPlinth, new Vec3(compoundTag.getDouble("x"), compoundTag.getDouble("y"), compoundTag.getDouble("z")), colorData, nbtData.getStack());
+            }
         };
     }
 }

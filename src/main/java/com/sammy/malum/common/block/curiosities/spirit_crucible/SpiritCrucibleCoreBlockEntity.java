@@ -248,7 +248,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
 
     @Override
     public void init() {
-        if (level.isClientSide && recipe == null) {
+        if (level != null && level.isClientSide && recipe == null) {
             CrucibleSoundInstance.playSound(this);
         }
         recipe = SpiritFocusingRecipe.getRecipe(level, inventory.getStackInSlot(0), spiritInventory.nonEmptyItemStacks);
@@ -273,7 +273,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
             }
         }
         float speed = acceleratorData.focusingSpeed.getValue(acceleratorData);
-        if (!level.isClientSide) {
+        if (level != null && !level.isClientSide) {
             if (recipe != null) {
                 boolean needsRecalibration = !acceleratorData.accelerators.stream().allMatch(ICrucibleAccelerator::canContinueAccelerating);
                 if (needsRecalibration) {

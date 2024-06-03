@@ -171,7 +171,7 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity impleme
     @Environment(EnvType.CLIENT)
     @Override
     public void addParticles(ICatalyzerAccelerationTarget target, MalumSpiritType spiritType) {
-        if (burnTicks > 0) {
+        if (burnTicks > 0 && level != null && level.isClientSide) {
             SpiritCrucibleParticleEffects.activeSpiritCatalyzerParticles(this, target, spiritType);
         }
     }
