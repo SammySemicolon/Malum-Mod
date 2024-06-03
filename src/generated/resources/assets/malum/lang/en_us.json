@@ -1620,5 +1620,7 @@
   "trinkets.identifier.brooch": "Brooch",
   "trinkets.identifier.rune": "Rune",
   "trinkets.modifiers.brooch": "When worn:",
-  "trinkets.modifiers.rune": "When equipped:"
+  "trinkets.modifiers.rune": "When equipped:",
+  "trinkets.slot..brooch": "Brooch",
+  "trinkets.slot.chest.brooch": "Brooch"
 }

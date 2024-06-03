@@ -36,3 +36,4 @@ accessible method net/minecraft/world/item/ItemCooldowns$CooldownInstance <init>
 accessible method net/minecraft/data/recipes/packs/VanillaRecipeProvider buildRecipes (Ljava/util/function/Consumer;)V
 accessible field net/minecraft/network/chat/TextColor name Ljava/lang/String;
 extendable class net/minecraft/world/item/enchantment/EnchantmentCategory
+accessible field net/minecraft/client/renderer/entity/layers/ElytraLayer WINGS_LOCATION Lnet/minecraft/resources/ResourceLocation;

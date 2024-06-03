@@ -176,7 +176,7 @@ public class MalumLang extends FabricLanguageProvider {
         }
 
 
-        builder.add("trinkets.slot.head.brooch", "Brooch");
+        builder.add("trinkets.slot.chest.brooch", "Brooch");
         builder.add("trinkets.slot..brooch", "Brooch");
 
         builder.add("trinkets.identifier.brooch", "Brooch");
