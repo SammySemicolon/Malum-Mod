@@ -2,6 +2,7 @@ package com.sammy.malum.asm;
 
 import com.chocohead.mm.api.ClassTinkerers;
 import net.fabricmc.loader.api.FabricLoader;
+import net.fabricmc.loader.api.MappingResolver;
 import net.minecraft.ChatFormatting;
 
 public class MalumASM implements Runnable {
@@ -12,29 +13,13 @@ public class MalumASM implements Runnable {
     }
 
     private static void extendEnums() {
-        ClassTinkerers.enumBuilder(mapC("class_1886")) // EnchantmentCategory
-                .addEnumSubclass("MALUM_SOUL_HUNTER_WEAPON", "com.sammy.malum.asm.EnchantmentCategorySoulHunter")
-                .addEnumSubclass("MALUM_SCYTHE", "com.sammy.malum.asm.EnchantmentCategoryScythe")
-                .addEnumSubclass("MALUM_REBOUND_SCYTHE", "com.sammy.malum.asm.EnchantmentCategoryReboundScythe")
-                .addEnumSubclass("MALUM_STAFF", "com.sammy.malum.asm.EnchantmentCategoryStaff")
-                .addEnumSubclass("MALUM_SCYTHE_OR_STAFF", "com.sammy.malum.asm.EnchantmentCategoryScytheOrStaff")
+        ClassTinkerers.enumBuilder(mapC("class_1886"))
+                .addEnumSubclass("SCYTHE", "com.sammy.malum.asm.EnchantmentCategoryScythe")
+                .addEnumSubclass("REBOUND_SCYTHE", "com.sammy.malum.asm.EnchantmentCategoryReboundScythe")
+                .addEnumSubclass("SOUL_HUNTER", "com.sammy.malum.asm.EnchantmentCategorySoulHunter")
+                .addEnumSubclass("STAFF", "com.sammy.malum.asm.EnchantmentCategoryStaff")
+                .addEnumSubclass("SCYTHE_OR_STAFF", "com.sammy.malum.asm.EnchantmentCategoryScytheOrStaff")
                 .build();
-
-        /*
-         TYPE: sacred : -52320
-[12:39:15] [Render thread/INFO] (Minecraft) [STDOUT]: TYPE: wicked : -7457793
-[12:39:15] [Render thread/INFO] (Minecraft) [STDOUT]: TYPE: arcane : -371969
-[12:39:15] [Render thread/INFO] (Minecraft) [STDOUT]: TYPE: eldritch : -1175809
-[12:39:15] [Render thread/INFO] (Minecraft) [STDOUT]: TYPE: aerial : -10944513
-[12:39:15] [Render thread/INFO] (Minecraft) [STDOUT]: TYPE: aqueous : -14518785
-[12:39:15] [Render thread/INFO] (Minecraft) [STDOUT]: TYPE: earthen : -11206883
-[12:39:15] [Render thread/INFO] (Minecraft) [STDOUT]: TYPE: infernal : -19164
-[12:39:15] [Render thread/INFO] (Minecraft) [STDOUT]: TYPE: umbral : 1298230381
-         */
-        //ClassTinkerers.enumBuilder(mapC())
-        //ClassTinkerers.enumBuilder(mapC("class_1814"), "L" + mapC("class_124") + ";")  // Rarity // ChatFormatting
-        //        .addEnum("WICKED", () -> new Object[] { ChatFormatting.RED })
-        //        .build();
     }
 
     /**

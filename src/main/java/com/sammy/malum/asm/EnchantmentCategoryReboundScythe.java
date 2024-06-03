@@ -1,6 +1,7 @@
 package com.sammy.malum.asm;
 
 import com.sammy.malum.config.CommonConfig;
+import com.sammy.malum.mixin.EnchantmentCategoryMixin;
 import com.sammy.malum.registry.common.item.ItemTagRegistry;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.TieredItem;
