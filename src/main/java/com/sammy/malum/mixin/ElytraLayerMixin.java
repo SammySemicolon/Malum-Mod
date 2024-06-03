@@ -27,7 +27,7 @@ public abstract class ElytraLayerMixin<T extends LivingEntity, M extends EntityM
     @WrapOperation(method = "render(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;ILnet/minecraft/world/entity/LivingEntity;FFFFFF)V",
         at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;is(Lnet/minecraft/world/item/Item;)Z")
     )
-    private boolean malum$mod(ItemStack instance, Item item, Operation<Boolean> original, @Local T livingEntity){
+    private boolean malum$mod(ItemStack instance, Item item, Operation<Boolean> original, @Local(argsOnly = true) T livingEntity){
         if (shouldRender(instance, livingEntity)) {
             return original.call(instance, item);
         }
@@ -37,7 +37,7 @@ public abstract class ElytraLayerMixin<T extends LivingEntity, M extends EntityM
     @WrapOperation(method = "render(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;ILnet/minecraft/world/entity/LivingEntity;FFFFFF)V",
         at = @At(value = "FIELD", target = "Lnet/minecraft/client/renderer/entity/layers/ElytraLayer;WINGS_LOCATION:Lnet/minecraft/resources/ResourceLocation;")
     )
-    private ResourceLocation malum$changeTexture(Operation<ResourceLocation> original, @Local T livingEntity, @Local ItemStack itemStack){
+    private ResourceLocation malum$changeTexture(Operation<ResourceLocation> original, @Local(argsOnly = true) T livingEntity, @Local ItemStack itemStack){
         var tex = getElytraTexture(itemStack, livingEntity);
         if (tex != null) {
             return tex;
