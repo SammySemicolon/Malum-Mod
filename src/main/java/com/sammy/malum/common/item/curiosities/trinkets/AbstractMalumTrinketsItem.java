@@ -44,7 +44,7 @@ public abstract class AbstractMalumTrinketsItem extends TrinketItem {
         this.type = type;
     }
 
-    public void addAttributeModifiers(Multimap<Attribute, AttributeModifier> map, SlotReference slot, ItemStack stack) {
+    public void addAttributeModifiers(Multimap<Attribute, AttributeModifier> map, SlotReference slot, ItemStack stack, LivingEntity entity) {
     }
 
 
@@ -52,7 +52,7 @@ public abstract class AbstractMalumTrinketsItem extends TrinketItem {
     @Override
     public Multimap<Attribute, AttributeModifier> getModifiers(ItemStack stack, SlotReference slot, LivingEntity entity, UUID uuid) {
         Multimap<Attribute, AttributeModifier> map = LinkedHashMultimap.create();
-        addAttributeModifiers(map, slot, stack);
+        addAttributeModifiers(map, slot, stack, entity);
         return map;
     }
 

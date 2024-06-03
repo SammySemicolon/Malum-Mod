@@ -10,6 +10,7 @@ import dev.emi.trinkets.api.SlotReference;
 import io.github.fabricators_of_create.porting_lib.entity.events.living.LivingHurtEvent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.player.Player;
@@ -41,7 +42,7 @@ public class TrinketsMagebaneBelt extends MalumTinketsItem implements IMalumEven
     }
 
     @Override
-    public void addAttributeModifiers(Multimap<Attribute, AttributeModifier> map, SlotReference slotContext, ItemStack stack) {
+    public void addAttributeModifiers(Multimap<Attribute, AttributeModifier> map, SlotReference slotContext, ItemStack stack, LivingEntity entity) {
         addAttributeModifier(map, AttributeRegistry.SOUL_WARD_RECOVERY_RATE.get(), uuid -> new AttributeModifier(uuid,
                 "Curio Soul Ward Recovery Speed", 3f, AttributeModifier.Operation.ADDITION));
         addAttributeModifier(map, AttributeRegistry.SOUL_WARD_CAP.get(), uuid -> new AttributeModifier(uuid,

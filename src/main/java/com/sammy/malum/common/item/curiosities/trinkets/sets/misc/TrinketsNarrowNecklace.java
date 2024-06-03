@@ -5,6 +5,7 @@ import com.sammy.malum.common.item.curiosities.trinkets.MalumTinketsItem;
 import com.sammy.malum.registry.common.AttributeRegistry;
 import dev.emi.trinkets.api.SlotReference;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.ItemStack;
@@ -22,7 +23,7 @@ public class TrinketsNarrowNecklace extends MalumTinketsItem {
     }
 
     @Override
-    public void addAttributeModifiers(Multimap<Attribute, AttributeModifier> map, SlotReference slotReference, ItemStack stack) {
+    public void addAttributeModifiers(Multimap<Attribute, AttributeModifier> map, SlotReference slotReference, ItemStack stack, LivingEntity entity) {
         addAttributeModifier(map, AttributeRegistry.SCYTHE_PROFICIENCY.get(), uuid -> new AttributeModifier(uuid,
                 "Curio Scythe Proficiency", 4f, AttributeModifier.Operation.ADDITION));
     }

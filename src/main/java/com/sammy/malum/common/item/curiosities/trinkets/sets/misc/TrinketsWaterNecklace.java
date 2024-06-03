@@ -27,7 +27,7 @@ public class TrinketsWaterNecklace extends MalumTinketsItem implements IMalumEve
     }
 
     @Override
-    public void addAttributeModifiers(Multimap<Attribute, AttributeModifier> map, SlotReference slot, ItemStack stack) {
+    public void addAttributeModifiers(Multimap<Attribute, AttributeModifier> map, SlotReference slot, ItemStack stack, LivingEntity entity) {
         addAttributeModifier(map, PortingLibAttributes.SWIM_SPEED, uuid -> new AttributeModifier(uuid,
                 "Curio Swim Speed", 0.15f, AttributeModifier.Operation.ADDITION) {
             @Override
@@ -41,7 +41,7 @@ public class TrinketsWaterNecklace extends MalumTinketsItem implements IMalumEve
                 return amount;
             }
         });
-        super.addAttributeModifiers(map, slot, stack);
+        super.addAttributeModifiers(map, slot, stack, entity);
     }
 
     @Override

@@ -29,7 +29,7 @@ public class TrinketsAlchemicalRing extends MalumTinketsItem implements IMalumEv
     }
 
     @Override
-    public void addAttributeModifiers(Multimap<Attribute, AttributeModifier> map, SlotReference slotContext, ItemStack stack) {
+    public void addAttributeModifiers(Multimap<Attribute, AttributeModifier> map, SlotReference slotContext, ItemStack stack, LivingEntity entity) {
         addAttributeModifier(map, LodestoneAttributeRegistry.MAGIC_RESISTANCE.get(), uuid -> new AttributeModifier(uuid,
                 "Curio Magic Resistance", 1f, AttributeModifier.Operation.ADDITION));
     }

@@ -2,6 +2,7 @@ package com.sammy.malum.common.item.curiosities.trinkets.brooches;
 
 import com.google.common.collect.Multimap;
 import com.sammy.malum.common.item.curiosities.trinkets.MalumTinketsItem;
+import dev.emi.trinkets.api.SlotAttributes;
 import dev.emi.trinkets.api.SlotReference;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.LivingEntity;
@@ -26,8 +27,8 @@ public class CurioGluttonousBrooch extends MalumTinketsItem {
     }
 
     @Override
-    public void addAttributeModifiers(Multimap<Attribute, AttributeModifier> map, SlotReference slotContext, ItemStack stack) {
-        //TODO CuriosApi.addSlotModifier(map, "belt", GLUTTONOUS_BROOCH_BELT, 1, AttributeModifier.Operation.ADDITION);
+    public void addAttributeModifiers(Multimap<Attribute, AttributeModifier> map, SlotReference slotContext, ItemStack stack, LivingEntity entity) {
+        SlotAttributes.addSlotModifier(map, "belt", GLUTTONOUS_BROOCH_BELT, 1, AttributeModifier.Operation.ADDITION);
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.sammy.malum.common.item.curiosities.trinkets;
 
 import com.google.common.collect.Multimap;
 import dev.emi.trinkets.api.SlotReference;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -14,7 +15,7 @@ public class TrinketsGildedBelt extends MalumTinketsItem {
     }
 
     @Override
-    public void addAttributeModifiers(Multimap<Attribute, AttributeModifier> map, SlotReference slotContext, ItemStack stack) {
+    public void addAttributeModifiers(Multimap<Attribute, AttributeModifier> map, SlotReference slotContext, ItemStack stack, LivingEntity entity) {
         addAttributeModifier(map, Attributes.ARMOR, uuid -> new AttributeModifier(uuid,
                 "Curio Armor", 2f, AttributeModifier.Operation.ADDITION));
     }

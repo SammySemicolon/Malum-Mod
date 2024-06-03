@@ -26,7 +26,7 @@ public class RuneDexterityItem extends AbstractRuneTrinketsItem {
     }
 
     @Override
-    public void addAttributeModifiers(Multimap<Attribute, AttributeModifier> map, SlotReference slotContext, ItemStack stack) {
+    public void addAttributeModifiers(Multimap<Attribute, AttributeModifier> map, SlotReference slotContext, ItemStack stack, LivingEntity entity) {
         addAttributeModifier(map, Attributes.MOVEMENT_SPEED, uuid -> new AttributeModifier(uuid,
                 "Curio Movement Speed", 0.2f, AttributeModifier.Operation.MULTIPLY_TOTAL) {
             @Override

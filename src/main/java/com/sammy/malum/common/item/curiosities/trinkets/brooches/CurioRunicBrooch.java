@@ -2,7 +2,9 @@ package com.sammy.malum.common.item.curiosities.trinkets.brooches;
 
 import com.google.common.collect.Multimap;
 import com.sammy.malum.common.item.curiosities.trinkets.MalumTinketsItem;
+import dev.emi.trinkets.api.SlotAttributes;
 import dev.emi.trinkets.api.SlotReference;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.ItemStack;
@@ -19,8 +21,8 @@ public class CurioRunicBrooch extends MalumTinketsItem {
     }
 
     @Override
-    public void addAttributeModifiers(Multimap<Attribute, AttributeModifier> map, SlotReference slotContext, ItemStack stack) {
-        //TODO CuriosApi.addSlotModifier(map, "rune", RUNIC_BROOCH_RUNE, 2, AttributeModifier.Operation.ADDITION);
-        //TODO CuriosApi.addSlotModifier(map, "ring", RUNIC_BROOCH_RING, -1, AttributeModifier.Operation.ADDITION);
+    public void addAttributeModifiers(Multimap<Attribute, AttributeModifier> map, SlotReference slotContext, ItemStack stack, LivingEntity entity) {
+        SlotAttributes.addSlotModifier(map, "rune", RUNIC_BROOCH_RUNE, 2, AttributeModifier.Operation.ADDITION);
+        SlotAttributes.addSlotModifier(map, "ring", RUNIC_BROOCH_RING, -1, AttributeModifier.Operation.ADDITION);
     }
 }

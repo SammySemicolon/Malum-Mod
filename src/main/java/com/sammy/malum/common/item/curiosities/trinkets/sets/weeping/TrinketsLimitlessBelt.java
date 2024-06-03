@@ -29,7 +29,7 @@ public class TrinketsLimitlessBelt extends MalumTinketsItem implements IMalumEve
     }
 
     @Override
-    public void addAttributeModifiers(Multimap<Attribute, AttributeModifier> map, SlotReference slotContext, ItemStack stack) {
+    public void addAttributeModifiers(Multimap<Attribute, AttributeModifier> map, SlotReference slotContext, ItemStack stack, LivingEntity entity) {
         addAttributeModifier(map, AttributeRegistry.SOUL_WARD_CAP.get(), uuid -> new AttributeModifier(uuid,
                 "Curio Soul Ward Capacity", 1f, AttributeModifier.Operation.MULTIPLY_TOTAL));
     }
