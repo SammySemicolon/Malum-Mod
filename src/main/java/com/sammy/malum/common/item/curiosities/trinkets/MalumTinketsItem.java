@@ -1,15 +1,14 @@
 package com.sammy.malum.common.item.curiosities.trinkets;
 
-import dev.emi.trinkets.api.SlotGroup;
-import dev.emi.trinkets.api.SlotType;
-import dev.emi.trinkets.api.Trinket;
-import dev.emi.trinkets.api.TrinketsApi;
+import dev.emi.trinkets.api.*;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
+import team.lodestar.lodestone.helpers.TrinketsHelper;
 
 import java.util.*;
 import java.util.function.Consumer;
@@ -27,19 +26,7 @@ public class MalumTinketsItem extends AbstractMalumTrinketsItem {
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltipComponents, TooltipFlag isAdvanced) {
 
-        if (level != null) {
-            tooltipComponents.add(Component.empty());
-            Map<String, SlotGroup> trinket = TrinketsApi.getPlayerSlots(level);
-            var t = trinket.entrySet().stream().findFirst();
-
-            if (t.isPresent()) {
-                Optional<Map.Entry<String, SlotType>> s = t.get().getValue().getSlots().entrySet().stream().findFirst();
-                s.ifPresent(stringSlotTypeEntry -> tooltipComponents.add(Component.translatable("trinkets.modifiers." + stringSlotTypeEntry.getValue().getName()).withStyle(ChatFormatting.GOLD)));
-            }
-
-            addExtraTooltipLines(tooltipComponents::add);
-        }
-
+        addExtraTooltipLines(tooltipComponents::add);
 
         super.appendHoverText(stack, level, tooltipComponents, isAdvanced);
     }

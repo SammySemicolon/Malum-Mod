@@ -1617,12 +1617,7 @@
   "tetra.material.tainted_rock.prefix": "Tainted Rock",
   "tetra.material.twisted_rock": "Twisted Rock",
   "tetra.material.twisted_rock.prefix": "Twisted Rock",
-  "trinkets.identifier.brooch": "Brooch",
-  "trinkets.identifier.rune": "Rune",
-  "trinkets.modifiers.brooch": "When worn:",
-  "trinkets.modifiers.face": "When equipped:",
-  "trinkets.modifiers.rune": "When equipped:",
-  "trinkets.slot..brooch": "Brooch",
   "trinkets.slot.chest.brooch": "Brooch",
-  "trinkets.slot.head.charm": "Charm"
+  "trinkets.slot.head.necklace": "Necklace",
+  "trinkets.slot.legs.rune": "Rune"
 }

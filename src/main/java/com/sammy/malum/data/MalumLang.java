@@ -175,17 +175,9 @@ public class MalumLang extends FabricLanguageProvider {
             builder.add("malum.gui.ritual.tier." + id, name);
         }
 
-        builder.add("trinkets.modifiers.face", "When equipped:");
-        builder.add("trinkets.slot.head.charm", "Charm");
-
+        builder.add("trinkets.slot.head.necklace", "Necklace");
+        builder.add("trinkets.slot.legs.rune", "Rune");
         builder.add("trinkets.slot.chest.brooch", "Brooch");
-        builder.add("trinkets.slot..brooch", "Brooch");
-
-        builder.add("trinkets.identifier.brooch", "Brooch");
-        builder.add("trinkets.modifiers.brooch", "When worn:");
-
-        builder.add("trinkets.identifier.rune", "Rune");
-        builder.add("trinkets.modifiers.rune", "When equipped:");
 
         builder.add("malum.gui.trinket.positive", "+%s");
         builder.add("malum.gui.trinket.negative", "-%s");
