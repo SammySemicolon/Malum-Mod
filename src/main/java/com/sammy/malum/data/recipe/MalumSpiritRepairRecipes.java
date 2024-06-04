@@ -84,7 +84,7 @@ public class MalumSpiritRepairRecipes {
                 .addItem(ItemRegistry.SOUL_STAINED_STEEL_PICKAXE.get())
                 .addItem(ItemRegistry.SOUL_STAINED_STEEL_SHOVEL.get())
                 .addItem(ItemRegistry.SOUL_STAINED_STEEL_HOE.get())
-                .addItem(ItemRegistry.SOUL_STAINED_STEEL_KNIFE.get())
+                //.addItem(ItemRegistry.SOUL_STAINED_STEEL_KNIFE.get())
                 .addSpirit(ARCANE_SPIRIT, 8)
                 .addSpirit(EARTHEN_SPIRIT, 4)
                 .addSpirit(WICKED_SPIRIT, 2)

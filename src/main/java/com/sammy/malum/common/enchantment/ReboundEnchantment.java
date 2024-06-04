@@ -1,22 +1,27 @@
 package com.sammy.malum.common.enchantment;
 
 import com.sammy.malum.common.entity.boomerang.ScytheBoomerangEntity;
+import com.sammy.malum.config.CommonConfig;
 import com.sammy.malum.registry.common.AttributeRegistry;
 import com.sammy.malum.registry.common.item.EnchantmentRegistry;
+import com.sammy.malum.registry.common.item.ItemTagRegistry;
+import io.github.fabricators_of_create.porting_lib.enchant.CustomEnchantingTableBehaviorEnchantment;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TieredItem;
 import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import team.lodestar.lodestone.registry.common.LodestoneAttributeRegistry;
 
-public class ReboundEnchantment extends Enchantment {
+public class ReboundEnchantment extends Enchantment implements CustomEnchantingTableBehaviorEnchantment {
     public ReboundEnchantment() {
-        super(Rarity.UNCOMMON, EnchantmentRegistry.REBOUND_SCYTHE, new EquipmentSlot[]{EquipmentSlot.MAINHAND, EquipmentSlot.OFFHAND});
+        super(Rarity.UNCOMMON, EnchantmentCategory.WEAPON, new EquipmentSlot[]{EquipmentSlot.MAINHAND, EquipmentSlot.OFFHAND});
     }
 
     @Override
@@ -44,5 +49,10 @@ public class ReboundEnchantment extends Enchantment {
             player.awardStat(Stats.ITEM_USED.get(stack.getItem()));
         }
         return false;
+    }
+
+    @Override
+    public boolean canApplyAtEnchantingTable(ItemStack stack) {
+        return stack.is(ItemTagRegistry.SCYTHE) || (CommonConfig.ULTIMATE_REBOUND.getConfigValue() && stack.getItem() instanceof TieredItem);
     }
 }

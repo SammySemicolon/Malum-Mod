@@ -637,7 +637,7 @@ public class ItemRegistry {
     public static final RegistryObject<Item> SOUL_STAINED_STEEL_AXE = register("soul_stained_steel_axe", GEAR_PROPERTIES(), (p) -> new MagicAxeItem(SOUL_STAINED_STEEL, -3f, 0, 4, p));
     public static final RegistryObject<Item> SOUL_STAINED_STEEL_SHOVEL = register("soul_stained_steel_shovel", GEAR_PROPERTIES(), (p) -> new MagicShovelItem(SOUL_STAINED_STEEL, -2, 0, 2, p));
     public static final RegistryObject<Item> SOUL_STAINED_STEEL_HOE = register("soul_stained_steel_hoe", GEAR_PROPERTIES(), (p) -> new MagicHoeItem(SOUL_STAINED_STEEL, 0, -1.5f, 1, p));
-    public static final RegistryObject<Item> SOUL_STAINED_STEEL_KNIFE = register("soul_stained_steel_knife", FarmersDelightCompat.LOADED ? GEAR_PROPERTIES() : HIDDEN_PROPERTIES(), (p) -> FarmersDelightCompat.LOADED ? FarmersDelightCompat.LoadedOnly.makeMagicKnife(p) : new Item(p));
+    //public static final RegistryObject<Item> SOUL_STAINED_STEEL_KNIFE = register("soul_stained_steel_knife", FarmersDelightCompat.LOADED ? GEAR_PROPERTIES() : HIDDEN_PROPERTIES(), (p) -> FarmersDelightCompat.LOADED ? FarmersDelightCompat.LoadedOnly.makeMagicKnife(p) : new Item(p));
 
     public static final RegistryObject<Item> SOUL_STAINED_STEEL_HELMET = register("soul_stained_steel_helmet", GEAR_PROPERTIES(), (p) -> new SoulStainedSteelArmorItem(ArmorItem.Type.HELMET, p));
     public static final RegistryObject<Item> SOUL_STAINED_STEEL_CHESTPLATE = register("soul_stained_steel_chestplate", GEAR_PROPERTIES(), (p) -> new SoulStainedSteelArmorItem(ArmorItem.Type.CHESTPLATE, p));

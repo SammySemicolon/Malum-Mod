@@ -1,9 +1,6 @@
 package com.sammy.malum.asm;
 
-import com.chocohead.mm.api.ClassTinkerers;
 import net.fabricmc.loader.api.FabricLoader;
-import net.fabricmc.loader.api.MappingResolver;
-import net.minecraft.ChatFormatting;
 
 public class MalumASM implements Runnable {
 
@@ -13,13 +10,7 @@ public class MalumASM implements Runnable {
     }
 
     private static void extendEnums() {
-        ClassTinkerers.enumBuilder(mapC("class_1886"))
-                .addEnumSubclass("SCYTHE", "com.sammy.malum.asm.EnchantmentCategoryScythe")
-                .addEnumSubclass("REBOUND_SCYTHE", "com.sammy.malum.asm.EnchantmentCategoryReboundScythe")
-                .addEnumSubclass("SOUL_HUNTER", "com.sammy.malum.asm.EnchantmentCategorySoulHunter")
-                .addEnumSubclass("STAFF", "com.sammy.malum.asm.EnchantmentCategoryStaff")
-                .addEnumSubclass("SCYTHE_OR_STAFF", "com.sammy.malum.asm.EnchantmentCategoryScytheOrStaff")
-                .build();
+
     }
 
     /**

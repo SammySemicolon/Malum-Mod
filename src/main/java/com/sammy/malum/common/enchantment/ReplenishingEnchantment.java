@@ -3,6 +3,8 @@ package com.sammy.malum.common.enchantment;
 import com.sammy.malum.common.item.curiosities.weapons.staff.AbstractStaffItem;
 import com.sammy.malum.common.packets.SyncStaffCooldownChangesPacket;
 import com.sammy.malum.registry.common.item.EnchantmentRegistry;
+import com.sammy.malum.registry.common.item.ItemTagRegistry;
+import io.github.fabricators_of_create.porting_lib.enchant.CustomEnchantingTableBehaviorEnchantment;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -11,15 +13,16 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemCooldowns;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 
 import java.util.Map;
 
 import static com.sammy.malum.registry.common.PacketRegistry.MALUM_CHANNEL;
 
-public class ReplenishingEnchantment extends Enchantment {
+public class ReplenishingEnchantment extends Enchantment implements CustomEnchantingTableBehaviorEnchantment {
     public ReplenishingEnchantment() {
-        super(Rarity.UNCOMMON, EnchantmentRegistry.STAFF, new EquipmentSlot[]{EquipmentSlot.MAINHAND, EquipmentSlot.OFFHAND});
+        super(Rarity.UNCOMMON, EnchantmentCategory.WEAPON, new EquipmentSlot[]{EquipmentSlot.MAINHAND, EquipmentSlot.OFFHAND});
     }
 
     @Override
@@ -48,5 +51,10 @@ public class ReplenishingEnchantment extends Enchantment {
             ItemCooldowns.CooldownInstance cooldownInstance = new ItemCooldowns.CooldownInstance(value.startTime + ratio, value.endTime + ratio);
             cooldowns.cooldowns.put(itemCooldownInstanceEntry.getKey(), cooldownInstance);
         }
+    }
+
+    @Override
+    public boolean canApplyAtEnchantingTable(ItemStack stack) {
+        return stack.is(ItemTagRegistry.STAFF);
     }
 }
