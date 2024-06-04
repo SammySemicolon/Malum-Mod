@@ -516,6 +516,7 @@
   "item.malum.soul_stained_steel_helmet": "Soulstained Steel Helmet",
   "item.malum.soul_stained_steel_hoe": "Soulstained Steel Hoe",
   "item.malum.soul_stained_steel_ingot": "Soulstained Steel Ingot",
+  "item.malum.soul_stained_steel_knife": "Soulstained Steel Knife",
   "item.malum.soul_stained_steel_leggings": "Soulstained Steel Leggings",
   "item.malum.soul_stained_steel_nugget": "Soulstained Steel Nugget",
   "item.malum.soul_stained_steel_pickaxe": "Soulstained Steel Pickaxe",
@@ -1619,7 +1620,9 @@
   "trinkets.identifier.brooch": "Brooch",
   "trinkets.identifier.rune": "Rune",
   "trinkets.modifiers.brooch": "When worn:",
+  "trinkets.modifiers.face": "When equipped:",
   "trinkets.modifiers.rune": "When equipped:",
   "trinkets.slot..brooch": "Brooch",
-  "trinkets.slot.chest.brooch": "Brooch"
+  "trinkets.slot.chest.brooch": "Brooch",
+  "trinkets.slot.head.charm": "Charm"
 }
