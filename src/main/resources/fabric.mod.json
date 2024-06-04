@@ -26,9 +26,6 @@
     "fabric-datagen": [
       "com.sammy.malum.data.DataGenerators"
     ],
-    "mm:early_risers": [
-      "com.sammy.malum.asm.MalumASM"
-    ],
     "jei_mod_plugin": [
       "com.sammy.malum.compability.jei.JEIHandler"
     ],
@@ -44,7 +41,11 @@
     "fabricloader": ">=${loader_version}",
     "fabric-api": "*",
     "minecraft": "~${minecraft_version}",
-    "java": ">=17"
+    "java": ">=17",
+    "trinkets": "*",
+    "cardinal-components-base": "*",
+    "porting_lib_base": "*",
+    "lodestone": ">=1.4.44"
   },
   "custom": {
     "cardinal-components": [

@@ -111,14 +111,14 @@ public class MalumItemTags extends FabricTagProvider.ItemTagProvider {
 
         getOrCreateTagBuilder(SOUL_HUNTER_WEAPON).add(MNEMONIC_HEX_STAFF.get(), STAFF_OF_THE_AURIC_FLAME.get(), EROSION_SCEPTER.get());
         getOrCreateTagBuilder(SOUL_HUNTER_WEAPON).add(TYRVING.get(), CRUDE_SCYTHE.get(), SOUL_STAINED_STEEL_SCYTHE.get(), CREATIVE_SCYTHE.get(), WEIGHT_OF_WORLDS.get());
-        getOrCreateTagBuilder(SOUL_HUNTER_WEAPON).add(SOUL_STAINED_STEEL_AXE.get(), SOUL_STAINED_STEEL_PICKAXE.get(), SOUL_STAINED_STEEL_SHOVEL.get(), SOUL_STAINED_STEEL_SWORD.get(), SOUL_STAINED_STEEL_HOE.get());
+        getOrCreateTagBuilder(SOUL_HUNTER_WEAPON).add(SOUL_STAINED_STEEL_AXE.get(), SOUL_STAINED_STEEL_PICKAXE.get(), SOUL_STAINED_STEEL_SHOVEL.get(), SOUL_STAINED_STEEL_SWORD.get(), SOUL_STAINED_STEEL_HOE.get(), SOUL_STAINED_STEEL_KNIFE.get());
 
         getOrCreateTagBuilder(Tags.Items.NUGGETS).add(COPPER_NUGGET.get(), HALLOWED_GOLD_NUGGET.get(), SOUL_STAINED_STEEL_NUGGET.get());
         getOrCreateTagBuilder(Tags.Items.GEMS).add(NATURAL_QUARTZ.get(), BLAZING_QUARTZ.get(), CLUSTER_OF_BRILLIANCE.get());
         getOrCreateTagBuilder(Tags.Items.INGOTS).add(SOUL_STAINED_STEEL_INGOT.get(), HALLOWED_GOLD_INGOT.get());
 
-        //getOrCreateTagBuilder(KNIVES).add(SOUL_STAINED_STEEL_KNIFE.get());
-        //getOrCreateTagBuilder(KNIVES_FD).add(SOUL_STAINED_STEEL_KNIFE.get());
+        getOrCreateTagBuilder(KNIVES).add(SOUL_STAINED_STEEL_KNIFE.get());
+        getOrCreateTagBuilder(KNIVES_FD).add(SOUL_STAINED_STEEL_KNIFE.get());
 
         getOrCreateTagBuilder(NUGGETS_COPPER).add(COPPER_NUGGET.get());
 

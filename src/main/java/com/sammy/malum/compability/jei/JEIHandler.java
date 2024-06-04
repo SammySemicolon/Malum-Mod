@@ -108,7 +108,9 @@ public class JEIHandler implements IModPlugin {
             registry.addRecipes(RITES, SpiritRiteRegistry.RITES);
             registry.addRecipes(SPIRIT_REPAIR, SpiritRepairRecipe.getRecipes(level).stream()
                     .filter(it -> !it.inputs.isEmpty()).collect(Collectors.toList()));
-
+            if (FarmersDelightCompat.LOADED) {
+                FarmersDelightCompat.LoadedOnly.addInfo(registry);
+            }
         }
     }
 
