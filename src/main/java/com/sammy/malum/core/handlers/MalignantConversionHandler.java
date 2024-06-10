@@ -39,14 +39,14 @@ public class MalignantConversionHandler {
                     AttributeInstance instance = livingEntity.getAttribute(attribute);
                     if (instance != null) {
                         if (handler.cachedAttributeValues.containsKey(attribute)) {
-                            convertAttribute(livingEntity, data.sourceAttribute(), data.targetAttributes());
+                            convertAttribute(livingEntity, data.sourceAttribute(), data.consumptionRatio(), data.targetAttributes());
                         }
                     }
                 }
                 if (handler.cachedAttributeValues.containsKey(conversionAttribute)) {
                     if (handler.cachedAttributeValues.get(conversionAttribute) != conversionInstance.getValue()) {
                         for (MalignantConversionReloadListener.MalignantConversionData data : conversionData.values()) {
-                            convertAttribute(livingEntity, data.sourceAttribute(), data.targetAttributes(), true);
+                            convertAttribute(livingEntity, data.sourceAttribute(), data.consumptionRatio(), data.targetAttributes(), true);
                         }
                     }
                 }
@@ -58,10 +58,10 @@ public class MalignantConversionHandler {
         }
     }
 
-    private static void convertAttribute(LivingEntity livingEntity, Attribute sourceAttribute, List<Pair<Attribute, Double>> targetAttributes) {
-        convertAttribute(livingEntity, sourceAttribute, targetAttributes, false);
+    private static void convertAttribute(LivingEntity livingEntity, Attribute sourceAttribute, double consumptionRatio, List<Pair<Attribute, Double>> targetAttributes) {
+        convertAttribute(livingEntity, sourceAttribute, consumptionRatio, targetAttributes, false);
     }
-    private static void convertAttribute(LivingEntity livingEntity, Attribute sourceAttribute, List<Pair<Attribute, Double>> targetAttributes, boolean skipCacheComparison) {
+    private static void convertAttribute(LivingEntity livingEntity, Attribute sourceAttribute, double consumptionRatio, List<Pair<Attribute, Double>> targetAttributes, boolean skipCacheComparison) {
         var attributes = livingEntity.getAttributes();
         double malignantConversion = attributes.getValue(AttributeRegistry.MALIGNANT_CONVERSION.get());
 
@@ -92,7 +92,7 @@ public class MalignantConversionHandler {
                 if (malignantConversion > 0) {
                     sourceInstance.addTransientModifier(
                             new AttributeModifier(MALIGNANT_CONVERSION_UUID, "Malignant Conversion: " + Component.translatable(sourceAttribute.getDescriptionId()),
-                                    -malignantConversion, AttributeModifier.Operation.MULTIPLY_TOTAL));
+                                    -malignantConversion*consumptionRatio, AttributeModifier.Operation.MULTIPLY_TOTAL));
                 }
             }
             if (originalModifier != null && sourceInstance.getModifier(MALIGNANT_CONVERSION_UUID) == null) {

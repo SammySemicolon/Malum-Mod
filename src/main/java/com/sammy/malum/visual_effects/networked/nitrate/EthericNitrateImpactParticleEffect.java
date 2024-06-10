@@ -1,12 +1,8 @@
 package com.sammy.malum.visual_effects.networked.nitrate;
 
-import com.sammy.malum.common.entity.nitrate.*;
-import com.sammy.malum.core.systems.spirit.*;
 import com.sammy.malum.registry.client.*;
 import com.sammy.malum.visual_effects.*;
 import com.sammy.malum.visual_effects.networked.*;
-import com.sammy.malum.visual_effects.networked.data.*;
-import net.minecraft.nbt.*;
 import net.minecraft.util.*;
 import net.minecraft.world.phys.*;
 import net.minecraftforge.api.distmarker.*;
@@ -18,13 +14,14 @@ import team.lodestar.lodestone.systems.particle.builder.*;
 import team.lodestar.lodestone.systems.particle.data.*;
 import team.lodestar.lodestone.systems.particle.data.color.*;
 import team.lodestar.lodestone.systems.particle.data.spin.*;
-import team.lodestar.lodestone.systems.particle.render_types.*;
+import team.lodestar.lodestone.systems.particle.world.*;
+import team.lodestar.lodestone.systems.particle.world.options.*;
 
 import java.awt.*;
 import java.util.function.*;
 
-import static com.sammy.malum.visual_effects.SpiritLightSpecs.*;
-import static net.minecraft.util.Mth.nextFloat;
+import static com.sammy.malum.visual_effects.SpiritLightSpecs.spiritLightSpecs;
+import static net.minecraft.util.Mth.*;
 
 public class EthericNitrateImpactParticleEffect extends ParticleEffectType {
 
@@ -53,26 +50,26 @@ public class EthericNitrateImpactParticleEffect extends ParticleEffectType {
                 Vec3 direction = new Vec3(x, y, z);
                 Vec3 motion = direction.scale(RandomHelper.randomBetween(random, 1f, 2f));
                 Vec3 spawnPosition = pos.add(direction.scale(0.25f));
-                final Consumer<LodestoneWorldParticleActor> slowDown = p -> {
+                final Consumer<LodestoneWorldParticle> slowDown = p -> {
                     Vec3 velocity = p.getParticleSpeed().scale(0.8f);
                     if (velocity.equals(Vec3.ZERO)) {
                         velocity = p.getParticleSpeed();
                     }
-                    p.setParticleMotion(velocity.x, (velocity.y-gravityStrength)*0.98f, velocity.z);
+                    p.setParticleSpeed(velocity.x, (velocity.y-gravityStrength)*0.98f, velocity.z);
                 };
                 boolean star = random.nextFloat() < 0.2f;
                 if (random.nextFloat() < 0.8f) {
-                    var lightSpecs = spiritLightSpecs(level, spawnPosition, colorParticleData, star ? ParticleRegistry.STAR : ParticleRegistry.LIGHT_SPEC_SMALL);
+                    var lightSpecs = spiritLightSpecs(level, spawnPosition, colorParticleData, new WorldParticleOptions(star ? ParticleRegistry.STAR.get() : ParticleRegistry.LIGHT_SPEC_SMALL.get()));
                     lightSpecs.getBuilder()
                             .multiplyLifetime(lifetimeMultiplier)
                             .enableForcedSpawn()
                             .addTickActor(slowDown)
-                            .modifyData(WorldParticleBuilder::getScaleData, d -> d.multiplyValue(2f))
+                            .modifyData(AbstractParticleBuilder::getScaleData, d -> d.multiplyValue(2f))
                             .setMotion(motion);
                     lightSpecs.getBloomBuilder()
                             .multiplyLifetime(lifetimeMultiplier)
                             .addTickActor(slowDown)
-                            .modifyData(WorldParticleBuilder::getScaleData, d -> d.multiplyValue(star ? 3f : 2f))
+                            .modifyData(AbstractParticleBuilder::getScaleData, d -> d.multiplyValue(star ? 3f : 2f))
                             .setMotion(motion);
                     lightSpecs.spawnParticles();
                 }
@@ -89,7 +86,7 @@ public class EthericNitrateImpactParticleEffect extends ParticleEffectType {
                     sparks.getBloomBuilder()
                             .multiplyLifetime(lifetimeMultiplier)
                             .addTickActor(slowDown)
-                            .modifyData(WorldParticleBuilder::getScaleData, d -> d.multiplyValue(2f))
+                            .modifyData(AbstractParticleBuilder::getScaleData, d -> d.multiplyValue(2f))
                             .setMotion(motion);
                     sparks.spawnParticles();
                 }

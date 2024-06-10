@@ -43,8 +43,16 @@ public class EldritchSacredRiteType extends TotemicRiteType {
                 getNearbyBlocks(totemBase, BonemealableBlock.class).forEach(p -> {
                     if (level.random.nextFloat() <= 0.06f) {
                         BlockState state = level.getBlockState(p);
-                        for (int i = 0; i < 5 + level.random.nextInt(3); i++) {
-                            state.randomTick(level, p, level.random);
+                        final Block block = state.getBlock();
+                        if (block instanceof CropBlock) {
+                            for (int i = 0; i < 5 + level.random.nextInt(3); i++) {
+                                state.randomTick(level, p, level.random);
+                            }
+                        }
+                        else if (block instanceof BonemealableBlock bonemealableBlock && bonemealableBlock.isValidBonemealTarget(level, p, state, false)) {
+                            if (bonemealableBlock.isBonemealSuccess(level, level.random, p, state)) {
+                                bonemealableBlock.performBonemeal(level, level.random, p, state);
+                            }
                         }
                         BlockPos particlePos = state.canOcclude() ? p : p.below();
                         MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(pos)), new SacredMistRiteEffectPacket(List.of(SACRED_SPIRIT.identifier), particlePos));
@@ -61,16 +69,18 @@ public class EldritchSacredRiteType extends TotemicRiteType {
             @SuppressWarnings("ConstantConditions")
             @Override
             public void doRiteEffect(TotemBaseBlockEntity totemBase, ServerLevel level) {
-                Map<Class<? extends Animal>, List<Animal>> animalMap = getNearbyEntities(totemBase, Animal.class, e -> e.canFallInLove() && e.getAge() == 0).collect(Collectors.groupingBy(Animal::getClass));
+                Map<Class<? extends Animal>, List<Animal>> animalMap = getNearbyEntities(totemBase, Animal.class).collect(Collectors.groupingBy(Animal::getClass));
 
                 for (List<Animal> animals : animalMap.values()) {
                     if (animals.size() > 20) {
                         continue;
                     }
                     animals.forEach(e -> {
-                        if (level.random.nextFloat() <= 0.2f) {
-                            e.setInLoveTime(600);
-                            MALUM_CHANNEL.send(PacketDistributor.TRACKING_ENTITY.with(() -> e), new MajorEntityEffectParticlePacket(SACRED_SPIRIT.getPrimaryColor(), e.getX(), e.getY() + e.getBbHeight() / 2f, e.getZ()));
+                        if (e.canFallInLove() && e.getAge() == 0) {
+                            if (level.random.nextFloat() <= 0.2f) {
+                                e.setInLoveTime(600);
+                                MALUM_CHANNEL.send(PacketDistributor.TRACKING_ENTITY.with(() -> e), new MajorEntityEffectParticlePacket(SACRED_SPIRIT.getPrimaryColor(), e.getX(), e.getY() + e.getBbHeight() / 2f, e.getZ()));
+                            }
                         }
                     });
                 }

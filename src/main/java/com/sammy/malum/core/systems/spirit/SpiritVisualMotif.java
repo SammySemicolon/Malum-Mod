@@ -1,11 +1,9 @@
 package com.sammy.malum.core.systems.spirit;
 
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import team.lodestar.lodestone.systems.easing.Easing;
-import team.lodestar.lodestone.systems.particle.builder.AbstractWorldParticleBuilder;
-import team.lodestar.lodestone.systems.particle.data.color.ColorParticleData;
-import team.lodestar.lodestone.systems.particle.data.color.ColorParticleDataBuilder;
+import net.minecraftforge.api.distmarker.*;
+import team.lodestar.lodestone.systems.easing.*;
+import team.lodestar.lodestone.systems.particle.builder.*;
+import team.lodestar.lodestone.systems.particle.data.color.*;
 
 import java.awt.*;
 
@@ -58,6 +56,6 @@ public class SpiritVisualMotif {
     }
 
     @OnlyIn(Dist.CLIENT)
-    public <K extends AbstractWorldParticleBuilder<K, ?>> void applyWorldParticleChanges(K builder) {
+    public void applyWorldParticleChanges(WorldParticleBuilder builder) {
     }
 }

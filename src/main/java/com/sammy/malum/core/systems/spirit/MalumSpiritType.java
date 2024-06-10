@@ -118,7 +118,7 @@ public class MalumSpiritType {
     }
 
     @OnlyIn(Dist.CLIENT)
-    public <K extends AbstractWorldParticleBuilder<K, ?>> Consumer<K> applyWorldParticleChanges() {
+    public  Consumer<WorldParticleBuilder> applyWorldParticleChanges() {
         return visualMotif::applyWorldParticleChanges;
     }
 }

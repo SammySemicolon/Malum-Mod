@@ -72,7 +72,7 @@ public class HexBoltImpactParticleEffect extends ParticleEffectType {
                     lightSpecs.getBuilder()
                             .multiplyLifetime(lifetimeMultiplier)
                             .enableForcedSpawn()
-                            .modifyData(WorldParticleBuilder::getScaleData, d -> d.multiplyValue(1.75f))
+                            .modifyData(AbstractParticleBuilder::getScaleData, d -> d.multiplyValue(1.75f))
                             .setMotion(direction);
                     lightSpecs.getBloomBuilder()
                             .multiplyLifetime(lifetimeMultiplier)
@@ -85,8 +85,8 @@ public class HexBoltImpactParticleEffect extends ParticleEffectType {
                             .multiplyLifetime(lifetimeMultiplier)
                             .enableForcedSpawn()
                             .setMotion(direction.scale(1.5f))
-                            .modifyData(SparkParticleBuilder::getScaleData, d -> d.multiplyValue(1.75f))
-                            .modifyData(SparkParticleBuilder::getLengthData, d -> d.multiplyValue(3f));
+                            .modifyData(AbstractParticleBuilder::getScaleData, d -> d.multiplyValue(1.75f))
+                            .modifyData(AbstractParticleBuilder::getLengthData, d -> d.multiplyValue(3f));
                     sparks.getBloomBuilder()
                             .multiplyLifetime(lifetimeMultiplier)
                             .setMotion(direction.scale(1.5f));

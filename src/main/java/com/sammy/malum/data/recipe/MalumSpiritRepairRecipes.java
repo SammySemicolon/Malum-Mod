@@ -107,7 +107,7 @@ public class MalumSpiritRepairRecipes implements IConditionBuilder {
                 .addSpirit(ARCANE_SPIRIT, 4)
                 .build(consumer, "alchemical_impetus_restoration");
 
-        new SpiritRepairRecipeBuilder("none", 1f, Ingredient.of(ItemRegistry.CTHONIC_GOLD.get()), 1)
+        new SpiritRepairRecipeBuilder("none", 1f, Ingredient.of(ItemRegistry.CTHONIC_GOLD_FRAGMENT.get()), 2)
                 .addItem(ItemRegistry.CRACKED_IRON_IMPETUS.get())
                 .addItem(ItemRegistry.CRACKED_GOLD_IMPETUS.get())
                 .addItem(ItemRegistry.CRACKED_COPPER_IMPETUS.get())
@@ -119,8 +119,8 @@ public class MalumSpiritRepairRecipes implements IConditionBuilder {
                 .addItem(ItemRegistry.CRACKED_OSMIUM_IMPETUS.get())
                 .addItem(ItemRegistry.CRACKED_ZINC_IMPETUS.get())
                 .addItem(ItemRegistry.CRACKED_TIN_IMPETUS.get())
-                .addSpirit(INFERNAL_SPIRIT, 8)
-                .addSpirit(EARTHEN_SPIRIT, 8)
+                .addSpirit(INFERNAL_SPIRIT, 16)
+                .addSpirit(EARTHEN_SPIRIT, 16)
                 .build(consumer, "metal_impetus_restoration");
     }
 }

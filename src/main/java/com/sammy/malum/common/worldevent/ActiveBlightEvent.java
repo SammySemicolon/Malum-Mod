@@ -12,8 +12,11 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.Level;
 import team.lodestar.lodestone.systems.worldevent.WorldEventInstance;
 import team.lodestar.lodestone.systems.worldgen.LodestoneBlockFiller;
+import team.lodestar.lodestone.systems.worldgen.LodestoneBlockFiller.*;
 
 import java.util.Map;
+
+import static com.sammy.malum.common.worldgen.tree.SoulwoodTreeFeature.BLIGHT;
 
 public class ActiveBlightEvent extends WorldEventInstance {
     public int blightTimer, intensity, rate, times;
@@ -53,7 +56,7 @@ public class ActiveBlightEvent extends WorldEventInstance {
     }
 
     public void createBlight(ServerLevel level) {
-        LodestoneBlockFiller filler = new LodestoneBlockFiller(false);
+        LodestoneBlockFiller filler = new LodestoneBlockFiller(new LodestoneBlockFillerLayer(BLIGHT));
         if (noiseValues == null) {
             noiseValues = SoulwoodTreeFeature.generateBlight(level, filler, sourcePos, intensity);
         } else {
@@ -64,7 +67,7 @@ public class ActiveBlightEvent extends WorldEventInstance {
     }
 
     public static void createBlightVFX(ServerLevel level, LodestoneBlockFiller filler) {
-        filler.getEntries().entrySet().stream().filter(e -> e.getValue().getState().getBlock() instanceof BlightedSoilBlock).map(Map.Entry::getKey)
+        filler.getLayer(BLIGHT).entrySet().stream().filter(e -> e.getValue().getState().getBlock() instanceof BlightedSoilBlock).map(Map.Entry::getKey)
                 .forEach(p -> ParticleEffectTypeRegistry.BLIGHTING_MIST.createPositionedEffect(level, new PositionEffectData(p)));
     }
 }

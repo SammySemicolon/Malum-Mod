@@ -30,12 +30,12 @@ public class TotemParticleEffects {
                         .multiplyLifetime(4.5f)
                         .setMotion(0, velocity, 0)
                         .setTransparencyData(GenericParticleData.create(0.2f, 0.8f, 0f).build())
-                        .modifyData(WorldParticleBuilder::getScaleData, d -> d.multiplyValue(RandomHelper.randomBetween(random, 1f, 2f)));
+                        .modifyData(AbstractParticleBuilder::getScaleData, d -> d.multiplyValue(RandomHelper.randomBetween(random, 1f, 2f)));
                 lightSpecs.getBloomBuilder()
                         .multiplyLifetime(3f)
                         .setMotion(0, velocity, 0)
                         .setTransparencyData(GenericParticleData.create(0.05f, 0.35f, 0f).build())
-                        .modifyData(WorldParticleBuilder::getScaleData, d -> d.multiplyValue(RandomHelper.randomBetween(random, 0.5f, 1f)));
+                        .modifyData(AbstractParticleBuilder::getScaleData, d -> d.multiplyValue(RandomHelper.randomBetween(random, 0.5f, 1f)));
                 lightSpecs.spawnParticles();
             }
         }
@@ -57,13 +57,13 @@ public class TotemParticleEffects {
                     .setMotion(0, velocity, 0)
                     .setLifeDelay(i)
                     .setTransparencyData(GenericParticleData.create(0.2f, 0.8f, 0f).build())
-                    .modifyData(WorldParticleBuilder::getScaleData, d -> d.multiplyValue(RandomHelper.randomBetween(random, 1f, 2f)));
+                    .modifyData(AbstractParticleBuilder::getScaleData, d -> d.multiplyValue(RandomHelper.randomBetween(random, 1f, 2f)));
             lightSpecs.getBloomBuilder()
                     .multiplyLifetime(1.5f)
                     .setMotion(0, velocity, 0)
                     .setLifeDelay(i)
                     .setTransparencyData(GenericParticleData.create(0.05f, 0.35f, 0f).build())
-                    .modifyData(WorldParticleBuilder::getScaleData, d -> d.multiplyValue(RandomHelper.randomBetween(random, 0.5f, 1f)));
+                    .modifyData(AbstractParticleBuilder::getScaleData, d -> d.multiplyValue(RandomHelper.randomBetween(random, 0.5f, 1f)));
             lightSpecs.spawnParticles();
         }
     }

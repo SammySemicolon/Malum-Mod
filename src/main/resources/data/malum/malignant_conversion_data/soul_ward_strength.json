@@ -6,7 +6,7 @@
       "ratio": "2.0"
     },
     {
-      "attribute": "minecraft:generic.armor_toughness",
+      "attribute": "lodestone:magic_resistance",
       "ratio": "2.0"
     }
   ]

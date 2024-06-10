@@ -3,7 +3,11 @@
   "target_attributes": [
     {
       "attribute": "minecraft:generic.armor_toughness",
-      "ratio": "1.0"
+      "ratio": "2.0"
+    },
+    {
+      "attribute": "lodestone:magic_resistance",
+      "ratio": "2.0"
     }
   ]
 }

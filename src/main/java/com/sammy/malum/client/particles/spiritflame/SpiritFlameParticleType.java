@@ -1,25 +1,13 @@
 package com.sammy.malum.client.particles.spiritflame;
 
-import com.mojang.serialization.Codec;
-import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.particle.Particle;
-import net.minecraft.client.particle.ParticleEngine;
-import net.minecraft.client.particle.ParticleProvider;
-import net.minecraft.client.particle.SpriteSet;
-import net.minecraft.core.particles.ParticleType;
-import team.lodestar.lodestone.systems.particle.options.WorldParticleOptions;
+import net.minecraft.client.multiplayer.*;
+import net.minecraft.client.particle.*;
+import team.lodestar.lodestone.systems.particle.world.options.*;
+import team.lodestar.lodestone.systems.particle.world.type.*;
 
-import javax.annotation.Nullable;
+import javax.annotation.*;
 
-public class SpiritFlameParticleType extends ParticleType<WorldParticleOptions> {
-    public SpiritFlameParticleType() {
-        super(false, WorldParticleOptions.DESERIALIZER);
-    }
-
-    @Override
-    public Codec<WorldParticleOptions> codec() {
-        return WorldParticleOptions.worldCodec(this);
-    }
+public class SpiritFlameParticleType extends LodestoneWorldParticleType {
 
     public static class Factory implements ParticleProvider<WorldParticleOptions> {
         private final SpriteSet sprite;
