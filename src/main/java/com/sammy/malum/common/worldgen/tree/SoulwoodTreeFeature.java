@@ -13,6 +13,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -38,8 +39,15 @@ import static com.sammy.malum.common.worldgen.WorldgenHelper.DIRECTIONS;
 import static com.sammy.malum.common.worldgen.WorldgenHelper.updateLeaves;
 import static com.sammy.malum.common.worldgen.tree.RunewoodTreeFeature.canPlace;
 import static net.minecraft.tags.BlockTags.*;
+import static team.lodestar.lodestone.systems.worldgen.LodestoneBlockFiller.create;
 
 public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
+
+    public static final LodestoneBlockFiller.LodestoneLayerToken LOGS = new LodestoneBlockFiller.LodestoneLayerToken();
+    public static final LodestoneBlockFiller.LodestoneLayerToken LEAVES = new LodestoneBlockFiller.LodestoneLayerToken();
+    public static final LodestoneBlockFiller.LodestoneLayerToken HANGING_LEAVES = new LodestoneBlockFiller.LodestoneLayerToken();
+    public static final LodestoneBlockFiller.LodestoneLayerToken BLIGHT = new LodestoneBlockFiller.LodestoneLayerToken();
+
     public SoulwoodTreeFeature() {
         super(NoneFeatureConfiguration.CODEC);
     }
@@ -55,7 +63,7 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
     }
 
     private int getTrunkHeight(RandomSource random) {
-        return Mth.nextInt(random, 12, 18);
+        return Mth.nextInt(random, 10, 15);
     }
 
     private int getTwistCooldown(RandomSource random) {
@@ -74,7 +82,7 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
         return Mth.nextInt(random, 2, 4);
     }
 
-    private int getBranchEndOffset(RandomSource random) {
+    private int getBranchLength(RandomSource random) {
         return Mth.nextInt(random, 3, 5);
     }
 
@@ -88,231 +96,178 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
 
     @Override
     public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> context) {
-        WorldGenLevel level = context.level();
-        BlockPos pos = context.origin();
-        var rand = context.random();
+        var level = context.level();
+        var pos = context.origin();
         if (level.isEmptyBlock(pos.below()) || !BlockRegistry.SOULWOOD_GROWTH.get().defaultBlockState().canSurvive(level, pos)) {
             return false;
         }
-        List<Pair<Direction, BlockPos>> validSoulstoneSpikePositions = new ArrayList<>();
+        var rand = context.random();
+        List<Pair<Direction, BlockPos>> validSoulwoodSpikePositions = new ArrayList<>();
 
-        BlockState defaultLog = BlockRegistry.SOULWOOD_LOG.get().defaultBlockState();
-        BlockState blightedLog = BlockRegistry.BLIGHTED_SOULWOOD.get().defaultBlockState();
+        var logState = BlockRegistry.SOULWOOD_LOG.get().defaultBlockState();
+        var blightedLogState = BlockRegistry.BLIGHTED_SOULWOOD.get().defaultBlockState();
 
-        LodestoneBlockFiller treeFiller = new LodestoneBlockFiller(false);
-        LodestoneBlockFiller blightFiller = new LodestoneBlockFiller(false);
-        LodestoneBlockFiller leavesFiller = new LodestoneBlockFiller(true);
-        LodestoneBlockFiller hangingLeavesFiller = new LodestoneBlockFiller(true) {
-            @Override
-            public void fill(LevelAccessor level) {
-                getEntries().forEach((pos, entry) -> {
-                    final BlockState state = entry.getState();
-                    if (blightFiller.getEntries().containsKey(pos) || blightFiller.getEntries().containsKey(pos.above())) {
-                        return;
-                    }
-                    if (state.getBlock().equals(BlockRegistry.BUDDING_SOULWOOD_LEAVES.get()) && level.getBlockState(pos).getBlock() instanceof MalumLeavesBlock) {
-                        entry.place(level, pos);
-                    } else if (!isCareful() || entry.canPlace(level, pos)) {
-                        entry.place(level, pos);
-                    }
-                });
-            }
-        };
-        Set<Vector2i> hangingLeavesCoverage = new HashSet<>();
+        var filler = new LodestoneBlockFiller().addLayers(LOGS, LEAVES, HANGING_LEAVES, BLIGHT);
 
         int sapBlockCount = getSapBlockCount(rand);
         int trunkHeight = getTrunkHeight(rand);
         int twistCooldown = getTwistCooldown(rand);
-        int twistDirection = rand.nextInt(DIRECTIONS.length);
-        int twistAmount = getTrunkTwistAmount(rand);
-        int lowestPossibleBranch = 5;
-        BlockPos twistedPos = pos;
-        for (int i = 0; i <= trunkHeight + 3; i++) //trunk placement
-        {
-            if (i < trunkHeight - lowestPossibleBranch) {
-                if (twistCooldown == 0 && twistAmount != 0) {
-                    twistCooldown = getTwistCooldown(rand);
-                    BlockPos trunkPos = twistedPos.above(i);
-                    if (canPlace(level, trunkPos)) {
-                        treeFiller.getEntries().put(trunkPos, new BlockStateEntry(defaultLog));
-                        for (Direction direction : DIRECTIONS) {
-                            validSoulstoneSpikePositions.add(Pair.of(direction.getOpposite(), trunkPos.relative(direction)));
-                        }
-                        twistCooldown--;
-                    } else {
+        int twistDirectionIndex = rand.nextInt(DIRECTIONS.length);
+        int remainingTwists = getTrunkTwistAmount(rand);
+        int twistCutoffPoint = trunkHeight - 5;
+        var mutable = new BlockPos.MutableBlockPos().set(pos);
+        for (int i = 0; i <= trunkHeight; i++) { //Main Trunk
+            if (i < twistCutoffPoint) {
+                for (int j = 0; j < 4; j++) {
+                    Direction direction = Direction.from2DDataValue(j);
+                    validSoulwoodSpikePositions.add(Pair.of(direction.getOpposite(), mutable.relative(direction)));
+                }
+                if (twistCooldown == 0 && remainingTwists != 0) {
+                    final Direction twistDirection = Direction.from2DDataValue(twistDirectionIndex % 4);
+                    if (rand.nextFloat() < 0.75f) {
+                        twistDirectionIndex++;
+                    }
+                    if (!canPlace(level, mutable)) {
                         return false;
                     }
-                    final Direction direction = DIRECTIONS[twistDirection % 4];
-                    blightFiller.getEntries().put(trunkPos.above(), new BlockStateEntry(makeClingingBlight(ClingingBlightBlock.BlightType.ROOTED_BLIGHT, direction)));
-                    twistedPos = twistedPos.relative(direction);
-                    if (rand.nextFloat() < 0.85f) {
-                        twistDirection++;
-                    }
-                    twistAmount--;
+                    filler.getLayer(LOGS).put(mutable.immutable(), create(logState));
+                    filler.getLayer(BLIGHT).put(mutable.above(), create(makeClingingBlight(ClingingBlightBlock.BlightType.ROOTED_BLIGHT, twistDirection)));
+                    mutable.move(twistDirection);
+                    twistCooldown = getTwistCooldown(rand);
+                    remainingTwists--;
                 }
             }
-            BlockPos trunkPos = twistedPos.above(i);
-            if (canPlace(level, trunkPos)) {
-                treeFiller.getEntries().put(trunkPos, new BlockStateEntry(i == 0 ? blightedLog : defaultLog));
-                if (i != 0 && i < trunkHeight - 3) {
-                    for (Direction direction : DIRECTIONS) {
-                        validSoulstoneSpikePositions.add(Pair.of(direction.getOpposite(), trunkPos.relative(direction)));
-                    }
-                }
-                twistCooldown--;
-            } else {
+            if (!canPlace(level, mutable)) {
                 return false;
             }
+            for (int j = 0; j < 4; j++) {
+                Direction direction = Direction.from2DDataValue(j);
+                validSoulwoodSpikePositions.add(Pair.of(direction.getOpposite(), mutable.relative(direction)));
+            }
+            filler.getLayer(LOGS).put(mutable.immutable(), create(i == 0 ? blightedLogState : logState));
+            mutable.move(Direction.UP);
+            twistCooldown--;
         }
-        BlockPos trunkTop = twistedPos.above(trunkHeight);
-
-        makeLeafBlob(leavesFiller, hangingLeavesFiller, hangingLeavesCoverage, rand, trunkTop);
-        for (Direction direction : DIRECTIONS) //side trunk placement
-        {
-            Optional<BlockPos> blightedPosOptional = Optional.empty();
+        BlockPos trunkTop = mutable.immutable();
+        for (int i = 0; i < 4; i++) { //Side Trunk Stumps
+            Direction direction = Direction.from2DDataValue(i);
             int sideTrunkHeight = getSideTrunkHeight(rand);
-            for (int i = 0; i < sideTrunkHeight; i++) {
-                BlockPos sideTrunkPos = pos.relative(direction).above(i);
-                if (canPlace(level, sideTrunkPos)) {
-                    if (i == 0) {
-                        blightedPosOptional = Optional.of(sideTrunkPos);
-                    }
-                    treeFiller.getEntries().put(sideTrunkPos, new BlockStateEntry(i == 0 ? blightedLog : defaultLog));
-                } else {
+            mutable.set(pos).move(direction);
+            var trunkBottom = addDownwardsTrunkConnections(logState, level, filler, mutable);
+            for (int j = 0; j < sideTrunkHeight; j++) {
+                if (!canPlace(level, mutable)) {
                     return false;
                 }
+                filler.getLayer(LOGS).put(mutable.immutable(), create(logState));
+                mutable.move(Direction.UP);
             }
-            boolean success = downwardsTrunk(level, treeFiller, blightFiller, direction, pos.relative(direction));
-            if (blightedPosOptional.isPresent()) {
-                final BlockPos blightedPos = blightedPosOptional.get();
-                if (success) {
-                    treeFiller.replace(blightedPos, e -> new BlockStateEntry(defaultLog));
-                } else {
-                    blightFiller.getEntries().put(blightedPos.relative(direction), new BlockStateEntry(makeClingingBlight(ClingingBlightBlock.BlightType.ROOTED_BLIGHT, direction.getOpposite())));
-                }
-            }
+            filler.getLayer(LOGS).put(trunkBottom, create(blightedLogState));
+            filler.getLayer(BLIGHT).put(trunkBottom.relative(direction), create(makeClingingBlight(ClingingBlightBlock.BlightType.ROOTED_BLIGHT, direction.getOpposite())));
         }
-        for (Direction direction : DIRECTIONS) //tree top placement
-        {
-            int downwardsBranchOffset = getDownwardsBranchOffset(rand);
-            int branchEndOffset = getBranchEndOffset(rand);
-            twistAmount = getBranchTwistAmount(rand);
-            BlockPos branchStartPos = trunkTop.below(downwardsBranchOffset);
-            twistCooldown = 1;
-            for (int i = 1; i < branchEndOffset; i++) //branch connection placement
-            {
-                BlockPos branchConnectionPos = branchStartPos.relative(direction, i);
-                final Direction.Axis axis = direction.getAxis();
-                if (twistCooldown == 0 && twistAmount != 0) {
-                    twistCooldown = getTwistCooldown(rand);
-                    BlockPos offsetPos = branchConnectionPos.above();
-                    if (canPlace(level, offsetPos)) {
-                        treeFiller.getEntries().put(offsetPos, new BlockStateEntry(defaultLog.setValue(RotatedPillarBlock.AXIS, axis)));
-                    } else {
-                        return false;
-                    }
-                    branchStartPos = branchStartPos.above();
-                    twistAmount--;
-                }
-                if (canPlace(level, branchConnectionPos)) {
-                    final boolean start = i == 1;
-                    final Direction opposite = direction.getOpposite();
-                    treeFiller.getEntries().put(branchConnectionPos, new BlockStateEntry(defaultLog.setValue(RotatedPillarBlock.AXIS, axis)));
-                    blightFiller.getEntries().put(branchConnectionPos.below(), new BlockStateEntry(makeClingingBlight(start ? HANGING_BLIGHT : HANGING_ROOTS, opposite)));
-                    if (start) {
-                        blightFiller.getEntries().put(branchConnectionPos.below(2), new BlockStateEntry(makeClingingBlight(HANGING_BLIGHT_CONNECTION, opposite)));
-                    }
-                    twistCooldown--;
-                } else {
-                    return false;
-                }
-            }
-            BlockPos branchEndPos = branchStartPos.relative(direction, branchEndOffset);
-            int branchHeight = getBranchHeight(rand);
-            for (int i = 0; i < branchHeight; i++) //branch placement
-            {
-                BlockPos branchPos = branchEndPos.above(i);
-                if (canPlace(level, branchPos)) {
-                    treeFiller.getEntries().put(branchPos, new BlockStateEntry(defaultLog));
-                } else {
-                    return false;
-                }
-            }
-            makeLeafBlob(leavesFiller, hangingLeavesFiller, hangingLeavesCoverage, rand, branchEndPos.above(1));
-        }
-        generateBlight(level, blightFiller, pos.below(), 8);
 
-        ArrayList<BlockPos> sapBlockPositions = new ArrayList<>(treeFiller.getEntries().keySet());
+        for (int i = 0; i < 4; i++) { //Branches
+            Direction direction = Direction.from2DDataValue(i);
+            int downwardsBranchOffset = getDownwardsBranchOffset(rand);
+            int branchLength = getBranchLength(rand);
+            int branchHeight = getBranchHeight(rand);
+            remainingTwists = getBranchTwistAmount(rand);
+            twistCooldown = 1;
+            mutable.set(trunkTop);
+            mutable.move(Direction.DOWN, downwardsBranchOffset);
+            for (int j = 1; j < branchLength; j++) {
+                mutable.move(direction);
+                if (!canPlace(level, mutable)) {
+                    return false;
+                }
+                final Direction.Axis axis = direction.getAxis();
+                if (twistCooldown <= 0) {
+                    filler.getLayer(LOGS).put(mutable.immutable(), create(logState.setValue(RotatedPillarBlock.AXIS, axis)));
+                    mutable.move(Direction.UP);
+                    twistCooldown = getTwistCooldown(rand);
+                    remainingTwists--;
+                }
+                final boolean start = j == 1;
+                final Direction opposite = direction.getOpposite();
+                filler.getLayer(LOGS).put(mutable.immutable(), create(logState.setValue(RotatedPillarBlock.AXIS, axis)));
+                filler.getLayer(BLIGHT).put(mutable.below(), create(makeClingingBlight(start ? HANGING_BLIGHT : HANGING_ROOTS, opposite)));
+                if (start) {
+                    filler.getLayer(BLIGHT).put(mutable.below(2), create(makeClingingBlight(HANGING_BLIGHT_CONNECTION, opposite)));
+                }
+                if (remainingTwists > 0) {
+                    twistCooldown--;
+                }
+            }
+            for (int j = 0; j < branchHeight; j++) {
+                if (!canPlace(level, mutable)) {
+                    return false;
+                }
+                filler.getLayer(LOGS).put(mutable.immutable(), create(logState));
+                mutable.move(Direction.UP);
+            }
+            makeLeafBlob(filler, rand, mutable.move(Direction.DOWN, branchHeight-1));
+        }
+        makeLeafBlob(filler, rand, mutable.set(trunkTop));
+
+        generateBlight(level, filler, pos.below(), 8);
+
+        ArrayList<BlockPos> sapBlockPositions = new ArrayList<>(filler.getLayer(LOGS).keySet());
         Collections.shuffle(sapBlockPositions);
         for (BlockPos blockPos : sapBlockPositions.subList(0, sapBlockCount)) {
-            treeFiller.replace(blockPos, e -> e.getState().getBlock().equals(BlockRegistry.BLIGHTED_SOULWOOD.get()) ? e : new BlockStateEntry(BlockHelper.getBlockStateWithExistingProperties(e.getState(), BlockRegistry.EXPOSED_SOULWOOD_LOG.get().defaultBlockState())));
+            var entry = filler.getLayer(LOGS).get(blockPos);
+            if (entry.getState().getBlock().equals(BlockRegistry.BLIGHTED_SOULWOOD.get())) {
+                continue;
+            }
+            filler.getLayer(LOGS).replace(blockPos, e -> create(BlockHelper.getBlockStateWithExistingProperties(e.getState(), BlockRegistry.EXPOSED_SOULWOOD_LOG.get().defaultBlockState())).build());
         }
+
         int spikeCount = 6;
-        Collections.shuffle(validSoulstoneSpikePositions);
-        for (Pair<Direction, BlockPos> entry : validSoulstoneSpikePositions) {
+        Collections.shuffle(validSoulwoodSpikePositions);
+        for (Pair<Direction, BlockPos> entry : validSoulwoodSpikePositions) {
             final BlockPos entryPos = entry.getSecond();
-            if (!blightFiller.getEntries().containsKey(entryPos)) {
-                blightFiller.getEntries().put(entryPos, new BlockStateEntry(makeClingingBlight(SOULWOOD_SPIKE, entry.getFirst())));
-                if (spikeCount-- == 0) {
+            if (!filler.getLayer(BLIGHT).containsKey(entryPos)) {
+                filler.getLayer(BLIGHT).put(entryPos, create(makeClingingBlight(SOULWOOD_SPIKE, entry.getFirst())));
+                if (spikeCount == 0) {
                     break;
                 }
+                spikeCount--;
             }
         }
-        blightFiller.fill(level);
-        treeFiller.fill(level);
-        leavesFiller.fill(level);
-        hangingLeavesFiller.fill(level);
-        updateLeaves(level, treeFiller.getEntries().keySet());
+        filler.fill(level);
+        updateLeaves(level, filler.getLayer(LOGS).keySet());
         return true;
     }
 
-    public boolean downwardsTrunk(WorldGenLevel level, LodestoneBlockFiller filler, LodestoneBlockFiller blightFiller, Direction direction, BlockPos pos) {
-        BlockState defaultLog = BlockRegistry.SOULWOOD_LOG.get().defaultBlockState();
-        BlockState blightedLog = BlockRegistry.BLIGHTED_SOULWOOD.get().defaultBlockState();
-        int i = 0;
-        do {
-            i++;
-            BlockPos trunkPos = pos.below(i);
-            if (canPlace(level, trunkPos)) {
-                boolean blighted = !canPlace(level, trunkPos.below());
-                filler.getEntries().put(trunkPos, new BlockStateEntry(blighted ? blightedLog : defaultLog));
-                if (blighted) {
-                    final BlockState state = BlockRegistry.CLINGING_BLIGHT.get().defaultBlockState()
-                            .setValue(ClingingBlightBlock.BLIGHT_TYPE, ClingingBlightBlock.BlightType.ROOTED_BLIGHT)
-                            .setValue(BlockStateProperties.HORIZONTAL_FACING, direction.getOpposite());
-                    blightFiller.getEntries().put(trunkPos.relative(direction), new BlockStateEntry(state));
-                }
-            } else {
-                break;
+    public BlockPos addDownwardsTrunkConnections(BlockState logState, WorldGenLevel level, LodestoneBlockFiller filler, BlockPos pos) {
+        var mutable = pos.mutable();
+        while (true) {
+            mutable.move(Direction.DOWN);
+            if (!canPlace(level, mutable)) {
+                return mutable.above();
             }
-            if (i > level.getMaxBuildHeight()) {
-                break;
-            }
+            filler.getLayer(LOGS).put(mutable.immutable(), create(logState));
         }
-        while (true);
-        return i > 1;
     }
 
-    public static void makeLeafBlob(LodestoneBlockFiller leavesFiller, LodestoneBlockFiller hangingLeavesFiller, Set<Vector2i> hangingLeavesCoverage, RandomSource rand, BlockPos pos) {
+    public static void makeLeafBlob(LodestoneBlockFiller filler, RandomSource rand, BlockPos pos) {
         final BlockPos.MutableBlockPos mutable = pos.mutable();
         int[] leafSizes = new int[]{1, 2, 3, 3, 3, 2, 1};
         int[] leafColors = new int[]{4, 3, 2, 1, 2, 3, 4};
         for (int i = 0; i < 7; i++) {
             int size = leafSizes[i];
             int color = leafColors[i];
-            makeLeafSlice(leavesFiller, hangingLeavesFiller, hangingLeavesCoverage, rand, mutable, size, color, false);
+            makeLeafSlice(filler, rand, mutable, size, color, false);
             mutable.move(Direction.UP);
         }
         mutable.move(Direction.DOWN, 7);
         for (int i = 0; i < 3; i++) {
             int size = leafSizes[i];
             int color = leafColors[i];
-            makeLeafSlice(leavesFiller, hangingLeavesFiller, hangingLeavesCoverage, rand, mutable, size, color, true);
+            makeLeafSlice(filler, rand, mutable, size, color, true);
             mutable.move(Direction.UP);
         }
     }
 
-    public static void makeLeafSlice(LodestoneBlockFiller filler, LodestoneBlockFiller hangingLeavesFiller, Set<Vector2i> hangingLeavesCoverage, RandomSource rand, BlockPos.MutableBlockPos pos, int leavesSize, int leavesColor, boolean makeHangingLeaves) {
+    public static void makeLeafSlice(LodestoneBlockFiller filler, RandomSource rand, BlockPos.MutableBlockPos pos, int leavesSize, int leavesColor, boolean makeHangingLeaves) {
         for (int x = -leavesSize; x <= leavesSize; x++) {
             int offsetColor = leavesColor + Mth.nextInt(rand, leavesColor == 0 ? 0 : -1, leavesColor == 4 ? 0 : 1);
             for (int z = -leavesSize; z <= leavesSize; z++) {
@@ -321,32 +276,30 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
                 }
                 BlockPos leavesPos = pos.offset(x, 0, z);
                 if (makeHangingLeaves && !(x == 0 && z == 0)) {
-                    final Vector2i column = new Vector2i(leavesPos.getX(), leavesPos.getZ());
-                    if (!hangingLeavesCoverage.contains(column)) {
-                        if (rand.nextFloat() < (0.4f + leavesSize * 0.2f)) {
-                            int length = leavesSize - 2 + RandomHelper.randomBetween(rand, 0, leavesSize);
-                            if (length < 2) {
-                                length -= 2;
+                    if (rand.nextFloat() < (0.4f + leavesSize * 0.2f)) {
+                        int length = leavesSize - 2 + RandomHelper.randomBetween(rand, 0, leavesSize);
+                        if (length < 2) {
+                            length -= 2;
+                        }
+                        if (length < 2) {
+                            continue;
+                        }
+                        int spawnHeight = rand.nextInt(2);
+                        BlockPos.MutableBlockPos hangingLeavesPos = leavesPos.mutable().move(Direction.UP, spawnHeight);
+                        for (int i = -spawnHeight; i <= length; i++) {
+                            final int gradient = Mth.clamp(leavesColor + 1 + i, 0, 4);
+                            BlockPos vinePos = hangingLeavesPos.move(Direction.DOWN).immutable();
+                            final boolean hanging = i == length;
+                            Block block = (hanging ? BlockRegistry.HANGING_SOULWOOD_LEAVES : BlockRegistry.BUDDING_SOULWOOD_LEAVES).get();
+                            LodestoneBlockFiller.BlockStateEntryBuilder entry = create(block.defaultBlockState().setValue(MalumLeavesBlock.COLOR, gradient));
+                            if (hanging) {
+                                entry.setDiscardPredicate((l, p, s) -> !filler.getLayer(LEAVES).containsKey(p.above()) || filler.getLayer(LOGS).containsKey(p.above()));
                             }
-                            if (length < 2) {
-                                continue;
-                            }
-                            int spawnHeight = rand.nextInt(2);
-                            BlockPos.MutableBlockPos hangingLeavesPos = leavesPos.mutable().move(Direction.UP, spawnHeight);
-                            for (int i = -spawnHeight; i <= length; i++) {
-                                final int gradient = Mth.clamp(leavesColor + 1 + i, 0, 4);
-                                BlockPos vinePos = hangingLeavesPos.move(Direction.DOWN).immutable();
-                                final boolean hanging = i == length;
-                                BlockState state = (hanging ? BlockRegistry.HANGING_SOULWOOD_LEAVES : BlockRegistry.BUDDING_SOULWOOD_LEAVES).get().defaultBlockState().setValue(MalumLeavesBlock.COLOR, gradient);
-                                hangingLeavesFiller.getEntries().put(vinePos, new BlockStateEntry(state));
-                                if (hanging) {
-                                    hangingLeavesCoverage.add(column);
-                                }
-                            }
+                            filler.getLayer(hanging ? HANGING_LEAVES : LEAVES).put(vinePos, entry.build());
                         }
                     }
                 } else {
-                    filler.getEntries().put(leavesPos, new BlockStateEntry(BlockRegistry.SOULWOOD_LEAVES.get().defaultBlockState().setValue(MalumLeavesBlock.COLOR, offsetColor)));
+                    filler.getLayer(LEAVES).put(leavesPos, create(BlockRegistry.SOULWOOD_LEAVES.get().defaultBlockState().setValue(MalumLeavesBlock.COLOR, offsetColor)));
                 }
             }
         }
@@ -366,16 +319,16 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
         filler.fill(level);
     }
 
-    public static void generateBlight(ServerLevelAccessor level, LodestoneBlockFiller filler, BlockPos center, int radius, int effectiveRadius, Map<Integer, Double> noiseValues) {
+    public static void generateBlight(ServerLevelAccessor level, LodestoneBlockFiller filler, BlockPos center, int coverage, int radius, Map<Integer, Double> noiseValues) {
         int x = center.getX();
         int z = center.getZ();
         BlockPos.MutableBlockPos blockPos = new BlockPos.MutableBlockPos();
         int saplingsPlaced = 0;
         Vec3 lastSaplingPos = null;
-        for (int i = 0; i < radius * 2 + 1; i++) {
-            for (int j = 0; j < radius * 2 + 1; j++) {
-                int xp = x + i - radius;
-                int zp = z + j - radius;
+        for (int i = 0; i < coverage * 2 + 1; i++) {
+            for (int j = 0; j < coverage * 2 + 1; j++) {
+                int xp = x + i - coverage;
+                int zp = z + j - coverage;
                 blockPos.set(xp, center.getY(), zp);
                 double theta = 180 + 180 / Math.PI * Math.atan2(x - xp, z - zp);
                 double naturalNoiseValue = noiseValues.get(Mth.floor(theta));
@@ -383,7 +336,7 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
                     naturalNoiseValue *= naturalNoiseValue;
                 }
                 int floor = (int) Math.floor(pointDistancePlane(xp, zp, x, z));
-                if (floor <= (effectiveRadius + Math.floor(naturalNoiseValue) - 1)) {
+                if (floor <= (radius + Math.floor(naturalNoiseValue) - 1)) {
                     int verticalRange = 4;
                     for (int i1 = 0; level.isStateAtPosition(blockPos, (s) -> !s.isAir()) && i1 < verticalRange; ++i1) {
                         blockPos.move(Direction.UP);
@@ -401,8 +354,8 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
                         }
                         if ((plantState.canBeReplaced() || plantState.is(REPLACEABLE) || plantState.is(FLOWERS))) {
                             final BlockPos immutable = blockPos.immutable();
-                            if (!filler.getEntries().containsKey(blockPos)) {
-                                filler.getEntries().put(immutable, new BlockStateEntry(Blocks.AIR.defaultBlockState()));
+                            if (!filler.getLayer(BLIGHT).containsKey(blockPos)) {
+                                filler.getLayer(BLIGHT).put(immutable, create(Blocks.AIR.defaultBlockState()).setForcePlace());
                             }
                             blockPos.move(Direction.DOWN);
                         } else {
@@ -412,9 +365,9 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
                     while (true);
 
                     if (level.getBlockState(blockPos).is(MOSS_REPLACEABLE)) {
-                        filler.getEntries().put(blockPos.immutable(), new BlockStateEntry(BlockRegistry.BLIGHTED_SOIL.get().defaultBlockState()));
+                        filler.getLayer(BLIGHT).put(blockPos.immutable(), create(BlockRegistry.BLIGHTED_SOIL.get().defaultBlockState()).setForcePlace());
                         if (level.getBlockState(blockPos.move(0, -1, 0)).is(DIRT)) {
-                            filler.getEntries().put(blockPos.immutable(), new BlockStateEntry(BlockRegistry.BLIGHTED_EARTH.get().defaultBlockState()));
+                            filler.getLayer(BLIGHT).put(blockPos.immutable(), create(BlockRegistry.BLIGHTED_EARTH.get().defaultBlockState()).setForcePlace());
                         }
                         final RandomSource random = level.getRandom();
                         if (random.nextFloat() < 0.75f) {
@@ -424,20 +377,20 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
                                 if (lastSaplingPos == null || lastSaplingPos.distanceToSqr(plantPos.getX(), plantPos.getY(), plantPos.getZ()) > 5) {
                                     if (BlockHelper.fromBlockPos(center).distanceToSqr(plantPos.getX(), plantPos.getY(), plantPos.getZ()) > 4) {
                                         if (random.nextFloat() < 0.5f / (Math.pow(saplingsPlaced + 1, 2))) {
-                                            filler.getEntries().put(plantPos, new BlockStateEntry(BlockRegistry.SOULWOOD_GROWTH.get().defaultBlockState()));
+                                            filler.getLayer(BLIGHT).put(plantPos, create(BlockRegistry.SOULWOOD_GROWTH.get().defaultBlockState()));
                                             lastSaplingPos = new Vec3(plantPos.getX(), plantPos.getY(), plantPos.getZ());
                                             saplingsPlaced++;
                                         }
                                     }
                                 }
                             }
-                            if (!filler.getEntries().containsKey(plantPos)) {
+                            if (!filler.getLayer(BLIGHT).containsKey(plantPos)) {
                                 BlockState state = (BlockRegistry.BLIGHTED_GROWTH).get().defaultBlockState();
                                 if (random.nextFloat() < 0.4f) {
                                     state = BlockRegistry.CLINGING_BLIGHT.get().defaultBlockState().setValue(ClingingBlightBlock.BLIGHT_TYPE, GROUNDED_ROOTS).setValue(BlockStateProperties.HORIZONTAL_FACING, DIRECTIONS[random.nextInt(4)]);
                                 }
                                 if ((blockState.isAir() || blockState.canBeReplaced()) && !blockState.is(BlockTagRegistry.BLIGHTED_PLANTS)) {
-                                    filler.getEntries().put(plantPos, new BlockStateEntry(state));
+                                    filler.getLayer(BLIGHT).put(plantPos, create(state));
                                 }
                             }
                         }

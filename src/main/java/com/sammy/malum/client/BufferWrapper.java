@@ -20,7 +20,7 @@ public class BufferWrapper implements MultiBufferSource {
     @Override
     public VertexConsumer getBuffer(RenderType renderType) {
         if (renderType instanceof RenderType.CompositeRenderType composite)
-            return buffer.getBuffer(provider.apply(RenderTypeToken.createCachedToken(composite.state.textureState)));
+            return buffer.getBuffer(provider.applyAndCache(RenderTypeToken.createCachedToken(composite.state.textureState)));
         return buffer.getBuffer(renderType);
     }
 }

@@ -78,13 +78,13 @@ public class DrainingBoltImpactParticleEffect extends ParticleEffectType {
                             .setRenderType(LodestoneWorldParticleRenderType.LUMITRANSPARENT)
                             .enableForcedSpawn()
                             .modifyColorData(d -> d.multiplyCoefficient(1.25f))
-                            .modifyData(WorldParticleBuilder::getScaleData, d -> d.multiplyValue(1.75f))
+                            .modifyData(AbstractParticleBuilder::getScaleData, d -> d.multiplyValue(1.75f))
                             .setMotion(direction);
                     lightSpecs.getBloomBuilder()
                             .multiplyLifetime(lifetimeMultiplier)
                             .setRenderType(LodestoneWorldParticleRenderType.LUMITRANSPARENT)
                             .modifyColorData(d -> d.multiplyCoefficient(1.25f))
-                            .modifyData(WorldParticleBuilder::getScaleData, d -> d.multiplyValue(1.75f))
+                            .modifyData(AbstractParticleBuilder::getScaleData, d -> d.multiplyValue(1.75f))
                             .setMotion(direction);
                     lightSpecs.spawnParticles();
                 }
@@ -95,14 +95,14 @@ public class DrainingBoltImpactParticleEffect extends ParticleEffectType {
                             .setRenderType(LodestoneWorldParticleRenderType.LUMITRANSPARENT)
                             .enableForcedSpawn()
                             .modifyColorData(d -> d.multiplyCoefficient(1.25f))
-                            .modifyData(SparkParticleBuilder::getScaleData, d -> d.multiplyValue(1.75f))
-                            .modifyData(SparkParticleBuilder::getLengthData, d -> d.multiplyValue(3f))
+                            .modifyData(AbstractParticleBuilder::getScaleData, d -> d.multiplyValue(1.75f))
+                            .modifyData(AbstractParticleBuilder::getLengthData, d -> d.multiplyValue(3f))
                             .setMotion(direction.scale(1.5f));
                     sparks.getBloomBuilder()
                             .multiplyLifetime(lifetimeMultiplier)
                             .setRenderType(LodestoneWorldParticleRenderType.LUMITRANSPARENT)
                             .modifyColorData(d -> d.multiplyCoefficient(1.25f))
-                            .modifyData(WorldParticleBuilder::getScaleData, d -> d.multiplyValue(1.75f))
+                            .modifyData(AbstractParticleBuilder::getScaleData, d -> d.multiplyValue(1.75f))
                             .setMotion(direction.scale(1.5f));
                     sparks.spawnParticles();
                 }

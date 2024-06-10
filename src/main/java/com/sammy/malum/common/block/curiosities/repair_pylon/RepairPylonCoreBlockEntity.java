@@ -7,6 +7,7 @@ import com.sammy.malum.common.recipe.SpiritRepairRecipe;
 import com.sammy.malum.core.systems.recipe.SpiritWithCount;
 import com.sammy.malum.registry.common.block.BlockEntityRegistry;
 import com.sammy.malum.registry.common.block.BlockRegistry;
+import com.sammy.malum.visual_effects.RepairPylonParticleEffects;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -176,7 +177,10 @@ public class RepairPylonCoreBlockEntity extends MultiBlockCoreEntity {
         spiritAmount = Math.max(1, Mth.lerp(0.1f, spiritAmount, spiritInventory.nonEmptyItemAmount));
         if (level.isClientSide) {
             spiritSpin++;
-        } else {
+
+            RepairPylonParticleEffects.passiveRepairPylonParticles(this);
+        }
+        else {
             switch (state) {
                 case SEARCHING -> {
                     timer++;
@@ -195,6 +199,10 @@ public class RepairPylonCoreBlockEntity extends MultiBlockCoreEntity {
                 }
                 case ACTIVE -> {
                     timer++;
+                    if (recipe == null) {
+                        setState(RepairPylonState.IDLE);
+                        return;
+                    }
                     if (timer >= 60) {
                         if (repairablePosition == null) {
                             setState(RepairPylonState.IDLE);
@@ -221,8 +229,8 @@ public class RepairPylonCoreBlockEntity extends MultiBlockCoreEntity {
         Collection<IMalumSpecialItemAccessPoint> altarProviders = BlockHelper.getBlockEntities(IMalumSpecialItemAccessPoint.class, level, worldPosition, HORIZONTAL_RANGE, VERTICAL_RANGE, HORIZONTAL_RANGE);
         for (IMalumSpecialItemAccessPoint provider : altarProviders) {
             LodestoneBlockEntityInventory inventoryForAltar = provider.getSuppliedInventory();
-            ItemStack providedStack = inventoryForAltar.getStackInSlot(0);
-            if (recipe.doesInputMatch(providedStack) && recipe.doesRepairMatch(inventory.getStackInSlot(0)) && recipe.doSpiritsMatch(spiritInventory.nonEmptyItemStacks)) {
+            SpiritRepairRecipe newRecipe = SpiritRepairRecipe.getRecipe(level, inventoryForAltar.getStackInSlot(0), inventory.getStackInSlot(0), spiritInventory.nonEmptyItemStacks);
+            if (newRecipe != null) {
                 repairablePosition = provider.getAccessPointBlockPos();
                 return true;
             }

@@ -11,11 +11,12 @@ import net.minecraft.world.phys.*;
 import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.systems.particle.*;
 import team.lodestar.lodestone.systems.particle.data.color.*;
+import team.lodestar.lodestone.systems.particle.world.LodestoneWorldParticle;
 
 import java.awt.*;
 import java.util.function.*;
 
-import static com.sammy.malum.visual_effects.SpiritLightSpecs.spiritLightSpecs;
+import static com.sammy.malum.visual_effects.SpiritLightSpecs.*;
 
 public class SapCollectionParticleEffect extends ParticleEffectType {
 
@@ -49,7 +50,7 @@ public class SapCollectionParticleEffect extends ParticleEffectType {
             float yaw = (float) Math.toRadians(yRot);
             Vec3 left = new Vec3(-Math.cos(yaw), 0, Math.sin(yaw));
             Vec3 up = left.cross(new Vec3(normal.getX(), normal.getY(), normal.getZ()));
-            final Consumer<LodestoneWorldParticleActor> acceleration = p -> p.setParticleMotion(p.getParticleSpeed().scale(1.2f));
+            final Consumer<LodestoneWorldParticle> acceleration = p -> p.setParticleSpeed(p.getParticleSpeed().scale(1.2f));
             for (int i = 0; i < 12; i++) {
                 final float leftOffset = (random.nextFloat() - 0.5f) * 0.75f;
                 final float upOffset = (random.nextFloat() - 0.5f) * 0.75f;

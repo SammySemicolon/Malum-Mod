@@ -17,17 +17,17 @@
   "itemIdRegex": "none",
   "modIdRegex": "",
   "repairMaterial": {
-    "count": 1,
-    "item": "malum:cthonic_gold"
+    "count": 2,
+    "item": "malum:cthonic_gold_fragment"
   },
   "spirits": [
     {
       "type": "infernal",
-      "count": 8
+      "count": 16
     },
     {
       "type": "earthen",
-      "count": 8
+      "count": 16
     }
   ]
 }

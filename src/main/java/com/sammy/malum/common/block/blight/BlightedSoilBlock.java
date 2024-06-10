@@ -27,6 +27,8 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import team.lodestar.lodestone.systems.worldgen.LodestoneBlockFiller;
 
+import static com.sammy.malum.common.worldgen.tree.SoulwoodTreeFeature.BLIGHT;
+
 public class BlightedSoilBlock extends Block implements BonemealableBlock {
     protected static final VoxelShape SHAPE = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 14.0D, 16.0D);
 
@@ -85,7 +87,7 @@ public class BlightedSoilBlock extends Block implements BonemealableBlock {
     public void performBonemeal(ServerLevel pLevel, RandomSource pRandom, BlockPos pPos, BlockState pState) {
         pLevel.playSound(null, pPos, SoundRegistry.MAJOR_BLIGHT_MOTIF.get(), SoundSource.BLOCKS, 0.8f, 0.8f);
         pLevel.playSound(null, pPos, SoundEvents.BONE_MEAL_USE, SoundSource.BLOCKS, 1.2f, 0.8f);
-        LodestoneBlockFiller filler = new LodestoneBlockFiller(false);
+        LodestoneBlockFiller filler = new LodestoneBlockFiller(new LodestoneBlockFiller.LodestoneBlockFillerLayer(BLIGHT));
         SoulwoodTreeFeature.generateBlight(pLevel, filler, pPos, 6);
         ActiveBlightEvent.createBlightVFX(pLevel, filler);
     }

@@ -6,7 +6,7 @@ import io.github.fabricators_of_create.porting_lib.util.EnvExecutor;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.network.chat.TextColor;
-import team.lodestar.lodestone.systems.particle.builder.AbstractWorldParticleBuilder;
+import team.lodestar.lodestone.systems.particle.builder.WorldParticleBuilder;
 
 import java.awt.*;
 import java.util.function.Consumer;
@@ -28,7 +28,7 @@ public class UmbralSpiritType extends MalumSpiritType {
 
     @Override
     @Environment(EnvType.CLIENT)
-    public <K extends AbstractWorldParticleBuilder<K, ?>> Consumer<K> applyWorldParticleChanges() {
+    public Consumer<WorldParticleBuilder> applyWorldParticleChanges() {
 
         return EnvExecutor.unsafeRunForDist(() -> () -> b -> {
             //TODO, this gets run on server? stupid envtype

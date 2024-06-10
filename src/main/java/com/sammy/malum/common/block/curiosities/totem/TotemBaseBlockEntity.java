@@ -201,6 +201,9 @@ public class TotemBaseBlockEntity extends LodestoneBlockEntity {
             if (!deactivatedTotem.isActiveOrAssembling()) {
                 continue;
             }
+            if (deactivatedTotem.activeRite == null || !deactivatedTotem.activeRite.equals(activeRite)) {
+                continue;
+            }
             deactivatedTotem.setState(TotemRiteState.IDLE);
         }
         Collection<TotemBaseBlockEntity> otherTotems = BlockHelper.getBlockEntities(TotemBaseBlockEntity.class, level, worldPosition, 24);

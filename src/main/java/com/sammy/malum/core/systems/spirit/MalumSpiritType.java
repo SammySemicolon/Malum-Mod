@@ -19,7 +19,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.BlockHitResult;
 import team.lodestar.lodestone.helpers.ColorHelper;
-import team.lodestar.lodestone.systems.particle.builder.AbstractWorldParticleBuilder;
+import team.lodestar.lodestone.systems.particle.builder.WorldParticleBuilder;
 import team.lodestar.lodestone.systems.particle.data.color.ColorParticleDataBuilder;
 
 import java.awt.*;
@@ -51,8 +51,6 @@ public class MalumSpiritType {
         this.visualMotif = visualMotif;
         this.itemColor = itemColor;
     }
-
-
 
     public float getAlphaMultiplier() {
         return visualMotif.getAlphaMultiplier();
@@ -123,9 +121,7 @@ public class MalumSpiritType {
     }
 
     @Environment(EnvType.CLIENT)
-    public <K extends AbstractWorldParticleBuilder<K, ?>> Consumer<K> applyWorldParticleChanges() {
-        return EnvExecutor.unsafeRunForDist(() -> () -> visualMotif::applyWorldParticleChanges, () -> () -> {
-            throw new IllegalStateException("Cannot run on a server");
-        });
+    public Consumer<WorldParticleBuilder> applyWorldParticleChanges() {
+        return visualMotif::applyWorldParticleChanges;
     }
 }

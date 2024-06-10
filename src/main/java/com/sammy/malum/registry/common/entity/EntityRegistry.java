@@ -4,6 +4,7 @@ import com.sammy.malum.MalumMod;
 import com.sammy.malum.client.renderer.entity.FloatingItemEntityRenderer;
 import com.sammy.malum.client.renderer.entity.MalumBoatRenderer;
 import com.sammy.malum.client.renderer.entity.ScytheBoomerangEntityRenderer;
+import com.sammy.malum.client.renderer.entity.SpiritCollectionActivatorEntityRenderer;
 import com.sammy.malum.client.renderer.entity.bolt.AuricFlameBoltEntityRenderer;
 import com.sammy.malum.client.renderer.entity.bolt.DrainingBoltEntityRenderer;
 import com.sammy.malum.client.renderer.entity.bolt.HexBoltEntityRenderer;
@@ -80,6 +81,10 @@ public class EntityRegistry {
             EntityRendererRegistry.register(EntityRegistry.ETHERIC_NITRATE.get(), EthericNitrateEntityRenderer::new);
             EntityRendererRegistry.register(EntityRegistry.VIVID_NITRATE.get(), VividNitrateEntityRenderer::new);
 
+            EntityRendererRegistry.register(EntityRegistry.HEX_BOLT.get(), HexBoltEntityRenderer::new);
+            EntityRendererRegistry.register(EntityRegistry.DRAINING_BOLT.get(), DrainingBoltEntityRenderer::new);
+            EntityRendererRegistry.register(EntityRegistry.AURIC_FLAME_BOLT.get(), AuricFlameBoltEntityRenderer::new);
+            EntityRendererRegistry.register(EntityRegistry.SPIRIT_COLLECTION_ACTIVATOR.get(), SpiritCollectionActivatorEntityRenderer::new);
             EntityRendererRegistry.register(EntityRegistry.HEX_BOLT.get(), HexBoltEntityRenderer::new);
             EntityRendererRegistry.register(EntityRegistry.DRAINING_BOLT.get(), DrainingBoltEntityRenderer::new);
             EntityRendererRegistry.register(EntityRegistry.AURIC_FLAME_BOLT.get(), AuricFlameBoltEntityRenderer::new);

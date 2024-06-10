@@ -19,6 +19,6 @@ public class WarpingEngineItem extends AbstractAugmentItem {
 
     @Override
     public float getFuelUsageRateIncrease() {
-        return 0.1f;
+        return 0.12f;
     }
 }

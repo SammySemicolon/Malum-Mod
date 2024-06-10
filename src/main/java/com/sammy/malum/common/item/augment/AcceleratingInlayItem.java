@@ -9,6 +9,6 @@ public class AcceleratingInlayItem extends AbstractAugmentItem {
 
     @Override
     public float getSpeedIncrease() {
-        return 0.5f;
+        return 1f;
     }
 }

@@ -3,7 +3,7 @@ package com.sammy.malum.core.systems.spirit;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import team.lodestar.lodestone.systems.easing.Easing;
-import team.lodestar.lodestone.systems.particle.builder.AbstractWorldParticleBuilder;
+import team.lodestar.lodestone.systems.particle.builder.WorldParticleBuilder;
 import team.lodestar.lodestone.systems.particle.data.color.ColorParticleData;
 import team.lodestar.lodestone.systems.particle.data.color.ColorParticleDataBuilder;
 
@@ -58,6 +58,8 @@ public class SpiritVisualMotif {
     }
 
     @Environment(EnvType.CLIENT)
-    public <K extends AbstractWorldParticleBuilder<K, ?>> void applyWorldParticleChanges(K builder) {
+    public void applyWorldParticleChanges(WorldParticleBuilder builder) {
+
     }
+
 }

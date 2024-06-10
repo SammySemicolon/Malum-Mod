@@ -39,10 +39,10 @@ public class TrinketsAlchemicalRing extends MalumTinketsItem implements IMalumEv
         collector.getActiveEffectsMap().forEach((e, i) -> {
             float multiplier = MobEffectRegistry.ALCHEMICAL_PROFICIENCY_MAP.getOrDefault(BuiltInRegistries.MOB_EFFECT.getKey(e), 1f);
             if (e.isBeneficial()) {
-                int base = 40 + (int) (arcaneResonance * 20);
+                int base = 60 + (int) (arcaneResonance * 40);
                 EntityHelper.extendEffect(i, collector, (int) (base * multiplier), 1200);
             } else if (e.getCategory().equals(MobEffectCategory.HARMFUL)) {
-                int base = 60 + (int) (arcaneResonance * 30);
+                int base = 100 + (int) (arcaneResonance * 60);
                 EntityHelper.shortenEffect(i, collector, (int) (base * multiplier));
             }
         });

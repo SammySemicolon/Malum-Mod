@@ -15,10 +15,11 @@ import net.minecraft.world.phys.Vec3;
 import team.lodestar.lodestone.helpers.RandomHelper;
 import team.lodestar.lodestone.registry.common.LodestoneAttributeRegistry;
 import team.lodestar.lodestone.systems.easing.Easing;
-import team.lodestar.lodestone.systems.particle.builder.DirectionalParticleBuilder;
+import team.lodestar.lodestone.systems.particle.builder.WorldParticleBuilder;
 import team.lodestar.lodestone.systems.particle.data.GenericParticleData;
 import team.lodestar.lodestone.systems.particle.data.spin.SpinParticleData;
 import team.lodestar.lodestone.systems.particle.render_types.LodestoneWorldParticleRenderType;
+import team.lodestar.lodestone.systems.particle.world.behaviors.DirectionalParticleBehavior;
 
 public class HexStaffItem extends AbstractStaffItem {
 
@@ -31,14 +32,13 @@ public class HexStaffItem extends AbstractStaffItem {
     public void spawnChargeParticles(Level pLevel, LivingEntity pLivingEntity, Vec3 pos, ItemStack pStack, float pct) {
         RandomSource random = pLevel.random;
         final SpinParticleData spinData = SpinParticleData.createRandomDirection(random, 0.25f, 0.5f).setSpinOffset(RandomHelper.randomBetween(random, 0f, 6.28f)).build();
-        DirectionalParticleBuilder.create(ParticleRegistry.HEXAGON)
+        WorldParticleBuilder.create(ParticleRegistry.HEXAGON, new DirectionalParticleBehavior(pLivingEntity.getLookAngle().normalize()))
                 .setTransparencyData(GenericParticleData.create(0.6f * pct, 0f).setEasing(Easing.SINE_IN_OUT, Easing.SINE_IN).build())
                 .setSpinData(spinData)
                 .setScaleData(GenericParticleData.create(0.3f * pct, 0).setEasing(Easing.SINE_IN_OUT).build())
                 .setColorData(SpiritTypeRegistry.WICKED_SPIRIT.createColorData().build())
                 .setLifetime(5)
                 .setLifeDelay(2)
-                .setDirection(pLivingEntity.getLookAngle().normalize())
                 .setMotion(pLivingEntity.getLookAngle().normalize().scale(0.05f))
                 .enableNoClip()
                 .enableForcedSpawn()

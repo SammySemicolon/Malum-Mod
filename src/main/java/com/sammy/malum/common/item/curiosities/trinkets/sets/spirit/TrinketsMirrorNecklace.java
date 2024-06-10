@@ -20,7 +20,5 @@ public class TrinketsMirrorNecklace extends MalumTinketsItem implements IMalumEv
     public void addAttributeModifiers(Multimap<Attribute, AttributeModifier> map, SlotReference slotContext, ItemStack stack, LivingEntity entity) {
         addAttributeModifier(map, AttributeRegistry.ARCANE_RESONANCE.get(), uuid -> new AttributeModifier(uuid,
                 "Curio Arcane Resonance", 1f, AttributeModifier.Operation.ADDITION));
-        addAttributeModifier(map, LodestoneAttributeRegistry.MAGIC_RESISTANCE.get(), uuid -> new AttributeModifier(uuid,
-                "Curio Magic Resistance", 1f, AttributeModifier.Operation.ADDITION));
     }
 }

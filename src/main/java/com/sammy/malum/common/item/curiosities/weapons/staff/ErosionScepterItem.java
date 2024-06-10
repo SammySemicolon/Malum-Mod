@@ -23,11 +23,12 @@ import team.lodestar.lodestone.helpers.RandomHelper;
 import team.lodestar.lodestone.registry.common.LodestoneAttributeRegistry;
 import team.lodestar.lodestone.registry.common.tag.LodestoneDamageTypeTags;
 import team.lodestar.lodestone.systems.easing.Easing;
-import team.lodestar.lodestone.systems.particle.builder.DirectionalParticleBuilder;
+import team.lodestar.lodestone.systems.particle.builder.WorldParticleBuilder;
 import team.lodestar.lodestone.systems.particle.data.GenericParticleData;
 import team.lodestar.lodestone.systems.particle.data.color.ColorParticleData;
 import team.lodestar.lodestone.systems.particle.data.spin.SpinParticleData;
 import team.lodestar.lodestone.systems.particle.render_types.LodestoneWorldParticleRenderType;
+import team.lodestar.lodestone.systems.particle.world.behaviors.DirectionalParticleBehavior;
 
 import java.awt.*;
 
@@ -70,7 +71,7 @@ public class ErosionScepterItem extends AbstractStaffItem {
     @Override
     public void fireProjectile(LivingEntity player, ItemStack stack, Level level, InteractionHand hand, float chargePercentage, int count) {
         int spawnDelay = count * 5;
-        float pitchOffset = count * 3f;
+        float pitchOffset = count * 1.5f;
         float velocity = 4f;
         float magicDamage = (float) player.getAttributes().getValue(LodestoneAttributeRegistry.MAGIC_DAMAGE.get()) * 0.3f;
         Vec3 pos = getProjectileSpawnPos(player, hand, 0.5f, 0.5f);
@@ -103,14 +104,13 @@ public class ErosionScepterItem extends AbstractStaffItem {
     public void spawnChargeParticles(Level pLevel, LivingEntity pLivingEntity, Vec3 pos, ItemStack pStack, float pct) {
         RandomSource random = pLevel.random;
         final SpinParticleData spinData = SpinParticleData.createRandomDirection(random, 0.25f, 0.5f).setSpinOffset(RandomHelper.randomBetween(random, 0f, 6.28f)).build();
-        DirectionalParticleBuilder.create(ParticleRegistry.CIRCLE)
+        WorldParticleBuilder.create(ParticleRegistry.CIRCLE, new DirectionalParticleBehavior(pLivingEntity.getLookAngle().normalize()))
                 .setTransparencyData(GenericParticleData.create(0.8f * pct, 0f).setEasing(Easing.SINE_IN_OUT, Easing.SINE_IN).build())
                 .setSpinData(spinData)
                 .setScaleData(GenericParticleData.create(0.3f * pct, 0).setEasing(Easing.SINE_IN_OUT).build())
                 .setColorData(ColorParticleData.create(MALIGNANT_BLACK, MALIGNANT_BLACK).build())
                 .setLifetime(5)
                 .setLifeDelay(2)
-                .setDirection(pLivingEntity.getLookAngle().normalize())
                 .setMotion(pLivingEntity.getLookAngle().normalize().scale(0.05f))
                 .enableNoClip()
                 .enableForcedSpawn()

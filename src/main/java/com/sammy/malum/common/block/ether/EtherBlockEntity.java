@@ -183,7 +183,7 @@ public class EtherBlockEntity extends LodestoneBlockEntity {
                         .setColorData(ColorParticleData.create(firstColor, secondColor).setEasing(Easing.CIRC_IN_OUT).setCoefficient(2.5f).build())
                         .setTransparencyData(GenericParticleData.create(0f, 1f, 0).setEasing(Easing.SINE_IN, Easing.QUAD_IN).setCoefficient(3.5f).build())
                         .addMotion(0, velocity, 0)
-                        .addTickActor(p -> p.setParticleMotion(p.getParticleSpeed().scale(1f - random.nextFloat() * 0f)))
+                        .addTickActor(p -> p.setParticleSpeed(p.getParticleSpeed().scale(1f - random.nextFloat() * 0f)))
                         .enableNoClip()
                         .setDiscardFunction(SimpleParticleOptions.ParticleDiscardFunctionType.ENDING_CURVE_INVISIBLE)
                         .spawn(level, offsetPosition.x, offsetPosition.y, offsetPosition.z);

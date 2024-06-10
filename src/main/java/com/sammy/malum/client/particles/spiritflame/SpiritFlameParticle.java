@@ -2,8 +2,9 @@ package com.sammy.malum.client.particles.spiritflame;
 
 import net.fabricmc.fabric.impl.client.particle.FabricSpriteProviderImpl;
 import net.minecraft.client.multiplayer.ClientLevel;
-import team.lodestar.lodestone.systems.particle.options.WorldParticleOptions;
+import net.minecraft.client.particle.ParticleEngine;
 import team.lodestar.lodestone.systems.particle.world.FrameSetParticle;
+import team.lodestar.lodestone.systems.particle.world.options.*;
 
 public class SpiritFlameParticle extends FrameSetParticle {
 
@@ -24,10 +25,5 @@ public class SpiritFlameParticle extends FrameSetParticle {
             yd *= 0.9f;
         }
         zd *= 0.9f;
-    }
-
-    @Override
-    protected int getLightColor(float partialTicks) {
-        return 0xF000F0;
     }
 }

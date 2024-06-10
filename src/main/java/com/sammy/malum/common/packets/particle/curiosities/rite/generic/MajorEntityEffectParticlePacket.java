@@ -45,7 +45,7 @@ public class MajorEntityEffectParticlePacket extends ColorBasedParticleEffectPac
                     .enableNoClip()
                     .setRandomOffset(0.2f, 0.2f)
                     .setRandomMotion(0.02f)
-                    .addTickActor(p -> p.setParticleMotion(p.getParticleSpeed().scale(0.95f)))
+                    .addTickActor(p -> p.setParticleSpeed(p.getParticleSpeed().scale(0.95f)))
                     .repeat(level, posX, posY, posZ, 8);
         }
         WorldParticleBuilder.create(LodestoneParticleRegistry.WISP_PARTICLE)
@@ -57,7 +57,7 @@ public class MajorEntityEffectParticlePacket extends ColorBasedParticleEffectPac
                 .enableNoClip()
                 .setRandomOffset(0.05f, 0.05f)
                 .setRandomMotion(0.05f)
-                .addTickActor(p -> p.setParticleMotion(p.getParticleSpeed().scale(0.5f)))
+                .addTickActor(p -> p.setParticleSpeed(p.getParticleSpeed().scale(0.5f)))
                 .repeat(level, posX, posY, posZ, 12);
 
         WorldParticleBuilder.create(LodestoneParticleRegistry.SMOKE_PARTICLE)
@@ -69,7 +69,7 @@ public class MajorEntityEffectParticlePacket extends ColorBasedParticleEffectPac
                 .enableNoClip()
                 .setRandomOffset(0.15f, 0.15f)
                 .setRandomMotion(0.015f, 0.015f)
-                .addTickActor(p -> p.setParticleMotion(p.getParticleSpeed().scale(0.92f)))
+                .addTickActor(p -> p.setParticleSpeed(p.getParticleSpeed().scale(0.92f)))
                 .repeat(level, posX, posY, posZ, 20);
     }
 }

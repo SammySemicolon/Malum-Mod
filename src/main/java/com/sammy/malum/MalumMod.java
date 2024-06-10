@@ -16,6 +16,7 @@ import com.sammy.malum.common.item.curiosities.trinkets.sets.misc.TrinketsHarmon
 import com.sammy.malum.common.item.curiosities.trinkets.sets.prospector.TrinketsProspectorBelt;
 import com.sammy.malum.common.item.curiosities.trinkets.sets.rotten.TrinketsVoraciousRing;
 import com.sammy.malum.common.item.curiosities.trinkets.sets.weeping.TrinketsGruesomeConcentrationRing;
+import com.sammy.malum.common.item.curiosities.trinkets.sets.weeping.TrinketsWatcherNecklace;
 import com.sammy.malum.compability.farmersdelight.FarmersDelightCompat;
 import com.sammy.malum.config.CommonConfig;
 import com.sammy.malum.core.handlers.*;
@@ -146,6 +147,7 @@ public class MalumMod implements ModInitializer {
         LivingEntityEvents.LivingTickEvent.TICK.register(MalignantConversionHandler::checkForAttributeChanges);
         LivingEntityEvents.LivingTickEvent.TICK.register(SoulDataHandler::manageSoul);
         LivingEntityEvents.LivingTickEvent.TICK.register(TouchOfDarknessHandler::entityTick);
+        LivingEntityEvents.LivingTickEvent.TICK.register(TrinketsWatcherNecklace::entityTick);
         ExplosionEvents.DETONATE.register(TrinketsProspectorBelt::processExplosion);
         ExplosionEvents.DETONATE.register(NitrateExplosion::processExplosion);
         LodestoneInteractionEvent.RIGHT_CLICK_ITEM.register(ReboundEnchantment::onRightClickItem);

@@ -27,7 +27,7 @@ public class PotionRiteEffect extends TotemicRiteEffect {
     @Override
     public void doRiteEffect(TotemBaseBlockEntity totemBase, ServerLevel level) {
         getNearbyEntities(totemBase, targetClass).filter(getEntityPredicate()).forEach(e -> {
-            MobEffectInstance instance = new MobEffectInstance(mobEffectSupplier.get(), 400, 1, true, true);
+            MobEffectInstance instance = new MobEffectInstance(mobEffectSupplier.get(), 1200, 1, true, true);
             if (!e.hasEffect(instance.getEffect())) {
                 MALUM_CHANNEL.sendToClientsTrackingAndSelf(new MajorEntityEffectParticlePacket(totemBase.activeRite.getIdentifyingSpirit().getPrimaryColor(), e.getX(), e.getY() + e.getBbHeight() / 2f, e.getZ()), e);
             }

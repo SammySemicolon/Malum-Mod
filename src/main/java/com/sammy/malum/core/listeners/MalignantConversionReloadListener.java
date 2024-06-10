@@ -33,6 +33,7 @@ public class MalignantConversionReloadListener extends SimpleJsonResourceReloadL
             if (!BuiltInRegistries.ATTRIBUTE.containsKey(sourceAttribute)) {
                 continue;
             }
+            double consumptionRatio = object.getAsJsonPrimitive("ratio").getAsDouble();
             JsonArray targetAttributes = object.getAsJsonArray("target_attributes");
             List<Pair<Attribute, Double>> attributeList = new ArrayList<>();
             for (JsonElement attribute : targetAttributes) {
@@ -44,10 +45,10 @@ public class MalignantConversionReloadListener extends SimpleJsonResourceReloadL
                 double ratio = attributeObject.getAsJsonPrimitive("ratio").getAsDouble();
                 attributeList.add(Pair.of(BuiltInRegistries.ATTRIBUTE.get(attributeName), ratio));
             }
-            CONVERSION_DATA.put(sourceAttribute, new MalignantConversionData(BuiltInRegistries.ATTRIBUTE.get(sourceAttribute), attributeList));
+            CONVERSION_DATA.put(sourceAttribute, new MalignantConversionData(BuiltInRegistries.ATTRIBUTE.get(sourceAttribute), consumptionRatio, attributeList));
         }
     }
 
-    public record MalignantConversionData(Attribute sourceAttribute, List<Pair<Attribute, Double>> targetAttributes) {
+    public record MalignantConversionData(Attribute sourceAttribute, double consumptionRatio, List<Pair<Attribute, Double>> targetAttributes) {
     }
 }
