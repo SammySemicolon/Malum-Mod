@@ -1,5 +1,6 @@
 {
   "source_attribute": "malum:soul_ward_capacity",
+  "ratio": "1.0",
   "target_attributes": [
     {
       "attribute": "minecraft:generic.armor",

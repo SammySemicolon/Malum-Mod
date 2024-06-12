@@ -1,6 +1,7 @@
 package com.sammy.malum.common.worldgen.tree;
 
 import com.sammy.malum.common.block.blight.BlightedGrowthBlock;
+import com.sammy.malum.common.block.nature.MalumHangingLeavesBlock;
 import com.sammy.malum.common.block.nature.MalumLeavesBlock;
 import com.sammy.malum.common.block.nature.MalumSaplingBlock;
 import com.sammy.malum.registry.common.block.BlockRegistry;
@@ -20,15 +21,18 @@ import team.lodestar.lodestone.systems.worldgen.LodestoneBlockFiller.BlockStateE
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.function.Supplier;
 
 import static com.sammy.malum.common.worldgen.WorldgenHelper.DIRECTIONS;
 import static com.sammy.malum.common.worldgen.WorldgenHelper.updateLeaves;
 
+import static team.lodestar.lodestone.systems.worldgen.LodestoneBlockFiller.*;
+
 public class RunewoodTreeFeature extends Feature<RunewoodTreeConfiguration> {
 
-    public static final LodestoneBlockFiller.LodestoneLayerToken LOGS = new LodestoneBlockFiller.LodestoneLayerToken();
-    public static final LodestoneBlockFiller.LodestoneLayerToken LEAVES = new LodestoneBlockFiller.LodestoneLayerToken();
-    public static final LodestoneBlockFiller.LodestoneLayerToken HANGING_LEAVES = new LodestoneBlockFiller.LodestoneLayerToken();
+    public static final LodestoneLayerToken LOGS = new LodestoneLayerToken();
+    public static final LodestoneLayerToken LEAVES = new LodestoneLayerToken();
+    public static final LodestoneLayerToken HANGING_LEAVES = new LodestoneLayerToken();
 
     public RunewoodTreeFeature() {
         super(RunewoodTreeConfiguration.CODEC);

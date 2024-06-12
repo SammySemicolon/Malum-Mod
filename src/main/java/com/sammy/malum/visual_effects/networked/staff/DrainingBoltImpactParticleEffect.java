@@ -10,8 +10,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
 import team.lodestar.lodestone.helpers.RandomHelper;
-import team.lodestar.lodestone.systems.particle.builder.SparkParticleBuilder;
-import team.lodestar.lodestone.systems.particle.builder.WorldParticleBuilder;
+import team.lodestar.lodestone.systems.particle.builder.AbstractParticleBuilder;
 import team.lodestar.lodestone.systems.particle.data.color.ColorParticleData;
 import team.lodestar.lodestone.systems.particle.render_types.LodestoneWorldParticleRenderType;
 

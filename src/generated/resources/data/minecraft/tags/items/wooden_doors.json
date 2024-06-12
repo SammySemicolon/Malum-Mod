@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-    "malum:runewood_door",
-    "malum:soulwood_door"
+    "malum:soulwood_door",
+    "malum:runewood_door"
   ]
 }

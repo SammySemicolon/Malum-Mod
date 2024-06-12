@@ -8,6 +8,7 @@ import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.phys.*;
 import net.minecraft.world.phys.shapes.*;
+import org.jetbrains.annotations.Nullable;
 import org.joml.*;
 import team.lodestar.lodestone.handlers.*;
 import team.lodestar.lodestone.systems.particle.*;
@@ -19,7 +20,6 @@ import team.lodestar.lodestone.systems.particle.world.*;
 import team.lodestar.lodestone.systems.particle.world.behaviors.*;
 import team.lodestar.lodestone.systems.particle.world.options.*;
 
-import javax.annotation.*;
 import java.util.function.*;
 
 public class SpiritBasedParticleBuilder extends WorldParticleBuilder {
