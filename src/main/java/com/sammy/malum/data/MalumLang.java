@@ -367,7 +367,7 @@ public class MalumLang extends LanguageProvider {
         addHeadline("void.malignant_stronghold_armor", "The Malignant Stronghold");
         addPages("void.malignant_stronghold_armor",
                 "Malignant Pewter rejects magic, and as such, wearing it might seem an odd choice for a mage. And yet, it is " + italic("because") + " I am a mage that the Stronghold Armor I have made is so potent. It stands as an inverse to the Soulstained Steel armor beneath the Pewter plating - my soul is unwarded, but I am certainly not.",
-                "In unraveling magic, energy still remains. Malignant Pewter merely makes disorderly, and so the magic fills the nearest vessel - the Soulstained Steel beneath. By suffusing the metal, it becomes harder, more resilient, strengthening your defense even as it blunts your magical capabilities.");
+                "In unraveling magic, energy still remains. While worn, the armor will react to that energy, growing stronger alongside it. Any strictly defensive or offensive magical attribute that normally would be inscribed upon my soul is instead absorbed by the metal, granting armor and magic resistance bonuses. The metal seems to have a soft spot for magic proficiency though, only absorbing half as much.");
 
         addSimpleEntryHeader("void.weight_of_worlds", "The Weight of Worlds", "Existential burdens externalized");
         addPages("void.weight_of_worlds",
@@ -667,7 +667,7 @@ public class MalumLang extends LanguageProvider {
                 "The trinkets documented within cause effects whenever a spirit crystal is collected, feeding off the excess energy. As an example, this restorative trinket will replenish a small division of my health any time I collect arcana.");
         addHeadline("reactive_trinkets.ring_of_alchemical_mastery", "Ring of Alchemical Mastery");
         addPages("reactive_trinkets.ring_of_alchemical_mastery",
-                "This ring, through alchemical trickery, is able to manipulate the potions running through my blood. Negative effects are filtered out, shortening their duration, while positive effects are maintained for longer than normal. Whenever I collect arcana, the ring momentarily works better.");
+                "This ring, through alchemical trickery, is able to manipulate the potions running through my blood. Whenever I collect arcana, the ring will partially filter out negative effects, while at the same time prolonging positive ones.");
         addHeadline("reactive_trinkets.ring_of_prowess", "Ring of Prowess");
         addPages("reactive_trinkets.ring_of_prowess",
                 "Brilliance is attached to the soul, but isn't an impulse like the arcana. It is accumulated knowledge, and so is not inherently tied to the soul that learned it. Even strikes which pass through the soul harmlessly are capable of dislodging it.",

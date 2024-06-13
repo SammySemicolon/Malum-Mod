@@ -21,6 +21,7 @@ import team.lodestar.lodestone.systems.particle.builder.*;
 import team.lodestar.lodestone.systems.particle.data.*;
 import team.lodestar.lodestone.systems.particle.render_types.*;
 import team.lodestar.lodestone.systems.particle.world.*;
+import team.lodestar.lodestone.systems.particle.world.behaviors.components.*;
 
 import java.util.*;
 import java.util.function.*;
@@ -129,10 +130,9 @@ public class AuricFlameBoltEntity extends AbstractBoltProjectileEntity {
         lightSpecs.spawnParticles();
         final Consumer<LodestoneWorldParticle> behavior = p -> p.setParticleSpeed(p.getParticleSpeed().scale(0.98f));
         final float min = Math.min(1f, 2 * scalar);
-        WorldParticleBuilder.create(ParticleRegistry.BOLT)
+        WorldParticleBuilder.create(ParticleRegistry.BOLT, new SparkBehaviorComponent(GenericParticleData.create(2f * min, 0.2f * min).setEasing(Easing.CUBIC_IN).build()))
                 .setTransparencyData(GenericParticleData.create(0.5f * scalar, 0.2f * scalar, 0f).setEasing(Easing.SINE_IN_OUT, Easing.SINE_IN).build())
                 .setScaleData(GenericParticleData.create(0.6f * scalar, 0.1f * min).setEasing(Easing.QUAD_OUT).build())
-                .setLengthData(GenericParticleData.create(2f * min, 0.2f * min).setEasing(Easing.CUBIC_IN).build())
                 .setColorData(AuricFlameStaffItem.AURIC_COLOR_DATA)
                 .setLifetime(Math.min(6 + age * 3, 45))
                 .setMotion(norm)

@@ -12,6 +12,7 @@ import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.systems.particle.builder.*;
 import team.lodestar.lodestone.systems.particle.data.color.*;
 import team.lodestar.lodestone.systems.particle.render_types.*;
+import team.lodestar.lodestone.systems.particle.world.behaviors.components.*;
 
 import java.util.function.*;
 
@@ -94,7 +95,7 @@ public class DrainingBoltImpactParticleEffect extends ParticleEffectType {
                             .enableForcedSpawn()
                             .modifyColorData(d -> d.multiplyCoefficient(1.25f))
                             .modifyData(AbstractParticleBuilder::getScaleData, d -> d.multiplyValue(1.75f))
-                            .modifyData(AbstractParticleBuilder::getLengthData, d -> d.multiplyValue(3f))
+                            .modifyDataOptional(b -> b.getBehaviorData(SparkBehaviorComponent.class, SparkBehaviorComponent::getLengthData), d -> d.multiplyValue(3f))
                             .setMotion(direction.scale(1.5f));
                     sparks.getBloomBuilder()
                             .multiplyLifetime(lifetimeMultiplier)

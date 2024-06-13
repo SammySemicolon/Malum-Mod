@@ -10,6 +10,7 @@ import net.minecraftforge.api.distmarker.*;
 import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.systems.particle.builder.*;
 import team.lodestar.lodestone.systems.particle.data.color.*;
+import team.lodestar.lodestone.systems.particle.world.behaviors.components.*;
 
 import java.util.function.*;
 
@@ -76,7 +77,7 @@ public class AuricBoltImpactParticleEffect extends ParticleEffectType {
                             .enableForcedSpawn()
                             .setMotion(direction.scale(1.5f))
                             .modifyData(AbstractParticleBuilder::getScaleData, d -> d.multiplyValue(1.25f))
-                            .modifyData(AbstractParticleBuilder::getLengthData, d -> d.multiplyValue(2f));
+                            .modifyDataOptional(b -> b.getBehaviorData(SparkBehaviorComponent.class, SparkBehaviorComponent::getLengthData), d -> d.multiplyValue(2f));
                     sparks.getBloomBuilder()
                             .multiplyLifetime(lifetimeMultiplier)
                             .setMotion(direction.scale(1.5f));

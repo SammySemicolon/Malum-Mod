@@ -34,7 +34,7 @@ public class MalignantConversionReloadListener extends SimpleJsonResourceReloadL
             if (!ForgeRegistries.ATTRIBUTES.containsKey(sourceAttribute)) {
                 continue;
             }
-            double consumptionRatio = object.getAsJsonPrimitive("ratio").getAsDouble();
+            double consumptionRatio = object.has("ratio") ? object.getAsJsonPrimitive("ratio").getAsDouble() : 1;
             JsonArray targetAttributes = object.getAsJsonArray("target_attributes");
             List<Pair<Attribute, Double>> attributeList = new ArrayList<>();
             for (JsonElement attribute : targetAttributes) {

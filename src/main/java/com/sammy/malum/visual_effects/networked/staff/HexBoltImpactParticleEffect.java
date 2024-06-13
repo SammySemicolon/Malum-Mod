@@ -10,6 +10,7 @@ import net.minecraft.world.phys.*;
 import net.minecraftforge.api.distmarker.*;
 import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.systems.particle.builder.*;
+import team.lodestar.lodestone.systems.particle.world.behaviors.components.*;
 
 import java.util.function.*;
 
@@ -86,7 +87,7 @@ public class HexBoltImpactParticleEffect extends ParticleEffectType {
                             .enableForcedSpawn()
                             .setMotion(direction.scale(1.5f))
                             .modifyData(AbstractParticleBuilder::getScaleData, d -> d.multiplyValue(1.75f))
-                            .modifyData(AbstractParticleBuilder::getLengthData, d -> d.multiplyValue(3f));
+                            .modifyDataOptional(b -> b.getBehaviorData(SparkBehaviorComponent.class, SparkBehaviorComponent::getLengthData), d -> d.multiplyValue(3f));
                     sparks.getBloomBuilder()
                             .multiplyLifetime(lifetimeMultiplier)
                             .setMotion(direction.scale(1.5f));

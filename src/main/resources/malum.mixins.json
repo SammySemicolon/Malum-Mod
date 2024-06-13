@@ -11,8 +11,12 @@
     "PlayerMixin"
   ],
   "client": [
+    "AccessorBakedGlyph",
+    "AccessorFont",
     "ElytraLayerMixin",
+    "FontStringRenderOutputMixin",
     "ForgeIngameGuiMixin",
+    "GlyphRenderTypesMixin",
     "LocalPlayerMixin"
   ],
   "injectors": {
