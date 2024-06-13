@@ -82,53 +82,68 @@ public class SpiritLightSpecs {
     }
 
     public static ParticleEffectSpawner spiritLightSpecs(Level level, Vec3 pos, MalumSpiritType spiritType) {
-        return spiritLightSpecs(level, pos, spiritType, new WorldParticleOptions(ParticleRegistry.LIGHT_SPEC_SMALL.get()));
-    }
-
-    public static ParticleEffectSpawner spiritLightSpecs(Level level, Vec3 pos, MalumSpiritType spiritType, WorldParticleOptions options) {
-        return spiritLightSpecs(level, pos, spiritType.createColorData().build(), options);
+        return spiritLightSpecs(level, pos, spiritType, new WorldParticleOptions(ParticleRegistry.LIGHT_SPEC_SMALL));
     }
 
     public static ParticleEffectSpawner spiritLightSpecs(Level level, Vec3 pos, ColorParticleData colorData) {
-        return spiritLightSpecs(level, pos, colorData, new WorldParticleOptions(ParticleRegistry.LIGHT_SPEC_SMALL.get()));
+        return spiritLightSpecs(level, pos, colorData, new WorldParticleOptions(ParticleRegistry.LIGHT_SPEC_SMALL));
+    }
+
+    public static ParticleEffectSpawner spiritLightSpecs(Level level, Vec3 pos, MalumSpiritType spiritType, WorldParticleOptions options) {
+        return spiritLightSpecs(level, pos, options, o -> SpiritBasedParticleBuilder.create(o).setSpirit(spiritType));
     }
 
     public static ParticleEffectSpawner spiritLightSpecs(Level level, Vec3 pos, ColorParticleData colorData, WorldParticleOptions options) {
+        return spiritLightSpecs(level, pos, options, o -> WorldParticleBuilder.create(o).setColorData(colorData));
+    }
+
+    public static ParticleEffectSpawner spiritLightSpecs(Level level, Vec3 pos, WorldParticleOptions options, Function<WorldParticleOptions, WorldParticleBuilder> builderSupplier) {
+        var builder = builderSupplier.apply(options);
+        var bloomBuilder = builderSupplier.apply(new WorldParticleOptions(LodestoneParticleRegistry.WISP_PARTICLE));
+        return spiritLightSpecs(level, pos, builder, bloomBuilder);
+    }
+
+    public static ParticleEffectSpawner spiritLightSpecs(Level level, Vec3 pos, WorldParticleBuilder builder, WorldParticleBuilder bloomBuilder) {
         var rand = level.getRandom();
         final SpinParticleData spinData = SpinParticleData.createRandomDirection(rand, nextFloat(rand, 0.05f, 0.1f)).randomSpinOffset(rand).build();
         final Consumer<LodestoneWorldParticle> slowDown = p -> p.setParticleSpeed(p.getParticleSpeed().scale(0.95f));
         int lifetime = RandomHelper.randomBetween(rand, 10, 20);
-        final WorldParticleBuilder worldParticleBuilder = WorldParticleBuilder.create(options)
+        final WorldParticleBuilder worldParticleBuilder = builder
                 .setTransparencyData(GenericParticleData.create(0.8f, 0f).build())
                 .setSpinData(spinData)
                 .setScaleData(GenericParticleData.create(0.025f, RandomHelper.randomBetween(rand, 0.2f, 0.3f), 0).build())
-                .setColorData(colorData)
                 .setLifetime(lifetime)
                 .enableNoClip()
                 .addTickActor(slowDown);
-        final SpiritBasedParticleBuilder bloomParticleBuilder = SpiritLightSpecs.spiritBloom(level, new WorldParticleOptions(LodestoneParticleRegistry.WISP_PARTICLE.get()), colorData, spinData, lifetime).addTickActor(slowDown);
+        final WorldParticleBuilder bloomParticleBuilder = SpiritLightSpecs.spiritBloom(level, bloomBuilder, lifetime).setSpinData(spinData).addTickActor(slowDown);
         return new ParticleEffectSpawner(level, pos, worldParticleBuilder, bloomParticleBuilder);
     }
 
-    public static SpiritBasedParticleBuilder spiritBloom(Level level, MalumSpiritType spiritType, SpinParticleData spinParticleData, int lifetime) {
-        return spiritBloom(level, new WorldParticleOptions(LodestoneParticleRegistry.WISP_PARTICLE.get()), spiritType, spinParticleData, lifetime);
+    public static WorldParticleBuilder spiritBloom(Level level, MalumSpiritType spiritType, int lifetime) {
+        return spiritBloom(level, spiritType, new WorldParticleOptions(LodestoneParticleRegistry.WISP_PARTICLE), lifetime);
     }
 
-    public static SpiritBasedParticleBuilder spiritBloom(Level level, WorldParticleOptions options, MalumSpiritType spiritType, SpinParticleData spinParticleData, int lifetime) {
-        return spiritBloom(level, options, spiritType.createColorData().build(), spinParticleData, lifetime).setSpirit(spiritType);
+    public static WorldParticleBuilder spiritBloom(Level level, ColorParticleData colorData, int lifetime) {
+        return spiritBloom(level, colorData, new WorldParticleOptions(LodestoneParticleRegistry.WISP_PARTICLE), lifetime);
     }
 
-    public static SpiritBasedParticleBuilder spiritBloom(Level level, ColorParticleData colorData, SpinParticleData spinParticleData, int lifetime) {
-        return spiritBloom(level, new WorldParticleOptions(LodestoneParticleRegistry.WISP_PARTICLE.get()), colorData, spinParticleData, lifetime);
+    public static WorldParticleBuilder spiritBloom(Level level, MalumSpiritType spiritType, WorldParticleOptions options, int lifetime) {
+        return spiritBloom(level, options, o -> SpiritBasedParticleBuilder.create(o).setSpirit(spiritType), lifetime);
     }
 
-    public static SpiritBasedParticleBuilder spiritBloom(Level level, WorldParticleOptions options, ColorParticleData colorData, SpinParticleData spinParticleData, int lifetime) {
+    public static WorldParticleBuilder spiritBloom(Level level, ColorParticleData colorData, WorldParticleOptions options, int lifetime) {
+        return spiritBloom(level, options, o -> WorldParticleBuilder.create(o).setColorData(colorData), lifetime);
+    }
+
+    public static WorldParticleBuilder spiritBloom(Level level, WorldParticleOptions options, Function<WorldParticleOptions, WorldParticleBuilder> builderSupplier, int lifetime) {
+        return spiritBloom(level, builderSupplier.apply(options), lifetime);
+    }
+
+    public static WorldParticleBuilder spiritBloom(Level level, WorldParticleBuilder builder, int lifetime) {
         var rand = level.random;
-        return SpiritBasedParticleBuilder.create(options)
+        return builder
                 .setTransparencyData(GenericParticleData.create(0.35f, 0f).build())
-                .setSpinData(spinParticleData)
                 .setScaleData(GenericParticleData.create(0.04f, RandomHelper.randomBetween(rand, 0.08f, 0.14f), 0).setEasing(Easing.SINE_IN, Easing.SINE_IN_OUT).build())
-                .setColorData(colorData)
                 .setLifetime(lifetime)
                 .enableNoClip();
     }

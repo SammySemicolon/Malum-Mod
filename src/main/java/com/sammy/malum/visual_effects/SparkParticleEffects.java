@@ -60,7 +60,7 @@ public class SparkParticleEffects {
                 .setLifetime(lifetime)
                 .enableNoClip()
                 .addTickActor(slowDown);
-        final WorldParticleBuilder bloomParticleBuilder = bloomBuilder.setSpinData(spinData).addTickActor(slowDown);
+        final WorldParticleBuilder bloomParticleBuilder = SpiritLightSpecs.spiritBloom(level, bloomBuilder, lifetime).setSpinData(spinData).addTickActor(slowDown);
         return new ParticleEffectSpawner(level, pos, sparkParticleBuilder, bloomParticleBuilder);
     }
 }

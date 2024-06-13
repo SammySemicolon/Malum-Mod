@@ -37,7 +37,7 @@ public class ItemCrumbleParticleEffects {
         final Consumer<LodestoneWorldParticle> slowDown = p -> p.setParticleSpeed(p.getParticleSpeed().scale(0.925f));
         int lifetime = RandomHelper.randomBetween(rand, 30, 40);
         var crumbs = makeCrumbs(rand, stack, spinData, lifetime, slowDown);
-        var bloom = SpiritLightSpecs.spiritBloom(level, spiritType, spinData, lifetime).addTickActor(slowDown);
+        var bloom = SpiritLightSpecs.spiritBloom(level, spiritType, lifetime).setSpinData(spinData).addTickActor(slowDown);
         return new ParticleEffectSpawner(level, pos, crumbs, bloom);
     }
 
