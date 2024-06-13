@@ -70,7 +70,7 @@ repositories {
             includeGroup("curse.maven")
         }
     }
-
+    maven(url = "https://api.modrinth.com/maven")
     maven {
         name = "jitpack"
         url = uri("https://jitpack.io")
@@ -120,7 +120,7 @@ dependencies {
     modImplementation("dev.emi:trinkets:${property("trinkets_version")}") { isTransitive = false }
 
     include("team.lodestar.lodestone:lodestone:fabric-${property("minecraft_version")}-${property("lodestone_version")}")
-    modImplementation("team.lodestar.lodestone:lodestone:fabric-${property("minecraft_version")}-${property("lodestone_version")}")
+    modImplementation("team.lodestar.lodestone:lodestone:${property("minecraft_version")}-${property("lodestone_version")}-fabric")
 
     modImplementation("dev.onyxstudios.cardinal-components-api:cardinal-components-base:${property("cca_version")}")
     modImplementation("dev.onyxstudios.cardinal-components-api:cardinal-components-entity:${property("cca_version")}")
