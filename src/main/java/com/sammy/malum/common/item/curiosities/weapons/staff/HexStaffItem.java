@@ -20,6 +20,7 @@ import team.lodestar.lodestone.systems.particle.data.GenericParticleData;
 import team.lodestar.lodestone.systems.particle.data.spin.SpinParticleData;
 import team.lodestar.lodestone.systems.particle.render_types.LodestoneWorldParticleRenderType;
 import team.lodestar.lodestone.systems.particle.world.behaviors.DirectionalParticleBehavior;
+import team.lodestar.lodestone.systems.particle.world.behaviors.components.DirectionalBehaviorComponent;
 
 public class HexStaffItem extends AbstractStaffItem {
 
@@ -32,7 +33,7 @@ public class HexStaffItem extends AbstractStaffItem {
     public void spawnChargeParticles(Level pLevel, LivingEntity pLivingEntity, Vec3 pos, ItemStack pStack, float pct) {
         RandomSource random = pLevel.random;
         final SpinParticleData spinData = SpinParticleData.createRandomDirection(random, 0.25f, 0.5f).setSpinOffset(RandomHelper.randomBetween(random, 0f, 6.28f)).build();
-        WorldParticleBuilder.create(ParticleRegistry.HEXAGON, new DirectionalParticleBehavior(pLivingEntity.getLookAngle().normalize()))
+        WorldParticleBuilder.create(ParticleRegistry.HEXAGON, new DirectionalBehaviorComponent(pLivingEntity.getLookAngle().normalize()))
                 .setTransparencyData(GenericParticleData.create(0.6f * pct, 0f).setEasing(Easing.SINE_IN_OUT, Easing.SINE_IN).build())
                 .setSpinData(spinData)
                 .setScaleData(GenericParticleData.create(0.3f * pct, 0).setEasing(Easing.SINE_IN_OUT).build())

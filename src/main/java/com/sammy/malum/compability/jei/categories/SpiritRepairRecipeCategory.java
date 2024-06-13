@@ -38,7 +38,7 @@ public class SpiritRepairRecipeCategory implements IRecipeCategory<SpiritRepairR
     public SpiritRepairRecipeCategory(IGuiHelper guiHelper) {
         background = guiHelper.createBlankDrawable(142, 185);
         overlay = guiHelper.createDrawable(new ResourceLocation(MalumMod.MALUM, "textures/gui/spirit_repair_jei.png"), 0, 0, 142, 183);
-        icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ItemRegistry.SPIRIT_CRUCIBLE.get()));
+        icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ItemRegistry.REPAIR_PYLON.get()));
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.sammy.malum.common.item.misc;
 
+import com.sammy.malum.registry.common.block.BlockRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -17,6 +18,9 @@ public class BlightedGunkItem extends ItemNameBlockItem {
 
     public final Block wallPlacement;
 
+    public BlightedGunkItem(Properties pProperties) {
+        this(BlockRegistry.BLIGHTED_GROWTH.get(), BlockRegistry.CLINGING_BLIGHT.get(), pProperties);
+    }
     public BlightedGunkItem(Block defaultPlacement, Block wallPlacement, Properties pProperties) {
         super(defaultPlacement, pProperties);
         this.wallPlacement = wallPlacement;

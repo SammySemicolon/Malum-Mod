@@ -21,7 +21,7 @@ import team.lodestar.lodestone.systems.particle.builder.*;
 import team.lodestar.lodestone.systems.particle.data.*;
 import team.lodestar.lodestone.systems.particle.data.spin.*;
 import team.lodestar.lodestone.systems.particle.world.*;
-import team.lodestar.lodestone.systems.particle.world.behaviors.*;
+import team.lodestar.lodestone.systems.particle.world.behaviors.components.*;
 import team.lodestar.lodestone.systems.particle.world.options.*;
 
 import java.util.function.*;
@@ -131,7 +131,7 @@ public class SpiritCrucibleParticleEffects {
             var sparkParticles = SparkParticleEffects.spiritMotionSparks(level, sparkPos, spiritType);
             sparkParticles.getBuilder().setMotion(velocity)
                     .modifyData(AbstractParticleBuilder::getScaleData, d -> d.multiplyValue(1.5f))
-                    .modifyData(AbstractParticleBuilder::getLengthData, d -> d.multiplyValue(2f).multiplyCoefficient(0.75f))
+                    .modifyDataOptional(b -> b.getBehaviorData(SparkBehaviorComponent.class, SparkBehaviorComponent::getLengthData), d -> d.multiplyValue(2f).multiplyCoefficient(0.75f))
                     .modifyColorData(c -> c.multiplyCoefficient(0.8f));
             sparkParticles.getBloomBuilder().setMotion(velocity);
             sparkParticles.spawnParticlesRaw();
@@ -140,7 +140,7 @@ public class SpiritCrucibleParticleEffects {
             Vec3 velocity = targetPos.subtract(startPos).normalize().scale(0.02f * targetPos.distanceTo(startPos));
             final Consumer<LodestoneWorldParticle> behavior = p -> p.setParticleSpeed(p.getParticleSpeed().scale(0.98f));
             final SpinParticleData spinData = SpinParticleData.createRandomDirection(random, RandomHelper.randomBetween(random, 0.1f, 0.2f)).randomSpinOffset(random).build();
-            WorldParticleBuilder.create(ParticleRegistry.HEXAGON.get(), new DirectionalParticleBehavior(velocity.normalize()))
+            WorldParticleBuilder.create(ParticleRegistry.HEXAGON.get(), new DirectionalBehaviorComponent(velocity.normalize()))
                     .setTransparencyData(GenericParticleData.create(0.6f, 0.4f, 0f).setEasing(Easing.SINE_IN_OUT, Easing.SINE_IN).build())
                     .setSpinData(spinData)
                     .setScaleData(GenericParticleData.create(0.15f, 0).setEasing(Easing.SINE_IN_OUT).build())

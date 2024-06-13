@@ -366,7 +366,7 @@ public class MalumLang extends FabricLanguageProvider {
         addHeadline(builder, "void.malignant_stronghold_armor", "The Malignant Stronghold");
         addPages(builder, "void.malignant_stronghold_armor",
                 "Malignant Pewter rejects magic, and as such, wearing it might seem an odd choice for a mage. And yet, it is " + italic("because") + " I am a mage that the Stronghold Armor I have made is so potent. It stands as an inverse to the Soulstained Steel armor beneath the Pewter plating - my soul is unwarded, but I am certainly not.",
-                "In unraveling magic, energy still remains. Malignant Pewter merely makes disorderly, and so the magic fills the nearest vessel - the Soulstained Steel beneath. By suffusing the metal, it becomes harder, more resilient, strengthening your defense even as it blunts your magical capabilities.");
+                "In unraveling magic, energy still remains. While worn, the armor will react to that energy, growing stronger alongside it. Any strictly defensive or offensive magical attribute that normally would be inscribed upon my soul is instead absorbed by the metal, granting armor and magic resistance bonuses. The metal seems to have a soft spot for magic proficiency though, only absorbing half as much.");
 
         addSimpleEntryHeader(builder, "void.weight_of_worlds", "The Weight of Worlds", "Existential burdens externalized");
         addPages(builder, "void.weight_of_worlds",
@@ -660,20 +660,20 @@ public class MalumLang extends FabricLanguageProvider {
                 "Many disciplines of magic, and even more mundane practices, allow the creation of useful trinkets. These are also referred to as baubles or trinkets by some. The metals I have alloyed have properties useful in their own rights, and can be used as the basis for even grander designs.",
                 "In their most basic form, Hallowed Gold trinkets protect the user as if they were wearing weak armor, and Soulstained Steel trinkets increase the toughness of the armor being worn.");
 
-        addEntryHeader(builder, "reactive_trinkets", "Reactive Trinkets", "Harnessing the harvest");
-        addHeadline(builder, "reactive_trinkets.ring_of_curative_talent", "Ring of Curative Talent");
-        addPages(builder, "reactive_trinkets.ring_of_curative_talent",
+        addEntryHeader(builder,"reactive_trinkets", "Reactive Trinkets", "Harnessing the harvest");
+        addHeadline(builder,"reactive_trinkets.ring_of_curative_talent", "Ring of Curative Talent");
+        addPages(builder,"reactive_trinkets.ring_of_curative_talent",
                 "The trinkets documented within cause effects whenever a spirit crystal is collected, feeding off the excess energy. As an example, this restorative trinket will replenish a small division of my health any time I collect arcana.");
-        addHeadline(builder, "reactive_trinkets.ring_of_alchemical_mastery", "Ring of Alchemical Mastery");
-        addPages(builder, "reactive_trinkets.ring_of_alchemical_mastery",
-                "This ring, through alchemical trickery, is able to manipulate the potions running through my blood. Negative effects are filtered out, shortening their duration, while positive effects are maintained for longer than normal. Whenever I collect arcana, the ring momentarily works better.");
-        addHeadline(builder, "reactive_trinkets.ring_of_prowess", "Ring of Prowess");
-        addPages(builder, "reactive_trinkets.ring_of_prowess",
+        addHeadline(builder,"reactive_trinkets.ring_of_alchemical_mastery", "Ring of Alchemical Mastery");
+        addPages(builder,"reactive_trinkets.ring_of_alchemical_mastery",
+                "This ring, through alchemical trickery, is able to manipulate the potions running through my blood. Whenever I collect arcana, the ring will partially filter out negative effects, while at the same time prolonging positive ones.");
+        addHeadline(builder,"reactive_trinkets.ring_of_prowess", "Ring of Prowess");
+        addPages(builder,"reactive_trinkets.ring_of_prowess",
                 "Brilliance is attached to the soul, but isn't an impulse like the arcana. It is accumulated knowledge, and so is not inherently tied to the soul that learned it. Even strikes which pass through the soul harmlessly are capable of dislodging it.",
                 "By using condensed Brilliance, I have created a ring that filters out that Brilliance out of arcana I collect, giving me a burst of Brilliant knowledge whenever I collect arcana.");
 
-        addSimpleEntryHeader(builder, "ring_of_esoteric_spoils", "Ring of Esoteric Spoils", "Be fruitful and multiply");
-        addPages(builder, "ring_of_esoteric_spoils",
+        addSimpleEntryHeader(builder,"ring_of_esoteric_spoils", "Ring of Esoteric Spoils", "Be fruitful and multiply");
+        addPages(builder,"ring_of_esoteric_spoils",
                 "It can be tiring, harvesting the sheer quantities of arcana I need for my research. This ring can increase the efficiency of the harvest, allowing me to reap an additional spirit from every slain soul. At a certain point, though, \"efficiency\" ceases to explain it. How am I obtaining more power than the soul itself has?");
 
         addSimpleEntryHeader(builder, "belt_of_the_starved", "Belt of the Starved", "Channeling voracity");
@@ -1078,7 +1078,6 @@ public class MalumLang extends FabricLanguageProvider {
 
         addTetraImprovement(builder, "malum.soul_strike", "Soul Strike", "Allows your item to shatter souls.");
     }
-
 
     @Override
     public String getName() {

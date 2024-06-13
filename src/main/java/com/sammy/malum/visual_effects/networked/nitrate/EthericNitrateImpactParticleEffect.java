@@ -16,6 +16,7 @@ import team.lodestar.lodestone.systems.particle.data.*;
 import team.lodestar.lodestone.systems.particle.data.color.*;
 import team.lodestar.lodestone.systems.particle.data.spin.*;
 import team.lodestar.lodestone.systems.particle.world.LodestoneWorldParticle;
+import team.lodestar.lodestone.systems.particle.world.behaviors.components.SparkBehaviorComponent;
 import team.lodestar.lodestone.systems.particle.world.options.WorldParticleOptions;
 
 import java.awt.*;
@@ -76,14 +77,14 @@ public class EthericNitrateImpactParticleEffect extends ParticleEffectType {
                 }
                 if (!star && random.nextFloat() < 0.8f) {
                     float scalar = RandomHelper.randomBetween(random, 0.8f, 1.1f);
-                    var sparks = SparkParticleEffects.spiritMotionSparks(level, spawnPosition, colorParticleData);
+                    var lengthData = GenericParticleData.create(2f * scalar, 0.5f * scalar, 0f).setEasing(Easing.QUARTIC_OUT, Easing.SINE_IN_OUT).build();
+                    var sparks = SparkParticleEffects.spiritMotionSparks(level, spawnPosition, colorParticleData).act(b -> b.getParticleOptions().setBehavior(new SparkBehaviorComponent(lengthData)));
                     sparks.getBuilder()
                             .multiplyLifetime(lifetimeMultiplier)
                             .enableForcedSpawn()
                             .addTickActor(slowDown)
                             .setMotion(motion)
-                            .setScaleData(GenericParticleData.create(0.4f * scalar, 0.2f * scalar, 0f).setEasing(Easing.SINE_IN, Easing.QUAD_IN).build())
-                            .setLengthData(GenericParticleData.create(2f * scalar, 0.5f * scalar, 0f).setEasing(Easing.QUARTIC_OUT, Easing.SINE_IN_OUT).build());
+                            .setScaleData(GenericParticleData.create(0.4f*scalar, 0.2f*scalar, 0f).setEasing(Easing.SINE_IN, Easing.QUAD_IN).build());
                     sparks.getBloomBuilder()
                             .multiplyLifetime(lifetimeMultiplier)
                             .addTickActor(slowDown)

@@ -27,6 +27,7 @@ import team.lodestar.lodestone.systems.particle.data.spin.SpinParticleData;
 import team.lodestar.lodestone.systems.particle.render_types.LodestoneWorldParticleRenderType;
 import team.lodestar.lodestone.systems.particle.world.LodestoneWorldParticle;
 import team.lodestar.lodestone.systems.particle.world.behaviors.DirectionalParticleBehavior;
+import team.lodestar.lodestone.systems.particle.world.behaviors.components.DirectionalBehaviorComponent;
 
 import java.util.function.Consumer;
 
@@ -89,7 +90,7 @@ public class DrainingBoltEntity extends AbstractBoltProjectileEntity {
         lightSpecs.spawnParticles();
         final SpinParticleData spinData = SpinParticleData.createRandomDirection(random, RandomHelper.randomBetween(random, 0.25f, 0.5f)).randomSpinOffset(random).build();
         final Consumer<LodestoneWorldParticle> behavior = p -> p.setParticleSpeed(p.getParticleSpeed().scale(0.95f));
-        WorldParticleBuilder.create(ParticleRegistry.SAW, new DirectionalParticleBehavior(getDeltaMovement().normalize()))
+        WorldParticleBuilder.create(ParticleRegistry.SAW, new DirectionalBehaviorComponent(getDeltaMovement().normalize()))
                 .setTransparencyData(GenericParticleData.create(0.4f * scalar, 0.2f * scalar, 0f).setEasing(Easing.SINE_IN_OUT, Easing.SINE_IN).build())
                 .setSpinData(spinData)
                 .setScaleData(GenericParticleData.create(0.3f * scalar, 0).setEasing(Easing.SINE_IN_OUT).build())

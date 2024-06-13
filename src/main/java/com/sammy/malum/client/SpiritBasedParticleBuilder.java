@@ -1,6 +1,7 @@
 package com.sammy.malum.client;
 
 import com.sammy.malum.core.systems.spirit.*;
+import io.github.fabricators_of_create.porting_lib.util.RegistryObject;
 import net.minecraft.client.particle.*;
 import net.minecraft.core.*;
 import net.minecraft.core.particles.*;
@@ -17,19 +18,19 @@ import team.lodestar.lodestone.systems.particle.data.*;
 import team.lodestar.lodestone.systems.particle.data.color.*;
 import team.lodestar.lodestone.systems.particle.data.spin.*;
 import team.lodestar.lodestone.systems.particle.world.*;
-import team.lodestar.lodestone.systems.particle.world.behaviors.*;
 import team.lodestar.lodestone.systems.particle.world.options.*;
+import team.lodestar.lodestone.systems.particle.world.type.*;
 
 import java.util.function.*;
 
 public class SpiritBasedParticleBuilder extends WorldParticleBuilder {
 
     public static SpiritBasedParticleBuilder create(ParticleType<WorldParticleOptions> particle) {
-        return create(particle, null);
+        return create(new WorldParticleOptions(particle));
     }
 
-    public static SpiritBasedParticleBuilder create(ParticleType<WorldParticleOptions> particle, LodestoneParticleBehavior behavior) {
-        return create(new WorldParticleOptions(particle, behavior));
+    public static SpiritBasedParticleBuilder create(RegistryObject<? extends LodestoneWorldParticleType> type) {
+        return create(new WorldParticleOptions(type));
     }
 
     public static SpiritBasedParticleBuilder create(WorldParticleOptions options) {
@@ -45,7 +46,7 @@ public class SpiritBasedParticleBuilder extends WorldParticleBuilder {
 
     public SpiritBasedParticleBuilder setSpirit(MalumSpiritType spiritType) {
         this.spiritType = spiritType;
-        return this;
+        return setColorData(spiritType.createColorData().build());
     }
 
     @Override
@@ -274,7 +275,7 @@ public class SpiritBasedParticleBuilder extends WorldParticleBuilder {
     }
 
     @Override
-    public SpiritBasedParticleBuilder modifyData(Function<AbstractParticleBuilder<WorldParticleOptions>, GenericParticleData> dataType, Consumer<GenericParticleData> dataConsumer) {
+    public SpiritBasedParticleBuilder modifyData(Function<WorldParticleBuilder, GenericParticleData> dataType, Consumer<GenericParticleData> dataConsumer) {
         return (SpiritBasedParticleBuilder) super.modifyData(dataType, dataConsumer);
     }
 

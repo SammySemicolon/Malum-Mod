@@ -101,7 +101,7 @@ public class MalignantConversionHandler {
                                     -malignantConversion*consumptionRatio, AttributeModifier.Operation.MULTIPLY_TOTAL));
                 }
             }
-            if (originalModifier != null && sourceInstance.getModifier(MALIGNANT_CONVERSION_UUID) == null) {
+            if (originalModifier != null && sourceInstance.getModifier(MALIGNANT_CONVERSION_UUID) == null && malignantConversion > 0) {
                 sourceInstance.addTransientModifier(originalModifier);
             }
         }
