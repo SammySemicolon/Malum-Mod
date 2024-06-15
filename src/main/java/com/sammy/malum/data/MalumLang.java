@@ -850,7 +850,7 @@ public class MalumLang extends LanguageProvider {
                 "One caveat is that no rite's totem may function within the range of another, identical ritual. If you try, the first one will simply fizzle out, the energies coursing through it disrupted.");
 
         addSimpleEntryHeader("managing_totems", "Totem Management", "[Boiler] Arcane Insight");
-        addPages("totem_magic",
+        addPages("managing_totems",
                 "[Boiler] Managing totem rites can be tricky, so I made a staff that will enable me greater control over these rituals.",
                 "The primary function of the staff will allow me to view the coverage of each nearby totem rite",
                 "As a side functionality, the staff will allow me to place a selected totemic rune into an activated state for visual purposes only");
