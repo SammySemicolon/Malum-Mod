@@ -68,6 +68,10 @@ public abstract class AbstractBoltProjectileEntity extends ThrowableItemProjecti
 
     public abstract ParticleEffectType getImpactParticleEffect();
 
+    public float getOrbitingTrailDistance() {
+        return 0.3f;
+    }
+
     public void onDealDamage(LivingEntity target) {
 
     }
@@ -139,7 +143,13 @@ public abstract class AbstractBoltProjectileEntity extends ThrowableItemProjecti
 
     @Override
     protected boolean canHitEntity(Entity pTarget) {
-        return super.canHitEntity(pTarget) && !pTarget.equals(getOwner()) && !(pTarget instanceof AbstractBoltProjectileEntity);
+        if (pTarget.equals(getOwner())) {
+            return false;
+        }
+        if (pTarget instanceof AbstractBoltProjectileEntity) {
+            return false;
+        }
+        return super.canHitEntity(pTarget);
     }
 
     @Override
@@ -188,7 +198,7 @@ public abstract class AbstractBoltProjectileEntity extends ThrowableItemProjecti
             float scalar = 0.96f;
             setDeltaMovement(motion.x * scalar, (motion.y-0.015f)* scalar, motion.z * scalar);
         }
-        float offsetScale = fadingAway ? 0f : 0.3f;
+        float offsetScale = fadingAway ? 0f : getOrbitingTrailDistance();
         for (int i = 0; i < 2; i++) {
             float progress = (i+1) * 0.5f;
             Vec3 position = getPosition(progress);
