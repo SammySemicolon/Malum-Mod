@@ -846,8 +846,14 @@ public class MalumLang extends LanguageProvider {
                 "Up until now, when performing spirit arcana, I have limited my research to personal enhancement and material production. Now, I affect the world.",
                 "To begin with Totem Magic, I may engrave spirit arcana into Runewood Logs, forming a rune representing the magic. If unwanted, engraved spirits can be stripped off with an axe, but I have uses in mind. With a Runewood Totem Base, and then a specific set of runes in a totem pole placed above my totem base, I can perform a Spirit Rite.",
                 "While each rite does offer a unique function, they follow patterns and categorize easily. For what I term \"aura rites\", they are simple, effect-providing rites that affect anything living within eight blocks of the base. For other rituals which alter beings, most affect anything within half the range of an aura rite.",
-                "For those which alter blocks, most affect the five-by-five area on the level beneath the base, towards where the runes are facing. These rituals can also be made more selective with the use of Item Stands. By placing them on the sides of the rune pillars, you can make the ritual only recognize and alter the types of blocks lying on the stands.",
+                "For those which alter blocks, most affect the five-by-five area on the level beneath the base, towards where the runes are facing.",
                 "One caveat is that no rite's totem may function within the range of another, identical ritual. If you try, the first one will simply fizzle out, the energies coursing through it disrupted.");
+
+        addSimpleEntryHeader("managing_totems", "Totem Management", "[Boiler] Arcane Insight");
+        addPages("totem_magic",
+                "[Boiler] Managing totem rites can be tricky, so I made a staff that will enable me greater control over these rituals.",
+                "The primary function of the staff will allow me to view the coverage of each nearby totem rite",
+                "As a side functionality, the staff will allow me to place a selected totemic rune into an activated state for visual purposes only");
 
         addSimpleEntryHeader("arcane_rite", "A Rite Unchained", "Creation uncontrolled");
         addPages("arcane_rite.description",

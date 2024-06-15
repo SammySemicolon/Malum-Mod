@@ -31,6 +31,7 @@ public abstract class AbstractBoltProjectileEntity extends ThrowableItemProjecti
     public int spawnDelay;
 
     public boolean fadingAway;
+    public int fadingTimer;
 
     public AbstractBoltProjectileEntity(EntityType<? extends AbstractBoltProjectileEntity> pEntityType, Level level) {
         super(pEntityType, level);
@@ -73,7 +74,6 @@ public abstract class AbstractBoltProjectileEntity extends ThrowableItemProjecti
             if (fadingAway) {
                 age = getMaxAge() - 10;
                 setDeltaMovement(getDeltaMovement().scale(0.05f));
-
             }
         }
         if (DATA_SPAWN_DELAY.equals(pKey)) {
@@ -96,6 +96,7 @@ public abstract class AbstractBoltProjectileEntity extends ThrowableItemProjecti
         }
         if (fadingAway) {
             compound.putBoolean("fadingAway", true);
+            compound.putInt("fadingTimer", fadingTimer);
         }
     }
 
@@ -113,7 +114,6 @@ public abstract class AbstractBoltProjectileEntity extends ThrowableItemProjecti
         if (fadingAway || spawnDelay > 0) {
             return;
         }
-
         if (!level().isClientSide) {
             getImpactParticleEffect().createPositionedEffect(level(), new PositionEffectData(position().add(getDeltaMovement().scale(0.25f))), new ColorEffectData(SpiritTypeRegistry.WICKED_SPIRIT), HexBoltImpactParticleEffect.createData(getDeltaMovement().reverse().normalize()));
             playSound(SoundRegistry.STAFF_STRIKES.get(), 0.5f, Mth.nextFloat(random, 0.9F, 1.5F));
@@ -132,14 +132,11 @@ public abstract class AbstractBoltProjectileEntity extends ThrowableItemProjecti
 
     @Override
     protected void onHitEntity(EntityHitResult result) {
-        if (fadingAway || spawnDelay > 0) {
+        if (level().isClientSide || fadingAway || spawnDelay > 0) {
             return;
         }
         if (getOwner() instanceof LivingEntity staffOwner) {
             Entity target = result.getEntity();
-            if (level().isClientSide) {
-                return;
-            }
             target.invulnerableTime = 0;
             DamageSource source = DamageTypeRegistry.create(level(), DamageTypeRegistry.VOODOO, this, staffOwner);
             boolean success = target.hurt(source, magicDamage);
@@ -171,28 +168,54 @@ public abstract class AbstractBoltProjectileEntity extends ThrowableItemProjecti
             return;
         }
         super.tick();
-        Vec3 motion = getDeltaMovement();
-        if (!fadingAway) {
-            setDeltaMovement(motion.x * 0.96f, (motion.y-0.015f)*0.96f, motion.z * 0.96f);
+        if (fadingAway) {
+            fadingTimer++;
+        }
+        else {
+            Vec3 motion = getDeltaMovement();
+            float scalar = 0.96f;
+            setDeltaMovement(motion.x * scalar, (motion.y-0.015f)* scalar, motion.z * scalar);
         }
         float offsetScale = fadingAway ? 0f : 0.3f;
         for (int i = 0; i < 2; i++) {
-            float progress = i * 0.5f;
+            float progress = (i+1) * 0.5f;
             Vec3 position = getPosition(progress);
+            float scalar = (age + progress) / 2f;
+            double xOffset = Math.cos(spinOffset + scalar) * offsetScale;
+            double zOffset = Math.sin(spinOffset + scalar) * offsetScale;
             trailPointBuilder.addTrailPoint(position);
-            spinningTrailPointBuilder.addTrailPoint(position.add(Math.cos(spinOffset + (age + progress) / 2f) * offsetScale, 0, Math.sin(spinOffset + (age + progress) / 2f) * offsetScale));
+            spinningTrailPointBuilder.addTrailPoint(position.add(xOffset, 0, zOffset));
         }
-        for (int i = 0; i < ((fadingAway || age > getMaxAge() - 20) ? 2 : 1); i++) {
+        for (int i = 0; i < (fadingAway ? 2 : 1); i++) {
             trailPointBuilder.tickTrailPoints();
             spinningTrailPointBuilder.tickTrailPoints();
         }
         age++;
-        if (age >= getMaxAge()) {
-            discard();
+        if (age >= getMaxAge() && !level().isClientSide) {
+            if (fadingAway) {
+                discard();
+            }
+            else {
+                getEntityData().set(DATA_FADING_AWAY, true);
+            }
         }
         if (level().isClientSide && !fadingAway) {
             spawnParticles();
         }
+    }
+
+    @Override
+    public void lerpMotion(double pX, double pY, double pZ) {
+        this.setDeltaMovement(pX, pY, pZ);
+        if (this.xRotO == 0.0F && this.yRotO == 0.0F) {
+            double d0 = Math.sqrt(pX * pX + pZ * pZ);
+            this.setXRot((float)(Mth.atan2(pY, d0) * (double)(180F / (float)Math.PI)));
+            this.setYRot((float)(Mth.atan2(pX, pZ) * (double)(180F / (float)Math.PI)));
+            this.xRotO = this.getXRot();
+            this.yRotO = this.getYRot();
+            this.moveTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), this.getXRot());
+        }
+
     }
 
     public void shootFromRotation(Entity shooter, float rotationPitch, float rotationYaw, float pitchOffset, float velocity, float innacuracy) {
@@ -203,9 +226,12 @@ public abstract class AbstractBoltProjectileEntity extends ThrowableItemProjecti
     }
 
     public float getVisualEffectScalar() {
-        float effectScalar = fadingAway ? 1 - (age - getMaxAge() + 10) / 10f : 1;
+        float effectScalar = 1;
         if (age < 5) {
             effectScalar = age / 5f;
+        }
+        else if (fadingAway) {
+            effectScalar = effectScalar / ((fadingTimer+2) / 2f);
         }
         return effectScalar;
     }
