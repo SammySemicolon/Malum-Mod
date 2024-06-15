@@ -4,6 +4,9 @@ import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import com.sammy.malum.registry.common.SpiritTypeRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -89,17 +92,12 @@ public abstract class FloatingEntity extends Entity {
     @Override
     public void tick() {
         super.tick();
-        hoverOffset = getHoverStart(0);
-        trailPointBuilder.addTrailPoint(position().add(0, getYOffset(0), 0f));
-        trailPointBuilder.tickTrailPoints();
         baseTick();
+        hoverOffset = getHoverStart(0);
+
         age++;
         if (age > maxAge) {
             discard();
-        }
-        if (level().isClientSide) {
-            double x = xOld, y = yOld + getYOffset(0), z = zOld;
-            spawnParticles(x, y, z);
         }
         float friction = getFriction();
         setDeltaMovement(getDeltaMovement().multiply(friction, friction, friction));
@@ -153,15 +151,46 @@ public abstract class FloatingEntity extends Entity {
             }
         }
         this.checkInsideBlocks();
-        Vec3 movement = this.getDeltaMovement();
-        double nextX = this.getX() + movement.x;
-        double nextY = this.getY() + movement.y;
-        double nextZ = this.getZ() + movement.z;
+        Vec3 movement = getDeltaMovement();
+        double nextX = getX() + movement.x;
+        double nextY = getY() + movement.y;
+        double nextZ = getZ() + movement.z;
         double distance = movement.horizontalDistance();
-        this.setXRot(lerpRotation(this.xRotO, (float) (Mth.atan2(movement.y, distance) * (double) (180F / (float) Math.PI))));
-        this.setYRot(lerpRotation(this.yRotO, (float) (Mth.atan2(movement.x, movement.z) * (double) (180F / (float) Math.PI))));
-        this.setPos(nextX, nextY, nextZ);
+
+        final float xRot = lerpRotation(this.xRotO, (float) (Mth.atan2(movement.y, distance) * (double) (180F / (float) Math.PI)));
+        final float yRot = lerpRotation(this.yRotO, (float) (Mth.atan2(movement.x, movement.z) * (double) (180F / (float) Math.PI)));
+        setXRot(xRot);
+        setYRot(yRot);
+        setPos(nextX, nextY, nextZ);
         ProjectileUtil.rotateTowardsMovement(this, 0.2F);
+
+        if (level().isClientSide) {
+            double x = xOld, y = yOld + getYOffset(0), z = zOld;
+            spawnParticles(x, y, z);
+            for (int i = 0; i < 2; i++) {
+                float progress = (i+1) * 0.5f;
+                Vec3 position = getPosition(progress).add(0, getYOffset(progress), 0);
+                trailPointBuilder.addTrailPoint(position);
+                if (i == 0) {
+                    float f = 0;
+                }
+                if (i == 1) {
+                    float f = 0;
+                }
+            }
+            trailPointBuilder.tickTrailPoints();
+        }
+    }
+
+    @Override
+    public void lerpMotion(double pX, double pY, double pZ) {
+        this.setDeltaMovement(pX, pY, pZ);
+        this.setOldPosAndRot();
+    }
+
+    @Override
+    public Packet<ClientGamePacketListener> getAddEntityPacket() {
+        return new ClientboundAddEntityPacket(this, owner == null ? 0 : owner.getId());
     }
 
     protected static float lerpRotation(float p_37274_, float p_37275_) {

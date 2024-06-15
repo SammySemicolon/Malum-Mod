@@ -64,7 +64,7 @@ public class DrainingBoltEntity extends AbstractBoltProjectileEntity {
 
     @Override
     public int getMaxAge() {
-        return 20;
+        return 30;
     }
 
     @Override

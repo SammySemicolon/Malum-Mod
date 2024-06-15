@@ -36,10 +36,9 @@ public class RenderUtils {
     public static void renderEntityTrail(PoseStack poseStack, VFXBuilders.WorldVFXBuilder builder, TrailPointBuilder trailPointBuilder, Entity entity, Function<Float, Color> primaryColor, Function<Float, Color> secondaryColor, float scaleScalar, float alphaScalar, float partialTicks) {
         List<TrailPoint> spinningTrailPoints = trailPointBuilder.getTrailPoints();
         poseStack.pushPose();
-        final Vec3 motionOffset = entity.getDeltaMovement().scale(0.5f);
-        float trailOffsetX = (float) (Mth.lerp(partialTicks, entity.xOld, entity.getX()) - motionOffset.x);
-        float trailOffsetY = (float) (Mth.lerp(partialTicks, entity.yOld, entity.getY()) - motionOffset.y);
-        float trailOffsetZ = (float) (Mth.lerp(partialTicks, entity.zOld, entity.getZ()) - motionOffset.z);
+        float trailOffsetX = (float) Mth.lerp(partialTicks, entity.xOld, entity.getX());
+        float trailOffsetY = (float) Mth.lerp(partialTicks, entity.yOld, entity.getY());
+        float trailOffsetZ = (float) Mth.lerp(partialTicks, entity.zOld, entity.getZ());
         if (spinningTrailPoints.size() > 3) {
             poseStack.translate(-trailOffsetX, -trailOffsetY, -trailOffsetZ);
             for (int i = 0; i < 2; i++) {
