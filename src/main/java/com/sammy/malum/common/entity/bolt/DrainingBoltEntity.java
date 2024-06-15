@@ -62,6 +62,11 @@ public class DrainingBoltEntity extends AbstractBoltProjectileEntity {
     }
 
     @Override
+    public float getOrbitingTrailDistance() {
+        return 0.5f;
+    }
+
+    @Override
     public ParticleEffectType getImpactParticleEffect() {
         return ParticleEffectTypeRegistry.DRAINING_BOLT_IMPACT;
     }

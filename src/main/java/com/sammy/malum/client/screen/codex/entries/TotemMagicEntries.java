@@ -31,9 +31,9 @@ public class TotemMagicEntries {
 
         screen.addEntry("managing_totems", 0, 10, b -> b
                 .setWidgetConfig(w -> w.setIcon(TOTEMIC_STAFF).setStyle(BookWidgetStyle.SMALL_RUNEWOOD))
-                .addPage(new HeadlineTextItemPage("totemic_staff", "totemic_staff.1", TOTEMIC_STAFF.get()))
-                .addPage(new TextPage("totemic_staff.2"))
-                .addPage(new TextPage("totemic_staff.3"))
+                .addPage(new HeadlineTextItemPage("managing_totems", "managing_totems.1", TOTEMIC_STAFF.get()))
+                .addPage(new TextPage("managing_totems.2"))
+                .addPage(new TextPage("managing_totems.3"))
                 .addPage(new CraftingPage(TOTEMIC_STAFF.get(),
                         EMPTY, EMPTY, RUNEWOOD_PLANKS.get(),
                         EMPTY, STICK, EMPTY,
