@@ -1,4 +1,4 @@
-package com.sammy.malum.mixin;
+package com.sammy.malum.mixin.client;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.WrapWithCondition;
@@ -47,11 +47,12 @@ public class FontStringRenderOutputMixin {
     @Shadow
     @Final
     private boolean dropShadow;
-    @Shadow
-    @Final
-    private float a;
+
     @Unique
     private List<BakedGlyph.Effect> malum$inverseEffects;
+
+	@Shadow @Final
+	Font this$0;
 
     @ModifyExpressionValue(method = "accept", at = @At(value = "INVOKE", target = "Lnet/minecraft/network/chat/Style;getColor()Lnet/minecraft/network/chat/TextColor;"))
     public TextColor enableSubtractiveBlending(TextColor color, @Share("subtractiveEnabled") LocalBooleanRef subtractiveEnabled) {
@@ -102,7 +103,7 @@ public class FontStringRenderOutputMixin {
     @Inject(method = "finish", at = @At("RETURN"))
     public void renderSubtractiveEffects(int pBackgroundColor, float pX, CallbackInfoReturnable<Float> cir) {
         if (malum$inverseEffects != null) {
-            BakedGlyph bakedglyph = ((AccessorFont) this).malum$getFontSet(Style.DEFAULT_FONT).whiteGlyph();
+            BakedGlyph bakedglyph = ((AccessorFont) this$0).malum$getFontSet(Style.DEFAULT_FONT).whiteGlyph();
             RenderType subtractiveType = ((SubtractiveTextGlyphRenderTypes) (Object) ((AccessorBakedGlyph) bakedglyph).malum$getRenderTypes()).malum$getSubtractiveType();
             VertexConsumer vertexconsumer = bufferSource.getBuffer(subtractiveType);
 

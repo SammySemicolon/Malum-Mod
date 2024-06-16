@@ -145,7 +145,7 @@ public class TouchOfDarknessHandler {
         }
         //REJECTION
         if (isInTheGoop) {
-            if (!(livingEntity instanceof Player player) || (!player.isCreative() && !player.isSpectator())) {
+            if (!(livingEntity instanceof Player player) || (!player.isSpectator())) {
                 handler.progressToRejection++;
                 if (!level.isClientSide) {
                     if (livingEntity instanceof Player && level.getGameTime() % 6L == 0) {

@@ -1,4 +1,4 @@
-package com.sammy.malum.mixin;
+package com.sammy.malum.mixin.client;
 
 import com.sammy.malum.registry.common.MobEffectRegistry;
 import net.minecraft.client.Minecraft;

@@ -1,4 +1,4 @@
-package com.sammy.malum.mixin;
+package com.sammy.malum.mixin.client;
 
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.font.FontSet;

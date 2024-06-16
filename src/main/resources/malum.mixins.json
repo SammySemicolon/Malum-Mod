@@ -4,7 +4,9 @@
   "compatibilityLevel": "JAVA_17",
   "mixins": [
     "EnderEyeItemMixin",
+    "AccessorFeatureFlagSet",
     "ExplosionMixin",
+    "FeatureFlagSetMixin",
     "FishingHookEntityMixin",
     "ItemStackMixin",
     "LivingEntityMixin",
@@ -12,15 +14,16 @@
     "SimpleCookingSerializerMixin"
   ],
   "client": [
-    "AccessorBakedGlyph",
-    "AccessorFont",
-    "ElytraLayerMixin",
-    "FontStringRenderOutputMixin",
-    "ForgeIngameGuiMixin",
+    "client.AccessorBakedGlyph",
+    "client.AccessorFont",
+    "client.ClientPacketListenerMixin",
+    "client.ElytraLayerMixin",
+    "client.FontStringRenderOutputMixin",
+    "client.ForgeIngameGuiMixin",
+    "client.GlyphRenderTypesMixin",
+    "client.LocalPlayerMixin",
     "GameRenderMixin",
-    "GlyphRenderTypesMixin",
     "GuiMixin",
-    "LocalPlayerMixin",
     "MinecraftMixin"
   ],
   "injectors": {
