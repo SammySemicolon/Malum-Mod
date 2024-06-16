@@ -1,4 +1,4 @@
-package com.sammy.malum.mixin;
+package com.sammy.malum.mixin.client;
 
 import com.sammy.malum.common.item.curiosities.curios.runes.madness.*;
 import net.minecraft.client.player.*;
