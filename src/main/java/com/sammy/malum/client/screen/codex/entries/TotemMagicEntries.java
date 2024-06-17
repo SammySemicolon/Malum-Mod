@@ -20,7 +20,7 @@ public class TotemMagicEntries {
         Item EMPTY = ItemStack.EMPTY.getItem();
 
         screen.addEntry("totem_magic", 0, 9, b -> b
-                .setWidgetConfig(w -> w.setIcon(RUNEWOOD_TOTEM_BASE).setStyle(BookWidgetStyle.GILDED_RUNEWOOD))
+                .configureWidget(w -> w.setIcon(RUNEWOOD_TOTEM_BASE).setStyle(BookWidgetStyle.GILDED_RUNEWOOD))
                 .addPage(new HeadlineTextItemPage("totem_magic", "totem_magic.1", RUNEWOOD_TOTEM_BASE.get()))
                 .addPage(new TextPage("totem_magic.2"))
                 .addPage(new TextPage("totem_magic.3"))
@@ -30,7 +30,7 @@ public class TotemMagicEntries {
         );
 
         screen.addEntry("managing_totems", 0, 10, b -> b
-                .setWidgetConfig(w -> w.setIcon(TOTEMIC_STAFF).setStyle(BookWidgetStyle.SMALL_RUNEWOOD))
+                .configureWidget(w -> w.setIcon(TOTEMIC_STAFF).setStyle(BookWidgetStyle.SMALL_RUNEWOOD))
                 .addPage(new HeadlineTextItemPage("managing_totems", "managing_totems.1", TOTEMIC_STAFF.get()))
                 .addPage(new TextPage("managing_totems.2"))
                 .addPage(new TextPage("managing_totems.3"))
@@ -42,7 +42,7 @@ public class TotemMagicEntries {
         );
 
         screen.addEntry("totemic_runes", -4, 15, b -> b
-                .setWidgetConfig(w -> w.setIcon(RUNE_OF_THE_ARENA).setStyle(BookWidgetStyle.SOULWOOD))
+                .configureWidget(w -> w.setIcon(RUNE_OF_THE_ARENA).setStyle(BookWidgetStyle.SOULWOOD))
                 .addPage(new HeadlineTextPage("totemic_runes", "totemic_runes.1"))
                 .addPage(new CyclingPage(
                         SpiritInfusionPage.fromOutput(RUNEWOOD_TABLET.get()),
@@ -62,7 +62,7 @@ public class TotemMagicEntries {
 
         screen.addEntry("sacred_rite", -2, 10, b -> b
                 .setWidgetSupplier(RiteEntryObject::new)
-                .setWidgetConfig(w -> w.setStyle(BookWidgetStyle.DARK_TOTEMIC_RUNEWOOD))
+                .configureWidget(w -> w.setStyle(BookWidgetStyle.DARK_TOTEMIC_RUNEWOOD))
                 .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.SACRED_RITE, "sacred_rite"))
                 .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.SACRED_RITE))
                 .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.ELDRITCH_SACRED_RITE, "greater_sacred_rite"))
@@ -71,7 +71,7 @@ public class TotemMagicEntries {
 
         screen.addEntry("corrupt_sacred_rite", -3, 10, b -> b
                 .setWidgetSupplier(RiteEntryObject::new)
-                .setWidgetConfig(w -> w.setStyle(BookWidgetStyle.DARK_TOTEMIC_SOULWOOD))
+                .configureWidget(w -> w.setStyle(BookWidgetStyle.DARK_TOTEMIC_SOULWOOD))
                 .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.SACRED_RITE, "corrupt_sacred_rite"))
                 .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.SACRED_RITE))
                 .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.ELDRITCH_SACRED_RITE, "corrupt_greater_sacred_rite"))
@@ -80,7 +80,7 @@ public class TotemMagicEntries {
 
         screen.addEntry("infernal_rite", -3, 11, b -> b
                 .setWidgetSupplier(RiteEntryObject::new)
-                .setWidgetConfig(w -> w.setStyle(BookWidgetStyle.DARK_TOTEMIC_RUNEWOOD))
+                .configureWidget(w -> w.setStyle(BookWidgetStyle.DARK_TOTEMIC_RUNEWOOD))
                 .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.INFERNAL_RITE, "infernal_rite"))
                 .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.INFERNAL_RITE))
                 .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.ELDRITCH_INFERNAL_RITE, "greater_infernal_rite"))
@@ -88,7 +88,7 @@ public class TotemMagicEntries {
         );
 
         screen.addEntry("corrupt_infernal_rite", -4, 11, b -> b
-                .setWidgetConfig(w -> w.setStyle(BookWidgetStyle.DARK_TOTEMIC_SOULWOOD))
+                .configureWidget(w -> w.setStyle(BookWidgetStyle.DARK_TOTEMIC_SOULWOOD))
                 .setWidgetSupplier(RiteEntryObject::new)
                 .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.INFERNAL_RITE, "corrupt_infernal_rite"))
                 .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.INFERNAL_RITE))
@@ -98,7 +98,7 @@ public class TotemMagicEntries {
 
         screen.addEntry("earthen_rite", -3, 12, b -> b
                 .setWidgetSupplier(RiteEntryObject::new)
-                .setWidgetConfig(w -> w.setStyle(BookWidgetStyle.DARK_TOTEMIC_RUNEWOOD))
+                .configureWidget(w -> w.setStyle(BookWidgetStyle.DARK_TOTEMIC_RUNEWOOD))
                 .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.EARTHEN_RITE, "earthen_rite"))
                 .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.EARTHEN_RITE))
                 .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.ELDRITCH_EARTHEN_RITE, "greater_earthen_rite"))
@@ -106,7 +106,7 @@ public class TotemMagicEntries {
         );
 
         screen.addEntry("corrupt_earthen_rite", -4, 12, b -> b
-                .setWidgetConfig(w -> w.setStyle(BookWidgetStyle.DARK_TOTEMIC_SOULWOOD))
+                .configureWidget(w -> w.setStyle(BookWidgetStyle.DARK_TOTEMIC_SOULWOOD))
                 .setWidgetSupplier(RiteEntryObject::new)
                 .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.EARTHEN_RITE, "corrupt_earthen_rite"))
                 .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.EARTHEN_RITE))
@@ -116,7 +116,7 @@ public class TotemMagicEntries {
 
         screen.addEntry("wicked_rite", 2, 10, b -> b
                 .setWidgetSupplier(RiteEntryObject::new)
-                .setWidgetConfig(w -> w.setStyle(BookWidgetStyle.DARK_TOTEMIC_RUNEWOOD))
+                .configureWidget(w -> w.setStyle(BookWidgetStyle.DARK_TOTEMIC_RUNEWOOD))
                 .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.WICKED_RITE, "wicked_rite"))
                 .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.WICKED_RITE))
                 .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.ELDRITCH_WICKED_RITE, "greater_wicked_rite"))
@@ -124,7 +124,7 @@ public class TotemMagicEntries {
         );
 
         screen.addEntry("corrupt_wicked_rite", 3, 10, b -> b
-                .setWidgetConfig(w -> w.setStyle(BookWidgetStyle.DARK_TOTEMIC_SOULWOOD))
+                .configureWidget(w -> w.setStyle(BookWidgetStyle.DARK_TOTEMIC_SOULWOOD))
                 .setWidgetSupplier(RiteEntryObject::new)
                 .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.WICKED_RITE, "corrupt_wicked_rite"))
                 .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.WICKED_RITE))
@@ -134,7 +134,7 @@ public class TotemMagicEntries {
 
         screen.addEntry("aerial_rite", 3, 11, b -> b
                 .setWidgetSupplier(RiteEntryObject::new)
-                .setWidgetConfig(w -> w.setStyle(BookWidgetStyle.DARK_TOTEMIC_RUNEWOOD))
+                .configureWidget(w -> w.setStyle(BookWidgetStyle.DARK_TOTEMIC_RUNEWOOD))
                 .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.AERIAL_RITE, "aerial_rite"))
                 .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.AERIAL_RITE))
                 .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.ELDRITCH_AERIAL_RITE, "greater_aerial_rite"))
@@ -142,7 +142,7 @@ public class TotemMagicEntries {
         );
 
         screen.addEntry("corrupt_aerial_rite", 4, 11, b -> b
-                .setWidgetConfig(w -> w.setStyle(BookWidgetStyle.DARK_TOTEMIC_SOULWOOD))
+                .configureWidget(w -> w.setStyle(BookWidgetStyle.DARK_TOTEMIC_SOULWOOD))
                 .setWidgetSupplier(RiteEntryObject::new)
                 .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.AERIAL_RITE, "corrupt_aerial_rite"))
                 .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.AERIAL_RITE))
@@ -152,7 +152,7 @@ public class TotemMagicEntries {
 
         screen.addEntry("aqueous_rite", 3, 12, b -> b
                 .setWidgetSupplier(RiteEntryObject::new)
-                .setWidgetConfig(w -> w.setStyle(BookWidgetStyle.DARK_TOTEMIC_RUNEWOOD))
+                .configureWidget(w -> w.setStyle(BookWidgetStyle.DARK_TOTEMIC_RUNEWOOD))
                 .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.AQUEOUS_RITE, "aqueous_rite"))
                 .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.AQUEOUS_RITE))
                 .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.ELDRITCH_AQUEOUS_RITE, "greater_aqueous_rite"))
@@ -160,7 +160,7 @@ public class TotemMagicEntries {
         );
 
         screen.addEntry("corrupt_aqueous_rite", 4, 12, b -> b
-                .setWidgetConfig(w -> w.setStyle(BookWidgetStyle.DARK_TOTEMIC_SOULWOOD))
+                .configureWidget(w -> w.setStyle(BookWidgetStyle.DARK_TOTEMIC_SOULWOOD))
                 .setWidgetSupplier(RiteEntryObject::new)
                 .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.AQUEOUS_RITE, "corrupt_aqueous_rite"))
                 .addPage(new SpiritRiteRecipePage(SpiritRiteRegistry.AQUEOUS_RITE))
@@ -170,7 +170,7 @@ public class TotemMagicEntries {
 
         screen.addEntry("arcane_rite", 0, 11, b -> b
                 .setWidgetSupplier(RiteEntryObject::new)
-                .setWidgetConfig(w -> w.setStyle(BookWidgetStyle.DARK_TOTEMIC_RUNEWOOD))
+                .configureWidget(w -> w.setStyle(BookWidgetStyle.DARK_TOTEMIC_RUNEWOOD))
                 .addPage(new HeadlineTextPage("arcane_rite", "arcane_rite.description.1"))
                 .addPage(new TextPage("arcane_rite.description.2"))
                 .addPage(new SpiritRiteTextPage(SpiritRiteRegistry.ARCANE_RITE, "arcane_rite"))
@@ -183,7 +183,7 @@ public class TotemMagicEntries {
         );
 
         screen.addEntry("blight", -1, 12, b -> b
-                .setWidgetConfig(w -> w.setIcon(BLIGHTED_GUNK).setStyle(BookWidgetStyle.SMALL_SOULWOOD))
+                .configureWidget(w -> w.setIcon(BLIGHTED_GUNK).setStyle(BookWidgetStyle.SMALL_SOULWOOD))
                 .addPage(new HeadlineTextPage("blight.intro", "blight.intro.1"))
                 .addPage(new HeadlineTextPage("blight.composition", "blight.composition.1"))
                 .addPage(new HeadlineTextPage("blight.spread", "blight.spread.1"))
@@ -191,7 +191,7 @@ public class TotemMagicEntries {
         );
 
         screen.addEntry("soulwood", 1, 12, b -> b
-                .setWidgetConfig(w -> w.setIcon(SOULWOOD_GROWTH).setStyle(BookWidgetStyle.SMALL_SOULWOOD))
+                .configureWidget(w -> w.setIcon(SOULWOOD_GROWTH).setStyle(BookWidgetStyle.SMALL_SOULWOOD))
                 .addPage(new HeadlineTextPage("soulwood.intro", "soulwood.intro.1"))
                 .addPage(new HeadlineTextPage("soulwood.bonemeal", "soulwood.bonemeal.1"))
                 .addPage(new HeadlineTextPage("soulwood.color", "soulwood.color.1"))
@@ -199,7 +199,7 @@ public class TotemMagicEntries {
                 .addPage(new HeadlineTextPage("soulwood.sap", "soulwood.sap.1"))
         );
         screen.addEntry("transmutation", 0, 13, b -> b
-                .setWidgetConfig(w -> w.setIcon(SOUL_SAND).setStyle(BookWidgetStyle.SOULWOOD))
+                .configureWidget(w -> w.setIcon(SOUL_SAND).setStyle(BookWidgetStyle.SOULWOOD))
                 .addPage(new HeadlineTextPage("transmutation", "transmutation.intro.1"))
                 .addPage(new TextPage("transmutation.intro.2"))
                 .addPage(new SpiritTransmutationRecipeTreePage("transmutation.stone", STONE))

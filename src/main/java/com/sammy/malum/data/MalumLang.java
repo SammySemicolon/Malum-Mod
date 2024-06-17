@@ -315,6 +315,10 @@ public class MalumLang extends LanguageProvider {
                 "I now know the arcana have physical properties with meaning. I can use these properties to create a staff, and likely for many more things. But Soulstone and Brilliance... as far as I can tell, for every other base material relevant to the arcana save Runewood I work with, there are either spirit crystals fused within or patterned in the structure.",
                 "The fact that Null Slate is physically identical to Soulstone implies a greater principle. I posit that Soulstone and Brilliance have similar fundamental resonances to the arcana, structures of inherent power at a precision far beyond what I can measure. This implies interaction with the arcane is simply... a quirk of an object's topology? I don't know how I would replicate it myself, but if I can...");
 
+        addSimpleEntryHeader("fragment.void.black_crystal", "Scribbled notes", "Incomprehensible");
+        addPages("fragment.void.black_crystal",
+            italic("You attempt to read the entry, but the text seems to slide off the eyes, escaping from your mind every time you grasp it. What little fragments stick with you form an impression of something besides these materials being cast into the Well..."));
+
         addSimpleEntryHeader("void.black_crystal", "A Black Crystal", "A mistake, or a boon?");
         addPages("void.black_crystal",
                 "Well, I now know what happens when a living being, or at least, a sapient one, enters the Well.",
@@ -322,6 +326,7 @@ public class MalumLang extends LanguageProvider {
                 "I was spat out by what I now know is liquid, much like the items I have thrown in. Further tests with monsters and cattle showed they do " + italic("not") + " get rejected, simply seeming to vanish into the pool, and I see no reason to waste resources to test that exhaustively. Especially with my attention set on what came back out with me.",
                 "As if I had shattered a soul - and considering mine was the only one present, that is a concerning possibility, though all readings of myself I have taken are within tolerances - a black spirit crystal emerged from the Well alongside me, which I collected. Does this herald a ninth arcana? If so, what impulse does it represent? This will need more study.");
 
+        addSimpleEntryHeader("fragment.void.umbral_arcana", "Strange equations", "Assuming an absence of existence...");
         addSimpleEntryHeader("void.umbral_arcana", "Umbral Arcana", "Utter impossibility");
         addPages("void.umbral_arcana",
                 "I do not understand this arcana. What is it? It isn't any of the eight I know, and barely seems like one at all... yet a spirit crystal it remains. It can be contained in jars like the others, shares many of the same properties... But there is one deep and fundamental difference.",
@@ -330,6 +335,7 @@ public class MalumLang extends LanguageProvider {
                 "And yet, despite being a void, it is power. Or perhaps the lack of power creates a pressure differential? I am not certain. Either way, it can be used. Infused, in theory, even, although that is hard to wrap my head around. It acts like matter, but is not. It is power, and the absence of it.",
                 "My research into this arcana must continue. It has to. If anything holds the secrets of achieving the pinnacle of thaumaturgy, it is this paradoxical void. And I will grasp it with both hands.");
 
+        addEntryHeader("fragment.void.inverse_and_hybrid_arcana", "A failed experiment", "An attempt to create something new?");
         addEntryHeader("void.inverse_and_hybrid_arcana", "Inverse and Hybrid Arcana?", "Failed theories");
         addHeadline("void.inverse_and_hybrid_arcana", "Theoretical Arcana");
         addPages("void.inverse_and_hybrid_arcana",

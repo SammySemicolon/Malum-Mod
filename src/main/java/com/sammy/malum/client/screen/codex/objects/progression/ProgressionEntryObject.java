@@ -1,17 +1,22 @@
 package com.sammy.malum.client.screen.codex.objects.progression;
 
-import com.mojang.blaze3d.vertex.*;
-import com.sammy.malum.client.screen.codex.*;
-import com.sammy.malum.client.screen.codex.objects.*;
-import com.sammy.malum.client.screen.codex.screens.*;
-import net.minecraft.ChatFormatting;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.sammy.malum.client.screen.codex.ArcanaCodexHelper;
+import com.sammy.malum.client.screen.codex.BookEntry;
+import com.sammy.malum.client.screen.codex.BookWidgetStyle;
+import com.sammy.malum.client.screen.codex.objects.BookObject;
+import com.sammy.malum.client.screen.codex.screens.AbstractProgressionCodexScreen;
+import com.sammy.malum.client.screen.codex.screens.EntryScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 
-import java.util.*;
-import java.util.function.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.function.Predicate;
+import java.util.function.Supplier;
 
 import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.renderTexture;
 
@@ -29,12 +34,14 @@ public class ProgressionEntryObject extends BookObject<AbstractProgressionCodexS
 
     @Override
     public boolean isValid(AbstractProgressionCodexScreen screen) {
-        return isValid.test(screen);
+        return isValid.test(screen) && entry.shouldShow();
     }
 
     @Override
     public void click(AbstractProgressionCodexScreen screen, double mouseX, double mouseY) {
-        EntryScreen.openScreen(screen, this);
+        if (entry.hasContents()) {
+            EntryScreen.openScreen(screen, this);
+        }
     }
 
     @Override
@@ -52,10 +59,10 @@ public class ProgressionEntryObject extends BookObject<AbstractProgressionCodexS
 
     @Override
     public void renderLate(AbstractProgressionCodexScreen screen, GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
-        if (isHoveredOver) {
+        if (isHoveredOver && entry.hasTooltip()) {
             final List<Component> list = Arrays.asList(
-                ArcanaCodexHelper.convertToComponent(entry.translationKey()),
-                ArcanaCodexHelper.convertToComponent(entry.descriptionTranslationKey(), (style) -> style.withColor(ChatFormatting.GRAY)));
+                ArcanaCodexHelper.convertToComponent(entry.translationKey(), entry.titleStyle),
+                ArcanaCodexHelper.convertToComponent(entry.descriptionTranslationKey(), entry.subtitleStyle));
             guiGraphics.renderComponentTooltip(Minecraft.getInstance().font, list, mouseX, mouseY);
         }
     }

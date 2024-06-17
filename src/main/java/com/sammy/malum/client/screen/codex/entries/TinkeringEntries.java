@@ -17,7 +17,7 @@ public class TinkeringEntries {
         Item EMPTY = ItemStack.EMPTY.getItem();
 
         screen.addEntry("spirit_metals", -3, 6, b -> b
-                .setWidgetConfig(w -> w.setIcon(SOUL_STAINED_STEEL_INGOT))
+                .configureWidget(w -> w.setIcon(SOUL_STAINED_STEEL_INGOT))
                 .addPage(new HeadlineTextItemPage("spirit_metals.soulstained_steel", "spirit_metals.soulstained_steel.1", SOUL_STAINED_STEEL_INGOT.get()))
                 .addPage(new TextPage("spirit_metals.soulstained_steel.2"))
                 .addPage(SpiritInfusionPage.fromOutput(SOUL_STAINED_STEEL_INGOT.get()))
@@ -43,13 +43,13 @@ public class TinkeringEntries {
         );
 
         screen.addEntry("soulstained_scythe", -4, 5, b -> b
-                .setWidgetConfig(w -> w.setIcon(SOUL_STAINED_STEEL_SCYTHE))
+                .configureWidget(w -> w.setIcon(SOUL_STAINED_STEEL_SCYTHE))
                 .addPage(new HeadlineTextPage("soulstained_scythe", "soulstained_scythe.1"))
                 .addPage(SpiritInfusionPage.fromOutput(SOUL_STAINED_STEEL_SCYTHE.get()))
         );
 
         screen.addEntry("soulstained_armor", -4, 7, b -> b
-                .setWidgetConfig(w -> w.setIcon(SOUL_STAINED_STEEL_HELMET))
+                .configureWidget(w -> w.setIcon(SOUL_STAINED_STEEL_HELMET))
                 .addPage(new HeadlineTextPage("soulstained_armor", "soulstained_armor.1"))
                 .addPage(new TextPage("soulstained_armor.2"))
                 .addPage(new TextPage("soulstained_armor.3"))
@@ -63,7 +63,7 @@ public class TinkeringEntries {
         );
 
         screen.addEntry("spirit_trinkets", -5, 6, b -> b
-                .setWidgetConfig(w -> w.setIcon(ORNATE_RING))
+                .configureWidget(w -> w.setIcon(ORNATE_RING))
                 .addPage(new HeadlineTextPage("spirit_trinkets", "spirit_trinkets.1"))
                 .addPage(new TextPage("spirit_trinkets.2"))
                 .addPage(CraftingPage.ringPage(GILDED_RING.get(), HALLOWED_GOLD_INGOT.get()))
@@ -73,7 +73,7 @@ public class TinkeringEntries {
         );
 
         screen.addEntry("reactive_trinkets", -7, 6, b -> b
-                .setWidgetConfig(w -> w.setIcon(RING_OF_CURATIVE_TALENT))
+                .configureWidget(w -> w.setIcon(RING_OF_CURATIVE_TALENT))
                 .addPage(new HeadlineTextPage("reactive_trinkets.ring_of_curative_talent", "reactive_trinkets.ring_of_curative_talent.1"))
                 .addPage(SpiritInfusionPage.fromOutput(RING_OF_CURATIVE_TALENT.get()))
                 .addPage(new HeadlineTextPage("reactive_trinkets.ring_of_alchemical_mastery", "reactive_trinkets.ring_of_alchemical_mastery.1"))
@@ -88,13 +88,13 @@ public class TinkeringEntries {
         );
 
         screen.addEntry("ring_of_esoteric_spoils", -9, 5, b -> b
-                .setWidgetConfig(w -> w.setIcon(RING_OF_ESOTERIC_SPOILS))
+                .configureWidget(w -> w.setIcon(RING_OF_ESOTERIC_SPOILS))
                 .addPage(new HeadlineTextPage("ring_of_esoteric_spoils", "ring_of_esoteric_spoils.1"))
                 .addPage(SpiritInfusionPage.fromOutput(RING_OF_ESOTERIC_SPOILS.get()))
         );
 
         screen.addEntry("belt_of_the_starved",-8, 7, b -> b
-                .setWidgetConfig(w -> w.setIcon(BELT_OF_THE_STARVED))
+                .configureWidget(w -> w.setIcon(BELT_OF_THE_STARVED))
                 .addPage(new HeadlineTextPage("belt_of_the_starved", "belt_of_the_starved.1"))
                 .addPage(SpiritInfusionPage.fromOutput(BELT_OF_THE_STARVED.get()))
                 .addPage(new TextPage("belt_of_the_starved.2"))
@@ -107,13 +107,13 @@ public class TinkeringEntries {
         );
 
         screen.addEntry("necklace_of_the_narrow_edge", -7, 8, b -> b
-                .setWidgetConfig(w -> w.setIcon(NECKLACE_OF_THE_NARROW_EDGE))
+                .configureWidget(w -> w.setIcon(NECKLACE_OF_THE_NARROW_EDGE))
                 .addPage(new HeadlineTextPage("necklace_of_the_narrow_edge", "necklace_of_the_narrow_edge.1"))
                 .addPage(SpiritInfusionPage.fromOutput(NECKLACE_OF_THE_NARROW_EDGE.get()))
         );
 
         screen.addEntry("belt_of_the_prospector", -6, 5, b -> b
-                .setWidgetConfig(w -> w.setIcon(BELT_OF_THE_PROSPECTOR))
+                .configureWidget(w -> w.setIcon(BELT_OF_THE_PROSPECTOR))
                 .addPage(new HeadlineTextPage("belt_of_the_prospector", "belt_of_the_prospector.1"))
                 .addPage(SpiritInfusionPage.fromOutput(BELT_OF_THE_PROSPECTOR.get()))
                 .addReference(new EntryReference(
@@ -131,21 +131,21 @@ public class TinkeringEntries {
         );
 
         screen.addEntry("necklace_of_blissful_harmony", -7, 4, b -> b
-                .setWidgetConfig(w -> w.setIcon(NECKLACE_OF_BLISSFUL_HARMONY))
+                .configureWidget(w -> w.setIcon(NECKLACE_OF_BLISSFUL_HARMONY))
                 .addPage(new HeadlineTextPage("necklace_of_blissful_harmony", "necklace_of_blissful_harmony.1"))
                 .addPage(SpiritInfusionPage.fromOutput(NECKLACE_OF_BLISSFUL_HARMONY.get()))
                 .addPage(new TextPage("necklace_of_blissful_harmony.2"))
         );
 
         screen.addEntry("belt_of_the_magebane", -5, 14, b -> b
-                .setWidgetConfig(w -> w.setStyle(BookWidgetStyle.SOULWOOD).setIcon(BELT_OF_THE_MAGEBANE))
+                .configureWidget(w -> w.setStyle(BookWidgetStyle.SOULWOOD).setIcon(BELT_OF_THE_MAGEBANE))
                 .addPage(new HeadlineTextPage("belt_of_the_magebane", "belt_of_the_magebane.1"))
                 .addPage(new TextPage("belt_of_the_magebane.2"))
                 .addPage(SpiritInfusionPage.fromOutput(BELT_OF_THE_MAGEBANE.get()))
         );
 
         screen.addEntry("tyrving", -3, 16, b -> b
-                .setWidgetConfig(w -> w.setStyle(BookWidgetStyle.SOULWOOD).setIcon(TYRVING))
+                .configureWidget(w -> w.setStyle(BookWidgetStyle.SOULWOOD).setIcon(TYRVING))
                 .addPage(new HeadlineTextPage("tyrving", "tyrving.1"))
                 .addPage(SpiritInfusionPage.fromOutput(TYRVING.get()))
                 .addPage(new TextPage("tyrving.2"))
