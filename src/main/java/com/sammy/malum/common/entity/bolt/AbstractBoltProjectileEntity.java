@@ -89,7 +89,7 @@ public abstract class AbstractBoltProjectileEntity extends ThrowableItemProjecti
             fadingAway = entityData.get(DATA_FADING_AWAY);
             if (fadingAway) {
                 age = getMaxAge() - 10;
-                setDeltaMovement(getDeltaMovement().scale(0.05f));
+                setDeltaMovement(getDeltaMovement().scale(0.02f));
             }
         }
         if (DATA_SPAWN_DELAY.equals(pKey)) {
@@ -134,9 +134,9 @@ public abstract class AbstractBoltProjectileEntity extends ThrowableItemProjecti
             getImpactParticleEffect().createPositionedEffect((ServerLevel) level(), new PositionEffectData(position().add(getDeltaMovement().scale(0.25f))), new ColorEffectData(SpiritTypeRegistry.WICKED_SPIRIT), HexBoltImpactParticleEffect.createData(getDeltaMovement().reverse().normalize()));
             playSound(SoundRegistry.STAFF_STRIKES.get(), 0.5f, Mth.nextFloat(random, 0.9F, 1.5F));
             getEntityData().set(DATA_FADING_AWAY, true);
-            Vec3 vec3 = pResult.getLocation().subtract(position());
-            Vec3 vec31 = vec3.normalize().scale(0.5f);
-            this.setPosRaw(getX() - vec31.x, getY() - vec31.y, getZ() - vec31.z);
+            Vec3 direction = pResult.getLocation().subtract(position());
+            Vec3 offset = direction.normalize().scale(0.5f);
+            this.setPosRaw(getX() - offset.x, getY() - offset.y, getZ() - offset.z);
         }
         super.onHitBlock(pResult);
     }

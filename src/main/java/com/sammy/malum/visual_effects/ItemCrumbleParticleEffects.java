@@ -42,7 +42,10 @@ public class ItemCrumbleParticleEffects {
     }
 
     public static WorldParticleBuilder makeCrumbs(RandomSource rand, ItemStack stack, SpinParticleData spinData, int lifetime, Consumer<LodestoneWorldParticle> slowDown) {
-        return WorldParticleBuilder.create(new LodestoneItemCrumbsParticleOptions(LodestoneParticleRegistry.ITEM_PARTICLE.get(), stack))
+        var options = new LodestoneItemCrumbsParticleOptions(LodestoneParticleRegistry.ITEM_PARTICLE.get(), stack);
+
+
+        return WorldParticleBuilder.create(options)
                 .setSpinData(spinData)
                 .setTransparencyData(GenericParticleData.create(0.5f, 1f, 0.25f).setEasing(Easing.EXPO_IN, Easing.SINE_IN_OUT).build())
                 .setScaleData(GenericParticleData.create(0.05f, RandomHelper.randomBetween(rand, 0.06f, 0.07f), 0f).build())
