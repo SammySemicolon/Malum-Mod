@@ -73,6 +73,7 @@ public class DrainingBoltImpactParticleEffect extends ParticleEffectType {
                 if (random.nextFloat() < 0.8f) {
                     var lightSpecs = spiritLightSpecs(level, spawnPosition, malignantColorData);
                     lightSpecs.getBuilder()
+                            .disableNoClip()
                             .multiplyLifetime(lifetimeMultiplier)
                             .setRenderType(LodestoneWorldParticleRenderType.LUMITRANSPARENT)
                             .enableForcedSpawn()
@@ -80,6 +81,7 @@ public class DrainingBoltImpactParticleEffect extends ParticleEffectType {
                             .modifyData(AbstractParticleBuilder::getScaleData, d -> d.multiplyValue(1.75f))
                             .setMotion(direction);
                     lightSpecs.getBloomBuilder()
+                            .disableNoClip()
                             .multiplyLifetime(lifetimeMultiplier)
                             .setRenderType(LodestoneWorldParticleRenderType.LUMITRANSPARENT)
                             .modifyColorData(d -> d.multiplyCoefficient(1.25f))
@@ -90,6 +92,7 @@ public class DrainingBoltImpactParticleEffect extends ParticleEffectType {
                 if (random.nextFloat() < 0.8f) {
                     var sparks = SparkParticleEffects.spiritMotionSparks(level, spawnPosition, malignantColorData);
                     sparks.getBuilder()
+                            .disableNoClip()
                             .multiplyLifetime(lifetimeMultiplier)
                             .setRenderType(LodestoneWorldParticleRenderType.LUMITRANSPARENT)
                             .enableForcedSpawn()
@@ -98,6 +101,7 @@ public class DrainingBoltImpactParticleEffect extends ParticleEffectType {
                             .modifyDataOptional(b -> b.getBehaviorData(SparkBehaviorComponent.class, SparkBehaviorComponent::getLengthData), d -> d.multiplyValue(3f))
                             .setMotion(direction.scale(1.5f));
                     sparks.getBloomBuilder()
+                            .disableNoClip()
                             .multiplyLifetime(lifetimeMultiplier)
                             .setRenderType(LodestoneWorldParticleRenderType.LUMITRANSPARENT)
                             .modifyColorData(d -> d.multiplyCoefficient(1.25f))

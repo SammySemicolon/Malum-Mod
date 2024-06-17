@@ -367,7 +367,7 @@ public class MalumLang extends LanguageProvider {
         addHeadline("void.malignant_stronghold_armor", "The Malignant Stronghold");
         addPages("void.malignant_stronghold_armor",
                 "Malignant Pewter rejects magic, and as such, wearing it might seem an odd choice for a mage. And yet, it is " + italic("because") + " I am a mage that the Stronghold Armor I have made is so potent. It stands as an inverse to the Soulstained Steel armor beneath the Pewter plating - my soul is unwarded, but I am certainly not.",
-                "In unraveling magic, energy still remains. While worn, the armor will react to that energy, growing stronger alongside it. Any strictly defensive or offensive magical attribute that normally would be inscribed upon my soul is instead absorbed by the metal, granting armor and magic resistance bonuses. The metal seems to have a soft spot for magic proficiency though, only absorbing half as much.");
+                "In unraveling magic, energy still remains. While worn, the armor will react to that energy, growing stronger alongside it. Any strictly defensive or offensive magical attribute to be inscribed upon my soul is instead absorbed by the metal, granting armor and magic resistance bonuses. The only unique case I've found is magic proficiency, which the metal absorbs half as much.");
 
         addSimpleEntryHeader("void.weight_of_worlds", "The Weight of Worlds", "Existential burdens externalized");
         addPages("void.weight_of_worlds",
@@ -1018,7 +1018,7 @@ public class MalumLang extends LanguageProvider {
 
         addSimpleEntryHeader("belt_of_the_magebane", "Belt of the Magebane", "Newfound ruin");
         addPages("belt_of_the_magebane", "The Belt of the Magebane is a simple innovation, but a dangerously effective one. Normally, after being struck by any attack, soul ward will not recover until a long moment after. That moment of downtime has proven itself detrimental far too frequently. But that ends now.",
-                "While worn, the belt provides a substantial bonus to soul ward recovery rate, while also improving capacity slightly. Furthermore, the belt will absorb the arcane essence of any instance of magical damage that strikes its bearer, converting that repurposed energy into immediate recovery of my wards.");
+                "While worn, the belt provides a substantial bonus to soul ward recovery rate, while also improving capacity slightly. Furthermore, the belt will absorb the arcane essence of any instance of magical damage that strikes its bearer, converting that repurposed energy into immediate recovery of soul ward.");
 
         addSimpleEntryHeader("the_device", "The Device.", "microwave to recharge");
         addPage("the_device", "even works while bended");
