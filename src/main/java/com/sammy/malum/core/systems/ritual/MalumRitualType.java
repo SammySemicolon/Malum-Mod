@@ -7,11 +7,9 @@ import net.minecraft.*;
 import net.minecraft.nbt.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.resources.*;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.*;
+import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
-import team.lodestar.lodestone.helpers.*;
 
 import java.util.*;
 import java.util.function.*;
@@ -71,7 +69,7 @@ public abstract class MalumRitualType {
         List<Component> tooltip = new ArrayList<>();
         var spiritStyleModifier = spirit.getItemRarity().getStyleModifier();
         tooltip.add(Component.translatable(translationIdentifier()).withStyle(spiritStyleModifier));
-        tooltip.add(makeDescriptorComponent("malum.gui.rite_effect", "malum.gui.book.entry.page.text." + identifier + ".hover"));
+        tooltip.add(makeDescriptorComponent("malum.gui.rite.effect", "malum.gui.book.entry.page.text." + identifier + ".hover"));
         return tooltip;
     }
 

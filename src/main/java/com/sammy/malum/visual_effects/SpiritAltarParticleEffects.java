@@ -86,7 +86,7 @@ public class SpiritAltarParticleEffects {
         }
     }
 
-    public static void eatItemParticles(SpiritAltarBlockEntity altar, MalumItemHolderBlockEntity holder, ColorEffectData colorData, ItemStack stack) {
+    public static void eatItemParticles(SpiritAltarBlockEntity altar, IMalumSpecialItemAccessPoint holder, ColorEffectData colorData, ItemStack stack) {
         MalumSpiritType activeSpiritType = getCentralSpiritType(altar);
         if (activeSpiritType == null) {
             return;
@@ -121,9 +121,11 @@ public class SpiritAltarParticleEffects {
             lightSpecs.spawnParticles();
 
             var crumbles = ItemCrumbleParticleEffects.spawnItemCrumbs(level, holderTargetPos, stack);
-            crumbles.getBuilder().setLifeDelay(i).addTickActor(behavior);
+            crumbles.getBuilder()
+                    .setLifeDelay(i)
+                    .addTickActor(behavior);
             crumbles.spawnParticles();
-            crumbles.getBuilder().setRandomOffset(0.2f).getScaleData();
+            crumbles.getBuilder().setRandomOffset(0.2f);
             crumbles.spawnParticles();
         }
     }

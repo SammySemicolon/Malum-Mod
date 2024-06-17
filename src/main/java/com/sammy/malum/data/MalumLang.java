@@ -133,9 +133,13 @@ public class MalumLang extends LanguageProvider {
         add("malum.gui.augment.type.augment", "Augment");
         add("malum.gui.augment.type.core_augment", "Core Augment");
 
-
         add("malum.gui.rite.type", "Type: ");
+        add("malum.gui.rite.medium", "Polarity: ");
         add("malum.gui.rite.coverage", "Coverage: ");
+        add("malum.gui.rite.effect", "Effect: ");
+
+        add("malum.gui.rite.medium.runewood", "Runewood");
+        add("malum.gui.rite.medium.soulwood", "Soulwood");
 
         addRiteEffectCategory(TotemicRiteEffect.MalumRiteEffectCategory.AURA);
         addRiteEffectCategory(TotemicRiteEffect.MalumRiteEffectCategory.LIVING_ENTITY_EFFECT);
@@ -216,8 +220,6 @@ public class MalumLang extends LanguageProvider {
         add("malum.gui.curio.effect.spirits_gluttony", "Spirit Collection Generates Gluttony");
         add("malum.gui.curio.effect.enchanted_explosions", "Explosions are Enchanted with %s");
         add("malum.gui.curio.effect.explosions_spare_valuables", "Protects Valuable Items from Explosions");
-
-        add("malum.gui.rite_effect", "Effect: ");
 
         addSimpleEntryHeader("chronicles_of_the_void", "Chronicles of the Void", "A magecraft of madness");
         addSimpleEntryHeader("chronicles_of_the_soul", "Chronicles of the Soul", "A magecraft of miracles");
@@ -590,10 +592,10 @@ public class MalumLang extends LanguageProvider {
                 "However, by heating the catalyst through mystic means, you can lessen this rejection and speed up the coalescence at once. That is what the Spirit Catalyzer is for. Unfortunately, this is not perfect, and instability often causes the catalyst to be damaged more than strictly necessary.",
                 "Each fueled Catalyzer nearby to a Crucible will amplify the speed of the focusing process, up to a maximum of eight. Unfortunately, the risk of instability proportionally rises with each one, resulting in your impetus potentially receiving more damage than necessary.");
 
-        addSimpleEntryHeader("arcane_restoration", "Arcane Restoration", "Mystic repair");
+        addSimpleEntryHeader("arcane_restoration", "Arcane Restoration", "[Boiler] Mystic repair");
         addPages("arcane_restoration",
-                "The Spirit Crucible allows the transmutation of matter. I have been able to use it to break down an impetus, and it stands to reason I could use it to restore one. By using spirit crystals in the Crucible instead of Brilliance in an anvil, I can do more than that - I can restore nearly anything.",
-                "Every metal and make of tool or armor requires its own set of spirits to repair, and its own repair material. For an Impetus, the repair material " + italic("is") + " the spirits instead. The repair material must be placed on a Twisted Tablet facing the Crucible. Once the spirits coalesce, the item will be repaired somewhat.",
+                "[Boiler] Things used in teh spirit crucible break eventually, this sucks, I need my impetus to not be cracked in order to use it and whatnot.",
+                "I've designed a machine known as the repair pylon, capable of repairing nearly any nearby damaged item using a combination of spirits and a repair ingredient, no experience needed.",
                 "It appears that materials in tune with spirit arcana, such as Soulstained Steel or Hallowed Gold, are more efficient in this process. They will be repaired more than their mundane counterparts would for the same cost.");
 
         addSimpleEntryHeader("crucible_augmentation", "Crucible Augmentation", "Tuning the attuner");

@@ -14,6 +14,7 @@ import team.lodestar.lodestone.systems.particle.builder.*;
 import team.lodestar.lodestone.systems.particle.data.*;
 import team.lodestar.lodestone.systems.particle.data.spin.*;
 import team.lodestar.lodestone.systems.particle.world.*;
+import team.lodestar.lodestone.systems.particle.world.behaviors.components.*;
 import team.lodestar.lodestone.systems.particle.world.options.*;
 
 import java.util.function.*;
@@ -43,8 +44,6 @@ public class ItemCrumbleParticleEffects {
 
     public static WorldParticleBuilder makeCrumbs(RandomSource rand, ItemStack stack, SpinParticleData spinData, int lifetime, Consumer<LodestoneWorldParticle> slowDown) {
         var options = new LodestoneItemCrumbsParticleOptions(LodestoneParticleRegistry.ITEM_PARTICLE.get(), stack);
-
-
         return WorldParticleBuilder.create(options)
                 .setSpinData(spinData)
                 .setTransparencyData(GenericParticleData.create(0.5f, 1f, 0.25f).setEasing(Easing.EXPO_IN, Easing.SINE_IN_OUT).build())
@@ -53,5 +52,9 @@ public class ItemCrumbleParticleEffects {
                 .setDiscardFunction(SimpleParticleOptions.ParticleDiscardFunctionType.ENDING_CURVE_INVISIBLE)
                 .setRenderType(ParticleRenderType.TERRAIN_SHEET)
                 .addTickActor(slowDown);
+    }
+
+    public static LodestoneBehaviorComponent makeCrumbParticleBehavior(Level level) {
+        return level.getRandom().nextBoolean() ? new BedrockDirectionalBehaviorComponent() : null;
     }
 }

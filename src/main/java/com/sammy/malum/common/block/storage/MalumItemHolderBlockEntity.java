@@ -50,4 +50,6 @@ public abstract class MalumItemHolderBlockEntity extends ItemHolderBlockEntity i
             }
         }
     }
+
+    public abstract Vec3 getItemOffset(float partialTicks);
 }
