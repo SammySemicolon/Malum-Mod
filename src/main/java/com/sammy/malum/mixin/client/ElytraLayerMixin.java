@@ -1,4 +1,4 @@
-package com.sammy.malum.mixin;
+package com.sammy.malum.mixin.client;
 
 import net.minecraft.client.renderer.entity.layers.ElytraLayer;
 import net.minecraft.resources.ResourceLocation;

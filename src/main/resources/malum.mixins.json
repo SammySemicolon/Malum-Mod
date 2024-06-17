@@ -5,19 +5,22 @@
   "refmap": "malum.refmap.json",
   "mixins": [
     "EnderEyeItemMixin",
+    "AccessorFeatureFlagSet",
     "ExplosionMixin",
+    "FeatureFlagSetMixin",
     "FishingHookEntityMixin",
     "ItemStackMixin",
     "PlayerMixin"
   ],
   "client": [
-    "AccessorBakedGlyph",
-    "AccessorFont",
-    "ElytraLayerMixin",
-    "FontStringRenderOutputMixin",
-    "ForgeIngameGuiMixin",
-    "GlyphRenderTypesMixin",
-    "LocalPlayerMixin"
+    "client.AccessorBakedGlyph",
+    "client.AccessorFont",
+    "client.ClientPacketListenerMixin",
+    "client.ElytraLayerMixin",
+    "client.FontStringRenderOutputMixin",
+    "client.ForgeIngameGuiMixin",
+    "client.GlyphRenderTypesMixin",
+    "client.LocalPlayerMixin"
   ],
   "injectors": {
     "defaultRequire": 1
