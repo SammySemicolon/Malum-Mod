@@ -134,7 +134,7 @@ public class MalumItemTags extends FabricTagProvider.ItemTagProvider {
                 .add(BLOCK_OF_NULL_SLATE.get(), NULL_SLATE.get(),
                         BLOCK_OF_VOID_SALTS.get(), VOID_SALTS.get(),
                         BLOCK_OF_MNEMONIC_FRAGMENT.get(), MNEMONIC_FRAGMENT.get(),
-                        AURIC_EMBERS.get(),
+                        BLOCK_OF_AURIC_EMBERS.get(), AURIC_EMBERS.get(),
                         BLOCK_OF_MALIGNANT_LEAD.get(), MALIGNANT_LEAD.get());
 
         getOrCreateTagBuilder(HIDDEN_UNTIL_BLACK_CRYSTAL)
@@ -148,7 +148,8 @@ public class MalumItemTags extends FabricTagProvider.ItemTagProvider {
                 // Equipment
                 .add(MALIGNANT_STRONGHOLD_HELMET.get(), MALIGNANT_STRONGHOLD_CHESTPLATE.get(),
                         MALIGNANT_STRONGHOLD_LEGGINGS.get(), MALIGNANT_STRONGHOLD_BOOTS.get(),
-                        WEIGHT_OF_WORLDS.get(), EROSION_SCEPTER.get())
+                        WEIGHT_OF_WORLDS.get(), EROSION_SCEPTER.get(),
+                        MNEMONIC_HEX_STAFF.get(), STAFF_OF_THE_AURIC_FLAME.get())
                 // Runes
                 .add(VOID_TABLET.get(),
                         RUNE_OF_BOLSTERING.get(), RUNE_OF_SACRIFICIAL_EMPOWERMENT.get(),

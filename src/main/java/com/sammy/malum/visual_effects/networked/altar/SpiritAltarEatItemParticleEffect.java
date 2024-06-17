@@ -1,7 +1,7 @@
 package com.sammy.malum.visual_effects.networked.altar;
 
 import com.sammy.malum.common.block.curiosities.spirit_altar.SpiritAltarBlockEntity;
-import com.sammy.malum.common.block.storage.MalumItemHolderBlockEntity;
+import com.sammy.malum.common.block.storage.*;
 import com.sammy.malum.visual_effects.SpiritAltarParticleEffects;
 import com.sammy.malum.visual_effects.networked.ParticleEffectType;
 import com.sammy.malum.visual_effects.networked.data.NBTEffectData;
@@ -32,10 +32,10 @@ public class SpiritAltarEatItemParticleEffect extends ParticleEffectType {
             if (!(level.getBlockEntity(positionData.getAsBlockPos()) instanceof SpiritAltarBlockEntity spiritAltar)) {
                 return;
             }
-            if (!(level.getBlockEntity(BlockHelper.loadBlockPos(nbtData.compoundTag)) instanceof MalumItemHolderBlockEntity itemHolderBlockEntity)) {
+            if (!(level.getBlockEntity(BlockHelper.loadBlockPos(nbtData.compoundTag)) instanceof IMalumSpecialItemAccessPoint holder)) {
                 return;
             }
-            SpiritAltarParticleEffects.eatItemParticles(spiritAltar, itemHolderBlockEntity, colorData, nbtData.getStack());
+            SpiritAltarParticleEffects.eatItemParticles(spiritAltar, holder, colorData, nbtData.getStack());
         };
     }
 }

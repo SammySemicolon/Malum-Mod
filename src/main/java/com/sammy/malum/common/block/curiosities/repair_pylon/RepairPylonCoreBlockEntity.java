@@ -45,7 +45,8 @@ public class RepairPylonCoreBlockEntity extends MultiBlockCoreEntity {
     public enum RepairPylonState implements StringRepresentable {
         IDLE("idle"),
         SEARCHING("searching"),
-        ACTIVE("active"),
+        CHARGING("active"),
+        REPAIRING("repairing"),
         COOLDOWN("cooldown");
         final String name;
 
@@ -182,28 +183,52 @@ public class RepairPylonCoreBlockEntity extends MultiBlockCoreEntity {
         }
         else {
             switch (state) {
+                case IDLE -> {
+                    if (recipe != null) {
+                        setState(RepairPylonState.SEARCHING);
+                    }
+                }
                 case SEARCHING -> {
                     timer++;
                     if (timer >= 100) {
                         if (recipe == null) {
-                            setState(RepairPylonState.IDLE);
+                            timer = 0;
                             return;
                         }
                         boolean success = tryRepair();
                         if (success) {
-                            setState(RepairPylonState.ACTIVE);
-                        } else {
+                            setState(RepairPylonState.CHARGING);
+                        }
+                        else {
                             timer = 0;
                         }
                     }
                 }
-                case ACTIVE -> {
+                case CHARGING -> {
                     timer++;
                     if (recipe == null) {
                         setState(RepairPylonState.IDLE);
                         return;
                     }
                     if (timer >= 60) {
+                        if (repairablePosition == null) {
+                            setState(RepairPylonState.IDLE);
+                            return;
+                        }
+                        if (!(level.getBlockEntity(repairablePosition) instanceof IMalumSpecialItemAccessPoint provider)) {
+                            setState(RepairPylonState.IDLE);
+                            return;
+                        }
+                        prepareRepair(provider);
+                    }
+                }
+                case REPAIRING -> {
+                    timer++;
+                    if (recipe == null) {
+                        setState(RepairPylonState.IDLE);
+                        return;
+                    }
+                    if (timer >= 30) {
                         if (repairablePosition == null) {
                             setState(RepairPylonState.IDLE);
                             return;
@@ -238,13 +263,15 @@ public class RepairPylonCoreBlockEntity extends MultiBlockCoreEntity {
         return false;
     }
 
+    public void prepareRepair(IMalumSpecialItemAccessPoint provider) {
+        ParticleEffectTypeRegistry.REPAIR_PYLON_PREPARES.createPositionedEffect(level, new PositionEffectData(worldPosition), ColorEffectData.fromRecipe(recipe.spirits), PylonPrepareRepairParticleEffect.createData(provider.getAccessPointBlockPos()));
+        setState(RepairPylonState.REPAIRING);
+    }
+
     public void repairItem(IMalumSpecialItemAccessPoint provider) {
         final LodestoneBlockEntityInventory suppliedInventory = provider.getSuppliedInventory();
         ItemStack damagedItem = suppliedInventory.getStackInSlot(0);
         ItemStack repairMaterial = inventory.getStackInSlot(0);
-        ItemStack result = SpiritRepairRecipe.getRepairRecipeOutput(damagedItem);
-        result.setDamageValue(Math.max(0, result.getDamageValue() - (int) (result.getMaxDamage() * recipe.durabilityPercentage)));
-        suppliedInventory.setStackInSlot(0, result);
         repairMaterial.shrink(recipe.repairMaterial.getCount());
         for (SpiritWithCount spirit : recipe.spirits) {
             for (int i = 0; i < spiritInventory.slotCount; i++) {
@@ -255,7 +282,11 @@ public class RepairPylonCoreBlockEntity extends MultiBlockCoreEntity {
                 }
             }
         }
-        spiritInventory.setChanged();
+        spiritInventory.updateData();
+        ItemStack result = SpiritRepairRecipe.getRepairRecipeOutput(damagedItem);
+        result.setDamageValue(Math.max(0, result.getDamageValue() - (int) (result.getMaxDamage() * recipe.durabilityPercentage)));
+        suppliedInventory.setStackInSlot(0, result);
+        ParticleEffectTypeRegistry.REPAIR_PYLON_REPAIRS.createPositionedEffect(level, new PositionEffectData(worldPosition), ColorEffectData.fromRecipe(recipe.spirits), PylonPrepareRepairParticleEffect.createData(provider.getAccessPointBlockPos()));
         setState(RepairPylonState.IDLE);
     }
 

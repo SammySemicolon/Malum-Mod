@@ -71,7 +71,7 @@ public abstract class MalumRitualType {
         List<Component> tooltip = new ArrayList<>();
         var spiritStyleModifier = spirit.getItemRarity().color;//getStyleModifier();
         tooltip.add(Component.translatable(translationIdentifier()).withStyle(spiritStyleModifier));
-        tooltip.add(makeDescriptorComponent("malum.gui.rite_effect", "malum.gui.book.entry.page.text." + identifier + ".hover"));
+        tooltip.add(makeDescriptorComponent("malum.gui.rite.effect", "malum.gui.book.entry.page.text." + identifier + ".hover"));
         return tooltip;
     }
 
