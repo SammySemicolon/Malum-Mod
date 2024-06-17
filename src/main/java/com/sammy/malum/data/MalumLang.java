@@ -318,6 +318,10 @@ public class MalumLang extends FabricLanguageProvider {
                 "I now know the arcana have physical properties with meaning. I can use these properties to create a staff, and likely for many more things. But Soulstone and Brilliance... as far as I can tell, for every other base material relevant to the arcana save Runewood I work with, there are either spirit crystals fused within or patterned in the structure.",
                 "The fact that Null Slate is physically identical to Soulstone implies a greater principle. I posit that Soulstone and Brilliance have similar fundamental resonances to the arcana, structures of inherent power at a precision far beyond what I can measure. This implies interaction with the arcane is simply... a quirk of an object's topology? I don't know how I would replicate it myself, but if I can...");
 
+        addSimpleEntryHeader(builder,"fragment.void.black_crystal", "Scribbled notes", "Incomprehensible");
+        addPages(builder,"fragment.void.black_crystal",
+                italic("You attempt to read the entry, but the text seems to slide off the eyes, escaping from your mind every time you grasp it. What little fragments stick with you form an impression of something besides these materials being cast into the Well..."));
+
         addSimpleEntryHeader(builder, "void.black_crystal", "A Black Crystal", "A mistake, or a boon?");
         addPages(builder, "void.black_crystal",
                 "Well, I now know what happens when a living being, or at least, a sapient one, enters the Well.",

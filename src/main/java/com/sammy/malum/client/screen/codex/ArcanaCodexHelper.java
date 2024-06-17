@@ -113,8 +113,7 @@ public class ArcanaCodexHelper {
                 .setShader(shaderInstanceSupplier)
                 .setColor(spiritType.getPrimaryColor())
                 .setAlpha(0.9f)
-                .setZLevel(z)
-                .setShader(() -> shaderInstance);
+                .setZLevel(z);
 
         RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE);
         renderTexture(texture, stack, builder, x, y, 0, 0, 16, 16, 16, 16);
@@ -205,57 +204,45 @@ public class ArcanaCodexHelper {
         RenderSystem.disableBlend();
     }
 
-    public static void renderComponents(AbstractMalumScreen screen, GuiGraphics guiGraphics, java.util.List<? extends IRecipeComponent> components, int left, int top, int mouseX, int mouseY, boolean vertical) {
-        java.util.List<ItemStack> items = components.stream().map(IRecipeComponent::getStack).collect(Collectors.toList());
+    public static void renderComponents(AbstractMalumScreen screen, GuiGraphics guiGraphics, List<? extends IRecipeComponent> components, int left, int top, int mouseX, int mouseY, boolean vertical) {
+        List<ItemStack> items = components.stream().map(IRecipeComponent::getStack).collect(Collectors.toList());
         renderItemList(screen, guiGraphics, items, left, top, mouseX, mouseY, vertical).run();
     }
 
-    public static Runnable renderBufferedComponents(AbstractMalumScreen screen, GuiGraphics guiGraphics, java.util.List<? extends IRecipeComponent> components, int left, int top, int mouseX, int mouseY, boolean vertical) {
-        java.util.List<ItemStack> items = components.stream().map(IRecipeComponent::getStack).collect(Collectors.toList());
+    public static Runnable renderBufferedComponents(AbstractMalumScreen screen, GuiGraphics guiGraphics, List<? extends IRecipeComponent> components, int left, int top, int mouseX, int mouseY, boolean vertical) {
+        List<ItemStack> items = components.stream().map(IRecipeComponent::getStack).collect(Collectors.toList());
         return renderItemList(screen, guiGraphics, items, left, top, mouseX, mouseY, vertical);
     }
 
     public static void renderComponent(AbstractMalumScreen screen, GuiGraphics guiGraphics, IRecipeComponent component, int posX, int posY, int mouseX, int mouseY) {
-        if (component.getStacks().size() == 1) {
-            renderItem(screen, guiGraphics, component.getStack(), posX, posY, mouseX, mouseY);
-            return;
-        }
-        int index = (int) (Minecraft.getInstance().level.getGameTime() % (20L * component.getStacks().size()) / 20);
-        ItemStack stack = component.getStacks().get(index);
-        guiGraphics.renderItem(stack, posX, posY);
-        guiGraphics.renderItemDecorations(Minecraft.getInstance().font, stack, posX, posY, null);
-        if (screen.isHovering(mouseX, mouseY, posX, posY, 16, 16)) {
-            guiGraphics.renderComponentTooltip(Minecraft.getInstance().font, Screen.getTooltipFromItem(Minecraft.getInstance(), stack), mouseX, mouseY);
-        }
+        renderItem(screen, guiGraphics, component.getStacks(), posX, posY, mouseX, mouseY);
     }
 
     public static void renderItem(AbstractMalumScreen screen, GuiGraphics guiGraphics, Ingredient ingredient, int posX, int posY, int mouseX, int mouseY) {
         renderItem(screen, guiGraphics, List.of(ingredient.getItems()), posX, posY, mouseX, mouseY);
     }
 
-    public static void renderItem(AbstractMalumScreen screen, GuiGraphics guiGraphics, java.util.List<ItemStack> stacks, int posX, int posY, int mouseX, int mouseY) {
+    public static void renderItem(AbstractMalumScreen screen, GuiGraphics guiGraphics, List<ItemStack> stacks, int posX, int posY, int mouseX, int mouseY) {
         if (stacks.size() == 1) {
             renderItem(screen, guiGraphics, stacks.get(0), posX, posY, mouseX, mouseY);
             return;
         }
         int index = (int) (Minecraft.getInstance().level.getGameTime() % (20L * stacks.size()) / 20);
         ItemStack stack = stacks.get(index);
-        guiGraphics.renderItem(stack, posX, posY);
-        guiGraphics.renderItemDecorations(Minecraft.getInstance().font, stack, posX, posY, null);
-        if (screen.isHovering(mouseX, mouseY, posX, posY, 16, 16)) {
-            guiGraphics.renderComponentTooltip(Minecraft.getInstance().font, Screen.getTooltipFromItem(Minecraft.getInstance(), stack), mouseX, mouseY);
-        }
+        renderItem(screen, guiGraphics, stack, posX, posY, mouseX, mouseY);
     }
 
     public static void renderItem(AbstractMalumScreen screen, GuiGraphics guiGraphics, ItemStack stack, int posX, int posY, int mouseX, int mouseY) {
-        guiGraphics.renderItem(stack, posX, posY);
-        guiGraphics.renderItemDecorations(Minecraft.getInstance().font, stack, posX, posY, null);
-        if (screen.isHovering(mouseX, mouseY, posX, posY, 16, 16)) {
-            guiGraphics.renderComponentTooltip(Minecraft.getInstance().font, Screen.getTooltipFromItem(Minecraft.getInstance(), stack), mouseX, mouseY);
+        if (!stack.isEmpty()) {
+            guiGraphics.renderItem(stack, posX, posY);
+            guiGraphics.renderItemDecorations(Minecraft.getInstance().font, stack, posX, posY, null);
+            if (screen.isHovering(mouseX, mouseY, posX, posY, 16, 16)) {
+                guiGraphics.renderComponentTooltip(Minecraft.getInstance().font, Screen.getTooltipFromItem(Minecraft.getInstance(), stack), mouseX, mouseY);
+            }
         }
     }
 
-    public static Runnable renderItemList(AbstractMalumScreen screen, GuiGraphics guiGraphics, java.util.List<ItemStack> items, int left, int top, int mouseX, int mouseY, boolean vertical) {
+    public static Runnable renderItemList(AbstractMalumScreen screen, GuiGraphics guiGraphics, List<ItemStack> items, int left, int top, int mouseX, int mouseY, boolean vertical) {
         int slots = items.size();
         renderItemFrames(guiGraphics.pose(), slots, left, top, vertical);
         return () -> {

@@ -45,7 +45,15 @@ public record BookWidgetStyle(ResourceLocation frameTexture, ResourceLocation fi
     private static final WidgetStylePreset PAPER_FILLINGS = new WidgetStylePreset("paper_filling");
     private static final WidgetStylePreset DARK_FILLINGS = new WidgetStylePreset("dark_filling");
 
+    // These ONLY have default designs!
+    private static final WidgetStylePreset WITHERED_FRAME = new WidgetStylePreset("withered_frame");
+    private static final WidgetStylePreset EMPTY_FRAME = new WidgetStylePreset("empty_frame");
+
     //TODO: clean this up :sob:
+
+    public static final BookWidgetStyle WITHERED = new BookWidgetStyle(WITHERED_FRAME, DARK_FILLINGS, WidgetDesignType.DEFAULT);
+    public static final BookWidgetStyle FRAMELESS = new BookWidgetStyle(EMPTY_FRAME, DARK_FILLINGS, WidgetDesignType.DEFAULT);
+
     public static final BookWidgetStyle RUNEWOOD = new BookWidgetStyle(RUNEWOOD_FRAMES, PAPER_FILLINGS, WidgetDesignType.DEFAULT);
     public static final BookWidgetStyle TOTEMIC_RUNEWOOD = new BookWidgetStyle(RUNEWOOD_FRAMES, PAPER_FILLINGS, WidgetDesignType.TOTEMIC);
     public static final BookWidgetStyle RESEARCH_RUNEWOOD = new BookWidgetStyle(RUNEWOOD_FRAMES, PAPER_FILLINGS, WidgetDesignType.RESEARCH);

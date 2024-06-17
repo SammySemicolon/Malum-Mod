@@ -35,12 +35,14 @@ public class ProgressionEntryObject extends BookObject<AbstractProgressionCodexS
 
     @Override
     public boolean isValid(AbstractProgressionCodexScreen screen) {
-        return isValid.test(screen);
+        return isValid.test(screen) && entry.shouldShow();
     }
 
     @Override
     public void click(AbstractProgressionCodexScreen screen, double mouseX, double mouseY) {
-        EntryScreen.openScreen(screen, this);
+        if (entry.hasContents()) {
+            EntryScreen.openScreen(screen, this);
+        }
     }
 
     @Override
@@ -58,10 +60,10 @@ public class ProgressionEntryObject extends BookObject<AbstractProgressionCodexS
 
     @Override
     public void renderLate(AbstractProgressionCodexScreen screen, GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
-        if (isHoveredOver) {
+        if (isHoveredOver && entry.hasTooltip()) {
             final List<Component> list = Arrays.asList(
-                    ArcanaCodexHelper.convertToComponent(entry.translationKey()),
-                    ArcanaCodexHelper.convertToComponent(entry.descriptionTranslationKey(), (style) -> style.withColor(ChatFormatting.GRAY)));
+                ArcanaCodexHelper.convertToComponent(entry.translationKey(), entry.titleStyle),
+                ArcanaCodexHelper.convertToComponent(entry.descriptionTranslationKey(), entry.subtitleStyle));
             guiGraphics.renderComponentTooltip(Minecraft.getInstance().font, list, mouseX, mouseY);
         }
     }

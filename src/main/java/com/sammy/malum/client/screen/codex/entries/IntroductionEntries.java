@@ -34,7 +34,7 @@ public class IntroductionEntries {
                 .build();
 
         screen.addEntry("introduction", 0, 0, b -> b
-                .setWidgetConfig(w -> w.setIcon(ENCYCLOPEDIA_ARCANA).setStyle(BookWidgetStyle.GILDED_RUNEWOOD))
+                .configureWidget(w -> w.setIcon(ENCYCLOPEDIA_ARCANA).setStyle(BookWidgetStyle.GILDED_RUNEWOOD))
                 .addPage(new HeadlineTextPage("introduction", "introduction.1"))
                 .addPage(new TextPage("introduction.2"))
                 .addPage(new TextPage("introduction.3"))
@@ -44,14 +44,14 @@ public class IntroductionEntries {
 
         screen.addEntry("spirit_crystals", 0, 1, b -> b
                 .setWidgetSupplier((e, x, y) -> new IconObject(e, x, y, malumPath("textures/gui/book/icons/soul_shard.png")))
-                .setWidgetConfig(w -> w.setStyle(BookWidgetStyle.DARK_SMALL_RUNEWOOD))
+                .configureWidget(w -> w.setStyle(BookWidgetStyle.DARK_SMALL_RUNEWOOD))
                 .addPage(new HeadlineTextPage("spirit_crystals", "spirit_crystals.1"))
                 .addPage(new TextPage("spirit_crystals.2"))
                 .addPage(new TextPage("spirit_crystals.3"))
         );
 
         screen.addEntry("runewood", 1, 2, b -> b
-                .setWidgetConfig(w -> w.setIcon(RUNEWOOD_SAPLING))
+                .configureWidget(w -> w.setIcon(RUNEWOOD_SAPLING))
                 .addPage(new HeadlineTextItemPage("runewood", "runewood.1", RUNEWOOD_SAPLING.get()))
                 .addPage(new TextPage("runewood.2"))
                 .addPage(new HeadlineTextItemPage("runewood.arcane_charcoal", "runewood.arcane_charcoal.1", ARCANE_CHARCOAL.get()))
@@ -64,18 +64,18 @@ public class IntroductionEntries {
         );
 
         screen.addEntry("natural_quartz", 3, 1, b -> b
-                .setWidgetConfig(w -> w.setIcon(NATURAL_QUARTZ).setStyle(BookWidgetStyle.SMALL_RUNEWOOD))
+                .configureWidget(w -> w.setIcon(NATURAL_QUARTZ).setStyle(BookWidgetStyle.SMALL_RUNEWOOD))
                 .addPage(new HeadlineTextItemPage("natural_quartz", "natural_quartz.1", NATURAL_QUARTZ.get()))
         );
 
         screen.addEntry("blazing_quartz", 4, 2, b -> b
-                .setWidgetConfig(w -> w.setIcon(BLAZING_QUARTZ).setStyle(BookWidgetStyle.SMALL_RUNEWOOD))
+                .configureWidget(w -> w.setIcon(BLAZING_QUARTZ).setStyle(BookWidgetStyle.SMALL_RUNEWOOD))
                 .addPage(new HeadlineTextItemPage("blazing_quartz", "blazing_quartz.1", BLAZING_QUARTZ.get()))
                 .addPage(CraftingPage.fullPage(BLOCK_OF_BLAZING_QUARTZ.get(), BLAZING_QUARTZ.get()))
         );
 
         screen.addEntry("brilliance", -3, 1, b -> b
-                .setWidgetConfig(w -> w.setIcon(CLUSTER_OF_BRILLIANCE).setStyle(BookWidgetStyle.SMALL_RUNEWOOD))
+                .configureWidget(w -> w.setIcon(CLUSTER_OF_BRILLIANCE).setStyle(BookWidgetStyle.SMALL_RUNEWOOD))
                 .addPage(new HeadlineTextItemPage("brilliance", "brilliance.1", CLUSTER_OF_BRILLIANCE.get()))
                 .addPage(new TextPage("brilliance.2"))
                 .addPage(CraftingPage.fullPage(BLOCK_OF_BRILLIANCE.get(), CLUSTER_OF_BRILLIANCE.get()))
@@ -84,7 +84,7 @@ public class IntroductionEntries {
         );
 
         screen.addEntry("cthonic_gold", -4, 2, b -> b
-                .setWidgetConfig(w -> w.setIcon(CTHONIC_GOLD).setStyle(BookWidgetStyle.SMALL_RUNEWOOD))
+                .configureWidget(w -> w.setIcon(CTHONIC_GOLD).setStyle(BookWidgetStyle.SMALL_RUNEWOOD))
                 .addPage(new HeadlineTextItemPage("cthonic_gold", "cthonic_gold.1", CTHONIC_GOLD.get()))
                 .addPage(new TextPage("cthonic_gold.2"))
                 .addPage(new TextPage("cthonic_gold.3"))
@@ -97,7 +97,7 @@ public class IntroductionEntries {
         );
 
         screen.addEntry("soulstone", -1, 2, b -> b
-                .setWidgetConfig(w -> w.setIcon(PROCESSED_SOULSTONE))
+                .configureWidget(w -> w.setIcon(PROCESSED_SOULSTONE))
                 .addPage(new HeadlineTextItemPage("soulstone", "soulstone.1", PROCESSED_SOULSTONE.get()))
                 .addPage(new TextPage("soulstone.2"))
                 .addPage(new SmeltingPage(new ItemStack(RAW_SOULSTONE.get()), new ItemStack(PROCESSED_SOULSTONE.get(), 2)))
@@ -107,7 +107,7 @@ public class IntroductionEntries {
         );
 
         screen.addEntry("scythes", 0, 3, b -> b
-                .setWidgetConfig(w -> w.setIcon(CRUDE_SCYTHE))
+                .configureWidget(w -> w.setIcon(CRUDE_SCYTHE))
                 .addPage(new HeadlineTextPage("scythes", "scythes.1"))
                 .addPage(CraftingPage.scythePage(ItemRegistry.CRUDE_SCYTHE.get(), Items.IRON_INGOT, PROCESSED_SOULSTONE.get()))
                 .addPage(new TextPage("scythes.2"))
@@ -118,7 +118,7 @@ public class IntroductionEntries {
         );
 
         screen.addEntry("spirit_infusion", 0, 5, b -> b
-                .setWidgetConfig(w -> w.setIcon(SPIRIT_ALTAR).setStyle(BookWidgetStyle.GILDED_RUNEWOOD))
+                .configureWidget(w -> w.setIcon(SPIRIT_ALTAR).setStyle(BookWidgetStyle.GILDED_RUNEWOOD))
                 .addPage(new HeadlineTextPage("spirit_infusion", "spirit_infusion.1"))
                 .addPage(new CraftingPage(SPIRIT_ALTAR.get(), AIR, PROCESSED_SOULSTONE.get(), AIR, GOLD_INGOT, RUNEWOOD_PLANKS.get(), GOLD_INGOT, RUNEWOOD_PLANKS.get(), RUNEWOOD_PLANKS.get(), RUNEWOOD_PLANKS.get()))
                 .addPage(new TextPage("spirit_infusion.2"))
@@ -134,7 +134,7 @@ public class IntroductionEntries {
         );
 
         screen.addEntry("esoteric_reaping", 0, 6, b -> b
-                .setWidgetConfig(w -> w.setIcon(ROTTING_ESSENCE))
+                .configureWidget(w -> w.setIcon(ROTTING_ESSENCE))
                 .addPage(new HeadlineTextPage("esoteric_reaping", "esoteric_reaping.1"))
                 .addPage(new TextPage("esoteric_reaping.2"))
                 .addPage(new TextPage("esoteric_reaping.3"))
@@ -145,7 +145,7 @@ public class IntroductionEntries {
         );
 
         screen.addEntry("primary_arcana", -2, 4, b -> b
-                .setWidgetConfig(w -> w.setIcon(SACRED_SPIRIT))
+                .configureWidget(w -> w.setIcon(SACRED_SPIRIT))
                 .addPage(new HeadlineTextItemPage("primary_arcana.sacred", "primary_arcana.sacred.1", SACRED_SPIRIT.get()))
                 .addPage(new TextPage("primary_arcana.sacred.2"))
                 .addPage(new HeadlineTextItemPage("primary_arcana.wicked", "primary_arcana.wicked.1", WICKED_SPIRIT.get()))
@@ -156,7 +156,7 @@ public class IntroductionEntries {
         );
 
         screen.addEntry("elemental_arcana", 2, 4, b -> b
-                .setWidgetConfig(w -> w.setIcon(EARTHEN_SPIRIT))
+                .configureWidget(w -> w.setIcon(EARTHEN_SPIRIT))
                 .addPage(new HeadlineTextItemPage("elemental_arcana.aerial", "elemental_arcana.aerial.1", AERIAL_SPIRIT.get()))
                 .addPage(new TextPage("elemental_arcana.aerial.2"))
                 .addPage(new HeadlineTextItemPage("elemental_arcana.earthen", "elemental_arcana.earthen.1", EARTHEN_SPIRIT.get()))
@@ -168,13 +168,13 @@ public class IntroductionEntries {
         );
 
         screen.addEntry("eldritch_arcana", 0, 7, b -> b
-                .setWidgetConfig(w -> w.setIcon(ELDRITCH_SPIRIT))
+                .configureWidget(w -> w.setIcon(ELDRITCH_SPIRIT))
                 .addPage(new HeadlineTextItemPage("eldritch_arcana", "eldritch_arcana.1", ELDRITCH_SPIRIT.get()))
                 .addPage(new TextPage("eldritch_arcana.2"))
         );
 
         screen.addEntry("altar_acceleration", -1, 8, b -> b
-                .setWidgetConfig(w -> w.setIcon(RUNEWOOD_OBELISK))
+                .configureWidget(w -> w.setIcon(RUNEWOOD_OBELISK))
                 .addPage(new HeadlineTextPage("altar_acceleration.runewood_obelisk", "altar_acceleration.runewood_obelisk.1"))
                 .addPage(SpiritInfusionPage.fromOutput(RUNEWOOD_OBELISK.get()))
                 .addPage(new HeadlineTextPage("altar_acceleration.brilliant_obelisk", "altar_acceleration.brilliant_obelisk.1"))

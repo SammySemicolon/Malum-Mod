@@ -23,7 +23,7 @@ public class ArtificeEntries {
         Item EMPTY = ItemStack.EMPTY.getItem();
 
         screen.addEntry("spirit_stones", 3, 6, b -> b
-                .setWidgetConfig(w -> w.setIcon(TAINTED_ROCK))
+                .configureWidget(w -> w.setIcon(TAINTED_ROCK))
                 .addPage(new HeadlineTextPage("spirit_stones.tainted_rock", "spirit_stones.tainted_rock.1"))
                 .addPage(SpiritInfusionPage.fromOutput(TAINTED_ROCK.get()))
                 .addPage(CraftingPage.itemPedestalPage(TAINTED_ROCK_ITEM_PEDESTAL.get(), TAINTED_ROCK.get(), TAINTED_ROCK_SLAB.get()))
@@ -41,7 +41,7 @@ public class ArtificeEntries {
         );
 
         screen.addEntry("ether", 5, 6, b -> b
-                .setWidgetConfig(w -> w.setIcon(ETHER))
+                .configureWidget(w -> w.setIcon(ETHER))
                 .addPage(new HeadlineTextPage("ether", "ether.1"))
                 .addPage(SpiritInfusionPage.fromOutput(ETHER.get()))
                 .addPage(new TextPage("ether.2"))
@@ -57,7 +57,7 @@ public class ArtificeEntries {
         );
 
         screen.addEntry("spirit_fabric", 4, 5, b -> b
-                .setWidgetConfig(w -> w.setIcon(SPIRIT_FABRIC))
+                .configureWidget(w -> w.setIcon(SPIRIT_FABRIC))
                 .addPage(new HeadlineTextPage("spirit_fabric", "spirit_fabric.1"))
                 .addPage(SpiritInfusionPage.fromOutput(SPIRIT_FABRIC.get()))
                 .addPage(new HeadlineTextPage("spirit_fabric.pouch", "spirit_fabric.pouch.1"))
@@ -65,7 +65,7 @@ public class ArtificeEntries {
         );
 
         screen.addEntry("soulhunter_gear", 4, 7, b -> b
-                .setWidgetConfig(w -> w.setIcon(SOUL_HUNTER_CLOAK))
+                .configureWidget(w -> w.setIcon(SOUL_HUNTER_CLOAK))
                 .addPage(new HeadlineTextPage("soulhunter_gear", "soulhunter_gear.1"))
                 .addPage(new CyclingPage(
                         SpiritInfusionPage.fromOutput(SOUL_HUNTER_CLOAK.get()),
@@ -76,7 +76,7 @@ public class ArtificeEntries {
         );
 
         screen.addEntry("spirit_focusing", 7, 6, b -> b
-                .setWidgetConfig(w -> w.setIcon(SPIRIT_CRUCIBLE))
+                .configureWidget(w -> w.setIcon(SPIRIT_CRUCIBLE))
                 .addPage(new HeadlineTextItemPage("spirit_focusing", "spirit_focusing.1", SPIRIT_CRUCIBLE.get()))
                 .addPage(new TextPage("spirit_focusing.2"))
                 .addPage(SpiritInfusionPage.fromOutput(SPIRIT_CRUCIBLE.get()))
@@ -84,7 +84,7 @@ public class ArtificeEntries {
         );
 
         screen.addEntry("focus_ashes", 6, 5, b -> b
-                .setWidgetConfig(w -> w.setIcon(GUNPOWDER))
+                .configureWidget(w -> w.setIcon(GUNPOWDER))
                 .addPage(new HeadlineTextPage("focus_ashes", "focus_ashes.1"))
                 .addPage(SpiritFocusingPage.fromOutput(GUNPOWDER))
                 .addPage(SpiritFocusingPage.fromOutput(GLOWSTONE_DUST))
@@ -92,7 +92,7 @@ public class ArtificeEntries {
         );
 
         screen.addEntry("focus_metals", 8, 7, b -> b
-                .setWidgetConfig(w -> w.setIcon(IRON_NODE))
+                .configureWidget(w -> w.setIcon(IRON_NODE))
                 .addPage(new HeadlineTextItemPage("focus_metals", "focus_metals.1", IRON_NODE.get()))
                 .addPage(new TextPage("focus_metals.2"))
                 .addPage(new CyclingPage(
@@ -124,7 +124,7 @@ public class ArtificeEntries {
         );
 
         screen.addEntry("focus_crystals", 9, 5, b -> b
-                .setWidgetConfig(w -> w.setIcon(QUARTZ))
+                .configureWidget(w -> w.setIcon(QUARTZ))
                 .addPage(new HeadlineTextPage("focus_crystals", "focus_crystals.1"))
                 .addPage(SpiritFocusingPage.fromOutput(QUARTZ))
                 .addPage(SpiritFocusingPage.fromOutput(AMETHYST_SHARD))
@@ -133,7 +133,7 @@ public class ArtificeEntries {
         );
 
         screen.addEntry("crucible_acceleration", 7, 4, b -> b
-                .setWidgetConfig(w -> w.setIcon(SPIRIT_CATALYZER))
+                .configureWidget(w -> w.setIcon(SPIRIT_CATALYZER))
                 .addPage(new HeadlineTextPage("crucible_acceleration", "crucible_acceleration.1"))
                 .addPage(new TextPage("crucible_acceleration.2"))
                 .addPage(new TextPage("crucible_acceleration.3"))
@@ -141,7 +141,7 @@ public class ArtificeEntries {
         );
 
         screen.addEntry("arcane_restoration", 7, 8, b -> b
-                .setWidgetConfig(w -> w.setIcon(REPAIR_PYLON))
+                .configureWidget(w -> w.setIcon(REPAIR_PYLON))
                 .addPage(new HeadlineTextPage("arcane_restoration", "arcane_restoration.1"))
                 .addPage(new TextPage("arcane_restoration.2"))
                 .addPage(SpiritInfusionPage.fromOutput(REPAIR_PYLON.get()))

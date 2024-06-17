@@ -5,15 +5,26 @@ import com.sammy.malum.client.screen.codex.objects.progression.ProgressionEntryO
 import com.sammy.malum.client.screen.codex.pages.BookPage;
 import com.sammy.malum.client.screen.codex.pages.EntryReference;
 import com.sammy.malum.client.screen.codex.screens.EntryScreen;
+import com.google.common.collect.ImmutableList;
+import com.sammy.malum.client.screen.codex.objects.progression.ProgressionEntryObject;
+import com.sammy.malum.client.screen.codex.pages.BookPage;
+import com.sammy.malum.client.screen.codex.pages.EntryReference;
+import net.minecraft.network.chat.Style;
 
 import java.util.function.Consumer;
 import java.util.function.Predicate;
+import java.util.function.BooleanSupplier;
+import java.util.function.Consumer;
+import java.util.function.UnaryOperator;
 
 public class PlacedBookEntry extends BookEntry {
     private final BookEntryWidgetPlacementData widgetData;
 
-    public PlacedBookEntry(String identifier, boolean isVoid, BookEntryWidgetPlacementData widgetData, ImmutableList<BookPage> bookPages, ImmutableList<EntryReference> entryReferences, Predicate<EntryScreen> validityChecker) {
-        super(identifier, isVoid, bookPages, entryReferences, validityChecker);
+    public PlacedBookEntry(String identifier, boolean isVoid,
+                           BookEntryWidgetPlacementData widgetData,
+                           ImmutableList<BookPage> bookPages, ImmutableList<EntryReference> entryReferences, BooleanSupplier validityChecker,
+                           UnaryOperator<Style> titleStyle, UnaryOperator<Style> subtitleStyle, boolean tooltipDisabled) {
+        super(identifier, isVoid, bookPages, entryReferences, validityChecker, titleStyle, subtitleStyle, tooltipDisabled);
         this.widgetData = widgetData;
     }
 
