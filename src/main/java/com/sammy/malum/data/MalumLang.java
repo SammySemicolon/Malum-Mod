@@ -849,11 +849,11 @@ public class MalumLang extends LanguageProvider {
                 "For those which alter blocks, most affect the five-by-five area on the level beneath the base, towards where the runes are facing.",
                 "One caveat is that no rite's totem may function within the range of another, identical ritual. If you try, the first one will simply fizzle out, the energies coursing through it disrupted.");
 
-        addSimpleEntryHeader("managing_totems", "Totem Management", "[Boiler] Arcane Insight");
+        addSimpleEntryHeader("managing_totems", "Totem Resonance", "Insight into the rites");
         addPages("managing_totems",
-                "[Boiler] Managing totem rites can be tricky, so I made a staff that will enable me greater control over these rituals.",
-                "The primary function of the staff will allow me to view the coverage of each nearby totem rite",
-                "As a side functionality, the staff will allow me to place a selected totemic rune into an activated state for visual purposes only");
+                "Totem rites are both complicated and simple, in their own ways. A simple, bounded effect, but dependent on the flow of arcana - and it can be difficult to discern their range.",
+                "I have created a staff to act as a tuning fork of sorts for the energies of rites. Simply holding it resonates with the flow of arcana through the world, allowing me to visualize the area each totem can affect.",
+                "Interestingly, the staff also allows me to 'tune' a rune into an active state by interacting with it, even if it's not on a totem. This is as far as I can tell purely visual, but if nothing else, it will make good decoration.");
 
         addSimpleEntryHeader("arcane_rite", "A Rite Unchained", "Creation uncontrolled");
         addPages("arcane_rite.description",

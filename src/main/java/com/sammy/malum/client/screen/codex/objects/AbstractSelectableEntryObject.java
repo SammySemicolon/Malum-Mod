@@ -24,8 +24,8 @@ public abstract class AbstractSelectableEntryObject extends BookObject<EntryScre
         if (isHoveredOver) {
             final BookEntry entry = entryReference.entry;
             final List<Component> list = Arrays.asList(
-                    Component.translatable(entry.translationKey()),
-                    Component.translatable(entry.descriptionTranslationKey()).withStyle(ChatFormatting.GRAY));
+                ArcanaCodexHelper.convertToComponent(entry.translationKey()),
+                ArcanaCodexHelper.convertToComponent(entry.descriptionTranslationKey(), (style) -> style.withColor(ChatFormatting.GRAY)));
             guiGraphics.renderComponentTooltip(Minecraft.getInstance().font, list, mouseX, mouseY);
         }
     }
