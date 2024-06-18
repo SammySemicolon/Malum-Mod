@@ -598,10 +598,10 @@ public class MalumLang extends LanguageProvider {
                 "However, by heating the catalyst through mystic means, you can lessen this rejection and speed up the coalescence at once. That is what the Spirit Catalyzer is for. Unfortunately, this is not perfect, and instability often causes the catalyst to be damaged more than strictly necessary.",
                 "Each fueled Catalyzer nearby to a Crucible will amplify the speed of the focusing process, up to a maximum of eight. Unfortunately, the risk of instability proportionally rises with each one, resulting in your impetus potentially receiving more damage than necessary.");
 
-        addSimpleEntryHeader("arcane_restoration", "Arcane Restoration", "[Boiler] Mystic repair");
+        addSimpleEntryHeader("arcane_restoration", "Arcane Restoration", "Mystic repair");
         addPages("arcane_restoration",
-                "[Boiler] Things used in teh spirit crucible break eventually, this sucks, I need my impetus to not be cracked in order to use it and whatnot.",
-                "I've designed a machine known as the repair pylon, capable of repairing nearly any nearby damaged item using a combination of spirits and a repair ingredient, no experience needed.",
+                "The Spirit Crucible has an annoying habit of breaking the tools to work with it. While a cost is to be expected, I'd rather pay it in installments.",
+                "I've designed a device I call the Repair Pylon to shore up things as they break. It works not just on an Impetus, but practically anything at all, using a combination of spirits and a repair ingredient, no experience needed.",
                 "It appears that materials in tune with spirit arcana, such as Soulstained Steel or Hallowed Gold, are more efficient in this process. They will be repaired more than their mundane counterparts would for the same cost.");
 
         addSimpleEntryHeader("crucible_augmentation", "Crucible Augmentation", "Tuning the attuner");
