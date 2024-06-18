@@ -602,7 +602,7 @@ public class MalumLang extends FabricLanguageProvider {
         addSimpleEntryHeader(builder, "arcane_restoration", "Arcane Restoration", "Mystic repair");
         addPages(builder, "arcane_restoration",
                 "The Spirit Crucible has an annoying habit of breaking the tools to work with it. While a cost is to be expected, I'd rather pay it in installments.",
-                "I've designed a device I call the Repair Pylon to shore up things as they break. It works not just on an Impetus, but practically anything at all, using a combination of spirits and a repair ingredient, no experience needed.",
+                "I've designed a device I call the Repair Pylon to shore up things as they break. It works not just on an Impetus, but practically anything at all placed on a nearby item holder, using a combination of spirits and a repair ingredient, no experience needed.",
                 "It appears that materials in tune with spirit arcana, such as Soulstained Steel or Hallowed Gold, are more efficient in this process. They will be repaired more than their mundane counterparts would for the same cost.");
 
         addSimpleEntryHeader(builder, "crucible_augmentation", "Crucible Augmentation", "Tuning the attuner");
