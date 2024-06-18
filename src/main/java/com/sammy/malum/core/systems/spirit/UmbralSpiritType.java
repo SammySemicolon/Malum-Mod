@@ -9,6 +9,7 @@ import net.minecraft.network.chat.TextColor;
 import team.lodestar.lodestone.systems.particle.builder.WorldParticleBuilder;
 
 import java.awt.*;
+import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
@@ -16,28 +17,12 @@ public class UmbralSpiritType extends MalumSpiritType {
 
     public static final int INVERT_COLOR = 0x4D616C6D; // M = chr 4D, a = chr 61, l = chr 6C, m = chr 6D
 
-    public UmbralSpiritType(String identifier, Supplier<SpiritShardItem> spiritShard, Supplier<SpiritMoteBlock> spiritMote, SpiritVisualMotif visualMotif, Color itemColor) {
+    public UmbralSpiritType(String identifier, Supplier<SpiritShardItem> spiritShard, Optional<SpiritMoteBlock> spiritMote, SpiritVisualMotif visualMotif, Color itemColor) {
         super(identifier, visualMotif, spiritShard, spiritMote, itemColor);
     }
 
     @Override
     public TextColor getTextColor(boolean isTooltip) {
         return TextColor.fromRgb(INVERT_COLOR);
-    }
-
-
-    @Override
-    @Environment(EnvType.CLIENT)
-    public Consumer<WorldParticleBuilder> applyWorldParticleChanges() {
-
-        return EnvExecutor.unsafeRunForDist(() -> () -> b -> {
-            UmbralClientHelper.grabRenderType(b);
-            b.modifyData(b::getTransparencyData, d -> d.multiplyValue(4f));
-            b.getScaleData().multiplyCoefficient(1.5f);
-            b.getTransparencyData().multiplyCoefficient(1.5f);
-            b.multiplyLifetime(2.5f);
-        }, () -> () -> {
-            throw new IllegalStateException("Cannot run on a server");
-        });
     }
 }

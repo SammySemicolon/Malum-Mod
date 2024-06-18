@@ -59,7 +59,7 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
     public LodestoneBlockEntityInventory inventory;
     public LodestoneBlockEntityInventory extrasInventory;
     public LodestoneBlockEntityInventory spiritInventory;
-    public Map<SpiritInfusionRecipe, AltarCraftingHelper.Ranking> possibleRecipes = new HashMap<>();
+    public List<SpiritInfusionRecipe> possibleRecipes = new ArrayList<>();
     public SpiritInfusionRecipe recipe;
 
     public SpiritAltarBlockEntity(BlockEntityType<? extends SpiritAltarBlockEntity> type, BlockPos pos, BlockState state) {
@@ -189,42 +189,12 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
 
     @Override
     public void init() {
-      recalculateRecipes();
+        ItemStack stack = inventory.getStackInSlot(0);
+        var list = spiritInventory.nonEmptyItemStacks;
+        possibleRecipes = new ArrayList<>(DataHelper.getAll(SpiritInfusionRecipe.getRecipes(level), r -> r.doesInputMatch(stack) && r.doSpiritsMatch(list)));
+        recipe = SpiritInfusionRecipe.getRecipe(level, stack, list);
         if (level.isClientSide && !possibleRecipes.isEmpty() && !isCrafting) {
             AltarSoundInstance.playSound(this);
-        }
-    }
-
-    private void recalculateRecipes() {
-        boolean hadRecipe = recipe != null;
-
-        ItemStack stack = inventory.getStackInSlot(0);
-        Collection<SpiritInfusionRecipe> recipes = DataHelper.getAll(SpiritInfusionRecipe.getRecipes(level), r -> r.doesInputMatch(stack) && r.doSpiritsMatch(spiritInventory.nonEmptyItemStacks));
-        possibleRecipes.clear();
-        var pedestalItems = AltarCraftingHelper.createPedestalInventoryCapture(
-            AltarCraftingHelper.capturePedestals(level, worldPosition, HORIZONTAL_RANGE, VERTICAL_RANGE, HORIZONTAL_RANGE));
-        for (SpiritInfusionRecipe recipe : recipes) {
-            AltarCraftingHelper.Ranking ranking = AltarCraftingHelper.rankRecipe(recipe, stack, spiritInventory, pedestalItems, extrasInventory);
-            if (ranking != null)
-                possibleRecipes.put(recipe, ranking);
-        }
-        recipe = possibleRecipes.entrySet().stream().max(Map.Entry.comparingByValue()).map(Map.Entry::getKey).orElse(null);
-        if (!stack.isEmpty()) {
-            Collection<SpiritInfusionRecipe> recipes = DataHelper.getAll(SpiritInfusionRecipe.getRecipes(level), r -> r.doesInputMatch(stack) && r.doSpiritsMatch(spiritInventory.nonEmptyItemStacks));
-            possibleRecipes.clear();
-            IItemHandlerModifiable pedestalItems = AltarCraftingHelper.createPedestalInventoryCapture(
-                AltarCraftingHelper.capturePedestals(level, worldPosition, HORIZONTAL_RANGE, VERTICAL_RANGE, HORIZONTAL_RANGE));
-            for (SpiritInfusionRecipe recipe : recipes) {
-                AltarCraftingHelper.Ranking ranking = AltarCraftingHelper.rankRecipe(recipe, stack, spiritInventory, pedestalItems, extrasInventory);
-                if (ranking != null)
-                    possibleRecipes.put(recipe, ranking);
-            }
-            recipe = possibleRecipes.entrySet().stream().max(Map.Entry.comparingByValue()).map(Map.Entry::getKey).orElse(null);
-        } else
-            recipe = null;
-
-        if (hadRecipe && recipe == null && level != null) {
-            extrasInventory.dumpItems(level, worldPosition);
         }
     }
 
@@ -254,18 +224,10 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
                 }
             }
         } else {
-            if (isCrafting)
-                progress = 0;
             isCrafting = false;
-            progress++;
+            progress = 0;
             if (spiritYLevel > 0) {
                 this.spiritYLevel = Math.max(spiritYLevel - 0.8f, 0);
-            }
-
-            int progressCap = (int) (300 / speed);
-            if (progress >= progressCap) {
-                recalculateRecipes();
-                progress = 0;
             }
         }
         if (level.isClientSide) {
@@ -275,17 +237,8 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
     }
 
     public boolean consume() {
-        if (recipe == null) {
-            return false;
-        } else if (recipe.extraItems.isEmpty())
+        if (recipe.extraItems.isEmpty()) {
             return true;
-
-        List<IMalumSpecialItemAccessPoint> pedestalItems = AltarCraftingHelper.capturePedestals(level, worldPosition, HORIZONTAL_RANGE, VERTICAL_RANGE, HORIZONTAL_RANGE);
-        ItemStack stack = inventory.getStackInSlot(0);
-        AltarCraftingHelper.Ranking reranking = AltarCraftingHelper.rankRecipe(recipe, stack, spiritInventory, AltarCraftingHelper.createPedestalInventoryCapture(pedestalItems), extrasInventory);
-        if (!Objects.equals(reranking, possibleRecipes.get(recipe))) {
-            recalculateRecipes();
-            return false;
         }
         extrasInventory.updateData();
         extrasInventory.setChanged();
@@ -295,7 +248,6 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
             Collection<IMalumSpecialItemAccessPoint> altarProviders = BlockHelper.getBlockEntities(IMalumSpecialItemAccessPoint.class, level, worldPosition, HORIZONTAL_RANGE, VERTICAL_RANGE, HORIZONTAL_RANGE);
             for (IMalumSpecialItemAccessPoint provider : altarProviders) {
                 LodestoneBlockEntityInventory inventoryForAltar = provider.getSuppliedInventory();
-
                 ItemStack providedStack = inventoryForAltar.getStackInSlot(0);
                 IngredientWithCount requestedItem = recipe.extraItems.get(extras);
                 boolean matches = requestedItem.matches(providedStack);
@@ -324,10 +276,8 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
                     break;
                 }
             }
-
-            return AltarCraftingHelper.extractIngredient(extrasInventory, nextIngredient.ingredient, nextIngredient.count, true).isEmpty();
+            return false;
         }
-
         return true;
     }
 
