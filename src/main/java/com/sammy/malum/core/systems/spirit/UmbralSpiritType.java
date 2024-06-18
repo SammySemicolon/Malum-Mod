@@ -31,9 +31,7 @@ public class UmbralSpiritType extends MalumSpiritType {
     public Consumer<WorldParticleBuilder> applyWorldParticleChanges() {
 
         return EnvExecutor.unsafeRunForDist(() -> () -> b -> {
-            //TODO, this gets run on server? stupid envtype
             UmbralClientHelper.grabRenderType(b);
-            //b.setRenderType(team.lodestar.lodestone.systems.particle.render_types.LodestoneWorldParticleRenderType.LUMITRANSPARENT);
             b.modifyData(b::getTransparencyData, d -> d.multiplyValue(4f));
             b.getScaleData().multiplyCoefficient(1.5f);
             b.getTransparencyData().multiplyCoefficient(1.5f);
