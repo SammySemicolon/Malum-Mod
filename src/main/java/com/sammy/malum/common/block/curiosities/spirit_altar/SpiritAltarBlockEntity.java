@@ -378,9 +378,11 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
     }
 
     public Vec3 getSpiritItemOffset(int slot, float partialTicks) {
-        float distance = 1 - getSpinUp(Easing.SINE_OUT) * 0.25f + (float) Math.sin((spiritSpin % 6.28f + partialTicks) / 20f) * 0.025f;
+        float projectedSpiritSpin = spiritSpin + spiritYLevel * 0.05f + speed * 0.5f;
+        float lerpSpiritSpin = spiritSpin + partialTicks * (projectedSpiritSpin - spiritSpin);
+        float distance = 1 - getSpinUp(Easing.SINE_OUT) * 0.25f + (float) Math.sin((lerpSpiritSpin % 6.28f) / 20f) * 0.025f;
         float height = 0.75f + getSpinUp(Easing.QUARTIC_OUT) * getSpinUp(Easing.BACK_OUT) * 0.5f;
-        return DataHelper.rotatingRadialOffset(new Vec3(0.5f, height, 0.5f), distance, slot, spiritAmount, (long) (spiritSpin + partialTicks), 360);
+        return DataHelper.rotatingRadialOffset(new Vec3(0.5f, height, 0.5f), distance, slot, spiritAmount, (long) (lerpSpiritSpin), 360);
     }
 
     public float getSpinUp(Easing easing) {
