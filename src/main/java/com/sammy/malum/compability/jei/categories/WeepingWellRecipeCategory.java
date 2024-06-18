@@ -70,6 +70,6 @@ public class WeepingWellRecipeCategory implements IRecipeCategory<FavorOfTheVoid
         builder.addSlot(RecipeIngredientRole.OUTPUT, 63, 124)
             .addItemStack(recipe.output);
         builder.addInvisibleIngredients(RecipeIngredientRole.CATALYST)
-            .addItemStack(new ItemStack(ItemRegistry.PRIMORDIAL_SOUP.get()));
+            .addItemStack(new ItemStack(ItemRegistry.VOID_DEPOT.get()));
     }
 }

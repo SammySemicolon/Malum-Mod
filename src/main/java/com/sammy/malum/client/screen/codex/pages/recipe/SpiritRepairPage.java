@@ -35,27 +35,14 @@ public class SpiritRepairPage extends BookPage {
         return new SpiritRepairPage(s -> s.doesInputMatch(inputItem.getDefaultInstance()));
     }
 
-//    @Override
-//    public void renderLeft(Minecraft minecraft, GuiGraphics guiGraphics, EntryScreen<T> screen, int mouseX, int mouseY, float partialTicks) {
-//        int guiLeft = getGuiLeft();
-//        int guiTop = getGuiTop();
-//        renderComponent(screen, guiGraphics, recipe.repairMaterial, guiLeft + 48, guiTop + 59, mouseX, mouseY);
-//        renderItem(screen, guiGraphics, recipe.inputs.stream().map(s -> s.getDefaultInstance()).peek(s -> s.setDamageValue((int) (s.getMaxDamage() * recipe.durabilityPercentage))).collect(Collectors.toList()), guiLeft + 86, guiTop + 59, mouseX, mouseY);
-//        renderItem(screen, guiGraphics, recipe.inputs.stream().map(s -> SpiritRepairRecipe.getRepairRecipeOutput(s.getDefaultInstance())).collect(Collectors.toList()), guiLeft + 67, guiTop + 126, mouseX, mouseY);
-//        if (!recipe.spirits.isEmpty()) {
-//            renderComponents(screen, guiGraphics, recipe.spirits, guiLeft + 65, guiTop + 16, mouseX, mouseY, false);
-//        }
-//    }
-//
-//    @Override
-//    public void renderRight(Minecraft minecraft, GuiGraphics guiGraphics, EntryScreen<T> screen, int mouseX, int mouseY, float partialTicks) {
-//        int guiLeft = getGuiLeft();
-//        int guiTop = getGuiTop();
-//        renderComponent(screen, guiGraphics, recipe.repairMaterial, guiLeft + 190, guiTop + 59, mouseX, mouseY);
-//        renderItem(screen, guiGraphics, recipe.inputs.stream().map(s -> s.getDefaultInstance()).peek(s -> s.setDamageValue((int) (s.getMaxDamage() * recipe.durabilityPercentage))).collect(Collectors.toList()), guiLeft + 228, guiTop + 59, mouseX, mouseY);
-//        renderItem(screen, guiGraphics, recipe.inputs.stream().map(s -> SpiritRepairRecipe.getRepairRecipeOutput(s.getDefaultInstance())).collect(Collectors.toList()), guiLeft + 209, guiTop + 126, mouseX, mouseY);
-//        if (!recipe.spirits.isEmpty()) {
-//            renderComponents(screen, guiGraphics, recipe.spirits, guiLeft + 207, guiTop + 16, mouseX, mouseY, false);
-//        }
-//    }
+    @Override
+    public void render(EntryScreen screen, GuiGraphics guiGraphics, int left, int top, int mouseX, int mouseY, float partialTicks, boolean isRepeat) {
+        renderComponents(screen, guiGraphics, recipe.spirits, left + 63, top + 16, mouseX, mouseY, false);
+        final List<ItemStack> damaged = recipe.inputs.stream().map(Item::getDefaultInstance).peek(s -> s.setDamageValue(Mth.floor(s.getMaxDamage() * recipe.durabilityPercentage))).collect(Collectors.toList());
+        final List<ItemStack> repaired = recipe.inputs.stream().map(s -> SpiritRepairRecipe.getRepairRecipeOutput(s.getDefaultInstance())).collect(Collectors.toList());
+        renderItem(screen, guiGraphics, damaged, left + 82, top + 59, mouseX, mouseY);
+        renderComponent(screen, guiGraphics, recipe.repairMaterial, left + 44, top + 59, mouseX, mouseY);
+        renderItem(screen, guiGraphics, repaired, left + 63, top + 126, mouseX, mouseY);
+
+    }
 }
