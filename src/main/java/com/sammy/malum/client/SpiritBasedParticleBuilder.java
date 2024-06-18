@@ -1,6 +1,7 @@
 package com.sammy.malum.client;
 
 import com.sammy.malum.core.systems.spirit.*;
+import com.sammy.malum.registry.common.*;
 import net.minecraft.client.particle.*;
 import net.minecraft.core.*;
 import net.minecraft.core.particles.*;
@@ -16,6 +17,7 @@ import team.lodestar.lodestone.systems.particle.builder.*;
 import team.lodestar.lodestone.systems.particle.data.*;
 import team.lodestar.lodestone.systems.particle.data.color.*;
 import team.lodestar.lodestone.systems.particle.data.spin.*;
+import team.lodestar.lodestone.systems.particle.render_types.*;
 import team.lodestar.lodestone.systems.particle.world.*;
 import team.lodestar.lodestone.systems.particle.world.options.*;
 import team.lodestar.lodestone.systems.particle.world.type.*;
@@ -46,7 +48,44 @@ public class SpiritBasedParticleBuilder extends WorldParticleBuilder {
 
     public SpiritBasedParticleBuilder setSpirit(MalumSpiritType spiritType) {
         this.spiritType = spiritType;
+        super.setRenderType(LodestoneWorldParticleRenderType.LUMITRANSPARENT);
         return setColorData(spiritType.createColorData().build());
+    }
+
+    public boolean isUmbral() {
+        return spiritType != null && spiritType.equals(SpiritTypeRegistry.UMBRAL_SPIRIT);
+    }
+
+    @Override
+    public SpiritBasedParticleBuilder setRenderType(ParticleRenderType renderType) {
+        if (isUmbral()) {
+            return (SpiritBasedParticleBuilder) super.setRenderType(LodestoneWorldParticleRenderType.LUMITRANSPARENT);
+        }
+        return (SpiritBasedParticleBuilder)super.setRenderType(renderType);
+    }
+
+    @Override
+    public SpiritBasedParticleBuilder setLifetime(Supplier<Integer> lifetimeSupplier) {
+        if (isUmbral()) {
+            return (SpiritBasedParticleBuilder) super.setLifetime(()->(int) (lifetimeSupplier.get()*2.5f));
+        }
+        return (SpiritBasedParticleBuilder)super.setLifetime(lifetimeSupplier);
+    }
+
+    @Override
+    public SpiritBasedParticleBuilder setScaleData(GenericParticleData scaleData) {
+        if (isUmbral()) {
+            scaleData.multiplyCoefficient(1.5f);
+        }
+        return (SpiritBasedParticleBuilder)super.setScaleData(scaleData);
+    }
+
+    @Override
+    public SpiritBasedParticleBuilder setTransparencyData(GenericParticleData transparencyData) {
+        if (isUmbral()) {
+            transparencyData.multiplyValue(4f).multiplyCoefficient(1.5f);
+        }
+        return (SpiritBasedParticleBuilder)super.setTransparencyData(transparencyData);
     }
 
     @Override
@@ -62,11 +101,6 @@ public class SpiritBasedParticleBuilder extends WorldParticleBuilder {
     @Override
     public SpiritBasedParticleBuilder setNoClip(boolean noClip) {
         return (SpiritBasedParticleBuilder)super.setNoClip(noClip);
-    }
-
-    @Override
-    public SpiritBasedParticleBuilder setRenderType(ParticleRenderType renderType) {
-        return (SpiritBasedParticleBuilder)super.setRenderType(renderType);
     }
 
     @Override
@@ -290,16 +324,6 @@ public class SpiritBasedParticleBuilder extends WorldParticleBuilder {
     }
 
     @Override
-    public SpiritBasedParticleBuilder setScaleData(GenericParticleData scaleData) {
-        return (SpiritBasedParticleBuilder)super.setScaleData(scaleData);
-    }
-
-    @Override
-    public SpiritBasedParticleBuilder setTransparencyData(GenericParticleData transparencyData) {
-        return (SpiritBasedParticleBuilder)super.setTransparencyData(transparencyData);
-    }
-
-    @Override
     public SpiritBasedParticleBuilder setSpinData(SpinParticleData spinData) {
         return (SpiritBasedParticleBuilder)super.setSpinData(spinData);
     }
@@ -337,11 +361,6 @@ public class SpiritBasedParticleBuilder extends WorldParticleBuilder {
     @Override
     public SpiritBasedParticleBuilder setLifetime(int lifetime) {
         return (SpiritBasedParticleBuilder)super.setLifetime(lifetime);
-    }
-
-    @Override
-    public SpiritBasedParticleBuilder setLifetime(Supplier<Integer> lifetimeSupplier) {
-        return (SpiritBasedParticleBuilder)super.setLifetime(lifetimeSupplier);
     }
 
     @Override

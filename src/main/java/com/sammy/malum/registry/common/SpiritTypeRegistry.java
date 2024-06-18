@@ -70,7 +70,7 @@ public class SpiritTypeRegistry {
     public static SpiritTypeProperty SPIRIT_TYPE_PROPERTY = new SpiritTypeProperty("spirit_type", SPIRITS.values());
 
     public static MalumSpiritType UMBRAL_SPIRIT = register(MalumSpiritType.create("umbral",
-                    new UmbralSpiritMotif(new Color(19, 5, 24), new Color(7, 1, 1), 0.9f, Easing.SINE_IN_OUT),
+                    new SpiritVisualMotif(4f, new Color(19, 5, 24), new Color(7, 1, 1), 0.9f, Easing.SINE_IN_OUT),
                     ItemRegistry.UMBRAL_SPIRIT, null)
             .setItemColor(SpiritVisualMotif::getPrimaryColor)
             .build(UmbralSpiritType::new));

@@ -268,7 +268,6 @@ public class RitualPlinthParticleEffects {
                     .enableNoClip()
                     .setDiscardFunction(SimpleParticleOptions.ParticleDiscardFunctionType.ENDING_CURVE_INVISIBLE)
                     .act(behaviorSpark)
-                    .act(spiritType.applyWorldParticleChanges())
                     .spawn(level, particlePosition.x, particlePosition.y, particlePosition.z);
             var lightSpecs = spiritLightSpecs(level, particlePosition, spiritType);
             lightSpecs.getBuilder().act(b -> b
@@ -383,7 +382,6 @@ public class RitualPlinthParticleEffects {
                         .setMotion(new Vec3(0, 0.005f, 0))
                         .enableNoClip()
                         .setDiscardFunction(SimpleParticleOptions.ParticleDiscardFunctionType.ENDING_CURVE_INVISIBLE)
-                        .act(spiritType.applyWorldParticleChanges())
                         .spawn(level, particlePosition.x, particlePosition.y - 0.125f, particlePosition.z);
             }
         }
@@ -419,7 +417,6 @@ public class RitualPlinthParticleEffects {
                         .setMotion(new Vec3(0, 0.005f, 0))
                         .enableNoClip()
                         .setDiscardFunction(SimpleParticleOptions.ParticleDiscardFunctionType.ENDING_CURVE_INVISIBLE)
-                        .act(spiritType.applyWorldParticleChanges())
                         .spawn(level, particlePosition.x, particlePosition.y-0.125f, particlePosition.z);
             }
         }
@@ -444,7 +441,6 @@ public class RitualPlinthParticleEffects {
                     .enableNoClip()
                     .setDiscardFunction(SimpleParticleOptions.ParticleDiscardFunctionType.ENDING_CURVE_INVISIBLE)
                     .setRenderType(LodestoneWorldParticleRenderType.LUMITRANSPARENT)
-                    .act(spiritType.applyWorldParticleChanges())
                     .repeat(level, ritualIconPos.x, ritualIconPos.y, ritualIconPos.z, 3);
         }
 
@@ -481,7 +477,6 @@ public class RitualPlinthParticleEffects {
                         .setLifetime(80)
                         .enableNoClip()
                         .setDiscardFunction(SimpleParticleOptions.ParticleDiscardFunctionType.ENDING_CURVE_INVISIBLE)
-                        .act(spiritType.applyWorldParticleChanges())
                         .spawn(level, particlePosition.x, particlePosition.y, particlePosition.z);
             }
             Vec3 normalizedParticleVelocity = particleVelocity.normalize();
@@ -506,7 +501,6 @@ public class RitualPlinthParticleEffects {
                     .setMotion(randomizedVelocity)
                     .enableNoClip()
                     .addTickActor(behavior)
-                    .act(spiritType.applyWorldParticleChanges())
                     .spawn(level, particlePosition.x, particlePosition.y, particlePosition.z);
         }
         if (gameTime % 16L == 0) {
@@ -525,7 +519,6 @@ public class RitualPlinthParticleEffects {
                         .setLifetime(40)
                         .enableNoClip()
                         .setDiscardFunction(SimpleParticleOptions.ParticleDiscardFunctionType.ENDING_CURVE_INVISIBLE)
-                        .act(spiritType.applyWorldParticleChanges())
                         .spawn(level, particlePosition.x, particlePosition.y + 0.6875f, particlePosition.z);
                 WorldParticleBuilder.create(ParticleRegistry.RITUAL_CIRCLE_WISP, new DirectionalBehaviorComponent(new Vec3(0, 1, 0)))
                         .setTransparencyData(transparencyData.multiplyValue(0.25f))
@@ -535,7 +528,6 @@ public class RitualPlinthParticleEffects {
                         .setLifetime(40)
                         .enableNoClip()
                         .setDiscardFunction(SimpleParticleOptions.ParticleDiscardFunctionType.ENDING_CURVE_INVISIBLE)
-                        .act(spiritType.applyWorldParticleChanges())
                         .spawn(level, particlePosition.x, particlePosition.y + 0.6875f, particlePosition.z);
             }
         }
