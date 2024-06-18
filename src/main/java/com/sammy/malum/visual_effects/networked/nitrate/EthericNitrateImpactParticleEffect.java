@@ -1,29 +1,31 @@
 package com.sammy.malum.visual_effects.networked.nitrate;
 
-import com.sammy.malum.registry.client.*;
-import com.sammy.malum.visual_effects.*;
-import com.sammy.malum.visual_effects.networked.*;
-import net.minecraft.util.*;
-import net.minecraft.world.phys.*;
+import com.sammy.malum.registry.client.ParticleRegistry;
+import com.sammy.malum.visual_effects.SparkParticleEffects;
+import com.sammy.malum.visual_effects.networked.ParticleEffectType;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import team.lodestar.lodestone.helpers.*;
-import team.lodestar.lodestone.registry.common.particle.*;
-import team.lodestar.lodestone.systems.easing.*;
-import team.lodestar.lodestone.systems.particle.*;
-import team.lodestar.lodestone.systems.particle.builder.*;
-import team.lodestar.lodestone.systems.particle.data.*;
-import team.lodestar.lodestone.systems.particle.data.color.*;
-import team.lodestar.lodestone.systems.particle.data.spin.*;
+import net.minecraft.util.Mth;
+import net.minecraft.world.phys.Vec3;
+import team.lodestar.lodestone.helpers.RandomHelper;
+import team.lodestar.lodestone.registry.common.particle.LodestoneParticleRegistry;
+import team.lodestar.lodestone.systems.easing.Easing;
+import team.lodestar.lodestone.systems.particle.SimpleParticleOptions;
+import team.lodestar.lodestone.systems.particle.builder.AbstractParticleBuilder;
+import team.lodestar.lodestone.systems.particle.builder.WorldParticleBuilder;
+import team.lodestar.lodestone.systems.particle.data.GenericParticleData;
+import team.lodestar.lodestone.systems.particle.data.color.ColorParticleData;
+import team.lodestar.lodestone.systems.particle.data.spin.SpinParticleData;
 import team.lodestar.lodestone.systems.particle.world.LodestoneWorldParticle;
 import team.lodestar.lodestone.systems.particle.world.behaviors.components.SparkBehaviorComponent;
 import team.lodestar.lodestone.systems.particle.world.options.WorldParticleOptions;
 
 import java.awt.*;
-import java.util.function.*;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 import static com.sammy.malum.visual_effects.SpiritLightSpecs.spiritLightSpecs;
-import static net.minecraft.util.Mth.*;
+import static net.minecraft.util.Mth.nextFloat;
 
 public class EthericNitrateImpactParticleEffect extends ParticleEffectType {
 
@@ -57,7 +59,7 @@ public class EthericNitrateImpactParticleEffect extends ParticleEffectType {
                     if (velocity.equals(Vec3.ZERO)) {
                         velocity = p.getParticleSpeed();
                     }
-                    p.setParticleSpeed(velocity.x, (velocity.y-gravityStrength)*0.98f, velocity.z);
+                    p.setParticleSpeed(velocity.x, (velocity.y - gravityStrength) * 0.98f, velocity.z);
                 };
                 boolean star = random.nextFloat() < 0.2f;
                 if (random.nextFloat() < 0.8f) {
@@ -84,7 +86,7 @@ public class EthericNitrateImpactParticleEffect extends ParticleEffectType {
                             .enableForcedSpawn()
                             .addTickActor(slowDown)
                             .setMotion(motion)
-                            .setScaleData(GenericParticleData.create(0.4f*scalar, 0.2f*scalar, 0f).setEasing(Easing.SINE_IN, Easing.QUAD_IN).build());
+                            .setScaleData(GenericParticleData.create(0.4f * scalar, 0.2f * scalar, 0f).setEasing(Easing.SINE_IN, Easing.QUAD_IN).build());
                     sparks.getBloomBuilder()
                             .multiplyLifetime(lifetimeMultiplier)
                             .addTickActor(slowDown)

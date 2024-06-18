@@ -10,7 +10,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Block;
@@ -26,11 +25,9 @@ import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraft.world.level.levelgen.synth.PerlinSimplexNoise;
 import net.minecraft.world.phys.Vec3;
-import org.joml.Vector2i;
 import team.lodestar.lodestone.helpers.BlockHelper;
 import team.lodestar.lodestone.helpers.RandomHelper;
 import team.lodestar.lodestone.systems.worldgen.LodestoneBlockFiller;
-import team.lodestar.lodestone.systems.worldgen.LodestoneBlockFiller.BlockStateEntry;
 
 import java.util.*;
 
@@ -204,7 +201,7 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
                 filler.getLayer(LOGS).put(mutable.immutable(), create(logState));
                 mutable.move(Direction.UP);
             }
-            makeLeafBlob(filler, rand, mutable.move(Direction.DOWN, branchHeight-1));
+            makeLeafBlob(filler, rand, mutable.move(Direction.DOWN, branchHeight - 1));
         }
         makeLeafBlob(filler, rand, mutable.set(trunkTop));
 

@@ -1,6 +1,5 @@
 package com.sammy.malum.common.enchantment;
 
-import com.sammy.malum.registry.common.item.EnchantmentRegistry;
 import com.sammy.malum.registry.common.item.ItemTagRegistry;
 import io.github.fabricators_of_create.porting_lib.enchant.CustomEnchantingTableBehaviorEnchantment;
 import net.minecraft.world.entity.EquipmentSlot;

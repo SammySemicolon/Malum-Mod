@@ -7,7 +7,6 @@ import com.sammy.malum.common.recipe.SpiritTransmutationRecipe;
 import com.sammy.malum.compability.emi.recipes.*;
 import com.sammy.malum.core.systems.recipe.SpiritWithCount;
 import com.sammy.malum.registry.common.SpiritRiteRegistry;
-import com.sammy.malum.registry.common.block.BlockRegistry;
 import com.sammy.malum.registry.common.item.ItemRegistry;
 import com.sammy.malum.registry.common.recipe.RecipeTypeRegistry;
 import dev.emi.emi.api.EmiPlugin;
@@ -71,7 +70,6 @@ public class EMIHandler implements EmiPlugin {
     }
 
 
-
     @Override
     public void register(EmiRegistry registry) {
         this.registerRecipeType(registry, SPIRIT_INFUSION, SPIRIT_INFUSION_WORKSTATION, RecipeTypeRegistry.SPIRIT_INFUSION.get(), SpiritInfusionEmiRecipe::new);
@@ -83,13 +81,10 @@ public class EMIHandler implements EmiPlugin {
         Map<String, List<SpiritTransmutationRecipe>> groups = Maps.newLinkedHashMap();
         transmutation.forEach((recipe) ->
         {
-            if(recipe.group != null)
-            {
+            if (recipe.group != null) {
                 List<SpiritTransmutationRecipe> group = groups.computeIfAbsent(recipe.group, (k) -> Lists.newArrayList());
                 group.add(recipe);
-            }
-            else
-            {
+            } else {
                 leftovers.add(recipe);
             }
         });
@@ -109,16 +104,12 @@ public class EMIHandler implements EmiPlugin {
 
     public static void addItems(WidgetHolder widgets, int left, int top, boolean vertical, List<EmiIngredient> ingredients) {
         int slots = ingredients.size();
-        if(vertical)
-        {
+        if (vertical) {
             top -= 10 * (slots - 1);
-        }
-        else
-        {
+        } else {
             left -= 10 * (slots - 1);
         }
-        for(int i = 0; i < slots; i++)
-        {
+        for (int i = 0; i < slots; i++) {
             int offset = i * 20;
             int offsetLeft = left + 1 + (vertical ? 0 : offset);
             int offsetTop = top + 1 + (vertical ? offset : 0);

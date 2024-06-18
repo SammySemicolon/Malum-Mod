@@ -1,17 +1,21 @@
 package com.sammy.malum.client.renderer.entity;
 
-import com.mojang.blaze3d.vertex.*;
-import com.sammy.malum.client.*;
-import com.sammy.malum.common.entity.activator.*;
-import com.sammy.malum.core.systems.spirit.*;
-import com.sammy.malum.registry.client.*;
-import com.sammy.malum.registry.common.*;
-import net.minecraft.client.renderer.*;
-import net.minecraft.client.renderer.entity.*;
-import net.minecraft.client.renderer.texture.*;
-import net.minecraft.resources.*;
-import team.lodestar.lodestone.registry.client.*;
-import team.lodestar.lodestone.systems.rendering.*;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.sammy.malum.client.RenderUtils;
+import com.sammy.malum.client.SpiritBasedWorldVFXBuilder;
+import com.sammy.malum.common.entity.activator.SpiritCollectionActivatorEntity;
+import com.sammy.malum.core.systems.spirit.MalumSpiritType;
+import com.sammy.malum.registry.client.MalumRenderTypeTokens;
+import com.sammy.malum.registry.common.SpiritTypeRegistry;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.entity.EntityRenderer;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.ItemRenderer;
+import net.minecraft.client.renderer.texture.TextureAtlas;
+import net.minecraft.resources.ResourceLocation;
+import team.lodestar.lodestone.registry.client.LodestoneRenderTypeRegistry;
+import team.lodestar.lodestone.systems.rendering.LodestoneRenderType;
+import team.lodestar.lodestone.systems.rendering.VFXBuilders;
 
 import static com.sammy.malum.registry.common.SpiritTypeRegistry.UMBRAL_SPIRIT;
 

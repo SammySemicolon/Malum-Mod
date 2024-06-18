@@ -97,7 +97,7 @@ public class TokenOfGratitudeRenderer implements TrinketRenderer {
         VertexConsumer vertexconsumer = renderTypeBuffer.getBuffer(renderType);
 
         TrinketRenderer.translateToFace(poseStack, (PlayerModel<AbstractClientPlayer>) entityModel, playerEntity, headYaw, headPitch);
-        poseStack.translate(0,0.2,0.3f);
+        poseStack.translate(0, 0.2, 0.3f);
         if (HEAD_OVERLAY_MODEL == null) {
             HEAD_OVERLAY_MODEL = new HeadOverlayModel(Minecraft.getInstance().getEntityModels().bakeLayer(HeadOverlayModel.LAYER));
         }

@@ -1,13 +1,15 @@
 package com.sammy.malum.common.item.curiosities.trinkets.runes;
 
-import com.sammy.malum.common.spiritrite.*;
+import com.sammy.malum.common.spiritrite.PotionRiteEffect;
+import com.sammy.malum.common.spiritrite.TotemicRiteType;
 import dev.emi.trinkets.api.SlotReference;
-import net.minecraft.world.effect.*;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.item.*;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 
-
-import java.util.function.*;
+import java.util.function.Predicate;
+import java.util.function.Supplier;
 
 public class TotemicRuneTrinketsItem extends AbstractRuneTrinketsItem {
 

@@ -1,15 +1,10 @@
 package com.sammy.malum.common.entity;
 
-import com.sammy.malum.core.systems.spirit.MalumSpiritType;
-import com.sammy.malum.registry.common.SpiritTypeRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
@@ -29,7 +24,7 @@ import net.minecraft.world.phys.Vec3;
 import team.lodestar.lodestone.systems.easing.Easing;
 import team.lodestar.lodestone.systems.rendering.trail.TrailPointBuilder;
 
-import java.util.*;
+import java.util.UUID;
 
 public abstract class FloatingEntity extends Entity {
 
@@ -117,7 +112,7 @@ public abstract class FloatingEntity extends Entity {
                 if (windUp < 1) {
                     windUp += 0.02f;
                 }
-                float velocity = Mth.clamp(windUp-0.25f, 0, 0.75f) * 5f;
+                float velocity = Mth.clamp(windUp - 0.25f, 0, 0.75f) * 5f;
                 Vec3 desiredMotion = destination.subtract(position()).normalize().multiply(velocity, velocity, velocity);
                 float easing = getMotionCoefficient();
                 float xMotion = (float) Mth.lerp(easing, getDeltaMovement().x, desiredMotion.x);
@@ -168,7 +163,7 @@ public abstract class FloatingEntity extends Entity {
             double x = xOld, y = yOld + getYOffset(0), z = zOld;
             spawnParticles(x, y, z);
             for (int i = 0; i < 2; i++) {
-                float progress = (i+1) * 0.5f;
+                float progress = (i + 1) * 0.5f;
                 Vec3 position = getPosition(progress).add(0, getYOffset(progress), 0);
                 trailPointBuilder.addTrailPoint(position);
                 if (i == 0) {
@@ -223,6 +218,7 @@ public abstract class FloatingEntity extends Entity {
             owner = (LivingEntity) serverLevel.getEntity(ownerUUID);
         }
     }
+
     @Override
     public boolean isNoGravity() {
         return true;

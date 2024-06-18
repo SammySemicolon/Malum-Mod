@@ -74,12 +74,12 @@ public class JEIHandler implements IModPlugin {
         IGuiHelper guiHelper = registry.getJeiHelpers().getGuiHelper();
 
         registry.addRecipeCategories(new SpiritInfusionRecipeCategory(guiHelper),
-            new SpiritTransmutationRecipeCategory(guiHelper),
-            new SpiritFocusingRecipeCategory(guiHelper),
-            new SpiritRiteRecipeCategory(guiHelper),
-            new SpiritRepairRecipeCategory(guiHelper),
-            new RuneworkingRecipeCategory(guiHelper),
-            new WeepingWellRecipeCategory(guiHelper));
+                new SpiritTransmutationRecipeCategory(guiHelper),
+                new SpiritFocusingRecipeCategory(guiHelper),
+                new SpiritRiteRecipeCategory(guiHelper),
+                new SpiritRepairRecipeCategory(guiHelper),
+                new RuneworkingRecipeCategory(guiHelper),
+                new WeepingWellRecipeCategory(guiHelper));
     }
 
     @Override

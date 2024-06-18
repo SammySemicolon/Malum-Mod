@@ -1,6 +1,9 @@
 package com.sammy.malum.registry.common;
 
-import com.sammy.malum.core.systems.spirit.*;
+import com.sammy.malum.core.systems.spirit.MalumSpiritType;
+import com.sammy.malum.core.systems.spirit.SpiritTypeProperty;
+import com.sammy.malum.core.systems.spirit.SpiritVisualMotif;
+import com.sammy.malum.core.systems.spirit.UmbralSpiritType;
 import com.sammy.malum.registry.common.block.BlockRegistry;
 import com.sammy.malum.registry.common.item.ItemRegistry;
 import team.lodestar.lodestone.helpers.ColorHelper;

@@ -32,7 +32,7 @@ public class TrinketsGrowingFleshRing extends MalumTinketsItem implements IVoidI
         if (effect == null) {
             collector.addEffect(new MobEffectInstance(cancerousGrowth, 1200, 0, true, true, true));
         } else {
-            EntityHelper.extendEffect(effect, collector, (int) (300+arcaneResonance*300), 72000);
+            EntityHelper.extendEffect(effect, collector, (int) (300 + arcaneResonance * 300), 72000);
             EntityHelper.amplifyEffect(effect, collector, 1, 19);
         }
         Level level = collector.level();

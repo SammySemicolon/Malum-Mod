@@ -1,12 +1,12 @@
 package com.sammy.malum.visual_effects.networked.crucible;
 
-import com.sammy.malum.common.block.curiosities.spirit_crucible.*;
-import com.sammy.malum.visual_effects.*;
-import com.sammy.malum.visual_effects.networked.*;
+import com.sammy.malum.common.block.curiosities.spirit_crucible.SpiritCrucibleCoreBlockEntity;
+import com.sammy.malum.visual_effects.SpiritCrucibleParticleEffects;
+import com.sammy.malum.visual_effects.networked.ParticleEffectType;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 
-import java.util.function.*;
+import java.util.function.Supplier;
 
 public class SpiritCrucibleCraftParticleEffect extends ParticleEffectType {
 

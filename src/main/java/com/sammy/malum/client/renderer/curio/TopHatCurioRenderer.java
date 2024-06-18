@@ -8,7 +8,6 @@ import dev.emi.trinkets.api.SlotReference;
 import dev.emi.trinkets.api.client.TrinketRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.EntityModel;
-import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.PlayerModel;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -16,7 +15,6 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
 public class TopHatCurioRenderer implements TrinketRenderer {
@@ -36,7 +34,7 @@ public class TopHatCurioRenderer implements TrinketRenderer {
         VertexConsumer vertexconsumer = renderTypeBuffer.getBuffer(renderType);
         if (livingEntity instanceof AbstractClientPlayer player) {
             TrinketRenderer.translateToFace(poseStack, (PlayerModel<AbstractClientPlayer>) entityModel, player, headYaw, headPitch);
-            poseStack.translate(0,0.2,0.3f);
+            poseStack.translate(0, 0.2, 0.3f);
         }
         TOP_HAT.renderToBuffer(poseStack, vertexconsumer, light, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
     }

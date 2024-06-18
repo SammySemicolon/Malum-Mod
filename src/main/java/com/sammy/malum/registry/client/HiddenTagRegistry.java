@@ -25,63 +25,63 @@ import static com.sammy.malum.client.VoidRevelationHandler.RevelationType.VOID_R
 public class HiddenTagRegistry {
 
 
-	public static final ResourceLocation HIDDEN_ITEM_FLAG_SPACE = MalumMod.malumPath("hiding");
+    public static final ResourceLocation HIDDEN_ITEM_FLAG_SPACE = MalumMod.malumPath("hiding");
 
-	private static boolean blankFeatureSet = false;
+    private static boolean blankFeatureSet = false;
 
-	public static void attachFeatureFlags(FeatureFlagSet set) {
-		// Purely exists to force a rebuild of flags, we check separately
-		((FeatureFlagExpandedUniverseSet) (Object) set).malum$attachFeatureSet(
-			blankFeatureSet ? HiddenTagHandler.createAllEnabledFlagSet() : HiddenTagHandler.createFeatureFlagSet());
-	}
+    public static void attachFeatureFlags(FeatureFlagSet set) {
+        // Purely exists to force a rebuild of flags, we check separately
+        ((FeatureFlagExpandedUniverseSet) (Object) set).malum$attachFeatureSet(
+                blankFeatureSet ? HiddenTagHandler.createAllEnabledFlagSet() : HiddenTagHandler.createFeatureFlagSet());
+    }
 
 
-	public static void hideItems(CreativeModeTab creativeModeTab, FabricItemGroupEntries entries) {
-		List<TagKey<Item>> disabledTags = HiddenTagHandler.tagsToHide();
+    public static void hideItems(CreativeModeTab creativeModeTab, FabricItemGroupEntries entries) {
+        List<TagKey<Item>> disabledTags = HiddenTagHandler.tagsToHide();
 
-		var iterator = entries.getDisplayStacks().iterator();
-		while (iterator.hasNext()) {
-			var entry = iterator.next();
+        var iterator = entries.getDisplayStacks().iterator();
+        while (iterator.hasNext()) {
+            var entry = iterator.next();
 
-			for (TagKey<Item> disabledTag : disabledTags) {
-				if (entry.getItem().getDefaultInstance().is(disabledTag)) {
-					iterator.remove();
-					break;
-				}
-			}
-		}
-	}
+            for (TagKey<Item> disabledTag : disabledTags) {
+                if (entry.getItem().getDefaultInstance().is(disabledTag)) {
+                    iterator.remove();
+                    break;
+                }
+            }
+        }
+    }
 
-	public static void registerHiddenTags() {
-		HiddenTagHandler.hideTagWhen(ItemTagRegistry.HIDDEN_ALWAYS, () -> true);
-		HiddenTagHandler.hideTagWhen(ItemTagRegistry.HIDDEN_UNTIL_VOID, () -> !VoidRevelationHandler.hasSeenTheRevelation(VOID_READER));
-		HiddenTagHandler.hideTagWhen(ItemTagRegistry.HIDDEN_UNTIL_BLACK_CRYSTAL, () -> !VoidRevelationHandler.hasSeenTheRevelation(BLACK_CRYSTAL));
+    public static void registerHiddenTags() {
+        HiddenTagHandler.hideTagWhen(ItemTagRegistry.HIDDEN_ALWAYS, () -> true);
+        HiddenTagHandler.hideTagWhen(ItemTagRegistry.HIDDEN_UNTIL_VOID, () -> !VoidRevelationHandler.hasSeenTheRevelation(VOID_READER));
+        HiddenTagHandler.hideTagWhen(ItemTagRegistry.HIDDEN_UNTIL_BLACK_CRYSTAL, () -> !VoidRevelationHandler.hasSeenTheRevelation(BLACK_CRYSTAL));
 
-		HiddenTagHandler.buildFeatureFlagSet(HIDDEN_ITEM_FLAG_SPACE);
+        HiddenTagHandler.buildFeatureFlagSet(HIDDEN_ITEM_FLAG_SPACE);
 
-		HiddenTagHandler.registerHiddenItemListener(HiddenTagRegistry::rebuildHidingTags);
-	}
+        HiddenTagHandler.registerHiddenItemListener(HiddenTagRegistry::rebuildHidingTags);
+    }
 
-	public static void blankOutHidingTags() {
-		Minecraft.getInstance().submit(() -> {
-			blankFeatureSet = true;
-			rebuildTags();
-			blankFeatureSet = false;
-		});
-	}
+    public static void blankOutHidingTags() {
+        Minecraft.getInstance().submit(() -> {
+            blankFeatureSet = true;
+            rebuildTags();
+            blankFeatureSet = false;
+        });
+    }
 
-	public static void rebuildHidingTags() {
-		Minecraft.getInstance().submit(HiddenTagRegistry::rebuildTags);
-	}
+    public static void rebuildHidingTags() {
+        Minecraft.getInstance().submit(HiddenTagRegistry::rebuildTags);
+    }
 
-	private static void rebuildTags() {
-		ClientPacketListener connection = Minecraft.getInstance().getConnection();
-		if (connection != null) {
-			var cachedFlags = ((FeatureFlagCacher) connection).malum$cachedFeatureFlags();
-			if (cachedFlags != null)
-				connection.handleEnabledFeatures(new ClientboundUpdateEnabledFeaturesPacket(Sets.newHashSet(cachedFlags)));
-		}
-	}
+    private static void rebuildTags() {
+        ClientPacketListener connection = Minecraft.getInstance().getConnection();
+        if (connection != null) {
+            var cachedFlags = ((FeatureFlagCacher) connection).malum$cachedFeatureFlags();
+            if (cachedFlags != null)
+                connection.handleEnabledFeatures(new ClientboundUpdateEnabledFeaturesPacket(Sets.newHashSet(cachedFlags)));
+        }
+    }
 
 
 }

@@ -98,7 +98,7 @@ public class RepairPylonParticleEffects {
             MalumSpiritType cyclingSpiritType = colorData.getCyclingColorRecord().spiritType();
             for (int j = 0; j < 32; j++) {
                 float distance = 0.8f * (1 - j / 32f);
-                long time = gameTime+j*3;
+                long time = gameTime + j * 3;
                 Vec3 offsetPosition = DataHelper.rotatingRadialOffset(holderItemPos, distance, i, 4, time, 160);
                 if (random.nextFloat() < 0.85f) {
                     var sparkParticles = SparkParticleEffects.spiritMotionSparks(level, offsetPosition, cyclingSpiritType);
@@ -129,7 +129,7 @@ public class RepairPylonParticleEffects {
             }
             for (int j = 0; j < 32; j++) {
                 float distance = 0.8f * (j / 32f);
-                long time = gameTime+j*3;
+                long time = gameTime + j * 3;
                 int lifeDelay = 32 - j;
                 Vec3 offsetPosition = DataHelper.rotatingRadialOffset(pylonItemPos, distance, i, 4, time, 160);
                 if (random.nextFloat() < 0.85f) {
@@ -171,6 +171,7 @@ public class RepairPylonParticleEffects {
         repairItemParticles(level, activeSpiritType, pylon.getItemPos(), colorData);
         repairItemParticles(level, activeSpiritType, holder.getItemPos(), colorData);
     }
+
     public static void repairItemParticles(Level level, MalumSpiritType activeSpiritType, Vec3 itemPos, ColorEffectData colorData) {
         long gameTime = level.getGameTime();
         var random = level.random;

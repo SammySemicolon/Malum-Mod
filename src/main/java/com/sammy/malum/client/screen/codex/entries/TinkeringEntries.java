@@ -99,7 +99,7 @@ public class TinkeringEntries {
                 .addPage(SpiritInfusionPage.fromOutput(RING_OF_ESOTERIC_SPOILS.get()))
         );
 
-        screen.addEntry("belt_of_the_starved",-8, 7, b -> b
+        screen.addEntry("belt_of_the_starved", -8, 7, b -> b
                 .configureWidget(w -> w.setIcon(BELT_OF_THE_STARVED))
                 .addPage(new HeadlineTextPage("belt_of_the_starved", "belt_of_the_starved.1"))
                 .addPage(SpiritInfusionPage.fromOutput(BELT_OF_THE_STARVED.get()))

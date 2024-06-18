@@ -87,8 +87,7 @@ public class SpiritRepairEmiRecipe implements EmiRecipe {
 
         widgets.addDrawable(0, 0, 0, 0, (guiGraphics, mx, my, d) ->
         {
-            if(!spirits.isEmpty())
-            {
+            if (!spirits.isEmpty()) {
                 ArcanaCodexHelper.renderItemFrames(guiGraphics.pose(), spirits.size(), 61, 12, false);
             }
         });

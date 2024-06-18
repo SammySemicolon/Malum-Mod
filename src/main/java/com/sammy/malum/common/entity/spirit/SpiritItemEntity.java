@@ -1,19 +1,19 @@
 package com.sammy.malum.common.entity.spirit;
 
-import com.sammy.malum.common.entity.*;
-import com.sammy.malum.common.item.spirit.*;
-import com.sammy.malum.core.handlers.*;
-import com.sammy.malum.registry.common.*;
-import com.sammy.malum.registry.common.entity.*;
-import com.sammy.malum.visual_effects.*;
-import net.minecraft.sounds.*;
-import net.minecraft.util.*;
-import net.minecraft.world.item.*;
-import net.minecraft.world.level.*;
-import net.minecraft.world.phys.*;
-import team.lodestar.lodestone.helpers.*;
+import com.sammy.malum.common.entity.FloatingItemEntity;
+import com.sammy.malum.common.item.spirit.SpiritShardItem;
+import com.sammy.malum.core.handlers.SpiritHarvestHandler;
+import com.sammy.malum.registry.common.SoundRegistry;
+import com.sammy.malum.registry.common.entity.EntityRegistry;
+import com.sammy.malum.visual_effects.SpiritLightSpecs;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.Mth;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
+import team.lodestar.lodestone.helpers.ItemHelper;
 
-import java.util.*;
+import java.util.UUID;
 
 public class SpiritItemEntity extends FloatingItemEntity {
 

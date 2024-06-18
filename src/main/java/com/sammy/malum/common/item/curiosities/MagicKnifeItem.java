@@ -6,8 +6,6 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.Tier;
 import team.lodestar.lodestone.registry.common.LodestoneAttributeRegistry;
 
-import java.util.Properties;
-
 public class MagicKnifeItem extends MalumKnifeItem {
 
     public final float magicDamage;

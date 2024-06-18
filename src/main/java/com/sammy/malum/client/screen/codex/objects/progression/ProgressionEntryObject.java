@@ -7,7 +7,6 @@ import com.sammy.malum.client.screen.codex.BookWidgetStyle;
 import com.sammy.malum.client.screen.codex.objects.BookObject;
 import com.sammy.malum.client.screen.codex.screens.AbstractProgressionCodexScreen;
 import com.sammy.malum.client.screen.codex.screens.EntryScreen;
-import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
@@ -62,8 +61,8 @@ public class ProgressionEntryObject extends BookObject<AbstractProgressionCodexS
     public void renderLate(AbstractProgressionCodexScreen screen, GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
         if (isHoveredOver && entry.hasTooltip()) {
             final List<Component> list = Arrays.asList(
-                ArcanaCodexHelper.convertToComponent(entry.translationKey(), entry.titleStyle),
-                ArcanaCodexHelper.convertToComponent(entry.descriptionTranslationKey(), entry.subtitleStyle));
+                    ArcanaCodexHelper.convertToComponent(entry.translationKey(), entry.titleStyle),
+                    ArcanaCodexHelper.convertToComponent(entry.descriptionTranslationKey(), entry.subtitleStyle));
             guiGraphics.renderComponentTooltip(Minecraft.getInstance().font, list, mouseX, mouseY);
         }
     }

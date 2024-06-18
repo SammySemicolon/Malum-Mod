@@ -3,7 +3,7 @@ package com.sammy.malum.visual_effects;
 import com.sammy.malum.client.SpiritBasedParticleBuilder;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import com.sammy.malum.registry.client.ParticleRegistry;
-import net.minecraft.util.*;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import team.lodestar.lodestone.helpers.RandomHelper;
@@ -15,7 +15,6 @@ import team.lodestar.lodestone.systems.particle.data.GenericParticleData;
 import team.lodestar.lodestone.systems.particle.data.color.ColorParticleData;
 import team.lodestar.lodestone.systems.particle.data.spin.SpinParticleData;
 import team.lodestar.lodestone.systems.particle.world.LodestoneWorldParticle;
-import team.lodestar.lodestone.systems.particle.world.behaviors.SparkParticleBehavior;
 import team.lodestar.lodestone.systems.particle.world.behaviors.components.SparkBehaviorComponent;
 import team.lodestar.lodestone.systems.particle.world.options.WorldParticleOptions;
 

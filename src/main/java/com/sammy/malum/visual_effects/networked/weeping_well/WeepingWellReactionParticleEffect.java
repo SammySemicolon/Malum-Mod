@@ -1,9 +1,9 @@
 package com.sammy.malum.visual_effects.networked.weeping_well;
 
+import com.sammy.malum.visual_effects.WeepingWellParticleEffects;
 import com.sammy.malum.visual_effects.networked.ParticleEffectType;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import com.sammy.malum.visual_effects.*;
 
 import java.util.function.Supplier;
 

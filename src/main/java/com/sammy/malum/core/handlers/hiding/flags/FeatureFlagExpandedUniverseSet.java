@@ -6,15 +6,15 @@ import org.jetbrains.annotations.Nullable;
 
 
 public interface FeatureFlagExpandedUniverseSet {
-	@Nullable
-	FeatureFlagSet malum$getAttachedFeatureSet(ResourceLocation location);
+    @Nullable
+    FeatureFlagSet malum$getAttachedFeatureSet(ResourceLocation location);
 
-	@Nullable
-	UncappedFeatureFlagSet malum$getAttachedUncappedFeatureSet(ResourceLocation location);
+    @Nullable
+    UncappedFeatureFlagSet malum$getAttachedUncappedFeatureSet(ResourceLocation location);
 
-	void malum$attachFeatureSet(FeatureFlagSet set);
+    void malum$attachFeatureSet(FeatureFlagSet set);
 
-	void malum$attachFeatureSet(UncappedFeatureFlagSet set);
+    void malum$attachFeatureSet(UncappedFeatureFlagSet set);
 
-	FeatureFlagSet malum$copyWithoutExpansion();
+    FeatureFlagSet malum$copyWithoutExpansion();
 }

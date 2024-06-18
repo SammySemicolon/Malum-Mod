@@ -1,14 +1,15 @@
 package com.sammy.malum.visual_effects;
 
-import com.sammy.malum.common.block.curiosities.totem.*;
-import com.sammy.malum.core.systems.spirit.*;
-import net.minecraft.world.level.*;
-import net.minecraft.world.phys.*;
-import team.lodestar.lodestone.helpers.*;
-import team.lodestar.lodestone.systems.particle.builder.*;
-import team.lodestar.lodestone.systems.particle.data.*;
+import com.sammy.malum.common.block.curiosities.totem.TotemPoleBlockEntity;
+import com.sammy.malum.core.systems.spirit.MalumSpiritType;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
+import team.lodestar.lodestone.helpers.DataHelper;
+import team.lodestar.lodestone.helpers.RandomHelper;
+import team.lodestar.lodestone.systems.particle.builder.AbstractParticleBuilder;
+import team.lodestar.lodestone.systems.particle.data.GenericParticleData;
 
-import static com.sammy.malum.visual_effects.SpiritLightSpecs.*;
+import static com.sammy.malum.visual_effects.SpiritLightSpecs.spiritLightSpecs;
 
 public class TotemParticleEffects {
 

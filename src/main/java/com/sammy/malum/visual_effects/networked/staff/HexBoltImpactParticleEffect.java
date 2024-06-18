@@ -11,7 +11,6 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
 import team.lodestar.lodestone.helpers.RandomHelper;
 import team.lodestar.lodestone.systems.particle.builder.AbstractParticleBuilder;
-import team.lodestar.lodestone.systems.particle.builder.WorldParticleBuilder;
 import team.lodestar.lodestone.systems.particle.world.behaviors.components.SparkBehaviorComponent;
 
 import java.util.function.Supplier;

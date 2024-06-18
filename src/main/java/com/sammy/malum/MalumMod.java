@@ -27,7 +27,6 @@ import com.sammy.malum.core.listeners.SpiritDataReloadListener;
 import com.sammy.malum.data.worldgen.BiomeModifications;
 import com.sammy.malum.registry.MalumCommandRegistry;
 import com.sammy.malum.registry.client.HiddenTagRegistry;
-import com.sammy.malum.registry.client.ParticleEmitterRegistry;
 import com.sammy.malum.registry.common.MobEffectRegistry;
 import com.sammy.malum.registry.common.PacketRegistry;
 import com.sammy.malum.registry.common.item.ArmorSkinRegistry;
@@ -62,21 +61,21 @@ import team.lodestar.lodestone.events.LodestoneInteractionEvent;
 import team.lodestar.lodestone.events.LodestoneItemEvent;
 import team.lodestar.lodestone.events.LodestoneMobEffectEvents;
 
-import static com.sammy.malum.registry.client.ParticleRegistry.*;
-import static com.sammy.malum.registry.common.AttributeRegistry.*;
-import static com.sammy.malum.registry.common.ContainerRegistry.*;
-import static com.sammy.malum.registry.common.MobEffectRegistry.*;
-import static com.sammy.malum.registry.common.SoundRegistry.*;
-import static com.sammy.malum.registry.common.block.BlockEntityRegistry.*;
-import static com.sammy.malum.registry.common.block.BlockRegistry.*;
-import static com.sammy.malum.registry.common.entity.EntityRegistry.*;
-import static com.sammy.malum.registry.common.item.EnchantmentRegistry.*;
-import static com.sammy.malum.registry.common.item.ItemRegistry.*;
-import static com.sammy.malum.registry.common.item.tabs.CreativeTabRegistry.*;
-import static com.sammy.malum.registry.common.recipe.RecipeSerializerRegistry.*;
-import static com.sammy.malum.registry.common.recipe.RecipeTypeRegistry.*;
-import static com.sammy.malum.registry.common.worldgen.FeatureRegistry.*;
-import static com.sammy.malum.registry.common.worldgen.StructureRegistry.*;
+import static com.sammy.malum.registry.client.ParticleRegistry.PARTICLES;
+import static com.sammy.malum.registry.common.AttributeRegistry.ATTRIBUTES;
+import static com.sammy.malum.registry.common.ContainerRegistry.CONTAINERS;
+import static com.sammy.malum.registry.common.MobEffectRegistry.EFFECTS;
+import static com.sammy.malum.registry.common.SoundRegistry.SOUNDS;
+import static com.sammy.malum.registry.common.block.BlockEntityRegistry.BLOCK_ENTITY_TYPES;
+import static com.sammy.malum.registry.common.block.BlockRegistry.BLOCKS;
+import static com.sammy.malum.registry.common.entity.EntityRegistry.ENTITY_TYPES;
+import static com.sammy.malum.registry.common.item.EnchantmentRegistry.ENCHANTMENTS;
+import static com.sammy.malum.registry.common.item.ItemRegistry.ITEMS;
+import static com.sammy.malum.registry.common.item.tabs.CreativeTabRegistry.CREATIVE_MODE_TABS;
+import static com.sammy.malum.registry.common.recipe.RecipeSerializerRegistry.RECIPE_SERIALIZERS;
+import static com.sammy.malum.registry.common.recipe.RecipeTypeRegistry.RECIPE_TYPES;
+import static com.sammy.malum.registry.common.worldgen.FeatureRegistry.FEATURE_TYPES;
+import static com.sammy.malum.registry.common.worldgen.StructureRegistry.STRUCTURES;
 
 @SuppressWarnings("unused")
 public class MalumMod implements ModInitializer {

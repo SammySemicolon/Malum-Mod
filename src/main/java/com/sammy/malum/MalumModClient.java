@@ -135,8 +135,4 @@ public class MalumModClient implements ClientModInitializer {
         SpiritCrucibleRenderer.checkForTuningFork(minecraft);
         TotemBaseRenderer.checkForTotemicStaff(minecraft);
     }
-
-    interface IBigItem {
-
-    }
 }

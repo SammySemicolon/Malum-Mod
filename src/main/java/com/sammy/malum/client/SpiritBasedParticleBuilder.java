@@ -1,29 +1,32 @@
 package com.sammy.malum.client;
 
-import com.sammy.malum.core.systems.spirit.*;
+import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import com.sammy.malum.registry.common.SpiritTypeRegistry;
 import io.github.fabricators_of_create.porting_lib.util.RegistryObject;
-import net.minecraft.client.particle.*;
-import net.minecraft.core.*;
-import net.minecraft.core.particles.*;
-import net.minecraft.world.level.*;
-import net.minecraft.world.level.block.state.*;
-import net.minecraft.world.phys.*;
-import net.minecraft.world.phys.shapes.*;
+import net.minecraft.client.particle.ParticleRenderType;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleType;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
-import org.joml.*;
-import team.lodestar.lodestone.handlers.*;
-import team.lodestar.lodestone.systems.particle.*;
-import team.lodestar.lodestone.systems.particle.builder.*;
-import team.lodestar.lodestone.systems.particle.data.*;
-import team.lodestar.lodestone.systems.particle.data.color.*;
-import team.lodestar.lodestone.systems.particle.data.spin.*;
-import team.lodestar.lodestone.systems.particle.render_types.*;
-import team.lodestar.lodestone.systems.particle.world.*;
-import team.lodestar.lodestone.systems.particle.world.options.*;
-import team.lodestar.lodestone.systems.particle.world.type.*;
+import org.joml.Vector3f;
+import team.lodestar.lodestone.handlers.RenderHandler;
+import team.lodestar.lodestone.systems.particle.SimpleParticleOptions;
+import team.lodestar.lodestone.systems.particle.builder.WorldParticleBuilder;
+import team.lodestar.lodestone.systems.particle.data.GenericParticleData;
+import team.lodestar.lodestone.systems.particle.data.color.ColorParticleData;
+import team.lodestar.lodestone.systems.particle.data.spin.SpinParticleData;
+import team.lodestar.lodestone.systems.particle.render_types.LodestoneWorldParticleRenderType;
+import team.lodestar.lodestone.systems.particle.world.LodestoneWorldParticle;
+import team.lodestar.lodestone.systems.particle.world.options.WorldParticleOptions;
+import team.lodestar.lodestone.systems.particle.world.type.LodestoneWorldParticleType;
 
-import java.util.function.*;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 public class SpiritBasedParticleBuilder extends WorldParticleBuilder {
 
@@ -61,15 +64,15 @@ public class SpiritBasedParticleBuilder extends WorldParticleBuilder {
         if (isUmbral()) {
             return (SpiritBasedParticleBuilder) super.setRenderType(LodestoneWorldParticleRenderType.LUMITRANSPARENT);
         }
-        return (SpiritBasedParticleBuilder)super.setRenderType(renderType);
+        return (SpiritBasedParticleBuilder) super.setRenderType(renderType);
     }
 
     @Override
     public SpiritBasedParticleBuilder setLifetime(Supplier<Integer> lifetimeSupplier) {
         if (isUmbral()) {
-            return (SpiritBasedParticleBuilder) super.setLifetime(()->(int) (lifetimeSupplier.get()*2.5f));
+            return (SpiritBasedParticleBuilder) super.setLifetime(() -> (int) (lifetimeSupplier.get() * 2.5f));
         }
-        return (SpiritBasedParticleBuilder)super.setLifetime(lifetimeSupplier);
+        return (SpiritBasedParticleBuilder) super.setLifetime(lifetimeSupplier);
     }
 
     @Override
@@ -77,7 +80,7 @@ public class SpiritBasedParticleBuilder extends WorldParticleBuilder {
         if (isUmbral()) {
             scaleData.multiplyCoefficient(1.5f);
         }
-        return (SpiritBasedParticleBuilder)super.setScaleData(scaleData);
+        return (SpiritBasedParticleBuilder) super.setScaleData(scaleData);
     }
 
     @Override
@@ -85,227 +88,227 @@ public class SpiritBasedParticleBuilder extends WorldParticleBuilder {
         if (isUmbral()) {
             transparencyData.multiplyValue(4f).multiplyCoefficient(1.5f);
         }
-        return (SpiritBasedParticleBuilder)super.setTransparencyData(transparencyData);
+        return (SpiritBasedParticleBuilder) super.setTransparencyData(transparencyData);
     }
 
     @Override
     public SpiritBasedParticleBuilder enableNoClip() {
-        return (SpiritBasedParticleBuilder)super.enableNoClip();
+        return (SpiritBasedParticleBuilder) super.enableNoClip();
     }
 
     @Override
     public SpiritBasedParticleBuilder disableNoClip() {
-        return (SpiritBasedParticleBuilder)super.disableNoClip();
+        return (SpiritBasedParticleBuilder) super.disableNoClip();
     }
 
     @Override
     public SpiritBasedParticleBuilder setNoClip(boolean noClip) {
-        return (SpiritBasedParticleBuilder)super.setNoClip(noClip);
+        return (SpiritBasedParticleBuilder) super.setNoClip(noClip);
     }
 
     @Override
     public SpiritBasedParticleBuilder setRenderTarget(RenderHandler.LodestoneRenderLayer renderLayer) {
-        return (SpiritBasedParticleBuilder)super.setRenderTarget(renderLayer);
+        return (SpiritBasedParticleBuilder) super.setRenderTarget(renderLayer);
     }
 
     @Override
     public SpiritBasedParticleBuilder enableForcedSpawn() {
-        return (SpiritBasedParticleBuilder)super.enableForcedSpawn();
+        return (SpiritBasedParticleBuilder) super.enableForcedSpawn();
     }
 
     @Override
     public SpiritBasedParticleBuilder disableForcedSpawn() {
-        return (SpiritBasedParticleBuilder)super.disableForcedSpawn();
+        return (SpiritBasedParticleBuilder) super.disableForcedSpawn();
     }
 
     @Override
     public SpiritBasedParticleBuilder setForceSpawn(boolean forceSpawn) {
-        return (SpiritBasedParticleBuilder)super.setForceSpawn(forceSpawn);
+        return (SpiritBasedParticleBuilder) super.setForceSpawn(forceSpawn);
     }
 
     @Override
     public SpiritBasedParticleBuilder enableCull() {
-        return (SpiritBasedParticleBuilder)super.enableCull();
+        return (SpiritBasedParticleBuilder) super.enableCull();
     }
 
     @Override
     public SpiritBasedParticleBuilder disableCull() {
-        return (SpiritBasedParticleBuilder)super.disableCull();
+        return (SpiritBasedParticleBuilder) super.disableCull();
     }
 
     @Override
     public SpiritBasedParticleBuilder setShouldCull(boolean shouldCull) {
-        return (SpiritBasedParticleBuilder)super.setShouldCull(shouldCull);
+        return (SpiritBasedParticleBuilder) super.setShouldCull(shouldCull);
     }
 
     @Override
     public SpiritBasedParticleBuilder setRandomMotion(double maxSpeed) {
-        return (SpiritBasedParticleBuilder)super.setRandomMotion(maxSpeed);
+        return (SpiritBasedParticleBuilder) super.setRandomMotion(maxSpeed);
     }
 
     @Override
     public SpiritBasedParticleBuilder setRandomMotion(double maxHSpeed, double maxVSpeed) {
-        return (SpiritBasedParticleBuilder)super.setRandomMotion(maxHSpeed, maxVSpeed);
+        return (SpiritBasedParticleBuilder) super.setRandomMotion(maxHSpeed, maxVSpeed);
     }
 
     @Override
     public SpiritBasedParticleBuilder setRandomMotion(double maxXSpeed, double maxYSpeed, double maxZSpeed) {
-        return (SpiritBasedParticleBuilder)super.setRandomMotion(maxXSpeed, maxYSpeed, maxZSpeed);
+        return (SpiritBasedParticleBuilder) super.setRandomMotion(maxXSpeed, maxYSpeed, maxZSpeed);
     }
 
     @Override
     public SpiritBasedParticleBuilder addMotion(Vector3f motion) {
-        return (SpiritBasedParticleBuilder)super.addMotion(motion);
+        return (SpiritBasedParticleBuilder) super.addMotion(motion);
     }
 
     @Override
     public SpiritBasedParticleBuilder addMotion(Vec3 motion) {
-        return (SpiritBasedParticleBuilder)super.addMotion(motion);
+        return (SpiritBasedParticleBuilder) super.addMotion(motion);
     }
 
     @Override
     public SpiritBasedParticleBuilder addMotion(double vx, double vy, double vz) {
-        return (SpiritBasedParticleBuilder)super.addMotion(vx, vy, vz);
+        return (SpiritBasedParticleBuilder) super.addMotion(vx, vy, vz);
     }
 
     @Override
     public SpiritBasedParticleBuilder setMotion(Vector3f motion) {
-        return (SpiritBasedParticleBuilder)super.setMotion(motion);
+        return (SpiritBasedParticleBuilder) super.setMotion(motion);
     }
 
     @Override
     public SpiritBasedParticleBuilder setMotion(Vec3 motion) {
-        return (SpiritBasedParticleBuilder)super.setMotion(motion);
+        return (SpiritBasedParticleBuilder) super.setMotion(motion);
     }
 
     @Override
     public SpiritBasedParticleBuilder setMotion(double vx, double vy, double vz) {
-        return (SpiritBasedParticleBuilder)super.setMotion(vx, vy, vz);
+        return (SpiritBasedParticleBuilder) super.setMotion(vx, vy, vz);
     }
 
     @Override
     public SpiritBasedParticleBuilder setRandomOffset(double maxDistance) {
-        return (SpiritBasedParticleBuilder)super.setRandomOffset(maxDistance);
+        return (SpiritBasedParticleBuilder) super.setRandomOffset(maxDistance);
     }
 
     @Override
     public SpiritBasedParticleBuilder setRandomOffset(double maxHDist, double maxVDist) {
-        return (SpiritBasedParticleBuilder)super.setRandomOffset(maxHDist, maxVDist);
+        return (SpiritBasedParticleBuilder) super.setRandomOffset(maxHDist, maxVDist);
     }
 
     @Override
     public SpiritBasedParticleBuilder setRandomOffset(double maxXDist, double maxYDist, double maxZDist) {
-        return (SpiritBasedParticleBuilder)super.setRandomOffset(maxXDist, maxYDist, maxZDist);
+        return (SpiritBasedParticleBuilder) super.setRandomOffset(maxXDist, maxYDist, maxZDist);
     }
 
     @Override
     public SpiritBasedParticleBuilder act(Consumer<WorldParticleBuilder> worldParticleBuilderConsumer) {
-        return (SpiritBasedParticleBuilder)super.act(worldParticleBuilderConsumer);
+        return (SpiritBasedParticleBuilder) super.act(worldParticleBuilderConsumer);
     }
 
     @Override
     public SpiritBasedParticleBuilder addTickActor(Consumer<LodestoneWorldParticle> particleActor) {
-        return (SpiritBasedParticleBuilder)super.addTickActor(particleActor);
+        return (SpiritBasedParticleBuilder) super.addTickActor(particleActor);
     }
 
     @Override
     public SpiritBasedParticleBuilder addSpawnActor(Consumer<LodestoneWorldParticle> particleActor) {
-        return (SpiritBasedParticleBuilder)super.addSpawnActor(particleActor);
+        return (SpiritBasedParticleBuilder) super.addSpawnActor(particleActor);
     }
 
     @Override
     public SpiritBasedParticleBuilder addRenderActor(Consumer<LodestoneWorldParticle> particleActor) {
-        return (SpiritBasedParticleBuilder)super.addRenderActor(particleActor);
+        return (SpiritBasedParticleBuilder) super.addRenderActor(particleActor);
     }
 
     @Override
     public SpiritBasedParticleBuilder clearActors() {
-        return (SpiritBasedParticleBuilder)super.clearActors();
+        return (SpiritBasedParticleBuilder) super.clearActors();
     }
 
     @Override
     public SpiritBasedParticleBuilder clearTickActor() {
-        return (SpiritBasedParticleBuilder)super.clearTickActor();
+        return (SpiritBasedParticleBuilder) super.clearTickActor();
     }
 
     @Override
     public SpiritBasedParticleBuilder clearSpawnActors() {
-        return (SpiritBasedParticleBuilder)super.clearSpawnActors();
+        return (SpiritBasedParticleBuilder) super.clearSpawnActors();
     }
 
     @Override
     public SpiritBasedParticleBuilder clearRenderActors() {
-        return (SpiritBasedParticleBuilder)super.clearRenderActors();
+        return (SpiritBasedParticleBuilder) super.clearRenderActors();
     }
 
     @Override
     public SpiritBasedParticleBuilder spawn(Level level, double x, double y, double z) {
-        return (SpiritBasedParticleBuilder)super.spawn(level, x, y, z);
+        return (SpiritBasedParticleBuilder) super.spawn(level, x, y, z);
     }
 
     @Override
     public SpiritBasedParticleBuilder repeat(Level level, double x, double y, double z, int n) {
-        return (SpiritBasedParticleBuilder)super.repeat(level, x, y, z, n);
+        return (SpiritBasedParticleBuilder) super.repeat(level, x, y, z, n);
     }
 
     @Override
     public SpiritBasedParticleBuilder surroundBlock(Level level, BlockPos pos, Direction... directions) {
-        return (SpiritBasedParticleBuilder)super.surroundBlock(level, pos, directions);
+        return (SpiritBasedParticleBuilder) super.surroundBlock(level, pos, directions);
     }
 
     @Override
     public SpiritBasedParticleBuilder repeatSurroundBlock(Level level, BlockPos pos, int n) {
-        return (SpiritBasedParticleBuilder)super.repeatSurroundBlock(level, pos, n);
+        return (SpiritBasedParticleBuilder) super.repeatSurroundBlock(level, pos, n);
     }
 
     @Override
     public SpiritBasedParticleBuilder repeatSurroundBlock(Level level, BlockPos pos, int n, Direction... directions) {
-        return (SpiritBasedParticleBuilder)super.repeatSurroundBlock(level, pos, n, directions);
+        return (SpiritBasedParticleBuilder) super.repeatSurroundBlock(level, pos, n, directions);
     }
 
     @Override
     public SpiritBasedParticleBuilder surroundVoxelShape(Level level, BlockPos pos, VoxelShape voxelShape, int max) {
-        return (SpiritBasedParticleBuilder)super.surroundVoxelShape(level, pos, voxelShape, max);
+        return (SpiritBasedParticleBuilder) super.surroundVoxelShape(level, pos, voxelShape, max);
     }
 
     @Override
     public SpiritBasedParticleBuilder surroundVoxelShape(Level level, BlockPos pos, BlockState state, int max) {
-        return (SpiritBasedParticleBuilder)super.surroundVoxelShape(level, pos, state, max);
+        return (SpiritBasedParticleBuilder) super.surroundVoxelShape(level, pos, state, max);
     }
 
     @Override
     public SpiritBasedParticleBuilder spawnAtRandomFace(Level level, BlockPos pos) {
-        return (SpiritBasedParticleBuilder)super.spawnAtRandomFace(level, pos);
+        return (SpiritBasedParticleBuilder) super.spawnAtRandomFace(level, pos);
     }
 
     @Override
     public SpiritBasedParticleBuilder repeatRandomFace(Level level, BlockPos pos, int n) {
-        return (SpiritBasedParticleBuilder)super.repeatRandomFace(level, pos, n);
+        return (SpiritBasedParticleBuilder) super.repeatRandomFace(level, pos, n);
     }
 
     @Override
     public SpiritBasedParticleBuilder createCircle(Level level, double x, double y, double z, double distance, double currentCount, double totalCount) {
-        return (SpiritBasedParticleBuilder)super.createCircle(level, x, y, z, distance, currentCount, totalCount);
+        return (SpiritBasedParticleBuilder) super.createCircle(level, x, y, z, distance, currentCount, totalCount);
     }
 
     @Override
     public SpiritBasedParticleBuilder repeatCircle(Level level, double x, double y, double z, double distance, int times) {
-        return (SpiritBasedParticleBuilder)super.repeatCircle(level, x, y, z, distance, times);
+        return (SpiritBasedParticleBuilder) super.repeatCircle(level, x, y, z, distance, times);
     }
 
     @Override
     public SpiritBasedParticleBuilder createBlockOutline(Level level, BlockPos pos, BlockState state) {
-        return (SpiritBasedParticleBuilder)super.createBlockOutline(level, pos, state);
+        return (SpiritBasedParticleBuilder) super.createBlockOutline(level, pos, state);
     }
 
     @Override
     public SpiritBasedParticleBuilder spawnLine(Level level, Vec3 one, Vec3 two) {
-        return (SpiritBasedParticleBuilder)super.spawnLine(level, one, two);
+        return (SpiritBasedParticleBuilder) super.spawnLine(level, one, two);
     }
 
     @Override
     public SpiritBasedParticleBuilder modifyData(Supplier<GenericParticleData> dataType, Consumer<GenericParticleData> dataConsumer) {
-        return (SpiritBasedParticleBuilder)super.modifyData(dataType, dataConsumer);
+        return (SpiritBasedParticleBuilder) super.modifyData(dataType, dataConsumer);
     }
 
     @Override
@@ -315,81 +318,81 @@ public class SpiritBasedParticleBuilder extends WorldParticleBuilder {
 
     @Override
     public SpiritBasedParticleBuilder modifyColorData(Consumer<ColorParticleData> dataConsumer) {
-        return (SpiritBasedParticleBuilder)super.modifyColorData(dataConsumer);
+        return (SpiritBasedParticleBuilder) super.modifyColorData(dataConsumer);
     }
 
     @Override
     public SpiritBasedParticleBuilder setColorData(ColorParticleData colorData) {
-        return (SpiritBasedParticleBuilder)super.setColorData(colorData);
+        return (SpiritBasedParticleBuilder) super.setColorData(colorData);
     }
 
     @Override
     public SpiritBasedParticleBuilder setSpinData(SpinParticleData spinData) {
-        return (SpiritBasedParticleBuilder)super.setSpinData(spinData);
+        return (SpiritBasedParticleBuilder) super.setSpinData(spinData);
     }
 
     @Override
     public SpiritBasedParticleBuilder multiplyGravity(float gravityMultiplier) {
-        return (SpiritBasedParticleBuilder)super.multiplyGravity(gravityMultiplier);
+        return (SpiritBasedParticleBuilder) super.multiplyGravity(gravityMultiplier);
     }
 
     @Override
     public SpiritBasedParticleBuilder modifyGravity(Function<Float, Supplier<Float>> gravityReplacement) {
-        return (SpiritBasedParticleBuilder)super.modifyGravity(gravityReplacement);
+        return (SpiritBasedParticleBuilder) super.modifyGravity(gravityReplacement);
     }
 
     @Override
     public SpiritBasedParticleBuilder setGravityStrength(float gravity) {
-        return (SpiritBasedParticleBuilder)super.setGravityStrength(gravity);
+        return (SpiritBasedParticleBuilder) super.setGravityStrength(gravity);
     }
 
     @Override
     public SpiritBasedParticleBuilder setGravityStrength(Supplier<Float> gravityStrengthSupplier) {
-        return (SpiritBasedParticleBuilder)super.setGravityStrength(gravityStrengthSupplier);
+        return (SpiritBasedParticleBuilder) super.setGravityStrength(gravityStrengthSupplier);
     }
 
     @Override
     public SpiritBasedParticleBuilder multiplyLifetime(float lifetimeMultiplier) {
-        return (SpiritBasedParticleBuilder)super.multiplyLifetime(lifetimeMultiplier);
+        return (SpiritBasedParticleBuilder) super.multiplyLifetime(lifetimeMultiplier);
     }
 
     @Override
     public SpiritBasedParticleBuilder modifyLifetime(Function<Integer, Supplier<Integer>> lifetimeReplacement) {
-        return (SpiritBasedParticleBuilder)super.modifyLifetime(lifetimeReplacement);
+        return (SpiritBasedParticleBuilder) super.modifyLifetime(lifetimeReplacement);
     }
 
     @Override
     public SpiritBasedParticleBuilder setLifetime(int lifetime) {
-        return (SpiritBasedParticleBuilder)super.setLifetime(lifetime);
+        return (SpiritBasedParticleBuilder) super.setLifetime(lifetime);
     }
 
     @Override
     public SpiritBasedParticleBuilder multiplyLifeDelay(float lifeDelayMultiplier) {
-        return (SpiritBasedParticleBuilder)super.multiplyLifeDelay(lifeDelayMultiplier);
+        return (SpiritBasedParticleBuilder) super.multiplyLifeDelay(lifeDelayMultiplier);
     }
 
     @Override
     public SpiritBasedParticleBuilder modifyLifeDelay(Function<Integer, Supplier<Integer>> lifeDelayReplacement) {
-        return (SpiritBasedParticleBuilder)super.modifyLifeDelay(lifeDelayReplacement);
+        return (SpiritBasedParticleBuilder) super.modifyLifeDelay(lifeDelayReplacement);
     }
 
     @Override
     public SpiritBasedParticleBuilder setLifeDelay(int lifeDelay) {
-        return (SpiritBasedParticleBuilder)super.setLifeDelay(lifeDelay);
+        return (SpiritBasedParticleBuilder) super.setLifeDelay(lifeDelay);
     }
 
     @Override
     public SpiritBasedParticleBuilder setLifeDelay(Supplier<Integer> lifeDelaySupplier) {
-        return (SpiritBasedParticleBuilder)super.setLifeDelay(lifeDelaySupplier);
+        return (SpiritBasedParticleBuilder) super.setLifeDelay(lifeDelaySupplier);
     }
 
     @Override
     public SpiritBasedParticleBuilder setSpritePicker(SimpleParticleOptions.ParticleSpritePicker spritePicker) {
-        return (SpiritBasedParticleBuilder)super.setSpritePicker(spritePicker);
+        return (SpiritBasedParticleBuilder) super.setSpritePicker(spritePicker);
     }
 
     @Override
     public SpiritBasedParticleBuilder setDiscardFunction(SimpleParticleOptions.ParticleDiscardFunctionType discardFunctionType) {
-        return (SpiritBasedParticleBuilder)super.setDiscardFunction(discardFunctionType);
+        return (SpiritBasedParticleBuilder) super.setDiscardFunction(discardFunctionType);
     }
 }

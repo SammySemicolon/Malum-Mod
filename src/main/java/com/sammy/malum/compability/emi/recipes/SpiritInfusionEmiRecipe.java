@@ -11,7 +11,6 @@ import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.WidgetHolder;
 import net.minecraft.resources.ResourceLocation;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -73,8 +72,7 @@ public class SpiritInfusionEmiRecipe implements EmiRecipe {
         widgets.addDrawable(0, 0, 0, 0, (guiGraphics, mx, my, d) ->
         {
             ArcanaCodexHelper.renderItemFrames(guiGraphics.pose(), spirits.size(), 19, 48, true);
-            if(!extraItems.isEmpty())
-            {
+            if (!extraItems.isEmpty()) {
                 ArcanaCodexHelper.renderItemFrames(guiGraphics.pose(), extraItems.size(), 103, 48, true);
             }
         });

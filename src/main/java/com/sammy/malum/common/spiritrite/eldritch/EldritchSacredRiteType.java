@@ -51,8 +51,7 @@ public class EldritchSacredRiteType extends TotemicRiteType {
                             for (int i = 0; i < 5 + level.random.nextInt(3); i++) {
                                 state.randomTick(level, p, level.random);
                             }
-                        }
-                        else if (block instanceof BonemealableBlock bonemealableBlock && bonemealableBlock.isValidBonemealTarget(level, p, state, false)) {
+                        } else if (block instanceof BonemealableBlock bonemealableBlock && bonemealableBlock.isValidBonemealTarget(level, p, state, false)) {
                             if (bonemealableBlock.isBonemealSuccess(level, level.random, p, state)) {
                                 bonemealableBlock.performBonemeal(level, level.random, p, state);
                             }

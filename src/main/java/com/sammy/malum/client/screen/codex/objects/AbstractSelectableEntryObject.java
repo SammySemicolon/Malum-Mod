@@ -25,8 +25,8 @@ public abstract class AbstractSelectableEntryObject extends BookObject<EntryScre
         if (isHoveredOver && entryReference.entry.hasTooltip()) {
             final BookEntry entry = entryReference.entry;
             final List<Component> list = Arrays.asList(
-                ArcanaCodexHelper.convertToComponent(entry.translationKey(), entry.titleStyle),
-                ArcanaCodexHelper.convertToComponent(entry.descriptionTranslationKey(), entry.subtitleStyle));
+                    ArcanaCodexHelper.convertToComponent(entry.translationKey(), entry.titleStyle),
+                    ArcanaCodexHelper.convertToComponent(entry.descriptionTranslationKey(), entry.subtitleStyle));
             guiGraphics.renderComponentTooltip(Minecraft.getInstance().font, list, mouseX, mouseY);
         }
     }

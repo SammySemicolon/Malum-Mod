@@ -19,7 +19,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
-
 import static com.sammy.malum.MalumMod.malumPath;
 
 public class WeepingWellRecipeCategory implements IRecipeCategory<FavorOfTheVoidRecipe> {
@@ -66,10 +65,10 @@ public class WeepingWellRecipeCategory implements IRecipeCategory<FavorOfTheVoid
     public void setRecipe(IRecipeLayoutBuilder builder, FavorOfTheVoidRecipe recipe, IFocusGroup focuses) {
 
         builder.addSlot(RecipeIngredientRole.INPUT, 63, 57)
-            .addIngredients(recipe.input);
+                .addIngredients(recipe.input);
         builder.addSlot(RecipeIngredientRole.OUTPUT, 63, 124)
-            .addItemStack(recipe.output);
+                .addItemStack(recipe.output);
         builder.addInvisibleIngredients(RecipeIngredientRole.CATALYST)
-            .addItemStack(new ItemStack(ItemRegistry.VOID_DEPOT.get()));
+                .addItemStack(new ItemStack(ItemRegistry.VOID_DEPOT.get()));
     }
 }

@@ -42,7 +42,6 @@ public class MalumVanillaRecipeReplacements extends VanillaRecipeProvider {
     }
 
 
-
     private void exclude(ItemLike item) {
         excludes.add(BuiltInRegistries.ITEM.getKey(item.asItem()));
     }

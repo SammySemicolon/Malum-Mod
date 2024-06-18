@@ -9,11 +9,11 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 @Mixin(FeatureFlagSet.class)
 public interface AccessorFeatureFlagSet {
 
-	@Accessor("universe")
-	FeatureFlagUniverse malum$getUniverse();
+    @Accessor("universe")
+    FeatureFlagUniverse malum$getUniverse();
 
-	@Invoker("<init>")
-	static FeatureFlagSet malum$createNewSet(FeatureFlagUniverse universe, long mask) {
-		throw new IllegalStateException("Mixin did not work");
-	}
+    @Invoker("<init>")
+    static FeatureFlagSet malum$createNewSet(FeatureFlagUniverse universe, long mask) {
+        throw new IllegalStateException("Mixin did not work");
+    }
 }

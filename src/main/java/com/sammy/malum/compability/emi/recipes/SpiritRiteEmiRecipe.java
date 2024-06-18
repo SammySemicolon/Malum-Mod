@@ -13,7 +13,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -72,8 +71,7 @@ public class SpiritRiteEmiRecipe implements EmiRecipe {
             ArcanaCodexHelper.renderText(matrices, text, 71 - font.width(text) / 2, 160);
         });
 
-        for(int i = 0; i < rite.spirits.size(); i++)
-        {
+        for (int i = 0; i < rite.spirits.size(); i++) {
             widgets.addSlot(EmiStack.of(rite.spirits.get(i).spiritShard.get()), 62, 120 - 20 * i).catalyst(true).drawBack(false);
         }
     }

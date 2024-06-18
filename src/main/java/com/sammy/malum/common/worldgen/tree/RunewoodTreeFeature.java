@@ -10,7 +10,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.Feature;
@@ -23,10 +22,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.function.Supplier;
 
-import static com.sammy.malum.common.worldgen.WorldgenHelper.DIRECTIONS;
 import static com.sammy.malum.common.worldgen.WorldgenHelper.updateLeaves;
-
-import static team.lodestar.lodestone.systems.worldgen.LodestoneBlockFiller.*;
+import static team.lodestar.lodestone.systems.worldgen.LodestoneBlockFiller.LodestoneLayerToken;
+import static team.lodestar.lodestone.systems.worldgen.LodestoneBlockFiller.create;
 
 public class RunewoodTreeFeature extends Feature<RunewoodTreeConfiguration> {
 
@@ -109,7 +107,7 @@ public class RunewoodTreeFeature extends Feature<RunewoodTreeConfiguration> {
             int branchHeight = getBranchHeight(rand);
 
             mutable.set(pos);
-            mutable.move(Direction.UP, trunkHeight-downwardsBranchOffset);
+            mutable.move(Direction.UP, trunkHeight - downwardsBranchOffset);
 
             for (int j = 0; j < branchLength; j++) {
                 mutable.move(direction);
@@ -127,7 +125,7 @@ public class RunewoodTreeFeature extends Feature<RunewoodTreeConfiguration> {
             }
             makeLeafBlob(config, filler, mutable.move(Direction.DOWN, branchHeight));
         }
-        makeLeafBlob(config, filler, mutable.set(pos).move(Direction.UP, trunkHeight-1));
+        makeLeafBlob(config, filler, mutable.set(pos).move(Direction.UP, trunkHeight - 1));
 
         ArrayList<BlockPos> sapBlockPositions = new ArrayList<>(filler.getLayer(LOGS).keySet());
         Collections.shuffle(sapBlockPositions);
@@ -173,8 +171,9 @@ public class RunewoodTreeFeature extends Feature<RunewoodTreeConfiguration> {
     }
 
     public void makeLeafSlice(LodestoneBlockFiller.LodestoneBlockFillerLayer layer, BlockPos pos, int leavesSize, BlockStateEntry entry) {
-        makeLeafSlice(layer, pos, leavesSize, ()->entry);
+        makeLeafSlice(layer, pos, leavesSize, () -> entry);
     }
+
     public void makeLeafSlice(LodestoneBlockFiller.LodestoneBlockFillerLayer layer, BlockPos pos, int leavesSize, Supplier<BlockStateEntry> entry) {
         for (int x = -leavesSize; x <= leavesSize; x++) {
             for (int z = -leavesSize; z <= leavesSize; z++) {

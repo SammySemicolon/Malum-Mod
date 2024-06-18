@@ -19,7 +19,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
-
 import static com.sammy.malum.MalumMod.malumPath;
 
 public class RuneworkingRecipeCategory implements IRecipeCategory<RunicWorkbenchRecipe> {

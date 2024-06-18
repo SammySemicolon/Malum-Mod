@@ -318,8 +318,8 @@ public class MalumLang extends FabricLanguageProvider {
                 "I now know the arcana have physical properties with meaning. I can use these properties to create a staff, and likely for many more things. But Soulstone and Brilliance... as far as I can tell, for every other base material relevant to the arcana save Runewood I work with, there are either spirit crystals fused within or patterned in the structure.",
                 "The fact that Null Slate is physically identical to Soulstone implies a greater principle. I posit that Soulstone and Brilliance have similar fundamental resonances to the arcana, structures of inherent power at a precision far beyond what I can measure. This implies interaction with the arcane is simply... a quirk of an object's topology? I don't know how I would replicate it myself, but if I can...");
 
-        addSimpleEntryHeader(builder,"fragment.void.black_crystal", "Scribbled notes", "Incomprehensible");
-        addPages(builder,"fragment.void.black_crystal",
+        addSimpleEntryHeader(builder, "fragment.void.black_crystal", "Scribbled notes", "Incomprehensible");
+        addPages(builder, "fragment.void.black_crystal",
                 italic("You attempt to read the entry, but the text seems to slide off the eyes, escaping from your mind every time you grasp it. What little fragments stick with you form an impression of something besides these materials being cast into the Well..."));
 
         addSimpleEntryHeader(builder, "void.black_crystal", "A Black Crystal", "A mistake, or a boon?");
@@ -668,20 +668,20 @@ public class MalumLang extends FabricLanguageProvider {
                 "Many disciplines of magic, and even more mundane practices, allow the creation of useful trinkets. These are also referred to as baubles or trinkets by some. The metals I have alloyed have properties useful in their own rights, and can be used as the basis for even grander designs.",
                 "In their most basic form, Hallowed Gold trinkets protect the user as if they were wearing weak armor, and Soulstained Steel trinkets increase the toughness of the armor being worn.");
 
-        addEntryHeader(builder,"reactive_trinkets", "Reactive Trinkets", "Harnessing the harvest");
-        addHeadline(builder,"reactive_trinkets.ring_of_curative_talent", "Ring of Curative Talent");
-        addPages(builder,"reactive_trinkets.ring_of_curative_talent",
+        addEntryHeader(builder, "reactive_trinkets", "Reactive Trinkets", "Harnessing the harvest");
+        addHeadline(builder, "reactive_trinkets.ring_of_curative_talent", "Ring of Curative Talent");
+        addPages(builder, "reactive_trinkets.ring_of_curative_talent",
                 "The trinkets documented within cause effects whenever a spirit crystal is collected, feeding off the excess energy. As an example, this restorative trinket will replenish a small division of my health any time I collect arcana.");
-        addHeadline(builder,"reactive_trinkets.ring_of_alchemical_mastery", "Ring of Alchemical Mastery");
-        addPages(builder,"reactive_trinkets.ring_of_alchemical_mastery",
+        addHeadline(builder, "reactive_trinkets.ring_of_alchemical_mastery", "Ring of Alchemical Mastery");
+        addPages(builder, "reactive_trinkets.ring_of_alchemical_mastery",
                 "This ring, through alchemical trickery, is able to manipulate the potions running through my blood. Whenever I collect arcana, the ring will partially filter out negative effects, while at the same time prolonging positive ones.");
-        addHeadline(builder,"reactive_trinkets.ring_of_prowess", "Ring of Prowess");
-        addPages(builder,"reactive_trinkets.ring_of_prowess",
+        addHeadline(builder, "reactive_trinkets.ring_of_prowess", "Ring of Prowess");
+        addPages(builder, "reactive_trinkets.ring_of_prowess",
                 "Brilliance is attached to the soul, but isn't an impulse like the arcana. It is accumulated knowledge, and so is not inherently tied to the soul that learned it. Even strikes which pass through the soul harmlessly are capable of dislodging it.",
                 "By using condensed Brilliance, I have created a ring that filters out that Brilliance out of arcana I collect, giving me a burst of Brilliant knowledge whenever I collect arcana.");
 
-        addSimpleEntryHeader(builder,"ring_of_esoteric_spoils", "Ring of Esoteric Spoils", "Be fruitful and multiply");
-        addPages(builder,"ring_of_esoteric_spoils",
+        addSimpleEntryHeader(builder, "ring_of_esoteric_spoils", "Ring of Esoteric Spoils", "Be fruitful and multiply");
+        addPages(builder, "ring_of_esoteric_spoils",
                 "It can be tiring, harvesting the sheer quantities of arcana I need for my research. This ring can increase the efficiency of the harvest, allowing me to reap an additional spirit from every slain soul. At a certain point, though, \"efficiency\" ceases to explain it. How am I obtaining more power than the soul itself has?");
 
         addSimpleEntryHeader(builder, "belt_of_the_starved", "Belt of the Starved", "Channeling voracity");
@@ -856,8 +856,8 @@ public class MalumLang extends FabricLanguageProvider {
                 "For those which alter blocks, most affect the five-by-five area on the level beneath the base, towards where the runes are facing.",
                 "One caveat is that no rite's totem may function within the range of another, identical ritual. If you try, the first one will simply fizzle out, the energies coursing through it disrupted.");
 
-        addSimpleEntryHeader(builder,"managing_totems", "Totem Resonance", "Insight into the rites");
-        addPages(builder,"managing_totems",
+        addSimpleEntryHeader(builder, "managing_totems", "Totem Resonance", "Insight into the rites");
+        addPages(builder, "managing_totems",
                 "Totem rites are both complicated and simple, in their own ways. A simple, bounded effect, but dependent on the flow of arcana - and it can be difficult to discern their range.",
                 "I have created a staff to act as a tuning fork of sorts for the energies of rites. Simply holding it resonates with the flow of arcana through the world, allowing me to visualize the area each totem can affect.",
                 "Interestingly, the staff also allows me to 'tune' a rune into an active state by interacting with it, even if it's not on a totem. This is as far as I can tell purely visual, but if nothing else, it will make good decoration.");

@@ -189,8 +189,7 @@ public class RepairPylonCoreBlockEntity extends MultiBlockCoreEntity {
                 timer++;
             }
             RepairPylonParticleEffects.passiveRepairPylonParticles(this);
-        }
-        else {
+        } else {
             switch (state) {
                 case IDLE -> {
                     if (recipe != null) {
@@ -207,8 +206,7 @@ public class RepairPylonCoreBlockEntity extends MultiBlockCoreEntity {
                         boolean success = tryRepair();
                         if (success) {
                             setState(RepairPylonState.CHARGING);
-                        }
-                        else {
+                        } else {
                             timer = 0;
                         }
                     }
@@ -329,7 +327,7 @@ public class RepairPylonCoreBlockEntity extends MultiBlockCoreEntity {
         float distance = 0.75f + (float) Math.sin(((spiritSpin + partialTicks) % 6.28f) / 20f) * 0.025f;
         float height = 2.75f;
         if (state.equals(RepairPylonState.COOLDOWN)) {
-            int relativeCooldown = timer < 270 ? Math.min(timer, 30) : 300-timer;
+            int relativeCooldown = timer < 270 ? Math.min(timer, 30) : 300 - timer;
             distance += getCooldownOffset(relativeCooldown, Easing.SINE_OUT) * 0.25f;
             height -= getCooldownOffset(relativeCooldown, Easing.QUARTIC_OUT) * getCooldownOffset(relativeCooldown, Easing.BACK_OUT) * 0.5f;
         }

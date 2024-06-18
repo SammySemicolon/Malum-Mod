@@ -4,14 +4,10 @@ import com.google.common.collect.ImmutableList;
 import com.sammy.malum.client.screen.codex.objects.progression.ProgressionEntryObject;
 import com.sammy.malum.client.screen.codex.pages.BookPage;
 import com.sammy.malum.client.screen.codex.pages.EntryReference;
-import com.google.common.collect.*;
-import com.sammy.malum.client.screen.codex.objects.progression.*;
-import com.sammy.malum.client.screen.codex.pages.*;
 import net.minecraft.ChatFormatting;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Consumer;
-import java.util.function.*;
 
 public class PlacedBookEntryBuilder extends BookEntryBuilder {
 
@@ -49,16 +45,16 @@ public class PlacedBookEntryBuilder extends BookEntryBuilder {
 
     public PlacedBookEntryBuilder withEmptyFragmentEntry() {
         this.fragmentProperties = b -> b
-            .configureWidget(widget -> widget.setStyle(BookWidgetStyle.WITHERED))
-            .styleTitle(style -> style.withColor(ChatFormatting.GRAY))
-            .styleSubtitle(style -> style.withColor(ChatFormatting.DARK_GRAY));
+                .configureWidget(widget -> widget.setStyle(BookWidgetStyle.WITHERED))
+                .styleTitle(style -> style.withColor(ChatFormatting.GRAY))
+                .styleSubtitle(style -> style.withColor(ChatFormatting.DARK_GRAY));
         return this;
     }
 
     public PlacedBookEntryBuilder withTraceFragmentEntry() {
         this.fragmentProperties = b -> b
-            .configureWidget(widget -> widget.setStyle(BookWidgetStyle.FRAMELESS)) // todo: add cool visual effects for Traces
-            .disableTooltip();
+                .configureWidget(widget -> widget.setStyle(BookWidgetStyle.FRAMELESS)) // todo: add cool visual effects for Traces
+                .disableTooltip();
 
         return this;
     }
@@ -78,10 +74,10 @@ public class PlacedBookEntryBuilder extends BookEntryBuilder {
 
         PlacedBookEntryBuilder builder = new PlacedBookEntryBuilder("fragment." + identifier, isVoid, xOffset, yOffset);
         builder.configureWidget(widgetConfig)
-            .setWidgetSupplier(widgetSupplier)
-            .setEntryVisibleWhen(() -> !entryVisibleChecker.getAsBoolean())
-            .styleTitle(style -> style.withItalic(true))
-            .styleSubtitle(style -> style.withItalic(true));
+                .setWidgetSupplier(widgetSupplier)
+                .setEntryVisibleWhen(() -> !entryVisibleChecker.getAsBoolean())
+                .styleTitle(style -> style.withItalic(true))
+                .styleSubtitle(style -> style.withItalic(true));
         fragmentProperties.accept(builder);
         return builder.build();
     }
@@ -90,7 +86,7 @@ public class PlacedBookEntryBuilder extends BookEntryBuilder {
     public PlacedBookEntry build() {
         ImmutableList<BookPage> bookPages = ImmutableList.copyOf(pages);
         ImmutableList<EntryReference> entryReferences = ImmutableList.copyOf(references);
-        PlacedBookEntry.BookEntryWidgetPlacementData data = new PlacedBookEntry.BookEntryWidgetPlacementData(xOffset*40, yOffset*40, widgetSupplier, widgetConfig);
+        PlacedBookEntry.BookEntryWidgetPlacementData data = new PlacedBookEntry.BookEntryWidgetPlacementData(xOffset * 40, yOffset * 40, widgetSupplier, widgetConfig);
         PlacedBookEntry bookEntry = new PlacedBookEntry(identifier, isVoid, data, bookPages, entryReferences, entryVisibleChecker, titleStyle, subtitleStyle, tooltipDisabled);
         bookPages.forEach(p -> p.setBookEntry(bookEntry));
         return bookEntry;

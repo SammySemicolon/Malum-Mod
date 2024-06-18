@@ -1,18 +1,10 @@
 package com.sammy.malum.common.item.curiosities.trinkets;
 
-import com.google.common.collect.LinkedHashMultimap;
-import com.google.common.collect.Maps;
 import com.google.common.collect.Multimap;
-import com.google.common.collect.Multimaps;
 import com.sammy.malum.registry.common.SoundRegistry;
 import dev.emi.trinkets.api.SlotReference;
 import dev.emi.trinkets.api.TrinketItem;
-import net.fabricmc.fabric.api.util.NbtType;
 import net.minecraft.Util;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.LivingEntity;
@@ -21,8 +13,6 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.ItemStack;
 import team.lodestar.lodestone.helpers.RandomHelper;
 
-import java.util.ArrayList;
-import java.util.Optional;
 import java.util.UUID;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -55,7 +45,6 @@ public abstract class AbstractMalumTrinketsItem extends TrinketItem {
 
     public void addAttributeModifiers(Multimap<Attribute, AttributeModifier> map, SlotReference slot, ItemStack stack, LivingEntity entity) {
     }
-
 
 
     @Override

@@ -192,15 +192,14 @@ public abstract class AbstractBoltProjectileEntity extends ThrowableItemProjecti
         super.tick();
         if (fadingAway) {
             fadingTimer++;
-        }
-        else {
+        } else {
             Vec3 motion = getDeltaMovement();
             float scalar = 0.96f;
-            setDeltaMovement(motion.x * scalar, (motion.y-0.015f)* scalar, motion.z * scalar);
+            setDeltaMovement(motion.x * scalar, (motion.y - 0.015f) * scalar, motion.z * scalar);
         }
         float offsetScale = fadingAway ? 0f : getOrbitingTrailDistance();
         for (int i = 0; i < 2; i++) {
-            float progress = (i+1) * 0.5f;
+            float progress = (i + 1) * 0.5f;
             Vec3 position = getPosition(progress);
             float scalar = (age + progress) / 2f;
             double xOffset = Math.cos(spinOffset + scalar) * offsetScale;
@@ -216,8 +215,7 @@ public abstract class AbstractBoltProjectileEntity extends ThrowableItemProjecti
         if (age >= getMaxAge() && !level().isClientSide) {
             if (fadingAway) {
                 discard();
-            }
-            else {
+            } else {
                 getEntityData().set(DATA_FADING_AWAY, true);
             }
         }
@@ -231,8 +229,8 @@ public abstract class AbstractBoltProjectileEntity extends ThrowableItemProjecti
         this.setDeltaMovement(pX, pY, pZ);
         if (this.xRotO == 0.0F && this.yRotO == 0.0F) {
             double d0 = Math.sqrt(pX * pX + pZ * pZ);
-            this.setXRot((float)(Mth.atan2(pY, d0) * (double)(180F / (float)Math.PI)));
-            this.setYRot((float)(Mth.atan2(pX, pZ) * (double)(180F / (float)Math.PI)));
+            this.setXRot((float) (Mth.atan2(pY, d0) * (double) (180F / (float) Math.PI)));
+            this.setYRot((float) (Mth.atan2(pX, pZ) * (double) (180F / (float) Math.PI)));
             this.xRotO = this.getXRot();
             this.yRotO = this.getYRot();
             this.moveTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), this.getXRot());
@@ -251,9 +249,8 @@ public abstract class AbstractBoltProjectileEntity extends ThrowableItemProjecti
         float effectScalar = 1;
         if (age < 5) {
             effectScalar = age / 5f;
-        }
-        else if (fadingAway) {
-            effectScalar = effectScalar / ((fadingTimer+2) / 2f);
+        } else if (fadingAway) {
+            effectScalar = effectScalar / ((fadingTimer + 2) / 2f);
         }
         return effectScalar;
     }

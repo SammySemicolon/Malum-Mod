@@ -3,11 +3,11 @@ package com.sammy.malum.visual_effects.networked.generic;
 
 import com.sammy.malum.visual_effects.networked.ParticleEffectType;
 import com.sammy.malum.visual_effects.networked.data.ColorEffectData;
-import net.minecraft.util.Mth;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.util.Mth;
 import team.lodestar.lodestone.helpers.ColorHelper;
-import team.lodestar.lodestone.registry.common.particle.*;
+import team.lodestar.lodestone.registry.common.particle.LodestoneParticleRegistry;
 import team.lodestar.lodestone.systems.easing.Easing;
 import team.lodestar.lodestone.systems.particle.builder.WorldParticleBuilder;
 import team.lodestar.lodestone.systems.particle.data.GenericParticleData;
@@ -51,7 +51,7 @@ public class HexingSmokeParticleEffect extends ParticleEffectType {
                         .setRandomOffset(0.2f, 0.2f)
                         .setRandomMotion(0.02f)
                         .addTickActor(p -> p.setParticleSpeed(p.getParticleSpeed().scale(0.95f)))
-                        .repeat(level, posX, posY, posZ, (int) (4*intensity));
+                        .repeat(level, posX, posY, posZ, (int) (4 * intensity));
             }
             WorldParticleBuilder.create(LodestoneParticleRegistry.WISP_PARTICLE)
                     .setTransparencyData(GenericParticleData.create(0.02f, 0.05f, 0).build())
@@ -63,7 +63,7 @@ public class HexingSmokeParticleEffect extends ParticleEffectType {
                     .setRandomOffset(0.05f, 0.05f)
                     .setRandomMotion(0.05f)
                     .addTickActor(p -> p.setParticleSpeed(p.getParticleSpeed().scale(0.5f)))
-                    .repeat(level, posX, posY, posZ, (int) (6*intensity));
+                    .repeat(level, posX, posY, posZ, (int) (6 * intensity));
             WorldParticleBuilder.create(LodestoneParticleRegistry.SMOKE_PARTICLE)
                     .setTransparencyData(GenericParticleData.create(0, 0.05f, 0).build())
                     .setSpinData(SpinParticleData.create(0.1f, 0.25f, 0).setEasing(Easing.QUINTIC_OUT, Easing.SINE_IN).build())
@@ -74,7 +74,7 @@ public class HexingSmokeParticleEffect extends ParticleEffectType {
                     .setRandomOffset(0.15f, 0.15f)
                     .setRandomMotion(0.015f, 0.015f)
                     .addTickActor(p -> p.setParticleSpeed(p.getParticleSpeed().scale(0.92f)))
-                    .repeat(level, posX, posY, posZ, (int) (10*intensity));
+                    .repeat(level, posX, posY, posZ, (int) (10 * intensity));
         };
     }
 }

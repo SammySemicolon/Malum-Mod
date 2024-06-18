@@ -3,7 +3,6 @@ package com.sammy.malum.compability.emi.recipes;
 import com.google.common.collect.Lists;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.client.screen.codex.ArcanaCodexHelper;
-import com.sammy.malum.client.screen.codex.screens.AbstractProgressionCodexScreen;
 import com.sammy.malum.common.recipe.SpiritFocusingRecipe;
 import com.sammy.malum.compability.emi.EMIHandler;
 import dev.emi.emi.api.recipe.EmiRecipe;
@@ -12,7 +11,6 @@ import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.WidgetHolder;
 import net.minecraft.resources.ResourceLocation;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -71,8 +69,7 @@ public class SpiritFocusingEmiRecipe implements EmiRecipe {
 
         widgets.addDrawable(0, 0, 0, 0, (guiGraphics, mx, my, d) ->
         {
-            if(!spirits.isEmpty())
-            {
+            if (!spirits.isEmpty()) {
                 ArcanaCodexHelper.renderItemFrames(guiGraphics.pose(), recipe.spirits.size(), 61, 12, false);
             }
         });

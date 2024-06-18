@@ -4,15 +4,8 @@ import com.google.common.collect.ImmutableList;
 import com.sammy.malum.client.screen.codex.objects.progression.ProgressionEntryObject;
 import com.sammy.malum.client.screen.codex.pages.BookPage;
 import com.sammy.malum.client.screen.codex.pages.EntryReference;
-import com.sammy.malum.client.screen.codex.screens.EntryScreen;
-import com.google.common.collect.ImmutableList;
-import com.sammy.malum.client.screen.codex.objects.progression.ProgressionEntryObject;
-import com.sammy.malum.client.screen.codex.pages.BookPage;
-import com.sammy.malum.client.screen.codex.pages.EntryReference;
 import net.minecraft.network.chat.Style;
 
-import java.util.function.Consumer;
-import java.util.function.Predicate;
 import java.util.function.BooleanSupplier;
 import java.util.function.Consumer;
 import java.util.function.UnaryOperator;

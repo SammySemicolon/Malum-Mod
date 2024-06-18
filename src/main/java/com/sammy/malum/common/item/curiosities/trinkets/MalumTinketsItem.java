@@ -1,16 +1,13 @@
 package com.sammy.malum.common.item.curiosities.trinkets;
 
-import dev.emi.trinkets.api.*;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
-import team.lodestar.lodestone.helpers.TrinketsHelper;
 
-import java.util.*;
+import java.util.List;
 import java.util.function.Consumer;
 
 public class MalumTinketsItem extends AbstractMalumTrinketsItem {

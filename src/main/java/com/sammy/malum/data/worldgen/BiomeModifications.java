@@ -15,10 +15,10 @@ public class BiomeModifications {
 
 
     public static void bootstrap(BootstapContext<Biome> context) {
-       init();
+        init();
     }
 
-    public static void init(){
+    public static void init() {
         BiomeModification modifications = net.fabricmc.fabric.api.biome.v1.BiomeModifications.create(MalumMod.malumPath("worldgen"));
         modifications.add(ModificationPhase.ADDITIONS, BiomeSelectors.tag(BiomeTagRegistry.HAS_SOULSTONE), (biomeSelectionContext, biomeModificationContext) -> {
             biomeModificationContext.getGenerationSettings().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, PlacedFeatureRegistry.ORE_SOULSTONE);

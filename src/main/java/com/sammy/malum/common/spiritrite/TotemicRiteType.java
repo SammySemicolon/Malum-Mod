@@ -32,7 +32,7 @@ public abstract class TotemicRiteType {
         var riteCategory = riteEffect.category;
         tooltip.add(Component.translatable(translationIdentifier(corrupted)).withStyle(spiritStyleModifier));
         tooltip.add(makeDescriptorComponent("malum.gui.rite.type", riteCategory.getTranslationKey()));
-        tooltip.add(makeDescriptorComponent("malum.gui.rite.medium", "malum.gui.rite.medium."+(corrupted?"soulwood":"runewood")));
+        tooltip.add(makeDescriptorComponent("malum.gui.rite.medium", "malum.gui.rite.medium." + (corrupted ? "soulwood" : "runewood")));
         if (!riteCategory.equals(TotemicRiteEffect.MalumRiteEffectCategory.ONE_TIME_EFFECT)) {
             tooltip.add(makeDescriptorComponent("malum.gui.rite.coverage", riteEffect.getRiteCoverageDescriptor()));
         }

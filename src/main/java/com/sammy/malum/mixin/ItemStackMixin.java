@@ -5,7 +5,6 @@ import com.google.common.collect.Multimap;
 import com.sammy.malum.common.enchantment.HauntedEnchantment;
 import com.sammy.malum.common.item.curiosities.weapons.scythe.MalumScytheItem;
 import com.sammy.malum.registry.common.AttributeRegistry;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
@@ -22,7 +21,6 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import java.util.List;
 import java.util.Map;
 
 import static net.minecraft.world.item.Item.BASE_ATTACK_DAMAGE_UUID;
@@ -34,7 +32,7 @@ public abstract class ItemStackMixin {
     public abstract Item getItem();
 
     @Inject(method = "getAttributeModifiers", at = @At(value = "RETURN"))
-    private void malum$addModifier(EquipmentSlot slot, CallbackInfoReturnable<Multimap<Attribute, AttributeModifier>> cir){
+    private void malum$addModifier(EquipmentSlot slot, CallbackInfoReturnable<Multimap<Attribute, AttributeModifier>> cir) {
         ItemStack stack = (ItemStack) (Object) this;
         HauntedEnchantment.addMagicDamage(slot, stack, cir.getReturnValue());
     }

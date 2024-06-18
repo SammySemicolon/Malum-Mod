@@ -49,6 +49,7 @@ public class MalignantConversionReloadListener extends SimpleJsonResourceReloadL
         }
     }
 
-    public record MalignantConversionData(Attribute sourceAttribute, double consumptionRatio, List<Pair<Attribute, Double>> targetAttributes) {
+    public record MalignantConversionData(Attribute sourceAttribute, double consumptionRatio,
+                                          List<Pair<Attribute, Double>> targetAttributes) {
     }
 }

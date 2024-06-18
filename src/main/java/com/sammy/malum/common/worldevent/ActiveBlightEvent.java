@@ -12,7 +12,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.Level;
 import team.lodestar.lodestone.systems.worldevent.WorldEventInstance;
 import team.lodestar.lodestone.systems.worldgen.LodestoneBlockFiller;
-import team.lodestar.lodestone.systems.worldgen.LodestoneBlockFiller.*;
+import team.lodestar.lodestone.systems.worldgen.LodestoneBlockFiller.LodestoneBlockFillerLayer;
 
 import java.util.Map;
 

@@ -1,6 +1,6 @@
 package com.sammy.malum.common.item.curiosities.trinkets.runes.miracle;
 
-import com.sammy.malum.common.item.curiosities.trinkets.runes.*;
+import com.sammy.malum.common.item.curiosities.trinkets.runes.AbstractRuneTrinketsItem;
 import com.sammy.malum.registry.common.MobEffectRegistry;
 import com.sammy.malum.registry.common.SpiritTypeRegistry;
 import io.github.fabricators_of_create.porting_lib.entity.events.living.LivingHurtEvent;
