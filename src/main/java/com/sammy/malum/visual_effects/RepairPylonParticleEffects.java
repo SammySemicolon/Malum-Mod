@@ -48,7 +48,7 @@ public class RepairPylonParticleEffects {
         LodestoneBlockEntityInventory spiritInventory = pylon.spiritInventory;
         SpiritRepairRecipe recipe = pylon.recipe;
         final RepairPylonCoreBlockEntity.RepairPylonState state = pylon.state;
-        if (recipe != null) {
+        if (recipe != null && !state.equals(RepairPylonCoreBlockEntity.RepairPylonState.COOLDOWN)) {
             SpiritLightSpecs.rotatingLightSpecs(level, itemPos, activeSpiritType, 0.5f, 3, b -> b.multiplyLifetime(1.2f).modifyData(b::getScaleData, d -> d.multiplyValue(1.2f)));
         }
 

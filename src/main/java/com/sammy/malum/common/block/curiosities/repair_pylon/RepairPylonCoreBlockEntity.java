@@ -26,6 +26,7 @@ import net.minecraftforge.items.wrapper.*;
 import org.jetbrains.annotations.*;
 import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.systems.blockentity.*;
+import team.lodestar.lodestone.systems.easing.*;
 import team.lodestar.lodestone.systems.multiblock.*;
 
 import javax.annotation.Nullable;
@@ -68,7 +69,7 @@ public class RepairPylonCoreBlockEntity extends MultiBlockCoreEntity {
 
     public RepairPylonState state = RepairPylonState.IDLE;
     public BlockPos repairablePosition;
-    public float timer;
+    public int timer;
 
     public float spiritAmount;
     public float spiritSpin;
@@ -125,7 +126,7 @@ public class RepairPylonCoreBlockEntity extends MultiBlockCoreEntity {
             compound.put("targetedBlock", BlockHelper.saveBlockPos(new CompoundTag(), repairablePosition));
         }
         if (timer != 0) {
-            compound.putFloat("timer", timer);
+            compound.putInt("timer", timer);
         }
         inventory.save(compound);
         spiritInventory.save(compound, "spiritInventory");
@@ -136,7 +137,7 @@ public class RepairPylonCoreBlockEntity extends MultiBlockCoreEntity {
         state = compound.contains("state") ? CODEC.byName(compound.getString("state")) : RepairPylonState.IDLE;
         spiritAmount = compound.getFloat("spiritAmount");
         repairablePosition = BlockHelper.loadBlockPos(compound.getCompound("targetedBlock"));
-        timer = compound.getFloat("timer");
+        timer = compound.getInt("timer");
         inventory.load(compound);
         spiritInventory.load(compound, "spiritInventory");
 
@@ -195,6 +196,9 @@ public class RepairPylonCoreBlockEntity extends MultiBlockCoreEntity {
         spiritAmount = Math.max(1, Mth.lerp(0.1f, spiritAmount, spiritInventory.nonEmptyItemAmount));
         if (level.isClientSide) {
             spiritSpin++;
+            if (state.equals(RepairPylonState.COOLDOWN) && timer < 300) {
+                timer++;
+            }
             RepairPylonParticleEffects.passiveRepairPylonParticles(this);
         }
         else {
@@ -231,7 +235,7 @@ public class RepairPylonCoreBlockEntity extends MultiBlockCoreEntity {
                             setState(RepairPylonState.IDLE);
                             return;
                         }
-                        if (!(level.getBlockEntity(repairablePosition) instanceof IMalumSpecialItemAccessPoint provider)) {
+                        if (!(level.getBlockEntity(repairablePosition) instanceof IMalumSpecialItemAccessPoint provider) || !tryRepair(provider)) {
                             setState(RepairPylonState.IDLE);
                             return;
                         }
@@ -249,7 +253,7 @@ public class RepairPylonCoreBlockEntity extends MultiBlockCoreEntity {
                             setState(RepairPylonState.IDLE);
                             return;
                         }
-                        if (!(level.getBlockEntity(repairablePosition) instanceof IMalumSpecialItemAccessPoint provider)) {
+                        if (!(level.getBlockEntity(repairablePosition) instanceof IMalumSpecialItemAccessPoint provider) || !tryRepair(provider)) {
                             setState(RepairPylonState.IDLE);
                             return;
                         }
@@ -258,7 +262,7 @@ public class RepairPylonCoreBlockEntity extends MultiBlockCoreEntity {
                 }
                 case COOLDOWN -> {
                     timer++;
-                    if (timer >= 600) {
+                    if (timer >= 300) {
                         setState(RepairPylonState.IDLE);
                     }
                 }
@@ -269,14 +273,19 @@ public class RepairPylonCoreBlockEntity extends MultiBlockCoreEntity {
     public boolean tryRepair() {
         Collection<IMalumSpecialItemAccessPoint> altarProviders = BlockHelper.getBlockEntities(IMalumSpecialItemAccessPoint.class, level, worldPosition, HORIZONTAL_RANGE, VERTICAL_RANGE, HORIZONTAL_RANGE);
         for (IMalumSpecialItemAccessPoint provider : altarProviders) {
-            LodestoneBlockEntityInventory inventoryForAltar = provider.getSuppliedInventory();
-            SpiritRepairRecipe newRecipe = SpiritRepairRecipe.getRecipe(level, inventoryForAltar.getStackInSlot(0), inventory.getStackInSlot(0), spiritInventory.nonEmptyItemStacks);
-            if (newRecipe != null) {
+            boolean success = tryRepair(provider);
+            if (success) {
                 repairablePosition = provider.getAccessPointBlockPos();
                 return true;
             }
         }
         return false;
+    }
+
+    public boolean tryRepair(IMalumSpecialItemAccessPoint provider) {
+        LodestoneBlockEntityInventory inventoryForAltar = provider.getSuppliedInventory();
+        SpiritRepairRecipe newRecipe = SpiritRepairRecipe.getRecipe(level, inventoryForAltar.getStackInSlot(0), inventory.getStackInSlot(0), spiritInventory.nonEmptyItemStacks);
+        return newRecipe != null;
     }
 
     public void prepareRepair(IMalumSpecialItemAccessPoint provider) {
@@ -303,7 +312,7 @@ public class RepairPylonCoreBlockEntity extends MultiBlockCoreEntity {
         result.setDamageValue(Math.max(0, result.getDamageValue() - (int) (result.getMaxDamage() * recipe.durabilityPercentage)));
         suppliedInventory.setStackInSlot(0, result);
         ParticleEffectTypeRegistry.REPAIR_PYLON_REPAIRS.createPositionedEffect(level, new PositionEffectData(worldPosition), ColorEffectData.fromRecipe(recipe.spirits), PylonPrepareRepairParticleEffect.createData(provider.getAccessPointBlockPos()));
-        setState(RepairPylonState.IDLE);
+        setState(RepairPylonState.COOLDOWN);
     }
 
     public void setState(RepairPylonState state) {
@@ -325,7 +334,16 @@ public class RepairPylonCoreBlockEntity extends MultiBlockCoreEntity {
     public Vec3 getSpiritItemOffset(int slot, float partialTicks) {
         float distance = 0.75f + (float) Math.sin(((spiritSpin + partialTicks) % 6.28f) / 20f) * 0.025f;
         float height = 2.75f;
+        if (state.equals(RepairPylonState.COOLDOWN)) {
+            int relativeCooldown = timer < 270 ? Math.min(timer, 30) : 300-timer;
+            distance += getCooldownOffset(relativeCooldown, Easing.SINE_OUT) * 0.25f;
+            height -= getCooldownOffset(relativeCooldown, Easing.QUARTIC_OUT) * getCooldownOffset(relativeCooldown, Easing.BACK_OUT) * 0.5f;
+        }
         return DataHelper.rotatingRadialOffset(new Vec3(0.5f, height, 0.5f), distance, slot, spiritAmount, (long) (spiritSpin + partialTicks), 360);
+    }
+
+    public float getCooldownOffset(int relativeCooldown, Easing easing) {
+        return easing.ease(relativeCooldown / 30f, 0, 1, 1);
     }
 
     @Nonnull

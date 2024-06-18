@@ -136,7 +136,6 @@ public class ItemRegistry {
     }
 
     public static final RegistryObject<Item> ENCYCLOPEDIA_ARCANA = register("encyclopedia_arcana", GEAR_PROPERTIES().rarity(UNCOMMON), EncyclopediaArcanaItem::new);
-    public static final RegistryObject<Item> ENCYCLOPEDIA_ESOTERICA = register("encyclopedia_esoterica", GEAR_PROPERTIES().rarity(EPIC), EncyclopediaEsotericaItem::new);
 
     public static final RegistryObject<RitualShardItem> RITUAL_SHARD = register("ritual_shard", HIDDEN_PROPERTIES(), RitualShardItem::new);
 
@@ -151,6 +150,8 @@ public class ItemRegistry {
     public static final RegistryObject<SpiritShardItem> INFERNAL_SPIRIT = register("infernal_spirit", DEFAULT_PROPERTIES(), (p) -> new SpiritShardItem(p, SpiritTypeRegistry.INFERNAL_SPIRIT));
     public static final RegistryObject<SpiritShardItem> UMBRAL_SPIRIT = register("umbral_spirit", HIDDEN_PROPERTIES(), (p) -> new UmbralSpiritShardItem(p, SpiritTypeRegistry.UMBRAL_SPIRIT));
     //endregion
+
+    public static final RegistryObject<Item> ENCYCLOPEDIA_ESOTERICA = register("encyclopedia_esoterica", GEAR_PROPERTIES().rarity(EPIC), EncyclopediaEsotericaItem::new);
 
     //region random stuff
     public static final RegistryObject<Item> COPPER_NUGGET = register("copper_nugget", new LodestoneItemProperties(CreativeModeTabs.INGREDIENTS), Item::new);
