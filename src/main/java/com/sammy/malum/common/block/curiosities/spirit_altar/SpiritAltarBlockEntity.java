@@ -332,11 +332,8 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
         }
     }
 
-    public float getSpinUp(Easing easing) {
-        if (spiritYLevel > 30) {
-            return 1;
-        }
-        return easing.ease(spiritYLevel / 30f, 0, 1, 1);
+    public Vec3 getCentralItemOffset() {
+        return ALTAR_ITEM_OFFSET;
     }
 
     public Vec3 getItemPos() {
@@ -345,14 +342,17 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
         return new Vec3(blockPos.getX() + offset.x, blockPos.getY() + offset.y, blockPos.getZ() + offset.z);
     }
 
-    public Vec3 getCentralItemOffset() {
-        return ALTAR_ITEM_OFFSET;
+    public Vec3 getSpiritItemOffset(int slot, float partialTicks) {
+        float distance = 1 - getSpinUp(Easing.SINE_OUT) * 0.25f + (float) Math.sin((spiritSpin % 6.28f + partialTicks) / 20f) * 0.025f;
+        float height = 0.75f + getSpinUp(Easing.QUARTIC_OUT) * getSpinUp(Easing.BACK_OUT) * 0.5f;
+        return DataHelper.rotatingRadialOffset(new Vec3(0.5f, height, 0.5f), distance, slot, spiritAmount, (long) (spiritSpin + partialTicks), 360);
     }
 
-    public Vec3 spiritOffset(int slot, float tickDelta) {
-        float distance = 1 - getSpinUp(Easing.SINE_OUT) * 0.25f + (float) Math.sin(spiritSpin / 20f) * 0.025f;
-        float height = 0.75f + getSpinUp(Easing.QUARTIC_OUT) * getSpinUp(Easing.BACK_OUT) * 0.5f;
-        return rotatedCirclePosition(new Vec3(0.5f, height, 0.5f), distance, slot, spiritAmount, (long) spiritSpin, 360, tickDelta);
+    public float getSpinUp(Easing easing) {
+        if (spiritYLevel > 30) {
+            return 1;
+        }
+        return easing.ease(spiritYLevel / 30f, 0, 1, 1);
     }
 
     public static Vec3 rotatedCirclePosition(Vec3 pos, float distance, float current, float total, long gameTime, float time, float tickDelta) {
@@ -371,4 +371,3 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
         return pos.add(x, 0, z);
     }
 }
-
