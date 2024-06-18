@@ -29,6 +29,7 @@ import com.sammy.malum.registry.MalumCommandRegistry;
 import com.sammy.malum.registry.client.HiddenTagRegistry;
 import com.sammy.malum.registry.common.MobEffectRegistry;
 import com.sammy.malum.registry.common.PacketRegistry;
+import com.sammy.malum.registry.common.SpiritTypeRegistry;
 import com.sammy.malum.registry.common.item.ArmorSkinRegistry;
 import com.sammy.malum.registry.common.item.ItemRegistry;
 import com.sammy.malum.registry.common.item.tabs.CreativeTabRegistry;
@@ -94,7 +95,7 @@ public class MalumMod implements ModInitializer {
         ConfigRegistry.registerConfig(MalumMod.MALUM, ConfigType.COMMON, CommonConfig.SPEC);
 
         PacketRegistry.registerNetworkStuff();
-
+        SpiritTypeRegistry.init();
         ENCHANTMENTS.register();
         BLOCKS.register();
         BLOCK_ENTITY_TYPES.register();

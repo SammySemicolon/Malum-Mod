@@ -27,18 +27,21 @@ public class MoteOfManaRenderer implements BlockEntityRenderer<MoteOfManaBlockEn
     public void render(MoteOfManaBlockEntity blockEntityIn, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int combinedLightIn, int combinedOverlayIn) {
         poseStack.pushPose();
         MalumSpiritType spiritType = ((SpiritMoteBlock) blockEntityIn.getBlockState().getBlock()).spiritType;
+        if (spiritType != null) {
+            var builder = SpiritBasedWorldVFXBuilder.create(spiritType)
+                    .setRenderType(LodestoneRenderTypeRegistry.ADDITIVE_TEXTURE.applyAndCache(MOTE_OF_MANA));
 
-        var builder = SpiritBasedWorldVFXBuilder.create(spiritType)
-                .setRenderType(LodestoneRenderTypeRegistry.ADDITIVE_TEXTURE.applyAndCache(MOTE_OF_MANA));
+            RenderUtils.CubeVertexData cubeVertexData = RenderUtils.makeCubePositions(1f)
+                    .applyWobble(0, 0.5f, 0.015f);
+            RenderUtils.CubeVertexData inverse = RenderUtils.makeCubePositions(-1f)
+                    .applyWobble(0, 0.5f, 0.015f);
+            drawCube(poseStack, builder.setColor(spiritType.getPrimaryColor(), 0.85f), 1f, cubeVertexData);
+            drawCube(poseStack, builder.setColor(spiritType.getPrimaryColor(), 0.5f), 1.12f, cubeVertexData);
 
-        RenderUtils.CubeVertexData cubeVertexData = RenderUtils.makeCubePositions(1f)
-                .applyWobble(0, 0.5f, 0.015f);
-        RenderUtils.CubeVertexData inverse = RenderUtils.makeCubePositions(-1f)
-                .applyWobble(0, 0.5f, 0.015f);
-        drawCube(poseStack, builder.setColor(spiritType.getPrimaryColor(), 0.85f), 1f, cubeVertexData);
-        drawCube(poseStack, builder.setColor(spiritType.getPrimaryColor(), 0.5f), 1.12f, cubeVertexData);
+            drawCube(poseStack, builder.setColor(spiritType.getSecondaryColor(), 0.6f), 0.92f, inverse);
+        }
 
-        drawCube(poseStack, builder.setColor(spiritType.getSecondaryColor(), 0.6f), 0.92f, inverse);
+
         poseStack.popPose();
     }
 }

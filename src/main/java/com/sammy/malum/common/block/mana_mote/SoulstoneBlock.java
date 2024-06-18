@@ -38,8 +38,7 @@ public class SoulstoneBlock extends Block implements CustomSoundTypeBlock {
         }
         MalumSpiritType spiritType = spiritShardItem.type;
         final Optional<SpiritMoteBlock> spiritMote = spiritType.spiritMote;
-        if (!spiritMote.isPresent())
-        {
+        if (!spiritMote.isPresent()) {
             return super.use(pState, pLevel, pPos, player, pHand, pHit);
         }
         BlockState blockstate = spiritMote.get().defaultBlockState();
