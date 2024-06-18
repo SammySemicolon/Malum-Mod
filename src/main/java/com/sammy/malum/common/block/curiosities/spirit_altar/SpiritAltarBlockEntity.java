@@ -379,7 +379,19 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
         float lerpSpiritSpin = spiritSpin + partialTicks * (projectedSpiritSpin - spiritSpin);
         float distance = 1 - getSpinUp(Easing.SINE_OUT) * 0.25f + (float) Math.sin((lerpSpiritSpin % 6.28f) / 20f) * 0.025f;
         float height = 0.75f + getSpinUp(Easing.QUARTIC_OUT) * getSpinUp(Easing.BACK_OUT) * 0.5f;
-        return DataHelper.rotatingRadialOffset(new Vec3(0.5f, height, 0.5f), distance, slot, spiritAmount, (long) (lerpSpiritSpin), 360);
+
+        int period = 360;
+        double angle = slot / spiritAmount * (Math.PI * 2);
+        angle += ((lerpSpiritSpin % period) / period) * (Math.PI * 2);
+        double dx2 = (distance * Math.cos(angle));
+        double dz2 = (distance * Math.sin(angle));
+
+        Vec3 vector2f = new Vec3(dx2, 0, dz2);
+        double x = vector2f.x * distance;
+        double z = vector2f.z * distance;
+        return new Vec3(x + 0.5f, height, z + 0.5f);
+        // Datahelper clamps to long... why?
+//        return DataHelper.rotatingRadialOffset(new Vec3(0.5f, height, 0.5f), distance, slot, spiritAmount, (long) lerpSpiritSpin, 360);
     }
 
     public float getSpinUp(Easing easing) {
