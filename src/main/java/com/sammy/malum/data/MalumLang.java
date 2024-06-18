@@ -600,8 +600,8 @@ public class MalumLang extends LanguageProvider {
 
         addSimpleEntryHeader("arcane_restoration", "Arcane Restoration", "Mystic repair");
         addPages("arcane_restoration",
-                "The Spirit Crucible has an annoying habit of breaking the tools to work with it. While a cost is to be expected, I'd rather pay it in installments.",
-                "I've designed a device I call the Repair Pylon to shore up things as they break. It works not just on an Impetus, but practically anything at all placed on a nearby item holder, using a combination of spirits and a repair ingredient, no experience needed.",
+                "The Spirit Crucible has an annoying habit of breaking the tools to work with it. While a cost is to be expected, I'd rather pay it in installments. I have designed a device I call the Repair Pylon, intended to shore items up as they break down.",
+                "It works not just on an Impetus, but practically anything at all, as long as it is placed on a nearby item holder, with a combination of spirits and a repair material (iron for iron tools, for instance) placed on the pylon. Unlike an anvil, no experience is needed to fuel this.",
                 "It appears that materials in tune with spirit arcana, such as Soulstained Steel or Hallowed Gold, are more efficient in this process. They will be repaired more than their mundane counterparts would for the same cost.");
 
         addSimpleEntryHeader("crucible_augmentation", "Crucible Augmentation", "Tuning the attuner");
@@ -1048,6 +1048,8 @@ public class MalumLang extends LanguageProvider {
         add("malum.jei.spirit_focusing", "Spirit Focusing");
         add("malum.jei.spirit_repair", "Spirit Repair");
         add("malum.jei.spirit_rite", "Spirit Rites");
+        add("malum.jei.runeworking", "Runeworking");
+        add("malum.jei.weeping_well", "The Weeping Well");
         add("malum.jei.spirit_transmutation", "The Unchained Rite");
 
         add("itemGroup.malum_basis_of_magic", "Malum: Basis of Magic");
