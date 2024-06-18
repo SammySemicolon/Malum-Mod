@@ -8,7 +8,7 @@
     "${mod_authors}, MrSterner"
   ],
   "license": "${mod_license}",
-  "icon": "assets/lodestone/icon.png",
+  "icon": "malum.png",
   "environment": "*",
   "entrypoints": {
     "main": [
