@@ -208,19 +208,24 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
     }
 
     private void recalculateRecipes() {
-        ItemStack stack = inventory.getStackInSlot(0);
-        Collection<SpiritInfusionRecipe> recipes = DataHelper.getAll(SpiritInfusionRecipe.getRecipes(level), r -> r.doesInputMatch(stack) && r.doSpiritsMatch(spiritInventory.nonEmptyItemStacks));
-        possibleRecipes.clear();
-        IItemHandlerModifiable pedestalItems = AltarCraftingHelper.createPedestalInventoryCapture(
-            AltarCraftingHelper.capturePedestals(level, worldPosition, HORIZONTAL_RANGE, VERTICAL_RANGE, HORIZONTAL_RANGE));
-        for (SpiritInfusionRecipe recipe : recipes) {
-            AltarCraftingHelper.Ranking ranking = AltarCraftingHelper.rankRecipe(recipe, stack, spiritInventory, pedestalItems, extrasInventory);
-            if (ranking != null)
-                possibleRecipes.put(recipe, ranking);
-        }
-        recipe = possibleRecipes.entrySet().stream().max(Map.Entry.comparingByValue()).map(Map.Entry::getKey).orElse(null);
+        boolean hadRecipe = recipe != null;
 
-        if (recipe == null && level != null) {
+        ItemStack stack = inventory.getStackInSlot(0);
+        if (!stack.isEmpty()) {
+            Collection<SpiritInfusionRecipe> recipes = DataHelper.getAll(SpiritInfusionRecipe.getRecipes(level), r -> r.doesInputMatch(stack) && r.doSpiritsMatch(spiritInventory.nonEmptyItemStacks));
+            possibleRecipes.clear();
+            IItemHandlerModifiable pedestalItems = AltarCraftingHelper.createPedestalInventoryCapture(
+                AltarCraftingHelper.capturePedestals(level, worldPosition, HORIZONTAL_RANGE, VERTICAL_RANGE, HORIZONTAL_RANGE));
+            for (SpiritInfusionRecipe recipe : recipes) {
+                AltarCraftingHelper.Ranking ranking = AltarCraftingHelper.rankRecipe(recipe, stack, spiritInventory, pedestalItems, extrasInventory);
+                if (ranking != null)
+                    possibleRecipes.put(recipe, ranking);
+            }
+            recipe = possibleRecipes.entrySet().stream().max(Map.Entry.comparingByValue()).map(Map.Entry::getKey).orElse(null);
+        } else
+            recipe = null;
+
+        if (hadRecipe && recipe == null && level != null) {
             extrasInventory.dumpItems(level, worldPosition);
         }
     }
@@ -304,7 +309,7 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
                 }
             }
 
-            return false;
+            return AltarCraftingHelper.extractIngredient(extrasInventory, nextIngredient.ingredient, nextIngredient.count, true).isEmpty();
         }
 
         return true;
@@ -370,9 +375,23 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
     }
 
     public Vec3 getSpiritItemOffset(int slot, float partialTicks) {
-        float distance = 1 - getSpinUp(Easing.SINE_OUT) * 0.25f + (float) Math.sin((spiritSpin % 6.28f + partialTicks) / 20f) * 0.025f;
+        float projectedSpiritSpin = spiritSpin + spiritYLevel * 0.05f + speed * 0.5f;
+        float lerpSpiritSpin = spiritSpin + partialTicks * (projectedSpiritSpin - spiritSpin);
+        float distance = 1 - getSpinUp(Easing.SINE_OUT) * 0.25f + (float) Math.sin((lerpSpiritSpin % 6.28f) / 20f) * 0.025f;
         float height = 0.75f + getSpinUp(Easing.QUARTIC_OUT) * getSpinUp(Easing.BACK_OUT) * 0.5f;
-        return DataHelper.rotatingRadialOffset(new Vec3(0.5f, height, 0.5f), distance, slot, spiritAmount, (long) (spiritSpin + partialTicks), 360);
+
+        int period = 360;
+        double angle = slot / spiritAmount * (Math.PI * 2);
+        angle += ((lerpSpiritSpin % period) / period) * (Math.PI * 2);
+        double dx2 = (distance * Math.cos(angle));
+        double dz2 = (distance * Math.sin(angle));
+
+        Vec3 vector2f = new Vec3(dx2, 0, dz2);
+        double x = vector2f.x * distance;
+        double z = vector2f.z * distance;
+        return new Vec3(x + 0.5f, height, z + 0.5f);
+        // Datahelper clamps to long... why?
+//        return DataHelper.rotatingRadialOffset(new Vec3(0.5f, height, 0.5f), distance, slot, spiritAmount, (long) lerpSpiritSpin, 360);
     }
 
     public float getSpinUp(Easing easing) {
