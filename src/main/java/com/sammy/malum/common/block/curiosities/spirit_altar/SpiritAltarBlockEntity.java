@@ -1,38 +1,48 @@
 package com.sammy.malum.common.block.curiosities.spirit_altar;
 
-import com.sammy.malum.common.block.*;
-import com.sammy.malum.common.block.storage.*;
-import com.sammy.malum.common.item.spirit.*;
-import com.sammy.malum.common.recipe.*;
-import com.sammy.malum.core.systems.recipe.*;
-import com.sammy.malum.registry.common.*;
-import com.sammy.malum.registry.common.block.*;
-import com.sammy.malum.visual_effects.*;
-import com.sammy.malum.visual_effects.networked.altar.*;
-import com.sammy.malum.visual_effects.networked.data.*;
-import net.minecraft.core.*;
-import net.minecraft.nbt.*;
-import net.minecraft.sounds.*;
-import net.minecraft.util.*;
-import net.minecraft.world.*;
-import net.minecraft.world.entity.item.*;
-import net.minecraft.world.entity.player.*;
-import net.minecraft.world.item.*;
-import net.minecraft.world.level.block.entity.*;
-import net.minecraft.world.level.block.state.*;
-import net.minecraft.world.phys.*;
-import net.minecraftforge.common.capabilities.*;
-import net.minecraftforge.common.util.*;
-import net.minecraftforge.items.*;
-import net.minecraftforge.items.wrapper.*;
-import org.jetbrains.annotations.*;
-import team.lodestar.lodestone.helpers.*;
-import team.lodestar.lodestone.systems.blockentity.*;
-import team.lodestar.lodestone.systems.easing.*;
-import team.lodestar.lodestone.systems.recipe.*;
+import com.sammy.malum.common.block.MalumBlockEntityInventory;
+import com.sammy.malum.common.block.storage.IMalumSpecialItemAccessPoint;
+import com.sammy.malum.common.item.spirit.SpiritShardItem;
+import com.sammy.malum.common.recipe.SpiritInfusionRecipe;
+import com.sammy.malum.core.systems.recipe.SpiritWithCount;
+import com.sammy.malum.registry.common.ParticleEffectTypeRegistry;
+import com.sammy.malum.registry.common.SoundRegistry;
+import com.sammy.malum.registry.common.SpiritTypeRegistry;
+import com.sammy.malum.registry.common.block.BlockEntityRegistry;
+import com.sammy.malum.visual_effects.SpiritAltarParticleEffects;
+import com.sammy.malum.visual_effects.networked.altar.SpiritAltarEatItemParticleEffect;
+import com.sammy.malum.visual_effects.networked.data.ColorEffectData;
+import com.sammy.malum.visual_effects.networked.data.PositionEffectData;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.Mth;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.IItemHandlerModifiable;
+import net.minecraftforge.items.wrapper.CombinedInvWrapper;
+import org.jetbrains.annotations.NotNull;
+import team.lodestar.lodestone.helpers.BlockHelper;
+import team.lodestar.lodestone.helpers.DataHelper;
+import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntity;
+import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntityInventory;
+import team.lodestar.lodestone.systems.easing.Easing;
+import team.lodestar.lodestone.systems.recipe.IngredientWithCount;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import javax.annotation.*;
 import java.util.*;
 
 public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
@@ -54,7 +64,7 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
     public LodestoneBlockEntityInventory inventory;
     public LodestoneBlockEntityInventory extrasInventory;
     public LodestoneBlockEntityInventory spiritInventory;
-    public List<SpiritInfusionRecipe> possibleRecipes = new ArrayList<>();
+    public Map<SpiritInfusionRecipe, AltarCraftingHelper.Ranking> possibleRecipes = new HashMap<>();
     public SpiritInfusionRecipe recipe;
 
     public LazyOptional<IItemHandler> internalInventory = LazyOptional.of(() -> new CombinedInvWrapper(inventory, extrasInventory, spiritInventory));
@@ -191,11 +201,27 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
 
     @Override
     public void init() {
-        ItemStack stack = inventory.getStackInSlot(0);
-        possibleRecipes = new ArrayList<>(DataHelper.getAll(SpiritInfusionRecipe.getRecipes(level), r -> r.doesInputMatch(stack) && r.doSpiritsMatch(spiritInventory.nonEmptyItemStacks)));
-        recipe = SpiritInfusionRecipe.getRecipe(level, stack, spiritInventory.nonEmptyItemStacks);
+        recalculateRecipes();
         if (level.isClientSide && !possibleRecipes.isEmpty() && !isCrafting) {
             AltarSoundInstance.playSound(this);
+        }
+    }
+
+    private void recalculateRecipes() {
+        ItemStack stack = inventory.getStackInSlot(0);
+        Collection<SpiritInfusionRecipe> recipes = DataHelper.getAll(SpiritInfusionRecipe.getRecipes(level), r -> r.doesInputMatch(stack) && r.doSpiritsMatch(spiritInventory.nonEmptyItemStacks));
+        possibleRecipes.clear();
+        IItemHandlerModifiable pedestalItems = AltarCraftingHelper.createPedestalInventoryCapture(
+            AltarCraftingHelper.capturePedestals(level, worldPosition, HORIZONTAL_RANGE, VERTICAL_RANGE, HORIZONTAL_RANGE));
+        for (SpiritInfusionRecipe recipe : recipes) {
+            AltarCraftingHelper.Ranking ranking = AltarCraftingHelper.rankRecipe(recipe, stack, spiritInventory, pedestalItems, extrasInventory);
+            if (ranking != null)
+                possibleRecipes.put(recipe, ranking);
+        }
+        recipe = possibleRecipes.entrySet().stream().max(Map.Entry.comparingByValue()).map(Map.Entry::getKey).orElse(null);
+
+        if (recipe == null && level != null) {
+            extrasInventory.dumpItems(level, worldPosition);
         }
     }
 
@@ -225,10 +251,18 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
                 }
             }
         } else {
+            if (isCrafting)
+                progress = 0;
             isCrafting = false;
-            progress = 0;
+            progress++;
             if (spiritYLevel > 0) {
                 this.spiritYLevel = Math.max(spiritYLevel - 0.8f, 0);
+            }
+
+            int progressCap = (int) (300 / speed);
+            if (progress >= progressCap) {
+                recalculateRecipes();
+                progress = 0;
             }
         }
         if (level.isClientSide) {
@@ -238,40 +272,41 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
     }
 
     public boolean consume() {
-        if (recipe.extraItems.isEmpty()) {
+        if (recipe == null) {
+            return false;
+        } else if (recipe.extraItems.isEmpty())
             return true;
+
+        List<IMalumSpecialItemAccessPoint> pedestalItems = AltarCraftingHelper.capturePedestals(level, worldPosition, HORIZONTAL_RANGE, VERTICAL_RANGE, HORIZONTAL_RANGE);
+        ItemStack stack = inventory.getStackInSlot(0);
+        AltarCraftingHelper.Ranking reranking = AltarCraftingHelper.rankRecipe(recipe, stack, spiritInventory, AltarCraftingHelper.createPedestalInventoryCapture(pedestalItems), extrasInventory);
+        if (!Objects.equals(reranking, possibleRecipes.get(recipe))) {
+            recalculateRecipes();
+            return false;
         }
-        extrasInventory.updateData();
-        int extras = extrasInventory.nonEmptyItemAmount;
-        if (extras < recipe.extraItems.size()) {
-            progress *= 0.8f;
-            Collection<IMalumSpecialItemAccessPoint> altarProviders = BlockHelper.getBlockEntities(IMalumSpecialItemAccessPoint.class, level, worldPosition, HORIZONTAL_RANGE, VERTICAL_RANGE, HORIZONTAL_RANGE);
-            for (IMalumSpecialItemAccessPoint provider : altarProviders) {
+
+        IngredientWithCount nextIngredient = AltarCraftingHelper.getNextIngredientToTake(recipe, extrasInventory);
+
+        if (nextIngredient != null) {
+            for (IMalumSpecialItemAccessPoint provider : pedestalItems) {
+                progress *= 0.8f;
+
                 LodestoneBlockEntityInventory inventoryForAltar = provider.getSuppliedInventory();
-                ItemStack providedStack = inventoryForAltar.getStackInSlot(0);
-                IngredientWithCount requestedItem = recipe.extraItems.get(extras);
-                boolean matches = requestedItem.matches(providedStack);
-                if (!matches) {
-                    for (SpiritInfusionRecipe recipe : possibleRecipes) {
-                        if (extras < recipe.extraItems.size() && recipe.extraItems.get(extras).matches(providedStack)) {
-                            this.recipe = recipe;
-                            break;
-                        }
-                    }
-                }
-                requestedItem = recipe.extraItems.get(extras);
-                matches = requestedItem.matches(providedStack);
-                if (matches) {
+                ItemStack providedStack = inventoryForAltar.extractItem(0, nextIngredient.count, true);
+
+                if (nextIngredient.ingredient.test(providedStack)) {
                     level.playSound(null, provider.getAccessPointBlockPos(), SoundRegistry.ALTAR_CONSUME.get(), SoundSource.BLOCKS, 1, 0.9f + level.random.nextFloat() * 0.2f);
                     ParticleEffectTypeRegistry.SPIRIT_ALTAR_EATS_ITEM.createPositionedEffect(level, new PositionEffectData(worldPosition), ColorEffectData.fromRecipe(recipe.spirits), SpiritAltarEatItemParticleEffect.createData(provider.getAccessPointBlockPos(), providedStack));
-                    extrasInventory.insertItem(providedStack.split(requestedItem.count));
+                    extrasInventory.insertItem(inventoryForAltar.extractItem(0, nextIngredient.count, false));
                     inventoryForAltar.updateData();
                     BlockHelper.updateAndNotifyState(level, provider.getAccessPointBlockPos());
                     break;
                 }
             }
+
             return false;
         }
+
         return true;
     }
 
