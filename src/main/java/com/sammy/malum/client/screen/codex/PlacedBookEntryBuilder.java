@@ -8,9 +8,9 @@ import com.google.common.collect.*;
 import com.sammy.malum.client.screen.codex.objects.progression.*;
 import com.sammy.malum.client.screen.codex.pages.*;
 import net.minecraft.ChatFormatting;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Consumer;
-import javax.annotation.Nullable;
 import java.util.function.*;
 
 public class PlacedBookEntryBuilder extends BookEntryBuilder {
@@ -33,8 +33,6 @@ public class PlacedBookEntryBuilder extends BookEntryBuilder {
 
     public PlacedBookEntryBuilder(String identifier, int xOffset, int yOffset) {
         super(identifier);
-        this.xOffset = xOffset * 40;
-        this.yOffset = yOffset * 40;
         this.xOffset = xOffset;
         this.yOffset = yOffset;
     }

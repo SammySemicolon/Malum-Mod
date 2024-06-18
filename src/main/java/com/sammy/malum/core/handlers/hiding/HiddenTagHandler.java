@@ -18,12 +18,7 @@ public class HiddenTagHandler {
         ITEMS_TO_HIDE.put(item, condition);
     }
 
-    public static UUID registerHiddenItemListener(Runnable runnable) {
-        runnable.run();
-        UUID uuid = UUID.randomUUID();
-        INVOKED_WHEN_CONDITIONS_CHANGE.put(uuid, runnable);
-        return uuid;
-    }
+
 	private static FeatureFlagRegistry FLAGS;
 	private static final Map<TagKey<Item>, FeatureFlag> FEATURE_FLAGS = new HashMap<>();
 

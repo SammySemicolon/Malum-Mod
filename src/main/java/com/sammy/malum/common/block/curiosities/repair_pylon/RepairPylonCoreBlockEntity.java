@@ -5,12 +5,17 @@ import com.sammy.malum.common.block.storage.IMalumSpecialItemAccessPoint;
 import com.sammy.malum.common.item.spirit.SpiritShardItem;
 import com.sammy.malum.common.recipe.SpiritRepairRecipe;
 import com.sammy.malum.core.systems.recipe.SpiritWithCount;
+import com.sammy.malum.registry.common.ParticleEffectTypeRegistry;
 import com.sammy.malum.registry.common.block.BlockEntityRegistry;
 import com.sammy.malum.registry.common.block.BlockRegistry;
 import com.sammy.malum.visual_effects.RepairPylonParticleEffects;
+import com.sammy.malum.visual_effects.networked.data.ColorEffectData;
+import com.sammy.malum.visual_effects.networked.data.PositionEffectData;
+import com.sammy.malum.visual_effects.networked.pylon.PylonPrepareRepairParticleEffect;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.InteractionHand;
@@ -24,6 +29,7 @@ import org.jetbrains.annotations.Nullable;
 import team.lodestar.lodestone.helpers.BlockHelper;
 import team.lodestar.lodestone.helpers.DataHelper;
 import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntityInventory;
+import team.lodestar.lodestone.systems.easing.Easing;
 import team.lodestar.lodestone.systems.multiblock.MultiBlockCoreEntity;
 import team.lodestar.lodestone.systems.multiblock.MultiBlockStructure;
 
@@ -272,7 +278,9 @@ public class RepairPylonCoreBlockEntity extends MultiBlockCoreEntity {
     }
 
     public void prepareRepair(IMalumSpecialItemAccessPoint provider) {
-        ParticleEffectTypeRegistry.REPAIR_PYLON_PREPARES.createPositionedEffect(level, new PositionEffectData(worldPosition), ColorEffectData.fromRecipe(recipe.spirits), PylonPrepareRepairParticleEffect.createData(provider.getAccessPointBlockPos()));
+        if (level instanceof ServerLevel serverLevel) {
+            ParticleEffectTypeRegistry.REPAIR_PYLON_PREPARES.createPositionedEffect(serverLevel, new PositionEffectData(worldPosition), ColorEffectData.fromRecipe(recipe.spirits), PylonPrepareRepairParticleEffect.createData(provider.getAccessPointBlockPos()));
+        }
         setState(RepairPylonState.REPAIRING);
     }
 
@@ -294,7 +302,10 @@ public class RepairPylonCoreBlockEntity extends MultiBlockCoreEntity {
         ItemStack result = SpiritRepairRecipe.getRepairRecipeOutput(damagedItem);
         result.setDamageValue(Math.max(0, result.getDamageValue() - (int) (result.getMaxDamage() * recipe.durabilityPercentage)));
         suppliedInventory.setStackInSlot(0, result);
-        ParticleEffectTypeRegistry.REPAIR_PYLON_REPAIRS.createPositionedEffect(level, new PositionEffectData(worldPosition), ColorEffectData.fromRecipe(recipe.spirits), PylonPrepareRepairParticleEffect.createData(provider.getAccessPointBlockPos()));
+        if (level instanceof ServerLevel serverLevel) {
+            ParticleEffectTypeRegistry.REPAIR_PYLON_REPAIRS.createPositionedEffect(serverLevel, new PositionEffectData(worldPosition), ColorEffectData.fromRecipe(recipe.spirits), PylonPrepareRepairParticleEffect.createData(provider.getAccessPointBlockPos()));
+
+        }
         setState(RepairPylonState.COOLDOWN);
     }
 

@@ -26,6 +26,7 @@ import com.sammy.malum.core.listeners.RitualRecipeReloadListener;
 import com.sammy.malum.core.listeners.SpiritDataReloadListener;
 import com.sammy.malum.data.worldgen.BiomeModifications;
 import com.sammy.malum.registry.MalumCommandRegistry;
+import com.sammy.malum.registry.client.HiddenTagRegistry;
 import com.sammy.malum.registry.client.ParticleEmitterRegistry;
 import com.sammy.malum.registry.common.MobEffectRegistry;
 import com.sammy.malum.registry.common.PacketRegistry;
@@ -39,6 +40,7 @@ import io.github.fabricators_of_create.porting_lib.entity.events.living.LivingHu
 import io.github.fabricators_of_create.porting_lib.event.common.ExplosionEvents;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
+import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.core.BlockPos;
@@ -118,7 +120,7 @@ public class MalumMod implements ModInitializer {
 
         FarmersDelightCompat.init();
 
-
+        ItemGroupEvents.MODIFY_ENTRIES_ALL.register(HiddenTagRegistry::hideItems);
         LodestoneItemEvent.ON_ITEM_TOOLTIP.register(AbstractAugmentItem::addAugmentAttributeTooltip);
         PlayerEvents.BREAK_SPEED.register(InfernalAura::increaseDigSpeed);
         PlayerEvents.BREAK_SPEED.register(RuneFervorItem::increaseDigSpeed);

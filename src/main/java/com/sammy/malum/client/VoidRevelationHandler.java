@@ -7,7 +7,7 @@ import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
-import com.sammy.malum.core.handlers.HiddenTagHandler;
+import com.sammy.malum.core.handlers.hiding.HiddenTagHandler;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;

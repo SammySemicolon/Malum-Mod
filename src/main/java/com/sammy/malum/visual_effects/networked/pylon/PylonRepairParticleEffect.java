@@ -5,9 +5,10 @@ import com.sammy.malum.common.block.storage.*;
 import com.sammy.malum.visual_effects.*;
 import com.sammy.malum.visual_effects.networked.*;
 import com.sammy.malum.visual_effects.networked.data.*;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.core.*;
 import net.minecraft.nbt.*;
-import net.minecraftforge.api.distmarker.*;
 import team.lodestar.lodestone.helpers.*;
 
 import java.util.function.*;
@@ -24,7 +25,7 @@ public class PylonRepairParticleEffect extends ParticleEffectType {
         return effectData;
     }
 
-    @OnlyIn(Dist.CLIENT)
+    @Environment(EnvType.CLIENT)
     @Override
     public Supplier<ParticleEffectActor> get() {
         return () -> (level, random, positionData, colorData, nbtData) -> {

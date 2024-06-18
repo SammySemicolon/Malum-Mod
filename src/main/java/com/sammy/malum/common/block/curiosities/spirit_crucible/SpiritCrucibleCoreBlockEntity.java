@@ -1,6 +1,7 @@
 package com.sammy.malum.common.block.curiosities.spirit_crucible;
 
 import com.sammy.malum.common.block.MalumBlockEntityInventory;
+import com.sammy.malum.common.block.storage.IMalumSpecialItemAccessPoint;
 import com.sammy.malum.common.item.augment.AbstractAugmentItem;
 import com.sammy.malum.common.item.augment.core.AbstractCoreAugmentItem;
 import com.sammy.malum.common.item.impetus.ImpetusItem;

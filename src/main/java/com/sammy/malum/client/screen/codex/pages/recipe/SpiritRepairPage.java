@@ -2,11 +2,19 @@ package com.sammy.malum.client.screen.codex.pages.recipe;
 
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.client.screen.codex.pages.BookPage;
+import com.sammy.malum.client.screen.codex.screens.EntryScreen;
 import com.sammy.malum.common.recipe.SpiritRepairRecipe;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.util.Mth;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 
+import java.util.List;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
+
+import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.*;
 
 public class SpiritRepairPage extends BookPage {
     private final SpiritRepairRecipe recipe;

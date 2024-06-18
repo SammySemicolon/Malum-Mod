@@ -143,7 +143,7 @@ public class MalumLang extends FabricLanguageProvider {
 
         builder.add("malum.gui.rite.medium.runewood", "Runewood");
         builder.add("malum.gui.rite.medium.soulwood", "Soulwood");
-        builder.add("malum.gui.rite.coverage", "Coverage: ");
+        //builder.add("malum.gui.rite.coverage", "Coverage: ");
 
         addRiteEffectCategory(builder, TotemicRiteEffect.MalumRiteEffectCategory.AURA);
         addRiteEffectCategory(builder, TotemicRiteEffect.MalumRiteEffectCategory.LIVING_ENTITY_EFFECT);

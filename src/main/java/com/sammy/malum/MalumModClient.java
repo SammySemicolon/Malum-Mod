@@ -90,7 +90,9 @@ public class MalumModClient implements ClientModInitializer {
                 BlockRegistry.NATURAL_QUARTZ_CLUSTER.get(),
                 BlockRegistry.BLAZING_QUARTZ_ORE.get(),
                 BlockRegistry.BRILLIANT_STONE.get(),
-                BlockRegistry.BRILLIANT_DEEPSLATE.get()
+                BlockRegistry.BRILLIANT_DEEPSLATE.get(),
+                BlockRegistry.RUNEWOOD_SAPLING.get(),
+                BlockRegistry.SOULWOOD_GROWTH.get()
         );
 
         ArmorRenderer.register(new SoulHunterArmorRenderer(),

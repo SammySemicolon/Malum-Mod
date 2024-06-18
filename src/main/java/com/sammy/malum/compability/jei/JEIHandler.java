@@ -100,29 +100,24 @@ public class JEIHandler implements IModPlugin {
             }
 
             registry.addRecipes(TRANSMUTATION, groups.values().stream()
-                .map(list -> list.stream().filter(it -> !it.output.isEmpty() && !it.ingredient.isEmpty()).collect(Collectors.toList()))
-                .map(SpiritTransmutationWrapper::new)
-                .collect(Collectors.toList()));
+                    .map(list -> list.stream().filter(it -> !it.output.isEmpty() && !it.ingredient.isEmpty()).collect(Collectors.toList()))
+                    .map(SpiritTransmutationWrapper::new)
+                    .collect(Collectors.toList()));
             registry.addRecipes(TRANSMUTATION, leftovers.stream()
                     .filter(it -> !it.output.isEmpty() && !it.ingredient.isEmpty())
                     .map(List::of)
                     .map(SpiritTransmutationWrapper::new)
                     .collect(Collectors.toList()));
-                .filter(it -> !it.output.isEmpty() && !it.ingredient.isEmpty())
-                .map(List::of)
-                .map(SpiritTransmutationWrapper::new)
-                .collect(Collectors.toList()));
 
             registry.addRecipes(FOCUSING, SpiritFocusingRecipe.getRecipes(level).stream()
                     .filter(it -> !it.output.isEmpty()).collect(Collectors.toList()));
             registry.addRecipes(RITES, SpiritRiteRegistry.RITES);
             registry.addRecipes(SPIRIT_REPAIR, SpiritRepairRecipe.getRecipes(level).stream()
                     .filter(it -> !it.inputs.isEmpty()).collect(Collectors.toList()));
-                .filter(it -> !it.inputs.isEmpty()).collect(Collectors.toList()));
             registry.addRecipes(WEEPING_WELL, FavorOfTheVoidRecipe.getRecipes(level).stream()
-                .filter(it -> !it.output.isEmpty()).collect(Collectors.toList()));
+                    .filter(it -> !it.output.isEmpty()).collect(Collectors.toList()));
             registry.addRecipes(RUNEWORKING, RunicWorkbenchRecipe.getRecipes(level).stream()
-                .filter(it -> !it.output.isEmpty()).collect(Collectors.toList()));
+                    .filter(it -> !it.output.isEmpty()).collect(Collectors.toList()));
             if (FarmersDelightCompat.LOADED) {
                 FarmersDelightCompat.LoadedOnly.addInfo(registry);
             }

@@ -1,6 +1,7 @@
 package com.sammy.malum.client;
 
 import com.sammy.malum.core.systems.spirit.*;
+import com.sammy.malum.registry.common.SpiritTypeRegistry;
 import io.github.fabricators_of_create.porting_lib.util.RegistryObject;
 import net.minecraft.client.particle.*;
 import net.minecraft.core.*;
