@@ -325,7 +325,7 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
                 }
             }
 
-            return false;
+            return AltarCraftingHelper.extractIngredient(extrasInventory, nextIngredient.ingredient, nextIngredient.count, true).isEmpty();
         }
 
         return true;
