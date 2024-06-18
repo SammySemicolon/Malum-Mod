@@ -196,6 +196,8 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
     }
 
     private void recalculateRecipes() {
+        boolean hadRecipe = recipe != null;
+
         ItemStack stack = inventory.getStackInSlot(0);
         Collection<SpiritInfusionRecipe> recipes = DataHelper.getAll(SpiritInfusionRecipe.getRecipes(level), r -> r.doesInputMatch(stack) && r.doSpiritsMatch(spiritInventory.nonEmptyItemStacks));
         possibleRecipes.clear();
@@ -207,8 +209,21 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
                 possibleRecipes.put(recipe, ranking);
         }
         recipe = possibleRecipes.entrySet().stream().max(Map.Entry.comparingByValue()).map(Map.Entry::getKey).orElse(null);
+        if (!stack.isEmpty()) {
+            Collection<SpiritInfusionRecipe> recipes = DataHelper.getAll(SpiritInfusionRecipe.getRecipes(level), r -> r.doesInputMatch(stack) && r.doSpiritsMatch(spiritInventory.nonEmptyItemStacks));
+            possibleRecipes.clear();
+            IItemHandlerModifiable pedestalItems = AltarCraftingHelper.createPedestalInventoryCapture(
+                AltarCraftingHelper.capturePedestals(level, worldPosition, HORIZONTAL_RANGE, VERTICAL_RANGE, HORIZONTAL_RANGE));
+            for (SpiritInfusionRecipe recipe : recipes) {
+                AltarCraftingHelper.Ranking ranking = AltarCraftingHelper.rankRecipe(recipe, stack, spiritInventory, pedestalItems, extrasInventory);
+                if (ranking != null)
+                    possibleRecipes.put(recipe, ranking);
+            }
+            recipe = possibleRecipes.entrySet().stream().max(Map.Entry.comparingByValue()).map(Map.Entry::getKey).orElse(null);
+        } else
+            recipe = null;
 
-        if (recipe == null && level != null) {
+        if (hadRecipe && recipe == null && level != null) {
             extrasInventory.dumpItems(level, worldPosition);
         }
     }
