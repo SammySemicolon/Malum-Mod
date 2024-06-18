@@ -1,24 +1,23 @@
 package com.sammy.malum.core.systems.spirit;
 
-import com.sammy.malum.common.block.mana_mote.SpiritMoteBlock;
-import com.sammy.malum.common.item.spirit.SpiritShardItem;
-import team.lodestar.lodestone.systems.easing.Easing;
+import com.sammy.malum.common.block.mana_mote.*;
+import com.sammy.malum.common.item.spirit.*;
 
 import java.awt.*;
-import java.util.function.Function;
-import java.util.function.Supplier;
+import java.util.*;
+import java.util.function.*;
 
 public class SpiritTypeBuilder {
 
     public final String identifier;
     public final Supplier<SpiritShardItem> spiritShard;
-    public final Supplier<SpiritMoteBlock> spiritMote;
+    public final Optional<SpiritMoteBlock> spiritMote;
 
     public final SpiritVisualMotif spiritVisualMotif;
 
     public Color itemColor;
 
-    public SpiritTypeBuilder(String identifier, SpiritVisualMotif spiritVisualMotif, Supplier<SpiritShardItem> spiritShard, Supplier<SpiritMoteBlock> spiritMote) {
+    public SpiritTypeBuilder(String identifier, SpiritVisualMotif spiritVisualMotif, Supplier<SpiritShardItem> spiritShard, Optional<SpiritMoteBlock> spiritMote) {
         this.identifier = identifier;
         this.spiritVisualMotif = spiritVisualMotif;
         this.spiritShard = spiritShard;
@@ -43,6 +42,6 @@ public class SpiritTypeBuilder {
     }
 
     public interface SpiritTypeSupplier<T extends MalumSpiritType> {
-        T makeType(String identifier, Supplier<SpiritShardItem> spiritShard, Supplier<SpiritMoteBlock> spiritMote, SpiritVisualMotif visualMotif, Color itemColor);
+        T makeType(String identifier, Supplier<SpiritShardItem> spiritShard, Optional<SpiritMoteBlock> spiritMote, SpiritVisualMotif visualMotif, Color itemColor);
     }
 }

@@ -18,17 +18,24 @@ import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.systems.particle.data.color.*;
 
 import java.awt.*;
+import java.util.*;
 import java.util.function.*;
 
 public class MalumSpiritType {
 
+    public static SpiritTypeBuilder create(String identifier, SpiritVisualMotif visualMotif, Supplier<SpiritShardItem> spiritShard) {
+        return create(identifier, visualMotif, spiritShard, Optional.empty());
+    }
     public static SpiritTypeBuilder create(String identifier, SpiritVisualMotif visualMotif, Supplier<SpiritShardItem> spiritShard, Supplier<SpiritMoteBlock> spiritMote) {
+        return create(identifier, visualMotif, spiritShard, Optional.ofNullable(spiritMote.get()));
+    }
+    public static SpiritTypeBuilder create(String identifier, SpiritVisualMotif visualMotif, Supplier<SpiritShardItem> spiritShard, Optional<SpiritMoteBlock> spiritMote) {
         return new SpiritTypeBuilder(identifier, visualMotif, spiritShard, spiritMote);
     }
 
     public final String identifier;
     public final Supplier<SpiritShardItem> spiritShard;
-    public final Supplier<SpiritMoteBlock> spiritMote;
+    public final Optional<SpiritMoteBlock> spiritMote;
 
     private final SpiritVisualMotif visualMotif;
 
@@ -37,7 +44,7 @@ public class MalumSpiritType {
     protected Rarity itemRarity;
     protected Component spiritItemDescription;
 
-    public MalumSpiritType(String identifier, SpiritVisualMotif visualMotif, Supplier<SpiritShardItem> spiritShard, Supplier<SpiritMoteBlock> spiritMote,
+    public MalumSpiritType(String identifier, SpiritVisualMotif visualMotif, Supplier<SpiritShardItem> spiritShard, Optional<SpiritMoteBlock> spiritMote,
                            Color itemColor) {
         this.identifier = identifier;
         this.spiritShard = spiritShard;

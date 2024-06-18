@@ -19,6 +19,8 @@ import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 
+import java.util.*;
+
 public class SoulstoneBlock extends Block {
     public SoulstoneBlock(Properties pProperties) {
         super(pProperties);
@@ -31,11 +33,12 @@ public class SoulstoneBlock extends Block {
             return super.use(pState, pLevel, pPos, player, pHand, pHit);
         }
         MalumSpiritType spiritType = spiritShardItem.type;
-        final SpiritMoteBlock spiritMoteBlock = spiritType.spiritMote.get();
-        if (spiritMoteBlock == null) {
+        final Optional<SpiritMoteBlock> spiritMote = spiritType.spiritMote;
+        if (!spiritMote.isPresent())
+        {
             return super.use(pState, pLevel, pPos, player, pHand, pHit);
         }
-        BlockState blockstate = spiritMoteBlock.defaultBlockState();
+        BlockState blockstate = spiritMote.get().defaultBlockState();
         SoundType soundtype = blockstate.getSoundType(pLevel, pPos, player);
         pLevel.setBlock(pPos, blockstate, 3);
         pLevel.levelEvent(2001, pPos, Block.getId(pState));
