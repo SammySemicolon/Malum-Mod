@@ -7,9 +7,10 @@ plugins {
 val port_lib_modules: String by extra
 
 
-version = "${property("minecraft_version")}-${property("mod_version")}"
-if (System.getenv("BUILD_NUMBER") != null) {
-    version = "${property("minecraft_version")}-${property("mod_version")}.${System.getenv("BUILD_NUMBER")}"
+version = "${property("minecraft_version")}-${property("mod_version")}-fabric"
+
+base {
+    archivesName.set("${property("mod_id")}")
 }
 
 sourceSets {
