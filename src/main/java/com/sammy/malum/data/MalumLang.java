@@ -599,12 +599,10 @@ public class MalumLang extends FabricLanguageProvider {
                 "However, by heating the catalyst through mystic means, you can lessen this rejection and speed up the coalescence at once. That is what the Spirit Catalyzer is for. Unfortunately, this is not perfect, and instability often causes the catalyst to be damaged more than strictly necessary.",
                 "Each fueled Catalyzer nearby to a Crucible will amplify the speed of the focusing process, up to a maximum of eight. Unfortunately, the risk of instability proportionally rises with each one, resulting in your impetus potentially receiving more damage than necessary.");
 
-        addSimpleEntryHeader(builder, "arcane_restoration", "Arcane Restoration", "Mystic repair");
         addPages(builder, "arcane_restoration",
-                "The Spirit Crucible has an annoying habit of breaking the tools to work with it. While a cost is to be expected, I'd rather pay it in installments.",
-                "I've designed a device I call the Repair Pylon to shore up things as they break. It works not just on an Impetus, but practically anything at all placed on a nearby item holder, using a combination of spirits and a repair ingredient, no experience needed.",
+                "The Spirit Crucible has an annoying habit of breaking the tools to work with it. While a cost is to be expected, I'd rather pay it in installments. I have designed a device I call the Repair Pylon, intended to shore items up as they break down.",
+                "It works not just on an Impetus, but practically anything at all, as long as it is placed on a nearby item holder, with a combination of spirits and a repair material (iron for iron tools, for instance) placed on the pylon. Unlike an anvil, no experience is needed to fuel this.",
                 "It appears that materials in tune with spirit arcana, such as Soulstained Steel or Hallowed Gold, are more efficient in this process. They will be repaired more than their mundane counterparts would for the same cost.");
-
         addSimpleEntryHeader(builder, "crucible_augmentation", "Crucible Augmentation", "Tuning the attuner");
         addPages(builder, "crucible_augmentation",
                 "The Spirit Crucible is a machine of great, but largely unrealized, potential. Through a process I call Augmentation, revolving around foci of Alchemical Calx, this potential can be extracted.",

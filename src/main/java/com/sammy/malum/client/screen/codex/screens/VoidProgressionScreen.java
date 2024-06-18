@@ -89,7 +89,7 @@ public class VoidProgressionScreen extends AbstractProgressionCodexScreen {
             .configureWidget(w -> w.setStyle(BookWidgetStyle.DARK_GRAND_SOULWOOD))
         );
         addEntry("void.the_weeping_well", 0, 1, b -> b
-            .configureWidget(w -> w.setIcon(PRIMORDIAL_SOUP).setStyle(BookWidgetStyle.GILDED_SOULWOOD))
+            .configureWidget(w -> w.setIcon(VOID_DEPOT).setStyle(BookWidgetStyle.GILDED_SOULWOOD))
             .addPage(new HeadlineTextPage("void.the_weeping_well", "void.the_weeping_well.1"))
             .addPage(new TextPage("void.the_weeping_well.2"))
             .addPage(new TextPage("void.the_weeping_well.3"))
