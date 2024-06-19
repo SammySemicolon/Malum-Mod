@@ -216,10 +216,7 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
             possibleRecipes.clear();
             IItemHandlerModifiable pedestalItems = AltarCraftingHelper.createPedestalInventoryCapture(AltarCraftingHelper.capturePedestals(level, worldPosition));
             for (SpiritInfusionRecipe recipe : recipes) {
-                AltarCraftingHelper.Ranking ranking = AltarCraftingHelper.rankRecipe(recipe, stack, spiritInventory, pedestalItems, extrasInventory);
-                if (ranking != null) {
-                    possibleRecipes.put(recipe, ranking);
-                }
+                possibleRecipes.put(recipe, AltarCraftingHelper.rankRecipe(recipe, stack, spiritInventory, pedestalItems, extrasInventory));
             }
             recipe = possibleRecipes.entrySet().stream().max(Map.Entry.comparingByValue()).map(Map.Entry::getKey).orElse(null);
         } else {
