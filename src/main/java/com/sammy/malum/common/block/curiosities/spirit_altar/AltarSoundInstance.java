@@ -15,7 +15,7 @@ public class AltarSoundInstance extends LodestoneBlockEntitySoundInstance<Spirit
 
     @Override
     public void tick() {
-        if (blockEntity.possibleRecipes.isEmpty()) {
+        if (!blockEntity.isCrafting) {
             stop();
         }
         super.tick();
