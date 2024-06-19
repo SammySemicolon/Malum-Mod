@@ -82,10 +82,10 @@ repositories {
     maven(url = "https://maven.ladysnake.org/releases")
     maven("https://maven.terraformersmc.com/")
 
-    maven(url = "https://maven.parchmentmc.org")
+    maven( "https://maven.parchmentmc.org")
     maven("https://mvn.devos.one/snapshots/")
-    maven(url = "https://mvn.devos.one/releases/")
-    maven( "https://maven.jamieswhiteshirt.com/libs-release")
+    maven("https://mvn.devos.one/releases/")
+    maven("https://maven.jamieswhiteshirt.com/libs-release")
     maven("https://maven.greenhouseteam.dev/releases/")
     maven("https://raw.githubusercontent.com/Fuzss/modresources/main/maven/") // Forge Config API Port
     maven("https://maven.shedaniel.me/")

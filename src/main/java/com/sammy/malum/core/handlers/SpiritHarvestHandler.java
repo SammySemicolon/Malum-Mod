@@ -96,7 +96,7 @@ public class SpiritHarvestHandler {
                 }
             });
         }
-        return b;
+        return false;
     }
 
 
