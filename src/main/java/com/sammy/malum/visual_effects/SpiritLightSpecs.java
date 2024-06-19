@@ -74,10 +74,12 @@ public class SpiritLightSpecs {
         }
         var lightSpecs = spiritLightSpecs(level, pos, spiritType, options);
         lightSpecs.getBuilder().act(lightSpecModifier)
+                .multiplyLifetime(0.5f)
                 .modifyData(AbstractParticleBuilder::getScaleData, d -> d.multiplyValue(1.7f))
                 .modifyData(AbstractParticleBuilder::getTransparencyData, d -> d.multiplyValue(0.5f));
 
         lightSpecs.getBloomBuilder().act(bloomModifier)
+                .multiplyLifetime(0.5f)
                 .modifyData(AbstractParticleBuilder::getScaleData, d -> d.multiplyValue(1.3f))
                 .modifyData(AbstractParticleBuilder::getTransparencyData, d -> d.multiplyValue(0.75f));
 

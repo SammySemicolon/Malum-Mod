@@ -52,7 +52,7 @@ public class MalumModClient implements ClientModInitializer {
 
         ClientTickEvents.START_CLIENT_TICK.register(this::startTick);
 
-        SpiritTypeRegistry.init();
+        //SpiritTypeRegistry.init();
         ParticleRegistry.registerParticleFactory();
         BlockEntityRegistry.ClientOnly.registerRenderer();
         BlockRegistry.ClientOnly.setBlockColors();

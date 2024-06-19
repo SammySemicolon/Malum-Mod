@@ -29,18 +29,15 @@ import java.util.function.Supplier;
 public class MalumSpiritType {
 
     public static SpiritTypeBuilder create(String identifier, SpiritVisualMotif visualMotif, Supplier<SpiritShardItem> spiritShard) {
-        return create(identifier, visualMotif, spiritShard, Optional.empty());
+        return create(identifier, visualMotif, spiritShard, null);
     }
     public static SpiritTypeBuilder create(String identifier, SpiritVisualMotif visualMotif, Supplier<SpiritShardItem> spiritShard, Supplier<SpiritMoteBlock> spiritMote) {
-        return create(identifier, visualMotif, spiritShard, Optional.ofNullable(spiritMote.get()));
-    }
-    public static SpiritTypeBuilder create(String identifier, SpiritVisualMotif visualMotif, Supplier<SpiritShardItem> spiritShard, Optional<SpiritMoteBlock> spiritMote) {
         return new SpiritTypeBuilder(identifier, visualMotif, spiritShard, spiritMote);
     }
 
     public final String identifier;
     public final Supplier<SpiritShardItem> spiritShard;
-    public final Optional<SpiritMoteBlock> spiritMote;
+    public final Supplier<SpiritMoteBlock> spiritMote;
 
     private final SpiritVisualMotif visualMotif;
 
@@ -49,7 +46,7 @@ public class MalumSpiritType {
     protected Rarity itemRarity;
     protected Component spiritItemDescription;
 
-    public MalumSpiritType(String identifier, SpiritVisualMotif visualMotif, Supplier<SpiritShardItem> spiritShard, Optional<SpiritMoteBlock> spiritMote,
+    public MalumSpiritType(String identifier, SpiritVisualMotif visualMotif, Supplier<SpiritShardItem> spiritShard, Supplier<SpiritMoteBlock> spiritMote,
                            Color itemColor) {
         this.identifier = identifier;
         this.spiritShard = spiritShard;
@@ -124,10 +121,5 @@ public class MalumSpiritType {
     public BlockState getTotemPoleBlockState(boolean isCorrupt, BlockHitResult hit) {
         Block base = isCorrupt ? BlockRegistry.SOULWOOD_TOTEM_POLE.get() : BlockRegistry.RUNEWOOD_TOTEM_POLE.get();
         return base.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, hit.getDirection()).setValue(SpiritTypeRegistry.SPIRIT_TYPE_PROPERTY, identifier);
-    }
-
-    @Environment(EnvType.CLIENT)
-    public Consumer<WorldParticleBuilder> applyWorldParticleChanges() {
-        return visualMotif::applyWorldParticleChanges;
     }
 }

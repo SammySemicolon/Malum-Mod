@@ -43,8 +43,8 @@ import java.util.*;
 public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
 
     private static final Vec3 ALTAR_ITEM_OFFSET = new Vec3(0.5f, 1.25f, 0.5f);
-    private static final int HORIZONTAL_RANGE = 4;
-    private static final int VERTICAL_RANGE = 3;
+    public static final int HORIZONTAL_RANGE = 4;
+    public static final int VERTICAL_RANGE = 3;
 
     public float speed = 1f;
     public int progress;
@@ -104,8 +104,9 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
                 for (int i = 0; i < getSlots().size(); i++) {
                     if (i != slot) {
                         ItemStack stackInSlot = getStackInSlot(i);
-                        if (!stackInSlot.isEmpty() && stackInSlot.getItem() == spiritItem)
+                        if (!stackInSlot.isEmpty() && stackInSlot.getItem() == spiritItem) {
                             return false;
+                        }
                     }
                 }
                 return true;
@@ -161,7 +162,6 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
         extrasInventory.deserializeNBT(compound.getCompound("extrasInventory"));
         super.load(compound);
     }
-
 
     @Override
     public void onBreak(@Nullable Player player) {
@@ -224,8 +224,11 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
                 }
             }
         } else {
+            if (isCrafting) {
+                progress = 0;
+            }
             isCrafting = false;
-            progress = 0;
+            progress++;
             if (spiritYLevel > 0) {
                 this.spiritYLevel = Math.max(spiritYLevel - 0.8f, 0);
             }

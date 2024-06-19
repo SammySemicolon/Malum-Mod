@@ -14,7 +14,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-@SuppressWarnings("unchecked")
 public class SpiritTypeRegistry {
 
     public static Map<String, MalumSpiritType> SPIRITS = new LinkedHashMap<>();
