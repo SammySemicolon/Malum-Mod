@@ -4,20 +4,19 @@ import com.sammy.malum.common.block.mana_mote.*;
 import com.sammy.malum.common.item.spirit.*;
 
 import java.awt.*;
-import java.util.*;
 import java.util.function.*;
 
 public class SpiritTypeBuilder {
 
     public final String identifier;
     public final Supplier<SpiritShardItem> spiritShard;
-    public final Optional<SpiritMoteBlock> spiritMote;
+    public final Supplier<SpiritMoteBlock> spiritMote;
 
     public final SpiritVisualMotif spiritVisualMotif;
 
     public Color itemColor;
 
-    public SpiritTypeBuilder(String identifier, SpiritVisualMotif spiritVisualMotif, Supplier<SpiritShardItem> spiritShard, Optional<SpiritMoteBlock> spiritMote) {
+    public SpiritTypeBuilder(String identifier, SpiritVisualMotif spiritVisualMotif, Supplier<SpiritShardItem> spiritShard, Supplier<SpiritMoteBlock> spiritMote) {
         this.identifier = identifier;
         this.spiritVisualMotif = spiritVisualMotif;
         this.spiritShard = spiritShard;
@@ -42,6 +41,6 @@ public class SpiritTypeBuilder {
     }
 
     public interface SpiritTypeSupplier<T extends MalumSpiritType> {
-        T makeType(String identifier, Supplier<SpiritShardItem> spiritShard, Optional<SpiritMoteBlock> spiritMote, SpiritVisualMotif visualMotif, Color itemColor);
+        T makeType(String identifier, Supplier<SpiritShardItem> spiritShard, Supplier<SpiritMoteBlock> spiritMote, SpiritVisualMotif visualMotif, Color itemColor);
     }
 }

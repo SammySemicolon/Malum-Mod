@@ -21,6 +21,8 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+import static com.sammy.malum.common.block.curiosities.spirit_altar.SpiritAltarBlockEntity.*;
+
 public class AltarCraftingHelper {
 	public record Ranking(int inputItemCount, int spiritStackCount, int spiritItemCount, int ingredientStackCount, int ingredientItemCount) implements Comparable<Ranking> {
 		@Override
@@ -157,6 +159,9 @@ public class AltarCraftingHelper {
 		return new CombinedInvWrapper(pedestals.stream().map(IMalumSpecialItemAccessPoint::getSuppliedInventory).toArray(IItemHandlerModifiable[]::new));
 	}
 
+	public static List<IMalumSpecialItemAccessPoint> capturePedestals(Level level, BlockPos pos) {
+		return capturePedestals(level, pos, HORIZONTAL_RANGE, VERTICAL_RANGE, HORIZONTAL_RANGE);
+	}
 	public static List<IMalumSpecialItemAccessPoint> capturePedestals(Level level, BlockPos pos, int xRange, int yRange, int zRange) {
 		return BlockHelper.getBlockEntities(IMalumSpecialItemAccessPoint.class, level, pos, xRange, yRange, zRange).stream()
 			.sorted(Comparator.comparingDouble(it -> -pos.distSqr(it.getAccessPointBlockPos())))

@@ -48,8 +48,8 @@ import java.util.*;
 public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
 
     private static final Vec3 ALTAR_ITEM_OFFSET = new Vec3(0.5f, 1.25f, 0.5f);
-    private static final int HORIZONTAL_RANGE = 4;
-    private static final int VERTICAL_RANGE = 3;
+    public static final int HORIZONTAL_RANGE = 4;
+    public static final int VERTICAL_RANGE = 3;
 
     public float speed = 1f;
     public int progress;
@@ -109,8 +109,9 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
                 for (int i = 0; i < getSlots(); i++) {
                     if (i != slot) {
                         ItemStack stackInSlot = getStackInSlot(i);
-                        if (!stackInSlot.isEmpty() && stackInSlot.getItem() == spiritItem)
+                        if (!stackInSlot.isEmpty() && stackInSlot.getItem() == spiritItem) {
                             return false;
+                        }
                     }
                 }
                 return true;
@@ -167,7 +168,6 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
         super.load(compound);
     }
 
-
     @Override
     public void onBreak(@Nullable Player player) {
         inventory.dumpItems(level, worldPosition);
@@ -214,16 +214,17 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
         if (!stack.isEmpty()) {
             Collection<SpiritInfusionRecipe> recipes = DataHelper.getAll(SpiritInfusionRecipe.getRecipes(level), r -> r.doesInputMatch(stack) && r.doSpiritsMatch(spiritInventory.nonEmptyItemStacks));
             possibleRecipes.clear();
-            IItemHandlerModifiable pedestalItems = AltarCraftingHelper.createPedestalInventoryCapture(
-                AltarCraftingHelper.capturePedestals(level, worldPosition, HORIZONTAL_RANGE, VERTICAL_RANGE, HORIZONTAL_RANGE));
+            IItemHandlerModifiable pedestalItems = AltarCraftingHelper.createPedestalInventoryCapture(AltarCraftingHelper.capturePedestals(level, worldPosition));
             for (SpiritInfusionRecipe recipe : recipes) {
                 AltarCraftingHelper.Ranking ranking = AltarCraftingHelper.rankRecipe(recipe, stack, spiritInventory, pedestalItems, extrasInventory);
-                if (ranking != null)
+                if (ranking != null) {
                     possibleRecipes.put(recipe, ranking);
+                }
             }
             recipe = possibleRecipes.entrySet().stream().max(Map.Entry.comparingByValue()).map(Map.Entry::getKey).orElse(null);
-        } else
+        } else {
             recipe = null;
+        }
 
         if (hadRecipe && recipe == null && level != null) {
             extrasInventory.dumpItems(level, worldPosition);
@@ -256,8 +257,9 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
                 }
             }
         } else {
-            if (isCrafting)
+            if (isCrafting) {
                 progress = 0;
+            }
             isCrafting = false;
             progress++;
             if (spiritYLevel > 0) {
@@ -282,7 +284,7 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
         } else if (recipe.extraItems.isEmpty())
             return true;
 
-        List<IMalumSpecialItemAccessPoint> pedestalItems = AltarCraftingHelper.capturePedestals(level, worldPosition, HORIZONTAL_RANGE, VERTICAL_RANGE, HORIZONTAL_RANGE);
+        List<IMalumSpecialItemAccessPoint> pedestalItems = AltarCraftingHelper.capturePedestals(level, worldPosition);
         ItemStack stack = inventory.getStackInSlot(0);
         AltarCraftingHelper.Ranking reranking = AltarCraftingHelper.rankRecipe(recipe, stack, spiritInventory, AltarCraftingHelper.createPedestalInventoryCapture(pedestalItems), extrasInventory);
         if (!Objects.equals(reranking, possibleRecipes.get(recipe))) {
@@ -291,7 +293,6 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
         }
 
         IngredientWithCount nextIngredient = AltarCraftingHelper.getNextIngredientToTake(recipe, extrasInventory);
-
         if (nextIngredient != null) {
             for (IMalumSpecialItemAccessPoint provider : pedestalItems) {
                 progress *= 0.8f;
