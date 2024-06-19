@@ -9,6 +9,10 @@ import com.sammy.malum.client.renderer.block.TotemBaseRenderer;
 import com.sammy.malum.client.renderer.curio.TokenOfGratitudeRenderer;
 import com.sammy.malum.client.renderer.curio.TopHatCurioRenderer;
 import com.sammy.malum.client.renderer.item.SpiritJarItemRenderer;
+import com.sammy.malum.common.block.nature.MalumHangingLeavesBlock;
+import com.sammy.malum.common.block.nature.MalumLeavesBlock;
+import com.sammy.malum.common.block.nature.soulwood.SoulwoodGrowthBlock;
+import com.sammy.malum.common.worldgen.tree.grower.SoulwoodTreeGrower;
 import com.sammy.malum.config.ClientConfig;
 import com.sammy.malum.registry.client.HiddenTagRegistry;
 import com.sammy.malum.registry.client.ModelRegistry;
@@ -18,12 +22,14 @@ import com.sammy.malum.registry.common.ContainerRegistry;
 import com.sammy.malum.registry.common.SpiritTypeRegistry;
 import com.sammy.malum.registry.common.block.BlockEntityRegistry;
 import com.sammy.malum.registry.common.block.BlockRegistry;
+import com.sammy.malum.registry.common.block.MalumBlockProperties;
 import com.sammy.malum.registry.common.entity.EntityRegistry;
 import com.sammy.malum.registry.common.item.ItemRegistry;
 import dev.emi.trinkets.api.client.TrinketRendererRegistry;
 import io.github.fabricators_of_create.porting_lib.config.ConfigRegistry;
 import io.github.fabricators_of_create.porting_lib.config.ConfigType;
 import io.github.fabricators_of_create.porting_lib.entity.events.EntityEvents;
+import io.github.fabricators_of_create.porting_lib.util.RegistryObject;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
@@ -41,7 +47,12 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 
+import java.awt.*;
+
+import static com.sammy.malum.registry.common.block.BlockRegistry.*;
 import static com.sammy.malum.registry.common.item.ItemRegistry.SPIRIT_JAR;
 
 public class MalumModClient implements ClientModInitializer {
@@ -84,6 +95,12 @@ public class MalumModClient implements ClientModInitializer {
                 BlockRegistry.TWISTED_IRIDESCENT_ETHER_BRAZIER.get()
         );
 
+        BlockRenderLayerMap.INSTANCE.putBlocks(RenderType.cutoutMipped(),
+                BlockRegistry.HANGING_SOULWOOD_LEAVES.get(),
+                BlockRegistry.HANGING_RUNEWOOD_LEAVES.get(),
+                BlockRegistry.HANGING_AZURE_RUNEWOOD_LEAVES.get()
+                );
+
         BlockRenderLayerMap.INSTANCE.putBlocks(RenderType.cutout(),
                 BlockRegistry.CTHONIC_GOLD_CLUSTER.get(),
                 BlockRegistry.BLAZING_QUARTZ_CLUSTER.get(),
@@ -92,7 +109,19 @@ public class MalumModClient implements ClientModInitializer {
                 BlockRegistry.BRILLIANT_STONE.get(),
                 BlockRegistry.BRILLIANT_DEEPSLATE.get(),
                 BlockRegistry.RUNEWOOD_SAPLING.get(),
-                BlockRegistry.SOULWOOD_GROWTH.get()
+                BlockRegistry.SOULWOOD_GROWTH.get(),
+                BlockRegistry.AZURE_RUNEWOOD_SAPLING.get(),
+
+                BLIGHTED_GROWTH.get(),
+                CLINGING_BLIGHT.get(),
+                CALCIFIED_BLIGHT.get(),
+                TALL_CALCIFIED_BLIGHT.get(),
+                SOULWOOD_DOOR.get(),
+                SOULWOOD_TRAPDOOR.get(),
+                RUNEWOOD_DOOR.get(),
+                RUNEWOOD_TRAPDOOR.get(),
+                SOULWOOD_LEAVES.get(),
+                BUDDING_SOULWOOD_LEAVES.get()
         );
 
         ArmorRenderer.register(new SoulHunterArmorRenderer(),

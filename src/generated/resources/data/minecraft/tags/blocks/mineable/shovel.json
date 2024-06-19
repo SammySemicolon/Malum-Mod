@@ -1,9 +1,9 @@
 {
   "replace": false,
   "values": [
-    "malum:blighted_earth",
-    "malum:blighted_soil",
     "malum:mass_of_blighted_gunk",
-    "malum:block_of_void_salts"
+    "malum:block_of_void_salts",
+    "malum:blighted_soil",
+    "malum:blighted_earth"
   ]
 }
