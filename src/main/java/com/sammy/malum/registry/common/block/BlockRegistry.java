@@ -357,7 +357,7 @@ public class BlockRegistry {
     public static final RegistryObject<Block> BLIGHTED_SOIL = BLOCKS.register("blighted_soil", () -> new BlightedSoilBlock(MalumBlockProperties.BLIGHT()));
     public static final RegistryObject<Block> BLIGHTED_GROWTH = BLOCKS.register("blighted_growth", () -> new BlightedGrowthBlock(MalumBlockProperties.BLIGHTED_PLANTS().replaceable().setCutoutRenderType()));
     public static final RegistryObject<Block> CLINGING_BLIGHT = BLOCKS.register("clinging_blight", () -> new ClingingBlightBlock(MalumBlockProperties.BLIGHTED_PLANTS().replaceable().setCutoutRenderType()));
-    public static final RegistryObject<Block> BLIGHTED_SOULWOOD = BLOCKS.register("blighted_soulwood", () -> new BlightedSoulwoodBlock(MalumBlockProperties.SOULWOOD()));
+    public static final RegistryObject<Block> BLIGHTED_SOULWOOD = BLOCKS.register("blighted_soulwood", () -> new BlightedSoulwoodBlock(MalumBlockProperties.SOULWOOD().addTags(LOGS, SOULWOOD_LOGS)));
 
     public static final RegistryObject<Block> CALCIFIED_BLIGHT = BLOCKS.register("calcified_blight", () -> new CalcifiedBlightBlock(MalumBlockProperties.CALCIFIED_BLIGHT().setCutoutRenderType()));
     public static final RegistryObject<Block> TALL_CALCIFIED_BLIGHT = BLOCKS.register("tall_calcified_blight", () -> new TallCalcifiedBlightBlock(MalumBlockProperties.CALCIFIED_BLIGHT().setCutoutRenderType()));
@@ -422,6 +422,7 @@ public class BlockRegistry {
     public static final RegistryObject<Block> BLOCK_OF_NULL_SLATE = BLOCKS.register("block_of_null_slate", () -> new Block(MalumBlockProperties.SOULSTONE_BLOCK()));
     public static final RegistryObject<Block> BLOCK_OF_VOID_SALTS = BLOCKS.register("block_of_void_salts", () -> new Block(LodestoneBlockProperties.copy(Blocks.BLACK_CONCRETE_POWDER).needsPickaxe().needsShovel().addTags(STORAGE_BLOCKS)));
     public static final RegistryObject<Block> BLOCK_OF_MNEMONIC_FRAGMENT = BLOCKS.register("block_of_mnemonic_fragment", () -> new Block(MalumBlockProperties.BRILLIANCE_BLOCK()));
+    public static final RegistryObject<Block> BLOCK_OF_AURIC_EMBERS = BLOCKS.register("block_of_auric_embers", () -> new Block(LodestoneBlockProperties.copy(Blocks.GLOWSTONE).needsPickaxe().addTags(STORAGE_BLOCKS)));
     public static final RegistryObject<Block> BLOCK_OF_MALIGNANT_LEAD = BLOCKS.register("block_of_malignant_lead", () -> new Block(MalumBlockProperties.MALIGNANT_LEAD_BLOCK()));
 
     public static final RegistryObject<Block> BLOCK_OF_SOUL_STAINED_STEEL = BLOCKS.register("block_of_soul_stained_steel", () -> new Block(MalumBlockProperties.SOUL_STAINED_STEEL_BLOCK()));

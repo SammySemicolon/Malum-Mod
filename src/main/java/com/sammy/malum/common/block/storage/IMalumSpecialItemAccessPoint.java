@@ -13,7 +13,5 @@ public interface IMalumSpecialItemAccessPoint {
 
     Vec3 getItemPos(float partialTicks);
 
-    Vec3 getItemOffset(float partialTicks);
-
     BlockPos getAccessPointBlockPos();
 }

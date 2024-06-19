@@ -1,22 +1,18 @@
 package com.sammy.malum.registry.common;
 
 import com.sammy.malum.visual_effects.networked.*;
-import com.sammy.malum.visual_effects.networked.altar.SpiritAltarCraftParticleEffect;
-import com.sammy.malum.visual_effects.networked.altar.SpiritAltarEatItemParticleEffect;
-import com.sammy.malum.visual_effects.networked.blight.BlightingMistParticleEffect;
+import com.sammy.malum.visual_effects.networked.altar.*;
+import com.sammy.malum.visual_effects.networked.blight.*;
 import com.sammy.malum.visual_effects.networked.crucible.*;
-import com.sammy.malum.visual_effects.networked.generic.DrippingSmokeParticleEffect;
-import com.sammy.malum.visual_effects.networked.generic.HexingSmokeParticleEffect;
-import com.sammy.malum.visual_effects.networked.generic.RisingSparklesParticleEffect;
+import com.sammy.malum.visual_effects.networked.generic.*;
 import com.sammy.malum.visual_effects.networked.nitrate.*;
+import com.sammy.malum.visual_effects.networked.pylon.*;
 import com.sammy.malum.visual_effects.networked.ritual.*;
 import com.sammy.malum.visual_effects.networked.staff.*;
 import com.sammy.malum.visual_effects.networked.totem.*;
-import com.sammy.malum.visual_effects.networked.weeping_well.WeepingWellRadianceParticleEffect;
-import com.sammy.malum.visual_effects.networked.weeping_well.WeepingWellReactionParticleEffect;
+import com.sammy.malum.visual_effects.networked.weeping_well.*;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 
 public class ParticleEffectTypeRegistry {
 
@@ -37,6 +33,9 @@ public class ParticleEffectTypeRegistry {
     public static final ParticleEffectType SPIRIT_ALTAR_EATS_ITEM = new SpiritAltarEatItemParticleEffect("spirit_altar_eats_item");
 
     public static final ParticleEffectType SPIRIT_CRUCIBLE_CRAFTS = new SpiritCrucibleCraftParticleEffect("spirit_crucible_crafts");
+
+    public static final ParticleEffectType REPAIR_PYLON_PREPARES = new PylonPrepareRepairParticleEffect("repair_pylon_prepare");
+    public static final ParticleEffectType REPAIR_PYLON_REPAIRS = new PylonRepairParticleEffect("repair_pylon_repairs");
 
     public static final ParticleEffectType TOTEM_POLE_ACTIVATED = new TotemPoleActivatedParticleEffect("totem_pole_activated");
 

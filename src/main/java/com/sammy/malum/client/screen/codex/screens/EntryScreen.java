@@ -53,7 +53,7 @@ public class EntryScreen extends AbstractMalumScreen {
             int counter = 0;
             for (int i = 0; i < references.size(); i++) {
                 final EntryReference entryReference = references.get(i);
-                if (entryReference.entry.isValid(this)) {
+                if (entryReference.entry.shouldShow()) {
                     bookObjectHandler.add(new LinkedEntryObject(right, 15 + counter * 30, true, entryReference));
                     counter++;
                 }

@@ -263,7 +263,6 @@ public class SpiritJarBlockEntity extends LodestoneBlockEntity {
                 .setRandomMotion(0.02f)
                 .setRandomOffset(0.1f, 0.1f)
                 .enableNoClip()
-                .act(type.applyWorldParticleChanges())
                 .repeat(level, pos.getX() + 0.5f, pos.getY() + 0.5f + Math.sin(level.getGameTime() / 20f) * 0.2f, pos.getZ() + 0.5f, 10);
     }
 

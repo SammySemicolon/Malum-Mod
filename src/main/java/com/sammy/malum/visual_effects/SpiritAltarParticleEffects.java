@@ -1,30 +1,26 @@
 package com.sammy.malum.visual_effects;
 
-import com.sammy.malum.common.block.curiosities.obelisk.runewood.RunewoodObeliskBlockEntity;
-import com.sammy.malum.common.block.curiosities.spirit_altar.IAltarAccelerator;
-import com.sammy.malum.common.block.curiosities.spirit_altar.SpiritAltarBlockEntity;
-import com.sammy.malum.common.block.storage.MalumItemHolderBlockEntity;
-import com.sammy.malum.common.item.spirit.SpiritShardItem;
-import com.sammy.malum.common.recipe.SpiritInfusionRecipe;
-import com.sammy.malum.core.systems.spirit.MalumSpiritType;
-import com.sammy.malum.visual_effects.networked.data.ColorEffectData;
-import net.minecraft.core.BlockPos;
-import net.minecraft.util.Mth;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.Vec3;
-import team.lodestar.lodestone.helpers.DataHelper;
-import team.lodestar.lodestone.helpers.RandomHelper;
-import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntityInventory;
-import team.lodestar.lodestone.systems.easing.Easing;
-import team.lodestar.lodestone.systems.particle.LodestoneWorldParticleActor;
-import team.lodestar.lodestone.systems.particle.builder.SparkParticleBuilder;
-import team.lodestar.lodestone.systems.particle.builder.WorldParticleBuilder;
+import com.sammy.malum.common.block.curiosities.obelisk.runewood.*;
+import com.sammy.malum.common.block.curiosities.spirit_altar.*;
+import com.sammy.malum.common.block.storage.*;
+import com.sammy.malum.common.item.spirit.*;
+import com.sammy.malum.common.recipe.*;
+import com.sammy.malum.core.systems.spirit.*;
+import com.sammy.malum.visual_effects.networked.data.*;
+import net.minecraft.core.*;
+import net.minecraft.util.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.phys.*;
+import team.lodestar.lodestone.helpers.*;
+import team.lodestar.lodestone.systems.blockentity.*;
+import team.lodestar.lodestone.systems.easing.*;
+import team.lodestar.lodestone.systems.particle.builder.*;
+import team.lodestar.lodestone.systems.particle.world.*;
 
-import java.util.function.Consumer;
+import java.util.function.*;
 
-import static com.sammy.malum.visual_effects.SpiritLightSpecs.spiritLightSpecs;
+import static com.sammy.malum.visual_effects.SpiritLightSpecs.*;
 
 public class SpiritAltarParticleEffects {
 
@@ -75,13 +71,13 @@ public class SpiritAltarParticleEffects {
                     Vec3 velocity = itemPos.subtract(spiritPosition).normalize().scale(RandomHelper.randomBetween(random, 0.03f, 0.06f));
                     if (random.nextFloat() < 0.85f) {
                         var sparkParticles = SparkParticleEffects.spiritMotionSparks(level, spiritPosition, activeSpiritType);
-                        sparkParticles.getBuilder().setMotion(velocity).modifyData(SparkParticleBuilder::getScaleData, d -> d.multiplyValue(1.2f));
+                        sparkParticles.getBuilder().setMotion(velocity).modifyData(AbstractParticleBuilder::getScaleData, d -> d.multiplyValue(1.2f));
                         sparkParticles.getBloomBuilder().setMotion(velocity);
                         sparkParticles.spawnParticles();
                     }
                     if (random.nextFloat() < 0.85f) {
                         var lightSpecs = SpiritLightSpecs.spiritLightSpecs(level, spiritPosition, activeSpiritType);
-                        lightSpecs.getBuilder().multiplyLifetime(0.8f).setMotion(velocity.scale(1.5f)).modifyData(WorldParticleBuilder::getScaleData, d -> d.multiplyValue(1.6f));
+                        lightSpecs.getBuilder().multiplyLifetime(0.8f).setMotion(velocity.scale(1.5f)).modifyData(AbstractParticleBuilder::getScaleData, d -> d.multiplyValue(1.6f));
                         lightSpecs.getBloomBuilder().setMotion(velocity);
                         lightSpecs.spawnParticles();
                     }
@@ -90,7 +86,7 @@ public class SpiritAltarParticleEffects {
         }
     }
 
-    public static void eatItemParticles(SpiritAltarBlockEntity altar, MalumItemHolderBlockEntity holder, ColorEffectData colorData, ItemStack stack) {
+    public static void eatItemParticles(SpiritAltarBlockEntity altar, IMalumSpecialItemAccessPoint holder, ColorEffectData colorData, ItemStack stack) {
         MalumSpiritType activeSpiritType = getCentralSpiritType(altar);
         if (activeSpiritType == null) {
             return;
@@ -108,9 +104,9 @@ public class SpiritAltarParticleEffects {
             Vec3 velocity = altarTargetPos.subtract(holderTargetPos).normalize().scale(0.025f);
             int finalI = i;
             Vec3 offsetPosition = DataHelper.rotatingRadialOffset(holderTargetPos, 0.5f, i, 16, gameTime, 160);
-            final Consumer<LodestoneWorldParticleActor> behavior = p -> {
+            final Consumer<LodestoneWorldParticle> behavior = p -> {
                 if (level.getGameTime() > gameTime + finalI * 2 && level.getGameTime() < gameTime + (finalI + 4) * 2) {
-                    p.setParticleMotion(p.getParticleSpeed().add(velocity));
+                    p.setParticleSpeed(p.getParticleSpeed().add(velocity));
                 }
             };
             var lightSpecs = spiritLightSpecs(level, offsetPosition, cyclingSpiritType);
@@ -125,9 +121,11 @@ public class SpiritAltarParticleEffects {
             lightSpecs.spawnParticles();
 
             var crumbles = ItemCrumbleParticleEffects.spawnItemCrumbs(level, holderTargetPos, stack);
-            crumbles.getBuilder().setLifeDelay(i).addTickActor(behavior);
+            crumbles.getBuilder()
+                    .setLifeDelay(i)
+                    .addTickActor(behavior);
             crumbles.spawnParticles();
-            crumbles.getBuilder().setRandomOffset(0.2f).getScaleData();
+            crumbles.getBuilder().setRandomOffset(0.2f);
             crumbles.spawnParticles();
         }
     }
@@ -161,14 +159,14 @@ public class SpiritAltarParticleEffects {
                         .multiplyLifetime(2)
                         .setGravityStrength(gravityStrength)
                         .setMotion(xVelocity, yVelocity, zVelocity)
-                        .modifyData(SparkParticleBuilder::getScaleData, d -> d.multiplyValue(2f));
+                        .modifyData(AbstractParticleBuilder::getScaleData, d -> d.multiplyValue(2f));
                 sparkParticles.getBloomBuilder()
                         .disableNoClip()
                         .setLifeDelay(lifeDelay)
                         .multiplyLifetime(2)
                         .setGravityStrength(gravityStrength)
                         .setMotion(xVelocity, yVelocity, zVelocity)
-                        .modifyData(WorldParticleBuilder::getTransparencyData, d -> d.multiplyValue(1.25f));
+                        .modifyData(AbstractParticleBuilder::getTransparencyData, d -> d.multiplyValue(1.25f));
                 sparkParticles.spawnParticles();
             }
             if (random.nextFloat() < 0.85f) {
@@ -182,14 +180,14 @@ public class SpiritAltarParticleEffects {
                         .multiplyLifetime(4)
                         .setGravityStrength(gravityStrength)
                         .setMotion(xVelocity, yVelocity, zVelocity)
-                        .modifyData(WorldParticleBuilder::getScaleData, d -> d.multiplyValue(2.5f));
+                        .modifyData(AbstractParticleBuilder::getScaleData, d -> d.multiplyValue(2.5f));
                 lightSpecs.getBloomBuilder()
                         .disableNoClip()
                         .setLifeDelay(lifeDelay)
                         .multiplyLifetime(4)
                         .setGravityStrength(gravityStrength)
                         .setMotion(xVelocity, yVelocity, zVelocity)
-                        .modifyData(WorldParticleBuilder::getTransparencyData, d -> d.multiplyValue(1.25f));
+                        .modifyData(AbstractParticleBuilder::getTransparencyData, d -> d.multiplyValue(1.25f));
                 lightSpecs.spawnParticles();
             }
         }
@@ -198,7 +196,7 @@ public class SpiritAltarParticleEffects {
             Vec3 offsetPosition = DataHelper.rotatingRadialOffset(targetPos, 0.6f, i, 8, gameTime, 160);
             Consumer<WorldParticleBuilder> behavior = b -> b.addTickActor(p -> {
                 if (level.getGameTime() > gameTime + finalI * 4 && level.getGameTime() < gameTime + (finalI + 4) * 4) {
-                    p.setParticleMotion(p.getParticleSpeed().add(0, 0.015f, 0));
+                    p.setParticleSpeed(p.getParticleSpeed().add(0, 0.015f, 0));
                 }
             });
 
@@ -235,7 +233,7 @@ public class SpiritAltarParticleEffects {
             Vec3 offsetPosition = DataHelper.rotatingRadialOffset(startPos.add(0, yOffset, 0), 0.45f, 0, 1, gameTime, 30);
             Consumer<WorldParticleBuilder> behavior = b -> b.addTickActor(p -> {
                 if (gameTime % 6L == 0) {
-                    p.setParticleMotion(p.getParticleSpeed().scale(1.05f));
+                    p.setParticleSpeed(p.getParticleSpeed().scale(1.05f));
                 }
             });
             var lightSpecs = spiritLightSpecs(level, offsetPosition, spiritType);

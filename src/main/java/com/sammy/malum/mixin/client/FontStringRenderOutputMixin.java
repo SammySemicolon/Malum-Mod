@@ -1,40 +1,31 @@
-package com.sammy.malum.mixin;
+package com.sammy.malum.mixin.client;
 
-import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import com.llamalad7.mixinextras.injector.WrapWithCondition;
-import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import com.llamalad7.mixinextras.sugar.Local;
-import com.llamalad7.mixinextras.sugar.Share;
-import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.sammy.malum.client.renderer.text.SubtractiveTextGlyphRenderTypes;
+import com.google.common.collect.*;
+import com.llamalad7.mixinextras.injector.*;
+import com.llamalad7.mixinextras.injector.wrapoperation.*;
+import com.llamalad7.mixinextras.sugar.*;
+import com.llamalad7.mixinextras.sugar.ref.*;
+import com.mojang.blaze3d.vertex.*;
+import com.sammy.malum.client.renderer.text.*;
 import com.sammy.malum.core.systems.spirit.*;
-import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.font.glyphs.BakedGlyph;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.network.chat.Style;
-import net.minecraft.network.chat.TextColor;
-import org.apache.commons.compress.utils.Lists;
-import org.joml.Matrix4f;
-import org.spongepowered.asm.mixin.Final;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.Unique;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import net.minecraft.*;
+import net.minecraft.client.gui.*;
+import net.minecraft.client.gui.font.glyphs.*;
+import net.minecraft.client.renderer.*;
+import net.minecraft.network.chat.*;
+import org.joml.*;
+import org.spongepowered.asm.mixin.*;
+import org.spongepowered.asm.mixin.injection.*;
+import org.spongepowered.asm.mixin.injection.callback.*;
 
-import java.util.List;
+import java.util.*;
 
 @Mixin(Font.StringRenderOutput.class)
 public class FontStringRenderOutputMixin {
 
 	@Final
 	@Shadow
-	MultiBufferSource bufferSource;
+    MultiBufferSource bufferSource;
 
 	@Final
 	@Shadow
@@ -45,7 +36,8 @@ public class FontStringRenderOutputMixin {
 	private int packedLightCoords;
 
 	@Shadow @Final private boolean dropShadow;
-	@Shadow @Final private float a;
+	@Shadow @Final
+	Font this$0;
 	@Unique
 	private List<BakedGlyph.Effect> malum$inverseEffects;
 
@@ -98,7 +90,7 @@ public class FontStringRenderOutputMixin {
 	@Inject(method = "finish", at = @At("RETURN"))
 	public void renderSubtractiveEffects(int pBackgroundColor, float pX, CallbackInfoReturnable<Float> cir) {
 		if (malum$inverseEffects != null) {
-			BakedGlyph bakedglyph = ((AccessorFont)this).malum$getFontSet(Style.DEFAULT_FONT).whiteGlyph();
+			BakedGlyph bakedglyph = ((AccessorFont)this$0).malum$getFontSet(Style.DEFAULT_FONT).whiteGlyph();
 			RenderType subtractiveType = ((SubtractiveTextGlyphRenderTypes) (Object) ((AccessorBakedGlyph) bakedglyph).malum$getRenderTypes()).malum$getSubtractiveType();
 			VertexConsumer vertexconsumer = bufferSource.getBuffer(subtractiveType);
 

@@ -1,15 +1,13 @@
-package com.sammy.malum.mixin;
+package com.sammy.malum.mixin.client;
 
-import com.sammy.malum.client.renderer.text.SubtractiveTextGlyphRenderTypes;
-import com.sammy.malum.registry.client.RenderTypeRegistry;
-import net.minecraft.client.gui.font.GlyphRenderTypes;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.resources.ResourceLocation;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Unique;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import com.sammy.malum.client.renderer.text.*;
+import com.sammy.malum.registry.client.*;
+import net.minecraft.client.gui.font.*;
+import net.minecraft.client.renderer.*;
+import net.minecraft.resources.*;
+import org.spongepowered.asm.mixin.*;
+import org.spongepowered.asm.mixin.injection.*;
+import org.spongepowered.asm.mixin.injection.callback.*;
 import team.lodestar.lodestone.systems.rendering.rendeertype.*;
 
 @Mixin(GlyphRenderTypes.class)

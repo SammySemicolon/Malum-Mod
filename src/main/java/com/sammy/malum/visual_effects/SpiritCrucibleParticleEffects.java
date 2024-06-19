@@ -20,6 +20,9 @@ import team.lodestar.lodestone.systems.particle.*;
 import team.lodestar.lodestone.systems.particle.builder.*;
 import team.lodestar.lodestone.systems.particle.data.*;
 import team.lodestar.lodestone.systems.particle.data.spin.*;
+import team.lodestar.lodestone.systems.particle.world.*;
+import team.lodestar.lodestone.systems.particle.world.behaviors.components.*;
+import team.lodestar.lodestone.systems.particle.world.options.*;
 
 import java.util.function.*;
 
@@ -46,14 +49,14 @@ public class SpiritCrucibleParticleEffects {
             }
         }
         if (recipe != null) {
-            var lightSpecs = spiritLightSpecs(level, itemPos, activeSpiritType, ParticleRegistry.STAR);
+            var lightSpecs = spiritLightSpecs(level, itemPos, activeSpiritType, new WorldParticleOptions(ParticleRegistry.STAR.get()));
             lightSpecs.getBuilder()
                     .setSpinData(SpinParticleData.create(0).setSpinOffset((level.getGameTime() * 0.05f) % 6.28f).build())
-                    .modifyData(WorldParticleBuilder::getScaleData, d -> d.multiplyValue(2f))
-                    .modifyData(WorldParticleBuilder::getTransparencyData, d -> d.multiplyValue(0.25f));
+                    .modifyData(AbstractParticleBuilder::getScaleData, d -> d.multiplyValue(2f))
+                    .modifyData(AbstractParticleBuilder::getTransparencyData, d -> d.multiplyValue(0.25f));
             lightSpecs.getBloomBuilder()
-                    .modifyData(WorldParticleBuilder::getScaleData, d -> d.multiplyValue(2f))
-                    .modifyData(WorldParticleBuilder::getTransparencyData, d -> d.multiplyValue(0.5f));
+                    .modifyData(AbstractParticleBuilder::getScaleData, d -> d.multiplyValue(2f))
+                    .modifyData(AbstractParticleBuilder::getTransparencyData, d -> d.multiplyValue(0.5f));
             lightSpecs.spawnParticles();
         }
 
@@ -69,13 +72,13 @@ public class SpiritCrucibleParticleEffects {
                     Vec3 velocity = itemPos.subtract(spiritPosition).normalize().scale(RandomHelper.randomBetween(random, 0.03f, 0.06f));
                     if (random.nextFloat() < 0.85f) {
                         var sparkParticles = SparkParticleEffects.spiritMotionSparks(level, spiritPosition, spiritType);
-                        sparkParticles.getBuilder().setMotion(velocity).modifyData(SparkParticleBuilder::getScaleData, d -> d.multiplyValue(1.2f));
+                        sparkParticles.getBuilder().setMotion(velocity).modifyData(AbstractParticleBuilder::getScaleData, d -> d.multiplyValue(1.2f));
                         sparkParticles.getBloomBuilder().setMotion(velocity);
                         sparkParticles.spawnParticles();
                     }
                     if (random.nextFloat() < 0.85f) {
                         var lightSpecs = SpiritLightSpecs.spiritLightSpecs(level, spiritPosition, spiritType);
-                        lightSpecs.getBuilder().multiplyLifetime(0.8f).setMotion(velocity.scale(1.5f)).modifyData(WorldParticleBuilder::getScaleData, d -> d.multiplyValue(1.6f));
+                        lightSpecs.getBuilder().multiplyLifetime(0.8f).setMotion(velocity.scale(1.5f)).modifyData(AbstractParticleBuilder::getScaleData, d -> d.multiplyValue(1.6f));
                         lightSpecs.getBloomBuilder().setMotion(velocity);
                         lightSpecs.spawnParticles();
                     }
@@ -96,19 +99,19 @@ public class SpiritCrucibleParticleEffects {
                         Vec3 velocity = itemPos.subtract(particlePosition).normalize().scale(RandomHelper.randomBetween(random, 0.01f, 0.02f));
                         if (random.nextFloat() < 0.15f) {
                             var sparkParticles = SparkParticleEffects.spiritMotionSparks(level, particlePosition, spiritType);
-                            sparkParticles.getBuilder().multiplyLifetime(2.5f).setMotion(velocity).modifyData(SparkParticleBuilder::getScaleData, d -> d.multiplyValue(1.2f));
+                            sparkParticles.getBuilder().multiplyLifetime(2.5f).setMotion(velocity).modifyData(AbstractParticleBuilder::getScaleData, d -> d.multiplyValue(1.2f));
                             sparkParticles.getBloomBuilder().multiplyLifetime(1.5f).setMotion(velocity);
                             sparkParticles.spawnParticles();
                         }
                         if (random.nextFloat() < 0.15f) {
                             var lightSpecs = SpiritLightSpecs.spiritLightSpecs(level, particlePosition, spiritType);
-                            lightSpecs.getBuilder().multiplyLifetime(2.5f).setMotion(velocity.scale(1.5f)).modifyData(WorldParticleBuilder::getScaleData, d -> d.multiplyValue(1.6f));
+                            lightSpecs.getBuilder().multiplyLifetime(2.5f).setMotion(velocity.scale(1.5f)).modifyData(AbstractParticleBuilder::getScaleData, d -> d.multiplyValue(1.6f));
                             lightSpecs.getBloomBuilder().multiplyLifetime(1.5f).setMotion(velocity);
                             lightSpecs.spawnParticles();
                         }
                     }
                     var lightSpecs = SpiritLightSpecs.spiritLightSpecs(level, particlePosition, spiritType);
-                    lightSpecs.getBuilder().multiplyLifetime(2.5f).modifyData(WorldParticleBuilder::getScaleData, d -> d.multiplyValue(1.3f));
+                    lightSpecs.getBuilder().multiplyLifetime(2.5f).modifyData(AbstractParticleBuilder::getScaleData, d -> d.multiplyValue(1.3f));
                     lightSpecs.getBloomBuilder().multiplyLifetime(1.5f);
                     lightSpecs.spawnParticles();
                 }
@@ -127,24 +130,23 @@ public class SpiritCrucibleParticleEffects {
             Vec3 sparkPos = startPos.add(0.05f - random.nextFloat() * 0.1f, 0.05f - random.nextFloat() * 0.1f, 0.05f - random.nextFloat() * 0.1f);
             var sparkParticles = SparkParticleEffects.spiritMotionSparks(level, sparkPos, spiritType);
             sparkParticles.getBuilder().setMotion(velocity)
-                    .modifyData(SparkParticleBuilder::getScaleData, d -> d.multiplyValue(1.5f))
-                    .modifyData(SparkParticleBuilder::getLengthData, d -> d.multiplyValue(2f).multiplyCoefficient(0.75f))
+                    .modifyData(AbstractParticleBuilder::getScaleData, d -> d.multiplyValue(1.5f))
+                    .modifyDataOptional(b -> b.getBehaviorData(SparkBehaviorComponent.class, SparkBehaviorComponent::getLengthData), d -> d.multiplyValue(2f).multiplyCoefficient(0.75f))
                     .modifyColorData(c -> c.multiplyCoefficient(0.8f));
             sparkParticles.getBloomBuilder().setMotion(velocity);
             sparkParticles.spawnParticlesRaw();
         }
         if (level.getGameTime() % 10L == 0) {
             Vec3 velocity = targetPos.subtract(startPos).normalize().scale(0.02f * targetPos.distanceTo(startPos));
-            final Consumer<LodestoneWorldParticleActor> behavior = p -> p.setParticleMotion(p.getParticleSpeed().scale(0.98f));
+            final Consumer<LodestoneWorldParticle> behavior = p -> p.setParticleSpeed(p.getParticleSpeed().scale(0.98f));
             final SpinParticleData spinData = SpinParticleData.createRandomDirection(random, RandomHelper.randomBetween(random, 0.1f, 0.2f)).randomSpinOffset(random).build();
-            DirectionalParticleBuilder.create(ParticleRegistry.HEXAGON)
+            WorldParticleBuilder.create(ParticleRegistry.HEXAGON.get(), new DirectionalBehaviorComponent(velocity.normalize()))
                     .setTransparencyData(GenericParticleData.create(0.6f, 0.4f, 0f).setEasing(Easing.SINE_IN_OUT, Easing.SINE_IN).build())
                     .setSpinData(spinData)
                     .setScaleData(GenericParticleData.create(0.15f, 0).setEasing(Easing.SINE_IN_OUT).build())
                     .setColorData(spiritType.createColorData().build())
                     .setLifetime(60)
                     .setMotion(velocity)
-                    .setDirection(velocity.normalize())
                     .enableNoClip()
                     .setSpritePicker(SimpleParticleOptions.ParticleSpritePicker.RANDOM_SPRITE)
                     .addTickActor(behavior)
@@ -161,13 +163,13 @@ public class SpiritCrucibleParticleEffects {
                 Vec3 velocity = targetPos.subtract(particlePosition).normalize().scale(RandomHelper.randomBetween(random, 0.03f, 0.06f));
                 if (random.nextFloat() < 0.15f) {
                     var sparkParticles = SparkParticleEffects.spiritMotionSparks(level, particlePosition, augmentSpiritType);
-                    sparkParticles.getBuilder().multiplyLifetime(2.5f).setMotion(velocity).modifyData(SparkParticleBuilder::getScaleData, d -> d.multiplyValue(1.2f));
+                    sparkParticles.getBuilder().multiplyLifetime(2.5f).setMotion(velocity).modifyData(AbstractParticleBuilder::getScaleData, d -> d.multiplyValue(1.2f));
                     sparkParticles.getBloomBuilder().multiplyLifetime(1.5f).setMotion(velocity);
                     sparkParticles.spawnParticles();
                 }
                 if (random.nextFloat() < 0.15f) {
                     var lightSpecs = SpiritLightSpecs.spiritLightSpecs(level, particlePosition, augmentSpiritType);
-                    lightSpecs.getBuilder().multiplyLifetime(2.5f).setMotion(velocity.scale(1.5f)).modifyData(WorldParticleBuilder::getScaleData, d -> d.multiplyValue(1.6f));
+                    lightSpecs.getBuilder().multiplyLifetime(2.5f).setMotion(velocity.scale(1.5f)).modifyData(AbstractParticleBuilder::getScaleData, d -> d.multiplyValue(1.6f));
                     lightSpecs.getBloomBuilder().multiplyLifetime(1.5f).setMotion(velocity);
                     lightSpecs.spawnParticles();
                 }
@@ -203,14 +205,14 @@ public class SpiritCrucibleParticleEffects {
                         .multiplyLifetime(2)
                         .setGravityStrength(gravityStrength)
                         .setMotion(xVelocity, yVelocity, zVelocity)
-                        .modifyData(SparkParticleBuilder::getScaleData, d -> d.multiplyValue(2f));
+                        .modifyData(AbstractParticleBuilder::getScaleData, d -> d.multiplyValue(2f));
                 sparkParticles.getBloomBuilder()
                         .disableNoClip()
                         .setLifeDelay(lifeDelay)
                         .multiplyLifetime(2)
                         .setGravityStrength(gravityStrength)
                         .setMotion(xVelocity, yVelocity, zVelocity)
-                        .modifyData(WorldParticleBuilder::getTransparencyData, d -> d.multiplyValue(1.25f));
+                        .modifyData(AbstractParticleBuilder::getTransparencyData, d -> d.multiplyValue(1.25f));
                 sparkParticles.spawnParticles();
             }
             if (random.nextFloat() < 0.85f) {
@@ -224,14 +226,14 @@ public class SpiritCrucibleParticleEffects {
                         .multiplyLifetime(4)
                         .setGravityStrength(gravityStrength)
                         .setMotion(xVelocity, yVelocity, zVelocity)
-                        .modifyData(WorldParticleBuilder::getScaleData, d -> d.multiplyValue(2.5f));
+                        .modifyData(AbstractParticleBuilder::getScaleData, d -> d.multiplyValue(2.5f));
                 lightSpecs.getBloomBuilder()
                         .disableNoClip()
                         .setLifeDelay(lifeDelay)
                         .multiplyLifetime(4)
                         .setGravityStrength(gravityStrength)
                         .setMotion(xVelocity, yVelocity, zVelocity)
-                        .modifyData(WorldParticleBuilder::getTransparencyData, d -> d.multiplyValue(1.25f));
+                        .modifyData(AbstractParticleBuilder::getTransparencyData, d -> d.multiplyValue(1.25f));
                 lightSpecs.spawnParticles();
             }
         }
@@ -242,7 +244,7 @@ public class SpiritCrucibleParticleEffects {
             float yVelocity = RandomHelper.randomBetween(random, 0.015f, 0.035f);
             float zVelocity = RandomHelper.randomBetween(random, Easing.CUBIC_OUT, -0.025f, 0.025f);
             if (random.nextFloat() < 0.85f) {
-                var lightSpecs = SpiritLightSpecs.spiritLightSpecs(level, targetPos.subtract(0, 0.5f, 0), cyclingSpiritType, ParticleRegistry.STRANGE_SMOKE);
+                var lightSpecs = SpiritLightSpecs.spiritLightSpecs(level, targetPos.subtract(0, 0.5f, 0), cyclingSpiritType, new WorldParticleOptions(ParticleRegistry.STRANGE_SMOKE.get()));
                 lightSpecs.getBuilder()
                         .disableNoClip()
                         .setLifeDelay(i)
@@ -250,8 +252,8 @@ public class SpiritCrucibleParticleEffects {
                         .setMotion(xVelocity, yVelocity, zVelocity)
                         .setSpritePicker(SimpleParticleOptions.ParticleSpritePicker.WITH_AGE)
                         .modifyColorData(c -> c.multiplyCoefficient(0.5f))
-                        .modifyData(WorldParticleBuilder::getScaleData, d -> d.multiplyValue(1.5f))
-                        .modifyData(WorldParticleBuilder::getTransparencyData, d -> d.multiplyValue(0.1f));
+                        .modifyData(AbstractParticleBuilder::getScaleData, d -> d.multiplyValue(1.5f))
+                        .modifyData(AbstractParticleBuilder::getTransparencyData, d -> d.multiplyValue(0.1f));
                 lightSpecs.getBloomBuilder()
                         .disableNoClip()
                         .setLifeDelay(i)
@@ -259,8 +261,8 @@ public class SpiritCrucibleParticleEffects {
                         .setMotion(xVelocity, yVelocity, zVelocity)
                         .setSpritePicker(SimpleParticleOptions.ParticleSpritePicker.WITH_AGE)
                         .modifyColorData(c -> c.multiplyCoefficient(0.5f))
-                        .modifyData(WorldParticleBuilder::getScaleData, d -> d.multiplyValue(2.5f))
-                        .modifyData(WorldParticleBuilder::getTransparencyData, d -> d.multiplyValue(0.25f));
+                        .modifyData(AbstractParticleBuilder::getScaleData, d -> d.multiplyValue(2.5f))
+                        .modifyData(AbstractParticleBuilder::getTransparencyData, d -> d.multiplyValue(0.25f));
                 lightSpecs.spawnParticles();
             }
         }
@@ -281,7 +283,7 @@ public class SpiritCrucibleParticleEffects {
                 BlockPos blockPos = catalyzer.getBlockPos();
                 Vec3 particlePosition = new Vec3(blockPos.getX() + offset.x, blockPos.getY() + offset.y, blockPos.getZ() + offset.z);
                 var lightSpecs = SpiritLightSpecs.spiritLightSpecs(level, particlePosition, augmentSpiritType);
-                lightSpecs.getBuilder().multiplyLifetime(2.5f).modifyData(WorldParticleBuilder::getScaleData, d -> d.multiplyValue(1.3f));
+                lightSpecs.getBuilder().multiplyLifetime(2.5f).modifyData(AbstractParticleBuilder::getScaleData, d -> d.multiplyValue(1.3f));
                 lightSpecs.getBloomBuilder().multiplyLifetime(1.5f);
                 lightSpecs.spawnParticles();
             }

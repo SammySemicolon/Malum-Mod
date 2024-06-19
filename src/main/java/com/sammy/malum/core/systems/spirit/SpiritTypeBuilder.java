@@ -1,12 +1,10 @@
 package com.sammy.malum.core.systems.spirit;
 
-import com.sammy.malum.common.block.mana_mote.SpiritMoteBlock;
-import com.sammy.malum.common.item.spirit.SpiritShardItem;
-import team.lodestar.lodestone.systems.easing.Easing;
+import com.sammy.malum.common.block.mana_mote.*;
+import com.sammy.malum.common.item.spirit.*;
 
 import java.awt.*;
-import java.util.function.Function;
-import java.util.function.Supplier;
+import java.util.function.*;
 
 public class SpiritTypeBuilder {
 

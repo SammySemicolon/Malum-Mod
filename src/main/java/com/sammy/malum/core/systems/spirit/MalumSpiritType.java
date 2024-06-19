@@ -14,9 +14,7 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.level.block.state.properties.*;
 import net.minecraft.world.phys.*;
-import net.minecraftforge.api.distmarker.*;
 import team.lodestar.lodestone.helpers.*;
-import team.lodestar.lodestone.systems.particle.builder.*;
 import team.lodestar.lodestone.systems.particle.data.color.*;
 
 import java.awt.*;
@@ -24,6 +22,9 @@ import java.util.function.*;
 
 public class MalumSpiritType {
 
+    public static SpiritTypeBuilder create(String identifier, SpiritVisualMotif visualMotif, Supplier<SpiritShardItem> spiritShard) {
+        return create(identifier, visualMotif, spiritShard, null);
+    }
     public static SpiritTypeBuilder create(String identifier, SpiritVisualMotif visualMotif, Supplier<SpiritShardItem> spiritShard, Supplier<SpiritMoteBlock> spiritMote) {
         return new SpiritTypeBuilder(identifier, visualMotif, spiritShard, spiritMote);
     }
@@ -115,10 +116,5 @@ public class MalumSpiritType {
     public BlockState getTotemPoleBlockState(boolean isCorrupt, BlockHitResult hit) {
         Block base = isCorrupt ? BlockRegistry.SOULWOOD_TOTEM_POLE.get() : BlockRegistry.RUNEWOOD_TOTEM_POLE.get();
         return base.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, hit.getDirection()).setValue(SpiritTypeRegistry.SPIRIT_TYPE_PROPERTY, identifier);
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    public <K extends AbstractWorldParticleBuilder<K, ?>> Consumer<K> applyWorldParticleChanges() {
-        return visualMotif::applyWorldParticleChanges;
     }
 }

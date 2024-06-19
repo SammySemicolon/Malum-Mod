@@ -18,12 +18,8 @@ import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.registry.client.*;
 import team.lodestar.lodestone.systems.easing.*;
 import team.lodestar.lodestone.systems.rendering.*;
-import team.lodestar.lodestone.systems.rendering.rendeertype.*;
 
 import java.awt.*;
-
-import static com.sammy.malum.MalumMod.*;
-import static team.lodestar.lodestone.LodestoneLib.*;
 
 public class FloatingItemEntityRenderer extends EntityRenderer<FloatingItemEntity> {
     public final ItemRenderer itemRenderer;
@@ -35,10 +31,10 @@ public class FloatingItemEntityRenderer extends EntityRenderer<FloatingItemEntit
         this.shadowStrength = 0;
     }
 
-    private static final LodestoneRenderType TRAIL_TYPE = LodestoneRenderTypeRegistry.ADDITIVE_TEXTURE_TRIANGLE.apply(MalumRenderTypeTokens.CONCENTRATED_TRAIL);
+    private static final LodestoneRenderType TRAIL_TYPE = LodestoneRenderTypeRegistry.ADDITIVE_TEXTURE_TRIANGLE.applyAndCache(MalumRenderTypeTokens.CONCENTRATED_TRAIL);
 
-    private static final LodestoneRenderType GLIMMER_BLOOM = LodestoneRenderTypeRegistry.ADDITIVE_TEXTURE.apply(RenderTypeToken.createToken(lodestonePath("textures/particle/twinkle.png")));
-    private static final LodestoneRenderType GLIMMER_SHINE = LodestoneRenderTypeRegistry.ADDITIVE_TEXTURE.apply(RenderTypeToken.createToken(malumPath("textures/particle/star.png")));
+    private static final LodestoneRenderType TWINKLE = LodestoneRenderTypeRegistry.ADDITIVE_TEXTURE.applyAndCache(MalumRenderTypeTokens.TWINKLE);
+    private static final LodestoneRenderType STAR = LodestoneRenderTypeRegistry.ADDITIVE_TEXTURE.applyAndCache(MalumRenderTypeTokens.STAR);
 
     @Override
     public void render(FloatingItemEntity entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int packedLightIn) {
@@ -57,13 +53,13 @@ public class FloatingItemEntityRenderer extends EntityRenderer<FloatingItemEntit
         float rotation = entity.getRotation(partialTicks);
 
         poseStack.pushPose();
-        poseStack.translate(0.0D, (yOffset + 0.25F * scale), 0.0D);
+        poseStack.translate(0.0D, (yOffset - 0.25F * scale), 0.0D);
         poseStack.mulPose(Axis.YP.rotation(rotation));
         itemRenderer.render(itemStack, ItemDisplayContext.GROUND, false, poseStack, bufferIn, packedLightIn, OverlayTexture.NO_OVERLAY, model);
         poseStack.popPose();
 
         poseStack.pushPose();
-        poseStack.translate(0.0D, (yOffset + 0.5F * scale), 0.0D);
+        poseStack.translate(0.0D, yOffset, 0.0D);
         renderSpiritGlimmer(poseStack, entity.getSpiritType(), partialTicks);
         poseStack.popPose();
     }
@@ -72,31 +68,46 @@ public class FloatingItemEntityRenderer extends EntityRenderer<FloatingItemEntit
         renderSpiritGlimmer(poseStack, spiritType, 1f, partialTicks);
     }
 
-    public static void renderSpiritGlimmer(PoseStack poseStack, MalumSpiritType spiritType, float alphaMultiplier, float partialTicks) {
-        renderSpiritGlimmer(poseStack, SpiritBasedWorldVFXBuilder.create(spiritType), spiritType.getPrimaryColor(), spiritType.getSecondaryColor(), alphaMultiplier, partialTicks);
+    public static void renderSpiritGlimmer(PoseStack poseStack, MalumSpiritType spiritType, float scalar, float partialTicks) {
+        renderSpiritGlimmer(poseStack, SpiritBasedWorldVFXBuilder.create(spiritType), spiritType.getPrimaryColor(), spiritType.getSecondaryColor(), scalar, scalar, partialTicks);
+    }
+
+    public static void renderSpiritGlimmer(PoseStack poseStack, MalumSpiritType spiritType, float scaleScalar, float alphaScalar, float partialTicks) {
+        renderSpiritGlimmer(poseStack, SpiritBasedWorldVFXBuilder.create(spiritType), spiritType.getPrimaryColor(), spiritType.getSecondaryColor(), scaleScalar, alphaScalar, partialTicks);
     }
 
     public static void renderSpiritGlimmer(PoseStack poseStack, Color primaryColor, Color secondaryColor, float partialTicks) {
         renderSpiritGlimmer(poseStack, primaryColor, secondaryColor, 1f, partialTicks);
     }
 
-    public static void renderSpiritGlimmer(PoseStack poseStack, Color primaryColor, Color secondaryColor, float alphaMultiplier, float partialTicks) {
-        renderSpiritGlimmer(poseStack, VFXBuilders.createWorld(), primaryColor, secondaryColor, alphaMultiplier, partialTicks);
+    public static void renderSpiritGlimmer(PoseStack poseStack, Color primaryColor, Color secondaryColor, float scalar, float partialTicks) {
+        renderSpiritGlimmer(poseStack, VFXBuilders.createWorld(), primaryColor, secondaryColor, scalar, scalar, partialTicks);
     }
 
-    public static void renderSpiritGlimmer(PoseStack poseStack, VFXBuilders.WorldVFXBuilder builder, Color primaryColor, Color secondaryColor, float alphaMultiplier, float partialTicks) {
+    public static void renderSpiritGlimmer(PoseStack poseStack, Color primaryColor, Color secondaryColor, float scaleScalar, float alphaScalar, float partialTicks) {
+        renderSpiritGlimmer(poseStack, VFXBuilders.createWorld(), primaryColor, secondaryColor, scaleScalar, alphaScalar, partialTicks);
+    }
+
+    public static void renderSpiritGlimmer(PoseStack poseStack, VFXBuilders.WorldVFXBuilder builder, Color primaryColor, Color secondaryColor, float scaleScalar, float alphaScalar, float partialTicks) {
         Level level = Minecraft.getInstance().level;
         float gameTime = level.getGameTime() + partialTicks;
         float sine = (float) Math.abs(((Math.sin((gameTime / 80f) % 360)) * 0.075f));
         float bounce = EasingHelper.weightedEasingLerp(Easing.BOUNCE_IN_OUT, (gameTime % 20) / 20f, 0.025f, 0.05f, 0.025f);
-        float scale = 0.12f + sine + bounce;
+        float scale = (0.12f + sine + bounce) * scaleScalar;
 
         poseStack.pushPose();
         poseStack.mulPose(Minecraft.getInstance().getEntityRenderDispatcher().cameraOrientation());
         poseStack.mulPose(Axis.YP.rotationDegrees(180f));
-        builder.setAlpha(0.6f * alphaMultiplier).setColor(primaryColor).setRenderType(GLIMMER_SHINE).renderQuad(poseStack, scale * 1.2f);
-        builder.setAlpha(0.8f * alphaMultiplier).setRenderType(GLIMMER_BLOOM).renderQuad(poseStack, scale * 0.8f);
-        builder.setAlpha(0.2f * alphaMultiplier).setColor(secondaryColor).renderQuad(poseStack, scale * 1.2f);
+        builder.setAlpha(0.6f * alphaScalar)
+                .setColor(primaryColor)
+                .setRenderType(STAR)
+                .renderQuad(poseStack, scale * 0.8f);
+        builder.setAlpha(0.8f * alphaScalar)
+                .setRenderType(TWINKLE)
+                .renderQuad(poseStack, scale * 0.8f);
+        builder.setAlpha(0.2f * alphaScalar)
+                .setColor(secondaryColor)
+                .renderQuad(poseStack, scale * 1.2f);
         poseStack.popPose();
     }
 

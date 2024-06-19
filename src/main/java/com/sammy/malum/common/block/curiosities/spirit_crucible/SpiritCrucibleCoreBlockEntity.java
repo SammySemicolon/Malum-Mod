@@ -1,6 +1,7 @@
 package com.sammy.malum.common.block.curiosities.spirit_crucible;
 
 import com.sammy.malum.common.block.*;
+import com.sammy.malum.common.block.storage.*;
 import com.sammy.malum.common.item.augment.*;
 import com.sammy.malum.common.item.augment.core.*;
 import com.sammy.malum.common.item.impetus.*;
@@ -38,7 +39,7 @@ import javax.annotation.*;
 import java.util.*;
 import java.util.function.*;
 
-public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implements ICatalyzerAccelerationTarget {
+public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implements ICatalyzerAccelerationTarget, IMalumSpecialItemAccessPoint {
 
     private static final Vec3 CRUCIBLE_ITEM_OFFSET = new Vec3(0.5f, 1.6f, 0.5f);
     public static final Supplier<MultiBlockStructure> STRUCTURE = () -> (MultiBlockStructure.of(new MultiBlockStructure.StructurePiece(0, 1, 0, BlockRegistry.SPIRIT_CRUCIBLE_COMPONENT.get().defaultBlockState())));
@@ -377,10 +378,21 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
         return spiritItem.type;
     }
 
-    public Vec3 getItemPos() {
+    @Override
+    public Vec3 getItemPos(float partialTicks) {
         final BlockPos blockPos = getBlockPos();
         final Vec3 offset = getCentralItemOffset();
         return new Vec3(blockPos.getX()+offset.x, blockPos.getY()+offset.y, blockPos.getZ()+offset.z);
+    }
+
+    @Override
+    public BlockPos getAccessPointBlockPos() {
+        return getBlockPos();
+    }
+
+    @Override
+    public LodestoneBlockEntityInventory getSuppliedInventory() {
+        return inventory;
     }
 
     public Vec3 getCentralItemOffset() {

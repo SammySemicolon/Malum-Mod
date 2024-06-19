@@ -71,6 +71,8 @@ public abstract class AbstractProgressionCodexScreen extends AbstractMalumScreen
     public void addEntry(String identifier, int xOffset, int yOffset, Consumer<PlacedBookEntryBuilder> consumer) {
         final PlacedBookEntryBuilder builder = PlacedBookEntry.build(identifier, xOffset, yOffset);
         consumer.accept(builder);
+        if (builder.hasFragment())
+            getEntries().add(builder.buildFragment());
         getEntries().add(builder.build());
     }
 

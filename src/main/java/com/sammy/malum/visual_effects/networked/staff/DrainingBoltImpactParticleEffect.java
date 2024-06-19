@@ -12,6 +12,7 @@ import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.systems.particle.builder.*;
 import team.lodestar.lodestone.systems.particle.data.color.*;
 import team.lodestar.lodestone.systems.particle.render_types.*;
+import team.lodestar.lodestone.systems.particle.world.behaviors.components.*;
 
 import java.util.function.*;
 
@@ -72,35 +73,39 @@ public class DrainingBoltImpactParticleEffect extends ParticleEffectType {
                 if (random.nextFloat() < 0.8f) {
                     var lightSpecs = spiritLightSpecs(level, spawnPosition, malignantColorData);
                     lightSpecs.getBuilder()
+                            .disableNoClip()
                             .multiplyLifetime(lifetimeMultiplier)
                             .setRenderType(LodestoneWorldParticleRenderType.LUMITRANSPARENT)
                             .enableForcedSpawn()
                             .modifyColorData(d -> d.multiplyCoefficient(1.25f))
-                            .modifyData(WorldParticleBuilder::getScaleData, d -> d.multiplyValue(1.75f))
+                            .modifyData(AbstractParticleBuilder::getScaleData, d -> d.multiplyValue(1.75f))
                             .setMotion(direction);
                     lightSpecs.getBloomBuilder()
+                            .disableNoClip()
                             .multiplyLifetime(lifetimeMultiplier)
                             .setRenderType(LodestoneWorldParticleRenderType.LUMITRANSPARENT)
                             .modifyColorData(d -> d.multiplyCoefficient(1.25f))
-                            .modifyData(WorldParticleBuilder::getScaleData, d -> d.multiplyValue(1.75f))
+                            .modifyData(AbstractParticleBuilder::getScaleData, d -> d.multiplyValue(1.75f))
                             .setMotion(direction);
                     lightSpecs.spawnParticles();
                 }
                 if (random.nextFloat() < 0.8f) {
                     var sparks = SparkParticleEffects.spiritMotionSparks(level, spawnPosition, malignantColorData);
                     sparks.getBuilder()
+                            .disableNoClip()
                             .multiplyLifetime(lifetimeMultiplier)
                             .setRenderType(LodestoneWorldParticleRenderType.LUMITRANSPARENT)
                             .enableForcedSpawn()
                             .modifyColorData(d -> d.multiplyCoefficient(1.25f))
-                            .modifyData(SparkParticleBuilder::getScaleData, d -> d.multiplyValue(1.75f))
-                            .modifyData(SparkParticleBuilder::getLengthData, d -> d.multiplyValue(3f))
+                            .modifyData(AbstractParticleBuilder::getScaleData, d -> d.multiplyValue(1.75f))
+                            .modifyDataOptional(b -> b.getBehaviorData(SparkBehaviorComponent.class, SparkBehaviorComponent::getLengthData), d -> d.multiplyValue(3f))
                             .setMotion(direction.scale(1.5f));
                     sparks.getBloomBuilder()
+                            .disableNoClip()
                             .multiplyLifetime(lifetimeMultiplier)
                             .setRenderType(LodestoneWorldParticleRenderType.LUMITRANSPARENT)
                             .modifyColorData(d -> d.multiplyCoefficient(1.25f))
-                            .modifyData(WorldParticleBuilder::getScaleData, d -> d.multiplyValue(1.75f))
+                            .modifyData(AbstractParticleBuilder::getScaleData, d -> d.multiplyValue(1.75f))
                             .setMotion(direction.scale(1.5f));
                     sparks.spawnParticles();
                 }

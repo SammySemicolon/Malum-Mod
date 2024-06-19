@@ -104,6 +104,7 @@ public class RuntimeEvents {
         SoulDataHandler.manageSoul(event);
         MalignantConversionHandler.checkForAttributeChanges(event);
         TouchOfDarknessHandler.entityTick(event);
+        CurioWatcherNecklace.entityTick(event);
     }
 
     @SubscribeEvent

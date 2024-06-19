@@ -20,6 +20,7 @@ import team.lodestar.lodestone.systems.particle.data.*;
 import team.lodestar.lodestone.systems.particle.data.color.*;
 import team.lodestar.lodestone.systems.particle.data.spin.*;
 import team.lodestar.lodestone.systems.particle.render_types.*;
+import team.lodestar.lodestone.systems.particle.world.behaviors.components.*;
 
 public class AuricFlameStaffItem extends AbstractStaffItem {
 
@@ -75,13 +76,12 @@ public class AuricFlameStaffItem extends AbstractStaffItem {
     public void spawnChargeParticles(Level pLevel, LivingEntity pLivingEntity, Vec3 pos, ItemStack pStack, float pct) {
         RandomSource random = pLevel.random;
         final SpinParticleData spinData = SpinParticleData.createRandomDirection(random, 0.25f, 0.5f).setSpinOffset(RandomHelper.randomBetween(random, 0f, 6.28f)).build();
-        DirectionalParticleBuilder.create(ParticleRegistry.HEXAGON)
+        WorldParticleBuilder.create(ParticleRegistry.HEXAGON, new DirectionalBehaviorComponent(pLivingEntity.getLookAngle().normalize()))
                 .setTransparencyData(GenericParticleData.create(0.5f * pct, 0f).setEasing(Easing.SINE_IN_OUT, Easing.SINE_IN).build())
                 .setScaleData(GenericParticleData.create(0.35f * pct, 0).setEasing(Easing.SINE_IN_OUT).build())
                 .setSpinData(spinData)
                 .setColorData(AURIC_COLOR_DATA)
                 .setLifetime(5)
-                .setDirection(pLivingEntity.getLookAngle().normalize())
                 .setMotion(pLivingEntity.getLookAngle().normalize().scale(0.05f))
                 .enableNoClip()
                 .enableForcedSpawn()

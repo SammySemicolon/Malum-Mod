@@ -1,24 +1,21 @@
 package com.sammy.malum.visual_effects.networked.generic;
 
 
-import com.sammy.malum.visual_effects.networked.ParticleEffectType;
-import com.sammy.malum.visual_effects.networked.data.ColorEffectData;
-import net.minecraft.util.Mth;
-import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import com.sammy.malum.visual_effects.networked.*;
+import com.sammy.malum.visual_effects.networked.data.*;
+import net.minecraft.util.*;
+import net.minecraft.world.phys.*;
+import net.minecraftforge.api.distmarker.*;
 import team.lodestar.lodestone.registry.common.particle.*;
-import team.lodestar.lodestone.systems.easing.Easing;
-import team.lodestar.lodestone.systems.particle.LodestoneWorldParticleActor;
-import team.lodestar.lodestone.systems.particle.builder.WorldParticleBuilder;
-import team.lodestar.lodestone.systems.particle.data.GenericParticleData;
-import team.lodestar.lodestone.systems.particle.data.color.ColorParticleData;
-import team.lodestar.lodestone.systems.particle.data.spin.SpinParticleData;
+import team.lodestar.lodestone.systems.easing.*;
+import team.lodestar.lodestone.systems.particle.builder.*;
+import team.lodestar.lodestone.systems.particle.data.*;
+import team.lodestar.lodestone.systems.particle.data.color.*;
+import team.lodestar.lodestone.systems.particle.data.spin.*;
+import team.lodestar.lodestone.systems.particle.world.*;
 
 import java.awt.*;
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Supplier;
+import java.util.function.*;
 
 public class DrippingSmokeParticleEffect extends ParticleEffectType {
 
@@ -42,7 +39,7 @@ public class DrippingSmokeParticleEffect extends ParticleEffectType {
             double posZ = positionData.posZ + 0.5f;
 
             int adjustedLifespan = (int) (60 * (intensity) * 0.6f);
-            Function<Float, Consumer<LodestoneWorldParticleActor>> actorFunction = f -> (p -> p.setParticleMotion(p.getParticleSpeed().add(new Vec3(posX, posY, posZ).subtract(p.getParticlePosition()).normalize().multiply(f, 0, f))));
+            Function<Float, Consumer<LodestoneWorldParticle>> actorFunction = f -> (p -> p.setParticleSpeed(p.getParticleSpeed().add(new Vec3(posX, posY, posZ).subtract(p.getParticleSpeed()).normalize().multiply(f, 0, f))));
 
             for (int i = 0; i < 2; i++) {
                 int spinDirection = (random.nextBoolean() ? 1 : -1);

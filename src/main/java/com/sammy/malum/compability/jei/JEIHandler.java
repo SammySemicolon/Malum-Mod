@@ -2,15 +2,13 @@ package com.sammy.malum.compability.jei;
 
 import com.google.common.collect.Maps;
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.common.recipe.SpiritFocusingRecipe;
-import com.sammy.malum.common.recipe.SpiritInfusionRecipe;
-import com.sammy.malum.common.recipe.SpiritRepairRecipe;
-import com.sammy.malum.common.recipe.SpiritTransmutationRecipe;
+import com.sammy.malum.common.recipe.*;
 import com.sammy.malum.common.spiritrite.TotemicRiteType;
 import com.sammy.malum.compability.farmersdelight.FarmersDelightCompat;
 import com.sammy.malum.compability.jei.categories.*;
 import com.sammy.malum.compability.jei.recipes.SpiritTransmutationWrapper;
-import com.sammy.malum.core.handlers.HiddenTagHandler;
+import com.sammy.malum.core.handlers.hiding.HiddenTagHandler;
+import com.sammy.malum.registry.client.HiddenTagRegistry;
 import com.sammy.malum.registry.common.SpiritRiteRegistry;
 import com.sammy.malum.registry.common.item.ItemRegistry;
 import mezz.jei.api.IModPlugin;
@@ -19,7 +17,10 @@ import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.helpers.IJeiHelpers;
-import mezz.jei.api.recipe.*;
+import mezz.jei.api.recipe.IFocusFactory;
+import mezz.jei.api.recipe.IRecipeManager;
+import mezz.jei.api.recipe.RecipeIngredientRole;
+import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
@@ -46,6 +47,12 @@ public class JEIHandler implements IModPlugin {
     public static final RecipeType<SpiritFocusingRecipe> FOCUSING = new RecipeType<>(SpiritFocusingRecipeCategory.UID, SpiritFocusingRecipe.class);
     public static final RecipeType<TotemicRiteType> RITES = new RecipeType<>(SpiritRiteRecipeCategory.UID, TotemicRiteType.class);
     public static final RecipeType<SpiritRepairRecipe> SPIRIT_REPAIR = new RecipeType<>(SpiritRepairRecipeCategory.UID, SpiritRepairRecipe.class);
+    public static final RecipeType<FavorOfTheVoidRecipe> WEEPING_WELL = new RecipeType<>(WeepingWellRecipeCategory.UID, FavorOfTheVoidRecipe.class);
+    public static final RecipeType<RunicWorkbenchRecipe> RUNEWORKING = new RecipeType<>(RuneworkingRecipeCategory.UID, RunicWorkbenchRecipe.class);
+
+    public JEIHandler() {
+        HiddenTagRegistry.blankOutHidingTags();
+    }
 
     public static void addItemsToJei(IRecipeLayoutBuilder iRecipeLayout, RecipeIngredientRole role, int left, int top, boolean vertical, List<? extends IRecipeComponent> components) {
         int slots = components.size();
@@ -67,10 +74,12 @@ public class JEIHandler implements IModPlugin {
         IGuiHelper guiHelper = registry.getJeiHelpers().getGuiHelper();
 
         registry.addRecipeCategories(new SpiritInfusionRecipeCategory(guiHelper),
-                new SpiritTransmutationRecipeCategory(guiHelper),
-                new SpiritFocusingRecipeCategory(guiHelper),
-                new SpiritRiteRecipeCategory(guiHelper),
-                new SpiritRepairRecipeCategory(guiHelper));
+            new SpiritTransmutationRecipeCategory(guiHelper),
+            new SpiritFocusingRecipeCategory(guiHelper),
+            new SpiritRiteRecipeCategory(guiHelper),
+            new SpiritRepairRecipeCategory(guiHelper),
+            new RuneworkingRecipeCategory(guiHelper),
+            new WeepingWellRecipeCategory(guiHelper));
     }
 
     @Override
@@ -91,20 +100,24 @@ public class JEIHandler implements IModPlugin {
             }
 
             registry.addRecipes(TRANSMUTATION, groups.values().stream()
-                    .map(list -> list.stream().filter(it -> !it.output.isEmpty() && !it.ingredient.isEmpty()).collect(Collectors.toList()))
-                    .map(SpiritTransmutationWrapper::new)
-                    .collect(Collectors.toList()));
+                .map(list -> list.stream().filter(it -> !it.output.isEmpty() && !it.ingredient.isEmpty()).collect(Collectors.toList()))
+                .map(SpiritTransmutationWrapper::new)
+                .collect(Collectors.toList()));
             registry.addRecipes(TRANSMUTATION, leftovers.stream()
                 .filter(it -> !it.output.isEmpty() && !it.ingredient.isEmpty())
                 .map(List::of)
-                    .map(SpiritTransmutationWrapper::new)
-                    .collect(Collectors.toList()));
+                .map(SpiritTransmutationWrapper::new)
+                .collect(Collectors.toList()));
 
             registry.addRecipes(FOCUSING, SpiritFocusingRecipe.getRecipes(level).stream()
                 .filter(it -> !it.output.isEmpty()).collect(Collectors.toList()));
             registry.addRecipes(RITES, SpiritRiteRegistry.RITES);
             registry.addRecipes(SPIRIT_REPAIR, SpiritRepairRecipe.getRecipes(level).stream()
                 .filter(it -> !it.inputs.isEmpty()).collect(Collectors.toList()));
+            registry.addRecipes(WEEPING_WELL, FavorOfTheVoidRecipe.getRecipes(level).stream()
+                .filter(it -> !it.output.isEmpty()).collect(Collectors.toList()));
+            registry.addRecipes(RUNEWORKING, RunicWorkbenchRecipe.getRecipes(level).stream()
+                .filter(it -> !it.output.isEmpty()).collect(Collectors.toList()));
             if (FarmersDelightCompat.LOADED) {
                 FarmersDelightCompat.LoadedOnly.addInfo(registry);
             }
@@ -118,6 +131,8 @@ public class JEIHandler implements IModPlugin {
         registry.addRecipeCatalyst(new ItemStack(ItemRegistry.REPAIR_PYLON.get()), SPIRIT_REPAIR);
         registry.addRecipeCatalyst(new ItemStack(ItemRegistry.RUNEWOOD_TOTEM_BASE.get()), RITES);
         registry.addRecipeCatalyst(new ItemStack(ItemRegistry.SOULWOOD_TOTEM_BASE.get()), TRANSMUTATION);
+        registry.addRecipeCatalyst(new ItemStack(ItemRegistry.RUNIC_WORKBENCH.get()), RUNEWORKING);
+        registry.addRecipeCatalyst(new ItemStack(ItemRegistry.VOID_DEPOT.get()), WEEPING_WELL);
     }
 
     private static final Map<RecipeType<?>, HiddenRecipeSet<?>> hiddenRecipeSets = new HashMap<>();
@@ -130,6 +145,8 @@ public class JEIHandler implements IModPlugin {
         IIngredientManager ingredientManager = jeiRuntime.getIngredientManager();
         IJeiHelpers helpers = jeiRuntime.getJeiHelpers();
         IFocusFactory focusFactory = helpers.getFocusFactory();
+
+        HiddenTagRegistry.rebuildHidingTags();
 
         callbacks.add(HiddenTagHandler.registerHiddenItemListener(() -> {
             var output = HiddenTagHandler.tagsToHide();

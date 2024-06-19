@@ -136,7 +136,6 @@ public class ItemRegistry {
     }
 
     public static final RegistryObject<Item> ENCYCLOPEDIA_ARCANA = register("encyclopedia_arcana", GEAR_PROPERTIES().rarity(UNCOMMON), EncyclopediaArcanaItem::new);
-    public static final RegistryObject<Item> ENCYCLOPEDIA_ESOTERICA = register("encyclopedia_esoterica", HIDDEN_PROPERTIES().rarity(EPIC), EncyclopediaEsotericaItem::new);
 
     public static final RegistryObject<RitualShardItem> RITUAL_SHARD = register("ritual_shard", HIDDEN_PROPERTIES(), RitualShardItem::new);
 
@@ -151,6 +150,8 @@ public class ItemRegistry {
     public static final RegistryObject<SpiritShardItem> INFERNAL_SPIRIT = register("infernal_spirit", DEFAULT_PROPERTIES(), (p) -> new SpiritShardItem(p, SpiritTypeRegistry.INFERNAL_SPIRIT));
     public static final RegistryObject<SpiritShardItem> UMBRAL_SPIRIT = register("umbral_spirit", HIDDEN_PROPERTIES(), (p) -> new UmbralSpiritShardItem(p, SpiritTypeRegistry.UMBRAL_SPIRIT));
     //endregion
+
+    public static final RegistryObject<Item> ENCYCLOPEDIA_ESOTERICA = register("encyclopedia_esoterica", GEAR_PROPERTIES().rarity(EPIC), EncyclopediaEsotericaItem::new);
 
     //region random stuff
     public static final RegistryObject<Item> COPPER_NUGGET = register("copper_nugget", new LodestoneItemProperties(CreativeModeTabs.INGREDIENTS), Item::new);
@@ -443,9 +444,9 @@ public class ItemRegistry {
     //region crafting blocks
     public static final RegistryObject<Item> SPIRIT_ALTAR = register("spirit_altar", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.SPIRIT_ALTAR.get(), p));
     public static final RegistryObject<Item> RUNIC_WORKBENCH = register("runic_workbench", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.RUNIC_WORKBENCH.get(), p));
-    public static final RegistryObject<Item> SPIRIT_JAR = register("spirit_jar", DEFAULT_PROPERTIES(), (p) -> new SpiritJarItem(BlockRegistry.SPIRIT_JAR.get(), p));
     public static final RegistryObject<Item> RUNEWOOD_OBELISK = register("runewood_obelisk", DEFAULT_PROPERTIES(), (p) -> new MultiBlockItem(BlockRegistry.RUNEWOOD_OBELISK.get(), p, RunewoodObeliskBlockEntity.STRUCTURE));
     public static final RegistryObject<Item> BRILLIANT_OBELISK = register("brilliant_obelisk", DEFAULT_PROPERTIES(), (p) -> new MultiBlockItem(BlockRegistry.BRILLIANT_OBELISK.get(), p, BrilliantObeliskBlockEntity.STRUCTURE));
+    public static final RegistryObject<Item> SPIRIT_JAR = register("spirit_jar", DEFAULT_PROPERTIES(), (p) -> new SpiritJarItem(BlockRegistry.SPIRIT_JAR.get(), p));
     public static final RegistryObject<Item> SPIRIT_CRUCIBLE = register("spirit_crucible", DEFAULT_PROPERTIES(), (p) -> new MultiBlockItem(BlockRegistry.SPIRIT_CRUCIBLE.get(), p, SpiritCrucibleCoreBlockEntity.STRUCTURE));
     public static final RegistryObject<Item> SPIRIT_CATALYZER = register("spirit_catalyzer", DEFAULT_PROPERTIES(), (p) -> new MultiBlockItem(BlockRegistry.SPIRIT_CATALYZER.get(), p, SpiritCatalyzerCoreBlockEntity.STRUCTURE));
     public static final RegistryObject<Item> REPAIR_PYLON = register("repair_pylon", DEFAULT_PROPERTIES(), (p) -> new MultiBlockItem(BlockRegistry.REPAIR_PYLON.get(), p, RepairPylonCoreBlockEntity.STRUCTURE));
@@ -458,44 +459,34 @@ public class ItemRegistry {
 
     //region materials
     public static final RegistryObject<Item> BLOCK_OF_ROTTING_ESSENCE = register("block_of_rotting_essence", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BLOCK_OF_ROTTING_ESSENCE.get(), p));
-    public static final RegistryObject<Item> ROTTING_ESSENCE = register("rotting_essence", DEFAULT_PROPERTIES(), (p) -> new Item(p.food((new FoodProperties.Builder()).nutrition(6).saturationMod(0.2F).effect(() -> new MobEffectInstance(MobEffects.HUNGER, 600, 1), 0.95f).build())));
-
     public static final RegistryObject<Item> BLOCK_OF_GRIM_TALC = register("block_of_grim_talc", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BLOCK_OF_GRIM_TALC.get(), p));
-    public static final RegistryObject<Item> GRIM_TALC = register("grim_talc", DEFAULT_PROPERTIES(), Item::new);
-
     public static final RegistryObject<Item> BLOCK_OF_ASTRAL_WEAVE = register("block_of_astral_weave", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BLOCK_OF_ASTRAL_WEAVE.get(), p));
-    public static final RegistryObject<Item> ASTRAL_WEAVE = register("astral_weave", DEFAULT_PROPERTIES(), Item::new);
-
 //    public static final RegistryObject<Item> BLOCK_OF_WARP_FLUX = register("block_of_warp_flux", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BLOCK_OF_WARP_FLUX.get(), p));
-    public static final RegistryObject<Item> WARP_FLUX = register("warp_flux", DEFAULT_PROPERTIES(), Item::new);
-
     public static final RegistryObject<Item> BLOCK_OF_HEX_ASH = register("block_of_hex_ash", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BLOCK_OF_HEX_ASH.get(), p));
-    public static final RegistryObject<Item> HEX_ASH = register("hex_ash", DEFAULT_PROPERTIES(), Item::new);
-
     public static final RegistryObject<Item> BLOCK_OF_LIVING_FLESH = register("block_of_living_flesh", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BLOCK_OF_LIVING_FLESH.get(), p));
-    public static final RegistryObject<Item> LIVING_FLESH = register("living_flesh", DEFAULT_PROPERTIES(), Item::new);
-
     public static final RegistryObject<Item> BLOCK_OF_ALCHEMICAL_CALX = register("block_of_alchemical_calx", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BLOCK_OF_ALCHEMICAL_CALX.get(), p));
-    public static final RegistryObject<Item> ALCHEMICAL_CALX = register("alchemical_calx", DEFAULT_PROPERTIES(), Item::new);
-
 //    public static final RegistryObject<Item> BLOCK_OF_CALCIFIED_BLIGHT = register("block_of_calcified_blight", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BLOCK_OF_CALCIFIED_BLIGHT.get(), p));
-    public static final RegistryObject<Item> CALCIFIED_BLIGHT = register("calcified_blight", DEFAULT_PROPERTIES(), (p) -> new CalcifiedBlightItem(BlockRegistry.CALCIFIED_BLIGHT.get(), p));
-
-    public static final RegistryObject<Item> BLOCK_OF_NULL_SLATE = register("block_of_null_slate", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BLOCK_OF_NULL_SLATE.get(), p));
-    public static final RegistryObject<Item> NULL_SLATE = register("null_slate", DEFAULT_PROPERTIES(), Item::new);
-
-    public static final RegistryObject<Item> BLOCK_OF_VOID_SALTS = register("block_of_void_salts", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BLOCK_OF_VOID_SALTS.get(), p));
-    public static final RegistryObject<Item> VOID_SALTS = register("void_salts", DEFAULT_PROPERTIES(), Item::new);
-
-    public static final RegistryObject<Item> BLOCK_OF_MNEMONIC_FRAGMENT = register("block_of_mnemonic_fragment", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BLOCK_OF_MNEMONIC_FRAGMENT.get(), p));
-    public static final RegistryObject<Item> MNEMONIC_FRAGMENT = register("mnemonic_fragment", DEFAULT_PROPERTIES(), Item::new);
-
-    public static final RegistryObject<Item> AURIC_EMBERS = register("auric_embers", DEFAULT_PROPERTIES(), Item::new);
-    public static final RegistryObject<Item> BLOCK_OF_MALIGNANT_LEAD = register("block_of_malignant_lead", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BLOCK_OF_MALIGNANT_LEAD.get(), p));
-    public static final RegistryObject<Item> MALIGNANT_LEAD = register("malignant_lead", DEFAULT_PROPERTIES().rarity(RARE), Item::new);
-
     public static final RegistryObject<Item> MASS_OF_BLIGHTED_GUNK = register("mass_of_blighted_gunk", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.MASS_OF_BLIGHTED_GUNK.get(), p));
-    public static final RegistryObject<Item> BLIGHTED_GUNK = register("blighted_gunk", DEFAULT_PROPERTIES(), (p) -> new BlightedGunkItem(BlockRegistry.BLIGHTED_GROWTH.get(), BlockRegistry.CLINGING_BLIGHT.get(), p));
+    public static final RegistryObject<Item> BLOCK_OF_NULL_SLATE = register("block_of_null_slate", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BLOCK_OF_NULL_SLATE.get(), p));
+    public static final RegistryObject<Item> BLOCK_OF_VOID_SALTS = register("block_of_void_salts", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BLOCK_OF_VOID_SALTS.get(), p));
+    public static final RegistryObject<Item> BLOCK_OF_MNEMONIC_FRAGMENT = register("block_of_mnemonic_fragment", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BLOCK_OF_MNEMONIC_FRAGMENT.get(), p));
+    public static final RegistryObject<Item> BLOCK_OF_AURIC_EMBERS = register("block_of_auric_embers", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BLOCK_OF_AURIC_EMBERS.get(), p));
+    public static final RegistryObject<Item> BLOCK_OF_MALIGNANT_LEAD = register("block_of_malignant_lead", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BLOCK_OF_MALIGNANT_LEAD.get(), p));
+
+    public static final RegistryObject<Item> ROTTING_ESSENCE = register("rotting_essence", DEFAULT_PROPERTIES(), (p) -> new Item(p.food((new FoodProperties.Builder()).nutrition(6).saturationMod(0.2F).effect(() -> new MobEffectInstance(MobEffects.HUNGER, 600, 1), 0.95f).build())));
+    public static final RegistryObject<Item> GRIM_TALC = register("grim_talc", DEFAULT_PROPERTIES(), Item::new);
+    public static final RegistryObject<Item> ASTRAL_WEAVE = register("astral_weave", DEFAULT_PROPERTIES(), Item::new);
+    public static final RegistryObject<Item> WARP_FLUX = register("warp_flux", DEFAULT_PROPERTIES(), Item::new);
+    public static final RegistryObject<Item> HEX_ASH = register("hex_ash", DEFAULT_PROPERTIES(), Item::new);
+    public static final RegistryObject<Item> LIVING_FLESH = register("living_flesh", DEFAULT_PROPERTIES(), Item::new);
+    public static final RegistryObject<Item> ALCHEMICAL_CALX = register("alchemical_calx", DEFAULT_PROPERTIES(), Item::new);
+    public static final RegistryObject<Item> CALCIFIED_BLIGHT = register("calcified_blight", HIDDEN_PROPERTIES(), (p) -> new CalcifiedBlightItem(BlockRegistry.CALCIFIED_BLIGHT.get(), p));
+    public static final RegistryObject<Item> BLIGHTED_GUNK = register("blighted_gunk", DEFAULT_PROPERTIES(), BlightedGunkItem::new);
+    public static final RegistryObject<Item> NULL_SLATE = register("null_slate", DEFAULT_PROPERTIES(), Item::new);
+    public static final RegistryObject<Item> VOID_SALTS = register("void_salts", DEFAULT_PROPERTIES(), Item::new);
+    public static final RegistryObject<Item> MNEMONIC_FRAGMENT = register("mnemonic_fragment", DEFAULT_PROPERTIES(), Item::new);
+    public static final RegistryObject<Item> AURIC_EMBERS = register("auric_embers", DEFAULT_PROPERTIES(), Item::new);
+    public static final RegistryObject<Item> MALIGNANT_LEAD = register("malignant_lead", DEFAULT_PROPERTIES().rarity(RARE), Item::new);
 
     public static final RegistryObject<Item> SPIRIT_FABRIC = register("spirit_fabric", DEFAULT_PROPERTIES(), Item::new);
     public static final RegistryObject<Item> SPECTRAL_LENS = register("spectral_lens", DEFAULT_PROPERTIES(), Item::new);
@@ -509,19 +500,19 @@ public class ItemRegistry {
     public static final RegistryObject<Item> COMPLETE_DESIGN = register("complete_design", DEFAULT_PROPERTIES(), SimpleFoiledItem::new);
     public static final RegistryObject<Item> FUSED_CONSCIOUSNESS = register("fused_consciousness", DEFAULT_PROPERTIES(), (p) -> new FusedConsciousnessItem(p.rarity(RARE)));
 
+    public static final RegistryObject<Item> BLOCK_OF_SOUL_STAINED_STEEL = register("block_of_soul_stained_steel", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BLOCK_OF_SOUL_STAINED_STEEL.get(), p));
     public static final RegistryObject<Item> SOUL_STAINED_STEEL_INGOT = register("soul_stained_steel_ingot", DEFAULT_PROPERTIES(), Item::new);
     public static final RegistryObject<Item> SOUL_STAINED_STEEL_PLATING = register("soul_stained_steel_plating", DEFAULT_PROPERTIES(), Item::new);
     public static final RegistryObject<Item> SOUL_STAINED_STEEL_NUGGET = register("soul_stained_steel_nugget", DEFAULT_PROPERTIES(), Item::new);
-    public static final RegistryObject<Item> BLOCK_OF_SOUL_STAINED_STEEL = register("block_of_soul_stained_steel", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BLOCK_OF_SOUL_STAINED_STEEL.get(), p));
 
+    public static final RegistryObject<Item> BLOCK_OF_HALLOWED_GOLD = register("block_of_hallowed_gold", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BLOCK_OF_HALLOWED_GOLD.get(), p));
     public static final RegistryObject<Item> HALLOWED_GOLD_INGOT = register("hallowed_gold_ingot", DEFAULT_PROPERTIES(), Item::new);
     public static final RegistryObject<Item> HALLOWED_GOLD_NUGGET = register("hallowed_gold_nugget", DEFAULT_PROPERTIES(), Item::new);
-    public static final RegistryObject<Item> BLOCK_OF_HALLOWED_GOLD = register("block_of_hallowed_gold", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BLOCK_OF_HALLOWED_GOLD.get(), p));
 
+    public static final RegistryObject<Item> BLOCK_OF_MALIGNANT_PEWTER = register("block_of_malignant_pewter", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BLOCK_OF_MALIGNANT_PEWTER.get(), p));
     public static final RegistryObject<Item> MALIGNANT_PEWTER_INGOT = register("malignant_pewter_ingot", DEFAULT_PROPERTIES(), Item::new);
     public static final RegistryObject<Item> MALIGNANT_PEWTER_PLATING = register("malignant_pewter_plating", DEFAULT_PROPERTIES(), Item::new);
     public static final RegistryObject<Item> MALIGNANT_PEWTER_NUGGET = register("malignant_pewter_nugget", DEFAULT_PROPERTIES(), Item::new);
-    public static final RegistryObject<Item> BLOCK_OF_MALIGNANT_PEWTER = register("block_of_malignant_pewter", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BLOCK_OF_MALIGNANT_PEWTER.get(), p));
 
     //region ether
     public static final RegistryObject<Item> ETHER = register("ether", DEFAULT_PROPERTIES(), (p) -> new EtherItem(BlockRegistry.ETHER.get(), p, false));

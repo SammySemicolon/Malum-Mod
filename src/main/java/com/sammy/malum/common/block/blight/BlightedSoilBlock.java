@@ -1,31 +1,26 @@
 package com.sammy.malum.common.block.blight;
 
-import com.sammy.malum.common.item.spirit.SpiritShardItem;
-import com.sammy.malum.common.worldevent.ActiveBlightEvent;
-import com.sammy.malum.common.worldgen.tree.SoulwoodTreeFeature;
-import com.sammy.malum.registry.common.SoundRegistry;
-import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.BonemealableBlock;
-import net.minecraft.world.level.block.state.BlockState;
+import com.sammy.malum.common.item.spirit.*;
+import com.sammy.malum.common.worldevent.*;
+import com.sammy.malum.common.worldgen.tree.*;
+import com.sammy.malum.registry.common.*;
+import net.minecraft.core.*;
+import net.minecraft.server.level.*;
+import net.minecraft.sounds.*;
+import net.minecraft.util.*;
+import net.minecraft.world.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.level.pathfinder.*;
-import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.Shapes;
-import net.minecraft.world.phys.shapes.VoxelShape;
-import team.lodestar.lodestone.systems.worldgen.LodestoneBlockFiller;
+import net.minecraft.world.phys.*;
+import net.minecraft.world.phys.shapes.*;
+import team.lodestar.lodestone.systems.worldgen.*;
+import team.lodestar.lodestone.systems.worldgen.LodestoneBlockFiller.*;
+
+import static com.sammy.malum.common.worldgen.tree.SoulwoodTreeFeature.BLIGHT;
 
 public class BlightedSoilBlock extends Block implements BonemealableBlock {
     protected static final VoxelShape SHAPE = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 14.0D, 16.0D);
@@ -85,7 +80,7 @@ public class BlightedSoilBlock extends Block implements BonemealableBlock {
     public void performBonemeal(ServerLevel pLevel, RandomSource pRandom, BlockPos pPos, BlockState pState) {
         pLevel.playSound(null, pPos, SoundRegistry.MAJOR_BLIGHT_MOTIF.get(), SoundSource.BLOCKS, 0.8f, 0.8f);
         pLevel.playSound(null, pPos, SoundEvents.BONE_MEAL_USE, SoundSource.BLOCKS, 1.2f, 0.8f);
-        LodestoneBlockFiller filler = new LodestoneBlockFiller(false);
+        LodestoneBlockFiller filler = new LodestoneBlockFiller(new LodestoneBlockFillerLayer(BLIGHT));
         SoulwoodTreeFeature.generateBlight(pLevel, filler, pPos, 6);
         ActiveBlightEvent.createBlightVFX(pLevel, filler);
     }

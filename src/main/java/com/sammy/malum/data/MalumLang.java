@@ -133,9 +133,13 @@ public class MalumLang extends LanguageProvider {
         add("malum.gui.augment.type.augment", "Augment");
         add("malum.gui.augment.type.core_augment", "Core Augment");
 
-
         add("malum.gui.rite.type", "Type: ");
+        add("malum.gui.rite.medium", "Polarity: ");
         add("malum.gui.rite.coverage", "Coverage: ");
+        add("malum.gui.rite.effect", "Effect: ");
+
+        add("malum.gui.rite.medium.runewood", "Runewood");
+        add("malum.gui.rite.medium.soulwood", "Soulwood");
 
         addRiteEffectCategory(TotemicRiteEffect.MalumRiteEffectCategory.AURA);
         addRiteEffectCategory(TotemicRiteEffect.MalumRiteEffectCategory.LIVING_ENTITY_EFFECT);
@@ -216,8 +220,6 @@ public class MalumLang extends LanguageProvider {
         add("malum.gui.curio.effect.spirits_gluttony", "Spirit Collection Generates Gluttony");
         add("malum.gui.curio.effect.enchanted_explosions", "Explosions are Enchanted with %s");
         add("malum.gui.curio.effect.explosions_spare_valuables", "Protects Valuable Items from Explosions");
-
-        add("malum.gui.rite_effect", "Effect: ");
 
         addSimpleEntryHeader("chronicles_of_the_void", "Chronicles of the Void", "A magecraft of madness");
         addSimpleEntryHeader("chronicles_of_the_soul", "Chronicles of the Soul", "A magecraft of miracles");
@@ -313,6 +315,10 @@ public class MalumLang extends LanguageProvider {
                 "I now know the arcana have physical properties with meaning. I can use these properties to create a staff, and likely for many more things. But Soulstone and Brilliance... as far as I can tell, for every other base material relevant to the arcana save Runewood I work with, there are either spirit crystals fused within or patterned in the structure.",
                 "The fact that Null Slate is physically identical to Soulstone implies a greater principle. I posit that Soulstone and Brilliance have similar fundamental resonances to the arcana, structures of inherent power at a precision far beyond what I can measure. This implies interaction with the arcane is simply... a quirk of an object's topology? I don't know how I would replicate it myself, but if I can...");
 
+        addSimpleEntryHeader("fragment.void.black_crystal", "Scribbled notes", "Incomprehensible");
+        addPages("fragment.void.black_crystal",
+            italic("You attempt to read the entry, but the text seems to slide off the eyes, escaping from your mind every time you grasp it. What little fragments stick with you form an impression of something besides these materials being cast into the Well..."));
+
         addSimpleEntryHeader("void.black_crystal", "A Black Crystal", "A mistake, or a boon?");
         addPages("void.black_crystal",
                 "Well, I now know what happens when a living being, or at least, a sapient one, enters the Well.",
@@ -320,6 +326,7 @@ public class MalumLang extends LanguageProvider {
                 "I was spat out by what I now know is liquid, much like the items I have thrown in. Further tests with monsters and cattle showed they do " + italic("not") + " get rejected, simply seeming to vanish into the pool, and I see no reason to waste resources to test that exhaustively. Especially with my attention set on what came back out with me.",
                 "As if I had shattered a soul - and considering mine was the only one present, that is a concerning possibility, though all readings of myself I have taken are within tolerances - a black spirit crystal emerged from the Well alongside me, which I collected. Does this herald a ninth arcana? If so, what impulse does it represent? This will need more study.");
 
+        addSimpleEntryHeader("fragment.void.umbral_arcana", "Strange equations", "Assuming an absence of existence...");
         addSimpleEntryHeader("void.umbral_arcana", "Umbral Arcana", "Utter impossibility");
         addPages("void.umbral_arcana",
                 "I do not understand this arcana. What is it? It isn't any of the eight I know, and barely seems like one at all... yet a spirit crystal it remains. It can be contained in jars like the others, shares many of the same properties... But there is one deep and fundamental difference.",
@@ -328,6 +335,7 @@ public class MalumLang extends LanguageProvider {
                 "And yet, despite being a void, it is power. Or perhaps the lack of power creates a pressure differential? I am not certain. Either way, it can be used. Infused, in theory, even, although that is hard to wrap my head around. It acts like matter, but is not. It is power, and the absence of it.",
                 "My research into this arcana must continue. It has to. If anything holds the secrets of achieving the pinnacle of thaumaturgy, it is this paradoxical void. And I will grasp it with both hands.");
 
+        addEntryHeader("fragment.void.inverse_and_hybrid_arcana", "A failed experiment", "An attempt to create something new?");
         addEntryHeader("void.inverse_and_hybrid_arcana", "Inverse and Hybrid Arcana?", "Failed theories");
         addHeadline("void.inverse_and_hybrid_arcana", "Theoretical Arcana");
         addPages("void.inverse_and_hybrid_arcana",
@@ -367,7 +375,7 @@ public class MalumLang extends LanguageProvider {
         addHeadline("void.malignant_stronghold_armor", "The Malignant Stronghold");
         addPages("void.malignant_stronghold_armor",
                 "Malignant Pewter rejects magic, and as such, wearing it might seem an odd choice for a mage. And yet, it is " + italic("because") + " I am a mage that the Stronghold Armor I have made is so potent. It stands as an inverse to the Soulstained Steel armor beneath the Pewter plating - my soul is unwarded, but I am certainly not.",
-                "In unraveling magic, energy still remains. Malignant Pewter merely makes disorderly, and so the magic fills the nearest vessel - the Soulstained Steel beneath. By suffusing the metal, it becomes harder, more resilient, strengthening your defense even as it blunts your magical capabilities.");
+                "In unraveling magic, energy still remains. While worn, the armor will react to that energy, growing stronger alongside it. Any strictly defensive or offensive magical attribute to be inscribed upon my soul is instead absorbed by the metal, granting armor and magic resistance bonuses. The only unique case I've found is magic proficiency, which the metal absorbs half as much.");
 
         addSimpleEntryHeader("void.weight_of_worlds", "The Weight of Worlds", "Existential burdens externalized");
         addPages("void.weight_of_worlds",
@@ -592,8 +600,8 @@ public class MalumLang extends LanguageProvider {
 
         addSimpleEntryHeader("arcane_restoration", "Arcane Restoration", "Mystic repair");
         addPages("arcane_restoration",
-                "The Spirit Crucible allows the transmutation of matter. I have been able to use it to break down an impetus, and it stands to reason I could use it to restore one. By using spirit crystals in the Crucible instead of Brilliance in an anvil, I can do more than that - I can restore nearly anything.",
-                "Every metal and make of tool or armor requires its own set of spirits to repair, and its own repair material. For an Impetus, the repair material " + italic("is") + " the spirits instead. The repair material must be placed on a Twisted Tablet facing the Crucible. Once the spirits coalesce, the item will be repaired somewhat.",
+                "The Spirit Crucible has an annoying habit of breaking the tools to work with it. While a cost is to be expected, I'd rather pay it in installments. I have designed a device I call the Repair Pylon, intended to shore items up as they break down.",
+                "It works not just on an Impetus, but practically anything at all, as long as it is placed on a nearby item holder, with a combination of spirits and a repair material (iron for iron tools, for instance) placed on the pylon. Unlike an anvil, no experience is needed to fuel this.",
                 "It appears that materials in tune with spirit arcana, such as Soulstained Steel or Hallowed Gold, are more efficient in this process. They will be repaired more than their mundane counterparts would for the same cost.");
 
         addSimpleEntryHeader("crucible_augmentation", "Crucible Augmentation", "Tuning the attuner");
@@ -667,7 +675,7 @@ public class MalumLang extends LanguageProvider {
                 "The trinkets documented within cause effects whenever a spirit crystal is collected, feeding off the excess energy. As an example, this restorative trinket will replenish a small division of my health any time I collect arcana.");
         addHeadline("reactive_trinkets.ring_of_alchemical_mastery", "Ring of Alchemical Mastery");
         addPages("reactive_trinkets.ring_of_alchemical_mastery",
-                "This ring, through alchemical trickery, is able to manipulate the potions running through my blood. Negative effects are filtered out, shortening their duration, while positive effects are maintained for longer than normal. Whenever I collect arcana, the ring momentarily works better.");
+                "This ring, through alchemical trickery, is able to manipulate the potions running through my blood. Whenever I collect arcana, the ring will partially filter out negative effects, while at the same time prolonging positive ones.");
         addHeadline("reactive_trinkets.ring_of_prowess", "Ring of Prowess");
         addPages("reactive_trinkets.ring_of_prowess",
                 "Brilliance is attached to the soul, but isn't an impulse like the arcana. It is accumulated knowledge, and so is not inherently tied to the soul that learned it. Even strikes which pass through the soul harmlessly are capable of dislodging it.",
@@ -846,8 +854,14 @@ public class MalumLang extends LanguageProvider {
                 "Up until now, when performing spirit arcana, I have limited my research to personal enhancement and material production. Now, I affect the world.",
                 "To begin with Totem Magic, I may engrave spirit arcana into Runewood Logs, forming a rune representing the magic. If unwanted, engraved spirits can be stripped off with an axe, but I have uses in mind. With a Runewood Totem Base, and then a specific set of runes in a totem pole placed above my totem base, I can perform a Spirit Rite.",
                 "While each rite does offer a unique function, they follow patterns and categorize easily. For what I term \"aura rites\", they are simple, effect-providing rites that affect anything living within eight blocks of the base. For other rituals which alter beings, most affect anything within half the range of an aura rite.",
-                "For those which alter blocks, most affect the five-by-five area on the level beneath the base, towards where the runes are facing. These rituals can also be made more selective with the use of Item Stands. By placing them on the sides of the rune pillars, you can make the ritual only recognize and alter the types of blocks lying on the stands.",
+                "For those which alter blocks, most affect the five-by-five area on the level beneath the base, towards where the runes are facing.",
                 "One caveat is that no rite's totem may function within the range of another, identical ritual. If you try, the first one will simply fizzle out, the energies coursing through it disrupted.");
+
+        addSimpleEntryHeader("managing_totems", "Totem Resonance", "Insight into the rites");
+        addPages("managing_totems",
+                "Totem rites are both complicated and simple, in their own ways. A simple, bounded effect, but dependent on the flow of arcana - and it can be difficult to discern their range.",
+                "I have created a staff to act as a tuning fork of sorts for the energies of rites. Simply holding it resonates with the flow of arcana through the world, allowing me to visualize the area each totem can affect.",
+                "Interestingly, the staff also allows me to 'tune' a rune into an active state by interacting with it, even if it's not on a totem. This is as far as I can tell purely visual, but if nothing else, it will make good decoration.");
 
         addSimpleEntryHeader("arcane_rite", "A Rite Unchained", "Creation uncontrolled");
         addPages("arcane_rite.description",
@@ -1012,7 +1026,7 @@ public class MalumLang extends LanguageProvider {
 
         addSimpleEntryHeader("belt_of_the_magebane", "Belt of the Magebane", "Newfound ruin");
         addPages("belt_of_the_magebane", "The Belt of the Magebane is a simple innovation, but a dangerously effective one. Normally, after being struck by any attack, soul ward will not recover until a long moment after. That moment of downtime has proven itself detrimental far too frequently. But that ends now.",
-                "While worn, the belt provides a substantial bonus to soul ward recovery rate, while also improving capacity slightly. Furthermore, the belt will absorb the arcane essence of any instance of magical damage that strikes its bearer, converting that repurposed energy into immediate recovery of my wards.");
+                "While worn, the belt provides a substantial bonus to soul ward recovery rate, while also improving capacity slightly. Furthermore, the belt will absorb the arcane essence of any instance of magical damage that strikes its bearer, converting that repurposed energy into immediate recovery of soul ward.");
 
         addSimpleEntryHeader("the_device", "The Device.", "microwave to recharge");
         addPage("the_device", "even works while bended");
@@ -1034,6 +1048,8 @@ public class MalumLang extends LanguageProvider {
         add("malum.jei.spirit_focusing", "Spirit Focusing");
         add("malum.jei.spirit_repair", "Spirit Repair");
         add("malum.jei.spirit_rite", "Spirit Rites");
+        add("malum.jei.runeworking", "Runeworking");
+        add("malum.jei.weeping_well", "The Weeping Well");
         add("malum.jei.spirit_transmutation", "The Unchained Rite");
 
         add("itemGroup.malum_basis_of_magic", "Malum: Basis of Magic");
