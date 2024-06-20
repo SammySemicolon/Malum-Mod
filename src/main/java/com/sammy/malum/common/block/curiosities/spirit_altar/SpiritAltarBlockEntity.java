@@ -221,6 +221,7 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
             recipe = possibleRecipes.entrySet().stream().max(Map.Entry.comparingByValue()).map(Map.Entry::getKey).orElse(null);
         } else {
             recipe = null;
+            possibleRecipes.clear();
         }
 
         if (hadRecipe && recipe == null && level != null) {
@@ -237,7 +238,10 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
                 spiritYLevel++;
             }
             isCrafting = true;
-            progress++;
+            int progressCap = (int) (300 / speed);
+            if (progress < progressCap) {
+                progress++;
+            }
             if (!level.isClientSide) {
                 if (level.getGameTime() % 20L == 0) {
                     boolean canAccelerate = accelerators.stream().allMatch(IAltarAccelerator::canAccelerate);
@@ -245,7 +249,6 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
                         recalibrateAccelerators();
                     }
                 }
-                int progressCap = (int) (300 / speed);
                 if (progress >= progressCap) {
                     boolean success = consume();
                     if (success) {
@@ -258,9 +261,8 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
                 progress = 0;
             }
             isCrafting = false;
-            progress++;
             if (spiritYLevel > 0) {
-                this.spiritYLevel = Math.max(spiritYLevel - 0.8f, 0);
+                spiritYLevel = Math.max(spiritYLevel - 0.8f, 0);
             }
 
             int progressCap = (int) (300 / speed);
@@ -292,7 +294,6 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
         IngredientWithCount nextIngredient = AltarCraftingHelper.getNextIngredientToTake(recipe, extrasInventory);
         if (nextIngredient != null) {
             for (IMalumSpecialItemAccessPoint provider : pedestalItems) {
-                progress *= 0.8f;
 
                 LodestoneBlockEntityInventory inventoryForAltar = provider.getSuppliedInventory();
                 ItemStack providedStack = inventoryForAltar.extractItem(0, nextIngredient.count, true);
@@ -306,10 +307,12 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
                     break;
                 }
             }
-
+            progress *= 0.8f;
+            if (extrasInventory.isEmpty()) {
+                return false;
+            }
             return AltarCraftingHelper.extractIngredient(extrasInventory, nextIngredient.ingredient, nextIngredient.count, true).isEmpty();
         }
-
         return true;
     }
 
