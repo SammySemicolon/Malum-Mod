@@ -119,7 +119,7 @@ public class JEIHandler implements IModPlugin {
             registry.addRecipes(RUNEWORKING, RunicWorkbenchRecipe.getRecipes(level).stream()
                 .filter(it -> !it.output.isEmpty()).collect(Collectors.toList()));
             if (FarmersDelightCompat.LOADED) {
-                FarmersDelightCompat.LoadedOnly.addInfo(registry);
+                FarmersDelightCompat.AndJeiLoadedOnly.addInfo(registry);
             }
         }
     }

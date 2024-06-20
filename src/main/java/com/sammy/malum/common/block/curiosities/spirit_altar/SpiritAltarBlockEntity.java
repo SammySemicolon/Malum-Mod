@@ -53,6 +53,7 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
 
     public float speed = 1f;
     public int progress;
+    public int idleProgress;
     public float spiritYLevel;
 
     public List<BlockPos> acceleratorPositions = new ArrayList<>();
@@ -121,23 +122,14 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
 
     @Override
     protected void saveAdditional(CompoundTag compound) {
-        if (progress != 0) {
-            compound.putInt("progress", progress);
-        }
-        if (spiritYLevel != 0) {
-            compound.putFloat("spiritYLevel", spiritYLevel);
-        }
-        if (speed != 0) {
-            compound.putFloat("speed", speed);
-        }
-        if (spiritAmount != 0) {
-            compound.putFloat("spiritAmount", spiritAmount);
-        }
-        if (!acceleratorPositions.isEmpty()) {
-            compound.putInt("acceleratorAmount", acceleratorPositions.size());
-            for (int i = 0; i < acceleratorPositions.size(); i++) {
-                BlockHelper.saveBlockPos(compound, acceleratorPositions.get(i), "" + i);
-            }
+        compound.putInt("progress", progress);
+        compound.putInt("idleProgress", idleProgress);
+        compound.putFloat("spiritYLevel", spiritYLevel);
+        compound.putFloat("speed", speed);
+        compound.putFloat("spiritAmount", spiritAmount);
+        compound.putInt("acceleratorAmount", acceleratorPositions.size());
+        for (int i = 0; i < acceleratorPositions.size(); i++) {
+            BlockHelper.saveBlockPos(compound, acceleratorPositions.get(i), "" + i);
         }
 
         inventory.save(compound);
@@ -148,6 +140,7 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
     @Override
     public void load(CompoundTag compound) {
         progress = compound.getInt("progress");
+        idleProgress = compound.getInt("idleProgress");
         spiritYLevel = compound.getFloat("spiritYLevel");
         speed = compound.getFloat("speed");
         spiritAmount = compound.getFloat("spiritAmount");
@@ -238,10 +231,10 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
                 spiritYLevel++;
             }
             isCrafting = true;
-            int progressCap = (int) (300 / speed);
-            if (progress < progressCap) {
-                progress++;
-            }
+
+            idleProgress = 0;
+            progress++;
+
             if (!level.isClientSide) {
                 if (level.getGameTime() % 20L == 0) {
                     boolean canAccelerate = accelerators.stream().allMatch(IAltarAccelerator::canAccelerate);
@@ -249,6 +242,7 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
                         recalibrateAccelerators();
                     }
                 }
+                int progressCap = (int) (300 / speed);
                 if (progress >= progressCap) {
                     boolean success = consume();
                     if (success) {
@@ -257,18 +251,19 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
                 }
             }
         } else {
-            if (isCrafting) {
-                progress = 0;
-            }
             isCrafting = false;
+
+            progress = 0;
+            idleProgress++;
+
             if (spiritYLevel > 0) {
                 spiritYLevel = Math.max(spiritYLevel - 0.8f, 0);
             }
 
             int progressCap = (int) (300 / speed);
-            if (progress >= progressCap) {
+            if (idleProgress >= progressCap) {
                 recalculateRecipes();
-                progress = 0;
+                idleProgress = 0;
             }
         }
         if (level.isClientSide) {
