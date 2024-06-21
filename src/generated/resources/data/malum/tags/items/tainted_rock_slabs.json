@@ -1,4 +1,5 @@
 {
+  "replace": false,
   "values": [
     "malum:tainted_rock_slab",
     "malum:smooth_tainted_rock_slab",

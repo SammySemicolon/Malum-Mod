@@ -1,6 +1,9 @@
 {
   "replace": false,
   "values": [
+    "malum:vertical_rustic_soulwood_planks_slab",
+    "malum:soulwood_tiles_slab",
+    "malum:rustic_soulwood_tiles_slab",
     "malum:soulwood_boards_stairs",
     "malum:vertical_soulwood_boards_stairs",
     "malum:soulwood_planks_stairs",
