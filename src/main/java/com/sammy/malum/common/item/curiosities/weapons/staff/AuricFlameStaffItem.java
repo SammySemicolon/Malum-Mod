@@ -59,7 +59,7 @@ public class AuricFlameStaffItem extends AbstractStaffItem {
         final float ceil = (float) Math.ceil(count / 2f);
         float spread = count > 0 ? ceil * 0.05f * (count % 2L == 0 ? 1 : -1) : 0f;
         float pitchOffset = count > 0 ? 4f + (2f - ceil * 4f) : -2.5f;
-        int spawnDelay = count * 2;
+        int spawnDelay = 1 + count * 2;
         float velocity = 2f;
         float magicDamage = (float) player.getAttributes().getValue(LodestoneAttributeRegistry.MAGIC_DAMAGE.get()) - 2;
         Vec3 pos = getProjectileSpawnPos(player, hand, 0.5f, 0.5f);

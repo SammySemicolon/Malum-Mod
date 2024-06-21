@@ -466,30 +466,30 @@ public class BlockRegistry {
                 }
                 return -1;
             }, ETHER.get(), IRIDESCENT_ETHER.get());
-
+            var colorProperty = MalumLeavesBlock.COLOR;
             ColorProviderRegistry.BLOCK.register((blockState, blockAndTintGetter, blockPos, i) -> {
-                float colorMax = MalumLeavesBlock.COLOR.getPossibleValues().size();
-                float color = blockState.getValue(MalumLeavesBlock.COLOR);
+                float colorMax = colorProperty.getPossibleValues().size();
+                float color = blockState.getValue(colorProperty);
                 float pct = (colorMax - (color / colorMax));
                 float value = Easing.SINE_IN_OUT.ease(pct, 0, 1, 1);
-                MalumLeavesBlock malumLeavesBlock = (MalumLeavesBlock) blockState.getBlock();
-                int red = (int) Mth.lerp(value, malumLeavesBlock.minColor.getRed(), malumLeavesBlock.maxColor.getRed());
-                int green = (int) Mth.lerp(value, malumLeavesBlock.minColor.getGreen(), malumLeavesBlock.maxColor.getGreen());
-                int blue = (int) Mth.lerp(value, malumLeavesBlock.minColor.getBlue(), malumLeavesBlock.maxColor.getBlue());
+                var leaves = (iGradientedLeavesBlock) blockState.getBlock();
+                int red = (int) Mth.lerp(value, leaves.getMinColor().getRed(), leaves.getMaxColor().getRed());
+                int green = (int) Mth.lerp(value, leaves.getMinColor().getGreen(), leaves.getMaxColor().getGreen());
+                int blue = (int) Mth.lerp(value, leaves.getMinColor().getBlue(), leaves.getMaxColor().getBlue());
                 return red << 16 | green << 8 | blue;
             }, RUNEWOOD_LEAVES.get(), HANGING_RUNEWOOD_LEAVES.get(), AZURE_RUNEWOOD_LEAVES.get(), HANGING_AZURE_RUNEWOOD_LEAVES.get());
 
             ColorProviderRegistry.BLOCK.register((blockState, blockAndTintGetter, blockPos, i) -> {
                 float distanceMax = MalumLeavesBlock.DISTANCE.getPossibleValues().size();
-                float distance = blockState.getValue(MalumLeavesBlock.DISTANCE);
-                float colorMax = MalumLeavesBlock.COLOR.getPossibleValues().size();
-                float color = blockState.getValue(MalumLeavesBlock.COLOR);
+                float distance = blockState.getBlock() instanceof MalumLeavesBlock ? s.getValue(MalumLeavesBlock.DISTANCE) : distanceMax;
+                float colorMax = colorProperty.getPossibleValues().size();
+                float color = blockState.getValue(colorProperty);
                 float pct = Math.max((distanceMax - distance) / distanceMax, color / colorMax);
                 float value = Easing.SINE_IN_OUT.ease(pct, 0, 1, 1);
-                MalumLeavesBlock malumLeavesBlock = (MalumLeavesBlock) blockState.getBlock();
-                int red = (int) Mth.lerp(value, malumLeavesBlock.minColor.getRed(), malumLeavesBlock.maxColor.getRed());
-                int green = (int) Mth.lerp(value, malumLeavesBlock.minColor.getGreen(), malumLeavesBlock.maxColor.getGreen());
-                int blue = (int) Mth.lerp(value, malumLeavesBlock.minColor.getBlue(), malumLeavesBlock.maxColor.getBlue());
+                var leaves = (iGradientedLeavesBlock) s.getBlock();
+                int red = (int) Mth.lerp(value, leaves.getMinColor().getRed(), leaves.getMaxColor().getRed());
+                int green = (int) Mth.lerp(value, leaves.getMinColor().getGreen(), leaves.getMaxColor().getGreen());
+                int blue = (int) Mth.lerp(value, leaves.getMinColor().getBlue(), leaves.getMaxColor().getBlue());
                 return red << 16 | green << 8 | blue;
             }, SOULWOOD_LEAVES.get(), BUDDING_SOULWOOD_LEAVES.get(), HANGING_SOULWOOD_LEAVES.get());
         }

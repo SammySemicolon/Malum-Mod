@@ -31,7 +31,7 @@ public class SoulwoodLogBlock extends MalumLogBLock {
             if (!simulate) {
                 context.getLevel().playSound(null, context.getClickedPos(), SoundRegistry.MAJOR_BLIGHT_MOTIF.get(), SoundSource.BLOCKS, 1, 1);
             }
-            return stripped.get().defaultBlockState();
+            return stripped.get().defaultBlockState().setValue(AXIS, state.getValue(AXIS));
         }
         return null;
     }

@@ -103,14 +103,14 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
         );
 
         addEntry("the_device", 0, -10, b -> b
-                .setWidgetSupplier(VanishingEntryObject::new)
-                .configureWidget(w -> w.setIcon(THE_DEVICE).setStyle(BookWidgetStyle.WITHERED)) // todo: judge if withered frame and tooltip disabling is good
-                .disableTooltip()
-                .addPage(new HeadlineTextPage("the_device", "the_device"))
-                .addPage(new CraftingPage(THE_DEVICE.get(),
-                        TWISTED_ROCK.get(), TAINTED_ROCK.get(), TWISTED_ROCK.get(),
-                        TAINTED_ROCK.get(), TWISTED_ROCK.get(), TAINTED_ROCK.get(),
-                        TWISTED_ROCK.get(), TAINTED_ROCK.get(), TWISTED_ROCK.get()))
+            .setWidgetSupplier(VanishingEntryObject::new)
+            .configureWidget(w -> w.setIcon(THE_DEVICE).setStyle(BookWidgetStyle.WITHERED))
+            .disableTooltip()
+            .addPage(new HeadlineTextPage("the_device", "the_device"))
+            .addPage(new CraftingPage(THE_DEVICE.get(),
+                TWISTED_ROCK.get(), TAINTED_ROCK.get(), TWISTED_ROCK.get(),
+                TAINTED_ROCK.get(), TWISTED_ROCK.get(), TAINTED_ROCK.get(),
+                TWISTED_ROCK.get(), TAINTED_ROCK.get(), TWISTED_ROCK.get()))
         );
     }
 }

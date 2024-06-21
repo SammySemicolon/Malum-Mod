@@ -173,25 +173,25 @@ public class VoidProgressionScreen extends AbstractProgressionCodexScreen {
         );
 
         addEntry("void.umbral_arcana", -1, 6, b -> b
-                .withEmptyFragmentEntry()
-                .configureWidget(w -> w.setStyle(BookWidgetStyle.DARK_SOULWOOD))
-                .setWidgetSupplier((e, x, y) -> new IconObject(e, x, y, malumPath("textures/gui/book/icons/umbral_shard.png")))
-                .addPage(new HeadlineTextPage("void.umbral_arcana", "void.umbral_arcana.1"))
-                .addPage(new TextPage("void.umbral_arcana.2"))
-                .addPage(new TextPage("void.umbral_arcana.3"))
-                .addPage(new TextPage("void.umbral_arcana.4"))
-                .addPage(new TextPage("void.umbral_arcana.5"))
-                .afterUmbralCrystal()
+            .withEmptyFragmentEntry(BookWidgetStyle.WITHERED)
+            .configureWidget(w -> w.setStyle(BookWidgetStyle.DARK_SOULWOOD))
+            .setWidgetSupplier((e, x, y) -> new IconObject(e, x, y, malumPath("textures/gui/book/icons/umbral_shard.png")))
+            .addPage(new HeadlineTextPage("void.umbral_arcana", "void.umbral_arcana.1"))
+            .addPage(new TextPage("void.umbral_arcana.2"))
+            .addPage(new TextPage("void.umbral_arcana.3"))
+            .addPage(new TextPage("void.umbral_arcana.4"))
+            .addPage(new TextPage("void.umbral_arcana.5"))
+            .afterUmbralCrystal()
         );
 
         addEntry("void.inverse_and_hybrid_arcana", 0, 7, b -> b
-                .withEmptyFragmentEntry()
-                .configureWidget(w -> w.setStyle(BookWidgetStyle.DARK_SOULWOOD))
-                .setWidgetSupplier((e, x, y) -> new IconObject(e, x, y, malumPath("textures/gui/book/icons/umbral_shard.png")))
-                .addPage(new HeadlineTextPage("void.inverse_and_hybrid_arcana", "void.inverse_and_hybrid_arcana.1"))
-                .addPage(new TextPage("void.inverse_and_hybrid_arcana.2"))
-                .addPage(new TextPage("void.inverse_and_hybrid_arcana.3"))
-                .afterUmbralCrystal()
+            .withEmptyFragmentEntry(BookWidgetStyle.SMALL_WITHERED)
+            .configureWidget(w -> w.setStyle(BookWidgetStyle.DARK_SOULWOOD))
+            .setWidgetSupplier((e, x, y) -> new IconObject(e, x, y, malumPath("textures/gui/book/icons/umbral_shard.png")))
+            .addPage(new HeadlineTextPage("void.inverse_and_hybrid_arcana", "void.inverse_and_hybrid_arcana.1"))
+            .addPage(new TextPage("void.inverse_and_hybrid_arcana.2"))
+            .addPage(new TextPage("void.inverse_and_hybrid_arcana.3"))
+            .afterUmbralCrystal()
         );
 
         addEntry("void.material_study_arcana", 1, 8, b -> b

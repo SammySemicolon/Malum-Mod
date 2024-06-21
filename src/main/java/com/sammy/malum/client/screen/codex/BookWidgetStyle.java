@@ -52,32 +52,29 @@ public record BookWidgetStyle(ResourceLocation frameTexture, ResourceLocation fi
     //TODO: clean this up :sob:
 
     public static final BookWidgetStyle WITHERED = new BookWidgetStyle(WITHERED_FRAME, DARK_FILLINGS, WidgetDesignType.DEFAULT);
+    public static final BookWidgetStyle SMALL_WITHERED = new BookWidgetStyle(WITHERED_FRAME, DARK_FILLINGS, WidgetDesignType.SMALL);
     public static final BookWidgetStyle FRAMELESS = new BookWidgetStyle(EMPTY_FRAME, DARK_FILLINGS, WidgetDesignType.DEFAULT);
 
     public static final BookWidgetStyle RUNEWOOD = new BookWidgetStyle(RUNEWOOD_FRAMES, PAPER_FILLINGS, WidgetDesignType.DEFAULT);
     public static final BookWidgetStyle TOTEMIC_RUNEWOOD = new BookWidgetStyle(RUNEWOOD_FRAMES, PAPER_FILLINGS, WidgetDesignType.TOTEMIC);
-    public static final BookWidgetStyle RESEARCH_RUNEWOOD = new BookWidgetStyle(RUNEWOOD_FRAMES, PAPER_FILLINGS, WidgetDesignType.RESEARCH);
     public static final BookWidgetStyle GILDED_RUNEWOOD = new BookWidgetStyle(RUNEWOOD_FRAMES, PAPER_FILLINGS, WidgetDesignType.GILDED);
     public static final BookWidgetStyle SMALL_RUNEWOOD = new BookWidgetStyle(RUNEWOOD_FRAMES, PAPER_FILLINGS, WidgetDesignType.SMALL);
     public static final BookWidgetStyle GRAND_RUNEWOOD = new BookWidgetStyle(RUNEWOOD_FRAMES, PAPER_FILLINGS, WidgetDesignType.GRAND);
 
     public static final BookWidgetStyle DARK_RUNEWOOD = new BookWidgetStyle(RUNEWOOD_FRAMES, DARK_FILLINGS, WidgetDesignType.DEFAULT);
     public static final BookWidgetStyle DARK_TOTEMIC_RUNEWOOD = new BookWidgetStyle(RUNEWOOD_FRAMES, DARK_FILLINGS, WidgetDesignType.TOTEMIC);
-    public static final BookWidgetStyle DARK_RESEARCH_RUNEWOOD = new BookWidgetStyle(RUNEWOOD_FRAMES, DARK_FILLINGS, WidgetDesignType.RESEARCH);
     public static final BookWidgetStyle DARK_GILDED_RUNEWOOD = new BookWidgetStyle(RUNEWOOD_FRAMES, DARK_FILLINGS, WidgetDesignType.GILDED);
     public static final BookWidgetStyle DARK_SMALL_RUNEWOOD = new BookWidgetStyle(RUNEWOOD_FRAMES, DARK_FILLINGS, WidgetDesignType.SMALL);
     public static final BookWidgetStyle DARK_GRAND_RUNEWOOD = new BookWidgetStyle(RUNEWOOD_FRAMES, DARK_FILLINGS, WidgetDesignType.GRAND);
 
     public static final BookWidgetStyle SOULWOOD = new BookWidgetStyle(SOULWOOD_FRAMES, PAPER_FILLINGS, WidgetDesignType.DEFAULT);
     public static final BookWidgetStyle TOTEMIC_SOULWOOD = new BookWidgetStyle(SOULWOOD_FRAMES, PAPER_FILLINGS, WidgetDesignType.TOTEMIC);
-    public static final BookWidgetStyle RESEARCH_SOULWOOD = new BookWidgetStyle(SOULWOOD_FRAMES, PAPER_FILLINGS, WidgetDesignType.RESEARCH);
     public static final BookWidgetStyle GILDED_SOULWOOD = new BookWidgetStyle(SOULWOOD_FRAMES, PAPER_FILLINGS, WidgetDesignType.GILDED);
     public static final BookWidgetStyle SMALL_SOULWOOD = new BookWidgetStyle(SOULWOOD_FRAMES, PAPER_FILLINGS, WidgetDesignType.SMALL);
     public static final BookWidgetStyle GRAND_SOULWOOD = new BookWidgetStyle(SOULWOOD_FRAMES, PAPER_FILLINGS, WidgetDesignType.GRAND);
 
     public static final BookWidgetStyle DARK_SOULWOOD = new BookWidgetStyle(SOULWOOD_FRAMES, DARK_FILLINGS, WidgetDesignType.DEFAULT);
     public static final BookWidgetStyle DARK_TOTEMIC_SOULWOOD = new BookWidgetStyle(SOULWOOD_FRAMES, DARK_FILLINGS, WidgetDesignType.TOTEMIC);
-    public static final BookWidgetStyle DARK_RESEARCH_SOULWOOD = new BookWidgetStyle(SOULWOOD_FRAMES, DARK_FILLINGS, WidgetDesignType.RESEARCH);
     public static final BookWidgetStyle DARK_GILDED_SOULWOOD = new BookWidgetStyle(SOULWOOD_FRAMES, DARK_FILLINGS, WidgetDesignType.GILDED);
     public static final BookWidgetStyle DARK_SMALL_SOULWOOD = new BookWidgetStyle(SOULWOOD_FRAMES, DARK_FILLINGS, WidgetDesignType.SMALL);
     public static final BookWidgetStyle DARK_GRAND_SOULWOOD = new BookWidgetStyle(SOULWOOD_FRAMES, DARK_FILLINGS, WidgetDesignType.GRAND);

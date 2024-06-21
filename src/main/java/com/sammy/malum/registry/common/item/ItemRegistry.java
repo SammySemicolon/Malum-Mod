@@ -7,6 +7,7 @@ import com.sammy.malum.common.block.curiosities.repair_pylon.RepairPylonCoreBloc
 import com.sammy.malum.common.block.curiosities.spirit_crucible.SpiritCrucibleCoreBlockEntity;
 import com.sammy.malum.common.block.curiosities.spirit_crucible.catalyzer.SpiritCatalyzerCoreBlockEntity;
 import com.sammy.malum.common.block.nature.MalumLeavesBlock;
+import com.sammy.malum.common.block.nature.iGradientedLeavesBlock;
 import com.sammy.malum.common.item.augment.*;
 import com.sammy.malum.common.item.augment.core.StellarMechanismItem;
 import com.sammy.malum.common.item.codex.EncyclopediaArcanaItem;
@@ -82,6 +83,7 @@ import io.github.fabricators_of_create.porting_lib.util.LazyRegistrar;
 import io.github.fabricators_of_create.porting_lib.util.RegistryObject;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
+import net.minecraft.client.color.item.ItemColors;
 import net.minecraft.client.renderer.item.ClampedItemPropertyFunction;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -828,11 +830,13 @@ public class ItemRegistry {
         }
 
         public static void setItemColors() {
+            ItemColors itemColors = event.getItemColors();
+
             Set<RegistryObject<Item>> items = new HashSet<>(ITEMS.getEntries());
 
-            DataHelper.takeAll(items, i -> i.get() instanceof BlockItem blockItem && blockItem.getBlock() instanceof MalumLeavesBlock).forEach(item -> {
-                MalumLeavesBlock malumLeavesBlock = (MalumLeavesBlock) ((BlockItem) item.get()).getBlock();
-                ColorProviderRegistry.ITEM.register((s, c) -> ColorHelper.getColor(malumLeavesBlock.maxColor), item.get());
+            DataHelper.takeAll(items, i -> i.get() instanceof BlockItem blockItem && blockItem.getBlock() instanceof iGradientedLeavesBlock).forEach(item -> {
+                iGradientedLeavesBlock malumLeavesBlock = (iGradientedLeavesBlock) ((BlockItem) item.get()).getBlock();
+                itemColors.register((s, c) -> ColorHelper.getColor(malumLeavesBlock.getMaxColor()), item.get());
             });
             DataHelper.takeAll(items, i -> i.get() instanceof EtherTorchItem || i.get() instanceof EtherBrazierItem).forEach(i -> ColorProviderRegistry.ITEM.register((s, c) -> {
                 AbstractEtherItem etherItem = (AbstractEtherItem) s.getItem();

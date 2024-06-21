@@ -17,13 +17,27 @@ import java.awt.*;
 public class MalumHangingLeavesBlock extends MalumLeavesBlock {
     protected static final VoxelShape SHAPE = Block.box(3.0D, 3.0D, 3.0D, 13.0D, 16.0D, 13.0D);
 
+    public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+    public static final IntegerProperty COLOR = MalumLeavesBlock.COLOR;
+
+    public final Color maxColor;
+    public final Color minColor;
+
     public MalumHangingLeavesBlock(Properties properties, Color maxColor, Color minColor) {
-        super(properties, maxColor, minColor);
+        super(properties);
+        this.maxColor = maxColor;
+        this.minColor = minColor;
+        registerDefaultState(defaultBlockState().setValue(COLOR, 0));
     }
 
     @Override
-    protected boolean decaying(BlockState pState) {
-        return false;
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        builder.add(COLOR, WATERLOGGED);
+    }
+
+    @Override
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
+        return super.getStateForPlacement(context).setValue(COLOR, 0);
     }
 
     @Override
@@ -32,19 +46,43 @@ public class MalumHangingLeavesBlock extends MalumLeavesBlock {
             if (pFacingState.hasProperty(DISTANCE) && pFacingState.hasProperty(COLOR)) {
                 final int distance = Math.min(pFacingState.getValue(DISTANCE) + 1, 7);
                 return super.updateShape(pState.setValue(DISTANCE, distance).setValue(COLOR, pFacingState.getValue(COLOR)), pFacing, pFacingState, pLevel, pCurrentPos, pFacingPos);
+            if (pFacingState.hasProperty(COLOR)) {
+                return super.updateShape(pState.setValue(COLOR, pFacingState.getValue(COLOR)), pFacing, pFacingState, pLevel, pCurrentPos, pFacingPos);
             }
         }
         return !pState.canSurvive(pLevel, pCurrentPos) ? Blocks.AIR.defaultBlockState() : super.updateShape(pState, pFacing, pFacingState, pLevel, pCurrentPos, pFacingPos);
     }
 
+
+    @Override
+    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
+        if (player.getItemInHand(handIn).getItem().equals(ItemRegistry.INFERNAL_SPIRIT.get())) {
+            level.setBlockAndUpdate(pos, state.setValue(COLOR, (state.getValue(COLOR) + 1) % 5));
+            player.swing(handIn);
+            player.playSound(SoundEvents.BLAZE_SHOOT, 1F, 1.5f + RANDOM.nextFloat() * 0.5f);
+            return InteractionResult.SUCCESS;
+        }
+        return super.use(state, level, pos, player, handIn, hit);
+    }
+
     @Override
     public boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos) {
-        final Block block = pLevel.getBlockState(pPos.above()).getBlock();
-        return block instanceof MalumLeavesBlock && !block.equals(pState.getBlock());
+        var block = pLevel.getBlockState(pPos.above()).getBlock();
+        return block instanceof LeavesBlock;
     }
 
     @Override
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
         return SHAPE;
+    }
+
+    @Override
+    public Color getMaxColor() {
+        return maxColor;
+    }
+
+    @Override
+    public Color getMinColor() {
+        return minColor;
     }
 }
