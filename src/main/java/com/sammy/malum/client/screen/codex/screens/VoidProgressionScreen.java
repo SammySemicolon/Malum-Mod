@@ -174,7 +174,7 @@ public class VoidProgressionScreen extends AbstractProgressionCodexScreen {
         );
 
         addEntry("void.umbral_arcana", -1, 6, b -> b
-            .withEmptyFragmentEntry()
+            .withEmptyFragmentEntry(BookWidgetStyle.WITHERED)
             .configureWidget(w -> w.setStyle(BookWidgetStyle.DARK_SOULWOOD))
             .setWidgetSupplier((e, x, y) -> new IconObject(e, x, y, malumPath("textures/gui/book/icons/umbral_shard.png")))
             .addPage(new HeadlineTextPage("void.umbral_arcana", "void.umbral_arcana.1"))
@@ -186,7 +186,7 @@ public class VoidProgressionScreen extends AbstractProgressionCodexScreen {
         );
 
         addEntry("void.inverse_and_hybrid_arcana", 0, 7, b -> b
-            .withEmptyFragmentEntry()
+            .withEmptyFragmentEntry(BookWidgetStyle.SMALL_WITHERED)
             .configureWidget(w -> w.setStyle(BookWidgetStyle.DARK_SOULWOOD))
             .setWidgetSupplier((e, x, y) -> new IconObject(e, x, y, malumPath("textures/gui/book/icons/umbral_shard.png")))
             .addPage(new HeadlineTextPage("void.inverse_and_hybrid_arcana", "void.inverse_and_hybrid_arcana.1"))

@@ -20,7 +20,7 @@ import java.awt.*;
 
 import static com.sammy.malum.MalumMod.RANDOM;
 
-public class MalumLeavesBlock extends LeavesBlock implements IForgeBlock {
+public class MalumLeavesBlock extends LeavesBlock implements IForgeBlock, iGradientedLeavesBlock {
 
     public static final IntegerProperty COLOR = IntegerProperty.create("color", 0, 4);
     public final Color maxColor;
@@ -52,5 +52,15 @@ public class MalumLeavesBlock extends LeavesBlock implements IForgeBlock {
             return InteractionResult.SUCCESS;
         }
         return super.use(state, level, pos, player, handIn, hit);
+    }
+
+    @Override
+    public Color getMaxColor() {
+        return maxColor;
+    }
+
+    @Override
+    public Color getMinColor() {
+        return minColor;
     }
 }

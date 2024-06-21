@@ -278,6 +278,7 @@ public class MalumBlockProperties {
     }
     public static LodestoneBlockProperties ETHER_TORCH() {
         return RUNEWOOD()
+                .addTag(BlockTags.WALL_POST_OVERRIDE)
                 .mapColor(MapColor.COLOR_YELLOW)
                 .addTag(BlockTagRegistry.TRAY_HEAT_SOURCES)
                 .noCollission()
@@ -287,6 +288,7 @@ public class MalumBlockProperties {
     }
     public static LodestoneBlockProperties TAINTED_ETHER_BRAZIER() {
         return TAINTED_ROCK()
+                .addTag(BlockTags.WALL_POST_OVERRIDE)
                 .mapColor(MapColor.COLOR_YELLOW)
                 .addTag(BlockTagRegistry.TRAY_HEAT_SOURCES)
                 .setCutoutRenderType()
@@ -294,6 +296,7 @@ public class MalumBlockProperties {
     }
     public static LodestoneBlockProperties TWISTED_ETHER_BRAZIER() {
         return TWISTED_ROCK()
+                .addTag(BlockTags.WALL_POST_OVERRIDE)
                 .mapColor(MapColor.COLOR_YELLOW)
                 .addTag(BlockTagRegistry.TRAY_HEAT_SOURCES)
                 .setCutoutRenderType()

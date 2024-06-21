@@ -43,11 +43,11 @@ public class PlacedBookEntryBuilder extends BookEntryBuilder {
         return this;
     }
 
-    public PlacedBookEntryBuilder withEmptyFragmentEntry() {
+    public PlacedBookEntryBuilder withEmptyFragmentEntry(BookWidgetStyle style) {
         this.fragmentProperties = b -> b
-            .configureWidget(widget -> widget.setStyle(BookWidgetStyle.WITHERED))
-            .styleTitle(style -> style.withColor(ChatFormatting.GRAY))
-            .styleSubtitle(style -> style.withColor(ChatFormatting.DARK_GRAY));
+            .configureWidget(widget -> widget.setStyle(style))
+            .styleTitle(s -> s.withColor(ChatFormatting.GRAY))
+            .styleSubtitle(s -> s.withColor(ChatFormatting.DARK_GRAY));
         return this;
     }
 

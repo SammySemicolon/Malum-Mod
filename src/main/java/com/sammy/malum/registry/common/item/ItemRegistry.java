@@ -808,9 +808,9 @@ public class ItemRegistry {
             ItemColors itemColors = event.getItemColors();
             Set<RegistryObject<Item>> items = new HashSet<>(ITEMS.getEntries());
 
-            DataHelper.takeAll(items, i -> i.get() instanceof BlockItem blockItem && blockItem.getBlock() instanceof MalumLeavesBlock).forEach(item -> {
-                MalumLeavesBlock malumLeavesBlock = (MalumLeavesBlock) ((BlockItem) item.get()).getBlock();
-                itemColors.register((s, c) -> ColorHelper.getColor(malumLeavesBlock.maxColor), item.get());
+            DataHelper.takeAll(items, i -> i.get() instanceof BlockItem blockItem && blockItem.getBlock() instanceof iGradientedLeavesBlock).forEach(item -> {
+                iGradientedLeavesBlock malumLeavesBlock = (iGradientedLeavesBlock) ((BlockItem) item.get()).getBlock();
+                itemColors.register((s, c) -> ColorHelper.getColor(malumLeavesBlock.getMaxColor()), item.get());
             });
             DataHelper.takeAll(items, i -> i.get() instanceof EtherTorchItem || i.get() instanceof EtherBrazierItem).forEach(i -> itemColors.register((s, c) -> {
                 AbstractEtherItem etherItem = (AbstractEtherItem) s.getItem();
