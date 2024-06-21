@@ -481,12 +481,12 @@ public class BlockRegistry {
 
             ColorProviderRegistry.BLOCK.register((blockState, blockAndTintGetter, blockPos, i) -> {
                 float distanceMax = MalumLeavesBlock.DISTANCE.getPossibleValues().size();
-                float distance = blockState.getBlock() instanceof MalumLeavesBlock ? s.getValue(MalumLeavesBlock.DISTANCE) : distanceMax;
+                float distance = blockState.getBlock() instanceof MalumLeavesBlock ? blockState.getValue(MalumLeavesBlock.DISTANCE) : distanceMax;
                 float colorMax = colorProperty.getPossibleValues().size();
                 float color = blockState.getValue(colorProperty);
                 float pct = Math.max((distanceMax - distance) / distanceMax, color / colorMax);
                 float value = Easing.SINE_IN_OUT.ease(pct, 0, 1, 1);
-                var leaves = (iGradientedLeavesBlock) s.getBlock();
+                var leaves = (iGradientedLeavesBlock) blockState.getBlock();
                 int red = (int) Mth.lerp(value, leaves.getMinColor().getRed(), leaves.getMaxColor().getRed());
                 int green = (int) Mth.lerp(value, leaves.getMinColor().getGreen(), leaves.getMaxColor().getGreen());
                 int blue = (int) Mth.lerp(value, leaves.getMinColor().getBlue(), leaves.getMaxColor().getBlue());

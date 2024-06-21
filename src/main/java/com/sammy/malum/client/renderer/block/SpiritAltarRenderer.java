@@ -34,7 +34,7 @@ public class SpiritAltarRenderer implements BlockEntityRenderer<SpiritAltarBlock
                 ItemStack item = inventory.getStackInSlot(i);
                 if (item.getItem() instanceof SpiritShardItem shardItem) {
                     poseStack.pushPose();
-                    Vector3f offset = blockEntityIn.getSpiritItemOffset(spiritsRendered++, partialTicks).toVector3f();
+                    Vector3f offset = blockEntityIn.spiritOffset(spiritsRendered++, partialTicks).toVector3f();
                     poseStack.translate(offset.x(), offset.y(), offset.z());
                     FloatingItemEntityRenderer.renderSpiritGlimmer(poseStack, shardItem.type, partialTicks);
                     poseStack.mulPose(Axis.YP.rotationDegrees(((level.getGameTime() % 360) + partialTicks) * 3));

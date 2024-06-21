@@ -376,6 +376,12 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity implements Cust
         return easing.ease(spiritYLevel / 30f, 0, 1, 1);
     }
 
+    public Vec3 spiritOffset(int slot, float tickDelta) {
+        float distance = 1 - getSpinUp(Easing.SINE_OUT) * 0.25f + (float) Math.sin(spiritSpin / 20f) * 0.025f;
+        float height = 0.75f + getSpinUp(Easing.QUARTIC_OUT) * getSpinUp(Easing.BACK_OUT) * 0.5f;
+        return rotatedCirclePosition(new Vec3(0.5f, height, 0.5f), distance, slot, spiritAmount, (long) spiritSpin, 360, tickDelta);
+    }
+
     public static Vec3 rotatedCirclePosition(Vec3 pos, float distance, float current, float total, long gameTime, float time, float tickDelta) {
         return rotatedCirclePosition(pos, distance, distance, current, total, gameTime, time, tickDelta);
     }
