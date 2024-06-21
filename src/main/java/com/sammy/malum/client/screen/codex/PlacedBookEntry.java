@@ -16,8 +16,8 @@ public class PlacedBookEntry extends BookEntry {
     public PlacedBookEntry(String identifier, boolean isVoid,
                            BookEntryWidgetPlacementData widgetData,
                            ImmutableList<BookPage> bookPages, ImmutableList<EntryReference> entryReferences, BooleanSupplier validityChecker,
-                           UnaryOperator<Style> titleStyle, UnaryOperator<Style> subtitleStyle, boolean tooltipDisabled) {
-        super(identifier, isVoid, bookPages, entryReferences, validityChecker, titleStyle, subtitleStyle, tooltipDisabled);
+                           UnaryOperator<Style> titleStyle, UnaryOperator<Style> subtitleStyle, boolean tooltipDisabled, boolean isFragment) {
+        super(identifier, isVoid, bookPages, entryReferences, validityChecker, titleStyle, subtitleStyle, tooltipDisabled, isFragment);
         this.widgetData = widgetData;
     }
 

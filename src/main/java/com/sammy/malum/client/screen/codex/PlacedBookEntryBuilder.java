@@ -17,6 +17,7 @@ public class PlacedBookEntryBuilder extends BookEntryBuilder {
 
     @Nullable
     protected Consumer<PlacedBookEntryBuilder> fragmentProperties = null;
+    protected boolean isFragment = false;
 
     protected final int xOffset;
     protected final int yOffset;
@@ -64,6 +65,12 @@ public class PlacedBookEntryBuilder extends BookEntryBuilder {
         return this;
     }
 
+    // Should only be invoked internally
+    protected PlacedBookEntryBuilder setFragment(boolean fragmentState) {
+        this.isFragment = fragmentState;
+        return this;
+    }
+
     public boolean hasFragment() {
         return fragmentProperties != null;
     }
@@ -74,6 +81,7 @@ public class PlacedBookEntryBuilder extends BookEntryBuilder {
 
         PlacedBookEntryBuilder builder = new PlacedBookEntryBuilder("fragment." + identifier, isVoid, xOffset, yOffset);
         builder.configureWidget(widgetConfig)
+                .setFragment(true)
                 .setWidgetSupplier(widgetSupplier)
                 .setEntryVisibleWhen(() -> !entryVisibleChecker.getAsBoolean())
                 .styleTitle(style -> style.withItalic(true))
@@ -87,7 +95,7 @@ public class PlacedBookEntryBuilder extends BookEntryBuilder {
         ImmutableList<BookPage> bookPages = ImmutableList.copyOf(pages);
         ImmutableList<EntryReference> entryReferences = ImmutableList.copyOf(references);
         PlacedBookEntry.BookEntryWidgetPlacementData data = new PlacedBookEntry.BookEntryWidgetPlacementData(xOffset * 40, yOffset * 40, widgetSupplier, widgetConfig);
-        PlacedBookEntry bookEntry = new PlacedBookEntry(identifier, isVoid, data, bookPages, entryReferences, entryVisibleChecker, titleStyle, subtitleStyle, tooltipDisabled);
+        PlacedBookEntry bookEntry = new PlacedBookEntry(identifier, isVoid, data, bookPages, entryReferences, entryVisibleChecker, titleStyle, subtitleStyle, tooltipDisabled, isFragment);
         bookPages.forEach(p -> p.setBookEntry(bookEntry));
         return bookEntry;
     }
