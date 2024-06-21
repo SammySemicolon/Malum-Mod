@@ -13,6 +13,7 @@ import com.sammy.malum.visual_effects.SpiritAltarParticleEffects;
 import com.sammy.malum.visual_effects.networked.altar.SpiritAltarEatItemParticleEffect;
 import com.sammy.malum.visual_effects.networked.data.ColorEffectData;
 import com.sammy.malum.visual_effects.networked.data.PositionEffectData;
+import io.github.fabricators_of_create.porting_lib.block.CustomRenderBoundingBoxBlockEntity;
 import io.github.fabricators_of_create.porting_lib.transfer.TransferUtil;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
@@ -29,6 +30,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import team.lodestar.lodestone.helpers.BlockHelper;
@@ -40,7 +42,7 @@ import team.lodestar.lodestone.systems.recipe.IngredientWithCount;
 
 import java.util.*;
 
-public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
+public class SpiritAltarBlockEntity extends LodestoneBlockEntity implements CustomRenderBoundingBoxBlockEntity {
 
     private static final Vec3 ALTAR_ITEM_OFFSET = new Vec3(0.5f, 1.25f, 0.5f);
     public static final int HORIZONTAL_RANGE = 4;

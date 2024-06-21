@@ -5,6 +5,7 @@ import com.sammy.malum.registry.common.item.ItemTagRegistry;
 import io.github.fabricators_of_create.porting_lib.tags.Tags;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeCategory;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ItemLike;
@@ -13,10 +14,11 @@ import java.util.function.Consumer;
 
 import static com.sammy.malum.MalumMod.malumPath;
 import static com.sammy.malum.data.recipe.MalumVanillaRecipes.has;
+import static net.minecraft.data.recipes.RecipeBuilder.getDefaultRecipeId;
 import static net.minecraft.data.recipes.ShapedRecipeBuilder.shaped;
 import static net.minecraft.data.recipes.ShapelessRecipeBuilder.shapeless;
 
-public class MalumWoodenRecipes {
+public class MalumWoodSetRecipes {
 
     public static void buildRecipes(Consumer<FinishedRecipe> consumer) {
         buildRecipes(consumer, new MalumDatagenWoodSet(

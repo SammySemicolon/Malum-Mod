@@ -12,6 +12,7 @@ import com.sammy.malum.visual_effects.RepairPylonParticleEffects;
 import com.sammy.malum.visual_effects.networked.data.ColorEffectData;
 import com.sammy.malum.visual_effects.networked.data.PositionEffectData;
 import com.sammy.malum.visual_effects.networked.pylon.PylonPrepareRepairParticleEffect;
+import io.github.fabricators_of_create.porting_lib.block.CustomRenderBoundingBoxBlockEntity;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -37,7 +38,7 @@ import team.lodestar.lodestone.systems.multiblock.MultiBlockStructure;
 import java.util.Collection;
 import java.util.function.Supplier;
 
-public class RepairPylonCoreBlockEntity extends MultiBlockCoreEntity {
+public class RepairPylonCoreBlockEntity extends MultiBlockCoreEntity implements CustomRenderBoundingBoxBlockEntity {
 
     private static final Vec3 PYLON_ITEM_OFFSET = new Vec3(0.5f, 2.5f, 0.5f);
     private static final int HORIZONTAL_RANGE = 6;

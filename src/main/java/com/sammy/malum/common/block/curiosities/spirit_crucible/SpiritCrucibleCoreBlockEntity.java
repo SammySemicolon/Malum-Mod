@@ -17,6 +17,7 @@ import com.sammy.malum.registry.common.item.ItemRegistry;
 import com.sammy.malum.visual_effects.SpiritCrucibleParticleEffects;
 import com.sammy.malum.visual_effects.networked.data.ColorEffectData;
 import com.sammy.malum.visual_effects.networked.data.PositionEffectData;
+import io.github.fabricators_of_create.porting_lib.block.CustomRenderBoundingBoxBlockEntity;
 import io.github.fabricators_of_create.porting_lib.transfer.TransferUtil;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
@@ -46,7 +47,7 @@ import team.lodestar.lodestone.systems.multiblock.MultiBlockStructure;
 import java.util.List;
 import java.util.function.Supplier;
 
-public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implements ICatalyzerAccelerationTarget, IMalumSpecialItemAccessPoint {
+public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implements ICatalyzerAccelerationTarget, IMalumSpecialItemAccessPoint, CustomRenderBoundingBoxBlockEntity {
 
     private static final Vec3 CRUCIBLE_ITEM_OFFSET = new Vec3(0.5f, 1.6f, 0.5f);
     public static final Supplier<MultiBlockStructure> STRUCTURE = () -> (MultiBlockStructure.of(new MultiBlockStructure.StructurePiece(0, 1, 0, BlockRegistry.SPIRIT_CRUCIBLE_COMPONENT.get().defaultBlockState())));

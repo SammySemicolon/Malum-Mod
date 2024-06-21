@@ -18,6 +18,7 @@ import com.sammy.malum.visual_effects.RitualPlinthParticleEffects;
 import com.sammy.malum.visual_effects.networked.data.ColorEffectData;
 import com.sammy.malum.visual_effects.networked.data.PositionEffectData;
 import com.sammy.malum.visual_effects.networked.ritual.RitualPlinthAbsorbItemParticleEffect;
+import io.github.fabricators_of_create.porting_lib.block.CustomRenderBoundingBoxBlockEntity;
 import io.github.fabricators_of_create.porting_lib.transfer.TransferUtil;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
@@ -50,7 +51,7 @@ import java.util.Map;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
-public class RitualPlinthBlockEntity extends LodestoneBlockEntity {
+public class RitualPlinthBlockEntity extends LodestoneBlockEntity implements CustomRenderBoundingBoxBlockEntity {
 
     private static final Vec3 PLINTH_ITEM_OFFSET = new Vec3(0.5f, 1.375f, 0.5f);
 

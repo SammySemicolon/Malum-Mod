@@ -9,6 +9,7 @@ import com.sammy.malum.visual_effects.RadiantParticleEffects;
 import com.sammy.malum.visual_effects.WeepingWellParticleEffects;
 import com.sammy.malum.visual_effects.networked.ParticleEffectType;
 import com.sammy.malum.visual_effects.networked.data.PositionEffectData;
+import io.github.fabricators_of_create.porting_lib.block.CustomRenderBoundingBoxBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
@@ -27,7 +28,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-public class VoidConduitBlockEntity extends LodestoneBlockEntity {
+public class VoidConduitBlockEntity extends LodestoneBlockEntity implements CustomRenderBoundingBoxBlockEntity {
 
     public final List<ItemStack> eatenItems = new ArrayList<>();
     public int progress;
