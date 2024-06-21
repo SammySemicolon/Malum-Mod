@@ -136,6 +136,15 @@ public class MalumRockSetRecipes {
         runicExchange(consumer, rockSet.smoothRock, rockSet.rock);
         rockExchange(consumer, rockSet.polishedRock, rockSet.smoothRock);
 
+
+        shaped(RecipeCategory.MISC, rockSet.chiseledRock, 1)
+                .define('#', rockSet.polishedRockSlab)
+                .pattern("#")
+                .pattern("#")
+                .unlockedBy("has_input", condition)
+                .save(consumer);
+        stoneCutting(consumer, rockSet.rock, rockSet.chiseledRock);
+
         shaped(RecipeCategory.MISC, rockSet.cutRock, 2)
                 .define('X', rockSet.polishedRock)
                 .define('Y', rockSet.rock)

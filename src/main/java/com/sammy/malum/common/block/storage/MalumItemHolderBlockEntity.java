@@ -52,4 +52,11 @@ public abstract class MalumItemHolderBlockEntity extends ItemHolderBlockEntity i
     }
 
     public abstract Vec3 getItemOffset(float partialTicks);
+
+
+    @Override
+    public AABB getRenderBoundingBox() {
+        var pos = worldPosition;
+        return new AABB(pos.getX() - 1, pos.getY(), pos.getZ() - 1, pos.getX() + 1, pos.getY() + 2, pos.getZ() + 1);
+    }
 }
