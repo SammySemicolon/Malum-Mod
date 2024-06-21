@@ -18,6 +18,8 @@ public class ScreenOpenerObject extends IconObject {
 
     @Override
     public void click(AbstractProgressionCodexScreen screen, double mouseX, double mouseY) {
-        screenOpener.run();
+        if (!entry.isFragment) {
+            screenOpener.run();
+        }
     }
 }

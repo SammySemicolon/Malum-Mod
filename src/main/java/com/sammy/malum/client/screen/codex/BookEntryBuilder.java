@@ -75,7 +75,7 @@ public class BookEntryBuilder {
     public BookEntry build() {
         ImmutableList<BookPage> bookPages = ImmutableList.copyOf(pages);
         ImmutableList<EntryReference> entryReferences = ImmutableList.copyOf(references);
-        BookEntry bookEntry = new BookEntry(identifier, isVoid, bookPages, entryReferences, entryVisibleChecker, titleStyle, subtitleStyle, tooltipDisabled);
+        BookEntry bookEntry = new BookEntry(identifier, isVoid, bookPages, entryReferences, entryVisibleChecker, titleStyle, subtitleStyle, tooltipDisabled, false);
         bookPages.forEach(p -> p.setBookEntry(bookEntry));
         return bookEntry;
     }

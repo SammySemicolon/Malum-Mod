@@ -18,6 +18,8 @@ public class BookEntry {
     public final String identifier;
     public final boolean isVoid;
 
+    public final boolean isFragment;
+
     public final UnaryOperator<Style> titleStyle;
     public final UnaryOperator<Style> subtitleStyle;
 
@@ -28,7 +30,7 @@ public class BookEntry {
 
     public BookEntry(String identifier, boolean isVoid,
                      ImmutableList<BookPage> pages, ImmutableList<EntryReference> references, BooleanSupplier validityChecker,
-                     UnaryOperator<Style> titleStyle, UnaryOperator<Style> subtitleStyle, boolean tooltipDisabled) {
+                     UnaryOperator<Style> titleStyle, UnaryOperator<Style> subtitleStyle, boolean tooltipDisabled, boolean isFragment) {
         this.identifier = identifier;
         this.isVoid = isVoid;
         this.pages = pages;
@@ -37,6 +39,7 @@ public class BookEntry {
         this.titleStyle = titleStyle;
         this.subtitleStyle = subtitleStyle;
         this.tooltipDisabled = tooltipDisabled;
+        this.isFragment = isFragment;
     }
 
     public String translationKey() {
