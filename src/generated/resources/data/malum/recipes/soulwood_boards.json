@@ -8,11 +8,11 @@
   },
   "pattern": [
     " # ",
-    "# #",
+    "###",
     " # "
   ],
   "result": {
-    "count": 16,
+    "count": 20,
     "item": "malum:soulwood_boards"
   },
   "show_notification": true

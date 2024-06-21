@@ -32,9 +32,11 @@ public class EsotericReapingHandler {
         if (CommonConfig.AWARD_CODEX_ON_KILL.getConfigValue()) {
             if (target.getMobType().equals(MobType.UNDEAD) && attacker instanceof Player player) {
                 MalumComponents.MALUM_PLAYER_COMPONENT.maybeGet(player).ifPresent(c -> {
-                    if (!c.obtainedEncyclopedia && player.getRandom().nextFloat() < 0.2f) {
-                        c.obtainedEncyclopedia = true;
-                        SpiritHarvestHandler.spawnItemAsSpirit(ItemRegistry.ENCYCLOPEDIA_ARCANA.get().getDefaultInstance(), target, player);
+                    if (!c.obtainedEncyclopedia) {
+                        if (player.getRandom().nextFloat() < 0.1f) {
+                            c.obtainedEncyclopedia = true;
+                            SpiritHarvestHandler.spawnItemAsSpirit(ItemRegistry.ENCYCLOPEDIA_ARCANA.get().getDefaultInstance(), target, player);
+                        }
                     }
                 });
             }

@@ -3,15 +3,16 @@
   "category": "misc",
   "key": {
     "#": {
-      "item": "malum:twisted_rock_bricks"
+      "item": "malum:twisted_rock"
     }
   },
   "pattern": [
     "#",
+    "#",
     "#"
   ],
   "result": {
-    "count": 2,
+    "count": 3,
     "item": "malum:twisted_rock_column"
   },
   "show_notification": true

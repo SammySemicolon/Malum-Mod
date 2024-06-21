@@ -25,7 +25,8 @@ public class MalumRecipes extends FabricRecipeProvider {
     public void buildRecipes(Consumer<FinishedRecipe> consumer) {
         vanillaRecipeReplacements.buildRecipes(consumer);
         MalumVanillaRecipes.buildRecipes(consumer);
-        MalumWoodenRecipes.buildRecipes(consumer);
+        MalumWoodSetRecipes.buildRecipes(consumer);
+        MalumRockSetRecipes.buildRecipes(consumer);
 
         ArtificeSpiritInfusionRecipes.buildRecipes(consumer);
         CurioSpiritInfusionRecipes.buildRecipes(consumer);

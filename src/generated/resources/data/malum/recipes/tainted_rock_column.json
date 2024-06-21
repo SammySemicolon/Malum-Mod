@@ -3,15 +3,16 @@
   "category": "misc",
   "key": {
     "#": {
-      "item": "malum:tainted_rock_bricks"
+      "item": "malum:tainted_rock"
     }
   },
   "pattern": [
     "#",
+    "#",
     "#"
   ],
   "result": {
-    "count": 2,
+    "count": 3,
     "item": "malum:tainted_rock_column"
   },
   "show_notification": true

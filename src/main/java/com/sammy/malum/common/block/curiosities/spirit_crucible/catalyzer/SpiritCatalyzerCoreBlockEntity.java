@@ -25,6 +25,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import team.lodestar.lodestone.helpers.BlockHelper;
@@ -227,5 +228,11 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity impleme
 
     public Vec3 getAugmentOffset() {
         return CATALYZER_AUGMENT_OFFSET;
+    }
+
+    @Override
+    public AABB getRenderBoundingBox() {
+        var pos = worldPosition;
+        return new AABB(pos.getX() - 1, pos.getY(), pos.getZ() - 1, pos.getX() + 1, pos.getY() + 4, pos.getZ() + 1);
     }
 }

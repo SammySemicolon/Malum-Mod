@@ -48,6 +48,7 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
 
     public float speed = 1f;
     public int progress;
+    public int idleProgress;
     public float spiritYLevel;
 
     public List<BlockPos> acceleratorPositions = new ArrayList<>();
@@ -143,6 +144,7 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
     @Override
     public void load(CompoundTag compound) {
         progress = compound.getInt("progress");
+        idleProgress = compound.getInt("idleProgress");
         spiritYLevel = compound.getFloat("spiritYLevel");
         speed = compound.getFloat("speed");
         spiritAmount = compound.getFloat("spiritAmount");
@@ -386,5 +388,11 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
         double x = vector2f.x * distanceX;
         double z = vector2f.z * distanceZ;
         return pos.add(x, 0, z);
+    }
+
+    @Override
+    public AABB getRenderBoundingBox() {
+        var pos = worldPosition;
+        return new AABB(pos.getX() - 1, pos.getY(), pos.getZ() - 1, pos.getX() + 2, pos.getY() + 2, pos.getZ() + 2);
     }
 }

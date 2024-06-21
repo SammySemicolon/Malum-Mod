@@ -161,4 +161,10 @@ public class VoidConduitBlockEntity extends LodestoneBlockEntity {
             return stack.getItem();
         }
     }
+
+    @Override
+    public AABB getRenderBoundingBox() {
+        var pos = worldPosition;
+        return new AABB(pos.getX() - 3, pos.getY() - 1, pos.getZ() - 3, pos.getX() + 4, pos.getY() + 2, pos.getZ() + 4);
+    }
 }

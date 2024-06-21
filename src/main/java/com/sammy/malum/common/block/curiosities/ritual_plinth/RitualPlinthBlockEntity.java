@@ -403,4 +403,10 @@ public class RitualPlinthBlockEntity extends LodestoneBlockEntity {
         float z = blockPos.getZ() + 0.5f + direction.getStepZ() * 0.51f;
         return new Vec3(x, y, z);
     }
+
+    @Override
+    public AABB getRenderBoundingBox() {
+        var pos = worldPosition;
+        return new AABB(pos.getX() - 1, pos.getY(), pos.getZ() - 1, pos.getX() + 1, pos.getY() + 6, pos.getZ() + 1);
+    }
 }

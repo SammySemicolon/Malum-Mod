@@ -1,12 +1,21 @@
 {
-  "type": "minecraft:crafting_shapeless",
+  "type": "minecraft:crafting_shaped",
   "category": "misc",
-  "ingredients": [
-    {
+  "key": {
+    "X": {
+      "item": "malum:polished_twisted_rock"
+    },
+    "Y": {
       "item": "malum:twisted_rock_column"
     }
+  },
+  "pattern": [
+    "X",
+    "Y"
   ],
   "result": {
+    "count": 2,
     "item": "malum:twisted_rock_column_cap"
-  }
+  },
+  "show_notification": true
 }

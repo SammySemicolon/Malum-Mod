@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_cracked_twisted_rock": {
+    "has_input": {
       "conditions": {
         "items": [
           {
             "items": [
-              "malum:twisted_rock"
+              "malum:runic_twisted_rock_tiles"
             ]
           }
         ]
@@ -22,7 +22,7 @@
   },
   "requirements": [
     [
-      "has_cracked_twisted_rock",
+      "has_input",
       "has_the_recipe"
     ]
   ],

@@ -8,11 +8,11 @@
   },
   "pattern": [
     " # ",
-    "# #",
+    "###",
     " # "
   ],
   "result": {
-    "count": 16,
+    "count": 20,
     "item": "malum:runewood_boards"
   },
   "show_notification": true
