@@ -25,7 +25,6 @@ import com.sammy.malum.core.listeners.ReapingDataReloadListener;
 import com.sammy.malum.core.listeners.RitualRecipeReloadListener;
 import com.sammy.malum.core.listeners.SpiritDataReloadListener;
 import com.sammy.malum.data.worldgen.BiomeModifications;
-import com.sammy.malum.registry.MalumCommandRegistry;
 import com.sammy.malum.registry.client.HiddenTagRegistry;
 import com.sammy.malum.registry.common.MobEffectRegistry;
 import com.sammy.malum.registry.common.PacketRegistry;
@@ -43,7 +42,6 @@ import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
@@ -54,7 +52,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
@@ -118,7 +115,6 @@ public class MalumMod implements ModInitializer {
         ItemRegistry.Common.registerCompost();
         MobEffectRegistry.addPotionRecipes();
         ArmorSkinRegistry.registerItemSkins();
-        MalumCommandRegistry.registerCommands();
 
         FarmersDelightCompat.init();
 
