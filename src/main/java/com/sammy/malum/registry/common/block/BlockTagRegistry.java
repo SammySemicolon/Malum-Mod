@@ -1,11 +1,10 @@
 package com.sammy.malum.registry.common.block;
 
-import com.sammy.malum.MalumMod;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.TagKey;
-import net.minecraft.world.level.block.Block;
-import net.minecraftforge.registries.ForgeRegistries;
+import com.sammy.malum.*;
+import net.minecraft.resources.*;
+import net.minecraft.tags.*;
+import net.minecraft.world.level.block.*;
+import net.minecraftforge.registries.*;
 
 public class BlockTagRegistry {
 
@@ -16,7 +15,16 @@ public class BlockTagRegistry {
     public static final TagKey<Block> SOULWOOD_LOGS = malumTag("soulwood_logs");
 
     public static final TagKey<Block> TAINTED_ROCK = malumTag("tainted_rock");
+    public static final TagKey<Block> TAINTED_BLOCKS = malumTag("tainted_rock_blocks");
+    public static final TagKey<Block> TAINTED_SLABS = malumTag("tainted_rock_slabs");
+    public static final TagKey<Block> TAINTED_STAIRS = malumTag("tainted_rock_stairs");
+    public static final TagKey<Block> TAINTED_WALLS = malumTag("tainted_rock_walls");
+
     public static final TagKey<Block> TWISTED_ROCK = malumTag("twisted_rock");
+    public static final TagKey<Block> TWISTED_BLOCKS = malumTag("twisted_rock_blocks");
+    public static final TagKey<Block> TWISTED_SLABS = malumTag("twisted_rock_slabs");
+    public static final TagKey<Block> TWISTED_STAIRS = malumTag("twisted_rock_stairs");
+    public static final TagKey<Block> TWISTED_WALLS = malumTag("twisted_rock_walls");
 
     public static final TagKey<Block> RITE_IMMUNE = malumTag("rite_immune");
 

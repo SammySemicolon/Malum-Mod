@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_tainted_rock": {
+    "has_input": {
       "conditions": {
         "items": [
           {
             "items": [
-              "malum:tainted_rock"
+              "malum:polished_tainted_rock"
             ]
           }
         ]
@@ -22,7 +22,7 @@
   },
   "requirements": [
     [
-      "has_tainted_rock",
+      "has_input",
       "has_the_recipe"
     ]
   ],

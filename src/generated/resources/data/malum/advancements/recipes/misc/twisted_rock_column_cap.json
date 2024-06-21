@@ -1,13 +1,7 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_the_recipe": {
-      "conditions": {
-        "recipe": "malum:twisted_rock_column_cap"
-      },
-      "trigger": "minecraft:recipe_unlocked"
-    },
-    "has_twisted_rock": {
+    "has_input": {
       "conditions": {
         "items": [
           {
@@ -18,11 +12,17 @@
         ]
       },
       "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "malum:twisted_rock_column_cap"
+      },
+      "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_twisted_rock",
+      "has_input",
       "has_the_recipe"
     ]
   ],

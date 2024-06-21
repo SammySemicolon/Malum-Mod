@@ -33,8 +33,9 @@ public class TheDevice extends Block {
         if (pHand.equals(InteractionHand.MAIN_HAND)) {
             pPlayer.swing(pHand, true);
             playSound(pLevel, pPos);
-            if (pPlayer.isCreative())
+            if (pPlayer.isCreative()) {
                 MalumPlayerDataCapability.getCapabilityOptional(pPlayer).ifPresent(it -> it.hasBeenRejected = false);
+            }
             return InteractionResult.SUCCESS;
         }
         return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);

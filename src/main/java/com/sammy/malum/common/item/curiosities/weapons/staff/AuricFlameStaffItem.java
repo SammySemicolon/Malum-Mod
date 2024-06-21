@@ -12,6 +12,7 @@ import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
 import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.event.entity.living.*;
+import team.lodestar.lodestone.handlers.*;
 import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.registry.common.*;
 import team.lodestar.lodestone.systems.easing.*;
@@ -52,9 +53,9 @@ public class AuricFlameStaffItem extends AbstractStaffItem {
     @Override
     public void fireProjectile(LivingEntity player, ItemStack stack, Level level, InteractionHand hand, float chargePercentage, int count) {
         final float ceil = (float) Math.ceil(count / 2f);
-        float spread = count > 0 ? ceil * 0.075f * (count % 2L == 0 ? 1 : -1) : 0f;
-        float pitchOffset = 6f - (3f + ceil);
-        int spawnDelay = count * 3;
+        float spread = count > 0 ? ceil * 0.05f * (count % 2L == 0 ? 1 : -1) : 0f;
+        float pitchOffset = count > 0 ? 4f + (2f - ceil * 4f) : -2.5f;
+        int spawnDelay = count * 2;
         float velocity = 2f;
         float magicDamage = (float) player.getAttributes().getValue(LodestoneAttributeRegistry.MAGIC_DAMAGE.get()) - 2;
         Vec3 pos = getProjectileSpawnPos(player, hand, 0.5f, 0.5f);
@@ -77,6 +78,7 @@ public class AuricFlameStaffItem extends AbstractStaffItem {
         RandomSource random = pLevel.random;
         final SpinParticleData spinData = SpinParticleData.createRandomDirection(random, 0.25f, 0.5f).setSpinOffset(RandomHelper.randomBetween(random, 0f, 6.28f)).build();
         WorldParticleBuilder.create(ParticleRegistry.HEXAGON, new DirectionalBehaviorComponent(pLivingEntity.getLookAngle().normalize()))
+                .setRenderTarget(RenderHandler.LATE_DELAYED_RENDER)
                 .setTransparencyData(GenericParticleData.create(0.5f * pct, 0f).setEasing(Easing.SINE_IN_OUT, Easing.SINE_IN).build())
                 .setScaleData(GenericParticleData.create(0.35f * pct, 0).setEasing(Easing.SINE_IN_OUT).build())
                 .setSpinData(spinData)

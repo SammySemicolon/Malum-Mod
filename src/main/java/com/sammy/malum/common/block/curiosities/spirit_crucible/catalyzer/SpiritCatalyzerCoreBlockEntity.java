@@ -5,12 +5,10 @@ import com.sammy.malum.common.block.curiosities.spirit_crucible.*;
 import com.sammy.malum.common.item.augment.*;
 import com.sammy.malum.common.item.spirit.*;
 import com.sammy.malum.core.systems.spirit.*;
-import com.sammy.malum.registry.common.*;
 import com.sammy.malum.registry.common.block.*;
 import com.sammy.malum.visual_effects.*;
 import net.minecraft.core.*;
 import net.minecraft.nbt.*;
-import net.minecraft.sounds.*;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
@@ -224,5 +222,11 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity impleme
             return inventory.inventoryOptional.cast();
         }
         return super.getCapability(cap, side);
+    }
+
+    @Override
+    public AABB getRenderBoundingBox() {
+        var pos = worldPosition;
+        return new AABB(pos.getX() - 1, pos.getY(), pos.getZ() - 1, pos.getX() + 1, pos.getY() + 4, pos.getZ() + 1);
     }
 }

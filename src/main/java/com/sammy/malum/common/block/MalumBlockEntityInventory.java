@@ -1,16 +1,13 @@
 package com.sammy.malum.common.block;
 
-import com.mojang.datafixers.util.*;
 import com.sammy.malum.common.item.spirit.*;
 import com.sammy.malum.registry.common.*;
 import net.minecraft.sounds.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
-import net.minecraft.world.level.*;
 import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.systems.blockentity.*;
 
-import java.util.*;
 import java.util.function.*;
 
 public class MalumBlockEntityInventory extends LodestoneBlockEntityInventory {
@@ -38,7 +35,7 @@ public class MalumBlockEntityInventory extends LodestoneBlockEntityInventory {
     public ItemStack insertItem(Player playerEntity, ItemStack stack) {
         final ItemStack result = super.insertItem(playerEntity, stack);
         if (!result.isEmpty()) {
-            SoundEvent soundEvent = getInsertSound(stack);
+            SoundEvent soundEvent = getInsertSound(result);
             playerEntity.level().playSound(null, playerEntity.blockPosition(), soundEvent, SoundSource.BLOCKS, 0.7f, RandomHelper.randomBetween(playerEntity.level().random, 0.8f, 1.2f));
         }
         return result;

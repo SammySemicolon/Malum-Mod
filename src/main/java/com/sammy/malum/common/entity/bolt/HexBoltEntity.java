@@ -10,6 +10,7 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
 import net.minecraftforge.api.distmarker.*;
+import team.lodestar.lodestone.handlers.*;
 import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.systems.easing.*;
 import team.lodestar.lodestone.systems.particle.builder.*;
@@ -57,12 +58,19 @@ public class HexBoltEntity extends AbstractBoltProjectileEntity {
         float scalar = getVisualEffectScalar();
         Vec3 norm = getDeltaMovement().normalize().scale(0.05f);
         var lightSpecs = SpiritLightSpecs.spiritLightSpecs(level, position, SpiritTypeRegistry.WICKED_SPIRIT);
-        lightSpecs.getBuilder().multiplyLifetime(1.25f).setMotion(norm);
-        lightSpecs.getBloomBuilder().multiplyLifetime(1.25f).setMotion(norm);
+        lightSpecs.getBuilder()
+                .setRenderTarget(RenderHandler.LATE_DELAYED_RENDER)
+                .multiplyLifetime(1.25f)
+                .setMotion(norm);
+        lightSpecs.getBloomBuilder()
+                .setRenderTarget(RenderHandler.LATE_DELAYED_RENDER)
+                .multiplyLifetime(1.25f)
+                .setMotion(norm);
         lightSpecs.spawnParticles();
         final SpinParticleData spinData = SpinParticleData.createRandomDirection(random, RandomHelper.randomBetween(random, 0.25f, 0.5f)).randomSpinOffset(random).build();
         final Consumer<LodestoneWorldParticle> behavior = p -> p.setParticleSpeed(p.getParticleSpeed().scale(0.95f));
         WorldParticleBuilder.create(ParticleRegistry.SAW, new DirectionalBehaviorComponent(getDeltaMovement().normalize()))
+                .setRenderTarget(RenderHandler.LATE_DELAYED_RENDER)
                 .setTransparencyData(GenericParticleData.create(0.9f * scalar, 0.4f * scalar, 0f).setEasing(Easing.SINE_IN_OUT, Easing.SINE_IN).build())
                 .setSpinData(spinData)
                 .setScaleData(GenericParticleData.create(0.4f * scalar, 0).setEasing(Easing.SINE_IN_OUT).build())

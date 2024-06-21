@@ -7,12 +7,12 @@
     }
   },
   "pattern": [
-    " # ",
     "###",
-    " # "
+    "###",
+    "###"
   ],
   "result": {
-    "count": 5,
+    "count": 9,
     "item": "malum:soulwood_panel"
   },
   "show_notification": true

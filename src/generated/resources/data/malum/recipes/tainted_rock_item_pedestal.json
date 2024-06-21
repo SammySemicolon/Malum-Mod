@@ -11,10 +11,10 @@
   },
   "pattern": [
     "YYY",
-    " X ",
-    "YYY"
+    "XXX"
   ],
   "result": {
+    "count": 2,
     "item": "malum:tainted_rock_item_pedestal"
   },
   "show_notification": true

@@ -9,6 +9,7 @@
     "malum:twisted_rock_tiles_wall",
     "malum:small_twisted_rock_bricks_slab",
     "malum:twisted_rock_column",
+    "malum:polished_twisted_rock_wall",
     "malum:twisted_rock_bricks_wall",
     "malum:runic_twisted_rock_bricks",
     "malum:twisted_rock_item_stand",
@@ -43,6 +44,7 @@
     "malum:runic_twisted_rock_tiles",
     "malum:polished_twisted_rock_stairs",
     "malum:twisted_rock_slab",
+    "malum:smooth_twisted_rock_wall",
     "malum:small_twisted_rock_bricks_stairs",
     "malum:twisted_rock_stairs",
     "malum:twisted_rock_button"

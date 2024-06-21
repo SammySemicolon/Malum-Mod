@@ -384,10 +384,18 @@ public class RitualPlinthBlockEntity extends LodestoneBlockEntity {
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, Direction side) {
         if (cap == ForgeCapabilities.ITEM_HANDLER) {
-            if (side == null)
+            if (side == null) {
                 return internalInventory.cast();
+            }
             return exposedInventory.cast();
         }
         return super.getCapability(cap, side);
+    }
+
+
+    @Override
+    public AABB getRenderBoundingBox() {
+        var pos = worldPosition;
+        return new AABB(pos.getX() - 1, pos.getY(), pos.getZ() - 1, pos.getX() + 1, pos.getY() + 6, pos.getZ() + 1);
     }
 }

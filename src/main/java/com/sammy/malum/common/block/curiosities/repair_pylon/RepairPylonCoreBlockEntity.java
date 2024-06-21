@@ -354,4 +354,10 @@ public class RepairPylonCoreBlockEntity extends MultiBlockCoreEntity {
         }
         return super.getCapability(cap, side);
     }
+
+    @Override
+    public AABB getRenderBoundingBox() {
+        var pos = worldPosition;
+        return new AABB(pos.getX() - 1, pos.getY(), pos.getZ() - 1, pos.getX() + 1, pos.getY() + 4, pos.getZ() + 1);
+    }
 }

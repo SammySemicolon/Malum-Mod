@@ -12,6 +12,7 @@ import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
 import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.event.entity.living.*;
+import team.lodestar.lodestone.handlers.*;
 import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.registry.common.*;
 import team.lodestar.lodestone.registry.common.tag.*;
@@ -98,6 +99,7 @@ public class ErosionScepterItem extends AbstractStaffItem {
         RandomSource random = pLevel.random;
         final SpinParticleData spinData = SpinParticleData.createRandomDirection(random, 0.25f, 0.5f).setSpinOffset(RandomHelper.randomBetween(random, 0f, 6.28f)).build();
         WorldParticleBuilder.create(ParticleRegistry.CIRCLE, new DirectionalBehaviorComponent(pLivingEntity.getLookAngle().normalize()))
+                .setRenderTarget(RenderHandler.LATE_DELAYED_RENDER)
                 .setTransparencyData(GenericParticleData.create(0.8f * pct, 0f).setEasing(Easing.SINE_IN_OUT, Easing.SINE_IN).build())
                 .setSpinData(spinData)
                 .setScaleData(GenericParticleData.create(0.3f * pct, 0).setEasing(Easing.SINE_IN_OUT).build())
