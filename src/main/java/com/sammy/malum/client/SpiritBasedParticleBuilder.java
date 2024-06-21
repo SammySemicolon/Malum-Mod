@@ -51,7 +51,9 @@ public class SpiritBasedParticleBuilder extends WorldParticleBuilder {
 
     public SpiritBasedParticleBuilder setSpirit(MalumSpiritType spiritType) {
         this.spiritType = spiritType;
-        super.setRenderType(LodestoneWorldParticleRenderType.LUMITRANSPARENT);
+        if (isUmbral()) {
+            super.setRenderType(LodestoneWorldParticleRenderType.LUMITRANSPARENT);
+        }
         return setColorData(spiritType.createColorData().build());
     }
 
