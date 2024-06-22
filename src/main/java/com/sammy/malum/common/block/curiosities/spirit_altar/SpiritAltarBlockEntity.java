@@ -202,6 +202,28 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity implements Cust
         }
     }
 
+    private void recalculateRecipes() {
+        boolean hadRecipe = recipe != null;
+
+        ItemStack stack = inventory.getStackInSlot(0);
+        if (!stack.isEmpty()) {
+            Collection<SpiritInfusionRecipe> recipes = DataHelper.getAll(SpiritInfusionRecipe.getRecipes(level), r -> r.doesInputMatch(stack) && r.doSpiritsMatch(spiritInventory.nonEmptyItemStacks));
+            possibleRecipes.clear();
+            var pedestalItems = AltarCraftingHelper.createPedestalInventoryCapture(AltarCraftingHelper.capturePedestals(level, worldPosition));
+            for (SpiritInfusionRecipe recipe : recipes) {
+                possibleRecipes.put(recipe, AltarCraftingHelper.rankRecipe(recipe, stack, spiritInventory, pedestalItems, extrasInventory));
+            }
+            recipe = possibleRecipes.entrySet().stream().filter(it -> it.getValue() != null).max(Map.Entry.comparingByValue()).map(Map.Entry::getKey).orElse(null);
+        } else {
+            recipe = null;
+            possibleRecipes.clear();
+        }
+
+        if (hadRecipe && recipe == null && level != null) {
+            extrasInventory.dumpItems(level, worldPosition);
+        }
+    }
+
     @Override
     public void tick() {
         super.tick();
@@ -211,7 +233,10 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity implements Cust
                 spiritYLevel++;
             }
             isCrafting = true;
+
+            idleProgress = 0;
             progress++;
+
             if (!level.isClientSide) {
                 if (level.getGameTime() % 20L == 0) {
                     boolean canAccelerate = accelerators.stream().allMatch(IAltarAccelerator::canAccelerate);
@@ -228,13 +253,19 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity implements Cust
                 }
             }
         } else {
-            if (isCrafting) {
-                progress = 0;
-            }
             isCrafting = false;
-            progress++;
+
+            progress = 0;
+            idleProgress++;
+
             if (spiritYLevel > 0) {
-                this.spiritYLevel = Math.max(spiritYLevel - 0.8f, 0);
+                spiritYLevel = Math.max(spiritYLevel - 0.8f, 0);
+            }
+
+            int progressCap = (int) (300 / speed);
+            if (idleProgress >= progressCap) {
+                recalculateRecipes();
+                idleProgress = 0;
             }
         }
         if (level.isClientSide) {
