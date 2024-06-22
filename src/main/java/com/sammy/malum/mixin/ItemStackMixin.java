@@ -22,7 +22,7 @@ public abstract class ItemStackMixin {
 
     @ModifyVariable(method = "getTooltipLines", at = @At("STORE"))
     private Multimap<Attribute, AttributeModifier> malum$getTooltip(Multimap<Attribute, AttributeModifier> map, @Nullable Player player, TooltipFlag flag) {
-        if (player != null) {
+        if (player != null && getItem() instanceof MalumScytheItem) {
             Multimap<Attribute, AttributeModifier> copied = LinkedHashMultimap.create();
             for (Map.Entry<Attribute, AttributeModifier> entry : map.entries()) {
                 Attribute key = entry.getKey();
@@ -30,7 +30,7 @@ public abstract class ItemStackMixin {
                 double amount = modifier.getAmount();
 
                 if (modifier.getId() != null) {
-                    if (modifier.getId().equals(BASE_ATTACK_DAMAGE_UUID) && getItem() instanceof MalumScytheItem) {
+                    if (modifier.getId().equals(BASE_ATTACK_DAMAGE_UUID)) {
                         AttributeInstance instance = player.getAttribute(AttributeRegistry.SCYTHE_PROFICIENCY.get());
                         if (instance != null && instance.getValue() > 0) {
                             amount += instance.getValue() * 0.5f;
