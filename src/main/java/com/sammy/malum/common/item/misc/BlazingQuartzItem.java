@@ -14,9 +14,4 @@ public class BlazingQuartzItem extends LodestoneFuelBlockItem {
         super(pBlock, pProperties, fuel);
         this.fuel = fuel;
     }
-
-    @Override
-    public int getBurnTime(ItemStack itemStack, @Nullable RecipeType<?> recipeType) {
-        return fuel;
-    }
 }
