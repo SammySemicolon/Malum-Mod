@@ -195,8 +195,70 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
     @Override
     public void init() {
         recalculateRecipes();
-        if (level.isClientSide && !possibleRecipes.isEmpty() && !isCrafting) {
+        if (level.isClientSide && isCrafting) {
             AltarSoundInstance.playSound(this);
+        }
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        spiritAmount = Math.max(1, Mth.lerp(0.1f, spiritAmount, spiritInventory.nonEmptyItemAmount));
+
+        if (!inventory.getStackInSlot(0).isEmpty()) {
+            idleProgress++;
+            int progressCap = (int) (20 / speed);
+            if (idleProgress >= progressCap) {
+                recalculateRecipes();
+                idleProgress = 0;
+                BlockHelper.updateAndNotifyState(level, worldPosition);
+            }
+        }
+
+        if (!possibleRecipes.isEmpty()) {
+            if (spiritYLevel < 30) {
+                spiritYLevel++;
+            }
+            if (recipe != null) {
+                if (!isCrafting) {
+                    BlockHelper.updateAndNotifyState(level, worldPosition);
+                    isCrafting = true;
+                }
+                progress++;
+            }
+            else {
+                if (isCrafting) {
+                    BlockHelper.updateAndNotifyState(level, worldPosition);
+                    isCrafting = false;
+                }
+                progress = 0;
+            }
+
+            if (!level.isClientSide) {
+                if (level.getGameTime() % 20L == 0) {
+                    boolean canAccelerate = accelerators.stream().allMatch(IAltarAccelerator::canAccelerate);
+                    if (!canAccelerate) {
+                        recalibrateAccelerators();
+                    }
+                }
+                int progressCap = (int) (300 / speed);
+                if (progress >= progressCap) {
+                    boolean success = consume();
+                    if (success) {
+                        craft();
+                    }
+                }
+            }
+        } else {
+            isCrafting = false;
+            progress = 0;
+            if (spiritYLevel > 0) {
+                spiritYLevel = Math.max(spiritYLevel - 0.8f, 0);
+            }
+        }
+        if (level.isClientSide) {
+            spiritSpin += 1 + spiritYLevel * 0.05f + speed * 0.5f;
+            SpiritAltarParticleEffects.passiveSpiritAltarParticles(this);
         }
     }
 
@@ -219,56 +281,6 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
 
         if (hadRecipe && recipe == null && level != null) {
             extrasInventory.dumpItems(level, worldPosition);
-        }
-    }
-
-    @Override
-    public void tick() {
-        super.tick();
-        spiritAmount = Math.max(1, Mth.lerp(0.1f, spiritAmount, spiritInventory.nonEmptyItemAmount));
-        if (!possibleRecipes.isEmpty()) {
-            if (spiritYLevel < 30) {
-                spiritYLevel++;
-            }
-            isCrafting = true;
-
-            idleProgress = 0;
-            progress++;
-
-            if (!level.isClientSide) {
-                if (level.getGameTime() % 20L == 0) {
-                    boolean canAccelerate = accelerators.stream().allMatch(IAltarAccelerator::canAccelerate);
-                    if (!canAccelerate) {
-                        recalibrateAccelerators();
-                    }
-                }
-                int progressCap = (int) (300 / speed);
-                if (progress >= progressCap) {
-                    boolean success = consume();
-                    if (success) {
-                        craft();
-                    }
-                }
-            }
-        } else {
-            isCrafting = false;
-
-            progress = 0;
-            idleProgress++;
-
-            if (spiritYLevel > 0) {
-                spiritYLevel = Math.max(spiritYLevel - 0.8f, 0);
-            }
-
-            int progressCap = (int) (300 / speed);
-            if (idleProgress >= progressCap) {
-                recalculateRecipes();
-                idleProgress = 0;
-            }
-        }
-        if (level.isClientSide) {
-            spiritSpin += 1 + spiritYLevel * 0.05f + speed * 0.5f;
-            SpiritAltarParticleEffects.passiveSpiritAltarParticles(this);
         }
     }
 

@@ -3,7 +3,6 @@ package com.sammy.malum.client.renderer.block;
 import com.mojang.blaze3d.vertex.*;
 import com.mojang.math.*;
 import com.sammy.malum.*;
-import com.sammy.malum.client.*;
 import com.sammy.malum.common.block.curiosities.void_depot.*;
 import com.sammy.malum.registry.client.*;
 import com.sammy.malum.registry.common.*;
@@ -31,8 +30,11 @@ import java.util.stream.*;
 
 public class VoidDepotRenderer implements BlockEntityRenderer<VoidDepotBlockEntity> {
 
-    public static final RenderTypeToken VIGNETTE = RenderTypeToken.createToken(MalumMod.malumPath("textures/block/weeping_well/primordial_soup_vignette.png"));
-    public static final RenderTypeToken NOISE_TEXTURE = RenderTypeToken.createToken(MalumMod.malumPath("textures/vfx/void_noise.png"));
+    private static final RenderTypeToken VIGNETTE = RenderTypeToken.createToken(MalumMod.malumPath("textures/block/weeping_well/primordial_soup_vignette.png"));
+    private static final RenderTypeToken NOISE_TEXTURE = RenderTypeToken.createToken(MalumMod.malumPath("textures/vfx/void_noise.png"));
+
+    private static final MultiBufferSource ADDITIVE = new LodestoneBufferWrapper(LodestoneRenderTypeRegistry.ADDITIVE_TEXT, RenderHandler.LATE_DELAYED_RENDER.getTarget());
+    private static final MultiBufferSource TRANSPARENT = new LodestoneBufferWrapper(LodestoneRenderTypeRegistry.TRANSPARENT_TEXT, RenderHandler.DELAYED_RENDER.getTarget());
 
     public VoidDepotRenderer(BlockEntityRendererProvider.Context context) {
     }
@@ -88,8 +90,6 @@ public class VoidDepotRenderer implements BlockEntityRenderer<VoidDepotBlockEnti
             float scalar = Easing.SINE_IN_OUT.ease(timer/40f, 0, 1, 1);
             float scale = 0.016F - (1-scalar)*0.004f;
             final Font.DisplayMode display = Font.DisplayMode.NORMAL;
-            MultiBufferSource additiveBuffer = new BufferWrapper(LodestoneRenderTypeRegistry.ADDITIVE_TEXT, RenderHandler.LATE_DELAYED_RENDER.getTarget());
-            MultiBufferSource translucentBuffer = new BufferWrapper(LodestoneRenderTypeRegistry.TRANSPARENT_TEXT, RenderHandler.DELAYED_RENDER.getTarget());
 
             List<VoidDepotBlockEntity.VoidDepotGoal> goals = voidDepot.goals;
             List<MutableComponent> components = new ArrayList<>();
@@ -106,7 +106,7 @@ public class VoidDepotRenderer implements BlockEntityRenderer<VoidDepotBlockEnti
                 for (int j = 0; j < 2; j++) {
                     final MutableComponent text = components.get(i).copy();
                     final boolean isAdditive = j == 0;
-                    MultiBufferSource bufferToUse = isAdditive ? additiveBuffer : translucentBuffer;
+                    MultiBufferSource bufferToUse = isAdditive ? ADDITIVE : TRANSPARENT;
                     MutableComponent outlineText = text.copy();
 
                     text.withStyle(isAdditive ? style -> style.withColor(TextColor.fromRgb(SpiritTypeRegistry.WICKED_SPIRIT.getPrimaryColor().getRGB())) : style -> style.withColor(TextColor.fromRgb(new Color(50, 0, 50).getRGB())));
