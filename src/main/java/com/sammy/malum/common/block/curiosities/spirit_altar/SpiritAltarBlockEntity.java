@@ -211,7 +211,7 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
             for (SpiritInfusionRecipe recipe : recipes) {
                 possibleRecipes.put(recipe, AltarCraftingHelper.rankRecipe(recipe, stack, spiritInventory, pedestalItems, extrasInventory));
             }
-            recipe = possibleRecipes.entrySet().stream().max(Map.Entry.comparingByValue()).map(Map.Entry::getKey).orElse(null);
+            recipe = possibleRecipes.entrySet().stream().filter(it -> it.getValue() != null).max(Map.Entry.comparingByValue()).map(Map.Entry::getKey).orElse(null);
         } else {
             recipe = null;
             possibleRecipes.clear();
