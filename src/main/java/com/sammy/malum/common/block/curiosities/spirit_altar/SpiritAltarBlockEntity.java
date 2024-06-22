@@ -193,34 +193,9 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity implements Cust
 
     @Override
     public void init() {
-        ItemStack stack = inventory.getStackInSlot(0);
-        var list = spiritInventory.nonEmptyItemStacks;
-        possibleRecipes = new ArrayList<>(DataHelper.getAll(SpiritInfusionRecipe.getRecipes(level), r -> r.doesInputMatch(stack) && r.doSpiritsMatch(list)));
-        recipe = SpiritInfusionRecipe.getRecipe(level, stack, list);
-        if (level.isClientSide && !possibleRecipes.isEmpty() && !isCrafting) {
+        recalculateRecipes();
+        if (level.isClientSide && isCrafting) {
             AltarSoundInstance.playSound(this);
-        }
-    }
-
-    private void recalculateRecipes() {
-        boolean hadRecipe = recipe != null;
-
-        ItemStack stack = inventory.getStackInSlot(0);
-        if (!stack.isEmpty()) {
-            Collection<SpiritInfusionRecipe> recipes = DataHelper.getAll(SpiritInfusionRecipe.getRecipes(level), r -> r.doesInputMatch(stack) && r.doSpiritsMatch(spiritInventory.nonEmptyItemStacks));
-            possibleRecipes.clear();
-            var pedestalItems = AltarCraftingHelper.createPedestalInventoryCapture(AltarCraftingHelper.capturePedestals(level, worldPosition));
-            for (SpiritInfusionRecipe recipe : recipes) {
-                possibleRecipes.put(recipe, AltarCraftingHelper.rankRecipe(recipe, stack, spiritInventory, pedestalItems, extrasInventory));
-            }
-            recipe = possibleRecipes.entrySet().stream().filter(it -> it.getValue() != null).max(Map.Entry.comparingByValue()).map(Map.Entry::getKey).orElse(null);
-        } else {
-            recipe = null;
-            possibleRecipes.clear();
-        }
-
-        if (hadRecipe && recipe == null && level != null) {
-            extrasInventory.dumpItems(level, worldPosition);
         }
     }
 
@@ -228,14 +203,35 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity implements Cust
     public void tick() {
         super.tick();
         spiritAmount = Math.max(1, Mth.lerp(0.1f, spiritAmount, spiritInventory.nonEmptyItemAmount));
+
+        if (!inventory.getStackInSlot(0).isEmpty()) {
+            idleProgress++;
+            int progressCap = (int) (20 / speed);
+            if (idleProgress >= progressCap) {
+                recalculateRecipes();
+                idleProgress = 0;
+                BlockHelper.updateAndNotifyState(level, worldPosition);
+            }
+        }
+
         if (!possibleRecipes.isEmpty()) {
             if (spiritYLevel < 30) {
                 spiritYLevel++;
             }
-            isCrafting = true;
-
-            idleProgress = 0;
-            progress++;
+            if (recipe != null) {
+                if (!isCrafting) {
+                    BlockHelper.updateAndNotifyState(level, worldPosition);
+                    isCrafting = true;
+                }
+                progress++;
+            }
+            else {
+                if (isCrafting) {
+                    BlockHelper.updateAndNotifyState(level, worldPosition);
+                    isCrafting = false;
+                }
+                progress = 0;
+            }
 
             if (!level.isClientSide) {
                 if (level.getGameTime() % 20L == 0) {
@@ -254,23 +250,36 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity implements Cust
             }
         } else {
             isCrafting = false;
-
             progress = 0;
-            idleProgress++;
-
             if (spiritYLevel > 0) {
                 spiritYLevel = Math.max(spiritYLevel - 0.8f, 0);
-            }
-
-            int progressCap = (int) (300 / speed);
-            if (idleProgress >= progressCap) {
-                recalculateRecipes();
-                idleProgress = 0;
             }
         }
         if (level.isClientSide) {
             spiritSpin += 1 + spiritYLevel * 0.05f + speed * 0.5f;
             SpiritAltarParticleEffects.passiveSpiritAltarParticles(this);
+        }
+    }
+
+    private void recalculateRecipes() {
+        boolean hadRecipe = recipe != null;
+
+        ItemStack stack = inventory.getStackInSlot(0);
+        if (!stack.isEmpty()) {
+            Collection<SpiritInfusionRecipe> recipes = DataHelper.getAll(SpiritInfusionRecipe.getRecipes(level), r -> r.doesInputMatch(stack) && r.doSpiritsMatch(spiritInventory.nonEmptyItemStacks));
+            possibleRecipes.clear();
+
+            var list = spiritInventory.nonEmptyItemStacks;
+            possibleRecipes = new ArrayList<>(DataHelper.getAll(SpiritInfusionRecipe.getRecipes(level), r -> r.doesInputMatch(stack) && r.doSpiritsMatch(list)));
+            recipe = SpiritInfusionRecipe.getRecipe(level, stack, list);
+
+        } else {
+            recipe = null;
+            possibleRecipes.clear();
+        }
+
+        if (hadRecipe && recipe == null && level != null) {
+            extrasInventory.dumpItems(level, worldPosition);
         }
     }
 

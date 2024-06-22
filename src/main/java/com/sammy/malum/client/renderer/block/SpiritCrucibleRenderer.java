@@ -2,7 +2,6 @@ package com.sammy.malum.client.renderer.block;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
-import com.sammy.malum.client.BufferWrapper;
 import com.sammy.malum.client.renderer.entity.FloatingItemEntityRenderer;
 import com.sammy.malum.common.block.curiosities.spirit_crucible.CrucibleTuning;
 import com.sammy.malum.common.block.curiosities.spirit_crucible.SpiritCrucibleCoreBlockEntity;
@@ -33,6 +32,7 @@ import team.lodestar.lodestone.helpers.ColorHelper;
 import team.lodestar.lodestone.registry.client.LodestoneRenderTypeRegistry;
 import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntityInventory;
 import team.lodestar.lodestone.systems.easing.Easing;
+import team.lodestar.lodestone.systems.rendering.LodestoneBufferWrapper;
 
 import java.util.List;
 
@@ -43,6 +43,8 @@ public class SpiritCrucibleRenderer implements BlockEntityRenderer<SpiritCrucibl
 
     private static float tuningForkHeldTimer = 0;
     private static boolean isHoldingFork;
+
+    private static final MultiBufferSource TEXT = new LodestoneBufferWrapper(LodestoneRenderTypeRegistry.ADDITIVE_TEXT, RenderHandler.DELAYED_RENDER.getTarget());
 
     public SpiritCrucibleRenderer(BlockEntityRendererProvider.Context context) {
     }
@@ -122,7 +124,6 @@ public class SpiritCrucibleRenderer implements BlockEntityRenderer<SpiritCrucibl
             float scalar = Easing.SINE_IN_OUT.ease(timer / 20f, 0, 1, 1);
             float scale = 0.016F - (1 - scalar) * 0.004f;
             final Font.DisplayMode display = Font.DisplayMode.NORMAL;
-            MultiBufferSource textBuffer = new BufferWrapper(LodestoneRenderTypeRegistry.ADDITIVE_TEXT, RenderHandler.DELAYED_RENDER.getTarget());
             final List<CrucibleTuning.CrucibleAttributeType> validValues = CrucibleTuning.CrucibleAttributeType.getValidValues(blockEntityIn.acceleratorData);
             poseStack.pushPose();
             poseStack.translate(0.5f, 2f, 0.55f);
@@ -151,24 +152,24 @@ public class SpiritCrucibleRenderer implements BlockEntityRenderer<SpiritCrucibl
                 float f = (-font.width(text) / 2f);
                 float xPos = 0 + f;
                 int color = ColorHelper.getColor(1, 1, 1, 0.38f * scalar);
-                font.drawInBatch(text, xPos, 0, color, false, pose, textBuffer, display, 0, LightTexture.FULL_BRIGHT);
+                font.drawInBatch(text, xPos, 0, color, false, pose, TEXT, display, 0, LightTexture.FULL_BRIGHT);
 
                 color = ColorHelper.getColor(1, 1, 1, 0.18f * scalar);
-                font.drawInBatch(text, xPos - 0.5f, 0, color, false, pose, textBuffer, display, 0, LightTexture.FULL_BRIGHT);
-                font.drawInBatch(text, xPos - 0.5f, 0, color, false, pose, textBuffer, display, 0, LightTexture.FULL_BRIGHT);
-                font.drawInBatch(text, xPos, 0.5f, color, false, pose, textBuffer, display, 0, LightTexture.FULL_BRIGHT);
-                font.drawInBatch(text, xPos, -0.5f, color, false, pose, textBuffer, display, 0, LightTexture.FULL_BRIGHT);
+                font.drawInBatch(text, xPos - 0.5f, 0, color, false, pose, TEXT, display, 0, LightTexture.FULL_BRIGHT);
+                font.drawInBatch(text, xPos - 0.5f, 0, color, false, pose, TEXT, display, 0, LightTexture.FULL_BRIGHT);
+                font.drawInBatch(text, xPos, 0.5f, color, false, pose, TEXT, display, 0, LightTexture.FULL_BRIGHT);
+                font.drawInBatch(text, xPos, -0.5f, color, false, pose, TEXT, display, 0, LightTexture.FULL_BRIGHT);
 
                 color = ColorHelper.getColor(1, 1, 1, 0.12f * scalar);
-                font.drawInBatch(text, xPos - 1, 0, color, false, pose, textBuffer, display, 0, LightTexture.FULL_BRIGHT);
-                font.drawInBatch(outlineText, xPos + 1, 0, color, false, pose, textBuffer, display, 0, LightTexture.FULL_BRIGHT);
-                font.drawInBatch(outlineText, xPos, 1, color, false, pose, textBuffer, display, 0, LightTexture.FULL_BRIGHT);
-                font.drawInBatch(text, xPos, -1, color, false, pose, textBuffer, display, 0, LightTexture.FULL_BRIGHT);
+                font.drawInBatch(text, xPos - 1, 0, color, false, pose, TEXT, display, 0, LightTexture.FULL_BRIGHT);
+                font.drawInBatch(outlineText, xPos + 1, 0, color, false, pose, TEXT, display, 0, LightTexture.FULL_BRIGHT);
+                font.drawInBatch(outlineText, xPos, 1, color, false, pose, TEXT, display, 0, LightTexture.FULL_BRIGHT);
+                font.drawInBatch(text, xPos, -1, color, false, pose, TEXT, display, 0, LightTexture.FULL_BRIGHT);
 
-                font.drawInBatch(outlineText, xPos - 0.5f, -0.5f, color, false, pose, textBuffer, display, 0, LightTexture.FULL_BRIGHT);
-                font.drawInBatch(text, xPos - 0.5f, 0.5f, color, false, pose, textBuffer, display, 0, LightTexture.FULL_BRIGHT);
-                font.drawInBatch(outlineText, xPos + 0.5f, 0.5f, color, false, pose, textBuffer, display, 0, LightTexture.FULL_BRIGHT);
-                font.drawInBatch(text, xPos + 0.5f, -0.5f, color, false, pose, textBuffer, display, 0, LightTexture.FULL_BRIGHT);
+                font.drawInBatch(outlineText, xPos - 0.5f, -0.5f, color, false, pose, TEXT, display, 0, LightTexture.FULL_BRIGHT);
+                font.drawInBatch(text, xPos - 0.5f, 0.5f, color, false, pose, TEXT, display, 0, LightTexture.FULL_BRIGHT);
+                font.drawInBatch(outlineText, xPos + 0.5f, 0.5f, color, false, pose, TEXT, display, 0, LightTexture.FULL_BRIGHT);
+                font.drawInBatch(text, xPos + 0.5f, -0.5f, color, false, pose, TEXT, display, 0, LightTexture.FULL_BRIGHT);
                 poseStack.popPose();
             }
             poseStack.popPose();
