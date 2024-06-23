@@ -1,20 +1,21 @@
 package com.sammy.malum.client.screen.codex.pages.recipe;
 
-import com.sammy.malum.*;
-import com.sammy.malum.client.screen.codex.pages.*;
-import com.sammy.malum.client.screen.codex.screens.*;
-import com.sammy.malum.common.recipe.*;
-import net.minecraft.client.*;
-import net.minecraft.client.gui.*;
-import net.minecraft.client.multiplayer.*;
-import net.minecraft.network.chat.*;
-import net.minecraft.world.item.*;
-import net.minecraftforge.data.loading.*;
+import com.sammy.malum.MalumMod;
+import com.sammy.malum.client.screen.codex.pages.BookPage;
+import com.sammy.malum.client.screen.codex.screens.EntryScreen;
+import com.sammy.malum.common.recipe.SpiritTransmutationRecipe;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.Level;
 
-import java.util.*;
-import java.util.function.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Predicate;
 
-import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.*;
+import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.renderItem;
+import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.renderText;
 
 public class SpiritTransmutationRecipePage extends BookPage {
     private final String headlineTranslationKey;
@@ -23,20 +24,22 @@ public class SpiritTransmutationRecipePage extends BookPage {
     public SpiritTransmutationRecipePage(String headlineTranslationKey, Predicate<SpiritTransmutationRecipe> predicate) {
         super(MalumMod.malumPath("textures/gui/book/pages/transmutation_recipe_page.png"));
         this.headlineTranslationKey = headlineTranslationKey;
-        this.recipes = DatagenModLoader.isRunningDataGen() ? null : new ArrayList<>();
-        if (!DatagenModLoader.isRunningDataGen()) {
-            final ClientLevel level = Minecraft.getInstance().level;
+        final Level level = Minecraft.getInstance().level;
+        if (level != null) {
+            this.recipes = new ArrayList<>();
             final SpiritTransmutationRecipe recipe = SpiritTransmutationRecipe.getRecipe(level, predicate);
             if (recipe != null) {
                 recipes.add(recipe);
-            }
-            if (recipe.group != null) {
-                for (SpiritTransmutationRecipe otherRecipe : SpiritTransmutationRecipe.getRecipes(level)) {
-                    if (!recipe.equals(otherRecipe) && recipe.group.equals(otherRecipe.group)) {
-                        recipes.add(otherRecipe);
+                if (recipe.group != null) {
+                    for (SpiritTransmutationRecipe otherRecipe : SpiritTransmutationRecipe.getRecipes(level)) {
+                        if (!recipe.equals(otherRecipe) && recipe.group.equals(otherRecipe.group)) {
+                            recipes.add(otherRecipe);
+                        }
                     }
                 }
             }
+        } else {
+            this.recipes = null;
         }
     }
 

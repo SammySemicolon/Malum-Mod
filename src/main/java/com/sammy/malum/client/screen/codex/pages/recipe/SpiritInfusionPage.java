@@ -1,13 +1,13 @@
 package com.sammy.malum.client.screen.codex.pages.recipe;
 
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.client.screen.codex.screens.*;
-import com.sammy.malum.client.screen.codex.pages.*;
+import com.sammy.malum.client.screen.codex.pages.BookPage;
+import com.sammy.malum.client.screen.codex.screens.EntryScreen;
 import com.sammy.malum.common.recipe.SpiritInfusionRecipe;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.world.item.Item;
-import net.minecraftforge.data.loading.DatagenModLoader;
+import net.minecraft.world.level.Level;
 
 import java.util.function.Predicate;
 
@@ -18,7 +18,8 @@ public class SpiritInfusionPage extends BookPage {
 
     public SpiritInfusionPage(Predicate<SpiritInfusionRecipe> predicate) {
         super(MalumMod.malumPath("textures/gui/book/pages/spirit_infusion_page.png"));
-        this.recipe = DatagenModLoader.isRunningDataGen() ? null : SpiritInfusionRecipe.getRecipe(Minecraft.getInstance().level, predicate);
+        Level level = Minecraft.getInstance().level;
+        this.recipe = level == null ? null : SpiritInfusionRecipe.getRecipe(level, predicate);
     }
 
     public SpiritInfusionPage(SpiritInfusionRecipe recipe) {

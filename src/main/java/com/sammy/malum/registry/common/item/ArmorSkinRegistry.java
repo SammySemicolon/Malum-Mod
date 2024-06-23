@@ -10,7 +10,6 @@ import com.sammy.malum.common.item.cosmetic.skins.risk_of_rain.CommandoArmorSkin
 import com.sammy.malum.common.item.cosmetic.skins.risk_of_rain.ExecutionerArmorSkin;
 import com.sammy.malum.common.item.curiosities.armor.MalumArmorItem;
 import net.minecraft.world.item.Item;
-import net.minecraftforge.data.loading.DatagenModLoader;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -101,9 +100,7 @@ public class ArmorSkinRegistry {
     }
 
     public static void registerItemSkin(ArmorSkin skin, ArmorSkin.ArmorSkinDatagenData datagenData) {
-        if (DatagenModLoader.isRunningDataGen()) {
-            SKIN_DATAGEN_DATA.put(skin, datagenData);
-        }
+        SKIN_DATAGEN_DATA.put(skin, datagenData);
         registerItemSkin(skin.id, skin);
     }
 
