@@ -7,6 +7,7 @@ import com.sammy.malum.common.recipe.SpiritInfusionRecipe;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.Level;
 
 import java.util.function.Predicate;
 
@@ -17,7 +18,9 @@ public class SpiritInfusionPage extends BookPage {
 
     public SpiritInfusionPage(Predicate<SpiritInfusionRecipe> predicate) {
         super(MalumMod.malumPath("textures/gui/book/pages/spirit_infusion_page.png"));
-        this.recipe = SpiritInfusionRecipe.getRecipe(Minecraft.getInstance().level, predicate);
+        //this.recipe = SpiritInfusionRecipe.getRecipe(Minecraft.getInstance().level, predicate);
+        Level level = Minecraft.getInstance().level;
+        this.recipe = level == null ? null : SpiritInfusionRecipe.getRecipe(level, predicate);
     }
 
     public SpiritInfusionPage(SpiritInfusionRecipe recipe) {

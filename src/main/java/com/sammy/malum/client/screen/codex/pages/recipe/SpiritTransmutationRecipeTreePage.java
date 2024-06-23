@@ -40,15 +40,18 @@ public class SpiritTransmutationRecipeTreePage extends BookPage {
         super(MalumMod.malumPath("textures/gui/book/pages/transmutation_recipe_tree_page.png"));
         this.headlineTranslationKey = headlineTranslationKey;
 
-        SpiritTransmutationRecipe recipe = SpiritTransmutationRecipe.getRecipe(Minecraft.getInstance().level, start);
-        while (true) {
-            if (recipe == null) {
-                itemTree.add(new WrappedIngredient(Ingredient.of(ItemRegistry.BLIGHTED_SOIL.get())));
-                break;
+        Level level = Minecraft.getInstance().level;
+        if (level != null) {
+            SpiritTransmutationRecipe recipe = SpiritTransmutationRecipe.getRecipe(level, start);
+            while (true) {
+                if (recipe == null) {
+                    itemTree.add(new WrappedIngredient(Ingredient.of(ItemRegistry.BLIGHTED_SOIL.get())));
+                    break;
+                }
+                itemTree.add(new WrappedIngredient(recipe.ingredient));
+                ItemStack output = recipe.output;
+                recipe = SpiritTransmutationRecipe.getRecipe(level, s -> s.ingredient.test(output));
             }
-            itemTree.add(new WrappedIngredient(recipe.ingredient));
-            ItemStack output = recipe.output;
-            recipe = SpiritTransmutationRecipe.getRecipe(Minecraft.getInstance().level, s -> s.ingredient.test(output));
         }
     }
 

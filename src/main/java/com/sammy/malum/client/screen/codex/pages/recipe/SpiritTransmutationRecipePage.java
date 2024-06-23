@@ -9,6 +9,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.Level;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,18 +25,22 @@ public class SpiritTransmutationRecipePage extends BookPage {
     public SpiritTransmutationRecipePage(String headlineTranslationKey, Predicate<SpiritTransmutationRecipe> predicate) {
         super(MalumMod.malumPath("textures/gui/book/pages/transmutation_recipe_page.png"));
         this.headlineTranslationKey = headlineTranslationKey;
-        this.recipes = new ArrayList<>();
-        final ClientLevel level = Minecraft.getInstance().level;
-        final SpiritTransmutationRecipe recipe = SpiritTransmutationRecipe.getRecipe(level, predicate);
-        if (recipe != null) {
-            recipes.add(recipe);
-        }
-        if (recipe.group != null) {
-            for (SpiritTransmutationRecipe otherRecipe : SpiritTransmutationRecipe.getRecipes(level)) {
-                if (!recipe.equals(otherRecipe) && recipe.group.equals(otherRecipe.group)) {
-                    recipes.add(otherRecipe);
+        final Level level = Minecraft.getInstance().level;
+        if (level != null) {
+            this.recipes = new ArrayList<>();
+            final SpiritTransmutationRecipe recipe = SpiritTransmutationRecipe.getRecipe(level, predicate);
+            if (recipe != null) {
+                recipes.add(recipe);
+                if (recipe.group != null) {
+                    for (SpiritTransmutationRecipe otherRecipe : SpiritTransmutationRecipe.getRecipes(level)) {
+                        if (!recipe.equals(otherRecipe) && recipe.group.equals(otherRecipe.group)) {
+                            recipes.add(otherRecipe);
+                        }
+                    }
                 }
             }
+        } else {
+            this.recipes = null;
         }
     }
 

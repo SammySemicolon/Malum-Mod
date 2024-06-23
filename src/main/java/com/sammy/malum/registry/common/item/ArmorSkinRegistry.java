@@ -94,7 +94,6 @@ public class ArmorSkinRegistry {
 
     public static void registerItemSkin(ArmorSkin skin, ArmorSkin.ArmorSkinDatagenData datagenData) {
         SKIN_DATAGEN_DATA.put(skin, datagenData);
-
         registerItemSkin(skin.id, skin);
     }
 
