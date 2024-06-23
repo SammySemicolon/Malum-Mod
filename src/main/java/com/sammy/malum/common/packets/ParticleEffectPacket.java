@@ -10,7 +10,6 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.network.FriendlyByteBuf;
 import org.jetbrains.annotations.Nullable;
@@ -59,13 +58,7 @@ public class ParticleEffectPacket extends LodestoneClientPacket {
     @Environment(EnvType.CLIENT)
     @Override
     public void executeClient(Minecraft client, ClientPacketListener listener, PacketSender responseSender, SimpleChannel channel) {
-        ClientLevel level = client.level;
-        ParticleEffectType particleEffectType = ParticleEffectTypeRegistry.EFFECT_TYPES.get(id);
-        if (particleEffectType == null) {
-            throw new RuntimeException("This shouldn't be happening.");
-        }
-        ParticleEffectType.ParticleEffectActor particleEffectActor = particleEffectType.get().get();
-        particleEffectActor.act(level, level.random, positionData, colorData, nbtData);
+        ClientExecuteHelper.generic(client, id, positionData, colorData, nbtData);
     }
 
 }

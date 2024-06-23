@@ -1,6 +1,8 @@
 package com.sammy.malum.visual_effects;
 
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.particle.ParticleRenderType;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
@@ -23,6 +25,7 @@ import java.util.function.Consumer;
 
 import static net.minecraft.util.Mth.nextFloat;
 
+@Environment(EnvType.CLIENT)
 public class ItemCrumbleParticleEffects {
 
     public static ParticleEffectSpawner spawnItemCrumbs(Level level, Vec3 pos, ItemStack stack) {

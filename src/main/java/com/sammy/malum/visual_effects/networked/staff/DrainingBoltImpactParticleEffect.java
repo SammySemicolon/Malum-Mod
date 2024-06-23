@@ -2,6 +2,7 @@ package com.sammy.malum.visual_effects.networked.staff;
 
 import com.sammy.malum.common.item.curiosities.weapons.staff.ErosionScepterItem;
 import com.sammy.malum.visual_effects.SparkParticleEffects;
+import com.sammy.malum.visual_effects.networked.ClientRenderTypeHelper;
 import com.sammy.malum.visual_effects.networked.ParticleEffectType;
 import com.sammy.malum.visual_effects.networked.data.ColorEffectData;
 import com.sammy.malum.visual_effects.networked.data.NBTEffectData;
@@ -80,7 +81,7 @@ public class DrainingBoltImpactParticleEffect extends ParticleEffectType {
                     lightSpecs.getBuilder()
                             .disableNoClip()
                             .multiplyLifetime(lifetimeMultiplier)
-                            .setRenderType(LodestoneWorldParticleRenderType.LUMITRANSPARENT)
+                            .setRenderType(ClientRenderTypeHelper.getLumi())
                             .enableForcedSpawn()
                             .modifyColorData(d -> d.multiplyCoefficient(1.25f))
                             .modifyData(AbstractParticleBuilder::getScaleData, d -> d.multiplyValue(1.75f))
@@ -88,7 +89,7 @@ public class DrainingBoltImpactParticleEffect extends ParticleEffectType {
                     lightSpecs.getBloomBuilder()
                             .disableNoClip()
                             .multiplyLifetime(lifetimeMultiplier)
-                            .setRenderType(LodestoneWorldParticleRenderType.LUMITRANSPARENT)
+                            .setRenderType(ClientRenderTypeHelper.getLumi())
                             .modifyColorData(d -> d.multiplyCoefficient(1.25f))
                             .modifyData(AbstractParticleBuilder::getScaleData, d -> d.multiplyValue(1.75f))
                             .setMotion(direction);
@@ -99,7 +100,7 @@ public class DrainingBoltImpactParticleEffect extends ParticleEffectType {
                     sparks.getBuilder()
                             .disableNoClip()
                             .multiplyLifetime(lifetimeMultiplier)
-                            .setRenderType(LodestoneWorldParticleRenderType.LUMITRANSPARENT)
+                            .setRenderType(ClientRenderTypeHelper.getLumi())
                             .enableForcedSpawn()
                             .modifyColorData(d -> d.multiplyCoefficient(1.25f))
                             .modifyData(AbstractParticleBuilder::getScaleData, d -> d.multiplyValue(1.75f))
@@ -108,7 +109,7 @@ public class DrainingBoltImpactParticleEffect extends ParticleEffectType {
                     sparks.getBloomBuilder()
                             .disableNoClip()
                             .multiplyLifetime(lifetimeMultiplier)
-                            .setRenderType(LodestoneWorldParticleRenderType.LUMITRANSPARENT)
+                            .setRenderType(ClientRenderTypeHelper.getLumi())
                             .modifyColorData(d -> d.multiplyCoefficient(1.25f))
                             .modifyData(AbstractParticleBuilder::getScaleData, d -> d.multiplyValue(1.75f))
                             .setMotion(direction.scale(1.5f));

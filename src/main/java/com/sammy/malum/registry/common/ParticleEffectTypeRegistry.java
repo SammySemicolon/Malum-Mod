@@ -20,6 +20,8 @@ import com.sammy.malum.visual_effects.networked.staff.HexBoltImpactParticleEffec
 import com.sammy.malum.visual_effects.networked.totem.TotemPoleActivatedParticleEffect;
 import com.sammy.malum.visual_effects.networked.weeping_well.WeepingWellRadianceParticleEffect;
 import com.sammy.malum.visual_effects.networked.weeping_well.WeepingWellReactionParticleEffect;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

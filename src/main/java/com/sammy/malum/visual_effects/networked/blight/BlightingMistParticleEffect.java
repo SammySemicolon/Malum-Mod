@@ -1,5 +1,6 @@
 package com.sammy.malum.visual_effects.networked.blight;
 
+import com.sammy.malum.visual_effects.networked.ClientRenderTypeHelper;
 import com.sammy.malum.visual_effects.networked.ParticleEffectType;
 import com.sammy.malum.visual_effects.networked.data.ColorEffectData;
 import com.sammy.malum.visual_effects.networked.data.NBTEffectData;
@@ -47,7 +48,7 @@ public class BlightingMistParticleEffect extends ParticleEffectType {
                         .enableNoClip()
                         .setRandomOffset(0.1f, 0f)
                         .setRandomMotion(0.005f, 0.01f)
-                        .setRenderType(LodestoneWorldParticleRenderType.LUMITRANSPARENT)
+                        .setRenderType(ClientRenderTypeHelper.getLumi())
                         .repeatSurroundBlock(level, pos, 2, Direction.UP);
 
                 WorldParticleBuilder.create(LodestoneParticleRegistry.SMOKE_PARTICLE)
@@ -59,7 +60,7 @@ public class BlightingMistParticleEffect extends ParticleEffectType {
                         .setRandomOffset(0.2f, 0)
                         .enableNoClip()
                         .setRandomMotion(0.005f, 0.005f)
-                        .setRenderType(LodestoneWorldParticleRenderType.LUMITRANSPARENT)
+                        .setRenderType(ClientRenderTypeHelper.getLumi())
                         .repeatSurroundBlock(level, pos, 2, Direction.UP);
 
                 color = new Color((int) (80 * multiplier), (int) (40 * multiplier), (int) (80 * multiplier));

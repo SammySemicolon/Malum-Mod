@@ -7,6 +7,8 @@ import com.sammy.malum.common.item.spirit.*;
 import com.sammy.malum.common.recipe.*;
 import com.sammy.malum.core.systems.spirit.*;
 import com.sammy.malum.visual_effects.networked.data.*;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.core.*;
 import net.minecraft.util.*;
 import net.minecraft.world.item.*;
@@ -86,6 +88,7 @@ public class SpiritAltarParticleEffects {
         }
     }
 
+    @Environment(EnvType.CLIENT)
     public static void eatItemParticles(SpiritAltarBlockEntity altar, IMalumSpecialItemAccessPoint holder, ColorEffectData colorData, ItemStack stack) {
         MalumSpiritType activeSpiritType = getCentralSpiritType(altar);
         if (activeSpiritType == null) {
@@ -129,7 +132,7 @@ public class SpiritAltarParticleEffects {
             crumbles.spawnParticles();
         }
     }
-
+    @Environment(EnvType.CLIENT)
     public static void craftItemParticles(SpiritAltarBlockEntity altar, ColorEffectData colorData) {
         MalumSpiritType activeSpiritType = getCentralSpiritType(altar);
         if (activeSpiritType == null) {
