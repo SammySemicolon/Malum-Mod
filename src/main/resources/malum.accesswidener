@@ -37,3 +37,6 @@ accessible method net/minecraft/data/recipes/packs/VanillaRecipeProvider buildRe
 accessible field net/minecraft/network/chat/TextColor name Ljava/lang/String;
 extendable class net/minecraft/world/item/enchantment/EnchantmentCategory
 accessible field net/minecraft/client/renderer/entity/layers/ElytraLayer WINGS_LOCATION Lnet/minecraft/resources/ResourceLocation;
+
+accessible field net/minecraft/data/tags/TagsProvider$TagAppender builder Lnet/minecraft/tags/TagBuilder;
+accessible field net/minecraft/tags/TagBuilder entries Ljava/util/List;

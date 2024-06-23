@@ -27,7 +27,7 @@ public class PlacedFeatures {
                 new PlacedFeature(features.getOrThrow(ConfiguredFeatureRegistry.CONFIGURED_RUNEWOOD_TREE),
                         ImmutableList.<PlacementModifier>builder().add(
                                 PlacementUtils.HEIGHTMAP,
-                                RarityFilter.onAverageOnceEvery(8),
+                                RarityFilter.onAverageOnceEvery(16),
                                 InSquarePlacement.spread(),
                                 CountPlacement.of(3)
                         ).build()
@@ -37,7 +37,7 @@ public class PlacedFeatures {
                 new PlacedFeature(features.getOrThrow(ConfiguredFeatureRegistry.CONFIGURED_RUNEWOOD_TREE),
                         ImmutableList.<PlacementModifier>builder().add(
                                 PlacementUtils.HEIGHTMAP,
-                                RarityFilter.onAverageOnceEvery(16),
+                                RarityFilter.onAverageOnceEvery(32),
                                 InSquarePlacement.spread(),
                                 CountPlacement.of(3)
                         ).build()
@@ -48,7 +48,7 @@ public class PlacedFeatures {
                 new PlacedFeature(features.getOrThrow(ConfiguredFeatureRegistry.CONFIGURED_AZURE_RUNEWOOD_TREE),
                         ImmutableList.<PlacementModifier>builder().add(
                                 PlacementUtils.HEIGHTMAP,
-                                RarityFilter.onAverageOnceEvery(12),
+                                RarityFilter.onAverageOnceEvery(20),
                                 InSquarePlacement.spread(),
                                 CountPlacement.of(3)
                         ).build()
@@ -58,7 +58,7 @@ public class PlacedFeatures {
                 new PlacedFeature(features.getOrThrow(ConfiguredFeatureRegistry.CONFIGURED_AZURE_RUNEWOOD_TREE),
                         ImmutableList.<PlacementModifier>builder().add(
                                 PlacementUtils.HEIGHTMAP,
-                                RarityFilter.onAverageOnceEvery(20),
+                                RarityFilter.onAverageOnceEvery(30),
                                 InSquarePlacement.spread(),
                                 CountPlacement.of(3)
                         ).build()

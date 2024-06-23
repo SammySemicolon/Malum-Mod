@@ -36,10 +36,25 @@ public class MalumBiomeTags extends FabricTagProvider<Biome> {
         getOrCreateTagBuilder(BiomeTagRegistry.HAS_QUARTZ).addTag(BiomeTags.IS_OVERWORLD);
         getOrCreateTagBuilder(BiomeTagRegistry.HAS_CTHONIC).addTag(BiomeTags.IS_OVERWORLD);
 
-        getOrCreateTagBuilder(BiomeTagRegistry.HAS_RUNEWOOD).addTag(Tags.Biomes.IS_PLAINS).addTag(Tags.Biomes.IS_MOUNTAIN).addTag(BiomeTags.IS_HILL);//TODO.remove(Tags.Biomes.IS_SNOWY);
+        FabricTagProvider<Biome>.FabricTagBuilder tag = getOrCreateTagBuilder(BiomeTagRegistry.HAS_RUNEWOOD);
+        tag.builder.entries.remove(Tags.Biomes.IS_SNOWY);
+
+        tag.addTag(Tags.Biomes.IS_PLAINS).addTag(Tags.Biomes.IS_MOUNTAIN).addTag(BiomeTags.IS_HILL)
+
+        ;//TODO.remove(Tags.Biomes.IS_SNOWY);
+
         getOrCreateTagBuilder(BiomeTagRegistry.HAS_RARE_RUNEWOOD).addTag(BiomeTags.IS_FOREST);//TODO.remove(Tags.Biomes.IS_SNOWY);
 
-        getOrCreateTagBuilder(BiomeTagRegistry.HAS_AZURE_RUNEWOOD).add(Biomes.SNOWY_PLAINS).add(Biomes.SNOWY_TAIGA).add(Biomes.FROZEN_RIVER).add(Biomes.SNOWY_BEACH);
-        getOrCreateTagBuilder(BiomeTagRegistry.HAS_RARE_AZURE_RUNEWOOD).add(Biomes.FROZEN_PEAKS).add(Biomes.JAGGED_PEAKS).add(Biomes.SNOWY_SLOPES).add(Biomes.GROVE);
+        getOrCreateTagBuilder(BiomeTagRegistry.HAS_AZURE_RUNEWOOD)
+                .add(Biomes.SNOWY_PLAINS)
+                .add(Biomes.SNOWY_TAIGA)
+                .add(Biomes.FROZEN_RIVER)
+                .add(Biomes.SNOWY_BEACH);
+
+        getOrCreateTagBuilder(BiomeTagRegistry.HAS_RARE_AZURE_RUNEWOOD)
+                .add(Biomes.FROZEN_PEAKS)
+                .add(Biomes.JAGGED_PEAKS)
+                .add(Biomes.SNOWY_SLOPES)
+                .add(Biomes.GROVE);
     }
 }
