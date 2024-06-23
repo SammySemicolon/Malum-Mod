@@ -22,22 +22,12 @@ public class TotemPoleActivatedParticleEffect extends ParticleEffectType {
     @Environment(EnvType.CLIENT)
     @Override
     public Supplier<ParticleEffectActor> get() {
-        return new Supplier<>() {
-            @Environment(EnvType.CLIENT)
-            @Override
-            public ParticleEffectActor get() {
-                return new ParticleEffectActor() {
-                    @Environment(EnvType.CLIENT)
-                    @Override
-                    public void act(Level level, RandomSource random, PositionEffectData positionData, ColorEffectData colorData, NBTEffectData nbtData) {
-                        if (!(level.getBlockEntity(positionData.getAsBlockPos()) instanceof TotemPoleBlockEntity totemPole)) {
-                            return;
-                        }
-                        if (level.isClientSide) {
-                            TotemParticleEffects.activateTotemPoleParticles(totemPole);
-                        }
-                    }
-                };
+        return () -> (level, random, positionData, colorData, nbtData) -> {
+            if (!(level.getBlockEntity(positionData.getAsBlockPos()) instanceof TotemPoleBlockEntity totemPole)) {
+                return;
+            }
+            if (level.isClientSide) {
+                TotemParticleEffects.activateTotemPoleParticles(totemPole);
             }
         };
     }

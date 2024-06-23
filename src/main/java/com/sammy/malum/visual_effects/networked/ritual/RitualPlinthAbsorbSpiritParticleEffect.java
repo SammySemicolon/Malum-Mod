@@ -24,23 +24,13 @@ public class RitualPlinthAbsorbSpiritParticleEffect extends ParticleEffectType {
     @Environment(EnvType.CLIENT)
     @Override
     public Supplier<ParticleEffectActor> get() {
-        return new Supplier<>() {
-            @Environment(EnvType.CLIENT)
-            @Override
-            public ParticleEffectActor get() {
-                return new ParticleEffectActor() {
-                    @Environment(EnvType.CLIENT)
-                    @Override
-                    public void act(Level level, RandomSource random, PositionEffectData positionData, ColorEffectData colorData, NBTEffectData nbtData) {
-                        if (!(level.getBlockEntity(positionData.getAsBlockPos()) instanceof RitualPlinthBlockEntity ritualPlinth)) {
-                            return;
-                        }
-                        final CompoundTag compoundTag = nbtData.compoundTag.getCompound("targetPosition");
-                        if (level.isClientSide) {
-                            RitualPlinthParticleEffects.eatSpiritParticles(ritualPlinth, new Vec3(compoundTag.getDouble("x"), compoundTag.getDouble("y"), compoundTag.getDouble("z")), colorData, nbtData.getStack());
-                        }
-                    }
-                };
+        return () -> (level, random, positionData, colorData, nbtData) -> {
+            if (!(level.getBlockEntity(positionData.getAsBlockPos()) instanceof RitualPlinthBlockEntity ritualPlinth)) {
+                return;
+            }
+            final CompoundTag compoundTag = nbtData.compoundTag.getCompound("targetPosition");
+            if (level.isClientSide) {
+                RitualPlinthParticleEffects.eatSpiritParticles(ritualPlinth, new Vec3(compoundTag.getDouble("x"), compoundTag.getDouble("y"), compoundTag.getDouble("z")), colorData, nbtData.getStack());
             }
         };
     }

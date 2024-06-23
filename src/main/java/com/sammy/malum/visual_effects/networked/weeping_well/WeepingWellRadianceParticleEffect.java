@@ -21,18 +21,8 @@ public class WeepingWellRadianceParticleEffect extends ParticleEffectType {
     @Environment(EnvType.CLIENT)
     @Override
     public Supplier<ParticleEffectActor> get() {
-        return new Supplier<>() {
-            @Environment(EnvType.CLIENT)
-            @Override
-            public ParticleEffectActor get() {
-                return new ParticleEffectActor() {
-                    @Environment(EnvType.CLIENT)
-                    @Override
-                    public void act(Level level, RandomSource random, PositionEffectData positionData, ColorEffectData colorData, NBTEffectData nbtData) {
-                        RadiantParticleEffects.spitOutWeepingWellRadiance(level, positionData);
-                    }
-                };
-            }
+        return () -> (level, random, positionData, colorData, nbtData) -> {
+            RadiantParticleEffects.spitOutWeepingWellRadiance(level, positionData);
         };
     }
 }

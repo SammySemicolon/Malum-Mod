@@ -32,24 +32,14 @@ public class PylonRepairParticleEffect extends ParticleEffectType {
     @Environment(EnvType.CLIENT)
     @Override
     public Supplier<ParticleEffectActor> get() {
-        return new Supplier<>() {
-            @Environment(EnvType.CLIENT)
-            @Override
-            public ParticleEffectActor get() {
-                return new ParticleEffectActor() {
-                    @Environment(EnvType.CLIENT)
-                    @Override
-                    public void act(Level level, RandomSource random, PositionEffectData positionData, ColorEffectData colorData, NBTEffectData nbtData) {
-                        if (!(level.getBlockEntity(positionData.getAsBlockPos()) instanceof RepairPylonCoreBlockEntity pylon)) {
-                            return;
-                        }
-                        if (!(level.getBlockEntity(BlockHelper.loadBlockPos(nbtData.compoundTag)) instanceof IMalumSpecialItemAccessPoint holder)) {
-                            return;
-                        }
-                        RepairPylonParticleEffects.repairItemParticles(pylon, holder, colorData);
-                    }
-                };
+        return () -> (level, random, positionData, colorData, nbtData) -> {
+            if (!(level.getBlockEntity(positionData.getAsBlockPos()) instanceof RepairPylonCoreBlockEntity pylon)) {
+                return;
             }
+            if (!(level.getBlockEntity(BlockHelper.loadBlockPos(nbtData.compoundTag)) instanceof IMalumSpecialItemAccessPoint holder)) {
+                return;
+            }
+            RepairPylonParticleEffects.repairItemParticles(pylon, holder, colorData);
         };
     }
 }
