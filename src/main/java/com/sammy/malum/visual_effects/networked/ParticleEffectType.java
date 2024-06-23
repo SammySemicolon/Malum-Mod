@@ -49,7 +49,7 @@ public abstract class ParticleEffectType {
     }
 
     public void createPositionedEffect(ServerLevel level, PositionEffectData positionData, ColorEffectData colorData, NBTEffectData nbtData) {
-        MALUM_CHANNEL.sendToClientsInWorld(new ParticleEffectPacket(id, positionData, colorData, nbtData), level);
+        MALUM_CHANNEL.sendToClientsTracking(new ParticleEffectPacket(id, positionData, colorData, nbtData), level, level.getChunkAt(positionData.getAsBlockPos()).getPos());
     }
 
     public interface ParticleEffectActor {
