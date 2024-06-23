@@ -1,4 +1,4 @@
-package com.sammy.malum.mixin;
+package com.sammy.malum.mixin.client;
 
 import com.sammy.malum.common.entity.EntityModelLoader;
 import com.sammy.malum.registry.client.ScreenParticleRegistry;

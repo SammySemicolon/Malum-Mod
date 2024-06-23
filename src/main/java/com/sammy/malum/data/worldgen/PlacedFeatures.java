@@ -29,7 +29,7 @@ public class PlacedFeatures {
                                 PlacementUtils.HEIGHTMAP,
                                 RarityFilter.onAverageOnceEvery(16),
                                 InSquarePlacement.spread(),
-                                CountPlacement.of(3)
+                                CountPlacement.of(2)
                         ).build()
                 )
         );
@@ -39,7 +39,7 @@ public class PlacedFeatures {
                                 PlacementUtils.HEIGHTMAP,
                                 RarityFilter.onAverageOnceEvery(32),
                                 InSquarePlacement.spread(),
-                                CountPlacement.of(3)
+                                CountPlacement.of(2)
                         ).build()
                 )
         );
@@ -50,7 +50,7 @@ public class PlacedFeatures {
                                 PlacementUtils.HEIGHTMAP,
                                 RarityFilter.onAverageOnceEvery(20),
                                 InSquarePlacement.spread(),
-                                CountPlacement.of(3)
+                                CountPlacement.of(2)
                         ).build()
                 )
         );
@@ -60,7 +60,7 @@ public class PlacedFeatures {
                                 PlacementUtils.HEIGHTMAP,
                                 RarityFilter.onAverageOnceEvery(30),
                                 InSquarePlacement.spread(),
-                                CountPlacement.of(3)
+                                CountPlacement.of(2)
                         ).build()
                 )
         );

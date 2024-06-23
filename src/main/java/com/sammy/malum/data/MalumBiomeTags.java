@@ -18,6 +18,8 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Iterator;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class MalumBiomeTags extends FabricTagProvider<Biome> {
@@ -43,13 +45,10 @@ public class MalumBiomeTags extends FabricTagProvider<Biome> {
         getOrCreateTagBuilder(BiomeTagRegistry.HAS_CTHONIC).addTag(BiomeTags.IS_OVERWORLD);
 
         FabricTagProvider<Biome>.FabricTagBuilder tag = getOrCreateTagBuilder(BiomeTagRegistry.HAS_RUNEWOOD);
-        tag.builder.entries.remove(Tags.Biomes.IS_SNOWY);
+        tag.addTag(Tags.Biomes.IS_PLAINS).addTag(Tags.Biomes.IS_MOUNTAIN).addTag(BiomeTags.IS_HILL);
 
-        tag.addTag(Tags.Biomes.IS_PLAINS).addTag(Tags.Biomes.IS_MOUNTAIN).addTag(BiomeTags.IS_HILL)
-
-        ;//TODO.remove(Tags.Biomes.IS_SNOWY);
-
-        getOrCreateTagBuilder(BiomeTagRegistry.HAS_RARE_RUNEWOOD).addTag(BiomeTags.IS_FOREST);//TODO.remove(Tags.Biomes.IS_SNOWY);
+        tag = getOrCreateTagBuilder(BiomeTagRegistry.HAS_RARE_RUNEWOOD);
+        tag.addTag(BiomeTags.IS_FOREST);//TODO.remove(Tags.Biomes.IS_SNOWY);
 
         getOrCreateTagBuilder(BiomeTagRegistry.HAS_AZURE_RUNEWOOD)
                 .add(Biomes.SNOWY_PLAINS)

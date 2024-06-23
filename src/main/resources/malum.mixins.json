@@ -19,11 +19,11 @@
     "client.ElytraLayerMixin",
     "client.FontStringRenderOutputMixin",
     "client.ForgeIngameGuiMixin",
+    "client.GameRenderMixin",
     "client.GlyphRenderTypesMixin",
+    "client.GuiMixin",
     "client.LocalPlayerMixin",
-    "GameRenderMixin",
-    "GuiMixin",
-    "MinecraftMixin"
+    "client.MinecraftMixin"
   ],
   "injectors": {
     "defaultRequire": 1

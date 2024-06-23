@@ -1,4 +1,4 @@
-package com.sammy.malum.mixin;
+package com.sammy.malum.mixin.client;
 
 import com.mojang.blaze3d.shaders.Program;
 import com.mojang.datafixers.util.Pair;

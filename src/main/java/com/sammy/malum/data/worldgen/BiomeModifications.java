@@ -1,14 +1,25 @@
 package com.sammy.malum.data.worldgen;
 
 import com.sammy.malum.MalumMod;
+import com.sammy.malum.mixin.BiomeModificationContextImplMixin;
 import com.sammy.malum.registry.common.worldgen.BiomeTagRegistry;
 import com.sammy.malum.registry.common.worldgen.PlacedFeatureRegistry;
+import io.github.fabricators_of_create.porting_lib.tags.Tags;
 import net.fabricmc.fabric.api.biome.v1.BiomeModification;
+import net.fabricmc.fabric.api.biome.v1.BiomeModificationContext;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
+import net.fabricmc.fabric.impl.biome.modification.BiomeModificationContextImpl;
+import net.minecraft.core.Holder;
+import net.minecraft.core.Registry;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.levelgen.GenerationStep;
+import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 
 @SuppressWarnings("unchecked")
 public class BiomeModifications {
@@ -62,6 +73,16 @@ public class BiomeModifications {
 
         modifications.add(ModificationPhase.ADDITIONS, BiomeSelectors.tag(BiomeTagRegistry.HAS_QUARTZ), (biomeSelectionContext, biomeModificationContext) -> {
             biomeModificationContext.getGenerationSettings().addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, PlacedFeatureRegistry.DEEPSLATE_QUARTZ_GEODE_FEATURE);
+        });
+
+
+        //Remove
+        modifications.add(ModificationPhase.REMOVALS, BiomeSelectors.tag(Tags.Biomes.IS_COLD_OVERWORLD),ctx -> {
+            ctx.getGenerationSettings().removeFeature(PlacedFeatureRegistry.RUNEWOOD_TREE);
+        });
+
+        modifications.add(ModificationPhase.REMOVALS, BiomeSelectors.tag(Tags.Biomes.IS_COLD_OVERWORLD),ctx -> {
+            ctx.getGenerationSettings().removeFeature(PlacedFeatureRegistry.RARE_RUNEWOOD_TREE);
         });
     }
 }

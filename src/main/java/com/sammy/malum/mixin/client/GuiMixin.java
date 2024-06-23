@@ -1,4 +1,4 @@
-package com.sammy.malum.mixin;
+package com.sammy.malum.mixin.client;
 
 import com.sammy.malum.core.handlers.SoulWardHandler;
 import com.sammy.malum.core.handlers.TouchOfDarknessHandler;
