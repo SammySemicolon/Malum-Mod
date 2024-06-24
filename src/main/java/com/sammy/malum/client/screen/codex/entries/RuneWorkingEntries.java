@@ -65,9 +65,9 @@ public class RuneWorkingEntries {
                 .addPage(RuneworkingPage.fromOutput(RUNE_OF_DEXTERITY.get()))
         );
 
-        screen.addEntry("rune_of_haste", -13, 8, b -> b
+        screen.addEntry("rune_of_fervor", -13, 8, b -> b
                 .configureWidget(w -> w.setIcon(RUNE_OF_FERVOR))
-                .addPage(new HeadlineTextPage("rune_of_haste", "rune_of_haste.1"))
+                .addPage(new HeadlineTextPage("rune_of_fervor", "rune_of_fervor.1"))
                 .addPage(RuneworkingPage.fromOutput(RUNE_OF_FERVOR.get()))
         );
 

@@ -52,7 +52,7 @@
   "song_of_the_void": { "sounds":["malum:weeping_well/song_of_the_void0","malum:weeping_well/song_of_the_void1","malum:weeping_well/song_of_the_void2"], "subtitle": "malum.subtitle.song_of_the_void" },
   "rejected_by_the_unknown": { "sounds":["malum:weeping_well/void_rejection"], "subtitle": "malum.subtitle.rejected_by_the_unknown" },
   "void_transmutation": { "sounds":["malum:weeping_well/void_transmutation0","malum:weeping_well/void_transmutation1"], "subtitle": "malum.subtitle.void_transmutation" },
-  "void_eats_gunk": { "sounds":["malum:curiosities/starved_belt/nom1", "malum:curiosities/starved_belt/nom2", "malum:curiosities/starved_belt/nom3", "malum:curiosities/starved_belt/nom4"], "subtitle": "malum.subtitle.void_eats_gunk" },
+  "void_eats_gunk": { "sounds":["malum:curiosities/starved_trinkets/nom1", "malum:curiosities/starved_trinkets/nom2", "malum:curiosities/starved_trinkets/nom3", "malum:curiosities/starved_trinkets/nom4"], "subtitle": "malum.subtitle.void_eats_gunk" },
 
   "totem_charges": { "sounds":["malum:totem/totem_charge1","malum:totem/totem_charge2","malum:totem/totem_charge3"], "subtitle": "malum.subtitle.totem_charges" },
   "spirit_rite_activated": { "sounds":["malum:totem/totem_activate"], "subtitle": "malum.subtitle.spirit_rite_activated" },
@@ -84,7 +84,12 @@
 
   "aerial_magic_swooshes": { "sounds":["minecraft:mob/phantom/flap1","minecraft:mob/phantom/flap2","minecraft:mob/phantom/flap3","minecraft:mob/phantom/flap4","minecraft:mob/phantom/flap5","minecraft:mob/phantom/flap6"], "subtitle": "malum.subtitle.aerial_magic_swooshes" },
   "void_slash_swooshes": { "sounds":["malum:void_slash"], "subtitle": "malum.subtitle.void_slash_swooshes" },
-  "hungry_belt_feeds": { "sounds":["malum:curiosities/starved_belt/nom1", "malum:curiosities/starved_belt/nom2", "malum:curiosities/starved_belt/nom3", "malum:curiosities/starved_belt/nom4"], "subtitle": "malum.subtitle.hungry_belt_feeds" },
+
+  "concentrated_gluttony_drink": { "sounds":["malum:curiosities/concentrated_gluttony/drink1", "malum:curiosities/concentrated_gluttony/drink2"], "subtitle": "malum.subtitle.concentrated_gluttony_drink" },
+
+  "hungry_belt_feeds": { "sounds":["malum:curiosities/starved_trinkets/nom1", "malum:curiosities/starved_trinkets/nom2", "malum:curiosities/starved_trinkets/nom3", "malum:curiosities/starved_trinkets/nom4"], "subtitle": "malum.subtitle.hungry_belt_feeds" },
+  "voracious_ring_feeds": { "sounds":["malum:curiosities/starved_trinkets/nom1", "malum:curiosities/starved_trinkets/nom2", "malum:curiosities/starved_trinkets/nom3", "malum:curiosities/starved_trinkets/nom4"], "subtitle": "malum.subtitle.voracious_ring_feeds" },
+  "gruesome_ring_feeds": { "sounds":["malum:curiosities/starved_trinkets/nom1", "malum:curiosities/starved_trinkets/nom2", "malum:curiosities/starved_trinkets/nom3", "malum:curiosities/starved_trinkets/nom4"], "subtitle": "malum.subtitle.gruesome_ring_feeds" },
   "flesh_ring_absorbs": { "sounds":["malum:curiosities/cancer_ring/grow1", "malum:curiosities/cancer_ring/grow2", "malum:curiosities/cancer_ring/grow3"], "subtitle": "malum.subtitle.flesh_ring_absorbs" },
   "hidden_blade_strikes": { "sounds":["malum:curiosities/hidden_blade/strike1", "malum:curiosities/hidden_blade/strike2", "malum:curiosities/hidden_blade/strike3"], "subtitle": "malum.subtitle.hidden_blade_strikes" },
   "malignant_metal_resonates": { "sounds":["malum:curiosities/hidden_blade/strike1", "malum:curiosities/hidden_blade/strike2", "malum:curiosities/hidden_blade/strike3"], "subtitle": "malum.subtitle.malignant_metal_resonates" },

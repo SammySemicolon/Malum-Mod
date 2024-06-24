@@ -13,7 +13,7 @@ import java.util.function.*;
 
 import static com.sammy.malum.MalumMod.*;
 import static com.sammy.malum.data.recipe.MalumVanillaRecipes.*;
-import static net.minecraft.data.recipes.RecipeBuilder.getDefaultRecipeId;
+import static net.minecraft.data.recipes.RecipeBuilder.*;
 import static net.minecraft.data.recipes.ShapedRecipeBuilder.*;
 import static net.minecraft.data.recipes.ShapelessRecipeBuilder.*;
 
@@ -38,6 +38,7 @@ public class MalumWoodSetRecipes implements IConditionBuilder {
                 ItemRegistry.RUNEWOOD_BUTTON.get(), ItemRegistry.RUNEWOOD_PRESSURE_PLATE.get(),
                 ItemRegistry.SOLID_RUNEWOOD_TRAPDOOR.get(), ItemRegistry.RUNEWOOD_TRAPDOOR.get(),
                 ItemRegistry.RUNEWOOD_FENCE.get(), ItemRegistry.RUNEWOOD_FENCE_GATE.get(),
+                ItemRegistry.RUNEWOOD_BOARDS_WALL.get(),
                 ItemRegistry.RUNEWOOD_DOOR.get(),
                 ItemRegistry.RUNEWOOD_SIGN.get(), ItemRegistry.RUNEWOOD_SIGN.get(),
                 ItemRegistry.RUNEWOOD_ITEM_STAND.get(), ItemRegistry.RUNEWOOD_ITEM_PEDESTAL.get(),
@@ -63,6 +64,7 @@ public class MalumWoodSetRecipes implements IConditionBuilder {
                 ItemRegistry.SOULWOOD_BUTTON.get(), ItemRegistry.SOULWOOD_PRESSURE_PLATE.get(),
                 ItemRegistry.SOLID_SOULWOOD_TRAPDOOR.get(), ItemRegistry.SOULWOOD_TRAPDOOR.get(),
                 ItemRegistry.SOULWOOD_FENCE.get(), ItemRegistry.SOULWOOD_FENCE_GATE.get(),
+                ItemRegistry.SOULWOOD_BOARDS_WALL.get(),
                 ItemRegistry.SOULWOOD_DOOR.get(),
                 ItemRegistry.SOULWOOD_SIGN.get(), ItemRegistry.SOULWOOD_SIGN.get(),
                 ItemRegistry.SOULWOOD_ITEM_STAND.get(), ItemRegistry.SOULWOOD_ITEM_PEDESTAL.get(),
@@ -129,18 +131,26 @@ public class MalumWoodSetRecipes implements IConditionBuilder {
 
         shapedPanel(consumer, woodSet.panel, woodSet.planksTag);
 
+        var condition = has(woodSet.planksTag);
+        shaped(RecipeCategory.MISC, woodSet.boardWall, 6)
+                .define('#', woodSet.boards)
+                .pattern("###")
+                .pattern("###")
+                .unlockedBy("has_input", condition)
+                .save(consumer);
+
         shaped(RecipeCategory.MISC, woodSet.cutPlanks, 2)
                 .define('X', woodSet.panel)
                 .define('Y', woodSet.planksTag)
                 .pattern("X").pattern("Y")
-                .unlockedBy("has_input", has(woodSet.planksTag))
+                .unlockedBy("has_input", condition)
                 .save(consumer);
         shaped(RecipeCategory.MISC, woodSet.beam, 3)
                 .define('#', woodSet.planksTag)
                 .pattern("#")
                 .pattern("#")
                 .pattern("#")
-                .unlockedBy("has_input", has(woodSet.planksTag))
+                .unlockedBy("has_input", condition)
                 .save(consumer);
 
         shaped(RecipeCategory.MISC, woodSet.itemStand, 2)
@@ -148,7 +158,7 @@ public class MalumWoodSetRecipes implements IConditionBuilder {
                 .define('Y', woodSet.slabTag)
                 .pattern("YYY")
                 .pattern("XXX")
-                .unlockedBy("has_input", has(woodSet.planksTag))
+                .unlockedBy("has_input", condition)
                 .save(consumer);
         shaped(RecipeCategory.MISC, woodSet.itemPedestal)
                 .define('X', woodSet.planksTag)
@@ -156,7 +166,7 @@ public class MalumWoodSetRecipes implements IConditionBuilder {
                 .pattern("YYY")
                 .pattern(" X ")
                 .pattern("YYY")
-                .unlockedBy("has_input", has(woodSet.planksTag))
+                .unlockedBy("has_input", condition)
                 .save(consumer);
 
     }
@@ -343,6 +353,8 @@ public class MalumWoodSetRecipes implements IConditionBuilder {
             Item solidTrapdoor, Item openTrapdoor,
 
             Item fence, Item fenceGate,
+
+            Item boardWall,
 
             Item door,
 

@@ -10,6 +10,7 @@ import com.sammy.malum.common.entity.boomerang.ScytheBoomerangEntity;
 import com.sammy.malum.common.entity.nitrate.EthericNitrateEntity;
 import com.sammy.malum.common.entity.nitrate.VividNitrateEntity;
 import com.sammy.malum.common.entity.spirit.SpiritItemEntity;
+import com.sammy.malum.common.entity.thrown.*;
 import com.sammy.malum.registry.common.item.ItemRegistry;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.world.entity.EntityType;
@@ -54,6 +55,10 @@ public class EntityRegistry {
             () -> EntityType.Builder.<SpiritCollectionActivatorEntity>of((e, w) -> new SpiritCollectionActivatorEntity(w), MobCategory.MISC).sized(1f, 1f).clientTrackingRange(10)
                     .build(MalumMod.malumPath("pneuma_void").toString()));
 
+    public static final RegistryObject<EntityType<ThrownConcentratedGluttony>> THROWN_GLUTTONY = ENTITY_TYPES.register("thrown_gluttony",
+            () -> EntityType.Builder.<ThrownConcentratedGluttony>of((e, w) -> new ThrownConcentratedGluttony(w), MobCategory.MISC).sized(0.25f, 0.25f).clientTrackingRange(10)
+                    .build(MalumMod.malumPath("thrown_gluttony").toString()));
+
     public static final RegistryObject<EntityType<HexBoltEntity>> HEX_BOLT = ENTITY_TYPES.register("hex_bolt",
             () -> EntityType.Builder.<HexBoltEntity>of((e, w) -> new HexBoltEntity(w), MobCategory.MISC).sized(1.25F, 1.25F).clientTrackingRange(10)
                     .build(MalumMod.malumPath("hex_bolt").toString()));
@@ -79,6 +84,9 @@ public class EntityRegistry {
             EntityRenderers.register(EntityRegistry.VIVID_NITRATE.get(), VividNitrateEntityRenderer::new);
 
             EntityRenderers.register(EntityRegistry.SPIRIT_COLLECTION_ACTIVATOR.get(), SpiritCollectionActivatorEntityRenderer::new);
+
+            EntityRenderers.register(EntityRegistry.THROWN_GLUTTONY.get(), ThrownConcentratedGluttonyRenderer::new);
+
             EntityRenderers.register(EntityRegistry.HEX_BOLT.get(), HexBoltEntityRenderer::new);
             EntityRenderers.register(EntityRegistry.DRAINING_BOLT.get(), DrainingBoltEntityRenderer::new);
             EntityRenderers.register(EntityRegistry.AURIC_FLAME_BOLT.get(), AuricFlameBoltEntityRenderer::new);

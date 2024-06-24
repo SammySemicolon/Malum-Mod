@@ -4,11 +4,9 @@ import com.sammy.malum.common.item.curiosities.curios.*;
 import com.sammy.malum.registry.common.*;
 import com.sammy.malum.registry.common.item.*;
 import net.minecraft.network.chat.*;
-import net.minecraft.sounds.*;
 import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
-import net.minecraft.world.level.*;
 import net.minecraftforge.event.entity.living.*;
 import team.lodestar.lodestone.helpers.*;
 
@@ -35,23 +33,25 @@ public class CurioVoraciousRing extends MalumCurioItem {
             }
         }
     }
+
     public static void finishEating(LivingEntityUseItemEvent.Finish event) {
-        if (event.getEntity() instanceof Player player) {
-            ItemStack stack = event.getResultStack();
-            if (CurioHelper.hasCurioEquipped(player, ItemRegistry.RING_OF_DESPERATE_VORACITY.get())) {
-                if (stack.is(GROSS_FOODS)) {
-                    Level level = player.level();
-                    MobEffectInstance gluttony = player.getEffect(MobEffectRegistry.GLUTTONY.get());
-                    MobEffectInstance hunger = player.getEffect(MobEffects.HUNGER);
-                    if (gluttony != null) {
-                        EntityHelper.extendEffect(gluttony, player, 300, 600);
-                        level.playSound(null, player.blockPosition(), SoundRegistry.HUNGRY_BELT_FEEDS.get(), SoundSource.PLAYERS, 0.75f, RandomHelper.randomBetween(level.random, 0.8f, 1.2f));
-                    }
-                    if (hunger != null) {
-                        EntityHelper.shortenEffect(hunger, player, 150);
-                    }
+        ItemStack stack = event.getResultStack();
+        if (stack.is(GROSS_FOODS)) {
+            var livingEntity = event.getEntity();
+            if (CurioHelper.hasCurioEquipped(livingEntity, ItemRegistry.RING_OF_DESPERATE_VORACITY.get())) {
+                var level = livingEntity.level();
+                var gluttony = livingEntity.getEffect(MobEffectRegistry.GLUTTONY.get());
+                var hunger = livingEntity.getEffect(MobEffects.HUNGER);
+                if (gluttony != null) {
+                    EntityHelper.extendEffect(gluttony, livingEntity, 300, 3000);
+                }
+                if (hunger != null) {
+                    EntityHelper.shortenEffect(hunger, livingEntity, 150);
+                }
+                if (livingEntity instanceof Player player) {
                     player.getFoodData().eat(1, 1f);
                 }
+                livingEntity.playSound(SoundRegistry.VORACIOUS_RING_FEEDS.get(), 0.5f, RandomHelper.randomBetween(level.random, 1.2f, 1.6f));
             }
         }
     }

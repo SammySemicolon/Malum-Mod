@@ -59,7 +59,9 @@ public class EtherBlockEntity extends LodestoneBlockEntity {
 
     @Override
     protected void saveAdditional(CompoundTag compound) {
-        compound.putInt("firstColor", firstColor.getRGB());
+        if (firstColor != null) {
+            compound.putInt("firstColor", firstColor.getRGB());
+        }
         if (getBlockState().getBlock().asItem() instanceof AbstractEtherItem etherItem && etherItem.iridescent) {
             if (secondColor != null && secondColor.getRGB() != EtherItem.DEFAULT_SECOND_COLOR) {
                 compound.putInt("secondColor", secondColor.getRGB());
@@ -134,7 +136,7 @@ public class EtherBlockEntity extends LodestoneBlockEntity {
                         .setRenderTarget(RenderHandler.LATE_DELAYED_RENDER)
                         .setLifetime(lifeTime)
                         .setScaleData(GenericParticleData.create(scale, 0).setEasing(Easing.SINE_IN_OUT).build())
-                        .setTransparencyData(GenericParticleData.create(0.2f, 0.4f, 0).build())
+                        .setTransparencyData(GenericParticleData.create(0.3f, 0.6f, 0).build())
                         .addMotion(0, velocity * 1.2f, 0);
                 lightSpecs.spawnParticlesRaw();
             }
@@ -146,7 +148,7 @@ public class EtherBlockEntity extends LodestoneBlockEntity {
                 WorldParticleBuilder.create(LodestoneParticleRegistry.WISP_PARTICLE)
                         .setRenderTarget(RenderHandler.LATE_DELAYED_RENDER)
                         .setScaleData(GenericParticleData.create(scale, 0).setEasing(Easing.SINE_IN).build())
-                        .setTransparencyData(GenericParticleData.create(0.3f, 0.6f, 0.1f).setEasing(Easing.QUAD_OUT).build())
+                        .setTransparencyData(GenericParticleData.create(0.4f, 0.8f, 0.2f).setEasing(Easing.QUAD_OUT).build())
                         .setColorData(colorData)
                         .setSpinData(SpinParticleData.create(0.2f, 0.4f).setSpinOffset((level.getGameTime() * 0.2f) % 6.28f).setEasing(Easing.QUARTIC_IN).build())
                         .setLifetime(lifeTime)
@@ -154,11 +156,11 @@ public class EtherBlockEntity extends LodestoneBlockEntity {
                         .enableNoClip()
                         .spawn(level, x, y, z);
                 lifeTime = 20;
-                scale = RandomHelper.randomBetween(random, 0.4f, 0.5f);
+                scale = 0.5f;
                 WorldParticleBuilder.create(LodestoneParticleRegistry.TWINKLE_PARTICLE)
                         .setRenderTarget(RenderHandler.LATE_DELAYED_RENDER)
                         .setScaleData(GenericParticleData.create(scale, 0f).build())
-                        .setTransparencyData(GenericParticleData.create(0.05f, 0.8f).build())
+                        .setTransparencyData(GenericParticleData.create(0.2f, 0.8f).build())
                         .setColorData(ColorParticleData.create(firstColor, secondColor).setEasing(Easing.SINE_IN).setCoefficient(0.5f).build())
                         .setSpinData(SpinParticleData.create(0, 0.4f).setEasing(Easing.QUARTIC_IN).build())
                         .setLifetime(lifeTime)

@@ -53,6 +53,7 @@ public abstract class FloatingItemEntity extends FloatingEntity {
         setSpirit(spiritType.identifier);
         this.spiritType = spiritType;
     }
+
     public void setSpirit(String spiritIdentifier) {
         this.getEntityData().set(DATA_SPIRIT, spiritIdentifier);
     }

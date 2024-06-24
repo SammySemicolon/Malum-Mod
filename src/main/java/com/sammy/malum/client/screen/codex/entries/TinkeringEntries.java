@@ -104,6 +104,12 @@ public class TinkeringEntries {
                                 .addPage(new HeadlineTextPage("belt_of_the_starved.ring_of_desperate_voracity", "belt_of_the_starved.ring_of_desperate_voracity.1"))
                                 .addPage(SpiritInfusionPage.fromOutput(RING_OF_DESPERATE_VORACITY.get()))
                 ))
+                .addReference(new EntryReference(
+                        CONCENTRATED_GLUTTONY.get(),
+                        BookEntry.build("belt_of_the_starved.concentrated_gluttony")
+                                .addPage(new HeadlineTextPage("belt_of_the_starved.concentrated_gluttony", "belt_of_the_starved.concentrated_gluttony.1"))
+                                .addPage(SpiritInfusionPage.fromOutput(CONCENTRATED_GLUTTONY.get()))
+                ))
         );
 
         screen.addEntry("necklace_of_the_narrow_edge", -7, 8, b -> b

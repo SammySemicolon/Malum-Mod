@@ -132,6 +132,7 @@ public class MalumBlockStates extends LodestoneBlockStateProvider {
         BlockStateSmithTypes.WOODEN_SIGN_BLOCK.act(data, RUNEWOOD_SIGN, RUNEWOOD_WALL_SIGN);
         BlockStateSmithTypes.FENCE_BLOCK.act(data, RUNEWOOD_FENCE);
         BlockStateSmithTypes.FENCE_GATE_BLOCK.act(data, RUNEWOOD_FENCE_GATE);
+        BlockStateSmithTypes.WALL_BLOCK.act(data, RUNEWOOD_BOARDS_WALL);
 
         MalumBlockStateSmithTypes.TOTEM_POLE.act(data, RUNEWOOD_TOTEM_POLE);
         BlockStateSmithTypes.CUSTOM_MODEL.act(data, ItemModelSmithTypes.BLOCK_MODEL_ITEM, this::simpleBlock, this::totemBaseModel, RUNEWOOD_TOTEM_BASE);
@@ -167,6 +168,7 @@ public class MalumBlockStates extends LodestoneBlockStateProvider {
         BlockStateSmithTypes.WOODEN_SIGN_BLOCK.act(data, SOULWOOD_SIGN, SOULWOOD_WALL_SIGN);
         BlockStateSmithTypes.FENCE_BLOCK.act(data, SOULWOOD_FENCE);
         BlockStateSmithTypes.FENCE_GATE_BLOCK.act(data, SOULWOOD_FENCE_GATE);
+        BlockStateSmithTypes.WALL_BLOCK.act(data, SOULWOOD_BOARDS_WALL);
 
         MalumBlockStateSmithTypes.TOTEM_POLE.act(data, SOULWOOD_TOTEM_POLE);
         BlockStateSmithTypes.CUSTOM_MODEL.act(data, ItemModelSmithTypes.BLOCK_MODEL_ITEM, this::simpleBlock, this::totemBaseModel, SOULWOOD_TOTEM_BASE);

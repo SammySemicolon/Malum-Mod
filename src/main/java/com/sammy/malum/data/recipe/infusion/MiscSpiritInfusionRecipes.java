@@ -3,6 +3,7 @@ package com.sammy.malum.data.recipe.infusion;
 import com.sammy.malum.data.recipe.builder.*;
 import com.sammy.malum.registry.common.item.*;
 import net.minecraft.data.recipes.*;
+import net.minecraft.world.item.*;
 
 import java.util.function.*;
 
@@ -30,6 +31,13 @@ public class MiscSpiritInfusionRecipes {
                 .addExtraItem(ItemRegistry.HALLOWED_GOLD_INGOT.get(), 2)
                 .addSpirit(AQUEOUS_SPIRIT, 16)
                 .addSpirit(SACRED_SPIRIT, 8)
+                .build(consumer);
+
+        new SpiritInfusionRecipeBuilder(Items.HONEY_BOTTLE, 1, ItemRegistry.CONCENTRATED_GLUTTONY.get(), 2)
+                .addExtraItem(ItemRegistry.ROTTING_ESSENCE.get(), 1)
+                .addSpirit(AQUEOUS_SPIRIT, 3)
+                .addSpirit(SACRED_SPIRIT, 1)
+                .addSpirit(WICKED_SPIRIT, 1)
                 .build(consumer);
 
     }

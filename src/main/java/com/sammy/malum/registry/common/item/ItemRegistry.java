@@ -41,7 +41,7 @@ import com.sammy.malum.common.item.spirit.*;
 import com.sammy.malum.compability.farmersdelight.*;
 import com.sammy.malum.core.systems.ritual.*;
 import com.sammy.malum.core.systems.spirit.*;
-import com.sammy.malum.registry.client.HiddenTagRegistry;
+import com.sammy.malum.registry.client.*;
 import com.sammy.malum.registry.common.*;
 import com.sammy.malum.registry.common.block.*;
 import com.sammy.malum.registry.common.entity.*;
@@ -50,7 +50,6 @@ import net.minecraft.client.color.item.*;
 import net.minecraft.client.renderer.item.*;
 import net.minecraft.nbt.*;
 import net.minecraft.resources.*;
-import net.minecraft.world.effect.*;
 import net.minecraft.world.food.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.*;
@@ -270,7 +269,7 @@ public class ItemRegistry {
     //endregion twisted rock
 
     //region runewood
-    public static final RegistryObject<Item> RUNIC_SAP = register("runic_sap", NATURE_PROPERTIES(), (p) -> new DrinkableSapItem(NATURE_PROPERTIES().food(FoodPropertyRegistry.RUNIC_SAP)));
+    public static final RegistryObject<Item> RUNIC_SAP = register("runic_sap", NATURE_PROPERTIES(), (p) -> new BottledDrinkItem(NATURE_PROPERTIES().food(FoodPropertyRegistry.RUNIC_SAP)));
     public static final RegistryObject<Item> RUNIC_SAPBALL = register("runic_sapball", NATURE_PROPERTIES(), Item::new);
     public static final RegistryObject<Item> RUNIC_SAP_BLOCK = register("runic_sap_block", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.RUNIC_SAP_BLOCK.get(), p));
 
@@ -332,6 +331,8 @@ public class ItemRegistry {
     public static final RegistryObject<Item> RUNEWOOD_FENCE = register("runewood_planks_fence", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.RUNEWOOD_FENCE.get(), p));
     public static final RegistryObject<Item> RUNEWOOD_FENCE_GATE = register("runewood_planks_fence_gate", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.RUNEWOOD_FENCE_GATE.get(), p));
 
+    public static final RegistryObject<Item> RUNEWOOD_BOARDS_WALL = register("runewood_boards_wall", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.RUNEWOOD_BOARDS_WALL.get(), p));
+
     public static final RegistryObject<Item> RUNEWOOD_ITEM_STAND = register("runewood_item_stand", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.RUNEWOOD_ITEM_STAND.get(), p));
     public static final RegistryObject<Item> RUNEWOOD_ITEM_PEDESTAL = register("runewood_item_pedestal", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.RUNEWOOD_ITEM_PEDESTAL.get(), p));
 
@@ -345,7 +346,7 @@ public class ItemRegistry {
     //endregion
 
     //region soulwood
-    public static final RegistryObject<Item> CURSED_SAP = register("cursed_sap", NATURE_PROPERTIES(), (p) -> new DrinkableSapItem(NATURE_PROPERTIES().food(FoodPropertyRegistry.CURSED_SAP)));
+    public static final RegistryObject<Item> CURSED_SAP = register("cursed_sap", NATURE_PROPERTIES(), (p) -> new BottledDrinkItem(NATURE_PROPERTIES().food(FoodPropertyRegistry.CURSED_SAP)));
     public static final RegistryObject<Item> CURSED_SAPBALL = register("cursed_sapball", NATURE_PROPERTIES(), Item::new);
     public static final RegistryObject<Item> CURSED_SAP_BLOCK = register("cursed_sap_block", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.CURSED_SAP_BLOCK.get(), p));
 
@@ -404,6 +405,8 @@ public class ItemRegistry {
 
     public static final RegistryObject<Item> SOULWOOD_FENCE = register("soulwood_planks_fence", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.SOULWOOD_FENCE.get(), p));
     public static final RegistryObject<Item> SOULWOOD_FENCE_GATE = register("soulwood_planks_fence_gate", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.SOULWOOD_FENCE_GATE.get(), p));
+
+    public static final RegistryObject<Item> SOULWOOD_BOARDS_WALL = register("soulwood_boards_wall", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.SOULWOOD_BOARDS_WALL.get(), p));
 
     public static final RegistryObject<Item> SOULWOOD_ITEM_STAND = register("soulwood_item_stand", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.SOULWOOD_ITEM_STAND.get(), p));
     public static final RegistryObject<Item> SOULWOOD_ITEM_PEDESTAL = register("soulwood_item_pedestal", NATURE_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.SOULWOOD_ITEM_PEDESTAL.get(), p));
@@ -479,7 +482,7 @@ public class ItemRegistry {
     public static final RegistryObject<Item> BLOCK_OF_AURIC_EMBERS = register("block_of_auric_embers", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BLOCK_OF_AURIC_EMBERS.get(), p));
     public static final RegistryObject<Item> BLOCK_OF_MALIGNANT_LEAD = register("block_of_malignant_lead", DEFAULT_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.BLOCK_OF_MALIGNANT_LEAD.get(), p));
 
-    public static final RegistryObject<Item> ROTTING_ESSENCE = register("rotting_essence", DEFAULT_PROPERTIES(), (p) -> new Item(p.food((new FoodProperties.Builder()).nutrition(6).saturationMod(0.2F).effect(() -> new MobEffectInstance(MobEffects.HUNGER, 600, 1), 0.95f).build())));
+    public static final RegistryObject<Item> ROTTING_ESSENCE = register("rotting_essence", DEFAULT_PROPERTIES().food(FoodPropertyRegistry.ROTTING_ESSENCE), Item::new);
     public static final RegistryObject<Item> GRIM_TALC = register("grim_talc", DEFAULT_PROPERTIES(), Item::new);
     public static final RegistryObject<Item> ASTRAL_WEAVE = register("astral_weave", DEFAULT_PROPERTIES(), Item::new);
     public static final RegistryObject<Item> WARP_FLUX = register("warp_flux", DEFAULT_PROPERTIES(), Item::new);
@@ -583,6 +586,10 @@ public class ItemRegistry {
     //endregion
 
     //region contents
+
+    public static final RegistryObject<Item> CONCENTRATED_GLUTTONY = register("concentrated_gluttony", DEFAULT_PROPERTIES().food(FoodPropertyRegistry.CONCENTRATED_GLUTTONY), ConcentratedGluttonyItem::new);
+    public static final RegistryObject<Item> SPLASH_GLUTTONY = register("splash_gluttony", DEFAULT_PROPERTIES(), ThrownConcentratedGluttonyItem::new);
+
     public static final RegistryObject<Item> TOTEMIC_STAFF = register("totemic_staff", GEAR_PROPERTIES(), TotemicStaffItem::new);
 
     public static final RegistryObject<Item> SPIRIT_POUCH = register("spirit_pouch", GEAR_PROPERTIES(), SpiritPouchItem::new);

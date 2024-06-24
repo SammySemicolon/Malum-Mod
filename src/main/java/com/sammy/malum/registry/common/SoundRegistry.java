@@ -100,11 +100,15 @@ public class SoundRegistry {
     public static final RegistryObject<SoundEvent> VOID_EATS_GUNK = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("void_eats_gunk")));
 
     public static final RegistryObject<SoundEvent> AERIAL_FALL = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("aerial_magic_swooshes")));
-
     public static final RegistryObject<SoundEvent> VOID_SLASH = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("void_slash_swooshes")));
+
+    public static final RegistryObject<SoundEvent> CONCENTRATED_GLUTTONY_DRINK = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("concentrated_gluttony_drink")));
+
     public static final RegistryObject<SoundEvent> HIDDEN_BLADE_STRIKES = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("hidden_blade_strikes")));
     public static final RegistryObject<SoundEvent> MALIGNANT_METAL_RESONATES = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("malignant_metal_resonates")));
     public static final RegistryObject<SoundEvent> HUNGRY_BELT_FEEDS = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("hungry_belt_feeds")));
+    public static final RegistryObject<SoundEvent> VORACIOUS_RING_FEEDS = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("voracious_ring_feeds")));
+    public static final RegistryObject<SoundEvent> GRUESOME_RING_FEEDS = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("gruesome_ring_feeds")));
     public static final RegistryObject<SoundEvent> FLESH_RING_ABSORBS = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("flesh_ring_absorbs")));
     public static final RegistryObject<SoundEvent> NITRATE_THROWN = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("nitrate_thrown")));
     public static final RegistryObject<SoundEvent> SPIRIT_MOTE_CREATED = register(SoundEvent.createVariableRangeEvent(MalumMod.malumPath("spirit_mote_created")));

@@ -124,7 +124,7 @@ public abstract class AbstractBoltProjectileEntity extends ThrowableItemProjecti
             getEntityData().set(DATA_FADING_AWAY, true);
             Vec3 direction = pResult.getLocation().subtract(position());
             Vec3 offset = direction.normalize().scale(0.5f);
-            this.setPosRaw(getX() - offset.x, getY() - offset.y, getZ() - offset.z);
+            setPosRaw(getX() - offset.x, getY() - offset.y, getZ() - offset.z);
         }
         super.onHitBlock(pResult);
     }
@@ -178,6 +178,7 @@ public abstract class AbstractBoltProjectileEntity extends ThrowableItemProjecti
             return;
         }
         super.tick();
+        age++;
         if (fadingAway) {
             fadingTimer++;
         }
@@ -186,31 +187,32 @@ public abstract class AbstractBoltProjectileEntity extends ThrowableItemProjecti
             float scalar = 0.96f;
             setDeltaMovement(motion.x * scalar, (motion.y-0.015f)* scalar, motion.z * scalar);
         }
-        float offsetScale = fadingAway ? 0f : getOrbitingTrailDistance();
-        for (int i = 0; i < 2; i++) {
-            float progress = (i+1) * 0.5f;
-            Vec3 position = getPosition(progress);
-            float scalar = (age + progress) / 2f;
-            double xOffset = Math.cos(spinOffset + scalar) * offsetScale;
-            double zOffset = Math.sin(spinOffset + scalar) * offsetScale;
-            trailPointBuilder.addTrailPoint(position);
-            spinningTrailPointBuilder.addTrailPoint(position.add(xOffset, 0, zOffset));
+        if (level().isClientSide) {
+            float offsetScale = fadingAway ? 0f : getOrbitingTrailDistance();
+            for (int i = 0; i < 2; i++) {
+                float progress = (i + 1) * 0.5f;
+                Vec3 position = getPosition(progress);
+                float scalar = (age + progress) / 2f;
+                double xOffset = Math.cos(spinOffset + scalar) * offsetScale;
+                double zOffset = Math.sin(spinOffset + scalar) * offsetScale;
+                trailPointBuilder.addTrailPoint(position);
+                spinningTrailPointBuilder.addTrailPoint(position.add(xOffset, 0, zOffset));
+            }
+            for (int i = 0; i < (fadingAway ? 2 : 1); i++) {
+                trailPointBuilder.tickTrailPoints();
+                spinningTrailPointBuilder.tickTrailPoints();
+            }
+            if (!fadingAway) {
+                spawnParticles();
+            }
         }
-        for (int i = 0; i < (fadingAway ? 2 : 1); i++) {
-            trailPointBuilder.tickTrailPoints();
-            spinningTrailPointBuilder.tickTrailPoints();
-        }
-        age++;
-        if (age >= getMaxAge() && !level().isClientSide) {
+        else if (age >= getMaxAge()) {
             if (fadingAway) {
                 discard();
             }
             else {
                 getEntityData().set(DATA_FADING_AWAY, true);
             }
-        }
-        if (level().isClientSide && !fadingAway) {
-            spawnParticles();
         }
     }
 
