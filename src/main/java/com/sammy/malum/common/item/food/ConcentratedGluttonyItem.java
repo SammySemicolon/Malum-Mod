@@ -21,10 +21,7 @@ public class ConcentratedGluttonyItem extends BottledDrinkItem {
 
     @Override
     public ItemStack finishUsingItem(ItemStack pStack, Level pLevel, LivingEntity pEntityLiving) {
-        MobEffectInstance effect = pEntityLiving.getEffect(MobEffectRegistry.GLUTTONY.get());
-        if (effect == null) {
-            pEntityLiving.addEffect(createGluttonyEffect(pEntityLiving));
-        }
+        pEntityLiving.addEffect(createGluttonyEffect(pEntityLiving));
         pEntityLiving.playSound(SoundRegistry.CONCENTRATED_GLUTTONY_DRINK.get(), 1f, RandomHelper.randomBetween(pLevel.random, 1.5f, 2f));
 
         return super.finishUsingItem(pStack, pLevel, pEntityLiving);
@@ -33,6 +30,7 @@ public class ConcentratedGluttonyItem extends BottledDrinkItem {
     public static MobEffectInstance createGluttonyEffect(@Nullable Entity source) {
         return createGluttonyEffect(source, 1);
     }
+
     public static MobEffectInstance createGluttonyEffect(@Nullable Entity source, float durationScalar) {
         int amplifier = 3;
         int duration = 20;

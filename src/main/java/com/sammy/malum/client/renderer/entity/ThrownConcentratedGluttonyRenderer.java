@@ -10,6 +10,7 @@ import net.minecraft.client.renderer.texture.*;
 import net.minecraft.core.*;
 import net.minecraft.resources.*;
 import net.minecraft.world.item.*;
+import team.lodestar.lodestone.handlers.*;
 import team.lodestar.lodestone.registry.client.*;
 import team.lodestar.lodestone.systems.rendering.*;
 import team.lodestar.lodestone.systems.rendering.rendeertype.*;
@@ -55,7 +56,7 @@ public class ThrownConcentratedGluttonyRenderer extends EntityRenderer<ThrownCon
             poseStack.scale(this.scale, this.scale, this.scale);
             poseStack.mulPose(this.entityRenderDispatcher.cameraOrientation());
             poseStack.mulPose(Axis.YP.rotationDegrees(180.0F));
-            this.itemRenderer.renderStatic(entity.getItem(), ItemDisplayContext.GROUND, packedLightIn, OverlayTexture.NO_OVERLAY, poseStack, bufferIn, entity.level(), entity.getId());
+            this.itemRenderer.renderStatic(entity.getItem(), ItemDisplayContext.GROUND, packedLightIn, OverlayTexture.NO_OVERLAY, poseStack, RenderHandler.DELAYED_RENDER.getTarget(), entity.level(), entity.getId());
             poseStack.popPose();
          }
          float scale = entity.getVisualEffectScalar();
