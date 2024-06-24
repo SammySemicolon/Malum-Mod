@@ -1,31 +1,34 @@
 package com.sammy.malum.client.screen.codex.pages.recipe;
 
-import com.sammy.malum.*;
-import com.sammy.malum.client.screen.codex.pages.*;
-import com.sammy.malum.client.screen.codex.screens.*;
-import com.sammy.malum.common.recipe.*;
-import com.sammy.malum.registry.common.*;
-import com.sammy.malum.registry.common.item.*;
-import net.minecraft.client.*;
-import net.minecraft.client.gui.*;
-import net.minecraft.network.chat.*;
-import net.minecraft.util.*;
-import net.minecraft.world.item.*;
-import net.minecraft.world.item.crafting.*;
-import net.minecraftforge.data.loading.*;
-import team.lodestar.lodestone.handlers.screenparticle.*;
-import team.lodestar.lodestone.helpers.*;
-import team.lodestar.lodestone.registry.common.particle.*;
-import team.lodestar.lodestone.systems.particle.*;
-import team.lodestar.lodestone.systems.particle.builder.*;
-import team.lodestar.lodestone.systems.particle.data.*;
-import team.lodestar.lodestone.systems.particle.data.spin.*;
-import team.lodestar.lodestone.systems.particle.screen.*;
-import team.lodestar.lodestone.systems.recipe.*;
+import com.sammy.malum.MalumMod;
+import com.sammy.malum.client.screen.codex.pages.BookPage;
+import com.sammy.malum.client.screen.codex.screens.EntryScreen;
+import com.sammy.malum.common.recipe.SpiritTransmutationRecipe;
+import com.sammy.malum.registry.common.SpiritTypeRegistry;
+import com.sammy.malum.registry.common.item.ItemRegistry;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.network.chat.Component;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.Level;
+import team.lodestar.lodestone.handlers.screenparticle.ScreenParticleHandler;
+import team.lodestar.lodestone.helpers.RandomHelper;
+import team.lodestar.lodestone.registry.common.particle.LodestoneScreenParticleRegistry;
+import team.lodestar.lodestone.systems.particle.SimpleParticleOptions;
+import team.lodestar.lodestone.systems.particle.builder.ScreenParticleBuilder;
+import team.lodestar.lodestone.systems.particle.data.GenericParticleData;
+import team.lodestar.lodestone.systems.particle.data.spin.SpinParticleData;
+import team.lodestar.lodestone.systems.particle.screen.ScreenParticleHolder;
+import team.lodestar.lodestone.systems.recipe.WrappedIngredient;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
-import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.*;
+import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.renderComponent;
+import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.renderText;
 
 public class SpiritTransmutationRecipeTreePage extends BookPage {
 
@@ -37,18 +40,19 @@ public class SpiritTransmutationRecipeTreePage extends BookPage {
     public SpiritTransmutationRecipeTreePage(String headlineTranslationKey, Item start) {
         super(MalumMod.malumPath("textures/gui/book/pages/transmutation_recipe_tree_page.png"));
         this.headlineTranslationKey = headlineTranslationKey;
-        if (DatagenModLoader.isRunningDataGen()) {
-            return;
-        }
-        SpiritTransmutationRecipe recipe = SpiritTransmutationRecipe.getRecipe(Minecraft.getInstance().level, start);
-        while (true) {
-            if (recipe == null) {
-                itemTree.add(new WrappedIngredient(Ingredient.of(ItemRegistry.BLIGHTED_SOIL.get())));
-                break;
+
+        Level level = Minecraft.getInstance().level;
+        if (level != null) {
+            SpiritTransmutationRecipe recipe = SpiritTransmutationRecipe.getRecipe(level, start);
+            while (true) {
+                if (recipe == null) {
+                    itemTree.add(new WrappedIngredient(Ingredient.of(ItemRegistry.BLIGHTED_SOIL.get())));
+                    break;
+                }
+                itemTree.add(new WrappedIngredient(recipe.ingredient));
+                ItemStack output = recipe.output;
+                recipe = SpiritTransmutationRecipe.getRecipe(level, s -> s.ingredient.test(output));
             }
-            itemTree.add(new WrappedIngredient(recipe.ingredient));
-            ItemStack output = recipe.output;
-            recipe = SpiritTransmutationRecipe.getRecipe(Minecraft.getInstance().level, s -> s.ingredient.test(output));
         }
     }
 
