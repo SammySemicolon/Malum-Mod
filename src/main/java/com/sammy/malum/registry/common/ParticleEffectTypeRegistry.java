@@ -10,6 +10,7 @@ import com.sammy.malum.visual_effects.networked.crucible.SpiritCrucibleCraftPart
 import com.sammy.malum.visual_effects.networked.generic.DrippingSmokeParticleEffect;
 import com.sammy.malum.visual_effects.networked.generic.HexingSmokeParticleEffect;
 import com.sammy.malum.visual_effects.networked.generic.RisingSparklesParticleEffect;
+import com.sammy.malum.visual_effects.networked.gluttony.ThrownGluttonyParticleEffect;
 import com.sammy.malum.visual_effects.networked.nitrate.EthericNitrateImpactParticleEffect;
 import com.sammy.malum.visual_effects.networked.pylon.PylonPrepareRepairParticleEffect;
 import com.sammy.malum.visual_effects.networked.pylon.PylonRepairParticleEffect;

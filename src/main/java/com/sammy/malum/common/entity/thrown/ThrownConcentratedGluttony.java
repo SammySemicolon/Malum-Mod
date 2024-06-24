@@ -7,6 +7,7 @@ import com.sammy.malum.registry.common.item.*;
 import com.sammy.malum.visual_effects.networked.data.*;
 import net.minecraft.nbt.*;
 import net.minecraft.network.syncher.*;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.*;
 import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.*;
@@ -14,9 +15,9 @@ import net.minecraft.world.entity.projectile.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
+import org.jetbrains.annotations.Nullable;
 import team.lodestar.lodestone.systems.rendering.trail.*;
 
-import javax.annotation.*;
 import java.util.*;
 
 public class ThrownConcentratedGluttony extends ThrowableItemProjectile {
@@ -132,7 +133,7 @@ public class ThrownConcentratedGluttony extends ThrowableItemProjectile {
             setDeltaMovement(getDeltaMovement().scale(0.05f));
             level.levelEvent(2002, blockPosition(), MobEffectRegistry.GLUTTONY.get().getColor());
             level.playSound(null, blockPosition(), SoundRegistry.CONCENTRATED_GLUTTONY_DRINK.get(), SoundSource.PLAYERS, 0.5f, 1.25f + level.random.nextFloat() * 0.25f);
-            ParticleEffectTypeRegistry.THROWN_GLUTTONY_IMPACT.createPositionedEffect(level, new PositionEffectData(position()));
+            ParticleEffectTypeRegistry.THROWN_GLUTTONY_IMPACT.createPositionedEffect((ServerLevel) level, new PositionEffectData(position()));
             applyGluttony(impactedEntity);
         }
         super.onHit(pResult);

@@ -2,7 +2,10 @@ package com.sammy.malum.data.recipe.infusion;
 
 import com.sammy.malum.data.recipe.builder.SpiritInfusionRecipeBuilder;
 import com.sammy.malum.registry.common.item.ItemRegistry;
+import io.github.fabricators_of_create.porting_lib.tags.Tags;
 import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 
 import java.util.function.Consumer;
 

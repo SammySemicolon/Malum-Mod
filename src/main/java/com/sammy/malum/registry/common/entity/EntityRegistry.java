@@ -15,6 +15,7 @@ import com.sammy.malum.common.entity.boomerang.ScytheBoomerangEntity;
 import com.sammy.malum.common.entity.nitrate.EthericNitrateEntity;
 import com.sammy.malum.common.entity.nitrate.VividNitrateEntity;
 import com.sammy.malum.common.entity.spirit.SpiritItemEntity;
+import com.sammy.malum.common.entity.thrown.ThrownConcentratedGluttony;
 import com.sammy.malum.registry.common.item.ItemRegistry;
 import io.github.fabricators_of_create.porting_lib.util.LazyRegistrar;
 import io.github.fabricators_of_create.porting_lib.util.RegistryObject;
