@@ -8,6 +8,7 @@ import com.sammy.malum.client.screen.codex.pages.text.*;
 import com.sammy.malum.client.screen.codex.screens.*;
 import net.minecraft.world.item.*;
 
+import static com.sammy.malum.MalumMod.*;
 import static com.sammy.malum.registry.common.item.ItemRegistry.*;
 import static net.minecraft.world.item.Items.*;
 
@@ -109,6 +110,11 @@ public class TinkeringEntries {
                         BookEntry.build("belt_of_the_starved.concentrated_gluttony")
                                 .addPage(new HeadlineTextPage("belt_of_the_starved.concentrated_gluttony", "belt_of_the_starved.concentrated_gluttony.1"))
                                 .addPage(SpiritInfusionPage.fromOutput(CONCENTRATED_GLUTTONY.get()))
+                                .addPage(new TextPage("belt_of_the_starved.concentrated_gluttony.2"))
+                                .addPage(new CyclingPage(
+                                        SpiritInfusionPage.fromId(malumPath("spirit_infusion/splash_of_gluttony")),
+                                        SpiritInfusionPage.fromId(malumPath("spirit_infusion/splash_of_gluttony_from_concentrated_gluttony"))
+                                ))
                 ))
         );
 

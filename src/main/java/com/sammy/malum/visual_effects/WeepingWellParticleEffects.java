@@ -220,7 +220,7 @@ public class WeepingWellParticleEffects {
         lightSpecs.getBuilder().act(b -> b
                 .setRenderType(renderType)
                 .multiplyLifetime(6f)
-                .modifyData(b.getBehaviorData(SparkBehaviorComponent.class, SparkBehaviorComponent::getLengthData), d -> d.multiplyValue(RandomHelper.randomBetween(rand, 1.75f, 2.5f)))
+                .modifyOptionalData(b.getBehaviorData(SparkBehaviorComponent.class, SparkBehaviorComponent::getLengthData), d -> d.multiplyValue(RandomHelper.randomBetween(rand, 1.75f, 2.5f)))
                 .modifyData(b::getTransparencyData, d -> d.multiplyValue(RandomHelper.randomBetween(rand, 0.75f, 1f)))
                 .modifyData(b::getScaleData, d -> d.multiplyValue(RandomHelper.randomBetween(rand, 1.5f, 3.5f))));
         lightSpecs.getBloomBuilder().act(b -> b

@@ -98,7 +98,7 @@ public class DrainingBoltImpactParticleEffect extends ParticleEffectType {
                             .enableForcedSpawn()
                             .modifyColorData(d -> d.multiplyCoefficient(1.25f))
                             .modifyData(AbstractParticleBuilder::getScaleData, d -> d.multiplyValue(1.75f))
-                            .modifyDataOptional(b -> b.getBehaviorData(SparkBehaviorComponent.class, SparkBehaviorComponent::getLengthData), d -> d.multiplyValue(3f))
+                            .modifyOptionalData(b -> b.getBehaviorData(SparkBehaviorComponent.class, SparkBehaviorComponent::getLengthData), d -> d.multiplyValue(3f))
                             .setMotion(direction.scale(1.5f));
                     sparks.getBloomBuilder()
                             .disableNoClip()

@@ -6,6 +6,7 @@ import com.sammy.malum.client.screen.codex.screens.EntryScreen;
 import com.sammy.malum.common.recipe.SpiritInfusionRecipe;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.resources.*;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 
@@ -33,6 +34,10 @@ public class SpiritInfusionPage extends BookPage {
 
     public static SpiritInfusionPage fromOutput(Item outputItem) {
         return new SpiritInfusionPage(s -> s.doesOutputMatch(outputItem.getDefaultInstance()));
+    }
+
+    public static SpiritInfusionPage fromId(ResourceLocation recipeId) {
+        return new SpiritInfusionPage(s -> s.getId().equals(recipeId));
     }
 
     @Override
