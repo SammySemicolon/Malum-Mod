@@ -55,6 +55,7 @@ public class MalumSpiritTransmutationRecipes {
             new Pair<>(RUNEWOOD_PRESSURE_PLATE, SOULWOOD_PRESSURE_PLATE),
             new Pair<>(RUNEWOOD_FENCE, SOULWOOD_FENCE),
             new Pair<>(RUNEWOOD_FENCE_GATE, SOULWOOD_FENCE_GATE),
+            new Pair<>(RUNEWOOD_BOARDS_WALL, SOULWOOD_BOARDS_WALL),
             new Pair<>(RUNEWOOD_ITEM_STAND, SOULWOOD_ITEM_STAND),
             new Pair<>(RUNEWOOD_ITEM_PEDESTAL, SOULWOOD_ITEM_PEDESTAL),
             new Pair<>(RUNEWOOD_SIGN, SOULWOOD_SIGN) // Wall sign already handled by this. Is it??? Wire? Huh ? How

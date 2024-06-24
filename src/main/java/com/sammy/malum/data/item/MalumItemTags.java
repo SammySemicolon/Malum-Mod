@@ -82,9 +82,7 @@ public class MalumItemTags extends FabricTagProvider.ItemTagProvider {
         getOrCreateTagBuilder(ItemTags.MUSIC_DISCS).add(AESTHETICA.get());
 
         getOrCreateTagBuilder(ItemTagRegistry.SAPBALLS).add(RUNIC_SAPBALL.get(), CURSED_SAPBALL.get());
-        getOrCreateTagBuilder(GROSS_FOODS).add(Items.ROTTEN_FLESH, ROTTING_ESSENCE.get());
-        getOrCreateTagBuilder(ItemTagRegistry.SAPBALLS).add(RUNIC_SAPBALL.get(), CURSED_SAPBALL.get());
-        getOrCreateTagBuilder(ItemTagRegistry.GROSS_FOODS).add(Items.ROTTEN_FLESH, ROTTING_ESSENCE.get());
+        getOrCreateTagBuilder(ItemTagRegistry.GROSS_FOODS).add(Items.ROTTEN_FLESH, ROTTING_ESSENCE.get(), CONCENTRATED_GLUTTONY.get());
 
         ITEMS.getEntries().stream().filter(i -> i.get() instanceof NodeItem).map(RegistryObject::get).forEach(i -> {
             getOrCreateTagBuilder(METAL_NODES).add(i);
@@ -230,7 +228,9 @@ public class MalumItemTags extends FabricTagProvider.ItemTagProvider {
                         RING_OF_GRUESOME_CONCENTRATION.get(), NECKLACE_OF_THE_HIDDEN_BLADE.get(),
                         NECKLACE_OF_THE_WATCHER.get(), BELT_OF_THE_LIMITLESS.get())
                 // Augments
-                .add(STELLAR_MECHANISM.get());
+                .add(STELLAR_MECHANISM.get())
+                // Aesthetica
+                .add(AESTHETICA.get());
 
         for (RegistryObject<Item> i : ITEMS.getEntries()) {
             if (i.get() instanceof MalumTinketsItem) {

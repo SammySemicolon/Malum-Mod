@@ -19,4 +19,5 @@ public class EtherBlock<T extends EtherBlockEntity> extends WaterLoggedEntityBlo
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         return SHAPE;
     }
+
 }

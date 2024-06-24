@@ -1,10 +1,7 @@
 package com.sammy.malum.registry.common.entity;
 
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.client.renderer.entity.FloatingItemEntityRenderer;
-import com.sammy.malum.client.renderer.entity.MalumBoatRenderer;
-import com.sammy.malum.client.renderer.entity.ScytheBoomerangEntityRenderer;
-import com.sammy.malum.client.renderer.entity.SpiritCollectionActivatorEntityRenderer;
+import com.sammy.malum.client.renderer.entity.*;
 import com.sammy.malum.client.renderer.entity.bolt.AuricFlameBoltEntityRenderer;
 import com.sammy.malum.client.renderer.entity.bolt.DrainingBoltEntityRenderer;
 import com.sammy.malum.client.renderer.entity.bolt.HexBoltEntityRenderer;
@@ -22,6 +19,7 @@ import com.sammy.malum.registry.common.item.ItemRegistry;
 import io.github.fabricators_of_create.porting_lib.util.LazyRegistrar;
 import io.github.fabricators_of_create.porting_lib.util.RegistryObject;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
+import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -58,6 +56,10 @@ public class EntityRegistry {
             () -> EntityType.Builder.<SpiritCollectionActivatorEntity>of((e, w) -> new SpiritCollectionActivatorEntity(w), MobCategory.MISC).sized(1f, 1f).clientTrackingRange(10)
                     .build(MalumMod.malumPath("pneuma_void").toString()));
 
+    public static final RegistryObject<EntityType<ThrownConcentratedGluttony>> THROWN_GLUTTONY = ENTITY_TYPES.register("thrown_gluttony",
+            () -> EntityType.Builder.<ThrownConcentratedGluttony>of((e, w) -> new ThrownConcentratedGluttony(w), MobCategory.MISC).sized(0.25f, 0.25f).clientTrackingRange(10)
+                    .build(MalumMod.malumPath("thrown_gluttony").toString()));
+
     public static final RegistryObject<EntityType<HexBoltEntity>> HEX_BOLT = ENTITY_TYPES.register("hex_bolt",
             () -> EntityType.Builder.<HexBoltEntity>of((e, w) -> new HexBoltEntity(w), MobCategory.MISC).sized(1.25F, 1.25F).clientTrackingRange(10)
                     .build(MalumMod.malumPath("hex_bolt").toString()));
@@ -85,6 +87,10 @@ public class EntityRegistry {
             EntityRendererRegistry.register(EntityRegistry.DRAINING_BOLT.get(), DrainingBoltEntityRenderer::new);
             EntityRendererRegistry.register(EntityRegistry.AURIC_FLAME_BOLT.get(), AuricFlameBoltEntityRenderer::new);
             EntityRendererRegistry.register(EntityRegistry.SPIRIT_COLLECTION_ACTIVATOR.get(), SpiritCollectionActivatorEntityRenderer::new);
+
+            EntityRendererRegistry.register(EntityRegistry.THROWN_GLUTTONY.get(), ThrownConcentratedGluttonyRenderer::new);
+
+
             EntityRendererRegistry.register(EntityRegistry.HEX_BOLT.get(), HexBoltEntityRenderer::new);
             EntityRendererRegistry.register(EntityRegistry.DRAINING_BOLT.get(), DrainingBoltEntityRenderer::new);
             EntityRendererRegistry.register(EntityRegistry.AURIC_FLAME_BOLT.get(), AuricFlameBoltEntityRenderer::new);
