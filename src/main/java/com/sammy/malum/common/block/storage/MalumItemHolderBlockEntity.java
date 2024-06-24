@@ -25,6 +25,7 @@ public abstract class MalumItemHolderBlockEntity extends ItemHolderBlockEntity i
                 MalumItemHolderBlockEntity.this.setChanged();
                 needsSync = true;
                 BlockHelper.updateAndNotifyState(level, worldPosition);
+                updateData();
                 super.onContentsChanged(slot);
             }
         };

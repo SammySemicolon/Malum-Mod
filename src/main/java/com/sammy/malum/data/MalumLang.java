@@ -598,7 +598,7 @@ public class MalumLang extends FabricLanguageProvider {
                 "The Spirit Crucible is, unfortunately, a rather slow device. It takes time for it to coalesce the power of the arcana into the central item. This isn't without reason. Most matter simply can't take a faster stream, and you risk damaging the catalyst by overloading it.",
                 "However, by heating the catalyst through mystic means, you can lessen this rejection and speed up the coalescence at once. That is what the Spirit Catalyzer is for. Unfortunately, this is not perfect, and instability often causes the catalyst to be damaged more than strictly necessary.",
                 "Each fueled Catalyzer nearby to a Crucible will amplify the speed of the focusing process, up to a maximum of eight. Unfortunately, the risk of instability proportionally rises with each one, resulting in your impetus potentially receiving more damage than necessary.");
-
+        addSimpleEntryHeader(builder, "arcane_restoration", "Arcane Restoration", "Mystic repair");
         addPages(builder, "arcane_restoration",
                 "The Spirit Crucible has an annoying habit of breaking the tools to work with it. While a cost is to be expected, I'd rather pay it in installments. I have designed a device I call the Repair Pylon, intended to shore items up as they break down.",
                 "It works not just on an Impetus, but practically anything at all, as long as it is placed on a nearby item holder, with a combination of spirits and a repair material (iron for iron tools, for instance) placed on the pylon. Unlike an anvil, no experience is needed to fuel this.",

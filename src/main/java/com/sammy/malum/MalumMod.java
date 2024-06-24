@@ -60,6 +60,7 @@ import org.apache.logging.log4j.Logger;
 import team.lodestar.lodestone.events.LodestoneInteractionEvent;
 import team.lodestar.lodestone.events.LodestoneItemEvent;
 import team.lodestar.lodestone.events.LodestoneMobEffectEvents;
+import team.lodestar.lodestone.registry.common.LodestoneBlockEntityRegistry;
 
 import static com.sammy.malum.registry.client.ParticleRegistry.PARTICLES;
 import static com.sammy.malum.registry.common.AttributeRegistry.ATTRIBUTES;
@@ -90,7 +91,7 @@ public class MalumMod implements ModInitializer {
 
     @Override
     public void onInitialize() {
-
+        new LodestoneBlockEntityRegistry();
         ConfigRegistry.registerConfig(MalumMod.MALUM, ConfigType.COMMON, CommonConfig.SPEC);
 
         PacketRegistry.registerNetworkStuff();
