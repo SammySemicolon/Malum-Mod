@@ -18,7 +18,6 @@ import team.lodestar.lodestone.systems.particle.world.behaviors.components.*;
 import team.lodestar.lodestone.systems.particle.world.options.*;
 
 import java.awt.*;
-import java.util.function.*;
 
 public class GluttonyParticleEffects {
 
@@ -28,11 +27,10 @@ public class GluttonyParticleEffects {
 
     public static void thrownGluttonySplash(PositionEffectData positionData) {
         Level level = Minecraft.getInstance().level;
-        long gameTime = level.getGameTime();
         var random = level.random;
 
         for (int i = 0; i < 4; i++) {
-            int lifetime = RandomHelper.randomBetween(random, 40, 60);
+            int lifetime = RandomHelper.randomBetween(random, 30, 40);
             WorldParticleBuilder.create(LodestoneParticleRegistry.WISP_PARTICLE, LodestoneBehaviorComponent.DIRECTIONAL)
                     .setTransparencyData(GenericParticleData.create(0.2f, 0.7f, 0).build())
                     .setSpinData(SpinParticleData.createRandomDirection(random, 0.05f).build())
@@ -46,38 +44,35 @@ public class GluttonyParticleEffects {
                     .setDiscardFunction(SimpleParticleOptions.ParticleDiscardFunctionType.ENDING_CURVE_INVISIBLE)
                     .repeat(level, positionData.posX, positionData.posY, positionData.posZ, 2);
         }
-
-
-        var ring = gluttonyRing(positionData.getAsVector(), new WorldParticleOptions(LodestoneParticleRegistry.THIN_EXTRUDING_SPARK_PARTICLE), WorldParticleBuilder::create, 1.2f, 32);
-        ring.getBuilder()
-                .setLifetime(40);
+        var ring = gluttonyRing(positionData.getAsVector(), new WorldParticleOptions(LodestoneParticleRegistry.THIN_EXTRUDING_SPARK_PARTICLE), 1.2f, 32);
         ring.spawnParticles();
-        ring = gluttonyRing(positionData.getAsVector(), new WorldParticleOptions(LodestoneParticleRegistry.THIN_EXTRUDING_SPARK_PARTICLE), WorldParticleBuilder::create, 0.4f, 16);
-        ring.getBuilder()
-                .setLifetime(20)
-                .replaceExistingBehavior(SparkBehaviorComponent.class, c -> new ExtrudingSparkBehaviorComponent(c.getLengthData().multiplyValue(0.5f).bake()));
+        ring = gluttonyRing(positionData.getAsVector(), new WorldParticleOptions(LodestoneParticleRegistry.THIN_EXTRUDING_SPARK_PARTICLE), 0.4f, 16, 0.5f);
+        ring.getBuilder().replaceExistingBehavior(SparkBehaviorComponent.class, c -> new ExtrudingSparkBehaviorComponent(c.getLengthData().multiplyValue(0.5f).bake()));
         ring.spawnParticles();
     }
 
-    public static ParticleEffectSpawner gluttonyRing(Vec3 center, WorldParticleOptions options, Function<WorldParticleOptions, WorldParticleBuilder> builderSupplier, float distance, int count) {
+    public static ParticleEffectSpawner gluttonyRing(Vec3 center, WorldParticleOptions options, float distance, int count) {
+        return gluttonyRing(center, options, distance, count, 1f);
+    }
+
+    public static ParticleEffectSpawner gluttonyRing(Vec3 center, WorldParticleOptions options, float distance, int count, float lifetimeScalar) {
         var lengthData = GenericParticleData.create(0.1f, 0.5f, 0f).setEasing(Easing.SINE_IN_OUT, Easing.SINE_IN_OUT).setCoefficient(1.25f).build();
-        var builder = builderSupplier.apply(options.setBehaviorIfDefault(new ExtrudingSparkBehaviorComponent(lengthData)));
-        return gluttonyRing(center, builder, distance, count);
+        var builder = WorldParticleBuilder.create(options.setBehaviorIfDefault(new ExtrudingSparkBehaviorComponent(lengthData)));
+        return gluttonyRing(center, builder, distance, count, lifetimeScalar);
     }
 
     public static ParticleEffectSpawner gluttonyRing(Vec3 center, WorldParticleBuilder builder, float distance, int count) {
+        return gluttonyRing(center, builder, distance, count, 1f);
+    }
+
+    public static ParticleEffectSpawner gluttonyRing(Vec3 center, WorldParticleBuilder builder, float distance, int count, float lifetimeScalar) {
         Level level = Minecraft.getInstance().level;
         long gameTime = level.getGameTime();
         var random = level.random;
         return new ParticleEffectSpawner(builder, b -> {
-            Supplier<Integer> baseLifetime = builder.getParticleOptions().lifetimeSupplier;
             for (int i = 0; i < count; i++) {
-                Vec3 offsetPosition = DataHelper.rotatingRadialOffset(center, distance, i*2, count, gameTime, 320);
-
+                Vec3 offsetPosition = DataHelper.rotatingRadialOffset(center, distance, i, count, gameTime, 320);
                 for (int j = 0; j < 3; j++) {
-                    float lifetimeScalar = RandomHelper.randomBetween(random, 1f, 2f);
-
-
                     boolean isAdditive = j == 0;
                     Color bright = j < 2 ? GLUTTONY_GREEN : GLUTTONY_DARK;
                     Color dark = j < 2 ? GLUTTONY_GREEN : GLUTTONY_SHADE;
@@ -87,17 +82,15 @@ public class GluttonyParticleEffects {
                     float colorCoefficient = isAdditive ? 1f : 1.75f;
                     var renderType = isAdditive ? LodestoneWorldParticleRenderType.ADDITIVE : LodestoneWorldParticleRenderType.LUMITRANSPARENT;
                     var renderTarget = j < 2 ? RenderHandler.LATE_DELAYED_RENDER : RenderHandler.DELAYED_RENDER;
-
                     builder
-                            .modifyOptionalData(b.getBehaviorComponent(SparkBehaviorComponent.class).map(SparkBehaviorComponent::getLengthData), d-> d.overrideValueMultiplier(lengthMultiplier))
-                            .setTransparencyData(GenericParticleData.create(0.8f, 0f).build())
+                            .modifyOptionalData(b.getBehaviorComponent(SparkBehaviorComponent.class).map(SparkBehaviorComponent::getLengthData), d -> d.overrideValueMultiplier(lengthMultiplier))
                             .setRenderTarget(renderTarget)
                             .setRenderType(renderType)
                             .setMotion(0, 0.001f, 0)
                             .setScaleData(GenericParticleData.create(0.025f, RandomHelper.randomBetween(random, 0.2f, 0.3f), 0).build().multiplyValue(scaleMultiplier))
-                            .setTransparencyData(GenericParticleData.create(0.8f*alphaMultiplier, 0f).build())
+                            .setTransparencyData(GenericParticleData.create(0.8f * alphaMultiplier, 0f).build())
                             .setColorData(ColorParticleData.create(bright, dark).setCoefficient(colorCoefficient).build())
-                            .setLifetime((int) (baseLifetime.get()*lifetimeScalar))
+                            .setLifetime((int) (RandomHelper.randomBetween(random, 30, 60) * lifetimeScalar))
                             .enableNoClip()
                             .spawn(level, offsetPosition.x, offsetPosition.y, offsetPosition.z);
                 }
