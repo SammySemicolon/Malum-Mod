@@ -34,10 +34,23 @@ public class MiscSpiritInfusionRecipes {
 
         new SpiritInfusionRecipeBuilder(Items.HONEY_BOTTLE, 1, ItemRegistry.CONCENTRATED_GLUTTONY.get(), 2)
                 .addExtraItem(ItemRegistry.ROTTING_ESSENCE.get(), 1)
-                .addSpirit(AQUEOUS_SPIRIT, 3)
-                .addSpirit(SACRED_SPIRIT, 1)
-                .addSpirit(WICKED_SPIRIT, 1)
+                .addSpirit(AQUEOUS_SPIRIT, 2)
+                .addSpirit(SACRED_SPIRIT, 2)
+                .addSpirit(WICKED_SPIRIT, 2)
                 .build(consumer);
+
+        new SpiritInfusionRecipeBuilder(Items.HONEY_BOTTLE, 1, ItemRegistry.SPLASH_OF_GLUTTONY.get(), 2)
+                .addExtraItem(ItemRegistry.ROTTING_ESSENCE.get(), 1)
+                .addExtraItem(Ingredient.of(Tags.Items.GUNPOWDER), 1)
+                .addSpirit(AQUEOUS_SPIRIT, 3)
+                .addSpirit(SACRED_SPIRIT, 2)
+                .addSpirit(WICKED_SPIRIT, 2)
+                .build(consumer);
+
+        new SpiritInfusionRecipeBuilder(ItemRegistry.CONCENTRATED_GLUTTONY.get(), 1, ItemRegistry.SPLASH_OF_GLUTTONY.get(), 1)
+                .addExtraItem(Ingredient.of(Tags.Items.GUNPOWDER), 1)
+                .addSpirit(AQUEOUS_SPIRIT, 1)
+                .build(consumer, "splash_of_gluttony_from_concentrated_gluttony");
 
     }
 }

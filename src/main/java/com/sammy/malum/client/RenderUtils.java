@@ -38,7 +38,7 @@ public class RenderUtils {
         float trailOffsetX = (float) Mth.lerp(partialTicks, entity.xOld, entity.getX());
         float trailOffsetY = (float) Mth.lerp(partialTicks, entity.yOld, entity.getY());
         float trailOffsetZ = (float) Mth.lerp(partialTicks, entity.zOld, entity.getZ());
-        if (spinningTrailPoints.size() > 3) {
+        if (spinningTrailPoints.size() >= 2) {
             poseStack.translate(-trailOffsetX, -trailOffsetY, -trailOffsetZ);
             for (int i = 0; i < 2; i++) {
                 float size = (0.2f + i * 0.2f) * scaleScalar;

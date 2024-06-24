@@ -42,4 +42,8 @@ public class PositionEffectData {
     public BlockPos getAsBlockPos() {
         return new BlockPos((int) posX, (int) posY, (int) posZ);
     }
+
+    public Vec3 getAsVector() {
+        return new Vec3(posX, posY, posZ);
+    }
 }

@@ -4,6 +4,10 @@
     {
       "count": 1,
       "item": "malum:rotting_essence"
+    },
+    {
+      "count": 1,
+      "tag": "forge:gunpowder"
     }
   ],
   "input": {
@@ -12,12 +16,12 @@
   },
   "output": {
     "count": 2,
-    "item": "malum:concentrated_gluttony"
+    "item": "malum:splash_of_gluttony"
   },
   "spirits": [
     {
       "type": "aqueous",
-      "count": 2
+      "count": 3
     },
     {
       "type": "sacred"

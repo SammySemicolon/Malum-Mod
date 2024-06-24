@@ -131,7 +131,7 @@ public class SpiritCrucibleParticleEffects {
             var sparkParticles = SparkParticleEffects.spiritMotionSparks(level, sparkPos, spiritType);
             sparkParticles.getBuilder().setMotion(velocity)
                     .modifyData(AbstractParticleBuilder::getScaleData, d -> d.multiplyValue(1.5f))
-                    .modifyDataOptional(b -> b.getBehaviorData(SparkBehaviorComponent.class, SparkBehaviorComponent::getLengthData), d -> d.multiplyValue(2f).multiplyCoefficient(0.75f))
+                    .modifyOptionalData(b -> b.getBehaviorData(SparkBehaviorComponent.class, SparkBehaviorComponent::getLengthData), d -> d.multiplyValue(2f).multiplyCoefficient(0.75f))
                     .modifyColorData(c -> c.multiplyCoefficient(0.8f));
             sparkParticles.getBloomBuilder().setMotion(velocity);
             sparkParticles.spawnParticlesRaw();

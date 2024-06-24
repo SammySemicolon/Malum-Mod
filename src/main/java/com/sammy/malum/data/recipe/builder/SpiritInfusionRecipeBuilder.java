@@ -62,12 +62,12 @@ public class SpiritInfusionRecipeBuilder {
         return this;
     }
 
-    public void build(Consumer<FinishedRecipe> consumerIn, String recipeName) {
-        build(consumerIn, MalumMod.malumPath("spirit_infusion/" + recipeName));
-    }
-
     public void build(Consumer<FinishedRecipe> consumerIn) {
         build(consumerIn, BuiltInRegistries.ITEM.getKey(output.getItem()).getPath());
+    }
+
+    public void build(Consumer<FinishedRecipe> consumerIn, String recipeName) {
+        build(consumerIn, MalumMod.malumPath("spirit_infusion/" + recipeName));
     }
 
     public void build(Consumer<FinishedRecipe> consumerIn, ResourceLocation id) {

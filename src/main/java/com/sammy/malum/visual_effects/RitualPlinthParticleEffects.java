@@ -465,7 +465,7 @@ public class RitualPlinthParticleEffects {
                 var sparkParticles = SparkParticleEffects.spiritMotionSparks(level, sparkPos, spiritType);
                 sparkParticles.getBuilder().setMotion(randomizedVelocity)
                         .modifyData(AbstractParticleBuilder::getScaleData, d -> d.multiplyValue(1.25f))
-                        .modifyDataOptional(b -> b.getBehaviorData(SparkBehaviorComponent.class, SparkBehaviorComponent::getLengthData), d -> d.multiplyValue(1.75f).multiplyCoefficient(0.75f))
+                        .modifyOptionalData(b -> b.getBehaviorData(SparkBehaviorComponent.class, SparkBehaviorComponent::getLengthData), d -> d.multiplyValue(1.75f).multiplyCoefficient(0.75f))
                         .modifyColorData(c -> c.multiplyCoefficient(0.5f));
                 sparkParticles.getBloomBuilder().setMotion(randomizedVelocity);
                 sparkParticles.spawnParticlesRaw();

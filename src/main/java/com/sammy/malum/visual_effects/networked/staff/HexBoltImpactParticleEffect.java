@@ -92,7 +92,7 @@ public class HexBoltImpactParticleEffect extends ParticleEffectType {
                             .enableForcedSpawn()
                             .setMotion(direction.scale(1.5f))
                             .modifyData(AbstractParticleBuilder::getScaleData, d -> d.multiplyValue(1.75f))
-                            .modifyDataOptional(b -> b.getBehaviorData(SparkBehaviorComponent.class, SparkBehaviorComponent::getLengthData), d -> d.multiplyValue(3f));
+                            .modifyOptionalData(b -> b.getBehaviorData(SparkBehaviorComponent.class, SparkBehaviorComponent::getLengthData), d -> d.multiplyValue(3f));
                     sparks.getBloomBuilder()
                             .multiplyLifetime(lifetimeMultiplier)
                             .setMotion(direction.scale(1.5f));
