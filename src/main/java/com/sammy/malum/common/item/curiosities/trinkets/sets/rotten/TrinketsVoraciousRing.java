@@ -33,21 +33,22 @@ public class TrinketsVoraciousRing extends MalumTinketsItem {
     }
 
     public static ItemStack finishEating(LivingEntity livingEntity, ItemStack itemStack, int i, ItemStack stack) {
-        if (livingEntity instanceof Player player) {
-            if (TrinketsHelper.hasTrinketEquipped(player, ItemRegistry.RING_OF_DESPERATE_VORACITY.get())) {
-                if (stack.is(GROSS_FOODS)) {
-                    Level level = player.level();
-                    MobEffectInstance gluttony = player.getEffect(MobEffectRegistry.GLUTTONY.get());
-                    MobEffectInstance hunger = player.getEffect(MobEffects.HUNGER);
-                    if (gluttony != null) {
-                        EntityHelper.extendEffect(gluttony, player, 300, 600);
-                        level.playSound(null, player.blockPosition(), SoundRegistry.HUNGRY_BELT_FEEDS.get(), SoundSource.PLAYERS, 0.75f, RandomHelper.randomBetween(level.random, 0.8f, 1.2f));
-                    }
-                    if (hunger != null) {
-                        EntityHelper.shortenEffect(hunger, player, 150);
-                    }
+        if (TrinketsHelper.hasTrinketEquipped(livingEntity, ItemRegistry.RING_OF_DESPERATE_VORACITY.get())) {
+            if (stack.is(GROSS_FOODS)) {
+                Level level = livingEntity.level();
+                MobEffectInstance gluttony = livingEntity.getEffect(MobEffectRegistry.GLUTTONY.get());
+                MobEffectInstance hunger = livingEntity.getEffect(MobEffects.HUNGER);
+                if (gluttony != null) {
+                    EntityHelper.extendEffect(gluttony, livingEntity, 300, 3000);
+                }
+                if (hunger != null) {
+                    EntityHelper.shortenEffect(hunger, livingEntity, 150);
+                }
+                if (livingEntity instanceof Player player) {
                     player.getFoodData().eat(1, 1f);
                 }
+                livingEntity.playSound(SoundRegistry.VORACIOUS_RING_FEEDS.get(), 0.5f, RandomHelper.randomBetween(level.random, 1.2f, 1.6f));
+
             }
         }
         return itemStack;

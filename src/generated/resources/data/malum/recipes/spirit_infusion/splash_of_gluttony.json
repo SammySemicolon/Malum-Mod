@@ -7,7 +7,7 @@
     },
     {
       "count": 1,
-      "tag": "forge:gunpowder"
+      "tag": "c:gunpowder"
     }
   ],
   "input": {
@@ -24,10 +24,12 @@
       "count": 3
     },
     {
-      "type": "sacred"
+      "type": "sacred",
+      "count": 2
     },
     {
-      "type": "wicked"
+      "type": "wicked",
+      "count": 2
     }
   ]
 }

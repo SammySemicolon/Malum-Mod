@@ -30,39 +30,17 @@ public class TrinketsGruesomeConcentrationRing extends MalumTinketsItem implemen
         consumer.accept(positiveEffect("rotten_gluttony"));
     }
 
-    public static void finishEating(LivingEntityUseItemEvent.Finish event) {
-        ItemStack stack = event.getResultStack();
-        if (stack.is(GROSS_FOODS)) {
-            var livingEntity = event.getEntity();
-            if (CurioHelper.hasCurioEquipped(livingEntity, ItemRegistry.RING_OF_GRUESOME_CONCENTRATION.get())) {
-                var gluttony = MobEffectRegistry.GLUTTONY.get();
-                var effect = livingEntity.getEffect(gluttony);
-                var level = livingEntity.level();
-
+    public static ItemStack finishEating(LivingEntity livingEntity, ItemStack itemStack, int i, ItemStack stack) {
+        if (TrinketsHelper.hasTrinketEquipped(livingEntity, ItemRegistry.RING_OF_GRUESOME_CONCENTRATION.get())) {
+            if (stack.is(GROSS_FOODS)) {
+                MobEffect gluttony = MobEffectRegistry.GLUTTONY.get();
+                MobEffectInstance effect = livingEntity.getEffect(MobEffectRegistry.GLUTTONY.get());
                 if (effect != null) {
                     EntityHelper.amplifyEffect(effect, livingEntity, 2, 9);
                 } else {
                     livingEntity.addEffect(new MobEffectInstance(gluttony, 600, 1, true, true, true));
                 }
-                livingEntity.playSound(SoundRegistry.GRUESOME_RING_FEEDS.get(), 0.5f, RandomHelper.randomBetween(level.random, 0.8f, 1.2f));
-            }
-        }
-    }
-
-    public static ItemStack finishEating(LivingEntity livingEntity, ItemStack itemStack, int i, ItemStack stack) {
-        if (livingEntity instanceof Player player) {
-            if (TrinketsHelper.hasTrinketEquipped(player, ItemRegistry.RING_OF_GRUESOME_CONCENTRATION.get())) {
-                if (stack.is(GROSS_FOODS)) {
-                    double arcaneResonance = player.getAttribute(AttributeRegistry.ARCANE_RESONANCE.get()).getValue();
-                    MobEffect gluttony = MobEffectRegistry.GLUTTONY.get();
-                    MobEffectInstance effect = player.getEffect(MobEffectRegistry.GLUTTONY.get());
-                    if (effect != null) {
-                        EntityHelper.amplifyEffect(effect, player, 2, 9);
-                    } else {
-                        player.addEffect(new MobEffectInstance(gluttony, 600 + (int) (arcaneResonance * 600), 1, true, true, true));
-                    }
-                }
-                livingEntity.playSound(SoundRegistry.GRUESOME_RING_FEEDS.get(), 0.5f, RandomHelper.randomBetween(level.random, 0.8f, 1.2f));
+                livingEntity.playSound(SoundRegistry.GRUESOME_RING_FEEDS.get(), 0.5f, RandomHelper.randomBetween(livingEntity.level().random, 0.8f, 1.2f));
             }
         }
         return itemStack;

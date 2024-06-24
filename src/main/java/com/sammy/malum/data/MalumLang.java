@@ -691,8 +691,8 @@ public class MalumLang extends FabricLanguageProvider {
         addSimpleEntryHeader(builder, "belt_of_the_starved.ring_of_desperate_voracity", "Ring of Desperate Voracity", "Widening the channel");
         addPages(builder, "belt_of_the_starved.ring_of_desperate_voracity",
                 "This ring makes rotten foods just a little bit more bearable, allowing me to amass more hunger and saturation from such an unusual diet. Normally, such a diet would be ill-advised, however, a secondary function of the ring allows it to extend the duration of the Gluttony status effect that the Belt of the Starved grants.");
-        addSimpleEntryHeader("belt_of_the_starved.concentrated_gluttony", "Concentrated Gluttony", "Don't mind the taste");
-        addPages("belt_of_the_starved.concentrated_gluttony",
+        addSimpleEntryHeader(builder, "belt_of_the_starved.concentrated_gluttony", "Concentrated Gluttony", "Don't mind the taste");
+        addPages(builder, "belt_of_the_starved.concentrated_gluttony",
                 "My newfound reliance on rotten meals has led me to develop a denser form of consumable rot. Concentrated Gluttony, I flinch at the idea of even touching it. When consumed it'll grant me the gluttony effect - the drink reacts to rot; amplifying the effect with each rotten trinket worn.",
                 "As with any other potion, adding gunpowder to it's structure will yield a thrown bottle instead. Upon impact, the rot stored inside is released in a small area, applying it's usual benefits to every creature caught inside.");
 

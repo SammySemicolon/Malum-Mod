@@ -20,10 +20,12 @@
       "count": 2
     },
     {
-      "type": "sacred"
+      "type": "sacred",
+      "count": 2
     },
     {
-      "type": "wicked"
+      "type": "wicked",
+      "count": 2
     }
   ]
 }
