@@ -21,8 +21,8 @@ public class SplashOfGluttonyItem extends Item {
             thrownGluttony.setItem(itemstack);
             thrownGluttony.shootFromRotation(pPlayer, pPlayer.getXRot(), pPlayer.getYRot(), -20.0F, 0.5F, 1.0F);
             pLevel.addFreshEntity(thrownGluttony);
-            pPlayer.playSound(SoundEvents.SPLASH_POTION_THROW, 0.5f, 0.4F / (pLevel.getRandom().nextFloat() * 0.4F + 0.8F));
         }
+        pPlayer.playSound(SoundEvents.SPLASH_POTION_THROW, 0.5f, 0.4F / (pLevel.getRandom().nextFloat() * 0.4F + 0.8F));
 
         pPlayer.awardStat(Stats.ITEM_USED.get(this));
         if (!pPlayer.getAbilities().instabuild) {
