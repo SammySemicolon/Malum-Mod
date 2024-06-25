@@ -27,6 +27,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -182,7 +183,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
                 final boolean isCoreAugment = heldStack.getItem() instanceof AbstractCoreAugmentItem;
                 if ((augmentOnly && !isCoreAugment) || isEmpty) {
                     try (Transaction t = TransferUtil.getTransaction()) {
-                        long inserted = augmentInventory.insert(ItemVariant.of(heldStack), 64, t);
+                        long inserted = augmentInventory.insert(ItemVariant.of(heldStack), heldStack.getCount(), t);
                         heldStack.shrink((int) inserted);
                         setChanged();
                         t.commit();
@@ -195,7 +196,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
                 }
                 if ((augmentOnly && isCoreAugment) || isEmpty) {
                     try (Transaction t = TransferUtil.getTransaction()) {
-                        long inserted = coreAugmentInventory.insert(ItemVariant.of(heldStack), 64, t);
+                        long inserted = coreAugmentInventory.insert(ItemVariant.of(heldStack), heldStack.getCount(), t);
                         heldStack.shrink((int) inserted);
                         setChanged();
                         t.commit();
@@ -210,7 +211,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
             recalibrateAccelerators(level, worldPosition);
             if (!augmentOnly) {
                 try (Transaction t = TransferUtil.getTransaction()) {
-                    long inserted = spiritInventory.insert(ItemVariant.of(heldStack), 64, t);
+                    long inserted = spiritInventory.insert(ItemVariant.of(heldStack), heldStack.getCount(), t);
                     heldStack.shrink((int) inserted);
                     setChanged();
                     t.commit();
@@ -221,7 +222,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
                 }
                 if (!(heldStack.getItem() instanceof SpiritShardItem)) {
                     try (Transaction t = TransferUtil.getTransaction()) {
-                        long inserted = inventory.insert(ItemVariant.of(heldStack), 64, t);
+                        long inserted = inventory.insert(ItemVariant.of(heldStack), heldStack.getCount(), t);
                         heldStack.shrink((int) inserted);
                         setChanged();
                         t.commit();
@@ -243,9 +244,13 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
 
     @Override
     public void onBreak(@Nullable Player player) {
-        inventory.dumpItems(level, worldPosition);
-        spiritInventory.dumpItems(level, worldPosition);
-        augmentInventory.dumpItems(level, worldPosition);
+        //System.out.println(spiritInventory.nonEmptyItemStacks);
+        Containers.dropContents(level, worldPosition, inventory);
+        Containers.dropContents(level, worldPosition, spiritInventory);
+        Containers.dropContents(level, worldPosition, augmentInventory);
+        //inventory.dumpItems(level, worldPosition);
+        //spiritInventory.dumpItems(level, worldPosition);
+        //augmentInventory.dumpItems(level, worldPosition);
         super.onBreak(player);
     }
 
