@@ -122,6 +122,17 @@ public class BlockRegistry {
     public static final RegistryObject<Block> WEEPING_WELL_CORE = BLOCKS.register("weeping_well_core", () -> new WeepingWellBlock(MalumBlockProperties.WEEPING_WELL()));
     //endregion
 
+    //region spirited glass
+    public static final RegistryObject<Block> SACRED_SPIRITED_GLASS = BLOCKS.register("sacred_spirited_glass", () -> new GlassBlock(MalumBlockProperties.SPIRITED_GLASS()));
+    public static final RegistryObject<Block> WICKED_SPIRITED_GLASS = BLOCKS.register("wicked_spirited_glass", () -> new GlassBlock(MalumBlockProperties.SPIRITED_GLASS()));
+    public static final RegistryObject<Block> ARCANE_SPIRITED_GLASS = BLOCKS.register("arcane_spirited_glass", () -> new GlassBlock(MalumBlockProperties.SPIRITED_GLASS()));
+    public static final RegistryObject<Block> ELDRITCH_SPIRITED_GLASS = BLOCKS.register("eldritch_spirited_glass", () -> new GlassBlock(MalumBlockProperties.SPIRITED_GLASS()));
+    public static final RegistryObject<Block> AERIAL_SPIRITED_GLASS = BLOCKS.register("aerial_spirited_glass", () -> new GlassBlock(MalumBlockProperties.SPIRITED_GLASS()));
+    public static final RegistryObject<Block> AQUEOUS_SPIRITED_GLASS = BLOCKS.register("aqueous_spirited_glass", () -> new GlassBlock(MalumBlockProperties.SPIRITED_GLASS()));
+    public static final RegistryObject<Block> INFERNAL_SPIRITED_GLASS = BLOCKS.register("infernal_spirited_glass", () -> new GlassBlock(MalumBlockProperties.SPIRITED_GLASS()));
+    public static final RegistryObject<Block> EARTHEN_SPIRITED_GLASS = BLOCKS.register("earthen_spirited_glass", () -> new GlassBlock(MalumBlockProperties.SPIRITED_GLASS()));
+    //endregion
+
     //region tainted rock
     public static final RegistryObject<Block> TAINTED_ROCK = BLOCKS.register("tainted_rock", () -> new Block(MalumBlockProperties.TAINTED_ROCK().addTag(TAINTED_BLOCKS)));
     public static final RegistryObject<Block> SMOOTH_TAINTED_ROCK = BLOCKS.register("smooth_tainted_rock", () -> new Block(MalumBlockProperties.TAINTED_ROCK().addTag(TAINTED_BLOCKS)));
