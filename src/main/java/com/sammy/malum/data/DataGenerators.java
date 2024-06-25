@@ -1,9 +1,7 @@
 package com.sammy.malum.data;
 
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.data.block.MalumBlockLootTables;
-import com.sammy.malum.data.block.MalumBlockStates;
-import com.sammy.malum.data.block.MalumBlockTags;
+import com.sammy.malum.data.block.*;
 import com.sammy.malum.data.item.MalumItemModels;
 import com.sammy.malum.data.item.MalumItemTags;
 import com.sammy.malum.data.recipe.*;
@@ -31,8 +29,11 @@ public class DataGenerators {
         MalumItemModels itemModelsProvider = new MalumItemModels(output, helper);
         MalumBlockTags blockTagsProvider = new MalumBlockTags(output, provider, helper);
 
+//        generator.addProvider(event.includeClient(), new MalumFusionBlockModels(output));
+
         generator.addProvider(event.includeClient(), new MalumBlockStates(output, helper, itemModelsProvider));
         generator.addProvider(event.includeClient(), itemModelsProvider);
+
 
         generator.addProvider(event.includeServer(), blockTagsProvider);
         generator.addProvider(event.includeServer(), new MalumBlockLootTables(output));

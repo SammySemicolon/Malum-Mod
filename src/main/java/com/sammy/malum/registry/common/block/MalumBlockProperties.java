@@ -1,6 +1,7 @@
 package com.sammy.malum.registry.common.block;
 
 import com.sammy.malum.registry.common.*;
+import net.minecraft.client.renderer.*;
 import net.minecraft.tags.*;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.properties.*;
@@ -11,6 +12,16 @@ import team.lodestar.lodestone.systems.block.*;
 import java.awt.*;
 
 public class MalumBlockProperties {
+
+    public static LodestoneBlockProperties SPIRITED_GLASS() {
+        return new LodestoneBlockProperties()
+                .needsPickaxe()
+                .sound(SoundType.GLASS)
+                .instrument(NoteBlockInstrument.HAT)
+                .noOcclusion()
+                .setRenderType(() -> RenderType::translucent)
+                .strength(0.3F);
+    }
 
     public static LodestoneBlockProperties TAINTED_ROCK() {
         return new LodestoneBlockProperties()
