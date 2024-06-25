@@ -184,7 +184,7 @@ dependencies {
 
     implementation(fg.deobf("team.lodestar.lodestone:lodestone:${minecraftVersion}-${lodestoneVersion}"))
 
-    implementation(fg.deobf("maven.modrinth:fusion-connected-textures:${fusionVersion}-forge-mc${minecraftVersion}"))
+    runtimeOnly(fg.deobf("maven.modrinth:fusion-connected-textures:${fusionVersion}-forge-mc${minecraftVersion}"))
 
     compileOnly(fg.deobf("curse.maven:farmers_delight-398521:4638874"))
 
