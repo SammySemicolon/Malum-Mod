@@ -143,7 +143,7 @@ dependencies {
     modRuntimeOnly("com.simibubi.create:create-fabric-1.20.1:0.5.1-f-build.1417+mc1.20.1")
     modRuntimeOnly("fuzs.forgeconfigapiport:forgeconfigapiport-fabric:${property("forge_config_api_port_version")}")
 
-    implementation(("maven.modrinth:fusion-connected-textures:${fusionVersion}-fabric-mc${minecraftVersion}"))
+    modRuntimeOnly("maven.modrinth:fusion-connected-textures:${property("fusion_version")}-fabric-mc${property("minecraft_version")}")
     modImplementation("curse.maven:jeed-532286:5186338")
 
     modRuntimeOnly("curse.maven:world-stripper-250603:4578576")
