@@ -106,7 +106,7 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity impleme
             final boolean augmentOnly = heldStack.getItem() instanceof AbstractAugmentItem;
             if (augmentOnly || (heldStack.isEmpty() && inventory.isEmpty())) {
                 try (Transaction t = TransferUtil.getTransaction()) {
-                    long inserted = augmentInventory.insert(ItemVariant.of(heldStack), 64, t);
+                    long inserted = augmentInventory.insert(ItemVariant.of(heldStack), heldStack.getCount(), t);
                     heldStack.shrink((int) inserted);
                     setChanged();
                     t.commit();

@@ -258,7 +258,7 @@ public class RitualPlinthBlockEntity extends LodestoneBlockEntity implements Cus
                         ParticleEffectTypeRegistry.RITUAL_PLINTH_EATS_ITEM.createPositionedEffect(serverLevel, new PositionEffectData(worldPosition), new ColorEffectData(ritualRecipe.ritualType.spirit), RitualPlinthAbsorbItemParticleEffect.createData(provider.getItemPos(), providedStack));
                     }
                     try (Transaction t = TransferUtil.getTransaction()) {
-                        long res = extrasInventory.insert(ItemVariant.of(providedStack.split(requestedItem.count)), 64, t);
+                        long res = extrasInventory.insert(ItemVariant.of(providedStack.split(requestedItem.count)), requestedItem.count, t);
                         t.commit();
                     }
                     extrasInventory.setChanged();

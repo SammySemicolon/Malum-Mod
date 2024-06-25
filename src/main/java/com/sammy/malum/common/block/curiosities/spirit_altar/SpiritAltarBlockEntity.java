@@ -314,7 +314,7 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity implements Cust
                         ParticleEffectTypeRegistry.SPIRIT_ALTAR_EATS_ITEM.createPositionedEffect(serverLevel, new PositionEffectData(worldPosition), ColorEffectData.fromRecipe(recipe.spirits), SpiritAltarEatItemParticleEffect.createData(provider.getAccessPointBlockPos(), providedStack));
                     }
                     try (Transaction t = TransferUtil.getTransaction()) {
-                        long inserted = extrasInventory.insert(ItemVariant.of(providedStack.split(requestedItem.count)), 64, t);
+                        long inserted = extrasInventory.insert(ItemVariant.of(providedStack.split(requestedItem.count)), requestedItem.count, t);
                         t.commit();
                     }
                     inventoryForAltar.updateData();
