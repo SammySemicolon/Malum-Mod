@@ -60,11 +60,10 @@ public class RitualPlinthRenderer implements BlockEntityRenderer<RitualPlinthBlo
             float alpha = 0.9f * scalar;
             float scale = 0.25f * (1 + scalar);
             var worldVFXBuilder = VFXBuilders.createWorld()
-
+                    .replaceBufferSource(RenderHandler.LATE_DELAYED_RENDER)
                     .setColor(spirit.getPrimaryColor())
                     .setAlpha(alpha);
             var backgroundBuilder = VFXBuilders.createWorld()
-
                     .setColor(EthericNitrateEntity.SECOND_SMOKE_COLOR)
                     .setAlpha(0.4f * scalar);
 

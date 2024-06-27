@@ -27,21 +27,19 @@ public class MoteOfManaRenderer implements BlockEntityRenderer<MoteOfManaBlockEn
     public void render(MoteOfManaBlockEntity blockEntityIn, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int combinedLightIn, int combinedOverlayIn) {
         poseStack.pushPose();
         MalumSpiritType spiritType = ((SpiritMoteBlock) blockEntityIn.getBlockState().getBlock()).spiritType;
-        if (spiritType != null) {
-            var builder = SpiritBasedWorldVFXBuilder.create(spiritType)
-                    .setRenderType(LodestoneRenderTypeRegistry.ADDITIVE_TEXTURE.applyAndCache(MOTE_OF_MANA));
 
-            RenderUtils.CubeVertexData cubeVertexData = RenderUtils.makeCubePositions(1f)
-                    .applyWobble(0, 0.5f, 0.015f);
-            RenderUtils.CubeVertexData inverse = RenderUtils.makeCubePositions(-1f)
-                    .applyWobble(0, 0.5f, 0.015f);
-            drawCube(poseStack, builder.setColor(spiritType.getPrimaryColor(), 0.85f), 1f, cubeVertexData);
-            drawCube(poseStack, builder.setColor(spiritType.getPrimaryColor(), 0.5f), 1.12f, cubeVertexData);
+        var builder = SpiritBasedWorldVFXBuilder.create(spiritType)
+                .setRenderType(LodestoneRenderTypeRegistry.ADDITIVE_TEXTURE.applyAndCache(MOTE_OF_MANA));
 
-            drawCube(poseStack, builder.setColor(spiritType.getSecondaryColor(), 0.6f), 0.92f, inverse);
-        }
+        RenderUtils.CubeVertexData cubeVertexData = RenderUtils.makeCubePositions(1f).applyWobble(0, 0.5f, 0.015f);
+        RenderUtils.CubeVertexData inverse = RenderUtils.makeCubePositions(-1f).applyWobble(0, 0.5f, 0.015f);
 
+        drawCube(poseStack, builder.setColor(spiritType.getPrimaryColor(), 0.85f), 1f, cubeVertexData);
+        drawCube(poseStack, builder.setColor(spiritType.getPrimaryColor(), 0.4f).setUV(0.0625f, 0.0625f, 1.0625f, 1.0625f), 1.06f, cubeVertexData);
 
+        builder.setRenderType(LodestoneRenderTypeRegistry.TRANSPARENT_TEXTURE.applyAndCache(MOTE_OF_MANA));
+
+        drawCube(poseStack, builder.setColor(spiritType.getSecondaryColor(), 0.4f).setUV(-0.0625f, -0.0625f, 0.9375f, 0.9375f), 0.94f, inverse);
         poseStack.popPose();
     }
 }

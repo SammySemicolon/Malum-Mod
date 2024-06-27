@@ -64,7 +64,8 @@ public class ParticleEffectTypeRegistry {
     public static final ParticleEffectType AURIC_BOLT_IMPACT = new AuricBoltImpactParticleEffect("auric_bolt_impact");
 
     //Gluttony
-    public static final ParticleEffectType THROWN_GLUTTONY_IMPACT = new ThrownGluttonyParticleEffect("thrown_gluttony_potion_lands");
+    public static final ParticleEffectType THROWN_GLUTTONY_IMPACT = new ThrownGluttonyParticleEffect("splash_of_gluttony");
+    public static final ParticleEffectType GLUTTONY_ABSORB = new AbsorbGluttonyParticleEffect("gluttony_absorbed");
 
     //Nitrate
     public static final ParticleEffectType ETHERIC_NITRATE_IMPACT = new EthericNitrateImpactParticleEffect("etheric_nitrate_impact");

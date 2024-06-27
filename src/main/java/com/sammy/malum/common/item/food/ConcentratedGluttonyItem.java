@@ -2,6 +2,8 @@ package com.sammy.malum.common.item.food;
 
 import com.sammy.malum.registry.common.*;
 import com.sammy.malum.registry.common.item.*;
+import com.sammy.malum.visual_effects.networked.data.*;
+import net.minecraft.server.level.*;
 import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.item.*;
@@ -23,7 +25,11 @@ public class ConcentratedGluttonyItem extends BottledDrinkItem {
     public ItemStack finishUsingItem(ItemStack pStack, Level pLevel, LivingEntity pEntityLiving) {
         pEntityLiving.addEffect(createGluttonyEffect(pEntityLiving));
         pEntityLiving.playSound(SoundRegistry.CONCENTRATED_GLUTTONY_DRINK.get(), 1f, RandomHelper.randomBetween(pLevel.random, 1.5f, 2f));
+        if (pLevel instanceof ServerLevel serverLevel) {
+            var position = pEntityLiving.position().add(0, pEntityLiving.getBbHeight()/2f, 0);
+            ParticleEffectTypeRegistry.THROWN_GLUTTONY_IMPACT.createPositionedEffect(serverLevel, new PositionEffectData(position));
 
+        }
         return super.finishUsingItem(pStack, pLevel, pEntityLiving);
     }
 
