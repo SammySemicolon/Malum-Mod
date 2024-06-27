@@ -25,6 +25,33 @@ public class GluttonyParticleEffects {
     private static final Color GLUTTONY_DARK = new Color(31, 35, 30);
     private static final Color GLUTTONY_SHADE = new Color(14, 14, 16);
 
+    public static void incrementGluttonyStatusEffect(PositionEffectData positionData, int gluttonyPotency) {
+        Level level = Minecraft.getInstance().level;
+        var random = level.random;
+
+        for (int i = 0; i < 2; i++) {
+            int lifetime = RandomHelper.randomBetween(random, 20, 30);
+            WorldParticleBuilder.create(LodestoneParticleRegistry.WISP_PARTICLE)
+                    .setTransparencyData(GenericParticleData.create(0.2f, 0.7f, 0).build())
+                    .setSpinData(SpinParticleData.createRandomDirection(random, 0.05f).build())
+                    .setScaleData(GenericParticleData.create(1f, 0f).setEasing(Easing.EXPO_IN).build())
+                    .setLifetime(lifetime)
+                    .setColorData(ColorParticleData.create(GLUTTONY_DARK, GLUTTONY_SHADE).setCoefficient(2f).build())
+                    .enableNoClip()
+                    .setRandomOffset(1f, 0f)
+                    .setMotion(0, 0.001f, 0)
+                    .setRenderType(LodestoneWorldParticleRenderType.LUMITRANSPARENT.withDepthFade())
+                    .repeat(level, positionData.posX, positionData.posY, positionData.posZ, 2);
+        }
+        float distance = 0.6f + gluttonyPotency * 0.02f;
+        float length = 0.75f + gluttonyPotency * 0.025f;
+
+        var ring = gluttonyRing(positionData.getAsVector(), new WorldParticleOptions(LodestoneParticleRegistry.THIN_EXTRUDING_SPARK_PARTICLE), distance, 12);
+        ring.getBuilder().replaceExistingBehavior(SparkBehaviorComponent.class, c -> new ExtrudingSparkBehaviorComponent(c.getLengthData().multiplyValue(length).bake()));
+        ring.spawnParticles();
+    }
+
+
     public static void thrownGluttonySplash(PositionEffectData positionData) {
         Level level = Minecraft.getInstance().level;
         var random = level.random;
@@ -41,7 +68,6 @@ public class GluttonyParticleEffects {
                     .setRandomOffset(1f, 0f)
                     .setMotion(0, 0.001f, 0)
                     .setRenderType(LodestoneWorldParticleRenderType.LUMITRANSPARENT.withDepthFade())
-                    .setDiscardFunction(SimpleParticleOptions.ParticleDiscardFunctionType.ENDING_CURVE_INVISIBLE)
                     .repeat(level, positionData.posX, positionData.posY, positionData.posZ, 2);
         }
         var ring = gluttonyRing(positionData.getAsVector(), new WorldParticleOptions(LodestoneParticleRegistry.THIN_EXTRUDING_SPARK_PARTICLE), 1.2f, 32);

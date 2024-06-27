@@ -13,11 +13,13 @@ public class NBTEffectData {
         this.compoundTag = compoundTag;
     }
 
+    public NBTEffectData() {
+        this(new CompoundTag());
+    }
+
     public NBTEffectData(ItemStack stack) {
-        this.compoundTag = new CompoundTag();
-        CompoundTag stackTag = new CompoundTag();
-        stack.save(stackTag);
-        compoundTag.put(ITEM, stackTag);
+        this();
+        compoundTag.put(ITEM, stack.save(new CompoundTag()));
     }
 
     public ItemStack getStack() {
