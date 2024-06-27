@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "render_type": "minecraft:translucent",
+  "textures": {
+    "all": "malum:block/spirited_glass/arcane_spirited_glass"
+  },
+  "connections": [
+    {
+      "type": "match_block",
+      "block": "malum:sacred_spirited_glass"
+    },
+    {
+      "type": "match_block",
+      "block": "malum:wicked_spirited_glass"
+    },
+    {
+      "type": "match_block",
+      "block": "malum:arcane_spirited_glass"
+    },
+    {
+      "type": "match_block",
+      "block": "malum:eldritch_spirited_glass"
+    },
+    {
+      "type": "match_block",
+      "block": "malum:aerial_spirited_glass"
+    },
+    {
+      "type": "match_block",
+      "block": "malum:aqueous_spirited_glass"
+    },
+    {
+      "type": "match_block",
+      "block": "malum:infernal_spirited_glass"
+    },
+    {
+      "type": "match_block",
+      "block": "malum:earthen_spirited_glass"
+    }
+  ],
+  "loader": "fusion:model",
+  "type": "fusion:connecting"
+}

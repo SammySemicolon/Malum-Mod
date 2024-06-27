@@ -14,6 +14,7 @@ import net.minecraft.client.renderer.entity.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
+import team.lodestar.lodestone.handlers.*;
 import team.lodestar.lodestone.registry.client.*;
 import team.lodestar.lodestone.systems.rendering.*;
 import team.lodestar.lodestone.systems.rendering.rendeertype.*;
@@ -56,11 +57,10 @@ public class RitualPlinthRenderer implements BlockEntityRenderer<RitualPlinthBlo
             float alpha = 0.9f * scalar;
             float scale = 0.25f * (1 + scalar);
             var worldVFXBuilder = VFXBuilders.createWorld()
-                    
+                    .replaceBufferSource(RenderHandler.LATE_DELAYED_RENDER)
                     .setColor(spirit.getPrimaryColor())
                     .setAlpha(alpha);
             var backgroundBuilder = VFXBuilders.createWorld()
-                    
                     .setColor(EthericNitrateEntity.SECOND_SMOKE_COLOR)
                     .setAlpha(0.4f * scalar);
 

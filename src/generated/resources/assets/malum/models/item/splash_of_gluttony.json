@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "malum:item/splash_gluttony"
+    "layer0": "malum:item/splash_of_gluttony"
   }
 }

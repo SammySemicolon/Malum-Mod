@@ -23,8 +23,8 @@ public abstract class AbstractBoltProjectileEntity extends ThrowableItemProjecti
     protected static final EntityDataAccessor<Boolean> DATA_FADING_AWAY = SynchedEntityData.defineId(AbstractBoltProjectileEntity.class, EntityDataSerializers.BOOLEAN);
     protected static final EntityDataAccessor<Integer> DATA_SPAWN_DELAY = SynchedEntityData.defineId(AbstractBoltProjectileEntity.class, EntityDataSerializers.INT);
 
-    public final TrailPointBuilder trailPointBuilder = TrailPointBuilder.create(12);
-    public final TrailPointBuilder spinningTrailPointBuilder = TrailPointBuilder.create(20);
+    public final TrailPointBuilder trailPointBuilder = TrailPointBuilder.create(8);
+    public final TrailPointBuilder spinningTrailPointBuilder = TrailPointBuilder.create(16);
     public float spinOffset = (float) (random.nextFloat() * Math.PI * 2);
     protected float magicDamage;
     public int age;
@@ -198,10 +198,8 @@ public abstract class AbstractBoltProjectileEntity extends ThrowableItemProjecti
                 trailPointBuilder.addTrailPoint(position);
                 spinningTrailPointBuilder.addTrailPoint(position.add(xOffset, 0, zOffset));
             }
-            for (int i = 0; i < (fadingAway ? 2 : 1); i++) {
-                trailPointBuilder.tickTrailPoints();
-                spinningTrailPointBuilder.tickTrailPoints();
-            }
+            trailPointBuilder.tickTrailPoints();
+            spinningTrailPointBuilder.tickTrailPoints();
             if (!fadingAway) {
                 spawnParticles();
             }

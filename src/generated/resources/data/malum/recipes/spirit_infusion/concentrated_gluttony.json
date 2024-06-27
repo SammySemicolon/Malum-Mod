@@ -17,13 +17,15 @@
   "spirits": [
     {
       "type": "aqueous",
-      "count": 3
+      "count": 2
     },
     {
-      "type": "sacred"
+      "type": "sacred",
+      "count": 2
     },
     {
-      "type": "wicked"
+      "type": "wicked",
+      "count": 2
     }
   ]
 }

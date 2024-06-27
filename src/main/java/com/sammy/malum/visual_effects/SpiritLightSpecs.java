@@ -99,6 +99,10 @@ public class SpiritLightSpecs {
         return spiritLightSpecs(level, pos, options, o -> WorldParticleBuilder.create(o).setColorData(colorData));
     }
 
+    public static ParticleEffectSpawner spiritLightSpecs(Level level, Vec3 pos, WorldParticleOptions options) {
+        return spiritLightSpecs(level, pos, options, WorldParticleBuilder::create);
+    }
+
     public static ParticleEffectSpawner spiritLightSpecs(Level level, Vec3 pos, WorldParticleOptions options, Function<WorldParticleOptions, WorldParticleBuilder> builderSupplier) {
         var builder = builderSupplier.apply(options);
         var bloomBuilder = builderSupplier.apply(new WorldParticleOptions(LodestoneParticleRegistry.WISP_PARTICLE));

@@ -158,6 +158,17 @@ public class ItemRegistry {
     public static final RegistryObject<Item> CHARCOAL_FRAGMENT = register("charcoal_fragment", new LodestoneItemProperties(CreativeModeTabs.INGREDIENTS), (p) -> new LodestoneFuelItem(p, 200));
     //endregion
 
+    //region spirited glass
+    public static final RegistryObject<Item> SACRED_SPIRITED_GLASS = register("sacred_spirited_glass", BUILDING_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.SACRED_SPIRITED_GLASS.get(), p));
+    public static final RegistryObject<Item> WICKED_SPIRITED_GLASS = register("wicked_spirited_glass", BUILDING_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.WICKED_SPIRITED_GLASS.get(), p));
+    public static final RegistryObject<Item> ARCANE_SPIRITED_GLASS = register("arcane_spirited_glass", BUILDING_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.ARCANE_SPIRITED_GLASS.get(), p));
+    public static final RegistryObject<Item> ELDRITCH_SPIRITED_GLASS = register("eldritch_spirited_glass", BUILDING_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.ELDRITCH_SPIRITED_GLASS.get(), p));
+    public static final RegistryObject<Item> AERIAL_SPIRITED_GLASS = register("aerial_spirited_glass", BUILDING_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.AERIAL_SPIRITED_GLASS.get(), p));
+    public static final RegistryObject<Item> AQUEOUS_SPIRITED_GLASS = register("aqueous_spirited_glass", BUILDING_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.AQUEOUS_SPIRITED_GLASS.get(), p));
+    public static final RegistryObject<Item> INFERNAL_SPIRITED_GLASS = register("infernal_spirited_glass", BUILDING_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.INFERNAL_SPIRITED_GLASS.get(), p));
+    public static final RegistryObject<Item> EARTHEN_SPIRITED_GLASS = register("earthen_spirited_glass", BUILDING_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.EARTHEN_SPIRITED_GLASS.get(), p));
+    //endregion
+
     //region tainted rock
     public static final RegistryObject<Item> TAINTED_ROCK = register("tainted_rock", BUILDING_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.TAINTED_ROCK.get(), p));
     public static final RegistryObject<Item> SMOOTH_TAINTED_ROCK = register("smooth_tainted_rock", BUILDING_PROPERTIES(), (p) -> new BlockItem(BlockRegistry.SMOOTH_TAINTED_ROCK.get(), p));
@@ -586,15 +597,15 @@ public class ItemRegistry {
     //endregion
 
     //region contents
-
-    public static final RegistryObject<Item> CONCENTRATED_GLUTTONY = register("concentrated_gluttony", DEFAULT_PROPERTIES().food(FoodPropertyRegistry.CONCENTRATED_GLUTTONY), ConcentratedGluttonyItem::new);
-    public static final RegistryObject<Item> SPLASH_GLUTTONY = register("splash_gluttony", DEFAULT_PROPERTIES(), ThrownConcentratedGluttonyItem::new);
-
     public static final RegistryObject<Item> TOTEMIC_STAFF = register("totemic_staff", GEAR_PROPERTIES(), TotemicStaffItem::new);
 
     public static final RegistryObject<Item> SPIRIT_POUCH = register("spirit_pouch", GEAR_PROPERTIES(), SpiritPouchItem::new);
     public static final RegistryObject<Item> ETHERIC_NITRATE = register("etheric_nitrate", DEFAULT_PROPERTIES(), EthericNitrateItem::new);
     public static final RegistryObject<Item> VIVID_NITRATE = register("vivid_nitrate", HIDDEN_PROPERTIES(), VividNitrateItem::new);
+
+    public static final RegistryObject<Item> CONCENTRATED_GLUTTONY = register("concentrated_gluttony", DEFAULT_PROPERTIES().food(FoodPropertyRegistry.CONCENTRATED_GLUTTONY), ConcentratedGluttonyItem::new);
+    public static final RegistryObject<Item> SPLASH_OF_GLUTTONY = register("splash_of_gluttony", DEFAULT_PROPERTIES(), SplashOfGluttonyItem::new);
+
 
     public static final RegistryObject<Item> CRUDE_SCYTHE = register("crude_scythe", GEAR_PROPERTIES(), (p) -> new MalumScytheItem(Tiers.IRON, 0, 0.1f, p.durability(500)));
     public static final RegistryObject<Item> SOUL_STAINED_STEEL_SCYTHE = register("soul_stained_steel_scythe", GEAR_PROPERTIES(), (p) -> new MagicScytheItem(SOUL_STAINED_STEEL, -2.5f, 0.1f, 4, p));

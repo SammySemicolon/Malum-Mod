@@ -4,6 +4,7 @@ import com.sammy.malum.common.item.food.*;
 import com.sammy.malum.registry.common.*;
 import com.sammy.malum.registry.common.entity.*;
 import com.sammy.malum.registry.common.item.*;
+import com.sammy.malum.visual_effects.networked.data.*;
 import net.minecraft.nbt.*;
 import net.minecraft.network.syncher.*;
 import net.minecraft.sounds.*;
@@ -80,7 +81,7 @@ public class ThrownConcentratedGluttony extends ThrowableItemProjectile {
 
     @Override
     protected Item getDefaultItem() {
-        return ItemRegistry.SPLASH_GLUTTONY.get();
+        return ItemRegistry.SPLASH_OF_GLUTTONY.get();
     }
 
     @Override
@@ -127,18 +128,18 @@ public class ThrownConcentratedGluttony extends ThrowableItemProjectile {
         var level = level();
         if (!level.isClientSide) {
             var impactedEntity = pResult instanceof EntityHitResult entityHitResult ? entityHitResult.getEntity() : null;
-            Vec3 direction = pResult.getLocation().subtract(position());
-            applyGluttony(impactedEntity);
             getEntityData().set(DATA_FADING_AWAY, true);
             setDeltaMovement(getDeltaMovement().scale(0.05f));
             level.levelEvent(2002, blockPosition(), MobEffectRegistry.GLUTTONY.get().getColor());
             level.playSound(null, blockPosition(), SoundRegistry.CONCENTRATED_GLUTTONY_DRINK.get(), SoundSource.PLAYERS, 0.5f, 1.25f + level.random.nextFloat() * 0.25f);
+            ParticleEffectTypeRegistry.THROWN_GLUTTONY_IMPACT.createPositionedEffect(level, new PositionEffectData(position()));
+            applyGluttony(impactedEntity);
         }
         super.onHit(pResult);
     }
 
     private void applyGluttony(@Nullable Entity impactedEntity) {
-        var targets = level().getEntitiesOfClass(LivingEntity.class, getBoundingBox().inflate(4.0D, 2.0D, 4.0D));
+        var targets = level().getEntitiesOfClass(LivingEntity.class, getBoundingBox().inflate(3f, 2f, 3f));
         if (!targets.isEmpty()) {
             Entity owner = getEffectSource();
             MobEffectInstance gluttony = ConcentratedGluttonyItem.createGluttonyEffect(owner);
