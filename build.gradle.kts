@@ -120,7 +120,6 @@ dependencies {
     // Trinkets Dependency
     modImplementation("dev.emi:trinkets:${property("trinkets_version")}") { isTransitive = false }
 
-    include("team.lodestar.lodestone:lodestone:${property("minecraft_version")}-${property("lodestone_version")}-fabric")
     modImplementation("team.lodestar.lodestone:lodestone:${property("minecraft_version")}-${property("lodestone_version")}-fabric")
 
     modImplementation("dev.onyxstudios.cardinal-components-api:cardinal-components-base:${property("cca_version")}")
