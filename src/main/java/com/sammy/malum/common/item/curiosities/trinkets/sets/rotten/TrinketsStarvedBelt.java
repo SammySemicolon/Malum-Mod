@@ -36,7 +36,11 @@ public class TrinketsStarvedBelt extends MalumTinketsItem implements IMalumEvent
             EntityHelper.amplifyEffect(effect, collector, 1, 9);
         }
         Level level = collector.level();
-        level.playSound(null, collector.blockPosition(), SoundRegistry.HUNGRY_BELT_FEEDS.get(), SoundSource.PLAYERS, 0.7f, 1.5f + level.random.nextFloat() * 0.5f);
-        level.playSound(null, collector.blockPosition(), SoundEvents.GENERIC_EAT, SoundSource.PLAYERS, 0.7f, 0.8f + level.random.nextFloat() * 0.4f);
+        collector.playSound(SoundRegistry.HUNGRY_BELT_FEEDS.get(), 0.7f, 1.5f + level.random.nextFloat() * 0.5f);
+        collector.playSound(SoundEvents.GENERIC_EAT, 0.7f, 0.8f + level.random.nextFloat() * 0.4f);
+        if (!level.isClientSide) {
+            ConcentratedGluttonyItem.createGluttonyVFX(collector, 0.5f);
+        }
+
     }
 }

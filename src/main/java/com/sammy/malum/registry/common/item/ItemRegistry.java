@@ -598,6 +598,7 @@ public class ItemRegistry {
     public static final RegistryObject<Item> STELLAR_MECHANISM = register("stellar_mechanism", DEFAULT_PROPERTIES(), StellarMechanismItem::new);
 
     public static final RegistryObject<Item> TUNING_FORK = register("tuning_fork", GEAR_PROPERTIES(), Item::new);
+    public static final RegistryObject<Item> LAMPLIGHTERS_TONGS = register("lamplighters_tongs", GEAR_PROPERTIES(), LamplightersTongsItem::new);
 
     public static final RegistryObject<CrackedImpetusItem> CRACKED_IRON_IMPETUS = register("cracked_iron_impetus", METALLURGIC_PROPERTIES(), CrackedImpetusItem::new);
     public static final RegistryObject<ImpetusItem> IRON_IMPETUS = register("iron_impetus", METALLURGIC_PROPERTIES().durability(800), (p) -> new ImpetusItem(p).setCrackedVariant(CRACKED_IRON_IMPETUS));
@@ -641,12 +642,12 @@ public class ItemRegistry {
     public static final RegistryObject<Item> TOTEMIC_STAFF = register("totemic_staff", GEAR_PROPERTIES(), TotemicStaffItem::new);
 
     public static final RegistryObject<Item> SPIRIT_POUCH = register("spirit_pouch", GEAR_PROPERTIES(), SpiritPouchItem::new);
-    public static final RegistryObject<Item> ETHERIC_NITRATE = register("etheric_nitrate", DEFAULT_PROPERTIES(), EthericNitrateItem::new);
-    public static final RegistryObject<Item> VIVID_NITRATE = register("vivid_nitrate", HIDDEN_PROPERTIES(), VividNitrateItem::new);
 
     public static final RegistryObject<Item> CONCENTRATED_GLUTTONY = register("concentrated_gluttony", DEFAULT_PROPERTIES().food(FoodPropertyRegistry.CONCENTRATED_GLUTTONY), ConcentratedGluttonyItem::new);
     public static final RegistryObject<Item> SPLASH_OF_GLUTTONY = register("splash_of_gluttony", DEFAULT_PROPERTIES(), SplashOfGluttonyItem::new);
 
+    public static final RegistryObject<Item> ETHERIC_NITRATE = register("etheric_nitrate", DEFAULT_PROPERTIES(), EthericNitrateItem::new);
+    public static final RegistryObject<Item> VIVID_NITRATE = register("vivid_nitrate", HIDDEN_PROPERTIES(), VividNitrateItem::new);
 
     public static final RegistryObject<Item> CRUDE_SCYTHE = register("crude_scythe", GEAR_PROPERTIES(), (p) -> new MalumScytheItem(Tiers.IRON, 0, 0.1f, p.durability(500)));
     public static final RegistryObject<Item> SOUL_STAINED_STEEL_SCYTHE = register("soul_stained_steel_scythe", GEAR_PROPERTIES(), (p) -> new MagicScytheItem(SOUL_STAINED_STEEL, -2.5f, 0.1f, 4, p));

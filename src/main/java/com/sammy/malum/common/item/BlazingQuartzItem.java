@@ -1,4 +1,4 @@
-package com.sammy.malum.common.item.misc;
+package com.sammy.malum.common.item;
 
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeType;

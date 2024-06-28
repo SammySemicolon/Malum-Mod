@@ -66,7 +66,7 @@ public class BlockEntityRegistry {
     public static final RegistryObject<BlockEntityType<TotemBaseBlockEntity>> TOTEM_BASE = BLOCK_ENTITY_TYPES.register("totem_base", () -> BlockEntityType.Builder.of(TotemBaseBlockEntity::new, getBlocks(TotemBaseBlock.class)).build(null));
     public static final RegistryObject<BlockEntityType<TotemPoleBlockEntity>> TOTEM_POLE = BLOCK_ENTITY_TYPES.register("totem_pole", () -> BlockEntityType.Builder.of(TotemPoleBlockEntity::new, getBlocks(TotemPoleBlock.class)).build(null));
 
-    public static final RegistryObject<BlockEntityType<MoteOfManaBlockEntity>> MOTE_OF_MANA = BLOCK_ENTITY_TYPES.register("mote_of_mana", () -> BlockEntityType.Builder.of(MoteOfManaBlockEntity::new, getBlocks(SpiritMoteBlock.class)).build(null));
+    public static final RegistryObject<BlockEntityType<MoteOfManaBlockEntity>> SPIRIT_MOTE = BLOCK_ENTITY_TYPES.register("mote_of_mana", () -> BlockEntityType.Builder.of(MoteOfManaBlockEntity::new, getBlocks(SpiritMoteBlock.class)).build(null));
 
     public static Block[] getBlocks(Class<?>... blockClasses) {
         Collection<RegistryObject<Block>> blocks = BlockRegistry.BLOCKS.getEntries();
@@ -106,7 +106,7 @@ public class BlockEntityRegistry {
             BlockEntityRenderers.register(ITEM_STAND.get(), MalumItemHolderRenderer::new);
             BlockEntityRenderers.register(ITEM_PEDESTAL.get(), MalumItemHolderRenderer::new);
             BlockEntityRenderers.register(SPIRIT_JAR.get(), SpiritJarRenderer::new);
-            BlockEntityRenderers.register(MOTE_OF_MANA.get(), MoteOfManaRenderer::new);
+            BlockEntityRenderers.register(SPIRIT_MOTE.get(), MoteOfManaRenderer::new);
         }
     }
 }

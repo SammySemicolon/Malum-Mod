@@ -30,17 +30,26 @@ import java.util.function.Supplier;
 
 public class SpiritBasedParticleBuilder extends WorldParticleBuilder {
 
-    public static SpiritBasedParticleBuilder create(ParticleType<WorldParticleOptions> particle) {
-        return create(new WorldParticleOptions(particle));
+    public static SpiritBasedParticleBuilder createSpirit(AbstractLodestoneParticleType<?> particle) {
+        return createSpirit(particle, null);
     }
 
-    public static SpiritBasedParticleBuilder create(RegistryObject<? extends LodestoneWorldParticleType> type) {
-        return create(new WorldParticleOptions(type));
+    public static SpiritBasedParticleBuilder createSpirit(AbstractLodestoneParticleType<?> particle, LodestoneBehaviorComponent behavior) {
+        return createSpirit(new WorldParticleOptions(particle).setBehavior(behavior));
     }
 
-    public static SpiritBasedParticleBuilder create(WorldParticleOptions options) {
+    public static SpiritBasedParticleBuilder createSpirit(RegistryObject<? extends AbstractLodestoneParticleType<?>> particle) {
+        return createSpirit(particle, null);
+    }
+
+    public static SpiritBasedParticleBuilder createSpirit(RegistryObject<? extends AbstractLodestoneParticleType<?>> particle, LodestoneBehaviorComponent behavior) {
+        return createSpirit(new WorldParticleOptions(particle.get()).setBehavior(behavior));
+    }
+
+    public static SpiritBasedParticleBuilder createSpirit(WorldParticleOptions options) {
         return new SpiritBasedParticleBuilder(options);
     }
+
 
     @Nullable
     public MalumSpiritType spiritType;

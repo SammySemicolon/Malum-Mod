@@ -1,4 +1,4 @@
-package com.sammy.malum.common.block.mana_mote;
+package com.sammy.malum.common.block.curiosities.mana_mote;
 
 import com.sammy.malum.common.item.spirit.SpiritShardItem;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
@@ -38,16 +38,15 @@ public class SoulstoneBlock extends Block implements CustomSoundTypeBlock {
             return super.use(pState, pLevel, pPos, player, pHand, pHit);
         }
         MalumSpiritType spiritType = spiritShardItem.type;
-        final Supplier<SpiritMoteBlock> spiritMote = spiritType.spiritMote;
-        if (spiritMote == null)
-        {
+        final BlockState spiritMote = spiritType.getSpiritMoteBlockState();
+        if (spiritMote == null) {
             return super.use(pState, pLevel, pPos, player, pHand, pHit);
         }
-        BlockState blockstate = spiritMote.get().defaultBlockState();
+        BlockState blockstate = spiritMote.getBlock().defaultBlockState();
         SoundType soundtype = getSoundType(blockstate, pLevel, pPos, player);
         pLevel.setBlock(pPos, blockstate, 3);
         pLevel.levelEvent(2001, pPos, Block.getId(pState));
-        pLevel.levelEvent(2001, pPos, Block.getId(blockstate));
+        pLevel.levelEvent(2001, pPos, Block.getId(spiritMote));
         pLevel.playSound(player, pPos, SoundRegistry.SPIRIT_MOTE_CREATED.get(), SoundSource.BLOCKS, (soundtype.getVolume() + 1.0F) / 2.0F, Mth.nextFloat(pLevel.random, 1.1f, 1.4f));
         if (!player.getAbilities().instabuild) {
             stack.shrink(2);

@@ -75,7 +75,7 @@ public class ParticleEffectTypeRegistry {
     public static final ParticleEffectType WEEPING_WELL_EMITS_RADIANCE = new WeepingWellRadianceParticleEffect("weeping_well_emits_radiance");
 
     //Misc vfx
-    public static final ParticleEffectType SPIRIT_MOTE_SPARKLES = new SpiritMoteCreationParticleEffect("spirit_mote_sparkles");
+    public static final ParticleEffectType SPIRIT_MOTE_SPARKLES = new SpiritMotePlaceParticleEffect("spirit_mote_sparkles");
     public static final ParticleEffectType SAP_COLLECTED = new SapCollectionParticleEffect("sap_collected");
 
 }
