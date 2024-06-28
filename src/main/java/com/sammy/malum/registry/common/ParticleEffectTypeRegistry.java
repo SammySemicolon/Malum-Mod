@@ -9,6 +9,7 @@ import com.sammy.malum.visual_effects.networked.gluttony.*;
 import com.sammy.malum.visual_effects.networked.nitrate.*;
 import com.sammy.malum.visual_effects.networked.pylon.*;
 import com.sammy.malum.visual_effects.networked.ritual.*;
+import com.sammy.malum.visual_effects.networked.spirit_mote.*;
 import com.sammy.malum.visual_effects.networked.staff.*;
 import com.sammy.malum.visual_effects.networked.totem.*;
 import com.sammy.malum.visual_effects.networked.weeping_well.*;
@@ -63,7 +64,7 @@ public class ParticleEffectTypeRegistry {
     public static final ParticleEffectType WEEPING_WELL_EMITS_RADIANCE = new WeepingWellRadianceParticleEffect("weeping_well_emits_radiance");
 
     //Misc vfx
-    public static final ParticleEffectType SPIRIT_MOTE_SPARKLES = new SpiritMoteCreationParticleEffect("spirit_mote_sparkles");
+    public static final ParticleEffectType SPIRIT_MOTE_SPARKLES = new SpiritMotePlaceParticleEffect("spirit_mote_sparkles");
     public static final ParticleEffectType SAP_COLLECTED = new SapCollectionParticleEffect("sap_collected");
 
 }
