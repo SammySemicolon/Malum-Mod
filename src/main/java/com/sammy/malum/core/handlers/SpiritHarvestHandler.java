@@ -52,7 +52,7 @@ public class SpiritHarvestHandler {
         if (attacker == null) {
             attacker = target.getLastHurtByMob();
         }
-        if (attacker == null && source.is(DamageTypeRegistry.VOODOO)) {
+        if (attacker == null && source.is(DamageTypeTagRegistry.SOUL_SHATTER_DAMAGE)) {
             spawnSpirits(event.getEntity());
             return;
         }

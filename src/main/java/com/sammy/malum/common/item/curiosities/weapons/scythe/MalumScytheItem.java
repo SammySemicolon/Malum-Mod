@@ -1,26 +1,23 @@
 package com.sammy.malum.common.item.curiosities.weapons.scythe;
 
-import com.sammy.malum.common.entity.boomerang.ScytheBoomerangEntity;
-import com.sammy.malum.common.item.IMalumEventResponderItem;
-import com.sammy.malum.registry.client.ParticleRegistry;
-import com.sammy.malum.registry.common.DamageTypeRegistry;
-import com.sammy.malum.registry.common.SoundRegistry;
-import com.sammy.malum.registry.common.item.ItemRegistry;
-import net.minecraft.core.particles.SimpleParticleType;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.Mth;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Tier;
+import com.sammy.malum.common.entity.boomerang.*;
+import com.sammy.malum.common.item.*;
+import com.sammy.malum.registry.client.*;
+import com.sammy.malum.registry.common.*;
+import com.sammy.malum.registry.common.item.*;
+import net.minecraft.core.particles.*;
+import net.minecraft.server.level.*;
+import net.minecraft.sounds.*;
+import net.minecraft.util.*;
+import net.minecraft.world.damagesource.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.*;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import team.lodestar.lodestone.helpers.CurioHelper;
+import net.minecraftforge.event.entity.living.*;
+import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.registry.common.tag.*;
-import team.lodestar.lodestone.systems.item.ModCombatItem;
+import team.lodestar.lodestone.systems.item.*;
 
 public class MalumScytheItem extends ModCombatItem implements IMalumEventResponderItem {
 
@@ -32,6 +29,7 @@ public class MalumScytheItem extends ModCombatItem implements IMalumEventRespond
     public void hurtEvent(LivingHurtEvent event, LivingEntity attacker, LivingEntity target, ItemStack stack) {
         //TODO: convert this to a ToolAction, or something alike
         boolean canSweep = !CurioHelper.hasCurioEquipped(attacker, ItemRegistry.NECKLACE_OF_THE_NARROW_EDGE.get()) && !CurioHelper.hasCurioEquipped(attacker, ItemRegistry.NECKLACE_OF_THE_HIDDEN_BLADE.get());
+        var level = attacker.level();
         if (attacker instanceof Player player) {
             SoundEvent sound;
             if (canSweep) {
@@ -41,18 +39,18 @@ public class MalumScytheItem extends ModCombatItem implements IMalumEventRespond
                 spawnSweepParticles(player, ParticleRegistry.SCYTHE_CUT_PARTICLE.get());
                 sound = SoundRegistry.SCYTHE_CUT.get();
             }
-            attacker.level().playSound(null, target.getX(), target.getY(), target.getZ(), sound, attacker.getSoundSource(), 1, 1);
+            level.playSound(null, target.getX(), target.getY(), target.getZ(), sound, attacker.getSoundSource(), 1, 1);
         }
 
         if (!canSweep || event.getSource().is(LodestoneDamageTypeTags.IS_MAGIC) || event.getSource().getMsgId().equals(DamageTypeRegistry.SCYTHE_SWEEP_IDENTIFIER)) {
             return;
         }
-        int level = EnchantmentHelper.getEnchantmentLevel(Enchantments.SWEEPING_EDGE, attacker);
+        int sweeping = EnchantmentHelper.getEnchantmentLevel(Enchantments.SWEEPING_EDGE, attacker);
         float damage = event.getAmount() * (0.5f + EnchantmentHelper.getSweepingDamageRatio(attacker));
-        target.level().getEntities(attacker, target.getBoundingBox().inflate(1 + level * 0.25f)).forEach(e -> {
+        level.getEntities(attacker, target.getBoundingBox().inflate(1 + sweeping * 0.25f)).forEach(e -> {
             if (e instanceof LivingEntity livingEntity) {
                 if (livingEntity.isAlive()) {
-                    livingEntity.hurt((DamageTypeRegistry.create(attacker.level(), DamageTypeRegistry.SCYTHE_SWEEP, attacker)), damage);
+                    livingEntity.hurt((DamageTypeRegistry.create(level, DamageTypeRegistry.SCYTHE_SWEEP, attacker)), damage);
                     livingEntity.knockback(0.4F, Mth.sin(attacker.getYRot() * ((float) Math.PI / 180F)), (-Mth.cos(attacker.getYRot() * ((float) Math.PI / 180F))));
                 }
             }

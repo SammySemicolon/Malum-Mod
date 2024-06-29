@@ -18,15 +18,15 @@ public class DamageTypeRegistry {
     public static final ResourceKey<DamageType> VOODOO = ResourceKey.create(Registries.DAMAGE_TYPE, MalumMod.malumPath("voodoo"));
     public static final ResourceKey<DamageType> SCYTHE_SWEEP = ResourceKey.create(Registries.DAMAGE_TYPE, MalumMod.malumPath("scythe_sweep"));
 
-    public static DamageSource create(Level world, ResourceKey<DamageType> key, @Nullable Entity source, @Nullable Entity attacker) {
-        return new DamageSource(world.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(key), source, attacker);
+    public static DamageSource create(Level level, ResourceKey<DamageType> damageType) {
+        return create(level, damageType, null, null);
     }
 
-    public static DamageSource create(Level world, ResourceKey<DamageType> key, @Nullable Entity source) {
-        return create(world, key, source, null);
+    public static DamageSource create(Level level, ResourceKey<DamageType> damageType, @Nullable Entity source) {
+        return create(level, damageType, null, source);
     }
 
-    public static DamageSource create(Level world, ResourceKey<DamageType> key) {
-        return create(world, key, null, null);
+    public static DamageSource create(Level level, ResourceKey<DamageType> damageType, @Nullable Entity projectile, @Nullable Entity source) {
+        return new DamageSource(level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(damageType), projectile, source);
     }
 }
