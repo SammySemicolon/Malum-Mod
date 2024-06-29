@@ -694,7 +694,7 @@ public class MalumLang extends LanguageProvider {
                 "This ring makes rotten foods just a little bit more bearable, allowing me to amass more hunger and saturation from such an unusual diet. Normally, such a diet would be ill-advised, however, a secondary function of the ring allows it to extend the duration of the Gluttony status effect that the Belt of the Starved grants.");
         addSimpleEntryHeader("belt_of_the_starved.concentrated_gluttony", "Concentrated Gluttony", "Bypass");
         addPages("belt_of_the_starved.concentrated_gluttony",
-                "I have grown somewhat annoyed with the rotten foods I rely on - they are hardly pleasant to eat. By concentrating them, I can minimize the time I spend tasting rot, granting Gluttony which is amplified by each rotten trinket I wear.",
+                "I have grown somewhat annoyed with the rotten foods I rely on - they are hardly pleasant to eat. By concentrating them, I can minimize the time I spend tasting rot, granting Gluttony which is amplified by each rotten trinket I wear. It takes seconds to digest, but that is preferable to the taste.",
                 "It is like a potion, and so, like potions, I have derived a Splash variant of it. Upon impact, the essence of rot stored inside is released in a small area, applying its usual benefits to every creature caught inside.");
 
         addSimpleEntryHeader("belt_of_the_prospector", "Belt of the Prospector", "Treasures of the earth");
