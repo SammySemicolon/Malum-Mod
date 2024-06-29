@@ -33,7 +33,7 @@ public class SparkParticleEffects {
     }
 
     public static ParticleEffectSpawner spiritMotionSparks(Level level, Vec3 pos, MalumSpiritType spiritType, WorldParticleOptions options) {
-        return spiritMotionSparks(level, pos, options, o -> SpiritBasedParticleBuilder.create(o).setSpirit(spiritType));
+        return spiritMotionSparks(level, pos, options, o -> SpiritBasedParticleBuilder.createSpirit(o).setSpirit(spiritType));
     }
 
     public static ParticleEffectSpawner spiritMotionSparks(Level level, Vec3 pos, ColorParticleData colorData, WorldParticleOptions options) {

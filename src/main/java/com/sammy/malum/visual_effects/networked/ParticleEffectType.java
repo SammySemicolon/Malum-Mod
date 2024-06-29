@@ -41,7 +41,11 @@ public abstract class ParticleEffectType {
     }
 
     public void createPositionedEffect(Level level, PositionEffectData positionData) {
-        createPositionedEffect(level, positionData, null);
+        createPositionedEffect(level, positionData, null, null);
+    }
+
+    public void createPositionedEffect(Level level, PositionEffectData positionData, NBTEffectData nbtData) {
+        createPositionedEffect(level, positionData, null, nbtData);
     }
 
     public void createPositionedEffect(Level level, PositionEffectData positionData, ColorEffectData colorData) {

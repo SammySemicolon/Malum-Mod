@@ -8,12 +8,11 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.*;
-import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.network.*;
 
 import java.util.*;
 
-import static com.sammy.malum.registry.common.PacketRegistry.MALUM_CHANNEL;
+import static com.sammy.malum.registry.common.PacketRegistry.*;
 
 public class ReplenishingEnchantment extends Enchantment {
     public ReplenishingEnchantment() {
@@ -41,7 +40,9 @@ public class ReplenishingEnchantment extends Enchantment {
         int ratio = (int) (staff.getCooldownDuration(player.level(), player) * (0.25f * pLevel));
         cooldowns.tickCount+=ratio;
         for (Map.Entry<Item, ItemCooldowns.CooldownInstance> itemCooldownInstanceEntry : cooldowns.cooldowns.entrySet()) {
-            if (itemCooldownInstanceEntry.getKey().equals(staff)) continue;
+            if (itemCooldownInstanceEntry.getKey().equals(staff)) {
+                continue;
+            }
             ItemCooldowns.CooldownInstance value = itemCooldownInstanceEntry.getValue();
             ItemCooldowns.CooldownInstance cooldownInstance = new ItemCooldowns.CooldownInstance(value.startTime+ratio, value.endTime+ratio);
             cooldowns.cooldowns.put(itemCooldownInstanceEntry.getKey(), cooldownInstance);

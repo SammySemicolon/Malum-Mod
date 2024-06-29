@@ -3,6 +3,7 @@ package com.sammy.malum.registry.common.block;
 import com.sammy.malum.*;
 import com.sammy.malum.common.block.*;
 import com.sammy.malum.common.block.blight.*;
+import com.sammy.malum.common.block.curiosities.mana_mote.*;
 import com.sammy.malum.common.block.curiosities.obelisk.*;
 import com.sammy.malum.common.block.curiosities.obelisk.brilliant.*;
 import com.sammy.malum.common.block.curiosities.obelisk.runewood.*;
@@ -17,7 +18,6 @@ import com.sammy.malum.common.block.curiosities.void_depot.*;
 import com.sammy.malum.common.block.curiosities.weavers_workbench.*;
 import com.sammy.malum.common.block.curiosities.weeping_well.*;
 import com.sammy.malum.common.block.ether.*;
-import com.sammy.malum.common.block.mana_mote.*;
 import com.sammy.malum.common.block.nature.*;
 import com.sammy.malum.common.block.nature.soulwood.*;
 import com.sammy.malum.common.block.storage.jar.*;
@@ -25,6 +25,7 @@ import com.sammy.malum.common.block.storage.pedestal.*;
 import com.sammy.malum.common.block.storage.stand.*;
 import com.sammy.malum.common.block.the_device.*;
 import com.sammy.malum.common.worldgen.tree.grower.*;
+import com.sammy.malum.core.handlers.*;
 import com.sammy.malum.registry.common.*;
 import com.sammy.malum.registry.common.item.*;
 import net.minecraft.client.color.block.*;
@@ -85,6 +86,8 @@ public class BlockRegistry {
 
     public static final RegistryObject<Block> SOULWOOD_TOTEM_BASE = BLOCKS.register("soulwood_totem_base", () -> new TotemBaseBlock<>(MalumBlockProperties.SOULWOOD().addTag(RITE_IMMUNE).noOcclusion(), true).setBlockEntity(BlockEntityRegistry.TOTEM_BASE));
     public static final RegistryObject<Block> SOULWOOD_TOTEM_POLE = BLOCKS.register("soulwood_totem_pole", () -> new TotemPoleBlock<>(MalumBlockProperties.SOULWOOD().addTag(RITE_IMMUNE).noOcclusion(), BlockRegistry.SOULWOOD_LOG, true).setBlockEntity(BlockEntityRegistry.TOTEM_POLE));
+
+    public static final RegistryObject<Block> SPIRIT_MOTE = BLOCKS.register("spirit_mote", () -> new SpiritMoteBlock(MalumBlockProperties.MANA_MOTE_BLOCK()).setBlockEntity(BlockEntityRegistry.SPIRIT_MOTE));
 
     public static final RegistryObject<Block> VOID_CONDUIT = BLOCKS.register("void_conduit", () -> new VoidConduitBlock<>(MalumBlockProperties.PRIMORDIAL_SOUP()).setBlockEntity(BlockEntityRegistry.VOID_CONDUIT));
     public static final RegistryObject<Block> PRIMORDIAL_SOUP = BLOCKS.register("primordial_soup", () -> new PrimordialSoupBlock(MalumBlockProperties.PRIMORDIAL_SOUP()));
@@ -382,17 +385,6 @@ public class BlockRegistry {
     public static final RegistryObject<Block> TALL_CALCIFIED_BLIGHT = BLOCKS.register("tall_calcified_blight", () -> new TallCalcifiedBlightBlock(MalumBlockProperties.CALCIFIED_BLIGHT().setCutoutRenderType()));
     //endregion
 
-    //region motes
-    public static final RegistryObject<SpiritMoteBlock> MOTE_OF_SACRED_ARCANA = BLOCKS.register("mote_of_sacred_arcana", () -> new SpiritMoteBlock(MalumBlockProperties.MANA_MOTE_BLOCK(), SpiritTypeRegistry.SACRED_SPIRIT).setBlockEntity(BlockEntityRegistry.MOTE_OF_MANA));
-    public static final RegistryObject<SpiritMoteBlock> MOTE_OF_WICKED_ARCANA = BLOCKS.register("mote_of_wicked_arcana", () -> new SpiritMoteBlock(MalumBlockProperties.MANA_MOTE_BLOCK(), SpiritTypeRegistry.WICKED_SPIRIT).setBlockEntity(BlockEntityRegistry.MOTE_OF_MANA));
-    public static final RegistryObject<SpiritMoteBlock> MOTE_OF_RAW_ARCANA = BLOCKS.register("mote_of_raw_arcana", () -> new SpiritMoteBlock(MalumBlockProperties.MANA_MOTE_BLOCK(), SpiritTypeRegistry.ARCANE_SPIRIT).setBlockEntity(BlockEntityRegistry.MOTE_OF_MANA));
-    public static final RegistryObject<SpiritMoteBlock> MOTE_OF_ELDRITCH_ARCANA = BLOCKS.register("mote_of_eldritch_arcana", () -> new SpiritMoteBlock(MalumBlockProperties.MANA_MOTE_BLOCK(), SpiritTypeRegistry.ELDRITCH_SPIRIT).setBlockEntity(BlockEntityRegistry.MOTE_OF_MANA));
-    public static final RegistryObject<SpiritMoteBlock> MOTE_OF_AERIAL_ARCANA = BLOCKS.register("mote_of_aerial_arcana", () -> new SpiritMoteBlock(MalumBlockProperties.MANA_MOTE_BLOCK(), SpiritTypeRegistry.AERIAL_SPIRIT).setBlockEntity(BlockEntityRegistry.MOTE_OF_MANA));
-    public static final RegistryObject<SpiritMoteBlock> MOTE_OF_AQUEOUS_ARCANA = BLOCKS.register("mote_of_aqueous_arcana", () -> new SpiritMoteBlock(MalumBlockProperties.MANA_MOTE_BLOCK(), SpiritTypeRegistry.AQUEOUS_SPIRIT).setBlockEntity(BlockEntityRegistry.MOTE_OF_MANA));
-    public static final RegistryObject<SpiritMoteBlock> MOTE_OF_EARTHEN_ARCANA = BLOCKS.register("mote_of_earthen_arcana", () -> new SpiritMoteBlock(MalumBlockProperties.MANA_MOTE_BLOCK(), SpiritTypeRegistry.EARTHEN_SPIRIT).setBlockEntity(BlockEntityRegistry.MOTE_OF_MANA));
-    public static final RegistryObject<SpiritMoteBlock> MOTE_OF_INFERNAL_ARCANA = BLOCKS.register("mote_of_infernal_arcana", () -> new SpiritMoteBlock(MalumBlockProperties.MANA_MOTE_BLOCK(), SpiritTypeRegistry.INFERNAL_SPIRIT).setBlockEntity(BlockEntityRegistry.MOTE_OF_MANA));
-    //endregion
-
     //region ether
     public static final RegistryObject<Block> ETHER = BLOCKS.register("ether", () -> new EtherBlock<>(MalumBlockProperties.ETHER()).setBlockEntity(BlockEntityRegistry.ETHER));
     public static final RegistryObject<Block> ETHER_TORCH = BLOCKS.register("ether_torch", () -> new EtherTorchBlock<>(MalumBlockProperties.ETHER_TORCH().noCollission().instabreak().lightLevel((b) -> 14)).setBlockEntity(BlockEntityRegistry.ETHER));
@@ -410,7 +402,7 @@ public class BlockRegistry {
     public static final RegistryObject<Block> SOULSTONE_ORE = BLOCKS.register("soulstone_ore", () -> new DropExperienceBlock(MalumBlockProperties.SOULSTONE_ORE(false)));
     public static final RegistryObject<Block> DEEPSLATE_SOULSTONE_ORE = BLOCKS.register("deepslate_soulstone_ore", () -> new DropExperienceBlock(MalumBlockProperties.SOULSTONE_ORE(true)));
     public static final RegistryObject<Block> BLOCK_OF_RAW_SOULSTONE = BLOCKS.register("block_of_raw_soulstone", () -> new Block(MalumBlockProperties.SOULSTONE_BLOCK()));
-    public static final RegistryObject<Block> BLOCK_OF_SOULSTONE = BLOCKS.register("block_of_soulstone", () -> new SoulstoneBlock(MalumBlockProperties.SOULSTONE_BLOCK()));
+    public static final RegistryObject<Block> BLOCK_OF_SOULSTONE = BLOCKS.register("block_of_soulstone", () -> new Block(MalumBlockProperties.SOULSTONE_BLOCK()));
 
     public static final RegistryObject<Block> BRILLIANT_STONE = BLOCKS.register("brilliant_stone", () -> new DropExperienceBlock(MalumBlockProperties.BRILLIANCE_ORE(false).setCutoutRenderType(), UniformInt.of(14, 18)));
     public static final RegistryObject<Block> BRILLIANT_DEEPSLATE = BLOCKS.register("brilliant_deepslate", () -> new DropExperienceBlock(MalumBlockProperties.BRILLIANCE_ORE(true).setCutoutRenderType(), UniformInt.of(16, 26)));
@@ -496,6 +488,15 @@ public class BlockRegistry {
                 int blue = (int) Mth.lerp(value, leaves.getMinColor().getBlue(), leaves.getMaxColor().getBlue());
                 return red << 16 | green << 8 | blue;
             }, SOULWOOD_LEAVES.get(), BUDDING_SOULWOOD_LEAVES.get(), HANGING_SOULWOOD_LEAVES.get());
+
+            blockColors.register((s, l, p, c) -> {
+                var spiritType = SpiritHarvestHandler.getSpiritType(s.getValue(SpiritMoteBlock.SPIRIT_TYPE));
+                var color  = spiritType.getPrimaryColor();
+                int red = color.getRed();
+                int green = color.getGreen();
+                int blue = color.getBlue();
+                return red << 16 | green << 8 | blue;
+            }, SPIRIT_MOTE.get());
         }
     }
 }

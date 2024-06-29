@@ -1,5 +1,6 @@
-package com.sammy.malum.visual_effects.networked;
+package com.sammy.malum.visual_effects.networked.spirit_mote;
 
+import com.sammy.malum.visual_effects.networked.*;
 import com.sammy.malum.visual_effects.networked.data.ColorEffectData;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
@@ -17,9 +18,9 @@ import team.lodestar.lodestone.systems.particle.data.spin.SpinParticleData;
 import java.awt.*;
 import java.util.function.Supplier;
 
-public class SpiritMoteCreationParticleEffect extends ParticleEffectType {
+public class SpiritMotePlaceParticleEffect extends ParticleEffectType {
 
-    public SpiritMoteCreationParticleEffect(String id) {
+    public SpiritMotePlaceParticleEffect(String id) {
         super(id);
     }
 

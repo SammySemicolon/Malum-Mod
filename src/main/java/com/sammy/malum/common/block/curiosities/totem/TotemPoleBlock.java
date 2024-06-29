@@ -1,5 +1,6 @@
 package com.sammy.malum.common.block.curiosities.totem;
 
+import com.sammy.malum.core.systems.spirit.*;
 import com.sammy.malum.registry.common.SpiritTypeRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -21,6 +22,8 @@ import static net.minecraft.world.level.block.state.properties.BlockStatePropert
 
 public class TotemPoleBlock<T extends TotemPoleBlockEntity> extends LodestoneEntityBlock<T> {
 
+    public static final SpiritTypeProperty SPIRIT_TYPE = SpiritTypeRegistry.SPIRIT_TYPE_PROPERTY;
+
     public final Supplier<? extends Block> logBlock;
     public final boolean isSoulwood;
 
@@ -28,7 +31,7 @@ public class TotemPoleBlock<T extends TotemPoleBlockEntity> extends LodestoneEnt
         super(properties.lootFrom(logBlock));
         this.logBlock = logBlock;
         this.isSoulwood = isSoulwood;
-        this.registerDefaultState(this.stateDefinition.any().setValue(HORIZONTAL_FACING, Direction.NORTH));
+        this.registerDefaultState(this.stateDefinition.any().setValue(HORIZONTAL_FACING, Direction.NORTH).setValue(SPIRIT_TYPE, "sacred"));
     }
 
     @Override
@@ -58,6 +61,6 @@ public class TotemPoleBlock<T extends TotemPoleBlockEntity> extends LodestoneEnt
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(HORIZONTAL_FACING, SpiritTypeRegistry.SPIRIT_TYPE_PROPERTY);
+        builder.add(HORIZONTAL_FACING, SPIRIT_TYPE);
     }
 }

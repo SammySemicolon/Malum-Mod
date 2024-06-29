@@ -1,4 +1,4 @@
-package com.sammy.malum.common.block.mana_mote;
+package com.sammy.malum.common.block.curiosities.mana_mote;
 
 import com.sammy.malum.registry.common.block.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
@@ -7,6 +7,6 @@ import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntity;
 
 public class MoteOfManaBlockEntity extends LodestoneBlockEntity {
     public MoteOfManaBlockEntity(BlockPos pos, BlockState state) {
-        super(BlockEntityRegistry.MOTE_OF_MANA.get(), pos, state);
+        super(BlockEntityRegistry.SPIRIT_MOTE.get(), pos, state);
     }
 }

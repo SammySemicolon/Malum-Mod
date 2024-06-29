@@ -1,7 +1,7 @@
 package com.sammy.malum.core.systems.spirit;
 
 import com.sammy.malum.*;
-import com.sammy.malum.common.block.mana_mote.*;
+import com.sammy.malum.common.block.curiosities.mana_mote.*;
 import com.sammy.malum.common.item.spirit.*;
 import com.sammy.malum.registry.common.*;
 import com.sammy.malum.registry.common.block.*;
@@ -23,15 +23,11 @@ import java.util.function.*;
 public class MalumSpiritType {
 
     public static SpiritTypeBuilder create(String identifier, SpiritVisualMotif visualMotif, Supplier<SpiritShardItem> spiritShard) {
-        return create(identifier, visualMotif, spiritShard, null);
-    }
-    public static SpiritTypeBuilder create(String identifier, SpiritVisualMotif visualMotif, Supplier<SpiritShardItem> spiritShard, Supplier<SpiritMoteBlock> spiritMote) {
-        return new SpiritTypeBuilder(identifier, visualMotif, spiritShard, spiritMote);
+        return new SpiritTypeBuilder(identifier, visualMotif, spiritShard);
     }
 
     public final String identifier;
     public final Supplier<SpiritShardItem> spiritShard;
-    public final Supplier<SpiritMoteBlock> spiritMote;
 
     private final SpiritVisualMotif visualMotif;
 
@@ -40,11 +36,9 @@ public class MalumSpiritType {
     protected Rarity itemRarity;
     protected Component spiritItemDescription;
 
-    public MalumSpiritType(String identifier, SpiritVisualMotif visualMotif, Supplier<SpiritShardItem> spiritShard, Supplier<SpiritMoteBlock> spiritMote,
-                           Color itemColor) {
+    public MalumSpiritType(String identifier, SpiritVisualMotif visualMotif, Supplier<SpiritShardItem> spiritShard, Color itemColor) {
         this.identifier = identifier;
         this.spiritShard = spiritShard;
-        this.spiritMote = spiritMote;
         this.visualMotif = visualMotif;
         this.itemColor = itemColor;
     }
@@ -116,5 +110,9 @@ public class MalumSpiritType {
     public BlockState getTotemPoleBlockState(boolean isCorrupt, BlockHitResult hit) {
         Block base = isCorrupt ? BlockRegistry.SOULWOOD_TOTEM_POLE.get() : BlockRegistry.RUNEWOOD_TOTEM_POLE.get();
         return base.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, hit.getDirection()).setValue(SpiritTypeRegistry.SPIRIT_TYPE_PROPERTY, identifier);
+    }
+
+    public BlockState getSpiritMoteBlockState() {
+        return BlockRegistry.SPIRIT_MOTE.get().defaultBlockState().setValue(SpiritMoteBlock.SPIRIT_TYPE, identifier);
     }
 }

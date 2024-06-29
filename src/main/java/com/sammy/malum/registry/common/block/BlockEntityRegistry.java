@@ -2,6 +2,7 @@ package com.sammy.malum.registry.common.block;
 
 import com.sammy.malum.*;
 import com.sammy.malum.client.renderer.block.*;
+import com.sammy.malum.common.block.curiosities.mana_mote.*;
 import com.sammy.malum.common.block.curiosities.obelisk.brilliant.*;
 import com.sammy.malum.common.block.curiosities.obelisk.runewood.*;
 import com.sammy.malum.common.block.curiosities.repair_pylon.*;
@@ -15,7 +16,6 @@ import com.sammy.malum.common.block.curiosities.void_depot.*;
 import com.sammy.malum.common.block.curiosities.weavers_workbench.*;
 import com.sammy.malum.common.block.curiosities.weeping_well.*;
 import com.sammy.malum.common.block.ether.*;
-import com.sammy.malum.common.block.mana_mote.*;
 import com.sammy.malum.common.block.storage.jar.*;
 import com.sammy.malum.common.block.storage.pedestal.*;
 import com.sammy.malum.common.block.storage.stand.*;
@@ -58,7 +58,7 @@ public class BlockEntityRegistry {
     public static final RegistryObject<BlockEntityType<TotemBaseBlockEntity>> TOTEM_BASE = BLOCK_ENTITY_TYPES.register("totem_base", () -> BlockEntityType.Builder.of(TotemBaseBlockEntity::new, getBlocks(TotemBaseBlock.class)).build(null));
     public static final RegistryObject<BlockEntityType<TotemPoleBlockEntity>> TOTEM_POLE = BLOCK_ENTITY_TYPES.register("totem_pole", () -> BlockEntityType.Builder.of(TotemPoleBlockEntity::new, getBlocks(TotemPoleBlock.class)).build(null));
 
-    public static final RegistryObject<BlockEntityType<MoteOfManaBlockEntity>> MOTE_OF_MANA = BLOCK_ENTITY_TYPES.register("mote_of_mana", () -> BlockEntityType.Builder.of(MoteOfManaBlockEntity::new, getBlocks(SpiritMoteBlock.class)).build(null));
+    public static final RegistryObject<BlockEntityType<MoteOfManaBlockEntity>> SPIRIT_MOTE = BLOCK_ENTITY_TYPES.register("mote_of_mana", () -> BlockEntityType.Builder.of(MoteOfManaBlockEntity::new, getBlocks(SpiritMoteBlock.class)).build(null));
 
     public static Block[] getBlocks(Class<?>... blockClasses) {
         Collection<RegistryObject<Block>> blocks = BlockRegistry.BLOCKS.getEntries();
@@ -99,7 +99,7 @@ public class BlockEntityRegistry {
             event.registerBlockEntityRenderer(ITEM_STAND.get(), MalumItemHolderRenderer::new);
             event.registerBlockEntityRenderer(ITEM_PEDESTAL.get(), MalumItemHolderRenderer::new);
             event.registerBlockEntityRenderer(SPIRIT_JAR.get(), SpiritJarRenderer::new);
-            event.registerBlockEntityRenderer(MOTE_OF_MANA.get(), MoteOfManaRenderer::new);
+            event.registerBlockEntityRenderer(SPIRIT_MOTE.get(), MoteOfManaRenderer::new);
         }
     }
 }

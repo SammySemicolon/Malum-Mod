@@ -92,7 +92,7 @@ public class SpiritLightSpecs {
     }
 
     public static ParticleEffectSpawner spiritLightSpecs(Level level, Vec3 pos, MalumSpiritType spiritType, WorldParticleOptions options) {
-        return spiritLightSpecs(level, pos, options, o -> SpiritBasedParticleBuilder.create(o).setSpirit(spiritType));
+        return spiritLightSpecs(level, pos, options, o -> SpiritBasedParticleBuilder.createSpirit(o).setSpirit(spiritType));
     }
 
     public static ParticleEffectSpawner spiritLightSpecs(Level level, Vec3 pos, ColorParticleData colorData, WorldParticleOptions options) {
@@ -134,7 +134,7 @@ public class SpiritLightSpecs {
     }
 
     public static WorldParticleBuilder spiritBloom(Level level, MalumSpiritType spiritType, WorldParticleOptions options, int lifetime) {
-        return spiritBloom(level, options, o -> SpiritBasedParticleBuilder.create(o).setSpirit(spiritType), lifetime);
+        return spiritBloom(level, options, o -> SpiritBasedParticleBuilder.createSpirit(o).setSpirit(spiritType), lifetime);
     }
 
     public static WorldParticleBuilder spiritBloom(Level level, ColorParticleData colorData, WorldParticleOptions options, int lifetime) {

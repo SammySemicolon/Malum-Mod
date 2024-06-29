@@ -9,9 +9,9 @@ import java.util.function.*;
 
 public class AbsorbGluttonyParticleEffect extends ParticleEffectType {
 
-    public static NBTEffectData createData(int potency) {
+    public static NBTEffectData createData(float potency) {
         NBTEffectData effectData = new NBTEffectData();
-        effectData.compoundTag.putInt("potency", potency);
+        effectData.compoundTag.putFloat("potency", potency);
         return effectData;
     }
 
@@ -23,7 +23,7 @@ public class AbsorbGluttonyParticleEffect extends ParticleEffectType {
     @Override
     public Supplier<ParticleEffectActor> get() {
         return () -> (level, random, positionData, colorData, nbtData) -> {
-            GluttonyParticleEffects.incrementGluttonyStatusEffect(positionData, nbtData.compoundTag.getInt("potency"));
+            GluttonyParticleEffects.incrementGluttonyStatusEffect(positionData, nbtData.compoundTag.getFloat("potency"));
         };
     }
 }

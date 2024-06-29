@@ -4,7 +4,6 @@ import com.sammy.malum.core.systems.spirit.*;
 import com.sammy.malum.registry.common.*;
 import net.minecraft.client.particle.*;
 import net.minecraft.core.*;
-import net.minecraft.core.particles.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.phys.*;
@@ -19,6 +18,7 @@ import team.lodestar.lodestone.systems.particle.data.color.*;
 import team.lodestar.lodestone.systems.particle.data.spin.*;
 import team.lodestar.lodestone.systems.particle.render_types.*;
 import team.lodestar.lodestone.systems.particle.world.*;
+import team.lodestar.lodestone.systems.particle.world.behaviors.components.*;
 import team.lodestar.lodestone.systems.particle.world.options.*;
 import team.lodestar.lodestone.systems.particle.world.type.*;
 
@@ -27,17 +27,26 @@ import java.util.function.*;
 
 public class SpiritBasedParticleBuilder extends WorldParticleBuilder {
 
-    public static SpiritBasedParticleBuilder create(ParticleType<WorldParticleOptions> particle) {
-        return create(new WorldParticleOptions(particle));
+    public static SpiritBasedParticleBuilder createSpirit(AbstractLodestoneParticleType<?> particle) {
+        return createSpirit(particle, null);
     }
 
-    public static SpiritBasedParticleBuilder create(RegistryObject<? extends LodestoneWorldParticleType> type) {
-        return create(new WorldParticleOptions(type));
+    public static SpiritBasedParticleBuilder createSpirit(AbstractLodestoneParticleType<?> particle, LodestoneBehaviorComponent behavior) {
+        return createSpirit(new WorldParticleOptions(particle).setBehavior(behavior));
     }
 
-    public static SpiritBasedParticleBuilder create(WorldParticleOptions options) {
+    public static SpiritBasedParticleBuilder createSpirit(RegistryObject<? extends AbstractLodestoneParticleType<?>> particle) {
+        return createSpirit(particle, null);
+    }
+
+    public static SpiritBasedParticleBuilder createSpirit(RegistryObject<? extends AbstractLodestoneParticleType<?>> particle, LodestoneBehaviorComponent behavior) {
+        return createSpirit(new WorldParticleOptions(particle.get()).setBehavior(behavior));
+    }
+
+    public static SpiritBasedParticleBuilder createSpirit(WorldParticleOptions options) {
         return new SpiritBasedParticleBuilder(options);
     }
+
 
     @Nullable
     public MalumSpiritType spiritType;
