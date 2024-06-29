@@ -46,7 +46,9 @@ public class ReplenishingEnchantment extends Enchantment implements CustomEnchan
         int ratio = (int) (staff.getCooldownDuration(player.level(), player) * (0.25f * pLevel));
         cooldowns.tickCount += ratio;
         for (Map.Entry<Item, ItemCooldowns.CooldownInstance> itemCooldownInstanceEntry : cooldowns.cooldowns.entrySet()) {
-            if (itemCooldownInstanceEntry.getKey().equals(staff)) continue;
+            if (itemCooldownInstanceEntry.getKey().equals(staff)) {
+                continue;
+            }
             ItemCooldowns.CooldownInstance value = itemCooldownInstanceEntry.getValue();
             ItemCooldowns.CooldownInstance cooldownInstance = new ItemCooldowns.CooldownInstance(value.startTime + ratio, value.endTime + ratio);
             cooldowns.cooldowns.put(itemCooldownInstanceEntry.getKey(), cooldownInstance);

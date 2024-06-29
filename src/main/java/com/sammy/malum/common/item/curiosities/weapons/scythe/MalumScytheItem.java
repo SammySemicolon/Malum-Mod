@@ -50,9 +50,9 @@ public class MalumScytheItem extends ModCombatItem implements IMalumEventRespond
         if (!canSweep || event.getSource().is(LodestoneDamageTypeTags.IS_MAGIC) || event.getSource().getMsgId().equals(DamageTypeRegistry.SCYTHE_SWEEP_IDENTIFIER)) {
             return;
         }
-        int level = EnchantmentHelper.getEnchantmentLevel(Enchantments.SWEEPING_EDGE, attacker);
+        int sweeping = EnchantmentHelper.getEnchantmentLevel(Enchantments.SWEEPING_EDGE, attacker);
         float damage = event.getAmount() * (0.5f + EnchantmentHelper.getSweepingDamageRatio(attacker));
-        target.level().getEntities(attacker, target.getBoundingBox().inflate(1 + level * 0.25f)).forEach(e -> {
+        attacker.level().getEntities(attacker, target.getBoundingBox().inflate(1 + sweeping * 0.25f)).forEach(e -> {
             if (e instanceof LivingEntity livingEntity) {
                 if (livingEntity.isAlive()) {
                     livingEntity.hurt((DamageTypeRegistry.create(attacker.level(), DamageTypeRegistry.SCYTHE_SWEEP, attacker)), damage);

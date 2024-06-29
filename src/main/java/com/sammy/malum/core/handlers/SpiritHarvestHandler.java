@@ -11,10 +11,7 @@ import com.sammy.malum.core.listeners.SpiritDataReloadListener;
 import com.sammy.malum.core.systems.recipe.SpiritWithCount;
 import com.sammy.malum.core.systems.spirit.EntitySpiritDropData;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
-import com.sammy.malum.registry.common.AttributeRegistry;
-import com.sammy.malum.registry.common.DamageTypeRegistry;
-import com.sammy.malum.registry.common.SoundRegistry;
-import com.sammy.malum.registry.common.SpiritTypeRegistry;
+import com.sammy.malum.registry.common.*;
 import com.sammy.malum.registry.common.item.EnchantmentRegistry;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -54,7 +51,7 @@ public class SpiritHarvestHandler {
         if (attacker == null) {
             attacker = target.getLastHurtByMob();
         }
-        if (attacker == null && source.is(DamageTypeRegistry.VOODOO)) {
+        if (attacker == null && source.is(DamageTypeTagRegistry.SOUL_SHATTER_DAMAGE)) {
             spawnSpirits(target);
             return true;
         }
