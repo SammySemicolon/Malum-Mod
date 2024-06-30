@@ -2,7 +2,7 @@ package com.sammy.malum.client.screen.codex.screens;
 
 import com.mojang.blaze3d.vertex.*;
 import com.sammy.malum.client.screen.codex.*;
-import com.sammy.malum.client.screen.codex.handklers.*;
+import com.sammy.malum.client.screen.codex.handlers.*;
 import com.sammy.malum.client.screen.codex.objects.*;
 import com.sammy.malum.registry.common.*;
 import net.minecraft.client.*;
