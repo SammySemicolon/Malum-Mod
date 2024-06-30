@@ -1,6 +1,6 @@
 package com.sammy.malum.client.screen.codex.pages;
 
-import com.sammy.malum.client.screen.codex.handklers.BookObjectHandler;
+import com.sammy.malum.client.screen.codex.handlers.BookObjectHandler;
 import com.sammy.malum.client.screen.codex.objects.SelectableEntryObject;
 import com.sammy.malum.client.screen.codex.screens.EntryScreen;
 import net.minecraft.client.gui.GuiGraphics;

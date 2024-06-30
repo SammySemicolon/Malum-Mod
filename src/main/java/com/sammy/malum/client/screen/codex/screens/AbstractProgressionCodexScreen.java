@@ -4,7 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.sammy.malum.client.screen.codex.ArcanaCodexHelper;
 import com.sammy.malum.client.screen.codex.PlacedBookEntry;
 import com.sammy.malum.client.screen.codex.PlacedBookEntryBuilder;
-import com.sammy.malum.client.screen.codex.handklers.EntryObjectHandler;
+import com.sammy.malum.client.screen.codex.handlers.EntryObjectHandler;
 import com.sammy.malum.client.screen.codex.objects.BookObject;
 import com.sammy.malum.registry.common.SoundRegistry;
 import net.minecraft.client.Minecraft;

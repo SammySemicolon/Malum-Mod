@@ -4,7 +4,7 @@ import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.client.screen.codex.BookEntry;
-import com.sammy.malum.client.screen.codex.handklers.BookObjectHandler;
+import com.sammy.malum.client.screen.codex.handlers.BookObjectHandler;
 import com.sammy.malum.client.screen.codex.objects.ArrowObject;
 import com.sammy.malum.client.screen.codex.objects.LinkedEntryObject;
 import com.sammy.malum.client.screen.codex.objects.progression.ProgressionEntryObject;

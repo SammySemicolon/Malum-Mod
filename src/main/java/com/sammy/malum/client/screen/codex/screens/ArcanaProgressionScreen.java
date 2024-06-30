@@ -83,6 +83,7 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
         TinkeringEntries.setupEntries(this);
         RuneWorkingEntries.setupEntries(this);
         TotemMagicEntries.setupEntries(this);
+        MiscellaneousKnowledgeEntries.setupEntries(this);
 
         addEntry("ritual_magic", 0, 17, b -> b
                 .configureWidget(w -> w.setIcon(RITUAL_PLINTH).setStyle(BookWidgetStyle.GILDED_SOULWOOD))
