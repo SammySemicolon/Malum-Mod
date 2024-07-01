@@ -147,8 +147,12 @@ dependencies {
 
     modRuntimeOnly("curse.maven:world-stripper-250603:4578576")
     modRuntimeOnly("curse.maven:spark-361579:4738953")
-    modRuntimeOnly("curse.maven:attributefix-280510:4911083")
+    //modRuntimeOnly("curse.maven:attributefix-280510:4911083")
     //modRuntimeOnly("curse.maven:overloaded-armor-bar-314002:5208706")
+
+    modCompileOnly("vazkii.botania:Botania:1.20.1-444-FABRIC") {
+        //exclude("*")
+    }
 }
 
 tasks {
