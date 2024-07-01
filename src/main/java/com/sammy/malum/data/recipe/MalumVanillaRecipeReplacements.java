@@ -7,6 +7,7 @@ import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.data.recipes.packs.VanillaRecipeProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -39,6 +40,11 @@ public class MalumVanillaRecipeReplacements extends VanillaRecipeProvider {
             if (modified != null)
                 pWriter.accept(modified);
         });
+    }
+
+    @Override
+    public void generateForEnabledBlockFamilies(Consumer<FinishedRecipe> pFinishedRecipeConsumer, FeatureFlagSet pEnabledFeatures) {
+        super.generateForEnabledBlockFamilies(pFinishedRecipeConsumer, pEnabledFeatures);
     }
 
     private void exclude(ItemLike item) {
