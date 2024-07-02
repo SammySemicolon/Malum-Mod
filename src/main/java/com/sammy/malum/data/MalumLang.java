@@ -1203,7 +1203,7 @@ public class MalumLang extends LanguageProvider {
 
     public String correctItemName(String name) {
         if (name.contains("music_disc")) {
-            name = "music_disc";
+            return "music_disc";
         }
         if ((!name.endsWith("_bricks"))) {
             if (name.contains("bricks")) {
@@ -1219,6 +1219,12 @@ public class MalumLang extends LanguageProvider {
             if (name.contains("planks")) {
                 name = name.replaceFirst("_planks", "");
             }
+        }
+        if (name.startsWith("trans_")) {
+            //TODO: replace this with just...
+            // replace(ItemRegistry.WEAVERS_WORKBENCH.get(), this::makeProperEnglish);
+            // no need to run the damn code on every single item, while filtering prideweaves
+            return name;
         }
         return makeProperEnglish(name);
     }
