@@ -22,9 +22,9 @@ public class SpiritMoteParticleEffects {
             var builder = SpiritBasedParticleBuilder.createSpirit(new LodestoneTerrainParticleOptions(LodestoneParticleRegistry.TERRAIN_PARTICLE, pState, pPos))
                     .setRenderType(LodestoneWorldParticleRenderType.TERRAIN_SHEET)
                     .setSpirit(spiritType)
+                    .setGravityStrength(1f)
                     .setTransparencyData(GenericParticleData.create(0.2f, 0).build())
-                    .setScaleData(GenericParticleData.create(0.125f).build())
-                    .setColorData(ColorParticleData.create(0.6f, 0.6f, 0.6f).build());
+                    .setScaleData(GenericParticleData.create(0.125f).build());
 
             voxelshape.forAllBoxes((minX, minY, minZ, maxX, maxY, maxZ) -> {
                 double xOffset = Math.min(1.0D, maxX - minX);
