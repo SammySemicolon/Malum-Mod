@@ -57,10 +57,10 @@ public class MalumVanillaRecipeReplacements extends VanillaRecipeProvider {
     }
 
     private FinishedRecipe enhance(FinishedRecipe vanilla) {
-        if (vanilla instanceof ShapelessRecipeBuilder.Result)
-            return enhance((ShapelessRecipeBuilder.Result) vanilla);
-        if (vanilla instanceof ShapedRecipeBuilder.Result)
-            return enhance((ShapedRecipeBuilder.Result) vanilla);
+        if (vanilla instanceof ShapelessRecipeBuilder.Result shapeless)
+            return enhance(shapeless);
+        if (vanilla instanceof ShapedRecipeBuilder.Result shaped)
+            return enhance(shaped);
         return null;
     }
 

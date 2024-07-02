@@ -55,5 +55,12 @@ public class MiscSpiritInfusionRecipes {
                 .addSpirit(AQUEOUS_SPIRIT, 1)
                 .build(consumer, "splash_of_gluttony_from_concentrated_gluttony");
 
+        new SpiritInfusionRecipeBuilder(Ingredient.of(Tags.Items.INGOTS_IRON), 2, ItemRegistry.LAMPLIGHTERS_TONGS.get(), 1)
+                .addSpirit(ARCANE_SPIRIT, 8)
+                .addSpirit(INFERNAL_SPIRIT, 8)
+                .addExtraItem(ItemRegistry.RUNEWOOD_PLANKS.get(), 2)
+                .addExtraItem(ItemRegistry.PROCESSED_SOULSTONE.get(), 1)
+                .build(consumer);
+
     }
 }
