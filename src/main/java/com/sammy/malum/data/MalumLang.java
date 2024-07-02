@@ -92,16 +92,7 @@ public class MalumLang extends LanguageProvider {
         });
 
         effects.forEach(e -> {
-            String[] replacements = new String[]{"ns_", "rs_", "ts_"};
-            String alteredPath = e.getId().getPath();
-            for (String replacement : replacements) {
-                int index = alteredPath.indexOf(replacement);
-                if (index != -1) {
-                    alteredPath = alteredPath.replaceFirst("s_", "'s_");
-                    break;
-                }
-            }
-            String name = DataHelper.toTitleCase(alteredPath, "_");
+            String name = DataHelper.toTitleCase(makeProperEnglish(e.getId().getPath()), "_");
             add("effect.malum." + ForgeRegistries.MOB_EFFECTS.getKey(e.get()).getPath(), name);
         });
 
@@ -1103,7 +1094,6 @@ public class MalumLang extends LanguageProvider {
         s = s
                 .replaceAll("Of", "of")
                 .replaceAll("The", "the")
-                // Temp
                 .replaceAll("Soul Stained", "Soulstained")
                 .replaceAll("Soul Hunter", "Soulhunter");
         return Character.toUpperCase(s.charAt(0)) + s.substring(1);
@@ -1230,6 +1220,19 @@ public class MalumLang extends LanguageProvider {
                 name = name.replaceFirst("_planks", "");
             }
         }
-        return name;
+        return makeProperEnglish(name);
+    }
+
+    public String makeProperEnglish(String name) {
+        String[] replacements = new String[]{"ns_", "rs_", "ts_"};
+        String properName = name;
+        for (String replacement : replacements) {
+            int index = properName.indexOf(replacement);
+            if (index != -1) {
+                properName = properName.replaceFirst("s_", "'s_");
+                break;
+            }
+        }
+        return properName;
     }
 }

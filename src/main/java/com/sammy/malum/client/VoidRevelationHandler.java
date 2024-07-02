@@ -11,6 +11,7 @@ import com.sammy.malum.core.handlers.hiding.HiddenTagHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.data.loading.DatagenModLoader;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
