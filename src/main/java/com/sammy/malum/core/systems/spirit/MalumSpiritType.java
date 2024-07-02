@@ -1,7 +1,7 @@
 package com.sammy.malum.core.systems.spirit;
 
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.common.block.mana_mote.SpiritMoteBlock;
+import com.sammy.malum.common.block.curiosities.mana_mote.SpiritMoteBlock;
 import com.sammy.malum.common.item.spirit.SpiritShardItem;
 import com.sammy.malum.registry.common.SpiritTypeRegistry;
 import com.sammy.malum.registry.common.block.BlockRegistry;

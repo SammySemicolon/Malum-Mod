@@ -9,7 +9,7 @@ import static team.lodestar.lodestone.registry.common.LodestoneWorldEventTypeReg
 
 
 public class WorldEventTypes {
-    public static WorldEventType ACTIVE_BLIGHT = registerEventType(new WorldEventType(MalumMod.malumPath("active_blight"), ActiveBlightEvent::new, false));
-    public static WorldEventType TOTEM_CREATED_BLIGHT = registerEventType(new WorldEventType(MalumMod.malumPath("totem_blight"), TotemCreatedBlightEvent::new, false));
+    public static WorldEventType ACTIVE_BLIGHT = registerEventType(new WorldEventType(MalumMod.malumPath("active_blight"), ActiveBlightEvent::new));
+    public static WorldEventType TOTEM_CREATED_BLIGHT = registerEventType(new WorldEventType(MalumMod.malumPath("totem_blight"), TotemCreatedBlightEvent::new));
 
 }

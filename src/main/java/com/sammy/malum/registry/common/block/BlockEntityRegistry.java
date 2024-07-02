@@ -1,6 +1,8 @@
 package com.sammy.malum.registry.common.block;
 
 import com.sammy.malum.client.renderer.block.*;
+import com.sammy.malum.common.block.curiosities.mana_mote.MoteOfManaBlockEntity;
+import com.sammy.malum.common.block.curiosities.mana_mote.SpiritMoteBlock;
 import com.sammy.malum.common.block.curiosities.obelisk.brilliant.BrilliantObeliskBlockEntity;
 import com.sammy.malum.common.block.curiosities.obelisk.runewood.RunewoodObeliskBlockEntity;
 import com.sammy.malum.common.block.curiosities.repair_pylon.RepairPylonCoreBlockEntity;
@@ -18,8 +20,6 @@ import com.sammy.malum.common.block.curiosities.weavers_workbench.WeaversWorkben
 import com.sammy.malum.common.block.curiosities.weeping_well.VoidConduitBlockEntity;
 import com.sammy.malum.common.block.ether.EtherBlock;
 import com.sammy.malum.common.block.ether.EtherBlockEntity;
-import com.sammy.malum.common.block.mana_mote.MoteOfManaBlockEntity;
-import com.sammy.malum.common.block.mana_mote.SpiritMoteBlock;
 import com.sammy.malum.common.block.storage.jar.SpiritJarBlockEntity;
 import com.sammy.malum.common.block.storage.pedestal.ItemPedestalBlock;
 import com.sammy.malum.common.block.storage.pedestal.ItemPedestalBlockEntity;

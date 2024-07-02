@@ -2,6 +2,7 @@ package com.sammy.malum.registry.common.block;
 
 import com.sammy.malum.common.block.SpiritedGlassBlock;
 import com.sammy.malum.common.block.blight.*;
+import com.sammy.malum.common.block.curiosities.mana_mote.SpiritMoteBlock;
 import com.sammy.malum.common.block.curiosities.obelisk.ObeliskComponentBlock;
 import com.sammy.malum.common.block.curiosities.obelisk.brilliant.BrillianceObeliskCoreBlock;
 import com.sammy.malum.common.block.curiosities.obelisk.runewood.RunewoodObeliskCoreBlock;
@@ -23,8 +24,6 @@ import com.sammy.malum.common.block.curiosities.weeping_well.VoidConduitBlock;
 import com.sammy.malum.common.block.curiosities.weeping_well.WeepingWellBlock;
 import com.sammy.malum.common.block.curiosities.weeping_well.WeepingWellPillarBlock;
 import com.sammy.malum.common.block.ether.*;
-import com.sammy.malum.common.block.mana_mote.SoulstoneBlock;
-import com.sammy.malum.common.block.mana_mote.SpiritMoteBlock;
 import com.sammy.malum.common.block.nature.*;
 import com.sammy.malum.common.block.nature.soulwood.SapFilledSoulwoodLogBlock;
 import com.sammy.malum.common.block.nature.soulwood.SoulwoodBlock;

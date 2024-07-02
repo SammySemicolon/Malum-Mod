@@ -2,6 +2,7 @@ package com.sammy.malum.common.item.curiosities.trinkets.sets.rotten;
 
 import com.sammy.malum.common.item.IMalumEventResponderItem;
 import com.sammy.malum.common.item.curiosities.trinkets.MalumTinketsItem;
+import com.sammy.malum.common.item.food.ConcentratedGluttonyItem;
 import com.sammy.malum.registry.common.MobEffectRegistry;
 import com.sammy.malum.registry.common.SoundRegistry;
 import net.minecraft.network.chat.Component;

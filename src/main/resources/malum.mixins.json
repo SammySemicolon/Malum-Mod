@@ -5,6 +5,7 @@
   "plugin": "com.sammy.malum.mixin.MalumMixinPlugin",
   "mixins": [
     "AccessorFeatureFlagSet",
+    "BiomeModificationContextImplMixin",
     "ExplosionMixin",
     "FeatureFlagSetMixin",
     "FishingHookEntityMixin",

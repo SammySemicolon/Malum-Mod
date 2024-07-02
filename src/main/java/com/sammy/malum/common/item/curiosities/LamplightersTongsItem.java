@@ -1,8 +1,10 @@
 package com.sammy.malum.common.item.curiosities;
 
+import com.sammy.malum.common.block.curiosities.mana_mote.SpiritMoteBlock;
 import com.sammy.malum.common.item.spirit.*;
 import com.sammy.malum.registry.common.*;
 import com.sammy.malum.visual_effects.networked.data.*;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.*;
 import net.minecraft.util.*;
 import net.minecraft.world.*;
@@ -37,15 +39,15 @@ public class LamplightersTongsItem extends Item {
             return super.useOn(context);
         }
         var pPos = context.getClickedPos();
-        SoundType soundtype = spiritMote.getSoundType(level, pPos, player);
+        SoundType soundtype = ((SpiritMoteBlock) spiritMote.getBlock()).getSoundType(spiritMote, level, pPos, player);
         level.setBlock(pPos, spiritMote, 3);
         level.levelEvent(2001, pPos, Block.getId(spiritMote));
         level.playSound(player, pPos, SoundRegistry.SPIRIT_MOTE_CREATED.get(), SoundSource.BLOCKS, (soundtype.getVolume() + 1.0F) / 2.0F, Mth.nextFloat(level.random, 1.1f, 1.4f));
         if (!player.getAbilities().instabuild) {
             spiritStack.shrink(1);
         }
-        if (!level.isClientSide) {
-            ParticleEffectTypeRegistry.SPIRIT_MOTE_SPARKLES.createPositionedEffect(level, new PositionEffectData(pPos), new ColorEffectData(spiritType));
+        if (level instanceof ServerLevel serverLevel) {
+            ParticleEffectTypeRegistry.SPIRIT_MOTE_SPARKLES.createPositionedEffect(serverLevel, new PositionEffectData(pPos), new ColorEffectData(spiritType));
         }
         return InteractionResult.SUCCESS;
     }
