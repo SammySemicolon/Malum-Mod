@@ -1,6 +1,6 @@
 package com.sammy.malum.registry.common.block;
 
-import com.sammy.malum.common.block.MalumGlassBlock;
+import com.sammy.malum.common.block.SpiritedGlassBlock;
 import com.sammy.malum.common.block.blight.*;
 import com.sammy.malum.common.block.curiosities.obelisk.ObeliskComponentBlock;
 import com.sammy.malum.common.block.curiosities.obelisk.brilliant.BrillianceObeliskCoreBlock;
@@ -124,14 +124,14 @@ public class BlockRegistry {
     //endregion
 
     //region spirited glass
-    public static final RegistryObject<Block> SACRED_SPIRITED_GLASS = BLOCKS.register("sacred_spirited_glass", () -> new MalumGlassBlock(MalumBlockProperties.SPIRITED_GLASS()));
-    public static final RegistryObject<Block> WICKED_SPIRITED_GLASS = BLOCKS.register("wicked_spirited_glass", () -> new MalumGlassBlock(MalumBlockProperties.SPIRITED_GLASS()));
-    public static final RegistryObject<Block> ARCANE_SPIRITED_GLASS = BLOCKS.register("arcane_spirited_glass", () -> new MalumGlassBlock(MalumBlockProperties.SPIRITED_GLASS()));
-    public static final RegistryObject<Block> ELDRITCH_SPIRITED_GLASS = BLOCKS.register("eldritch_spirited_glass", () -> new MalumGlassBlock(MalumBlockProperties.SPIRITED_GLASS()));
-    public static final RegistryObject<Block> AERIAL_SPIRITED_GLASS = BLOCKS.register("aerial_spirited_glass", () -> new MalumGlassBlock(MalumBlockProperties.SPIRITED_GLASS()));
-    public static final RegistryObject<Block> AQUEOUS_SPIRITED_GLASS = BLOCKS.register("aqueous_spirited_glass", () -> new MalumGlassBlock(MalumBlockProperties.SPIRITED_GLASS()));
-    public static final RegistryObject<Block> INFERNAL_SPIRITED_GLASS = BLOCKS.register("infernal_spirited_glass", () -> new MalumGlassBlock(MalumBlockProperties.SPIRITED_GLASS()));
-    public static final RegistryObject<Block> EARTHEN_SPIRITED_GLASS = BLOCKS.register("earthen_spirited_glass", () -> new MalumGlassBlock(MalumBlockProperties.SPIRITED_GLASS()));
+    public static final RegistryObject<Block> SACRED_SPIRITED_GLASS = BLOCKS.register("sacred_spirited_glass", () -> new SpiritedGlassBlock(MalumBlockProperties.SPIRITED_GLASS()));
+    public static final RegistryObject<Block> WICKED_SPIRITED_GLASS = BLOCKS.register("wicked_spirited_glass", () -> new SpiritedGlassBlock(MalumBlockProperties.SPIRITED_GLASS()));
+    public static final RegistryObject<Block> ARCANE_SPIRITED_GLASS = BLOCKS.register("arcane_spirited_glass", () -> new SpiritedGlassBlock(MalumBlockProperties.SPIRITED_GLASS()));
+    public static final RegistryObject<Block> ELDRITCH_SPIRITED_GLASS = BLOCKS.register("eldritch_spirited_glass", () -> new SpiritedGlassBlock(MalumBlockProperties.SPIRITED_GLASS()));
+    public static final RegistryObject<Block> AERIAL_SPIRITED_GLASS = BLOCKS.register("aerial_spirited_glass", () -> new SpiritedGlassBlock(MalumBlockProperties.SPIRITED_GLASS()));
+    public static final RegistryObject<Block> AQUEOUS_SPIRITED_GLASS = BLOCKS.register("aqueous_spirited_glass", () -> new SpiritedGlassBlock(MalumBlockProperties.SPIRITED_GLASS()));
+    public static final RegistryObject<Block> INFERNAL_SPIRITED_GLASS = BLOCKS.register("infernal_spirited_glass", () -> new SpiritedGlassBlock(MalumBlockProperties.SPIRITED_GLASS()));
+    public static final RegistryObject<Block> EARTHEN_SPIRITED_GLASS = BLOCKS.register("earthen_spirited_glass", () -> new SpiritedGlassBlock(MalumBlockProperties.SPIRITED_GLASS()));
     //endregion
 
     //region tainted rock

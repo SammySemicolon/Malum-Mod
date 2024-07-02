@@ -4,13 +4,13 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.GlassBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class MalumGlassBlock extends GlassBlock {
-    public MalumGlassBlock(Properties properties) {
+public class SpiritedGlassBlock extends GlassBlock {
+    public SpiritedGlassBlock(Properties properties) {
         super(properties);
     }
 
     @Override
     public boolean skipRendering(BlockState state, BlockState adjacentState, Direction direction) {
-        return adjacentState.getBlock() instanceof MalumGlassBlock || super.skipRendering(state, adjacentState, direction);
+        return adjacentState.getBlock() instanceof SpiritedGlassBlock || super.skipRendering(state, adjacentState, direction);
     }
 }
