@@ -162,6 +162,7 @@ public class MaterialSpiritInfusionRecipes {
     public static void spiritedGlassRecipe(Consumer<FinishedRecipe> consumer, MalumSpiritType spirit, Item glass) {
         new SpiritInfusionRecipeBuilder(Ingredient.of(Tags.Items.GLASS), 16, glass, 16)
                 .addSpirit(spirit, 2)
+                .addExtraItem(Items.IRON_INGOT, 1)
                 .build(consumer);
     }
 }

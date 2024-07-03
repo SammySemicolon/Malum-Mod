@@ -29,8 +29,8 @@ public class MiscellaneousKnowledgeEntries {
 
         screen.addEntry("mote_making", 12, 12, b -> b
                 .configureWidget(w -> w.setIcon(LAMPLIGHTERS_TONGS))
-                .addPage(new HeadlineTextItemPage("spirited_glass", "spirited_glass.1", LAMPLIGHTERS_TONGS.get()))
-                .addPage(new TextPage("spirited_glass.2"))
+                .addPage(new HeadlineTextItemPage("mote_making", "mote_making.1", LAMPLIGHTERS_TONGS.get()))
+                .addPage(new TextPage("mote_making.2"))
         );
     }
 }
