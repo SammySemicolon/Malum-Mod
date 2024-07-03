@@ -91,7 +91,7 @@ public class ScytheBoomerangEntity extends ThrowableItemProjectile {
 
     @Override
     protected boolean canHitEntity(Entity pTarget) {
-        return !pTarget.equals(getOwner());
+        return !pTarget.equals(getOwner()) && super.canHitEntity(pTarget);
     }
 
     @Override

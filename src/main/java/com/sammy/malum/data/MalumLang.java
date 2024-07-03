@@ -827,6 +827,14 @@ public class MalumLang extends LanguageProvider {
         addPages("rune_of_the_hells",
                 "The Rune of the Hells conveys the Rite of the Hells, granting Ifrit's Courage to its wearer at a reduced potency when they are on fire, extinguishing and healing them.");
 
+        addSimpleEntryHeader("spirited_glass", "Spirited Glass", "Glass-weaver's Finest");
+        addPages("spirited_glass",
+                "");
+
+        addSimpleEntryHeader("mote_making", "Mote Making", "Arcana, Squared");
+        addPages("mote_making",
+                "A re-imagination of the Tuning Fork; Lamplighter's Tongs are a tool that in function create motes of pure arcana, stabilized by the tool, they function as a source of light.");
+
         addSimpleEntryHeader("mirror_magic", "Mirror magic", "Magic Funnels");
         addPages("mirror_magic", "The future holds many secrets..");
 
