@@ -1,6 +1,11 @@
 {
   "type": "malum:spirit_infusion",
-  "extra_items": [],
+  "extra_items": [
+    {
+      "count": 1,
+      "item": "minecraft:iron_ingot"
+    }
+  ],
   "input": {
     "count": 16,
     "tag": "forge:glass"

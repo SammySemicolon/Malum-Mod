@@ -827,13 +827,13 @@ public class MalumLang extends LanguageProvider {
         addPages("rune_of_the_hells",
                 "The Rune of the Hells conveys the Rite of the Hells, granting Ifrit's Courage to its wearer at a reduced potency when they are on fire, extinguishing and healing them.");
 
-        addSimpleEntryHeader("spirited_glass", "Spirited Glass", "Glass-weaver's Finest");
+        addSimpleEntryHeader("spirited_glass", "Spirited Glass", "Not suitable for Oculators");
         addPages("spirited_glass",
-                "");
+                "I have designed a simple but aesthetically pleasing glass which is tinted by the arcana, framed in iron. The particles of the glass are 'aligned' by the power placed within - which means Raw and Eldritch, having no direction, are somewhat chaotic. They do still look interesting, though.");
 
-        addSimpleEntryHeader("mote_making", "Mote Making", "Arcana, Squared");
+        addSimpleEntryHeader("mote_making", "Mote Making", "Worship the cube");
         addPages("mote_making",
-                "A re-imagination of the Tuning Fork; Lamplighter's Tongs are a tool that in function create motes of pure arcana, stabilized by the tool, they function as a source of light.");
+                "Arcana crystals emit their own strange glow. Why not tune that to be stronger? The tool I use to do this is the Lamplighter's Tongs; simply hold them in one hand and the crystal in another to create a 'mote'. This has little magical implication, but the resulting lights are pretty.");
 
         addSimpleEntryHeader("mirror_magic", "Mirror magic", "Magic Funnels");
         addPages("mirror_magic", "The future holds many secrets..");
