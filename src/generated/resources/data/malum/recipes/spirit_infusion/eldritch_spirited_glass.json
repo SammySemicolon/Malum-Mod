@@ -1,0 +1,18 @@
+{
+  "type": "malum:spirit_infusion",
+  "extra_items": [],
+  "input": {
+    "count": 16,
+    "tag": "forge:glass"
+  },
+  "output": {
+    "count": 16,
+    "item": "malum:eldritch_spirited_glass"
+  },
+  "spirits": [
+    {
+      "type": "eldritch",
+      "count": 2
+    }
+  ]
+}

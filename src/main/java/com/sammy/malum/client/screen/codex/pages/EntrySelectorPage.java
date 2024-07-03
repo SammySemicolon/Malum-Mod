@@ -1,6 +1,6 @@
 package com.sammy.malum.client.screen.codex.pages;
 
-import com.sammy.malum.client.screen.codex.handklers.*;
+import com.sammy.malum.client.screen.codex.handlers.*;
 import com.sammy.malum.client.screen.codex.objects.*;
 import com.sammy.malum.client.screen.codex.screens.*;
 import net.minecraft.client.gui.*;

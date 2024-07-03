@@ -317,7 +317,7 @@ public class MalumBlockProperties {
     public static LodestoneBlockProperties MANA_MOTE_BLOCK() {
         return new LodestoneBlockProperties()
                 .mapColor(MapColor.COLOR_LIGHT_BLUE)
-                .setRenderType(() -> RenderType::translucent)
+                .setRenderType(() -> RenderType::cutout)
                 .noOcclusion()
                 .needsPickaxe()
                 .requiresCorrectToolForDrops()

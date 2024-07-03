@@ -79,10 +79,13 @@ public class RenderUtils {
         return makeCubePositions(scale, scale);
     }
     public static CubeVertexData makeCubePositions(float xScale, float yScale) {
-        float xStart = -(xScale/2f)+0.5f;
-        float xEnd = xScale/2f+0.5f;
-        float yStart = -(yScale/2f)+0.5f;
-        float yEnd = yScale/2f+0.5f;
+        float half = 0.5f;
+        float xOffset = xScale / 2f;
+        float yOffset = yScale / 2f;
+        float xStart = -xOffset + half;
+        float xEnd = xOffset + half;
+        float yStart = -yOffset + half;
+        float yEnd = yOffset + half;
         Vector3f[] bottomVertices = new Vector3f[]{new Vector3f(xStart, yStart, xStart), new Vector3f(xStart, yStart, xEnd), new Vector3f(xEnd, yStart, xEnd), new Vector3f(xEnd, yStart, xStart)};
         Vector3f[] topVertices = new Vector3f[]{new Vector3f(xStart, yEnd, xStart), new Vector3f(xStart, yEnd, xEnd), new Vector3f(xEnd, yEnd, xEnd), new Vector3f(xEnd, yEnd, xStart)};
         Collection<Vector3f[]> offsetMap = new ArrayList<>();

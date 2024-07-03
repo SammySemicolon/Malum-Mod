@@ -22,12 +22,18 @@ public class CyclingPage extends BookPage {
 
     @Override
     public ResourceLocation getBackground(boolean isRightSide) {
+        if (pages.isEmpty()) {
+            return null;
+        }
         int index = getIndex();
         return pages.get(index).getBackground(isRightSide);
     }
 
     @Override
     public void render(EntryScreen screen, GuiGraphics guiGraphics, int left, int top, int mouseX, int mouseY, float partialTicks, boolean isRepeat) {
+        if (pages.isEmpty()) {
+            return;
+        }
         int index = getIndex();
         pages.get(index).render(screen, guiGraphics, left, top, mouseX, mouseY, partialTicks, isRepeat);
     }

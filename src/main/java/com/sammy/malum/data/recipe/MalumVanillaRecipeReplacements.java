@@ -7,6 +7,7 @@ import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.data.recipes.packs.VanillaRecipeProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -41,6 +42,7 @@ public class MalumVanillaRecipeReplacements extends VanillaRecipeProvider {
         });
     }
 
+
     private void exclude(ItemLike item) {
         excludes.add(ForgeRegistries.ITEMS.getKey(item.asItem()));
     }
@@ -50,10 +52,10 @@ public class MalumVanillaRecipeReplacements extends VanillaRecipeProvider {
     }
 
     private FinishedRecipe enhance(FinishedRecipe vanilla) {
-        if (vanilla instanceof ShapelessRecipeBuilder.Result)
-            return enhance((ShapelessRecipeBuilder.Result) vanilla);
-        if (vanilla instanceof ShapedRecipeBuilder.Result)
-            return enhance((ShapedRecipeBuilder.Result) vanilla);
+        if (vanilla instanceof ShapelessRecipeBuilder.Result shapeless)
+            return enhance(shapeless);
+        if (vanilla instanceof ShapedRecipeBuilder.Result shaped)
+            return enhance(shaped);
         return null;
     }
 

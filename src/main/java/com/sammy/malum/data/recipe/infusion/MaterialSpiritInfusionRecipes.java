@@ -1,5 +1,6 @@
 package com.sammy.malum.data.recipe.infusion;
 
+import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import com.sammy.malum.data.recipe.builder.*;
 import com.sammy.malum.registry.common.item.*;
 import net.minecraft.data.recipes.*;
@@ -15,6 +16,15 @@ import static com.sammy.malum.registry.common.SpiritTypeRegistry.*;
 public class MaterialSpiritInfusionRecipes {
 
     public static void buildRecipes(Consumer<FinishedRecipe> consumer) {
+        spiritedGlassRecipe(consumer, SACRED_SPIRIT, ItemRegistry.SACRED_SPIRITED_GLASS.get());
+        spiritedGlassRecipe(consumer, WICKED_SPIRIT, ItemRegistry.WICKED_SPIRITED_GLASS.get());
+        spiritedGlassRecipe(consumer, ARCANE_SPIRIT, ItemRegistry.ARCANE_SPIRITED_GLASS.get());
+        spiritedGlassRecipe(consumer, ELDRITCH_SPIRIT, ItemRegistry.ELDRITCH_SPIRITED_GLASS.get());
+        spiritedGlassRecipe(consumer, AERIAL_SPIRIT, ItemRegistry.AERIAL_SPIRITED_GLASS.get());
+        spiritedGlassRecipe(consumer, AQUEOUS_SPIRIT, ItemRegistry.AQUEOUS_SPIRITED_GLASS.get());
+        spiritedGlassRecipe(consumer, EARTHEN_SPIRIT, ItemRegistry.EARTHEN_SPIRITED_GLASS.get());
+        spiritedGlassRecipe(consumer, INFERNAL_SPIRIT, ItemRegistry.INFERNAL_SPIRITED_GLASS.get());
+
         new SpiritInfusionRecipeBuilder(Items.GUNPOWDER, 1, ItemRegistry.HEX_ASH.get(), 1)
                 .addSpirit(ARCANE_SPIRIT, 1)
                 .build(consumer);
@@ -145,6 +155,12 @@ public class MaterialSpiritInfusionRecipes {
                 .addSpirit(EARTHEN_SPIRIT, 8)
                 .addSpirit(INFERNAL_SPIRIT, 8)
                 .addSpirit(ELDRITCH_SPIRIT, 2)
+                .build(consumer);
+    }
+
+    public static void spiritedGlassRecipe(Consumer<FinishedRecipe> consumer, MalumSpiritType spirit, Item glass) {
+        new SpiritInfusionRecipeBuilder(Ingredient.of(Tags.Items.GLASS), 16, glass, 16)
+                .addSpirit(spirit, 2)
                 .build(consumer);
     }
 }

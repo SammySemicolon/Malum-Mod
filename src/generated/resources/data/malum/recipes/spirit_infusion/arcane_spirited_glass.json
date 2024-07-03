@@ -1,0 +1,18 @@
+{
+  "type": "malum:spirit_infusion",
+  "extra_items": [],
+  "input": {
+    "count": 16,
+    "tag": "forge:glass"
+  },
+  "output": {
+    "count": 16,
+    "item": "malum:arcane_spirited_glass"
+  },
+  "spirits": [
+    {
+      "type": "arcane",
+      "count": 2
+    }
+  ]
+}

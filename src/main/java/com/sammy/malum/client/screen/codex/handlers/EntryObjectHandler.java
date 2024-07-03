@@ -1,4 +1,4 @@
-package com.sammy.malum.client.screen.codex.handklers;
+package com.sammy.malum.client.screen.codex.handlers;
 
 import com.sammy.malum.client.screen.codex.*;
 import com.sammy.malum.client.screen.codex.objects.progression.*;
