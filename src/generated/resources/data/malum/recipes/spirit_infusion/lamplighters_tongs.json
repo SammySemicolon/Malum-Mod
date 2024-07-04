@@ -12,7 +12,7 @@
   ],
   "input": {
     "count": 2,
-    "tag": "forge:ingots/iron"
+    "tag": "c:iron_ingots"
   },
   "output": {
     "item": "malum:lamplighters_tongs"

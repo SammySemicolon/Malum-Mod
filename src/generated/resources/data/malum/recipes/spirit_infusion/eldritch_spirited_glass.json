@@ -8,7 +8,7 @@
   ],
   "input": {
     "count": 16,
-    "tag": "forge:glass"
+    "tag": "c:glass_blocks"
   },
   "output": {
     "count": 16,
