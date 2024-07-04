@@ -1,13 +1,13 @@
 {
   "replace": false,
   "values": [
-    "malum:deepslate_soulstone_ore",
-    "malum:cthonic_gold_ore",
-    "malum:brilliant_deepslate",
     "malum:blazing_quartz_ore",
     "malum:natural_quartz_ore",
     "malum:deepslate_quartz_ore",
+    "malum:brilliant_deepslate",
     "malum:soulstone_ore",
-    "malum:brilliant_stone"
+    "malum:brilliant_stone",
+    "malum:deepslate_soulstone_ore",
+    "malum:cthonic_gold_ore"
   ]
 }

@@ -1,7 +1,7 @@
 package com.sammy.malum.data;
 
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.common.block.curiosities.spirit_crucible.*;
+import com.sammy.malum.common.block.curiosities.spirit_crucible.CrucibleTuning;
 import com.sammy.malum.common.block.ether.EtherWallTorchBlock;
 import com.sammy.malum.common.item.spirit.SpiritJarItem;
 import com.sammy.malum.common.spiritrite.*;
@@ -169,48 +169,48 @@ public class MalumLang extends LanguageProvider {
         }
 
 
-        add("curios.identifier.brooch", "Brooch");
-        add("curios.modifiers.brooch", "When worn:");
+        add("trinket.identifier.brooch", "Brooch");
+        add("trinket.modifiers.brooch", "When worn:");
 
-        add("curios.identifier.rune", "Rune");
-        add("curios.modifiers.rune", "When equipped:");
+        add("trinket.identifier.rune", "Rune");
+        add("trinket.modifiers.rune", "When equipped:");
 
-        add("malum.gui.curio.positive", "+%s");
-        add("malum.gui.curio.negative", "-%s");
+        add("malum.gui.trinket.positive", "+%s");
+        add("malum.gui.trinket.negative", "-%s");
 
-        add("malum.gui.curio.effect.passive_healing", "Passive Healing");
-        add("malum.gui.curio.effect.scythe_chain", "Scythe Kill Chaining");
-        add("malum.gui.curio.effect.erratic_damage", "Erratic Damage Output");
-        add("malum.gui.curio.effect.crits", "Critical Strikes");
-        add("malum.gui.curio.effect.silence", "Silences Attackers");
-        add("malum.gui.curio.effect.extend_positive_effect", "Extends Positive Effects");
-        add("malum.gui.curio.effect.shorten_negative_effect", "Shortens Negative Effects");
-        add("malum.gui.curio.effect.attacked_resistance", "Damage Resistance When Attacked");
-        add("malum.gui.curio.effect.low_health_speed", "Speed at Low Health");
-        add("malum.gui.curio.effect.always_sprint", "Sprinting Always Available");
-        add("malum.gui.curio.effect.fervor", "Increased Mining Speed");
-        add("malum.gui.curio.effect.burning_resistance", "Damage Resistance While Burning");
+        add("malum.gui.trinket.effect.passive_healing", "Passive Healing");
+        add("malum.gui.trinket.effect.scythe_chain", "Scythe Kill Chaining");
+        add("malum.gui.trinket.effect.erratic_damage", "Erratic Damage Output");
+        add("malum.gui.trinket.effect.crits", "Critical Strikes");
+        add("malum.gui.trinket.effect.silence", "Silences Attackers");
+        add("malum.gui.trinket.effect.extend_positive_effect", "Extends Positive Effects");
+        add("malum.gui.trinket.effect.shorten_negative_effect", "Shortens Negative Effects");
+        add("malum.gui.trinket.effect.attacked_resistance", "Damage Resistance When Attacked");
+        add("malum.gui.trinket.effect.low_health_speed", "Speed at Low Health");
+        add("malum.gui.trinket.effect.always_sprint", "Sprinting Always Available");
+        add("malum.gui.trinket.effect.fervor", "Increased Mining Speed");
+        add("malum.gui.trinket.effect.burning_resistance", "Damage Resistance While Burning");
 
-        add("malum.gui.curio.effect.spirits_heal", "Spirit Collection Replenishes Health");
-        add("malum.gui.curio.effect.spirits_xp", "Spirit Collection Generates Experience Points");
-        add("malum.gui.curio.effect.spirits_extend_effect", "Spirit Collection Aids Potion Durations");
-        add("malum.gui.curio.effect.spirits_add_health", "Spirit Collection Grants Extra Hearts");
-        add("malum.gui.curio.effect.hunger_drain", "Actively Drains Hunger");
-        add("malum.gui.curio.effect.eat_rotten", "Rotten Foods are Tastier");
-        add("malum.gui.curio.effect.growing_gluttony", "Eating Rotten Foods Extends Gluttony");
-        add("malum.gui.curio.effect.explosion_drops_collected", "Automatic Collection of Explosion Drops");
-        add("malum.gui.curio.effect.bigger_explosions", "Improves Explosions");
-        add("malum.gui.curio.effect.better_conduit_power", "Conduit Power Provides Numerous Benefits");
-        add("malum.gui.curio.effect.no_sweep", "Disables Scythe Sweeping");
-        add("malum.gui.curio.effect.friendly_enemies", "Reduces Enemy Aggression");
-        add("malum.gui.curio.effect.soul_ward_magic_resilience", "Soul Ward Magic Resilience");
-        add("malum.gui.curio.effect.rotten_gluttony", "Eating Rotten Food Generates Gluttony");
-        add("malum.gui.curio.effect.scythe_counterattack", "Powerful Scythe Counterattack When Struck");
-        add("malum.gui.curio.effect.full_health_fake_collection", "Striking Full Health Targets Triggers Spirit Collection Effects");
-        add("malum.gui.curio.effect.soul_ward_physical_absorption", "Soul Ward Absorbs Physical Damage Equally to Magic Damage");
-        add("malum.gui.curio.effect.spirits_gluttony", "Spirit Collection Generates Gluttony");
-        add("malum.gui.curio.effect.enchanted_explosions", "Explosions are Enchanted with %s");
-        add("malum.gui.curio.effect.explosions_spare_valuables", "Protects Valuable Items from Explosions");
+        add("malum.gui.trinket.effect.spirits_heal", "Spirit Collection Replenishes Health");
+        add("malum.gui.trinket.effect.spirits_xp", "Spirit Collection Generates Experience Points");
+        add("malum.gui.trinket.effect.spirits_extend_effect", "Spirit Collection Aids Potion Durations");
+        add("malum.gui.trinket.effect.spirits_add_health", "Spirit Collection Grants Extra Hearts");
+        add("malum.gui.trinket.effect.hunger_drain", "Actively Drains Hunger");
+        add("malum.gui.trinket.effect.eat_rotten", "Rotten Foods are Tastier");
+        add("malum.gui.trinket.effect.growing_gluttony", "Eating Rotten Foods Extends Gluttony");
+        add("malum.gui.trinket.effect.explosion_drops_collected", "Automatic Collection of Explosion Drops");
+        add("malum.gui.trinket.effect.bigger_explosions", "Improves Explosions");
+        add("malum.gui.trinket.effect.better_conduit_power", "Conduit Power Provides Numerous Benefits");
+        add("malum.gui.trinket.effect.no_sweep", "Disables Scythe Sweeping");
+        add("malum.gui.trinket.effect.friendly_enemies", "Reduces Enemy Aggression");
+        add("malum.gui.trinket.effect.soul_ward_magic_resilience", "Soul Ward Magic Resilience");
+        add("malum.gui.trinket.effect.rotten_gluttony", "Eating Rotten Food Generates Gluttony");
+        add("malum.gui.trinket.effect.scythe_counterattack", "Powerful Scythe Counterattack When Struck");
+        add("malum.gui.trinket.effect.full_health_fake_collection", "Striking Full Health Targets Triggers Spirit Collection Effects");
+        add("malum.gui.trinket.effect.soul_ward_physical_absorption", "Soul Ward Absorbs Physical Damage Equally to Magic Damage");
+        add("malum.gui.trinket.effect.spirits_gluttony", "Spirit Collection Generates Gluttony");
+        add("malum.gui.trinket.effect.enchanted_explosions", "Explosions are Enchanted with %s");
+        add("malum.gui.trinket.effect.explosions_spare_valuables", "Protects Valuable Items from Explosions");
 
         addSimpleEntryHeader("chronicles_of_the_void", "Chronicles of the Void", "A magecraft of madness");
         addSimpleEntryHeader("chronicles_of_the_soul", "Chronicles of the Soul", "A magecraft of miracles");
@@ -657,7 +657,7 @@ public class MalumLang extends LanguageProvider {
 
         addSimpleEntryHeader("spirit_trinkets", "Spirit Trinkets", "Accessorizing");
         addPages("spirit_trinkets",
-                "Many disciplines of magic, and even more mundane practices, allow the creation of useful trinkets. These are also referred to as baubles or curios by some. The metals I have alloyed have properties useful in their own rights, and can be used as the basis for even grander designs.",
+                "Many disciplines of magic, and even more mundane practices, allow the creation of useful trinkets. These are also referred to as baubles or trinket by some. The metals I have alloyed have properties useful in their own rights, and can be used as the basis for even grander designs.",
                 "In their most basic form, Hallowed Gold trinkets protect the user as if they were wearing weak armor, and Soulstained Steel trinkets increase the toughness of the armor being worn.");
 
         addEntryHeader("reactive_trinkets", "Reactive Trinkets", "Harnessing the harvest");
