@@ -7,6 +7,8 @@ import com.sammy.malum.visual_effects.SpiritMoteParticleEffects;
 import io.github.fabricators_of_create.porting_lib.block.CustomDestroyEffectsBlock;
 import io.github.fabricators_of_create.porting_lib.block.CustomHitEffectsBlock;
 import io.github.fabricators_of_create.porting_lib.block.CustomSoundTypeBlock;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.ParticleEngine;
 import net.minecraft.core.BlockPos;
@@ -49,6 +51,7 @@ public class SpiritMoteBlock extends LodestoneEntityBlock<MoteOfManaBlockEntity>
         return true;
     }
 
+    @Environment(EnvType.CLIENT)
     @Override
     public boolean addDestroyEffects(BlockState state, ClientLevel level, BlockPos pos, ParticleEngine engine) {
         if (state.getBlock() instanceof SpiritMoteBlock) {
