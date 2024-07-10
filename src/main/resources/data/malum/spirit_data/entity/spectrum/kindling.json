@@ -1,0 +1,22 @@
+{
+  "registry_name": "spectrum:kindling",
+  "primary_type": "sacred",
+  "spirits": [
+    {
+      "spirit": "sacred",
+      "count": 3
+    },
+    {
+      "spirit": "infernal",
+      "count": 2
+    },
+   {
+      "spirit": "arcane",
+      "count": 1
+    },
+    {
+      "spirit": "aerial",
+      "count": 1
+    }
+  ]
+}
