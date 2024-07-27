@@ -70,7 +70,7 @@ public class SoulDataHandler {
             MalumComponents.MALUM_LIVING_ENTITY_COMPONENT.maybeGet(mob).ifPresent(ec -> {
                 SoulDataHandler soulData = ec.soulData;
                 if (soulData.soulless) {
-                    mob.setTarget(null);
+                    //TODO portinglib issuemob.setTarget(null);
                 }
             });
         }

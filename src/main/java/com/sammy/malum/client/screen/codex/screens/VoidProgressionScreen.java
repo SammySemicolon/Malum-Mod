@@ -45,7 +45,7 @@ public class VoidProgressionScreen extends AbstractProgressionCodexScreen {
         super(SoundRegistry.ARCANA_SWEETENER_EVIL, 1024, 768);
         minecraft = Minecraft.getInstance();
         setupEntries();
-        MalumCodexEvents.VOID_EVENT.invoker().onSetup(VOID_ENTRIES);
+        MalumCodexEvents.VOID_EVENT.invoker().onSetup(this, VOID_ENTRIES);
         setupObjects();
     }
 

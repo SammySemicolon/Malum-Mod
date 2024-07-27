@@ -34,7 +34,7 @@ public class ArcanaProgressionScreen extends AbstractProgressionCodexScreen {
         super(SoundRegistry.ARCANA_SWEETENER_NORMAL, 1024, 2560);
         minecraft = Minecraft.getInstance();
         setupEntries();
-        MalumCodexEvents.EVENT.invoker().onSetup(ENTRIES);
+        MalumCodexEvents.EVENT.invoker().onSetup(this, ENTRIES);
         setupObjects();
     }
 

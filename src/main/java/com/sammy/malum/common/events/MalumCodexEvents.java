@@ -1,6 +1,8 @@
 package com.sammy.malum.common.events;
 
 import com.sammy.malum.client.screen.codex.PlacedBookEntry;
+import com.sammy.malum.client.screen.codex.screens.ArcanaProgressionScreen;
+import com.sammy.malum.client.screen.codex.screens.VoidProgressionScreen;
 import net.fabricmc.fabric.api.event.Event;
 
 import java.util.List;
@@ -9,25 +11,25 @@ import static net.fabricmc.fabric.api.event.EventFactory.createArrayBacked;
 
 public interface MalumCodexEvents {
 
-    Event<Setup> EVENT = createArrayBacked(Setup.class, listeners -> (entries) -> {
+    Event<Setup> EVENT = createArrayBacked(Setup.class, listeners -> (arcanaProgressionScreen, entries) -> {
         for (Setup listener : listeners) {
-            listener.onSetup(entries);
+            listener.onSetup(arcanaProgressionScreen, entries);
         }
     });
 
-    Event<SetupVoid> VOID_EVENT = createArrayBacked(SetupVoid.class, listeners -> (entries) -> {
+    Event<SetupVoid> VOID_EVENT = createArrayBacked(SetupVoid.class, listeners -> (voidProgressionScreen, entries) -> {
         for (SetupVoid listener : listeners) {
-            listener.onSetup(entries);
+            listener.onSetup(voidProgressionScreen, entries);
         }
     });
 
     @FunctionalInterface
     interface Setup {
-        void onSetup(List<PlacedBookEntry> bookEntry);
+        void onSetup(ArcanaProgressionScreen arcanaProgressionScreen, List<PlacedBookEntry> bookEntry);
     }
 
     @FunctionalInterface
     interface SetupVoid {
-        void onSetup(List<PlacedBookEntry> bookEntry);
+        void onSetup(VoidProgressionScreen voidProgressionScreen, List<PlacedBookEntry> bookEntry);
     }
 }
