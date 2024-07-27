@@ -88,6 +88,13 @@ public record BookWidgetStyle(ResourceLocation frameTexture, ResourceLocation fi
             }
         }
 
+        public WidgetStylePreset(String nameSpace, String name) {
+            this(new HashMap<>());
+            for (WidgetDesignType value : WidgetDesignType.values()) {
+                map.put(value, texturePath(nameSpace,name + "_" + value.id));
+            }
+        }
+
         public ResourceLocation getTexture(WidgetDesignType type) {
             return map.get(type);
         }
@@ -95,5 +102,9 @@ public record BookWidgetStyle(ResourceLocation frameTexture, ResourceLocation fi
 
     public static ResourceLocation texturePath(String name) {
         return malumPath("textures/gui/book/widgets/" + name + ".png");
+    }
+
+    public static ResourceLocation texturePath(String nameSpace, String name) {
+        return new ResourceLocation(nameSpace, "textures/gui/book/widgets/" + name + ".png");
     }
 }
