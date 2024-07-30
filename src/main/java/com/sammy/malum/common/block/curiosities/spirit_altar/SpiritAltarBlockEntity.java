@@ -193,7 +193,9 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity implements Cust
 
     @Override
     public void init() {
-        recalculateRecipes();
+        ItemStack stack = inventory.getStackInSlot(0);
+        possibleRecipes = new ArrayList<>(DataHelper.getAll(SpiritInfusionRecipe.getRecipes(level), r -> r.doesInputMatch(stack) && r.doSpiritsMatch(spiritInventory.nonEmptyItemStacks)));
+        recipe = SpiritInfusionRecipe.getRecipe(level, stack, spiritInventory.nonEmptyItemStacks);
         if (level.isClientSide && isCrafting) {
             AltarSoundInstance.playSound(this);
         }
@@ -203,16 +205,6 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity implements Cust
     public void tick() {
         super.tick();
         spiritAmount = Math.max(1, Mth.lerp(0.1f, spiritAmount, spiritInventory.nonEmptyItemAmount));
-
-        if (!inventory.getStackInSlot(0).isEmpty()) {
-            idleProgress++;
-            int progressCap = (int) (20 / speed);
-            if (idleProgress >= progressCap) {
-                recalculateRecipes();
-                idleProgress = 0;
-                BlockHelper.updateAndNotifyState(level, worldPosition);
-            }
-        }
 
         if (!possibleRecipes.isEmpty()) {
             if (spiritYLevel < 30) {
@@ -261,6 +253,7 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity implements Cust
         }
     }
 
+    /*
     private void recalculateRecipes() {
         boolean hadRecipe = recipe != null;
 
@@ -283,6 +276,8 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity implements Cust
         }
     }
 
+     */
+
     public boolean consume() {
         if (recipe.extraItems.isEmpty()) {
             return true;
@@ -300,6 +295,8 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity implements Cust
                 boolean matches = requestedItem.matches(providedStack);
                 if (!matches) {
                     for (SpiritInfusionRecipe recipe : possibleRecipes) {
+                        recipe.extraItems.forEach(i -> System.out.println(i.getItem()));
+
                         if (extras < recipe.extraItems.size() && recipe.extraItems.get(extras).matches(providedStack)) {
                             this.recipe = recipe;
                             break;
