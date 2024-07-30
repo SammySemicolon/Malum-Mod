@@ -18,9 +18,7 @@ import com.sammy.malum.visual_effects.SpiritCrucibleParticleEffects;
 import com.sammy.malum.visual_effects.networked.data.ColorEffectData;
 import com.sammy.malum.visual_effects.networked.data.PositionEffectData;
 import io.github.fabricators_of_create.porting_lib.block.CustomRenderBoundingBoxBlockEntity;
-import io.github.fabricators_of_create.porting_lib.transfer.TransferUtil;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
-import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
@@ -76,6 +74,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
             @Override
             public void onContentsChanged(int slot) {
                 super.onContentsChanged(slot);
+                SpiritCrucibleCoreBlockEntity.this.setChanged();
                 needsSync = true;
                 BlockHelper.updateAndNotifyState(level, worldPosition);
             }
@@ -84,9 +83,11 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
             @Override
             public void onContentsChanged(int slot) {
                 super.onContentsChanged(slot);
+                notifyUpdate();
                 needsSync = true;
                 spiritAmount = Math.max(1, Mth.lerp(0.15f, spiritAmount, nonEmptyItemAmount + 1));
                 BlockHelper.updateAndNotifyState(level, worldPosition);
+                SpiritCrucibleCoreBlockEntity.this.setChanged();
             }
 
             @Override
@@ -110,6 +111,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
                 super.onContentsChanged(slot);
                 needsSync = true;
                 BlockHelper.updateAndNotifyState(level, worldPosition);
+                notifyUpdate();
             }
         };
         coreAugmentInventory = new AugmentBlockEntityInventory(1, 1, t -> t.getItem() instanceof AbstractCoreAugmentItem) {
@@ -118,6 +120,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
                 super.onContentsChanged(slot);
                 needsSync = true;
                 BlockHelper.updateAndNotifyState(level, worldPosition);
+                notifyUpdate();
             }
         };
     }
@@ -173,7 +176,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
             if (heldStack.getItem().equals(ItemRegistry.TUNING_FORK.get())) {
                 tuningType = tuningType.next(tuningType, this);
                 recalibrateAccelerators(level, worldPosition);
-                level.playSound(null, worldPosition, SoundRegistry.TUNING_FORK_TINKERS.get(), SoundSource.BLOCKS, 1.25f + level.random.nextFloat() * 0.5f, 0.75f + level.random.nextFloat() * 0.5f);
+                level.playSound(null, worldPosition, SoundRegistry.TUNING_FORK_TINKERS.get(), SoundSource.BLOCKS, 1.25f+level.random.nextFloat()*0.5f, 0.75f+level.random.nextFloat()*0.5f);
                 BlockHelper.updateAndNotifyState(level, worldPosition);
                 return InteractionResult.SUCCESS;
             }
@@ -182,54 +185,30 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
             if (augmentOnly || (isEmpty && inventory.isEmpty() && spiritInventory.isEmpty())) {
                 final boolean isCoreAugment = heldStack.getItem() instanceof AbstractCoreAugmentItem;
                 if ((augmentOnly && !isCoreAugment) || isEmpty) {
-                    try (Transaction t = TransferUtil.getTransaction()) {
-                        long inserted = augmentInventory.insert(ItemVariant.of(heldStack), heldStack.getCount(), t);
-                        heldStack.shrink((int) inserted);
-                        setChanged();
-                        t.commit();
-
-                        if (inserted > 0) {
-                            recalibrateAccelerators(level, worldPosition);
-                            return InteractionResult.SUCCESS;
-                        }
+                    var bl = augmentInventory.interact(this, player.level(), player, hand, item -> true);
+                    if (bl) {
+                        recalibrateAccelerators(level, worldPosition);
+                        return InteractionResult.SUCCESS;
                     }
                 }
                 if ((augmentOnly && isCoreAugment) || isEmpty) {
-                    try (Transaction t = TransferUtil.getTransaction()) {
-                        long inserted = coreAugmentInventory.insert(ItemVariant.of(heldStack), heldStack.getCount(), t);
-                        heldStack.shrink((int) inserted);
-                        setChanged();
-                        t.commit();
-
-                        if (inserted > 0) {
-                            recalibrateAccelerators(level, worldPosition);
-                            return InteractionResult.SUCCESS;
-                        }
+                    var bl = coreAugmentInventory.interact(this, player.level(), player, hand, item -> true);
+                    if (bl) {
+                        recalibrateAccelerators(level, worldPosition);
+                        return InteractionResult.SUCCESS;
                     }
                 }
             }
             recalibrateAccelerators(level, worldPosition);
             if (!augmentOnly) {
-                try (Transaction t = TransferUtil.getTransaction()) {
-                    long inserted = spiritInventory.insert(ItemVariant.of(heldStack), heldStack.getCount(), t);
-                    heldStack.shrink((int) inserted);
-                    setChanged();
-                    t.commit();
-
-                    if (inserted > 0) {
-                        return InteractionResult.SUCCESS;
-                    }
+                var bl = spiritInventory.interact(this, player.level(), player, hand, item -> true);
+                if (bl) {
+                    return InteractionResult.SUCCESS;
                 }
                 if (!(heldStack.getItem() instanceof SpiritShardItem)) {
-                    try (Transaction t = TransferUtil.getTransaction()) {
-                        long inserted = inventory.insert(ItemVariant.of(heldStack), heldStack.getCount(), t);
-                        heldStack.shrink((int) inserted);
-                        setChanged();
-                        t.commit();
-
-                        if (inserted > 0) {
-                            return InteractionResult.SUCCESS;
-                        }
+                    bl = inventory.interact(this, player.level(), player, hand, item -> true);
+                    if (bl) {
+                        return InteractionResult.SUCCESS;
                     }
                 }
             }
@@ -244,13 +223,10 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
 
     @Override
     public void onBreak(@Nullable Player player) {
-        //System.out.println(spiritInventory.nonEmptyItemStacks);
         Containers.dropContents(level, worldPosition, inventory);
         Containers.dropContents(level, worldPosition, spiritInventory);
         Containers.dropContents(level, worldPosition, augmentInventory);
-        //inventory.dumpItems(level, worldPosition);
-        //spiritInventory.dumpItems(level, worldPosition);
-        //augmentInventory.dumpItems(level, worldPosition);
+
         super.onBreak(player);
     }
 
