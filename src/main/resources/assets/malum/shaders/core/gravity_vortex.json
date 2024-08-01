@@ -34,6 +34,9 @@
     { "name": "RingCount", "type": "float", "count": 1, "values": [ 20.0 ] },
     { "name": "RingSpeed", "type": "float", "count": 1, "values": [ 30.0 ] },
     { "name": "CycleDuration", "type": "float", "count": 1, "values": [ 1.0 ] },
-    { "name": "TunnelElongation", "type": "float", "count": 1, "values": [ 0.25 ] }
+    { "name": "TunnelElongation", "type": "float", "count": 1, "values": [ 0.25 ] },
+    { "name": "Width", "type": "float", "count": 1, "values": [ 128.0 ] },
+    { "name": "Height", "type": "float", "count": 1, "values": [ 128.0 ] },
+    { "name": "RotationSpeed", "type": "float", "count": 1, "values": [ 0.0 ] }
   ]
 }
