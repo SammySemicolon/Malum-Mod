@@ -2,16 +2,17 @@
 
 #moj_import <fog.glsl>
 
-const float numRings = 20.0;
-const vec2 center = vec2(0.5);
-const float spacing = 1.0 / numRings;
-const float slow = 30.0;
-const float cycleDur = 1.0;
-const float tunnelElongation = 0.25;
 
 uniform sampler2D Sampler0;
 
 uniform float GameTime;
+uniform float RingCount;
+uniform float RingSpeed;
+uniform float CycleDuration;
+uniform float TunnelElongation;
+
+const vec2 center = vec2(0.5);
+const float spacing = 1.0 / RingCount;
 
 uniform vec4 ColorModulator;
 uniform float FogStart;
@@ -47,7 +48,6 @@ vec3 paintCircle (vec2 uv, vec2 center, float rad, float width, float index) {
 
 vec3 paintRing(vec2 uv, vec2 center, float radius, float index){
     vec3 color = paintCircle(uv, center, radius, 0.075, index);
-    color *= vec3(0.9,0.05,0.9);
     color += paintCircle(uv, center, radius, 0.015, index); //White
     return color;
 }
@@ -56,16 +56,16 @@ vec3 paintRing(vec2 uv, vec2 center, float radius, float index){
 void main() {
     vec2 uv = texCoord0;
 
-    float radius = mod(1000 * GameTime/slow, cycleDur);
+    float radius = mod(1000 * GameTime/RingSpeed, CycleDuration);
     vec3 color;
 
     float border = 0.25;
     vec2 bl = smoothstep(0.0, border, uv);
     vec2 tr = smoothstep(0.0, border, 1.0 - uv);
 
-    for(float i = 0.0; i < numRings; i++){
-        color += paintRing(uv, center, tunnelElongation*log(mod(radius + i * spacing, cycleDur)), i );
-        color += paintRing(uv, center, log(mod(radius + i * spacing, cycleDur)), i);
+    for(float i = 0.0; i < RingCount; i++){
+        color += paintRing(uv, center, TunnelElongation*log(mod(radius + i * spacing, CycleDuration)), i );
+        color += paintRing(uv, center, log(mod(radius + i * spacing, CycleDuration)), i);
     }
 
     color = mix(color, vec3(0.0), distance(uv, center) * 1.95);
