@@ -49,7 +49,7 @@ vec3 paintCircle (vec2 uv, vec2 center, float rad, float width, float index) {
 
 vec3 paintRing(vec2 uv, vec2 center, float radius, float index){
     vec3 color = paintCircle(uv, center, radius, 0.095, index);
-    color *= vec3(0.9,0.05,0.9);
+    color *= vec3(0.9,0.9,0.9);
     color += paintCircle(uv, center, radius, 0.025, index); //White
     return color;
 }
@@ -85,7 +85,13 @@ void main() {
         color += paintRing(uv, center, log(mod(radius + i * spacing, CycleDuration)), i);
     }
 
+    vec2 v = rotate2d(GameTime * 1000) * uv;
+    color *= vec3(v.x, v.y, 0.7-v.y*v.x);
     color = mix(color, vec3(0.0), distance(uv, center) * 1.95);
 
-    fragColor = vec4(color, 0.5) * (.75 - distance(center, uv));
+    float distToCenter = distance(uv, center);
+    float fadeFactor = 1.0 - smoothstep(0.45, 0.5, distToCenter); // Adjusted fading range
+    color *= fadeFactor;
+
+    fragColor = vec4(color, 0.5) * (.75 - distToCenter);
 }
