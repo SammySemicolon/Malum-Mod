@@ -37,6 +37,7 @@
     { "name": "TunnelElongation", "type": "float", "count": 1, "values": [ 0.25 ] },
     { "name": "Width", "type": "float", "count": 1, "values": [ 128.0 ] },
     { "name": "Height", "type": "float", "count": 1, "values": [ 128.0 ] },
-    { "name": "RotationSpeed", "type": "float", "count": 1, "values": [ 0.0 ] }
+    { "name": "RotationSpeed", "type": "float", "count": 1, "values": [ 0.0 ] },
+    { "name": "Alpha", "type": "float", "count": 1, "values": [ 1.0 ] }
   ]
 }
