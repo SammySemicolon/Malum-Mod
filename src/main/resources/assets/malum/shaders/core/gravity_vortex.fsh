@@ -13,7 +13,7 @@ uniform float TunnelElongation;
 uniform float Width;
 uniform float Height;
 uniform float RotationSpeed;
-
+uniform float Alpha;
 
 uniform vec4 ColorModulator;
 uniform float FogStart;
@@ -93,5 +93,6 @@ void main() {
     float fadeFactor = 1.0 - smoothstep(0.45, 0.5, distToCenter); // Adjusted fading range
     color *= fadeFactor;
 
+    color *= Alpha;
     fragColor = vec4(color, 0.5) * (.75 - distToCenter);
 }
