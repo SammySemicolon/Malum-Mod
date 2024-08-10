@@ -1,0 +1,14 @@
+{
+  "registry_name": "specialmobs:fishingzombie",
+  "primary_type": "wicked",
+  "spirits": [
+    {
+      "spirit": "wicked",
+      "count": 1
+    },
+    {
+      "spirit": "aqueous",
+      "count": 1
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "registry_name": "specialmobs:waterspider",
+  "primary_type": "aerial",
+  "spirits": [
+    {
+      "spirit": "wicked",
+      "count": 1
+    },
+    {
+      "spirit": "aqueous",
+      "count": 2
+    }
+  ]
+}

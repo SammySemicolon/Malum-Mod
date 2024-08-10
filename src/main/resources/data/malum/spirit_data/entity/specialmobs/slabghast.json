@@ -1,0 +1,16 @@
+{
+  "registry_name": "specialmobs:slabghast",
+  "primary_type": "arcane",
+  "spirits": [
+
+    {
+      "spirit": "infernal",
+      "count": 1
+    },
+    {
+      "spirit": "aqueous",
+      "count": 1
+    }
+   
+  ]
+}

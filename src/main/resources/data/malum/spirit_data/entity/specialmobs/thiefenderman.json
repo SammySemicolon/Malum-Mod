@@ -1,0 +1,18 @@
+{
+  "registry_name": "specialmobs:thiefenderman",
+  "primary_type": "eldritch",
+  "spirits": [
+    {
+      "spirit": "eldritch",
+      "count": 1
+    },
+    {
+      "spirit": "wicked",
+      "count": 1
+    },
+    {
+      "spirit": "arcane",
+      "count": 2
+    }
+  ]
+}
