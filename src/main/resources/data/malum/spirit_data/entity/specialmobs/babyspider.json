@@ -1,0 +1,10 @@
+{
+  "registry_name": "specialmobs:babyspider",
+  "primary_type": "aerial",
+  "spirits": [
+    {
+      "spirit": "wicked",
+      "count": 1
+    }
+  ]
+}

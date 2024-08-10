@@ -1,0 +1,14 @@
+{
+  "registry_name": "specialmobs:giantspider",
+  "primary_type": "aerial",
+  "spirits": [
+    {
+      "spirit": "wicked",
+      "count": 3
+    },
+    {
+      "spirit": "aerial",
+      "count": 2
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "registry_name": "specialmobs:knightwitherskeleton",
+  "primary_type": "infernal",
+  "spirits": [
+    {
+      "spirit": "sacred",
+      "count": 2
+    },
+    {
+      "spirit": "arcane",
+      "count": 1
+    },
+    {
+      "spirit": "infernal",
+      "count": 1
+    }
+  ]
+}

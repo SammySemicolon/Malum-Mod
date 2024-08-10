@@ -1,0 +1,14 @@
+{
+  "registry_name": "specialmobs:palespider",
+  "primary_type": "aerial",
+  "spirits": [
+    {
+      "spirit": "wicked",
+      "count": 1
+    },
+    {
+      "spirit": "aerial",
+      "count": 2
+    }
+  ]
+}

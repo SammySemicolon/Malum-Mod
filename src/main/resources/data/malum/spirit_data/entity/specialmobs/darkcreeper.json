@@ -1,0 +1,14 @@
+{
+  "registry_name": "specialmobs:darkcreeper",
+  "primary_type": "infernal",
+  "spirits": [
+    {
+      "spirit": "infernal",
+      "count": 2
+    },
+    {
+      "spirit": "wicked",
+      "count": 3
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "registry_name": "specialmobs:giantskeleton",
+  "primary_type": "arcane",
+  "spirits": [
+    {
+      "spirit": "arcane",
+      "count": 2
+    },
+    {
+      "spirit": "wicked",
+      "count": 3
+    }
+  ]
+}
