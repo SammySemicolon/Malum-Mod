@@ -76,6 +76,11 @@ public class ProgressionEntryObject extends BookObject<AbstractProgressionCodexS
         return this;
     }
 
+    public ProgressionEntryObject setIcon(ItemStack itemStack) {
+        iconStack = itemStack;
+        return this;
+    }
+
     public ProgressionEntryObject setStyle(BookWidgetStyle style) {
         this.style = style;
         return this;
