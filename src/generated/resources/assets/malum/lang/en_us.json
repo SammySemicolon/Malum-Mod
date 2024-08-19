@@ -1660,8 +1660,7 @@
   "tetra.material.tainted_rock.prefix": "Tainted Rock",
   "tetra.material.twisted_rock": "Twisted Rock",
   "tetra.material.twisted_rock.prefix": "Twisted Rock",
-  "trinket.identifier.brooch": "Brooch",
-  "trinket.identifier.rune": "Rune",
-  "trinket.modifiers.brooch": "When worn:",
-  "trinket.modifiers.rune": "When equipped:"
+  "trinkets.slot.chest.brooch": "Brooch",
+  "trinkets.slot.head.charm": "Charm",
+  "trinkets.slot.legs.rune": "Rune"
 }
