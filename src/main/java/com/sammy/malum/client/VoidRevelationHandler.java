@@ -68,7 +68,7 @@ public class VoidRevelationHandler {
     }
 
     public enum RevelationType {
-        NEOPHYTE, VOID_READER, BLACK_CRYSTAL;
+        NEOPHYTE, VOID_READER, BLACK_CRYSTAL, ICHOR;
 
         private static class Adapter extends TypeAdapter<RevelationType> {
             @Override
@@ -77,6 +77,7 @@ public class VoidRevelationHandler {
                     case NEOPHYTE -> out.value(false);
                     case VOID_READER -> out.value(true);
                     case BLACK_CRYSTAL -> out.value("all");
+                    case ICHOR -> out.value("ichor");
                 }
             }
 
@@ -87,6 +88,9 @@ public class VoidRevelationHandler {
                     return VOID_READER;
                 else if (token == JsonToken.STRING && in.nextString().equals("all"))
                     return BLACK_CRYSTAL;
+                else if(token == JsonToken.STRING && in.nextString().equals("ichor"))
+                    return ICHOR;
+                else
                 return NEOPHYTE;
             }
         }
