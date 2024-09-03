@@ -3,6 +3,7 @@ package com.sammy.malum.common.item.curiosities.trinkets.sets.weeping;
 import com.sammy.malum.common.components.MalumComponents;
 import com.sammy.malum.common.entity.activator.SpiritCollectionActivatorEntity;
 import com.sammy.malum.common.item.IMalumEventResponderItem;
+import com.sammy.malum.common.item.IVoidItem;
 import com.sammy.malum.common.item.curiosities.trinkets.MalumTinketsItem;
 import io.github.fabricators_of_create.porting_lib.entity.events.LivingEntityEvents;
 import io.github.fabricators_of_create.porting_lib.entity.events.living.LivingHurtEvent;
@@ -16,7 +17,7 @@ import team.lodestar.lodestone.helpers.RandomHelper;
 
 import java.util.function.Consumer;
 
-public class TrinketsWatcherNecklace extends MalumTinketsItem implements IMalumEventResponderItem {
+public class TrinketsWatcherNecklace extends MalumTinketsItem implements IMalumEventResponderItem, IVoidItem {
     public TrinketsWatcherNecklace(Properties builder) {
         super(builder, MalumTrinketType.VOID);
     }

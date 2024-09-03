@@ -1055,6 +1055,14 @@ public class MalumLang extends LanguageProvider {
         add("malum.jei.weeping_well", "The Weeping Well");
         add("malum.jei.spirit_transmutation", "The Unchained Rite");
 
+        add("emi.category.malum.spirit_infusion", "Spirit Infusion");
+        add("emi.category.malum.spirit_focusing", "Spirit Focusing");
+        add("emi.category.malum.spirit_repair", "Spirit Repair");
+        add("emi.category.malum.spirit_rite", "Spirit Rites");
+        add("emi.category.malum.runeworking", "Runeworking");
+        add("emi.category.malum.weeping_well", "The Weeping Well");
+        add("emi.category.malum.spirit_transmutation", "The Unchained Rite");
+
         add("itemGroup.malum_basis_of_magic", "Malum: Basis of Magic");
         add("itemGroup.malum_arcane_construct", "Malum: Arcane Construct");
         add("itemGroup.malum_natural_wonders", "Malum: Born from Arcana");

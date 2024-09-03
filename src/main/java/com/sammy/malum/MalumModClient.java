@@ -53,7 +53,6 @@ import net.minecraft.world.level.block.Blocks;
 import java.awt.*;
 
 import static com.sammy.malum.registry.common.block.BlockRegistry.*;
-import static com.sammy.malum.registry.common.item.ItemRegistry.SPIRIT_JAR;
 
 public class MalumModClient implements ClientModInitializer {
 
@@ -84,7 +83,7 @@ public class MalumModClient implements ClientModInitializer {
 
         BuiltinItemRendererRegistry.INSTANCE.register(SPIRIT_JAR.get(), new SpiritJarItemRenderer());
         BlockRenderLayerMap.INSTANCE.putBlocks(RenderType.translucent(),
-                BlockRegistry.SPIRIT_JAR.get(),
+                SPIRIT_JAR.get(),
                 BlockRegistry.ETHER_TORCH.get(),
                 BlockRegistry.IRIDESCENT_ETHER_TORCH.get(),
                 BlockRegistry.IRIDESCENT_WALL_ETHER_TORCH.get(),
@@ -92,7 +91,16 @@ public class MalumModClient implements ClientModInitializer {
                 BlockRegistry.TAINTED_ETHER_BRAZIER.get(),
                 BlockRegistry.TAINTED_IRIDESCENT_ETHER_BRAZIER.get(),
                 BlockRegistry.TWISTED_ETHER_BRAZIER.get(),
-                BlockRegistry.TWISTED_IRIDESCENT_ETHER_BRAZIER.get()
+                BlockRegistry.TWISTED_IRIDESCENT_ETHER_BRAZIER.get(),
+
+                AERIAL_SPIRITED_GLASS.get(),
+                INFERNAL_SPIRITED_GLASS.get(),
+                EARTHEN_SPIRITED_GLASS.get(),
+                AQUEOUS_SPIRITED_GLASS.get(),
+                ELDRITCH_SPIRITED_GLASS.get(),
+                SACRED_SPIRITED_GLASS.get(),
+                WICKED_SPIRITED_GLASS.get(),
+                ARCANE_SPIRITED_GLASS.get()
         );
 
         BlockRenderLayerMap.INSTANCE.putBlocks(RenderType.cutoutMipped(),

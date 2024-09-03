@@ -4,5 +4,5 @@ import com.sammy.malum.common.recipe.SpiritTransmutationRecipe;
 
 import java.util.List;
 
-public record SpiritTransmuationRecipeWrapper(List<SpiritTransmutationRecipe> subRecipes) {
+public record SpiritTransmutationRecipeWrapper(List<SpiritTransmutationRecipe> subRecipes) {
 }

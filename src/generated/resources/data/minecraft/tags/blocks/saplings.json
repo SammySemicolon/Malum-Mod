@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-    "malum:runewood_sapling",
-    "malum:azure_runewood_sapling"
+    "malum:azure_runewood_sapling",
+    "malum:runewood_sapling"
   ]
 }

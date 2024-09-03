@@ -89,6 +89,7 @@ repositories {
     maven("https://maven.greenhouseteam.dev/releases/")
     maven("https://raw.githubusercontent.com/Fuzss/modresources/main/maven/") // Forge Config API Port
     maven("https://maven.shedaniel.me/")
+
 }
 
 dependencies {
@@ -112,10 +113,12 @@ dependencies {
     modCompileOnlyApi("mezz.jei:jei-${property("minecraft_version")}-common-api:${property("jei_version")}")
     modCompileOnlyApi("mezz.jei:jei-${property("minecraft_version")}-fabric-api:${property("jei_version")}")
     // at runtime, use the full JEI jar for Fabric
-    modRuntimeOnly("mezz.jei:jei-${property("minecraft_version")}-fabric:${property("jei_version")}")
+    //modRuntimeOnly("mezz.jei:jei-${property("minecraft_version")}-fabric:${property("jei_version")}")
     //EMI
     modCompileOnly("dev.emi:emi-fabric:${property("emi_version")}:api")
-    //modLocalRuntime("dev.emi:emi-fabric:${property("emi_version")}")
+    modLocalRuntime("dev.emi:emi-fabric:${property("emi_version")}")
+    modCompileOnly("me.shedaniel:RoughlyEnoughItems-api-fabric:${property("rei_version")}")
+    modCompileOnly("me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:${property("rei_version")}")
 
     // Trinkets Dependency
     modImplementation("dev.emi:trinkets:${property("trinkets_version")}") { isTransitive = false }
@@ -142,7 +145,7 @@ dependencies {
     modRuntimeOnly("com.simibubi.create:create-fabric-1.20.1:0.5.1-f-build.1417+mc1.20.1")
     modRuntimeOnly("fuzs.forgeconfigapiport:forgeconfigapiport-fabric:${property("forge_config_api_port_version")}")
 
-    modRuntimeOnly("maven.modrinth:fusion-connected-textures:${property("fusion_version")}-fabric-mc${property("minecraft_version")}")
+    modCompileOnly("maven.modrinth:fusion-connected-textures:${property("fusion_version")}-fabric-mc${property("minecraft_version")}")
     modImplementation("curse.maven:jeed-532286:5186338")
 
     modRuntimeOnly("curse.maven:world-stripper-250603:4578576")

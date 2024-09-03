@@ -31,6 +31,9 @@
     ],
     "emi": [
       "com.sammy.malum.compability.emi.EMIHandler"
+    ],
+    "rei_client": [
+      "com.sammy.malum.compability.rei.REIHandler"
     ]
   },
   "mixins": [
@@ -45,8 +48,7 @@
     "trinkets": "*",
     "cardinal-components-base": "*",
     "porting_lib_base": "*",
-    "lodestone": ">=1.20.1-1.6.1.0",
-    "fusion": ">=1.0.0"
+    "lodestone": ">=1.20.1-1.6.1.0"
   },
   "custom": {
     "cardinal-components": [

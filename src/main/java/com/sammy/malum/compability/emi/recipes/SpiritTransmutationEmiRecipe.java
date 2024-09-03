@@ -15,13 +15,13 @@ import java.util.List;
 public class SpiritTransmutationEmiRecipe implements EmiRecipe {
     private static final ResourceLocation BACKGROUND_LOCATION = MalumMod.malumPath("textures/gui/spirit_transmutation_jei.png");
 
-    private final SpiritTransmuationRecipeWrapper recipe;
+    private final SpiritTransmutationRecipeWrapper recipe;
 
     private final List<EmiIngredient> inputs;
     private final List<EmiIngredient> result;
     private final List<EmiStack> outputs;
 
-    public SpiritTransmutationEmiRecipe(SpiritTransmuationRecipeWrapper recipe) {
+    public SpiritTransmutationEmiRecipe(SpiritTransmutationRecipeWrapper recipe) {
         this.recipe = recipe;
 
         this.inputs = List.of(EmiIngredient.of(recipe.subRecipes().stream().map((r) -> EmiIngredient.of(r.ingredient)).toList()));

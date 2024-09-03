@@ -6,6 +6,9 @@ import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import com.sammy.malum.visual_effects.SpiritLightSpecs;
 import io.github.fabricators_of_create.porting_lib.block.CustomRenderBoundingBoxBlockEntity;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
@@ -29,6 +32,14 @@ public abstract class MalumItemHolderBlockEntity extends ItemHolderBlockEntity i
                 super.onContentsChanged(slot);
             }
         };
+    }
+
+    @Override
+    public InteractionResult onUse(Player player, InteractionHand hand) {
+        inventory.forEach(inventory -> {
+            System.out.println(player.level().isClientSide + " : " + inventory.getResource() + " : " + inventory.getAmount());
+        });
+        return super.onUse(player, hand);
     }
 
     @Override

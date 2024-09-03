@@ -3,6 +3,7 @@ package com.sammy.malum.compability.emi;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.sammy.malum.MalumMod;
+import com.sammy.malum.common.recipe.RunicWorkbenchRecipe;
 import com.sammy.malum.common.recipe.SpiritTransmutationRecipe;
 import com.sammy.malum.compability.emi.recipes.*;
 import com.sammy.malum.core.systems.recipe.SpiritWithCount;
@@ -59,6 +60,18 @@ public class EMIHandler implements EmiPlugin {
             SPIRIT_REPAIR_WORKSTATION
     );
 
+    private static final EmiStack RUNEWORKING_WORKSTATION = EmiStack.of(ItemRegistry.RUNIC_WORKBENCH.get());
+    public static final EmiRecipeCategory RUNEWORKING = new EmiRecipeCategory(
+            MalumMod.malumPath("runeworking"),
+            RUNEWORKING_WORKSTATION
+    );
+
+    private static final EmiStack WEEPING_WORKSTATION = EmiStack.of(ItemRegistry.VOID_DEPOT.get());
+    public static final EmiRecipeCategory WEEPING = new EmiRecipeCategory(
+            MalumMod.malumPath("weeping_well"),
+            WEEPING_WORKSTATION
+    );
+
     private <C extends Container, R extends Recipe<C>, E extends EmiRecipe> void registerRecipeTypeCategory(EmiRegistry registry, EmiRecipeCategory category, EmiStack workstation) {
         registry.addCategory(category);
         registry.addWorkstation(category, workstation);
@@ -74,6 +87,8 @@ public class EMIHandler implements EmiPlugin {
     public void register(EmiRegistry registry) {
         this.registerRecipeType(registry, SPIRIT_INFUSION, SPIRIT_INFUSION_WORKSTATION, RecipeTypeRegistry.SPIRIT_INFUSION.get(), SpiritInfusionEmiRecipe::new);
         this.registerRecipeType(registry, SPIRIT_FOCUSING, SPIRIT_FOCUSING_WORKSTATION, RecipeTypeRegistry.SPIRIT_FOCUSING.get(), SpiritFocusingEmiRecipe::new);
+        this.registerRecipeType(registry, RUNEWORKING, RUNEWORKING_WORKSTATION, RecipeTypeRegistry.RUNEWORKING.get(), RuneworkingEmiRecipe::new);
+        this.registerRecipeType(registry, WEEPING, WEEPING_WORKSTATION, RecipeTypeRegistry.VOID_FAVOR.get(), WeepingWellEmiRecipe::new);
 
         this.registerRecipeTypeCategory(registry, SPIRIT_TRANSMUTATION, SPIRIT_TRANSMUTATION_WORKSTATION);
         List<SpiritTransmutationRecipe> transmutation = registry.getRecipeManager().getAllRecipesFor(RecipeTypeRegistry.SPIRIT_TRANSMUTATION.get());
@@ -89,17 +104,23 @@ public class EMIHandler implements EmiPlugin {
             }
         });
         groups.values().stream()
-                .map(SpiritTransmuationRecipeWrapper::new)
+                .map(SpiritTransmutationRecipeWrapper::new)
                 .forEach((recipe) -> registry.addRecipe(new SpiritTransmutationEmiRecipe(recipe)));
         leftovers.stream()
                 .map(List::of)
-                .map(SpiritTransmuationRecipeWrapper::new)
+                .map(SpiritTransmutationRecipeWrapper::new)
                 .forEach((recipe) -> registry.addRecipe(new SpiritTransmutationEmiRecipe(recipe)));
 
         this.registerRecipeTypeCategory(registry, SPIRIT_RITE, SPIRIT_RITE_WORKSTATION);
         SpiritRiteRegistry.RITES.forEach((rite) -> registry.addRecipe(new SpiritRiteEmiRecipe(rite)));
 
         this.registerRecipeType(registry, SPIRIT_REPAIR, SPIRIT_REPAIR_WORKSTATION, RecipeTypeRegistry.SPIRIT_REPAIR.get(), SpiritRepairEmiRecipe::new);
+
+        this.removeHiddenRecipes(registry);
+    }
+
+    private void removeHiddenRecipes(EmiRegistry registry) {
+
     }
 
     public static void addItems(WidgetHolder widgets, int left, int top, boolean vertical, List<EmiIngredient> ingredients) {
