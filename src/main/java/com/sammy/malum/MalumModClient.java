@@ -25,6 +25,7 @@ import com.sammy.malum.registry.common.block.BlockRegistry;
 import com.sammy.malum.registry.common.block.MalumBlockProperties;
 import com.sammy.malum.registry.common.entity.EntityRegistry;
 import com.sammy.malum.registry.common.item.ItemRegistry;
+import com.terraformersmc.terraform.sign.SpriteIdentifierRegistry;
 import dev.emi.trinkets.api.client.TrinketRendererRegistry;
 import io.github.fabricators_of_create.porting_lib.config.ConfigRegistry;
 import io.github.fabricators_of_create.porting_lib.config.ConfigType;
@@ -43,8 +44,10 @@ import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
+import net.minecraft.client.resources.model.Material;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
@@ -102,6 +105,10 @@ public class MalumModClient implements ClientModInitializer {
                 WICKED_SPIRITED_GLASS.get(),
                 ARCANE_SPIRITED_GLASS.get()
         );
+
+        SpriteIdentifierRegistry.INSTANCE.addIdentifier(new Material(Sheets.SIGN_SHEET, RUNEWOOD_SIGN.getId()));
+        SpriteIdentifierRegistry.INSTANCE.addIdentifier(new Material(Sheets.SIGN_SHEET, SOULWOOD_SIGN.getId()));
+
 
         BlockRenderLayerMap.INSTANCE.putBlocks(RenderType.cutoutMipped(),
                 BlockRegistry.HANGING_SOULWOOD_LEAVES.get(),

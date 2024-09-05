@@ -15,31 +15,30 @@ import java.util.function.Predicate;
 public class MalumBlockEntityInventory extends LodestoneBlockEntityInventory {
 
     public MalumBlockEntityInventory(int slotCount, int allowedItemSize, Predicate<ItemStack> inputPredicate, Predicate<ItemStack> outputPredicate) {
-        super(null, slotCount, allowedItemSize, inputPredicate, outputPredicate);
+        super(slotCount, allowedItemSize, inputPredicate, outputPredicate);
     }
 
     public MalumBlockEntityInventory(int slotCount, int allowedItemSize, Predicate<ItemStack> inputPredicate) {
-        super(null, slotCount, allowedItemSize, inputPredicate);
+        super(slotCount, allowedItemSize, inputPredicate);
     }
 
     public MalumBlockEntityInventory(int slotCount, int allowedItemSize) {
-        super(null, slotCount, allowedItemSize);
+        super(slotCount, allowedItemSize);
     }
 
     @Override
-    public ItemStack interactExtractInv(LodestoneBlockEntity be, Player player) {
-        ItemStack stack = super.interactExtractInv(be, player);
+    public void extractItem(Player playerEntity, ItemStack stack, int slot) {
+        super.extractItem(playerEntity, stack, slot);
         SoundEvent soundEvent = getExtractSound(stack);
-        player.level().playSound(null, player.blockPosition(), soundEvent, SoundSource.BLOCKS, 0.7f, RandomHelper.randomBetween(player.level().random, 0.8f, 1.2f));
-        return stack;
+        playerEntity.level().playSound(null, playerEntity.blockPosition(), soundEvent, SoundSource.BLOCKS, 0.7f, RandomHelper.randomBetween(playerEntity.level().random, 0.8f, 1.2f));
     }
 
     @Override
-    public boolean interactInsertInv(LodestoneBlockEntity be, ItemStack stack) {
-        final boolean result = super.interactInsertInv(be, stack);
-        if (result) {
-            SoundEvent soundEvent = getInsertSound(stack);
-            be.getLevel().playSound(null, be.getBlockPos(), soundEvent, SoundSource.BLOCKS, 0.7f, RandomHelper.randomBetween(be.getLevel().random, 0.8f, 1.2f));
+    public ItemStack insertItem(Player playerEntity, ItemStack stack) {
+        final ItemStack result = super.insertItem(playerEntity, stack);
+        if (!result.isEmpty()) {
+            SoundEvent soundEvent = getInsertSound(result);
+            playerEntity.level().playSound(null, playerEntity.blockPosition(), soundEvent, SoundSource.BLOCKS, 0.7f, RandomHelper.randomBetween(playerEntity.level().random, 0.8f, 1.2f));
         }
         return result;
     }

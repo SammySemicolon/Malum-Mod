@@ -116,7 +116,7 @@ dependencies {
     //modRuntimeOnly("mezz.jei:jei-${property("minecraft_version")}-fabric:${property("jei_version")}")
     //EMI
     modCompileOnly("dev.emi:emi-fabric:${property("emi_version")}:api")
-    modLocalRuntime("dev.emi:emi-fabric:${property("emi_version")}")
+    //modLocalRuntime("dev.emi:emi-fabric:${property("emi_version")}")
     modCompileOnly("me.shedaniel:RoughlyEnoughItems-api-fabric:${property("rei_version")}")
     modCompileOnly("me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:${property("rei_version")}")
 

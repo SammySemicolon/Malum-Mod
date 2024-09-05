@@ -20,6 +20,7 @@ import com.sammy.malum.visual_effects.networked.data.PositionEffectData;
 import com.sammy.malum.visual_effects.networked.ritual.RitualPlinthAbsorbItemParticleEffect;
 import io.github.fabricators_of_create.porting_lib.block.CustomRenderBoundingBoxBlockEntity;
 import io.github.fabricators_of_create.porting_lib.transfer.TransferUtil;
+import io.github.fabricators_of_create.porting_lib.util.LazyOptional;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.core.BlockPos;
@@ -39,6 +40,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
+import team.lodestar.lodestone.forge_stuff.CombinedInvWrapper;
+import team.lodestar.lodestone.forge_stuff.IItemHandler;
 import team.lodestar.lodestone.helpers.BlockHelper;
 import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntity;
 import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntityInventory;
@@ -52,7 +55,6 @@ import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 public class RitualPlinthBlockEntity extends LodestoneBlockEntity implements CustomRenderBoundingBoxBlockEntity {
-
     private static final Vec3 PLINTH_ITEM_OFFSET = new Vec3(0.5f, 1.375f, 0.5f);
 
     public MalumRitualType ritualType;
@@ -66,6 +68,9 @@ public class RitualPlinthBlockEntity extends LodestoneBlockEntity implements Cus
     public MalumRitualRecipeData ritualRecipe;
     public LodestoneBlockEntityInventory inventory;
     public LodestoneBlockEntityInventory extrasInventory;
+
+    public LazyOptional<IItemHandler> internalInventory = LazyOptional.of(() -> new CombinedInvWrapper(inventory, extrasInventory));
+    public LazyOptional<IItemHandler> exposedInventory = LazyOptional.of(() -> new CombinedInvWrapper(inventory));
 
     public RitualPlinthBlockEntity(BlockEntityType<? extends RitualPlinthBlockEntity> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
@@ -108,8 +113,8 @@ public class RitualPlinthBlockEntity extends LodestoneBlockEntity implements Cus
         if (ritualType != null) {
             compound.putString("ritualType", ritualType.identifier.toString());
         }
-        compound.put("Inventory", inventory.serializeNBT());
-        compound.put("extrasInventory", extrasInventory.serializeNBT());
+        inventory.save(compound);
+        extrasInventory.save(compound, "extrasInventory");
     }
 
     @Override
@@ -121,8 +126,8 @@ public class RitualPlinthBlockEntity extends LodestoneBlockEntity implements Cus
         ritualType = RitualRegistry.get(new ResourceLocation(compound.getString("ritualType")));
         ritualTier = MalumRitualTier.figureOutTier(spiritAmount);
 
-        inventory.deserializeNBT(compound.getCompound("Inventory"));
-        extrasInventory.deserializeNBT(compound.getCompound("extrasInventory"));
+        inventory.load(compound);
+        extrasInventory.load(compound, "extrasInventory");
         super.load(compound);
     }
 
@@ -144,7 +149,8 @@ public class RitualPlinthBlockEntity extends LodestoneBlockEntity implements Cus
             if (!interactionResult.equals(InteractionResult.PASS)) {
                 return interactionResult;
             }
-        } else if (inventory.getStackInSlot(0).isEmpty() && extrasInventory.isEmpty()) {
+        }
+        else if (inventory.getStackInSlot(0).isEmpty() && extrasInventory.isEmpty()) {
             ItemStack stack = player.getItemInHand(hand);
             if (stack.getItem() instanceof RitualShardItem) {
                 if (!level.isClientSide) {
@@ -163,8 +169,7 @@ public class RitualPlinthBlockEntity extends LodestoneBlockEntity implements Cus
                 return InteractionResult.SUCCESS;
             }
         }
-        inventory.interact(this, level, player, hand, stack -> true);
-
+        inventory.interact(player.level(), player, hand);
         return InteractionResult.SUCCESS;
     }
 
@@ -182,10 +187,12 @@ public class RitualPlinthBlockEntity extends LodestoneBlockEntity implements Cus
             if (setupComplete) {
                 soundEvent = SoundRegistry.COMPLETED_RITUAL_AMBIENCE;
                 stopCondition = p -> false;
-            } else if (ritualType != null) {
+            }
+            else if (ritualType != null) {
                 soundEvent = SoundRegistry.RITUAL_EVOLUTION_AMBIENCE;
                 stopCondition = p -> p.setupComplete || p.ritualType == null;
-            } else if (wasLackingRecipe && ritualRecipe != null) {
+            }
+            else if (wasLackingRecipe && ritualRecipe != null) {
                 soundEvent = SoundRegistry.RITUAL_BEGINNING_AMBIENCE;
                 stopCondition = p -> p.ritualRecipe == null || p.ritualType != null;
             }
@@ -208,22 +215,26 @@ public class RitualPlinthBlockEntity extends LodestoneBlockEntity implements Cus
                         completeCharging();
                     }
                 }
-            } else if (!level.isClientSide) {
+            }
+            else if (!level.isClientSide) {
                 ritualType.triggerRitualEffect(this);
             }
-        } else if (ritualRecipe != null) {
+        }
+        else if (ritualRecipe != null) {
             progress++;
             if (!level.isClientSide) {
                 if (progress > 60) {
                     boolean success = consume();
                     if (success) {
                         beginCharging();
-                    } else {
+                    }
+                    else {
                         progress = 0;
                     }
                 }
             }
-        } else {
+        }
+        else {
             progress = 0;
         }
         if (level.isClientSide) {
@@ -244,7 +255,7 @@ public class RitualPlinthBlockEntity extends LodestoneBlockEntity implements Cus
         if (ritualRecipe.extraItems.isEmpty()) {
             return true;
         }
-        extrasInventory.setChanged();
+        extrasInventory.updateData();
         int extras = extrasInventory.nonEmptyItemAmount;
         if (extras < ritualRecipe.extraItems.size()) {
             Collection<IMalumSpecialItemAccessPoint> altarProviders = BlockHelper.getBlockEntities(IMalumSpecialItemAccessPoint.class, level, worldPosition, 4);
@@ -257,11 +268,8 @@ public class RitualPlinthBlockEntity extends LodestoneBlockEntity implements Cus
                     if (level instanceof ServerLevel serverLevel) {
                         ParticleEffectTypeRegistry.RITUAL_PLINTH_EATS_ITEM.createPositionedEffect(serverLevel, new PositionEffectData(worldPosition), new ColorEffectData(ritualRecipe.ritualType.spirit), RitualPlinthAbsorbItemParticleEffect.createData(provider.getItemPos(), providedStack));
                     }
-                    try (Transaction t = TransferUtil.getTransaction()) {
-                        long res = extrasInventory.insert(ItemVariant.of(providedStack.split(requestedItem.count)), requestedItem.count, t);
-                        t.commit();
-                    }
-                    extrasInventory.setChanged();
+                    extrasInventory.insertItem(providedStack.split(requestedItem.count));
+                    inventoryForAltar.updateData();
                     BlockHelper.updateAndNotifyState(level, provider.getAccessPointBlockPos());
                     break;
                 }
@@ -274,21 +282,20 @@ public class RitualPlinthBlockEntity extends LodestoneBlockEntity implements Cus
     public void beginCharging() {
         ritualType = ritualRecipe.ritualType;
         inventory.getStackInSlot(0).shrink(ritualRecipe.input.count);
-        inventory.setChanged();
+        inventory.updateData();
         extrasInventory.clear();
         if (level instanceof ServerLevel serverLevel) {
             ParticleEffectTypeRegistry.RITUAL_PLINTH_BEGINS_CHARGING.createPositionedEffect(serverLevel, new PositionEffectData(worldPosition), new ColorEffectData(ritualType.spirit));
         }
-
         level.playSound(null, worldPosition, SoundRegistry.RITUAL_FORMS.get(), SoundSource.BLOCKS, 1, 0.9f + level.random.nextFloat() * 0.2f);
         BlockHelper.updateAndNotifyState(level, worldPosition);
     }
 
     public void eatSpirits() {
-        extrasInventory.setChanged();
+        extrasInventory.updateData();
         Collection<IMalumSpecialItemAccessPoint> altarProviders = BlockHelper.getBlockEntities(IMalumSpecialItemAccessPoint.class, level, worldPosition, 4);
         Collection<SpiritJarBlockEntity> jars = BlockHelper.getBlockEntities(SpiritJarBlockEntity.class, level, worldPosition, 4);
-        Collection<ItemEntity> itemEntities = level.getEntitiesOfClass(ItemEntity.class, new AABB(worldPosition).inflate(4)).stream().filter(i -> i.getItem().getItem() instanceof SpiritShardItem).toList();
+        Collection<ItemEntity> itemEntities = level.getEntitiesOfClass(ItemEntity.class, new AABB(worldPosition).inflate(4)).stream().filter(i-> i.getItem().getItem() instanceof SpiritShardItem).toList();
         int increase = 0;
         final MalumSpiritType spirit = ritualType.spirit;
         for (IMalumSpecialItemAccessPoint altarProvider : altarProviders) {
@@ -298,10 +305,10 @@ public class RitualPlinthBlockEntity extends LodestoneBlockEntity implements Cus
                 absorptionProgress.compute(altarProvider, (p, i) -> i == null ? 1 : i + 1);
                 if (absorptionProgress.get(altarProvider) >= 5) {
                     final BlockPos accessPointBlockPos = altarProvider.getAccessPointBlockPos();
-                    final int absorbedAmount = Math.min(stack.getCount(), ritualTier == null ? 4 : ritualTier.spiritThreshold / 16);
+                    final int absorbedAmount = Math.min(stack.getCount(), ritualTier == null ? 4 : ritualTier.spiritThreshold/16);
                     increase += absorbedAmount;
                     stack.shrink(absorbedAmount);
-                    providerInventory.setChanged();
+                    providerInventory.onContentsChanged(0);
                     level.playSound(null, accessPointBlockPos, SoundRegistry.RITUAL_ABSORBS_SPIRIT.get(), SoundSource.BLOCKS, 1, 0.9f + level.random.nextFloat() * 0.2f);
                     if (level instanceof ServerLevel serverLevel) {
                         ParticleEffectTypeRegistry.RITUAL_PLINTH_EATS_SPIRIT.createPositionedEffect(serverLevel, new PositionEffectData(worldPosition), new ColorEffectData(spirit), RitualPlinthAbsorbItemParticleEffect.createData(altarProvider.getItemPos(), stack));
@@ -316,7 +323,7 @@ public class RitualPlinthBlockEntity extends LodestoneBlockEntity implements Cus
                 absorptionProgress.compute(jar, (p, i) -> i == null ? 1 : i + 1);
                 if (absorptionProgress.get(jar) >= 5) {
                     final BlockPos jarPosition = jar.getBlockPos();
-                    final int absorbedAmount = Math.min(jar.count, ritualTier == null ? 4 : ritualTier.spiritThreshold / 16);
+                    final int absorbedAmount = Math.min(jar.count, ritualTier == null ? 4 : ritualTier.spiritThreshold/16);
                     increase += absorbedAmount;
                     jar.count -= absorbedAmount;
                     if (jar.count == 0) {
@@ -394,14 +401,14 @@ public class RitualPlinthBlockEntity extends LodestoneBlockEntity implements Cus
     }
 
     public Vec3 getRitualIconOffset(float partialTicks) {
-        return new Vec3(0.5f, 1.5f + Easing.CUBIC_OUT.ease(Math.min(activeDuration + partialTicks, 30) / 30f, 0, 2, 1), 0.5f);
+        return new Vec3(0.5f, 1.5f+ Easing.CUBIC_OUT.ease(Math.min(activeDuration +partialTicks, 30)/30f, 0, 2, 1), 0.5f);
     }
 
     public Vec3 getParticlePositionPosition(Direction direction) {
         final BlockPos blockPos = getBlockPos();
-        float x = blockPos.getX() + 0.5f + direction.getStepX() * 0.51f;
+        float x = blockPos.getX() + 0.5f + direction.getStepX()*0.51f;
         float y = blockPos.getY() + 0.875f;
-        float z = blockPos.getZ() + 0.5f + direction.getStepZ() * 0.51f;
+        float z = blockPos.getZ() + 0.5f + direction.getStepZ()*0.51f;
         return new Vec3(x, y, z);
     }
 

@@ -13,7 +13,8 @@
     "LivingEntityMixin",
     "PlayerMixin",
     "SimpleCookingSerializerMixin",
-    "compat.botania.RingOfMagnetizationItemMixin"
+    "compat.botania.RingOfMagnetizationItemMixin",
+    "fabric.LodestoneBlockEntityRegistryMixin"
   ],
   "client": [
     "client.AccessorBakedGlyph",

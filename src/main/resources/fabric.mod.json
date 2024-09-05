@@ -48,7 +48,7 @@
     "trinkets": "*",
     "cardinal-components-base": "*",
     "porting_lib_base": "*",
-    "lodestone": ">=1.20.1-1.6.1.0"
+    "lodestone": ">=1.20.1-1.6.2.2"
   },
   "custom": {
     "cardinal-components": [

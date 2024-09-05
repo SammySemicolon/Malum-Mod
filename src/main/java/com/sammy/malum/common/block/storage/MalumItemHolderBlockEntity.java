@@ -25,21 +25,10 @@ public abstract class MalumItemHolderBlockEntity extends ItemHolderBlockEntity i
         inventory = new MalumBlockEntityInventory(1, 64) {
             @Override
             public void onContentsChanged(int slot) {
-                MalumItemHolderBlockEntity.this.setChanged();
-                needsSync = true;
-                BlockHelper.updateAndNotifyState(level, worldPosition);
-                updateData();
                 super.onContentsChanged(slot);
+                BlockHelper.updateAndNotifyState(level, worldPosition);
             }
         };
-    }
-
-    @Override
-    public InteractionResult onUse(Player player, InteractionHand hand) {
-        inventory.forEach(inventory -> {
-            System.out.println(player.level().isClientSide + " : " + inventory.getResource() + " : " + inventory.getAmount());
-        });
-        return super.onUse(player, hand);
     }
 
     @Override

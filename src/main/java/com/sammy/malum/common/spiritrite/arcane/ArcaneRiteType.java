@@ -64,18 +64,11 @@ public class ArcaneRiteType extends TotemicRiteType {
                         LodestoneBlockEntityInventory inventoryForAltar = iMalumSpecialItemAccessPoint.getSuppliedInventory();
                         ItemStack stack = inventoryForAltar.getStackInSlot(0);
                         var recipe = SpiritTransmutationRecipe.getRecipe(level, stack);
-
-                        if (recipe != null) {
-                            try (Transaction t = TransferUtil.getTransaction()) {
-                                long extracted = inventoryForAltar.extractSlot(0, inventoryForAltar.getVariantInSlot(0), inventoryForAltar.getStackInSlot(0).getCount(), t);
-                                if (extracted > 0) {
-                                    Vec3 itemPos = iMalumSpecialItemAccessPoint.getItemPos();
-                                    level.addFreshEntity(new ItemEntity(level, itemPos.x, itemPos.y, itemPos.z, recipe.output.copy()));
-                                    MALUM_CHANNEL.sendToClientsTracking(new BlightTransformItemParticlePacket(List.of(ARCANE_SPIRIT.identifier), itemPos), level, level.getChunkAt(p).getPos());
-                                    t.commit();
-                                    BlockHelper.updateAndNotifyState(level, p);
-                                }
-                            }
+                        if (recipe != null && !inventoryForAltar.extractItem(0, 1, true).isEmpty()) {
+                            Vec3 itemPos = iMalumSpecialItemAccessPoint.getItemPos();
+                            level.addFreshEntity(new ItemEntity(level, itemPos.x, itemPos.y, itemPos.z, recipe.output.copy()));
+                            MALUM_CHANNEL.sendToClientsTracking(new BlightTransformItemParticlePacket(List.of(ARCANE_SPIRIT.identifier), itemPos), level, level.getChunkAt(p).getPos());inventoryForAltar.extractItem(0, 1, false);
+                            BlockHelper.updateAndNotifyState(level, p);
                         }
                     }
                     ItemStack stack = stateToTransmute.getBlock().asItem().getDefaultInstance();

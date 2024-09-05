@@ -81,8 +81,8 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity impleme
             compound.putFloat("burnTicks", burnTicks);
         }
 
-        compound.put("Inventory", inventory.serializeNBT());
-        compound.put("augmentInventory", augmentInventory.serializeNBT());
+        inventory.save(compound);
+        augmentInventory.save(compound, "augmentInventory");
         super.saveAdditional(compound);
     }
 
@@ -90,8 +90,8 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity impleme
     public void load(CompoundTag compound) {
         burnTicks = compound.getFloat("burnTicks");
 
-        inventory.deserializeNBT(compound.getCompound("Inventory"));
-        augmentInventory.deserializeNBT(compound.getCompound("augmentInventory"));
+        inventory.load(compound);
+        augmentInventory.load(compound, "augmentInventory");
         super.load(compound);
     }
 
@@ -105,19 +105,13 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity impleme
             final ItemStack heldStack = player.getItemInHand(hand);
             final boolean augmentOnly = heldStack.getItem() instanceof AbstractAugmentItem;
             if (augmentOnly || (heldStack.isEmpty() && inventory.isEmpty())) {
-                try (Transaction t = TransferUtil.getTransaction()) {
-                    long inserted = augmentInventory.insert(ItemVariant.of(heldStack), heldStack.getCount(), t);
-                    heldStack.shrink((int) inserted);
-                    setChanged();
-                    t.commit();
-
-                    if (inserted > 0) {
-                        return InteractionResult.SUCCESS;
-                    }
+                ItemStack stack = augmentInventory.interact(player.level(), player, hand);
+                if (!stack.isEmpty()) {
+                    return InteractionResult.SUCCESS;
                 }
             }
             if (!augmentOnly) {
-                inventory.interact(this, player.level(), player, hand, s -> true);
+                inventory.interact(player.level(), player, hand);
             }
             if (heldStack.isEmpty()) {
                 return InteractionResult.SUCCESS;
@@ -163,7 +157,7 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity impleme
                     if (canBeAccelerated && spiritType.equals(activeSpiritType)) {
                         continue;
                     }
-                    intensity.put(spiritType, Math.max(0, intensity.get(spiritType) - 1));
+                    intensity.put(spiritType, Math.max(0,intensity.get(spiritType) - 1));
                 }
             }
             SpiritCrucibleParticleEffects.passiveSpiritCatalyzerParticles(this);
@@ -196,7 +190,7 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity impleme
             if (!stack.isEmpty()) {
                 burnTicks = FuelRegistry.INSTANCE.get(inventory.getStackInSlot(0).getItem()) / 2f;
                 stack.shrink(1);
-                inventory.setChanged();
+                inventory.updateData();
                 BlockHelper.updateAndNotifyState(level, worldPosition);
             }
         }
