@@ -169,11 +169,14 @@ public class MalumLang extends LanguageProvider {
         }
 
 
-        add("trinket.identifier.brooch", "Brooch");
-        add("trinket.modifiers.brooch", "When worn:");
+        add("trinkets.slot.chest.brooch", "Brooch");
+        //add("trinket.modifiers.brooch", "When worn:");
 
-        add("trinket.identifier.rune", "Rune");
-        add("trinket.modifiers.rune", "When equipped:");
+        add("trinkets.slot.head.charm", "Charm");
+        //add("trinket.modifiers.charm", "When equipped:");
+
+        add("trinkets.slot.legs.rune", "Rune");
+        //add("trinket.modifiers.rune", "When equipped:");
 
         add("malum.gui.trinket.positive", "+%s");
         add("malum.gui.trinket.negative", "-%s");
