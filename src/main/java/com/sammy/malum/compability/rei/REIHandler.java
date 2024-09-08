@@ -1,5 +1,5 @@
 package com.sammy.malum.compability.rei;
-
+/*
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.recipe.RunicWorkbenchRecipe;
 import com.sammy.malum.compability.rei.category.RuneworkingRecipeCategory;
@@ -23,3 +23,5 @@ public class REIHandler implements REIClientPlugin {
         registry.registerFiller(RunicWorkbenchRecipe.class, RuneworkingRecipeCategory.RuneworkingDisplay::new);
     }
 }
+
+ */

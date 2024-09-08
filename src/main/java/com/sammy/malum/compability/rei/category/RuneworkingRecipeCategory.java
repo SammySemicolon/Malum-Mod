@@ -1,5 +1,5 @@
 package com.sammy.malum.compability.rei.category;
-
+/*
 import com.google.common.collect.Lists;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.recipe.RunicWorkbenchRecipe;
@@ -74,7 +74,7 @@ public class RuneworkingRecipeCategory implements DisplayCategory<RuneworkingRec
         builder.addSlot(RecipeIngredientRole.OUTPUT, 63, 124)
                 .addItemStack(recipe.output);
          */
-
+/*
         return widgets;
     }
 
@@ -114,3 +114,4 @@ public class RuneworkingRecipeCategory implements DisplayCategory<RuneworkingRec
         }
     }
 }
+*/
