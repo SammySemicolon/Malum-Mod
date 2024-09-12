@@ -1,0 +1,14 @@
+{
+  "registry_name": "specialmobs:conflagrationblaze",
+  "primary_type": "infernal",
+  "spirits": [
+    {
+      "spirit": "infernal",
+      "count": 3
+    },
+    {
+      "spirit": "arcane",
+      "count": 2
+    }
+  ]
+}

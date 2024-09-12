@@ -1,0 +1,14 @@
+{
+  "registry_name": "specialmobs:knightdrowned",
+  "primary_type": "aqueous",
+  "spirits": [
+    {
+      "spirit": "aqueous",
+      "count": 1
+    },
+    {
+      "spirit": "sacred",
+      "count": 2
+    }
+  ]
+}

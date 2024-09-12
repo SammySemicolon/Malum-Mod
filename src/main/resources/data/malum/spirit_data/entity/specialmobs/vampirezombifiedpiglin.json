@@ -1,0 +1,22 @@
+{
+  "registry_name": "specialmobs:vampirezombifiedpiglin",
+  "primary_type": "wicked",
+  "spirits": [
+    {
+      "spirit": "wicked",
+      "count": 2
+    },
+    {
+      "spirit": "arcane",
+      "count": 2
+    },
+    {
+      "spirit": "eldritch",
+      "count": 1
+    },
+    {
+      "spirit": "infernal",
+      "count": 1
+    }
+  ]
+}

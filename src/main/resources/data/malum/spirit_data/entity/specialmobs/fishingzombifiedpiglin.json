@@ -1,0 +1,14 @@
+{
+  "registry_name": "specialmobs:fishingzombifiedpiglin",
+  "primary_type": "wicked",
+  "spirits": [
+    {
+      "spirit": "wicked",
+      "count": 2
+    },
+    {
+      "spirit": "aqueous",
+      "count": 1
+    }
+  ]
+}

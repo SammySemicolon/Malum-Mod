@@ -1,0 +1,18 @@
+{
+  "registry_name": "specialmobs:wildswitch",
+  "primary_type": "wicked",
+  "spirits": [
+    {
+      "spirit": "wicked",
+      "count": 2
+    },
+    {
+      "spirit": "arcane",
+      "count": 2
+    },
+    {
+      "spirit": "earthen",
+      "count": 1
+    }
+  ]
+}

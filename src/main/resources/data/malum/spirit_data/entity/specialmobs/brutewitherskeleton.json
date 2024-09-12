@@ -1,0 +1,22 @@
+{
+  "registry_name": "specialmobs:brutewitherskeleton",
+  "primary_type": "infernal",
+  "spirits": [
+    {
+      "spirit": "wicked",
+      "count": 1
+    },
+    {
+      "spirit": "earthen",
+      "count": 1
+    },
+    {
+      "spirit": "arcane",
+      "count": 1
+    },
+    {
+      "spirit": "infernal",
+      "count": 1
+    }
+  ]
+}

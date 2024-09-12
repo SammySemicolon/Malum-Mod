@@ -1,0 +1,10 @@
+{
+  "registry_name": "specialmobs:minienderman",
+  "primary_type": "eldritch",
+  "spirits": [
+    {
+      "spirit": "arcane",
+      "count": 2
+    }
+  ]
+}

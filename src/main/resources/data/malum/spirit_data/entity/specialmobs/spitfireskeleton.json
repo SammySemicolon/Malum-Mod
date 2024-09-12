@@ -1,0 +1,18 @@
+{
+  "registry_name": "specialmobs:spitfireskeleton",
+  "primary_type": "arcane",
+  "spirits": [
+    {
+      "spirit": "arcane",
+      "count": 3
+    },
+    {
+      "spirit": "wicked",
+      "count": 2
+    },
+    {
+      "spirit": "infernal",
+      "count": 1
+    }
+  ]
+}

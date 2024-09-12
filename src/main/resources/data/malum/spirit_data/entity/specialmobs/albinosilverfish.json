@@ -1,0 +1,15 @@
+{
+  "registry_name": "specialmobs:albinosilverfish",
+  "primary_type": "wicked",
+  "spirits": [
+
+    {
+      "spirit": "wicked",
+      "count": 1
+    },
+    {
+      "spirit": "aqueous",
+      "count": 1
+    }
+  ]
+}

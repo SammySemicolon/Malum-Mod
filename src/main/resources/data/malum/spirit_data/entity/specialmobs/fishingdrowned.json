@@ -1,0 +1,14 @@
+{
+  "registry_name": "specialmobs:fishingdrowned",
+  "primary_type": "aqueous",
+  "spirits": [
+    {
+      "spirit": "aqueous",
+      "count": 2
+    },
+    {
+      "spirit": "wicked",
+      "count": 1
+    }
+  ]
+}

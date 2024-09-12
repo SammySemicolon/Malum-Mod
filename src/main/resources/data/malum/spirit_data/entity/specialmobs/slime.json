@@ -1,0 +1,14 @@
+{
+  "registry_name": "specialmobs:slime",
+  "primary_type": "aqueous",
+  "spirits": [
+    {
+      "spirit": "arcane",
+      "count": 1
+    },
+    {
+      "spirit": "aqueous",
+      "count": 1
+    }
+  ]
+}

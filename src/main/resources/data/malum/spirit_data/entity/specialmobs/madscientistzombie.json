@@ -1,0 +1,14 @@
+{
+  "registry_name": "specialmobs:madscientistzombie",
+  "primary_type": "wicked",
+  "spirits": [
+    {
+      "spirit": "wicked",
+      "count": 5  
+    },
+    {
+      "spirit": "earthen",
+      "count": 1
+    }
+  ]
+}

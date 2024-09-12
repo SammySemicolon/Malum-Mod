@@ -1,0 +1,14 @@
+{
+  "registry_name": "specialmobs:blaze",
+  "primary_type": "infernal",
+  "spirits": [
+    {
+      "spirit": "infernal",
+      "count": 2
+    },
+    {
+      "spirit": "arcane",
+      "count": 1
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "registry_name": "specialmobs:mirageenderman",
+  "primary_type": "eldritch",
+  "spirits": [
+    {
+      "spirit": "eldritch",
+      "count": 1
+    },
+    {
+      "spirit": "arcane",
+      "count": 2
+    },
+    {
+      "spirit": "infernal",
+      "count": 1
+    }
+  ]
+}

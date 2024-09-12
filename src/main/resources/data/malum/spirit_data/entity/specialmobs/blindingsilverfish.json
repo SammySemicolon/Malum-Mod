@@ -1,0 +1,14 @@
+{
+  "registry_name": "specialmobs:blindingsilverfish",
+  "primary_type": "wicked",
+  "spirits": [
+    {
+      "spirit": "wicked",
+      "count": 2
+    },
+    {
+      "spirit": "earthen",
+      "count": 2
+    }
+  ]
+}

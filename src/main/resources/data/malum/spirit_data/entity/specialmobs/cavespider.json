@@ -1,0 +1,14 @@
+{
+  "registry_name": "specialmobs:cavespider",
+  "primary_type": "wicked",
+  "spirits": [
+    {
+      "spirit": "aerial",
+      "count": 1
+    },
+    {
+      "spirit": "wicked",
+      "count": 1
+    }
+  ]
+}

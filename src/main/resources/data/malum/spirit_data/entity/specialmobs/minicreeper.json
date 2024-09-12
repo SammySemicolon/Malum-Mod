@@ -1,0 +1,14 @@
+{
+  "registry_name": "specialmobs:minicreeper",
+  "primary_type": "infernal",
+  "spirits": [
+    {
+      "spirit": "infernal",
+      "count": 1
+    },
+    {
+      "spirit": "arcane",
+      "count": 1
+    } 
+  ]
+}

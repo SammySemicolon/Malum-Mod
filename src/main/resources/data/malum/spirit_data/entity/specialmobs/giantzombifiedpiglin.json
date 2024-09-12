@@ -1,0 +1,14 @@
+{
+  "registry_name": "specialmobs:giantzombifiedpiglin",
+  "primary_type": "wicked",
+  "spirits": [
+    {
+      "spirit": "wicked",
+      "count": 3
+    },
+    {
+      "spirit": "infernal",
+      "count": 2
+    }
+  ]
+}
