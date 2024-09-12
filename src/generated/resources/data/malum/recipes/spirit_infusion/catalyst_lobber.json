@@ -3,7 +3,7 @@
   "extra_items": [
     {
       "count": 4,
-      "tag": "c:iron_ingots"
+      "tag": "forge:ingots/iron"
     },
     {
       "count": 2,
