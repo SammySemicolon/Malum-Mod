@@ -23,6 +23,6 @@ public class CurioElaborateBrooch extends MalumTinketsItem {
     @Override
     public void addAttributeModifiers(Multimap<Attribute, AttributeModifier> map, SlotReference slotContext, ItemStack stack, LivingEntity entity) {
         SlotAttributes.addSlotModifier(map, "legs/belt", ELABORATE_BROOCH_BELT, 1, AttributeModifier.Operation.ADDITION);
-        SlotAttributes.addSlotModifier(map, "head/necklace", ELABORATE_BROOCH_NECKLACE, -1, AttributeModifier.Operation.ADDITION);
+        SlotAttributes.addSlotModifier(map, "chest/necklace", ELABORATE_BROOCH_NECKLACE, -1, AttributeModifier.Operation.ADDITION);
     }
 }
