@@ -7,6 +7,7 @@ import com.sammy.malum.common.effect.aura.*;
 import com.sammy.malum.common.enchantment.*;
 import com.sammy.malum.common.entity.nitrate.*;
 import com.sammy.malum.common.item.cosmetic.curios.*;
+import com.sammy.malum.common.item.curiosities.*;
 import com.sammy.malum.common.item.curiosities.curios.runes.madness.*;
 import com.sammy.malum.common.item.curiosities.curios.runes.miracle.*;
 import com.sammy.malum.common.item.curiosities.curios.sets.misc.*;
@@ -71,6 +72,11 @@ public class RuntimeEvents {
                 }
             }
         }
+    }
+
+    @SubscribeEvent
+    public static void anvilUpdate(AnvilUpdateEvent event) {
+        CatalystFlingerItem.anvilUpdate(event);
     }
 
 

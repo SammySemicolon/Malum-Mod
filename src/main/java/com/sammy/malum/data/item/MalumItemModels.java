@@ -59,6 +59,8 @@ public class MalumItemModels extends LodestoneItemModelProvider {
         ItemModelSmithTypes.HANDHELD_ITEM.act(data, items.stream().filter(i -> i.get() instanceof ModCombatItem).collect(Collectors.toList()));
         ItemModelSmithTypes.HANDHELD_ITEM.act(data, items.stream().filter(i -> i.get() instanceof AbstractStaffItem).collect(Collectors.toList()));
         ItemModelSmithTypes.HANDHELD_ITEM.act(data, SOUL_STAINED_STEEL_KNIFE, TUNING_FORK, LAMPLIGHTERS_TONGS, TOTEMIC_STAFF);
+        MalumItemModelSmithTypes.CATALYST_LOBBER.act(data, CATALYST_LOBBER);
+
 
         MalumItemModelSmithTypes.ARMOR_ITEM.act(data,
                 SOUL_HUNTER_CLOAK, SOUL_HUNTER_ROBE, SOUL_HUNTER_LEGGINGS, SOUL_HUNTER_BOOTS,

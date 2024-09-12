@@ -33,13 +33,13 @@ public class EthericNitrateEntity extends AbstractNitrateEntity {
         super(EntityRegistry.ETHERIC_NITRATE.get(), level);
     }
 
-    public EthericNitrateEntity(LivingEntity owner, Level level) {
-        super(EntityRegistry.ETHERIC_NITRATE.get(), owner, level);
+    public EthericNitrateEntity(LivingEntity owner) {
+        super(EntityRegistry.ETHERIC_NITRATE.get(), owner, owner.level());
     }
 
     @Override
     public float getExplosionRadius() {
-        return 2.75f;
+        return 2.25f;
     }
 
     @Override

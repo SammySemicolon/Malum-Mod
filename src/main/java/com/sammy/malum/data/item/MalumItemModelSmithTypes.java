@@ -1,6 +1,7 @@
 package com.sammy.malum.data.item;
 
 import com.sammy.malum.common.item.cosmetic.skins.ArmorSkin;
+import com.sammy.malum.common.item.curiosities.*;
 import com.sammy.malum.common.item.spirit.*;
 import com.sammy.malum.core.systems.ritual.*;
 import com.sammy.malum.registry.common.item.ArmorSkinRegistry;
@@ -40,6 +41,19 @@ public class MalumItemModelSmithTypes {
             provider.getBuilder(ForgeRegistries.ITEMS.getKey(item).getPath()).override()
                     .predicate(new ResourceLocation(RitualShardItem.RITUAL_TYPE), ritualTier.potency)
                     .model(provider.withExistingParent(provider.getItemName(item) + "_" + path, GENERATED).texture("layer0", itemTexturePath))
+                    .end();
+        }
+    });
+
+    public static ItemModelSmith CATALYST_LOBBER = new ItemModelSmith((item, provider) -> {
+        String base = provider.getItemName(item);
+        provider.createGenericModel(item, HANDHELD, provider.getItemTexture(base));
+        for (int i = 1; i <= 2; i++) {
+            String affix = i == 1 ? "open" : "loaded";
+            ResourceLocation itemTexturePath = provider.getItemTexture(base + "_" + affix);
+            provider.getBuilder(ForgeRegistries.ITEMS.getKey(item).getPath()).override()
+                    .predicate(new ResourceLocation(CatalystFlingerItem.STATE), i)
+                    .model(provider.withExistingParent(base + "_" + affix, HANDHELD).texture("layer0", itemTexturePath))
                     .end();
         }
     });

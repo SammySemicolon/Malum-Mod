@@ -13,6 +13,7 @@ import java.util.Map;
 public abstract class ArmorSkin {
     public static final String MALUM_SKIN_TAG = "malum:item_skin";
 
+    public static int indexCounter;
     public final String id;
     public final Class<? extends LodestoneArmorItem> validArmorClass;
     public final Item weaveItem;
@@ -22,7 +23,7 @@ public abstract class ArmorSkin {
         this.id = id;
         this.validArmorClass = validArmorClass;
         this.weaveItem = weaveItem;
-        this.index = ArmorSkinRegistry.SKINS.size();
+        this.index = indexCounter++;
     }
 
     @OnlyIn(Dist.CLIENT)

@@ -104,10 +104,10 @@ public class FloatingItemEntityRenderer extends EntityRenderer<FloatingItemEntit
                 .renderQuad(poseStack, scale * 0.8f);
         builder.setAlpha(0.8f * alphaScalar)
                 .setRenderType(TWINKLE)
-                .renderQuad(poseStack, scale * 0.8f);
+                .renderQuad(poseStack, scale * 0.6f);
         builder.setAlpha(0.2f * alphaScalar)
                 .setColor(secondaryColor)
-                .renderQuad(poseStack, scale * 1.2f);
+                .renderQuad(poseStack, scale * 0.6f);
         poseStack.popPose();
     }
 

@@ -163,6 +163,14 @@ public class VoidProgressionScreen extends AbstractProgressionCodexScreen {
             ))
         );
 
+        addEntry("void.catalyst_lobber", 5, 5, b -> b
+                .configureWidget(w -> w.setIcon(CATALYST_LOBBER).setStyle(BookWidgetStyle.SOULWOOD))
+                .addPage(new WeepingWellTextPage("void.catalyst_lobber", "void.catalyst_lobber.1", CATALYST_LOBBER.get()))
+                .addPage(new TextPage("void.catalyst_lobber.2"))
+                .addPage(new TextPage("void.catalyst_lobber.3"))
+                .addPage(SpiritInfusionPage.fromOutput(CATALYST_LOBBER.get()))
+        );
+
         addEntry("void.black_crystal", 0, 5, b -> b
             .withFragmentEntry(fragment -> fragment.addPage(new WeepingWellTextPage("fragment.void.black_crystal", "fragment.void.black_crystal.1", EMPTY)))
             .configureWidget(w -> w.setIcon(UMBRAL_SPIRIT).setStyle(BookWidgetStyle.GILDED_SOULWOOD))

@@ -21,9 +21,9 @@ public abstract class AbstractNitrateEntity extends ThrowableProjectile {
     public static final int MAX_AGE = 1200;
     public static final Color SECOND_SMOKE_COLOR = new Color(30, 30, 30);
 
-    public static final float MAIN_TRAIL_LENGTH = 25;
+    public static final float MAIN_TRAIL_LENGTH = 12;
     public final TrailPointBuilder trailPointBuilder = TrailPointBuilder.create((int) MAIN_TRAIL_LENGTH);
-    public final TrailPointBuilder spinningTrailPointBuilder = TrailPointBuilder.create(10);
+    public final TrailPointBuilder spinningTrailPointBuilder = TrailPointBuilder.create(6);
     public float spinOffset = (float) (random.nextFloat() * Math.PI * 2);
 
     public int age;

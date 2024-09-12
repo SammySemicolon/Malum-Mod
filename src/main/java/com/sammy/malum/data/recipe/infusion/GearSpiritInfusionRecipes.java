@@ -14,26 +14,6 @@ import static com.sammy.malum.registry.common.SpiritTypeRegistry.*;
 public class GearSpiritInfusionRecipes {
 
     public static void buildRecipes(Consumer<FinishedRecipe> consumer) {
-        new SpiritInfusionRecipeBuilder(ItemRegistry.ETHER.get(), 1, ItemRegistry.ETHERIC_NITRATE.get(), 4)
-                .addSpirit(INFERNAL_SPIRIT, 8)
-                .addSpirit(AERIAL_SPIRIT, 8)
-                .addSpirit(ARCANE_SPIRIT, 8)
-                .addExtraItem(Items.TNT, 1)
-                .addExtraItem(Ingredient.of(Tags.Items.GUNPOWDER), 4)
-                .addExtraItem(Items.BLAZE_POWDER, 2)
-                .build(consumer);
-
-        new SpiritInfusionRecipeBuilder(ItemRegistry.ETHERIC_NITRATE.get(), 4, ItemRegistry.VIVID_NITRATE.get(), 4)
-                .addSpirit(AERIAL_SPIRIT, 4)
-                .addSpirit(AQUEOUS_SPIRIT, 4)
-                .addSpirit(INFERNAL_SPIRIT, 4)
-                .addSpirit(EARTHEN_SPIRIT, 4)
-                .addSpirit(ELDRITCH_SPIRIT, 1)
-                .addExtraItem(Ingredient.of(Tags.Items.GUNPOWDER), 4)
-                .addExtraItem(Ingredient.of(Tags.Items.GEMS_PRISMARINE), 2)
-                .addExtraItem(ItemRegistry.ARCANE_CHARCOAL.get(), 2)
-                .build(consumer);
-
         new SpiritInfusionRecipeBuilder(ItemRegistry.SOUL_STAINED_STEEL_SWORD.get(), 1, ItemRegistry.TYRVING.get(), 1)
                 .addSpirit(WICKED_SPIRIT, 32)
                 .addSpirit(ARCANE_SPIRIT, 16)

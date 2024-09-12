@@ -1,4 +1,5 @@
 {
+  "arcane_elegy": { "sounds":["malum:arcane_elegy"], "subtitle": "malum.subtitle.arcane_elegy" },
   "aesthetica": { "sounds":["malum:aesthetica"], "subtitle": "malum.subtitle.aesthetica" },
 
   "arcana_codex_opened": { "sounds":["malum:codex/book_open1", "malum:codex/book_open2", "malum:codex/book_open3", "malum:codex/book_open4"], "subtitle": "malum.subtitle.arcana_codex_opened" },
@@ -93,8 +94,12 @@
   "flesh_ring_absorbs": { "sounds":["malum:curiosities/cancer_ring/grow1", "malum:curiosities/cancer_ring/grow2", "malum:curiosities/cancer_ring/grow3"], "subtitle": "malum.subtitle.flesh_ring_absorbs" },
   "hidden_blade_strikes": { "sounds":["malum:curiosities/hidden_blade/strike1", "malum:curiosities/hidden_blade/strike2", "malum:curiosities/hidden_blade/strike3"], "subtitle": "malum.subtitle.hidden_blade_strikes" },
   "malignant_metal_resonates": { "sounds":["malum:curiosities/hidden_blade/strike1", "malum:curiosities/hidden_blade/strike2", "malum:curiosities/hidden_blade/strike3"], "subtitle": "malum.subtitle.malignant_metal_resonates" },
-  "nitrate_thrown": { "sounds":["minecraft:random/bow"], "subtitle": "malum.subtitle.nitrate_thrown" },
   "spirit_mote_created": { "sounds":["malum:curiosities/spirit_mote/created1", "malum:curiosities/spirit_mote/created2", "malum:curiosities/spirit_mote/created3"], "subtitle": "malum.subtitle.spirit_mote_created" },
+
+  "catalyst_lobber_unlocked": { "sounds":["malum:curiosities/catalyst_lobber/open1", "malum:curiosities/catalyst_lobber/open2"], "subtitle": "malum.subtitle.catalyst_lobber_unlocked" },
+  "catalyst_lobber_locked": { "sounds":["malum:curiosities/catalyst_lobber/open1", "malum:curiosities/catalyst_lobber/open2"], "subtitle": "malum.subtitle.catalyst_lobber_locked" },
+  "catalyst_lobber_primed": { "sounds":["malum:curiosities/catalyst_lobber/load1", "malum:curiosities/catalyst_lobber/load2"], "subtitle": "malum.subtitle.catalyst_lobber_primed" },
+  "catalyst_lobber_fired": { "sounds":["malum:curiosities/catalyst_lobber/fire1", "malum:curiosities/catalyst_lobber/fire2"], "subtitle": "malum.subtitle.catalyst_lobber_fired" },
 
   "soul_ward_grows": { "sounds":["malum:curiosities/soul_ward/grow1","malum:curiosities/soul_ward/grow2","malum:curiosities/soul_ward/grow3","malum:curiosities/soul_ward/grow4"], "subtitle": "malum.subtitle.soul_ward_grows" },
   "soul_ward_damaged": { "sounds":["malum:curiosities/soul_ward/dmg1","malum:curiosities/soul_ward/dmg2","malum:curiosities/soul_ward/dmg3","malum:curiosities/soul_ward/dmg4"], "subtitle": "malum.subtitle.soul_ward_damaged" },
