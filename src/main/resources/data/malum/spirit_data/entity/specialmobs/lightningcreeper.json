@@ -1,0 +1,18 @@
+{
+  "registry_name": "specialmobs:lightningcreeper",
+  "primary_type": "infernal",
+  "spirits": [
+    {
+      "spirit": "infernal",
+      "count": 2
+    },
+    {
+      "spirit": "arcane",
+      "count": 1
+    },
+    {
+      "spirit": "eldritch",
+      "count": 1
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "registry_name": "specialmobs:hellfireblaze",
+  "primary_type": "infernal",
+  "spirits": [
+    {
+      "spirit": "infernal",
+      "count": 3
+    },
+    {
+      "spirit": "arcane",
+      "count": 2
+    }
+  ]
+}

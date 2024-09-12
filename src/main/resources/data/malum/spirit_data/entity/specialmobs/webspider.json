@@ -1,0 +1,14 @@
+{
+  "registry_name": "specialmobs:webspider",
+  "primary_type": "aerial",
+  "spirits": [
+    {
+      "spirit": "wicked",
+      "count": 2
+    },
+    {
+      "spirit": "aerial",
+      "count": 2
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "registry_name": "specialmobs:emberblaze",
+  "primary_type": "infernal",
+  "spirits": [
+    {
+      "spirit": "infernal",
+      "count": 1
+    }
+
+  ]
+}

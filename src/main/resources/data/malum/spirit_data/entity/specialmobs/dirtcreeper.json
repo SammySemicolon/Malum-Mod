@@ -1,0 +1,15 @@
+{
+  "registry_name": "specialmobs:dirtcreeper",
+  "primary_type": "earthen",
+  "spirits": [
+
+    {
+      "spirit": "earthen",
+      "count": 2
+    },
+    {
+      "spirit": "wicked",
+      "count": 1
+    }
+  ]
+}

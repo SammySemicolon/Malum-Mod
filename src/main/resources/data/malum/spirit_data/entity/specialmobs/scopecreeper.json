@@ -1,0 +1,34 @@
+{
+  "registry_name": "specialmobs:scopecreeper",
+  "primary_type": "infernal",
+  "spirits": [
+    {
+      "spirit": "infernal",
+      "count": 1
+    },
+    {
+      "spirit": "arcane",
+      "count": 1
+    },
+    {
+      "spirit": "aqueous",
+      "count": 1
+    },
+    {
+      "spirit": "aerial",
+      "count": 1
+    },
+    {
+      "spirit": "sacred",
+      "count": 1
+    },
+    {
+      "spirit": "earthen",
+      "count": 1
+    },
+    {
+      "spirit": "wicked",
+      "count": 1
+    }
+  ]
+}

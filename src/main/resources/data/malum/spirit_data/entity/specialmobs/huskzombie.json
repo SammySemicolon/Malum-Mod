@@ -1,0 +1,14 @@
+{
+  "registry_name": "minecraft:huskzombie",
+  "primary_type": "infernal",
+  "spirits": [
+    {
+      "spirit": "wicked",
+      "count": 1
+    },
+    {
+      "spirit": "infernal",
+      "count": 1
+    }
+  ]
+}

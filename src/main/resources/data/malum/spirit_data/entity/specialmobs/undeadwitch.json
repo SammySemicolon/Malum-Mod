@@ -1,0 +1,14 @@
+{
+  "registry_name": "specialmobs:undeadwitch",
+  "primary_type": "wicked",
+  "spirits": [
+    {
+      "spirit": "wicked",
+      "count": 2
+    },
+    {
+      "spirit": "arcane",
+      "count": 2
+    }
+  ]
+}
