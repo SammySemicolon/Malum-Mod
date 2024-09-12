@@ -77,6 +77,7 @@ public class MalumLang extends LanguageProvider {
             name = makeProper(DataHelper.toTitleCase(correctItemName(name), "_"));
             add(i.get().getDescriptionId(), name);
         });
+        add("item.malum.music_disc_arcane_elegy.desc", "Kultik - Arcane Elegy");
         add("item.malum.music_disc_aesthetica.desc", "Kultik - Aesthetica");
 
 
@@ -308,6 +309,13 @@ public class MalumLang extends LanguageProvider {
         addPages("spirit_minerals.reexamination",
                 "I now know the arcana have physical properties with meaning. I can use these properties to create a staff, and likely for many more things. But Soulstone and Brilliance... as far as I can tell, for every other base material relevant to the arcana save Runewood I work with, there are either spirit crystals fused within or patterned in the structure.",
                 "The fact that Null Slate is physically identical to Soulstone implies a greater principle. I posit that Soulstone and Brilliance have similar fundamental resonances to the arcana, structures of inherent power at a precision far beyond what I can measure. This implies interaction with the arcane is simply... a quirk of an object's topology? I don't know how I would replicate it myself, but if I can...");
+
+        addEntryHeader("void.catalyst_lobber", "Catalyst Lobber", "Progress overtakes");
+        addHeadline("void.catalyst_lobber", "Catalyst Lobber");
+        addPages("void.catalyst_lobber",
+                "The flame of progress is a potent one, which bulldozes everything in its search for advancement. There had to be a destructive way to harness it, and so there was.",
+                "I've created a device out of a pair of lamplighter's tongs I call the Catalyst Lobber. It \"unlocks\" Auric Embers by retuning them, turning their flame from a gentle one into an explosive blaze, containing the result until it's ready to fire.",
+                "I implemented a safety, because... well, I don't want to rebuild my lab again. The flames are violently explosive. Standard explosive precautions work just as well, such as obsidian, of course.");
 
         addSimpleEntryHeader("fragment.void.black_crystal", "Scribbled notes", "Incomprehensible");
         addPages("fragment.void.black_crystal",

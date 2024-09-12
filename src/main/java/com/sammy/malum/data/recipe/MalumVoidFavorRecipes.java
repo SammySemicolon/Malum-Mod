@@ -48,7 +48,7 @@ public class MalumVoidFavorRecipes {
         new VoidFavorRecipeBuilder(Items.BLACK_WOOL, ItemRegistry.TOPHAT.get(), 1)
                 .build(consumer);
 
-        new VoidFavorRecipeBuilder(Ingredient.of(ItemTags.MUSIC_DISCS), ItemRegistry.AESTHETICA.get(), 1)
+        new VoidFavorRecipeBuilder(ItemRegistry.ARCANE_ELEGY.get(), ItemRegistry.AESTHETICA.get(), 1)
                 .build(consumer);
     }
 }

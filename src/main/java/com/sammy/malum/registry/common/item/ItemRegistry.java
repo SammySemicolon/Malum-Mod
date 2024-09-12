@@ -601,6 +601,8 @@ public class ItemRegistry {
     public static final RegistryObject<Item> TUNING_FORK = register("tuning_fork", GEAR_PROPERTIES(), Item::new);
     public static final RegistryObject<Item> LAMPLIGHTERS_TONGS = register("lamplighters_tongs", GEAR_PROPERTIES(), LamplightersTongsItem::new);
 
+    public static final RegistryObject<Item> CATALYST_LOBBER = register("catalyst_lobber", GEAR_PROPERTIES(), (p) -> new CatalystFlingerItem(p.durability(500), EthericNitrateEntity::new));
+
     public static final RegistryObject<CrackedImpetusItem> CRACKED_IRON_IMPETUS = register("cracked_iron_impetus", METALLURGIC_PROPERTIES(), CrackedImpetusItem::new);
     public static final RegistryObject<ImpetusItem> IRON_IMPETUS = register("iron_impetus", METALLURGIC_PROPERTIES().durability(800), (p) -> new ImpetusItem(p).setCrackedVariant(CRACKED_IRON_IMPETUS));
     public static final RegistryObject<Item> IRON_NODE = register("iron_node", METALLURGIC_NODE_PROPERTIES(), NodeItem::new);
@@ -646,10 +648,6 @@ public class ItemRegistry {
 
     public static final RegistryObject<Item> CONCENTRATED_GLUTTONY = register("concentrated_gluttony", DEFAULT_PROPERTIES().food(FoodPropertyRegistry.CONCENTRATED_GLUTTONY), ConcentratedGluttonyItem::new);
     public static final RegistryObject<Item> SPLASH_OF_GLUTTONY = register("splash_of_gluttony", DEFAULT_PROPERTIES(), SplashOfGluttonyItem::new);
-
-    public static final RegistryObject<Item> ETHERIC_NITRATE = register("etheric_nitrate", DEFAULT_PROPERTIES(), EthericNitrateItem::new);
-    public static final RegistryObject<Item> VIVID_NITRATE = register("vivid_nitrate", HIDDEN_PROPERTIES(), VividNitrateItem::new);
-
     public static final RegistryObject<Item> CRUDE_SCYTHE = register("crude_scythe", GEAR_PROPERTIES(), (p) -> new MalumScytheItem(Tiers.IRON, 0, 0.1f, p.durability(500)));
     public static final RegistryObject<Item> SOUL_STAINED_STEEL_SCYTHE = register("soul_stained_steel_scythe", GEAR_PROPERTIES(), (p) -> new MagicScytheItem(SOUL_STAINED_STEEL, -2.5f, 0.1f, 4, p));
 
@@ -682,6 +680,7 @@ public class ItemRegistry {
 
     public static final RegistryObject<Item> MNEMONIC_HEX_STAFF = register("mnemonic_hex_staff", GEAR_PROPERTIES(), (p) -> new HexStaffItem(HEX_STAFF, 5, p));
     public static final RegistryObject<Item> STAFF_OF_THE_AURIC_FLAME = register("staff_of_the_auric_flame", GEAR_PROPERTIES(), (p) -> new AuricFlameStaffItem(AURIC_STAFF, 7, p));
+
 
     public static final RegistryObject<Item> RUNE_OF_IDLE_RESTORATION = register("rune_of_idle_restoration", GEAR_PROPERTIES(), RuneIdleRestorationItem::new);
     public static final RegistryObject<Item> RUNE_OF_CULLING = register("rune_of_culling", GEAR_PROPERTIES(), RuneCullingItem::new);
@@ -744,6 +743,7 @@ public class ItemRegistry {
     public static final RegistryObject<Item> NECKLACE_OF_THE_WATCHER = register("necklace_of_the_watcher", GEAR_PROPERTIES(), TrinketsWatcherNecklace::new);
     public static final RegistryObject<Item> BELT_OF_THE_LIMITLESS = register("belt_of_the_limitless", GEAR_PROPERTIES(), TrinketsLimitlessBelt::new);
 
+    public static final RegistryObject<Item> ARCANE_ELEGY = register("music_disc_arcane_elegy", HIDDEN_PROPERTIES().rarity(RARE), ArcaneElegyMusicDiscItem::new);
     public static final RegistryObject<Item> AESTHETICA = register("music_disc_aesthetica", HIDDEN_PROPERTIES().rarity(RARE), AestheticaMusicDiscItem::new);
     //endregion
 
@@ -849,6 +849,17 @@ public class ItemRegistry {
                 }
                 MalumRitualTier tier = RitualShardItem.getRitualTier(stack);
                 return tier.potency;
+            });
+
+            ItemProperties.register(CATALYST_LOBBER.get(), new ResourceLocation(CatalystFlingerItem.STATE), (stack, level, holder, holderID) -> {
+                if (!stack.hasTag()) {
+                    return -1;
+                }
+                CompoundTag nbt = stack.getTag();
+                if (!nbt.contains(CatalystFlingerItem.STATE)) {
+                    return -1;
+                }
+                return nbt.getInt(CatalystFlingerItem.STATE);
             });
         }
 

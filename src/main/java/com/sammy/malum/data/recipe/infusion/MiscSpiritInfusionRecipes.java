@@ -62,5 +62,14 @@ public class MiscSpiritInfusionRecipes {
                 .addExtraItem(ItemRegistry.PROCESSED_SOULSTONE.get(), 1)
                 .build(consumer);
 
+        new SpiritInfusionRecipeBuilder(ItemRegistry.LAMPLIGHTERS_TONGS.get(), 1, ItemRegistry.CATALYST_LOBBER.get(), 1)
+                .addSpirit(AQUEOUS_SPIRIT, 32)
+                .addSpirit(INFERNAL_SPIRIT, 32)
+                .addSpirit(ELDRITCH_SPIRIT, 8)
+                .addExtraItem(Ingredient.of(Tags.Items.INGOTS_IRON), 4)
+                .addExtraItem(ItemRegistry.SOULWOOD_PLANKS.get(), 2)
+                .addExtraItem(ItemRegistry.MALIGNANT_LEAD.get(), 1)
+                .build(consumer);
+
     }
 }

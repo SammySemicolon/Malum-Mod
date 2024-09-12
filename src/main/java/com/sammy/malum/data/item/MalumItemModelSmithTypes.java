@@ -44,6 +44,19 @@ public class MalumItemModelSmithTypes {
         }
     });
 
+    public static ItemModelSmith CATALYST_LOBBER = new ItemModelSmith((item, provider) -> {
+        String base = provider.getItemName(item);
+        provider.createGenericModel(item, HANDHELD, provider.getItemTexture(base));
+        for (int i = 1; i <= 2; i++) {
+            String affix = i == 1 ? "open" : "loaded";
+            ResourceLocation itemTexturePath = provider.getItemTexture(base + "_" + affix);
+            provider.getBuilder(BuiltInRegistries.ITEM.getKey(item).getPath()).override()
+                    .predicate(new ResourceLocation(CatalystFlingerItem.STATE), i)
+                    .model(provider.withExistingParent(base + "_" + affix, HANDHELD).texture("layer0", itemTexturePath))
+                    .end();
+        }
+    });
+
     public static ItemModelSmith SPIRIT_ITEM = new ItemModelSmith((item, provider) -> {
         provider.createGenericModel(item, GENERATED, provider.getItemTexture("spirit_shard"));
     });
