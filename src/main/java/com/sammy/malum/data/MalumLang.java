@@ -836,7 +836,8 @@ public class MalumLang extends LanguageProvider {
 
         addSimpleEntryHeader("mote_making", "Mote Making", "Worship the cube");
         addPages("mote_making",
-                "Arcana crystals emit their own strange glow. Why not tune that to be stronger? The tool I use to do this is the Lamplighter's Tongs; simply hold them in one hand and the crystal in another to create a 'mote'. This has little magical implication, but the resulting lights are pretty.");
+                "Arcana crystals emit their own strange glow. Why not tune that to be stronger? The tool I use to do this is the Lamplighter's Tongs; simply hold them in one hand and the crystal in another to create a 'mote'.",
+                "These Motes are concentrations of pure arcane energy, with a thin shell of warding magic to keep it from spilling. This has little magical implication, but the resulting lights are pretty.");
 
         addSimpleEntryHeader("mirror_magic", "Mirror magic", "Magic Funnels");
         addPages("mirror_magic", "The future holds many secrets..");

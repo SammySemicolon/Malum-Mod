@@ -31,6 +31,7 @@ public class MiscellaneousKnowledgeEntries {
                 .configureWidget(w -> w.setIcon(LAMPLIGHTERS_TONGS))
                 .addPage(new HeadlineTextItemPage("mote_making", "mote_making.1", LAMPLIGHTERS_TONGS.get()))
                 .addPage(new TextPage("mote_making.2"))
+                .addPage(SpiritInfusionPage.fromOutput(LAMPLIGHTERS_TONGS.get()))
         );
     }
 }
