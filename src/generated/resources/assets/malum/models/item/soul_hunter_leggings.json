@@ -10,139 +10,139 @@
     {
       "model": "malum:item/agender_shorts",
       "predicate": {
-        "malum:item_skin": 24.0
+        "malum:item_skin": 25.0
       }
     },
     {
       "model": "malum:item/aro_shorts",
       "predicate": {
-        "malum:item_skin": 24.0
+        "malum:item_skin": 26.0
       }
     },
     {
       "model": "malum:item/aroace_shorts",
       "predicate": {
-        "malum:item_skin": 24.0
+        "malum:item_skin": 27.0
       }
     },
     {
       "model": "malum:item/bi_shorts",
       "predicate": {
-        "malum:item_skin": 24.0
+        "malum:item_skin": 28.0
       }
     },
     {
       "model": "malum:item/demiboy_shorts",
       "predicate": {
-        "malum:item_skin": 24.0
+        "malum:item_skin": 29.0
       }
     },
     {
       "model": "malum:item/demigirl_shorts",
       "predicate": {
-        "malum:item_skin": 24.0
+        "malum:item_skin": 30.0
       }
     },
     {
       "model": "malum:item/enby_shorts",
       "predicate": {
-        "malum:item_skin": 24.0
+        "malum:item_skin": 31.0
       }
     },
     {
       "model": "malum:item/gay_shorts",
       "predicate": {
-        "malum:item_skin": 24.0
+        "malum:item_skin": 32.0
       }
     },
     {
       "model": "malum:item/genderfluid_shorts",
       "predicate": {
-        "malum:item_skin": 24.0
+        "malum:item_skin": 33.0
       }
     },
     {
       "model": "malum:item/genderqueer_shorts",
       "predicate": {
-        "malum:item_skin": 24.0
+        "malum:item_skin": 34.0
       }
     },
     {
       "model": "malum:item/intersex_shorts",
       "predicate": {
-        "malum:item_skin": 24.0
+        "malum:item_skin": 35.0
       }
     },
     {
       "model": "malum:item/lesbian_shorts",
       "predicate": {
-        "malum:item_skin": 24.0
+        "malum:item_skin": 36.0
       }
     },
     {
       "model": "malum:item/pan_shorts",
       "predicate": {
-        "malum:item_skin": 24.0
+        "malum:item_skin": 37.0
       }
     },
     {
       "model": "malum:item/plural_shorts",
       "predicate": {
-        "malum:item_skin": 24.0
+        "malum:item_skin": 38.0
       }
     },
     {
       "model": "malum:item/poly_shorts",
       "predicate": {
-        "malum:item_skin": 24.0
+        "malum:item_skin": 39.0
       }
     },
     {
       "model": "malum:item/pride_shorts",
       "predicate": {
-        "malum:item_skin": 24.0
+        "malum:item_skin": 40.0
       }
     },
     {
       "model": "malum:item/trans_shorts",
       "predicate": {
-        "malum:item_skin": 24.0
+        "malum:item_skin": 41.0
       }
     },
     {
       "model": "malum:item/executioner_drip_leggings",
       "predicate": {
-        "malum:item_skin": 24.0
+        "malum:item_skin": 42.0
       }
     },
     {
       "model": "malum:item/commando_drip_leggings",
       "predicate": {
-        "malum:item_skin": 24.0
+        "malum:item_skin": 43.0
       }
     },
     {
       "model": "malum:item/ultrakill_v1_leggings",
       "predicate": {
-        "malum:item_skin": 24.0
+        "malum:item_skin": 44.0
       }
     },
     {
       "model": "malum:item/ultrakill_v2_leggings",
       "predicate": {
-        "malum:item_skin": 24.0
+        "malum:item_skin": 45.0
       }
     },
     {
       "model": "malum:item/ancient_cloth_leggings",
       "predicate": {
-        "malum:item_skin": 24.0
+        "malum:item_skin": 46.0
       }
     },
     {
       "model": "malum:item/ancient_metal_leggings",
       "predicate": {
-        "malum:item_skin": 24.0
+        "malum:item_skin": 47.0
       }
     }
   ],
