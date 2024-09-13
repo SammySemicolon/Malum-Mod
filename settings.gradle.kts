@@ -5,6 +5,7 @@ pluginManagement {
         maven("https://maven.minecraftforge.net/")
         maven("https://maven.parchmentmc.org")
         maven("https://repo.spongepowered.org/repository/maven-public/")
+        maven("https://maven.neoforged.net/releases")
     }
     resolutionStrategy {
         eachPlugin {
