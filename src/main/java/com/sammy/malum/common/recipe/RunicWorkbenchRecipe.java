@@ -1,6 +1,7 @@
 package com.sammy.malum.common.recipe;
 
 import com.google.gson.*;
+import com.sammy.malum.core.systems.recipe.*;
 import com.sammy.malum.registry.common.recipe.*;
 import net.minecraft.network.*;
 import net.minecraft.resources.*;
@@ -14,7 +15,7 @@ import javax.annotation.*;
 import java.util.*;
 import java.util.function.*;
 
-public class RunicWorkbenchRecipe extends AbstractMalumRecipe {
+public class RunicWorkbenchRecipe extends LodestoneInWorldRecipe {
     public static final String NAME = "runeworking";
 
     public final IngredientWithCount primaryInput;

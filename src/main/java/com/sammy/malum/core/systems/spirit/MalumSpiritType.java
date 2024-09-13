@@ -1,5 +1,8 @@
 package com.sammy.malum.core.systems.spirit;
 
+import com.google.gson.*;
+import com.mojang.serialization.*;
+import com.mojang.serialization.codecs.*;
 import com.sammy.malum.*;
 import com.sammy.malum.common.block.curiosities.mana_mote.*;
 import com.sammy.malum.common.item.spirit.*;
@@ -10,24 +13,35 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.*;
 import net.minecraft.resources.*;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.level.block.state.properties.*;
 import net.minecraft.world.phys.*;
+import net.neoforged.neoforge.common.crafting.*;
 import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.systems.particle.data.color.*;
 
 import java.awt.*;
+import java.util.*;
 import java.util.function.*;
 
 public class MalumSpiritType {
+
+    public static final Codec<MalumSpiritType> CODEC = Codec.STRING.comapFlatMap(s -> {
+        final MalumSpiritType spiritType = SpiritTypeRegistry.SPIRITS.get(s);
+        if (spiritType == null) {
+            throw new JsonParseException("No Such Spirit Type: " + s);
+        }
+        return DataResult.success(spiritType);
+    }, MalumSpiritType::getIdentifier);
 
     public static SpiritTypeBuilder create(String identifier, SpiritVisualMotif visualMotif, Supplier<SpiritShardItem> spiritShard) {
         return new SpiritTypeBuilder(identifier, visualMotif, spiritShard);
     }
 
-    public final String identifier;
-    public final Supplier<SpiritShardItem> spiritShard;
+    protected final String identifier;
+    protected final Supplier<SpiritShardItem> spiritShard;
 
     private final SpiritVisualMotif visualMotif;
 
@@ -41,6 +55,18 @@ public class MalumSpiritType {
         this.spiritShard = spiritShard;
         this.visualMotif = visualMotif;
         this.itemColor = itemColor;
+    }
+
+    public String getIdentifier() {
+        return identifier;
+    }
+
+    public SpiritShardItem getSpiritShard() {
+        return spiritShard.get();
+    }
+
+    public boolean test(ItemStack stack) {
+        return stack.getItem().equals(getSpiritShard());
     }
 
     public float getAlphaMultiplier() {

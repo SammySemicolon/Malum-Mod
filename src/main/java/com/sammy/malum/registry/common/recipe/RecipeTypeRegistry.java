@@ -1,11 +1,11 @@
 package com.sammy.malum.registry.common.recipe;
 
-import com.sammy.malum.MalumMod;
+import com.sammy.malum.*;
 import com.sammy.malum.common.recipe.*;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.world.item.crafting.Recipe;
-import net.minecraft.world.item.crafting.RecipeType;
-import net.neoforged.neoforge.registries.DeferredRegister;
+import com.sammy.malum.common.recipe.void_favor.*;
+import net.minecraft.core.registries.*;
+import net.minecraft.world.item.crafting.*;
+import net.neoforged.neoforge.registries.*;
 
 public class RecipeTypeRegistry {
 

@@ -5,6 +5,7 @@ import com.sammy.malum.common.recipe.*;
 import com.sammy.malum.common.recipe.vanilla.MetalNodeBlastingRecipe;
 import com.sammy.malum.common.recipe.vanilla.MetalNodeSmeltingRecipe;
 import com.sammy.malum.common.recipe.vanilla.NodeCookingSerializer;
+import com.sammy.malum.common.recipe.void_favor.*;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.neoforged.neoforge.registries.DeferredHolder;

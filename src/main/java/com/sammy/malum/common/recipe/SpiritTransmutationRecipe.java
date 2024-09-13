@@ -1,6 +1,7 @@
 package com.sammy.malum.common.recipe;
 
 import com.google.gson.*;
+import com.sammy.malum.core.systems.recipe.*;
 import com.sammy.malum.registry.common.recipe.*;
 import net.minecraft.network.*;
 import net.minecraft.resources.*;
@@ -13,7 +14,7 @@ import javax.annotation.*;
 import java.util.*;
 import java.util.function.*;
 
-public class SpiritTransmutationRecipe extends AbstractMalumRecipe {
+public class SpiritTransmutationRecipe extends LodestoneInWorldRecipe {
     public static final String NAME = "spirit_transmutation";
 
     public final Ingredient ingredient;

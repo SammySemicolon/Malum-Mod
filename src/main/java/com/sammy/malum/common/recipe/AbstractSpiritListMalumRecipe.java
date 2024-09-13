@@ -7,7 +7,7 @@ import net.minecraft.world.item.crafting.*;
 
 import java.util.*;
 
-public abstract class AbstractSpiritListMalumRecipe extends AbstractMalumRecipe{
+public abstract class AbstractSpiritListMalumRecipe extends LodestoneInWorldRecipe {
 
     public final List<SpiritWithCount> spirits;
 

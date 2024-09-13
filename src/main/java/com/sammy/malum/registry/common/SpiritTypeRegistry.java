@@ -17,7 +17,7 @@ import java.util.*;
 @EventBusSubscriber(modid = MalumMod.MALUM, value = Dist.CLIENT, bus = EventBusSubscriber.Bus.MOD)
 public class SpiritTypeRegistry {
 
-    public static Map<String, MalumSpiritType> SPIRITS = new LinkedHashMap<>();
+    public static Map<String, MalumSpiritType> SPIRITS = new LinkedHashMap<>(); //convert to deferred register
 
     public static MalumSpiritType SACRED_SPIRIT = register(MalumSpiritType.create("sacred",
                     new SpiritVisualMotif(new Color(238, 44, 136), new Color(40, 143, 243), 0.8f, Easing.LINEAR),

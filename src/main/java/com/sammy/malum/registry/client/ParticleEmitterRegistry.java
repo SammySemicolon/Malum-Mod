@@ -1,7 +1,7 @@
 package com.sammy.malum.registry.client;
 
 import com.sammy.malum.*;
-import com.sammy.malum.common.recipe.*;
+import com.sammy.malum.common.recipe.void_favor.*;
 import net.minecraft.client.player.*;
 import net.minecraft.world.item.*;
 import net.minecraftforge.api.distmarker.*;
@@ -26,7 +26,7 @@ public class ParticleEmitterRegistry {
                 final List<FavorOfTheVoidRecipe> recipes = FavorOfTheVoidRecipe.getRecipes(player.level());
                 if (!recipes.isEmpty()) {
                     for (FavorOfTheVoidRecipe recipe : recipes) {
-                        for (ItemStack item : recipe.input.getItems()) {
+                        for (ItemStack item : recipe.ingredient.getItems()) {
                             ParticleEmitterHandler.registerItemParticleEmitter(item.getItem(), INSTANCE);
                         }
                     }

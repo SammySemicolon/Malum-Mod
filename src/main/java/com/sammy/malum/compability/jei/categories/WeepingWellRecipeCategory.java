@@ -1,7 +1,7 @@
 package com.sammy.malum.compability.jei.categories;
 
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.common.recipe.FavorOfTheVoidRecipe;
+import com.sammy.malum.common.recipe.void_favor.FavorOfTheVoidRecipe;
 import com.sammy.malum.compability.jei.JEIHandler;
 import com.sammy.malum.registry.common.item.ItemRegistry;
 import mezz.jei.api.constants.VanillaTypes;
@@ -66,7 +66,7 @@ public class WeepingWellRecipeCategory implements IRecipeCategory<FavorOfTheVoid
     public void setRecipe(IRecipeLayoutBuilder builder, FavorOfTheVoidRecipe recipe, IFocusGroup focuses) {
 
         builder.addSlot(RecipeIngredientRole.INPUT, 63, 57)
-            .addIngredients(recipe.input);
+            .addIngredients(recipe.ingredient);
         builder.addSlot(RecipeIngredientRole.OUTPUT, 63, 124)
             .addItemStack(recipe.output);
         builder.addInvisibleIngredients(RecipeIngredientRole.CATALYST)

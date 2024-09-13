@@ -1,12 +1,9 @@
 package com.sammy.malum.client.particles.cut;
 
-import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.multiplayer.*;
 import net.minecraft.client.particle.*;
-import net.minecraft.core.particles.SimpleParticleType;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraft.core.particles.*;
 
-@OnlyIn(Dist.CLIENT)
 public class ScytheAttackParticle extends TextureSheetParticle {
     private final SpriteSet spriteWithAge;
 
@@ -41,7 +38,6 @@ public class ScytheAttackParticle extends TextureSheetParticle {
         return ParticleRenderType.PARTICLE_SHEET_LIT;
     }
 
-    @OnlyIn(Dist.CLIENT)
     public static class Factory implements ParticleProvider<SimpleParticleType> {
         private final SpriteSet spriteSet;
 

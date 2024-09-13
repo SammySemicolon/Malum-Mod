@@ -26,6 +26,6 @@ public abstract class ArmorSkinRenderingData {
     }
 
     public static boolean isSlim(LivingEntity livingEntity) {
-        return livingEntity instanceof AbstractClientPlayer player && player.getModelName().equals("slim");
+        return livingEntity instanceof AbstractClientPlayer player && player.getSkin().model().name().equals("slim");
     }
 }
