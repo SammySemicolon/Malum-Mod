@@ -72,7 +72,7 @@ public class AbstractAugmentItem extends Item {
         if (event.getItemStack().getItem() instanceof AbstractAugmentItem augmentItem) {
             List<Component> tooltip = event.getToolTip();
             tooltip.add(Component.empty());
-            tooltip.add(Component.translatable("malum.gui.augment.installed").withStyle(ChatFormatting.GOLD));
+            tooltip.add(Component.translatable("malum.gui.augment.installed").withColor(ChatFormatting.GOLD));
             addAugmentStatComponent(tooltip, "malum.gui.crucible.attribute.tuning_potency", augmentItem.getTuningStrengthIncrease());
             addAugmentStatComponent(tooltip, "malum.gui.crucible.attribute.weakest_boost", augmentItem.getWeakestAttributeMultiplier());
             addAugmentStatComponent(tooltip, CrucibleTuning.CrucibleAttributeType.RESTORATION_CHANCE, augmentItem.getRestorationChance());

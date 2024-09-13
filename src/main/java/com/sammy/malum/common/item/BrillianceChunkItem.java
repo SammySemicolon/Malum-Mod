@@ -23,7 +23,9 @@ public class BrillianceChunkItem extends Item {
         return super.finishUsingItem(stack, level, entityLiving);
     }
 
-    public int getUseDuration(ItemStack pStack) {
+
+    @Override
+    public int getUseDuration(ItemStack stack, LivingEntity entity) {
         return 5;
     }
 
