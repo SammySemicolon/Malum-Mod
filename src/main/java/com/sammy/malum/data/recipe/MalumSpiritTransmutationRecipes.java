@@ -13,7 +13,7 @@ import static com.sammy.malum.registry.common.block.BlockRegistry.*;
 
 public class MalumSpiritTransmutationRecipes {
 
-    private static final List<Pair<RegistryObject<Block>, RegistryObject<Block>>> SOULWOOD_TRANSMUTATIONS = List.of(
+    private static final List<Pair<DeferredHolder<Block>, DeferredHolder<Block>>> SOULWOOD_TRANSMUTATIONS = List.of(
             new Pair<>(RUNEWOOD_TOTEM_BASE, SOULWOOD_TOTEM_BASE),
             new Pair<>(RUNEWOOD_SAPLING, SOULWOOD_GROWTH),
             new Pair<>(RUNEWOOD_LEAVES, SOULWOOD_LEAVES),

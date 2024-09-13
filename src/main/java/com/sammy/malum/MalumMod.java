@@ -6,11 +6,10 @@ import com.sammy.malum.config.*;
 import com.sammy.malum.registry.common.item.tabs.*;
 import net.minecraft.resources.*;
 import net.minecraft.util.*;
-import net.minecraftforge.eventbus.api.*;
-import net.minecraftforge.fml.*;
-import net.minecraftforge.fml.common.*;
-import net.minecraftforge.fml.config.*;
-import net.minecraftforge.fml.javafmlmod.*;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.ModLoadingContext;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.config.ModConfig;
 import org.apache.logging.log4j.*;
 
 import static com.sammy.malum.registry.client.ParticleRegistry.*;
@@ -37,10 +36,10 @@ public class MalumMod {
     public static final RandomSource RANDOM = RandomSource.create();
 
     public MalumMod() {
-        IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
+        IEventBus modBus = ModLoadingContext.get().getActiveContainer().getEventBus();
 
-        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ClientConfig.SPEC);
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, CommonConfig.SPEC);
+        ModLoadingContext.get().getActiveContainer().registerConfig(ModConfig.Type.CLIENT, ClientConfig.SPEC);
+        ModLoadingContext.get().getActiveContainer().registerConfig(ModConfig.Type.COMMON, CommonConfig.SPEC);
 
         ENCHANTMENTS.register(modBus);
         BLOCKS.register(modBus);

@@ -6,7 +6,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.registries.RegistryObject;
+import net.minecraftforge.registries.DeferredHolder;
 import org.jetbrains.annotations.Nullable;
 import team.lodestar.lodestone.systems.datagen.providers.LodestoneBlockTagsProvider;
 
@@ -33,13 +33,13 @@ public class MalumBlockTags extends LodestoneBlockTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider pProvider) {
-        Set<RegistryObject<Block>> blocks = new HashSet<>(BLOCKS.getEntries());
+        Set<DeferredHolder<Block>> blocks = new HashSet<>(BLOCKS.getEntries());
 
         tag(BlockTagRegistry.RITE_IMMUNE).addTags(BlockTagRegistry.TAINTED_ROCK, BlockTagRegistry.TWISTED_ROCK);
 
         tag(BlockTagRegistry.ENDLESS_FLAME);
         tag(BlockTagRegistry.GREATER_AERIAL_WHITELIST);
 
-        addTagsFromBlockProperties(blocks.stream().map(RegistryObject::get).collect(Collectors.toList()));
+        addTagsFromBlockProperties(blocks.stream().map(DeferredHolder::get).collect(Collectors.toList()));
     }
 }

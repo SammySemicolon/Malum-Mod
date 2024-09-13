@@ -241,7 +241,7 @@ public class MalumVanillaRecipes implements IConditionBuilder {
         shapeless(RecipeCategory.MISC, output.get()).requires(ItemRegistry.ESOTERIC_SPOOL.get()).requires(sideItem).unlockedBy("has_spool", has(ItemRegistry.ESOTERIC_SPOOL.get())).save(consumer);
     }
 
-    private static void nodeSmelting(Consumer<FinishedRecipe> recipeConsumer, RegistryObject<ImpetusItem> impetus, RegistryObject<Item> node, TagKey<Item> tag) {
+    private static void nodeSmelting(Consumer<FinishedRecipe> recipeConsumer, DeferredHolder<ImpetusItem> impetus, DeferredHolder<Item> node, TagKey<Item> tag) {
         String name = ForgeRegistries.ITEMS.getKey(node.get()).getPath().replaceFirst("_node", "");
 
         ConditionalRecipe.builder().addCondition(new NotCondition(new TagEmptyCondition(tag.location().toString()))).addRecipe(

@@ -15,6 +15,7 @@ import com.sammy.malum.visual_effects.networked.data.ColorEffectData;
 import com.sammy.malum.visual_effects.networked.data.PositionEffectData;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
@@ -27,19 +28,14 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.*;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.IItemHandlerModifiable;
-import net.minecraftforge.items.wrapper.CombinedInvWrapper;
+import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.items.wrapper.CombinedInvWrapper;
 import org.jetbrains.annotations.NotNull;
 import team.lodestar.lodestone.helpers.BlockHelper;
 import team.lodestar.lodestone.helpers.DataHelper;
 import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntity;
 import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntityInventory;
 import team.lodestar.lodestone.systems.easing.Easing;
-import team.lodestar.lodestone.systems.recipe.IngredientWithCount;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -121,7 +117,7 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
     }
 
     @Override
-    protected void saveAdditional(CompoundTag compound) {
+    protected void saveAdditional(CompoundTag compound, HolderLookup.Provider pRegistries) {
         compound.putInt("progress", progress);
         compound.putInt("idleProgress", idleProgress);
         compound.putFloat("spiritYLevel", spiritYLevel);
@@ -132,13 +128,13 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
             BlockHelper.saveBlockPos(compound, acceleratorPositions.get(i), "" + i);
         }
 
-        inventory.save(compound);
-        spiritInventory.save(compound, "spiritInventory");
-        extrasInventory.save(compound, "extrasInventory");
+        inventory.save(pRegistries, compound);
+        spiritInventory.save(pRegistries, compound, "spiritInventory");
+        extrasInventory.save(pRegistries, compound, "extrasInventory");
     }
 
     @Override
-    public void load(CompoundTag compound) {
+    public void loadAdditional(CompoundTag compound, HolderLookup.Provider pRegistries) {
         progress = compound.getInt("progress");
         idleProgress = compound.getInt("idleProgress");
         spiritYLevel = compound.getFloat("spiritYLevel");
@@ -155,10 +151,10 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
                 accelerators.add(accelerator);
             }
         }
-        inventory.load(compound);
-        spiritInventory.load(compound, "spiritInventory");
-        extrasInventory.load(compound, "extrasInventory");
-        super.load(compound);
+        inventory.load(pRegistries, compound);
+        spiritInventory.load(pRegistries, compound, "spiritInventory");
+        extrasInventory.load(pRegistries, compound, "extrasInventory");
+        super.loadAdditional(compound, pRegistries);
     }
 
     @Override

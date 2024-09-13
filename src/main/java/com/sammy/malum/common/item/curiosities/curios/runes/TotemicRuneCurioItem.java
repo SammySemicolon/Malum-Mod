@@ -1,5 +1,6 @@
 package com.sammy.malum.common.item.curiosities.curios.runes;
 
+import com.sammy.malum.common.effect.aura.EarthenAura;
 import com.sammy.malum.common.spiritrite.*;
 import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.*;
@@ -10,7 +11,7 @@ import java.util.function.*;
 
 public class TotemicRuneCurioItem extends AbstractRuneCurioItem {
 
-    public final Supplier<MobEffect> mobEffectSupplier;
+    public final Supplier<EarthenAura> mobEffectSupplier;
     public final Predicate<LivingEntity> entityPredicate;
     private final int interval;
 

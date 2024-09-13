@@ -12,7 +12,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
-import net.minecraftforge.registries.RegistryObject;
+import net.minecraftforge.registries.DeferredHolder;
 
 import javax.annotation.Nullable;
 import java.util.function.Consumer;
@@ -29,7 +29,7 @@ public class SpiritTransmutationRecipeBuilder {
         this.output = output;
     }
 
-    public SpiritTransmutationRecipeBuilder(RegistryObject<? extends ItemLike> input, RegistryObject<? extends ItemLike> output) {
+    public SpiritTransmutationRecipeBuilder(DeferredHolder<? extends ItemLike> input, DeferredHolder<? extends ItemLike> output) {
         this(input.get(), output.get());
     }
 

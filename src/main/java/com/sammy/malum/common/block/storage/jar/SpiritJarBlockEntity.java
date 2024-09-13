@@ -8,6 +8,7 @@ import com.sammy.malum.registry.common.block.BlockEntityRegistry;
 import com.sammy.malum.visual_effects.SpiritLightSpecs;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -18,17 +19,13 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.items.IItemHandler;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.neoforge.items.IItemHandler;
 import org.jetbrains.annotations.NotNull;
 import team.lodestar.lodestone.helpers.BlockHelper;
 import team.lodestar.lodestone.registry.common.particle.*;
 import team.lodestar.lodestone.systems.blockentity.LodestoneBlockEntity;
-import team.lodestar.lodestone.systems.container.ItemInventory;
 import team.lodestar.lodestone.systems.particle.builder.WorldParticleBuilder;
 import team.lodestar.lodestone.systems.particle.data.GenericParticleData;
 import team.lodestar.lodestone.systems.particle.data.color.ColorParticleData;
@@ -216,7 +213,7 @@ public class SpiritJarBlockEntity extends LodestoneBlockEntity {
     }
 
     @Override
-    protected void saveAdditional(CompoundTag compound) {
+    protected void saveAdditional(CompoundTag compound, HolderLookup.Provider pRegistries) {
         if (type != null) {
             compound.putString("spirit", type.identifier);
         }
@@ -224,14 +221,14 @@ public class SpiritJarBlockEntity extends LodestoneBlockEntity {
     }
 
     @Override
-    public void load(@NotNull CompoundTag compound) {
+    public void loadAdditional(@NotNull CompoundTag compound, HolderLookup.Provider pRegistries) {
         if (compound.contains("spirit")) {
             type = SpiritHarvestHandler.getSpiritType(compound.getString("spirit"));
         } else {
             type = null;
         }
         count = compound.getInt("count");
-        super.load(compound);
+        super.loadAdditional(compound, pRegistries);
     }
 
     @Override

@@ -16,10 +16,8 @@ import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.block.entity.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.phys.*;
-import net.minecraftforge.api.distmarker.*;
-import net.minecraftforge.common.*;
-import net.minecraftforge.common.capabilities.*;
-import net.minecraftforge.common.util.*;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.systems.blockentity.*;
 import team.lodestar.lodestone.systems.multiblock.*;
@@ -66,23 +64,23 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity impleme
     }
 
     @Override
-    protected void saveAdditional(CompoundTag compound) {
+    protected void saveAdditional(CompoundTag compound, HolderLookup.Provider registryLookup) {
         if (burnTicks != 0) {
             compound.putFloat("burnTicks", burnTicks);
         }
 
-        inventory.save(compound);
-        augmentInventory.save(compound, "augmentInventory");
-        super.saveAdditional(compound);
+        inventory.save(registryLookup, compound);
+        augmentInventory.save(registryLookup, compound, "augmentInventory");
+        super.saveAdditional(compound, registryLookup);
     }
 
     @Override
-    public void load(CompoundTag compound) {
+    public void loadAdditional(CompoundTag compound, HolderLookup.Provider registries) {
         burnTicks = compound.getFloat("burnTicks");
 
-        inventory.load(compound);
-        augmentInventory.load(compound, "augmentInventory");
-        super.load(compound);
+        inventory.load(registries, compound);
+        augmentInventory.load(registries, compound, "augmentInventory");
+        super.loadAdditional(compound, registries);
     }
 
 

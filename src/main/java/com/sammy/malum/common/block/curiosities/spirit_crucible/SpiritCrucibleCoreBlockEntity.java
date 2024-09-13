@@ -25,10 +25,8 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.entity.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.phys.*;
-import net.minecraftforge.common.capabilities.*;
-import net.minecraftforge.common.util.*;
-import net.minecraftforge.items.*;
-import net.minecraftforge.items.wrapper.*;
+import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.items.wrapper.CombinedInvWrapper;
 import org.jetbrains.annotations.*;
 import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.systems.blockentity.*;
@@ -120,7 +118,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
     }
 
     @Override
-    protected void saveAdditional(CompoundTag compound) {
+    protected void saveAdditional(CompoundTag compound, HolderLookup.Provider pRegistries) {
         if (spiritAmount != 0) {
             compound.putFloat("spiritAmount", spiritAmount);
         }
@@ -133,14 +131,14 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
 
         compound.putInt("tuningType", tuningType.ordinal());
         acceleratorData.save(compound);
-        inventory.save(compound);
-        spiritInventory.save(compound, "spiritInventory");
-        augmentInventory.save(compound, "augmentInventory");
-        coreAugmentInventory.save(compound, "coreAugmentInventory");
+        inventory.save(pRegistries, compound);
+        spiritInventory.save(pRegistries, compound, "spiritInventory");
+        augmentInventory.save(pRegistries, compound, "augmentInventory");
+        coreAugmentInventory.save(pRegistries, compound, "coreAugmentInventory");
     }
 
     @Override
-    public void load(CompoundTag compound) {
+    public void loadAdditional(CompoundTag compound, HolderLookup.Provider pRegistries) {
         spiritAmount = compound.getFloat("spiritAmount");
         progress = compound.getFloat("progress");
         queuedCracks = compound.getInt("queuedCracks");
@@ -148,12 +146,12 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
         tuningType = CrucibleTuning.CrucibleAttributeType.values()[Mth.clamp(compound.getInt("tuningType"), 0, CrucibleTuning.CrucibleAttributeType.values().length-1)];
         acceleratorData = CrucibleAccelerationData.load(level, this, compound);
 
-        inventory.load(compound);
-        spiritInventory.load(compound, "spiritInventory");
-        augmentInventory.load(compound, "augmentInventory");
-        coreAugmentInventory.load(compound, "coreAugmentInventory");
+        inventory.load(pRegistries, compound);
+        spiritInventory.load(pRegistries, compound, "spiritInventory");
+        augmentInventory.load(pRegistries, compound, "augmentInventory");
+        coreAugmentInventory.load(pRegistries, compound, "coreAugmentInventory");
 
-        super.load(compound);
+        super.loadAdditional(compound, pRegistries);
     }
 
     @Override

@@ -7,7 +7,7 @@ import net.minecraft.core.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.phys.*;
-import net.minecraftforge.client.extensions.common.*;
+import net.neoforged.neoforge.client.extensions.common.IClientBlockExtensions;
 
 public class SpiritMoteBlockClientExtension implements IClientBlockExtensions {
 

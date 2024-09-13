@@ -1,10 +1,11 @@
 package com.sammy.malum.registry.client;
 
 import com.sammy.malum.*;
-import net.minecraftforge.client.event.*;
+import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
 import team.lodestar.lodestone.systems.particle.screen.*;
 
-import static team.lodestar.lodestone.registry.common.particle.LodestoneScreenParticleRegistry.*;
+import static team.lodestar.lodestone.registry.common.particle.LodestoneScreenParticleTypes.*;
+
 
 @SuppressWarnings("unused")
 public class ScreenParticleRegistry {

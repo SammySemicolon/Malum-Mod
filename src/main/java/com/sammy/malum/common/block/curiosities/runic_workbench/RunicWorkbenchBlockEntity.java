@@ -15,7 +15,6 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.entity.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.phys.*;
-import net.minecraftforge.network.*;
 import team.lodestar.lodestone.helpers.*;
 
 import java.util.*;

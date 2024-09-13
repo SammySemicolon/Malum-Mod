@@ -72,7 +72,7 @@ public class MalumItemTags extends ItemTagsProvider {
         tag(ItemTagRegistry.SAPBALLS).add(RUNIC_SAPBALL.get(), CURSED_SAPBALL.get());
         tag(ItemTagRegistry.GROSS_FOODS).add(Items.ROTTEN_FLESH, ROTTING_ESSENCE.get(), CONCENTRATED_GLUTTONY.get());
 
-        ITEMS.getEntries().stream().filter(i -> i.get() instanceof NodeItem).map(RegistryObject::get).forEach(i -> {
+        ITEMS.getEntries().stream().filter(i -> i.get() instanceof NodeItem).map(DeferredHolder::get).forEach(i -> {
             tag(ItemTagRegistry.METAL_NODES).add(i);
         });
         tag(ItemTagRegistry.PROSPECTORS_TREASURE)
@@ -194,7 +194,7 @@ public class MalumItemTags extends ItemTagsProvider {
                 // Aesthetica
                 .add(AESTHETICA.get());
 
-        for (RegistryObject<Item> i : ITEMS.getEntries()) {
+        for (DeferredHolder<Item> i : ITEMS.getEntries()) {
             if (i.get() instanceof MalumCurioItem) {
                 final Item item = i.get();
                 final ResourceLocation id = i.getId();
@@ -227,7 +227,7 @@ public class MalumItemTags extends ItemTagsProvider {
     }
 
     public void safeCopy(DeferredRegister<Block> blocks, TagKey<Block> blockTag, TagKey<Item> itemTag) {
-        for (RegistryObject<Block> object : blocks.getEntries()) {
+        for (DeferredHolder<Block> object : blocks.getEntries()) {
             final Block block = object.get();
             if (block.properties instanceof LodestoneBlockProperties lodestoneBlockProperties) {
                 final LodestoneDatagenBlockData datagenData = lodestoneBlockProperties.getDatagenData();

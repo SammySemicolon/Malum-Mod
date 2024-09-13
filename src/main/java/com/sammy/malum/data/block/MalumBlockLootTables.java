@@ -59,7 +59,7 @@ public class MalumBlockLootTables extends LootTableProvider {
 
         @Override
         protected void generate() {
-            Set<RegistryObject<Block>> blocks = new HashSet<>(BLOCKS.getEntries());
+            Set<DeferredHolder<Block>> blocks = new HashSet<>(BLOCKS.getEntries());
 
             takeAll(blocks, b -> b.get().properties instanceof LodestoneBlockProperties && ((LodestoneBlockProperties) b.get().properties).getDatagenData().hasInheritedLootTable);
 

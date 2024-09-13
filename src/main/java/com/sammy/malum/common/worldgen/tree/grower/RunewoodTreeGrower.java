@@ -3,6 +3,8 @@ package com.sammy.malum.common.worldgen.tree.grower;
 import com.sammy.malum.registry.common.worldgen.*;
 import net.minecraft.resources.*;
 import net.minecraft.util.*;
+import net.minecraft.world.level.block.BambooSaplingBlock;
+import net.minecraft.world.level.block.SaplingBlock;
 import net.minecraft.world.level.block.grower.*;
 import net.minecraft.world.level.levelgen.feature.*;
 

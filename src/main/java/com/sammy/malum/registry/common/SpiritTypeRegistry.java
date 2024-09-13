@@ -3,8 +3,9 @@ package com.sammy.malum.registry.common;
 import com.sammy.malum.*;
 import com.sammy.malum.core.systems.spirit.*;
 import com.sammy.malum.registry.common.item.*;
-import net.minecraftforge.api.distmarker.*;
-import net.minecraftforge.fml.common.*;
+
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.fml.common.EventBusSubscriber;
 import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.systems.easing.*;
 
@@ -13,7 +14,7 @@ import java.util.List;
 import java.util.*;
 
 @SuppressWarnings("unchecked")
-@Mod.EventBusSubscriber(modid = MalumMod.MALUM, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = MalumMod.MALUM, value = Dist.CLIENT, bus = EventBusSubscriber.Bus.MOD)
 public class SpiritTypeRegistry {
 
     public static Map<String, MalumSpiritType> SPIRITS = new LinkedHashMap<>();

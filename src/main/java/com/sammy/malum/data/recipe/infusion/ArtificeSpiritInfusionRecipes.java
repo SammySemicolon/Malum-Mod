@@ -138,7 +138,7 @@ public class ArtificeSpiritInfusionRecipes {
         metalImpetusRecipe(consumer, ItemRegistry.TIN_IMPETUS, INGOTS_TIN);
     }
 
-    public static void metalImpetusRecipe(Consumer<FinishedRecipe> consumer, RegistryObject<ImpetusItem> output, TagKey<Item> ingot) {
+    public static void metalImpetusRecipe(Consumer<FinishedRecipe> consumer, DeferredHolder<ImpetusItem> output, TagKey<Item> ingot) {
         ConditionalRecipe.builder().addCondition(new NotCondition(new TagEmptyCondition(ingot.location().toString()))).addRecipe(
                         new SpiritInfusionRecipeBuilder(ItemRegistry.ALCHEMICAL_IMPETUS.get(), 1, output.get(), 1)
                                 .addSpirit(EARTHEN_SPIRIT, 8)
@@ -151,7 +151,7 @@ public class ArtificeSpiritInfusionRecipes {
                 .build(consumer, MalumMod.malumPath("impetus_creation_" + ingot.location().getPath().replace("ingots/", "")));
     }
 
-    public static void metalImpetusRecipe(Consumer<FinishedRecipe> consumer, RegistryObject<ImpetusItem> output, Item ingot) {
+    public static void metalImpetusRecipe(Consumer<FinishedRecipe> consumer, DeferredHolder<ImpetusItem> output, Item ingot) {
         new SpiritInfusionRecipeBuilder(ItemRegistry.ALCHEMICAL_IMPETUS.get(), 1, output.get(), 1)
                 .addSpirit(EARTHEN_SPIRIT, 8)
                 .addSpirit(INFERNAL_SPIRIT, 8)

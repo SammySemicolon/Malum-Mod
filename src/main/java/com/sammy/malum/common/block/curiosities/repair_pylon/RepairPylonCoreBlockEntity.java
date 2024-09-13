@@ -19,10 +19,8 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.entity.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.phys.*;
-import net.minecraftforge.common.capabilities.*;
-import net.minecraftforge.common.util.*;
-import net.minecraftforge.items.*;
-import net.minecraftforge.items.wrapper.*;
+import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.items.wrapper.CombinedInvWrapper;
 import org.jetbrains.annotations.*;
 import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.systems.blockentity.*;
@@ -117,7 +115,7 @@ public class RepairPylonCoreBlockEntity extends MultiBlockCoreEntity {
     }
 
     @Override
-    protected void saveAdditional(CompoundTag compound) {
+    protected void saveAdditional(CompoundTag compound, HolderLookup.Provider pRegistries) {
         compound.putString("state", state.name);
         if (spiritAmount != 0) {
             compound.putFloat("spiritAmount", spiritAmount);
@@ -128,20 +126,20 @@ public class RepairPylonCoreBlockEntity extends MultiBlockCoreEntity {
         if (timer != 0) {
             compound.putInt("timer", timer);
         }
-        inventory.save(compound);
-        spiritInventory.save(compound, "spiritInventory");
+        inventory.save(pRegistries, compound);
+        spiritInventory.save(pRegistries, compound, "spiritInventory");
     }
 
     @Override
-    public void load(CompoundTag compound) {
+    public void loadAdditional(CompoundTag compound, HolderLookup.Provider pRegistries) {
         state = compound.contains("state") ? CODEC.byName(compound.getString("state")) : RepairPylonState.IDLE;
         spiritAmount = compound.getFloat("spiritAmount");
         repairablePosition = BlockHelper.loadBlockPos(compound.getCompound("targetedBlock"));
         timer = compound.getInt("timer");
-        inventory.load(compound);
-        spiritInventory.load(compound, "spiritInventory");
+        inventory.load(pRegistries, compound);
+        spiritInventory.load(pRegistries, compound, "spiritInventory");
 
-        super.load(compound);
+        super.loadAdditional(compound, pRegistries);
     }
 
     @Override

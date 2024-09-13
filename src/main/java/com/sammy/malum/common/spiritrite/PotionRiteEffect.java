@@ -1,6 +1,7 @@
 package com.sammy.malum.common.spiritrite;
 
 import com.sammy.malum.common.block.curiosities.totem.TotemBaseBlockEntity;
+import com.sammy.malum.common.effect.aura.EarthenAura;
 import com.sammy.malum.common.packets.particle.curiosities.rite.generic.MajorEntityEffectParticlePacket;
 import net.minecraft.server.level.*;
 import net.minecraft.world.effect.*;
@@ -16,9 +17,9 @@ import static com.sammy.malum.registry.common.PacketRegistry.MALUM_CHANNEL;
 public class PotionRiteEffect extends TotemicRiteEffect {
 
     public final Class<? extends LivingEntity> targetClass;
-    public final Supplier<MobEffect> mobEffectSupplier;
+    public final Supplier<EarthenAura> mobEffectSupplier;
 
-    public PotionRiteEffect(Class<? extends LivingEntity> targetClass, Supplier<MobEffect> mobEffectSupplier) {
+    public PotionRiteEffect(Class<? extends LivingEntity> targetClass, Supplier<EarthenAura> mobEffectSupplier) {
         super(MalumRiteEffectCategory.AURA);
         this.targetClass = targetClass;
         this.mobEffectSupplier = mobEffectSupplier;

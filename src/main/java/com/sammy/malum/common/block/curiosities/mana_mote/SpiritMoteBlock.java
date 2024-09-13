@@ -4,7 +4,7 @@ import com.sammy.malum.core.systems.spirit.*;
 import com.sammy.malum.registry.common.*;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.*;
-import net.minecraftforge.client.extensions.common.*;
+import net.neoforged.neoforge.client.extensions.common.IClientBlockExtensions;
 import team.lodestar.lodestone.systems.block.*;
 
 import java.util.function.*;

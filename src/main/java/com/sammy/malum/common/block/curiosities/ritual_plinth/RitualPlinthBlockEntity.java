@@ -23,14 +23,11 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.entity.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.phys.*;
-import net.minecraftforge.common.capabilities.*;
-import net.minecraftforge.common.util.*;
-import net.minecraftforge.items.*;
-import net.minecraftforge.items.wrapper.*;
+import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.items.wrapper.CombinedInvWrapper;
 import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.systems.blockentity.*;
 import team.lodestar.lodestone.systems.easing.*;
-import team.lodestar.lodestone.systems.recipe.*;
 
 import javax.annotation.*;
 import java.util.*;
@@ -81,7 +78,7 @@ public class RitualPlinthBlockEntity extends LodestoneBlockEntity {
     }
 
     @Override
-    protected void saveAdditional(CompoundTag compound) {
+    protected void saveAdditional(CompoundTag compound, HolderLookup.Provider pRegistries) {
         if (spiritAmount != 0) {
             compound.putInt("spiritAmount", spiritAmount);
         }
@@ -97,22 +94,22 @@ public class RitualPlinthBlockEntity extends LodestoneBlockEntity {
         if (ritualType != null) {
             compound.putString("ritualType", ritualType.identifier.toString());
         }
-        inventory.save(compound);
-        extrasInventory.save(compound, "extrasInventory");
+        inventory.save(pRegistries, compound);
+        extrasInventory.save(pRegistries, compound, "extrasInventory");
     }
 
     @Override
-    public void load(CompoundTag compound) {
+    public void loadAdditional(CompoundTag compound, HolderLookup.Provider pRegistries) {
         spiritAmount = compound.getInt("spiritAmount");
         progress = compound.getInt("progress");
         setupComplete = compound.getBoolean("setupComplete");
         activeDuration = compound.getFloat("activeDuration");
-        ritualType = RitualRegistry.get(new ResourceLocation(compound.getString("ritualType")));
+        ritualType = RitualRegistry.get(ResourceLocation.tryParse(compound.getString("ritualType")));
         ritualTier = MalumRitualTier.figureOutTier(spiritAmount);
 
-        inventory.load(compound);
-        extrasInventory.load(compound, "extrasInventory");
-        super.load(compound);
+        inventory.load(pRegistries, compound);
+        extrasInventory.load(pRegistries, compound, "extrasInventory");
+        super.loadAdditional(compound, pRegistries);
     }
 
     @Override
@@ -391,6 +388,7 @@ public class RitualPlinthBlockEntity extends LodestoneBlockEntity {
         }
         return super.getCapability(cap, side);
     }
+
 
 
     @Override

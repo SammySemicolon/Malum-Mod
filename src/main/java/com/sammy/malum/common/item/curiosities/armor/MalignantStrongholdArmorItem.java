@@ -11,8 +11,9 @@ import net.minecraft.util.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.item.*;
-import net.minecraftforge.api.distmarker.*;
-import net.minecraftforge.client.extensions.common.*;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import team.lodestar.lodestone.systems.model.*;
 
 import java.util.*;
