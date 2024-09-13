@@ -7,10 +7,9 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.network.NetworkEvent;
-import net.minecraftforge.network.simple.SimpleChannel;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
 import team.lodestar.lodestone.helpers.ColorHelper;
 import team.lodestar.lodestone.registry.common.particle.*;
 import team.lodestar.lodestone.systems.easing.Easing;
@@ -27,18 +26,15 @@ import java.util.function.Supplier;
 
 public class BlightTransformItemParticlePacket extends SpiritBasedParticleEffectPacket {
 
-    public BlightTransformItemParticlePacket(List<String> spirits, Vec3 pos) {
-        this(spirits, pos.x, pos.y, pos.z);
-    }
 
-    public BlightTransformItemParticlePacket(List<String> spirits, double posX, double posY, double posZ) {
-        super(spirits, posX, posY, posZ);
+    public BlightTransformItemParticlePacket(FriendlyByteBuf buf) {
+        super(buf);
     }
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public void execute(Supplier<NetworkEvent.Context> context) {
-        super.execute(context);
+    public void handle(IPayloadContext iPayloadContext) {
+        super.handle(iPayloadContext);
         Level level = Minecraft.getInstance().level;
         var rand = level.random;
         for (int i = 0; i < 3; i++) {
@@ -46,7 +42,7 @@ public class BlightTransformItemParticlePacket extends SpiritBasedParticleEffect
             float timeMultiplier = Mth.nextFloat(rand, 0.9f, 1.4f);
             Color color = new Color((int) (31 * multiplier), (int) (19 * multiplier), (int) (31 * multiplier));
             boolean spinDirection = rand.nextBoolean();
-            WorldParticleBuilder.create(LodestoneParticleRegistry.WISP_PARTICLE)
+            WorldParticleBuilder.create(LodestoneParticleTypes.WISP_PARTICLE)
                     .setTransparencyData(GenericParticleData.create(0.4f, 1f, 0).build())
                     .setLifetime((int) (45 * timeMultiplier))
                     .setSpinData(SpinParticleData.create(0.2f * (spinDirection ? 1 : -1)).build())
@@ -59,7 +55,7 @@ public class BlightTransformItemParticlePacket extends SpiritBasedParticleEffect
                     .setRenderType(LodestoneWorldParticleRenderType.LUMITRANSPARENT)
                     .repeat(level, posX, posY, posZ, 2);
 
-            WorldParticleBuilder.create(LodestoneParticleRegistry.SMOKE_PARTICLE)
+            WorldParticleBuilder.create(LodestoneParticleTypes.SMOKE_PARTICLE)
                     .setTransparencyData(GenericParticleData.create(0.35f, 0.55f, 0).build())
                     .setLifetime((int) (50 * timeMultiplier))
                     .setSpinData(SpinParticleData.create(0.1f * (spinDirection ? 1 : -1)).build())
@@ -73,7 +69,7 @@ public class BlightTransformItemParticlePacket extends SpiritBasedParticleEffect
                     .repeat(level, posX, posY, posZ, 3);
 
             color = new Color((int) (80 * multiplier), (int) (40 * multiplier), (int) (80 * multiplier));
-            WorldParticleBuilder.create(LodestoneParticleRegistry.SMOKE_PARTICLE)
+            WorldParticleBuilder.create(LodestoneParticleTypes.SMOKE_PARTICLE)
                     .setTransparencyData(GenericParticleData.create(0.1f, 0.15f, 0).build())
                     .setLifetime((int) (50 * timeMultiplier))
                     .setSpinData(SpinParticleData.create(0.1f * (spinDirection ? 1 : -1)).build())
@@ -89,14 +85,14 @@ public class BlightTransformItemParticlePacket extends SpiritBasedParticleEffect
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public void execute(Supplier<NetworkEvent.Context> context, MalumSpiritType spiritType) {
+    protected void handle(IPayloadContext iPayloadContext, MalumSpiritType spiritType) {
         Level level = Minecraft.getInstance().level;
         var rand = level.random;
         Color color = spiritType.getPrimaryColor();
         for (int i = 0; i < 3; i++) {
             int spinDirection = (rand.nextBoolean() ? 1 : -1);
             int spinOffset = rand.nextInt(360);
-            WorldParticleBuilder.create(LodestoneParticleRegistry.TWINKLE_PARTICLE)
+            WorldParticleBuilder.create(LodestoneParticleTypes.TWINKLE_PARTICLE)
                     .setTransparencyData(GenericParticleData.create(0.4f, 0.8f, 0).build())
                     .setLifetime(20)
                     .setSpinData(SpinParticleData.create(0.7f * spinDirection, 0).setSpinOffset(spinOffset).setSpinOffset(1.25f).setEasing(Easing.CUBIC_IN).build())
@@ -114,7 +110,7 @@ public class BlightTransformItemParticlePacket extends SpiritBasedParticleEffect
         int spinOffset = rand.nextInt(360);
         for (int i = 0; i < 3; i++) {
             int spinDirection = (rand.nextBoolean() ? 1 : -1);
-            WorldParticleBuilder.create(LodestoneParticleRegistry.SPARKLE_PARTICLE)
+            WorldParticleBuilder.create(LodestoneParticleTypes.SPARKLE_PARTICLE)
                     .setTransparencyData(GenericParticleData.create(0.12f, 0.06f, 0).setEasing(Easing.SINE_IN, Easing.CIRC_IN).build())
                     .setSpinData(SpinParticleData.create((0.125f + rand.nextFloat() * 0.075f) * spinDirection).setSpinOffset(spinOffset).build())
                     .setScaleData(GenericParticleData.create(0.85f, 0.5f, 0).setEasing(Easing.EXPO_OUT, Easing.SINE_IN).build())
@@ -126,13 +122,5 @@ public class BlightTransformItemParticlePacket extends SpiritBasedParticleEffect
                     .setDiscardFunction(SimpleParticleOptions.ParticleDiscardFunctionType.ENDING_CURVE_INVISIBLE)
                     .repeat(level, posX, posY, posZ, 5);
         }
-    }
-
-    public static void register(SimpleChannel instance, int index) {
-        instance.registerMessage(index, BlightTransformItemParticlePacket.class, BlightTransformItemParticlePacket::encode, BlightTransformItemParticlePacket::decode, BlightTransformItemParticlePacket::handle);
-    }
-
-    public static BlightTransformItemParticlePacket decode(FriendlyByteBuf buf) {
-        return decode(BlightTransformItemParticlePacket::new, buf);
     }
 }

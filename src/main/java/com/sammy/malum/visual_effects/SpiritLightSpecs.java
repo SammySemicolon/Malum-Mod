@@ -105,7 +105,7 @@ public class SpiritLightSpecs {
 
     public static ParticleEffectSpawner spiritLightSpecs(Level level, Vec3 pos, WorldParticleOptions options, Function<WorldParticleOptions, WorldParticleBuilder> builderSupplier) {
         var builder = builderSupplier.apply(options);
-        var bloomBuilder = builderSupplier.apply(new WorldParticleOptions(LodestoneParticleRegistry.WISP_PARTICLE));
+        var bloomBuilder = builderSupplier.apply(new WorldParticleOptions(LodestoneParticleTypes.WISP_PARTICLE));
         return spiritLightSpecs(level, pos, builder, bloomBuilder);
     }
 
@@ -126,11 +126,11 @@ public class SpiritLightSpecs {
     }
 
     public static WorldParticleBuilder spiritBloom(Level level, MalumSpiritType spiritType, int lifetime) {
-        return spiritBloom(level, spiritType, new WorldParticleOptions(LodestoneParticleRegistry.WISP_PARTICLE), lifetime);
+        return spiritBloom(level, spiritType, new WorldParticleOptions(LodestoneParticleTypes.WISP_PARTICLE), lifetime);
     }
 
     public static WorldParticleBuilder spiritBloom(Level level, ColorParticleData colorData, int lifetime) {
-        return spiritBloom(level, colorData, new WorldParticleOptions(LodestoneParticleRegistry.WISP_PARTICLE), lifetime);
+        return spiritBloom(level, colorData, new WorldParticleOptions(LodestoneParticleTypes.WISP_PARTICLE), lifetime);
     }
 
     public static WorldParticleBuilder spiritBloom(Level level, MalumSpiritType spiritType, WorldParticleOptions options, int lifetime) {

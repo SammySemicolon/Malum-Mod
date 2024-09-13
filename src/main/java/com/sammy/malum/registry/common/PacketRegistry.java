@@ -10,6 +10,8 @@ import com.sammy.malum.common.packets.particle.curiosities.rite.generic.MajorEnt
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
+import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 import team.lodestar.lodestone.registry.common.LodestoneNetworkPayloads;
 
 @SuppressWarnings("unused")
@@ -20,29 +22,25 @@ public class PacketRegistry {
 
     @SuppressWarnings("UnusedAssignment")
     @SubscribeEvent
-    public static void registerNetworkStuff(FMLCommonSetupEvent event) {
-        int index = 0;
+    public static void registerNetworkStuff(RegisterPayloadHandlersEvent event) {
+        final PayloadRegistrar registrar = event.registrar("1");
 
         //functionality
-        VoidRejectionPacket.register(MALUM_CHANNEL, index++);
-        SyncStaffCooldownChangesPacket.register(MALUM_CHANNEL, index++);
-
-        ParticleEffectPacket.register(MALUM_CHANNEL, index++);
-
-        MajorEntityEffectParticlePacket.register(MALUM_CHANNEL, index++);
-
-        SacredMistRiteEffectPacket.register(MALUM_CHANNEL, index++);
-        BlockSparkleParticlePacket.register(MALUM_CHANNEL, index++);
-        InfernalAccelerationRiteEffectPacket.register(MALUM_CHANNEL, index++);
-        InfernalExtinguishRiteEffectPacket.register(MALUM_CHANNEL, index++);
-        AerialBlockFallRiteEffectPacket.register(MALUM_CHANNEL, index++);
-        SpiritRiteActivationEffectPacket.register(MALUM_CHANNEL, index++);
+        MALUM_CHANNEL.playToClient(registrar, "void_rejection", VoidRejectionPacket::new);
+        MALUM_CHANNEL.playToClient(registrar, "sync_staff_cooldown_changes", SyncStaffCooldownChangesPacket::new);
+        MALUM_CHANNEL.playToClient(registrar, "particle_effect", ParticleEffectPacket::new);
+        MALUM_CHANNEL.playToClient(registrar, "major_entity_effect", MajorEntityEffectParticlePacket::new);
+        MALUM_CHANNEL.playToClient(registrar, "sacred_mist_rite_effect", SacredMistRiteEffectPacket::new);
+        MALUM_CHANNEL.playToClient(registrar, "block_sparkle_particle", BlockSparkleParticlePacket::new);
+        MALUM_CHANNEL.playToClient(registrar, "infernal_acceleration_rite_effect", InfernalAccelerationRiteEffectPacket::new);
+        MALUM_CHANNEL.playToClient(registrar, "infernal_extinguish_rite_effect", InfernalExtinguishRiteEffectPacket::new);
+        MALUM_CHANNEL.playToClient(registrar, "aerial_block_fall_rite_effect", AerialBlockFallRiteEffectPacket::new);
+        MALUM_CHANNEL.playToClient(registrar, "spirit_rite_activation", SpiritRiteActivationEffectPacket::new);
 
         SyncMalumPlayerCapabilityDataPacket.register(MALUM_CHANNEL, index++);
         SyncLivingCapabilityDataPacket.register(MALUM_CHANNEL, index++);
 
-        BlightMistParticlePacket.register(MALUM_CHANNEL, index++);
-        BlightTransformItemParticlePacket.register(MALUM_CHANNEL, index++);
-
+        MALUM_CHANNEL.playToClient(registrar, "blight_mist_particle", BlightMistParticlePacket::new);
+        MALUM_CHANNEL.playToClient(registrar, "blight_transformation_item_particle", BlightTransformItemParticlePacket::new);
     }
 }

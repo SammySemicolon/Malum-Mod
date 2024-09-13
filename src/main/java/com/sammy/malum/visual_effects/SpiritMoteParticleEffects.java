@@ -33,7 +33,7 @@ public class SpiritMoteParticleEffects {
         if (!pState.isAir()) {
             VoxelShape voxelshape = pState.getShape(level, pPos);
 
-            var builder = SpiritBasedParticleBuilder.createSpirit(new LodestoneTerrainParticleOptions(LodestoneParticleRegistry.TERRAIN_PARTICLE, pState, pPos))
+            var builder = SpiritBasedParticleBuilder.createSpirit(new LodestoneTerrainParticleOptions(LodestoneParticleTypes.TERRAIN_PARTICLE, pState, pPos))
                     .setRenderType(LodestoneWorldParticleRenderType.TERRAIN_SHEET)
                     .setSpirit(spiritType)
                     .setGravityStrength(1f)

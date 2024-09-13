@@ -6,22 +6,21 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.network.NetworkEvent;
-import net.minecraftforge.network.simple.SimpleChannel;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 import java.awt.*;
 import java.util.function.Supplier;
 
 public class InfernalExtinguishRiteEffectPacket extends BlockSparkleParticlePacket {
-    public InfernalExtinguishRiteEffectPacket(Color color, BlockPos pos) {
-        super(color, pos);
+    public InfernalExtinguishRiteEffectPacket(FriendlyByteBuf buf) {
+        super(buf);
     }
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public void execute(Supplier<NetworkEvent.Context> context) {
+    public void handle(IPayloadContext iPayloadContext) {
         Level level = Minecraft.getInstance().level;
         var rand = level.random;
 
@@ -31,14 +30,6 @@ public class InfernalExtinguishRiteEffectPacket extends BlockSparkleParticlePack
             double d2 = pos.getZ() + rand.nextFloat();
             level.addParticle(ParticleTypes.LARGE_SMOKE, d0, d1, d2, 0.0D, 0.0D, 0.0D);
         }
-        super.execute(context);
-    }
-
-    public static void register(SimpleChannel instance, int index) {
-        instance.registerMessage(index, InfernalExtinguishRiteEffectPacket.class, InfernalExtinguishRiteEffectPacket::encode, InfernalExtinguishRiteEffectPacket::decode, InfernalExtinguishRiteEffectPacket::handle);
-    }
-
-    public static InfernalExtinguishRiteEffectPacket decode(FriendlyByteBuf buf) {
-        return decode(InfernalExtinguishRiteEffectPacket::new, buf);
+        super.handle(iPayloadContext);
     }
 }

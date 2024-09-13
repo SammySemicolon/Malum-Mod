@@ -99,7 +99,7 @@ public class WeepingWellParticleEffects {
         for (int i = 0; i < 4; i++) {
             int spinDirection = (rand.nextBoolean() ? 1 : -1);
             float scaleMultiplier = (float) (1 + Math.pow(rand.nextFloat(), 2));
-            WorldParticleBuilder.create(LodestoneParticleRegistry.SPARKLE_PARTICLE)
+            WorldParticleBuilder.create(LodestoneParticleTypes.SPARKLE_PARTICLE)
                     .setTransparencyData(GenericParticleData.create(0.7f, 0.5f, 0).setEasing(Easing.SINE_IN, Easing.CIRC_IN).build())
                     .setSpinData(SpinParticleData.create((0.125f + rand.nextFloat() * 0.075f) * spinDirection).setSpinOffset(spinOffset).build())
                     .setScaleData(GenericParticleData.create(2.4f * scaleMultiplier, 0.8f, 0).setEasing(Easing.QUAD_IN, Easing.SINE_IN).build())
@@ -130,7 +130,7 @@ public class WeepingWellParticleEffects {
             float yMotion = 0.004f;
             Color color = getWeepingWellSmokeColor(rand);
             ColorParticleData colorData = ColorParticleData.create(color, color.darker()).setCoefficient(0.5f).build();
-            WorldParticleBuilder.create(LodestoneParticleRegistry.WISP_PARTICLE, LodestoneBehaviorComponent.DIRECTIONAL)
+            WorldParticleBuilder.create(LodestoneParticleTypes.WISP_PARTICLE, LodestoneBehaviorComponent.DIRECTIONAL)
                     .setTransparencyData(GenericParticleData.create(0.6f, 0.4f, 0f).setEasing(Easing.SINE_IN, Easing.SINE_OUT).build())
                     .setSpinData(SpinParticleData.createRandomDirection(rand, 0.02f, 0.04f, 0).setEasing(Easing.SINE_IN, Easing.SINE_OUT).build())
                     .setScaleData(GenericParticleData.create(0f, 0.6f, 0.3f).setEasing(Easing.SINE_IN, Easing.SINE_OUT).build())
@@ -173,7 +173,7 @@ public class WeepingWellParticleEffects {
             float yMotion = 0.0005f;
             Color color = getWeepingWellSmokeColor(rand);
             ColorParticleData colorData = ColorParticleData.create(color, color.darker()).setCoefficient(0.5f).build();
-            WorldParticleBuilder.create(LodestoneParticleRegistry.WISP_PARTICLE, new DirectionalBehaviorComponent(new Vec3(0, 1, 0)))
+            WorldParticleBuilder.create(LodestoneParticleTypes.WISP_PARTICLE, new DirectionalBehaviorComponent(new Vec3(0, 1, 0)))
                     .setTransparencyData(GenericParticleData.create(0.8f, 0.6f, 0f).setEasing(Easing.SINE_IN, Easing.SINE_OUT).build())
                     .setSpinData(SpinParticleData.createRandomDirection(rand, 0.02f, 0.04f, 0).setEasing(Easing.SINE_IN, Easing.SINE_OUT).build())
                     .setScaleData(GenericParticleData.create(0f, 0.2f, 0.05f).setEasing(Easing.SINE_IN, Easing.SINE_OUT).build())

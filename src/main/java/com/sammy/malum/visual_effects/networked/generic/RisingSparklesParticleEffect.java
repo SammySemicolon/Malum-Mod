@@ -41,7 +41,7 @@ public class RisingSparklesParticleEffect extends ParticleEffectType {
                 int spinDirection = (random.nextBoolean() ? 1 : -1);
                 int spinOffset = random.nextInt(360);
                 int lifetime = (int) (20 * Mth.nextFloat(random, 0.9f, 1.8f));
-                WorldParticleBuilder.create(LodestoneParticleRegistry.TWINKLE_PARTICLE)
+                WorldParticleBuilder.create(LodestoneParticleTypes.TWINKLE_PARTICLE)
                         .setTransparencyData(GenericParticleData.create(0.4f, 0.8f, 0).build())
                         .setSpinData(SpinParticleData.create(0.7f * spinDirection, 0).setSpinOffset(spinOffset).setSpinOffset(1.25f).setEasing(Easing.CUBIC_IN).build())
                         .setScaleData(GenericParticleData.create(0.075f, 0.15f, 0).setCoefficient(0.8f).setEasing(Easing.QUINTIC_OUT, Easing.EXPO_IN_OUT).build())

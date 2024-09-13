@@ -95,7 +95,7 @@ public class EthericNitrateImpactParticleEffect extends ParticleEffectType {
             for (int i = 0; i < 3; i++) {
                 final SpinParticleData spinData = SpinParticleData.createRandomDirection(random, nextFloat(random, 0.05f, 0.1f)).randomSpinOffset(random).build();
                 float scaleMultiplier = (float) (1 + Math.pow(random.nextFloat(), 2) * 0.5f);
-                WorldParticleBuilder.create(LodestoneParticleRegistry.SPARKLE_PARTICLE)
+                WorldParticleBuilder.create(LodestoneParticleTypes.SPARKLE_PARTICLE)
                         .setTransparencyData(GenericParticleData.create(0.35f, 0.07f, 0).setEasing(Easing.SINE_IN, Easing.CIRC_IN).build())
                         .setLifetime(15)
                         .setSpinData(spinData)

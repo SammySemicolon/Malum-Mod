@@ -33,7 +33,7 @@ public class BlightingMistParticleEffect extends ParticleEffectType {
                 float timeMultiplier = Mth.nextFloat(level.random, 0.9f, 1.4f);
                 Color color = new Color((int) (31 * multiplier), (int) (19 * multiplier), (int) (31 * multiplier));
                 boolean spinDirection = level.random.nextBoolean();
-                WorldParticleBuilder.create(LodestoneParticleRegistry.WISP_PARTICLE)
+                WorldParticleBuilder.create(LodestoneParticleTypes.WISP_PARTICLE)
                         .setTransparencyData(GenericParticleData.create(0.15f, 1f, 0).build())
                         .setSpinData(SpinParticleData.create(0.2f * (spinDirection ? 1 : -1)).build())
                         .setScaleData(GenericParticleData.create(0.15f, 0.2f, 0).setEasing(Easing.QUINTIC_OUT, Easing.SINE_IN).build())
@@ -45,7 +45,7 @@ public class BlightingMistParticleEffect extends ParticleEffectType {
                         .setRenderType(LodestoneWorldParticleRenderType.LUMITRANSPARENT)
                         .repeatSurroundBlock(level, pos, 2, Direction.UP);
 
-                WorldParticleBuilder.create(LodestoneParticleRegistry.SMOKE_PARTICLE)
+                WorldParticleBuilder.create(LodestoneParticleTypes.SMOKE_PARTICLE)
                         .setTransparencyData(GenericParticleData.create(0.25f, 0.55f, 0).build())
                         .setLifetime((int) (50 * timeMultiplier))
                         .setSpinData(SpinParticleData.create(0.1f * (spinDirection ? 1 : -1)).build())
@@ -58,7 +58,7 @@ public class BlightingMistParticleEffect extends ParticleEffectType {
                         .repeatSurroundBlock(level, pos, 2, Direction.UP);
 
                 color = new Color((int) (80 * multiplier), (int) (40 * multiplier), (int) (80 * multiplier));
-                WorldParticleBuilder.create(LodestoneParticleRegistry.SMOKE_PARTICLE)
+                WorldParticleBuilder.create(LodestoneParticleTypes.SMOKE_PARTICLE)
                         .setTransparencyData(GenericParticleData.create(0.02f, 0.15f, 0).build())
                         .setSpinData(SpinParticleData.create(0.1f * (spinDirection ? 1 : -1)).build())
                         .setScaleData(GenericParticleData.create(0.35f, 0.4f, 0).setEasing(Easing.QUINTIC_OUT, Easing.SINE_IN).build())

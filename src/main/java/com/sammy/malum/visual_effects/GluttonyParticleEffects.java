@@ -31,7 +31,7 @@ public class GluttonyParticleEffects {
 
         for (int i = 0; i < 2; i++) {
             int lifetime = RandomHelper.randomBetween(random, 20, 30);
-            WorldParticleBuilder.create(LodestoneParticleRegistry.WISP_PARTICLE)
+            WorldParticleBuilder.create(LodestoneParticleTypes.WISP_PARTICLE)
                     .setTransparencyData(GenericParticleData.create(0.2f, 0.7f, 0).build().multiplyValue(gluttonyPotency))
                     .setSpinData(SpinParticleData.createRandomDirection(random, 0.05f).build())
                     .setScaleData(GenericParticleData.create(0.2f, 0.75f, 0f).setCoefficient(1.25f).setEasing(Easing.SINE_IN, Easing.SINE_IN_OUT).build())
@@ -48,7 +48,7 @@ public class GluttonyParticleEffects {
         float scale = 0.2f * gluttonyPotency;
         int count = gluttonyPotency < 1f ? 6 : 8;
 
-        var ring = gluttonyRing(positionData.getAsVector(), new WorldParticleOptions(LodestoneParticleRegistry.SPARKLE_PARTICLE), distance, count);
+        var ring = gluttonyRing(positionData.getAsVector(), new WorldParticleOptions(LodestoneParticleTypes.SPARKLE_PARTICLE), distance, count);
         ring.getBuilder()
                 .replaceExistingBehavior(SparkBehaviorComponent.class, c -> new SparkBehaviorComponent(c.getLengthData().multiplyValue(length).bake()))
                 .modifyData(AbstractParticleBuilder::getTransparencyData, d -> d.multiplyValue(gluttonyPotency))
@@ -62,7 +62,7 @@ public class GluttonyParticleEffects {
 
         for (int i = 0; i < 4; i++) {
             int lifetime = RandomHelper.randomBetween(random, 30, 40);
-            WorldParticleBuilder.create(LodestoneParticleRegistry.WISP_PARTICLE, LodestoneBehaviorComponent.DIRECTIONAL)
+            WorldParticleBuilder.create(LodestoneParticleTypes.WISP_PARTICLE, LodestoneBehaviorComponent.DIRECTIONAL)
                     .setTransparencyData(GenericParticleData.create(0.2f, 0.7f, 0).build())
                     .setColorData(ColorParticleData.create(GLUTTONY_DARK, GLUTTONY_SHADE).setCoefficient(2f).build())
                     .setScaleData(GenericParticleData.create(2f, 0f).setEasing(Easing.EXPO_IN).build())
@@ -74,7 +74,7 @@ public class GluttonyParticleEffects {
                     .enableNoClip()
                     .repeat(level, positionData.posX, positionData.posY, positionData.posZ, 2);
         }
-        var particle = LodestoneParticleRegistry.THIN_EXTRUDING_SPARK_PARTICLE;
+        var particle = LodestoneParticleTypes.THIN_EXTRUDING_SPARK_PARTICLE;
         var ring = gluttonyRing(positionData.getAsVector(), new WorldParticleOptions(particle), 1.2f, 32);
         ring.spawnParticles();
         ring = gluttonyRing(positionData.getAsVector(), new WorldParticleOptions(particle), 0.4f, 16, 0.5f);

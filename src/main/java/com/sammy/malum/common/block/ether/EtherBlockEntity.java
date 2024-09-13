@@ -145,7 +145,7 @@ public class EtherBlockEntity extends LodestoneBlockEntity {
                 int lifeTime = RandomHelper.randomBetween(random, 12, 14);
                 float scale = RandomHelper.randomBetween(random, 0.16f, 0.2f);
                 float velocity = RandomHelper.randomBetween(random, 0.02f, 0.03f);
-                WorldParticleBuilder.create(LodestoneParticleRegistry.WISP_PARTICLE)
+                WorldParticleBuilder.create(LodestoneParticleTypes.WISP_PARTICLE)
                         .setRenderTarget(RenderHandler.LATE_DELAYED_RENDER)
                         .setScaleData(GenericParticleData.create(scale, 0).setEasing(Easing.SINE_IN).build())
                         .setTransparencyData(GenericParticleData.create(0.4f, 0.8f, 0.2f).setEasing(Easing.QUAD_OUT).build())
@@ -157,7 +157,7 @@ public class EtherBlockEntity extends LodestoneBlockEntity {
                         .spawn(level, x, y, z);
                 lifeTime = 20;
                 scale = 0.4f;
-                WorldParticleBuilder.create(LodestoneParticleRegistry.TWINKLE_PARTICLE)
+                WorldParticleBuilder.create(LodestoneParticleTypes.TWINKLE_PARTICLE)
                         .setRenderTarget(RenderHandler.LATE_DELAYED_RENDER)
                         .setScaleData(GenericParticleData.create(scale, 0f).build())
                         .setTransparencyData(GenericParticleData.create(0.2f, 0.8f).build())

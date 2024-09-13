@@ -44,7 +44,7 @@ public class DrippingSmokeParticleEffect extends ParticleEffectType {
             for (int i = 0; i < 2; i++) {
                 int spinDirection = (random.nextBoolean() ? 1 : -1);
                 int spinOffset = random.nextInt(360);
-                WorldParticleBuilder.create(LodestoneParticleRegistry.SMOKE_PARTICLE)
+                WorldParticleBuilder.create(LodestoneParticleTypes.SMOKE_PARTICLE)
                         .setTransparencyData(GenericParticleData.create(0, 0.06f, 0).setCoefficient(1.2f).setEasing(Easing.SINE_IN_OUT, Easing.QUAD_IN).build())
                         .setSpinData(SpinParticleData.create(0.05f * spinDirection, 0.2f * spinDirection, 0).setSpinOffset(spinOffset).setEasing(Easing.SINE_IN_OUT, Easing.SINE_IN).build())
                         .setScaleData(GenericParticleData.create(0.8f, 0.4f, 0f).setEasing(Easing.QUARTIC_IN_OUT, Easing.QUAD_IN).build())
@@ -60,7 +60,7 @@ public class DrippingSmokeParticleEffect extends ParticleEffectType {
             for (int i = 0; i < 2; i++) {
                 int spinDirection = (random.nextBoolean() ? 1 : -1);
                 int spinOffset = random.nextInt(360);
-                WorldParticleBuilder.create(LodestoneParticleRegistry.WISP_PARTICLE)
+                WorldParticleBuilder.create(LodestoneParticleTypes.WISP_PARTICLE)
                         .setTransparencyData(GenericParticleData.create(0.02f, 0.14f, 0).setEasing(Easing.SINE_IN_OUT, Easing.EXPO_OUT).build())
                         .setSpinData(SpinParticleData.create(0.1f * spinDirection, 0.25f * spinDirection, 0).setSpinOffset(spinOffset).setEasing(Easing.SINE_IN_OUT, Easing.SINE_IN).build())
                         .setScaleData(GenericParticleData.create(0.6f, 0.3f, 0f).setEasing(Easing.SINE_IN_OUT, Easing.EXPO_OUT).build())

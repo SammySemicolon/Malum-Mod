@@ -5,38 +5,32 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.network.NetworkEvent;
-import net.minecraftforge.network.simple.SimpleChannel;
-import team.lodestar.lodestone.systems.network.LodestoneClientPacket;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
+import team.lodestar.lodestone.systems.network.OneSidedPayloadData;
 
 import java.util.function.Supplier;
 
-public class VoidRejectionPacket extends LodestoneClientPacket {
+public class VoidRejectionPacket extends OneSidedPayloadData {
     private final int entityId;
 
-    public VoidRejectionPacket(int entityId) {
-        this.entityId = entityId;
-    }
-
-    public void encode(FriendlyByteBuf buf) {
-        buf.writeInt(entityId);
+    public VoidRejectionPacket(FriendlyByteBuf byteBuf) {
+        super(byteBuf);
+        this.entityId = byteBuf.readInt();
     }
 
     @OnlyIn(Dist.CLIENT)
-    public void execute(Supplier<NetworkEvent.Context> context) {
+    @Override
+    public void handle(IPayloadContext iPayloadContext) {
         Entity entity = Minecraft.getInstance().level.getEntity(entityId);
         if (entity instanceof LivingEntity livingEntity) {
             MalumLivingEntityDataCapability.getCapabilityOptional(livingEntity).ifPresent(c -> c.touchOfDarknessHandler.reject(livingEntity));
         }
     }
 
-    public static void register(SimpleChannel instance, int index) {
-        instance.registerMessage(index, VoidRejectionPacket.class, VoidRejectionPacket::encode, VoidRejectionPacket::decode, VoidRejectionPacket::handle);
-    }
-
-    public static VoidRejectionPacket decode(FriendlyByteBuf buf) {
-        return new VoidRejectionPacket(buf.readInt());
+    @Override
+    public void serialize(FriendlyByteBuf buf) {
+        buf.writeInt(entityId);
     }
 }

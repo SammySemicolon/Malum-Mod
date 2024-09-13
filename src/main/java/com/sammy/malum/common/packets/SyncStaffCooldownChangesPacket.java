@@ -6,37 +6,32 @@ import net.minecraft.client.*;
 import net.minecraft.core.registries.*;
 import net.minecraft.network.*;
 import net.minecraft.world.item.*;
-import net.minecraftforge.api.distmarker.*;
-import net.minecraftforge.network.*;
-import net.minecraftforge.network.simple.*;
-import team.lodestar.lodestone.systems.network.*;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
+import team.lodestar.lodestone.systems.network.OneSidedPayloadData;
 
 import java.util.function.*;
 
-public class SyncStaffCooldownChangesPacket extends LodestoneClientPacket {
+public class SyncStaffCooldownChangesPacket extends OneSidedPayloadData {
     private final Item item;
     private final int enchantmentLevel;
 
-    public SyncStaffCooldownChangesPacket(Item pItem, int enchantmentLevel) {
-        this.item = pItem;
-        this.enchantmentLevel = enchantmentLevel;
+    public SyncStaffCooldownChangesPacket(FriendlyByteBuf buf) {
+        super(buf);
+        this.item =  ItemStack.OPTIONAL_STREAM_CODEC.decode(buf);
+        this.enchantmentLevel = buf.readInt();
     }
 
-    public void encode(FriendlyByteBuf buf) {
-        buf.writeId(BuiltInRegistries.ITEM, item);
-        buf.writeInt(enchantmentLevel);
+    @Override
+    public void serialize(FriendlyByteBuf friendlyByteBuf) {
+        friendlyByteBuf.writeById();
+        friendlyByteBuf.writeInt(this.enchantmentLevel);
     }
 
     @OnlyIn(Dist.CLIENT)
-    public void execute(Supplier<NetworkEvent.Context> context) {
+    @Override
+    public void handle(IPayloadContext iPayloadContext) {
         ReplenishingEnchantment.replenishStaffCooldown((AbstractStaffItem) item, Minecraft.getInstance().player, enchantmentLevel);
-    }
-
-    public static void register(SimpleChannel instance, int index) {
-        instance.registerMessage(index, SyncStaffCooldownChangesPacket.class, SyncStaffCooldownChangesPacket::encode, SyncStaffCooldownChangesPacket::decode, SyncStaffCooldownChangesPacket::handle);
-    }
-
-    public static SyncStaffCooldownChangesPacket decode(FriendlyByteBuf buf) {
-        return new SyncStaffCooldownChangesPacket(buf.readById(BuiltInRegistries.ITEM), buf.readInt());
     }
 }

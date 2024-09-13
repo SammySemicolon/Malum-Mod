@@ -38,7 +38,7 @@ public class RitualPlinthParticleEffects {
 
         for (int i = 0; i < 6; i++) {
             float scale = 2f + i * (i < 2 ? 6f : 1f) * Math.min(plinth.activeDuration, 30f) / 30f;
-            var lightSpecs = spiritLightSpecs(level, ritualIconPos, spiritType, new WorldParticleOptions(i < 2 ? ParticleRegistry.STAR : LodestoneParticleRegistry.TWINKLE_PARTICLE));
+            var lightSpecs = spiritLightSpecs(level, ritualIconPos, spiritType, new WorldParticleOptions(i < 2 ? ParticleRegistry.STAR : LodestoneParticleTypes.TWINKLE_PARTICLE));
             lightSpecs.getBuilder()
                     .setSpinData(SpinParticleData.create(0.4f, 0).setSpinOffset((level.getGameTime() * 0.05f) % 6.28f).setEasing(Easing.CUBIC_IN).build())
                     .setScaleData(GenericParticleData.create(RandomHelper.randomBetween(random, 0.2f, 0.3f) * scale, 0.1f * scale, 0).setEasing(Easing.QUAD_IN, Easing.SINE_IN).build())
@@ -52,7 +52,7 @@ public class RitualPlinthParticleEffects {
         for (int i = 0; i < 4; i++) {
             int spinDirection = (random.nextBoolean() ? 1 : -1);
             float scaleMultiplier = (float) (1+Math.pow(random.nextFloat(), 2));
-            WorldParticleBuilder.create(LodestoneParticleRegistry.SPARKLE_PARTICLE)
+            WorldParticleBuilder.create(LodestoneParticleTypes.SPARKLE_PARTICLE)
                     .setTransparencyData(GenericParticleData.create(0.4f, 0.5f, 0).setEasing(Easing.SINE_IN, Easing.CIRC_IN).build())
                     .setSpinData(SpinParticleData.create((0.125f + random.nextFloat() * 0.075f) * spinDirection).setSpinOffset(spinOffset).build())
                     .setScaleData(GenericParticleData.create(1.2f*scaleMultiplier, 0.4f, 0).setEasing(Easing.QUAD_IN, Easing.SINE_IN).build())
@@ -142,7 +142,7 @@ public class RitualPlinthParticleEffects {
         for (int i = 0; i < 4; i++) {
             int spinDirection = (random.nextBoolean() ? 1 : -1);
             float scaleMultiplier = (float) (1+Math.pow(random.nextFloat(), 2));
-            WorldParticleBuilder.create(LodestoneParticleRegistry.SPARKLE_PARTICLE)
+            WorldParticleBuilder.create(LodestoneParticleTypes.SPARKLE_PARTICLE)
                     .setTransparencyData(GenericParticleData.create(0.4f, 0.5f, 0).setEasing(Easing.SINE_IN, Easing.CIRC_IN).build())
                     .setSpinData(SpinParticleData.create((0.125f + random.nextFloat() * 0.075f) * spinDirection).setSpinOffset(spinOffset).build())
                     .setScaleData(GenericParticleData.create(1.2f*scaleMultiplier, 0.4f, 0).setEasing(Easing.QUAD_IN, Easing.SINE_IN).build())
@@ -214,7 +214,7 @@ public class RitualPlinthParticleEffects {
         for (int i = 0; i < 4; i++) {
             SpiritLightSpecs.coolLookingShinyThing(level, plinthItemPos, spiritType);
             float scale = 1f + i * (i < 2 ? 3f : 0.75f);
-            var lightSpecs = spiritLightSpecs(level, plinthItemPos, spiritType, new WorldParticleOptions(i < 2 ? ParticleRegistry.STAR : LodestoneParticleRegistry.TWINKLE_PARTICLE));
+            var lightSpecs = spiritLightSpecs(level, plinthItemPos, spiritType, new WorldParticleOptions(i < 2 ? ParticleRegistry.STAR : LodestoneParticleTypes.TWINKLE_PARTICLE));
             lightSpecs.getBuilder()
                     .setSpinData(SpinParticleData.create(0.2f, 0).setSpinOffset((level.getGameTime() * 0.05f) % 6.28f).setEasing(Easing.CUBIC_IN).build())
                     .modifyData(AbstractParticleBuilder::getScaleData, d -> d.multiplyValue(scale))
@@ -229,7 +229,7 @@ public class RitualPlinthParticleEffects {
         for (int i = 0; i < 6; i++) {
             float scale = 2f + i * (i < 2 ? 4f : 1f);
             Vec3 motion = new Vec3(0, 0.15f, 0);
-            var lightSpecs = spiritLightSpecs(level, ritualIconPos, spiritType, new WorldParticleOptions(i < 2 ? ParticleRegistry.STAR : LodestoneParticleRegistry.TWINKLE_PARTICLE));
+            var lightSpecs = spiritLightSpecs(level, ritualIconPos, spiritType, new WorldParticleOptions(i < 2 ? ParticleRegistry.STAR : LodestoneParticleTypes.TWINKLE_PARTICLE));
             lightSpecs.getBuilder()
                     .setSpinData(SpinParticleData.create(0.2f, 0).setSpinOffset((level.getGameTime() * 0.05f) % 6.28f).setEasing(Easing.CUBIC_IN).build())
                     .modifyData(AbstractParticleBuilder::getScaleData, d -> d.multiplyValue(scale))
@@ -431,7 +431,7 @@ public class RitualPlinthParticleEffects {
         final long gameTime = level.getGameTime();
         if (gameTime % 24L == 0) {
             float scale = 0.8f + 0.08f * (plinth.ritualTier != null ? plinth.ritualTier.potency : 0);
-            WorldParticleBuilder.create(random.nextBoolean() ? LodestoneParticleRegistry.TWINKLE_PARTICLE : LodestoneParticleRegistry.STAR_PARTICLE)
+            WorldParticleBuilder.create(random.nextBoolean() ? LodestoneParticleTypes.TWINKLE_PARTICLE : LodestoneParticleTypes.STAR_PARTICLE)
                     .setTransparencyData(GenericParticleData.create(0f, 0.6f, 0).setEasing(Easing.SINE_IN, Easing.CIRC_IN).build())
                     .setSpinData(SpinParticleData.createRandomDirection(random, RandomHelper.randomBetween(random, 0.025f, 0.05f)).randomSpinOffset(random).build())
                     .setScaleData(GenericParticleData.create(0.4f, scale, 0).setEasing(Easing.SINE_IN_OUT, Easing.SINE_IN).build())
