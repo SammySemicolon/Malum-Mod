@@ -10,12 +10,13 @@ import com.sammy.malum.common.packets.particle.curiosities.rite.generic.MajorEnt
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import team.lodestar.lodestone.registry.common.LodestoneNetworkPayloads;
 
 @SuppressWarnings("unused")
 @EventBusSubscriber(modid = MalumMod.MALUM, bus = EventBusSubscriber.Bus.MOD)
 public class PacketRegistry {
-    public static final String PROTOCOL_VERSION = "1";
-    public static SimpleChannel MALUM_CHANNEL = NetworkRegistry.newSimpleChannel(MalumMod.malumPath("main"), () -> PacketRegistry.PROTOCOL_VERSION, PacketRegistry.PROTOCOL_VERSION::equals, PacketRegistry.PROTOCOL_VERSION::equals);
+
+    public static LodestoneNetworkPayloads.PayloadNetworkChannel MALUM_CHANNEL =  new LodestoneNetworkPayloads.PayloadNetworkChannel(MalumMod.MALUM);
 
     @SuppressWarnings("UnusedAssignment")
     @SubscribeEvent
