@@ -114,6 +114,4 @@ public class SoulDataHandler {
         }
         return stack;
     }
-
-
 }

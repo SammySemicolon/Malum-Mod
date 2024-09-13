@@ -1,0 +1,9 @@
+{
+  "remove": [
+    "malum:music_disc_arcane_elegy",
+    "malum:music_disc_aesthetica"
+  ],
+  "values": [
+    "#minecraft:music_discs"
+  ]
+}

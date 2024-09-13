@@ -1100,7 +1100,12 @@ public class MalumLang extends LanguageProvider {
         addEffectDescription(MobEffectRegistry.AETHERS_CHARM, "The heavens call for you, increasing jump height and decreasing gravity.");
         addEffectDescription(MobEffectRegistry.POSEIDONS_GRASP, "You reach out for further power, increasing your reach and item pickup distance.");
         addEffectDescription(MobEffectRegistry.ANGLERS_LURE, "Let any fish who meets my gaze learn the true meaning of fear; for I am the harbinger of death. The bane of creatures sub-aqueous, my rod is true and unwavering as I cast into the aquatic abyss. A man, scorned by this uncaring Earth, finds solace in the sea. My only friend, the worm upon my hook. Wriggling, writhing, struggling to surmount the mortal pointlessness that permeates this barren world. I am alone. I am empty. And yet, I fish.");
+
         addEffectDescription(MobEffectRegistry.GLUTTONY, "You feed on the vulnerable, increasing scythe proficiency and gradually restoring lost hunger.");
+        addEffectDescription(MobEffectRegistry.CANCEROUS_GROWTH, "You are emboldened by uncontrolled growth, increasing maximum health.");
+        addEffectDescription(MobEffectRegistry.WICKED_INTENT, "You bring forth a powerful counter attack, increasing scythe proficiency for just one strike.");
+        addEffectDescription(MobEffectRegistry.SILENCED, "You are silenced, leaving your magical capabilities neutered.");
+        addEffectDescription(MobEffectRegistry.GRIM_CERTAINTY, "The Weight of Worlds oscillates, sealing the next strike as a critical blow.");
 
         addTetraMaterial("soul_stained_steel", "Soulstained Steel");
         addTetraMaterial("hallowed_gold", "Hallowed Gold");
