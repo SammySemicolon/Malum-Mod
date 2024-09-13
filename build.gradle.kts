@@ -190,6 +190,8 @@ dependencies {
 
     runtimeOnly(fg.deobf("curse.maven:create-328085:4626108"))
     //implementation(fg.deobf("curse.maven:jeed-532286:4599236"))
+    implementation(fg.deobf("curse.maven:mutil-351914:4824501"))
+    implementation(fg.deobf("curse.maven:tetra-289712:5544287"))
 
     runtimeOnly(fg.deobf("curse.maven:world-stripper-250603:4578579"))
     runtimeOnly(fg.deobf("curse.maven:spark-361579:4587309"))

@@ -65,7 +65,9 @@ public class MalumItemTags extends ItemTagsProvider {
         tag(Tags.Items.SLIMEBALLS).add(RUNIC_SAPBALL.get(), CURSED_SAPBALL.get());
         tag(Tags.Items.GEMS_QUARTZ).add(NATURAL_QUARTZ.get());
         tag(Tags.Items.ORES_QUARTZ).add(NATURAL_QUARTZ_ORE.get(), DEEPSLATE_QUARTZ_ORE.get());
+
         tag(ItemTags.MUSIC_DISCS).add(ARCANE_ELEGY.get(), AESTHETICA.get());
+        tag(ItemTagRegistry.ARCANE_ELEGY_COMPONENTS).addTag(ItemTags.MUSIC_DISCS).remove(ARCANE_ELEGY.get(), AESTHETICA.get());
 
         tag(ItemTagRegistry.SAPBALLS).add(RUNIC_SAPBALL.get(), CURSED_SAPBALL.get());
         tag(ItemTagRegistry.GROSS_FOODS).add(Items.ROTTEN_FLESH, ROTTING_ESSENCE.get(), CONCENTRATED_GLUTTONY.get());

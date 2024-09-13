@@ -1,23 +1,16 @@
 package com.sammy.malum.core.handlers;
 
-import com.sammy.malum.common.capability.MalumLivingEntityDataCapability;
-import com.sammy.malum.common.capability.MalumPlayerDataCapability;
-import com.sammy.malum.common.entity.boomerang.ScytheBoomerangEntity;
-import com.sammy.malum.registry.common.item.ItemTagRegistry;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
+import com.sammy.malum.common.capability.*;
+import com.sammy.malum.common.entity.boomerang.*;
+import com.sammy.malum.compability.tetra.*;
+import com.sammy.malum.registry.common.item.*;
+import net.minecraft.nbt.*;
+import net.minecraft.world.damagesource.*;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.goal.*;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.event.entity.EntityJoinLevelEvent;
-import net.minecraftforge.event.entity.living.LivingChangeTargetEvent;
-import net.minecraftforge.event.entity.living.LivingEvent;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.event.entity.living.MobSpawnEvent;
-
-import java.util.UUID;
+import net.minecraft.world.item.*;
+import net.minecraftforge.event.entity.*;
+import net.minecraftforge.event.entity.living.*;
 
 public class SoulDataHandler {
 
@@ -84,7 +77,7 @@ public class SoulDataHandler {
         SoulDataHandler soulData = MalumLivingEntityDataCapability.getCapability(target).soulData;
         if (source.getEntity() instanceof LivingEntity attacker) {
             ItemStack stack = getSoulHunterWeapon(source, attacker);
-            if (stack.is(ItemTagRegistry.SOUL_HUNTER_WEAPON) /*|| (TetraCompat.LOADED && TetraCompat.LoadedOnly.hasSoulStrike(stack))*/) {
+            if (stack.is(ItemTagRegistry.SOUL_HUNTER_WEAPON) || (TetraCompat.LOADED && TetraCompat.LoadedOnly.hasSoulStrike(stack))) {
                 soulData.exposedSoulDuration = 200;
             }
         }

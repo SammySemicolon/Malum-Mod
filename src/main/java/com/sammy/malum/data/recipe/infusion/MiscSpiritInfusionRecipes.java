@@ -71,5 +71,11 @@ public class MiscSpiritInfusionRecipes {
                 .addExtraItem(ItemRegistry.MALIGNANT_LEAD.get(), 1)
                 .build(consumer);
 
+        new SpiritInfusionRecipeBuilder(Ingredient.of(ItemTagRegistry.ARCANE_ELEGY_COMPONENTS), 1, ItemRegistry.ARCANE_ELEGY.get(), 1)
+                .addSpirit(AERIAL_SPIRIT, 4)
+                .addSpirit(AQUEOUS_SPIRIT, 4)
+                .addSpirit(EARTHEN_SPIRIT, 4)
+                .addSpirit(INFERNAL_SPIRIT, 4)
+                .build(consumer);
     }
 }

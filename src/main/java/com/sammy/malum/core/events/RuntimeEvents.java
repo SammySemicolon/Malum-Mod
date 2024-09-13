@@ -14,6 +14,7 @@ import com.sammy.malum.common.item.curiosities.curios.sets.misc.*;
 import com.sammy.malum.common.item.curiosities.curios.sets.prospector.*;
 import com.sammy.malum.common.item.curiosities.curios.sets.rotten.*;
 import com.sammy.malum.common.item.curiosities.curios.sets.weeping.*;
+import com.sammy.malum.compability.tetra.*;
 import com.sammy.malum.core.handlers.*;
 import com.sammy.malum.core.listeners.*;
 import net.minecraft.core.*;
@@ -48,12 +49,9 @@ public class RuntimeEvents {
         MalumPlayerDataCapability.playerJoin(event);
         CurioTokenOfGratitude.giveItem(event);
         SoulDataHandler.updateAi(event);
-        /*
         if (TetraCompat.LOADED) {
             TetraCompat.LoadedOnly.fireArrow(event);
         }
-
-         */
     }
 
 

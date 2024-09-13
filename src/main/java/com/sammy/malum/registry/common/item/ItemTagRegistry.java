@@ -49,6 +49,8 @@ public class ItemTagRegistry {
 
     public static final TagKey<Item> STRIPPED_LOGS = forgeTag("stripped_logs");
 
+    public static final TagKey<Item> ARCANE_ELEGY_COMPONENTS = malumTag("arcane_elegy_component");
+
     public static final TagKey<Item> BROOCH = modTag("curios:brooch");
     public static final TagKey<Item> BELT = modTag("curios:belt");
     public static final TagKey<Item> CHARM = modTag("curios:charm");
