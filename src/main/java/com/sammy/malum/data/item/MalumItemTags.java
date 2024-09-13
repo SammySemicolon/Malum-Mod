@@ -81,8 +81,7 @@ public class MalumItemTags extends FabricTagProvider.ItemTagProvider {
         getOrCreateTagBuilder(Tags.Items.ORES_QUARTZ).add(NATURAL_QUARTZ_ORE.get(), DEEPSLATE_QUARTZ_ORE.get());
         getOrCreateTagBuilder(ItemTags.MUSIC_DISCS).add(ARCANE_ELEGY.get()).add(AESTHETICA.get());
 
-        getOrCreateTagBuilder(ItemTagRegistry.ARCANE_ELEGY_COMPONENTS).addTag(ItemTags.MUSIC_DISCS).remove(ARCANE_ELEGY.get(), AESTHETICA.get());
-
+        getOrCreateTagBuilder(ItemTagRegistry.ARCANE_ELEGY_COMPONENTS).addTag(ItemTags.MUSIC_DISCS);//.remove(ARCANE_ELEGY.get(), AESTHETICA.get());
 
         getOrCreateTagBuilder(ItemTagRegistry.SAPBALLS).add(RUNIC_SAPBALL.get(), CURSED_SAPBALL.get());
         getOrCreateTagBuilder(ItemTagRegistry.GROSS_FOODS).add(Items.ROTTEN_FLESH, ROTTING_ESSENCE.get(), CONCENTRATED_GLUTTONY.get());

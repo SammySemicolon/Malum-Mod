@@ -6,6 +6,6 @@ import net.minecraft.world.item.*;
 public class ArcaneElegyMusicDiscItem extends RecordItem {
 
     public ArcaneElegyMusicDiscItem(Properties builder) {
-        super(62, SoundRegistry.ARCANE_ELEGY, builder, 5320);
+        super(62, SoundRegistry.ARCANE_ELEGY.get(), builder, 5320);
     }
 }

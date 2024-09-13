@@ -12,7 +12,6 @@ import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
-import net.minecraftforge.event.*;
 
 import java.util.function.*;
 
@@ -28,7 +27,7 @@ public class CatalystFlingerItem extends Item {
         this.entitySupplier = entitySupplier;
     }
 
-    public static void anvilUpdate(AnvilUpdateEvent event) {
+//    public static void anvilUpdate(AnvilUpdateEvent event) {
 //        var left = event.getLeft();
 //        if (left.getItem() instanceof NitrateFlingerItem) {
 //            var right = event.getRight();
@@ -41,7 +40,7 @@ public class CatalystFlingerItem extends Item {
 //                event.setOutput(copy);
 //            }
 //        }
-    }
+//    }
 
     @Override
     public void inventoryTick(ItemStack pStack, Level pLevel, Entity pEntity, int pSlotId, boolean pIsSelected) {

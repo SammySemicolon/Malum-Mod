@@ -1,6 +1,7 @@
 package com.sammy.malum.data.item;
 
 import com.sammy.malum.common.item.cosmetic.skins.ArmorSkin;
+import com.sammy.malum.common.item.curiosities.CatalystFlingerItem;
 import com.sammy.malum.common.item.spirit.RitualShardItem;
 import com.sammy.malum.core.systems.ritual.MalumRitualTier;
 import com.sammy.malum.registry.common.item.ArmorSkinRegistry;

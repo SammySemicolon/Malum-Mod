@@ -1,5 +1,5 @@
 package com.sammy.malum.compability.tetra;
-
+/*
 import com.sammy.malum.registry.common.item.EnchantmentRegistry;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Arrow;
@@ -46,3 +46,5 @@ public class TetraCompat {
         }
     }
 }
+
+ */
