@@ -3,7 +3,7 @@ package com.sammy.malum.common.item;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.neoforged.neoforge.event.entity.living.*;
 import team.lodestar.lodestone.systems.item.IEventResponderItem;
 
 public interface IMalumEventResponderItem extends IEventResponderItem {
@@ -11,7 +11,7 @@ public interface IMalumEventResponderItem extends IEventResponderItem {
 
     }
 
-    default float overrideSoulwardDamageAbsorbPercentage(LivingHurtEvent event, LivingEntity wardedEntity, ItemStack stack, float original) {
+    default float overrideSoulwardDamageAbsorbPercentage(LivingDamageEvent.Post event, LivingEntity wardedEntity, ItemStack stack, float original) {
         return overrideSoulwardDamageAbsorbPercentage(wardedEntity, stack, original);
     }
 
@@ -19,7 +19,7 @@ public interface IMalumEventResponderItem extends IEventResponderItem {
         return original;
     }
 
-    default void onSoulwardAbsorbDamage(LivingHurtEvent event, Player wardedPlayer, ItemStack stack, float soulwardLost, float damageAbsorbed) {
+    default void onSoulwardAbsorbDamage(LivingDamageEvent.Post event, Player wardedPlayer, ItemStack stack, float soulwardLost, float damageAbsorbed) {
         onSoulwardAbsorbDamage(wardedPlayer, stack, soulwardLost, damageAbsorbed);
     }
 
