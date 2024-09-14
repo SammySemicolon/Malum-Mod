@@ -16,6 +16,7 @@ import net.minecraft.world.item.ItemStack;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
+import team.lodestar.lodestone.registry.common.LodestoneAttributes;
 import team.lodestar.lodestone.systems.model.LodestoneArmorModel;
 
 import java.util.UUID;
@@ -32,7 +33,7 @@ public class SoulHunterArmorItem extends MalumArmorItem {
     public Multimap<Attribute, AttributeModifier> createExtraAttributes(Type type) {
         Multimap<Attribute, AttributeModifier> attributes = ArrayListMultimap.create();
         UUID uuid = ARMOR_MODIFIER_UUID_PER_TYPE.get(type);
-        attributes.put(LodestoneAttributeRegistry.MAGIC_PROFICIENCY.get(), new AttributeModifier(uuid, "Magic Proficiency", 2f, AttributeModifier.Operation.ADDITION));
+        attributes.put(LodestoneAttributes.MAGIC_PROFICIENCY.get(), new AttributeModifier(uuid, "Magic Proficiency", 2f, AttributeModifier.Operation.ADD_VALUE));
         return attributes;
     }
 

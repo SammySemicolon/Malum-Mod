@@ -33,7 +33,7 @@ public class SoulStainedSteelArmorItem extends MalumArmorItem {
     public Multimap<Attribute, AttributeModifier> createExtraAttributes(Type type) {
         Multimap<Attribute, AttributeModifier> attributes = ArrayListMultimap.create();
         UUID uuid = ARMOR_MODIFIER_UUID_PER_TYPE.get(type);
-        attributes.put(AttributeRegistry.SOUL_WARD_CAP.get(), new AttributeModifier(uuid, "Soul Ward Cap", 3f, AttributeModifier.Operation.ADDITION));
+        attributes.put(AttributeRegistry.SOUL_WARD_CAP.get(), new AttributeModifier(uuid, "Soul Ward Cap", 3f, AttributeModifier.Operation.ADD_VALUE));
         return attributes;
     }
 

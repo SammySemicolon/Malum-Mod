@@ -8,7 +8,6 @@ import net.minecraft.resources.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.*;
-import net.minecraftforge.common.crafting.*;
 
 import javax.annotation.*;
 import java.util.*;
