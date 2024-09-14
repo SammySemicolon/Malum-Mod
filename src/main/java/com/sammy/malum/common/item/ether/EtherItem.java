@@ -29,7 +29,7 @@ public class EtherItem extends AbstractEtherItem {
         final int yOffset = etherItem.iridescent ? 3 : 4;
         final int xOffset = etherItem.iridescent ? -1 : 0;
         final SpinParticleDataBuilder spinDataBuilder = SpinParticleData.create(0, 1).setSpinOffset(0.025f * time % 6.28f).setEasing(Easing.EXPO_IN_OUT);
-        ScreenParticleBuilder.create(LodestoneScreenParticleRegistry.STAR, target)
+        ScreenParticleBuilder.create(LodestoneScreenParticleTypes.STAR, target)
                 .setTransparencyData(GenericParticleData.create(0.09f * alphaMultiplier, 0f).setEasing(Easing.QUINTIC_IN).build())
                 .setScaleData(GenericParticleData.create((float) (1.5f + Math.sin(time * 0.1f) * 0.125f), 0).build())
                 .setColorData(ColorParticleData.create(firstColor, secondColor).setCoefficient(1.25f).build())

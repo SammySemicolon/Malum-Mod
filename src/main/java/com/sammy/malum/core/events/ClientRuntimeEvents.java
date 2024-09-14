@@ -2,14 +2,14 @@ package com.sammy.malum.core.events;
 
 import com.sammy.malum.client.renderer.block.*;
 import com.sammy.malum.common.item.augment.*;
-import net.minecraftforge.api.distmarker.*;
-import net.minecraftforge.client.event.*;
-import net.minecraftforge.event.*;
-import net.minecraftforge.event.entity.player.*;
-import net.minecraftforge.eventbus.api.*;
-import net.minecraftforge.fml.common.*;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.EventPriority;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.event.ClientTickEvent;
+import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 
-@Mod.EventBusSubscriber(value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
+@EventBusSubscriber(value = Dist.CLIENT, bus = EventBusSubscriber.Bus.GAME)
 public class ClientRuntimeEvents {
 
     @SubscribeEvent
@@ -21,7 +21,7 @@ public class ClientRuntimeEvents {
     }
 
     @SubscribeEvent
-    public static void clientTickEvent(TickEvent.ClientTickEvent event) {
+    public static void clientTickEvent(ClientTickEvent.Pre event) {
         SpiritCrucibleRenderer.checkForTuningFork(event);
         TotemBaseRenderer.checkForTotemicStaff(event);
     }

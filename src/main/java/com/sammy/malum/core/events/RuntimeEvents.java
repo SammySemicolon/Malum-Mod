@@ -25,18 +25,24 @@ import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.phys.*;
-import net.minecraftforge.event.*;
-import net.minecraftforge.event.entity.*;
-import net.minecraftforge.event.entity.item.*;
-import net.minecraftforge.event.entity.living.*;
-import net.minecraftforge.event.entity.player.*;
-import net.minecraftforge.event.level.*;
-import net.minecraftforge.eventbus.api.*;
-import net.minecraftforge.fml.common.*;
+import net.neoforged.bus.api.EventPriority;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.event.AddReloadListenerEvent;
+import net.neoforged.neoforge.event.AnvilUpdateEvent;
+import net.neoforged.neoforge.event.ItemAttributeModifierEvent;
+import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
+import net.neoforged.neoforge.event.entity.item.ItemExpireEvent;
+import net.neoforged.neoforge.event.entity.living.*;
+import net.neoforged.neoforge.event.entity.player.PlayerEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
+import net.neoforged.neoforge.event.level.ExplosionEvent;
+import net.neoforged.neoforge.event.tick.EntityTickEvent;
+import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 
-@Mod.EventBusSubscriber
+@EventBusSubscriber
 public class RuntimeEvents {
-
+/*
     @SubscribeEvent
     public static void onAttachCapability(AttachCapabilitiesEvent<Entity> event) {
         MalumPlayerDataCapability.attachPlayerCapability(event);
@@ -44,6 +50,8 @@ public class RuntimeEvents {
         MalumItemDataCapability.attachItemCapability(event);
     }
 
+
+ */
     @SubscribeEvent
     public static void onEntityJoin(EntityJoinLevelEvent event) {
         MalumPlayerDataCapability.playerJoin(event);
@@ -104,7 +112,7 @@ public class RuntimeEvents {
     }
 
     @SubscribeEvent
-    public static void onLivingTick(LivingEvent.LivingTickEvent event) {
+    public static void onLivingTick(EntityTickEvent event) {
         SoulDataHandler.manageSoul(event);
         MalignantConversionHandler.checkForAttributeChanges(event);
         TouchOfDarknessHandler.entityTick(event);
@@ -129,7 +137,7 @@ public class RuntimeEvents {
     }
 
     @SubscribeEvent
-    public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
+    public static void onPlayerTick(PlayerTickEvent.Post event) {
         ReserveStaffChargeHandler.recoverStaffCharges(event);
         SoulWardHandler.recoverSoulWard(event);
     }
@@ -182,18 +190,23 @@ public class RuntimeEvents {
     }
 
     @SubscribeEvent
-    public static void onHurt(LivingHurtEvent event) {
-        MalumAttributeEventHandler.processAttributes(event);
+    public static void onHurt(LivingDamageEvent.Post event) {
         SoulDataHandler.exposeSoul(event);
     }
 
+    @SubscribeEvent
+    public static void onHurt(LivingDamageEvent.Pre event) {
+        MalumAttributeEventHandler.processAttributes(event);
+    }
+
+
     @SubscribeEvent(priority = EventPriority.LOWEST)
-    public static void onLateHurt(LivingHurtEvent event) {
+    public static void onLateHurt(LivingDamageEvent.Pre event) {
         SoulWardHandler.shieldPlayer(event);
     }
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
-    public static void onLateDamage(LivingDamageEvent event) {
+    public static void onLateDamage(LivingDamageEvent.Pre event) {
         WickedIntentEffect.removeWickedIntent(event);
     }
 

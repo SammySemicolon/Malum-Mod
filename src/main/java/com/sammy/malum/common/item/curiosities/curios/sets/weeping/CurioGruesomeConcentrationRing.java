@@ -7,7 +7,7 @@ import com.sammy.malum.registry.common.item.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.world.effect.*;
 import net.minecraft.world.item.*;
-import net.minecraftforge.event.entity.living.*;
+import net.neoforged.neoforge.event.entity.living.LivingEntityUseItemEvent;
 import team.lodestar.lodestone.helpers.*;
 
 import java.util.function.*;
@@ -29,7 +29,7 @@ public class CurioGruesomeConcentrationRing extends MalumCurioItem implements IV
         if (stack.is(GROSS_FOODS)) {
             var livingEntity = event.getEntity();
             if (CurioHelper.hasCurioEquipped(livingEntity, ItemRegistry.RING_OF_GRUESOME_CONCENTRATION.get())) {
-                var gluttony = MobEffectRegistry.GLUTTONY.get();
+                var gluttony = MobEffectRegistry.GLUTTONY;
                 var effect = livingEntity.getEffect(gluttony);
                 var level = livingEntity.level();
 

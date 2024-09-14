@@ -86,7 +86,7 @@ public class UncappedFeatureFlagRegistry {
 		}
 
 		public UncappedFeatureFlag createVanilla(String pId) {
-			return this.create(new ResourceLocation("minecraft", pId));
+			return this.create(ResourceLocation.withDefaultNamespace(pId));
 		}
 
 		public UncappedFeatureFlag create(ResourceLocation pLocation) {

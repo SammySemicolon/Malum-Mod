@@ -5,7 +5,7 @@ import com.sammy.malum.registry.common.*;
 import net.minecraft.core.HolderLookup.*;
 import net.minecraft.data.*;
 import net.minecraft.data.tags.*;
-import net.minecraftforge.common.data.*;
+import net.neoforged.neoforge.common.data.*;
 import team.lodestar.lodestone.registry.common.tag.*;
 
 import java.util.concurrent.*;

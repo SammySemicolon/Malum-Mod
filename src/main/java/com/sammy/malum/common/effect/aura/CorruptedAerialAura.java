@@ -7,9 +7,8 @@ import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.minecraftforge.common.ForgeMod;
-import net.minecraftforge.event.entity.living.LivingEvent;
-import net.minecraftforge.event.entity.living.LivingFallEvent;
+import net.neoforged.neoforge.event.entity.living.LivingEvent;
+import net.neoforged.neoforge.event.entity.living.LivingFallEvent;
 import team.lodestar.lodestone.helpers.ColorHelper;
 
 public class CorruptedAerialAura extends MobEffect {
@@ -20,7 +19,7 @@ public class CorruptedAerialAura extends MobEffect {
 
     public static void onEntityJump(LivingEvent.LivingJumpEvent event) {
         LivingEntity entity = event.getEntity();
-        MobEffectInstance effectInstance = entity.getEffect(MobEffectRegistry.AETHERS_CHARM.get());
+        MobEffectInstance effectInstance = entity.getEffect(MobEffectRegistry.AETHERS_CHARM);
         if (effectInstance != null) {
             entity.setDeltaMovement(entity.getDeltaMovement().add(0, 0.1f + effectInstance.getAmplifier() * 0.05f, 0));
         }
@@ -28,7 +27,7 @@ public class CorruptedAerialAura extends MobEffect {
 
     public static void onEntityFall(LivingFallEvent event) {
         LivingEntity entity = event.getEntity();
-        MobEffectInstance effectInstance = entity.getEffect(MobEffectRegistry.AETHERS_CHARM.get());
+        MobEffectInstance effectInstance = entity.getEffect(MobEffectRegistry.AETHERS_CHARM);
         if (effectInstance != null) {
             event.setDistance(event.getDistance() / (6 + effectInstance.getAmplifier()));
         }

@@ -1,8 +1,10 @@
 package com.sammy.malum.registry.common.item;
 
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.block.Block;
 
 import java.util.function.Supplier;
 
@@ -45,8 +47,8 @@ public class ItemTiers {
         }
 
         @Override
-        public int getLevel() {
-            return harvestLevel;
+        public TagKey<Block> getIncorrectBlocksForDrops() {
+            return null;
         }
 
         @Override

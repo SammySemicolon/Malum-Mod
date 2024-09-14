@@ -10,8 +10,9 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
-import net.minecraftforge.api.distmarker.*;
-import net.minecraftforge.event.entity.living.*;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import team.lodestar.lodestone.handlers.*;
 import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.registry.common.*;
@@ -32,13 +33,15 @@ public class AuricFlameStaffItem extends AbstractStaffItem {
     }
 
     @Override
-    public void hurtEvent(LivingHurtEvent event, LivingEntity attacker, LivingEntity target, ItemStack stack) {
+    public void hurtEvent(LivingDamageEvent.Post event, LivingEntity attacker, LivingEntity target, ItemStack stack) {
         if (!(event.getSource().getDirectEntity() instanceof AbstractBoltProjectileEntity)) {
-            target.setSecondsOnFire(4);
+            target.setRemainingFireTicks(4 * 20);
             attacker.level().playSound(null, target.getX(), target.getY(), target.getZ(), SoundRegistry.AURIC_FLAME_MOTIF.get(), attacker.getSoundSource(), 1, 1.25f);
         }
         super.hurtEvent(event, attacker, target, stack);
     }
+
+
 
     @Override
     public int getCooldownDuration(Level level, LivingEntity livingEntity) {
@@ -57,7 +60,7 @@ public class AuricFlameStaffItem extends AbstractStaffItem {
         float pitchOffset = count > 0 ? 4f + (2f - ceil * 4f) : -2.5f;
         int spawnDelay = 1 + count * 2;
         float velocity = 2f;
-        float magicDamage = (float) player.getAttributes().getValue(LodestoneAttributeRegistry.MAGIC_DAMAGE.get()) - 2;
+        float magicDamage = (float) player.getAttributes().getValue(LodestoneAttributes.MAGIC_DAMAGE) - 2;
         Vec3 pos = getProjectileSpawnPos(player, hand, 0.5f, 0.5f);
         AuricFlameBoltEntity entity = new AuricFlameBoltEntity(level, pos.x, pos.y, pos.z);
         entity.setData(player, magicDamage, spawnDelay);

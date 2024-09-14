@@ -8,7 +8,7 @@ import team.lodestar.lodestone.registry.common.*;
 public class MagicKnifeItem extends MalumKnifeItem {
     public final float magicDamage;
 
-    public MagicKnifeItem(Tier tier, float attackDamageIn, float attackSpeedIn, float magicDamage, Properties properties) {
+    public MagicKnifeItem(Tier tier, float attackDamageIn, float attackSpeedIn, float magicDamage, Item.Properties properties) {
         super(tier, attackDamageIn, attackSpeedIn, properties);
         this.magicDamage = magicDamage;
     }

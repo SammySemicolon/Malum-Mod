@@ -5,8 +5,7 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.*;
-import net.minecraftforge.event.*;
-import team.lodestar.lodestone.registry.common.*;
+import net.neoforged.neoforge.event.ItemAttributeModifierEvent;
 
 import java.util.*;
 

@@ -7,6 +7,7 @@ import com.sammy.malum.registry.common.SoundRegistry;
 import com.sammy.malum.registry.common.WorldEventTypes;
 import com.sammy.malum.visual_effects.networked.data.PositionEffectData;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.Level;
@@ -53,6 +54,16 @@ public class ActiveBlightEvent extends WorldEventInstance {
         } else {
             blightTimer--;
         }
+    }
+
+    @Override
+    protected void addAdditionalSaveData(CompoundTag compoundTag) {
+
+    }
+
+    @Override
+    protected void readAdditionalSaveData(CompoundTag compoundTag) {
+
     }
 
     public void createBlight(ServerLevel level) {

@@ -11,7 +11,7 @@ import com.sammy.malum.common.item.spirit.*;
 import com.sammy.malum.registry.common.item.*;
 import net.minecraft.data.*;
 import net.minecraft.world.item.*;
-import net.minecraftforge.common.data.*;
+import net.neoforged.neoforge.common.data.*;
 import team.lodestar.lodestone.systems.datagen.*;
 import team.lodestar.lodestone.systems.datagen.itemsmith.*;
 import team.lodestar.lodestone.systems.datagen.providers.*;
@@ -37,7 +37,7 @@ public class MalumItemModels extends LodestoneItemModelProvider {
         items.removeIf(i -> i.get() instanceof MalumScytheItem);
         items.removeIf(i -> i.get() instanceof WeightOfWorldsItem);
 
-        AbstractItemModelSmith.ItemModelSmithData data = new AbstractItemModelSmith.ItemModelSmithData(this, items::remove);
+        ItemModelSmithData data = new ItemModelSmithData(this, items::remove);
 
         setTexturePath("cosmetic/weaves/pride/");
         ItemModelSmithTypes.GENERATED_ITEM.act(data, items.stream().filter(i -> i.get() instanceof PrideweaveItem).collect(Collectors.toList()));

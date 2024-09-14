@@ -11,7 +11,7 @@ import com.sammy.malum.registry.common.SpiritTypeRegistry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.properties.*;
-import net.minecraftforge.client.model.generators.*;
+import net.neoforged.neoforge.client.model.generators.*;
 import team.lodestar.lodestone.systems.datagen.ItemModelSmithTypes;
 import team.lodestar.lodestone.systems.datagen.statesmith.BlockStateSmith;
 
@@ -47,7 +47,7 @@ public class MalumBlockStateSmithTypes {
 
     public static BlockStateSmith<PrimordialSoupBlock> PRIMORDIAL_SOUP = new BlockStateSmith<>(PrimordialSoupBlock.class, ItemModelSmithTypes.AFFIXED_BLOCK_MODEL.apply("_top"), (block, provider) -> {
         String name = provider.getBlockName(block);
-        ModelFile model = provider.models().withExistingParent(name, new ResourceLocation("block/powder_snow")).texture("texture", malumPath("block/weeping_well/" + name));
+        ModelFile model = provider.models().withExistingParent(name, ResourceLocation.withDefaultNamespace("block/powder_snow")).texture("texture", malumPath("block/weeping_well/" + name));
         ModelFile topModel = provider.models().getExistingFile(malumPath("block/" + name + "_top"));
         provider.getVariantBuilder(block).forAllStates(s -> ConfiguredModel.builder().modelFile(s.getValue(PrimordialSoupBlock.TOP) ? topModel : model).build());
     });
@@ -118,7 +118,7 @@ public class MalumBlockStateSmithTypes {
 
     public static BlockStateSmith<Block> BLIGHTED_GROWTH = new BlockStateSmith<>(Block.class, ItemModelSmithTypes.NO_MODEL, (block, provider) -> {
         String name = provider.getBlockName(block);
-        Function<Integer, ModelFile> tumorFunction = (i) -> provider.models().withExistingParent(name + "_" + i, new ResourceLocation("block/cross")).texture("cross", malumPath("block/" + name + "_" + i));
+        Function<Integer, ModelFile> tumorFunction = (i) -> provider.models().withExistingParent(name + "_" + i, ResourceLocation.withDefaultNamespace("block/cross")).texture("cross", malumPath("block/" + name + "_" + i));
 
         ConfiguredModel.Builder<VariantBlockStateBuilder> builder = provider.getVariantBuilder(block).partialState().modelForState();
         for (int i = 0; i < 10; i++) {
@@ -132,7 +132,7 @@ public class MalumBlockStateSmithTypes {
 
     public static BlockStateSmith<Block> CALCIFIED_BLIGHT = new BlockStateSmith<>(Block.class, ItemModelSmithTypes.GENERATED_ITEM, (block, provider) -> {
         String name = provider.getBlockName(block);
-        Function<Integer, ModelFile> modelFunction = (s) -> provider.models().withExistingParent(name + "_" + s, new ResourceLocation("block/cross")).texture("cross", malumPath("block/" + name + "_" + s));
+        Function<Integer, ModelFile> modelFunction = (s) -> provider.models().withExistingParent(name + "_" + s, ResourceLocation.withDefaultNamespace("block/cross")).texture("cross", malumPath("block/" + name + "_" + s));
         provider.getVariantBuilder(block).forAllStates(s -> {
             int value = s.getValue(CalcifiedBlightBlock.STAGE);
             return ConfiguredModel.builder().modelFile(modelFunction.apply(value)).build();
@@ -141,7 +141,7 @@ public class MalumBlockStateSmithTypes {
 
     public static BlockStateSmith<Block> TALL_CALCIFIED_BLIGHT = new BlockStateSmith<>(Block.class, ItemModelSmithTypes.NO_MODEL, (block, provider) -> {
         String name = provider.getBlockName(block);
-        Function<String, ModelFile> modelFunction = (s) -> provider.models().withExistingParent(name + "_" + s, new ResourceLocation("block/cross")).texture("cross", malumPath("block/" + name + "_" + s));
+        Function<String, ModelFile> modelFunction = (s) -> provider.models().withExistingParent(name + "_" + s, ResourceLocation.withDefaultNamespace("block/cross")).texture("cross", malumPath("block/" + name + "_" + s));
         provider.getVariantBuilder(block).forAllStates(s -> {
             int value = s.getValue(CalcifiedBlightBlock.STAGE);
             String prefix = "";

@@ -18,7 +18,7 @@ public class ElytraLayerMixin {
     @Inject(method = "getElytraTexture", at = @At("RETURN"), cancellable = true, remap = false)
     private void malumGetElytraTexture(ItemStack stack, LivingEntity entity, CallbackInfoReturnable<ResourceLocation> cir) {
         if (entity instanceof Player player) {
-            cir.setReturnValue(getElytraTexture(player.getUUID(), new ResourceLocation("textures/entity/elytra.png")));
+            cir.setReturnValue(getElytraTexture(player.getUUID(), ResourceLocation.tryParse("textures/entity/elytra.png")));
         }
     }
 }

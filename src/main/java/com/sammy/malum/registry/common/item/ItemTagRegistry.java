@@ -1,10 +1,10 @@
 package com.sammy.malum.registry.common.item;
 
 import com.sammy.malum.*;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.*;
 import net.minecraft.tags.*;
 import net.minecraft.world.item.*;
-import net.minecraftforge.registries.*;
 
 public class ItemTagRegistry {
     public static final TagKey<Item> SOUL_HUNTER_WEAPON = malumTag("soul_hunter_weapon");
@@ -35,6 +35,9 @@ public class ItemTagRegistry {
     public static final TagKey<Item> TWISTED_STAIRS = malumTag("twisted_rock_stairs");
     public static final TagKey<Item> TWISTED_WALLS = malumTag("twisted_rock_walls");
 
+    public static final TagKey<Item> REBOUND_SCYTHE = malumTag("enchantable/rebound_scythe");
+    public static final TagKey<Item> SCYTHE_OR_STAFF = malumTag("enchantable/scythe_or_staff");
+
     public static final TagKey<Item> SAPBALLS = malumTag("sapballs");
     public static final TagKey<Item> GROSS_FOODS = malumTag("gross_foods");
     public static final TagKey<Item> PROSPECTORS_TREASURE = malumTag("prospectors_treasure");
@@ -58,15 +61,16 @@ public class ItemTagRegistry {
     public static final TagKey<Item> RING = modTag("curios:ring");
     public static final TagKey<Item> RUNE = modTag("curios:rune");
 
+
     private static TagKey<Item> modTag(String path) {
-        return TagKey.create(ForgeRegistries.ITEMS.getRegistryKey(), new ResourceLocation(path));
+        return TagKey.create(Registries.ITEM, ResourceLocation.tryParse(path));
     }
 
     private static TagKey<Item> malumTag(String path) {
-        return TagKey.create(ForgeRegistries.ITEMS.getRegistryKey(), MalumMod.malumPath(path));
+        return TagKey.create(Registries.ITEM, MalumMod.malumPath(path));
     }
 
     private static TagKey<Item> forgeTag(String name) {
-        return ItemTags.create(new ResourceLocation("forge", name));
+        return ItemTags.create(ResourceLocation.fromNamespaceAndPath("forge", name));
     }
 }

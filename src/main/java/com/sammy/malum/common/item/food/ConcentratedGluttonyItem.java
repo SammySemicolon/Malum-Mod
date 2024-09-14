@@ -27,7 +27,7 @@ public class ConcentratedGluttonyItem extends BottledDrinkItem {
         pEntityLiving.addEffect(gluttonyEffect);
         pEntityLiving.playSound(SoundRegistry.CONCENTRATED_GLUTTONY_DRINK.get(), 1f, RandomHelper.randomBetween(pLevel.random, 1.5f, 2f));
         if (!pLevel.isClientSide) {
-            createGluttonyVFX(pEntityLiving, gluttonyEffect.amplifier);
+            createGluttonyVFX(pEntityLiving, gluttonyEffect.getAmplifier());
         }
         return super.finishUsingItem(pStack, pLevel, pEntityLiving);
     }
@@ -52,7 +52,7 @@ public class ConcentratedGluttonyItem extends BottledDrinkItem {
                 }
             }
         }
-        return new MobEffectInstance(MobEffectRegistry.GLUTTONY.get(), (int) (duration * 20 * durationScalar), amplifier);
+        return new MobEffectInstance(MobEffectRegistry.GLUTTONY, (int) (duration * 20 * durationScalar), amplifier);
     }
 
     public static void createGluttonyVFX(LivingEntity target, int amplifier) {

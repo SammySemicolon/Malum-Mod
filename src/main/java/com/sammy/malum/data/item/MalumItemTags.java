@@ -12,9 +12,9 @@ import net.minecraft.resources.*;
 import net.minecraft.tags.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.*;
-import net.minecraftforge.common.*;
-import net.minecraftforge.common.data.*;
-import net.minecraftforge.registries.*;
+import net.neoforged.neoforge.common.*;
+import net.neoforged.neoforge.common.data.*;
+import net.neoforged.neoforge.registries.*;
 import org.jetbrains.annotations.*;
 import team.lodestar.lodestone.systems.block.*;
 import team.lodestar.lodestone.systems.datagen.*;
@@ -66,8 +66,8 @@ public class MalumItemTags extends ItemTagsProvider {
         tag(Tags.Items.GEMS_QUARTZ).add(NATURAL_QUARTZ.get());
         tag(Tags.Items.ORES_QUARTZ).add(NATURAL_QUARTZ_ORE.get(), DEEPSLATE_QUARTZ_ORE.get());
 
-        tag(ItemTags.MUSIC_DISCS).add(ARCANE_ELEGY.get(), AESTHETICA.get());
-        tag(ItemTagRegistry.ARCANE_ELEGY_COMPONENTS).addTag(ItemTags.MUSIC_DISCS).remove(ARCANE_ELEGY.get(), AESTHETICA.get());
+        tag(ItemTags.CREEPER_DROP_MUSIC_DISCS).add(ARCANE_ELEGY.get(), AESTHETICA.get());
+        tag(ItemTagRegistry.ARCANE_ELEGY_COMPONENTS).addTag(ItemTags.CREEPER_DROP_MUSIC_DISCS).remove(ARCANE_ELEGY.get(), AESTHETICA.get());
 
         tag(ItemTagRegistry.SAPBALLS).add(RUNIC_SAPBALL.get(), CURSED_SAPBALL.get());
         tag(ItemTagRegistry.GROSS_FOODS).add(Items.ROTTEN_FLESH, ROTTING_ESSENCE.get(), CONCENTRATED_GLUTTONY.get());
@@ -77,7 +77,7 @@ public class MalumItemTags extends ItemTagsProvider {
         });
         tag(ItemTagRegistry.PROSPECTORS_TREASURE)
                 .addTags(Tags.Items.ORES, Tags.Items.STORAGE_BLOCKS, Tags.Items.INGOTS, Tags.Items.NUGGETS, Tags.Items.GEMS, Tags.Items.RAW_MATERIALS, ItemTags.COALS, ItemTagRegistry.METAL_NODES)
-                .addOptional(new ResourceLocation("tetra", "geode"));
+                .addOptional(ResourceLocation.fromNamespaceAndPath("tetra", "geode"));
 
         tag(ItemTagRegistry.RUNEWOOD_LOGS).add(RUNEWOOD_LOG.get(), STRIPPED_RUNEWOOD_LOG.get(), RUNEWOOD.get(), STRIPPED_RUNEWOOD.get(), EXPOSED_RUNEWOOD_LOG.get(), REVEALED_RUNEWOOD_LOG.get());
         tag(ItemTagRegistry.RUNEWOOD_BOARD_INGREDIENT).add(RUNEWOOD_LOG.get(), RUNEWOOD.get());
@@ -194,7 +194,7 @@ public class MalumItemTags extends ItemTagsProvider {
                 // Aesthetica
                 .add(AESTHETICA.get());
 
-        for (DeferredHolder<Item> i : ITEMS.getEntries()) {
+        for (DeferredHolder<Item, ? extends Item> i : ITEMS.getEntries()) {
             if (i.get() instanceof MalumCurioItem) {
                 final Item item = i.get();
                 final ResourceLocation id = i.getId();
@@ -227,9 +227,9 @@ public class MalumItemTags extends ItemTagsProvider {
     }
 
     public void safeCopy(DeferredRegister<Block> blocks, TagKey<Block> blockTag, TagKey<Item> itemTag) {
-        for (DeferredHolder<Block> object : blocks.getEntries()) {
+        for (DeferredHolder<Block, ? extends Block> object : blocks.getEntries()) {
             final Block block = object.get();
-            if (block.properties instanceof LodestoneBlockProperties lodestoneBlockProperties) {
+            if (block.properties() instanceof LodestoneBlockProperties lodestoneBlockProperties) {
                 final LodestoneDatagenBlockData datagenData = lodestoneBlockProperties.getDatagenData();
                 if (datagenData.getTags().contains(blockTag)) {
                     final Item item = block.asItem();

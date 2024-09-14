@@ -1,23 +1,31 @@
 package com.sammy.malum.common.worldgen;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.sammy.malum.registry.common.worldgen.StructureRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.level.NoiseColumn;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.StructureType;
 import net.minecraft.world.level.levelgen.structure.pools.JigsawPlacement;
 import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
+import net.minecraft.world.level.levelgen.structure.pools.alias.PoolAliasLookup;
+import net.minecraft.world.level.levelgen.structure.structures.RuinedPortalStructure;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
+
+import static net.minecraft.world.level.levelgen.structure.structures.JigsawStructure.DEFAULT_DIMENSION_PADDING;
+import static net.minecraft.world.level.levelgen.structure.structures.JigsawStructure.DEFAULT_LIQUID_SETTINGS;
 
 public class WeepingWellStructure extends Structure {
-    public static final Codec<WeepingWellStructure> CODEC = RecordCodecBuilder.<WeepingWellStructure>mapCodec(instance ->
+    public static final MapCodec<WeepingWellStructure> CODEC = RecordCodecBuilder.<WeepingWellStructure>mapCodec(instance ->
             instance.group(WeepingWellStructure.settingsCodec(instance),
                     StructureTemplatePool.CODEC.fieldOf("start_pool").forGetter(structure -> structure.startPool),
                     ResourceLocation.CODEC.optionalFieldOf("start_jigsaw_name").forGetter(structure -> structure.startJigsawName),
@@ -26,7 +34,9 @@ public class WeepingWellStructure extends Structure {
                     Codec.INT.fieldOf("max_y").forGetter(provider -> provider.max),
                     Codec.INT.fieldOf("offset_in_ground").forGetter(provider -> provider.offsetInGround),
                     Codec.intRange(1, 128).fieldOf("max_distance_from_center").forGetter(structure -> structure.maxDistanceFromCenter)
-            ).apply(instance, WeepingWellStructure::new)).codec();
+            ).apply(instance, WeepingWellStructure::new));
+
+
 
     private final Holder<StructureTemplatePool> startPool;
     private final Optional<ResourceLocation> startJigsawName;
@@ -52,7 +62,24 @@ public class WeepingWellStructure extends Structure {
         BlockPos blockPos = new BlockPos(pContext.chunkPos().getMinBlockX(), 0, pContext.chunkPos().getMinBlockZ());
         BlockPos validPos = new BlockPos(blockPos.getX(), getValidY(pContext.chunkGenerator().getBaseColumn(blockPos.getX(), blockPos.getZ(), pContext.heightAccessor(), pContext.randomState())), blockPos.getZ());
         if (validPos.getY() != min - 1 && isSufficientlyFlat(pContext, validPos, 8)) {
-            return JigsawPlacement.addPieces(pContext, this.startPool, this.startJigsawName, this.size, validPos.below(-offsetInGround), false, Optional.empty(), this.maxDistanceFromCenter);
+            return JigsawPlacement.addPieces(
+                    pContext,
+                    this.startPool,
+                    this.startJigsawName,
+                    this.size,
+                    validPos.below(-offsetInGround),
+                    false,
+                    Optional.empty(),
+                    this.maxDistanceFromCenter,
+                    PoolAliasLookup.EMPTY,
+                    DEFAULT_DIMENSION_PADDING,
+                    DEFAULT_LIQUID_SETTINGS
+            );
+            /*
+             @NotNull  PoolAliasLookup aliasLookup,
+            DimensionPadding dimensionPadding,
+            LiquidSettings liquidSetting
+             */
         }
         return Optional.empty();
     }

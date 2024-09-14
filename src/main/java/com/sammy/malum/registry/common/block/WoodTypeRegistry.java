@@ -4,10 +4,10 @@ import com.sammy.malum.*;
 import com.sammy.malum.registry.common.*;
 import net.minecraft.client.renderer.*;
 import net.minecraft.world.level.block.state.properties.*;
-import net.minecraftforge.api.distmarker.*;
-import net.minecraftforge.eventbus.api.*;
-import net.minecraftforge.fml.common.*;
-import net.minecraftforge.fml.event.lifecycle.*;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 
 public class WoodTypeRegistry {
 
@@ -18,7 +18,7 @@ public class WoodTypeRegistry {
             SoundRegistry.SOULWOOD, SoundRegistry.SOULWOOD_HANGING_SIGN,
             SoundRegistry.SOULWOOD_FENCE_GATE_CLOSE.get(), SoundRegistry.SOULWOOD_FENCE_GATE_OPEN.get()));
 
-    @Mod.EventBusSubscriber(modid= MalumMod.MALUM, bus= Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+    @EventBusSubscriber(modid= MalumMod.MALUM, bus= EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
     public static class ClientOnly {
         @SubscribeEvent
         public static void addWoodTypes(FMLClientSetupEvent event) {

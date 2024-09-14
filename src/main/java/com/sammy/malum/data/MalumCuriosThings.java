@@ -3,7 +3,7 @@ package com.sammy.malum.data;
 import com.sammy.malum.*;
 import net.minecraft.core.*;
 import net.minecraft.data.*;
-import net.minecraftforge.common.data.*;
+import net.neoforged.neoforge.common.data.*;
 
 import java.util.concurrent.*;
 

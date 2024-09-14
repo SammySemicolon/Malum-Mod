@@ -8,7 +8,7 @@ import net.minecraft.network.chat.*;
 import net.minecraft.util.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.*;
-import net.minecraftforge.event.entity.living.*;
+import net.neoforged.neoforge.event.tick.EntityTickEvent;
 
 import java.util.*;
 
@@ -20,9 +20,8 @@ public class MalignantConversionHandler {
     public final HashMap<Attribute, Double> cachedAttributeValues = new HashMap<>();
     public boolean skipConversionLogic;
 
-    public static void checkForAttributeChanges(LivingEvent.LivingTickEvent event) {
-        final LivingEntity livingEntity = event.getEntity();
-        if (!livingEntity.level().isClientSide) {
+    public static void checkForAttributeChanges(EntityTickEvent event) {
+        if (event.getEntity() instanceof LivingEntity livingEntity && !livingEntity.level().isClientSide) {
             var handler = MalumLivingEntityDataCapability.getCapability(livingEntity).malignantConversionHandler;
             final Attribute conversionAttribute = AttributeRegistry.MALIGNANT_CONVERSION.get();
             AttributeInstance conversionInstance = livingEntity.getAttribute(conversionAttribute);
@@ -63,7 +62,7 @@ public class MalignantConversionHandler {
     }
     private static void convertAttribute(LivingEntity livingEntity, Attribute sourceAttribute, double consumptionRatio, List<Pair<Attribute, Double>> targetAttributes, boolean skipCacheComparison) {
         var attributes = livingEntity.getAttributes();
-        double malignantConversion = attributes.getValue(AttributeRegistry.MALIGNANT_CONVERSION.get());
+        double malignantConversion = attributes.getValue(AttributeRegistry.MALIGNANT_CONVERSION);
 
         final AttributeInstance sourceInstance = livingEntity.getAttribute(sourceAttribute);
         if (sourceInstance != null) {
@@ -84,7 +83,7 @@ public class MalignantConversionHandler {
                         if (bonus > 0) {
                             targetInstance.addTransientModifier(
                                     new AttributeModifier(uuid, "Malignant Conversion: " + Component.translatable(targetAttribute.getDescriptionId()),
-                                            bonus, AttributeModifier.Operation.ADDITION));
+                                            bonus, AttributeModifier.Operation.ADD_VALUE));
                         }
                     }
                 }
@@ -92,7 +91,7 @@ public class MalignantConversionHandler {
                 if (malignantConversion > 0) {
                     sourceInstance.addTransientModifier(
                             new AttributeModifier(MALIGNANT_CONVERSION_UUID, "Malignant Conversion: " + Component.translatable(sourceAttribute.getDescriptionId()),
-                                    -malignantConversion*consumptionRatio, AttributeModifier.Operation.MULTIPLY_TOTAL));
+                                    -malignantConversion*consumptionRatio, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));
                 }
             }
             if (originalModifier != null && sourceInstance.getModifier(MALIGNANT_CONVERSION_UUID) == null && malignantConversion > 0) {

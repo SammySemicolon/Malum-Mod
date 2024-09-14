@@ -12,7 +12,7 @@ public class DamageTypeTagRegistry {
     public static final TagKey<DamageType> SOUL_SHATTER_DAMAGE = malumTag("can_soul_shatter");
 
     private static TagKey<DamageType> modTag(String path) {
-        return TagKey.create(Registries.DAMAGE_TYPE, new ResourceLocation(path));
+        return TagKey.create(Registries.DAMAGE_TYPE, ResourceLocation.tryParse(path));
     }
 
     private static TagKey<DamageType> malumTag(String path) {

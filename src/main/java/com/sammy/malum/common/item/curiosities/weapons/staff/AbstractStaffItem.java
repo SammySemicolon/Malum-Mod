@@ -18,9 +18,10 @@ import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
-import net.minecraftforge.api.distmarker.*;
-import net.minecraftforge.event.entity.living.*;
-import team.lodestar.lodestone.registry.common.*;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
+import team.lodestar.lodestone.registry.common.LodestoneAttributes;
 import team.lodestar.lodestone.registry.common.tag.*;
 import team.lodestar.lodestone.systems.item.*;
 
@@ -49,12 +50,12 @@ public abstract class AbstractStaffItem extends ModCombatItem implements IMalumE
     @Override
     public ImmutableMultimap.Builder<Attribute, AttributeModifier> createExtraAttributes() {
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = new ImmutableMultimap.Builder<>();
-        builder.put(LodestoneAttributeRegistry.MAGIC_DAMAGE.get(), new AttributeModifier(LodestoneAttributeRegistry.UUIDS.get(LodestoneAttributeRegistry.MAGIC_DAMAGE), "Weapon magic damage", magicDamage, AttributeModifier.Operation.ADDITION));
+        builder.put(LodestoneAttributes.MAGIC_DAMAGE.get(), new AttributeModifier(LodestoneAttributes.UUIDS.get(LodestoneAttributes.MAGIC_DAMAGE), "Weapon magic damage", magicDamage, AttributeModifier.Operation.ADD_VALUE));
         return builder;
     }
 
     @Override
-    public void hurtEvent(LivingHurtEvent event, LivingEntity attacker, LivingEntity target, ItemStack stack) {
+    public void hurtEvent(LivingDamageEvent.Post event, LivingEntity attacker, LivingEntity target, ItemStack stack) {
         if (attacker instanceof Player player && !(event.getSource().getDirectEntity() instanceof AbstractBoltProjectileEntity)) {
             Level level = player.level();
             MalumScytheItem.spawnSweepParticles(player, ParticleRegistry.STAFF_SLAM_PARTICLE.get());
@@ -67,13 +68,13 @@ public abstract class AbstractStaffItem extends ModCombatItem implements IMalumE
 
     @Override
     public void releaseUsing(ItemStack pStack, Level pLevel, LivingEntity pLivingEntity, int pTimeCharged) {
-        final float chargePercentage = Math.min(chargeDuration, getUseDuration(pStack) - pTimeCharged) / chargeDuration;
+        final float chargePercentage = Math.min(chargeDuration, getUseDuration(pStack, pLivingEntity) - pTimeCharged) / chargeDuration;
         int projectileCount = getProjectileCount(pLevel, pLivingEntity, chargePercentage);
         if (projectileCount > 0) {
             InteractionHand hand = pLivingEntity.getUsedItemHand();
             if (!pLevel.isClientSide) {
 
-                float magicDamage = (float) pLivingEntity.getAttributes().getValue(LodestoneAttributeRegistry.MAGIC_DAMAGE.get());
+                float magicDamage = (float) pLivingEntity.getAttributes().getValue(LodestoneAttributes.MAGIC_DAMAGE);
                 if (magicDamage == 0) {
                     float pitch = Mth.nextFloat(pLevel.random, 0.5f, 0.8f);
                     pLevel.playSound(null, pLivingEntity.blockPosition(), SoundRegistry.STAFF_SIZZLES.get(), SoundSource.PLAYERS, 0.5f, pitch);
@@ -86,9 +87,7 @@ public abstract class AbstractStaffItem extends ModCombatItem implements IMalumE
                 if (pLivingEntity instanceof Player player) {
                     player.awardStat(Stats.ITEM_USED.get(this));
                     if (!player.getAbilities().instabuild) {
-                        pStack.hurtAndBreak(2, player, (p_220009_1_) -> {
-                            p_220009_1_.broadcastBreakEvent(hand);
-                        });
+                        pStack.hurtAndBreak(2, player, EquipmentSlot.MAINHAND);
                         final MalumPlayerDataCapability capability = MalumPlayerDataCapability.getCapability(player);
                         if (capability.reserveStaffChargeHandler.chargeCount > 0) {
                             capability.reserveStaffChargeHandler.chargeCount--;
@@ -110,7 +109,7 @@ public abstract class AbstractStaffItem extends ModCombatItem implements IMalumE
 
     @Override
     public void onUseTick(Level pLevel, LivingEntity pLivingEntity, ItemStack pStack, int pRemainingUseDuration) {
-        final int useDuration = getUseDuration(pStack);
+        final int useDuration = getUseDuration(pStack, pLivingEntity);
         final float chargePercentage = Math.min(chargeDuration, useDuration - pRemainingUseDuration) / chargeDuration;
         if (pLevel.isClientSide) {
             InteractionHand hand = pLivingEntity.getUsedItemHand();
@@ -144,7 +143,7 @@ public abstract class AbstractStaffItem extends ModCombatItem implements IMalumE
     }
 
     @Override
-    public int getUseDuration(ItemStack pStack) {
+    public int getUseDuration(ItemStack stack, LivingEntity entity) {
         return 72000;
     }
 

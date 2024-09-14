@@ -9,11 +9,12 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import team.lodestar.lodestone.registry.common.LodestoneAttributeRegistry;
+import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
+import team.lodestar.lodestone.registry.common.LodestoneAttributes;
 
 public class ReboundEnchantment extends Enchantment {
     public ReboundEnchantment() {
@@ -33,7 +34,7 @@ public class ReboundEnchantment extends Enchantment {
             if (!level.isClientSide) {
                 player.setItemInHand(event.getHand(), ItemStack.EMPTY);
                 float baseDamage = (float) player.getAttributes().getValue(Attributes.ATTACK_DAMAGE);
-                float magicDamage = (float) player.getAttributes().getValue(LodestoneAttributeRegistry.MAGIC_DAMAGE.get());
+                float magicDamage = (float) player.getAttributes().getValue(LodestoneAttributes.MAGIC_DAMAGE);
 
                 int slot = event.getHand() == InteractionHand.OFF_HAND ? player.getInventory().getContainerSize() - 1 : player.getInventory().selected;
                 ScytheBoomerangEntity entity = new ScytheBoomerangEntity(level, player.position().x, player.position().y + player.getBbHeight() / 2f, player.position().z);

@@ -12,6 +12,7 @@ import com.sammy.malum.core.systems.spirit.*;
 import com.sammy.malum.registry.common.*;
 import com.sammy.malum.registry.common.item.*;
 import net.minecraft.core.*;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.*;
 import net.minecraft.server.level.*;
 import net.minecraft.sounds.*;
@@ -25,11 +26,10 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
-import net.minecraftforge.event.entity.item.*;
-import net.minecraftforge.event.entity.living.*;
-import net.minecraftforge.registries.*;
+import net.neoforged.neoforge.event.entity.item.ItemExpireEvent;
+import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
+import net.neoforged.neoforge.event.entity.living.LivingDropsEvent;
 import team.lodestar.lodestone.helpers.*;
-import team.lodestar.lodestone.systems.container.*;
 
 import javax.annotation.*;
 import java.util.*;
@@ -232,13 +232,13 @@ public class SpiritHarvestHandler {
             return spirits;
         }
         int spiritBonus = 0;
-        if (attacker.getAttribute(AttributeRegistry.SPIRIT_SPOILS.get()) != null) {
-            spiritBonus += attacker.getAttributeValue(AttributeRegistry.SPIRIT_SPOILS.get());
+        if (attacker.getAttribute(AttributeRegistry.SPIRIT_SPOILS) != null) {
+            spiritBonus += attacker.getAttributeValue(AttributeRegistry.SPIRIT_SPOILS);
         }
         if (!weapon.isEmpty()) {
-            final int spiritPlunder = weapon.getEnchantmentLevel(EnchantmentRegistry.SPIRIT_PLUNDER.get());
+            final int spiritPlunder = weapon.getEnchantmentLevel(EnchantmentRegistry.SPIRIT_PLUNDER);
             if (spiritPlunder > 0) {
-                weapon.hurtAndBreak(spiritPlunder, attacker, (e) -> e.broadcastBreakEvent(MAINHAND));
+                weapon.hurtAndBreak(spiritPlunder, attacker, MAINHAND);
             }
             spiritBonus += spiritPlunder;
         }
@@ -258,7 +258,7 @@ public class SpiritHarvestHandler {
     }
 
     public static Optional<EntitySpiritDropData> getSpiritData(LivingEntity entity) {
-        ResourceLocation key = ForgeRegistries.ENTITY_TYPES.getKey(entity.getType());
+        ResourceLocation key = BuiltInRegistries.ENTITY_TYPE.getKey(entity.getType());
         if (SpiritDataReloadListener.HAS_NO_DATA.contains(key))
             return Optional.empty();
 
@@ -266,7 +266,7 @@ public class SpiritHarvestHandler {
         if (spiritData != null)
             return Optional.of(spiritData);
 
-        if (!entity.canChangeDimensions())
+        if (entity.isPassenger() || entity.isVehicle())
             return Optional.of(SpiritDataReloadListener.DEFAULT_BOSS_SPIRIT_DATA);
 
         if (!CommonConfig.USE_DEFAULT_SPIRIT_VALUES.getConfigValue())

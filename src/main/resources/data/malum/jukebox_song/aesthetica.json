@@ -1,0 +1,8 @@
+{
+  "comparator_output": 7,
+  "description": {
+    "translate": "jukebox_song.malum.aesthetica"
+  },
+  "length_in_seconds": 7920.0,
+  "sound_event": "malum:music_disc.malum.aesthetica"
+}

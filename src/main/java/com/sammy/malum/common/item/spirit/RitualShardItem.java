@@ -40,11 +40,11 @@ public class RitualShardItem extends Item implements ItemParticleSupplier {
     }
 
     @Override
-    public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
-        final MalumRitualType ritualType = getRitualType(pStack);
-        final MalumRitualTier ritualTier = getRitualTier(pStack);
+    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+        final MalumRitualType ritualType = getRitualType(stack);
+        final MalumRitualTier ritualTier = getRitualTier(stack);
         if (ritualType != null && ritualTier != null) {
-            pTooltip.addAll(ritualType.makeRitualShardDescriptor(ritualTier));
+            tooltipComponents.addAll(ritualType.makeRitualShardDescriptor(ritualTier));
         }
     }
 
@@ -66,7 +66,7 @@ public class RitualShardItem extends Item implements ItemParticleSupplier {
                     }
                     double xOffset = Math.sin(time) * distance;
                     double yOffset = Math.cos(time) * distance * 0.5f;
-                    ScreenParticleBuilder.create(LodestoneScreenParticleRegistry.WISP, target)
+                    ScreenParticleBuilder.create(LodestoneScreenParticleTypes.WISP, target)
                             .setTransparencyData(GenericParticleData.create(0.2f, 0f).setEasing(Easing.SINE_IN_OUT).build())
                             .setSpinData(SpinParticleData.create(RandomHelper.randomBetween(rand, 0.2f, 0.4f)).setEasing(Easing.EXPO_OUT).build())
                             .setScaleData(GenericParticleData.create(RandomHelper.randomBetween(rand, 0.2f, 0.3f)*scalar, 0).setEasing(Easing.EXPO_OUT).build())
