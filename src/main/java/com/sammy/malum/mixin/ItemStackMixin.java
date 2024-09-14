@@ -2,13 +2,18 @@ package com.sammy.malum.mixin;
 
 import com.google.common.collect.*;
 import com.sammy.malum.common.item.curiosities.weapons.scythe.*;
+import com.sammy.malum.config.CommonConfig;
 import com.sammy.malum.registry.common.*;
+import com.sammy.malum.registry.common.item.ItemTagRegistry;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
 import org.jetbrains.annotations.*;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.*;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.*;
 
@@ -50,5 +55,16 @@ public abstract class ItemStackMixin {
             return copied;
         }
         return map;
+    }
+
+    @Inject(method = "is(Lnet/minecraft/tags/TagKey;)Z", at = @At("HEAD"), cancellable = true)
+    private void malum$ultimateRebound(TagKey<Item> tag, CallbackInfoReturnable<Boolean> cir) {
+        if (tag.equals(ItemTagRegistry.REBOUND_SCYTHE)) {
+            //noinspection ConstantValue
+            if (CommonConfig.ULTIMATE_REBOUND.getConfigValue() && (Object)this instanceof TieredItem) {
+                cir.setReturnValue(true);
+            }
+        }
+
     }
 }

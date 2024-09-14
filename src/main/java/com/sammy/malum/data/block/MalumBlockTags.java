@@ -5,15 +5,13 @@ import com.sammy.malum.registry.common.block.BlockTagRegistry;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.registries.DeferredHolder;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.registries.DeferredHolder;
 import org.jetbrains.annotations.Nullable;
 import team.lodestar.lodestone.systems.datagen.providers.LodestoneBlockTagsProvider;
 
-import javax.annotation.Nonnull;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import static com.sammy.malum.registry.common.block.BlockRegistry.BLOCKS;
@@ -33,7 +31,7 @@ public class MalumBlockTags extends LodestoneBlockTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider pProvider) {
-        Set<DeferredHolder<Block>> blocks = new HashSet<>(BLOCKS.getEntries());
+        Set<DeferredHolder<Block, ? extends Block>> blocks = new HashSet<>(BLOCKS.getEntries());
 
         tag(BlockTagRegistry.RITE_IMMUNE).addTags(BlockTagRegistry.TAINTED_ROCK, BlockTagRegistry.TWISTED_ROCK);
 

@@ -5,7 +5,6 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.*;
 import net.minecraft.tags.*;
 import net.minecraft.world.item.*;
-import net.minecraftforge.registries.*;
 
 public class ItemTagRegistry {
     public static final TagKey<Item> SOUL_HUNTER_WEAPON = malumTag("soul_hunter_weapon");
@@ -36,6 +35,9 @@ public class ItemTagRegistry {
     public static final TagKey<Item> TWISTED_STAIRS = malumTag("twisted_rock_stairs");
     public static final TagKey<Item> TWISTED_WALLS = malumTag("twisted_rock_walls");
 
+    public static final TagKey<Item> REBOUND_SCYTHE = malumTag("enchantable/rebound_scythe");
+    public static final TagKey<Item> SCYTHE_OR_STAFF = malumTag("enchantable/scythe_or_staff");
+
     public static final TagKey<Item> SAPBALLS = malumTag("sapballs");
     public static final TagKey<Item> GROSS_FOODS = malumTag("gross_foods");
     public static final TagKey<Item> PROSPECTORS_TREASURE = malumTag("prospectors_treasure");
@@ -45,19 +47,20 @@ public class ItemTagRegistry {
     public static final TagKey<Item> HIDDEN_UNTIL_VOID = malumTag("hidden_items/void");
     public static final TagKey<Item> HIDDEN_UNTIL_BLACK_CRYSTAL = malumTag("hidden_items/black_crystal");
 
-    public static final TagKey<Item> KNIVES_FD = modTag("farmersdelight:tools/knives");
+    public static final TagKey<Item> KNIVES_FD = modTag("farmersdelight", "tools/knives");
     public static final TagKey<Item> KNIVES = forgeTag("tools/knives");
 
     public static final TagKey<Item> STRIPPED_LOGS = forgeTag("stripped_logs");
 
     public static final TagKey<Item> ARCANE_ELEGY_COMPONENTS = malumTag("arcane_elegy_component");
 
-    public static final TagKey<Item> BROOCH = modTag("curios:brooch");
-    public static final TagKey<Item> BELT = modTag("curios:belt");
-    public static final TagKey<Item> CHARM = modTag("curios:charm");
-    public static final TagKey<Item> NECKLACE = modTag("curios:necklace");
-    public static final TagKey<Item> RING = modTag("curios:ring");
-    public static final TagKey<Item> RUNE = modTag("curios:rune");
+    public static final TagKey<Item> BROOCH = modTag("curios", "brooch");
+    public static final TagKey<Item> BELT = modTag("curios", "belt");
+    public static final TagKey<Item> CHARM = modTag("curios", "charm");
+    public static final TagKey<Item> NECKLACE = modTag("curios", "necklace");
+    public static final TagKey<Item> RING = modTag("curios", "ring");
+    public static final TagKey<Item> RUNE = modTag("curios", "rune");
+
 
     private static TagKey<Item> modTag(String path) {
         return TagKey.create(Registries.ITEM, ResourceLocation.tryParse(path));

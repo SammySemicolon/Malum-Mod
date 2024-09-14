@@ -6,6 +6,7 @@ import com.sammy.malum.common.block.storage.jar.*;
 import com.sammy.malum.registry.common.block.*;
 import com.sammy.malum.registry.common.item.*;
 import net.minecraft.advancements.critereon.*;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.*;
 import net.minecraft.data.loot.*;
 import net.minecraft.world.flag.*;
@@ -20,10 +21,11 @@ import net.minecraft.world.level.storage.loot.parameters.*;
 import net.minecraft.world.level.storage.loot.predicates.*;
 import net.minecraft.world.level.storage.loot.providers.nbt.*;
 import net.minecraft.world.level.storage.loot.providers.number.*;
-import net.minecraftforge.registries.*;
+import net.neoforged.neoforge.registries.*;
 import team.lodestar.lodestone.systems.block.*;
 
 import java.util.*;
+import java.util.concurrent.CompletableFuture;
 import java.util.function.*;
 import java.util.stream.*;
 
@@ -32,24 +34,24 @@ import static team.lodestar.lodestone.helpers.DataHelper.*;
 
 public class MalumBlockLootTables extends LootTableProvider {
 
-    private static final LootItemCondition.Builder HAS_SILK_TOUCH = MatchTool.toolMatches(ItemPredicate.Builder.item().hasEnchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, MinMaxBounds.Ints.atLeast(1))));
+    /*private static final LootItemCondition.Builder HAS_SILK_TOUCH = MatchTool.toolMatches(ItemPredicate.Builder.item().hasEnchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, MinMaxBounds.Ints.atLeast(1))));
     private static final LootItemCondition.Builder HAS_NO_SILK_TOUCH = HAS_SILK_TOUCH.invert();
     private static final LootItemCondition.Builder HAS_SHEARS = MatchTool.toolMatches(ItemPredicate.Builder.item().of(Items.SHEARS));
     private static final LootItemCondition.Builder HAS_SHEARS_OR_SILK_TOUCH = HAS_SHEARS.or(HAS_SILK_TOUCH);
-    private static final LootItemCondition.Builder HAS_NO_SHEARS_OR_SILK_TOUCH = HAS_SHEARS_OR_SILK_TOUCH.invert();
+    private static final LootItemCondition.Builder HAS_NO_SHEARS_OR_SILK_TOUCH = HAS_SHEARS_OR_SILK_TOUCH.invert();*/
     private static final Set<Item> EXPLOSION_RESISTANT = Stream.of(Blocks.DRAGON_EGG, Blocks.BEACON, Blocks.CONDUIT, Blocks.SKELETON_SKULL, Blocks.WITHER_SKELETON_SKULL, Blocks.PLAYER_HEAD, Blocks.ZOMBIE_HEAD, Blocks.CREEPER_HEAD, Blocks.DRAGON_HEAD, Blocks.SHULKER_BOX, Blocks.BLACK_SHULKER_BOX, Blocks.BLUE_SHULKER_BOX, Blocks.BROWN_SHULKER_BOX, Blocks.CYAN_SHULKER_BOX, Blocks.GRAY_SHULKER_BOX, Blocks.GREEN_SHULKER_BOX, Blocks.LIGHT_BLUE_SHULKER_BOX, Blocks.LIGHT_GRAY_SHULKER_BOX, Blocks.LIME_SHULKER_BOX, Blocks.MAGENTA_SHULKER_BOX, Blocks.ORANGE_SHULKER_BOX, Blocks.PINK_SHULKER_BOX, Blocks.PURPLE_SHULKER_BOX, Blocks.RED_SHULKER_BOX, Blocks.WHITE_SHULKER_BOX, Blocks.YELLOW_SHULKER_BOX).map(ItemLike::asItem).collect(ImmutableSet.toImmutableSet());
     private static final float[] MAGIC_SAPLING_DROP_CHANCE = new float[]{0.015F, 0.0225F, 0.033333336F, 0.05F};
 
-    public MalumBlockLootTables(PackOutput pOutput) {
+    public MalumBlockLootTables(PackOutput pOutput, CompletableFuture<HolderLookup.Provider> provider) {
         super(pOutput, Set.of(), List.of(
-                new SubProviderEntry(BlocksLoot::new, LootContextParamSets.BLOCK))
-        );
+                new SubProviderEntry(BlocksLoot::new, LootContextParamSets.BLOCK)
+        ), provider);
     }
 
     public static class BlocksLoot extends BlockLootSubProvider {
 
-        protected BlocksLoot() {
-            super(Set.of(), FeatureFlags.REGISTRY.allFlags());
+        protected BlocksLoot(HolderLookup.Provider provider) {
+            super(Set.of(), FeatureFlags.REGISTRY.allFlags(), provider);
         }
 
         @Override
@@ -59,9 +61,9 @@ public class MalumBlockLootTables extends LootTableProvider {
 
         @Override
         protected void generate() {
-            Set<DeferredHolder<Block>> blocks = new HashSet<>(BLOCKS.getEntries());
+            Set<DeferredHolder<Block, ? extends Block>> blocks = new HashSet<>(BLOCKS.getEntries());
 
-            takeAll(blocks, b -> b.get().properties instanceof LodestoneBlockProperties && ((LodestoneBlockProperties) b.get().properties).getDatagenData().hasInheritedLootTable);
+            takeAll(blocks, b -> b.get().properties() instanceof LodestoneBlockProperties && ((LodestoneBlockProperties) b.get().properties()).getDatagenData().hasInheritedLootTable);
 
             takeAll(blocks, BlockRegistry.RUNEWOOD_LEAVES, BlockRegistry.HANGING_RUNEWOOD_LEAVES).forEach((b) -> add(b.get(), createLeavesDrops(b.get(), BlockRegistry.RUNEWOOD_SAPLING.get(), MAGIC_SAPLING_DROP_CHANCE)));
             takeAll(blocks, BlockRegistry.AZURE_RUNEWOOD_LEAVES, BlockRegistry.HANGING_AZURE_RUNEWOOD_LEAVES).forEach((b) -> add(b.get(), createLeavesDrops(b.get(), BlockRegistry.AZURE_RUNEWOOD_SAPLING.get(), MAGIC_SAPLING_DROP_CHANCE)));
@@ -120,7 +122,8 @@ public class MalumBlockLootTables extends LootTableProvider {
                                     .setRolls(ConstantValue.exactly(1.0F))
                                     .add(LootItem.lootTableItem(block)
                                             .apply(CopyNameFunction.copyName(CopyNameFunction.NameSource.BLOCK_ENTITY))
-                                            .apply(CopyNbtFunction.copyData(ContextNbtProvider.BLOCK_ENTITY)
+                                            .apply(CopyComponentsFunction.copyComponents(CopyComponentsFunction.Source.BLOCK_ENTITY))
+                                            .apply(CopyCustomDataFunction.copyData(ContextNbtProvider.BLOCK_ENTITY)
                                                     .copy("firstColor", "display.firstColor")
                                                     .copy("secondColor", "display.secondColor")))));
         }
@@ -132,7 +135,8 @@ public class MalumBlockLootTables extends LootTableProvider {
                                     .setRolls(ConstantValue.exactly(1.0F))
                                     .add(LootItem.lootTableItem(block)
                                             .apply(CopyNameFunction.copyName(CopyNameFunction.NameSource.BLOCK_ENTITY))
-                                            .apply(CopyNbtFunction.copyData(ContextNbtProvider.BLOCK_ENTITY)
+                                            .apply(CopyComponentsFunction.copyComponents(CopyComponentsFunction.Source.BLOCK_ENTITY))
+                                            .apply(CopyCustomDataFunction.copyData(ContextNbtProvider.BLOCK_ENTITY)
                                                     .copy("spirit", "spirit")
                                                     .copy("count", "count")))));
         }

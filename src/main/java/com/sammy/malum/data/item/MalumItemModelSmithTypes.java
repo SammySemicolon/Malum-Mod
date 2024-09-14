@@ -5,8 +5,8 @@ import com.sammy.malum.common.item.curiosities.*;
 import com.sammy.malum.common.item.spirit.*;
 import com.sammy.malum.core.systems.ritual.*;
 import com.sammy.malum.registry.common.item.ArmorSkinRegistry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.registries.ForgeRegistries;
 import team.lodestar.lodestone.helpers.DataHelper;
 import team.lodestar.lodestone.systems.datagen.itemsmith.ItemModelSmith;
 import team.lodestar.lodestone.systems.item.LodestoneArmorItem;
@@ -38,8 +38,8 @@ public class MalumItemModelSmithTypes {
             }
             String path = ritualTier.identifier.getPath();
             ResourceLocation itemTexturePath = provider.getItemTexture(base + "_" + path);
-            provider.getBuilder(ForgeRegistries.ITEMS.getKey(item).getPath()).override()
-                    .predicate(new ResourceLocation(RitualShardItem.RITUAL_TYPE), ritualTier.potency)
+            provider.getBuilder(BuiltInRegistries.ITEM.getKey(item).getPath()).override()
+                    .predicate(ResourceLocation.withDefaultNamespace(RitualShardItem.RITUAL_TYPE), ritualTier.potency)
                     .model(provider.withExistingParent(provider.getItemName(item) + "_" + path, GENERATED).texture("layer0", itemTexturePath))
                     .end();
         }
@@ -51,8 +51,8 @@ public class MalumItemModelSmithTypes {
         for (int i = 1; i <= 2; i++) {
             String affix = i == 1 ? "open" : "loaded";
             ResourceLocation itemTexturePath = provider.getItemTexture(base + "_" + affix);
-            provider.getBuilder(ForgeRegistries.ITEMS.getKey(item).getPath()).override()
-                    .predicate(new ResourceLocation(CatalystFlingerItem.STATE), i)
+            provider.getBuilder(BuiltInRegistries.ITEM.getKey(item).getPath()).override()
+                    .predicate(ResourceLocation.withDefaultNamespace(CatalystFlingerItem.STATE), i)
                     .model(provider.withExistingParent(base + "_" + affix, HANDHELD).texture("layer0", itemTexturePath))
                     .end();
         }
@@ -105,9 +105,9 @@ public class MalumItemModelSmithTypes {
                 continue;
             }
             String itemSuffix = datagenData.getSuffix((LodestoneArmorItem) item);
-            ResourceLocation itemTexturePath = new ResourceLocation(datagenData.itemTexturePrefix + itemSuffix);
-            provider.getBuilder(ForgeRegistries.ITEMS.getKey(item).getPath()).override()
-                    .predicate(new ResourceLocation(ArmorSkin.MALUM_SKIN_TAG), value)
+            ResourceLocation itemTexturePath = ResourceLocation.withDefaultNamespace(datagenData.itemTexturePrefix + itemSuffix);
+            provider.getBuilder(BuiltInRegistries.ITEM.getKey(item).getPath()).override()
+                    .predicate(ResourceLocation.withDefaultNamespace(ArmorSkin.MALUM_SKIN_TAG), value)
                     .model(provider.withExistingParent(entry.getKey() + "_" + itemSuffix, GENERATED).texture("layer0", itemTexturePath))
                     .end();
         }

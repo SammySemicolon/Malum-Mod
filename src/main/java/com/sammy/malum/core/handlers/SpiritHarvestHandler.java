@@ -266,7 +266,7 @@ public class SpiritHarvestHandler {
         if (spiritData != null)
             return Optional.of(spiritData);
 
-        if (!entity.canChangeDimensions())
+        if (entity.isPassenger() || entity.isVehicle())
             return Optional.of(SpiritDataReloadListener.DEFAULT_BOSS_SPIRIT_DATA);
 
         if (!CommonConfig.USE_DEFAULT_SPIRIT_VALUES.getConfigValue())
