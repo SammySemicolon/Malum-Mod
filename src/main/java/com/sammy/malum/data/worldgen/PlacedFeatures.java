@@ -13,7 +13,7 @@ import net.minecraft.world.level.levelgen.placement.*;
 import java.util.*;
 
 public class PlacedFeatures {
-    public static void bootstrap(BootstapContext<PlacedFeature> context) {
+    public static void bootstrap(BootstrapContext<PlacedFeature> context) {
         HolderGetter<ConfiguredFeature<?, ?>> features = context.lookup(Registries.CONFIGURED_FEATURE);
         context.register(PlacedFeatureRegistry.ORE_SOULSTONE, addOreFeature(features.getOrThrow(ConfiguredFeatureRegistry.CONFIGURED_SOULSTONE_ORE), -64, 100, 3));
         context.register(PlacedFeatureRegistry.ORE_BRILLIANT, addOreFeature(features.getOrThrow(ConfiguredFeatureRegistry.CONFIGURED_BRILLIANT_ORE), -64, 40, 3));

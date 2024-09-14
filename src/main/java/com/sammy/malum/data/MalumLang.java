@@ -10,6 +10,7 @@ import com.sammy.malum.core.systems.ritual.*;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import com.sammy.malum.registry.common.*;
 import com.sammy.malum.registry.common.block.BlockRegistry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.effect.MobEffect;
@@ -19,12 +20,13 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemNameBlockItem;
 import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.WallSignBlock;
 import net.minecraft.world.level.block.WallTorchBlock;
-import net.minecraftforge.common.data.LanguageProvider;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.DeferredHolder;
+import net.neoforged.neoforge.common.data.LanguageProvider;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import team.lodestar.lodestone.helpers.DataHelper;
 
 import java.util.*;
@@ -45,13 +47,13 @@ public class MalumLang extends LanguageProvider {
 
     @Override
     protected void addTranslations() {
-        Set<DeferredHolder<Block>> blocks = new HashSet<>(BLOCKS.getEntries());
-        Set<DeferredHolder<Item>> items = new HashSet<>(ITEMS.getEntries());
-        Set<DeferredHolder<SoundEvent>> sounds = new HashSet<>(SOUNDS.getEntries());
-        Set<DeferredHolder<Enchantment>> enchantments = new HashSet<>(ENCHANTMENTS.getEntries());
-        Set<DeferredHolder<MobEffect>> effects = new HashSet<>(EFFECTS.getEntries());
-        Set<DeferredHolder<Attribute>> attributes = new HashSet<>(ATTRIBUTES.getEntries());
-        Set<DeferredHolder<EntityType<?>>> entities = new HashSet<>(ENTITY_TYPES.getEntries());
+        Set<DeferredHolder<Block, ? extends Block>> blocks = new HashSet<>(BLOCKS.getEntries());
+        Set<DeferredHolder<Item, ? extends Item>> items = new HashSet<>(ITEMS.getEntries());
+        Set<DeferredHolder<SoundEvent, ? extends SoundEvent>> sounds = new HashSet<>(SOUNDS.getEntries());
+        Set<DeferredHolder<Enchantment, ? extends Enchantment>> enchantments = new HashSet<>(ENCHANTMENTS.getEntries());
+        Set<DeferredHolder<MobEffect, ? extends MobEffect>> effects = new HashSet<>(EFFECTS.getEntries());
+        Set<DeferredHolder<Attribute, ? extends Attribute>> attributes = new HashSet<>(ATTRIBUTES.getEntries());
+        Set<DeferredHolder<EntityType<?>, ? extends EntityType<?>>> entities = new HashSet<>(ENTITY_TYPES.getEntries());
         List<MalumSpiritType> spirits = new ArrayList<>(SpiritTypeRegistry.SPIRITS.values());
 
         add(DataHelper.take(blocks, BlockRegistry.PRIMORDIAL_SOUP).get(), "The Weeping Well");
@@ -90,22 +92,22 @@ public class MalumLang extends LanguageProvider {
 
         enchantments.forEach(e -> {
             String name = DataHelper.toTitleCase(e.getId().getPath(), "_");
-            add(e.get().getDescriptionId(), name);
+            add("enchantment.malum." + e.getKey().location().getPath(), name);
         });
 
         effects.forEach(e -> {
             String name = DataHelper.toTitleCase(makeProperEnglish(e.getId().getPath()), "_");
-            add("effect.malum." + ForgeRegistries.MOB_EFFECTS.getKey(e.get()).getPath(), name);
+            add("effect.malum." + BuiltInRegistries.MOB_EFFECT.getKey(e.get()).getPath(), name);
         });
 
         attributes.forEach(a -> {
             String name = DataHelper.toTitleCase(a.getId().getPath(), "_");
-            add("attribute.name.malum." + ForgeRegistries.ATTRIBUTES.getKey(a.get()).getPath(), name);
+            add("attribute.name.malum." + BuiltInRegistries.ATTRIBUTE.getKey(a.get()).getPath(), name);
         });
 
         entities.forEach(e -> {
             String name = DataHelper.toTitleCase(e.getId().getPath(), "_");
-            add("entity.malum." + ForgeRegistries.ENTITY_TYPES.getKey(e.get()).getPath(), name);
+            add("entity.malum." + BuiltInRegistries.ENTITY_TYPE.getKey(e.get()).getPath(), name);
         });
 
         spirits.forEach(s -> add(s.getSpiritDescription(), DataHelper.toTitleCase(s.identifier + "_spirit", "_")));
@@ -1199,7 +1201,7 @@ public class MalumLang extends LanguageProvider {
         add("malum.tooltip." + identifier, tooltip);
     }
 
-    public void addEffectDescription(Supplier<EarthenAura> mobEffectSupplier, String description) {
+    public void addEffectDescription(Supplier<MobEffect> mobEffectSupplier, String description) {
         add(mobEffectSupplier.get().getDescriptionId() + ".description", description);
     }
 

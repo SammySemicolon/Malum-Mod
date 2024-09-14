@@ -5,8 +5,8 @@ import com.sammy.malum.data.item.*;
 import net.minecraft.data.*;
 import net.minecraft.resources.*;
 import net.minecraft.world.level.block.*;
-import net.minecraftforge.client.model.generators.*;
-import net.minecraftforge.common.data.*;
+import net.neoforged.neoforge.client.model.generators.ModelFile;
+import net.neoforged.neoforge.common.data.*;
 import team.lodestar.lodestone.systems.datagen.*;
 import team.lodestar.lodestone.systems.datagen.providers.*;
 import team.lodestar.lodestone.systems.datagen.statesmith.*;
@@ -32,7 +32,7 @@ public class MalumBlockStates extends LodestoneBlockStateProvider {
 
     @Override
     protected void registerStatesAndModels() {
-        Set<Supplier<Block>> blocks = new HashSet<>(BLOCKS.getEntries());
+        Set<Supplier<? extends Block>> blocks = new HashSet<>(BLOCKS.getEntries());
 
         AbstractBlockStateSmith.StateSmithData data = new AbstractBlockStateSmith.StateSmithData(this, blocks::remove);
 
@@ -318,7 +318,7 @@ public class MalumBlockStates extends LodestoneBlockStateProvider {
 
     public ModelFile etherModel(Block block) {
         String name = getBlockName(block);
-        return models().withExistingParent(name, new ResourceLocation("block/air")).texture("particle", itemModelProvider.getItemTexture("ether"));
+        return models().withExistingParent(name, ResourceLocation.withDefaultNamespace("block/air")).texture("particle", itemModelProvider.getItemTexture("ether"));
     }
 
     public ModelFile etherTorchModel(Block block) {
@@ -356,7 +356,7 @@ public class MalumBlockStates extends LodestoneBlockStateProvider {
     public ModelFile blightedEarthModel(Block block) {
         String name = getBlockName(block);
         ResourceLocation side = getBlockTexture(name);
-        ResourceLocation bottom = new ResourceLocation("block/dirt");
+        ResourceLocation bottom = ResourceLocation.withDefaultNamespace("block/dirt");
         ResourceLocation top = getBlockTexture("blighted_soil_0");
         return models().cubeBottomTop(name, side, bottom, top);
     }

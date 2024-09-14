@@ -7,8 +7,8 @@ import net.minecraft.data.*;
 import net.minecraft.data.tags.*;
 import net.minecraft.tags.*;
 import net.minecraft.world.level.biome.*;
-import net.minecraftforge.common.*;
-import net.minecraftforge.common.data.*;
+import net.neoforged.neoforge.common.*;
+import net.neoforged.neoforge.common.data.*;
 import org.jetbrains.annotations.*;
 
 import java.util.concurrent.*;
