@@ -11,7 +11,7 @@ import java.util.stream.*;
 
 public class SpiritIngredient implements ICustomIngredient {
 
-    public static final MapCodec<SpiritIngredient> CODEC = RecordCodecBuilder.mapCodec(
+    public static final Codec<SpiritIngredient> CODEC = RecordCodecBuilder.create(
             builder -> builder
                     .group(
                             MalumSpiritType.CODEC.fieldOf("type").forGetter(SpiritIngredient::getSpiritType),

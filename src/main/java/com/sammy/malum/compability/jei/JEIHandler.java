@@ -3,6 +3,7 @@ package com.sammy.malum.compability.jei;
 import com.google.common.collect.Maps;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.recipe.*;
+import com.sammy.malum.common.recipe.spirit.focusing.*;
 import com.sammy.malum.common.recipe.void_favor.*;
 import com.sammy.malum.common.spiritrite.TotemicRiteType;
 import com.sammy.malum.compability.farmersdelight.FarmersDelightCompat;

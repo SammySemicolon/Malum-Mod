@@ -2,6 +2,7 @@ package com.sammy.malum.registry.common.recipe;
 
 import com.sammy.malum.*;
 import com.sammy.malum.common.recipe.*;
+import com.sammy.malum.common.recipe.spirit.focusing.*;
 import com.sammy.malum.common.recipe.void_favor.*;
 import net.minecraft.core.registries.*;
 import net.minecraft.world.item.crafting.*;
