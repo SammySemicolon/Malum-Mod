@@ -83,8 +83,8 @@ public class MalumBlockProperties {
                 .randomTicks()
                 .noOcclusion()
                 .isValidSpawn(Blocks::ocelotOrParrot)
-                .isSuffocating(Blocks::never)
-                .isViewBlocking(Blocks::never)
+                .isSuffocating((a,b,c) -> false)
+                .isViewBlocking((a,b,c) -> false)
                 .setCutoutRenderType()
                 .sound(SoundRegistry.RUNEWOOD_LEAVES)
                 .needsHoe();
@@ -97,8 +97,8 @@ public class MalumBlockProperties {
                 .randomTicks()
                 .noOcclusion()
                 .isValidSpawn(Blocks::ocelotOrParrot)
-                .isSuffocating(Blocks::never)
-                .isViewBlocking(Blocks::never)
+                .isSuffocating((a,b,c) -> false)
+                .isViewBlocking((a,b,c) -> false)
                 .setCutoutRenderType()
                 .sound(SoundRegistry.RUNEWOOD_LEAVES)
                 .needsHoe();
@@ -131,8 +131,8 @@ public class MalumBlockProperties {
                 .randomTicks()
                 .noOcclusion()
                 .isValidSpawn(Blocks::ocelotOrParrot)
-                .isSuffocating(Blocks::never)
-                .isViewBlocking(Blocks::never)
+                .isSuffocating((a,b,c) -> false)
+                .isViewBlocking((a,b,c) -> false)
                 .sound(SoundRegistry.SOULWOOD_LEAVES);
     }
 
@@ -144,8 +144,8 @@ public class MalumBlockProperties {
                 .randomTicks()
                 .noOcclusion()
                 .isValidSpawn(Blocks::ocelotOrParrot)
-                .isSuffocating(Blocks::never)
-                .isViewBlocking(Blocks::never)
+                .isSuffocating((a,b,c) -> false)
+                .isViewBlocking((a,b,c) -> false)
                 .sound(SoundRegistry.SOULWOOD_LEAVES);
     }
 
@@ -429,7 +429,7 @@ public class MalumBlockProperties {
                 .needsPickaxe()
                 .sound(SoundRegistry.WEEPING_WELL_BRICKS)
                 .requiresCorrectToolForDrops()
-                .isRedstoneConductor(Blocks::never)
+                .isRedstoneConductor((a,b,c) -> false)
                 .strength(-1.0F, 3600000.0F);
     }
 

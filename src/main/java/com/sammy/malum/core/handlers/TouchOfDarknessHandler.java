@@ -29,6 +29,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.neoforge.event.tick.EntityTickEvent;
 import team.lodestar.lodestone.helpers.BlockHelper;
 import team.lodestar.lodestone.systems.easing.Easing;
 import team.lodestar.lodestone.systems.rendering.VFXBuilders;
@@ -94,76 +95,77 @@ public class TouchOfDarknessHandler {
         return BlockHelper.getBlockEntitiesStream(VoidConduitBlockEntity.class, livingEntity.level(), livingEntity.blockPosition(), 8).findFirst();
     }
 
-    public static void entityTick(LivingEvent.LivingTickEvent event) {
-        LivingEntity livingEntity = event.getEntity();
-        Level level = livingEntity.level();
-        TouchOfDarknessHandler handler = MalumLivingEntityDataCapability.getCapability(livingEntity).touchOfDarknessHandler;
+    public static void entityTick(EntityTickEvent event) {
+        if (event.getEntity() instanceof LivingEntity livingEntity) {
+            Level level = livingEntity.level();
+            TouchOfDarknessHandler handler = MalumLivingEntityDataCapability.getCapability(livingEntity).touchOfDarknessHandler;
 
-        if (livingEntity instanceof Player player) {
-            if (level.getGameTime() % 20L == 0) {
-                final Optional<VoidConduitBlockEntity> voidConduitBlockEntity = checkForWeepingWell(player);
-                handler.isNearWeepingWell = voidConduitBlockEntity.isPresent();
-            }
-            if (handler.isNearWeepingWell) {
-                handler.weepingWellInfluence++;
-            }
-        }
-        Block block = level.getBlockState(livingEntity.blockPosition()).getBlock();
-        boolean isInTheGoop = block instanceof PrimordialSoupBlock || block instanceof VoidConduitBlock;
-        if (!isInTheGoop) {
-            block = level.getBlockState(livingEntity.blockPosition().above()).getBlock();
-            isInTheGoop = block instanceof PrimordialSoupBlock || block instanceof VoidConduitBlock;
-        }
-        //VALUE UPDATES
-        if (handler.afflictionDuration > 0) {
-            handler.afflictionDuration--;
-            if (handler.afflictionDuration == 0) {
-                handler.expectedAffliction = 0;
-            }
-        }
-        if (handler.currentAffliction < handler.expectedAffliction) {
-            handler.currentAffliction = Math.min(MAX_AFFLICTION, handler.currentAffliction + 1.5f);
-        }
-        if (handler.currentAffliction > handler.expectedAffliction) {
-            handler.currentAffliction = Math.max(handler.currentAffliction - (handler.expectedAffliction == 0 ? 1.5f : 0.75f), handler.expectedAffliction);
-        }
-        //GRAVITY
-
-        AttributeInstance gravity = livingEntity.getAttribute(ForgeMod.ENTITY_GRAVITY.get());
-        if (gravity != null) {
-            boolean hasModifier = gravity.getModifier(GRAVITY_MODIFIER_UUID) != null;
-            if (handler.progressToRejection > 0) {
-                if (!hasModifier) {
-                    gravity.addTransientModifier(getEntityGravityAttributeModifier(livingEntity));
+            if (livingEntity instanceof Player player) {
+                if (level.getGameTime() % 20L == 0) {
+                    final Optional<VoidConduitBlockEntity> voidConduitBlockEntity = checkForWeepingWell(player);
+                    handler.isNearWeepingWell = voidConduitBlockEntity.isPresent();
                 }
-                gravity.setDirty();
-            } else if (hasModifier) {
-                gravity.removeModifier(GRAVITY_MODIFIER_UUID);
-            }
-        }
-        //REJECTION
-        if (isInTheGoop) {
-            if (!(livingEntity instanceof Player player) || (!player.isSpectator())) {
-                handler.progressToRejection++;
-                if (!level.isClientSide) {
-                    if (livingEntity instanceof Player && level.getGameTime() % 6L == 0) {
-                        level.playSound(null, livingEntity.blockPosition(), SoundRegistry.SONG_OF_THE_VOID.get(), SoundSource.HOSTILE, 0.5f + handler.progressToRejection * 0.02f, 0.5f + handler.progressToRejection * 0.03f);
-                    }
-                    if (handler.rejection == 0 && handler.progressToRejection > 60) {
-                        handler.reject(livingEntity);
-                    }
+                if (handler.isNearWeepingWell) {
+                    handler.weepingWellInfluence++;
                 }
             }
-        } else {
-            handler.progressToRejection = 0;
-        }
+            Block block = level.getBlockState(livingEntity.blockPosition()).getBlock();
+            boolean isInTheGoop = block instanceof PrimordialSoupBlock || block instanceof VoidConduitBlock;
+            if (!isInTheGoop) {
+                block = level.getBlockState(livingEntity.blockPosition().above()).getBlock();
+                isInTheGoop = block instanceof PrimordialSoupBlock || block instanceof VoidConduitBlock;
+            }
+            //VALUE UPDATES
+            if (handler.afflictionDuration > 0) {
+                handler.afflictionDuration--;
+                if (handler.afflictionDuration == 0) {
+                    handler.expectedAffliction = 0;
+                }
+            }
+            if (handler.currentAffliction < handler.expectedAffliction) {
+                handler.currentAffliction = Math.min(MAX_AFFLICTION, handler.currentAffliction + 1.5f);
+            }
+            if (handler.currentAffliction > handler.expectedAffliction) {
+                handler.currentAffliction = Math.max(handler.currentAffliction - (handler.expectedAffliction == 0 ? 1.5f : 0.75f), handler.expectedAffliction);
+            }
+            //GRAVITY
 
-        //MOTION
-        if (handler.rejection > 0) {
-            handler.rejection--;
-            float intensity = handler.rejection / 40f;
-            Vec3 movement = livingEntity.getDeltaMovement();
-            livingEntity.setDeltaMovement(movement.x, Math.pow(intensity, 2), movement.z);
+            AttributeInstance gravity = livingEntity.getAttribute(ForgeMod.ENTITY_GRAVITY.get());
+            if (gravity != null) {
+                boolean hasModifier = gravity.getModifier(GRAVITY_MODIFIER_UUID) != null;
+                if (handler.progressToRejection > 0) {
+                    if (!hasModifier) {
+                        gravity.addTransientModifier(getEntityGravityAttributeModifier(livingEntity));
+                    }
+                    gravity.setDirty();
+                } else if (hasModifier) {
+                    gravity.removeModifier(GRAVITY_MODIFIER_UUID);
+                }
+            }
+            //REJECTION
+            if (isInTheGoop) {
+                if (!(livingEntity instanceof Player player) || (!player.isSpectator())) {
+                    handler.progressToRejection++;
+                    if (!level.isClientSide) {
+                        if (livingEntity instanceof Player && level.getGameTime() % 6L == 0) {
+                            level.playSound(null, livingEntity.blockPosition(), SoundRegistry.SONG_OF_THE_VOID.get(), SoundSource.HOSTILE, 0.5f + handler.progressToRejection * 0.02f, 0.5f + handler.progressToRejection * 0.03f);
+                        }
+                        if (handler.rejection == 0 && handler.progressToRejection > 60) {
+                            handler.reject(livingEntity);
+                        }
+                    }
+                }
+            } else {
+                handler.progressToRejection = 0;
+            }
+
+            //MOTION
+            if (handler.rejection > 0) {
+                handler.rejection--;
+                float intensity = handler.rejection / 40f;
+                Vec3 movement = livingEntity.getDeltaMovement();
+                livingEntity.setDeltaMovement(movement.x, Math.pow(intensity, 2), movement.z);
+            }
         }
     }
 

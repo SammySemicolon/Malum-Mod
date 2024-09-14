@@ -11,7 +11,10 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.item.*;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.entity.living.LivingChangeTargetEvent;
+import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
+import net.neoforged.neoforge.event.entity.living.LivingEvent;
 import net.neoforged.neoforge.event.entity.living.MobSpawnEvent;
+import net.neoforged.neoforge.event.tick.EntityTickEvent;
 
 public class SoulDataHandler {
 
@@ -69,8 +72,8 @@ public class SoulDataHandler {
         }
     }
 
-    public static void exposeSoul(LivingHurtEvent event) {
-        if (event.isCanceled() || event.getAmount() <= 0) {
+    public static void exposeSoul(LivingDamageEvent.Post event) {
+        if (event.isCanceled() || event.getOriginalDamage() <= 0) {
             return;
         }
         LivingEntity target = event.getEntity();
@@ -87,11 +90,12 @@ public class SoulDataHandler {
         }
     }
 
-    public static void manageSoul(LivingEvent.LivingTickEvent event) {
-        LivingEntity entity = event.getEntity();
-        SoulDataHandler soulData = MalumLivingEntityDataCapability.getCapability(entity).soulData;
-        if (soulData.exposedSoulDuration > 0) {
-            soulData.exposedSoulDuration--;
+    public static void manageSoul(EntityTickEvent event) {
+        if (event.getEntity() instanceof LivingEntity living) {
+            SoulDataHandler soulData = MalumLivingEntityDataCapability.getCapability(living).soulData;
+            if (soulData.exposedSoulDuration > 0) {
+                soulData.exposedSoulDuration--;
+            }
         }
     }
 

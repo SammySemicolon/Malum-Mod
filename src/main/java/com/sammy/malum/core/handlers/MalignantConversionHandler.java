@@ -8,6 +8,7 @@ import net.minecraft.network.chat.*;
 import net.minecraft.util.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.*;
+import net.neoforged.neoforge.event.tick.EntityTickEvent;
 
 import java.util.*;
 
@@ -19,9 +20,8 @@ public class MalignantConversionHandler {
     public final HashMap<Attribute, Double> cachedAttributeValues = new HashMap<>();
     public boolean skipConversionLogic;
 
-    public static void checkForAttributeChanges(LivingEvent.LivingTickEvent event) {
-        final LivingEntity livingEntity = event.getEntity();
-        if (!livingEntity.level().isClientSide) {
+    public static void checkForAttributeChanges(EntityTickEvent event) {
+        if (event.getEntity() instanceof LivingEntity livingEntity && !livingEntity.level().isClientSide) {
             var handler = MalumLivingEntityDataCapability.getCapability(livingEntity).malignantConversionHandler;
             final Attribute conversionAttribute = AttributeRegistry.MALIGNANT_CONVERSION.get();
             AttributeInstance conversionInstance = livingEntity.getAttribute(conversionAttribute);

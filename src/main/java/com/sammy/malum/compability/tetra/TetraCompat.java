@@ -6,6 +6,7 @@ import net.minecraft.world.entity.projectile.Arrow;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.entity.*;
 import net.minecraftforge.fml.ModList;
+import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import se.mickelus.tetra.aspect.ItemAspect;
 import se.mickelus.tetra.aspect.TetraEnchantmentHelper;
 import se.mickelus.tetra.effect.ItemEffect;

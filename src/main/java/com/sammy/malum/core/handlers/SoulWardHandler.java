@@ -20,6 +20,8 @@ import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
+import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import org.joml.Vector4f;
 import team.lodestar.lodestone.helpers.ItemHelper;
 import team.lodestar.lodestone.registry.client.*;
@@ -44,8 +46,8 @@ public class SoulWardHandler {
         soulWardProgress = tag.getFloat("soulWardProgress");
     }
 
-    public static void recoverSoulWard(TickEvent.PlayerTickEvent event) {
-        Player player = event.player;
+    public static void recoverSoulWard(PlayerTickEvent.Post event) {
+        Player player = event.getEntity();
         if (!player.level().isClientSide) {
             SoulWardHandler soulWardHandler = MalumPlayerDataCapability.getCapability(player).soulWardHandler;
             AttributeInstance soulWardCap = player.getAttribute(AttributeRegistry.SOUL_WARD_CAP.get());
@@ -70,8 +72,8 @@ public class SoulWardHandler {
         }
     }
 
-    public static void shieldPlayer(LivingHurtEvent event) {
-        if (event.isCanceled() || event.getAmount() <= 0) {
+    public static void shieldPlayer(LivingDamageEvent.Pre event) {
+        if (event.isCanceled() || event.getOriginalDamage() <= 0) {
             return;
         }
         if (event.getEntity() instanceof Player player) {
@@ -81,7 +83,7 @@ public class SoulWardHandler {
                 if (soulWardHandler.soulWard > 0) {
                     DamageSource source = event.getSource();
 
-                    float amount = event.getAmount();
+                    float amount = event.getOriginalDamage();
                     float multiplier = source.is(LodestoneDamageTypeTags.IS_MAGIC) ? CommonConfig.SOUL_WARD_MAGIC.getConfigValue().floatValue() : CommonConfig.SOUL_WARD_PHYSICAL.getConfigValue().floatValue();
 
                     for (ItemStack s : ItemHelper.getEventResponders(player)) {
@@ -107,7 +109,7 @@ public class SoulWardHandler {
                     }
                     SoundEvent sound = soulWardHandler.soulWard == 0 ? SoundRegistry.SOUL_WARD_DEPLETE.get() : SoundRegistry.SOUL_WARD_HIT.get();
                     player.level().playSound(null, player.blockPosition(), sound, player.getSoundSource(), 1, Mth.nextFloat(player.getRandom(), 1f, 1.5f));
-                    event.setAmount(result);
+                    event.setNewDamage(result);
 
                     MalumPlayerDataCapability.syncTrackingAndSelf(player);
                 }

@@ -37,6 +37,8 @@ import net.neoforged.neoforge.event.entity.living.*;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.level.ExplosionEvent;
+import net.neoforged.neoforge.event.tick.EntityTickEvent;
+import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 
 @EventBusSubscriber
 public class RuntimeEvents {
@@ -110,7 +112,7 @@ public class RuntimeEvents {
     }
 
     @SubscribeEvent
-    public static void onLivingTick(LivingTickEvent event) {
+    public static void onLivingTick(EntityTickEvent event) {
         SoulDataHandler.manageSoul(event);
         MalignantConversionHandler.checkForAttributeChanges(event);
         TouchOfDarknessHandler.entityTick(event);
@@ -135,7 +137,7 @@ public class RuntimeEvents {
     }
 
     @SubscribeEvent
-    public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
+    public static void onPlayerTick(PlayerTickEvent.Post event) {
         ReserveStaffChargeHandler.recoverStaffCharges(event);
         SoulWardHandler.recoverSoulWard(event);
     }
@@ -188,18 +190,23 @@ public class RuntimeEvents {
     }
 
     @SubscribeEvent
-    public static void onHurt(LivingHurtEvent event) {
-        MalumAttributeEventHandler.processAttributes(event);
+    public static void onHurt(LivingDamageEvent.Post event) {
         SoulDataHandler.exposeSoul(event);
     }
 
+    @SubscribeEvent
+    public static void onHurt(LivingDamageEvent.Pre event) {
+        MalumAttributeEventHandler.processAttributes(event);
+    }
+
+
     @SubscribeEvent(priority = EventPriority.LOWEST)
-    public static void onLateHurt(LivingHurtEvent event) {
+    public static void onLateHurt(LivingDamageEvent.Pre event) {
         SoulWardHandler.shieldPlayer(event);
     }
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
-    public static void onLateDamage(LivingDamageEvent event) {
+    public static void onLateDamage(LivingDamageEvent.Pre event) {
         WickedIntentEffect.removeWickedIntent(event);
     }
 

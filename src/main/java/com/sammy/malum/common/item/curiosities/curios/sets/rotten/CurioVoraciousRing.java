@@ -7,7 +7,7 @@ import net.minecraft.network.chat.*;
 import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
-import net.minecraftforge.event.entity.living.*;
+import net.neoforged.neoforge.event.entity.living.LivingEntityUseItemEvent;
 import team.lodestar.lodestone.helpers.*;
 
 import java.util.function.*;
@@ -40,7 +40,7 @@ public class CurioVoraciousRing extends MalumCurioItem {
             var livingEntity = event.getEntity();
             if (CurioHelper.hasCurioEquipped(livingEntity, ItemRegistry.RING_OF_DESPERATE_VORACITY.get())) {
                 var level = livingEntity.level();
-                var gluttony = livingEntity.getEffect(MobEffectRegistry.GLUTTONY.get());
+                var gluttony = livingEntity.getEffect(MobEffectRegistry.GLUTTONY);
                 var hunger = livingEntity.getEffect(MobEffects.HUNGER);
                 if (gluttony != null) {
                     EntityHelper.extendEffect(gluttony, livingEntity, 300, 3000);

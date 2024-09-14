@@ -13,7 +13,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.event.entity.living.LivingDamageEvent;
+import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import team.lodestar.lodestone.helpers.ColorHelper;
 import team.lodestar.lodestone.registry.common.tag.*;
 
@@ -23,7 +23,7 @@ public class WickedIntentEffect extends MobEffect {
         addAttributeModifier(AttributeRegistry.SCYTHE_PROFICIENCY.get(), "0cd21cec-758c-456b-9955-06713e732303", 4f, AttributeModifier.Operation.ADDITION);
     }
 
-    public static void removeWickedIntent(LivingDamageEvent event) {
+    public static void removeWickedIntent(LivingDamageEvent.Pre event) {
         DamageSource source = event.getSource();
         if (source.is(LodestoneDamageTypeTags.IS_MAGIC) || (source.is(DamageTypes.THORNS))) {
             return;
@@ -32,7 +32,7 @@ public class WickedIntentEffect extends MobEffect {
             if (MalumScytheItem.getScytheItemStack(source, livingEntity).isEmpty()) {
                 return;
             }
-            MobEffectInstance effect = livingEntity.getEffect(MobEffectRegistry.WICKED_INTENT.get());
+            MobEffectInstance effect = livingEntity.getEffect(MobEffectRegistry.WICKED_INTENT);
             if (effect != null) {
                 Level level = livingEntity.level();
                 livingEntity.removeEffect(effect.getEffect());

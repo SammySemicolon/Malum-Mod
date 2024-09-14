@@ -7,16 +7,17 @@ import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.item.ItemStack;
+import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import team.lodestar.lodestone.registry.common.tag.*;
 
 public class MalumAttributeEventHandler {
-    public static void processAttributes(LivingHurtEvent event) {
-        if (event.isCanceled() || event.getAmount() <= 0) {
+    public static void processAttributes(LivingDamageEvent.Pre event) {
+        if (event.isCanceled() || event.getOriginalDamage() <= 0) {
             return;
         }
         DamageSource source = event.getSource();
         if (source.getEntity() instanceof LivingEntity attacker) {
-            float amount = event.getAmount();
+            float amount = event.getOriginalDamage();
             ItemStack stack = MalumScytheItem.getScytheItemStack(source, attacker);
             if (stack.isEmpty()) {
                 return;
@@ -27,7 +28,7 @@ public class MalumAttributeEventHandler {
             if (!event.getSource().is(LodestoneDamageTypeTags.IS_MAGIC)) {
                 AttributeInstance scytheProficiency = attacker.getAttribute(AttributeRegistry.SCYTHE_PROFICIENCY.get());
                 if (scytheProficiency != null && scytheProficiency.getValue() > 0) {
-                    event.setAmount((float) (amount + scytheProficiency.getValue() * 0.5f));
+                    event.setNewDamage((float) (amount + scytheProficiency.getValue() * 0.5f));
                 }
             }
         }

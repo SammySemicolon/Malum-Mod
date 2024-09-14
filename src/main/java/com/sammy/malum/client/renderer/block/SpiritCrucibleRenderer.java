@@ -19,7 +19,7 @@ import net.minecraft.util.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
-import net.minecraftforge.event.*;
+import net.neoforged.neoforge.client.event.ClientTickEvent;
 import org.joml.*;
 import team.lodestar.lodestone.handlers.*;
 import team.lodestar.lodestone.helpers.*;
@@ -39,13 +39,13 @@ public class SpiritCrucibleRenderer implements BlockEntityRenderer<SpiritCrucibl
     private static float tuningForkHeldTimer = 0;
     private static boolean isHoldingFork;
 
-    private static final MultiBufferSource TEXT = new LodestoneBufferWrapper(LodestoneRenderTypeRegistry.ADDITIVE_TEXT, RenderHandler.DELAYED_RENDER.getTarget());
+    private static final MultiBufferSource TEXT = new LodestoneBufferWrapper(LodestoneRenderTypes.ADDITIVE_TEXT, RenderHandler.DELAYED_RENDER.getTarget());
 
     public SpiritCrucibleRenderer(BlockEntityRendererProvider.Context context) {
     }
 
-    public static void checkForTuningFork(TickEvent.ClientTickEvent event) {
-        if (event.phase.equals(TickEvent.Phase.START)) {
+    public static void checkForTuningFork(ClientTickEvent.Pre event) {
+        if (true) {
             final LocalPlayer player = Minecraft.getInstance().player;
             if (player == null) {
                 return;

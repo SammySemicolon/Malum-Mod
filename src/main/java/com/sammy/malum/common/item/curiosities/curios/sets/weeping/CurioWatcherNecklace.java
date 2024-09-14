@@ -11,6 +11,7 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
 import net.minecraftforge.event.entity.living.*;
+import net.neoforged.neoforge.event.tick.EntityTickEvent;
 import team.lodestar.lodestone.helpers.*;
 
 import java.util.function.*;
@@ -51,7 +52,7 @@ public class CurioWatcherNecklace extends MalumCurioItem implements IMalumEventR
         }
     }
 
-    public static void entityTick(LivingEvent.LivingTickEvent event) {
+    public static void entityTick(EntityTickEvent event) {
         LivingEntity entity = event.getEntity();
 
         MalumLivingEntityDataCapability.getCapabilityOptional(entity).ifPresent(c -> {

@@ -1,86 +1,70 @@
 package com.sammy.malum.registry.common.item;
 
+import net.minecraft.Util;
+import net.minecraft.core.Holder;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 
 import javax.annotation.Nonnull;
+import java.util.EnumMap;
+import java.util.List;
 import java.util.function.Supplier;
 
 public class ArmorTiers {
-    public enum ArmorTierEnum implements ArmorMaterial {
-        SPIRIT_HUNTER("malum:spirit_hunter", 16, new int[]{1, 3, 4, 2}, 16, () -> SoundEvents.ARMOR_EQUIP_LEATHER, ItemRegistry.SPIRIT_FABRIC, 0),
-        SOUL_STAINED_STEEL("malum:soul_stained_steel", 24, new int[]{2, 6, 7, 3}, 16, () -> SoundEvents.ARMOR_EQUIP_IRON, ItemRegistry.SOUL_STAINED_STEEL_PLATING, 2),
-        MALIGNANT_ALLOY("malum:malignant_alloy", 32, new int[]{3, 6, 8, 3}, 24, () -> SoundEvents.ARMOR_EQUIP_NETHERITE, ItemRegistry.MALIGNANT_PEWTER_PLATING, 2, 0.1f);
-        private static final int[] MAX_DAMAGE_ARRAY = new int[]{13, 15, 16, 11};
-        private final String name;
-        private final int durabilityMultiplier;
-        private final int[] damageReduction;
-        private final int enchantability;
-        private final Supplier<SoundEvent> equipSound;
-        private final Supplier<Item> repairItem;
-        private final float toughness;
-        private final float knockbackResistance;
 
-        ArmorTierEnum(String name, int durabilityMultiplier, int[] damageReduction, int enchantability, Supplier<SoundEvent> equipSound, Supplier<Item> repairItem, float toughness) {
-            this(name, durabilityMultiplier, damageReduction, enchantability, equipSound, repairItem, toughness, 0);
-        }
-        ArmorTierEnum(String name, int durabilityMultiplier, int[] damageReduction, int enchantability, Supplier<SoundEvent> equipSound, Supplier<Item> repairItem, float toughness, float knockbackResistance) {
-            this.name = name;
-            this.durabilityMultiplier = durabilityMultiplier;
-            this.damageReduction = damageReduction;
-            this.enchantability = enchantability;
-            this.equipSound = equipSound;
-            this.repairItem = repairItem;
-            this.toughness = toughness;
-            this.knockbackResistance = knockbackResistance;
-        }
-
-        @Override
-        public int getDurabilityForType(ArmorItem.Type slot) {
-            return durabilityMultiplier * MAX_DAMAGE_ARRAY[slot.getSlot().getIndex()];
-        }
-
-        @Override
-        public int getDefenseForType(ArmorItem.Type slot) {
-            return damageReduction[slot.getSlot().getIndex()];
-        }
+    public static final Holder<ArmorMaterial> SPIRIT_HUNTER = register("malum:spirit_hunter", Util.make(new EnumMap<>(ArmorItem.Type.class), defense -> {
+        defense.put(ArmorItem.Type.BOOTS, 1);
+        defense.put(ArmorItem.Type.LEGGINGS, 3);
+        defense.put(ArmorItem.Type.CHESTPLATE, 4);
+        defense.put(ArmorItem.Type.HELMET, 2);
+        defense.put(ArmorItem.Type.BODY, 2);
+    }), 16, SoundEvents.ARMOR_EQUIP_LEATHER, 0.0F, 0.0F, () -> Ingredient.of(ItemRegistry.SPIRIT_FABRIC.get()));
 
 
-        @Override
-        public int getEnchantmentValue() {
-            return enchantability;
+    public static final Holder<ArmorMaterial> SOUL_STAINED_STEEL = register("malum:soul_stained_steel", Util.make(new EnumMap<>(ArmorItem.Type.class), defense -> {
+        defense.put(ArmorItem.Type.BOOTS, 2);
+        defense.put(ArmorItem.Type.LEGGINGS, 6);
+        defense.put(ArmorItem.Type.CHESTPLATE, 7);
+        defense.put(ArmorItem.Type.HELMET, 3);
+        defense.put(ArmorItem.Type.BODY, 4);
+    }), 24, SoundEvents.ARMOR_EQUIP_IRON, 2.0F, 0.0F, () -> Ingredient.of(ItemRegistry.SOUL_STAINED_STEEL_PLATING.get()));
+
+    public static final Holder<ArmorMaterial> MALIGNANT_ALLOY = register("malum:malignant_alloy", Util.make(new EnumMap<>(ArmorItem.Type.class), defense -> {
+        defense.put(ArmorItem.Type.BOOTS, 3);
+        defense.put(ArmorItem.Type.LEGGINGS, 6);
+        defense.put(ArmorItem.Type.CHESTPLATE, 8);
+        defense.put(ArmorItem.Type.HELMET, 3);
+        defense.put(ArmorItem.Type.BODY, 4);
+    }), 32, SoundEvents.ARMOR_EQUIP_NETHERITE, 2.0F, 0.1f, () -> Ingredient.of(ItemRegistry.MALIGNANT_PEWTER_PLATING.get()));
+
+    private static Holder<ArmorMaterial> register(
+            String name,
+            EnumMap<ArmorItem.Type, Integer> defense,
+            int enchantmentValue,
+            Holder<SoundEvent> equipSound,
+            float toughness,
+            float knockbackResistance,
+            Supplier<Ingredient> repairIngredient
+    ) {
+        List<ArmorMaterial.Layer> list = List.of(new ArmorMaterial.Layer(ResourceLocation.withDefaultNamespace(name)));
+        EnumMap<ArmorItem.Type, Integer> enummap = new EnumMap<>(ArmorItem.Type.class);
+
+        for (ArmorItem.Type armoritem$type : ArmorItem.Type.values()) {
+            enummap.put(armoritem$type, defense.get(armoritem$type));
         }
 
-        @Nonnull
-        @Override
-        public SoundEvent getEquipSound() {
-            return equipSound.get();
-        }
-
-        @Nonnull
-        @Override
-        public Ingredient getRepairIngredient() {
-            return Ingredient.of(repairItem.get());
-        }
-
-        @Nonnull
-        @Override
-        public String getName() {
-            return name;
-        }
-
-        @Override
-        public float getToughness() {
-            return toughness;
-        }
-
-        @Override
-        public float getKnockbackResistance() {
-            return knockbackResistance;
-        }
+        return Registry.registerForHolder(
+                BuiltInRegistries.ARMOR_MATERIAL,
+                ResourceLocation.withDefaultNamespace(name),
+                new ArmorMaterial(enummap, enchantmentValue, equipSound, repairIngredient, list, toughness, knockbackResistance)
+        );
     }
 }

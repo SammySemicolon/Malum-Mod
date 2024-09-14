@@ -13,12 +13,16 @@ import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.StructureType;
 import net.minecraft.world.level.levelgen.structure.pools.JigsawPlacement;
 import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
+import net.minecraft.world.level.levelgen.structure.pools.alias.PoolAliasLookup;
 import net.minecraft.world.level.levelgen.structure.structures.RuinedPortalStructure;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
+
+import static net.minecraft.world.level.levelgen.structure.structures.JigsawStructure.DEFAULT_DIMENSION_PADDING;
+import static net.minecraft.world.level.levelgen.structure.structures.JigsawStructure.DEFAULT_LIQUID_SETTINGS;
 
 public class WeepingWellStructure extends Structure {
     public static final MapCodec<WeepingWellStructure> CODEC = RecordCodecBuilder.<WeepingWellStructure>mapCodec(instance ->
@@ -58,7 +62,24 @@ public class WeepingWellStructure extends Structure {
         BlockPos blockPos = new BlockPos(pContext.chunkPos().getMinBlockX(), 0, pContext.chunkPos().getMinBlockZ());
         BlockPos validPos = new BlockPos(blockPos.getX(), getValidY(pContext.chunkGenerator().getBaseColumn(blockPos.getX(), blockPos.getZ(), pContext.heightAccessor(), pContext.randomState())), blockPos.getZ());
         if (validPos.getY() != min - 1 && isSufficientlyFlat(pContext, validPos, 8)) {
-            return JigsawPlacement.addPieces(pContext, this.startPool, this.startJigsawName, this.size, validPos.below(-offsetInGround), false, Optional.empty(), this.maxDistanceFromCenter);
+            return JigsawPlacement.addPieces(
+                    pContext,
+                    this.startPool,
+                    this.startJigsawName,
+                    this.size,
+                    validPos.below(-offsetInGround),
+                    false,
+                    Optional.empty(),
+                    this.maxDistanceFromCenter,
+                    PoolAliasLookup.EMPTY,
+                    DEFAULT_DIMENSION_PADDING,
+                    DEFAULT_LIQUID_SETTINGS
+            );
+            /*
+             @NotNull  PoolAliasLookup aliasLookup,
+            DimensionPadding dimensionPadding,
+            LiquidSettings liquidSetting
+             */
         }
         return Optional.empty();
     }
