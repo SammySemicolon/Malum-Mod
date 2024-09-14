@@ -3,11 +3,11 @@ package com.sammy.malum.core.events;
 import com.sammy.malum.common.capability.MalumItemDataCapability;
 import com.sammy.malum.common.capability.MalumLivingEntityDataCapability;
 import com.sammy.malum.common.capability.MalumPlayerDataCapability;
-import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD)
 public class SetupEvents {
 
     @SubscribeEvent

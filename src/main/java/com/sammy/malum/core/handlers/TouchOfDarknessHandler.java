@@ -29,9 +29,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.ForgeMod;
-import net.minecraftforge.event.entity.living.LivingEvent;
-import net.minecraftforge.network.PacketDistributor;
 import team.lodestar.lodestone.helpers.BlockHelper;
 import team.lodestar.lodestone.systems.easing.Easing;
 import team.lodestar.lodestone.systems.rendering.VFXBuilders;
@@ -216,7 +213,7 @@ public class TouchOfDarknessHandler {
     }
 
     public static AttributeModifier getEntityGravityAttributeModifier(LivingEntity livingEntity) {
-        return new AttributeModifier(GRAVITY_MODIFIER_UUID, "Weeping Well Gravity Modifier", 0, AttributeModifier.Operation.MULTIPLY_TOTAL) {
+        return new AttributeModifier(GRAVITY_MODIFIER_UUID, "Weeping Well Gravity Modifier", 0, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL) {
             @Override
             public double getAmount() {
                 return updateEntityGravity(livingEntity);
@@ -256,7 +253,7 @@ public class TouchOfDarknessHandler {
             Consumer<Float> setZoom = f -> shaderInstance.safeGetUniform("Zoom").set(f);
             Consumer<Float> setIntensity = f -> shaderInstance.safeGetUniform("Intensity").set(f);
             VFXBuilders.ScreenVFXBuilder builder = VFXBuilders.createScreen()
-                    .setPosColorTexDefaultFormat()
+                    .setPosColorTexLightmapDefaultFormat()
                     .setPositionWithWidth(0, 0, screenWidth, screenHeight)
                     .overrideBufferBuilder(INSTANCE.getBuilder())
                     .setColor(0, 0, 0)

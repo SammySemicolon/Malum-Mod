@@ -9,7 +9,8 @@ import net.minecraft.core.*;
 import net.minecraft.sounds.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.level.*;
-import net.minecraftforge.api.distmarker.*;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 import team.lodestar.lodestone.systems.sound.*;
 
 import java.util.function.*;

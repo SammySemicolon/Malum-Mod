@@ -38,7 +38,7 @@ public class EtherTorchItem extends AbstractEtherItem {
         Color secondColor = new Color(etherItem.getSecondColor(stack));
         float alphaMultiplier = etherItem.iridescent ? 0.75f : 0.5f;
         final SpinParticleDataBuilder spinDataBuilder = SpinParticleData.create(0, 1).setSpinOffset(0.025f * gameTime % 6.28f).setEasing(Easing.EXPO_IN_OUT);
-        ScreenParticleBuilder.create(LodestoneScreenParticleRegistry.STAR, target)
+        ScreenParticleBuilder.create(LodestoneScreenParticleTypes.STAR, target)
                 .setTransparencyData(GenericParticleData.create(0.11f * alphaMultiplier, 0f).setEasing(Easing.QUINTIC_IN).build())
                 .setScaleData(GenericParticleData.create((float) (0.75f + Math.sin(gameTime * 0.05f) * 0.125f), 0).build())
                 .setColorData(ColorParticleData.create(firstColor, secondColor).setCoefficient(1.25f).build())

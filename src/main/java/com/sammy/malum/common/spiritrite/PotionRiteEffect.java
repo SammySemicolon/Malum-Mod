@@ -7,7 +7,6 @@ import net.minecraft.server.level.*;
 import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.Monster;
-import net.minecraftforge.network.PacketDistributor;
 
 import java.util.function.Predicate;
 import java.util.function.Supplier;

@@ -9,9 +9,9 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
-import net.minecraftforge.common.*;
-import net.minecraftforge.event.entity.living.*;
-import net.minecraftforge.network.*;
+import net.neoforged.neoforge.common.ItemAbilities;
+import net.neoforged.neoforge.common.ItemAbility;
+import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import team.lodestar.lodestone.registry.common.tag.*;
 import team.lodestar.lodestone.systems.item.tools.*;
 
@@ -23,7 +23,7 @@ public class TyrvingItem extends LodestoneSwordItem implements IMalumEventRespon
     }
 
     @Override
-    public void hurtEvent(LivingHurtEvent event, LivingEntity attacker, LivingEntity target, ItemStack stack) {
+    public void hurtEvent(LivingDamageEvent.Post event, LivingEntity attacker, LivingEntity target, ItemStack stack) {
         if (event.getSource().is(LodestoneDamageTypeTags.IS_MAGIC)) {
             return;
         }
@@ -44,7 +44,7 @@ public class TyrvingItem extends LodestoneSwordItem implements IMalumEventRespon
     }
 
     @Override
-    public boolean canPerformAction(ItemStack stack, net.minecraftforge.common.ToolAction toolAction) {
-        return toolAction.equals(ToolActions.SWORD_DIG);
+    public boolean canPerformAction(ItemStack stack, ItemAbility itemAbility) {
+        return itemAbility.equals(ItemAbilities.SWORD_DIG);
     }
 }

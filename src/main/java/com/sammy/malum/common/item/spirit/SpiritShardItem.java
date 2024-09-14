@@ -7,7 +7,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.api.distmarker.*;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.Nullable;
 import team.lodestar.lodestone.handlers.screenparticle.ParticleEmitterHandler.ItemParticleSupplier;
 import team.lodestar.lodestone.systems.particle.screen.ScreenParticleHolder;
@@ -23,8 +24,8 @@ public class SpiritShardItem extends Item implements ItemParticleSupplier {
     }
 
     @Override
-    public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
-        pTooltip.add(type.getSpiritShardFlavourTextComponent());
+    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+        tooltipComponents.add(type.getSpiritShardFlavourTextComponent());
     }
 
     @OnlyIn(Dist.CLIENT)

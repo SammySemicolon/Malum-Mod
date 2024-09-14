@@ -10,8 +10,9 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
-import net.minecraftforge.api.distmarker.*;
-import net.minecraftforge.event.entity.living.*;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import team.lodestar.lodestone.handlers.*;
 import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.registry.common.*;
@@ -37,9 +38,9 @@ public class ErosionScepterItem extends AbstractStaffItem {
     }
 
     @Override
-    public void hurtEvent(LivingHurtEvent event, LivingEntity attacker, LivingEntity target, ItemStack stack) {
+    public void hurtEvent(LivingDamageEvent.Post event, LivingEntity attacker, LivingEntity target, ItemStack stack) {
         if (!(event.getSource().getDirectEntity() instanceof AbstractBoltProjectileEntity) && !event.getSource().is(LodestoneDamageTypeTags.IS_MAGIC)) {
-            MobEffect silenced = MobEffectRegistry.SILENCED.get();
+            var silenced = MobEffectRegistry.SILENCED;
             MobEffectInstance effect = target.getEffect(silenced);
             if (effect == null) {
                 target.addEffect(new MobEffectInstance(silenced, 300, 1, true, true, true));
@@ -51,6 +52,8 @@ public class ErosionScepterItem extends AbstractStaffItem {
         }
         super.hurtEvent(event, attacker, target, stack);
     }
+
+
 
     @Override
     public int getCooldownDuration(Level level, LivingEntity livingEntity) {
@@ -67,7 +70,7 @@ public class ErosionScepterItem extends AbstractStaffItem {
         int spawnDelay = count * 5;
         float pitchOffset = count * 1.5f;
         float velocity = 4f;
-        float magicDamage = (float) player.getAttributes().getValue(LodestoneAttributeRegistry.MAGIC_DAMAGE.get()) * 0.3f;
+        float magicDamage = (float) player.getAttributes().getValue(LodestoneAttributes.MAGIC_DAMAGE) * 0.3f;
         Vec3 pos = getProjectileSpawnPos(player, hand, 0.5f, 0.5f);
         for (int i = 0; i < 4; i++) {
             float xSpread = RandomHelper.randomBetween(level.random, -0.125f, 0.125f);

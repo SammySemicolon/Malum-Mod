@@ -9,7 +9,8 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
-import net.minecraftforge.api.distmarker.*;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 import team.lodestar.lodestone.handlers.*;
 import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.registry.common.*;
@@ -62,7 +63,7 @@ public class HexStaffItem extends AbstractStaffItem {
         float pitchOffset = 3f + count;
         int spawnDelay = count * 3;
         float velocity = 3f + 0.5f * count;
-        float magicDamage = (float) player.getAttributes().getValue(LodestoneAttributeRegistry.MAGIC_DAMAGE.get());
+        float magicDamage = (float) player.getAttributes().getValue(LodestoneAttributes.MAGIC_DAMAGE);
         Vec3 pos = getProjectileSpawnPos(player, hand, 0.5f, 0.5f);
         HexBoltEntity entity = new HexBoltEntity(level, pos.x, pos.y, pos.z);
         entity.setData(player, magicDamage, spawnDelay);

@@ -7,8 +7,7 @@ import com.sammy.malum.registry.common.*;
 import net.minecraft.resources.*;
 import net.minecraft.server.packs.resources.*;
 import net.minecraft.util.profiling.*;
-import net.minecraftforge.event.*;
-import team.lodestar.lodestone.systems.recipe.*;
+import net.neoforged.neoforge.event.AddReloadListenerEvent;
 
 import java.util.*;
 
@@ -29,7 +28,7 @@ public class RitualRecipeReloadListener extends SimpleJsonResourceReloadListener
             ResourceLocation location = (ResourceLocation) objectIn.keySet().toArray()[i];
             JsonObject object = objectIn.get(location).getAsJsonObject();
             String name = object.getAsJsonPrimitive("ritual_identifier").getAsString();
-            ResourceLocation resourceLocation = new ResourceLocation(name);
+            ResourceLocation resourceLocation = ResourceLocation.tryParse(name);
             MalumRitualType ritualType = RitualRegistry.get(resourceLocation);
             if (ritualType == null) {
                 MalumMod.LOGGER.info("Ritual with registry name: " + name + " does not exist");

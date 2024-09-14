@@ -5,6 +5,7 @@ import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.Tier;
 import team.lodestar.lodestone.registry.common.LodestoneAttributeRegistry;
+import team.lodestar.lodestone.registry.common.LodestoneAttributes;
 
 public class MagicScytheItem extends MalumScytheItem {
 
@@ -18,7 +19,14 @@ public class MagicScytheItem extends MalumScytheItem {
     @Override
     public ImmutableMultimap.Builder<Attribute, AttributeModifier> createExtraAttributes() {
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = new ImmutableMultimap.Builder<>();
-        builder.put(LodestoneAttributeRegistry.MAGIC_DAMAGE.get(), new AttributeModifier(LodestoneAttributeRegistry.UUIDS.get(LodestoneAttributeRegistry.MAGIC_DAMAGE), "Weapon magic damage", magicDamage, AttributeModifier.Operation.ADDITION));
+        builder.put(
+                LodestoneAttributes.MAGIC_DAMAGE.get(),
+                new AttributeModifier(
+                        LodestoneAttributes.UUIDS.get(LodestoneAttributes.MAGIC_DAMAGE),
+                        "Weapon magic damage",
+                        magicDamage,
+                        AttributeModifier.Operation.ADD_VALUE)
+        );
         return builder;
     }
 }

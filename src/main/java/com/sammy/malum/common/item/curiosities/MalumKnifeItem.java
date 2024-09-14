@@ -4,7 +4,6 @@ import com.google.common.collect.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.item.*;
-import vectorwing.farmersdelight.common.item.*;
 
 public class MalumKnifeItem extends KnifeItem {
     private Multimap<Attribute, AttributeModifier> attributes;
