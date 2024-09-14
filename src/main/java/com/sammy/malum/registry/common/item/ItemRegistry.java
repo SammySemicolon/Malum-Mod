@@ -794,7 +794,7 @@ public class ItemRegistry {
         public static void addItemProperties(FMLClientSetupEvent event) {
             Set<LodestoneArmorItem> armors = ItemRegistry.ITEMS.getEntries().stream().filter(r -> r.get() instanceof LodestoneArmorItem).map(r -> (LodestoneArmorItem) r.get()).collect(Collectors.toSet());
             ItemPropertyFunction armorPropertyFunction = (stack, level, holder, holderID) -> {
-                if (!stack.hasTag()) {
+                if (stack.getComponents().isEmpty()) {
                     return -1;
                 }
                 CompoundTag nbt = stack.getTag();
@@ -840,7 +840,7 @@ public class ItemRegistry {
         @SubscribeEvent
         public static void setItemColors(RegisterColorHandlersEvent.Item event) {
             ItemColors itemColors = event.getItemColors();
-            Set<DeferredHolder<Item, Item>> items = new HashSet<>(ITEMS.getEntries());
+            Set<DeferredHolder<Item, ? extends Item>> items = new HashSet<>(ITEMS.getEntries());
 
             DataHelper.takeAll(items, i -> i.get() instanceof BlockItem blockItem && blockItem.getBlock() instanceof iGradientedLeavesBlock).forEach(item -> {
                 iGradientedLeavesBlock malumLeavesBlock = (iGradientedLeavesBlock) ((BlockItem) item.get()).getBlock();

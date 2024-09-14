@@ -47,19 +47,19 @@ public class ItemTagRegistry {
     public static final TagKey<Item> HIDDEN_UNTIL_VOID = malumTag("hidden_items/void");
     public static final TagKey<Item> HIDDEN_UNTIL_BLACK_CRYSTAL = malumTag("hidden_items/black_crystal");
 
-    public static final TagKey<Item> KNIVES_FD = modTag("farmersdelight", "tools/knives");
+    public static final TagKey<Item> KNIVES_FD = modTag("farmersdelight:tools/knives");
     public static final TagKey<Item> KNIVES = forgeTag("tools/knives");
 
     public static final TagKey<Item> STRIPPED_LOGS = forgeTag("stripped_logs");
 
     public static final TagKey<Item> ARCANE_ELEGY_COMPONENTS = malumTag("arcane_elegy_component");
 
-    public static final TagKey<Item> BROOCH = modTag("curios", "brooch");
-    public static final TagKey<Item> BELT = modTag("curios", "belt");
-    public static final TagKey<Item> CHARM = modTag("curios", "charm");
-    public static final TagKey<Item> NECKLACE = modTag("curios", "necklace");
-    public static final TagKey<Item> RING = modTag("curios", "ring");
-    public static final TagKey<Item> RUNE = modTag("curios", "rune");
+    public static final TagKey<Item> BROOCH = modTag("curios:brooch");
+    public static final TagKey<Item> BELT = modTag("curios:belt");
+    public static final TagKey<Item> CHARM = modTag("curios:charm");
+    public static final TagKey<Item> NECKLACE = modTag("curios:necklace");
+    public static final TagKey<Item> RING = modTag("curios:ring");
+    public static final TagKey<Item> RUNE = modTag("curios:rune");
 
 
     private static TagKey<Item> modTag(String path) {
