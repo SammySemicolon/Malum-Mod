@@ -9,8 +9,9 @@ import net.minecraft.world.damagesource.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.item.*;
-import net.minecraftforge.event.entity.*;
-import net.minecraftforge.event.entity.living.*;
+import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
+import net.neoforged.neoforge.event.entity.living.LivingChangeTargetEvent;
+import net.neoforged.neoforge.event.entity.living.MobSpawnEvent;
 
 public class SoulDataHandler {
 

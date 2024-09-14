@@ -1,7 +1,6 @@
 package com.sammy.malum.registry.common.item;
 
 import com.sammy.malum.*;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.*;
 import net.minecraft.tags.*;
@@ -62,12 +61,13 @@ public class ItemTagRegistry {
     public static final TagKey<Item> RING = modTag("curios", "ring");
     public static final TagKey<Item> RUNE = modTag("curios", "rune");
 
-    private static TagKey<Item> modTag(String ns, String path) {
-        return TagKey.create(BuiltInRegistries.ITEM.key(), ResourceLocation.fromNamespaceAndPath(ns, path));
+
+    private static TagKey<Item> modTag(String path) {
+        return TagKey.create(Registries.ITEM, ResourceLocation.tryParse(path));
     }
 
     private static TagKey<Item> malumTag(String path) {
-        return TagKey.create(BuiltInRegistries.ITEM.key(), MalumMod.malumPath(path));
+        return TagKey.create(Registries.ITEM, MalumMod.malumPath(path));
     }
 
     private static TagKey<Item> forgeTag(String name) {

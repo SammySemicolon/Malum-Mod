@@ -26,11 +26,10 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
-import net.minecraftforge.event.entity.item.*;
-import net.minecraftforge.event.entity.living.*;
-import net.minecraftforge.registries.*;
+import net.neoforged.neoforge.event.entity.item.ItemExpireEvent;
+import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
+import net.neoforged.neoforge.event.entity.living.LivingDropsEvent;
 import team.lodestar.lodestone.helpers.*;
-import team.lodestar.lodestone.systems.container.*;
 
 import javax.annotation.*;
 import java.util.*;

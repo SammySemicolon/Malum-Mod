@@ -27,7 +27,7 @@ public class EtherBrazierItem extends AbstractEtherItem {
         Color secondColor = new Color(etherItem.getSecondColor(stack));
         float alphaMultiplier = etherItem.iridescent ? 0.75f : 0.5f;
         SpinParticleDataBuilder spinDataBuilder = SpinParticleData.create(0, 1).setSpinOffset(0.025f * time % 6.28f).setEasing(Easing.EXPO_IN_OUT);
-        ScreenParticleBuilder.create(LodestoneScreenParticleRegistry.STAR, target)
+        ScreenParticleBuilder.create(LodestoneScreenParticleTypes.STAR, target)
                 .setTransparencyData(GenericParticleData.create(0.1f * alphaMultiplier, 0f).setEasing(Easing.QUINTIC_IN).build())
                 .setScaleData(GenericParticleData.create((float) (1.3f + Math.sin(time * 0.1f) * 0.125f), 0).build())
                 .setColorData(ColorParticleData.create(firstColor, secondColor).setCoefficient(1.25f).build())

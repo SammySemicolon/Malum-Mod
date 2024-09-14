@@ -12,7 +12,7 @@ import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
-import net.minecraftforge.event.*;
+import net.neoforged.neoforge.event.AnvilUpdateEvent;
 
 import java.util.function.*;
 
@@ -113,7 +113,7 @@ public class CatalystFlingerItem extends Item {
                 }
                 playerIn.awardStat(Stats.ITEM_USED.get(this));
                 if (!playerIn.getAbilities().instabuild) {
-                    itemstack.hurtAndBreak(1, playerIn, p -> p.broadcastBreakEvent(handIn));
+                    itemstack.hurtAndBreak(1, playerIn, EquipmentSlot.MAINHAND);
                 }
                 state = 1;
                 sound = SoundRegistry.CATALYST_LOBBER_FIRED.get();
