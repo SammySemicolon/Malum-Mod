@@ -2,7 +2,7 @@ package com.sammy.malum.compability.jei.categories;
 
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.client.screen.codex.ArcanaCodexHelper;
-import com.sammy.malum.common.recipe.SpiritInfusionRecipe;
+import com.sammy.malum.common.recipe.spirit.infusion.SpiritInfusionRecipe;
 import com.sammy.malum.compability.jei.JEIHandler;
 import com.sammy.malum.registry.common.item.ItemRegistry;
 import mezz.jei.api.constants.VanillaTypes;
@@ -41,9 +41,9 @@ public class SpiritInfusionRecipeCategory implements IRecipeCategory<SpiritInfus
         overlay.draw(guiGraphics);
         int spiritOffset = recipe.spirits.size() > 5 ? (recipe.spirits.size()-5)*10 : 0;
         ArcanaCodexHelper.renderItemFrames(guiGraphics.pose(), recipe.spirits.size(), 19, 48+spiritOffset, true);
-        if (!recipe.extraItems.isEmpty()) {
-            int itemOffset = recipe.extraItems.size() > 5 ? (recipe.extraItems.size()-5)*10 : 0;
-            ArcanaCodexHelper.renderItemFrames(guiGraphics.pose(), recipe.extraItems.size(), 103, 48+itemOffset, true);
+        if (!recipe.extraIngredients.isEmpty()) {
+            int itemOffset = recipe.extraIngredients.size() > 5 ? (recipe.extraIngredients.size()-5)*10 : 0;
+            ArcanaCodexHelper.renderItemFrames(guiGraphics.pose(), recipe.extraIngredients.size(), 103, 48+itemOffset, true);
         }
     }
 
@@ -73,9 +73,9 @@ public class SpiritInfusionRecipeCategory implements IRecipeCategory<SpiritInfus
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, SpiritInfusionRecipe recipe, IFocusGroup focuses) {
         int spiritOffset = recipe.spirits.size() > 5 ? (recipe.spirits.size()-5)*10 : 0;
-        int itemOffset = recipe.extraItems.size() > 5 ? (recipe.extraItems.size()-5)*10 : 0;
+        int itemOffset = recipe.extraIngredients.size() > 5 ? (recipe.extraIngredients.size()-5)*10 : 0;
         JEIHandler.addItemsToJei(builder, RecipeIngredientRole.INPUT, 20, 49+spiritOffset, true, recipe.spirits);
-        JEIHandler.addItemsToJei(builder, RecipeIngredientRole.INPUT, 104, 49+itemOffset, true, recipe.extraItems);
+        JEIHandler.addItemsToJei(builder, RecipeIngredientRole.INPUT, 104, 49+itemOffset, true, recipe.extraIngredients);
 
         builder.addSlot(RecipeIngredientRole.INPUT, 63, 57)
                 .addItemStacks(recipe.input.getStacks());

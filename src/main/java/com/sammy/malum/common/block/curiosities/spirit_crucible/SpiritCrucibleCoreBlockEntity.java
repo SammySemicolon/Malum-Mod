@@ -12,6 +12,7 @@ import com.sammy.malum.core.systems.spirit.*;
 import com.sammy.malum.registry.common.*;
 import com.sammy.malum.registry.common.block.*;
 import com.sammy.malum.registry.common.item.*;
+import com.sammy.malum.registry.common.recipe.*;
 import com.sammy.malum.visual_effects.*;
 import com.sammy.malum.visual_effects.networked.data.*;
 import net.minecraft.core.*;
@@ -221,7 +222,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
         if (level.isClientSide && recipe == null) {
             CrucibleSoundInstance.playSound(this);
         }
-        recipe = SpiritFocusingRecipe.getRecipe(level, inventory.getStackInSlot(0), spiritInventory.nonEmptyItemStacks);
+        recipe = RecipeTypeRegistry.SPIRIT_FOCUSING.get().getRecipe(level, new SpiritBasedRecipeInput(inventory.getStackInSlot(0), spiritInventory.nonEmptyItemStacks));
     }
 
     @Override

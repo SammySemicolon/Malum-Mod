@@ -10,11 +10,11 @@ public class SpiritBasedRecipeInput implements RecipeInput {
     public final List<ItemStack> items;
     public final List<ItemStack> spirits;
 
-    protected SpiritBasedRecipeInput(ItemStack stack, List<ItemStack> spirits) {
+    public SpiritBasedRecipeInput(ItemStack stack, List<ItemStack> spirits) {
         this(List.of(stack), spirits);
     }
 
-    protected SpiritBasedRecipeInput(List<ItemStack> items, List<ItemStack> spirits) {
+    public SpiritBasedRecipeInput(List<ItemStack> items, List<ItemStack> spirits) {
         this.items = items;
         this.spirits = spirits;
     }
@@ -29,8 +29,13 @@ public class SpiritBasedRecipeInput implements RecipeInput {
         return items.size() + spirits.size();
     }
 
-    public boolean test(Ingredient ingredients, List<SpiritIngredient> spirits) {
-        return testItems(List.of(ingredients)) && testSpirits(spirits);
+    public boolean test(Ingredient mainIngredient, List<Ingredient> extraIngredients, List<SpiritIngredient> spirits) {
+        final List<Ingredient> ingredients = new ArrayList<>(List.of(mainIngredient));
+        ingredients.addAll(extraIngredients);
+        return testItems(ingredients) && testSpirits(spirits);
+    }
+    public boolean test(Ingredient ingredient, List<SpiritIngredient> spirits) {
+        return testItems(List.of(ingredient)) && testSpirits(spirits);
     }
     public boolean test(List<Ingredient> ingredients, List<SpiritIngredient> spirits) {
         return testItems(ingredients) && testSpirits(spirits);
