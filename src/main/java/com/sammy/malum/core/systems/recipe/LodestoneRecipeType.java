@@ -22,7 +22,7 @@ public class LodestoneRecipeType<T extends RecipeInput, K extends Recipe<T>> imp
     }
 
     public K getRecipe(Level level, T input) {
-        return getRecipe(level, recipe -> recipe.matches(input level));
+        return getRecipe(level, recipe -> recipe.matches(input, level));
     }
     
     public K getRecipe(Level level, Predicate<K> predicate) {
