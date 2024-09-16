@@ -1,7 +1,7 @@
 package com.sammy.malum.common.block.curiosities.spirit_altar;
 
 import com.sammy.malum.common.block.storage.IMalumSpecialItemAccessPoint;
-import com.sammy.malum.common.recipe.SpiritInfusionRecipe;
+import com.sammy.malum.common.recipe.spirit.infusion.SpiritInfusionRecipe;
 import com.sammy.malum.core.systems.recipe.SpiritWithCount;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
@@ -120,7 +120,7 @@ public class AltarCraftingHelper {
 	public static IngredientWithCount getNextIngredientToTake(SpiritInfusionRecipe recipe, IItemHandlerModifiable consumedItems) {
 		IItemHandler frozen = frozenCopy(consumedItems);
 
-		return getFirstMissingIngredient(frozen, recipe.extraItems);
+		return getFirstMissingIngredient(frozen, recipe.extraIngredients);
 	}
 
 	/**
@@ -147,7 +147,7 @@ public class AltarCraftingHelper {
 		if (spiritRanking == null)
 			return null;
 
-		Extraction itemRanking = simulateExtraction(new CombinedInvWrapper(pedestalItems, consumedItems), recipe.extraItems);
+		Extraction itemRanking = simulateExtraction(new CombinedInvWrapper(pedestalItems, consumedItems), recipe.extraIngredients);
 		if (itemRanking == null)
 			return null;
 

@@ -4,7 +4,7 @@ import com.sammy.malum.common.block.curiosities.obelisk.runewood.*;
 import com.sammy.malum.common.block.curiosities.spirit_altar.*;
 import com.sammy.malum.common.block.storage.*;
 import com.sammy.malum.common.item.spirit.*;
-import com.sammy.malum.common.recipe.*;
+import com.sammy.malum.common.recipe.spirit.infusion.*;
 import com.sammy.malum.core.systems.spirit.*;
 import com.sammy.malum.visual_effects.networked.data.*;
 import net.minecraft.core.*;

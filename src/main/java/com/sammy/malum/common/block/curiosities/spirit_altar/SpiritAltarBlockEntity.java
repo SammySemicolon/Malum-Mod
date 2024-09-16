@@ -3,7 +3,7 @@ package com.sammy.malum.common.block.curiosities.spirit_altar;
 import com.sammy.malum.common.block.MalumBlockEntityInventory;
 import com.sammy.malum.common.block.storage.IMalumSpecialItemAccessPoint;
 import com.sammy.malum.common.item.spirit.SpiritShardItem;
-import com.sammy.malum.common.recipe.SpiritInfusionRecipe;
+import com.sammy.malum.common.recipe.spirit.infusion.SpiritInfusionRecipe;
 import com.sammy.malum.core.systems.recipe.SpiritWithCount;
 import com.sammy.malum.registry.common.ParticleEffectTypeRegistry;
 import com.sammy.malum.registry.common.SoundRegistry;
@@ -283,7 +283,7 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
     public boolean consume() {
         if (recipe == null) {
             return false;
-        } else if (recipe.extraItems.isEmpty())
+        } else if (recipe.extraIngredients.isEmpty())
             return true;
 
         List<IMalumSpecialItemAccessPoint> pedestalItems = AltarCraftingHelper.capturePedestals(level, worldPosition);
@@ -323,7 +323,7 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
         ItemStack stack = inventory.getStackInSlot(0);
         ItemStack outputStack = recipe.output.copy();
         Vec3 itemPos = getItemPos();
-        if (recipe.useNbtFromInput && inventory.getStackInSlot(0).hasTag()) {
+        if (recipe.carryOverData && inventory.getStackInSlot(0).hasTag()) {
             outputStack.setTag(stack.getTag());
         }
         stack.shrink(recipe.input.count);

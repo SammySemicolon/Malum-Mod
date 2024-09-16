@@ -3,7 +3,7 @@ package com.sammy.malum.client.screen.codex.pages.recipe;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.client.screen.codex.pages.BookPage;
 import com.sammy.malum.client.screen.codex.screens.EntryScreen;
-import com.sammy.malum.common.recipe.SpiritInfusionRecipe;
+import com.sammy.malum.common.recipe.spirit.infusion.SpiritInfusionRecipe;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.*;
@@ -48,8 +48,8 @@ public class SpiritInfusionPage extends BookPage {
     @Override
     public void render(EntryScreen screen, GuiGraphics guiGraphics, int left, int top, int mouseX, int mouseY, float partialTicks, boolean isRepeat) {
         Runnable renderSpirits = renderBufferedComponents(screen, guiGraphics, recipe.spirits, left + 15, top + 59, mouseX, mouseY, true);
-        if (!recipe.extraItems.isEmpty()) {
-            renderComponents(screen, guiGraphics, recipe.extraItems, left + 107, top + 59, mouseX, mouseY, true);
+        if (!recipe.extraIngredients.isEmpty()) {
+            renderComponents(screen, guiGraphics, recipe.extraIngredients, left + 107, top + 59, mouseX, mouseY, true);
         }
         renderSpirits.run();
         renderComponent(screen, guiGraphics, recipe.input, left + 63, top + 59, mouseX, mouseY);

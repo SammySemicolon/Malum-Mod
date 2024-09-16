@@ -2,19 +2,21 @@ package com.sammy.malum.common.recipe.spirit.focusing;
 
 import com.mojang.serialization.*;
 import com.mojang.serialization.codecs.*;
+import com.sammy.malum.*;
 import com.sammy.malum.core.systems.recipe.*;
 import com.sammy.malum.registry.common.recipe.*;
 import net.minecraft.network.*;
 import net.minecraft.network.codec.*;
+import net.minecraft.resources.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.*;
 
 import java.util.*;
 
-public class SpiritFocusingRecipe extends LodestoneInWorldRecipe<SpiritFocusingRecipeInput> {
+public class SpiritFocusingRecipe extends LodestoneInWorldRecipe<SpiritBasedRecipeInput> {
 
-    public static final String NAME = "spirit_focusing";
+    public static final ResourceLocation NAME = MalumMod.malumPath("spirit_focusing");
 
     public final int time;
     public final int durabilityCost;
@@ -33,7 +35,7 @@ public class SpiritFocusingRecipe extends LodestoneInWorldRecipe<SpiritFocusingR
     }
 
     @Override
-    public boolean matches(SpiritFocusingRecipeInput input, Level level) {
+    public boolean matches(SpiritBasedRecipeInput input, Level level) {
         return input.test(ingredient, spirits);
     }
 
