@@ -31,9 +31,12 @@ public class VanillaRecipeProviderMixin {
         @WrapMethod(method = "save(Lnet/minecraft/data/recipes/RecipeOutput;)V")
         private void save(RecipeOutput recipeOutput, Operation<Void> original) {
             if (lastInvoker == MalumVanillaRecipeReplacements.class) {
-                RecipeBuilder builder = (RecipeBuilder) this;
-                MalumVanillaRecipeReplacements.enhance(builder)
-                        .save(recipeOutput);
+                RecipeBuilder modified = MalumVanillaRecipeReplacements.enhance(
+                        (RecipeBuilder) this
+                );
+                try { modified.save(recipeOutput); } catch (NullPointerException e) {
+                    original.call(recipeOutput);
+                }
             }
         }
 
