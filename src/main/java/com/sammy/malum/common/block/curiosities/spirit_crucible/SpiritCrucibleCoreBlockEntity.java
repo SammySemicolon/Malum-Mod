@@ -296,11 +296,11 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
         else {
             level.playSound(null, worldPosition, SoundRegistry.SHIELDING_APPARATUS_SHIELDS.get(), SoundSource.BLOCKS, 0.5f, 0.25f + random.nextFloat() * 0.25f);
         }
-        for (SpiritWithCount spirit : recipe.spirits) {
+        for (SpiritIngredient spirit : recipe.spirits) {
             for (int i = 0; i < spiritInventory.slotCount; i++) {
                 ItemStack spiritStack = spiritInventory.getStackInSlot(i);
-                if (spirit.matches(spiritStack)) {
-                    spiritStack.shrink(spirit.count);
+                if (spirit.test(spiritStack)) {
+                    spiritStack.shrink(spirit.getCount());
                     break;
                 }
             }
@@ -322,17 +322,17 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
             }
             bonusYieldChance-=1;
         }
-        recipe = SpiritFocusingRecipe.getRecipe(level, stack, spiritInventory.nonEmptyItemStacks);
+        recipe = RecipeTypeRegistry.SPIRIT_FOCUSING.get().getRecipe(level, new SpiritBasedRecipeInput(stack, spiritInventory.nonEmptyItemStacks));
         BlockHelper.updateAndNotifyState(level, worldPosition);
     }
 
     @Override
-    public Vec3 getAccelerationPoint() {
+    public Vec3 getVisualAccelerationPoint() {
         return getItemPos();
     }
 
     @Override
-    public List<ItemStack> getAugments() {
+    public List<ItemStack> getExtraAugments() {
         return augmentInventory.nonEmptyItemStacks;
     }
 
@@ -342,7 +342,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
     }
 
     @Override
-    public boolean canBeAccelerated() {
+    public boolean isValidAccelerationTarget() {
         return !isRemoved() && recipe != null;
     }
 
@@ -416,11 +416,5 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
             return combinedInventory.cast();
         }
         return super.getCapability(cap, side);
-    }
-
-    @Override
-    public AABB getRenderBoundingBox() {
-        var pos = worldPosition;
-        return new AABB(pos.getX() - 1, pos.getY(), pos.getZ() - 1, pos.getX() + 1, pos.getY() + 4, pos.getZ() + 1);
     }
 }

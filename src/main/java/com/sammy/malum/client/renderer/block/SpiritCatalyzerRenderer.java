@@ -15,7 +15,6 @@ import net.minecraft.core.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
-import team.lodestar.lodestone.registry.client.*;
 import team.lodestar.lodestone.systems.easing.*;
 import team.lodestar.lodestone.systems.rendering.rendeertype.*;
 
@@ -77,7 +76,7 @@ public class SpiritCatalyzerRenderer implements BlockEntityRenderer<SpiritCataly
     public void renderBeam(SpiritCatalyzerCoreBlockEntity catalyzer, PoseStack poseStack, MalumSpiritType spiritType, int intensity) {
         BlockPos catalyzerPos = catalyzer.getBlockPos();
         Vec3 startPos = catalyzer.getItemOffset().add(catalyzerPos.getX(), catalyzerPos.getY(), catalyzerPos.getZ());
-        Vec3 targetPos = catalyzer.getTarget().getAccelerationPoint();
+        Vec3 targetPos = catalyzer.getTarget().getVisualAccelerationPoint();
         Vec3 difference = targetPos.subtract(startPos);
         float distance = 0.35f + Easing.SINE_OUT.ease(intensity / 60f, 0, 0.35f, 1);
         float alpha = intensity / 60f;

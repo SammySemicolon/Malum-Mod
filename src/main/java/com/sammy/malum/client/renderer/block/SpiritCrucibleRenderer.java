@@ -45,23 +45,29 @@ public class SpiritCrucibleRenderer implements BlockEntityRenderer<SpiritCrucibl
     }
 
     public static void checkForTuningFork(ClientTickEvent.Pre event) {
-        if (true) {
-            final LocalPlayer player = Minecraft.getInstance().player;
-            if (player == null) {
-                return;
+        final LocalPlayer player = Minecraft.getInstance().player;
+        if (player == null) {
+            return;
+        }
+        final Item tuningFork = ItemRegistry.TUNING_FORK.get();
+        if ((player.getMainHandItem().getItem().equals(tuningFork) || player.getOffhandItem().getItem().equals(tuningFork))) {
+            if (tuningForkHeldTimer < 20) {
+                tuningForkHeldTimer++;
             }
-            final Item tuningFork = ItemRegistry.TUNING_FORK.get();
-            if ((player.getMainHandItem().getItem().equals(tuningFork) || player.getOffhandItem().getItem().equals(tuningFork))) {
-                if (tuningForkHeldTimer < 20) {
-                    tuningForkHeldTimer++;
-                }
-                isHoldingFork = true;
-            } else if (tuningForkHeldTimer > 0) {
-                tuningForkHeldTimer--;
-                isHoldingFork = false;
-            }
+            isHoldingFork = true;
+        } else if (tuningForkHeldTimer > 0) {
+            tuningForkHeldTimer--;
+            isHoldingFork = false;
         }
     }
+
+
+    @Override
+    public AABB getRenderBoundingBox(SpiritCrucibleCoreBlockEntity blockEntity) {
+        var pos = blockEntity.getBlockPos();
+        return new AABB(pos.getX() - 1, pos.getY(), pos.getZ() - 1, pos.getX() + 1, pos.getY() + 4, pos.getZ() + 1);
+    }
+
 
     @Override
     public void render(SpiritCrucibleCoreBlockEntity blockEntityIn, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int combinedLightIn, int combinedOverlayIn) {

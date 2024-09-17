@@ -43,5 +43,4 @@ public class LodestoneRecipeType<T extends RecipeInput, K extends Recipe<T>> imp
     public List<RecipeHolder<K>> getRecipeHolders(Level level) {
         return level.getRecipeManager().getAllRecipesFor(this);
     }
-
 }

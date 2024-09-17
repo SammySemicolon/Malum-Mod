@@ -35,7 +35,7 @@ public class CrucibleAccelerationData {
 
         for (ICrucibleAccelerator accelerator : nearbyAccelerators) {
             if (accelerator.canStartAccelerating()) {
-                if (accelerator.getTarget() == null || accelerator.getTarget().equals(target) || (accelerator.getTarget() != null && !accelerator.getTarget().canBeAccelerated())) {
+                if (accelerator.getTarget() == null || accelerator.getTarget().equals(target) || (accelerator.getTarget() != null && !accelerator.getTarget().isValidAccelerationTarget())) {
                     var acceleratorType = accelerator.getAcceleratorType();
                     int max = acceleratorType.maximumEntries;
                     int amount = typeCount.getOrDefault(acceleratorType, 0);
@@ -53,7 +53,7 @@ public class CrucibleAccelerationData {
     }
 
     public CrucibleAccelerationData(ICatalyzerAccelerationTarget target, Map<ICrucibleAccelerator.CrucibleAcceleratorType, Integer> typeCount, Collection<ICrucibleAccelerator> accelerators) {
-        final List<AbstractAugmentItem> augments = Stream.concat(accelerators.stream().map(ICrucibleAccelerator::getAugmentType), target.getAugmentTypes().stream()).filter(Optional::isPresent).map(Optional::get).toList();
+        final List<AbstractAugmentItem> augments = Stream.concat(accelerators.stream().map(ICrucibleAccelerator::getAugmentType), target.getAugments().stream()).filter(Optional::isPresent).map(Optional::get).toList();
         CrucibleTuning tuning = new CrucibleTuning(target, 1f + augments.stream().map(AbstractAugmentItem::getTuningStrengthIncrease).reduce(Float::sum).orElse(0f));
         this.focusingSpeed = tuning.focusingSpeedMultiplier.createTunedValue(
                 typeCount.entrySet().stream().map((entry) -> entry.getKey().getAcceleration(entry.getValue())).reduce(Float::sum).orElse(0f)

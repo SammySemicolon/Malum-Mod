@@ -119,7 +119,7 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity impleme
 
     @Override
     public void tick() {
-        if (target != null && target.canBeAccelerated()) {
+        if (target != null && target.isValidAccelerationTarget()) {
             if (burnTicks > 0) {
                 CrucibleAccelerationData data = target.getAccelerationData();
                 float ratio = data.fuelUsageRate.getValue(data);
@@ -133,7 +133,7 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity impleme
                 intensity = new HashMap<>();
             }
             if (target != null) {
-                boolean canBeAccelerated = target.canBeAccelerated();
+                boolean canBeAccelerated = target.isValidAccelerationTarget();
                 MalumSpiritType activeSpiritType = target.getActiveSpiritType();
                 if (activeSpiritType != null) {
                     intensity.putIfAbsent(activeSpiritType, 0);

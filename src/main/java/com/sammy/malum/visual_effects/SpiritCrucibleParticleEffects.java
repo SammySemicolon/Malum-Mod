@@ -124,7 +124,7 @@ public class SpiritCrucibleParticleEffects {
         BlockPos catalyzerPos = catalyzer.getBlockPos();
         Vec3 startPos = catalyzer.getItemOffset().add(catalyzerPos.getX(), catalyzerPos.getY(), catalyzerPos.getZ());
         RandomSource random = level.random;
-        Vec3 targetPos = target.getAccelerationPoint();
+        Vec3 targetPos = target.getVisualAccelerationPoint();
         if (level.getGameTime() % 2L == 0) {
             Vec3 velocity = targetPos.subtract(startPos).normalize().scale(RandomHelper.randomBetween(random, 0.06f, 0.12f));
             Vec3 sparkPos = startPos.add(0.05f - random.nextFloat() * 0.1f, 0.05f - random.nextFloat() * 0.1f, 0.05f - random.nextFloat() * 0.1f);
