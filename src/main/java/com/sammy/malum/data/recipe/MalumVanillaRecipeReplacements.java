@@ -1,69 +1,67 @@
 package com.sammy.malum.data.recipe;
 
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
-import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.RecipeBuilder;
+import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.data.recipes.packs.VanillaRecipeProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
-import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
-import net.minecraftforge.common.Tags;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.common.Tags;
 
 import java.lang.reflect.Field;
 import java.util.*;
-import java.util.function.Consumer;
+import java.util.concurrent.CompletableFuture;
 
 
 public class MalumVanillaRecipeReplacements extends VanillaRecipeProvider {
 
-    private final Map<Item, TagKey<Item>> replacements = new HashMap<>();
-    private final Set<ResourceLocation> excludes = new HashSet<>();
+    private static final Map<Item, TagKey<Item>> replacements = new HashMap<>();
+    private static final Set<ResourceLocation> excludes = new HashSet<>();
 
-    public MalumVanillaRecipeReplacements(PackOutput pOutput) {
-        super(pOutput);
+    public MalumVanillaRecipeReplacements(PackOutput pOutput, CompletableFuture<HolderLookup.Provider> registries) {
+        super(pOutput, registries);
     }
 
     @Override
-    protected void buildRecipes(Consumer<FinishedRecipe> pWriter) {
+    protected void buildRecipes(RecipeOutput pWriter) {
         replace(Items.QUARTZ, Tags.Items.GEMS_QUARTZ);
         replace(Items.SLIME_BALL, Tags.Items.SLIMEBALLS);
 
-        super.buildRecipes(vanilla -> {
-            FinishedRecipe modified = enhance(vanilla);
-            if (modified != null)
-                pWriter.accept(modified);
-        });
+        super.buildRecipes(pWriter);
     }
 
 
     private void exclude(ItemLike item) {
-        excludes.add(ForgeRegistries.ITEMS.getKey(item.asItem()));
+        excludes.add(BuiltInRegistries.ITEM.getKey(item.asItem()));
     }
 
     private void replace(ItemLike item, TagKey<Item> tag) {
         replacements.put(item.asItem(), tag);
     }
 
-    private FinishedRecipe enhance(FinishedRecipe vanilla) {
-        if (vanilla instanceof ShapelessRecipeBuilder.Result shapeless)
+    public static RecipeBuilder enhance(RecipeBuilder vanilla) {
+        if (vanilla instanceof ShapelessRecipeBuilder shapeless)
             return enhance(shapeless);
-        if (vanilla instanceof ShapedRecipeBuilder.Result shaped)
+        if (vanilla instanceof ShapedRecipeBuilder shaped)
             return enhance(shaped);
         return null;
     }
 
-    private FinishedRecipe enhance(ShapelessRecipeBuilder.Result vanilla) {
-        List<Ingredient> ingredients = getField(ShapelessRecipeBuilder.Result.class, vanilla, 4);
+    private static RecipeBuilder enhance(ShapelessRecipeBuilder vanilla) {
+        List<Ingredient> ingredients = getField(ShapelessRecipeBuilder.class, vanilla, 4);
+        ResourceLocation id = RecipeBuilder.getDefaultRecipeId(vanilla.getResult());
         boolean modified = false;
         for (int x = 0; x < ingredients.size(); x++) {
-            Ingredient ing = enhance(vanilla.getId(), ingredients.get(x));
+            Ingredient ing = enhance(id, ingredients.get(x));
             if (ing != null) {
                 ingredients.set(x, ing);
                 modified = true;
@@ -72,11 +70,12 @@ public class MalumVanillaRecipeReplacements extends VanillaRecipeProvider {
         return modified ? vanilla : null;
     }
 
-    private FinishedRecipe enhance(ShapedRecipeBuilder.Result vanilla) {
-        Map<Character, Ingredient> ingredients = getField(ShapedRecipeBuilder.Result.class, vanilla, 5);
+    private static RecipeBuilder enhance(ShapedRecipeBuilder vanilla) {
+        Map<Character, Ingredient> ingredients = getField(ShapedRecipeBuilder.class, vanilla, 5);
+        ResourceLocation id = RecipeBuilder.getDefaultRecipeId(vanilla.getResult());
         boolean modified = false;
         for (Character x : ingredients.keySet()) {
-            Ingredient ing = enhance(vanilla.getId(), ingredients.get(x));
+            Ingredient ing = enhance(id, ingredients.get(x));
             if (ing != null) {
                 ingredients.put(x, ing);
                 modified = true;
@@ -85,7 +84,7 @@ public class MalumVanillaRecipeReplacements extends VanillaRecipeProvider {
         return modified ? vanilla : null;
     }
 
-    private Ingredient enhance(ResourceLocation name, Ingredient vanilla) {
+    private static Ingredient enhance(ResourceLocation name, Ingredient vanilla) {
         if (excludes.contains(name))
             return null;
 
@@ -108,7 +107,7 @@ public class MalumVanillaRecipeReplacements extends VanillaRecipeProvider {
     }
 
     @SuppressWarnings("unchecked")
-    private <T, R> R getField(Class<T> clz, T inst, int index) {
+    private static <T, R> R getField(Class<T> clz, T inst, int index) {
         Field fld = clz.getDeclaredFields()[index];
         fld.setAccessible(true);
         try {
