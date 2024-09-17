@@ -21,7 +21,7 @@ public class MalumRecipes extends VanillaRecipeProvider {
     public MalumRecipes(PackOutput pOutput, CompletableFuture<HolderLookup.Provider> registries) {
         super(pOutput, registries);
         this.pOutput = pOutput;
-        this.vanillaRecipeReplacements = new MalumVanillaRecipeReplacements(pOutput);
+        this.vanillaRecipeReplacements = new MalumVanillaRecipeReplacements(pOutput, registries);
     }
 
     @Override
