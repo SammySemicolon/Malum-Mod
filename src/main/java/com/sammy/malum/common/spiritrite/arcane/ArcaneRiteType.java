@@ -5,7 +5,7 @@ import com.sammy.malum.common.block.curiosities.totem.*;
 import com.sammy.malum.common.block.storage.*;
 import com.sammy.malum.common.packets.particle.curiosities.blight.*;
 import com.sammy.malum.common.packets.particle.curiosities.rite.generic.*;
-import com.sammy.malum.common.recipe.*;
+import com.sammy.malum.common.recipe.spirit.transmutation.*;
 import com.sammy.malum.common.spiritrite.*;
 import com.sammy.malum.common.worldevent.*;
 import net.minecraft.core.*;

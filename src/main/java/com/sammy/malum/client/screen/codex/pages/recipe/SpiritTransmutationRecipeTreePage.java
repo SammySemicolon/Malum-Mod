@@ -3,7 +3,7 @@ package com.sammy.malum.client.screen.codex.pages.recipe;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.client.screen.codex.pages.BookPage;
 import com.sammy.malum.client.screen.codex.screens.EntryScreen;
-import com.sammy.malum.common.recipe.SpiritTransmutationRecipe;
+import com.sammy.malum.common.recipe.spirit.transmutation.SpiritTransmutationRecipe;
 import com.sammy.malum.registry.common.SpiritTypeRegistry;
 import com.sammy.malum.registry.common.item.ItemRegistry;
 import net.minecraft.client.Minecraft;
