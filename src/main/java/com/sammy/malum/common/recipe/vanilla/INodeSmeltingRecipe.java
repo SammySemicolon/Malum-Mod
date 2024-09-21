@@ -1,7 +1,7 @@
 package com.sammy.malum.common.recipe.vanilla;
 
-import team.lodestar.lodestone.systems.recipe.IngredientWithCount;
+import net.minecraft.world.item.ItemStack;
 
 public interface INodeSmeltingRecipe {
-    IngredientWithCount getOutput();
+    ItemStack getOutput();
 }

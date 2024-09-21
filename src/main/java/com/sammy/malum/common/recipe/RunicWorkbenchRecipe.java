@@ -1,85 +1,94 @@
 package com.sammy.malum.common.recipe;
 
-import com.google.gson.*;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.sammy.malum.core.systems.recipe.*;
 import com.sammy.malum.registry.common.recipe.*;
-import net.minecraft.network.*;
-import net.minecraft.resources.*;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.*;
-import net.minecraftforge.common.crafting.*;
-import team.lodestar.lodestone.systems.recipe.*;
 
-import javax.annotation.*;
-import java.util.*;
-import java.util.function.*;
-
-public class RunicWorkbenchRecipe extends LodestoneInWorldRecipe {
+public class RunicWorkbenchRecipe extends LodestoneInWorldRecipe<RunicWorkbenchRecipe.Input> {
     public static final String NAME = "runeworking";
 
-    public final IngredientWithCount primaryInput;
-    public final IngredientWithCount secondaryInput;
+    public final ItemStack primaryInput;
+    public final ItemStack secondaryInput;
     public final ItemStack output;
 
-    public RunicWorkbenchRecipe(ResourceLocation id, IngredientWithCount primaryInput, IngredientWithCount secondaryInput, ItemStack output) {
-        super(id, RecipeSerializerRegistry.RUNEWORKING_RECIPE_SERIALIZER.get(), RecipeTypeRegistry.RUNEWORKING.get());
+    public RunicWorkbenchRecipe(ItemStack primaryInput, ItemStack secondaryInput, ItemStack output) {
+        super(RecipeSerializerRegistry.RUNEWORKING_RECIPE_SERIALIZER.get(), RecipeTypeRegistry.RUNEWORKING.get());
         this.primaryInput = primaryInput;
         this.secondaryInput = secondaryInput;
         this.output = output;
     }
 
-    public boolean doesPrimaryInputMatch(ItemStack input) {
-        return this.primaryInput.matches(input);
+    @Override
+    public boolean matches(Input input, Level level) {
+        return input.primaryInput.is(primaryInput.getItem())
+                && input.primaryInput.getCount() >= primaryInput.getCount()
+                && input.secondaryInput.is(secondaryInput.getItem())
+                && input.secondaryInput.getCount() >= secondaryInput.getCount();
     }
 
-    public boolean doesSecondaryInputMatch(ItemStack input) {
-        return this.secondaryInput.matches(input);
+    @Override
+    public ItemStack assemble(Input input, HolderLookup.Provider registries) {
+        return this.output.copy();
     }
 
-    public boolean doesOutputMatch(ItemStack output) {
-        return output.getItem().equals(this.output.getItem());
+    @Override
+    public ItemStack getResultItem(HolderLookup.Provider registries) {
+        return this.output;
     }
 
-    public static RunicWorkbenchRecipe getRecipe(Level level, ItemStack primaryStack, ItemStack secondaryStack) {
-        return getRecipe(level, c -> c.doesPrimaryInputMatch(primaryStack) && c.doesSecondaryInputMatch(secondaryStack));
-    }
+    public record Input(ItemStack primaryInput, ItemStack secondaryInput) implements RecipeInput {
 
-    public static RunicWorkbenchRecipe getRecipe(Level level, Predicate<RunicWorkbenchRecipe> predicate) {
-        return getRecipe(level, RecipeTypeRegistry.RUNEWORKING.get(), predicate);
-    }
+        @Override
+        public ItemStack getItem(int index) {
+            return switch (index) {
+                case 0 -> this.primaryInput;
+                case 1 -> this.secondaryInput;
+                default -> throw new IllegalArgumentException("Recipe does not contain slot " + index);
+            };
+        }
 
-    public static List<RunicWorkbenchRecipe> getRecipes(Level level) {
-        return getRecipes(level, RecipeTypeRegistry.RUNEWORKING.get());
+        @Override
+        public int size() { return 2; }
     }
 
     public static class Serializer implements RecipeSerializer<RunicWorkbenchRecipe> {
 
-        @Override
-        public RunicWorkbenchRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
-            IngredientWithCount primaryInput = IngredientWithCount.deserialize(json.getAsJsonObject("primaryInput"));
-            IngredientWithCount secondaryInput = IngredientWithCount.deserialize(json.getAsJsonObject("secondaryInput"));
+        public static final MapCodec<RunicWorkbenchRecipe> CODEC = RecordCodecBuilder.mapCodec(obj -> obj.group(
+                ItemStack.CODEC.fieldOf("primaryInput").forGetter(recipe -> recipe.primaryInput),
+                ItemStack.CODEC.fieldOf("secondaryInput").forGetter(recipe -> recipe.secondaryInput),
+                ItemStack.CODEC.fieldOf("result").forGetter(recipe -> recipe.output)
+        ).apply(obj, RunicWorkbenchRecipe::new));
 
-            JsonObject outputObject = json.getAsJsonObject("output");
-            ItemStack output = CraftingHelper.getItemStack(outputObject, true);
+        public static final StreamCodec<RegistryFriendlyByteBuf, RunicWorkbenchRecipe> STREAM_CODEC = StreamCodec.of(
+                Serializer::toNetwork, Serializer::fromNetwork
+        );
 
-            return new RunicWorkbenchRecipe(recipeId, primaryInput, secondaryInput, output);
+        public static RunicWorkbenchRecipe fromNetwork(RegistryFriendlyByteBuf buffer) {
+            ItemStack primaryInput = ItemStack.STREAM_CODEC.decode(buffer);
+            ItemStack secondaryInput = ItemStack.STREAM_CODEC.decode(buffer);
+            ItemStack output = ItemStack.STREAM_CODEC.decode(buffer);
+            return new RunicWorkbenchRecipe(primaryInput, secondaryInput, output);
         }
 
-        @Nullable
-        @Override
-        public RunicWorkbenchRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
-            IngredientWithCount primaryInput = IngredientWithCount.read(buffer);
-            IngredientWithCount secondaryInput = IngredientWithCount.read(buffer);
-            ItemStack output = buffer.readItem();
-            return new RunicWorkbenchRecipe(recipeId, primaryInput, secondaryInput, output);
+        public static void toNetwork(RegistryFriendlyByteBuf buffer, RunicWorkbenchRecipe recipe) {
+            ItemStack.STREAM_CODEC.encode(buffer, recipe.primaryInput);
+            ItemStack.STREAM_CODEC.encode(buffer, recipe.secondaryInput);
+            ItemStack.STREAM_CODEC.encode(buffer, recipe.output);
         }
 
         @Override
-        public void toNetwork(FriendlyByteBuf buffer, RunicWorkbenchRecipe recipe) {
-            recipe.primaryInput.write(buffer);
-            recipe.secondaryInput.write(buffer);
-            buffer.writeItem(recipe.output);
+        public MapCodec<RunicWorkbenchRecipe> codec() { return CODEC; }
+
+        @Override
+        public StreamCodec<RegistryFriendlyByteBuf, RunicWorkbenchRecipe> streamCodec() {
+            return STREAM_CODEC;
         }
     }
 }

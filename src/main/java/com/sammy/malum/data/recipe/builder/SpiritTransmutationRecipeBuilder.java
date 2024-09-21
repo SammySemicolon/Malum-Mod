@@ -1,23 +1,19 @@
 package com.sammy.malum.data.recipe.builder;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.registry.common.recipe.RecipeSerializerRegistry;
-import net.minecraft.data.recipes.FinishedRecipe;
-import net.minecraft.data.recipes.RecipeBuilder;
+import com.sammy.malum.common.recipe.SpiritTransmutationRecipe;
+import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
-import net.minecraftforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import team.lodestar.lodestone.recipe.builder.AutonamedRecipeBuilder;
 
 import javax.annotation.Nullable;
-import java.util.function.Consumer;
 
-public class SpiritTransmutationRecipeBuilder {
+public class SpiritTransmutationRecipeBuilder implements AutonamedRecipeBuilder<SpiritTransmutationRecipe> {
     private final Ingredient ingredient;
     private final ItemStack output;
 
@@ -29,7 +25,7 @@ public class SpiritTransmutationRecipeBuilder {
         this.output = output;
     }
 
-    public SpiritTransmutationRecipeBuilder(DeferredHolder<? extends ItemLike> input, DeferredHolder<? extends ItemLike> output) {
+    public SpiritTransmutationRecipeBuilder(DeferredHolder<Item, ? extends ItemLike> input, DeferredHolder<? extends ItemLike> output) {
         this(input.get(), output.get());
     }
 
@@ -58,57 +54,28 @@ public class SpiritTransmutationRecipeBuilder {
         return this;
     }
 
-    public void build(Consumer<FinishedRecipe> consumerIn, String recipeName) {
-        build(consumerIn, MalumMod.malumPath("spirit_transmutation/" + recipeName));
+    @Override
+    public Item getResult() {
+        return output.getItem();
     }
 
-    public void build(Consumer<FinishedRecipe> consumerIn) {
-        build(consumerIn, RecipeBuilder.getDefaultRecipeId(output.getItem()).getPath());
+    @Override
+    public SpiritTransmutationRecipe build(ResourceLocation resourceLocation) {
+        return new SpiritTransmutationRecipe(ingredient, output, group);
     }
 
-    public void build(Consumer<FinishedRecipe> consumerIn, ResourceLocation id) {
-        consumerIn.accept(new Result(id));
+    @Override
+    public void save(RecipeOutput recipeOutput, String recipeName) {
+        save(recipeOutput, MalumMod.malumPath("spirit_transmutation/" + recipeName));
     }
 
-    public class Result implements FinishedRecipe {
-        private final ResourceLocation id;
+    @Override
+    public void save(RecipeOutput recipeOutput, ResourceLocation resourceLocation) {
+        defaultSaveFunc(recipeOutput, resourceLocation);
+    }
 
-        public Result(ResourceLocation id) {
-            this.id = id;
-        }
-
-        @Override
-        public void serializeRecipeData(JsonObject json) {
-            json.add("input", ingredient.toJson());
-            JsonElement outputObject = Ingredient.of(output).toJson();
-            if (output.getCount() != 1) {
-                outputObject.getAsJsonObject().addProperty("count", output.getCount());
-            }
-            json.add("output", outputObject);
-            if (group != null)
-                json.addProperty("group", group);
-        }
-
-        @Override
-        public ResourceLocation getId() {
-            return id;
-        }
-
-        @Override
-        public RecipeSerializer<?> getType() {
-            return RecipeSerializerRegistry.SPIRIT_TRANSMUTATION_RECIPE_SERIALIZER.get();
-        }
-
-        @Nullable
-        @Override
-        public JsonObject serializeAdvancement() {
-            return null;
-        }
-
-        @Nullable
-        @Override
-        public ResourceLocation getAdvancementId() {
-            return null;
-        }
+    @Override
+    public String getRecipeSubfolder() {
+        return "spirit_transmutation";
     }
 }
