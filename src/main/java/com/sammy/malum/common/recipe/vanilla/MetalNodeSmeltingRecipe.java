@@ -2,12 +2,8 @@ package com.sammy.malum.common.recipe.vanilla;
 
 import com.sammy.malum.registry.common.recipe.RecipeSerializerRegistry;
 import net.minecraft.core.*;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.CookingBookCategory;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.SmeltingRecipe;
+import net.minecraft.world.item.crafting.*;
 
 public class MetalNodeSmeltingRecipe extends SmeltingRecipe implements INodeSmeltingRecipe {
 
@@ -31,6 +27,10 @@ public class MetalNodeSmeltingRecipe extends SmeltingRecipe implements INodeSmel
     }
 
     @Override
+    public Ingredient getIngredient() {
+        return this.ingredient;
+    }
+
     public ItemStack getOutput() {
         return output;
     }
@@ -42,4 +42,5 @@ public class MetalNodeSmeltingRecipe extends SmeltingRecipe implements INodeSmel
         }
         return cachedOutput;
     }
+
 }
