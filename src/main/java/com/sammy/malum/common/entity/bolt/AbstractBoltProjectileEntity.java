@@ -14,7 +14,7 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
-import net.minecraftforge.api.distmarker.*;
+import net.neoforged.api.distmarker.*;
 import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.systems.rendering.trail.*;
 
@@ -65,10 +65,10 @@ public abstract class AbstractBoltProjectileEntity extends ThrowableItemProjecti
     }
 
     @Override
-    protected void defineSynchedData() {
-        this.getEntityData().define(DATA_FADING_AWAY, false);
-        this.getEntityData().define(DATA_SPAWN_DELAY, 0);
-        super.defineSynchedData();
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        builder.define(DATA_FADING_AWAY, false);
+        builder.define(DATA_SPAWN_DELAY, 0);
+        super.defineSynchedData(builder);
     }
 
     @Override
@@ -152,16 +152,11 @@ public abstract class AbstractBoltProjectileEntity extends ThrowableItemProjecti
             boolean success = target.hurt(source, magicDamage);
             if (success && target instanceof LivingEntity livingentity) {
                 onDealDamage(livingentity);
-                ItemStack staff = getItem();
-                ItemHelper.applyEnchantments(staffOwner, livingentity, staff);
-                int i = staff.getEnchantmentLevel(Enchantments.FIRE_ASPECT);
-                if (i > 0) {
-                    livingentity.setSecondsOnFire(i * 4);
-                }
-                getEntityData().set(DATA_FADING_AWAY, true);
                 getImpactParticleEffect().createPositionedEffect(level(), new PositionEffectData(position().add(getDeltaMovement().scale(0.5f))), new ColorEffectData(SpiritTypeRegistry.WICKED_SPIRIT), HexBoltImpactParticleEffect.createData(getDeltaMovement().reverse().normalize()));
                 playSound(SoundRegistry.STAFF_STRIKES.get(), 0.75f, Mth.nextFloat(random, 1f, 1.4f));
+                ItemHelper.applyEnchantments(staffOwner, livingentity, source, getItem());
                 setDeltaMovement(getDeltaMovement().scale(0.05f));
+                getEntityData().set(DATA_FADING_AWAY, true);
             }
         }
         super.onHitEntity(result);
@@ -267,7 +262,7 @@ public abstract class AbstractBoltProjectileEntity extends ThrowableItemProjecti
     }
 
     @Override
-    public boolean ignoreExplosion() {
+    public boolean ignoreExplosion(Explosion explosion) {
         return true;
     }
 }

@@ -11,7 +11,7 @@ import net.minecraft.world.entity.projectile.ThrowableProjectile;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.*;
-import net.minecraftforge.api.distmarker.*;
+import net.neoforged.api.distmarker.*;
 import team.lodestar.lodestone.systems.rendering.trail.*;
 
 import java.awt.*;
@@ -54,8 +54,8 @@ public abstract class AbstractNitrateEntity extends ThrowableProjectile {
     public abstract ColorEffectData getImpactParticleEffectColor();
 
     @Override
-    protected void defineSynchedData() {
-        this.getEntityData().define(DATA_FADING_AWAY, false);
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        builder.define(DATA_FADING_AWAY, false);
     }
 
     @Override
@@ -178,7 +178,7 @@ public abstract class AbstractNitrateEntity extends ThrowableProjectile {
     }
 
     @Override
-    public boolean ignoreExplosion() {
+    public boolean ignoreExplosion(Explosion explosion) {
         return true;
     }
 }
