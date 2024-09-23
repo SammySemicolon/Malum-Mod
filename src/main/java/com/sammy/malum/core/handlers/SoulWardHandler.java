@@ -2,6 +2,8 @@ package com.sammy.malum.core.handlers;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.capability.MalumPlayerDataCapability;
 import com.sammy.malum.config.CommonConfig;
@@ -34,16 +36,16 @@ public class SoulWardHandler {
     public float soulWard;
     public float soulWardProgress;
 
-    public CompoundTag serializeNBT() {
-        CompoundTag tag = new CompoundTag();
-        tag.putFloat("soulWard", soulWard);
-        tag.putFloat("soulWardProgress", soulWardProgress);
-        return tag;
-    }
+    public static Codec<SoulWardHandler> CODEC = RecordCodecBuilder.create(obj -> obj.group(
+         Codec.FLOAT.fieldOf("soulWard").forGetter(sw -> sw.soulWard),
+            Codec.FLOAT.fieldOf("soulWardProgress").forGetter(sw -> sw.soulWardProgress)
+    ).apply(obj, SoulWardHandler::new));
 
-    public void deserializeNBT(CompoundTag tag) {
-        soulWard = tag.getFloat("soulWard");
-        soulWardProgress = tag.getFloat("soulWardProgress");
+    public SoulWardHandler() {}
+
+    public SoulWardHandler(float soulWard, float soulWardProgress) {
+        this.soulWard = soulWard;
+        this.soulWardProgress = soulWardProgress;
     }
 
     public static void recoverSoulWard(PlayerTickEvent.Post event) {
