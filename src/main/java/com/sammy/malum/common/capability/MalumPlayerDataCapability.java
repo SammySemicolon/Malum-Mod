@@ -1,6 +1,9 @@
 package com.sammy.malum.common.capability;
 
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.sammy.malum.MalumMod;
+import com.sammy.malum.common.packets.CodecUtil;
 import com.sammy.malum.common.packets.SyncMalumPlayerCapabilityDataPacket;
 import com.sammy.malum.core.handlers.*;
 import com.sammy.malum.registry.common.PacketRegistry;
@@ -8,12 +11,33 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.neoforged.neoforge.capabilities.EntityCapability;
+import net.neoforged.neoforge.capabilities.ICapabilityProvider;
+import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
+import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerEvent;
+import net.neoforged.neoforge.network.PacketDistributor;
 
-public class MalumPlayerDataCapability implements LodestoneCapability {
+import javax.swing.text.html.Option;
+import java.util.Optional;
+import java.util.function.Consumer;
 
-    public static Capability<MalumPlayerDataCapability> CAPABILITY = CapabilityManager.get(new CapabilityToken<>() {
-    });
+public class MalumPlayerDataCapability {
+
+    public static final EntityCapability<MalumPlayerDataCapability, Void> CAPABILITY = EntityCapability.createVoid(
+            MalumMod.malumPath("player_data"),
+            MalumPlayerDataCapability.class
+    );
+
+    public static final Codec<MalumPlayerDataCapability> CODEC = RecordCodecBuilder.create(obj -> obj.group(
+            SoulWardHandler.CODEC.fieldOf("soulWardData").forGetter(c -> c.soulWardHandler),
+            ReserveStaffChargeHandler.CODEC.fieldOf("staffChargeData").forGetter(c -> c.reserveStaffChargeHandler),
+            Codec.BOOL.fieldOf("obtainedEncyclopedia").forGetter(c -> c.obtainedEncyclopedia),
+            Codec.BOOL.fieldOf("hasBeenRejected").forGetter(c -> c.hasBeenRejected)
+    ).apply(obj, MalumPlayerDataCapability::new));
 
     public SoulWardHandler soulWardHandler = new SoulWardHandler();
     public ReserveStaffChargeHandler reserveStaffChargeHandler = new ReserveStaffChargeHandler();
@@ -21,19 +45,23 @@ public class MalumPlayerDataCapability implements LodestoneCapability {
     public boolean obtainedEncyclopedia;
     public boolean hasBeenRejected;
 
-    public MalumPlayerDataCapability() {
+    public MalumPlayerDataCapability() {}
+
+    public MalumPlayerDataCapability(SoulWardHandler soulWardHandler, ReserveStaffChargeHandler reserveStaffChargeHandler, boolean obtainedEncyclopedia, boolean hasBeenRejected) {
+        this.soulWardHandler = soulWardHandler;
+        this.reserveStaffChargeHandler = reserveStaffChargeHandler;
+        this.obtainedEncyclopedia = obtainedEncyclopedia;
+        this.hasBeenRejected = hasBeenRejected;
     }
 
     public static void registerCapabilities(RegisterCapabilitiesEvent event) {
-        event.register(MalumPlayerDataCapability.class);
+        event.registerEntity(CAPABILITY, EntityType.PLAYER, GET_CAPABILITY);
     }
 
-    public static void attachPlayerCapability(AttachCapabilitiesEvent<Entity> event) {
-        if (event.getObject() instanceof Player) {
-            final MalumPlayerDataCapability capability = new MalumPlayerDataCapability();
-            event.addCapability(MalumMod.malumPath("player_data"), new LodestoneCapabilityProvider<>(MalumPlayerDataCapability.CAPABILITY, () -> capability));
-        }
-    }
+    public static ICapabilityProvider<Player, Void, MalumPlayerDataCapability> GET_CAPABILITY = (player, ctx) -> {
+        CompoundTag tag = player.getPersistentData();
+        return CodecUtil.decodeNBT(CODEC, tag);
+    };
 
     public static void playerJoin(EntityJoinLevelEvent event) {
         if (event.getEntity() instanceof Player player) {
@@ -52,57 +80,41 @@ public class MalumPlayerDataCapability implements LodestoneCapability {
     }
 
     public static void playerClone(PlayerEvent.Clone event) {
-        MalumPlayerDataCapability originalCapability = MalumPlayerDataCapability.getCapabilityOptional(event.getOriginal()).orElse(new MalumPlayerDataCapability());
-        MalumPlayerDataCapability capability = MalumPlayerDataCapability.getCapabilityOptional(event.getEntity()).orElse(new MalumPlayerDataCapability());
-        capability.deserializeNBT(originalCapability.serializeNBT());
-    }
-
-    @Override
-    public CompoundTag serializeNBT() {
-        CompoundTag tag = new CompoundTag();
-
-        tag.put("soulWardData", soulWardHandler.serializeNBT());
-        tag.put("staffChargeData", reserveStaffChargeHandler.serializeNBT());
-
-        tag.putBoolean("obtainedEncyclopedia", obtainedEncyclopedia);
-        tag.putBoolean("hasBeenRejected", hasBeenRejected);
-        return tag;
-    }
-
-    @Override
-    public void deserializeNBT(CompoundTag tag) {
-        if (tag.contains("soulWardData")) {
-            soulWardHandler.deserializeNBT(tag.getCompound("soulWardData"));
-        }
-        if (tag.contains("staffChargeData")) {
-            reserveStaffChargeHandler.deserializeNBT(tag.getCompound("staffChargeData"));
-        }
-
-        obtainedEncyclopedia = tag.getBoolean("obtainedEncyclopedia");
-        hasBeenRejected = tag.getBoolean("hasBeenRejected");
+        MalumPlayerDataCapability originalCapability = MalumPlayerDataCapability.getCapability(event.getOriginal());
+        MalumPlayerDataCapability capability = MalumPlayerDataCapability.getCapability(event.getEntity());
+        capability.hasBeenRejected = originalCapability.hasBeenRejected;
+        capability.obtainedEncyclopedia = originalCapability.obtainedEncyclopedia;
+        capability.reserveStaffChargeHandler = originalCapability.reserveStaffChargeHandler;
+        capability.soulWardHandler = originalCapability.soulWardHandler;
     }
 
     public static void syncSelf(ServerPlayer player) {
-        sync(player, PacketDistributor.PLAYER.with(() -> player));
+        sync(player, c -> PacketDistributor.sendToPlayer(player,
+                new SyncMalumPlayerCapabilityDataPacket(player.getUUID(), (CompoundTag)CodecUtil.encodeNBT(CODEC, c)))
+        );
     }
 
     public static void syncTrackingAndSelf(Player player) {
-        sync(player, PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> player));
+        sync(c -> PacketDistributor.sendToPlayersTrackingEntityAndSelf(player,
+                new SyncMalumPlayerCapabilityDataPacket(player.getUUID(), (CompoundTag)CodecUtil.encodeNBT(CODEC, c)))
+        );
     }
 
     public static void syncTracking(Player player) {
-        sync(player, PacketDistributor.TRACKING_ENTITY.with(() -> player));
+        sync(c -> PacketDistributor.sendToPlayersTrackingEntity(player,
+                new SyncMalumPlayerCapabilityDataPacket(player.getUUID(), (CompoundTag)CodecUtil.encodeNBT(CODEC, c)))
+        );
     }
 
-    public static void sync(Player player, PacketDistributor.PacketTarget target) {
-        getCapabilityOptional(player).ifPresent(c -> PacketRegistry.MALUM_CHANNEL.send(target, new SyncMalumPlayerCapabilityDataPacket(player.getUUID(), c.serializeNBT())));
+    public static void sync(Player player, Consumer<MalumPlayerDataCapability> syncFunc) {
+        getCapabilityOptional(player).ifPresent(syncFunc);
     }
 
-    public static LazyOptional<MalumPlayerDataCapability> getCapabilityOptional(Player player) {
-        return player.getCapability(CAPABILITY);
+    public static Optional<MalumPlayerDataCapability> getCapabilityOptional(Player player) {
+        return Optional.ofNullable(player.getCapability(CAPABILITY));
     }
 
     public static MalumPlayerDataCapability getCapability(Player player) {
-        return player.getCapability(CAPABILITY).orElse(new MalumPlayerDataCapability());
+        return getCapabilityOptional(player).orElse(new MalumPlayerDataCapability());
     }
 }

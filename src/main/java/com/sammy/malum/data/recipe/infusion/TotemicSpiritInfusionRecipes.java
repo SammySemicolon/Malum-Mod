@@ -10,7 +10,7 @@ import static com.sammy.malum.registry.common.SpiritTypeRegistry.*;
 
 public class TotemicSpiritInfusionRecipes {
 
-    public static void buildRecipes(Consumer<FinishedRecipe> consumer) {
+    public static void buildRecipes(RecipeOutput recipeOutput) {
         new SpiritInfusionRecipeBuilder(ItemRegistry.RUNEWOOD_LOG.get(), 4, ItemRegistry.RUNEWOOD_TOTEM_BASE.get(), 4)
                 .addExtraItem(ItemRegistry.RUNEWOOD_PLANKS.get(), 6)
                 .addExtraItem(ItemRegistry.HEX_ASH.get(), 2)
@@ -19,7 +19,7 @@ public class TotemicSpiritInfusionRecipes {
                 .addSpirit(EARTHEN_SPIRIT, 2)
                 .addSpirit(INFERNAL_SPIRIT, 2)
                 .addSpirit(ELDRITCH_SPIRIT, 1)
-                .build(consumer);
+                .save(recipeOutput);
 
         new SpiritInfusionRecipeBuilder(ItemRegistry.SOULWOOD_LOG.get(), 4, ItemRegistry.SOULWOOD_TOTEM_BASE.get(), 4)
                 .addExtraItem(ItemRegistry.SOULWOOD_PLANKS.get(), 6)
@@ -29,6 +29,6 @@ public class TotemicSpiritInfusionRecipes {
                 .addSpirit(EARTHEN_SPIRIT, 2)
                 .addSpirit(INFERNAL_SPIRIT, 2)
                 .addSpirit(ELDRITCH_SPIRIT, 1)
-                .build(consumer);
+                .save(recipeOutput);
     }
 }

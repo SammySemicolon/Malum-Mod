@@ -6,8 +6,8 @@ import net.minecraft.resources.*;
 import net.minecraft.tags.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
-import net.minecraftforge.common.*;
-import net.minecraftforge.common.crafting.conditions.*;
+import net.neoforged.neoforge.common.Tags;
+import net.neoforged.neoforge.common.conditions.IConditionBuilder;
 
 import java.util.function.*;
 
@@ -19,8 +19,8 @@ import static net.minecraft.data.recipes.ShapelessRecipeBuilder.*;
 
 public class MalumWoodSetRecipes implements IConditionBuilder {
 
-    public static void buildRecipes(Consumer<FinishedRecipe> consumer) {
-        buildRecipes(consumer, new MalumDatagenWoodSet(
+    public static void buildRecipes(RecipeOutput recipeOutput) {
+        buildRecipes(recipeOutput, new MalumDatagenWoodSet(
                 "runewood",
                 ItemRegistry.RUNEWOOD_LOG.get(), ItemRegistry.RUNEWOOD.get(),
                 ItemRegistry.STRIPPED_RUNEWOOD_LOG.get(), ItemRegistry.STRIPPED_RUNEWOOD.get(),
@@ -46,7 +46,7 @@ public class MalumWoodSetRecipes implements IConditionBuilder {
                 ItemRegistry.RUNEWOOD_BOAT.get()
         ));
 
-        buildRecipes(consumer, new MalumDatagenWoodSet(
+        buildRecipes(recipeOutput, new MalumDatagenWoodSet(
                 "soulwood",
                 ItemRegistry.SOULWOOD_LOG.get(), ItemRegistry.SOULWOOD.get(),
                 ItemRegistry.STRIPPED_SOULWOOD_LOG.get(), ItemRegistry.STRIPPED_SOULWOOD.get(),
@@ -73,63 +73,63 @@ public class MalumWoodSetRecipes implements IConditionBuilder {
         ));
     }
 
-    protected static void buildRecipes(Consumer<FinishedRecipe> consumer, MalumDatagenWoodSet woodSet) {
-        shapelessPlanks(consumer, woodSet.planks, woodSet.logTag);
+    protected static void buildRecipes(RecipeOutput recipeOutput, MalumDatagenWoodSet woodSet) {
+        shapelessPlanks(recipeOutput, woodSet.planks, woodSet.logTag);
 
-        rusticExchange(consumer, woodSet.rusticPlanks, woodSet.planks);
-        rusticExchange(consumer, woodSet.verticalRusticPlanks, woodSet.verticalPlanks);
-        rusticExchange(consumer, woodSet.rusticTiles, woodSet.tiles);
+        rusticExchange(recipeOutput, woodSet.rusticPlanks, woodSet.planks);
+        rusticExchange(recipeOutput, woodSet.verticalRusticPlanks, woodSet.verticalPlanks);
+        rusticExchange(recipeOutput, woodSet.rusticTiles, woodSet.tiles);
 
-        shapedBoards(consumer, woodSet.boards, woodSet.logWithBarkTag);
+        shapedBoards(recipeOutput, woodSet.boards, woodSet.logWithBarkTag);
 
-        shapedSlab(consumer, woodSet.boardsSlab, woodSet.boards);
-        shapedStairs(consumer, woodSet.boardsStairs, woodSet.boards);
-        shapedSlab(consumer, woodSet.verticalBoardsSlab, woodSet.verticalBoards);
-        shapedStairs(consumer, woodSet.verticalBoardsStairs, woodSet.verticalBoards);
+        shapedSlab(recipeOutput, woodSet.boardsSlab, woodSet.boards);
+        shapedStairs(recipeOutput, woodSet.boardsStairs, woodSet.boards);
+        shapedSlab(recipeOutput, woodSet.verticalBoardsSlab, woodSet.verticalBoards);
+        shapedStairs(recipeOutput, woodSet.verticalBoardsStairs, woodSet.verticalBoards);
 
-        planksExchange(consumer, woodSet.boards, woodSet.verticalBoards);
-        planksExchange(consumer, woodSet.verticalBoards, woodSet.boards);
+        planksExchange(recipeOutput, woodSet.boards, woodSet.verticalBoards);
+        planksExchange(recipeOutput, woodSet.verticalBoards, woodSet.boards);
 
-        shapedSlab(consumer, woodSet.planksSlab, woodSet.planks);
-        shapedStairs(consumer, woodSet.planksStairs, woodSet.planks);
-        shapedSlab(consumer, woodSet.verticalPlanksSlab, woodSet.verticalPlanks);
-        shapedStairs(consumer, woodSet.verticalPlanksStairs, woodSet.verticalPlanks);
-        shapedSlab(consumer, woodSet.tilesSlab, woodSet.tiles);
-        shapedStairs(consumer, woodSet.tilesStairs, woodSet.tiles);
+        shapedSlab(recipeOutput, woodSet.planksSlab, woodSet.planks);
+        shapedStairs(recipeOutput, woodSet.planksStairs, woodSet.planks);
+        shapedSlab(recipeOutput, woodSet.verticalPlanksSlab, woodSet.verticalPlanks);
+        shapedStairs(recipeOutput, woodSet.verticalPlanksStairs, woodSet.verticalPlanks);
+        shapedSlab(recipeOutput, woodSet.tilesSlab, woodSet.tiles);
+        shapedStairs(recipeOutput, woodSet.tilesStairs, woodSet.tiles);
 
-        shapedSlab(consumer, woodSet.rusticPlanksSlab, woodSet.rusticPlanks);
-        shapedStairs(consumer, woodSet.rusticPlanksStairs, woodSet.rusticPlanks);
-        shapedSlab(consumer, woodSet.verticalRusticPlanksSlab, woodSet.verticalRusticPlanks);
-        shapedStairs(consumer, woodSet.verticalRusticPlanksStairs, woodSet.verticalRusticPlanks);
-        shapedSlab(consumer, woodSet.rusticTilesSlab, woodSet.rusticTiles);
-        shapedStairs(consumer, woodSet.rusticTilesStairs, woodSet.rusticTiles);
+        shapedSlab(recipeOutput, woodSet.rusticPlanksSlab, woodSet.rusticPlanks);
+        shapedStairs(recipeOutput, woodSet.rusticPlanksStairs, woodSet.rusticPlanks);
+        shapedSlab(recipeOutput, woodSet.verticalRusticPlanksSlab, woodSet.verticalRusticPlanks);
+        shapedStairs(recipeOutput, woodSet.verticalRusticPlanksStairs, woodSet.verticalRusticPlanks);
+        shapedSlab(recipeOutput, woodSet.rusticTilesSlab, woodSet.rusticTiles);
+        shapedStairs(recipeOutput, woodSet.rusticTilesStairs, woodSet.rusticTiles);
 
-        shapelessWood(consumer, woodSet.wood, woodSet.log);
-        shapelessWood(consumer, woodSet.strippedWood, woodSet.strippedLog);
-        shapelessButton(consumer, woodSet.button, woodSet.planksTag);
-        shapedDoor(consumer, woodSet.door, woodSet.planksTag);
-        shapedFence(consumer, woodSet.fence, woodSet.planksTag);
-        shapedFenceGate(consumer, woodSet.fenceGate, woodSet.planksTag);
-        shapedPressurePlate(consumer, woodSet.pressurePlate, woodSet.planksTag);
+        shapelessWood(recipeOutput, woodSet.wood, woodSet.log);
+        shapelessWood(recipeOutput, woodSet.strippedWood, woodSet.strippedLog);
+        shapelessButton(recipeOutput, woodSet.button, woodSet.planksTag);
+        shapedDoor(recipeOutput, woodSet.door, woodSet.planksTag);
+        shapedFence(recipeOutput, woodSet.fence, woodSet.planksTag);
+        shapedFenceGate(recipeOutput, woodSet.fenceGate, woodSet.planksTag);
+        shapedPressurePlate(recipeOutput, woodSet.pressurePlate, woodSet.planksTag);
 
-        shapedTrapdoor(consumer, woodSet.solidTrapdoor, woodSet.planksTag);
+        shapedTrapdoor(recipeOutput, woodSet.solidTrapdoor, woodSet.planksTag);
 
-        shapedSign(consumer, woodSet.sign, woodSet.planksTag);
+        shapedSign(recipeOutput, woodSet.sign, woodSet.planksTag);
 
-        trapdoorExchange(consumer, woodSet.solidTrapdoor, woodSet.openTrapdoor, woodSet.prefix + "_open_trapdoor_exchange");
-        trapdoorExchange(consumer, woodSet.openTrapdoor, woodSet.solidTrapdoor, woodSet.prefix + "_solid_trapdoor_exchange");
+        trapdoorExchange(recipeOutput, woodSet.solidTrapdoor, woodSet.openTrapdoor, woodSet.prefix + "_open_trapdoor_exchange");
+        trapdoorExchange(recipeOutput, woodSet.openTrapdoor, woodSet.solidTrapdoor, woodSet.prefix + "_solid_trapdoor_exchange");
 
-        planksExchange(consumer, woodSet.planks, woodSet.verticalPlanks);
-        planksExchange(consumer, woodSet.verticalPlanks, woodSet.tiles);
-        planksExchange(consumer, woodSet.tiles, woodSet.planks);
+        planksExchange(recipeOutput, woodSet.planks, woodSet.verticalPlanks);
+        planksExchange(recipeOutput, woodSet.verticalPlanks, woodSet.tiles);
+        planksExchange(recipeOutput, woodSet.tiles, woodSet.planks);
 
-        planksExchange(consumer, woodSet.rusticPlanks, woodSet.verticalRusticPlanks);
-        planksExchange(consumer, woodSet.verticalRusticPlanks, woodSet.rusticTiles);
-        planksExchange(consumer, woodSet.rusticTiles, woodSet.rusticPlanks);
+        planksExchange(recipeOutput, woodSet.rusticPlanks, woodSet.verticalRusticPlanks);
+        planksExchange(recipeOutput, woodSet.verticalRusticPlanks, woodSet.rusticTiles);
+        planksExchange(recipeOutput, woodSet.rusticTiles, woodSet.rusticPlanks);
 
-        shapedBoat(consumer, woodSet.boat, woodSet.planksTag);
+        shapedBoat(recipeOutput, woodSet.boat, woodSet.planksTag);
 
-        shapedPanel(consumer, woodSet.panel, woodSet.planksTag);
+        shapedPanel(recipeOutput, woodSet.panel, woodSet.planksTag);
 
         var condition = has(woodSet.planksTag);
         shaped(RecipeCategory.MISC, woodSet.boardWall, 6)
@@ -137,21 +137,21 @@ public class MalumWoodSetRecipes implements IConditionBuilder {
                 .pattern("###")
                 .pattern("###")
                 .unlockedBy("has_input", condition)
-                .save(consumer);
+                .save(recipeOutput);
 
         shaped(RecipeCategory.MISC, woodSet.cutPlanks, 2)
                 .define('X', woodSet.panel)
                 .define('Y', woodSet.planksTag)
                 .pattern("X").pattern("Y")
                 .unlockedBy("has_input", condition)
-                .save(consumer);
+                .save(recipeOutput);
         shaped(RecipeCategory.MISC, woodSet.beam, 3)
                 .define('#', woodSet.planksTag)
                 .pattern("#")
                 .pattern("#")
                 .pattern("#")
                 .unlockedBy("has_input", condition)
-                .save(consumer);
+                .save(recipeOutput);
 
         shaped(RecipeCategory.MISC, woodSet.itemStand, 2)
                 .define('X', woodSet.planksTag)
@@ -159,7 +159,7 @@ public class MalumWoodSetRecipes implements IConditionBuilder {
                 .pattern("YYY")
                 .pattern("XXX")
                 .unlockedBy("has_input", condition)
-                .save(consumer);
+                .save(recipeOutput);
         shaped(RecipeCategory.MISC, woodSet.itemPedestal)
                 .define('X', woodSet.planksTag)
                 .define('Y', woodSet.slabTag)
@@ -167,18 +167,18 @@ public class MalumWoodSetRecipes implements IConditionBuilder {
                 .pattern(" X ")
                 .pattern("YYY")
                 .unlockedBy("has_input", condition)
-                .save(consumer);
+                .save(recipeOutput);
 
     }
 
-    private static void trapdoorExchange(Consumer<FinishedRecipe> recipeConsumer, ItemLike input, ItemLike output, String path) {
+    private static void trapdoorExchange(RecipeOutput recipeConsumer, ItemLike input, ItemLike output, String path) {
         shapeless(RecipeCategory.MISC, output)
                 .requires(input)
                 .unlockedBy("has_input", has(input))
                 .save(recipeConsumer, malumPath(path));
     }
 
-    private static void planksExchange(Consumer<FinishedRecipe> recipeConsumer, ItemLike input, ItemLike planks) {
+    private static void planksExchange(RecipeOutput recipeConsumer, ItemLike input, ItemLike planks) {
         final ResourceLocation recipeID = getDefaultRecipeId(planks).withSuffix("_from_" + getDefaultRecipeId(input).getPath());
         shaped(RecipeCategory.MISC, planks, 4)
                 .define('#', input)
@@ -189,7 +189,7 @@ public class MalumWoodSetRecipes implements IConditionBuilder {
                 .save(recipeConsumer, recipeID);
     }
 
-    private static void shapelessPlanks(Consumer<FinishedRecipe> recipeConsumer, ItemLike planks, TagKey<Item> input) {
+    private static void shapelessPlanks(RecipeOutput recipeConsumer, ItemLike planks, TagKey<Item> input) {
         shapeless(RecipeCategory.MISC, planks, 4)
                 .requires(input)
                 .group("planks")
@@ -197,7 +197,7 @@ public class MalumWoodSetRecipes implements IConditionBuilder {
                 .save(recipeConsumer);
     }
 
-    private static void shapedBoards(Consumer<FinishedRecipe> recipeConsumer, ItemLike output, TagKey<Item> input) {
+    private static void shapedBoards(RecipeOutput recipeConsumer, ItemLike output, TagKey<Item> input) {
         shaped(RecipeCategory.MISC, output, 20)
                 .define('#', input)
                 .pattern(" # ")
@@ -206,7 +206,7 @@ public class MalumWoodSetRecipes implements IConditionBuilder {
                 .unlockedBy("has_input", has(input)).save(recipeConsumer);
     }
 
-    private static void shapedPanel(Consumer<FinishedRecipe> recipeConsumer, ItemLike output, TagKey<Item> input) {
+    private static void shapedPanel(RecipeOutput recipeConsumer, ItemLike output, TagKey<Item> input) {
         shaped(RecipeCategory.MISC, output, 9)
                 .define('#', input)
                 .pattern("###")
@@ -215,7 +215,7 @@ public class MalumWoodSetRecipes implements IConditionBuilder {
                 .unlockedBy("has_input", has(input)).save(recipeConsumer);
     }
 
-    private static void rusticExchange(Consumer<FinishedRecipe> recipeConsumer, ItemLike output, ItemLike input) {
+    private static void rusticExchange(RecipeOutput recipeConsumer, ItemLike output, ItemLike input) {
         final ResourceLocation recipeID = getDefaultRecipeId(output).withSuffix("_from_" + getDefaultRecipeId(input).getPath());
         shaped(RecipeCategory.MISC, output, 5)
                 .define('#', input)
@@ -225,7 +225,7 @@ public class MalumWoodSetRecipes implements IConditionBuilder {
                 .unlockedBy("has_input", has(input)).save(recipeConsumer, recipeID);
     }
 
-    private static void shapelessWood(Consumer<FinishedRecipe> recipeConsumer, ItemLike stripped, ItemLike input) {
+    private static void shapelessWood(RecipeOutput recipeConsumer, ItemLike stripped, ItemLike input) {
         shaped(RecipeCategory.MISC, stripped, 3)
                 .define('#', input)
                 .pattern("##")
@@ -235,14 +235,14 @@ public class MalumWoodSetRecipes implements IConditionBuilder {
                 .save(recipeConsumer);
     }
 
-    private static void shapelessButton(Consumer<FinishedRecipe> recipeConsumer, ItemLike button, TagKey<Item> input) {
+    private static void shapelessButton(RecipeOutput recipeConsumer, ItemLike button, TagKey<Item> input) {
         shapeless(RecipeCategory.MISC, button)
                 .requires(input)
                 .unlockedBy("has_input", has(input))
                 .save(recipeConsumer);
     }
 
-    private static void shapedDoor(Consumer<FinishedRecipe> recipeConsumer, ItemLike door, TagKey<Item> input) {
+    private static void shapedDoor(RecipeOutput recipeConsumer, ItemLike door, TagKey<Item> input) {
         shaped(RecipeCategory.MISC, door, 3)
                 .define('#', input)
                 .pattern("##")
@@ -252,7 +252,7 @@ public class MalumWoodSetRecipes implements IConditionBuilder {
                 .save(recipeConsumer);
     }
 
-    private static void shapedFence(Consumer<FinishedRecipe> recipeConsumer, ItemLike fence, TagKey<Item> input) {
+    private static void shapedFence(RecipeOutput recipeConsumer, ItemLike fence, TagKey<Item> input) {
         shaped(RecipeCategory.MISC, fence, 3)
                 .define('#', Tags.Items.RODS_WOODEN)
                 .define('W', input)
@@ -262,7 +262,7 @@ public class MalumWoodSetRecipes implements IConditionBuilder {
                 .save(recipeConsumer);
     }
 
-    private static void shapedFenceGate(Consumer<FinishedRecipe> recipeConsumer, ItemLike fenceGate, TagKey<Item> input) {
+    private static void shapedFenceGate(RecipeOutput recipeConsumer, ItemLike fenceGate, TagKey<Item> input) {
         shaped(RecipeCategory.MISC, fenceGate)
                 .define('#', Tags.Items.RODS_WOODEN)
                 .define('W', input)
@@ -272,7 +272,7 @@ public class MalumWoodSetRecipes implements IConditionBuilder {
                 .save(recipeConsumer);
     }
 
-    private static void shapedPressurePlate(Consumer<FinishedRecipe> recipeConsumer, ItemLike pressurePlate, TagKey<Item> input) {
+    private static void shapedPressurePlate(RecipeOutput recipeConsumer, ItemLike pressurePlate, TagKey<Item> input) {
         shaped(RecipeCategory.MISC, pressurePlate)
                 .define('#', input)
                 .pattern("##")
@@ -280,7 +280,7 @@ public class MalumWoodSetRecipes implements IConditionBuilder {
                 .save(recipeConsumer);
     }
 
-    private static void shapedSlab(Consumer<FinishedRecipe> recipeConsumer, ItemLike slab, ItemLike input) {
+    private static void shapedSlab(RecipeOutput recipeConsumer, ItemLike slab, ItemLike input) {
         shaped(RecipeCategory.MISC, slab, 6)
                 .define('#', input)
                 .pattern("###")
@@ -288,7 +288,7 @@ public class MalumWoodSetRecipes implements IConditionBuilder {
                 .save(recipeConsumer);
     }
 
-    private static void shapedStairs(Consumer<FinishedRecipe> recipeConsumer, ItemLike stairs, ItemLike input) {
+    private static void shapedStairs(RecipeOutput recipeConsumer, ItemLike stairs, ItemLike input) {
         shaped(RecipeCategory.MISC, stairs, 4)
                 .define('#', input)
                 .pattern("#  ")
@@ -298,7 +298,7 @@ public class MalumWoodSetRecipes implements IConditionBuilder {
                 .save(recipeConsumer);
     }
 
-    private static void shapedTrapdoor(Consumer<FinishedRecipe> recipeConsumer, ItemLike trapdoor, TagKey<Item> input) {
+    private static void shapedTrapdoor(RecipeOutput recipeConsumer, ItemLike trapdoor, TagKey<Item> input) {
         shaped(RecipeCategory.MISC, trapdoor, 2)
                 .define('#', input)
                 .pattern("###")
@@ -307,7 +307,7 @@ public class MalumWoodSetRecipes implements IConditionBuilder {
                 .save(recipeConsumer);
     }
 
-    private static void shapedSign(Consumer<FinishedRecipe> recipeConsumer, ItemLike sign, TagKey<Item> input) {
+    private static void shapedSign(RecipeOutput recipeConsumer, ItemLike sign, TagKey<Item> input) {
         shaped(RecipeCategory.MISC, sign, 3)
                 .group("sign")
                 .define('#', input)
@@ -319,7 +319,7 @@ public class MalumWoodSetRecipes implements IConditionBuilder {
                 .save(recipeConsumer);
     }
 
-    private static void shapedBoat(Consumer<FinishedRecipe> recipeConsumer, ItemLike boat, TagKey<Item> input) {
+    private static void shapedBoat(RecipeOutput recipeConsumer, ItemLike boat, TagKey<Item> input) {
         shaped(RecipeCategory.MISC, boat)
                 .define('#', input)
                 .pattern("# #")

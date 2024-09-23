@@ -11,20 +11,21 @@ import net.minecraft.resources.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.*;
+import net.neoforged.neoforge.common.crafting.SizedIngredient;
 
 import java.util.*;
 
 public class SpiritInfusionRecipe extends LodestoneInWorldRecipe<SpiritBasedRecipeInput>  {
     public static final ResourceLocation NAME = MalumMod.malumPath("spirit_infusion");
 
-    public final Ingredient ingredient;
+    public final SizedIngredient ingredient;
     public final ItemStack output;
 
-    public final List<Ingredient> extraIngredients;
+    public final List<SizedIngredient> extraIngredients;
     public final List<SpiritIngredient> spirits;
     public final boolean carryOverData;
 
-    public SpiritInfusionRecipe(Ingredient ingredient, ItemStack output, List<Ingredient> extraIngredients, List<SpiritIngredient> spirits, boolean carryOverData) {
+    public SpiritInfusionRecipe(SizedIngredient ingredient, ItemStack output, List<SizedIngredient> extraIngredients, List<SpiritIngredient> spirits, boolean carryOverData) {
         super(RecipeSerializerRegistry.INFUSION_RECIPE_SERIALIZER.get(), RecipeTypeRegistry.SPIRIT_INFUSION.get());
         this.ingredient = ingredient;
         this.output = output;
@@ -40,9 +41,9 @@ public class SpiritInfusionRecipe extends LodestoneInWorldRecipe<SpiritBasedReci
 
     public static class Serializer implements RecipeSerializer<SpiritInfusionRecipe> {
         public static final MapCodec<SpiritInfusionRecipe> CODEC = RecordCodecBuilder.mapCodec((obj) -> obj.group(
-                Ingredient.CODEC.fieldOf("ingredient").forGetter(recipe -> recipe.ingredient),
+                SizedIngredient.FLAT_CODEC.fieldOf("ingredient").forGetter(recipe -> recipe.ingredient),
                 ItemStack.CODEC.fieldOf("output").forGetter(recipe -> recipe.output),
-                Ingredient.CODEC.listOf().fieldOf("extraIngredients").forGetter(recipe -> recipe.extraIngredients),
+                SizedIngredient.FLAT_CODEC.listOf().fieldOf("extraIngredients").forGetter(recipe -> recipe.extraIngredients),
                 SpiritIngredient.CODEC.listOf().fieldOf("spirits").forGetter(recipe -> recipe.spirits),
                 Codec.BOOL.fieldOf("carryOverComponentData").forGetter(recipe -> recipe.carryOverData)
         ).apply(obj, SpiritInfusionRecipe::new));
@@ -61,13 +62,13 @@ public class SpiritInfusionRecipe extends LodestoneInWorldRecipe<SpiritBasedReci
         }
 
         public static SpiritInfusionRecipe fromNetwork(RegistryFriendlyByteBuf buffer) {
-            var ingredient = Ingredient.CONTENTS_STREAM_CODEC.decode(buffer);
+            var ingredient = SizedIngredient.STREAM_CODEC.decode(buffer);
             var output = ItemStack.STREAM_CODEC.decode(buffer);
 
             int extraIngredientCount = buffer.readInt();
-            ArrayList<Ingredient> extraIngredients = new ArrayList<>();
+            ArrayList<SizedIngredient> extraIngredients = new ArrayList<>();
             for (int i = 0; i < extraIngredientCount; i++) {
-                extraIngredients.add(Ingredient.CONTENTS_STREAM_CODEC.decode(buffer));
+                extraIngredients.add(SizedIngredient.STREAM_CODEC.decode(buffer));
             }
 
             int spiritCount = buffer.readInt();
@@ -83,11 +84,11 @@ public class SpiritInfusionRecipe extends LodestoneInWorldRecipe<SpiritBasedReci
         }
 
         public static void toNetwork(RegistryFriendlyByteBuf buffer, SpiritInfusionRecipe recipe) {
-            Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, recipe.ingredient);
+            SizedIngredient.STREAM_CODEC.encode(buffer, recipe.ingredient);
             ItemStack.STREAM_CODEC.encode(buffer, recipe.output);
             buffer.writeInt(recipe.extraIngredients.size());
-            for (Ingredient extraIngredient : recipe.extraIngredients) {
-                Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, extraIngredient);
+            for (SizedIngredient extraIngredient : recipe.extraIngredients) {
+                SizedIngredient.STREAM_CODEC.encode(buffer, extraIngredient);
             }
             buffer.writeInt(recipe.spirits.size());
             for (SpiritIngredient spirit : recipe.spirits) {

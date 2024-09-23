@@ -1,53 +1,63 @@
 package com.sammy.malum.common.recipe.vanilla;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.GsonHelper;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.AbstractCookingRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import team.lodestar.lodestone.systems.recipe.IngredientWithCount;
 
-public class NodeCookingSerializer<T extends AbstractCookingRecipe> implements RecipeSerializer<T> {
+public class NodeCookingSerializer<T extends AbstractCookingRecipe & INodeSmeltingRecipe> implements RecipeSerializer<T> {
     public final int defaultCookingTime;
     public final NodeBaker<T> factory;
+    public final MapCodec<T> codec;
+    public final StreamCodec<RegistryFriendlyByteBuf, T> streamCodec;
 
-    public NodeCookingSerializer(NodeBaker<T> pFactory, int pDefaultCookingTime) {
-        this.defaultCookingTime = pDefaultCookingTime;
+    public NodeCookingSerializer(NodeBaker<T> pFactory, int defaultCookingTime) {
+        this.defaultCookingTime = defaultCookingTime;
         this.factory = pFactory;
+        this.codec = RecordCodecBuilder.mapCodec(obj -> obj.group(
+                Codec.STRING.fieldOf("group").forGetter(AbstractCookingRecipe::getGroup),
+                Ingredient.CODEC.fieldOf("ingredient").forGetter(INodeSmeltingRecipe::getIngredient),
+                ItemStack.CODEC.fieldOf("output").forGetter(INodeSmeltingRecipe::getOutput),
+                Codec.FLOAT.fieldOf("experience").forGetter(AbstractCookingRecipe::getExperience),
+                Codec.INT.fieldOf("cookingTime").forGetter(AbstractCookingRecipe::getCookingTime)
+        ).apply(obj, factory::create));
+        this.streamCodec = StreamCodec.of(this::toNetwork, this::fromNetwork);
     }
 
-    public T fromJson(ResourceLocation pRecipeId, JsonObject pJson) {
-        String s = GsonHelper.getAsString(pJson, "group", "");
-        JsonElement jsonelement = (GsonHelper.isArrayNode(pJson, "ingredient") ? GsonHelper.getAsJsonArray(pJson, "ingredient") : GsonHelper.getAsJsonObject(pJson, "ingredient"));
-        Ingredient ingredient = Ingredient.fromJson(jsonelement);
-        IngredientWithCount result = IngredientWithCount.deserialize(pJson.getAsJsonObject("result"));
-
-        float f = GsonHelper.getAsFloat(pJson, "experience", 0.0F);
-        int i = GsonHelper.getAsInt(pJson, "cookingtime", this.defaultCookingTime);
-        return this.factory.create(pRecipeId, s, ingredient, result, f, i);
+    public T fromNetwork(RegistryFriendlyByteBuf buffer) {
+        String group = buffer.readUtf();
+        Ingredient ingredient = Ingredient.CONTENTS_STREAM_CODEC.decode(buffer);
+        ItemStack result = ItemStack.STREAM_CODEC.decode(buffer);
+        float xp = buffer.readFloat();
+        int ctime = buffer.readInt();
+        return this.factory.create(group, ingredient, result, xp, ctime);
     }
 
-    public T fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf pBuffer) {
-        String s = pBuffer.readUtf();
-        Ingredient ingredient = Ingredient.fromNetwork(pBuffer);
-        IngredientWithCount result = IngredientWithCount.read(pBuffer);
-        float f = pBuffer.readFloat();
-        int i = pBuffer.readInt();
-        return this.factory.create(pRecipeId, s, ingredient, result, f, i);
+
+    public void toNetwork(RegistryFriendlyByteBuf buffer, T pRecipe) {
+        buffer.writeUtf(pRecipe.getGroup());
+        Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, pRecipe.getIngredient());
+        ItemStack.STREAM_CODEC.encode(buffer, pRecipe.getOutput());
+        buffer.writeFloat(pRecipe.getExperience());
+        buffer.writeInt(pRecipe.getCookingTime());
     }
 
-    public void toNetwork(FriendlyByteBuf pBuffer, T pRecipe) {
-        pBuffer.writeUtf(pRecipe.getGroup());
-        pRecipe.getIngredients().get(0).toNetwork(pBuffer);
-        ((INodeSmeltingRecipe) pRecipe).getOutput().write(pBuffer);
-        pBuffer.writeFloat(pRecipe.getExperience());
-        pBuffer.writeInt(pRecipe.getCookingTime());
+    @Override
+    public MapCodec<T> codec() {
+        return null;
+    }
+
+    @Override
+    public StreamCodec<RegistryFriendlyByteBuf, T> streamCodec() {
+        return null;
     }
 
     public interface NodeBaker<T extends AbstractCookingRecipe> {
-        T create(ResourceLocation pId, String pGroup, Ingredient pIngredient, IngredientWithCount pResult, float pExperience, int pCookingTime);
+        T create(String pGroup, Ingredient pIngredient, ItemStack pResult, float pExperience, int pCookingTime);
     }
 }

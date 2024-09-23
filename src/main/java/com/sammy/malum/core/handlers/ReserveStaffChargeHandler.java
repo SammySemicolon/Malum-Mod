@@ -1,5 +1,7 @@
 package com.sammy.malum.core.handlers;
 
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.sammy.malum.common.capability.*;
 import com.sammy.malum.registry.common.*;
 import net.minecraft.nbt.*;
@@ -11,16 +13,16 @@ public class ReserveStaffChargeHandler {
     public int chargeCount;
     public float chargeProgress;
 
-    public CompoundTag serializeNBT() {
-        CompoundTag tag = new CompoundTag();
-        tag.putInt("chargeCount", chargeCount);
-        tag.putFloat("chargeProgress", chargeProgress);
-        return tag;
-    }
+    public static Codec<ReserveStaffChargeHandler> CODEC = RecordCodecBuilder.create(obj -> obj.group(
+            Codec.INT.fieldOf("chargeCount").forGetter(c -> c.chargeCount),
+            Codec.FLOAT.fieldOf("chargeProgress").forGetter(c -> c.chargeProgress)
+    ).apply(obj, ReserveStaffChargeHandler::new));
 
-    public void deserializeNBT(CompoundTag tag) {
-        chargeCount = tag.getInt("chargeCount");
-        chargeProgress = tag.getFloat("chargeProgress");
+    public ReserveStaffChargeHandler() {}
+
+    public ReserveStaffChargeHandler(int chargeCount, float chargeProgress) {
+        this.chargeCount = chargeCount;
+        this.chargeProgress = chargeProgress;
     }
 
     public static void recoverStaffCharges(PlayerTickEvent.Post event) {
