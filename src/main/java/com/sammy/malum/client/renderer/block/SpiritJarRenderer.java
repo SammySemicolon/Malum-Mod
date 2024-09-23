@@ -33,7 +33,7 @@ public class SpiritJarRenderer implements BlockEntityRenderer<SpiritJarBlockEnti
             FloatingItemEntityRenderer.renderSpiritGlimmer(poseStack, type, partialTicks);
             poseStack.mulPose(Axis.YP.rotationDegrees(((level.getGameTime() % 360) + partialTicks) * 3));
             poseStack.scale(0.6f, 0.6f, 0.6f);
-            itemRenderer.renderStatic(type.spiritShard.get().getDefaultInstance(), ItemDisplayContext.FIXED, combinedLightIn, NO_OVERLAY, poseStack, bufferIn, level, 0);
+            itemRenderer.renderStatic(type.getSpiritShard().getDefaultInstance(), ItemDisplayContext.FIXED, combinedLightIn, NO_OVERLAY, poseStack, bufferIn, level, 0);
             poseStack.popPose();
         }
     }

@@ -66,7 +66,7 @@ public class BlockEntityRegistry {
         Collection<DeferredHolder<Block, ? extends Block>> blocks = BlockRegistry.BLOCKS.getEntries();
         List<Block> matchingBlocks = new ArrayList<>();
         for (DeferredHolder<Block, ? extends Block> registryObject : blocks) {
-            if (registryObject.isPresent() && Arrays.stream(blockClasses).anyMatch(b -> b.isInstance(registryObject.get()))) {
+            if (registryObject.isBound() && Arrays.stream(blockClasses).anyMatch(b -> b.isInstance(registryObject.get()))) {
                 matchingBlocks.add(registryObject.get());
             }
         }
