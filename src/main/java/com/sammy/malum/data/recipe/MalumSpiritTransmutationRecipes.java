@@ -3,17 +3,17 @@ package com.sammy.malum.data.recipe;
 import com.mojang.datafixers.util.*;
 import com.sammy.malum.data.recipe.builder.*;
 import net.minecraft.data.recipes.*;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.*;
-import net.minecraftforge.registries.*;
+import net.neoforged.neoforge.registries.DeferredHolder;
 
 import java.util.*;
-import java.util.function.*;
 
 import static com.sammy.malum.registry.common.block.BlockRegistry.*;
 
 public class MalumSpiritTransmutationRecipes {
 
-    private static final List<Pair<DeferredHolder<Block>, DeferredHolder<Block>>> SOULWOOD_TRANSMUTATIONS = List.of(
+    private static final List<Pair<DeferredHolder<Block, Block>, DeferredHolder<Block, Block>>> SOULWOOD_TRANSMUTATIONS = List.of(
             new Pair<>(RUNEWOOD_TOTEM_BASE, SOULWOOD_TOTEM_BASE),
             new Pair<>(RUNEWOOD_SAPLING, SOULWOOD_GROWTH),
             new Pair<>(RUNEWOOD_LEAVES, SOULWOOD_LEAVES),
@@ -60,77 +60,77 @@ public class MalumSpiritTransmutationRecipes {
             new Pair<>(RUNEWOOD_SIGN, SOULWOOD_SIGN) // Wall sign already handled by this. Is it??? Wire? Huh ? How
     );
 
-    protected static void buildRecipes(Consumer<FinishedRecipe> consumer) {
+    protected static void buildRecipes(RecipeOutput recipeOutput) {
         for (var transmutation : SOULWOOD_TRANSMUTATIONS) {
-            new SpiritTransmutationRecipeBuilder(transmutation.getFirst(), transmutation.getSecond())
+            new SpiritTransmutationRecipeBuilder(transmutation.getFirst().get(), transmutation.getSecond().get())
                     .group("soulwood")
-                    .build(consumer, "soulwood/" + transmutation.getSecond().getId().getPath().replace("soulwood_", "").replace("_soulwood", ""));
+                    .save(recipeOutput, "soulwood/" + transmutation.getSecond().getId().getPath().replace("soulwood_", "").replace("_soulwood", ""));
         }
 
         new SpiritTransmutationRecipeBuilder(Blocks.STONE, Blocks.COBBLESTONE)
-                .build(consumer);
+                .save(recipeOutput);
 
         new SpiritTransmutationRecipeBuilder(Blocks.COBBLESTONE, Blocks.GRAVEL)
-                .build(consumer);
+                .save(recipeOutput);
 
         new SpiritTransmutationRecipeBuilder(Blocks.GRAVEL, Blocks.SAND)
-                .build(consumer);
+                .save(recipeOutput);
 
         new SpiritTransmutationRecipeBuilder(Blocks.SAND, BLIGHTED_SOIL.get())
-                .build(consumer);
+                .save(recipeOutput);
 
         new SpiritTransmutationRecipeBuilder(Blocks.ANDESITE, Blocks.TUFF)
-                .build(consumer);
+                .save(recipeOutput);
 
         new SpiritTransmutationRecipeBuilder(Blocks.TUFF, Blocks.STONE)
-                .build(consumer, "tuff_block_to_stone");
+                .save(recipeOutput, "tuff_block_to_stone");
 
         new SpiritTransmutationRecipeBuilder(Blocks.GRANITE, Blocks.DRIPSTONE_BLOCK)
-                .build(consumer);
+                .save(recipeOutput);
 
         new SpiritTransmutationRecipeBuilder(Blocks.DRIPSTONE_BLOCK, Blocks.STONE)
-                .build(consumer, "dripstone_block_to_stone");
+                .save(recipeOutput, "dripstone_block_to_stone");
 
         new SpiritTransmutationRecipeBuilder(Blocks.DIORITE, Blocks.CALCITE)
-                .build(consumer);
+                .save(recipeOutput);
 
         new SpiritTransmutationRecipeBuilder(Blocks.CALCITE, Blocks.STONE)
-                .build(consumer, "calcite_to_stone");
+                .save(recipeOutput, "calcite_to_stone");
 
         new SpiritTransmutationRecipeBuilder(Blocks.DEEPSLATE, Blocks.COBBLED_DEEPSLATE)
-                .build(consumer);
+                .save(recipeOutput);
 
         new SpiritTransmutationRecipeBuilder(Blocks.COBBLED_DEEPSLATE, Blocks.BASALT)
-                .build(consumer);
+                .save(recipeOutput);
 
         new SpiritTransmutationRecipeBuilder(Blocks.BASALT, Blocks.NETHERRACK)
-                .build(consumer);
+                .save(recipeOutput);
 
         new SpiritTransmutationRecipeBuilder(Blocks.NETHERRACK, Blocks.SOUL_SAND)
-                .build(consumer);
+                .save(recipeOutput);
 
         new SpiritTransmutationRecipeBuilder(Blocks.SOUL_SAND, Blocks.RED_SAND)
-                .build(consumer);
+                .save(recipeOutput);
 
         new SpiritTransmutationRecipeBuilder(Blocks.RED_SAND, BLIGHTED_SOIL.get())
-                .build(consumer, "red_sand_to_blighted_soil");
+                .save(recipeOutput, "red_sand_to_blighted_soil");
 
         new SpiritTransmutationRecipeBuilder(Blocks.SMOOTH_BASALT, Blocks.CLAY)
-                .build(consumer);
+                .save(recipeOutput);
 
         new SpiritTransmutationRecipeBuilder(Blocks.CLAY, Blocks.PRISMARINE)
-                .build(consumer);
+                .save(recipeOutput);
 
         new SpiritTransmutationRecipeBuilder(Blocks.PRISMARINE, Blocks.SEA_LANTERN)
-                .build(consumer);
+                .save(recipeOutput);
 
         new SpiritTransmutationRecipeBuilder(Blocks.SEA_LANTERN, Blocks.SNOW_BLOCK)
-                .build(consumer);
+                .save(recipeOutput);
 
         new SpiritTransmutationRecipeBuilder(Blocks.SNOW_BLOCK, Blocks.ICE)
-                .build(consumer);
+                .save(recipeOutput);
 
         new SpiritTransmutationRecipeBuilder(Blocks.ICE, BLIGHTED_SOIL.get())
-                .build(consumer, "ice_to_blighted_soil");
+                .save(recipeOutput, "ice_to_blighted_soil");
     }
 }

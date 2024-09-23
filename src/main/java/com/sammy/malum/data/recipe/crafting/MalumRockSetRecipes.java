@@ -21,8 +21,8 @@ public class MalumRockSetRecipes {
 
     private static MalumRockSetRecipes.MalumDatagenRockSet cachedRockSet;
 
-    public static void buildRecipes(Consumer<FinishedRecipe> consumer) {
-        buildRecipes(consumer, new MalumRockSetRecipes.MalumDatagenRockSet(
+    public static void buildRecipes(RecipeOutput recipeOutput) {
+        buildRecipes(recipeOutput, new MalumRockSetRecipes.MalumDatagenRockSet(
                 "tainted_rock",
                 ItemRegistry.TAINTED_ROCK.get(), ItemRegistry.SMOOTH_TAINTED_ROCK.get(), ItemRegistry.POLISHED_TAINTED_ROCK.get(),
                 ItemRegistry.TAINTED_ROCK_SLAB.get(), ItemRegistry.SMOOTH_TAINTED_ROCK_SLAB.get(), ItemRegistry.POLISHED_TAINTED_ROCK_SLAB.get(),
@@ -52,7 +52,7 @@ public class MalumRockSetRecipes {
 
                 ItemTagRegistry.TAINTED_BLOCKS, ItemTagRegistry.TAINTED_SLABS
         ));
-        buildRecipes(consumer, new MalumRockSetRecipes.MalumDatagenRockSet(
+        buildRecipes(recipeOutput, new MalumRockSetRecipes.MalumDatagenRockSet(
                 "twisted_rock",
                 ItemRegistry.TWISTED_ROCK.get(), ItemRegistry.SMOOTH_TWISTED_ROCK.get(), ItemRegistry.POLISHED_TWISTED_ROCK.get(),
                 ItemRegistry.TWISTED_ROCK_SLAB.get(), ItemRegistry.SMOOTH_TWISTED_ROCK_SLAB.get(), ItemRegistry.POLISHED_TWISTED_ROCK_SLAB.get(),
@@ -83,58 +83,58 @@ public class MalumRockSetRecipes {
                 ItemTagRegistry.TWISTED_BLOCKS, ItemTagRegistry.TWISTED_SLABS
         ));
     }
-    protected static void buildRecipes(Consumer<FinishedRecipe> consumer, MalumRockSetRecipes.MalumDatagenRockSet rockSet) {
+    protected static void buildRecipes(RecipeOutput recipeOutput, MalumRockSetRecipes.MalumDatagenRockSet rockSet) {
         var condition = has(rockSet.rock);
         cachedRockSet = rockSet;
-        shapedSlab(consumer, rockSet.rockSlab, rockSet.rock);
-        shapedSlab(consumer, rockSet.smoothRockSlab, rockSet.smoothRock);
-        shapedSlab(consumer, rockSet.polishedRockSlab, rockSet.polishedRock);
-        shapedStairs(consumer, rockSet.rockStairs, rockSet.rock);
-        shapedStairs(consumer, rockSet.smoothRockStairs, rockSet.smoothRock);
-        shapedStairs(consumer, rockSet.polishedRockStairs, rockSet.polishedRock);
-        shapedWall(consumer, rockSet.rockWall, rockSet.rock);
-        shapedWall(consumer, rockSet.smoothRockWall, rockSet.smoothRock);
-        shapedWall(consumer, rockSet.polishedRockWall, rockSet.polishedRock);
+        shapedSlab(recipeOutput, rockSet.rockSlab, rockSet.rock);
+        shapedSlab(recipeOutput, rockSet.smoothRockSlab, rockSet.smoothRock);
+        shapedSlab(recipeOutput, rockSet.polishedRockSlab, rockSet.polishedRock);
+        shapedStairs(recipeOutput, rockSet.rockStairs, rockSet.rock);
+        shapedStairs(recipeOutput, rockSet.smoothRockStairs, rockSet.smoothRock);
+        shapedStairs(recipeOutput, rockSet.polishedRockStairs, rockSet.polishedRock);
+        shapedWall(recipeOutput, rockSet.rockWall, rockSet.rock);
+        shapedWall(recipeOutput, rockSet.smoothRockWall, rockSet.smoothRock);
+        shapedWall(recipeOutput, rockSet.polishedRockWall, rockSet.polishedRock);
 
-        shapedSlab(consumer, rockSet.bricksSlab, rockSet.bricks);
-        shapedSlab(consumer, rockSet.tilesSlab, rockSet.tiles);
-        shapedSlab(consumer, rockSet.smallBricksSlab, rockSet.smallBricks);
-        shapedStairs(consumer, rockSet.bricksStairs, rockSet.bricks);
-        shapedStairs(consumer, rockSet.tilesStairs, rockSet.tiles);
-        shapedStairs(consumer, rockSet.smallBricksStairs, rockSet.smallBricks);
-        shapedWall(consumer, rockSet.bricksWall, rockSet.bricks);
-        shapedWall(consumer, rockSet.tilesWall, rockSet.tiles);
-        shapedWall(consumer, rockSet.smallBricksWall, rockSet.smallBricks);
+        shapedSlab(recipeOutput, rockSet.bricksSlab, rockSet.bricks);
+        shapedSlab(recipeOutput, rockSet.tilesSlab, rockSet.tiles);
+        shapedSlab(recipeOutput, rockSet.smallBricksSlab, rockSet.smallBricks);
+        shapedStairs(recipeOutput, rockSet.bricksStairs, rockSet.bricks);
+        shapedStairs(recipeOutput, rockSet.tilesStairs, rockSet.tiles);
+        shapedStairs(recipeOutput, rockSet.smallBricksStairs, rockSet.smallBricks);
+        shapedWall(recipeOutput, rockSet.bricksWall, rockSet.bricks);
+        shapedWall(recipeOutput, rockSet.tilesWall, rockSet.tiles);
+        shapedWall(recipeOutput, rockSet.smallBricksWall, rockSet.smallBricks);
 
-        shapedSlab(consumer, rockSet.runicBricksSlab, rockSet.runicBricks);
-        shapedSlab(consumer, rockSet.runicTilesSlab, rockSet.runicTiles);
-        shapedSlab(consumer, rockSet.runicSmallBricksSlab, rockSet.runicSmallBricks);
-        shapedStairs(consumer, rockSet.runicBricksStairs, rockSet.runicBricks);
-        shapedStairs(consumer, rockSet.runicTilesStairs, rockSet.runicTiles);
-        shapedStairs(consumer, rockSet.runicSmallBricksStairs, rockSet.runicSmallBricks);
-        shapedWall(consumer, rockSet.runicBricksWall, rockSet.bricks);
-        shapedWall(consumer, rockSet.runicTilesWall, rockSet.tiles);
-        shapedWall(consumer, rockSet.runicSmallBricksWall, rockSet.smallBricks);
+        shapedSlab(recipeOutput, rockSet.runicBricksSlab, rockSet.runicBricks);
+        shapedSlab(recipeOutput, rockSet.runicTilesSlab, rockSet.runicTiles);
+        shapedSlab(recipeOutput, rockSet.runicSmallBricksSlab, rockSet.runicSmallBricks);
+        shapedStairs(recipeOutput, rockSet.runicBricksStairs, rockSet.runicBricks);
+        shapedStairs(recipeOutput, rockSet.runicTilesStairs, rockSet.runicTiles);
+        shapedStairs(recipeOutput, rockSet.runicSmallBricksStairs, rockSet.runicSmallBricks);
+        shapedWall(recipeOutput, rockSet.runicBricksWall, rockSet.bricks);
+        shapedWall(recipeOutput, rockSet.runicTilesWall, rockSet.tiles);
+        shapedWall(recipeOutput, rockSet.runicSmallBricksWall, rockSet.smallBricks);
 
-        rockExchange(consumer, rockSet.bricks, rockSet.rock);
+        rockExchange(recipeOutput, rockSet.bricks, rockSet.rock);
 
-        rockExchange(consumer, rockSet.tiles, rockSet.bricks);
-        rockExchange(consumer, rockSet.smallBricks, rockSet.tiles);
-        rockExchange(consumer, rockSet.bricks, rockSet.smallBricks);
+        rockExchange(recipeOutput, rockSet.tiles, rockSet.bricks);
+        rockExchange(recipeOutput, rockSet.smallBricks, rockSet.tiles);
+        rockExchange(recipeOutput, rockSet.bricks, rockSet.smallBricks);
 
-        runicExchange(consumer, rockSet.runicBricks, rockSet.bricks);
-        runicExchange(consumer, rockSet.runicTiles, rockSet.tiles);
-        runicExchange(consumer, rockSet.runicSmallBricks, rockSet.smallBricks);
+        runicExchange(recipeOutput, rockSet.runicBricks, rockSet.bricks);
+        runicExchange(recipeOutput, rockSet.runicTiles, rockSet.tiles);
+        runicExchange(recipeOutput, rockSet.runicSmallBricks, rockSet.smallBricks);
 
-        rockExchange(consumer, rockSet.runicTiles, rockSet.runicBricks);
-        rockExchange(consumer, rockSet.runicSmallBricks, rockSet.runicTiles);
-        rockExchange(consumer, rockSet.runicBricks, rockSet.runicSmallBricks);
+        rockExchange(recipeOutput, rockSet.runicTiles, rockSet.runicBricks);
+        rockExchange(recipeOutput, rockSet.runicSmallBricks, rockSet.runicTiles);
+        rockExchange(recipeOutput, rockSet.runicBricks, rockSet.runicSmallBricks);
 
-        shapelessButton(consumer, rockSet.button, rockSet.rock);
-        shapedPressurePlate(consumer, rockSet.pressurePlate, rockSet.rock);
+        shapelessButton(recipeOutput, rockSet.button, rockSet.rock);
+        shapedPressurePlate(recipeOutput, rockSet.pressurePlate, rockSet.rock);
 
-        runicExchange(consumer, rockSet.smoothRock, rockSet.rock);
-        rockExchange(consumer, rockSet.polishedRock, rockSet.smoothRock);
+        runicExchange(recipeOutput, rockSet.smoothRock, rockSet.rock);
+        rockExchange(recipeOutput, rockSet.polishedRock, rockSet.smoothRock);
 
 
         shaped(RecipeCategory.MISC, rockSet.chiseledRock, 1)
@@ -142,8 +142,8 @@ public class MalumRockSetRecipes {
                 .pattern("#")
                 .pattern("#")
                 .unlockedBy("has_input", condition)
-                .save(consumer);
-        stoneCutting(consumer, rockSet.rock, rockSet.chiseledRock);
+                .save(recipeOutput);
+        stoneCutting(recipeOutput, rockSet.rock, rockSet.chiseledRock);
 
         shaped(RecipeCategory.MISC, rockSet.cutRock, 2)
                 .define('X', rockSet.polishedRock)
@@ -151,11 +151,11 @@ public class MalumRockSetRecipes {
                 .pattern("X")
                 .pattern("Y")
                 .unlockedBy("has_input", condition)
-                .save(consumer);
-        stoneCutting(consumer, rockSet.rock, rockSet.cutRock);
-        stoneCutting(consumer, rockSet.polishedRock, rockSet.cutRock);
+                .save(recipeOutput);
+        stoneCutting(recipeOutput, rockSet.rock, rockSet.cutRock);
+        stoneCutting(recipeOutput, rockSet.polishedRock, rockSet.cutRock);
 
-        runicExchange(consumer, rockSet.checkeredRock, rockSet.cutRock);
+        runicExchange(recipeOutput, rockSet.checkeredRock, rockSet.cutRock);
 
         shaped(RecipeCategory.MISC, rockSet.column, 3)
                 .define('#', rockSet.rock)
@@ -163,8 +163,8 @@ public class MalumRockSetRecipes {
                 .pattern("#")
                 .pattern("#")
                 .unlockedBy("has_input", condition)
-                .save(consumer);
-        stoneCutting(consumer, rockSet.rock, rockSet.column);
+                .save(recipeOutput);
+        stoneCutting(recipeOutput, rockSet.rock, rockSet.column);
 
         shaped(RecipeCategory.MISC, rockSet.columnCap, 2)
                 .define('X', rockSet.polishedRock)
@@ -172,9 +172,9 @@ public class MalumRockSetRecipes {
                 .pattern("X")
                 .pattern("Y")
                 .unlockedBy("has_input", condition)
-                .save(consumer);
-        stoneCutting(consumer, rockSet.rock, rockSet.columnCap);
-        stoneCutting(consumer, rockSet.polishedRock, rockSet.columnCap);
+                .save(recipeOutput);
+        stoneCutting(recipeOutput, rockSet.rock, rockSet.columnCap);
+        stoneCutting(recipeOutput, rockSet.polishedRock, rockSet.columnCap);
 
         shaped(RecipeCategory.MISC, rockSet.itemStand, 2)
                 .define('X', rockSet.rock)
@@ -182,8 +182,8 @@ public class MalumRockSetRecipes {
                 .pattern("YYY")
                 .pattern("XXX")
                 .unlockedBy("has_input", condition)
-                .save(consumer);
-        stoneCutting(consumer, rockSet.rock, rockSet.itemStand);
+                .save(recipeOutput);
+        stoneCutting(recipeOutput, rockSet.rock, rockSet.itemStand);
 
         shaped(RecipeCategory.MISC, rockSet.itemPedestal)
                 .define('X', rockSet.rock)
@@ -192,90 +192,90 @@ public class MalumRockSetRecipes {
                 .pattern(" X ")
                 .pattern("YYY")
                 .unlockedBy("has_input", condition)
-                .save(consumer);
-        stoneCutting(consumer, rockSet.rock, rockSet.itemPedestal);
+                .save(recipeOutput);
+        stoneCutting(recipeOutput, rockSet.rock, rockSet.itemPedestal);
     }
 
 
-    private static void rockExchange(Consumer<FinishedRecipe> recipeConsumer, ItemLike output, ItemLike input) {
+    private static void rockExchange(RecipeOutput recipeOutput, ItemLike output, ItemLike input) {
         final ResourceLocation recipeID = getDefaultRecipeId(output).withSuffix("_from_" + getDefaultRecipeId(input).getPath());
         shaped(RecipeCategory.MISC, output, 4)
                 .define('#', input)
                 .pattern("##")
                 .pattern("##")
                 .unlockedBy("has_input", has(input))
-                .save(recipeConsumer, recipeID);
-        stoneCutting(recipeConsumer, input, output);
+                .save(recipeOutput, recipeID);
+        stoneCutting(recipeOutput, input, output);
     }
 
-    private static void runicExchange(Consumer<FinishedRecipe> recipeConsumer, ItemLike output, ItemLike input) {
+    private static void runicExchange(RecipeOutput recipeOutput, ItemLike output, ItemLike input) {
         smelting(Ingredient.of(input), RecipeCategory.MISC, output, 0.1f, 200)
-                .unlockedBy("has_input", has(input)).save(recipeConsumer);
-        stoneCutting(recipeConsumer, input, output);
+                .unlockedBy("has_input", has(input)).save(recipeOutput);
+        stoneCutting(recipeOutput, input, output);
     }
 
-    private static void shapelessButton(Consumer<FinishedRecipe> recipeConsumer, ItemLike button, Item input) {
+    private static void shapelessButton(RecipeOutput recipeOutput, ItemLike button, Item input) {
         shapeless(RecipeCategory.MISC, button)
                 .requires(input)
                 .unlockedBy("has_input", has(input))
-                .save(recipeConsumer);
-        stoneCutting(recipeConsumer, input, button);
+                .save(recipeOutput);
+        stoneCutting(recipeOutput, input, button);
     }
 
-    private static void shapedPressurePlate(Consumer<FinishedRecipe> recipeConsumer, ItemLike pressurePlate, Item input) {
+    private static void shapedPressurePlate(RecipeOutput recipeOutput, ItemLike pressurePlate, Item input) {
         shaped(RecipeCategory.MISC, pressurePlate)
                 .define('#', input)
                 .pattern("##")
                 .unlockedBy("has_input", has(input))
-                .save(recipeConsumer);
-        stoneCutting(recipeConsumer, input, pressurePlate);
+                .save(recipeOutput);
+        stoneCutting(recipeOutput, input, pressurePlate);
     }
 
-    private static void shapedSlab(Consumer<FinishedRecipe> recipeConsumer, ItemLike slab, Item input) {
+    private static void shapedSlab(RecipeOutput recipeOutput, ItemLike slab, Item input) {
         shaped(RecipeCategory.MISC, slab, 6)
                 .define('#', input)
                 .pattern("###")
                 .unlockedBy("has_input", has(input))
-                .save(recipeConsumer);
-        stoneCutting(recipeConsumer, input, slab, 2);
+                .save(recipeOutput);
+        stoneCutting(recipeOutput, input, slab, 2);
         if (!input.equals(cachedRockSet.rock)) {
-            stoneCutting(recipeConsumer, cachedRockSet.rock, slab, 2);
+            stoneCutting(recipeOutput, cachedRockSet.rock, slab, 2);
         }
     }
 
-    private static void shapedStairs(Consumer<FinishedRecipe> recipeConsumer, ItemLike stairs, Item input) {
+    private static void shapedStairs(RecipeOutput recipeOutput, ItemLike stairs, Item input) {
         shaped(RecipeCategory.MISC, stairs, 4)
                 .define('#', input)
                 .pattern("#  ")
                 .pattern("## ")
                 .pattern("###")
                 .unlockedBy("has_input", has(input))
-                .save(recipeConsumer);
-        stoneCutting(recipeConsumer, input, stairs);
+                .save(recipeOutput);
+        stoneCutting(recipeOutput, input, stairs);
         if (!input.equals(cachedRockSet.rock)) {
-            stoneCutting(recipeConsumer, cachedRockSet.rock, stairs);
+            stoneCutting(recipeOutput, cachedRockSet.rock, stairs);
         }
     }
 
-    private static void shapedWall(Consumer<FinishedRecipe> recipeConsumer, ItemLike wall, Item input) {
+    private static void shapedWall(RecipeOutput recipeOutput, ItemLike wall, Item input) {
         shaped(RecipeCategory.MISC, wall, 6)
                 .define('#', input)
                 .pattern("###")
                 .pattern("###")
                 .unlockedBy("has_input", has(input))
-                .save(recipeConsumer);
-        stoneCutting(recipeConsumer, input, wall, 1);
+                .save(recipeOutput);
+        stoneCutting(recipeOutput, input, wall, 1);
         if (!input.equals(cachedRockSet.rock)) {
-            stoneCutting(recipeConsumer, cachedRockSet.rock, wall, 1);
+            stoneCutting(recipeOutput, cachedRockSet.rock, wall, 1);
         }
     }
 
-    private static void stoneCutting(Consumer<FinishedRecipe> recipeConsumer, ItemLike input, ItemLike output) {
-        stoneCutting(recipeConsumer, input, output, 1);
+    private static void stoneCutting(RecipeOutput recipeOutput, ItemLike input, ItemLike output) {
+        stoneCutting(recipeOutput, input, output, 1);
     }
-    private static void stoneCutting(Consumer<FinishedRecipe> recipeConsumer, ItemLike input, ItemLike output, int outputCount) {
+    private static void stoneCutting(RecipeOutput recipeOutput, ItemLike input, ItemLike output, int outputCount) {
         final ResourceLocation recipeID = getDefaultRecipeId(output).withSuffix("_stonecutting_from_" + getDefaultRecipeId(input).getPath());
-        stonecutting(Ingredient.of(input), RecipeCategory.MISC, output, outputCount).unlockedBy("has_input", has(input)).save(recipeConsumer, recipeID);
+        stonecutting(Ingredient.of(input), RecipeCategory.MISC, output, outputCount).unlockedBy("has_input", has(input)).save(recipeOutput, recipeID);
     }
 
     public record MalumDatagenRockSet(

@@ -19,19 +19,19 @@ public class SyncStaffCooldownChangesPacket extends OneSidedPayloadData {
 
     public SyncStaffCooldownChangesPacket(FriendlyByteBuf buf) {
         super(buf);
-        this.item =  ItemStack.OPTIONAL_STREAM_CODEC.decode(buf);
+        this.item = BuiltInRegistries.ITEM.byId(buf.readInt());
         this.enchantmentLevel = buf.readInt();
-    }
-
-    @Override
-    public void serialize(FriendlyByteBuf friendlyByteBuf) {
-        friendlyByteBuf.writeById();
-        friendlyByteBuf.writeInt(this.enchantmentLevel);
     }
 
     @OnlyIn(Dist.CLIENT)
     @Override
     public void handle(IPayloadContext iPayloadContext) {
         ReplenishingEnchantment.replenishStaffCooldown((AbstractStaffItem) item, Minecraft.getInstance().player, enchantmentLevel);
+    }
+
+    @Override
+    public void serialize(FriendlyByteBuf friendlyByteBuf) {
+        friendlyByteBuf.writeInt(BuiltInRegistries.ITEM.getId(item));
+        friendlyByteBuf.writeInt(this.enchantmentLevel);
     }
 }

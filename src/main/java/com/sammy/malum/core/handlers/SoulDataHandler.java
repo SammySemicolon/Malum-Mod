@@ -1,5 +1,8 @@
 package com.sammy.malum.core.handlers;
 
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.sammy.malum.common.capability.*;
 import com.sammy.malum.common.entity.boomerang.*;
 import com.sammy.malum.compability.tetra.*;
@@ -22,21 +25,22 @@ public class SoulDataHandler {
     public boolean soulless;
     public boolean spawnerSpawned;
 
+    public static final Codec<SoulDataHandler> CODEC = RecordCodecBuilder.create(obj -> obj.group(
+            Codec.FLOAT.fieldOf("exposedSoulDuration").forGetter(sd -> sd.exposedSoulDuration),
+            Codec.BOOL.fieldOf("soulless").forGetter(sd -> sd.soulless),
+            Codec.BOOL.fieldOf("spawnerSpawned").forGetter(sd -> sd.spawnerSpawned)
+    ).apply(obj, SoulDataHandler::new));
 
-    public CompoundTag serializeNBT() {
-        CompoundTag tag = new CompoundTag();
-        if (exposedSoulDuration != 0) {
-            tag.putFloat("exposedSoulDuration", exposedSoulDuration);
-        }
-        tag.putBoolean("soulless", soulless);
-        tag.putBoolean("spawnerSpawned", spawnerSpawned);
-        return tag;
+    public SoulDataHandler() {}
+
+    public SoulDataHandler(boolean soulless, boolean spawnerSpawned) {
+        this.soulless = soulless;
+        this.spawnerSpawned = spawnerSpawned;
     }
 
-    public void deserializeNBT(CompoundTag tag) {
-        exposedSoulDuration = tag.getFloat("exposedSoulDuration");
-        soulless = tag.getBoolean("soulless");
-        spawnerSpawned = tag.getBoolean("spawnerSpawned");
+    public SoulDataHandler(float esd, boolean soulless, boolean spawnerSpawned) {
+        this(false, false);
+        this.exposedSoulDuration = esd;
     }
 
     public static void markAsSpawnerSpawned(MobSpawnEvent.PositionCheck event) {
@@ -66,14 +70,14 @@ public class SoulDataHandler {
             MalumLivingEntityDataCapability.getCapabilityOptional(mob).ifPresent(ec -> {
                 SoulDataHandler soulData = ec.soulData;
                 if (soulData.soulless) {
-                    event.setNewTarget(null);
+                    event.setNewAboutToBeSetTarget(null);
                 }
             });
         }
     }
 
     public static void exposeSoul(LivingDamageEvent.Post event) {
-        if (event.isCanceled() || event.getOriginalDamage() <= 0) {
+        if (event.getOriginalDamage() <= 0) {
             return;
         }
         LivingEntity target = event.getEntity();

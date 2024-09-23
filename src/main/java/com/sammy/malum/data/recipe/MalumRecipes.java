@@ -25,23 +25,23 @@ public class MalumRecipes extends VanillaRecipeProvider {
     }
 
     @Override
-    protected void buildRecipes(RecipeOutput consumer) {
-        vanillaRecipeReplacements.buildRecipes(consumer);
-        MalumVanillaRecipes.buildRecipes(consumer);
-        MalumWoodSetRecipes.buildRecipes(consumer);
-        MalumRockSetRecipes.buildRecipes(consumer);
+    protected void buildRecipes(RecipeOutput recipeOutput) {
+        vanillaRecipeReplacements.buildRecipes(recipeOutput);
+        MalumVanillaRecipes.buildRecipes(recipeOutput);
+        MalumWoodSetRecipes.buildRecipes(recipeOutput);
+        MalumRockSetRecipes.buildRecipes(recipeOutput);
 
-        ArtificeSpiritInfusionRecipes.buildRecipes(consumer);
-        CurioSpiritInfusionRecipes.buildRecipes(consumer);
-        GearSpiritInfusionRecipes.buildRecipes(consumer);
-        MaterialSpiritInfusionRecipes.buildRecipes(consumer);
-        TotemicSpiritInfusionRecipes.buildRecipes(consumer);
-        MiscSpiritInfusionRecipes.buildRecipes(consumer);
+        ArtificeSpiritInfusionRecipes.buildRecipes(recipeOutput);
+        CurioSpiritInfusionRecipes.buildRecipes(recipeOutput);
+        GearSpiritInfusionRecipes.buildRecipes(recipeOutput);
+        MaterialSpiritInfusionRecipes.buildRecipes(recipeOutput);
+        TotemicSpiritInfusionRecipes.buildRecipes(recipeOutput);
+        MiscSpiritInfusionRecipes.buildRecipes(recipeOutput);
 
-        MalumRuneworkingRecipes.buildRecipes(consumer);
-        MalumSpiritFocusingRecipes.buildRecipes(consumer);
-        MalumSpiritRepairRecipes.buildRecipes(consumer);
-        MalumSpiritTransmutationRecipes.buildRecipes(consumer);
-        MalumVoidFavorRecipes.buildRecipes(consumer);
+        MalumRuneworkingRecipes.buildRecipes(recipeOutput);
+        MalumSpiritFocusingRecipes.buildRecipes(recipeOutput);
+        MalumSpiritRepairRecipes.buildRecipes(recipeOutput);
+        MalumSpiritTransmutationRecipes.buildRecipes(recipeOutput);
+        MalumVoidFavorRecipes.buildRecipes(recipeOutput);
     }
 }

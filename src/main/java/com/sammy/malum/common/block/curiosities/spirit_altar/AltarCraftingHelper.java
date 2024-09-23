@@ -2,7 +2,6 @@ package com.sammy.malum.common.block.curiosities.spirit_altar;
 
 import com.sammy.malum.common.block.storage.IMalumSpecialItemAccessPoint;
 import com.sammy.malum.common.recipe.spirit.infusion.SpiritInfusionRecipe;
-import com.sammy.malum.core.systems.recipe.SpiritWithCount;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.ItemStack;

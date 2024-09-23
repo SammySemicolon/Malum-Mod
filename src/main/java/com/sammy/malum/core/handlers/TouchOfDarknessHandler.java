@@ -3,6 +3,8 @@ package com.sammy.malum.core.handlers;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.Tesselator;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.sammy.malum.client.VoidRevelationHandler;
 import com.sammy.malum.common.block.curiosities.weeping_well.PrimordialSoupBlock;
 import com.sammy.malum.common.block.curiosities.weeping_well.VoidConduitBlock;
@@ -56,30 +58,26 @@ public class TouchOfDarknessHandler {
     public int progressToRejection;
     public int rejection;
 
-    public CompoundTag serializeNBT() {
-        CompoundTag tag = new CompoundTag();
-        tag.putBoolean("isNearWeepingWell", isNearWeepingWell);
-        tag.putInt("weepingWellInfluence", weepingWellInfluence);
+    public static final Codec<TouchOfDarknessHandler> CODEC = RecordCodecBuilder.create(obj -> obj.group(
+                Codec.BOOL.fieldOf("isNearWeepingWell").forGetter(h -> h.isNearWeepingWell),
+                Codec.INT.fieldOf("weepingWellInfluence").forGetter(h -> h.weepingWellInfluence),
+                Codec.INT.fieldOf("expectedAffliction").forGetter(h -> h.expectedAffliction),
+                Codec.INT.fieldOf("afflictionDuration").forGetter(h -> h.afflictionDuration),
+                Codec.FLOAT.fieldOf("currentAffliction").forGetter(h -> h.currentAffliction),
+                Codec.INT.fieldOf("progressToRejection").forGetter(h -> h.progressToRejection),
+                Codec.INT.fieldOf("rejection").forGetter(h -> h.rejection)
+        ).apply(obj, TouchOfDarknessHandler::new));
 
-        tag.putInt("expectedAffliction", expectedAffliction);
-        tag.putInt("afflictionDuration", afflictionDuration);
-        tag.putFloat("currentAffliction", currentAffliction);
+    public TouchOfDarknessHandler() {}
 
-        tag.putInt("progressToRejection", progressToRejection);
-        tag.putInt("rejection", rejection);
-        return tag;
-    }
-
-    public void deserializeNBT(CompoundTag tag) {
-        isNearWeepingWell = tag.getBoolean("isNearWeepingWell");
-        weepingWellInfluence = tag.getInt("weepingWellInfluence");
-
-        expectedAffliction = tag.getInt("expectedAffliction");
-        afflictionDuration = tag.getInt("afflictionDuration");
-        currentAffliction = tag.getFloat("currentAffliction");
-
-        progressToRejection = tag.getInt("progressToRejection");
-        rejection = tag.getInt("rejection");
+    public TouchOfDarknessHandler(boolean isNearWeepingWell, int weepingWellInfluence, int expectedAffliction, int afflictionDuration, float currentAffliction, int progressToRejection, int rejection) {
+        this.isNearWeepingWell = isNearWeepingWell;
+        this.weepingWellInfluence = weepingWellInfluence;
+        this.expectedAffliction = expectedAffliction;
+        this.afflictionDuration = afflictionDuration;
+        this.currentAffliction = currentAffliction;
+        this.progressToRejection = progressToRejection;
+        this.rejection = rejection;
     }
 
     public static void handlePrimordialSoupContact(LivingEntity livingEntity) {

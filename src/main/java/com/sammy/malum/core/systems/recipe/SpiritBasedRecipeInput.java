@@ -2,6 +2,7 @@ package com.sammy.malum.core.systems.recipe;
 
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.*;
+import net.neoforged.neoforge.common.crafting.SizedIngredient;
 
 import java.util.*;
 
@@ -29,19 +30,19 @@ public class SpiritBasedRecipeInput implements RecipeInput {
         return items.size() + spirits.size();
     }
 
-    public boolean test(Ingredient mainIngredient, List<Ingredient> extraIngredients, List<SpiritIngredient> spirits) {
-        final List<Ingredient> ingredients = new ArrayList<>(List.of(mainIngredient));
+    public boolean test(SizedIngredient mainIngredient, List<SizedIngredient> extraIngredients, List<SpiritIngredient> spirits) {
+        final List<SizedIngredient> ingredients = new ArrayList<>(List.of(new SizedIngredient(mainIngredient, 1)));
         ingredients.addAll(extraIngredients);
         return testItems(ingredients) && testSpirits(spirits);
     }
-    public boolean test(Ingredient ingredient, List<SpiritIngredient> spirits) {
+    public boolean test(SizedIngredient ingredient, List<SpiritIngredient> spirits) {
         return testItems(List.of(ingredient)) && testSpirits(spirits);
     }
-    public boolean test(List<Ingredient> ingredients, List<SpiritIngredient> spirits) {
+    public boolean test(List<SizedIngredient> ingredients, List<SpiritIngredient> spirits) {
         return testItems(ingredients) && testSpirits(spirits);
     }
 
-    public boolean testItems(List<Ingredient> ingredients) {
+    public boolean testItems(List<SizedIngredient> ingredients) {
         if (ingredients.isEmpty()) {
             return true;
         }
@@ -50,7 +51,7 @@ public class SpiritBasedRecipeInput implements RecipeInput {
         }
 
         for (int i = 0; i < this.spirits.size(); i++) {
-            Ingredient ingredient = ingredients.get(i);
+            SizedIngredient ingredient = ingredients.get(i);
             ItemStack stack = items.get(i);
             if (!ingredient.test(stack)) {
                 return false;

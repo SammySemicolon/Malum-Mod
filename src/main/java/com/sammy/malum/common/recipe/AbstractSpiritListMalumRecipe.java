@@ -7,21 +7,21 @@ import net.minecraft.world.item.crafting.*;
 
 import java.util.*;
 
-public abstract class AbstractSpiritListMalumRecipe extends LodestoneInWorldRecipe {
+public abstract class AbstractSpiritListMalumRecipe extends LodestoneInWorldRecipe<SingleRecipeInput> {
 
-    public final List<SpiritWithCount> spirits;
+    public final List<SpiritIngredient> spirits;
 
-    protected AbstractSpiritListMalumRecipe(ResourceLocation id, RecipeSerializer<?> recipeSerializer, RecipeType<?> recipeType, List<SpiritWithCount> spirits) {
-        super(id, recipeSerializer, recipeType);
+    protected AbstractSpiritListMalumRecipe(RecipeSerializer<?> recipeSerializer, RecipeType<?> recipeType, List<SpiritIngredient> spirits) {
+        super(recipeSerializer, recipeType);
         this.spirits = spirits;
     }
 
 
     public List<ItemStack> getSortedSpirits(List<ItemStack> stacks) {
         List<ItemStack> sortedStacks = new ArrayList<>();
-        for (SpiritWithCount item : spirits) {
+        for (SpiritIngredient item : spirits) {
             for (ItemStack stack : stacks) {
-                if (item.matches(stack)) {
+                if (item.test(stack)) {
                     sortedStacks.add(stack);
                     break;
                 }
@@ -42,9 +42,9 @@ public abstract class AbstractSpiritListMalumRecipe extends LodestoneInWorldReci
             return false;
         }
         for (int i = 0; i < this.spirits.size(); i++) {
-            SpiritWithCount item = this.spirits.get(i);
+            SpiritIngredient item = this.spirits.get(i);
             ItemStack stack = sortedStacks.get(i);
-            if (!item.matches(stack)) {
+            if (!item.test(stack)) {
                 return false;
             }
         }
