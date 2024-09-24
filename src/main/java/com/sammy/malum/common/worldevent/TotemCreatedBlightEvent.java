@@ -3,7 +3,7 @@ package com.sammy.malum.common.worldevent;
 import com.sammy.malum.common.block.curiosities.totem.TotemBaseBlockEntity;
 import com.sammy.malum.common.block.curiosities.totem.TotemPoleBlockEntity;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
-import com.sammy.malum.registry.common.SoundRegistry;
+import com.sammy.malum.registry.common.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.Level;
@@ -16,6 +16,10 @@ import static com.sammy.malum.registry.common.block.BlockRegistry.SOULWOOD_TOTEM
 
 public class TotemCreatedBlightEvent extends ActiveBlightEvent {
     public int totemTakeoverTimer;
+
+    public TotemCreatedBlightEvent() {
+        super(WorldEventTypes.TOTEM_CREATED_BLIGHT.get());
+    }
 
     @Override
     public void tick(Level level) {

@@ -11,6 +11,10 @@ public class SpiritBasedRecipeInput implements RecipeInput {
     public final List<ItemStack> items;
     public final List<ItemStack> spirits;
 
+    public SpiritBasedRecipeInput(ItemStack stack, ItemStack spirit) {
+        this(stack, List.of(spirit));
+    }
+
     public SpiritBasedRecipeInput(ItemStack stack, List<ItemStack> spirits) {
         this(List.of(stack), spirits);
     }
@@ -22,7 +26,7 @@ public class SpiritBasedRecipeInput implements RecipeInput {
 
     @Override
     public ItemStack getItem(int index) {
-        return index < items.size() ? items.get(index) : spirits.get(index-items.size());
+        return index < items.size() ? items.get(index) : spirits.get(index - items.size());
     }
 
     @Override
@@ -31,13 +35,15 @@ public class SpiritBasedRecipeInput implements RecipeInput {
     }
 
     public boolean test(SizedIngredient mainIngredient, List<SizedIngredient> extraIngredients, List<SpiritIngredient> spirits) {
-        final List<SizedIngredient> ingredients = new ArrayList<>(List.of(new SizedIngredient(mainIngredient, 1)));
+        final List<SizedIngredient> ingredients = new ArrayList<>(List.of(mainIngredient));
         ingredients.addAll(extraIngredients);
         return testItems(ingredients) && testSpirits(spirits);
     }
+
     public boolean test(SizedIngredient ingredient, List<SpiritIngredient> spirits) {
         return testItems(List.of(ingredient)) && testSpirits(spirits);
     }
+
     public boolean test(List<SizedIngredient> ingredients, List<SpiritIngredient> spirits) {
         return testItems(ingredients) && testSpirits(spirits);
     }
@@ -59,6 +65,7 @@ public class SpiritBasedRecipeInput implements RecipeInput {
         }
         return true;
     }
+
     public boolean testSpirits(List<SpiritIngredient> recipeSpirits) {
         if (recipeSpirits.isEmpty()) {
             return true;

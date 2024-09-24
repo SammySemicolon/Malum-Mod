@@ -45,10 +45,4 @@ public class BlightedGunkItem extends ItemNameBlockItem {
         super.registerBlocks(pBlockToItemMap, pItem);
         pBlockToItemMap.put(this.wallPlacement, pItem);
     }
-
-    @Override
-    public void removeFromBlockToItemMap(Map<Block, Item> blockToItemMap, Item itemIn) {
-        super.removeFromBlockToItemMap(blockToItemMap, itemIn);
-        blockToItemMap.remove(this.wallPlacement);
-    }
 }

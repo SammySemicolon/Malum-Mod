@@ -20,27 +20,26 @@ public class PacketRegistry {
 
     public static LodestoneNetworkPayloads.PayloadNetworkChannel MALUM_CHANNEL =  new LodestoneNetworkPayloads.PayloadNetworkChannel(MalumMod.MALUM);
 
-    @SuppressWarnings("UnusedAssignment")
     @SubscribeEvent
     public static void registerNetworkStuff(RegisterPayloadHandlersEvent event) {
         final PayloadRegistrar registrar = event.registrar("1");
 
         //functionality
-        MALUM_CHANNEL.playToClient(registrar, "void_rejection", VoidRejectionPacket::new);
-        MALUM_CHANNEL.playToClient(registrar, "sync_staff_cooldown_changes", SyncStaffCooldownChangesPacket::new);
-        MALUM_CHANNEL.playToClient(registrar, "particle_effect", ParticleEffectPacket::new);
-        MALUM_CHANNEL.playToClient(registrar, "major_entity_effect", MajorEntityEffectParticlePacket::new);
-        MALUM_CHANNEL.playToClient(registrar, "sacred_mist_rite_effect", SacredMistRiteEffectPacket::new);
-        MALUM_CHANNEL.playToClient(registrar, "block_sparkle_particle", BlockSparkleParticlePacket::new);
-        MALUM_CHANNEL.playToClient(registrar, "infernal_acceleration_rite_effect", InfernalAccelerationRiteEffectPacket::new);
-        MALUM_CHANNEL.playToClient(registrar, "infernal_extinguish_rite_effect", InfernalExtinguishRiteEffectPacket::new);
-        MALUM_CHANNEL.playToClient(registrar, "aerial_block_fall_rite_effect", AerialBlockFallRiteEffectPacket::new);
-        MALUM_CHANNEL.playToClient(registrar, "spirit_rite_activation", SpiritRiteActivationEffectPacket::new);
+        MALUM_CHANNEL.playToClient(registrar, "void_rejection", VoidRejectionPacket.class, VoidRejectionPacket::new);
+        MALUM_CHANNEL.playToClient(registrar, "sync_staff_cooldown_changes", SyncStaffCooldownChangesPacket.class, SyncStaffCooldownChangesPacket::new);
+        MALUM_CHANNEL.playToClient(registrar, "particle_effect", ParticleEffectPacket.class, ParticleEffectPacket::new);
+        MALUM_CHANNEL.playToClient(registrar, "major_entity_effect", MajorEntityEffectParticlePacket.class, MajorEntityEffectParticlePacket::new);
+        MALUM_CHANNEL.playToClient(registrar, "sacred_mist_rite_effect", SacredMistRiteEffectPacket.class, SacredMistRiteEffectPacket::new);
+        MALUM_CHANNEL.playToClient(registrar, "block_sparkle_particle", BlockSparkleParticlePacket.class, BlockSparkleParticlePacket::new);
+        MALUM_CHANNEL.playToClient(registrar, "infernal_acceleration_rite_effect", InfernalAccelerationRiteEffectPacket.class, InfernalAccelerationRiteEffectPacket::new);
+        MALUM_CHANNEL.playToClient(registrar, "infernal_extinguish_rite_effect", InfernalExtinguishRiteEffectPacket.class, InfernalExtinguishRiteEffectPacket::new);
+        MALUM_CHANNEL.playToClient(registrar, "aerial_block_fall_rite_effect", AerialBlockFallRiteEffectPacket.class, AerialBlockFallRiteEffectPacket::new);
+        MALUM_CHANNEL.playToClient(registrar, "spirit_rite_activation", SpiritRiteActivationEffectPacket.class, SpiritRiteActivationEffectPacket::new);
 
-        MALUM_CHANNEL.playToClient(registrar, "sync_malum_player_capability", SyncMalumPlayerCapabilityDataPacket::new);
-        MALUM_CHANNEL.playToClient(registrar, "sync_living_capability_data", SyncLivingCapabilityDataPacket::new);
+        MALUM_CHANNEL.playToClient(registrar, "sync_malum_player_capability", SyncMalumPlayerCapabilityDataPacket.class, SyncMalumPlayerCapabilityDataPacket::new);
+        MALUM_CHANNEL.playToClient(registrar, "sync_living_capability_data", SyncLivingCapabilityDataPacket.class, SyncLivingCapabilityDataPacket::new);
 
-        MALUM_CHANNEL.playToClient(registrar, "blight_mist_particle", BlightMistParticlePacket::new);
-        MALUM_CHANNEL.playToClient(registrar, "blight_transformation_item_particle", BlightTransformItemParticlePacket::new);
+        MALUM_CHANNEL.playToClient(registrar, "blight_mist_particle", BlightMistParticlePacket.class, BlightMistParticlePacket::new);
+        MALUM_CHANNEL.playToClient(registrar, "blight_transformation_item_particle", BlightTransformItemParticlePacket.class, BlightTransformItemParticlePacket::new);
     }
 }

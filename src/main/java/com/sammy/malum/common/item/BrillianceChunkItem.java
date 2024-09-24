@@ -1,5 +1,6 @@
 package com.sammy.malum.common.item;
 
+import net.minecraft.core.component.*;
 import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
@@ -8,7 +9,7 @@ import net.minecraft.world.level.Level;
 
 public class BrillianceChunkItem extends Item {
     public BrillianceChunkItem(Properties properties) {
-        super(properties);
+        super(properties.component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true));
     }
 
     @Override
@@ -27,10 +28,5 @@ public class BrillianceChunkItem extends Item {
     @Override
     public int getUseDuration(ItemStack stack, LivingEntity entity) {
         return 5;
-    }
-
-    @Override
-    public boolean isFoil(ItemStack p_41453_) {
-        return true;
     }
 }

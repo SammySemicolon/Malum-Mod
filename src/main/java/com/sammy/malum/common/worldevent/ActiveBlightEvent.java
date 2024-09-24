@@ -11,7 +11,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.Level;
-import team.lodestar.lodestone.systems.worldevent.WorldEventInstance;
+import team.lodestar.lodestone.systems.worldevent.*;
 import team.lodestar.lodestone.systems.worldgen.LodestoneBlockFiller;
 import team.lodestar.lodestone.systems.worldgen.LodestoneBlockFiller.*;
 
@@ -25,7 +25,10 @@ public class ActiveBlightEvent extends WorldEventInstance {
     public Map<Integer, Double> noiseValues;
 
     public ActiveBlightEvent() {
-        super(WorldEventTypes.ACTIVE_BLIGHT);
+        this(WorldEventTypes.ACTIVE_BLIGHT.get());
+    }
+    public ActiveBlightEvent(WorldEventType type) {
+        super(type);
     }
 
     public ActiveBlightEvent setBlightData(int intensity, int rate, int times) {

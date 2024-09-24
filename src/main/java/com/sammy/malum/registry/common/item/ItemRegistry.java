@@ -34,6 +34,7 @@ import com.sammy.malum.common.item.curiosities.tools.*;
 import com.sammy.malum.common.item.curiosities.weapons.*;
 import com.sammy.malum.common.item.curiosities.weapons.scythe.*;
 import com.sammy.malum.common.item.curiosities.weapons.staff.*;
+import com.sammy.malum.common.item.disc.*;
 import com.sammy.malum.common.item.ether.*;
 import com.sammy.malum.common.item.food.*;
 import com.sammy.malum.common.item.impetus.*;

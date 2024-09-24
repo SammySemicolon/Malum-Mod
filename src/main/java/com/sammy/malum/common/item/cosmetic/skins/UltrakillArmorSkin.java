@@ -4,8 +4,7 @@ import com.sammy.malum.client.cosmetic.ArmorSkinRenderingData;
 import com.sammy.malum.client.cosmetic.SimpleArmorSkinRenderingData;
 import com.sammy.malum.registry.client.ModelRegistry;
 import net.minecraft.world.item.Item;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.neoforged.api.distmarker.*;
 import team.lodestar.lodestone.systems.item.LodestoneArmorItem;
 
 import static com.sammy.malum.MalumMod.malumPath;

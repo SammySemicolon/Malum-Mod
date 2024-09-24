@@ -4,6 +4,9 @@ import com.mojang.serialization.*;
 import com.mojang.serialization.codecs.*;
 import com.sammy.malum.core.systems.spirit.*;
 import com.sammy.malum.registry.common.recipe.*;
+import net.minecraft.core.component.*;
+import net.minecraft.core.registries.*;
+import net.minecraft.resources.*;
 import net.minecraft.world.item.*;
 import net.neoforged.neoforge.common.crafting.*;
 
@@ -11,7 +14,7 @@ import java.util.stream.*;
 
 public class SpiritIngredient implements ICustomIngredient {
 
-    public static final Codec<SpiritIngredient> CODEC = RecordCodecBuilder.create(
+    public static final MapCodec<SpiritIngredient> CODEC = RecordCodecBuilder.mapCodec(
             builder -> builder
                     .group(
                             MalumSpiritType.CODEC.fieldOf("type").forGetter(SpiritIngredient::getSpiritType),

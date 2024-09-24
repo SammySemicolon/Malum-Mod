@@ -6,8 +6,7 @@ import com.sammy.malum.common.item.cosmetic.skins.ArmorSkin;
 import com.sammy.malum.common.item.curiosities.armor.SoulStainedSteelArmorItem;
 import com.sammy.malum.registry.client.ModelRegistry;
 import net.minecraft.world.item.Item;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.neoforged.api.distmarker.*;
 
 import static com.sammy.malum.MalumMod.malumPath;
 

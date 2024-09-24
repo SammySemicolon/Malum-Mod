@@ -1,6 +1,5 @@
-package com.sammy.malum.common.item;
+package com.sammy.malum.common.item.disc;
 
-import com.sammy.malum.registry.common.*;
 import net.minecraft.world.item.*;
 
 public class ArcaneElegyMusicDiscItem extends Item {

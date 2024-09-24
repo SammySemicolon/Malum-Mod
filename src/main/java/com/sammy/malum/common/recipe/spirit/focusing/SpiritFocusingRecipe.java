@@ -11,6 +11,7 @@ import net.minecraft.resources.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.*;
+import net.neoforged.neoforge.common.crafting.*;
 
 import java.util.*;
 
@@ -36,7 +37,7 @@ public class SpiritFocusingRecipe extends LodestoneInWorldRecipe<SpiritBasedReci
 
     @Override
     public boolean matches(SpiritBasedRecipeInput input, Level level) {
-        return input.test(ingredient, spirits);
+        return input.test(new SizedIngredient(ingredient, 1), spirits);
     }
 
     public static class Serializer implements RecipeSerializer<SpiritFocusingRecipe> {
@@ -46,7 +47,7 @@ public class SpiritFocusingRecipe extends LodestoneInWorldRecipe<SpiritBasedReci
                 Codec.INT.fieldOf("durabilityCost").forGetter((recipe) -> recipe.durabilityCost),
                 Ingredient.CODEC.fieldOf("ingredient").forGetter((recipe) -> recipe.ingredient),
                 ItemStack.CODEC.fieldOf("output").forGetter((recipe) -> recipe.output),
-                SpiritIngredient.CODEC.listOf().fieldOf("spirits").forGetter((recipe) -> recipe.spirits)
+                SpiritIngredient.CODEC.codec().listOf().fieldOf("spirits").forGetter((recipe) -> recipe.spirits)
         ).apply(obj, SpiritFocusingRecipe::new));
 
         public static final StreamCodec<RegistryFriendlyByteBuf, SpiritFocusingRecipe> STREAM_CODEC =

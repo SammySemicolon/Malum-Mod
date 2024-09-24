@@ -13,7 +13,6 @@ import java.util.*;
 
 import static net.minecraft.world.item.component.ItemAttributeModifiers.ATTRIBUTE_MODIFIER_FORMAT;
 
-
 public class AbstractAugmentItem extends Item {
     public final MalumSpiritType spiritType;
 
@@ -63,8 +62,8 @@ public class AbstractAugmentItem extends Item {
     }
 
     @Override
-    public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
-        pTooltip.add(Component.translatable("malum.gui.augment.slot").withStyle(ChatFormatting.GOLD)
+    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+        tooltipComponents.add(Component.translatable("malum.gui.augment.slot").withStyle(ChatFormatting.GOLD)
                 .append(Component.translatable("malum.gui.augment.type." + getAugmentTypeTranslator()).withStyle(ChatFormatting.YELLOW)));
     }
 
@@ -72,7 +71,7 @@ public class AbstractAugmentItem extends Item {
         if (event.getItemStack().getItem() instanceof AbstractAugmentItem augmentItem) {
             List<Component> tooltip = event.getToolTip();
             tooltip.add(Component.empty());
-            tooltip.add(Component.translatable("malum.gui.augment.installed").withColor(ChatFormatting.GOLD));
+            tooltip.add(Component.translatable("malum.gui.augment.installed").withStyle(ChatFormatting.GOLD));
             addAugmentStatComponent(tooltip, "malum.gui.crucible.attribute.tuning_potency", augmentItem.getTuningStrengthIncrease());
             addAugmentStatComponent(tooltip, "malum.gui.crucible.attribute.weakest_boost", augmentItem.getWeakestAttributeMultiplier());
             addAugmentStatComponent(tooltip, CrucibleTuning.CrucibleAttributeType.RESTORATION_CHANCE, augmentItem.getRestorationChance());

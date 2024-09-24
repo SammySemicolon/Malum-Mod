@@ -3,6 +3,7 @@ package com.sammy.malum.common.item.curiosities.armor;
 import com.sammy.malum.client.cosmetic.*;
 import com.sammy.malum.common.item.cosmetic.skins.*;
 import net.minecraft.*;
+import net.minecraft.core.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.item.*;
@@ -20,7 +21,7 @@ public abstract class MalumArmorItem extends LodestoneArmorItem {
         p_266744_.put(ArmorItem.Type.HELMET, UUID.fromString("2AD3F246-FEE1-4E67-B886-69FD380BB150"));
     });
 
-    public MalumArmorItem(ArmorMaterial materialIn, ArmorItem.Type slot, Properties builder) {
+    public MalumArmorItem(Holder<ArmorMaterial> materialIn, ArmorItem.Type slot, Properties builder) {
         super(materialIn, slot, builder);
     }
 
@@ -30,10 +31,8 @@ public abstract class MalumArmorItem extends LodestoneArmorItem {
         if (skin != null && entity instanceof LivingEntity livingEntity) {
             return ArmorSkinRenderingData.RENDERING_DATA.apply(skin).getTexture(livingEntity);
         }
-        return super.getArmorTexture(stack, entity, slot, type);
+        return getArmorTexture();
     }
-    @Override
-    public String getTextureLocation() {
-        return "malum:textures/armor/";
-    }
+
+    public abstract ResourceLocation getArmorTexture();
 }

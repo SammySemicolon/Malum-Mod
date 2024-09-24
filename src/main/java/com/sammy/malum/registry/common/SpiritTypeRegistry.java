@@ -13,7 +13,6 @@ import java.awt.*;
 import java.util.List;
 import java.util.*;
 
-@SuppressWarnings("unchecked")
 @EventBusSubscriber(modid = MalumMod.MALUM, value = Dist.CLIENT, bus = EventBusSubscriber.Bus.MOD)
 public class SpiritTypeRegistry {
 
@@ -76,7 +75,7 @@ public class SpiritTypeRegistry {
             .build(UmbralSpiritType::new));
 
     public static MalumSpiritType register(MalumSpiritType spiritType) {
-        SPIRITS.put(spiritType.identifier, spiritType);
+        SPIRITS.put(spiritType.getIdentifier(), spiritType);
         return spiritType;
     }
 
